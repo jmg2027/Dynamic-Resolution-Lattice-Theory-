@@ -1,6 +1,6 @@
-import E213.Lib.Math.DyadicFSM.Signature.Signature.WalkUniversal
+import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
 
-import E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture
+import E213.Lib.Math.DyadicFSM.Signature.Conjecture
 /-!
 # Dyadic signature — irrational classifier via K_{3,2}^{(2)} trajectory
 
@@ -18,7 +18,7 @@ is informative.  Each Bool stream gets a *signature*:
 
 namespace E213.Lib.Math.DyadicFSM.Signature.Signature
 
-open E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture (periodicBit)
+open E213.Lib.Math.DyadicFSM.Signature.Conjecture (periodicBit)
 
 /-- Deterministic vertex transition.  S → T determined by bit.
     T → S cycles through S_0/S_1 from T_0; S_1/S_2 from T_1. -/

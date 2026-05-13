@@ -2,12 +2,15 @@ import E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree
 import E213.Lib.Math.DyadicFSM.Archive
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.Hierarchy
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModLarge
 import E213.Lib.Math.DyadicFSM.ArithFSM.V1to2
 import E213.Lib.Math.DyadicFSM.BitAuto2
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
+import E213.Lib.Math.DyadicFSM.Signature.Classifier
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture
+import E213.Lib.Math.DyadicFSM.Signature.Conjecture
 import E213.Lib.Math.DyadicFSM.Product.CrossClassLens
 import E213.Lib.Math.DyadicFSM.Fib
 import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
@@ -25,14 +28,14 @@ import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 import E213.Lib.Math.DyadicFSM.Product.ProductFSMRun
 import E213.Lib.Math.DyadicFSM.Product.ProductHelpers
 import E213.Lib.Math.DyadicFSM.Signature.Signature
-import E213.Lib.Math.DyadicFSM.Signature.Signature.SignatureBipartite
-import E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict
+import E213.Lib.Math.DyadicFSM.Signature.SignatureBipartite
+import E213.Lib.Math.DyadicFSM.Signature.SignaturePredict
 import E213.Lib.Math.DyadicFSM.ThueMorse
 import E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness
 import E213.Lib.Math.DyadicFSM.Tier.TierBridge
 import E213.Lib.Math.DyadicFSM.Trib
 import E213.Lib.Math.DyadicFSM.TwoLayerPredictor
-import E213.Lib.Math.DyadicFSM.Signature.Signature.WalkUniversal
+import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM`.
 

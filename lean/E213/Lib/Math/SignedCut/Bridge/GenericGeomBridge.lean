@@ -1,5 +1,5 @@
 import E213.Lib.Math.SignedCut.Core.Core
-import E213.Lib.Math.SignedCut.Core.Core.Algebra
+import E213.Lib.Math.SignedCut.Core.Algebra
 import E213.Lib.Math.Real213.ExpLog.GeomCutInvBridge
 import E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity
 
@@ -17,7 +17,7 @@ At every finite depth `N`, the partial-sum recurrence
 captures the relationship structurally.
 -/
 
-namespace E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+namespace E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
 
 open E213.Lib.Math.SignedCut.Core.Core
   (SignedCut zero one ofPos ofNeg pos neg
@@ -69,4 +69,4 @@ theorem generic_fixpoint_baseline (x : Nat → Nat → Bool) :
     ∧ neg (oneMinus x) = cutSum (constCut 0 1) x :=
   ⟨rfl, oneMinus_pos x, oneMinus_neg x⟩
 
-end E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+end E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge

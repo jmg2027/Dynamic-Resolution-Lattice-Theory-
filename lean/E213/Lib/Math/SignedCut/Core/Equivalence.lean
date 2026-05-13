@@ -24,7 +24,7 @@ representatives are interchangeable; at the cut layer they
 remain distinct types.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.Equivalence
+namespace E213.Lib.Math.SignedCut.Core.Equivalence
 
 open E213.Lib.Math.SignedCut.Core.Core (SignedCut pos neg ofPos)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
@@ -47,4 +47,4 @@ theorem signedEqAt_symm (s t : SignedCut) (m k : Nat) :
 theorem signedEq_refl (s : SignedCut) :
     ∀ m k, signedEqAt s s m k := fun _ _ => rfl
 
-end E213.Lib.Math.SignedCut.Core.Core.Equivalence
+end E213.Lib.Math.SignedCut.Core.Equivalence

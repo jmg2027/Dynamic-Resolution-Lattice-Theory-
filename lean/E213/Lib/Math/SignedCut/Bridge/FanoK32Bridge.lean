@@ -1,4 +1,4 @@
-import E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
+import E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure
 
 /-!
 # Fano plane ↔ K_{3,2}^{(c=2)} combinatorial bridge (∅-axiom)
@@ -10,9 +10,9 @@ K_{3,2}^{(c=2)} (DRLT): 5 vertices, 12 edges, b_1 = 8.
 the two.
 -/
 
-namespace E213.Lib.Math.SignedCut.Bridge.Bridge.FanoK32Bridge
+namespace E213.Lib.Math.SignedCut.Bridge.FanoK32Bridge
 
-open E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
+open E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure
   (fanoLines fanoLines_count)
 
 /-- DRLT K_{3,2}^{(c=2)} edge count: 3 × 2 × 2 = 12. -/
@@ -52,4 +52,4 @@ theorem aut_cardinalities :
   refine ⟨rfl, ?_⟩
   decide
 
-end E213.Lib.Math.SignedCut.Bridge.Bridge.FanoK32Bridge
+end E213.Lib.Math.SignedCut.Bridge.FanoK32Bridge

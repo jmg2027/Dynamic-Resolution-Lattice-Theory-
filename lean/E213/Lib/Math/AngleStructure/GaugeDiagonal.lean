@@ -1,4 +1,4 @@
-import E213.Lib.Math.SignedCut.Core.Core.Equivalence
+import E213.Lib.Math.SignedCut.Core.Equivalence
 import E213.Lib.Math.SignedCut.Core.Core
 
 /-!
@@ -30,7 +30,7 @@ vacuum** = no-op transformation.
 namespace E213.Lib.Math.AngleStructure.GaugeDiagonal
 
 open E213.Lib.Math.SignedCut.Core.Core (SignedCut signedAdd ofPos ofNeg)
-open E213.Lib.Math.SignedCut.Core.Core.Equivalence (signedEqAt)
+open E213.Lib.Math.SignedCut.Core.Equivalence (signedEqAt)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- The 45° gauge diagonal direction: `(c, c)` for any `c`. -/

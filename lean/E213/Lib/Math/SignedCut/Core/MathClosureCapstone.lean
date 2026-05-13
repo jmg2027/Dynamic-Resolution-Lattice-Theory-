@@ -22,7 +22,7 @@ the d=5 substrate.  The remaining open items are physics-track
 direction.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.MathClosureCapstone
+namespace E213.Lib.Math.SignedCut.Core.MathClosureCapstone
 
 open E213.Lib.Math.SignedCut.Hurwitz.HurwitzExactL1
   (nat_sq_diff_identity rhs_full_expand
@@ -74,4 +74,4 @@ theorem total_witness :
   ⟨brahmagupta_concrete_5_3_4_6, quatI_neq_quatJ,
    quatOne_neq_quatI, octE1_neq_octE2⟩
 
-end E213.Lib.Math.SignedCut.Core.Core.MathClosureCapstone
+end E213.Lib.Math.SignedCut.Core.MathClosureCapstone

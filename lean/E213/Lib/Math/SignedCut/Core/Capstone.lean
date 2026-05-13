@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.Core.Core
-import E213.Lib.Math.SignedCut.Core.Core.Algebra
-import E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+import E213.Lib.Math.SignedCut.Core.Algebra
+import E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
 
 /-!
 # SignedCut — Capstone synthesis (∅-axiom)
@@ -13,15 +13,15 @@ PR #59: generic-`x` cutInv bridge requiring cutSub-equivalent.
 mirroring `ComplexCut := (re, im)`.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.Capstone
+namespace E213.Lib.Math.SignedCut.Core.Capstone
 
 open E213.Lib.Math.SignedCut.Core.Core
   (SignedCut zero one negOne pos neg signedNeg signedAdd
    signedSub signedMul)
-open E213.Lib.Math.SignedCut.Core.Core.Algebra
+open E213.Lib.Math.SignedCut.Core.Algebra
   (signedNeg_involutive signedNeg_one signedSub_self
    signedAdd_zero_right)
-open E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+open E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
   (oneMinus oneMinus_pos oneMinus_neg signedGeom_recurrence)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
@@ -59,4 +59,4 @@ theorem total_witness (s : SignedCut) (x : Nat → Nat → Bool) (N : Nat) :
   ⟨signedNeg_involutive s, signedNeg_one,
    oneMinus_pos x, signedGeom_recurrence x N⟩
 
-end E213.Lib.Math.SignedCut.Core.Core.Capstone
+end E213.Lib.Math.SignedCut.Core.Capstone

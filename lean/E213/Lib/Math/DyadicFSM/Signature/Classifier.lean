@@ -18,7 +18,7 @@ expansion) ⇒ aperiodic signature.  This is the formal core of
 "signature classifies rationality".
 -/
 
-namespace E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
+namespace E213.Lib.Math.DyadicFSM.Signature.Classifier
 
 open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 
@@ -85,4 +85,4 @@ theorem aperiodic_bits_imp_aperiodic_signature
   exact hne (signature_periodic_implies_bits_periodic bs p N hp
               h_sig_per n hn)
 
-end E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
+end E213.Lib.Math.DyadicFSM.Signature.Classifier

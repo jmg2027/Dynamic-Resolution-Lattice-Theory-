@@ -1,7 +1,7 @@
-import E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
+import E213.Lib.Math.DyadicFSM.Signature.Classifier
 import E213.Meta.Nat.NatDiv213
 
-import E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture
+import E213.Lib.Math.DyadicFSM.Signature.Conjecture
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy
@@ -18,8 +18,8 @@ hierarchy via the *eventually-periodic* abstraction.
 namespace E213.Lib.Math.DyadicFSM.Tier.TierBridge
 
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
-open E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier (signature_periodic_implies_bits_periodic)
-open E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture (periodicBit)
+open E213.Lib.Math.DyadicFSM.Signature.Classifier (signature_periodic_implies_bits_periodic)
+open E213.Lib.Math.DyadicFSM.Signature.Conjecture (periodicBit)
 
 /-- Eventually periodic: from some pre-period N onward, period p. -/
 def EventuallyPeriodic {α : Type} (f : Nat → α) (p : Nat) : Prop :=

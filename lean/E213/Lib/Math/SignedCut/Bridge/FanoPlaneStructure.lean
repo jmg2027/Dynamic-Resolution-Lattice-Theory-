@@ -19,7 +19,7 @@ Atomic content: enumerate the 7 oriented Fano lines as `(Fin 8) ×
 (Fin 8) × (Fin 8)` triples; 7×3 = 21 incidence count.
 -/
 
-namespace E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
+namespace E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure
 
 /-- A Fano line: ordered triple of basis indices (no zero). -/
 abbrev FanoLine := Fin 8 × Fin 8 × Fin 8
@@ -66,4 +66,4 @@ theorem fano_symmetric :
     = GL₃(𝔽₂)).  Pure cardinality witness. -/
 theorem fano_aut_order : (168 : Nat) = 168 := rfl
 
-end E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
+end E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure

@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.Octonion.OctonionNonAssociativity
-import E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
-import E213.Lib.Math.SignedCut.Bridge.Bridge.FanoK32Bridge
+import E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure
+import E213.Lib.Math.SignedCut.Bridge.FanoK32Bridge
 
 /-!
 # G39 Capstone — Octonion Non-Associativity + Fano-K32 Bridge
@@ -18,10 +18,10 @@ namespace E213.Lib.Math.SignedCut.Level.G39Capstone
 open E213.Lib.Math.SignedCut.Octonion.OctonionNonAssociativity
   (e1 e2 e4 octonion_non_associative quaternion_assoc_control
    left_assoc_witness)
-open E213.Lib.Math.SignedCut.Bridge.Bridge.FanoPlaneStructure
+open E213.Lib.Math.SignedCut.Bridge.FanoPlaneStructure
   (fanoLines fanoLines_count fanoPoints_count
    fano_PG2_count fano_aut_order)
-open E213.Lib.Math.SignedCut.Bridge.Bridge.FanoK32Bridge
+open E213.Lib.Math.SignedCut.Bridge.FanoK32Bridge
   (k32c2_edges k32c2_edges_eq_12 k32c2_b1
    seven_fold_connection eight_fold_match cardinality_bridge)
 open E213.Lib.Math.SignedCut.Octonion.OctonionBasisAlgebra (octBasisMul)

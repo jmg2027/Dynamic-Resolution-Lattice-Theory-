@@ -33,7 +33,7 @@ Verified at all 7 primes:
   | 19 |     9  odd |    18  (=2·9)    |   18    |
 -/
 
-namespace E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict
+namespace E213.Lib.Math.DyadicFSM.Signature.SignaturePredict
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
@@ -94,4 +94,4 @@ theorem signature_predict_realises_pell_7 :
   · intro k; rw [H.2.2.2.2.2.1]; exact pellFSMmod17_signature_period_18 k
   · intro k; rw [H.2.2.2.2.2.2]; exact pellFSMmod19_signature_period_18 k
 
-end E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict
+end E213.Lib.Math.DyadicFSM.Signature.SignaturePredict

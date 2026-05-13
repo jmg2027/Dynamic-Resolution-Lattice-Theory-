@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.Bridge.Bridge
 import E213.Lib.Math.SignedCut.Core.Inv
-import E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
+import E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
 
 /-!
 # SignedCut Bridge — Capstone (∅-axiom)
@@ -15,7 +15,7 @@ Closes the residual from PR #60:
   * Unified generic-x cutInv via `signedGeomLimitOf`.
 -/
 
-namespace E213.Lib.Math.SignedCut.Bridge.Bridge.BridgeCapstone
+namespace E213.Lib.Math.SignedCut.Bridge.BridgeCapstone
 
 open E213.Lib.Math.SignedCut.Core.Core (SignedCut ofPos ofNeg signedNeg)
 open E213.Lib.Math.SignedCut.Bridge.Bridge
@@ -24,7 +24,7 @@ open E213.Lib.Math.SignedCut.Bridge.Bridge
 open E213.Lib.Math.SignedCut.Core.Inv
   (signedInvPos signedInvPos_pos_part signedInvPos_neg_part
    signedNeg_signedInvPos)
-open E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
+open E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
   (signedGeomLimitOf signedGeomLimitOf_pos signedGeomLimitOf_neg
    unified_fixpoint)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
@@ -48,7 +48,7 @@ theorem inv_witness (c : Nat → Nat → Bool) :
 theorem unified_witness (x : Nat → Nat → Bool) (N : Nat) :
     E213.Lib.Math.SignedCut.Core.Core.pos (signedGeomLimitOf x)
         = cutInv (E213.Lib.Math.SignedCut.Core.Core.pos
-                    (E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge.oneMinus x))
+                    (E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge.oneMinus x))
     ∧ E213.Lib.Math.SignedCut.Core.Core.neg (signedGeomLimitOf x)
         = constCut 0 1
     ∧ E213.Lib.Math.Real213.ExpLog.CutLogODE.geomPartialSum x 0 = constCut 0 1 :=
@@ -61,7 +61,7 @@ theorem total_witness (c : Nat → Nat → Bool) (x : Nat → Nat → Bool) :
     ∧ E213.Lib.Math.SignedCut.Core.Core.pos (signedInvPos c) = cutInv c
     ∧ E213.Lib.Math.SignedCut.Core.Core.pos (signedGeomLimitOf x)
         = cutInv (E213.Lib.Math.SignedCut.Core.Core.pos
-                    (E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge.oneMinus x)) :=
+                    (E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge.oneMinus x)) :=
   ⟨fromMagSign_pos c, signedInvPos_pos_part c, signedGeomLimitOf_pos x⟩
 
-end E213.Lib.Math.SignedCut.Bridge.Bridge.BridgeCapstone
+end E213.Lib.Math.SignedCut.Bridge.BridgeCapstone

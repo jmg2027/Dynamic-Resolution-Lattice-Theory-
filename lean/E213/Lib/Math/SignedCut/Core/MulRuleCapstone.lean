@@ -14,7 +14,7 @@ post-G36 open items:
     substrate (= N_U emergence).
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.MulRuleCapstone
+namespace E213.Lib.Math.SignedCut.Core.MulRuleCapstone
 
 open E213.Lib.Math.SignedCut.CD.CDMulRule
   (CDRule signMul complexMul cdrule_neq mulrules_im_agree)
@@ -59,4 +59,4 @@ theorem total_witness (a b c d : Nat → Nat → Bool) :
     ∧ (5 : Nat) ^ 25 = 298023223876953125 :=
   ⟨rfl, rfl, hurwitz_d5_ceiling.1, n_u_value_closed⟩
 
-end E213.Lib.Math.SignedCut.Core.Core.MulRuleCapstone
+end E213.Lib.Math.SignedCut.Core.MulRuleCapstone

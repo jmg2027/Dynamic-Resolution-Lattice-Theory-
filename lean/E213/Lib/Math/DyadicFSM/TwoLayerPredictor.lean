@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict
+import E213.Lib.Math.DyadicFSM.Signature.SignaturePredict
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
@@ -32,7 +32,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
-open E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict (signature_predict_realises_pell_7 signature_predict)
+open E213.Lib.Math.DyadicFSM.Signature.SignaturePredict (signature_predict_realises_pell_7 signature_predict)
 
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3)

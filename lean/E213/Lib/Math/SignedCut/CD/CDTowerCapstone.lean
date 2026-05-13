@@ -1,5 +1,5 @@
-import E213.Lib.Math.SignedCut.Core.Core.Equivalence
-import E213.Lib.Math.SignedCut.Core.Core.CauchyConvergence
+import E213.Lib.Math.SignedCut.Core.Equivalence
+import E213.Lib.Math.SignedCut.Core.CauchyConvergence
 import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 
 /-!
@@ -23,9 +23,9 @@ generalised CD tower skeleton (G36 formalisation):
 
 namespace E213.Lib.Math.SignedCut.CD.CDTowerCapstone
 
-open E213.Lib.Math.SignedCut.Core.Core.Equivalence
+open E213.Lib.Math.SignedCut.Core.Equivalence
   (signedEqAt signedEqAt_refl signedEqAt_symm signedEq_refl)
-open E213.Lib.Math.SignedCut.Core.Core.CauchyConvergence
+open E213.Lib.Math.SignedCut.Core.CauchyConvergence
   (trivialGenericGeomCauchy trivial_modulus_zero
    end_to_end_convergence limit_at_zero_baseline)
 open E213.Lib.Math.SignedCut.CD.CDTowerLevel

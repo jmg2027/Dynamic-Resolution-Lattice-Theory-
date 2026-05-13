@@ -1,12 +1,14 @@
-import E213.Lib.Math.DyadicFSM.ArithFSM.ModLarge
-import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
-import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitAuto2
 import E213.Meta.Nat.NatDiv213
-
 import E213.Lib.Math.DyadicFSM.BitFSM
+
 /-!
 # ArithFSM — multi-state arithmetic recurrence (Tier 1 abstraction)
+
+Note: per-prime instance files (`ArithFSM/Mod{Small, Medium, Large}.
+lean`) IMPORT this file, so they cannot be imported here without
+creating a build cycle.  They are pulled in by the parent
+`DyadicFSM.lean` aggregator instead.
 
 Captures the structure of Pell-like sequences for algebraic
 irrationals.  An `ArithFSM2` has a 2-component state vector

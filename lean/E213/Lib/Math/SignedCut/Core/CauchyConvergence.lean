@@ -1,5 +1,5 @@
-import E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
-import E213.Lib.Math.SignedCut.Core.Core.Equivalence
+import E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
+import E213.Lib.Math.SignedCut.Core.Equivalence
 import E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity
 
 /-!
@@ -28,12 +28,12 @@ geometric-series limit, integrating with the existing
 generic-x bridge.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.CauchyConvergence
+namespace E213.Lib.Math.SignedCut.Core.CauchyConvergence
 
 open E213.Lib.Math.SignedCut.Core.Core (SignedCut pos neg)
-open E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
+open E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
   (signedGeomLimitOf signedGeomLimitOf_pos signedGeomLimitOf_neg)
-open E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+open E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
   (oneMinus oneMinus_pos)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
@@ -85,4 +85,4 @@ theorem limit_at_zero_baseline :
       = E213.Lib.Math.Real213.Mul.CutInv.cutInv
           (cutSum (constCut 1 1) (constCut 0 1)) := rfl
 
-end E213.Lib.Math.SignedCut.Core.Core.CauchyConvergence
+end E213.Lib.Math.SignedCut.Core.CauchyConvergence

@@ -11,7 +11,7 @@ Atomic content:
   * Identity element behaviors of `zero`, `one`, `negOne`.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.Algebra
+namespace E213.Lib.Math.SignedCut.Core.Algebra
 
 open E213.Lib.Math.SignedCut.Core.Core
   (SignedCut zero one negOne ofPos ofNeg pos neg
@@ -68,4 +68,4 @@ theorem signedAdd_zero_right (s : SignedCut) :
       = (E213.Lib.Math.Real213.Sum.CutSum.cutSum s.1 (constCut 0 1),
          E213.Lib.Math.Real213.Sum.CutSum.cutSum s.2 (constCut 0 1)) := rfl
 
-end E213.Lib.Math.SignedCut.Core.Core.Algebra
+end E213.Lib.Math.SignedCut.Core.Algebra

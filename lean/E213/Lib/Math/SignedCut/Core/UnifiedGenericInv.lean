@@ -1,7 +1,7 @@
 import E213.Lib.Math.SignedCut.Core.Core
 import E213.Lib.Math.SignedCut.Bridge.Bridge
 import E213.Lib.Math.SignedCut.Core.Inv
-import E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+import E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
 import E213.Lib.Math.Real213.Sum.SignedSum
 
 /-!
@@ -14,12 +14,12 @@ expressible end-to-end via signed-Cut machinery:
   * Partial-sum recurrence as structural realization.
 -/
 
-namespace E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
+namespace E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
 
 open E213.Lib.Math.SignedCut.Core.Core
   (SignedCut zero one ofPos pos neg)
 open E213.Lib.Math.SignedCut.Core.Inv (signedInvPos)
-open E213.Lib.Math.SignedCut.Bridge.Bridge.GenericGeomBridge
+open E213.Lib.Math.SignedCut.Bridge.GenericGeomBridge
   (oneMinus oneMinus_pos oneMinus_neg)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
@@ -55,4 +55,4 @@ theorem unified_fixpoint (x : Nat → Nat → Bool) (N : Nat) :
   refine ⟨rfl, ?_, oneMinus_pos x⟩
   exact E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity.geom_right_shift x N
 
-end E213.Lib.Math.SignedCut.Core.Core.UnifiedGenericInv
+end E213.Lib.Math.SignedCut.Core.UnifiedGenericInv
