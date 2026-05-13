@@ -1,8 +1,21 @@
-# Session Handoff — 2026-05-13 (consolidation + sub-org pass)
+# Session Handoff — 2026-05-13 (Sessions A–H+ marathon)
 
 ## Branch
 `claude/zero-axiom-work-P9NPI` — pushed.
-Latest: `d5303bfb Math.DyadicFSM: top-level sub-organize`.
+Latest: `b0c698d9 docs: IntHelpers docstring 갱신 (Meta.Int213 namespace 반영)`.
+
+## Current state snapshot
+
+```
+sub-clusters:  Term/1  Theory/6  Lens/9  Lib/Math/43  Lib/Physics/17  Meta/4
+ring-violations:  Term→0  Theory→0  Lens→Lib 0  Lib→Internal/* 0
+INDEX.md coverage:  90 / 90 (5+ files clusters)
+build:  clean throughout  ·  axiom-purity baseline maintained
+```
+
+## 이전 라운드 — sub-organization (7 commits, Session C)
+
+평탄 cluster 들의 sub-directory 분할 + tiny cluster fold:
 
 ## 이번 라운드 — sub-organization (7 commits)
 
@@ -187,7 +200,7 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
   (ARCHITECTURE.md "Internal-shared umbrella" 의도된 exception,
   56 downstream rename 방지)
 
-## 총 누적 (8 sessions, 53 commits):
+## 총 누적 (9 sessions, 55 commits):
 
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
@@ -198,6 +211,7 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
 - Session F: organization polish + INDEX.md harvest (9)
 - Session G: namespace alignment + INDEX.md 마무리 (5)
 - Session H: App/ legacy + Lens 14→9 consolidation (3)
+- Session H+: stale doc references cleanup (2)
 
 ## 추가 라운드 — Session H (App/ + Lens consolidation, 3 commits)
 
@@ -213,10 +227,21 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
 Internal, Lattice, Properties, Universal.  각자 명확한 의미 정체성
 유지 — 추가 통합은 의미적 분리를 흐림.
 
-## 후속 (Session H+ 후보, lower priority)
+## 추가 라운드 — Session H+ (stale doc cleanup, 2 commits)
+
+| Commit | 작업 |
+|---|---|
+| `be3c69a2` | 스테일 reference 정리 — Lens INDEX headers 의 `Hypervisor/Lens/X/` → `Lens/X/` (7 파일), HIERARCHICAL_PLACEMENT/MATH_AUDIT/G31 research notes 갱신, audit/G17_inspect_existential STALE 마커 |
+| `b0c698d9` | Meta/Nat/IntHelpers docstring: `Theory.Internal.Int213.zero_mul` → `Meta.Int213.zero_mul` |
+
+`Hypervisor/` 잔존 in `lean/E213/`: **0**.
+
+## 후속 (Session H+++ 후보, lower priority)
 
 - Theory/Raw/* internal helpers 의 sealed namespace 정리 검토
   (의도된 분리 vs path-align trade-off — 현재는 의도된 패턴 유지)
 - Lens sub-cluster 9 → 7 (compose + lattice 통합?  AxiomLenses +
   Properties 통합?  semantic cost vs structural simplification
   trade-off — 현재 9 가 적절 판단)
+- `tools/theorem_inspect.py` 재실행: G17_audit_raw.csv +
+  G17_inspect_*.md 의 Firmware/Hypervisor 잔존 paths 갱신
