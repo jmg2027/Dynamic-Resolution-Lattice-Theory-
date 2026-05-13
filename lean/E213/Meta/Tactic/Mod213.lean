@@ -38,16 +38,16 @@ def parity : Nat → Bool
 @[simp] theorem parity_zero : parity 0 = false := rfl
 @[simp] theorem parity_one : parity 1 = true := rfl
 
-theorem parity_succ : ∀ n, parity (n + 1) = !parity n
+private theorem parity_succ : ∀ n, parity (n + 1) = !parity n
   | 0     => rfl
   | 1     => rfl
   | n + 2 => parity_succ n
 
-theorem parity_double : ∀ n, parity (2 * n) = false
+private theorem parity_double : ∀ n, parity (2 * n) = false
   | 0     => rfl
   | n + 1 => parity_double n
 
-theorem parity_double_succ : ∀ n, parity (2 * n + 1) = true
+private theorem parity_double_succ : ∀ n, parity (2 * n + 1) = true
   | 0     => rfl
   | n + 1 => parity_double_succ n
 
