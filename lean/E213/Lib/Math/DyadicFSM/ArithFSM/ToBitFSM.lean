@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Lib.Math.NatHelpers.EncodePair213
 

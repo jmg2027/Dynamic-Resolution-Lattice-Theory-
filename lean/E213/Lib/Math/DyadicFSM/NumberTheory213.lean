@@ -1,3 +1,4 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.ProductFSMPeriod
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
@@ -6,12 +7,6 @@ import E213.Lib.Math.DyadicFSM.AlgebraicDegree
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
 import E213.Lib.Math.DyadicFSM.LCMClosure
 /-!
 # 213-native number theory — consolidated v1 + v2 + v3 master capstones

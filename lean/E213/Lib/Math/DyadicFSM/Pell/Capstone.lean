@@ -1,8 +1,8 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM.Hardness
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Lib.Math.DyadicFSM.Signature

@@ -1,8 +1,6 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModLarge
 import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor17
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod67
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod71
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod73
 
 /-!
 # Pisano predictor — 20-prime evidence (mod 67, 71, 73 added)

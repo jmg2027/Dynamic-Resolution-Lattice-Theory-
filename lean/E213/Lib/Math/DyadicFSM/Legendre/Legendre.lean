@@ -1,10 +1,5 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 import E213.Lib.Math.DyadicFSM.ArithFSM.V1
 import E213.Lib.Math.DyadicFSM.Pell.Family
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor

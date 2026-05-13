@@ -1,9 +1,9 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Pell.LensPairs
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 import E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM

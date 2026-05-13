@@ -1,3 +1,6 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModLarge
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitAuto2
 import E213.Lib.Math.NatHelpers.NatDiv213
 

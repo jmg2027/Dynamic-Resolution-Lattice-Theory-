@@ -1,20 +1,9 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor11
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod41
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod43
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod47
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod23
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod29
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod31
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod37
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
 /-!

@@ -1,10 +1,7 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 /-!
 # Pisano predictor — Legendre lens as a period-predicting function
 

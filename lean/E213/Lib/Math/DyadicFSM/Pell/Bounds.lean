@@ -1,7 +1,7 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.Signature
 /-!
 # Concrete signature period bounds for Pell mod {2, 3}

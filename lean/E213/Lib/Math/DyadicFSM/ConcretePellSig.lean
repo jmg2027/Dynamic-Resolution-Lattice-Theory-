@@ -1,8 +1,8 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM.Signature
 import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.Signature
 /-!
 # Concrete signature periods for the Pell ArithFSM family
