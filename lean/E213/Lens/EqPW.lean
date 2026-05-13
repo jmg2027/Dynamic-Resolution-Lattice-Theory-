@@ -29,7 +29,7 @@ All theorems here ∅-axiom.
 namespace E213.Lens
 
 /-- Pointwise Lens equality: avoids funext on combine. -/
-def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
+protected def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
   L.base_a = M.base_a ∧
   L.base_b = M.base_b ∧
   ∀ u v, L.combine u v = M.combine u v
