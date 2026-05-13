@@ -1,11 +1,5 @@
+import E213.Lib.Math.DyadicFSM.Fib.FSMmod
 import E213.Lib.Math.DyadicFSM.Legendre.V213
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod5
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod7
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod11
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod17
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod19
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod23
 
 /-!
 # Fibonacci-Pisano predictor — 4-prime base evidence

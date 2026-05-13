@@ -1,11 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod11
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod13
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod17
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod19
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod23
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod5
-import E213.Lib.Math.DyadicFSM.Fib.FSMmod7
+import E213.Lib.Math.DyadicFSM.Fib.FSMmod
 import E213.Lib.Math.DyadicFSM.Fib.PellRelation
 import E213.Lib.Math.DyadicFSM.Fib.Pisano8
 import E213.Lib.Math.DyadicFSM.Fib.PisanoCapstone
