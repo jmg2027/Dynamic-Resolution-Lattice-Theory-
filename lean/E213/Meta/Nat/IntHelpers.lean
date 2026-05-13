@@ -12,7 +12,7 @@ core lemmas).
 
 namespace E213.Meta.Nat.IntHelpers
 
-/-- ∅-axiom `Int.zero_mul`, inlined from `Theory.Internal.Int213.zero_mul`. -/
+/-- ∅-axiom `Int.zero_mul`, inlined from `Meta.Int213.zero_mul`. -/
 private theorem zero_mul : ∀ (a : Int), 0 * a = 0
   | .ofNat n => by
     show Int.ofNat (0 * n) = (0 : Int); rw [Nat.zero_mul]; rfl
