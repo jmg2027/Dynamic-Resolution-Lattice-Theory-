@@ -104,7 +104,7 @@ open E213.Theory.Internal
 theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
   Tree.swap_depth r.val r.property
 
-def Raw.leaves (r : Raw) : Nat := r.val.leaves
+protected def Raw.leaves (r : Raw) : Nat := r.val.leaves
 
 theorem Raw.swap_leaves (r : Raw) : (Raw.swap r).leaves = r.leaves :=
   Tree.swap_leaves r.val r.property

@@ -140,7 +140,7 @@ namespace E213.Theory
 
 open E213.Theory.Internal
 
-def Raw.swap (r : Raw) : Raw :=
+protected def Raw.swap (r : Raw) : Raw :=
   ⟨Tree.swap r.val, Tree.swap_canonical r.val r.property⟩
 
 theorem Raw.swap_a : Raw.swap Raw.a = Raw.b := rfl

@@ -49,7 +49,7 @@ def Tree.depth : Tree → Nat
   | .slash x y => 1 + max x.depth y.depth
 end Internal
 
-def Raw.depth (r : Raw) : Nat := r.val.depth
+protected def Raw.depth (r : Raw) : Nat := r.val.depth
 
 example : Raw.depth Raw.a = 0 := rfl
 example : Raw.depth Raw.b = 0 := rfl

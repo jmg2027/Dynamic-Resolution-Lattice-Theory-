@@ -33,7 +33,7 @@ namespace E213.Theory
 open E213.Theory.Internal
 
 /-- Catamorphism on Raw. -/
-def Raw.fold {α : Type}
+protected def Raw.fold {α : Type}
     (base_a : α) (base_b : α) (combine : α → α → α)
     (r : Raw) : α :=
   Tree.fold base_a base_b combine r.val
