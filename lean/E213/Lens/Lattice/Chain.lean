@@ -18,7 +18,7 @@ Each arrow is a strict refinement.  The reverse direction is strict (e.g.,
 leaves does not refine idLens — leaf counts agree but different Raws exist).
 -/
 
-namespace E213.Lens.Refines.Chain
+namespace E213.Lens.Lattice.Chain
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity
@@ -35,4 +35,4 @@ theorem refines_chain :
    leaves_refines_parity,
    all_refine_constLens true parityLens⟩
 
-end E213.Lens.Refines.Chain
+end E213.Lens.Lattice.Chain

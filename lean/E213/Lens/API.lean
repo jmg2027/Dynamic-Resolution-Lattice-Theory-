@@ -1,8 +1,8 @@
 import E213.Lens.LensCore
 import E213.Lens.SemanticAtom
 import E213.Lens.Initiality
-import E213.Lens.Refines.Chain
-import E213.Lens.Refines.Preorder
+import E213.Lens.Lattice.Chain
+import E213.Lens.Lattice.Preorder
 
 /-!
 # Lens ring: Public API (Tier 1 — core surface)

@@ -12,7 +12,6 @@ import E213.Lens.Cardinality
 import E213.Lens.Lattice
 import E213.Lens.Morphism
 import E213.Lens.Properties
-import E213.Lens.Refines
 import E213.Lens.SemanticAtom
 import E213.Lens.Universal
 
@@ -46,7 +45,8 @@ import E213.Lens.Universal
       RefinesParity) — 2026-05-13 폴드 from `Lens/Leaves/`
     * `Lens.Morphism`                    — morphism shape catalogue
     * `Lens.Properties`                  — derived predicates
-    * `Lens.Refines`                     — refines preorder
+    * (`Lens.Refines` folded into `Lens.Lattice` 2026-05-13 — preorder
+       is a Lattice prerequisite, Chain/Preorder now live there)
     * `Lens.Universal`                   — Universal flat / quot lens
 
   ## Top-level

@@ -162,20 +162,23 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
                                 CardinalityLB})
   * `Lens/Characterisation/` — characterisation typeclasses + catalog
   * `Lens/Compose/`          — composition operators
-  * `Lens/Instances/`        — 29 concrete Lens instances
-  * `Lens/Lattice/`          — refines lattice (Join, Meet, Family*)
-  * `Lens/Leaves/`           — depth-leaf hierarchy
+  * `Lens/Instances/`        — 29 concrete Lens instances + Leaves/
+                                sub-cluster (depth-leaf hierarchy,
+                                Leaves 폴드 2026-05-13)
+  * `Lens/Lattice/`          — refines preorder + lattice (Chain,
+                                Preorder, Join, Meet, Family*,
+                                IndexedJoin) — Refines 폴드 2026-05-13
   * `Lens/Morphism/`         — morphism shape catalogue
   * `Lens/Properties/`       — derived predicates
-  * `Lens/Refines/`          — refines preorder
   * `Lens/Universal/`        — Universal flat / quot lens +
                                 `Witnesses/` (Core, Nat2/3/4,
                                 Q213/Q213_3, Padding, TripleCapstone)
                                 — 2026-05-13 Meta/UniversalLens 흡수
   * `Lens/Internal/`         — internal proof infra
 
-(14 sub-clusters; `research-notes/LENS_AUDIT.md` 에 13→7 정리 가능성
-catalog — Cardinality 신규 추가로 14, 후속 통합 시 감소 예정.)
+(12 sub-clusters 후 — Cardinality (+1), Leaves 폴드 (−1), Refines 폴드
+(−1), 종합: 13→12, `research-notes/LENS_AUDIT.md` §4 의 13→7 권장과
+방향 일치.)
 
 ### Lib/  (Mathematics + Physics content)
 
