@@ -70,7 +70,8 @@ lean/E213/
 - Lib → Term/Lens.Internal: **0**
 - Theory.Raw.* specific reach-in: hook-enforced **0**
 - Stale wording: **0**
-- Lens → Lib: 6 (NatHelpers reach-in, audit 후보 유지)
+- Lens → Lib: **0** (NatHelpers → Meta/Nat, Infinity → Lens/Cardinality,
+  LensCardinality → Lens/Algebra → Lens/Cardinality — session E)
 
 ## 보류 작업 (audit 후보 유지)
 
@@ -105,8 +106,27 @@ lean/E213/
 - `5ceb9dd7` ARCHITECTURE Theory section update (Closed/Nat213/Tower/
   CDDouble sub-clusters 추가, ArityForcingGeneral Lib 이동 반영)
 
-총 누적 (4 sessions, 32 commits):
+## 추가 라운드 — Lens ring discipline 완료 (Session E, 2 commits)
+
+- `c93242c8` Meta/Nat + Lens/Algebra: NatHelpers 8 파일 → `Meta/Nat/`,
+  LensCardinality → `Lens/Algebra/` (60 consumer 갱신; Lens→Lib 6 → 1)
+- `d7790b7c` Lens/Cardinality: 신규 sub-cluster (구 Lib/Math/Infinity 7
+  파일 + Lens/Algebra/{LensCardinality, CardinalityLB}) — 마지막 Lens→Lib
+  위반 해소 (1 → **0**); 4-ring discipline 완전 clean
+
+```
+Lens/
+├── Algebra/         (7 — kernel-theory만; LensCardinality + CardinalityLB 빠짐)
+├── Cardinality/     (9 — Cantor, Tower, BoolSpace, Countable, Pair, Godel,
+│                       Chain, LensCardinality, CardinalityLB)  ← 신규
+├── ... (다른 12 sub-clusters)
+Meta/
+├── Nat/             (8 — 구 Lib/Math/NatHelpers/*)  ← 신규
+```
+
+총 누적 (5 sessions, 34 commits):
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
 - Session C: sub-organization + tiny fold (8)
 - Session D: documentation alignment (4)
+- Session E: Lens ring discipline 완료 (2)

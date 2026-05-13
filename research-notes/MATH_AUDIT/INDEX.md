@@ -14,7 +14,7 @@ lines target.
 | 3 | `G_cohomology.md` | Cohomology, HodgeConjecture | 161 | ✓ initial pass (2026-05-12) |
 | 4 | `F_dyadic_fsm.md` | DyadicFSM | 116 | ✓ initial pass (2026-05-12) |
 | 5 | `E_analysis.md` | Analysis, CascadeCalculus, ODE, Multivariable, Functional, Measure, Trajectory | 104 | ✓ initial pass (2026-05-12) |
-| 6 | `B_numerical.md` | Real213, SignedCut, Cauchy, EpsilonDeltaModulus, Complex, Hyper, Infinity, Irrational, NumberGrid | 134 | ✓ initial pass (2026-05-12) |
+| 6 | `B_numerical.md` | Real213, SignedCut, Cauchy, EpsilonDeltaModulus, Complex, Hyper, Irrational, NumberGrid (Infinity → Lens/Cardinality 2026-05-13) | 126 | ✓ initial pass (2026-05-12) |
 | 7 | `D_topology.md` | Combinatorics, Topology, LevelTopology, OperationTopology, AngleStructure, TriangularTower, BipartiteDecomp, CartesianVsDisjoint, Diagonal | 42 | ✓ initial pass (2026-05-12) |
 | 8 | `H_probability.md` | Probability, Information | 33 | ✓ initial pass (2026-05-12) |
 | 9 | `I_misc.md` | Extras, DialogueAudit, GenerationRule, PatternCatalog, UniverseChain | 46 | ✓ initial pass (2026-05-12) |
@@ -40,7 +40,7 @@ lines target.
 | G (Cohomology) | 161 | 1 | best-organized (HodgeConjecture API.lean) |
 | F (DyadicFSM) | 116 | 0 | ~95% PURE |
 | E (Analysis) | 104 | 0 | ODE 중복 (top-level vs Analysis 내부) |
-| B (Numerical) | 134 | 5 | Infinity 의 Raw cardinality (주제적) |
+| B (Numerical) | 126 | 0 | Infinity 8 파일 → Lens/Cardinality 이동 (2026-05-13) |
 | D (Topology) | 42 | 0 | ~100% PURE, 가장 깨끗 |
 | H (Probability) | 33 | 0 | ~100% PURE |
 | I (Misc) | 46 | 5 | UniverseChain (주제적, Raw axiom chain) |
@@ -147,9 +147,10 @@ end E213.Foo
    §5) — THEORY_AUDIT §4.2 의 Internal 3-성격 분리 와 함께:
    - Int213 → Theory/Int213/ (또는 Lens.Codomain)
    - Algebra213 typeclass → Theory/Algebra/ (또는 Lens/Algebra)
-6. **AxiomSystems / Choice / Infinity 거주 재검토** —
-   주제적 Theory.Raw reach-in (chunk A + B):
+6. **AxiomSystems / Choice 거주 재검토** —
+   주제적 Theory.Raw reach-in (chunk A):
    - Lens 또는 Theory.Atomicity cousin 으로
+   - (Infinity 는 2026-05-13 `Lens/Cardinality/` 로 이동 완료)
 7. **CayleyDickson 56 files sub-cluster 분할** (Tower / Integer /
    Levels / Lipschitz / Hurwitz / Misc).
 8. **Real213 / SignedCut sub-organization**.

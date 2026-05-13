@@ -145,10 +145,19 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
 
 #### Sub-clusters (현재 디렉토리)
 
-  * `Lens/Algebra/`          — algebraic kernel (CardinalityLB,
-                                Congruence, Corresp, IdLensEq)
+  * `Lens/Algebra/`          — Lens-kernel theory (Congruence,
+                                Corresp, IdLensEq, internal:
+                                FourDistinct, FreeAudit, Space,
+                                SwapInvariant)
   * `Lens/AxiomLenses/`      — Lean-axiom Lens witnesses (Funext,
                                 Propext, QuotSound) + Bridges
+  * `Lens/Cardinality/`      — Raw + Lens-image cardinality
+                                observables (Cantor, Tower,
+                                BoolSpace, Countable, Pair, Godel,
+                                Chain, LensCardinality, CardinalityLB)
+                                — 2026-05-13 통합 (구 Lib/Math/Infinity
+                                + Lens/Algebra/{LensCardinality,
+                                CardinalityLB})
   * `Lens/Characterisation/` — characterisation typeclasses + catalog
   * `Lens/Compose/`          — composition operators
   * `Lens/Instances/`        — 29 concrete Lens instances
@@ -160,8 +169,8 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
   * `Lens/Universal/`        — Universal flat / quot lens
   * `Lens/Internal/`         — internal proof infra
 
-(13 sub-clusters; `research-notes/LENS_AUDIT.md` 에 정리 가능성
-catalog.)
+(14 sub-clusters; `research-notes/LENS_AUDIT.md` 에 13→7 정리 가능성
+catalog — Cardinality 신규 추가로 14, 후속 통합 시 감소 예정.)
 
 ### Lib/  (Mathematics + Physics content)
 
