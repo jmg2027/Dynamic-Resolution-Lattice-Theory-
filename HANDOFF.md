@@ -187,7 +187,7 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
   (ARCHITECTURE.md "Internal-shared umbrella" 의도된 exception,
   56 downstream rename 방지)
 
-## 총 누적 (7 sessions, 50 commits):
+## 총 누적 (8 sessions, 53 commits):
 
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
@@ -197,12 +197,26 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
 - Session E+: UniversalLens 이동 (2)
 - Session F: organization polish + INDEX.md harvest (9)
 - Session G: namespace alignment + INDEX.md 마무리 (5)
+- Session H: App/ legacy + Lens 14→9 consolidation (3)
 
-## 후속 (Session G+ 후보, lower priority)
+## 추가 라운드 — Session H (App/ + Lens consolidation, 3 commits)
 
-- Lens sub-cluster 13 → 7 추가 통합 (LENS_AUDIT §4 권장 — Refines +
-  Lattice, Properties + Characterisation + Morphism + Diagonal,
-  Core/ 신규).  현재 14 sub-clusters → 13 (Leaves 폴드 완료).
+| Commit | 작업 |
+|---|---|
+| `ccd1c2bf` | App/ legacy tier 정리 — 유일 멤버 `App/Simplex.lean` (block-pair classification on Fin 5) → `Lib/Math/Combinatorics/Simplex5.lean` (math 콘텐츠), App/ 디렉토리 + aggregator 삭제 |
+| `0d1cc6f9` | `Lens/Refines/` (2 files) → `Lens/Lattice/` 폴드 (preorder ⊂ lattice, 14→13) |
+| `a8030e5c` | `Lens/{Characterisation, Morphism, Diagonal}` → `Lens/Properties/` 폴드 (13→9 — 3 sub-cluster 흡수 + Diagonal root file 흡수); LENS_AUDIT §4 권장 13→7 거의 달성 |
+
+**Lens sub-cluster: 14 (Session E 시점) → 9 (Session H)**
+
+남은 9: Algebra, AxiomLenses, Cardinality, Compose, Instances,
+Internal, Lattice, Properties, Universal.  각자 명확한 의미 정체성
+유지 — 추가 통합은 의미적 분리를 흐림.
+
+## 후속 (Session H+ 후보, lower priority)
+
 - Theory/Raw/* internal helpers 의 sealed namespace 정리 검토
-  (의도된 분리 vs path-align trade-off)
-- App/ legacy 정리 (HANDOFF backlog)
+  (의도된 분리 vs path-align trade-off — 현재는 의도된 패턴 유지)
+- Lens sub-cluster 9 → 7 (compose + lattice 통합?  AxiomLenses +
+  Properties 통합?  semantic cost vs structural simplification
+  trade-off — 현재 9 가 적절 판단)
