@@ -166,7 +166,10 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
   * `Lens/Morphism/`         — morphism shape catalogue
   * `Lens/Properties/`       — derived predicates
   * `Lens/Refines/`          — refines preorder
-  * `Lens/Universal/`        — Universal flat / quot lens
+  * `Lens/Universal/`        — Universal flat / quot lens +
+                                `Witnesses/` (Core, Nat2/3/4,
+                                Q213/Q213_3, Padding, TripleCapstone)
+                                — 2026-05-13 Meta/UniversalLens 흡수
   * `Lens/Internal/`         — internal proof infra
 
 (14 sub-clusters; `research-notes/LENS_AUDIT.md` 에 13→7 정리 가능성
@@ -205,8 +208,9 @@ pass 후):
 ring-independence 등 trade-off 존재).
 
 **현재 내용**:
-  * `Meta/UniversalLens/` — universal lens witnesses (Nat2/3/4,
-                             Q213, Padding, TripleCapstone)
+  * `Meta/Nat/`           — ring-independent Nat 보조정리
+                             (구 Lib/Math/NatHelpers, 8 파일,
+                              promoted 2026-05-13)
   * `Meta/Tactic/`        — meta-level tactics
                              (DeriveConjugationCodomain,
                               VerifyConjugation, NativeGuard,
@@ -220,9 +224,14 @@ ring-independence 등 trade-off 존재).
                    AxiomMinimality{,Capstone}, BitPatternUniqueness,
                    LensInternality
 
+  UniversalLens witnesses (11 파일) 는 2026-05-13 `Lens/Universal/
+  Witnesses/` 로 이동 — Lens-content 가 Meta 에 misshoused 된 상태
+  였음을 LENS_AUDIT §4 가 지적.
+
 **Public API**: `Meta/API.lean` bundles ME-1 SelfRecognising +
-ME-2 AxiomMinimality + ME-3 LensInternality + ME-4 UniversalLens.
-Tactic 은 separate import (cross-cutting).
+ME-2 AxiomMinimality + ME-3 LensInternality. UniversalLens
+witnesses 는 `Lens/Universal/` 로 이동 후 `Lens.API` (HV6) 가
+public surface.  Tactic 은 separate import (cross-cutting).
 
 > **Pre-2026-05-12 정정**: 이전 ARCHITECTURE 에서 Meta 가 Ring 3
 > (Lens 와 Lib 사이 concentric ring) 으로 분류되어 있었음.  현재

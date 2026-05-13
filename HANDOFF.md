@@ -114,17 +114,32 @@ lean/E213/
   파일 + Lens/Algebra/{LensCardinality, CardinalityLB}) — 마지막 Lens→Lib
   위반 해소 (1 → **0**); 4-ring discipline 완전 clean
 
+## 추가 라운드 — UniversalLens 이동 (Session E+, 2 commits)
+
+- `08bd12f2` Lens/Universal/Witnesses: Meta/UniversalLens 11 파일 이동
+  + namespace `E213.Meta.UniversalLens.*` → `E213.Lens.Universal.
+  Witnesses.*` rename (LENS_AUDIT §4: Lens-content was misshoused
+  in Meta).  Meta cluster 가 ring-independent 본연으로 수렴.
+- `(이번)` docs: ARCHITECTURE.md + HANDOFF.md UniversalLens 이동 반영
+
 ```
 Lens/
 ├── Algebra/         (7 — kernel-theory만; LensCardinality + CardinalityLB 빠짐)
 ├── Cardinality/     (9 — Cantor, Tower, BoolSpace, Countable, Pair, Godel,
-│                       Chain, LensCardinality, CardinalityLB)  ← 신규
-├── ... (다른 12 sub-clusters)
+│                       Chain, LensCardinality, CardinalityLB)  ← Session E
+├── Universal/       (Tier 1: 2 파일 + Witnesses/ 11 파일)
+│   ├── Flat.lean, QuotLens.lean
+│   └── Witnesses/   (Core, Nat2/3/4, Nat2Inj, Q213, Q213Inj,
+│                     Q213_3, Padding, PaddingCapstone,
+│                     TripleCapstone — Meta/UniversalLens 흡수)
+├── ... (다른 11 sub-clusters)
 Meta/
-├── Nat/             (8 — 구 Lib/Math/NatHelpers/*)  ← 신규
+├── Nat/             (8 — 구 Lib/Math/NatHelpers/*)  ← Session E
+├── Tactic/, Int213/, Algebra213/, top-level 4
+└── (UniversalLens/ — 삭제, Lens/Universal/Witnesses/ 로 이동)
 ```
 
-총 누적 (5 sessions, 34 commits):
+총 누적 (5+ sessions, 36 commits):
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
 - Session C: sub-organization + tiny fold (8)
