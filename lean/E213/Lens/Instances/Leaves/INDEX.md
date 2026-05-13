@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Leaves/` — Leaves-flavored Lens facts
+# `Lens/Instances/Leaves/` — Leaves-flavored Lens facts
 
 Lens-theoretic facts that focus on the *leaves* (number of
 base-element occurrences) view.  Includes parity, mod-N

@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/AxiomLenses/` — Lean axioms as 213-internal lens choices
+# `Lens/AxiomLenses/` — Lean axioms as 213-internal lens choices
 
 ★★★ **G12 Tier 4 A2 ENDGAME demonstration** ★★★
 

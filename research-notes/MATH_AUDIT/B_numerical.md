@@ -161,14 +161,13 @@ SignedCut/
   보유.  Real213/Bridges/ 또는 ComplexAnalysis/ 같은 sub-cluster
   통합 가능.
 
-### Infinity 거주 재검토
+### Infinity 거주 — RESOLVED 2026-05-13 (Session E)
 
-Infinity 4 violations (Cantor, Countable, Godel, + BoolSpace 와
-Tower, LensCardinality, Pair, Chain) — *Raw 위 cardinality* 분석.
-주제가 chunk A 의 AxiomSystems/Choice 같이 *Raw 위 직접 reasoning*.
-
-거주 후보: Theory.Atomicity 의 cousin (forced shape uniqueness 와
-연계).  Lib.Math.Infinity 보다 Theory 거주가 의미적으로 자연.
+**처리 완료**: Infinity 8 파일 (BoolSpace, Cantor, Chain, Countable,
+Godel, Pair, Tower) + LensCardinality + CardinalityLB 는 신규
+`Lens/Cardinality/` sub-cluster 로 통합.  Lens-ring 거주가 의미적으로
+정확 (Raw 위 cardinality = Lens 관측).  Session G 에서 namespace 도
+`E213.Infinity` → `E213.Lens.Cardinality` rename.
 
 ### Hyper/Hyper213 거주 재검토
 

@@ -191,7 +191,7 @@ Bottom-up by dependency:
      - `Math/Cauchy/Archimedean.lean` (12 omega)
      - `Math/ModArith/JoinEquivGCD.lean` (11 omega)
   2. **Mid-layer Math** (depending on above)
-  3. **Hypervisor/Lens** sub-clusters
+  3. **Lens** sub-clusters
   4. **Physics** chain
   5. **Capstones** — already strict via `does not depend on any axioms`
      in their final step; internal lemma cleanup extends chain cleanliness.

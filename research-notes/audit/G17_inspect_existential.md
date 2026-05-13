@@ -2,6 +2,12 @@
 
 (Auto-extracted by `tools/theorem_inspect.py`.)
 
+> **STALE 2026-05-13**: paths like `Firmware/`, `Hypervisor/`,
+> `Lib/Math/Infinity/`, `Lens/Diagonal`, `Lens/Refines`,
+> `Meta/UniversalLens` reflect the pre-rename state.  Re-run
+> `tools/theorem_inspect.py` to refresh against the current 4-ring +
+> Meta layout (Term/Theory/Lens/Lib + Meta).
+
 ## `reachable3_only_object` (E213/Firmware/Atomicity/ArityForcing.lean)
 
 ```lean

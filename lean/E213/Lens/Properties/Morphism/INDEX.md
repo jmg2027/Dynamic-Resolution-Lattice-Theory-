@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Morphism/` — Lens morphism theory
+# `Lens/Properties/Morphism/` — Lens morphism theory
 
 Technical investigations into Lens morphisms: when one Lens is a
 hom-image of another, fold-structured morphisms, distance metrics

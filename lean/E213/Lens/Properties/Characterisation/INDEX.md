@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Characterisation/` — Refines-relation catalog
+# `Lens/Properties/Characterisation/` — Refines-relation catalog
 
 Catalogues which catalog Lenses (HV7 Instances) refine which —
 the Hasse-diagram of the `refines` preorder restricted to the

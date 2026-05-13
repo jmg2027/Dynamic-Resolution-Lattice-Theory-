@@ -233,7 +233,9 @@ finite count of trajectory-bit configurations.
 Closing this in Lean is the next concrete milestone.  Architecture
 already established: each axis is a typed datum, no classical
 assumption enters, and the policy enumeration is within the
-finite-lens framework already formalised in `Meta.UniversalLens.*`.
+finite-lens framework already formalised in
+`Lens.Universal.Witnesses.*` (구 `Meta.UniversalLens.*`, 2026-05-13
+Session E+ 이동).
 
 ### 6f. First general ConsistentOracle beyond unitBracket
 
