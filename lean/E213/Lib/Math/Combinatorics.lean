@@ -1,7 +1,9 @@
 import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Math.Combinatorics.Catalan
+import E213.Lib.Math.Combinatorics.CatalanExtended
 import E213.Lib.Math.Combinatorics.Stirling
 import E213.Lib.Math.Combinatorics.GeneratingFunction
+import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
 
 /-!

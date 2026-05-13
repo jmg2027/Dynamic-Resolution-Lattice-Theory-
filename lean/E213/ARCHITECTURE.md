@@ -45,8 +45,10 @@ Term   ← Raw 구현체 (Tree 등)            │
 > 있음) 혹은 해당 링 안에서 정의된 것들만을 사용할 수 있다.  api 로
 > 위쪽 링으로 올릴 수 있다.」
 
-`App/` — legacy 위치, 현재 1 file (`Simplex.lean`).  Spec 상 명시되지
-않음 — Lib 의 일부로 흡수 또는 별도 ring 둘 중 결정 보류 (2026-05-12).
+`App/` — 2026-05-13 Session H 에 정리 완료: 유일 멤버 `App/Simplex.lean`
+(block-pair classification on Fin 5, S_3 × S_2 invariance) 은 math
+combinatorics 라 `Lib/Math/Combinatorics/Simplex5.lean` 로 이동, App/
+디렉토리 + `App.lean` aggregator 삭제.
 
 ## 1. Ring 정의
 
@@ -334,7 +336,7 @@ named, grep-discoverable.
   * `crates/term/`    ↔ `lean/E213/Term/`
   * `crates/theory/`  ↔ `lean/E213/Theory/`
   * `crates/lens/`    ↔ `lean/E213/Lens/`
-  * `crates/app/`     ↔ `lean/E213/App/` + Lib content
+  * `crates/app/`     ↔ `lean/E213/Lib/` (App/ tier 2026-05-13 정리 후)
 
 Rust 는 numerical / search-engine companion ("calculator for when
 Lean takes too long"), re-implementation 이 아님.  모든 Rust 결과는

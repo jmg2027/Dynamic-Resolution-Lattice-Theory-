@@ -16,7 +16,7 @@ transposition argument; we provide the setup + the easy direction
 here.
 -/
 
-namespace E213.App.Simplex
+namespace E213.Lib.Math.Combinatorics.Simplex5
 
 /-- The (3, 2) partition: V_A = {0, 1, 2}, V_B = {3, 4}. -/
 def isA (i : Fin 5) : Bool := i.val < 3
@@ -89,4 +89,4 @@ theorem block_constant_implies_aut_invariant {α : Type}
   intro σ hσ hinj i j
   rw [hf (σ i) (σ j), hf i j, classify_aut_inv σ hσ hinj i j]
 
-end E213.App.Simplex
+end E213.Lib.Math.Combinatorics.Simplex5
