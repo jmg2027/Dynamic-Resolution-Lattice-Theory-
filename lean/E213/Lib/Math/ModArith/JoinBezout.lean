@@ -46,7 +46,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     Nat.le_trans (leaves_ge_one r) (Nat.le_add_right _ _)
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hm_pos : 0 < m := Nat.lt_trans hk_pos hmk
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
     (Lens.leaves.view r + m) h_pos
   have h_r_w : (leavesModNat m).view r = (leavesModNat m).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw,
@@ -97,7 +97,7 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
       have h_pos : 1 ≤ Lens.leaves.view r + n :=
         Nat.le_trans (leaves_ge_one r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos (Lens.leaves.view r + n) h_pos
+        E213.Lens.Cardinality.leaves_surjective_pos (Lens.leaves.view r + n) h_pos
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hmk_lt : m > k := by rw [hmk]; exact Nat.lt_succ_self k
       have hmk_diff : m - k = 1 := by

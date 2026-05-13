@@ -28,7 +28,7 @@ Proof: Cantor's diagonal.  Given `f : ℕ → (ℕ → Raw)`, define
 `f`.
 -/
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 open E213.Theory
 
@@ -53,4 +53,4 @@ theorem chain_uncountable :
     rw [hg] at hpoint
     exact absurd hpoint hval
 
-end E213.Infinity
+end E213.Lens.Cardinality

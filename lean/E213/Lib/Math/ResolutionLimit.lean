@@ -47,7 +47,7 @@ re-export wrapper for spec cross-reference. -/
     `Math/Infinity/Cantor.lean`.  Spec §1.1 anchor. -/
 theorem cantor_inhabitant_absence (X : Type) :
     ¬ ∃ f : X → (X → Bool), Function.Surjective f :=
-  E213.Infinity.cantor_general
+  E213.Lens.Cardinality.cantor_general
 
 /-! ## §3 — Cauchy: structural inequality preservation
 

@@ -56,7 +56,7 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
       have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) :=
         Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Lens.Cardinality.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hexpand : (n + 1) * (m - k) = n * (m - k) + (m - k) :=

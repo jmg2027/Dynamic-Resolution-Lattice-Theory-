@@ -48,7 +48,7 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   have hm_pos : 0 < m := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hm
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hm_p1_pos : 0 < m + 1 := Nat.zero_lt_succ m
-  obtain ⟨r', hr'⟩ := E213.Infinity.leaves_surjective_pos (m + 1) hm_p1_pos
+  obtain ⟨r', hr'⟩ := E213.Lens.Cardinality.leaves_surjective_pos (m + 1) hm_p1_pos
   refine ⟨Raw.a, r', ?_, ?_⟩
   · -- 1 % m = (m+1) % m
     show (leavesModNat m).view Raw.a = (leavesModNat m).view r'

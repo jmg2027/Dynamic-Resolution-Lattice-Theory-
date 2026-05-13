@@ -24,12 +24,16 @@ mis-housed in Lib).
   - `LensCardinality.lean` — Σ4: Lens-image cardinalities
   - `CardinalityLB.lean` — lower bound on Lens kernel space (≥ ℵ₀)
 
-## Path / namespace note
+## Namespace
 
-The legacy namespaces `E213.Infinity` and `E213.Theory.Internal` are
-preserved across the moved files (used by external consumers).  A
-later cleanup pass may rename to `E213.Lens.Cardinality.*` once the
-Lens 13→7 sub-cluster consolidation is executed (LENS_AUDIT §4).
+  - Top-level namespace: `E213.Lens.Cardinality` (path-aligned,
+    renamed from legacy `E213.Infinity` 2026-05-13 Session G).
+  - Some files still insert helpers into `E213.Theory.Internal.*`
+    (e.g. `treeTower` helpers used by Countable/LensCardinality).
+    These are Theory-ring Tree-machinery names re-opened for
+    convenience; not strictly a Lens-ring concern.  Follow-up
+    cleanup may move them to `E213.Lens.Cardinality.Internal` or
+    similar.
 
 ## Public surface
 

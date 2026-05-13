@@ -29,25 +29,25 @@ Combined with `Σ3` (`rawTower_injective`) this establishes
 `|Raw| = |ℕ|` — Raw is countable.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Lens.Cardinality
 
 /-- Gödel numbering of `Tree`. -/
 def Tree.toNat : Tree → Nat
   | .a         => 0
   | .b         => 1
-  | .slash x y => 2 + 2 * E213.Infinity.pair (Tree.toNat x) (Tree.toNat y)
+  | .slash x y => 2 + 2 * E213.Lens.Cardinality.pair (Tree.toNat x) (Tree.toNat y)
 
 theorem Tree.toNat_a : Tree.a.toNat = 0 := rfl
 theorem Tree.toNat_b : Tree.b.toNat = 1 := rfl
 theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
-      = 2 + 2 * E213.Infinity.pair x.toNat y.toNat := rfl
+      = 2 + 2 * E213.Lens.Cardinality.pair x.toNat y.toNat := rfl
 
-end E213.Theory.Internal
+end E213.Lens.Cardinality
 
-namespace E213.Theory.Internal
+namespace E213.Lens.Cardinality
 
-open E213.Infinity
+open E213.Lens.Cardinality
 
 /-- **Σ2 (Tree level).**  Gödel numbering is injective on
     Tree. -/
@@ -106,11 +106,11 @@ theorem Tree.toNat_injective :
           obtain ⟨hxn, hyn⟩ := pair_injective_4 _ _ _ _ hp
           rw [ihx x2 hxn, ihy y2 hyn]
 
-end E213.Theory.Internal
+end E213.Lens.Cardinality
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
-open E213.Theory E213.Theory.Internal
+open E213.Theory
 
 /-- **Σ2 (Raw level).**  Raw's Gödel number = underlying
     Tree's Gödel number. -/
@@ -129,9 +129,9 @@ theorem raw_at_most_countable :
     ∃ f : Raw → Nat, Function.Injective f :=
   ⟨Raw.toNat, Raw.toNat_injective⟩
 
-end E213.Infinity
+end E213.Lens.Cardinality
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 open E213.Theory
 
@@ -145,4 +145,4 @@ theorem raw_equipotent_nat :
       ∧ (∃ g : Raw → Nat, Function.Injective g) :=
   ⟨raw_at_least_countable, raw_at_most_countable⟩
 
-end E213.Infinity
+end E213.Lens.Cardinality

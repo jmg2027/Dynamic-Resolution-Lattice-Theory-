@@ -14,7 +14,7 @@ This is the pairing we use in `Infinity.Godel` to encode
 `Tree → ℕ` injectively (Σ2).
 -/
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 /-- Pairing: `pair x y = 2^(x+y) + y`.  Not a bijection
     (many `ℕ` are skipped) but injective, which is all we
@@ -43,9 +43,9 @@ theorem pow_le_pair (x y : Nat) :
     2^(x + y) ≤ pair x y :=
   Nat.le_add_right _ _
 
-end E213.Infinity
+end E213.Lens.Cardinality
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 /-- **Pair injectivity — 4-arg form.**  If `pair x₁ y₁ =
     pair x₂ y₂` then `x₁ = x₂ ∧ y₁ = y₂`.  Proof via
@@ -88,4 +88,4 @@ theorem pair_injective :
   have ⟨hx, hy⟩ := pair_injective_4 x1 y1 x2 y2 heq
   exact congr (congrArg Prod.mk hx) hy
 
-end E213.Infinity
+end E213.Lens.Cardinality

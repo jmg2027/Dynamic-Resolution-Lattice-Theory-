@@ -43,7 +43,7 @@ theorem chain_step_sub_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
     Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hm_pos : 0 < m := Nat.lt_trans hk_pos hmk
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
     (Lens.leaves.view r + m) h_pos
   have h_rw_m : (leavesModNat m).equiv r w := by
     show (leavesModNat m).view r = (leavesModNat m).view w
@@ -84,7 +84,7 @@ theorem step_plus_nd_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
       have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) :=
         Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Lens.Cardinality.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : JoinEquiv (leavesModNat m) (leavesModNat k) r r'' :=
         ih r'' hr''

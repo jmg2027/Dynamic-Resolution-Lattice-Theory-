@@ -42,7 +42,7 @@ private theorem step_plus_one {α : Type} (N : Lens α)
     N.view r = N.view r' := by
   have hadd3_pos : 0 < Lens.leaves.view r + 3 :=
     Nat.lt_of_lt_of_le (by decide : (0:Nat) < 3) (Nat.le_add_left _ _)
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
     (Lens.leaves.view r + 3) hadd3_pos
   have h_r_w : (leavesModNat 3).view r = (leavesModNat 3).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
@@ -94,7 +94,7 @@ theorem step_plus_k {α : Type} (N : Lens α)
       have h_r_add_k_pos : 0 < Lens.leaves.view r + k :=
         Nat.lt_of_lt_of_le h_r_ge (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Lens.Cardinality.leaves_surjective_pos
           (Lens.leaves.view r + k) h_r_add_k_pos
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have step2 : N.view r'' = N.view r' := by

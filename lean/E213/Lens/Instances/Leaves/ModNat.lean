@@ -87,7 +87,7 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hk_one : (1 : Nat) < k := hk
   have hm_one_pos : 0 < m + 1 := Nat.succ_pos m
-  obtain ⟨r, hr⟩ := E213.Infinity.leaves_surjective_pos (m + 1) hm_one_pos
+  obtain ⟨r, hr⟩ := E213.Lens.Cardinality.leaves_surjective_pos (m + 1) hm_one_pos
   have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
   -- In mod m, Raw.a and r are equal (both have leaves ≡ 1 mod m)
   have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by

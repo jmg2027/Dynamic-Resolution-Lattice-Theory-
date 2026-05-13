@@ -20,7 +20,7 @@ Injectivity of `rawTower` (proved in `Countable`) lifts
 to injectivity of `nToRawBool`.
 -/
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 open E213.Theory
 
@@ -48,9 +48,9 @@ theorem nToRawBool_injective : Function.Injective nToRawBool := by
   have h3 : rawTower n = rawTower m := of_decide_eq_true h2
   exact rawTower_injective h3
 
-end E213.Infinity
+end E213.Lens.Cardinality
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 open E213.Theory
 
@@ -69,4 +69,4 @@ theorem cantor_gap_witnessed :
       ∧ (¬ ∃ h : Raw → (Raw → Bool), Function.Surjective h) :=
   ⟨boolSpace_at_least_countable, cantor_raw_bool⟩
 
-end E213.Infinity
+end E213.Lens.Cardinality

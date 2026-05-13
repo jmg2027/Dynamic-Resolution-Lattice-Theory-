@@ -14,7 +14,7 @@ makes *no* cardinality claim.  Uncountability is a pure
 observation, not an input.
 -/
 
-namespace E213.Infinity
+namespace E213.Lens.Cardinality
 
 open E213.Theory
 
@@ -37,4 +37,4 @@ theorem cantor_raw_bool :
     ¬ ∃ f : Raw → (Raw → Bool), Function.Surjective f :=
   cantor_general
 
-end E213.Infinity
+end E213.Lens.Cardinality
