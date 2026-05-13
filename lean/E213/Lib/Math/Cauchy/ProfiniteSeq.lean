@@ -1,5 +1,5 @@
 import E213.Lens.Instances.Cauchy
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Cardinality.LensCardinality
 import E213.Meta.Tactic.Nat213
 import E213.Meta.Tactic.Omega213
@@ -79,7 +79,7 @@ end E213.Lib.Math.Cauchy.ProfiniteSeq
 namespace E213.Lib.Math.Cauchy.ProfiniteSeq
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 
 /-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m).
     ∅-axiom via `E213.Tactic.Nat213.mul_mod_right`. -/

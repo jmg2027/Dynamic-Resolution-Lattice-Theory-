@@ -10,7 +10,6 @@ import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
 import E213.Lens.Lattice
-import E213.Lens.Leaves
 import E213.Lens.Morphism
 import E213.Lens.Properties
 import E213.Lens.Refines
@@ -42,8 +41,9 @@ import E213.Lens.Universal
       Lib/Math/Infinity + Lens/Algebra
     * `Lens.Lattice`                     — join/meet (Family*,
       Indexed, Join, JoinEquiv, Lattice, Meet)
-    * `Lens.Leaves`                      — depth-leaf hierarchy
-      (DepthIncomparable, DepthJoin, Mod3, ModNat, RefinesParity)
+    * `Lens.Instances.Leaves`            — depth-leaf hierarchy
+      sub-cluster (Mod3, ModNat, DepthJoin, DepthIncomparable,
+      RefinesParity) — 2026-05-13 폴드 from `Lens/Leaves/`
     * `Lens.Morphism`                    — morphism shape catalogue
     * `Lens.Properties`                  — derived predicates
     * `Lens.Refines`                     — refines preorder

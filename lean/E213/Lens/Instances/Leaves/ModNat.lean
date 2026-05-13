@@ -17,7 +17,7 @@ reflection of the refines preorder).
 Concrete structure of the countably infinite lower bound from note 41 §4.
 -/
 
-namespace E213.Lens.Leaves.ModNat
+namespace E213.Lens.Instances.Leaves.ModNat
 
 open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
@@ -52,9 +52,9 @@ theorem leavesModNat_view_eq (m : Nat) :
       rw [ihx, ihy]
       exact (E213.Meta.Nat.AddMod213.add_mod_gen _ _ m).symm
 
-end E213.Lens.Leaves.ModNat
+end E213.Lens.Instances.Leaves.ModNat
 
-namespace E213.Lens.Leaves.ModNat
+namespace E213.Lens.Instances.Leaves.ModNat
 
 open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
@@ -71,9 +71,9 @@ theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
     exact E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨q, rfl⟩
   exact this.symm
 
-end E213.Lens.Leaves.ModNat
+end E213.Lens.Instances.Leaves.ModNat
 
-namespace E213.Lens.Leaves.ModNat
+namespace E213.Lens.Instances.Leaves.ModNat
 
 open E213.Theory E213.Lens
 
@@ -122,9 +122,9 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       exact absurd hk_eq (by decide)
   exact E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hm_zero
 
-end E213.Lens.Leaves.ModNat
+end E213.Lens.Instances.Leaves.ModNat
 
-namespace E213.Lens.Leaves.ModNat
+namespace E213.Lens.Instances.Leaves.ModNat
 
 open E213.Theory E213.Lens
 
@@ -189,4 +189,4 @@ Requires Bezout chain — future work.
 Can be derived indirectly from the universal property of prodLens = meet.
 -/
 
-end E213.Lens.Leaves.ModNat
+end E213.Lens.Instances.Leaves.ModNat

@@ -15,7 +15,7 @@ Uses 213-native `gcd213` (∅-axiom) instead of Lean-core `Nat.gcd`.
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
@@ -122,7 +122,7 @@ end E213.Lib.Math.ModArith.JoinEquivGCD
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
@@ -177,7 +177,7 @@ end E213.Lib.Math.ModArith.JoinEquivGCD
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213

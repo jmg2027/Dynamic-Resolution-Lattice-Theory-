@@ -17,7 +17,7 @@ pairs (n, depth) in Raw is rich enough that both are independent.
   equal depth (3) but different leaves (4 vs 6).
 -/
 
-namespace E213.Lens.Leaves.DepthIncomparable
+namespace E213.Lens.Instances.Leaves.DepthIncomparable
 
 open E213.Theory E213.Lens
 
@@ -51,9 +51,9 @@ theorem leaves_not_refines_depth : ¬ Lens.leaves.refines Lens.depth := by
   intro h
   exact depth_distinguishes (h rDeep rBalanced leaves_equates)
 
-end E213.Lens.Leaves.DepthIncomparable
+end E213.Lens.Instances.Leaves.DepthIncomparable
 
-namespace E213.Lens.Leaves.DepthIncomparable
+namespace E213.Lens.Instances.Leaves.DepthIncomparable
 
 open E213.Theory E213.Lens
 
@@ -81,4 +81,4 @@ theorem depth_not_refines_leaves : ¬ Lens.depth.refines Lens.leaves := by
   intro h
   exact leaves_distinguishes (h rShallowNarrow rShallowWide depth_equates)
 
-end E213.Lens.Leaves.DepthIncomparable
+end E213.Lens.Instances.Leaves.DepthIncomparable

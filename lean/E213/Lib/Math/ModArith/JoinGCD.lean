@@ -27,7 +27,7 @@ Uses 213-native `gcd213` (∅-axiom) instead of Lean-core `Nat.gcd`
 namespace E213.Lib.Math.ModArith.JoinGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
+open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 open E213.Lib.Math.ModArith.JoinEuclidean
 open E213.Tactic.Nat213 (gcd213)
 open E213.Meta.Nat.Gcd213
@@ -122,7 +122,7 @@ end E213.Lib.Math.ModArith.JoinGCD
 namespace E213.Lib.Math.ModArith.JoinGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 open E213.Tactic.Nat213 (gcd213)
 
 /-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
@@ -155,7 +155,7 @@ end E213.Lib.Math.ModArith.JoinGCD
 namespace E213.Lib.Math.ModArith.JoinGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Tactic.Nat213 (gcd213)
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in

@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Cardinality.LensCardinality
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Nat.AddMod213
@@ -28,7 +28,7 @@ manual Nat arithmetic.
 
 namespace E213.Lens.Cardinality.CardinalityLB
 
-open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
+open E213.Theory E213.Lens E213.Lens.Instances.Leaves.ModNat
 open E213.Meta.Nat.Gcd213 (mod_self_pos mod_zero_dvd)
 open E213.Meta.Nat.AddMod213 (add_mod_gen)
 
@@ -96,7 +96,7 @@ end E213.Lens.Cardinality.CardinalityLB
 
 namespace E213.Lens.Cardinality.CardinalityLB
 
-open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
+open E213.Theory E213.Lens E213.Lens.Instances.Leaves.ModNat
 
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
     ∅-axiom. -/

@@ -1,5 +1,5 @@
 import E213.Lens.Lattice.Lattice
-import E213.Lens.Leaves.RefinesParity
+import E213.Lens.Instances.Leaves.RefinesParity
 
 /-!
 # RefinesChain: explicit chain in the Lens.refines preorder
@@ -24,7 +24,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity
 open E213.Lens.Instances.Parity (parityLens)
 open E213.Lens.Lattice.Lattice
-open E213.Lens.Leaves.RefinesParity (leaves_refines_parity)
+open E213.Lens.Instances.Leaves.RefinesParity (leaves_refines_parity)
 
 /-- **4-step chain**: idLens → leaves → parity → constLens true. -/
 theorem refines_chain :

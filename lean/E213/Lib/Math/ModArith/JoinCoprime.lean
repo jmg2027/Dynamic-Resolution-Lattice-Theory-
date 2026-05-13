@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 
 /-!
 # ModJoinCoprime: coprime m, k — Join = L_1 = constant
@@ -20,7 +20,7 @@ Induction on |leaves r' - leaves r| for an arbitrary leaves difference.
 namespace E213.Lib.Math.ModArith.JoinCoprime
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -72,7 +72,7 @@ end E213.Lib.Math.ModArith.JoinCoprime
 namespace E213.Lib.Math.ModArith.JoinCoprime
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- +k step via iteration. -/
 theorem step_plus_k {α : Type} (N : Lens α)
@@ -112,7 +112,7 @@ end E213.Lib.Math.ModArith.JoinCoprime
 namespace E213.Lib.Math.ModArith.JoinCoprime
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- **Main**: L_2.refines N ∧ L_3.refines N → N is constant.
     Concrete proof of Join(L_2, L_3) = L_1 = constLens (gcd = 1). -/

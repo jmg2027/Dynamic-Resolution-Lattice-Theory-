@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Lattice.Meet
 
 /-!
@@ -19,7 +19,7 @@ yield exactly the same kernel.
 namespace E213.Lib.Math.ModArith.LensCRT
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.Meet
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.Meet
 
 /-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
     + the meet universal property. -/

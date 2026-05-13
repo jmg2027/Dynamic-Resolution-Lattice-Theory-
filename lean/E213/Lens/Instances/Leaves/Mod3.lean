@@ -20,7 +20,7 @@ infinitely many elements.
   the parity kernel (distinguishes leaves 1 vs 3).
 -/
 
-namespace E213.Lens.Leaves.Mod3
+namespace E213.Lens.Instances.Leaves.Mod3
 
 open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
@@ -64,9 +64,9 @@ theorem leavesMod3Lens_view_eq :
         = (Lens.leaves.view x + Lens.leaves.view y) % 3
       rw [ihx, ihy, f3add_mod]
 
-end E213.Lens.Leaves.Mod3
+end E213.Lens.Instances.Leaves.Mod3
 
-namespace E213.Lens.Leaves.Mod3
+namespace E213.Lens.Instances.Leaves.Mod3
 
 open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
@@ -81,4 +81,4 @@ theorem leaves_refines_mod3 : Lens.leaves.refines leavesMod3Lens := by
   apply Fin.ext
   exact leavesMod3Lens_view_eq r
 
-end E213.Lens.Leaves.Mod3
+end E213.Lens.Instances.Leaves.Mod3

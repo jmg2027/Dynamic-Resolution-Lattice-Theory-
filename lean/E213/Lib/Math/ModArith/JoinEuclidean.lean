@@ -15,7 +15,7 @@ That is, the Euclidean step operates at the Lens refinement level.
 namespace E213.Lib.Math.ModArith.JoinEuclidean
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
+open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -73,7 +73,7 @@ end E213.Lib.Math.ModArith.JoinEuclidean
 namespace E213.Lib.Math.ModArith.JoinEuclidean
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
+open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 /-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
     L_m + L_k → L_{m-k}.  ∅-axiom (uses
