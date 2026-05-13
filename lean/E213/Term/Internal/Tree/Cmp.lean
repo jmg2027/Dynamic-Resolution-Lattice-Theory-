@@ -74,7 +74,7 @@ theorem Tree.cmp_swap (x y : Tree) :
           rw [ihx x₂, ihy y₂]
           cases Tree.cmp x₂ x₁ <;> rfl
 
-theorem Tree.cmp_gt_iff_lt_swap (x y : Tree) :
+private theorem Tree.cmp_gt_iff_lt_swap (x y : Tree) :
     Tree.cmp x y = .gt ↔ Tree.cmp y x = .lt := by
   rw [Tree.cmp_swap x y]
   cases Tree.cmp y x <;> simp [Ordering.swap]
@@ -121,7 +121,7 @@ theorem Tree.cmp_self_eq : ∀ (x : Tree), Tree.cmp x x = .eq
       exact Tree.cmp_self_eq y
 
 /-- Direct: `x = y → Tree.cmp x y = .eq` (no iff). -/
-theorem Tree.cmp_eq_of_eq (x y : Tree) (h : x = y) : Tree.cmp x y = .eq :=
+private theorem Tree.cmp_eq_of_eq (x y : Tree) (h : x = y) : Tree.cmp x y = .eq :=
   h ▸ Tree.cmp_self_eq x
 
 /-- Direct: `Tree.cmp x y = .gt → Tree.cmp y x = .lt` (no iff). -/
