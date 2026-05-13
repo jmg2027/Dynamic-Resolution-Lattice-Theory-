@@ -77,15 +77,25 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
 
 **Sub-clusters**:
   * `Theory/Raw/`       — public Raw API (Core, Slash, Swap,
-                           SwapSlash, Fold, Hom, Levels, Rec, Signed)
+                           SwapSlash, Fold, Hom, Levels, Rec, Signed,
+                           Demo) + API.lean (re-export shim)
   * `Theory/Atomicity/` — forced-uniqueness proofs (Five,
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
-                           ArityForcingGeneral, PrimitiveSizes, Alive)
-  * `Theory/RawCmpIndependence.lean` — axiom-independence of
-                           cmp choice (meta-theorem).  Theory.Internal/
-                           directory 제거 (2026-05-12 cleanup) — Int213
-                           및 Algebra213 family 는 Meta 로 promotion.
+                           PrimitiveSizes, Alive)
+  * `Theory/Closed/`    — catamorphism fixed-point image universes
+                           (FoldRaw, Bool213{,System}, Nat213,
+                           Nat213Bridge, NumberingSystem, RawCut)
+  * `Theory/Nat213/`    — Layer 2 inductive Nat213 (Core, Lenses,
+                           AtomicityCorrespondence)
+  * `Theory/Tower/`     — Grothendieck pair-quotient towers
+                           (NatPairToInt, NatPairToQPos, NatTripleToZ2)
+  * `Theory/CDDouble/`  — generic Order-4 mechanism (UniversalOrder4,
+                           GenericLiftDemo)
+  * `Theory/RawCmpIndependence.lean` — axiom-independence of cmp
+                           choice (meta-theorem).
+  Theory.Internal/ directory 제거 (2026-05-12 cleanup) — Int213
+  및 Algebra213 family 는 Meta 로 promotion.
 
 **Public API**: `Theory/API.lean` bundles:
   * **TH-A — Raw axiom data**: Raw + 4 clauses + structural primitives
