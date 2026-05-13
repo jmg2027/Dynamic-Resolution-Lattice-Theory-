@@ -45,7 +45,7 @@ The proof is `congrArg L.view Raw.slash_comm` — no axiom
 introduced.  Verifies via `#print axioms`.
 -/
 
-namespace E213.Lens.Morphism.SlashSwap
+namespace E213.Lens.Properties.Morphism.SlashSwap
 
 open E213.Theory E213.Lens
 
@@ -68,4 +68,4 @@ theorem Lens.equiv_slash_swap {α : Type} (L : Lens α)
     L.equiv (Raw.slash x y h) (Raw.slash y x (Ne.symm h)) :=
   Lens.view_slash_swap L x y h
 
-end E213.Lens.Morphism.SlashSwap
+end E213.Lens.Properties.Morphism.SlashSwap

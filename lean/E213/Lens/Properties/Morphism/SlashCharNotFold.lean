@@ -1,4 +1,4 @@
-import E213.Lens.Morphism.FoldStructured
+import E213.Lens.Properties.Morphism.FoldStructured
 import E213.Lens.Instances.RawAChar
 
 /-!
@@ -29,10 +29,10 @@ structure** Raw.slash x y h is not distinguishable by a "top-down" Lens.
 Lens only permits fold-compositional observation.
 -/
 
-namespace E213.Lens.Morphism.SlashCharNotFold
+namespace E213.Lens.Properties.Morphism.SlashCharNotFold
 
 open E213.Theory E213.Lens
-open E213.Lens.Morphism.FoldStructured
+open E213.Lens.Properties.Morphism.FoldStructured
 
 /-- slashAB = slash(Raw.a, Raw.b). -/
 def slashAB : Raw := Raw.slash Raw.a Raw.b (by decide)
@@ -44,12 +44,12 @@ def outerR : Raw :=
 /-- f r := decide (r = slashAB). -/
 def slashCharFn (r : Raw) : Bool := decide (r = slashAB)
 
-end E213.Lens.Morphism.SlashCharNotFold
+end E213.Lens.Properties.Morphism.SlashCharNotFold
 
-namespace E213.Lens.Morphism.SlashCharNotFold
+namespace E213.Lens.Properties.Morphism.SlashCharNotFold
 
 open E213.Theory E213.Lens
-open E213.Lens.Morphism.FoldStructured
+open E213.Lens.Properties.Morphism.FoldStructured
 
 private theorem slashCharFn_a : slashCharFn Raw.a = false := by decide
 private theorem slashCharFn_b : slashCharFn Raw.b = false := by decide
@@ -83,4 +83,4 @@ theorem slashCharFn_not_fold_structured :
   rw [← h1] at h2
   exact absurd h2 (by decide)
 
-end E213.Lens.Morphism.SlashCharNotFold
+end E213.Lens.Properties.Morphism.SlashCharNotFold

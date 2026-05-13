@@ -73,5 +73,5 @@ import E213.Lens.Instances.Leaves
   `RawAChar` restored by namespace-drift fixes
   (`open E213.Meta` → `open E213.Lens.Instances.{Bool,Parity}`,
   `Lens` → `Lens`, and re-routing `NegSq` through
-  `E213.Lens.Diagonal`).
+  `E213.Lens.Properties.Diagonal`).
 -/

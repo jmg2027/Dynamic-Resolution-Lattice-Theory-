@@ -1,6 +1,6 @@
 import E213.Theory.Raw
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -31,9 +31,9 @@ clean "necessary and sufficient" toolkit.
   Raw-level by induction.
 -/
 
-namespace E213.Lens.Characterisation.Core
+namespace E213.Lens.Properties.Characterisation.Core
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ Characterisation 1: swap-invariance ═══
 
@@ -54,10 +54,10 @@ theorem swap_invariant_of_base_eq_comm
     (fun _ _ => rfl) hcomm r
   exact h
 
-end E213.Lens.Characterisation.Core
-namespace E213.Lens.Characterisation.Core
+end E213.Lens.Properties.Characterisation.Core
+namespace E213.Lens.Properties.Characterisation.Core
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **Full characterisation under commutative combine.**  The
     Lens is swap-invariant iff its base values coincide.  The
@@ -103,10 +103,10 @@ theorem R4_conj_unique_of_surjective
   rw [hr] at this
   exact this
 
-end E213.Lens.Characterisation.Core
-namespace E213.Lens.Characterisation.Core
+end E213.Lens.Properties.Characterisation.Core
+namespace E213.Lens.Properties.Characterisation.Core
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ Characterisation 3: R3 lifts from base to Raw ═══
 
@@ -142,4 +142,4 @@ theorem R3_view_nonVanishing
       · exact ihx hx0
       · exact ihy hy0
 
-end E213.Lens.Characterisation.Core
+end E213.Lens.Properties.Characterisation.Core

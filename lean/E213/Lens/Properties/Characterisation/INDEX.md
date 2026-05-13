@@ -17,7 +17,7 @@ named Lenses in `Instances/`.
 Imported on demand (HV8 in G12 §4.1 — separate from main API
 shim).  Use:
 ```
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 ```
 
 ## Where to add new characterisation theorems

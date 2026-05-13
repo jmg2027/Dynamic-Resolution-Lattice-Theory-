@@ -22,7 +22,7 @@ Lens realising `swap` as negation — an integer-level analogue of
 complex conjugation.
 -/
 
-namespace E213.Lens.Characterisation.Catalog
+namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory E213.Lens
 
 -- ═══ Swap-blind lenses ═══
@@ -43,10 +43,10 @@ theorem leaves_swap_invariant (r : Raw) :
   show Raw.fold 1 1 (· + ·) (Raw.swap r) = Raw.fold 1 1 (· + ·) r
   rw [Raw.fold_eq_leaves, Raw.fold_eq_leaves, Raw.swap_leaves]
 
-end E213.Lens.Characterisation.Catalog
+end E213.Lens.Properties.Characterisation.Catalog
 -- ═══ Swap-visible lens: signed (Int) ═══
 
-namespace E213.Lens.Characterisation.Catalog
+namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory
 
 /-- Signed lens: `a ↦ 1`, `b ↦ -1`, combine = `+`.
@@ -66,8 +66,8 @@ theorem signed_swap_neg (r : Raw) :
      = - Raw.fold (1 : Int) (-1) (· + ·) r
   exact Raw.fold_signed_swap r
 
-end E213.Lens.Characterisation.Catalog
-namespace E213.Lens.Characterisation.Catalog
+end E213.Lens.Properties.Characterisation.Catalog
+namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory E213.Lens
 
 -- ═══ Swap-invariance characterisation ═══
@@ -85,8 +85,8 @@ theorem swap_invariant_base_eq {α : Type} {L : Lens α}
   -- both sides reduce by computation
   exact h0.symm
 
-end E213.Lens.Characterisation.Catalog
-namespace E213.Lens.Characterisation.Catalog
+end E213.Lens.Properties.Characterisation.Catalog
+namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory E213.Lens
 
 -- ═══ R3–R5 — structural Lens requirements ═══
@@ -126,8 +126,8 @@ def SwapMatching {α : Type} (L : Lens α) (conj : α → α) : Prop :=
 def Distinguishing {α : Type} (L : Lens α) : Prop :=
   Function.Injective L.view
 
-end E213.Lens.Characterisation.Catalog
-namespace E213.Lens.Characterisation.Catalog
+end E213.Lens.Properties.Characterisation.Catalog
+namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory E213.Lens
 
 -- ═══ signedLens: verified R4 (swap = negation) ═══
@@ -156,4 +156,4 @@ theorem swap_invariant_R4_fixes_image
   rw [h2] at h1
   exact h1.symm
 
-end E213.Lens.Characterisation.Catalog
+end E213.Lens.Properties.Characterisation.Catalog

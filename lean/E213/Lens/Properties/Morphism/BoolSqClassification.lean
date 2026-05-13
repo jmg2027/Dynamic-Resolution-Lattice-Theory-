@@ -1,5 +1,5 @@
 import E213.Lens.Instances.NegSq
-import E213.Lens.Diagonal
+import E213.Lens.Properties.Diagonal
 
 /-!
 # BoolSqClassification: Complete diagonal classification of Bool Lenses
@@ -20,9 +20,9 @@ functions), the diagonal behavior is exactly 4 cases.  For a general
 α, the size of `α → α` determines the count.
 -/
 
-namespace E213.Lens.Morphism.BoolSqClassification
+namespace E213.Lens.Properties.Morphism.BoolSqClassification
 
-open E213.Theory E213.Lens E213.Lens.Diagonal
+open E213.Theory E213.Lens E213.Lens.Properties.Diagonal
 
 /-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=
@@ -51,4 +51,4 @@ theorem bool_sq_classification (L : Lens Bool) :
     left
     intro v; cases v; exact h2; exact h1
 
-end E213.Lens.Morphism.BoolSqClassification
+end E213.Lens.Properties.Morphism.BoolSqClassification

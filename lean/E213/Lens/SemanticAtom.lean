@@ -1,7 +1,7 @@
 import E213.Lens.LensCore
 import E213.Lens.Initiality
-import E213.Lens.Morphism.FoldStructured
-import E213.Lens.Morphism.DepthParityNotFold
+import E213.Lens.Properties.Morphism.FoldStructured
+import E213.Lens.Properties.Morphism.DepthParityNotFold
 
 /-!
 # SemanticAtom: 213 = the atom of meaning (formal hub)
@@ -319,7 +319,7 @@ end E213.Lens.SemanticAtom
 namespace E213.Lens.SemanticAtom
 
 open E213.Theory E213.Lens
-open E213.Lens.Morphism.FoldStructured
+open E213.Lens.Properties.Morphism.FoldStructured
 
 /-! ### Negative direction: boundary of Lens-expressibility
 
@@ -364,9 +364,9 @@ theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
     Direct evidence for the boundary of the semantic atom thesis. -/
 theorem exists_non_lens_expressible :
     ∃ f : Raw → Bool, ¬ IsLensExpressible f := by
-  refine ⟨E213.Lens.Morphism.DepthParityNotFold.depthParityFn, ?_⟩
+  refine ⟨E213.Lens.Properties.Morphism.DepthParityNotFold.depthParityFn, ?_⟩
   rw [isLensExpressible_iff_foldStructured]
-  exact E213.Lens.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
+  exact E213.Lens.Properties.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 
 end E213.Lens.SemanticAtom
 

@@ -1,5 +1,5 @@
 import E213.Lens.Instances.Sum
-import E213.Lens.Morphism.BoolProp
+import E213.Lens.Properties.Morphism.BoolProp
 
 /-!
 # SumNotCoproductGeneric: generic case of Sum α β coproduct failure
@@ -24,7 +24,7 @@ namespace E213.Lens.Instances.SumNotCoproductGeneric
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Sum
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- Sum Bool Bool with **and** combine (boolXorHasDistinguishing
     used as instance for both sides) also violates the coproduct

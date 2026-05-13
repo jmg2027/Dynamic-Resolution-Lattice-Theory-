@@ -1,5 +1,5 @@
-import E213.Lens.Morphism.FoldStructured
-import E213.Lens.Morphism.NoDepthParity
+import E213.Lens.Properties.Morphism.FoldStructured
+import E213.Lens.Properties.Morphism.NoDepthParity
 
 /-!
 # DepthParityNotFold: depth parity function is not fold-structured
@@ -16,10 +16,10 @@ slash-congruence ⟺ the function is not fold-structured.
 Concrete application of both perspectives (note 42 §1).
 -/
 
-namespace E213.Lens.Morphism.DepthParityNotFold
+namespace E213.Lens.Properties.Morphism.DepthParityNotFold
 
 open E213.Theory E213.Lens
-open E213.Lens.Morphism.FoldStructured E213.Lens.Morphism.NoDepthParity
+open E213.Lens.Properties.Morphism.FoldStructured E213.Lens.Properties.Morphism.NoDepthParity
 
 /-- The depth parity function. -/
 def depthParityFn (r : Raw) : Bool :=
@@ -52,4 +52,4 @@ theorem depthParityFn_not_fold_structured :
   rw [← h12] at h32
   cases h32
 
-end E213.Lens.Morphism.DepthParityNotFold
+end E213.Lens.Properties.Morphism.DepthParityNotFold

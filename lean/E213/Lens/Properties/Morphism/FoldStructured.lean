@@ -18,7 +18,7 @@ relation version of the same question (slash-congruence ↔ Lens kernel).
 This file is the **function version**.
 -/
 
-namespace E213.Lens.Morphism.FoldStructured
+namespace E213.Lens.Properties.Morphism.FoldStructured
 
 open E213.Theory E213.Lens E213.Lens.Initiality
 
@@ -52,9 +52,9 @@ theorem fold_structured_lens_expressible {α : Type} (f : Raw → α)
   intro r
   exact (Lens.view_unique (α := α) ⟨ba, bb, c⟩ hsym f hba hbb hslash r).symm
 
-end E213.Lens.Morphism.FoldStructured
+end E213.Lens.Properties.Morphism.FoldStructured
 
-namespace E213.Lens.Morphism.FoldStructured
+namespace E213.Lens.Properties.Morphism.FoldStructured
 
 open E213.Theory E213.Lens
 
@@ -78,4 +78,4 @@ theorem lens_expressible_iff_fold_structured {α : Type} (f : Raw → α) :
       exact hslash x y h
   · exact fold_structured_lens_expressible f
 
-end E213.Lens.Morphism.FoldStructured
+end E213.Lens.Properties.Morphism.FoldStructured

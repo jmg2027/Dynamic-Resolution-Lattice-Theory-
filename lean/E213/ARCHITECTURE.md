@@ -168,17 +168,21 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
   * `Lens/Lattice/`          — refines preorder + lattice (Chain,
                                 Preorder, Join, Meet, Family*,
                                 IndexedJoin) — Refines 폴드 2026-05-13
-  * `Lens/Morphism/`         — morphism shape catalogue
-  * `Lens/Properties/`       — derived predicates
+  * `Lens/Properties/`       — derived predicates + Diagonal (sq
+                                classification, ex-root) +
+                                Characterisation/ + Morphism/ sub-
+                                clusters — 2026-05-13 3 sub-clusters
+                                폴드
   * `Lens/Universal/`        — Universal flat / quot lens +
                                 `Witnesses/` (Core, Nat2/3/4,
                                 Q213/Q213_3, Padding, TripleCapstone)
                                 — 2026-05-13 Meta/UniversalLens 흡수
   * `Lens/Internal/`         — internal proof infra
 
-(12 sub-clusters 후 — Cardinality (+1), Leaves 폴드 (−1), Refines 폴드
-(−1), 종합: 13→12, `research-notes/LENS_AUDIT.md` §4 의 13→7 권장과
-방향 일치.)
+(9 sub-clusters 후 — Cardinality (+1), Leaves 폴드 (−1), Refines 폴드
+(−1), Characterisation/Morphism 폴드 (−2), Diagonal 폴드 (root file,
+sub-cluster count 무관): 14→9, `research-notes/LENS_AUDIT.md` §4 의
+13→7 권장 거의 달성 (Axiom Lenses + Internal 별도 유지로 9).)
 
 ### Lib/  (Mathematics + Physics content)
 

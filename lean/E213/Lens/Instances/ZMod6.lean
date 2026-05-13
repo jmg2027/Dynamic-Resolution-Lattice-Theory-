@@ -1,6 +1,6 @@
 import E213.Theory.Raw
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -27,7 +27,7 @@ and `Nat.mod`, which is all we need.
 
 namespace E213.Lens.Instances.ZMod6
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **ZMod-6 multiplicative lens.**  `a ↦ 2`, `b ↦ 3`,
     `combine u v = (u * v) mod 6`. -/
@@ -57,7 +57,7 @@ theorem zmod6Lens_R3_fails : ¬ NonVanishing zmod6Lens := by
 end E213.Lens.Instances.ZMod6
 namespace E213.Lens.Instances.ZMod6
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **Commutative combine.**  `zmod6Lens.combine` is commutative
     (inherits from `Nat` multiplication) — so R2 is OK.  The

@@ -1,5 +1,5 @@
 import E213.Lens.Compose.OnLens
-import E213.Lens.Morphism.BoolProp
+import E213.Lens.Properties.Morphism.BoolProp
 import E213.Lens.EqPW
 
 /-!
@@ -31,7 +31,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- Bool → Lens Bool: second leg of the factorization. -/
 def boolToConstLens (b : Bool) : Lens Bool :=
@@ -47,7 +47,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-! ### lensXor acts as xor on {constTrueLens, constFalseLens} -/
 
@@ -70,7 +70,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- boolToConstLens preserves the xor combine. -/
 theorem boolToConstLens_xor (x y : Bool) :
@@ -101,7 +101,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-! ### Main: tower collapse factorization -/
 
@@ -133,7 +133,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- **Tower collapse**: lensUniversalMorphism factors through
     universalMorphism Bool.  The image of Lens-on-Lens equals the
@@ -174,7 +174,7 @@ namespace E213.Lens.Compose.OnLensImage
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- **Image characterization**: the image of lensUniversalMorphism is
     exactly 2 elements — {constTrueLens, constFalseLens}. -/

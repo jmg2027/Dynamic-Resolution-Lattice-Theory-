@@ -19,7 +19,7 @@ as `sq L : α → α`.  Four behaviors:
 Collapse + Idempotent simultaneously forces |α| = 1.
 -/
 
-namespace E213.Lens.Diagonal
+namespace E213.Lens.Properties.Diagonal
 
 open E213.Theory E213.Lens
 
@@ -43,9 +43,9 @@ theorem collapse_idempotent_trivial {α : Type} (L : Lens α) (e : α)
   have h2 : L.combine v v = v := hI v
   exact h2.symm.trans h1
 
-end E213.Lens.Diagonal
+end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Diagonal
+namespace E213.Lens.Properties.Diagonal
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Parity E213.Lens.Instances.Bool
@@ -61,9 +61,9 @@ theorem boolAndLens_idempotent : Idempotent boolAndLens := by
 theorem boolOrLens_idempotent : Idempotent boolOrLens := by
   intro v; cases v <;> rfl
 
-end E213.Lens.Diagonal
+end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Diagonal
+namespace E213.Lens.Properties.Diagonal
 
 open E213.Theory E213.Lens
 
@@ -77,9 +77,9 @@ theorem leaves_not_idempotent : ¬ Idempotent Lens.leaves := by
   have h : (1 : Nat) + 1 = 1 := hI 1
   exact absurd h (by decide)
 
-end E213.Lens.Diagonal
+end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Diagonal
+namespace E213.Lens.Properties.Diagonal
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.F9
@@ -102,4 +102,4 @@ theorem f9Lens_not_collapse : ¬ ∃ e : F9, Collapse f9Lens e := by
   have hne : F9.mul F9.one F9.one ≠ F9.mul F9.i F9.i := by decide
   exact hne (h1.trans h2.symm)
 
-end E213.Lens.Diagonal
+end E213.Lens.Properties.Diagonal

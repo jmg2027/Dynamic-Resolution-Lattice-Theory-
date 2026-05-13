@@ -1,5 +1,5 @@
 import E213.Lens.Instances.Sum
-import E213.Lens.Morphism.BoolProp
+import E213.Lens.Properties.Morphism.BoolProp
 
 /-!
 # SumNotCoproduct: Sum α β is not a coproduct of DistMorphism
@@ -35,7 +35,7 @@ namespace E213.Lens.Instances.SumNotCoproduct
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Sum
-open E213.Lens.Morphism.BoolProp
+open E213.Lens.Properties.Morphism.BoolProp
 
 /-- **Sum Bool Bool with xor violates the coproduct universal property**.
     Counterexample: f = g = id are both morphisms, but no universal

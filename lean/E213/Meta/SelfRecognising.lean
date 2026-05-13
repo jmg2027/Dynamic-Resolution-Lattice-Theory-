@@ -1,6 +1,6 @@
 import E213.Theory.Raw
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 
 /-!
 # Meta: codomain typeclass hierarchy (3-tier `extends`)
@@ -58,7 +58,7 @@ end E213.Meta.SelfRecognising
 namespace E213.Meta.SelfRecognising
 
 open E213.Theory E213.Lens CommBinaryCodomain
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ Tier 2: NonVanishing (no zero divisors) ═══
 

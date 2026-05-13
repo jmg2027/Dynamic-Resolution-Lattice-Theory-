@@ -4,7 +4,7 @@ import E213.Lens.Cardinality.Cantor
 import E213.Lens.Cardinality.Godel
 import E213.Meta.Nat.AddMod213
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 import E213.Lens.Instances.Bool
 import E213.Lens.Instances.Parity
 import E213.Lens.Instances.Max
@@ -93,7 +93,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Instances.Bool
 open E213.Lens.Instances.Parity
 open E213.Lens.Instances.Max
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ Finite-image Lenses ═══
 
@@ -173,7 +173,7 @@ end E213.Lens.Cardinality
 namespace E213.Lens.Cardinality
 
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
     `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)

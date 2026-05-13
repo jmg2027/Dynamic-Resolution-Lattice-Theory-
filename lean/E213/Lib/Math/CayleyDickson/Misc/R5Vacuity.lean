@@ -1,6 +1,6 @@
 import E213.Theory.Raw
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 
 /-!
 # the two halves of R5, and which half is
