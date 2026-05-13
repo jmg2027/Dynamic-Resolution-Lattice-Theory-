@@ -1,9 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod11
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod13
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod17
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod19
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod23
+import E213.Lib.Math.DyadicFSM.Pell.ProperMod
 
 import E213.Lib.Math.DyadicFSM.Pell.Proper
 /-!

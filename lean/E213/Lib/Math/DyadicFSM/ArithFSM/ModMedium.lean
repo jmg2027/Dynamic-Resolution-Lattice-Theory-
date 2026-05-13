@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
-import E213.Lib.Math.DyadicFSM.ConcretePellSig
+import E213.Lib.Math.DyadicFSM.Signature.PeriodClosure
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 
 /-!

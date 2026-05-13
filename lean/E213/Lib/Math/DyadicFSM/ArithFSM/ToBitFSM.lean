@@ -1,4 +1,3 @@
-import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Meta.Nat.EncodePair213
 
@@ -22,7 +21,6 @@ open E213.Lib.Math.DyadicFSM.Signature.Signature (signature_eq_of_pointwise_eq)
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
-open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 
 
 private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
@@ -104,13 +102,9 @@ theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)
     signature_eq_of_pointwise_eq _ _ h_pt k
   exact h1.symm.trans (h_sig.trans h2)
 
-/-- ★★★★★★ Pell mod-5 signature: explicit period bound 125 = 5·25. -/
-theorem pellFSMmod5_signature_period_bound :
-    ∃ N P, 0 < P ∧ N + P ≤ 125
-      ∧ ∀ k, k ≥ N →
-        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
-  exact ⟨N, P, hP, hbound, hk⟩
+-- `pellFSMmod5_signature_period_bound` (concrete instance) moved to
+-- `ArithFSM/ModSmall.lean` 2026-05-13 to break the ToBitFSM ↔ ModSmall
+-- build cycle.  Namespace `E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM`
+-- preserved for consumer compatibility.
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM

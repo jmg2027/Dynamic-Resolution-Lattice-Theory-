@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
-import E213.Lib.Math.DyadicFSM.ConcretePellSig
+import E213.Lib.Math.DyadicFSM.Signature.PeriodClosure
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 
 /-!
@@ -394,3 +394,24 @@ theorem pellFSMmod23_signature_period_24 :
     pellFSMmod23_bits_period_24 (by decide)
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod23
+
+namespace E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
+
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
+
+/-- ★★★★★★ Pell mod-5 signature: explicit period bound 125 = 5·25.
+
+    Hosted in `ModSmall.lean` (consumes `pellFSMmod5` from
+    `ArithFSM.Mod5`); namespace `ToBitFSM` preserved for consumer
+    compatibility — the underlying utility
+    `arithFSM2_signature_period_bound` lives in `ToBitFSM.lean`. -/
+theorem pellFSMmod5_signature_period_bound :
+    ∃ N P, 0 < P ∧ N + P ≤ 125
+      ∧ ∀ k, k ≥ N →
+        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k := by
+  obtain ⟨N, P, hP, hbound, hk⟩ :=
+    arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
+  exact ⟨N, P, hP, hbound, hk⟩
+
+end E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
