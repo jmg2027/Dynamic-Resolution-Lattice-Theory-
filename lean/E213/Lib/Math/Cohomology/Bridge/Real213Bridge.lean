@@ -29,7 +29,7 @@ Cohomology 213 `Cochain n 2`:
 Deep formal isomorphism deferred (different value types).
 -/
 
-namespace E213.Lib.Math.Cohomology.Real213Bridge
+namespace E213.Lib.Math.Cohomology.Bridge.Real213Bridge
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -48,4 +48,4 @@ theorem phase_E_partial :
     ∧ binom 5 2 = binom 5 3
     ∧ (2 : Nat) ≠ 0 := by decide
 
-end E213.Lib.Math.Cohomology.Real213Bridge
+end E213.Lib.Math.Cohomology.Bridge.Real213Bridge

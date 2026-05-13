@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Physics.Simplex.Counts
@@ -31,7 +31,7 @@ namespace E213.Lib.Math.Cohomology.Universal.Core
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Delta.Core (delta)
-open E213.Lib.Math.Cohomology.BettiKernel (cochainAt)
+open E213.Lib.Math.Cohomology.Examples.BettiKernel (cochainAt)
 
 /-- Bool predicate: enumerate all 2^(binom n k) cochains via
     cochainAt, verify δ²σ = 0 at each (k+2)-index. -/

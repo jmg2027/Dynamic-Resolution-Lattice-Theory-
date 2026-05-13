@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cohomology.Delta.Core
 
 import E213.Lib.Math.Cohomology.Cochain.Core
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Cohomology — Hodge ⋆ at cochain level
@@ -25,7 +25,7 @@ gives a concrete decidable Lean definition.
 namespace E213.Lib.Math.Cohomology.Hodge.Star
 
 open E213.Lib.Physics.Simplex.Counts (binom d NS NT)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx vertex0_n3)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 

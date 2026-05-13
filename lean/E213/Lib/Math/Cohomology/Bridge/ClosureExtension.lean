@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.EulerClosed
+import E213.Lib.Math.Cohomology.Examples.EulerClosed
 
 import E213.Lib.Physics.Simplex.Counts
 /-!
@@ -20,7 +20,7 @@ hence different topologies.
 Topology gives ratios; specific N value still cosmological.
 -/
 
-namespace E213.Lib.Math.Cohomology.ClosureExtension
+namespace E213.Lib.Math.Cohomology.Bridge.ClosureExtension
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -44,8 +44,8 @@ theorem chi_4_glued_eq_4 : chi_4_glued = 4 := by decide
 
 /-- N=2 (S⁴) and N=N (any) Euler relation, Int arithmetic. -/
 theorem chi_N_pattern :
-    E213.Lib.Math.Cohomology.EulerClosed.chi_delta4 = 1
-    ∧ E213.Lib.Math.Cohomology.EulerClosed.chi_two_glued = 2
+    E213.Lib.Math.Cohomology.Examples.EulerClosed.chi_delta4 = 1
+    ∧ E213.Lib.Math.Cohomology.Examples.EulerClosed.chi_two_glued = 2
     ∧ chi_3_glued = 3
     ∧ chi_4_glued = 4 := by decide
 
@@ -61,4 +61,4 @@ theorem N_from_topology :
     -- 4-cell appears at level d = 5
     ∧ binom 5 4 = 5 := by decide
 
-end E213.Lib.Math.Cohomology.ClosureExtension
+end E213.Lib.Math.Cohomology.Bridge.ClosureExtension

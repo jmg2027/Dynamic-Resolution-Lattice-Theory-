@@ -1,9 +1,9 @@
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Cohomology — cup product
@@ -19,7 +19,7 @@ namespace E213.Lib.Math.Cohomology.Cup.Core
 
 open E213.Lib.Physics.Simplex.Counts (binom d NS NT)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 

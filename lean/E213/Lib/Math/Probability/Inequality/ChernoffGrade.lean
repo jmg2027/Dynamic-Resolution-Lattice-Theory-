@@ -1,6 +1,6 @@
 import E213.Lib.Math.Probability.Inequality.Markov
 import E213.Lib.Math.Probability.Inequality.Concentration
-import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
 
 /-!
 # Probability — Chernoff bound as discrete grade-index optimisation

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Paper1Chiral
+import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 
 /-!
 # Sub-simplex inventory of the (3+2)-partitioned 4-simplex.
@@ -23,7 +23,7 @@ All `rfl`-closed via chiralDim = binom(NS, i)·binom(NT, j).
 
 namespace E213.Lib.Physics.Simplex.SubInventory
 
-open E213.Lib.Math.Cohomology.Paper1Chiral (chiralDim)
+open E213.Lib.Math.Cohomology.Bridge.Paper1Chiral (chiralDim)
 
 /-- 5 vertices = single-vertex sub-simplices. -/
 theorem dim_0_count : chiralDim 1 0 + chiralDim 0 1 = 5 := by decide

@@ -18,7 +18,7 @@ each vertex of the outer 4-simplex will become itself a 4-simplex,
 yielding the 25-vertex level-2 graph (treated in `Fractal25.lean`).
 -/
 
-namespace E213.Lib.Math.Cohomology.K5
+namespace E213.Lib.Math.Cohomology.Examples.K5
 
 open E213.Lib.Math.Cohomology.Bipartite.V32 (CochE CochV delta0 srcFin tgtFin)
 
@@ -76,4 +76,4 @@ theorem K5_cohomology :
     ∧ 64 = 2^6
     ∧ 10 - 5 + 1 = 6 := by decide
 
-end E213.Lib.Math.Cohomology.K5
+end E213.Lib.Math.Cohomology.Examples.K5

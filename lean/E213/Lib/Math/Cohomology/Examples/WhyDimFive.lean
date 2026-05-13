@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.TopologyCompare
+import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 
 /-!
 # Why d = 5? — cohomological double-uniqueness
@@ -9,9 +9,9 @@ b_1 = 8 = 1/α_3.  This file extends across d ∈ {4..7} and
 confirms d = 5 is doubly forced.
 -/
 
-namespace E213.Lib.Math.Cohomology.WhyDimFive
+namespace E213.Lib.Math.Cohomology.Examples.WhyDimFive
 
-open E213.Lib.Math.Cohomology.TopologyCompare (b1_bipartite)
+open E213.Lib.Math.Cohomology.Examples.TopologyCompare (b1_bipartite)
 
 /-- d=4 K_{2,2}^{(c)}: b_1 ∈ {1, 5, 9} — no match. -/
 theorem d4_K22 :
@@ -62,4 +62,4 @@ theorem d5_doubly_forced :
     ∧ b1_bipartite 4 2 2 ≠ 8
     ∧ b1_bipartite 4 3 2 ≠ 8 := by decide
 
-end E213.Lib.Math.Cohomology.WhyDimFive
+end E213.Lib.Math.Cohomology.Examples.WhyDimFive

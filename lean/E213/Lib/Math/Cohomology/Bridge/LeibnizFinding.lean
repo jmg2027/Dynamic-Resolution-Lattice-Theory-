@@ -57,7 +57,7 @@ This file documents the finding — Leibniz fails universally
 in our setup — as a 0-axiom theorem.
 -/
 
-namespace E213.Lib.Math.Cohomology.LeibnizFinding
+namespace E213.Lib.Math.Cohomology.Bridge.LeibnizFinding
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Universal.Prop51 (pattern)
@@ -79,4 +79,4 @@ theorem leibniz_universal_false :
                                (delta (pattern b0 b1 b2 b3 b4)) i)) := by
   decide
 
-end E213.Lib.Math.Cohomology.LeibnizFinding
+end E213.Lib.Math.Cohomology.Bridge.LeibnizFinding

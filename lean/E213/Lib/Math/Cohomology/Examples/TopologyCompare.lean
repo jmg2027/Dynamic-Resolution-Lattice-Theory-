@@ -23,7 +23,7 @@ at every N tested.  213's (3,2,2) bipartite is THE topology
 selected by physics observation b_1 = 1/α_3 = 8.
 -/
 
-namespace E213.Lib.Math.Cohomology.TopologyCompare
+namespace E213.Lib.Math.Cohomology.Examples.TopologyCompare
 
 /-- b_1 for connected complete graph K_N. -/
 def b1_complete (N : Nat) : Nat := (N - 1) * (N - 2) / 2
@@ -63,4 +63,4 @@ theorem topology_uniqueness :
     ∧ b1_bipartite 3 2 3 ≠ 8
     ∧ b1_bipartite 4 1 2 ≠ 8 := by decide
 
-end E213.Lib.Math.Cohomology.TopologyCompare
+end E213.Lib.Math.Cohomology.Examples.TopologyCompare

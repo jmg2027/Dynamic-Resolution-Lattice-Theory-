@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.DiamondShape
+import E213.Lib.Math.Cohomology.Examples.DiamondShape
 import E213.Lib.Physics.Foundations.HopHypothesis
 
 import E213.Lib.Physics.Simplex.Counts
@@ -10,7 +10,7 @@ trace to SAME atomic primitives (NS=3, NT=2, d=5, c=2).
 This file audits internal consistency.
 -/
 
-namespace E213.Lib.Math.Cohomology.DiamondAudit
+namespace E213.Lib.Math.Cohomology.Examples.DiamondAudit
 
 open E213.Lib.Physics.Simplex.Counts
 
@@ -46,4 +46,4 @@ theorem diamond_audit_no_free_parameters :
 theorem diamond_audit_falsifier_coupling :
     NS = 3 ∧ NT = 2 ∧ d = 5 := by decide
 
-end E213.Lib.Math.Cohomology.DiamondAudit
+end E213.Lib.Math.Cohomology.Examples.DiamondAudit

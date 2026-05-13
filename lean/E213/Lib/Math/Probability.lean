@@ -20,8 +20,8 @@ import E213.Lib.Math.Probability.Distribution.BetaNormalized
 import E213.Lib.Math.Probability.Limit.CLTGeneric
 import E213.Lib.Math.Probability.Inequality.Hoeffding
 import E213.Lib.Math.Probability.Inequality.ChernoffGrade
-import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
-import E213.Lib.Math.Cohomology.CutLog
+import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
+import E213.Lib.Math.Cohomology.Bridge.CutLog
 import E213.Lib.Math.Probability.Foundation.Capstone
 
 /-!

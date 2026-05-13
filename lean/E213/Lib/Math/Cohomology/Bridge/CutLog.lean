@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
 
 /-!
 # Cohomology — `cutLog` formal cup-product inverse
@@ -23,11 +23,11 @@ truncated ring) is a follow-up that requires the cup-Ring
 homomorphism machinery in `Cohomology/Cup/Ring.lean`.
 -/
 
-namespace E213.Lib.Math.Cohomology.CutLog
+namespace E213.Lib.Math.Cohomology.Bridge.CutLog
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+open E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
   (cupPow one_5 binom_5_6_zero cupPow_zero_of_binom_zero)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -74,4 +74,4 @@ theorem cutLog_grade_table :
     ∧ binom 5 3 = 10 ∧ binom 5 4 = 5 ∧ binom 5 5 = 1
     ∧ binom 5 6 = 0 := by decide
 
-end E213.Lib.Math.Cohomology.CutLog
+end E213.Lib.Math.Cohomology.Bridge.CutLog

@@ -21,7 +21,7 @@ This is the 213-native replacement for the deferred "Cauchy
 convergence modulus" in the Probability extension's open follow-ups.
 -/
 
-namespace E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+namespace E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Cup.Core (cup)
@@ -86,4 +86,4 @@ theorem grade_dim_table :
     ∧ binom 5 3 = 10 ∧ binom 5 4 = 5 ∧ binom 5 5 = 1
     ∧ binom 5 6 = 0 := by decide
 
-end E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+end E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation

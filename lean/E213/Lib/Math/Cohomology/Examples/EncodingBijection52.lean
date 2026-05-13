@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Universal.Prop52
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
@@ -10,12 +10,12 @@ Same construction as `EncodingBijection.lean` (5, 1), extended
 to 10 Bool slots: σ : Cochain 5 2 ≃ encode σ : Nat ∈ [0, 1024).
 -/
 
-namespace E213.Lib.Math.Cohomology.EncodingBijection52
+namespace E213.Lib.Math.Cohomology.Examples.EncodingBijection52
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Universal.Prop52 (pattern)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.BettiKernel (cochainAt)
+open E213.Lib.Math.Cohomology.Examples.BettiKernel (cochainAt)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0
@@ -61,4 +61,4 @@ theorem encode_bijection (σ : Cochain 5 2) (j : Fin 10) :
     E213.Lib.Math.Cohomology.Universal.Prop52.pattern_eq_at σ j
   h_pw.trans (encode_pointwise_pattern _ _ _ _ _ _ _ _ _ _ j)
 
-end E213.Lib.Math.Cohomology.EncodingBijection52
+end E213.Lib.Math.Cohomology.Examples.EncodingBijection52

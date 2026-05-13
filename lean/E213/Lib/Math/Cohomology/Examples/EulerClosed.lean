@@ -17,7 +17,7 @@ Larger cosmoses need many more Δ⁴ cells.  Topology forces FINITE
 N but doesn't pin specific value.
 -/
 
-namespace E213.Lib.Math.Cohomology.EulerClosed
+namespace E213.Lib.Math.Cohomology.Examples.EulerClosed
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -58,4 +58,4 @@ theorem closure_topology_summary :
     ∧ binom 5 1 = binom 5 4
     ∧ binom 5 2 = binom 5 3 := by decide
 
-end E213.Lib.Math.Cohomology.EulerClosed
+end E213.Lib.Math.Cohomology.Examples.EulerClosed

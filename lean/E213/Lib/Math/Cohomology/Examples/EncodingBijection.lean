@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Universal.Prop51
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
@@ -19,12 +19,12 @@ This connects pattern-based Prop-lift (E213.Lib.Math.Cohomology.Universal.Prop51
 the enumeration-based Bool-level (Universal).
 -/
 
-namespace E213.Lib.Math.Cohomology.EncodingBijection
+namespace E213.Lib.Math.Cohomology.Examples.EncodingBijection
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Universal.Prop51 (pattern)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.BettiKernel (cochainAt)
+open E213.Lib.Math.Cohomology.Examples.BettiKernel (cochainAt)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0
@@ -65,4 +65,4 @@ theorem encode_bijection (σ : Cochain 5 1) (j : Fin 5) :
     E213.Lib.Math.Cohomology.Universal.Prop51.pattern_eq_at σ j
   h_pw.trans (encode_pointwise_pattern _ _ _ _ _ j)
 
-end E213.Lib.Math.Cohomology.EncodingBijection
+end E213.Lib.Math.Cohomology.Examples.EncodingBijection

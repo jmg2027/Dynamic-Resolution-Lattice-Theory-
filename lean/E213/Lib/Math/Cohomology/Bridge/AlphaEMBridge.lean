@@ -25,7 +25,7 @@ Both compute the same quantity `NS² − 1 = 1/α_3 (confined)`.
 The bridge theorem unifies them.
 -/
 
-namespace E213.Lib.Math.Cohomology.AlphaEMBridge
+namespace E213.Lib.Math.Cohomology.Bridge.AlphaEMBridge
 
 open E213.Lib.Physics.Couplings.PhotonKernel
 open E213.Lib.Physics.Simplex.Counts (NS)
@@ -59,4 +59,4 @@ theorem alpha_em_cohomology_bridge :
   · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2
   · decide
 
-end E213.Lib.Math.Cohomology.AlphaEMBridge
+end E213.Lib.Math.Cohomology.Bridge.AlphaEMBridge

@@ -1,8 +1,8 @@
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 import E213.Lib.Math.Cohomology.Delta.SqZero
-import E213.Lib.Math.Cohomology.TrivialCases
+import E213.Lib.Math.Cohomology.Bridge.TrivialCases
 
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Cup.Core
 import E213.Lib.Math.Cohomology.Cup.Leibniz
@@ -58,7 +58,7 @@ open E213.Lib.Math.Cohomology.Cup.Leibniz (leibniz_v0_v0_pointwise)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5 hodge_sq_v0_5)
 open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
 open E213.Lib.Math.Cohomology.Delta.SqZero (delta_sq_vertex0_n5 vertex0_n5)
-open E213.Lib.Math.Cohomology.BettiKernel (kerSize_5_0 kerSize_5_1 kerSizeDelta)
+open E213.Lib.Math.Cohomology.Examples.BettiKernel (kerSize_5_0 kerSize_5_1 kerSizeDelta)
 
 /-- ★★★ COHOMOLOGY 213 MARATHON CAPSTONE ★★★
 

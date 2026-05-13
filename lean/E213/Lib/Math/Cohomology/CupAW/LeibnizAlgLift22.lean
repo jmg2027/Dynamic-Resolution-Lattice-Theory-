@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
 import E213.Lib.Math.Cohomology.Delta.Pointwise
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
-import E213.Lib.Math.Cohomology.XorPairCombine
+import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.Cohomology.Cochain.Core
@@ -35,7 +35,7 @@ open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 bz5_2)
-open E213.Lib.Math.Cohomology.XorPairCombine (combine_10)
+open E213.Lib.Math.Cohomology.Bridge.XorPairCombine (combine_10)
 open E213.Lib.Math.Cohomology.CupAW.Bilinear (cupAW_add_left cupAW_add_right)
 open E213.Lib.Math.Cohomology.Delta.Linear (delta_add)
 open E213.Lib.Math.Cohomology.CupAW.Pointwise (cupAW_pointwise_eq)

@@ -19,8 +19,8 @@ import E213.Lib.Math.Probability.Inequality.Chebyshev
 import E213.Lib.Math.Probability.Distribution.BetaNormalized
 import E213.Lib.Math.Probability.Limit.CLTGeneric
 import E213.Lib.Math.Probability.Inequality.Hoeffding
-import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
-import E213.Lib.Math.Cohomology.CutLog
+import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
+import E213.Lib.Math.Cohomology.Bridge.CutLog
 import E213.Lib.Math.Probability.Inequality.ChernoffGrade
 
 /-!
@@ -388,8 +388,8 @@ theorem hoeffding_witness (n : Nat) (negArg : Nat → Nat → Bool) :
 theorem nilpotency_witness
     (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1)
     (i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6)) :
-    E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow α 6 i = false :=
-  E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow_grade_6_zero α i
+    E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow α 6 i = false :=
+  E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow_grade_6_zero α i
 
 /-- ★ **Reframe witness: grade-index Chernoff** ★ — replaces
     "continuous Chernoff inf_t" with discrete grade-index closure. -/
@@ -405,11 +405,11 @@ theorem grade_chernoff_witness (a : Nat) :
     Grade-6 nilpotency. -/
 theorem cuplog_witness
     (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1) :
-    E213.Lib.Math.Cohomology.CutLog.cutLog α 1 = α
+    E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1 = α
     ∧ ∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
-        E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow
-          (E213.Lib.Math.Cohomology.CutLog.cutLog α 1) 6 i = false :=
+        E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow
+          (E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1) 6 i = false :=
   ⟨rfl,
-   E213.Lib.Math.Cohomology.CutLog.cutLog_cup_grade_6_zero α⟩
+   E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog_cup_grade_6_zero α⟩
 
 end E213.Lib.Math.Probability.Foundation.Capstone

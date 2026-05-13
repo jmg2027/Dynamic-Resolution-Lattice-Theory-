@@ -1,5 +1,5 @@
 import E213.Lib.Math.Linalg213.Chiral
-import E213.Lib.Math.Cohomology.Paper1Chiral
+import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 
 /-!
 # Linalg213 ↔ Cohomology 213 Bridge (5)
@@ -34,7 +34,7 @@ open E213.Lib.Math.Linalg213.Span
 open E213.Lib.Math.Linalg213.Gram
 
 open E213.Lib.Physics.Simplex.Counts (NS NT)
-open E213.Lib.Math.Cohomology.Paper1Chiral (chiralDim)
+open E213.Lib.Math.Cohomology.Bridge.Paper1Chiral (chiralDim)
 
 /-- VecS dimension = NS (atomic spatial count). -/
 def dimVecS : Nat := 3

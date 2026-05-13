@@ -20,7 +20,7 @@ Paper 1's level-1 statement ℂ⁵ = ℂ² ⊕ ℂ³ becomes:
       dim 3 ⊕ dim 2 = ℂ³ ⊕ ℂ²
 -/
 
-namespace E213.Lib.Math.Cohomology.Paper1Chiral
+namespace E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 
 open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
@@ -60,4 +60,4 @@ theorem chiral_sums_to_total :
     ∧ chiralDim 3 0 + chiralDim 2 1 + chiralDim 1 2 = binom 5 3 := by
   decide
 
-end E213.Lib.Math.Cohomology.Paper1Chiral
+end E213.Lib.Math.Cohomology.Bridge.Paper1Chiral

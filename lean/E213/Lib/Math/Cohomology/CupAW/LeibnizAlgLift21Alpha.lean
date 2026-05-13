@@ -12,7 +12,7 @@ import E213.Lib.Math.Cohomology.CupAW.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Delta.Linear
 import E213.Lib.Math.Cohomology.Hodge.Involution
-import E213.Lib.Math.Cohomology.XorPairCombine
+import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Algebraic Leibniz lift at (5, 2, 1) — α-side lens
@@ -31,7 +31,7 @@ open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.CupAW.Bilinear (cupAW_add_left cupAW_add_right)
 open E213.Lib.Math.Cohomology.Delta.Linear (delta_add)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 bz5_2)
-open E213.Lib.Math.Cohomology.XorPairCombine (combine_10)
+open E213.Lib.Math.Cohomology.Bridge.XorPairCombine (combine_10)
 open E213.Lib.Math.Cohomology.CupAW.Pointwise (cupAW_pointwise_eq)
 open E213.Lib.Math.Cohomology.Delta.Pointwise (delta_pointwise_eq)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp

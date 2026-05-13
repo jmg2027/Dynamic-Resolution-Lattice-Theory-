@@ -16,7 +16,7 @@ This is the residual combinatorial step after bilinearity reduces
 (5, 1, 2) Leibniz to a pure 20-Bool XOR rearrangement.
 -/
 
-namespace E213.Lib.Math.Cohomology.XorPairCombine
+namespace E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
@@ -67,4 +67,4 @@ theorem combine_5 (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 : Bool) :
   simp only [List.foldr, Bool.xor_false] at h
   exact h
 
-end E213.Lib.Math.Cohomology.XorPairCombine
+end E213.Lib.Math.Cohomology.Bridge.XorPairCombine

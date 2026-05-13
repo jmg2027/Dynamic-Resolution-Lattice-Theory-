@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cohomology.Delta.Core
 
 import E213.Lib.Math.Cohomology.Cochain.Core
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # δ is XOR-linear: δ(σ + τ) = δσ + δτ
@@ -19,7 +19,7 @@ namespace E213.Lib.Math.Cohomology.Delta.Linear
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Delta.Core (delta deltaAt subsetIdx)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 
 /-- foldl-XOR distributivity over a Decidable conditional. -/
 private theorem List.foldl_xor_dist
