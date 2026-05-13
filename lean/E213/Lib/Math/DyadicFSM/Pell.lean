@@ -7,11 +7,6 @@ import E213.Lib.Math.DyadicFSM.Pell.LensTriple
 import E213.Lib.Math.DyadicFSM.Pell.Proper
 import E213.Lib.Math.DyadicFSM.Pell.Proper8
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod11
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod13
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod17
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod19
-import E213.Lib.Math.DyadicFSM.Pell.ProperMod23
 import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Pell`.
