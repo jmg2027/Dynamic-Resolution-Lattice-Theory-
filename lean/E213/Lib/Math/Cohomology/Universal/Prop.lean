@@ -22,32 +22,32 @@ open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Delta.Pointwise (delta_pointwise_eq)
 
 /-- Helper: δ²(zero 3 0) = 0 (∀ form). -/
-theorem aux_zero_3_0 :
+private theorem aux_zero_3_0 :
     ∀ i : Fin (binom 3 2), delta (delta (Cochain.zero 3 0)) i = false := by
   decide
 
 /-- Helper: δ²(true at (3, 0)) = 0 (∀ form). -/
-theorem aux_true_3_0 :
+private theorem aux_true_3_0 :
     ∀ i : Fin (binom 3 2),
       delta (delta (fun _ : Fin (binom 3 0) => true)) i = false := by decide
 
 /-- Helper: δ²(zero 4 0) = 0 (∀ form). -/
-theorem aux_zero_4_0 :
+private theorem aux_zero_4_0 :
     ∀ i : Fin (binom 4 2), delta (delta (Cochain.zero 4 0)) i = false := by
   decide
 
 /-- Helper: δ²(true at (4, 0)) = 0. -/
-theorem aux_true_4_0 :
+private theorem aux_true_4_0 :
     ∀ i : Fin (binom 4 2),
       delta (delta (fun _ : Fin (binom 4 0) => true)) i = false := by decide
 
 /-- Helper: δ²(zero 5 0) = 0 (∀ form). -/
-theorem aux_zero_5_0 :
+private theorem aux_zero_5_0 :
     ∀ i : Fin (binom 5 2), delta (delta (Cochain.zero 5 0)) i = false := by
   decide
 
 /-- Helper: δ²(true at (5, 0)) = 0. -/
-theorem aux_true_5_0 :
+private theorem aux_true_5_0 :
     ∀ i : Fin (binom 5 2),
       delta (delta (fun _ : Fin (binom 5 0) => true)) i = false := by decide
 
