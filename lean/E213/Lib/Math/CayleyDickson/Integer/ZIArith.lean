@@ -17,7 +17,7 @@ only, componentwise on `Int`.
 
 namespace E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 
-open E213.Theory.Internal.Int213 (add_comm neg_add)
+open E213.Meta.Int213 (add_comm neg_add)
 
 instance : Add ZI := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg ZI := ⟨fun u => ⟨-u.re, -u.im⟩⟩
@@ -60,8 +60,8 @@ theorem zero_add (u : ZI) : 0 + u = u := by
 
 theorem add_comm (u v : ZI) : u + v = v + u := by
   apply ext
-  · show u.re + v.re = v.re + u.re; exact E213.Theory.Internal.Int213.add_comm _ _
-  · show u.im + v.im = v.im + u.im; exact E213.Theory.Internal.Int213.add_comm _ _
+  · show u.re + v.re = v.re + u.re; exact E213.Meta.Int213.add_comm _ _
+  · show u.im + v.im = v.im + u.im; exact E213.Meta.Int213.add_comm _ _
 
 -- Conj compatibility with add/sub.
 
@@ -86,16 +86,16 @@ theorem conj_sub (u v : ZI) : (u - v).conj = u.conj - v.conj := by
 theorem neg_mul (u v : ZI) : (-u) * v = -(u * v) := by
   apply ext
   · show -u.re * v.re - -u.im * v.im = -(u.re * v.re - u.im * v.im)
-    rw [E213.Theory.Internal.Int213.neg_mul,
-        E213.Theory.Internal.Int213.neg_mul]
+    rw [E213.Meta.Int213.neg_mul,
+        E213.Meta.Int213.neg_mul]
     have hL : -(u.re * v.re) - -(u.im * v.im) = -(u.re * v.re) + u.im * v.im := by
       rw [Int.sub_eq_add_neg, Int.neg_neg]
     have hR : -(u.re * v.re - u.im * v.im) = -(u.re * v.re) + u.im * v.im := by
       rw [Int.sub_eq_add_neg, neg_add, Int.neg_neg]
     exact hL.trans hR.symm
   · show -u.re * v.im + -u.im * v.re = -(u.re * v.im + u.im * v.re)
-    rw [E213.Theory.Internal.Int213.neg_mul,
-        E213.Theory.Internal.Int213.neg_mul, ← neg_add]
+    rw [E213.Meta.Int213.neg_mul,
+        E213.Meta.Int213.neg_mul, ← neg_add]
 
 theorem mul_neg (u v : ZI) : u * (-v) = -(u * v) := by
   rw [mul_comm, neg_mul, mul_comm v u]

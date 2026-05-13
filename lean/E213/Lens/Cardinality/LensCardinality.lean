@@ -159,11 +159,11 @@ theorem treeTower_signed :
       -- Goal: 1 + ((m : Int) - 1) = ((m + 1 : Nat) : Int) - 1.
       -- Both sides equal (m : Int).
       have lhs_eq : (1 : Int) + ((m : Int) - 1) = (m : Int) :=
-        (E213.Theory.Internal.Int213.add_comm 1 ((m : Int) - 1)).trans
-          (E213.Theory.Internal.Int213.sub_add_cancel_int (m : Int) 1)
+        (E213.Meta.Int213.add_comm 1 ((m : Int) - 1)).trans
+          (E213.Meta.Int213.sub_add_cancel_int (m : Int) 1)
       have rhs_eq : ((m + 1 : Nat) : Int) - 1 = (m : Int) := by
         show Int.subNatNat (m + 1) 1 = Int.ofNat m
-        rw [E213.Theory.Internal.Int213.subNatNat_of_le (Nat.le_add_left 1 m)]
+        rw [E213.Meta.Int213.subNatNat_of_le (Nat.le_add_left 1 m)]
         show Int.ofNat (m + 1 - 1) = Int.ofNat m
         rw [E213.Tactic.Nat213.add_sub_cancel_right m 1]
       exact lhs_eq.trans rhs_eq.symm
@@ -196,7 +196,7 @@ theorem signedLens_image_ge_neg_one :
         treeTower_signed (n + 1)
       have h_rhs : ((n + 1 : Nat) : Int) - 1 = Int.ofNat n := by
         show Int.subNatNat (n + 1) 1 = Int.ofNat n
-        rw [E213.Theory.Internal.Int213.subNatNat_of_le (Nat.le_add_left 1 n)]
+        rw [E213.Meta.Int213.subNatNat_of_le (Nat.le_add_left 1 n)]
         show Int.ofNat (n + 1 - 1) = Int.ofNat n
         rw [E213.Tactic.Nat213.add_sub_cancel_right n 1]
       exact h_tree.trans h_rhs
@@ -225,8 +225,8 @@ theorem signedLens_unbounded_above :
     show Int.NonNeg ((N : Int) - (N : Int))
     have hzero : (N : Int) - (N : Int) = 0 := by
       show (N : Int) + (-(N : Int)) = 0
-      exact (E213.Theory.Internal.Int213.add_comm _ _).trans
-        (E213.Theory.Internal.Int213.add_left_neg _)
+      exact (E213.Meta.Int213.add_comm _ _).trans
+        (E213.Meta.Int213.add_left_neg _)
     rw [hzero]
     exact Int.NonNeg.mk 0
   exact ⟨r, Eq.subst (motive := fun x => (N : Int) ≤ x) hr.symm h_refl_N⟩

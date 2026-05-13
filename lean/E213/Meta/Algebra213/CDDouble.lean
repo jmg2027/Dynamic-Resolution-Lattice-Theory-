@@ -26,7 +26,7 @@ Caveats:
     associativity breaks; we get an "alternative" structure instead.
 -/
 
-namespace E213.Theory.Internal.Algebra213
+namespace E213.Meta.Algebra213
 
 /-- Combined commutative *-ring class for clean CD-double base. -/
 class CommStarRing213 (α : Type) extends CommRing213 α, StarRing213 α
@@ -59,9 +59,9 @@ theorem ext {u v : CDDouble α} (hr : u.re = v.re) (hi : u.im = v.im) :
 
 end CDDouble
 
-end E213.Theory.Internal.Algebra213
+end E213.Meta.Algebra213
 
-namespace E213.Theory.Internal.Algebra213.CDDouble
+namespace E213.Meta.Algebra213.CDDouble
 
 variable {α : Type}
 
@@ -89,9 +89,9 @@ private theorem add_left_neg' [Ring213 α] (u : CDDouble α) : -u + u = 0 := by
   · exact Ring213.add_left_neg u.re
   · exact Ring213.add_left_neg u.im
 
-end E213.Theory.Internal.Algebra213.CDDouble
+end E213.Meta.Algebra213.CDDouble
 
-namespace E213.Theory.Internal.Algebra213.CDDouble
+namespace E213.Meta.Algebra213.CDDouble
 
 variable {α : Type}
 
@@ -115,4 +115,4 @@ private theorem add_mul' [Ring213 α] [StarRing213 α] (u v w : CDDouble α) :
         Ring213.add_mul u.im v.im (StarRing213.conj w.re)]
     exact Ring213.add_4_swap_mid _ _ _ _
 
-end E213.Theory.Internal.Algebra213.CDDouble
+end E213.Meta.Algebra213.CDDouble

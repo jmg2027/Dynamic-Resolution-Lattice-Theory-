@@ -25,7 +25,7 @@ namespace E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-open E213.Theory.Internal.Algebra213
+open E213.Meta.Algebra213
 
 /-- ★ **Universal associativity** of Lipschitz multiplication.
     `(u·v)·w = u·(v·w)`.  ∅-axiom — typeclass projection through
@@ -57,7 +57,7 @@ theorem normSq_eq_zero_iff (u : Lipschitz) : normSq u = 0 ↔ u = 0 := by
     have h1 : 0 ≤ u.re.normSq := ZI.ZI.normSq_nonneg u.re
     have h2 : 0 ≤ u.im.normSq := ZI.ZI.normSq_nonneg u.im
     obtain ⟨hre, him⟩ :=
-      E213.Theory.Internal.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
+      E213.Meta.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
     apply Lipschitz.ext
     · exact (ZI.ZI.normSq_eq_zero_iff u.re).mp hre
     · exact (ZI.ZI.normSq_eq_zero_iff u.im).mp him
@@ -72,7 +72,7 @@ theorem no_zero_div (u v : Lipschitz) :
   intro huv
   have hnorm : normSq (u * v) = 0 := by rw [huv]; rfl
   rw [normSq_mul] at hnorm
-  rcases E213.Theory.Internal.Int213.mul_eq_zero hnorm with h | h
+  rcases E213.Meta.Int213.mul_eq_zero hnorm with h | h
   · left; exact (normSq_eq_zero_iff u).mp h
   · right; exact (normSq_eq_zero_iff v).mp h
 

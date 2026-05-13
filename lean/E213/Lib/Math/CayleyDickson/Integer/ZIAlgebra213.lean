@@ -18,7 +18,7 @@ Each ring axiom reduces componentwise to `Int213.*`.
 
 namespace E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 
-open E213.Theory.Internal.Algebra213
+open E213.Meta.Algebra213
 
 /-- `ofInt n = ⟨n, 0⟩` — embed Int into ZI as the real axis. -/
 def ofInt (n : Int) : ZI := ⟨n, 0⟩
@@ -27,31 +27,31 @@ def ofInt (n : Int) : ZI := ⟨n, 0⟩
 private theorem add_assoc' (u v w : ZI) : u + v + w = u + (v + w) := by
   apply ext
   · show u.re + v.re + w.re = u.re + (v.re + w.re)
-    exact E213.Theory.Internal.Int213.add_assoc _ _ _
+    exact E213.Meta.Int213.add_assoc _ _ _
   · show u.im + v.im + w.im = u.im + (v.im + w.im)
-    exact E213.Theory.Internal.Int213.add_assoc _ _ _
+    exact E213.Meta.Int213.add_assoc _ _ _
 
 private theorem add_left_neg' (u : ZI) : -u + u = 0 := by
   apply ext
   · show -u.re + u.re = 0
-    exact E213.Theory.Internal.Int213.add_left_neg _
+    exact E213.Meta.Int213.add_left_neg _
   · show -u.im + u.im = 0
-    exact E213.Theory.Internal.Int213.add_left_neg _
+    exact E213.Meta.Int213.add_left_neg _
 
 /-- ∅-axiom Int helper: `A + X + (Y + Z) = A + Y + (X + Z)` —
     swap middle two terms in a 4-term sum. -/
 private theorem add_4_swap_mid (A X Y Z : Int) :
     A + X + (Y + Z) = A + Y + (X + Z) := by
-  rw [E213.Theory.Internal.Int213.add_assoc A X (Y + Z),
-      E213.Theory.Internal.Int213.add_left_comm X Y Z,
-      ← E213.Theory.Internal.Int213.add_assoc A Y (X + Z)]
+  rw [E213.Meta.Int213.add_assoc A X (Y + Z),
+      E213.Meta.Int213.add_left_comm X Y Z,
+      ← E213.Meta.Int213.add_assoc A Y (X + Z)]
 
 /-- ∅-axiom Int helper: `(A+C) - (B+D) = A - B + (C - D)`, used
     for the re-component of ZI add_mul. -/
 private theorem int_helper_re (A B C D : Int) :
     (A + C) - (B + D) = A - B + (C - D) := by
   rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
-      E213.Theory.Internal.Int213.neg_add]
+      E213.Meta.Int213.neg_add]
   exact add_4_swap_mid A C (-B) (-D)
 
 /-- ∅-axiom Int helper: `A + C + (B + D) = A + B + (C + D)`. -/
@@ -63,11 +63,11 @@ private theorem add_mul' (u v w : ZI) : (u + v) * w = u * w + v * w := by
   apply ext
   · show (u.re + v.re) * w.re - (u.im + v.im) * w.im
        = u.re * w.re - u.im * w.im + (v.re * w.re - v.im * w.im)
-    rw [E213.Theory.Internal.Int213.add_mul, E213.Theory.Internal.Int213.add_mul]
+    rw [E213.Meta.Int213.add_mul, E213.Meta.Int213.add_mul]
     exact int_helper_re _ _ _ _
   · show (u.re + v.re) * w.im + (u.im + v.im) * w.re
        = u.re * w.im + u.im * w.re + (v.re * w.im + v.im * w.re)
-    rw [E213.Theory.Internal.Int213.add_mul, E213.Theory.Internal.Int213.add_mul]
+    rw [E213.Meta.Int213.add_mul, E213.Meta.Int213.add_mul]
     exact int_helper_im _ _ _ _
 
 private theorem mul_add' (u v w : ZI) : u * (v + w) = u * v + u * w := by
@@ -82,17 +82,17 @@ private theorem conj_mul_anti (u v : ZI) :
 private theorem self_mul_conj' (u : ZI) : u * conj u = ofInt u.normSq := by
   apply ext
   · show u.re * u.re - u.im * (-u.im) = u.re * u.re + u.im * u.im
-    rw [E213.Theory.Internal.Int213.mul_neg, Int.sub_eq_add_neg, Int.neg_neg]
+    rw [E213.Meta.Int213.mul_neg, Int.sub_eq_add_neg, Int.neg_neg]
   · show u.re * (-u.im) + u.im * u.re = 0
-    rw [E213.Theory.Internal.Int213.mul_neg, E213.Theory.Internal.Int213.mul_comm u.im u.re]
-    exact E213.Theory.Internal.Int213.add_left_neg _
+    rw [E213.Meta.Int213.mul_neg, E213.Meta.Int213.mul_comm u.im u.re]
+    exact E213.Meta.Int213.add_left_neg _
 
 private theorem ofInt_mul' (a b : Int) : ofInt a * ofInt b = ofInt (a * b) := by
   apply ext
   · show a * b - 0 * 0 = a * b
     rw [Int.mul_zero, Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
   · show a * 0 + 0 * b = 0
-    rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, Int.add_zero]
+    rw [Int.mul_zero, E213.Meta.Int213.zero_mul, Int.add_zero]
 
 private theorem ofInt_add' (a b : Int) : ofInt a + ofInt b = ofInt (a + b) := by
   apply ext
@@ -103,9 +103,9 @@ private theorem ofInt_central' (z : Int) (a : ZI) :
     ofInt z * a = a * ofInt z := by
   apply ext
   · show z * a.re - 0 * a.im = a.re * z - a.im * 0
-    rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, E213.Theory.Internal.Int213.mul_comm z a.re]
+    rw [Int.mul_zero, E213.Meta.Int213.zero_mul, E213.Meta.Int213.mul_comm z a.re]
   · show z * a.im + 0 * a.re = a.re * 0 + a.im * z
-    rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, E213.Theory.Internal.Int213.mul_comm z a.im, E213.Theory.Internal.Int213.add_comm]
+    rw [Int.mul_zero, E213.Meta.Int213.zero_mul, E213.Meta.Int213.mul_comm z a.im, E213.Meta.Int213.add_comm]
 
 private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   have h_re : a = b := congrArg ZI.re h

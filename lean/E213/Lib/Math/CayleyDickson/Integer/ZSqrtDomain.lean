@@ -24,12 +24,12 @@ theorem mul_comm (u v : ZSqrt D) : u * v = v * u := by
   apply ext
   · show u.re * v.re - D * (u.im * v.im)
        = v.re * u.re - D * (v.im * u.im)
-    rw [E213.Theory.Internal.Int213.mul_comm u.re v.re,
-        E213.Theory.Internal.Int213.mul_comm u.im v.im]
+    rw [E213.Meta.Int213.mul_comm u.re v.re,
+        E213.Meta.Int213.mul_comm u.im v.im]
   · show u.re * v.im + u.im * v.re = v.re * u.im + v.im * u.re
-    rw [E213.Theory.Internal.Int213.mul_comm u.re v.im,
-        E213.Theory.Internal.Int213.mul_comm u.im v.re,
-        E213.Theory.Internal.Int213.add_comm]
+    rw [E213.Meta.Int213.mul_comm u.re v.im,
+        E213.Meta.Int213.mul_comm u.im v.re,
+        E213.Meta.Int213.add_comm]
 
 /-- `|uv|² = |u|²·|v|²` for any `D`. -/
 theorem normSq_mul (u v : ZSqrt D) :
@@ -46,14 +46,14 @@ theorem conj_mul (u v : ZSqrt D) :
   · show u.re * v.re - D * (u.im * v.im)
        = u.re * v.re - D * ((-u.im) * (-v.im))
     have h : (-u.im) * (-v.im) = u.im * v.im := by
-      rw [E213.Theory.Internal.Int213.neg_mul,
-          E213.Theory.Internal.Int213.mul_neg, Int.neg_neg]
+      rw [E213.Meta.Int213.neg_mul,
+          E213.Meta.Int213.mul_neg, Int.neg_neg]
     rw [h]
   · show -(u.re * v.im + u.im * v.re)
        = u.re * (-v.im) + (-u.im) * v.re
-    rw [E213.Theory.Internal.Int213.mul_neg,
-        E213.Theory.Internal.Int213.neg_mul,
-        ← E213.Theory.Internal.Int213.neg_add]
+    rw [E213.Meta.Int213.mul_neg,
+        E213.Meta.Int213.neg_mul,
+        ← E213.Meta.Int213.neg_add]
 
 theorem normSq_nonneg (hD : 0 ≤ D) (u : ZSqrt D) :
     0 ≤ u.normSq := by
@@ -61,8 +61,8 @@ theorem normSq_nonneg (hD : 0 ≤ D) (u : ZSqrt D) :
   have h1 := IntHelpers.mul_self_nonneg u.re
   have h2 := IntHelpers.mul_self_nonneg u.im
   have h3 : 0 ≤ D * (u.im * u.im) :=
-    E213.Theory.Internal.Int213.mul_nonneg hD h2
-  exact E213.Theory.Internal.Int213.add_nonneg h1 h3
+    E213.Meta.Int213.mul_nonneg hD h2
+  exact E213.Meta.Int213.add_nonneg h1 h3
 
 variable {D : Int}
 
@@ -78,11 +78,11 @@ theorem normSq_eq_zero_iff (hD : 0 < D) (u : ZSqrt D) :
       | .ofNat _, _ => Int.ofNat_nonneg _
       | .negSucc _, h => by cases h
     have h3 : 0 ≤ D * (u.im * u.im) :=
-      E213.Theory.Internal.Int213.mul_nonneg hDnn h2
+      E213.Meta.Int213.mul_nonneg hDnn h2
     obtain ⟨hre, hd_im⟩ :=
-      E213.Theory.Internal.Int213.add_eq_zero_of_nonneg h1 h3 h_eq
+      E213.Meta.Int213.add_eq_zero_of_nonneg h1 h3 h_eq
     have him : u.im * u.im = 0 := by
-      rcases E213.Theory.Internal.Int213.mul_eq_zero hd_im with hD0 | h
+      rcases E213.Meta.Int213.mul_eq_zero hd_im with hD0 | h
       · exfalso; rw [hD0] at hD; cases hD
       · exact h
     apply ext
@@ -100,9 +100,9 @@ theorem no_zero_div (hD : 0 < D) (u v : ZSqrt D) :
   have hn : (u * v).normSq = 0 := by
     rw [huv]
     show (0 : Int) * 0 + D * (0 * 0) = 0
-    rw [Int.mul_zero, Int.mul_zero, E213.Theory.Internal.Int213.zero_add]
+    rw [Int.mul_zero, Int.mul_zero, E213.Meta.Int213.zero_add]
   rw [normSq_mul] at hn
-  rcases E213.Theory.Internal.Int213.mul_eq_zero hn with h | h
+  rcases E213.Meta.Int213.mul_eq_zero hn with h | h
   · exact Or.inl ((normSq_eq_zero_iff hD u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff hD v).mp h)
 

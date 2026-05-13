@@ -184,14 +184,14 @@ theorem conj_mul_anti (u v : Lipschitz) :
               (u.im.re * v.re.re - u.im.im * (-v.re.im)))
            = -(u.im.re * v.re.re - u.im.im * (-v.re.im))
              + -(v.im.re * u.re.re - v.im.im * u.re.im)
-      rw [E213.Theory.Internal.Int213.neg_add,
-          E213.Theory.Internal.Int213.add_comm]
+      rw [E213.Meta.Int213.neg_add,
+          E213.Meta.Int213.add_comm]
     · show -(v.im.re * u.re.im + v.im.im * u.re.re +
               (u.im.re * (-v.re.im) + u.im.im * v.re.re))
            = -(u.im.re * (-v.re.im) + u.im.im * v.re.re)
              + -(v.im.re * u.re.im + v.im.im * u.re.re)
-      rw [E213.Theory.Internal.Int213.neg_add,
-          E213.Theory.Internal.Int213.add_comm]
+      rw [E213.Meta.Int213.neg_add,
+          E213.Meta.Int213.add_comm]
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 
@@ -325,8 +325,8 @@ theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
        (u.im.re * u.im.re + u.im.im * u.im.im)
   -- (-x) * (-x) = -(x * (-x)) = -(-(x * x)) = x * x via neg_mul + mul_neg + neg_neg.
   have hnn : ∀ x : Int, (-x) * (-x) = x * x := fun x => by
-    rw [E213.Theory.Internal.Int213.neg_mul,
-        E213.Theory.Internal.Int213.mul_neg, Int.neg_neg]
+    rw [E213.Meta.Int213.neg_mul,
+        E213.Meta.Int213.mul_neg, Int.neg_neg]
   rw [show (-u.re).re = -u.re.re from rfl,
       show (-u.re).im = -u.re.im from rfl,
       show (-u.im).re = -u.im.re from rfl,

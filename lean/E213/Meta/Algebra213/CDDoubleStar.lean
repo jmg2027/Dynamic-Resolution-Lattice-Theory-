@@ -30,7 +30,7 @@ which proves `cdd_lift_squared` at the abstract `StarRing213`
 level (the Order-4 mechanism survives at every layer).
 -/
 
-namespace E213.Theory.Internal.Algebra213.CDDouble
+namespace E213.Meta.Algebra213.CDDouble
 
 variable {α : Type}
 
@@ -345,7 +345,7 @@ private theorem mul_assoc' [CommStarRing213 α] (u v w : CDDouble α) :
 -- Once registered, every concrete CDDouble^1 over a comm star-ring
 -- inherits all Ring213 + StarRing213 structure mechanically.
 
-open E213.Theory.Internal.Algebra213.CDDouble in
+open E213.Meta.Algebra213.CDDouble in
 instance instRing213CDDouble [CommStarRing213 α] : Ring213 (CDDouble α) where
   add_assoc    := add_assoc'
   add_comm     := add_comm'
@@ -355,7 +355,7 @@ instance instRing213CDDouble [CommStarRing213 α] : Ring213 (CDDouble α) where
   add_mul      := add_mul'
   mul_add      := mul_add'
 
-open E213.Theory.Internal.Algebra213.CDDouble in
+open E213.Meta.Algebra213.CDDouble in
 instance instStarRing213CDDouble [CommStarRing213 α] :
     StarRing213 (CDDouble α) where
   conj      := conj
@@ -363,4 +363,4 @@ instance instStarRing213CDDouble [CommStarRing213 α] :
   conj_add  := conj_add'
   conj_mul  := conj_mul'
 
-end E213.Theory.Internal.Algebra213.CDDouble
+end E213.Meta.Algebra213.CDDouble

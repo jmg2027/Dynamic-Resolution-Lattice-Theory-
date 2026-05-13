@@ -33,8 +33,8 @@ principle* — what fails is the automatic instance derivation.
 
 namespace E213.Theory.CDDouble.GenericLiftDemo
 
-open E213.Theory.Internal.Algebra213
-open E213.Theory.Internal.Algebra213.CDDouble
+open E213.Meta.Algebra213
+open E213.Meta.Algebra213.CDDouble
 open E213.Theory.CDDouble.UniversalOrder4
 
 /-- ★ Sanity demo: `cdd_lift_squared` at *second* CD layer, derived

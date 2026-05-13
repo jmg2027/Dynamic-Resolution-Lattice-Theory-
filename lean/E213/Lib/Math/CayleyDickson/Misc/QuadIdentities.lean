@@ -16,7 +16,7 @@ PURE `simp only` set:
 
 namespace E213.Lib.Math.CayleyDickson.Misc.QuadIdentities
 
-open E213.Theory.Internal.Int213
+open E213.Meta.Int213
 
 /-- ∅-axiom helper: `(z + z) + (-z + -z) = 0`. -/
 private theorem zz_neg_zz_zero (z : Int) : (z + z) + (-z + -z) = 0 := by

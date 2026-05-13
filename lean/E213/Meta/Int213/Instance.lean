@@ -12,10 +12,10 @@ This enables generic Ring213 lemmas (`add_4_swap_mid`, `add_left_comm`,
 rather than requiring `Int213.*` qualification at every call site.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Meta
 
-open E213.Theory.Internal.Algebra213
-open E213.Theory.Internal.Int213
+open E213.Meta.Algebra213
+open E213.Meta.Int213
 
 instance : Ring213 Int where
   add_assoc    := Int213.add_assoc
@@ -29,4 +29,4 @@ instance : Ring213 Int where
 instance : CommRing213 Int where
   mul_comm := Int213.mul_comm
 
-end E213.Theory.Internal
+end E213.Meta

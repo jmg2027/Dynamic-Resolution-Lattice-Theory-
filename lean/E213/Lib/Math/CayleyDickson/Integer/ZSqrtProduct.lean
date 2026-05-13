@@ -149,10 +149,10 @@ theorem zSqrtProdLens_R3_fails :
     show ZSqrt.mul 0 ZSqrt.I = 0
     apply ZSqrt.ext
     · show (0 : Int) * 0 - D₂ * (0 * 1) = 0
-      rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, Int.mul_zero]
+      rw [Int.mul_zero, E213.Meta.Int213.zero_mul, Int.mul_zero]
       rfl
     · show (0 : Int) * 1 + 0 * 0 = 0
-      rw [E213.Theory.Internal.Int213.zero_mul, Int.mul_zero]; rfl
+      rw [E213.Meta.Int213.zero_mul, Int.mul_zero]; rfl
   rw [hp1, hp2]
   rfl
 

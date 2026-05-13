@@ -68,9 +68,9 @@ theorem cup_symm (α β : C1) : cup α β = cup β α := by
   show α Cell1.a * β Cell1.b + α Cell1.b * β Cell1.a
      = β Cell1.a * α Cell1.b + β Cell1.b * α Cell1.a
   have h1 : α Cell1.a * β Cell1.b = β Cell1.b * α Cell1.a :=
-    E213.Theory.Internal.Int213.mul_comm _ _
+    E213.Meta.Int213.mul_comm _ _
   have h2 : α Cell1.b * β Cell1.a = β Cell1.a * α Cell1.b :=
-    E213.Theory.Internal.Int213.mul_comm _ _
-  rw [h1, h2, E213.Theory.Internal.Int213.add_comm]
+    E213.Meta.Int213.mul_comm _ _
+  rw [h1, h2, E213.Meta.Int213.add_comm]
 
 end E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing

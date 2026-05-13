@@ -27,7 +27,7 @@ open E213.Lib.Math.CayleyDickson.Levels.Sedenion.Sedenion
 open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-open E213.Theory.Internal.Algebra213
+open E213.Meta.Algebra213
 open E213.Tactic
 
 /-- ∅-axiom Cayley `neg_neg` via Lipschitz Ring213. -/

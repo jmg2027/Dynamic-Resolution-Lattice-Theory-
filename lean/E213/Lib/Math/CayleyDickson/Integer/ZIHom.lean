@@ -34,14 +34,14 @@ theorem conj_mul (u v : ZI) : conj (u * v) = conj u * conj v := by
     show u.re * v.re - u.im * v.im
        = u.re * v.re - (-u.im) * (-v.im)
     have h : (-u.im) * (-v.im) = u.im * v.im := by
-      rw [E213.Theory.Internal.Int213.neg_mul,
-          E213.Theory.Internal.Int213.mul_neg, Int.neg_neg]
+      rw [E213.Meta.Int213.neg_mul,
+          E213.Meta.Int213.mul_neg, Int.neg_neg]
     rw [h]
   · -- imag part
     show -(u.re * v.im + u.im * v.re)
        = u.re * (-v.im) + (-u.im) * v.re
-    rw [E213.Theory.Internal.Int213.mul_neg,
-        E213.Theory.Internal.Int213.neg_mul,
-        ← E213.Theory.Internal.Int213.neg_add]
+    rw [E213.Meta.Int213.mul_neg,
+        E213.Meta.Int213.neg_mul,
+        ← E213.Meta.Int213.neg_add]
 
 end E213.Lib.Math.CayleyDickson.Integer.ZI.ZI

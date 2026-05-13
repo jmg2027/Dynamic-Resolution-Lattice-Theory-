@@ -54,7 +54,7 @@ theorem conj_conj (u : ZOmega) : u.conj.conj = u := by
       show (u.re - u.im) + (-(-u.im)) = (u.re - u.im) + u.im
       rw [Int.neg_neg]
     rw [h1]
-    exact E213.Theory.Internal.Int213.sub_add_cancel_int u.re u.im
+    exact E213.Meta.Int213.sub_add_cancel_int u.re u.im
   · show -(-u.im) = u.im; exact Int.neg_neg _
 
 theorem conj_ne_id : ∃ x : ZOmega, conj x ≠ x := by

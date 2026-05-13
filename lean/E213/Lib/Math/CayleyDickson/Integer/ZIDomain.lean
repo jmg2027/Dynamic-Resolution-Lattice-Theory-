@@ -23,12 +23,12 @@ namespace E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 theorem mul_comm (u v : ZI) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
-    rw [E213.Theory.Internal.Int213.mul_comm u.re v.re,
-        E213.Theory.Internal.Int213.mul_comm u.im v.im]
+    rw [E213.Meta.Int213.mul_comm u.re v.re,
+        E213.Meta.Int213.mul_comm u.im v.im]
   · show u.re * v.im + u.im * v.re = v.re * u.im + v.im * u.re
-    rw [E213.Theory.Internal.Int213.mul_comm u.re v.im,
-        E213.Theory.Internal.Int213.mul_comm u.im v.re,
-        E213.Theory.Internal.Int213.add_comm]
+    rw [E213.Meta.Int213.mul_comm u.re v.im,
+        E213.Meta.Int213.mul_comm u.im v.re,
+        E213.Meta.Int213.add_comm]
 
 /-- **Diophantus identity.** `|uv|² = |u|² · |v|²`. -/
 theorem normSq_mul (u v : ZI) :
@@ -40,7 +40,7 @@ theorem normSq_mul (u v : ZI) :
 
 theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + u.im * u.im
-  exact E213.Theory.Internal.Int213.add_nonneg
+  exact E213.Meta.Int213.add_nonneg
     (IntHelpers.mul_self_nonneg u.re) (IntHelpers.mul_self_nonneg u.im)
 
 theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
@@ -50,7 +50,7 @@ theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
     have h2 := IntHelpers.mul_self_nonneg u.im
     have h_eq : u.re * u.re + u.im * u.im = 0 := h
     obtain ⟨hre, him⟩ :=
-      E213.Theory.Internal.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
+      E213.Meta.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
     apply ext
     · exact IntHelpers.mul_self_eq_zero.mp hre
     · exact IntHelpers.mul_self_eq_zero.mp him
@@ -64,7 +64,7 @@ theorem no_zero_div (u v : ZI) : u * v = 0 → u = 0 ∨ v = 0 := by
   have hn : (u * v).normSq = 0 := by
     rw [huv]; show (0 : Int) * 0 + 0 * 0 = 0; rfl
   rw [normSq_mul] at hn
-  rcases E213.Theory.Internal.Int213.mul_eq_zero hn with h | h
+  rcases E213.Meta.Int213.mul_eq_zero hn with h | h
   · exact Or.inl ((normSq_eq_zero_iff u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff v).mp h)
 

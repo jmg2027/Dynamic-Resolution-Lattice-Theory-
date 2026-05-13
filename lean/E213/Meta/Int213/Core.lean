@@ -15,7 +15,7 @@ Strategy: case-split on the two Int constructors (`ofNat`,
 no `omega`, no Mathlib.
 -/
 
-namespace E213.Theory.Internal.Int213
+namespace E213.Meta.Int213
 
 open E213.Tactic.Nat213
 
@@ -674,4 +674,4 @@ theorem add_right_comm (a b c : Int) : a + b + c = a + c + b := by
 theorem mul_one (a : Int) : a * 1 = a := by
   rw [mul_comm]; exact Int.one_mul a
 
-end E213.Theory.Internal.Int213
+end E213.Meta.Int213

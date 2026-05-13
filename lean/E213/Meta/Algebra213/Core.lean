@@ -18,7 +18,7 @@ expansion that times out at higher CD layers.
   * Generic proofs use only `rw`, `calc`, `exact`, projection.
 -/
 
-namespace E213.Theory.Internal.Algebra213
+namespace E213.Meta.Algebra213
 
 /-- Ring axioms (associative, distributive, with 0/neg).
     Note: omits `1` / `mul_one` / `one_mul` since they are not
@@ -217,4 +217,4 @@ theorem neg_add (a b : α) : -(a + b) = -a + -b := by
 
 end Ring213
 
-end E213.Theory.Internal.Algebra213
+end E213.Meta.Algebra213
