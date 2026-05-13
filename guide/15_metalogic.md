@@ -2,7 +2,7 @@
 
 **Tier:** T0
 **Status:** Closed; mechanically enforced via typeclasses + hooks.
-**Lean:** `Meta/R4Codomain.lean`, `Meta/LensCatalog.lean`,
+**Lean:** `Meta/SelfRecognising.lean`, `Meta/LensCatalog.lean`,
 `Tactic/VerifyR4.lean`, `Meta/AxiomMinimality.lean`.
 
 ## Best current statement
@@ -72,6 +72,6 @@ forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
 
 - `seed/AXIOM/`, `seed/AXIOM/00_nature.md`, `seed/AXIOM/04_falsifiability.md`.
 - `papers/paper14_213.tex` § Swap symmetry, decidability.
-- `lean/E213/Meta/R4Codomain.lean`, `Meta/LensCatalog.lean`.
+- `lean/E213/Meta/SelfRecognising.lean`, `Meta/LensCatalog.lean`.
 - `lean/E213/Tactic/VerifyR4.lean`.
 - `tools/FORBIDDEN.md`, `tools/kernel_regress.sh`.

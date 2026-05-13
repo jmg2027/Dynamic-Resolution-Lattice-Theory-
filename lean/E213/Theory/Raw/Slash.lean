@@ -15,7 +15,7 @@ open E213.Theory.Internal
 
 -- ═══ Public API: smart constructor ═══
 
-def Raw.slash (x y : Raw) (h : x ≠ y) : Raw :=
+protected def Raw.slash (x y : Raw) (h : x ≠ y) : Raw :=
   match hc : Tree.cmp x.val y.val with
   | .lt => ⟨.slash x.val y.val, by
             unfold Tree.canonical
@@ -28,7 +28,7 @@ def Raw.slash (x y : Raw) (h : x ≠ y) : Raw :=
   | .eq => absurd (Tree.cmp_eq_to_eq _ _ hc)
             (fun e => h (Subtype.ext e))
 
-theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
+protected theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h = Raw.slash y x (Ne.symm h) := by
   unfold Raw.slash
   have hsw : Tree.cmp x.val y.val = (Tree.cmp y.val x.val).swap :=
@@ -49,7 +49,7 @@ def Tree.depth : Tree → Nat
   | .slash x y => 1 + max x.depth y.depth
 end Internal
 
-def Raw.depth (r : Raw) : Nat := r.val.depth
+protected def Raw.depth (r : Raw) : Nat := r.val.depth
 
 example : Raw.depth Raw.a = 0 := rfl
 example : Raw.depth Raw.b = 0 := rfl

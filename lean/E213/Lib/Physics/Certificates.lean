@@ -9,5 +9,6 @@ import E213.Lib.Physics.Certificates.Checker
 
   ## Files (1)
 
-    * `Checker` — `Theory.Tools.CertChecker` — schema mirror + verifier
+    * `Checker` — schema mirror + verifier (mirrors the Rust
+      `Certificate` enum from `rust-engine/.../alpha_em_bracket.rs`)
 -/

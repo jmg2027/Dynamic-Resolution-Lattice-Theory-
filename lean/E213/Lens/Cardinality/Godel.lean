@@ -34,14 +34,14 @@ namespace E213.Theory.Internal
 open E213.Lens.Cardinality (pair pair_injective_4)
 
 /-- Gödel numbering of `Tree`. -/
-def Tree.toNat : Tree → Nat
+protected def Tree.toNat : Tree → Nat
   | .a         => 0
   | .b         => 1
   | .slash x y => 2 + 2 * pair (Tree.toNat x) (Tree.toNat y)
 
-theorem Tree.toNat_a : Tree.a.toNat = 0 := rfl
-theorem Tree.toNat_b : Tree.b.toNat = 1 := rfl
-theorem Tree.toNat_slash (x y : Tree) :
+protected theorem Tree.toNat_a : Tree.a.toNat = 0 := rfl
+protected theorem Tree.toNat_b : Tree.b.toNat = 1 := rfl
+protected theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
       = 2 + 2 * pair x.toNat y.toNat := rfl
 
@@ -53,7 +53,7 @@ open E213.Lens.Cardinality (pair pair_injective_4)
 
 /-- **Σ2 (Tree level).**  Gödel numbering is injective on
     Tree. -/
-theorem Tree.toNat_injective :
+protected theorem Tree.toNat_injective :
     ∀ t1 t2 : Tree, t1.toNat = t2.toNat → t1 = t2 := by
   intro t1
   induction t1 with
@@ -116,11 +116,11 @@ open E213.Theory.Internal
 
 /-- **Σ2 (Raw level).**  Raw's Gödel number = underlying
     Tree's Gödel number. -/
-def Raw.toNat (r : Raw) : Nat := r.val.toNat
+protected def Raw.toNat (r : Raw) : Nat := r.val.toNat
 
 /-- Injectivity lifts from `Tree.toNat_injective` via the
     subtype projection. -/
-theorem Raw.toNat_injective : Function.Injective Raw.toNat := by
+protected theorem Raw.toNat_injective : Function.Injective Raw.toNat := by
   intro r1 r2 heq
   have hval : r1.val = r2.val :=
     Tree.toNat_injective r1.val r2.val heq

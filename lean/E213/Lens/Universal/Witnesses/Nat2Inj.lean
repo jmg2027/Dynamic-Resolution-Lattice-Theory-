@@ -81,7 +81,7 @@ theorem expSumNat_slash_ge (x y : Raw) (h : x ≠ y) :
   exact Nat.add_le_add h2x h2y
 
 /-- Auxiliary explicit injectivity statement.  STRICT ∅-AXIOM. -/
-theorem expSumNat_inj_aux : ∀ r s : Raw, expSumNat r = expSumNat s → r = s := by
+private theorem expSumNat_inj_aux : ∀ r s : Raw, expSumNat r = expSumNat s → r = s := by
   intro r
   induction r using Raw.rec with
   | a =>

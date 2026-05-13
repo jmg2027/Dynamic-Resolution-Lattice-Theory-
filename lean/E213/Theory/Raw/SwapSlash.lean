@@ -15,7 +15,7 @@ namespace E213.Theory
 open E213.Theory.Internal
 
 /-- **Raw.swap_slash**: compatibility of Raw.swap and Raw.slash. -/
-theorem Raw.swap_slash (x y : Raw) (h : x ≠ y) :
+protected theorem Raw.swap_slash (x y : Raw) (h : x ≠ y) :
     Raw.swap (Raw.slash x y h)
       = Raw.slash (Raw.swap x) (Raw.swap y)
           (fun e => h (Raw.swap_injective e)) := by

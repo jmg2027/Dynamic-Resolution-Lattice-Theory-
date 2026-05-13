@@ -321,7 +321,7 @@ theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
   exact hcancel.symm.trans (congrArg (· - c * b) hcdist.symm)
 
 -- NOTE: cohomological-trajectory primitives (parity, mod3, mod6,
--- CRT pairing) live in `Kernel/Tactic/Mod213.lean`.  They are
+-- CRT pairing) live in `Meta/Tactic/Mod213.lean`.  They are
 -- conceptually a *different layer* from this file — Mod213 is the
 -- mod-cycle vocabulary, Nat213 is plain Nat-arithmetic helpers.
 --

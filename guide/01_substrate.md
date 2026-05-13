@@ -3,7 +3,7 @@
 **Tier:** T0/T3 hybrid
 **Status:** T0 part closed (Raw type, swap, atomicity);
 T3 part (Frobenius/π₁ external derivation) remains classical-only.
-**Lean:** `Firmware/Raw.lean`, `Firmware/RawSwap.lean`, `Meta/R4Codomain`.
+**Lean:** `Theory/Raw.lean`, `Theory/RawSwap.lean`, `Meta/SelfRecognising`.
 
 ## Best current statement
 
@@ -29,11 +29,11 @@ group), ℍ fails R3 (non-commutative). Only ℂ survives.
 
 Raw + swap automorphism + atomicity yields:
 
-- d = 5 as **theorem** (`Firmware/Atomicity/Five.lean`): unique 2a+3b decomposition
+- d = 5 as **theorem** (`Theory/Atomicity/Five.lean`): unique 2a+3b decomposition
   with both odd, irreducible by Bézout shifts.
 - (NT, NS, d) = (2, 3, 5) = (F₃, F₄, F₅): consecutive Fibonacci
-  (`Physics/Foundations/FibonacciAtomic.lean`, Phase 1 Discovery 1).
-- R1–R4 codomain typeclass hierarchy (`Meta/R4Codomain.lean`) +
+  (`Lib/Physics/Foundations/FibonacciAtomic.lean`, Phase 1 Discovery 1).
+- R1–R4 codomain typeclass hierarchy (`Meta/SelfRecognising.lean`) +
   `#verify_r4` command — checks any candidate codomain at compile time.
 
 The T0 path does not yet derive ℂ from Raw alone. It produces a
@@ -65,4 +65,4 @@ the T3 path, not re-derived in 213.
 - `papers/paper2_frobenius_to_gauge.tex` — full T3 substrate argument.
 - `papers/drlt-book/chapters/ch01_whyC.tex` — narrative version.
 - `lean/E213/Theory/Atomicity/Five.lean` — d=5 theorem.
-- `lean/E213/Meta/R4Codomain.lean` — R1–R4 typeclass.
+- `lean/E213/Meta/SelfRecognising.lean` — R1–R4 typeclass.

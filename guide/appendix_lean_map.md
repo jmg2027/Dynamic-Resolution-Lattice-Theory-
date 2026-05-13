@@ -7,12 +7,12 @@ chapter(s) where its content is treated.
 
 | Lean directory | Files | Guide chapter(s) |
 |----------------|-------|------------------|
-| `Firmware/` | 13 | Ch. 00, Ch. 01 |
+| `Theory/` | 13 | Ch. 00, Ch. 01 |
 | `OS/` | 8 | Ch. 00, Ch. 02 |
 | `Meta/` | 9 | Ch. 15 |
 | `Tactic/` | 10 | Ch. 15 |
 | `Infinity/` | 9 | Ch. 14 (extension) |
-| `Hypervisor/` | 1 | Ch. 15 |
+| `Lens/` | 1 | Ch. 15 |
 | `App/` | 1 | Ch. 03 (simplex) |
 | `Kernel/` | 14 | Ch. 06, Ch. 07, Ch. 11 (Cap_Physics*) |
 

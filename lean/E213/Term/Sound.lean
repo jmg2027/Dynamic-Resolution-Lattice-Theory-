@@ -17,11 +17,11 @@ namespace E213.Term.Sound
 open Term
 
 /-- equiv = true → eval equality. -/
-theorem of_equiv {a b : Term} (h : equiv a b = true) : eval a = eval b :=
+theorem of_equiv {a b : Term} (h : Term.equiv a b = true) : Term.eval a = Term.eval b :=
   Nat.eq_of_beq_eq_true h
 
 /-- le_b = true → eval ≤ (less-or-equal). -/
-theorem of_le_b {a b : Term} (h : le_b a b = true) : eval a ≤ eval b :=
+theorem of_le_b {a b : Term} (h : Term.le_b a b = true) : Term.eval a ≤ Term.eval b :=
   Nat.le_of_ble_eq_true h
 
 /-- propext-free version of beq reflexivity (structural induction). -/
@@ -30,20 +30,20 @@ private theorem beq_refl' : ∀ (n : Nat), Nat.beq n n = true
   | n+1   => beq_refl' n
 
 /-- Converse: eval equality → equiv = true.  Eq.subst + internal beq_refl. -/
-theorem to_equiv {a b : Term} (h : eval a = eval b) : equiv a b = true :=
-  @Eq.subst Nat (fun x => Nat.beq (eval a) x = true)
-    (eval a) (eval b) h (beq_refl' (eval a))
+theorem to_equiv {a b : Term} (h : Term.eval a = Term.eval b) : Term.equiv a b = true :=
+  @Eq.subst Nat (fun x => Nat.beq (Term.eval a) x = true)
+    (Term.eval a) (Term.eval b) h (beq_refl' (Term.eval a))
 
 /-- Application: promotes dim_law from Demo into Lean Eq form. -/
-theorem dim_law_eq : eval (add nS nT) = eval d :=
-  of_equiv rfl
+theorem dim_law_eq : Term.eval (add Term.nS Term.nT) = Term.eval Term.d :=
+  Sound.of_equiv rfl
 
 /-- Application: d² = 25 (Lean Eq). -/
-theorem d_sq_eq_25 : eval (mul d d) = 25 := rfl
+theorem d_sq_eq_25 : Term.eval (mul Term.d Term.d) = 25 := rfl
 
 /-- Application: 2 n_S² < d² (strict, Lean Lt). -/
 theorem two_nSsq_lt_dsq :
-    eval (mul (succ (succ zero)) (mul nS nS)) < eval (mul d d) :=
+    Term.eval (mul (succ (succ zero)) (mul Term.nS Term.nS)) < Term.eval (mul Term.d Term.d) :=
   Nat.lt_of_lt_of_le (by decide : 18 < 25) (Nat.le_refl 25)
 
 end E213.Term.Sound

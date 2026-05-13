@@ -4,9 +4,9 @@
 
 | # | Chapter | Tier | 4/27 standard | Primary Lean | Primary paper |
 |---|---------|------|---------------|--------------|---------------|
-| 00 | Meta — what 213 is | T0 | n/a (foundation) | Firmware/Raw, Firmware/Atomicity/Five | paper14, drlt-book ch22 |
-| 01 | Substrate — Raw to ℂ-like | T0/T3 | n/a (axiom + classical) | Firmware/Raw, Meta/R4Codomain | paper1, paper2, ch01 |
-| 02 | Atomicity — d=5, NS=3, NT=2, Fibonacci | T0 | passing (theorem) | Firmware/Atomicity/Five, Physics/FibonacciAtomic | paper1, ch02-ch03 |
+| 00 | Meta — what 213 is | T0 | n/a (foundation) | Theory/Raw, Theory/Atomicity/Five | paper14, drlt-book ch22 |
+| 01 | Substrate — Raw to ℂ-like | T0/T3 | n/a (axiom + classical) | Theory/Raw, Meta/SelfRecognising | paper1, paper2, ch01 |
+| 02 | Atomicity — d=5, NS=3, NT=2, Fibonacci | T0 | passing (theorem) | Theory/Atomicity/Five, Lib/Physics/Foundations/FibonacciAtomic | paper1, ch02-ch03 |
 | 03 | Simplex geometry & hinges | T1 | passing | Physics/Simplex/Counts, Physics/Simplex/FaceTerms | paper6, ch04-ch06 |
 | 04 | Quantization (ℏ, atomic spacing) | T1 | partial | Physics/Atomic/IE | ch07 |
 | 05 | Coupling constants (α_GUT, α_em, α_3) | T2 | partial (bracket only) | Physics/Couplings/AlphaGUT, Physics/AlphaEM/V137 | paper2, paper4, paper6, ch08 |
@@ -19,7 +19,7 @@
 | 12 | Yang–Mills & gauge | T1/T3 | partial (mass gap statement) | Physics/YangMillsGap | paper8, ch15 |
 | 13 | Critical line & RH | T3/T2 | not yet | (none) | paper5, paper7, paper9 |
 | 14 | Cohomological calculus | T0/T1 | passing (analysis213) | Research/Real213/Flux* | (new — not in papers) |
-| 15 | Metalogic — R1–R4 & falsifiability | T0 | passing | Meta/R4Codomain, Tactic/VerifyR4 | seed/AXIOM, FALSIFIABILITY |
+| 15 | Metalogic — R1–R4 & falsifiability | T0 | passing | Meta/SelfRecognising, Tactic/VerifyR4 | seed/AXIOM, FALSIFIABILITY |
 | A1 | Paper origins (reverse map) | — | — | — | — |
 | A2 | Lean module map | — | — | — | — |
 
@@ -40,7 +40,7 @@ T3  : 1 chapter   (13)
 4. Ω_Λ → 0.0008% closed (Physics/DarkEnergy)
 5. Magic numbers 7/7 → exact closed (Physics/Nuclear/MagicNumbers)
 6. Periodic table Z=1..118 → ppb-level closed (Library)
-7. d=5 atomicity → exact theorem (Firmware/Atomicity/Five)
+7. d=5 atomicity → exact theorem (Theory/Atomicity/Five)
 
 ## 4/27 standard pending list (claims not yet closed at standard)
 

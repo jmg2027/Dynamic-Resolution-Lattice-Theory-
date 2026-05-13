@@ -29,30 +29,30 @@ namespace E213.Lens.Instances.F9
 
 abbrev F3 := Fin 3
 
-def F3.zero : F3 := ⟨0, by decide⟩
-def F3.one  : F3 := ⟨1, by decide⟩
-def F3.two  : F3 := ⟨2, by decide⟩
+protected def F3.zero : F3 := ⟨0, by decide⟩
+protected def F3.one  : F3 := ⟨1, by decide⟩
+protected def F3.two  : F3 := ⟨2, by decide⟩
 
-def F3.add (a b : F3) : F3 :=
+protected def F3.add (a b : F3) : F3 :=
   ⟨(a.val + b.val) % 3, Nat.mod_lt _ (by decide)⟩
 
-def F3.mul (a b : F3) : F3 :=
+protected def F3.mul (a b : F3) : F3 :=
   ⟨(a.val * b.val) % 3, Nat.mod_lt _ (by decide)⟩
 
-def F3.neg (a : F3) : F3 :=
+protected def F3.neg (a : F3) : F3 :=
   ⟨(3 - a.val) % 3, Nat.mod_lt _ (by decide)⟩
 
-theorem F3.neg_one_eq_two : F3.neg F3.one = F3.two := by decide
-theorem F3.two_mul_two    : F3.mul F3.two F3.two = F3.one := by decide
+protected theorem F3.neg_one_eq_two : F3.neg F3.one = F3.two := by decide
+protected theorem F3.two_mul_two    : F3.mul F3.two F3.two = F3.one := by decide
 
 /-- F3 multiplication is commutative (structural). -/
-theorem F3.mul_comm : ∀ a b : F3, F3.mul a b = F3.mul b a := by
+protected theorem F3.mul_comm : ∀ a b : F3, F3.mul a b = F3.mul b a := by
   intro ⟨a, _⟩ ⟨b, _⟩
   show (⟨(a * b) % 3, _⟩ : F3) = ⟨(b * a) % 3, _⟩
   congr 1; rw [Nat.mul_comm]
 
 /-- F3 addition is commutative (structural). -/
-theorem F3.add_comm : ∀ a b : F3, F3.add a b = F3.add b a := by
+protected theorem F3.add_comm : ∀ a b : F3, F3.add a b = F3.add b a := by
   intro ⟨a, _⟩ ⟨b, _⟩
   show (⟨(a + b) % 3, _⟩ : F3) = ⟨(b + a) % 3, _⟩
   congr 1; rw [Nat.add_comm]
@@ -72,23 +72,23 @@ So this gives a proper degree-2 field extension of order 9.
 
 abbrev F9 := F3 × F3
 
-def F9.zero : F9 := (F3.zero, F3.zero)
-def F9.one  : F9 := (F3.one,  F3.zero)
-def F9.i    : F9 := (F3.zero, F3.one)
+protected def F9.zero : F9 := (F3.zero, F3.zero)
+protected def F9.one  : F9 := (F3.one,  F3.zero)
+protected def F9.i    : F9 := (F3.zero, F3.one)
 
-def F9.add (p q : F9) : F9 :=
+protected def F9.add (p q : F9) : F9 :=
   (F3.add p.1 q.1, F3.add p.2 q.2)
 
-def F9.neg (p : F9) : F9 :=
+protected def F9.neg (p : F9) : F9 :=
   (F3.neg p.1, F3.neg p.2)
 
-def F9.mul (p q : F9) : F9 :=
+protected def F9.mul (p q : F9) : F9 :=
   (F3.add (F3.mul p.1 q.1) (F3.neg (F3.mul p.2 q.2)),
    F3.add (F3.mul p.1 q.2) (F3.mul p.2 q.1))
 
 /-- Frobenius involution: x ↦ x³ in 𝔽₉/𝔽₃.
     Concretely: (a, b) ↦ (a, -b). -/
-def F9.conj (p : F9) : F9 := (p.1, F3.neg p.2)
+protected def F9.conj (p : F9) : F9 := (p.1, F3.neg p.2)
 
 end E213.Lens.Instances.F9
 
@@ -97,28 +97,28 @@ namespace E213.Lens.Instances.F9
 /-! ## §3. Core witnesses (decidable concrete facts) -/
 
 /-- **i² = -1**.  The defining relation of 𝔽₉ over 𝔽₃. -/
-theorem F9.i_sq_eq_neg_one : F9.mul F9.i F9.i = F9.neg F9.one := by decide
+protected theorem F9.i_sq_eq_neg_one : F9.mul F9.i F9.i = F9.neg F9.one := by decide
 
 /-- **Frobenius sends i to -i** — non-trivial automorphism. -/
-theorem F9.conj_i_eq_neg_i : F9.conj F9.i = F9.neg F9.i := by decide
+protected theorem F9.conj_i_eq_neg_i : F9.conj F9.i = F9.neg F9.i := by decide
 
 /-- **Frobenius fixes 1** — as required for field automorphism. -/
-theorem F9.conj_one : F9.conj F9.one = F9.one := by decide
+protected theorem F9.conj_one : F9.conj F9.one = F9.one := by decide
 
 /-- **Concrete involution witness**: conj (conj i) = i. -/
-theorem F9.conj_conj_i : F9.conj (F9.conj F9.i) = F9.i := by decide
+protected theorem F9.conj_conj_i : F9.conj (F9.conj F9.i) = F9.i := by decide
 
 /-- **Frobenius non-trivial**: there is a point it moves. -/
-theorem F9.conj_nontrivial : F9.conj F9.i ≠ F9.i := by decide
+protected theorem F9.conj_nontrivial : F9.conj F9.i ≠ F9.i := by decide
 
 /-- **No zero divisor at i**: i · i = -1 ≠ 0. -/
-theorem F9.i_mul_i_nonzero : F9.mul F9.i F9.i ≠ F9.zero := by decide
+protected theorem F9.i_mul_i_nonzero : F9.mul F9.i F9.i ≠ F9.zero := by decide
 
 /-- **1 is not 0**. -/
-theorem F9.one_ne_zero : F9.one ≠ F9.zero := by decide
+protected theorem F9.one_ne_zero : F9.one ≠ F9.zero := by decide
 
 /-- **Distinct base values**: 1 ≠ i. -/
-theorem F9.one_ne_i : F9.one ≠ F9.i := by decide
+protected theorem F9.one_ne_i : F9.one ≠ F9.i := by decide
 
 end E213.Lens.Instances.F9
 
@@ -150,7 +150,7 @@ theorem f9Lens_view_b : f9Lens.view Raw.b = F9.i := rfl
 
 /-- F9 multiplication is commutative — structural proof via
     F3.mul_comm and F3.add_comm.  No ∀-Decidable needed. -/
-theorem F9.mul_comm : ∀ p q : F9, F9.mul p q = F9.mul q p := by
+protected theorem F9.mul_comm : ∀ p q : F9, F9.mul p q = F9.mul q p := by
   intro ⟨a, b⟩ ⟨c, d⟩
   show (F3.add (F3.mul a c) (F3.neg (F3.mul b d)),
         F3.add (F3.mul a d) (F3.mul b c))

@@ -2,7 +2,7 @@
 
 **Tier:** T0 (foundation — only in 213-internal vocabulary)
 **Status:** Foundation; defines the 4/27 standard.
-**Lean:** `Firmware/Raw.lean`, `Firmware/Atomicity/Five.lean`, `Meta/AxiomMinimality`.
+**Lean:** `Theory/Raw.lean`, `Theory/Atomicity/Five.lean`, `Meta/AxiomMinimality`.
 
 ## Best current statement
 
@@ -47,7 +47,7 @@ support recognition, repetition, and combination.
 |-----------|-----------------|
 | ZFC + Choice | Raw + swap automorphism |
 | Peano arithmetic | Raw + atomicity (NS=3, NT=2, d=5) |
-| Category theory | R1–R4 typeclass (Meta/R4Codomain) |
+| Category theory | R1–R4 typeclass (Meta/SelfRecognising) |
 | First-order logic | Decidable equivalence (paper14) |
 
 213 is **strictly weaker in ontology** (no Choice, no power set, no

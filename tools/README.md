@@ -27,10 +27,10 @@
 
 ## Architecture audits
 
-  - `layer_audit.py` — mechanical layer assignment (Kernel /
-    Firmware / Hypervisor / Meta / OS / App) for every Lean file
-    based on import closure.  Produces canonical layer report
-    cited from `lean/E213/ARCHITECTURE.md` + `INDEX.md`.
+  - `layer_audit.py` — mechanical layer assignment (Term /
+    Theory / Lens / Lib / Meta) for every Lean file based on
+    import closure.  Produces canonical layer report cited from
+    `lean/E213/ARCHITECTURE.md` + `INDEX.md`.
 
 ## Maintenance
 
@@ -48,8 +48,8 @@
       python3 tools/sync_namespaces.py --skip-list path1,path2
 
     Default skip list (vertical-layer umbrella sharing — leave alone):
-      Firmware/Raw, Firmware/Raw.lean, Firmware/Raw{Levels,Swap}.lean,
-      Hypervisor, Infinity, Tactic, Kernel, Prelude.lean.
+      Theory/Raw, Theory/Raw.lean, Theory/Raw{Levels,Swap}.lean,
+      Lens, Lens/Cardinality, Term, Prelude.lean.
 
     Exit codes: 0 OK, 1 unresolved mismatches, 2 build failed.
 

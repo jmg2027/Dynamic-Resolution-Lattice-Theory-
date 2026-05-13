@@ -29,7 +29,7 @@ All theorems here ∅-axiom.
 namespace E213.Lens
 
 /-- Pointwise Lens equality: avoids funext on combine. -/
-def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
+protected def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
   L.base_a = M.base_a ∧
   L.base_b = M.base_b ∧
   ∀ u v, L.combine u v = M.combine u v
@@ -37,15 +37,15 @@ def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
 namespace Lens
 
 /-- Reflexivity. -/
-theorem eqPW_refl {α : Type} (L : Lens α) : L.eqPW L :=
+protected theorem eqPW_refl {α : Type} (L : Lens α) : L.eqPW L :=
   ⟨rfl, rfl, fun _ _ => rfl⟩
 
 /-- Symmetry. -/
-theorem eqPW_symm {α : Type} {L M : Lens α} (h : L.eqPW M) : M.eqPW L :=
+protected theorem eqPW_symm {α : Type} {L M : Lens α} (h : L.eqPW M) : M.eqPW L :=
   ⟨h.1.symm, h.2.1.symm, fun u v => (h.2.2 u v).symm⟩
 
 /-- Transitivity. -/
-theorem eqPW_trans {α : Type} {L M N : Lens α}
+protected theorem eqPW_trans {α : Type} {L M N : Lens α}
     (h1 : L.eqPW M) (h2 : M.eqPW N) : L.eqPW N :=
   ⟨h1.1.trans h2.1, h1.2.1.trans h2.2.1,
    fun u v => (h1.2.2 u v).trans (h2.2.2 u v)⟩
@@ -68,18 +68,18 @@ axiom-compliant Lens regime (see `Raw.fold_slash` warning).  The base
 cases need no symmetry. -/
 
 /-- Base-`a` view equality: from `L.base_a = M.base_a` only. -/
-theorem eqPW_view_a {α : Type} {L M : Lens α} (h : L.eqPW M) :
+protected theorem eqPW_view_a {α : Type} {L M : Lens α} (h : L.eqPW M) :
     L.view Raw.a = M.view Raw.a :=
   h.1
 
 /-- Base-`b` view equality: from `L.base_b = M.base_b` only. -/
-theorem eqPW_view_b {α : Type} {L M : Lens α} (h : L.eqPW M) :
+protected theorem eqPW_view_b {α : Type} {L M : Lens α} (h : L.eqPW M) :
     L.view Raw.b = M.view Raw.b :=
   h.2.1
 
 /-- Symmetry of `M.combine` is derivable from `L.combine`'s symmetry
     plus pointwise agreement. -/
-theorem eqPW_combine_sym_transfer {α : Type} {L M : Lens α}
+protected theorem eqPW_combine_sym_transfer {α : Type} {L M : Lens α}
     (h : L.eqPW M) (hLsym : ∀ u v, L.combine u v = L.combine v u) :
     ∀ u v, M.combine u v = M.combine v u := by
   intro u v
@@ -89,13 +89,13 @@ theorem eqPW_combine_sym_transfer {α : Type} {L M : Lens α}
 /-- **View bridge** (axiom-compliant regime): under symmetric combine,
     pointwise Lens equality implies pointwise view equality on every
     `r : Raw`.  ∅-axiom — induction on `Raw.rec`, no funext. -/
-theorem eqPW_view_of_sym {α : Type} {L M : Lens α} (h : L.eqPW M)
+protected theorem eqPW_view_of_sym {α : Type} {L M : Lens α} (h : L.eqPW M)
     (hLsym : ∀ u v, L.combine u v = L.combine v u) (r : Raw) :
     L.view r = M.view r := by
-  have hMsym := eqPW_combine_sym_transfer h hLsym
+  have hMsym := Lens.eqPW_combine_sym_transfer h hLsym
   induction r using Raw.rec with
-  | a => exact eqPW_view_a h
-  | b => exact eqPW_view_b h
+  | a => exact Lens.eqPW_view_a h
+  | b => exact Lens.eqPW_view_b h
   | slash x y hxy ihx ihy =>
       show Raw.fold L.base_a L.base_b L.combine (Raw.slash x y hxy)
          = Raw.fold M.base_a M.base_b M.combine (Raw.slash x y hxy)
@@ -123,7 +123,7 @@ canonical-form swap is discharged with `hsym_pw` in the gt branch. -/
 /-- Fold/slash compatibility: if `c : Lens β → Lens β → Lens β` is
     eqPW-symmetric pointwise, then folding over `Raw.slash x y h`
     yields a `Lens β` that's eqPW-equal to `c (fold x) (fold y)`. -/
-theorem fold_slash_eqPW {β : Type}
+protected theorem fold_slash_eqPW {β : Type}
     (ba bb : Lens β) (c : Lens β → Lens β → Lens β)
     (hsym_pw : ∀ u v : Lens β, (c u v).eqPW (c v u))
     (x y : Raw) (h : x ≠ y) :
@@ -131,7 +131,7 @@ theorem fold_slash_eqPW {β : Type}
       (c (Raw.fold ba bb c x) (Raw.fold ba bb c y)) := by
   unfold Raw.slash Raw.fold
   split <;> rename_i hc
-  · exact eqPW_refl _
+  · exact Lens.eqPW_refl _
   · -- gt: canonical form swaps; recover via hsym_pw on the swapped inputs
     show (c (Tree.fold ba bb c y.val) (Tree.fold ba bb c x.val)).eqPW
          (c (Tree.fold ba bb c x.val) (Tree.fold ba bb c y.val))
@@ -158,7 +158,7 @@ specific construction (e.g. `lensXor`) but not generically derivable
 from `Lens` alone.  Specific eqPW-congruence proofs are provided
 alongside each combine. -/
 
-theorem view_unique_eqPW {β : Type} (L : Lens (Lens β))
+protected theorem view_unique_eqPW {β : Type} (L : Lens (Lens β))
     (hsym_pw : ∀ u v, (L.combine u v).eqPW (L.combine v u))
     (hcong : ∀ u u' v v' : Lens β,
              u.eqPW u' → v.eqPW v' → (L.combine u v).eqPW (L.combine u' v'))
@@ -179,8 +179,8 @@ theorem view_unique_eqPW {β : Type} (L : Lens (Lens β))
         show (Raw.fold L.base_a L.base_b L.combine (Raw.slash x y h)).eqPW
               (L.combine (Raw.fold L.base_a L.base_b L.combine x)
                          (Raw.fold L.base_a L.base_b L.combine y))
-        exact fold_slash_eqPW L.base_a L.base_b L.combine hsym_pw x y h
-      exact eqPW_trans step1 (eqPW_trans step2 (eqPW_symm step3))
+        exact Lens.fold_slash_eqPW L.base_a L.base_b L.combine hsym_pw x y h
+      exact Lens.eqPW_trans step1 (Lens.eqPW_trans step2 (Lens.eqPW_symm step3))
 
 end Lens
 

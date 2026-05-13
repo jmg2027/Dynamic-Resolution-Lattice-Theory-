@@ -2,7 +2,7 @@ import E213.Lib.Physics.AlphaEM.Brackets
 import E213.Lib.Physics.Basel.Bound
 
 /-!
-# Theory.Tools.CertChecker — Lean-side certificate verifier
+# Lib.Physics.Certificates.Checker — Lean-side certificate verifier
 
 Mirrors the Rust `Certificate` schema emitted by
 `rust-engine/.../alpha_em_bracket.rs`.  Every Rust certificate

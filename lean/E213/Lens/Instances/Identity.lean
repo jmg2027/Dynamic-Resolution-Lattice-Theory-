@@ -81,7 +81,7 @@ theorem idLens_injective : Function.Injective idLens.view := by
 
 /-- **Yoneda-dual**: Raw element r as a function that evaluates
     every Lens α.  The dual perspective of `L.view : Raw → α`. -/
-def Raw.eval (r : Raw) {α : Type} (L : Lens α) : α := L.view r
+protected def Raw.eval (r : Raw) {α : Type} (L : Lens α) : α := L.view r
 
 /-- `r ↦ Raw.eval r idLens` is injective.  That is, Raw elements
     are distinguished from each other as Lens-evaluators. -/

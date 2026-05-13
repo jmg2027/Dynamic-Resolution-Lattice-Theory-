@@ -27,23 +27,23 @@ inductive Term : Type
 namespace Term
 
 /-- 213 standard constants (CLAUDE.md "Key Constants"). -/
-def nS : Term := succ (succ (succ zero))      -- 3
-def nT : Term := succ (succ zero)              -- 2
-def d  : Term :=                                -- 5
+protected def nS : Term := succ (succ (succ zero))      -- 3
+protected def nT : Term := succ (succ zero)              -- 2
+protected def d  : Term :=                                -- 5
   succ (succ (succ (succ (succ zero))))
-def c  : Term := succ (succ zero)              -- 2
+protected def c  : Term := succ (succ zero)              -- 2
 
 /-- Raw eval of Term: Term → ℕ.
     Uses structural recursion + core arithmetic only → 0 axiom. -/
-def eval : Term → Nat
+protected def eval : Term → Nat
   | zero      => 0
-  | succ t    => Nat.succ (eval t)
-  | add a b   => eval a + eval b
-  | mul a b   => eval a * eval b
+  | succ t    => Nat.succ (Term.eval t)
+  | add a b   => Term.eval a + Term.eval b
+  | mul a b   => Term.eval a * Term.eval b
 
 /-- 213-internal equivalence: two Terms eval to the same ℕ.
     Returns Bool — bypasses Prop equality / propext. -/
-def equiv (a b : Term) : Bool := Nat.beq (eval a) (eval b)
+protected def equiv (a b : Term) : Bool := Nat.beq (Term.eval a) (Term.eval b)
 
 end Term
 end E213.Term

@@ -11,7 +11,7 @@ Per Mingu directive: treat any theorem with non-empty axiom dependency
 as functionally equivalent to `sorry`, and have Lean **enforce** this
 at elaboration time rather than via post-hoc Python audit.
 
-This file lives in `Meta/Tactic/` (NOT `Kernel/`) because it is a
+This file lives in `Meta/Tactic/` (NOT `Term/`) because it is a
 meta-tool: it inspects axiom dependencies and is therefore allowed to
 mention the `axiom`-related machinery from Lean core.  Kernel-tier
 files remain literally axiom-free; `Meta/` may discuss them.

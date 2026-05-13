@@ -31,7 +31,7 @@ structure Nat213Lens where
   combine : Nat213 → Nat213 → Nat213
 
 /-- Apply a Nat213-lens to a Raw, producing a Nat213. -/
-def Nat213Lens.apply (L : Nat213Lens) (r : Raw) : Nat213 :=
+protected def Nat213Lens.apply (L : Nat213Lens) (r : Raw) : Nat213 :=
   Raw.fold L.base_a L.base_b L.combine r
 
 /-- ★ The leaf-count lens: counts total atoms (both a and b). -/

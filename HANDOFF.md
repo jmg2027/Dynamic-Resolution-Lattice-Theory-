@@ -1,8 +1,107 @@
-# Session Handoff — 2026-05-13 (Sessions A–I marathon)
+# Session Handoff — 2026-05-13 (Ring Encapsulation marathon)
 
 ## Branch
-`claude/zero-axiom-work-P9NPI` — pushed.
-Latest: `47d0b553 Lib.Math 빌드 clean: CDTower + Euler 잔존 fix`.
+`claude/encapsulate-ring-structure-CLeEG` — pushed.
+Latest: `41b1f52b Term ring: strict protected pass + in-ring
+qualification refactor`.
+
+## What this branch did
+
+Ring-level Lean 4 native encapsulation pass on the 4-ring + Meta
+architecture (`lean/E213/ARCHITECTURE.md`).  User goal: use
+`private` / `protected` to enforce at the language level what was
+previously only enforced via filesystem convention + the
+`.claude/hooks/layer-import-guard.sh` import-flow hook.
+
+Scope: **strict on Term / Theory / Lens (framework rings); Lib +
+Meta untouched** (per user direction "Term Theory Lens에나 캡술화
+빡쎄게 하고 다른덴 ㄴㄴ").
+
+## Commit timeline
+
+| # | Commit | Scope |
+|---|---|---|
+| 1 | `d816e1bd` | Term Phase 1 — 2 private on Tree.cmp_eq_of_eq + Tree.cmp_gt_iff_lt_swap |
+| 2 | `91eff664` | Theory Phase 2 — 5 private (half_*) + 4 protected (Raw.{fold,swap,depth,leaves}) |
+| 3 | `1bf9781b` | Lens Phase 3 — 4 protected (Lens.{view,equiv,refines,eqPW}) |
+| 4 | `569b8391` | Lib+Lens Phase 4a — 7 private (aux_* + expSumNat_inj_aux) |
+| 5 | `99a2c3bb` | Meta Phase 5 — 3 private (parity_*) |
+| 6 | `97f88d7a` | **Revert Phase 4a Lib + Phase 5 Meta** (kept Lens leftover) |
+| 7 | `bac17154` | **Strict pass A+B+C** — Theory + Lens exhaustive `protected` |
+| 8 | `41b1f52b` | **Strict pass D+E** — Tree + Term ring exhaustive `protected` + in-ring qualification refactor |
+
+## Encapsulation status by ring (after strict pass)
+
+| Ring | `private` | `protected` | Notes |
+|---|---|---|---|
+| Term | 2 + 1 existing = 3 | **every** public def + all Tree.* + Bool/Nat213 helpers | In-ring files Compare/Pair/Rat/Sound/Decide/Demo/MonomialAxioms refactored to qualified access (`Term.eval`, `Term.nS`, `Decide.allBelow`, etc.) |
+| Theory | 5 + 24 existing = 29 | every `Raw.*` (~28) + every sub-cluster `Type.method` | `protected` on Raw.{a,b,slash,slash_comm,fold,fold_a,fold_b,fold_slash,swap,swap_a,swap_b,swap_swap,swap_injective,swap_slash,swap_depth,swap_leaves,depth,leaves,fold_eq_depth,fold_eq_leaves,fold_signed_swap,fold_swap_hom,rec,level1_set,level2_new,level{1,2}_card,level2_total_card} |
+| Lens | 1 + 69 existing = 70 | every `Lens.*` (LensCore + EqPW) + every sub-cluster `Type.method` | EqPW.lean in-file refs needed qualification after `protected` (Lens.eqPW_refl, Lens.eqPW_trans, etc.) |
+| Lib | 194 existing | — | Untouched (per user direction) |
+| Meta | 41 existing | 5 existing | Untouched (per user direction) |
+
+## Build + axiom verification (final)
+
+```
+lake build (whole tree)             ✔ clean
+lake build E213.Term                ✔ 14/14
+lake build E213.Theory              ✔ 50/50
+lake build E213.Lens                ✔ 150/150
+lake build E213.Lib.Math            ✔ 905/905
+lake build E213.Lib.Physics         ✔ 254/254
+
+tools/scan_axioms.py E213.Term      45 PURE / 0 DIRTY
+tools/scan_axioms.py E213.Theory.*  ~42 PURE / 0 DIRTY  (Raw + Atomicity)
+tools/scan_axioms.py E213.Lens.*    10 PURE / 0 DIRTY  (LensCore + EqPW)
+```
+
+All 45 Term theorems remain literally `does not depend on any
+axioms`.  Strict ∅-axiom contract intact across the entire pass.
+
+## What `protected` actually enforces
+
+In Lean 4, `protected def Foo.bar` means:
+  - `Foo.bar` (qualified) always works
+  - dot notation `r.bar` (where `r : Foo`) always works
+  - **bare `bar` is blocked** even after `open Foo`, even inside
+    `namespace Foo` itself
+
+The third point bit us in the Term ring: making `Term.eval`
+protected required updating recursive `eval` references inside
+`def Term.eval` itself to `Term.eval` qualified.  Same for
+`Decide.allBelow`'s recursion, `Sound.of_equiv`'s self-call.
+
+Externally (Theory consuming Lens consuming Term consuming Raw):
+**zero caller migration was needed**, because all cross-ring
+calls already used qualified `Term.eval` / `Raw.fold` /
+`Lens.view` / `Tree.cmp` notation, or dot notation.
+
+## Deferred / future
+
+### Phase X (opaque) — still deferred
+
+Per user note earlier in session: "Opaque는 Raw native number
+type 으로 계산하기 — 계산하는 방향으로 갈 때에 적용하면 좋겠다만
+아직은 모르겠다."
+
+Trigger to revisit: when computation direction for Raw-native
+number types (`Nat213`, `Bool213`, `Closed.Nat213`) becomes a
+committed direction.  Plan sketched in
+`/root/.claude/plans/lean4-groovy-wirth.md` Phase X.
+
+### Plan file
+
+`/root/.claude/plans/lean4-groovy-wirth.md` — original phased
+plan (Phases 1–5 + deferred Phase X).  Strict revision happened
+mid-session per user direction; commits 6+ supersede the plan's
+incremental Phase 4 (Lib) and Phase 5 (Meta) sections.
+
+---
+
+## Prior session log (pre-encapsulation, kept for reference)
+
+Original handoff from `claude/zero-axiom-work-P9NPI` follows.
+
 
 ## Current state snapshot
 

@@ -36,17 +36,24 @@ import E213.Theory.Atomicity
     * `Atomicity.Five.atomic_iff_five`
     * `Atomicity.Five.canonical_partition`
     * `Atomicity.Five.IsAlive`
-    * `Atomicity.PairForcing.pair_iff_two`
-    * `Atomicity.NonDecomposable.closure_iff_three`
-    * `Atomicity.ArityForcing.arity_iff_two`
+    * `Atomicity.PairForcing.pair_forcing`
+      (+ `atomic_23_iff_five`, `count_eq_one_iff`)
+    * `Atomicity.NonDecomposable.non_decomposable_iff`
+    * `Atomicity.ArityForcing.no_reachable_rel3`
+      (+ `reachable3_only_object`)
     * `Atomicity.PrimitiveSizes.{pairSize, closureSize}`
-    * `Atomicity.Alive.alive_iff_*`
+      (+ `pairSize_nondecomposable`, `closureSize_nondecomposable`,
+       `primitive_sizes_eq_nondecomposable`)
+    * `Atomicity.Alive.alive_iff_odd_pair`
+      (+ `Survives`, `BothSurvive`, `survives_iff_odd`)
     * `Atomicity.FiveHelpers.*` (helpers)
 
   ## Sealed (NOT API — direct import discouraged)
 
-    * `Theory.Raw.Internal.*` (Tree, internal Raw plumbing)
-    * `Theory.Tools.CertChecker` (utility)
+    * `Theory.Internal.*` (Tree machinery — lives under
+      `Term/Internal/Tree*.lean` with the `E213.Theory.Internal`
+      namespace umbrella per ARCHITECTURE.md naming-exceptions
+      catalog)
 
   Both halves of TH-A + TH-B are required for any Lens consumer.
 -/

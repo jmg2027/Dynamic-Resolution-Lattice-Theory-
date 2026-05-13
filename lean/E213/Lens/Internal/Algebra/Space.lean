@@ -33,7 +33,7 @@ open E213.Lens.Algebra.Corresp
 def KernelSpace : Type := { E : Raw → Raw → Prop // IsSlashCongruence E }
 
 /-- Two KernelSpace elements are equal iff their relations are equal. -/
-theorem KernelSpace.ext {K1 K2 : KernelSpace} (h : K1.val = K2.val) : K1 = K2 :=
+protected theorem KernelSpace.ext {K1 K2 : KernelSpace} (h : K1.val = K2.val) : K1 = K2 :=
   Subtype.ext h
 
 /-- Lens (with commutative combine) → KernelSpace embedding. -/
