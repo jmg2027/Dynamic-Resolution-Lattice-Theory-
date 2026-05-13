@@ -23,7 +23,7 @@ algebraic number (when bs comes from one), but defined entirely
 in terms of trajectory state-space dimension.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.AlgebraicDegree
+namespace E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V1 (ArithFSM1)
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
@@ -84,4 +84,4 @@ theorem tribFSMmod2_has_degree3 :
     HasDegree3 tribFSMmod2.bits :=
   ⟨2, by decide, tribFSMmod2, fun _ => rfl⟩
 
-end E213.Lib.Math.DyadicFSM.AlgebraicDegree
+end E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree

@@ -5,7 +5,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Tribonacci CRT — 4 cubic moduli {2, 3, 5, 7}
 
@@ -38,7 +38,7 @@ open E213.Lib.Math.DyadicFSM.Trib.FSMmod7 (tribFSMmod7 tribFSMmod7_bits_period_4
 open E213.Lib.Math.DyadicFSM.Trib.CRTCapstone (trib_crt_capstone)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound (tribFSMmod2_signature_period_bound)
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 

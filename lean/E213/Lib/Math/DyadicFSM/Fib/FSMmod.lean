@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 
 /-!
 # Fib.FSMmod — Fibonacci ArithFSM per-modulus instances
@@ -21,7 +21,7 @@ Per-N namespaces preserved (`Fib.FSMmod{N}`).
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod3
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -66,7 +66,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod3
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod5
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -110,7 +110,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod5
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod7
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -154,7 +154,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod7
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod11
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -198,7 +198,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod11
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod13
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -238,7 +238,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod13
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod17
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -279,7 +279,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod17
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod19
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -318,7 +318,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod19
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod23
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 

@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.LCMClosure
+import E213.Lib.Math.DyadicFSM.Product.LCMClosure
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Lib.Math.NatHelpers.EncodePair213
 
@@ -9,7 +9,7 @@ Generalises the ArithFSM2 encoding to asymmetric (n, m).
 Used to define BitFSM.product across two BitFSMs of different sizes.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ProductHelpers
+namespace E213.Lib.Math.DyadicFSM.Product.ProductHelpers
 
 /-- Encode pair `(a, b) : Fin n × Fin m` into `Fin (n * m)`. -/
 def encodeFinPair {n m : Nat} (a : Fin n) (b : Fin m) : Fin (n * m) :=
@@ -44,4 +44,4 @@ theorem decode_encode_second {n m : Nat} (hm : 0 < m)
     decodeFinSecond hm (encodeFinPair a b) = b :=
   Fin.ext (E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hm a.val b.val b.isLt)
 
-end E213.Lib.Math.DyadicFSM.ProductHelpers
+end E213.Lib.Math.DyadicFSM.Product.ProductHelpers

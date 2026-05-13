@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Meta.Tactic.Nat213
 import E213.Lib.Math.NatHelpers.AddMod213
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Forward closure: bits periodic ⇒ signature eventually periodic
 
@@ -13,10 +13,10 @@ this gives the full bidirectional Tier 0 equivalence.
 All theorems at ≤ {propext, Quot.sound} (Classical.choice removed).
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ForwardClosure
+namespace E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
 
-open E213.Lib.Math.DyadicFSM.Signature (signature nextVertex)
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
   (joint_state_collision bs_periodic_multiple)
 
 /-- Helper: if `c ≤ a` and `a < b + c`, then `a - c < b`.  ∅-axiom. -/
@@ -121,4 +121,4 @@ theorem signature_eventually_periodic_of_periodic_bits
     rw [hk]
     exact bs_periodic_multiple bs p hbs k (i + d')
 
-end E213.Lib.Math.DyadicFSM.ForwardClosure
+end E213.Lib.Math.DyadicFSM.Forward.ForwardClosure

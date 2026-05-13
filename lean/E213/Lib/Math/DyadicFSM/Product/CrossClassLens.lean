@@ -1,13 +1,13 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Pell.LensPairs
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.ProductFSM
+import E213.Lib.Math.DyadicFSM.Product.ProductFSM
 /-!
 # Cross-class lens — Pell (quadratic) × Tribonacci (cubic)
 
@@ -21,7 +21,7 @@ Pell mod 3 × Tribonacci mod 2:
   - Product:     BitFSM(72), period | lcm(4, 4) = 4
 -/
 
-namespace E213.Lib.Math.DyadicFSM.CrossClassLens
+namespace E213.Lib.Math.DyadicFSM.Product.CrossClassLens
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
@@ -31,8 +31,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 open E213.Lib.Math.DyadicFSM.Pell.LensPairs
   (pellMod3_BitFSM_bits_period_4 pellMod5_BitFSM_bits_period_10)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
-open E213.Lib.Math.DyadicFSM.ProductFSM
-open E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd (lens_composition_period_dvd)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSM
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd (lens_composition_period_dvd)
 
 
 /-- Lifted bit periodicity for Tribonacci mod 2 (BitFSM form). -/
@@ -87,4 +87,4 @@ theorem crossLens_pell5_trib2_period_20 :
     xor 10 4 20 (by decide) (by decide) ⟨2, rfl⟩ ⟨5, rfl⟩
     pellMod5_BitFSM_bits_period_10 tribMod2_BitFSM_bits_period_4 k
 
-end E213.Lib.Math.DyadicFSM.CrossClassLens
+end E213.Lib.Math.DyadicFSM.Product.CrossClassLens

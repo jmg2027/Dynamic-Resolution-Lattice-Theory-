@@ -3,7 +3,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.Signature
 import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Concrete signature periods for the Pell ArithFSM family
 
@@ -24,7 +24,7 @@ namespace E213.Lib.Math.DyadicFSM.ConcretePellSig
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3_bits_period_4 pellFSMmod2_bits_period_3)
 
-open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod2 pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 

@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
-import E213.Lib.Math.DyadicFSM.Tier2Hardness
+import E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
@@ -13,7 +13,7 @@ ArithFSM3-generable then it would be BitFSM-generable, contradicting
 -/
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.V3Hardness
-open E213.Lib.Math.DyadicFSM.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
+open E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound (toBitFSM3_bits_eq)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 

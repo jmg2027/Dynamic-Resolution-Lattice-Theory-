@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.Classifier
+import E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
 import E213.Lib.Math.NatHelpers.NatDiv213
 
-import E213.Lib.Math.DyadicFSM.Conjecture
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy
 
@@ -15,11 +15,11 @@ This file connects the K_{3,2}^{(2)} signature classifier to that
 hierarchy via the *eventually-periodic* abstraction.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.TierBridge
+namespace E213.Lib.Math.DyadicFSM.Tier.TierBridge
 
-open E213.Lib.Math.DyadicFSM.Signature (signature nextVertex)
-open E213.Lib.Math.DyadicFSM.Classifier (signature_periodic_implies_bits_periodic)
-open E213.Lib.Math.DyadicFSM.Conjecture (periodicBit)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
+open E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier (signature_periodic_implies_bits_periodic)
+open E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture (periodicBit)
 
 /-- Eventually periodic: from some pre-period N onward, period p. -/
 def EventuallyPeriodic {α : Type} (f : Nat → α) (p : Nat) : Prop :=
@@ -101,4 +101,4 @@ forces a cycle within ≤ 5p+1 steps after pre-period N.
 (Available via `OS.Pigeonhole.no_inj_lt`; full formalisation
 is the natural next step.) -/
 
-end E213.Lib.Math.DyadicFSM.TierBridge
+end E213.Lib.Math.DyadicFSM.Tier.TierBridge

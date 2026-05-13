@@ -9,7 +9,7 @@ This file lays the *language* — definitions + decidable tests —
 without yet proving the universal statement.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.Conjecture
+namespace E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture
 
 open E213.Lib.Math.Cohomology.Bipartite.V32 (srcFin tgtFin)
 
@@ -77,4 +77,4 @@ theorem one_seventh_walk :
        = [false, false, true, false, false, true] :=
   ⟨by decide, by decide⟩
 
-end E213.Lib.Math.DyadicFSM.Conjecture
+end E213.Lib.Math.DyadicFSM.Signature.Signature.Conjecture

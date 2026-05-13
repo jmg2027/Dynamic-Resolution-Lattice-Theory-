@@ -1,13 +1,13 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Legendre.Legendre
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriod
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
-import E213.Lib.Math.DyadicFSM.AlgebraicDegree
+import E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.LCMClosure
+import E213.Lib.Math.DyadicFSM.Product.LCMClosure
 /-!
 # 213-native number theory — consolidated v1 + v2 + v3 master capstones
 
@@ -37,10 +37,10 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod13 (pellFSMmod13)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2)
-open E213.Lib.Math.DyadicFSM.AlgebraicDegree
+open E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree
   (HasDegree1 HasDegree2 HasDegree3 degree1_imp_degree2 degree2_imp_degree3
    pellFSMmod3_has_degree2 tribFSMmod2_has_degree3)
-open E213.Lib.Math.DyadicFSM.LCMClosure (bs_combined_periodic_product)
+open E213.Lib.Math.DyadicFSM.Product.LCMClosure (bs_combined_periodic_product)
 open E213.Lib.Math.DyadicFSM.Pell.ProperBridge
   (legendre_8_mod_3 legendre_8_mod_5 legendre_8_mod_7 pisano_predict_proper_correct)
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pisano_predict_proper)

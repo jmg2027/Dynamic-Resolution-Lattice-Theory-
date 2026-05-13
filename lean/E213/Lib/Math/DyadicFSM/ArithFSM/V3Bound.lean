@@ -4,7 +4,7 @@ import E213.Lib.Math.NatHelpers.NatDiv213
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # ArithFSM3.toBitFSM bits equivalence + signature period bound
 
@@ -16,12 +16,12 @@ Completes the cubic-class chain:
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3Equiv (toBitFSM3_run_encode encode3_div_nn_pub encode3_inner_div_pub encode3_mod_n)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2)
 open E213.Lib.Math.DyadicFSM.BitFSM.Bound (fsm_signature_period_bound)
-open E213.Lib.Math.DyadicFSM.Signature (signature_eq_of_pointwise_eq)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature_eq_of_pointwise_eq)
 
 
 /-- ★★★★ ArithFSM3.toBitFSM bit stream equals original. -/

@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.ProductFSMRun
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMRun
 
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.LCMClosure
-import E213.Lib.Math.DyadicFSM.ProductFSM
+import E213.Lib.Math.DyadicFSM.Product.LCMClosure
+import E213.Lib.Math.DyadicFSM.Product.ProductFSM
 /-!
 # Lens Composition Theorem — period | p * q
 
@@ -18,12 +18,12 @@ rather than `Nat.lcm p q` to remain ∅-axiom (Lean-core `Nat.lcm`
 brings `propext` via well-founded gcd termination).
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ProductFSMPeriod
+namespace E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod
 
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
-open E213.Lib.Math.DyadicFSM.ProductFSM
-open E213.Lib.Math.DyadicFSM.ProductFSMRun (product_bits_eq)
-open E213.Lib.Math.DyadicFSM.LCMClosure (bs_combined_periodic_product)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSM
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMRun (product_bits_eq)
+open E213.Lib.Math.DyadicFSM.Product.LCMClosure (bs_combined_periodic_product)
 
 
 /-- ★★★★★★ Lens Composition Theorem — product FSM is periodic at
@@ -52,4 +52,4 @@ theorem lens_composition_same_period {n m : Nat} (hm : 0 < m)
   rw [product_bits_eq, product_bits_eq]
   rw [h1, h2]
 
-end E213.Lib.Math.DyadicFSM.ProductFSMPeriod
+end E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod

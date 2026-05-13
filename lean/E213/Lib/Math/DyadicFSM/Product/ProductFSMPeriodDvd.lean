@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.ProductFSMRun
-import E213.Lib.Math.DyadicFSM.LCMClosure
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMRun
+import E213.Lib.Math.DyadicFSM.Product.LCMClosure
 
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.ProductFSM
+import E213.Lib.Math.DyadicFSM.Product.ProductFSM
 /-!
 # Lens Composition (∅-axiom variant) — explicit `L` with dvd witnesses
 
@@ -12,12 +12,12 @@ explicit divisibility witnesses `p ∣ L`, `q ∣ L`, supplied by `decide`
 in concrete callers.  Result is fully ∅-axiom.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
+namespace E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
-open E213.Lib.Math.DyadicFSM.ProductFSM
-open E213.Lib.Math.DyadicFSM.ProductFSMRun (product_bits_eq)
-open E213.Lib.Math.DyadicFSM.LCMClosure (bs_periodic_of_dvd)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSM
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMRun (product_bits_eq)
+open E213.Lib.Math.DyadicFSM.Product.LCMClosure (bs_periodic_of_dvd)
 
 /-- Lens composition with explicit common period `L` + dvd witnesses.
     ∅-axiom — tactic-free to avoid `rw`-induced propext leak. -/
@@ -44,4 +44,4 @@ theorem lens_composition_period_dvd {n m : Nat} (hm : 0 < m)
     h1L ▸ h2L ▸ rfl
   step1.trans (step3.trans step2.symm)
 
-end E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
+end E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd

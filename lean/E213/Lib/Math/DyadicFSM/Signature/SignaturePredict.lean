@@ -4,7 +4,7 @@ import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Signature-period predictor — bipartite parity doubling layer
 
@@ -33,7 +33,7 @@ Verified at all 7 primes:
   | 19 |     9  odd |    18  (=2·9)    |   18    |
 -/
 
-namespace E213.Lib.Math.DyadicFSM.SignaturePredict
+namespace E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
@@ -44,7 +44,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18 pellFSMmod17_signature_period_18)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9 pellFSMmod19_signature_period_18)
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 
@@ -94,4 +94,4 @@ theorem signature_predict_realises_pell_7 :
   · intro k; rw [H.2.2.2.2.2.1]; exact pellFSMmod17_signature_period_18 k
   · intro k; rw [H.2.2.2.2.2.2]; exact pellFSMmod19_signature_period_18 k
 
-end E213.Lib.Math.DyadicFSM.SignaturePredict
+end E213.Lib.Math.DyadicFSM.Signature.Signature.SignaturePredict

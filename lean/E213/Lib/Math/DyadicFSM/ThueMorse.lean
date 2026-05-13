@@ -1,6 +1,6 @@
-import E213.Lib.Math.DyadicFSM.Tier2Hardness
+import E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Thue-Morse — aperiodic 2-automatic bit stream
 
@@ -14,7 +14,7 @@ but finitely describable via popcount.  Not BitFSM-generable
 
 namespace E213.Lib.Math.DyadicFSM.ThueMorse
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 
 
 /-- 213-native bit extractor (LSB at position 0).  ∅-axiom — uses

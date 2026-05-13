@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 import E213.Lib.Math.NatHelpers.AddMod213
 
 /-!
@@ -16,9 +16,9 @@ S-side and T-side.  Therefore the signature trajectory:
 This is the formal statement of bipartite alternation.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.SignatureBipartite
+namespace E213.Lib.Math.DyadicFSM.Signature.Signature.SignatureBipartite
 
-open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 
 /-- Predicate: vertex is on S-side. -/
 def isS (v : Fin 5) : Prop := v.val < 3
@@ -118,4 +118,4 @@ theorem signature_bipartite_alternation (bs : Nat → Bool) (k : Nat) :
       exact nextVertex_S_to_T (signature bs k')
         (ih.1 (succ_mod2_one_imp hpar)) (bs k')
 
-end E213.Lib.Math.DyadicFSM.SignatureBipartite
+end E213.Lib.Math.DyadicFSM.Signature.Signature.SignatureBipartite

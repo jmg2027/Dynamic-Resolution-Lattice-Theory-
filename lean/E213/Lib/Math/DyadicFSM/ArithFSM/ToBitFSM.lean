@@ -3,7 +3,7 @@ import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Lib.Math.NatHelpers.EncodePair213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # ArithFSM2(n) ⊂ BitFSM(n²) — bit-stream equivalence
 
@@ -18,10 +18,10 @@ explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 
 open E213.Lib.Math.DyadicFSM.BitFSM.Bound (fsm_signature_period_bound)
-open E213.Lib.Math.DyadicFSM.Signature (signature_eq_of_pointwise_eq)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature_eq_of_pointwise_eq)
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 
 

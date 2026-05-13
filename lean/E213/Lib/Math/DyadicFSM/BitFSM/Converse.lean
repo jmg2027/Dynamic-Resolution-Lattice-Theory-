@@ -2,7 +2,7 @@ import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Lib.Math.NatHelpers.AddMod213
 
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 /-!
 # BitFSM converse — periodic bit stream ⇒ ∃ BitFSM
 
@@ -18,7 +18,7 @@ v → ⟨(v+1) % p, _⟩; out v := bs v.
 
 namespace E213.Lib.Math.DyadicFSM.BitFSM.Converse
 
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity (bs_periodic_multiple)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity (bs_periodic_multiple)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 
 

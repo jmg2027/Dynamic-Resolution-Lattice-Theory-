@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.ProductHelpers
+import E213.Lib.Math.DyadicFSM.Product.ProductHelpers
 import E213.Lib.Math.DyadicFSM.ArithFSM.V1
 
 import E213.Lib.Math.DyadicFSM.BitFSM
@@ -14,11 +14,11 @@ The "lens composition" structure: combine via product state space,
 read out via g.  Universal — no coprimality needed.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ProductFSM
+namespace E213.Lib.Math.DyadicFSM.Product.ProductFSM
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V1 (ArithFSM1)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
-open E213.Lib.Math.DyadicFSM.ProductHelpers (encodeFinPair decodeFinFirst decodeFinSecond)
+open E213.Lib.Math.DyadicFSM.Product.ProductHelpers (encodeFinPair decodeFinFirst decodeFinSecond)
 
 /-- ★★★ Generic product BitFSM via pair-encoding. -/
 def BitFSM.product {n m : Nat} (hm : 0 < m)
@@ -32,4 +32,4 @@ def BitFSM.product {n m : Nat} (hm : 0 < m)
     (f1.out (decodeFinFirst hm v))
     (f2.out (decodeFinSecond hm v))
 
-end E213.Lib.Math.DyadicFSM.ProductFSM
+end E213.Lib.Math.DyadicFSM.Product.ProductFSM

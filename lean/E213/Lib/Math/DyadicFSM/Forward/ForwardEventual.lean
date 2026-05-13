@@ -1,9 +1,9 @@
-import E213.Lib.Math.DyadicFSM.ForwardClosure
+import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
 import E213.Lib.Math.NatHelpers.EncodePair213
 import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Forward direction (eventual): eventually periodic bits ⇒
   eventually periodic signature
@@ -18,12 +18,12 @@ by pigeonhole; periodicity follows from N₀ + i onwards.
 All theorems at ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ForwardEventual
+namespace E213.Lib.Math.DyadicFSM.Forward.ForwardEventual
 
-open E213.Lib.Math.DyadicFSM.Signature (signature nextVertex)
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
   (pigeonhole_collision collisionTest collTest_imp_val_eq encode_inj)
-open E213.Lib.Math.DyadicFSM.ForwardClosure (sub_is_multiple_of_p)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardClosure (sub_is_multiple_of_p)
 
 /-- bs eventually periodic at multiple of p, from N₀ onwards.
     STRICT ∅-AXIOM. -/
@@ -123,4 +123,4 @@ theorem signature_eventually_periodic_of_eventually_periodic_bits
       Nat.le_trans (Nat.le_add_right N₀ i) (Nat.le_add_right (N₀ + i) d')
     exact bs_periodic_multiple_from bs p N₀ hbs k (N₀ + i + d') hext
 
-end E213.Lib.Math.DyadicFSM.ForwardEventual
+end E213.Lib.Math.DyadicFSM.Forward.ForwardEventual

@@ -1,8 +1,8 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.ForwardEventual
+import E213.Lib.Math.DyadicFSM.Forward.ForwardEventual
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # ArithFSM ⇒ K_{3,2}^{(2)} signature eventually periodic
 
@@ -16,8 +16,8 @@ so the eventual-period theorem applies with N₀ = 0.
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Signature
 
-open E213.Lib.Math.DyadicFSM.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod2 pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 

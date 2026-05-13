@@ -1,6 +1,6 @@
-import E213.Lib.Math.DyadicFSM.ForwardClosure
+import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
 
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 /-!
 # Common-multiple closure — periodic streams combine multiplicatively
 
@@ -20,9 +20,9 @@ take an *arbitrary* common multiple `N` and specialise to `p * q`
 downstream capstones — staying ∅-axiom while preserving content.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.LCMClosure
+namespace E213.Lib.Math.DyadicFSM.Product.LCMClosure
 
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity (bs_periodic_multiple)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity (bs_periodic_multiple)
 
 /-- ★★★ A purely-periodic stream is periodic at any multiple of its period.
     (Pure-periodic strengthening of bs_periodic_multiple.) -/
@@ -83,4 +83,4 @@ theorem bs_combined_periodic_product
   bs_combined_periodic_at bs1 bs2 p q (p * q) hp hq
     ⟨q, rfl⟩ ⟨p, _root_.Nat.mul_comm p q⟩ h1 h2 g
 
-end E213.Lib.Math.DyadicFSM.LCMClosure
+end E213.Lib.Math.DyadicFSM.Product.LCMClosure

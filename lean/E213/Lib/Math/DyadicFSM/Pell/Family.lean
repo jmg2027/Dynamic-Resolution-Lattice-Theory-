@@ -4,7 +4,7 @@ import E213.Lib.Math.DyadicFSM.Pell.Bounds
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Pell ArithFSM family — full 4-modulus closure
 
@@ -20,7 +20,7 @@ TIGHT signature periods and universal 5n² guarantees.
 
 namespace E213.Lib.Math.DyadicFSM.Pell.Family
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod2 pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8 pellFSMmod7_signature_period_8 pellFSMmod7_signature_period_bound)

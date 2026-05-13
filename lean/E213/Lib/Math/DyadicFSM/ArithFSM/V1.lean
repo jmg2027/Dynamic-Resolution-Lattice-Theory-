@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.LCMClosure
+import E213.Lib.Math.DyadicFSM.Product.LCMClosure
 
 /-!
 # ArithFSM₁ — 0-dimensional arithmetic FSM (single state Fin n)

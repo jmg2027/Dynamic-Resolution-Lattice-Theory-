@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 
 /-!
 # ArithFSM.ModLarge — per-prime ArithFSM instances (Large primes)
@@ -15,7 +15,7 @@ Per-N namespaces preserved (`ArithFSM.Mod{N}`).
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod53
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -61,7 +61,7 @@ end E213.Lib.Math.DyadicFSM.ArithFSM.Mod53
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod59
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
@@ -115,7 +115,7 @@ end E213.Lib.Math.DyadicFSM.ArithFSM.Mod59
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod61
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 

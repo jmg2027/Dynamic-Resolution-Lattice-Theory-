@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.TierBridge
+import E213.Lib.Math.DyadicFSM.Tier.TierBridge
 import E213.Lib.Math.Pigeonhole
 import E213.Lib.Math.NatHelpers.EncodePair213
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Forward direction (general): periodic bits ⇒ ev-periodic signature
 
@@ -12,10 +12,10 @@ Classical) on Bool-valued `collisionTest` keeps everything at
 ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+namespace E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 
 open E213.Lib.Math.Pigeonhole
-open E213.Lib.Math.DyadicFSM.Signature (signature nextVertex)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
 
 /-- Bool-valued collision test (decidable, no Classical). -/
 def collisionTest {N k : Nat} (g : Fin k → Fin N) (i j : Nat) : Bool :=
@@ -181,4 +181,4 @@ theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
       (i % p) (j % p) hmi hmj hval
   exact ⟨i, hi', j, hj', hij, Fin.ext h_sig_val_eq, h_mod_eq⟩
 
-end E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+end E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity

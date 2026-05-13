@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 
 /-!
 # Dyadic classifier — signature periodic ⇒ bit stream periodic
@@ -18,9 +18,9 @@ expansion) ⇒ aperiodic signature.  This is the formal core of
 "signature classifies rationality".
 -/
 
-namespace E213.Lib.Math.DyadicFSM.Classifier
+namespace E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
 
-open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 
 /-- nextVertex distinguishes the bit at every vertex.  STRICT ∅-AXIOM
     via direct match on Fin 5 × Bool².  Unreachable case ⟨n+5, _⟩ uses
@@ -85,4 +85,4 @@ theorem aperiodic_bits_imp_aperiodic_signature
   exact hne (signature_periodic_implies_bits_periodic bs p N hp
               h_sig_per n hn)
 
-end E213.Lib.Math.DyadicFSM.Classifier
+end E213.Lib.Math.DyadicFSM.Signature.Signature.Classifier
