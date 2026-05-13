@@ -1,7 +1,7 @@
 import E213.Meta.Tactic.Nat213
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -15,7 +15,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff cutSum_comm)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 
 private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
   cases a <;> cases b

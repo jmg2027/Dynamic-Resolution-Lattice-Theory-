@@ -1,5 +1,5 @@
 import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Core.Core
 /-!

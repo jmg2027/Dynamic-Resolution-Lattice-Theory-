@@ -1,5 +1,5 @@
 import E213.Theory.Closed.Nat213Bridge
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm
 import E213.Meta.Tactic.Nat213
@@ -250,7 +250,7 @@ theorem cutMul_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
 bounded search 없는 단순 case.  closed-Raw 의 ≤ (Nat213.toNat 통해) 가
 Real213 cutLe 와 정확히 commute. -/
 
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe)
 
 /-- **Order 보존**: chain a ≤ chain b iff a ≤ b (as Nat213.toNat). -/
 theorem cutLe_chainToCut_iff (a b : Theory.Nat213.Nat213) :
@@ -284,7 +284,7 @@ namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
 open E213.Theory
 open E213.Theory.Closed.Nat213Bridge (toRaw)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
-open E213.Lib.Math.Real213.Core.Core.CutPoset
+open E213.Lib.Math.Real213.Core.CutPoset
   (cutLe cutLe_trans cutLe_cutMax_left cutLe_cutMax_right cutMax_lub
    cutLe_cutMin_left cutLe_cutMin_right cutMin_glb)
 

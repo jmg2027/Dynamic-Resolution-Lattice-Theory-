@@ -18,7 +18,7 @@ structure*.
 multiplication, etc. — separate work.)
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.Equiv
+namespace E213.Lib.Math.Real213.Core.Equiv
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Modulus.HasModulus
@@ -55,4 +55,4 @@ instance setoid : Setoid Real213 where
       symm := fun {x y} => equiv_symm x y
       trans := fun {x y z} => equiv_trans x y z }
 
-end E213.Lib.Math.Real213.Core.Core.Equiv
+end E213.Lib.Math.Real213.Core.Equiv

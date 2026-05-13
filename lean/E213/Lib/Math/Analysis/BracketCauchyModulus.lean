@@ -2,7 +2,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 
 import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Core.Core.Dyadic
+import E213.Lib.Math.Real213.Core.Dyadic
 /-!
 # Real213BracketCauchyModulus — quantitative bracket-length halving
 
@@ -39,7 +39,7 @@ namespace E213.Lib.Math.Analysis.BracketCauchyModulus
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 
 /-- PURE replacement of Nat.one_le_two_pow (propext-laden in core). -/
 private theorem one_le_two_pow_pure : ∀ k, 1 ≤ 2^k

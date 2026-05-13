@@ -14,7 +14,7 @@ i.e., true iff x ≤ m/k.  This means:
   (Higher precision k₂ implying truth means lower precision k₁ also.)
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.ValidCut
+namespace E213.Lib.Math.Real213.Core.ValidCut
 
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
@@ -68,4 +68,4 @@ theorem constCut_ratio (a b : Nat) : RatioCut (constCut a b) where
     rw [hrearr_l, hrearr_r] at step3
     exact Nat.le_of_mul_le_mul_left step3 hk1
 
-end E213.Lib.Math.Real213.Core.Core.ValidCut
+end E213.Lib.Math.Real213.Core.ValidCut

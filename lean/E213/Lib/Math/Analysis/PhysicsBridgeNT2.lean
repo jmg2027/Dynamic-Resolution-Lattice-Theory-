@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.Core.Core.MinimumProposition
+import E213.Lib.Math.Real213.Core.MinimumProposition
 
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Lib.Math.Real213.Bisection.CutContinuity

@@ -1,12 +1,12 @@
 import E213.Meta.Tactic.Nat213
-import E213.Lib.Math.Real213.Core.Core.ValidCutOps
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.ValidCutOps
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Bisection.CutBisection
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumComm
-import E213.Lib.Math.Real213.Core.Core.ValidCut
+import E213.Lib.Math.Real213.Core.ValidCut
 /-!
 # CutMidMono: cutMid monotonicity (RatioCut)
 
@@ -24,10 +24,10 @@ namespace E213.Lib.Math.Real213.Lattice.CutMidMono
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
 open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff)
-open E213.Lib.Math.Real213.Core.Core.ValidCut (RatioCut)
+open E213.Lib.Math.Real213.Core.ValidCut (RatioCut)
 
 /-- cutLe a (cutMid a b) at fixed (m, k) with k ≥ 1, for RatioCut a
     and cutLe a b.  Stated as pointwise (Bool equality form). -/

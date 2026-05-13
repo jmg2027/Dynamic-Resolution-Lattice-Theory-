@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
-import E213.Lib.Math.Real213.Core.Core.Dyadic
+import E213.Lib.Math.Real213.Core.Dyadic
 import E213.Meta.Tactic.Pow213
 
 /-!
@@ -47,7 +47,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle (ConsistentOracle)
-open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 
 /-- `1 ≤ 2^n`.  Local clean proof; `Nat.one_le_two_pow` would
     pull `propext` via Lean-core inequality machinery. -/

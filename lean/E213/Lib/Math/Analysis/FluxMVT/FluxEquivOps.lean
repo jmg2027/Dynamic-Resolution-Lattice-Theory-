@@ -2,7 +2,7 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxEquiv
 import E213.Lib.Math.Real213.Sum.CutSumEq
 
 import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 /-!
@@ -22,11 +22,11 @@ namespace E213.Lib.Math.Analysis.FluxMVT.FluxEquivOps
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (add neg sub ofCut zero)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq_refl)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq_refl)
 open E213.Lib.Math.Analysis.FluxMVT.FluxEquiv.FluxCut (cohomEquiv)
 open E213.Lib.Math.Real213.Sum.CutSumEq (cutSum_cutEq_both cutMul_cutEq_both)
 

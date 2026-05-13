@@ -5,7 +5,7 @@ import E213.Lib.Math.Real213.Bisection.CutContinuity
 import E213.Lib.Math.Real213.Mul.ConstCutScale
 import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
@@ -45,7 +45,7 @@ namespace E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self cutSum_half_general
   cutSum_int_int cutSum_self_at)
 open E213.Lib.Math.Real213.Sum.CutSumPointwise (cutSum_pointwise_eq)

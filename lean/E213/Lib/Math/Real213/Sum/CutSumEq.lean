@@ -1,7 +1,7 @@
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Sum.CutSumDetermined
 import E213.Lib.Math.Real213.Mul.CutMulDetermined
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm
 
@@ -19,7 +19,7 @@ open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSum_locallyDetermined)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMul_locallyDetermined)
 
@@ -55,10 +55,10 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMul_comm cutMul_mono_left cutMul_mono_right)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq cutLe)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSum_comm cutSum_mono_left cutSum_mono_right)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe_refl)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe_refl)
 
 /-- cutEq commutativity of cutSum. -/
 theorem cutSum_comm_cutEq (cx cy : Nat → Nat → Bool) :

@@ -22,7 +22,7 @@ shows `Raw → Bool` is strictly larger than Raw.
 
 namespace E213.Lens.Cardinality
 
-open E213.Term.Internal.Tree (Tree)
+open E213.Theory.Internal (Tree)
 
 /-- Right-leaning Tree tower: `treeTower 0 = b`,
     `treeTower (n+1) = a / (treeTower n)`.  Canonical at every

@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.Mul.CutInv
 import E213.Lib.Math.Real213.Sum.CutSumOne
 
 import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
@@ -64,7 +64,7 @@ theorem cutSignedSum_neg_neg (cx cy : Nat → Nat → Bool) :
 /-- Signed-cut pointwise equivalence: same sign + cutEq on cut field. -/
 def signedCutEq (sx sy : SignedCut) : Prop :=
   sx.sign = sy.sign
-    ∧ E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq sx.cut sy.cut
+    ∧ E213.Lib.Math.Real213.Core.CutPoset.cutEq sx.cut sy.cut
 
 /-- **(+a/1) + (+c/1) ≡ +(a+c)/1** (signedCutEq, PURE). -/
 theorem cutSignedSum_pos_int (a c : Nat) :

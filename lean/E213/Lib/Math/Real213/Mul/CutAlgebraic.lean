@@ -1,6 +1,6 @@
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Lattice.CutMaxMin
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
@@ -15,7 +15,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 
 /-- constCut 0 1 always true ("0 ≤ everything"). -/
 theorem constCut_zero_always (m k : Nat) : constCut 0 1 m k = true := by

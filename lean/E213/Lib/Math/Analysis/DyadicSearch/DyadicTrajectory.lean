@@ -3,9 +3,9 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 
 import E213.Lib.Math.Analysis.CauchyComplete
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Core.Core.Dyadic
+import E213.Lib.Math.Real213.Core.Dyadic
 /-!
 # Real213DyadicTrajectory: concrete bisection trajectories
 
@@ -26,10 +26,10 @@ Closed forms (by induction):
 namespace E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq cutLe)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
-open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 

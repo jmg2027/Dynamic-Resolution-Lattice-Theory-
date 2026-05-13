@@ -50,7 +50,7 @@ User directive ("213 only") + this insight = the *final* simplification
 of real analysis in 213 form.
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.AsLensOutput
+namespace E213.Lib.Math.Real213.Core.AsLensOutput
 
 open E213.Theory E213.Lens
 
@@ -60,4 +60,4 @@ abbrev RealAsLensOutput := Nat → Nat → Bool
 /-- Identity statement: RealAsLensOutput is framework-internal. -/
 example : RealAsLensOutput = (Nat → Nat → Bool) := rfl
 
-end E213.Lib.Math.Real213.Core.Core.AsLensOutput
+end E213.Lib.Math.Real213.Core.AsLensOutput

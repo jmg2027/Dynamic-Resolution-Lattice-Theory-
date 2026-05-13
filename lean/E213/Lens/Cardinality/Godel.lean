@@ -29,25 +29,27 @@ Combined with `Σ3` (`rawTower_injective`) this establishes
 `|Raw| = |ℕ|` — Raw is countable.
 -/
 
-namespace E213.Lens.Cardinality
+namespace E213.Theory.Internal
+
+open E213.Lens.Cardinality (pair pair_injective_4)
 
 /-- Gödel numbering of `Tree`. -/
 def Tree.toNat : Tree → Nat
   | .a         => 0
   | .b         => 1
-  | .slash x y => 2 + 2 * E213.Lens.Cardinality.pair (Tree.toNat x) (Tree.toNat y)
+  | .slash x y => 2 + 2 * pair (Tree.toNat x) (Tree.toNat y)
 
 theorem Tree.toNat_a : Tree.a.toNat = 0 := rfl
 theorem Tree.toNat_b : Tree.b.toNat = 1 := rfl
 theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
-      = 2 + 2 * E213.Lens.Cardinality.pair x.toNat y.toNat := rfl
+      = 2 + 2 * pair x.toNat y.toNat := rfl
 
-end E213.Lens.Cardinality
+end E213.Theory.Internal
 
-namespace E213.Lens.Cardinality
+namespace E213.Theory.Internal
 
-open E213.Lens.Cardinality
+open E213.Lens.Cardinality (pair pair_injective_4)
 
 /-- **Σ2 (Tree level).**  Gödel numbering is injective on
     Tree. -/
@@ -106,11 +108,11 @@ theorem Tree.toNat_injective :
           obtain ⟨hxn, hyn⟩ := pair_injective_4 _ _ _ _ hp
           rw [ihx x2 hxn, ihy y2 hyn]
 
-end E213.Lens.Cardinality
+end E213.Theory.Internal
 
-namespace E213.Lens.Cardinality
+namespace E213.Theory
 
-open E213.Theory
+open E213.Theory.Internal
 
 /-- **Σ2 (Raw level).**  Raw's Gödel number = underlying
     Tree's Gödel number. -/
@@ -124,16 +126,16 @@ theorem Raw.toNat_injective : Function.Injective Raw.toNat := by
     Tree.toNat_injective r1.val r2.val heq
   exact Subtype.ext hval
 
-/-- **Σ2 packaged.**  Raw injects into ℕ. -/
-theorem raw_at_most_countable :
-    ∃ f : Raw → Nat, Function.Injective f :=
-  ⟨Raw.toNat, Raw.toNat_injective⟩
-
-end E213.Lens.Cardinality
+end E213.Theory
 
 namespace E213.Lens.Cardinality
 
 open E213.Theory
+
+/-- **Σ2 packaged.**  Raw injects into ℕ. -/
+theorem raw_at_most_countable :
+    ∃ f : Raw → Nat, Function.Injective f :=
+  ⟨Raw.toNat, Raw.toNat_injective⟩
 
 /-- **Σ2 ∧ Σ3: Raw is equipotent to ℕ.**  Concrete witnesses
     in both directions — Gödel numbering (`Raw.toNat`) and

@@ -7,7 +7,7 @@ import E213.Lib.Math.Real213.Sum.CutSumZero
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
@@ -71,7 +71,7 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
 
 /-- **midpoint(a/2, c/2) ≡ (a+c)/4** (cutEq, PURE). -/
 theorem cutMid_half_general (a c : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutMid (constCut a 2) (constCut c 2)) (constCut (a+c) 4) := by
   intro m k
   show cutHalf (cutSum (constCut a 2) (constCut c 2)) m k = constCut (a+c) 4 m k
@@ -84,7 +84,7 @@ theorem cutMid_half_general (a c : Nat) :
 
 /-- **midpoint(a/1, c/1) ≡ (a+c)/2** (cutEq, PURE). -/
 theorem cutMid_int_int (a c : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutMid (constCut a 1) (constCut c 1)) (constCut (a+c) 2) := by
   intro m k
   show cutHalf (cutSum (constCut a 1) (constCut c 1)) m k = constCut (a+c) 2 m k
@@ -95,7 +95,7 @@ theorem cutMid_int_int (a c : Nat) :
 
 /-- **midpoint(a/1, c/2) ≡ (2a+c)/4** (cutEq, PURE). -/
 theorem cutMid_int_half (a c : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutMid (constCut a 1) (constCut c 2)) (constCut (2*a+c) 4) := by
   intro m k
   show cutHalf (cutSum (constCut a 1) (constCut c 2)) m k = constCut (2*a+c) 4 m k
@@ -107,7 +107,7 @@ theorem cutMid_int_half (a c : Nat) :
 
 /-- **midpoint(a/2, c/1) ≡ (a+2c)/4** (cutEq, PURE). -/
 theorem cutMid_half_int (a c : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutMid (constCut a 2) (constCut c 1)) (constCut (a+2*c) 4) := by
   intro m k
   show cutHalf (cutSum (constCut a 2) (constCut c 1)) m k = constCut (a+2*c) 4 m k
@@ -120,22 +120,22 @@ theorem cutMid_half_int (a c : Nat) :
 /-! ### Concrete cutMid evaluations on integer pairs (cutEq, PURE) -/
 
 /-- midpoint(0, 1) ≡ 1/2. -/
-example : E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+example : E213.Lib.Math.Real213.Core.CutPoset.cutEq
     (cutMid (constCut 0 1) (constCut 1 1)) (constCut 1 2) :=
   cutMid_int_int 0 1
 
 /-- midpoint(0, 4) ≡ 2. -/
-example : E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+example : E213.Lib.Math.Real213.Core.CutPoset.cutEq
     (cutMid (constCut 0 1) (constCut 4 1)) (constCut 4 2) :=
   cutMid_int_int 0 4
 
 /-- midpoint(1, 3) ≡ 2. -/
-example : E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+example : E213.Lib.Math.Real213.Core.CutPoset.cutEq
     (cutMid (constCut 1 1) (constCut 3 1)) (constCut 4 2) :=
   cutMid_int_int 1 3
 
 /-- midpoint(2, 8) ≡ 5. -/
-example : E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+example : E213.Lib.Math.Real213.Core.CutPoset.cutEq
     (cutMid (constCut 2 1) (constCut 8 1)) (constCut 10 2) :=
   cutMid_int_int 2 8
 

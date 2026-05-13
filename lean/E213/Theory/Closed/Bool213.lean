@@ -18,7 +18,7 @@ operation 들도 Raw → Raw 또는 Raw → Raw → Raw 로 닫혀 있음.
 
 namespace E213.Theory.Closed.Bool213
 
-open E213.Theory E213.Theory.Closed
+open E213.Theory E213.Theory.Closed E213.Theory.Internal
 
 /-! ### Method A: T = a, F = b (canonical) -/
 

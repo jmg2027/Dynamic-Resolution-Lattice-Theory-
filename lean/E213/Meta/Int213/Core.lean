@@ -300,10 +300,6 @@ theorem subNatNat_zero (m : Nat) : Int.subNatNat m 0 = Int.ofNat m := by
 /-- ∅-axiom: `subNatNat 0 (m+1) = negSucc m`. -/
 theorem subNatNat_zero_succ (m : Nat) : Int.subNatNat 0 (m+1) = Int.negSucc m := rfl
 
-
-  (sub_add_cancel add_sub_of_le add_sub_cancel_right
-   sub_pos_of_lt le_sub_of_add_le)
-
 /-- ★★★★★ ∅-axiom: `subNatNat k m + negSucc k = negSucc m`.
     The negSucc analog of `subNatNat_add_self`.  Critical for
     the negSucc/negSucc case of `Int.sub_add_cancel`. -/
@@ -383,9 +379,6 @@ theorem sub_add_cancel_int (a b : Int) : a - b + b = a := by
       rw [subNatNat_succ_succ]
       exact subNatNat_add_negSucc_self k m
 
-  (sub_add_cancel add_sub_of_le add_sub_cancel_right
-   sub_pos_of_lt add_sub_assoc)
-
 /-- ∅-axiom: when `b ≤ a`, `subNatNat a b = ofNat (a - b)`. -/
 theorem subNatNat_of_le {a b : Nat} (h : b ≤ a) :
     Int.subNatNat a b = Int.ofNat (a - b) := by
@@ -427,9 +420,6 @@ theorem nat_diff_add_diff {a b c d : Nat} (h1 : b ≤ a) (h2 : d ≤ c) :
   -- Substitute h_eq into h_cancel
   rw [h_eq] at h_cancel
   exact h_cancel.symm
-
-  (sub_add_cancel add_sub_of_le add_sub_cancel_right
-   sub_pos_of_lt add_sub_assoc)
 
 /-- ∅-axiom Nat helper: `X + Y + 1 = (X + 1) + (Y + 1) - 1`. -/
 private theorem add_one_add_one_sub_one (X Y : Nat) :
@@ -517,8 +507,6 @@ theorem add_assoc (a b c : Int) : a + b + c = a + (b + c) := by
       subNatNat_add_subNatNat, subNatNat_add_subNatNat,
       Nat.add_assoc, Nat.add_assoc]
 
-  (sub_add_cancel sub_pos_of_lt add_sub_cancel_right mul_sub_distrib)
-
 /-- ∅-axiom: `negOfNat n = subNatNat 0 n`. -/
 theorem negOfNat_eq_subNatNat (n : Nat) :
     Int.negOfNat n = Int.subNatNat 0 n := by
@@ -590,8 +578,6 @@ theorem add_mul (a b c : Int) : (a + b) * c = a * c + b * c := by
 /-- ∅-axiom: `Int.mul_add`: `a * (b + c) = a*b + a*c`. -/
 theorem mul_add (a b c : Int) : a * (b + c) = a * b + a * c := by
   rw [mul_comm a (b + c), add_mul, mul_comm b a, mul_comm c a]
-
-  (sub_add_cancel sub_pos_of_lt mul_sub_distrib)
 
 /-- ∅-axiom Nat helper: `(p-q) + (q+r) = p+r` when `q ≤ p`. -/
 private theorem nat_help_subadd1 {p q r : Nat} (h : q ≤ p) :

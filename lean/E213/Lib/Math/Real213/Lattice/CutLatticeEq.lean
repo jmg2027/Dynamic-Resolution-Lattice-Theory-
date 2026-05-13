@@ -1,5 +1,5 @@
 import E213.Lib.Math.Real213.Lattice.CutMaxMin
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Core.Core
 /-!
@@ -11,7 +11,7 @@ Compatibility of lattice ops with the cut order/equiv structure.
 namespace E213.Lib.Math.Real213.Lattice.CutLatticeEq
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe cutEq cutEq_trans cutLe_trans)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe cutEq cutEq_trans cutLe_trans)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Core.Core (Real213)
 

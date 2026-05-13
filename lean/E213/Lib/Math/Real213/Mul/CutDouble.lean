@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 
 import E213.Lib.Math.Real213.Mul.CutMul
 /-!
@@ -19,7 +19,7 @@ open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self cutSum_self_at)
 open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutHalf_constCut cutMid)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq cutLe)
 open E213.Theory E213.Lens
 
 /-- **cutDouble**: 2x cut. -/

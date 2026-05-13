@@ -4,7 +4,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 
 import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.Differentiation.Smooth
@@ -28,7 +28,7 @@ theorem dropped — only the three iff statements remain, since the
 bundle was a trivial conjunction of them.)
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.MinimumProposition
+namespace E213.Lib.Math.Real213.Core.MinimumProposition
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
@@ -56,9 +56,9 @@ theorem only_one_resolution_law (n k m : Nat) :
     constant function is forced to land on `constCut (2^n * a) b`
     pointwise — no π, no e, no transcendental smoothing. -/
 theorem only_one_dyadic_accumulator (a b n : Nat) (c : Nat → Nat → Bool) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (riemannSampleSum (constCutFn (constCut a b)) unitBracket n) c
-      ↔ E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq c (constCut (2^n * a) b) :=
+      ↔ E213.Lib.Math.Real213.Core.CutPoset.cutEq c (constCut (2^n * a) b) :=
   ⟨fun h m k => (h m k).symm.trans (riemannSampleSum_constCut a b unitBracket n m k),
    fun h m k => (riemannSampleSum_constCut a b unitBracket n m k).trans (h m k).symm⟩
 
@@ -75,4 +75,4 @@ theorem only_one_zero_plus_witness :
       alwaysTrueUnit_limit_distinct_from_zero.2] at h
   exact Bool.noConfusion h
 
-end E213.Lib.Math.Real213.Core.Core.MinimumProposition
+end E213.Lib.Math.Real213.Core.MinimumProposition

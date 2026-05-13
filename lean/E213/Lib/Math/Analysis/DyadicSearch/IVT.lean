@@ -1,8 +1,8 @@
-import E213.Lib.Math.Real213.Core.Core.CutFnData
+import E213.Lib.Math.Real213.Core.CutFnData
 import E213.Lib.Math.Real213.Sum.SignedSum
 
 import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # Real213IVT: Intermediate Value Theorem (declarative form)
@@ -28,8 +28,8 @@ namespace E213.Lib.Math.Analysis.DyadicSearch.IVT
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.Core.CutFnData (LocallyDeterminedData)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe cutEq)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- IVT hypothesis structure.

@@ -12,7 +12,7 @@ Bind all cut operations into a single struct.  Reusable abstraction
 for cut-level rational arithmetic.
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.CutAlgebraStruct
+namespace E213.Lib.Math.Real213.Core.CutAlgebraStruct
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid cutHalf)
@@ -50,4 +50,4 @@ example : stdCutAlgebra.add stdCutAlgebra.one stdCutAlgebra.one 2 1 = true := by
 /-- Verification that the cut for 0 is "always true". -/
 example : stdCutAlgebra.zero 0 1 = true := by decide
 
-end E213.Lib.Math.Real213.Core.Core.CutAlgebraStruct
+end E213.Lib.Math.Real213.Core.CutAlgebraStruct

@@ -1,9 +1,9 @@
-import E213.Lib.Math.Real213.Core.Core.ValidCut
+import E213.Lib.Math.Real213.Core.ValidCut
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Bisection.CutBisection
 import E213.Lib.Math.Real213.Mul.CutDouble
 
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
@@ -25,14 +25,14 @@ boundary (tight precision at k1 ≥ 2).  Moving to dyadic makes that
 issue vanish naturally.
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.Dyadic
+namespace E213.Lib.Math.Real213.Core.Dyadic
 
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutHalf_constCut)
 open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Core.Core.ValidCut (ValidCut RatioCut constCut_valid constCut_ratio)
+open E213.Lib.Math.Real213.Core.ValidCut (ValidCut RatioCut constCut_valid constCut_ratio)
 open E213.Lib.Math.Real213.Mul.CutDouble (cutDouble cutDouble_constCut)
 
 /-- **dyadicCut M E**: rational M / 2^E as a 213 cut function.
@@ -55,7 +55,7 @@ theorem dyadicCut_valid (M E : Nat) : ValidCut (dyadicCut M E) :=
 
 /-- **cutSum_self on dyadicCut** (cutEq, PURE): doubling stays dyadic. -/
 theorem cutSum_dyadicCut_self (M E : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutSum (dyadicCut M E) (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutSum_self M (2^E)
 
@@ -73,8 +73,8 @@ theorem cutHalf_dyadicCut (M E : Nat) :
 /-- **cutDouble of dyadicCut** (cutEq, PURE): doubles numerator, exponent unchanged.
     2 * (M / 2^E) ≡ (2*M) / 2^E. -/
 theorem cutDouble_dyadicCut (M E : Nat) :
-    E213.Lib.Math.Real213.Core.Core.CutPoset.cutEq
+    E213.Lib.Math.Real213.Core.CutPoset.cutEq
       (cutDouble (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutDouble_constCut M (2^E)
 
-end E213.Lib.Math.Real213.Core.Core.Dyadic
+end E213.Lib.Math.Real213.Core.Dyadic

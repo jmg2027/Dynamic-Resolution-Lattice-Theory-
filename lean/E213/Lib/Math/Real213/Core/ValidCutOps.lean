@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.Core.Core.ValidCut
+import E213.Lib.Math.Real213.Core.ValidCut
 import E213.Lib.Math.Real213.Lattice.CutMaxMin
 import E213.Lib.Math.Real213.Mul.CutDouble
 import E213.Lib.Math.Real213.Bisection.CutBisection
@@ -12,7 +12,7 @@ import E213.Lib.Math.Real213.Sum.CutSum
 cutMax/cutMin/cutHalf/cutDouble/cutSum preserve ValidCut.
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.ValidCutOps
+namespace E213.Lib.Math.Real213.Core.ValidCutOps
 
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
@@ -21,7 +21,7 @@ open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutMid)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff)
-open E213.Lib.Math.Real213.Core.Core.ValidCut (ValidCut)
+open E213.Lib.Math.Real213.Core.ValidCut (ValidCut)
 open E213.Lib.Math.Real213.Mul.CutDouble (cutDouble)
 
 /-- Helper: `(a && b) = true → a = true`.  PURE. -/
@@ -140,4 +140,4 @@ theorem cutMid_valid (cx cy : Nat → Nat → Bool)
     (hx : ValidCut cx) (hy : ValidCut cy) : ValidCut (cutMid cx cy) :=
   cutHalf_valid (cutSum cx cy) (cutSum_valid cx cy hx hy)
 
-end E213.Lib.Math.Real213.Core.Core.ValidCutOps
+end E213.Lib.Math.Real213.Core.ValidCutOps

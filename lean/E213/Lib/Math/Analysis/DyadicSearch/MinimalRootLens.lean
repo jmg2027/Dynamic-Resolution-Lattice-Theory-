@@ -3,7 +3,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Lib.Math.Analysis.DyadicSearch.IVT
 import E213.Lib.Math.Analysis.CauchyComplete
-import E213.Lib.Math.Real213.Core.Core.CutFnData
+import E213.Lib.Math.Real213.Core.CutFnData
 
 /-!
 # MinimalRootLens — trajectory-as-witness IVT readout
@@ -149,7 +149,7 @@ follow directly from the bracket-containment lemmas
 `bisectN_midCut_above_left` / `bisectN_midCut_below_right` (already
 strict ∅-axiom in `DyadicBracket.lean`) at the threshold depth. -/
 
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutLe)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe)
 
 /-- **Lower bound**: `db.leftCut ≤ MinimalRootCut co` (cut-≤ form).
 
@@ -182,8 +182,8 @@ the full `IVTRoot`.  Lower / upper come automatically from the
 trajectory's bracket-containment; the zero field is delivered by
 the caller (e.g., the future monotone-IVT certificate). -/
 
-open E213.Lib.Math.Real213.Core.Core.CutFnData (LocallyDeterminedData)
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.IVT (IVTHypothesis IVTRoot)
 

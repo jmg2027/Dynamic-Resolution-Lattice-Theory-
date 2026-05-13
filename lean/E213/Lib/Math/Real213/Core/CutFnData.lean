@@ -22,7 +22,7 @@ structure LocallyDeterminedData (f : CutFunction) where
 ```
 -/
 
-namespace E213.Lib.Math.Real213.Core.Core.CutFnData
+namespace E213.Lib.Math.Real213.Core.CutFnData
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
@@ -147,4 +147,4 @@ def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
     · intro m' hm'; exact h m' k hm' hk_le
     · exact Nat.le_refl _
 
-end E213.Lib.Math.Real213.Core.Core.CutFnData
+end E213.Lib.Math.Real213.Core.CutFnData

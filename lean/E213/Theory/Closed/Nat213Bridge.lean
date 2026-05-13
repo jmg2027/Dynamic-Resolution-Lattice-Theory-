@@ -18,7 +18,7 @@ import E213.Meta.Tactic.Nat213
 
 namespace E213.Theory.Closed.Nat213Bridge
 
-open E213.Theory
+open E213.Theory E213.Theory.Internal
 
 /-! ### Layer 2 → Layer 1: inductive Nat213 → Method A Raw chain -/
 

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Core.Core.CutPoset
+import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -18,7 +18,7 @@ no Quot.sound.
 
 namespace E213.Lib.Math.Probability.Foundation.Cut
 
-open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 
