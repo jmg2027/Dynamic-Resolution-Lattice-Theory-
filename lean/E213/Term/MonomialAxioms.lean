@@ -22,22 +22,22 @@ namespace E213.Term.MonomialAxioms
 open Term
 
 /-- `NS · NT = 6`. -/
-theorem ns_mul_nt_eq_six : eval (mul nS nT) = 6 := rfl
+theorem ns_mul_nt_eq_six : Term.eval (mul Term.nS Term.nT) = 6 := rfl
 
 /-- `NS · NT = NT · NS` at concrete (3, 2): commutativity instance. -/
-theorem mul_comm_ns_nt : eval (mul nS nT) = eval (mul nT nS) := rfl
+theorem mul_comm_ns_nt : Term.eval (mul Term.nS Term.nT) = Term.eval (mul Term.nT Term.nS) := rfl
 
 /-- `NS² = 9`. -/
-theorem ns_sq_eq_9 : eval (mul nS nS) = 9 := rfl
+theorem ns_sq_eq_9 : Term.eval (mul Term.nS Term.nS) = 9 := rfl
 
 /-- `NT² = 4`. -/
-theorem nt_sq_eq_4 : eval (mul nT nT) = 4 := rfl
+theorem nt_sq_eq_4 : Term.eval (mul Term.nT Term.nT) = 4 := rfl
 
 /-- `d² = 25`. -/
-theorem d_sq_eq_25 : eval (mul d d) = 25 := rfl
+theorem d_sq_eq_25 : Term.eval (mul Term.d Term.d) = 25 := rfl
 
 /-- `NS + NT = d` (= 5). -/
-theorem ns_plus_nt_eq_d : eval (add nS nT) = eval d := rfl
+theorem ns_plus_nt_eq_d : Term.eval (add Term.nS Term.nT) = Term.eval Term.d := rfl
 
 end E213.Term.MonomialAxioms
 

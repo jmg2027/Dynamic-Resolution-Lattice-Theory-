@@ -15,29 +15,29 @@ open Term
 
 /-- Dimension law: n_S + n_T = d  (3 + 2 = 5).
     The most fundamental integer relation of the theory. -/
-theorem dim_law : equiv (add nS nT) d = true := rfl
+theorem dim_law : Term.equiv (add Term.nS Term.nT) Term.d = true := rfl
 
 /-- c = n_T  (CLAUDE.md: c=2, n_T=2). -/
-theorem c_eq_nT : equiv c nT = true := rfl
+theorem c_eq_nT : Term.equiv Term.c Term.nT = true := rfl
 
 /-- d² = 25  (ATM_029 topological counting → arithmetic foundation of α_GUT).
     Verified via equiv with *another Term* of the form 25 = 5·4 + 5. -/
 theorem d_sq_25 :
-    equiv (mul d d)
-          (add (mul d (succ (succ (succ (succ zero))))) d) = true := rfl
+    Term.equiv (mul Term.d Term.d)
+          (add (mul Term.d (succ (succ (succ (succ zero))))) Term.d) = true := rfl
 
 /-- Reinforcement: eval of d·d is *literally* 25. -/
-theorem eval_d_sq : eval (mul d d) = 25 := rfl
+theorem eval_d_sq : Term.eval (mul Term.d Term.d) = 25 := rfl
 
 /-- (n_S · n_T)² = 36 — count squared. -/
-theorem nSnT_sq_36 : eval (mul (mul nS nT) (mul nS nT)) = 36 := rfl
+theorem nSnT_sq_36 : Term.eval (mul (mul Term.nS Term.nT) (mul Term.nS Term.nT)) = 36 := rfl
 
 /-- 2 n_S² = 18  (Argon octet closure count). -/
-theorem two_nS_sq : eval (mul (succ (succ zero)) (mul nS nS)) = 18 := rfl
+theorem two_nS_sq : Term.eval (mul (succ (succ zero)) (mul Term.nS Term.nS)) = 18 := rfl
 
 /-- 2 n_S³ = 54  (Xe period closure). -/
 theorem two_nS_cube :
-    eval (mul (succ (succ zero)) (mul nS (mul nS nS))) = 54 := rfl
+    Term.eval (mul (succ (succ zero)) (mul Term.nS (mul Term.nS Term.nS))) = 54 := rfl
 
 end E213.Term.Demo
 

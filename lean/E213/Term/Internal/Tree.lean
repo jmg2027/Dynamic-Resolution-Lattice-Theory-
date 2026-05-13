@@ -22,7 +22,7 @@ inductive Tree : Type
   | slash : Tree → Tree → Tree
   deriving DecidableEq, Repr
 
-def Tree.cmp : Tree → Tree → Ordering
+protected def Tree.cmp : Tree → Tree → Ordering
   | .a,         .a         => .eq
   | .a,         .b         => .lt
   | .a,         .slash _ _ => .lt
@@ -37,7 +37,7 @@ def Tree.cmp : Tree → Tree → Ordering
       | .lt => .lt
       | .gt => .gt
 
-def Tree.canonical : Tree → Bool
+protected def Tree.canonical : Tree → Bool
   | .a         => true
   | .b         => true
   | .slash x y =>

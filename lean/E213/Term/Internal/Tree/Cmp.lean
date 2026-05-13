@@ -17,7 +17,7 @@ deliberate (same pattern as `E213.Tactic.*` in `Meta/Tactic/`).
 
 namespace E213.Theory.Internal
 
-theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
+protected theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
   induction x generalizing y with
   | a =>
       cases y with
@@ -53,7 +53,7 @@ theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
             rw [hcx]
             exact hcy
 
-theorem Tree.cmp_swap (x y : Tree) :
+protected theorem Tree.cmp_swap (x y : Tree) :
     Tree.cmp x y = (Tree.cmp y x).swap := by
   induction x generalizing y with
   | a => cases y <;> rfl
@@ -85,7 +85,7 @@ private theorem Tree.cmp_gt_iff_lt_swap (x y : Tree) :
 These direct one-direction lemmas avoid both. -/
 
 /-- Direct: `Tree.cmp x y = .eq → x = y` (no iff, no propext). -/
-theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
+protected theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
   | .a, .a, _ => rfl
   | .a, .b, h => by cases h
   | .a, .slash _ _, h => by cases h
@@ -109,7 +109,7 @@ theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
       | gt => rw [hcx] at h'; cases h'
 
 /-- Direct: `Tree.cmp x x = .eq` (reflexivity, no iff). -/
-theorem Tree.cmp_self_eq : ∀ (x : Tree), Tree.cmp x x = .eq
+protected theorem Tree.cmp_self_eq : ∀ (x : Tree), Tree.cmp x x = .eq
   | .a => rfl
   | .b => rfl
   | .slash x y => by
@@ -125,7 +125,7 @@ private theorem Tree.cmp_eq_of_eq (x y : Tree) (h : x = y) : Tree.cmp x y = .eq 
   h ▸ Tree.cmp_self_eq x
 
 /-- Direct: `Tree.cmp x y = .gt → Tree.cmp y x = .lt` (no iff). -/
-theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
+protected theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
     Tree.cmp y x = .lt := by
   have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
   rw [hsw] at h
@@ -136,7 +136,7 @@ theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
 
 /-- Direct: `Tree.cmp x y = .lt → Tree.cmp y x = .gt` (no iff).
     Reverse direction of cmp_gt_to_lt_swap. -/
-theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
+protected theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
     Tree.cmp y x = .gt := by
   have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
   rw [hsw] at h
@@ -146,7 +146,7 @@ theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
   | gt => rfl
 
 /-- ∅-axiom Bool destructor: `a && b = true → a = true ∧ b = true`. -/
-theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
+protected theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
     (a && b) = true → a = true ∧ b = true
   | true, true, _ => ⟨rfl, rfl⟩
   | false, _, h => by cases h
@@ -156,7 +156,7 @@ theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
     `propext` via `Nat.max_eq_left`).  Used by `Tree.swap_depth`
     on the `.gt` branch where the swapped children appear in
     reverse order.  Pure: ∅-axiom. -/
-theorem Nat213.max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
+protected theorem Nat213.max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
   show (if a ≤ b then b else a) = (if b ≤ a then a else b)
   rcases Nat.le_total a b with hab | hba
   · rw [if_pos hab]
