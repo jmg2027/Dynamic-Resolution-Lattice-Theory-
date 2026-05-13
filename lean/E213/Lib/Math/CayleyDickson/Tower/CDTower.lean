@@ -50,8 +50,8 @@ theorem CD_tower_drops :
     ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0) :=
   ⟨ZI.mul_comm,
    Lipschitz.mul_not_commutative,
-   Cayley.mul_not_associative,
-   Sedenion.R3_fails_on_sedenion⟩
+   E213.Lib.Math.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion⟩
 
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Levels.Cayley E213.Lib.Math.CayleyDickson.Levels.Sedenion
 
@@ -78,9 +78,9 @@ theorem CD_tower_extended :
     ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=
   ⟨ZI.mul_comm,
    Lipschitz.mul_not_commutative,
-   Cayley.mul_not_associative,
-   Sedenion.R3_fails_on_sedenion,
-   Sedenion.not_alternative⟩
+   E213.Lib.Math.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion,
+   E213.Lib.Math.CayleyDickson.Levels.Sedenion.not_alternative⟩
 
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Levels.Cayley E213.Lib.Math.CayleyDickson.Levels.Sedenion
 
@@ -115,8 +115,8 @@ theorem CD_tower_full :
   ⟨ZI.mul_comm, ZI.mul_assoc, ZI.normSq_mul,
    Lipschitz.mul_not_commutative, E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.mul_assoc,
    E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.normSq_mul, E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.no_zero_div,
-   Cayley.mul_not_associative, E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.alt_left,
+   E213.Lib.Math.CayleyDickson.Levels.Cayley.mul_not_associative, E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.alt_left,
    E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.normSq_mul, E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.no_zero_div,
-   Sedenion.R3_fails_on_sedenion, Sedenion.not_alternative⟩
+   E213.Lib.Math.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion, E213.Lib.Math.CayleyDickson.Levels.Sedenion.not_alternative⟩
 
 end E213.Lib.Math.CayleyDickson.Tower.CDTower
