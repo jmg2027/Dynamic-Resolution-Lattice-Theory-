@@ -94,3 +94,19 @@ lean/E213/
 - `lean/E213/ARCHITECTURE.md` (4 ring + Meta canonical)
 - `research-notes/MATH_AUDIT/INDEX.md` + 9 chunks (A–I) — 정리 후속
   참조
+
+## 추가 라운드 — documentation alignment (4 commits, post sub-org)
+
+- `63bee4f3` ARCHITECTURE.md + MATH_AUDIT/INDEX: 현재 sub-org 상태 반영
+- `4c22bc8c` INDEX.md update + create (CayleyDickson, Real213,
+  Probability, SignedCut sub-org 반영; Trajectory dangling 제거)
+- `8ab19ec9` Cohomology INDEX rewrite (stale Phase 3/7 catalog 제거) +
+  DyadicFSM INDEX 신규
+- `5ceb9dd7` ARCHITECTURE Theory section update (Closed/Nat213/Tower/
+  CDDouble sub-clusters 추가, ArityForcingGeneral Lib 이동 반영)
+
+총 누적 (4 sessions, 32 commits):
+- Session A: structural cleanup (10)
+- Session B: file consolidation (10)
+- Session C: sub-organization + tiny fold (8)
+- Session D: documentation alignment (4)
