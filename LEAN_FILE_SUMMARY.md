@@ -5512,3 +5512,887 @@
   - `quatI_neq_quatJ`, `quatI_neq_quatK`, `quatOne_neq_quatI`.
 - **의존**: QuaternionMulRule.
 
+### Batch M13 — Probability + Topology + TriangularTower (43 files)
+
+### `lean/E213/Lib/Math/Probability/Bridge/Bayesian.lean`
+- **역할**: Beta-Binomial conjugacy as atomic count addition.
+- **주요 선언**:
+  - `BetaCount`, `posteriorMean`, `uniformPrior`.
+  - `updateOnSuccess`, `updateOnFailure`, `updateBatch`.
+- **의존**: Foundation/Cut, Tactic/NatHelper.
+
+### `lean/E213/Lib/Math/Probability/Bridge/CauchyModulus.lean`
+- **역할**: Cauchy modulus on ProbabilityCut sequences.
+- **주요 선언**:
+  - `absDevCross`, `ProbCauchy`.
+  - `constSeq_cauchy`, `bridge_to_balancedLLN`.
+- **의존**: Foundation/Cut, Limit/LLN, Inequality/Concentration, Limit/CLTLimit.
+
+### `lean/E213/Lib/Math/Probability/Bridge/RiemannBridge.lean`
+- **역할**: Width-scaled Riemann sum wrapper for dyadic integration.
+- **주요 선언**:
+  - `riemannScaledNum`, `riemannScaledDen`.
+  - `riemannScaled_const_unit`, `one_le_two_pow`, `succ_le_two_pow`, `le_two_pow`.
+  - `convergence_modulus_const`.
+- **의존**: Analysis/DyadicSearch/DyadicRiemann, Analysis/BracketCauchyModulus, Foundation/Cut.
+
+### `lean/E213/Lib/Math/Probability/Distribution/BetaDensity.lean`
+- **역할**: Unnormalized Beta density at ProbabilityCut.
+- **주요 선언**:
+  - `betaNumAt`, `betaDenAt`.
+  - `beta_uniform_num`, `beta_uniform_den`.
+  - `fromBetaCount`.
+- **의존**: Foundation/Cut, Bridge/Bayesian.
+
+### `lean/E213/Lib/Math/Probability/Distribution/BetaNormalized.lean`
+- **역할**: Closed-form Beta normalisation B(α,β) for (1,1), (2,1), (1,2).
+- **주요 선언**:
+  - `betaNorm`, `betaNormalizedAt`.
+  - `beta_1_1_normalized_eq_one`, `betaNorm_modulus_zero`.
+- **의존**: Distribution/BetaDensity, Bridge/RiemannBridge, Foundation/Cut.
+
+### `lean/E213/Lib/Math/Probability/Distribution/Binomial.lean`
+- **역할**: Binomial distribution as K_{3,2} atomic counting + n-trial product.
+- **주요 선언**:
+  - `pAA`, `pBB`, `pAB`, `ABBernoulli`.
+  - `trialSequenceNum`, `trialSequenceDen`.
+  - `pair_total`, `AB_failure_eq_AA_plus_BB`.
+- **의존**: Foundation/Bernoulli, Foundation/Cut.
+
+### `lean/E213/Lib/Math/Probability/Distribution/Gaussian.lean`
+- **역할**: Gaussian peak exp(−x²/2)|_{x=0} = 1; CLT centering.
+- **주요 선언**:
+  - `expTaylorAtZero`, `expSumAtZero`, `gaussianPeakAtZero`.
+  - `CLT_fair_centered`, `CLT_fair_variance_marker`.
+- **의존**: Foundation/Cut, Foundation/SampleMean, Limit/LLN.
+
+### `lean/E213/Lib/Math/Probability/Distribution/INDEX.md`
+- **역할**: 주요 섹션 — Distribution 5 files (Binomial, Gaussian, BetaDensity, BetaNormalized, UniformOnUnit).
+
+### `lean/E213/Lib/Math/Probability/Distribution/UniformOnUnit.lean`
+- **역할**: Uniform on [0,1] via DyadicBracket; mass = (b−a)/2^E.
+- **주요 선언**:
+  - `UnitSubBracket`, `uniform`.
+  - `uniform_whole_num`, `uniform_whole_den`, `uniform_mass_eq`.
+- **의존**: Foundation/Cut, Analysis/DyadicSearch/DyadicBracket.
+
+### `lean/E213/Lib/Math/Probability/Foundation/Bernoulli.lean`
+- **역할**: Bernoulli distribution: success p, failure 1−p.
+- **주요 선언**:
+  - `Bernoulli`, `success`, `failure`.
+  - `fair`, `certain`, `impossible`.
+  - `sum_to_one`, `success_failure_same_den`.
+- **의존**: Foundation/Cut, NatHelper.
+
+### `lean/E213/Lib/Math/Probability/Foundation/Capstone.lean`
+- **역할**: Foundation synthesis — 9 cluster witnesses + total bundle.
+- **주요 선언**:
+  - `atoms_witness`, `moments_witness`, `sampleMean_witness`.
+  - `bayesian_witness`, `gaussian_witness`, `independence_witness`.
+  - `markov_witness`, `concentration_witness`, `beta_density_witness`.
+  - `clt_modulus_witness`, `cauchy_modulus_witness`, `chebyshev_witness`.
+  - `total_witness`.
+- **의존**: All Foundation, Distribution, Inequality, Limit, Bridge.
+
+### `lean/E213/Lib/Math/Probability/Foundation/Cut.lean`
+- **역할**: Atomic probability mass `num/den` as FluxCut embedding.
+- **주요 선언**:
+  - `ProbabilityCut`.
+  - `toFlux`.
+  - `unit`, `zero`, `complement`.
+- **의존**: Analysis/FluxMVT/FluxCut, Real213/Sum/CutSumTest, CutPoset, NatHelper.
+
+### `lean/E213/Lib/Math/Probability/Foundation/Expectation.lean`
+- **역할**: Expected value as atomic weighted counting.
+- **주요 선언**:
+  - `bernoulli`, `discreteNum`, `discrete`.
+  - `K32_expectation_num`.
+- **의존**: Foundation/Bernoulli, Foundation/Cut.
+
+### `lean/E213/Lib/Math/Probability/Foundation/INDEX.md`
+- **역할**: 주요 섹션 — Foundation 7 files (Cut, Bernoulli, Expectation, Variance, Independence, SampleMean, Capstone).
+
+### `lean/E213/Lib/Math/Probability/Foundation/Independence.lean`
+- **역할**: Independence as product mass; conditional as ratio.
+- **주요 선언**:
+  - `joint`, `joint_unit_left_num`, `joint_zero_left_num`.
+  - `conditionalNum`, `conditionalDen`, `joint_comm_num`.
+- **의존**: Foundation/Cut.
+
+### `lean/E213/Lib/Math/Probability/Foundation/SampleMean.lean`
+- **역할**: Sample mean = countTrue / length.
+- **주요 선언**:
+  - `countTrue`, `sampleMeanNum`, `sampleMeanDen`.
+  - `allHeads_sampleMean`, `allTails_sampleMean`, `balanced_two_mean`.
+  - `length_replicate`.
+- **의존**: Foundation/Bernoulli.
+
+### `lean/E213/Lib/Math/Probability/Foundation/Variance.lean`
+- **역할**: Variance = E[X²] − (E[X])²; Var[X] = p(1−p).
+- **주요 선언**:
+  - `bernoulliNum`, `bernoulliDen`.
+  - `fair_variance_num`, `fair_variance_den`.
+  - `discreteSecondMomentNum`.
+- **의존**: Foundation/Expectation, Distribution/Binomial.
+
+### `lean/E213/Lib/Math/Probability/INDEX.md`
+- **역할**: 주요 섹션 — Probability module umbrella (25 files, 5 sub-clusters).
+
+### `lean/E213/Lib/Math/Probability/Inequality/Chebyshev.lean`
+- **역할**: Polynomial concentration via Markov-on-second-moment.
+- **주요 선언**:
+  - `chebyshev_singleton`, `chebyshev_squared_dev_bound`.
+  - `chebyshev_balanced_specialisation`, `chebyshev_allHeads_witness`.
+- **의존**: Inequality/Markov, Concentration, Foundation/Variance.
+
+### `lean/E213/Lib/Math/Probability/Inequality/ChernoffGrade.lean`
+- **역할**: Chernoff bound as discrete grade-index optimisation.
+- **주요 선언**:
+  - `GradeIndex`, `gradeDim`.
+  - `chernoff_at_grade`, `closing_grade_exists`.
+- **의존**: Inequality/Markov, Concentration, Physics/Simplex/Counts.
+
+### `lean/E213/Lib/Math/Probability/Inequality/Concentration.lean`
+- **역할**: Centered deviation as clamped-subtraction sum.
+- **주요 선언**:
+  - `excess`, `deficit`, `centeredAbsDev2`.
+  - `centeredAbsDev2_balanced/allHeads/allTails`.
+- **의존**: Limit/LLN, NatHelper.
+
+### `lean/E213/Lib/Math/Probability/Inequality/Hoeffding.lean`
+- **역할**: Hoeffding-style exponential bound via cutExp Taylor.
+- **주요 선언**:
+  - `hoeffdingBoundAtDepth`.
+  - `hoeffding_balanced_zero_dev`, `cutExp_zero_baseline`.
+  - `hoeffdingBound_eq_partialSum`.
+- **의존**: Real213/ExpLog/CutExpSeries, Concentration, Limit/LLN.
+
+### `lean/E213/Lib/Math/Probability/Inequality/HoeffdingClosed.lean`
+- **역할**: Hoeffding closed-form via cutLog formal inverse.
+- **주요 선언**:
+  - `hoeffdingClosedNum`, `hoeffdingClosed_depth_zero`.
+  - `log_exp_inverse_at_zero`, `hoeffdingClosed_depth_one`.
+- **의존**: Hoeffding, CutLogSeries, CutLogExpInverse.
+
+### `lean/E213/Lib/Math/Probability/Inequality/INDEX.md`
+- **역할**: 주요 섹션 — Inequality 6 files (Markov, Chebyshev, Hoeffding, Chernoff, Concentration).
+
+### `lean/E213/Lib/Math/Probability/Inequality/Markov.lean`
+- **역할**: BetaCount Markov property + Markov inequality on discrete dists.
+- **주요 선언**:
+  - `updateBatch_seq_successes/failures`.
+  - `updateBatch_comm_successes`.
+  - `tailMomentNum`, `tailMassNum`, `markov_inequality`.
+- **의존**: Bridge/Bayesian, Foundation/Expectation, NatHelper.
+
+### `lean/E213/Lib/Math/Probability/Limit/CLTGeneric.lean`
+- **역할**: Generic CLT with variance-modulus form.
+- **주요 선언**:
+  - `genericCenteredDev2`.
+  - `cltModulus_of_varBound`, `cltModulus_mono_var/eps`.
+  - `genericCLT_balanced_collapse`.
+- **의존**: Foundation/Bernoulli, Variance, Concentration, Bridge/CauchyModulus, Limit/LLN.
+
+### `lean/E213/Lib/Math/Probability/Limit/CLTLimit.lean`
+- **역할**: Cauchy-modulus form of LLN.
+- **주요 선언**:
+  - `balanced_LLN_modulus`, `balanced_cauchy`.
+  - `modulus_witness`, `balanced_eq_half`.
+- **의존**: Concentration, Limit/LLN.
+
+### `lean/E213/Lib/Math/Probability/Limit/LLN.lean`
+- **역할**: Atomic LLN — balanced 2n sample mean = 1/2.
+- **주요 선언**:
+  - `countTrue_append`, `length_append`.
+  - `balancedHeadsTails`, `balanced_countTrue/length`.
+  - `LLN_unit`, `bernoulli_LLN_exact`, `fair_LLN`.
+- **의존**: Foundation/SampleMean.
+
+### `lean/E213/Lib/Math/Probability/Limit/LLNCauchy.lean`
+- **역할**: LLN Cauchy-modulus form (∅-axiom).
+- **주요 선언**:
+  - `fairLLN_cauchy`, `fairLLN_modulus_zero`.
+  - `fairLLN_target`, `fairLLN_dev_zero`.
+- **의존**: Foundation/Cut, Limit/LLN, Foundation/SampleMean, Bridge/CauchyModulus.
+
+### `lean/E213/Lib/Math/Topology/Capstone.lean`
+- **역할**: Topology synthesis — 5 cluster witnesses.
+- **주요 선언**:
+  - `dyadicOpen_witness`, `compactness_witness`, `continuity_witness`.
+  - `connectedness_witness`, `euler_witness`, `total_witness`.
+- **의존**: All Topology modules.
+
+### `lean/E213/Lib/Math/Topology/Compactness.lean`
+- **역할**: Trivial Heine-Borel on dyadic substrate.
+- **주요 선언**:
+  - `IsCover`, `CoverSize`.
+  - `heineBorel`, `singleton_cover_size`, `empty_no_cover`.
+- **의존**: Topology/DyadicOpen.
+
+### `lean/E213/Lib/Math/Topology/Connectedness.lean`
+- **역할**: Connectedness as finite-list chain adjacency.
+- **주요 선언**:
+  - `adjacent`, `Chain`.
+  - `chain_empty`, `chain_singleton`, `chain_finite`.
+- **의존**: DyadicOpen, DyadicBracket.
+
+### `lean/E213/Lib/Math/Topology/Continuity.lean`
+- **역할**: Continuity as Nat→Nat modulus.
+- **주요 선언**:
+  - `IsContinuousModulus`.
+  - `idContinuous`, `constContinuous`, `composeContinuous`.
+
+### `lean/E213/Lib/Math/Topology/ContinuityArith.lean`
+- **역할**: Continuity-modulus arithmetic combinators.
+- **주요 선언**:
+  - `sumModulus`, `productModulus`.
+  - `sumModulus_id_id`, `productModulus_id_id`.
+  - `sumModulus_pos`, `productModulus_pos`.
+- **의존**: Topology/Continuity, NatHelper.
+
+### `lean/E213/Lib/Math/Topology/DyadicOpen.lean`
+- **역할**: Open sets as finite list of dyadic brackets.
+- **주요 선언**:
+  - `DyadicOpen`, `empty`, `singleton`, `union`, `size`.
+  - `size_union`, `dyadic_open_finite`.
+- **의존**: DyadicBracket.
+
+### `lean/E213/Lib/Math/Topology/EulerChi.lean`
+- **역할**: Euler characteristic — χ(Δ⁴)=1, χ(S³)=0, χ(K_{3,2}^{(c=2)})=−7.
+- **주요 선언**:
+  - `chi_delta_4`, `chi_S3_boundary`, `chi_K_32_c2`.
+  - `face_count_total`, `face_count_with_empty`.
+- **의존**: Physics/Simplex/Counts.
+
+### `lean/E213/Lib/Math/Topology/INDEX.md`
+- **역할**: 주요 섹션 — Topology 7 files.
+
+### `lean/E213/Lib/Math/TriangularTower/AbsorbedByThree.lean`
+- **역할**: Properties absorbed by 3-axis per CD level.
+- **주요 선언**:
+  - `absorbedCount`.
+  - `absorbed_0/1/2/3/4/5/25`.
+
+### `lean/E213/Lib/Math/TriangularTower/G47Capstone.lean`
+- **역할**: G47 triangular tower capstone — 5 cluster witnesses.
+- **주요 선언**:
+  - `narrowing_witness`, `optimal_precision_witness`.
+  - `absorption_witness`, `squashed_real_witness`.
+  - `total_witness`.
+- **의존**: PropertySurvival, OptimalPrecision, RealAsSquashed, AbsorbedByThree.
+
+### `lean/E213/Lib/Math/TriangularTower/INDEX.md`
+- **역할**: 주요 섹션 — TriangularTower 5 files (G47).
+
+### `lean/E213/Lib/Math/TriangularTower/OptimalPrecision.lean`
+- **역할**: Optimal bit precision per level (hypothesis k=n).
+- **주요 선언**:
+  - `optimalK`, `optimalK_values`.
+  - `optimalContribution`, `preservesAllProperties`.
+  - `preserve_at_0`, `preserve_at_25`.
+- **의존**: PropertySurvival.
+
+### `lean/E213/Lib/Math/TriangularTower/PropertySurvival.lean`
+- **역할**: Surviving algebraic properties per CD level.
+- **주요 선언**:
+  - `surviving`.
+  - `surviving_0/1/.../25`.
+  - `surviving_strict_decrease`.
+
+### `lean/E213/Lib/Math/TriangularTower/RealAsSquashed.lean`
+- **역할**: ZFC ℝ as level-2 substrate with 23 squashed 3-axes.
+- **주요 선언**:
+  - `levelsAbove`, `accumulated_3_axes`.
+  - `squashed_features`, `real_line_carries_23_hidden_axes`.
+
+### Batch M14 — Linalg213 + UniverseChain + Modulus (46 files)
+
+### `lean/E213/Lib/Math/Linalg213/Bridge.lean`
+- **역할**: Linalg213 ↔ Cohomology 213 chiral identification.
+- **주요 선언**:
+  - `dimVecS = chiralDim 1 0 = NS`.
+  - `dimVecT = chiralDim 0 1 = NT`.
+  - `dim_total_eq_five`, `atomic_split_consistent`.
+  - `phase_L5_capstone`.
+- **의존**: Linalg213.Chiral/Vector/Span/Gram, Physics.Couplings, Cohomology.Paper1Chiral.
+
+### `lean/E213/Lib/Math/Linalg213/Capstone.lean`
+- **역할**: Paper 1 Chiral Compression Theorem bundled (6 results).
+- **주요 선언**: `paper1_chiral_compression`.
+- **의존**: Linalg213.Bridge/Chiral, Physics.Couplings.PhotonKernel, Cohomology.Examples.TopologyCompare.
+
+### `lean/E213/Lib/Math/Linalg213/Chiral.lean`
+- **역할**: Paper 1 chiral decomposition Vec 5 = VecS ⊕ VecT.
+- **주요 선언**:
+  - `VecS`, `VecT`, `projS`, `projT`, `combine`.
+  - `combine_proj_eq`, `phase_L4_capstone`.
+- **의존**: Linalg213.Span/Vector, Physics.Simplex.Counts, NatHelper.
+
+### `lean/E213/Lib/Math/Linalg213/Gap.lean`
+- **역할**: Umbrella for Linalg213 Gap-fill submodules.
+- **의존**: Gap.MatrixMul, Determinant, TensorProduct, Eigen, Capstone.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/Capstone.lean`
+- **역할**: 5 cluster witnesses + total bundle.
+- **주요 선언**:
+  - `matrixMul_witness`, `determinant_witness`.
+  - `tensor_witness`, `eigen_witness`, `total_witness`.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/Determinant.lean`
+- **역할**: 2×2 determinants as explicit polynomial closed forms.
+- **주요 선언**:
+  - `det2_pos`, `det2_neg`, `det2_mag`.
+  - `det2_pos_identity/neg/mag`.
+  - `det2_pos_zero`, `det2_pos_diag`.
+- **의존**: Gap.MatrixMul, NatHelper.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/Eigen.lean`
+- **역할**: 213-native eigenvalues as pointwise identity.
+- **주요 선언**:
+  - `IsMatEigenpair`, `scalarMat`.
+  - `scalar_eigen_e0`, `identity_eigen_one`.
+- **의존**: Gap.MatrixMul, NatHelper.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/INDEX.md`
+- **역할**: 주요 섹션 — Gap 5 submodules + paradigm + scope notes.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/MatrixMul.lean`
+- **역할**: 213-native matrix multiplication.
+- **주요 선언**:
+  - `Mat`, `matrixMulNum`, `identityMat`, `zeroMat`.
+  - `matMul_zero_dim`, `zero_mul_any`.
+
+### `lean/E213/Lib/Math/Linalg213/Gap/TensorProduct.lean`
+- **역할**: tensor dimension counting; 5⊗5=25.
+- **주요 선언**:
+  - `tensorDim`.
+  - `d5_tensor`, `tensor_one_left/right/comm`.
+  - `n_u_link`.
+
+### `lean/E213/Lib/Math/Linalg213/Gram.lean`
+- **역할**: Gram matrix of N vectors in Vec d.
+- **주요 선언**:
+  - `Vec.inner`, `Gram`.
+  - `inner_e0_e0/e0_e1/basis_sum/symm_e0_e1`.
+  - `gram_orthonormal_2`, `rank_5_compression_target`.
+- **의존**: Linalg213.Vector.
+
+### `lean/E213/Lib/Math/Linalg213/INDEX.md`
+- **역할**: 주요 섹션 — Linalg213 module index (Vector, Span, Rank, Gram, Chiral, Gap, Bridge, Capstone).
+
+### `lean/E213/Lib/Math/Linalg213/PhaseChiralBridge.lean`
+- **역할**: Bridge between mod6 ↔ (parity, mod3) CRT ↔ NS+NT=d.
+- **주요 선언**:
+  - `chiral_count`, `phase_parity/mod3`.
+  - `chiralPair`, `chiralPair_mod6`, `chiralPair_table`.
+  - `atomic_five_dual`.
+- **의존**: Meta.Tactic.Mod213, Physics.Simplex.Counts.
+
+### `lean/E213/Lib/Math/Linalg213/Rank.lean`
+- **역할**: Linear combination + dependence (L2) with Int coefficients.
+- **주요 선언**:
+  - `IntCoeffs`, `linComb`, `linComb_isZero`.
+  - `e0_e1_LI_bounded`, `rank_5_target_L2`.
+- **의존**: Linalg213.Gram/Vector/Span.
+
+### `lean/E213/Lib/Math/Linalg213/Rank5Concrete.lean`
+- **역할**: Concrete rank-5 compression — 6 vectors with explicit dependence.
+- **주요 선언**:
+  - `all_ones_5`, `vs6`, `cs6`.
+  - `linDep_at_each_k`, `linComb_isZero_check`.
+  - `rank_5_concrete_instance`.
+- **의존**: Linalg213.Span/Vector/Gram/Rank.
+
+### `lean/E213/Lib/Math/Linalg213/Span.lean`
+- **역할**: Basis span (L3): pointwise decomposition.
+- **주요 선언**:
+  - `e2_5`, `e3_5`, `e4_5`.
+  - `basisDecompAt`, `decomp_at_{0-4}`.
+  - `vec5_basis_span`.
+- **의존**: Linalg213.Vector/Rank.
+
+### `lean/E213/Lib/Math/Linalg213/Vector.lean`
+- **역할**: 213-native Vector type — Vec d = Fin d → ℕ.
+- **주요 선언**:
+  - `Vec`, `Vec.zero`, `Vec.basis`, `Vec.add`, `Vec.smul`.
+  - `e0_5`, `e1_5`.
+  - `zero_add_zero`, `basis_add_d5`.
+  - `atomic_d_eq_5`, `atomic_chiral_split`.
+- **의존**: Physics.Simplex.Counts.
+
+### `lean/E213/Lib/Math/UniverseChain/Atomicity.lean`
+- **역할**: Step 1 — atomicity ⟺ size = 5 (re-export).
+- **주요 선언**:
+  - `Decomp`, `IsAlive`, `Atomic`.
+  - `atomic_iff_five`, `five_is_atomic`, `atomic_implies_five`.
+- **의존**: Theory.Atomicity.Five.
+
+### `lean/E213/Lib/Math/UniverseChain/BipartiteFractal.lean`
+- **역할**: Step 4 — K_{3,2}^{(c=2)} ⊆ K₅ edge subset.
+- **주요 선언**:
+  - `bipUnderlyingPair`, `k5Pair`, `edgeMap`.
+  - `edgeMap_correct`, `bip_edge_in_K5`.
+  - `multiplicity_lost`, `step4_bundle`.
+- **의존**: Cohomology.Bipartite.V32, Examples.K5, Fractal.Level.
+
+### `lean/E213/Lib/Math/UniverseChain/Decomposition.lean`
+- **역할**: Step 2 — unique alive decomposition 5 = 2·1 + 3·1.
+- **주요 선언**:
+  - `five_eq_2_plus_3`, `decomp_five_one_one`, `one_one_alive`.
+  - `unique_alive_decomp`, `two_piece_three_piece`.
+- **의존**: UniverseChain.Atomicity, Theory.Atomicity.Five.
+
+### `lean/E213/Lib/Math/UniverseChain/FiniteContainsInfinite.lean`
+- **역할**: Steps 5,6 — K₅ → K_{25} replication vs infinite triangle iteration.
+- **주요 선언**:
+  - `replicate`, `replicate_injective`, `replicate_image_card`.
+  - `finite_bounds_finite_iter`, `k25_does_not_contain_iter5`.
+  - `any_iter_fits_some_level`, `step5_6_bundle`.
+- **의존**: Cohomology.Fractal.Level, GenerationRule.TriangleIteration.
+
+### `lean/E213/Lib/Math/UniverseChain/INDEX.md`
+- **역할**: 주요 섹션 — UniverseChain deductive chain overview; Möbius extension.
+
+### `lean/E213/Lib/Math/UniverseChain/MobiusChain.lean`
+- **역할**: Post-atomicity Möbius P matrix realization.
+- **주요 선언**: `mobius_chain_loaded`.
+- **의존**: Geometry.Nat213AlgebraicGeometry, UniverseChain.Synthesis.
+
+### `lean/E213/Lib/Math/UniverseChain/PairAxes.lean`
+- **역할**: Step 3 — two axes NS=3, NT=2.
+- **주요 선언**:
+  - `three_axis_size`, `two_axis_size`, `total_size`.
+  - `axes_sum_eq_total`, `three_plus_two_eq_five`.
+  - `two_axes_bundle`, `pair_uniqueness`.
+- **의존**: Decomposition, Physics.Simplex.Counts, Theory.Atomicity.PairForcing.
+
+### `lean/E213/Lib/Math/UniverseChain/RawBipartition.lean`
+- **역할**: Raw (3,2) bipartition by leftmost atom at depth ≤ 2.
+- **주요 선언**:
+  - `leftmostAtomT`, `Raw.leftmostAtom`.
+  - `leftmost_a/b/s_ab/...`.
+  - `aSide`, `bSide`, `aSide_count`, `bSide_count`.
+  - `bipartition_3_2`, `raw_atomicity_geometric_match`.
+- **의존**: RawDepthCount.
+
+### `lean/E213/Lib/Math/UniverseChain/RawCountGeneric.lean`
+- **역할**: N-generic Raw count recurrence.
+- **주요 선언**:
+  - `rawCountG`, `rawCountG_succ`.
+  - `rawCountG_2`, `rawCountG_{1,3,4,5}_values`.
+  - `rawCountG_capstone`.
+- **의존**: RawRecurrence.
+
+### `lean/E213/Lib/Math/UniverseChain/RawDepth3.lean`
+- **역할**: Raw depth ≤ 3 (12 inhabitants).
+- **주요 선언**:
+  - `t1`...`t7`, `depthLe3List`.
+  - `depth_3_count`, `depth_3_distinct`, `depth_3_witnesses`.
+  - `aSide3`, `bSide3`, `ratio_breaks`, `raw_depth_3_witness`.
+- **의존**: RawDepthCount, RawBipartition.
+
+### `lean/E213/Lib/Math/UniverseChain/RawDepthCount.lean`
+- **역할**: Raw count by depth — d ≤ 2 = 5 atomic match.
+- **주요 선언**:
+  - `s_ab`, `s_a_ab`, `s_b_ab`.
+  - `depthLe2List`, `depth_{0,1,2}_count`, `depth_2_distinct`.
+  - `depth_distribution`, `raw_depth_2_atomic_match`.
+- **의존**: Theory.Raw.
+
+### `lean/E213/Lib/Math/UniverseChain/RawEnumeration.lean`
+- **역할**: General theorem: enumeration length = rawCount n.
+- **주요 선언**:
+  - `myLengthAppend`, `myLengthMap`, `choose2_succ`.
+  - `newSlashes`, `newSlashes_length`.
+  - `enumTreeDepth`, `enumTreeDepth_length`.
+  - `enumLength_{0,1,2,3}`, `enumeration_capstone`.
+- **의존**: RawRecurrence.
+
+### `lean/E213/Lib/Math/UniverseChain/RawRecurrence.lean`
+- **역할**: Raw count recurrence |S_n| = 2 + C(|S_{n-1}|, 2).
+- **주요 선언**:
+  - `choose2`, `choose2_{2,3,5,12,68}`.
+  - `rawCount`, `rawCount_succ`.
+  - `rawCount_{0..5}`, `rawCount_{2,3}_matches`.
+  - `differs_from_naive_guess`, `rawCount_recurrence_witness`.
+- **의존**: RawDepthCount, RawDepth3.
+
+### `lean/E213/Lib/Math/UniverseChain/Recursion.lean`
+- **역할**: Step 4 — recursion; d^L vertices; self-ref L=25.
+- **주요 선언**:
+  - `numV_def`, `numV_level{1,2,3}`.
+  - `self_ref_level`, `numV_at_self_ref`.
+  - `recursion_bundle`.
+- **의존**: PairAxes, Cohomology.Fractal.Level, Physics.Foundations.NUniverseFractalDepth.
+
+### `lean/E213/Lib/Math/UniverseChain/Residue.lean`
+- **역할**: Step 0 — residue of distinction = recursion (G29).
+- **주요 선언**:
+  - `distinct_primitives`, `no_self_distinction`.
+  - `d1`, `d2`, `d3`, `d1_ne_a`, `d2_ne_d1`, `d3_ne_d2`.
+  - `residue_recursion_witness`.
+- **의존**: Theory.Raw.
+
+### `lean/E213/Lib/Math/UniverseChain/Synthesis.lean`
+- **역할**: Full deductive chain atomicity → N_U.
+- **주요 선언**:
+  - `step1_to_step2`, `step2_to_step3`, `step3_to_step4`, `step4_to_step5`.
+  - `universe_chain`.
+- **의존**: All UniverseChain steps.
+
+### `lean/E213/Lib/Math/UniverseChain/TriangleRecurrence.lean`
+- **역할**: Step 3.5 — triangle recurrence bridge (G46).
+- **주요 선언**:
+  - `step3_5_pair`, `atomicity_match`.
+  - `step3_5_first_terms`, `T_first_step`.
+  - `step3_5_bundle`.
+- **의존**: GenerationRule.TriangleIteration, PairAxes.
+
+### `lean/E213/Lib/Math/UniverseChain/Universe.lean`
+- **역할**: Step 5 — N_U = d^(d²) = 5^25 = 298023223876953125.
+- **주요 선언**:
+  - `N_U`, `N_U_concrete`.
+  - `N_U_eq_fractal_candidate`, `N_U_eq_resolution_limit`.
+  - `N_U_eq_d_pow_dsq`, `universe_bundle`.
+- **의존**: Recursion, Physics.Foundations.NUniverseFromFractal, Math.ResolutionLimit.
+
+### `lean/E213/Lib/Math/Modulus/DepthCompleteness.lean`
+- **역할**: 213-native completeness via modulus.
+- **주요 선언**:
+  - `DepthComplete`, `id_depth_complete`, `const_depth_complete`.
+  - `no_cauchy_chase_needed`, `quantifier_free_completeness`.
+- **의존**: Modulus.InfoClosure, Translation.
+
+### `lean/E213/Lib/Math/Modulus/DiagonalHasModulus.lean`
+- **역할**: HasModulus instance for diagonal sequence (n+1, n+1).
+- **주요 선언**: `diagonalHasModulus`.
+- **의존**: Modulus.HasModulus, Lens.Instances.AB, Cauchy.Archimedean.
+
+### `lean/E213/Lib/Math/Modulus/DiagonalIrrelevance.lean`
+- **역할**: Diagonal behavior of Lens combine — injective → irrelevant.
+- **주요 선언**:
+  - `OffDiagonalAgree`.
+  - `diagonal_irrelevant`, `diagonal_reached_of_collision`.
+- **의존**: Lens.LensCore.
+
+### `lean/E213/Lib/Math/Modulus/G40Capstone.lean`
+- **역할**: G40 capstone — ε-δ as discrete depth modulus.
+- **주요 선언**:
+  - `translation_witness`, `info_closure_witness`.
+  - `depth_completeness_witness`, `quantifier_free_witness`.
+  - `total_witness`.
+- **의존**: Modulus.Translation, InfoClosure, DepthCompleteness.
+
+### `lean/E213/Lib/Math/Modulus/HasModulus.lean`
+- **역할**: Constructive Cauchy modulus typeclass.
+- **주요 선언**:
+  - `HasModulus`.
+  - `isOrderCauchy_of_hasModulus`.
+- **의존**: Cauchy.Archimedean, Lens.Instances.AB.
+
+### `lean/E213/Lib/Math/Modulus/HasModulusBoundsExtra.lean`
+- **역할**: Derived HasModulus lemmas — monotonicity.
+- **주요 선언**: `cauchy_at_larger_N`.
+- **의존**: HasModulus, Lens.Instances.AB, Cauchy.Archimedean.
+
+### `lean/E213/Lib/Math/Modulus/INDEX.md`
+- **역할**: 주요 섹션 — Modulus 10 files.
+
+### `lean/E213/Lib/Math/Modulus/InfoClosure.lean`
+- **역할**: Information-theoretic closure (213 continuity).
+- **주요 선언**:
+  - `IsInfoClosed`.
+  - `idInfoClosed`, `constInfoClosed`.
+  - `id_modulus`, `const_modulus`.
+  - `finite_depth_universal`, `no_infinite_descent`.
+- **의존**: Modulus.Translation.
+
+### `lean/E213/Lib/Math/Modulus/PellHasModulus.lean`
+- **역할**: HasModulus instance for Pell sequence — constructive √2.
+- **주요 선언**:
+  - `pellRawSeq`, `pellModulusN`.
+  - `pell_cauchy_at`, `pellHasModulus`.
+  - `pell_isOrderCauchy`.
+- **의존**: HasModulus, Cauchy.PellSeq, Irrational.Sqrt2KernelFree.
+
+### `lean/E213/Lib/Math/Modulus/StrongModulus.lean`
+- **역할**: StrongModulus variant — bounded ratio variation.
+- **주요 선언**:
+  - `StrongModulus`.
+  - `diagonalStrongModulus`.
+- **의존**: HasModulus, DiagonalHasModulus.
+
+### `lean/E213/Lib/Math/Modulus/Translation.lean`
+- **역할**: ε-δ ↔ discrete depth modulus translation (G40).
+- **주요 선언**:
+  - `DepthModulus`.
+  - `identityDepthModulus`, `constantDepthModulus`.
+  - `identityDepthModulus_eq`, `constantDepthModulus_zero`.
+  - `fromIsContinuousModulus`, `no_existential_in_modulus`.
+- **의존**: Topology.Continuity.
+
+### Batch M15 — ModArith + Information + Combinatorics + Cauchy (35 files)
+
+### `lean/E213/Lib/Math/ModArith/INDEX.md`
+- **역할**: 주요 섹션 — ModArith module 색인 (Join 알고리즘 family + CRT + per-mod Nat).
+
+### `lean/E213/Lib/Math/ModArith/JoinEquivGCD.lean`
+- **역할**: L_gcd.equiv = JoinEquiv L_m L_k 동치 (Euclidean의 join-lattice 실현).
+- **주요 선언**:
+  - `chain_step_sub_JE`.
+  - `gcd_subset_joinEquiv`, `gcd_equiv_joinEquiv`.
+- **의존**: JoinGCD, NatDiv213, Gcd213, ModNat.
+
+### `lean/E213/Lib/Math/ModArith/JoinExample.lean`
+- **역할**: 구체적 예시 — L_4 + L_6 → L_2 (gcd(4,6)=2).
+- **주요 선언**:
+  - `mod_4_6_chain_example`, `mod_4_6_step_2k`.
+  - `mod_4_6_refines_parity`.
+- **의존**: LeavesModNat, AddMod213, Cardinality.
+
+### `lean/E213/Lib/Math/ModArith/LensCRT.lean`
+- **역할**: prodLens(L_2, L_3) ≈ L_6 (중국인의 나머지 정리).
+- **주요 선언**:
+  - `L6_refines_prod`, `prod_refines_L6`.
+- **의존**: LeavesModNat, AddMod213, Lattice.Meet.
+
+### `lean/E213/Lib/Math/ModArith/PureNatMod3.lean`
+- **역할**: mod-3 하강 — mod3 정의, 삼분법, 제곱 영점.
+- **주요 선언**:
+  - `mod3`.
+  - `mod3_three_mul`, `mod3_three_mul_one/two`.
+  - `mod3_self_mul_zero`.
+  - `nat_trichotomy`, `three_mul_one_sq`, `three_mul_two_sq`.
+- **의존**: PureNat.
+
+### `lean/E213/Lib/Math/ModArith/PureNatMod5.lean`
+- **역할**: mod-5 하강 — mod5 정의, 5분법, 제곱 커널 {0}.
+- **주요 선언**:
+  - `mod5`.
+  - `mod5_self_mul_zero`.
+  - `nat_quintichotomy`.
+  - `five_mul_r_sq`, `mod5_five_mul_add`.
+- **의존**: PureNat.
+
+### `lean/E213/Lib/Math/Information/Bit.lean`
+- **역할**: bit = bisection — dyadic atomic log₂; log₂(2^n) = n.
+- **주요 선언**:
+  - `bitDepth`, `bitsAfterBisections`.
+  - `log2_pow_two_eq`.
+  - `byte_cardinality`, `nU_log_form`.
+- **의존**: DyadicBracket.
+
+### `lean/E213/Lib/Math/Information/Capstone.lean`
+- **역할**: Information 213 7-사실 종합.
+- **주요 선언**:
+  - `bit_witness`, `entropy_witness`, `mutualInfo_witness`.
+  - `kl_witness`, `channel_witness`, `coding_witness`, `kolmogorov_witness`.
+  - `total_witness`.
+
+### `lean/E213/Lib/Math/Information/Channel.lean`
+- **역할**: 이진 대칭 채널(BSC) 용량 — BSC(1/2^k) = k/2^k.
+- **주요 선언**:
+  - `noiselessChannel`, `randomChannelCapacity`.
+  - `bscCapacityNum`, `bscCapacityDen`.
+  - `noiseless_capacity`, `bsc_half_capacity`, `bsc_byte_capacity`.
+- **의존**: MutualInfo, Bernoulli.
+
+### `lean/E213/Lib/Math/Information/Coding.lean`
+- **역할**: 부호 이론 — Hamming 거리, 최적 이진 부호 길이.
+- **주요 선언**:
+  - `hammingDistance`, `hamming_self`.
+  - `optimalCodeLength`.
+  - `hamming_swap`, `hamming_one_flip`, `byte_optimal`.
+- **의존**: Bit, Foundation.
+
+### `lean/E213/Lib/Math/Information/Entropy.lean`
+- **역할**: Shannon 엔트로피 dyadic — H(uniform on 2^n) = n bits.
+- **주요 선언**:
+  - `shannonEntropyUniformBits`.
+  - `shannonEntropy_uniform_eq_depth`.
+  - `surpriseBitsDyadic`.
+  - `fair_coin_entropy`, `byte_uniform_entropy`, `nU_dyadic_entropy`.
+  - `dyadicProbabilityCut`.
+- **의존**: Bit, ProbabilityCut.
+
+### `lean/E213/Lib/Math/Information/INDEX.md`
+- **역할**: 주요 섹션 — Information 213 (atomic foundations, joint, channel/coding, Kolmogorov).
+
+### `lean/E213/Lib/Math/Information/KLDivergence.lean`
+- **역할**: KL 발산 atomic — D(a‖b) = a - b.
+- **주요 선언**:
+  - `klBitsDyadic`.
+  - `kl_self_zero`, `kl_nonneg`.
+  - `kl_fair_to_quarter`, `kl_byte_to_bit`.
+- **의존**: Entropy.
+
+### `lean/E213/Lib/Math/Information/Kolmogorov.lean`
+- **역할**: 213 최소 기술 길이 — K(213) = 4 (Raw axiom 4-clause).
+- **주요 선언**:
+  - `axiomClauseCount`, `kolmogorov_213`.
+  - `kolmogorov_eq_clauses`.
+  - `axiom_minimality`, `truncation_at_minimum`.
+  - `nU_log_form`.
+- **의존**: Bit.
+
+### `lean/E213/Lib/Math/Information/MutualInfo.lean`
+- **역할**: 결합 엔트로피 + 상호 정보 dyadic.
+- **주요 선언**:
+  - `jointEntropyIndependentUniforms`.
+  - `joint_independent_eq_sum`.
+  - `mutualInfoIndependent`, `mutualInfo_independent_zero`.
+  - `mutualInfoBits`, `mutualInfo_self_eq_entropy`.
+  - `fair_coin_self_info`, `byte_self_info`.
+- **의존**: Entropy, NatHelper.
+
+### `lean/E213/Lib/Math/Combinatorics/Binomial.lean`
+- **역할**: 이항 계수 Pascal 재귀.
+- **주요 선언**:
+  - `binom_0_0`, `binom_n_0`.
+  - `binom_5_table`, `binom_4_table`.
+  - `binom_5_symmetry`, `binom_5_row_sum`.
+  - `pascal_5_2`, `binom_5_6_zero`, `binom_4_5_zero`.
+- **의존**: Simplex.Counts.
+
+### `lean/E213/Lib/Math/Combinatorics/Capstone.lean`
+- **역할**: Combinatorics 213 4-사실 종합.
+- **주요 선언**:
+  - `binomial_witness`, `catalan_witness`, `stirling_witness`, `gf_witness`.
+  - `total_witness`.
+
+### `lean/E213/Lib/Math/Combinatorics/Catalan.lean`
+- **역할**: Catalan 수 atomic 표 C₀..C₇.
+- **주요 선언**:
+  - `catalan`.
+  - `catalan_0` … `catalan_7`.
+  - `catalan_recursion_3`, `catalan_recursion_4`.
+
+### `lean/E213/Lib/Math/Combinatorics/CatalanExtended.lean`
+- **역할**: Catalan 재귀 확장 n=5,6,7.
+- **주요 선언**:
+  - `catalan_recursion_5/6/7`.
+  - `catalan_5_times_2`, `catalan_sum_6_7`.
+
+### `lean/E213/Lib/Math/Combinatorics/GeneratingFunction.lean`
+- **역할**: 형식 거듭제곱 급수 atomic — Grade nilpotency로 finite 다항식.
+- **주요 선언**:
+  - `CoeffSeq`, `constSeries`, `one`, `xVar`.
+  - `convolution`.
+  - `conv_one_at_0`, `conv_one_one_0`.
+  - `catalanGF`, `catalanGF_table`.
+
+### `lean/E213/Lib/Math/Combinatorics/INDEX.md`
+- **역할**: 주요 섹션 — Combinatorics 213 (binomial, Catalan, Stirling, GF, Simplex5, Capstone).
+
+### `lean/E213/Lib/Math/Combinatorics/Simplex5.lean`
+- **역할**: 4-단체 구조: 5 정점, (3,2) 분할, S_3×S_2-불변 가중치.
+- **주요 선언**:
+  - `isA`.
+  - `BlockPair`, `classify`.
+  - `PreservesPartition`, `AutInvariant`, `BlockConstant`.
+  - `classify_aut_inv`, `block_constant_implies_aut_invariant`.
+- **의존**: Atomicity.Five, Atomicity.PairForcing.
+
+### `lean/E213/Lib/Math/Combinatorics/Stirling.lean`
+- **역할**: Stirling 2종 + Bell 수.
+- **주요 선언**:
+  - `stirling2`.
+  - `stirling2_0_0`, `stirling2_diag`.
+  - `stirling2_n_1`, `stirling2_n_2`.
+  - `bell`, `bell_table`.
+  - `bell_3_decompose`, `bell_4_decompose`.
+
+### `lean/E213/Lib/Math/ModArith/JoinBezout.lean`
+- **역할**: Bezout 체인 단계 일반 패턴 — L_m + L_k → +(m-k) 흡수.
+- **주요 선언**:
+  - `leaves_ge_one`, `chain_step_sub`.
+  - `same_leaves_N`, `consecutive_step_plus_n`, `consecutive_refines_const`.
+- **의존**: Lens.Instances.Leaves.ModNat, Meta.Nat.NatDiv213.
+
+### `lean/E213/Lib/Math/ModArith/JoinCoprime.lean`
+- **역할**: gcd(2,3)=1 — L_2, L_3 join이 상수 렌즈.
+- **주요 선언**:
+  - `leaves_ge_one`, `step_plus_one`.
+  - `same_leaves`, `step_plus_k`, `mod_2_3_refines_const`.
+- **의존**: Lens.Instances.Leaves.ModNat.
+
+### `lean/E213/Lib/Math/ModArith/JoinEuclidean.lean`
+- **역할**: Euclidean 단계 일반화 — L_m + L_k → L_{m-k}.
+- **주요 선언**:
+  - `leaves_ge_one_local`, `same_leaves_N_local`.
+  - `step_plus_nd`, `euclidean_step`.
+- **의존**: ModArith.JoinBezout, Meta.Nat.Gcd213.
+
+### `lean/E213/Lib/Math/ModArith/JoinGCD.lean`
+- **역할**: 강 귀납법 — 임의 m, k ≥ 2에 대해 L_m + L_k → L_{gcd m k}.
+- **주요 선언**:
+  - `join_refines_gcd_sorted`, `join_refines_gcd`.
+  - `joinEquiv_subset_gcd`.
+- **의존**: ModArith.JoinBezout/JoinEuclidean, Lens.Lattice.JoinEquiv, Meta.Nat.Gcd213.
+
+### `lean/E213/Lib/Math/Cauchy/Archimedean.lean`
+- **역할**: Archimedean Cauchy via Dedekind cut — order projection, OrderCauchyData, RealCut.
+- **주요 선언**:
+  - `orderProj`, `isOrderCauchy`.
+  - `OrderCauchyData`, `cut`.
+  - `diagonal_seq_*`, `ratio_one_below_*`.
+  - `rational_seq_*`, `half_seq_*`.
+  - `CutEquiv`, `RealCut`.
+- **의존**: Lens.Instances.AB, Lens.Instances.Cauchy.
+
+### `lean/E213/Lib/Math/Cauchy/Euler.lean`
+- **역할**: Euler e Dedekind cut 통합 (consolidated 6→1).
+- **주요 선언**:
+  - EulerSeq: `eulerNum`, `eulerDen`.
+  - EulerSharper: e > 5/2.
+  - EulerSharperKernelFree, EulerSharperPure: e > 8/3.
+  - EulerGenericPure, EulerCombinatorialPure.
+- **의존**: Archimedean, MonotonicBounded, PellSeq, PureNat, NatHelper.
+
+### `lean/E213/Lib/Math/Cauchy/GenericFamily.lean`
+- **역할**: 렌즈 + 후처리 family 통일 Cauchy 프레임워크.
+- **주요 선언**:
+  - `GFCauchy`, `GFCauchyData`, `limitAssign`.
+  - `lensCauchy_is_GFCauchy`, `orderCauchy_is_GFCauchy`.
+  - `profinite_factorial_is_GFCauchy`.
+  - `projectionLens`, `leavesModAllLens`.
+- **의존**: Lens.Instances.Cauchy/AB, Cauchy.Archimedean/ProfiniteSeq, Meta.Nat.AddMod213.
+
+### `lean/E213/Lib/Math/Cauchy/INDEX.md`
+- **역할**: 주요 섹션 — Cauchy 213 (Generic 4 + Sequences 3 consolidated 2026-05-12).
+
+### `lean/E213/Lib/Math/Cauchy/MonotonicBounded.lean`
+- **역할**: ab-단조 증가 수열 → orderCauchy.
+- **주요 선언**:
+  - `IsAbMonotonic`, `IsAbPositiveB`.
+  - `ab_monotonic_chain`, `orderProj_false_propagates`.
+  - `orderCauchy_from_false_witness`, `orderCauchy_from_true_forever`.
+- **의존**: Lens.Instances.AB, Cauchy.Archimedean, NatHelper.
+
+### `lean/E213/Lib/Math/Cauchy/PellSeq.lean`
+- **역할**: Pell 수열 Raw 구성 — √2 Dedekind cut (constructive ∅-axiom).
+- **주요 선언**:
+  - `pellPair`, `pellX`, `pellY`.
+  - `pell_step`, `pell_invariant`.
+  - `abLens_witness`, `abLens_surjective`.
+  - `pellX_pos`, `pellY_pos`, `pellRaw`.
+  - `pellRaw_cut_above`, `pellRaw_cut_below`.
+- **의존**: Sqrt2Cut, Cardinality, NatHelper.
+
+### `lean/E213/Lib/Math/Cauchy/ProfiniteSeq.lean`
+- **역할**: 계승 수열 Cauchy (leavesModNat family) — profinite limit 0.
+- **주요 선언**:
+  - `factorial`, `factorial_pos`, `factorial_dvd`.
+  - `factorial_eventually_zero_mod`.
+  - `factorial_seq_cauchy`, `factorial_seq_limit_zero`.
+  - `leavesModNatFamily`, `factorial_seq_familyCauchy`, `factorial_seq_limit_all_zero`.
+- **의존**: Cardinality.LensCardinality, NatHelper, Omega213.
+
+### `lean/E213/Lib/Math/Cauchy/Wallis.lean`
+- **역할**: Wallis π/2 Dedekind cut 통합 (consolidated 3→1).
+- **주요 선언**:
+  - WallisSeq: `wallisNum`, `wallisDen`.
+  - WallisSharper: π/2 > 64/45.
+  - WallisSharperKernelFree.
+- **의존**: Archimedean, MonotonicBounded, PellSeq, Polynomial213.
+
