@@ -7244,3 +7244,983 @@
   - `reachable_isBase`, `reachable_base_only`, `no_reachable_rel`.
 - **의존**: Pigeonhole.
 
+---
+
+## Section 4b — Lib/Physics (E213/Lib/Physics/) — 180 files
+
+### Batch P1 — AlphaEM + Foundations (47 files)
+
+### `lean/E213/Lib/Physics/AlphaEM/Augmented.lean`
+- **역할**: 1/α_em 보강 괄호 — Dyson 꼬리 + SO(10) + Gram 자기 에너지 (0.18 ppb).
+- **주요 선언**:
+  - `inv_lower_with_tail`, `inv_upper_with_tail`.
+  - `n20_with_tail_contains_observed`.
+  - `add_gram_self_energy`.
+  - `inv_lower_aug`, `inv_upper_aug`.
+  - `alpha_em_gram_capstone`.
+- **의존**: Bare, Brackets, SO(10), GramSelfEnergy.
+
+### `lean/E213/Lib/Physics/AlphaEM/Bare.lean`
+- **역할**: 1/α_em 기본 정수 골격 (5항 유도).
+- **주요 선언**:
+  - `inv_alpha_3`, `inv_alpha_2`.
+  - `inv_alpha_em_bare_lower/upper`.
+  - `bare_128_in_bracket`, `corrected_137_outside_bare_bracket`.
+- **의존**: Couplings/AlphaGUT, Basel/Bound.
+
+### `lean/E213/Lib/Physics/AlphaEM/Brackets.lean`
+- **역할**: 1/α_em 유리 괄호 — 기본 + 조밀 + V137 (N=10→N=20).
+- **주요 선언**:
+  - `inv_alpha_em_bare_lower/upper`.
+  - `inv_lower_tight`, `inv_upper`.
+  - `inv_full_lower/upper`.
+  - `bracket_137_in_at_20_tight`, `capstone_n20`.
+- **의존**: Bare, Basel/Bound.
+
+### `lean/E213/Lib/Physics/AlphaEM/Capstone.lean`
+- **역할**: 1/α_em 최종 — 통합합 + 마스터 + 마일스톤.
+- **주요 선언**:
+  - `alpha_em_unified_lower/upper`.
+  - `alpha_em_simplicial_capstone`.
+  - `alpha_em_master_capstone`.
+  - `alpha_em_milestone`.
+- **의존**: Augmented, Brackets, Foundations/NUniverseFractalDepth.
+
+### `lean/E213/Lib/Physics/AlphaEM/ChannelCohomologyLoss.lean`
+- **역할**: 1/α_3 = 8은 K↪Δ⁴ 6가지 등가 표현.
+- **주요 선언**:
+  - `E_K`, `V_K`, `H1_K`.
+  - `chi_rel`, `consistency_check`.
+  - `sheet_redundancy`, `six_fold_equivalence`.
+- **의존**: Simplex/SubInventory, ProjectionRatios.
+
+### `lean/E213/Lib/Physics/AlphaEM/CupChannelInventory.lean`
+- **역할**: Δ⁴ 컵 채널 유한 열거 (10/80/785).
+- **주요 선언**:
+  - `cup_pair`, `cup_pair_count`.
+  - `total_edge_cup_channels`, `chiral_block_count`.
+  - `channels_at_grade`, `cup_channel_inventory_master`.
+- **의존**: Math/Cohomology/CupAW.
+
+### `lean/E213/Lib/Physics/AlphaEM/CupRingTrace.lean`
+- **역할**: 컵환 함수식 하향식 테스트 (F₁..F₅ 후보).
+- **주요 선언**:
+  - `F1_at_grade`, `F1`.
+  - `F2_at_grade_*`, `F2`, `F3`, `F4`, `F5`.
+  - `cup_ring_trace_master`.
+- **의존**: Math/Cohomology/{Cup,Hodge}.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelLift.lean`
+- **역할**: C5 Step 2 — K^(L) 정점/간선 수.
+- **주요 선언**:
+  - `lift_V`, `lift_E`, `lift_H1`.
+  - `lift_H1_eq_2V_minus_2_small`.
+  - `fractal_lift_master`.
+- **의존**: Basel/Bound.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelZetaBracket.lean`
+- **역할**: C5 Step 1 — ζ_K^(L) 괄호화.
+- **주요 선언**:
+  - `zeta_K_L1_num/den`, `zeta_K_L1_e3`.
+  - `gap_L1_e3`.
+  - `S_2_e3`, `S_3_e3`.
+  - `zeta_K_L1_between_S3_and_zeta_2`.
+- **의존**: LaplacianSpectrum, Basel/Bound.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelZetaCoeffSeq.lean`
+- **역할**: C5 Step 5 — ζ_K^(L=1) 스펙트럼을 CoeffSeq로 부호화.
+- **주요 선언**:
+  - `laplacian_spec`, `laplacian_spec_total`.
+  - `h1_carries_3_bits`.
+  - `fractal_zeta_coeffseq_master`.
+- **의존**: Math/Combinatorics/GeneratingFunction.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelZetaConvergence.lean`
+- **역할**: C5 Step 4 — ζ_K^(L=1) 수렴 괄호.
+- **주요 선언**:
+  - `zeta_K_L1_at_1_e5`, `zeta_K_L1_at_2_e5`.
+  - `zeta_2_target_e5`, `zeta_gap_L1_e5`.
+  - `zeta_full_decreasing`.
+- **의존**: FractalLevelZetaSpectrum, Brackets.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelZetaModulus.lean`
+- **역할**: C5 Step 6 — 수렴을 이산 DepthModulus.
+- **주요 선언**:
+  - `two_neg_N_e5`.
+  - `gap_below_2_neg_3`, `above_2_neg_4`.
+  - `zeta_modulus`.
+  - `fractal_zeta_modulus_master`.
+- **의존**: Math/Modulus/Translation.
+
+### `lean/E213/Lib/Physics/AlphaEM/FractalLevelZetaSpectrum.lean`
+- **역할**: C5 Step 3 — ζ_K(s) for s∈{0..4} at L=1.
+- **주요 선언**:
+  - `zeta_K_L1_at_0`, `zeta_K_L1_at_3_e5`, `zeta_K_L1_at_4_e5`.
+  - `zeta_decreasing_in_s`.
+  - `fractal_zeta_spectrum_master`.
+- **의존**: FractalLevelZetaBracket.
+
+### `lean/E213/Lib/Physics/AlphaEM/GradedDecomposition.lean`
+- **역할**: 785 교차항 5-등급 분해.
+- **주요 선언**:
+  - `grade_0/1/2/3/4`.
+  - `cup_chirality_witness`, `graded_decomposition_master`.
+- **의존**: Math/Cohomology/{Cup,CupAW}.
+
+### `lean/E213/Lib/Physics/AlphaEM/GradedFormula.lean`
+- **역할**: C1 Step 1 — 5-등급 컵환 분해.
+- **주요 선언**:
+  - `L1a_coeff`, `L1b_coeff`.
+  - `L2_num/den`, `L3_den_integer`.
+  - `alphaInv_213_e7_at_pi9`, `alphaInv_213_bracket`.
+  - `graded_formula_master`.
+- **의존**: ProjectionRatios, PiFiveGap.
+
+### `lean/E213/Lib/Physics/AlphaEM/GradedFormulaPrecision.lean`
+- **역할**: C1 Step 2 — 12자리 π 정밀도.
+- **주요 선언**:
+  - `pi2_e12`, `pi5_e12`.
+  - `alphaInv_213_e9`, `observed_e9`.
+  - `alphaInv_213_residual`, `alphaInv_213_bracket_e9`.
+- **의존**: GradedFormula.
+
+### `lean/E213/Lib/Physics/AlphaEM/GramHigherOrder.lean`
+- **역할**: C1 Step 4 — 고차 Gram α³/d².
+- **주요 선언**:
+  - `observed_e9_cubed`, `gram_correction_alpha3_e9`.
+  - `alphaInv_doubly_refined_e9`, `alphaInv_doubly_refined_residual`.
+  - `gram_higher_order_master`.
+- **의존**: GramSelfConsistency.
+
+### `lean/E213/Lib/Physics/AlphaEM/GramSelfConsistency.lean`
+- **역할**: C1 Step 3 — α²/d² Gram 자기에너지.
+- **주요 선언**:
+  - `observed_e9_squared`, `gram_correction_e9`.
+  - `alphaInv_refined_e9`, `alphaInv_refined_residual`.
+  - `gram_self_consistency_master`.
+- **의존**: GradedFormulaPrecision.
+
+### `lean/E213/Lib/Physics/AlphaEM/INDEX.md`
+- **역할**: 주요 섹션 — AlphaEM 23 files.
+
+### `lean/E213/Lib/Physics/AlphaEM/LaplacianSpectrum.lean`
+- **역할**: Test 2 — 컵환 Laplacian ζ-함수.
+- **주요 선언**:
+  - `delta4_lap_rank`, `delta4_lap_trace`.
+  - `k32c2_zeta_1_num/den`, `k32c2_zeta_2_num/den`.
+  - `laplacian_spectrum_master`.
+- **의존**: Simplex/SubInventory, ProjectionRatios.
+
+### `lean/E213/Lib/Physics/AlphaEM/NUniverseCandidates.lean`
+- **역할**: 원자 조합론 N_U 후보 7개.
+- **주요 선언**:
+  - `candidate_dfactorial`, `candidate_2_to_d_sq`.
+  - `candidate_hierarchy`, `candidate_d_to_NS_d`.
+
+### `lean/E213/Lib/Physics/AlphaEM/PiFiveGap.lean`
+- **역할**: π⁵ 구조-갭 추측.
+- **주요 선언**:
+  - `gap_e7`, `pi5_gap_e7`, `alpha_gut_45_e7`.
+  - `pi5_closer_than_alpha_gut_45`, `pi5_gap_master`.
+
+### `lean/E213/Lib/Physics/AlphaEM/ProjectionRatios.lean`
+- **역할**: K_{3,2}↔Δ⁴ 사영 비율.
+- **주요 선언**:
+  - `ss_edges`, `st_edges`, `tt_edges`.
+  - `sheet_collapse`, `coverage_ratio`.
+  - `coeff_60`, `30`, `25`, `4`, `45`.
+  - `projection_ratios_master`.
+- **의존**: Simplex/SubInventory.
+
+### `lean/E213/Lib/Physics/AlphaEM/StructuralGap.lean`
+- **역할**: 1/α_em 구조-갭 오픈 문제.
+- **주요 선언**:
+  - `observed_milli`, `tolerance`.
+  - `n50_bracket_contains_observed/candidate`.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicConstantsParametric.lean`
+- **역할**: C2 Step 4 — 단일축 n=2 매개변수 유일성.
+- **주요 선언**:
+  - `sq_of_add`, `msq_gt_2m_p3`.
+  - `mp2_sq_sub_1_lt_msub1_mul3`.
+  - `c2b_n2_iff_m3`, `atomic_constants_parametric_master`.
+- **의존**: AtomicConstantsUnique, Tactic/Omega213.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicConstantsParametricFull.lean`
+- **역할**: C2 Step 6 — 전체 ∀(m,n)≥2 유일성.
+- **주요 선언**:
+  - `c2b_sym`.
+  - `two_sum_p_two_mn_le_three_sum`.
+  - `nine_sum_le_two_msq_nsq`.
+  - `msq_nsq_decomp`, `atomic_constants_parametric_full_master`.
+- **의존**: AtomicConstantsParametric, CauchySchwarz.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicConstantsParametricFullIff.lean`
+- **역할**: C2 Step 7 — 완전 ↔.
+- **주요 선언**: `c2b_full_iff`.
+- **의존**: AtomicConstantsParametricFull.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicConstantsParametricN3.lean`
+- **역할**: C2 Step 5 — n=3 고정.
+- **주요 선언**:
+  - `seven_msq_gt_6m_p17`.
+  - `mp3_sq_p8_lt_eight_msq`.
+  - `mp3_sq_sub_1_lt_msub1_mul8`.
+  - `c2b_n3_iff_m2`, `atomic_constants_parametric_n3_master`.
+- **의존**: AtomicConstantsParametric.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicConstantsUnique.lean`
+- **역할**: C2 Step 1 — 유일성 제약 (C2a, C2b, C2c).
+- **주요 선언**:
+  - `constraint_C2a`, `C2b`, `C2c`.
+  - `atomic_constants_satisfy`, `is_unique_to_213`.
+  - `unique_to_bound_100`.
+- **의존**: Simplex/Counts.
+
+### `lean/E213/Lib/Physics/Foundations/AtomicSuperCatalog.lean`
+- **역할**: 31개 원자 정수 마일스톤 통합.
+- **주요 선언**: `fact`, `super_catalog`.
+
+### `lean/E213/Lib/Physics/Foundations/DrltZeroParameters.lean`
+- **역할**: DRLT 0 자유 매개변수 선언.
+- **주요 선언**: `drlt_zero_parameter_claim`.
+- **의존**: Capstones/MasterCatalog, Mass/HierarchyTowers.
+
+### `lean/E213/Lib/Physics/Foundations/FibonacciAtomic.lean`
+- **역할**: (NS, NT) = (F_4, F_3) — Fibonacci 연속쌍.
+- **주요 선언**:
+  - `NT_eq_F3`, `NS_eq_F4`, `d_eq_F5`.
+  - `alpha_3_eq_F6`, `NH3_denom_eq_F7`.
+  - `atomic_fibonacci_triple`, `five_fib_atomic`.
+  - `F5_F4_eq_inv_Y_norm`.
+- **의존**: GoldenRatio.
+
+### `lean/E213/Lib/Physics/Foundations/FibonacciExtended.lean`
+- **역할**: F_8..F_10 원자 외형.
+- **주요 선언**:
+  - `F8_atomic_decomp`, `F9_atomic_decomp`, `F10_atomic_decomp`.
+  - `fibonacci_deep_atomicity`.
+
+### `lean/E213/Lib/Physics/Foundations/FiniteResonanceN.lean`
+- **역할**: 각 게이지 결합의 유한 격자 N.
+- **주요 선언**:
+  - `n_alpha_2_eq_b1`.
+  - `n_alpha_3_eq_face_dim_times_d`.
+  - `n_alpha_em_is_41_in_alpha_gut_bracket`.
+  - `finite_resonance_n_skeleton`, `n_self_referential`.
+- **의존**: Couplings/PhotonKernel.
+
+### `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean`
+- **역할**: π는 한계-레이블; 진정한 것은 유한-N 유리수.
+- **주요 선언**:
+  - `inv_alpha_em_finite`, `inv_alpha_em_finite_upper`.
+  - `deviation_at_3`.
+  - `N_universe_open_problem`, `no_pi_in_finite_alpha_em`.
+
+### `lean/E213/Lib/Physics/Foundations/FractalLensCardinality.lean`
+- **역할**: 렌즈 카디널리티 = d^(d²).
+- **주요 선언**:
+  - `coloring_count`, `K25_coloring_count`.
+  - `K25_coloring_count_eq_N_U`.
+  - `fractal_lens_cardinality_capstone`.
+
+### `lean/E213/Lib/Physics/Foundations/GoldenRatio.lean`
+- **역할**: 황금비 φ는 d=5 격자에서 자연 발생.
+- **주요 선언**:
+  - `phi_d_link`.
+  - `fib`, `fib_5_eq_d`.
+  - `fibonacci_atomic_coincidence`, `phi_squared_bracket`.
+
+### `lean/E213/Lib/Physics/Foundations/HopHypothesis.lean`
+- **역할**: Hop 가설.
+- **주요 선언**:
+  - `S_0_val`, `S_1_val`, `S_2_val`.
+  - `hop_depth_basel_cutoff`, `hop_hypothesis_capstone`.
+
+### `lean/E213/Lib/Physics/Foundations/INDEX.md`
+- **역할**: 주요 섹션 — Foundations 22 files.
+
+### `lean/E213/Lib/Physics/Foundations/KoideFormula.lean`
+- **역할**: Koide 공식 = NT/NS = 2/3.
+- **주요 선언**:
+  - `koide_atomic`, `NT * NS`.
+  - `koide_geometric_skeleton`.
+
+### `lean/E213/Lib/Physics/Foundations/LensCardinalityFractalLevels.lean`
+- **역할**: 각 fractal 레벨 렌즈 카디널리티.
+- **주요 선언**:
+  - `level0_count`, `level1_count`, `level2_count`.
+  - `leveld_count`, `level_d_sq_count`.
+  - `lens_cardinality_progression`.
+
+### `lean/E213/Lib/Physics/Foundations/MasslessParticles.lean`
+- **역할**: 광자, 글루온, 중력자 분류.
+- **주요 선언**:
+  - `photon_massless_no_saturation`.
+  - `gluon_confined_massless`.
+  - `WZ_massive_via_NT`.
+  - `three_force_mass_pattern`.
+
+### `lean/E213/Lib/Physics/Foundations/NUniverseFractalDepth.lean`
+- **역할**: N_U = d^(d²) 자가참조 fractal 깊이.
+- **주요 선언**:
+  - `universe_level`, `universe_level_value`.
+  - `numV_at_universe_level`, `numV_at_universe_level_value`.
+  - `n_universe_self_consistent`.
+
+### `lean/E213/Lib/Physics/Foundations/NUniverseFromFractal.lean`
+- **역할**: N_U = d^(d²) 구조 동정.
+- **주요 선언**:
+  - `fractal_level2_vertex_count`.
+  - `n_universe_candidate`, `n_universe_value`.
+  - `n_universe_atomic_decomposition`.
+  - `n_universe_structural`.
+
+### `lean/E213/Lib/Physics/Foundations/ResolutionDepth.lean`
+- **역할**: 왜 α_3, α_2는 정확이고 α_1은 괄호화인가.
+- **주요 선언**:
+  - `alpha_3_at_depth_1`, `alpha_2_at_depth_2`.
+  - `alpha_1_only_bracket_at_3`.
+  - `alpha_3_wrong_depth_2`, `twenty_four_ne_thirty`.
+
+### `lean/E213/Lib/Physics/Foundations/TightenBracket.lean`
+- **역할**: 1/α_GUT 괄호 좁히기.
+- **주요 선언**:
+  - `inv_lower_10`, `inv_upper_10`.
+  - `in_bracket_41_at_10`, `out_of_bracket_42_at_10`.
+  - `precision_2digit_41_25_excluded`, `width_10_lt_width_3`.
+
+### `lean/E213/Lib/Physics/Foundations/UnifiedPattern.lean`
+- **역할**: 7개 정밀도 수량 = 같은 원자성-결정 원자에서.
+- **주요 선언**: `master_unified_pattern`.
+- **의존**: Capstone, Mass/*, Higgs/Mass, YangMills/*, Cosmology/*, Atomic/BondAngles.
+
+### Batch P2 — Atomic + Substrate + Hadron (46 files)
+
+### `lean/E213/Lib/Physics/Atomic/BondAngles.lean`
+- **역할**: 분자 결합각 = 순수 유리수 코사인.
+- **주요 선언**:
+  - `CH4_cos_denom`, `H2O_cos_denom`, `NH3_cos_denom`.
+  - `bond_angles_capstone`.
+- **의존**: Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Atomic/Bridge.lean`
+- **역할**: 원자 구조 ↔ 다이아몬드 다리.
+- **주요 선언**:
+  - `bohr_atomic`.
+  - `n1_atomic`, `n2_atomic`.
+  - `sigma_p2_atomic`, `sigma_p3_atomic`.
+  - `atomic_bridge_capstone`.
+- **의존**: Hydrogen, Screening, Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Atomic/Helium.lean`
+- **역할**: He IE = 24.587 eV, σ_1s = 7/8.
+- **주요 선언**:
+  - `Z_He`, `helium_uses_sigma_1s`.
+  - `He_H_ratio_precise`, `helium_simplicial_pattern`.
+- **의존**: Hydrogen, Screening, Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Atomic/Hydrogen.lean`
+- **역할**: 수소 Bohr 공식의 "2" = NT.
+- **주요 선언**:
+  - `bohr_denom`.
+  - `n1_prefactor_denom`, `n2_prefactor_denom`.
+  - `hydrogen_atomic_pattern`.
+- **의존**: AlphaEM.Bare, Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Atomic/IE.lean`
+- **역할**: IE (이온화 에너지) 서브 클러스터 집계자.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Beryllium.lean`
+- **역할**: Be IE 원자 체인, σ_2s_2s = NS/d.
+- **주요 선언**:
+  - `IE_Be_micro`, `IE_Be_DRLT_micro`.
+  - `Z_eff_Be_atomic`, `sigma_2s_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Boron.lean`
+- **역할**: B IE 원자 체인 + P(x).
+- **주요 선언**:
+  - `B_leading`, `B_with_P_x`, `B_observed`.
+  - `sigma_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/CNOFNe.lean`
+- **역할**: C, N, O, F, Ne IE 원자 체인.
+- **주요 선언**:
+  - `Z_C_atomic`..`Z_Ne_atomic`.
+  - `sigma_2p_2p_atomic`.
+  - `IE_{C,N,O,F,Ne}`, `cnofne_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Capstone.lean`
+- **역할**: IE 캡스톤 H~B 주기표 요약.
+- **주요 선언**: `IE_periodic_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/HeliumPPM.lean`
+- **역할**: He IE 원자 체인.
+- **주요 선언**:
+  - `IE_He_micro`, `IE_He_DRLT_micro`.
+  - `sigma_factor_int`, `helium_IE_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/HundPenalty.lean`
+- **역할**: Hund 규칙 = 원자 엣지 페널티.
+- **주요 선언**:
+  - `p_shell_size`, `half_fill`.
+  - `epsilon_pair_atomic`, `hund_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`
+- **역할**: H IE 13.605693 eV 괄호 (4.3 ppb).
+- **주요 선언**:
+  - `IE_H_observed`.
+  - `IE_lower`, `IE_upper`, `IE_in_bracket`.
+  - `IE_formula_sub_ppm`.
+- **의존**: AlphaEM.Brackets, Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Hydrogenic.lean`
+- **역할**: 수소유사 이온 IE = R·Z².
+- **주요 선언**:
+  - `IE_{He_plus, Li_2plus, Be_3plus, ...}`.
+  - `R_infinity_mEV`.
+  - `He_plus_atomic_bracket`, `hydrogenic_atomic_chain`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/IonizationEnergies.lean`
+- **역할**: IE 일반 공식 조합자.
+- **주요 선언**:
+  - `H_IE_factor`, `alpha_squared_exp`.
+  - `He_effective_Z`, `H_IE_chain_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Lithium.lean`
+- **역할**: Li IE 원자 체인.
+- **주요 선언**:
+  - `IE_Li_micro`, `IE_Li_DRLT_micro`.
+  - `Z_eff_Li_atomic`, `ratio_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/INDEX.md`
+- **역할**: 주요 섹션 — IE 서브 클러스터 15 files.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Period3.lean`
+- **역할**: 3주기 (Na~Ar) IE 원자 카탈로그.
+- **주요 선언**:
+  - `Z_{Na,Mg,Al,Si,P,S,Cl,Ar}`.
+  - `period_3_close_atomic`, `IE_{Na,...,Ar}`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/Period4.lean`
+- **역할**: 4주기 (K~Kr) IE 원자 카탈로그.
+- **주요 선언**:
+  - `Z_K`, `Z_Ca`, ..., `Z_Kr`.
+  - `Z_Kr_atomic`, `period_4_closure`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/PeriodClosures.lean`
+- **역할**: 주기 종료점이 원자 정수 (P1~P7).
+- **주요 선언**: `P1`..`P7`, `all_closures`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/PeriodicTable.lean`
+- **역할**: H~Ne IE 원자 카탈로그 + 괄호.
+- **주요 선언**:
+  - `IE_{H,He,Li,Be,B,C,N,O,F,Ne}`.
+  - `Z_{H,...,Ne}`.
+  - `{He,Li,Be,B,C}_H_ratio_bracket`.
+
+### `lean/E213/Lib/Physics/Atomic/IE/SecondRow.lean`
+- **역할**: 2행 (B~Ne) IE 원자 체인.
+- **주요 선언**:
+  - `IE_{B,C,N,O,F,Ne}`, `Z_{B,...,Ne}`.
+  - `sigma_2s2p_atomic`, `sigma_2p2p_atomic`.
+  - `second_row_atomic`.
+
+### `lean/E213/Lib/Physics/Atomic/INDEX.md`
+- **역할**: 주요 섹션 — Atomic 클러스터 6+15 files.
+
+### `lean/E213/Lib/Physics/Atomic/Screening.lean`
+- **역할**: 원자 스크리닝 상수 = 순수 유리수.
+- **주요 선언**:
+  - `sigma_1s_num/den`.
+  - `sigma_p2_num/den`, `sigma_p3_num/den`.
+  - `sigma_even_num/den`, `sigma_odd_num/den`.
+  - `sigma_core_num/den`, `all_screening_atomic`.
+
+### `lean/E213/Lib/Physics/Hadron/Bigrading.lean`
+- **역할**: 쿼크 쌍 bigrading.
+- **주요 선언**:
+  - `Bigrading`, `chiralDimAt`.
+  - `FlavorPair`.
+  - `joint_uud`, `joint_udd`.
+  - `mn_mp_split_atomic`.
+
+### `lean/E213/Lib/Physics/Hadron/Bridge.lean`
+- **역할**: 하드론 질량 ↔ 다이아몬드 다리.
+- **주요 선언**:
+  - `gmor_atomic`, `hyperfine_atomic`.
+  - `hadron_bridge_capstone`.
+
+### `lean/E213/Lib/Physics/Hadron/INDEX.md`
+- **역할**: 주요 섹션 — Hadron 클러스터 8 files.
+
+### `lean/E213/Lib/Physics/Hadron/Masses.lean`
+- **역할**: GMOR + 쌍극자 격자 형태.
+- **주요 선언**:
+  - `gmor_n_eff`, `hyperfine_num`, `hyperfine_den`.
+  - `mpi_sq_bracket`, `mrho_sq_bracket`.
+  - `hadron_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/Hadron/NeutronProton.lean`
+- **역할**: Δm_np = m_n - m_p ≈ 1.27 MeV.
+- **주요 선언**:
+  - `prefactor_12`, `prefactor_recurrence`.
+  - `np_simplicial`.
+
+### `lean/E213/Lib/Physics/Hadron/ProtonElectronRatio.lean`
+- **역할**: m_p/m_e = NS·NT·π⁵.
+- **주요 선언**:
+  - `six_atomic_dual`.
+  - `m_p_over_m_e_atomic`.
+  - `mp_me_v2_alpha_coef`, `m_p_over_m_e_v2_atomic`.
+  - `m_tau_over_m_e_*`.
+
+### `lean/E213/Lib/Physics/Hadron/ProtonG.lean`
+- **역할**: 양성자 g인수 첫 원자 동정.
+- **주요 선언**:
+  - `g_p_atomic_skeleton`, `g_p_v2_base`.
+  - `g_p_v2_alpha_gut_coef`, `g_p_v2_alpha_em_coef`.
+  - `g_p_v2_alpha_em2_coef`, `g_p_v2_atomic`.
+
+### `lean/E213/Lib/Physics/Hadron/ProtonMass.lean`
+- **역할**: m_p = 938.27 MeV 폐 전파자 + 원자 구조.
+- **주요 선언**:
+  - `closed_prop_factor_num/den`.
+  - `closed_prop_num_factor`.
+  - `r_p_atomic`, `r_p_v2_alpha_coef`.
+  - `proton_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/Hadron/QuarkHierarchy.lean`
+- **역할**: 쿼크 질량 위계 = α_GUT 구조.
+- **주요 선언**:
+  - `mt_mb_ratio`, `alpha_GUT_close_to_mb_mt`.
+  - `quark_hierarchy_atomic`, `four_atomic_triple`.
+  - `mb_mc_correction_atomic`, `mt_mc_chain_atomic`.
+  - `top_yukawa_skeleton`.
+
+### `lean/E213/Lib/Physics/Substrate/Capstone.lean`
+- **역할**: Phase 2 절대 캡스톤 (10 파일 종합).
+- **주요 선언**: `phase2_absolute`.
+- **의존**: 모든 Substrate/*.lean, Atomicity.Five.
+
+### `lean/E213/Lib/Physics/Substrate/Edges.lean`
+- **역할**: Phase 2 엣지 — c=2 배증.
+- **주요 선언**:
+  - `c_lattice`, `num_directed_edges`.
+  - `cycle_space_dim_via_euler`.
+  - `edges_capstone`.
+
+### `lean/E213/Lib/Physics/Substrate/Existence.lean`
+- **역할**: Phase 2 존재 — d=5에 무엇이 존재하는가.
+- **주요 선언**:
+  - `Vertex`, `inBigBlock`, `inSmallBlock`.
+  - `block_disjoint_at_*`.
+  - `big_block_size_three`, `small_block_size_two`.
+  - `cosmos_existence_minimal`.
+
+### `lean/E213/Lib/Physics/Substrate/Falsifier.lean`
+- **역할**: Phase 2 반박 가능한 제안.
+- **주요 선언**:
+  - `falsifier_d_unique`.
+  - `falsifier_not_atomic_{4,6,11}`.
+  - `falsifier_pair_count`, `falsifier_cycle_space`.
+  - `phase2_falsifiers`.
+
+### `lean/E213/Lib/Physics/Substrate/Force.lean`
+- **역할**: Phase 2 힘 — 3 채널 = 3 힘 후보.
+- **주요 선언**:
+  - `num_channels`.
+  - `AA_channel_count`, `BB_channel_count`, `AB_channel_count`.
+  - `three_forces_natural`.
+
+### `lean/E213/Lib/Physics/Substrate/INDEX.md`
+- **역할**: 주요 섹션 — Substrate 클러스터 13 files.
+
+### `lean/E213/Lib/Physics/Substrate/Lens.lean`
+- **역할**: Phase 2 첫 명시적 Lens 객체.
+- **주요 선언**:
+  - `parityLens`, `parity_at_a`, `parity_at_b`.
+  - `bCountLens`, `bCount_at_a`, `bCount_at_b`.
+  - `phase2_lens_demo`.
+
+### `lean/E213/Lib/Physics/Substrate/Observable.lean`
+- **역할**: Phase 2 관찰자 — 9개 측정 가능 정수.
+- **주요 선언**:
+  - `cosmos_observables`.
+  - `observable_count`, `observable_sum`.
+  - `axiom_level_observables`.
+  - `phase2_observable_summary`.
+
+### `lean/E213/Lib/Physics/Substrate/Origin.lean`
+- **역할**: Phase 2 원점 — d=5 유일성.
+- **주요 선언**:
+  - `cosmos_dim_5_exists`.
+  - `cosmos_dim_unique`, `only_one_cosmos_dim`.
+  - `cosmos_dim_existence_and_uniqueness`.
+
+### `lean/E213/Lib/Physics/Substrate/Pairs.lean`
+- **역할**: Phase 2 쌍 — 10쌍 구조.
+- **주요 선언**:
+  - `PairType`, `classifyPair`, `allPairs`.
+  - `AA_pairs_count`, `BB_pairs_count`, `AB_pairs_count`.
+  - `cosmos_pair_structure`.
+
+### `lean/E213/Lib/Physics/Substrate/Phase1Bridge.lean`
+- **역할**: Phase 2 ↔ Phase 1 다리.
+- **주요 선언**:
+  - `NS_match`, `edges_match`.
+  - `cycle_space_match`, `photon_kernel_match`.
+  - `bridge_capstone`.
+
+### `lean/E213/Lib/Physics/Substrate/Shape.lean`
+- **역할**: Phase 2 형태 — d=5 보이는 방식.
+- **주요 선언**:
+  - `d`, `big_block`, `small_block`.
+  - `partition_sums`, `total_pairs`.
+  - `big_block_pairs`, `small_block_pairs`, `cross_pairs`.
+  - `all_pairs_accounted`, `simplex_face_counts`.
+  - `cosmos_shape_minimal`.
+
+### `lean/E213/Lib/Physics/Substrate/Space.lean`
+- **역할**: Phase 2 공간 — NS=3 부채글.
+- **주요 선언**:
+  - `NS_atomic_size`.
+  - `NS_one_step`, `NS_two_steps`, `NS_three_steps`.
+  - `NT_NS_asymmetry_at_n`.
+  - `NT_NS_at_depth_{2,3}`.
+  - `NT_NS_ratio_cross_mult_at_{2,3}`.
+  - `space_is_NS_unfolded`.
+
+### `lean/E213/Lib/Physics/Substrate/Time.lean`
+- **역할**: Phase 2 시간 — NT=2 부채글.
+- **주요 선언**:
+  - `NT_atomic_size`, `NT_one_step`.
+  - `NT_n_steps_yield_two_pow`.
+  - `NT_left_endpoint_closed`.
+  - `NT_unfolds_to_dyadic`.
+  - `time_is_NT_unfolded`.
+
+### Batch P3 — Cosmology + Couplings + Nuclear + Simplex + Symmetry + YangMills (47 files)
+
+### `lean/E213/Lib/Physics/Cosmology/Bridge.lean`
+- **역할**: Cosmology ↔ Diamond atomic source capstone.
+- **주요 선언**:
+  - `trace_atomic`, `omega_lambda_atomic`.
+  - `cosmology_unified_diamond`, `cosmology_bridge_capstone`.
+- **의존**: DarkEnergy, SimplexCounts.
+
+### `lean/E213/Lib/Physics/Cosmology/DarkEnergy.lean`
+- **역할**: Ω_Λ = (1−1/π)·(1+α_GUT/d) structural.
+- **주요 선언**:
+  - `trace_correction_denom`.
+  - `trace_correction_universal`.
+  - `bare_eq_one_over_pi`.
+  - `omega_lambda_in_bracket`.
+  - `dark_energy_pattern_capstone`.
+
+### `lean/E213/Lib/Physics/Cosmology/GravityShadow.lean`
+- **역할**: Gravity modulus shadow.
+- **주요 선언**:
+  - `W_normalization`, `gravity_normalization_atomic`.
+  - `phase_modulus_separation`.
+  - `gravity_hierarchy_from_cardinality`.
+  - `gravity_simplicial`.
+
+### `lean/E213/Lib/Physics/Cosmology/HorizonInformation.lean`
+- **역할**: Holographic N — 우주 격자 hinge count.
+- **주요 선언**:
+  - `hinge_bits`, `delta4_hinge_count`.
+  - `atomic_bit_signatures`, `holographic_N_atomic`.
+
+### `lean/E213/Lib/Physics/Cosmology/HubbleConstant.lean`
+- **역할**: Hubble constant H₀ structural.
+- **주요 선언**: `hubble_uses_v_H`, `hubble_atomic`.
+
+### `lean/E213/Lib/Physics/Cosmology/INDEX.md`
+- **역할**: 주요 섹션 — Cosmology 6 files + Bridge.
+
+### `lean/E213/Lib/Physics/Cosmology/NeffDerivation.lean`
+- **역할**: N_eff per force from Gram-sector rank exhaustion.
+- **주요 선언**:
+  - `alpha_3_Neff`, `alpha_2_Neff`.
+  - `alpha_3_pure_sector_exhaustion`.
+  - `alpha_1_no_finite_saturation`.
+  - `three_depths_from_NS_NT`, `basel_formula_axiom_derived`.
+
+### `lean/E213/Lib/Physics/Couplings/AlphaGUT.lean`
+- **역할**: α_GUT first formal 0-axiom theorem.
+- **주요 선언**:
+  - `inv_lower`, `inv_upper`.
+  - `standard_41_in_bracket`, `standard_4112_in_bracket`.
+  - `bracket_shrinks_with_N`, `alpha_3_alpha_GUT_both_rational`.
+
+### `lean/E213/Lib/Physics/Couplings/AsymptoticFreedom.lean`
+- **역할**: α_3 high-E running (asymptotic freedom).
+- **주요 선언**:
+  - `alpha_3_pre`, `inv_alpha_3_at_N1`, `inv_alpha_3_at_N2`.
+  - `inv_alpha_3_increasing`.
+  - `asymp_free_via_monotone`, `renormalization_auto`.
+
+### `lean/E213/Lib/Physics/Couplings/ClosedPropagator.lean`
+- **역할**: Dyson resummation P(x) = (1+2x)/(1+x) universal pattern.
+- **주요 선언**:
+  - `P_numer_x_coef`, `P_closed_form_identity`.
+  - `P_arguments_atomic`.
+  - `closed_prop_universal`, `renormalization_auto`.
+
+### `lean/E213/Lib/Physics/Couplings/ColorConfinement.lean`
+- **역할**: Color confinement = rank exhaustion at NS².
+- **주요 선언**:
+  - `AAA_sector_dim`, `confinement_N_eff_one`.
+  - `confinement_at_NS_3`, `inv_alpha_3_via_NS_sq`.
+  - `photon_alpha_3_link`, `confinement_is_combinatorial`.
+
+### `lean/E213/Lib/Physics/Couplings/DysonStructure.lean`
+- **역할**: Dyson tail denom d−1 = 4 universal.
+- **주요 선언**:
+  - `dyson_denom`, `cofactor_of_adjoint`.
+  - `dyson_denom_eq_NS_plus_1`.
+  - `dyson_denom_eq_tet_per_vertex`.
+  - `dyson_denom_eq_matter_rep_count`.
+  - `dyson_universal`, `four_atomic_coincidence`.
+
+### `lean/E213/Lib/Physics/Couplings/GUTUnification.lean`
+- **역할**: GUT unification mechanism.
+- **주요 선언**:
+  - `total_channels`, `ir_channel_partition`.
+  - `unification_channel_count`, `gut_mechanism`.
+
+### `lean/E213/Lib/Physics/Couplings/INDEX.md`
+- **역할**: 주요 섹션 — Couplings 11 files.
+
+### `lean/E213/Lib/Physics/Couplings/PhotonKernel.lean`
+- **역할**: Photon = K_{NS,NT}^{(c)} cycle space.
+- **주요 선언**:
+  - `num_edges`, `num_vertices`, `b_1`.
+  - `photon_kernel_eq_alpha_3`.
+  - `atomicity_locks_photon_to_alpha_3`.
+  - `alpha_2_prefactor_via_edges`, `alpha_1_y_norm_via_edges`.
+  - `three_prefactors_from_one_graph`.
+
+### `lean/E213/Lib/Physics/Couplings/RunningGap.lean`
+- **역할**: Running gap d²/NS = 25/3.
+- **주요 선언**:
+  - `gram_channels`, `d_squared_as_NS_NT_sum`.
+  - `running_gap`, `gap_between_8_and_9`.
+  - `running_gap_pure_DRLT`, `gap_close_to_8_point_34`.
+
+### `lean/E213/Lib/Physics/Couplings/SpectrumComplete.lean`
+- **역할**: Coupling spectrum unification.
+- **주요 선언**:
+  - `alpha_3_channel`, `alpha_2_prefactor`.
+  - `alpha_1_prefactor`, `inv_alpha_GUT_factor`.
+  - `coupling_spectrum_atomic`, `coupling_ratios`.
+
+### `lean/E213/Lib/Physics/Couplings/ThetaQCD.lean`
+- **역할**: θ_QCD ≈ J·α_GUT⁴ < nEDM bound.
+- **주요 선언**:
+  - `alpha_pow`, `alpha_pow_universal`.
+  - `nEDM_bound_num`, `theta_QCD_num`.
+  - `drlt_below_bound`, `bound_drlt_ratio`.
+  - `theta_QCD_pattern`.
+
+### `lean/E213/Lib/Physics/Couplings/TripleCoupling.lean`
+- **역할**: Triple coupling decomposition v1 + v2.
+- **주요 선언**:
+  - `em_60_is_E_d`, `alpha_3_b1`, `alpha_3_leakage_half`.
+  - `alpha_2_thirty`, `triple_skeleton_bundle`.
+  - `h3_chirality_imbalance`, `alpha_2_v2_coeff`.
+  - `pure_a_triangle_count`, `triple_v2_skeleton`.
+
+### `lean/E213/Lib/Physics/Nuclear/Binding.lean`
+- **역할**: Semi-empirical mass formula coefficients.
+- **주요 선언**:
+  - `a_V_coef`, `a_S_coef`, `a_C_coef_num/den`.
+  - `nuclear_atoms_recurrence`.
+  - `deuteron_bracket`, `a_V_value`.
+  - `nuclear_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/Nuclear/Bridge.lean`
+- **역할**: Nuclear-Diamond bridge.
+- **주요 선언**:
+  - `a_V_atomic`, `a_S_atomic`, `a_C_atomic`.
+  - `magic_atomic`, `nuclear_bridge_capstone`.
+
+### `lean/E213/Lib/Physics/Nuclear/DeuteronBinding.lean`
+- **역할**: E_d = Λ_QCD·α_GUT/π.
+- **주요 선언**:
+  - `E_d_num`, `E_d_denom_factor`.
+  - `E_d_bracket`, `deuteron_simplicial`.
+
+### `lean/E213/Lib/Physics/Nuclear/INDEX.md`
+- **역할**: 주요 섹션 — Nuclear 6 files + aggregator.
+
+### `lean/E213/Lib/Physics/Nuclear/MagicNumbers.lean`
+- **역할**: HO magic numbers from pronic sum.
+- **주요 선언**:
+  - `pronic_sum`, `ho_magic`.
+  - `ho_magic_1..7`, `ho_magic_first_7`.
+  - `ho_magic_closed_form_1_7`.
+  - `NUCLEAR_MAGIC`.
+  - `nuclear_first_3_eq_HO`, `so_shift_pattern`.
+
+### `lean/E213/Lib/Physics/Nuclear/MagicNumbersAtomic.lean`
+- **역할**: Nuclear magic atomic decompositions.
+- **주요 선언**:
+  - `magic_2_atomic`, `magic_8_atomic_double`, `magic_20_atomic`.
+  - `so_shift_pronic_atomic`.
+  - `magic_28/50/82/126_atomic`.
+  - `nuclear_magic_atomic_capstone`.
+
+### `lean/E213/Lib/Physics/Nuclear/Shells.lean`
+- **역할**: HO 7/7 + atomic-derived SO shifts.
+- **주요 선언**:
+  - `HO_magic_first_4`, `NUC_magic_first_4`.
+  - `first_three_coincide`.
+  - `fourth_differs`, `fifth_differs`, `sixth_differs`, `seventh_differs`.
+  - `nuclear_magic_atomic_shifts`, `nuclear_magic_capstone`.
+
+### `lean/E213/Lib/Physics/Simplex/Counts.lean`
+- **역할**: Physics-track 5-simplex counts.
+- **주요 선언**:
+  - `d`, `NS`, `NT`.
+  - `partition_sum`, `d_sq`, `adjoint_su5`.
+  - `inv_alpha_3_confined`.
+  - `gen_count`, `binom`, `lambda_dim`.
+  - `hodge_*`, `total_exterior`.
+
+### `lean/E213/Lib/Physics/Simplex/FaceTerms.lean`
+- **역할**: Five-term 1/α_em(IR) unified geometric origin.
+- **주요 선언**:
+  - `four_cycles_count`, `atomicity_forces_4cycles_eq_NS`.
+  - `tetrahedra_per_vertex`.
+  - `atomicity_forces_tet_per_vertex_eq_NS_plus_1`.
+  - `bipartite_no_triangles`, `simplex_face_counts`.
+  - `five_terms_simplicial_origin`.
+
+### `lean/E213/Lib/Physics/Simplex/FoccSpectrum.lean`
+- **역할**: f_occ spectrum 10 entries.
+- **주요 선언**:
+  - `spectrum`, `distinct_count`, `total_multiplicity`.
+  - `denominators_finite`, `numerators_bounded`.
+  - `hodge_pair_1_4`, `hodge_pair_2_3`.
+  - `higgs_dominant`, `matter_count`, `confined_count`.
+
+### `lean/E213/Lib/Physics/Simplex/GenerationStructure.lean`
+- **역할**: Generation = Λ¹⊕Λ² = 5+10 = 15 fermions.
+- **주요 선언**:
+  - `gen_fermion_count`, `gen_fermion_atomic_form`.
+  - `total_fermion_states`, `N_gen_times_15`.
+  - `lambda_dimensions_atomic`, `generation_via_lambda`.
+  - `matter_content_capstone`.
+
+### `lean/E213/Lib/Physics/Simplex/Generations.lean`
+- **역할**: N_gen = C(NS,NT) = 3 derivation.
+- **주요 선언**:
+  - `N_gen`, `n_gen_eq_three`.
+  - `no_4th_gen_slot`, `no_supra_NT_temporal`.
+  - `n_gen_via_subsets`.
+  - `matter_reps_give_3_generations`, `no_lambda_6`.
+  - `drlt_no_4th_gen_falsifier`.
+
+### `lean/E213/Lib/Physics/Simplex/INDEX.md`
+- **역할**: 주요 섹션 — Simplex 7 files.
+
+### `lean/E213/Lib/Physics/Simplex/MultiComposite.lean`
+- **역할**: Class F structural placeholder.
+- **주요 선언**: `class_F_skeleton`.
+
+### `lean/E213/Lib/Physics/Simplex/SubInventory.lean`
+- **역할**: Sub-simplex inventory.
+- **주요 선언**:
+  - `dim_0..4_count`.
+  - `total_non_empty`, `thirty_one_is_two_d_minus_1`.
+
+### `lean/E213/Lib/Physics/Symmetry/AutAction.lean`
+- **역할**: Aut(K) acting on Cochain^n^k.
+- **주요 선언**:
+  - `σ_swap_01`, `σ_swap_01_involution`.
+  - `aut_act`, `aut_act_id`, `aut_act_involution`.
+
+### `lean/E213/Lib/Physics/Symmetry/AutEdgeAction.lean`
+- **역할**: Aut(K) acting on edge cochains.
+- **주요 선언**:
+  - `σ_E_swap_01`, `σ_E_swap_01_involution`.
+  - `aut_act_edge`, `aut_act_edge_id`, `aut_act_edge_involution`.
+  - `aut_edge_action_master`.
+
+### `lean/E213/Lib/Physics/Symmetry/AutEdgeActionGenerators.lean`
+- **역할**: Aut Edge Action Generators.
+- **주요 선언**:
+  - `σ_E_swap_12`, `σ_E_swap_12_involution`.
+  - `σ_E_compose_01_12`, `σ_E_compose_at_*`.
+  - `σ_E_compose_order_3`, `σ_E_compositions_differ`.
+  - `aut_edge_generators_master`.
+
+### `lean/E213/Lib/Physics/Symmetry/AutEdgeOrbits.lean`
+- **역할**: Aut Edge Orbit Decomposition.
+- **주요 선언**:
+  - `orbit_1..4`.
+  - `orbit_*_closed_swap_01/12`.
+  - `orbits_cover`, `orbits_disjoint_*`.
+  - `orbit_*_card`, `aut_edge_orbits_master`.
+
+### `lean/E213/Lib/Physics/Symmetry/AutKChiral.lean`
+- **역할**: Aut(K_{3,2}^{(c=2)}) structure theorem.
+- **주요 선언**:
+  - `fac`.
+  - `sym_NS_order`, `sym_NT_order`.
+  - `external_order`, `internal_order`, `aut_order`.
+  - `adj_SU_NS/NT/sum/product`.
+  - `E_K`, `external_order_eq_E_K`, `aut_K_structure_master`.
+
+### `lean/E213/Lib/Physics/Symmetry/GluonChannelInterpretation.lean`
+- **역할**: Gluon-channel interpretation of H¹(K)=8.
+- **주요 선언**:
+  - `gluon_DOF_chain`.
+  - `chi_b1_decomposition`.
+  - `eight_fold_QCD_identification`.
+
+### `lean/E213/Lib/Physics/Symmetry/INDEX.md`
+- **역할**: 주요 섹션 — Symmetry 6 files.
+
+### `lean/E213/Lib/Physics/YangMills/Bridge.lean`
+- **역할**: YM mass gap = b_1(K) = 1/α_3.
+- **주요 선언**:
+  - `ym_gap_atomic`.
+  - `adjoint_SU_NS_atomic`, `adjoint_SU_d_atomic`.
+  - `ym_unified_diamond`, `ym_bridge_capstone`.
+
+### `lean/E213/Lib/Physics/YangMills/Gap.lean`
+- **역할**: Yang-Mills mass gap structural.
+- **주요 선언**:
+  - `mass_gap_iff_N_eff_finite`.
+  - `mass_gap_combinatorial`.
+
+### `lean/E213/Lib/Physics/YangMills/INDEX.md`
+- **역할**: 주요 섹션 — YangMills 5 files.
+
+### `lean/E213/Lib/Physics/YangMills/SU5Roots.lean`
+- **역할**: SU(5) root system from 5-simplex.
+- **주요 선언**:
+  - `su5_rank`, `num_roots`, `cartan`.
+  - `adjoint_decomp`, `symmetric_dim`.
+  - `symmetric_eq_generation`, `su5_atomic`.
+
+### `lean/E213/Lib/Physics/YangMills/WZBosons.lean`
+- **역할**: m_W²/m_Z² = cos²θ_W.
+- **주요 선언**:
+  - `cos2_W_lower/upper`, `cos2_W_lower/upper_3`.
+  - `cos2_W_in_75_78`.
+  - `cos2_W_atomic_form`, `WZ_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/YangMills/WeinbergAngle.lean`
+- **역할**: sin²θ_W(M_Z) = 30/(30+60·ζ(2)) bare DRLT.
+- **주요 선언**:
+  - `sin2_W_lower/upper`, `sin2_W_lower/upper_3`.
+  - `bare_2331_in_bracket_at_10`.
+  - `observed_2312_below_bare`.
+  - `weinberg_simplicial_atoms`.
+  - `weinberg_pattern_capstone`.
+  - `sin2_W_v2_alpha_coef`, `sin2_W_v2_atomic`.
+
