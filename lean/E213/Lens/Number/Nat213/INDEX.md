@@ -42,12 +42,24 @@ characterisations + numbering / cut / tower outgrowth.
                              parallel to `leavesCountRaw` /
                              `booleanProj`.
 
-### Tower
+### Tower (ℕ-pair / ℕ-triple → 다른 number system via quotient)
 
+  - `Tower/NatPairToInt.lean`
+                           — ℤ via additive diagonal quotient
+                             (Lean `Nat` 위; G62).  `a + d = b + c`.
   - `Tower/NatPairToQPos.lean`
                            — ℚ₊ via multiplicative quotient on
                              `(Peano.Nat213 × Peano.Nat213)` — G73
                              additive↔multiplicative quotient parallel.
+  - `Tower/NatTripleToZ2.lean`
+                           — ℤ² via 3-axis projection (Lean Nat 위;
+                             Eisenstein basis).  `(a, b, c) ↦ (a - c,
+                             b - c)`.  Exploratory.
+
+세 Tower 모두 동일 syntactic container (Nat-pair 또는 Nat-triple)
+에서 출발해 다른 quotient relation 으로 분기.  NatPairToQPos 는
+Peano Nat213 사용; NatPairToInt / NatTripleToZ2 는 Lean Nat 사용
+(추후 Peano-rebase 후보).
 
 ## Top-level
 

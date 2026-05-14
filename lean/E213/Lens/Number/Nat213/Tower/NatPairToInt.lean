@@ -2,7 +2,7 @@ import E213.Meta.Int213.Core
 import E213.Meta.Tactic.NatHelper
 
 /-!
-# Theory.Tower.NatPairToInt — orthogonal-axis projection
+# Lens.Number.Nat213.Tower.NatPairToInt — orthogonal-axis projection
 
 ℕ → ℤ as **two orthogonal ℕ-axes + diagonal quotient projection**
 (orthogonal-coordinate framing — see G62 research note).
@@ -28,7 +28,7 @@ The "2-side extension" ℕ → ℤ is concretely:
   came from
 -/
 
-namespace E213.Theory.Tower.NatPairToInt
+namespace E213.Lens.Number.Nat213.Tower.NatPairToInt
 
 /-- Orthogonal-axis pair representing an integer. -/
 abbrev NPair : Type := Nat × Nat
@@ -216,4 +216,4 @@ theorem zero_has_predecessor_in_int :
 theorem zero_has_successor_in_int :
     ∃ s : Int, 0 + 1 = s := ⟨1, rfl⟩
 
-end E213.Theory.Tower.NatPairToInt
+end E213.Lens.Number.Nat213.Tower.NatPairToInt
