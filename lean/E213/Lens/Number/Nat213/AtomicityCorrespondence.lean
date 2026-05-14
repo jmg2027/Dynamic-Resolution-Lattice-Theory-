@@ -1,8 +1,8 @@
-import E213.Theory.Nat213.Core
+import E213.Lens.Number.Nat213.Peano
 import E213.Theory.Raw.API
 
 /-!
-# Theory.Nat213.AtomicityCorrespondence — 2/3/5 in lens fractal
+# Lens.Number.Nat213.AtomicityCorrespondence — 2/3/5 in lens fractal
 
 User question (2026-05-09): "프랙탈성의 원자가 Raw의 슬래시 어쩌구
 인거면, atomicity에서 증명된 2, 3과 d=5는 뭣일까?"
@@ -22,7 +22,7 @@ Raw → Nat213 lens framework.
 All theorems ∅-axiom.
 -/
 
-namespace E213.Theory.Nat213.AtomicityCorrespondence
+namespace E213.Lens.Number.Nat213.AtomicityCorrespondence
 
 /-- Spatial atomic count (= Raw constructors: a, b, slash). -/
 def NS : Nat := 3
@@ -53,4 +53,4 @@ theorem raw_atom_count : 2 = NT := rfl
 /-- ★ Raw operation count: 1 (the slash). -/
 theorem raw_operation_count : 1 = 1 := rfl
 
-end E213.Theory.Nat213.AtomicityCorrespondence
+end E213.Lens.Number.Nat213.AtomicityCorrespondence

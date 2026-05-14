@@ -71,7 +71,7 @@ theorem product_balanced (g h : Nat) :
 theorem product_total_rank (g h : Nat) :
     (product_signature_pair g h).total_rank = 2 * (2 * g * h + 1) := by
   show (2 * g * h + 1) + (2 * g * h + 1) = 2 * (2 * g * h + 1)
-  exact (E213.Tactic.Nat213.two_mul (2 * g * h + 1)).symm
+  exact (E213.Tactic.NatHelper.two_mul (2 * g * h + 1)).symm
 
 /-- Specific total ranks for small (g, h). -/
 theorem product_total_rank_small :

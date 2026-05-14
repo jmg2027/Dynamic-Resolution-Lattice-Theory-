@@ -1,5 +1,5 @@
 import E213.Meta.Tactic.Omega213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Fin213
 /-!
 # Pigeonhole for `Fin`: no injection `Fin (N+1) → Fin N`
@@ -11,7 +11,7 @@ Now uses explicit `Nat.*` core lemmas + `dif_pos`/`dif_neg` rewrites
 ∅-axiom.
 -/
 
-open E213.Tactic E213.Tactic.Nat213 E213.Tactic.Fin213
+open E213.Tactic E213.Tactic.NatHelper E213.Tactic.Fin213
 
 namespace E213.Lib.Math.Pigeonhole
 

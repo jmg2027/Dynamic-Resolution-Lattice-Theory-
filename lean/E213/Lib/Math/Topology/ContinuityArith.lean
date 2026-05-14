@@ -1,5 +1,5 @@
 import E213.Lib.Math.Topology.Continuity
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Topology — Continuity-modulus arithmetic combinators (∅-axiom)
@@ -46,7 +46,7 @@ theorem sumModulus_pos (df dg : Nat → Nat)
     (hf : ∀ k, df k ≥ k) (hg : ∀ k, dg k ≥ k) (k : Nat) :
     sumModulus df dg k ≥ k := by
   show Nat.max (df k) (dg k) ≥ k
-  exact Nat.le_trans (hf k) (E213.Tactic.Nat213.le_max_left (df k) (dg k))
+  exact Nat.le_trans (hf k) (E213.Tactic.NatHelper.le_max_left (df k) (dg k))
 
 /-- ★ Product modulus is monotone: `≥ k` if both inputs are `≥ k`. -/
 theorem productModulus_pos (df dg : Nat → Nat)

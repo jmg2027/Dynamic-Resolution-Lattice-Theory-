@@ -1,6 +1,6 @@
 import E213.Lens.Instances.AB
 import E213.Lib.Math.Cauchy.Archimedean
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy
@@ -100,8 +100,8 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
                        * (abLens.view (xs (k+1))).2
                      = (abLens.view (xs k)).1 * (abLens.view (xs (k+1))).2
                        * (abLens.view (xs p)).2 := by
-            rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs p)).2,
-                ← E213.Tactic.Nat213.mul_assoc]
+            rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs p)).2,
+                ← E213.Tactic.NatHelper.mul_assoc]
           rw [heq]; exact h2
         have h3 : (abLens.view (xs p)).1 * (abLens.view (xs k)).2
                     * (abLens.view (xs (k+1))).2
@@ -112,16 +112,16 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
                       * (abLens.view (xs (k+1))).2
                     = (abLens.view (xs p)).1 * (abLens.view (xs (k+1))).2
                       * (abLens.view (xs k)).2 := by
-          rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs k)).2,
-              ← E213.Tactic.Nat213.mul_assoc]
+          rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs k)).2,
+              ← E213.Tactic.NatHelper.mul_assoc]
         have hRHS : (abLens.view (xs (k+1))).1 * (abLens.view (xs k)).2
                       * (abLens.view (xs p)).2
                     = (abLens.view (xs (k+1))).1 * (abLens.view (xs p)).2
                       * (abLens.view (xs k)).2 := by
-          rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs k)).2,
-              ← E213.Tactic.Nat213.mul_assoc]
+          rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs k)).2,
+              ← E213.Tactic.NatHelper.mul_assoc]
         rw [hLHS, hRHS] at h3
-        exact E213.Tactic.Nat213.le_of_mul_le_mul_right hbk h3
+        exact E213.Tactic.NatHelper.le_of_mul_le_mul_right hbk h3
       · -- p > k, but p ≤ k+1 → p = k+1
         have hpk_lt : k < p := Nat.lt_of_not_le hpk
         have hp_le : p ≤ k + 1 := hpq
@@ -168,11 +168,11 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
   -- Reassoc: ai * bN * k = ai * k * bN.
   have he1 : (abLens.view (xs i)).1 * (abLens.view (xs N)).2 * k
              = (abLens.view (xs i)).1 * k * (abLens.view (xs N)).2 := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs N)).2 k, ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs N)).2 k, ← E213.Tactic.NatHelper.mul_assoc]
   -- Reassoc: bi * m * bN = bN * m * bi.
   have he2 : (abLens.view (xs i)).2 * m * (abLens.view (xs N)).2
              = (abLens.view (xs N)).2 * m * (abLens.view (xs i)).2 := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2
           (m * (abLens.view (xs N)).2), Nat.mul_comm m (abLens.view (xs N)).2]
   rw [he1] at h1
   rw [he2] at h2
@@ -182,9 +182,9 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
   -- Reassoc LHS: aN * bi * k = aN * k * bi.
   have he3 : (abLens.view (xs N)).1 * (abLens.view (xs i)).2 * k
              = (abLens.view (xs N)).1 * k * (abLens.view (xs i)).2 := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2 k, ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2 k, ← E213.Tactic.NatHelper.mul_assoc]
   rw [he3] at h3
-  exact E213.Tactic.Nat213.le_of_mul_le_mul_right hbi h3
+  exact E213.Tactic.NatHelper.le_of_mul_le_mul_right hbi h3
 
 end E213.Lib.Math.Cauchy.MonotonicBounded
 

@@ -63,14 +63,14 @@ theorem mod_4_6_step_two {α : Type} (N : Lens α)
   have h_r_w : (leavesModNat 6).view r = (leavesModNat 6).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
     -- Goal: view r % 6 = (view r + 6) % 6
-    exact (E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r) 6).symm
+    exact (E213.Tactic.NatHelper.add_self_mod_pure (Lens.leaves.view r) 6).symm
   have h_w_r' : (leavesModNat 4).view w = (leavesModNat 4).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
     -- Goal: (view r + 6) % 4 = (view r + 2) % 4
     have h_split : Lens.leaves.view r + 6 = (Lens.leaves.view r + 2) + 4 := by
       rw [Nat.add_assoc]
     rw [h_split]
-    exact E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r + 2) 4
+    exact E213.Tactic.NatHelper.add_self_mod_pure (Lens.leaves.view r + 2) 4
   exact (h6 _ _ h_r_w).trans (h4 _ _ h_w_r')
 
 /-- Same leaves → same N-view (via L_4). -/
@@ -166,7 +166,7 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
         rw [hmod0, Nat.add_zero] at hdam; exact hdam
       have hsac : Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r
                 = Lens.leaves.view r' :=
-        E213.Tactic.Nat213.sub_add_cancel hle
+        E213.Tactic.NatHelper.sub_add_cancel hle
       -- view r + (view r' - view r) = view r' - view r + view r = view r'.
       have hcomm :
           Lens.leaves.view r + (Lens.leaves.view r' - Lens.leaves.view r)
@@ -193,7 +193,7 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
         rw [hmod0, Nat.add_zero] at hdam; exact hdam
       have hsac : Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r'
                 = Lens.leaves.view r :=
-        E213.Tactic.Nat213.sub_add_cancel hle
+        E213.Tactic.NatHelper.sub_add_cancel hle
       have hcomm :
           Lens.leaves.view r' + (Lens.leaves.view r - Lens.leaves.view r')
           = Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r' :=

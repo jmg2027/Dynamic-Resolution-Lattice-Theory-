@@ -81,7 +81,7 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
     have hne : m * m ≠ 2 * k * k := by
       intro heq
       have h2 : 2 * (k * k) = 2 * k * k := by
-        rw [E213.Tactic.Nat213.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_assoc]
       exact sqrt2_irrational k hk m (heq.trans h2.symm)
     have hbelow : m * m < 2 * k * k := Nat.lt_of_le_of_ne hle hne
     rw [pellRaw_cut_below m k hk hbelow i,

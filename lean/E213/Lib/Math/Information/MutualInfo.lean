@@ -1,5 +1,5 @@
 import E213.Lib.Math.Information.Entropy
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Information — Joint entropy + mutual information (atomic)
@@ -60,7 +60,7 @@ theorem mutualInfo_clamped (h_x h_y h_joint : Nat) :
 theorem mutualInfo_self_eq_entropy (h : Nat) :
     mutualInfoBits h h h = h := by
   show h + h - h = h
-  exact E213.Tactic.Nat213.add_sub_cancel_right h h
+  exact E213.Tactic.NatHelper.add_sub_cancel_right h h
 
 /-- Concrete: fair-coin self-mutual-info = 1 bit. -/
 theorem fair_coin_self_info : mutualInfoBits 1 1 1 = 1 := rfl

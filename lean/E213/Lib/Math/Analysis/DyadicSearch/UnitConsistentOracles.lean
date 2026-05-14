@@ -139,9 +139,9 @@ private theorem alwaysFalse_decide_false_aux (n k m : Nat)
   have hone : 1 ≤ 2^(n+1) := one_le_two_pow_local (n+1)
   have hcollect : (2^(n+1) - 1) * k + k = 2^(n+1) * k := by
     have h1 : ((2^(n+1) - 1) + 1) * k = (2^(n+1) - 1) * k + 1 * k :=
-      E213.Tactic.Nat213.add_mul _ _ _
+      E213.Tactic.NatHelper.add_mul _ _ _
     rw [Nat.one_mul] at h1
-    have h2 : 2^(n+1) - 1 + 1 = 2^(n+1) := E213.Tactic.Nat213.sub_add_cancel hone
+    have h2 : 2^(n+1) - 1 + 1 = 2^(n+1) := E213.Tactic.NatHelper.sub_add_cancel hone
     rw [h2] at h1
     exact h1.symm
   have hk_le : 2^(n+1) * k ≤ 2^(n+1) * m + k := by
@@ -156,7 +156,7 @@ private theorem alwaysFalse_decide_false_aux (n k m : Nat)
   have hexpand : 2^(n+1) * (m + 1) = 2^(n+1) * m + 2^(n+1) := by
     rw [Nat.mul_add, Nat.mul_one]
   rw [hexpand] at hcomb
-  have hpow_le : 2^(n+1) ≤ k := E213.Tactic.Nat213.le_of_add_le_add_left hcomb
+  have hpow_le : 2^(n+1) ≤ k := E213.Tactic.NatHelper.le_of_add_le_add_left hcomb
   exact absurd hpow_le (Nat.not_le_of_lt (k_lt_two_pow_succ n k hkn))
 
 /-- For `k ≤ m`, the alwaysFalse closed-form value

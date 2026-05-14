@@ -1,7 +1,7 @@
 import E213.Theory.Raw.API
 
 /-!
-# Theory.Closed.FoldRaw — endomorphic fold (closed universe)
+# Theory.Raw.FoldRaw — endomorphic fold (closed universe)
 
 Vision: 213 = closed universe. Raw가 곧 universe.  외부 type α (Bool,
 Nat, Prop, ...) 에 의존하지 않고 모든 연산이 `Raw → Raw` 안에서 닫힘.
@@ -30,7 +30,7 @@ Quot.sound 가 들어옴 (외부 type 의 동등성이 외부 axiom 의존).
 `x ≠ y` 증명 요구하므로) 사용.
 -/
 
-namespace E213.Theory.Closed
+namespace E213.Theory.Raw.FoldRaw
 
 open E213.Theory
 
@@ -114,4 +114,4 @@ theorem swapClosed_swapClosed (r : Raw) :
     swapClosed (swapClosed r) = r := by
   rw [swapClosed_eq_swap, swapClosed_eq_swap, Raw.swap_swap]
 
-end E213.Theory.Closed
+end E213.Theory.Raw.FoldRaw

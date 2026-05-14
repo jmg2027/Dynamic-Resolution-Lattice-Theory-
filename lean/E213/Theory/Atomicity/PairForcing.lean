@@ -1,5 +1,5 @@
 import E213.Theory.Atomicity.Five
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Mod213
 
 /-!

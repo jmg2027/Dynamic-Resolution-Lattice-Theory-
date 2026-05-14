@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Mod213
 import E213.Theory.Atomicity.FiveHelpers
 /-!
@@ -12,7 +12,7 @@ is n = 5.
 213-native (∅-axiom): no `omega`, `simp`, `rcases`, `obtain`.
 -/
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
 open E213.Tactic.Mod213
 
 namespace E213.Theory.Atomicity.Five

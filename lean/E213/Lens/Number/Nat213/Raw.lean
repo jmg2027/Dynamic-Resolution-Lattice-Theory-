@@ -1,7 +1,11 @@
-import E213.Theory.Closed.FoldRaw
+import E213.Theory.Raw.API
 
 /-!
-# Theory.Closed.Nat213 — closed-universe Nat (Method A: Z=a, C=b)
+# Lens.Number.Nat213.Raw — Method A 카타모피즘 (Z=a, C=b)
+
+`Nat213` (= 양의 자연수) 의 canonical Raw-derived 표현.  Lens 의미:
+**`Raw.fold one one add` 의 closed-Raw codomain catamorphism** —
+출력 codomain 을 Raw 로 못박은 endomorphic fold (`Closed.FoldRaw`).
 
 자연수 = Raw 의 한쪽-증식 chain.  외부 `Nat` 안 빌리고 Raw 안에서.
 
@@ -12,12 +16,14 @@ Method A:
   - 2 = slash (slash a b) b   (canonical form 처리됨)
   - ...
 
-이 모듈은 가장 단순한 Method A 만.  일반 NumberingSystem 은 별도 모듈.
+이 모듈은 가장 단순한 Method A 만.  일반 numbering system 은
+`Lens.Number.Nat213.NumberingSystem`.  Inductive Peano 표현은
+`Lens.Number.Nat213.Peano`; 두 표현 사이 동형은 `.Bridge`.
 -/
 
-namespace E213.Theory.Closed.Nat213
+namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
+open E213.Theory E213.Theory.Internal E213.Theory.Raw.FoldRaw
 
 /-! ### Method A primitives -/
 
@@ -60,7 +66,7 @@ theorem value_succ_of_ne (n : Raw) (h : n ≠ Raw.b) :
 
 /-! ### Arithmetic (closed in Raw)
 
-기존 `Theory/Nat213/Core.lean` 의 inductive `Nat213.add / mul` 을
+`Lens/Number/Nat213/Peano.lean` 의 inductive `Nat213.add / mul` 을
 closed-Raw 로 재구현.  output 도 Raw, 외부 type 의존 없음.
 
 213-native naming: `Raw.a` 가 213 의 "1" (smallest positive nat).
@@ -299,4 +305,4 @@ theorem value_numeral (n : Nat) : value (numeral n) = n + 1 := by
       show value (succ (numeral k)) = (k + 1) + 1
       rw [value_succ_of_ne _ (numeral_ne_b k), ih]
 
-end E213.Theory.Closed.Nat213
+end E213.Lens.Number.Nat213.Raw

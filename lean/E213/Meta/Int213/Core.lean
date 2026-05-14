@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Int213 — ∅-axiom Int arithmetic helpers
@@ -17,7 +17,7 @@ no `omega`, no Mathlib.
 
 namespace E213.Meta.Int213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
 
 /-- ∅-axiom `Int.add_comm`. -/
 theorem add_comm : ∀ (a b : Int), a + b = b + a
@@ -525,7 +525,7 @@ theorem subNatNat_mul_ofNat (a b c : Nat) :
     rw [Nat.sub_one_add_one_eq_of_pos hba_pos, negOfNat_eq_subNatNat,
         ← subNatNat_add_add 0 ((b - a) * c) (a * c), Nat.zero_add]
     congr 1
-    rw [← E213.Tactic.Nat213.add_mul, sub_add_cancel (Nat.le_of_lt hab)]
+    rw [← E213.Tactic.NatHelper.add_mul, sub_add_cancel (Nat.le_of_lt hab)]
   · -- b ≤ a
     rw [subNatNat_of_le hab]
     show Int.ofNat ((a - b) * c) = Int.subNatNat (a * c) (b * c)
@@ -556,7 +556,7 @@ theorem subNatNat_mul_negSucc (a b d : Nat) :
         ← subNatNat_add_add 0 ((a - b) * (d + 1)) (b * (d + 1)),
         Nat.zero_add]
     congr 1
-    rw [← E213.Tactic.Nat213.add_mul, sub_add_cancel hab]
+    rw [← E213.Tactic.NatHelper.add_mul, sub_add_cancel hab]
 
 /-- ★★★★★★★ ∅-axiom: `Int.add_mul`: `(a + b) * c = a * c + b * c`. -/
 theorem add_mul (a b c : Int) : (a + b) * c = a * c + b * c := by
@@ -567,13 +567,13 @@ theorem add_mul (a b c : Int) : (a + b) * c = a * c + b * c := by
   | ofNat γ =>
     rw [subNatNat_mul_ofNat, subNatNat_mul_ofNat, subNatNat_mul_ofNat,
         subNatNat_add_subNatNat,
-        E213.Tactic.Nat213.add_mul a1 b1 γ,
-        E213.Tactic.Nat213.add_mul a2 b2 γ]
+        E213.Tactic.NatHelper.add_mul a1 b1 γ,
+        E213.Tactic.NatHelper.add_mul a2 b2 γ]
   | negSucc δ =>
     rw [subNatNat_mul_negSucc, subNatNat_mul_negSucc, subNatNat_mul_negSucc,
         subNatNat_add_subNatNat,
-        E213.Tactic.Nat213.add_mul a2 b2 (δ + 1),
-        E213.Tactic.Nat213.add_mul a1 b1 (δ + 1)]
+        E213.Tactic.NatHelper.add_mul a2 b2 (δ + 1),
+        E213.Tactic.NatHelper.add_mul a1 b1 (δ + 1)]
 
 /-- ∅-axiom: `Int.mul_add`: `a * (b + c) = a*b + a*c`. -/
 theorem mul_add (a b c : Int) : a * (b + c) = a * b + a * c := by
@@ -626,15 +626,15 @@ theorem mul_assoc (a b c : Int) : a * b * c = a * (b * c) := by
   | ofNat γ =>
     rw [subNatNat_mul_subNatNat, subNatNat_mul_ofNat, subNatNat_mul_ofNat,
         subNatNat_mul_subNatNat,
-        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
-        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc,
-        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc]
+        E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.add_mul,
+        E213.Tactic.NatHelper.mul_assoc, E213.Tactic.NatHelper.mul_assoc,
+        E213.Tactic.NatHelper.mul_assoc, E213.Tactic.NatHelper.mul_assoc]
   | negSucc δ =>
     rw [subNatNat_mul_subNatNat, subNatNat_mul_negSucc, subNatNat_mul_negSucc,
         subNatNat_mul_subNatNat,
-        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
-        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc,
-        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc]
+        E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.add_mul,
+        E213.Tactic.NatHelper.mul_assoc, E213.Tactic.NatHelper.mul_assoc,
+        E213.Tactic.NatHelper.mul_assoc, E213.Tactic.NatHelper.mul_assoc]
 
 /-- ∅-axiom: `Int.mul_left_comm`: `a * (b * c) = b * (a * c)`. -/
 theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by

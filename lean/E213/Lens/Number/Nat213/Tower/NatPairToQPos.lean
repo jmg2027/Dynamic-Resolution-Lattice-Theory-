@@ -1,7 +1,7 @@
-import E213.Theory.Nat213.Core
+import E213.Lens.Number.Nat213.Peano
 
 /-!
-# Theory.Tower.NatPairToQPos — ℚ_+ via multiplicative quotient
+# Lens.Number.Nat213.Tower.NatPairToQPos — ℚ_+ via multiplicative quotient
 
 Following G73, demonstrates that ℚ_+ has the **same syntactic form**
 as ℤ at the `(Nat213 × Nat213)` level, differing only in the
@@ -22,9 +22,9 @@ mul required for the demos shown).
 All theorems ∅-axiom.
 -/
 
-namespace E213.Theory.Tower.NatPairToQPos
+namespace E213.Lens.Number.Nat213.Tower.NatPairToQPos
 
-open E213.Theory.Nat213
+open E213.Lens.Number.Nat213.Peano
 
 /-- Pair of positive naturals representing a positive rational.
     Same syntactic form as `NPair` in `NatPairToInt.lean` (modulo
@@ -62,4 +62,4 @@ theorem natToQPair_one : natToQPair Nat213.one = qOne := rfl
 theorem qpair_is_nat_pair_shaped :
     QPair = (Nat213 × Nat213) := rfl
 
-end E213.Theory.Tower.NatPairToQPos
+end E213.Lens.Number.Nat213.Tower.NatPairToQPos

@@ -25,7 +25,7 @@ namespace E213.Lib.Physics.Foundations.AtomicConstantsParametricFull
 
 open E213.Lib.Physics.Foundations.AtomicConstantsUnique
 open E213.Lib.Math.Extras.CauchySchwarz (two_mul_le_sq_add_sq)
-open E213.Tactic.Nat213 (add_mul mul_assoc)
+open E213.Tactic.NatHelper (add_mul mul_assoc)
 
 /-! ## §1 — Symmetry: `constraint_C2b m n = constraint_C2b n m` -/
 
@@ -106,7 +106,7 @@ theorem msq_nsq_ge_two_sum_p_two_mn (m n : Nat) (hm : 3 ≤ m) (hn : 3 ≤ n) :
 
 /-! ## §6 — Identity `m²·n² + 1 = (m²−1)·(n²−1) + (m² + n²)` -/
 
-open E213.Tactic.Nat213 (sub_one_add_one)
+open E213.Tactic.NatHelper (sub_one_add_one)
 
 /-- Decomposition identity: for m ≥ 1, n ≥ 1,
     `m²·n² + 1 = (m² − 1)·(n² − 1) + (m² + n²)`. -/
@@ -148,7 +148,7 @@ theorem msq_nsq_decomp (m n : Nat) (hm : 1 ≤ m) (hn : 1 ≤ n) :
 /-! ## §7 — Strict gap: `(m+n)² − 1 < (m²−1)·(n²−1)` for m, n ≥ 3 -/
 
 open E213.Lib.Physics.Foundations.AtomicConstantsParametric (sq_of_add)
-open E213.Tactic.Nat213 (le_sub_of_add_le add_sub_cancel_right)
+open E213.Tactic.NatHelper (le_sub_of_add_le add_sub_cancel_right)
 
 /-- For m, n ≥ 3: `(m + n)² ≤ (m² − 1)·(n² − 1)`. -/
 theorem mp_n_sq_le_msub1_nsub1 (m n : Nat) (hm : 3 ≤ m) (hn : 3 ≤ n) :

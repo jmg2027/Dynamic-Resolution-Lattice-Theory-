@@ -1,8 +1,8 @@
 import E213.Theory.Raw.API
-import E213.Theory.Closed.Bool213
+import E213.Lens.Bool213.Raw
 
 /-!
-# Theory.Closed.Bool213System — meta pattern over (T, F) choices
+# Lens.Bool213.System — meta pattern over (T, F) choices
 
 Bool213 도 Nat213 처럼 무한히 많은 구현 가능.  임의의 두 distinct Raw
 `T ≠ F` 가 valid Bool213 system 을 줌.  메타 패턴으로 동형성 확인.
@@ -29,7 +29,7 @@ Bool213 도 Nat213 처럼 무한히 많은 구현 가능.  임의의 두 distinc
 이게 not, and 등 op 를 보존 (T↔F 교환, table 동등).
 -/
 
-namespace E213.Theory.Closed.Bool213System
+namespace E213.Lens.Bool213.System
 
 open E213.Theory E213.Theory.Closed
 
@@ -131,4 +131,4 @@ theorem iso_and (A B : BooleanSystem) (x y : Raw)
     rw [if_neg (fun ⟨h, _⟩ => A.hTF h.symm), if_neg (fun ⟨h, _⟩ => B.hTF h.symm)]
     exact iso_F A B
 
-end E213.Theory.Closed.Bool213System
+end E213.Lens.Bool213.System

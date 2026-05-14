@@ -1,4 +1,4 @@
-import E213.Theory.Nat213.AtomicityCorrespondence
+import E213.Lens.Number.Nat213.AtomicityCorrespondence
 import E213.Lib.Math.Mobius213OneAsGlue
 import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Topology.EulerChi

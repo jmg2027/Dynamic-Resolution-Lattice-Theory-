@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.Core.CutFnData
 import E213.Lib.Math.Real213.Core.Dyadic
 import E213.Lib.Math.Real213.Core.ValidCut
 import E213.Lib.Math.Real213.Core.CutPoset
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Pow213
 
 /-!
@@ -54,9 +54,9 @@ theorem dyadicCut_double_eq (M E m k : Nat) :
     rw [E213.Tactic.Pow213.pow_add_two E 1]
   rw [hpow]
   -- reorder both sides to the form `2 * x ≤ 2 * y`
-  have e1 : 2 * M * k = 2 * (M * k) := E213.Tactic.Nat213.mul_assoc 2 M k
+  have e1 : 2 * M * k = 2 * (M * k) := E213.Tactic.NatHelper.mul_assoc 2 M k
   have e2 : 2^E * 2 * m = 2 * (2^E * m) := by
-    rw [Nat.mul_comm (2^E) 2, E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.mul_comm (2^E) 2, E213.Tactic.NatHelper.mul_assoc]
   rw [e1, e2]
   -- 2*x ≤ 2*y ↔ x ≤ y via mul_le_mul_left cancellation
   rcases Nat.lt_or_ge (2^E * m) (M * k) with hlt | hge

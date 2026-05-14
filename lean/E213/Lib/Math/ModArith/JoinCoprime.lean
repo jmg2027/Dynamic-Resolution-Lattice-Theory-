@@ -47,7 +47,7 @@ private theorem step_plus_one {α : Type} (N : Lens α)
   have h_r_w : (leavesModNat 3).view r = (leavesModNat 3).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
     -- Goal: Lens.leaves.view r % 3 = (Lens.leaves.view r + 3) % 3
-    exact (E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r) 3).symm
+    exact (E213.Tactic.NatHelper.add_self_mod_pure (Lens.leaves.view r) 3).symm
   have h_w_r' : (leavesModNat 2).view w = (leavesModNat 2).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
     -- Goal: (Lens.leaves.view r + 3) % 2 = (Lens.leaves.view r + 1) % 2
@@ -55,7 +55,7 @@ private theorem step_plus_one {α : Type} (N : Lens α)
     have h_split : Lens.leaves.view r + 3 = (Lens.leaves.view r + 1) + 2 := by
       rw [Nat.add_assoc]
     rw [h_split]
-    exact E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r + 1) 2
+    exact E213.Tactic.NatHelper.add_self_mod_pure (Lens.leaves.view r + 1) 2
   exact (h3 _ _ h_r_w).trans (h2 _ _ h_w_r')
 
 /-- Same leaves → same N-view via L_2. -/
@@ -124,7 +124,7 @@ theorem mod_2_3_refines_const {α : Type} (N : Lens α)
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
   · have heq : Lens.leaves.view r' = Lens.leaves.view r
               + (Lens.leaves.view r' - Lens.leaves.view r) := by
-      have h1 := E213.Tactic.Nat213.sub_add_cancel hle
+      have h1 := E213.Tactic.NatHelper.sub_add_cancel hle
       -- h1 : Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r
       --      = Lens.leaves.view r'
       have h2 : Lens.leaves.view r + (Lens.leaves.view r' - Lens.leaves.view r)
@@ -134,7 +134,7 @@ theorem mod_2_3_refines_const {α : Type} (N : Lens α)
     exact step_plus_k N h2 h3 r _ r' heq
   · have heq : Lens.leaves.view r = Lens.leaves.view r'
               + (Lens.leaves.view r - Lens.leaves.view r') := by
-      have h1 := E213.Tactic.Nat213.sub_add_cancel hle
+      have h1 := E213.Tactic.NatHelper.sub_add_cancel hle
       have h2 : Lens.leaves.view r' + (Lens.leaves.view r - Lens.leaves.view r')
               = Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r' :=
         Nat.add_comm _ _

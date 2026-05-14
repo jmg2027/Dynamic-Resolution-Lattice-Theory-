@@ -29,7 +29,7 @@ namespace E213.Lib.Math.ModArith.JoinGCD
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 open E213.Lib.Math.ModArith.JoinEuclidean
-open E213.Tactic.Nat213 (gcd213)
+open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left gcd213_succ_self)
 
@@ -58,7 +58,7 @@ private theorem join_refines_gcd_sorted {α : Type} (N : Lens α) :
         · -- m - k = 1 → m = k + 1
           have hms : m = k + 1 := by
             have h_sub_add : (m - k) + k = m :=
-              E213.Tactic.Nat213.sub_add_cancel hmk
+              E213.Tactic.NatHelper.sub_add_cancel hmk
             rw [hd1, Nat.add_comm] at h_sub_add
             exact h_sub_add.symm
           have hconst := consecutive_refines_const N m k hk hms hLm hLk
@@ -87,7 +87,7 @@ private theorem join_refines_gcd_sorted {α : Type} (N : Lens α) :
             have h3 : m + 1 ≤ n := Nat.le_of_succ_le_succ h2
             exact Nat.le_trans (Nat.le_succ m) h3
           have h_mk_sum : (m - k) + k ≤ n := by
-            rw [E213.Tactic.Nat213.sub_add_cancel hmk]
+            rw [E213.Tactic.NatHelper.sub_add_cancel hmk]
             exact h_m_le_n
           by_cases hmkge : m - k ≥ k
           · have hrec : (leavesModNat (gcd213 (m - k) k)).refines N :=
@@ -123,7 +123,7 @@ namespace E213.Lib.Math.ModArith.JoinGCD
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat
-open E213.Tactic.Nat213 (gcd213)
+open E213.Tactic.NatHelper (gcd213)
 
 /-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
     join_refines_gcd (gcd213 4 6 = 2). -/
@@ -156,7 +156,7 @@ namespace E213.Lib.Math.ModArith.JoinGCD
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
-open E213.Tactic.Nat213 (gcd213)
+open E213.Tactic.NatHelper (gcd213)
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
     the equivalence of L_gcd.  ∅-axiom version using `gcd213`. -/

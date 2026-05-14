@@ -2,7 +2,7 @@ import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
 import E213.Lib.Math.Cohomology.Delta.Pointwise
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
@@ -40,7 +40,7 @@ open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
    decomp_step_at_8 decomp_step_at_9)
 open E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
   (delta_cupAW_add_left cupAW_delta_add_left)
-open E213.Tactic.Nat213 (cases_lt_ten)
+open E213.Tactic.NatHelper (cases_lt_ten)
 
 /-- ★ α-decomp lens at (5, 2, 1). -/
 theorem leibniz_via_α_decomp_21

@@ -1,5 +1,5 @@
 import E213.Lib.Math.Probability.Foundation.Cut
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Probability — `Bernoulli`
@@ -49,7 +49,7 @@ def impossible : Bernoulli where
     common denominator (= total mass 1). -/
 theorem sum_to_one (b : Bernoulli) :
     (b.success).num + (b.failure).num = b.p.den :=
-  E213.Tactic.Nat213.add_sub_of_le b.p.mass_le
+  E213.Tactic.NatHelper.add_sub_of_le b.p.mass_le
 
 /-- Success and failure share the denominator (rfl). -/
 theorem success_failure_same_den (b : Bernoulli) :

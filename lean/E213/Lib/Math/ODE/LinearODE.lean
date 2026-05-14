@@ -1,5 +1,5 @@
 import E213.Lib.Math.ODE.PicardIterate
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Differential Equations 213 — Linear ODE (atomic)

@@ -55,7 +55,7 @@ theorem cutPowFnIsDifferentiable_modulus (n k : Nat) :
   | zero => show 0 = 0 * k; rw [Nat.zero_mul]
   | succ m ih =>
     show (cutPowFnIsDifferentiable m).linearityModulus k + k = (m + 1) * k
-    rw [ih, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [ih, E213.Tactic.NatHelper.add_mul, Nat.one_mul]
 
 /-- **Polynomial derivative resolution depth**: matches the function.
     ∅-axiom: `Nat213.add_mul` + `Max213.max_eq_left`. -/
@@ -68,7 +68,7 @@ theorem cutPowFn_derivative_modulus (n k : Nat) :
              ((cutPowFnIsDifferentiable m).linearityModulus k + 0)
          = (m + 1) * k
     rw [ih, cutPowFnIsDifferentiable_modulus, Nat.add_zero,
-        E213.Tactic.Nat213.add_mul, Nat.one_mul]
+        E213.Tactic.NatHelper.add_mul, Nat.one_mul]
     exact E213.Meta.Nat.Max213.max_eq_left (Nat.le_add_right _ _)
 
 /-- **AD-3 unified capstone**: polynomial chain — function and

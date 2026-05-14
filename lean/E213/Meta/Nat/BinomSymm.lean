@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # G14 — Binom symmetry: `C(n, k) = C(n, n − k)` (213-native ∅-axiom)
@@ -14,7 +14,7 @@ only:
   · Pascal recursion (rfl from `binom`'s definition)
   · `Nat.succ_sub_succ_eq_sub`, `Nat.add_comm`, `Nat.le_*`
     (Lean-core PURE lemmas)
-  · `E213.Tactic.Nat213.{sub_pos_of_lt, sub_add_cancel}`
+  · `E213.Tactic.NatHelper.{sub_pos_of_lt, sub_add_cancel}`
     (213-native replacements for the propext-tainted Lean-core
     forms)
 
@@ -86,9 +86,9 @@ theorem binom_symm : ∀ {n k : Nat}, k ≤ n → binom n k = binom n (n - k)
       rw [binom_symm hk, binom_symm hkn]
       have h_subsucc : n - (k + 1) = (n - k) - 1 := rfl
       rw [h_subsucc]
-      have hge : 1 ≤ n - k := E213.Tactic.Nat213.sub_pos_of_lt hkn
+      have hge : 1 ≤ n - k := E213.Tactic.NatHelper.sub_pos_of_lt hkn
       obtain ⟨m, hm⟩ : ∃ m, n - k = m + 1 :=
-        ⟨(n - k) - 1, (E213.Tactic.Nat213.sub_add_cancel hge).symm⟩
+        ⟨(n - k) - 1, (E213.Tactic.NatHelper.sub_add_cancel hge).symm⟩
       rw [hm]
       show binom n (m + 1) + binom n m = binom n m + binom n (m + 1)
       exact Nat.add_comm _ _
@@ -121,7 +121,7 @@ theorem central_binom_is_double (n : Nat) :
     rfl
   -- Step 2: 2*n + 1 = n + (n + 1) (via two_mul + add_assoc + add_comm)
   have h_2n1 : 2 * n + 1 = n + (n + 1) := by
-    have h1 : 2 * n = n + n := E213.Tactic.Nat213.two_mul n
+    have h1 : 2 * n = n + n := E213.Tactic.NatHelper.two_mul n
     rw [h1]
     -- (n + n) + 1 = n + (n + 1) by Nat.add_assoc
     exact Nat.add_assoc n n 1
@@ -132,7 +132,7 @@ theorem central_binom_is_double (n : Nat) :
     -- Use add_sub_add_left k (b) (0): (k + b) - (k + 0) = b - 0 = b.
     -- Or simpler: n + (n+1) - n = (n+1) by add comm + add_sub_cancel_right.
     rw [Nat.add_comm n (n + 1)]
-    exact E213.Tactic.Nat213.add_sub_cancel_right (n + 1) n
+    exact E213.Tactic.NatHelper.add_sub_cancel_right (n + 1) n
   -- Step 4: n ≤ 2n + 1
   have hk_le : n ≤ 2 * n + 1 := by
     rw [h_2n1]
@@ -144,6 +144,6 @@ theorem central_binom_is_double (n : Nat) :
   have h_symm : binom (2 * n + 1) n = binom (2 * n + 1) (n + 1) := by
     rw [binom_symm hk_le, h_sub]
   rw [h_symm]
-  exact (E213.Tactic.Nat213.two_mul (binom (2 * n + 1) (n + 1))).symm
+  exact (E213.Tactic.NatHelper.two_mul (binom (2 * n + 1) (n + 1))).symm
 
 end E213.Meta.Nat.BinomSymm

@@ -1,8 +1,8 @@
-import E213.Theory.Nat213.Core
+import E213.Lens.Number.Nat213.Peano
 import E213.Theory.Raw
 
 /-!
-# Theory.Nat213.Lenses — characterization of Raw → Nat213 lenses
+# Lens.Number.Nat213.Lenses — characterization of Raw → Nat213 lenses
 
 Following G66 research note, this file formalizes:
 
@@ -18,9 +18,9 @@ Following G66 research note, this file formalizes:
 All ∅-axiom.
 -/
 
-namespace E213.Theory.Nat213.Lenses
+namespace E213.Lens.Number.Nat213.Lenses
 
-open E213.Theory.Nat213
+open E213.Lens.Number.Nat213.Peano
 open E213.Theory
 
 /-- A Nat213-lens: triple `(ba, bb, combine)` inducing a
@@ -287,4 +287,4 @@ theorem fold_of_fold_witness (x y : Raw) (h : x ≠ y) :
                  (Raw.fold Nat213.one Nat213.one Nat213.add y) :=
   slash_projects_to_add x y h
 
-end E213.Theory.Nat213.Lenses
+end E213.Lens.Number.Nat213.Lenses

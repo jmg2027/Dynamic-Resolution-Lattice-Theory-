@@ -1,5 +1,5 @@
 import E213.Lib.Math.Functional.Norm
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Functional Analysis 213 — Inner product (atomic, finite-grid)
@@ -60,7 +60,7 @@ theorem inner_left_additive : ∀ (n : Nat) (f h g : Nat → Nat),
       show innerNum n (addFn f h) g + (f n + h n) * g n
         = (innerNum n f g + f n * g n) + (innerNum n h g + h n * g n)
       rw [inner_left_additive n f h g]
-      rw [E213.Tactic.Nat213.add_mul (f n) (h n) (g n)]
+      rw [E213.Tactic.NatHelper.add_mul (f n) (h n) (g n)]
       exact add_swap_middle (innerNum n f g) (innerNum n h g)
               (f n * g n) (h n * g n)
 

@@ -7,7 +7,7 @@ For each Polynomial213 operation (`add`, `scale`, `shift`, `mul`,
 `trim`), prove that evaluation commutes with the operation.
 
 All proofs use only audited PURE Nat helpers (`Nat.add_*`,
-`Nat.mul_*`, `E213.Tactic.Nat213.{add_mul, mul_assoc}`).
+`Nat.mul_*`, `E213.Tactic.NatHelper.{add_mul, mul_assoc}`).
 -/
 
 namespace E213.Polynomial213
@@ -52,9 +52,9 @@ theorem eval_scale (k : Nat) : ∀ (p : Poly) (x : Nat),
   | c :: cs, x => by
       show k * c + x * eval (scale k cs) x = k * (c + x * eval cs x)
       rw [eval_scale k cs x, Nat.mul_add k c _,
-          ← E213.Tactic.Nat213.mul_assoc x k (eval cs x),
+          ← E213.Tactic.NatHelper.mul_assoc x k (eval cs x),
           Nat.mul_comm x k,
-          E213.Tactic.Nat213.mul_assoc k x (eval cs x)]
+          E213.Tactic.NatHelper.mul_assoc k x (eval cs x)]
 
 /-- `eval (mul p q) x = eval p x * eval q x`. -/
 theorem eval_mul : ∀ (p q : Poly) (x : Nat),
@@ -66,7 +66,7 @@ theorem eval_mul : ∀ (p q : Poly) (x : Nat),
       rw [eval_add, eval_scale, eval_shift, eval_mul as q x]
       -- Goal: a * eval q x + x * (eval as x * eval q x)
       --     = (a + x * eval as x) * eval q x
-      rw [E213.Tactic.Nat213.add_mul a (x * eval as x) (eval q x),
-          E213.Tactic.Nat213.mul_assoc x (eval as x) (eval q x)]
+      rw [E213.Tactic.NatHelper.add_mul a (x * eval as x) (eval q x),
+          E213.Tactic.NatHelper.mul_assoc x (eval as x) (eval q x)]
 
 end E213.Polynomial213

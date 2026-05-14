@@ -2,7 +2,7 @@ import E213.Lib.Math.Cauchy.Archimedean
 import E213.Lib.Math.Cauchy.MonotonicBounded
 import E213.Lib.Math.Cauchy.PellSeq
 import E213.Meta.Nat.PureNat
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Cauchy.Euler — e (Euler) Dedekind cut + sharper bounds + generic template
@@ -81,7 +81,7 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
       -- For k+1 ≥ 2 (k ≥ 1): trivial.  For k = 0: 3*d_0 - a_0 = 2.  ✓
       have h_dpos : 1 ≤ eulerDen k := eulerDen_pos k
       have hexp : 3 * ((k + 1) * eulerDen k) = (k + 1) * (3 * eulerDen k) := by
-        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm 3 (k+1), E213.Tactic.Nat213.mul_assoc]
+        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm 3 (k+1), E213.Tactic.NatHelper.mul_assoc]
       rw [hexp]
       -- Want: (k+1) * (3 * d_k) ≥ (k+1) * a_k + 2.
       have h1 : (k + 1) * (3 * eulerDen k) ≥ (k + 1) * (eulerNum k + 1) :=
@@ -145,8 +145,8 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
           Nat.mul_le_mul_left (k+1) h_inv
         have h2 : (k + 1) * (2 * eulerDen k + 1)
                   = 2 * ((k + 1) * eulerDen k) + (k + 1) := by
-          rw [Nat.mul_add, Nat.mul_one, ← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (k+1) 2,
-              E213.Tactic.Nat213.mul_assoc]
+          rw [Nat.mul_add, Nat.mul_one, ← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (k+1) 2,
+              E213.Tactic.NatHelper.mul_assoc]
         rw [h2] at h1
         -- h1: (k+1)*a_k ≥ 2*((k+1)*d_k) + (k+1)
         -- Goal: (k+1)*a_k + 1 ≥ 2*((k+1)*d_k) + 1
@@ -187,7 +187,7 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
   have h1 : eulerNum n * k ≤ 3 * eulerDen n * k :=
     Nat.mul_le_mul_right k (Nat.le_of_succ_le hu)
   have h2 : 3 * eulerDen n * k = eulerDen n * (3 * k) := by
-    rw [Nat.mul_comm 3 (eulerDen n), E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.mul_comm 3 (eulerDen n), E213.Tactic.NatHelper.mul_assoc]
   rw [h2] at h1
   have h3 : eulerDen n * (3 * k) ≤ eulerDen n * m :=
     Nat.mul_le_mul_left (eulerDen n) h3km
@@ -217,12 +217,12 @@ theorem euler_orderProj_below_2 (m k : Nat) (hk : k ≥ 1) (hm2k : m ≤ 2 * k)
   have h1 : eulerNum n * k ≥ (2 * eulerDen n + 1) * k :=
     Nat.mul_le_mul_right k hl
   have h2 : (2 * eulerDen n + 1) * k = 2 * eulerDen n * k + k := by
-    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [h2] at h1
   have h3 : eulerDen n * m ≤ eulerDen n * (2 * k) :=
     Nat.mul_le_mul_left (eulerDen n) hm2k
   have h4 : eulerDen n * (2 * k) = 2 * eulerDen n * k := by
-    rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (eulerDen n) 2, E213.Tactic.Nat213.mul_assoc]
+    rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (eulerDen n) 2, E213.Tactic.NatHelper.mul_assoc]
   rw [h4] at h3
   -- h1: a_n * k ≥ 2 d_n k + k.  h3: d_n * m ≤ 2 d_n k.  hle: a_n * k ≤ d_n * m.
   -- Combine: 2 d_n k + k ≤ a_n * k ≤ d_n * m ≤ 2 d_n k.  So k ≤ 0, contra hk.
@@ -231,7 +231,7 @@ theorem euler_orderProj_below_2 (m k : Nat) (hk : k ≥ 1) (hm2k : m ≤ 2 * k)
   -- Cancel `2 * eulerDen n * k` from both sides: k ≤ 0.
   have chain_with_zero : 2 * eulerDen n * k + k ≤ 2 * eulerDen n * k + 0 := by
     rw [Nat.add_zero]; exact chain
-  have hk0 : k ≤ 0 := E213.Tactic.Nat213.le_of_add_le_add_left chain_with_zero
+  have hk0 : k ≤ 0 := E213.Tactic.NatHelper.le_of_add_le_add_left chain_with_zero
   exact absurd (Nat.le_trans hk hk0) (by decide)
 
 /-- **Order Cauchy** at thresholds m/k ≥ 3 ∨ m/k ≤ 2.
@@ -272,7 +272,7 @@ theorem euler_isAbMonotonic : IsAbMonotonic eulerRawSeq := by
   show eulerNum n * eulerDen (n+1) ≤ eulerNum (n+1) * eulerDen n
   show eulerNum n * ((n+1) * eulerDen n) ≤ ((n+1) * eulerNum n + 1) * eulerDen n
   have h1 : eulerNum n * ((n+1) * eulerDen n) = (n+1) * eulerNum n * eulerDen n := by
-    rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (eulerNum n) (n+1)]
+    rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (eulerNum n) (n+1)]
   rw [h1]
   -- Goal: (n+1) * eulerNum n * eulerDen n ≤ ((n+1) * eulerNum n + 1) * eulerDen n
   exact Nat.mul_le_mul_right (eulerDen n) (Nat.le_add_right _ 1)
@@ -310,13 +310,13 @@ theorem euler_sharper_lower (n : Nat) (hn : n ≥ 3) :
                   (k + 1) * (5 * eulerDen k + 1) := by
           have step : 2 * ((k + 1) * eulerNum k) =
                       (k + 1) * (2 * eulerNum k) := by
-            rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm 2 (k+1), E213.Tactic.Nat213.mul_assoc]
+            rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm 2 (k+1), E213.Tactic.NatHelper.mul_assoc]
           rw [step]
           exact Nat.mul_le_mul_left (k+1) h_inv
         have h2 : (k + 1) * (5 * eulerDen k + 1)
                   = 5 * ((k + 1) * eulerDen k) + (k + 1) := by
-          rw [Nat.mul_add, Nat.mul_one, ← E213.Tactic.Nat213.mul_assoc,
-              Nat.mul_comm (k+1) 5, E213.Tactic.Nat213.mul_assoc]
+          rw [Nat.mul_add, Nat.mul_one, ← E213.Tactic.NatHelper.mul_assoc,
+              Nat.mul_comm (k+1) 5, E213.Tactic.NatHelper.mul_assoc]
         -- h1 : (k+1) * (5*eulerDen k + 1) ≤ 2 * ((k+1) * eulerNum k)
         -- h2 says LHS = 5 * ((k+1)*eulerDen k) + (k+1)
         -- Goal: 5 * ((k+1)*eulerDen k) + 1 ≤ 2 * ((k+1)*eulerNum k + 1)
@@ -541,7 +541,7 @@ theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) 
     have h1 : 3 * (eulerNum N + 1) ≤ 3 * (3 * eulerDen N) :=
       Nat.mul_le_mul_left 3 h_upper
     have h2 : 3 * (3 * eulerDen N) = 9 * eulerDen N :=
-      (E213.Tactic.Nat213.mul_assoc 3 3 (eulerDen N)).symm
+      (E213.Tactic.NatHelper.mul_assoc 3 3 (eulerDen N)).symm
     have h3 : 3 * (eulerNum N + 1) = 3 * eulerNum N + 3 := by
       rw [Nat.mul_add, Nat.mul_one]
     exact h2 ▸ h3 ▸ h1
@@ -577,7 +577,7 @@ theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) 
   have hcontra : 9 * eulerDen N + 3 ≤ 9 * eulerDen N :=
     Nat.le_trans h_plus3 h_upper3
   -- 9 * eulerDen N + 3 ≤ 9 * eulerDen N means 3 ≤ 0, false.
-  have h3le0 : 3 ≤ 0 := E213.Tactic.Nat213.le_of_add_le_add_left hcontra
+  have h3le0 : 3 ≤ 0 := E213.Tactic.NatHelper.le_of_add_le_add_left hcontra
   exact Nat.not_succ_le_zero 2 h3le0
 
 end E213.Lib.Math.Cauchy.EulerSharperPure

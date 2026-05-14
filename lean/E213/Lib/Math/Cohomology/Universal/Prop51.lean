@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Universal.Prop31
 import E213.Lib.Math.Cohomology.Delta.Pointwise
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
@@ -26,7 +26,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Delta.Pointwise (delta_pointwise_eq)
-open E213.Tactic.Nat213 (cases_lt_five)
+open E213.Tactic.NatHelper (cases_lt_five)
 
 /-- Cochain 5 1 parametrized by 5 Bool values.  Defined via
     `match i.val with` (Nat match) to avoid `Fin (binom 5 1)`

@@ -1,24 +1,28 @@
-import E213.Theory.Closed.FoldRaw
+import E213.Theory.Raw.API
 
 /-!
-# Theory.Closed.Bool213 — closed-universe Bool
+# Lens.Bool213.Raw — closed-universe Bool (Method A: T=a, F=b)
 
 Bool 을 외부 type 으로 빌리지 않고 Raw 의 특정 두 모양으로 인코딩.
 operation 들도 Raw → Raw 또는 Raw → Raw → Raw 로 닫혀 있음.
 
-## 무한히 많은 Bool213 (Z, C 쌍 자유)
+Lens 의미: **`Raw.fold T F and` 의 closed-Raw codomain catamorphism**
+(`booleanProj`).  Nat213 의 `leavesCountRaw` 와 정확히 평행한 vertical-
+internal projection.
+
+## 무한히 많은 Bool213 (T, F 쌍 자유)
 
 기본 선택:
-  - `Bool213.MethodA`: T = Raw.a, F = Raw.b
-  - `Bool213.MethodB`: T = Raw.b, F = Raw.a (swap된 것)
+  - Method A: T = Raw.a, F = Raw.b  (canonical)
+  - Method B: T = Raw.b, F = Raw.a  (swap)
 
 다른 (T, F) 쌍 (예: T = `slash a b`, F = `a`) 도 같은 대수 구조를 줌
-— 마지막에 NumberingSystem-style 메타 패턴으로 정리.
+— `Lens.Bool213.System` 에서 NumberingSystem-style 메타 패턴으로 정리.
 -/
 
-namespace E213.Theory.Closed.Bool213
+namespace E213.Lens.Bool213.Raw
 
-open E213.Theory E213.Theory.Closed E213.Theory.Internal
+open E213.Theory E213.Theory.Raw.FoldRaw E213.Theory.Internal
 
 /-! ### Method A: T = a, F = b (canonical) -/
 
@@ -217,4 +221,4 @@ theorem boolValue_booleanProj (r : Raw) :
       rw [boolValue_and_of_isBool _ _ (fold_T_F_and_isBool x) (fold_T_F_and_isBool y),
           ihx, ihy]
 
-end E213.Theory.Closed.Bool213
+end E213.Lens.Bool213.Raw

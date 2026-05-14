@@ -173,9 +173,9 @@ theorem product_lower_bound (m k : Nat) :
 
     Use this in ∅-axiom downstream theorems. -/
 theorem gcd213_upper_bound (m k : Nat) :
-    (leavesModNat m).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) ∧
-    (leavesModNat k).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
-  common_divisor_upper_bound m k (E213.Tactic.Nat213.gcd213 m k)
+    (leavesModNat m).refines (leavesModNat (E213.Tactic.NatHelper.gcd213 m k)) ∧
+    (leavesModNat k).refines (leavesModNat (E213.Tactic.NatHelper.gcd213 m k)) :=
+  common_divisor_upper_bound m k (E213.Tactic.NatHelper.gcd213 m k)
     (E213.Meta.Nat.Gcd213.gcd213_dvd_left m k)
     (E213.Meta.Nat.Gcd213.gcd213_dvd_right m k)
 

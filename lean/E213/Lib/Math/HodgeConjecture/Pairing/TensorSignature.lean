@@ -1,5 +1,5 @@
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Tensor Signature Theorem — Künneth signature on the (pos, neg) pair
@@ -110,8 +110,8 @@ theorem tensor_total_rank (d1 d2 : SignaturePairData) :
   show (d1.pos * d2.pos + d1.neg * d2.neg) + (d1.pos * d2.neg + d1.neg * d2.pos)
         = (d1.pos + d1.neg) * (d2.pos + d2.neg)
   rw [Nat.mul_add,
-      E213.Tactic.Nat213.add_mul d1.pos d1.neg d2.pos,
-      E213.Tactic.Nat213.add_mul d1.pos d1.neg d2.neg,
+      E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.pos,
+      E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.neg,
       Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.neg)
                             (d1.pos * d2.neg) (d1.neg * d2.pos),
       Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.pos)
@@ -191,7 +191,7 @@ theorem ofBalanced_balanced (b : BalancedSignatureData) :
 
 theorem ofBalanced_total_rank : ∀ b : BalancedSignatureData,
     (ofBalanced b).total_rank = BalancedSignatureData.total_rank b
-  | ⟨n⟩ => (E213.Tactic.Nat213.two_mul n).symm
+  | ⟨n⟩ => (E213.Tactic.NatHelper.two_mul n).symm
 
 /-- Tensor of two `BalancedSignatureData` lifts is balanced. -/
 theorem tensor_ofBalanced_balanced (b1 b2 : BalancedSignatureData) :

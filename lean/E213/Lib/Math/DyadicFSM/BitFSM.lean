@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Forward.ForwardEventual
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Lib.Math.DyadicFSM.Signature.Signature
@@ -63,10 +63,10 @@ theorem fsm_run_eventually_periodic {n : Nat} (m : BitFSM n) :
   refine ⟨i, j - i, sub_pos_of_lt_213 hij, ?_⟩
   intro k hk
   obtain ⟨d, rfl⟩ : ∃ d, k = i + d :=
-    ⟨k - i, (E213.Tactic.Nat213.add_sub_of_le hk).symm⟩
+    ⟨k - i, (E213.Tactic.NatHelper.add_sub_of_le hk).symm⟩
   clear hk
   have hij_eq : i + (j - i) = j :=
-    E213.Tactic.Nat213.add_sub_of_le (Nat.le_of_lt hij)
+    E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hij)
   induction d with
   | zero =>
     show m.run (i + 0 + (j - i)) = m.run (i + 0)

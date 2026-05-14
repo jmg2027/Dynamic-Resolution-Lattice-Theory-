@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Universal.Prop41
 import E213.Lib.Math.Cohomology.Delta.Pointwise
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
@@ -36,7 +36,7 @@ theorem pattern_eq_at (σ : Cochain 4 2) (k : Fin (binom 4 2)) :
                   (σ ⟨4, by decide⟩) (σ ⟨5, by decide⟩) k := by
   obtain ⟨n, hn⟩ := k
   show σ ⟨n, hn⟩ = pattern _ _ _ _ _ _ ⟨n, hn⟩
-  rcases E213.Tactic.Nat213.cases_lt_six hn
+  rcases E213.Tactic.NatHelper.cases_lt_six hn
     with h | h | h | h | h | h <;>
     subst h <;> rfl
 

@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 
@@ -102,11 +102,11 @@ theorem cutSum_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
   · rintro ⟨i, hi, hcx, hcy⟩
     refine ⟨2*m - i, Nat.sub_le _ _, ?_, ?_⟩
     · exact hcy
-    · rw [E213.Tactic.Nat213.sub_sub_self hi]; exact hcx
+    · rw [E213.Tactic.NatHelper.sub_sub_self hi]; exact hcx
   · rintro ⟨j, hj, hcy, hcx⟩
     refine ⟨2*m - j, Nat.sub_le _ _, ?_, ?_⟩
     · exact hcx
-    · rw [E213.Tactic.Nat213.sub_sub_self hj]; exact hcy
+    · rw [E213.Tactic.NatHelper.sub_sub_self hj]; exact hcy
 
 /-- cutSum monotone in cy: cy implies cy' → cutSum cx cy implies cutSum cx cy'. -/
 theorem cutSum_mono_right (cx cy cy' : Nat → Nat → Bool)

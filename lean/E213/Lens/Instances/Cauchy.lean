@@ -1,6 +1,6 @@
 import E213.Lens.Universal.QuotLens
 import E213.Lens.Lattice.IndexedJoin
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # LensCauchy: reduction of Cauchy completeness for 213
@@ -66,8 +66,8 @@ theorem eventually_class_unique {α : Type} (L : Lens α) (xs : Nat → Raw)
   obtain ⟨N, hN⟩ := h
   obtain ⟨N', hN'⟩ := h'
   let M := max N N'
-  have hMN : M ≥ N := E213.Tactic.Nat213.le_max_left N N'
-  have hMN' : M ≥ N' := E213.Tactic.Nat213.le_max_right N N'
+  have hMN : M ≥ N := E213.Tactic.NatHelper.le_max_left N N'
+  have hMN' : M ≥ N' := E213.Tactic.NatHelper.le_max_right N N'
   rw [← hN M hMN, hN' M hMN']
 
 end E213.Lens.Instances.Cauchy

@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Differential Equations 213 — Picard iteration (atomic, Nat-discrete)
@@ -68,7 +68,7 @@ theorem picard_exp (y0 : Nat) : ∀ n,
       show y0 * 2 ^ n + y0 * 2 ^ n = y0 * 2 ^ (n + 1)
       rw [add_self_eq_mul_two (y0 * 2 ^ n)]
       show (y0 * 2 ^ n) * 2 = y0 * 2 ^ (n + 1)
-      rw [E213.Tactic.Nat213.mul_assoc y0 (2 ^ n) 2]
+      rw [E213.Tactic.NatHelper.mul_assoc y0 (2 ^ n) 2]
       show y0 * (2 ^ n * 2) = y0 * 2 ^ (n + 1)
       rfl
 

@@ -1,5 +1,5 @@
 import E213.Lib.Math.Extras.CauchySchwarz
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Brahmagupta-Fibonacci exact identity (∅-axiom)
@@ -27,7 +27,7 @@ and `(c, d)` swap.
 namespace E213.Lib.Math.SignedCut.Hurwitz.HurwitzExactL1
 
 open E213.Lib.Math.Extras.CauchySchwarz (cs_expand sq_add)
-open E213.Tactic.Nat213 (mul_assoc add_mul mul_mul_mul_comm_213)
+open E213.Tactic.NatHelper (mul_assoc add_mul mul_mul_mul_comm_213)
 
 /-- ★ **Nat-side squared-difference identity**:
     `(m − n)² + 2·n·m = m² + n²` when `n ≤ m`.
@@ -38,7 +38,7 @@ open E213.Tactic.Nat213 (mul_assoc add_mul mul_mul_mul_comm_213)
     `n² + m² = 2·n·m + (m−n)²`. -/
 theorem nat_sq_diff_identity {m n : Nat} (h : n ≤ m) :
     (m - n) * (m - n) + 2 * (n * m) = m * m + n * n := by
-  have hmn : n + (m - n) = m := E213.Tactic.Nat213.add_sub_of_le h
+  have hmn : n + (m - n) = m := E213.Tactic.NatHelper.add_sub_of_le h
   -- cs_expand n (m-n) : n*n + (n+(m-n))² = 2*n*(n+(m-n)) + (m-n)²
   have key := cs_expand n (m - n)
   -- substitute m for n+(m-n)

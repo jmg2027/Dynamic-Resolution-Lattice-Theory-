@@ -1,5 +1,5 @@
 import E213.Lib.Math.Linalg213.Span
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # 213 Linear Algebra — chirality bigrading (4)
@@ -41,7 +41,7 @@ def combine (s : VecS) (t : VecT) : Vec 5 :=
       have hkLt : k.val < 5 := k.isLt
       have hge : 3 ≤ k.val := Nat.le_of_not_lt h
       have hadd_eq : k.val - 3 + 3 = k.val :=
-        E213.Tactic.Nat213.sub_add_cancel hge
+        E213.Tactic.NatHelper.sub_add_cancel hge
       have hadd_lt : k.val - 3 + 3 < 2 + 3 := hadd_eq ▸ hkLt
       exact Nat.lt_of_add_lt_add_right hadd_lt⟩
 
@@ -80,7 +80,7 @@ theorem combine_proj_eq (v : Vec 5) (k : Fin 5) :
     combine (projS v) (projT v) k = v k := by
   obtain ⟨n, hn⟩ := k
   show combine (projS v) (projT v) ⟨n, hn⟩ = v ⟨n, hn⟩
-  rcases E213.Tactic.Nat213.cases_lt_five hn
+  rcases E213.Tactic.NatHelper.cases_lt_five hn
     with h | h | h | h | h <;> subst h <;> rfl
 
 /-- ★ 4 capstone. -/

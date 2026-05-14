@@ -1,12 +1,14 @@
 import E213.Lens.API
 import E213.Lens.LensCore
 import E213.Lens.AxiomLenses
+import E213.Lens.Bool213
 import E213.Lens.Compose
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
 import E213.Lens.Lattice
+import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
 import E213.Lens.Universal
@@ -41,6 +43,17 @@ import E213.Lens.Universal
       `Morphism/` (8 files: FoldStructured, BoolProp, Dist,
       SlashSwap, NoDepthParity, DepthParityNotFold, SlashCharNotFold,
       BoolSqClassification) — 2026-05-13 폴드
+    * `Lens.Number`                      — Raw-derived number systems
+      (Nat213 — Raw chain + Peano inductive + Bridge + Lenses +
+       NumberingSystem + RawCut + Tower).  Migrated 2026-05-14 from
+      `Theory.Closed.{Nat213, Nat213Bridge, RawCut, NumberingSystem}`
+      + `Theory.Nat213.*` + `Theory.Tower.NatPairToQPos` — each one
+      is a `Raw.fold`-catamorphism artifact, hence Lens-layer.
+    * `Lens.Bool213`                     — Raw-encoded closed-universe
+      Bool (Raw — Method A T=a, F=b, + System — (T,F) 메타 패턴).
+      `booleanProj := Raw.fold T F and` 의 catamorphism output.
+      Migrated 2026-05-14 from `Theory.Closed.{Bool213, Bool213System}`
+      (scope C, same Lens-layer principle as Nat213).
     * `Lens.Universal`                   — Universal flat / quot lens
                                             + `Witnesses/`
 

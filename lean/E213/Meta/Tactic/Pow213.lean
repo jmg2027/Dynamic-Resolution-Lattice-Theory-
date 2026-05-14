@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Pow213 — power-of-2 + divisibility helpers (∅-axiom)
@@ -22,7 +22,7 @@ Kernel-pure: no `rw` / `simp` / `decide`; only `Eq.subst` (`▸`),
 
 namespace E213.Tactic.Pow213
 
-open E213.Tactic.Nat213 (mul_assoc add_sub_of_le mul_sub_distrib)
+open E213.Tactic.NatHelper (mul_assoc add_sub_of_le mul_sub_distrib)
 
 /-- `0 < 2` without `decide`.  Used throughout this module. -/
 private theorem zero_lt_two : 0 < 2 := Nat.zero_lt_succ 1
@@ -52,7 +52,7 @@ end E213.Tactic.Pow213
 
 namespace E213.Tactic.Pow213
 
-open E213.Tactic.Nat213 (mul_assoc add_sub_of_le mul_sub_distrib)
+open E213.Tactic.NatHelper (mul_assoc add_sub_of_le mul_sub_distrib)
 
 private theorem zero_lt_two' : 0 < 2 := Nat.zero_lt_succ 1
 
@@ -98,7 +98,7 @@ end E213.Tactic.Pow213
 
 namespace E213.Tactic.Pow213
 
-open E213.Tactic.Nat213 (mul_sub_distrib)
+open E213.Tactic.NatHelper (mul_sub_distrib)
 
 /-- `c ≤ b → a ∣ b → a ∣ c → a ∣ b - c`.
     Replaces `Nat.dvd_sub` (propext). -/

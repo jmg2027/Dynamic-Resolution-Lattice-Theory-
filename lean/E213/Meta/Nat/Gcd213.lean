@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
 
 /-!
@@ -32,7 +32,7 @@ is ≥ `M(a, b)` for all `a, b`.
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- `0 < a → a % a = 0` via `(a - a) % a = 0 % a = 0`. -/
@@ -54,7 +54,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- ★★★ **Key sub-lemma**: `g ∣ a ∧ g ∣ (b % a) → g ∣ b`.
@@ -85,7 +85,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- ★★★★ **Fuel-bounded divisibility**: when `n ≥ Nat.max a b + a`,
@@ -143,7 +143,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- Fuel sufficiency: `2 * (a + b) + 1 ≥ Nat.max a b + a`. -/
@@ -174,7 +174,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel add_sub_cancel_right
    le_max_left le_max_right)
 
@@ -217,7 +217,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- `d ∣ a ∧ d ∣ b → d ∣ (b % a)` for `a > 0`.  ∅-axiom via fuel
@@ -282,7 +282,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213 (gcdFuel gcd213)
+open E213.Tactic.NatHelper (gcdFuel gcd213)
 
 private theorem fuel_sufficient' (a b : Nat) :
     2 * (a + b) + 1 ≥ Nat.max a b + a := by
@@ -343,7 +343,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213 (gcd213)
+open E213.Tactic.NatHelper (gcd213)
 
 /-- ★★★★★ **`gcd213 a a = a`**.  ∅-axiom. -/
 theorem gcd213_self (a : Nat) : gcd213 a a = a := by
@@ -370,7 +370,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
+open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 
 /-- `g ∣ x ∧ g ∣ y → g ∣ (x + y)`.  ∅-axiom. -/
 theorem dvd_add_213 (g x y : Nat) (hx : g ∣ x) (hy : g ∣ y) : g ∣ (x + y) := by
@@ -400,7 +400,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213 (gcd213)
+open E213.Tactic.NatHelper (gcd213)
 
 /-- `(k + 1) - k = 1` term-mode (∅-axiom).
     Lean-core `Nat.add_sub_cancel_left` brings `propext`. -/
@@ -429,7 +429,7 @@ end E213.Meta.Nat.Gcd213
 
 namespace E213.Meta.Nat.Gcd213
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
 open E213.Meta.Nat.AddMod213
 
 /-- `a + b = a + c → b = c`.  ∅-axiom replacement for

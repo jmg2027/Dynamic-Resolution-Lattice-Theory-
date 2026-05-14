@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Signature.Signature
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Signature period closure (universal — no Pell dependency)
@@ -65,7 +65,7 @@ theorem signature_period_of_bits_period_and_anchor_from
           = nextVertex (signature bs (N₀ + d')) (bs (N₀ + d'))
       rw [ih, hbs]
   intro k hk
-  have hk_eq : k = N₀ + (k - N₀) := (E213.Tactic.Nat213.add_sub_of_le hk).symm
+  have hk_eq : k = N₀ + (k - N₀) := (E213.Tactic.NatHelper.add_sub_of_le hk).symm
   rw [hk_eq]; exact key (k - N₀)
 
 end E213.Lib.Math.DyadicFSM.ConcretePellSig

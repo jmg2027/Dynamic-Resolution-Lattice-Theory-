@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Real213.Sum.CutSumOne
@@ -30,7 +30,7 @@ def cutDouble (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
 theorem cutDouble_constCut_at (a b m k : Nat) :
     cutDouble (constCut a b) m k = constCut (2*a) b m k := by
   show decide (a * (2*k) ≤ b * m) = decide (2 * a * k ≤ b * m)
-  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm a 2]
+  rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a 2]
 
 /-- cutDouble of const ≡ const with doubled numerator (cutEq, PURE). -/
 theorem cutDouble_constCut (a b : Nat) :
@@ -56,7 +56,7 @@ theorem cutDouble_cutDouble_at (c : Nat → Nat → Bool) (m k : Nat) :
     cutDouble (cutDouble c) m k = c m (4*k) := by
   show c m (2*(2*k)) = c m (4*k)
   congr 1
-  rw [← E213.Tactic.Nat213.mul_assoc]
+  rw [← E213.Tactic.NatHelper.mul_assoc]
 
 /-- cutDouble of cutDouble ≡ quadruple: c m (4k) (cutEq, PURE). -/
 theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
@@ -81,9 +81,9 @@ theorem cutHalf_cutHalf_constCut (a b : Nat) :
   show constCut a b (2*(2*m)) k = constCut a (4*b) m k
   show decide (a * k ≤ b * (2*(2*m))) = decide (a * k ≤ (4*b) * m)
   have e1 : (2:Nat)*(2*m) = 4*m := by
-    rw [← E213.Tactic.Nat213.mul_assoc]
+    rw [← E213.Tactic.NatHelper.mul_assoc]
   have e2 : b * (4*m) = 4*b*m := by
-    rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 4]
+    rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b 4]
   rw [e1, e2]
 
 /-- **cutDouble (cutDouble (a/b)) ≡ (4a)/b** (cutEq, PURE). -/
@@ -93,9 +93,9 @@ theorem cutDouble_cutDouble_constCut (a b : Nat) :
   show constCut a b m (2*(2*k)) = constCut (4*a) b m k
   show decide (a * (2*(2*k)) ≤ b * m) = decide ((4*a) * k ≤ b * m)
   have e1 : (2:Nat)*(2*k) = 4*k := by
-    rw [← E213.Tactic.Nat213.mul_assoc]
+    rw [← E213.Tactic.NatHelper.mul_assoc]
   have e2 : a * (4*k) = 4*a*k := by
-    rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm a 4]
+    rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a 4]
   rw [e1, e2]
 
 /-- cutDouble preserves cutEq. -/

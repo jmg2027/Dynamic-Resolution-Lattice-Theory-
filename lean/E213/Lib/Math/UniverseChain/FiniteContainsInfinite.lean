@@ -3,7 +3,7 @@ import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.GenerationRule.TriangleIteration
 import E213.Lib.Math.UniverseChain.BipartiteFractal
 import E213.Meta.Nat.AddMod213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Steps 5,6 — Finite fractal vs infinite triangle iteration (∅-axiom)
@@ -38,13 +38,13 @@ theorem replicate_injective (i j i' j' : Fin 5)
   -- Step 1: j.val = j'.val via (5*i+j) % 5 = j (since j < 5).
   have h_mod_lhs : (5 * i.val + j.val) % 5 = j.val := by
     rw [E213.Meta.Nat.AddMod213.add_mod_left (by decide : 0 < 5)]
-    rw [E213.Tactic.Nat213.mul_mod_right]
+    rw [E213.Tactic.NatHelper.mul_mod_right]
     show (0 + j.val) % 5 = j.val
     rw [Nat.zero_add]
     exact Nat.mod_eq_of_lt j.isLt
   have h_mod_rhs : (5 * i'.val + j'.val) % 5 = j'.val := by
     rw [E213.Meta.Nat.AddMod213.add_mod_left (by decide : 0 < 5)]
-    rw [E213.Tactic.Nat213.mul_mod_right]
+    rw [E213.Tactic.NatHelper.mul_mod_right]
     show (0 + j'.val) % 5 = j'.val
     rw [Nat.zero_add]
     exact Nat.mod_eq_of_lt j'.isLt
@@ -58,9 +58,9 @@ theorem replicate_injective (i j i' j' : Fin 5)
     have := hv
     rw [h_j] at this; exact this
   have h_5i : 5 * i.val = 5 * i'.val :=
-    E213.Tactic.Nat213.add_right_cancel h_sub
+    E213.Tactic.NatHelper.add_right_cancel h_sub
   have h_i : i.val = i'.val :=
-    E213.Tactic.Nat213.mul_left_cancel_pos (by decide : (0:Nat) < 5) h_5i
+    E213.Tactic.NatHelper.mul_left_cancel_pos (by decide : (0:Nat) < 5) h_5i
   exact ⟨Fin.ext h_i, Fin.ext h_j⟩
 
 /-- ★ Replicate image cardinality: `numV 2 = numV 1 * numV 1`. -/
@@ -84,7 +84,7 @@ theorem any_iter_fits_some_level (k : Nat) (hk : k ≤ 4) :
     ∃ L, triIter 2 k ≤ numV L := by
   refine ⟨k + 1, ?_⟩
   have hk_lt : k < 5 := Nat.lt_succ_of_le hk
-  rcases E213.Tactic.Nat213.cases_lt_five hk_lt
+  rcases E213.Tactic.NatHelper.cases_lt_five hk_lt
     with hk0 | hk1 | hk2 | hk3 | hk4
   · subst hk0; decide
   · subst hk1; decide

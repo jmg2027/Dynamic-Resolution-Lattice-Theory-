@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Mul.ConstCutScale
 import E213.Lib.Math.Real213.Bisection.CutBisection
@@ -53,9 +53,9 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
   · intro h
     have h1 : (2*a)*k ≤ b*(2*m) := of_decide_eq_true h
     have h2 : 2*(a*k) ≤ 2*(b*m) := by
-      rw [E213.Tactic.Nat213.mul_assoc] at h1
+      rw [E213.Tactic.NatHelper.mul_assoc] at h1
       rw [show b*(2*m) = 2*(b*m) from by
-        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2, E213.Tactic.Nat213.mul_assoc]] at h1
+        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b 2, E213.Tactic.NatHelper.mul_assoc]] at h1
       exact h1
     exact decide_eq_true
       (Nat.le_of_mul_le_mul_left h2 (Nat.zero_lt_succ 1))
@@ -63,8 +63,8 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
     have h1 : a*k ≤ b*m := of_decide_eq_true h
     have h2 : 2*(a*k) ≤ 2*(b*m) := Nat.mul_le_mul_left 2 h1
     apply decide_eq_true
-    rw [E213.Tactic.Nat213.mul_assoc, show b*(2*m) = 2*(b*m) from by
-      rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2, E213.Tactic.Nat213.mul_assoc]]
+    rw [E213.Tactic.NatHelper.mul_assoc, show b*(2*m) = 2*(b*m) from by
+      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b 2, E213.Tactic.NatHelper.mul_assoc]]
     exact h2
 
 -- DELETED: function-eq cutMid_self_constCut. Use cutMid_self_constCut_at.
@@ -80,7 +80,7 @@ theorem cutMid_half_general (a c : Nat) :
   show constCut (a+c) 2 (2*m) k = constCut (a+c) 4 m k
   show decide ((a+c) * k ≤ 2 * (2*m)) = decide ((a+c) * k ≤ 4 * m)
   congr 2
-  rw [← E213.Tactic.Nat213.mul_assoc]
+  rw [← E213.Tactic.NatHelper.mul_assoc]
 
 /-- **midpoint(a/1, c/1) ≡ (a+c)/2** (cutEq, PURE). -/
 theorem cutMid_int_int (a c : Nat) :
@@ -103,7 +103,7 @@ theorem cutMid_int_half (a c : Nat) :
   rw [cutSum_int_half a c (2*m) k]
   show decide ((2*a+c) * k ≤ 2 * (2*m)) = decide ((2*a+c) * k ≤ 4 * m)
   congr 2
-  rw [← E213.Tactic.Nat213.mul_assoc]
+  rw [← E213.Tactic.NatHelper.mul_assoc]
 
 /-- **midpoint(a/2, c/1) ≡ (a+2c)/4** (cutEq, PURE). -/
 theorem cutMid_half_int (a c : Nat) :
@@ -115,7 +115,7 @@ theorem cutMid_half_int (a c : Nat) :
   rw [cutSum_half_int a c (2*m) k]
   show decide ((a+2*c) * k ≤ 2 * (2*m)) = decide ((a+2*c) * k ≤ 4 * m)
   congr 2
-  rw [← E213.Tactic.Nat213.mul_assoc]
+  rw [← E213.Tactic.NatHelper.mul_assoc]
 
 /-! ### Concrete cutMid evaluations on integer pairs (cutEq, PURE) -/
 

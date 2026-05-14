@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Hyper213: Framework-internal type for a hyperreal-like structure
@@ -58,8 +58,8 @@ theorem cofinite_trans (xs ys zs : Hyper213) :
     cofiniteEquiv xs ys → cofiniteEquiv ys zs → cofiniteEquiv xs zs := by
   rintro ⟨N1, h1⟩ ⟨N2, h2⟩
   refine ⟨max N1 N2, fun n hn => ?_⟩
-  have hN1 : n ≥ N1 := Nat.le_trans (E213.Tactic.Nat213.le_max_left N1 N2) hn
-  have hN2 : n ≥ N2 := Nat.le_trans (E213.Tactic.Nat213.le_max_right N1 N2) hn
+  have hN1 : n ≥ N1 := Nat.le_trans (E213.Tactic.NatHelper.le_max_left N1 N2) hn
+  have hN2 : n ≥ N2 := Nat.le_trans (E213.Tactic.NatHelper.le_max_right N1 N2) hn
   exact (h1 n hN1).trans (h2 n hN2)
 
 end E213.Lib.Math.Hyper.Hyper213

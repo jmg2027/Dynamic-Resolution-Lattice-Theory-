@@ -17,7 +17,7 @@ namespace E213.Lib.Math.ModArith.JoinEquivGCD
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
-open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
+open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left mod_eq_exists_mul_add)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
@@ -124,7 +124,7 @@ namespace E213.Lib.Math.ModArith.JoinEquivGCD
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
-open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
+open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left succ_sub_self_213)
 
@@ -179,7 +179,7 @@ namespace E213.Lib.Math.ModArith.JoinEquivGCD
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
-open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
+open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left)
 

@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Extras.CauchySchwarz — Cauchy-Schwarz family (atomic, ∅-axiom)
@@ -21,7 +21,7 @@ Per-variant namespaces preserved (external HurwitzExactL1 cites
 
 namespace E213.Lib.Math.Extras.CauchySchwarz
 
-open E213.Tactic.Nat213 (mul_assoc add_mul)
+open E213.Tactic.NatHelper (mul_assoc add_mul)
 
 /-- Term-mode `(a + d)² = a² + 2·a·d + d²`. -/
 theorem sq_add (a d : Nat) :
@@ -68,7 +68,7 @@ theorem two_mul_le_sq_add_sq (a b : Nat) :
     2 * (a * b) ≤ a * a + b * b := by
   rcases Nat.le_total a b with hab | hba
   · -- case a ≤ b: write b as a + (b - a) = a + d
-    have hb : a + (b - a) = b := E213.Tactic.Nat213.add_sub_of_le hab
+    have hb : a + (b - a) = b := E213.Tactic.NatHelper.add_sub_of_le hab
     have hgoal : 2 * (a * (a + (b - a))) ≤
                  a * a + (a + (b - a)) * (a + (b - a)) := by
       rw [cs_expand a (b - a)]
@@ -76,7 +76,7 @@ theorem two_mul_le_sq_add_sq (a b : Nat) :
     rw [hb] at hgoal
     exact hgoal
   · -- case b ≤ a: symmetric.  Swap and reduce.
-    have ha : b + (a - b) = a := E213.Tactic.Nat213.add_sub_of_le hba
+    have ha : b + (a - b) = a := E213.Tactic.NatHelper.add_sub_of_le hba
     have hgoal : 2 * (b * (b + (a - b))) ≤
                  b * b + (b + (a - b)) * (b + (a - b)) := by
       rw [cs_expand b (a - b)]
@@ -91,7 +91,7 @@ end E213.Lib.Math.Extras.CauchySchwarz
 namespace E213.Lib.Math.Extras.CauchySchwarz2D
 
 open E213.Lib.Math.Extras.CauchySchwarz (two_mul_le_sq_add_sq)
-open E213.Tactic.Nat213 (mul_assoc add_mul mul_mul_mul_comm_213)
+open E213.Tactic.NatHelper (mul_assoc add_mul mul_mul_mul_comm_213)
 
 /-- Helper — squared expansion of `(x + y)²`. -/
 theorem sq_add_two (x y : Nat) :
@@ -179,7 +179,7 @@ namespace E213.Lib.Math.Extras.CauchySchwarz3D
 
 open E213.Lib.Math.Extras.CauchySchwarz2D
   (cross_term_le sq_add_two)
-open E213.Tactic.Nat213 (mul_assoc add_mul mul_mul_mul_comm_213)
+open E213.Tactic.NatHelper (mul_assoc add_mul mul_mul_mul_comm_213)
 
 /-- ★ **3D Cauchy-Schwarz cross-term aggregator** —
     `2·(a₁b₁)·(a₂b₂) + 2·(a₁b₁)·(a₃b₃) + 2·(a₂b₂)·(a₃b₃)
@@ -252,7 +252,7 @@ theorem cs_one (a b : Nat → Nat) :
   show (0 + a 0 * b 0) * (0 + a 0 * b 0)
         ≤ (0 + a 0 * a 0) * (0 + b 0 * b 0)
   rw [Nat.zero_add, Nat.zero_add, Nat.zero_add]
-  rw [E213.Tactic.Nat213.mul_mul_mul_comm_213 (a 0) (b 0) (a 0) (b 0)]
+  rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213 (a 0) (b 0) (a 0) (b 0)]
   exact Nat.le_refl _
 
 /-- ★ **n = 2** specialisation of `cs_2d_le` to `dotList / sumSqList`. -/

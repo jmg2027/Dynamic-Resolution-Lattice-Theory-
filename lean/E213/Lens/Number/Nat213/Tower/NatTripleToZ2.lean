@@ -1,9 +1,9 @@
 import E213.Meta.Int213.Core
-import E213.Meta.Tactic.Nat213
-import E213.Theory.Tower.NatPairToInt
+import E213.Meta.Tactic.NatHelper
+import E213.Lens.Number.Nat213.Tower.NatPairToInt
 
 /-!
-# Theory.Tower.NatTripleToZ2 — 3-orthogonal-axis projection
+# Lens.Number.Nat213.Tower.NatTripleToZ2 — 3-orthogonal-axis projection
 
 **Exploratory.**  3-axis analog of G62's NatPairToInt.
 
@@ -18,7 +18,7 @@ of unity.  Exploratory closure — user's 3-axis intuition was held
 in suspense.
 -/
 
-namespace E213.Theory.Tower.NatTripleToZ2
+namespace E213.Lens.Number.Nat213.Tower.NatTripleToZ2
 
 /-- Triple of naturals: three orthogonal ℕ-axes. -/
 abbrev NTriple : Type := Nat × Nat × Nat
@@ -83,8 +83,8 @@ theorem ntripleToZ2_diag_invariant (a b c k : Nat) :
   show (Int.subNatNat (a + k) (c + k), Int.subNatNat (b + k) (c + k))
      = (Int.subNatNat a c, Int.subNatNat b c)
   rw [show Int.subNatNat (a + k) (c + k) = Int.subNatNat a c from
-        E213.Theory.Tower.NatPairToInt.npairToInt_translation_invariant a c k,
+        E213.Lens.Number.Nat213.Tower.NatPairToInt.npairToInt_translation_invariant a c k,
       show Int.subNatNat (b + k) (c + k) = Int.subNatNat b c from
-        E213.Theory.Tower.NatPairToInt.npairToInt_translation_invariant b c k]
+        E213.Lens.Number.Nat213.Tower.NatPairToInt.npairToInt_translation_invariant b c k]
 
-end E213.Theory.Tower.NatTripleToZ2
+end E213.Lens.Number.Nat213.Tower.NatTripleToZ2

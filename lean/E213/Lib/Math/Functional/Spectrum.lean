@@ -1,5 +1,5 @@
 import E213.Lib.Math.Functional.LinearOperator
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Functional Analysis 213 — Spectrum (atomic, finite-grid)
@@ -45,6 +45,6 @@ theorem compose_scale_eigen (a b : Nat) (v : Nat → Nat) :
     IsEigenpair (composeOp (scaleOp a) (scaleOp b)) (a * b) v := by
   intro i
   show a * (b * v i) = a * b * v i
-  exact (E213.Tactic.Nat213.mul_assoc a b (v i)).symm
+  exact (E213.Tactic.NatHelper.mul_assoc a b (v i)).symm
 
 end E213.Lib.Math.Functional.Spectrum

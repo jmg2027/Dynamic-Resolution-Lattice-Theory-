@@ -1,8 +1,8 @@
-import E213.Theory.Closed.Bool213
-import E213.Theory.Closed.Nat213
+import E213.Lens.Bool213.Raw
+import E213.Lens.Number.Nat213.Raw
 
 /-!
-# Theory.Closed.RawCut — Lean-free cut prototype
+# Lens.Number.Nat213.RawCut — Lean-free cut prototype
 
 기존 `Lib/Math/Real213/CutPoset.lean` 의 cut 표현은
 `Nat → Nat → Bool` — Lean 의 Nat 와 Bool 사용.
@@ -23,10 +23,10 @@ import E213.Theory.Closed.Nat213
 모든 cut 위 정리들을 Lean-free 로 변환 가능.
 -/
 
-namespace E213.Theory.Closed.RawCut
+namespace E213.Lens.Number.Nat213.RawCut
 
 open E213.Theory
-open E213.Theory.Closed.Bool213 (T F)
+open E213.Lens.Bool213.Raw (T F)
 
 /-- Lean-free cut type — 입력 출력 모두 Raw. -/
 abbrev RawCut := Raw → Raw → Raw
@@ -71,12 +71,12 @@ theorem rawCutLe_of_rawCutEq (cx cy : RawCut) (h : rawCutEq cx cy) :
 example : rawCutEq constTrueCut constTrueCut := rawCutEq_refl _
 example : rawCutLe constTrueCut constTrueCut := rawCutLe_refl _
 
-end E213.Theory.Closed.RawCut
+end E213.Lens.Number.Nat213.RawCut
 
-namespace E213.Theory.Closed.RawCut
+namespace E213.Lens.Number.Nat213.RawCut
 
 open E213.Theory
-open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_T booleanProj_F
+open E213.Lens.Bool213.Raw (T F booleanProj booleanProj_T booleanProj_F
                                   booleanProj_isBool booleanProj_idempotent
                                   boolValue boolValue_booleanProj)
 
@@ -172,4 +172,4 @@ theorem cutBoolValue_cutBooleanProj (cx : RawCut) (m k : Raw) :
     cutBoolValue (cutBooleanProj cx) m k = cutBoolValue cx m k :=
   boolValue_booleanProj (cx m k)
 
-end E213.Theory.Closed.RawCut
+end E213.Lens.Number.Nat213.RawCut

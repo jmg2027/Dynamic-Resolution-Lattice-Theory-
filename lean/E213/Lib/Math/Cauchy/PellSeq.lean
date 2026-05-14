@@ -1,6 +1,6 @@
 import E213.Lib.Math.Irrational.Sqrt2Cut
 import E213.Lens.Cardinality.LensCardinality
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # PellSeq: Pell sequence Raw construction
@@ -39,7 +39,7 @@ def pellY (n : Nat) : Nat := (pellPair n).2
 
 /-- Helper: collapse `n*z + n*z = (2*n)*z` in monomial form. -/
 private theorem two_n_mul (n z : Nat) : n * z + n * z = (2 * n) * z := by
-  rw [Nat.two_mul, E213.Tactic.Nat213.add_mul]
+  rw [Nat.two_mul, E213.Tactic.NatHelper.add_mul]
 
 /-- Expand (3x + 4y)². -/
 private theorem expand_3x4y (x y : Nat) :
@@ -48,13 +48,13 @@ private theorem expand_3x4y (x y : Nat) :
   have h1 : (3 * x + 4 * y) * (3 * x + 4 * y)
           = (3 * x) * (3 * x) + (3 * x) * (4 * y)
             + ((4 * y) * (3 * x) + (4 * y) * (4 * y)) := by
-    rw [E213.Tactic.Nat213.add_mul, Nat.mul_add, Nat.mul_add]
+    rw [E213.Tactic.NatHelper.add_mul, Nat.mul_add, Nat.mul_add]
   rw [h1]
-  have e1 : (3 * x) * (3 * x) = 9 * (x * x) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
-  have e2 : (3 * x) * (4 * y) = 12 * (x * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+  have e1 : (3 * x) * (3 * x) = 9 * (x * x) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
+  have e2 : (3 * x) * (4 * y) = 12 * (x * y) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
   have e3 : (4 * y) * (3 * x) = 12 * (x * y) := by
-    rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
-  have e4 : (4 * y) * (4 * y) = 16 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+    rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213, Nat.mul_comm y x]
+  have e4 : (4 * y) * (4 * y) = 16 * (y * y) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
   rw [e1, e2, e3, e4]
   -- Goal: 9*(x*x) + 12*(x*y) + (12*(x*y) + 16*(y*y))
   --     = 9*(x*x) + 24*(x*y) + 16*(y*y)
@@ -69,13 +69,13 @@ private theorem expand_2x3y (x y : Nat) :
   have h1 : (2 * x + 3 * y) * (2 * x + 3 * y)
           = (2 * x) * (2 * x) + (2 * x) * (3 * y)
             + ((3 * y) * (2 * x) + (3 * y) * (3 * y)) := by
-    rw [E213.Tactic.Nat213.add_mul, Nat.mul_add, Nat.mul_add]
+    rw [E213.Tactic.NatHelper.add_mul, Nat.mul_add, Nat.mul_add]
   rw [h1]
-  have e1 : (2 * x) * (2 * x) = 4 * (x * x) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
-  have e2 : (2 * x) * (3 * y) = 6 * (x * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+  have e1 : (2 * x) * (2 * x) = 4 * (x * x) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
+  have e2 : (2 * x) * (3 * y) = 6 * (x * y) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
   have e3 : (3 * y) * (2 * x) = 6 * (x * y) := by
-    rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
-  have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+    rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213, Nat.mul_comm y x]
+  have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213]
   rw [e1, e2, e3, e4]
   rw [← Nat.add_assoc (4*(x*x) + 6*(x*y)) (6*(x*y)) (9*(y*y)),
       Nat.add_assoc (4*(x*x)) (6*(x*y)) (6*(x*y)),
@@ -89,7 +89,7 @@ private theorem pell_step_canonical (M N : Nat) :
   -- Reduce LHS to 34*N + 24*M + 9.
   have hL : 9*(2*N+1) + 24*M + 16*N = 34*N + (24*M + 9) := by
     rw [Nat.mul_add 9 (2*N) 1, Nat.mul_one,
-        ← E213.Tactic.Nat213.mul_assoc 9 2 N,
+        ← E213.Tactic.NatHelper.mul_assoc 9 2 N,
         show (9 : Nat) * 2 = 18 from rfl]
     -- Goal: 18*N + 9 + 24*M + 16*N = 34*N + (24*M + 9)
     rw [Nat.add_assoc (18*N + 9) (24*M) (16*N),
@@ -98,7 +98,7 @@ private theorem pell_step_canonical (M N : Nat) :
         Nat.add_assoc (18*N) 9 (16*N),
         Nat.add_comm 9 (16*N),
         ← Nat.add_assoc (18*N) (16*N) 9,
-        ← E213.Tactic.Nat213.add_mul 18 16 N,
+        ← E213.Tactic.NatHelper.add_mul 18 16 N,
         show (18+16 : Nat) = 34 from rfl,
         Nat.add_assoc (34*N) 9 (24*M),
         Nat.add_comm 9 (24*M),
@@ -106,15 +106,15 @@ private theorem pell_step_canonical (M N : Nat) :
   -- Reduce RHS to 34*N + (24*M + 9).
   have hR : 2*(4*(2*N+1) + 12*M + 9*N) + 1 = 34*N + (24*M + 9) := by
     rw [Nat.mul_add 4 (2*N) 1, Nat.mul_one,
-        ← E213.Tactic.Nat213.mul_assoc 4 2 N,
+        ← E213.Tactic.NatHelper.mul_assoc 4 2 N,
         show (4 : Nat) * 2 = 8 from rfl]
     -- Goal: 2*(8*N + 4 + 12*M + 9*N) + 1 = 34*N + (24*M + 9)
     rw [Nat.mul_add 2 (8*N + 4 + 12*M) (9*N),
         Nat.mul_add 2 (8*N + 4) (12*M),
         Nat.mul_add 2 (8*N) 4,
-        ← E213.Tactic.Nat213.mul_assoc 2 8 N,
-        ← E213.Tactic.Nat213.mul_assoc 2 12 M,
-        ← E213.Tactic.Nat213.mul_assoc 2 9 N,
+        ← E213.Tactic.NatHelper.mul_assoc 2 8 N,
+        ← E213.Tactic.NatHelper.mul_assoc 2 12 M,
+        ← E213.Tactic.NatHelper.mul_assoc 2 9 N,
         show (2 : Nat) * 8 = 16 from rfl,
         show (2 : Nat) * 4 = 8 from rfl,
         show (2 : Nat) * 12 = 24 from rfl,
@@ -128,7 +128,7 @@ private theorem pell_step_canonical (M N : Nat) :
         Nat.add_assoc (16*N) 8 (18*N),
         Nat.add_comm 8 (18*N),
         ← Nat.add_assoc (16*N) (18*N) 8,
-        ← E213.Tactic.Nat213.add_mul 16 18 N,
+        ← E213.Tactic.NatHelper.add_mul 16 18 N,
         show (16+18 : Nat) = 34 from rfl,
         Nat.add_assoc (34*N + 8) 1 (24*M),
         Nat.add_comm 1 (24*M),
@@ -159,12 +159,12 @@ theorem pell_invariant (n : Nat) : IsPellSol (pellX n) (pellY n) := by
       -- ih : pellX k * pellX k = 2 * pellY k * pellY k + 1
       have h_norm : pellX k * pellX k = 2 * (pellY k * pellY k) + 1 := by
         have heq : 2 * pellY k * pellY k = 2 * (pellY k * pellY k) :=
-          E213.Tactic.Nat213.mul_assoc 2 (pellY k) (pellY k)
+          E213.Tactic.NatHelper.mul_assoc 2 (pellY k) (pellY k)
         rw [heq] at ih; exact ih
       have h_step := pell_step (pellX k) (pellY k) h_norm
       show (3 * pellX k + 4 * pellY k) * (3 * pellX k + 4 * pellY k)
         = 2 * (2 * pellX k + 3 * pellY k) * (2 * pellX k + 3 * pellY k) + 1
-      rw [E213.Tactic.Nat213.mul_assoc 2 (2 * pellX k + 3 * pellY k)
+      rw [E213.Tactic.NatHelper.mul_assoc 2 (2 * pellX k + 3 * pellY k)
             (2 * pellX k + 3 * pellY k)]
       exact h_step
 
@@ -217,11 +217,11 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
         · -- a ≥ 2 → recurse on (a-1, b)
           have ha_ne : a ≠ 0 := by
             intro hz; rw [hz] at ha; exact absurd ha (by decide)
-          have ha' : 1 ≤ a - 1 := E213.Tactic.Nat213.le_pred_of_succ_le h_a2
+          have ha' : 1 ≤ a - 1 := E213.Tactic.NatHelper.le_pred_of_succ_le h_a2
           have hsum' : (a - 1) + b = n := by
             have h1 : a - 1 + b + 1 = a + b := by
               rw [Nat.add_assoc, Nat.add_comm b 1, ← Nat.add_assoc,
-                  E213.Tactic.Nat213.sub_one_add_one ha_ne]
+                  E213.Tactic.NatHelper.sub_one_add_one ha_ne]
             exact Nat.succ.inj (h1.trans hsum)
           let ⟨r, hr⟩ := ih (a - 1) b hsum' ha' hb
           have hne : Raw.a ≠ r := by
@@ -234,7 +234,7 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
           rw [abLens_slash, abLens_a, hr]
           show ((1 + (a - 1) : Nat), (0 + b : Nat)) = (a, b)
           rw [Nat.add_comm 1 (a-1),
-              E213.Tactic.Nat213.sub_one_add_one ha_ne,
+              E213.Tactic.NatHelper.sub_one_add_one ha_ne,
               Nat.zero_add]
         · -- a < 2, a ≥ 1 → a = 1.  Then b ≥ 2 (since not (1,1)).
           have ha1 : a = 1 := by
@@ -257,11 +257,11 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
                   (Nat.zero_le k'))
           have hb_ne : b ≠ 0 := by
             intro hz; rw [hz] at hb; exact absurd hb (by decide)
-          have hb' : 1 ≤ b - 1 := E213.Tactic.Nat213.le_pred_of_succ_le hb2
+          have hb' : 1 ≤ b - 1 := E213.Tactic.NatHelper.le_pred_of_succ_le hb2
           have hsum' : a + (b - 1) = n := by
             have h1 : a + (b - 1) + 1 = a + b := by
               rw [Nat.add_assoc,
-                  E213.Tactic.Nat213.sub_one_add_one hb_ne]
+                  E213.Tactic.NatHelper.sub_one_add_one hb_ne]
             exact Nat.succ.inj (h1.trans hsum)
           let ⟨r, hr⟩ := ih a (b - 1) hsum' ha hb'
           have hne : Raw.b ≠ r := by
@@ -274,7 +274,7 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
           rw [abLens_slash, abLens_b, hr]
           show ((0 + a : Nat), (1 + (b - 1) : Nat)) = (a, b)
           rw [Nat.zero_add, Nat.add_comm 1 (b-1),
-              E213.Tactic.Nat213.sub_one_add_one hb_ne]
+              E213.Tactic.NatHelper.sub_one_add_one hb_ne]
 
 /-- abLens surjective on positive (a, b).  PURE via abLens_witness —
     directly extract the Σ-typed witness into an ∃-typed claim. -/
@@ -352,7 +352,7 @@ theorem pellY_lb (n : Nat) : pellY n ≥ n + 2 := by
       have h_3y_unfold : 3 * (k + 2) = k + 6 + 2 * k := by
         rw [Nat.mul_add 3 k 2,
             show 3 * k = k + 2 * k from by
-              rw [show 3 = 1 + 2 from rfl, E213.Tactic.Nat213.add_mul,
+              rw [show 3 = 1 + 2 from rfl, E213.Tactic.NatHelper.add_mul,
                   Nat.one_mul],
             show (3 : Nat) * 2 = 6 from rfl,
             Nat.add_assoc k (2*k) 6, Nat.add_comm (2*k) 6,

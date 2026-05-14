@@ -8,6 +8,7 @@ import E213.Theory.Raw.Levels
 import E213.Theory.Raw.Signed
 import E213.Theory.Raw.Hom
 import E213.Theory.Raw.Rec
+import E213.Theory.Raw.FoldRaw
 
 /-!
 # Theory.Raw.API — public surface (re-export shim)

@@ -21,7 +21,7 @@ namespace E213.Lib.Physics.Foundations.AtomicConstantsParametricN3
 
 open E213.Lib.Physics.Foundations.AtomicConstantsUnique
 open E213.Lib.Physics.Foundations.AtomicConstantsParametric (sq_of_add)
-open E213.Tactic.Nat213 (add_mul mul_assoc mul_sub_distrib sub_one_add_one
+open E213.Tactic.NatHelper (add_mul mul_assoc mul_sub_distrib sub_one_add_one
   sub_add_cancel le_sub_of_add_le add_sub_cancel_right)
 
 /-! ## §1 — `7·m² > 6m + 17` for `m ≥ 3` -/

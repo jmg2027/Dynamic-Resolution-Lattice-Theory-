@@ -7,7 +7,7 @@ import E213.Lib.Math.Cohomology.Delta.Pointwise
 import E213.Lib.Math.Cohomology.Cochain.V5_1DecompR
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
 import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.CupAW.Bilinear
@@ -42,7 +42,7 @@ open E213.Lib.Math.Cohomology.Cochain.V5_1DecompR
    decomp_step_at_4)
 open E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
   (delta_cupAW_add_right cupAW_delta_add_right)
-open E213.Tactic.Nat213 (cases_lt_five)
+open E213.Tactic.NatHelper (cases_lt_five)
 
 /-- ★ β-decomp lens at (5, 2, 1). -/
 theorem leibniz_via_β_decomp_21

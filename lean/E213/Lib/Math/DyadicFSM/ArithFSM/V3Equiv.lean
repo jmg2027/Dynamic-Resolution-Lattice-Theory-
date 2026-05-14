@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.EncodePair213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 /-!
@@ -34,7 +34,7 @@ theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
   have hreshape : a.val * (n * n) + b.val * n + c.val
                   = (a.val * n + b.val) * n + c.val := by
     rw [show a.val * (n * n) = a.val * n * n from
-          (E213.Tactic.Nat213.mul_assoc _ _ _).symm,
+          (E213.Tactic.NatHelper.mul_assoc _ _ _).symm,
         ← add_mul_213]
   rw [hreshape]
   exact E213.Meta.Nat.EncodePair213.encode_mod hn (a.val * n + b.val) c.val c.isLt

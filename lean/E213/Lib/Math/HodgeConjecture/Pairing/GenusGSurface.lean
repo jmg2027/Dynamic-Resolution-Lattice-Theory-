@@ -1,5 +1,5 @@
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Σ_g Genus-g Surface Signature Theorem (parametric in genus)

@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 
@@ -93,7 +93,7 @@ theorem alwaysFalse_numB (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numB
     rw [alwaysFalse_step, ih]
     show 2^k * (2 * db.numB) = 2^(k+1) * db.numB
-    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.NatHelper.mul_assoc]
 
 /-- **alwaysTrue trajectory: numA scales as 2^n × initial.numA**. -/
 theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
@@ -107,7 +107,7 @@ theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numA
     rw [alwaysTrue_step, ih]
     show 2^k * (2 * db.numA) = 2^(k+1) * db.numA
-    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.NatHelper.mul_assoc]
 
 /-! ### Unit bracket trajectory corollaries
 
@@ -191,7 +191,7 @@ theorem alwaysFalse_unit_numA (n : Nat) :
             - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA
             + (DyadicBracket.bisectN alwaysFalse n unitBracket).numA
             = (DyadicBracket.bisectN alwaysFalse n unitBracket).numB :=
-    E213.Tactic.Nat213.sub_add_cancel hLe
+    E213.Tactic.NatHelper.sub_add_cancel hLe
   rw [hLen] at step
   -- step: 1 + numA = numB.  Substitute hB: 1 + numA = 2^n.
   rw [hB] at step
@@ -199,7 +199,7 @@ theorem alwaysFalse_unit_numA (n : Nat) :
   have step2 : (1 + (DyadicBracket.bisectN alwaysFalse n unitBracket).numA)
              - 1 = (DyadicBracket.bisectN alwaysFalse n unitBracket).numA := by
     rw [Nat.add_comm]
-    exact E213.Tactic.Nat213.add_sub_cancel_right _ _
+    exact E213.Tactic.NatHelper.add_sub_cancel_right _ _
   -- step2: (1 + numA) - 1 = numA.  Substitute step (1 + numA = 2^n): 2^n - 1 = numA.
   rw [step] at step2
   exact step2.symm
@@ -242,7 +242,7 @@ theorem alwaysFalse_unit_midCut (n : Nat) :
     -- Goal: (2^n - 1) + 2^n = (2^n + 2^n) - 1
     rw [Nat.add_comm (2^n - 1) (2^n)]
     -- Goal: 2^n + (2^n - 1) = (2^n + 2^n) - 1
-    exact (E213.Tactic.Nat213.add_sub_assoc (2^n) h2n).symm
+    exact (E213.Tactic.NatHelper.add_sub_assoc (2^n) h2n).symm
   rw [h_eq]
 
 /-- **Universal trajectory invariants on unit bracket**: regardless
@@ -321,7 +321,7 @@ private theorem alwaysFalse_unit_cut_false_when_m_lt_k
   intro hle
   -- Step e: (2^(n+1) - 1) * k = 2^(n+1) * k - k.
   have e : (2^(n+1) - 1) * k = 2^(n+1) * k - k := by
-    rw [Nat.mul_comm, E213.Tactic.Nat213.mul_sub,
+    rw [Nat.mul_comm, E213.Tactic.NatHelper.mul_sub,
         Nat.mul_one, Nat.mul_comm k]
   rw [e] at hle
   -- hle : 2^(n+1) * k - k ≤ 2^(n+1) * m
@@ -330,14 +330,14 @@ private theorem alwaysFalse_unit_cut_false_when_m_lt_k
   -- h_le: 2^(n+1) * k ≤ 2^(n+1) * m + k via hle + hAk + sub_add_cancel.
   have h_le : 2^(n+1) * k ≤ 2^(n+1) * m + k := by
     have eq1 : (2^(n+1) * k - k) + k = 2^(n+1) * k :=
-      E213.Tactic.Nat213.sub_add_cancel hAk
+      E213.Tactic.NatHelper.sub_add_cancel hAk
     have hle' : (2^(n+1) * k - k) + k ≤ 2^(n+1) * m + k :=
       Nat.add_le_add_right hle k
     exact eq1 ▸ hle'
   -- h_split: 2^(n+1) * k = 2^(n+1) * m + 2^(n+1) * (k - m).
   have h_split : 2^(n+1) * k = 2^(n+1) * m + 2^(n+1) * (k - m) := by
     have hmle : m ≤ k := Nat.le_of_lt hmk
-    have hsum : m + (k - m) = k := E213.Tactic.Nat213.add_sub_of_le hmle
+    have hsum : m + (k - m) = k := E213.Tactic.NatHelper.add_sub_of_le hmle
     have hexp : 2^(n+1) * (m + (k - m)) = 2^(n+1) * m + 2^(n+1) * (k - m) :=
       Nat.mul_add (2^(n+1)) m (k - m)
     -- 2^(n+1) * k = 2^(n+1) * (m + (k - m)) [via congrArg of hsum.symm]
@@ -346,9 +346,9 @@ private theorem alwaysFalse_unit_cut_false_when_m_lt_k
   rw [h_split] at h_le
   -- h_le: 2^(n+1) * m + 2^(n+1) * (k - m) ≤ 2^(n+1) * m + k.
   have h_le2 : 2^(n+1) * (k - m) ≤ k :=
-    E213.Tactic.Nat213.le_of_add_le_add_left h_le
+    E213.Tactic.NatHelper.le_of_add_le_add_left h_le
   -- h_lower: 2^(n+1) ≤ 2^(n+1) * (k - m) via 0 < k - m from m < k.
-  have hkm_pos : 0 < k - m := E213.Tactic.Nat213.sub_pos_of_lt hmk
+  have hkm_pos : 0 < k - m := E213.Tactic.NatHelper.sub_pos_of_lt hmk
   have h_lower : 2^(n+1) ≤ 2^(n+1) * (k - m) :=
     Nat.le_mul_of_pos_right (2^(n+1)) hkm_pos
   -- Combine h_lower (2^(n+1) ≤ ...) and h_le2 (... ≤ k): 2^(n+1) ≤ k.
@@ -474,7 +474,7 @@ theorem alwaysTrue_le_alwaysFalse_at_limit :
   -- Use Nat213.mul_sub (PURE) instead of Nat.mul_sub_left_distrib (propext).
   have e : (2^(k+1) - 1) * k = 2^(k+1) * k - k := by
     rw [Nat.mul_comm (2^(k+1) - 1) k]
-    rw [E213.Tactic.Nat213.mul_sub k (2^(k+1)) 1]
+    rw [E213.Tactic.NatHelper.mul_sub k (2^(k+1)) 1]
     rw [Nat.mul_one, Nat.mul_comm k (2^(k+1))]
   rw [e] at h1
   -- 2^(k+1) * k ≥ 2 * k via two_pow_ge_succ + monotonicity.
@@ -489,7 +489,7 @@ theorem alwaysTrue_le_alwaysFalse_at_limit :
   -- 2 * k = k + k, so 2 * k - k = k via Nat213 add_sub_cancel_right.
   have h_2k_sub : 2 * k - k = k :=
     (congrArg (· - k) (Nat.two_mul k)).trans
-      (E213.Tactic.Nat213.add_sub_cancel_right k k)
+      (E213.Tactic.NatHelper.add_sub_cancel_right k k)
   -- k ≤ 2^(k+1) * k - k via subtraction monotonicity, substituting 2*k - k = k.
   have h_sub_mono : 2 * k - k ≤ 2^(k+1) * k - k :=
     Nat.sub_le_sub_right h_mul_ge k
