@@ -4014,3 +4014,793 @@
   - `pellLens_3x5_period_20` — period | 20 via lcm(4, 10).
 - **의존**: ArithFSM.ModSmall, ArithFSM.ToBitFSM, Product.ProductFSMPeriodDvd.
 
+### Batch M7 — DyadicFSM (second 44 of 88)
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/LensPairs.lean`
+- **역할**: Pell 두 쌍의 곱(mod 3×7, mod 5×7)에 대한 lens composition 주기화.
+- **주요 선언**:
+  - `pellMod3_BitFSM_bits_period_4`, `pellMod5_BitFSM_bits_period_10`, `pellMod7_BitFSM_bits_period_8`.
+  - `pellLens_3x7_period_8`, `pellLens_5x7_period_40`.
+- **의존**: ProductFSM, Lens, ToBitFSM, ArithFSM.ModSmall.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/LensTriple.lean`
+- **역할**: Pell 삼중곱 (mod 3×5×7) stacked lens composition — BitFSM(11025)에서 period | 40.
+- **주요 선언**:
+  - `pellInner35`, `pellInner35_period_20`.
+  - `pellLens_3x5x7_period_40`.
+- **의존**: ProductFSM, Lens, LensPairs, LensTriple.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/Proper.lean`
+- **역할**: Pell 고유(discriminant Δ=8) — Legendre lens framework; P_{n+1}=2P_n+P_{n-1}.
+- **주요 선언**:
+  - `pellProperFSMmod`.
+  - `pisano_predict_proper` — split: p-1, inert: 2(p+1), ramified: 2p.
+- **의존**: Legendre, ArithFSM, ConcretePellSig.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/Proper8.lean`
+- **역할**: Pell 고유 8-소수 증거 capstone (p ∈ {3,5,7,11,13,17,19,23}).
+- **주요 선언**: `pellProper_8prime_capstone`.
+- **의존**: ProperSmall, ProperMod11—ProperMod23.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/ProperBridge.lean`
+- **역할**: Pell 고유 Legendre-Pisano 다리 (Δ=8).
+- **주요 선언**:
+  - `legendre_8_mod_3`, `legendre_8_mod_5`, `legendre_8_mod_7`.
+  - `pisano_predict_proper_correct`.
+  - `pellProper_legendre_bridge`.
+- **의존**: Proper, ProperSmall, Legendre.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/ProperMod.lean`
+- **역할**: 5 per-prime Pell 고유 인스턴스 (mod {11,13,17,19,23}).
+- **주요 선언**:
+  - `pellProper11_bits_period_24`, `pellProper13_bits_period_28`.
+  - `pellProper17_bits_period_16`, `pellProper19_bits_period_40`, `pellProper23_bits_period_22`.
+- **의존**: Proper.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pell/ProperSmall.lean`
+- **역할**: 3 small-prime Pell 고유 인스턴스 (p ∈ {3,5,7}) — Legendre-Pisano framework.
+- **주요 선언**:
+  - `pellProper3_run_period_8` — period 8 = 2(p+1) inert.
+  - `pellProper5_run_period_12`, `pellProper7_run_period_6`.
+- **의존**: Proper.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano.lean`
+- **역할**: INDEX-형 요약 — Pisano-period predictor 라이브러리의 spec-as-code 진입점 (8 per-modulus predictor).
+- **주요 섹션**: Predictor (generic), Predictor6—Predictor22 (per-base).
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/INDEX.md`
+- **역할**: 주요 섹션 — Pisano 클러스터 9 파일 + 추가 규칙 + 동반 클러스터.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor.lean`
+- **역할**: 일반 Pisano 예측자 — `pisano_predict : Nat → Nat` (Legendre 렌즈 기반 Pell Δ=5).
+- **주요 선언**:
+  - `pisano_predict` — split: (p-1)/2, inert: p+1, ramified: 2p.
+  - `pisano_predict_correct` — 4 소수(3,5,7,11) 일치.
+  - `pisano_predict_realises_pell`.
+- **의존**: Legendre, ArithFSM.ModSmall.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor6.lean`
+- **역할**: 6-소수 확장 (새로 p=13,19) — Legendre 렌즈 기반.
+- **주요 선언**: `pisano_predict_correct_6`, `pisano_predict_realises_pell_6`.
+- **의존**: Predictor, ArithFSM.ModSmall.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor7.lean`
+- **역할**: 7-소수 확장 (새로 p=17) — inert 5개, split 2개.
+- **주요 선언**: `legendre_5_mod_17`, `pisano_predict_realises_pell_7`.
+- **의존**: Predictor6, ArithFSM.ModMedium.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor8.lean`
+- **역할**: 8-소수 증거 + signature layer (새로 p=23).
+- **주요 선언**: `legendre_5_mod_23`, `pisano_predict_realises_pell_8`.
+- **의존**: Predictor7, TwoLayerPredictor.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor11.lean`
+- **역할**: 11-소수 증거 (mod 29,31,37) — p=29에서 ×2 sub-tight 첫 관찰.
+- **주요 선언**:
+  - `legendre_5_mod_29/31/37`.
+  - `pisano_predict_realises_pell_11`.
+- **의존**: Predictor8, ArithFSM.ModMedium.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor14.lean`
+- **역할**: 14-소수 증거 (mod 41,43,47) — ★ p=47에서 ×3 sub-tight 발견.
+- **주요 선언**:
+  - `legendre_5_mod_41/43/47`.
+  - `pisano_predict_realises_pell_14`.
+- **의존**: Predictor11, ArithFSM.ModLarge.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor17.lean`
+- **역할**: 17-소수 증거 (mod 53,59,61) — 모두 TIGHT.
+- **주요 선언**:
+  - `legendre_5_mod_53/59/61`.
+  - `pisano_predict_realises_pell_17`.
+- **의존**: Predictor14, ArithFSM.ModLarge.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor20.lean`
+- **역할**: 20-소수 증거 (mod 67,71,73) — 모두 TIGHT.
+- **주요 선언**: `legendre_5_mod_67/71/73`.
+- **의존**: Predictor17, Legendre.
+
+### `lean/E213/Lib/Math/DyadicFSM/Pisano/Predictor22.lean`
+- **역할**: 22-소수 증거 (mod 79,89) — ★ p=89에서 ×2 sub-tight 세 번째 사례.
+- **주요 선언**: `legendre_5_mod_79`, `legendre_5_mod_89`.
+- **의존**: Predictor20, Legendre.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/CrossClassLens.lean`
+- **역할**: Cross-class lens — Pell(quadratic) × Tribonacci(cubic) 곱.
+- **주요 선언**:
+  - `tribMod2_BitFSM_bits_period_4`.
+  - `crossLens_pell3_trib2_period_4`, `crossLens_pell5_trib2_period_20`.
+- **의존**: ProductFSMPeriodDvd, Pell.LensPairs, ArithFSM.V3.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/INDEX.md`
+- **역할**: 주요 섹션 — Product 클러스터 7 파일.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/LCMClosure.lean`
+- **역할**: 주기적 스트림 공배수 폐포 (CRT 구조).
+- **주요 선언**:
+  - `bs_periodic_at_multiple`.
+  - `bs_periodic_at_common_multiple`, `bs_combined_periodic_at`, `bs_combined_periodic_product`.
+- **의존**: Forward.ForwardPeriodicity.
+- **비고**: ∅-axiom (propext 회피).
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/ProductFSM.lean`
+- **역할**: BitFSM.product — 범용 lens composition at FSM level.
+- **주요 선언**: `BitFSM.product`.
+- **의존**: ProductHelpers, BitFSM, ArithFSM.V1.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/ProductFSMPeriod.lean`
+- **역할**: Lens Composition 정리 — product FSM period | p*q.
+- **주요 선언**:
+  - `lens_composition_period`.
+  - `lens_composition_same_period`.
+- **의존**: ProductFSMRun, LCMClosure.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/ProductFSMPeriodDvd.lean`
+- **역할**: Lens Composition (∅-axiom variant) — explicit common period L.
+- **주요 선언**: `lens_composition_period_dvd`.
+- **의존**: ProductFSMRun, LCMClosure.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/ProductFSMRun.lean`
+- **역할**: Product FSM run/bit 분해.
+- **주요 선언**: `product_run_decode`, `product_bits_eq`.
+- **의존**: ProductFSM, ProductHelpers.
+
+### `lean/E213/Lib/Math/DyadicFSM/Product/ProductHelpers.lean`
+- **역할**: Fin 쌍 encoding (Fin n × Fin m ↔ Fin(n*m)).
+- **주요 선언**:
+  - `encodeFinPair`, `decodeFinFirst`, `decodeFinSecond`.
+  - `decode_encode_first`, `decode_encode_second`.
+- **의존**: EncodePair213.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/Classifier.lean`
+- **역할**: Dyadic classifier — signature periodic ⇒ bit stream periodic.
+- **주요 선언**:
+  - `nextVertex_bit_inj`.
+  - `signature_periodic_implies_bits_periodic`.
+  - `aperiodic_bits_imp_aperiodic_signature`.
+- **의존**: Signature.
+- **비고**: STRICT ∅-axiom.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/Conjecture.lean`
+- **역할**: Dyadic-bit / K_{3,2}^{(2)} 추측 scaffold.
+- **주요 선언**:
+  - `dyadicBit`, `periodicBit`, `shareEndpoint`, `validWalk`, `bitStream`.
+  - `period_smoke`, `walk_smoke`, `one_third_walk`, `one_fifth_walk`, `one_seventh_walk`.
+- **의존**: Bipartite.V32.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/INDEX.md`
+- **역할**: 주요 섹션 — Signature 6 파일 + 동반 sub-clusters.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/PeriodClosure.lean`
+- **역할**: Signature 기간 폐포 (universal — Pell 독립).
+- **주요 선언**:
+  - `signature_period_of_bits_period_and_anchor`.
+  - `signature_period_of_bits_period_and_anchor_from`.
+- **의존**: Signature.
+- **비고**: 2026-05-13 ConcretePellSig에서 분리.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/Signature.lean`
+- **역할**: Dyadic signature — irrational classifier via K_{3,2}^{(2)} trajectory.
+- **주요 선언**:
+  - `nextVertex` — S↔T deterministic transition.
+  - `signature`.
+  - `one_third_sig`, `one_fifth_sig`, `one_seventh_sig`.
+  - `signatures_distinct`.
+  - `signature_eq_of_pointwise_eq`.
+- **의존**: Conjecture.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/SignatureBipartite.lean`
+- **역할**: K_{3,2}^{(2)} signature bipartite 교대 불변식.
+- **주요 선언**:
+  - `isS`, `isT`.
+  - `nextVertex_S_to_T`, `nextVertex_T_to_S`.
+  - `signature_bipartite_alternation`.
+- **의존**: Signature.
+- **비고**: strict ∅-axiom.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/SignaturePredict.lean`
+- **역할**: Signature-period predictor — bipartite parity doubling layer.
+- **주요 선언**:
+  - `signature_predict`.
+  - `signature_predict_correct_7`.
+  - `signature_predict_realises_pell_7`.
+- **의존**: Pisano.Predictor, SignatureBipartite.
+
+### `lean/E213/Lib/Math/DyadicFSM/Signature/WalkUniversal.lean`
+- **역할**: K_{3,2}^{(2)} bit-walk universality.
+- **주요 선언**:
+  - `chooseEdge`.
+  - `chooseEdge_bit_smoke`, `chooseEdge_bit_full`.
+- **의존**: Conjecture.
+
+### `lean/E213/Lib/Math/DyadicFSM/ThueMorse.lean`
+- **역할**: Thue-Morse — aperiodic 2-automatic bit stream.
+- **주요 선언**:
+  - `bit213`, `thueMorse`.
+  - `thueMorse_first8`, `thueMorse_not_period_*`.
+  - `thueMorse_aperiodic_short`.
+  - `thueMorse_self_similar_small`.
+  - `thueMorse_signature_*`.
+- **의존**: Tier.Tier2Hardness, Signature.
+
+### `lean/E213/Lib/Math/DyadicFSM/Tier/AlgebraicDegree.lean`
+- **역할**: 213-native algebraic degree — HasDegree₁/₂/₃.
+- **주요 선언**:
+  - `HasDegree1`, `HasDegree2`, `HasDegree3`.
+  - `degree1_imp_degree2`, `degree2_imp_degree3`, `degree1_imp_degree3`.
+  - `legendreFSM_has_degree1`, `pellFSMmod3_has_degree2`, `tribFSMmod2_has_degree3`.
+- **의존**: ArithFSM.V1/V3, Legendre.
+
+### `lean/E213/Lib/Math/DyadicFSM/Tier/Tier2Hardness.lean`
+- **역할**: Tier 2 hardness — aperiodic bs는 NO BitFSM에 의해 생성되지 않음.
+- **주요 선언**:
+  - `aperiodic_bits_imp_not_BitFSM`.
+  - `aperiodic_bits_imp_no_BitFSM`.
+  - `BitFSM_generable_imp_eventually_periodic`.
+- **의존**: BitFSM.Converse.
+
+### `lean/E213/Lib/Math/DyadicFSM/Tier/TierBridge.lean`
+- **역할**: Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy.
+- **주요 선언**:
+  - `EventuallyPeriodic`.
+  - `ev_periodic_sig_imp_ev_periodic_bits`.
+  - `aperiodic_bits_imp_aperiodic_sig`.
+  - `bit13`, `bit13_period_2`, `one_third_signature_periodic`.
+- **의존**: Classifier, Conjecture, Signature.
+
+### `lean/E213/Lib/Math/DyadicFSM/Trib.lean`
+- **역할**: INDEX-형 요약 — Tribonacci-FSM family spec-as-code.
+
+### `lean/E213/Lib/Math/DyadicFSM/Trib/CRT4Capstone.lean`
+- **역할**: Tribonacci CRT 4-modulus capstone (mod {2,3,5,7}).
+- **주요 선언**: `trib_crt_4_capstone` — 8 conjuncts.
+- **의존**: FSMmod, CRTCapstone.
+
+### `lean/E213/Lib/Math/DyadicFSM/Trib/CRTCapstone.lean`
+- **역할**: Tribonacci CRT 3-modulus capstone (mod {2,3,5}).
+- **주요 선언**: `trib_crt_capstone` — 6 conjuncts.
+- **의존**: FSMmod3/5.
+
+### `lean/E213/Lib/Math/DyadicFSM/Trib/Capstone.lean`
+- **역할**: Tribonacci capstone Tier 1 (cubic) 완전 특성화.
+- **주요 선언**: `tribonacci_capstone` — 6 conjuncts.
+- **의존**: ArithFSM.V3*, Signature.
+
+### `lean/E213/Lib/Math/DyadicFSM/Trib/FSMmod.lean`
+- **역할**: Tribonacci per-prime instances (mod {3,5,7}) — cubic ArithFSM3.
+- **주요 선언**:
+  - `tribFSMmod3`, `tribFSMmod3_bits_period_13`, `tribFSMmod3_signature_period_26_from_1`.
+  - `tribFSMmod5`, `tribFSMmod5_bits_period_31`, `tribFSMmod5_signature_period_62_from_1`.
+  - `tribFSMmod7`, `tribFSMmod7_bits_period_48`, `tribFSMmod7_signature_period_48_from_1`.
+- **의존**: ArithFSM.V3, Signature, ConcretePellSig.
+
+### `lean/E213/Lib/Math/DyadicFSM/TwoLayerPredictor.lean`
+- **역할**: Two-layer predictor capstone — bit + signature period trajectories.
+- **주요 선언**: `two_layer_predictor_capstone` — 2 conjuncts.
+- **의존**: Pisano.Predictor7, SignaturePredict.
+
+### Batch M8 — HodgeConjecture (first 37 of 74)
+
+### `lean/E213/Lib/Math/HodgeConjecture/API.lean`
+- **역할**: 전체 HC²¹³ + post-HC²¹³ 프로그램 단일 import 진입점. 6가지 계층 노출.
+- **주요 선언**: `HC213` — 마스터 citation alias.
+- **의존**: Foundation (6), Toolkit (4), Structure (4), Refinement (6), Pairing (2), Bridge (7).
+- **비고**: 29 sub-modules 집계.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge.lean`
+- **역할**: Bridge 계층 umbrella — AG, stat-mech, discrete geo, CS bridges.
+- **주요 선언**: 11 sub-file (BeilinsonRegulator, DiscreteGeometry, G6Vacuity, GaloisCounterfactual, Ising, MLDecoder, MotiveEtaleFusion, PhaseRouting, Potts, SpinGlass, SpinGlassGroundState).
+- **의존**: Physics.Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/BeilinsonRegulator.lean`
+- **역할**: Beilinson regulator — L-값을 trajectory zeta로 인코딩.
+- **주요 선언**:
+  - `atomicΔ`, `zetaΔ`, `regulatorΔ`.
+  - `beilinson_regulator_213_capstone`.
+- **의존**: Cochain.Core, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/DiscreteGeometry.lean`
+- **역할**: K_5 discrete differential geometry.
+- **주요 선언**:
+  - `isoperimetricProfile` — (0,4,6,6,4,0).
+  - `cheegerConstant`, `lambda2_K5`.
+  - `discrete_geometry_capstone`.
+- **의존**: Ising, SpinGlass, SpinGlassGroundState.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/G6Vacuity.lean`
+- **역할**: G6 §0 보정 — 연속체/discrete 절충 없음.
+- **주요 선언**:
+  - `cheeger_K5_exact`, `euler_K5_squared_exact`, `hodge_K5_squared_exact`.
+  - `g6_no_tradeoff_capstone`.
+- **의존**: DiscreteGeometry.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/GaloisCounterfactual.lean`
+- **역할**: Galois counterfactual on Δⁿ⁻¹ trajectory zeta.
+- **주요 선언**:
+  - `σ` — 5-cycle permutation.
+  - `zetaΔ_Galois`.
+  - `galois_counterfactual_capstone`.
+- **의존**: BeilinsonRegulator, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/INDEX.md`
+- **역할**: 주요 섹션 — Bridge AG (3), statmech (4), discrete geo (3), CS (1); anti-corruption layer 규칙.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/Ising.lean`
+- **역할**: K_5에서 Ising 모델.
+- **주요 선언**:
+  - `Spin`, `energy`, `reflect`.
+  - `Z`, `routeUpTo`.
+  - `ising_213_capstone` — 23 증거.
+- **의존**: Simplex.Counts, PhaseRouting, GaloisCounterfactual.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/MLDecoder.lean`
+- **역할**: (10,4,4) ℤ/2-linear 코드 ML decoder; Sourlas 1989: spin glass = ML.
+- **주요 선언**:
+  - `decodeML`, `flipBit`, `doubleFlip`.
+  - `ml_decoder_capstone`.
+- **의존**: SpinGlass, SpinGlassGroundState, Ising.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/MotiveEtaleFusion.lean`
+- **역할**: Motive ↔ étale cohomology fusion (BL²¹³).
+- **주요 선언**:
+  - `motivicDim`, `etaleDim`.
+  - `blRegulator`, `fusionZeta`.
+  - `motive_etale_fusion_capstone`.
+- **의존**: BeilinsonRegulator, GaloisCounterfactual.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/PhaseRouting.lean`
+- **역할**: Phase = trajectory re-routing.
+- **주요 선언**:
+  - `Route`.
+  - `routeBL_motivic`, `routeFull`, `routeFilling`.
+  - `phase_routing_capstone`.
+- **의존**: MotiveEtaleFusion, BeilinsonRegulator.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/Potts.lean`
+- **역할**: K_5에서 q=3 Potts 모델. Z/3 대칭 깨짐.
+- **주요 선언**:
+  - `Spin` (Fin 5 → Fin 3), `energy`, `rotate`.
+  - `levelMult`.
+  - `potts_213_capstone`.
+- **의존**: Ising, PhaseRouting, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/SpinGlass.lean`
+- **역할**: Spin glass on K_5 — frustration as cohomology obstruction.
+- **주요 선언**:
+  - `src`, `tgt`.
+  - `delta0`, `delta1`.
+  - `frustrated`, `cocycleObstruction`.
+  - `spin_glass_213_capstone`.
+- **의존**: Ising.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Bridge/SpinGlassGroundState.lean`
+- **역할**: NP-hard spin glass ground state.
+- **주요 선언**:
+  - `spinAt`, `frustAt`, `groundEnergy`.
+  - `hopfield_store_recall`.
+  - `np_hard_solved_capstone`.
+- **의존**: SpinGlass, Ising.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation.lean`
+- **역할**: Foundation 계층 umbrella.
+- **주요 선언**: 6 sub-file (Conjecture, ConjectureLens, Canonical, Filled, Complete, LensCata).
+- **의존**: Foundation/.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/Canonical.lean`
+- **역할**: HC²¹³ canonical witnesses on Δ⁴ + K_{3,2}^{(c=2)}.
+- **주요 선언**:
+  - `unit_C0`.
+  - `hc213_delta4_C0_exhausted`.
+  - `hodge_conjecture_213_canonical`.
+- **의존**: InvolutionCapstone, V32Betti, Cochain.Core, Hodge.Star.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/Complete.lean`
+- **역할**: ★★★★★ 마스터 capstone — 10 sub-capstone을 3 core로 bundle.
+- **주요 선언**:
+  - `HC_Universal`, `HC_K32`, `HC_Involution`.
+  - `hodge_conjecture_213_complete` — final ∅-axiom.
+- **의존**: Conjecture, ConjectureLens, RoundTrip, RoundTripMid, LensClassifier, Ring, Map, Canonical, Filled, LensCata.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/Conjecture.lean`
+- **역할**: HC²¹³ variant (A) — Δⁿ⁻¹ finite-discrete trivialization.
+- **주요 선언**:
+  - `e`, `BasisCoeffs`, `algebraicCombination`.
+  - `IsCocycle`, `IsHodgeClass`, `IsAlgebraic`.
+  - `hodge_conjecture_213` — witness σ itself.
+- **의존**: Hodge.Star, Delta.Core, Cochain.Core, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/ConjectureLens.lean`
+- **역할**: HC²¹³ variant (B) — K_{3,2}^{(c=2)} lens-quotient. 256 classes.
+- **주요 선언**:
+  - `edgeIndicator`, `EdgeCoeffs`, `algebraicEdgeCombination`.
+  - `IsEdgeAlgebraic`, `IsLensHodgeClass`.
+  - `hodge_conjecture_213_lens`.
+- **의존**: V32, V32Betti.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/Filled.lean`
+- **역할**: HC²¹³ filled K_{3,2}^{(c=2)} — 5 filling level.
+- **주요 선언**:
+  - `hc213_filled_H1_card` — (256,128,64,32,16).
+  - `hc213_filled_b2_zero`.
+  - `hodge_conjecture_213_filled`.
+- **의존**: Canonical, Bipartite.Filled, LensClassifier.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/INDEX.md`
+- **역할**: 주요 섹션 — Foundation 6 파일 + sub-cluster 포인터.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Foundation/LensCata.lean`
+- **역할**: HC²¹³ §7.C — Lens-initiality + cup-subring atomic generation.
+- **주요 선언**:
+  - `atomic`, `atomicGens`.
+  - `hc213_lens_cata_capstone` — (1,5,10,10,5,1), 총 2⁵, K_{3,2} 12 edge basis.
+- **의존**: Cochain.Core, LensClassifier, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/INDEX.md`
+- **역할**: 주요 섹션 — ★ 마스터 네비게이션. 6-layer architecture. 39 sub-cluster + API = ~80 .lean, 31 capstone.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge.lean`
+- **역할**: MotivicBridge 계층 umbrella — motivic-cohomology 대응.
+- **주요 선언**: 6 sub-file (BeilinsonLichtenbaum, BlochBeilinson, ChernCharacter, HodgeTate, MumfordTate, Tate).
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/BeilinsonLichtenbaum.lean`
+- **역할**: BL conjecture²¹³ — motivic = étale on 213-canonical.
+- **주요 선언**:
+  - `motivicRank`, `etaleRank`.
+  - `beilinson_lichtenbaum_213_capstone`.
+- **의존**: LensCata, Tate, Cochain.Core.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/BlochBeilinson.lean`
+- **역할**: Bloch-Beilinson filtration²¹³.
+- **주요 선언**:
+  - `bloch_beilinson_filtration_depth_delta4` — (1,5,10,10,5,1).
+  - `bloch_beilinson_213_capstone`.
+- **의존**: LensCata, GeneralizedHodge, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/ChernCharacter.lean`
+- **역할**: Chern character / Atiyah-Hirzebruch²¹³.
+- **주요 선언**:
+  - `K_rank_eq_H_rank_delta4`.
+  - `ch_target_even_delta4`.
+  - `chern_character_213_capstone`.
+- **의존**: LensCata, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/HodgeTate.lean`
+- **역할**: Hodge-Tate decomposition²¹³ (p-adic, vacuous in ℤ/2).
+- **주요 선언**:
+  - `hodge_tate_vacuous_Z2`.
+  - `hodge_tate_graded_pieces_delta4`.
+  - `hodge_tate_213_capstone`.
+- **의존**: Complete, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/INDEX.md`
+- **역할**: 주요 섹션 — MotivicBridge 6 파일.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/MumfordTate.lean`
+- **역할**: Mumford-Tate group²¹³.
+- **주요 선언**:
+  - `frob_fixes_zero_5_1`, `frob_period_5_1`.
+  - `mumford_tate_213_capstone`.
+- **의존**: Tate, InvolutionCapstone, Cochain.Core, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/MotivicBridge/Tate.lean`
+- **역할**: Tate conjecture²¹³ — Frobenius-fixed = constant cochains.
+- **주요 선언**:
+  - `frobenius`, `patt_5_1`.
+  - `tate_213_capstone`.
+- **의존**: Cochain.Core, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing.lean`
+- **역할**: Pairing 계층 umbrella — cup-product 쌍 (Hodge Index, Hodge-Riemann).
+- **주요 섹션**: Base capstone (4), Kähler 2-fold (4), Comparison + Hirzebruch (3), T²ⁿ pattern (3), Triple product (2), Grade (5).
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/BalancedSignature.lean`
+- **역할**: A — balanced signature structure²¹³.
+- **주요 선언**:
+  - `BalancedSignatureData`.
+  - `total_rank`, `pos`, `neg`, `signature`, `hirzebruch`.
+  - 5 T²ⁿ instance.
+  - `T2n_pattern_master_A`.
+- **의존**: T2nBetti, NatHelper, Simplex.Counts.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/GenusGSurface.lean`
+- **역할**: Σ_g genus-g surface signature theorem.
+- **주요 선언**:
+  - `Sigma_g_blocks`.
+  - `b1`, `total_betti`, `euler_characteristic`.
+  - `connected_sum`.
+  - `genus_g_signature_master`.
+- **의존**: BalancedSignature, NatHelper.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HirzebruchMultiplicative.lean`
+- **역할**: C — Hirzebruch multiplicativity σ(X×Y) = σ(X)·σ(Y).
+- **주요 선언**:
+  - `HirzebruchData`, `product`.
+  - 4 Hirz instance.
+  - `hirzebruch_multiplicativity_master`.
+- **의존**: SurfaceComparisonTheorem.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndex.lean`
+- **역할**: Hodge Index Theorem²¹³ — K_{3,2}^{(c=2)}에서 vacuous.
+- **주요 선언**:
+  - `h1_dim_K32`, `h2_zero_K32`.
+  - `hodge_index_vacuous_K32`.
+  - `hodge_index_213_capstone`.
+- **의존**: V32Betti, LensClassifier.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndexGradeStructure.lean`
+- **역할**: Hodge Index grade-structure interpretation.
+- **주요 선언**:
+  - `positive_count_grades`, `negative_count_grade`.
+  - `hodge_index_grade_decomposition`.
+  - `hodge_index_grade_structure_theorem`.
+- **의존**: SurfaceComparisonTheorem, T2nBetti.
+
+### Batch M9 — HodgeConjecture (second 37 of 74)
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndexP1Squared.lean`
+- **역할**: ℙ¹×ℙ¹의 Hodge Index Theorem — cup-pairing signature (1,1) on H².
+- **주요 선언**: `hodge_index_p1_squared_capstone` — cup matrix [[0,1],[1,0]] + diagonalised α₊, α₋.
+- **의존**: Cohomology.Surfaces.P1Squared.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndexP2.lean`
+- **역할**: ℙ²의 Hodge Index Theorem — signature (1,0) on H².
+- **주요 선언**: `hodge_index_p2_capstone` — hyperplane class signature (1,0).
+- **의존**: Cohomology.Surfaces.P2Minimal.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndexT2.lean`
+- **역할**: T²의 non-vacuous Hodge Index Theorem — signature (1,1) on H¹.
+- **주요 선언**:
+  - `t2_picard_rank` — ρ=2.
+  - `hodge_index_t2_capstone`.
+- **의존**: Cohomology.Surfaces.T2Minimal.Signature.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeIndexT2Squared.lean`
+- **역할**: T²×T² (4-fold)의 Hodge Index Theorem — signature (3,3) on H².
+- **주요 선언**: `hodge_index_T2_squared_capstone` — 6-cell hyperbolic decomposition.
+- **의존**: Cohomology.Surfaces.T2Squared.HodgeIndex.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeRiemann.lean`
+- **역할**: Hodge-Riemann bilinear relations — ℤ/2에서 vacuous form.
+- **주요 선언**:
+  - `primitive_cohomology_213_vacuous`.
+  - `hodge_riemann_213_capstone`.
+- **의존**: HodgeIndex.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeRiemannT2.lean`
+- **역할**: T² 상의 non-vacuous Hodge-Riemann positivity.
+- **주요 선언**:
+  - `kahler_class` — ω = α₊.
+  - `kahler_positive` — cup(ω,ω)=2.
+  - `hodge_riemann_t2_capstone`.
+- **의존**: Cohomology.Surfaces.T2Minimal.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/HodgeRiemannT2Squared.lean`
+- **역할**: T²×T²의 HR ℚ-positivity refinement.
+- **주요 선언**:
+  - `kahler_class`, `primitive_eta_{1,2,3}`.
+  - `hodge_riemann_t2_squared_capstone`.
+- **의존**: Cohomology.Surfaces.T2Squared.HodgeIndex.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/INDEX.md`
+- **역할**: 주요 섹션 — Pairing 21 파일 분류 (base, 2-fold, comparison, T²ⁿ, triple, grade).
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/KahlerGradeStructure.lean`
+- **역할**: Abstract Kähler grade structure → Hodge Index Theorem.
+- **주요 선언**:
+  - `KahlerGradeData`.
+  - `hodge_index_full_rank`.
+  - `hodge_index_master_theorem` — σ=(1+2h^{2,0}, h^{1,1}−1).
+- **의존**: HodgeIndexGradeStructure, HodgeIndexT2.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/ProductSurfaceSignature.lean`
+- **역할**: C4 Step 2 — Σ_g × Σ_h 곱 surface signature.
+- **주요 선언**:
+  - `product_signature_pair` — σ(Σ_g×Σ_h)=(2gh+1, 2gh+1).
+  - `product_surface_signature_master`.
+- **의존**: BalancedSignature, TensorSignature.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/SignatureMetaTheorem.lean`
+- **역할**: C4 Step 1 — Signature meta-theorem bundling 3 ∅-axiom masters.
+- **주요 선언**:
+  - `T2n_inductive`, `Sigma_g_master`, `Tensor_master`.
+  - `signature_meta_master`.
+- **의존**: T2nInductive, GenusGSurface, TensorSignature.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/SurfaceComparisonTheorem.lean`
+- **역할**: 4개 Kähler 2-fold Hodge diamond + signature 비교.
+- **주요 선언**:
+  - `HodgeDiamond`.
+  - 4 diamond instance.
+  - `surface_comparison_theorem`.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/T2nInductive.lean`
+- **역할**: G14 — T²ⁿ pattern theorem의 완전한 귀납 형태.
+- **주요 선언**:
+  - `T2n_blocks_inductive`.
+  - `T2n_blocks_total_rank`.
+  - `T2n_inductive_pattern_theorem`.
+- **의존**: BalancedSignature, BinomSymm, central_binom_is_double.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/T2nPattern.lean`
+- **역할**: T²ⁿ pattern theorem의 수치적 검증.
+- **주요 선언**:
+  - `T2n_predicted_signature`.
+  - `T2n_predicted_signature_values` — (1,3,10,35,126).
+  - `T2n_signature_pattern_theorem`.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/TensorSignature.lean`
+- **역할**: Künneth signature theorem (추상 bilinear-form).
+- **주요 선언**:
+  - `SignaturePairData`, `tensor`.
+  - `tensor_total_rank`.
+  - `tensor_signature_kunneth_master`.
+- **의존**: BalancedSignature.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/TripleProductSurface.lean`
+- **역할**: C4 Step 3 — Σ_g × Σ_h × Σ_k triple product (T⁶).
+- **주요 선언**:
+  - `Sigma_1_cubed_signature` — (10,10).
+  - `triple_product_master`.
+- **의존**: ProductSurfaceSignature, T2nInductive.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Pairing/TripleProductSurfaceParametric.lean`
+- **역할**: C4 Step 4 — Σ_g × Σ_h × Σ_k parametric.
+- **주요 선언**:
+  - `triple_betti3` — b₃=8ghk+4(g+h+k).
+  - `triple_signature`.
+  - `triple_product_parametric_master`.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement.lean`
+- **역할**: Refinement 섹션 aggregator.
+- **주요 선언**: 6 sub-file (CupAtomicGeneration, GeneralizedHodge, Lefschetz*, StandardConjectures, Voisin).
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/CupAtomicGeneration.lean`
+- **역할**: Strong HC²¹³ on Δ⁴ — 5 vertex indicator cup product로 10 atomic edge indicator.
+- **주요 선언**:
+  - `v` — vertex indicator.
+  - `cup_v_sorted_nonzero`.
+  - `cup_atomic_generation_capstone`.
+- **의존**: Cochain, Cup.Core.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/GeneralizedHodge.lean`
+- **역할**: Grothendieck generalized Hodge conjecture in 213.
+- **주요 선언**:
+  - `codimFiltration_dim_at`.
+  - `generalized_hodge_213`.
+- **의존**: LensCata, Cochain.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/INDEX.md`
+- **역할**: 주요 섹션 — Refinement 6 파일 분류.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/LefschetzHyperplane.lean`
+- **역할**: Lefschetz hyperplane theorem in 213 — Δ⁴→Δ³ restriction.
+- **주요 선언**:
+  - `restrict`.
+  - `pascal_5_4`.
+  - `lefschetz_hyperplane_213_capstone`.
+- **의존**: Cochain.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/LefschetzOneOne.lean`
+- **역할**: Lefschetz (1,1) theorem in 213.
+- **주요 선언**:
+  - `lefschetz_one_one_213`.
+  - `lefschetz_one_one_213_delta4`.
+- **의존**: Conjecture, Cochain.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/StandardConjectures.lean`
+- **역할**: Grothendieck's standard conjectures (A,B,C,D) in 213.
+- **주요 선언**:
+  - `StandardConjectureA_213` — ⋆ is algebraic.
+  - `StandardConjectureB_213` — Künneth.
+  - `standard_conjecture_CD_213` — num=hom=⊗-equiv.
+  - `grothendieck_standard_conjectures_213`.
+- **의존**: Complete.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Refinement/Voisin.lean`
+- **역할**: Voisin finite-dimensionality conjecture in 213.
+- **주요 선언**:
+  - `motive_delta4_finite` — 32=2⁵.
+  - `motive_K32_finite` — 9.
+  - `voisin_213_capstone`.
+- **의존**: LensCata.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure.lean`
+- **역할**: Structure 섹션 aggregator — H* ring, map, PD, Hard Lefschetz.
+- **주요 선언**: 5 sub-file (HardLefschetz, Map, PoincareDuality, Ring, HardLefschetzT2Squared).
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/HardLefschetz.lean`
+- **역할**: Hard Lefschetz on Δ⁴ — ⋆⋆=id = HL in ℤ/2.
+- **주요 선언**:
+  - `hard_lefschetz_delta4`.
+  - `hard_lefschetz_dim_table`.
+  - `hard_lefschetz_capstone`.
+- **의존**: Complete, PoincareDuality.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/HardLefschetzT2Squared.lean`
+- **역할**: Non-vacuous Hard Lefschetz on T²×T².
+- **주요 선언**: `hard_lefschetz_T2_squared_capstone`.
+- **의존**: Cohomology.Surfaces.T2Squared.HardLefschetz.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/INDEX.md`
+- **역할**: 주요 섹션 — Structure 5 파일.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/Map.lean`
+- **역할**: Hodge map ⋆: H^k → H^{n-k} as ℤ/2-linear bijection.
+- **주요 선언**:
+  - `hodge_bijection_5_1`, `hodge_bijection_5_2`.
+  - `hodgeStar_xor_5_1`.
+  - `hodge_map_capstone`.
+- **의존**: InvolutionCapstone, Star.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/PoincareDuality.lean`
+- **역할**: Poincaré duality on Δ⁴.
+- **주요 선언**:
+  - `poincareDual`.
+  - `poincare_duality_delta4`.
+  - `dim_symmetry_delta4`.
+- **의존**: InvolutionCapstone.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Structure/Ring.lean`
+- **역할**: H* ring structure with Hodge involution.
+- **주요 선언**:
+  - `hodgePair`.
+  - `hodge_ring_capstone`.
+- **의존**: Cup.Ring, Star, Involution.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Toolkit.lean`
+- **역할**: Toolkit 섹션 aggregator.
+- **주요 선언**: 4 sub-file (Primitives, LensClassifier, RoundTrip, RoundTripMid).
+
+### `lean/E213/Lib/Math/HodgeConjecture/Toolkit/LensClassifier.lean`
+- **역할**: K_{3,2}^{(c=2)} concrete class catalog — 256 H¹ cohomology classes.
+- **주요 선언**:
+  - `cochEAt`.
+  - `edgeBasis` — 12 edge indicator.
+  - `lens_classifier_capstone`.
+  - `edgeBasis_is_algebraic`.
+- **의존**: Bipartite.V32, ConjectureLens.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Toolkit/Primitives.lean`
+- **역할**: Computational toolkit T1 — support, fromList, weight, isCocycle.
+- **주요 선언**:
+  - `support σ`.
+  - `fromList S`.
+  - `weight σ`.
+  - `isCocycle σ`.
+- **의존**: Cochain, Delta, binom.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Toolkit/RoundTrip.lean`
+- **역할**: Round-trip T2 — `fromList∘support=id` at outer strata.
+- **주요 선언**:
+  - `patt_5_0/1/4/5`.
+  - `round_trip_5_{0,5,1,4}`.
+  - `round_trip_capstone`.
+- **의존**: Primitives.
+
+### `lean/E213/Lib/Math/HodgeConjecture/Toolkit/RoundTripMid.lean`
+- **역할**: Round-trip T2 mid-strata (5,2), (5,3).
+- **주요 선언**:
+  - `patt_5_2`, `patt_5_3`.
+  - `round_trip_5_{2,3}`.
+- **의존**: Primitives.
+
