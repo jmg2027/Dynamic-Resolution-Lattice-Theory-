@@ -6396,3 +6396,851 @@
   - WallisSharperKernelFree.
 - **의존**: Archimedean, MonotonicBounded, PellSeq, Polynomial213.
 
+### Batch M16 — Multivariable + LevelTopology + ODE + Group + Logic + Measure (38 files)
+
+### `lean/E213/Lib/Math/Multivariable/Capstone.lean`
+- **역할**: 다변수 미적분 5개 핵심 증명 + 통합 번들.
+- **주요 선언**:
+  - `multiCut_witness`, `partial_witness`, `gradient_witness`.
+  - `multiIntegral_witness`, `stokes_witness`.
+  - `total_witness`.
+- **의존**: MultiCut, PartialDerivative, Gradient, MultiIntegral, Stokes.
+
+### `lean/E213/Lib/Math/Multivariable/Gradient.lean`
+- **역할**: 벡터장 그래디언트/발산/회전 (단일변수 partialAt 반복).
+- **주요 선언**:
+  - `gradient`.
+  - `divergence_1D`, `divergence_2D`.
+  - `gradient_const`, `grad_2d_indexed`.
+- **의존**: PartialDerivative, MultiCut, CutSumTest, CutSum.
+
+### `lean/E213/Lib/Math/Multivariable/INDEX.md`
+- **역할**: 주요 섹션 — Multivariable 6 files; 39 atomic facts ∅-axiom.
+
+### `lean/E213/Lib/Math/Multivariable/MultiCut.lean`
+- **역할**: MultiCut n := Fin n → Cut + 벡터 산술.
+- **주요 선언**:
+  - `MultiCut n`.
+  - `zero`, `one`, `update`, `multiAdd`.
+  - `update_self`, `multiAdd_zero_left_at`.
+- **의존**: CutSumTest, CutSum.
+
+### `lean/E213/Lib/Math/Multivariable/MultiIntegral.lean`
+- **역할**: n-cube 반복 1D Riemann 적분 (Fubini for constants).
+- **주요 선언**:
+  - `multiCubeUnit`.
+  - `multiVolumeNum`, `multiVolume_n_2/3/4`.
+  - `fubini_const_unit_2D`, `iterated_integral_const_unit`.
+- **의존**: MultiCut, IntegralDyadic.
+
+### `lean/E213/Lib/Math/Multivariable/PartialDerivative.lean`
+- **역할**: 다변수 편미분 (i번째 좌표 슬라이스).
+- **주요 선언**:
+  - `partialAt`, `proj`.
+  - `partialAt_signature`, `partialAt_const`.
+  - `partialAt_proj_self`.
+- **의존**: MultiCut.
+
+### `lean/E213/Lib/Math/Multivariable/Stokes.lean`
+- **역할**: n-D Stokes 정리 구조 + 구체적 원자 증명 (2D Green, 3D, 4D).
+- **주요 선언**:
+  - `stokes1D`, `stokes_n_existence`.
+  - `ddOmega_zero_skeleton`.
+  - `greens_constant_witness`, `divergence_thm_constant`, `stokes_4d_constant`.
+- **의존**: FluxCochain, Gradient, MultiIntegral, NatHelper.
+
+### `lean/E213/Lib/Math/LevelTopology/ComplexTopology.lean`
+- **역할**: CD 레벨 2 — Z/4 4-사이클 (i⁰..i³).
+- **주요 선언**:
+  - `CycleNode`, `cycleStep`.
+  - `step_one`, `step_i`, `step_neg_one`, `step_neg_i`.
+  - `two_steps_from_one`, `four_steps_id`, `cycle_structure`.
+
+### `lean/E213/Lib/Math/LevelTopology/G49Capstone.lean`
+- **역할**: 5층 위상 + 타워 발산 집계.
+- **주요 선언**:
+  - `floor1_witness` … `floor4_witness`.
+  - `divergence_witness`, `total_witness`.
+- **의존**: MagnitudeTopology, SignTopology, ComplexTopology, QuaternionTopology, TwoTowersDivergence.
+
+### `lean/E213/Lib/Math/LevelTopology/INDEX.md`
+- **역할**: 주요 섹션 — LevelTopology 6 files.
+
+### `lean/E213/Lib/Math/LevelTopology/MagnitudeTopology.lean`
+- **역할**: CD 레벨 0 = 단일 점 (K₁).
+- **주요 선언**:
+  - `MagnitudeNode`, `magNode`.
+  - `nodeCount`, `edgeCount`.
+  - `floor1_structure`, `no_operation`.
+
+### `lean/E213/Lib/Math/LevelTopology/QuaternionTopology.lean`
+- **역할**: CD 레벨 3 — 사원수 {i,j,k} 방향성 K₃.
+- **주요 선언**:
+  - `QuatBasis`, `cyclicNext`.
+  - `next_i_is_j`, `next_j_is_k`, `next_k_is_i`.
+  - `three_steps_i/j/k`, `K3_structure`.
+
+### `lean/E213/Lib/Math/LevelTopology/SignTopology.lean`
+- **역할**: CD 레벨 1 = K₂.
+- **주요 선언**:
+  - `SignNode`, `signFlip`.
+  - `Pos_ne_Neg`, `signFlip_involutive`.
+  - `flip_Pos`, `flip_Neg`, `K2_structure`.
+
+### `lean/E213/Lib/Math/LevelTopology/TwoTowersDivergence.lean`
+- **역할**: 213 26층 vs classical CD 25층 발산.
+- **주요 선언**:
+  - `total213Floors`, `totalClassicalCDFloors`.
+  - `divergence`, `classicalCDToFloor`.
+  - `zfc_real_is_floor2`, `zfc_complex_is_floor3`, `zfc_quat_is_floor4`.
+
+### `lean/E213/Lib/Math/ODE/Capstone.lean`
+- **역할**: ODE/PDE 5 핵심 + 통합 번들.
+- **주요 선언**:
+  - `picard_witness`, `linearODE_witness`.
+  - `heat_witness`, `wave_witness`, `total_witness`.
+- **의존**: PicardIterate, LinearODE, HeatEqDiscrete, WaveEqDiscrete.
+
+### `lean/E213/Lib/Math/ODE/HeatEqDiscrete.lean`
+- **역할**: 유한 주기 격자 1D 이산 열방정식.
+- **주요 선언**:
+  - `rightNbr`, `leftNbr`, `heatStepNum`.
+  - `constInit`, `heatStep_const`, `heatStep_const_eq_two_c`.
+- **의존**: NatHelper.
+
+### `lean/E213/Lib/Math/ODE/INDEX.md`
+- **역할**: 주요 섹션 — ODE/PDE 5 files.
+
+### `lean/E213/Lib/Math/ODE/LinearODE.lean`
+- **역할**: 선형 ODE y'=a·y 원자 해.
+- **주요 선언**:
+  - `linearGrowth`, `geometricGrowth`.
+  - `linearODE_eq_picard`, `geometricODE_eq_picard`.
+  - `linearGrowth_init`, `geometricGrowth_init`, `geometricGrowth_three`.
+- **의존**: PicardIterate, NatHelper.
+
+### `lean/E213/Lib/Math/ODE/PicardIterate.lean`
+- **역할**: 이산 Picard 반복; 닫힌형.
+- **주요 선언**:
+  - `picardIterate`.
+  - `constRHS`, `expRHS`.
+  - `picard_const`, `picard_exp`.
+  - `picard_zero`, `picard_one`, `add_self_eq_mul_two`.
+- **의존**: NatHelper.
+
+### `lean/E213/Lib/Math/ODE/WaveEqDiscrete.lean`
+- **역할**: 1D 주기 격자 leapfrog 파동방정식.
+- **주요 선언**:
+  - `rightNbr`, `leftNbr`, `waveStepNum`.
+  - `constField`, `wave_const_rest`, `wave_zero_rest`.
+- **의존**: NatHelper.
+
+### `lean/E213/Lib/Math/Group/Capstone.lean`
+- **역할**: 군론 5 핵심 + 통합 번들.
+- **주요 선언**:
+  - `cyclic_witness`, `symmetric_witness`.
+  - `action_witness`, `su5_witness`, `total_witness`.
+- **의존**: Cyclic, Symmetric, GroupAction, SU5Channels.
+
+### `lean/E213/Lib/Math/Group/Cyclic.lean`
+- **역할**: 순환군 ℤ/nℤ.
+- **주요 선언**:
+  - `cyclicAdd`, `cyclicAdd_zero_left`, `cyclicAdd_lt`.
+  - `z2_one_plus_one`, `z5_three_plus_four`, `cyclicAdd_comm`.
+
+### `lean/E213/Lib/Math/Group/GroupAction.lean`
+- **역할**: 군작용 — cyclicShiftAction.
+- **주요 선언**:
+  - `cyclicShiftAction`, `shift_zero`.
+  - `z5_orbit_step`, `swap01_action`.
+- **의존**: Cyclic, Symmetric.
+
+### `lean/E213/Lib/Math/Group/INDEX.md`
+- **역할**: 주요 섹션 — Group module 6 files; 213-native paradigm.
+
+### `lean/E213/Lib/Math/Group/SU5Channels.lean`
+- **역할**: SU(5) 채널 — 25 채널, 24 생성자, d^(d²)=5^25.
+- **주요 선언**:
+  - `su5_dim`, `su5_total_channels`, `su5_generators`.
+  - `total_eq_25`, `generators_eq_24`, `d_pow_d_sq_consistency`.
+
+### `lean/E213/Lib/Math/Group/Symmetric.lean`
+- **역할**: 대칭군 Sₙ = Nat→Nat.
+- **주요 선언**:
+  - `Perm`, `identityPerm`, `composePerm`, `swap01`.
+  - `id_at`, `id_compose_left`, `compose_id_right`, `compose_assoc_pointwise`.
+  - `swap01_involutive`.
+
+### `lean/E213/Lib/Math/Logic/Capstone.lean`
+- **역할**: 논리 3 핵심 + 통합 번들.
+- **주요 선언**:
+  - `predicate_witness`, `intuitionistic_witness`, `proof_witness`, `total_witness`.
+- **의존**: Predicate, Intuitionistic, Proof.
+
+### `lean/E213/Lib/Math/Logic/CutElimination.lean`
+- **역할**: 컷 제거 구체 목격 (normalize).
+- **주요 선언**:
+  - `normalize_singleton_true/false`, `normalize_tt/ff`.
+  - `normalize_tf`, `normalize_ft`.
+  - `normalize_tft`, `normalize_tfft`.
+  - `normalize_length_decrease`, `compose_trivial_trivial`.
+- **의존**: Proof.
+
+### `lean/E213/Lib/Math/Logic/INDEX.md`
+- **역할**: 주요 섹션 — Logic module 5 files; 36 atomic facts ∅-axiom.
+
+### `lean/E213/Lib/Math/Logic/Intuitionistic.lean`
+- **역할**: 직관주의/구성적 논리 — Bool LEM 원자.
+- **주요 선언**:
+  - `bool_lem`, `predicate_lem`.
+  - `and_neg_self_pointwise`.
+  - `boolExistsWitness`, `witness_eq_input`, `witness_or_counter`.
+- **의존**: Predicate.
+
+### `lean/E213/Lib/Math/Logic/Predicate.lean`
+- **역할**: Cut → 술어 논리 (Bool 진리표).
+- **주요 선언**:
+  - `Predicate`, `truePred`, `falsePred`.
+  - `andP`, `orP`, `notP`, `impP`.
+  - `predEq`.
+  - `double_neg`, `deMorgan_and/or`.
+  - `and_comm`, `or_comm`, `and_true_id`, `or_false_id`.
+
+### `lean/E213/Lib/Math/Logic/Proof.lean`
+- **역할**: 증명 = 궤적 (List Bool).
+- **주요 선언**:
+  - `Trajectory`, `trivialProof`, `proofLength`.
+  - `compose`, `normalize`.
+  - `proofLength_compose`, `proof_is_finite`, `proofLength_trivial`.
+- **의존**: Predicate.
+
+### `lean/E213/Lib/Math/Measure/Capstone.lean`
+- **역할**: 측도 5 핵심 + 통합 번들.
+- **주요 선언**:
+  - `measurableSet_witness`, `measure_witness`.
+  - `lebesgue_witness`, `lp_witness`, `total_witness`.
+- **의존**: MeasurableSet, DyadicMeasure, LebesgueIntegral, Lp.
+
+### `lean/E213/Lib/Math/Measure/DyadicMeasure.lean`
+- **역할**: dyadic 괄호 리스트 측도.
+- **주요 선언**:
+  - `bracketMeasureNum`, `bracketMeasureExp`, `measureNum`.
+  - `measure_empty`, `measure_singleton`, `measure_union_additive`.
+  - `measureNum_append`, `measure_pair`.
+- **의존**: MeasurableSet.
+
+### `lean/E213/Lib/Math/Measure/INDEX.md`
+- **역할**: 주요 섹션 — Measure 5 files; σ-algebra 거부, Choice 불필요.
+
+### `lean/E213/Lib/Math/Measure/LebesgueIntegral.lean`
+- **역할**: Lebesgue식 적분 = 괄호 커버 위 유한 합.
+- **주요 선언**:
+  - `lebesgueStepNum`, `constIntegrand`.
+  - `lebesgue_empty/singleton/union_additive`.
+  - `lebesgue_const_eq_measure`, `lebesgue_const`.
+  - `lebesgue_one_singleton`.
+- **의존**: MeasurableSet, DyadicMeasure.
+
+### `lean/E213/Lib/Math/Measure/Lp.lean`
+- **역할**: Lp 공간 원자 골격.
+- **주요 선언**:
+  - `powIntegrand`, `lpNormPow`.
+  - `lp_empty/const_singleton/one_singleton/two_singleton`.
+  - `lp_union_additive`.
+- **의존**: LebesgueIntegral.
+
+### `lean/E213/Lib/Math/Measure/MeasurableSet.lean`
+- **역할**: 측정가능 집합 = dyadic 괄호 유한 리스트.
+- **주요 선언**:
+  - `DyadicMeasurableSet`.
+  - `emptySet`, `singleton`, `union`, `cardinality`.
+  - `cardinality_empty/singleton/union`.
+  - `union_empty_left`, `singleton_unfold`, `length_append_term`.
+- **의존**: DyadicBracket.
+
+### Batch M17 — AngleStructure + Tactic + PatternCatalog + Functional + Extras (36 files)
+
+### `lean/E213/Lib/Math/AngleStructure/G42Capstone.lean`
+- **역할**: G42 각도 구조 5 증거 + 4-사실 번들.
+- **주요 선언**:
+  - `angle_witness`, `gauge_witness`.
+  - `doubling_witness`, `imaginary_witness`, `total_witness`.
+- **의존**: SharedPairSlot, RotationOrder, GaugeDiagonal, OrthogonalDoubling.
+
+### `lean/E213/Lib/Math/AngleStructure/GaugeDiagonal.lean`
+- **역할**: 45° 게이지 대각선 — ZFC 압축 핵심.
+- **주요 선언**:
+  - `gaugeDiagonal`.
+  - `diagonal_zero`, `diagonal_one`.
+  - `gauge_freedom_baseline`, `diagonal_is_zero_kernel`.
+- **의존**: SignedCut.Core, Real213.Sum.CutSumTest.
+
+### `lean/E213/Lib/Math/AngleStructure/INDEX.md`
+- **역할**: 주요 섹션 — AngleStructure 5 files.
+
+### `lean/E213/Lib/Math/AngleStructure/OrthogonalDoubling.lean`
+- **역할**: CD 타워 90° 직교축 추가 (2ⁿ 배증).
+- **주요 선언**:
+  - `dim_doubling`, `concrete_dims`.
+  - `level25_orthogonal_axes`.
+  - `imaginaryAxesAtLevel`, `level25_imaginaries`.
+- **의존**: SignedCut.CD.CDTowerLevel.
+
+### `lean/E213/Lib/Math/AngleStructure/RotationOrder.lean`
+- **역할**: CD 수준별 회전 순서 → 각도.
+- **주요 선언**:
+  - `levelRotationOrder`, `angleAtLevel`.
+  - `angle_level1`, `angle_level2`, `angle_level3_plus`.
+
+### `lean/E213/Lib/Math/AngleStructure/SharedPairSlot.lean`
+- **역할**: (0, 1) 쌍 슬롯 — 부호/복소수 규칙으로 다른 각도.
+- **주요 선언**:
+  - `orthSlot`.
+  - `orthSlot_signSquare`.
+  - `orthSlot_complexSquare_re/im`.
+- **의존**: SignedCut.CD, Real213.Sum/Mul.
+
+### `lean/E213/Lib/Math/Tactic/HurwitzRing.lean`
+- **역할**: Cayley-Dickson 다항식 항등식 해결 전술.
+- **주요 선언**: `hurwitz_ring` (macro).
+- **의존**: CayleyDickson all levels.
+
+### `lean/E213/Lib/Math/Tactic/IntSquare.lean`
+- **역할**: 정수 제곱 매크로 (0 ≤ a², a²=0↔a=0).
+- **주요 선언**: `int_square`.
+- **의존**: Meta.Nat.IntHelpers.
+
+### `lean/E213/Lib/Math/Tactic/QuadExtension.lean`
+- **역할**: 매개변수 quad_extension D — ℤ[√−D] 인스턴스 등록.
+- **주요 선언**: `elabQuadExtension`.
+- **의존**: Lean.Elab, ZSqrt.
+
+### `lean/E213/Lib/Math/Tactic/Ring213.lean`
+- **역할**: Mathlib ring 없이 ∅-axiom 다항식 항등식.
+- **주요 선언**:
+  - `Recurrence2`, `Recurrence2.seq_recurrence`.
+  - `typeA_residual_universal/measured`.
+  - `Recurrence3`, `Recurrence3.seq_recurrence`.
+  - `typeA/C/D_rat_uni`.
+
+### `lean/E213/Lib/Math/Tactic/Test/IntSquareTest.lean`
+- **역할**: int_square 테스트 (3개 예제).
+- **의존**: IntSquare.
+
+### `lean/E213/Lib/Math/Tactic/Test/QuadExtensionTest.lean`
+- **역할**: quad_extension + #verify_conjugation 테스트.
+- **주요 선언**: quad_extension 11, 13, 17.
+- **의존**: QuadExtension, VerifyConjugation.
+
+### `lean/E213/Lib/Math/PatternCatalog/Algebra.lean`
+- **역할**: 패턴 카탈로그 대수 — {A, F} 2-글자 자유 모노이드.
+- **주요 선언**:
+  - `OpWord`, `OpWord.append/nil/assoc`.
+  - `aggCount`, `forCount`.
+  - `OpWord.apply`, `Primitive`, `GameAnchor`.
+- **의존**: PatternCatalog.Core, CascadeCalculus.Core.
+
+### `lean/E213/Lib/Math/PatternCatalog/Core.lean`
+- **역할**: 213 패턴 카탈로그 기초.
+- **주요 선언**:
+  - `LocalityWitness`, `CatamorphismWitness`.
+  - `InterfaceWitness`, `DynamicalWitness`.
+  - `ForcedValueWitness`, `Aggregate W`, `Forced T`.
+  - `LensWitness`, `CohabitationWitness`.
+- **의존**: CascadeCalculus.Core.
+
+### `lean/E213/Lib/Math/PatternCatalog/CrossAxis.lean`
+- **역할**: 문 모양 × 디자인 패턴 교차축 (126 cells).
+- **주요 선언**:
+  - `StatementShape`, `PatternGame`.
+  - `CrossAxisCell`, `CrossAxisSpecimen`.
+- **의존**: Core, AxiomSystems.CrossTheoryCohabit.
+
+### `lean/E213/Lib/Math/PatternCatalog/INDEX.md`
+- **역할**: 주요 섹션 — PatternCatalog 5 files.
+
+### `lean/E213/Lib/Math/PatternCatalog/Instance.lean`
+- **역할**: 카탈로그 게임 구체 13 인스턴스.
+- **주요 선언**:
+  - `cutMulOneOne_localityWitness`, `boolOscillator`, `fiveIsForced`.
+  - `peanoDepthCohabit`, `peanoLensWitness`.
+  - `demoLocalityAggregate`, `pisanoLikeAggregate`.
+  - `threeLensCohabit`, `heteroDepAggregate`.
+  - `forcedOfForced`, `aggOfAgg`.
+- **의존**: Core, Real213, Atomicity, AxiomSystems.
+
+### `lean/E213/Lib/Math/PatternCatalog/Span.lean`
+- **역할**: 카탈로그 스팬 감사.
+- **주요 선언**:
+  - `SpanResult`.
+  - `gameLevelVerdict`, `cellLevelVerdict`.
+  - `EscapeCandidate`, `finalVerdict`.
+- **의존**: Algebra, CrossAxis.
+
+### `lean/E213/Lib/Math/Functional/Capstone.lean`
+- **역할**: 함수해석 213 5 클러스터 + 통합 번들.
+- **주요 선언**:
+  - `norm_witness`, `inner_witness`, `operator_witness`, `spectrum_witness`.
+  - `total_witness`.
+- **의존**: Norm, InnerProduct, LinearOperator, Spectrum.
+
+### `lean/E213/Lib/Math/Functional/INDEX.md`
+- **역할**: 주요 섹션 — Functional Analysis 213 module.
+
+### `lean/E213/Lib/Math/Functional/InnerProduct.lean`
+- **역할**: 유한 격자 내적.
+- **주요 선언**:
+  - `innerNum`, `addFn`.
+  - `inner_zero`, `inner_comm`.
+  - `inner_left_additive`.
+- **의존**: Functional.Norm, NatHelper.
+
+### `lean/E213/Lib/Math/Functional/LinearOperator.lean`
+- **역할**: 유한 격자 선형 연산자.
+- **주요 선언**:
+  - `LinOp`, `idOp`, `zeroOp`, `scaleOp`, `addOp`, `composeOp`.
+  - `id_at`, `zero_at`, `scale_const`.
+  - `compose_id_left`, `compose_assoc`.
+- **의존**: Norm.
+
+### `lean/E213/Lib/Math/Functional/Norm.lean`
+- **역할**: 유한 격자 노름 — L∞, L¹.
+- **주요 선언**:
+  - `lInfNorm`, `l1Norm`, `constFn`.
+  - `lInf_zero`, `l1_zero`, `l1_const`, `lInf_one`.
+
+### `lean/E213/Lib/Math/Functional/Spectrum.lean`
+- **역할**: 유한 격자 스펙트럼 — 점별 고유쌍.
+- **주요 선언**:
+  - `IsEigenpair`.
+  - `id_eigen`, `scale_eigen`, `zero_eigen`.
+  - `compose_scale_eigen`.
+- **의존**: LinearOperator, NatHelper.
+
+### `lean/E213/Lib/Math/Extras/AggregatorCapstone.lean`
+- **역할**: 세 번째 정리 통과 — 2D CS + Hoeffding 유한 N.
+- **주요 선언**: `cs_2d_witness`, `hoeffding_finiteN_witness`, `total_witness`.
+- **의존**: CauchySchwarz, HoeffdingFiniteN.
+
+### `lean/E213/Lib/Math/Extras/Capstone.lean`
+- **역할**: Extras 4 정연기 폐쇄 (CS/Lp/Sₙ/innerCS).
+- **주요 선언**:
+  - `cs_witness`, `lp_one_witness`.
+  - `symFin_witness`, `inner_cs_witness`, `total_witness`.
+- **의존**: CauchySchwarz, LpOneCollapse, SymFin, InnerCauchy.
+
+### `lean/E213/Lib/Math/Extras/CauchySchwarz.lean`
+- **역할**: Cauchy-Schwarz 족 (1D~4D + 일반 n).
+- **주요 선언**:
+  - `two_mul_le_sq_add_sq`.
+  - `CauchySchwarz2D.cs_2d_le`.
+  - `CauchySchwarz3D/4D`.
+  - `CauchySchwarzInductive.crossSum_le_crossUpper`.
+- **의존**: NatHelper.
+
+### `lean/E213/Lib/Math/Extras/HoeffdingFiniteN.lean`
+- **역할**: Hoeffding 유한 N (N=1, 2 폐형식).
+- **주요 선언**:
+  - `expPartialSum_one`, `expPartialSum_two`.
+  - `hoeffdingBound_depth_one`, `_two`.
+- **의존**: Hoeffding, CutExpSeries.
+
+### `lean/E213/Lib/Math/Extras/INDEX.md`
+- **역할**: 주요 섹션 — Extras 정연기 폐쇄 모듈 12 files.
+
+### `lean/E213/Lib/Math/Extras/InnerCauchy.lean`
+- **역할**: 내적 Cauchy-Schwarz 원자 1-셀.
+- **주요 선언**: `inner_cs_atomic`.
+- **의존**: InnerProduct, CauchySchwarz.
+
+### `lean/E213/Lib/Math/Extras/LpOneCollapse.lean`
+- **역할**: Lp p=1 ∀S 형식 (funext-free).
+- **주요 선언**: `lp_one_eq_lebesgue`.
+- **의존**: Measure.Lp, Measure.LebesgueIntegral.
+
+### `lean/E213/Lib/Math/Extras/RealLogCapstone.lean`
+- **역할**: Real213.log 마라톤 종합.
+- **주요 선언**:
+  - `realLog_witness`, `cs_n_le_3_witness`, `hoeffding_closed_witness`.
+  - `total_witness`.
+- **의존**: CutLog, CauchySchwarz, HoeffdingClosed.
+
+### `lean/E213/Lib/Math/Extras/ResidualPass2Capstone.lean`
+- **역할**: 두 번째 정연기 — 4D CS + 3D Stokes + 연속성.
+- **주요 선언**:
+  - `cs_extension_witness`, `divergence_3d_witness`.
+  - `continuity_arith_witness`, `total_witness`.
+- **의존**: CauchySchwarz, Stokes3D, ContinuityArith.
+
+### `lean/E213/Lib/Math/Extras/ResidualPass3Capstone.lean`
+- **역할**: 세 번째 정연기 — LLN Cauchy + Catalan + 4D Stokes.
+- **주요 선언**:
+  - `llnCauchy_witness`, `catalan_extended_witness`.
+  - `stokes_4d_witness`, `total_witness`.
+- **의존**: LLNCauchy, CatalanExtended, Stokes4D.
+
+### `lean/E213/Lib/Math/Extras/SkeletonCleanup.lean`
+- **역할**: 스켈레톤 폐쇄 — 컷 제거 + 2D Stokes.
+- **주요 선언**:
+  - `cut_elimination_witness`, `stokes_2d_witness`.
+  - `total_witness`.
+- **의존**: Logic.CutElimination, Stokes2D.
+
+### `lean/E213/Lib/Math/Extras/SymFin.lean`
+- **역할**: Sₙ via Fin n (propext-free).
+- **주요 선언**:
+  - `FinPerm`, `idPerm`, `composeFin`.
+  - `fin2_zero`, `fin2_one`.
+  - `swap2`, `swap2_zero`, `swap2_one`, `swap2_involutive`.
+
+### Batch M18 — 15 small clusters (50 files)
+
+### `lean/E213/Lib/Math/Complex/Capstone.lean`
+- **역할**: 복소수 분석 3 클러스터 종합.
+- **주요 선언**:
+  - `complexCut_witness`, `holomorphic_witness`, `powerSeries_witness`.
+  - `total_witness`.
+- **의존**: ComplexCut, Holomorphic, PowerSeries.
+
+### `lean/E213/Lib/Math/Complex/ComplexCut.lean`
+- **역할**: 복소수 = 컷 순서쌍 (실부, 허부).
+- **주요 선언**:
+  - `ComplexCut`, `re`, `im`, `cAdd`, `cMul`.
+  - `zero`, `one`, `i`.
+- **의존**: Real213.Sum.CutSum, Real213.Mul.CutMul.
+
+### `lean/E213/Lib/Math/Complex/Holomorphic.lean`
+- **역할**: 정칙성 — Cauchy-Riemann 골격.
+- **주요 선언**:
+  - `idHolomorphic`, `constHolomorphic`, `squareHolomorphic`.
+  - `square_zero_real`.
+- **의존**: ComplexCut, PartialDerivative.
+
+### `lean/E213/Lib/Math/Complex/INDEX.md`
+- **역할**: 주요 섹션 — Complex 4 modules.
+
+### `lean/E213/Lib/Math/Complex/PowerSeries.lean`
+- **역할**: 멱급수 (유한 다항식).
+- **주요 선언**:
+  - `polyZero`, `polyConst`, `polyId`, `polySquare`.
+  - `cExpAtZero`, `polyId_at_zero`, `cExp_zero_eq_one`.
+- **의존**: ComplexCut.
+
+### `lean/E213/Lib/Math/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
+- **역할**: G12 T5 C3 — 완전성 = 렌즈 합성.
+- **주요 선언**:
+  - `CauchySeq`, `cauchyEquiv`, `completenessLens`.
+- **의존**: Raw, LensCore.
+
+### `lean/E213/Lib/Math/AxiomSystems/CrossTheoryCohabit.lean`
+- **역할**: G12 T5 C4 — Raw 식이 ZFC+Peano 동시 만족.
+- **주요 선언**:
+  - `r`, `peano_view`, `depth_view`.
+  - `cohabit_peano_depth`.
+- **의존**: Raw, LensCore, PeanoAsLensComposition.
+
+### `lean/E213/Lib/Math/AxiomSystems/INDEX.md`
+- **역할**: 주요 섹션 — G12 T5 (C1-C4).
+
+### `lean/E213/Lib/Math/AxiomSystems/PeanoAsLensComposition.lean`
+- **역할**: G12 T5 C1 — Peano = leaves 렌즈.
+- **주요 선언**:
+  - `peanoLens`.
+  - `succ_zero_view`, `one_plus_one_view`.
+  - `peano_lens_not_injective`.
+- **의존**: Raw, LensCore.
+
+### `lean/E213/Lib/Math/AxiomSystems/ZFCExtensionalityAsLens.lean`
+- **역할**: G12 T5 C2 — ZFC 외연성 = 멤버십 함수 렌즈.
+- **주요 선언**:
+  - `memberView`, `extEquiv`, `ZFCExtLens`.
+- **의존**: Raw, LensCore.
+
+### `lean/E213/Lib/Math/BipartiteDecomp/AdditiveCheck.lean`
+- **역할**: 이분 가설 검증 — 3²⁵ + 2²⁵ << 5²⁵.
+- **주요 선언**:
+  - `substrate_sum`.
+  - `three_pow_25`, `two_pow_25`, `five_pow_25`.
+  - `additive_fails`.
+
+### `lean/E213/Lib/Math/BipartiteDecomp/BinomialExpansion.lean`
+- **역할**: 올바른 분해 — (3+2)²⁵ = 5²⁵.
+- **주요 선언**:
+  - `binomial_closure`.
+  - `first_term`, `last_term`, `edge_sum`.
+  - `mid_term_12`, `mid_term_13`.
+- **의존**: AdditiveCheck.
+
+### `lean/E213/Lib/Math/BipartiteDecomp/G44Capstone.lean`
+- **역할**: G44 이분 분해 5 증명 번들.
+- **주요 선언**:
+  - `additive_failure_witness`, `binomial_witness`.
+  - `edge_witness`, `k32_witness`, `total_witness`.
+- **의존**: AdditiveCheck, BinomialExpansion, TernaryBinary.
+
+### `lean/E213/Lib/Math/BipartiteDecomp/TernaryBinary.lean`
+- **역할**: K_{3,2}^{(c=2)} 축 (S-축 3값, T-축 2값).
+- **주요 선언**:
+  - `SAxis`, `TAxis`, `DAxis`.
+  - `axis_sum`, `k32_edges`, `k32_b1`, `su3_boson_count`.
+  - `bipartite_total_25`.
+
+### `lean/E213/Lib/Math/Choice/BootstrapWitness.lean`
+- **역할**: Nat 부트스트랩 순환 노출.
+- **주요 선언**:
+  - `boolXorLensRaw`, `naiveLeavesLens`.
+  - `StructurallyNat`.
+- **의존**: Raw, LensCore.
+
+### `lean/E213/Lib/Math/Choice/Canonical.lean`
+- **역할**: 정규 형식 선택 — Raw.slash 결정적.
+- **주요 선언**: `canonical_trichotomy`.
+- **의존**: Raw.
+
+### `lean/E213/Lib/Math/Choice/CanonicalTruthChar.lean`
+- **역할**: canonicalTruthMap 특성화 — a-개수 패리티.
+- **주요 선언**:
+  - `aCountParityLens`.
+  - `canonicalTruthMap_iff_aCountOdd`.
+  - `canonicalIffMap_iff_iffBoolLens`.
+  - `canonicalAndMap_iff_eq_a`, `canonicalOrMap_iff_ne_b`.
+- **의존**: SemanticAtom.
+
+### `lean/E213/Lib/Math/Choice/Resolved.lean`
+- **역할**: 선택 해결 — 구성적 Lens 존재.
+- **주요 선언**: `choice_as_lens_spec`, `witness_explicit`.
+- **의존**: QuotLens.
+
+### `lean/E213/Lib/Math/DialogueAudit/AxisDistinction.lean`
+- **역할**: 수직(2-진) vs 수평(5-진) 축 구별.
+- **주요 선언**:
+  - `vertical_at_25`, `horizontal_at_25`.
+  - `ceilings_unequal`, `horizontal_strictly_greater`.
+  - `vertical_2adic`, `horizontal_5adic`.
+  - `joint_index_saturation`.
+- **의존**: CDTowerLevel, FSMGradeTaxonomy.
+
+### `lean/E213/Lib/Math/DialogueAudit/BitPrecision.lean`
+- **역할**: 비트 정밀도 — 4 별개 수량 분리.
+- **주요 선언**:
+  - `bitIndex_unbounded`.
+  - `bit_tower_at_saturation`, `n_u_distinguishable`.
+  - `four_quantities_distinct`, `distinguishable_saturation`.
+
+### `lean/E213/Lib/Math/DialogueAudit/G43Capstone.lean`
+- **역할**: G43 대화 감사 5 증명.
+- **주요 선언**:
+  - `axis_witness`, `pigeonhole_witness`.
+  - `bit_precision_witness`, `joint_witness`, `total_witness`.
+- **의존**: AxisDistinction, PigeonholeFiniteState, BitPrecision.
+
+### `lean/E213/Lib/Math/DialogueAudit/PigeonholeFiniteState.lean`
+- **역할**: 비둘기집 정리 @ FSM 상태 수.
+- **주요 선언**:
+  - `strict_pigeon`, `pigeonhole_at_n_u`.
+  - `substrate_resolution_ceiling`, `maxDistinguishableCuts`.
+
+### `lean/E213/Lib/Math/GenerationRule/G46Capstone.lean`
+- **역할**: G46 삼각 반복 + 생성 개수 + 직교 방향.
+- **주요 선언**:
+  - `triangle_iter_witness`, `atomicity_witness`.
+  - `generation_witness`, `orthogonal_witness`, `total_witness`.
+- **의존**: TriangleIteration, GenerationCount, OrthogonalDirection.
+
+### `lean/E213/Lib/Math/GenerationRule/GenerationCount.lean`
+- **역할**: C(3, 2) = 3 = 표준모형 3 세대 개수.
+- **주요 선언**:
+  - `binom`, `binom_3_2`.
+  - `lambda_dimensions`, `total_exterior`.
+- **의존**: TriangleIteration.
+
+### `lean/E213/Lib/Math/GenerationRule/OrthogonalDirection.lean`
+- **역할**: (2+3)²⁵ 해석 — 25 직교 방향.
+- **주요 선언**:
+  - `binomial_orthogonal_direction`.
+  - `level_binary_choice`, `total_partitions`.
+  - `partition_contribution_endpoints`.
+  - `generation_count_match`.
+- **의존**: GenerationCount.
+
+### `lean/E213/Lib/Math/GenerationRule/TriangleIteration.lean`
+- **역할**: 삼각 수열 a_{n+1} = C(a_n, 2) + a_n.
+- **주요 선언**:
+  - `T`, `T_two`, `T_three`, `T_six`, `T_twentyone`.
+  - `triIter`, `atomicity_first_two`.
+- **의존**: GenerationCount.
+
+### `lean/E213/Lib/Math/NumberGrid/FSMGradeTaxonomy.lean`
+- **역할**: 수평축 — FSM 인식 등급 j → 5^j 상태.
+- **주요 선언**:
+  - `fsmGradeStates`.
+  - `grade_0_states` … `grade_25_states`.
+  - `grade_26_excess`, `grade_succ_ratio`.
+
+### `lean/E213/Lib/Math/NumberGrid/G41Capstone.lean`
+- **역할**: G41 2D 수 시스템 그리드.
+- **주요 선언**:
+  - `fsm_grades_witness`, `horizontal_axis_witness`.
+  - `grid_size_witness`, `joint_saturation_witness`, `total_witness`.
+- **의존**: FSMGradeTaxonomy, HorizontalAxis, TwoDimGrid, CDTowerLevel.
+
+### `lean/E213/Lib/Math/NumberGrid/HorizontalAxis.lean`
+- **역할**: 수평축 분류 — 등급 범위 → 수 타입.
+- **주요 선언**:
+  - `NumberType`, `gradeToType`.
+  - `grade0_natural` … `grade25_substrate`.
+  - `grade25_cardinality`.
+- **의존**: FSMGradeTaxonomy.
+
+### `lean/E213/Lib/Math/NumberGrid/TwoDimGrid.lean`
+- **역할**: 2D 격자 — 625 셀.
+- **주요 선언**:
+  - `GridCell`, `gridSize`, `substrateCeiling`.
+  - `cell_*`, `joint_saturation`.
+- **의존**: FSMGradeTaxonomy, HorizontalAxis, CDTowerLevel.
+
+### `lean/E213/Lib/Math/OperationTopology/G48Capstone.lean`
+- **역할**: G48 연산 × 위상 합성.
+- **주요 선언**:
+  - `operation_witness`, `complexity_witness`.
+  - `preservation_witness`, `connection_witness`, `total_witness`.
+- **의존**: OperationLevels, TopologicalComplexity, TotalPreservation.
+
+### `lean/E213/Lib/Math/OperationTopology/OperationLevels.lean`
+- **역할**: 25 연산 레벨.
+- **주요 선언**:
+  - `totalOperationLevels`, `operationAtLevel0`.
+  - `operationsIntroducedAt`, `cumulativeOperations`.
+
+### `lean/E213/Lib/Math/OperationTopology/TopologicalComplexity.lean`
+- **역할**: 레벨별 위상 복잡도 — 총 325.
+- **주요 선언**:
+  - `complexity`, `complexity_monotone`.
+  - `totalComplexity`.
+- **의존**: OperationLevels.
+
+### `lean/E213/Lib/Math/OperationTopology/TotalPreservation.lean`
+- **역할**: 총 보존 — 25 성질 × 5²⁵ 예산 = N_U.
+- **주요 선언**:
+  - `totalBudget`, `perLevelBudget`.
+  - `total_eq_pow`, `property_budget_connection`.
+- **의존**: OperationLevels, TopologicalComplexity.
+
+### `lean/E213/Lib/Math/CartesianVsDisjoint/CartesianCheck.lean`
+- **역할**: 데카르트 곱 검증 — 2²⁵ × 3²⁵ = 6²⁵ ≠ 5²⁵.
+- **주요 선언**:
+  - `cartesian_product_eq`.
+  - `six_pow_25`, `five_pow_25`.
+  - `cartesian_overshoots`, `sandwich_bound`.
+
+### `lean/E213/Lib/Math/CartesianVsDisjoint/DisjointVsProduct.lean`
+- **역할**: 구조 구별 — K_{3,2} = 분리 합.
+- **주요 선언**:
+  - `disjoint_sum_card`, `cartesian_product_card`.
+  - `power_dichotomy`, `k32_disjoint_5`.
+- **의존**: CartesianCheck.
+
+### `lean/E213/Lib/Math/CartesianVsDisjoint/G45Capstone.lean`
+- **역할**: G45 Cartesian vs Disjoint.
+- **주요 선언**:
+  - `cartesian_arith_witness`, `cartesian_neq_witness`.
+  - `sandwich_witness`, `disjoint_product_witness`, `total_witness`.
+- **의존**: CartesianCheck, DisjointVsProduct.
+
+### `lean/E213/Lib/Math/Hyper/Hyper213.lean`
+- **역할**: 초실수 = Raw 수열 (cofinite 동등성).
+- **주요 선언**:
+  - `Hyper213`, `cofiniteEquiv`.
+  - `cofinite_refl`, `cofinite_symm`, `cofinite_trans`.
+  - `constHyper`, `const_equiv_iff`.
+- **의존**: Raw, NatHelper.
+
+### `lean/E213/Lib/Math/Hyper/Hyper213Tower.lean`
+- **역할**: 렌즈 타워 + cofinite 수열.
+- **주요 선언**:
+  - `LensTower`, `HyperTower`, `hyperTowerEquiv`.
+- **의존**: Hyper213, OnLens.
+
+### `lean/E213/Lib/Math/Hyper/Padic.lean`
+- **역할**: p-진 정수 ℤ_p = leavesModNat 부분족.
+- **주요 선언**:
+  - `padicFamily`.
+  - `padic_family_cauchy`, `padic_family_limit_zero`.
+  - `padic_tower_refines`.
+  - `padic_familyCauchy`, `padic_limit_all_zero`.
+- **의존**: ModNat, Cauchy, ProfiniteSeq.
+
+### `lean/E213/Lib/Math/Irrational/Sqrt2Cut.lean`
+- **역할**: √2의 Dedekind 컷 (Pell 수열).
+- **주요 선언**:
+  - `IsPellSol`.
+  - `pell_orderProj_above`, `pell_orderProj_below`.
+- **의존**: Archimedean.
+
+### `lean/E213/Lib/Math/Irrational/Sqrt2KernelFree.lean`
+- **역할**: √2 무리성 (∅-axiom).
+- **주요 선언**:
+  - `mul_self_mod_two`.
+  - `m_even_of_sq`, `descent_step`, `even_split`.
+  - `sqrt2_no_rational_aux`, `sqrt2_irrational`.
+- **의존**: AddMod213.
+
+### `lean/E213/Lib/Math/Irrational/SqrtPure.lean`
+- **역할**: √p 무리성 (p ∈ {2, 3, 5}) — 순수 ∅-axiom.
+- **주요 선언**:
+  - Sqrt{2,3,5}Pure namespaces.
+  - `m_even/mod3/mod5_of_sq`, `descent_step`, `*_split`.
+  - `sqrt{2,3,5}_irrational`.
+- **의존**: PureNat, ModArith.PureNatMod{3,5}.
+
+### `lean/E213/Lib/Math/CascadeCalculus/Core.lean`
+- **역할**: 접속-삭제 미적분 — 노드 3 상태.
+- **주요 선언**:
+  - `Status`, `DepGraph`.
+  - `isDeletable`, `hasNoDirtyConsumerUpTo`, `hasDirtyDepUpTo`.
+  - `Step`.
+
+### `lean/E213/Lib/Math/CascadeCalculus/Instance.lean`
+- **역할**: 6-노드 그래프 응용.
+- **주요 선언**:
+  - `g`, `l0`, `l1`, `l2`.
+  - 4 example.
+- **의존**: Core.
+
+### `lean/E213/Lib/Math/Geometry/Nat213AlgebraicGeometry.lean`
+- **역할**: 대수-기하학 면 — SL(2, F_5) (120).
+- **주요 선언**:
+  - `sl2_f5_order`, `binary_icosahedral_order`.
+  - `k32_b0`, `k32_b1`, `k32_euler_poincare`.
+  - `hurwitz_in_icosian`, `algebraic_geometric_core`.
+- **의존**: Nat213Rotation, EulerChi, Hurwitz213.
+
+### `lean/E213/Lib/Math/Geometry/Nat213Rotation.lean`
+- **역할**: 회전 기하 — Möbius P (trace=NS, det=1, disc=d).
+- **주요 선언**:
+  - `k32_vertex_count`, `k32_edge_count`.
+  - `p_trace_eq_ns`, `p_det_is_glue`, `p_disc_eq_d`.
+  - `p_iter_step{1,4}`, `p_plus_p_inv_*`.
+  - `mersenne_*`, `seven_dual_appearance`.
+  - `p5_mod_5_is_neg_i`, `p10_mod_5_is_identity`.
+- **의존**: Counts, Mobius213, EulerChi.
+
+### `lean/E213/Lib/Math/Polynomial213/Ineq.lean`
+- **역할**: 다항식 부등식 (증인 패턴).
+- **주요 선언**: `eval_le_of_add`, `eval_lt_of_add_succ`.
+- **의존**: Sound.
+
+### `lean/E213/Lib/Math/Polynomial213/Sound.lean`
+- **역할**: 다항식 연산 건전성.
+- **주요 선언**:
+  - `eval_shift`, `eval_C`, `eval_X`.
+  - `eval_add`, `eval_scale`, `eval_mul`.
+
+### `lean/E213/Lib/Math/Atomicity/ArityForcingGeneral.lean`
+- **역할**: 아리티 강제 일반 (N < k ⟹ Reachable = 기저만).
+- **주요 선언**:
+  - `RawNk`, `ReachableNk`.
+  - `isBase`, `getBase`.
+  - `reachable_isBase`, `reachable_base_only`, `no_reachable_rel`.
+- **의존**: Pigeonhole.
+
