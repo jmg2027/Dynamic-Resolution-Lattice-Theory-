@@ -1818,6 +1818,12 @@
 
 ### Batch M1 — Lib/Math direct (54 files)
 
+### `lean/E213/Lib/Math.lean`
+- **역할**: Spec-as-code entry point for E213.Lib.Math — 모든 Math sub-tree umbrella import.
+- **주요 선언**: (re-export shim) — 모든 sub-trees: Real213, Analysis, Cohomology, DyadicFSM, HodgeConjecture, CayleyDickson, ModArith, Linalg213, Polynomial213, Hyper, AxiomSystems, Choice, Irrational, PatternCatalog, CascadeCalculus, Tactic, Pigeonhole, ResolutionLimit, 등.
+- **의존**: 52 sub-module umbrella + Meta.Nat.
+- **비고**: ∅-axiom production critical path 표준.
+
 ### `lean/E213/Lib/Math/Analysis.lean`
 - **역할**: 213-native 분석 aggregate — Real213 위의 미적분학.
 - **주요 선언**: `Analysis/` (7 chapter sub-directories) — ClassicCalc, Differentiation, DyadicSearch, FluxMVT, Integration, ODE, Series
@@ -7248,6 +7254,11 @@
 
 ## Section 4b — Lib/Physics (E213/Lib/Physics/) — 180 files
 
+### `lean/E213/Lib/Physics.lean`
+- **역할**: E213.Lib.Physics — DRLT physics deployment 213 axiom. 모든 Physics sub-tree umbrella import.
+- **주요 선언**: (re-export shim) — 17 sub-tree (AlphaEM, Atomic, Basel, Capstones, Certificates, Cosmology, Couplings, Foundations, Hadron, Higgs, Mass, Mixing, Nuclear, Simplex, Substrate, Symmetry, YangMills).
+- **의존**: 17 sub-module umbrella.
+
 ### Batch P1 — AlphaEM + Foundations (47 files)
 
 ### `lean/E213/Lib/Physics/AlphaEM/Augmented.lean`
@@ -8223,4 +8234,493 @@
   - `weinberg_simplicial_atoms`.
   - `weinberg_pattern_capstone`.
   - `sin2_W_v2_alpha_coef`, `sin2_W_v2_atomic`.
+
+### Batch P4 — Physics direct + Mixing + Capstones + Higgs + Mass + Basel + Certificates (40 files)
+
+### `lean/E213/Lib/Physics/AlphaEM.lean`
+- **역할**: α_em 정밀 도출 클러스터 통합 진입점 — 13 토픽 파일.
+- **주요 선언**: Augmented, Bare, Brackets, ChannelCohomologyLoss, CupRingTrace, GradedDecomposition, LaplacianSpectrum, NUniverseCandidates, StructuralGap 등.
+- **의존**: Augmented, Bare, Brackets, Capstone.
+
+### `lean/E213/Lib/Physics/Atomic.lean`
+- **역할**: 원자물리 관측 + IE 라이브러리 집계.
+- **주요 선언**: BondAngles, Hydrogen, Screening, Helium, IE.*.
+- **의존**: Physics.Atomic.* 서브모듈.
+
+### `lean/E213/Lib/Physics/Basel.lean`
+- **역할**: Basel ζ(2)=π²/6 부분합 근사.
+- **주요 선언**: Bound, WhyBasel.
+- **의존**: Basel.Bound, Foundations.ResolutionDepth.
+
+### `lean/E213/Lib/Physics/Capstones.lean`
+- **역할**: 위상 추적 캡스톤 — 5 통합 결과.
+- **주요 선언**: MasterCatalog, PureAtomicObservables, PhysicsTrackComplete, FinitistObservableChain, ValidationStandardOne.
+
+### `lean/E213/Lib/Physics/Certificates.lean`
+- **역할**: Rust 인증서 검증기 미러.
+- **주요 선언**: Checker.
+- **의존**: AlphaEM.Brackets, Basel.Bound.
+
+### `lean/E213/Lib/Physics/Cosmology.lean`
+- **역할**: 우주론 관측 클러스터 — H₀, N_eff, 암흑에너지.
+- **주요 선언**: DarkEnergy, HubbleConstant, NeffDerivation, HorizonInformation, GravityShadow, Bridge.
+
+### `lean/E213/Lib/Physics/Couplings.lean`
+- **역할**: 게이지 결합 클러스터 — α_GUT, α₃, α₂, 통일.
+- **주요 선언**: AlphaGUT, GUTUnification, TripleCoupling, ColorConfinement, AsymptoticFreedom, SpectrumComplete, PhotonKernel, ClosedPropagator, DysonStructure, RunningGap, ThetaQCD.
+
+### `lean/E213/Lib/Physics/Foundations.lean`
+- **역할**: 기초 물리 뼈대 — N_U 기수, 원자상수, 공명구조.
+- **주요 선언**: NUniverseFractalDepth, FractalLensCardinality, AtomicSuperCatalog, DrltZeroParameters, UnifiedPattern, FibonacciAtomic, GoldenRatio, KoideFormula, HopHypothesis, TightenBracket.
+
+### `lean/E213/Lib/Physics/Hadron.lean`
+- **역할**: 하드론 질량 클러스터 — m_p, m_n, 쿼크 위계.
+- **주요 선언**: ProtonMass, ProtonG, ProtonElectronRatio, NeutronProton, Masses, QuarkHierarchy, Bigrading, Bridge.
+
+### `lean/E213/Lib/Physics/Higgs.lean`
+- **역할**: Higgs 부채 — v_H, m_H, λ_H 통일.
+- **주요 선언**: Vacuum, Mass, Quartic, Master.
+
+### `lean/E213/Lib/Physics/INDEX.md`
+- **역할**: 주요 섹션 — Lib/Physics 17 sub-clusters umbrella.
+
+### `lean/E213/Lib/Physics/Mass.lean`
+- **역할**: 대전 렙톤 질량비 클러스터.
+- **주요 선언**: MuOverE, TauOverMu, HierarchyTowers.
+
+### `lean/E213/Lib/Physics/Mixing.lean`
+- **역할**: 쿼크+렙톤 혼합 행렬 클러스터.
+- **주요 선언**: CabibboAngle, CKMHierarchy, NeutrinoMixing, CPViolation, Bridge.
+
+### `lean/E213/Lib/Physics/Nuclear.lean`
+- **역할**: 핵물리 클러스터 — 마법수, 결합, 껍질.
+- **주요 선언**: MagicNumbers, MagicNumbersAtomic, Shells, Binding, DeuteronBinding, Bridge.
+
+### `lean/E213/Lib/Physics/Simplex.lean`
+- **역할**: Δ⁴ 단체 결합론 — 생성, 면항, 점유 스펙트럼.
+- **주요 선언**: Counts, FaceTerms, Generations, GenerationStructure, FoccSpectrum, MultiComposite, SubInventory.
+
+### `lean/E213/Lib/Physics/Substrate.lean`
+- **역할**: 기판 생성 클러스터 (이전 "Phase 2") — d=5 원자성, 정점, 쌍, 시공.
+- **주요 선언**: Origin, Shape, Existence, Pairs, Time, Space, Observable, Force, Edges, Lens, Capstone, Phase1Bridge, Falsifier.
+
+### `lean/E213/Lib/Physics/Symmetry.lean`
+- **역할**: 대칭성/자기동형/표현 인프라.
+- **주요 선언**: AutKChiral, GluonChannelInterpretation, AutAction, AutEdgeAction, AutEdgeActionGenerators, AutEdgeOrbits.
+
+### `lean/E213/Lib/Physics/YangMills.lean`
+- **역할**: Yang-Mills 게이지 이론 — SU(5) GUT + Weinberg.
+- **주요 선언**: SU5Roots, WZBosons, WeinbergAngle, Gap, Bridge.
+
+### `lean/E213/Lib/Physics/Basel/Bound.lean`
+- **역할**: S(N) 부분합 정확 유리 근사.
+- **주요 선언**:
+  - `S`, `upper`, `lower_tight`.
+  - `S_0`, `S_1`, `S_2`, `S_3`.
+  - `upper_mono_*`, `bracket_*` (N=2,3,10,20,30,50).
+- **의존**: Simplex.Counts.
+
+### `lean/E213/Lib/Physics/Basel/WhyBasel.lean`
+- **역할**: Basel 1/n² 기하학적 필연.
+- **주요 선언**:
+  - `propagator_exponent`, `propagator_weight`, `prop_at_*`.
+  - `basel_structurally_forced`, `N_eff_assignments_open`.
+- **의존**: Simplex.Counts, Basel.Bound, Foundations.ResolutionDepth.
+
+### `lean/E213/Lib/Physics/Capstones/FinitistObservableChain.lean`
+- **역할**: 모든 관측 N_U=d^(d²)=5²⁵ 공유.
+- **주요 선언**: `finitist_observable_chain`.
+- **의존**: AlphaEM.Capstone, Mass.MuOverE, Cosmology.DarkEnergy, Foundations.NUniverseFractalDepth.
+
+### `lean/E213/Lib/Physics/Capstones/INDEX.md`
+- **역할**: 주요 섹션 — Capstones 5 files.
+
+### `lean/E213/Lib/Physics/Capstones/MasterCatalog.lean`
+- **역할**: 37 파일 누적 발견 — 14 원자 항등식.
+- **주요 선언**: `master_atomic_catalog`.
+- **의존**: Foundations.UnifiedPattern, Hadron.*, Mass.*, Mixing.*, Nuclear.*, Higgs.*.
+
+### `lean/E213/Lib/Physics/Capstones/PhysicsTrackComplete.lean`
+- **역할**: Phase 1 완성 마커 — 20+ 정밀량 단일 원자성.
+- **주요 선언**: `phase1_complete`.
+- **의존**: AlphaEM.Capstone, Mass.*, Higgs.*, YangMills.WeinbergAngle, Cosmology.DarkEnergy.
+
+### `lean/E213/Lib/Physics/Capstones/PureAtomicObservables.lean`
+- **역할**: N_U 무관 순순 원자 관측.
+- **주요 선언**: `pure_atomic_observables_capstone`.
+- **의존**: Mixing.CabibboAngle, Simplex.Counts, Nuclear.MagicNumbers.
+
+### `lean/E213/Lib/Physics/Capstones/ValidationStandardOne.lean`
+- **역할**: CLAUDE.md 검증 기준 #1+#2.
+- **주요 선언**: `validation_standard_capstone`.
+- **의존**: AlphaEM.Capstone, Mass.MuOverE, Cosmology.DarkEnergy, FinitistObservableChain.
+
+### `lean/E213/Lib/Physics/Certificates/Checker.lean`
+- **역할**: Lean-측 인증서 검증기 — Rust 스키마 미러.
+- **주요 선언**:
+  - `Q`, `Cmp`, `Step`, `Cert`.
+  - `Q.ltb`, `Q.eqb`, `Cmp.eval`, `Step.boundOk`, `Cert.boundsOk`.
+  - `cert_n20`, `cert_n20_boundsOk`, `cert_anchor_n20`.
+- **의존**: AlphaEM.Brackets, Basel.Bound.
+
+### `lean/E213/Lib/Physics/Higgs/Mass.lean`
+- **역할**: m_H/v_H = (1+α_GUT)·(1-α_GUT/d)/c.
+- **주요 선언**:
+  - `leading_ratio`, `alpha_correction_structure`.
+  - `cofactor_d_minus_1_ubiquitous`.
+  - `mH_vH_bracket_5097`, `higgs_simplicial_pattern`.
+- **의존**: Couplings.DysonStructure, AlphaEM.Prefactors.
+
+### `lean/E213/Lib/Physics/Higgs/Master.lean`
+- **역할**: v_H, m_H, λ_H 통일 원자 구조.
+- **주요 선언**:
+  - `higgs_master_atomic`, `higgs_hierarchy_summary`.
+  - `higgs_zero_param`.
+- **의존**: Higgs.Mass, Higgs.Quartic, Higgs.Vacuum.
+
+### `lean/E213/Lib/Physics/Higgs/Quartic.lean`
+- **역할**: λ_H = 1/(2c²) = 1/8 = 1/α_3.
+- **주요 선언**:
+  - `lambda_leading_denom`, `lambda_denom_eq_inv_alpha_3`.
+  - `f_occ_AABB_num`, `f_occ_AABB_eq_1_2`.
+  - `V_at_x_H_eq_1_plus_alpha`, `lambda_H_simplicial_pattern`.
+- **의존**: AlphaEM.Prefactors.
+
+### `lean/E213/Lib/Physics/Higgs/Vacuum.lean`
+- **역할**: v_H/M_Pl = (d+1)/d^(d²).
+- **주요 선언**:
+  - `hier_num`, `hier_exp`, `hier_denom`.
+  - `d_pow_25_value`, `hier_ratio_bracket`, `hierarchy_atomic`.
+
+### `lean/E213/Lib/Physics/Mass/HierarchyTowers.lean`
+- **역할**: 모든 DRLT 위계탑 원자 기본.
+- **주요 선언**:
+  - `lepton_hierarchy_atomic`, `quark_hierarchy_atomic_link`.
+  - `cosmo_hierarchy_atomic`.
+  - `hierarchy_towers_master`, `hierarchy_from_cardinality`.
+
+### `lean/E213/Lib/Physics/Mass/MuOverE.lean`
+- **역할**: m_μ/m_e = (NS/NT)·(1/α_em)·P·(1+δ₁+δ₂+δ₃).
+- **주요 선언**:
+  - `r0_leading_lower`, `r0_leading_upper`, `leading_205_in_at_10`.
+  - `same_simplicial_pieces`, `mu_over_e_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/Mass/TauOverMu.lean`
+- **역할**: m_τ/m_μ = c^NS·NT·[1+x+x²+...].
+- **주요 선언**:
+  - `base_prefactor`, `base_decomp`, `x3_coefficient`.
+  - `same_d_plus_1_cofactor`, `tau_mu_simplicial_pattern`.
+
+### `lean/E213/Lib/Physics/Mixing/Bridge.lean`
+- **역할**: CKM과 PMNS 모두 Diamond 원자 기본.
+- **주요 선언**:
+  - `cabibbo_denom_atomic`, `delta_cp_atomic`.
+  - `atomic_check`, `mixing_unified_diamond`.
+  - `mixing_bridge_capstone`.
+
+### `lean/E213/Lib/Physics/Mixing/CKMHierarchy.lean`
+- **역할**: CKM Wolfenstein 위계 — λ^k.
+- **주요 선언**:
+  - `lambda_num`, `lambda_den`.
+  - `lambda_sq_*`, `lambda_cb_*`.
+  - `lambda_denom_atomic`, `CKM_hierarchy_atomic`.
+  - `wolfenstein_atomic_capstone`.
+
+### `lean/E213/Lib/Physics/Mixing/CPViolation.lean`
+- **역할**: CP-위반 — δ_CKM=π/φ², Jarlskog J.
+- **주요 선언**:
+  - `delta_approx_num`, `delta_approx_den`, `delta_close_to_1196`.
+  - `J_lambda_dependence`, `phi_sq_via_fibonacci`.
+  - `CP_violation_atomic`.
+
+### `lean/E213/Lib/Physics/Mixing/CabibboAngle.lean`
+- **역할**: sin θ_C = 5/22 (순수 유리).
+- **주요 선언**:
+  - `C_lat`, `sin_theta_C_bare`, `sin_theta_C_eq_5_22`.
+  - `denom_decomp`, `drlt_overshoots_observed`.
+  - `within_one_percent`, `irreducible_5_22`, `falsifier_within_1_percent`.
+
+### `lean/E213/Lib/Physics/Mixing/INDEX.md`
+- **역할**: 주요 섹션 — Mixing 5 files.
+
+### `lean/E213/Lib/Physics/Mixing/NeutrinoMixing.lean`
+- **역할**: PMNS 혼합 각도.
+- **주요 선언**:
+  - `sin2_12_leading_denom`, `sin2_23_leading_denom`.
+  - `delta_CP_denom`, `delta_CP_leading_eq_195`.
+  - `all_PMNS_leadings_atomic`, `adjoint_in_PMNS`.
+  - `PMNS_simplicial_pattern`.
+  - `sin2_13_alpha_GUT_coef`, `sin2_13_alpha_GUT2_coef`.
+  - `pythagorean_13`, `sin2_12_v2_atomic`.
+
+---
+
+## Section 5 — Meta ring (E213/Meta/) — 41 files
+
+### `lean/E213/Meta/API.lean`
+- **역할**: Meta layer public API — 3-tier typeclass + minimality + lens internality export.
+- **주요 선언**:
+  - `CommBinaryCodomain`, `NonVanishingCodomain`, `ConjugationCodomain`.
+  - `raw_minimality_capstone`.
+  - `Meta.LensInternality.{toData, ofData, view_eq_fold, lens_is_raw_internal}`.
+- **의존**: SelfRecognising, AxiomMinimalityCapstone, LensInternality.
+
+### `lean/E213/Meta/Algebra213.lean`
+- **역할**: Ring-independent algebra typeclass layer.
+- **주요 선언**:
+  - `Ring213`, `CommRing213`, `StarRing213`, `IntegerNormed213`.
+  - `IntegerNormed213.normSq_mul`.
+  - `add_left_comm`, `zero_add`, `zero_mul`, `neg_mul`.
+- **의존**: Int213.Core.
+- **비고**: ∅-axiom design; no simp, no Decidable.
+
+### `lean/E213/Meta/Algebra213/CDDouble.lean`
+- **역할**: CD doubling functor — CommStarRing213 → StarRing213.
+- **주요 선언**:
+  - `CDDouble`.
+  - `add_assoc'`, `add_mul'`, `mul_add'`.
+- **의존**: Int213.Core, Algebra213.Core.
+
+### `lean/E213/Meta/Algebra213/CDDoubleStar.lean`
+- **역할**: Generic CDDouble Ring213/StarRing213 instance.
+- **주요 선언**:
+  - `mul_assoc_re'`, `mul_assoc_im'`, `mul_assoc'`.
+  - `conj_mul'`, `conj_zero_base`, `conj_neg`.
+  - `instRing213CDDouble`, `instStarRing213CDDouble`.
+- **의존**: Algebra213.CDDouble.
+
+### `lean/E213/Meta/Algebra213/Core.lean`
+- **역할**: Abstract algebra typeclass hierarchy.
+- **주요 선언**:
+  - `Ring213`, `CommRing213`, `StarRing213`.
+  - `IntegerNormed213`.
+  - `IntegerNormed213.normSq_mul` capstone.
+
+### `lean/E213/Meta/AxiomMinimality.lean`
+- **역할**: Raw axioms minimality — 4-case collapse 분석.
+- **주요 선언**:
+  - `TreeA`, `RawA`, `rawA_trivial`.
+  - `TreeB`, `RawB`, `rawB_trivial`.
+  - `TreeAB`, `TreeFree`.
+
+### `lean/E213/Meta/AxiomMinimalityCapstone.lean`
+- **역할**: 4-case minimality 통합 capstone.
+- **주요 선언**:
+  - `raw_minimality_capstone`.
+  - `raw_strict_minimum`.
+- **의존**: AxiomMinimality.
+
+### `lean/E213/Meta/BitPatternUniqueness.lean`
+- **역할**: Key lemma for expSumLens injectivity.
+- **주요 선언**:
+  - `two_pow_sum_inj_lt`, `two_pow_sum_inj_unordered`, `two_pow_sum_inj_full`.
+  - `parity_contradiction`, `factor_lhs`, `factor_rhs`.
+- **의존**: Pow213, Mod213, NatHelper.
+
+### `lean/E213/Meta/Int213.lean`
+- **역할**: ∅-axiom Int arithmetic + Ring213 Int instance.
+- **의존**: Int213.Core, Int213.Instance.
+
+### `lean/E213/Meta/Int213/Core.lean`
+- **역할**: ∅-axiom Int arithmetic.
+- **주요 선언**:
+  - `add_comm`, `neg_add`, `mul_comm`, `add_left_neg`.
+  - `zero_mul`, `add_nonneg`, `add_eq_zero_of_nonneg`.
+  - `mul_eq_zero`, `mul_nonneg`, `neg_mul`, `mul_neg`.
+  - `subNatNat_repr`, `subNatNat_add_subNatNat`, `subNatNat_mul_*`.
+  - `add_assoc`, `mul_assoc`, `mul_left_comm`.
+- **의존**: Tactic.NatHelper.
+- **비고**: 64 theorem ∅-axiom.
+
+### `lean/E213/Meta/Int213/Instance.lean`
+- **역할**: Int as CommRing213 instance.
+- **주요 선언**:
+  - `instance : Ring213 Int`.
+  - `instance : CommRing213 Int`.
+- **의존**: Int213.Core, Algebra213.Core.
+
+### `lean/E213/Meta/LensInternality.lean`
+- **역할**: Lens is Raw-internal.
+- **주요 선언**:
+  - `toData`, `ofData`.
+  - `toData_ofData`, `ofData_toData`.
+  - `view_eq_fold`, `lens_is_raw_internal`.
+- **의존**: Raw, LensCore.
+
+### `lean/E213/Meta/Nat.lean`
+- **역할**: Spec-as-code entry point for Meta/Nat/.
+- **의존**: 8 submodule.
+
+### `lean/E213/Meta/Nat/AddMod213.lean`
+- **역할**: 213-native Nat.add_mod.
+- **주요 선언**:
+  - `add_mod_left`, `add_mod_gen`.
+  - `mod_two_zero_or_one`, `div_add_mod`.
+  - `mod_diff_eq_zero_of_le`.
+  - `max_comm`, `mod_mod_of_dvd`, `dvd_of_mod_eq_zero`.
+- **의존**: NatDiv213, NatHelper.
+
+### `lean/E213/Meta/Nat/BinomSymm.lean`
+- **역할**: Binomial symmetry.
+- **주요 선언**:
+  - `binom_too_big`, `binom_diag`.
+  - `binom_symm`, `central_binom_is_double`.
+- **의존**: NatHelper, Lib.Physics.Simplex.Counts.
+
+### `lean/E213/Meta/Nat/EncodePair213.lean`
+- **역할**: Injective pair-encoding.
+- **주요 선언**: `encode_div`, `encode_mod`.
+- **의존**: NatDiv213.
+
+### `lean/E213/Meta/Nat/Gcd213.lean`
+- **역할**: 213-native gcd213 divisibility infrastructure.
+- **주요 선언**:
+  - `g_dvd_b_via_mod`, `gcdFuel_dvd_both`.
+  - `gcd213_dvd_left`, `gcd213_dvd_right`.
+  - `gcdFuel_greatest`, `gcd213_greatest`.
+  - `gcd213_comm`, `gcd213_self`, `gcd213_rec`.
+  - `dvd_antisymm_213`, `mod_eq_dvd_sub`.
+- **의존**: NatHelper, AddMod213.
+
+### `lean/E213/Meta/Nat/INDEX.md`
+- **역할**: 주요 섹션 — Meta/Nat/ 8 files.
+
+### `lean/E213/Meta/Nat/IntHelpers.lean`
+- **역할**: Shared Int helpers for quadratic-extension Domain.
+- **주요 선언**:
+  - `zero_mul`, `mul_self_nonneg`, `mul_self_eq_zero`.
+  - `le_ofNat_of_nonneg`, `add_nonneg`, `add_comm`.
+
+### `lean/E213/Meta/Nat/Max213.lean`
+- **역할**: 213-native Nat.max helpers.
+- **주요 선언**:
+  - `max_eq_left`.
+  - `le_max_left`, `le_max_right`.
+- **의존**: AddMod213.
+
+### `lean/E213/Meta/Nat/NatDiv213.lean`
+- **역할**: 213-native Nat div/mod helpers.
+- **주요 선언**:
+  - `add_div_right_pos`, `add_mod_right_pos`.
+  - `div_mul_le_self`, `div_lt_of_lt_mul`.
+- **의존**: NatHelper.
+
+### `lean/E213/Meta/Nat/PureNat.lean`
+- **역할**: Custom axiom-free Nat lemmas.
+- **주요 선언**:
+  - `mul_assoc`, `add_mul`.
+  - `mul_mul_mul_comm`, `isEven`, `nat_dichotomy`.
+  - `even_sq`, `odd_sq`, `isEven_self_mul`.
+
+### `lean/E213/Meta/SelfRecognising.lean`
+- **역할**: Codomain typeclass hierarchy — 3-tier CommBinary/NonVanishing/Conjugation.
+- **주요 선언**:
+  - `CommBinaryCodomain`, `CommBinaryCodomain.specLens`.
+  - `NonVanishingCodomain`, `specLens_nonVanishing`.
+  - `ConjugationCodomain`, `specLens_swapMatching`.
+- **의존**: Raw, LensCore, Lens.Properties.Characterisation.Catalog.
+
+### `lean/E213/Meta/Tactic.lean`
+- **역할**: Spec-as-code entry point for Meta/Tactic/.
+- **주요 섹션**: 213-native arithmetic (NatHelper, Mod213, Fin213, Pow213, Omega213, QuadNorm), codomain meta-tactics (DeriveConjugationCodomain, VerifyConjugation), guards.
+- **의존**: 12 sub-file.
+
+### `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md`
+- **역할**: 주요 섹션 — 213-native ∅-axiom migration 상태 추적.
+
+### `lean/E213/Meta/Tactic/DeriveConjugationCodomain.lean`
+- **역할**: Code-generator tactic — ConjugationCodomain α instance 자동 생성.
+- **주요 선언**:
+  - `derive_conjugation_codomain α with_bases b₁ b₂`.
+  - 13-field instance 생성.
+- **의존**: Lean.
+
+### `lean/E213/Meta/Tactic/Fin213.lean`
+- **역할**: 213-native Fin helpers.
+- **주요 선언**: `absurd0`.
+
+### `lean/E213/Meta/Tactic/INDEX.md`
+- **역할**: 주요 섹션 — Meta/Tactic/ 6 files + 2 docs + tests.
+
+### `lean/E213/Meta/Tactic/Mod213.lean`
+- **역할**: Cohomological-trajectory primitives.
+- **주요 선언**:
+  - `parity`, `mod3`, `mod6`.
+  - `parity_succ`, `parity_double`, `parity_double_succ`.
+  - `mod3_succ`, `mod6_parity`, `mod6_mod3`.
+  - `parity_add`, `parity_pow_two_succ`, `parity_pow_two_pos`.
+
+### `lean/E213/Meta/Tactic/NatHelper.lean`
+- **역할**: Nat 헬퍼 — ∅-axiom 대체.
+- **주요 선언**:
+  - `sub_one_add_one`, `sub_add_cancel`.
+  - `add_sub_of_le`, `add_sub_cancel_right`.
+  - `le_sub_of_add_le`, `add_mul`, `add_sub_assoc`.
+  - `mul_assoc`, `mul_sub_distrib`.
+  - `cases_lt_two`, `cases_lt_three`.
+
+### `lean/E213/Meta/Tactic/NativeGuard.lean`
+- **역할**: 213-native guard — non-E213 vocabulary 금지.
+- **주요 선언**:
+  - `defaultAllowList`, `isNative`, `collectUsedConsts`.
+  - `#guard_native`, `#guard_native_with`.
+  - `@[native213]` attribute.
+- **의존**: Lean.
+
+### `lean/E213/Meta/Tactic/NativeGuardTest.lean`
+- **역할**: NativeGuard regression tests.
+- **주요 선언**: 13 #guard_native.
+- **의존**: NativeGuard, PatternCatalog, ResolutionLimit.
+
+### `lean/E213/Meta/Tactic/OMEGA213_MIGRATION.md`
+- **역할**: 주요 섹션 — omega → omega213 migration guide.
+
+### `lean/E213/Meta/Tactic/Omega213.lean`
+- **역할**: 213-native omega213 tactic — axiom-free linear Nat.
+- **주요 선언**:
+  - `omega213` syntax + macro_rules.
+  - 14 Nat lemma cascade (le_refl, zero_le, lt_succ, mul_le, …).
+- **의존**: Lean.
+
+### `lean/E213/Meta/Tactic/Pow213.lean`
+- **역할**: Power-of-2 + divisibility helpers.
+- **주요 선언**:
+  - `pow_lt_succ`, `pow_lt_pow_two`.
+  - `pow_add_two`, `pow_dvd_pow_two`.
+  - `le_of_dvd_pos`, `dvd_sub_two`.
+- **의존**: NatHelper.
+
+### `lean/E213/Meta/Tactic/PureGuard.lean`
+- **역할**: ∅-pure guard — axiom dependency compile-time enforcement.
+- **주요 선언**:
+  - `axiomsOf`.
+  - `#guard_pure`, `#guard_sealed`.
+  - `@[pure213]` attribute.
+- **의존**: Lean.
+
+### `lean/E213/Meta/Tactic/PureGuardTest.lean`
+- **역할**: PureGuard regression tests.
+- **주요 선언**: 14 #guard_pure.
+- **의존**: PureGuard, PatternCatalog, ResolutionLimit.
+
+### `lean/E213/Meta/Tactic/QuadNorm.lean`
+- **역할**: Tactic: quad_norm — Diophantus-style polynomial identity.
+- **주요 선언**: `quad_norm` scoped macro.
+
+### `lean/E213/Meta/Tactic/Test/QuadNormTest.lean`
+- **역할**: QuadNorm regression tests.
+- **주요 선언**: 2 example (ZI, Z2).
+- **의존**: QuadNorm.
+
+### `lean/E213/Meta/Tactic/Test/VerifyConjugationTest.lean`
+- **역할**: #verify_conjugation scan — 6 ConjugationCodomain witness.
+- **주요 선언**: 6 #verify_conjugation (ZI, Z2, ZOmega, ZSqrt 3/5/7).
+- **의존**: VerifyConjugation, ZI/Z2/ZOmega/ZSqrt Instance.
+
+### `lean/E213/Meta/Tactic/VerifyConjugation.lean`
+- **역할**: Tactic: #verify_conjugation — ConjugationCodomain instance 합성 검증.
+- **주요 선언**:
+  - `#verify_conjugation α`.
+  - `@[verifyConjugation]` command elaborator.
+- **의존**: Lean.
 
