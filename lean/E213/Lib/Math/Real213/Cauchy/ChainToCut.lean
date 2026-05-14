@@ -1,4 +1,4 @@
-import E213.Theory.Closed.Nat213Bridge
+import E213.Lens.Number.Nat213.Bridge
 import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm
@@ -29,49 +29,49 @@ open E213.Theory
 /-- Chain (Method A Raw) → Dedekind cut.  chain `r` 의 leaves count
     `value r` 가 정수 cut 의 분자 (분모 1). -/
 def chainToCut (r : Raw) : Nat → Nat → Bool :=
-  fun m k => decide (Theory.Closed.Nat213.value r * k ≤ m)
+  fun m k => decide (E213.Lens.Number.Nat213.Raw.value r * k ≤ m)
 
 /-- Definition unfolding — convenience. -/
 theorem chainToCut_def (r : Raw) (m k : Nat) :
-    chainToCut r m k = decide (Theory.Closed.Nat213.value r * k ≤ m) := rfl
+    chainToCut r m k = decide (E213.Lens.Number.Nat213.Raw.value r * k ≤ m) := rfl
 
 /-- **Numeral correspondence**: numeral n 의 chain image 가 정수 (n+1)
     의 cut.  `value (numeral n) = n + 1` substitution. -/
 theorem chainToCut_numeral (n : Nat) (m k : Nat) :
-    chainToCut (Theory.Closed.Nat213.numeral n) m k = decide ((n + 1) * k ≤ m) := by
-  show decide (Theory.Closed.Nat213.value (Theory.Closed.Nat213.numeral n) * k ≤ m)
+    chainToCut (E213.Lens.Number.Nat213.Raw.numeral n) m k = decide ((n + 1) * k ≤ m) := by
+  show decide (E213.Lens.Number.Nat213.Raw.value (E213.Lens.Number.Nat213.Raw.numeral n) * k ≤ m)
      = decide ((n + 1) * k ≤ m)
-  rw [Theory.Closed.Nat213.value_numeral]
+  rw [E213.Lens.Number.Nat213.Raw.value_numeral]
 
 /-! ### Layer 2 image bridge — toRaw chain → Lean Nat cut -/
 
-open E213.Theory.Closed.Nat213Bridge (toRaw value_toRaw value_add value_mul)
+open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_add value_mul)
 
 /-- **toRaw image 의 cut**: Layer 2 element m 의 chain image 가 정수
     `m.toNat` 의 cut. -/
-theorem chainToCut_toRaw (m : Theory.Nat213.Nat213) (mu k : Nat) :
+theorem chainToCut_toRaw (m : E213.Lens.Number.Nat213.Peano.Nat213) (mu k : Nat) :
     chainToCut (toRaw m) mu k = decide (m.toNat * k ≤ mu) := by
-  show decide (Theory.Closed.Nat213.value (toRaw m) * k ≤ mu)
+  show decide (E213.Lens.Number.Nat213.Raw.value (toRaw m) * k ≤ mu)
      = decide (m.toNat * k ≤ mu)
   rw [value_toRaw]
 
 /-- **Add homomorphism (pointwise)**: closed-Raw add 의 chain image 가
     Lean Nat add 의 cut.  closed-Raw 산술이 Real213 cut 산술로 lift. -/
-theorem chainToCut_add (m n : Theory.Nat213.Nat213) (mu k : Nat) :
-    chainToCut (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) mu k
+theorem chainToCut_add (m n : E213.Lens.Number.Nat213.Peano.Nat213) (mu k : Nat) :
+    chainToCut (E213.Lens.Number.Nat213.Raw.add (toRaw m) (toRaw n)) mu k
       = decide ((m.toNat + n.toNat) * k ≤ mu) := by
-  show decide (Theory.Closed.Nat213.value
-                  (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) * k ≤ mu)
+  show decide (E213.Lens.Number.Nat213.Raw.value
+                  (E213.Lens.Number.Nat213.Raw.add (toRaw m) (toRaw n)) * k ≤ mu)
      = decide ((m.toNat + n.toNat) * k ≤ mu)
   rw [value_add, value_toRaw, value_toRaw]
 
 /-- **Mul homomorphism (pointwise)**: closed-Raw mul 의 chain image 가
     Lean Nat mul 의 cut. -/
-theorem chainToCut_mul (m n : Theory.Nat213.Nat213) (mu k : Nat) :
-    chainToCut (Theory.Closed.Nat213.mul (toRaw m) (toRaw n)) mu k
+theorem chainToCut_mul (m n : E213.Lens.Number.Nat213.Peano.Nat213) (mu k : Nat) :
+    chainToCut (E213.Lens.Number.Nat213.Raw.mul (toRaw m) (toRaw n)) mu k
       = decide ((m.toNat * n.toNat) * k ≤ mu) := by
-  show decide (Theory.Closed.Nat213.value
-                  (Theory.Closed.Nat213.mul (toRaw m) (toRaw n)) * k ≤ mu)
+  show decide (E213.Lens.Number.Nat213.Raw.value
+                  (E213.Lens.Number.Nat213.Raw.mul (toRaw m) (toRaw n)) * k ≤ mu)
      = decide ((m.toNat * n.toNat) * k ≤ mu)
   rw [value_mul, value_toRaw, value_toRaw]
 
@@ -98,7 +98,7 @@ private theorem bool_eq_of_iff_true (a b : Bool) (h : a = true ↔ b = true) : a
 
 /-- **★ Iff 핵심 ★**: integer chain 의 cutSum 의 truth value 가
     `(a + b) * k ≤ m` 과 동치. -/
-theorem cutSum_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
+theorem cutSum_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k : Nat) :
     cutSum (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k = true
     ↔ (a.toNat + b.toNat) * k ≤ m := by
   show cutSumAux _ _ k (2*m) (2*m) = true ↔ _
@@ -148,9 +148,9 @@ theorem cutSum_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
 /-- **★ cutSum compatibility ★**: Real213 cutSum 이 closed-Raw add 의
     bridge 와 commute.  G84 Tier 4 의 정확한 증거 — closed-Raw 산술이
     Real213 cut 우주에서 그대로 작동. -/
-theorem cutSum_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
+theorem cutSum_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k : Nat) :
     cutSum (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k
-      = chainToCut (Theory.Closed.Nat213.add (toRaw a) (toRaw b)) m k := by
+      = chainToCut (E213.Lens.Number.Nat213.Raw.add (toRaw a) (toRaw b)) m k := by
   rw [chainToCut_add]
   apply bool_eq_of_iff_true
   constructor
@@ -164,7 +164,7 @@ end E213.Lib.Math.Real213.Cauchy.ChainToCut
 namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
 
 open E213.Theory
-open E213.Theory.Closed.Nat213Bridge (toRaw value_toRaw value_mul)
+open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_mul)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMulOuter_eq_true_iff)
 
@@ -188,7 +188,7 @@ private theorem le_succ_mul_succ (m k : Nat) : m ≤ (m+1)*(k+1) := by
 
 /-- **★ Iff 핵심 (mul) ★**: integer chain 의 cutMul 의 truth value 가
     `a*b*k ≤ m` 과 동치.  Nat213.toNat_ge_one 가 enabler. -/
-theorem cutMul_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
+theorem cutMul_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k : Nat) :
     cutMul (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k = true
     ↔ a.toNat * b.toNat * k ≤ m := by
   show cutMulOuter _ _ k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true ↔ _
@@ -209,8 +209,8 @@ theorem cutMul_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
     | succ k' =>
       exact E213.Tactic.Nat213.le_of_mul_le_mul_right (Nat.succ_pos k') hprod
   · intro hsum
-    have ha_pos : 1 ≤ a.toNat := Theory.Nat213.Nat213.toNat_ge_one a
-    have hb_pos : 1 ≤ b.toNat := Theory.Nat213.Nat213.toNat_ge_one b
+    have ha_pos : 1 ≤ a.toNat := E213.Lens.Number.Nat213.Peano.Nat213.toNat_ge_one a
+    have hb_pos : 1 ≤ b.toNat := E213.Lens.Number.Nat213.Peano.Nat213.toNat_ge_one b
     have h_ak_le_m : a.toNat * k ≤ m := by
       calc a.toNat * k = a.toNat * (1 * k) := by rw [Nat.one_mul]
         _ ≤ a.toNat * (b.toNat * k) :=
@@ -234,9 +234,9 @@ theorem cutMul_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
 
 /-- **★ cutMul compatibility ★**: Real213 cutMul 이 closed-Raw mul 의
     bridge 와 commute.  cutSum 과 함께 + family 산술 전체 lift. -/
-theorem cutMul_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
+theorem cutMul_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k : Nat) :
     cutMul (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k
-      = chainToCut (Theory.Closed.Nat213.mul (toRaw a) (toRaw b)) m k := by
+      = chainToCut (E213.Lens.Number.Nat213.Raw.mul (toRaw a) (toRaw b)) m k := by
   rw [chainToCut_mul]
   apply bool_eq_of_iff_true
   constructor
@@ -253,7 +253,7 @@ Real213 cutLe 와 정확히 commute. -/
 open E213.Lib.Math.Real213.Core.CutPoset (cutLe)
 
 /-- **Order 보존**: chain a ≤ chain b iff a ≤ b (as Nat213.toNat). -/
-theorem cutLe_chainToCut_iff (a b : Theory.Nat213.Nat213) :
+theorem cutLe_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) :
     cutLe (chainToCut (toRaw a)) (chainToCut (toRaw b)) ↔ a.toNat ≤ b.toNat := by
   constructor
   · intro h
@@ -282,7 +282,7 @@ end E213.Lib.Math.Real213.Cauchy.ChainToCut
 namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
 
 open E213.Theory
-open E213.Theory.Closed.Nat213Bridge (toRaw)
+open E213.Lens.Number.Nat213.Bridge (toRaw)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Core.CutPoset
   (cutLe cutLe_trans cutLe_cutMax_left cutLe_cutMax_right cutMax_lub
@@ -300,7 +300,7 @@ cutMin 의 chain bridge characterization 달성.
 
 /-- **cutMax LUB characterization**: cutMax (chain a) (chain b) ≤ chain c
     iff a ≤ c ∧ b ≤ c (둘 다 ≤ c). -/
-theorem cutLe_cutMax_chainToCut_iff (a b c : Theory.Nat213.Nat213) :
+theorem cutLe_cutMax_chainToCut_iff (a b c : E213.Lens.Number.Nat213.Peano.Nat213) :
     cutLe (cutMax (chainToCut (toRaw a)) (chainToCut (toRaw b)))
           (chainToCut (toRaw c))
     ↔ a.toNat ≤ c.toNat ∧ b.toNat ≤ c.toNat := by
@@ -319,7 +319,7 @@ theorem cutLe_cutMax_chainToCut_iff (a b c : Theory.Nat213.Nat213) :
 
 /-- **cutMin GLB characterization**: chain c ≤ cutMin (chain a) (chain b)
     iff c ≤ a ∧ c ≤ b (c ≤ both). -/
-theorem cutLe_cutMin_chainToCut_iff (a b c : Theory.Nat213.Nat213) :
+theorem cutLe_cutMin_chainToCut_iff (a b c : E213.Lens.Number.Nat213.Peano.Nat213) :
     cutLe (chainToCut (toRaw c))
           (cutMin (chainToCut (toRaw a)) (chainToCut (toRaw b)))
     ↔ c.toNat ≤ a.toNat ∧ c.toNat ≤ b.toNat := by

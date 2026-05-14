@@ -1,7 +1,6 @@
 import E213.Theory.Atomicity
 import E213.Theory.CDDouble
 import E213.Theory.Closed
-import E213.Theory.Nat213
 import E213.Theory.Raw
 import E213.Theory.RawCmpIndependence
 import E213.Theory.Tower
@@ -22,10 +21,13 @@ import E213.Theory.Tower
                       PrimitiveSizes)
     * `Raw/`        — public Raw API (Core, Slash, Swap, SwapSlash,
                       Fold, Hom, Levels, Rec, Signed)
-    * `Closed/`     — Closed Raw-derived types (Nat213, Bool213,
-                      RawCut, NumberingSystem, FoldRaw)
-    * `Nat213/`     — standalone inductive Nat213 + bridges
-    * `Tower/`      — number-tower constructions on Closed.Nat213
+    * `Closed/`     — Closed Raw-derived types (Bool213, FoldRaw).
+                      Nat213/RawCut/NumberingSystem 은 Lens.Number.Nat213
+                      으로 이전 (2026-05-14).
+    * `Tower/`      — number-tower constructions on Nat213
+                      (NatPairToInt, NatTripleToZ2).
+                      NatPairToQPos 은 Lens.Number.Nat213.Tower 로
+                      이전 (Peano 의존, 2026-05-14).
     * `CDDouble/`   — generic Order-4 Cayley-Dickson double mechanism
     * `RawCmpIndependence.lean` — root file; axiom-independence of
                       the cmp choice (the only Internal-namespace

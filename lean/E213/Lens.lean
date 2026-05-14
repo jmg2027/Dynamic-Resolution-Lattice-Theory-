@@ -7,6 +7,7 @@ import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
 import E213.Lens.Lattice
+import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
 import E213.Lens.Universal
@@ -41,6 +42,12 @@ import E213.Lens.Universal
       `Morphism/` (8 files: FoldStructured, BoolProp, Dist,
       SlashSwap, NoDepthParity, DepthParityNotFold, SlashCharNotFold,
       BoolSqClassification) — 2026-05-13 폴드
+    * `Lens.Number`                      — Raw-derived number systems
+      (Nat213 — Raw chain + Peano inductive + Bridge + Lenses +
+       NumberingSystem + RawCut + Tower).  Migrated 2026-05-14 from
+      `Theory.Closed.{Nat213, Nat213Bridge, RawCut, NumberingSystem}`
+      + `Theory.Nat213.*` + `Theory.Tower.NatPairToQPos` — each one
+      is a `Raw.fold`-catamorphism artifact, hence Lens-layer.
     * `Lens.Universal`                   — Universal flat / quot lens
                                             + `Witnesses/`
 

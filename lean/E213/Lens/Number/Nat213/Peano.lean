@@ -1,7 +1,7 @@
 import E213.Meta.Tactic.Nat213
 
 /-!
-# Theory.Nat213.Core — proper 213-native ℕ_+ type
+# Lens.Number.Nat213.Peano — proper 213-native ℕ_+ type (inductive)
 
 A 213-native ℕ that excludes 0.  Following the Raw axiom:
 - Raw has at least one atom (a or b)
@@ -24,7 +24,7 @@ axis quotients, group completions, etc.).  Including 0 in the
 All theorems satisfy ∅-axiom standard.
 -/
 
-namespace E213.Theory.Nat213
+namespace E213.Lens.Number.Nat213.Peano
 
 /-- 213-native positive naturals.  Inductive Peano ℕ_+. -/
 inductive Nat213 : Type
@@ -213,4 +213,4 @@ theorem no_absorbing_element :
 
 end Nat213
 
-end E213.Theory.Nat213
+end E213.Lens.Number.Nat213.Peano

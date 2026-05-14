@@ -1,7 +1,7 @@
-import E213.Theory.Closed.Nat213
+import E213.Lens.Number.Nat213.Raw
 
 /-!
-# Theory.Closed.NumberingSystem — meta pattern over (Z, C) choices
+# Lens.Number.Nat213.NumberingSystem — meta pattern over (Z, C) choices
 
 Method A (Z=a, C=b) 는 가장 단순한 numbering.  하지만 임의의 두 Raw
 `Z ≠ C` 쌍은 또 다른 valid numbering 을 줌.  이 모듈은 그 메타 패턴.
@@ -20,7 +20,7 @@ Closed-universe 에서: Raw 의 임의의 2-원소 선택이 동형 numbering.
 foldRaw 가 그 동형사상을 구체화.
 -/
 
-namespace E213.Theory.Closed.NumberingSystem
+namespace E213.Lens.Number.Nat213.NumberingSystem
 
 open E213.Theory E213.Theory.Closed
 
@@ -50,12 +50,14 @@ def methodA : NumberingSystem where
     have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
     exact E213.Theory.Internal.Tree.noConfusion hval
 
-/-- methodA 의 numeral 은 Nat213.numeral 과 동일. -/
+/-- methodA 의 numeral 은 `Lens.Number.Nat213.Raw.numeral` 과 동일. -/
 theorem methodA_numeral_eq_nat213 (n : Nat) :
-    numeral methodA n = Nat213.numeral n := by
+    numeral methodA n = E213.Lens.Number.Nat213.Raw.numeral n := by
   induction n with
   | zero => rfl
-  | succ k ih => show succ methodA _ = Nat213.succ _; rw [ih]; rfl
+  | succ k ih =>
+      show succ methodA _ = E213.Lens.Number.Nat213.Raw.succ _
+      rw [ih]; rfl
 
 /-! ### Isomorphism via foldRaw
 
@@ -136,4 +138,4 @@ theorem iso_numeral (S : NumberingSystem) (n : Nat) :
          = slashOrSelf (numeral S k) S.C
       rw [ih]
 
-end E213.Theory.Closed.NumberingSystem
+end E213.Lens.Number.Nat213.NumberingSystem
