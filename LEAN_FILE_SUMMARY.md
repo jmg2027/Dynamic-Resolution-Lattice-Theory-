@@ -4804,3 +4804,711 @@
   - `round_trip_5_{2,3}`.
 - **의존**: Primitives.
 
+### Batch M10 — Real213 (first 32 of 63)
+
+### `lean/E213/Lib/Math/Real213/Bisection/CutBisection.lean`
+- **역할**: 이분법 기본 연산 — cutHalf (c/2), cutMid (중점).
+- **주요 선언**:
+  - `cutHalf`, `cutMid`.
+  - `cutHalf_mono`, `cutHalf_constCut`.
+- **의존**: CutSum, Lens/Theory.
+
+### `lean/E213/Lib/Math/Real213/Bisection/CutBisectionAlgo.lean`
+- **역할**: Bisection 반복 알고리즘 — n-step bracket refinement, IVT.
+- **주요 선언**:
+  - `SignOracle`, `bisectStep`, `bisectN`, `bisectMidValue`.
+- **의존**: CutBisection, CutPoset, Core.
+
+### `lean/E213/Lib/Math/Real213/Bisection/CutContinuity.lean`
+- **역할**: Cut 함수 연속성 — isLocallyDetermined.
+- **주요 선언**:
+  - `CutFunction`, `isLocallyDetermined`.
+  - `id_locallyDetermined`, `constCutFn_locallyDetermined`.
+- **의존**: CauchyComplete, Max213.
+
+### `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean`
+- **역할**: Theory.Closed (Nat213 chain) → Real213 cut bridge.
+- **주요 선언**:
+  - `chainToCut`.
+  - `chainToCut_numeral`, `chainToCut_toRaw`.
+  - `cutSum_chainToCut`, `cutMul_chainToCut`.
+  - `cutLe_chainToCut_iff`, `cutLe_cutMax_chainToCut_iff`.
+- **의존**: Nat213.Bridge, CutPoset, CutSum/Mul, CutMaxMin.
+- **비고**: G84 Tier 4 증거.
+
+### `lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean`
+- **역할**: RealCut = Lens output — 213 axiom만으로 실수 존재.
+- **주요 선언**: `RealAsLensOutput`.
+- **의존**: LensCore, Archimedean.
+
+### `lean/E213/Lib/Math/Real213/Core/Core.lean`
+- **역할**: Real213 type — sequence + explicit modulus.
+- **주요 선언**:
+  - `Real213`.
+  - `Real213.equiv`.
+- **의존**: HasModulus, Archimedean.
+
+### `lean/E213/Lib/Math/Real213/Core/CutAlgebraStruct.lean`
+- **역할**: Cut 연산 번들링 — reusable cut algebra.
+- **주요 선언**:
+  - `CutAlgebra`.
+  - `stdCutAlgebra`.
+- **의존**: CutBisection, CutMaxMin, CutMul, CutSum, Core.
+
+### `lean/E213/Lib/Math/Real213/Core/CutFnData.lean`
+- **역할**: Data-bearing local determinedness.
+- **주요 선언**:
+  - `LocallyDeterminedData`.
+  - `idLDD`, `constLDD`, `maxRange`, `maxRangeRow`.
+  - `composeLDD`, `cutHalfLDD`, `cutScaleLDD`.
+- **의존**: CutContinuity, Max213, CutMul, CutPow.
+
+### `lean/E213/Lib/Math/Real213/Core/CutPoset.lean`
+- **역할**: Cut-level partial order — cutEq (pointwise), cutLe.
+- **주요 선언**:
+  - `cutEq`, `cutLe`.
+  - `cutEq_refl/symm/trans`, `cutLe_refl/trans`, `cutEq_of_cutLe_both`.
+  - `cutLe_cutMax_left/right`, `cutMax_lub`, `cutMin_glb`.
+- **의존**: CutSum, CutMaxMin.
+
+### `lean/E213/Lib/Math/Real213/Core/Dyadic.lean`
+- **역할**: Dyadic cut (분모 = 2^E).
+- **주요 선언**:
+  - `dyadicCut`.
+  - `dyadicCut_zero`, `dyadicCut_ratio`, `dyadicCut_valid`.
+  - `cutSum_dyadicCut_self`.
+  - `cutHalf_dyadicCut`, `cutDouble_dyadicCut`.
+- **의존**: ValidCut, CutSum, CutBisection, CutDouble.
+
+### `lean/E213/Lib/Math/Real213/Core/Equiv.lean`
+- **역할**: Real213.equiv equivalence 검증.
+- **주요 선언**:
+  - `equiv_refl`, `equiv_symm`, `equiv_trans`.
+  - `setoid` instance.
+- **의존**: Max213, Core.
+
+### `lean/E213/Lib/Math/Real213/Core/Functions.lean`
+- **역할**: Transcendental 함수 인터페이스 placeholder — exp, log, sin, cos, π.
+- **주요 선언**: `expCut`, `piCut`, `sinCut`, `cosCut`.
+- **의존**: Integration, Core.
+
+### `lean/E213/Lib/Math/Real213/Core/INDEX.md`
+- **역할**: 주요 섹션 — Core 11 files (type+carrier, equiv+poset, algebra+functions).
+
+### `lean/E213/Lib/Math/Real213/Core/MinimumProposition.lean`
+- **역할**: 213의 "line" 최소 명제 — 3 강제된 iff.
+- **주요 선언**:
+  - `only_one_resolution_law`.
+  - `only_one_dyadic_accumulator`.
+  - `only_one_zero_plus_witness`.
+- **의존**: ResolutionDepth, DyadicRiemann, Smooth, DyadicBracket, ConsistentOracle.
+
+### `lean/E213/Lib/Math/Real213/Core/ValidCut.lean`
+- **역할**: ValidCut — monotonicity 구조.
+- **주요 선언**:
+  - `ValidCut`, `RatioCut`.
+  - `constCut_valid`, `constCut_ratio`.
+- **의존**: CutSum, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Core/ValidCutOps.lean`
+- **역할**: ValidCut 연산 closed — cutMax/Min/Half/Double/Sum 보존.
+- **주요 선언**:
+  - `cutMax_valid`, `cutMin_valid`, `cutHalf_valid`, `cutDouble_valid`, `cutSum_valid`.
+  - `cutMid_valid`.
+- **의존**: ValidCut, CutMaxMin, CutDouble, CutBisection, CutSumComm.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutExpODE.lean`
+- **역할**: cutExp ODE 특성화 — f'(x) = f(x).
+- **주요 선언**:
+  - `ode_initial_zero`, `ode_recurrence`.
+- **의존**: CutExpSeries.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutExpSeries.lean`
+- **역할**: cutExp Taylor series — Σ x^n / n!.
+- **주요 선언**:
+  - `expTerm`, `expPartialSum`, `cutExp`.
+  - `expPartialSum_zero/succ`, `expTerm_zero`.
+- **의존**: CutFactorial, CutPow, CutMul, CutSeries.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutFactorial.lean`
+- **역할**: 213-native factorial + cutInvFactorial.
+- **주요 선언**:
+  - `factorial`, `cutInvFactorial`.
+  - `factorial_pos`, `factorial_zero/one/two/succ`.
+  - `cutInvFactorial_zero/one/two`.
+- **의존**: CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutLogCapstone.lean`
+- **역할**: cutLog synthesis — series, ODE, inverse.
+- **주요 선언**:
+  - `series_witness`, `ode_witness`, `inverse_witness`, `total_witness`.
+- **의존**: CutLogSeries, CutLogODE, CutLogExpInverse.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutLogCauchyConvCapstone.lean`
+- **역할**: cutLog Cauchy convergence marathon capstone.
+- **주요 선언**:
+  - `geomIdentity_witness`, `geomCauchy_witness`, `cutInvBridge_witness`, `total_witness`.
+- **의존**: GeomSeriesIdentity, GeomSeriesCauchy, GeomCutInvBridge.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutLogExpInverse.lean`
+- **역할**: cutExp ∘ cutLog formal inverse skeleton.
+- **주요 선언**:
+  - `exp_log_zero_baseline`.
+  - `exp_of_log_zero`, `log_of_exp_zero`.
+  - `inverse_baseline_at_zero`.
+- **의존**: CutLogSeries, CutExpSeries.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutLogODE.lean`
+- **역할**: cutLog derivative bridge.
+- **주요 선언**:
+  - `geomTermAt`, `geomPartialSum`.
+  - `cutLog_derivative_skeleton`.
+- **의존**: CutPow, CutSumTest, CutSeries.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/CutLogSeries.lean`
+- **역할**: cutLog Taylor series.
+- **주요 선언**:
+  - `logTermAt`, `logPartialSum`, `cutLog`.
+  - `cutLog_at_zero_one`.
+- **의존**: CutPow, CutMul, CutSumTest, CutSeries.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/GeomCutInvBridge.lean`
+- **역할**: Geometric series ↔ cutInv(1−x) bridge.
+- **주요 선언**:
+  - `cutInv_one_above`, `cutInv_one_boundary`.
+  - `geomLimitAtZero`, `geomFixpoint_depth_zero`, `geomCauchyExists`.
+- **의존**: CutPow, CutSum, CutMul, CutInv, CutLogODE.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/GeomSeriesCauchy.lean`
+- **역할**: Geometric series Cauchy modulus — adjacent-diff structural identity.
+- **주요 선언**:
+  - `geom_adjacent_diff`, `GeomCauchy`, `trivialGeomCauchy`.
+  - `trivialGeomCauchy_modulus_zero`.
+- **의존**: CutPow, CutSum, CutSeries, CutLogODE.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/GeomSeriesIdentity.lean`
+- **역할**: Geometric series structural identity — additive shift.
+- **주요 선언**:
+  - `geom_right_shift`.
+  - `geom_depth_zero/one/two`.
+  - `geomTermAt_succ/zero`.
+- **의존**: CutPow, CutMul, CutSum, CutSumTest, CutSeries, CutLogODE.
+
+### `lean/E213/Lib/Math/Real213/ExpLog/INDEX.md`
+- **역할**: 주요 섹션 — ExpLog 11 files.
+
+### `lean/E213/Lib/Math/Real213/INDEX.md`
+- **역할**: 주요 섹션 — Real213 root: 7 sub-clusters = 57 files.
+
+### `lean/E213/Lib/Math/Real213/Lattice/CutLatticeEq.lean`
+- **역할**: Lattice 연산이 cutEq/cutLe 보존.
+- **주요 선언**:
+  - `cutMax_cutEq_left/right`, `cutMin_cutEq_left/right`.
+  - `cutMax_cutLe_*`, `cutMin_cutLe_*`.
+- **의존**: CutMaxMin, CutPoset.
+
+### `lean/E213/Lib/Math/Real213/Lattice/CutMaxMin.lean`
+- **역할**: Lattice operations — cutMax (∧), cutMin (∨).
+- **주요 선언**:
+  - `cutMax`, `cutMin`.
+  - `cutMin_comm/assoc`, `cutMax_comm/assoc`.
+- **의존**: CutMul, CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/Lattice/CutMidMono.lean`
+- **역할**: CutMid monotonicity.
+- **주요 선언**:
+  - `cutLe_a_cutMid_at`, `cutLe_cutMid_b_at`.
+- **의존**: ValidCutOps, CutPoset, CutBisection, CutSum, CutSumComm.
+
+### Batch M11 — Real213 (second 31 of 63)
+
+### `lean/E213/Lib/Math/Real213/Lattice/CutMidSelf.lean`
+- **역할**: midpoint operation (cutMid) on constant cuts; cutMid(c, c) = c.
+- **주요 선언**:
+  - `cutMid_self_constCut_at` (∅-axiom).
+  - `cutMid_half_general`, `cutMid_int_int`, `cutMid_int_half`.
+- **의존**: CutSum, CutBisection, CutMul, ConstCutScale.
+
+### `lean/E213/Lib/Math/Real213/Lattice/CutScaleLattice.lean`
+- **역할**: cutHalf/cutDouble × cutMax/cutMin lattice 교환.
+- **주요 선언**:
+  - `cutHalf_cutMax`, `cutHalf_cutMin`.
+  - `cutDouble_cutMax`, `cutDouble_cutMin`.
+- **의존**: CutMaxMin, CutDouble, CutBisection.
+- **비고**: All rfl.
+
+### `lean/E213/Lib/Math/Real213/Lattice/INDEX.md`
+- **역할**: 주요 섹션 — Lattice 5 files (CutMaxMin, CutMidSelf, CutMidMono, CutLatticeEq, CutScaleLattice).
+
+### `lean/E213/Lib/Math/Real213/Mul/ConstCutScale.lean`
+- **역할**: Constant cut scaling — a/b ≡ (a*c)/(b*c) for c ≥ 1.
+- **주요 선언**:
+  - `constCut_scale_at`.
+  - `constCut_one_one_eq_at`, `constCut_zero_eq_at`.
+- **의존**: Nat arithmetic, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutAlgebraic.lean`
+- **역할**: cutMax/cutMin lattice 대수성 — idempotence, absorption, distribution.
+- **주요 선언**:
+  - `constCut_zero_always`.
+  - `cutMax_idempotent`, `cutMin_idempotent`.
+  - `cutMax_distrib_cutMin`.
+- **의존**: CutMaxMin, Core/CutPoset, Sum/CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutBinary.lean`
+- **역할**: 2D bounded-search binary operation abstraction (cutSum, cutMul unifier).
+- **주요 선언**:
+  - `cutBinary`.
+  - `cutBinaryInner_congr`, `cutBinaryOuter_congr`.
+  - `cutBinary_locallyDetermined`.
+- **의존**: CutSum, Archimedean.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutDistance.lean`
+- **역할**: Cut-level distance |x - y| via abs ∘ signed-sub.
+- **주요 선언**:
+  - `cutAbs`, `cutDistance`.
+  - `cutAbs_idempotent`, `cutAbs_cutSignedMul`.
+- **의존**: SignedSum, Signed.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutDouble.lean`
+- **역할**: Doubling cutDouble c — scale + lattice 교환.
+- **주요 선언**:
+  - `cutDouble_constCut`.
+  - `cutDouble_cutDouble`.
+  - `cutDouble_cutSum`, `cutDouble_cutMid`.
+- **의존**: CutMul, CutBisection, Core/CutPoset, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutInv.lean`
+- **역할**: Reciprocal/division — cutInv via strict reciprocal.
+- **주요 선언**:
+  - `cutInv`.
+  - `cutDiv`.
+  - `cutInv_cutInv`.
+- **의존**: CutMul, Core.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMul.lean`
+- **역할**: Base multiplication — 2D bounded search.
+- **주요 선언**:
+  - `cutMul`.
+  - `cutMulInner`, `cutMulOuter`.
+- **의존**: Archimedean.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMulComm.lean`
+- **역할**: cutMul commutativity via iff-existential + bijection.
+- **주요 선언**:
+  - `cutMulInner_eq_true_iff`, `cutMulOuter_eq_true_iff`.
+  - `cutMul_comm`.
+  - `cutMul_mono_left`, `cutMul_mono_right`.
+- **의존**: CutMul, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMulConstConst.lean`
+- **역할**: const × const precision artifact characterization.
+- **주요 선언**:
+  - `cutMul_const_const_forward`.
+  - `cutMul_const_const_contrapositive`.
+- **의존**: CutMulComm, Core, CutMul.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMulDetermined.lean`
+- **역할**: Locality framework — cutMul output bounded N=(m+1)(k+1).
+- **주요 선언**:
+  - `cutMulInner_congr`, `cutMulOuter_congr`.
+  - `cutMul_locallyDetermined`.
+- **의존**: CutMul, CutSumDetermined.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMulOne.lean`
+- **역할**: cutMul(1, 1) ≡ constCut(1, 1) + unit laws (PURE pointwise).
+- **주요 선언**:
+  - `cutMul_one_one_at`.
+  - `cutMul_one_const_at`, `cutMul_const_one_at`.
+- **의존**: CutMul, CutMulComm, CutSumTest, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutMulTest.lean`
+- **역할**: 7 decide-verified cutMul examples (regression).
+- **의존**: CutMul, Core, CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutPoly.lean`
+- **역할**: Polynomial evaluation at cut level.
+- **주요 선언**: `evalPoly`.
+- **의존**: CutPow, CutSum, CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutPow.lean`
+- **역할**: Power x^n via repeated cutMul.
+- **주요 선언**:
+  - `cutPow`, `cutScale`.
+  - `cutPow_zero`, `cutPow_succ`.
+- **의존**: CutMul, CutSumTest.
+
+### `lean/E213/Lib/Math/Real213/Mul/CutPowConst.lean`
+- **역할**: Power on constant cuts.
+- **주요 선언**:
+  - `cutPow_one_const_at`.
+  - `cutPow_zero_succ_at`, `cutPow_one_n_at`.
+- **의존**: CutPow, CutMulOne, CutMulDetermined, CutSumZero.
+
+### `lean/E213/Lib/Math/Real213/Mul/INDEX.md`
+- **역할**: 주요 섹션 — Mul 15 files.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSum.lean`
+- **역할**: Base addition — bounded search.
+- **주요 선언**: `cutSum`, `cutSumAux`.
+- **의존**: Archimedean.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumComm.lean`
+- **역할**: cutSum commutativity.
+- **주요 선언**:
+  - `cutSumAux_eq_true_iff`.
+  - `cutSum_comm`.
+  - `cutSum_mono_left`, `cutSum_mono_right`.
+- **의존**: CutSum, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumDetermined.lean`
+- **역할**: Locality — cutSum bounded N=max(2m,2k).
+- **주요 선언**:
+  - `isLocallyDetermined2`, `cutSumAux_congr`, `cutSum_locallyDetermined`.
+- **의존**: CutSum.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumEq.lean`
+- **역할**: cutSum/cutMul respect cutEq + cutLe preservation.
+- **주요 선언**:
+  - `cutSum_cutEq_left/right`, `cutMul_cutEq_left/right`.
+  - `cutSum_comm_cutEq`, `cutMul_comm_cutEq`.
+  - `cutSum_cutLe_both`, `cutMul_cutLe_both`.
+- **의존**: CutSum, CutMul, CutPoset.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumGeneral.lean`
+- **역할**: Generic sum forward (UNIVERSAL).
+- **주요 선언**:
+  - `cutSum_same_denom_forward`, `cutSum_diff_denom_forward`.
+  - 두 contrapositive.
+- **의존**: CutSum, CutSumComm.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumOne.lean`
+- **역할**: Sum of 1 + half/integer identities.
+- **주요 선언**:
+  - `cutSum_one_one`, `cutSum_zero_const`, `cutSum_const_zero`.
+  - `cutSum_half_general`, `cutSum_int_int`, `cutSum_self`.
+- **의존**: CutSum, CutSumComm, NatHelper.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumPointwise.lean`
+- **역할**: Pointwise extensionality (∅-axiom) for cutSum.
+- **주요 선언**:
+  - `cutSumAux_pointwise_eq`, `cutSum_pointwise_eq`.
+- **의존**: CutSum.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumTest.lean`
+- **역할**: 7 decide-verified cutSum examples.
+- **주요 선언**: `constCut`.
+- **의존**: CutSum.
+
+### `lean/E213/Lib/Math/Real213/Sum/CutSumZero.lean`
+- **역할**: Zero identities — 0+0=0, 0×0=0, cutHalf(0)=0.
+- **주요 선언**:
+  - `cutSum_zero_zero_at`, `cutMul_zero_zero_at`.
+  - `cutHalf_zero_at`, `cutMid_zero_zero_at`.
+- **의존**: CutSum, CutMul, CutBisection, CutAlgebraic.
+
+### `lean/E213/Lib/Math/Real213/Sum/INDEX.md`
+- **역할**: 주요 섹션 — Sum 11 files.
+
+### `lean/E213/Lib/Math/Real213/Sum/Signed.lean`
+- **역할**: Signed Real213 + negation layer.
+- **주요 선언**:
+  - `SignedCut`, `cutNeg`, `signedConstCut`.
+  - `cutSignedMul`.
+  - `cutNeg_cutSignedMul_left/right`.
+- **의존**: CutMul, CutSumTest, Core.
+
+### `lean/E213/Lib/Math/Real213/Sum/SignedSum.lean`
+- **역할**: Signed sum + subtraction.
+- **주요 선언**:
+  - `cutSignedSum`, `cutSignedSub`.
+  - `cutSignedSum_pos_pos`, `cutSignedSum_neg_neg`.
+  - `signedCutEq`, `cutNeg_cutSignedSum`.
+- **의존**: Signed, CutSum, CutSumOne, Core/CutPoset.
+
+### Batch M12 — SignedCut (41 files)
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/Bridge.lean`
+- **역할**: magnitude-sign SignedCut ↔ pair (Cut × Cut) 동형성.
+- **주요 선언**:
+  - `fromMagSign`.
+  - `fromMagSign_pos`, `fromMagSign_neg`, `fromMagSign_neg_distrib`.
+  - `fromMagSign_signedConstCut_pos/neg`.
+- **의존**: Core.Core, Real213.Sum.Signed/SignedSum.
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/BridgeCapstone.lean`
+- **역할**: Bridge 3 클러스터 번들 — magnitude-sign ↔ pair, inverse, unified generic-x.
+- **주요 선언**:
+  - `bridge_witness`, `inv_witness`, `unified_witness`, `total_witness`.
+- **의존**: Bridge.Bridge, Core.Inv, Core.UnifiedGenericInv, Real213.Mul.CutInv.
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/FanoK32Bridge.lean`
+- **역할**: Fano 평면 ↔ K_{3,2}^{(c=2)} 조합론적 브리징.
+- **주요 선언**:
+  - `k32c2_edges_eq_12`, `k32c2_vertices`, `k32c2_b1`.
+  - `seven_fold_connection`, `eight_fold_match`, `cardinality_bridge`.
+- **의존**: FanoPlaneStructure.
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/FanoPlaneStructure.lean`
+- **역할**: Fano 평면 — 7 직선, 7 점, 21 incidence, |Aut|=168.
+- **주요 선언**:
+  - `fanoLines`, `fanoLines_count`, `fanoPoints_count`.
+  - `fano_incidence_count`, `fano_PG2_count`, `fano_aut_order`.
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/GenericGeomBridge.lean`
+- **역할**: 일반 x geometric series fixpoint `S_∞·(1−x)=1` SignedCut 표현.
+- **주요 선언**:
+  - `oneMinus`, `oneMinus_pos/neg`.
+  - `signedNeg_oneMinus`.
+  - `signedGeomLimit`, `generic_fixpoint_baseline`.
+- **의존**: Core.Core, Core.Algebra, Real213.ExpLog.
+
+### `lean/E213/Lib/Math/SignedCut/Bridge/INDEX.md`
+- **역할**: 주요 섹션 — Bridge 5 files + anti-corruption layer 패턴.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDConjugation.lean`
+- **역할**: CD 타워 켤레 연산 `(a,b)̄ = (ā, neg b)` 재귀.
+- **주요 선언**:
+  - `cdConj`.
+  - `cdConj_zero/one/two`.
+  - `cdConj_involutive`, `cdConj_involutive_fst`.
+- **의존**: CDTowerLevel.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDLevelOps.lean`
+- **역할**: 매개변수화 CDMulRule(sign vs complex)이 signedMul/cMul와 일치.
+- **주요 선언**:
+  - `signMul_matches_signedMul`, `signMul_matches_signedMul_snd`.
+  - `complexMul_matches_cMul_im`, `rules_share_cross_term`.
+- **의존**: CDMulRule.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDMulRule.lean`
+- **역할**: CD 증배 곱셈 규칙 매개변수화.
+- **주요 선언**:
+  - `CDRule`.
+  - `signMul`, `complexMul`.
+  - `signMul_fst/snd`, `complexMul_fst/snd`.
+  - `cdrule_neq`, `mulrules_im_agree`.
+- **의존**: Real213.Sum.CutSum, Real213.Mul.CutMul.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDNorm.lean`
+- **역할**: norm-squared `‖z‖² = z·z̄`.
+- **주요 선언**:
+  - `cdNormSq`.
+  - `cdNormSq_zero/one/two`.
+  - `cdNormSq_conj_zero`, `cdNormSq_one_zero`.
+- **의존**: CDTowerLevel, CDConjugation.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDTowerCapstone.lean`
+- **역할**: CD 타워 G36 marathon 4 클러스터.
+- **주요 선언**:
+  - `equivalence_witness`, `cauchy_witness`, `cd_tower_witness`, `total_witness`.
+- **의존**: Core.Equivalence, Core.CauchyConvergence, CDTowerLevel.
+
+### `lean/E213/Lib/Math/SignedCut/CD/CDTowerLevel.lean`
+- **역할**: CD 레벨-n 타입 재귀.
+- **주요 선언**:
+  - `CDLevel`, `CDLevel_zero/one/two`, `Level2`.
+  - `levelDim`, `levelDim_25`.
+  - `n_u_emergence` — 5^25 = 5^(d²).
+- **의존**: Core.Core.
+
+### `lean/E213/Lib/Math/SignedCut/CD/INDEX.md`
+- **역할**: 주요 섹션 — CD 6 files.
+
+### `lean/E213/Lib/Math/SignedCut/Core/Algebra.lean`
+- **역할**: SignedCut 기본 대수 — negation involution.
+- **주요 선언**:
+  - `signedNeg_involutive`.
+  - `signedNeg_zero/one/negOne`.
+  - `zero_components`, `one_components`, `negOne_components`.
+  - `ofPos_neg_components`, `signedSub_self`, `signedAdd_zero_right`.
+- **의존**: Core.Core.
+
+### `lean/E213/Lib/Math/SignedCut/Core/Capstone.lean`
+- **역할**: Core 모듈 4 클러스터 종합.
+- **주요 선언**:
+  - `algebra_witness`, `oneMinus_witness`, `fixpoint_witness`, `total_witness`.
+- **의존**: Core.Core, Core.Algebra, Bridge.GenericGeomBridge.
+
+### `lean/E213/Lib/Math/SignedCut/Core/CauchyConvergence.lean`
+- **역할**: 일반 x 기하 급수 Cauchy 수렴.
+- **주요 선언**:
+  - `GenericGeomCauchy`, `trivialGenericGeomCauchy`.
+  - `trivial_modulus_zero`.
+  - `end_to_end_convergence`, `limit_at_zero_baseline`.
+- **의존**: Core.UnifiedGenericInv, Core.Equivalence, Real213.ExpLog.
+
+### `lean/E213/Lib/Math/SignedCut/Core/Core.lean`
+- **역할**: SignedCut := (positive : Cut, negative : Cut) 쌍 + 기본 연산.
+- **주요 선언**:
+  - `SignedCut`, `zero`, `one`, `negOne`.
+  - `ofPos`, `ofNeg`, `pos`, `neg`.
+  - `signedNeg`, `signedAdd`, `signedSub`, `signedMul`.
+- **의존**: Real213.Mul.CutMul, Real213.Sum.CutSum, Real213.Sum.CutSumTest.
+
+### `lean/E213/Lib/Math/SignedCut/Core/Equivalence.lean`
+- **역할**: SignedCut 동치 — cross-additive.
+- **주요 선언**:
+  - `signedEqAt`, `signedEqAt_refl/symm`, `signedEq_refl`.
+- **의존**: Core.Core.
+
+### `lean/E213/Lib/Math/SignedCut/Core/INDEX.md`
+- **역할**: 주요 섹션 — Core 9 files.
+
+### `lean/E213/Lib/Math/SignedCut/Core/Inv.lean`
+- **역할**: SignedCut 곱셈 역 — signedInvPos, signedInvNeg.
+- **주요 선언**:
+  - `signedInvPos`, `signedInvNeg`.
+  - `signedInvPos_pos_part/neg_part`, `signedInvNeg_pos_part/neg_part`.
+  - `signedNeg_signedInvPos`, `signedInvPos_half_above`, `signedInvPos_one`.
+- **의존**: Core.Core, Bridge.Bridge, Real213.Mul.CutInv.
+
+### `lean/E213/Lib/Math/SignedCut/Core/MathClosureCapstone.lean`
+- **역할**: CD 타워 수학 쪽 폐쇄 (G36/37/38/39 stack).
+- **주요 선언**:
+  - `hurwitz_exact_l1_witness` — Brahmagupta concrete.
+  - `nat_sq_diff_witness`.
+  - `quat_basis_distinct`, `oct_basis_distinct`.
+  - `total_witness`.
+- **의존**: Hurwitz.HurwitzExactL1, Octonion.
+
+### `lean/E213/Lib/Math/SignedCut/Core/MulRuleCapstone.lean`
+- **역할**: CDMulRule + HurwitzCeiling 통합.
+- **주요 선언**:
+  - `mulrule_witness`, `layerBridge_witness`, `hurwitz_witness`, `total_witness`.
+- **의존**: CDMulRule, CDLevelOps, Hurwitz.HurwitzCeiling.
+
+### `lean/E213/Lib/Math/SignedCut/Core/UnifiedGenericInv.lean`
+- **역할**: 일반 x geometric series fixpoint unified SignedCut 표현.
+- **주요 선언**:
+  - `signedGeomLimitOf`.
+  - `signedGeomLimitOf_pos/neg/zero`.
+  - `unified_fixpoint`.
+- **의존**: Core.Core, Core.Inv, Bridge.GenericGeomBridge, Real213.ExpLog.
+
+### `lean/E213/Lib/Math/SignedCut/Hurwitz/HurwitzCeiling.lean`
+- **역할**: CD ceiling level-25 — 2^25 bit 차원 vs 5^25 trajectory branches (N_U).
+- **주요 선언**:
+  - `dim_tower_through_5`.
+  - `n_u_finite`, `ceiling_param`.
+  - `hurwitz_d5_ceiling`, `n_u_value_closed`.
+  - `ceiling_summary`.
+- **의존**: CDTowerLevel.
+
+### `lean/E213/Lib/Math/SignedCut/Hurwitz/HurwitzExactL1.lean`
+- **역할**: CD level 1 Hurwitz norm-product (Brahmagupta-Fibonacci) 구체.
+- **주요 선언**:
+  - `nat_sq_diff_identity`, `rhs_full_expand`.
+  - `brahmagupta_concrete_5_3_4_6/2_1_3_5/1_1_1_1`.
+  - `brahmagupta_bound_concrete`.
+- **의존**: Extras.CauchySchwarz, Meta.Tactic.NatHelper.
+
+### `lean/E213/Lib/Math/SignedCut/Hurwitz/HurwitzFailure.lean`
+- **역할**: CD level 4 (sedenion) Hurwitz 실패 — zero divisor.
+- **주요 선언**:
+  - `Sed`, `sedZero`, `sedOne`.
+  - `cut0_cut1_pointwise_distinct`.
+  - `sed_zero_neq_one`.
+  - `sed_components_witness`.
+- **의존**: Octonion.OctonionMulRule.
+
+### `lean/E213/Lib/Math/SignedCut/Hurwitz/HurwitzNormProduct.lean`
+- **역할**: Hurwitz norm-product level 1 보존 + level 4 실패.
+- **주요 선언**:
+  - `hurwitz_magnitude_bound`.
+  - `normSq_level0_atomic`.
+  - `hurwitz_level1_sketch`.
+- **의존**: Extras.CauchySchwarz2D.
+
+### `lean/E213/Lib/Math/SignedCut/INDEX.md`
+- **역할**: 주요 섹션 — SignedCut 35 files, 6 sub-clusters (Core 9, CD 6, Hurwitz 4, Level 5, Bridge 5, Octonion 6).
+
+### `lean/E213/Lib/Math/SignedCut/Level/G38FinalCapstone.lean`
+- **역할**: G38 통합 capstone — Quat/Oct mul rule, Hurwitz 보존/실패, level 26 부재.
+- **주요 선언**:
+  - `quat_oct_witness`, `hurwitz_preservation_witness`.
+  - `hurwitz_failure_witness`, `level26_absence_witness`.
+  - `total_witness`.
+- **의존**: Octonion, Hurwitz.HurwitzNormProduct/HurwitzFailure, Level.Level26Absence.
+
+### `lean/E213/Lib/Math/SignedCut/Level/G39Capstone.lean`
+- **역할**: G39 capstone — Octonion 비결합성 + Fano/K_{3,2} 브리징.
+- **주요 선언**:
+  - `nonAssoc_witness`, `fano_witness`, `k32_witness`.
+  - `fano_k32_bridge_witness`, `total_witness`.
+- **의존**: Octonion.OctonionNonAssociativity, Bridge (FanoPlaneStructure, FanoK32Bridge).
+
+### `lean/E213/Lib/Math/SignedCut/Level/INDEX.md`
+- **역할**: 주요 섹션 — Level 5 files.
+
+### `lean/E213/Lib/Math/SignedCut/Level/Level25Capstone.lean`
+- **역할**: Level-25 residual capstone 4 클러스터.
+- **주요 선언**:
+  - `conjugation_witness`, `norm_witness`.
+  - `level25_residual_witness`, `z2_grading_witness`, `total_witness`.
+- **의존**: CDConjugation, CDNorm, Level25Residual.
+
+### `lean/E213/Lib/Math/SignedCut/Level/Level25Residual.lean`
+- **역할**: d=5 ceiling level 25 보존 구조 — 켤레, norm, Z/2 grading.
+- **주요 선언**:
+  - `level25_conj_involutive`, `level25_norm_exists`.
+  - `level25_bit_dim`, `level25_substrate_count`.
+  - `level25_ceiling`, `z2_conjugation_symmetry`.
+- **의존**: CDTowerLevel, CDConjugation, CDNorm, Hurwitz.HurwitzCeiling.
+
+### `lean/E213/Lib/Math/SignedCut/Level/Level26Absence.lean`
+- **역할**: d=5 level 26 구조적 부재.
+- **주요 선언**:
+  - `level26_bit_dim`, `level26_double_level25`.
+  - `n_u_positive`, `level26_substrate_excess`.
+  - `level26_overflow_ratio`, `negative_hurwitz_d5`.
+- **의존**: Hurwitz.HurwitzCeiling, CDTowerLevel.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/INDEX.md`
+- **역할**: 주요 섹션 — Octonion 6 files (Fano lookup, 비결합성).
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/OctonionBasisAlgebra.lean`
+- **역할**: Octonion 기저 e_0..e_7 Fano 평면 lookup 테이블.
+- **주요 선언**:
+  - `OctSigned`.
+  - `signMul`, `octBasisMul`.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/OctonionMulRule.lean`
+- **역할**: Octonion 정의 — level-3 nested pair, 기저 distinctness.
+- **주요 선언**:
+  - `Oct`, `quatZero`, `octOne`.
+  - `octOne_components/first/second`.
+- **의존**: Real213.Sum.CutSumTest, Octonion.QuaternionMulRule.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/OctonionMulTable.lean`
+- **역할**: Octonion 부분 곱셈 + e_1..e_4 distinctness.
+- **주요 선언**:
+  - `octE1/E2/E3/E4`.
+  - `octE1_first`, `octE2_first`.
+  - `octE1_neq_octE2`, `octOne_neq_octE4`.
+- **의존**: OctonionMulRule, QuaternionMulRule, QuaternionMulTable.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/OctonionNonAssociativity.lean`
+- **역할**: Octonion 비결합성 — `(e_1·e_2)·e_4 ≠ e_1·(e_2·e_4)`.
+- **주요 선언**:
+  - `basis`, `e1/2/3/4`.
+  - `e1_mul_e2`, `e2_mul_e4`, `e3_mul_e4`.
+  - `left_assoc_witness`, `right_assoc_witness`.
+  - `octonion_non_associative`, `quaternion_assoc_control`.
+- **의존**: OctonionBasisAlgebra.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/QuaternionMulRule.lean`
+- **역할**: Quaternion 정의 — level-2 nested pair, Hamilton basis.
+- **주요 선언**:
+  - `Quat`, `quatOne`, `quatI`, `quatJ`, `quatK`.
+  - `quatOne_real`, `quatOne_imag_zero`.
+  - `quatI_imag`, `quatJ_real`, `quatK_imag`.
+- **의존**: Real213.Sum.CutSum, Real213.Mul.CutMul.
+
+### `lean/E213/Lib/Math/SignedCut/Octonion/QuaternionMulTable.lean`
+- **역할**: Quaternion 곱셈 테이블 + 4 basis distinctness.
+- **주요 선언**:
+  - `cuts_distinct_at_0_1`.
+  - `quatI_neq_quatJ`, `quatI_neq_quatK`, `quatOne_neq_quatI`.
+- **의존**: QuaternionMulRule.
+
