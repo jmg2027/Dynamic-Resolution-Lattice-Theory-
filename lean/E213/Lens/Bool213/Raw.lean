@@ -1,4 +1,4 @@
-import E213.Theory.Closed.FoldRaw
+import E213.Theory.Raw.API
 
 /-!
 # Lens.Bool213.Raw — closed-universe Bool (Method A: T=a, F=b)
@@ -22,7 +22,7 @@ internal projection.
 
 namespace E213.Lens.Bool213.Raw
 
-open E213.Theory E213.Theory.Closed E213.Theory.Internal
+open E213.Theory E213.Theory.Raw.FoldRaw E213.Theory.Internal
 
 /-! ### Method A: T = a, F = b (canonical) -/
 

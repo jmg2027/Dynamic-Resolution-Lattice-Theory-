@@ -50,7 +50,7 @@ theorem toRaw_ne_b (k : E213.Lens.Number.Nat213.Peano.Nat213) : toRaw k ≠ Raw.
       -- toRaw (.succ k) = succ (toRaw k) = slashOrSelf (toRaw k) Raw.b
       -- (toRaw k ≠ Raw.b) → slashOrSelf reduces to Raw.slash → .slash form ≠ Raw.b
       show E213.Lens.Number.Nat213.Raw.succ (toRaw k) ≠ Raw.b
-      unfold E213.Lens.Number.Nat213.Raw.succ E213.Theory.Closed.slashOrSelf
+      unfold E213.Lens.Number.Nat213.Raw.succ E213.Theory.Raw.FoldRaw.slashOrSelf
       rw [dif_neg ih]
       intro h
       have hval : (Raw.slash (toRaw k) Raw.b ih).val = Raw.b.val := congrArg Subtype.val h

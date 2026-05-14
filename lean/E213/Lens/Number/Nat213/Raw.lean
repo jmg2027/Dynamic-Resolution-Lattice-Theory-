@@ -1,4 +1,4 @@
-import E213.Theory.Closed.FoldRaw
+import E213.Theory.Raw.API
 
 /-!
 # Lens.Number.Nat213.Raw — Method A 카타모피즘 (Z=a, C=b)
@@ -23,7 +23,7 @@ Method A:
 
 namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
+open E213.Theory E213.Theory.Internal E213.Theory.Raw.FoldRaw
 
 /-! ### Method A primitives -/
 

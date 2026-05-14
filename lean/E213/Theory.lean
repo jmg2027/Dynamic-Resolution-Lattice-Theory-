@@ -1,6 +1,5 @@
 import E213.Theory.Atomicity
 import E213.Theory.CDDouble
-import E213.Theory.Closed
 import E213.Theory.Raw
 import E213.Theory.RawCmpIndependence
 import E213.Theory.Tower
@@ -20,11 +19,13 @@ import E213.Theory.Tower
                       NonDecomposable, PairForcing,
                       PrimitiveSizes)
     * `Raw/`        — public Raw API (Core, Slash, Swap, SwapSlash,
-                      Fold, Hom, Levels, Rec, Signed)
-    * `Closed/`     — Raw → Raw closed-universe helpers (FoldRaw).
-                      Catamorphism output (Nat213/Bool213/RawCut/
-                      NumberingSystem) 은 모두 Lens 으로 이전
-                      (2026-05-14).
+                      Fold, Hom, Levels, Rec, Signed, **FoldRaw**).
+                      FoldRaw (slashOrSelf, foldRaw, swapClosed) 는
+                      2026-05-14 에 Theory.Closed 에서 흡수
+                      (closed-universe machinery 가 Raw API 의 자연
+                      확장).  `Closed/` 디렉토리 자체 제거 — 그 안의
+                      catamorphism output (Nat213/Bool213/RawCut/
+                      NumberingSystem) 은 모두 Lens 으로 이전.
     * `Tower/`      — number-tower constructions on Nat213
                       (NatPairToInt, NatTripleToZ2).
                       NatPairToQPos 은 Lens.Number.Nat213.Tower 로
