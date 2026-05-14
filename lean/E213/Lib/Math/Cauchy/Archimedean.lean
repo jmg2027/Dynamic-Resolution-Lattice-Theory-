@@ -1,6 +1,6 @@
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.AB
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # ArchimedeanCauchy: ℝ-like completion via Dedekind cut
@@ -156,19 +156,19 @@ theorem ratio_one_below_orderProj_eventually
     unfold orderProj
     show decide ((n+1) * k ≤ (n+2) * m) = decide (k ≤ m)
     -- hkmgt : m < k, i.e. m + 1 ≤ k.  Then 1 ≤ k - m via Nat213.
-    have hkmpos : k - m ≥ 1 := E213.Tactic.Nat213.le_pred_of_succ_le hkmgt
+    have hkmpos : k - m ≥ 1 := E213.Tactic.NatHelper.le_pred_of_succ_le hkmgt
     have hnotle : ¬ (n+1) * k ≤ (n+2) * m := by
       intro h'
       have hexp : (n+1) * k = (n+1) * m + (n+1) * (k - m) := by
         rw [← Nat.mul_add]
         congr 1
-        exact (E213.Tactic.Nat213.add_sub_of_le (Nat.le_of_lt hkmgt)).symm
+        exact (E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hkmgt)).symm
       have hexp2 : (n+2) * m = (n+1) * m + m := by
         rw [show (n+2) = (n+1) + 1 from rfl,
-            E213.Tactic.Nat213.add_mul, Nat.one_mul]
+            E213.Tactic.NatHelper.add_mul, Nat.one_mul]
       rw [hexp, hexp2] at h'
       have hcancel : (n+1) * (k - m) ≤ m :=
-        E213.Tactic.Nat213.le_of_add_le_add_left h'
+        E213.Tactic.NatHelper.le_of_add_le_add_left h'
       have hbound : (n+1) ≤ m := by
         calc n + 1
             = (n + 1) * 1 := (Nat.mul_one _).symm
@@ -227,11 +227,11 @@ theorem rational_seq_orderProj_const (p q m k : Nat) (n : Nat) (hn : n ≥ 1) :
   unfold orderProj
   show decide (p * n * k ≤ q * n * m) = decide (p * k ≤ q * m)
   have hrw1 : p * n * k = (p * k) * n := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm n k,
-        ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm n k,
+        ← E213.Tactic.NatHelper.mul_assoc]
   have hrw2 : q * n * m = (q * m) * n := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm n m,
-        ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm n m,
+        ← E213.Tactic.NatHelper.mul_assoc]
   rw [hrw1, hrw2]
   by_cases hpq : p * k ≤ q * m
   · have h : (p * k) * n ≤ (q * m) * n := Nat.mul_le_mul_right n hpq

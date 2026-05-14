@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.Core.Dyadic
 import E213.Lib.Math.Real213.Core.CutFnData
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Pow213
 
 /-!
@@ -106,10 +106,10 @@ theorem IsResolutionShift_cutHalf : IsResolutionShift cutHalf 1 := by
   -- 2^E * (2 * m) = 2^(E+1) * m
   have hpow : 2^E * (2 * m) = 2^(E+1) * m := by
     rw [Nat.pow_succ, Nat.mul_comm (2^E) 2,
-        E213.Tactic.Nat213.mul_assoc 2 (2^E) m,
-        ← E213.Tactic.Nat213.mul_assoc 2 (2^E) m,
+        E213.Tactic.NatHelper.mul_assoc 2 (2^E) m,
+        ← E213.Tactic.NatHelper.mul_assoc 2 (2^E) m,
         Nat.mul_comm 2 (2^E),
-        E213.Tactic.Nat213.mul_assoc (2^E) 2 m]
+        E213.Tactic.NatHelper.mul_assoc (2^E) 2 m]
   rw [hpow]
 
 /-! ### Composition — `(Nat, +)` graded multiplication
@@ -326,9 +326,9 @@ theorem cutMid_dyadic_diag (M E m k : Nat) :
        = constCut M (2^E) m k
   rw [cutSum_self_at M (2^E) (2*m) k]
   show decide (2*M * k ≤ 2^E * (2*m)) = decide (M * k ≤ 2^E * m)
-  have e1 : 2 * M * k = 2 * (M * k) := E213.Tactic.Nat213.mul_assoc 2 M k
+  have e1 : 2 * M * k = 2 * (M * k) := E213.Tactic.NatHelper.mul_assoc 2 M k
   have e2 : 2^E * (2*m) = 2 * (2^E * m) := by
-    rw [Nat.mul_comm (2^E) (2*m), E213.Tactic.Nat213.mul_assoc 2 m (2^E),
+    rw [Nat.mul_comm (2^E) (2*m), E213.Tactic.NatHelper.mul_assoc 2 m (2^E),
         Nat.mul_comm m (2^E)]
   rw [e1, e2]
   rcases Nat.lt_or_ge (2^E * m) (M * k) with hlt | hge

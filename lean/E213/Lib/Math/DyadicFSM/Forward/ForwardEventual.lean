@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
 import E213.Meta.Nat.EncodePair213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Lib.Math.DyadicFSM.Signature.Signature
@@ -96,10 +96,10 @@ theorem signature_eventually_periodic_of_eventually_periodic_bits
   obtain ⟨k, hk⟩ := sub_is_multiple_of_p i j p hp (Nat.le_of_lt hij) hmod
   intro n hn
   obtain ⟨d, rfl⟩ : ∃ d, n = N₀ + i + d :=
-    ⟨n - (N₀ + i), (E213.Tactic.Nat213.add_sub_of_le hn).symm⟩
+    ⟨n - (N₀ + i), (E213.Tactic.NatHelper.add_sub_of_le hn).symm⟩
   clear hn
   have hij_le : i ≤ j := Nat.le_of_lt hij
-  have hij_eq : i + (j - i) = j := E213.Tactic.Nat213.add_sub_of_le hij_le
+  have hij_eq : i + (j - i) = j := E213.Tactic.NatHelper.add_sub_of_le hij_le
   have hN_step : N₀ + i + (j - i) = N₀ + j := by
     rw [Nat.add_assoc, hij_eq]
   induction d with

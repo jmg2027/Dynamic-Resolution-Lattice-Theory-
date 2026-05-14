@@ -73,7 +73,7 @@ theorem two_mul_div_two : ∀ (x : Nat), 2 * x / 2 = x
     have hcond : 0 < 2 ∧ 2 ≤ 2 * n + 2 := ⟨by decide, Nat.le_add_left _ _⟩
     rw [if_pos hcond]
     have h1 : 2 * n + 2 - 2 = 2 * n :=
-      E213.Tactic.Nat213.add_sub_cancel_right (2 * n) 2
+      E213.Tactic.NatHelper.add_sub_cancel_right (2 * n) 2
     rw [h1, two_mul_div_two n]
 
 /-! ## §1 — Parametric T²ⁿ instance via central_binom_is_double -/
@@ -105,7 +105,7 @@ theorem T2n_blocks_total_rank (n : Nat) (hn : 1 ≤ n) :
   -- So (binom (2n) n) / 2 = <some Nat>, and 2 * ((binom (2n) n) / 2) = binom (2n) n.
   show 2 * (binom (2 * n) n / 2) = binom (2 * n) n
   -- Match n = m+1 (since hn : 1 ≤ n)
-  obtain ⟨m, hm⟩ : ∃ m, n = m + 1 := ⟨n - 1, (E213.Tactic.Nat213.sub_add_cancel hn).symm⟩
+  obtain ⟨m, hm⟩ : ∃ m, n = m + 1 := ⟨n - 1, (E213.Tactic.NatHelper.sub_add_cancel hn).symm⟩
   rw [hm]
   -- Goal: 2 * (binom (2 * (m + 1)) (m + 1) / 2) = binom (2 * (m + 1)) (m + 1)
   rw [central_binom_is_double m]

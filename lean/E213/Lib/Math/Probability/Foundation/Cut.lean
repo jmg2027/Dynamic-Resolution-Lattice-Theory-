@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Real213.Core.CutPoset
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Probability — `ProbabilityCut` (atomic mass)
@@ -81,7 +81,7 @@ theorem complement_zero_forward :
 /-- Complement is `num`-involutive: `den − (den − num) = num`. -/
 theorem complement_num_involutive (p : ProbabilityCut) :
     (complement (complement p)).num = p.num :=
-  E213.Tactic.Nat213.sub_sub_self p.mass_le
+  E213.Tactic.NatHelper.sub_sub_self p.mass_le
 
 end ProbabilityCut
 

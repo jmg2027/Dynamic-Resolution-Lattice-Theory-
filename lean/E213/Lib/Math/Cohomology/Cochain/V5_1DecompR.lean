@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 /-!

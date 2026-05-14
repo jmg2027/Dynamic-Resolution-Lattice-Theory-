@@ -28,7 +28,7 @@ theorem inner_cs_atomic (f g : Nat → Nat) :
         = (0 + f 0 * f 0) * (0 + g 0 * g 0)
   rw [Nat.zero_add (f 0 * g 0), Nat.zero_add (f 0 * f 0),
       Nat.zero_add (g 0 * g 0)]
-  exact E213.Tactic.Nat213.mul_mul_mul_comm_213
+  exact E213.Tactic.NatHelper.mul_mul_mul_comm_213
           (f 0) (g 0) (f 0) (g 0)
 
 end E213.Lib.Math.Extras.InnerCauchy

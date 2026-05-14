@@ -1,6 +1,6 @@
 import E213.Prelude
-import E213.Meta.Tactic.Nat213
-open E213.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
+open E213.Tactic.NatHelper
 
 /-!
 # Infinity.Pair: injective pairing `ℕ × ℕ → ℕ`

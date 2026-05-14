@@ -1,5 +1,5 @@
 import E213.Meta.Int213.Core
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Theory.Tower.NatPairToInt
 
 /-!

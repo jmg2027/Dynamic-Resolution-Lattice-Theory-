@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Lens.Number.Nat213.Peano — proper 213-native ℕ_+ type (inductive)
@@ -208,7 +208,7 @@ theorem no_absorbing_element :
       have h_eq : z'.toNat + (z'.toNat + 1) = z'.toNat + 0 := by
         rw [h_tn2]; rfl
       have h_zero : z'.toNat + 1 = 0 :=
-        E213.Tactic.Nat213.add_left_cancel h_eq
+        E213.Tactic.NatHelper.add_left_cancel h_eq
       exact Nat.noConfusion h_zero
 
 end Nat213

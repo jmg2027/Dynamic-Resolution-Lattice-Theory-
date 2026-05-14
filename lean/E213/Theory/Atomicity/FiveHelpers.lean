@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 /-!
 # Five.lean helpers — ∅-axiom (Nat-arith + Bézout shifts)
 
@@ -15,7 +15,7 @@ The two main moves are:
      under the uniqueness clause.
 -/
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
 
 namespace E213.Theory.Atomicity.FiveHelpers
 

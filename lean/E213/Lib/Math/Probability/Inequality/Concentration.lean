@@ -1,5 +1,5 @@
 import E213.Lib.Math.Probability.Limit.LLN
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Probability — atomic concentration bounds
@@ -72,7 +72,7 @@ theorem centeredAbsDev2_allHeads (n : Nat) :
       length_replicate]
   show (2 * n - n) + (n - 2 * n) = n
   rw [n_sub_two_mul, Nat.add_zero, Nat.two_mul,
-      E213.Tactic.Nat213.add_sub_cancel_right]
+      E213.Tactic.NatHelper.add_sub_cancel_right]
 
 /-- All-tails of length `n`: `excess = 0`, `deficit = n`. -/
 theorem centeredAbsDev2_allTails (n : Nat) :

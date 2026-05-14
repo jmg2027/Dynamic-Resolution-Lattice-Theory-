@@ -1,6 +1,6 @@
 import E213.Meta.Tactic.Pow213
 import E213.Meta.Tactic.Mod213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Bit-pattern uniqueness — key lemma for expSumLens injectivity (∅-axiom)
@@ -27,7 +27,7 @@ All 5 public theorems strict ∅-axiom.
 namespace E213.Meta.BitPatternUniqueness
 
 open E213.Tactic.Pow213 E213.Tactic.Mod213
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
   (sub_one_add_one le_sub_of_add_le add_sub_of_le
    add_sub_cancel_right add_left_cancel)
 
@@ -90,7 +90,7 @@ end E213.Meta.BitPatternUniqueness
 namespace E213.Meta.BitPatternUniqueness
 
 open E213.Tactic.Pow213 E213.Tactic.Mod213
-open E213.Tactic.Nat213 (add_left_cancel)
+open E213.Tactic.NatHelper (add_left_cancel)
 
 /-- ★★★★★★ Key uniqueness lemma: if `2^m + 2^n = 2^p + 2^q` with
     `m < n` and `p < q`, then `m = p` and `n = q`. -/
@@ -148,7 +148,7 @@ end E213.Meta.BitPatternUniqueness
 namespace E213.Meta.BitPatternUniqueness
 
 open E213.Tactic.Pow213
-open E213.Tactic.Nat213 (add_sub_cancel_right)
+open E213.Tactic.NatHelper (add_sub_cancel_right)
 
 /-- ★★★★★★ Unordered version: `2^m + 2^n = 2^p + 2^q` with `m ≠ n`
     and `p ≠ q` implies `{m, n} = {p, q}` as unordered pairs. -/

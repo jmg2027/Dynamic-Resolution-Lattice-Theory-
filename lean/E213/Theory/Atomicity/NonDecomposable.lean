@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 /-!
 # Non-decomposable integers: {2, 3}
 
@@ -13,7 +13,7 @@ the 2-part form below.
 213-native (∅-axiom): no `omega`, `simp`, `rcases`, or `simpa`.
 -/
 
-open E213.Tactic.Nat213
+open E213.Tactic.NatHelper
 
 namespace E213.Theory.Atomicity.NonDecomposable
 

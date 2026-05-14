@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM.Signature
 import E213.Lib.Math.DyadicFSM.Signature.PeriodClosure
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.Signature.Signature

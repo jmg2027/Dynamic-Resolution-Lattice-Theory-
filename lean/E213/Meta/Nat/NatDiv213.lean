@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # 213-native `Nat` div/mod helpers (∅-axiom, Math layer)
@@ -11,7 +11,7 @@ unblock the Pell/Trib FSM ↪ BitFSM lens cluster.
 
 namespace E213.Meta.Nat.NatDiv213
 
-open E213.Tactic.Nat213 (sub_add_cancel add_sub_cancel_right)
+open E213.Tactic.NatHelper (sub_add_cancel add_sub_cancel_right)
 
 /-- `(a + n) / n = a / n + 1` when `0 < n`.  ∅-axiom. -/
 theorem add_div_right_pos {n : Nat} (hn : 0 < n) (a : Nat) :

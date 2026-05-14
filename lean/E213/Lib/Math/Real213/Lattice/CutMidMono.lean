@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Core.ValidCutOps
 import E213.Lib.Math.Real213.Core.CutPoset
 
@@ -44,7 +44,7 @@ theorem cutLe_a_cutMid_at (a b : Nat → Nat → Bool)
   | isTrue hcase =>
     have hratio : i * k ≤ m * (2*k) := by
       have e : m * (2*k) = 2*m*k := by
-        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm m 2]
       rw [e]
       exact Nat.mul_le_mul_right k hcase
     exact hra.ratioMono i (2*k) m k h_2k hratio hai
@@ -55,12 +55,12 @@ theorem cutLe_a_cutMid_at (a b : Nat → Nat → Bool)
       · exact h
     have h_4m_i : 2*(2*m) - i ≤ 2*m := by
       calc 2*(2*m) - i ≤ 2*(2*m) - 2*m :=
-              E213.Tactic.Nat213.sub_le_sub_left (2*(2*m)) h_2m_le_i
-        _ = (2*m + 2*m) - 2*m := by rw [E213.Tactic.Nat213.two_mul]
-        _ = 2*m := E213.Tactic.Nat213.add_sub_cancel_right (2*m) (2*m)
+              E213.Tactic.NatHelper.sub_le_sub_left (2*(2*m)) h_2m_le_i
+        _ = (2*m + 2*m) - 2*m := by rw [E213.Tactic.NatHelper.two_mul]
+        _ = 2*m := E213.Tactic.NatHelper.add_sub_cancel_right (2*m) (2*m)
     have hratio : (2*(2*m) - i) * k ≤ m * (2*k) := by
       have e : m * (2*k) = 2*m*k := by
-        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm m 2]
       rw [e]
       exact Nat.mul_le_mul_right k h_4m_i
     exact hra.ratioMono (2*(2*m) - i) (2*k) m k h_2k hratio ha2
@@ -83,7 +83,7 @@ theorem cutLe_cutMid_b_at (a b : Nat → Nat → Bool)
       apply hrb.ratioMono m k (2*m) (2*k) hk
       · -- m * (2k) ≤ (2m) * k.  Both = 2mk.
         have e1 : m * (2*k) = 2*m*k := by
-          rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
+          rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm m 2]
         have e2 : (2*m) * k = 2*m*k := rfl
         rw [e1, e2]
         exact Nat.le_refl _
@@ -91,12 +91,12 @@ theorem cutLe_cutMid_b_at (a b : Nat → Nat → Bool)
     exact hle (2*m) (2*k) hb2
   · -- b (4m - 2m) (2k) = b (2m) (2k) = true.
     have heq : 2*(2*m) - 2*m = 2*m := by
-      rw [E213.Tactic.Nat213.two_mul]
-      exact E213.Tactic.Nat213.add_sub_cancel_right (2*m) (2*m)
+      rw [E213.Tactic.NatHelper.two_mul]
+      exact E213.Tactic.NatHelper.add_sub_cancel_right (2*m) (2*m)
     rw [heq]
     apply hrb.ratioMono m k (2*m) (2*k) hk
     · have e1 : m * (2*k) = 2*m*k := by
-        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm m 2]
       have e2 : (2*m) * k = 2*m*k := rfl
       rw [e1, e2]
       exact Nat.le_refl _

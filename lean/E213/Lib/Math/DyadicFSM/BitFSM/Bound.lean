@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Meta.Nat.EncodePair213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Lib.Math.DyadicFSM.Signature.Signature
@@ -83,13 +83,13 @@ theorem fsm_signature_period_bound {n : Nat} (m : BitFSM n) (hn : 0 < n) :
   have hi_le_j : i ≤ j := Nat.le_of_lt hij
   have hbound : i + (j - i) ≤ 5 * n :=
     Nat.le_trans
-      (Nat.le_of_eq (E213.Tactic.Nat213.add_sub_of_le hi_le_j)) hj
+      (Nat.le_of_eq (E213.Tactic.NatHelper.add_sub_of_le hi_le_j)) hj
   refine ⟨i, j - i, hP, hbound, ?_⟩
   intro k hk
   obtain ⟨d, rfl⟩ : ∃ d, k = i + d :=
-    ⟨k - i, (E213.Tactic.Nat213.add_sub_of_le hk).symm⟩
+    ⟨k - i, (E213.Tactic.NatHelper.add_sub_of_le hk).symm⟩
   clear hk
-  have hij_eq : i + (j - i) = j := E213.Tactic.Nat213.add_sub_of_le hi_le_j
+  have hij_eq : i + (j - i) = j := E213.Tactic.NatHelper.add_sub_of_le hi_le_j
   induction d with
   | zero =>
     refine ⟨?_, ?_⟩

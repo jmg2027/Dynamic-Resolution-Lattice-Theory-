@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Sum.CutSumPointwise
 import E213.Lib.Math.Real213.Bisection.CutContinuity
 import E213.Lib.Math.Real213.Mul.ConstCutScale
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSum
@@ -114,7 +114,7 @@ theorem riemannSampleSum_constCut_at (a b : Nat) (db : DyadicBracket) :
         = constCut (2 * (2^n * a)) b m k :=
       cutSum_self_at (2^n * a) b m k
     have h : 2 * (2^n * a) = 2^(n+1) * a := by
-      rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, E213.Tactic.Nat213.mul_assoc]
+      rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, E213.Tactic.NatHelper.mul_assoc]
     rw [step1, step2, h]
 
 /-- **Riemann sum of constant cut**, cutEq form (PURE).
@@ -252,8 +252,8 @@ theorem riemann_const_doubling (a b : Nat) (db : DyadicBracket) (n : Nat) :
        (riemannSampleSum_constCut_at a b db n) m k]
   rw [cutSum_self_at (2^n * a) b m k]
   congr 1
-  rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc,
-      E213.Tactic.Nat213.mul_left_comm]
+  rw [Nat.pow_succ, E213.Tactic.NatHelper.mul_assoc,
+      E213.Tactic.NatHelper.mul_left_comm]
 
 /-! ### W2: Riemann universal facts — pointwise bundle -/
 

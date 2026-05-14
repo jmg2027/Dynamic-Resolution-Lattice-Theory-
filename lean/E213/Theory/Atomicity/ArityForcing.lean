@@ -1,5 +1,5 @@
-import E213.Meta.Tactic.Nat213
-open E213.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
+open E213.Tactic.NatHelper
 
 /-!
 # Arity Forcing: `k = 2` is the unique non-degenerate, non-vacuous choice

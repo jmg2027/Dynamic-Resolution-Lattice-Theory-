@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Surfaces.T2nBetti
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # A — `BalancedSignatureData` + T²ⁿ Pattern Master Theorem
@@ -88,7 +88,7 @@ def hirzebruch (_d : BalancedSignatureData) : Int := 0
 theorem signature_full_rank (d : BalancedSignatureData) :
     d.pos + d.neg = d.total_rank := by
   show d.num_blocks + d.num_blocks = 2 * d.num_blocks
-  exact (E213.Tactic.Nat213.two_mul d.num_blocks).symm
+  exact (E213.Tactic.NatHelper.two_mul d.num_blocks).symm
 
 /-- ★★★★★ Balanced: `pos = neg`. -/
 theorem signature_balanced (d : BalancedSignatureData) :

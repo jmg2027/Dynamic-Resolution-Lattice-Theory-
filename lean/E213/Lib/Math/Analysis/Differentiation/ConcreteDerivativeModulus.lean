@@ -60,7 +60,7 @@ open E213.Lib.Math.Analysis.DifferentiableHighOrder
 /-- Helper: a*k + b*k = (a+b)*k via Nat213.add_mul. -/
 private theorem coef_add (a b k : Nat) :
     a * k + b * k = (a + b) * k :=
-  (E213.Tactic.Nat213.add_mul a b k).symm
+  (E213.Tactic.NatHelper.add_mul a b k).symm
 
 /-- d/dx [x²] modulus = k  (linear, degree 1). -/
 theorem squareIsDifferentiable_derivative_modulus (k : Nat) :
@@ -91,9 +91,9 @@ theorem quarticIsDifferentiable_derivative_modulus (k : Nat) :
   rw [squareIsDifferentiable_derivative_modulus,
       squareIsDifferentiable_modulus]
   have e1 : k + 2 * k = 3 * k := by
-    rw [show (3:Nat) = 1 + 2 from rfl, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [show (3:Nat) = 1 + 2 from rfl, E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   have e2 : 2 * k + k = 3 * k := by
-    rw [show (3:Nat) = 2 + 1 from rfl, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [show (3:Nat) = 2 + 1 from rfl, E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [e1, e2]
   exact Nat.max_self (3 * k)
 

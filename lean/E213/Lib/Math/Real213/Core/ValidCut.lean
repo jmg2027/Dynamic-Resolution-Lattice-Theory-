@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 
@@ -58,11 +58,11 @@ theorem constCut_ratio (a b : Nat) : RatioCut (constCut a b) where
     apply decide_eq_true
     have step1 : a*k1*k2 ≤ b*m1*k2 := Nat.mul_le_mul_right k2 hak_bm1
     have step2 : b*m1*k2 ≤ b*m2*k1 := by
-      rw [E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_assoc, E213.Tactic.NatHelper.mul_assoc]
       exact Nat.mul_le_mul_left b hratio
     have step3 : a*k1*k2 ≤ b*m2*k1 := Nat.le_trans step1 step2
     have hrearr_l : a*k1*k2 = k1 * (a*k2) := by
-      rw [Nat.mul_comm a k1, E213.Tactic.Nat213.mul_assoc]
+      rw [Nat.mul_comm a k1, E213.Tactic.NatHelper.mul_assoc]
     have hrearr_r : b*m2*k1 = k1 * (b*m2) := by
       rw [Nat.mul_comm (b*m2) k1]
     rw [hrearr_l, hrearr_r] at step3

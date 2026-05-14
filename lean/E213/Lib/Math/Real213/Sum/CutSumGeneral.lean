@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -72,19 +72,19 @@ theorem cutSum_same_denom_forward (a b c m k : Nat)
   have h_add_le : a * (2*k) + c * (2*k) ≤ b * i + b * (2*m - i) :=
     Nat.add_le_add h_ai h_ci
   have h_ri : b * i + b * (2*m - i) = b * (2*m) := by
-    rw [← Nat.mul_add, E213.Tactic.Nat213.add_sub_of_le hi]
+    rw [← Nat.mul_add, E213.Tactic.NatHelper.add_sub_of_le hi]
   rw [h_ri] at h_add_le
   -- LHS = (a+c)·(2k) = 2·((a+c)·k)
   have h_lhs : a * (2*k) + c * (2*k) = 2 * ((a+c) * k) := by
     calc a * (2*k) + c * (2*k)
-        = (a + c) * (2*k) := (E213.Tactic.Nat213.add_mul a c (2*k)).symm
+        = (a + c) * (2*k) := (E213.Tactic.NatHelper.add_mul a c (2*k)).symm
       _ = (a + c) * (k * 2) := by rw [Nat.mul_comm 2 k]
-      _ = ((a + c) * k) * 2 := (E213.Tactic.Nat213.mul_assoc (a+c) k 2).symm
+      _ = ((a + c) * k) * 2 := (E213.Tactic.NatHelper.mul_assoc (a+c) k 2).symm
       _ = 2 * ((a + c) * k) := Nat.mul_comm _ _
   -- RHS = b·(2m) = 2·(b·m)
   have h_rhs : b * (2 * m) = 2 * (b * m) := by
     calc b * (2 * m) = b * (m * 2) := by rw [Nat.mul_comm 2 m]
-      _ = (b * m) * 2 := (E213.Tactic.Nat213.mul_assoc b m 2).symm
+      _ = (b * m) * 2 := (E213.Tactic.NatHelper.mul_assoc b m 2).symm
       _ = 2 * (b * m) := Nat.mul_comm _ _
   rw [h_lhs, h_rhs] at h_add_le
   exact Nat.le_of_mul_le_mul_left h_add_le (by decide : 0 < 2)
@@ -120,24 +120,24 @@ theorem cutSum_diff_denom_forward (a b c d m k : Nat)
   -- RHS simplification: d·(b·i) + b·(d·(2m-i)) = bd·(2m).
   have h_rhs_eq : d * (b * i) + b * (d * (2 * m - i)) = b * d * (2 * m) := by
     have e1 : d * (b * i) = b * d * i := by
-      rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm d b]
+      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm d b]
     have e2 : b * (d * (2 * m - i)) = b * d * (2 * m - i) := by
-      rw [← E213.Tactic.Nat213.mul_assoc]
-    rw [e1, e2, ← Nat.mul_add, E213.Tactic.Nat213.add_sub_of_le hi]
+      rw [← E213.Tactic.NatHelper.mul_assoc]
+    rw [e1, e2, ← Nat.mul_add, E213.Tactic.NatHelper.add_sub_of_le hi]
   rw [h_rhs_eq] at h_sum
   -- LHS simplification: d·(a·2k) + b·(c·2k) = 2·(ad+bc)·k.
   have h_lhs_eq : d * (a * (2 * k)) + b * (c * (2 * k))
                    = 2 * ((a * d + b * c) * k) := by
     have e1 : d * (a * (2 * k)) = 2 * (a * d * k) := by
-      rw [← E213.Tactic.Nat213.mul_assoc d a (2*k), Nat.mul_comm d a,
-          E213.Tactic.Nat213.mul_left_comm (a*d) 2 k]
+      rw [← E213.Tactic.NatHelper.mul_assoc d a (2*k), Nat.mul_comm d a,
+          E213.Tactic.NatHelper.mul_left_comm (a*d) 2 k]
     have e2 : b * (c * (2 * k)) = 2 * (b * c * k) := by
-      rw [← E213.Tactic.Nat213.mul_assoc b c (2*k), E213.Tactic.Nat213.mul_left_comm (b*c) 2 k]
-    rw [e1, e2, ← Nat.mul_add, E213.Tactic.Nat213.add_mul]
+      rw [← E213.Tactic.NatHelper.mul_assoc b c (2*k), E213.Tactic.NatHelper.mul_left_comm (b*c) 2 k]
+    rw [e1, e2, ← Nat.mul_add, E213.Tactic.NatHelper.add_mul]
   -- RHS into 2-form: bd·(2m) = 2·(bd·m).
   have h_rhs2 : b * d * (2 * m) = 2 * (b * d * m) := by
     calc b * d * (2 * m) = b * d * (m * 2) := by rw [Nat.mul_comm 2 m]
-      _ = (b * d * m) * 2 := (E213.Tactic.Nat213.mul_assoc (b*d) m 2).symm
+      _ = (b * d * m) * 2 := (E213.Tactic.NatHelper.mul_assoc (b*d) m 2).symm
       _ = 2 * (b * d * m) := Nat.mul_comm _ _
   rw [h_lhs_eq, h_rhs2] at h_sum
   exact Nat.le_of_mul_le_mul_left h_sum (by decide : 0 < 2)

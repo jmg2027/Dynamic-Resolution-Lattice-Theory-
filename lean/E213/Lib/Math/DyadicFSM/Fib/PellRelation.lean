@@ -2,7 +2,7 @@ import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Fib.PisanoCapstone
 import E213.Meta.Nat.AddMod213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Cross-recurrence relation: Fib predictor = 2 × Pell predictor
@@ -59,7 +59,7 @@ private theorem fib_pisano_predict_eq (p : Nat) (hp : 1 < p) :
 private theorem p_minus_one_mod_two {p : Nat} (hp1 : 0 < p)
     (hodd : p % 2 = 1) : (p - 1) % 2 = 0 := by
   have h1 : p % 2 = (p - 1 + 1) % 2 := by
-    rw [E213.Tactic.Nat213.sub_one_add_one (Nat.pos_iff_ne_zero.mp hp1)]
+    rw [E213.Tactic.NatHelper.sub_one_add_one (Nat.pos_iff_ne_zero.mp hp1)]
   rw [h1] at hodd
   rw [E213.Meta.Nat.AddMod213.add_mod_left (by decide : 0 < 2) (p - 1) 1] at hodd
   -- hodd : ((p - 1) % 2 + 1) % 2 = 1
@@ -77,7 +77,7 @@ private theorem fib_eq_two_pell_body
     have hv_eq : v = 0 := Nat.le_zero.mp (Nat.le_of_lt_succ hv0)
     subst hv_eq
     show 4 * p = 2 * (2 * p)
-    rw [show (4 : Nat) = 2 * 2 from rfl, E213.Tactic.Nat213.mul_assoc]
+    rw [show (4 : Nat) = 2 * 2 from rfl, E213.Tactic.NatHelper.mul_assoc]
   · rcases Nat.lt_or_ge v 2 with hv1' | hv2
     · -- v = 1
       have hv_eq : v = 1 :=

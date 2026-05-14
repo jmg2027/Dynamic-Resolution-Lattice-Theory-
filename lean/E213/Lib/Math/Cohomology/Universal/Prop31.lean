@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Cohomology.Delta.Pointwise
 import E213.Lib.Math.Cohomology.Universal.Prop
 
@@ -41,7 +41,7 @@ theorem pattern_eq_at (σ : Cochain 3 1) (i : Fin 3) :
                   (σ ⟨1, by decide⟩)
                   (σ ⟨2, by decide⟩) i := by
   obtain ⟨n, hn⟩ := i
-  rcases E213.Tactic.Nat213.cases_lt_three hn with h0 | h1 | h2
+  rcases E213.Tactic.NatHelper.cases_lt_three hn with h0 | h1 | h2
   · subst h0; rfl
   · subst h1; rfl
   · subst h2; rfl

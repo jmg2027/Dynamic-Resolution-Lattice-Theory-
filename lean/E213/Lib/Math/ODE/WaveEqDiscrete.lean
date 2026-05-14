@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Differential Equations 213 — Discrete wave equation (1D)
@@ -34,7 +34,7 @@ def constField (c : Nat) : Nat → Nat := fun _ => c
 theorem wave_const_rest (n c x : Nat) :
     waveStepNum n (constField c) (constField c) x = c := by
   show c + c - c = c
-  exact E213.Tactic.Nat213.add_sub_cancel_right c c
+  exact E213.Tactic.NatHelper.add_sub_cancel_right c c
 
 /-- ★ Initial impulse zero everywhere (zero is wave equilibrium). -/
 theorem wave_zero_rest (n x : Nat) :

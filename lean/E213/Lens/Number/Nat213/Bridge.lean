@@ -1,6 +1,6 @@
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.Peano
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Lens.Number.Nat213.Bridge — Raw chain ↔ inductive Peano 동형성
@@ -214,7 +214,7 @@ private theorem toNat_mul (m n : E213.Lens.Number.Nat213.Peano.Nat213) :
          = (k.toNat + 1) * n.toNat
       rw [toNat_add, ih]
       -- Goal: n.toNat + k.toNat * n.toNat = (k.toNat + 1) * n.toNat
-      rw [E213.Tactic.Nat213.add_mul, Nat.one_mul, Nat.add_comm]
+      rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul, Nat.add_comm]
 
 /-- **`value (mul m n) = value m * value n`** — Layer 1 곱셈이
     Lean Nat 곱셈과 일치. -/

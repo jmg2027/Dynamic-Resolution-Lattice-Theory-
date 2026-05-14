@@ -1,7 +1,7 @@
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Cardinality.LensCardinality
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Omega213
 
 /-!
@@ -55,7 +55,7 @@ theorem factorial_pos (n : Nat) : factorial n ≥ 1 := by
       exact Nat.le_trans h1 h2
 
 /-- factorial n is divisible by every m ≤ n.  ∅-axiom via
-    `E213.Tactic.Nat213.mul_assoc` and core-pure `Nat.mul_comm`. -/
+    `E213.Tactic.NatHelper.mul_assoc` and core-pure `Nat.mul_comm`. -/
 theorem factorial_dvd (m n : Nat) (h : 1 ≤ m) (hmn : m ≤ n) :
     m ∣ factorial n := by
   induction n with
@@ -66,8 +66,8 @@ theorem factorial_dvd (m n : Nat) (h : 1 ≤ m) (hmn : m ≤ n) :
         show m ∣ (k+1) * factorial k
         obtain ⟨q, hq⟩ := hdvd
         refine ⟨(k+1) * q, ?_⟩
-        rw [hq, ← E213.Tactic.Nat213.mul_assoc (k+1) m q,
-            Nat.mul_comm (k+1) m, E213.Tactic.Nat213.mul_assoc m (k+1) q]
+        rw [hq, ← E213.Tactic.NatHelper.mul_assoc (k+1) m q,
+            Nat.mul_comm (k+1) m, E213.Tactic.NatHelper.mul_assoc m (k+1) q]
       · have hmk1 : m = k + 1 :=
           Nat.le_antisymm hmn (Nat.lt_of_not_le hkm)
         show m ∣ (k+1) * factorial k
@@ -82,11 +82,11 @@ open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 
 /-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m).
-    ∅-axiom via `E213.Tactic.Nat213.mul_mod_right`. -/
+    ∅-axiom via `E213.Tactic.NatHelper.mul_mod_right`. -/
 theorem factorial_eventually_zero_mod (m : Nat) (hm : 1 ≤ m)
     (n : Nat) (hn : n + 1 ≥ m) : factorial (n + 1) % m = 0 := by
   obtain ⟨q, hq⟩ := factorial_dvd m (n + 1) hm hn
-  rw [hq, E213.Tactic.Nat213.mul_mod_right]
+  rw [hq, E213.Tactic.NatHelper.mul_mod_right]
 
 /-- **Cauchy w.r.t. leavesModNat m**: the factorial-leaves sequence
     is leavesModNat m Cauchy for each m ≥ 2.  ∅-axiom via 213-native

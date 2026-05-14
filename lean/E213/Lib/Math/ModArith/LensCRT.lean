@@ -78,9 +78,9 @@ theorem prod_refines_L6 :
   have k3 : Lens.leaves.view r % 6 % 3 = Lens.leaves.view r' % 6 % 3 := by
     rw [e3r, e3r']; exact h3
   -- Enumerate residues 0..5 via cases_lt_six.
-  rcases E213.Tactic.Nat213.cases_lt_six h6r
+  rcases E213.Tactic.NatHelper.cases_lt_six h6r
     with hr | hr | hr | hr | hr | hr <;>
-  rcases E213.Tactic.Nat213.cases_lt_six h6r'
+  rcases E213.Tactic.NatHelper.cases_lt_six h6r'
     with hr' | hr' | hr' | hr' | hr' | hr' <;>
   rw [hr, hr'] at k2 k3 <;>
   rw [hr, hr'] <;>

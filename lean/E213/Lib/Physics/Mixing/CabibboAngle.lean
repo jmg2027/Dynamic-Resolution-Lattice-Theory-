@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Cabibbo angle — sin θ_C = 5/22 (pure rational from DRLT integers)
@@ -73,7 +73,7 @@ theorem within_one_percent :
     Lean-core `Nat.gcd` whose well-founded termination proof brings
     `propext`. -/
 theorem irreducible_5_22 :
-    E213.Tactic.Nat213.gcd213 5 22 = 1 := rfl
+    E213.Tactic.NatHelper.gcd213 5 22 = 1 := rfl
 
 /-- Falsifiability: if any future precision measurement of sin θ_C
     shows |sin θ_C - 5/22| > 1% (i.e., outside [0.225, 0.230]),

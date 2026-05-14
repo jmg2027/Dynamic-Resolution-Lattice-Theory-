@@ -26,7 +26,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Delta.Pointwise (delta_pointwise_eq)
-open E213.Tactic.Nat213 (cases_lt_ten)
+open E213.Tactic.NatHelper (cases_lt_ten)
 
 /-- Cochain 5 3 parametrized by 10 Bool values.  ∅-axiom (Nat match). -/
 def pattern (b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 : Bool) : Cochain 5 3 :=

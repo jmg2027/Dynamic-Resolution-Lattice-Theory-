@@ -3,7 +3,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # B — Abstract Kähler Grade Structure → Hodge Index Theorem
@@ -117,7 +117,7 @@ theorem hodge_index_full_rank (d : KahlerGradeData) :
   show 1 + 2 * d.h20 + (d.h11 - 1) = 2 * d.h20 + d.h11
   -- (h11 - 1) + 1 = h11 via Nat213.sub_add_cancel (∅-axiom).
   have h_cancel : d.h11 - 1 + 1 = d.h11 :=
-    E213.Tactic.Nat213.sub_add_cancel d.h11_pos
+    E213.Tactic.NatHelper.sub_add_cancel d.h11_pos
   -- 1 + 2*h20 + (h11 - 1) = 2*h20 + (h11 - 1) + 1 = 2*h20 + ((h11-1)+1) = 2*h20 + h11
   rw [Nat.add_comm 1 (2 * d.h20),
       Nat.add_assoc (2 * d.h20) 1 (d.h11 - 1),

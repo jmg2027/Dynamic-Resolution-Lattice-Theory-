@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
 import E213.Lib.Math.Multivariable.Gradient
 import E213.Lib.Math.Multivariable.MultiIntegral
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Multivariable — Stokes' theorem (n-dim, cohomological FTC)

@@ -1,4 +1,4 @@
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
 
@@ -23,9 +23,9 @@ theorem constCut_scale_at (a b c : Nat) (hc : c ≥ 1) (m k : Nat) :
   show decide (a*k ≤ b*m) = decide ((a*c)*k ≤ (b*c)*m)
   -- Bridge: (a*c)*k = c*(a*k), (b*c)*m = c*(b*m).
   have e1 : (a*c)*k = c*(a*k) := by
-    rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.mul_comm a c, E213.Tactic.NatHelper.mul_assoc]
   have e2 : (b*c)*m = c*(b*m) := by
-    rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.mul_comm b c, E213.Tactic.NatHelper.mul_assoc]
   rcases Nat.lt_or_ge (b*m) (a*k) with hlt | hge
   · -- a*k > b*m: both decide give false.
     have hnot : ¬ (a*k ≤ b*m) := Nat.not_le_of_lt hlt

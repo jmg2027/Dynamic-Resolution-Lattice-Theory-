@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Foundations.AtomicConstantsUnique
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Omega213
 
 /-!
@@ -32,7 +32,7 @@ STRICT ∅-AXIOM (Nat213/Omega213 + decide).
 namespace E213.Lib.Physics.Foundations.AtomicConstantsParametric
 
 open E213.Lib.Physics.Foundations.AtomicConstantsUnique
-open E213.Tactic.Nat213 (add_mul mul_assoc)
+open E213.Tactic.NatHelper (add_mul mul_assoc)
 
 /-! ## §1 — Square-of-sum (axiom-free building block) -/
 
@@ -127,7 +127,7 @@ theorem mp2_sq_p2_lt_three_msq (m : Nat) (h : 4 ≤ m) :
 
 /-! ## §4 — Bridge to `constraint_C2b m 2 = false` -/
 
-open E213.Tactic.Nat213 (mul_sub_distrib sub_one_add_one sub_add_cancel
+open E213.Tactic.NatHelper (mul_sub_distrib sub_one_add_one sub_add_cancel
   le_sub_of_add_le add_sub_cancel_right)
 
 /-- For m ≥ 4: `3 * (m*m) = (m*m - 1) * 3 + 3`. -/

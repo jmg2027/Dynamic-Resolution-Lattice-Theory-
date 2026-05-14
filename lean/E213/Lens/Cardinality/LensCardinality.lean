@@ -1,5 +1,5 @@
 import E213.Lens.Cardinality.Countable
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Lens.Cardinality.Cantor
 import E213.Lens.Cardinality.Godel
 import E213.Meta.Nat.AddMod213
@@ -46,7 +46,7 @@ theorem leaves_surjective_pos :
     ∀ n : Nat, 1 ≤ n → ∃ r : Raw, Lens.leaves.view r = n := by
   intro n hn
   have ⟨m, hm⟩ : ∃ m, n = m + 1 := ⟨n - 1, by
-    have h := E213.Tactic.Nat213.add_sub_of_le hn
+    have h := E213.Tactic.NatHelper.add_sub_of_le hn
     rw [Nat.add_comm 1 (n - 1)] at h
     exact h.symm⟩
   refine ⟨rawTower m, ?_⟩
@@ -169,7 +169,7 @@ theorem treeTower_signed :
         show Int.subNatNat (m + 1) 1 = Int.ofNat m
         rw [E213.Meta.Int213.subNatNat_of_le (Nat.le_add_left 1 m)]
         show Int.ofNat (m + 1 - 1) = Int.ofNat m
-        rw [E213.Tactic.Nat213.add_sub_cancel_right m 1]
+        rw [E213.Tactic.NatHelper.add_sub_cancel_right m 1]
       exact lhs_eq.trans rhs_eq.symm
 
 end E213.Lens.Cardinality
@@ -202,7 +202,7 @@ theorem signedLens_image_ge_neg_one :
         show Int.subNatNat (n + 1) 1 = Int.ofNat n
         rw [E213.Meta.Int213.subNatNat_of_le (Nat.le_add_left 1 n)]
         show Int.ofNat (n + 1 - 1) = Int.ofNat n
-        rw [E213.Tactic.Nat213.add_sub_cancel_right n 1]
+        rw [E213.Tactic.NatHelper.add_sub_cancel_right n 1]
       exact h_tree.trans h_rhs
   | Int.negSucc 0, _ =>
       -- z = -1; rawTower 0 = Raw.b → fold = -1 = Int.negSucc 0.

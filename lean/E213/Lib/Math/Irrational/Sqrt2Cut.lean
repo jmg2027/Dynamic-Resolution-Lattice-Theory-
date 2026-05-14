@@ -65,31 +65,31 @@ theorem pell_orderProj_above (x y m k : Nat)
   -- Goal: (x * k) * (x * k) ≤ (y * m) * (y * m)
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
-    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.Nat213.mul_assoc 2 y y
+    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.NatHelper.mul_assoc 2 y y
     rw [heq] at hPell; exact hPell
   have hxsq : x * k * (x * k) = (2 * (y * y) + 1) * (k * k) := by
     have e1 : x * k * (x * k) = (x * x) * (k * k) := by
-      rw [E213.Tactic.Nat213.mul_assoc x k (x*k),
-          ← E213.Tactic.Nat213.mul_assoc k x k, Nat.mul_comm k x,
-          E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_assoc x k (x*k),
+          ← E213.Tactic.NatHelper.mul_assoc k x k, Nat.mul_comm k x,
+          E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_assoc]
     rw [e1, hPell']
   have hysq : y * m * (y * m) = (y * y) * (m * m) := by
-    rw [E213.Tactic.Nat213.mul_assoc y m (y*m),
-        ← E213.Tactic.Nat213.mul_assoc m y m, Nat.mul_comm m y,
-        E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc y m (y*m),
+        ← E213.Tactic.NatHelper.mul_assoc m y m, Nat.mul_comm m y,
+        E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_assoc]
   rw [hxsq, hysq]
   have hmm : 2 * (k * k) + 1 ≤ m * m := by
-    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.Nat213.mul_assoc 2 k k
+    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.NatHelper.mul_assoc 2 k k
     rw [heq] at hmsq; exact hmsq
   have step1 : (y * y) * (2 * (k * k) + 1) ≤ (y * y) * (m * m) :=
     Nat.mul_le_mul_left (y * y) hmm
   have eA : (y * y) * (2 * (k * k) + 1) = 2 * (y * y) * (k * k) + y * y := by
     rw [Nat.mul_add, Nat.mul_one]
     congr 1
-    rw [← E213.Tactic.Nat213.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
-        E213.Tactic.Nat213.mul_assoc]
+    rw [← E213.Tactic.NatHelper.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
+        E213.Tactic.NatHelper.mul_assoc]
   have eB : (2 * (y * y) + 1) * (k * k) = 2 * (y * y) * (k * k) + k * k := by
-    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [eB]
   rw [eA] at step1
   -- step1 : 2*(y*y)*(k*k) + y*y ≤ (y*y)*(m*m)
@@ -116,22 +116,22 @@ theorem pell_orderProj_below (x y m k : Nat)
   have hle_sq : (x * k) * (x * k) ≤ (y * m) * (y * m) := nat_sq_le_of_le hle
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
-    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.Nat213.mul_assoc 2 y y
+    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.NatHelper.mul_assoc 2 y y
     rw [heq] at hPell; exact hPell
   have hxsq : x * k * (x * k) = (2 * (y * y) + 1) * (k * k) := by
     have e1 : x * k * (x * k) = (x * x) * (k * k) := by
-      rw [E213.Tactic.Nat213.mul_assoc x k (x*k),
-          ← E213.Tactic.Nat213.mul_assoc k x k, Nat.mul_comm k x,
-          E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_assoc x k (x*k),
+          ← E213.Tactic.NatHelper.mul_assoc k x k, Nat.mul_comm k x,
+          E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_assoc]
     rw [e1, hPell']
   have hysq : y * m * (y * m) = (y * y) * (m * m) := by
-    rw [E213.Tactic.Nat213.mul_assoc y m (y*m),
-        ← E213.Tactic.Nat213.mul_assoc m y m, Nat.mul_comm m y,
-        E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc y m (y*m),
+        ← E213.Tactic.NatHelper.mul_assoc m y m, Nat.mul_comm m y,
+        E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_assoc]
   rw [hxsq, hysq] at hle_sq
   -- hle_sq : (2*(y*y)+1) * (k*k) ≤ (y*y) * (m*m)
   have hmm_le : m * m + 1 ≤ 2 * (k * k) := by
-    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.Nat213.mul_assoc 2 k k
+    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.NatHelper.mul_assoc 2 k k
     rw [heq] at hmsq; exact hmsq
   -- (y*y) * (m*m) ≤ (y*y) * (2*(k*k)) - (y*y) when y*y ≥ 1.
   -- Goal: derive False.  Strategy: show (2*(y*y)+1)*(k*k) > (y*y)*(m*m).
@@ -154,14 +154,14 @@ theorem pell_orderProj_below (x y m k : Nat)
   -- h_yMul : (y*y)*(m*m) + (y*y) ≤ (y*y) * (2*(k*k))
   -- (y*y)*(2*(k*k)) = 2*(y*y)*(k*k)
   have h_2y_eq : (y * y) * (2 * (k * k)) = 2 * (y * y) * (k * k) := by
-    rw [← E213.Tactic.Nat213.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
-        E213.Tactic.Nat213.mul_assoc]
+    rw [← E213.Tactic.NatHelper.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
+        E213.Tactic.NatHelper.mul_assoc]
   rw [h_2y_eq] at h_yMul
   -- h_yMul : (y*y)*(m*m) + (y*y) ≤ 2*(y*y)*(k*k)
   -- hle_sq : (2*(y*y)+1) * (k*k) ≤ (y*y) * (m*m)
   -- (2*(y*y)+1)*(k*k) = 2*(y*y)*(k*k) + k*k
   have h_hle_eq : (2 * (y * y) + 1) * (k * k) = 2 * (y * y) * (k * k) + k * k := by
-    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [h_hle_eq] at hle_sq
   -- hle_sq : 2*(y*y)*(k*k) + k*k ≤ (y*y) * (m*m)
   -- Add (y*y) to both: 2*(y*y)*(k*k) + k*k + (y*y) ≤ (y*y)*(m*m) + (y*y) ≤ 2*(y*y)*(k*k)
@@ -173,7 +173,7 @@ theorem pell_orderProj_below (x y m k : Nat)
     rw [Nat.add_zero, ← Nat.add_assoc]; exact h_chain
   -- Cancel: k*k + y*y ≤ 0
   have h_zero : k*k + (y*y) ≤ 0 :=
-    E213.Tactic.Nat213.le_of_add_le_add_left h_chain'
+    E213.Tactic.NatHelper.le_of_add_le_add_left h_chain'
   -- k*k ≥ 1 → k*k + y*y ≥ 1, contra h_zero.
   exact absurd (Nat.le_trans hkk_pos
     (Nat.le_trans (Nat.le_add_right (k*k) (y*y)) h_zero)) (by decide)

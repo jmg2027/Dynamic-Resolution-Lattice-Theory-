@@ -2,7 +2,7 @@ import E213.Lens.Number.Nat213.Bridge
 import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Real213.ChainToCut — Closed Nat213 chain → Real213 cut bridge
@@ -86,7 +86,7 @@ open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff)
 
 /-- 보조: `x * (2*k) = 2 * x * k`.  Nat213.mul_assoc + Nat.mul_comm. -/
 private theorem mul_two_mul (x k : Nat) : x * (2*k) = 2 * x * k := by
-  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm x 2]
+  rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm x 2]
 
 /-- 보조: 두 Bool 이 `(· = true)` 동치이면 같음. -/
 private theorem bool_eq_of_iff_true (a b : Bool) (h : a = true ↔ b = true) : a = b := by
@@ -110,21 +110,21 @@ theorem cutSum_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k 
     have h2 : b.toNat * (2*k) ≤ 2*m - i :=
       of_decide_eq_true (chainToCut_toRaw b (2*m - i) (2*k) ▸ hcyi)
     have h3 : a.toNat * (2*k) + b.toNat * (2*k) ≤ 2*m :=
-      E213.Tactic.Nat213.add_sub_of_le hi_le ▸ Nat.add_le_add h1 h2
+      E213.Tactic.NatHelper.add_sub_of_le hi_le ▸ Nat.add_le_add h1 h2
     have h4 : 2 * ((a.toNat + b.toNat) * k) ≤ 2 * m := by
       calc 2 * ((a.toNat + b.toNat) * k)
-          = 2 * (a.toNat + b.toNat) * k := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+          = 2 * (a.toNat + b.toNat) * k := (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         _ = (a.toNat + b.toNat) * (2*k) := (mul_two_mul _ _).symm
-        _ = a.toNat * (2*k) + b.toNat * (2*k) := E213.Tactic.Nat213.add_mul _ _ _
+        _ = a.toNat * (2*k) + b.toNat * (2*k) := E213.Tactic.NatHelper.add_mul _ _ _
         _ ≤ 2 * m := h3
     exact Nat.le_of_mul_le_mul_left h4 (by decide : 0 < 2)
   · intro hsum
     refine ⟨2 * a.toNat * k, ?_, ?_, ?_⟩
     · have hAk : a.toNat * k ≤ m := by
         calc a.toNat * k ≤ a.toNat * k + b.toNat * k := Nat.le_add_right _ _
-          _ = (a.toNat + b.toNat) * k := (E213.Tactic.Nat213.add_mul _ _ _).symm
+          _ = (a.toNat + b.toNat) * k := (E213.Tactic.NatHelper.add_mul _ _ _).symm
           _ ≤ m := hsum
-      calc 2 * a.toNat * k = 2 * (a.toNat * k) := E213.Tactic.Nat213.mul_assoc _ _ _
+      calc 2 * a.toNat * k = 2 * (a.toNat * k) := E213.Tactic.NatHelper.mul_assoc _ _ _
         _ ≤ 2 * m := Nat.mul_le_mul_left 2 hAk
     · have heq : a.toNat * (2*k) = 2 * a.toNat * k := mul_two_mul _ _
       have : decide (a.toNat * (2*k) ≤ 2 * a.toNat * k) = true :=
@@ -134,12 +134,12 @@ theorem cutSum_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k 
         calc 2 * a.toNat * k + 2 * b.toNat * k
             = a.toNat * (2*k) + b.toNat * (2*k) := by
               rw [mul_two_mul, mul_two_mul]
-          _ = (a.toNat + b.toNat) * (2*k) := (E213.Tactic.Nat213.add_mul _ _ _).symm
+          _ = (a.toNat + b.toNat) * (2*k) := (E213.Tactic.NatHelper.add_mul _ _ _).symm
           _ = 2 * (a.toNat + b.toNat) * k := mul_two_mul _ _
-          _ = 2 * ((a.toNat + b.toNat) * k) := E213.Tactic.Nat213.mul_assoc _ _ _
+          _ = 2 * ((a.toNat + b.toNat) * k) := E213.Tactic.NatHelper.mul_assoc _ _ _
           _ ≤ 2 * m := Nat.mul_le_mul_left 2 hsum
       have hBk : 2 * b.toNat * k ≤ 2*m - 2 * a.toNat * k :=
-        E213.Tactic.Nat213.le_sub_of_add_le ((Nat.add_comm _ _) ▸ h2sum)
+        E213.Tactic.NatHelper.le_sub_of_add_le ((Nat.add_comm _ _) ▸ h2sum)
       have heq : b.toNat * (2*k) = 2 * b.toNat * k := mul_two_mul _ _
       have : decide (b.toNat * (2*k) ≤ 2*m - 2 * a.toNat * k) = true :=
         decide_eq_true (heq ▸ hBk)
@@ -176,8 +176,8 @@ cutSum 과 같은 패턴 mul 쪽.  closed-Raw mul 이 Real213 cutMul 과 정확�
 /-- 보조: `(a*k)*(b*k) = (a*b*k)*k`.  mul_mul_mul_comm + mul_assoc. -/
 private theorem prod_rearrange (a b k : Nat) :
     a * k * (b * k) = a * b * k * k := by
-  rw [E213.Tactic.Nat213.mul_mul_mul_comm_213,
-      ← E213.Tactic.Nat213.mul_assoc]
+  rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213,
+      ← E213.Tactic.NatHelper.mul_assoc]
 
 /-- 보조: `m ≤ (m+1)*(k+1)`.  trivial bound. -/
 private theorem le_succ_mul_succ (m k : Nat) : m ≤ (m+1)*(k+1) := by
@@ -207,7 +207,7 @@ theorem cutMul_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k 
     | zero => show a.toNat * b.toNat * 0 ≤ m
               rw [Nat.mul_zero]; exact Nat.zero_le _
     | succ k' =>
-      exact E213.Tactic.Nat213.le_of_mul_le_mul_right (Nat.succ_pos k') hprod
+      exact E213.Tactic.NatHelper.le_of_mul_le_mul_right (Nat.succ_pos k') hprod
   · intro hsum
     have ha_pos : 1 ≤ a.toNat := E213.Lens.Number.Nat213.Peano.Nat213.toNat_ge_one a
     have hb_pos : 1 ≤ b.toNat := E213.Lens.Number.Nat213.Peano.Nat213.toNat_ge_one b
@@ -215,12 +215,12 @@ theorem cutMul_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) (m k 
       calc a.toNat * k = a.toNat * (1 * k) := by rw [Nat.one_mul]
         _ ≤ a.toNat * (b.toNat * k) :=
           Nat.mul_le_mul_left _ (Nat.mul_le_mul_right k hb_pos)
-        _ = a.toNat * b.toNat * k := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        _ = a.toNat * b.toNat * k := (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         _ ≤ m := hsum
     have h_bk_le_m : b.toNat * k ≤ m := by
       calc b.toNat * k = 1 * (b.toNat * k) := (Nat.one_mul _).symm
         _ ≤ a.toNat * (b.toNat * k) := Nat.mul_le_mul_right _ ha_pos
-        _ = a.toNat * b.toNat * k := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        _ = a.toNat * b.toNat * k := (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         _ ≤ m := hsum
     refine ⟨a.toNat * k, ?_, b.toNat * k, ?_, ?_, ?_, ?_⟩
     · exact Nat.le_trans h_ak_le_m (le_succ_mul_succ m k)

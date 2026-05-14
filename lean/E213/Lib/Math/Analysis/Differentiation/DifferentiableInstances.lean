@@ -88,7 +88,7 @@ theorem cubeIsDifferentiable_modulus (k : Nat) :
   show k + (k + k) = 3 * k
   have e3 : (3 : Nat) * k = k + k + k := by
     rw [show (3 : Nat) = 1 + 1 + 1 from rfl,
-        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+        E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [e3, Nat.add_assoc]
 
 theorem quarticIsDifferentiable_modulus (k : Nat) :
@@ -96,8 +96,8 @@ theorem quarticIsDifferentiable_modulus (k : Nat) :
   show (k + k) + (k + k) = 4 * k
   have e4 : (4 : Nat) * k = k + k + k + k := by
     rw [show (4 : Nat) = 1 + 1 + 1 + 1 from rfl,
-        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
-        E213.Tactic.Nat213.add_mul, Nat.one_mul]
+        E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.add_mul,
+        E213.Tactic.NatHelper.add_mul, Nat.one_mul]
   rw [e4]
   exact (Nat.add_assoc (k+k) k k).symm
 
@@ -160,28 +160,28 @@ theorem quinticIsDifferentiable_modulus (k : Nat) :
   show squareIsDifferentiable.linearityModulus k
        + cubeIsDifferentiable.linearityModulus k = 5 * k
   rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 2 3 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 2 3 k).symm
 
 theorem sexticIsDifferentiable_modulus (k : Nat) :
     sexticIsDifferentiable.linearityModulus k = 6 * k := by
   show cubeIsDifferentiable.linearityModulus k
        + cubeIsDifferentiable.linearityModulus k = 6 * k
   rw [cubeIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 3 3 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 3 3 k).symm
 
 theorem septicIsDifferentiable_modulus (k : Nat) :
     septicIsDifferentiable.linearityModulus k = 7 * k := by
   show cubeIsDifferentiable.linearityModulus k
        + quarticIsDifferentiable.linearityModulus k = 7 * k
   rw [cubeIsDifferentiable_modulus, quarticIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 3 4 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 3 4 k).symm
 
 theorem octicIsDifferentiable_modulus (k : Nat) :
     octicIsDifferentiable.linearityModulus k = 8 * k := by
   show quarticIsDifferentiable.linearityModulus k
        + quarticIsDifferentiable.linearityModulus k = 8 * k
   rw [quarticIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 4 4 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 4 4 k).symm
 
 end E213.Lib.Math.Analysis.DifferentiableHigherPow
 
@@ -238,27 +238,27 @@ theorem nonicIsDifferentiable_modulus (k : Nat) :
   show quarticIsDifferentiable.linearityModulus k
        + quinticIsDifferentiable.linearityModulus k = 9 * k
   rw [quarticIsDifferentiable_modulus, quinticIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 4 5 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 4 5 k).symm
 
 theorem decicIsDifferentiable_modulus (k : Nat) :
     decicIsDifferentiable.linearityModulus k = 10 * k := by
   show quinticIsDifferentiable.linearityModulus k
        + quinticIsDifferentiable.linearityModulus k = 10 * k
   rw [quinticIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 5 5 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 5 5 k).symm
 
 theorem dodecicIsDifferentiable_modulus (k : Nat) :
     dodecicIsDifferentiable.linearityModulus k = 12 * k := by
   show quarticIsDifferentiable.linearityModulus k
        + octicIsDifferentiable.linearityModulus k = 12 * k
   rw [quarticIsDifferentiable_modulus, octicIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 4 8 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 4 8 k).symm
 
 theorem hexadecicIsDifferentiable_modulus (k : Nat) :
     hexadecicIsDifferentiable.linearityModulus k = 16 * k := by
   show octicIsDifferentiable.linearityModulus k
        + octicIsDifferentiable.linearityModulus k = 16 * k
   rw [octicIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.add_mul 8 8 k).symm
+  exact (E213.Tactic.NatHelper.add_mul 8 8 k).symm
 
 end E213.Lib.Math.Analysis.DifferentiableHighOrder

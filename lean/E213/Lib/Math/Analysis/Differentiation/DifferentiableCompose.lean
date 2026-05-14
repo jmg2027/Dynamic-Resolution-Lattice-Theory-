@@ -61,7 +61,7 @@ theorem squareOfSquare_modulus (k : Nat) :
   show squareIsDifferentiable.linearityModulus
        (squareIsDifferentiable.linearityModulus k) = 4 * k
   rw [squareIsDifferentiable_modulus, squareIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.mul_assoc 2 2 k).symm
+  exact (E213.Tactic.NatHelper.mul_assoc 2 2 k).symm
 
 /-- (x³)² modulus = 3·(2k) = 6k.  ∅-axiom. -/
 theorem squareOfCube_modulus (k : Nat) :
@@ -69,7 +69,7 @@ theorem squareOfCube_modulus (k : Nat) :
   show cubeIsDifferentiable.linearityModulus
        (squareIsDifferentiable.linearityModulus k) = 6 * k
   rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.mul_assoc 3 2 k).symm
+  exact (E213.Tactic.NatHelper.mul_assoc 3 2 k).symm
 
 /-- (x²)³ modulus = 2·(3k) = 6k.  ∅-axiom. -/
 theorem cubeOfSquare_modulus (k : Nat) :
@@ -77,7 +77,7 @@ theorem cubeOfSquare_modulus (k : Nat) :
   show squareIsDifferentiable.linearityModulus
        (cubeIsDifferentiable.linearityModulus k) = 6 * k
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
-  exact (E213.Tactic.Nat213.mul_assoc 2 3 k).symm
+  exact (E213.Tactic.NatHelper.mul_assoc 2 3 k).symm
 
 /-- capstone: composition modulus = product of degrees. -/
 theorem polynomial_compose_capstone (k : Nat) :

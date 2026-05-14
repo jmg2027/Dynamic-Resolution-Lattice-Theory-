@@ -137,15 +137,15 @@ theorem wallis_lower_inv (n : Nat) (hn : n ≥ 1) :
         show 4 * (wallisDen k * ((2 * k + 1) * (2 * k + 3)))
               ≤ 3 * (wallisNum k * (4 * (k + 1) * (k + 1)))
         have hkk : (2 * k + 1) * (2 * k + 3) ≤ 4 * (k + 1) * (k + 1) := by
-          rw [E213.Tactic.Nat213.mul_assoc 4 (k+1) (k+1)]
+          rw [E213.Tactic.NatHelper.mul_assoc 4 (k+1) (k+1)]
           exact kk_le_4_kp1_sq k
         -- Reassociate: 4 * (D * Q) = (4 * D) * Q,  3 * (N * P) = (3 * N) * P.
         have hLB : 4 * (wallisDen k * ((2 * k + 1) * (2 * k + 3)))
                    = (4 * wallisDen k) * ((2 * k + 1) * (2 * k + 3)) :=
-          (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+          (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         have hLA : 3 * (wallisNum k * (4 * (k + 1) * (k + 1)))
                    = (3 * wallisNum k) * (4 * (k + 1) * (k + 1)) :=
-          (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+          (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         rw [hLA, hLB]
         -- (4 D) * (2k+1)(2k+3) ≤ (3 N) * (2k+1)(2k+3) ≤ (3 N) * 4(k+1)².
         have step1 : (4 * wallisDen k) * ((2 * k + 1) * (2 * k + 3))
@@ -173,16 +173,16 @@ theorem wallis_monotonic (n : Nat) :
   show wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
        < wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
   have hkk_strict : (2 * n + 1) * (2 * n + 3) < 4 * (n + 1) * (n + 1) := by
-    rw [E213.Tactic.Nat213.mul_assoc 4 (n+1) (n+1)]
+    rw [E213.Tactic.NatHelper.mul_assoc 4 (n+1) (n+1)]
     exact kk_lt_4_kp1_sq n
   -- Reassociate and chain.
   have hL : wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
             = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) :=
-    (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+    (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
   have hR : wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
             = wallisNum n * wallisDen n * (4 * (n + 1) * (n + 1)) := by
-    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (4 * (n+1) * (n+1)) (wallisDen n),
-        ← E213.Tactic.Nat213.mul_assoc]
+    rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (4 * (n+1) * (n+1)) (wallisDen n),
+        ← E213.Tactic.NatHelper.mul_assoc]
   rw [hL, hR]
   have h_pos : 1 ≤ wallisNum n * wallisDen n := by
     calc 1 = 1 * 1 := rfl
@@ -226,7 +226,7 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
   have h2 : 3 * (wallisNum n * k) ≤ 3 * (wallisDen n * m) :=
     Nat.mul_le_mul_left 3 hle
   have h2' : 3 * wallisNum n * k = 3 * (wallisNum n * k) :=
-    E213.Tactic.Nat213.mul_assoc _ _ _
+    E213.Tactic.NatHelper.mul_assoc _ _ _
   have h3 : 4 * wallisDen n * k ≤ 3 * (wallisDen n * m) := by
     rw [h2'] at h1; exact Nat.le_trans h1 h2
   have h4 : 3 * (wallisDen n * m) ≤ 3 * (wallisDen n * k) :=
@@ -238,7 +238,7 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
       _ ≤ wallisDen n * k := Nat.mul_le_mul hdpos hk
   have h5' : 4 * (wallisDen n * k) ≤ 3 * (wallisDen n * k) := by
     rw [show 4 * wallisDen n * k = 4 * (wallisDen n * k)
-          from E213.Tactic.Nat213.mul_assoc _ _ _] at h5
+          from E213.Tactic.NatHelper.mul_assoc _ _ _] at h5
     exact h5
   -- 4*X ≤ 3*X with X ≥ 1 → False.  Cancel X via Nat213.le_of_mul_le_mul_right.
   -- Or chain: 3*(d*k) + (d*k) = 4*(d*k) ≤ 3*(d*k), so d*k ≤ 0, contra hdk.
@@ -246,10 +246,10 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
                ≤ 3 * (wallisDen n * k) + 0 := by
     rw [Nat.add_zero]
     have h4eq : 4 * (wallisDen n * k) = 3 * (wallisDen n * k) + (wallisDen n * k) := by
-      rw [show (4 : Nat) = 3 + 1 from rfl, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+      rw [show (4 : Nat) = 3 + 1 from rfl, E213.Tactic.NatHelper.add_mul, Nat.one_mul]
     rw [← h4eq]; exact h5'
   have h_dk_zero : wallisDen n * k ≤ 0 :=
-    E213.Tactic.Nat213.le_of_add_le_add_left h_chain
+    E213.Tactic.NatHelper.le_of_add_le_add_left h_chain
   exact absurd (Nat.le_trans hdk h_dk_zero) (by decide)
 
 end E213.Lib.Math.Cauchy.WallisSeq
@@ -296,7 +296,7 @@ private theorem eval_wallisRhsPoly (k : Nat) :
 theorem wallis_poly_identity (k : Nat) :
     (4 * k + 1) * (4 * (k + 1) * (k + 1)) + 1
       = (4 * k + 5) * ((2 * k + 1) * (2 * k + 1)) := by
-  rw [E213.Tactic.Nat213.mul_assoc 4 (k+1) (k+1),
+  rw [E213.Tactic.NatHelper.mul_assoc 4 (k+1) (k+1),
       ← eval_wallisLhsPoly k,
       ← eval_wallisRhsPoly k,
       congrArg (fun p => eval p k) wallisLhsPoly_eq_wallisRhsPoly]
@@ -334,14 +334,14 @@ theorem wallis_upper_inv (n : Nat) :
       generalize hD : wallisDen k = D at *
       -- ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
       have h_poly_le : T * P ≤ S * Q * Q := by
-        have hsq : S * (Q * Q) = S * Q * Q := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        have hsq : S * (Q * Q) = S * Q * Q := (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         rw [← hsq]
         -- T * P ≤ S * (Q * Q) since T * P + 1 = S * (Q * Q)
         have h1 : T * P ≤ T * P + 1 := Nat.le_succ _
         rw [h_poly] at h1; exact h1
       have h1 : N * Q * P ≤ T * D * P := Nat.mul_le_mul_right P ih
       have h2 : T * D * P = D * (T * P) := by
-        rw [Nat.mul_comm T D, E213.Tactic.Nat213.mul_assoc]
+        rw [Nat.mul_comm T D, E213.Tactic.NatHelper.mul_assoc]
       have h3 : D * (T * P) ≤ D * (S * Q * Q) := Nat.mul_le_mul_left D h_poly_le
       have h4 : N * Q * P ≤ D * (S * Q * Q) := by
         rw [h2] at h1; exact Nat.le_trans h1 h3
@@ -349,28 +349,28 @@ theorem wallis_upper_inv (n : Nat) :
         Nat.mul_le_mul_right R h4
       have hLHS_assoc : N * Q * P * R = N * P * R * Q := by
         have e1 : N * Q * P = N * P * Q := by
-          rw [E213.Tactic.Nat213.mul_assoc N Q P, Nat.mul_comm Q P,
-              ← E213.Tactic.Nat213.mul_assoc]
+          rw [E213.Tactic.NatHelper.mul_assoc N Q P, Nat.mul_comm Q P,
+              ← E213.Tactic.NatHelper.mul_assoc]
         rw [e1]
-        rw [E213.Tactic.Nat213.mul_assoc (N*P) Q R, Nat.mul_comm Q R,
-            ← E213.Tactic.Nat213.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_assoc (N*P) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.NatHelper.mul_assoc]
       have hRHS_assoc : D * (S * Q * Q) * R = S * D * Q * R * Q := by
         have e2 : D * (S * Q * Q) = S * D * Q * Q := by
-          rw [← E213.Tactic.Nat213.mul_assoc D (S*Q) Q,
-              ← E213.Tactic.Nat213.mul_assoc D S Q, Nat.mul_comm D S]
+          rw [← E213.Tactic.NatHelper.mul_assoc D (S*Q) Q,
+              ← E213.Tactic.NatHelper.mul_assoc D S Q, Nat.mul_comm D S]
         rw [e2]
-        rw [E213.Tactic.Nat213.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R,
-            ← E213.Tactic.Nat213.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.NatHelper.mul_assoc]
       rw [hLHS_assoc, hRHS_assoc] at h5
       have h6 : Q * (N * P * R) ≤ Q * (S * D * Q * R) := by
         rw [Nat.mul_comm Q (N * P * R), Nat.mul_comm Q (S * D * Q * R)]
         exact h5
       have h7 : N * P * R ≤ S * D * Q * R :=
-        E213.Tactic.Nat213.le_of_mul_le_mul_right hQ_pos
+        E213.Tactic.NatHelper.le_of_mul_le_mul_right hQ_pos
           (by rw [Nat.mul_comm (N * P * R) Q, Nat.mul_comm (S * D * Q * R) Q]
               exact h6)
       have hRHS_goal : S * (D * (Q * R)) = S * D * Q * R := by
-        rw [← E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+        rw [← E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_assoc]
       rw [hRHS_goal]
       exact h7
 
@@ -397,9 +397,9 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
               = 2 * (2*n + 1) * wallisDen n := by
     have h_e : 2 * (2*n + 1) = (4*n + 1) + 1 := by
       rw [Nat.mul_add 2 (2*n) 1, Nat.mul_one,
-          ← E213.Tactic.Nat213.mul_assoc 2 2 n,
+          ← E213.Tactic.NatHelper.mul_assoc 2 2 n,
           show (2 : Nat) * 2 = 4 from rfl]
-    rw [h_e, E213.Tactic.Nat213.add_mul (4*n + 1) 1 (wallisDen n), Nat.one_mul]
+    rw [h_e, E213.Tactic.NatHelper.add_mul (4*n + 1) 1 (wallisDen n), Nat.one_mul]
   -- So W_n * (2n+1) + D_n ≤ 2 * (2n+1) * D_n.
   have h1 : wallisNum n * (2*n + 1) + wallisDen n ≤ 2 * (2*n + 1) * wallisDen n := by
     rw [← h_eq]
@@ -407,8 +407,8 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
   -- Hence W_n * (2n+1) ≤ 2 * D_n * (2n+1).
   have h2 : wallisNum n * (2*n+1) ≤ 2 * wallisDen n * (2*n+1) := by
     have h_RHS : 2 * (2*n+1) * wallisDen n = 2 * wallisDen n * (2*n+1) := by
-      rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (2*n+1) (wallisDen n),
-          ← E213.Tactic.Nat213.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (2*n+1) (wallisDen n),
+          ← E213.Tactic.NatHelper.mul_assoc]
     rw [h_RHS] at h1
     -- h1 : wallisNum n * (2*n+1) + wallisDen n ≤ 2 * wallisDen n * (2*n+1)
     -- Want: wallisNum n * (2*n+1) ≤ 2 * wallisDen n * (2*n+1)
@@ -417,12 +417,12 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
     rw [Nat.mul_comm (2*n+1) (wallisNum n), Nat.mul_comm (2*n+1) (2 * wallisDen n)]
     exact h2
   have h4 : wallisNum n ≤ 2 * wallisDen n :=
-    E213.Tactic.Nat213.le_of_mul_le_mul_right h_2n1_pos
+    E213.Tactic.NatHelper.le_of_mul_le_mul_right h_2n1_pos
       (by rw [Nat.mul_comm (wallisNum n) (2*n+1),
               Nat.mul_comm (2 * wallisDen n) (2*n+1)]; exact h3)
   have h5 : wallisNum n * k ≤ 2 * wallisDen n * k := Nat.mul_le_mul_right k h4
   have h6 : 2 * wallisDen n * k = wallisDen n * (2 * k) := by
-    rw [Nat.mul_comm 2 (wallisDen n), E213.Tactic.Nat213.mul_assoc]
+    rw [Nat.mul_comm 2 (wallisDen n), E213.Tactic.NatHelper.mul_assoc]
   rw [h6] at h5
   have h7 : wallisDen n * (2 * k) ≤ wallisDen n * m :=
     Nat.mul_le_mul_left (wallisDen n) h2km
@@ -477,17 +477,17 @@ theorem wallis_isAbMonotonic : IsAbMonotonic wallisRawSeq := by
   -- Goal: N * (D * P) ≤ (N * Q) * D where P = (2n+1)(2n+3), Q = 4(n+1)².
   -- Since P ≤ Q (poly identity), N * D * P ≤ N * D * Q = (N * Q) * D.
   have hkk : (2 * n + 1) * (2 * n + 3) ≤ 4 * (n + 1) * (n + 1) := by
-    rw [E213.Tactic.Nat213.mul_assoc 4 (n+1) (n+1)]
+    rw [E213.Tactic.NatHelper.mul_assoc 4 (n+1) (n+1)]
     exact kk_le_4_kp1_sq n
   -- N * (D * P) = N * D * P ≤ N * D * Q = (N * Q) * D  (= goal RHS reassoc).
   have hLHS : wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
               = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) :=
-    (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+    (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
   have hRHS : wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
               = wallisNum n * wallisDen n * (4 * (n + 1) * (n + 1)) := by
-    rw [E213.Tactic.Nat213.mul_assoc,
+    rw [E213.Tactic.NatHelper.mul_assoc,
         Nat.mul_comm (4 * (n + 1) * (n + 1)) (wallisDen n),
-        ← E213.Tactic.Nat213.mul_assoc]
+        ← E213.Tactic.NatHelper.mul_assoc]
   rw [hLHS, hRHS]
   exact Nat.mul_le_mul_left (wallisNum n * wallisDen n) hkk
 

@@ -1,5 +1,5 @@
 import E213.Meta.Nat.NatDiv213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # 213-native `Nat.add_mod` (∅-axiom, Math layer)
@@ -11,7 +11,7 @@ unblocks `sub_is_multiple_of_p` and the
 
 namespace E213.Meta.Nat.AddMod213
 
-open E213.Tactic.Nat213 (sub_add_cancel)
+open E213.Tactic.NatHelper (sub_add_cancel)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
 /-- `(a + b) % n = (a % n + b) % n` when `0 < n`.  ∅-axiom via
@@ -126,10 +126,10 @@ theorem mod_mod_of_dvd (n : Nat) {m k : Nat} (h : k ∣ m) :
   have h1 : n = m * (n / m) + n % m := (div_add_mod n m).symm
   have h2 : n % k = (m * (n / m) + n % m) % k := by rw [← h1]
   have h3 : m * (n / m) = k * (q * (n / m)) := by
-    rw [hq, E213.Tactic.Nat213.mul_assoc]
+    rw [hq, E213.Tactic.NatHelper.mul_assoc]
   have h4 : n % k = (k * (q * (n / m)) + n % m) % k := by rw [h2, h3]
   have hkdvd : (k * (q * (n / m))) % k = 0 :=
-    E213.Tactic.Nat213.mul_mod_right k _
+    E213.Tactic.NatHelper.mul_mod_right k _
   have h5 : (k * (q * (n / m)) + n % m) % k = (n % m) % k := by
     rw [add_mod hk, hkdvd, Nat.zero_add]
     exact mod_mod (n % m) k
@@ -139,7 +139,7 @@ theorem mod_mod_of_dvd (n : Nat) {m k : Nat} (h : k ∣ m) :
     (`[propext]`).  Via `Nat213.mul_mod_right n 1` + `Nat.mul_one`. -/
 theorem mod_self (n : Nat) : n % n = 0 :=
   let h1 : n * 1 = n := Nat.mul_one n
-  let h2 : n * 1 % n = 0 := E213.Tactic.Nat213.mul_mod_right n 1
+  let h2 : n * 1 % n = 0 := E213.Tactic.NatHelper.mul_mod_right n 1
   let h3 : n * 1 % n = n % n := congrArg (· % n) h1
   h3.symm.trans h2
 
@@ -147,7 +147,7 @@ theorem mod_self (n : Nat) : n % n = 0 :=
     `Nat.add_mod_left` (`[propext]`).  Via `Nat213.add_self_mod_pure`
     after `Nat.add_comm`. -/
 theorem add_mod_left_pure (n a : Nat) : (n + a) % n = a % n :=
-  let h2 : (a + n) % n = a % n := E213.Tactic.Nat213.add_self_mod_pure a n
+  let h2 : (a + n) % n = a % n := E213.Tactic.NatHelper.add_self_mod_pure a n
   let h3 : (n + a) % n = (a + n) % n := congrArg (· % n) (Nat.add_comm n a)
   h3.trans h2
 
@@ -169,7 +169,7 @@ theorem dvd_of_mod_eq_zero {a b : Nat} (h : a % b = 0) : b ∣ a :=
     `n` to pin it down to `0`. -/
 theorem mod_diff_eq_zero_of_le {n : Nat} (hn : 0 < n) {a b : Nat}
     (hle : a ≤ b) (hmod : a % n = b % n) : (b - a) % n = 0 := by
-  have hsum : b - a + a = b := E213.Tactic.Nat213.sub_add_cancel hle
+  have hsum : b - a + a = b := E213.Tactic.NatHelper.sub_add_cancel hle
   have h1 : (b - a + a) % n = b % n := by rw [hsum]
   have h2 : (b - a + a) % n = ((b - a) % n + a % n) % n :=
     add_mod_gen (b - a) a n
@@ -186,7 +186,7 @@ theorem mod_diff_eq_zero_of_le {n : Nat} (hn : 0 < n) {a b : Nat}
     -- Rewrite as (b-a)%n + a%n = 0 + a%n, cancel.
     have h_cancel : (b - a) % n + a % n = 0 + a % n := by
       rw [Nat.zero_add]; exact h3
-    exact E213.Tactic.Nat213.add_right_cancel h_cancel
+    exact E213.Tactic.NatHelper.add_right_cancel h_cancel
   · -- (b-a)%n + a%n ≥ n.  Then ((b-a)%n + a%n) % n = ((b-a)%n + a%n) - n.
     have hge : n ≤ (b - a) % n + a % n := Nat.le_of_not_lt hsumlt
     have hms : ((b - a) % n + a % n) % n = ((b - a) % n + a % n - n) % n :=
@@ -209,7 +209,7 @@ theorem mod_diff_eq_zero_of_le {n : Nat} (hn : 0 < n) {a b : Nat}
     have hr_eq_n : (b - a) % n = n := by
       have h_swap : (b - a) % n + a % n = n + a % n := by
         rw [hrec, Nat.add_comm n (a % n)]
-      exact E213.Tactic.Nat213.add_right_cancel h_swap
+      exact E213.Tactic.NatHelper.add_right_cancel h_swap
     exact absurd hr_eq_n (Nat.ne_of_lt hr_lt)
 
 /-- 213-native `Nat.max_comm` (Lean-core leaks propext via max_eq_left). -/

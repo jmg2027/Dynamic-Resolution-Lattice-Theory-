@@ -1,5 +1,5 @@
 import E213.Meta.Int213.Core
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Theory.Tower.NatPairToInt — orthogonal-axis projection
@@ -103,9 +103,9 @@ theorem npairToInt_diag_shift (n k : Nat) :
   rw [show k - (n + k) = 0 from by
         rw [Nat.add_comm n k];
         show (k + 0) - (k + n) = 0
-        rw [E213.Tactic.Nat213.add_sub_add_left k 0 n,
+        rw [E213.Tactic.NatHelper.add_sub_add_left k 0 n,
             Nat.zero_sub],
-      E213.Tactic.Nat213.add_sub_cancel_right n k,
+      E213.Tactic.NatHelper.add_sub_cancel_right n k,
       Nat.zero_sub, Nat.sub_zero]
 
 /-- ★ Diagonal-equivalent pairs project to the same integer.
@@ -119,8 +119,8 @@ theorem npairToInt_translation_invariant (a b k : Nat) :
      = (match b - a with
         | 0 => Int.ofNat (a - b)
         | j+1 => Int.negSucc j)
-  rw [E213.Tactic.Nat213.add_sub_add_right b k a,
-      E213.Tactic.Nat213.add_sub_add_right a k b]
+  rw [E213.Tactic.NatHelper.add_sub_add_right b k a,
+      E213.Tactic.NatHelper.add_sub_add_right a k b]
 
 -- ═══ "Lost properties" ℕ → ℤ (G62) — concrete witnesses ═══
 

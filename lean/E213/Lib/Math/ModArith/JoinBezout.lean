@@ -55,7 +55,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
     have hkm_le : k ≤ m := Nat.le_of_lt hmk
     have h_sub_add : (m - k) + k = m :=
-      E213.Tactic.Nat213.sub_add_cancel hkm_le
+      E213.Tactic.NatHelper.sub_add_cancel hkm_le
     have hrewrite : Lens.leaves.view r + m
                       = (Lens.leaves.view r + (m - k)) + k := by
       rw [Nat.add_assoc, h_sub_add]
@@ -128,11 +128,11 @@ theorem consecutive_refines_const {α : Type} (N : Lens α) (m k : Nat)
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
   · have heq : Lens.leaves.view r' = Lens.leaves.view r
               + (Lens.leaves.view r' - Lens.leaves.view r) :=
-      (E213.Tactic.Nat213.add_sub_of_le hle).symm
+      (E213.Tactic.NatHelper.add_sub_of_le hle).symm
     exact consecutive_step_plus_n N m k hk hmk hLm hLk r _ r' heq
   · have heq : Lens.leaves.view r = Lens.leaves.view r'
               + (Lens.leaves.view r - Lens.leaves.view r') :=
-      (E213.Tactic.Nat213.add_sub_of_le hle).symm
+      (E213.Tactic.NatHelper.add_sub_of_le hle).symm
     exact (consecutive_step_plus_n N m k hk hmk hLm hLk r' _ r heq).symm
 
 end E213.Lib.Math.ModArith.JoinBezout

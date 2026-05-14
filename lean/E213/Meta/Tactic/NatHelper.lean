@@ -1,9 +1,14 @@
 /-!
-# 213-native `Nat` helpers (∅-axiom)
+# `Nat` helpers — ∅-axiom replacements (Lean Nat, NOT a Nat213 type)
 
 Replacements for Lean-core `Nat.*` lemmas that bring `propext` (or
 `Quot.sound`) into downstream theorems.  Every theorem here is
 verified `#print axioms` ∅.
+
+**Naming note (2026-05-14)**: 이전 이름은 `Tactic.Nat213` 이었으나
+type `Nat213` 과 혼동 가능해 `NatHelper` 로 rename.  여기 모인
+lemma 들은 Lean 의 `Nat` 위에서 작동하는 헬퍼이고, 213-native
+positive nat 타입은 `Lens.Number.Nat213.{Raw, Peano}` 에 있음.
 
 Companion to `Omega213.lean` (linear arithmetic tactic) and
 `Fin213.lean` (Fin-construction helpers).  See
@@ -12,7 +17,7 @@ Companion to `Omega213.lean` (linear arithmetic tactic) and
 The Lean-core lemmas these replace are listed beside each.
 -/
 
-namespace E213.Tactic.Nat213
+namespace E213.Tactic.NatHelper
 
 /-- `Nat.sub_add_cancel` at `b = 1`.
 
@@ -389,9 +394,9 @@ theorem mul_mul_mul_comm_213 (a b c d : Nat) :
     (mul_assoc a c (b * d)).symm
   h1.trans ((congrArg (a * ·) middle).trans h5)
 
-end E213.Tactic.Nat213
+end E213.Tactic.NatHelper
 
-namespace E213.Tactic.Nat213
+namespace E213.Tactic.NatHelper
 
 /-- ∅-axiom replacement for `Nat.sub_le_sub_left` (Lean-core leaks
     `propext`).  Term-mode recursion on `c` + 4-case pattern on (a, b). -/
@@ -434,9 +439,9 @@ theorem add_self_mod_pure : ∀ (a n : Nat), (a + n) % n = a % n
       let h2 : a + (n'+1) - (n'+1) = a := add_sub_cancel_right a (n'+1)
       h1.trans (congrArg (· % (n'+1)) h2)
 
-end E213.Tactic.Nat213
+end E213.Tactic.NatHelper
 
-namespace E213.Tactic.Nat213
+namespace E213.Tactic.NatHelper
 
 /-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
     (which is `[propext]`).  Term-mode pattern match on `m`.
@@ -471,9 +476,9 @@ theorem mul_mod_right (m : Nat) : ∀ b, m * b % m = 0
       congrArg (· % m) hcancel
     (step1.trans (hms.trans step3)).trans ih
 
-end E213.Tactic.Nat213
+end E213.Tactic.NatHelper
 
-namespace E213.Tactic.Nat213
+namespace E213.Tactic.NatHelper
 
 /-- `a ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
     `Nat.le_max_left` (`[propext]`).  Term-mode via `Decidable.casesOn`
@@ -492,14 +497,14 @@ theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
       (fun h => (if_neg h).symm ▸ Nat.le_of_lt (Nat.lt_of_not_le h))
       (fun h => (if_pos h).symm ▸ Nat.le_refl b)
 
-end E213.Tactic.Nat213
+end E213.Tactic.NatHelper
 
-namespace E213.Tactic.Nat213
+namespace E213.Tactic.NatHelper
 
 /-- `2 * n = n + n`.  Term-mode by structural recursion.
 
     Companion to Lean-core `Nat.two_mul` (also ∅-axiom);
-    provided here so 213 code can stay within `E213.Tactic.Nat213`
+    provided here so 213 code can stay within `E213.Tactic.NatHelper`
     vocabulary without leaning on Lean-core Nat lemmas.
 
     Term-mode only (no `rw`) for Term-layer purity. -/
@@ -540,4 +545,4 @@ def gcdFuel : Nat → Nat → Nat → Nat
 /-- 213-native gcd.  `rfl` reduces closed terms; ∅-axiom. -/
 def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
 
-end E213.Tactic.Nat213
+end E213.Tactic.NatHelper

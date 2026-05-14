@@ -2,7 +2,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.EncodePair213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.BitFSM
 /-!
@@ -37,7 +37,7 @@ private theorem encode3_bound {n : Nat} (a b c : Fin n) :
   have hbound2 : (b.val + 1) * n ≤ n * n :=
     Nat.mul_le_mul_right n hb
   have hassoc : n * (n * n) = n * n * n :=
-    (E213.Tactic.Nat213.mul_assoc n n n).symm
+    (E213.Tactic.NatHelper.mul_assoc n n n).symm
   -- Goal: a.val * (n*n) + b.val * n + c.val < n*n*n
   -- bn + c < n*n by hbound2 + hc
   have hbcs : b.val * n + c.val < n * n :=

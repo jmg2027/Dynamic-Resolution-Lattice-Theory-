@@ -1,7 +1,7 @@
 import E213.Meta.Tactic.DeriveConjugationCodomain
 import E213.Meta.Tactic.Fin213
 import E213.Meta.Tactic.Mod213
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.NativeGuard
 import E213.Meta.Tactic.NativeGuardTest
 import E213.Meta.Tactic.Omega213
@@ -23,8 +23,12 @@ import E213.Meta.Tactic.VerifyConjugation
   213-native replacements for Lean's `omega` / `simp` that bring
   zero hidden axioms.  Consumed by every ring above.
 
-    * `Nat213`     — `Nat`-arithmetic helpers (substitutes for
-                     `omega` in many leaf-level proofs)
+    * `NatHelper`  — `Nat`-arithmetic helpers (substitutes for
+                     `omega` in many leaf-level proofs).
+                     2026-05-14: renamed from `Nat213` to avoid
+                     confusion with the `Nat213` *type*
+                     (`Lens.Number.Nat213`).  Namespace
+                     `E213.Tactic.NatHelper`.
     * `Mod213`     — modular-arithmetic decisions
     * `Fin213`     — `Fin n` index manipulation
     * `Pow213`     — power / exponent decisions

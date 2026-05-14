@@ -1,6 +1,6 @@
 import E213.Lens.Universal.Witnesses.Nat2
 import E213.Meta.BitPatternUniqueness
-import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # expSumLens.view injectivity (full universality of `Lens (ℕ × ℕ)`)
@@ -67,7 +67,7 @@ private theorem two_le_pow_expSumNat {r : Raw} (h1 : 1 ≤ expSumNat r) :
     2 ≤ 2 ^ (expSumNat r) := by
   obtain ⟨k, hk⟩ : ∃ k, expSumNat r = k + 1 :=
     ⟨expSumNat r - 1,
-     (E213.Tactic.Nat213.sub_one_add_one
+     (E213.Tactic.NatHelper.sub_one_add_one
         (Nat.pos_iff_ne_zero.mp h1)).symm⟩
   rw [hk]
   exact two_le_pow_succ k
