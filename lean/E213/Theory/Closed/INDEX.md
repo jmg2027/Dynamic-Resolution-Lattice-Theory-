@@ -1,43 +1,32 @@
-# `Theory/Closed/` — closed Raw-derived types (Theory-side residue)
+# `Theory/Closed/` — Raw → Raw closed-universe helpers (residue)
 
-Closed types built from Raw via the catamorphism `Raw.fold`,
-restricted to those whose semantics live in the Theory ring (Raw
-algebra itself).  The number-system Closed types migrated to
-`Lens.Number.Nat213` on 2026-05-14 because `Raw.fold` + a specific
-catamorphism choice = Lens-layer artifact.
+Raw 자체에 대한 closed-universe 연산만 잔존 (catamorphism *machinery*).
+Catamorphism *output* (Nat213, Bool213, RawCut, NumberingSystem) 은
+모두 `Lens.{Number, Bool213}` 로 이전 (2026-05-14).
 
-  - `Bool213` (closed) — Raw.fold-derived booleans
-  - `FoldRaw` — endomorphic fold helpers (`slashOrSelf`,
-    `swapClosed`) — Raw → Raw, sits at Theory level
+## Files (1)
 
-## Files (3)
+  - `FoldRaw.lean`  — `slashOrSelf` (total slash 변형, `Raw.slash`
+                      의 `x ≠ y` 증명 요구 우회) + `foldRaw`
+                      (`Raw.fold` 의 codomain = Raw alias) +
+                      `swapClosed` (Raw.swap 의 foldRaw 한 줄
+                      표현).
 
-### Closed Bool213
-  - `Bool213.lean`         — `Closed.Bool213` carrier
-  - `Bool213System.lean`   — Bool213 system structure
-
-### Raw → Raw helpers
-  - `FoldRaw.lean`        — `slashOrSelf` total-slash variant +
-                            `swapClosed` (foldRaw 한 줄 표현);
-                            endomorphic Raw → Raw fold base
-
-## Moved to `Lens.Number.Nat213/` (2026-05-14)
+## Moved out (2026-05-14)
 
   - `Nat213.lean`        → `Lens/Number/Nat213/Raw.lean`
   - `Nat213Bridge.lean`  → `Lens/Number/Nat213/Bridge.lean`
   - `NumberingSystem.lean`→ `Lens/Number/Nat213/NumberingSystem.lean`
   - `RawCut.lean`         → `Lens/Number/Nat213/RawCut.lean`
-
-Rationale: 카타모피즘 데이터 캐리어 / numbering / cut 모두 Raw 의
-한 가지 *관찰 방식* (Lens) 산물.  Bool213 도 이론상 동일하나 scope C
-조사 후 별도 이전.
+  - `Bool213.lean`        → `Lens/Bool213/Raw.lean`         (2026-05-14, scope C)
+  - `Bool213System.lean`  → `Lens/Bool213/System.lean`      (2026-05-14, scope C)
 
 ## Top-level
 
-  - `Theory/Closed.lean` aggregator (imports Bool213 + FoldRaw)
+  - `Theory/Closed.lean` aggregator (FoldRaw 만 import).
 
-## Discipline
+## Future
 
-Per ARCHITECTURE.md (2026-05-12) Theory ring: Raw 자체에 대한 구조만
-Theory-Closed 에 남김.  Raw 의 catamorphism output 으로 새 number
-type 을 정의하는 모듈은 `Lens.Number.<Type>` 로 위치.
+  - 1-file 디렉토리라 `Theory/FoldRaw.lean` 으로 평탄화 후보 (별도
+    commit; namespace `E213.Theory.Closed.{slashOrSelf, foldRaw,
+    swapClosed}` 호환성 영향 검토 필요).

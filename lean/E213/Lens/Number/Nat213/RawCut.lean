@@ -1,4 +1,4 @@
-import E213.Theory.Closed.Bool213
+import E213.Lens.Bool213.Raw
 import E213.Lens.Number.Nat213.Raw
 
 /-!
@@ -26,7 +26,7 @@ import E213.Lens.Number.Nat213.Raw
 namespace E213.Lens.Number.Nat213.RawCut
 
 open E213.Theory
-open E213.Theory.Closed.Bool213 (T F)
+open E213.Lens.Bool213.Raw (T F)
 
 /-- Lean-free cut type — 입력 출력 모두 Raw. -/
 abbrev RawCut := Raw → Raw → Raw
@@ -76,7 +76,7 @@ end E213.Lens.Number.Nat213.RawCut
 namespace E213.Lens.Number.Nat213.RawCut
 
 open E213.Theory
-open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_T booleanProj_F
+open E213.Lens.Bool213.Raw (T F booleanProj booleanProj_T booleanProj_F
                                   booleanProj_isBool booleanProj_idempotent
                                   boolValue boolValue_booleanProj)
 

@@ -21,9 +21,10 @@ import E213.Theory.Tower
                       PrimitiveSizes)
     * `Raw/`        — public Raw API (Core, Slash, Swap, SwapSlash,
                       Fold, Hom, Levels, Rec, Signed)
-    * `Closed/`     — Closed Raw-derived types (Bool213, FoldRaw).
-                      Nat213/RawCut/NumberingSystem 은 Lens.Number.Nat213
-                      으로 이전 (2026-05-14).
+    * `Closed/`     — Raw → Raw closed-universe helpers (FoldRaw).
+                      Catamorphism output (Nat213/Bool213/RawCut/
+                      NumberingSystem) 은 모두 Lens 으로 이전
+                      (2026-05-14).
     * `Tower/`      — number-tower constructions on Nat213
                       (NatPairToInt, NatTripleToZ2).
                       NatPairToQPos 은 Lens.Number.Nat213.Tower 로
