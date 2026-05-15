@@ -1,7 +1,7 @@
 import E213.Theory.Raw.API
-import E213.Theory.Raw.Signed
 import E213.Lens.LensCore
 import E213.Meta.Int213.Core
+import E213.Lens.Number.Nat213.Tower.NatPairToInt
 
 /-!
 # Lens.Number.Int213.Raw — Raw 를 signed lens 로 본 ℤ
@@ -127,5 +127,80 @@ theorem neg_zero : equiv (neg zero) zero := by
   show value (neg zero) = value zero
   rw [value_neg, value_zero]
   rfl
+
+/-! ## Pair lens — signedLens 의 orthogonal-axis 분해
+
+`signedLens = ⟨1, -1, +⟩ : Lens Int` 의 codomain `Int` 을 두 ℕ-axis 로
+분해: a-count 와 b-count 를 따로 누적하면 `Lens (ℕ × ℕ)`.  이 pair
+lens 의 view 를 `Tower.NatPairToInt.npairToInt` 로 project 하면
+signedLens 와 일치 — **`signedLens = npairToInt ∘ pairLens`**. -/
+
+/-- 컴포넌트-wise pair add. -/
+private def pairCombine (p q : Nat × Nat) : Nat × Nat := (p.1 + q.1, p.2 + q.2)
+
+/-- pairLens — Raw 의 atom 분해.  atom a = (1, 0), atom b = (0, 1),
+    combine = component-wise +.  view = (a-count, b-count). -/
+def pairLens : Lens (Nat × Nat) := ⟨(1, 0), (0, 1), pairCombine⟩
+
+/-- Raw 의 atom-decomposition pair (pairLens.view). -/
+def pairCount (r : Raw) : Nat × Nat := pairLens.view r
+
+theorem pairCount_a : pairCount Raw.a = (1, 0) := rfl
+theorem pairCount_b : pairCount Raw.b = (0, 1) := rfl
+
+/-- pairCombine 은 가환 — component-wise Nat.add_comm. -/
+private theorem pairCombine_comm (p q : Nat × Nat) :
+    pairCombine p q = pairCombine q p := by
+  show (p.1 + q.1, p.2 + q.2) = (q.1 + p.1, q.2 + p.2)
+  rw [Nat.add_comm p.1 q.1, Nat.add_comm p.2 q.2]
+
+/-- pairLens 의 slash 호환: view (slash x y) = combine (view x) (view y). -/
+theorem pairCount_slash (x y : Raw) (h : x ≠ y) :
+    pairCount (Raw.slash x y h) = pairCombine (pairCount x) (pairCount y) :=
+  Raw.fold_slash (1, 0) (0, 1) pairCombine pairCombine_comm x y h
+
+/-! ### Factoring: signedLens = npairToInt ∘ pairLens
+
+Keystone `Meta.Int213.subNatNat_add_subNatNat` 가 이미 ∅-axiom 으로
+`subNatNat a b + subNatNat c d = subNatNat (a+c) (b+d)` 를 증명;
+Tree induction 한 줄로 factoring 닫힘. -/
+
+open E213.Term.Internal (Tree)
+
+/-- Tree-level factoring (private; Raw-level lift 는 아래). -/
+private theorem tree_signedLens_factor (t : Tree) :
+    Tree.fold (1 : Int) (-1) (· + ·) t
+      = Int.subNatNat
+          (Tree.fold (1, 0) (0, 1) pairCombine t).1
+          (Tree.fold (1, 0) (0, 1) pairCombine t).2 := by
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      show Tree.fold (1 : Int) (-1) (· + ·) x
+           + Tree.fold (1 : Int) (-1) (· + ·) y
+         = Int.subNatNat
+             ((Tree.fold (1, 0) (0, 1) pairCombine x).1
+              + (Tree.fold (1, 0) (0, 1) pairCombine y).1)
+             ((Tree.fold (1, 0) (0, 1) pairCombine x).2
+              + (Tree.fold (1, 0) (0, 1) pairCombine y).2)
+      rw [ihx, ihy]
+      exact E213.Meta.Int213.subNatNat_add_subNatNat _ _ _ _
+
+/-- ★ Factoring: signedLens.view 가 pairLens.view 를 `npairToInt`
+    (Tower 의 morphism) 으로 project 한 것과 일치.  즉 Raw → ℤ 가
+    Raw → ℕ × ℕ → ℤ 로 commute. -/
+theorem signedLens_factors_through_pairLens (r : Raw) :
+    value r = E213.Lens.Number.Nat213.Tower.NatPairToInt.npairToInt (pairCount r) :=
+  tree_signedLens_factor r.val
+
+/-- pairLens 가 signedLens 를 refine — 같은 pairCount 면 같은 signed
+    value.  Factoring 의 직접 따름결. -/
+theorem pairLens_refines_signedLens : pairLens.refines signedLens := by
+  intro x y h
+  show value x = value y
+  rw [signedLens_factors_through_pairLens x,
+      signedLens_factors_through_pairLens y]
+  exact congrArg _ h
 
 end E213.Lens.Number.Int213.Raw
