@@ -275,8 +275,12 @@ code-review smell.
 
 Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
 직접 import 는 smell.  현재:
-  * `Term/Internal/Tree*`     — Tree (inductive), Tree.cmp lemmas
-                                 (moved from Theory 2026-05-12)
+  * `Term/Internal/Tree*`     — Tree (inductive) + cmp, swap, fold,
+                                 depth, leaves, fold_swap_hom,
+                                 fold_signed_swap (all Tree-level,
+                                 ∅-axiom).  Moved fully from Theory
+                                 2026-05-15.  Namespace
+                                 `E213.Term.Internal` (path-aligned).
   * `Meta/Int213/`, `Meta/Algebra213/` — Int / Ring213 typeclass
                                  helpers (promoted from Theory.Internal
                                  2026-05-12; ring-independent so Meta 거주)
@@ -308,10 +312,14 @@ named, grep-discoverable.
          file's namespace, downstream extension files declare a
          doubled namespace.  R10 in
          `research-notes/CONSOLIDATION_PROTOCOL.md`.
-       - **Internal-shared umbrella** — files under
-         `Term/Internal/Tree*` share `namespace E213.Theory.Internal`
-         (Tree machinery imported by Theory).  Same pattern in
-         `Meta/Tactic/{Nat213,Mod213,…}` sharing `E213.Tactic.*`.
+       - **Cross-ring extension of `Term/Internal/Tree`** — files
+         in higher rings (Lens, Lib, Theory) that add Tree-level
+         decls (e.g., `Lens/Cardinality/Godel.lean`'s `Tree.toNat`)
+         must declare them inside `namespace E213.Term.Internal` so
+         dot notation (`t.toNat`) resolves.  Namespace ≠ ring is OK
+         in Lean — what matters is layer-import direction.  Same
+         technique in `Meta/Tactic/{Nat213,Mod213,…}` sharing
+         `E213.Tactic.*` for tactic discovery.
        - **Descriptive sub-namespace** when the namespace label
          conveys content better than the file name.
 
