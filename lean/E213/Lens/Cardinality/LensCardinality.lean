@@ -176,7 +176,8 @@ end E213.Lens.Cardinality
 
 namespace E213.Lens.Cardinality
 
-open E213.Theory E213.Lens E213.Term.Internal
+open E213.Theory E213.Lens
+open E213.Term.Internal (Tree)
 open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via

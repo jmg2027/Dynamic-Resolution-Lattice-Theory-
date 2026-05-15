@@ -12,7 +12,7 @@ import E213.Term.Tree
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 -- ═══ Public API: smart constructor ═══
 

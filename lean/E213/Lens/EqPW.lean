@@ -110,7 +110,8 @@ end E213.Lens
 
 namespace E213.Lens
 
-open E213.Theory E213.Term.Internal
+open E213.Theory
+open E213.Term.Internal (Tree)
 
 namespace Lens
 

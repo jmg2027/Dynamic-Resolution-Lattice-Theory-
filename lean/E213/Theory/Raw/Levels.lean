@@ -14,7 +14,7 @@ Tree.fold_eq_leaves) live in `Term/Internal/Tree/Levels.lean`.
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 protected theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
   Tree.swap_depth r.val r.property

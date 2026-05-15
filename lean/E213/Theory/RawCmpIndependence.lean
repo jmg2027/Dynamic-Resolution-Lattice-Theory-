@@ -32,7 +32,8 @@ scaffolding (Tree, Tree.cmp).
 
 namespace E213.Theory.RawCmpIndependence
 
-open E213.Theory E213.Term.Internal
+open E213.Theory
+open E213.Term.Internal (Tree Bool.and_eq_true_to_pair)
 
 /-- **CmpProps**: well-behaved order conditions for cmp. -/
 structure CmpProps (cmp : Tree → Tree → Ordering) : Prop where

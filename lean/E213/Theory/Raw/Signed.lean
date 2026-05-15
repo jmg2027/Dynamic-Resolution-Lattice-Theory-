@@ -14,7 +14,7 @@ Tree-level statement (`Tree.fold_signed_swap`) lives in
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 protected theorem Raw.fold_signed_swap (r : Raw) :
     Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)

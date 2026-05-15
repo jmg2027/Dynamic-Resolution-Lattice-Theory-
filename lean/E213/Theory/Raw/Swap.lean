@@ -13,7 +13,7 @@ the canonical-form subtype `Raw`.
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 protected def Raw.swap (r : Raw) : Raw :=
   ⟨Tree.swap r.val, Tree.swap_canonical r.val r.property⟩

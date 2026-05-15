@@ -16,7 +16,7 @@ choice.  Every use of `Raw.fold` must verify symmetry.
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 /-- Catamorphism on Raw. -/
 protected def Raw.fold {α : Type}

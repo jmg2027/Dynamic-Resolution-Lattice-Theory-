@@ -13,7 +13,7 @@ lives in `Term/Internal/Tree/Hom.lean`.
 
 namespace E213.Theory
 
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 protected theorem Raw.fold_swap_hom {α : Type}
     (ba bb : α) (c : α → α → α) (conj : α → α)

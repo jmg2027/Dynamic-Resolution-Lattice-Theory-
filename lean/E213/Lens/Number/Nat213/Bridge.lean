@@ -18,7 +18,8 @@ import E213.Meta.Tactic.NatHelper
 
 namespace E213.Lens.Number.Nat213.Bridge
 
-open E213.Theory E213.Term.Internal
+open E213.Theory
+open E213.Term.Internal (Tree)
 
 /-! ### Layer 2 → Layer 1: inductive Nat213 → Method A Raw chain -/
 

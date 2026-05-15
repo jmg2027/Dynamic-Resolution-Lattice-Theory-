@@ -24,7 +24,8 @@ Method A:
 
 namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Term.Internal E213.Theory.Raw.Endomorphic
+open E213.Theory E213.Theory.Raw.Endomorphic
+open E213.Term.Internal (Tree)
 
 /-! ### Method A primitives -/
 

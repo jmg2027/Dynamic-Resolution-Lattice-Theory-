@@ -22,7 +22,8 @@ internal projection.
 
 namespace E213.Lens.Bool213.Raw
 
-open E213.Theory E213.Theory.Raw.Endomorphic E213.Term.Internal
+open E213.Theory E213.Theory.Raw.Endomorphic
+open E213.Term.Internal (Tree)
 
 /-! ### Method A: T = a, F = b (canonical) -/
 

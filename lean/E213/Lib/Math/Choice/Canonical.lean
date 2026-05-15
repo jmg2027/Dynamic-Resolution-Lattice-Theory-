@@ -23,7 +23,7 @@ In settings where ZFC Choice is used for representative selection,
 namespace E213.Lib.Math.Choice.Canonical
 
 open E213.Theory
-open E213.Term.Internal
+open E213.Term.Internal (Tree)
 
 /-- **Trichotomy of canonical-form selection**: for distinct
     `x, y : Raw`, exactly one of (lt, gt) holds.  That is,
