@@ -3,6 +3,7 @@ import E213.Term.Internal.Tree.Cmp
 import E213.Term.Internal.Tree.Swap
 import E213.Term.Internal.Tree.Fold
 import E213.Term.Internal.Tree.Levels
+import E213.Term.Internal.Tree.Hom
 
 /-!
 # Term.Tree — public Tree API (re-export shim)
