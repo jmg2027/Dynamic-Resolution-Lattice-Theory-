@@ -1,5 +1,4 @@
 import E213.Term.Tree
-import E213.Term.Internal.Tree.Swap
 import E213.Theory.Raw.Core
 
 /-!

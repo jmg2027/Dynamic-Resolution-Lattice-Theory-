@@ -1,6 +1,5 @@
 import E213.Theory.Raw.Core
 import E213.Term.Tree
-import E213.Term.Internal.Tree.Levels
 
 /-!
 # Theory.Raw.Slash: the Raw smart constructor `slash` + Raw.depth

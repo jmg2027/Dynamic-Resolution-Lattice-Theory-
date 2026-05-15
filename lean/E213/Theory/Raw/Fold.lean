@@ -1,4 +1,4 @@
-import E213.Term.Internal.Tree.Fold
+import E213.Term.Tree
 import E213.Theory.Raw.Slash
 
 /-!

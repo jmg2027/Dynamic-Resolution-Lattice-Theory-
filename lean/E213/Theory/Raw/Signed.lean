@@ -1,4 +1,4 @@
-import E213.Term.Internal.Tree.Signed
+import E213.Term.Tree
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 
