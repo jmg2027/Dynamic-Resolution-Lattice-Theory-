@@ -48,19 +48,20 @@ esac
 VIOL=$(printf '%s' "$CONTENT" | grep -E "^import ${FORBIDDEN}" | head -3)
 if [ -n "$VIOL" ]; then
   VIOL_SUMMARY=$(printf '%s' "$VIOL" | tr '\n' ';' | sed 's/;$//')
-  REASON="layer-import-guard: ${PATH_##*/} (${RING} ring) tried to import lower-ring Internal/* directly [${VIOL_SUMMARY}]. ARCHITECTURE.md (2026-05-12): each ring uses only the immediately-below ring's public API. Use the public surface (Term.Tree, Theory.Raw, Lens.API, ...) instead of reaching into Internal/*."
+  REASON="layer-import-guard: ${PATH_##*/} (${RING} ring) tried to import lower-ring Internal/* directly [${VIOL_SUMMARY}]. ARCHITECTURE.md (2026-05-12): each ring uses only the immediately-below ring's public API. Use the public surface (Term.Tree, Theory.Raw.API, Lens.API, ...) instead of reaching into Internal/*."
   echo "{\"decision\":\"block\",\"reason\":\"${REASON}\"}"
   exit 0
 fi
 
 # === Rule 2: Theory.Raw specific-submodule reach-in ===
-# Theory/Raw/ exposes a single public surface via Theory.Raw.API
-# (Theory.Raw alias too).  Outside the Raw cluster, code should not
-# reach into specific submodules (Slash, Swap, Fold, Rec, ...).
+# Theory/Raw/ exposes a single public surface via Theory.Raw.API.
+# Outside the Raw cluster, code should not reach into specific
+# submodules (Slash, Swap, Fold, Rec, ...).
 #
 # Exceptions:
 #   - files in Theory/Raw/ itself (own cluster, OK)
-#   - import of Theory.Raw.API or Theory.Raw (allowed)
+#   - import of Theory.Raw.API (the sole canonical entry; the
+#     Theory.Raw alias shim was removed 2026-05-15)
 #   - (no more Mobius exception — migrated to Lib/Math/Mobius213
 #     in 2026-05-12 cleanup)
 case "$PATH_" in
@@ -72,7 +73,7 @@ case "$PATH_" in
       | head -3)
     if [ -n "$SPECIFIC" ]; then
       SPECIFIC_SUMMARY=$(printf '%s' "$SPECIFIC" | tr '\n' ';' | sed 's/;$//')
-      REASON="layer-import-guard: ${PATH_##*/} reaches into Theory.Raw specific submodules [${SPECIFIC_SUMMARY}]. Theory/Raw/ exposes a single explicit public surface — use 'import E213.Theory.Raw.API' (or 'import E213.Theory.Raw' alias). Reach-in to Theory.Raw.{Slash, Fold, Swap, SwapSlash, Rec, Levels, Hom, Signed, Core, Demo} is a discipline violation per ARCHITECTURE.md (2026-05-12)."
+      REASON="layer-import-guard: ${PATH_##*/} reaches into Theory.Raw specific submodules [${SPECIFIC_SUMMARY}]. Theory/Raw/ exposes a single explicit public surface — use 'import E213.Theory.Raw.API'. Reach-in to Theory.Raw.{Slash, Fold, Swap, SwapSlash, Rec, Levels, Hom, Signed, Core, Demo, Endomorphic} is a discipline violation per ARCHITECTURE.md (2026-05-12)."
       echo "{\"decision\":\"block\",\"reason\":\"${REASON}\"}"
       exit 0
     fi

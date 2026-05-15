@@ -1,4 +1,4 @@
-import E213.Theory.Raw
+import E213.Theory.Raw.API
 
 /-!
 # CmpIndependence: Axiom-independence of the cmp choice

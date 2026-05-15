@@ -1,5 +1,5 @@
 import E213.Lens.Number.Nat213.Peano
-import E213.Theory.Raw
+import E213.Theory.Raw.API
 
 /-!
 # Lens.Number.Nat213.Lenses — characterization of Raw → Nat213 lenses

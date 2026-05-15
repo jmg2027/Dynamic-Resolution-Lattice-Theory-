@@ -23,6 +23,8 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
   - `Levels.lean`     — level / depth machinery
   - `Hom.lean`        — Raw-algebra homomorphisms
   - `Signed.lean`     — signed Raw / negation
+  - `Endomorphic.lean` — endomorphic catamorphism + slashOrSelf
+                         (numbering-system isomorphism machinery)
 
 ### Demo
   - `Demo.lean`       — illustrative examples (Raw axiom semantics)
@@ -31,9 +33,10 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
 
 Hook-enforced (`.claude/hooks/layer-import-guard.sh` Rule 2):
 **outside the `Theory/Raw/` cluster, code must import via
-`Theory.Raw.API` (or the `Theory.Raw` alias).**  Direct reach-in
-to specific submodules (Slash, Swap, Fold, Rec, Levels, Hom,
-Signed) is blocked.
+`Theory.Raw.API`.**  Direct reach-in to specific submodules
+(Slash, Swap, Fold, Rec, Levels, Hom, Signed, Endomorphic) is
+blocked.  (The former `Theory.Raw` shim alias was removed
+2026-05-15; sole canonical entry is `Theory.Raw.API`.)
 
 ## Where to add new Raw-axiom theorems
 
