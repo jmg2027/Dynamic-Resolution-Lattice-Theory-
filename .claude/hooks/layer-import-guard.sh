@@ -80,4 +80,31 @@ case "$PATH_" in
     ;;
 esac
 
+# === Rule 3: AxiomLenses Bridges (DIRTY-by-design) isolation ===
+# Lens/AxiomLenses/Bridges/{Funext, QuotSound}.lean and the
+# Bridges.lean aggregator are sealed: they inhabit lens witnesses
+# using Lean kernel axioms (Quot.sound, funext) and are DIRTY by
+# construction.  213 core must NOT transitively pull them via the
+# Lens umbrella — strict ∅-axiom contract is import-level.
+#
+# Allowed importers:
+#   - Files under Lens/AxiomLenses/Bridges/ itself
+#   - Lens/AxiomLenses/Bridges.lean aggregator
+#   - (Future) explicit demos that intentionally consume DIRTY
+#     bridges must opt in by listing themselves here.
+case "$PATH_" in
+  */lean/E213/Lens/AxiomLenses/Bridges*) ;;  # within bridges cluster — skip
+  *)
+    BRIDGE_IMPORT=$(printf '%s' "$CONTENT" \
+      | grep -E "^import E213\\.Lens\\.AxiomLenses\\.Bridges($|\\.[A-Z])" \
+      | head -3)
+    if [ -n "$BRIDGE_IMPORT" ]; then
+      BRIDGE_SUMMARY=$(printf '%s' "$BRIDGE_IMPORT" | tr '\n' ';' | sed 's/;$//')
+      REASON="layer-import-guard: ${PATH_##*/} imports DIRTY-by-design AxiomLenses.Bridges [${BRIDGE_SUMMARY}].  Bridges/{Funext, QuotSound} inhabit lens witnesses via Lean kernel axioms (Quot.sound, funext) — importing them taints the ∅-axiom contract.  Only files under Lens/AxiomLenses/Bridges/ may import these.  Did you mean 'import E213.Lens.AxiomLenses.Core.{Funext,Propext,QuotSound}' (PURE primitives)?"
+      echo "{\"decision\":\"block\",\"reason\":\"${REASON}\"}"
+      exit 0
+    fi
+    ;;
+esac
+
 exit 0
