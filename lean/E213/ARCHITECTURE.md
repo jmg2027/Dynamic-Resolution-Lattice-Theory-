@@ -80,18 +80,14 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
 **Sub-clusters**:
   * `Theory/Raw/`       — public Raw API (Core, Slash, Swap,
                            SwapSlash, Fold, Hom, Levels, Rec, Signed,
-                           Demo) + API.lean (re-export shim)
+                           **Endomorphic**, Demo) + API.lean
+                           (re-export shim).  Endomorphic absorbed
+                           the former `Theory/Closed/` content
+                           2026-05-14 (FoldRaw rename 2026-05-15).
   * `Theory/Atomicity/` — forced-uniqueness proofs (Five,
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
                            PrimitiveSizes, Alive)
-  * `Theory/Closed/`    — catamorphism fixed-point image universes
-                           (FoldRaw, Bool213{,System}, Nat213,
-                           Nat213Bridge, NumberingSystem, RawCut)
-  * `Theory/Nat213/`    — Layer 2 inductive Nat213 (Core, Lenses,
-                           AtomicityCorrespondence)
-  * `Theory/Tower/`     — Grothendieck pair-quotient towers
-                           (NatPairToInt, NatPairToQPos, NatTripleToZ2)
   * `Theory/CDDouble/`  — generic Order-4 mechanism (UniversalOrder4,
                            GenericLiftDemo)
   * `Theory/RawCmpIndependence.lean` — axiom-independence of cmp

@@ -22,7 +22,7 @@ foldRaw 가 그 동형사상을 구체화.
 
 namespace E213.Lens.Number.Nat213.NumberingSystem
 
-open E213.Theory E213.Theory.Raw.FoldRaw
+open E213.Theory E213.Theory.Raw.Endomorphic
 
 /-- 213-native numbering system: (Z, C) 가 distinct Raw 쌍. -/
 structure NumberingSystem where

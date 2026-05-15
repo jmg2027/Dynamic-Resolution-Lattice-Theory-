@@ -5,7 +5,8 @@ import E213.Theory.Raw.API
 
 `Nat213` (= 양의 자연수) 의 canonical Raw-derived 표현.  Lens 의미:
 **`Raw.fold one one add` 의 closed-Raw codomain catamorphism** —
-출력 codomain 을 Raw 로 못박은 endomorphic fold (`Closed.FoldRaw`).
+출력 codomain 을 Raw 로 못박은 endomorphic fold
+(`Theory.Raw.Endomorphic`).
 
 자연수 = Raw 의 한쪽-증식 chain.  외부 `Nat` 안 빌리고 Raw 안에서.
 
@@ -23,7 +24,7 @@ Method A:
 
 namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Term.Internal E213.Theory.Raw.FoldRaw
+open E213.Theory E213.Term.Internal E213.Theory.Raw.Endomorphic
 
 /-! ### Method A primitives -/
 
