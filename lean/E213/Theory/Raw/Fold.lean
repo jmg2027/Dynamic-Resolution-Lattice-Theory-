@@ -18,7 +18,7 @@ verify that `combine` is symmetric (∀ u v, combine u v = combine v u).
 The `fold_slash` theorem already documents this symmetry assumption.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 def Tree.fold {α : Type}
     (fa fb : α) (fc : α → α → α) : Tree → α
@@ -26,11 +26,11 @@ def Tree.fold {α : Type}
   | .b         => fb
   | .slash x y => fc (Tree.fold fa fb fc x) (Tree.fold fa fb fc y)
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 /-- Catamorphism on Raw. -/
 protected def Raw.fold {α : Type}

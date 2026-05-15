@@ -28,7 +28,7 @@ required — plain `induction r` falls back to the default
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 -- Private helper: structural recursion on the underlying Tree,
 -- re-assembled into Raw at the slash branch.  `noncomputable`

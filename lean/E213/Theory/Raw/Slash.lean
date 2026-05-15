@@ -11,7 +11,7 @@ Tree.depth is the basic structural observable.
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 -- ═══ Public API: smart constructor ═══
 
@@ -42,12 +42,16 @@ protected theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
 
 -- ═══ Public API: depth ═══
 
-namespace Internal
+end E213.Theory
+
+namespace E213.Term.Internal
 def Tree.depth : Tree → Nat
   | .a         => 0
   | .b         => 0
   | .slash x y => 1 + max x.depth y.depth
-end Internal
+end E213.Term.Internal
+
+namespace E213.Theory
 
 protected def Raw.depth (r : Raw) : Nat := r.val.depth
 

@@ -10,7 +10,7 @@ equals `conj` applied to `Raw.fold`.  Consumers instantiate for
 their own codomain (e.g., ℤ[i] with conj = complex conj).
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 theorem Tree.fold_swap_hom {α : Type}
     (ba bb : α) (c : α → α → α) (conj : α → α)
@@ -46,11 +46,11 @@ theorem Tree.fold_swap_hom {α : Type}
         rw [ihx', ihy', h_dist, h_comm]
       · exact (Tree.swap_eq_unreach hx hy hlt hcmp_inner).elim
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 protected theorem Raw.fold_swap_hom {α : Type}
     (ba bb : α) (c : α → α → α) (conj : α → α)

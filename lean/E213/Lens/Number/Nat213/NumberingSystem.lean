@@ -48,7 +48,7 @@ def methodA : NumberingSystem where
   hZC := by
     intro h
     have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
-    exact E213.Theory.Internal.Tree.noConfusion hval
+    exact E213.Term.Internal.Tree.noConfusion hval
 
 /-- methodA 의 numeral 은 `Lens.Number.Nat213.Raw.numeral` 과 동일. -/
 theorem methodA_numeral_eq_nat213 (n : Nat) :
@@ -90,11 +90,11 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
   unfold Raw.slash at hval
   -- 이제 hval : (match ... with | .lt => ⟨Tree.slash..⟩ | ...) .val = Tree.b
   split at hval
-  · exact E213.Theory.Internal.Tree.noConfusion hval
-  · exact E213.Theory.Internal.Tree.noConfusion hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
   · -- .eq case: 이미 absurd 처리되어 도달 불가
     rename_i hcmp
-    exact h (Subtype.ext (E213.Theory.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+    exact h (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
 
 /-- 보조: Method A numeral 은 절대 Raw.b 가 아님. -/
 theorem numeral_methodA_ne_b (n : Nat) : numeral methodA n ≠ Raw.b := by
@@ -103,7 +103,7 @@ theorem numeral_methodA_ne_b (n : Nat) : numeral methodA n ≠ Raw.b := by
       -- numeral methodA 0 = methodA.Z = Raw.a ≠ Raw.b
       intro h
       have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
-      exact E213.Theory.Internal.Tree.noConfusion hval
+      exact E213.Term.Internal.Tree.noConfusion hval
   | succ k ih =>
       -- numeral methodA (k+1) = slashOrSelf (numeral methodA k) Raw.b
       -- Since numeral methodA k ≠ Raw.b, this reduces to Raw.slash → ≠ Raw.b

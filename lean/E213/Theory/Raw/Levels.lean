@@ -6,7 +6,7 @@ import E213.Theory.Raw.Fold
 + fold-bridges into depth / leaves observables.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 theorem Tree.swap_depth :
     ∀ t : Tree, t.canonical = true → (Tree.swap t).depth = t.depth := by
@@ -70,9 +70,9 @@ theorem Tree.swap_leaves :
         rw [ihx', ihy', Nat.add_comm]
       · exact (Tree.swap_eq_unreach hx hy hlt hcmp).elim
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 theorem Tree.fold_eq_depth : ∀ t : Tree,
     Tree.fold 0 0 (fun a b => 1 + max a b) t = t.depth := by
@@ -95,11 +95,11 @@ theorem Tree.fold_eq_leaves : ∀ t : Tree,
       show (Tree.fold 1 1 _ x + Tree.fold 1 1 _ y) = x.leaves + y.leaves
       rw [ihx, ihy]
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 protected theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
   Tree.swap_depth r.val r.property

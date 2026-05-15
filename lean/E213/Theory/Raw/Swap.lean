@@ -8,7 +8,7 @@ Swap preserves canonicality by re-ordering children after
 recursive swap.  `Raw.swap_swap` is Theorem 3.2 of the paper.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 def Tree.swap : Tree → Tree
   | .a         => .b
@@ -44,9 +44,9 @@ theorem Tree.swap_canonical :
         rw [ihy', ihx', Tree.cmp_gt_to_lt_swap _ _ hcmp]; rfl
       · exact ihx'
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 theorem Tree.swap_swap : ∀ t : Tree,
     (t.canonical = true) → Tree.swap (Tree.swap t) = t := by
@@ -105,9 +105,9 @@ theorem Tree.swap_swap : ∀ t : Tree,
         rw [Tree.cmp_self_eq y] at hlt
         cases hlt
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 -- Extract `cmp x y = .lt` from canonical `slash x y`.
 theorem Tree.canonical_slash_lt
@@ -134,11 +134,11 @@ theorem Tree.swap_eq_unreach
   rw [Tree.cmp_self_eq y] at hlt
   cases hlt
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 protected def Raw.swap (r : Raw) : Raw :=
   ⟨Tree.swap r.val, Tree.swap_canonical r.val r.property⟩

@@ -12,7 +12,7 @@ canonical form.
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 /-- **Raw.swap_slash**: compatibility of Raw.swap and Raw.slash. -/
 protected theorem Raw.swap_slash (x y : Raw) (h : x ≠ y) :

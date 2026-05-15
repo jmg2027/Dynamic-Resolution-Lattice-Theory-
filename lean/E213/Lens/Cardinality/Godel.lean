@@ -29,7 +29,7 @@ Combined with `Σ3` (`rawTower_injective`) this establishes
 `|Raw| = |ℕ|` — Raw is countable.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 open E213.Lens.Cardinality (pair pair_injective_4)
 
@@ -45,9 +45,9 @@ protected theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
       = 2 + 2 * pair x.toNat y.toNat := rfl
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 open E213.Lens.Cardinality (pair pair_injective_4)
 
@@ -108,11 +108,11 @@ protected theorem Tree.toNat_injective :
           obtain ⟨hxn, hyn⟩ := pair_injective_4 _ _ _ _ hp
           rw [ihx x2 hxn, ihy y2 hyn]
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 /-- **Σ2 (Raw level).**  Raw's Gödel number = underlying
     Tree's Gödel number. -/

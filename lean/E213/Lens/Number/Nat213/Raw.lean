@@ -23,7 +23,7 @@ Method A:
 
 namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Theory.Internal E213.Theory.Raw.FoldRaw
+open E213.Theory E213.Term.Internal E213.Theory.Raw.FoldRaw
 
 /-! ### Method A primitives -/
 

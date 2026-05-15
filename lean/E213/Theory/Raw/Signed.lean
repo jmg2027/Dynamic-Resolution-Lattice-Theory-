@@ -10,7 +10,7 @@ The signed Lens (base_a=1, base_b=-1, combine=+) realises swap
 as integer negation.  Used by Lens / App layers.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 open E213.Meta.Int213 (neg_add add_comm)
 
@@ -23,11 +23,11 @@ theorem Tree.fold_signed_swap :
     (fun u v => neg_add u v)
     (fun u v => add_comm u v)
 
-end E213.Theory.Internal
+end E213.Term.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal
 
 protected theorem Raw.fold_signed_swap (r : Raw) :
     Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)

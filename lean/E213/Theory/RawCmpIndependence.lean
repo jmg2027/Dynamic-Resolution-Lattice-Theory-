@@ -11,7 +11,7 @@ transport.  Hence the 213 axiom is independent of the cmp choice.
 
 ## Justification for internal access
 
-This file opens `E213.Theory.Internal`.  An **explicit exception**
+This file opens `E213.Term.Internal`.  An **explicit exception**
 to the general CLAUDE.md rule ("no Internal open in user code") —
 this file itself verifies the axiom-independence of the encoding
 scaffolding (Tree, Tree.cmp).
@@ -30,9 +30,9 @@ scaffolding (Tree, Tree.cmp).
   * `RawBy_bijection`                       — final closure
 -/
 
-namespace E213.Theory.Internal.RawCmpIndependence
+namespace E213.Theory.RawCmpIndependence
 
-open E213.Theory E213.Theory.Internal
+open E213.Theory E213.Term.Internal
 
 /-- **CmpProps**: well-behaved order conditions for cmp. -/
 structure CmpProps (cmp : Tree → Tree → Ordering) : Prop where
@@ -477,4 +477,4 @@ theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
           (transportRawBy cmp2 cmp1 h2 h1 r) = r :=
   transportRawBy_roundtrip cmp1 cmp2 h1 h2
 
-end E213.Theory.Internal.RawCmpIndependence
+end E213.Theory.RawCmpIndependence

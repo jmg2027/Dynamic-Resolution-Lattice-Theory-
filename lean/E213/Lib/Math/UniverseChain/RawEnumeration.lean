@@ -13,7 +13,7 @@ leak `propext`); uses term-mode replacements `myLengthAppend` and
 
 namespace E213.Lib.Math.UniverseChain.RawEnumeration
 
-open E213.Theory.Internal (Tree)
+open E213.Term.Internal (Tree)
 open E213.Lib.Math.UniverseChain.RawRecurrence (choose2)
 
 /-- ∅-axiom replacement for `List.length_append` (reversed form

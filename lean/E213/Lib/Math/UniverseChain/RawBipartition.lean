@@ -19,7 +19,7 @@ NOT a claim about K_{3,2}^(c=2) graph structure — just that the
 namespace E213.Lib.Math.UniverseChain.RawBipartition
 
 open E213.Theory
-open E213.Theory.Internal (Tree)
+open E213.Term.Internal (Tree)
 open E213.Lib.Math.UniverseChain.RawDepthCount
   (depthLe2List s_ab s_a_ab s_b_ab)
 
