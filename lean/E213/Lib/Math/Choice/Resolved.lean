@@ -1,4 +1,4 @@
-import E213.Lens.Universal.QuotLens
+import E213.Lens.Universal
 
 /-!
 # ChoiceResolved: Formal version of "choice = Lens specification"

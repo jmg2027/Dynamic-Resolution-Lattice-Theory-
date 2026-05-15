@@ -1,4 +1,4 @@
-import E213.Theory.Atomicity.Five
+import E213.Theory.Atomicity
 
 /-!
 # Phase 2 Origin — first question: how many dimensions does the universe have?

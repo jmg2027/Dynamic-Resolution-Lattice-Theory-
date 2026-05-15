@@ -1,4 +1,4 @@
-import E213.Lens.Number.Nat213.Bridge
+import E213.Lens.Number
 import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm

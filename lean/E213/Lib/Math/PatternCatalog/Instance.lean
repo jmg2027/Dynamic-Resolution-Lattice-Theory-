@@ -1,8 +1,8 @@
 import E213.Lib.Math.PatternCatalog.Core
 import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Theory.Atomicity.Five
+import E213.Theory.Atomicity
 import E213.Lib.Math.AxiomSystems.CrossTheoryCohabit
-import E213.Lens.Properties.IsLeaf
+import E213.Lens.Properties
 
 /-!
 # PatternCatalog — instance check

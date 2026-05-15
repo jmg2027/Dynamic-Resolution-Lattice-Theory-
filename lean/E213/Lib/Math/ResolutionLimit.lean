@@ -1,4 +1,4 @@
-import E213.Lens.Cardinality.Cantor
+import E213.Lens.Cardinality
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 
 /-!

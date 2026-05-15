@@ -1,5 +1,4 @@
-import E213.Theory.Atomicity.Five
-import E213.Theory.Atomicity.PairForcing
+import E213.Theory.Atomicity
 
 /-!
 # 4-simplex structure: 5 vertices, (3,2) partition, Aut-invariant weights

@@ -1,5 +1,5 @@
 import E213.Lib.Math.Hyper.Hyper213
-import E213.Lens.Compose.OnLens
+import E213.Lens.Compose
 
 /-!
 # Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
