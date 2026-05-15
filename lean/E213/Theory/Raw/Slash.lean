@@ -1,12 +1,14 @@
 import E213.Theory.Raw.Core
 import E213.Term.Tree
+import E213.Term.Internal.Tree.Levels
 
 /-!
-# Theory.Raw.Slash: the `slash` smart constructor + `depth`
+# Theory.Raw.Slash: the Raw smart constructor `slash` + Raw.depth
 
-Raw.slash canonicalises the child order using `Tree.cmp`;
-Raw.slash_comm reflects the axiom's directionless "between".
-Tree.depth is the basic structural observable.
+`Raw.slash` canonicalises the child order using `Tree.cmp`;
+`Raw.slash_comm` reflects the axiom's directionless "between".
+`Raw.depth` is the basic structural observable (defined via
+`Tree.depth` from Term.Internal.Tree.Levels).
 -/
 
 namespace E213.Theory
@@ -41,17 +43,6 @@ protected theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
          cases hsw))
 
 -- ═══ Public API: depth ═══
-
-end E213.Theory
-
-namespace E213.Term.Internal
-def Tree.depth : Tree → Nat
-  | .a         => 0
-  | .b         => 0
-  | .slash x y => 1 + max x.depth y.depth
-end E213.Term.Internal
-
-namespace E213.Theory
 
 protected def Raw.depth (r : Raw) : Nat := r.val.depth
 
