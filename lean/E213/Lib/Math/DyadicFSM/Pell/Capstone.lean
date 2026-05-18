@@ -19,7 +19,8 @@ theorem with the following 6 conjuncts:
 5. ArithFSM2(n) signature period ≤ 5n² (quantitative bound)
 6. Aperiodic bs ⇒ no ArithFSM2(n) generates it (Tier 2 hardness)
 
-All conjuncts at ≤ {propext, Quot.sound}.
+All conjuncts PURE (`#print axioms pell_capstone` returns "does not
+depend on any axioms"; verified 2026-05-18).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Pell.Capstone

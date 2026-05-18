@@ -34,7 +34,7 @@ open E213.Lens.Universal.Witnesses.Core (IsUniversal)
     3. expSumLens3 : Lens (ℕ × ℕ × ℕ)      — NEW (this marathon)
     4. q213Lens3  : Lens (Q213 × Q213 × Q213) — NEW (this marathon)
 
-  All four at ≤ {propext, Quot.sound}.  Each codomain extension
+  All four PURE (verified 2026-05-18).  Each codomain extension
   preserves the bit-pattern injectivity of expSumNat. -/
 theorem universal_lens_triple_capstone :
     IsUniversal E213.Lens.Universal.Witnesses.Nat2.expSumLens

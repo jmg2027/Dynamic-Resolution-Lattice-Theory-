@@ -21,7 +21,8 @@ Bundles 6 conjuncts:
 5. Tribonacci mod 2: explicit signature period bound 40
 6. Aperiodic bs ⇒ no ArithFSM3(n) generates it (Tier 2 hardness)
 
-All conjuncts at ≤ {propext, Quot.sound}.
+All conjuncts PURE (`#print axioms tribonacci_capstone` returns
+"does not depend on any axioms"; verified 2026-05-18).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Trib.Capstone
