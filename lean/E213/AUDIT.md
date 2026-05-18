@@ -688,7 +688,8 @@ must be retained for canonicality proofs.
 
 ### Raw.fold_eq_depth / leaves / signed_swap / swap_hom
 
-Location: `Theory/Raw/Signed.lean`, `Theory/Raw/Hom.lean`.
+Location: `Theory/Raw/FoldSwap.lean` (merged 2026-05-18 from
+`Signed.lean` + `Hom.lean`).
 
 These are "bridge theorems for reconstituting a specific Lens
 via Raw.fold."  They are **Lens-level theorems** belonging in
@@ -754,7 +755,7 @@ Lens will **carry encoding artifacts**.
 | Mandatory `h : x ≠ y` argument | `Raw.slash` signature | Static enforcement of anti-reflexivity |
 | `Raw.slash_comm` theorem | Slash.lean | Formal proof of symmetry |
 | `hsym` hypothesis in `fold_slash` | Fold.lean | Axiom-conforming results only with symmetric combine |
-| 4 hypotheses in `fold_swap_hom` | Hom.lean | Top-down congruence conforming only with symmetric+distributive |
+| 4 hypotheses in `fold_swap_hom` | FoldSwap.lean | Top-down congruence conforming only with symmetric+distributive |
 | `Internal` namespace separation | Core.lean | Tree not exposed by `open E213.Theory` |
 | Mathlib-free + 0 sorry | Project convention | Blocks import of external axioms |
 | `@[elab_as_elim] Raw.rec` | Rec.lean | `induction` tactic forces Raw-layer eliminator |

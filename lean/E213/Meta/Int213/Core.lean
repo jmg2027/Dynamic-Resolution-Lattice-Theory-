@@ -4,8 +4,8 @@ import E213.Meta.Tactic.NatHelper
 # Int213 — ∅-axiom Int arithmetic helpers
 
 Lean-core `Int.add_comm`, `Int.neg_add` are proved via `simp`-heavy
-tactics that pull in `propext`.  `Theory/Raw/Signed.lean` needs both
-identities to make `Tree.fold_signed_swap` ∅-axiom; this file
+tactics that pull in `propext`.  `Theory/Raw/FoldSwap.lean` needs
+both identities to make `Tree.fold_signed_swap` ∅-axiom; this file
 provides 213-native term-mode replacements.
 
 Strategy: case-split on the two Int constructors (`ofNat`,
