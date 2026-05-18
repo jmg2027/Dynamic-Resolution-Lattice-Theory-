@@ -532,6 +532,14 @@ theorem max_comm_pure (u v : Nat) : Nat.max u v = Nat.max v u := by
       | inl h => exact h1 (Nat.le_of_lt h)
       | inr h => exact h2 h
 
+/-- `Nat.max u v = u` when `v ≤ u`.  ∅-axiom replacement for
+    Lean-core `Nat.max_eq_left` (`[propext]`). -/
+theorem max_eq_left_pure {u v : Nat} (h : v ≤ u) : Nat.max u v = u := by
+  show (if u ≤ v then v else u) = u
+  by_cases h1 : u ≤ v
+  · rw [if_pos h1]; exact (Nat.le_antisymm h1 h).symm
+  · rw [if_neg h1]
+
 end E213.Tactic.NatHelper
 
 namespace E213.Tactic.NatHelper

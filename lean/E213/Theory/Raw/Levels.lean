@@ -1,6 +1,7 @@
 import E213.Term.Tree
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
+import E213.Theory.Raw.Rec
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -63,6 +64,42 @@ protected theorem Raw.depth_slash_pos (x y : Raw) (h : x ≠ y) :
     1 ≤ (Raw.slash x y h).depth := by
   rw [Raw.depth_slash x y h]
   exact Nat.le_add_right 1 _
+
+/-- **Universal binary-tree inequality**: `depth r < leaves r`
+    for every Raw.  Equivalently, `r.leaves ≥ r.depth + 1`.
+    Standard binary-tree fact: at each slash node, the deeper
+    branch contributes ≥ depth+1 leaves; the other branch
+    contributes ≥ 1 more.  Proven by `Raw.rec` induction. -/
+protected theorem Raw.depth_lt_leaves (r : Raw) : r.depth < r.leaves := by
+  induction r using Raw.rec with
+  | a => decide
+  | b => decide
+  | slash x y h ihx ihy =>
+      rw [Raw.depth_slash x y h, Raw.leaves_slash x y h]
+      have hxd : x.depth + 1 ≤ x.leaves := ihx
+      have hyd : y.depth + 1 ≤ y.leaves := ihy
+      have hxp : 1 ≤ x.leaves := Raw.leaves_pos x
+      have hyp : 1 ≤ y.leaves := Raw.leaves_pos y
+      show 1 + max x.depth y.depth + 1 ≤ x.leaves + y.leaves
+      cases Nat.lt_or_ge y.depth x.depth with
+      | inl hlt =>
+          have hmax : max x.depth y.depth = x.depth :=
+            E213.Tactic.NatHelper.max_eq_left_pure (Nat.le_of_lt hlt)
+          rw [hmax]
+          calc 1 + x.depth + 1
+              = (x.depth + 1) + 1 := by rw [Nat.add_comm 1 x.depth]
+            _ ≤ x.leaves + 1 := Nat.add_le_add_right hxd 1
+            _ ≤ x.leaves + y.leaves := Nat.add_le_add_left hyp _
+      | inr hge =>
+          have hmax : max x.depth y.depth = y.depth :=
+            (E213.Tactic.NatHelper.max_comm_pure x.depth y.depth).trans
+              (E213.Tactic.NatHelper.max_eq_left_pure hge)
+          rw [hmax]
+          calc 1 + y.depth + 1
+              = (y.depth + 1) + 1 := by rw [Nat.add_comm 1 y.depth]
+            _ ≤ y.leaves + 1 := Nat.add_le_add_right hyd 1
+            _ ≤ y.leaves + x.leaves := Nat.add_le_add_left hxp _
+            _ = x.leaves + y.leaves := Nat.add_comm _ _
 
 -- ═══ Explicit level-≤2 enumeration ═══
 -- (Backing §1.3 and §5.1 of the paper.  Uses only the public
