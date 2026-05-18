@@ -3,12 +3,13 @@ import E213.Theory.Raw.API
 /-!
 # Lens.Bool213.Raw — closed-universe Bool (Method A: T=a, F=b)
 
-Bool 을 외부 type 으로 빌리지 않고 Raw 의 특정 두 모양으로 인코딩.
-operation 들도 Raw → Raw 또는 Raw → Raw → Raw 로 닫혀 있음.
+Bool is not imported as an external type; instead, two specific
+Raw shapes encode it.  The operations are also closed: `Raw → Raw`
+or `Raw → Raw → Raw`.
 
-Lens 의미: **`Raw.fold T F and` 의 closed-Raw codomain catamorphism**
-(`booleanProj`) — Raw-internal vertical projection onto the
-two-element canonical form `{T, F}`.
+Lens meaning: **the `Raw.fold T F and` closed-Raw codomain
+catamorphism** (`booleanProj`) — a Raw-internal vertical projection
+onto the two-element canonical form `{T, F}`.
 
 **Note (Option C refactor, 2026-05-18)**: previously this header
 cited `Nat213.leavesCountRaw` as the parallel construction.  That
@@ -19,14 +20,15 @@ the canonical form `{T, F}` *is* the Raw image (both T and F are
 themselves Raws), so projecting to Raw and to "the two-element
 set" are the same thing.
 
-## 무한히 많은 Bool213 (T, F 쌍 자유)
+## Infinitely many Bool213 systems (any T ≠ F pair)
 
-기본 선택:
+Default choices:
   - Method A: T = Raw.a, F = Raw.b  (canonical)
   - Method B: T = Raw.b, F = Raw.a  (swap)
 
-다른 (T, F) 쌍 (예: T = `slash a b`, F = `a`) 도 같은 대수 구조를 줌
-— `Lens.Bool213.System` 에서 NumberingSystem-style 메타 패턴으로 정리.
+Other `(T, F)` pairs (e.g. T = `slash a b`, F = `a`) give the same
+algebraic structure — collected in `Lens.Bool213.System` as a
+NumberingSystem-style meta-pattern.
 -/
 
 namespace E213.Lens.Bool213.Raw
@@ -36,37 +38,40 @@ open E213.Term.Internal (Tree)
 
 /-! ### Method A: T = a, F = b (canonical) -/
 
-/-- "true" 의 Raw 표현 (Method A). -/
+/-- Raw encoding of "true" (Method A). -/
 def T : Raw := Raw.a
 
-/-- "false" 의 Raw 표현 (Method A). -/
+/-- Raw encoding of "false" (Method A). -/
 def F : Raw := Raw.b
 
-/-- 두 표현은 다른 Raw — Raw.a, Raw.b 는 서로 다른 canonical Tree. -/
+/-- The two encodings are distinct Raws — `Raw.a` and `Raw.b` are
+    different canonical Trees. -/
 theorem T_ne_F : T ≠ F := by
   unfold T F
   intro h
-  -- Raw 는 Subtype { t : Tree // canonical }; 두 인스턴스의 .val 이 다름
+  -- Raw is `Subtype { t : Tree // canonical }`; the two `.val`s differ.
   have hval : (Raw.a.val) = (Raw.b.val) := congrArg Subtype.val h
   exact E213.Term.Internal.Tree.noConfusion hval
 
-/-! ### Bool213 operations (Raw → Raw 또는 Raw² → Raw 닫힘) -/
+/-! ### Bool213 operations (closed: Raw → Raw or Raw² → Raw) -/
 
-/-- 표현이 valid Bool213 인지 — `T` 또는 `F`. -/
+/-- Whether `r` is a valid Bool213 — `T` or `F`. -/
 def isBool (r : Raw) : Bool :=
   decide (r = T) || decide (r = F)
 
-/-- `not` = swap.  swap a = b, swap b = a → 기존 Raw.swap 그대로. -/
+/-- `not` = swap.  Since `swap a = b` and `swap b = a`, this is the
+    existing `Raw.swap` directly. -/
 def not : Raw → Raw := Raw.swap
 
 theorem not_T : not T = F := rfl
 theorem not_F : not F = T := rfl
 
-/-- `not (not r) = r` — Raw.swap 의 involution 직접 차용. -/
+/-- `not (not r) = r` — borrowed directly from `Raw.swap`'s
+    involution. -/
 theorem not_not (r : Raw) : not (not r) = r := Raw.swap_swap r
 
-/-- `and` — table 정의로 Raw 쌍에서 Raw 로. T = a, F = b 로 인코딩하는
-    Method A 에서 `and x y = T iff x = T ∧ y = T`. -/
+/-- `and` — table-defined on Raw².  Under Method A (T = a, F = b),
+    `and x y = T iff x = T ∧ y = T`. -/
 def and (x y : Raw) : Raw :=
   if decide (x = T) ∧ decide (y = T) then T else F
 
@@ -75,7 +80,7 @@ theorem and_TF : and T F = F := by unfold and; decide
 theorem and_FT : and F T = F := by unfold and; decide
 theorem and_FF : and F F = F := by unfold and; decide
 
-/-- `and` 가 교환적 (모든 Raw 입력에 대해 — `if` 분기 항상 일치). -/
+/-- `and` is commutative on every Raw input — `if`-branches match. -/
 theorem and_comm (x y : Raw) : and x y = and y x := by
   unfold and
   by_cases hxT : x = T
@@ -96,28 +101,29 @@ theorem and_comm (x y : Raw) : and x y = and y x := by
 
 /-! ### Vertical-internal projection — Raw → Bool213 canonical form
 
-Bool 쪽 vertical-internal projection: 임의 Raw 를 Bool213 의 두
-canonical form (T, F) 중 하나로 collapse.
+The Bool-side vertical-internal projection: collapse any Raw onto
+one of the two Bool213 canonical forms (T, F).
 
-정의:  `booleanProj := Raw.fold T F and` — universal-T form,
-       leaves 모두가 T 일 때만 T, 하나라도 F 면 F.
+Definition: `booleanProj := Raw.fold T F and` — universal-true form,
+returns T iff every leaf is T; F if any leaf is F.
 
-성질:
-  1. closure:    `booleanProj r ∈ {T, F}`  (모든 r 위)
-  2. idempotence: `booleanProj² = booleanProj`  (모든 r 위)
+Properties:
+  1. closure:     `booleanProj r ∈ {T, F}`  (for every r)
+  2. idempotence: `booleanProj² = booleanProj`  (for every r)
 
-이게 Bool 쪽 vertical-internal projection 의 정확한 표현.
-post-Option-C, Bool213 의 유일한 Raw-side projection 패턴 —
-Nat213 에선 이 패턴이 dropped (∵ ℕ₊ 는 codomain `Nat` 으로
-projection). -/
+This is the precise statement of the Bool-side vertical-internal
+projection.  Post-Option-C, this is the only Raw-side projection
+pattern in Bool213 — in Nat213 the pattern was dropped (since ℕ₊
+projects to the codomain `Nat`). -/
 
-/-- Bool 쪽 vertical-internal projection — Raw → Bool213 canonical form. -/
+/-- The Bool-side vertical-internal projection —
+    Raw → Bool213 canonical form. -/
 def booleanProj : Raw → Raw := Raw.fold T F and
 
 theorem booleanProj_T : booleanProj T = T := rfl
 theorem booleanProj_F : booleanProj F = F := rfl
 
-/-- `and` 의 출력은 정의로 항상 T 또는 F. -/
+/-- The output of `and` is always T or F (by definition). -/
 theorem and_isBool (x y : Raw) : and x y = T ∨ and x y = F := by
   unfold and
   split
@@ -125,7 +131,7 @@ theorem and_isBool (x y : Raw) : and x y = T ∨ and x y = F := by
   · right; rfl
 
 /-- **Closure**: `booleanProj r ∈ {T, F}` for any Raw r.  Tree
-    induction; slash 분기는 `and_isBool` 로 즉시 닫힘. -/
+    induction; the slash branch closes via `and_isBool`. -/
 theorem booleanProj_isBool (r : Raw) :
     booleanProj r = T ∨ booleanProj r = F := by
   show Tree.fold T F and r.val = T ∨ Tree.fold T F and r.val = F
@@ -139,70 +145,76 @@ theorem booleanProj_isBool (r : Raw) :
       exact and_isBool _ _
 
 /-- **Idempotence**: `booleanProj (booleanProj r) = booleanProj r`.
-    closure 로부터 즉시 — booleanProj r 이 이미 T 또는 F. -/
+    Immediate from closure — `booleanProj r` is already T or F. -/
 theorem booleanProj_idempotent (r : Raw) :
     booleanProj (booleanProj r) = booleanProj r := by
   rcases booleanProj_isBool r with h | h
   · rw [h]; exact booleanProj_T
   · rw [h]; exact booleanProj_F
 
-/-! ### Fixed-point 특성화 — Bool213 image 가 정확히 booleanProj 의 fixed point
+/-! ### Fixed-point characterisation — Bool213 image is exactly
+    `booleanProj`'s fixed-point set.
 
-세 도메인 (Nat213, Bool213, RawCut) 위 vertical-internal projection 이
-모두 동일 메타 패턴: closure + idempotence + image-fixed-point ↔.
-이 section 이 Bool213 쪽 ↔ 형태 완성. -/
+The vertical-internal projection on each of the three domains
+(Nat213, Bool213, RawCut) follows the same meta-pattern: closure
++ idempotence + image-fixed-point ↔.  This section closes the
+↔ direction on the Bool213 side. -/
 
-/-- Raw r 이 Bool213 image 안 — `r = T` 또는 `r = F`. -/
+/-- Raw `r` is in the Bool213 image — `r = T` or `r = F`. -/
 def IsBool213 (r : Raw) : Prop := r = T ∨ r = F
 
-/-- Bool213 면 booleanProj 의 fixed point. -/
+/-- Bool213 ⇒ `booleanProj`-fixed-point. -/
 theorem booleanProj_id_of_isBool213 (r : Raw) (h : IsBool213 r) :
     booleanProj r = r := by
   rcases h with hT | hF
   · rw [hT]; exact booleanProj_T
   · rw [hF]; exact booleanProj_F
 
-/-- 역방향: booleanProj 의 fixed point 면 Bool213. -/
+/-- Reverse direction: `booleanProj`-fixed-point ⇒ Bool213. -/
 theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
     IsBool213 r := by
   rcases booleanProj_isBool r with hT | hF
   · left; rw [← h]; exact hT
   · right; rw [← h]; exact hF
 
-/-- **Fixed-point 특성화**: booleanProj 가 r 을 그대로 두는 것 ↔ r 이
-    Bool213 ({T, F}).  RawCut 의 `cutBooleanProj_id_iff_isBool`
-    와 평행 (post-Option-C: Nat213 의 옛 `leavesCountRaw_id_iff_isChain`
-    counterpart 는 ℕ₊ 가 Raw quotient 가 아니라 Nat projection 이
-    됨에 따라 삭제됨; `seed/CLOSED_FORM_SPEC.md` 의 3-domain 표
-    참조). -/
+/-- **Fixed-point characterisation**: `booleanProj` leaves `r`
+    unchanged iff `r` is in Bool213 (`{T, F}`).  Parallel to
+    RawCut's `cutBooleanProj_id_iff_isBool` (post-Option-C: the
+    Nat213 counterpart `leavesCountRaw_id_iff_isChain` was deleted
+    when ℕ₊ became a Nat projection rather than a Raw quotient;
+    see `seed/CLOSED_FORM_SPEC.md`'s 3-domain table). -/
 theorem booleanProj_id_iff_isBool213 (r : Raw) :
     booleanProj r = r ↔ IsBool213 r :=
   ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
 
 /-! ### Boundary mapping — Bool213 → Lean Bool
 
-Nat213 의 `value : Raw → Nat` 와 평행: Bool 쪽 boundary projection.
+Parallel to Nat213's `value : Raw → Nat`: the Bool-side boundary
+projection.
 
 `boolValue := Raw.fold true false (·&&·)` — universal-true form,
-모든 leaves 가 `a` 일 때만 true.
+true iff every leaf is `a`.
 
-성질 (수직-외부 동형성):
+Properties (vertical-external isomorphism):
   - `boolValue T = true`, `boolValue F = false`  (base)
-  - `boolValue ∘ booleanProj = boolValue`         (commutativity with vertical-internal)
+  - `boolValue ∘ booleanProj = boolValue`         (commutativity
+    with vertical-internal)
 
-이게 G84 의 4 종류 동형성 중 #3 (수직-외부, Raw → Lean type) 의 Bool 사례.
-post-Option-C Nat213 의 `Raw.value` 와 평행 (단 Nat213 쪽은
-Raw-internal projection 단계 없이 곧바로 Nat 측 projection;
-`seed/CLOSED_FORM_SPEC.md` 참조). -/
+This is the Bool case of isomorphism #3 (vertical-external,
+Raw → Lean type) among G84's four isomorphisms.  Parallel to
+post-Option-C Nat213's `Raw.value` — but the Nat213 side projects
+straight to Nat without an intermediate Raw-internal step
+(`seed/CLOSED_FORM_SPEC.md`). -/
 
-/-- Boundary mapping — Bool213 universe → Lean Bool.  Universal-true form. -/
+/-- Boundary mapping — Bool213 universe → Lean Bool.
+    Universal-true form. -/
 def boolValue : Raw → Bool := Raw.fold true false (· && ·)
 
 theorem boolValue_T : boolValue T = true := rfl
 theorem boolValue_F : boolValue F = false := rfl
 
-/-- 보조: Tree induction — `Tree.fold T F and t` (with α = Raw) 의 값이
-    항상 T 또는 F. -/
+/-- Helper: tree induction shows `Tree.fold T F and t` (with α = Raw)
+    is always T or F. -/
 private theorem fold_T_F_and_isBool (t : Tree) :
     Tree.fold (α := Raw) T F and t = T ∨ Tree.fold (α := Raw) T F and t = F := by
   induction t with
@@ -210,7 +222,7 @@ private theorem fold_T_F_and_isBool (t : Tree) :
   | b => right; rfl
   | slash _ _ _ _ => exact and_isBool _ _
 
-/-- 보조: `and X Y` 의 boolValue 가 곱 — X, Y ∈ {T, F} 가정. -/
+/-- Helper: `boolValue (and X Y)` is the product when X, Y ∈ {T, F}. -/
 private theorem boolValue_and_of_isBool (x y : Raw)
     (hx : x = T ∨ x = F) (hy : y = T ∨ y = F) :
     boolValue (and x y) = (boolValue x && boolValue y) := by
@@ -223,7 +235,8 @@ private theorem boolValue_and_of_isBool (x y : Raw)
     · subst hxF; subst hyF; decide
 
 /-- **Boundary commutativity**: `boolValue (booleanProj r) = boolValue r`
-    for any Raw r.  수직-외부 동형성 + 수직-내부 projection 의 호환. -/
+    for any Raw r.  Compatibility of the vertical-external
+    isomorphism with the vertical-internal projection. -/
 theorem boolValue_booleanProj (r : Raw) :
     boolValue (booleanProj r) = boolValue r := by
   show boolValue (Tree.fold (α := Raw) T F and r.val)
