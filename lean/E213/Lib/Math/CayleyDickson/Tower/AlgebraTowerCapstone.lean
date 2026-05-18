@@ -8,10 +8,10 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2L6Search
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.Levels.CayleyOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.Levels.SedenionOrder4Monopoly
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDoubleOrderDist
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuadOrderDist
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
 import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaOctOrderDist
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaOct
 import E213.Lib.Math.CayleyDickson.Tower.UniversalOrderGrowth
 import E213.Lib.Math.CayleyDickson.Tower.UniversalOrderGrowthC
 import E213.Lib.Math.CayleyDickson.Misc.TypeE_Rejection
