@@ -3,10 +3,10 @@ import E213.Lib.Math.Analysis.CauchyComplete
 /-!
 # Analysis.CauchyProj — vertical-internal projection on CauchyCutSeq
 
-Theory/Closed/* 의 vertical-internal projection 메타 패턴이 4번째 도메인
-(Cauchy sequence + modulus) 에서도 작동.
+The vertical-internal projection meta-pattern (Bool213 / RawCut)
+extends naturally to a third domain (Cauchy sequence + modulus).
 
-## 도메인 catalog (4 사례)
+## Domain catalog (post-Option-C 3-domain table)
 
 | domain | object | projection | base canonical form |
 |---|---|---|---|
@@ -14,10 +14,10 @@ Theory/Closed/* 의 vertical-internal projection 메타 패턴이 4번째 도메
 | RawCut | Raw → Raw → Raw | cutBooleanProj | Bool-valued cut |
 | **CauchyCutSeq** | **structure** | **cauchyProj** | **constant sequence at limit** |
 
-(Post-Option-C 2026-05-18: the former Nat213 row with
-`leavesCountRaw` has been removed — ℕ₊ now projects to `Nat`
-codomain rather than carrying a Raw-internal projection.  See
-`seed/CLOSED_FORM_SPEC.md` for the current 3-domain table.)
+(The 2026-05-18 Option C refactor removed a former Nat213 row
+with `leavesCountRaw` — ℕ₊ now projects to `Nat` codomain rather
+than carrying a Raw-internal projection.  See
+`seed/CLOSED_FORM_SPEC.md` for the current 3-domain catalog.)
 
 ## 정의
 
