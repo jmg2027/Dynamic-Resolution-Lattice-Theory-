@@ -140,4 +140,23 @@ theorem chartChain_injective (r₀ r' : Raw) (h : r₀ ≠ r')
     n = m :=
   chartChain_value_injective r₀ r' h (congrArg Raw.value heq)
 
+/-! ### Residue invariant along the chart-chain (added 2026-05-18)
+
+`chartChain r₀ r' h n` has `value` congruent to `value r₀` modulo
+`value r'`.  In other words, the entire arithmetic progression
+`value r₀, value r₀ + value r', value r₀ + 2·value r', …` lies in
+one residue class mod `value r'`.  This is the chart-relativity
+*residue invariant*: the chart `(r₀, r')` partitions `Nat` into
+classes mod `value r'`, and the chain walks within a single class. -/
+
+/-- **Residue invariant**: every chart-chain element has the same
+    residue as `r₀` modulo `value r'`.  Direct consequence of
+    `chartChain_value` + `Tactic.NatHelper.add_mul_mod_self_pure`. -/
+theorem chartChain_value_mod (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value (chartChain r₀ r' h n) % Raw.value r'
+      = Raw.value r₀ % Raw.value r' := by
+  rw [chartChain_value r₀ r' h n]
+  exact E213.Tactic.NatHelper.add_mul_mod_self_pure
+    (Raw.value r₀) (Raw.value r') n
+
 end E213.Lens.Number.Nat213

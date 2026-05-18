@@ -439,6 +439,24 @@ theorem add_self_mod_pure : ∀ (a n : Nat), (a + n) % n = a % n
       let h2 : a + (n'+1) - (n'+1) = a := add_sub_cancel_right a (n'+1)
       h1.trans (congrArg (· % (n'+1)) h2)
 
+/-- `(a + n * c) % c = a % c` — adding any multiple of `c` to `a`
+    preserves the residue.  ∅-axiom replacement for Lean-core
+    `Nat.add_mul_mod_self_left` (which is `[propext]`).  By induction
+    on `n` using `add_self_mod_pure`. -/
+theorem add_mul_mod_self_pure (a c : Nat) :
+    ∀ n, (a + n * c) % c = a % c
+  | 0 =>
+      let h0 : a + 0 * c = a := by
+        rw [Nat.zero_mul, Nat.add_zero]
+      congrArg (· % c) h0
+  | n+1 =>
+      let ih : (a + n * c) % c = a % c := add_mul_mod_self_pure a c n
+      let h1 : a + (n+1) * c = (a + n * c) + c := by
+        rw [Nat.succ_mul, ← Nat.add_assoc]
+      let h2 : ((a + n * c) + c) % c = (a + n * c) % c :=
+        add_self_mod_pure (a + n * c) c
+      ((congrArg (· % c) h1).trans h2).trans ih
+
 end E213.Tactic.NatHelper
 
 namespace E213.Tactic.NatHelper
