@@ -515,6 +515,23 @@ theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
       (fun h => (if_neg h).symm ▸ Nat.le_of_lt (Nat.lt_of_not_le h))
       (fun h => (if_pos h).symm ▸ Nat.le_refl b)
 
+/-- `Nat.max u v = Nat.max v u`.  ∅-axiom replacement for Lean-core
+    `Nat.max_comm` (`[propext]`).  By `Decidable` case on `u ≤ v`
+    and `v ≤ u`, using antisymmetry on the diagonal. -/
+theorem max_comm_pure (u v : Nat) : Nat.max u v = Nat.max v u := by
+  show (if u ≤ v then v else u) = (if v ≤ u then u else v)
+  by_cases h1 : u ≤ v
+  · by_cases h2 : v ≤ u
+    · rw [if_pos h1, if_pos h2]
+      exact Nat.le_antisymm h2 h1
+    · rw [if_pos h1, if_neg h2]
+  · by_cases h2 : v ≤ u
+    · rw [if_neg h1, if_pos h2]
+    · exfalso
+      cases Nat.lt_or_ge u v with
+      | inl h => exact h1 (Nat.le_of_lt h)
+      | inr h => exact h2 h
+
 end E213.Tactic.NatHelper
 
 namespace E213.Tactic.NatHelper

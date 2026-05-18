@@ -1,6 +1,7 @@
 import E213.Term.Tree
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Theory.Raw.Levels: Raw-level swap-depth / swap-leaves invariance
@@ -31,6 +32,22 @@ protected theorem Raw.fold_eq_depth (r : Raw) :
 protected theorem Raw.fold_eq_leaves (r : Raw) :
     Raw.fold 1 1 (· + ·) r = r.leaves :=
   Tree.fold_eq_leaves r.val
+
+/-- `Raw.leaves r ≥ 1` for every Raw — every Tree has at least one
+    leaf.  Direct from `Tree.leaves_pos`. -/
+protected theorem Raw.leaves_pos (r : Raw) : 1 ≤ r.leaves :=
+  Tree.leaves_pos r.val
+
+/-- `(Raw.slash x y h).depth = 1 + max x.depth y.depth`.  Depth
+    recursion at the Raw level — uses `fold_eq_depth` to route
+    through the catamorphism, then `fold_slash` with the
+    propext-free `NatHelper.max_comm_pure`. -/
+protected theorem Raw.depth_slash (x y : Raw) (h : x ≠ y) :
+    (Raw.slash x y h).depth = 1 + max x.depth y.depth := by
+  rw [← Raw.fold_eq_depth, ← Raw.fold_eq_depth x, ← Raw.fold_eq_depth y]
+  have hsym : ∀ u v : Nat, 1 + max u v = 1 + max v u :=
+    fun u v => congrArg (1 + ·) (E213.Tactic.NatHelper.max_comm_pure u v)
+  exact Raw.fold_slash 0 0 (fun a b => 1 + max a b) hsym x y h
 
 -- ═══ Explicit level-≤2 enumeration ═══
 -- (Backing §1.3 and §5.1 of the paper.  Uses only the public
