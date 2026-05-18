@@ -11,22 +11,19 @@ lens `L : Lens α` induces an *external* equivalence
 `Eqv gens x y` via the equivalence closure
 (`Theory.Raw.Congruence`).
 
-The two are connected as follows:
+The two are connected:
 
-  - **Internal → External**: if every generator pair preserves
-    `L.view`, then so does the whole `Eqv gens` closure.
-  - **External → Internal**: choosing `gens := L.equiv` makes
-    `Eqv L.equiv` trivially equal to `L.equiv` at the `gens`-step
-    (and the closure adds nothing because `L.equiv` is already an
-    equivalence).
+  1. **Internal → External**: if every generator pair preserves
+     `L.view`, the whole `Eqv gens` closure preserves it.
+  2. **External → Internal**: choosing `gens := L.equiv` makes the
+     `Eqv` closure exactly `L.equiv` itself.
 
-This file proves the first direction (the non-trivial one) and
-provides the second as a one-liner.  Together they realise §2.6's
-"external α-value agreement ⟺ internal `Eqv` equivalence" claim
-*relative to a fixed lens* `L`.
+Result (2) — the biconditional `Eqv L.equiv ↔ L.equiv` — realises
+§2.6's "external α-value agreement ⟺ internal `Eqv` equivalence"
+for *any* lens.
 
 ∅-axiom standard; no Mathlib / Classical / propext / Quot.sound /
-omega.
+omega / native_decide.
 -/
 
 namespace E213.Lens
@@ -44,12 +41,45 @@ theorem view_eq_of_Eqv {α} {L : Lens α} {gens : Raw → Raw → Prop}
     (fun ih => ih.symm)
     (fun ih₁ ih₂ => ih₁.trans ih₂) h
 
-/-- Choosing the generator set to be `L.equiv` recovers `L.equiv`
-    on the generator step: the equivalence closure of an
-    equivalence relation contains the original at the `of` step. -/
+/-- Injecting `L.view`-equality into `Eqv L.equiv` is the `of`
+    constructor. -/
 theorem Eqv_of_view_eq {α} {L : Lens α} {x y : Raw}
     (h : L.view x = L.view y) :
     Eqv (fun a b => L.view a = L.view b) x y :=
   Eqv.of h
+
+/-! ### The §2.6 biconditional — for any lens `L`
+
+`Eqv L.equiv` is exactly `L.equiv`.  Direction (←) is the `of`
+constructor; direction (→) follows from `view_eq_of_Eqv` since the
+generator IS `L.equiv` (so the "respects view" hypothesis is
+trivial). -/
+
+/-- **Eqv ↔ view-equality** for the lens-induced generator.
+    Realises §2.6's claim that *external* α-value agreement and
+    *internal* `Eqv`-equivalence coincide when the generator set is
+    chosen to be the lens equivalence itself. -/
+theorem Eqv_equiv_iff {α} (L : Lens α) (x y : Raw) :
+    Eqv (fun a b => L.view a = L.view b) x y
+      ↔ L.view x = L.view y := by
+  constructor
+  · intro h
+    exact view_eq_of_Eqv (fun hgen => hgen) h
+  · intro h
+    exact Eqv.of h
+
+/-! ### Concrete instantiation — `Lens.leaves`
+
+The natural-number lens `Lens.leaves : Lens Nat` (atom→1,
+slash→sum) is the canonical chart projection for ℕ₊.  Two Raws are
+`Eqv (fun a b => Lens.leaves.view a = Lens.leaves.view b)`-
+equivalent iff they have the same leaves count. -/
+
+/-- Specialisation of `Eqv_equiv_iff` to `Lens.leaves`.  Two Raws
+    are leaves-`Eqv`-equivalent iff their leaves counts agree. -/
+theorem Eqv_leaves_iff (x y : Raw) :
+    Eqv (fun a b => Lens.leaves.view a = Lens.leaves.view b) x y
+      ↔ Lens.leaves.view x = Lens.leaves.view y :=
+  Eqv_equiv_iff Lens.leaves x y
 
 end E213.Lens
