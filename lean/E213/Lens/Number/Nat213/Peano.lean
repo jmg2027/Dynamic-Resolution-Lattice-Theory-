@@ -143,6 +143,60 @@ theorem add_comm : ∀ m n : Nat213, add m n = add n m
       show succ (add m n) = add n (succ m)
       rw [add_succ_right n m, add_comm m n]
 
+/-- ★ Associativity of `add`.  Structural induction on the first
+    argument (`add` recurses left). -/
+theorem add_assoc : ∀ a b c : Nat213, add (add a b) c = add a (add b c)
+  | one,    b, c => rfl
+  | succ k, b, c => by
+      show succ (add (add k b) c) = succ (add k (add b c))
+      rw [add_assoc k b c]
+
+/-- ★ `m * succ n = m + m * n` — succ on the right factor.
+    Symmetric to the definition `mul (succ k) n = add n (mul k n)`,
+    which is `rfl`.  Proven by induction on `m` using `add_assoc`
+    + `add_comm`. -/
+theorem mul_succ_right : ∀ m n : Nat213, mul m (succ n) = add m (mul m n)
+  | one,    n => rfl
+  | succ k, n => by
+      show add (succ n) (mul k (succ n)) = add (succ k) (add n (mul k n))
+      rw [mul_succ_right k n]
+      rw [← add_assoc (succ n) k (mul k n),
+          ← add_assoc (succ k) n (mul k n)]
+      show add (succ n) k + mul k n = add (succ k) n + mul k n
+      rw [show add (succ n) k = succ (add n k) from rfl,
+          show add (succ k) n = succ (add k n) from rfl,
+          add_comm n k]
+
+/-- ★ Commutativity of `mul`. -/
+theorem mul_comm : ∀ m n : Nat213, mul m n = mul n m
+  | one,    n => (mul_one n).symm
+  | succ k, n => by
+      show add n (mul k n) = mul n (succ k)
+      rw [mul_succ_right n k, mul_comm k n]
+
+/-- ★ Right distributivity: `(a + b) * c = a*c + b*c`. -/
+theorem add_mul : ∀ a b c : Nat213, mul (add a b) c = add (mul a c) (mul b c)
+  | one,    b, c => by
+      show mul (succ b) c = add c (mul b c)
+      rfl
+  | succ k, b, c => by
+      show mul (succ (add k b)) c = add (mul (succ k) c) (mul b c)
+      show add c (mul (add k b) c) = add (add c (mul k c)) (mul b c)
+      rw [add_mul k b c, add_assoc]
+
+/-- ★ Associativity of `mul`.  Uses `add_mul` distributivity. -/
+theorem mul_assoc : ∀ a b c : Nat213, mul (mul a b) c = mul a (mul b c)
+  | one,    b, c => rfl
+  | succ k, b, c => by
+      rw [show mul (succ k) b = add b (mul k b) from rfl,
+          add_mul b (mul k b) c, mul_assoc k b c]
+      rfl
+
+/-- ★ Left distributivity: `a * (b + c) = a*b + a*c`.  Derived from
+    `add_mul` + `mul_comm`. -/
+theorem mul_add (a b c : Nat213) : mul a (add b c) = add (mul a b) (mul a c) := by
+  rw [mul_comm a (add b c), add_mul, mul_comm b a, mul_comm c a]
+
 /-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
     `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
     In Nat213, no such `z` exists — proves ℕ-with-0's identity
