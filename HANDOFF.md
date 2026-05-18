@@ -1,10 +1,58 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 44+ commits.
-Latest: `e05d34b9 Lens/Number umbrella — add Int213`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 48+ commits.
+Latest: `8c6cd270 Refresh stale spec / audit refs to merged FoldSwap`.
 
-## This session — sprawl cleanup + size compression + orphan surfacing
+## Latest pass — strategic cleanup + spec / audit refresh
+
+  - **Latent regression fix**: `Lib/Math/Measure/DyadicMeasure.lean`
+    was broken on the explicit `lake build E213.Lib.Math` target
+    (hidden because `lake build E213` default target excludes Lib).
+    Root cause: 2026-05-17 List213 promotion dropped
+    `length_append_term` from `MeasurableSet.lean` but
+    `DyadicMeasure.lean` still opened the name.  One-line fix.
+  - **Close the deferred-28 inventory**:
+    `research-notes/HIERARCHICAL_PLACEMENT.md` §6 claimed 28 deferred
+    files across Lens / CayleyDickson / Cohomology.  Re-running
+    `lake build` on each entry 2026-05-18 — **all 19 build clean**
+    (the 9 Cohomology files were already marked RESOLVED).  §6 + §7.1
+    + §7.2 updated; the surrounding header refreshed.
+  - **Refresh file counts**: `lean/E213/INDEX.md` had stale counts
+    (Term 12 / Theory 41 / Lens 121 / Lib/Math 743).  Actuals
+    (post-2026-05-18 cleanup): 17 / 24 / 144 / 727.
+  - **Refresh stale spec references**:
+      - `seed/AXIOM/02_statement.md` §3.4 — Möbius bridge moved
+        from `Theory/Raw/Mobius.lean` to `Lib/Math/Mobius213.lean`
+      - `seed/AXIOM/06_formalization.md` §7.1 — Signed/Hom merged
+        into `FoldSwap.lean`
+      - `seed/AXIOM/07_self_reference.md` §8.3 — same Möbius move
+      - `seed/AXIOM/09_chart_relativity.md` §9.1 — chart-invariance
+        is now explicit in `Lens/Number/Nat213/ChartGeneral.lean`
+        (not "implicit in the axiom" as previously stated)
+      - `seed/AXIOM/09_chart_relativity.md` §9.4 — name the actual
+        `Meta/Tactic/List213.lean` module (was abstract
+        "`congrArg`-based versions")
+      - 9 research notes + 3 MATH_AUDIT files: bulk-relocate the
+        old `Theory/Raw/Mobius.lean` path
+  - **Refresh status comments**:
+      - `Lib/Math.lean`, `Lib/Math/Cohomology.lean`,
+        `Lib/Math/DyadicFSM.lean`, `Lib/Math/CayleyDickson.lean`:
+        drop "API drift" notes — `HIERARCHICAL_PLACEMENT.md` §6
+        is now closed.
+      - `Theory/Raw/API.lean`: "Migration queued" → "Migration
+        history" (now complete).
+  - **Update rust-engine whitelist standard**: the verifier
+    header was documenting "`#print axioms <thm> ⊆ {propext,
+    Quot.sound}`" — the *legacy* tier that was deprecated
+    2026-05-09.  Header now matches `STRICT_ZERO_AXIOM.md`'s
+    "does not depend on any axioms" definition.
+
+`lake build E213` (default target) clean.  `lake build E213.Lib`
++ `lake build E213.Lib.Physics` now also clean (previously broken
+by the DyadicMeasure latent regression).
+
+## Earlier this session — sprawl cleanup + size compression + orphan surfacing
 
 ### Pass 1–3: singleton sub-cluster dissolution
   - `Lib/Math/Atomicity/` (1 file) hoisted to top level.
