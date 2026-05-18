@@ -55,12 +55,14 @@ namespace E213.Theory.Raw.Endomorphic
 
 open E213.Theory
 
-/-- `Raw.slash` 의 total 변형: `x = y` 면 `x` 를 그대로 반환,
-    아니면 canonical slash. closed universe 의 default fc. -/
+/-- Total variant of `Raw.slash`: if `x = y`, return `x`; otherwise
+    take the canonical slash.  Default `fc` for closed-universe
+    catamorphisms. -/
 def slashOrSelf (x y : Raw) : Raw :=
   if h : x = y then x else Raw.slash x y h
 
-/-- `slashOrSelf` 가 두 인자가 다를 때 `Raw.slash` 와 일치. -/
+/-- When the two arguments differ, `slashOrSelf` agrees with
+    `Raw.slash`. -/
 theorem slashOrSelf_of_ne {x y : Raw} (h : x ≠ y) :
     slashOrSelf x y = Raw.slash x y h := by
   unfold slashOrSelf; rw [dif_neg h]
@@ -71,9 +73,9 @@ theorem slashOrSelf_self (x : Raw) : slashOrSelf x x = x := by
 
 /-! ### foldRaw — endomorphic fold (codomain = Raw) -/
 
-/-- `foldRaw fa fb fc r` — 끝(leaf)에서 `fa`/`fb` 로 시작해
-    slash 마다 `fc` 로 결합하면서 r의 골격을 따라 새 Raw를 만든다.
-    α := Raw 인 `Raw.fold` 의 별명. -/
+/-- `foldRaw fa fb fc r` — starting from leaves with `fa`/`fb`,
+    combine via `fc` at every slash, traversing `r`'s skeleton to
+    build a new Raw.  Alias for `Raw.fold` at `α := Raw`. -/
 def foldRaw (fa fb : Raw) (fc : Raw → Raw → Raw) (r : Raw) : Raw :=
   Raw.fold fa fb fc r
 
@@ -83,8 +85,8 @@ theorem foldRaw_a (fa fb : Raw) (fc : Raw → Raw → Raw) :
 theorem foldRaw_b (fa fb : Raw) (fc : Raw → Raw → Raw) :
     foldRaw fa fb fc Raw.b = fb := rfl
 
-/-- foldRaw 의 slash 케이스 — `fc` 가 symmetric 일 때
-    `fc (foldRaw x) (foldRaw y)` 로 분해.  `Raw.fold_slash` 의 별명. -/
+/-- `foldRaw`'s slash case — when `fc` is symmetric, decomposes as
+    `fc (foldRaw x) (foldRaw y)`.  Alias for `Raw.fold_slash`. -/
 theorem foldRaw_slash (fa fb : Raw) (fc : Raw → Raw → Raw)
     (hsym : ∀ u v : Raw, fc u v = fc v u)
     (x y : Raw) (h : x ≠ y) :
@@ -94,8 +96,8 @@ theorem foldRaw_slash (fa fb : Raw) (fc : Raw → Raw → Raw)
 
 /-! ### Demo: swap = foldRaw with (fa=b, fb=a, fc=slashOrSelf) -/
 
-/-- `slashOrSelf` 가 symmetric — closed-universe combine 들이 일반적으로
-    만족해야 하는 axiom-compliance 조건. -/
+/-- `slashOrSelf` is symmetric — the axiom-compliance condition that
+    closed-universe combines must generally satisfy. -/
 theorem slashOrSelf_comm (x y : Raw) :
     slashOrSelf x y = slashOrSelf y x := by
   unfold slashOrSelf
@@ -103,15 +105,17 @@ theorem slashOrSelf_comm (x y : Raw) :
   · subst h; rfl
   · rw [dif_neg h, dif_neg (Ne.symm h), Raw.slash_comm x y h]
 
-/-- **Closed-universe swap**: `Raw.swap` 을 `foldRaw` 한 줄로 재표현.
-    fa = b (a → b), fb = a (b → a), fc = slashOrSelf (재구성). -/
+/-- **Closed-universe swap**: `Raw.swap` expressed in one line via
+    `foldRaw`.  `fa = b` (a → b), `fb = a` (b → a), `fc =
+    slashOrSelf` (reconstruct). -/
 def swapClosed : Raw → Raw :=
   foldRaw Raw.b Raw.a slashOrSelf
 
 theorem swapClosed_a : swapClosed Raw.a = Raw.b := rfl
 theorem swapClosed_b : swapClosed Raw.b = Raw.a := rfl
 
-/-- **Bridge**: 닫힌-우주 swap = 기존 `Raw.swap` 포인트별로 일치. -/
+/-- **Bridge**: closed-universe swap equals the existing `Raw.swap`
+    pointwise. -/
 theorem swapClosed_eq_swap (r : Raw) : swapClosed r = Raw.swap r := by
   induction r using Raw.rec with
   | a => rfl
