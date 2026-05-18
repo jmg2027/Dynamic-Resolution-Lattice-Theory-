@@ -107,4 +107,61 @@ suffices to write about itself.  The cascade halts. -/
 theorem Glyph.has_raw_image (g : Glyph) : ∃ r : Raw, r = g.toRaw :=
   ⟨g.toRaw, rfl⟩
 
+/-! ### Polish-prefix printer (partial L3 — output side)
+
+The printer converts a `Tree` (or `Raw`) into its Polish-prefix
+glyph sequence.  Polish prefix needs no parentheses; the slash
+glyph and the atom glyphs uniquely determine grouping by arity.
+
+The full L3 round-trip (`parse ∘ print = id`) requires a parser
+whose termination proof is non-trivial — left as future work.
+This section provides the printer side and small sanity checks. -/
+
+open E213.Term.Internal (Tree)
+
+/-- Polish-prefix printer for `Tree`.  Each slash node prefixes
+    its children's print outputs with the slash glyph. -/
+def printTree : Tree → List Glyph
+  | .a         => [.a]
+  | .b         => [.b]
+  | .slash x y => .slash :: printTree x ++ printTree y
+
+theorem printTree_a : printTree .a = [.a] := rfl
+theorem printTree_b : printTree .b = [.b] := rfl
+theorem printTree_slash (x y : Tree) :
+    printTree (.slash x y) = .slash :: printTree x ++ printTree y := rfl
+
+/-- Printer lifted to `Raw` via the underlying canonical Tree. -/
+def printRaw (r : Raw) : List Glyph := printTree r.val
+
+theorem printRaw_a : printRaw Raw.a = [.a] := rfl
+theorem printRaw_b : printRaw Raw.b = [.b] := rfl
+
+/-- Concrete witness: `(a/b)` prints to the 3-glyph sequence
+    `[slash, a, b]`. -/
+example :
+    printRaw (Raw.slash Raw.a Raw.b (by decide))
+      = [.slash, .a, .b] := by decide
+
+/-- Concrete witness: `(b/a)` is canonicalised to `(a/b)` and
+    prints the same sequence — `Raw.slash_comm` is reflected in
+    the printer. -/
+example :
+    printRaw (Raw.slash Raw.b Raw.a (by decide))
+      = [.slash, .a, .b] := by decide
+
+/-! ### L3 status (deferred work)
+
+A constructive parser `parse : List Glyph → Option Raw` with
+`parse (printRaw r) = some r` round-trip requires either
+well-founded recursion on list length or a stack-based
+formulation plus a length-counting invariant for Polish prefix.
+The standard property (Polish prefix is uniquely decodable, hence
+`printTree` is injective) is true but its mechanical proof is
+non-trivial in Lean 4 without `omega` (which carries `propext`).
+
+The printer + concrete-case witnesses above establish the
+*output* side of the L3 round-trip; the inverse parser is future
+work.  See `seed/AXIOM/09_chart_relativity.md` §9.4. -/
+
 end E213.Lens.SyntacticInternalization
