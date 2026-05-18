@@ -1,8 +1,26 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 29 commits.
-Latest: `05fc4adb Promote List helpers to Meta.Tactic.List213 utility module`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 36+ commits.
+Latest: `9d245dee Size compression — fold HasModulusBoundsExtra into HasModulus`.
+
+## This session — sprawl cleanup + size compression
+
+  - Pass 1: dissolve singleton `Lib/Math/Atomicity/` (1 file).
+  - Pass 2: Polynomial213 restructure (parent-as-Core +
+    proper 3-file sub-cluster); Geometry filename normalisation
+    (`Nat213AlgebraicGeometry` → `AlgebraicGeometry`, etc).
+  - Pass 3: dissolve `DyadicFSM/Legendre/Legendre.lean` singleton
+    (16 consumers updated); `Real213/Cauchy/ChainToCut.lean` →
+    `Real213/ChainToCut.lean`; `Analysis/ChainCauchy.lean` KO →
+    English docstrings.
+  - Size compression: 4 singleton `Z*Instance.lean` files →
+    one `ConjugationInstances.lean`; 3 `ZOmega{X}OrderDist` pairs
+    merged into their `X.lean` counterparts;
+    `HasModulusBoundsExtra` folded into `HasModulus`.
+
+Net file count reduction: -10 in `Lib/Math/`.  All theorems
+remain ∅-axiom; full `lake build` clean throughout.
 
 ## What this branch delivered
 
