@@ -123,4 +123,20 @@ theorem leaves_view_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
     E213.Lens.Number.Nat213.Raw.value_surjective_on_ge_one n hn
   exact ⟨r, by rw [leaves_view_eq_value]; exact hr⟩
 
+/-! ### Eqv monotonicity in the Lens (added 2026-05-18)
+
+If `M` refines `L` (every `M.view`-equality implies an `L.view`-
+equality), then `Eqv M.equiv` ⊆ `Eqv L.equiv` — finer lens
+generates coarser equivalence closure. -/
+
+/-- Lens refinement induces weakening of the `Eqv`-closure: if
+    `M.view`-equality implies `L.view`-equality, the `M`-generated
+    `Eqv` is contained in the `L`-generated one. -/
+theorem Eqv_monotone_in_lens {α β} (L : Lens α) (M : Lens β)
+    (h_refines : ∀ x y, M.view x = M.view y → L.view x = L.view y)
+    {x y : Raw}
+    (h : Eqv (fun a b => M.view a = M.view b) x y) :
+    Eqv (fun a b => L.view a = L.view b) x y :=
+  Eqv.weaken (fun hgen => h_refines _ _ hgen) h
+
 end E213.Lens

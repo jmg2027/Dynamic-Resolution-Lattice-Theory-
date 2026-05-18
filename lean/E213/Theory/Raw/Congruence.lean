@@ -65,6 +65,40 @@ theorem induction'
   | symm _ ih        => exact h_symm ih
   | trans _ _ ih₁ ih₂ => exact h_trans ih₁ ih₂
 
+/-- **Monotonicity** in the generator relation: enlarging `gens`
+    enlarges the equivalence closure.  `Eqv` is a covariant
+    functor from `Raw → Raw → Prop` to itself. -/
+theorem weaken {g₁ g₂ : Raw → Raw → Prop}
+    (h_le : ∀ {x y}, g₁ x y → g₂ x y)
+    {x y : Raw} (h : Eqv g₁ x y) : Eqv g₂ x y :=
+  induction' (fun a b => Eqv g₂ a b)
+    (fun hgen => Eqv.of (h_le hgen))
+    (fun a => Eqv.refl a)
+    (fun ih => Eqv.symm ih)
+    (fun ih₁ ih₂ => Eqv.trans ih₁ ih₂) h
+
+/-- **`=` ⇒ Eqv**: structural equality implies the congruence
+    relation, regardless of the generator. -/
+theorem of_eq {x y : Raw} (h : x = y) : Eqv gens x y :=
+  h ▸ Eqv.refl x
+
 end Eqv
+
+/-- **Empty generator characterisation**: `Eqv (fun _ _ => False)`
+    is exactly structural equality on `Raw`.  Direction (←) is
+    `Eqv.of_eq`; direction (→) follows from `induction'` since
+    `=` is reflexive, symmetric, transitive, and contains the
+    empty generator vacuously. -/
+theorem Eqv.empty_iff_eq (x y : Raw) :
+    Eqv (fun _ _ => False) x y ↔ x = y := by
+  constructor
+  · intro h
+    exact Eqv.induction' (fun a b => a = b)
+      (fun hgen => absurd hgen (fun h => h))
+      (fun _ => rfl)
+      (fun ih => ih.symm)
+      (fun ih₁ ih₂ => ih₁.trans ih₂) h
+  · intro h
+    exact Eqv.of_eq h
 
 end E213.Theory

@@ -96,6 +96,9 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
   `Lens.leaves_view_surjective_on_ge_one` realises every `n ≥ 1`
   as the leaves count of `numeral (n - 1)` — the rigorous form of
   "ℕ₊ = Range(Lens.leaves.view)"
+- `Theory/Raw/Congruence.Eqv.weaken` — `Eqv` is monotone in its
+  generator (added 2026-05-18); `Eqv.of_eq`, `Eqv.empty_iff_eq`
+  + `Lens.Eqv_monotone_in_lens` complete the basic `Eqv` API
 - `Lens/Number/Nat213/ChartGeneral.chartChain_value` —
   chart-invariance over any `(r₀, r')` with `r₀ ≠ r'` (added
   2026-05-18; explicit form of axiom §9.1's chart-relativity)
