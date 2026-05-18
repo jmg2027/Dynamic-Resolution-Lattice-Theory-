@@ -98,7 +98,7 @@ Top achievements:
 | "Cohomology classes?"         | `Lib/Math/Cohomology/` (94 files in 11 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
 | "Lens framework?"             | `Lens/LensCore.lean` + 9 sub-cluster umbrellas under `Lens/` + `Lens/Universal/Witnesses/` |
 | "Universal-Lens witnesses?"   | `Lens/Universal/Witnesses/` (moved from Meta 2026-05-13) |
-| "Raw-native number types?"    | `Theory/Closed/Nat213.lean` + `Theory/Nat213/Core.lean` + `Theory/Tower/{NatPairToInt,NatPairToQPos,NatTripleToZ2}.lean` |
+| "Raw-native number types?"    | `Lens/Number/Nat213/{Raw,Core,Chain,Peano,Bridge,ChartGeneral}.lean` + `Lens/Number/Nat213/Tower/{NatPairToInt,NatPairToQPos,NatTripleToZ2}.lean` |
 | "Theoretical architecture?"   | `ARCHITECTURE.md` (this directory) |
 
 ## Build

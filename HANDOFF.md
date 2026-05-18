@@ -1,205 +1,90 @@
-# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc, L3 round-trip, cleanup)
+# Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed.
-Latest: `d6a316e5 §9.4 L3 universal round-trip — proved (21 PURE /
-0 DIRTY)`.  Twenty-one commits since branch start.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 21 commits.
+Latest: `cd769822 Cleanup — Lens.lean umbrella + Theory/Raw/INDEX.md + HANDOFF`.
 
-## What This Branch Did
+## What this branch delivered
 
-A full traversal of the **lens emergence path** roadmap from
-`research-notes/2026-05-18_lens_emergence_path.md` §5:
+A full traversal of the lens-emergence-path roadmap
+(`research-notes/2026-05-18_lens_emergence_path.md` §5), plus the
+related §9.4 syntactic-internalisation programme.
 
-  - **Step 1 — framing** (commit 2): new seed chapter
-    `seed/AXIOM/09_chart_relativity.md` + docstring framing.
-  - **Option B → C transition** (commits 3-5 then 9): an initial
-    Option B (closed-Raw arithmetic carrier in `Chain.lean`) was
-    built and then deliberately superseded by Option C (Raw-side
-    arithmetic deleted, arithmetic on Nat).  The Option B work was
-    a productive false start — its conceptual payoff (Raw is the
-    chart, Nat is the number) is what Option C realises cleanly.
-  - **Option D — chart-parameterised chain** (commits 7, 11):
-    minimal substrate then full chart-invariance theorem.
-  - **Option E — internal congruence** (commits 8, 11): generic
-    `Eqv` inductive type + Lens bridge + concrete biconditional.
-  - **Option C — full refactor** (commit 9): the centerpiece — Raw
-    arithmetic deleted, `Bridge.lean` slimmed, `Chain.lean`
-    rewritten Nat-routed, `Lib/Math/Real213/Cauchy/ChainToCut.lean`
-    migrated to Peano arithmetic.  ~600 net lines deleted.
+  - **Option C — Raw-side arithmetic deleted**: ℕ₊ is the
+    projection of `Lens.leaves.view : Raw → Nat`, not a quotient
+    of `Raw`.  `Raw.lean` is slim (chart structure only);
+    `Chain.lean` is a Raw-subtype carrier whose operations route
+    through `Nat`; `Bridge.lean` exposes the value-level
+    homomorphism via Peano arithmetic.  Downstream
+    `Lib/Math/Real213/Cauchy/ChainToCut.lean` migrated.  ~600 net
+    lines deleted.
+  - **Option D — chart-explicit framework**: `ChartGeneral.lean`
+    parameterises Method A over any `(r₀, r')` with `r₀ ≠ r'`;
+    full chart-invariance theorem `value (chartChain ...) = value
+    r₀ + n * value r'`.
+  - **Option E — internal congruence (generic)**:
+    `Theory.Raw.Congruence` + `Lens.Congruence` give the
+    `Eqv (gens) ↔ L.equiv` biconditional for any lens.  The §2.6
+    quotient-style ℕ₊ candidates are abandoned — different
+    parenthesisations are *structurally distinct* Raws (witnessed
+    by `Theory.Raw.ParenthesizationDistinct`), so forcing
+    associativity erases content.
+  - **§9.4 syntactic internalisation L2 + L3**:
+    `Lens.SyntacticInternalization` realises a 7-glyph alphabet
+    (each glyph → distinct Raw) plus a Polish-prefix parser /
+    printer with a fully-proved universal round-trip
+    `∀ t, parseTree (printTree t) = some t`.
 
-### Commit timeline
-
-| # | Commit | Scope |
-|---|---|---|
-| 1 | `b5c829cc` | Research note: KO → EN + 4 substantive fixes |
-| 2 | `da32eb66` | seed/AXIOM/09 + Nat213.{Raw,Peano} framing docstrings |
-| 3 | `4ca45d25` | (B) Nat213.Chain — Raw-subtype carrier |
-| 4 | `7ee3890d` | (B) Nat213.Chain — closed-Raw add/mul closure |
-| 5 | `23ef67ea` | (B) Nat213.Chain — omega-free toNat homomorphism |
-| 6 | `baf8313e` | HANDOFF (post-B) |
-| 7 | `2f9dd195` | (D minimal) Nat213.ChartGeneral — parameterised chain |
-| 8 | `8f82d12b` | (E minimal) Theory.Raw.Congruence + Lens.Congruence |
-| 9 | `9efd8263` | **(C full)** Raw-side arithmetic deleted, Chain/Bridge/ChainToCut rewritten |
-| 10 | `6cba7392` | HANDOFF (intermediate) |
-| 11 | `2394903c` | (D + E full) chart-invariance + Eqv ↔ L.equiv biconditional |
-| 12 | `84f3a32c` | slash_assoc framing correction (parens-as-Raw insight) — `Theory.Raw.ParenthesizationDistinct` |
-| 13 | `b99fb3eb` | Theory completion #1 — §9.4 L2 prototype (`Lens.SyntacticInternalization`) + Option C doc sweep + Bool213.System latent fix |
-| 14 | `6cba7392` | (deferred HANDOFF intermediate — superseded) |
-| 15 | `1275f502` | Handoff: full arc — Option C refactor + D/E complete |
-| 16 | `3f900c6e` | Theory completion #2 — KO→EN (NumberingSystem, RawCut) + §9.4 printer (Polish prefix) |
-| 17 | `fe068f35` | Handoff + `Mobius213` title fix |
-| 18 | `0f63a788` | §9.4 L3 partial — fuel-bounded parser + 4 concrete `decide` witnesses |
-| 19 | `f5aacd6c` | SyntacticInternalization — explicit deferred-work note |
-| 20 | `d6a316e5` | **§9.4 L3 universal round-trip proved** — `parseTree_printTree` PURE (21/0) |
-| 21 | `(this)` | Cleanup — `Lens.lean` umbrella imports + `Theory/Raw/INDEX.md` entries |
-
-## Where The Code Sits Now
-
-### `Lens/Number/Nat213/` (11 files; INDEX.md authoritative)
-
-  - `Raw.lean` (slim, 124 lines) — chart structure only:
-    `one, succ, numeral, value` + 7 atomic lemmas.
-    **No `add` / `mul`** (deleted in commit 9).
-  - `Peano.lean` (+`toNat_add, toNat_mul`) — inductive Nat213 with
-    its own arithmetic; ergonomic parallel.
-  - `Core.lean` — `{n : Nat // 1 ≤ n}` Nat-subtype.
-  - `Chain.lean` (Nat-routed, 133 lines) —
-    `{r : Raw // IsMethodAChain r}` Raw-subtype.  Operations
-    `succ / add / mul` defined via `numeral c.toNat` / `numeral
-    (c.toNat + d.toNat - 1)` / etc.  `toNat` is a `+, *`
-    homomorphism via `Nat.succ_pred_eq_of_pos` (avoiding
-    `Nat.sub_add_cancel` which carries `propext`).
-  - `ChartGeneral.lean` (Option D, 122 lines) — `chartChain r₀ r' h
-    : Nat → Raw` parameterised over chart pair; default chart
-    recovers `Raw.numeral` (`chartChain_default`); chain doesn't
-    collapse (`chartChain_ne`); `value` linear along chain
-    (`chartChain_value`).  Also exposes public utility
-    `Raw.slash_ne_right`.
-  - `Bridge.lean` (slim, 117 lines) — Peano ↔ Raw chart bijection
-    at value level: `toRaw`, `value_toRaw`, `value_toRaw_add`,
-    `value_toRaw_mul`.  Old Raw-level arithmetic homomorphism
-    + `leavesCountRaw` infrastructure deleted in commit 9.
-
-### `Theory/Raw/Congruence.lean` (Option E generic, 64 lines)
-
-  - `inductive Eqv (gens : Raw → Raw → Prop)` — equivalence closure.
-  - `Eqv.induction'` — generic induction principle.
-
-### `Lens/Congruence.lean` (Option E bridge + concrete, 88 lines)
-
-  - `view_eq_of_Eqv` — internal → external (any `gens` respecting
-    `L.view`).
-  - `Eqv_of_view_eq` — external → internal (the `of` step).
-  - `Eqv_equiv_iff` — the §2.6 biconditional: for any lens `L`,
-    `Eqv L.equiv ↔ L.equiv`.
-  - `Eqv_leaves_iff` — concrete `Lens.leaves` specialisation.
-
-### `Lib/Math/Real213/Cauchy/ChainToCut.lean` (migrated, 327 lines)
-
-  - `chainToCut_addPeano`, `chainToCut_mulPeano` — value-level
-    homomorphism using Peano arithmetic (formerly Raw-level).
-  - `cutSum_chainToCut`, `cutMul_chainToCut` — compatibility with
-    Real213 cut arithmetic, expressed via Peano `+`/`*`.
-
-## Verification State
+## Verification state
 
 ```
-lake build (whole tree)                           ✔ clean
-tools/scan_axioms.py + manual probes              ✔ everything PURE
-  Raw.lean                                          12 PURE
-  Peano.lean (+ 2 new)                              clean
-  Bridge.lean                                        7 PURE
-  Chain.lean                                        13 PURE (+ 3 parent: IsMethodAChain.*)
-  ChartGeneral.lean                                  6 PURE (+ Raw.slash_ne_right)
-  Theory.Raw.Congruence                              2 PURE (Eqv, Eqv.induction')
-  Lens.Congruence                                    4 PURE
-  ChainToCut.lean                                   all theorems PURE
+lake build (full tree)                       ✔ clean
 ```
 
-∅-axiom contract intact throughout the refactor.  No
-`Mathlib` / `Classical` / `propext` / `Quot.sound` / `omega` /
-`native_decide` introduced.
+All new symbols PURE.  No `propext` / `Quot.sound` /
+`Classical.choice` / `omega` / `Mathlib` introduced.  Standard
+`List.{append_assoc, append_nil, length_append}` carry `propext`;
+local `congrArg`-based replacements provided.  `simp [...] at h` in
+impossible branches replaced with `Option.noConfusion h`.
+`Nat.sub_add_cancel` replaced with `Nat.succ_pred_eq_of_pos`.
 
-## Theoretical Position Achieved
+Key axiom-audit counts:
+  - `Lens/Number/Nat213/Chain.lean`             13 PURE (+ 3 parent)
+  - `Lens/Number/Nat213/ChartGeneral.lean`       6 PURE (+ `Raw.slash_ne_right`)
+  - `Lens/Number/Nat213/Bridge.lean`             7 PURE
+  - `Lens/Number/Nat213/Raw.lean`               12 PURE
+  - `Theory/Raw/Congruence.lean`                 2 PURE
+  - `Theory/Raw/ParenthesizationDistinct.lean`   2 PURE
+  - `Lens/Congruence.lean`                       4 PURE
+  - `Lens/SyntacticInternalization.lean`        21 PURE
 
-The deep insight realised by Option C:
+## Open work (genuinely remaining)
 
-> 213 axiom does not commit to numbers.  Numbers are abstract
-> `Nat`s; their Raw representation is a chart choice.  Operations
-> on numbers happen on `Nat` (the abstract object); the Raw side
-> carries only the canonical representative.  Closed-Raw
-> arithmetic is a category error — Raw is for *representing*
-> numbers, `Nat` is for *being* them.
+### 1. KO docstring backlog
+`Peano.lean`, `Bridge.lean` (now English), `Raw.lean`, `Chain.lean`,
+`NumberingSystem.lean`, `RawCut.lean` — already English.
+Remaining KO content in `Lens/Number/Nat213/`: `Lenses.lean` (2 lines —
+verbatim user quote, rule-compliant), `AtomicityCorrespondence.lean`
+(2 lines — verbatim quote, compliant).  No further translation
+needed in this directory.
 
-Realisations:
-  - `Raw.lean` carries `numeral / value` only (no arithmetic).
-  - `Chain.lean` is a Raw-subtype carrier whose operations route
-    through `Nat` (the abstract object).
-  - `Bridge.lean` is the value-level bijection — arithmetic claims
-    are at the `Nat` level, not the Raw level.
-  - `ChartGeneral.lean` makes chart-relativity (§9.1) explicit
-    with a chart-invariance theorem.
-  - `Lens.Congruence.lean` provides §2.6's external/internal
-    biconditional for any lens.
+Out-of-scope checks worth doing in a future pass: `Lens/Bool213/`,
+`Lib/Math/Real213/`, `Lib/Math/Analysis/` may still have KO
+docstrings.
 
-## Open Problems / Next Candidates
+### 2. Tower / downstream audit
+`Lens/Number/Nat213/Tower/*` (NatPairToInt, NatPairToQPos,
+NatTripleToZ2) — build clean indicates no breakage from the Option
+C refactor, but a confirmation pass examining whether any rely on
+the deleted `Bridge.toRaw_add` / `value_add` / `leavesCountRaw_*`
+would be reassuring.  No active failures.
 
-In priority order:
-
-### 1. §9.4 L3 universal round-trip — **resolved**
-`lean/E213/Lens/SyntacticInternalization.lean` now provides the
-full universal theorem `parseTree_printTree : ∀ t, parseTree
-(printTree t) = some t` (commit `d6a316e5`), proved with strict
-∅-axiom contract.  Three private List helpers replace
-`propext`-laden Lean core lemmas (`list_append_assoc'`,
-`list_append_nil'`, `list_length_append'`).  21 PURE / 0 DIRTY in
-the file.
-
-### 2. §2.6's quotient-style conjectures — **resolved (abandoned)**
-The research note's §2.6 candidates
-"ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" and "ℤ = Raw / (assoc ∧ …)"
-were treated in earlier HANDOFFs as "blocked by missing
-slash_assoc".  Per user (Mingu Jeong) 2026-05-18 review, the
-framing itself was wrong: `slash_assoc` is not a missing theorem
-to derive — it *cannot hold*, *and that's correct*.  Different
-parenthesisations of the same leaves produce *structurally
-distinct* Raws; forcing associativity via a generator quotient
-erases Raw-internal content (the tree shape = parenthesisation).
-ℕ₊ is the **projection-image** of `Lens.leaves.view`, not a
-quotient of Raw — exactly what Option C of the refactor realised.
-
-Concrete witness:
-`lean/E213/Theory/Raw/ParenthesizationDistinct.lean` — kernel-
-evaluated counter-example.  Research note §2.6 + Option E
-docstrings updated to reflect this correction.
-
-`Eqv` (Option E) survives as a generic substrate (any
-generator-induced equivalence on Raw) with a clean
-`Eqv L.equiv ↔ L.equiv` biconditional for any lens, but is no
-longer pitched as a path to ℕ₊.
-
-### 3. §2.7 syntactic internalisation L2 — **resolved**
-`lean/E213/Lens/SyntacticInternalization.lean` delivers the L2
-glyph-as-Raw prototype (commit `b99fb3eb`).  See §1 above for the
-L3 follow-up.
-
-### 3. Bool213 parallel
-The `Lens/Bool213/Raw.lean` file uses similar patterns to the
-pre-refactor `Nat213/Raw.lean` (`booleanProj`, etc.) — should it
-get the same Option-C treatment?  Comments reference the deleted
-`leavesCountRaw`; update to reflect the new architecture.
-
-### 4. Pre-existing KO docstrings
-`Nat213/Raw.lean` and related files had Korean docstrings.  The
-Option C refactor rewrote `Raw.lean` and `Bridge.lean` and
-`Chain.lean` in English.  `Peano.lean`, `NumberingSystem.lean`,
-`RawCut.lean`, `Lenses.lean`, `AtomicityCorrespondence.lean` still
-have mixed-language content — translate per CLAUDE.md.
-
-### 5. Tower/* audit
-`NatPairToInt`, `NatPairToQPos`, `NatTripleToZ2` — do they use the
-deleted `Bridge.toRaw_add` etc.?  Build is clean so probably not,
-but worth a confirmation pass.
+### 3. Bool213 architectural review
+`Lens/Bool213/Raw.lean` keeps a Raw-internal `booleanProj`
+(legitimately — Bool213's `{T, F}` canonical form *is* the Raw
+image).  Comment references to the deleted Nat213
+`leavesCountRaw` have been cleaned (commit `b99fb3eb`).  No further
+work currently planned.
 
 ## Anchor docs (next session start)
 
@@ -207,27 +92,6 @@ but worth a confirmation pass.
 - `seed/AXIOM/07_self_reference.md` §8.4 — dichotomy guide
 - `seed/AXIOM/09_chart_relativity.md` — chart-relativity chapter
 - `research-notes/2026-05-18_lens_emergence_path.md` — long-form
-  discussion (the centrepiece)
-- `lean/E213/Lens/Number/Nat213/Raw.lean` — slim chart structure
-- `lean/E213/Lens/Number/Nat213/Chain.lean` — Nat-routed Raw-subtype
-- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — Option D full
-- `lean/E213/Theory/Raw/Congruence.lean` + `lean/E213/Lens/
-  Congruence.lean` — Option E full
-
-## File Map
-
-```
-research-notes/2026-05-18_lens_emergence_path.md     ← KO → EN + 4 fixes (commit 1)
-seed/AXIOM/09_chart_relativity.md                    ← NEW (commit 2)
-seed/AXIOM/INDEX.md                                  ← slot 09 (commit 2)
-lean/E213/Lens/Number/Nat213/Raw.lean                ← slim (commits 2, 9)
-lean/E213/Lens/Number/Nat213/Peano.lean              ← +Framing, +toNat_add/mul (commits 2, 9)
-lean/E213/Lens/Number/Nat213/Bridge.lean             ← slim (commit 9)
-lean/E213/Lens/Number/Nat213/Chain.lean              ← Nat-routed (commits 3-5, 9)
-lean/E213/Lens/Number/Nat213/ChartGeneral.lean       ← Option D (commits 7, 11)
-lean/E213/Lens/Number/Nat213/INDEX.md                ← reflective (commits 3, 9)
-lean/E213/Theory/Raw/Congruence.lean                 ← Eqv (commit 8)
-lean/E213/Lens/Congruence.lean                       ← bridge (commits 8, 11)
-lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean    ← Peano-arith migration (commit 9)
-HANDOFF.md                                           ← (commits 6, 10, this)
-```
+  exposition of the lens-emergence reasoning
+- `lean/E213/Lens/Number/Nat213/INDEX.md` — current Nat213 layout
+- `lean/E213/Lens/SyntacticInternalization.lean` — §9.4 realisation

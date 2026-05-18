@@ -21,8 +21,9 @@ data choice = Lens-layer artifact.  Migrated from
 
   - `Int213/`    — ℤ via additive-axis quotient on `Nat213 × Nat213`
                    (currently prototyped in
-                   `Theory.Tower.NatPairToInt`; promote to Lens
-                   once Peano-rebased).
+                   `Lens.Number.Nat213.Tower.NatPairToInt`;
+                   promote to a sibling `Int213/` sub-cluster
+                   once mature).
   - `Rat213/`    — ℚ via multiplicative quotient (currently in
                    `Nat213/Tower/NatPairToQPos`).
   - `Real213/`   — ℝ via cuts / Cauchy seqs over Nat213

@@ -11,7 +11,8 @@ import E213.Lib.Math.Analysis.CauchyProj
 결합: Raw chain → constant Cauchy seq at corresponding cut.
 
 이게 catalog 의 정합성 입증 — bridge 들이 free 로 compose, 추가 axiom 0.
-Theory/Closed/* (Nat) → Real213 cut → Cauchy seq 의 자연스러운 chain.
+`Lens/Number/Nat213/*` (Method A chain) → Real213 cut → Cauchy
+seq 의 자연스러운 chain.
 -/
 
 namespace E213.Lib.Math.Analysis.ChainCauchy

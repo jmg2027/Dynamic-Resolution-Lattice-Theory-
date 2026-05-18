@@ -8,12 +8,16 @@ Theory/Closed/* 의 vertical-internal projection 메타 패턴이 4번째 도메
 
 ## 도메인 catalog (4 사례)
 
-| 도메인 | object | projection | base canonical form |
+| domain | object | projection | base canonical form |
 |---|---|---|---|
-| Nat213 | Raw | leavesCountRaw | Method A chain |
-| Bool213 | Raw | booleanProj | T 또는 F |
+| Bool213 | Raw | booleanProj | T or F |
 | RawCut | Raw → Raw → Raw | cutBooleanProj | Bool-valued cut |
 | **CauchyCutSeq** | **structure** | **cauchyProj** | **constant sequence at limit** |
+
+(Post-Option-C 2026-05-18: the former Nat213 row with
+`leavesCountRaw` has been removed — ℕ₊ now projects to `Nat`
+codomain rather than carrying a Raw-internal projection.  See
+`seed/CLOSED_FORM_SPEC.md` for the current 3-domain table.)
 
 ## 정의
 
@@ -61,7 +65,8 @@ theorem isConst_of_cauchyProj_id (ccs : CauchyCutSeq)
     (h : cauchyProj ccs = ccs) : IsConstAtLimit ccs :=
   h.symm
 
-/-- **Fixed-point ↔ image** (Nat213 / Bool213 / RawCut 와 평행). -/
+/-- **Fixed-point ↔ image** (Bool213 / RawCut 와 평행 — post-Option-C
+    Nat213 는 Nat 측 projection 이라 이 패턴 적용 안 함). -/
 theorem cauchyProj_id_iff_isConst (ccs : CauchyCutSeq) :
     cauchyProj ccs = ccs ↔ IsConstAtLimit ccs :=
   ⟨isConst_of_cauchyProj_id ccs, fun h => (cauchyProj_id_of_isConst ccs h)⟩

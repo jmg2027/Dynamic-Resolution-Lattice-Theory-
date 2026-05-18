@@ -12,7 +12,7 @@
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
 | `ExpLog/` | 11 | CutExp/Log series + ODE + Geom* (Cauchy convergence) |
-| `Cauchy/` | 1 | ChainToCut (Theory.Closed Nat chain → cut bridge) |
+| `Cauchy/` | 1 | ChainToCut (Method A Nat213 chain → cut bridge, via `Lens.Number.Nat213.Bridge.value_toRaw*`) |
 
 ## Top-level
 

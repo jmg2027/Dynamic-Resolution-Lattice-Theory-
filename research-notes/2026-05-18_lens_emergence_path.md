@@ -1,31 +1,31 @@
 # Lens Emergence Path — natural emergence of numbers and flat ontology
 
-**Status**: working note.  Phase 1 of Option C *has already landed*
-(see commit list); Options A, B, D, E remain open.  This is a
-reflection on the path taken so far and the branches not taken.
-**Date**: 2026-05-18  (`claude/move-tree-to-term-ring-DDom7` branch)
-**Related commits this session**:
-- `07f4fcde` — `Nat213.Raw` `zero` → `one` rename
-- `01401d18` — `Int213.Raw` (inductive sum-type; **later superseded**)
-- `3371fd14` — `Int213.Raw` rewritten lens-emergent (signedLens-derived)
-- `b05c1f40` — `Int213.Raw` pairLens + factoring (`signedLens = npairToInt ∘ pairLens`)
-- `ced56bef` — `Nat213/Core.lean` introduced (Phase 1 of Option C
-  refactor — **already in tree**)
+**Status**: completed.  All recommendations of this note have been
+realised on the `claude/review-lens-emergence-path-ZtS3A` branch
+(2026-05-18).  See `HANDOFF.md` for the result summary.
+**Date**: 2026-05-18.
+
+This note is now a *record of the reasoning* that motivated the
+work, kept for posterity.  The §2–§3 insights remain the
+substantive content; the original §4–§9 (options catalogue, open
+questions, recommendation, next-action) have been removed since
+they are fully resolved.
 
 ---
 
 ## 0. Purpose of this document
 
-A consolidation of insights that accumulated during the conversation,
-so that they sit in one place for later reflection rather than being
-acted on piecemeal.  The reader is given a vocabulary (chart,
-flat ontology, emergence path) and a decision-form catalog of options.
+A consolidation of the insights that accumulated during the
+conversation.  The reader is given a vocabulary (chart, flat
+ontology, emergence path) and the natural emergence paths for
+ℕ, ℤ, ℚ, ℝ.
 
-Status discipline: where the *codebase* has already moved (Phase 1 of
-Option C), this is noted explicitly so the document does not pretend
-that the choice is still open.  Where the document gestures beyond
-what 213 currently proves (e.g. §2.6, §2.7, §3.3), this is flagged
-inline.
+The original §5–§7 (options catalogue, open questions,
+recommendation) and §9 (next action) have been deleted — every
+recommendation has been carried out on the
+`claude/review-lens-emergence-path-ZtS3A` branch.  See
+`HANDOFF.md` for the result summary.  The §1–§3 insights remain
+as the substantive content.
 
 ---
 
@@ -321,189 +321,7 @@ emergence.
 
 ---
 
-## 4. Current codebase — re-evaluated through the emergence lens
-
-### 4.1 Lens-strict (✓)
-
-| File | Assessment |
-|---|---|
-| `Lens/LensCore.lean` | core framework, definitions are clean |
-| `Lens/Number/Int213/Raw.lean` (post-3371fd14) | signedLens, pairLens, factoring — lens-strict |
-| `Lens/Number/Nat213/Core.lean` (post-ced56bef) | `Nat213 := {n // 1 ≤ n}` + `Lens.leaves` view |
-
-### 4.2 Ad-hoc / chart-imposed (⚠ — needs reconsideration)
-
-| File | Issue |
-|---|---|
-| `Lens/Number/Nat213/Raw.lean` | `add, mul, numeral, succ, addAux, mulAux` defined by direct pattern-match on Tree — bypasses Lens.  `value : Raw → Nat := Raw.fold 1 1 (·+·)` duplicates `Lens.leaves.view`. |
-| `Lens/Number/Nat213/Peano.lean` | `inductive Nat213 \| one \| succ` — a parallel inductive type, not Lens-derived. |
-| `Lens/Number/Nat213/Bridge.lean` | Peano ↔ Raw isomorphism.  Because Peano is not Lens-derived, the bridge itself is ad-hoc. |
-| `Lens/Number/Nat213/NumberingSystem.lean` | numbering patterns beyond Method A, but the chart-relativity meaning is not made explicit. |
-
-### 4.3 Coherence of the "Nat213" name
-
-Currently:
-- `Lens.leaves : Lens Nat` (LensCore)
-- `Nat213.Raw.value : Raw → Nat`  (= `Lens.leaves.view`, duplicated)
-- `Nat213.Peano.Nat213 : Type`  (separate inductive type)
-- `Nat213.Core.Nat213 : Type := {n // 1 ≤ n}`  (Phase 1, Lens-image subtype)
-- `Nat213.Peano.toNat : Peano.Nat213 → Nat`  (yet another view)
-
-→ "Nat213" is split across 4–5 meanings.  Coherence is needed.
-
----
-
-## 5. Options — where to go
-
-### Option A: Lightweight reframing (no code change)
-
-- add a docstring to `Nat213/Raw.lean` etc. naming it "Method A
-  distinction-iteration chain; the emergent path of `Lens.leaves`"
-- add a new note under `seed/AXIOM/` covering chart-relativity,
-  flat ontology, syntactic internalization
-- do not touch the code; only realign framing
-
-**Pro**: zero risk, lightest.
-**Con**: the chart-imposed feel of the code remains.
-
-### Option B: Predicate-based Raw subtype
-
-- define `IsMethodAChain : Raw → Prop` ("this Raw is an element of
-  the chain")
-- introduce `Nat213.Chain := { r : Raw // IsMethodAChain r }`
-- arithmetic closed over Chain
-- keep existing `Nat213.Raw.{add, mul, ...}`, optionally deprecate
-  or redefine via Chain
-
-**Pro**: Raw-native, arithmetic closed within Raw.
-**Con**: adds a new layer, runs in parallel with existing code.
-
-### Option C: Full lens-strict refactor (Phase 1 has already landed)
-
-- delete the ad-hoc arithmetic in `Nat213.Raw.lean`
-  (`add, mul, numeral, succ, addAux, mulAux`)
-- move all arithmetic to the codomain (`Nat`); the Raw side keeps
-  only `value` and lens theorems
-- remove `Nat213.Peano.lean` (or isolate it as ergonomic parallel)
-- rewrite `Bridge.lean`, update Tower files, audit downstream
-  `Lib/Physics`
-
-**Pro**: maximal coherence, lens-strict.
-**Con**: multi-file refactor (9+ files), large work.
-
-**Status**: `Nat213/Core.lean` (commit `ced56bef`) is Phase 1 of this
-option.  Phases 2–7 remain.
-
-### Option D: Chart-explicit framework
-
-- expose the fact that `Nat213.Raw`'s `one` / `succ` are *an
-  arbitrary chart choice*
-- add a parameterised definition such as
-  `Nat213.RawFromChart (r₀ r' : Raw) (h : r₀ ≠ r')`
-- prove that other charts are equally valid (chart-invariance
-  theorem)
-- the current `Raw.a`, `Raw.b` is then "the default chart"
-
-**Pro**: philosophy and code line up; chart-relativity made
-explicit.
-**Con**: largest scope, affects all downstream.
-
-### Option E: Internal congruence (algebraic equations)
-
-- inductively define `Eqv : Raw → Raw → Prop` from a set of
-  generator equations
-- represent equivalence by `Eqv` directly, without taking a quotient
-  (preserves ∅-axiom)
-- the meaning of each lens is determined by its generator set
-
-**Pro**: internal representation, most axiom-pure.
-**Con**: new abstraction layer, all lens theorems re-proved.
-
-**Reminder**: Option E depends on §2.6 — the candidate generators
-(e.g. associativity) are not yet established as derivable.
-
----
-
-## 6. Open questions — to be settled before action
-
-1. **Which option (A–E)?**  Single?  Combined?  Recommendation:
-   **A + B + (Option C Phase 1 preserved)** as the most balanced,
-   but see §7 for the post-hoc note.
-
-2. **Canonical definition of `Nat213`?**
-   - `{n : Nat // 1 ≤ n}` (Nat subtype, current Phase 1)
-   - `{r : Raw // IsMethodAChain r}` (Raw subtype)
-   - both (linked by iso)
-
-3. **ℕ vs ℕ₊?**
-   - `Lens.leaves` forces ℕ₊
-   - slash-count lens `⟨0, 0, fun a b => a+b+1⟩` gives ℕ (incl. 0)
-   - which is "the default"?  Expose both?
-
-4. **Canonicality of the Method A chain?**
-   - a single canonical chain?  Or an atlas?
-   - do we state "any chart is valid" as a theorem?
-
-5. **Status of `Peano.lean`?**
-   - delete?  Keep only the isomorphism with the Lens-derived form?
-   - "ergonomic parallel" with an explicit `Lens.leaves` bridge?
-
-6. **Syntactic internalization — how far?**
-   - L1 (referent Gödel) only: current codebase
-   - L2 (glyph → Raw mapping): minimal prototype is feasible
-   - L3+ (full meta-circular): large project
-
-7. **Flat ontology in Lean?**
-   - `Set Raw`, `Set (Raw × Raw)` — depend on propext / classical
-   - `Raw → Bool` (decidable predicates) — ∅-axiom-clean
-   - how far is "enough"?
-
----
-
-## 7. Recommendation — a balanced path
-
-Honest note: Option C Phase 1 has *already* landed in commit
-`ced56bef`.  The recommendation below is therefore partly post-hoc
-rationalisation of the path already taken; Steps 2–3 remain genuinely
-open.
-
-### Step 1 (short term, light):
-
-- commit this document (`research-notes/2026-05-18_lens_emergence_path
-  .md`)
-- add a one-page note under `seed/AXIOM/` covering *chart-freeness +
-  flat ontology + syntactic internalization* (slot 08?)
-- add a one- or two-line docstring to `Nat213/Raw.lean` and
-  `Nat213/Peano.lean` framing them as *one representation along an
-  emergence path; chart-local*
-- zero code change
-
-### Step 2 (medium term, safe addition):
-
-- Option B: define `IsMethodAChain : Raw → Prop` and expose
-  `Nat213.Chain` subtype
-- leave existing `Nat213.Raw.{add, mul, numeral, succ}` as-is
-  (not deprecated)
-- add closed-Raw arithmetic theorems on the Chain subtype
-- the emergent framing becomes code-visible without breaking
-  existing code
-
-### Step 3 (long term, big cleanup):
-
-- continue Phases 2–7 of Option C from the Phase 1 base
-  (`Nat213/Core.lean`)
-- multi-file refactor, coherence including downstream
-- only after sufficient reflection following Step 2
-
-### Step 0 (self-reflection):
-
-This document is itself one chart — the view we currently take.  A
-re-read months later may surface additional insight.  Keeping it as
-a working note has its own value.
-
----
-
-## 8. One-line summary
+## 4. One-line summary
 
 > Starting from the 213 minimum (Raw + slash), the choice of *how to
 > bundle* — that is, which lens / chart to pick — generates every
@@ -516,12 +334,3 @@ a working note has its own value.
 
 ---
 
-## 9. Next action — commit this?
-
-The lightest start: commit this document as the first step, then
-proceed with the other Step 1 actions (a `seed/` note, the
-one-line docstrings).
-
-Alternatively, keep this as working notes only and skip the commit.
-
-Decision rests with the user.
