@@ -21,9 +21,13 @@ themselves be a slash of (two deeper) Raws.
 
 `inductive Tree | a | b | slash` therefore hardcodes one chart.
 The chart-relativity statement — "any pair of distinct Raws can
-serve as atoms" — is currently *implicit* in the axiom.  A
-chart-invariance theorem (cf. Option D of the companion note,
-§5) would make it explicit but has not been undertaken.
+serve as atoms" — was originally implicit in the axiom and has
+since been made **explicit** in
+`lean/E213/Lens/Number/Nat213/ChartGeneral.lean`
+(Option D of the companion note, §5).  The file parameterises
+Method A over any `(r₀, r')` with `r₀ ≠ r'` and proves the
+chart-invariance theorem
+`value (chartChain r₀ r' h n) = value r₀ + n * value r'`.
 
 ## §9.2 Operation and object are not pre-separated
 
@@ -101,10 +105,13 @@ L3 (full universal round-trip):
     the universal round-trip theorem.
   - `parseTree_printRaw` — Raw-level corollary.
 
-All Nat / List arithmetic uses Lean 4 core lemmas or local
-private helpers (the standard `List.append_assoc`,
-`List.append_nil`, `List.length_append` carry `propext` and are
-replaced by `congrArg`-based versions).
+All Nat / List arithmetic uses Lean 4 core lemmas or the
+∅-axiom utility `E213.Tactic.List213.{append_nil, append_assoc,
+length_append, length_append_rev, length_map}` (promoted to
+`Meta/Tactic/List213.lean` 2026-05-17).  The standard
+`List.append_assoc`, `List.append_nil`, `List.length_append`
+carry `propext` and would corrupt the strict-∅ contract; the
+List213 versions are `congrArg`-based replacements.
 
 The §9.4 cascade halts at L2: writing the encoding (this very
 file) uses only the same 7 glyphs.  L3 closes the loop with

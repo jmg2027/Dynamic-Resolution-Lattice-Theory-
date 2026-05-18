@@ -18,21 +18,24 @@ only from the immediately-below ring's `API.lean` (and from Meta).
 See `ARCHITECTURE.md` (this directory) for the canonical spec.
 
 ```
-Term/     ★ 12 files — Raw 의 구현체 (deep-embedded Tree
+Term/     ★ 17 files — Raw 의 구현체 (deep-embedded Tree
             substrate, Bool comparators, Sound bridges, Pair/Rat,
             Decide, Demo, MonomialAxioms).  ★ literally 0-axiom.
   ↓
-Theory/   41 files — 213 axiom 자체 (Raw + 4-clause commitments)
+Theory/   24 files — 213 axiom 자체 (Raw + 4-clause commitments)
             + Atomicity (forced d=5, (NS,NT)=(3,2))
-            + Closed (Bool213, Nat213, RawCut, NumberingSystem)
-            + Nat213/Tower/CDDouble/RawCmpIndependence.
+            + CDDouble (generic Order-4 mechanism)
+            + Raw sub-cluster (Slash/Swap/Fold/FoldSwap/Levels/
+            Endomorphic/Rec/Demo/Congruence/
+            ParenthesizationDistinct/SwapSlash).
   ↓
-Lens/    121 files — Lens framework (catamorphism Raw → α).
+Lens/    144 files — Lens framework (catamorphism Raw → α).
             Algebra/ AxiomLenses/ Cardinality/ Compose/
             Instances/ Lattice/ Properties/ Universal/ Internal/
-            sub-clusters + Initiality + SemanticAtom + EqPW.
+            Number/ sub-clusters + Initiality + SemanticAtom + EqPW
+            + Congruence + SyntacticInternalization.
   ↓
-Lib/Math/    743 files (43 sub-clusters): CayleyDickson, Real213,
+Lib/Math/    727 files (42 sub-clusters): CayleyDickson, Real213,
              SignedCut, Probability, Cohomology, DyadicFSM,
              HodgeConjecture, Analysis, Linalg213, Cauchy,
              ModArith, Modulus, Irrational, Polynomial213,
@@ -48,22 +51,22 @@ Meta/    37 files (ring-independent) — Lean 4 bridge.
              LensInternality, BitPatternUniqueness, Tactic/
              (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm,
               NativeGuard, PureGuard, VerifyConjugation,
-              DeriveConjugationCodomain), Nat/Int213/Algebra213
-             helpers.  Any ring may import from Meta.
+              DeriveConjugationCodomain, List213), Nat/Int213/
+              Algebra213 helpers.  Any ring may import from Meta.
 ```
 
 ## Layer roles
 
 | Layer | Files | Role | Axiom load |
 |---|---|---|---|
-| Term/      | 12  | Raw 의 구현체 (Tree, Term, comparators)  | ★ 0  |
-| Theory/    | 41  | Raw axiom + Atomicity + Closed types     | mostly 0 |
-| Lens/      | 121 | Lens framework + sub-clusters            | mostly 0 |
-| Lib/Math/  | 743 | 213-native mathematics (43 sub-clusters) | mixed |
+| Term/      | 17  | Raw 의 구현체 (Tree, Term, comparators)  | ★ 0  |
+| Theory/    | 24  | Raw axiom + Atomicity + CDDouble         | mostly 0 |
+| Lens/      | 144 | Lens framework + sub-clusters            | mostly 0 |
+| Lib/Math/  | 727 | 213-native mathematics (42 sub-clusters) | mixed |
 | Lib/Physics/| 165| 213-native physics (17 sub-clusters)     | mixed |
 | Meta/      | 37  | Lean 4 bridge (tactics + typeclasses)    | mostly 0 |
 
-Total: 1127 .lean files.
+Total: 1114 .lean files.
 
 > **Architectural history**: Pre-2026-05-12 layers were named
 > Kernel/Firmware/Hypervisor (OS-metaphor) and there was an

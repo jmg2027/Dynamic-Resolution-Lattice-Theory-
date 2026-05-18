@@ -49,13 +49,16 @@ import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
     * `BitFSM/`     — Bool-pred bit-FSM family
     * `Fib/`        — Fibonacci-FSM mod-p variants + Pell relation
                       + Pisano-8 + Pisano capstone
-    * `Legendre/`   — Legendre-symbol Pisano variants
+    * `Legendre`    — Legendre-symbol Pisano variants (single
+                      consolidated file)
     * `Pell/`       — Pell-equation cluster + per-mod variants
     * `Pisano/`     — Pisano-period predictor per base
     * `Trib/`       — Tribonacci variants + CRT4Capstone
-    * `Archive/`    — historical / deferred files
+    * `Archive`     — historical sub-cluster (single file post
+                      2026-05-18 consolidation): `EdgeSignature`
+                      + `SubwordComplexity` sub-namespaces
 
-  Pre-existing API drift on a small fixed set documented in
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.3 — see the
-  per-sub-cluster umbrella for inline status.
+  All files build clean (2026-05-18 audit).  The 2026-05-06
+  deferred-cluster repair (`HIERARCHICAL_PLACEMENT.md` §6.3) is
+  closed.
 -/

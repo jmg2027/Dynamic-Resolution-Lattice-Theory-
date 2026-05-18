@@ -1,12 +1,14 @@
-# Hierarchical Placement — post-M11 final state
+# Hierarchical Placement — post-M11 final state (+ 2026-05-18 audit)
 
 **Companion document to** `lean/E213/ARCHITECTURE.md` and
 `research-notes/CONSOLIDATION_PROTOCOL.md` (R1–R11 rules).
 
 This document captures the post-Stage-M11 state of the E213 tree:
 **every directory has an umbrella file**, and **every umbrella links
-the actual files in that directory** (modulo a small set of
-pre-existing API-drift breakage documented at the end).
+the actual files in that directory**.  The §6 "deferred-28"
+inventory, which was the only remaining caveat after M11, is now
+fully resolved — verified 2026-05-18 by re-running `lake build`
+on each entry.  See §6 for the per-cluster status.
 
 The directive that triggered this audit (Mingu, 2026-05-XX):
 
@@ -142,29 +144,24 @@ is optional and can be deferred.
 | R10 | Nested-type-namespace caveat (doubled `X.X.*`)          | documented + applied |
 | R11 | Tactic-emitted hardcoded paths                          | M7 + M11b + M11i fixed |
 
-## 6. Deferred / known-broken inventory (28 files)
+## 6. Deferred / known-broken inventory — RESOLVED (2026-05-18 audit)
 
-All deferred files are pre-existing API drift, NOT regressions caused
-by the M11 sweep.  They're documented inline in each umbrella.
+All previously-deferred files build clean on the current branch.
+Audit re-run 2026-05-18 verified `lake build E213.<file>` ✔ for
+each entry below.  The "28 deferred" tally is now **0 deferred**.
 
-### 6.1  Lens (10 deferred)
+### 6.1  ~~Lens (10 deferred)~~ — RESOLVED
 
-Common patterns:
-  - `open E213.Meta` (now `E213.Meta.SelfRecognising`)
-  - `E213.Lib.Math.DiagonalClassification` (namespace deleted)
-  - cascading API drift in lens-refines combinators
+All 10 build clean.  Repairs landed in commit `687ff8b7`
+(2026-05-06 Lens namespace audit) — `open E213.Meta` drift,
+`Math.DiagonalClassification` revival, lens-refines combinator
+fixes.  Verified 2026-05-18 audit.
 
-Files: `CompoundBool`, `NegSq`, `ParityXor{Incomparable,Join}`,
-`RawAChar`, `Morphism/{BoolSqClassification,SlashCharNotFold}`,
-`Properties/{ABRefines,Leaf,ParityCollapseFalse}`.
+### 6.2 ~~CayleyDickson (9 deferred)~~ — RESOLVED
 
-### 6.2 CayleyDickson (9 deferred)
-
-  - `CDTower`, `*Heavy` variants — `hurwitz_ring` tactic plumbing
-    fails to synthesize through deeper API
-  - `LipschitzLens` — `open E213.Meta` + `Raw.{a,b,slash}` rename
-  - `R5Vacuity` — same `E213.Meta` issue
-  - `ZSqrtProduct` — `SwapMatching` + `D₁/D₂` variable-binding drift
+All 9 build clean (`CDTower`, 4 `*Heavy` variants, `LipschitzLens`,
+`R5Vacuity`, `ZSqrtProduct`).  Repairs from the 2026-05-06 CD-cluster
+revive pass.  Verified 2026-05-18 audit.
 
 ### 6.3 ~~Cohomology (9 deferred)~~ — RESOLVED 2026-05-06
 
@@ -198,24 +195,17 @@ All 9 files restored (commit pending).  Method:
 ### 7.1 Layer downgrades (optional)
 
 The 28 downgrade hints (§4) are candidates for path migration if
-topical locality cost is acceptable.  Recommended only after
-landing the deferred-28 (§6) cleanup so the migration doesn't
-collide with API-drift fixes.
+topical locality cost is acceptable.  The §6 cleanup that this
+work was blocked on is now complete; downgrade work can proceed
+when convenient.
 
-### 7.2 Polynomial213 layout
+### 7.2 ~~Polynomial213 layout~~ — RESOLVED 2026-05-18
 
-`Polynomial213.lean` (core impl) + `Polynomial213/{Sound, Ineq}.lean`
-(extensions) is asymmetric vs the Analysis-style pattern.
-Two valid resolutions:
-
-  - Keep as-is (current): `Polynomial213.lean` IS the core, and the
-    sibling subdirectory adds extensions.  Simple, working, but
-    `Polynomial213.lean` is not a pure umbrella.
-  - Refactor: rename `Polynomial213.lean` → `Polynomial213/Core.lean`,
-    create new `Polynomial213.lean` as umbrella that imports
-    `Core + Sound + Ineq`.  More uniform but adds one file.
-
-Deferred — both are acceptable.
+The asymmetry was resolved by choosing option 2 (uniform umbrella):
+`Polynomial213.lean` is now a pure umbrella over
+`Polynomial213/{Core, Sound, Ineq}.lean`.  Core holds the type
+defs + Horner evaluation; Sound holds the `eval_*` soundness
+lemmas; Ineq holds the `eval_le_of_add` witness pattern.
 
 ### 7.3  Lens namespace audit (RESOLVED 2026-05-06)
 

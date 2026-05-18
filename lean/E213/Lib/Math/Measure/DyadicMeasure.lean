@@ -27,7 +27,7 @@ namespace E213.Lib.Math.Measure.DyadicMeasure
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
   (DyadicBracket DyadicBracket.lenNum)
 open E213.Lib.Math.Measure.MeasurableSet
-  (DyadicMeasurableSet emptySet singleton union length_append_term)
+  (DyadicMeasurableSet emptySet singleton union)
 
 /-- Numerator of the measure of a single bracket. -/
 def bracketMeasureNum (db : DyadicBracket) : Nat := db.lenNum

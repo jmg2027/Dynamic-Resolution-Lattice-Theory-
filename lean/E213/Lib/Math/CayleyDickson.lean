@@ -74,18 +74,17 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
   ## Status
 
-  All 29 files included (post-2026-05-06 deferred-cluster repair).
-  The 9 formerly-deferred files (CDTower, CayleyHeavy, LipschitzHeavy,
-  LipschitzLens, PathionHeavy, R5Vacuity, SedenionHeavy,
-  TrigintaduoionionHeavy, ZSqrtProduct) all build clean.  Method:
-  fix `Lens` → `Lens` namespace drift (already done in
-  the Lens-cluster A-task); update doubled-vs-single namespace
-  paths in the `hurwitz_ring` macro (Pathion / Trigintaduonion /
-  Sedenion / ZI use doubled `X.X.foo`, Cayley / CDDouble.Lipschitz
-  use single); add missing `open` lines for the type names
-  (`Lipschitz`, `Cayley`, etc.) in each Heavy file; route the
-  `normSq` / `mul_assoc` / etc. references in CDTower from the
-  no-longer-existing `Cayley.normSq` to `CayleyHeavy.normSq` and
-  `LipschitzHeavy.{normSq_mul, mul_assoc, no_zero_div}`.  See
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.2.
+  All ~49 files build clean (2026-05-18 audit).  Post-2026-05-06
+  deferred-cluster repair: the 9 formerly-deferred files
+  (`CDTower`, `CayleyHeavy`, `LipschitzHeavy`, `LipschitzLens`,
+  `PathionHeavy`, `R5Vacuity`, `SedenionHeavy`,
+  `TrigintaduoionionHeavy`, `ZSqrtProduct`) all build.
+
+  Recent compression (2026-05-18):
+
+    - 4 singleton `*Instance.lean` files → `ConjugationInstances.lean`
+    - 3 `ZOmega{Double,Quad,Oct}` + `OrderDist` pairs merged
+    - 3 ZSqrtMinus2-discovery files → `ZSqrtMinus2Findings.lean`
+
+  Net: -8 files since the 2026-05-06 baseline.
 -/

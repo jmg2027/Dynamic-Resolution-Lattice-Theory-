@@ -107,7 +107,8 @@ The directory tree is the spec; this file is the top-level entry.
 
 ## Status
 
-∅-axiom standard on the production critical path.  Pre-existing
-API drift on a small set documented in
-`research-notes/HIERARCHICAL_PLACEMENT.md` §6.
+∅-axiom standard on the production critical path.  All formerly-
+deferred files now build clean (the §6 inventory in
+`research-notes/HIERARCHICAL_PLACEMENT.md` is closed as of
+2026-05-18 audit).
 -/
