@@ -2,9 +2,8 @@ import E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote
 import E213.Lib.Math.CayleyDickson.Tower.Order4Monopoly_L4T
 import E213.Lib.Math.CayleyDickson.Tower.Order4Monopoly_L5T
 import E213.Lib.Math.CayleyDickson.Tower.Order4Monopoly_L6T
-import E213.Lib.Math.CayleyDickson.Integer.ShiftRule_ZI_L3
+import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2Findings
 import E213.Lib.Math.CayleyDickson.Misc.TypeAResidualClosedForm
-import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2L6Search
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.Levels.CayleyOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.Levels.SedenionOrder4Monopoly
