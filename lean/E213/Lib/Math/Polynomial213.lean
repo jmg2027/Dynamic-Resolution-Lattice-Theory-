@@ -1,64 +1,21 @@
-import E213.Meta.Tactic.NatHelper
+import E213.Lib.Math.Polynomial213.Core
+import E213.Lib.Math.Polynomial213.Sound
+import E213.Lib.Math.Polynomial213.Ineq
 
-/-!
-# Polynomial213 — coefficient-array reflection (∅-axiom)
+/-! Spec-as-code umbrella for `Lib.Math.Polynomial213` — single-import entry.
 
-Closes Wallis/Pell-style polynomial identities (one variable over Nat)
-without `omega`.  Identities like
-  `(4k+1)·4(k+1)² + 1 = (4k+5)·(2k+1)²`
-become a single `rfl` after both sides are encoded as `Poly`.
+Coefficient-array polynomial reflection over `Nat` (∅-axiom).  Closes
+Wallis/Pell-style polynomial identities via `rfl` after both sides are
+encoded as `Poly`.
 
-Strict ∅-axiom: avoids propext, Quot.sound, Classical.
+## Sub-modules
 
-(Lives at Math layer, not Kernel, to allow `rw` in soundness proofs.)
+  * `Core`   — `Poly`, `eval`, `C`, `X`, `add`, `scale`, `shift`, `mul`,
+                `trim` (type defs + Horner evaluation)
+  * `Sound`  — `eval_*` soundness lemmas (each op commutes with `eval`)
+  * `Ineq`   — `eval_le_of_add`, `eval_lt_of_add_succ` witness pattern
+                for polynomial inequalities
+
+Importing `Polynomial213` (this file) pulls in the full stack;
+downstream may also pin to `Polynomial213.Sound` or `.Ineq` directly.
 -/
-
-namespace E213.Polynomial213
-
-/-- Coefficient array.  `cs[i]` = coefficient of `x^i`.
-    `[]` represents the zero polynomial. -/
-abbrev Poly := List Nat
-
-/-- Horner evaluation: `eval [a,b,c] x = a + x*(b + x*c)`. -/
-def eval : Poly → Nat → Nat
-  | [],      _ => 0
-  | c :: cs, x => c + x * eval cs x
-
-/-- Constant polynomial. -/
-def C (c : Nat) : Poly := [c]
-
-/-- The variable `X`. -/
-def X : Poly := [0, 1]
-
-/-- Coefficient-wise addition; pads the shorter list with 0s.
-    Pattern matches first arg first, then second — gives unambiguous
-    reduction even when one side is a variable. -/
-def add : Poly → Poly → Poly
-  | [],      q  => q
-  | a :: as, q  => match q with
-                   | []      => a :: as
-                   | b :: bs => (a + b) :: add as bs
-
-/-- Scale every coefficient. -/
-def scale (k : Nat) : Poly → Poly
-  | []       => []
-  | c :: cs  => (k * c) :: scale k cs
-
-/-- Shift by one: multiply by X (prepend 0). -/
-def shift (p : Poly) : Poly := 0 :: p
-
-/-- Polynomial multiplication = repeated `add (scale ... shift)`. -/
-def mul : Poly → Poly → Poly
-  | [],       _ => []
-  | a :: as, q => add (scale a q) (shift (mul as q))
-
-/-- Strip trailing zeros to canonical form. -/
-def trim : Poly → Poly
-  | []       => []
-  | c :: cs  =>
-    let cs' := trim cs
-    match cs' with
-    | []       => if c = 0 then [] else [c]
-    | _ :: _   => c :: cs'
-
-end E213.Polynomial213

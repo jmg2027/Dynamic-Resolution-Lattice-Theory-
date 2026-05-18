@@ -1,9 +1,9 @@
-import E213.Lib.Math.Geometry.Nat213Rotation
+import E213.Lib.Math.Geometry.Rotation
 import E213.Lib.Math.Topology.EulerChi
 import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
 
 /-!
-# Lib.Math.Geometry.Nat213AlgebraicGeometry — 213's algebraic-geometric face
+# Lib.Math.Geometry.AlgebraicGeometry — 213's algebraic-geometric face
 
 User directive (2026-05-09): "이걸 자연스럽게 대수기하학 혹은
 코호몰로지로 연결시켜보셈"
@@ -27,7 +27,7 @@ Three key connections:
 All theorems ∅-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.Nat213AlgebraicGeometry
+namespace E213.Lib.Math.Geometry.AlgebraicGeometry
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
@@ -183,4 +183,4 @@ theorem two_closure_structures :
     (10 : Nat) * 3 = 30 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.Geometry.Nat213AlgebraicGeometry
+end E213.Lib.Math.Geometry.AlgebraicGeometry

@@ -4,7 +4,7 @@ import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Topology.EulerChi
 
 /-!
-# Lib.Math.Geometry.Nat213Rotation — 213-native rotation/spiral
+# Lib.Math.Geometry.Rotation — 213-native rotation/spiral
 
 User directive (2026-05-09): "Raw의 Nat213렌즈의 네이티브로 된
 토폴로지/그래프이론/코호몰로지/선대수로 이런 모양이다 + 회전이
@@ -18,7 +18,7 @@ Connects:
 All theorems ∅-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.Nat213Rotation
+namespace E213.Lib.Math.Geometry.Rotation
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
@@ -256,4 +256,4 @@ theorem mobius_p_dihedral_order :
     (89 : Nat) % 5 = 4 ∧ (10946 : Nat) % 5 = 1 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.Geometry.Nat213Rotation
+end E213.Lib.Math.Geometry.Rotation
