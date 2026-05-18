@@ -1,26 +1,54 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 36+ commits.
-Latest: `9d245dee Size compression — fold HasModulusBoundsExtra into HasModulus`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 44+ commits.
+Latest: `e05d34b9 Lens/Number umbrella — add Int213`.
 
-## This session — sprawl cleanup + size compression
+## This session — sprawl cleanup + size compression + orphan surfacing
 
-  - Pass 1: dissolve singleton `Lib/Math/Atomicity/` (1 file).
-  - Pass 2: Polynomial213 restructure (parent-as-Core +
-    proper 3-file sub-cluster); Geometry filename normalisation
+### Pass 1–3: singleton sub-cluster dissolution
+  - `Lib/Math/Atomicity/` (1 file) hoisted to top level.
+  - Polynomial213 restructure (parent-as-Core + proper 3-file
+    sub-cluster); Geometry filename normalisation
     (`Nat213AlgebraicGeometry` → `AlgebraicGeometry`, etc).
-  - Pass 3: dissolve `DyadicFSM/Legendre/Legendre.lean` singleton
+  - `DyadicFSM/Legendre/Legendre.lean` singleton dissolved
     (16 consumers updated); `Real213/Cauchy/ChainToCut.lean` →
     `Real213/ChainToCut.lean`; `Analysis/ChainCauchy.lean` KO →
     English docstrings.
-  - Size compression: 4 singleton `Z*Instance.lean` files →
-    one `ConjugationInstances.lean`; 3 `ZOmega{X}OrderDist` pairs
-    merged into their `X.lean` counterparts;
-    `HasModulusBoundsExtra` folded into `HasModulus`.
 
-Net file count reduction: -10 in `Lib/Math/`.  All theorems
-remain ∅-axiom; full `lake build` clean throughout.
+### Size compression
+  - 4 `Z*Instance.lean` singletons → one `ConjugationInstances.lean`
+  - 3 `ZOmega{X}OrderDist` pairs merged into their `X.lean`
+  - `HasModulusBoundsExtra` folded into `HasModulus`
+  - `Meta/Int213/Instance.lean` folded into `Meta/Int213.lean`
+  - `Theory/CDDouble/{UniversalOrder4,GenericLiftDemo}` → one file
+  - `DyadicFSM/Archive/{EdgeSignature,SubwordComplexity}` → one file
+  - `Theory/Raw/{Signed,Hom}` → `FoldSwap.lean`
+  - 3 ZSqrtMinus2 finding files → `ZSqrtMinus2Findings.lean`
+
+### Cleanup
+  - Dead `Cohomology/CupAW/BilinearFunc.lean` (empty placeholder)
+    deleted; 5 dead imports stripped.
+  - 3 mis-researched capstones deleted: `Extras/ResidualPass2Capstone`,
+    `Extras/ResidualPass3Capstone`, `Extras/SkeletonCleanup` — all
+    imported non-existent `Multivariable.Stokes{2D,3D,4D}` modules
+    and never built clean.
+
+### Umbrella orphan surfacing
+  Many umbrellas had orphan sub-files (reachable transitively but
+  invisible to umbrella readers).  Now surfaced explicitly:
+  - `Modulus`         + 3 files (incl. `G40Capstone` chain)
+  - `Extras`          + 3 files (`HoeffdingFiniteN`,
+                                  `AggregatorCapstone`, `RealLogCapstone`)
+  - `Linalg213`       + `PhaseChiralBridge`, `Gap` sub-cluster
+  - `Topology`        + `ContinuityArith`
+  - `Logic`           + `CutElimination`
+  - `DyadicFSM/Pell`  + `ProperMod` (per-prime bundle)
+  - `Lens/Number`     + `Int213` (was listed as 'Future')
+
+Net file count reduction: ~22 files removed.  All theorems remain
+∅-axiom; default `lake build E213` (framework rings) clean
+throughout.
 
 ## What this branch delivered
 
