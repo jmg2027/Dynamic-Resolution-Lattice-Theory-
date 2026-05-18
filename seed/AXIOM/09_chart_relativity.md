@@ -75,9 +75,9 @@ themselves Raw, with expressions becoming sequence-Raws of
 glyph-Raws.  "Meaningless punctuation" then becomes external
 convention rather than essence.
 
-**L2 prototype + L3 partial**:
-`lean/E213/Lens/SyntacticInternalization.lean` (13 strict ∅-axiom
-symbols total).
+**Full L2 + L3 realisation**:
+`lean/E213/Lens/SyntacticInternalization.lean` (21 strict ∅-axiom
+symbols).
 
 L2 (cascade halts at glyph encoding):
   - `Glyph` inductive with 7 constructors (`a`, `b`, `/`, `(`,
@@ -86,27 +86,29 @@ L2 (cascade halts at glyph encoding):
     numerals.
   - `Glyph.toRaw_injective` — kernel-decided.
 
-L3 partial (printer + fuel-bounded parser + concrete round-trip
-witnesses):
+L3 (full universal round-trip):
   - `printTree : Tree → List Glyph` — Polish-prefix encoding.
   - `printRaw : Raw → List Glyph` — lifted via `.val`.
   - `parseHelper : Nat → List Glyph → Option (Tree × List Glyph)`
     — fuel-bounded constructive parser.
   - `parseTree : List Glyph → Option Tree` — top-level parser
     with fuel = list length.
-  - Round-trip witnesses by `decide` on concrete trees
-    (`.a`, `.b`, `slash a b`, `slash b (slash a b)`).
+  - `parseHelper_fuel_succ`, `parseHelper_fuel_mono` — fuel
+    monotonicity.
+  - `parseHelper_printTree_append` — exact-size correctness.
+  - `printTree_length_ge_size` — length-vs-size inequality.
+  - **`parseTree_printTree : ∀ t, parseTree (printTree t) = some t`** —
+    the universal round-trip theorem.
+  - `parseTree_printRaw` — Raw-level corollary.
 
-The *universal* round-trip theorem
-(`∀ t, parseTree (printTree t) = some t`) is deferred — its proof
-needs a fuel-monotonicity lemma plus careful Nat arithmetic
-bounds, non-trivial in Lean 4 without `omega` (which carries
-`propext`).  The concrete-case witnesses + the constructive parser
-suffice for use; the universal proof is left as a follow-up.
+All Nat / List arithmetic uses Lean 4 core lemmas or local
+private helpers (the standard `List.append_assoc`,
+`List.append_nil`, `List.length_append` carry `propext` and are
+replaced by `congrArg`-based versions).
 
 The §9.4 cascade halts at L2: writing the encoding (this very
-file) uses only the same 7 glyphs.  No L3 meta-meta-glyph
-alphabet is needed.
+file) uses only the same 7 glyphs.  L3 closes the loop with
+constructive parser/printer round-trip.
 
 ## Reading order
 
