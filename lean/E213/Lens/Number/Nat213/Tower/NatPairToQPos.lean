@@ -84,4 +84,23 @@ theorem qpairEquiv_symm {p q : QPair} (h : qpairEquiv p q) :
   rw [Nat213.mul_comm q.1 p.2, Nat213.mul_comm q.2 p.1]
   exact h.symm
 
+/-- **Transitivity** of `qpairEquiv`: closes the equivalence-relation
+    proof.  Uses `mul_right_cancel` (Peano iteration #6) to drop
+    the common factor `q.2` after substituting `h1`, `h2`.
+
+    Standard QPair Grothendieck-completion lemma: cross-multiply the
+    two hypotheses, substitute, cancel. -/
+theorem qpairEquiv_trans {p q r : QPair}
+    (h1 : qpairEquiv p q) (h2 : qpairEquiv q r) :
+    qpairEquiv p r := by
+  show Nat213.mul p.1 r.2 = Nat213.mul p.2 r.1
+  apply Nat213.mul_right_cancel (c := q.2)
+  show Nat213.mul (Nat213.mul p.1 r.2) q.2 = Nat213.mul (Nat213.mul p.2 r.1) q.2
+  rw [Nat213.mul_assoc p.1 r.2 q.2,
+      Nat213.mul_comm r.2 q.2,
+      ← Nat213.mul_assoc p.1 q.2 r.2]
+  rw [h1]
+  rw [Nat213.mul_assoc p.2 q.1 r.2, h2]
+  rw [Nat213.mul_comm q.2 r.1, ← Nat213.mul_assoc p.2 r.1 q.2]
+
 end E213.Lens.Number.Nat213.Tower.NatPairToQPos
