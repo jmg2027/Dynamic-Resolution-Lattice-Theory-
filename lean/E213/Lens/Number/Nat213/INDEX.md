@@ -1,9 +1,9 @@
 # `Lens/Number/Nat213/` — 213-native positive naturals
 
-Two equivalent representations of ℕ₊ + their bridge + lens
+Four representations of ℕ₊ + their bridge + lens
 characterisations + numbering / cut / tower outgrowth.
 
-## Files (8)
+## Files (10)
 
 ### Representations
 
@@ -14,6 +14,14 @@ characterisations + numbering / cut / tower outgrowth.
                              output.
   - `Peano.lean`           — Inductive `Nat213 | one | succ`.
                              Ergonomic Peano representation.
+  - `Core.lean`            — Lens-derived `{ n : Nat // 1 ≤ n }`
+                             Nat-subtype.  Phase 1 of Option C of
+                             the lens-emergence roadmap.
+  - `Chain.lean`           — Raw-subtype `{ r : Raw // IsMethodAChain r }`.
+                             Option B of the lens-emergence roadmap
+                             (additive — does not modify `Raw.lean`).
+                             Closed-Raw arithmetic carrier; bridges
+                             to `Core` via `toNat` = `Raw.value`.
 
 ### Bridge
 
