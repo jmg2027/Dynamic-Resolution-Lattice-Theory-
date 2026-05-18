@@ -1,6 +1,7 @@
 import E213.Lib.Math.Topology.DyadicOpen
 import E213.Lib.Math.Topology.Compactness
 import E213.Lib.Math.Topology.Continuity
+import E213.Lib.Math.Topology.ContinuityArith
 import E213.Lib.Math.Topology.Connectedness
 import E213.Lib.Math.Topology.EulerChi
 import E213.Lib.Math.Topology.Capstone

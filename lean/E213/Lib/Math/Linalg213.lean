@@ -1,6 +1,8 @@
 import E213.Lib.Math.Linalg213.Bridge
 import E213.Lib.Math.Linalg213.Capstone
 import E213.Lib.Math.Linalg213.Chiral
+import E213.Lib.Math.Linalg213.PhaseChiralBridge
+import E213.Lib.Math.Linalg213.Gap
 import E213.Lib.Math.Linalg213.Gram
 import E213.Lib.Math.Linalg213.Rank
 import E213.Lib.Math.Linalg213.Rank5Concrete
@@ -21,12 +23,20 @@ import E213.Lib.Math.Linalg213.Vector
 
   ## Chiral structure
 
-    * `Chiral`         — chiral decomposition (mode-A / mode-B
-                         split forced by atomicity)
+    * `Chiral`            — chiral decomposition (mode-A / mode-B
+                            split forced by atomicity)
+    * `PhaseChiralBridge` — phase ↔ chiral bridge
+
+  ## Gap-fill (matrix multiplication / determinant / tensor /
+  eigenvalues)
+
+    * `Gap`               — sub-cluster umbrella; pulls in
+                            `Gap.{MatrixMul, Determinant,
+                            TensorProduct, Eigen, Capstone}`
 
   ## Capstones
 
-    * `Capstone`       — top-level Linalg213 capstone
-    * `Bridge`         — bridge to Physics K_{3,2}^{(2)}
-                         cohomology (Math.Cohomology.Bipartite)
+    * `Capstone`          — top-level Linalg213 capstone
+    * `Bridge`            — bridge to Physics K_{3,2}^{(2)}
+                            cohomology (Math.Cohomology.Bipartite)
 -/

@@ -7,6 +7,7 @@ import E213.Lib.Math.DyadicFSM.Pell.LensTriple
 import E213.Lib.Math.DyadicFSM.Pell.Proper
 import E213.Lib.Math.DyadicFSM.Pell.Proper8
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
+import E213.Lib.Math.DyadicFSM.Pell.ProperMod
 import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Pell`.
@@ -30,15 +31,8 @@ import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
 
     * `Proper`        — proper-Pell core
     * `ProperSmall`   — small-D variant
-    * `Proper8`,
-      `ProperMod11`,
-      `ProperMod13`,
-      `ProperMod17`,
-      `ProperMod19`,
-      `ProperMod23`   — per-mod proper-Pell variants
-
-  ## Status
-
-  14/15 included.  One deferred: `ProperBridge`
-  (pre-existing function-application type-mismatch).
+    * `Proper8`       — proper-Pell mod 8 specialisation
+    * `ProperMod`     — per-prime instances `p ∈ {11, 13, 17, 19, 23}`
+                        bundled as sub-namespaces `Pell.ProperMod{p}`
+    * `ProperBridge`  — bridge to ArithFSM
 -/
