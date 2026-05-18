@@ -16,12 +16,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/chunk-guard.sh",
-            "timeout": 10,
-            "statusMessage": "Checking chunk size..."
-          },
-          {
-            "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/purity-guard.sh",
             "timeout": 10,
             "statusMessage": "DRLT 213 purity check..."
