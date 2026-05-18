@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Legendre.Legendre
+import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 

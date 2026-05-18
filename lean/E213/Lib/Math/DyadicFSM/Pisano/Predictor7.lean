@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Legendre.Legendre
+import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor6
 
 import E213.Lib.Math.DyadicFSM.ArithFSM

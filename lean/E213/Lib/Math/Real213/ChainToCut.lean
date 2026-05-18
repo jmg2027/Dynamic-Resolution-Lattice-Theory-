@@ -28,7 +28,7 @@ than the (removed) Raw-level `Raw.add` / `Raw.mul`.  See
 for the value-level homomorphism this file relies on.
 -/
 
-namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
+namespace E213.Lib.Math.Real213.ChainToCut
 
 open E213.Theory
 
@@ -168,9 +168,9 @@ theorem cutSum_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213)
   · intro h
     exact (cutSum_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
 
-end E213.Lib.Math.Real213.Cauchy.ChainToCut
+end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
+namespace E213.Lib.Math.Real213.ChainToCut
 
 open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_toRaw_mul)
@@ -277,9 +277,9 @@ theorem cutLe_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) :
     have h_ak_le_m : a.toNat * k ≤ m := Nat.le_trans hak hbk
     exact (chainToCut_toRaw a m k).symm ▸ decide_eq_true h_ak_le_m
 
-end E213.Lib.Math.Real213.Cauchy.ChainToCut
+end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.Cauchy.ChainToCut
+namespace E213.Lib.Math.Real213.ChainToCut
 
 open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw)
@@ -324,4 +324,4 @@ theorem cutLe_cutMin_chainToCut_iff (a b c : E213.Lens.Number.Nat213.Peano.Nat21
       ((cutLe_chainToCut_iff c a).mpr ha)
       ((cutLe_chainToCut_iff c b).mpr hb)
 
-end E213.Lib.Math.Real213.Cauchy.ChainToCut
+end E213.Lib.Math.Real213.ChainToCut

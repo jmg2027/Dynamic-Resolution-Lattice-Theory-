@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Legendre.Legendre
+import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.TwoLayerPredictor
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
