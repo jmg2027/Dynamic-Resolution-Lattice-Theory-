@@ -374,4 +374,20 @@ theorem or_and_absorb (x y : Raw) (hx : IsBool213 x) (hy : IsBool213 y) :
   all_goals (first | (subst hyT) | (subst hyF))
   all_goals decide
 
+/-- **`boolValue` injectivity on the Bool213 image**: distinct
+    Bool213 elements have distinct `boolValue`s.  Direct 4-case
+    enumeration.  Combined with surjectivity onto `{true, false}`
+    via `boolValue_T` / `boolValue_F`, this gives a bijection
+    `IsBool213 ↔ Bool`. -/
+theorem boolValue_injective_on_isBool {x y : Raw}
+    (hx : IsBool213 x) (hy : IsBool213 y)
+    (h : boolValue x = boolValue y) : x = y := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF
+  · subst hxT; subst hyT; rfl
+  · subst hxT; subst hyF
+    exact absurd h (by decide)
+  · subst hxF; subst hyT
+    exact absurd h (by decide)
+  · subst hxF; subst hyF; rfl
+
 end E213.Lens.Bool213.Raw
