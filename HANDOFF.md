@@ -1,10 +1,54 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 60+ commits.
-Latest: `37c95e3d ℕ₊ as Range(Lens.leaves.view) — formal surjectivity result`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 64+ commits.
+Latest: `fc8e0684 ParenthesizationDistinct — strengthen with same-leaves witness`.
 
-## Latest pass — autonomous research (theorem development + audit)
+## Latest pass — autonomous-research skill iteration #1
+
+(Run via the `autonomous-research` skill, `.claude/skills/autonomous-research/SKILL.md`.)
+
+### Tier A — Build + layer audit
+
+  - `tools/full_build.sh` clean
+  - `python3 tools/layer_audit.py` reports 0 violations
+  - No broken imports
+
+### Tier B — Stale-doc sweep
+
+Bulk-replaced legacy `≤ {propext, Quot.sound}` claims across 8
+files (`Cohomology/CupAW/LeibnizScaling`, `Cohomology/Universal/Prop`,
+`Cohomology/Delta/V4Capstone`, `DyadicFSM/Forward/{ForwardClosure,
+ForwardEventual, ForwardPeriodicity}`, `DyadicFSM/NumberTheory213`,
+`DyadicFSM/Pisano/Predictor7`).  Each was verified PURE via
+`#print axioms` before the doc update.  `Lens/API.lean`'s
+##Axiom-status section refreshed (kept a historical mention but
+framed as "since refactored to ∅-axiom").
+
+### Tier C — Eqv API completion (4 new ∅-axiom theorems)
+
+  - `Theory/Raw/Congruence.Eqv.weaken` — monotonicity in the
+    generator
+  - `Theory/Raw/Congruence.Eqv.of_eq` — `=` ⇒ `Eqv`
+  - `Theory/Raw/Congruence.Eqv.empty_iff_eq` — empty generator
+    characterisation
+  - `Lens/Congruence.Eqv_monotone_in_lens` — Lens refinement
+    induces `Eqv` containment
+
+### Tier D — ParenthesizationDistinct strengthening (2 new ∅-axiom theorems)
+
+  - `same_leaves_distinct_parenthesisation` — same leaves count
+    (= 5), distinct Raws — concrete witness of the leaves Lens's
+    many-to-oneness
+  - `leaves_view_collapses` — explicit `leaves = 5 ∧ leaves = 5`
+
+Combined with previous-iteration `leaves_view_surjective_on_ge_one`,
+the leaves Lens is now established as **surjective onto ℕ₊ but not
+injective** — exactly the projection-not-quotient picture.
+
+6 new ∅-axiom theorems this iteration; 18 cumulative on the branch.
+
+## Earlier this session — autonomous research (theorem development + audit)
 
 ### Theorem development (new ∅-axiom symbols)
 
