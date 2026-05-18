@@ -208,6 +208,49 @@ theorem add_right_cancel {a b c : Nat213} (h : add a c = add b c) : a = b := by
   rw [add_comm c a, add_comm c b]
   exact h
 
+/-- ★ Injectivity of `toNat` on `Nat213`.  Every `Nat213` element is
+    determined by its `toNat` projection.  Proven by structural
+    induction; the impossible cases (`one` ↔ `succ k`) use
+    `toNat_ge_one` to derive a contradiction. -/
+theorem toNat_injective : ∀ {a b : Nat213}, a.toNat = b.toNat → a = b
+  | one,    one,    _ => rfl
+  | one,    succ k, h => by
+      have h0 : (0 : Nat) + 1 = k.toNat + 1 := h
+      have heq : (0 : Nat) = k.toNat :=
+        E213.Tactic.NatHelper.add_right_cancel h0
+      have hge : k.toNat ≥ 1 := toNat_ge_one k
+      rw [← heq] at hge
+      exact absurd hge (by decide)
+  | succ k, one,    h => by
+      have h0 : k.toNat + 1 = (0 : Nat) + 1 := h
+      have heq : k.toNat = (0 : Nat) :=
+        E213.Tactic.NatHelper.add_right_cancel h0
+      have hge : k.toNat ≥ 1 := toNat_ge_one k
+      rw [heq] at hge
+      exact absurd hge (by decide)
+  | succ k, succ m, h => by
+      have h' : k.toNat + 1 = m.toNat + 1 := h
+      have h'' : k.toNat = m.toNat :=
+        E213.Tactic.NatHelper.add_right_cancel h'
+      have hkm : k = m := toNat_injective h''
+      rw [hkm]
+
+/-- ★ Left cancellation for `mul`: `a * b = a * c → b = c`.  Since
+    every `Nat213` is positive, no zero-divisor issue. -/
+theorem mul_left_cancel {a b c : Nat213} (h : mul a b = mul a c) : b = c := by
+  have hnat : (mul a b).toNat = (mul a c).toNat := congrArg toNat h
+  rw [toNat_mul, toNat_mul] at hnat
+  have hpos : 0 < a.toNat := toNat_ge_one a
+  have hbc : b.toNat = c.toNat :=
+    E213.Tactic.NatHelper.mul_left_cancel_pos hpos hnat
+  exact toNat_injective hbc
+
+/-- ★ Right cancellation for `mul`: `a * c = b * c → a = b`. -/
+theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
+  apply mul_left_cancel (a := c)
+  rw [mul_comm c a, mul_comm c b]
+  exact h
+
 /-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
     `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
     In Nat213, no such `z` exists — proves ℕ-with-0's identity
