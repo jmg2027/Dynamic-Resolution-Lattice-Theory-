@@ -1,7 +1,7 @@
 import E213.Lib.Math.Real213
 import E213.Lib.Math.Analysis
 import E213.Lib.Math.AngleStructure
-import E213.Lib.Math.Atomicity
+import E213.Lib.Math.ArityForcingGeneral
 import E213.Lib.Math.AxiomSystems
 import E213.Lib.Math.BipartiteDecomp
 import E213.Lib.Math.CartesianVsDisjoint
