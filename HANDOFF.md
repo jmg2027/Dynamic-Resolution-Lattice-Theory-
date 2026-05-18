@@ -1,152 +1,176 @@
-# Session Handoff — 2026-05-18 (autonomous-research iteration #2)
+# Session Handoff — 2026-05-18 (autonomous-research iterations #1–#10)
 
 ## Branch
 `claude/autonomous-research-cleanup-DFIdR` — pushed.
-Latest: `215484ea ChartGeneral — value monotonicity / lower bound`.
+Latest: `0e1bfc2d Bool213.Raw — translate KO docstrings to English`.
 
-## This iteration — autonomous-research skill iteration #2
+## Cumulative iteration summary (this branch)
 
-Run via the `autonomous-research` skill, `.claude/skills/autonomous-research/SKILL.md`.
+10 iterations run via the `autonomous-research` skill,
+`.claude/skills/autonomous-research/SKILL.md`.
 
-### Tier A — Build + layer audit
+**Theorem totals (new ∅-axiom symbols this branch):**
+  - Iteration #1 (pre-cleanup branch): 6 theorems (Eqv weaken /
+    of_eq / empty_iff_eq / Lens.Eqv_monotone_in_lens / leaves
+    witnesses)
+  - Iteration #2: 9 theorems (Eqv extremes, leaves-Eqv collapse
+    witnesses, NatHelper.add_mul_mod_self_pure, ChartGeneral
+    residue + monotonicity + lower-bound)
+  - Iteration #3: 6 theorems (Peano semiring laws — add_assoc,
+    mul_succ_right, mul_comm, add_mul, mul_assoc, mul_add)
+  - Iteration #4: 1 theorem (ChartGeneral strict monotonicity)
+  - Iteration #5: 2 theorems (Peano add cancellation L/R)
+  - Iteration #6: 3 theorems (Peano toNat_injective, mul_left_cancel,
+    mul_right_cancel)
+  - Iteration #7: 1 theorem (Bridge.toRaw_injective)
+  - Iteration #8: 8 theorems (Bool213 or operator + De Morgan)
+  - Iteration #9: translation pass (Bool213.System → English)
+  - Iteration #10: translation pass (Bool213.Raw → English)
 
-  - `tools/full_build.sh` clean (1026/1026 modules)
-  - `python3 tools/layer_audit.py` reports 0 violations
-  - No broken imports
+**Total: 36 new ∅-axiom theorems** plus the doc-tier refresh
+sweep + Korean docstring translation in Bool213/.
 
-### Tier B — Stale-doc sweep (deprecated tier cleanup)
+## Per-iteration detail
 
-Bulk-replaced the legacy `≤ {propext, Quot.sound}` tier label
-(deprecated 2026-05-09 per `STRICT_ZERO_AXIOM.md` "Terms (canonical)")
-with **STRICT ∅-AXIOM** wording across:
+### Iteration #1 — Eqv API + ParenthesizationDistinct (6 thms, pre-cleanup branch)
+See earlier session log; merged via PR #86.
 
-**books/math/** (6 files):
-  - `INDEX.md` — top description + Verification standard footer
-  - `number-theory-213.md` — 10 occurrences (Parts I-IV + Appendix A/B)
-    + stale Lean path fix: `Meta/UniversalLensNat2{,Inj}.lean` →
-    `Lens/Universal/Witnesses/Nat2{,Inj}.lean` (and Q213 similarly)
-  - `cohomology-213.md` — 6 occurrences (Parts II-IV + Appendix B)
-  - `universal-lens-213.md` — 7 occurrences (Abstract + §3/§4)
-    + Lean source path fix
-  - `linalg-213.md` — 5 occurrences (Parts II-III + Appendix B)
-  - `analysis213.md` — header build line
+### Iteration #2 — Doc-tier refresh + extremes / residue (9 thms)
 
-**catalogs / rust-engine / lean / misc**:
-  - `catalogs/math-theorems.md` §K/§L — switch to STRICT ∅-AXIOM
-    + replace stale `phaseDK_ultimate_capstone` example (was removed
-    by an earlier refactor) with `FluxCut.cohomEquiv_refl`
-  - `rust-engine/docs/precision-matrix.md` §0 + §7
-  - `lean/LESSONS_KERNEL_DECIDE.md` — frame as deprecated
-  - `LEAN_FILE_SUMMARY.md` — Korean summary entry
+Bulk-replaced deprecated `≤ {propext, Quot.sound}` tier label
+with **STRICT ∅-AXIOM** across 10 user-facing markdown files
+(books/math/INDEX.md + 5 math books + catalogs/math-theorems.md
++ rust-engine/docs/precision-matrix.md + lean/LESSONS_KERNEL_DECIDE
++ LEAN_FILE_SUMMARY).  Also fixed stale Lean source paths.
 
-Spot-checks (verified via `#print axioms`):
-  - `q213Lens_view_inj` : does not depend on any axioms
-  - `expSumLens_view_inj` : does not depend on any axioms
+Theorems:
+  - `Theory.Raw.Congruence.Eqv.trivial_top` — universal generator
+    relates every pair of Raws
+  - `Theory.Raw.Congruence.Eqv.bracket` — packages empty/universal
+    extremes
+  - `Theory.Raw.ParenthesizationDistinct.lhs_rhs_leaves_eqv` —
+    concrete leaves-Eqv between the two parenthesisations
+  - `Theory.Raw.ParenthesizationDistinct.exists_distinct_leaves_eqv`
+    — existential strict-coarsening witness
+  - `Lens.Congruence.exists_distinct_leaves_view_eqv` —
+    Lens-level restatement (via `Raw.fold_eq_leaves`)
+  - `Meta.Tactic.NatHelper.add_mul_mod_self_pure` —
+    `(a + n*c) % c = a % c` (propext-free)
+  - `Lens.Number.Nat213.chartChain_value_mod` — residue invariant
+  - `Lens.Number.Nat213.chartChain_value_ge` — lower bound
+  - `Lens.Number.Nat213.chartChain_value_mono` — non-decreasing
 
-### Tier C — Theorem development (9 new ∅-axiom theorems)
+### Iteration #3 — Peano semiring laws (6 thms)
+`Lens.Number.Nat213.Peano.Nat213.*`:
+  - `add_assoc` — `(a + b) + c = a + (b + c)`
+  - `mul_succ_right` — `m * succ n = m + m * n`
+  - `mul_comm`
+  - `add_mul` (right distributivity)
+  - `mul_assoc`
+  - `mul_add` (left distributivity)
 
-**`Theory.Raw.Congruence` (2 new):**
-  - `Eqv.trivial_top` — `Eqv (fun _ _ => True)` relates every pair
-    of Raws (coarsest equivalence)
-  - `Eqv.bracket` — packages the empty/universal generator extremes
-    in one statement: `=` ⊆ `Eqv gens` ⊆ universal-equivalence
+### Iteration #4 — ChartGeneral strict mono (1 thm)
+`chartChain_value_strict_mono`: `n < m → value (chain n) < value
+(chain m)`, using `value_pos r' > 0`.
 
-**`Theory.Raw.ParenthesizationDistinct` (2 new, now imports Congruence):**
-  - `lhs_rhs_leaves_eqv` — the two parenthesisations are concretely
-    `Eqv`-equivalent under the `Raw.leaves`-induced generator
-  - `exists_distinct_leaves_eqv` — existential strict-coarsening
-    witness: `∃ x y, x ≠ y ∧ Eqv (Raw.leaves ·= Raw.leaves ·) x y`
+### Iteration #5 — Peano add cancellation (2 thms)
+`add_left_cancel`, `add_right_cancel`.
 
-**`Lens.Congruence` (1 new):**
-  - `exists_distinct_leaves_view_eqv` — same witness through
-    `Lens.leaves.view`, bridged via `Raw.fold_eq_leaves`.  Concrete
-    proof that `Lens.leaves`-induced `Eqv` is strictly coarser than
-    `=` on `Raw`.
+### Iteration #6 — Peano toNat injective + mul cancel (3 thms)
+`toNat_injective` (using `NatHelper.add_right_cancel` to handle
+the impossible `one ↔ succ k` cases via `toNat_ge_one`),
+`mul_left_cancel`, `mul_right_cancel` (via toNat + the propext-free
+`NatHelper.mul_left_cancel_pos`).
 
-**`Meta.Tactic.NatHelper` (1 new):**
-  - `add_mul_mod_self_pure` — `(a + n * c) % c = a % c`, the
-    propext-free replacement for Lean-core `Nat.add_mul_mod_self_left`.
-    By induction on `n` using existing `add_self_mod_pure`.
+### Iteration #7 — Bridge injectivity (1 thm)
+`Bridge.toRaw_injective`: Peano ↔ Raw chart-chain bijection closed.
 
-**`Lens.Number.Nat213.ChartGeneral` (3 new):**
-  - `chartChain_value_mod` — residue invariant: every chart-chain
-    element has `value % value r' = value r₀ % value r'`.
-    Direct chart-relativity statement that the arithmetic progression
-    `value r₀, value r₀ + value r', …` lies in one residue class mod
-    `value r'`.
-  - `chartChain_value_ge` — lower bound: every chart-chain element
-    has `value ≥ value r₀`
-  - `chartChain_value_mono` — monotonicity: `n ≤ m → value (chain n)
-    ≤ value (chain m)`
+### Iteration #8 — Bool213 or + De Morgan (8 thms)
+`Lens.Bool213.Raw.*`:
+  - `or x y` definition + base table (`or_TT`, `or_TF`, `or_FT`, `or_FF`)
+  - `or_comm`
+  - `or_isBool` — closure under `{T, F}`
+  - `demorgan_and` : `not (and x y) = or (not x) (not y)`
+  - `demorgan_or`  : `not (or x y) = and (not x) (not y)`
 
-All 9 verified PURE via `#print axioms`.  Framework `lake build E213`
-clean; full `lake build E213.Lib.Math E213.Lib.Physics` clean
-(1026/1026 modules).
+### Iteration #9 — Bool213.System KO → EN translation
+11 KO docstring lines translated to English; logic unchanged.
 
-## Carry-over from earlier iterations
-
-See git log for full history.  Cumulative on this branch since
-2026-05-18 morning:
-  - Iteration #1: 6 new ∅-axiom theorems (`Eqv` weaken / of_eq /
-    empty_iff_eq / Lens.Eqv_monotone_in_lens / ParenthesizationDistinct
-    same_leaves witness / leaves_view_collapses)
-  - Iteration #2 (this): 9 new ∅-axiom theorems
-
-**Branch total: 15 new strict-∅-axiom theorems** across
-`Theory/Raw/{Congruence, ParenthesizationDistinct}`,
-`Meta/Tactic/NatHelper`, `Lens/Congruence`,
-`Lens/Number/Nat213/ChartGeneral`.
-
-## What this branch delivered
-
-  - **Doc tier-claim refresh** — 10 user-facing markdown files
-    bulk-updated from deprecated `≤ {propext, Quot.sound}` to
-    STRICT ∅-AXIOM.  Stale Lean source paths also fixed.
-  - **Eqv API extension** — extremes (`Eqv.trivial_top`),
-    strict-coarsening concrete witnesses (`exists_distinct_leaves_eqv`
-    at both Theory and Lens layers).
-  - **ChartGeneral residue + monotonicity** — chart-chain
-    arithmetic progression structure now has explicit residue and
-    monotonicity theorems, in addition to the linear-value /
-    injectivity / surjectivity from earlier.
-  - **NatHelper propext-free `add_mul_mod_self_pure`** — reusable
-    Nat utility supporting the residue theorem.
+### Iteration #10 — Bool213.Raw KO → EN translation
+41 KO docstring lines translated to English; logic unchanged.
 
 ## Verification state
 
 ```
-lake build (framework E213)               ✔ clean (262/262 modules)
-lake build E213.Lib.Math E213.Lib.Physics ✔ clean (1026/1026)
+lake build E213 (framework)                  ✔ clean (262/262)
+lake build E213.Lib.Math E213.Lib.Physics    ✔ clean (1026/1026)
 ```
 
-All new symbols PURE.  No `propext` / `Quot.sound` / `Classical.choice`
-/ `omega` / `Mathlib` introduced.  Used propext-free lemmas:
-`Raw.fold_eq_leaves`, `Nat.le_add_right`, `Nat.add_le_add_left`,
-`Nat.mul_le_mul_right`, `NatHelper.add_self_mod_pure`,
-`NatHelper.add_mul_mod_self_pure` (new).
+All 36 new symbols PURE (`#print axioms` returns "does not depend
+on any axioms").  No `propext` / `Quot.sound` / `Classical.choice`
+/ `omega` / `Mathlib` / `native_decide` introduced.
+
+## Key reusable utilities added
+
+  - **`E213.Tactic.NatHelper.add_mul_mod_self_pure`** — propext-free
+    `(a + n*c) % c = a % c`, used in `chartChain_value_mod`.
+  - **`E213.Lens.Number.Nat213.Peano.Nat213.toNat_injective`** —
+    Nat213 ↔ ℕ₊ correspondence, used in `mul_cancel` + bridge.
+
+## What this branch delivered
+
+  - **Doc tier-claim refresh** across 10 markdown files —
+    user-facing language now matches STRICT_ZERO_AXIOM canonical
+    definition.
+  - **Eqv API extremes** (`trivial_top`, `bracket`) +
+    **concrete strict-coarsening witnesses** (Theory + Lens
+    layers) for the leaves Lens.
+  - **Full commutative-semiring laws on `Peano.Nat213`** —
+    `add_comm`, `add_assoc`, `mul_one`, `one_mul`, `mul_comm`,
+    `mul_assoc`, `add_mul`, `mul_add`, plus cancellation
+    (`add_left_cancel`, `add_right_cancel`, `mul_left_cancel`,
+    `mul_right_cancel`).
+  - **`toNat_injective`** — closes the Nat213 ↔ ℕ₊ correspondence.
+  - **`Bridge.toRaw_injective`** — closes the Peano ↔ Raw chart-
+    chain bijection.
+  - **Extended ChartGeneral algebra** — residue invariant + lower
+    bound + monotonicity + strict monotonicity.
+  - **`Bool213.or` operator + De Morgan laws** — parallel to
+    `and` infrastructure.
+  - **Bool213 KO → EN docstring translation** — both files now
+    English-compliant per CLAUDE.md.
 
 ## Open work (genuinely remaining)
 
 ### 1. Catalog-sync for new theorems
 `CAPSTONE_INDEX.md` "Substrate / metalogic" section could cite the
-new Eqv extremes + ChartGeneral residue/monotonicity theorems.
+new Eqv extremes + Peano semiring laws + ChartGeneral monotonicity.
 
-### 2. Long-tail stale paths in catalogs/math-theorems.md
-The file's imports (`E213.Lib.Math.Analysis213` line 10/16, etc.)
-reference modules that have been restructured.  The tier-claim was
-updated but a comprehensive path refresh remains pending.
+### 2. `npairEquiv_trans` for NatPairToInt
+Iteration #3 attempted `npairEquiv_trans` (transitivity of the
+Grothendieck pair equivalence in `Tower/NatPairToInt.lean`).  The
+algebraic reorganization is tractable but tedious in pure
+propext-free Nat arithmetic; deferred for a focused later pass.
 
-### 3. KO docstring backlog (carry-over)
-Out-of-scope checks worth doing in a future pass: `Lens/Bool213/`,
-`Lib/Math/Real213/`, `Lib/Math/Analysis/` may still have KO
-docstrings.
+### 3. KO docstring backlog
+Bool213 cleared this iteration.  Other directories (`Lib/Math/
+Real213/`, `Lib/Math/Analysis/`, occasional comments throughout)
+may still have KO content.  Bulk grep:
+```
+grep -rc "가\|나\|에\|를\|이\|하" lean/E213/ | grep -v ":0"
+```
 
-### 4. research-notes/G1_universal_lens.md
+### 4. Long-tail stale paths in catalogs/math-theorems.md
+The tier-claim was updated in iteration #2 but several Lean module
+paths in the catalog are still stale (`E213.Lib.Math.Analysis213`
+references a renamed module, etc.).  A comprehensive path refresh
+remains pending.
+
+### 5. research-notes/G1_universal_lens.md
 Still uses the legacy tier label (10 occurrences).  This is a
-*research note* documenting historical reasoning, not a current
-spec; keeping it as historical record is defensible, but a
-"deprecated tier marker — see STRICT_ZERO_AXIOM.md" header would
-help.
+*research note* documenting historical reasoning; keeping it as
+historical record is defensible, but a "deprecated tier marker —
+see STRICT_ZERO_AXIOM.md" header would help.
 
 ## Anchor docs (next session start)
 
@@ -157,6 +181,9 @@ help.
   exposition
 - `STRICT_ZERO_AXIOM.md` "Terms (canonical)" — the canonical PURE
   definition
-- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — extended this
-  iteration
-- `lean/E213/Theory/Raw/Congruence.lean` — extended this iteration
+- `lean/E213/Lens/Number/Nat213/Peano.lean` — extended with full
+  semiring laws + cancellation + toNat-injectivity this session
+- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — extended with
+  residue / monotonicity this session
+- `lean/E213/Lens/Bool213/{Raw, System}.lean` — extended with
+  `or` + De Morgan + KO → EN docstring sweep
