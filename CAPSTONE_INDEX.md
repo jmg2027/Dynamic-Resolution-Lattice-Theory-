@@ -91,6 +91,11 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Theory/Raw/ParenthesizationDistinct.parenthesisation_distinct`
   — `(a/b)/z ≠ a/(b/z)` for concrete `z`; no universal `slash`
   associativity (added 2026-05-18)
+- `Theory/Raw/ParenthesizationDistinct.same_leaves_distinct_parenthesisation`
+  — both parenthesisations have leaves count = 5, yet are distinct
+  Raws.  The concrete "projection many-to-oneness" witness:
+  `Lens.leaves.view` collapses different Raws to the same `Nat`
+  (added 2026-05-18)
 - `Theory/Raw/Congruence` + `Lens/Congruence` — `Eqv (gens) ↔
   L.equiv` biconditional for any lens (added 2026-05-18);
   `Lens.leaves_view_surjective_on_ge_one` realises every `n ≥ 1`

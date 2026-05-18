@@ -1,4 +1,5 @@
 import E213.Theory.Raw.Slash
+import E213.Theory.Raw.Levels
 
 /-!
 # Theory.Raw.ParenthesizationDistinct — different parenthesisations are different Raws
@@ -109,5 +110,27 @@ theorem no_universal_slash_assoc :
   intro h
   exact parenthesisation_distinct
     (h x y z xy_ne xyz_ne yz_ne x_yz_ne)
+
+/-! ### Same leaves count, different Raws (added 2026-05-18)
+
+The two parenthesisations have IDENTICAL leaves multisets — same
+atoms, same total count — yet are distinct Raws.  This is the
+"projection, not quotient" thesis (`seed/AXIOM/09 §9.1` companion):
+the Raw side carries strictly more information than its leaves
+projection. -/
+
+/-- **Same leaves, distinct Raws**: `lhs` and `rhs` have identical
+    leaves counts (both = 5: one a, one b, plus the 3 atoms of z)
+    yet are distinct Raws.  The leaves Lens is many-to-one. -/
+theorem same_leaves_distinct_parenthesisation :
+    Raw.leaves lhs = Raw.leaves rhs ∧ lhs ≠ rhs := by
+  refine ⟨?_, parenthesisation_distinct⟩
+  decide
+
+/-- **Concrete witness of leaves-projection many-to-oneness**:
+    the leaves projection collapses two structurally distinct
+    Raws to the same Nat (= 5). -/
+theorem leaves_view_collapses : Raw.leaves lhs = 5 ∧ Raw.leaves rhs = 5 := by
+  refine ⟨?_, ?_⟩ <;> decide
 
 end E213.Theory.Raw.ParenthesizationDistinct
