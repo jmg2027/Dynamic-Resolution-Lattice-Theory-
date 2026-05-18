@@ -159,4 +159,20 @@ theorem chartChain_value_mod (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
   exact E213.Tactic.NatHelper.add_mul_mod_self_pure
     (Raw.value r₀) (Raw.value r') n
 
+/-- **Chart-chain value lower bound**: every chart-chain element has
+    `value ≥ value r₀`.  The chain only grows from its seed. -/
+theorem chartChain_value_ge (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value r₀ ≤ Raw.value (chartChain r₀ r' h n) := by
+  rw [chartChain_value r₀ r' h n]
+  exact Nat.le_add_right (Raw.value r₀) (n * Raw.value r')
+
+/-- **Chart-chain monotonicity**: the value sequence is non-decreasing
+    along the chain. -/
+theorem chartChain_value_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Nat}
+    (hnm : n ≤ m) :
+    Raw.value (chartChain r₀ r' h n)
+      ≤ Raw.value (chartChain r₀ r' h m) := by
+  rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m]
+  exact Nat.add_le_add_left (Nat.mul_le_mul_right (Raw.value r') hnm) _
+
 end E213.Lens.Number.Nat213
