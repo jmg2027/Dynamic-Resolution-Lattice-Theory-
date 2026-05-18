@@ -123,6 +123,31 @@ theorem leaves_view_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
     E213.Lens.Number.Nat213.Raw.value_surjective_on_ge_one n hn
   exact ⟨r, by rw [leaves_view_eq_value]; exact hr⟩
 
+/-! ### Strict-coarsening witness for `Lens.leaves` (added 2026-05-18)
+
+`Lens.leaves.equiv` is *strictly coarser* than `=` on `Raw` —
+the parenthesisations `(a/b)/z` and `a/(b/z)` from
+`Theory.Raw.ParenthesizationDistinct` collapse under it.  This is
+the Lens-side restatement of `lhs_rhs_leaves_eqv` (same fact, named
+through `Lens.leaves.view`). -/
+
+/-- **Strict coarsening at the Lens level**: there exist two
+    distinct Raws that are `Eqv`-equivalent under
+    `Lens.leaves.equiv`.  Concrete witnesses are the two
+    parenthesisations of `Theory.Raw.ParenthesizationDistinct`. -/
+theorem exists_distinct_leaves_view_eqv :
+    ∃ x y : Raw, x ≠ y ∧
+      Eqv (fun a b => Lens.leaves.view a = Lens.leaves.view b) x y := by
+  obtain ⟨x, y, hxy, h⟩ :=
+    E213.Theory.Raw.ParenthesizationDistinct.exists_distinct_leaves_eqv
+  refine ⟨x, y, hxy, ?_⟩
+  refine Eqv.weaken ?_ h
+  intro a b (hab : Raw.leaves a = Raw.leaves b)
+  show Lens.leaves.view a = Lens.leaves.view b
+  show Raw.fold 1 1 (·+·) a = Raw.fold 1 1 (·+·) b
+  rw [Raw.fold_eq_leaves, Raw.fold_eq_leaves]
+  exact hab
+
 /-! ### Eqv monotonicity in the Lens (added 2026-05-18)
 
 If `M` refines `L` (every `M.view`-equality implies an `L.view`-

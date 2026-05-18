@@ -1,5 +1,6 @@
 import E213.Theory.Raw.Slash
 import E213.Theory.Raw.Levels
+import E213.Theory.Raw.Congruence
 
 /-!
 # Theory.Raw.ParenthesizationDistinct — different parenthesisations are different Raws
@@ -132,5 +133,32 @@ theorem same_leaves_distinct_parenthesisation :
     Raws to the same Nat (= 5). -/
 theorem leaves_view_collapses : Raw.leaves lhs = 5 ∧ Raw.leaves rhs = 5 := by
   refine ⟨?_, ?_⟩ <;> decide
+
+/-! ### Internal-Eqv view of the collapse (added 2026-05-18)
+
+`lhs` and `rhs` are concretely `Eqv`-equivalent under the leaves-
+induced generator: the generator pair `Raw.leaves lhs = Raw.leaves rhs`
+sits in the closure by `Eqv.of`.  Combined with `lhs ≠ rhs`, this is
+a concrete non-trivial witness that `Eqv (Raw.leaves ·= Raw.leaves ·)`
+is strictly coarser than structural equality on `Raw`. -/
+
+/-- **`lhs` and `rhs` are leaves-Eqv equivalent**: the equivalence
+    closure of "same Raw.leaves count" relates the two
+    parenthesisations.  Direct consequence of
+    `same_leaves_distinct_parenthesisation` via `Eqv.of`. -/
+theorem lhs_rhs_leaves_eqv :
+    E213.Theory.Eqv
+      (fun a b => Raw.leaves a = Raw.leaves b) lhs rhs := by
+  apply E213.Theory.Eqv.of
+  exact same_leaves_distinct_parenthesisation.1
+
+/-- **Strict-coarsening witness**: there exist two distinct Raws
+    related by `Eqv` under the leaves-induced generator.  This is a
+    concrete proof that `Eqv (Raw.leaves ·= Raw.leaves ·)` is
+    *strictly coarser* than `=` on `Raw`. -/
+theorem exists_distinct_leaves_eqv :
+    ∃ x y : Raw, x ≠ y ∧
+      E213.Theory.Eqv (fun a b => Raw.leaves a = Raw.leaves b) x y :=
+  ⟨lhs, rhs, parenthesisation_distinct, lhs_rhs_leaves_eqv⟩
 
 end E213.Theory.Raw.ParenthesizationDistinct
