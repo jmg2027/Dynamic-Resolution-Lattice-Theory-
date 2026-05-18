@@ -11,8 +11,8 @@ import E213.Term.Term
 /-! Spec-as-code entry point for `E213.Term`.
 
   Bare-metal type-theory layer — Term ring (ARCHITECTURE.md
-  2026-05-12).  Raw 의 구현체 (Tree 등) 와 Theory 에 공개할
-  API 구현부.
+  2026-05-12).  Raw's implementation (Tree, etc.) and the
+  API surface exposed to Theory.
 
   ## Core engine (Term ring substrate)
 
@@ -35,9 +35,9 @@ import E213.Term.Term
 
   - `Tactic/` (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm)
     — moved to `Meta/Tactic/` per ARCHITECTURE.md spec update
-    (2026-05-12).  These are Lean-side helpers (Lean Nat / Mod /
-    Fin 위 PURE 보조 도구) — ring-independent, so they belong in
-    Meta (Lean 4 bridge).
+    (2026-05-12).  These are Lean-side helpers (PURE helpers
+    over Lean Nat / Mod / Fin) — ring-independent, so they
+    belong in Meta (Lean 4 bridge).
 
   - `Cap_*.lean` capability ledgers (PhysicsAtomicIE, PeriodicTable,
     etc.) — deleted from Term/.  End-of-pipeline content endpoints,
