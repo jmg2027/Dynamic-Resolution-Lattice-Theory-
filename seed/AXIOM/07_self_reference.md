@@ -63,7 +63,7 @@ fixed point φ = (1+√5)/2, the algebraic embodiment of "the minimum
 residue — the minimum fixed point of self-reference" (§8.2).
 
 The iterator does NOT exit 213 and does NOT add structure to the
-axiom (∅-axiom theorem at `lean/E213/Theory/Raw/Mobius.lean`,
+axiom (∅-axiom theorem at `lean/E213/Lib/Math/Mobius213.lean`,
 derived from §3 clauses).  Algebraic signature details at
 `02_statement.md §3.4`.
 

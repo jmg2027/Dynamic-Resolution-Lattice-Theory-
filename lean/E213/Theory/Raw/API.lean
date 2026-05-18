@@ -35,13 +35,14 @@ get the full public surface in one line.
   Lens.Number.Nat213 numbering-system isomorphism)
 
 **Excluded from API** (intentional):
-- `Theory.Raw.Mobius` — Möbius matrix bridge, currently a ring
-  violation (`Lib.Math.Tactic.Ring213` import).  Migration to
-  `Lib/Math/Mobius213.lean` is queued per THEORY_AUDIT.md §4.
-  Consumers of Möbius results must import that module directly
-  for now.
 - `Theory.Raw.Demo` — bare-metal example chains for documentation
   only.  Not part of the API.
+
+**Migration history**: an earlier `Theory.Raw.Mobius` (Möbius
+matrix bridge) had a ring violation via `Lib.Math.Tactic.Ring213`;
+it was promoted to `Lib/Math/Mobius213.lean` per THEORY_AUDIT.md
+§4 (now complete).  Möbius results are imported directly from
+`Lib/Math/Mobius213` as Lib-ring content.
 
 **Discipline** (per ARCHITECTURE.md 2026-05-12): outside the Raw
 sub-cluster (e.g., Lens, Lib, other Theory clusters), code should

@@ -155,7 +155,7 @@ research-notes/
 
 **Theory level (모든 base 통합)**:
 - Theory/CDDouble/UniversalOrder4: cdd_lift_squared (generic)
-- Theory/Raw/Mobius: P [[2,1],[1,1]] generator (Pell-Fib bridge)
+- Lib/Math/Mobius213: P [[2,1],[1,1]] generator (Pell-Fib bridge)
 
 **총 누적 ∅-axiom 정리** (algebra tower discovery):
 - App level: ~36 specific instances (Type A: 6, Type B: 9, Type C: 6, ...)

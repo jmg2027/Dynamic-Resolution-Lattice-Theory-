@@ -101,7 +101,7 @@ eigenvalues = (3±√5)/2 = φ², 1/φ²
 Cross-reference:
 - `seed/AXIOM/02_statement.md §3.4` (algebraic signature)
 - `seed/AXIOM/07_self_reference.md §8.5` (concrete model)
-- `lean/E213/Theory/Raw/Mobius.lean` (∅-axiom proofs)
+- `lean/E213/Lib/Math/Mobius213.lean` (∅-axiom proofs)
 - `research-notes/G57_213_mobius_signature.md` (multi-layer reading)
 
 같은 φ 가 algebra tower asymptote (1 − 0.5/φ^rank) 와 DRLT physics

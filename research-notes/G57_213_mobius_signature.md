@@ -113,7 +113,7 @@ algebra, physics, topology, geometry emerge.
 
 ## 후속 작업
 
-1. **Theory/Raw/Mobius.lean** (Theory 급):
+1. **Lib/Math/Mobius213.lean** (Theory 급):
    - Raw slash → Möbius iterator extraction
    - Fixed point φ 정식 증명
    - Raw side 와 algebra side bridge
