@@ -1,4 +1,3 @@
-import E213.Lib.Math.Cohomology.CupAW.BilinearFunc
 import E213.Lib.Math.Cohomology.CupAW.Zero
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Lib.Math.Cohomology.CupAW.Pointwise

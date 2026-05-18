@@ -1,6 +1,5 @@
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Lib.Math.Cohomology.CupAW.Bilinear
-import E213.Lib.Math.Cohomology.CupAW.BilinearFunc
 import E213.Lib.Math.Cohomology.CupAW.Core
 import E213.Lib.Math.Cohomology.CupAW.Leibniz
 import E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge
@@ -17,6 +16,7 @@ import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizMid
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
+import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
 import E213.Lib.Math.Cohomology.CupAW.Zero
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.CupAW`.
@@ -32,8 +32,8 @@ import E213.Lib.Math.Cohomology.CupAW.Zero
                           → Cochain n (p+q)` definition
     * `Zero`           — `cupAW 0 _ _ = const false` etc.
     * `Pointwise`      — pointwise rewriting rule
-    * `Bilinear`,
-      `BilinearFunc`   — bilinearity in either argument
+    * `Bilinear`      — bilinearity in either argument
+                        (pointwise variants in `PointwiseBilinear`)
 
   ## Leibniz identities
 
@@ -57,7 +57,7 @@ import E213.Lib.Math.Cohomology.CupAW.Zero
 
   ## Status
 
-  18/20 included.  Two deferred (pre-existing API drift):
-  `LeibnizScaling`, `LeibnizSmall` — `Universal.Prop31.pattern_eq`
-  rename to `pattern_eq_at` changed the rewrite shape.
+  All files included.  The funext-DIRTY `BilinearFunc.lean`
+  placeholder was deleted 2026-05-18 — PURE pointwise replacements
+  (`PointwiseBilinear`) have superseded it.
 -/

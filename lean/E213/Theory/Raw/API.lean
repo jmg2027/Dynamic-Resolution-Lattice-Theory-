@@ -5,8 +5,7 @@ import E213.Theory.Raw.Fold
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.SwapSlash
 import E213.Theory.Raw.Levels
-import E213.Theory.Raw.Signed
-import E213.Theory.Raw.Hom
+import E213.Theory.Raw.FoldSwap
 import E213.Theory.Raw.Rec
 import E213.Theory.Raw.Endomorphic
 
