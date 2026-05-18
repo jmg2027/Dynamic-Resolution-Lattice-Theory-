@@ -22,7 +22,7 @@ the axiom.
 | 06 | `06_formalization.md` | Lean correspondence notes, deprecated paper / book references (§7) |
 | 07 | `07_self_reference.md` | No exterior; §8.4 dichotomy guide (re-read every Claude session) |
 | 08 | `08_encoding_costs.md` | The four encoding costs of putting 213 on Lean 4 (inductive / cmp / canonical-subtype / ≠-precondition).  Why these are codomain costs, not axiom commitments. |
-| 09 | `09_chart_relativity.md` | Chart-local labels, operation/object non-separation, flat ontology (strict ∅-axiom reading), syntactic internalization (gestural).  Re-reading of existing commitments under the lens-emergence vocabulary; cf. `research-notes/2026-05-18_lens_emergence_path.md`. |
+| 09 | `09_chart_relativity.md` | Chart-local labels (§9.1, made explicit by `Lens/Number/Nat213/ChartGeneral`), operation/object non-separation (§9.2), flat ontology (§9.3, strict ∅-axiom reading), syntactic internalization (§9.4, full L2 + L3 realisation in `Lens/SyntacticInternalization`).  Lens-emergence vocabulary; cf. `research-notes/2026-05-18_lens_emergence_path.md`. |
 | 99 | `99_history.md` | Deprecated R1–R5 frame + change history of all absorbed sources |
 
 ## How to read

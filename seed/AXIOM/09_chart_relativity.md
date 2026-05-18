@@ -6,10 +6,14 @@ collects the long-form discussion.  This chapter records the
 re-derivation.
 
 The four sections below are increasing in scope.  §9.1 and §9.2 are
-direct readings of the existing axiom commitments.  §9.3 is the
-flat-ontology framing — strict reading lives in `seed/RESOLUTION_
-LIMIT_SPEC.md` and in the caveat below.  §9.4 is gestural and
-flagged as conjecture pending a minimal prototype.
+direct readings of the existing axiom commitments; §9.1's
+chart-relativity now has explicit proof in
+`Lens/Number/Nat213/ChartGeneral`.  §9.3 is the flat-ontology
+framing — strict reading lives in `seed/RESOLUTION_LIMIT_SPEC.md`
+and in the caveat below.  §9.4 was the gestural conjecture; it now
+has a full L2 + L3 realisation in `Lens/SyntacticInternalization`
+(7-glyph alphabet + Polish-prefix universal round-trip
+`∀ t, parseTree (printTree t) = some t`).
 
 ## §9.1 Raw.a and Raw.b are chart-local labels
 
@@ -71,7 +75,7 @@ decidable predicates only.  Self-referential closure
 (predicates Raw-encoded) is realised in
 `lean/E213/Lens/Cardinality/Godel.lean` under this strict reading.
 
-## §9.4 Syntactic internalization (gestural)
+## §9.4 Syntactic internalization
 
 Gödel encoding extends past **referent Raws** (`Raw.a`, `slash`,
 …) to **notation glyphs** (`{`, `}`, `,`, `/`, whitespace, …) as
