@@ -17,12 +17,18 @@ the connection to the external `Lens.equiv` lives in
 inductive `Eqv` + the standard equivalence-relation closure rules
 and a generic induction principle.
 
-**Out of scope.**  The research note's §2.6 candidate congruences
-(e.g. "ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)") would require generators
-like associativity that are **not** derivable from the 213 axiom
-set (`grep slash_assoc lean/E213/Theory/` returns zero hits; only
-`Raw.slash_comm` exists).  Such candidate generator sets remain as
-conjectures, not theorems.
+**Note on §2.6.**  The research note's §2.6 candidate
+"ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" treats `slash_assoc` as a
+"missing generator" — but the framing is wrong.  `slash_assoc`
+cannot be a Raw-level identity (different parenthesisations are
+structurally distinct Raws — see `ParenthesizationDistinct.lean`),
+*and that is the correct behaviour*: imposing associativity would
+erase Raw-internal structure.  ℕ₊ is the **image** of
+`Lens.leaves.view`, not a quotient of `Raw`.  The Option C refactor
+realised this projection picture.  `Eqv` is therefore useful as a
+generic substrate (it parameterises *any* generator-induced
+equivalence), but the specific §2.6 quotient-style ℕ₊
+construction is abandoned.
 
 ∅-axiom standard; no Mathlib / Classical / propext / Quot.sound /
 omega.

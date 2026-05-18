@@ -22,8 +22,19 @@ Result (2) — the biconditional `Eqv L.equiv ↔ L.equiv` — realises
 §2.6's "external α-value agreement ⟺ internal `Eqv` equivalence"
 for *any* lens.
 
-∅-axiom standard; no Mathlib / Classical / propext / Quot.sound /
-omega / native_decide.
+**Caveat on §2.6's stronger conjectures.**  The research note also
+proposes things like "ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" — Raw
+quotiented by atomic identification + associativity.  That picture
+is conceptually wrong (see `Theory.Raw.ParenthesizationDistinct`):
+different parenthesisations are structurally distinct Raws, and
+forcing associativity erases Raw-internal information.  ℕ₊ is the
+*image* of `Lens.leaves.view`, not a quotient of `Raw`.  Option C
+of the refactor realised this projection picture.  This file's
+`Eqv` ↔ `L.equiv` biconditional is useful at the generic level
+(any lens) but should not be used to "internalise" ℕ₊.
+
+∅-axiom standard; the prohibited-tactic catalogue is
+`STRICT_ZERO_AXIOM.md`.
 -/
 
 namespace E213.Lens

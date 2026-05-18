@@ -172,20 +172,45 @@ Self-referential closure: predicates themselves can be Raw-encoded
 - candidate: `ℤ  = Raw / (associativity ∧ [slash a b] ≡ identity)`
 - zero dependence on external types
 
-**Caveat.**  The two candidates above are *conjectural*.  In the
-current 213, `slash` is canonical-form symmetric (`Raw.slash_comm`,
-`lean/E213/Theory/Raw/Slash.lean:32`), but **no `slash_assoc`
-theorem exists** — associativity is not derivable from the current
-axiom set and would constitute an additional commitment (verified
-by `grep` in this session: zero hits for `slash_assoc` across
-`lean/E213/Theory/` and `lean/E213/Term/`).  Whether either
-candidate congruence quotients Raw onto ℕ₊ / ℤ is therefore an
-open question, not a fact.
+**Caveat — and a 2026-05-18 correction (Mingu Jeong).**  The two
+candidates above are *not just conjectural — the framing is wrong*.
 
-Were associativity to hold (or were a weaker generator to suffice),
-external and internal would be equivalent: agreement of α-values
-under the external lens ⟺ same congruence class under the Raw
-equations.  This equivalence is asserted here, not proved.
+In the 213 axiom set, `slash` is canonical-form symmetric
+(`Raw.slash_comm`, `lean/E213/Theory/Raw/Slash.lean:32`) and that
+is *all* the equational structure on Raw.  In particular,
+**`slash_assoc` does not hold and *should not* hold**:
+`Raw.slash (Raw.slash x y h₁) z h₂` and `Raw.slash x (Raw.slash y z
+h₃) h₄` build *different Tree shapes* with the same multiset of
+leaves.  Those two Raws are *legitimately distinct* — the
+parenthesisation (= tree shape) is itself Raw-internal structure,
+not meta-language artifact.  Forcing associativity via a generator
+quotient would *erase* Raw-internal information; that is
+information-loss, not normalisation.
+
+(Even the source-text parentheses are themselves Raw-encodable per
+§2.7 — meta-syntax and Raw-structure converge in the
+self-referential reading.)
+
+Concrete witness:
+`lean/E213/Theory/Raw/ParenthesizationDistinct.lean` —
+kernel-evaluated counter-example showing
+`(a/b)/(b/(a/b)) ≠ a/(b/(b/(a/b)))` as Raws.
+
+**Therefore**: ℕ₊ is **not a quotient of Raw**.  It is the
+*projection-image* of `Lens.leaves.view : Raw → Nat`.  The
+projection is many-to-one (different Raws → same leaves count) and
+that *is* the structure.  Option C of the refactor (commit
+`9efd8263`) realised this picture: `Raw` carries the chart
+representative, `Nat` carries the abstract number, the projection
+makes the bridge.
+
+The `Eqv`-quotient approach (Option E) remains useful as a
+*generic* construction (`Theory.Raw.Congruence` +
+`Lens.Congruence`), and yields a clean
+"`Eqv L.equiv ↔ L.equiv` for any lens".  But the specific §2.6
+candidates `ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)` and
+`ℤ = Raw / (assoc ∧ [slash a b] ≡ identity)` are abandoned — they
+ask for an equivalence that throws away content.
 
 ### 2.7 Syntactic internalization (the far end)
 

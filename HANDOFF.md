@@ -136,13 +136,28 @@ Realisations:
 
 In priority order:
 
-### 1. `slash_assoc` question (blocks stronger §2.6 conjectures)
-The research note's §2.6 stronger candidates (e.g. "ℕ₊ =
-Raw / (a ≡ b ∧ slash_assoc)") need associativity of `slash`.
-`Theory/Raw/` has `slash_comm` but not `slash_assoc`.  Either
-(a) prove associativity from the existing axiom set (likely
-impossible — `slash` is a free commutative magma op), or (b)
-identify a weaker generator that suffices.
+### 1. §2.6's quotient-style conjectures — **resolved (abandoned)**
+The research note's §2.6 candidates
+"ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" and "ℤ = Raw / (assoc ∧ …)"
+were treated in earlier HANDOFFs as "blocked by missing
+slash_assoc".  Per user (Mingu Jeong) 2026-05-18 review, the
+framing itself was wrong: `slash_assoc` is not a missing theorem
+to derive — it *cannot hold*, *and that's correct*.  Different
+parenthesisations of the same leaves produce *structurally
+distinct* Raws; forcing associativity via a generator quotient
+erases Raw-internal content (the tree shape = parenthesisation).
+ℕ₊ is the **projection-image** of `Lens.leaves.view`, not a
+quotient of Raw — exactly what Option C of the refactor realised.
+
+Concrete witness:
+`lean/E213/Theory/Raw/ParenthesizationDistinct.lean` — kernel-
+evaluated counter-example.  Research note §2.6 + Option E
+docstrings updated to reflect this correction.
+
+`Eqv` (Option E) survives as a generic substrate (any
+generator-induced equivalence on Raw) with a clean
+`Eqv L.equiv ↔ L.equiv` biconditional for any lens, but is no
+longer pitched as a path to ℕ₊.
 
 ### 2. §2.7 syntactic internalisation (L2 prototype)
 Glyph-as-Raw encoding; minimal Lean prototype would give first
