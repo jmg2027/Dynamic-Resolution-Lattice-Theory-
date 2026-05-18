@@ -175,4 +175,24 @@ theorem chartChain_value_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Nat}
   rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m]
   exact Nat.add_le_add_left (Nat.mul_le_mul_right (Raw.value r') hnm) _
 
+/-- **Chart-chain strict monotonicity**: distinct chain indices give
+    strictly increasing values.  Uses `value_pos` (every Raw has
+    ≥ 1 leaves) to ensure the chain step adds positive content. -/
+theorem chartChain_value_strict_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Nat}
+    (hnm : n < m) :
+    Raw.value (chartChain r₀ r' h n)
+      < Raw.value (chartChain r₀ r' h m) := by
+  rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m]
+  apply Nat.add_lt_add_left
+  have hpos : 0 < Raw.value r' := value_pos r'
+  have h1 : n + 1 ≤ m := Nat.succ_le_of_lt hnm
+  have h2 : (n + 1) * Raw.value r' ≤ m * Raw.value r' :=
+    Nat.mul_le_mul_right (Raw.value r') h1
+  have h3 : n * Raw.value r' < n * Raw.value r' + Raw.value r' :=
+    Nat.lt_add_of_pos_right hpos
+  have h4 : n * Raw.value r' + Raw.value r' = (n + 1) * Raw.value r' := by
+    rw [Nat.succ_mul]
+  rw [h4] at h3
+  exact Nat.lt_of_lt_of_le h3 h2
+
 end E213.Lens.Number.Nat213
