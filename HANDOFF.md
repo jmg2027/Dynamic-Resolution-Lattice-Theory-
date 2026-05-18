@@ -1,216 +1,199 @@
-# Session Handoff — 2026-05-18 (Lens Emergence Path review + D + E)
+# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc)
 
 ## Branch
 `claude/review-lens-emergence-path-ZtS3A` — pushed.
-Latest: `8f82d12b Theory.Raw.Congruence + Lens.Congruence: Option E
-— internal Eqv + Lens bridge`.  Eight commits since branch start.
+Latest: `2394903c ChartGeneral + Lens.Congruence: full Option D + E`.
+Eleven commits since branch start.
 
 ## What This Branch Did
 
-A review-and-extend pass on the **lens emergence path** research note
-(`research-notes/2026-05-18_lens_emergence_path.md`) the user wrote
-earlier on the prior `claude/move-tree-to-term-ring-DDom7` branch.
-The review surfaced four substantive issues; addressing them led
-naturally into Step 1 (framing + new seed chapter), Step 2
-(Option B — Raw-subtype carrier with closed-Raw arithmetic), plus
-the minimal substrates for Options D (chart-explicit) and E
-(internal congruence) from §5 of the roadmap.
+A full traversal of the **lens emergence path** roadmap from
+`research-notes/2026-05-18_lens_emergence_path.md` §5:
 
-Option C Phase 2+ is **deliberately skipped**: as defined in §5 it
-deletes Raw-side arithmetic that Option B depends on; the two are
-alternatives, not stackable.  See "Open Problems" below.
+  - **Step 1 — framing** (commit 2): new seed chapter
+    `seed/AXIOM/09_chart_relativity.md` + docstring framing.
+  - **Option B → C transition** (commits 3-5 then 9): an initial
+    Option B (closed-Raw arithmetic carrier in `Chain.lean`) was
+    built and then deliberately superseded by Option C (Raw-side
+    arithmetic deleted, arithmetic on Nat).  The Option B work was
+    a productive false start — its conceptual payoff (Raw is the
+    chart, Nat is the number) is what Option C realises cleanly.
+  - **Option D — chart-parameterised chain** (commits 7, 11):
+    minimal substrate then full chart-invariance theorem.
+  - **Option E — internal congruence** (commits 8, 11): generic
+    `Eqv` inductive type + Lens bridge + concrete biconditional.
+  - **Option C — full refactor** (commit 9): the centerpiece — Raw
+    arithmetic deleted, `Bridge.lean` slimmed, `Chain.lean`
+    rewritten Nat-routed, `Lib/Math/Real213/Cauchy/ChainToCut.lean`
+    migrated to Peano arithmetic.  ~600 net lines deleted.
 
 ### Commit timeline
 
 | # | Commit | Scope |
 |---|---|---|
-| 1 | `b5c829cc` | Research note: KO → EN translation + 4 substantive fixes |
-| 2 | `da32eb66` | seed/AXIOM/09_chart_relativity.md + Nat213.{Raw,Peano} framing docstrings |
-| 3 | `4ca45d25` | Nat213.Chain — Raw-subtype carrier (Option B core) |
-| 4 | `7ee3890d` | Nat213.Chain — add/mul closure (without homomorphism) |
-| 5 | `23ef67ea` | Nat213.Chain — omega-free toNat homomorphism, Option B complete |
-| 6 | `baf8313e` | HANDOFF.md (initial post-B) |
-| 7 | `2f9dd195` | Nat213.ChartGeneral — Option D (chart-parameterised chain) |
-| 8 | `8f82d12b` | Theory.Raw.Congruence + Lens.Congruence — Option E (internal Eqv + lens bridge) |
+| 1 | `b5c829cc` | Research note: KO → EN + 4 substantive fixes |
+| 2 | `da32eb66` | seed/AXIOM/09 + Nat213.{Raw,Peano} framing docstrings |
+| 3 | `4ca45d25` | (B) Nat213.Chain — Raw-subtype carrier |
+| 4 | `7ee3890d` | (B) Nat213.Chain — closed-Raw add/mul closure |
+| 5 | `23ef67ea` | (B) Nat213.Chain — omega-free toNat homomorphism |
+| 6 | `baf8313e` | HANDOFF (post-B) |
+| 7 | `2f9dd195` | (D minimal) Nat213.ChartGeneral — parameterised chain |
+| 8 | `8f82d12b` | (E minimal) Theory.Raw.Congruence + Lens.Congruence |
+| 9 | `9efd8263` | **(C full)** Raw-side arithmetic deleted, Chain/Bridge/ChainToCut rewritten |
+| 10 | `6cba7392` | HANDOFF (intermediate) |
+| 11 | `2394903c` | (D + E full) chart-invariance + Eqv ↔ L.equiv biconditional |
 
-### Commit 1 detail — research note hardening (`b5c829cc`)
+## Where The Code Sits Now
 
-The user-authored draft was 350 lines of Korean.  Issues caught:
+### `Lens/Number/Nat213/` (11 files; INDEX.md authoritative)
 
-1. **CLAUDE.md violation** — `.md` files must be English (verbatim
-   KO quotes OK with EN translation alongside).  Translated, with
-   3 user-note paragraphs kept as KO + EN pairs.
-2. **§2.6 conjectural claim** — `ℕ₊ = Raw / (a ≡ b ∧
-   slash_assoc)` was asserted as if obvious.  `grep` confirmed
-   `slash_comm` exists (`Theory/Raw/Slash.lean:32`) but
-   `slash_assoc` does **not** — flagged the candidate congruence as
-   conjectural, not derivable from current axioms.
-3. **§3.3 Cauchy/ℝ** — claimed "ℝ emerges via Cauchy sequence"
-   without flagging `seed/RESOLUTION_LIMIT_SPEC.md` §1's structural
-   inequality preservation.  Added inline caveat: under ∅-axiom,
-   `limit ≠ exact value` (no `propext`, no `Quot.sound`); Real213
-   marathon operates on the *trajectory side*.
-4. **§0 + §7 status honesty** — "단상 / 반영 전 고찰" claimed, but
-   commit list already included `ced56bef Nat213/Core.lean (Phase 1
-   of C refactor)`.  Phase 1 was already taken; recommendation
-   marked as partly post-hoc.
+  - `Raw.lean` (slim, 124 lines) — chart structure only:
+    `one, succ, numeral, value` + 7 atomic lemmas.
+    **No `add` / `mul`** (deleted in commit 9).
+  - `Peano.lean` (+`toNat_add, toNat_mul`) — inductive Nat213 with
+    its own arithmetic; ergonomic parallel.
+  - `Core.lean` — `{n : Nat // 1 ≤ n}` Nat-subtype.
+  - `Chain.lean` (Nat-routed, 133 lines) —
+    `{r : Raw // IsMethodAChain r}` Raw-subtype.  Operations
+    `succ / add / mul` defined via `numeral c.toNat` / `numeral
+    (c.toNat + d.toNat - 1)` / etc.  `toNat` is a `+, *`
+    homomorphism via `Nat.succ_pred_eq_of_pos` (avoiding
+    `Nat.sub_add_cancel` which carries `propext`).
+  - `ChartGeneral.lean` (Option D, 122 lines) — `chartChain r₀ r' h
+    : Nat → Raw` parameterised over chart pair; default chart
+    recovers `Raw.numeral` (`chartChain_default`); chain doesn't
+    collapse (`chartChain_ne`); `value` linear along chain
+    (`chartChain_value`).  Also exposes public utility
+    `Raw.slash_ne_right`.
+  - `Bridge.lean` (slim, 117 lines) — Peano ↔ Raw chart bijection
+    at value level: `toRaw`, `value_toRaw`, `value_toRaw_add`,
+    `value_toRaw_mul`.  Old Raw-level arithmetic homomorphism
+    + `leavesCountRaw` infrastructure deleted in commit 9.
 
-### Commit 2 detail — Step 1 framing (`da32eb66`)
+### `Theory/Raw/Congruence.lean` (Option E generic, 64 lines)
 
-- **`seed/AXIOM/09_chart_relativity.md`** (103 lines, new chapter):
-  §9.1 Raw.a/Raw.b chart-local labels, §9.2 operation/object
-  non-separation, §9.3 flat ontology (strict ∅-axiom reading via
-  `Rawⁿ → Bool`, not `Set Rawⁿ`), §9.4 syntactic internalization
-  flagged conjectural.  Cross-refs to RESOLUTION_LIMIT_SPEC,
-  04_falsifiability §5.2.1, 07_self_reference §8.1.
-- **`seed/AXIOM/INDEX.md`** — slot 09 row added; the historical
-  `09_audit.md` (now in `lean/E213/AUDIT.md`) is distinguished from
-  the new chart-relativity chapter.
-- **`Nat213/Raw.lean` + `Nat213/Peano.lean`** — one-paragraph
-  Framing block in each docstring pointing at seed/AXIOM/09 + the
-  research note.  Raw.lean framed as Method A under `Lens.leaves`;
-  Peano.lean framed as ergonomic parallel (not lens-derived), with
-  iso witnessed by `.Bridge`.
+  - `inductive Eqv (gens : Raw → Raw → Prop)` — equivalence closure.
+  - `Eqv.induction'` — generic induction principle.
 
-### Commits 3-5 detail — Step 2 (Option B): `Nat213.Chain`
+### `Lens/Congruence.lean` (Option E bridge + concrete, 88 lines)
 
-A **Raw-subtype carrier** `{ r : Raw // IsMethodAChain r }`,
-parallel to (and complementing) the existing **Nat-subtype**
-`Nat213.Core.Nat213 := { n : Nat // 1 ≤ n }`.  Built additively —
-the existing `Nat213.Raw` arithmetic and `Nat213.Peano` inductive
-type are untouched.
+  - `view_eq_of_Eqv` — internal → external (any `gens` respecting
+    `L.view`).
+  - `Eqv_of_view_eq` — external → internal (the `of` step).
+  - `Eqv_equiv_iff` — the §2.6 biconditional: for any lens `L`,
+    `Eqv L.equiv ↔ L.equiv`.
+  - `Eqv_leaves_iff` — concrete `Lens.leaves` specialisation.
 
-```
-IsMethodAChain r := ∃ n : Nat, r = Raw.numeral n     -- predicate
-structure Chain where val : Raw; property : IsMethodAChain val
-```
+### `Lib/Math/Real213/Cauchy/ChainToCut.lean` (migrated, 327 lines)
 
-**21 strict ∅-axiom symbols** (`#print axioms` returns
-`does not depend on any axioms`):
-
-| Namespace | Symbols |
-|---|---|
-| `IsMethodAChain.*` | `one`, `step`, `add`, `mul` |
-| `Raw.value_*_chain` | `value_add_chain`, `value_mul_chain` |
-| `Chain.*` (carrier + ops) | `numeral`, `one`, `val_one`, `succ`, `val_succ`, `add`, `val_add`, `mul`, `val_mul` |
-| `Chain.*` (Nat bridge) | `toNat`, `toNat_numeral`, `toNat_one`, `toNat_succ`, `toNat_add`, `toNat_mul` |
-
-**Key non-trivial choice** — *omega-free* proofs.  Initial attempt
-(commit 4 + earlier draft) used `omega` for Nat arithmetic.
-`tools/scan_axioms.py` flagged `propext, Quot.sound` dependence
-from `omega`'s implementation, violating the ∅-axiom contract.
-Commit 5 reproved the homomorphism using only Lean 4 core
-lemmas: `Nat.add_comm`, `Nat.add_right_comm`, `Nat.succ_mul`,
-`Nat.one_mul`.
-
-**Naming gotcha discovered** — Lean 4's auto-generated structure
-constructor `Chain.mk : Raw → IsMethodAChain val → Chain` shadows
-a custom `def Chain.mk (n : Nat) : Chain`.  Renamed to
-`Chain.numeral` (avoids the clash; matches `Raw.numeral` in the
-sibling file).
+  - `chainToCut_addPeano`, `chainToCut_mulPeano` — value-level
+    homomorphism using Peano arithmetic (formerly Raw-level).
+  - `cutSum_chainToCut`, `cutMul_chainToCut` — compatibility with
+    Real213 cut arithmetic, expressed via Peano `+`/`*`.
 
 ## Verification State
 
 ```
-lake build (all new files)                  ✔ clean
-tools/scan_axioms.py + manual probe         ✔ 29 strict ∅-axiom symbols across this branch:
-  Chain.lean                                  15 PURE / 0 DIRTY
-  Chain parent-namespace                       6 PURE / 0 DIRTY
-    (IsMethodAChain.{one,step,add,mul},
-     Raw.value_{add,mul}_chain)
-  ChartGeneral.lean                            4 PURE / 0 DIRTY
-  Theory.Raw.Congruence (manual probe)         2 PURE / 0 DIRTY
-    (Eqv inductive, Eqv.induction')
-  Lens.Congruence.lean                         2 PURE / 0 DIRTY
-    (view_eq_of_Eqv, Eqv_of_view_eq)
+lake build (whole tree)                           ✔ clean
+tools/scan_axioms.py + manual probes              ✔ everything PURE
+  Raw.lean                                          12 PURE
+  Peano.lean (+ 2 new)                              clean
+  Bridge.lean                                        7 PURE
+  Chain.lean                                        13 PURE (+ 3 parent: IsMethodAChain.*)
+  ChartGeneral.lean                                  6 PURE (+ Raw.slash_ne_right)
+  Theory.Raw.Congruence                              2 PURE (Eqv, Eqv.induction')
+  Lens.Congruence                                    4 PURE
+  ChainToCut.lean                                   all theorems PURE
 ```
 
-No downstream consumers broken — every new file is purely additive.
+∅-axiom contract intact throughout the refactor.  No
+`Mathlib` / `Classical` / `propext` / `Quot.sound` / `omega` /
+`native_decide` introduced.
+
+## Theoretical Position Achieved
+
+The deep insight realised by Option C:
+
+> 213 axiom does not commit to numbers.  Numbers are abstract
+> `Nat`s; their Raw representation is a chart choice.  Operations
+> on numbers happen on `Nat` (the abstract object); the Raw side
+> carries only the canonical representative.  Closed-Raw
+> arithmetic is a category error — Raw is for *representing*
+> numbers, `Nat` is for *being* them.
+
+Realisations:
+  - `Raw.lean` carries `numeral / value` only (no arithmetic).
+  - `Chain.lean` is a Raw-subtype carrier whose operations route
+    through `Nat` (the abstract object).
+  - `Bridge.lean` is the value-level bijection — arithmetic claims
+    are at the `Nat` level, not the Raw level.
+  - `ChartGeneral.lean` makes chart-relativity (§9.1) explicit
+    with a chart-invariance theorem.
+  - `Lens.Congruence.lean` provides §2.6's external/internal
+    biconditional for any lens.
 
 ## Open Problems / Next Candidates
 
-In priority order; the user can pick any:
+In priority order:
 
-### 1. Option C Phase 2+ (multi-file refactor; tension with Option B)
-Per research note §7 Step 3 and §5 Option C.  Delete ad-hoc
-arithmetic from `Nat213.Raw.lean` (`add, mul, addAux, mulAux,
-numeral, succ`) — move all arithmetic to the codomain side or to
-`Chain.lean`.  Rewrite `Bridge.lean`, audit `Tower/*` and
-`Lib/Physics` for downstream impact.  **Large**: 9+ files affected.
-**Conflict**: as defined, Option C deletes the Raw-side arithmetic
-that Option B's `Chain.lean` depends on.  Pursuing C requires
-either (i) reworking Chain.lean to use external-Nat arithmetic
-(undoing B's "closed-Raw" point), or (ii) keeping a thin private
-arithmetic layer in `Raw.lean` solely for `Chain.lean`'s use.
-Decision needed before starting.
+### 1. `slash_assoc` question (blocks stronger §2.6 conjectures)
+The research note's §2.6 stronger candidates (e.g. "ℕ₊ =
+Raw / (a ≡ b ∧ slash_assoc)") need associativity of `slash`.
+`Theory/Raw/` has `slash_comm` but not `slash_assoc`.  Either
+(a) prove associativity from the existing axiom set (likely
+impossible — `slash` is a free commutative magma op), or (b)
+identify a weaker generator that suffices.
 
-### 2. Option D full chart-invariance theorem
-The `ChartGeneral.lean` from this branch provides only the
-parameterised definition + default-chart specialisation.  Missing:
-a chart-invariance theorem such as
-`value (chartChain r₀ r' h n) = value r₀ + n * value r'`.
-Requires a `chartChain r₀ r' h n ≠ r'` chain invariant whose proof
-depends on properties of `r'` (atomicity, leaves count) — the
-default chart's invariant uses `Raw.numeral_ne_b` which is
-specific.
+### 2. §2.7 syntactic internalisation (L2 prototype)
+Glyph-as-Raw encoding; minimal Lean prototype would give first
+formal evidence on whether the §9.4 cascade halts at the
+resolution limit.
 
-### 3. Option E specific generator instantiations
-The `Theory.Raw.Congruence` from this branch provides only generic
-`Eqv` + induction.  Missing: concrete generator sets that *do* sit
-within the 213 axiom set.  Candidates: `Lens.leaves`-induced
-generators (atoms collapse + slash-congruence), `Lens.depth`-induced
-generators, etc.  Stronger §2.6 conjectures involving
-`slash_assoc` remain blocked by the missing associativity proof.
+### 3. Bool213 parallel
+The `Lens/Bool213/Raw.lean` file uses similar patterns to the
+pre-refactor `Nat213/Raw.lean` (`booleanProj`, etc.) — should it
+get the same Option-C treatment?  Comments reference the deleted
+`leavesCountRaw`; update to reflect the new architecture.
 
-### 4. §2.7 syntactic internalization (L2 prototype)
-Per research note §6 question 6.  Minimal glyph → Raw mapping in
-Lean.  Would give first formal evidence on whether the §9.4 cascade
-halts at the resolution limit.
+### 4. Pre-existing KO docstrings
+`Nat213/Raw.lean` and related files had Korean docstrings.  The
+Option C refactor rewrote `Raw.lean` and `Bridge.lean` and
+`Chain.lean` in English.  `Peano.lean`, `NumberingSystem.lean`,
+`RawCut.lean`, `Lenses.lean`, `AtomicityCorrespondence.lean` still
+have mixed-language content — translate per CLAUDE.md.
 
-### 5. Smaller hygiene
-- `Nat213/Raw.lean` docstring is still Korean (pre-existing, not
-  Chain.lean's scope).  Translate per the same CLAUDE.md rule.
-- `Nat213/Peano.lean` docstring is mostly English already.
-- INDEX.md for the three new files (ChartGeneral, Congruence x2)
-  — add entries to relevant indices.
-
-## Unresolved from This Session
-
-- **`omega` cost**: Confirmed `omega` brings `propext + Quot.sound`,
-  so it cannot appear in any PURE proof.  Workaround applied
-  successfully here using manual Nat lemmas; pattern is reusable
-  for any future Nat-arithmetic-heavy proof.
-- **Pre-existing KO docstrings in `Nat213/Raw.lean`**: noted but
-  not translated — out of scope for this branch.
-- **Option C vs Option B tension** documented above; not resolved
-  this session.
-- **Full chart-invariance (D) and concrete generator sets (E)**
-  deferred — see Open Problems #2 and #3.
-
-## File Map
-
-```
-research-notes/2026-05-18_lens_emergence_path.md     ← KO → EN + 4 substantive fixes (commit 1)
-seed/AXIOM/09_chart_relativity.md                    ← NEW: chart-relativity chapter (commit 2)
-seed/AXIOM/INDEX.md                                  ← slot 09 row + deprecated-09 disambiguation (commit 2)
-lean/E213/Lens/Number/Nat213/Raw.lean                ← +Framing docstring block (commit 2)
-lean/E213/Lens/Number/Nat213/Peano.lean              ← +Framing docstring block (commit 2)
-lean/E213/Lens/Number/Nat213/INDEX.md                ← Chain.lean entry (commit 3)
-lean/E213/Lens/Number/Nat213/Chain.lean              ← NEW: Raw-subtype ℕ₊ + closure + homomorphism (commits 3-5)
-lean/E213/Lens/Number/Nat213/ChartGeneral.lean       ← NEW: Option D — parameterised chart (commit 7)
-lean/E213/Theory/Raw/Congruence.lean                 ← NEW: Option E — generic Eqv inductive type (commit 8)
-lean/E213/Lens/Congruence.lean                       ← NEW: Option E — Lens.equiv ↔ Eqv bridge (commit 8)
-```
+### 5. Tower/* audit
+`NatPairToInt`, `NatPairToQPos`, `NatTripleToZ2` — do they use the
+deleted `Bridge.toRaw_add` etc.?  Build is clean so probably not,
+but worth a confirmation pass.
 
 ## Anchor docs (next session start)
 
 - `CLAUDE.md` (top) — boot sequence
 - `seed/AXIOM/07_self_reference.md` §8.4 — dichotomy guide
-- `seed/AXIOM/09_chart_relativity.md` — the new chapter
+- `seed/AXIOM/09_chart_relativity.md` — chart-relativity chapter
 - `research-notes/2026-05-18_lens_emergence_path.md` — long-form
-  discussion
-- `lean/E213/Lens/Number/Nat213/Chain.lean` — Option B end state
-- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — Option D
-  minimal substrate
+  discussion (the centrepiece)
+- `lean/E213/Lens/Number/Nat213/Raw.lean` — slim chart structure
+- `lean/E213/Lens/Number/Nat213/Chain.lean` — Nat-routed Raw-subtype
+- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — Option D full
 - `lean/E213/Theory/Raw/Congruence.lean` + `lean/E213/Lens/
-  Congruence.lean` — Option E minimal substrate
+  Congruence.lean` — Option E full
+
+## File Map
+
+```
+research-notes/2026-05-18_lens_emergence_path.md     ← KO → EN + 4 fixes (commit 1)
+seed/AXIOM/09_chart_relativity.md                    ← NEW (commit 2)
+seed/AXIOM/INDEX.md                                  ← slot 09 (commit 2)
+lean/E213/Lens/Number/Nat213/Raw.lean                ← slim (commits 2, 9)
+lean/E213/Lens/Number/Nat213/Peano.lean              ← +Framing, +toNat_add/mul (commits 2, 9)
+lean/E213/Lens/Number/Nat213/Bridge.lean             ← slim (commit 9)
+lean/E213/Lens/Number/Nat213/Chain.lean              ← Nat-routed (commits 3-5, 9)
+lean/E213/Lens/Number/Nat213/ChartGeneral.lean       ← Option D (commits 7, 11)
+lean/E213/Lens/Number/Nat213/INDEX.md                ← reflective (commits 3, 9)
+lean/E213/Theory/Raw/Congruence.lean                 ← Eqv (commit 8)
+lean/E213/Lens/Congruence.lean                       ← bridge (commits 8, 11)
+lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean    ← Peano-arith migration (commit 9)
+HANDOFF.md                                           ← (commits 6, 10, this)
+```
