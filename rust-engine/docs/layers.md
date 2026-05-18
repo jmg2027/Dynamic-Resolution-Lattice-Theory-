@@ -16,7 +16,7 @@ combinatorial substrate.
 
 ## `theory/` — Raw + Lens primitives
 
-Mirrors `lean/E213/Firmware/` and `lean/E213/Hypervisor/Lens.lean`.
+Mirrors `lean/E213/Theory/` and `lean/E213/Lens/`.
 
 - `raw/internal.rs` — `pub(crate) Tree { A, B, Slash(...) }`.
   Invisible outside crate.

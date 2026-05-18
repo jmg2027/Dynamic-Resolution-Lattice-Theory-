@@ -25,8 +25,8 @@ Lean never imports Rust.  Rust never declares theorems.
 | `App/Simplex` + `Physics/AlphaEM*` | `app/` | Concrete 213 objects, observables, brackets |
 
 Note: cohomology is in Lean's `Math/` but conceptually sits between
-Lens (Hypervisor) and computation (OS/App).  Rust places it adjacent
-to Lens since cohomology operations *are* Lens compositions.
+Lens and computation.  Rust places it adjacent to Lens since
+cohomology operations *are* Lens compositions.
 
 ## Crate dependency DAG (compile-enforced)
 
@@ -44,7 +44,8 @@ to Lens since cohomology operations *are* Lens compositions.
 
 `Cargo.toml` `[dependencies]` only allows lower → higher.  A reverse
 edge fails `cargo build`.  This mirrors `lean/E213/` import order
-(`Firmware` cannot import `Hypervisor`, etc.).
+(`Theory` cannot import `Lens`, etc. — per
+`lean/E213/ARCHITECTURE.md`).
 
 ## Why this layering
 

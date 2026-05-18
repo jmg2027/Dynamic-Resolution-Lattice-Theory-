@@ -37,7 +37,7 @@ trajectory-vocabulary* emerges.
 Examples of distinct topics that *would* warrant a new file:
   - `Int213.lean` — Int-arithmetic ∅-axiom helpers (Lean-core
     Int lemmas mostly bring propext; substantial replacement
-    project — currently deferred, see HANDOFF Open Problem)
+    project — deferred)
   - `Bool213.lean` — Bool helpers if a substantial set accumulates
     beyond what `decide_eq_true/false` covers
   - `Mod213_pow.lean` — mod-of-power-of-2/3 cascade primitives

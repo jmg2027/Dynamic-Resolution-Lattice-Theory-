@@ -1,5 +1,18 @@
 # G84: Closed-form pattern unification — 213 의 iso/homomorphism 답은 이미 다 있음
 
+**Note (2026-05-18 update)**: Section 6 below references
+`toRaw_add` / `toRaw_mul` (Raw-level arithmetic homomorphism in
+`Theory/Closed/Nat213Bridge.lean`).  Both the file path and the
+Raw-level homomorphism were removed in the Option C refactor —
+arithmetic moved to the `Nat` codomain, and the Nat213 row of the
+4-domain pattern table was dropped (now 3-domain: Bool213 /
+RawCut / CauchyCutSeq).  See `seed/CLOSED_FORM_SPEC.md` for the
+current state.  The conceptual pattern of "iso/homomorphism with
+closed-form propext-avoidance" is preserved by the value-level
+homomorphism `value_toRaw_add` / `value_toRaw_mul` in
+`Lens/Number/Nat213/Bridge.lean` and by the new
+`Lens.Congruence.Eqv_equiv_iff` biconditional.
+
 ## User insight (2026-05-10)
 
 > "이 모든것을 지금 하는 클로즈드폼으로 진짜 딱딱 잡아놓으면, 완전

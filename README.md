@@ -96,17 +96,19 @@ lean/E213/       Lean 4 formal library (~1127 files)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
                    theoretical layer definitions (4 ring + Meta
                    since 2026-05-12)
-  ├── Term/      12 files — Raw 의 구현체 (deep-embedded Tree
+  ├── Term/      17 files — Raw 의 구현체 (deep-embedded Tree
   │              substrate + ∅-axiom Bool comparators / soundness
   │              bridges / Demo / MonomialAxioms).  Theory 가
   │              사용할 base API.  ★ literally 0-axiom.
-  ├── Theory/    41 files — 213 axiom 자체 (Raw + 4-clause
+  ├── Theory/    27 files — 213 axiom 자체 (Raw + 4-clause
   │              definitional commitments) + Atomicity (forced
-  │              d=5, (NS,NT)=(3,2)) + Closed (Bool213, Nat213,
-  │              RawCut) + Nat213/Tower/CDDouble.  Term API 만 사용.
-  ├── Lens/      121 files — Lens framework (catamorphism Raw → α)
-  │              + Algebra/AxiomLenses/Cardinality/Compose/
-  │              Instances/Lattice/Properties/Universal sub-clusters.
+  │              d=5, (NS,NT)=(3,2)) + CDDouble.  Term API 만 사용.
+  │              (Bool213 / Nat213 / RawCut migrated to Lens
+  │              2026-05-14 as Lens-layer catamorphism artifacts.)
+  ├── Lens/      143 files — Lens framework (catamorphism Raw → α)
+  │              + Algebra/AxiomLenses/Bool213/Cardinality/Compose/
+  │              Congruence/Instances/Lattice/Number/Properties/
+  │              SyntacticInternalization/Universal sub-clusters.
   │              Theory API 만 사용.
   ├── Lib/Math/  743 files (43 sub-clusters): CayleyDickson,
   │              Real213, SignedCut, Probability, Cohomology,

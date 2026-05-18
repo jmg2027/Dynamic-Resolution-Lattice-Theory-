@@ -8,6 +8,32 @@
 
 작업 단위: cluster 단위로 Explore sub-agent 가 파일 전체를 read 하고 detailed entry 를 반환, 메인이 append.
 
+**Post-snapshot deltas (2026-05-18, branch
+`claude/review-lens-emergence-path-ZtS3A`)**.  The following
+entries are updated below to reflect the Option C refactor;
+additionally new files are appended at the end (see
+"## Section ZZ — Post-Option-C additions"):
+
+  - `Theory/Raw/FoldRaw.lean` → renamed to `Endomorphic.lean`
+  - `Lens/Number/Nat213/Bridge.lean` — slimmed (Raw-arithmetic
+    homomorphism + `leavesCountRaw` machinery removed; value-level
+    homomorphism added)
+  - `Lens/Number/Nat213/Raw.lean` — slimmed (Raw-arithmetic +
+    `leavesCountRaw` deleted; `zero` renamed to `one`)
+  - `Lens/Number/Nat213/Peano.lean` — gained `toNat_add`, `toNat_mul`
+  - `Lens/Number/Nat213/NumberingSystem.lean` — `FoldRaw` →
+    `Endomorphic` import rename + English translation
+  - `Lens/Number/Nat213/RawCut.lean` — English translation
+  - `Lens/Bool213/Raw.lean` — comment refs to deleted Nat213
+    `leavesCountRaw` removed
+  - `Lib/Math/Real213/Cauchy/ChainToCut.lean` — migrated to
+    Peano-arithmetic homomorphism
+
+New files added in the same branch (listed at the end):
+`Lens/Number/Nat213/{Chain, ChartGeneral, Core}.lean`,
+`Theory/Raw/{Congruence, ParenthesizationDistinct}.lean`,
+`Lens/{Congruence, SyntacticInternalization}.lean`.
+
 ---
 
 ## Section 0 — Top-level (lean/ 직계 + E213/ umbrella) — 15 files
@@ -420,7 +446,8 @@
 - **의존**: `Slash`
 - **비고**: AXIOM.md §3 경고: asymmetric combine은 silent axiom leak. 모든 fold는 대칭성 검증 필요.
 
-### `lean/E213/Theory/Raw/FoldRaw.lean`
+### `lean/E213/Theory/Raw/Endomorphic.lean`
+(formerly `FoldRaw.lean`; renamed 2026-05-14 for scope clarity.)
 - **역할**: 닫힌 우주 비전. endomorphic fold (`Raw → Raw` codomain). Swap을 foldRaw 한 줄로 표현. propext/funext 누수 회피.
 - **주요 선언**:
   - `slashOrSelf : Raw → Raw → Raw` — x=y면 x, 아니면 canonical slash
@@ -670,7 +697,11 @@
   - `boolValue` (경계 매핑), `boolValue_booleanProj` (호환성)
   - `IsBool213`, `booleanProj_id_iff_isBool213`
 - **의존**: Theory.Raw.API
-- **비고**: 모든 정리 ∅-axiom; Nat213 leavesCountRaw와 평행한 메타 패턴
+- **비고**: 모든 정리 ∅-axiom.  Post-Option-C: Bool213 keeps its
+  Raw-internal projection (Bool213's canonical form {T, F} *is*
+  the Raw image); the parallel former Nat213 `leavesCountRaw`
+  was deleted (ℕ₊ now projects to `Nat` codomain).  See
+  `seed/CLOSED_FORM_SPEC.md` 3-domain table.
 
 ### `lean/E213/Lens/Bool213/System.lean`
 - **역할**: 메타 패턴 (T, F) — 임의 distinct Raw 쌍은 valid system; 동형 보존 not/and.
@@ -1052,17 +1083,17 @@
 
 ### `lean/E213/Lens/Number/Nat213/Bridge.lean`
 - **역할**: Raw chain (Method A) ↔ inductive Peano Nat213 동형 및 연산 homomorphism
-- **주요 선언**:
+- **주요 선언** (2026-05-18 Option C 이후, slimmed):
   - `toRaw` — Peano.Nat213 → Raw 변환
-  - `toRaw_one`, `toRaw_succ`, `toRaw_ne_b` — 기본 성질
-  - `toRaw_add`, `toRaw_mul` — 연산 homomorphism
-  - `add_comm`, `add_one_right`, `add_succ_right` — Layer 2 정리 lifting
-  - `value_toRaw`, `value_add`, `value_mul` — value boundary 호환
-  - `leavesCountRaw_toRaw`, `leavesCountRaw_idempotent` — projection 성질
-  - `value_leavesCountRaw_general` — 일반화 (chain 제약 제거)
-  - `IsChain`, `leavesCountRaw_id_iff_isChain` — fixed-point 특성화
-- **의존**: Raw, Peano, Meta.Tactic.NatHelper, Theory
-- **비고**: 3층 bridge (L2→L1, L1→Nat, idempotence)
+  - `toRaw_one`, `toRaw_succ` — 기본 성질
+  - `toRaw_ne_b` — chain image is never Raw.b
+  - `value_toRaw` — value boundary bijection (= Peano `toNat`)
+  - `value_toRaw_add`, `value_toRaw_mul` — value-level homomorphism
+    (Peano 산술 측 — Raw-level `Raw.add` / `Raw.mul` 가 삭제됐기 때문)
+- **의존**: Raw, Peano
+- **비고**: post-Option-C slim version.  Raw-level arithmetic
+  homomorphism + leavesCountRaw infrastructure deleted; bridge is
+  now value-level only.  7 strict ∅-axiom theorems.
 
 ### `lean/E213/Lens/Number/Nat213/INDEX.md`
 - **주요 섹션**: 표현 (Raw/Peano), Bridge, Lens-theoretic (Lenses/AtomicityCorrespondence), Numbering/cut, Tower, 순서대로 8개 파일, discipline ∅-axiom 검증, 2026-05-14 migration
@@ -1093,8 +1124,9 @@
   - `isoFromMethodA` — Method A → S 변환 (foldRaw S.Z S.C slashOrSelf)
   - `numeral_methodA_ne_b` — method A chain ≠ Raw.b invariant
   - `iso_numeral` — Method A numeral → S numeral 동형
-- **의존**: Theory.Raw.FoldRaw, Theory
-- **비고**: Peano triple 동형성의 closed-universe 표현
+- **의존**: Theory.Raw.Endomorphic (formerly FoldRaw), Theory
+- **비고**: Peano triple 동형성의 closed-universe 표현.  English
+  translation 2026-05-18.
 
 ### `lean/E213/Lens/Number/Nat213/Peano.lean`
 - **역할**: 213-native 양의 정수 inductive type (0 배제)
@@ -1104,6 +1136,9 @@
   - `toNat` — Lean Nat embedding
   - `add`, `mul` — 닫힌 연산
   - `toNat_ge_one` — type 폐쇄성 증명
+  - `toNat_add`, `toNat_mul` — Nat-level homomorphism (2026-05-18
+    추가, post-Option-C Bridge 의 `value_toRaw_add/mul` 의
+    enabler)
   - `one_mul`, `mul_one`, `add_succ_left/right`, `add_one_right`, `add_comm` — 연산 법칙
   - `no_additive_identity_at_one`, `no_closed_subtraction` — 0 부재 증명
   - `mul_two_grows`, `no_absorbing_element` — zero 부재 (absorption 없음)
@@ -1111,19 +1146,25 @@
 - **비고**: 0 배제 정당화 (Raw axiom: atom ≥ 1), ℤ/subtraction 필요성 증명
 
 ### `lean/E213/Lens/Number/Nat213/Raw.lean`
-- **역할**: Method A (Z=a, C=b) Raw-derived Nat213 catamorphism 구현
+- **역할**: Method A (Z=a, C=b) canonical chart representative on Raw
+  (slim, post-Option-C 2026-05-18 — chart structure only, no
+  Raw-side arithmetic).
 - **주요 선언**:
-  - `zero` = Raw.a, `succ` = slashOrSelf(·, Raw.b), `numeral` — chain 생성
-  - `value` — Lean Nat leaves count (boundary layer)
-  - `value_succ_of_ne` — value (succ n) = value n + 1 (n ≠ b)
-  - `one` (alias), `add`, `mul` — closed-Raw 연산 (addAux/mulAux via Tree)
-  - `one_add`, `one_mul` — identity 성질
-  - `add_succ_left`, `mul_succ_left` — arithmetic 법칙
-  - `leavesCountRaw` — Lean-free leaves count (Raw → Raw)
-  - `leavesCountRaw_succ`, `leavesCountRaw_numeral` — chain identity
-  - `value_numeral` — value(numeral n) = n + 1
-- **의존**: Theory.Raw.API, Theory.Internal, Theory.Raw.FoldRaw
-- **비고**: 완전 Raw-닫힘, Tree-level structural recursion, Lean type 경계 격리
+  - `one := Raw.a` — chart start (renamed from `zero` 2026-05-18)
+  - `succ` = `slashOrSelf(·, Raw.b)` — chart successor
+  - `numeral : Nat → Raw` — Nat enumeration
+  - `numeral_zero`, `numeral_succ` — definitional unfoldings
+  - `value : Raw → Nat` — leaves projection (= `Lens.leaves.view`)
+  - `value_one`, `value_a`, `value_b`, `value_numeral` — atom and
+    numeral values
+  - `value_succ_of_ne` — `value (succ n) = value n + 1` (n ≠ b)
+  - `numeral_ne_b` — chain invariant
+- **의존**: Theory.Raw.API
+- **비고**: Arithmetic on `Raw` (the old `add`, `mul`, `addAux`,
+  `mulAux`, `one_add`, `one_mul`, `add_succ_left`, `mul_succ_left`,
+  `leavesCountRaw`, `leavesCountRaw_{a,b,succ,numeral}`) deleted in
+  the Option C refactor — ℕ₊ is a projection to `Nat`, arithmetic
+  lives on `Nat`, not on `Raw`.  12 strict ∅-axiom theorems.
 
 ### `lean/E213/Lens/Number/Nat213/RawCut.lean`
 - **역할**: Lean-free cut prototype (Raw → Raw → Raw 함수, Bool213 결과)
@@ -4833,14 +4874,23 @@
 - **의존**: CauchyComplete, Max213.
 
 ### `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean`
-- **역할**: Theory.Closed (Nat213 chain) → Real213 cut bridge.
+- **역할**: Method A Nat213 chain → Real213 cut bridge.
 - **주요 선언**:
   - `chainToCut`.
   - `chainToCut_numeral`, `chainToCut_toRaw`.
-  - `cutSum_chainToCut`, `cutMul_chainToCut`.
-  - `cutLe_chainToCut_iff`, `cutLe_cutMax_chainToCut_iff`.
-- **의존**: Nat213.Bridge, CutPoset, CutSum/Mul, CutMaxMin.
-- **비고**: G84 Tier 4 증거.
+  - `chainToCut_addPeano`, `chainToCut_mulPeano` — Peano-arithmetic
+    pointwise homomorphism (2026-05-18 migration; previous
+    `chainToCut_add`, `chainToCut_mul` used the now-deleted
+    Raw-level `Raw.add` / `Raw.mul`).
+  - `cutSum_chainToCut`, `cutMul_chainToCut` — Real213 cut
+    compatibility under Peano `+` / `*`.
+  - `cutLe_chainToCut_iff`, `cutLe_cutMax_chainToCut_iff`,
+    `cutLe_cutMin_chainToCut_iff`.
+- **의존**: Nat213.Bridge (`toRaw`, `value_toRaw`,
+  `value_toRaw_add`, `value_toRaw_mul`), CutPoset, CutSum/Mul,
+  CutMaxMin.
+- **비고**: G84 Tier 4 증거; post-Option-C migrated to value-level
+  Peano homomorphism.
 
 ### `lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean`
 - **역할**: RealCut = Lens output — 213 axiom만으로 실수 존재.
@@ -8724,3 +8774,109 @@
   - `@[verifyConjugation]` command elaborator.
 - **의존**: Lean.
 
+
+## Section ZZ — Post-Option-C additions (2026-05-18)
+
+These files were added on the
+`claude/review-lens-emergence-path-ZtS3A` branch and are not part
+of the 2026-05-14 snapshot above.
+
+### `lean/E213/Lens/Number/Nat213/Chain.lean`
+- **역할**: Raw-subtype carrier `{ r : Raw // IsMethodAChain r }`
+  for ℕ₊'s Method A chart with Nat-routed arithmetic.  Option C
+  realisation of "Raw is the chart, Nat is the number".
+- **주요 선언**:
+  - `IsMethodAChain (r : Raw) := ∃ n : Nat, r = Raw.numeral n`
+  - `Chain` 구조 (val + property)
+  - `Chain.numeral`, `Chain.one`, `Chain.succ`, `Chain.add`,
+    `Chain.mul` — Nat 측 산술로 routing
+  - `Chain.toNat`, `Chain.toNat_ge_one`
+  - `Chain.toNat_{numeral, succ, add, mul}` — `+` / `*`
+    homomorphism (proof uses `Nat.succ_pred_eq_of_pos` to avoid
+    `Nat.sub_add_cancel`'s propext leak)
+- **의존**: `Lens.Number.Nat213.Raw`
+- **비고**: 13 strict ∅-axiom + 3 parent-namespace
+  (`IsMethodAChain.{one, numeral, step}`).  Option B's
+  closed-Raw arithmetic was superseded by Option C — operations
+  route through `Nat`.
+
+### `lean/E213/Lens/Number/Nat213/ChartGeneral.lean`
+- **역할**: Chart-parameterised Method A chain (Option D).  Any
+  pair `(r₀, r')` of distinct Raws can serve as chain seeds.
+- **주요 선언**:
+  - `chartChain (r₀ r' : Raw) (h : r₀ ≠ r') : Nat → Raw`
+  - `chartChain_zero`, `chartChain_succ` — definitional unfoldings
+  - `chartChain_default` — `(Raw.a, Raw.b)` chart recovers
+    `Raw.numeral`
+  - `chartChain_ne` — chain never lands on `r'`
+  - `chartChain_value` — `value (chartChain ...) = value r₀ +
+    n * value r'` (linear chart-invariance)
+  - `Raw.slash_ne_right` — utility lemma (`Raw.slash x y h ≠ y`)
+- **의존**: `Lens.Number.Nat213.Raw`
+- **비고**: 6 strict ∅-axiom + `Raw.slash_ne_right` PURE.
+
+### `lean/E213/Lens/Number/Nat213/Core.lean`
+- **역할**: Lens-derived `Nat213 := { n : Nat // 1 ≤ n }`
+  Nat-subtype carrier (Phase 1 of the lens-strict refactor).
+- **주요 선언**: `Nat213` 타입, `toNat`, `one`, `succ`, `add`,
+  `mul` (Nat-level), `leaves_view_ge_one`, `Raw.toNat213`.
+- **의존**: Theory.Raw.API, Lens.LensCore.
+
+### `lean/E213/Theory/Raw/Congruence.lean`
+- **역할**: Generic equivalence closure on Raw — Option E core.
+- **주요 선언**:
+  - `inductive Eqv (gens : Raw → Raw → Prop) : Raw → Raw → Prop`
+    with constructors `of`, `refl`, `symm`, `trans`
+  - `Eqv.induction'` — generic induction principle
+- **의존**: Theory.Raw.API
+- **비고**: 2 strict ∅-axiom.  Generic substrate for
+  generator-induced equivalences on Raw.
+
+### `lean/E213/Theory/Raw/ParenthesizationDistinct.lean`
+- **역할**: Kernel-decided counter-example showing different
+  parenthesisations of the same leaves produce structurally
+  distinct Raws.  Demonstrates that `slash_assoc` cannot be a
+  213 theorem — *and should not be*.
+- **주요 선언**:
+  - `parenthesisation_distinct` — concrete `(a/b)/(b/(a/b)) ≠
+    a/(b/(b/(a/b)))` via `decide`
+  - `no_universal_slash_assoc` — universal claim disproved
+- **의존**: Theory.Raw.API
+- **비고**: 2 strict ∅-axiom.
+
+### `lean/E213/Lens/Congruence.lean`
+- **역할**: Bridge between `Eqv` (internal, generic) and
+  `Lens.equiv` (external) — Option E lens layer.
+- **주요 선언**:
+  - `view_eq_of_Eqv` — internal → external
+  - `Eqv_of_view_eq` — external → internal
+  - `Eqv_equiv_iff` — biconditional for any lens
+  - `Eqv_leaves_iff` — `Lens.leaves` specialisation
+- **의존**: Theory.Raw.Congruence, Lens.LensCore
+- **비고**: 4 strict ∅-axiom.
+
+### `lean/E213/Lens/SyntacticInternalization.lean`
+- **역할**: §9.4 syntactic internalisation prototype — 7-glyph
+  alphabet + Polish-prefix parser/printer with universal
+  round-trip theorem.
+- **주요 선언**:
+  - `inductive Glyph` (7 ctors: `a, b, slash, lparen, rparen,
+    comma, space`)
+  - `Glyph.toRaw : Glyph → Raw` (Method A numerals 0–6),
+    `Glyph.toRaw_injective`
+  - `printTree : Tree → List Glyph`, `printRaw : Raw → List Glyph`
+  - `parseHelper : Nat → List Glyph → Option (Tree × List Glyph)`,
+    `parseTree : List Glyph → Option Tree`
+  - `treeSize`, `parseHelper_fuel_succ`,
+    `parseHelper_fuel_mono`, `parseHelper_printTree_append`,
+    `printTree_length_ge_size`
+  - **`parseTree_printTree : ∀ t, parseTree (printTree t) = some t`** —
+    universal round-trip
+  - `parseTree_printRaw` — Raw-level corollary
+  - Private `list_append_assoc'`, `list_append_nil'`,
+    `list_length_append'` (`propext`-free replacements for the
+    Lean core list lemmas)
+- **의존**: Theory.Raw.API, Lens.Number.Nat213.Raw
+- **비고**: 21 strict ∅-axiom theorems / defs.  Realises the
+  §9.4 cascade halt (writing the encoding uses only the same
+  7 glyphs).

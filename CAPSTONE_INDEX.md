@@ -102,13 +102,16 @@ Must-read for new sessions:
 ```
 lean/E213/
   Term/      — Raw 의 구현체 (Tree substrate + Bool comparators
-               + Sound bridges; 12 files, 45 thms, ★ literally 0 axiom)
+               + Sound bridges; 17 files, ★ literally 0 axiom)
   Theory/    — Raw axiom (a, b, slash, slash_comm) + Atomicity
-               (d=5, (NS,NT)=(3,2) forced uniqueness) + Closed
-               types + Nat213/Tower/CDDouble (41 files)
+               (d=5, (NS,NT)=(3,2) forced uniqueness) + CDDouble
+               (27 files).  Bool213 / Nat213 / RawCut migrated to
+               Lens 2026-05-14.
   Lens/      — Lens framework (catamorphism Raw → α) + sub-clusters
-               (Algebra, AxiomLenses, Cardinality, Compose, Instances,
-                Lattice, Properties, Universal) (121 files)
+               (Algebra, AxiomLenses, Bool213, Cardinality, Compose,
+                Congruence, Instances, Lattice, Number,
+                Properties, SyntacticInternalization, Universal)
+               (143 files)
   Lib/Math/  — math (Cohomology, Linalg, Real213, CayleyDickson,
                Probability, …; 743 files in 43 sub-clusters)
   Lib/Physics/— physics formalization (165 files in 17 sub-clusters)
