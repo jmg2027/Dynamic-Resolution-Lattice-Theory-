@@ -3,13 +3,14 @@ import E213.Term.Tree
 /-!
 # Theory.Raw.Core: canonical-form subtype
 
-`Raw` 의 public 표면.  Underlying `Tree` machinery (inductive +
-`cmp` + `canonical`) 는 Term 링의 `Term/Internal/Tree.lean` 에
-있음 — ARCHITECTURE.md (2026-05-12) "Raw 의 구현체 (Tree 등)"
-spec 에 따른 분리.
+The public surface of `Raw`.  The underlying `Tree` machinery
+(inductive + `cmp` + `canonical`) lives in the Term ring at
+`Term/Internal/Tree.lean` — separated per the
+ARCHITECTURE.md (2026-05-12) "Raw's implementation (Tree, etc.)"
+spec.
 
-이 파일은 그 Tree 위에 `Raw := {t : Tree // canonical t}` 를
-얹는 layer — Theory ring 의 Raw axiom public 표면.
+This file layers `Raw := {t : Tree // canonical t}` on top of
+that Tree — the Theory ring's public surface for the Raw axiom.
 -/
 
 namespace E213.Theory

@@ -58,8 +58,30 @@ theorem natToQPair_one : natToQPair Nat213.one = qOne := rfl
 /-- ★★★ SYNTACTIC IDENTITY WITH ℤ: both ℤ and ℚ_+ pairs are
     Nat213-pair-shaped.  The structural notation `((a), (b))` is
     SHARED — only the quotient relation (axis-generator fold)
-    differs.  This is G73's "Int213이랑 똑같이 생겼잖어". -/
+    differs.  This is G73's "looks identical to Int213". -/
 theorem qpair_is_nat_pair_shaped :
     QPair = (Nat213 × Nat213) := rfl
+
+/-! ### qpairEquiv: equivalence relation properties (added 2026-05-18, iteration #22)
+
+`qpairEquiv` is reflexive and symmetric — using only `Nat213.mul_comm`
+from the new Peano semiring law set.  (Transitivity also holds but
+its proof requires multiplicative cancellation, which we have via
+`mul_left_cancel` — added separately.) -/
+
+open E213.Lens.Number.Nat213.Peano (Nat213)
+
+/-- **Reflexivity** of `qpairEquiv`: `mul p.1 p.2 = mul p.2 p.1`
+    by `mul_comm`. -/
+theorem qpairEquiv_refl (p : QPair) : qpairEquiv p p := by
+  show Nat213.mul p.1 p.2 = Nat213.mul p.2 p.1
+  exact Nat213.mul_comm p.1 p.2
+
+/-- **Symmetry** of `qpairEquiv`: bidirectional `mul_comm` rewrite. -/
+theorem qpairEquiv_symm {p q : QPair} (h : qpairEquiv p q) :
+    qpairEquiv q p := by
+  show Nat213.mul q.1 p.2 = Nat213.mul q.2 p.1
+  rw [Nat213.mul_comm q.1 p.2, Nat213.mul_comm q.2 p.1]
+  exact h.symm
 
 end E213.Lens.Number.Nat213.Tower.NatPairToQPos
