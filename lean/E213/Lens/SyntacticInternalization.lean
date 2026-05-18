@@ -150,18 +150,60 @@ example :
     printRaw (Raw.slash Raw.b Raw.a (by decide))
       = [.slash, .a, .b] := by decide
 
-/-! ### L3 status (deferred work)
+/-! ### L3 parser — fuel-bounded Polish prefix decoding
 
-A constructive parser `parse : List Glyph → Option Raw` with
-`parse (printRaw r) = some r` round-trip requires either
-well-founded recursion on list length or a stack-based
-formulation plus a length-counting invariant for Polish prefix.
-The standard property (Polish prefix is uniquely decodable, hence
-`printTree` is injective) is true but its mechanical proof is
-non-trivial in Lean 4 without `omega` (which carries `propext`).
+A constructive parser that consumes Polish-prefix glyphs from the
+front of a list and returns the parsed Tree plus the leftover
+glyphs.  Termination is by strict decrement of the fuel argument.
 
-The printer + concrete-case witnesses above establish the
-*output* side of the L3 round-trip; the inverse parser is future
-work.  See `seed/AXIOM/09_chart_relativity.md` §9.4. -/
+For any tree `t`, parsing `printTree t ++ rest` with sufficient
+fuel returns `some (t, rest)`.  The round-trip theorem
+(`parseTree_printTree`) is deferred — it would need a
+fuel-monotonicity lemma plus a careful Nat arithmetic bound,
+non-trivial to prove without `omega` (which carries `propext`).
+The parser is provided constructively for use; concrete
+round-trip checks via `decide` witness its correctness on small
+trees. -/
+
+/-- Polish-prefix parser, fuel-bounded.  Returns
+    `(parsed tree, leftover glyphs)` on success, `none` on
+    failure (out of fuel, unexpected glyph, or empty input). -/
+def parseHelper : Nat → List Glyph → Option (Tree × List Glyph)
+  | 0, _ => none
+  | _ + 1, [] => none
+  | _ + 1, .a :: rest => some (.a, rest)
+  | _ + 1, .b :: rest => some (.b, rest)
+  | n + 1, .slash :: rest =>
+      match parseHelper n rest with
+      | none => none
+      | some (x, rest1) =>
+          match parseHelper n rest1 with
+          | none => none
+          | some (y, rest2) => some (.slash x y, rest2)
+  | _ + 1, _ :: _ => none
+
+/-- Top-level parser: consume one tree from the list, requiring no
+    leftover.  Returns `some t` iff the entire input is exactly
+    `printTree t`.  Fuel = list length (always sufficient). -/
+def parseTree (gs : List Glyph) : Option Tree :=
+  match parseHelper gs.length gs with
+  | some (t, []) => some t
+  | _ => none
+
+/-- Concrete round-trip witness on `Raw.a` (1-glyph tree). -/
+example : parseTree (printTree .a) = some .a := by decide
+
+/-- Concrete round-trip witness on `Raw.b`. -/
+example : parseTree (printTree .b) = some .b := by decide
+
+/-- Concrete round-trip witness on `slash a b`. -/
+example : parseTree (printTree (.slash .a .b)) = some (.slash .a .b) := by
+  decide
+
+/-- Concrete round-trip witness on a 3-leaf tree
+    `slash b (slash a b)` (= `Raw.numeral 2`'s underlying Tree). -/
+example :
+    parseTree (printTree (.slash .b (.slash .a .b)))
+      = some (.slash .b (.slash .a .b)) := by decide
 
 end E213.Lens.SyntacticInternalization

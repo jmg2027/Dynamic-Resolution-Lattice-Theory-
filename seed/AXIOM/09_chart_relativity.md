@@ -75,22 +75,38 @@ themselves Raw, with expressions becoming sequence-Raws of
 glyph-Raws.  "Meaningless punctuation" then becomes external
 convention rather than essence.
 
-**L2 prototype**: `lean/E213/Lens/SyntacticInternalization.lean`.
-7-glyph alphabet (`a`, `b`, `/`, `(`, `)`, `,`, whitespace) with
-each glyph mapped to a distinct Raw via the Method A chain
-(`Glyph.toRaw : Glyph → Raw`).  Injectivity proved by kernel
-evaluation (`Glyph.toRaw_injective`).  4 strict ∅-axiom symbols.
+**L2 prototype + L3 partial**:
+`lean/E213/Lens/SyntacticInternalization.lean` (13 strict ∅-axiom
+symbols total).
 
-The cascade halts at L2: writing the encoding requires only the
-same 7 glyphs, themselves Raw-encoded.  No L3 meta-meta-glyph
+L2 (cascade halts at glyph encoding):
+  - `Glyph` inductive with 7 constructors (`a`, `b`, `/`, `(`,
+    `)`, `,`, whitespace).
+  - `Glyph.toRaw : Glyph → Raw` maps to 7 distinct Method A
+    numerals.
+  - `Glyph.toRaw_injective` — kernel-decided.
+
+L3 partial (printer + fuel-bounded parser + concrete round-trip
+witnesses):
+  - `printTree : Tree → List Glyph` — Polish-prefix encoding.
+  - `printRaw : Raw → List Glyph` — lifted via `.val`.
+  - `parseHelper : Nat → List Glyph → Option (Tree × List Glyph)`
+    — fuel-bounded constructive parser.
+  - `parseTree : List Glyph → Option Tree` — top-level parser
+    with fuel = list length.
+  - Round-trip witnesses by `decide` on concrete trees
+    (`.a`, `.b`, `slash a b`, `slash b (slash a b)`).
+
+The *universal* round-trip theorem
+(`∀ t, parseTree (printTree t) = some t`) is deferred — its proof
+needs a fuel-monotonicity lemma plus careful Nat arithmetic
+bounds, non-trivial in Lean 4 without `omega` (which carries
+`propext`).  The concrete-case witnesses + the constructive parser
+suffice for use; the universal proof is left as a follow-up.
+
+The §9.4 cascade halts at L2: writing the encoding (this very
+file) uses only the same 7 glyphs.  No L3 meta-meta-glyph
 alphabet is needed.
-
-**Out of scope (L3+ work).**  A full parser/printer round-trip
-(Raw ↔ glyph-sequence) and a Raw-internal `IsExpressionEncoding`
-predicate are deferred.  The L2 prototype establishes the
-*glyph-symbol-as-Raw* level; richer L3 work — where the
-arrangement of glyphs is itself Raw-encoded constructively — is
-future development.
 
 ## Reading order
 
