@@ -13,7 +13,7 @@ type itself.
 The predicate `IsMethodAChain` is "this Raw equals `Raw.numeral n`
 for some `n : Nat`".  Constructive: every chain element carries an
 explicit witness.  ∅-axiom standard; no Mathlib / Classical /
-propext / Quot.sound used.
+propext / Quot.sound / omega / native_decide.
 
 Relation to the other files in this directory:
   - `Raw.lean`    — defines `numeral, succ, add, mul` (operations
@@ -32,6 +32,13 @@ bridge to `Core.Nat213` (Nat-subtype) is one composition away.
 research note.  Existing `Raw.lean` arithmetic is **not** modified
 or deprecated; this file is purely additive.  See research note §7
 Step 2.
+
+**Scope**: this file currently provides carrier + `succ` + `add` /
+`mul` closure with `val_*` reflective lemmas.  The `toNat`
+homomorphism for `add` / `mul` is deferred — the natural proofs use
+`omega` which pulls in `propext, Quot.sound` and violates the
+∅-axiom contract.  A manual-`Nat`-lemma-only proof is feasible but
+postponed.
 -/
 
 namespace E213.Lens.Number.Nat213
@@ -50,6 +57,45 @@ theorem IsMethodAChain.step {r : Raw} (h : IsMethodAChain r) :
     IsMethodAChain (Raw.succ r) := by
   obtain ⟨n, hn⟩ := h
   exact ⟨n + 1, by rw [hn]; rfl⟩
+
+/-! ### Closure of `Raw.add` and `Raw.mul` over the chain
+
+These do NOT compute a closed-form index — they induct on the
+witness of the *left* argument and use `IsMethodAChain.step` to
+build the resulting witness.  This avoids `omega` (which carries
+`propext, Quot.sound`) and keeps the file strict ∅-axiom. -/
+
+theorem IsMethodAChain.add {x y : Raw}
+    (hx : IsMethodAChain x) (hy : IsMethodAChain y) :
+    IsMethodAChain (Raw.add x y) := by
+  obtain ⟨m, hm⟩ := hx
+  rw [hm]
+  clear hm
+  induction m with
+  | zero =>
+      show IsMethodAChain (Raw.add Raw.one y)
+      rw [Raw.one_add]
+      exact IsMethodAChain.step hy
+  | succ k ih =>
+      show IsMethodAChain (Raw.add (Raw.numeral (k + 1)) y)
+      rw [Raw.numeral_succ k, Raw.add_succ_left _ _ (Raw.numeral_ne_b k)]
+      exact IsMethodAChain.step ih
+
+theorem IsMethodAChain.mul {x y : Raw}
+    (hx : IsMethodAChain x) (hy : IsMethodAChain y) :
+    IsMethodAChain (Raw.mul x y) := by
+  obtain ⟨m, hm⟩ := hx
+  rw [hm]
+  clear hm
+  induction m with
+  | zero =>
+      show IsMethodAChain (Raw.mul Raw.one y)
+      rw [Raw.one_mul]
+      exact hy
+  | succ k ih =>
+      show IsMethodAChain (Raw.mul (Raw.numeral (k + 1)) y)
+      rw [Raw.numeral_succ k, Raw.mul_succ_left _ _ (Raw.numeral_ne_b k)]
+      exact IsMethodAChain.add hy ih
 
 /-- Raw-subtype carrier for Method A chain elements. -/
 structure Chain where
@@ -74,6 +120,18 @@ def succ (c : Chain) : Chain :=
   ⟨Raw.succ c.val, IsMethodAChain.step c.property⟩
 
 theorem val_succ (c : Chain) : (succ c).val = Raw.succ c.val := rfl
+
+/-- Closed-Raw addition on `Chain`. -/
+def add (c d : Chain) : Chain :=
+  ⟨Raw.add c.val d.val, IsMethodAChain.add c.property d.property⟩
+
+theorem val_add (c d : Chain) : (c.add d).val = Raw.add c.val d.val := rfl
+
+/-- Closed-Raw multiplication on `Chain`. -/
+def mul (c d : Chain) : Chain :=
+  ⟨Raw.mul c.val d.val, IsMethodAChain.mul c.property d.property⟩
+
+theorem val_mul (c d : Chain) : (c.mul d).val = Raw.mul c.val d.val := rfl
 
 /-- Recover the Lean `Nat` (= leaves count). -/
 def toNat (c : Chain) : Nat := Raw.value c.val
