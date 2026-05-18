@@ -157,4 +157,32 @@ theorem value_numeral_pred (n : Nat) (hn : 1 ≤ n) :
   rw [value_numeral]
   exact Nat.succ_pred_eq_of_pos hn
 
+/-! ### Numeral algebra (added 2026-05-18, iteration #13)
+
+`numeral`-based equivalences and order — small but useful adjuncts
+to `numeral_injective` + `value_numeral`. -/
+
+/-- **`numeral` equality iff index equality** — biconditional form
+    of `numeral_injective`. -/
+theorem numeral_eq_iff {m n : Nat} : numeral m = numeral n ↔ m = n :=
+  ⟨numeral_injective, fun h => h ▸ rfl⟩
+
+/-- `value (numeral (n + 1)) = n + 2` — explicit successor form. -/
+theorem value_numeral_succ (n : Nat) : value (numeral (n + 1)) = n + 2 := by
+  rw [value_numeral]
+
+/-- **Numeral monotonicity (weak)**: `m ≤ n → value (numeral m) ≤
+    value (numeral n)`. -/
+theorem value_numeral_le {m n : Nat} (h : m ≤ n) :
+    value (numeral m) ≤ value (numeral n) := by
+  rw [value_numeral, value_numeral]
+  exact Nat.add_le_add_right h 1
+
+/-- **Numeral monotonicity (strict)**: `m < n → value (numeral m)
+    < value (numeral n)`. -/
+theorem value_numeral_lt {m n : Nat} (h : m < n) :
+    value (numeral m) < value (numeral n) := by
+  rw [value_numeral, value_numeral]
+  exact Nat.add_lt_add_right h 1
+
 end E213.Lens.Number.Nat213.Raw
