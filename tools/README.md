@@ -2,8 +2,16 @@
 
 ## Audit & verification
 
-  - `kernel_regress.sh` — verify `E213.Kernel.*` 101 theorems remain
-    literally 0-axiom.  Hook-invoked on Kernel edits.
+  - `kernel_regress.sh` — verify `E213.Term.*` theorems remain
+    literally 0-axiom.  Hook-invoked on Term-ring edits.  (Named
+    "kernel" for legacy reasons; the ring was renamed Kernel →
+    Term in the 2026-05-12 layer-architecture reorganisation.)
+  - `full_build.sh` — `lake build E213` (framework rings, fast)
+    followed by `lake build E213.Lib.Math E213.Lib.Physics`
+    (content, slow).  Required check after any refactor touching
+    Meta tactics / Real213 / List213 / etc. — the default `lake
+    build E213` deliberately omits Lib content, so Lib regressions
+    must be caught explicitly.
   - `scan_axioms.py <module>` — per-module `#print axioms` audit.
     Reports `[PURE]` (0 axioms) or `[DIRTY]` per top-level decl.
   - `scan_all_axioms.py` — tree-wide PURE / real-DIRTY / sealed

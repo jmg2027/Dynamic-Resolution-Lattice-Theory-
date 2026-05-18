@@ -92,7 +92,7 @@ Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
 
 ```
 seed/            axioms + philosophy + falsifiability
-lean/E213/       Lean 4 formal library (~1127 files)
+lean/E213/       Lean 4 formal library (~1114 files)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
                    theoretical layer definitions (4 ring + Meta
                    since 2026-05-12)
@@ -100,17 +100,18 @@ lean/E213/       Lean 4 formal library (~1127 files)
   │              substrate + ∅-axiom Bool comparators / soundness
   │              bridges / Demo / MonomialAxioms).  Theory 가
   │              사용할 base API.  ★ literally 0-axiom.
-  ├── Theory/    27 files — 213 axiom 자체 (Raw + 4-clause
+  ├── Theory/    24 files — 213 axiom 자체 (Raw + 4-clause
   │              definitional commitments) + Atomicity (forced
-  │              d=5, (NS,NT)=(3,2)) + CDDouble.  Term API 만 사용.
+  │              d=5, (NS,NT)=(3,2)) + CDDouble + Congruence
+  │              + ParenthesizationDistinct.  Term API 만 사용.
   │              (Bool213 / Nat213 / RawCut migrated to Lens
   │              2026-05-14 as Lens-layer catamorphism artifacts.)
-  ├── Lens/      143 files — Lens framework (catamorphism Raw → α)
+  ├── Lens/      144 files — Lens framework (catamorphism Raw → α)
   │              + Algebra/AxiomLenses/Bool213/Cardinality/Compose/
   │              Congruence/Instances/Lattice/Number/Properties/
   │              SyntacticInternalization/Universal sub-clusters.
   │              Theory API 만 사용.
-  ├── Lib/Math/  743 files (43 sub-clusters): CayleyDickson,
+  ├── Lib/Math/  727 files (42 sub-clusters): CayleyDickson,
   │              Real213, SignedCut, Probability, Cohomology,
   │              DyadicFSM, HodgeConjecture, Analysis,
   │              Linalg213, Cauchy, ModArith, Modulus, Irrational,
@@ -127,8 +128,8 @@ lean/E213/       Lean 4 formal library (~1127 files)
                  AxiomMinimality{,Capstone}, LensInternality,
                  BitPatternUniqueness + Tactic/ (Nat213, Mod213,
                  Fin213, Pow213, Omega213, QuadNorm, PureGuard,
-                 NativeGuard, …) + Nat/Int213/Algebra213 helpers.
-                 Universal-Lens witnesses moved to
+                 NativeGuard, List213, …) + Nat/Int213/Algebra213
+                 helpers.  Universal-Lens witnesses moved to
                  `Lens/Universal/Witnesses/` 2026-05-13.
 rust-engine/     Independent ℕ-only verification (53 binaries,
                  184 tests, 94 citations)
@@ -150,6 +151,14 @@ research-notes/  research notes
 ```bash
 cd lean/
 lake build E213
+# → builds the framework rings (Term / Theory / Lens / Meta +
+#   Pigeonhole).  Fast, minimal-axiom check.
+
+lake build E213.Lib.Math E213.Lib.Physics
+# → builds the content library (Lib/Math + Lib/Physics).
+#   Slower, but exercises everything; required after any
+#   refactor of List213 / Meta tactics / Real213 / etc.
+
 # → ∅-axiom, no Mathlib, no Classical, no sorry, no native_decide.
 # Anything with a non-empty `#print axioms` output = sorry-equivalent.
 ```
