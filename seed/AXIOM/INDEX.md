@@ -22,6 +22,7 @@ the axiom.
 | 06 | `06_formalization.md` | Lean correspondence notes, deprecated paper / book references (§7) |
 | 07 | `07_self_reference.md` | No exterior; §8.4 dichotomy guide (re-read every Claude session) |
 | 08 | `08_encoding_costs.md` | The four encoding costs of putting 213 on Lean 4 (inductive / cmp / canonical-subtype / ≠-precondition).  Why these are codomain costs, not axiom commitments. |
+| 09 | `09_chart_relativity.md` | Chart-local labels, operation/object non-separation, flat ontology (strict ∅-axiom reading), syntactic internalization (gestural).  Re-reading of existing commitments under the lens-emergence vocabulary; cf. `research-notes/2026-05-18_lens_emergence_path.md`. |
 | 99 | `99_history.md` | Deprecated R1–R5 frame + change history of all absorbed sources |
 
 ## How to read
@@ -62,7 +63,10 @@ discriminant, trace, det, Pell-Fib recurrences) and
 ## Audit / implementation reference
 
 The previous `08_implementation.md` (494 lines, faithful-emulator
-analysis) and `09_audit.md` (374 lines, Lean × axiom cross-check)
-have been moved to `lean/E213/AUDIT.md` — they audit Lean code, not
-the axiom itself.  The encoding-cost framing is now `08_encoding_
-costs.md` (concise restatement focusing on *why* the costs exist).
+analysis) and an earlier `09_audit.md` (374 lines, Lean × axiom
+cross-check) have been moved to `lean/E213/AUDIT.md` — they audit
+Lean code, not the axiom itself.  The encoding-cost framing is now
+`08_encoding_costs.md` (concise restatement focusing on *why* the
+costs exist).  The current `09_chart_relativity.md` (this
+re-numbering, 2026-05-18) is unrelated to the deprecated
+`09_audit.md` and covers chart-relativity / flat ontology framing.

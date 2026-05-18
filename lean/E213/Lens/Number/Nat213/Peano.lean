@@ -22,6 +22,14 @@ axis quotients, group completions, etc.).  Including 0 in the
 - `sub` : NOT defined (would require ℤ extension)
 
 All theorems satisfy ∅-axiom standard.
+
+**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This
+inductive `Nat213` is an *ergonomic parallel* to the lens-derived
+form; it is not itself lens-derived.  The `.Bridge` module witnesses
+the iso to the Method A chain (`.Raw`); `Lens.leaves` then maps both
+to `Nat`.  Long-form discussion + open question on the future of
+this file in `research-notes/2026-05-18_lens_emergence_path.md` §4.2
+and §6 question 5.
 -/
 
 namespace E213.Lens.Number.Nat213.Peano

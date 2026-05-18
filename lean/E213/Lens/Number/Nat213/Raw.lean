@@ -30,6 +30,13 @@ Lean Nat 으로부터 ℕ₊ 로의 enumeration 편의용: `numeral : Nat → Ra
 이 모듈은 가장 단순한 Method A 만.  일반 numbering system 은
 `Lens.Number.Nat213.NumberingSystem`.  Inductive Peano 표현은
 `Lens.Number.Nat213.Peano`; 두 표현 사이 동형은 `.Bridge`.
+
+**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This is *one
+representation* along the lens-emergence path — Method A's chain
+under `Lens.leaves`.  `Raw.a` and `Raw.b` are chart-local labels
+(§9.1); under a different chart, any pair of distinct Raws could
+serve as the chain seeds.  Long-form discussion in
+`research-notes/2026-05-18_lens_emergence_path.md` §3.
 -/
 
 namespace E213.Lens.Number.Nat213.Raw
