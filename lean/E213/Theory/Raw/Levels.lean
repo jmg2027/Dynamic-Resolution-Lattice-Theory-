@@ -49,6 +49,21 @@ protected theorem Raw.depth_slash (x y : Raw) (h : x ≠ y) :
     fun u v => congrArg (1 + ·) (E213.Tactic.NatHelper.max_comm_pure u v)
   exact Raw.fold_slash 0 0 (fun a b => 1 + max a b) hsym x y h
 
+/-- `(Raw.slash x y h).leaves = x.leaves + y.leaves`.  Leaves
+    recursion at the Raw level — direct from `fold_eq_leaves` +
+    `fold_slash` with `Nat.add_comm`. -/
+protected theorem Raw.leaves_slash (x y : Raw) (h : x ≠ y) :
+    (Raw.slash x y h).leaves = x.leaves + y.leaves := by
+  rw [← Raw.fold_eq_leaves, ← Raw.fold_eq_leaves x, ← Raw.fold_eq_leaves y]
+  exact Raw.fold_slash 1 1 (· + ·) Nat.add_comm x y h
+
+/-- A `slash` Raw always has depth ≥ 1.  Direct corollary of
+    `depth_slash`. -/
+protected theorem Raw.depth_slash_pos (x y : Raw) (h : x ≠ y) :
+    1 ≤ (Raw.slash x y h).depth := by
+  rw [Raw.depth_slash x y h]
+  exact Nat.le_add_right 1 _
+
 -- ═══ Explicit level-≤2 enumeration ═══
 -- (Backing §1.3 and §5.1 of the paper.  Uses only the public
 --  `Raw.slash` API — no Tree internals.)
