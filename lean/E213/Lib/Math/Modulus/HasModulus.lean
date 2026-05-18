@@ -46,4 +46,12 @@ theorem isOrderCauchy_of_hasModulus (xs : Nat → Raw)
   intro m k hk
   exact ⟨h.N m k, h.cauchy_at m k hk⟩
 
+/-- A larger `N` for `HasModulus` is also valid — modulus monotonicity. -/
+theorem cauchy_at_larger_N (xs : Nat → Raw) (h : HasModulus xs)
+    (m k : Nat) (hk : k ≥ 1) (M : Nat) (hM : M ≥ h.N m k)
+    (i j : Nat) (hi : i ≥ M) (hj : j ≥ M) :
+    orderProj m k (abLens.view (xs i)) =
+    orderProj m k (abLens.view (xs j)) :=
+  h.cauchy_at m k hk i j (Nat.le_trans hM hi) (Nat.le_trans hM hj)
+
 end E213.Lib.Math.Modulus.HasModulus
