@@ -133,9 +133,10 @@ refactor via `eqPW`.
     — a candidate 4th domain.
   - Cauchy sequence-level `cutSum` / `cutMul` bridge.
   - DRLT physics theorems → ∅-axiom (currently 19 sealed → 0).
-  - L3 syntactic internalisation (extending
-    `Lens.SyntacticInternalization` to constructive
-    parser/printer round-trip).
+  - ~~L3 syntactic internalisation~~ — **closed 2026-05-18** in
+    `Lens.SyntacticInternalization`.  Polish-prefix parser/printer
+    with full bijection: forward (`parseTree_printTree`), reverse
+    (`printTree_parseTree`), and injectivity (`printTree_injective`).
 
 ## Conclusion
 
@@ -160,3 +161,11 @@ reusable.
     `Theory/Closed/*` to `Lens/Number/Nat213/*` and `Lens/Bool213/*`
     (post-2026-05-14 migration).  Document language uniformised
     to English.  Trick set extended with #10–#11.
+  - **2026-05-18 (L3 + L4 syntactic internalisation closure)**:
+    `Lens.SyntacticInternalization` reached full bijection:
+    `parseTree_printTree` (forward, 21 PURE symbols) extended with
+    `parseHelper_sound` + `printTree_parseTree` + `printTree_injective`
+    + `printRaw_parseTree` (4 PURE symbols, +138 lines).
+    `chartChain_value_injective` + `chartChain_injective` added to
+    `ChartGeneral` (uses 213-native `add_left_cancel` +
+    `mul_left_cancel_pos` to dodge propext-tainted core).
