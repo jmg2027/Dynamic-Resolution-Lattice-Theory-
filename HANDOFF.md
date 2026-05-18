@@ -1,10 +1,62 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 54+ commits.
-Latest: `2d00afbf seed/ — promote §9.1 + §9.4 from gestural to realised`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 60+ commits.
+Latest: `37c95e3d ℕ₊ as Range(Lens.leaves.view) — formal surjectivity result`.
 
-## Latest pass — strategic doc audit + full-build tooling
+## Latest pass — autonomous research (theorem development + audit)
+
+### Theorem development (new ∅-axiom symbols)
+
+  - **Bijection closure of L3 syntactic internalisation** (4
+    new PURE theorems): `parseHelper_sound`, `printTree_parseTree`
+    (lossless parser, reverse round-trip), `printTree_injective`,
+    `printRaw_parseTree`.  Together with the L3 forward direction
+    `parseTree_printTree`, this closes the full bijection between
+    `Tree` and `Range(printTree)`.
+  - **ChartGeneral injectivity in `n`** (3 new PURE theorems):
+    `value_pos`, `chartChain_value_injective`,
+    `chartChain_injective`.  Each chart `(r₀, r')` with `r₀ ≠ r'`
+    gives a bijective ℕ → chain labelling.  Uses 213-native
+    `add_left_cancel` + `mul_left_cancel_pos` to dodge the propext
+    leak in Lean-core `Nat.eq_of_mul_eq_mul_left`.
+  - **ℕ₊ as the image of `Lens.leaves.view`** (5 new PURE
+    theorems): `value_surjective_on_ge_one`, `value_numeral_pred`,
+    `leaves_view_eq_value`, `leaves_view_pos`,
+    `leaves_view_surjective_on_ge_one`.  Witness `numeral (n - 1)`
+    realises every `n ≥ 1`.  Rigorous form of the seed/AXIOM/09
+    "image not quotient" thesis.
+
+12 new ∅-axiom symbols total across `SyntacticInternalization`,
+`ChartGeneral`, `Nat213/Raw`, `Lens/Congruence`.
+
+### Stale "≤ {propext, Quot.sound}" docstring sweep
+
+CLAUDE.md "Terms (canonical)" deprecated the legacy tier 2026-05-09
+in favour of strict ∅-axiom.  But several capstone docstrings still
+cited the old tier despite the theorems being PURE today.  Audited
+5 capstones (`pell_capstone`, `tribonacci_capstone`,
+`hodge_involution_5strata_capstone`, `universal_lens_triple_capstone`,
+`padding_capstone`) — all PURE — and updated docstrings.
+
+### Layer-discipline fix
+
+`Theory/Raw/{Congruence,ParenthesizationDistinct}.lean` were not in
+`Theory/Raw/API.lean` umbrella; consumers reach-in violated layer
+discipline.  Added to API, switched the two Theory/Raw files to
+narrower imports (Core / Slash) to break the resulting cycle.
+
+### Doc / spec refresh
+
+  - `seed/AXIOM/09_chart_relativity.md` §9.4: describe L4 closure
+    + Tree ↔ Range bijection.
+  - `seed/CLOSED_FORM_SPEC.md`: "Future work" L3 entry → closed;
+    Change log entry for 2026-05-18 L3 + L4 + ChartGeneral.
+  - `LESSONS_LEARNED.md`: HEAD position refreshed 2026-05-01 →
+    2026-05-18 with the new Option C/D/E + §9.4 lines.
+  - `CAPSTONE_INDEX.md`: cite new theorems in §"Substrate / metalogic".
+
+## Earlier this session — strategic doc audit + full-build tooling
 
   - **`tools/full_build.sh` (new)**: `lake build E213` exercises
     only framework rings (Term/Theory/Lens/Meta + Pigeonhole); Lib
