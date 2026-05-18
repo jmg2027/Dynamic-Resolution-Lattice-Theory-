@@ -1,8 +1,37 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 48+ commits.
-Latest: `8c6cd270 Refresh stale spec / audit refs to merged FoldSwap`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 54+ commits.
+Latest: `2d00afbf seed/ — promote §9.1 + §9.4 from gestural to realised`.
+
+## Latest pass — strategic doc audit + full-build tooling
+
+  - **`tools/full_build.sh` (new)**: `lake build E213` exercises
+    only framework rings (Term/Theory/Lens/Meta + Pigeonhole); Lib
+    is opt-in.  New script chains framework + Lib in one command so
+    refactor regressions across the framework→Lib boundary are
+    caught explicitly.  README + tools/README updated.
+  - **CAPSTONE_INDEX.md re-audit**: dated 2026-05-01 with 9 stale
+    entries (AlphaEM cluster file renames, Finitist-files absorbed,
+    Pisano paths post-DyadicFSM promotion, AtomicSuperCatalog
+    relocation, universalLens actual file, etc.).  Every `Lib/`,
+    `Lens/`, `Theory/`, `Meta/` citation re-verified against the
+    actual source.  Added four 2026-05-18 theorems to §"Substrate /
+    metalogic" (`parenthesisation_distinct`, `chartChain_value`,
+    `parseTree_printTree`, `Lens/Congruence`).
+  - **README.md count refresh**: total 1127 → 1114, Theory 27 →
+    24, Lens 143 → 144, Lib/Math 743 → 727.  Build section
+    documents both fast (`lake build E213`) and full (`lake build
+    E213.Lib.Math E213.Lib.Physics`) targets.
+  - **seed/AXIOM/INDEX.md + 09_chart_relativity.md** —
+    de-gesturalise: both §9.1 (chart-relativity) and §9.4
+    (syntactic internalisation) now have explicit Lean
+    realisations (`ChartGeneral` + `SyntacticInternalization`).
+    Header paragraph + chapter-09 row + §9.4 heading updated.
+  - **tools/README.md** — Kernel/Term naming drift fix in
+    `kernel_regress.sh` description.
+
+## Earlier this session — DyadicMeasure + deferred-28 closure + spec refresh
 
 ## Latest pass — strategic cleanup + spec / audit refresh
 
