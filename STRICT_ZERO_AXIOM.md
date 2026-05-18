@@ -169,7 +169,7 @@ Modules now PURE:
 - E213.Lens.Instances.SumNotCoproductGeneric (was 1 dirty)
 - E213.Lens.Instances.CompoundBool (was 4 dirty)
 - E213.Lens.Instances.Sum (was 3 dirty)
-- E213.Lens.Characterisation.Core (was 3 dirty, now 1 — funext only)
+- E213.Lens.Properties.Characterisation.Core (was 3 dirty, now 1 — funext only)
 
 Patterns established (5 reusable):
 1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
@@ -202,8 +202,8 @@ Files now PURE (was DIRTY):
 Top remaining DIRTY modules:
   25  E213.Lens.SemanticAtom (Prop-level "atom of meaning")
   14  E213.Lens.Compose.OnLens (Lens funext-by-design)
-  10  E213.Lens.Leaves.DepthJoin (JoinEquiv on Raw + Classical)
-  10  E213.Lens.Morphism.BoolProp
+  10  E213.Lens.Instances.Leaves.DepthJoin (JoinEquiv on Raw + Classical)
+  10  E213.Lens.Properties.Morphism.BoolProp
    6  Lens.Instances.Reach, Lens.Lattice.IndexedJoin, Lib.Math.
        CayleyDickson.CayleyHeavy
 
