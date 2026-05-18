@@ -6,9 +6,13 @@ import E213.Lib.Math.Topology.EulerChi
 /-!
 # Lib.Math.Geometry.Rotation — 213-native rotation/spiral
 
-User directive (2026-05-09): "Raw의 Nat213렌즈의 네이티브로 된
-토폴로지/그래프이론/코호몰로지/선대수로 이런 모양이다 + 회전이
-뭐고 어케 꼬이는거고"
+User directive (2026-05-09) — verbatim Korean (per CLAUDE.md):
+"Raw의 Nat213렌즈의 네이티브로 된 토폴로지/그래프이론/코호몰로지/
+선대수로 이런 모양이다 + 회전이 뭐고 어케 꼬이는거고"
+
+(Translation: "Express this in the form of Raw's Nat213-lens-native
+topology / graph theory / cohomology / linear algebra — what is
+rotation, and how does it twist?")
 
 Connects:
 - (A) K_{3,2}^{(2)} bipartite multigraph (5 vertices, 12 edges)
@@ -243,8 +247,9 @@ theorem p10_bot_right_mod_5 : (4181 : Nat) % 5 = 1 := by decide
     the pentagonal closure of the Möbius P rotation modulo 5.
 
     The "5 perspectives" (G74 conjecture) are the 5 vertices of
-    this pentagon.  The "어질어질 spiral" is the P-iteration that
-    closes after 10 steps with sign included. -/
+    this pentagon.  The "dizzy spiral" (verbatim KO: "어질어질
+    spiral") is the P-iteration that closes after 10 steps with
+    sign included. -/
 theorem p10_mod_5_is_identity :
     (10946 : Nat) % 5 = 1 ∧ (6765 : Nat) % 5 = 0 ∧ (4181 : Nat) % 5 = 1 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide

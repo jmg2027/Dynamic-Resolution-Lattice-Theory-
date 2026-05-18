@@ -195,4 +195,14 @@ theorem chartChain_value_strict_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Na
   rw [h4] at h3
   exact Nat.lt_of_lt_of_le h3 h2
 
+/-- **Chart-chain subtraction form**: `value (chartChain r₀ r' h n) -
+    value r₀ = n * value r'`.  Rearrangement of `chartChain_value`
+    via the propext-free `NatHelper.add_sub_cancel_right`. -/
+theorem chartChain_value_sub (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value (chartChain r₀ r' h n) - Raw.value r₀ = n * Raw.value r' := by
+  rw [chartChain_value r₀ r' h n,
+      Nat.add_comm (Raw.value r₀) (n * Raw.value r')]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right
+    (n * Raw.value r') (Raw.value r₀)
+
 end E213.Lens.Number.Nat213
