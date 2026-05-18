@@ -12,20 +12,17 @@ import E213.Lib.Math.CayleyDickson.Levels.Sedenion
 import E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy
 import E213.Lib.Math.CayleyDickson.Levels.Trigintaduonion
 import E213.Lib.Math.CayleyDickson.Levels.TrigintaduoionionHeavy
-import E213.Lib.Math.CayleyDickson.Integer.Z2Instance
 import E213.Lib.Math.CayleyDickson.Integer.ZI
 import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Integer.ZIDomain
 import E213.Lib.Math.CayleyDickson.Integer.ZIHom
-import E213.Lib.Math.CayleyDickson.Integer.ZIInstance
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaInstance
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2Domain
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtDomain
-import E213.Lib.Math.CayleyDickson.Integer.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.Integer.ConjugationInstances
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
 /-! Spec-as-code entry point for `E213.Lib.Math.CayleyDickson`.
@@ -70,11 +67,10 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
   ## Tactic-derived instances
 
-    * `ZIInstance`,
-      `Z2Instance`,
-      `ZOmegaInstance`,
-      `ZSqrtInstance` — `derive_conjugation_codomain` /
-      `quad_extension D` macro outputs.
+    * `ConjugationInstances` — `derive_conjugation_codomain` /
+      `quad_extension D` macro outputs for ZI / Z2 / ZOmega /
+      ZSqrt {3, 5, 7}.  Consolidated 2026-05-18 from four
+      singleton files.
 
   ## Status
 
