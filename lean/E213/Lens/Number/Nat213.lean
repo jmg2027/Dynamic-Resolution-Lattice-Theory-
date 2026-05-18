@@ -1,5 +1,9 @@
 import E213.Lens.Number.Nat213.AtomicityCorrespondence
 import E213.Lens.Number.Nat213.Bridge
+import E213.Lens.Number.Nat213.Chain
+import E213.Lens.Number.Nat213.ChainCoreBridge
+import E213.Lens.Number.Nat213.ChartGeneral
+import E213.Lens.Number.Nat213.Core
 import E213.Lens.Number.Nat213.Lenses
 import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano

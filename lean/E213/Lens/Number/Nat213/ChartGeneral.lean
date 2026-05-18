@@ -50,43 +50,10 @@ theorem chartChain_default (n : Nat) :
 
 /-! ### Chain non-collapse — needed for chart-invariance
 
-Every Raw has `value ≥ 1` (atoms count 1, slashes add).  Therefore
-`value (Raw.slash x y h) = value x + value y ≥ 1 + value y > value y`,
-so `Raw.slash x y h ≠ y`.  This + `slashOrSelf_of_ne` gives
-`chartChain r₀ r' h n ≠ r'` for every `n`. -/
-
-private theorem value_ge_one (r : Raw) : 1 ≤ Raw.value r := by
-  show 1 ≤ Raw.fold 1 1 (· + ·) r
-  show 1 ≤ Tree.fold 1 1 (· + ·) r.val
-  induction r.val with
-  | a => exact Nat.le_refl 1
-  | b => exact Nat.le_refl 1
-  | slash x y ihx _ =>
-      show 1 ≤ Tree.fold 1 1 (· + ·) x + Tree.fold 1 1 (· + ·) y
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
-
-private theorem value_slash_gt_right (x y : Raw) (h : x ≠ y) :
-    Raw.value y < Raw.value (Raw.slash x y h) := by
-  unfold Raw.value
-  rw [E213.Theory.Raw.fold_slash 1 1 (· + ·)
-        (fun u v => Nat.add_comm u v) x y h]
-  -- goal: Raw.value y < Raw.value x + Raw.value y (value re-folded)
-  show Raw.fold 1 1 (· + ·) y < Raw.fold 1 1 (· + ·) x + Raw.fold 1 1 (· + ·) y
-  have hx : 1 ≤ Raw.fold 1 1 (· + ·) x := value_ge_one x
-  calc Raw.fold 1 1 (· + ·) y
-       < Raw.fold 1 1 (· + ·) y + 1 := Nat.lt_succ_self _
-    _ ≤ Raw.fold 1 1 (· + ·) y + Raw.fold 1 1 (· + ·) x :=
-          Nat.add_le_add_left hx _
-    _ = Raw.fold 1 1 (· + ·) x + Raw.fold 1 1 (· + ·) y := Nat.add_comm _ _
-
-/-- A canonical `Raw.slash x y h` differs from its right child.
-    Follows from `value (slash x y h) > value y`. -/
-theorem Raw.slash_ne_right (x y : Raw) (h : x ≠ y) : Raw.slash x y h ≠ y := by
-  intro heq
-  have h_val : Raw.value y < Raw.value (Raw.slash x y h) :=
-    value_slash_gt_right x y h
-  rw [heq] at h_val
-  exact Nat.lt_irrefl _ h_val
+`Raw.slash_ne_right` (now in `Theory.Raw.Slash`) gives
+`Raw.slash x y h ≠ y` for any `(x, y, h)`.  Combined with
+`slashOrSelf_of_ne`, this yields `chartChain r₀ r' h n ≠ r'` for
+every `n`. -/
 
 /-- The chart-parameterised chain never lands on `r'` — chain
     non-collapse.  Generalises `Raw.numeral_ne_b` to arbitrary
@@ -98,7 +65,7 @@ theorem chartChain_ne (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
   | succ k ih =>
       show slashOrSelf (chartChain r₀ r' h k) r' ≠ r'
       rw [slashOrSelf_of_ne ih]
-      exact Raw.slash_ne_right _ _ ih
+      exact E213.Theory.Raw.slash_ne_right _ _ ih
 
 /-! ### Chart-invariance theorem — `value` is linear along the chain -/
 

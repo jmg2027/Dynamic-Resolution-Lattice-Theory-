@@ -121,4 +121,12 @@ theorem value_numeral (n : Nat) : value (numeral n) = n + 1 := by
       show value (succ (numeral k)) = (k + 1) + 1
       rw [value_succ_of_ne _ (numeral_ne_b k), ih]
 
+/-- `numeral` is injective: distinct Nat indices produce distinct
+    chain Raws.  Proof via `value`: `value (numeral n) = n + 1` and
+    `value` is constant on the LHS-RHS image. -/
+theorem numeral_injective {m n : Nat} (h : numeral m = numeral n) : m = n := by
+  have hv : value (numeral m) = value (numeral n) := congrArg value h
+  rw [value_numeral, value_numeral] at hv
+  exact Nat.succ.inj hv
+
 end E213.Lens.Number.Nat213.Raw

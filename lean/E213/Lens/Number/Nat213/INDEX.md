@@ -1,9 +1,9 @@
 # `Lens/Number/Nat213/` — 213-native positive naturals
 
-Five representations of ℕ₊ + bridge + chart generalisation + lens
+Five representations of ℕ₊ + bridges + chart generalisation + lens
 characterisations + numbering / cut / tower outgrowth.
 
-## Files (11)
+## Files (12)
 
 ### Representations
 
@@ -28,13 +28,18 @@ characterisations + numbering / cut / tower outgrowth.
                              Default `(Raw.a, Raw.b)` chart recovers
                              `Raw.numeral` (Option D).
 
-### Bridge
+### Bridges
 
-  - `Bridge.lean`          — `toRaw : Peano.Nat213 → Raw` chart
-                             embedding; `value_toRaw` projection
-                             bijection; value-level additive /
-                             multiplicative homomorphism
-                             (`value_toRaw_add`, `value_toRaw_mul`).
+  - `Bridge.lean`            — `toRaw : Peano.Nat213 → Raw` chart
+                               embedding; `value_toRaw` projection
+                               bijection; value-level additive /
+                               multiplicative homomorphism
+                               (`value_toRaw_add`, `value_toRaw_mul`).
+  - `ChainCoreBridge.lean`   — `Chain ↔ Core` isomorphism: `Chain.toCore`
+                               (Raw-subtype → Nat-subtype) +
+                               `Nat213.toChain` (inverse, via
+                               `Chain.numeral`).  Both round-trips
+                               proved.
 
 ### Lens-theoretic
 

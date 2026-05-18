@@ -23,6 +23,14 @@ def Tree.leaves : Tree → Nat
   | .b         => 1
   | .slash x y => x.leaves + y.leaves
 
+/-- Every tree has at least one leaf — atoms count themselves; slashes
+    add two non-zero counts.  Strict ∅-axiom. -/
+theorem Tree.leaves_pos : ∀ t : Tree, 1 ≤ t.leaves
+  | .a         => Nat.le_refl 1
+  | .b         => Nat.le_refl 1
+  | .slash x y =>
+      Nat.le_trans (Tree.leaves_pos x) (Nat.le_add_right _ _)
+
 theorem Tree.swap_depth :
     ∀ t : Tree, t.canonical = true → (Tree.swap t).depth = t.depth := by
   intro t h
