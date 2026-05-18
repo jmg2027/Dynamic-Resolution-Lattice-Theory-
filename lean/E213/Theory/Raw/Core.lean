@@ -14,7 +14,7 @@ spec 에 따른 분리.
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal (Tree)
 
 -- ═══ Public type: canonical-form Raw ═══
 

@@ -57,7 +57,7 @@ def methodA : BooleanSystem where
   hTF := by
     intro h
     have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
-    exact Theory.Internal.Tree.noConfusion hval
+    exact Term.Internal.Tree.noConfusion hval
 
 /-! ### Iso between systems -/
 

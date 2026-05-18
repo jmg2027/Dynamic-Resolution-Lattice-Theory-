@@ -1,4 +1,4 @@
-import E213.Theory.Atomicity.Five
+import E213.Theory.Atomicity
 
 /-!
 # Physics track — 5-simplex counts (rational + finite + decidable)

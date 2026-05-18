@@ -1,4 +1,4 @@
-import E213.Theory.Raw
+import E213.Theory.Raw.API
 import E213.Prelude
 
 /-!
@@ -22,7 +22,7 @@ shows `Raw → Bool` is strictly larger than Raw.
 
 namespace E213.Lens.Cardinality
 
-open E213.Theory.Internal (Tree)
+open E213.Term.Internal (Tree)
 
 /-- Right-leaning Tree tower: `treeTower 0 = b`,
     `treeTower (n+1) = a / (treeTower n)`.  Canonical at every

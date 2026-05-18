@@ -1,4 +1,4 @@
-import E213.Theory.Raw
+import E213.Theory.Raw.API
 import E213.Theory.Atomicity
 
 /-! # Theory layer public API
@@ -50,10 +50,9 @@ import E213.Theory.Atomicity
 
   ## Sealed (NOT API — direct import discouraged)
 
-    * `Theory.Internal.*` (Tree machinery — lives under
-      `Term/Internal/Tree*.lean` with the `E213.Theory.Internal`
-      namespace umbrella per ARCHITECTURE.md naming-exceptions
-      catalog)
+    * `Term.Internal.Tree.*` (Tree machinery — lives under
+      `Term/Internal/Tree*.lean` with the `E213.Term.Internal`
+      namespace umbrella, path-aligned 2026-05-15)
 
   Both halves of TH-A + TH-B are required for any Lens consumer.
 -/

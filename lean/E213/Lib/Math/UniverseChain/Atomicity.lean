@@ -1,4 +1,4 @@
-import E213.Theory.Atomicity.Five
+import E213.Theory.Atomicity
 
 /-!
 # Step 1 — Atomicity forces size 5 (∅-axiom)

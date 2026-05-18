@@ -57,7 +57,7 @@ end E213.Lens.Cardinality
 
 namespace E213.Lens.Cardinality
 
-open E213.Theory.Internal (Tree)
+open E213.Term.Internal (Tree)
 
 /-- Depth of the tree tower: equals `n` at every level. -/
 theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
@@ -143,7 +143,7 @@ end E213.Lens.Cardinality
 
 namespace E213.Lens.Cardinality
 
-open E213.Theory.Internal (Tree)
+open E213.Term.Internal (Tree)
 
 /-- Signed-view of the tree tower: `view(treeTower n) = n - 1`
     as an Int.  tower_0 = Tree.b → -1; each slash adds `1`.
@@ -176,7 +176,8 @@ end E213.Lens.Cardinality
 
 namespace E213.Lens.Cardinality
 
-open E213.Theory E213.Lens E213.Theory.Internal
+open E213.Theory E213.Lens
+open E213.Term.Internal (Tree)
 open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via

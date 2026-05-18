@@ -1,6 +1,5 @@
-import E213.Lens.Instances.Cauchy
-import E213.Lens.Instances.Leaves.ModNat
-import E213.Lens.Cardinality.LensCardinality
+import E213.Lens.Instances
+import E213.Lens.Cardinality
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Omega213
 

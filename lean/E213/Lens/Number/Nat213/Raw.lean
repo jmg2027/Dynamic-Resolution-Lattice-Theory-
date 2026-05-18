@@ -3,18 +3,29 @@ import E213.Theory.Raw.API
 /-!
 # Lens.Number.Nat213.Raw — Method A 카타모피즘 (Z=a, C=b)
 
-`Nat213` (= 양의 자연수) 의 canonical Raw-derived 표현.  Lens 의미:
-**`Raw.fold one one add` 의 closed-Raw codomain catamorphism** —
-출력 codomain 을 Raw 로 못박은 endomorphic fold (`Closed.FoldRaw`).
+`Nat213` (= **양의 자연수 ℕ₊**) 의 canonical Raw-derived 표현.
+Lens 의미: **`Raw.fold one one add` 의 closed-Raw codomain
+catamorphism** — 출력 codomain 을 Raw 로 못박은 endomorphic fold
+(`Theory.Raw.Endomorphic`).
 
 자연수 = Raw 의 한쪽-증식 chain.  외부 `Nat` 안 빌리고 Raw 안에서.
 
+**213-native 시작점**: Raw.a 는 213 의 **최소 observation** (1 leaf) =
+양의 자연수 1.  Zero atom 은 213 axiom 에 없음 — 모든 Raw element 는
+leaves ≥ 1.  따라서 Method A chain 이 인코딩하는 건 ℕ \ {0} = ℕ₊.
+(Layer 2 `Lens.Number.Nat213.Peano` 의 inductive 정의도 동일한
+commitment — `no_additive_identity_at_one` 참고.)
+
 Method A:
-  - 0 = Raw.a
-  - succ n = slashOrSelf n Raw.b   (즉 n 에 b 를 추가)
-  - 1 = slash a b
-  - 2 = slash (slash a b) b   (canonical form 처리됨)
+  - 1 = Raw.a
+  - succ n = slashOrSelf n Raw.b   (n 에 b 를 추가)
+  - 2 = slash a b
+  - 3 = slash b (slash a b)   (canonical form: b 가 왼쪽)
   - ...
+
+Lean Nat 으로부터 ℕ₊ 로의 enumeration 편의용: `numeral : Nat → Raw`,
+**off-by-one 입력 convention** — `numeral n` 은 ℕ₊ 의 (n+1)-th 원소
+(value (numeral n) = n+1).  즉 `numeral 0 = one` (= 1), `numeral 1 = two`.
 
 이 모듈은 가장 단순한 Method A 만.  일반 numbering system 은
 `Lens.Number.Nat213.NumberingSystem`.  Inductive Peano 표현은
@@ -23,22 +34,26 @@ Method A:
 
 namespace E213.Lens.Number.Nat213.Raw
 
-open E213.Theory E213.Theory.Internal E213.Theory.Raw.FoldRaw
+open E213.Theory E213.Theory.Raw.Endomorphic
+open E213.Term.Internal (Tree)
 
 /-! ### Method A primitives -/
 
-/-- 0 의 Raw 표현. -/
-def zero : Raw := Raw.a
+/-- ℕ₊ 의 1 — Method A chain 의 시작점.  Raw.a (= 213 의 최소 observation,
+    1 leaf). -/
+def one : Raw := Raw.a
 
 /-- successor — n 에 Raw.b 를 wrap. -/
 def succ (n : Raw) : Raw := slashOrSelf n Raw.b
 
-/-- Lean Nat 으로부터 Method A Raw chain 만들기 — 외부 Nat 사용 (편의용). -/
+/-- Lean Nat 으로부터 Method A Raw chain 만들기 — 외부 Nat 사용 (편의용).
+    **Off-by-one convention**: `numeral n` = ℕ₊ 의 (n+1)-th 원소
+    (`value (numeral n) = n + 1`). -/
 def numeral : Nat → Raw
-  | 0     => zero
+  | 0     => one
   | n + 1 => succ (numeral n)
 
-theorem numeral_zero : numeral 0 = zero := rfl
+theorem numeral_zero : numeral 0 = one := rfl
 theorem numeral_succ (n : Nat) : numeral (n + 1) = succ (numeral n) := rfl
 
 /-! ### Projection back to external Nat (= leaves count) -/
@@ -47,7 +62,7 @@ theorem numeral_succ (n : Nat) : numeral (n + 1) = succ (numeral n) := rfl
     `value (numeral n) = n + 1` (수학적으로 = leaves count). -/
 def value (r : Raw) : Nat := Raw.fold 1 1 (· + ·) r
 
-theorem value_zero : value zero = 1 := rfl
+theorem value_one : value one = 1 := rfl
 theorem value_a : value Raw.a = 1 := rfl
 theorem value_b : value Raw.b = 1 := rfl
 
@@ -67,13 +82,7 @@ theorem value_succ_of_ne (n : Raw) (h : n ≠ Raw.b) :
 /-! ### Arithmetic (closed in Raw)
 
 `Lens/Number/Nat213/Peano.lean` 의 inductive `Nat213.add / mul` 을
-closed-Raw 로 재구현.  output 도 Raw, 외부 type 의존 없음.
-
-213-native naming: `Raw.a` 가 213 의 "1" (smallest positive nat).
-이전에 `zero` 라고 부른 것 = 사실 `one`.  alias 추가. -/
-
-/-- Alias: 213-native "1" — Raw.a 가 213 의 첫 양의 자연수. -/
-abbrev one : Raw := zero  -- = Raw.a
+closed-Raw 로 재구현.  output 도 Raw, 외부 type 의존 없음. -/
 
 /-- Method A chain 위 덧셈 (Tree-level structural recursion).  m의
     Tree 구조를 따라 succ 누적. -/
@@ -214,7 +223,7 @@ example : leavesCountRaw (numeral 3) = numeral 3 := rfl  -- "4" leaves
 theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
   induction n with
   | zero =>
-      -- numeral 0 = zero = Raw.a ≠ Raw.b
+      -- numeral 0 = one = Raw.a ≠ Raw.b
       intro h
       exact Tree.noConfusion (congrArg Subtype.val h)
   | succ k ih =>

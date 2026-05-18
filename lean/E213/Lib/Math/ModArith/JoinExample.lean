@@ -1,4 +1,4 @@
-import E213.Lens.Instances.Leaves.ModNat
+import E213.Lens.Instances
 
 /-!
 # ModJoinExample: concrete example of Join = gcd

@@ -1,5 +1,5 @@
-import E213.Lens.Instances.Leaves.ModNat
-import E213.Lens.Lattice.Meet
+import E213.Lens.Instances
+import E213.Lens.Lattice
 
 /-!
 # ModLensCRT: prodLens(L_2, L_3) ≈ L_6 (CRT in Lens form)

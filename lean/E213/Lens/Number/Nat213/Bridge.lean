@@ -18,7 +18,8 @@ import E213.Meta.Tactic.NatHelper
 
 namespace E213.Lens.Number.Nat213.Bridge
 
-open E213.Theory E213.Theory.Internal
+open E213.Theory
+open E213.Term.Internal (Tree)
 
 /-! ### Layer 2 → Layer 1: inductive Nat213 → Method A Raw chain -/
 
@@ -45,21 +46,21 @@ theorem toRaw_ne_b (k : E213.Lens.Number.Nat213.Peano.Nat213) : toRaw k ≠ Raw.
       -- toRaw .one = Closed.Nat213.one = Raw.a ≠ Raw.b
       intro h
       have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
-      exact Theory.Internal.Tree.noConfusion hval
+      exact Term.Internal.Tree.noConfusion hval
   | succ k ih =>
       -- toRaw (.succ k) = succ (toRaw k) = slashOrSelf (toRaw k) Raw.b
       -- (toRaw k ≠ Raw.b) → slashOrSelf reduces to Raw.slash → .slash form ≠ Raw.b
       show E213.Lens.Number.Nat213.Raw.succ (toRaw k) ≠ Raw.b
-      unfold E213.Lens.Number.Nat213.Raw.succ E213.Theory.Raw.FoldRaw.slashOrSelf
+      unfold E213.Lens.Number.Nat213.Raw.succ E213.Theory.Raw.Endomorphic.slashOrSelf
       rw [dif_neg ih]
       intro h
       have hval : (Raw.slash (toRaw k) Raw.b ih).val = Raw.b.val := congrArg Subtype.val h
       unfold Raw.slash at hval
       split at hval
-      · exact Theory.Internal.Tree.noConfusion hval
-      · exact Theory.Internal.Tree.noConfusion hval
+      · exact Term.Internal.Tree.noConfusion hval
+      · exact Term.Internal.Tree.noConfusion hval
       · rename_i hcmp
-        exact ih (Subtype.ext (Theory.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+        exact ih (Subtype.ext (Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
 
 /-! ### + family homomorphism: toRaw 가 add 를 보존 -/
 

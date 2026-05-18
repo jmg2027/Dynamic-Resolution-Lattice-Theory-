@@ -98,6 +98,9 @@ def main() -> int:
     by_path = {p: file_layer(p) for p in files}
     imports = {p: [import_to_path(i) for i in parse_imports(p)] for p in files}
 
+    # Natural layer for violation/downgrade check: max of import layers,
+    # **excluding Meta** (which is ring-independent per ARCHITECTURE.md §0 —
+    # any ring may use Meta without that raising its required layer).
     natural = {}
     for p, imps in imports.items():
         max_rank = -1
@@ -107,6 +110,8 @@ def main() -> int:
                 continue
             label, rank = by_path[ip]
             if rank is None:
+                continue
+            if label == "Meta":
                 continue
             if rank > max_rank:
                 max_rank = rank
@@ -246,7 +251,8 @@ def report(files, violations, downgrades, horizontal_high) -> int:
     print(f"Horizontal: {sorted(HORIZONTAL)}\n")
 
     print(f"## Violations: path layer < natural layer  ({len(violations)})")
-    print("(file claims to be foundational but imports something higher)\n")
+    print("(file claims to be foundational but imports something higher;")
+    print(" Meta imports excluded — Meta is ring-independent per ARCHITECTURE.md §0)\n")
     for p, pl, pr, nl, nr in violations:
         rel = p.relative_to(LEAN_ROOT)
         print(f"  {rel}: at {pl}({pr}) but imports reach {nl}({nr})")

@@ -38,6 +38,7 @@ data choice = Lens-layer artifact.  Migrated from
 ## Discipline
 
 `Lens` ring imports only `Theory` + `Term` + `Meta` (per
-ARCHITECTURE).  Number modules can use `Theory.Raw` /
-`Theory.Closed.{Bool213, FoldRaw}` freely, but must NOT reach into
-Theory.Internal.
+ARCHITECTURE).  Number modules can use `Theory.Raw.API` (incl.
+`Theory.Raw.Endomorphic` for closed-Raw catamorphism) freely; the
+former `Theory.Closed.Bool213` is now `Lens.Bool213` (sibling
+sub-cluster).

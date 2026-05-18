@@ -1,5 +1,4 @@
-import E213.Lens.Instances.Leaves.ModNat
-import E213.Lens.Instances.Cauchy
+import E213.Lens.Instances
 import E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-!

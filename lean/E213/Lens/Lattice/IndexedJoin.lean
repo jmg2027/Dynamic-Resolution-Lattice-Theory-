@@ -93,7 +93,8 @@ end E213.Lens.Lattice.IndexedJoin
 
 namespace E213.Lens.Lattice.IndexedJoin
 
-open E213.Theory E213.Theory.Internal E213.Lens
+open E213.Theory E213.Lens
+open E213.Term.Internal (Tree)
 
 /-- **Indexed product Lens (meet)**: concrete meet of an arbitrary
     family `{L_i}` — codomain is the dependent function space.

@@ -80,18 +80,14 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
 **Sub-clusters**:
   * `Theory/Raw/`       — public Raw API (Core, Slash, Swap,
                            SwapSlash, Fold, Hom, Levels, Rec, Signed,
-                           Demo) + API.lean (re-export shim)
+                           **Endomorphic**, Demo) + API.lean
+                           (re-export shim).  Endomorphic absorbed
+                           the former `Theory/Closed/` content
+                           2026-05-14 (FoldRaw rename 2026-05-15).
   * `Theory/Atomicity/` — forced-uniqueness proofs (Five,
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
                            PrimitiveSizes, Alive)
-  * `Theory/Closed/`    — catamorphism fixed-point image universes
-                           (FoldRaw, Bool213{,System}, Nat213,
-                           Nat213Bridge, NumberingSystem, RawCut)
-  * `Theory/Nat213/`    — Layer 2 inductive Nat213 (Core, Lenses,
-                           AtomicityCorrespondence)
-  * `Theory/Tower/`     — Grothendieck pair-quotient towers
-                           (NatPairToInt, NatPairToQPos, NatTripleToZ2)
   * `Theory/CDDouble/`  — generic Order-4 mechanism (UniversalOrder4,
                            GenericLiftDemo)
   * `Theory/RawCmpIndependence.lean` — axiom-independence of cmp
@@ -275,8 +271,12 @@ code-review smell.
 
 Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
 직접 import 는 smell.  현재:
-  * `Term/Internal/Tree*`     — Tree (inductive), Tree.cmp lemmas
-                                 (moved from Theory 2026-05-12)
+  * `Term/Internal/Tree*`     — Tree (inductive) + cmp, swap, fold,
+                                 depth, leaves, fold_swap_hom,
+                                 fold_signed_swap (all Tree-level,
+                                 ∅-axiom).  Moved fully from Theory
+                                 2026-05-15.  Namespace
+                                 `E213.Term.Internal` (path-aligned).
   * `Meta/Int213/`, `Meta/Algebra213/` — Int / Ring213 typeclass
                                  helpers (promoted from Theory.Internal
                                  2026-05-12; ring-independent so Meta 거주)
@@ -308,10 +308,14 @@ named, grep-discoverable.
          file's namespace, downstream extension files declare a
          doubled namespace.  R10 in
          `research-notes/CONSOLIDATION_PROTOCOL.md`.
-       - **Internal-shared umbrella** — files under
-         `Term/Internal/Tree*` share `namespace E213.Theory.Internal`
-         (Tree machinery imported by Theory).  Same pattern in
-         `Meta/Tactic/{Nat213,Mod213,…}` sharing `E213.Tactic.*`.
+       - **Cross-ring extension of `Term/Internal/Tree`** — files
+         in higher rings (Lens, Lib, Theory) that add Tree-level
+         decls (e.g., `Lens/Cardinality/Godel.lean`'s `Tree.toNat`)
+         must declare them inside `namespace E213.Term.Internal` so
+         dot notation (`t.toNat`) resolves.  Namespace ≠ ring is OK
+         in Lean — what matters is layer-import direction.  Same
+         technique in `Meta/Tactic/{Nat213,Mod213,…}` sharing
+         `E213.Tactic.*` for tactic discovery.
        - **Descriptive sub-namespace** when the namespace label
          conveys content better than the file name.
 

@@ -8,7 +8,7 @@ import E213.Theory.Raw.Levels
 import E213.Theory.Raw.Signed
 import E213.Theory.Raw.Hom
 import E213.Theory.Raw.Rec
-import E213.Theory.Raw.FoldRaw
+import E213.Theory.Raw.Endomorphic
 
 /-!
 # Theory.Raw.API — public surface (re-export shim)
@@ -31,6 +31,9 @@ get the full public surface in one line.
 - `Raw.fold_signed_swap` — signed Lens = negation
 - `Raw.fold_swap_hom` — general hom-swap
 - `Raw.rec` — custom eliminator with `@[elab_as_elim]`
+- `Theory.Raw.Endomorphic.{slashOrSelf, foldRaw, swapClosed}` —
+  endomorphic catamorphism + total slash combinator (used by
+  Lens.Number.Nat213 numbering-system isomorphism)
 
 **Excluded from API** (intentional):
 - `Theory.Raw.Mobius` — Möbius matrix bridge, currently a ring

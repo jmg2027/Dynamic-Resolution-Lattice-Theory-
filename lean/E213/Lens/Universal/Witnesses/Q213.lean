@@ -1,5 +1,5 @@
 import E213.Lens.Universal.Witnesses.Core
-import E213.Term.Rat
+import E213.Term.API
 
 /-!
 # Universal Lens at ℚ × ℚ — using 213-native rational

@@ -8,13 +8,13 @@ The underlying inductive `Tree` and ordering machinery
 구현체 (Tree 등)".  Theory imports this via its public path
 `Term.Internal.Tree` to define `Raw := {t : Tree // ...}`.
 
-**Namespace**: `E213.Theory.Internal` retained as Internal-shared
-umbrella (ARCHITECTURE.md naming exceptions catalog) — avoids
-mass rename of 56 downstream references.  Path-namespace mismatch
-is deliberate, same pattern as `E213.Tactic.*` in `Meta/Tactic/`.
+**Namespace**: `E213.Term.Internal` — path-aligned (2026-05-15).
+Previous umbrella `E213.Theory.Internal` (kept while Tree.swap /
+Tree.fold etc. were still housed under `Theory/Raw/`) was renamed
+in lockstep with the move into `Term/Internal/Tree/`.
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 inductive Tree : Type
   | a     : Tree
@@ -44,4 +44,4 @@ protected def Tree.canonical : Tree → Bool
       x.canonical && y.canonical &&
       (match Tree.cmp x y with | .lt => true | _ => false)
 
-end E213.Theory.Internal
+end E213.Term.Internal

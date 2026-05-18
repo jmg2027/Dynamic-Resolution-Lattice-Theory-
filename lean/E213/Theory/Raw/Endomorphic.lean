@@ -1,36 +1,57 @@
-import E213.Theory.Raw.API
+import E213.Theory.Raw.Rec
+import E213.Theory.Raw.SwapSlash
+import E213.Theory.Raw.Fold
 
 /-!
-# Theory.Raw.FoldRaw — endomorphic fold (closed universe)
+# Theory.Raw.Endomorphic — endomorphic catamorphism on Raw
 
-Vision: 213 = closed universe. Raw가 곧 universe.  외부 type α (Bool,
-Nat, Prop, ...) 에 의존하지 않고 모든 연산이 `Raw → Raw` 안에서 닫힘.
+Endomorphic ( = Raw → Raw, codomain pinned to Raw) catamorphism +
+companion total combinator `slashOrSelf`.  Genuine downstream
+consumers in `Lens/Number/Nat213/{Raw, Bridge, NumberingSystem}`
+use these for numbering-system isomorphism (Method A ↔ generic
+NumberingSystem) and for the `succ` definition of `Nat213.Raw`.
 
-`foldRaw : Raw → Raw → (Raw → Raw → Raw) → Raw → Raw` —
-endomorphic 카타모피즘. codomain 자체가 Raw.
+  * `slashOrSelf x y` — total variant of `Raw.slash` (returns `x`
+    when `x = y`, otherwise the canonical `Raw.slash x y _`).  Used
+    as the default combine for closed-universe catamorphisms where
+    a *total* `Raw → Raw → Raw` is required.
+  * `foldRaw` — `Raw.fold` instantiated at `α := Raw`.  Naming is
+    load-bearing: `Lens.Number.Nat213.NumberingSystem` proves that
+    numbering-system conversion is *exactly* `foldRaw S.Z S.C
+    slashOrSelf` (an *endomorphic* isomorphism, not a generic
+    catamorphism).
+  * `swapClosed` — demo: `Raw.swap = foldRaw Raw.b Raw.a slashOrSelf`
+    with `swapClosed_eq_swap` bridge.  Confirms the closed-universe
+    pattern subsumes the swap automorphism.
 
-이 파일은 closed-universe vision의 시범 — `foldRaw` 정의 + `swap`을
-foldRaw 한 줄 인스턴스로 표현 + `swap (swap r) = r` PURE 증명.
+## History
 
-## Why closed?
+Originally `Theory/Raw/FoldRaw.lean` (2026-05-13) — Closed/
+directory companion.  2026-05-14: `Closed/` removed, FoldRaw
+absorbed into `Theory/Raw/` as a sub-cluster (its catamorphism
+output Nat213/Bool213/RawCut/NumberingSystem all moved to
+Lens.Number).  2026-05-15: renamed `FoldRaw` → `Endomorphic` to
+reflect actual role (endomorphic fold + numbering-system
+isomorphism machinery, no longer a closed-universe "vision demo").
 
-기존 `Raw.fold {α : Type}` 는 generic α 가능 — α := Bool/Nat/Prop/Lens 등
-외부 type을 끌어옴. Lens equality / Prop equality 등에서 propext / funext /
-Quot.sound 가 들어옴 (외부 type 의 동등성이 외부 axiom 의존).
+## Why endomorphic matters
 
-`foldRaw` (= `Raw.fold (α := Raw)`) 는 codomain을 Raw 로 못박음 →
-"view r1 = view r2" 가 항상 Raw eq → Tree.cmp decidable → ∅-axiom.
+Generic `Raw.fold {α : Type}` accepts any `α`.  At α = Lens-
+quotient / Prop / Bool the equality of folds depends on external
+axioms (propext, Quot.sound).  Pinning codomain to Raw
+(`foldRaw`) keeps the entire reasoning ∅-axiom: Raw equality is
+decidable via `Tree.cmp`.
 
 ## Pattern
 
-  - 기존: `Lens α := { base_a base_b : α, combine : α → α → α }`
-  - 닫힌 우주: `(fa fb : Raw) (fc : Raw → Raw → Raw)` triple.
+  - generic: `Lens α := { base_a base_b : α, combine : α → α → α }`
+  - endomorphic: `(fa fb : Raw) (fc : Raw → Raw → Raw)` triple.
 
-`fc`를 total function 으로 받기 위해 `slashOrSelf` 도우미 (Raw.slash가
-`x ≠ y` 증명 요구하므로) 사용.
+`fc` must be total — hence `slashOrSelf` as default (handles `x =
+y` collapse that `Raw.slash` rejects via `x ≠ y` argument).
 -/
 
-namespace E213.Theory.Raw.FoldRaw
+namespace E213.Theory.Raw.Endomorphic
 
 open E213.Theory
 
@@ -114,4 +135,4 @@ theorem swapClosed_swapClosed (r : Raw) :
     swapClosed (swapClosed r) = r := by
   rw [swapClosed_eq_swap, swapClosed_eq_swap, Raw.swap_swap]
 
-end E213.Theory.Raw.FoldRaw
+end E213.Theory.Raw.Endomorphic

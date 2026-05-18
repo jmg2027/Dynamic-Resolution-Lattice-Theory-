@@ -1,36 +1,22 @@
+import E213.Term.Tree
 import E213.Theory.Raw.Slash
 
 /-!
-# Theory.Raw.Fold: catamorphism + compatibility with `slash`
+# Theory.Raw.Fold: Raw-level catamorphism + slash compatibility
 
-The catamorphism `Raw.fold` is the unique homomorphism into
-`(α, combine)` with given base values.  Lens implementations
-are thin wrappers around this.  `Raw.fold_slash` ties the
-homomorphism to the axiom's symmetric "between" when the
-combine is symmetric.
+Tree-level `fold` (def + recursion) lives in
+`Term/Internal/Tree/Fold.lean`.  This file lifts it to `Raw` and
+proves `fold_slash` — the homomorphism interaction with the
+canonical smart constructor under symmetric `combine`.
 
-**WARNING — axiom compliance (AXIOM.md §3)**: `Raw.fold` does not
-require symmetry of `combine` at the type level.  However, using an
-asymmetric `combine` makes the result depend on the Tree's canonical
-ordering (= an encoding artifact, not an axiom).  Such a Lens is a
-**silent leak** violating the axiom.  Every use of `Raw.fold` must
-verify that `combine` is symmetric (∀ u v, combine u v = combine v u).
-The `fold_slash` theorem already documents this symmetry assumption.
+**WARNING — axiom compliance (AXIOM.md §3)**: see Tree.fold note;
+asymmetric `combine` makes the Lens silently leak the canonical
+choice.  Every use of `Raw.fold` must verify symmetry.
 -/
-
-namespace E213.Theory.Internal
-
-def Tree.fold {α : Type}
-    (fa fb : α) (fc : α → α → α) : Tree → α
-  | .a         => fa
-  | .b         => fb
-  | .slash x y => fc (Tree.fold fa fb fc x) (Tree.fold fa fb fc y)
-
-end E213.Theory.Internal
 
 namespace E213.Theory
 
-open E213.Theory.Internal
+open E213.Term.Internal (Tree)
 
 /-- Catamorphism on Raw. -/
 protected def Raw.fold {α : Type}

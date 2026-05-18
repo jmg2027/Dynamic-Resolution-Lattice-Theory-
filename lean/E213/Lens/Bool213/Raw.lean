@@ -22,7 +22,8 @@ internal projection.
 
 namespace E213.Lens.Bool213.Raw
 
-open E213.Theory E213.Theory.Raw.FoldRaw E213.Theory.Internal
+open E213.Theory E213.Theory.Raw.Endomorphic
+open E213.Term.Internal (Tree)
 
 /-! ### Method A: T = a, F = b (canonical) -/
 
@@ -38,7 +39,7 @@ theorem T_ne_F : T ≠ F := by
   intro h
   -- Raw 는 Subtype { t : Tree // canonical }; 두 인스턴스의 .val 이 다름
   have hval : (Raw.a.val) = (Raw.b.val) := congrArg Subtype.val h
-  exact E213.Theory.Internal.Tree.noConfusion hval
+  exact E213.Term.Internal.Tree.noConfusion hval
 
 /-! ### Bool213 operations (Raw → Raw 또는 Raw² → Raw 닫힘) -/
 

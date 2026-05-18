@@ -1,6 +1,6 @@
 import E213.Lib.Math.UniverseChain.Decomposition
 import E213.Lib.Physics.Simplex.Counts
-import E213.Theory.Atomicity.PairForcing
+import E213.Theory.Atomicity
 
 /-!
 # Step 3 — Two axes of sizes 3 and 2 (∅-axiom)

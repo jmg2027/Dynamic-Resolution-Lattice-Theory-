@@ -54,14 +54,14 @@ theorem rawACharLens_view_eq :
         intro heq
         have hv : (Raw.slash x y h).val = Raw.a.val :=
           congrArg Subtype.val heq
-        have hra : Raw.a.val = (.a : E213.Theory.Internal.Tree) := rfl
+        have hra : Raw.a.val = (.a : E213.Term.Internal.Tree) := rfl
         rw [hra] at hv
         unfold Raw.slash at hv
         split at hv <;> rename_i hcmp
-        · exact E213.Theory.Internal.Tree.noConfusion hv
-        · exact E213.Theory.Internal.Tree.noConfusion hv
+        · exact E213.Term.Internal.Tree.noConfusion hv
+        · exact E213.Term.Internal.Tree.noConfusion hv
         · exact h (Subtype.ext
-            (E213.Theory.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+            (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
       rw [decide_eq_false hne]
 
 end E213.Lens.Instances.RawAChar

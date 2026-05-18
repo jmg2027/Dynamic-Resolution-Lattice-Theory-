@@ -1,6 +1,6 @@
 import E213.Lib.Math.Mobius213
 import E213.Lib.Physics.Simplex.Counts
-import E213.Lens.Number.Nat213.AtomicityCorrespondence
+import E213.Lens.Number
 
 /-!
 # Theory.Nat213.OneAsGlue — 1 as the rotation axis between NS and NT

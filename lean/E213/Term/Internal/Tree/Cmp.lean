@@ -9,13 +9,12 @@ Tree.cmp lex / swap / eq lemmas + supporting Bool / Nat helpers
 Used by `Theory.Raw.{Slash, Swap, Rec, Levels}` via the public
 `Term.Tree` re-export.  All theorems ∅-axiom.
 
-Namespace `E213.Theory.Internal` retained (Internal-shared
-umbrella, ARCHITECTURE.md naming exceptions) — avoids mass
-rename of downstream references.  Path-namespace mismatch is
-deliberate (same pattern as `E213.Tactic.*` in `Meta/Tactic/`).
+Namespace `E213.Term.Internal` — path-aligned (2026-05-15;
+previously the umbrella was `E213.Theory.Internal`, renamed when
+Tree machinery moved fully into `Term/Internal/Tree/`).
 -/
 
-namespace E213.Theory.Internal
+namespace E213.Term.Internal
 
 protected theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
   induction x generalizing y with
@@ -168,4 +167,4 @@ protected theorem Nat213.max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
     · rw [if_pos h]; exact Nat.le_antisymm hba h
     · rw [if_neg h]
 
-end E213.Theory.Internal
+end E213.Term.Internal
