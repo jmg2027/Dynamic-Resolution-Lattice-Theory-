@@ -54,7 +54,9 @@ requires it.  `whitelist.toml` is the gate.
 
 ## `app/` — concrete 213 calculations
 
-Mirrors `lean/E213/App/Simplex.lean` and `lean/E213/Physics/`.
+Mirrors `lean/E213/Lib/Math/Combinatorics/Simplex5.lean` and
+`lean/E213/Lib/Physics/` (post-2026-05-13: `App/Simplex.lean`
+moved to `Lib/Math/Combinatorics/Simplex5.lean`).
 
 - `simplex.rs` — `Fin 5`, (3, 2) partition, `BlockPair` classifier.
 - `basel.rs` — `S(N)`, `upper(N)` from `Physics.Basel`.
