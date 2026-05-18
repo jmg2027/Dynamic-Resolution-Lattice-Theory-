@@ -238,4 +238,72 @@ theorem boolValue_booleanProj (r : Raw) :
       rw [boolValue_and_of_isBool _ _ (fold_T_F_and_isBool x) (fold_T_F_and_isBool y),
           ihx, ihy]
 
+/-! ### `or` operator + De Morgan (added 2026-05-18, iteration #8)
+
+Parallel to `and`: `or x y = T` iff at least one of `x, y` is `T`.
+Closure under `{T, F}` (the canonical form image) gives a Boolean
+algebra structure on the Bool213 canonical-form image.  -/
+
+/-- `or` operator on Raw — companion to `and`.  Returns `T` if at
+    least one of `x, y` is `T`, else `F`. -/
+def or (x y : Raw) : Raw :=
+  if decide (x = T) ∨ decide (y = T) then T else F
+
+theorem or_TT : or T T = T := by unfold or; decide
+theorem or_TF : or T F = T := by unfold or; decide
+theorem or_FT : or F T = T := by unfold or; decide
+theorem or_FF : or F F = F := by unfold or; decide
+
+/-- `or` is commutative on every Raw input. -/
+theorem or_comm (x y : Raw) : or x y = or y x := by
+  unfold or
+  by_cases hxT : x = T
+  · subst hxT
+    by_cases hyT : y = T
+    · subst hyT; rfl
+    · rw [if_pos, if_pos]
+      · right; exact decide_eq_true rfl
+      · left;  exact decide_eq_true rfl
+  · by_cases hyT : y = T
+    · subst hyT
+      rw [if_pos, if_pos]
+      · left;  exact decide_eq_true rfl
+      · right; exact decide_eq_true rfl
+    · rw [if_neg, if_neg]
+      · rintro (h1 | h2)
+        · exact hyT (of_decide_eq_true h1)
+        · exact hxT (of_decide_eq_true h2)
+      · rintro (h1 | h2)
+        · exact hxT (of_decide_eq_true h1)
+        · exact hyT (of_decide_eq_true h2)
+
+/-- `or` output is always `T` or `F`. -/
+theorem or_isBool (x y : Raw) : or x y = T ∨ or x y = F := by
+  unfold or
+  split
+  · left;  rfl
+  · right; rfl
+
+/-- **De Morgan (and side)**: `not (and x y) = or (not x) (not y)` for
+    Bool213 inputs.  Direct 4-case enumeration. -/
+theorem demorgan_and (x y : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) :
+    not (and x y) = or (not x) (not y) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF
+  · subst hxT; subst hyT; decide
+  · subst hxT; subst hyF; decide
+  · subst hxF; subst hyT; decide
+  · subst hxF; subst hyF; decide
+
+/-- **De Morgan (or side)**: `not (or x y) = and (not x) (not y)` for
+    Bool213 inputs. -/
+theorem demorgan_or (x y : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) :
+    not (or x y) = and (not x) (not y) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF
+  · subst hxT; subst hyT; decide
+  · subst hxT; subst hyF; decide
+  · subst hxF; subst hyT; decide
+  · subst hxF; subst hyF; decide
+
 end E213.Lens.Bool213.Raw
