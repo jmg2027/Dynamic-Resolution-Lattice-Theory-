@@ -251,6 +251,26 @@ theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
   rw [mul_comm c a, mul_comm c b]
   exact h
 
+/-- ★ `add` left-commute: `a + (b + c) = b + (a + c)`.  Normalisation
+    helper. -/
+theorem add_left_comm (a b c : Nat213) : add a (add b c) = add b (add a c) := by
+  rw [← add_assoc, add_comm a b, add_assoc]
+
+/-- ★ `mul` left-commute: `a * (b * c) = b * (a * c)`. -/
+theorem mul_left_comm (a b c : Nat213) : mul a (mul b c) = mul b (mul a c) := by
+  rw [← mul_assoc, mul_comm a b, mul_assoc]
+
+/-- ★ `n * 2 = n + n`.  The two definitions of doubling agree.
+    (Here `2 = succ one`, since `Nat213` has no zero.) -/
+theorem mul_two (n : Nat213) : mul n (succ one) = add n n := by
+  rw [mul_succ_right, mul_one]
+
+/-- ★ `succ n ≠ one`: every successor is distinct from the base. -/
+theorem succ_ne_one (n : Nat213) : succ n ≠ one := fun h => Nat213.noConfusion h
+
+/-- ★ `(succ n).toNat = n.toNat + 1` — by definition. -/
+theorem succ_toNat (n : Nat213) : (succ n).toNat = n.toNat + 1 := rfl
+
 /-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
     `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
     In Nat213, no such `z` exists — proves ℕ-with-0's identity
