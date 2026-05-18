@@ -75,13 +75,22 @@ themselves Raw, with expressions becoming sequence-Raws of
 glyph-Raws.  "Meaningless punctuation" then becomes external
 convention rather than essence.
 
-**Status: conjecture.**  The §8.1 *no exterior* principle is
-suggestive of this extension and the resolution limit is expected
-to halt the meta-meta-… language cascade in a finite chart — but
-the halting is asserted, not constructed.  Treat §9.4 as a horizon,
-not a theorem.  A minimal prototype (L2 in the companion note §6
-question 6 — a glyph → Raw mapping) is feasible and would be the
-first formal evidence either way.
+**L2 prototype**: `lean/E213/Lens/SyntacticInternalization.lean`.
+7-glyph alphabet (`a`, `b`, `/`, `(`, `)`, `,`, whitespace) with
+each glyph mapped to a distinct Raw via the Method A chain
+(`Glyph.toRaw : Glyph → Raw`).  Injectivity proved by kernel
+evaluation (`Glyph.toRaw_injective`).  4 strict ∅-axiom symbols.
+
+The cascade halts at L2: writing the encoding requires only the
+same 7 glyphs, themselves Raw-encoded.  No L3 meta-meta-glyph
+alphabet is needed.
+
+**Out of scope (L3+ work).**  A full parser/printer round-trip
+(Raw ↔ glyph-sequence) and a Raw-internal `IsExpressionEncoding`
+predicate are deferred.  The L2 prototype establishes the
+*glyph-symbol-as-Raw* level; richer L3 work — where the
+arrangement of glyphs is itself Raw-encoded constructively — is
+future development.
 
 ## Reading order
 

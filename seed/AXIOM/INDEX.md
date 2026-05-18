@@ -56,7 +56,7 @@ iterator `P(x) = (2x+1)/(x+1)` interpretation.  **Canonical
 treatment**: `02_statement.md §3.4`.  Other chapters reference §3.4
 rather than duplicating.
 
-Companion: `lean/E213/Theory/Raw/Mobius.lean` (7 ∅-axiom theorems —
+Companion: `lean/E213/Lib/Math/Mobius213.lean` (7 ∅-axiom theorems —
 discriminant, trace, det, Pell-Fib recurrences) and
 `research-notes/G57_213_mobius_signature.md` (multi-layer reading).
 

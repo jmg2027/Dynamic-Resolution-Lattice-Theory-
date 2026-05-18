@@ -31,7 +31,7 @@ Bool213 도 Nat213 처럼 무한히 많은 구현 가능.  임의의 두 distinc
 
 namespace E213.Lens.Bool213.System
 
-open E213.Theory E213.Theory.Closed
+open E213.Theory
 
 /-- 213-native Boolean system: (T, F) 가 distinct Raw 쌍. -/
 structure BooleanSystem where
