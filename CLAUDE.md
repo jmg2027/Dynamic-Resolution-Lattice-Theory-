@@ -57,7 +57,10 @@ not.
 and PDFs: sole author Mingu Jeong; Claude in Acknowledgments only.
 `\author{...Claude...}` is forbidden.
 
-Default response language: English.  Match the user's language.
+**Language**: chat replies match user's language (KO/EN/mixed).
+**Repo artifacts (Lean source, all `.md`, commit / PR text) —
+English only.**  Verbatim Korean quotes OK with translation
+alongside.  Reason: grep + readers + prompt-token economy.
 
 ## Hard rules (no exceptions)
 
