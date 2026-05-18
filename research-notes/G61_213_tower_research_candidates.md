@@ -119,7 +119,7 @@ User selected (2026-05-09): "ℕ→ℤ→ℤ[i] direction first.  Is ℕ→ℤ a
 
 ## See also
 
-- `lean/E213/Theory/Raw/Mobius.lean` — P matrix
+- `lean/E213/Lib/Math/Mobius213.lean` — P matrix
 - `lean/E213/Theory/Raw/Signed.lean` — swap-as-neg (ℕ→ℤ structurally)
 - `lean/E213/Theory/Internal/Int213.lean` — ℤ in 213-native form
 - `research-notes/G29_residue.md` — pointing-residue, P fixed-point

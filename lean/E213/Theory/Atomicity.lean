@@ -20,8 +20,9 @@ the **forced shape uniqueness** API in one line.
     conditions must instantiate as d=5
   - `PairForcing.pair_iff_two` — pair size forced to 2
   - `NonDecomposable.closure_iff_three` — closure size forced to 3
-  - `ArityForcing.arity_iff_two`,
-    `ArityForcingGeneral.arity_iff_two` — k=2 arity forced
+  - `ArityForcing.arity_iff_two` — k=2 arity forced (Theory ring)
+  - `Lib.Math.ArityForcingGeneral.arity_iff_two` — generalised
+    `N < k` pigeonhole arity-forcing (Lib ring, uses Pigeonhole)
   - `PrimitiveSizes.{pairSize, closureSize}` — explicit sizes
   - `Alive.alive_iff_*` — alive-cell positions (1, 1) forced
   - `FiveHelpers.{add_two_ne_self, bezout_left, bezout_right}` —

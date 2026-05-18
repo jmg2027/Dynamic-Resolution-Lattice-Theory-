@@ -3,8 +3,9 @@ import E213.Lib.Physics.Substrate.Origin
 /-!
 # Phase 2 Shape — what does the universe look like? (educational view)
 
-**Layer: App** (Atomicity-derived arithmetic facts, vertex/partition meanings are
-Lens-output convention).  Same pattern as math track `App/Simplex.lean`.
+**Layer: Lib.Physics** (Atomicity-derived arithmetic facts, vertex/partition
+meanings are Lens-output convention).  Same pattern as math track
+`Lib/Math/Combinatorics/Simplex5.lean`.
 
 Origin.lean: *the universe is d=5*.
 This file: *then what does d=5 look like?*

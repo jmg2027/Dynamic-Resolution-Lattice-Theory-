@@ -307,7 +307,7 @@ abbrev DynamicalAggregate (S : Type) (Out : Type) :=
 
     Catamorphism view + forcing on view-results + extractor +
     injector + the forcing equation.  Anchor specimen:
-    `getBase_eq` (`Theory/Atomicity/ArityForcingGeneral.lean`):
+    `getBase_eq` (`Lib/Math/ArityForcingGeneral.lean`):
 
     ```
     ∀ (x : RawNk N k) (h : isBase x = true), x = .object (getBase x h)

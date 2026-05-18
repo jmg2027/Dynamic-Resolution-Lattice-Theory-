@@ -57,7 +57,7 @@ theorem basis_add_d5 :
     ∧ Vec.add e0_5 e1_5 ⟨2, by decide⟩ = 0 := by
   decide
 
-/-- 213's atomic dimension is d = 5 (`OS.Atomicity` theorem). -/
+/-- 213's atomic dimension is d = 5 (`Theory.Atomicity` theorem). -/
 theorem atomic_d_eq_5 : E213.Lib.Physics.Simplex.Counts.d = 5 := by decide
 
 /-- The chiral split of d = 5 into (NS, NT) = (3, 2). -/

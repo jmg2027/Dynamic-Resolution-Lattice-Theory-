@@ -61,8 +61,11 @@ classes (HV1 + HV2 + HV3):
 
 `Lens.view`, `Lens.view_unique`, and the universalLens construction
 are PURE (∅-axiom).  Some lattice and characterisation theorems
-inherit ≤ {propext, Quot.sound} from their underlying decidability
-machinery.
+historically inherited the legacy `≤ {propext, Quot.sound}` tier
+from underlying decidability machinery; the strict-∅ refactor has
+since brought the tree to ∅-axiom on the production critical path
+(per `STRICT_ZERO_AXIOM.md` audit).  Module-by-module status is
+recorded inline in each sub-cluster umbrella.
 
 ## Tier 1/2 split rationale
 

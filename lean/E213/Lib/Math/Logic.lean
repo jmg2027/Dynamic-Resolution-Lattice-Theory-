@@ -1,6 +1,7 @@
 import E213.Lib.Math.Logic.Predicate
 import E213.Lib.Math.Logic.Intuitionistic
 import E213.Lib.Math.Logic.Proof
+import E213.Lib.Math.Logic.CutElimination
 import E213.Lib.Math.Logic.Capstone
 
 /-!

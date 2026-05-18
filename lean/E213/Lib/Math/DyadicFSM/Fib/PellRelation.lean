@@ -1,4 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Legendre.Legendre
+import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Fib.PisanoCapstone
 import E213.Meta.Nat.AddMod213

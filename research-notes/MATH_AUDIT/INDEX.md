@@ -155,7 +155,7 @@ end E213.Foo
    Levels / Lipschitz / Hurwitz / Misc).
 8. **Real213 / SignedCut sub-organization**.
 9. **Extras/ 해체** — 16 files origin cluster 로 분산.
-10. **Theory.Raw.Mobius → Lib.Math.Mobius213 이동** (THEORY_AUDIT
+10. **Lib.Math.Mobius213 → Lib.Math.Mobius213 이동** (THEORY_AUDIT
     §4) — 3 reach-in 파일 정리 (chunk C/I 의 OneAsGlue,
     RotationGeometry, AlgebraTowerCapstone).
 

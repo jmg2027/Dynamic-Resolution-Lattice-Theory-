@@ -1,27 +1,45 @@
 # `Lens/Number/Nat213/` — 213-native positive naturals
 
-Two equivalent representations of ℕ₊ + their bridge + lens
+Five representations of ℕ₊ + bridges + chart generalisation + lens
 characterisations + numbering / cut / tower outgrowth.
 
-## Files (8)
+## Files (12)
 
 ### Representations
 
-  - `Raw.lean`             — Method A Raw chain (canonical).
+  - `Raw.lean`             — Method A Raw chart (canonical).
                              `one := Raw.a`, `succ n := slashOrSelf n
-                             Raw.b`.  No new type — just operations on
-                             `Raw`.  Closed-codomain `Raw.fold` arity
-                             output.
-  - `Peano.lean`           — Inductive `Nat213 | one | succ`.
-                             Ergonomic Peano representation.
+                             Raw.b`, `numeral : Nat → Raw`,
+                             `value : Raw → Nat`.  **Chart structure
+                             only — no Raw-side arithmetic** (per
+                             Option C of the lens-emergence
+                             roadmap).  Arithmetic lives on `Nat`.
+  - `Peano.lean`           — Inductive `Nat213 | one | succ` with its
+                             own arithmetic.  Ergonomic parallel
+                             representation; not lens-derived.
+  - `Core.lean`            — Lens-derived `{ n : Nat // 1 ≤ n }`
+                             Nat-subtype carrier.
+  - `Chain.lean`           — Raw-subtype `{ r : Raw // IsMethodAChain r }`
+                             carrier.  Operations route through `Nat`
+                             (Option C realisation); `toNat` is a
+                             `+` / `*` homomorphism.
+  - `ChartGeneral.lean`    — Parameterised chart `chartChain (r₀ r' :
+                             Raw) (h : r₀ ≠ r') : Nat → Raw`.
+                             Default `(Raw.a, Raw.b)` chart recovers
+                             `Raw.numeral` (Option D).
 
-### Bridge
+### Bridges
 
-  - `Bridge.lean`          — `toRaw : Peano.Nat213 → Raw` isomorphism;
-                             add/mul homomorphism; `value` /
-                             `leavesCountRaw` commute with `toNat`;
-                             fixed-point characterisation of
-                             `leavesCountRaw`.
+  - `Bridge.lean`            — `toRaw : Peano.Nat213 → Raw` chart
+                               embedding; `value_toRaw` projection
+                               bijection; value-level additive /
+                               multiplicative homomorphism
+                               (`value_toRaw_add`, `value_toRaw_mul`).
+  - `ChainCoreBridge.lean`   — `Chain ↔ Core` isomorphism: `Chain.toCore`
+                               (Raw-subtype → Nat-subtype) +
+                               `Nat213.toChain` (inverse, via
+                               `Chain.numeral`).  Both round-trips
+                               proved.
 
 ### Lens-theoretic
 
@@ -38,28 +56,17 @@ characterisations + numbering / cut / tower outgrowth.
   - `NumberingSystem.lean` — meta pattern `(Z, C)`; Method A as
                              canonical numbering; iso via foldRaw.
   - `RawCut.lean`          — Lean-free cut prototype
-                             `Raw → Raw → Raw`; vertical projection
-                             parallel to `leavesCountRaw` /
-                             `booleanProj`.
+                             `Raw → Raw → Raw`; vertical projection.
 
-### Tower (ℕ-pair / ℕ-triple → 다른 number system via quotient)
+### Tower (ℕ-pair / ℕ-triple → other number systems via quotient)
 
   - `Tower/NatPairToInt.lean`
-                           — ℤ via additive diagonal quotient
-                             (Lean `Nat` 위; G62).  `a + d = b + c`.
+                           — ℤ via additive diagonal quotient.
   - `Tower/NatPairToQPos.lean`
                            — ℚ₊ via multiplicative quotient on
-                             `(Peano.Nat213 × Peano.Nat213)` — G73
-                             additive↔multiplicative quotient parallel.
+                             `(Peano.Nat213 × Peano.Nat213)`.
   - `Tower/NatTripleToZ2.lean`
-                           — ℤ² via 3-axis projection (Lean Nat 위;
-                             Eisenstein basis).  `(a, b, c) ↦ (a - c,
-                             b - c)`.  Exploratory.
-
-세 Tower 모두 동일 syntactic container (Nat-pair 또는 Nat-triple)
-에서 출발해 다른 quotient relation 으로 분기.  NatPairToQPos 는
-Peano Nat213 사용; NatPairToInt / NatTripleToZ2 는 Lean Nat 사용
-(추후 Peano-rebase 후보).
+                           — ℤ² via 3-axis projection.
 
 ## Top-level
 
@@ -78,3 +85,13 @@ Migrated 2026-05-14 from `Theory.{Closed.Nat213, Nat213,
 Tower.NatPairToQPos, Closed.{Nat213Bridge, NumberingSystem, RawCut}}`
 under the principle "Raw + catamorphism choice = Lens-layer
 artifact".
+
+**Option C refactor (2026-05-18)**: Raw-side arithmetic (`add, mul,
+addAux, mulAux, one_add, one_mul, add_succ_left, mul_succ_left,
+leavesCountRaw, ...`) deleted from `Raw.lean`.  Arithmetic now lives
+on `Nat` and routes through the chart via `Raw.numeral` /
+`Raw.value`.  `Chain.lean` rewritten to use Nat-routed operations.
+`Bridge.lean` slimmed to chart bijection + value-level homomorphism.
+`Lib/Math/Real213/Cauchy/ChainToCut.lean` migrated to use Peano
+arithmetic via the new `value_toRaw_{add,mul}`.  Cf.
+`research-notes/2026-05-18_lens_emergence_path.md` §5 Option C.

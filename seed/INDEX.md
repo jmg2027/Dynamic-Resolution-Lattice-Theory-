@@ -128,7 +128,7 @@ seed/
 ├── RESOLUTION_LIMIT_SPEC.md   ← N_U structural-invariant authority
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
 ├── NOTATION.md                ← symbol conventions
-└── AXIOM/                     ← the axiom corpus, 10 chapters
+└── AXIOM/                     ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
     ├── 00_nature.md           ← residue, distinction, 3-dir uniqueness
     ├── 01_notation_recursion.md
@@ -139,6 +139,8 @@ seed/
     ├── 06_formalization.md    ← Lean correspondence
     ├── 07_self_reference.md   ← §8.4 dichotomy guide (Claude refresh)
     ├── 08_encoding_costs.md   ← Lean codomain costs (inductive / cmp / subtype / ≠)
+    ├── 09_chart_relativity.md ← chart-local labels, flat ontology,
+    │                            §9.4 syntactic internalisation
     └── 99_history.md          ← deprecated R-frame + change log
 
 # Lean implementation audit lives at lean/E213/AUDIT.md (moved 2026-05-12).

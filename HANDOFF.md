@@ -1,414 +1,322 @@
-# Session Handoff — 2026-05-13 (Ring Encapsulation marathon)
+# Session Handoff — 2026-05-18
 
 ## Branch
-`claude/encapsulate-ring-structure-CLeEG` — pushed.
-Latest: `41b1f52b Term ring: strict protected pass + in-ring
-qualification refactor`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 64+ commits.
+Latest: `fc8e0684 ParenthesizationDistinct — strengthen with same-leaves witness`.
 
-## What this branch did
+## Latest pass — autonomous-research skill iteration #1
 
-Ring-level Lean 4 native encapsulation pass on the 4-ring + Meta
-architecture (`lean/E213/ARCHITECTURE.md`).  User goal: use
-`private` / `protected` to enforce at the language level what was
-previously only enforced via filesystem convention + the
-`.claude/hooks/layer-import-guard.sh` import-flow hook.
+(Run via the `autonomous-research` skill, `.claude/skills/autonomous-research/SKILL.md`.)
 
-Scope: **strict on Term / Theory / Lens (framework rings); Lib +
-Meta untouched** (per user direction "Term Theory Lens에나 캡술화
-빡쎄게 하고 다른덴 ㄴㄴ").
+### Tier A — Build + layer audit
 
-## Commit timeline
+  - `tools/full_build.sh` clean
+  - `python3 tools/layer_audit.py` reports 0 violations
+  - No broken imports
 
-| # | Commit | Scope |
-|---|---|---|
-| 1 | `d816e1bd` | Term Phase 1 — 2 private on Tree.cmp_eq_of_eq + Tree.cmp_gt_iff_lt_swap |
-| 2 | `91eff664` | Theory Phase 2 — 5 private (half_*) + 4 protected (Raw.{fold,swap,depth,leaves}) |
-| 3 | `1bf9781b` | Lens Phase 3 — 4 protected (Lens.{view,equiv,refines,eqPW}) |
-| 4 | `569b8391` | Lib+Lens Phase 4a — 7 private (aux_* + expSumNat_inj_aux) |
-| 5 | `99a2c3bb` | Meta Phase 5 — 3 private (parity_*) |
-| 6 | `97f88d7a` | **Revert Phase 4a Lib + Phase 5 Meta** (kept Lens leftover) |
-| 7 | `bac17154` | **Strict pass A+B+C** — Theory + Lens exhaustive `protected` |
-| 8 | `41b1f52b` | **Strict pass D+E** — Tree + Term ring exhaustive `protected` + in-ring qualification refactor |
+### Tier B — Stale-doc sweep
 
-## Encapsulation status by ring (after strict pass)
+Bulk-replaced legacy `≤ {propext, Quot.sound}` claims across 8
+files (`Cohomology/CupAW/LeibnizScaling`, `Cohomology/Universal/Prop`,
+`Cohomology/Delta/V4Capstone`, `DyadicFSM/Forward/{ForwardClosure,
+ForwardEventual, ForwardPeriodicity}`, `DyadicFSM/NumberTheory213`,
+`DyadicFSM/Pisano/Predictor7`).  Each was verified PURE via
+`#print axioms` before the doc update.  `Lens/API.lean`'s
+##Axiom-status section refreshed (kept a historical mention but
+framed as "since refactored to ∅-axiom").
 
-| Ring | `private` | `protected` | Notes |
-|---|---|---|---|
-| Term | 2 + 1 existing = 3 | **every** public def + all Tree.* + Bool/Nat213 helpers | In-ring files Compare/Pair/Rat/Sound/Decide/Demo/MonomialAxioms refactored to qualified access (`Term.eval`, `Term.nS`, `Decide.allBelow`, etc.) |
-| Theory | 5 + 24 existing = 29 | every `Raw.*` (~28) + every sub-cluster `Type.method` | `protected` on Raw.{a,b,slash,slash_comm,fold,fold_a,fold_b,fold_slash,swap,swap_a,swap_b,swap_swap,swap_injective,swap_slash,swap_depth,swap_leaves,depth,leaves,fold_eq_depth,fold_eq_leaves,fold_signed_swap,fold_swap_hom,rec,level1_set,level2_new,level{1,2}_card,level2_total_card} |
-| Lens | 1 + 69 existing = 70 | every `Lens.*` (LensCore + EqPW) + every sub-cluster `Type.method` | EqPW.lean in-file refs needed qualification after `protected` (Lens.eqPW_refl, Lens.eqPW_trans, etc.) |
-| Lib | 194 existing | — | Untouched (per user direction) |
-| Meta | 41 existing | 5 existing | Untouched (per user direction) |
+### Tier C — Eqv API completion (4 new ∅-axiom theorems)
 
-## Build + axiom verification (final)
+  - `Theory/Raw/Congruence.Eqv.weaken` — monotonicity in the
+    generator
+  - `Theory/Raw/Congruence.Eqv.of_eq` — `=` ⇒ `Eqv`
+  - `Theory/Raw/Congruence.Eqv.empty_iff_eq` — empty generator
+    characterisation
+  - `Lens/Congruence.Eqv_monotone_in_lens` — Lens refinement
+    induces `Eqv` containment
+
+### Tier D — ParenthesizationDistinct strengthening (2 new ∅-axiom theorems)
+
+  - `same_leaves_distinct_parenthesisation` — same leaves count
+    (= 5), distinct Raws — concrete witness of the leaves Lens's
+    many-to-oneness
+  - `leaves_view_collapses` — explicit `leaves = 5 ∧ leaves = 5`
+
+Combined with previous-iteration `leaves_view_surjective_on_ge_one`,
+the leaves Lens is now established as **surjective onto ℕ₊ but not
+injective** — exactly the projection-not-quotient picture.
+
+6 new ∅-axiom theorems this iteration; 18 cumulative on the branch.
+
+## Earlier this session — autonomous research (theorem development + audit)
+
+### Theorem development (new ∅-axiom symbols)
+
+  - **Bijection closure of L3 syntactic internalisation** (4
+    new PURE theorems): `parseHelper_sound`, `printTree_parseTree`
+    (lossless parser, reverse round-trip), `printTree_injective`,
+    `printRaw_parseTree`.  Together with the L3 forward direction
+    `parseTree_printTree`, this closes the full bijection between
+    `Tree` and `Range(printTree)`.
+  - **ChartGeneral injectivity in `n`** (3 new PURE theorems):
+    `value_pos`, `chartChain_value_injective`,
+    `chartChain_injective`.  Each chart `(r₀, r')` with `r₀ ≠ r'`
+    gives a bijective ℕ → chain labelling.  Uses 213-native
+    `add_left_cancel` + `mul_left_cancel_pos` to dodge the propext
+    leak in Lean-core `Nat.eq_of_mul_eq_mul_left`.
+  - **ℕ₊ as the image of `Lens.leaves.view`** (5 new PURE
+    theorems): `value_surjective_on_ge_one`, `value_numeral_pred`,
+    `leaves_view_eq_value`, `leaves_view_pos`,
+    `leaves_view_surjective_on_ge_one`.  Witness `numeral (n - 1)`
+    realises every `n ≥ 1`.  Rigorous form of the seed/AXIOM/09
+    "image not quotient" thesis.
+
+12 new ∅-axiom symbols total across `SyntacticInternalization`,
+`ChartGeneral`, `Nat213/Raw`, `Lens/Congruence`.
+
+### Stale "≤ {propext, Quot.sound}" docstring sweep
+
+CLAUDE.md "Terms (canonical)" deprecated the legacy tier 2026-05-09
+in favour of strict ∅-axiom.  But several capstone docstrings still
+cited the old tier despite the theorems being PURE today.  Audited
+5 capstones (`pell_capstone`, `tribonacci_capstone`,
+`hodge_involution_5strata_capstone`, `universal_lens_triple_capstone`,
+`padding_capstone`) — all PURE — and updated docstrings.
+
+### Layer-discipline fix
+
+`Theory/Raw/{Congruence,ParenthesizationDistinct}.lean` were not in
+`Theory/Raw/API.lean` umbrella; consumers reach-in violated layer
+discipline.  Added to API, switched the two Theory/Raw files to
+narrower imports (Core / Slash) to break the resulting cycle.
+
+### Doc / spec refresh
+
+  - `seed/AXIOM/09_chart_relativity.md` §9.4: describe L4 closure
+    + Tree ↔ Range bijection.
+  - `seed/CLOSED_FORM_SPEC.md`: "Future work" L3 entry → closed;
+    Change log entry for 2026-05-18 L3 + L4 + ChartGeneral.
+  - `LESSONS_LEARNED.md`: HEAD position refreshed 2026-05-01 →
+    2026-05-18 with the new Option C/D/E + §9.4 lines.
+  - `CAPSTONE_INDEX.md`: cite new theorems in §"Substrate / metalogic".
+
+## Earlier this session — strategic doc audit + full-build tooling
+
+  - **`tools/full_build.sh` (new)**: `lake build E213` exercises
+    only framework rings (Term/Theory/Lens/Meta + Pigeonhole); Lib
+    is opt-in.  New script chains framework + Lib in one command so
+    refactor regressions across the framework→Lib boundary are
+    caught explicitly.  README + tools/README updated.
+  - **CAPSTONE_INDEX.md re-audit**: dated 2026-05-01 with 9 stale
+    entries (AlphaEM cluster file renames, Finitist-files absorbed,
+    Pisano paths post-DyadicFSM promotion, AtomicSuperCatalog
+    relocation, universalLens actual file, etc.).  Every `Lib/`,
+    `Lens/`, `Theory/`, `Meta/` citation re-verified against the
+    actual source.  Added four 2026-05-18 theorems to §"Substrate /
+    metalogic" (`parenthesisation_distinct`, `chartChain_value`,
+    `parseTree_printTree`, `Lens/Congruence`).
+  - **README.md count refresh**: total 1127 → 1114, Theory 27 →
+    24, Lens 143 → 144, Lib/Math 743 → 727.  Build section
+    documents both fast (`lake build E213`) and full (`lake build
+    E213.Lib.Math E213.Lib.Physics`) targets.
+  - **seed/AXIOM/INDEX.md + 09_chart_relativity.md** —
+    de-gesturalise: both §9.1 (chart-relativity) and §9.4
+    (syntactic internalisation) now have explicit Lean
+    realisations (`ChartGeneral` + `SyntacticInternalization`).
+    Header paragraph + chapter-09 row + §9.4 heading updated.
+  - **tools/README.md** — Kernel/Term naming drift fix in
+    `kernel_regress.sh` description.
+
+## Earlier this session — DyadicMeasure + deferred-28 closure + spec refresh
+
+## Latest pass — strategic cleanup + spec / audit refresh
+
+  - **Latent regression fix**: `Lib/Math/Measure/DyadicMeasure.lean`
+    was broken on the explicit `lake build E213.Lib.Math` target
+    (hidden because `lake build E213` default target excludes Lib).
+    Root cause: 2026-05-17 List213 promotion dropped
+    `length_append_term` from `MeasurableSet.lean` but
+    `DyadicMeasure.lean` still opened the name.  One-line fix.
+  - **Close the deferred-28 inventory**:
+    `research-notes/HIERARCHICAL_PLACEMENT.md` §6 claimed 28 deferred
+    files across Lens / CayleyDickson / Cohomology.  Re-running
+    `lake build` on each entry 2026-05-18 — **all 19 build clean**
+    (the 9 Cohomology files were already marked RESOLVED).  §6 + §7.1
+    + §7.2 updated; the surrounding header refreshed.
+  - **Refresh file counts**: `lean/E213/INDEX.md` had stale counts
+    (Term 12 / Theory 41 / Lens 121 / Lib/Math 743).  Actuals
+    (post-2026-05-18 cleanup): 17 / 24 / 144 / 727.
+  - **Refresh stale spec references**:
+      - `seed/AXIOM/02_statement.md` §3.4 — Möbius bridge moved
+        from `Theory/Raw/Mobius.lean` to `Lib/Math/Mobius213.lean`
+      - `seed/AXIOM/06_formalization.md` §7.1 — Signed/Hom merged
+        into `FoldSwap.lean`
+      - `seed/AXIOM/07_self_reference.md` §8.3 — same Möbius move
+      - `seed/AXIOM/09_chart_relativity.md` §9.1 — chart-invariance
+        is now explicit in `Lens/Number/Nat213/ChartGeneral.lean`
+        (not "implicit in the axiom" as previously stated)
+      - `seed/AXIOM/09_chart_relativity.md` §9.4 — name the actual
+        `Meta/Tactic/List213.lean` module (was abstract
+        "`congrArg`-based versions")
+      - 9 research notes + 3 MATH_AUDIT files: bulk-relocate the
+        old `Theory/Raw/Mobius.lean` path
+  - **Refresh status comments**:
+      - `Lib/Math.lean`, `Lib/Math/Cohomology.lean`,
+        `Lib/Math/DyadicFSM.lean`, `Lib/Math/CayleyDickson.lean`:
+        drop "API drift" notes — `HIERARCHICAL_PLACEMENT.md` §6
+        is now closed.
+      - `Theory/Raw/API.lean`: "Migration queued" → "Migration
+        history" (now complete).
+  - **Update rust-engine whitelist standard**: the verifier
+    header was documenting "`#print axioms <thm> ⊆ {propext,
+    Quot.sound}`" — the *legacy* tier that was deprecated
+    2026-05-09.  Header now matches `STRICT_ZERO_AXIOM.md`'s
+    "does not depend on any axioms" definition.
+
+`lake build E213` (default target) clean.  `lake build E213.Lib`
++ `lake build E213.Lib.Physics` now also clean (previously broken
+by the DyadicMeasure latent regression).
+
+## Earlier this session — sprawl cleanup + size compression + orphan surfacing
+
+### Pass 1–3: singleton sub-cluster dissolution
+  - `Lib/Math/Atomicity/` (1 file) hoisted to top level.
+  - Polynomial213 restructure (parent-as-Core + proper 3-file
+    sub-cluster); Geometry filename normalisation
+    (`Nat213AlgebraicGeometry` → `AlgebraicGeometry`, etc).
+  - `DyadicFSM/Legendre/Legendre.lean` singleton dissolved
+    (16 consumers updated); `Real213/Cauchy/ChainToCut.lean` →
+    `Real213/ChainToCut.lean`; `Analysis/ChainCauchy.lean` KO →
+    English docstrings.
+
+### Size compression
+  - 4 `Z*Instance.lean` singletons → one `ConjugationInstances.lean`
+  - 3 `ZOmega{X}OrderDist` pairs merged into their `X.lean`
+  - `HasModulusBoundsExtra` folded into `HasModulus`
+  - `Meta/Int213/Instance.lean` folded into `Meta/Int213.lean`
+  - `Theory/CDDouble/{UniversalOrder4,GenericLiftDemo}` → one file
+  - `DyadicFSM/Archive/{EdgeSignature,SubwordComplexity}` → one file
+  - `Theory/Raw/{Signed,Hom}` → `FoldSwap.lean`
+  - 3 ZSqrtMinus2 finding files → `ZSqrtMinus2Findings.lean`
+
+### Cleanup
+  - Dead `Cohomology/CupAW/BilinearFunc.lean` (empty placeholder)
+    deleted; 5 dead imports stripped.
+  - 3 mis-researched capstones deleted: `Extras/ResidualPass2Capstone`,
+    `Extras/ResidualPass3Capstone`, `Extras/SkeletonCleanup` — all
+    imported non-existent `Multivariable.Stokes{2D,3D,4D}` modules
+    and never built clean.
+
+### Umbrella orphan surfacing
+  Many umbrellas had orphan sub-files (reachable transitively but
+  invisible to umbrella readers).  Now surfaced explicitly:
+  - `Modulus`         + 3 files (incl. `G40Capstone` chain)
+  - `Extras`          + 3 files (`HoeffdingFiniteN`,
+                                  `AggregatorCapstone`, `RealLogCapstone`)
+  - `Linalg213`       + `PhaseChiralBridge`, `Gap` sub-cluster
+  - `Topology`        + `ContinuityArith`
+  - `Logic`           + `CutElimination`
+  - `DyadicFSM/Pell`  + `ProperMod` (per-prime bundle)
+  - `Lens/Number`     + `Int213` (was listed as 'Future')
+
+Net file count reduction: ~22 files removed.  All theorems remain
+∅-axiom; default `lake build E213` (framework rings) clean
+throughout.
+
+## What this branch delivered
+
+A full traversal of the lens-emergence-path roadmap
+(`research-notes/2026-05-18_lens_emergence_path.md` §5), plus the
+related §9.4 syntactic-internalisation programme.
+
+  - **Option C — Raw-side arithmetic deleted**: ℕ₊ is the
+    projection of `Lens.leaves.view : Raw → Nat`, not a quotient
+    of `Raw`.  `Raw.lean` is slim (chart structure only);
+    `Chain.lean` is a Raw-subtype carrier whose operations route
+    through `Nat`; `Bridge.lean` exposes the value-level
+    homomorphism via Peano arithmetic.  Downstream
+    `Lib/Math/Real213/Cauchy/ChainToCut.lean` migrated.  ~600 net
+    lines deleted.
+  - **Option D — chart-explicit framework**: `ChartGeneral.lean`
+    parameterises Method A over any `(r₀, r')` with `r₀ ≠ r'`;
+    full chart-invariance theorem `value (chartChain ...) = value
+    r₀ + n * value r'`.
+  - **Option E — internal congruence (generic)**:
+    `Theory.Raw.Congruence` + `Lens.Congruence` give the
+    `Eqv (gens) ↔ L.equiv` biconditional for any lens.  The §2.6
+    quotient-style ℕ₊ candidates are abandoned — different
+    parenthesisations are *structurally distinct* Raws (witnessed
+    by `Theory.Raw.ParenthesizationDistinct`), so forcing
+    associativity erases content.
+  - **§9.4 syntactic internalisation L2 + L3**:
+    `Lens.SyntacticInternalization` realises a 7-glyph alphabet
+    (each glyph → distinct Raw) plus a Polish-prefix parser /
+    printer with a fully-proved universal round-trip
+    `∀ t, parseTree (printTree t) = some t`.
+
+## Verification state
 
 ```
-lake build (whole tree)             ✔ clean
-lake build E213.Term                ✔ 14/14
-lake build E213.Theory              ✔ 50/50
-lake build E213.Lens                ✔ 150/150
-lake build E213.Lib.Math            ✔ 905/905
-lake build E213.Lib.Physics         ✔ 254/254
-
-tools/scan_axioms.py E213.Term      45 PURE / 0 DIRTY
-tools/scan_axioms.py E213.Theory.*  ~42 PURE / 0 DIRTY  (Raw + Atomicity)
-tools/scan_axioms.py E213.Lens.*    10 PURE / 0 DIRTY  (LensCore + EqPW)
+lake build (full tree)                       ✔ clean
 ```
 
-All 45 Term theorems remain literally `does not depend on any
-axioms`.  Strict ∅-axiom contract intact across the entire pass.
+All new symbols PURE.  No `propext` / `Quot.sound` /
+`Classical.choice` / `omega` / `Mathlib` introduced.  Standard
+`List.{append_assoc, append_nil, length_append}` carry `propext`;
+`E213.Tactic.List213.{append_nil, append_assoc, length_append}`
+provides the propext-free replacements as a reusable utility.
+`simp [...] at h` in impossible branches replaced with
+`Option.noConfusion h`.  `Nat.sub_add_cancel` replaced with
+`Nat.succ_pred_eq_of_pos`.
 
-## What `protected` actually enforces
+Key axiom-audit counts (post-code-development):
+  - `Lens/Number/Nat213/Chain.lean`             13 PURE (+ 3 parent)
+  - `Lens/Number/Nat213/ChartGeneral.lean`       6 PURE
+  - `Lens/Number/Nat213/ChainCoreBridge.lean`    5 PURE (+ `Chain.ext_val`)
+  - `Lens/Number/Nat213/Bridge.lean`             7 PURE
+  - `Lens/Number/Nat213/Raw.lean`               13 PURE (+1 `numeral_injective`)
+  - `Theory/Raw/Slash.lean`                      hosts `Raw.slash_ne_right` (PURE)
+  - `Theory/Raw/Congruence.lean`                 2 PURE
+  - `Theory/Raw/ParenthesizationDistinct.lean`   2 PURE
+  - `Term/Internal/Tree/Levels.lean`             hosts `Tree.leaves_pos` (PURE)
+  - `Meta/Tactic/List213.lean`                   3 PURE
+  - `Lens/Congruence.lean`                       4 PURE
+  - `Lens/SyntacticInternalization.lean`        21 PURE
 
-In Lean 4, `protected def Foo.bar` means:
-  - `Foo.bar` (qualified) always works
-  - dot notation `r.bar` (where `r : Foo`) always works
-  - **bare `bar` is blocked** even after `open Foo`, even inside
-    `namespace Foo` itself
+## Open work (genuinely remaining)
 
-The third point bit us in the Term ring: making `Term.eval`
-protected required updating recursive `eval` references inside
-`def Term.eval` itself to `Term.eval` qualified.  Same for
-`Decide.allBelow`'s recursion, `Sound.of_equiv`'s self-call.
+### 1. KO docstring backlog
+`Peano.lean`, `Bridge.lean` (now English), `Raw.lean`, `Chain.lean`,
+`NumberingSystem.lean`, `RawCut.lean` — already English.
+Remaining KO content in `Lens/Number/Nat213/`: `Lenses.lean` (2 lines —
+verbatim user quote, rule-compliant), `AtomicityCorrespondence.lean`
+(2 lines — verbatim quote, compliant).  No further translation
+needed in this directory.
 
-Externally (Theory consuming Lens consuming Term consuming Raw):
-**zero caller migration was needed**, because all cross-ring
-calls already used qualified `Term.eval` / `Raw.fold` /
-`Lens.view` / `Tree.cmp` notation, or dot notation.
+Out-of-scope checks worth doing in a future pass: `Lens/Bool213/`,
+`Lib/Math/Real213/`, `Lib/Math/Analysis/` may still have KO
+docstrings.
 
-## Deferred / future
+### 2. Tower / downstream audit
+`Lens/Number/Nat213/Tower/*` (NatPairToInt, NatPairToQPos,
+NatTripleToZ2) — build clean indicates no breakage from the Option
+C refactor, but a confirmation pass examining whether any rely on
+the deleted `Bridge.toRaw_add` / `value_add` / `leavesCountRaw_*`
+would be reassuring.  No active failures.
 
-### Phase X (opaque) — still deferred
-
-Per user note earlier in session: "Opaque는 Raw native number
-type 으로 계산하기 — 계산하는 방향으로 갈 때에 적용하면 좋겠다만
-아직은 모르겠다."
-
-Trigger to revisit: when computation direction for Raw-native
-number types (`Nat213`, `Bool213`, `Closed.Nat213`) becomes a
-committed direction.  Plan sketched in
-`/root/.claude/plans/lean4-groovy-wirth.md` Phase X.
-
-### Plan file
-
-`/root/.claude/plans/lean4-groovy-wirth.md` — original phased
-plan (Phases 1–5 + deferred Phase X).  Strict revision happened
-mid-session per user direction; commits 6+ supersede the plan's
-incremental Phase 4 (Lib) and Phase 5 (Meta) sections.
-
----
-
-## Prior session log (pre-encapsulation, kept for reference)
-
-Original handoff from `claude/zero-axiom-work-P9NPI` follows.
-
-
-## Current state snapshot
-
-```
-sub-clusters:  Term/1  Theory/6  Lens/9  Lib/Math/43  Lib/Physics/17  Meta/4
-ring-violations:  Term→0  Theory→0  Lens→Lib 0  Lib→Internal/* 0
-INDEX.md coverage:  90 / 90 (5+ files clusters)
-
-build status:
-  lake build (no args)         ✔ Term + Theory + Lens + Meta clean
-  lake build E213.Term         ✔
-  lake build E213.Theory       ✔ (Session I)
-  lake build E213.Lens         ✔ (Session I)
-  lake build E213.Meta         ✔ (Session I)
-  lake build E213.Lib.Math     ✔ (Session I — 첫 검증; 760+ 파일 clean)
-  lake build E213.Lib.Physics  ✔ (Session I — 254/254 clean)
-```
-
-## ★ Session I — full-tree audit (8 commits push, Lib.Physics 보류)
-
-`lake build` (no args) 가 default target 없이 "Build completed
-successfully" 만 보고 → 실제로는 Term/Theory/Lens/Meta 만 reachable.
-Lib.Math 트리는 Session C sub-org 후 한 번도 검증되지 않은 상태였음.
-이번 audit 에서 **Lib.Math 첫 clean 빌드 달성**.
-
-### Session I commits
-
-| Commit | 작업 |
-|---|---|
-| `7462bda9` | Umbrella aggregator gap closure (16 신규 aggregator) |
-| `ebc608a6` | Theory + Lens + Real213 latent bugs (46 파일) — Swap missing import, Int213.Core orphan tuples, Real213.Core.Core doubled namespace |
-| `d079264f` | SignedCut.Core.Core + SignedCut.Bridge.Bridge + DyadicFSM.Signature.Signature 같은 패턴 |
-| `65d77bff` | DyadicFSM: ArithFSM↔ConcretePellSig 사이클 (PeriodClosure 분리) + ToBitFSM↔ModSmall + Pisano↔Legendre dead import + Legendre 5-sub-ns 재정렬 + Pell.ProperMod — DyadicFSM clean |
-| `6cc7c680` | Cohomology + CD Tower/Lipschitz + Cascade (V4Capstone, K5.kerSize, CascadeCalculus.Instance, Mobius213OneAsGlue, CDDouble, LipschitzAlgebra/Heavy ZI.ZI→ZI) |
-| `47d0b553` | Lib.Math clean: CDTower namespace + Euler.lean 재정렬 |
-
-### 핵심 audit 발견
-
-> Sub-org sed 가 다음 패턴을 처리 못 함: file basename == outer
-> namespace 마지막 segment (예: `Integer/ZI.lean` 의 `namespace
-> Integer.ZI` + 내부 `namespace ZI`).  결과 `ZI.ZI.method` 가
-> consumer 에서 `Integer.ZI.ZI.ZI.method` 로 4-level 분해되며 broken.
-> Real213.Core / SignedCut.Core/Bridge / DyadicFSM.Signature / CDDouble
-> / Lipschitz / CDTower 모두 같은 패턴 — 이번 Session 일괄 fix.
-
-### Forward-reference 패턴 (별개 audit 발견)
-
-단일 .lean 파일 내 `namespace` 블록의 순서가 잘못되어 forward
-reference 가 unknown identifier 로 실패:
-- `Legendre/Legendre.lean`: Pisano/PisanoExt 가 V213/Small 보다 먼저
-  → V213 → Small → V13_19 → Pisano → PisanoExt 로 재정렬
-- `Cauchy/Euler.lean`: EulerSharperPure 가 EulerCombinatorialPure
-  사용 → 후자를 전자 앞으로 이동
-
-### Build cycles (별개 audit 발견)
-
-3 개 real circular dep:
-- `ArithFSM ↔ ConcretePellSig` — common util `PeriodClosure.lean` 추출
-- `ToBitFSM ↔ ModSmall` — `pellFSMmod5_signature_period_bound` 를
-  ModSmall 로 이동 (namespace `ToBitFSM` 보존)
-- `Pisano.Predictor ↔ Legendre.Legendre` — Legendre 의 dead import 제거
-
-### 잔존 (다음 세션 follow-up)
-
-- Lib.Physics 254/254 clean 확인됨 — E213.lean 에 `import E213.Lib.
-  Math` / `import E213.Lib.Physics` 추가하면 default `lake build` 가
-  진짜 전체 검증함 (현재는 E213.lean 이 Lib 를 import 안 함).
-- 빌드 warning 잔존 (unused variable linter, 비차단).
-- G17 audit 데이터 재생성 (`tools/theorem_inspect.py`).
-
-### 권장 다음 단계
-1. ArithFSM/SigPeriod.lean (공통 utility) 신규 생성 → cycle 해소
-2. K5.kerSize 정의 위치 추적 + 누락 import 추가
-3. `lake build E213.Lib.Math.{각 sub-cluster}` 스윕 → cluster-by-
-   cluster 정리
-4. 정리 후 E213.lean 에 `import E213.Lib` 추가 → default `lake build`
-   가 진짜로 전체 트리 검증하도록
-
-## 이전 라운드 — sub-organization (7 commits, Session C)
-
-평탄 cluster 들의 sub-directory 분할 + tiny cluster fold:
-
-## 이번 라운드 — sub-organization (7 commits)
-
-평탄 cluster 들의 sub-directory 분할 + tiny cluster fold:
-
-| Commit | 작업 |
-|---|---|
-| 48c55a66 | CayleyDickson 57 평탄 → 5 sub-dirs (Tower/Integer/Levels/Lipschitz/Misc) |
-| bc75637e | Real213 57 평탄 → 7 sub-dirs (Core/Sum/Mul/Lattice/Bisection/ExpLog/Cauchy) |
-| f1426403 | SignedCut 35 평탄 → 6 sub-dirs (Core/CD/Hurwitz/Level/Bridge/Octonion) |
-| 20a58e85 | Probability 25 평탄 → 5 sub-dirs (Foundation/Distribution/Inequality/Limit/Bridge) |
-| b4114a31 | Tiny fold: Diagonal (2) + EpsilonDeltaModulus (4) → Modulus |
-| d96a066a | Cohomology top-level 29 → 10 + 2 sub-dirs (Examples/Bridge) |
-| d5303bfb | DyadicFSM top-level 33 → 14 + 4 sub-dirs (Product/Signature/Forward/Tier) |
-
-## 누적 (3-session) — 28 commits
-
-### Session A (야간 cleanup, 10 commits)
-- Term/Theory docstring fixes
-- Theory→Lib violations 8 → 0
-- Lib→Theory.Internal 22 → 0 (Int213, Algebra213 → Meta)
-- Stale wording 일소 (Firmware/Hypervisor/G12)
-- Trajectory/Search tiny folds
-- Theory/Internal flatten
-
-### Session B (consolidation, 10 commits)
-- Stokes 4 → 1
-- Fib/FSMmod 8 → 1, Trib 3 → 1, Legendre 5 → 1
-- SqrtPure 3 → 1
-- Pell/ProperMod 5 → 1
-- ArithFSM/Mod 22 → 3 buckets
-- Cauchy/Euler 6 → 1, Wallis 3 → 1
-- CauchySchwarz 6 → 1
-
-### Session C (sub-organization, 8 commits — 이번)
-- CayleyDickson, Real213, SignedCut, Probability, Cohomology,
-  DyadicFSM sub-organize
-- Diagonal + EpsilonDeltaModulus → Modulus
-
-## Final structure
-
-```
-lean/E213/
-├── Term/          (clean)
-├── Theory/        (Internal/ 사라짐, 7 sub-clusters)
-├── Lens/          (13 sub-cluster, audit 후보)
-├── Meta/          (+Int213/, +Algebra213/, +Tactic/)
-├── Lib/Math/      (~41 → ~38 sub-clusters)
-│   ├── Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog,Cauchy}
-│   ├── SignedCut/{Core,CD,Hurwitz,Level,Bridge,Octonion}
-│   ├── Probability/{Foundation,Distribution,Inequality,Limit,Bridge}
-│   ├── CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}
-│   ├── Cohomology/{,Examples,Bridge,Cochain,Cup,CupAW,Delta,...}
-│   ├── DyadicFSM/{,Product,Signature,Forward,Tier,ArithFSM,Pell,Fib,...}
-│   └── ...
-├── Lib/Physics/   (+Certificates/)
-└── App/           (legacy)
-```
-
-## Final violations (모두 clean)
-
-- Theory → Lib: **0**
-- Theory → Lens/App: **0**
-- Lib → Theory.Internal: **0**
-- Lib → Term/Lens.Internal: **0**
-- Theory.Raw.* specific reach-in: hook-enforced **0**
-- Stale wording: **0**
-- Lens → Lib: **0** (NatHelpers → Meta/Nat, Infinity → Lens/Cardinality,
-  LensCardinality → Lens/Algebra → Lens/Cardinality — session E)
-
-## 보류 작업 (audit 후보 유지)
-
-- Lens 6 NatHelpers reach-in 처리, 13 sub-cluster 통합 (LENS_AUDIT).
-- Pisano/Predictor 8 chain (의미적 chain 유지 채택).
-- Hyper (3), Complex (4), NumberGrid (4) tiny cluster — 각자 의미적
-  cluster 라 keep.
-- INDEX.md / API.lean 다수 cluster 추가.
-
-## Verification
-
-- `lake build`: clean throughout 28 commits (across 3 sessions).
-- Ring violation hook (.claude/hooks/layer-import-guard.sh) 가 새
-  변경 차단 — discipline 자동 enforce.
+### 3. Bool213 architectural review
+`Lens/Bool213/Raw.lean` keeps a Raw-internal `booleanProj`
+(legitimately — Bool213's `{T, F}` canonical form *is* the Raw
+image).  Comment references to the deleted Nat213
+`leavesCountRaw` have been cleaned (commit `b99fb3eb`).  No further
+work currently planned.
 
 ## Anchor docs (next session start)
 
-- `seed/AXIOM/07_self_reference.md` §8.4
-- `research-notes/G29_residue.md`
-- `CLAUDE.md` (rule 7 + 8 — file consolidation + no open repetition)
-- `lean/E213/ARCHITECTURE.md` (4 ring + Meta canonical)
-- `research-notes/MATH_AUDIT/INDEX.md` + 9 chunks (A–I) — 정리 후속
-  참조
-
-## 추가 라운드 — documentation alignment (4 commits, post sub-org)
-
-- `63bee4f3` ARCHITECTURE.md + MATH_AUDIT/INDEX: 현재 sub-org 상태 반영
-- `4c22bc8c` INDEX.md update + create (CayleyDickson, Real213,
-  Probability, SignedCut sub-org 반영; Trajectory dangling 제거)
-- `8ab19ec9` Cohomology INDEX rewrite (stale Phase 3/7 catalog 제거) +
-  DyadicFSM INDEX 신규
-- `5ceb9dd7` ARCHITECTURE Theory section update (Closed/Nat213/Tower/
-  CDDouble sub-clusters 추가, ArityForcingGeneral Lib 이동 반영)
-
-## 추가 라운드 — Lens ring discipline 완료 (Session E, 2 commits)
-
-- `c93242c8` Meta/Nat + Lens/Algebra: NatHelpers 8 파일 → `Meta/Nat/`,
-  LensCardinality → `Lens/Algebra/` (60 consumer 갱신; Lens→Lib 6 → 1)
-- `d7790b7c` Lens/Cardinality: 신규 sub-cluster (구 Lib/Math/Infinity 7
-  파일 + Lens/Algebra/{LensCardinality, CardinalityLB}) — 마지막 Lens→Lib
-  위반 해소 (1 → **0**); 4-ring discipline 완전 clean
-
-## 추가 라운드 — UniversalLens 이동 (Session E+, 2 commits)
-
-- `08bd12f2` Lens/Universal/Witnesses: Meta/UniversalLens 11 파일 이동
-  + namespace `E213.Meta.UniversalLens.*` → `E213.Lens.Universal.
-  Witnesses.*` rename (LENS_AUDIT §4: Lens-content was misshoused
-  in Meta).  Meta cluster 가 ring-independent 본연으로 수렴.
-- `(이번)` docs: ARCHITECTURE.md + HANDOFF.md UniversalLens 이동 반영
-
-```
-Lens/
-├── Algebra/         (7 — kernel-theory만; LensCardinality + CardinalityLB 빠짐)
-├── Cardinality/     (9 — Cantor, Tower, BoolSpace, Countable, Pair, Godel,
-│                       Chain, LensCardinality, CardinalityLB)  ← Session E
-├── Universal/       (Tier 1: 2 파일 + Witnesses/ 11 파일)
-│   ├── Flat.lean, QuotLens.lean
-│   └── Witnesses/   (Core, Nat2/3/4, Nat2Inj, Q213, Q213Inj,
-│                     Q213_3, Padding, PaddingCapstone,
-│                     TripleCapstone — Meta/UniversalLens 흡수)
-├── ... (다른 11 sub-clusters)
-Meta/
-├── Nat/             (8 — 구 Lib/Math/NatHelpers/*)  ← Session E
-├── Tactic/, Int213/, Algebra213/, top-level 4
-└── (UniversalLens/ — 삭제, Lens/Universal/Witnesses/ 로 이동)
-```
-
-## 추가 라운드 — Session F (organization polish, 9 commits)
-
-Cluster reorganization + API tier split + INDEX.md harvest.
-
-| Commit | 작업 |
-|---|---|
-| `80738409` | Lens/Leaves → Lens/Instances/Leaves 폴드 (sub-cluster 14→13) |
-| `76bc28eb` | Lens/API.lean Tier 1/Tier 2 분리 (HV1+HV2+HV3 만 bundle) |
-| `28e40c97` | INDEX.md batch 1: 6 large clusters (CD/Integer, FluxMVT 등) |
-| `b31ad8c9` | INDEX.md batch 2: 9 clusters (Theory/Raw, Real213 sub-dirs 등) |
-| `fe70d080` | INDEX.md batch 3: 4 clusters (ArithFSM, CD/Tower, HC/Bridge, Pell) |
-| `72935727` | INDEX.md batch 4: 5 clusters (Modulus, Linalg, Integration 등) |
-| `420bfec8` | INDEX.md batch 5: 9 clusters (Analysis 통합 + 9-file 그룹) |
-| `568ee768` | INDEX.md batch 6: 8 clusters + Atomicity README→INDEX rename |
-
-INDEX.md coverage: 90 5+-files clusters 중 **56** 가 INDEX.md
-보유 (Session F 시작 17 → 56, **+39 신규**).  나머지 34 는 후속.
-
-```
-Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
-├── Cardinality/     (9 — Session E)
-├── Universal/       (2 + Witnesses/ 11 — Session E+)
-├── Instances/       (29 flat + Leaves/ 5 — Session F-1)
-├── Algebra/         (7 kernel-theory만)
-├── API.lean         (Tier 1: HV1+HV2+HV3 — Session F-2)
-└── ... (다른 10 sub-clusters)
-```
-
-## 추가 라운드 — Session G (namespace alignment + INDEX.md 마무리, 5 commits)
-
-| Commit | 작업 |
-|---|---|
-| `da394cfa` | Lens/Cardinality namespace 정리 — `E213.Infinity` → `E213.Lens.Cardinality` (17 파일); Theory.Internal helper 블록도 Lens.Cardinality 로 통일 |
-| `d3e93a4a` | Meta/Int213 + Meta/Algebra213 namespace path-align (25 파일) — Session A promotion 후 잔존했던 path-namespace mismatch 해소 |
-| `300b8b32` | INDEX.md 11 클러스터 (6-file 그룹: Symmetry, Nuclear, Cosmology, LevelTopology, HC/{Foundation,Refinement,MotivicBridge}, …) |
-| `915e72f2` | INDEX.md 14 클러스터 (5-file 그룹: YangMills, Mixing, Capstones, TriangularTower, Real213/Lattice, …) |
-| `53641991` | INDEX.md Lib/Math + Lib/Physics root umbrella (90/90 커버리지 달성) |
-
-**INDEX.md 커버리지**: 17 → **90 / 90** (CLAUDE.md rule 6 완전 충족).
-
-**Path-namespace mismatch 잔존**:
-- Theory/Raw/{Signed, Fold, Swap, Levels, Hom} — sealed namespace
-  E213.Theory.Internal 사용 (의도된 internal/public 분리 — Raw.API
-  가 public, Internal 은 helpers)
-- Term/Internal/Tree — namespace E213.Theory.Internal 사용
-  (ARCHITECTURE.md "Internal-shared umbrella" 의도된 exception,
-  56 downstream rename 방지)
-
-## 총 누적 (9 sessions, 55 commits):
-
-- Session A: structural cleanup (10)
-- Session B: file consolidation (10)
-- Session C: sub-organization + tiny fold (8)
-- Session D: documentation alignment (4)
-- Session E: Lens ring discipline 완료 (2)
-- Session E+: UniversalLens 이동 (2)
-- Session F: organization polish + INDEX.md harvest (9)
-- Session G: namespace alignment + INDEX.md 마무리 (5)
-- Session H: App/ legacy + Lens 14→9 consolidation (3)
-- Session H+: stale doc references cleanup (2)
-
-## 추가 라운드 — Session H (App/ + Lens consolidation, 3 commits)
-
-| Commit | 작업 |
-|---|---|
-| `ccd1c2bf` | App/ legacy tier 정리 — 유일 멤버 `App/Simplex.lean` (block-pair classification on Fin 5) → `Lib/Math/Combinatorics/Simplex5.lean` (math 콘텐츠), App/ 디렉토리 + aggregator 삭제 |
-| `0d1cc6f9` | `Lens/Refines/` (2 files) → `Lens/Lattice/` 폴드 (preorder ⊂ lattice, 14→13) |
-| `a8030e5c` | `Lens/{Characterisation, Morphism, Diagonal}` → `Lens/Properties/` 폴드 (13→9 — 3 sub-cluster 흡수 + Diagonal root file 흡수); LENS_AUDIT §4 권장 13→7 거의 달성 |
-
-**Lens sub-cluster: 14 (Session E 시점) → 9 (Session H)**
-
-남은 9: Algebra, AxiomLenses, Cardinality, Compose, Instances,
-Internal, Lattice, Properties, Universal.  각자 명확한 의미 정체성
-유지 — 추가 통합은 의미적 분리를 흐림.
-
-## 추가 라운드 — Session H+ (stale doc cleanup, 2 commits)
-
-| Commit | 작업 |
-|---|---|
-| `be3c69a2` | 스테일 reference 정리 — Lens INDEX headers 의 `Hypervisor/Lens/X/` → `Lens/X/` (7 파일), HIERARCHICAL_PLACEMENT/MATH_AUDIT/G31 research notes 갱신, audit/G17_inspect_existential STALE 마커 |
-| `b0c698d9` | Meta/Nat/IntHelpers docstring: `Theory.Internal.Int213.zero_mul` → `Meta.Int213.zero_mul` |
-
-`Hypervisor/` 잔존 in `lean/E213/`: **0**.
-
-## 후속 (Session H+++ 후보, lower priority)
-
-- Theory/Raw/* internal helpers 의 sealed namespace 정리 검토
-  (의도된 분리 vs path-align trade-off — 현재는 의도된 패턴 유지)
-- Lens sub-cluster 9 → 7 (compose + lattice 통합?  AxiomLenses +
-  Properties 통합?  semantic cost vs structural simplification
-  trade-off — 현재 9 가 적절 판단)
-- `tools/theorem_inspect.py` 재실행: G17_audit_raw.csv +
-  G17_inspect_*.md 의 Firmware/Hypervisor 잔존 paths 갱신
+- `CLAUDE.md` (top) — boot sequence
+- `seed/AXIOM/07_self_reference.md` §8.4 — dichotomy guide
+- `seed/AXIOM/09_chart_relativity.md` — chart-relativity chapter
+- `research-notes/2026-05-18_lens_emergence_path.md` — long-form
+  exposition of the lens-emergence reasoning
+- `lean/E213/Lens/Number/Nat213/INDEX.md` — current Nat213 layout
+- `lean/E213/Lens/SyntacticInternalization.lean` — §9.4 realisation

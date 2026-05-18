@@ -1,5 +1,5 @@
 import Lean
-import E213.Lib.Math.CayleyDickson.Integer.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.Integer.ConjugationInstances
 
 /-!
 # Tactic: `quad_extension D` — parametric `ℤ[√-D]` one-liner

@@ -1,233 +1,103 @@
 import E213.Theory.Raw.API
 
 /-!
-# Lens.Number.Nat213.Raw — Method A 카타모피즘 (Z=a, C=b)
+# Lens.Number.Nat213.Raw — canonical Method A chart on Raw
 
-`Nat213` (= **양의 자연수 ℕ₊**) 의 canonical Raw-derived 표현.
-Lens 의미: **`Raw.fold one one add` 의 closed-Raw codomain
-catamorphism** — 출력 codomain 을 Raw 로 못박은 endomorphic fold
-(`Theory.Raw.Endomorphic`).
+The canonical chart representative of ℕ₊ in `Raw`: starting from
+`Raw.a` ("1") and stepping by `slashOrSelf · Raw.b`.  This file
+contains only the *chart structure* — chart constructors
+(`one`, `succ`, `numeral`) plus the projection
+(`value : Raw → Nat`) and their atomic lemmas.
 
-자연수 = Raw 의 한쪽-증식 chain.  외부 `Nat` 안 빌리고 Raw 안에서.
+**Arithmetic on Raw is intentionally absent.** Per
+`research-notes/2026-05-18_lens_emergence_path.md` §5 Option C: the
+abstract number-theoretic operations (`+`, `·`) live on `Nat` (the
+abstract object); the Raw side carries only the canonical
+representative.  Closed-Raw arithmetic is a category error — Raw
+is for *representing* numbers, `Nat` is for *being* them.
 
-**213-native 시작점**: Raw.a 는 213 의 **최소 observation** (1 leaf) =
-양의 자연수 1.  Zero atom 은 213 axiom 에 없음 — 모든 Raw element 는
-leaves ≥ 1.  따라서 Method A chain 이 인코딩하는 건 ℕ \ {0} = ℕ₊.
-(Layer 2 `Lens.Number.Nat213.Peano` 의 inductive 정의도 동일한
-commitment — `no_additive_identity_at_one` 참고.)
+For arithmetic on the chain:
+  - **Nat side**: do arithmetic on `Nat` directly, then map back
+    via `Raw.numeral`.
+  - **Raw-subtype side**: see `Lens.Number.Nat213.Chain`, where
+    operations route through `Nat` and the Raw-subtype carrier is
+    preserved as a *type* (not via closed-Raw computation).
 
-Method A:
-  - 1 = Raw.a
-  - succ n = slashOrSelf n Raw.b   (n 에 b 를 추가)
-  - 2 = slash a b
-  - 3 = slash b (slash a b)   (canonical form: b 가 왼쪽)
-  - ...
+Other related files in this directory:
+  - `Peano.lean`  — separate inductive `Nat213` with its own
+                    arithmetic; ergonomic parallel (not lens-derived).
+  - `Bridge.lean` — Peano ↔ Raw chart bijection at the `value` level.
+  - `Core.lean`   — `{n : Nat // 1 ≤ n}` Nat-subtype carrier.
+  - `Chain.lean`  — `{r : Raw // IsMethodAChain r}` Raw-subtype
+                    carrier with Nat-routed arithmetic.
 
-Lean Nat 으로부터 ℕ₊ 로의 enumeration 편의용: `numeral : Nat → Raw`,
-**off-by-one 입력 convention** — `numeral n` 은 ℕ₊ 의 (n+1)-th 원소
-(value (numeral n) = n+1).  즉 `numeral 0 = one` (= 1), `numeral 1 = two`.
+**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This is *one
+representation* along the lens-emergence path — Method A's chain
+under `Lens.leaves`.  `Raw.a` and `Raw.b` are chart-local labels
+(§9.1); under a different chart, any pair of distinct Raws could
+serve as the chain seeds.  See also
+`Lens.Number.Nat213.ChartGeneral` for the parameterised version.
 
-이 모듈은 가장 단순한 Method A 만.  일반 numbering system 은
-`Lens.Number.Nat213.NumberingSystem`.  Inductive Peano 표현은
-`Lens.Number.Nat213.Peano`; 두 표현 사이 동형은 `.Bridge`.
+∅-axiom standard; no Mathlib / Classical / propext / Quot.sound /
+omega / native_decide.
 -/
 
 namespace E213.Lens.Number.Nat213.Raw
 
 open E213.Theory E213.Theory.Raw.Endomorphic
-open E213.Term.Internal (Tree)
 
-/-! ### Method A primitives -/
+/-! ### Chart constructors -/
 
-/-- ℕ₊ 의 1 — Method A chain 의 시작점.  Raw.a (= 213 의 최소 observation,
-    1 leaf). -/
+/-- ℕ₊'s `1` — the Method A chain start; the minimum observation
+    (a Raw with leaves = 1). -/
 def one : Raw := Raw.a
 
-/-- successor — n 에 Raw.b 를 wrap. -/
+/-- Successor — wraps `n` in `Raw.b` via `slashOrSelf`. -/
 def succ (n : Raw) : Raw := slashOrSelf n Raw.b
 
-/-- Lean Nat 으로부터 Method A Raw chain 만들기 — 외부 Nat 사용 (편의용).
-    **Off-by-one convention**: `numeral n` = ℕ₊ 의 (n+1)-th 원소
-    (`value (numeral n) = n + 1`). -/
+/-- Enumeration `Nat → Raw` (off-by-one: `numeral n` corresponds to
+    the (n+1)-th positive natural, i.e. value `n+1`). -/
 def numeral : Nat → Raw
   | 0     => one
   | n + 1 => succ (numeral n)
 
 theorem numeral_zero : numeral 0 = one := rfl
+
 theorem numeral_succ (n : Nat) : numeral (n + 1) = succ (numeral n) := rfl
 
-/-! ### Projection back to external Nat (= leaves count) -/
+/-! ### Projection to `Nat` (= `Lens.leaves.view` for Raw) -/
 
-/-- Method A Raw chain 의 외부 Nat 값 — leaves 수.
-    `value (numeral n) = n + 1` (수학적으로 = leaves count). -/
+/-- Leaves-count projection: `value r` is the number of atom leaves
+    in the Raw tree.  Equal to `Lens.leaves.view r`. -/
 def value (r : Raw) : Nat := Raw.fold 1 1 (· + ·) r
 
 theorem value_one : value one = 1 := rfl
-theorem value_a : value Raw.a = 1 := rfl
-theorem value_b : value Raw.b = 1 := rfl
+theorem value_a   : value Raw.a = 1 := rfl
+theorem value_b   : value Raw.b = 1 := rfl
 
-/-- `value (slashOrSelf n b) = value n + 1` (n ≠ b 가정 — Method A
-    chain 내부에서 항상 성립). -/
+/-- The successor wrap adds one leaf, provided the wrapped element
+    is not literally `Raw.b` (otherwise `slashOrSelf` collapses). -/
 theorem value_succ_of_ne (n : Raw) (h : n ≠ Raw.b) :
     value (succ n) = value n + 1 := by
   unfold succ value
   rw [slashOrSelf_of_ne h]
-  -- (Raw.fold 1 1 (· + ·)) on slash 이 symmetric combine 이라 분해 가능
   show Raw.fold 1 1 (· + ·) (Raw.slash n Raw.b h) = _
   rw [Raw.fold_slash 1 1 (· + ·) (fun u v => Nat.add_comm u v) n Raw.b h]
   show Raw.fold 1 1 (· + ·) n + Raw.fold 1 1 (· + ·) Raw.b
      = Raw.fold 1 1 (· + ·) n + 1
   rfl
 
-/-! ### Arithmetic (closed in Raw)
+/-! ### Chain invariant -/
 
-`Lens/Number/Nat213/Peano.lean` 의 inductive `Nat213.add / mul` 을
-closed-Raw 로 재구현.  output 도 Raw, 외부 type 의존 없음. -/
-
-/-- Method A chain 위 덧셈 (Tree-level structural recursion).  m의
-    Tree 구조를 따라 succ 누적. -/
-private def addAux (n : Raw) : Tree → Raw
-  | .a => succ n
-  | .b => n  -- valid Nat213 chain 에는 도달 불가; fallback
-  | .slash x y =>
-      if x = Tree.b then
-        -- canonical (succ chain n≥2): b 가 왼쪽, 전임자가 오른쪽
-        succ (addAux n y)
-      else
-        -- numeral 1 case (a 왼쪽, b 오른쪽) 또는 n≥2 의 후속
-        succ (addAux n x)
-
-/-- **Closed-Raw addition**: `add m n` — 양쪽 모두 Method A chain 가정,
-    output 도 Method A chain. -/
-def add (m n : Raw) : Raw := addAux n m.val
-
-/-- `add` 는 left-arg 가 `one` (= Raw.a) 일 때 단순 succ. -/
-theorem one_add (n : Raw) : add one n = succ n := rfl
-
-/-! ### Multiplication (closed in Raw) -/
-
-/-- Closed-Raw multiplication via Tree-structural recursion.
-    `mul m n` = repeated `add n` invocations driven by m's chain. -/
-private def mulAux (n : Raw) : Tree → Raw
-  | .a => n  -- "1 · n = n"
-  | .b => n  -- fallback for invalid Nat213
-  | .slash x y =>
-      if x = Tree.b then
-        add n (mulAux n y)
-      else
-        add n (mulAux n x)
-
-/-- `mul m n` — Method A chain 위 곱셈, output Method A chain. -/
-def mul (m n : Raw) : Raw := mulAux n m.val
-
-theorem one_mul (n : Raw) : mul one n = n := rfl
-
-/-! ### Key arithmetic laws — Layer 2 (inductive Nat213) 와 일치성 위한 핵심 lemma -/
-
-/-- **add_succ_left**: `add (succ k) n = succ (add k n)` (k ≠ Raw.b 가정).
-    inductive Nat213 의 `add (succ m) n = succ (add m n)` 의 closed-Raw 버전.
-
-    canonical-form 분석: succ k 의 underlying Tree 는 cmp(k.val, .b) 에 따라
-    `.slash k.val .b` 또는 `.slash .b k.val` — 두 layout 모두에서 addAux 의
-    조건 분기가 같은 결과를 줌. -/
-theorem add_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
-    add (succ k) n = succ (add k n) := by
-  show addAux n (succ k).val = succ (addAux n k.val)
-  unfold succ slashOrSelf
-  rw [dif_neg hk]
-  -- 목표: addAux n (Raw.slash k Raw.b hk).val = succ (addAux n k.val)
-  show addAux n (Raw.slash k Raw.b hk).val = succ (addAux n k.val)
-  unfold Raw.slash
-  -- match cmp k.val .b 분기
-  split <;> rename_i hcmp
-  · -- cmp = lt: val = Tree.slash k.val .b
-    show addAux n (Tree.slash k.val Tree.b) = succ (addAux n k.val)
-    -- addAux 의 .slash 분기, x = k.val, y = .b
-    show (if k.val = Tree.b then succ (addAux n Tree.b) else succ (addAux n k.val))
-       = succ (addAux n k.val)
-    rw [if_neg]
-    -- 증명: k.val ≠ Tree.b — k ≠ Raw.b 로부터
-    intro hkb
-    apply hk
-    apply Subtype.ext
-    exact hkb
-  · -- cmp = gt: val = Tree.slash .b k.val
-    show addAux n (Tree.slash Tree.b k.val) = succ (addAux n k.val)
-    show (if Tree.b = Tree.b then succ (addAux n k.val) else succ (addAux n Tree.b))
-       = succ (addAux n k.val)
-    rw [if_pos rfl]
-  · -- cmp = eq: absurd (k = Raw.b 로 귀결)
-    exfalso
-    apply hk
-    apply Subtype.ext
-    exact Tree.cmp_eq_to_eq _ _ hcmp
-
-/-- **mul_succ_left**: `mul (succ k) n = add n (mul k n)` (k ≠ Raw.b 가정).
-    inductive Nat213 의 `mul (succ m) n = add n (mul m n)` 의 closed-Raw 버전. -/
-theorem mul_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
-    mul (succ k) n = add n (mul k n) := by
-  show mulAux n (succ k).val = add n (mulAux n k.val)
-  unfold succ slashOrSelf
-  rw [dif_neg hk]
-  show mulAux n (Raw.slash k Raw.b hk).val = add n (mulAux n k.val)
-  unfold Raw.slash
-  split <;> rename_i hcmp
-  · -- cmp = lt: val = .slash k.val .b
-    show mulAux n (Tree.slash k.val Tree.b) = add n (mulAux n k.val)
-    show (if k.val = Tree.b then add n (mulAux n Tree.b) else add n (mulAux n k.val))
-       = add n (mulAux n k.val)
-    rw [if_neg]
-    intro hkb
-    apply hk
-    apply Subtype.ext
-    exact hkb
-  · -- cmp = gt: val = .slash .b k.val
-    show mulAux n (Tree.slash Tree.b k.val) = add n (mulAux n k.val)
-    show (if Tree.b = Tree.b then add n (mulAux n k.val) else add n (mulAux n Tree.b))
-       = add n (mulAux n k.val)
-    rw [if_pos rfl]
-  · exfalso
-    apply hk
-    apply Subtype.ext
-    exact Tree.cmp_eq_to_eq _ _ hcmp
-
-/-! ### Lean-free value: Raw → Raw
-
-기존 `value : Raw → Nat` 은 Lean Nat 를 사용 (boundary layer).
-다음 정의는 출력도 Raw (Method A chain) — Lean 격리 layer 한 발 더 안쪽.
-
-`leavesCountRaw r` = r 의 leaves 수를 Method A Nat213 chain 으로 인코딩.
-즉 leavesCount(numeral n) = numeral n 자기 자신 (numeral n 은 n+1 leaves).
-
-이게 "Lean 타입을 격리 레이어로만 사용" 의 시범:
-  - 입력 Raw, 출력 Raw
-  - 외부 Nat/Bool 의존 없음
-  - 대신 Method A chain 표기 사용 -/
-
-/-- Lean-free leaves count — 출력도 Raw (Method A chain). -/
-def leavesCountRaw : Raw → Raw := Raw.fold one one add
-
-theorem leavesCountRaw_a : leavesCountRaw Raw.a = one := rfl
-theorem leavesCountRaw_b : leavesCountRaw Raw.b = one := rfl
-
-/-- 동작 sanity — 처음 4개 numeral. -/
-example : leavesCountRaw (numeral 0) = numeral 0 := rfl  -- "1" leaf
-example : leavesCountRaw (numeral 1) = numeral 1 := rfl  -- "2" leaves
-example : leavesCountRaw (numeral 2) = numeral 2 := rfl  -- "3" leaves
-example : leavesCountRaw (numeral 3) = numeral 3 := rfl  -- "4" leaves
-
-/-! ### Chain invariants — leavesCountRaw 분석을 위한 보조 -/
-
-/-- 모든 Method A chain (numeral n) 은 Raw.b 와 다름.  Method A 의
-    structural invariant. -/
+/-- Every `Raw.numeral n` differs from `Raw.b` — Method A chain
+    structural invariant.  Enables `value_succ_of_ne` on numerals
+    and is the chain-element-≠-Raw.b lemma. -/
 theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
   induction n with
   | zero =>
-      -- numeral 0 = one = Raw.a ≠ Raw.b
       intro h
-      exact Tree.noConfusion (congrArg Subtype.val h)
+      exact Term.Internal.Tree.noConfusion (congrArg Subtype.val h)
   | succ k ih =>
-      -- numeral (k+1) = succ (numeral k) = slashOrSelf (numeral k) Raw.b
       show succ (numeral k) ≠ Raw.b
       unfold succ slashOrSelf
       rw [dif_neg ih]
@@ -236,82 +106,55 @@ theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
         congrArg Subtype.val h
       unfold Raw.slash at hval
       split at hval
-      · exact Tree.noConfusion hval
-      · exact Tree.noConfusion hval
+      · exact Term.Internal.Tree.noConfusion hval
+      · exact Term.Internal.Tree.noConfusion hval
       · rename_i hcmp
-        exact ih (Subtype.ext (Tree.cmp_eq_to_eq _ _ hcmp))
+        exact ih (Subtype.ext (Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
 
-/-! ### leavesCountRaw 의 step lemma + chain identity -/
+/-! ### Value on numerals -/
 
-/-- **Step**: `leavesCountRaw (succ r) = succ (leavesCountRaw r)` for r ≠ Raw.b.
-    canonical-form 분석: succ r 의 underlying Tree 가 cmp(r.val, .b) 에 따라
-    `.slash r.val .b` (cmp=lt) 또는 `.slash .b r.val` (cmp=gt) — 양쪽
-    모두 fold 결과가 `succ (leavesCountRaw r)` 와 일치. -/
-theorem leavesCountRaw_succ (r : Raw) (h : r ≠ Raw.b) :
-    leavesCountRaw (succ r) = succ (leavesCountRaw r) := by
-  show Raw.fold one one add (succ r) = succ (Raw.fold one one add r)
-  unfold succ slashOrSelf
-  rw [dif_neg h]
-  show Raw.fold one one add (Raw.slash r Raw.b h)
-     = succ (Raw.fold one one add r)
-  unfold Raw.fold Raw.slash
-  split <;> rename_i hcmp
-  · -- cmp = lt: val = Tree.slash r.val .b
-    show Tree.fold one one add (Tree.slash r.val Tree.b)
-       = succ (Tree.fold one one add r.val)
-    show add (Tree.fold one one add r.val) (Tree.fold one one add Tree.b)
-       = succ (Tree.fold one one add r.val)
-    show add (Tree.fold one one add r.val) one
-       = succ (Tree.fold one one add r.val)
-    -- need: add x one = succ x for x = leavesCountRaw r
-    -- one = Raw.a, so add x one = addAux one x.val = ... need x ≠ b
-    -- For r = Raw.a (the only cmp=lt case), leavesCountRaw r = one ≠ b
-    -- We just compute: x = one. add one one = succ one (rfl since one_add).
-    have h_r_eq_a : r = Raw.a := by
-      apply Subtype.ext
-      cases hr : r.val with
-      | a => rfl
-      | b => exfalso; exact h (Subtype.ext hr)
-      | slash _ _ =>
-          -- r.val = slash → cmp(slash, b) = gt, but we're in cmp=lt branch
-          rw [hr] at hcmp
-          exact Ordering.noConfusion hcmp
-    rw [h_r_eq_a]
-    rfl
-  · -- cmp = gt: val = Tree.slash .b r.val
-    show Tree.fold one one add (Tree.slash Tree.b r.val)
-       = succ (Tree.fold one one add r.val)
-    show add (Tree.fold one one add Tree.b) (Tree.fold one one add r.val)
-       = succ (Tree.fold one one add r.val)
-    show add one (Tree.fold one one add r.val)
-       = succ (Tree.fold one one add r.val)
-    -- one_add: add one x = succ x by rfl
-    rfl
-  · -- cmp = eq: r = b, contradiction
-    exfalso
-    apply h
-    apply Subtype.ext
-    exact Tree.cmp_eq_to_eq _ _ hcmp
-
-/-- **Chain identity**: leavesCountRaw 가 numeral chain 위에서 identity.
-    Method A chain 들이 leaves-count quotient 의 canonical representative. -/
-theorem leavesCountRaw_numeral (n : Nat) :
-    leavesCountRaw (numeral n) = numeral n := by
-  induction n with
-  | zero => rfl
-  | succ k ih =>
-      -- numeral (k+1) = succ (numeral k)
-      show leavesCountRaw (succ (numeral k)) = succ (numeral k)
-      rw [leavesCountRaw_succ _ (numeral_ne_b k), ih]
-
-/-- **Numeral value**: `value (numeral n) = n + 1` — Method A chain n 이
-    Lean Nat (n+1) 에 대응.  Real213 cut 우주로의 bridge 의 핵심. -/
+/-- `value (numeral n) = n + 1` — Method A off-by-one. -/
 theorem value_numeral (n : Nat) : value (numeral n) = n + 1 := by
   induction n with
   | zero => rfl
   | succ k ih =>
-      -- value (numeral (k+1)) = value (succ (numeral k)) = value (numeral k) + 1
       show value (succ (numeral k)) = (k + 1) + 1
       rw [value_succ_of_ne _ (numeral_ne_b k), ih]
+
+/-- `numeral` is injective: distinct Nat indices produce distinct
+    chain Raws.  Proof via `value`: `value (numeral n) = n + 1` and
+    `value` is constant on the LHS-RHS image. -/
+theorem numeral_injective {m n : Nat} (h : numeral m = numeral n) : m = n := by
+  have hv : value (numeral m) = value (numeral n) := congrArg value h
+  rw [value_numeral, value_numeral] at hv
+  exact Nat.succ.inj hv
+
+/-! ### Surjectivity of `value` onto ℕ₊ (added 2026-05-18)
+
+Together with `numeral_injective`, this establishes that
+`Range(value) = {n : Nat | 1 ≤ n} = ℕ₊` exactly.  The Method A
+numerals provide a section `ℕ → Raw` that, restricted to
+`{n | 0 ≤ n}`, hits each natural ≥ 1 via the off-by-one
+`value (numeral n) = n + 1`. -/
+
+/-- **Surjectivity of `value` onto ℕ₊**: for every `n ≥ 1`, the
+    Method A numeral `numeral (n - 1)` is a Raw with `value = n`.
+    This is the rigorous form of "ℕ₊ is the image of the leaves
+    Lens" — combined with the trivial `1 ≤ value r` for any `r`,
+    `Range(value)` is exactly `{n | 1 ≤ n}`. -/
+theorem value_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
+    ∃ r : Raw, value r = n := by
+  refine ⟨numeral (n - 1), ?_⟩
+  rw [value_numeral]
+  -- goal: (n - 1) + 1 = n
+  exact Nat.succ_pred_eq_of_pos hn
+
+/-- The Method A numeral chain is a section of `value`: for every
+    `n ≥ 1`, `value (numeral (n - 1)) = n`.  Constructive form of
+    `value_surjective_on_ge_one`. -/
+theorem value_numeral_pred (n : Nat) (hn : 1 ≤ n) :
+    value (numeral (n - 1)) = n := by
+  rw [value_numeral]
+  exact Nat.succ_pred_eq_of_pos hn
 
 end E213.Lens.Number.Nat213.Raw

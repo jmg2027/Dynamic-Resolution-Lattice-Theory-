@@ -93,6 +93,6 @@ The glue 1 IS the boost generator.
 
 ## See also
 
-- lean/E213/Theory/Raw/Mobius.lean
+- lean/E213/Lib/Math/Mobius213.lean
 - lean/E213/Theory/Nat213/OneAsGlue.lean (NEW)
 - research-notes/G70-G73 (prior chain)

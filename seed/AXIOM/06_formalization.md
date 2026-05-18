@@ -29,9 +29,10 @@ commitment to the axiom):
 
 **Lens-layer bleed** (Theory currently holds some Lens-flavored
 observables): `Raw.depth` (`Theory/Raw/Slash.lean`), `Raw.leaves`
-(`Theory/Raw/Levels.lean`), `Raw.fold_signed_swap`
-(`Theory/Raw/Signed.lean`), `Raw.fold_swap_hom` (`Theory/Raw/Hom
-.lean`).  Classified as *intentional convenience leak* — these are
+(`Theory/Raw/Levels.lean`), `Raw.fold_signed_swap` +
+`Raw.fold_swap_hom` (both in `Theory/Raw/FoldSwap.lean`, merged
+2026-05-18 from the former `Signed.lean` + `Hom.lean`).
+Classified as *intentional convenience leak* — these are
 pure-induction theorems on Tree that every Lens consumer eventually
 needs, and relocating gains nothing for axiom-minimality.
 

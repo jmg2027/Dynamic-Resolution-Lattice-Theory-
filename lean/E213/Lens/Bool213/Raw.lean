@@ -7,8 +7,17 @@ Bool 을 외부 type 으로 빌리지 않고 Raw 의 특정 두 모양으로 인
 operation 들도 Raw → Raw 또는 Raw → Raw → Raw 로 닫혀 있음.
 
 Lens 의미: **`Raw.fold T F and` 의 closed-Raw codomain catamorphism**
-(`booleanProj`).  Nat213 의 `leavesCountRaw` 와 정확히 평행한 vertical-
-internal projection.
+(`booleanProj`) — Raw-internal vertical projection onto the
+two-element canonical form `{T, F}`.
+
+**Note (Option C refactor, 2026-05-18)**: previously this header
+cited `Nat213.leavesCountRaw` as the parallel construction.  That
+projection has since been deleted (the Nat213 chart no longer
+carries a Raw-side projection — `Lens.leaves.view` projects to
+`Nat` directly).  Bool213 keeps its Raw-side `booleanProj` because
+the canonical form `{T, F}` *is* the Raw image (both T and F are
+themselves Raws), so projecting to Raw and to "the two-element
+set" are the same thing.
 
 ## 무한히 많은 Bool213 (T, F 쌍 자유)
 
@@ -87,18 +96,20 @@ theorem and_comm (x y : Raw) : and x y = and y x := by
 
 /-! ### Vertical-internal projection — Raw → Bool213 canonical form
 
-leavesCountRaw 의 Bool 대응 (Nat213 와 같은 패턴):
-임의 Raw 를 Bool213 의 두 canonical form (T, F) 중 하나로 collapse.
+Bool 쪽 vertical-internal projection: 임의 Raw 를 Bool213 의 두
+canonical form (T, F) 중 하나로 collapse.
 
 정의:  `booleanProj := Raw.fold T F and` — universal-T form,
        leaves 모두가 T 일 때만 T, 하나라도 F 면 F.
 
-성질 (leavesCountRaw 와 동일):
+성질:
   1. closure:    `booleanProj r ∈ {T, F}`  (모든 r 위)
   2. idempotence: `booleanProj² = booleanProj`  (모든 r 위)
 
 이게 Bool 쪽 vertical-internal projection 의 정확한 표현.
-Nat213 의 leavesCountRaw 와 같은 메타 패턴. -/
+post-Option-C, Bool213 의 유일한 Raw-side projection 패턴 —
+Nat213 에선 이 패턴이 dropped (∵ ℕ₊ 는 codomain `Nat` 으로
+projection). -/
 
 /-- Bool 쪽 vertical-internal projection — Raw → Bool213 canonical form. -/
 def booleanProj : Raw → Raw := Raw.fold T F and
@@ -159,8 +170,11 @@ theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
   · right; rw [← h]; exact hF
 
 /-- **Fixed-point 특성화**: booleanProj 가 r 을 그대로 두는 것 ↔ r 이
-    Bool213 ({T, F}).  Nat213 의 `leavesCountRaw_id_iff_isChain`,
-    RawCut 의 `cutBooleanProj_id_iff_isBool` 와 평행. -/
+    Bool213 ({T, F}).  RawCut 의 `cutBooleanProj_id_iff_isBool`
+    와 평행 (post-Option-C: Nat213 의 옛 `leavesCountRaw_id_iff_isChain`
+    counterpart 는 ℕ₊ 가 Raw quotient 가 아니라 Nat projection 이
+    됨에 따라 삭제됨; `seed/CLOSED_FORM_SPEC.md` 의 3-domain 표
+    참조). -/
 theorem booleanProj_id_iff_isBool213 (r : Raw) :
     booleanProj r = r ↔ IsBool213 r :=
   ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
@@ -177,7 +191,9 @@ Nat213 의 `value : Raw → Nat` 와 평행: Bool 쪽 boundary projection.
   - `boolValue ∘ booleanProj = boolValue`         (commutativity with vertical-internal)
 
 이게 G84 의 4 종류 동형성 중 #3 (수직-외부, Raw → Lean type) 의 Bool 사례.
-Nat213 의 `value_leavesCountRaw_general` 와 정확히 평행. -/
+post-Option-C Nat213 의 `Raw.value` 와 평행 (단 Nat213 쪽은
+Raw-internal projection 단계 없이 곧바로 Nat 측 projection;
+`seed/CLOSED_FORM_SPEC.md` 참조). -/
 
 /-- Boundary mapping — Bool213 universe → Lean Bool.  Universal-true form. -/
 def boolValue : Raw → Bool := Raw.fold true false (· && ·)

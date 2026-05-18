@@ -13,8 +13,7 @@ import E213.Lib.Physics.Simplex.Counts
 Closes HANDOFF Open Problem #5: ⋆⋆ = id on all five Δ⁴
 cochain strata (5, 0), (5, 1), (5, 2), (5, 3), (5, 4).
 
-Each stratum is closed at ≤ {propext, Quot.sound} via the
-pattern-lift technique:
+Each stratum is closed PURE via the pattern-lift technique:
   - Concrete cochain functions parametrized by Bool tuples
   - ⋆⋆ = id verified by decide on the pattern enumeration
   - Lifted to Prop-level ∀ σ via pattern_eq
@@ -40,7 +39,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
   involution on K_{3,2}^{(c=2)} cochain strata of the 5-simplex
   (Δ⁴), at every dimensional level k ∈ {0, 1, 2, 3, 4}.
 
-  All five Prop-level statements at ≤ {propext, Quot.sound}. -/
+  All five Prop-level statements PURE (verified 2026-05-18). -/
 theorem hodge_involution_5strata_capstone :
     -- (5, 0)
     (∀ σ : Cochain 5 0, ∀ i : Fin (binom 5 0),

@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Legendre.Legendre
+import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor6
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
@@ -17,7 +17,7 @@ import E213.Lib.Math.DyadicFSM.Pisano.Predictor
   | 17 | 2 (NQR)  | inert     |    18        |    18      |  NEW
   | 19 | 1 (QR)   | split     |     9        |     9      |
 
-7 of 7 primes verified.  All <= {propext, Quot.sound}.
+7 of 7 primes verified.  All PURE (∅-axiom).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Pisano.Predictor7

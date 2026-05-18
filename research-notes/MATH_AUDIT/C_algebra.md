@@ -50,7 +50,7 @@ generic `Algebra213` typeclass tower (현재 Theory/Internal/Algebra*)
 - F2CDTower — F_2 base CD tower
 - LipschitzLens — Lens construction on Lipschitz
 - R5Vacuity — R5 vacuity claim (Raw → α fold totality)
-- AlgebraTowerCapstone — Theory.CDDouble.* + Theory.Raw.Mobius
+- AlgebraTowerCapstone — Theory.CDDouble.* + Lib.Math.Mobius213
   (5 imports 한꺼번에 — 가장 reach-heavy)
 
 ## §2 Cluster docstring overview

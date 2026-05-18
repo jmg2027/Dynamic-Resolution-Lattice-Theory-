@@ -1,4 +1,4 @@
-import E213.Lib.Math.Polynomial213
+import E213.Lib.Math.Polynomial213.Core
 
 /-!
 # Polynomial213.Sound — soundness lemmas (∅-axiom)

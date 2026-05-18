@@ -35,7 +35,7 @@ The graph IS the 213 universe.  The 1-glue manifests as the
 
 ### (B) Linear algebra: Möbius P as SL(2, ℤ) generator
 
-**Existing infrastructure**: `Theory/Raw/Mobius.lean`
+**Existing infrastructure**: `Lib/Math/Mobius213.lean`
 
 P = `[[2, 1], [1, 1]]` ∈ SL(2, ℤ) since det(P) = 1.
 
@@ -138,6 +138,6 @@ To complete the user's vision:
 ## See also
 
 - `lean/E213/Lib/Math/Cohomology/Bipartite/V32.lean` — K_{3,2}^{(2)}
-- `lean/E213/Theory/Raw/Mobius.lean` — Möbius P
+- `lean/E213/Lib/Math/Mobius213.lean` — Möbius P
 - `lean/E213/Lib/Math/DyadicFSM/Fib/PellRelation.lean` — Pell-Fib
 - `research-notes/G70-G75` — atomicity, glue, det chain

@@ -1,43 +1,59 @@
-# CLOSED_FORM_SPEC — 213 닫힌 형식 spec (Tier 5)
+# CLOSED_FORM_SPEC — closed-form spec for 213 (Tier 5)
 
-213 의 substantial math 는 외부 axiom (propext, funext, Quot.sound,
-Classical, Mathlib) 없이 표현 가능.  funext / propext / Quot.sound 가
-들어가던 자리는 **vertical-internal projection** + **pointwise eq** 으로
-대체.
+The substantial mathematics of 213 can be expressed without external
+axioms (`propext`, `funext`, `Quot.sound`, `Classical`, Mathlib).
+Where `funext` / `propext` / `Quot.sound` previously entered, we
+substitute **vertical-internal projection** + **pointwise eq**.
 
 See also:
-  - `research-notes/G84_closed_form_pattern_unification.md` (탐색 노트)
-  - `lean/E213/Theory/Closed/*` (Lean 구현)
-  - `lean/E213/Lib/Math/Real213/ChainToCut.lean` (bridge)
+  - `research-notes/G84_closed_form_pattern_unification.md` (探索 note)
+  - `lean/E213/Lens/Number/Nat213/*` and
+    `lean/E213/Lens/Bool213/*` (Lean implementation, post-Option-C
+    layout)
+  - `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean` (bridge)
 
-## 4-domain meta-pattern
+## 3-domain meta-pattern (post-Option-C, 2026-05-18)
 
-각 domain 위 vertical-internal projection 이 동일 형태:
+Each domain carries a projection of the same shape:
 
-  - **closure**: projection r 의 image 가 canonical form 안.
-  - **idempotence**: `projection² = projection` (또는 pointwise).
-  - **boundary commutativity**: vertical-external projection 과 호환.
+  - **closure**: projection `r`'s image is in canonical form.
+  - **idempotence**: `projection² = projection` (or pointwise).
+  - **boundary commutativity**: vertical-external projection is
+    compatible.
   - **fixed-point ↔ image**: `projection r = r ↔ predicate r`.
 
 | domain | object | projection | base / combine | image predicate |
 |---|---|---|---|---|
-| Nat213 | Raw | `leavesCountRaw` | one, add | `IsChain` |
 | Bool213 | Raw | `booleanProj` | T, and | `IsBool213` |
 | RawCut | Raw²→Raw | `cutBooleanProj` | pointwise | `IsBoolValued` |
 | CauchyCutSeq | struct | `cauchyProj` | `constCauchyCutSeq ∘ limit` | `IsConstAtLimit` |
 
-Lean 위치 (4-domain catalog):
-  - Theory/Closed/Nat213Bridge.lean
-  - Theory/Closed/Bool213.lean
-  - Theory/Closed/RawCut.lean
-  - Lib/Math/Analysis/CauchyProj.lean
+Lean locations:
+  - `lean/E213/Lens/Bool213/Raw.lean`
+  - `lean/E213/Lens/Number/Nat213/RawCut.lean`
+  - `lean/E213/Lib/Math/Analysis/CauchyProj.lean`
 
-## ChainToCut bridge — 압축 도구 입증
+**Note on the former Nat213 row** (`leavesCountRaw` / `IsChain`):
+The Option C refactor (commit `9efd8263`, 2026-05-18) removed the
+Raw-side projection `leavesCountRaw` together with all Raw-side
+arithmetic on `Nat213`.  ℕ₊ is now the *image* of
+`Lens.leaves.view : Raw → Nat`, a *projection to Nat*, not a
+Raw-internal projection.  Conceptually this is the same
+`projection r ∈ image` shape, but the codomain has moved from Raw
+to Nat — the Raw side carries only the chart representative
+(`Raw.numeral`).  See
+`research-notes/2026-05-18_lens_emergence_path.md` for the full
+reasoning.
 
-Theory/Closed/Nat213 → Real213 cut 우주의 정수 sublattice embedding.
-모든 핵심 cut 연산이 chain bridge 통해 commute:
+## ChainToCut bridge — ℕ₊ chain ↔ Real213 cut
 
-| Real213 연산 | Bridge 정리 |
+The Method A Raw chain embeds into Real213's cut universe.  Core
+cut operations commute through the bridge.  Post-Option-C the
+homomorphism is expressed at the **value level** via Peano
+arithmetic (the previous Raw-level `Raw.add` / `Raw.mul` are
+deleted).
+
+| Real213 operation | Bridge theorem |
 |---|---|
 | `cutSum` (add) | `cutSum_chainToCut` |
 | `cutMul` (mul) | `cutMul_chainToCut` |
@@ -45,28 +61,30 @@ Theory/Closed/Nat213 → Real213 cut 우주의 정수 sublattice embedding.
 | `cutMax` (LUB) | `cutLe_cutMax_chainToCut_iff` |
 | `cutMin` (GLB) | `cutLe_cutMin_chainToCut_iff` |
 
-Lean: `lean/E213/Lib/Math/Real213/ChainToCut.lean`.
+Lean: `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean`.
 
 ## Bridge composition
 
-ChainToCut + CauchyProj 자연스럽게 결합:
+ChainToCut + CauchyProj compose naturally:
 `chainCauchyCutSeq r := constCauchyCutSeq (chainToCut r)`.
 
-Lean: `lean/E213/Lib/Math/Analysis/ChainCauchy.lean`.  모든 정리 rfl.
+Lean: `lean/E213/Lib/Math/Analysis/ChainCauchy.lean`.
 
 ## Propext-avoidance trick set
 
-PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext leak
-만나면 즉시 적용:
+Patterns to keep theorems PURE (reusable).  When a future session
+hits a propext leak, apply these in order:
 
-  1. **`rw [Iff_lemma]`** → `Iff.trans (lemma) ?_`.  Iff rewrite 가 propext.
-  2. **`rw [Iff_lemma] at hyp`** → `(Iff_lemma _ _).mp hyp` 직접.
+  1. **`rw [Iff_lemma]`** → `Iff.trans (lemma) ?_`.  Iff rewrite
+     carries propext.
+  2. **`rw [Iff_lemma] at hyp`** → `(Iff_lemma _ _).mp hyp`
+     directly.
   3. **`rw [Eq_lemma] at hyp`** → `Eq_lemma ▸ hyp` (term-mode).
-  4. **`▸` motive 모호** → `calc` 으로 명시 step 분리.
-  5. **`Bool.and_eq_true`** / **`Bool.or_eq_true`** Iff 회피 — 직접
-     match-mode 헬퍼:
+  4. **`▸` motive ambiguity** → split with `calc`.
+  5. **`Bool.and_eq_true` / `Bool.or_eq_true`** Iff avoidance —
+     direct match-mode helpers:
      ```
-     and_left  : (a && b) = true → a = true   -- match a; case false → noConfusion
+     and_left  : (a && b) = true → a = true
      and_right : (a && b) = true → b = true
      and_intro : a = true → b = true → (a && b) = true
      or_cases  : (a || b) = true → a = true ∨ b = true
@@ -74,57 +92,80 @@ PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext lea
      ```
   6. **Nat-core leak** → `E213.Tactic.Nat213.*` helpers:
      `mul_assoc`, `add_mul`, `add_sub_of_le`, `le_sub_of_add_le`,
-     `mul_mul_mul_comm_213`, `le_of_mul_le_mul_right`, **`sub_le_sub_left`** (2026-05-11 추가).
-  7. **`decide_eq_true_iff`** → 직접 `Iff.intro` 양방향:
+     `mul_mul_mul_comm_213`, `le_of_mul_le_mul_right`,
+     `sub_le_sub_left`.
+  7. **`decide_eq_true_iff`** → direct two-direction `Iff.intro`:
      `· intro h; exact decide_eq_true (..mp h)`
      `· intro h; exact ...mpr (of_decide_eq_true h)`.
   8. **`by_cases` / `omega` / `simp`** → `cases` / `match` /
      manual Nat lemmas.
+  9. **`rw [decide_eq_true_eq]` / `rw [decide_eq_false_iff_not]`**
+     → direct `decide_eq_true (proof)` /
+     `decide_eq_false (fun h => ...)`.  Decide-Iff carries propext.
+  10. **`Nat.sub_add_cancel`** (carries `propext`) →
+      `Nat.succ_pred_eq_of_pos` (PURE).
+  11. **`Nat.le_max_left` / `Nat.le_max_right`** (carry `propext`)
+      → switch from depth-based to leaves-based reasoning, or use
+      `Nat.le_add_left` / `Nat.le_add_right`.
+  12. **`List.append_nil` / `List.append_assoc` / `List.length_append`**
+      (carry `propext`) → `E213.Tactic.List213.{append_nil,
+      append_assoc, length_append}` — manually proved
+      `congrArg`-based replacements.
 
-## Marathon 사례
+## Active limitations (deeper propext chains)
 
-이번 cycle 에서 변환 완료 (DIRTY → PURE):
-  - `Cauchy.EulerSharperPure.e_partial_neq_third_a` (1, trick 3+4+6)
-  - `Real213.CutLatticeEq.{cutMax,cutMin}_cutLe_*` (6, trick 5)
-  - `Real213.CutMulConstConst.cutMul_const_const_*` (2, trick 2+8)
-  - `Real213.ValidCutOps.{cutMax,cutMin,cutSum}_valid` (4, trick 5+2+8)
-  - `Real213.CutMidMono.cutLe_{a,b}_cutMid_at` (2, trick 6 + 신규 sub_le_sub_left)
-  - `Real213.CutSumGeneral.cutSum_{same,diff}_denom_{forward,contrapositive}` (4, trick 2+6+8)
+These modules are partially resolved with the surface trick set;
+deeper Lean-core dependencies remain:
 
-**총 26 real DIRTY → PURE** in this cycle.
-**Real213/* 전체 PURE + BracketCauchyModulus + BoolSpace** (~120 → ~94 잔존).
+  - `Real213.CutSumGeneral` — 4 DIRTY, Quot.sound removed but
+    propext remains.
+  - `Real213.CutMidMono.cutLe_a_cutMid_at` — same.
+  - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine).
+  - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases
+    + decide chain.
 
-Additional 발견 (10번째 trick):
-  10. **`rw [decide_eq_true_eq]` / `rw [decide_eq_false_iff_not]`** → 직접
-      `decide_eq_true (proof)` / `decide_eq_false (fun h => ...)` 사용.
-      Decide-Iff 가 propext.  BoolSpace 의 5 DIRTY 한 번에 해결.
-
-## 한계 사례 (deeper propext leak)
-
-다음 modules 은 surface trick set 으로 부분만 해결.  deeper investigation
-필요 (예: Lean-core Nat.{mul_comm, mul_le_mul_*} 의 propext chain):
-
-  - `Real213.CutSumGeneral` — 4 DIRTY, Quot.sound 제거됐지만 propext 잔존
-  - `Real213.CutMidMono.cutLe_a_cutMid_at` — Quot.sound 제거됐지만 propext 잔존
-  - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine 관련)
-  - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases + decide chain
-
-이런 케이스들은 Lean-core 의 더 깊은 propext-laden lemma 의존성 필요.
-G83 strategy 따른 eqPW 또는 단계적 refactor 가 답.
+These need either deeper trick development or G83-style staged
+refactor via `eqPW`.
 
 ## Future work
 
-  - Lens 위 vertical-internal (eqPW 일반화) — 5th domain.
-  - Cauchy seq 위 cutSum / cutMul (sequence-level bridge).
-  - DRLT physics 정리들 ∅-axiom 변환 (현재 19 sealed → 0).
+  - Lens-level vertical-internal projection (eqPW generalisation)
+    — a candidate 4th domain.
+  - Cauchy sequence-level `cutSum` / `cutMul` bridge.
+  - DRLT physics theorems → ∅-axiom (currently 19 sealed → 0).
+  - ~~L3 syntactic internalisation~~ — **closed 2026-05-18** in
+    `Lens.SyntacticInternalization`.  Polish-prefix parser/printer
+    with full bijection: forward (`parseTree_printTree`), reverse
+    (`printTree_parseTree`), and injectivity (`printTree_injective`).
 
-## 결론
+## Conclusion
 
-Theory/Closed/* + bridge 들이 **압축 도구 catalog**:
+The 3-domain projection catalog (Bool213 / RawCut / CauchyCutSeq) +
+bridges (`ChainToCut`, `CauchyProj`) form a **compression tool
+catalog**:
 
-  - 새 도메인 → 4-domain 사례 따라 projection 정의.
-  - propext leak → 6 trick 즉시 적용.
-  - Real213 / Cauchy 연결 → ChainToCut / CauchyProj 패턴 활용.
+  - New domain → follow the 3-domain template to define
+    projection.
+  - propext leak → apply the trick set (1–11) immediately.
+  - Real213 / Cauchy connections → use `ChainToCut` /
+    `CauchyProj` patterns.
 
-213 의 ∅-axiom thesis 의 정확한 형식 — composable, audited
-(`#print axioms` 검증), reusable.
+This is the formal realisation of 213's ∅-axiom thesis —
+composable, mechanically audited (`#print axioms` verified),
+reusable.
+
+## Change log
+
+  - **2026-05-18 (Option C refactor)**: Nat213 row removed from the
+    4-domain pattern table.  Path references updated from
+    `Theory/Closed/*` to `Lens/Number/Nat213/*` and `Lens/Bool213/*`
+    (post-2026-05-14 migration).  Document language uniformised
+    to English.  Trick set extended with #10–#11.
+  - **2026-05-18 (L3 + L4 syntactic internalisation closure)**:
+    `Lens.SyntacticInternalization` reached full bijection:
+    `parseTree_printTree` (forward, 21 PURE symbols) extended with
+    `parseHelper_sound` + `printTree_parseTree` + `printTree_injective`
+    + `printRaw_parseTree` (4 PURE symbols, +138 lines).
+    `chartChain_value_injective` + `chartChain_injective` added to
+    `ChartGeneral` (uses 213-native `add_left_cancel` +
+    `mul_left_cancel_pos` to dodge propext-tainted core).

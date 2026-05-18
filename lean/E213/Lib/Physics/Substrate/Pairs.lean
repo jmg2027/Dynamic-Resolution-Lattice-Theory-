@@ -3,8 +3,9 @@ import E213.Lib.Physics.Substrate.Existence
 /-!
 # Phase 2 Pairs — information structure of pairs
 
-**Layer: App** (pair classification — same pattern as `BlockPair, classify`
-in math track `App/Simplex.lean`).
+**Layer: Lib.Physics** (pair classification — same pattern as
+`BlockPair, classify` in math track
+`Lib/Math/Combinatorics/Simplex5.lean`).
 
 Origin: *d=5*. Shape: *5 vertices, (3,2), 10 pairs*. Existence: *what are the 5 + classification*.
 This file: *what is between those 10 pairs?*

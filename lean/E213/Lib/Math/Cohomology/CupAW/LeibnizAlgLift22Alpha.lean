@@ -7,7 +7,6 @@ import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
 import E213.Lib.Math.Cohomology.CupAW.Bilinear
-import E213.Lib.Math.Cohomology.CupAW.BilinearFunc
 import E213.Lib.Math.Cohomology.CupAW.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Delta.Linear

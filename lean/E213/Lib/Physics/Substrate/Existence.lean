@@ -3,8 +3,9 @@ import E213.Lib.Physics.Substrate.Origin
 /-!
 # Phase 2 Existence — what *exists* in d=5?
 
-**Layer: App** (`Vertex := Fin 5` + block classification — *exactly the same pattern*
-as `isA, classify` in math track `App/Simplex.lean`).
+**Layer: Lib.Physics** (`Vertex := Fin 5` + block classification — *exactly
+the same pattern* as `isA, classify` in math track
+`Lib/Math/Combinatorics/Simplex5.lean`).
 
 Origin.lean: *the universe is d=5 dimensional*.
 Shape.lean: *5 points, (3,2) partition, 10 pairs*.

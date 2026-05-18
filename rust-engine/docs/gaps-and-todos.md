@@ -23,8 +23,9 @@ Also caught + fixed in the same pass:
 - `Physics.Basel.{S, upper}` → `Physics.BaselBound.{S, upper}`
 - `Physics.AlphaEMGap.n50_bracket_*` →
   `Physics.AlphaEMStructuralGap.n50_bracket_*`
-- `Firmware.Raw.{a,b,slash,depth,fold}` → re-export shim citations
-  retargeted to actual sub-files (Raw/Core, Raw/Slash, Raw/Fold).
+- `Theory.Raw.{a,b,slash,depth,fold}` → re-export shim citations
+  retargeted to actual sub-files (Raw/Core, Raw/Slash, Raw/Fold)
+  (post-2026-05-12 4-ring rename Firmware → Theory).
 
 Verifier upgraded (`tools/verify-citations`): now requires depth ≥ 2
 file resolution AND that the trailing segment appears as a Lean

@@ -117,7 +117,7 @@ giving the 2/3 split in some assignment.
 ## Lean ∅-axiom witnesses
 
 Already exist:
-- `Theory/Raw/Mobius.lean` — Möbius P trace, det, disc, eigenvalues
+- `Lib/Math/Mobius213.lean` — Möbius P trace, det, disc, eigenvalues
 - `Theory/Nat213/AtomicityCorrespondence.lean` — NS=3, NT=2, d=5
 - `Theory/Nat213/Lenses.lean` — lens infrastructure with 3-tuple
 
@@ -137,7 +137,7 @@ self-similarity = fractal.
 
 ## See also
 
-- `lean/E213/Theory/Raw/Mobius.lean` — Möbius P
+- `lean/E213/Lib/Math/Mobius213.lean` — Möbius P
 - `lean/E213/Theory/Nat213/AtomicityCorrespondence.lean` — NS/NT/d
 - `research-notes/G57_213_mobius_signature.md` — original Möbius
 - `research-notes/G65–G70` — Nat213/lens framework chain

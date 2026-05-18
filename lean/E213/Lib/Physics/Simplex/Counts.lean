@@ -7,9 +7,9 @@ Pure physics-side constants on the 5-simplex with (3, 2) partition.
 All theorems 0-sorry, 0-axiom, `decide`-checked.
 
 Foundation forced by:
-  * `OS.PairForcing` : atom pair (p, q) = (2, 3) unique
-  * `OS.Atomicity`   : d = 5 unique (Bézout shift argument)
-  * `App.Simplex`    : (3, 2) partition + block-pair classifier
+  * `Theory.Atomicity.PairForcing` : atom pair (p, q) = (2, 3) unique
+  * `Theory.Atomicity.Five`        : d = 5 unique (Bézout shift argument)
+  * `Lib.Math.Combinatorics.Simplex5` : (3, 2) partition + block-pair classifier
 
 This file does NOT extend the analysis stack (Real213 / Bishop).  All
 DRLT physics constants live in ℕ + ℚ + finite simplex combinatorics.

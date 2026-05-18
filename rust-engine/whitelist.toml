@@ -3,7 +3,9 @@
 # Single source of truth.  `verify-citations` checks each entry:
 #   1. The Lean lemma exists in lean/E213/.
 #   2. lake build succeeds.
-#   3. #print axioms <thm> ⊆ {propext, Quot.sound}.
+#   3. #print axioms <thm> returns "does not depend on any axioms"
+#      (∅-axiom strict; the legacy ≤ {propext, Quot.sound} tier was
+#      deprecated 2026-05-09 — see STRICT_ZERO_AXIOM.md "Terms" §).
 #   4. Every public runtime function is in this file.
 #
 # Adding an op = adding a row here + Lean lemma + Rust impl + test.

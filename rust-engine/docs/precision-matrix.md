@@ -120,11 +120,11 @@ Any precision measurement disagreeing falsifies DRLT:
 
 ## References (DRLT internal)
 Lean theorem chain forcing K_{3,2}^{(2)}:
-- `lean/E213/Firmware/Raw/Core.lean` — 4 axioms
-- `lean/E213/OS/Atomicity.lean` — `atomic_iff_five`
-- `lean/E213/OS/PrimitiveSizes.lean` — pairSize=2, closureSize=3
-- `lean/E213/App/Simplex.lean` — Fin 5, (3,2) split
-- `lean/E213/Math/Cohomology/TopologyCompare.lean` — c=2 unique
+- `lean/E213/Theory/Raw/Core.lean` — 4 axioms
+- `lean/E213/Theory/Atomicity/Five.lean` — `atomic_iff_five`
+- `lean/E213/Theory/Atomicity/PrimitiveSizes.lean` — pairSize=2, closureSize=3
+- `lean/E213/Lib/Math/Combinatorics/Simplex5.lean` — Fin 5, (3,2) split
+- `lean/E213/Lib/Math/Cohomology/TopologyCompare.lean` — c=2 unique
 - `lean/E213/Math/Linalg213/Capstone.lean` — paper1 capstone
 
 Coupling structure:

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Geometry.Nat213AlgebraicGeometry
+import E213.Lib.Math.Geometry.AlgebraicGeometry
 import E213.Lib.Math.UniverseChain.Synthesis
 
 /-!
@@ -17,7 +17,9 @@ Continuation of the UniverseChain `Synthesis` (atomicity → N_U):
 | 11 | G80 | Δ⁴ ⊥ K_{3,2}^{(2)}: χ sum = -(NS·NT) (Type C bridge) |
 | 12 | G81 | CRT (mod 5, mod 2) = pentagon × triangle, lcm=30 |
 
-Each step ∅-axiom (verified individually in Theory/Nat213/*).
+Each step ∅-axiom (verified individually across `Lib/Math/`
+sub-modules — Möbius213, Geometry, CayleyDickson, etc.,
+plus `Lens/Number/Nat213/*` chart structure).
 The chain extends UniverseChain steps 1-5 (atomicity → N_U) into
 the algebraic-geometric face of 213.
 

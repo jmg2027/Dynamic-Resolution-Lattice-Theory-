@@ -3,6 +3,7 @@ import E213.Lens.LensCore
 import E213.Lens.AxiomLenses
 import E213.Lens.Bool213
 import E213.Lens.Compose
+import E213.Lens.Congruence
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
@@ -11,6 +12,7 @@ import E213.Lens.Lattice
 import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
+import E213.Lens.SyntacticInternalization
 import E213.Lens.Universal
 
 /-! Spec-as-code entry point for `E213.Lens`.
@@ -56,6 +58,16 @@ import E213.Lens.Universal
       (scope C, same Lens-layer principle as Nat213).
     * `Lens.Universal`                   — Universal flat / quot lens
                                             + `Witnesses/`
+    * `Lens.Congruence`                  — Bridge between `Eqv`
+      (internal generic equivalence closure, see `Theory.Raw.
+      Congruence`) and `Lens.equiv` (external view equality);
+      `Eqv L.equiv ↔ L.equiv` biconditional for any lens.
+      Added 2026-05-18 (Option E of the lens-emergence roadmap).
+    * `Lens.SyntacticInternalization`    — §9.4 syntactic
+      internalisation prototype: 7-glyph alphabet (`a, b, /, (, ),
+      `,`, whitespace`) Raw-encoded; Polish-prefix printer + parser
+      + universal round-trip `∀ t, parseTree (printTree t) = some t`
+      (21 strict ∅-axiom).  Added 2026-05-18.
 
   ## Top-level
 
@@ -63,6 +75,9 @@ import E213.Lens.Universal
     * `Lens.lean`           — Lens type + view/equiv
     * `Lens/Initiality.lean`    — initiality of the Lens category
     * `Lens/SemanticAtom.lean`  — semantic-atom characterisation
+    * `Lens/Congruence.lean`    — `Eqv ↔ L.equiv` bridge (2026-05-18)
+    * `Lens/SyntacticInternalization.lean` — glyph-as-Raw L2 + L3
+                                              round-trip (2026-05-18)
 
   ## Status
 

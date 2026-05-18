@@ -131,7 +131,7 @@ All ∅-axiom.
 
 ## See also
 
-- `lean/E213/Theory/Raw/Mobius.lean` — Möbius P trace, det, disc
+- `lean/E213/Lib/Math/Mobius213.lean` — Möbius P trace, det, disc
 - `lean/E213/Theory/Nat213/OneAsGlue.lean` — this synthesis
 - `research-notes/G72` — axis-generator fold family
 - `research-notes/G74` — 1 as rotation axis

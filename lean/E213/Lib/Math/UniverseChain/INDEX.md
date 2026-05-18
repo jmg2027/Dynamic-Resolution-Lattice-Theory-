@@ -41,9 +41,11 @@ of (NS, NT, d) via Möbius P matrix `[[2, 1], [1, 1]]`.
 | 11 | G80 | Δ⁴ ⊥ K_{3,2}^{(2)}: χ sum = -(NS·NT) |
 | 12 | G81 | CRT (mod 5, mod 2) = pentagon × triangle |
 
-Theorems in `Theory/Nat213/{Core,Lenses,AtomicityCorrespondence,
-OneAsGlue,RotationGeometry,AlgebraicGeometry}.lean` and
-`Theory/Tower/{NatPairToInt,NatTripleToZ2,NatPairToQPos}.lean`.
+Theorems are split across the current 4-ring layout:
+`Lens/Number/Nat213/{Core,Lenses,AtomicityCorrespondence}.lean`,
+`Lib/Math/Mobius213OneAsGlue.lean`,
+`Lib/Math/Geometry/Nat213{Rotation,AlgebraicGeometry}.lean`, and
+`Lens/Number/Nat213/Tower/{NatPairToInt,NatTripleToZ2,NatPairToQPos}.lean`.
 102 ∅-axiom theorems in the extension.
 
 **Step 0 (Residue)** formalises Mingu's articulation

@@ -3,7 +3,7 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Lens.Number
 
 /-!
-# Theory.Nat213.OneAsGlue — 1 as the rotation axis between NS and NT
+# Lib.Math.Mobius213OneAsGlue — 1 as the rotation axis between NS and NT
 
 User insight (2026-05-09): "2와 3은 진짜 직교하면 서로 힘을 받을 수
 없다.  1이 접착제이고 회전축.  2-3 spiral이 1의 rotation에서 나옴.

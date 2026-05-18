@@ -12,20 +12,17 @@ import E213.Lib.Math.CayleyDickson.Levels.Sedenion
 import E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy
 import E213.Lib.Math.CayleyDickson.Levels.Trigintaduonion
 import E213.Lib.Math.CayleyDickson.Levels.TrigintaduoionionHeavy
-import E213.Lib.Math.CayleyDickson.Integer.Z2Instance
 import E213.Lib.Math.CayleyDickson.Integer.ZI
 import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Integer.ZIDomain
 import E213.Lib.Math.CayleyDickson.Integer.ZIHom
-import E213.Lib.Math.CayleyDickson.Integer.ZIInstance
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaInstance
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2Domain
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtDomain
-import E213.Lib.Math.CayleyDickson.Integer.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.Integer.ConjugationInstances
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
 /-! Spec-as-code entry point for `E213.Lib.Math.CayleyDickson`.
@@ -70,26 +67,24 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
   ## Tactic-derived instances
 
-    * `ZIInstance`,
-      `Z2Instance`,
-      `ZOmegaInstance`,
-      `ZSqrtInstance` — `derive_conjugation_codomain` /
-      `quad_extension D` macro outputs.
+    * `ConjugationInstances` — `derive_conjugation_codomain` /
+      `quad_extension D` macro outputs for ZI / Z2 / ZOmega /
+      ZSqrt {3, 5, 7}.  Consolidated 2026-05-18 from four
+      singleton files.
 
   ## Status
 
-  All 29 files included (post-2026-05-06 deferred-cluster repair).
-  The 9 formerly-deferred files (CDTower, CayleyHeavy, LipschitzHeavy,
-  LipschitzLens, PathionHeavy, R5Vacuity, SedenionHeavy,
-  TrigintaduoionionHeavy, ZSqrtProduct) all build clean.  Method:
-  fix `Lens` → `Lens` namespace drift (already done in
-  the Lens-cluster A-task); update doubled-vs-single namespace
-  paths in the `hurwitz_ring` macro (Pathion / Trigintaduonion /
-  Sedenion / ZI use doubled `X.X.foo`, Cayley / CDDouble.Lipschitz
-  use single); add missing `open` lines for the type names
-  (`Lipschitz`, `Cayley`, etc.) in each Heavy file; route the
-  `normSq` / `mul_assoc` / etc. references in CDTower from the
-  no-longer-existing `Cayley.normSq` to `CayleyHeavy.normSq` and
-  `LipschitzHeavy.{normSq_mul, mul_assoc, no_zero_div}`.  See
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.2.
+  All ~49 files build clean (2026-05-18 audit).  Post-2026-05-06
+  deferred-cluster repair: the 9 formerly-deferred files
+  (`CDTower`, `CayleyHeavy`, `LipschitzHeavy`, `LipschitzLens`,
+  `PathionHeavy`, `R5Vacuity`, `SedenionHeavy`,
+  `TrigintaduoionionHeavy`, `ZSqrtProduct`) all build.
+
+  Recent compression (2026-05-18):
+
+    - 4 singleton `*Instance.lean` files → `ConjugationInstances.lean`
+    - 3 `ZOmega{Double,Quad,Oct}` + `OrderDist` pairs merged
+    - 3 ZSqrtMinus2-discovery files → `ZSqrtMinus2Findings.lean`
+
+  Net: -8 files since the 2026-05-06 baseline.
 -/

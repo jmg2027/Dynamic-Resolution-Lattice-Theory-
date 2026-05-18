@@ -12,7 +12,7 @@ into a single 0-axiom theorem stating paper 1's main claims.
 
 ## What's bundled
 
-  (i)   Atomic forcing: NS=3, NT=2, d=NS+NT=5 (`OS.Atomicity`)
+  (i)   Atomic forcing: NS=3, NT=2, d=NS+NT=5 (`Theory.Atomicity`)
   (ii)  Linalg213 chiral split: ∀ v ∈ Vec 5, the (S,T) projections
         round-trip to v (`Chiral.combine_proj_eq`)
   (iii) Cohomology 213 chiral bigrading: chiralDim 1 0 + 0 1 = 5

@@ -22,6 +22,14 @@ axis quotients, group completions, etc.).  Including 0 in the
 - `sub` : NOT defined (would require ℤ extension)
 
 All theorems satisfy ∅-axiom standard.
+
+**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This
+inductive `Nat213` is an *ergonomic parallel* to the lens-derived
+form; it is not itself lens-derived.  The `.Bridge` module witnesses
+the iso to the Method A chain (`.Raw`); `Lens.leaves` then maps both
+to `Nat`.  Long-form discussion + open question on the future of
+this file in `research-notes/2026-05-18_lens_emergence_path.md` §4.2
+and §6 question 5.
 -/
 
 namespace E213.Lens.Number.Nat213.Peano
@@ -70,6 +78,28 @@ theorem toNat_ge_one : ∀ n : Nat213, n.toNat ≥ 1
   | succ m => by
       show m.toNat + 1 ≥ 1
       exact Nat.succ_pos m.toNat
+
+/-- ★ `toNat (add m n) = m.toNat + n.toNat` — additive homomorphism. -/
+theorem toNat_add (m n : Nat213) : (add m n).toNat = m.toNat + n.toNat := by
+  induction m with
+  | one =>
+      show (succ n).toNat = 1 + n.toNat
+      show n.toNat + 1 = 1 + n.toNat
+      exact Nat.add_comm _ _
+  | succ k ih =>
+      show (add k n).toNat + 1 = (k.toNat + 1) + n.toNat
+      rw [ih]
+      exact (Nat.add_right_comm _ _ _).symm
+
+/-- ★ `toNat (mul m n) = m.toNat * n.toNat` — multiplicative homomorphism. -/
+theorem toNat_mul (m n : Nat213) : (mul m n).toNat = m.toNat * n.toNat := by
+  induction m with
+  | one =>
+      show n.toNat = 1 * n.toNat
+      rw [Nat.one_mul]
+  | succ k ih =>
+      show (add n (mul k n)).toNat = (k.toNat + 1) * n.toNat
+      rw [toNat_add, ih, Nat.succ_mul, Nat.add_comm]
 
 /-- ★ `1 · n = n` — multiplicative identity. -/
 theorem one_mul (n : Nat213) : mul one n = n := rfl

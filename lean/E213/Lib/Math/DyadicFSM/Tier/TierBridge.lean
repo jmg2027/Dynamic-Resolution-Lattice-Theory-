@@ -98,7 +98,7 @@ complexity (factorial trajectory in HasModulus's N(m, k)).
   bs eventually periodic ⇒ signature eventually periodic.
 Proof: joint state (sig n, n mod p) has 5p values; pigeonhole
 forces a cycle within ≤ 5p+1 steps after pre-period N.
-(Available via `OS.Pigeonhole.no_inj_lt`; full formalisation
+(Available via `Lib.Math.Pigeonhole.no_inj_lt`; full formalisation
 is the natural next step.) -/
 
 end E213.Lib.Math.DyadicFSM.Tier.TierBridge

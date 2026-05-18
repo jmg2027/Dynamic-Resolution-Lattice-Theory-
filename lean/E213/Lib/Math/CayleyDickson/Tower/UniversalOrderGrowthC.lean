@@ -1,6 +1,6 @@
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDoubleOrderDist
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuadOrderDist
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaOctOrderDist
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaOct
 
 /-!
 # Universal CD doubling order growth — Type C (with cyclotomic preservation)

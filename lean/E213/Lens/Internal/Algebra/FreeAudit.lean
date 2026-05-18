@@ -19,7 +19,7 @@ Classical.choice are all absent.  Inductive types + computation only.
 - `IsLeafLens.isLeafLens_combine_sym`: leaf-Lens combine commutativity.
 - `HasModulusNS.isOrderCauchy_of_hasModulus`: HasModulus implies
   isOrderCauchy.
-- `HasModulusBoundsExtra.cauchy_at_larger_N`: modulus N-monotonicity.
+- `HasModulus.cauchy_at_larger_N`: modulus N-monotonicity.
 
 ### Group B: **propext only** (no Quot.sound)
 

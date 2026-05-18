@@ -18,12 +18,18 @@ import E213.Theory.RawCmpIndependence
                       NonDecomposable, PairForcing,
                       PrimitiveSizes)
     * `Raw/`        — public Raw API (Core, Slash, Swap, SwapSlash,
-                      Fold, Hom, Levels, Rec, Signed, **Endomorphic**).
+                      Fold, Hom, Levels, Rec, Signed, **Endomorphic**)
+                      + auxiliary substrates (**Congruence**,
+                      **ParenthesizationDistinct**; 2026-05-18).
                       Endomorphic (slashOrSelf, foldRaw, swapClosed)
                       는 2026-05-14 에 Theory.Closed 에서 흡수
                       (endomorphic catamorphism + numbering-system
                       isomorphism machinery; 구 이름 FoldRaw,
                       2026-05-15 rename).
+                      Congruence (`Eqv` generic equivalence closure)
+                      + ParenthesizationDistinct (no-slash_assoc
+                      counter-example) 가 lens-emergence 브랜치에서
+                      추가됨.
     * `CDDouble/`   — generic Order-4 Cayley-Dickson double mechanism
     * `RawCmpIndependence.lean` — root file; axiom-independence of
                       the cmp choice (the only Internal-namespace

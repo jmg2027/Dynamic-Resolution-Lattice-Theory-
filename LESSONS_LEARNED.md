@@ -249,7 +249,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `guide/01_substrate.md` — substrate 도출 path
 - `guide/15_metalogic.md` — falsifiability + R4 framework
 
-## 현재 (2026-05-01) HEAD epistemic 위치
+## 현재 (2026-05-18) HEAD epistemic 위치
 
 - α_em: finitist closure at N_U = d^(d²), sub-ppb 외부 frame match
 - m_p: 4-digit match (uses Λ_QCD external)
@@ -257,9 +257,20 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - Magic numbers: 7/7 atomic decomposition closed
 - N_universe: identified = d^(d²) (self-referential)
 - Universal Lens: ℕ², Q²², ℕ³, Q²³, ℕ⁴ all universal
-- Pisano-CRT: 20 Pell + 8 Pell-proper + 8 Fibonacci primes
+- Pisano-CRT: 23 Pell + 8 Pell-proper + 8 Fibonacci primes
+  + Tribonacci CRT closures
 - Hodge ⋆⋆: all 5 strata Δ⁴ closed
 - Famous Coincidences I-IV: catalogued
+- **Option C/D/E (2026-05-18 lens-emergence-path)**:
+  Raw-side arithmetic deleted (ℕ₊ as image of `Lens.leaves.view`);
+  ChartGeneral parameterises Method A over any `(r₀, r')` with
+  `chartChain_value` + `chartChain_injective`; Theory/Raw/Congruence
+  + Lens/Congruence give the generic `Eqv ↔ L.equiv` biconditional;
+  ParenthesizationDistinct kernel-decides non-associativity
+- **§9.4 syntactic internalisation (2026-05-18)**: 7-glyph
+  alphabet + Polish-prefix parser/printer + full L3 + L4
+  bijection closure (`parseTree_printTree`, `printTree_parseTree`,
+  `printTree_injective`)
 
 ## 교훈 11: Trajectory Principle (2026-05-XX, Mingu 4-session 통찰)
 

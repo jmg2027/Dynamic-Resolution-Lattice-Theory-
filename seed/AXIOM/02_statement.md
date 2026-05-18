@@ -84,6 +84,7 @@ The same φ appears in DRLT physics (CKM δ, Cabibbo, ν mass ratios)
 and in the algebra tower asymptote — cross-domain consistency.
 
 **Note**: this is an *interpretation*, not an addition.  Bridge
-theorem at `lean/E213/Theory/Raw/Mobius.lean`.  The 4 clauses in
-§3.2 remain the minimum-commitment statement; §3.4 records an
-algebraic *consequence* (∅-axiom theorem).
+theorem at `lean/E213/Lib/Math/Mobius213.lean` (Lib-ring after
+the §4 THEORY_AUDIT migration).  The 4 clauses in §3.2 remain the
+minimum-commitment statement; §3.4 records an algebraic
+*consequence* (∅-axiom theorem).

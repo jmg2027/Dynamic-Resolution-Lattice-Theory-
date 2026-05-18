@@ -4,7 +4,7 @@ The 213 Raw axiom: type + 4-clause definitional commitments
 (`a`, `b`, `slash`, `slash_comm`) + structural observables (depth,
 leaves, fold, swap).  Public surface exposed via `API.lean`.
 
-## Files (11)
+## Files (13)
 
 ### Public surface
   - `API.lean`        — the canonical re-export shim (downstream
@@ -25,6 +25,16 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
   - `Signed.lean`     — signed Raw / negation
   - `Endomorphic.lean` — endomorphic catamorphism + slashOrSelf
                          (numbering-system isomorphism machinery)
+
+### Internal substrates (not in API.lean — generic constructs / demos)
+  - `Congruence.lean`              — generic equivalence closure
+                                     `Eqv (gens : Raw → Raw → Prop)` (Option E
+                                     of the lens-emergence roadmap; substrate
+                                     for `Lens.Congruence`)
+  - `ParenthesizationDistinct.lean` — kernel-decided counter-example
+                                     showing two parenthesisations of the
+                                     same leaves produce structurally
+                                     distinct Raws (no `slash_assoc`)
 
 ### Demo
   - `Demo.lean`       — illustrative examples (Raw axiom semantics)

@@ -2,7 +2,11 @@
 
 Raw-encoded Bool: T, F 가 specific Raw 모양 (Method A: T=a, F=b).
 Catamorphism `booleanProj := Raw.fold T F and` 가 정의된 vertical-
-internal projection — Nat213 의 `leavesCountRaw` 와 평행.
+internal projection onto the two-element canonical form `{T, F}`.
+(Post-Option-C 2026-05-18: Bool213 keeps this Raw-internal
+projection — `{T, F}` *is* the Raw image; the former parallel
+Nat213 `leavesCountRaw` was deleted because ℕ₊ now projects to
+`Nat` codomain.  See `seed/CLOSED_FORM_SPEC.md` 3-domain table.)
 
 ## Files (2)
 

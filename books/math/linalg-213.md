@@ -154,7 +154,7 @@ The Linalg213 chiral split connects to physics through the
 i.e. the strong coupling constant 1/α_3 = 8 equals the cycle-space
 dimension of the chiral graph.  The bridge is established in
 `Linalg213/Bridge.lean` via `K32_c2_b1` from
-`Math/Cohomology/TopologyCompare.lean`.
+`Lib/Math/Cohomology/Examples/TopologyCompare.lean`.
 
 This realises the *atomic reading* of α_3 — not a free parameter
 but a Betti number.
