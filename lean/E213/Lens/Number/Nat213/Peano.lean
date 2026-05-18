@@ -79,6 +79,28 @@ theorem toNat_ge_one : ∀ n : Nat213, n.toNat ≥ 1
       show m.toNat + 1 ≥ 1
       exact Nat.succ_pos m.toNat
 
+/-- ★ `toNat (add m n) = m.toNat + n.toNat` — additive homomorphism. -/
+theorem toNat_add (m n : Nat213) : (add m n).toNat = m.toNat + n.toNat := by
+  induction m with
+  | one =>
+      show (succ n).toNat = 1 + n.toNat
+      show n.toNat + 1 = 1 + n.toNat
+      exact Nat.add_comm _ _
+  | succ k ih =>
+      show (add k n).toNat + 1 = (k.toNat + 1) + n.toNat
+      rw [ih]
+      exact (Nat.add_right_comm _ _ _).symm
+
+/-- ★ `toNat (mul m n) = m.toNat * n.toNat` — multiplicative homomorphism. -/
+theorem toNat_mul (m n : Nat213) : (mul m n).toNat = m.toNat * n.toNat := by
+  induction m with
+  | one =>
+      show n.toNat = 1 * n.toNat
+      rw [Nat.one_mul]
+  | succ k ih =>
+      show (add n (mul k n)).toNat = (k.toNat + 1) * n.toNat
+      rw [toNat_add, ih, Nat.succ_mul, Nat.add_comm]
+
 /-- ★ `1 · n = n` — multiplicative identity. -/
 theorem one_mul (n : Nat213) : mul one n = n := rfl
 
