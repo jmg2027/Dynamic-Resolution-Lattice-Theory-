@@ -129,10 +129,37 @@ theorem swapClosed_eq_swap (r : Raw) : swapClosed r = Raw.swap r := by
         fun e => h (Raw.swap_injective e)
       exact slashOrSelf_of_ne hne
 
-/-- **Closed-universe swap_swap**: 모든 r 에 대해 `swap (swap r) = r`.
-    foldRaw 표현으로부터 직접. -/
+/-- **Closed-universe swap_swap**: `swap (swap r) = r` for every r.
+    Direct from the `foldRaw` representation. -/
 theorem swapClosed_swapClosed (r : Raw) :
     swapClosed (swapClosed r) = r := by
   rw [swapClosed_eq_swap, swapClosed_eq_swap, Raw.swap_swap]
+
+/-! ### slashOrSelf collapse characterisation (added 2026-05-18, iteration #16)
+
+When does `slashOrSelf x y = y`?  Only when `x = y` (the diagonal
+case).  Otherwise the result is `Raw.slash x y h`, which by
+`Raw.slash_ne_right` is distinct from `y`. -/
+
+/-- `slashOrSelf x y ≠ y` whenever `x ≠ y`.  Useful for chain
+    non-collapse arguments. -/
+theorem slashOrSelf_ne_of_ne (x y : Raw) (hxy : x ≠ y) :
+    slashOrSelf x y ≠ y := by
+  rw [slashOrSelf_of_ne hxy]
+  exact E213.Theory.Raw.slash_ne_right _ _ hxy
+
+/-- `slashOrSelf x y = y ↔ x = y` — biconditional collapse
+    characterisation.  Reverse direction is `slashOrSelf_self`. -/
+theorem slashOrSelf_eq_y_iff (x y : Raw) :
+    slashOrSelf x y = y ↔ x = y := by
+  constructor
+  · intro h
+    by_cases hxy : x = y
+    · exact hxy
+    · rw [slashOrSelf_of_ne hxy] at h
+      exact absurd h (E213.Theory.Raw.slash_ne_right _ _ hxy)
+  · intro h
+    subst h
+    exact slashOrSelf_self x
 
 end E213.Theory.Raw.Endomorphic
