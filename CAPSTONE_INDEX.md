@@ -96,6 +96,10 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lens/Number/Nat213/ChartGeneral.chartChain_value` —
   chart-invariance over any `(r₀, r')` with `r₀ ≠ r'` (added
   2026-05-18; explicit form of axiom §9.1's chart-relativity)
+- `Lens/Number/Nat213/ChartGeneral.chartChain_injective` —
+  the chain map `n ↦ chartChain r₀ r' h n` is injective in `n`
+  (any chart provides a bijective ℕ → Range labelling; added
+  2026-05-18 via `value_pos` + `mul_left_cancel_pos`)
 - `Lens/SyntacticInternalization.parseTree_printTree` —
   Polish-prefix universal round-trip
   `∀ t, parseTree (printTree t) = some t` (added 2026-05-18)

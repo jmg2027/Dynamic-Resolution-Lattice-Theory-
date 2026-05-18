@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Raw
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Lens.Number.Nat213.ChartGeneral — chart-parameterised Method A chain (Option D)
@@ -96,5 +97,47 @@ theorem chartChain_value (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
       rw [ih, Nat.succ_mul]
       -- goal: Raw.value r₀ + k * Raw.value r' + Raw.value r' = Raw.value r₀ + (k * Raw.value r' + Raw.value r')
       rw [Nat.add_assoc]
+
+/-! ### Chart-chain injectivity in `n` (added 2026-05-18)
+
+`chartChain r₀ r' h n = chartChain r₀ r' h m → n = m`: each chain
+step adds `value r' ≥ 1` to the running `value`, so distinct `n`
+yield distinct `value`s, which forces distinct Raws. -/
+
+open E213.Term.Internal (Tree)
+
+/-- Every Raw has positive `value` (leaves ≥ 1). -/
+theorem value_pos (r : Raw) : 1 ≤ Raw.value r := by
+  show 1 ≤ Raw.fold 1 1 (· + ·) r
+  rw [Raw.fold_eq_leaves r]
+  exact Tree.leaves_pos r.val
+
+/-- **Chart-chain value injectivity**: chains with distinct indices
+    have distinct `value`s.  Uses the 213-native
+    `Meta.Tactic.NatHelper.mul_left_cancel_pos` to avoid the
+    propext-tainted core `Nat.eq_of_mul_eq_mul_left`. -/
+theorem chartChain_value_injective (r₀ r' : Raw) (h : r₀ ≠ r')
+    {n m : Nat}
+    (heq : Raw.value (chartChain r₀ r' h n)
+            = Raw.value (chartChain r₀ r' h m)) :
+    n = m := by
+  rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m] at heq
+  have hcanc : n * Raw.value r' = m * Raw.value r' :=
+    E213.Tactic.NatHelper.add_left_cancel heq
+  have hpos : 0 < Raw.value r' := value_pos r'
+  -- `mul_left_cancel_pos` wants `c * a = c * b`; commute first.
+  have hcanc' : Raw.value r' * n = Raw.value r' * m := by
+    rw [Nat.mul_comm (Raw.value r') n, Nat.mul_comm (Raw.value r') m]
+    exact hcanc
+  exact E213.Tactic.NatHelper.mul_left_cancel_pos hpos hcanc'
+
+/-- **Chart-chain injectivity**: the chain function `n ↦ chartChain
+    r₀ r' h n` is injective.  Direct corollary of the value-level
+    statement. -/
+theorem chartChain_injective (r₀ r' : Raw) (h : r₀ ≠ r')
+    {n m : Nat}
+    (heq : chartChain r₀ r' h n = chartChain r₀ r' h m) :
+    n = m :=
+  chartChain_value_injective r₀ r' h (congrArg Raw.value heq)
 
 end E213.Lens.Number.Nat213
