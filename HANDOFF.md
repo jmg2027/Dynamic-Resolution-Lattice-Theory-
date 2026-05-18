@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-18
 
 ## Branch
-`claude/review-lens-emergence-path-ZtS3A` — pushed, 21 commits.
-Latest: `cd769822 Cleanup — Lens.lean umbrella + Theory/Raw/INDEX.md + HANDOFF`.
+`claude/review-lens-emergence-path-ZtS3A` — pushed, 29 commits.
+Latest: `05fc4adb Promote List helpers to Meta.Tactic.List213 utility module`.
 
 ## What this branch delivered
 
@@ -44,17 +44,23 @@ lake build (full tree)                       ✔ clean
 All new symbols PURE.  No `propext` / `Quot.sound` /
 `Classical.choice` / `omega` / `Mathlib` introduced.  Standard
 `List.{append_assoc, append_nil, length_append}` carry `propext`;
-local `congrArg`-based replacements provided.  `simp [...] at h` in
-impossible branches replaced with `Option.noConfusion h`.
-`Nat.sub_add_cancel` replaced with `Nat.succ_pred_eq_of_pos`.
+`E213.Tactic.List213.{append_nil, append_assoc, length_append}`
+provides the propext-free replacements as a reusable utility.
+`simp [...] at h` in impossible branches replaced with
+`Option.noConfusion h`.  `Nat.sub_add_cancel` replaced with
+`Nat.succ_pred_eq_of_pos`.
 
-Key axiom-audit counts:
+Key axiom-audit counts (post-code-development):
   - `Lens/Number/Nat213/Chain.lean`             13 PURE (+ 3 parent)
-  - `Lens/Number/Nat213/ChartGeneral.lean`       6 PURE (+ `Raw.slash_ne_right`)
+  - `Lens/Number/Nat213/ChartGeneral.lean`       6 PURE
+  - `Lens/Number/Nat213/ChainCoreBridge.lean`    5 PURE (+ `Chain.ext_val`)
   - `Lens/Number/Nat213/Bridge.lean`             7 PURE
-  - `Lens/Number/Nat213/Raw.lean`               12 PURE
+  - `Lens/Number/Nat213/Raw.lean`               13 PURE (+1 `numeral_injective`)
+  - `Theory/Raw/Slash.lean`                      hosts `Raw.slash_ne_right` (PURE)
   - `Theory/Raw/Congruence.lean`                 2 PURE
   - `Theory/Raw/ParenthesizationDistinct.lean`   2 PURE
+  - `Term/Internal/Tree/Levels.lean`             hosts `Tree.leaves_pos` (PURE)
+  - `Meta/Tactic/List213.lean`                   3 PURE
   - `Lens/Congruence.lean`                       4 PURE
   - `Lens/SyntacticInternalization.lean`        21 PURE
 
