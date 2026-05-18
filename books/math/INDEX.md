@@ -2,7 +2,10 @@
 
 Narrative volumes in 213-internal vocabulary.  Each book accompanies
 a corresponding cluster of Lean files in `lean/E213/` and is closed
-at ≤ {propext, Quot.sound} or STRICT 0-AXIOM.
+at STRICT ∅-AXIOM (`#print axioms` returns "does not depend on any
+axioms"), per `STRICT_ZERO_AXIOM.md` "Terms (canonical)".  The
+legacy `≤ {propext, Quot.sound}` tier is deprecated since
+2026-05-09.
 
 ## Volumes
 
@@ -91,12 +94,11 @@ Summary:
 
 ## Verification standard
 
-Every theorem referenced in these books is closed in Lean 4 at:
-
-  ≤ {propext, Quot.sound}    (Lean 4 kernel floor), OR
-  STRICT 0-AXIOM             (concrete computations, encodings)
-
-No `sorry`, no Mathlib, no Classical, no native_decide.
+Every theorem referenced in these books is closed in Lean 4 at
+**STRICT ∅-AXIOM** — `#print axioms <thm>` returns "does not depend
+on any axioms".  No `sorry`, no Mathlib, no Classical, no
+`native_decide`, no `propext`, no `Quot.sound`.  Per
+`STRICT_ZERO_AXIOM.md` "Terms (canonical)".
 
 ## Author
 

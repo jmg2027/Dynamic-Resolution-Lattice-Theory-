@@ -13,7 +13,7 @@ Companion volume to `analysis213.md`, `number-theory-213.md`,
 Vec d, rank, span, chiral split, K_{3,2}^{(c=2)}.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in
+STRICT ∅-AXIOM, as verified in
 `lean/E213/Lib/Math/Linalg213/`.
 
 ---
@@ -121,7 +121,7 @@ dimensional atomic split must be (3, 2) up to swap.
   combine_proj_eq : ∀ v ∈ Vec 5, combine (proj_S v) (proj_T v) = v
 
 — the round-trip between the chiral projections and the original
-vector is the identity.  This is closed at ≤ {propext, Quot.sound}.
+vector is the identity.  This is closed at STRICT ∅-AXIOM.
 
 ---
 
@@ -180,7 +180,7 @@ a single 0-axiom statement of Paper 1's main claims:
         bipartite multigraph giving b_1 = 8
         (`TopologyCompare.K32_c2_b1`)
 
-Closed at ≤ {propext, Quot.sound}.  The capstone is the formal
+Closed at STRICT ∅-AXIOM.  The capstone is the formal
 statement that **"ℂ⁵ chiral atomic decomposition is forced and
 unique"** — at six different complementary levels, all agreeing.
 
@@ -239,7 +239,7 @@ theorem at the linear-algebra level.
 
 ## Appendix A.  Lean theorem index
 
-Key capstones (all ≤ {propext, Quot.sound}):
+Key capstones (all STRICT ∅-AXIOM):
 
 - `paper1_chiral_compression_capstone` — six-conjunct bundle of
   the Paper 1 theorem
@@ -252,12 +252,11 @@ Rank, Rank5Concrete, Chiral, Bridge, Capstone}.lean`.
 
 ## Appendix B.  Verification standard
 
-Every theorem closed in Lean 4 at:
+Every theorem closed in Lean 4 at **STRICT ∅-AXIOM** — `#print axioms
+<thm>` returns "does not depend on any axioms".
 
-  ≤ {propext, Quot.sound}    (Lean kernel floor), OR
-  STRICT 0-AXIOM             (basis decomps, finite enumerations)
-
-No `sorry`, no Mathlib, no Classical, no native_decide.
+No `sorry`, no Mathlib, no Classical, no `native_decide`, no
+`propext`, no `Quot.sound`.
 
 `cd lean && lake build` passes.
 

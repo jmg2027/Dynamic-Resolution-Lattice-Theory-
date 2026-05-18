@@ -10,8 +10,9 @@ universal lens at ℕ × ℕ and Q213 × Q213.
 Companion volume to `analysis213.md`.  Vocabulary: Raw, slash,
 fold, Lens, ArithFSM, BitFSM, signature, atomicity.
 
-All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound} (Lean 4 kernel floor), as verified in
+All theorems referenced are STRICT ∅-AXIOM (`#print axioms` returns
+"does not depend on any axioms"), 0-sorry, 0-Mathlib, 0-Classical,
+0-native_decide, as verified in
 `lean/E213/Lib/Math/Cohomology/Dyadic*.lean` and `lean/E213/Meta/`.
 
 ---
@@ -71,7 +72,7 @@ Each ArithFSM_d also embeds bit-stream-faithfully into BitFSM(n^d):
 This gives the *quantitative bound* `signature_period ≤ 5·n^d` via
 joint-state pigeonhole (`Dyadic/ArithFSM/ToBitFSM.lean`,
 `Dyadic/ArithFSM/V3Bound.lean`).  All bit-stream equivalences proven
-at ≤ {propext, Quot.sound}.
+at STRICT ∅-AXIOM.
 
 ---
 
@@ -98,7 +99,7 @@ quadratic-residue structure:
 | 19 | 1 (QR)       | split     |     9      |    18      |
 | 23 | 2 (NQR)      | inert     |    24      |    24      |
 
-Eight primes verified at ≤ {propext, Quot.sound}; run periods
+Eight primes verified at STRICT ∅-AXIOM; run periods
 STRICT 0-AXIOM (`Dyadic/ArithFSM/Mod{5,7,11,13,17,19,23}.lean`).
 
 The period-doubling at p ∈ {11, 19} comes from bipartite parity
@@ -254,7 +255,7 @@ n > m means 2^(n-m) is even, +1 makes it odd).  The unique odd
 divisor of any 2^k is 1, forcing m to be uniquely determined as
 v_2(sum).
 
-≤ {propext, Quot.sound}.  No Mathlib, no Classical.
+STRICT ∅-AXIOM.  No Mathlib, no Classical.
 
 This lemma is itself a contribution to 213-native number theory:
 it expresses *bit-pattern uniqueness* as a constructive fact at
@@ -280,7 +281,7 @@ Proof: Raw.rec induction.  Base cases trivial (1 ≠ 2 ≠ slash-views
 pair matches in reversed order (case 2 of the unordered lemma),
 `Raw.slash_comm` closes the goal.
 
-≤ {propext, Quot.sound}.  This is the **first non-trivial Universal
+STRICT ∅-AXIOM.  This is the **first non-trivial Universal
 Lens** — codomain ℕ × ℕ rather than Raw itself.
 
 ### Chapter 13.  q213Lens : Lens (Q213 × Q213)
@@ -307,7 +308,7 @@ inherit injectivity from `expSumLens_inj`.
 
 Round-trip lemma `Q213_ofNat_eval (n) : (Q213.ofNat n).1.eval = n`
 is STRICT 0-AXIOM.  Bridge `qNat_eq_expSumNat` and `q213Lens_view_inj`
-at ≤ {propext, Quot.sound}.
+at STRICT ∅-AXIOM.
 
 This realises **Open Problem #6** in HANDOFF — the ℚ²-discrete
 refinement of the Universal Lens witness, formalised entirely
@@ -320,8 +321,8 @@ was a metaphysical claim with only a tautological witness.
 
 After:
 
-  Function.Injective expSumLens.view  : ≤ {propext, Quot.sound}
-  Function.Injective q213Lens.view    : ≤ {propext, Quot.sound}
+  Function.Injective expSumLens.view  : STRICT ∅-AXIOM
+  Function.Injective q213Lens.view    : STRICT ∅-AXIOM
 
 These say: **every Raw element is uniquely encoded as a pair of
 naturals** (or pair of 213-native rationals) via a *symmetric
@@ -420,7 +421,7 @@ This is conjectural and open.
 
 ## Appendix A.  Lean theorem index
 
-Top-level capstones (all ≤ {propext, Quot.sound}):
+Top-level capstones (all STRICT ∅-AXIOM):
 
 - `number_theory_213_capstone_v3` — Steps 1+2+3 master, parametric
   discriminant
@@ -432,18 +433,17 @@ Top-level capstones (all ≤ {propext, Quot.sound}):
 - `algebraic_tier1_capstone` — quadratic + cubic unified
 - `pell_crt_fsm_capstone` — FSM-level Pisano CRT bundle
 
-Source files at `lean/E213/Lib/Math/Cohomology/Dyadic*.lean` and
-`lean/E213/Meta/{BitPatternUniqueness, UniversalLensNat2{,Inj},
-UniversalLensQ213{,Inj}}.lean`.
+Source files at `lean/E213/Lib/Math/Cohomology/Dyadic*.lean`,
+`lean/E213/Meta/BitPatternUniqueness.lean`, and
+`lean/E213/Lens/Universal/Witnesses/{Nat2,Nat2Inj,Q213,Q213Inj}.lean`.
 
 ## Appendix B.  Verification standard
 
-Every theorem in this book is closed in Lean 4 at:
+Every theorem in this book is closed in Lean 4 at **STRICT ∅-AXIOM**
+— `#print axioms <thm>` returns "does not depend on any axioms".
 
-  ≤ {propext, Quot.sound}    (Lean kernel floor), OR
-  STRICT 0-AXIOM             (run periods, encoding round-trips)
-
-No `sorry`, no Mathlib, no Classical, no native_decide.
+No `sorry`, no Mathlib, no Classical, no `native_decide`, no
+`propext`, no `Quot.sound`.
 
 `cd lean && lake build` passes; `verify-citations` (Rust) confirms
 94/94 Lean-theorem citations resolve at theorem-id level.
