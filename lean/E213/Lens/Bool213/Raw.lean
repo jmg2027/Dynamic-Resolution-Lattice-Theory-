@@ -319,4 +319,59 @@ theorem demorgan_or (x y : Raw)
   · subst hxF; subst hyT; decide
   · subst hxF; subst hyF; decide
 
+/-! ### Boolean lattice laws (added 2026-05-18, iteration #11)
+
+Idempotence, distributivity, absorption — complete the Boolean
+lattice axioms on the Bool213 image.  Together with `and_comm`,
+`or_comm`, and the De Morgan laws above, these give a Boolean
+algebra structure on `{T, F}` under the chosen Method A encoding. -/
+
+/-- `and x x = x` for Bool213 inputs. -/
+theorem and_idem (x : Raw) (hx : IsBool213 x) : and x x = x := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- `or x x = x` for Bool213 inputs. -/
+theorem or_idem (x : Raw) (hx : IsBool213 x) : or x x = x := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Distributivity of `and` over `or`. -/
+theorem and_distrib_or (x y z : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) (hz : IsBool213 z) :
+    and x (or y z) = or (and x y) (and x z) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF <;> rcases hz with hzT | hzF
+  all_goals (try (subst hxT)); all_goals (try (subst hxF))
+  all_goals (try (subst hyT)); all_goals (try (subst hyF))
+  all_goals (try (subst hzT)); all_goals (try (subst hzF))
+  all_goals decide
+
+/-- Distributivity of `or` over `and`. -/
+theorem or_distrib_and (x y z : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) (hz : IsBool213 z) :
+    or x (and y z) = and (or x y) (or x z) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF <;> rcases hz with hzT | hzF
+  all_goals (try (subst hxT)); all_goals (try (subst hxF))
+  all_goals (try (subst hyT)); all_goals (try (subst hyF))
+  all_goals (try (subst hzT)); all_goals (try (subst hzF))
+  all_goals decide
+
+/-- Absorption: `and x (or x y) = x` for Bool213 inputs. -/
+theorem and_or_absorb (x y : Raw) (hx : IsBool213 x) (hy : IsBool213 y) :
+    and x (or x y) = x := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF
+  all_goals (first | (subst hxT) | (subst hxF))
+  all_goals (first | (subst hyT) | (subst hyF))
+  all_goals decide
+
+/-- Absorption: `or x (and x y) = x` for Bool213 inputs. -/
+theorem or_and_absorb (x y : Raw) (hx : IsBool213 x) (hy : IsBool213 y) :
+    or x (and x y) = x := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF
+  all_goals (first | (subst hxT) | (subst hxF))
+  all_goals (first | (subst hyT) | (subst hyF))
+  all_goals decide
+
 end E213.Lens.Bool213.Raw
