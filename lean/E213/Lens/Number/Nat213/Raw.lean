@@ -129,4 +129,32 @@ theorem numeral_injective {m n : Nat} (h : numeral m = numeral n) : m = n := by
   rw [value_numeral, value_numeral] at hv
   exact Nat.succ.inj hv
 
+/-! ### Surjectivity of `value` onto ℕ₊ (added 2026-05-18)
+
+Together with `numeral_injective`, this establishes that
+`Range(value) = {n : Nat | 1 ≤ n} = ℕ₊` exactly.  The Method A
+numerals provide a section `ℕ → Raw` that, restricted to
+`{n | 0 ≤ n}`, hits each natural ≥ 1 via the off-by-one
+`value (numeral n) = n + 1`. -/
+
+/-- **Surjectivity of `value` onto ℕ₊**: for every `n ≥ 1`, the
+    Method A numeral `numeral (n - 1)` is a Raw with `value = n`.
+    This is the rigorous form of "ℕ₊ is the image of the leaves
+    Lens" — combined with the trivial `1 ≤ value r` for any `r`,
+    `Range(value)` is exactly `{n | 1 ≤ n}`. -/
+theorem value_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
+    ∃ r : Raw, value r = n := by
+  refine ⟨numeral (n - 1), ?_⟩
+  rw [value_numeral]
+  -- goal: (n - 1) + 1 = n
+  exact Nat.succ_pred_eq_of_pos hn
+
+/-- The Method A numeral chain is a section of `value`: for every
+    `n ≥ 1`, `value (numeral (n - 1)) = n`.  Constructive form of
+    `value_surjective_on_ge_one`. -/
+theorem value_numeral_pred (n : Nat) (hn : 1 ≤ n) :
+    value (numeral (n - 1)) = n := by
+  rw [value_numeral]
+  exact Nat.succ_pred_eq_of_pos hn
+
 end E213.Lens.Number.Nat213.Raw

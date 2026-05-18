@@ -92,7 +92,10 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
   — `(a/b)/z ≠ a/(b/z)` for concrete `z`; no universal `slash`
   associativity (added 2026-05-18)
 - `Theory/Raw/Congruence` + `Lens/Congruence` — `Eqv (gens) ↔
-  L.equiv` biconditional for any lens (added 2026-05-18)
+  L.equiv` biconditional for any lens (added 2026-05-18);
+  `Lens.leaves_view_surjective_on_ge_one` realises every `n ≥ 1`
+  as the leaves count of `numeral (n - 1)` — the rigorous form of
+  "ℕ₊ = Range(Lens.leaves.view)"
 - `Lens/Number/Nat213/ChartGeneral.chartChain_value` —
   chart-invariance over any `(r₀, r')` with `r₀ ≠ r'` (added
   2026-05-18; explicit form of axiom §9.1's chart-relativity)

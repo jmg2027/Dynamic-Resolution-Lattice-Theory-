@@ -1,4 +1,4 @@
-import E213.Theory.Raw.API
+import E213.Theory.Raw.Core
 
 /-!
 # Theory.Raw.Congruence — internal equivalence on Raw (Option E core)

@@ -8,6 +8,8 @@ import E213.Theory.Raw.Levels
 import E213.Theory.Raw.FoldSwap
 import E213.Theory.Raw.Rec
 import E213.Theory.Raw.Endomorphic
+import E213.Theory.Raw.Congruence
+import E213.Theory.Raw.ParenthesizationDistinct
 
 /-!
 # Theory.Raw.API — public surface (re-export shim)

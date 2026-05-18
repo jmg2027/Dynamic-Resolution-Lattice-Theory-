@@ -1,5 +1,7 @@
-import E213.Theory.Raw.Congruence
+import E213.Theory.Raw.API
 import E213.Lens.LensCore
+import E213.Lens.Number.Nat213.ChartGeneral
+
 
 /-!
 # Lens.Congruence — bridge between `Eqv` (internal) and `Lens.equiv` (external)
@@ -92,5 +94,33 @@ theorem Eqv_leaves_iff (x y : Raw) :
     Eqv (fun a b => Lens.leaves.view a = Lens.leaves.view b) x y
       ↔ Lens.leaves.view x = Lens.leaves.view y :=
   Eqv_equiv_iff Lens.leaves x y
+
+/-! ### `Lens.leaves` image characterisation (added 2026-05-18)
+
+`Lens.leaves : Lens Nat = ⟨1, 1, +⟩` has image exactly
+`{n : Nat | 1 ≤ n} = ℕ₊`.  Containment in ℕ₊ is `leaves_view_pos`
+(every Raw has at least one leaf).  Surjectivity onto ℕ₊ uses the
+Method A numeral chain: `Lens.leaves.view (numeral n) = n + 1`
+covers every `n ≥ 1` via `numeral (n - 1)`. -/
+
+/-- `Lens.leaves.view r = Raw.value r` — both unfold to
+    `Raw.fold 1 1 (·+·) r`.  Bridge between the Lens-side and the
+    Nat213-Raw-side names. -/
+theorem leaves_view_eq_value (r : Raw) :
+    Lens.leaves.view r = E213.Lens.Number.Nat213.Raw.value r := rfl
+
+/-- Every Raw has leaves-view ≥ 1. -/
+theorem leaves_view_pos (r : Raw) : 1 ≤ Lens.leaves.view r := by
+  rw [leaves_view_eq_value]
+  exact E213.Lens.Number.Nat213.value_pos r
+
+/-- **ℕ₊ ⊆ Range(Lens.leaves.view)**: every natural `n ≥ 1` is
+    realised as the leaves count of some Raw — explicitly,
+    `numeral (n - 1)`. -/
+theorem leaves_view_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
+    ∃ r : Raw, Lens.leaves.view r = n := by
+  obtain ⟨r, hr⟩ :=
+    E213.Lens.Number.Nat213.Raw.value_surjective_on_ge_one n hn
+  exact ⟨r, by rw [leaves_view_eq_value]; exact hr⟩
 
 end E213.Lens
