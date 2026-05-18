@@ -107,6 +107,10 @@ hits a propext leak, apply these in order:
   11. **`Nat.le_max_left` / `Nat.le_max_right`** (carry `propext`)
       → switch from depth-based to leaves-based reasoning, or use
       `Nat.le_add_left` / `Nat.le_add_right`.
+  12. **`List.append_nil` / `List.append_assoc` / `List.length_append`**
+      (carry `propext`) → `E213.Tactic.List213.{append_nil,
+      append_assoc, length_append}` — manually proved
+      `congrArg`-based replacements.
 
 ## Active limitations (deeper propext chains)
 

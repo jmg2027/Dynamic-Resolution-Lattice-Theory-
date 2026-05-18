@@ -1,5 +1,6 @@
 import E213.Theory.Raw.API
 import E213.Lens.Number.Nat213.Raw
+import E213.Meta.Tactic.List213
 
 /-!
 # Lens.SyntacticInternalization — meta-syntax glyphs as Raws (§9.4 prototype)
@@ -125,28 +126,11 @@ theorem parseHelper_slash_succ (n : Nat) (rest : List Glyph) :
 
 /-! ### Universal L3 round-trip
 
-Private List helpers — manually proved replacements for
-`List.append_assoc`, `List.append_nil`, `List.length_append`,
-each of which carries `propext` in Lean 4 core.  Our versions are
-strict ∅-axiom (term-mode via `congrArg` / `Nat`-induction). -/
+Uses `E213.Tactic.List213.{append_nil, append_assoc,
+length_append}` — propext-free replacements for the Lean 4 core
+list lemmas (which carry `propext`). -/
 
-private theorem list_append_nil' {α} : ∀ (xs : List α), xs ++ [] = xs
-  | []      => rfl
-  | x :: xs => congrArg (x :: ·) (list_append_nil' xs)
-
-private theorem list_append_assoc' {α} :
-    ∀ (xs ys zs : List α), (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
-  | [],      _, _ => rfl
-  | x :: xs, ys, zs => congrArg (x :: ·) (list_append_assoc' xs ys zs)
-
-private theorem list_length_append' {α} :
-    ∀ (xs ys : List α), (xs ++ ys).length = xs.length + ys.length
-  | [],      ys => by
-      show ys.length = 0 + ys.length
-      rw [Nat.zero_add]
-  | x :: xs, ys => by
-      show (xs ++ ys).length + 1 = (xs.length + 1) + ys.length
-      rw [list_length_append' xs ys, Nat.add_right_comm]
+open E213.Tactic.List213 (append_nil append_assoc length_append)
 
 def treeSize : Tree → Nat
   | .a         => 1
@@ -264,7 +248,7 @@ theorem parseHelper_printTree_append (t : Tree) :
       rw [show (.slash :: printTree x ++ printTree y ++ rest : List Glyph)
             = .slash :: (printTree x ++ (printTree y ++ rest)) from
               congrArg (Glyph.slash :: ·)
-                (list_append_assoc' (printTree x) (printTree y) rest)]
+                (append_assoc (printTree x) (printTree y) rest)]
       rw [hpat, parseHelper_slash_succ, hx_lift]
       show (match parseHelper (treeSize x + treeSize y)
                     (printTree y ++ rest) with
@@ -284,7 +268,7 @@ theorem printTree_length_ge_size (t : Tree) :
         ≤ (.slash :: (printTree x ++ printTree y)).length
       show 1 + treeSize x + treeSize y
         ≤ (printTree x ++ printTree y).length + 1
-      rw [list_length_append']
+      rw [length_append]
       rw [show 1 + treeSize x + treeSize y
             = 1 + (treeSize x + treeSize y)
             from Nat.add_assoc 1 (treeSize x) (treeSize y)]
@@ -299,7 +283,7 @@ theorem parseTree_printTree (t : Tree) :
   have hcorrect :
       parseHelper (treeSize t) (printTree t) = some (t, []) := by
     have := parseHelper_printTree_append t []
-    rw [list_append_nil' (printTree t)] at this
+    rw [append_nil (printTree t)] at this
     exact this
   have hlen : treeSize t ≤ (printTree t).length :=
     printTree_length_ge_size t
