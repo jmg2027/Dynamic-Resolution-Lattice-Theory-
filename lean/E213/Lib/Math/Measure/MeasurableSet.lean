@@ -1,4 +1,5 @@
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
+import E213.Meta.Tactic.List213
 
 /-!
 # Measure Theory 213 — Measurable sets (dyadic, Choice-free)
@@ -53,21 +54,10 @@ theorem cardinality_empty : cardinality emptySet = 0 := rfl
 theorem cardinality_singleton (db : DyadicBracket) :
     cardinality (singleton db) = 1 := rfl
 
-/-- Term-mode `List.length_append` — propext-free induction on `s`. -/
-theorem length_append_term : ∀ (s t : List DyadicBracket),
-    (s ++ t).length = s.length + t.length
-  | [], t => by
-      show t.length = 0 + t.length
-      exact (Nat.zero_add t.length).symm
-  | a :: s, t => by
-      show (a :: (s ++ t)).length = (a :: s).length + t.length
-      show (s ++ t).length + 1 = (s.length + 1) + t.length
-      rw [length_append_term s t]
-      exact (Nat.succ_add s.length t.length).symm
-
-/-- ★ Union cardinality = sum (term-mode). -/
+/-- ★ Union cardinality = sum (term-mode).  Uses the shared
+    `E213.Tactic.List213.length_append` (propext-free). -/
 theorem cardinality_union (s t : DyadicMeasurableSet) :
     cardinality (union s t) = s.length + t.length :=
-  length_append_term s t
+  E213.Tactic.List213.length_append s t
 
 end E213.Lib.Math.Measure.MeasurableSet

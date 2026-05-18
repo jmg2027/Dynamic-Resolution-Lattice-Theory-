@@ -1,4 +1,5 @@
 import E213.Lib.Math.UniverseChain.RawRecurrence
+import E213.Meta.Tactic.List213
 
 /-!
 # Raw enumeration: general theorem |S_n| = rawCount n (∅-axiom)
@@ -7,27 +8,27 @@ General recurrence proof: actual canonical-Tree enumeration length
 matches `rawCount n` for ALL n.
 
 Avoids Lean-core `List.length_append` and `List.length_map` (which
-leak `propext`); uses term-mode replacements `myLengthAppend` and
-`myLengthMap`.
+leak `propext`); uses the shared `E213.Tactic.List213` replacements
+`length_append_rev` and `length_map`.
 -/
 
 namespace E213.Lib.Math.UniverseChain.RawEnumeration
 
 open E213.Term.Internal (Tree)
 open E213.Lib.Math.UniverseChain.RawRecurrence (choose2)
+open E213.Tactic.List213 (length_append_rev length_map)
 
-/-- ∅-axiom replacement for `List.length_append` (reversed form
-    avoids `0 + n` reduction issue). -/
-theorem myLengthAppend : ∀ (L1 L2 : List α),
-    (L1 ++ L2).length = L2.length + L1.length
-  | [], _ => rfl
-  | _ :: rest, L2 => congrArg (· + 1) (myLengthAppend rest L2)
+/-- Local alias for the reversed-order length-of-append from
+    `E213.Tactic.List213`.  Retained for readability of downstream
+    proofs that already cite `myLengthAppend`. -/
+theorem myLengthAppend (L1 L2 : List α) :
+    (L1 ++ L2).length = L2.length + L1.length :=
+  length_append_rev L1 L2
 
-/-- ∅-axiom replacement for `List.length_map`. -/
-theorem myLengthMap : ∀ (L : List α) (f : α → β),
-    (L.map f).length = L.length
-  | [], _ => rfl
-  | _ :: rest, f => congrArg (· + 1) (myLengthMap rest f)
+/-- Local alias for `length_map`. -/
+theorem myLengthMap (L : List α) (f : α → β) :
+    (L.map f).length = L.length :=
+  length_map L f
 
 /-- `choose2 (n+1) = n + choose2 n` (bridge for clean recurrence). -/
 theorem choose2_succ (n : Nat) : choose2 (n + 1) = n + choose2 n := by
