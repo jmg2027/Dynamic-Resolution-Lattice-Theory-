@@ -1,7 +1,7 @@
 import E213.Lib.Math.Tactic.Ring213
 
 /-!
-# Theory.Raw.Mobius — 213 Möbius signature P(x) = (2x+1)/(x+1)
+# Lib.Math.Mobius213 — 213 Möbius signature P(x) = (2x+1)/(x+1)
 
 Theorem-level statement: the Möbius matrix [[2,1],[1,1]] is the *natural
 iterator* of 213 framework. Its iteration generates Pell-Fib convergent

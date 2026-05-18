@@ -1,9 +1,9 @@
-# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc)
+# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc + theory completion)
 
 ## Branch
 `claude/review-lens-emergence-path-ZtS3A` — pushed.
-Latest: `2394903c ChartGeneral + Lens.Congruence: full Option D + E`.
-Eleven commits since branch start.
+Latest: `3f900c6e Theory completion push #2 — KO→EN translations
++ §9.4 printer extension`.  Sixteen commits since branch start.
 
 ## What This Branch Did
 
@@ -42,6 +42,11 @@ A full traversal of the **lens emergence path** roadmap from
 | 9 | `9efd8263` | **(C full)** Raw-side arithmetic deleted, Chain/Bridge/ChainToCut rewritten |
 | 10 | `6cba7392` | HANDOFF (intermediate) |
 | 11 | `2394903c` | (D + E full) chart-invariance + Eqv ↔ L.equiv biconditional |
+| 12 | `84f3a32c` | slash_assoc framing correction (parens-as-Raw insight) — `Theory.Raw.ParenthesizationDistinct` |
+| 13 | `b99fb3eb` | Theory completion #1 — §9.4 L2 prototype (`Lens.SyntacticInternalization`) + Option C doc sweep + Bool213.System latent fix |
+| 14 | `6cba7392` | (deferred HANDOFF intermediate — superseded) |
+| 15 | `1275f502` | Handoff: full arc — Option C refactor + D/E complete |
+| 16 | `3f900c6e` | Theory completion #2 — KO→EN (NumberingSystem, RawCut) + §9.4 printer (Polish prefix) |
 
 ## Where The Code Sits Now
 
@@ -136,7 +141,17 @@ Realisations:
 
 In priority order:
 
-### 1. §2.6's quotient-style conjectures — **resolved (abandoned)**
+### 1. §9.4 L3 parser/printer round-trip (deferred)
+The L2 prototype delivered glyph-as-Raw injectivity +
+Polish-prefix printer (`Lens/SyntacticInternalization.lean`).
+L3 needs the parser side: `parse : List Glyph → Option Raw`
+with `parse (printRaw r) = some r` round-trip.  Requires
+well-founded recursion on list length + a Polish-prefix balance
+argument.  Mechanical proof in Lean 4 is non-trivial without
+`omega` (carries `propext`) — needs a manual `Nat`-arithmetic
+balance counter.  Estimated ~200 lines.
+
+### 2. §2.6's quotient-style conjectures — **resolved (abandoned)**
 The research note's §2.6 candidates
 "ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" and "ℤ = Raw / (assoc ∧ …)"
 were treated in earlier HANDOFFs as "blocked by missing
@@ -159,10 +174,10 @@ generator-induced equivalence on Raw) with a clean
 `Eqv L.equiv ↔ L.equiv` biconditional for any lens, but is no
 longer pitched as a path to ℕ₊.
 
-### 2. §2.7 syntactic internalisation (L2 prototype)
-Glyph-as-Raw encoding; minimal Lean prototype would give first
-formal evidence on whether the §9.4 cascade halts at the
-resolution limit.
+### 3. §2.7 syntactic internalisation L2 — **resolved**
+`lean/E213/Lens/SyntacticInternalization.lean` delivers the L2
+glyph-as-Raw prototype (commit `b99fb3eb`).  See §1 above for the
+L3 follow-up.
 
 ### 3. Bool213 parallel
 The `Lens/Bool213/Raw.lean` file uses similar patterns to the
