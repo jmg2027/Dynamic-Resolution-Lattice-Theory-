@@ -4,8 +4,13 @@ import E213.Lens.LensCore
 /-!
 # Lens.Number.Nat213.Core — Lens-derived ℕ₊ type
 
-**Phase 1 of the lens-strict refactor**: encapsulate the image of
-`Lens.leaves = ⟨1, 1, +⟩ : Lens Nat` as a named type.
+Encapsulate the image of `Lens.leaves = ⟨1, 1, +⟩ : Lens Nat` as
+a named type.  Originally the Phase 1 step of the lens-strict
+refactor (Option C of the lens-emergence roadmap, commit
+`ced56bef` 2026-05-18); the full refactor has since landed (Option
+C in `9efd8263`) — `Raw.lean` no longer carries arithmetic, and
+`Chain.lean` provides the dual Raw-subtype carrier with Nat-routed
+operations.
 
 `Lens.leaves.view : Raw → Nat` 의 image 가 정확히 `{ n : Nat // 1 ≤ n }`
 (모든 Raw 는 leaves ≥ 1).  이 subtype 을 `Nat213` 으로 명명.

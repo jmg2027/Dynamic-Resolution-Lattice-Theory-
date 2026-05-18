@@ -22,9 +22,14 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
                            `succ n := slashOrSelf n Raw.b`.
     * `Peano`            — standalone inductive `Nat213 | one | succ`.
                            Ergonomic Peano representation.
-    * `Bridge`           — `toRaw : Peano.Nat213 → Raw` isomorphism;
-                           add/mul homomorphism; `value`/`leavesCountRaw`
-                           commute with `toNat`.
+    * `Bridge`           — `toRaw : Peano.Nat213 → Raw` chart
+                           embedding; `value_toRaw` bijection;
+                           value-level additive / multiplicative
+                           homomorphism (`value_toRaw_add`,
+                           `value_toRaw_mul`).  Post-Option-C
+                           (2026-05-18): Raw-level arithmetic
+                           homomorphism + `leavesCountRaw`
+                           infrastructure removed.
     * `Lenses`           — characterization of `Raw → Peano.Nat213`
                            lenses; multiplicity, swap-invariance.
     * `AtomicityCorrespondence`
@@ -34,7 +39,10 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
                            as canonical numbering.
     * `RawCut`           — Lean-free cut prototype on
                            `Raw → Raw → Raw`; vertical projection
-                           parallel to `leavesCountRaw` / `booleanProj`.
+                           parallel to `Bool213.booleanProj`
+                           (Nat213's former Raw-internal
+                           `leavesCountRaw` was deleted in the
+                           Option C refactor).
 
   ## Tower/
 
