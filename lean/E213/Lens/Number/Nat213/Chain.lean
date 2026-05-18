@@ -33,12 +33,12 @@ research note.  Existing `Raw.lean` arithmetic is **not** modified
 or deprecated; this file is purely additive.  See research note §7
 Step 2.
 
-**Scope**: this file currently provides carrier + `succ` + `add` /
-`mul` closure with `val_*` reflective lemmas.  The `toNat`
-homomorphism for `add` / `mul` is deferred — the natural proofs use
-`omega` which pulls in `propext, Quot.sound` and violates the
-∅-axiom contract.  A manual-`Nat`-lemma-only proof is feasible but
-postponed.
+**Purity discipline**: every theorem and definition here satisfies
+the ∅-axiom contract (`#print axioms <name>` returns "does not
+depend on any axioms").  All Nat arithmetic uses only Lean 4 core
+lemmas (`Nat.add_comm`, `Nat.add_right_comm`, `Nat.succ_add`,
+`Nat.zero_add`, `Nat.zero_mul`, `Nat.one_mul`, `Nat.succ_mul`) —
+no `omega` (which pulls in `propext, Quot.sound`).
 -/
 
 namespace E213.Lens.Number.Nat213
@@ -60,10 +60,8 @@ theorem IsMethodAChain.step {r : Raw} (h : IsMethodAChain r) :
 
 /-! ### Closure of `Raw.add` and `Raw.mul` over the chain
 
-These do NOT compute a closed-form index — they induct on the
-witness of the *left* argument and use `IsMethodAChain.step` to
-build the resulting witness.  This avoids `omega` (which carries
-`propext, Quot.sound`) and keeps the file strict ∅-axiom. -/
+These induct on the witness of the *left* argument and use
+`IsMethodAChain.step` to build the resulting witness.  No `omega`. -/
 
 theorem IsMethodAChain.add {x y : Raw}
     (hx : IsMethodAChain x) (hy : IsMethodAChain y) :
@@ -96,6 +94,66 @@ theorem IsMethodAChain.mul {x y : Raw}
       show IsMethodAChain (Raw.mul (Raw.numeral (k + 1)) y)
       rw [Raw.numeral_succ k, Raw.mul_succ_left _ _ (Raw.numeral_ne_b k)]
       exact IsMethodAChain.add hy ih
+
+/-! ### Value homomorphism on the chain (omega-free)
+
+The chain-restricted `Raw.value` is a `+` / `*` homomorphism to `Nat`.
+Proofs induct on the left witness and use `Raw.value_succ_of_ne`
+(needing the chain-element-≠-Raw.b invariant) together with manual
+`Nat` core lemmas. -/
+
+/-- `Raw.value` is additive on chain inputs. -/
+theorem Raw.value_add_chain {x y : Raw}
+    (hx : IsMethodAChain x) (hy : IsMethodAChain y) :
+    Raw.value (Raw.add x y) = Raw.value x + Raw.value y := by
+  obtain ⟨m, hm⟩ := hx
+  rw [hm]
+  clear hm
+  induction m with
+  | zero =>
+      show Raw.value (Raw.add Raw.one y) = Raw.value Raw.one + Raw.value y
+      rw [Raw.one_add]
+      obtain ⟨n, hn⟩ := hy
+      rw [hn, Raw.value_succ_of_ne _ (Raw.numeral_ne_b n), Raw.value_numeral n]
+      show (n + 1) + 1 = 1 + (n + 1)
+      rw [Nat.add_comm (n + 1) 1]
+  | succ k ih =>
+      show Raw.value (Raw.add (Raw.numeral (k + 1)) y)
+        = Raw.value (Raw.numeral (k + 1)) + Raw.value y
+      rw [Raw.numeral_succ k, Raw.add_succ_left _ _ (Raw.numeral_ne_b k)]
+      have h_add_chain : IsMethodAChain (Raw.add (Raw.numeral k) y) :=
+        IsMethodAChain.add ⟨k, rfl⟩ hy
+      obtain ⟨j, hj⟩ := h_add_chain
+      have hne_add : Raw.add (Raw.numeral k) y ≠ Raw.b := by
+        rw [hj]; exact Raw.numeral_ne_b j
+      rw [Raw.value_succ_of_ne _ hne_add,
+          Raw.value_succ_of_ne _ (Raw.numeral_ne_b k), ih]
+      rw [Nat.add_right_comm (Raw.value (Raw.numeral k)) (Raw.value y) 1]
+
+/-- `Raw.value` is multiplicative on chain inputs. -/
+theorem Raw.value_mul_chain {x y : Raw}
+    (hx : IsMethodAChain x) (hy : IsMethodAChain y) :
+    Raw.value (Raw.mul x y) = Raw.value x * Raw.value y := by
+  obtain ⟨m, hm⟩ := hx
+  rw [hm]
+  clear hm
+  induction m with
+  | zero =>
+      show Raw.value (Raw.mul Raw.one y) = Raw.value Raw.one * Raw.value y
+      rw [Raw.one_mul]
+      show Raw.value y = 1 * Raw.value y
+      rw [Nat.one_mul]
+  | succ k ih =>
+      show Raw.value (Raw.mul (Raw.numeral (k + 1)) y)
+        = Raw.value (Raw.numeral (k + 1)) * Raw.value y
+      rw [Raw.numeral_succ k, Raw.mul_succ_left _ _ (Raw.numeral_ne_b k)]
+      have h_mul_chain : IsMethodAChain (Raw.mul (Raw.numeral k) y) :=
+        IsMethodAChain.mul ⟨k, rfl⟩ hy
+      rw [Raw.value_add_chain hy h_mul_chain,
+          Raw.value_succ_of_ne _ (Raw.numeral_ne_b k), ih]
+      rw [Nat.succ_mul (Raw.value (Raw.numeral k)) (Raw.value y)]
+      rw [Nat.add_comm (Raw.value y)
+            (Raw.value (Raw.numeral k) * Raw.value y)]
 
 /-- Raw-subtype carrier for Method A chain elements. -/
 structure Chain where
@@ -146,6 +204,14 @@ theorem toNat_succ (c : Chain) : c.succ.toNat = c.toNat + 1 := by
   show Raw.value (Raw.succ c.val) = Raw.value c.val + 1
   rw [hn]
   exact Raw.value_succ_of_ne _ (Raw.numeral_ne_b n)
+
+/-- `toNat` is an additive homomorphism on `Chain`. -/
+theorem toNat_add (c d : Chain) : (c.add d).toNat = c.toNat + d.toNat :=
+  Raw.value_add_chain c.property d.property
+
+/-- `toNat` is a multiplicative homomorphism on `Chain`. -/
+theorem toNat_mul (c d : Chain) : (c.mul d).toNat = c.toNat * d.toNat :=
+  Raw.value_mul_chain c.property d.property
 
 end Chain
 
