@@ -114,4 +114,21 @@ theorem value_toRaw_mul (m n : E213.Lens.Number.Nat213.Peano.Nat213) :
       = m.toNat * n.toNat := by
   rw [value_toRaw, E213.Lens.Number.Nat213.Peano.Nat213.toNat_mul]
 
+/-! ### Bridge injectivity (added 2026-05-18, iteration #7)
+
+`toRaw` is injective: distinct `Peano.Nat213` elements embed to
+distinct Raws.  Combines `value_toRaw` (bijection at the Nat level)
+with `Peano.Nat213.toNat_injective`. -/
+
+/-- **Bridge injectivity**: `toRaw m = toRaw n → m = n`.  Follows
+    from `value_toRaw` projecting both sides to `toNat`, then
+    `Peano.toNat_injective` lifting back. -/
+theorem toRaw_injective
+    {m n : E213.Lens.Number.Nat213.Peano.Nat213} (h : toRaw m = toRaw n) :
+    m = n := by
+  have h1 : E213.Lens.Number.Nat213.Raw.value (toRaw m)
+          = E213.Lens.Number.Nat213.Raw.value (toRaw n) := by rw [h]
+  rw [value_toRaw, value_toRaw] at h1
+  exact E213.Lens.Number.Nat213.Peano.Nat213.toNat_injective h1
+
 end E213.Lens.Number.Nat213.Bridge
