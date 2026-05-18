@@ -197,6 +197,17 @@ theorem mul_assoc : ∀ a b c : Nat213, mul (mul a b) c = mul a (mul b c)
 theorem mul_add (a b c : Nat213) : mul a (add b c) = add (mul a b) (mul a c) := by
   rw [mul_comm a (add b c), add_mul, mul_comm b a, mul_comm c a]
 
+/-- ★ Left cancellation for `add`: `a + b = a + c → b = c`. -/
+theorem add_left_cancel : ∀ {a b c : Nat213}, add a b = add a c → b = c
+  | one,    _, _ => Nat213.succ.inj
+  | succ _, _, _ => fun h => add_left_cancel (Nat213.succ.inj h)
+
+/-- ★ Right cancellation for `add`: `a + c = b + c → a = b`. -/
+theorem add_right_cancel {a b c : Nat213} (h : add a c = add b c) : a = b := by
+  apply add_left_cancel (a := c)
+  rw [add_comm c a, add_comm c b]
+  exact h
+
 /-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
     `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
     In Nat213, no such `z` exists — proves ℕ-with-0's identity
