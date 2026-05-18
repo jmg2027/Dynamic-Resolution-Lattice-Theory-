@@ -99,6 +99,12 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lens/SyntacticInternalization.parseTree_printTree` —
   Polish-prefix universal round-trip
   `∀ t, parseTree (printTree t) = some t` (added 2026-05-18)
+- `Lens/SyntacticInternalization.printTree_parseTree` — reverse
+  direction: `parseTree gs = some t → printTree t = gs`
+  (lossless parser; added 2026-05-18 L4 closure)
+- `Lens/SyntacticInternalization.printTree_injective` —
+  `printTree t₁ = printTree t₂ → t₁ = t₂` (closes the bijection
+  between `Tree` and `Range(printTree)`)
 - `Meta/AxiomMinimalityCapstone.raw_minimality_capstone` — 4 clauses essential
 - `Lens/Universal/QuotLens.universalLens` — universal lens existence
   (`IsUniversal` predicate + `idLens_is_universal` are in

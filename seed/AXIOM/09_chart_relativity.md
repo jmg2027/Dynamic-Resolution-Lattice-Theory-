@@ -83,8 +83,8 @@ themselves Raw, with expressions becoming sequence-Raws of
 glyph-Raws.  "Meaningless punctuation" then becomes external
 convention rather than essence.
 
-**Full L2 + L3 realisation**:
-`lean/E213/Lens/SyntacticInternalization.lean` (21 strict ∅-axiom
+**Full L2 + L3 + L4 realisation**:
+`lean/E213/Lens/SyntacticInternalization.lean` (25 strict ∅-axiom
 symbols).
 
 L2 (cascade halts at glyph encoding):
@@ -108,6 +108,20 @@ L3 (full universal round-trip):
   - **`parseTree_printTree : ∀ t, parseTree (printTree t) = some t`** —
     the universal round-trip theorem.
   - `parseTree_printRaw` — Raw-level corollary.
+
+L4 (bijection closure, 2026-05-18):
+  - `parseHelper_sound` — soundness: any successful parse
+    `parseHelper n gs = some (t, rest)` proves
+    `gs = printTree t ++ rest` (consumed prefix is exactly the
+    print of the returned tree).
+  - **`printTree_parseTree : parseTree gs = some t → printTree t = gs`**
+    — reverse round-trip / lossless parser.
+  - `printTree_injective` — corollary of `parseTree_printTree`.
+  - `printRaw_parseTree` — Raw-level corollary.
+
+Together L3 + L4 establish a bijection between `Tree` and
+`Range(printTree)`: `printTree` is injective with `parseTree` as
+its left inverse on the image.
 
 All Nat / List arithmetic uses Lean 4 core lemmas or the
 ∅-axiom utility `E213.Tactic.List213.{append_nil, append_assoc,
