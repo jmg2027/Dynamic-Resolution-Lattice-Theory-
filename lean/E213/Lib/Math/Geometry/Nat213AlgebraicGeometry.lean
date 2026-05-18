@@ -3,7 +3,7 @@ import E213.Lib.Math.Topology.EulerChi
 import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
 
 /-!
-# Theory.Nat213.AlgebraicGeometry — 213's algebraic-geometric face
+# Lib.Math.Geometry.Nat213AlgebraicGeometry — 213's algebraic-geometric face
 
 User directive (2026-05-09): "이걸 자연스럽게 대수기하학 혹은
 코호몰로지로 연결시켜보셈"

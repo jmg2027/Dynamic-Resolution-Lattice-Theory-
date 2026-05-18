@@ -4,7 +4,7 @@ import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Topology.EulerChi
 
 /-!
-# Theory.Nat213.RotationGeometry — 213-native rotation/spiral
+# Lib.Math.Geometry.Nat213Rotation — 213-native rotation/spiral
 
 User directive (2026-05-09): "Raw의 Nat213렌즈의 네이티브로 된
 토폴로지/그래프이론/코호몰로지/선대수로 이런 모양이다 + 회전이
