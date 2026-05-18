@@ -16,8 +16,8 @@ numbers, and the Higgs quartic coupling all emerge as **closed
 algebraic identities** on a single K_{3,2}^{(c=2)} graph with zero
 fitted parameters.  Numerical agreement to 0.49 ppb (m_μ/m_e),
 0.07 ppm (1/α_em), 1.56 ppm (m_p) is reproduced by an independent
-ℕ-only Rust verification engine.  All identities are 0-axiom in
-Lean (≤ {propext, Quot.sound}).
+ℕ-only Rust verification engine.  All identities are STRICT ∅-AXIOM
+in Lean (`#print axioms` returns "does not depend on any axioms").
 
 ## 1.  Lattice axioms
 The 213 axioms posit only:
@@ -113,7 +113,7 @@ Any precision measurement disagreeing falsifies DRLT:
 - Unique parity violation in *any other* gauge sector → falsified
 
 ## 7.  Status
-- **51+ Lean 0-axiom theorems**.  All `≤ {propext, Quot.sound}`.
+- **51+ Lean STRICT ∅-AXIOM theorems** (`#print axioms` returns "does not depend on any axioms").
 - **14 Rust binaries** verifying numerics ℕ-only.
 - **58/58 citations** resolve to Lean files.
 - **178/178 Rust tests** pass.

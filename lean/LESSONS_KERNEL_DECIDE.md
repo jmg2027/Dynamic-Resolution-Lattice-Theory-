@@ -1,8 +1,11 @@
 # Lean Kernel-`decide` Lessons — DRLT 213
 
 Patterns and anti-patterns from closing universal cohomology
-theorems (Universal δ²=0, Cup AW Leibniz) under the
-≤ {propext, Quot.sound} standard, no `native_decide`, no Mathlib.
+theorems (Universal δ²=0, Cup AW Leibniz) under the **STRICT
+∅-AXIOM** standard (no `propext`, no `Quot.sound`, no
+`native_decide`, no Classical, no Mathlib).  (Note: this doc was
+authored when the now-deprecated `≤ {propext, Quot.sound}` tier
+was still accepted; the lessons themselves still apply.)
 
 ---
 
