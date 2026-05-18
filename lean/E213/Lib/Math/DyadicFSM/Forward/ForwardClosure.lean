@@ -10,7 +10,7 @@ Completes the inductive step from `joint_state_collision`.  Combined
 with the backward direction (`signature_periodic_implies_bits_periodic`),
 this gives the full bidirectional Tier 0 equivalence.
 
-All theorems at ≤ {propext, Quot.sound} (Classical.choice removed).
+All theorems are PURE (∅-axiom) (Classical.choice removed).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Forward.ForwardClosure

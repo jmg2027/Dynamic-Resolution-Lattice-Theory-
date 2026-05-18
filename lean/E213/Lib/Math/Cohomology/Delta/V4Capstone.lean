@@ -23,7 +23,7 @@ import E213.Lib.Physics.Simplex.Counts
   3. Cup Leibniz universal (AW overlap) at (5, 1, 1)
   4. Encoding bijection: Cochain 5 1 ↔ Fin 32
 
-≤ {propext, Quot.sound}.
+PURE (∅-axiom; verified 2026-05-18).
 -/
 
 namespace E213.Lib.Math.Cohomology.Delta.V4Capstone

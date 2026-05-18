@@ -15,7 +15,7 @@ Proof structure mirrors the purely-periodic case but with offset:
 joint state (sig (N₀ + k), k mod p) over k ∈ Fin (5p+1) collides
 by pigeonhole; periodicity follows from N₀ + i onwards.
 
-All theorems at ≤ {propext, Quot.sound}.
+All theorems at PURE (∅-axiom; verified 2026-05-18).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Forward.ForwardEventual

@@ -17,7 +17,7 @@ import E213.Lib.Math.DyadicFSM.Pisano.Predictor
   | 17 | 2 (NQR)  | inert     |    18        |    18      |  NEW
   | 19 | 1 (QR)   | split     |     9        |     9      |
 
-7 of 7 primes verified.  All <= {propext, Quot.sound}.
+7 of 7 primes verified.  All PURE (∅-axiom).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Pisano.Predictor7

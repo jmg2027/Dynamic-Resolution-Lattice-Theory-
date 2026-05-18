@@ -18,7 +18,7 @@ Bundles the three pillars of 213-native number theory:
   Step 3 — Algebraic Degree Tower (ArithFSM₁ ⊂ ₂ ⊂ ₃)
   Step 4 (v3) — Discriminant-parametric Pell proper (D=5, D=8)
 
-All within ≤ {propext, Quot.sound}.  No external Mathlib.
+All within PURE (∅-axiom; verified 2026-05-18).  No external Mathlib.
 
 Three capstone theorems retained for backward compatibility:
   - `number_theory_213_capstone`     (v1, 4-prime Pisano evidence)

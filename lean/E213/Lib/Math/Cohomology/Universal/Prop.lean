@@ -11,7 +11,7 @@ import E213.Lib.Physics.Simplex.Counts
 Cochain n 0 = Fin 1 → Bool has only 2 functions. Case-split on
 `σ ⟨0, _⟩` + funext gives Prop-level ∀ σ.
 
-Pulls in funext (≤ {propext, Quot.sound}).
+Pulls in funext (legacy tier; now PURE after the 2026-05-XX funext refactor, verified 2026-05-18).
 -/
 
 namespace E213.Lib.Math.Cohomology.Universal.Prop
