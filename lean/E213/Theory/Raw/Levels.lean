@@ -101,6 +101,18 @@ protected theorem Raw.depth_lt_leaves (r : Raw) : r.depth < r.leaves := by
             _ ≤ y.leaves + x.leaves := Nat.add_le_add_left hxp _
             _ = x.leaves + y.leaves := Nat.add_comm _ _
 
+/-- Reformulation of `depth_lt_leaves`: `r.depth + 1 ≤ r.leaves`. -/
+protected theorem Raw.leaves_ge_depth_succ (r : Raw) :
+    r.depth + 1 ≤ r.leaves :=
+  Raw.depth_lt_leaves r
+
+/-- Corollary: a Raw with depth ≥ 1 has at least 2 leaves. -/
+protected theorem Raw.leaves_ge_two_of_depth_pos (r : Raw)
+    (h : 1 ≤ r.depth) : 2 ≤ r.leaves := by
+  have h1 : r.depth + 1 ≤ r.leaves := Raw.depth_lt_leaves r
+  have h2 : 2 ≤ r.depth + 1 := Nat.add_le_add_right h 1
+  exact Nat.le_trans h2 h1
+
 -- ═══ Explicit level-≤2 enumeration ═══
 -- (Backing §1.3 and §5.1 of the paper.  Uses only the public
 --  `Raw.slash` API — no Tree internals.)
