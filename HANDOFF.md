@@ -1,9 +1,9 @@
-# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc + theory completion)
+# Session Handoff — 2026-05-18 (Lens Emergence Path — full arc, L3 round-trip, cleanup)
 
 ## Branch
 `claude/review-lens-emergence-path-ZtS3A` — pushed.
-Latest: `3f900c6e Theory completion push #2 — KO→EN translations
-+ §9.4 printer extension`.  Sixteen commits since branch start.
+Latest: `d6a316e5 §9.4 L3 universal round-trip — proved (21 PURE /
+0 DIRTY)`.  Twenty-one commits since branch start.
 
 ## What This Branch Did
 
@@ -47,6 +47,11 @@ A full traversal of the **lens emergence path** roadmap from
 | 14 | `6cba7392` | (deferred HANDOFF intermediate — superseded) |
 | 15 | `1275f502` | Handoff: full arc — Option C refactor + D/E complete |
 | 16 | `3f900c6e` | Theory completion #2 — KO→EN (NumberingSystem, RawCut) + §9.4 printer (Polish prefix) |
+| 17 | `fe068f35` | Handoff + `Mobius213` title fix |
+| 18 | `0f63a788` | §9.4 L3 partial — fuel-bounded parser + 4 concrete `decide` witnesses |
+| 19 | `f5aacd6c` | SyntacticInternalization — explicit deferred-work note |
+| 20 | `d6a316e5` | **§9.4 L3 universal round-trip proved** — `parseTree_printTree` PURE (21/0) |
+| 21 | `(this)` | Cleanup — `Lens.lean` umbrella imports + `Theory/Raw/INDEX.md` entries |
 
 ## Where The Code Sits Now
 
@@ -141,15 +146,14 @@ Realisations:
 
 In priority order:
 
-### 1. §9.4 L3 parser/printer round-trip (deferred)
-The L2 prototype delivered glyph-as-Raw injectivity +
-Polish-prefix printer (`Lens/SyntacticInternalization.lean`).
-L3 needs the parser side: `parse : List Glyph → Option Raw`
-with `parse (printRaw r) = some r` round-trip.  Requires
-well-founded recursion on list length + a Polish-prefix balance
-argument.  Mechanical proof in Lean 4 is non-trivial without
-`omega` (carries `propext`) — needs a manual `Nat`-arithmetic
-balance counter.  Estimated ~200 lines.
+### 1. §9.4 L3 universal round-trip — **resolved**
+`lean/E213/Lens/SyntacticInternalization.lean` now provides the
+full universal theorem `parseTree_printTree : ∀ t, parseTree
+(printTree t) = some t` (commit `d6a316e5`), proved with strict
+∅-axiom contract.  Three private List helpers replace
+`propext`-laden Lean core lemmas (`list_append_assoc'`,
+`list_append_nil'`, `list_length_append'`).  21 PURE / 0 DIRTY in
+the file.
 
 ### 2. §2.6's quotient-style conjectures — **resolved (abandoned)**
 The research note's §2.6 candidates

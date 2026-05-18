@@ -3,6 +3,7 @@ import E213.Lens.LensCore
 import E213.Lens.AxiomLenses
 import E213.Lens.Bool213
 import E213.Lens.Compose
+import E213.Lens.Congruence
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
@@ -11,6 +12,7 @@ import E213.Lens.Lattice
 import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
+import E213.Lens.SyntacticInternalization
 import E213.Lens.Universal
 
 /-! Spec-as-code entry point for `E213.Lens`.
