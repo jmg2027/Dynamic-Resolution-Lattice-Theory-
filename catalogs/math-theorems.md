@@ -441,18 +441,20 @@ example (n k v0 x0 a b numA numB E : Nat)
 
 ---
 
-## K. Axiom audit — all results ≤ {propext, Quot.sound}
+## K. Axiom audit — all results STRICT ∅-AXIOM
 
 ```lean
-import E213.Lib.Math.Analysis213
-open E213.Lib.Math.Real213.CutSum
-
-#print axioms phaseDK_ultimate_capstone
--- 'phaseDK_ultimate_capstone' depends on axioms: [propext, Quot.sound]
+import E213.Lib.Math.Analysis
+-- (or any specific module)
 
 #print axioms FluxCut.cohomEquiv_refl
--- 'FluxCut.cohomEquiv_refl' does not depend on any axioms  -- ★ 0 axioms!
+-- 'FluxCut.cohomEquiv_refl' does not depend on any axioms  -- ★ ∅-axiom
 ```
+
+Per `STRICT_ZERO_AXIOM.md` "Terms (canonical)": the legacy
+`≤ {propext, Quot.sound}` tier is **deprecated** (since 2026-05-09);
+the standard is now strict ∅-axiom (`#print axioms` returns "does
+not depend on any axioms").
 
 ---
 
@@ -471,5 +473,5 @@ open E213.Lib.Math.Real213.CutSum
 | I. Capstone | 17 | 17 mega-conjunction |
 | **Total** | **88+** (core of 176 total modules) | **300+ theorems** |
 
-axioms ≤ {propext, Quot.sound} · 0 sorry · Mathlib-free
+STRICT ∅-AXIOM · 0 sorry · Mathlib-free · 0 Classical · 0 native_decide
 

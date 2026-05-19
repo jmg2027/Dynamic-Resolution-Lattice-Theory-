@@ -14,7 +14,7 @@ Raw, slash, Lens, Cochain, δ, Cup, AW (Alexander-Whitney), Hodge ⋆,
 Bipartite32, K5.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in `lean/E213/Lib/Math/Cohomology/`.
+STRICT ∅-AXIOM, as verified in `lean/E213/Lib/Math/Cohomology/`.
 
 ---
 
@@ -85,7 +85,7 @@ property:
 
 **δ² = 0** (`DeltaSqZero.lean`)
 
-This is closed at ≤ {propext, Quot.sound} via direct computation
+This is closed at STRICT ∅-AXIOM via direct computation
 on the finite cochain spaces.
 
 ### Chapter 5.  Universal δ²=0 prop-lift
@@ -159,7 +159,7 @@ all four interior strata of the (5, k) decomposition:
 
 Bundled into `Delta4LeibnizCapstone.delta4_leibniz_capstone`.
 
-All four ≤ {propext, Quot.sound}.  See the file family
+All four STRICT ∅-AXIOM.  See the file family
 `CupAWLeibniz*.lean`, `CupAWLeibnizAlgLift*.lean`,
 `Delta4Capstone.lean`.
 
@@ -177,7 +177,7 @@ T-vertices in the dual interpretation.
 ### Chapter 11.  ⋆⋆ = id (Δ⁴ involution)
 
 The Hodge involution `⋆⋆ = id` is closed at the (5, 1) and (5, 2)
-strata at ≤ {propext, Quot.sound} (`HodgeInvolution.lean`,
+strata at STRICT ∅-AXIOM (`HodgeInvolution.lean`,
 `HodgeProp.lean`, `HodgeProp52.lean`).
 
 The remaining strata (5, 0), (5, 3), (5, 4) are trivial-ish; a
@@ -331,7 +331,7 @@ forms.
 
 ## Appendix A.  Lean theorem index
 
-Key capstones (all ≤ {propext, Quot.sound}):
+Key capstones (all STRICT ∅-AXIOM):
 
 - `delta4_leibniz_capstone` — Δ⁴ Leibniz at (5, 1, 1), (5, 1, 2),
   (5, 2, 1), (5, 2, 2)
@@ -345,12 +345,11 @@ Source files at `lean/E213/Lib/Math/Cohomology/`.
 
 ## Appendix B.  Verification standard
 
-Every theorem closed in Lean 4 at:
+Every theorem closed in Lean 4 at **STRICT ∅-AXIOM** — `#print axioms
+<thm>` returns "does not depend on any axioms".
 
-  ≤ {propext, Quot.sound}    (Lean kernel floor), OR
-  STRICT 0-AXIOM             (encoding round-trips, basis decomps)
-
-No `sorry`, no Mathlib, no Classical, no native_decide.
+No `sorry`, no Mathlib, no Classical, no `native_decide`, no
+`propext`, no `Quot.sound`.
 
 `cd lean && lake build` passes.
 

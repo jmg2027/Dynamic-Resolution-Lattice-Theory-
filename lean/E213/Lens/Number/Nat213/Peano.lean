@@ -143,6 +143,134 @@ theorem add_comm : ∀ m n : Nat213, add m n = add n m
       show succ (add m n) = add n (succ m)
       rw [add_succ_right n m, add_comm m n]
 
+/-- ★ Associativity of `add`.  Structural induction on the first
+    argument (`add` recurses left). -/
+theorem add_assoc : ∀ a b c : Nat213, add (add a b) c = add a (add b c)
+  | one,    b, c => rfl
+  | succ k, b, c => by
+      show succ (add (add k b) c) = succ (add k (add b c))
+      rw [add_assoc k b c]
+
+/-- ★ `m * succ n = m + m * n` — succ on the right factor.
+    Symmetric to the definition `mul (succ k) n = add n (mul k n)`,
+    which is `rfl`.  Proven by induction on `m` using `add_assoc`
+    + `add_comm`. -/
+theorem mul_succ_right : ∀ m n : Nat213, mul m (succ n) = add m (mul m n)
+  | one,    n => rfl
+  | succ k, n => by
+      show add (succ n) (mul k (succ n)) = add (succ k) (add n (mul k n))
+      rw [mul_succ_right k n]
+      rw [← add_assoc (succ n) k (mul k n),
+          ← add_assoc (succ k) n (mul k n)]
+      show add (succ n) k + mul k n = add (succ k) n + mul k n
+      rw [show add (succ n) k = succ (add n k) from rfl,
+          show add (succ k) n = succ (add k n) from rfl,
+          add_comm n k]
+
+/-- ★ Commutativity of `mul`. -/
+theorem mul_comm : ∀ m n : Nat213, mul m n = mul n m
+  | one,    n => (mul_one n).symm
+  | succ k, n => by
+      show add n (mul k n) = mul n (succ k)
+      rw [mul_succ_right n k, mul_comm k n]
+
+/-- ★ Right distributivity: `(a + b) * c = a*c + b*c`. -/
+theorem add_mul : ∀ a b c : Nat213, mul (add a b) c = add (mul a c) (mul b c)
+  | one,    b, c => by
+      show mul (succ b) c = add c (mul b c)
+      rfl
+  | succ k, b, c => by
+      show mul (succ (add k b)) c = add (mul (succ k) c) (mul b c)
+      show add c (mul (add k b) c) = add (add c (mul k c)) (mul b c)
+      rw [add_mul k b c, add_assoc]
+
+/-- ★ Associativity of `mul`.  Uses `add_mul` distributivity. -/
+theorem mul_assoc : ∀ a b c : Nat213, mul (mul a b) c = mul a (mul b c)
+  | one,    b, c => rfl
+  | succ k, b, c => by
+      rw [show mul (succ k) b = add b (mul k b) from rfl,
+          add_mul b (mul k b) c, mul_assoc k b c]
+      rfl
+
+/-- ★ Left distributivity: `a * (b + c) = a*b + a*c`.  Derived from
+    `add_mul` + `mul_comm`. -/
+theorem mul_add (a b c : Nat213) : mul a (add b c) = add (mul a b) (mul a c) := by
+  rw [mul_comm a (add b c), add_mul, mul_comm b a, mul_comm c a]
+
+/-- ★ Left cancellation for `add`: `a + b = a + c → b = c`. -/
+theorem add_left_cancel : ∀ {a b c : Nat213}, add a b = add a c → b = c
+  | one,    _, _ => Nat213.succ.inj
+  | succ _, _, _ => fun h => add_left_cancel (Nat213.succ.inj h)
+
+/-- ★ Right cancellation for `add`: `a + c = b + c → a = b`. -/
+theorem add_right_cancel {a b c : Nat213} (h : add a c = add b c) : a = b := by
+  apply add_left_cancel (a := c)
+  rw [add_comm c a, add_comm c b]
+  exact h
+
+/-- ★ Injectivity of `toNat` on `Nat213`.  Every `Nat213` element is
+    determined by its `toNat` projection.  Proven by structural
+    induction; the impossible cases (`one` ↔ `succ k`) use
+    `toNat_ge_one` to derive a contradiction. -/
+theorem toNat_injective : ∀ {a b : Nat213}, a.toNat = b.toNat → a = b
+  | one,    one,    _ => rfl
+  | one,    succ k, h => by
+      have h0 : (0 : Nat) + 1 = k.toNat + 1 := h
+      have heq : (0 : Nat) = k.toNat :=
+        E213.Tactic.NatHelper.add_right_cancel h0
+      have hge : k.toNat ≥ 1 := toNat_ge_one k
+      rw [← heq] at hge
+      exact absurd hge (by decide)
+  | succ k, one,    h => by
+      have h0 : k.toNat + 1 = (0 : Nat) + 1 := h
+      have heq : k.toNat = (0 : Nat) :=
+        E213.Tactic.NatHelper.add_right_cancel h0
+      have hge : k.toNat ≥ 1 := toNat_ge_one k
+      rw [heq] at hge
+      exact absurd hge (by decide)
+  | succ k, succ m, h => by
+      have h' : k.toNat + 1 = m.toNat + 1 := h
+      have h'' : k.toNat = m.toNat :=
+        E213.Tactic.NatHelper.add_right_cancel h'
+      have hkm : k = m := toNat_injective h''
+      rw [hkm]
+
+/-- ★ Left cancellation for `mul`: `a * b = a * c → b = c`.  Since
+    every `Nat213` is positive, no zero-divisor issue. -/
+theorem mul_left_cancel {a b c : Nat213} (h : mul a b = mul a c) : b = c := by
+  have hnat : (mul a b).toNat = (mul a c).toNat := congrArg toNat h
+  rw [toNat_mul, toNat_mul] at hnat
+  have hpos : 0 < a.toNat := toNat_ge_one a
+  have hbc : b.toNat = c.toNat :=
+    E213.Tactic.NatHelper.mul_left_cancel_pos hpos hnat
+  exact toNat_injective hbc
+
+/-- ★ Right cancellation for `mul`: `a * c = b * c → a = b`. -/
+theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
+  apply mul_left_cancel (a := c)
+  rw [mul_comm c a, mul_comm c b]
+  exact h
+
+/-- ★ `add` left-commute: `a + (b + c) = b + (a + c)`.  Normalisation
+    helper. -/
+theorem add_left_comm (a b c : Nat213) : add a (add b c) = add b (add a c) := by
+  rw [← add_assoc, add_comm a b, add_assoc]
+
+/-- ★ `mul` left-commute: `a * (b * c) = b * (a * c)`. -/
+theorem mul_left_comm (a b c : Nat213) : mul a (mul b c) = mul b (mul a c) := by
+  rw [← mul_assoc, mul_comm a b, mul_assoc]
+
+/-- ★ `n * 2 = n + n`.  The two definitions of doubling agree.
+    (Here `2 = succ one`, since `Nat213` has no zero.) -/
+theorem mul_two (n : Nat213) : mul n (succ one) = add n n := by
+  rw [mul_succ_right, mul_one]
+
+/-- ★ `succ n ≠ one`: every successor is distinct from the base. -/
+theorem succ_ne_one (n : Nat213) : succ n ≠ one := fun h => Nat213.noConfusion h
+
+/-- ★ `(succ n).toNat = n.toNat + 1` — by definition. -/
+theorem succ_toNat (n : Nat213) : (succ n).toNat = n.toNat + 1 := rfl
+
 /-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
     `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
     In Nat213, no such `z` exists — proves ℕ-with-0's identity

@@ -31,13 +31,14 @@ import E213.Meta.Tactic
                          VerifyConjugation, NativeGuard, PureGuard
                          + Test/)
     * `Nat/`           — ring-independent Nat helper lemmas
-                         (구 Lib/Math/NatHelpers, 2026-05-13)
+                         (formerly Lib/Math/NatHelpers, 2026-05-13)
     * `Int213/`,
       `Algebra213/`    — ring-independent integer / algebra
                          scaffolding
 
-  UniversalLens 11 파일 (Core, Nat2, Nat2Inj, Nat3, Nat4, Padding,
-  PaddingCapstone, Q213, Q213Inj, Q213_3, TripleCapstone) 는
-  2026-05-13 `Lens/Universal/Witnesses/` 로 이동 — Lens-content 가
-  Meta 에 misshoused 된 상태였음을 LENS_AUDIT §4 가 지적.
+  The 11 UniversalLens files (Core, Nat2, Nat2Inj, Nat3, Nat4,
+  Padding, PaddingCapstone, Q213, Q213Inj, Q213_3, TripleCapstone)
+  were relocated to `Lens/Universal/Witnesses/` on 2026-05-13 —
+  LENS_AUDIT §4 noted that the Lens content had been misshoused
+  in Meta.
 -/

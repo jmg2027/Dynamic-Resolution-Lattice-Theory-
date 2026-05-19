@@ -32,4 +32,14 @@ protected theorem Raw.swap_injective {x y : Raw} (h : Raw.swap x = Raw.swap y) :
   rw [Raw.swap_swap, Raw.swap_swap] at hswap
   exact hswap
 
+/-- Biconditional form of `Raw.swap_injective`. -/
+protected theorem Raw.swap_eq_iff (x y : Raw) :
+    Raw.swap x = Raw.swap y ↔ x = y :=
+  ⟨Raw.swap_injective, fun h => h ▸ rfl⟩
+
+/-- `Raw.swap` preserves distinctness — contrapositive of injectivity. -/
+protected theorem Raw.swap_ne {x y : Raw} (h : x ≠ y) :
+    Raw.swap x ≠ Raw.swap y :=
+  fun heq => h (Raw.swap_injective heq)
+
 end E213.Theory

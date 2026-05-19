@@ -17,15 +17,16 @@ rests on a number-theoretic uniqueness lemma `2^m + 2^n = 2^p +
 2^q ∧ m ≠ n ⇒ {m, n} = {p, q}` proven via 2-adic valuation, and
 yields the formal core of the 213 metatheoretic thesis that "any
 act of distinguishing factors uniquely through the 213 atomic
-substrate."  All theorems are closed in Lean 4 at axiom load
-≤ {propext, Quot.sound}, with no Mathlib, Classical, sorry, or
-native_decide.
+substrate."  All theorems are closed in Lean 4 at **STRICT ∅-AXIOM** —
+`#print axioms <thm>` returns "does not depend on any axioms".
+No Mathlib, no Classical, no sorry, no `native_decide`, no
+`propext`, no `Quot.sound`.
 
 **Keywords**: free commutative magma, universal property, 2-adic
 valuation, constructive type theory, Lean 4.
 
-**Lean source**: `lean/E213/Meta/{BitPatternUniqueness,
-UniversalLensNat2{,Inj}, UniversalLensQ213{,Inj}}.lean`.
+**Lean source**: `lean/E213/Meta/BitPatternUniqueness.lean` and
+`lean/E213/Lens/Universal/Witnesses/{Nat2,Nat2Inj,Q213,Q213Inj}.lean`.
 
 ---
 
@@ -63,8 +64,7 @@ universal Lenses:
   expSumLens : Lens (ℕ × ℕ)
   q213Lens   : Lens (Q213 × Q213)        Q213 = Term × Term
 
-Both are proven universal at axiom load ≤ {propext, Quot.sound}
-in Lean 4.  Section 2 develops the bit-pattern uniqueness lemma
+Both are proven universal at **STRICT ∅-AXIOM** in Lean 4.  Section 2 develops the bit-pattern uniqueness lemma
 underpinning both.  Section 3 constructs `expSumLens` and proves
 its universality.  Section 4 lifts the result to Q213 × Q213.
 Section 5 discusses implications.
@@ -118,7 +118,7 @@ with m ≠ n,
 apply Theorem 2.1.  ∎
 
 All four theorems are closed in `lean/E213/Meta/BitPatternUniqueness.
-lean` at axiom load ≤ {propext, Quot.sound}.  The proofs use only
+lean` at axiom load STRICT ∅-AXIOM.  The proofs use only
 Lean 4 core: `Nat.pow_succ`, `Nat.mul_mod_left`, `Nat.pow_dvd_pow`,
 `Nat.dvd_sub`, `Nat.pow_lt_pow_of_lt`, and `omega`.  No Mathlib.
 
@@ -143,7 +143,7 @@ slash combines via exp-sum).  The second component is the
 depth.
 
 Symmetry of `combine` follows from `Nat.add_comm`, closed at
-≤ {propext, Quot.sound}.
+STRICT ∅-AXIOM.
 
 ### 3.2  Auxiliary lemmas
 
@@ -195,7 +195,7 @@ which equals `Raw.slash x' y' h'` by `Raw.slash_comm`.  ∎
 **Corollary 3.3** (`expSumLens_is_universal`).  expSumLens is
 a universal Lens.
 
-All three at axiom load ≤ {propext, Quot.sound}, in
+All three at axiom load STRICT ∅-AXIOM, in
 `lean/E213/Meta/UniversalLensNat2Inj.lean`.
 
 ---
@@ -232,7 +232,7 @@ q213Lens : Lens (Q213 × Q213) where
 ```
 
 The combine is symmetric (Theorem `q213Lens_symmetric`) at
-axiom load ≤ {propext, Quot.sound}.
+axiom load STRICT ∅-AXIOM.
 
 ### 4.3  Bridge to ℕ × ℕ
 
@@ -259,7 +259,7 @@ injectivity from Corollary 3.2.  ∎
 **Corollary 4.4** (`q213Lens_is_universal`).  q213Lens is a
 universal Lens.
 
-All theorems at axiom load ≤ {propext, Quot.sound}, in
+All theorems at axiom load STRICT ∅-AXIOM, in
 `lean/E213/Meta/UniversalLensQ213Inj.lean`.
 
 ---

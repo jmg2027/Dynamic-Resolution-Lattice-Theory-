@@ -140,4 +140,69 @@ theorem chartChain_injective (r₀ r' : Raw) (h : r₀ ≠ r')
     n = m :=
   chartChain_value_injective r₀ r' h (congrArg Raw.value heq)
 
+/-! ### Residue invariant along the chart-chain (added 2026-05-18)
+
+`chartChain r₀ r' h n` has `value` congruent to `value r₀` modulo
+`value r'`.  In other words, the entire arithmetic progression
+`value r₀, value r₀ + value r', value r₀ + 2·value r', …` lies in
+one residue class mod `value r'`.  This is the chart-relativity
+*residue invariant*: the chart `(r₀, r')` partitions `Nat` into
+classes mod `value r'`, and the chain walks within a single class. -/
+
+/-- **Residue invariant**: every chart-chain element has the same
+    residue as `r₀` modulo `value r'`.  Direct consequence of
+    `chartChain_value` + `Tactic.NatHelper.add_mul_mod_self_pure`. -/
+theorem chartChain_value_mod (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value (chartChain r₀ r' h n) % Raw.value r'
+      = Raw.value r₀ % Raw.value r' := by
+  rw [chartChain_value r₀ r' h n]
+  exact E213.Tactic.NatHelper.add_mul_mod_self_pure
+    (Raw.value r₀) (Raw.value r') n
+
+/-- **Chart-chain value lower bound**: every chart-chain element has
+    `value ≥ value r₀`.  The chain only grows from its seed. -/
+theorem chartChain_value_ge (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value r₀ ≤ Raw.value (chartChain r₀ r' h n) := by
+  rw [chartChain_value r₀ r' h n]
+  exact Nat.le_add_right (Raw.value r₀) (n * Raw.value r')
+
+/-- **Chart-chain monotonicity**: the value sequence is non-decreasing
+    along the chain. -/
+theorem chartChain_value_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Nat}
+    (hnm : n ≤ m) :
+    Raw.value (chartChain r₀ r' h n)
+      ≤ Raw.value (chartChain r₀ r' h m) := by
+  rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m]
+  exact Nat.add_le_add_left (Nat.mul_le_mul_right (Raw.value r') hnm) _
+
+/-- **Chart-chain strict monotonicity**: distinct chain indices give
+    strictly increasing values.  Uses `value_pos` (every Raw has
+    ≥ 1 leaves) to ensure the chain step adds positive content. -/
+theorem chartChain_value_strict_mono (r₀ r' : Raw) (h : r₀ ≠ r') {n m : Nat}
+    (hnm : n < m) :
+    Raw.value (chartChain r₀ r' h n)
+      < Raw.value (chartChain r₀ r' h m) := by
+  rw [chartChain_value r₀ r' h n, chartChain_value r₀ r' h m]
+  apply Nat.add_lt_add_left
+  have hpos : 0 < Raw.value r' := value_pos r'
+  have h1 : n + 1 ≤ m := Nat.succ_le_of_lt hnm
+  have h2 : (n + 1) * Raw.value r' ≤ m * Raw.value r' :=
+    Nat.mul_le_mul_right (Raw.value r') h1
+  have h3 : n * Raw.value r' < n * Raw.value r' + Raw.value r' :=
+    Nat.lt_add_of_pos_right hpos
+  have h4 : n * Raw.value r' + Raw.value r' = (n + 1) * Raw.value r' := by
+    rw [Nat.succ_mul]
+  rw [h4] at h3
+  exact Nat.lt_of_lt_of_le h3 h2
+
+/-- **Chart-chain subtraction form**: `value (chartChain r₀ r' h n) -
+    value r₀ = n * value r'`.  Rearrangement of `chartChain_value`
+    via the propext-free `NatHelper.add_sub_cancel_right`. -/
+theorem chartChain_value_sub (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
+    Raw.value (chartChain r₀ r' h n) - Raw.value r₀ = n * Raw.value r' := by
+  rw [chartChain_value r₀ r' h n,
+      Nat.add_comm (Raw.value r₀) (n * Raw.value r')]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right
+    (n * Raw.value r') (Raw.value r₀)
+
 end E213.Lens.Number.Nat213

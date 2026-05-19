@@ -82,4 +82,16 @@ protected theorem Raw.slash_ne_right (x y : Raw) (h : x ≠ y) :
   rw [← hsum] at this
   exact Nat.lt_irrefl _ this
 
+/-- A canonical `Raw.slash x y h` is never equal to its left child.
+    By `slash_comm` + `slash_ne_right`. -/
+protected theorem Raw.slash_ne_left (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ x := by
+  rw [Raw.slash_comm x y h]
+  exact Raw.slash_ne_right y x (Ne.symm h)
+
+/-- `Raw.slash x y h` is distinct from both arguments. -/
+protected theorem Raw.slash_ne_both (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ x ∧ Raw.slash x y h ≠ y :=
+  ⟨Raw.slash_ne_left x y h, Raw.slash_ne_right x y h⟩
+
 end E213.Theory

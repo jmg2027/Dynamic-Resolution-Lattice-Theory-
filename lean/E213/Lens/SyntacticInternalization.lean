@@ -439,4 +439,27 @@ theorem printRaw_parseTree (gs : List Glyph) (r : E213.Theory.Raw)
     (h : parseTree gs = some r.val) : printRaw r = gs :=
   printTree_parseTree gs r.val h
 
+/-! ### Injectivity biconditionals (added 2026-05-18, iteration #14)
+
+Companion biconditional forms of `printTree_injective` and the
+lifted `printRaw` version.  Both follow trivially from injectivity
++ congrArg. -/
+
+/-- `printTree` equality biconditional. -/
+theorem printTree_eq_iff {t₁ t₂ : E213.Term.Internal.Tree} :
+    printTree t₁ = printTree t₂ ↔ t₁ = t₂ :=
+  ⟨printTree_injective, fun h => h ▸ rfl⟩
+
+/-- `printRaw` injectivity — lifted from `printTree_injective`
+    through `Subtype.ext`. -/
+theorem printRaw_injective {r₁ r₂ : E213.Theory.Raw}
+    (h : printRaw r₁ = printRaw r₂) : r₁ = r₂ := by
+  have h' : printTree r₁.val = printTree r₂.val := h
+  exact Subtype.ext (printTree_injective h')
+
+/-- `printRaw` equality biconditional. -/
+theorem printRaw_eq_iff {r₁ r₂ : E213.Theory.Raw} :
+    printRaw r₁ = printRaw r₂ ↔ r₁ = r₂ :=
+  ⟨printRaw_injective, fun h => h ▸ rfl⟩
+
 end E213.Lens.SyntacticInternalization

@@ -51,6 +51,31 @@ theorem npairEquiv_symm {p q : NPair} (h : npairEquiv p q) :
   rw [Nat.add_comm q.1 p.2, Nat.add_comm q.2 p.1]
   exact h.symm
 
+/-- Helper: `(a + b) + (c + d) = (a + d) + (c + b)` — swap positions
+    2 and 4.  Used by `npairEquiv_trans`. -/
+private theorem add_swap_2_4 (a b c d : Nat) :
+    (a + b) + (c + d) = (a + d) + (c + b) := by
+  rw [Nat.add_assoc a b (c+d), Nat.add_comm b (c+d),
+      Nat.add_assoc c d b, Nat.add_comm d b,
+      ← Nat.add_assoc c b d, Nat.add_comm (c+b) d,
+      ← Nat.add_assoc a d (c+b)]
+
+/-- **Transitivity** of the equivalence.  Adds `h1` and `h2`,
+    reorganises both sides via `add_swap_2_4`, then cancels the
+    common factor `q.1 + q.2` using the propext-free
+    `NatHelper.add_right_cancel`.  Closes the equivalence-relation
+    proof. -/
+theorem npairEquiv_trans {p q r : NPair}
+    (h1 : npairEquiv p q) (h2 : npairEquiv q r) :
+    npairEquiv p r := by
+  show p.1 + r.2 = p.2 + r.1
+  have hsum : (p.1 + q.2) + (q.1 + r.2) = (p.2 + q.1) + (q.2 + r.1) := by
+    rw [h1, h2]
+  rw [add_swap_2_4 p.1 q.2 q.1 r.2] at hsum
+  rw [add_swap_2_4 p.2 q.1 q.2 r.1] at hsum
+  rw [Nat.add_comm q.2 q.1] at hsum
+  exact E213.Tactic.NatHelper.add_right_cancel hsum
+
 /-- The natural injection ℕ → ℕ × ℕ via `(n, 0)`.  This is one
     side of the orthogonal-axis embedding. -/
 def natToNPair (n : Nat) : NPair := (n, 0)

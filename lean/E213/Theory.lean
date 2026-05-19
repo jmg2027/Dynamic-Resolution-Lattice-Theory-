@@ -22,14 +22,14 @@ import E213.Theory.RawCmpIndependence
                       + auxiliary substrates (**Congruence**,
                       **ParenthesizationDistinct**; 2026-05-18).
                       Endomorphic (slashOrSelf, foldRaw, swapClosed)
-                      는 2026-05-14 에 Theory.Closed 에서 흡수
+                      absorbed from Theory.Closed on 2026-05-14
                       (endomorphic catamorphism + numbering-system
-                      isomorphism machinery; 구 이름 FoldRaw,
-                      2026-05-15 rename).
+                      isomorphism machinery; previously named
+                      FoldRaw, renamed 2026-05-15).
                       Congruence (`Eqv` generic equivalence closure)
                       + ParenthesizationDistinct (no-slash_assoc
-                      counter-example) 가 lens-emergence 브랜치에서
-                      추가됨.
+                      counter-example) added on the lens-emergence
+                      branch.
     * `CDDouble/`   — generic Order-4 Cayley-Dickson double mechanism
     * `RawCmpIndependence.lean` — root file; axiom-independence of
                       the cmp choice (the only Internal-namespace
@@ -39,11 +39,11 @@ import E213.Theory.RawCmpIndependence
 
   ## Out (2026-05-14)
 
-    * `Closed/`     — 디렉토리 자체 제거.  FoldRaw → Endomorphic
+    * `Closed/`     — directory removed.  FoldRaw → Endomorphic
                       (`Raw/Endomorphic.lean`); catamorphism output
-                      (Nat213/Bool213/RawCut/NumberingSystem) 은 모두
-                      Lens 으로 이전.
-    * `Tower/`      — 디렉토리 자체 제거.  세 Tower 파일 (NatPairToInt,
-                      NatPairToQPos, NatTripleToZ2) 모두 `Lens.Number.
-                      Nat213.Tower` 로 통합 이전.
+                      (Nat213/Bool213/RawCut/NumberingSystem) all
+                      moved to Lens.
+    * `Tower/`      — directory removed.  Three Tower files
+                      (NatPairToInt, NatPairToQPos, NatTripleToZ2)
+                      all migrated to `Lens.Number.Nat213.Tower`.
 -/

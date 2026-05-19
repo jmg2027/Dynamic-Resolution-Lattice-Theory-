@@ -101,4 +101,21 @@ theorem Eqv.empty_iff_eq (x y : Raw) :
   · intro h
     exact Eqv.of_eq h
 
+/-- **Universal generator characterisation**: `Eqv (fun _ _ => True)`
+    relates every pair of `Raw` — the coarsest possible equivalence.
+    Witnessed by `Eqv.of` applied to the trivial generator pair. -/
+theorem Eqv.trivial_top (x y : Raw) :
+    Eqv (fun _ _ => True) x y :=
+  Eqv.of trivial
+
+/-- **Top/bottom contrast**: empty and universal generators bracket
+    every `Eqv gens` — for any `gens`, structural equality ⊆ `Eqv gens`
+    ⊆ universal-equivalence (via `weaken` from the empty side and
+    `trivial_top` on the universal side).  This packages the
+    extremes as a single statement. -/
+theorem Eqv.bracket {gens : Raw → Raw → Prop} {x y : Raw} :
+    (x = y → Eqv gens x y) ∧
+    (Eqv gens x y → Eqv (fun _ _ => True) x y) :=
+  ⟨Eqv.of_eq, fun _ => Eqv.trivial_top x y⟩
+
 end E213.Theory

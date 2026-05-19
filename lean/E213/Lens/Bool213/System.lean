@@ -4,52 +4,54 @@ import E213.Lens.Bool213.Raw
 /-!
 # Lens.Bool213.System — meta pattern over (T, F) choices
 
-Bool213 도 Nat213 처럼 무한히 많은 구현 가능.  임의의 두 distinct Raw
-`T ≠ F` 가 valid Bool213 system 을 줌.  메타 패턴으로 동형성 확인.
+Bool213, like Nat213, admits infinitely many realisations.  Any
+pair of distinct Raws `T ≠ F` yields a valid Bool213 system.  This
+file packages the meta-pattern and proves system-level isomorphism.
 
-## 무한히 많은 Bool213
+## Infinitely many Bool213 systems
 
   - methodA: T = Raw.a,        F = Raw.b
   - methodB: T = Raw.b,        F = Raw.a       (swap)
   - methodC: T = slash a b,    F = Raw.a       (slash + leaf)
-  - methodD: T = Raw.a,        F = slash a b   (역)
-  - ...infinitely many
+  - methodD: T = Raw.a,        F = slash a b   (reverse)
+  - ... infinitely many
 
-각 (T, F) with T ≠ F 가 valid system.  Raw 의 canonical Tree 가
-무한히 많으니 system 도 무한히 많음.
+Each `(T, F)` with `T ≠ F` gives a valid system.  Raw has
+infinitely many canonical Trees, hence infinitely many systems.
 
-## 동형성
+## Isomorphism
 
-서로 다른 system A, B 사이 iso 사상은:
+The iso map between systems A and B is:
   iso A B : Raw → Raw
     r ↦ if r = A.T then B.T
         else if r = A.F then B.F
         else r  (fallback)
 
-이게 not, and 등 op 를 보존 (T↔F 교환, table 동등).
+This preserves `not`, `and`, etc. (swap T↔F, table equivalence).
 -/
 
 namespace E213.Lens.Bool213.System
 
 open E213.Theory
 
-/-- 213-native Boolean system: (T, F) 가 distinct Raw 쌍. -/
+/-- 213-native Boolean system: `(T, F)` is a distinct Raw pair. -/
 structure BooleanSystem where
   T : Raw
   F : Raw
   hTF : T ≠ F
 
-/-- system S 에서 negation (= T ↔ F swap, 다른 입력은 그대로). -/
+/-- Negation in system S: T ↔ F swap; other inputs unchanged. -/
 def not (S : BooleanSystem) (r : Raw) : Raw :=
   if r = S.T then S.F
   else if r = S.F then S.T
   else r
 
-/-- system S 에서 conjunction (and). 표 정의. -/
+/-- Conjunction (`and`) in system S. Table-defined. -/
 def and (S : BooleanSystem) (x y : Raw) : Raw :=
   if x = S.T ∧ y = S.T then S.T else S.F
 
-/-! ### Method A: 정칙 (T = Raw.a, F = Raw.b) — Bool213.lean 의 기본 -/
+/-! ### Method A: canonical (T = Raw.a, F = Raw.b) — the
+Bool213.lean default -/
 
 def methodA : BooleanSystem where
   T := Raw.a
@@ -61,7 +63,7 @@ def methodA : BooleanSystem where
 
 /-! ### Iso between systems -/
 
-/-- A → B 동형 사상.  T ↦ T', F ↦ F', 그 외 fallback. -/
+/-- A → B isomorphism.  T ↦ T', F ↦ F', otherwise fallback. -/
 def iso (A B : BooleanSystem) (r : Raw) : Raw :=
   if r = A.T then B.T
   else if r = A.F then B.F
@@ -76,7 +78,8 @@ theorem iso_F (A B : BooleanSystem) : iso A B A.F = B.F := by
 
 /-! ### Iso preserves operations -/
 
-/-- iso 가 not 보존.  T → F → T 순환을 두 system 모두에서 일치시킴. -/
+/-- The iso preserves `not`.  Aligns the T → F → T cycle across
+    the two systems. -/
 theorem iso_not (A B : BooleanSystem) (r : Raw) (hr : r = A.T ∨ r = A.F) :
     iso A B (not A r) = not B (iso A B r) := by
   rcases hr with hr | hr
@@ -87,7 +90,6 @@ theorem iso_not (A B : BooleanSystem) (r : Raw) (hr : r = A.T ∨ r = A.F) :
     show iso A B (not A A.T) = not B B.T
     unfold not
     rw [if_pos rfl, if_pos rfl]
-    -- Now: iso A B A.F = B.F. By iso_F.
     exact iso_F A B
   · -- r = A.F → not A r = A.T → iso = B.T.  RHS: iso r = B.F → not B B.F = B.T.
     subst hr
@@ -96,14 +98,12 @@ theorem iso_not (A B : BooleanSystem) (r : Raw) (hr : r = A.T ∨ r = A.F) :
     show iso A B (not A A.F) = not B B.F
     unfold not
     rw [if_neg (Ne.symm A.hTF), if_pos rfl, if_neg (Ne.symm B.hTF), if_pos rfl]
-    -- Now: iso A B A.T = B.T. By iso_T.
     exact iso_T A B
 
-/-- iso 가 and 보존 (양쪽 인자 모두 valid Bool 인 경우). -/
+/-- The iso preserves `and` (both arguments valid Bool in A). -/
 theorem iso_and (A B : BooleanSystem) (x y : Raw)
     (hx : x = A.T ∨ x = A.F) (hy : y = A.T ∨ y = A.F) :
     iso A B (and A x y) = and B (iso A B x) (iso A B y) := by
-  -- 4 cases: (T,T), (T,F), (F,T), (F,F).
   rcases hx with hx | hx <;> rcases hy with hy | hy <;> subst hx <;> subst hy
   · -- (T, T): and = T → iso = B.T.  RHS: iso T = B.T, iso T = B.T, and B.T B.T = B.T.
     show iso A B (and A A.T A.T) = and B (iso A B A.T) (iso A B A.T)

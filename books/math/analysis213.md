@@ -3,7 +3,7 @@
 **Author**: Mingu Jeong (Independent Researcher)
 **Branch**: `claude/lean-infinity-explanation-QqnSp`
 **Status**: Calculus core (year 1) 100% formally verified (2026-04-27)
-**Build**: 0 sorry · axioms ≤ {propext, Quot.sound} · Mathlib-free
+**Build**: 0 sorry · STRICT ∅-AXIOM · Mathlib-free · 0 Classical · 0 native_decide
 **Modules**: 176 `Real213*.lean` files in `framework/E213/Research/`
 
 ---

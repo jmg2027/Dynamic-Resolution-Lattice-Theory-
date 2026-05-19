@@ -57,7 +57,7 @@ New files added in the same branch (listed at the end):
 - **비고**: App/ legacy tier 제거 2026-05-13; Lib.Math + Lib.Physics는 ad-hoc import만 (대량 import 금지)
 
 ### `lean/LESSONS_KERNEL_DECIDE.md`
-- **역할**: 325k 경우 closed universal cohomology 정리들 (Universal δ²=0, Cup AW Leibniz)을 ≤ {propext, Quot.sound} 표준으로 증명하며 발견한 kernel decide 및 형식 설계 교훈 기록.
+- **역할**: 325k 경우 closed universal cohomology 정리들 (Universal δ²=0, Cup AW Leibniz)을 STRICT ∅-AXIOM 표준으로 증명하며 발견한 kernel decide 및 형식 설계 교훈 기록. (작성 시점에는 deprecated `≤ {propext, Quot.sound}` tier가 표준이었음 — 교훈 자체는 그대로 적용.)
 - **주요 섹션**:
   - Kernel decide 의 combinatorial 한계 (327k case OOM)
   - Algebraic lens > enumeration (100× 감소)

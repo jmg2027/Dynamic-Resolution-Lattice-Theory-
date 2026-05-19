@@ -439,6 +439,24 @@ theorem add_self_mod_pure : ∀ (a n : Nat), (a + n) % n = a % n
       let h2 : a + (n'+1) - (n'+1) = a := add_sub_cancel_right a (n'+1)
       h1.trans (congrArg (· % (n'+1)) h2)
 
+/-- `(a + n * c) % c = a % c` — adding any multiple of `c` to `a`
+    preserves the residue.  ∅-axiom replacement for Lean-core
+    `Nat.add_mul_mod_self_left` (which is `[propext]`).  By induction
+    on `n` using `add_self_mod_pure`. -/
+theorem add_mul_mod_self_pure (a c : Nat) :
+    ∀ n, (a + n * c) % c = a % c
+  | 0 =>
+      let h0 : a + 0 * c = a := by
+        rw [Nat.zero_mul, Nat.add_zero]
+      congrArg (· % c) h0
+  | n+1 =>
+      let ih : (a + n * c) % c = a % c := add_mul_mod_self_pure a c n
+      let h1 : a + (n+1) * c = (a + n * c) + c := by
+        rw [Nat.succ_mul, ← Nat.add_assoc]
+      let h2 : ((a + n * c) + c) % c = (a + n * c) % c :=
+        add_self_mod_pure (a + n * c) c
+      ((congrArg (· % c) h1).trans h2).trans ih
+
 end E213.Tactic.NatHelper
 
 namespace E213.Tactic.NatHelper
@@ -496,6 +514,31 @@ theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
     (Nat.decLe a b).casesOn
       (fun h => (if_neg h).symm ▸ Nat.le_of_lt (Nat.lt_of_not_le h))
       (fun h => (if_pos h).symm ▸ Nat.le_refl b)
+
+/-- `Nat.max u v = Nat.max v u`.  ∅-axiom replacement for Lean-core
+    `Nat.max_comm` (`[propext]`).  By `Decidable` case on `u ≤ v`
+    and `v ≤ u`, using antisymmetry on the diagonal. -/
+theorem max_comm_pure (u v : Nat) : Nat.max u v = Nat.max v u := by
+  show (if u ≤ v then v else u) = (if v ≤ u then u else v)
+  by_cases h1 : u ≤ v
+  · by_cases h2 : v ≤ u
+    · rw [if_pos h1, if_pos h2]
+      exact Nat.le_antisymm h2 h1
+    · rw [if_pos h1, if_neg h2]
+  · by_cases h2 : v ≤ u
+    · rw [if_neg h1, if_pos h2]
+    · exfalso
+      cases Nat.lt_or_ge u v with
+      | inl h => exact h1 (Nat.le_of_lt h)
+      | inr h => exact h2 h
+
+/-- `Nat.max u v = u` when `v ≤ u`.  ∅-axiom replacement for
+    Lean-core `Nat.max_eq_left` (`[propext]`). -/
+theorem max_eq_left_pure {u v : Nat} (h : v ≤ u) : Nat.max u v = u := by
+  show (if u ≤ v then v else u) = u
+  by_cases h1 : u ≤ v
+  · rw [if_pos h1]; exact (Nat.le_antisymm h1 h).symm
+  · rw [if_neg h1]
 
 end E213.Tactic.NatHelper
 
