@@ -64,14 +64,55 @@ theorem view_at_b_uses_base_b {α : Type} (L : Lens α) :
     part).  At the two atomic constructors `Raw.a` and `Raw.b`,
     every Lens reads exactly the corresponding base field —
     Clause 1 of §3.2 is visible at every Lens reading without
-    any further structure.
-
-    The slash-constructor side (Clauses 2-4) is witnessed by
-    `Raw.fold_slash` and `Raw.slash_comm` in `Theory/Raw/`; this
-    file records the atomic half of the bundle and provides the
-    self-completion docstring framing. -/
+    any further structure. -/
 theorem atomic_self_completion_bundle {α : Type} (L : Lens α) :
     L.view Raw.a = L.base_a ∧ L.view Raw.b = L.base_b :=
   ⟨view_at_a_uses_base_a L, view_at_b_uses_base_b L⟩
+
+/-- ★ **Slash-side self-completion (symmetric `combine` case)**:
+    For Lenses with symmetric `combine`, the view of a slash
+    application is exactly `L.combine` applied recursively.  This
+    witnesses Clauses 2-4 simultaneously: Clause 2 (slash IS in
+    the residue, mapped to L.combine), Clause 3 (symmetric
+    pairing, witnessed by hsym), and Clause 4 (the slash carries
+    the precondition `x ≠ y` in its very type, used implicitly via
+    `Raw.fold_slash`). -/
+theorem view_slash_uses_combine {α : Type} (L : Lens α)
+    (hsym : ∀ u v : α, L.combine u v = L.combine v u)
+    (x y : Raw) (h : x ≠ y) :
+    L.view (Raw.slash x y h) = L.combine (L.view x) (L.view y) := by
+  show Raw.fold L.base_a L.base_b L.combine (Raw.slash x y h)
+       = L.combine (Raw.fold L.base_a L.base_b L.combine x)
+                   (Raw.fold L.base_a L.base_b L.combine y)
+  exact Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
+
+/-- ★★★ **Full self-completion bundle (symmetric `combine`)**:
+    every Lens reading of a Raw — atomic or slash — uses ALL FOUR
+    clauses of §3.2 simultaneously:
+      · `L.view Raw.a = L.base_a`               (Clause 1, atom 1)
+      · `L.view Raw.b = L.base_b`               (Clause 1, atom 2)
+      · `L.view (Raw.slash x y h) = combine ..` (Clauses 2, 3, 4)
+    The four clauses are not sequenced; they are simultaneous
+    visibility-conditions on every Lens application. -/
+theorem full_self_completion_bundle {α : Type} (L : Lens α)
+    (hsym : ∀ u v : α, L.combine u v = L.combine v u)
+    (x y : Raw) (h : x ≠ y) :
+    L.view Raw.a = L.base_a
+    ∧ L.view Raw.b = L.base_b
+    ∧ L.view (Raw.slash x y h) = L.combine (L.view x) (L.view y) :=
+  ⟨view_at_a_uses_base_a L, view_at_b_uses_base_b L,
+   view_slash_uses_combine L hsym x y h⟩
+
+/-- ★ **Self-completion specialised at `Lens.leaves`**: the
+    leaf-count Lens has symmetric combine `(· + ·)`, so the full
+    bundle instantiates concretely.  No abstract `hsym` hypothesis
+    required at the instantiated level. -/
+theorem leaves_self_completion (x y : Raw) (h : x ≠ y) :
+    Lens.leaves.view Raw.a = 1
+    ∧ Lens.leaves.view Raw.b = 1
+    ∧ Lens.leaves.view (Raw.slash x y h)
+        = Lens.leaves.view x + Lens.leaves.view y :=
+  ⟨rfl, rfl,
+   view_slash_uses_combine Lens.leaves Nat.add_comm x y h⟩
 
 end E213.Lens.SelfCompletion
