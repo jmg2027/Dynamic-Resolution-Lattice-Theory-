@@ -8,10 +8,10 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 /-!
 # PhysicsBridgeNT2
-**Cross-track bridge** for the physics-track substrate-genesis
-NT-sector = 2 layer (`E213/Physics/Substrate/`).
+**Cross-track bridge** for the physics-track atomic-base
+NT-sector = 2 layer (`E213/Lib/Physics/AtomicBase/`).
 
-Physics-track substrate genesis has established:
+Physics-track atomic-base has established:
 
   Atomicity (atom pair {2, 3}) → d = 5 → (3, 2) partition
 
