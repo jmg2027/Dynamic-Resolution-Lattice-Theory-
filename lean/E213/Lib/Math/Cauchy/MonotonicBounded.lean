@@ -49,12 +49,7 @@ def IsAbMonotonic (xs : Nat → Raw) : Prop :=
 def IsAbPositiveB (xs : Nat → Raw) : Prop :=
   ∀ n, 1 ≤ (abLens.view (xs n)).2
 
-end E213.Lib.Math.Cauchy.MonotonicBounded
 
-namespace E213.Lib.Math.Cauchy.MonotonicBounded
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Monotonic chain (transitive form) -/
 
@@ -130,12 +125,7 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
         subst hp
         exact Nat.le_refl _
 
-end E213.Lib.Math.Cauchy.MonotonicBounded
 
-namespace E213.Lib.Math.Cauchy.MonotonicBounded
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### orderProj false propagates forward (monotonic) -/
 
@@ -186,12 +176,7 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
   rw [he3] at h3
   exact E213.Tactic.NatHelper.le_of_mul_le_mul_right hbi h3
 
-end E213.Lib.Math.Cauchy.MonotonicBounded
 
-namespace E213.Lib.Math.Cauchy.MonotonicBounded
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Constructive Cauchy from a witness "false at N₀"
 

@@ -43,11 +43,7 @@ theorem collapse_idempotent_trivial {α : Type} (L : Lens α) (e : α)
   have h2 : L.combine v v = v := hI v
   exact h2.symm.trans h1
 
-end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Properties.Diagonal
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.Parity E213.Lens.Instances.Bool
 
 /-! ## §2. Classification of Bool Lenses -/
@@ -61,11 +57,7 @@ theorem boolAndLens_idempotent : Idempotent boolAndLens := by
 theorem boolOrLens_idempotent : Idempotent boolOrLens := by
   intro v; cases v <;> rfl
 
-end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Properties.Diagonal
-
-open E213.Theory E213.Lens
 
 /-! ## §3. Classification of Nat Lens — Escalate -/
 
@@ -77,11 +69,7 @@ theorem leaves_not_idempotent : ¬ Idempotent Lens.leaves := by
   have h : (1 : Nat) + 1 = 1 := hI 1
   exact absurd h (by decide)
 
-end E213.Lens.Properties.Diagonal
 
-namespace E213.Lens.Properties.Diagonal
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.F9
 
 /-! ## §4. Classification of F9 Lens — Multiply -/

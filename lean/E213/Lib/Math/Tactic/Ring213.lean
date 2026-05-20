@@ -35,9 +35,6 @@ def Recurrence2.seq (R : Recurrence2) : Nat → Int
 theorem Recurrence2.seq_recurrence (R : Recurrence2) (n : Nat) :
     R.seq (n + 2) = R.c₁ * R.seq (n + 1) + R.c₂ * R.seq n + R.d := rfl
 
-end E213.Lib.Math.Tactic.Ring213
-
-namespace E213.Lib.Math.Tactic.Ring213
 
 /-- Type A residual recurrence as `Recurrence2`. -/
 def typeA_residual : Recurrence2 :=
@@ -57,9 +54,6 @@ theorem typeA_residual_measured :
     typeA_residual.seq 3 = 3473 ∧
     typeA_residual.seq 4 = 14113 := by decide
 
-end E213.Lib.Math.Tactic.Ring213
-
-namespace E213.Lib.Math.Tactic.Ring213
 
 /-- Z[√5]-valued sequence: (a + b·√5) coefficients per index. -/
 structure RecurrenceZ5_b where
@@ -84,9 +78,6 @@ theorem typeC_residual_b_measured :
     typeC_residual_b.bSeq 3 = 4096 ∧
     typeC_residual_b.bSeq 4 = 32768 := by decide
 
-end E213.Lib.Math.Tactic.Ring213
-
-namespace E213.Lib.Math.Tactic.Ring213
 
 /-- 3rd-order linear inhomogeneous recurrence over Int. -/
 structure Recurrence3 where

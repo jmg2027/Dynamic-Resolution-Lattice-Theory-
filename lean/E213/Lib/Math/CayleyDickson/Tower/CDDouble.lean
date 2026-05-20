@@ -106,7 +106,6 @@ theorem conj_ne_id : ∃ x : Lipschitz, conj x ≠ x := by
   have h_re : (-1 : Int) = 1 := congrArg ZI.re h_im
   exact absurd h_re (by decide)
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
 
 -- ═══ Non-commutativity of CD multiplication ═══
 
@@ -154,7 +153,6 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
   have h_im2 : (1 : Int) = -1 := congrArg ZI.im h_im
   exact absurd h_im2 (by decide)
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- **Anti-distributivity of `conj` over `mul`** — the CD
     signature: `conj(u·v) = conj v · conj u` with *reversed*
@@ -193,7 +191,6 @@ theorem conj_mul_anti (u v : Lipschitz) :
       rw [E213.Meta.Int213.neg_add,
           E213.Meta.Int213.add_comm]
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
 
 -- ═══ Lipschitz Add/Neg/Sub (for CD layer 2) ═══
 
@@ -388,7 +385,6 @@ theorem zero_re : (0 : Lipschitz).re = 0 := rfl
 /-- `.im` of Lipschitz `0`. -/
 theorem zero_im : (0 : Lipschitz).im = 0 := rfl
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
 
 theorem sub_re (u v : Lipschitz) : (u - v).re = u.re - v.re := rfl
 

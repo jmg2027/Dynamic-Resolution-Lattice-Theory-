@@ -167,11 +167,7 @@ theorem cutSum_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213)
   · intro h
     exact (cutSum_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
 
-end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.ChainToCut
-
-open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_toRaw_mul)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMulOuter_eq_true_iff)
@@ -276,11 +272,7 @@ theorem cutLe_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) :
     have h_ak_le_m : a.toNat * k ≤ m := Nat.le_trans hak hbk
     exact (chainToCut_toRaw a m k).symm ▸ decide_eq_true h_ak_le_m
 
-end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.ChainToCut
-
-open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Core.CutPoset

@@ -47,11 +47,7 @@ namespace E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d binom)
 
-end E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 
-namespace E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d binom)
 
 /-! ## §1 — Topological invariants of K_{3,2}^{(c=2)} -/
 
@@ -97,9 +93,6 @@ theorem chi_rel_eq_8 : chi_rel = 8 := by decide
 def inv_alpha_3 : Nat := NS * NS - 1
 theorem inv_alpha_3_eq_8 : inv_alpha_3 = 8 := by decide
 
-end E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
-
-namespace E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -165,9 +158,6 @@ theorem scaffold_loops_eq_2 : scaffold_loops = 2 := by decide
 theorem H1_decomposition :
     H1_K = sheet_redundancy + scaffold_loops := by decide
 
-end E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
-
-namespace E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 

@@ -67,13 +67,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
 
@@ -100,13 +94,7 @@ private theorem pow_succ_dvd (p : Nat) (k : Nat) :
   show p^(k+1) ∣ p^(k+1) * p
   exact ⟨p, rfl⟩
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
 
@@ -142,13 +130,7 @@ theorem padic_tower_refines (p : Nat) (k : Nat) :
     (padicFamily p (k+1)).refines (padicFamily p k) :=
   divides_refines (p^(k+2)) (p^(k+1)) (pow_succ_dvd p k)
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/
 theorem padic_familyCauchy (p : Nat) (hp : p ≥ 2)

@@ -48,11 +48,7 @@ theorem pow_lt_pow_two : ∀ (a b : Nat), a < b → 2^a < 2^b
       · exact Nat.lt_trans (pow_lt_pow_two a k ha_lt_k) (pow_lt_succ k)
       · exact ha_eq_k ▸ pow_lt_succ a
 
-end E213.Tactic.Pow213
 
-namespace E213.Tactic.Pow213
-
-open E213.Tactic.NatHelper (mul_assoc add_sub_of_le mul_sub_distrib)
 
 private theorem zero_lt_two' : 0 < 2 := Nat.zero_lt_succ 1
 
@@ -94,9 +90,6 @@ theorem le_of_dvd_pos (a b : Nat) (hb : 0 < b) (h : a ∣ b) : a ≤ b := by
         Nat.le_mul_of_pos_right a (Nat.zero_lt_succ _)
       exact hc ▸ hge
 
-end E213.Tactic.Pow213
-
-namespace E213.Tactic.Pow213
 
 open E213.Tactic.NatHelper (mul_sub_distrib)
 

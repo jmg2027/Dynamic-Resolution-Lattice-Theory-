@@ -62,12 +62,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     rw [hrewrite, E213.Meta.Nat.NatDiv213.add_mod_right_pos hk_pos]
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
-end E213.Lib.Math.ModArith.JoinBezout
 
-namespace E213.Lib.Math.ModArith.JoinBezout
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- Same leaves → same N-view via arbitrary L_k. -/
 private theorem same_leaves_N {α : Type} (N : Lens α) (k : Nat) (hk : k ≥ 2)
@@ -110,12 +105,7 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
         rw [Nat.add_succ]
       exact step1.trans step2
 
-end E213.Lib.Math.ModArith.JoinBezout
 
-namespace E213.Lib.Math.ModArith.JoinBezout
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- **Consecutive coprime → Join = constLens**.
     L_{k+1}.refines N ∧ L_k.refines N → N is constant.  ∅-axiom. -/

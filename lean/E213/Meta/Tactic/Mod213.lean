@@ -51,9 +51,6 @@ theorem parity_double_succ : ∀ n, parity (2 * n + 1) = true
   | 0     => rfl
   | n + 1 => parity_double_succ n
 
-end E213.Tactic.Mod213
-
-namespace E213.Tactic.Mod213
 
 /-! ### mod 3 — second atomic primitive (NS = 3) -/
 
@@ -83,9 +80,6 @@ theorem mod3_succ : ∀ n, mod3 (n + 1) = (mod3 n + 1) % 3
   | 2     => rfl
   | n + 3 => mod3_succ n
 
-end E213.Tactic.Mod213
-
-namespace E213.Tactic.Mod213
 
 /-! ### mod 6 — explicit CRT pairing ℤ/6 ≅ ℤ/2 × ℤ/3
 
@@ -127,9 +121,6 @@ theorem mod6_mod3 : ∀ n, mod3 (mod6 n) = mod3 n
   | 3 => rfl | 4 => rfl | 5 => rfl
   | n + 6 => mod6_mod3 n
 
-end E213.Tactic.Mod213
-
-namespace E213.Tactic.Mod213
 
 /-! ### parity bridge lemmas — addition + powers of 2
 

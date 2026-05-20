@@ -39,17 +39,8 @@ def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
 def pellModulusN (m k : Nat) : Nat :=
   if 2 * k * k < m * m then k else 0
 
-end E213.Lib.Math.Modulus.PellHasModulus
 
-namespace E213.Lib.Math.Modulus.PellHasModulus
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
-open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Modulus.HasModulus
-open E213.Lib.Math.Cauchy.PellSeq
 open E213.Lib.Math.Irrational.Sqrt2Cut
-open E213.Lib.Math.Irrational.Sqrt2KernelFree
 
 /-- Cauchy stability at (m, k) — 3-case analysis. -/
 theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
@@ -87,14 +78,7 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
     rw [pellRaw_cut_below m k hk hbelow i,
         pellRaw_cut_below m k hk hbelow j]
 
-end E213.Lib.Math.Modulus.PellHasModulus
 
-namespace E213.Lib.Math.Modulus.PellHasModulus
-
-open E213.Theory E213.Lens
-open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Modulus.HasModulus
-open E213.Lib.Math.Cauchy.PellSeq
 
 /-- **Pell HasModulus instance**: the explicit modulus is constructed
     from the combination of sqrt2_irrational and

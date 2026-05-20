@@ -67,12 +67,7 @@ private theorem same_leaves {α : Type} (N : Lens α)
   show (leavesModNat 2).view r = (leavesModNat 2).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-end E213.Lib.Math.ModArith.JoinCoprime
 
-namespace E213.Lib.Math.ModArith.JoinCoprime
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- +k step via iteration. -/
 theorem step_plus_k {α : Type} (N : Lens α)
@@ -107,12 +102,7 @@ theorem step_plus_k {α : Type} (N : Lens α)
         rw [hr', hsucc, ← hr'']
       exact step1.trans step2
 
-end E213.Lib.Math.ModArith.JoinCoprime
 
-namespace E213.Lib.Math.ModArith.JoinCoprime
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- **Main**: L_2.refines N ∧ L_3.refines N → N is constant.
     Concrete proof of Join(L_2, L_3) = L_1 = constLens (gcd = 1). -/

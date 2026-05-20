@@ -45,11 +45,7 @@ protected theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
       = 2 + 2 * pair x.toNat y.toNat := rfl
 
-end E213.Term.Internal
 
-namespace E213.Term.Internal
-
-open E213.Lens.Cardinality (pair pair_injective_4)
 
 /-- **Σ2 (Tree level).**  Gödel numbering is injective on
     Tree. -/

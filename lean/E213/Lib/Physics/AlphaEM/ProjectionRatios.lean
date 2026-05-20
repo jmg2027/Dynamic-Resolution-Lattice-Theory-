@@ -40,11 +40,7 @@ namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
 
 open E213.Lib.Physics.Simplex.Counts
 
-end E213.Lib.Physics.AlphaEM.ProjectionRatios
 
-namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
-
-open E213.Lib.Physics.Simplex.Counts
 
 /-! ## §1 — Edge counts (Δ⁴ vs K_{3,2}^{(c=2)}) -/
 
@@ -94,11 +90,7 @@ theorem image_eq_st : st_edges = 6 := by decide
 theorem kernel_plus_image :
     kernel_edges + st_edges = delta4_edges := by decide
 
-end E213.Lib.Physics.AlphaEM.ProjectionRatios
 
-namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
-
-open E213.Lib.Physics.Simplex.Counts
 
 /-! ## §3 — Projection ratios (the geometric content)
 
@@ -174,11 +166,7 @@ theorem coeff_4_dyson : NS + 1 = 4 := by decide
 /-- 45 = NS² · d (SO(10) denominator). -/
 theorem coeff_45_so10 : NS * NS * d = 45 := by decide
 
-end E213.Lib.Physics.AlphaEM.ProjectionRatios
 
-namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
-
-open E213.Lib.Physics.Simplex.Counts
 
 /-! ## §5 — Master projection-ratio theorem -/
 

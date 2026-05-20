@@ -37,9 +37,6 @@ namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 open E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 open E213.Lib.Physics.Basel.Bound
 
-end E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
-
-namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 
 /-! ## §1 — L=1 ζ value (existing) and reference values -/
 
@@ -93,9 +90,6 @@ theorem zeta_K_L1_between_S3_and_zeta_2 :
     S_3_e3 < zeta_K_L1_e3 ∧ zeta_K_L1_e3 < zeta_2_continuum_e3 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
-
-namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 
 /-! ## §3 — Master fractal-level ζ-bracket theorem (C5 step 1) -/
 

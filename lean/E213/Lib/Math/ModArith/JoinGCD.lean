@@ -117,13 +117,8 @@ theorem join_refines_gcd {α : Type} (N : Lens α) (m k : Nat)
     rw [gcd213_comm]
     exact join_refines_gcd_sorted N (k + m) k m (Nat.le_refl _) hkm hk hm hLk hLm
 
-end E213.Lib.Math.ModArith.JoinGCD
 
-namespace E213.Lib.Math.ModArith.JoinGCD
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat
-open E213.Tactic.NatHelper (gcd213)
 
 /-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
     join_refines_gcd (gcd213 4 6 = 2). -/
@@ -150,13 +145,8 @@ example {α : Type} (N : Lens α)
   show (leavesModNat 1).view r = (leavesModNat 1).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, Nat.mod_one, Nat.mod_one]
 
-end E213.Lib.Math.ModArith.JoinGCD
 
-namespace E213.Lib.Math.ModArith.JoinGCD
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
-open E213.Tactic.NatHelper (gcd213)
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
     the equivalence of L_gcd.  ∅-axiom version using `gcd213`. -/

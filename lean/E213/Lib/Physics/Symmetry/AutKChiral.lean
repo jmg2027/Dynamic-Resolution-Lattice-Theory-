@@ -51,11 +51,7 @@ namespace E213.Lib.Physics.Symmetry.AutKChiral
 
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
-end E213.Lib.Physics.Symmetry.AutKChiral
 
-namespace E213.Lib.Physics.Symmetry.AutKChiral
-
-open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-! ## §1 — Factorial (decide-friendly local def) -/
 
@@ -97,11 +93,7 @@ theorem aut_order_eq_768 : aut_order = 768 := by decide
 /-- Master formula: |Aut| = NS! · NT! · 2^(NS·NT). -/
 theorem aut_order_formula : aut_order = fac NS * fac NT * 2^(NS*NT) := by decide
 
-end E213.Lib.Physics.Symmetry.AutKChiral
 
-namespace E213.Lib.Physics.Symmetry.AutKChiral
-
-open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-! ## §3 — Adjoint SU dimensions (gauge group hint) -/
 
@@ -147,11 +139,7 @@ theorem internal_eq_64_eq_2_to_NS_NT : internal_order = 2 ^ (NS * NT) := by deci
     edges) · c, so internal C_2^E = 2^(K-edges/c) = 2^(NS·NT). -/
 theorem sheet_swap_decomp : internal_order = 2 ^ (E_K / 2) := by decide
 
-end E213.Lib.Physics.Symmetry.AutKChiral
 
-namespace E213.Lib.Physics.Symmetry.AutKChiral
-
-open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-! ## §6 — Master Aut(K) structure theorem (C3 step 1) -/
 

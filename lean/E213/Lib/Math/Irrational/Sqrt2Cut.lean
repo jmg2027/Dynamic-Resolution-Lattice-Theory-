@@ -46,12 +46,7 @@ private theorem nat_le_of_sq_le {a b : Nat} (hsq : a * a ≤ b * b) : a ≤ b :=
     have h2 : b * b ≤ b * a := Nat.mul_le_mul_left b (Nat.le_of_lt hab)
     exact absurd (Nat.lt_of_le_of_lt h2 h1) (Nat.not_lt_of_le hsq)
 
-end E213.Lib.Math.Irrational.Sqrt2Cut
 
-namespace E213.Lib.Math.Irrational.Sqrt2Cut
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
     captured as 2k² < m²)**.  Assumes y² ≥ k² (y sufficiently large). -/
@@ -97,12 +92,7 @@ theorem pell_orderProj_above (x y m k : Nat)
   -- Chain: k*k ≤ y*y → 2*(y*y)*(k*k) + k*k ≤ 2*(y*y)*(k*k) + y*y ≤ (y*y)*(m*m)
   exact Nat.le_trans (Nat.add_le_add_left hy_large _) step1
 
-end E213.Lib.Math.Irrational.Sqrt2Cut
 
-namespace E213.Lib.Math.Irrational.Sqrt2Cut
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj false when m/k < √2** (rationally
     captured as m² < 2k²).  Always (no y bound). -/

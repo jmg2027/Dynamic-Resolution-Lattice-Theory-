@@ -45,11 +45,7 @@ namespace E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
-end E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
 /-! ## §1 — Parametric Σ_g instance -/
 
@@ -95,11 +91,7 @@ theorem balanced (g : Nat) :
 theorem hirzebruch_zero (g : Nat) :
     (Sigma_g_blocks g).hirzebruch = 0 := rfl
 
-end E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
 /-! ## §4 — Connected-sum additivity (Σ_{g+h} = Σ_g # Σ_h) -/
 
@@ -155,11 +147,7 @@ theorem total_betti_small_genus :
     ∧ total_betti 3 = 8 ∧ total_betti 4 = 10 ∧ total_betti 5 = 12 := by
   decide
 
-end E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
 /-! ## §6 — Master genus-g signature theorem -/
 
