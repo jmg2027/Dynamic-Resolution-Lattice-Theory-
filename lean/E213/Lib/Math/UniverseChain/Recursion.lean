@@ -1,6 +1,6 @@
 import E213.Lib.Math.UniverseChain.PairAxes
 import E213.Lib.Math.Cohomology.Fractal.Level
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 
 /-!
 # Step 4 — Recursion: each vertex is itself a Δ⁴, giving d^L vertices (∅-axiom)
@@ -17,13 +17,13 @@ two-axis (3, 2) decomposition (`d² = NS² + 2·NS·NT + NT²`).
 
 The recursion operator and its level-2 closed form are already
 ∅-axiom (`Cohomology.Fractal.Level`); the self-referential
-identification is ∅-axiom in `NUniverseFractalDepth`.
+identification is ∅-axiom in `NResolutionFractalDepth`.
 -/
 
 namespace E213.Lib.Math.UniverseChain.Recursion
 
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
-open E213.Lib.Physics.Foundations.NUniverseFractalDepth
+open E213.Lib.Physics.Foundations.NResolutionFractalDepth
   (universe_level universe_level_value)
 
 /-- ★ Recursive vertex count: `numV L = 5^L`. -/

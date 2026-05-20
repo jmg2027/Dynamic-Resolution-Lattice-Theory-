@@ -314,7 +314,7 @@ the exact axiom dependency listed.
 | `validation_standard_capstone` | CLAUDE.md Standards #1+#2 met |
 | `pure_atomic_observables_capstone` | 17-conjunct atomic ratios |
 | `finitist_observable_chain` | 4 observables share N_U |
-| `n_universe_self_consistent` | N_U = d^(d²) self-referential |
+| `n_resolution_self_consistent` | N_U = d^(d²) self-referential |
 | `fractal_lens_cardinality_capstone` | Lens count at fractal level |
 | `alpha_em_master_capstone` | α_em finitist with all corrections |
 | `alpha_em_so10_capstone` | SO(10) tail correction |

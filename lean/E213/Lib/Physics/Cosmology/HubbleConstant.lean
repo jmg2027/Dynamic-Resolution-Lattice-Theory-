@@ -25,7 +25,7 @@ DRLT prediction: approximately 67-70 range (depending on derivation route).
   
   DRLT hypothesis: the tension is a *cosmic horizon vs late universe* effect.
 
-  Transitional effect of lattice N_universe (FiniteUniverse.lean) is possible.
+  Transitional effect of lattice N_resolution (FiniteUniverse.lean) is possible.
   Currently speculative.
 -/
 

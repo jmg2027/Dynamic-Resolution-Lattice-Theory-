@@ -20,9 +20,9 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lib/Physics/AlphaEM/Augmented.alpha_em_gram_capstone` — 15 ppb → 0.18 ppb
 - `Lib/Physics/AlphaEM/Capstone.alpha_em_master_capstone` — 8-conjunct master
 
-### N_universe identification
-- `Lib/Physics/Foundations/NUniverseFromFractal.n_universe_atomic_decomposition`
-- `Lib/Physics/Foundations/NUniverseFractalDepth.n_universe_self_consistent`
+### N_resolution identification
+- `Lib/Physics/Foundations/NResolutionFromFractal.n_resolution_atomic_decomposition`
+- `Lib/Physics/Foundations/NResolutionFractalDepth.n_resolution_self_consistent`
   — L = d² self-referential
 - `Lib/Physics/Foundations/FractalLensCardinality.fractal_lens_cardinality_capstone`
   — Lens count at fractal level
@@ -175,4 +175,4 @@ lean/E213/
   - NS² · d = 45 (SO(10) adj, 3 gens × 15)
   - NS · NT = 6  (Lenz)
   - NS + 1 = d - 1 = 4  (SU(5) face / Dyson)
-  - d^(d²) = 5²⁵ = 298023223876953125 (N_universe)
+  - d^(d²) = 5²⁵ = 298023223876953125 (N_resolution)

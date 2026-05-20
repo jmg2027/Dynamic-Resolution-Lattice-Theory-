@@ -77,8 +77,8 @@ The same theorems are scattered across:
   * `Theory/Atomicity/PairForcing.lean` (partly dirty)
   * `Lib/Physics/Simplex/Counts.lean`
   * `Lib/Math/Cohomology/Fractal/Level.lean`
-  * `Lib/Physics/Foundations/NUniverseFromFractal.lean`
-  * `Lib/Physics/Foundations/NUniverseFractalDepth.lean`
+  * `Lib/Physics/Foundations/NResolutionFromFractal.lean`
+  * `Lib/Physics/Foundations/NResolutionFractalDepth.lean`
   * `Lib/Math/ResolutionLimit.lean`
 
 This sub-tree makes the deductive flow Atomicity → 5 → (3, 2) →

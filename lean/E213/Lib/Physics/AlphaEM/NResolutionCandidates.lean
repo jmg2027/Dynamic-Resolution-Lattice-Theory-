@@ -3,9 +3,9 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Physics.AlphaEM.Brackets
 
 /-!
-# N_universe candidates — atomic combinatorial enumeration
+# N_resolution candidates — atomic combinatorial enumeration
 
-`FiniteUniverse.N_universe_open_problem` records: 1/α_em is a
+`FiniteUniverse.N_resolution_open_problem` records: 1/α_em is a
 specific rational at finite N_U; what specific Nat is N_U?
 
 This file enumerates ATOMIC candidates from {NS, NT, d, c}
@@ -34,7 +34,7 @@ deviation — well within Validation Standard #1 even without
 SO(10)/Gram corrections.
 -/
 
-namespace E213.Lib.Physics.AlphaEM.NUniverseCandidates
+namespace E213.Lib.Physics.AlphaEM.NResolutionCandidates
 
 open E213.Lib.Physics.Simplex.Counts
 
@@ -50,4 +50,4 @@ theorem candidate_hierarchy : d ^ (d * d) = 298023223876953125 := by decide
 /-- Candidate 4: d^(NS·d) = 5^15. -/
 theorem candidate_d_to_NS_d : d ^ (NS * d) = 30517578125 := by decide
 
-end E213.Lib.Physics.AlphaEM.NUniverseCandidates
+end E213.Lib.Physics.AlphaEM.NResolutionCandidates

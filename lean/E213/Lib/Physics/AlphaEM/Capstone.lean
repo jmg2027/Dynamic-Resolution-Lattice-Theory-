@@ -1,6 +1,6 @@
 import E213.Lib.Physics.AlphaEM.Augmented
-import E213.Lib.Physics.AlphaEM.NUniverseCandidates
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.AlphaEM.NResolutionCandidates
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.FaceTerms
 import E213.Lib.Physics.Couplings.RunningGap
 
@@ -131,9 +131,9 @@ namespace E213.Lib.Physics.AlphaEM.MasterCapstone
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.SO10
 open E213.Lib.Physics.AlphaEM.GramSelfEnergy
-open E213.Lib.Physics.Foundations.NUniverseFractalDepth
+open E213.Lib.Physics.Foundations.NResolutionFractalDepth
 
-/-! ## Finitist 213-internal closure with N_universe = d^(d²) = 5²⁵.
+/-! ## Finitist 213-internal closure with N_resolution = d^(d²) = 5²⁵.
 
   ζ(2) = S(N_U), not π²/6.  π appears NOWHERE.
 
@@ -153,7 +153,7 @@ theorem alpha_em_master_capstone :
     ∧ NS + 1 = 4
     -- (e) 45 = NS²·d (SO(10) tail denom, 4-fold atomic)
     ∧ NS * NS * d = 45
-    -- (f) N_universe = d^(d²) (self-referential)
+    -- (f) N_resolution = d^(d²) (self-referential)
     ∧ d ^ (d * d) = 298023223876953125
     -- (g) finite-N residual structurally bounded
     ∧ d ^ (d * d) ≥ 10 ^ 17

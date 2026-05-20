@@ -17,7 +17,7 @@ import E213.Lib.Physics.AlphaEM.GramHigherOrder
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaCoeffSeq
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-import E213.Lib.Physics.AlphaEM.NUniverseCandidates
+import E213.Lib.Physics.AlphaEM.NResolutionCandidates
 import E213.Lib.Physics.AlphaEM.PiFiveGap
 import E213.Lib.Physics.AlphaEM.ProjectionRatios
 import E213.Lib.Physics.AlphaEM.StructuralGap
@@ -55,7 +55,7 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
                                   ζ_Δ(2)=6/5; K_{3,2}^{(c=2)} spec
                                   {0,6,4,4,10}, ζ_K(1)=23/15≈1.533
                                   (closest to ζ(2)≈1.645).  STRICT ∅-AXIOM.
-  * `NUniverseCandidates.lean`  — five candidates for N_U
+  * `NResolutionCandidates.lean`  — five candidates for N_U
   * `PiFiveGap.lean`            — π⁵ structural gap conjecture:
                                   1/(NS·NT·π⁵) ≈ 5446·10⁻⁷ matches
                                   observed gap 5443·10⁻⁷ within 3,

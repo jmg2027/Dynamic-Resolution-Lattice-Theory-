@@ -76,8 +76,8 @@ The count-Lens at fractal level 2 yields the same numerical readout
 Lens applications:
 
   1. **Lean formalization**: fractal lens cardinality at level 2.
-     `Physics/Foundations/NUniverseFromFractal.lean`:
-     `N_universe := d^(d²) = lens cardinality at fractal level 2`.
+     `Physics/Foundations/NResolutionFromFractal.lean`:
+     `N_resolution := d^(d²) = lens cardinality at fractal level 2`.
 
   2. **Combinatorics**: K₂₅ graph coloring count.
      `Physics/Foundations/FractalLensCardinality.lean`: coloring

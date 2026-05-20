@@ -174,17 +174,14 @@ all of which have been applied across seed/AXIOM/ + lean/E213/:
 
 ## Open / pending (next session)
 
-  1. `N_universe` → `N_resolution` rename (~30-file impact).
-     Naming audit flagged as MEDIUM-HIGH; not done this session
-     pending explicit user approval (large refactor surface).
-  2. Catalogs cross-sync — atomic-integers.md, math-theorems.md
+  1. Catalogs cross-sync — atomic-integers.md, math-theorems.md
      could cite new additions (FlatOntology, PredicateSelfEncoding,
      UndifferentiatedRaw, ThreeDirectionUniqueness,
      forcing-chain capstone, Möbius dual-reading theorems).
-  3. CAPSTONE_INDEX.md update (if exists) to reference new
+  2. CAPSTONE_INDEX.md update (if exists) to reference new
      capstones.
-  4. STRICT_ZERO_AXIOM.md catalog sync for 28 new PURE symbols.
-  5. Long-tail: residual "coincidence" or framing issues in
+  3. STRICT_ZERO_AXIOM.md catalog sync for 28 new PURE symbols.
+  4. Long-tail: residual "coincidence" or framing issues in
      research-notes/ (lower priority since research-notes is
      exploratory).
 

@@ -2,7 +2,7 @@ import E213.Lib.Physics.AlphaEM.Capstone
 import E213.Lib.Physics.Mass.MuOverE
 import E213.Lib.Physics.Cosmology.DarkEnergy
 import E213.Lib.Physics.Capstones.FinitistObservableChain
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Generations
 import E213.Lib.Physics.Nuclear.MagicNumbers
 
@@ -36,7 +36,7 @@ This file demonstrates 213 satisfies **BOTH** standards via:
 namespace E213.Lib.Physics.Capstones.ValidationStandardOne
 
 open E213.Lib.Physics.Simplex.Counts
-open E213.Lib.Physics.Foundations.NUniverseFractalDepth
+open E213.Lib.Physics.Foundations.NResolutionFractalDepth
 
 /-- ★★★★★★★★★★ CLAUDE.md Validation Standard #1+#2 capstone.
 

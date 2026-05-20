@@ -80,12 +80,12 @@ theorem no_pi_in_finite_alpha_em :
     ∧ inv_alpha_em_finite_upper 3 = (12 * NS * (upper 3).1, (upper 3).2) := by
   decide
 
-/-- N_universe is determined by the four-domain convergent invariant
+/-- N_resolution is determined by the four-domain convergent invariant
     `N_U = d^(d²) = 5²⁵` (`seed/RESOLUTION_LIMIT_SPEC.md` §2).  Once
     the specific resolution depth is plugged in, 1/α_em becomes a
     specific rational, with structural deviation from π²/6 of size
-    36/N_universe.  Currently this is open work. -/
-theorem N_universe_open_problem :
+    36/N_resolution.  Currently this is open work. -/
+theorem N_resolution_open_problem :
     ∀ N_U : Nat, inv_alpha_em_finite N_U
                  = ((12 * NS) * (S N_U).1, (S N_U).2) := by
   intro N_U

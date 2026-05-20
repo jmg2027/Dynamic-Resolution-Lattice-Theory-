@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.Level
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
@@ -17,11 +17,11 @@ discrete state information.
   | 2 | 25            | 276          | K_{25} (Gram dim level)|
   | 3 | 125           | 7626         | super-Gram             |
   | d | 5^d = 3125    | huge         | atomic-deep            |
-  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | N_universe (self-ref)  |
+  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | N_resolution (self-ref)  |
 
 ## Self-referential signature
 
-  L = d²:  numV(L) = d^(d²) = N_universe
+  L = d²:  numV(L) = d^(d²) = N_resolution
   This level closes the recursion: vertex count equals d^L where L
   itself equals d² — a fixed-point property of the fractal recursion.
 
@@ -48,7 +48,7 @@ theorem level3_count : numV 3 = 125 := by decide
 /-- Vertex count at atomic-deep level d (= 5). -/
 theorem leveld_count : numV d = 3125 := by decide
 
-/-- ★★ Self-referential level d² = 25: numV = d^(d²) = N_universe. -/
+/-- ★★ Self-referential level d² = 25: numV = d^(d²) = N_resolution. -/
 theorem level_d_sq_count :
     numV (d * d) = d ^ (d * d) := rfl
 

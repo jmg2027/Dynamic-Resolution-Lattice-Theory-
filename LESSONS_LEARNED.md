@@ -72,15 +72,15 @@ cardinality 가 N_U 에서 4-domain convergent invariant 로 안정.
 `pure_atomic_observables_capstone`, `alpha_em_master_capstone` — 은
 strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 
-## 교훈 2: N_universe = d^(d²) — self-referential fractal depth
+## 교훈 2: N_resolution = d^(d²) — self-referential fractal depth
 
-**WRONG**: "N_universe is OPEN, holographic ~10¹²² 추정"
+**WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정"
 **RIGHT**: `N_U = d^(d²) = 5²⁵ = 298023223876953125`
 
 **근거**:
 - `Math/Cohomology/Fractal25.numV_eq_d_sq`: K_{25} vertex count = d²
 - `Math/Cohomology/FractalLevel`: vertex count at level L = 5^L
-- `Physics/NUniverseFractalDepth.n_universe_self_consistent`: L = d²,
+- `Physics/NResolutionFractalDepth.n_resolution_self_consistent`: L = d²,
   numV(L) = d^(d²) (self-referential fixed point)
 - `Physics/HierarchyTowers.hierarchy_cardinality`: d^(d²) 이미
   M_Pl/v_H ratio cardinality로 등장
@@ -243,7 +243,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `seed/AXIOM/00_nature.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
-- `lean/E213/Lib/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
+- `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
 - `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `guide/01_substrate.md` — substrate 도출 path
@@ -255,7 +255,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - m_p: 4-digit match (uses Λ_QCD external)
 - m_μ/m_e: depends on α_em chain
 - Magic numbers: 7/7 atomic decomposition closed
-- N_universe: identified = d^(d²) (self-referential)
+- N_resolution: identified = d^(d²) (self-referential)
 - Universal Lens: ℕ², Q²², ℕ³, Q²³, ℕ⁴ all universal
 - Pisano-CRT: 23 Pell + 8 Pell-proper + 8 Fibonacci primes
   + Tribonacci CRT closures
