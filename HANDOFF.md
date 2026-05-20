@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 68 session
-commits (176 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 69 session
+commits (177 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -159,16 +159,27 @@ worth of clean cuts:
   · Lens/SyntacticInternalization (5 rfls)
   · Meta/LensInternality (3 rfls)
 
-Net: ~85 theorems removed, ~300 lines off, build clean
+Net: ~90 theorems removed, ~315 lines off, build clean
 throughout, ∅-axiom preserved.  Two new sub-patterns added to
 `LESSONS_LEARNED.md` (Smell #5: biconditional split; Smell #6:
 per-parameter meta-applications) plus a 30%-over-flag caveat
 for agent-driven audits.
 
+Final wave (5): Endomorphic foldRaw_a/_b (rfls) +
+PairForcing 5 private half_* (unused scaffolds).  Verified-
+and-skipped candidates:
+  · universalMorphism_a/_b (heavily externally used)
+  · cases_lt_four/five/six/ten (used across Cohomology)
+  · mod_add_mod (used by DyadicFSM)
+  · lensXor_comm + lensCombineGeneric_comm (in-file references)
+
 Patterns DEFERRED as research directions (need structural
 insight, not mechanical cleanup): DyadicFSM/{Pell/ProperMod,
 Pisano/Predictor*} per-base files; CayleyDickson/Integer
 projection-lemma typeclass; PureNatMod3/5 mod-p descent template.
+Wallis sharper-bound kernel-free instances and ResolutionShift
+cutHalfIter-from-composition derivation also deferred (require
+non-trivial structural work).
 
 ## Commits this session
 
