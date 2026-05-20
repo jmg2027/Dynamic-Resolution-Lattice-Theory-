@@ -90,21 +90,24 @@ namespace E213.Lib.Physics.AlphaEM.IntegerSkeleton
 /-- Edge count of K_{3,2}^{(c=2)}: c·NS·NT. -/
 def edge_count : Nat := 2 * 3 * 2
 
-theorem sixty_is_E_times_d : edge_count * 5 = 60 := by decide
-theorem edge_count_is_12 : edge_count = 12 := by decide
-theorem twentyfive_is_d_sq : 5 * 5 = 25 := by decide
-theorem nine_is_NS_sq : 3 * 3 = 9 := by decide
-theorem fortyfive_is_NS_sq_times_d : 3 * 3 * 5 = 45 := by decide
-theorem four_is_NS_plus_1 : 3 + 1 = 4 := by decide
-theorem thirtytwo_is_two_to_d : 2 ^ 5 = 32 := by decide
-theorem eight_is_NS_sq_minus_1 : 3 * 3 - 1 = 8 := by decide
-
-/-- Bundled: every integer in 1/α_em is structurally fixed. -/
+/-- ★ Every integer in 1/α_em is structurally fixed:
+      60 = c·NS·NT·d (edge count × d)
+      25 = d²
+      45 = NS²·d
+      4  = NS + 1
+      9  = NS²
+      32 = 2^d
+      12 = c·NS·NT  (= edge_count)
+      8  = NS² − 1 -/
 theorem alpha_em_integer_origins :
     edge_count * 5 = 60
-    ∧ 5 * 5 = 25
-    ∧ 3 + 1 = 4
-    ∧ 3 * 3 * 5 = 45 := by decide
+    ∧ edge_count = 12
+    ∧ (5 : Nat) * 5 = 25
+    ∧ (3 : Nat) * 3 = 9
+    ∧ (3 : Nat) * 3 * 5 = 45
+    ∧ (3 : Nat) + 1 = 4
+    ∧ (2 : Nat) ^ 5 = 32
+    ∧ (3 : Nat) * 3 - 1 = 8 := by decide
 
 end E213.Lib.Physics.AlphaEM.IntegerSkeleton
 
