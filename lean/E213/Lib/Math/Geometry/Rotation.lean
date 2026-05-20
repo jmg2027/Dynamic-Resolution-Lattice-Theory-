@@ -53,22 +53,19 @@ theorem p_disc_eq_d : (3 : Int)^2 - 4 * 1 = (d : Int) := by decide
 
 -- ═══ (C) Pell-Fib spiral: concrete P iteration ═══
 
-/-- P · (1, 1) = (3, 2).  Note: (3, 2) = (NS, NT) — the spiral
-    BEGINS at atomicity. -/
-theorem p_iter_step1 :
-    ((2 * 1 + 1 * 1, 1 * 1 + 1 * 1) : Nat × Nat) = (3, 2) := rfl
-
-/-- P · (3, 2) = (8, 5).  Pell-Fib step. -/
-theorem p_iter_step2 :
-    ((2 * 3 + 1 * 2, 1 * 3 + 1 * 2) : Nat × Nat) = (8, 5) := rfl
-
-/-- P · (8, 5) = (21, 13).  Spiral continues. -/
-theorem p_iter_step3 :
-    ((2 * 8 + 1 * 5, 1 * 8 + 1 * 5) : Nat × Nat) = (21, 13) := rfl
-
-/-- P · (21, 13) = (55, 34).  Ratio 55/34 → φ. -/
-theorem p_iter_step4 :
-    ((2 * 21 + 1 * 13, 1 * 21 + 1 * 13) : Nat × Nat) = (55, 34) := rfl
+/-- Four consecutive Pell-Fib iterations under P = [[2,1],[1,1]]:
+      step 1: P · (1, 1)    = (3, 2)   (= (NS, NT) — spiral born at atomicity)
+      step 2: P · (3, 2)    = (8, 5)
+      step 3: P · (8, 5)    = (21, 13)
+      step 4: P · (21, 13)  = (55, 34) (ratio 55/34 → φ).
+    The (3, 2) starting point shows the spiral originates from
+    atomicity itself. -/
+theorem p_iter_spiral :
+    (((2 * 1 + 1 * 1, 1 * 1 + 1 * 1)   : Nat × Nat) = (3, 2))
+    ∧ (((2 * 3 + 1 * 2, 1 * 3 + 1 * 2) : Nat × Nat) = (8, 5))
+    ∧ (((2 * 8 + 1 * 5, 1 * 8 + 1 * 5) : Nat × Nat) = (21, 13))
+    ∧ (((2 * 21 + 1 * 13, 1 * 21 + 1 * 13) : Nat × Nat) = (55, 34)) :=
+  ⟨rfl, rfl, rfl, rfl⟩
 
 /-- ★★★ SPIRAL STARTS AT ATOMICITY: P · (1, 1) = (NS, NT).
     The Möbius P, applied to the unit pair, produces (NS, NT) =
@@ -79,26 +76,18 @@ theorem spiral_starts_at_atomicity :
 -- ═══ Lucas-like sequence: P^k + P^(-k) = L_k · I ═══
 
 /-- ★ P + P^(-1) = 3·I = L_1 · I (where L_1 = trace = NS = 3).
-    Direct entry-by-entry: top-left = 2 + 1 = 3, top-right = 1 + (-1) = 0,
-    bot-left = 1 + (-1) = 0, bot-right = 1 + 2 = 3. -/
-theorem p_plus_p_inv_top_left : (2 : Int) + 1 = 3 := by decide
-
-/-- top-right entry of P + P^(-1) = 0. -/
-theorem p_plus_p_inv_top_right : (1 : Int) + (-1) = 0 := by decide
-
-/-- bot-right entry of P + P^(-1) = 3 = L_1. -/
-theorem p_plus_p_inv_bot_right : (1 : Int) + 2 = 3 := by decide
+    Entry-by-entry: top-left 2+1=3, top-right 1+(-1)=0,
+    bot-left 1+(-1)=0, bot-right 1+2=3. -/
+theorem p_plus_p_inv_entries :
+    ((2 : Int) + 1 = 3) ∧ ((1 : Int) + (-1) = 0) ∧ ((1 : Int) + 2 = 3) := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 /-- ★★★ P^2 + P^(-2) = 7·I = L_2 · I.  This is where 7 first
-    appears in the Lucas-like sequence!  Top-left: P^2_11 + P^(-2)_11
-    = 5 + 2 = 7. -/
-theorem p2_plus_p_inv2_top_left : (5 : Int) + 2 = 7 := by decide
-
-/-- top-right entry of P^2 + P^(-2) = 0 (off-diagonals cancel). -/
-theorem p2_plus_p_inv2_top_right : (3 : Int) + (-3) = 0 := by decide
-
-/-- bot-right entry of P^2 + P^(-2) = 7 = L_2. -/
-theorem p2_plus_p_inv2_bot_right : (2 : Int) + 5 = 7 := by decide
+    appears in the Lucas-like sequence.  Entries: top-left
+    5+2=7, top-right 3+(-3)=0, bot-right 2+5=7. -/
+theorem p2_plus_p_inv2_entries :
+    ((5 : Int) + 2 = 7) ∧ ((3 : Int) + (-3) = 0) ∧ ((2 : Int) + 5 = 7) := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 -- ═══ Mersenne node lens: 2^k - 1 ═══
 
