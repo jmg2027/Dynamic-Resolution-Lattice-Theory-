@@ -165,26 +165,21 @@ The vertical-internal projection on each of the three domains
 /-- Raw `r` is in the Bool213 image — `r = T` or `r = F`. -/
 def IsBool213 (r : Raw) : Prop := r = T ∨ r = F
 
-/-- Bool213 ⇒ `booleanProj`-fixed-point. -/
-theorem booleanProj_id_of_isBool213 (r : Raw) (h : IsBool213 r) :
-    booleanProj r = r := by
-  rcases h with hT | hF
-  · rw [hT]; exact booleanProj_T
-  · rw [hF]; exact booleanProj_F
-
-/-- Reverse direction: `booleanProj`-fixed-point ⇒ Bool213. -/
-theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
-    IsBool213 r := by
-  rcases booleanProj_isBool r with hT | hF
-  · left; rw [← h]; exact hT
-  · right; rw [← h]; exact hF
-
 /-- **Fixed-point characterisation**: `booleanProj` leaves `r`
     unchanged iff `r` is in Bool213 (`{T, F}`).  Parallel to
     RawCut's `cutBooleanProj_id_iff_isBool`. -/
 theorem booleanProj_id_iff_isBool213 (r : Raw) :
-    booleanProj r = r ↔ IsBool213 r :=
-  ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
+    booleanProj r = r ↔ IsBool213 r := by
+  refine ⟨?_, ?_⟩
+  · -- booleanProj-fixed → Bool213
+    intro h
+    rcases booleanProj_isBool r with hT | hF
+    · left; rw [← h]; exact hT
+    · right; rw [← h]; exact hF
+  · -- Bool213 → booleanProj-fixed
+    rintro (hT | hF)
+    · rw [hT]; exact booleanProj_T
+    · rw [hF]; exact booleanProj_F
 
 /-! ### Boundary mapping — Bool213 → Lean Bool
 

@@ -98,19 +98,19 @@ theorem boolAndLens_image :
 theorem boolOrLens_image :
     ∀ r : Raw, boolOrLens.view r = true := boolOrLens_view_const
 
-/-- **`parityLens` image covers both booleans.** -/
-theorem parityLens_image_true : ∃ r : Raw, parityLens.view r = true :=
-  ⟨Raw.a, rfl⟩
-
-theorem parityLens_image_false : ∃ r : Raw, parityLens.view r = false :=
-  ⟨parityLens_sample_even, parityLens_sample_even_view⟩
-
-/-- **`maxLens` image covers both 0 and 1.** -/
-theorem maxLens_image_zero : ∃ r : Raw, maxLens.view r = 0 :=
-  ⟨Raw.a, rfl⟩
-
-theorem maxLens_image_one : ∃ r : Raw, maxLens.view r = 1 :=
-  ⟨Raw.b, rfl⟩
+/-- **Both `parityLens` and `maxLens` images cover their binary
+    codomains** — bundled.  `parityLens` hits both `true` (at
+    `Raw.a`) and `false` (at the even-leaf-count sample);
+    `maxLens` hits both `0` (at `Raw.a`) and `1` (at `Raw.b`). -/
+theorem parity_and_max_lens_binary_witnesses :
+    (∃ r : Raw, parityLens.view r = true)
+    ∧ (∃ r : Raw, parityLens.view r = false)
+    ∧ (∃ r : Raw, maxLens.view r = 0)
+    ∧ (∃ r : Raw, maxLens.view r = 1) :=
+  ⟨⟨Raw.a, rfl⟩,
+   ⟨parityLens_sample_even, parityLens_sample_even_view⟩,
+   ⟨Raw.a, rfl⟩,
+   ⟨Raw.b, rfl⟩⟩
 
 /-- **`maxLens` image is contained in `{0, 1}`.**  Since base
     values are 0,1 and `max` preserves this set. -/
