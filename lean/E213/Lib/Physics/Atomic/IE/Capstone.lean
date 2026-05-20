@@ -42,22 +42,22 @@ namespace E213.Lib.Physics.Atomic.IE.Capstone
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- ★ IE Capstone — H ~ B atomic chain summary ★ -/
+/-- ★ IE Capstone — H ~ B atomic chain summary.
+
+  Atomic anchors (NS, NT, d) = (3, 2, 5) double as Z values:
+    Z(He) = NT = 2, Z(Li) = NS = 3, Z(Be) = NS + 1 = 4,
+    Z(B) = d = 5.  Closed-propagator argument x = α_GUT·NS/d
+    has numerator 6·NS = 18 and denominator d³ = 125.
+    σ atomic forms: NS/d (2s-2s) and (NS² + (NS²-1)) = 17
+    (2s-2p numerator). -/
 theorem IE_periodic_atomic :
-    -- atomic primitives
-    (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- key Z atomic
-    ∧ (NT = 2)              -- He Z
-    ∧ (NS = 3)              -- Li Z
-    ∧ (NS + 1 = 4)          -- Be Z
-    ∧ (d = 5)               -- B Z
-    -- Closed propagator argument x = α_GUT·NS/d atomic
-    -- (numerator 18 = 6·NS, denominator 125 = d³)
+    -- atomic anchors (each = Z of one element in the chain)
+    (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (NS + 1 = 4)
+    -- closed-propagator argument: 6·NS = 18, d³ = 125
     ∧ (6 * NS = 18) ∧ (d * d * d = 125)
-    -- σ atomic forms
-    ∧ (NS * 5 = 3 * d)              -- σ_2s_2s = NS/d
-    ∧ (NS * NS + (NS * NS - 1) = 17) := by  -- σ_2s_2p num
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+    -- σ atomic numerators: NS/d (= NS·5 = 3·d) and 17
+    ∧ (NS * 5 = 3 * d)
+    ∧ (NS * NS + (NS * NS - 1) = 17) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Capstone
