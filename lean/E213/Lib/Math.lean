@@ -102,7 +102,7 @@ The directory tree is the spec; this file is the top-level entry.
                           QuadExtension)
     * `NatHelpers`      — Nat / Int utility lemmas (6 files)
     * `Pigeonhole`      — universal `Fin` pigeonhole infrastructure
-    * `ResolutionLimit` — N_U count-Lens readout formalization
+    * `ResolutionLimit` — N_resolution count-Lens readout formalization
     * `PrimeDescentObservations` — descent-style observations
 
 ## Status

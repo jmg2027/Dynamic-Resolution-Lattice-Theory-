@@ -22,7 +22,7 @@ open E213.Lib.Math.Linalg213.Gap.Determinant
   (det2_pos det2_neg det2_mag det2_pos_identity det2_neg_identity
    det2_mag_identity det2_pos_zero)
 open E213.Lib.Math.Linalg213.Gap.TensorProduct
-  (tensorDim d5_tensor tensor_one_left tensor_comm n_u_link)
+  (tensorDim d5_tensor tensor_one_left tensor_comm n_resolution_link)
 open E213.Lib.Math.Linalg213.Gap.Eigen
   (scalar_eigen_e0 identity_eigen_one)
 
@@ -42,13 +42,13 @@ theorem determinant_witness :
    det2_pos_zero⟩
 
 /-- ★ **Tensor-product witness** — `5 ⊗ 5 = 25`, identity, comm,
-    N_U = 5²⁵ link. -/
+    N_resolution = 5²⁵ link. -/
 theorem tensor_witness (m n : Nat) :
     tensorDim 5 5 = 25
     ∧ tensorDim 1 n = n
     ∧ tensorDim m n = tensorDim n m
     ∧ (5 : Nat) ^ tensorDim 5 5 = (5 : Nat) ^ 25 :=
-  ⟨d5_tensor, tensor_one_left n, tensor_comm m n, n_u_link⟩
+  ⟨d5_tensor, tensor_one_left n, tensor_comm m n, n_resolution_link⟩
 
 /-- ★ **Eigenvalue witness** — scalar λ matrix on basis e₀, identity on constant. -/
 theorem eigen_witness (v0 lam : Nat) :
@@ -70,7 +70,7 @@ theorem total_witness (lam : Nat) :
     ∧ E213.Lib.Math.Linalg213.Gap.MatrixMul.matrixMulNum 1
         (E213.Lib.Math.Linalg213.Gap.Eigen.scalarMat lam)
         (fun k _ => if k = 0 then 1 else 0) 0 0 = lam :=
-  ⟨det2_pos_identity, det2_mag_identity, d5_tensor, n_u_link,
+  ⟨det2_pos_identity, det2_mag_identity, d5_tensor, n_resolution_link,
    scalar_eigen_e0 lam⟩
 
 end E213.Lib.Math.Linalg213.Gap.Capstone

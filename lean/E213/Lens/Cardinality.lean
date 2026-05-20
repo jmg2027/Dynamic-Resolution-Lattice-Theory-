@@ -18,8 +18,8 @@ import E213.Lens.Cardinality.Tower
   a codomain α defines a cardinality observable (finiteness,
   countability, etc.) on that view; the observable is the Lens
   reading, not a property of an underlying substrate.  Cf.
-  `seed/RESOLUTION_LIMIT_SPEC.md`: `N_U = d^(d²) = 5²⁵` is the
-  count-Lens readout at fractal level 2.
+  `seed/RESOLUTION_LIMIT_SPEC.md`: `N_resolution = d^(d²) = 5²⁵`
+  is the count-Lens readout at fractal level 2.
 
   ## Files
 

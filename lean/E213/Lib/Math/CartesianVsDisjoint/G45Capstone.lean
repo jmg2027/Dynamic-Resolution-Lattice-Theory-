@@ -17,7 +17,7 @@ namespace E213.Lib.Math.CartesianVsDisjoint.G45Capstone
 
 open E213.Lib.Math.CartesianVsDisjoint.CartesianCheck
   (cartesian_product_eq six_pow_25 five_pow_25
-   cartesian_overshoots cartesian_neq_n_u sandwich_bound)
+   cartesian_overshoots cartesian_neq_n_resolution sandwich_bound)
 open E213.Lib.Math.CartesianVsDisjoint.DisjointVsProduct
   (disjoint_sum_card cartesian_product_card disjoint_neq_cartesian
    power_dichotomy strict_sep k32_disjoint_5)
@@ -28,13 +28,14 @@ theorem cartesian_arith_witness :
     ∧ (6 : Nat) ^ 25 = 28430288029929701376 :=
   ⟨cartesian_product_eq, six_pow_25⟩
 
-/-- ★ **Cartesian ≠ N_U**: `6²⁵ ≠ 5²⁵`. -/
+/-- ★ **Cartesian ≠ N_resolution**: `6²⁵ ≠ 5²⁵` (where
+    `N_resolution := d^(d²) = 5²⁵`). -/
 theorem cartesian_neq_witness :
     (5 : Nat) ^ 25 < (6 : Nat) ^ 25
     ∧ (2 : Nat) ^ 25 * (3 : Nat) ^ 25 ≠ (5 : Nat) ^ 25 :=
-  ⟨cartesian_overshoots, cartesian_neq_n_u⟩
+  ⟨cartesian_overshoots, cartesian_neq_n_resolution⟩
 
-/-- ★ **Sandwich bound**: `add < N_U < product`. -/
+/-- ★ **Sandwich bound**: `add < N_resolution < product`. -/
 theorem sandwich_witness :
     (2 : Nat) ^ 25 + (3 : Nat) ^ 25 < (5 : Nat) ^ 25
     ∧ (5 : Nat) ^ 25 < (2 : Nat) ^ 25 * (3 : Nat) ^ 25 :=

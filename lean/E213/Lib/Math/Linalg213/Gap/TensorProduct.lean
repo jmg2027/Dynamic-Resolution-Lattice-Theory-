@@ -37,7 +37,7 @@ theorem tensor_comm (m n : Nat) : tensorDim m n = tensorDim n m := by
   show m * n = n * m
   exact Nat.mul_comm m n
 
-/-- ★ N_U link witness: `5^(5⊗5) = 5^25`. -/
-theorem n_u_link : (5 : Nat) ^ tensorDim 5 5 = (5 : Nat) ^ 25 := rfl
+/-- ★ N_resolution link witness: `5^(5⊗5) = 5^25`. -/
+theorem n_resolution_link : (5 : Nat) ^ tensorDim 5 5 = (5 : Nat) ^ 25 := rfl
 
 end E213.Lib.Math.Linalg213.Gap.TensorProduct
