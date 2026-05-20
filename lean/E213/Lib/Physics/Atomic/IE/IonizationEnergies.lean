@@ -41,32 +41,23 @@ namespace E213.Lib.Physics.Atomic.IE.IonizationEnergies
 open E213.Lib.Physics.Atomic.Hydrogen
 open E213.Lib.Physics.Simplex.Counts
 
-/-- IE(H) leading factor 1/NT atomic. -/
-theorem H_IE_factor : NT = 2 := by decide
+/-- ★ IE atomic-skeleton chain (H, He) ★
 
-/-- α² leading exponent = NT atomic. -/
-theorem alpha_squared_exp : NT = 2 := by decide
+  The integer NT = 2 plays three atomic roles simultaneously in
+  the Rydberg formula chain:
+    · `IE(H) = m_e c² α²/NT` — `1/NT` factor
+    · α² exponent           — squared in the formula
+    · He effective Z = NT   — matches helium nuclear charge
 
-/-- He effective Z = NT atomic. -/
-theorem He_effective_Z : NT = 2 := by decide
-
-/-- He screening σ_1s = (NS²-1)/NS² = 8/9 wait, NS²-1=8, NS²=9.
-    7/8 atomic from Phase 1.  Here: σ correction. -/
-theorem He_screening_atomic :
-    NS * NS - 1 = 8 ∧ NS * NS = 9 := by
-  refine ⟨?_, ?_⟩
-  all_goals decide
-
-/-- ★ IE Hydrogen chain start ★
-    n=1: IE = m_e · α² / NT atomic. -/
+  He screening uses `NS² − 1 = 8` (= adjoint SU(NS) = 1/α_3,
+  cross-reference to AlphaEM `H1_K_eq_8`) and `NS² = 9`. -/
 theorem H_IE_chain_atomic :
-    -- 1/NT factor
+    -- the integer NT = 2 plays 1/NT-factor, α²-exponent, and He-Z roles
     (NT = 2)
-    -- α² exponent
-    ∧ (NT = 2)
+    -- He screening: NS²−1 = 8 (= 1/α_3 channel count), NS² = 9
+    ∧ (NS * NS - 1 = 8) ∧ (NS * NS = 9)
     -- atomic primitives
     ∧ (NS = 3) ∧ (d = 5) := by
-  refine ⟨?_, ?_, ?_, ?_⟩
-  all_goals decide
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.IonizationEnergies
