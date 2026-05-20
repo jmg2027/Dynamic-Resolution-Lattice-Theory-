@@ -2,6 +2,7 @@ import E213.Theory.Raw.API
 import E213.Lens.LensCore
 import E213.Lens.Lattice.Lattice
 import E213.Lens.UndifferentiatedRaw
+import E213.Lens.Algebra.IdLensEq
 
 /-!
 # Lens.RawTopology — Lens kernels as Raw equivalence-topology
@@ -136,5 +137,47 @@ theorem indiscrete_is_coarsest_universal {α : Type} (e : α) :
       L.equiv x y → (constLens e).equiv x y := by
   intro L x y _
   exact constLens_collapses e x y
+
+/-! ## §4 — Discrete end (idLens kernel)
+
+The mirror bookend at the discrete-topology end.  Under the
+identity reading every distinct pair separates, so the kernel
+is exactly equality on Raw.
+-/
+
+/-- **idLens kernel = equality**: forwarded from
+    `Lens/Algebra/IdLensEq.idLens_equiv_eq`.  The finest Lens-
+    kernel collapses to literal Raw equality. -/
+theorem discrete_kernel_eq (x y : Raw) :
+    E213.Lens.Instances.Identity.idLens.equiv x y ↔ x = y :=
+  E213.Lens.Algebra.IdLensEq.idLens_equiv_eq x y
+
+/-- **Discrete distinguishes distinct Raws**: for distinct `x`
+    and `y`, the idLens kernel does NOT relate them.  Direct
+    consequence of `discrete_kernel_eq`. -/
+theorem discrete_distinguishes_distinct {x y : Raw} (h : x ≠ y) :
+    ¬ E213.Lens.Instances.Identity.idLens.equiv x y := by
+  intro hxy
+  exact h ((discrete_kernel_eq x y).1 hxy)
+
+/-- ★ **Two-bookend topology bundle** (§9.5 end-to-end).
+
+  Reading the Lens-refinement lattice from coarsest to finest:
+
+    · `constLens` (top): kernel total, image singleton,
+      K_∞-at-raw / point / indiscrete topology.
+    · `idLens` (bottom): kernel = equality, every distinct pair
+      separates, discrete topology.
+
+  Every intermediate Lens lives strictly between these two
+  bookends.  The Lens-induced topology lattice is bracketed by
+  the constLens (indiscrete) and idLens (discrete) endpoints. -/
+theorem topology_two_bookends {α : Type} (e : α) (x y : Raw) (h : x ≠ y) :
+    -- indiscrete bookend (top)
+    (constLens e).equiv x y
+    -- discrete bookend (bottom) does not relate x, y
+    ∧ ¬ E213.Lens.Instances.Identity.idLens.equiv x y :=
+  ⟨constLens_collapses e x y,
+   discrete_distinguishes_distinct h⟩
 
 end E213.Lens.RawTopology
