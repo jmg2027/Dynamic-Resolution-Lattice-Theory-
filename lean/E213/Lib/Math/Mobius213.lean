@@ -67,22 +67,28 @@ theorem P_denominator_recurrence (n : Nat) :
     P_denominator.seq (n+2) = 3 * P_denominator.seq (n+1) + (-1) * P_denominator.seq n + 0 :=
   P_denominator.seq_recurrence n
 
-/-- ★ Pell convergent values (verified for first 6 layers). -/
+/-- ★ Pell convergent values, layers 0–8.
+    `P_numerator.seq k` for k = 0..8 gives 1, 3, 8, 21, 55, 144,
+    377, 987, 2584 — the even-indexed Fibonacci numbers
+    F_2, F_4, …, F_16 (see `Lib.Physics.Foundations.
+    FibonacciExtended` for the bridge statement). -/
 theorem P_numerator_values :
-    P_numerator.seq 0 = 1 ∧
-    P_numerator.seq 1 = 3 ∧
-    P_numerator.seq 2 = 8 ∧
-    P_numerator.seq 3 = 21 ∧
-    P_numerator.seq 4 = 55 ∧
-    P_numerator.seq 5 = 144 := by decide
+    P_numerator.seq 0 = 1 ∧ P_numerator.seq 1 = 3 ∧
+    P_numerator.seq 2 = 8 ∧ P_numerator.seq 3 = 21 ∧
+    P_numerator.seq 4 = 55 ∧ P_numerator.seq 5 = 144 ∧
+    P_numerator.seq 6 = 377 ∧ P_numerator.seq 7 = 987 ∧
+    P_numerator.seq 8 = 2584 := by decide
 
+/-- ★ Pell convergent values, layers 0–8.
+    `P_denominator.seq k` for k = 0..8 gives 1, 2, 5, 13, 34, 89,
+    233, 610, 1597 — the odd-indexed Fibonacci numbers F_1, F_3,
+    …, F_15. -/
 theorem P_denominator_values :
-    P_denominator.seq 0 = 1 ∧
-    P_denominator.seq 1 = 2 ∧
-    P_denominator.seq 2 = 5 ∧
-    P_denominator.seq 3 = 13 ∧
-    P_denominator.seq 4 = 34 ∧
-    P_denominator.seq 5 = 89 := by decide
+    P_denominator.seq 0 = 1 ∧ P_denominator.seq 1 = 2 ∧
+    P_denominator.seq 2 = 5 ∧ P_denominator.seq 3 = 13 ∧
+    P_denominator.seq 4 = 34 ∧ P_denominator.seq 5 = 89 ∧
+    P_denominator.seq 6 = 233 ∧ P_denominator.seq 7 = 610 ∧
+    P_denominator.seq 8 = 1597 := by decide
 
 /-- ★ disc = trace² − 4·det = 9 − 4 = 5 = NS + NT (Raw atomicity). -/
 theorem mobius_213_discriminant : (3 : Int)^2 - 4 * 1 = 5 := by decide
@@ -100,71 +106,33 @@ theorem mobius_213_det : (2 : Int) * 1 - 1 * 1 = 1 := by decide
     witness that φ² and 1/φ² are the eigenvalues. -/
 theorem mobius_213_char_poly_at_trace : (3 : Int)^2 - 3 * 3 + 1 = 1 := by decide
 
-/-- ★ **Pell-unit invariant** (frozen + dynamic both visible).
-    The cross-product `num_n · den_{n+1} − num_{n+1} · den_n` is
-    constant at −1 across all convergent layers — a direct
-    consequence of det [[2,1],[1,1]] = 1 (the matrix preserves
-    the symplectic form on consecutive convergent pairs).
+/-! ## §2 — Pell-unit invariant (frozen + dynamic)
 
-    Frozen reading: −1 is the conserved invariant (algebraic
-    fixed-point structure).
-    Dynamic reading: −1 is preserved under each iteration step
-    (trajectory invariant).
-    Same algebraic content, two Lens readings (cf. §3.4 dual
-    reading, §8.7 frozen+dynamic). -/
-theorem mobius_213_pell_unit_invariant_layer0 :
-    P_numerator.seq 0 * P_denominator.seq 1
-      - P_numerator.seq 1 * P_denominator.seq 0 = -1 := by decide
+The cross-product `X_n := num_n · den_{n+1} − num_{n+1} · den_n`
+satisfies `X_{n+1} = -c₂ · X_n` for any pair of sequences obeying
+the same recurrence with parameter c₂.  For [[2,1],[1,1]] we have
+c₂ = -1, hence X_{n+1} = X_n: the cross-product is a constant of
+motion, equal to its initial value −1.
 
-theorem mobius_213_pell_unit_invariant_layer1 :
-    P_numerator.seq 1 * P_denominator.seq 2
-      - P_numerator.seq 2 * P_denominator.seq 1 = -1 := by decide
+  Frozen reading: −1 is the symplectic invariant of the matrix
+    (det = 1 lifted to consecutive-pair determinant).
+  Dynamic reading: each Pell iteration preserves the invariant
+    (group-action invariance).
 
-theorem mobius_213_pell_unit_invariant_layer2 :
-    P_numerator.seq 2 * P_denominator.seq 3
-      - P_numerator.seq 3 * P_denominator.seq 2 = -1 := by decide
+Same algebraic content, two Lens readings (§3.4 + §8.7).
 
-theorem mobius_213_pell_unit_invariant_layer3 :
-    P_numerator.seq 3 * P_denominator.seq 4
-      - P_numerator.seq 4 * P_denominator.seq 3 = -1 := by decide
+A general ∀ n form would need Int ring algebra at the inductive
+step.  Without `ring`/`linarith` in the 213-native tactic set,
+we provide the strict ∅-axiom witness as the 8-layer bundle
+below — `decide` verifies all 8 consecutive layers in one go.
+-/
 
-theorem mobius_213_pell_unit_invariant_layer4 :
-    P_numerator.seq 4 * P_denominator.seq 5
-      - P_numerator.seq 5 * P_denominator.seq 4 = -1 := by decide
-
-theorem mobius_213_pell_unit_invariant_layer5 :
-    P_numerator.seq 5 * P_denominator.seq 6
-      - P_numerator.seq 6 * P_denominator.seq 5 = -1 := by decide
-
-theorem mobius_213_pell_unit_invariant_layer6 :
-    P_numerator.seq 6 * P_denominator.seq 7
-      - P_numerator.seq 7 * P_denominator.seq 6 = -1 := by decide
-
-theorem mobius_213_pell_unit_invariant_layer7 :
-    P_numerator.seq 7 * P_denominator.seq 8
-      - P_numerator.seq 8 * P_denominator.seq 7 = -1 := by decide
-
-/-! ## §3 — Convergent values beyond layer 5 -/
-
-/-- ★ Pell convergent values, layers 5-8 (extension of
-    `P_numerator_values`). -/
-theorem P_numerator_values_extended :
-    P_numerator.seq 6 = 377 ∧
-    P_numerator.seq 7 = 987 ∧
-    P_numerator.seq 8 = 2584 := by decide
-
-theorem P_denominator_values_extended :
-    P_denominator.seq 6 = 233 ∧
-    P_denominator.seq 7 = 610 ∧
-    P_denominator.seq 8 = 1597 := by decide
-
-/-- ★★ **8-layer Pell-unit invariant bundle**: the cross-product
-    `num_n · den_{n+1} − num_{n+1} · den_n = −1` holds at every
-    layer from 0 through 7.  Frozen reading: 8 instances of the
-    same conserved invariant.  Dynamic reading: 8 iteration
-    steps each preserving the symplectic form.  Same content,
-    two Lens readings (§3.4 + §8.7). -/
-theorem mobius_213_pell_unit_invariant_bundle_8layer :
+/-- ★★ **8-layer Pell-unit invariant** — the cross-product
+    `num_n · den_{n+1} − num_{n+1} · den_n = −1` for every
+    layer n = 0..7 (one statement, eight conjuncts).  All
+    eight instances are the SAME structural fact read at
+    different convergent depths. -/
+theorem mobius_213_pell_unit_invariant :
     (P_numerator.seq 0 * P_denominator.seq 1
        - P_numerator.seq 1 * P_denominator.seq 0 = -1)
     ∧ (P_numerator.seq 1 * P_denominator.seq 2
@@ -182,28 +150,5 @@ theorem mobius_213_pell_unit_invariant_bundle_8layer :
     ∧ (P_numerator.seq 7 * P_denominator.seq 8
        - P_numerator.seq 8 * P_denominator.seq 7 = -1) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-! ## §4 — Structural reading of the layer-by-layer invariants
-
-The cross-product `X_n := num_n · den_{n+1} − num_{n+1} · den_n`
-satisfies the recurrence `X_{n+1} = -c₂ · X_n` for any pair of
-sequences obeying the same 2nd-order linear recurrence with
-parameter c₂.  For the Möbius matrix with c₂ = −1, this gives
-`X_{n+1} = X_n`, so X is constant.
-
-X_0 = num_0 · den_1 − num_1 · den_0 = 1·2 − 3·1 = −1, so
-X_n = −1 for every n.
-
-A general ∀-statement form requires `ring` or `linarith` (Int
-ring algebra at the inductive step), which are not in the 213-
-native tactic set.  The 8 layers above + the 8-layer bundle
-provide the same content as a strict ∅-axiom witness over the
-range 0 ≤ n ≤ 7.
-
-Frozen reading: −1 is the algebraic invariant of the symplectic
-form (det [[2,1],[1,1]] = 1, signature carried by [[0,1],[-1,0]]).
-Dynamic reading: each Pell-iteration step preserves the invariant
-(group action on the symplectic form).
--/
 
 end E213.Lib.Math.Mobius213

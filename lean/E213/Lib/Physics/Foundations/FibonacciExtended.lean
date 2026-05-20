@@ -99,48 +99,42 @@ theorem fibonacci_deep_atomicity :
     ∧ (fib 9 = 2 * (d * (d - 1) - NS))
     ∧ (fib 10 = d * (NS * NS + NT)) := by decide
 
-/-! ## §3 — Extended atomic readings: F_11 through F_15 -/
+/-! ## §3 — Structural reading at higher Fibonacci indices
 
-/-- F_11 = 89 — prime. -/
-theorem F11_eq_89 : fib 11 = 89 := by decide
+F_11..F_15 = 89, 144, 233, 377, 610 (verifiable directly by
+`decide` on `fib n = N`).  The notable structural reading is at
+F_12: it equals `(c · NS · NT)² = 144` — the squared Phase 2
+edge count.
+-/
 
-/-- F_12 = 144 = 12² = (c·NS·NT)² — perfect square of the Phase 2
-    edge count c·NS·NT = 12. -/
-theorem F12_eq_144 : fib 12 = 144 := by decide
-
-/-- F_12 = (c·NS·NT)² (Phase 2 edge count squared). -/
+/-- F_12 = (c·NS·NT)² — F_12 reads as the squared Phase 2 edge
+    count `c · NS · NT = 12`.  Single insight, not enumeration. -/
 theorem F12_eq_edge_squared :
     fib 12 = (E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT)
               * (E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT) := by decide
 
-/-- F_13 = 233 — prime. -/
-theorem F13_eq_233 : fib 13 = 233 := by decide
+/-! ## §4 — Möbius ↔ Fibonacci structural identity
 
-/-- F_14 = 377 = 13 · 29. -/
-theorem F14_eq_377 : fib 14 = 377 := by decide
-
-/-- F_15 = 610 = 2 · 5 · 61. -/
-theorem F15_eq_610 : fib 15 = 610 := by decide
-
-/-! ## §4 — Pell ↔ Fibonacci structural identity
-
-The Pell convergents under the Möbius matrix [[2,1],[1,1]] satisfy:
+The Pell convergents under the Möbius matrix [[2,1],[1,1]]
+coincide with alternating Fibonacci numbers:
 
   P_denominator.seq k = F_{2k+1}  (odd-indexed Fibonacci)
   P_numerator.seq   k = F_{2k+2}  (even-indexed Fibonacci)
 
-This pairs the frozen+dynamic Möbius reading (§3.4 / §8.7) with
-the deep-atomicity Fibonacci reading: the SAME numbers appear in
-both, expressed through two distinct structural Lenses (Möbius
-iteration vs. Fibonacci recurrence).
-
-Verified for k = 0..7 (covering F_1 through F_16) by `decide`.
+Same integer skeleton, two structural Lenses (Möbius iteration
+vs. Fibonacci recurrence).  Verified across 8 consecutive layers
+covering F_1 … F_16.  Cf. §3.4 / §8.7.
 -/
 
-/-- ★ **Pell-denominator equals odd-Fibonacci**: for k = 0..7,
-    `P_denominator.seq k = F_{2k+1}` (as Int, after Nat coercion).
-    Eight instances of the same structural identity. -/
-theorem pell_denominator_eq_odd_fib_layers0to7 :
+/-- ★★ **Möbius-Fibonacci bridge** — at the 16 indices covered
+    (Pell layers 0..7 = Fibonacci indices 1..16), the Pell
+    convergent sequences and the Fibonacci sequence are
+    literally the same integers.  Eight numerator instances +
+    eight denominator instances bundled in one statement;
+    same content as two separate enumerations but visible as
+    a single Möbius-Fibonacci identity. -/
+theorem mobius_fibonacci_bridge :
+    -- Pell-denominator k ↔ Fibonacci 2k+1 (8 layers, odd indices)
     (E213.Lib.Math.Mobius213.P_denominator.seq 0 = (fib 1 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 1 = (fib 3 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 2 = (fib 5 : Int))
@@ -148,13 +142,9 @@ theorem pell_denominator_eq_odd_fib_layers0to7 :
     ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 4 = (fib 9 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 5 = (fib 11 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 6 = (fib 13 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 7 = (fib 15 : Int)) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-- ★ **Pell-numerator equals even-Fibonacci (from F_2)**: for
-    k = 0..7, `P_numerator.seq k = F_{2k+2}`.  Eight instances. -/
-theorem pell_numerator_eq_even_fib_layers0to7 :
-    (E213.Lib.Math.Mobius213.P_numerator.seq 0 = (fib 2 : Int))
+    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 7 = (fib 15 : Int))
+    -- Pell-numerator k ↔ Fibonacci 2k+2 (8 layers, even indices)
+    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 0 = (fib 2 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 1 = (fib 4 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 2 = (fib 6 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 3 = (fib 8 : Int))
@@ -162,22 +152,7 @@ theorem pell_numerator_eq_even_fib_layers0to7 :
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 5 = (fib 12 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 6 = (fib 14 : Int))
     ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 7 = (fib 16 : Int)) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-- ★★ **Möbius-Fibonacci bridge capstone**: the SAME 16 integers
-    appear in both the Möbius Pell-convergent sequence (frozen+
-    dynamic Lens reading) and the Fibonacci sequence (deep-
-    atomicity Lens reading), with index mapping:
-      Pell-denom layer k ↔ odd Fib index 2k+1
-      Pell-numer layer k ↔ even Fib index 2k+2
-    Two structural Lenses, one underlying integer skeleton. -/
-theorem mobius_fibonacci_bridge :
-    -- Pell-denominator ↔ odd Fibonacci (8 layers)
-    (E213.Lib.Math.Mobius213.P_denominator.seq 0 = (fib 1 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 7 = (fib 15 : Int))
-    -- Pell-numerator ↔ even Fibonacci (8 layers)
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 0 = (fib 2 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 7 = (fib 16 : Int)) := by
-  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Foundations.FibonacciExtended
