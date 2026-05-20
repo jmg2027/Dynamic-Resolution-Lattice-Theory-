@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 91 session
-commits (199 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 95 session
+commits (203 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -183,6 +183,15 @@ AlphaEM/, Geometry/, Nuclear/):
   · Wave 18: Hadron/Bigrading 4 mn_mp_* scaffolds → master alone
   · Wave 19: Hadron/Bigrading drop mnmp_me_prefactor (subset)
   · Wave 20: AlphaEM/Bare 8 single-integer scaffolds → master
+  · Wave 21: Couplings/AlphaGUT 6 → 1 (+ removed degenerate
+    `True := trivial`)
+  · Wave 22: Couplings/DysonStructure 7 → 1 (four-fold integer-4
+    unification in one statement)
+  · Wave 23: Couplings/RunningGap 11 → 1 (running-gap structural
+    decomposition unified)
+  · Wave 24: Couplings/PhotonKernel 9 → 2 (kept `b_1_eq_8`
+    standalone for external use: 12+ refs across AlphaEMBridge,
+    V32Betti, DiamondShape, Linalg213, HodgeConjecture, YangMills)
 
 Verified-and-skipped candidates:
   · universalMorphism_a/_b (heavily externally used)
