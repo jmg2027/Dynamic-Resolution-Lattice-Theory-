@@ -1,25 +1,25 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# 213 Linear Algebra — Vector type (foundation)
+# 213 Linear Algebra — Vector type (Lens frame)
 
 **Strict 213-internal principle:** we do NOT borrow classical
-linear algebra (no real/complex vector spaces, no Mathlib).  We
-build *all* of linear algebra from Raw + atomicity.
+linear algebra (no real/complex vector spaces, no Mathlib).  All
+of linear algebra is built from Raw + atomicity.
 
 A `Vec d` is a function from atomic indices `Fin d` to ℕ — a
 non-negative integer-valued vector.  Why ℕ and not Bool?
   * Bool gives GF(2) algebra which is degenerate
     (⟨v,v⟩ can be 0 for v ≠ 0).
   * ℕ is the simplest non-degenerate option in 213-internal
-    (ℕ is forced by atomicity counting; no ℝ/ℂ needed).
+    (atomicity-counting choice; no ℝ/ℂ needed).
   * Inner product ⟨v, w⟩ = Σ vᵢ · wᵢ ≥ 0 (non-degenerate cone).
 
-This is the *first* foundational file for 213 linear algebra.
-The target: paper 1's chiral compression theorem
+This establishes the ℕ-vector Lens frame for 213 linear algebra.
+Target: the chiral compression theorem
   "any N atomic relations have Gram rank ≤ d = 5"
-which (combined with the bipartite chirality of paper 2) forces
-the universe shape to K_{3,2}^{(2)} as formalized cohomologically.
+which (combined with the bipartite chirality reading) cohomologically
+manifests as the K_{3,2}^{(2)} skeleton at the residue level.
 -/
 
 namespace E213.Lib.Math.Linalg213.Vector

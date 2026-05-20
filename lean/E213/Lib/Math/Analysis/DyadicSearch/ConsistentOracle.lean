@@ -5,12 +5,14 @@ import E213.Lib.Math.Analysis.CauchyComplete
 # Real213ConsistentOracle: oracle consistency as a typed
   protocol — the 213-native solution to Cauchy Case C.
 
-## User insight (Sec 1)
+## Why a typed protocol
 
-The ghost of ZFC IVT comes from the myth that "c exists exactly somewhere."
-213 rejects this, so instead of importing the oracle's *oscillation error
-interval* as an external assumption, **the oracle itself must be shackled
-with a protocol**.
+ZFC IVT asserts the existence of a root c "exactly somewhere",
+which is a point-existence claim in continuous-foundation language.
+213 does not import this point-existence frame: instead of treating
+the oracle's oscillation interval as an external assumption, the
+oracle itself is constrained by a typed protocol (ConsistentOracle)
+that guarantees Cauchy stability.
 
 ## Definition
 

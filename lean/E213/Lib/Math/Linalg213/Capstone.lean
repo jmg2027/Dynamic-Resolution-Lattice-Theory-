@@ -63,7 +63,7 @@ theorem chiral_compression_capstone :
     -- (v) Physics: b_1 = 8 = NS² − 1 = 1/α_3
     ∧ (E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8
        ∧ (8 : Nat) = NS * NS - 1)
-    -- (vi) Topology uniqueness: K_{3,2}^{(2)} matches; K_5 doesn't
+    -- (vi) Topology uniqueness: K_{3,2}^{(2)} reads b_1 = 8; K_5 does not
     ∧ (b1_bipartite 3 2 2 = 8
        ∧ b1_complete 5 ≠ 8) :=
   ⟨⟨by decide, by decide, by decide, by decide⟩,

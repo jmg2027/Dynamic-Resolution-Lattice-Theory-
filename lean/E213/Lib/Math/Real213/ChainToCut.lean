@@ -20,12 +20,11 @@ are usable inside Real213's actual machinery.
   - chain → cut: `chainToCut r m k = decide (value r * k ≤ m)`
   - integer v's Dedekind cut: "v ≤ m/k" iff "v*k ≤ m"
 
-## Note (Option C migration)
+## Arithmetic homomorphism level
 
-Arithmetic homomorphism is expressed at the **Peano level** rather
-than the (removed) Raw-level `Raw.add` / `Raw.mul`.  See
-`Lens.Number.Nat213.Bridge` `value_toRaw_add` / `value_toRaw_mul`
-for the value-level homomorphism this file relies on.
+Arithmetic homomorphism is expressed at the Peano level via
+`Lens.Number.Nat213.Bridge.value_toRaw_add` /
+`value_toRaw_mul`, which extract the sequence values.
 -/
 
 namespace E213.Lib.Math.Real213.ChainToCut
@@ -50,12 +49,12 @@ theorem chainToCut_numeral (n m k : Nat) :
      = decide ((n + 1) * k ≤ m)
   rw [E213.Lens.Number.Nat213.Raw.value_numeral]
 
-/-! ### Layer 2 image bridge — toRaw chain → Lean Nat cut -/
+/-! ### Peano.Nat213 image bridge — toRaw chain → Nat cut -/
 
 open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_toRaw_add value_toRaw_mul)
 
-/-- **`toRaw` image's cut**: Layer 2 element `m`'s chain image is the
-    cut of the integer `m.toNat`. -/
+/-- **`toRaw` image's cut**: the Peano.Nat213 element `m`'s
+    chain image agrees with the cut of the integer `m.toNat`. -/
 theorem chainToCut_toRaw (m : E213.Lens.Number.Nat213.Peano.Nat213) (mu k : Nat) :
     chainToCut (toRaw m) mu k = decide (m.toNat * k ≤ mu) := by
   show decide (E213.Lens.Number.Nat213.Raw.value (toRaw m) * k ≤ mu)

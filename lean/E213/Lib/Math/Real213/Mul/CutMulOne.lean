@@ -107,16 +107,10 @@ theorem cutMul_one_const_at (a b m k : Nat) :
     · -- k*m ≤ m*k
       rw [Nat.mul_comm]; exact Nat.le_refl _
 
--- DELETED: function-eq cutMul_one_const removed.
--- Use cutMul_one_const_at (pointwise PURE) instead.
-
 /-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_const_one_at (a b m k : Nat) :
     cutMul (constCut a b) (constCut 1 1) m k = constCut a b m k := by
   rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
   exact cutMul_one_const_at a b m k
-
--- DELETED: function-eq cutMul_const_one removed.
--- Use cutMul_const_one_at (pointwise PURE) instead.
 
 end E213.Lib.Math.Real213.Mul.CutMulOne

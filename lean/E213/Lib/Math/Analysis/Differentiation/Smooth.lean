@@ -13,15 +13,17 @@ import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # Real213IsSmooth: smoothness as resolution-compression filter
 
-## 213-native philosophy ()
+## 213-native philosophy
 
-User insight (Sec 3): on a finite fractal lattice, the
-DEFAULT trajectory is continuous-but-non-differentiable (Weierstrass-
-like).  Smoothness is a SPECIAL state where local zigzag noise
-cancels via algebraic regularity to look linear at the macro scale.
+On a finite fractal lattice, continuity-without-differentiability
+is the generic structural outcome (Weierstrass-class trajectories).
+Smoothness is a constructive filter: a function passes `IsSmooth`
+iff it carries an explicit dyadic linearity modulus as data
+(constructive Bishop-style).
 
-Therefore differentiation is NOT a default — it is a FILTER admitting
-only those functions that carry an explicit dyadic linearity modulus.
+Differentiation is structured as a constructive filter: only
+functions equipped with an explicit dyadic linearity modulus pass
+the IsSmooth type.
 
 ## Definition
 
@@ -31,9 +33,9 @@ A function f : RealCut → RealCut is `IsSmooth` iff it ships:
    error tolerance 2^(-n), input resolution 2^(-linearityModulus n)
    suffices to expose linear behavior.
 
-The modulus is INJECTED as data (constructive Bishop-style), not
-derived classically.  Concrete instances (polynomials, exponentials)
-construct linearityModulus + the linearity certificate at use-site.
+The modulus is constructive data, not derived externally.  Each
+concrete instance (polynomial, scaling function) constructs the
+modulus + its linearity certificate pointwise.
 
 ## Significance
 
@@ -42,9 +44,8 @@ construct linearityModulus + the linearity certificate at use-site.
   modulus of linearity.
 - Most lattice trajectories carry LDD but cannot exhibit linearity
   modulus — Weierstrass-class continuous-but-non-differentiable
-  functions are the GENERIC default.
-
-This inverts the ZFC bias and matches lattice ontology.
+  functions are the structural norm under finite-precision geometry.
+  IsSmooth is the exception-by-construction.
 -/
 
 namespace E213.Lib.Math.Analysis.Differentiation.Smooth
