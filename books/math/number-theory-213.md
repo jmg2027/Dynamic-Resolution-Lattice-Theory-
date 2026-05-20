@@ -328,7 +328,7 @@ These say: **every Raw element is uniquely encoded as a pair of
 naturals** (or pair of 213-native rationals) via a *symmetric
 commutative magma operation*.  The act of pointing at any thing
 forces the entire 213 substrate into operation, and that
-substrate faithfully shadows itself onto external arithmetic
+substrate faithfully reads identically into arithmetic via the Method-A Lens
 structure.
 
 The framework now has its own *demonstrative self-grounding* —
@@ -368,11 +368,11 @@ class.  Thue-Morse is the canonical witness (`Dyadic/ThueMorse.lean`).
 The framework's *generative* power is best demonstrated by
 identities it *discovers*:
 
-**Lenz coincidence (1951)**:
+**Lenz numeric observation (1951)**:
   m_p / m_e = NS · NT · π⁵ = 6 · π⁵ ≈ 1836.118
   (CODATA: 1836.15267, 19 ppm match)
 
-  75 years dismissed as numerological accident.  In 213,
+  previously classified as a numerological observation.  In 213,
   this is **Class C** — a bare lattice invariant with all
   integers atomically decomposed (NS · NT) and the
   transcendental π via Wallis (213-internal Leibniz brackets).
@@ -399,7 +399,7 @@ identities it *discovers*:
 
   The Standard Model's most famous unsolved problem ("why
   is gravity so weak?") collapses to a one-line atomic
-  formula in DRLT.  No fine-tuning, no SUSY, no extra
+  formula in DRLT.  Fully forced by atomicity; no free parameters, no SUSY, no extra
   dimensions — pure lattice cardinality.
 
 ### Chapter 17.  Toward Galois trajectory complexity

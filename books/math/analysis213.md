@@ -59,7 +59,7 @@ matches mathematical degree exactly.
 
 ## 1. Introduction — why 213-native analysis
 
-### 1.1 Limitations of ZFC analysis
+### 1.1 Type-theoretic distinction from ZFC analysis
 
 ZFC real number theory uses countable Choice to construct ℝ as equivalence
 classes of Cauchy sequences.  This yields:
@@ -80,7 +80,7 @@ classes of Cauchy sequences.  This yields:
 (distinctness) a ≠ b primitively
 ```
 
-This is the *sole external input*.  Everything else is derived.  Adding
+This is the *sole axiom; everything else is derived from it.  Adding
 Mathlib, external axioms, or Choice → **theory discard** (`AXIOM.md §5.2.1` falsifiability).
 
 ### 1.3 Ground type of Analysis 213
@@ -334,7 +334,7 @@ hexadecicIsDifferentiable_derivative_modulus k = 15*k
 This sharpness is *truly sharper* than the generic chain (`n*k` of `cutPowFnIsDifferentiable n`) — direct construction is better.
 
 **Meaning**: 213 directly shows that differentiation reduces degree
-via *resolution depth*.  In ZFC analysis it is merely "differentiation preserves
+via *resolution depth*.  ZFC analysis states the result generically; "differentiation preserves
 smoothness class," but in 213 it is an *exact quantitative relationship*.
 
 ---
