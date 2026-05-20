@@ -41,4 +41,4 @@ asymptotic freedom, θ_QCD.
 
   - `Lib/Physics/AlphaEM/` — 1/α_em IR derivation (consumes
     `AlphaGUT` + `RunningGap`)
-  - `Lib/Physics/Substrate/` — substrate that hosts couplings
+  - `Lib/Physics/AtomicBase/` — atomic-base structure underlying couplings

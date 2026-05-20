@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Space
+import E213.Lib.Physics.AtomicBase.Space
 
 /-!
 # Phase 2 Observable — what 213 can answer as *measurable*
@@ -40,7 +40,7 @@ Further quantities (mass, energy, coupling, ...) arise when Lens is added.
 This file collects only the *values* of the 9 quantities.  Comprehensive theorem.
 -/
 
-namespace E213.Lib.Physics.Substrate.Observable
+namespace E213.Lib.Physics.AtomicBase.Observable
 
 /-- List of 9 axiom-level observable values. -/
 def cosmos_observables : List (String × Nat) :=
@@ -92,4 +92,4 @@ theorem phase2_observable_summary :
     -- sum = 35 (sanity check)
     ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
 
-end E213.Lib.Physics.Substrate.Observable
+end E213.Lib.Physics.AtomicBase.Observable

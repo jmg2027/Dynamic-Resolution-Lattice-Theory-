@@ -6,6 +6,7 @@ import E213.Lens.Compose
 import E213.Lens.Congruence
 import E213.Lens.FlatOntology
 import E213.Lens.Initiality
+import E213.Lens.PredicateSelfEncoding
 import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
@@ -72,6 +73,10 @@ import E213.Lens.Universal
     * `Lens.FlatOntology`                 — §9.3 flat-ontology
       realisation: objects, types, relations, functions, and Lens
       all as decidable predicates on Raw^n.
+    * `Lens.PredicateSelfEncoding`        — §9.3 closure (predicates
+      back to Raw via positional truth-table Gödel numbering).
+      Closes the self-reference loop: predicates that operate on
+      Raw are themselves Raw.
 
   ## Top-level
 

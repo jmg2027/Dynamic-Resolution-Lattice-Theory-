@@ -1,6 +1,6 @@
-import E213.Lib.Physics.Substrate.Origin
-import E213.Lib.Physics.Substrate.Edges
-import E213.Lib.Physics.Substrate.Force
+import E213.Lib.Physics.AtomicBase.Origin
+import E213.Lib.Physics.AtomicBase.Edges
+import E213.Lib.Physics.AtomicBase.Force
 
 /-!
 # Phase 2 Falsifier — falsifiable propositions of 213
@@ -26,7 +26,7 @@ Each falsifier is in *contrapositive* form: "If DRLT is correct then X holds.
 If X is false then DRLT is refuted."
 -/
 
-namespace E213.Lib.Physics.Substrate.Falsifier
+namespace E213.Lib.Physics.AtomicBase.Falsifier
 
 open E213.Theory.Atomicity.Five
 
@@ -56,18 +56,18 @@ theorem falsifier_pair_count_not_15 : ¬ (5 * (5 - 1) / 2 = 15) := by decide
 
 /-- (F6) Cycle space dim ≠ 8 falsifier.  NS²-1 = 8 forced. -/
 theorem falsifier_cycle_space :
-    E213.Lib.Physics.Substrate.Edges.NS_atomic *
-    E213.Lib.Physics.Substrate.Edges.NS_atomic - 1 = 8 := by decide
+    E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
+    E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 8 := by decide
 
 theorem falsifier_cycle_space_not_5 :
-    ¬ (E213.Lib.Physics.Substrate.Edges.NS_atomic *
-       E213.Lib.Physics.Substrate.Edges.NS_atomic - 1 = 5) := by decide
+    ¬ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
+       E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 5) := by decide
 
 /-- (F7) c_lat ≠ 2 falsifier.  Phase 2 Edges definition. -/
-theorem falsifier_c_lat : E213.Lib.Physics.Substrate.Edges.c_lattice = 2 := by decide
+theorem falsifier_c_lat : E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2 := by decide
 
 /-- (F5) Channel count ≠ 3 falsifier. -/
-theorem falsifier_channels : E213.Lib.Physics.Substrate.Force.num_channels = 3 := by decide
+theorem falsifier_channels : E213.Lib.Physics.AtomicBase.Force.num_channels = 3 := by decide
 
 /-- ★ Phase 2 Falsifier synthesis ★
     A single formal theorem of *all integers* forced by DRLT.
@@ -80,16 +80,16 @@ theorem phase2_falsifiers :
     -- (F4) C(5,2) = 10
     ∧ (5 * (5 - 1) / 2 = 10)
     -- (F5) Channel count = 3
-    ∧ (E213.Lib.Physics.Substrate.Force.num_channels = 3)
+    ∧ (E213.Lib.Physics.AtomicBase.Force.num_channels = 3)
     -- (F6) Cycle space = 8 = NS²-1
-    ∧ (E213.Lib.Physics.Substrate.Edges.NS_atomic *
-       E213.Lib.Physics.Substrate.Edges.NS_atomic - 1 = 8)
+    ∧ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
+       E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 8)
     -- (F7) c_lat = 2
-    ∧ (E213.Lib.Physics.Substrate.Edges.c_lattice = 2) := by
+    ∧ (E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2) := by
   refine ⟨falsifier_d_unique, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact falsifier_not_atomic_4
   · exact falsifier_not_atomic_6
   · exact falsifier_not_atomic_11
   all_goals decide
 
-end E213.Lib.Physics.Substrate.Falsifier
+end E213.Lib.Physics.AtomicBase.Falsifier

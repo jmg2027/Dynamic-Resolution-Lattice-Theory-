@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Pairs
+import E213.Lib.Physics.AtomicBase.Pairs
 import E213.Lib.Math.Analysis.PhysicsBridgeNT2
 
 /-!
@@ -39,7 +39,7 @@ Restating bridge results in physics track *language* + connecting to Phase 2 nar
 All actual proofs are already in the bridge — this file is a thin wrapper.
 -/
 
-namespace E213.Lib.Physics.Substrate.Time
+namespace E213.Lib.Physics.AtomicBase.Time
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Sum.CutSum
@@ -97,4 +97,4 @@ theorem time_is_NT_unfolded :
   refine ⟨rfl, rfl, ?_⟩
   exact fun n => nt2_step_count n
 
-end E213.Lib.Physics.Substrate.Time
+end E213.Lib.Physics.AtomicBase.Time

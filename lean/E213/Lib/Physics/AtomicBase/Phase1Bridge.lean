@@ -1,5 +1,5 @@
-import E213.Lib.Physics.Substrate.Edges
-import E213.Lib.Physics.Substrate.Force
+import E213.Lib.Physics.AtomicBase.Edges
+import E213.Lib.Physics.AtomicBase.Force
 import E213.Lib.Physics.Couplings.PhotonKernel
 import E213.Lib.Physics.Simplex.Counts
 
@@ -19,9 +19,9 @@ Phase 1 (PhotonKernel, SimplexCounts): precision quantity derivation
 ★ *Literally the same arithmetic* in both tracks ★ — formal proof in this file.
 -/
 
-namespace E213.Lib.Physics.Substrate.Phase1Bridge
+namespace E213.Lib.Physics.AtomicBase.Phase1Bridge
 
-open E213.Lib.Physics.Substrate.Edges
+open E213.Lib.Physics.AtomicBase.Edges
 open E213.Lib.Physics.Simplex.Counts
 
 /-- NS_atomic (Phase 2) = NS (Phase 1).  Both are 3. -/
@@ -61,4 +61,4 @@ theorem bridge_capstone :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Lib.Physics.Substrate.Phase1Bridge
+end E213.Lib.Physics.AtomicBase.Phase1Bridge

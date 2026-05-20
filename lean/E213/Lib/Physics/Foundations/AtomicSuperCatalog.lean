@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate
+import E213.Lib.Physics.AtomicBase
 import E213.Lib.Physics.Simplex.Counts
 
 /-!

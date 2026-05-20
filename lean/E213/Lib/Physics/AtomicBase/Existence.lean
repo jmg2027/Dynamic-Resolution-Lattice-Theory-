@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Origin
+import E213.Lib.Physics.AtomicBase.Origin
 
 /-!
 # Phase 2 Existence — what *exists* in d=5?
@@ -25,7 +25,7 @@ This file: *what are those 5, and what is the information between them?*
   Only *block sizes* are determined by axiom.
 -/
 
-namespace E213.Lib.Physics.Substrate.Existence
+namespace E213.Lib.Physics.AtomicBase.Existence
 
 /-- Type of d=5 things — Fin 5.  Minimal Lens output. -/
 def Vertex : Type := Fin 5
@@ -82,4 +82,4 @@ theorem cosmos_existence_minimal :
        + ((List.finRange 5).filter (fun v => inSmallBlock v)).length
        = 5) := by decide
 
-end E213.Lib.Physics.Substrate.Existence
+end E213.Lib.Physics.AtomicBase.Existence

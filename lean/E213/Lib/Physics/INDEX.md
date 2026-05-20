@@ -1,6 +1,6 @@
 # `Lib/Physics/` — 213-native physics deployment (DRLT)
 
-Physics deployment of the 213 axiom: substrate genesis, atomic /
+Physics deployment of the 213 axiom: atomic-base genesis, atomic /
 hadron / nuclear / cosmological observables, gauge couplings,
 α_em precision derivation, capstone synthesis.
 
@@ -9,8 +9,8 @@ name (vs the formal-axiom name 213).
 
 ## Top-level files (16 = 16 sub-cluster umbrellas)
 
-### Substrate + foundations (3)
-  - `Substrate.lean`      — d=5, (NS, NT)=(3, 2), 10 pairs, c=2
+### Atomic base + foundations (3)
+  - `AtomicBase.lean`     — d=5, (NS, NT)=(3, 2), 10 pairs, c=2
   - `Foundations.lean`    — N_U scaffolding + atomic constants
   - `Capstones.lean`      — track-completeness + validation standard
 

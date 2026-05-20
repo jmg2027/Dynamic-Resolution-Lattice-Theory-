@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Origin
+import E213.Lib.Physics.AtomicBase.Origin
 
 /-!
 # Phase 2 Shape — what does the universe look like? (educational view)
@@ -66,7 +66,7 @@ This file formalizes only *numerical facts*.  Atomicity forces d=5 →
 binomial counts follow automatically.  10, 5, 1 are all atomic-forced.
 -/
 
-namespace E213.Lib.Physics.Substrate.Shape
+namespace E213.Lib.Physics.AtomicBase.Shape
 
 /-- d = 5 (Phase 2 Origin result). -/
 def d : Nat := 5
@@ -121,4 +121,4 @@ theorem cosmos_shape_minimal :
     ∧ (big_block_pairs = 3) ∧ (small_block_pairs = 1)
     ∧ (cross_pairs = 6) := by decide
 
-end E213.Lib.Physics.Substrate.Shape
+end E213.Lib.Physics.AtomicBase.Shape

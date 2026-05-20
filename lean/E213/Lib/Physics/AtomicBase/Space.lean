@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Time
+import E213.Lib.Physics.AtomicBase.Time
 
 /-!
 # Phase 2 Space — what does unfolding the NS=3 sector yield?
@@ -39,7 +39,7 @@ Natural propositions of NS=3 ternary unfolding + explicit statement of asymmetry
 (ternary bridge not yet in math track — this file provides partial results).
 -/
 
-namespace E213.Lib.Physics.Substrate.Space
+namespace E213.Lib.Physics.AtomicBase.Space
 
 /-- NS sector = atomic 3-block. -/
 def NS_atomic_size : Nat := 3
@@ -103,4 +103,4 @@ theorem space_is_NS_unfolded :
     -- NS/NT ratio = 3/2 (cross-mult)
     ∧ (3 * 2 = 2 * 3) := by decide
 
-end E213.Lib.Physics.Substrate.Space
+end E213.Lib.Physics.AtomicBase.Space

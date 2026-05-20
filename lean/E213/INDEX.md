@@ -43,7 +43,7 @@ Lib/Math/    727 files (42 sub-clusters): CayleyDickson, Real213,
 Lib/Physics/ 165 files (17 sub-clusters): AlphaEM, Couplings,
              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
              Atomic, Simplex, Basel, YangMills, Capstones,
-             Substrate, Foundations, Certificates, …
+             AtomicBase, Foundations, Certificates, …
 
 Meta/    37 files (ring-independent) — Lean 4 bridge.
              SelfRecognising (CommBinary/NonVanishing/Conjugation

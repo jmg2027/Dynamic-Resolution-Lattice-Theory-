@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Pairs
+import E213.Lib.Physics.AtomicBase.Pairs
 
 /-!
 # Phase 2 Edges — c=2 doubling, directed bipartite
@@ -37,7 +37,7 @@ This file: *when those 6 cross pairs become directed (c=2), → 12 edges*.
 c·NS·NT = 12 atomic fact + explicit connection to Phase 1 PhotonKernel.
 -/
 
-namespace E213.Lib.Physics.Substrate.Edges
+namespace E213.Lib.Physics.AtomicBase.Edges
 
 /-- Lattice "speed" c = 2.  Axiom-level identity is NT atomic size. -/
 def c_lattice : Nat := 2
@@ -98,4 +98,4 @@ theorem edges_capstone :
     -- = NS² - 1 (α_3)
     ∧ (8 = NS_atomic * NS_atomic - 1) := by decide
 
-end E213.Lib.Physics.Substrate.Edges
+end E213.Lib.Physics.AtomicBase.Edges

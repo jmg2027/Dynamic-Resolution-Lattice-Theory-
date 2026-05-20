@@ -1,9 +1,15 @@
-# `Lib/Physics/Substrate/` — substrate-genesis cluster
+# `Lib/Physics/AtomicBase/` — atomic-base genesis cluster
 
-The substrate of the DRLT physical model — d=5 unique vertex set,
+The atomic-primitive layer of DRLT — d=5 unique vertex set,
 (NS, NT) = (3, 2) bipartition, 10 pairs, c=2 doubling.  Cluster
 holds the explicit 26-conjunct synthesis + Phase-1 bridge +
 falsifier.
+
+The directory name is "AtomicBase" rather than "Substrate" per
+the 2026-05-20 substrate-metaphor revision: this cluster is
+*atomic-primitive readings* of Raw, not a foundation supporting
+later layers (per `seed/AXIOM/07_self_reference.md` §8.1, there
+is no underlying foundation; every reading is residue-internal).
 
 ## Files (13)
 
@@ -21,16 +27,16 @@ falsifier.
 ### Observables + interactions
   - `Observable.lean`    — 9 framework-level measurable integers
   - `Force.lean`         — 3 channels = 3 force candidates
-  - `Lens.lean`          — explicit Lens (parityLens) on substrate
+  - `Lens.lean`          — explicit Lens (parityLens) on atomic base
 
 ### Capstone + bridge + falsifier
   - `Capstone.lean`      — 26-conjunct single synthesis
-  - `Phase1Bridge.lean`  — substrate ↔ Phase-1 arithmetic identity
+  - `Phase1Bridge.lean`  — atomic-base ↔ Phase-1 arithmetic identity
   - `Falsifier.lean`     — CLAUDE.md criterion (2) falsifiable props
 
 ## Top-level
 
-  - `Substrate.lean` aggregator
+  - `AtomicBase.lean` aggregator
 
 ## Axiom status
 

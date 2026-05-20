@@ -33,7 +33,7 @@ exists → d = 5.
 "what is measurable", etc.)
 -/
 
-namespace E213.Lib.Physics.Substrate.Origin
+namespace E213.Lib.Physics.AtomicBase.Origin
 
 open E213.Theory.Atomicity.Five
 
@@ -59,4 +59,4 @@ theorem cosmos_dim_existence_and_uniqueness :
     Atomic 5 ∧ (∀ n, Atomic n → n = 5) :=
   ⟨atomic_five, fun n => atomic_implies_five n⟩
 
-end E213.Lib.Physics.Substrate.Origin
+end E213.Lib.Physics.AtomicBase.Origin

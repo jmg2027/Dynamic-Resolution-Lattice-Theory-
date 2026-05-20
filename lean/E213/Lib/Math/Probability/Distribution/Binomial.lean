@@ -7,7 +7,7 @@ Independent Bernoulli trials as **atomic counting**.
 
 Two views:
 
-  * **K_{3,2} pair distribution**: 10 pairs in `Physics.Substrate.Pairs`
+  * **K_{3,2} pair distribution**: 10 pairs in `Physics.AtomicBase.Pairs`
     classify as 3 AA + 1 BB + 6 AB.  These three numerators give a
     natural categorical distribution; the AB-or-not collapse yields
     an atomic Bernoulli with `p = 6/10`.

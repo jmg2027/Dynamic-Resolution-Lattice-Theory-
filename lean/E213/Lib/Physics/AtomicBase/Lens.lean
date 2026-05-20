@@ -1,5 +1,5 @@
 import E213.Lens.LensCore
-import E213.Lib.Physics.Substrate.Origin
+import E213.Lib.Physics.AtomicBase.Origin
 
 /-!
 # Phase 2 Lens — actual Lens objects (as recommended by audit)
@@ -35,7 +35,7 @@ def Lens.view (L : Lens α) (r : Raw) : α :=
 needs a more complex definition, outside this file's scope.)
 -/
 
-namespace E213.Lib.Physics.Substrate.Lens
+namespace E213.Lib.Physics.AtomicBase.Lens
 
 open E213.Theory E213.Lens
 
@@ -84,4 +84,4 @@ theorem phase2_lens_demo :
   refine ⟨rfl, rfl, rfl, rfl, ?_⟩
   exact E213.Theory.Atomicity.Five.atomic_five
 
-end E213.Lib.Physics.Substrate.Lens
+end E213.Lib.Physics.AtomicBase.Lens

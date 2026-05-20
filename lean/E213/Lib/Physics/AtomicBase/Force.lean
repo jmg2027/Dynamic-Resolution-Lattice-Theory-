@@ -1,6 +1,6 @@
-import E213.Lib.Physics.Substrate.Pairs
-import E213.Lib.Physics.Substrate.Time
-import E213.Lib.Physics.Substrate.Space
+import E213.Lib.Physics.AtomicBase.Pairs
+import E213.Lib.Physics.AtomicBase.Time
+import E213.Lib.Physics.AtomicBase.Space
 
 /-!
 # Phase 2 Force — 3 channel = 3 force?
@@ -62,10 +62,10 @@ This file only states *natural emergence of 3 channels*.  Strength proportionali
 is delegated to Phase 1 results (CouplingSpectrumComplete, etc.).
 -/
 
-namespace E213.Lib.Physics.Substrate.Force
+namespace E213.Lib.Physics.AtomicBase.Force
 
-open E213.Lib.Physics.Substrate.Pairs
-open E213.Lib.Physics.Substrate.Existence
+open E213.Lib.Physics.AtomicBase.Pairs
+open E213.Lib.Physics.AtomicBase.Existence
 
 /-- 3 channel = 3 pair type. -/
 def num_channels : Nat := 3
@@ -120,4 +120,4 @@ theorem three_forces_natural :
     -- Total 10 pairs (consistency)
     ∧ (allPairs.length = 10) := by decide
 
-end E213.Lib.Physics.Substrate.Force
+end E213.Lib.Physics.AtomicBase.Force

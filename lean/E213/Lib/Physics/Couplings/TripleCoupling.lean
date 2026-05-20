@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 /-!
 # Triple coupling decomposition (user spec 2026-04).
 
-All three SM gauge couplings on the same K_{3,2}^{(c=2)} substrate,
+All three SM gauge couplings on the same K_{3,2}^{(c=2)} atomic base,
 distinguished by which cohomology level the path traverses.
 
 ## Leading (v1)
