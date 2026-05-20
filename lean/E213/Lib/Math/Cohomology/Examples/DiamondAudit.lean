@@ -33,7 +33,7 @@ theorem diamond_audit_unified_atomic :
   exact E213.Lib.Physics.Couplings.PhotonKernel.b_1_eq_8
 
 /-- ★ Each prediction coefficient factors atomic primitives. -/
-theorem diamond_audit_no_free_parameters :
+theorem diamond_audit_atomic_factorization :
     NS * NT = 6
     ∧ NS * NS - 1 = 8
     ∧ d * d = 25

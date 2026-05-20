@@ -2,9 +2,9 @@
 # Linalg213 Gap — Tensor product (atomic dimension counting)
 
 213-native paradigm: the tensor product `V ⊗ W` for finite-dim
-spaces has dimension `dim V · dim W`.  At the d=5 substrate this
-gives **`5 ⊗ 5 = 25`** which IS the K_{3,2}^{(c=2)} channel
-count and the SU(5) GUT channel structure.
+spaces has dimension `dim V · dim W`.  At d=5 this gives
+**`5 ⊗ 5 = 25`** which IS the K_{3,2}^{(c=2)} channel count
+and the SU(5) GUT channel structure.
 
 Atomic content:
   * `tensorDim m n = m * n`
