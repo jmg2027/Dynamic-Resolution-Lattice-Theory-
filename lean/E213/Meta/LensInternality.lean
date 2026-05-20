@@ -42,20 +42,9 @@ def toData {α : Type} (L : Lens α) : α × α × (α → α → α) :=
 def ofData {α : Type} (d : α × α × (α → α → α)) : Lens α :=
   ⟨d.1, d.2.1, d.2.2⟩
 
-theorem toData_ofData {α : Type} (d : α × α × (α → α → α)) :
-    toData (ofData d) = d := rfl
-
-theorem ofData_toData {α : Type} (L : Lens α) :
-    ofData (toData L) = L := rfl
-
-/-! ## (2) View-level: every Lens.view is Raw.fold of its data -/
-
-/-- The view function of any Lens is exactly `Raw.fold` applied to
-    its data triple.  Holds by definition of `Lens.view`. -/
-theorem view_eq_fold {α : Type} (L : Lens α) (r : Raw) :
-    L.view r = Raw.fold L.base_a L.base_b L.combine r := rfl
-
-/-! ## Capstone: Lens is internal to (Raw, α-data) -/
+/-! ## (2) Round-trip + view-fold are definitional (`rfl`).
+    Stated below as conjuncts of `lens_is_raw_internal` rather
+    than as named one-line theorems. -/
 
 /-- ★★★★★★★ **Lens internality capstone**
 

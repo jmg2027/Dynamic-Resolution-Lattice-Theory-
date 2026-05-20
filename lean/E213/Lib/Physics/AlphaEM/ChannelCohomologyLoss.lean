@@ -96,14 +96,12 @@ theorem inv_alpha_3_eq_8 : inv_alpha_3 = 8 := by decide
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-/-! ## §4 — Six-fold equivalence: 1/α_3 = 8 = … -/
+/-! ## §4 — Six-fold equivalence: 1/α_3 = 8 = …
 
-/-- Direct: H¹(K) = 1/α_3 (both equal 8). -/
-theorem H1_K_eq_inv_alpha_3 : H1_K = inv_alpha_3 := by decide
-
-/-- Direct: χ(Δ⁴, K) = 1/α_3. -/
-theorem chi_rel_eq_inv_alpha_3 :
-    chi_rel = (inv_alpha_3 : Int) := by decide
+The "1/α_3 = 8 = H¹ = χ_rel = NS²−1 = E−V+1" pattern.  Each
+form is a different Lens reading of the same integer; the
+master `six_fold_equivalence` bundles all in one statement.
+-/
 
 /-- ★★★★★ Six-fold equivalence master.  STRICT ∅-AXIOM. -/
 theorem six_fold_equivalence :
@@ -133,16 +131,17 @@ def consistency_check (c m n : Nat) : Bool :=
 /-- 213 (NS=3, NT=2, c=2) satisfies the consistency equation. -/
 theorem consistency_213 : consistency_check c_lat NS NT = true := by decide
 
-/-- The trivial solution (m=1, n=2, c=1) — degenerate (c < 2). -/
-theorem consistency_trivial : consistency_check 1 1 2 = true := by decide
-
-/-- (m=5, n=2, c=3) is the next non-trivial solution. -/
-theorem consistency_5_2_3 : consistency_check 3 5 2 = true := by decide
-
-/-- (m=2, n=3, c=?) candidate fails for all small c < 10
-    (LHS = 6c, RHS = 7, so c·6 = 7 has no Nat solution). -/
-theorem consistency_2_3_fails_small : ∀ c : Nat, c < 10 →
-    consistency_check c 2 3 = false := by decide
+/-- Consistency-equation solution map at small (m, n, c):
+    the trivial (1, 2, 1), the next (5, 2, 3), and the
+    impossibility of (2, 3, c<10).  Three concrete-instance
+    facts in one ∅-axiom statement; the "no exterior dialer"
+    structural picture (cf. §3 of file header) holds at every
+    instance. -/
+theorem consistency_other_solutions :
+    consistency_check 1 1 2 = true
+    ∧ consistency_check 3 5 2 = true
+    ∧ ∀ c : Nat, c < 10 → consistency_check c 2 3 = false := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 /-! ## §6 — Decomposition 8 = 6 + 2 -/
 

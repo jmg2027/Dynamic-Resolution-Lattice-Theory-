@@ -70,15 +70,12 @@ def printTree : Tree → List Glyph
   | .b         => [.b]
   | .slash x y => .slash :: printTree x ++ printTree y
 
-theorem printTree_a : printTree .a = [.a] := rfl
-theorem printTree_b : printTree .b = [.b] := rfl
-theorem printTree_slash (x y : Tree) :
-    printTree (.slash x y) = .slash :: printTree x ++ printTree y := rfl
-
+/-- The three computational cases of `printTree` are
+    definitional (`rfl`) — `printTree .a = [.a]`, `printTree .b
+    = [.b]`, and `printTree (.slash x y) = .slash :: printTree
+    x ++ printTree y`.  No standalone lemmas needed; callers
+    `unfold printTree`. -/
 def printRaw (r : Raw) : List Glyph := printTree r.val
-
-theorem printRaw_a : printRaw Raw.a = [.a] := rfl
-theorem printRaw_b : printRaw Raw.b = [.b] := rfl
 
 example :
     printRaw (Raw.slash Raw.a Raw.b (by decide))

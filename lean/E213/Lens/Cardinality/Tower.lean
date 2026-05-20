@@ -32,42 +32,17 @@ abbrev L1 : Type := Raw → Bool
 /-- Layer-2 abbreviation: `L2 = L1 → Bool`. -/
 abbrev L2 : Type := L1 → Bool
 
-/-- Layer-3 abbreviation: `L3 = L2 → Bool`. -/
-abbrev L3 : Type := L2 → Bool
+/-- ★ **Generic recursion**: the Cantor tower is unbounded.
+    For every `X : Type`, the function space `X → Bool` has no
+    surjection from `X`.  Since each layer `L(k+1) = L(k) → Bool`,
+    every rung of the ladder is strictly higher than the previous
+    one — by ONE structural statement, not layer-by-layer.
 
-/-- **Layer 0 → Layer 1** — already Σ5. -/
-theorem tower_0_1 : ¬ ∃ f : Raw → L1, Function.Surjective f :=
-  cantor_general
-
-/-- **Layer 1 → Layer 2**: no surjection `(Raw → Bool) →
-    ((Raw → Bool) → Bool)`.  Cantor's ladder second rung. -/
-theorem tower_1_2 : ¬ ∃ f : L1 → L2, Function.Surjective f :=
-  cantor_general
-
-/-- **Layer 2 → Layer 3**: third rung. -/
-theorem tower_2_3 : ¬ ∃ f : L2 → L3, Function.Surjective f :=
-  cantor_general
-
-
-
-/-- Layer-4 abbreviation. -/
-abbrev L4 : Type := L3 → Bool
-
-/-- Layer-5 abbreviation. -/
-abbrev L5 : Type := L4 → Bool
-
-/-- **Layer 3 → Layer 4**: fourth rung. -/
-theorem tower_3_4 : ¬ ∃ f : L3 → L4, Function.Surjective f :=
-  cantor_general
-
-/-- **Layer 4 → Layer 5**: fifth rung. -/
-theorem tower_4_5 : ¬ ∃ f : L4 → L5, Function.Surjective f :=
-  cantor_general
-
-/-- **Generic recursion**: the Cantor tower is unbounded.
-    For every `X : Type`, the function space `X → Bool`
-    has no surjection from `X`.  Since each layer
-    `L(k+1) = L(k) → Bool`, this iterates indefinitely. -/
+    The first two abbreviations above (`L1`, `L2`) are kept for
+    callers that want concrete-layer types.  Individual rungs
+    `tower_0_1`, `tower_1_2`, ... are NOT needed: applying
+    `tower_unbounded` at the relevant layer type gives them
+    immediately. -/
 theorem tower_unbounded {X : Type} :
     ¬ ∃ f : X → (X → Bool), Function.Surjective f :=
   cantor_general
