@@ -24,8 +24,9 @@ Geometric reading:
                          = 1/(3·Q) = 1/2  (using Q = 2/3)
   ⇒ angle(v, diagonal) = 45°
 
-The "(Q + iQ)/|Q + iQ|" 1+i unit-vector reading observed by user
-2026-04-30 corresponds to this 45° geometric relation.
+The "(Q + iQ)/|Q + iQ|" 1+i unit-vector Lens readout
+(recognised 2026-04-30) corresponds to this 45° geometric
+relation within the atomic-Lens chart.
 
 The 3 generations themselves come from C(NS, NT) = C(3, 2) = 3
 (`Generations.lean`) — number of distinct 2-faces of the (3, 2)

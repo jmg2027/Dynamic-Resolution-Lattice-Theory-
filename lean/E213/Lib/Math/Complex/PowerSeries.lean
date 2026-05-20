@@ -3,9 +3,9 @@ import E213.Lib.Math.Complex.ComplexCut
 /-!
 # Complex Analysis — Power series (atomic dyadic)
 
-`f(z) = Σ aₙ zⁿ` for `z : ComplexCut`.  On 213 substrate, this is
-a *finite polynomial* by Grade-N nilpotency (same paradigm as
-`Real213.CutExpSeries`).
+`f(z) = Σ aₙ zⁿ` for `z : ComplexCut`.  In 213's type chart, this
+reads as a *finite polynomial* by Grade-N nilpotency (same
+paradigm as `Real213.CutExpSeries`).
 
 Atomic content:
   * Concrete polynomials `z`, `z²`, `z² + 1`.

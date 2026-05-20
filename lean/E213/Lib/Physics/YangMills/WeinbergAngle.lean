@@ -11,8 +11,9 @@ DRLT formula:
     1/α_2 = 30
     → sin²θ_W = 30/128.696 ≈ 0.2331
 
-  Observed: 0.2312 ± 0.0001  (DRLT bare 0.82% above)
-  Same running gap as α_em, expected.
+  Measurement-Lens reading (PDG MS-bar): 0.2312 ± 0.0001
+  Two Lens readings differ by 0.82% (DRLT bare above);
+  same running gap as α_em, structurally expected.
 
 ## Structural form
 

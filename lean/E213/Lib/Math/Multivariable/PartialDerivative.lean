@@ -33,7 +33,8 @@ theorem partialAt_signature {n : Nat} (f : MultiCut n → (Nat → Nat → Bool)
     partialAt f i x = fun y => f (update x i y) := rfl
 
 /-- Constant-valued multi-function has constant partial slice
-    (rfl).  ∂c/∂xᵢ = 0 in the classical sense. -/
+    (rfl): a constant function has zero slice derivative in
+    every coordinate. -/
 theorem partialAt_const {n : Nat} (c : Nat → Nat → Bool)
     (i : Fin n) (x : MultiCut n) :
     partialAt (fun _ => c) i x = fun _ => c := rfl

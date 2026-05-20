@@ -5,9 +5,9 @@ import E213.Lens.Lattice.Lattice
 /-!
 # Lens.UndifferentiatedRaw — §9.5 K_∞ ≡ point at raw level
 
-`seed/AXIOM/09_chart_relativity.md` §9.5 records that at the
-pre-Lens (no-distinction) level of the residue, the following
-are literally the same object:
+`seed/AXIOM/09_chart_relativity.md` §9.5 records that under the
+constant (undifferentiated) Lens reading of the residue, the
+following are literally the same object:
 
   - a single point;
   - the infinite complete graph K_∞ (every vertex

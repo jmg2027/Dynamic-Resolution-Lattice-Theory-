@@ -110,10 +110,11 @@ theorem mn_mp_lead_den_pow2 : NT ^ 2 * (NS ^ 2 - 1) = 2 ^ d := by decide
 theorem mn_mp_subleading : NS ^ 2 * d = 45 := by decide
 
 /-- ★ Atomic skeleton for m_n/m_p split coefficients.
-    All three counts (9, 32, 45) come from NS, NT, d primitives —
-    no fitted parameter.  The numerical α_em·(1 − 45·α_em)
-    evaluation is in `mn-mp-split` runtime binary; this theorem
-    locks the integer count side. -/
+    All three counts (9, 32, 45) read out of NS, NT, d directly
+    — no operand position for an exterior dialer (cf.
+    `seed/AXIOM/07_self_reference.md` §8.1).  The numerical
+    α_em·(1 − 45·α_em) evaluation is in `mn-mp-split` runtime
+    binary; this theorem locks the integer count side. -/
 theorem mn_mp_split_atomic :
     NS = 3 ∧ NT = 2 ∧ d = 5
     ∧ NS ^ 2 = 9

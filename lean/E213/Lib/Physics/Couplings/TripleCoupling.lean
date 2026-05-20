@@ -22,7 +22,8 @@ distinguished by which cohomology level the path traverses.
                   Pure-A triangle (chiralDim(3,0)=1) self-interaction
                   in confined A-sector, ÷2 from c=2 multiplicity.
 
-Numerical agreement (Rust binary `triple-coupling`, N=2000):
+Two Lens readings (Atomic-Lens via Rust binary `triple-coupling`,
+N=2000; Measurement-Lens via CODATA/PDG):
 
   1/α_em  ≈ 137.036    CODATA 137.035999    Δ ~ 0.07 ppm
   1/α_3   ≈ 8.4757     PDG    8.476         Δ < 0.01%

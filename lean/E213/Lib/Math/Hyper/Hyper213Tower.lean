@@ -17,7 +17,8 @@ of two *large* axes:
   (LensOnLens.lean — unbounded recursive self-application).
 
 Both axes are framework-internal — Lens or sequence-of-Raw.
-No *external* large structure such as ZFC's power set.
+ZFC-style power-set construction is not a primitive of this
+chart; large structure is built type-theoretically.
 
 ## Core statement
 
@@ -32,7 +33,7 @@ Working evidence for "all frameworks ... Lenses" in CLAUDE.md:
 - The Lens^n α tower is also a Lens (recursive instance).
 - Their simultaneous construction is also a Lens (HyperTower).
 
-Only ZFC's *arbitrary subsets* (Dedekind cuts) are *external* to the framework.
+ZFC's arbitrary-subset construction (Dedekind cuts) is not a primitive in 213's raw framework; the corresponding objects are reconstructed type-theoretically when needed.
 -/
 
 namespace E213.Lib.Math.Hyper.Hyper213Tower

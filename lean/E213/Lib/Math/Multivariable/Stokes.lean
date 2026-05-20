@@ -25,8 +25,8 @@ In 213-native:
     the structural form of `d(dω) = 0` exterior derivative identity.
 
 Per-dim concrete (constant-field) witnesses establish
-`(interior, boundary)` both vanish atomically, matching the d=5
-substrate target scale of DRLT.
+`(interior, boundary)` both vanish atomically, reading at the
+d=5 atomic scale of DRLT.
 -/
 
 namespace E213.Lib.Math.Multivariable.Stokes

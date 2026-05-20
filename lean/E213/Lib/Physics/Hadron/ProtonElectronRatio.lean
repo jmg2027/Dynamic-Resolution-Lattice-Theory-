@@ -95,23 +95,30 @@ theorem m_p_over_m_e_v2_atomic :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! ## m_τ/m_e (auto-discovered 2026-04-30 via atomic-hunter)
+/-! ## m_τ/m_e — three Lens readings (direct, tighter, composition)
+
+  This section records three closure forms for the same observable.
+  All three are atomic (NS, NT, d primitives only); they differ in
+  which decomposition the Lens is read through.
+
+  ### Form 1 (direct, hunter-located 2026-04-30)
 
   m_τ / m_e  ≈  (d·NT)² · π³ · (1 + d·α_GUT)
               = 100 · π³ · (1 + 5α_GUT)
-              ≈ 3477.62  (DRLT)
-              vs 3477.15  (observed: 1.777/0.000511)
-              → 134 ppm match
+              ≈ 3477.62  (Atomic-Lens reading)
+              vs 3477.15  (measurement-Lens reading: 1.777/0.000511)
+              → two Lens readings differ by 134 ppm
 
-The integer 100 carries two atomic readings:
-  (d · NT)² = 10² = 100   (diameter-squared)
-  d² · NT²  = 25 · 4 = 100  (channels × chiral phase)
+  The integer 100 has two atomic readings:
+    (d · NT)² = 10² = 100   (diameter-squared)
+    d² · NT²  = 25 · 4 = 100  (channels × chiral phase)
+  Both compose the same NS, NT, d primitives — no choice to make.
 
-π³ = π · π² = π · (6 ζ(2)) — single π·ζ(2) factor.
+  π³ = π · π² = π · (6 ζ(2)) — single π·ζ(2) factor.
 
-The (1 + d·α_GUT) leakage is Class B with k = d = 5.  Equivalent
-to a chain m_τ/m_μ · m_μ/m_e composition (Class D), this is the
-direct compact form.  -/
+  The (1 + d·α_GUT) leakage is Class B with k = d = 5.  Equivalent
+  to a chain m_τ/m_μ · m_μ/m_e composition (Class D below), this
+  is the direct compact form.  -/
 theorem m_tau_over_m_e_atomic :
     -- prefactor 100 with dual atomic reading
     (d * NT) * (d * NT) = 100
@@ -122,15 +129,16 @@ theorem m_tau_over_m_e_atomic :
     ∧ NS = 3 ∧ NT = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! Tighter form (auto-discovered, hunter extended 2026-04-30):
+/-! ### Form 2 (tighter, hunter-located extension 2026-04-30)
 
   m_τ / m_e ≈ 17·NT · π³ · ζ(2)² · (1 + NS²·α_GUT)
             = 34 · π³ · ζ(2)² · (1 + 9·α_GUT)
-            ≈ 3476.78  vs 3477.15  →  106 ppm  (was 134 ppm).
+            ≈ 3476.78  vs 3477.15  →  106 ppm.
 
-The prime 17 = 2⁴ + 1 is an FSM-period prime (per Section II
-Dyadic Number Theory mining).  α-coefficient NS² = 9 = AAA
-channel count.  Class B+C tighter than the (d·NT)² form. -/
+  The prime 17 = 2⁴ + 1 is an FSM-period prime (per Section II
+  Dyadic Number Theory mining).  α-coefficient NS² = 9 = AAA
+  channel count.  Class B+C, brackets the measurement-Lens
+  reading more tightly than Form 1. -/
 theorem m_tau_over_m_e_tighter :
     -- prefactor 17·NT = 34, with 17 as FSM-period prime
     17 * NT = 34
@@ -140,24 +148,28 @@ theorem m_tau_over_m_e_tighter :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! ## m_τ/m_e — compositional closure (L5, 2026-05-01)
+/-! ### Form 3 — compositional (L5, 2026-05-01)
 
-Per Hunter Methodology Lesson L5 (compositional closure is free):
+  Per Hunter Methodology Lesson L5 (compositional closure
+  inherits both factors' Lens-reading agreement):
 
-  m_τ / m_e = (m_τ / m_μ) · (m_μ / m_e)
+    m_τ / m_e = (m_τ / m_μ) · (m_μ / m_e)
 
-  • m_τ/m_μ: atomic Class C, sub-10 ppm
-    (TauOverMu.base_eq_16, base = c^(NS·NT) = 2^6 = 16,
-     leakage 1 + x + x² + (NS/(d+1))·x³ where x = NT·α_GUT)
-  • m_μ/m_e: atomic Class C, 0.49 ppb
-    (MuOverE: (NS/NT)·(1/α_em)·P·(1+δ₁+δ₂+δ₃))
+    • m_τ/m_μ: atomic Class C, sub-10 ppm
+      (TauOverMu.base_eq_16, base = c^(NS·NT) = 2^6 = 16,
+       leakage 1 + x + x² + (NS/(d+1))·x³ where x = NT·α_GUT)
+    • m_μ/m_e: atomic Class C, 0.49 ppb
+      (MuOverE: (NS/NT)·(1/α_em)·P·(1+δ₁+δ₂+δ₃))
 
-  Compositional product: ~3 ppm ★ (vs 106 ppm direct form above)
--/
+  Compositional product: ~3 ppm ★ (tighter than Form 2's 106 ppm).
 
-/-- m_τ/m_μ base count: 2^(NS·NT) = 2^6 = 64? No — c^(NS·NT) = 2^6 = 64.
-    Actually base = c^NS·NT? Per TauOverMu.lean it's 16 = c^4 = NT^4.
-    Anchor: 16 = NT^4 = 2^4 = c^(NS+1) (multiple atomic readings). -/
+  All three forms (1, 2, 3) read the same residue through different
+  decompositions; they do not compete — they are three Lens
+  applications of the same atomic content. -/
+
+/-- m_τ/m_μ base count.  Per `TauOverMu.lean`: base = NT^4 = 16,
+    with the equivalent reading 2^4 = c^(NS+1) — multiple atomic
+    decompositions of the same integer. -/
 theorem m_tau_mu_base : NT ^ 4 = 16 ∧ 2 ^ 4 = 16 := by decide
 
 /-- ★★ m_τ/m_e via L5 composition = (m_τ/m_μ) · (m_μ/m_e).

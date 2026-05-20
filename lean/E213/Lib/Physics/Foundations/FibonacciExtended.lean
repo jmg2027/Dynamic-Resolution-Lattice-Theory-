@@ -15,7 +15,7 @@ Additional findings:
   F_8 = 21 = σ_1s unreduced numerator (= d²-1-NS)
   F_9 = 34 = 2·17 = c·σ_even_num
 
-More atomic matches — Fibonacci sequence deeply penetrates *the entire* coupling and screening structure.
+More atomic readings — the Fibonacci sequence appears throughout the {NS, NT, d, c} coupling and screening structure as repeated atomic readouts.
 
 ## F_8 = 21 = σ_1s unreduced numerator
 
@@ -84,9 +84,9 @@ theorem F10_atomic_decomp :
     F_9 = c · (d(d-1) - NS) (c · σ_even unreduced)
     F_10 = d · (NS² + NT) (= d · 11)
     
-    Eight consecutive Fibonacci numbers are eight different
-    atomic-derived integers.  Coincidence statistically
-    rejected — this is structural. -/
+    Eight consecutive Fibonacci numbers read out as eight
+    different combinations of {NS, NT, d, c} primitives —
+    a single structural identity, expressed eight ways. -/
 theorem fibonacci_deep_atomicity :
     (fib 3 = NT)
     ∧ (fib 4 = NS)

@@ -9,7 +9,7 @@ import E213.Lib.Math.Multivariable.Stokes
 
 Five cluster witnesses + total bundle, all `#print axioms` ∅.
 
-The 213-native foundation of multivariable calculus: tuple of cuts
+The 213-native reading of multivariable calculus: tuple of cuts
 = n-D point, partial derivative = single-variable slice, gradient/
 divergence/curl = iterated 1D, n-D Stokes = iterated 1D `fluxAlong`.
 

@@ -6,9 +6,10 @@ import E213.Lens.Lattice.Lattice
 /-!
 # Meta.UniversalLens — Universal Lens metatheory
 
-User-articulated thesis: 213 is not described from outside;
-it is the precondition for any "describing".  A Universal Lens
-is the lens built into the act of referring.  Formal core:
+User-articulated thesis: 213 is self-describing via Lens;
+every act of referring passes through Raw because Raw is the
+residue of "pointing at all".  A Universal Lens is the lens
+built into the act of referring.  Formal core:
 
   L is universal iff `L.view : Raw → α` is injective.
 

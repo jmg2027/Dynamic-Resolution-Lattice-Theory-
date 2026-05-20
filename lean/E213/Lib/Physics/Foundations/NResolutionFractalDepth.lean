@@ -56,7 +56,7 @@ theorem n_resolution_self_consistent :
     ∧ numV universe_level = d ^ (d * d)
     -- (c) concrete value 5²⁵
     ∧ numV universe_level = 298023223876953125
-    -- (d) matches NResolutionFromFractal candidate
+    -- (d) equals NResolutionFromFractal candidate
     ∧ numV universe_level
        = E213.Lib.Physics.Foundations.NResolutionFromFractal.n_resolution_candidate := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide

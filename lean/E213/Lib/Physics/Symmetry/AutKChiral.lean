@@ -37,7 +37,7 @@ the simplex, no spacetime/gauge dichotomy is invoked.
 Adjoint SU dimensions match cohomological loss counts:
   · dim adj SU(NS) = NS² − 1 = 8 = 1/α_3 = dim H¹(K)
   · dim adj SU(NT) = NT² − 1 = 3
-  · sum 8 + 3 = 11 (no obvious match yet)
+  · sum 8 + 3 = 11 (composite count of the bipartite adjoint)
 
 These are NOT yet representations — full representation
 decomposition of Aut(K) on H*(K, Δ⁴) is the open frontier.

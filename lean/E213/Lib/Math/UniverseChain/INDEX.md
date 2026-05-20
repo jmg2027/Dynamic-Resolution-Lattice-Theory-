@@ -1,13 +1,13 @@
-# UniverseChain — deductive chain Atomicity ⇒ N_U (∅-axiom)
+# UniverseChain — deductive chain Atomicity ⇒ N_resolution (∅-axiom)
 
-This sub-tree gathers the (previously fragmented) ∅-axiom
-theorems linking the **atomicity statement** to the **universe
-constant** `N_U = 5²⁵`, in deductive order.
+This sub-tree consolidates in a single deductive chain the
+∅-axiom theorems linking the **atomicity statement** to the
+**count-Lens readout** `N_resolution = 5²⁵`.
 
-The content is *not new* — every theorem is a re-export or
-trivial wrapper around an already-∅-axiom-proven result in
-`Theory/Atomicity/`, `Lib/Physics/Simplex/Counts.lean`, or
-`Lib/Physics/Foundations/NUniverse*.lean`.  The point of this
+Every theorem is a re-export or trivial wrapper around an
+already-∅-axiom-proven result in `Theory/Atomicity/`,
+`Lib/Physics/Simplex/Counts.lean`, or
+`Lib/Physics/Foundations/NResolution*.lean`.  The point of this
 sub-tree is to make the chain *visible in one place*.
 
 ## Reading order

@@ -31,10 +31,10 @@ Index starts at p^1 (k = 0) so each modulus ≥ p ≥ 2.
 
 ## Significance
 
-ℤ_p is a heavy tool of standard number theory.  In the 213 framework
-it is naturally realized using only the `leavesModNat` sub-family and
-the `factorial` sequence.  A sub-tower of `ProfiniteSeq` (factorial
-entire = Ẑ).
+In the ZFC chart, ℤ_p requires substantial number-theoretic
+machinery.  In 213's type chart, the same object reads off the
+`leavesModNat` sub-family and the `factorial` sequence directly
+— a sub-tower of `ProfiniteSeq` (factorial entire = Ẑ).
 
 Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
