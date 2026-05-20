@@ -58,9 +58,6 @@ open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
@@ -115,9 +112,6 @@ def total_edge_cup_channels : Nat :=
 theorem total_edge_cup_channels_eq_10 :
     total_edge_cup_channels = 10 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 /-! ## §3 — Chiral classification of cup-channels
 
@@ -163,9 +157,6 @@ theorem all_other_blocks_zero :
     ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [0, 1, 2] = 0  -- ST × SS
     ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [3, 4, 5, 6, 7, 8] = 0 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
@@ -194,9 +185,6 @@ open E213.Lib.Physics.Simplex.Counts (binom)
   readings yielding the same count.  The full impedance
   interpretation remains open — see end-of-file note. -/
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -255,9 +243,6 @@ def total_cross_terms : Nat :=
 /-- ★★★★★ Total bilinear cross-terms on Δ⁴ = 785.  STRICT ∅-AXIOM. -/
 theorem total_cross_terms_eq_785 : total_cross_terms = 785 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 

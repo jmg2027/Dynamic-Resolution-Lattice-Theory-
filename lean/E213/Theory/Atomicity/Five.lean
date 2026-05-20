@@ -54,9 +54,6 @@ private theorem two_mul_eq_two (a : Nat) (h : 2 * a = 2) : a = 1 :=
     have h4 : 4 ≤ 2 * a := Nat.mul_le_mul_left 2 hge
     absurd (h ▸ h4) (by decide)
 
-end E213.Theory.Atomicity.Five
-
-namespace E213.Theory.Atomicity.Five
 
 /-- Linear Diophantine: `2*a + 3*b = 5 → a = 1 ∧ b = 1`. -/
 private theorem solve_2a_3b_eq_5 (a b : Nat) (h : 2 * a + 3 * b = 5) :
@@ -79,17 +76,11 @@ private theorem solve_2a_3b_eq_5 (a b : Nat) (h : 2 * a + 3 * b = 5) :
     have h6 : 6 ≤ 3 * b := Nat.mul_le_mul_left 3 hb_ge
     exact absurd (Nat.le_trans h6 h3b) (by decide)
 
-end E213.Theory.Atomicity.Five
-
-namespace E213.Theory.Atomicity.Five
 
 /-- Existence: n = 5 has the unique alive decomposition (1, 1). -/
 theorem atomic_five : Atomic 5 :=
   ⟨1, 1, rfl, ⟨rfl, rfl⟩, fun a b h => solve_2a_3b_eq_5 a b h.symm⟩
 
-end E213.Theory.Atomicity.Five
-
-namespace E213.Theory.Atomicity.Five
 
 /-- Corollary: partition labels are canonical — one 3-atom, one 2-atom. -/
 theorem canonical_partition :
@@ -97,9 +88,6 @@ theorem canonical_partition :
   intro a b ⟨hdec, _⟩
   exact solve_2a_3b_eq_5 a b hdec.symm
 
-end E213.Theory.Atomicity.Five
-
-namespace E213.Theory.Atomicity.Five
 
 /-- `a < 3 ∧ parity a = true → a = 1`. -/
 private theorem a_lt_3_odd_eq_1 {a : Nat}

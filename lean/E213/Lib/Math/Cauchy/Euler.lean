@@ -57,9 +57,6 @@ theorem eulerNum_pos (_n : Nat) : 1 ≤ eulerNum _n := by
       show 1 ≤ (k + 1) * eulerNum k + 1
       exact Nat.le_add_left 1 _
 
-end E213.Lib.Math.Cauchy.EulerSeq
-
-namespace E213.Lib.Math.Cauchy.EulerSeq
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
@@ -109,9 +106,6 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
         rw [h_2_succ]
         exact Nat.le_trans (Nat.add_le_add_left hk1 _) h1
 
-end E213.Lib.Math.Cauchy.EulerSeq
-
-namespace E213.Lib.Math.Cauchy.EulerSeq
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
@@ -157,9 +151,6 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
           Nat.add_le_add_left hk1 _
         exact Nat.le_trans (Nat.le_trans step1 h1) (Nat.le_succ _)
 
-end E213.Lib.Math.Cauchy.EulerSeq
-
-namespace E213.Lib.Math.Cauchy.EulerSeq
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
@@ -193,9 +184,6 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
     Nat.mul_le_mul_left (eulerDen n) h3km
   exact decide_eq_true (Nat.le_trans h1 h3)
 
-end E213.Lib.Math.Cauchy.EulerSeq
-
-namespace E213.Lib.Math.Cauchy.EulerSeq
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
@@ -249,9 +237,6 @@ theorem euler_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
   · rw [euler_orderProj_below_2 m k hk hm2k p hp,
         euler_orderProj_below_2 m k hk hm2k q hq]
 
-end E213.Lib.Math.Cauchy.EulerSeq
-
-namespace E213.Lib.Math.Cauchy.EulerSeq
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean

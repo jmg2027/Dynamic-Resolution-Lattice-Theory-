@@ -60,9 +60,6 @@ private theorem conj_add' (u v : Lipschitz) :
     · show -(u.im.im + v.im.im) = -u.im.im + -v.im.im
       exact E213.Meta.Int213.neg_add _ _
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -100,9 +97,6 @@ private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
     --     = w.im*u.re + u.im*w.re.conj + (w.im*v.re + v.im*w.re.conj)
     exact Ring213.add_4_swap_mid _ _ _ _
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -137,9 +131,6 @@ private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
     --     = (v.im*u.re + u.im*v.re.conj) + (w.im*u.re + u.im*w.re.conj)
     exact Ring213.add_4_swap_mid _ _ _ _
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -185,9 +176,6 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   have h_int : a = b := congrArg ZI.re h_re
   exact h_int
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -229,9 +217,6 @@ private theorem self_mul_conj' (z : Lipschitz) :
     -- Goal: -(z.im * z.re) + z.im * z.re = 0
     exact Ring213.add_left_neg _
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -263,9 +248,6 @@ private theorem ofInt_central' (z : Int) (a : Lipschitz) :
     rw [conj_ofInt_zi z, Ring213.zero_mul, Ring213.zero_mul,
         Ring213.add_zero, Ring213.zero_add]
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -312,9 +294,6 @@ private theorem mul_assoc_re' (u v w : Lipschitz) :
         (-(w.im.conj * v.re.conj * u.im)) (-(v.im.conj * w.re * u.im))]
   exact add_4_cycle _ _ _ _
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
@@ -361,9 +340,6 @@ private theorem mul_assoc' (u v w : Lipschitz) :
   · exact mul_assoc_re' u v w
   · exact mul_assoc_im' u v w
 
-end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-
-namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 

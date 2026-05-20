@@ -40,9 +40,6 @@ def isOrderCauchy (xs : Nat → Raw) : Prop :=
   ∀ m k, k ≥ 1 → ∃ N, ∀ i j, i ≥ N → j ≥ N →
     orderProj m k (abLens.view (xs i)) = orderProj m k (abLens.view (xs j))
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -60,9 +57,6 @@ theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
       fun h' => hkm (Nat.le_of_mul_le_mul_left h' hn)
     exact (decide_eq_false hnot).trans (decide_eq_false hkm).symm
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
@@ -86,9 +80,6 @@ theorem cut_eq_tail {xs : Nat → Raw} (cd : OrderCauchyData xs)
   unfold OrderCauchyData.cut
   exact cd.cauchy m k n (cd.N m k) hk hn (Nat.le_refl _)
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -125,9 +116,6 @@ theorem diagonal_seq_cut (xs : Nat → Raw)
   rw [h 0]
   exact diagonal_seq_orderProj_const m k 1 (Nat.le_refl 1)
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -182,9 +170,6 @@ theorem ratio_one_below_orderProj_eventually
         (Nat.le_trans (Nat.le_succ _) this)
     exact (decide_eq_false hnotle).trans (decide_eq_false hkm).symm
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -212,9 +197,6 @@ theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
   intro m k
   rw [hcdx, hcdy]
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -251,9 +233,6 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
   rw [h 0]
   exact rational_seq_orderProj_const p q m k 1 (Nat.le_refl 1)
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
@@ -289,9 +268,6 @@ theorem half_seq_cut (xs : Nat → Raw)
   show decide (1 * k ≤ 2 * m) = decide (k ≤ 2 * m)
   rw [Nat.one_mul]
 
-end E213.Lib.Math.Cauchy.Archimedean
-
-namespace E213.Lib.Math.Cauchy.Archimedean
 
 open E213.Theory E213.Lens
 

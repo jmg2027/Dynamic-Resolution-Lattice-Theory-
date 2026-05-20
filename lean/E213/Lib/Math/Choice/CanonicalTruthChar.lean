@@ -40,9 +40,6 @@ theorem aCountParityLens_slash (x y : Raw) (h : x ≠ y) :
   show xor u v = xor v u
   cases u <;> cases v <;> rfl
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -62,9 +59,6 @@ theorem propXor_iff_bool_xor (P Q : Prop) (b₁ b₂ : Bool)
   unfold propXor
   cases b₁ <;> cases b₂ <;> simp [xor, hP, hQ]
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -83,9 +77,6 @@ theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
       rw [canonicalTruthMap_slash x y h, aCountParityLens_slash x y h]
       exact propXor_iff_bool_xor _ _ _ _ ihx ihy
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -112,9 +103,6 @@ theorem iffBoolLens_slash (x y : Raw) (h : x ≠ y) :
   show decide (u = v) = decide (v = u)
   cases u <;> cases v <;> rfl
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -153,9 +141,6 @@ theorem canonicalTruthMap_ne_canonicalIffMap :
   intro heq
   exact canonicalTruthMap_ne_canonicalIffMap_witness (congrFun heq _)
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -184,9 +169,6 @@ theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
       rw [canonicalIffMap_slash x y h, iffBoolLens_slash x y h]
       exact iff_iff_bool_eq _ _ _ _ ihx ihy
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
@@ -230,9 +212,6 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
           rw [h_a] at hview
           omega)
 
-end E213.Lib.Math.Choice.CanonicalTruthChar
-
-namespace E213.Lib.Math.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom

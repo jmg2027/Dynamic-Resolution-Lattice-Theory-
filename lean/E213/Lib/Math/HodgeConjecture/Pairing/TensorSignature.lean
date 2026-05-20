@@ -65,9 +65,6 @@ def hirzebruch (d : SignaturePairData) : Int := (d.pos : Int) - d.neg
 
 end SignaturePairData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 namespace SignaturePairData
 
@@ -120,9 +117,6 @@ theorem tensor_total_rank (d1 d2 : SignaturePairData) :
 
 end SignaturePairData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 namespace SignaturePairData
 
@@ -171,9 +165,6 @@ theorem tensor_balanced_of_right {d1 d2 : SignaturePairData}
 
 end SignaturePairData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
@@ -201,9 +192,6 @@ theorem tensor_ofBalanced_balanced (b1 b2 : BalancedSignatureData) :
 
 end SignaturePairData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 /-! ## §7 — Per-Künneth-piece instance witnesses -/
 
@@ -240,9 +228,6 @@ theorem T2_tensor_T2_total_rank :
 theorem P2_tensor_P2_total_rank :
     (P2_sig.tensor P2_sig).total_rank = 1 := by decide
 
-end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 /-! ## §8 — Master Tensor Signature Künneth theorem -/
 
