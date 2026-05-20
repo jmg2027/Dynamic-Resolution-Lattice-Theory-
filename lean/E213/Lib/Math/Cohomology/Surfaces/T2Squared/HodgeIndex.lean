@@ -80,13 +80,19 @@ theorem block1_pos : cup basis_a1b1 basis_a2b2 Cell4.vol = 1 := by decide
 theorem block2_neg : cup basis_a1a2 basis_b1b2 Cell4.vol = -1 := by decide
 theorem block3_pos : cup basis_a1b2 basis_b1a2 Cell4.vol = 1 := by decide
 
-/-- Diagonals all zero (each generator has zero self-cup). -/
-theorem diag_a1b1_zero : cup basis_a1b1 basis_a1b1 Cell4.vol = 0 := by decide
-theorem diag_a1a2_zero : cup basis_a1a2 basis_a1a2 Cell4.vol = 0 := by decide
-theorem diag_a1b2_zero : cup basis_a1b2 basis_a1b2 Cell4.vol = 0 := by decide
-theorem diag_b1a2_zero : cup basis_b1a2 basis_b1a2 Cell4.vol = 0 := by decide
-theorem diag_b1b2_zero : cup basis_b1b2 basis_b1b2 Cell4.vol = 0 := by decide
-theorem diag_a2b2_zero : cup basis_a2b2 basis_a2b2 Cell4.vol = 0 := by decide
+/-- All six diagonal self-cups vanish (no basis generator has
+    a non-zero self-pairing).  Bundled in one ∧-statement to
+    avoid layer-by-layer enumeration; the cup-pairing on the
+    diagonal of {a₁b₁, a₁a₂, a₁b₂, b₁a₂, b₁b₂, a₂b₂} is the
+    zero quadratic form. -/
+theorem all_diagonals_zero :
+    cup basis_a1b1 basis_a1b1 Cell4.vol = 0
+    ∧ cup basis_a1a2 basis_a1a2 Cell4.vol = 0
+    ∧ cup basis_a1b2 basis_a1b2 Cell4.vol = 0
+    ∧ cup basis_b1a2 basis_b1a2 Cell4.vol = 0
+    ∧ cup basis_b1b2 basis_b1b2 Cell4.vol = 0
+    ∧ cup basis_a2b2 basis_a2b2 Cell4.vol = 0 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-! ## §3 — Diagonalised basis: 3 positive + 3 negative classes
 
