@@ -7,7 +7,7 @@ import E213.Lib.Physics.AtomicBase.Origin
 the same pattern* as `isA, classify` in math track
 `Lib/Math/Combinatorics/Simplex5.lean`).
 
-Origin.lean: *the universe is d=5 dimensional*.
+Origin.lean: *the d=5 dimension is structurally forced (Atomicity)*.
 Shape.lean: *5 points, (3,2) partition, 10 pairs*.
 This file: *what are those 5, and what is the information between them?*
 

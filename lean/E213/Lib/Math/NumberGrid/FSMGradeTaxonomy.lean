@@ -42,7 +42,7 @@ theorem grade_3_states : fsmGradeStates 3 = 125 := rfl
 theorem grade_25_states :
     fsmGradeStates 25 = 298023223876953125 := rfl
 
-/-- ★ **N_U match**: grade 25 cardinality matches the N_U count-Lens readout. -/
+/-- ★ **N_U match**: grade 25 cardinality agrees with the N_U count-Lens readout. -/
 theorem grade25_eq_n_u :
     fsmGradeStates 25 = (5 : Nat) ^ 25 := rfl
 

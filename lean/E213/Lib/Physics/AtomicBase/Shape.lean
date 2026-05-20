@@ -7,7 +7,7 @@ import E213.Lib.Physics.AtomicBase.Origin
 meanings are Lens-output convention).  Same pattern as math track
 `Lib/Math/Combinatorics/Simplex5.lean`.
 
-Origin.lean: *the universe is d=5*.
+Origin.lean: *the d=5 dimension is structurally forced (Atomicity)*.
 This file: *then what does d=5 look like?*
 
 ## Intuitive picture
