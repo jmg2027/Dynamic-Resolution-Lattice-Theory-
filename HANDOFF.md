@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 30+ session
-commits (138 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 39 session
+commits (147 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -59,6 +59,34 @@ framing (UnifiedPattern, MasterCatalog, Higgs/Master),
 **Iteration 10**: Final residual sweep — Higgs/Mass.lean
 "+0.02% match" → "two Lens readings differ by +0.02%";
 Mass/TauOverMu observed → measurement-Lens reading.
+
+**Iteration 11** (autonomous-research mode): pivot from
+rhetorical sweep (converged) to substantive theorem addition.
+Five new commits adding 13 new PURE theorems + 1 latent bug fix:
+  · `n_u_* → n_resolution_*` identifier rename across 8 files
+    (completes the earlier docstring rename to the identifier
+    level).
+  · PiFiveGap consolidation (4 namespace blocks → 1) + 3 new
+    bracket theorems (`pi5_residual_thirteen_bracket`,
+    `pi5_gap_two_lens_bracket`, `pi5_ns_nt_block`) — 20 PURE
+    total.
+  · SelfCompletion slash-side extension: 3 new theorems
+    (`view_slash_uses_combine`, `full_self_completion_bundle`,
+    `leaves_self_completion`) — 6 PURE total.
+  · New file `Lib/Physics/Capstones/NSNTPi5Block.lean`: 4 PURE
+    cross-observable bridge theorems linking m_p/m_e and
+    1/α_em(IR) gap via shared NS·NT·π⁵ skeleton.
+  · RawTopology discrete bookend: 3 new theorems
+    (`discrete_kernel_eq`, `discrete_distinguishes_distinct`,
+    `topology_two_bookends`) — 9 PURE total.
+  · Latent parse-bug fix in Higgs/Mass.lean
+    (`cofactor_d_minus_1_atomicity-forced (uniform across
+    readings)` — invalid identifier — restored as
+    `cofactor_d_minus_1_atomic`); pre-existed from prior audit
+    pass, was dormant because no test imported the parser path
+    until the new bridge file did.
+
+Cumulative new PURE theorems this session: **51**.
 
 ## Commits this session
 
