@@ -40,34 +40,30 @@ def R_infinity_mEV : Nat := 13605693
 
 /-! ## Z² Hydrogenic check: IE(Z) ≈ Z² · R∞ -/
 
-/-- He+ IE ≈ 4·R = 4·13605693 = 54422772.  Observed 54417760.
-    Difference: 5012 mEV = 92 ppm (mass correction). -/
-theorem He_plus_atomic_bracket :
-    NT * NT * R_infinity_mEV - IE_He_plus = 5012 := by decide
+/-- ★ Atomic form of Z² + bracket gaps in one statement.
 
-/-- Li²+ IE ≈ 9·R = 122451237.  Observed 122454370.
-    Difference 3133 mEV = 26 ppm.  Atomic bracket contains measurement-Lens value. -/
-theorem Li_2plus_atomic_bracket :
-    IE_Li_2plus - NS * NS * R_infinity_mEV = 3133 := by decide
+  Hydrogenic IE bracket gaps (atomic Lens vs measurement-Lens):
+    He+  : NT² · R − IE = 5012 mEV (92 ppm; mass corr)
+    Li²+ : IE − NS² · R = 3133 mEV (26 ppm)
+    Be³+ : IE − 16 · R  = 27562 mEV (127 ppm)
 
-/-- Be³+ IE ≈ 16·R = 217691088.  Observed 217718650.
-    Difference 27562 mEV = 127 ppm. -/
-theorem Be_3plus_atomic_bracket :
-    IE_Be_3plus - 16 * R_infinity_mEV = 27562 := by decide
-
-/-- ★ Atomic form of Z² ★ -/
+  Z² atomic forms:
+    He+   Z² = NT²        = 4
+    Li²+  Z² = NS²        = 9
+    Be³+  Z² = (NS+1)²    = 16
+    B⁴+   Z² = d²         = 25
+    Ne⁹+  Z² = 10²        = 100 -/
 theorem hydrogenic_atomic_chain :
-    -- He+ Z²
-    (NT * NT = 4)
-    -- Li²+ Z²
-    ∧ (NS * NS = 9)
-    -- Be³+ Z² = (NS+1)²
-    ∧ ((NS + 1) * (NS + 1) = 16)
-    -- B⁴+ Z² = d²
-    ∧ (d * d = 25)
-    -- Ne⁹+ Z² = 10² = 100
-    ∧ (10 * 10 = 100) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+    -- bracket gaps (atomic vs measurement-Lens)
+    (NT * NT * R_infinity_mEV - IE_He_plus = 5012)
+    ∧ (IE_Li_2plus - NS * NS * R_infinity_mEV = 3133)
+    ∧ (IE_Be_3plus - 16 * R_infinity_mEV = 27562)
+    -- Z² atomic forms
+    ∧ (NT * NT = 4)               -- He+
+    ∧ (NS * NS = 9)               -- Li²+
+    ∧ ((NS + 1) * (NS + 1) = 16)  -- Be³+
+    ∧ (d * d = 25)                -- B⁴+
+    ∧ (10 * 10 = 100) := by       -- Ne⁹+
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Hydrogenic
