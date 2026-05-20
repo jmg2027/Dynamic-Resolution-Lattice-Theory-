@@ -34,16 +34,9 @@ def pronic_sum : Nat → Nat
 /-- HO magic at level n. -/
 def ho_magic (n : Nat) : Nat := pronic_sum n
 
-/-- Concrete first 7 HO magic values. -/
-theorem ho_magic_1 : ho_magic 1 = 2   := by decide
-theorem ho_magic_2 : ho_magic 2 = 8   := by decide
-theorem ho_magic_3 : ho_magic 3 = 20  := by decide
-theorem ho_magic_4 : ho_magic 4 = 40  := by decide
-theorem ho_magic_5 : ho_magic 5 = 70  := by decide
-theorem ho_magic_6 : ho_magic 6 = 112 := by decide
-theorem ho_magic_7 : ho_magic 7 = 168 := by decide
-
-/-- All 7 HO magic in one go. -/
+/-- All 7 HO magic values in one statement: 2, 8, 20, 40, 70,
+    112, 168.  The per-level values `ho_magic n` for n ∈ 1..7
+    are conjuncts (or read off the list form) of this theorem. -/
 theorem ho_magic_first_7 :
     [ho_magic 1, ho_magic 2, ho_magic 3, ho_magic 4,
      ho_magic 5, ho_magic 6, ho_magic 7]
