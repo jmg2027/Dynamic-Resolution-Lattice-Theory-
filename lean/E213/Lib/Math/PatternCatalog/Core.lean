@@ -339,7 +339,7 @@ structure CataForcedForm (Source α β : Type) where
     At each index `i`, the value is forced unique: there is a per-index
     condition `cond i : Val → Prop` and a `forcedValue i` such that
     only `forcedValue i` satisfies `cond i`.  The locality function
-    `f_at` happens to satisfy `cond i (f_at i)` at every index, hence
+    f_at satisfies `cond i (f_at i)` at every index, hence
     `f_at i = forcedValue i` for all i (derivable from `forced` +
     `witness`).
 

@@ -14,7 +14,7 @@ match HO shell n-1 angular momenta.  Cumulative shell capacity:
 This is a **pure integer/rational** identity — no analysis needed.
 
 Nuclear magic = HO magic + spin-orbit splitting at high l (l = n-1).
-The first 3 nuclear magic (2, 8, 20) coincide with HO.  The last 4
+The first 3 nuclear magic (2, 8, 20) equal the HO sequence.  The last 4
 (28, 50, 82, 126) require explicit l-quantum number arithmetic; left
 as future work in this track.
 

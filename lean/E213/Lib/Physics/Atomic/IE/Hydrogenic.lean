@@ -46,7 +46,7 @@ theorem He_plus_atomic_bracket :
     NT * NT * R_infinity_mEV - IE_He_plus = 5012 := by decide
 
 /-- Li²+ IE ≈ 9·R = 122451237.  Observed 122454370.
-    Difference 3133 mEV = 26 ppm.  Atomic match. -/
+    Difference 3133 mEV = 26 ppm.  Atomic bracket contains measurement-Lens value. -/
 theorem Li_2plus_atomic_bracket :
     IE_Li_2plus - NS * NS * R_infinity_mEV = 3133 := by decide
 

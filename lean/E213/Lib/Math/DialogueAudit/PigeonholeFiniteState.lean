@@ -14,7 +14,7 @@ more than `M` steps, then it MUST revisit a state.
 
 We formalise the **abstract pigeonhole** at the FSM state-count
 level.  The application to "bit precision saturation at 5^25"
-is conditional on the d=5 substrate's resolution lens.
+is via the d=5 base's resolution Lens.
 -/
 
 namespace E213.Lib.Math.DialogueAudit.PigeonholeFiniteState

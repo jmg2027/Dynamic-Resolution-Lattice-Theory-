@@ -61,7 +61,7 @@ open E213.Lens.Universal.Witnesses.TripleCapstone
     further constrains (NS, NT) = (3, 2).
 
   All three are ∅-axiom theorems (per `STRICT_ZERO_AXIOM.md`).
-  None is "from outside"; the three directions are three Lens
+  None requires external standpoint; the three directions are three Lens
   readings of the same self-consistency residue. -/
 theorem three_direction_uniqueness :
     -- Below: 4-clause minimality (clause 1 collapse witness)

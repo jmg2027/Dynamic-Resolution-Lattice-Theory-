@@ -9,7 +9,7 @@ DRLT formulae:
 
   δ_CKM = π/φ² ≈ 1.20 rad ≈ 68.75°
   J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)
-    ≈ 3.18 × 10⁻⁵ (DRLT, matches PDG)
+    ≈ 3.18 × 10⁻⁵ (DRLT Lens reading agrees with consensus reading)
 
 ## ★ Lattice meaning of δ_CKM ★
 
