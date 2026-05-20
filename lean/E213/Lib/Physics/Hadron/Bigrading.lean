@@ -96,19 +96,6 @@ theorem class_F_hadron_skeleton :
   the runtime binary `mn-mp-split` (Q-arithmetic, no floats).
 -/
 
-/-- Leading factor numerator: NS². -/
-theorem mn_mp_lead_num : NS ^ 2 = 9 := by decide
-
-/-- Leading factor denominator: NT² · (NS² − 1).
-    NS² − 1 = 8 = SU(NS) adjoint generator count. -/
-theorem mn_mp_lead_den : NT ^ 2 * (NS ^ 2 - 1) = 32 := by decide
-
-/-- Power-set count identity: NT²·(NS²−1) = 2^d. -/
-theorem mn_mp_lead_den_pow2 : NT ^ 2 * (NS ^ 2 - 1) = 2 ^ d := by decide
-
-/-- Sub-leading α_em² coefficient: NS²·d. -/
-theorem mn_mp_subleading : NS ^ 2 * d = 45 := by decide
-
 /-- ★ Atomic skeleton for m_n/m_p split coefficients.
     All three counts (9, 32, 45) read out of NS, NT, d directly
     — no operand position for an exterior dialer (cf.
