@@ -336,3 +336,69 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 "그 분야의 distinguishing framework는 어떤 Lens인가?"를 물을 것.
 새 분야 진입 = 새 Lens 정의 = Raw 트리 위 새 quotient 선택.
 이게 213 작업의 fixed procedure.
+
+---
+
+## Reduction patterns (2026-05-20)
+
+**원칙**: 정리 숫자나 줄 수가 아니라 *내용 밀도와 가독성*이 목표.
+많이 쌓이면 인지적 부하가 늘어나서 새 통찰이 안 나온다.  
+"줄이라"는 무작정 삭제가 아니라 *방향성·가독성·통찰 친화도*를
+높이는 작업.
+
+### Smell #1: layer-by-layer enumeration
+
+증상: `_layer0`, `_layer1`, ..., `_layerN` 형태의 정리 N개 +
+선택적으로 `_bundle_Nlayer` 형태의 묶음.
+
+원인: 일반 ∀-form이 증명 도구 부족 (e.g. `ring`/`linarith` 없음) 또는
+미완성이라 layer-by-layer 검증으로 회피.
+
+처리:
+- 묶음만 남기고 개별 layer 삭제.
+- 구조적 이유 (recurrence-uniqueness 등) 식별 → 별도 lemma로 추출.
+- 예: `Mobius213.pell_recurrence_unique` — 2nd-order recurrence + 
+  initial values 일치 ⟹ 두 sequence 일치.  16-conjunct bundle을
+  단일 uniqueness lemma + recurrence/initial 확인으로 대체 가능.
+
+### Smell #2: same-content reformulation across files
+
+증상: `Lens/UndifferentiatedRaw.constLens_collapses`,
+`Lens/RawTopology.indiscrete_kernel_total`,
+`Lens/RawTopology.indiscrete_globally_collapsed` — 모두 같은 사실
+"`(constLens e).view r = (constLens e).view s` for all r, s"의 
+다른 표현 (view 형 / kernel 형 / globally-collapsed 형).
+
+처리: 한 파일에 통합, canonical name 하나 + 필요시 view↔equiv 형
+대응 lemma 1개.  Triple-redundancy → 2개로 축소.
+
+### Smell #3: incremental scaffold theorems
+
+증상: 마스터 정리에 도달하기 위한 단일 등식 검증 정리들
+(`gap_e7_eq_5443`, `pi5_gap_e7_eq_5446`, `..._distance_eq_3`)이
+모두 마스터의 conjunct로 그대로 들어 있음.
+
+처리: 외부에서 직접 참조되지 않는 incremental은 삭제.  
+마스터의 conjunct로 충분.  외부 caller 있는 incremental만 유지.
+
+### Smell #4: cluster + atomic + bundle 패턴의 중복
+
+증상: 한 파일에 atomic_a, atomic_b 정리 + atomic_bundle (= atomic_a
+∧ atomic_b) + slash 정리 + full_bundle (= atomic_a ∧ atomic_b ∧
+slash).  atomic_bundle은 full_bundle의 부분 형식.
+
+처리: 미세한 redundancy.  파일 narrative가 atomic vs slash 구별을
+교육적으로 강조한다면 둘 다 유지 가능.  단순 alias라면 atomic_bundle
+삭제.  `Lens/SelfCompletion`은 narrative 가치로 6개 유지함.
+
+### 적용 결과 (2026-05-20)
+
+session-added 파일들에 적용:
+- Mobius213: 21 → 13 (8개 layer 삭제 + 2개 structural insight 추가)
+- FibonacciExtended: 16 → 9 (개별 F_N 5개 삭제, bridge 16-conjunct 1개로 통합)
+- PiFiveGap: 20 → 14 (incremental 6개 삭제)
+- PureAtomicObservables: 17 → 14 conjuncts (중복 3개 제거 + 구조별 grouping)
+- RawTopology+UndifferentiatedRaw: 12 → 7 + 파일 1개 통합 삭제
+
+순 reduction: 86 → 57 theorems, ~500줄, 파일 1개.  
+*같은 수학적 content, 더 적은 cognitive surface*.
