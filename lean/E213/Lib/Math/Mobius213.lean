@@ -132,4 +132,55 @@ theorem mobius_213_pell_unit_invariant_layer4 :
     P_numerator.seq 4 * P_denominator.seq 5
       - P_numerator.seq 5 * P_denominator.seq 4 = -1 := by decide
 
+theorem mobius_213_pell_unit_invariant_layer5 :
+    P_numerator.seq 5 * P_denominator.seq 6
+      - P_numerator.seq 6 * P_denominator.seq 5 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer6 :
+    P_numerator.seq 6 * P_denominator.seq 7
+      - P_numerator.seq 7 * P_denominator.seq 6 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer7 :
+    P_numerator.seq 7 * P_denominator.seq 8
+      - P_numerator.seq 8 * P_denominator.seq 7 = -1 := by decide
+
+/-! ## §3 — Convergent values beyond layer 5 -/
+
+/-- ★ Pell convergent values, layers 5-8 (extension of
+    `P_numerator_values`). -/
+theorem P_numerator_values_extended :
+    P_numerator.seq 6 = 377 ∧
+    P_numerator.seq 7 = 987 ∧
+    P_numerator.seq 8 = 2584 := by decide
+
+theorem P_denominator_values_extended :
+    P_denominator.seq 6 = 233 ∧
+    P_denominator.seq 7 = 610 ∧
+    P_denominator.seq 8 = 1597 := by decide
+
+/-- ★★ **8-layer Pell-unit invariant bundle**: the cross-product
+    `num_n · den_{n+1} − num_{n+1} · den_n = −1` holds at every
+    layer from 0 through 7.  Frozen reading: 8 instances of the
+    same conserved invariant.  Dynamic reading: 8 iteration
+    steps each preserving the symplectic form.  Same content,
+    two Lens readings (§3.4 + §8.7). -/
+theorem mobius_213_pell_unit_invariant_bundle_8layer :
+    (P_numerator.seq 0 * P_denominator.seq 1
+       - P_numerator.seq 1 * P_denominator.seq 0 = -1)
+    ∧ (P_numerator.seq 1 * P_denominator.seq 2
+       - P_numerator.seq 2 * P_denominator.seq 1 = -1)
+    ∧ (P_numerator.seq 2 * P_denominator.seq 3
+       - P_numerator.seq 3 * P_denominator.seq 2 = -1)
+    ∧ (P_numerator.seq 3 * P_denominator.seq 4
+       - P_numerator.seq 4 * P_denominator.seq 3 = -1)
+    ∧ (P_numerator.seq 4 * P_denominator.seq 5
+       - P_numerator.seq 5 * P_denominator.seq 4 = -1)
+    ∧ (P_numerator.seq 5 * P_denominator.seq 6
+       - P_numerator.seq 6 * P_denominator.seq 5 = -1)
+    ∧ (P_numerator.seq 6 * P_denominator.seq 7
+       - P_numerator.seq 7 * P_denominator.seq 6 = -1)
+    ∧ (P_numerator.seq 7 * P_denominator.seq 8
+       - P_numerator.seq 8 * P_denominator.seq 7 = -1) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.Mobius213
