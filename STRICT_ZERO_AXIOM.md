@@ -481,8 +481,7 @@ verified `#print axioms` returns "does not depend on any axioms".
 
 | Module | PURE count | Highlights |
 |---|---|---|
-| `E213.Lens.UndifferentiatedRaw` | 3 | `constLens_collapses`, `pre_lens_singleton`, `constLens_kernel_total` |
-| `E213.Lens.RawTopology` | 9 | `k_infty_at_raw_bundle` + indiscrete bookend (6), plus discrete bookend (`discrete_kernel_eq`, `discrete_distinguishes_distinct`, `topology_two_bookends`) |
+| `E213.Lens.RawTopology` | 7 | merged-and-deduplicated: indiscrete bookend (`constLens_view_eq`, `constLens_equiv`, `constLens_is_top`, `k_infty_at_raw_bundle`), discrete bookend (`discrete_kernel_eq`, `discrete_distinguishes`), and the two-bookend topology bundle (`topology_two_bookends`).  `UndifferentiatedRaw.lean` merged in (was 3 theorems, all duplicates of indiscrete-bookend content). |
 
 ### Three-direction uniqueness bundle (§1.3 realisation)
 

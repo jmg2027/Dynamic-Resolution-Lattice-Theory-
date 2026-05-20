@@ -1,36 +1,28 @@
 import E213.Theory.Raw.API
 import E213.Lens.LensCore
 import E213.Lens.Lattice.Lattice
-import E213.Lens.UndifferentiatedRaw
 import E213.Lens.Algebra.IdLensEq
 
 /-!
-# Lens.RawTopology — Lens kernels as Raw equivalence-topology
+# Lens.RawTopology — K_∞ ≡ point ≡ discrete vs indiscrete bookends
 
-Deepening of `Lens/UndifferentiatedRaw.lean` and the §9.5
-K_∞ ≡ point ≡ infinite topological space picture.
+Formalisation of `seed/AXIOM/09_chart_relativity.md` §9.5:
+under different Lens readings, Raw exhibits two extreme
+topological pictures.
 
-The Lens-refinement preorder on `Lens α` induces a corresponding
-preorder on Raw equivalence relations.  Two extremes:
+  · **Indiscrete reading** (constLens):  every pair of Raws is
+    equivalent.  Raw collapses to a single point — Lean witness
+    of "K_∞ ≡ point ≡ infinite trivial-topology space" at raw
+    level.  The "naming event" (Lens choice ≠ constLens) is what
+    first introduces colour.
 
-  - **Indiscrete reading** (constLens):  every pair of Raws is
-    equivalent — the maximum-coarse kernel.  At this reading Raw
-    behaves like K_∞ (no two vertices distinguishable, the entire
-    object collapses to a singleton equivalence class).
-
-  - **Discrete reading** (idLens):  the kernel is exactly
-    equality — every distinct pair separates.  See
-    `Lens/Algebra/IdLensEq.lean` for the kernel characterisation
-    `idLens.equiv = (· = ·)`.
+  · **Discrete reading** (idLens):  the kernel is exactly
+    equality.  Every distinct pair separates — finest possible
+    distinction.  Cf. `Lens/Algebra/IdLensEq.lean`.
 
 Intermediate Lenses populate the lattice between these two
-extremes.  Per §9.5, the K_∞ ≡ point equivalence at raw level
-holds *under the indiscrete reading*: with no Lens distinction
-applied, Raw is operationally a single point.
-
-This file formalises the indiscrete (K_∞-at-raw) bookend as a
-bundle of ∅-axiom theorems — the universal and total properties
-that together witness "Raw is a singleton under no distinction".
+extremes.  This file formalises both bookends + the universal
+property bracketing every Lens-induced kernel between them.
 -/
 
 namespace E213.Lens.RawTopology
@@ -38,146 +30,89 @@ namespace E213.Lens.RawTopology
 open E213.Theory (Raw)
 open E213.Lens (Lens)
 open E213.Lens.Lattice.Lattice (constLens constLens_view all_refine_constLens)
-open E213.Lens.UndifferentiatedRaw (constLens_collapses)
 
-/-! ## §1 — Indiscrete reading (constLens kernel)
+/-! ## §1 — Indiscrete bookend (constLens / K_∞ at raw) -/
 
-Every pair is equivalent.  The Lens-quotient is a singleton:
-the entire Raw maps to a single value under the constant Lens.
--/
+/-- ★ **constLens collapses Raw**: under the constant Lens, every
+    Raw maps to the same α-value `e`.  This is the Lean witness
+    of §9.5's "K_∞ ≡ point ≡ trivial-topology infinite space"
+    equivalence at the Lens-quotient level — no Raw distinction
+    survives the no-distinction reading. -/
+theorem constLens_view_eq {α : Type} (e : α) (r s : Raw) :
+    (constLens e).view r = (constLens e).view s := by
+  rw [constLens_view, constLens_view]
 
-/-- **Total kernel**: the equivalence under constLens is the
-    total relation on every pair. -/
-theorem indiscrete_kernel_total {α : Type} (e : α) (x y : Raw) :
+/-- ★ The same fact at the kernel level: the constLens kernel is
+    the total relation — every pair of Raws is equivalent.  This
+    is the "K_∞ at raw" / "globally collapsed" / "indiscrete
+    topology" form of `constLens_view_eq`, depending on which
+    Lens-quotient name one prefers. -/
+theorem constLens_equiv {α : Type} (e : α) (x y : Raw) :
     (constLens e).equiv x y :=
-  constLens_collapses e x y
+  constLens_view_eq e x y
 
-/-- **Singleton image**: the constLens image is a singleton —
-    only one value `e` appears. -/
-theorem indiscrete_image_singleton {α : Type} (e : α) (r : Raw) :
-    (constLens e).view r = e :=
-  constLens_view e r
-
-/-- **All-Raws-equivalent**: a stronger restatement.  For any
-    chosen `e`, every Raw is `equiv`-related to every other Raw —
-    not just pairwise, but globally collapsed.
-
-    This is the "K_∞ at raw" statement: choosing any Raw as
-    "basepoint", every other Raw is indistinguishable from it
-    under the no-distinction reading.  Cf. Aut(K_∞) being the
-    full symmetric group on vertices (§9.5). -/
-theorem indiscrete_globally_collapsed
-    {α : Type} (e : α) (r₀ : Raw) (r : Raw) :
-    (constLens e).equiv r₀ r :=
-  constLens_collapses e r₀ r
-
-/-! ## §2 — Lattice bookend: indiscrete is the top
-
-`Lens/Lattice/Lattice.lean` already establishes `constLens e` as
-the top (coarsest) of the Lens-refinement preorder.  Here we
-record the K_∞-at-raw / point / trivial-topology framing
-explicitly.
--/
-
-/-- **constLens is the top**: every Lens refines constLens.
-    This is the K_∞-at-raw witness: no Lens reading can be
-    coarser than the no-distinction one. -/
-theorem indiscrete_is_top {α : Type} (e : α) (L : Lens α) :
+/-- ★ **constLens is the lattice top**: every Lens refines
+    constLens.  Universal-property witness that no Lens reading
+    can be coarser than the no-distinction one. -/
+theorem constLens_is_top {α : Type} (e : α) (L : Lens α) :
     L.refines (constLens e) :=
   all_refine_constLens e L
 
-/-- ★ **K_∞ ↔ point bundle** (§9.5).  Under the indiscrete
-    reading:
-
-      (i)   every Raw maps to the same α-value;
-      (ii)  every pair of Raws is α-equivalent;
-      (iii) the kernel is total — no internal differentiation
-            (globally collapsed form);
-      (iv)  the indiscrete Lens is the coarsest in the Lens lattice.
-
-    Conjoined, these say: at the no-distinction reading, Raw is
-    operationally a *singleton* with no internal structure —
-    K_∞-at-raw / point / trivial-topology condition realised at
-    the Lens-quotient level. -/
+/-- ★★ **K_∞ ↔ point bundle** (§9.5).  Under the indiscrete
+    reading, four equivalent facts:
+      (i)   every Raw maps to the same α-value `e`
+      (ii)  every pair of Raws is `.equiv`-related
+      (iii) constLens is the lattice top (universal refinement)
+      (iv)  every other Lens kernel is contained in constLens's
+            (topological coarseness universal property)
+    Conjoined, these realise §9.5: at the no-distinction
+    reading, Raw is operationally a singleton. -/
 theorem k_infty_at_raw_bundle {α : Type} (e : α) :
-    -- (i) singleton image
     (∀ r : Raw, (constLens e).view r = e)
-    -- (ii) pairwise total kernel
     ∧ (∀ x y : Raw, (constLens e).equiv x y)
-    -- (iii) globally-collapsed form (any basepoint)
-    ∧ (∀ r₀ r : Raw, (constLens e).equiv r₀ r)
-    -- (iv) coarsest in the lattice (universal property)
-    ∧ (∀ L : Lens α, L.refines (constLens e)) :=
-  ⟨indiscrete_image_singleton e,
-   indiscrete_kernel_total e,
-   indiscrete_globally_collapsed e,
-   indiscrete_is_top e⟩
+    ∧ (∀ L : Lens α, L.refines (constLens e))
+    ∧ (∀ L : Lens α, ∀ x y : Raw,
+          L.equiv x y → (constLens e).equiv x y) :=
+  ⟨constLens_view e,
+   constLens_equiv e,
+   constLens_is_top e,
+   fun _ x y _ => constLens_view_eq e x y⟩
 
-/-! ## §3 — Topological reading
+/-! ## §2 — Discrete bookend (idLens / coarsest distinction) -/
 
-A "Lens-equivalence topology" on Raw can be read off the kernel:
-two Raws are "open-separable" iff some Lens distinguishes them.
-
-  - **constLens-reading**: no Lens distinguishes any pair → the
-    induced topology is *indiscrete* (only ∅ and Raw are open).
-  - **idLens-reading**: every distinct pair is distinguished →
-    the induced topology is *discrete* (every singleton is open).
-
-This file's `k_infty_at_raw_bundle` captures the indiscrete end.
-The discrete end is captured by `Lens/Algebra/IdLensEq.lean`'s
-`idLens_kernel_eq` (kernel = equality).  Together they bracket
-the Lens-induced topology lattice from coarsest to finest. -/
-
-/-- The constLens-induced equivalence on Raw is the universally
-    coarsest decidable kernel — every other kernel refines it
-    (= adds distinctions).  This is the topological-coarseness
-    bookend at the K_∞ end. -/
-theorem indiscrete_is_coarsest_universal {α : Type} (e : α) :
-    ∀ L : Lens α, ∀ x y : Raw,
-      L.equiv x y → (constLens e).equiv x y := by
-  intro L x y _
-  exact constLens_collapses e x y
-
-/-! ## §4 — Discrete end (idLens kernel)
-
-The mirror bookend at the discrete-topology end.  Under the
-identity reading every distinct pair separates, so the kernel
-is exactly equality on Raw.
--/
-
-/-- **idLens kernel = equality**: forwarded from
-    `Lens/Algebra/IdLensEq.idLens_equiv_eq`.  The finest Lens-
-    kernel collapses to literal Raw equality. -/
+/-- ★ **idLens kernel = equality**: the finest Lens kernel
+    collapses to literal Raw equality.  Forwarded from
+    `Lens/Algebra/IdLensEq.idLens_equiv_eq`. -/
 theorem discrete_kernel_eq (x y : Raw) :
     E213.Lens.Instances.Identity.idLens.equiv x y ↔ x = y :=
   E213.Lens.Algebra.IdLensEq.idLens_equiv_eq x y
 
-/-- **Discrete distinguishes distinct Raws**: for distinct `x`
-    and `y`, the idLens kernel does NOT relate them.  Direct
-    consequence of `discrete_kernel_eq`. -/
-theorem discrete_distinguishes_distinct {x y : Raw} (h : x ≠ y) :
+/-- ★ **Discrete distinguishes distinct Raws**: distinct `x` and
+    `y` are not idLens-equivalent.  Mirror of `constLens_equiv`
+    at the discrete end. -/
+theorem discrete_distinguishes {x y : Raw} (h : x ≠ y) :
     ¬ E213.Lens.Instances.Identity.idLens.equiv x y := by
   intro hxy
   exact h ((discrete_kernel_eq x y).1 hxy)
 
-/-- ★ **Two-bookend topology bundle** (§9.5 end-to-end).
+/-! ## §3 — Two-bookend topology -/
 
-  Reading the Lens-refinement lattice from coarsest to finest:
+/-- ★★★ **Two-bookend topology** (§9.5 end-to-end).  The Lens-
+    refinement lattice is bracketed:
 
-    · `constLens` (top): kernel total, image singleton,
-      K_∞-at-raw / point / indiscrete topology.
-    · `idLens` (bottom): kernel = equality, every distinct pair
-      separates, discrete topology.
+      · `constLens` (top, indiscrete): kernel is total; image
+        is a singleton; every other Lens refines it; every
+        other kernel is contained in it.
+      · `idLens` (bottom, discrete): kernel = Raw equality;
+        every distinct pair separates.
 
-  Every intermediate Lens lives strictly between these two
-  bookends.  The Lens-induced topology lattice is bracketed by
-  the constLens (indiscrete) and idLens (discrete) endpoints. -/
-theorem topology_two_bookends {α : Type} (e : α) (x y : Raw) (h : x ≠ y) :
-    -- indiscrete bookend (top)
+    Intermediate Lenses populate the interior of the lattice.
+    For any distinct pair `x ≠ y`, the two bookends witness:
+    constLens identifies them, idLens distinguishes them. -/
+theorem topology_two_bookends {α : Type} (e : α)
+    {x y : Raw} (h : x ≠ y) :
     (constLens e).equiv x y
-    -- discrete bookend (bottom) does not relate x, y
     ∧ ¬ E213.Lens.Instances.Identity.idLens.equiv x y :=
-  ⟨constLens_collapses e x y,
-   discrete_distinguishes_distinct h⟩
+  ⟨constLens_equiv e x y, discrete_distinguishes h⟩
 
 end E213.Lens.RawTopology

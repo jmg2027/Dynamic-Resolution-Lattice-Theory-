@@ -194,9 +194,12 @@ New capstones from the 14-agent audit + revision pass:
   - `Lens/PredicateSelfEncoding.predicate_self_encoding_closure` —
     predicates back to Raw via positional Gödel numbering
     (7 PURE, closing the §9.3 loop).
-  - `Lens/UndifferentiatedRaw.constLens_collapses` — K_∞ ≡
-    point at raw level: constant-Lens collapses Raw to a
-    singleton (3 PURE, §9.5 witness).
+  - `Lens/RawTopology.k_infty_at_raw_bundle` — K_∞ ≡ point at
+    raw level (constLens bookend) plus discrete bookend (idLens
+    kernel = equality) plus two-bookend bracket — §9.5 witness,
+    7 PURE.  (Previously split between `UndifferentiatedRaw` and
+    `RawTopology`; merged 2026-05-20 to remove triple-redundant
+    reformulations.)
 
 ### §1.3 three-direction uniqueness bundle (Meta)
 
