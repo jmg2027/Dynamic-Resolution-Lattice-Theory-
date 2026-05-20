@@ -39,52 +39,32 @@ open E213.Lib.Physics.Simplex.FaceTerms
 /-- Dyson denominator: d - 1 = 4 in atomic config. -/
 def dyson_denom : Nat := d - 1
 
-theorem dyson_denom_eq_4 : dyson_denom = 4 := by decide
+/-- ★★★ Four-fold atomic unification of the integer 4 + Dyson
+    universality.
 
-/-- (d-1) cofactor of d²-1 = adjoint SU(5). -/
-theorem cofactor_of_adjoint :
-    d * d - 1 = dyson_denom * (d + 1) := by decide
+  The integer 4 carries four distinct combinatorial readings, all
+  forced equal by atomicity (3, 2, 5):
+    (i)   d - 1               (smaller cofactor)
+    (ii)  NS + 1              (next layer up)
+    (iii) tetrahedra/vertex   (5-simplex Δ⁴ link, = NS + 1)
+    (iv)  #Λᵏ matter reps     (k = 1, 2, 3, 4 — non-trivial)
 
-/-- d - 1 = NS + 1.  Same four. -/
-theorem dyson_denom_eq_NS_plus_1 : dyson_denom = NS + 1 := by decide
-
-/-- d - 1 = tetrahedra per vertex in 5-simplex Δ⁴. -/
-theorem dyson_denom_eq_tet_per_vertex :
-    dyson_denom = tetrahedra_per_vertex := by decide
-
-/-- d - 1 = #nontrivial matter representations Λᵏ (k=1,2,3,4).
-    Each of these reps has a distinct dimension/role.  -/
-theorem dyson_denom_eq_matter_rep_count :
-    dyson_denom = 4
-    ∧ binom d 1 = 5 ∧ binom d 2 = 10
-    ∧ binom d 3 = 10 ∧ binom d 4 = 5 := by decide
-
-/-- ★ Universal pattern across formulas ★
-    Same Dyson denom in m_μ/m_e, Cabibbo, α_em IR — all use NS+1. -/
-theorem dyson_universal :
-    -- m_μ/m_e: P = 1/(1 - α_GUT/(NS+1))
-    (NS + 1 = dyson_denom)
-    -- α_em IR: + α_GUT/(NS+1)
-    ∧ (NS + 1 = dyson_denom)
-    -- Cabibbo Ξ: contains α_GUT/(NS+1)
-    ∧ (NS + 1 = dyson_denom)
-    -- All same value 4
-    ∧ (dyson_denom = 4) := by decide
-
-/-- ★★★ Four-fold atomic unification ★★★
-    Number 4 has *four* different combinatorial roles in DRLT:
-      (i)   d - 1 (smaller cofactor)
-      (ii)  NS + 1 (next layer up)
-      (iii) #tet/vertex (simplex link)
-      (iv)  #matter reps (Λᵏ k=1..4)
-    Atomicity (3,2,5) forces all four readings to be the same
-    integer — structural identity, not numerical accident. -/
+  Dyson universality: y = α_GUT/(d - 1) appears unchanged in
+  three precision formulas (m_μ/m_e P-factor, Cabibbo Ξ tail,
+  α_em IR ε correction).  Same denominator across all three. -/
 theorem four_atomic_unification :
-    (d - 1 = 4)
+    -- four readings of 4
+    (dyson_denom = 4)
     ∧ (NS + 1 = 4)
     ∧ (tetrahedra_per_vertex = 4)
-    ∧ (binom d 1 + binom d 2 + binom d 3 + binom d 4
-        = 5 + 10 + 10 + 5)
-    ∧ (5 + 10 + 10 + 5 = 30) := by decide
+    ∧ (dyson_denom = NS + 1)
+    ∧ (dyson_denom = tetrahedra_per_vertex)
+    -- (d-1)(d+1) = d² - 1 = adjoint SU(5)
+    ∧ (d * d - 1 = dyson_denom * (d + 1))
+    -- non-trivial matter reps: 5 + 10 + 10 + 5 = 30
+    ∧ (binom d 1 = 5) ∧ (binom d 2 = 10)
+    ∧ (binom d 3 = 10) ∧ (binom d 4 = 5)
+    ∧ (binom d 1 + binom d 2 + binom d 3 + binom d 4 = 30) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Couplings.DysonStructure
