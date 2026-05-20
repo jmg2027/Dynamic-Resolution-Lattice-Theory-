@@ -32,7 +32,10 @@ This is the *axiom-level origin* of Phase 1's α_3, α_2, α_1:
 
 CLAUDE.md: axiom description does not use "relation, structure, cognition, observer, space".
 "force" is a *Lens output label* — the name of the classification by pair type.
-The axiom itself does not use the word force.
+The axiom itself does not use the word force.  Per
+`seed/AXIOM/07_self_reference.md` §8.4 dichotomy guide, "force"
+vs "axiom" is a false dichotomy; "force" is a Lens reading
+applied to the residue's pair-type structure.
 
 In this file too, "channel = force" in doc-strings is *interpretation*,
 not an axiom claim.

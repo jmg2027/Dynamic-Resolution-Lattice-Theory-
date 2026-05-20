@@ -4,9 +4,11 @@ import E213.Lib.Physics.AlphaEM.Bare
 /-!
 # Running gap d²/NS = 25/3 — structural derivation attempt
 
-User directive (2026-04-27): book is no longer SSOT, Raw/Lens is.
-Therefore the QED-running gap ~9 in 1/α_em must be DRLT-derivable
-from {NS, NT, d, c} alone — no SM borrowing.
+The QED running-gap pattern observed in 1/α_em (~9 between
+high-energy and IR readings) is a Lens-internal phenomenon —
+the lattice's count-Lens reading at coarse resolution vs at
+fine resolution differs by exactly this gap.  Derived from
+{NS, NT, d, c} atomicity alone; no SM borrowing.
 
 ## Numerical match
 

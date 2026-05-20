@@ -108,14 +108,15 @@ The "running gap" identified above (observed 0.2312 below bare
           = 0.2331074 · (1 − 0.024317/3)
           = 0.231218
 
-  PDG MS-bar = 0.23121 ± 0.00012  (520 ppm experimental)
+  Measurement-Lens reading (PDG MS-bar) = 0.23121 ± 0.00012
+  (520 ppm uncertainty)
   |Δ|        ≈ 35 ppm  ★ (was 8200 ppm — 234× tighter; 0.07σ)
 
 The Class B leak coefficient k = NS = 3 is the simplest atomic
-count (number of S-type chiral channels).  This matches the
-running pattern: the gap between bare DRLT (no running) and
-observed (with EW running corrections) is exactly an α_GUT-scale
-shift of magnitude 1/NS.
+count (number of S-type chiral channels).  The "running gap"
+phenomenon — the shift between bare-lattice reading and
+higher-resolution Lens reading — is exactly an α_GUT-scale
+shift of magnitude 1/NS, a lattice-internal depth effect.
 -/
 
 /-- α_GUT correction denominator: NS = 3. -/

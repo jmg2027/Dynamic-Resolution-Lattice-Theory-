@@ -78,9 +78,10 @@ theorem basel_is_propagator_sum :
     ∧ propagator_weight 3 = (1, 9)
     ∧ S 3 = (49, 36) := by decide
 
-/-- **Structural conclusion**: Basel form 1/n² is forced by NS = 3.
-    No external choice, no ansatz — solid-angle geometry in
-    PairForcing-derived spatial dimension count. -/
+/-- **Structural conclusion**: Basel form 1/n² is forced by NS = 3 —
+    solid-angle geometry in PairForcing-derived spatial dimension
+    count.  The exponent 2 is what NS = 3 yields, not what we
+    chose. -/
 theorem basel_structurally_forced :
     propagator_exponent = 2
     ∧ propagator_weight 2 = (1, 4)

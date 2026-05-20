@@ -31,13 +31,14 @@ open E213.Lens.Lattice.Lattice (refines_idLens_iff_injective)
 def IsUniversal {α : Type} (L : Lens α) : Prop :=
   Function.Injective L.view
 
-/-- Origin at observer O: the basepoint of α relative to O. -/
-def OriginAt {α : Type} (L : Lens α) (O : Raw) : α := L.view O
+/-- Basepoint at `r₀`: the α-image of `r₀` under L. -/
+def OriginAt {α : Type} (L : Lens α) (r₀ : Raw) : α := L.view r₀
 
-/-- A universal lens distinguishes the observer from any distinct Raw. -/
+/-- A universal lens distinguishes the basepoint from any other Raw
+    via its α-reading. -/
 theorem distinguishes {α : Type} (L : Lens α)
-    (h : IsUniversal L) {O X : Raw} (hne : O ≠ X) :
-    L.view O ≠ L.view X := fun heq => hne (h heq)
+    (h : IsUniversal L) {r₀ x : Raw} (hne : r₀ ≠ x) :
+    L.view r₀ ≠ L.view x := fun heq => hne (h heq)
 
 /-- Universality ↔ refining the identity lens. -/
 theorem universal_iff_refines_idLens {α : Type} (L : Lens α) :
