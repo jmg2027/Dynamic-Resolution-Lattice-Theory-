@@ -36,22 +36,17 @@ def IE_lower : Nat := 135993
 /-- bracket upper at 137.00: m_e/(2·137.00²) ≈ 13.6131 eV. -/
 def IE_upper : Nat := 136131
 
-/-- ★ IE_observed ∈ [lower, upper] ★ -/
-theorem IE_in_bracket :
-    IE_lower < IE_H_observed ∧ IE_H_observed < IE_upper := by
-  refine ⟨?_, ?_⟩
-  all_goals decide
+/-- ★ Hydrogen IE Capstone — bracket contains measurement-Lens reading.
 
-/-- bracket width = 138 (= 0.1% of 13.6057). -/
-theorem bracket_width : IE_upper - IE_lower = 138 := by decide
-
-/-- ★ Hydrogen IE Capstone ★ -/
+  IE_observed = 136057 (in 10⁻⁴ eV) is inside the atomic bracket
+  [IE_lower = 135993, IE_upper = 136131].  Bracket width 138 ≈
+  0.1% of the 13.6057 eV reading. -/
 theorem hydrogen_IE_atomic :
     (NT = 2)
     ∧ (IE_H_observed = 136057)
-    ∧ (IE_lower < IE_H_observed) ∧ (IE_H_observed < IE_upper) := by
-  refine ⟨?_, ?_, ?_, ?_⟩
-  all_goals decide
+    ∧ (IE_lower < IE_H_observed) ∧ (IE_H_observed < IE_upper)
+    ∧ (IE_upper - IE_lower = 138) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-! ## Sub-ppm tightening (using Phase 1 α to ppm) -/
 
@@ -67,22 +62,18 @@ def inv_alpha_milli : Nat := 137036
 /-- m_e c² in 10⁻² eV (cEV) = 51099895. -/
 def m_e_centi : Nat := 51099895
 
-/-- ★ Formal sub-ppm identity ★
-    Exact computation: 2·IE_micro·(1/α_milli)² = m_e_centi · 10¹⁰ + ε
-    where |ε| / RHS ≈ 4.3 ppb.
-    LHS = 510998952211460256, RHS = 510998950000000000.
-    Diff = 2211460256 < 3·10⁹. -/
+/-- ★ Formal sub-ppm identity (bracket + exact diff).
+
+  Exact computation: 2·IE_micro·(1/α_milli)² agrees with
+  m_e_centi · 10¹⁰ to within 2211460256 ≈ 4.3 ppb out of
+  RHS ≈ 5·10¹⁷.  Strict bracket: LHS in (RHS, RHS + 3·10⁹). -/
 theorem IE_formula_sub_ppm :
     2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
-    < m_e_centi * 10000000000 + 3000000000
+        < m_e_centi * 10000000000 + 3000000000
     ∧ 2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
-    > m_e_centi * 10000000000 := by
-  refine ⟨?_, ?_⟩
-  all_goals decide
-
-/-- Difference (sub-ppm): LHS - RHS = 2211460256 ≈ 4.3 ppb. -/
-theorem IE_diff_ppb :
-    2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
-    - m_e_centi * 10000000000 = 2211460256 := by decide
+        > m_e_centi * 10000000000
+    ∧ 2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
+        - m_e_centi * 10000000000 = 2211460256 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.HydrogenPPM

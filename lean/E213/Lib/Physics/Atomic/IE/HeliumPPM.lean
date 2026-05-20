@@ -48,29 +48,13 @@ def sigma_factor_int : Nat := 4517
 /-- IE(He) DRLT (Phase 1) = 4·R · σ ≈ 54422772 · 4517 / 10000 = 24590767. -/
 def IE_He_DRLT_micro : Nat := 24590767
 
-/-- IE(He) DRLT vs observed difference = 3380 μeV out of 24.5M = 138 ppm.
-    Better than Phase 1 0.1% claim. -/
-theorem IE_He_DRLT_diff :
-    IE_He_DRLT_micro - IE_He_micro = 3380 := by decide
+/-- ★ He IE Capstone ★
 
-/-- ★ He IE bracket containment ★
-    DRLT prediction within 200 ppm of observed. -/
-theorem IE_He_bracket :
-    -- 24587387 - 5000 < 24590767 < 24587387 + 5000
-    IE_He_micro < IE_He_DRLT_micro
-    ∧ IE_He_DRLT_micro - IE_He_micro < 5000 := by
-  refine ⟨?_, ?_⟩
-  all_goals decide
-
-/-- σ_factor atomic form check: 0.4517 ≈ 1/2 - 2·α_GUT.
-    1/NT = 0.5 = 5000/10000.
-    2·α_GUT ≈ 12/(25·π²) ≈ 0.0486.
-    1/2 - 0.0486 = 0.4514. -/
-theorem sigma_factor_decomp :
-    -- 4517 ≈ 5000 - 483 (= 4·α_GUT in 10⁻⁴ units)
-    5000 - sigma_factor_int = 483 := by decide
-
-/-- ★ He IE Capstone ★ -/
+  DRLT prediction `IE_He_DRLT_micro = 24590767` versus measurement-
+  Lens reading `IE_He_micro = 24587387` differ by 3380 μeV out of
+  24.5M (= 138 ppm, well within the 5000 = 200 ppm bracket).
+  σ_factor ≈ 1/NT − 2·α_GUT decomposes as 4517 = 5000 − 483 at
+  10⁻⁴ scale. -/
 theorem helium_IE_atomic :
     -- Z² = NT² = 4
     (NT * NT = 4)
@@ -78,9 +62,13 @@ theorem helium_IE_atomic :
     ∧ (four_R_micro = 54422772)
     -- σ_factor ≈ 1/NT - 2·α_GUT
     ∧ (sigma_factor_int = 4517)
-    -- DRLT prediction within 200 ppm
+    -- σ_factor decomposition at 10⁻⁴ scale
+    ∧ (5000 - sigma_factor_int = 483)
+    -- DRLT - measurement gap explicit
+    ∧ (IE_He_DRLT_micro - IE_He_micro = 3380)
+    -- DRLT prediction within 200 ppm (5000 / 24.5M)
+    ∧ (IE_He_micro < IE_He_DRLT_micro)
     ∧ (IE_He_DRLT_micro - IE_He_micro < 5000) := by
-  refine ⟨?_, ?_, ?_, ?_⟩
-  all_goals decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.HeliumPPM
