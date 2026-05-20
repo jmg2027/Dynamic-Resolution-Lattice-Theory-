@@ -113,17 +113,10 @@ observable.
 
 ## Resolution limit is structural (not "finitism")
 
-Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Summary:
-
-  - 213 commits to no cardinality / finite / infinite property at T0
-    (Raw).  Cardinality = lens output.
-  - `N_U = d^(d²) = 5²⁵` is a system invariant (converges across 4
-    independent derivations).
-  - ZFC results received via type-theoretic distinction, not
-    philosophical rejection (e.g., Cantor by inhabitant absence;
-    Cauchy limit ≠ exact value by structural ineq preservation).
-  - Physics formalization uses ℕ + ℚ + finite simplex combinatorics +
-    interval bound at N_U; ÷, ∫, π, e, ζ(2) are unnecessary.
+Canonical: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Cardinality /
+finite / infinite are Lens outputs, not Raw commitments.
+`N_U = d^(d²) = 5²⁵` is a system invariant.  Physics formalization
+uses ℕ + ℚ + finite simplex + interval bound at N_U.
 
 Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 
@@ -215,6 +208,10 @@ When the user issues a correction (style / logic / pattern / framing):
 | External classification | "let me classify by axiom-cost / MTD" | Let structure emerge; don't impose |
 | Metaphysical framing | "213 is the foundation of all math" | "213 is the residue of pointing"; avoid foundational rhetoric |
 | Self-soothing agreement | "yes you're right" without engagement | Genuinely test; agree only after testing |
+| Substrate metaphor | "Lens operates *on top of* residue" | Lens application IS a residue self-pointing event, not a layer above |
+| Count-Lens import as Raw | "at least two somethings exist" | `2` is the count-Lens reading of the first distinguishing, not a Raw cardinality commitment |
+| Deferred ontology dichotomy | "ontology is open; we focus on derivation" | The split itself is the import; successful pointing IS what ontology asks |
+| Fine-tuning as forbidden | "we don't allow free parameters" | Free parameters have no operand — no exterior dialer exists; absence is structural, not a rule |
 
 When the user catches one, *don't apologize and repeat* — actually
 internalize per Active Learning loop.

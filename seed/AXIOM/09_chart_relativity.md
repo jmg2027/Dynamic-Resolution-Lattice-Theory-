@@ -35,16 +35,19 @@ chart-invariance theorem
 
 ## §9.2 Operation and object are not pre-separated
 
-Every Raw participates simultaneously as:
-
-- an **object** — the result of slashing two prior Raws,
-- an **operator-part** — an argument to the slash that builds
-  some later Raw.
+What the Lean encoding labels as **object** (the result of slashing
+two prior Raws) and **operator-part** (an argument to a slash that
+builds some later Raw) are not two roles a Raw simultaneously
+*occupies* — they are two Lens readings of the same Raw event.  The
+Raw does not host two roles; the labelling hosts two readings.
 
 The `inductive Tree` shape forces a node/arrow separation that the
-axiom does not impose.  This is a property *of the encoding*, not of
-Raw.  The cost is catalogued in `08_encoding_costs.md` §8a.1 as the
-inductive-type entry; this chapter adds the *operational* reading.
+axiom does not impose.  This separation lives in the *labelling*,
+not in Raw.  The cost is catalogued in `08_encoding_costs.md`
+§8a.1 as the inductive-type entry; this chapter adds the
+*operational* reading: state-transition = state, operator = object
+are the natural form of a system with no external time axis or
+external role-assigner.
 
 A self-referential cascade picture: for an internal observer to be
 defined it requires another object; the boundary between the two is

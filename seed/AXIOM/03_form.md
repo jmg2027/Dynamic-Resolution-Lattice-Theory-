@@ -15,22 +15,33 @@ Austerity is not poverty — it is **auditability**.
 
 ## §4.2 Why two, why binary
 
-- **One**: No object of distinction, so reference is impossible.
-  Being something cannot be established.  Therefore disqualified.
-- **Two**: Distinction is established for the first time.  Minimum
-  satisfied.
-- **Taking three or more as primitive**: the third something can be
-  defined by its relation with the existing two, so there is no
-  reason to treat it as primitive.  Unnecessary commitment.
+(Caveat: "two" throughout this section is the *count-Lens reading*
+of distinguishing's residue, not a Raw cardinality commitment.
+Cardinality at Raw is absent per `02_statement.md` §3.3.)
+
+- **One**: Distinguishing cannot operate at all — no second
+  something for the first to be distinguishable from.  Nothing is
+  pointed at.
+- **Two**: The minimum count-Lens reading of a successful
+  distinguishing.  Not "two somethings prior to distinguishing":
+  the count `2` *is* the residue of the first distinguishing
+  operation.
+- **Three or more as primitive**: a third something is the
+  count-Lens reading of *further* distinguishing operations applied
+  to the existing residue.  Treating count `≥ 3` as primitive
+  imports cardinality where distinguishing has not yet produced
+  that count.
 
 - **Unary (operation on one)**: Self-reflexive and cannot produce a
   new something.
 - **Binary**: The minimum form in which a new something arises from
-  two somethings.  Necessary and sufficient.
+  a residue with two-count.  Necessary and sufficient.
 - **Ternary or more**: Reconstructible by repetition of binary.  No
   reason to treat as primitive.
 
-That is, **two + binary** is the unique minimum choice.
+That is, **two + binary** is the unique minimum *count-Lens shape*
+of the Raw residue — not a chosen pair of numbers but the only
+count-Lens reading the first distinguishing admits.
 
 ## §4.3 Why symmetric, why anti-reflexive
 

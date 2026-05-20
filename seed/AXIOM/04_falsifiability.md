@@ -74,8 +74,23 @@ theory.
 
 From this axiom, by identifying a single Lens (the physical
 observer Lens), all observed physical constants must be derivable
-without fudge.  This is a strong empirical prediction; if it fails,
-the theory's scope is narrowed or the theory itself is abandoned.
+without fudge.
+
+This is not a *methodological commitment* to 0-parameter form — it
+is the *structural absence* of free parameters.  "Free parameter"
+means "value set by an external dialer"; 213 commits to no exterior
+(`07_self_reference.md` §8.1), so the category of
+values-set-from-outside is unavailable.  Physical constants appear
+only as residue-internal fixed points (cf. `02_statement.md` §3.4 —
+φ as the fixed point of self-pointing iteration; same φ in DRLT
+constants).  *Tuning* a constant is not forbidden — the action has
+no operand to apply to.
+
+The empirical prediction is therefore strong by structure, not by
+choice: if a constant has been derived as a residue-internal fixed
+point and measurement disagrees, the Lens reading was wrong, or the
+theory is wrong.  No third option ("we'll find a parameter to
+adjust") is available.
 
 The wider the range over which predictions hold, the stronger the
 claim of the axiom's primacy.

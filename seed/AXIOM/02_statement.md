@@ -39,8 +39,8 @@ in the axiom).  Details: `seed/AXIOM/08_encoding_costs.md`.
 
 | # | Clause | Status |
 |---|---|---|
-| 1 | Something exists.  At least two.  Recorded `a`, `b`. | **axiom** (re-expression of "a exists" together with its inevitable distinguishing residue) |
-| 2 | Pairing of two somethings is yet another something. `a/b`. | **axiom** (auto-emergence of the residue family — `/` is *referring*, not operator) |
+| 1 | Distinguishing operates; the residue is recorded as distinguishable somethings `a`, `b`. | **axiom** (re-expression of "a exists" with its inevitable distinguishing residue — `2` is the count-Lens reading of the result, not a Raw cardinality commitment; cardinality is absent at Raw per §3.3) |
+| 2 | The residue of distinguishing already-distinguished somethings is itself a something. `a/b`. | **axiom** (auto-emergence of the residue family — `/` is *referring*, not operator) |
 | 3 | Pairing is symmetric: `a/b = b/a`. | **encoding cost** (order is absent from the axiom; Lean's inductive imposes argument positions, so symmetry must be declared as quotient) |
 | 4 | No pairing with oneself: `x/x` undefined. | **encoding cost** (the concept "self-residue" is absent from the axiom; Lean must declare the precondition `x ≠ y` explicitly to block `slash x x`) |
 
