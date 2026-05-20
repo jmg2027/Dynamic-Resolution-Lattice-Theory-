@@ -29,7 +29,7 @@ SPECIFIC N_U.  π is fake — it appears nowhere in DRLT primitives.
   | d^(d²) (hierarchy)  | 298023223876953125 (≈3·10¹⁷) | 1.2×10⁻¹⁶    |
 
 The hierarchy candidate `d^(d²) = 5²⁵` (already proved as
-`hierarchy_cardinality` in FamousCoincidences) gives sub-ppb
+`hierarchy_cardinality` in AtomicIdentities) gives sub-ppb
 deviation — well within Validation Standard #1 even without
 SO(10)/Gram corrections.
 -/

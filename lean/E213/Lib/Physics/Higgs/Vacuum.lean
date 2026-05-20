@@ -22,7 +22,7 @@ DRLT formula:
   branching → total capacity d^(d²) = 5^25 ≈ 3 × 10¹⁷.
 
   → The "smallness" of v_H is the direct consequence of **lattice cardinality**,
-    not fine-tuning.
+    forced by lattice depth.
 
 ## Atomic structure
 
@@ -89,7 +89,7 @@ theorem hier_ratio_bracket :
 
 /-- ★ Hierarchy arises naturally ★
     v_H ≪ M_Pl is a natural result of lattice depth d^(d²),
-    not fine-tuning.  (d+1)/d^(d²) = 6/5^25 ≈ 2·10⁻¹⁷. -/
+    forced by lattice depth.  (d+1)/d^(d²) = 6/5^25 ≈ 2·10⁻¹⁷. -/
 theorem hierarchy_atomic :
     -- Numerator = d + 1 = bipartite edges
     (hier_num = NS * NT)  -- 6 = 3·2

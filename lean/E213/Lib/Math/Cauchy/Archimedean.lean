@@ -2,7 +2,7 @@ import E213.Lens.Instances
 import E213.Meta.Tactic.NatHelper
 
 /-!
-# ArchimedeanCauchy: ℝ-like completion via Dedekind cut
+# ArchimedeanCauchy: ℝ-like Lens limit structure via Dedekind cut
 
 Mingu (C) direction (2026-04-25): abLens + order-projection family.
 

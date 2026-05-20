@@ -62,7 +62,7 @@ theorem confinement_at_NS_3 :
 theorem inv_alpha_3_via_NS_sq :
     NS * NS - 1 = 8 := by decide
 
-/-- ★ Photon kernel = α_3 strange link ★
+/-- ★ Photon kernel = α_3 atomic identity ★
     Same NS² - 1 = 8 appears in:
       - 1/α_3 (confined coupling)
       - b_1(K_{NS,NT}^{(c)}) (photon cycle space)

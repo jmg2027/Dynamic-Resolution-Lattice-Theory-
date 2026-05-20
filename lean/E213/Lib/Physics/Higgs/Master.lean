@@ -23,7 +23,7 @@ DRLT derivation chain:
 
 ## ★ Meaning of λ_H = 1/α_3 ★
 
-  Higgs self-coupling shares the *same integer* 8 as the strong adjoint.
+  Higgs self-coupling reads the same integer 8 as the strong adjoint.
   Structural identity: atomicity forces the equality λ_H = 1/α_3.
 
   Physical: Higgs self-coupling strength = strong color

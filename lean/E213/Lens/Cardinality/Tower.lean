@@ -13,7 +13,7 @@ previous layer:
 
 The sequence climbs Cantor's ladder: each layer's function
 space is strictly larger than its input domain.  All layers
-are *observations* of Raw through progressively higher-order
+are Lens-outputs from Raw through progressively higher-order
 Lens-like constructions.  Raw itself remains the same finite-
 axiom-generated type throughout.
 

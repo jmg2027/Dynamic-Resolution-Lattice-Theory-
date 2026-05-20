@@ -369,7 +369,7 @@ def heteroDepAggregate : DepAggregate heteroW :=
 
 /-! ### 3-way Lens cohabitation — 213-native uniform Nat resolution
 
-**Reframing (Mingu directive)**: the original docstring described the
+**Canonical framing**: the original docstring described the
 heterogeneous type family `fun n => match n with | 0|1 => Nat | _ => Bool`
 as the "ideal" and `boolAsNat`-encoded uniform Nat target as a
 "workaround" for a Lean-side equation-compiler limitation.  This
@@ -392,7 +392,7 @@ reporting* that the heterogeneous shape is not 213-native.
 **The 213 reading**: at the primitive Raw layer, all information is
 bisection trajectories; "Bool" is just a depth-restricted Nat (depth
 ≤ 1).  Encoding the Bool case as `boolAsNat` (true ↦ 1, false ↦ 0)
-is not a coercion-hack — it is the canonical reduction of an
+is is the canonical Lens self-pointing on Bool-as-depth-≤1-Nat of an
 apparently-heterogeneous family to its single cohomological flux on
 the d=5 lattice.
 

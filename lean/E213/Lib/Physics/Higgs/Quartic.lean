@@ -18,7 +18,7 @@ DRLT formula:
     - 2·c² = 8 = NS² - 1 = 1/α_3 (confined adjoint!)
   
   → **λ_H leading denominator = 1/α_3** ★
-    Higgs self-coupling shares the *same integer* 8 as the strong adjoint.
+    Higgs self-coupling reads the same integer 8 as the strong adjoint.
 
 ## f_occ structure
 

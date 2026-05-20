@@ -43,7 +43,7 @@ def inv_upper_with_tail (N : Nat) : (Nat × Nat) :=
   let s := S N
   (P.1 * (100 * s.1) + s.2 * P.2, P.2 * (100 * s.1))
 
-/-- Observed 137.036 ∈ with-tail bracket at N=20. -/
+/-- Measurement-Lens 137.036 ∈ with-tail bracket at N=20. -/
 theorem n20_with_tail_contains_observed :
     let lo := inv_lower_with_tail 20
     let hi := inv_upper_with_tail 20

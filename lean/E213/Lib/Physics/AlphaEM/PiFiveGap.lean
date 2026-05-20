@@ -168,10 +168,10 @@ namespace E213.Lib.Physics.AlphaEM.PiFiveGap
 
     Compares the user's proposed gap term `1/(NS·NT·π⁵)` to the
     existing `α_GUT/(NS²·d) = α_GUT/45` SO(10) correction, against
-    the observed structural gap of 137.0359991 − 137.0354548
+    the bracket-gap (two-Lens difference) of 137.0359991 − 137.0354548
     = 5443 × 10⁻⁷.
 
-    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ matches the observed gap to
+    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ matches the bracket gap (count-Lens vs measurement-Lens) to
     within 3 × 10⁻⁷, while α_GUT/45 ≈ 5403 × 10⁻⁷ matches only to
     40 × 10⁻⁷.  The π⁵ form is **~13× closer**.
 

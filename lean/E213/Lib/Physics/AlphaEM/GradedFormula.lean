@@ -102,7 +102,7 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
   At grades 3 and 4 (cup of edge × triangle = tet, edge × tet = top),
   the Hodge pairing gives a vertex-self-energy that, in the
   continuum, reads `1/(NS·NT·π⁵)` ≈ 5.446 × 10⁻⁴ (5.446 in
-  10⁻⁷ units, matching the observed structural gap of 5443 × 10⁻⁷
+  10⁻⁷ units, matching the bracket-gap (two-Lens difference) of 5443 × 10⁻⁷
   to within 3 × 10⁻⁷ = 13× closer than α_GUT/45).
 
   See `PiFiveGap.lean` for the numerical comparison.  The π⁵
@@ -163,7 +163,7 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
   Existing `PiFiveGap.lean` encodes π² × 10¹⁰ and π⁵ × 10¹⁰ at
   9-digit precision.  Combined with Basel partial sums in
   `Basel/Bound.lean`, we can express the 4-layer formula as a
-  rational at fixed N and verify it brackets observed 137.0359991
+  rational at fixed N and verify it brackets measurement-Lens 137.0359991
   at the precision permitted by the truncations. -/
 
 /-- 1/α_em(IR) candidate × 10⁷ via the FIVE-layer formula at

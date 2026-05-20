@@ -7,7 +7,7 @@ In ZFC, ℝ is "complete" via Cauchy convergence (∀ε ∃N).  In 213,
 the substrate `Cut` is already complete in the
 **information-theoretic** sense: every continuous function admits
 an explicit `Nat → Nat` depth modulus.  No Cauchy completion;
-the substrate IS the trajectory.
+`Cut` IS the trajectory (no underlying substrate).
 -/
 
 namespace E213.Lib.Math.Modulus.DepthCompleteness

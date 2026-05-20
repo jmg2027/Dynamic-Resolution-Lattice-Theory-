@@ -27,7 +27,7 @@ The 213 framework does not merely remain in finite combinatorics; it
 also naturally generates **profinite (algebraic) limits**.
 
 The iProdLens of the leavesModNat family is exactly the ℤ̂-like
-profinite completion.  A concrete instance of Lens-as-completion.
+profinite limit structure.  A concrete instance of Lens family generating limit class.
 -/
 
 namespace E213.Lib.Math.Cauchy.ProfiniteSeq

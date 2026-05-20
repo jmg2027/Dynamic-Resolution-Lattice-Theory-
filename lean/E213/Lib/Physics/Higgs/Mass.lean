@@ -61,7 +61,7 @@ theorem alpha_correction_structure :
       Cabibbo Ξ: α_GUT/(d-1)
       Tetrahedra per vertex in Δ⁴
       # nontrivial Λᵏ matter reps (k=1..4) -/
-theorem cofactor_d_minus_1_ubiquitous :
+theorem cofactor_d_minus_1_atomicity-forced (uniform across readings) :
     (d - 1 = 4) ∧ (NS + 1 = 4) := by decide
 
 theorem higgs_uses_tet : tetrahedra_per_vertex = NS + 1 := by decide

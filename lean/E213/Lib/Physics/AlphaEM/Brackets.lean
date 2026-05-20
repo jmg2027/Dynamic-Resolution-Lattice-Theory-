@@ -76,7 +76,7 @@ open E213.Lib.Physics.Basel.Bound
 
   bare(M_Z) + d²/NS + Ξ_tail
   = 128.696 + 8.333 + 0.00608
-  ≈ 137.035  (observed 137.036 — ppm match)
+  ≈ 137.035  (observed 137.036 — ppm Lens-reading agreement)
 
 Honest tagging: `+25/3 = d²/NS` is conjectural structural form.
 Plausible source: photon couples to all 25 Gram channels distributed
@@ -172,8 +172,8 @@ theorem bracket_138_excluded_at_20 :
 
 /-- Capstone: N=20 tight contains 137 with width ≤ 0.14
     (43× over N=10 baseline of width 6).  Headline 1/α_em = 137.036
-    at 10⁻⁴ ppm NOT reachable: candidate's asymptote 137.0354548
-    differs from observed 137.0359991 by 5.4×10⁻⁴.
+    at 10⁻⁴ ppm has structural gap: count-Lens asymptote 137.0354548
+    vs measurement-Lens reading 137.0359991 by 5.4×10⁻⁴.
     See `AlphaEM/StructuralGap.lean`. -/
 theorem capstone_n20 :
     let lo := inv_lower_tight 20; let hi := inv_upper 20

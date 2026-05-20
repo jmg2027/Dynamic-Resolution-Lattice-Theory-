@@ -12,7 +12,7 @@ Difference (candidate − observed):  −5.443 × 10⁻⁴
 
 This gap is **independent of bracket tightening on ζ(2)**: even with a
 zero-width bracket on the Basel sum, the candidate formula's value
-137.0354548 misses observed 137.0359991 by 5.4×10⁻⁴.
+137.0354548 Lens-bracket endpoint differs from measurement-Lens reading 137.0359991 by 5.4×10⁻⁴.
 
 ## Open Problem #1 split (per HANDOFF)
 
@@ -45,7 +45,7 @@ namespace E213.Lib.Physics.AlphaEM.StructuralGap
 
 open E213.Lib.Physics.AlphaEM.V137Tight
 
-/-- Observed 1/α_em(0) ≈ 137.0359991, expressed as 137036/1000
+/-- Measurement-Lens 1/α_em(0) ≈ 137.0359991, expressed as 137036/1000
     (4 significant figures past 137).  The 4/27-standard target is
     `|candidate − 137036/1000| < 137/10⁴`. -/
 def observed_milli : (Nat × Nat) := (137036, 1000)

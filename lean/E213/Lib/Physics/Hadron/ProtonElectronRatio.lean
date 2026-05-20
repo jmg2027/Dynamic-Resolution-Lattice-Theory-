@@ -27,7 +27,7 @@ is fully bracket-derivable to ppm precision.
 Class C (full-lattice bare invariant, no α_GUT correction at this
 precision — 19 ppm is already smaller than α_em ≈ 7×10⁻³).
 
-The integer 6 carries TWO atomic readings (NS·NT and d+1) and the
+The integer 6 carries two atomic readings (NS·NT and d+1) and the
 deeper triple identity NS·NT = (NS+1)·(NT) − NT = (d+1) · 1.
 Verifies as decidable Nat skeleton.
 -/
@@ -103,7 +103,7 @@ theorem m_p_over_m_e_v2_atomic :
               vs 3477.15  (observed: 1.777/0.000511)
               → 134 ppm match
 
-The integer 100 carries TWO atomic readings:
+The integer 100 carries two atomic readings:
   (d · NT)² = 10² = 100   (diameter-squared)
   d² · NT²  = 25 · 4 = 100  (channels × chiral phase)
 

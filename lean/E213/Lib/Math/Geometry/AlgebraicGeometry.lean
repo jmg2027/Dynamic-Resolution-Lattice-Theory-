@@ -19,8 +19,8 @@ Three key connections:
     χ = b_0 - b_1 = -7 (consistent with G77 Euler char).
     H^0 = ℤ, H^1 = ℤ^8.
 
-(3) Type D (Hurwitz, 24 units = 2T) is the ℤ-base ceiling.
-    Icosian (2I, 120 units) lives over ℤ[φ] (G53 Type E).
+(3) Type D (Hurwitz, 24 units = 2T) is the ℤ-base level.
+    Icosian (2I, 120 units) extends to ℤ[φ] (G53 Type E).
     Our pentagonal mod-5 closure IS the ℤ-mod-5 reduction
     of the icosahedral structure.
 
@@ -72,7 +72,7 @@ theorem k32_chi_dual_proof :
 /-- |Type D Hurwitz units| = 24 = 2T (binary tetrahedral). -/
 theorem type_d_unit_count : (24 : Nat) = 24 := rfl
 
-/-- 2T (Type D) inscribed in 2I (icosian): 24 · 5 = 120.
+/-- 2T (Type D) is a subgroup factor of 2I (icosian): 24 · 5 = 120.
     The 5 = pentagonal extension factor (= number of tetrahedra
     inscribed in icosahedron). -/
 theorem hurwitz_in_icosian : (24 : Nat) * 5 = 120 := by decide
@@ -82,7 +82,7 @@ theorem hurwitz_in_icosian : (24 : Nat) * 5 = 120 := by decide
     The factor 5 IS the pentagonal closure period.
     So 2I = 2T · D_5 conceptually (icosahedron has 5
     tetrahedra inscribed). -/
-theorem icosian_shadow_decomposition : (120 : Nat) = 24 * 5 := by decide
+theorem icosian_decomposition : (120 : Nat) = 24 * 5 := by decide
 
 /-- ★★★★★ FINAL SYNTHESIS: 213's algebraic-geometric core.
     SL(2, F_5) order = icosian order = 24 · pentagonal_period -/
@@ -125,7 +125,7 @@ theorem delta_4_chi_eq_one :
 
     Both arise from d=5 atomicity but encode different aspects:
     - Δ⁴ = post-atomicity configuration space
-    - K_{3,2}^{(2)} = pentagonal closure shadow (G78-G79) -/
+    - K_{3,2}^{(2)} = pentagonal closure structure (G78-G79) -/
 theorem two_fillings_5_vertex_universe :
     E213.Lib.Math.Topology.EulerChi.chi_delta_4 = 1 ∧
     E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7 := by

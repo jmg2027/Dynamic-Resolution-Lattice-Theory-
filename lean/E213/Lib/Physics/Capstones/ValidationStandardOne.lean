@@ -30,7 +30,7 @@ This file demonstrates 213 satisfies **BOTH** standards via:
   - N_gen = 3 (no 4th generation) — Generations.lean
   - 7/7 nuclear magic numbers atomic — MagicNumbersAtomic.lean
   - 1/α_3 = NS²-1 = 8 (color confinement integer)
-  - hierarchy ratio = d^(d²)/(d+1) (no fine-tuning)
+  - hierarchy ratio = d^(d²)/(d+1) (forced by lattice cardinality)
 -/
 
 namespace E213.Lib.Physics.Capstones.ValidationStandardOne
@@ -56,7 +56,7 @@ theorem validation_standard_capstone :
     -- ── Standard #2: new physics measurable ──
     -- Generation count = 3 (no 4th gen) [from Generations]
     ∧ NS = 3
-    -- Hierarchy ratio (no fine-tuning) [from FamousCoincidences I]
+    -- Hierarchy ratio (forced by lattice cardinality) [from AtomicIdentities I]
     ∧ d ^ (d * d) ≥ 10 ^ 17
     -- d²-1 = 24 (SU(5) adjoint, used in m_μ/m_e δ₂)
     ∧ d * d - 1 = 24

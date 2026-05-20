@@ -1,23 +1,54 @@
-# Session Handoff — 2026-05-20 (Deep philosophical revision pass)
+# Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 9 commits ahead of
+`claude/particle-background-separation-ShXm5` — 19 commits ahead of
 `main`.  All commits pushed.
 
 ## Session summary
 
-Multi-hour deep philosophical revision pass triggered by the
+Multi-day deep philosophical revision pass triggered by the
 2026-05-20 conversation on background/foreground non-separation,
-self-completion, and structural causality.  Workflow: spawn many
-parallel audit agents (14 total — architecture, definitions,
-naming, additions, T1–T4 theory scopes, X1–X6 theory→Lean
-cross-audits), then synthesise + iterate revisions through
-multiple commits.
+self-completion, and structural causality.
+
+**Iteration 1**: 14 parallel audit agents (architecture,
+definitions, naming, additions, T1–T4 theory scopes, X1–X6
+theory→Lean cross-audits), then synthesise + iterate revisions
+through 11 commits.
+
+**Iteration 2**: 5 additional cluster audits (CayleyDickson,
+Cohomology + Linalg213, Analysis, Real213) — applied + 3 new
+formal additions (FlatOntology, PredicateSelfEncoding,
+UndifferentiatedRaw, RawTopology, SelfCompletion,
+ThreeDirectionUniqueness).
+
+**Iteration 3**: 7 more cluster audits (Group, SignedCut,
+NumberGrid, Information, Probability, DyadicFSM,
+HodgeConjecture) — single batched-sed sweep commit.
 
 ## Commits this session
 
 ```
+6a7998cc  7-cluster deep audits — Group, SignedCut, NumberGrid, Information, Probability, DyadicFSM, HodgeConjecture
+e0e7dafe  Lens/SelfCompletion.lean + Linalg213/Analysis/Real213 critical revisions
+3832ea45  CayleyDickson + Cohomology audit revisions (2 audit agents)
+4a5c8a3d  seed §9.5 + §7.1 + STRICT_ZERO_AXIOM cross-refs for RawTopology
+58e7e28e  LEAN_FILE_SUMMARY.md — N_universe → N_resolution propagation
+e93df97b  Lens/RawTopology.lean — K_∞ deeper formalization
+bdd27138  Catalogs + CAPSTONE_INDEX sync — 2026-05-20 session additions
+7a48e7a9  N_universe → N_resolution rename — universe-as-thing framing purged
+c2c3b791  06_formalization.md + PhysicsBridgeNT2.lean — final Lean-side cross-refs
+21dda0ba  STRICT_ZERO_AXIOM.md — 2026-05-20 session catalog sync
+6f187eb1  Phase H — UndifferentiatedRaw + ARCHITECTURE philosophical preamble + HANDOFF
 8bf51258  Major formalizations + Substrate→AtomicBase rename
+81114a8e  Further framing cleanups — running gap, Basel, Force, Weinberg, observer rename, falsifiers
+542f75c4  Physics framing — additional coincidence rhetoric sweep
+4814310f  Phase G — FlatOntology + further framing cleanups
+fc115747  Deep philosophical revision pass — 14-agent audit synthesis (Phase A-F)
+ca2296a3  Lean tree philosophical revision pass — substrate, N_U, count-as-Raw, legacy, PAPER1
+a4843f97  Drop universe-constant framing of N_U + remove legacy-deletion narration
+30cb70ea  Residue framework revision pass — drop substrate metaphor, count-Lens import, dichotomies
+```
+```
 81114a8e  Further framing cleanups — running gap, Basel, Force, Weinberg, observer rename, falsifiers
 542f75c4  Physics framing — additional coincidence rhetoric sweep
 4814310f  Phase G — FlatOntology formalization + further framing

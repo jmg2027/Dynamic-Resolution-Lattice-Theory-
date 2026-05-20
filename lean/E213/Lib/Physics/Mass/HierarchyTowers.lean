@@ -32,7 +32,7 @@ import E213.Lib.Physics.Higgs.Vacuum
   Almost all hierarchy steps are *atomic primitives*:
     NS, NT, d, c, F_n (Fibonacci), 1/α_GUT, c·NS·NT.
 
-  The "large gap" in a hierarchy is *lattice cardinality*, not *fine-tuning*.
+  The hierarchy gap is *lattice cardinality* — directly forced by depth d^(d²).
 -/
 
 namespace E213.Lib.Physics.Mass.HierarchyTowers
@@ -88,7 +88,7 @@ theorem hierarchy_towers_master :
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
 
 /-- ★ DRLT answer to "why hierarchy?" ★
-    Lattice cardinality d^(d²) = 5^25, not fine-tuning.
+    Lattice cardinality d^(d²) = 5^25, forced by lattice depth.
     Larger lattice → larger gap.  d=5 atomic makes it *huge*.
 
     M_Pl/v_H ≈ 5×10^16 ≈ d^(d²)/c (single atomic formula). -/

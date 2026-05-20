@@ -71,14 +71,14 @@ def fact : Nat → Nat
 
 /-- ★ Super Catalog Capstone ★
     Selected atomic integers in multi-output form.
-    Absorbs FamousCoincidences/{MultiReading, GaugeGroup,
+    Absorbs AtomicIdentities/{MultiReading, GaugeGroup,
     ExceptionalLie} (2026-05-05). -/
 theorem super_catalog :
     -- atomic basis
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     -- 6: small atomic
     ∧ (NS * NT = 6) ∧ (3 * 2 * 1 = 6)
-    -- 8: quadruple reading (FamousCoincidences/MultiReading.eight_quadruple)
+    -- 8: quadruple reading (AtomicIdentities/MultiReading.eight_quadruple)
     ∧ (NS * NS - 1 = 8) ∧ (NT * NT * NT = 8)
     ∧ ((NS - 1) * (NS + 1) = 8)
     -- 12: gauge dim multi-reading (FC/GaugeGroup.sm_gauge_dim)

@@ -65,7 +65,7 @@ Phase 1 Lean formalization results:
 ## Universal patterns
   Closed propagator P(x) = (1+2x)/(1+x)
   Photon kernel = b_1(K_{NS,NT}^{(c)}) = NS² - 1
-  Adjoint SU(5) (d²-1=24) ubiquitous
+  Adjoint SU(5) (d²-1=24) atomicity-forced (uniform across readings)
   Fibonacci F_3..F_10 = 8 atomic integers
 -/
 

@@ -27,7 +27,7 @@ The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precisi
     = #nontrivial Λᵏ matter reps (k=1,2,3,4)
 
   Single atomicity (NS, NT, d) = (3, 2, 5) simultaneously makes
-  the integer 4 from four different combinatorial origins *coincide*.
+  the integer 4 from four different combinatorial readings unify by atomicity.
 -/
 
 namespace E213.Lib.Physics.Couplings.DysonStructure
