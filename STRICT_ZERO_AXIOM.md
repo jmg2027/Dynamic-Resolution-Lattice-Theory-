@@ -464,3 +464,42 @@ Cumulative session reduction: **164 → 144 DIRTY (12.2% reduction)**.
 Additional modules PURE in batches 11-12:
 - E213.Lib.Math.Choice.Canonical (was 1 dirty)
 - E213.Lens.Compose.OnLensImage (4 → 2, 2 fixes)
+
+## 2026-05-20 — Deep philosophical revision pass additions
+
+New PURE theorems from the 14-agent audit + revision pass.  All
+verified `#print axioms` returns "does not depend on any axioms".
+
+### Flat ontology + closure (§9.3 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.FlatOntology` | 12 | `Object1`, `Type213`, `UnaryType`, `Relation`, `eqRelation_refl/symm`, `functionAsRelation_functional`, `lensBoolAsType`, `lensFibreType` |
+| `E213.Lens.PredicateSelfEncoding` | 7 | `truthTableNat`, `predicateToRaw`, `predicate_self_encoding_closure`, `predicateToRaw_kernel`, `predicateToRaw_injective_on_prefix` |
+
+### K_∞ ≡ point at raw (§9.5 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.UndifferentiatedRaw` | 3 | `constLens_collapses`, `pre_lens_singleton`, `constLens_kernel_total` |
+
+### Three-direction uniqueness bundle (§1.3 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Meta.ThreeDirectionUniqueness` | 1 | `three_direction_uniqueness` — single statement bundling below/sideways/above closures |
+
+### Möbius frozen + dynamic dualism (§3.4 / §8.7 realisation)
+
+| Theorem | content |
+|---|---|
+| `mobius_213_char_poly_at_trace` | char poly evaluated at trace = det (φ², 1/φ² as eigenvalues) |
+| `mobius_213_pell_unit_invariant_layer0..4` | `num_n · den_{n+1} − num_{n+1} · den_n = -1` across convergent layers (witnessing det [[2,1],[1,1]] = 1) |
+
+### 4-clause forcing chain (§4.5)
+
+| Theorem | content |
+|---|---|
+| `raw_forcing_chain_unified` | positive complement to `raw_minimality_capstone`; documents the chain 1 → 2 → 3 → 4 |
+
+**Cumulative new PURE from this session: 29.**  All audit-verified.
