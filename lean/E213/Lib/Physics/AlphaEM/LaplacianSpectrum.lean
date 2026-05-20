@@ -54,11 +54,7 @@ namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
 open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §1 — Δ⁴ Laplacian rank and trace
 
@@ -118,11 +114,7 @@ def delta4_zeta_2_den : Nat := delta4_eigenvalue * delta4_eigenvalue
 
 theorem delta4_zeta_2_eq : delta4_zeta_2_num = 30 ∧ delta4_zeta_2_den = 25 := by decide
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §3 — K_{3,2}^{(c=2)} graph Laplacian spectrum
 
@@ -189,11 +181,7 @@ def k32c2_lap_total_trace : Nat := k32c2_lap_trace_0 + k32c2_lap_trace_1
 
 theorem k32c2_lap_total_trace_eq_48 : k32c2_lap_total_trace = 48 := by decide
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §4 — K_{3,2}^{(c=2)} ζ-Laplacian function
 
@@ -259,11 +247,7 @@ theorem zeta_K1_vs_delta_zeta_2 :
 theorem zeta_K1_minus_zeta_delta_2_is_one_third :
     k32c2_zeta_1_num * 15 = (18 + 5) * k32c2_zeta_1_den := by decide
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §6 — Master Test 2 theorem -/
 

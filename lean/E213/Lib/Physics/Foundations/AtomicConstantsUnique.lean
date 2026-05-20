@@ -40,11 +40,7 @@ namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-end E213.Lib.Physics.Foundations.AtomicConstantsUnique
 
-namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §1 — Three independent atomic constraints
 
@@ -83,9 +79,6 @@ theorem c2c_213 : constraint_C2c NS NT d = true := by decide
 /-- ★★★★★ 213 atomic constants satisfy all three constraints. -/
 theorem atomic_constants_satisfy : constraints_all NS NT 2 d = true := by decide
 
-end E213.Lib.Physics.Foundations.AtomicConstantsUnique
-
-namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
 
 /-! ## §3 — Bounded uniqueness (search through small candidates)
 
@@ -152,7 +145,6 @@ theorem unique_within_bound_100 :
 
 /-! ## §4 — Master atomic uniqueness theorem -/
 
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-- ★★★★★ Atomic Constants Uniqueness Master (C2 step 1).
     STRICT ∅-AXIOM.
@@ -179,11 +171,7 @@ theorem atomic_constants_unique_master :
     ∧ is_unique_to_213 7 = true := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Physics.Foundations.AtomicConstantsUnique
 
-namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §4.5 — Step 2: algebraic Diophantine analysis
 
@@ -229,11 +217,7 @@ theorem C2b_at_large_n_no_solution :
         if n < 4 then true
         else constraint_C2b m n == false)) = true := by decide
 
-end E213.Lib.Physics.Foundations.AtomicConstantsUnique
 
-namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §5 — Master C2 Step 2 theorem -/
 

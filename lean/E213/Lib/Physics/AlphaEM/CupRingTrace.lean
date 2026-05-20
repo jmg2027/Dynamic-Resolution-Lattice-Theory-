@@ -39,15 +39,7 @@ open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
 
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — Unit cochain at each grade -/
 
@@ -86,15 +78,7 @@ theorem F1_grade_breakdown :
     F1_at_grade 1 = 1 ∧ F1_at_grade 2 = 1
     ∧ F1_at_grade 3 = 1 ∧ F1_at_grade 4 = 1 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
 
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §3 — Cand-2: basis self-Hodge cup at top (all colex basis)
 
@@ -134,11 +118,7 @@ theorem F2_grade_breakdown :
 /-- F₁ = F₂ = 4 (unit and basis-sum Hodge self-pair give same total). -/
 theorem F1_eq_F2 : F1 = F2 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
 
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Total cup-channels (F₃, from Step A)
 
@@ -180,9 +160,6 @@ def F5 : Nat :=
 
 theorem F5_value : F5 = 120 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
-
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
 
 /-! ## §7 — Master cup-ring trace results + gap analysis
 

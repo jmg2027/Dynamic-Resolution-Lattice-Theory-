@@ -48,11 +48,7 @@ namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-end E213.Lib.Physics.AlphaEM.GradedDecomposition
 
-namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — Output-grade counts (5-fold decomposition)
 
@@ -104,14 +100,10 @@ def total : Nat := grade_0 + grade_1 + grade_2 + grade_3 + grade_4
 
 theorem total_eq_785 : total = 785 := by decide
 
-end E213.Lib.Physics.AlphaEM.GradedDecomposition
-
-namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Cup.Core (cup)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §2 — Property 1: topological grade isolation
 
@@ -161,11 +153,7 @@ theorem cup_v1_v0_at_edge01 :
 theorem cup_chirality_witness :
     cup 5 1 1 v_0 v_1 edge_01 ≠ cup 5 1 1 v_1 v_0 edge_01 := by decide
 
-end E213.Lib.Physics.AlphaEM.GradedDecomposition
 
-namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Property 3: top hard wall (nilpotent termination)
 
@@ -187,13 +175,7 @@ theorem hard_wall_sample :
     binom 5 6 = 0 ∧ binom 5 7 = 0 ∧ binom 5 8 = 0
     ∧ binom 5 9 = 0 ∧ binom 5 10 = 0 := by decide
 
-end E213.Lib.Physics.AlphaEM.GradedDecomposition
 
-namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §5 — Master 5-fold grading theorem -/
 

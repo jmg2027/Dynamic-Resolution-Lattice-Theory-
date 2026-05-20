@@ -70,11 +70,7 @@ theorem eventually_class_unique {α : Type} (L : Lens α) (xs : Nat → Raw)
   have hMN' : M ≥ N' := E213.Tactic.NatHelper.le_max_right N N'
   rw [← hN M hMN, hN' M hMN']
 
-end E213.Lens.Instances.Cauchy
 
-namespace E213.Lens.Instances.Cauchy
-
-open E213.Theory E213.Lens
 
 /-- **Cauchy witness structure**: explicit N + Cauchy property.
     Constructive (no Classical.choice). -/
@@ -105,11 +101,7 @@ theorem cauchy_data_of {α : Type} (L : Lens α) (xs : Nat → Raw)
   obtain ⟨N, hN⟩ := h
   exact ⟨⟨N, hN⟩, trivial⟩
 
-end E213.Lens.Instances.Cauchy
 
-namespace E213.Lens.Instances.Cauchy
-
-open E213.Theory E213.Lens
 
 /-- **Family-Cauchy**: Cauchy with respect to every (F i).2. -/
 def FamilyCauchy {ι : Type} (F : ι → (α : Type) × Lens α)
@@ -126,9 +118,6 @@ protected def LimitAssignment.limit {ι : Type} {F : ι → (α : Type) × Lens 
     {xs : Nat → Raw} (la : LimitAssignment F xs) (i : ι) : (F i).1 :=
   limitClass (la.data i)
 
-end E213.Lens.Instances.Cauchy
-
-namespace E213.Lens.Instances.Cauchy
 
 open E213.Theory E213.Lens E213.Lens.Lattice.IndexedJoin
 
@@ -145,9 +134,6 @@ theorem pointwise_limit_match {ι : Type} (F : ι → (α : Type) × Lens α)
   rw [iProdLens_view F hAllSym (xs n)]
   exact limitClass_eq_tail (F i).2 xs (la.data i) n hn
 
-end E213.Lens.Instances.Cauchy
-
-namespace E213.Lens.Instances.Cauchy
 
 open E213.Theory E213.Lens E213.Lens.Universal.QuotLens
 

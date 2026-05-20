@@ -40,11 +40,7 @@ namespace E213.Lib.Physics.AlphaEM.GradedFormula
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §1 — Layer 1 (k=0, 1): harmonic base 60·ζ(2) + 30
 
@@ -91,11 +87,7 @@ theorem L2_den_eq_3 : L2_den = 3 := by decide
 /-- Layer 2 ratio identity: L2_num · 3 = 25 · L2_den. -/
 theorem L2_ratio : L2_num * 3 = 25 * L2_den := by decide
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §3 — Layer 3 (k=3, 4): Hodge pairing 1/(NS·NT·π⁵)
 
@@ -152,11 +144,7 @@ theorem leading_integer_sum_eq_116 : leading_integer_sum = 116 := by decide
     + L3 ≈ 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵), with the continuum
     factors ζ(2) and π⁵ replaced by 213-finite Basel/Wallis at N_U. -/
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §5 — Numerical bracket: integer-formula × 10⁷ at fixed precision
 
@@ -208,11 +196,7 @@ theorem alphaInv_213_bracket :
     ∧ E213.Lib.Physics.AlphaEM.PiFiveGap.observed_e7 ≤ alphaInv_213_e7_at_pi9 + 30 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §6 — Master GradedFormula theorem (C1 step 1) -/
 

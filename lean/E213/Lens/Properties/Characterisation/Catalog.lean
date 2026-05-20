@@ -66,8 +66,6 @@ theorem signed_swap_neg (r : Raw) :
      = - Raw.fold (1 : Int) (-1) (· + ·) r
   exact Raw.fold_signed_swap r
 
-end E213.Lens.Properties.Characterisation.Catalog
-namespace E213.Lens.Properties.Characterisation.Catalog
 open E213.Theory E213.Lens
 
 -- ═══ Swap-invariance characterisation ═══
@@ -85,9 +83,6 @@ theorem swap_invariant_base_eq {α : Type} {L : Lens α}
   -- both sides reduce by computation
   exact h0.symm
 
-end E213.Lens.Properties.Characterisation.Catalog
-namespace E213.Lens.Properties.Characterisation.Catalog
-open E213.Theory E213.Lens
 
 -- ═══ R3–R5 — structural Lens requirements ═══
 
@@ -126,9 +121,6 @@ def SwapMatching {α : Type} (L : Lens α) (conj : α → α) : Prop :=
 def Distinguishing {α : Type} (L : Lens α) : Prop :=
   Function.Injective L.view
 
-end E213.Lens.Properties.Characterisation.Catalog
-namespace E213.Lens.Properties.Characterisation.Catalog
-open E213.Theory E213.Lens
 
 -- ═══ signedLens: verified R4 (swap = negation) ═══
 

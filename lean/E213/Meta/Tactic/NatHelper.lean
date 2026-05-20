@@ -394,9 +394,6 @@ theorem mul_mul_mul_comm_213 (a b c d : Nat) :
     (mul_assoc a c (b * d)).symm
   h1.trans ((congrArg (a * ·) middle).trans h5)
 
-end E213.Tactic.NatHelper
-
-namespace E213.Tactic.NatHelper
 
 /-- ∅-axiom replacement for `Nat.sub_le_sub_left` (Lean-core leaks
     `propext`).  Term-mode recursion on `c` + 4-case pattern on (a, b). -/
@@ -457,9 +454,6 @@ theorem add_mul_mod_self_pure (a c : Nat) :
         add_self_mod_pure (a + n * c) c
       ((congrArg (· % c) h1).trans h2).trans ih
 
-end E213.Tactic.NatHelper
-
-namespace E213.Tactic.NatHelper
 
 /-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
     (which is `[propext]`).  Term-mode pattern match on `m`.
@@ -494,9 +488,6 @@ theorem mul_mod_right (m : Nat) : ∀ b, m * b % m = 0
       congrArg (· % m) hcancel
     (step1.trans (hms.trans step3)).trans ih
 
-end E213.Tactic.NatHelper
-
-namespace E213.Tactic.NatHelper
 
 /-- `a ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
     `Nat.le_max_left` (`[propext]`).  Term-mode via `Decidable.casesOn`
@@ -540,9 +531,6 @@ theorem max_eq_left_pure {u v : Nat} (h : v ≤ u) : Nat.max u v = u := by
   · rw [if_pos h1]; exact (Nat.le_antisymm h1 h).symm
   · rw [if_neg h1]
 
-end E213.Tactic.NatHelper
-
-namespace E213.Tactic.NatHelper
 
 /-- `2 * n = n + n`.  Term-mode by structural recursion.
 
