@@ -100,12 +100,7 @@ theorem hirzebruch_zero (d : BalancedSignatureData) :
 
 end BalancedSignatureData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-
-open E213.Lib.Math.Cohomology.Surfaces.T2nBetti
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §3 — T²ⁿ instances at small n -/
 

@@ -66,11 +66,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
     is then proven below. -/
 def T2n_betti (n k : Nat) : Nat := binom (2 * n) k
 
-end E213.Lib.Math.Cohomology.Surfaces.T2nBetti
 
-namespace E213.Lib.Math.Cohomology.Surfaces.T2nBetti
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — Pascal identity (rfl-direct from `binom`'s recursion) -/
 
@@ -126,11 +122,7 @@ theorem T2n_betti_kunneth_recursion (n m : Nat) :
           + binom (2 * n) (m + 1) + binom (2 * n) (m + 2)
   rw [Nat.add_assoc, Nat.add_assoc, Nat.add_assoc]
 
-end E213.Lib.Math.Cohomology.Surfaces.T2nBetti
 
-namespace E213.Lib.Math.Cohomology.Surfaces.T2nBetti
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §3 — Middle Betti = central binomial
 

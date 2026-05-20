@@ -64,9 +64,6 @@ theorem rawACharLens_view_eq :
             (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
       rw [decide_eq_false hne]
 
-end E213.Lens.Instances.RawAChar
-
-namespace E213.Lens.Instances.RawAChar
 
 open E213.Theory E213.Lens E213.Lens.Properties.Leaf
 

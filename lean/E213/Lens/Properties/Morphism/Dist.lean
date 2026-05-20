@@ -39,12 +39,7 @@ structure DistMorphism (α β : Type) [d_α : HasDistinguishing α]
   preserves_combine : ∀ x y, toFun (d_α.combine x y)
                               = d_β.combine (toFun x) (toFun y)
 
-end E213.Lens.Properties.Morphism.Dist
 
-namespace E213.Lens.Properties.Morphism.Dist
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- Identity distinguishing morphism. -/
 def id (α : Type) [HasDistinguishing α] : DistMorphism α α where

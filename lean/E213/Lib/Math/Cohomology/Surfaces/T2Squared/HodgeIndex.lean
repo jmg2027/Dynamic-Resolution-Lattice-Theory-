@@ -56,11 +56,7 @@ def cup (α β : C2) : C4 := fun _ =>
   -- Block 3: a₁b₂ × b₁a₂  (sign +)
   + α Cell2.a1b2 * β Cell2.b1a2 + α Cell2.b1a2 * β Cell2.a1b2
 
-end E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
-namespace E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared
 
 /-! ## §1 — Standard basis of `C2` -/
 

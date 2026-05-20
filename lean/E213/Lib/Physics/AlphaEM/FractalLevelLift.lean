@@ -47,9 +47,6 @@ theorem lift_V_4 : lift_V 4 = 3125 := by decide
 theorem lift_V_5 : lift_V 5 = 15625 := by decide
 theorem lift_V_24 : lift_V 24 = 298023223876953125 := by decide
 
-end E213.Lib.Physics.AlphaEM.FractalLevelLift
-
-namespace E213.Lib.Physics.AlphaEM.FractalLevelLift
 
 /-! ## §2 — Edge counts at each level L
 

@@ -44,12 +44,7 @@ theorem abLens_refines_parityLens : abLens.refines parityLens := by
        = decide (((abLens.view r).1 + (abLens.view r).2) % 2 = 1)
   rw [abLens_sum_eq_leaves]
 
-end E213.Lens.Properties.ABRefines
 
-namespace E213.Lens.Properties.ABRefines
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lens.Instances.Bool E213.Lens.Instances.Parity E213.Lens.Compose.Factoring
 
 /-- Factor function: (a, b) ↦ parity of a. -/
 private def aParityFactor (p : Nat × Nat) : Bool :=

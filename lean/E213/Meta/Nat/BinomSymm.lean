@@ -97,11 +97,7 @@ theorem binom_symm : ∀ {n k : Nat}, k ≤ n → binom n k = binom n (n - k)
       rw [hk_eq, binom_diag, Nat.sub_self]
       rfl
 
-end E213.Meta.Nat.BinomSymm
 
-namespace E213.Meta.Nat.BinomSymm
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Central binomial is even for n ≥ 1 -/
 

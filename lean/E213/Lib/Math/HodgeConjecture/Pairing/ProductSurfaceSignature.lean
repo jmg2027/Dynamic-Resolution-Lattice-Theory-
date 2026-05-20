@@ -30,12 +30,7 @@ namespace E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
-end E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 /-! ## §1 — Σ_g × Σ_h product signature -/
 
@@ -80,12 +75,7 @@ theorem product_total_rank_small :
     ∧ (product_signature_pair 2 2).total_rank = 18
     ∧ (product_signature_pair 3 2).total_rank = 26 := by decide
 
-end E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 /-! ## §3 — Master C4 Step 2 theorem -/
 

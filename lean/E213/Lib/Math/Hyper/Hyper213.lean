@@ -62,11 +62,7 @@ theorem cofinite_trans (xs ys zs : Hyper213) :
   have hN2 : n ≥ N2 := Nat.le_trans (E213.Tactic.NatHelper.le_max_right N1 N2) hn
   exact (h1 n hN1).trans (h2 n hN2)
 
-end E213.Lib.Math.Hyper.Hyper213
 
-namespace E213.Lib.Math.Hyper.Hyper213
-
-open E213.Theory
 
 /-- Constant hyperreal embedding: each Raw r → constant sequence. -/
 def constHyper (r : Raw) : Hyper213 := fun _ => r

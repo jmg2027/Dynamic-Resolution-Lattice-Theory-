@@ -65,12 +65,7 @@ theorem sumCombine_comm {α β : Type} [d_α : HasDistinguishing α]
         show Sum.inr (d_β.combine a b) = Sum.inr (d_β.combine b a)
         rw [d_β.combine_sym]
 
-end E213.Lens.Instances.Sum
 
-namespace E213.Lens.Instances.Sum
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- HasDistinguishing instance for Sum type. -/
 def sumHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]

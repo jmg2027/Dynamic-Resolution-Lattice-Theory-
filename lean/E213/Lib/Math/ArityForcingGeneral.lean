@@ -53,9 +53,6 @@ theorem getBase_eq {N k : Nat} :
   | .object _, _ => rfl
   | .rel _,    h => by cases h
 
-end E213.Lib.Math.ArityForcingGeneral
-
-namespace E213.Lib.Math.ArityForcingGeneral
 
 /-- **Constructive core.**  ReachableNk x → isBase x = true.
     The step case discharges via pigeonhole; the witness `g i` is

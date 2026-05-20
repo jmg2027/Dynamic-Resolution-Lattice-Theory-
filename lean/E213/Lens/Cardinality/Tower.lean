@@ -48,11 +48,7 @@ theorem tower_1_2 : ¬ ∃ f : L1 → L2, Function.Surjective f :=
 theorem tower_2_3 : ¬ ∃ f : L2 → L3, Function.Surjective f :=
   cantor_general
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Theory
 
 /-- Layer-4 abbreviation. -/
 abbrev L4 : Type := L3 → Bool

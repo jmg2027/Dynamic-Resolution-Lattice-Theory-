@@ -42,9 +42,6 @@ private theorem add_ge_four_of_each_ge_two {a b : Nat}
     (ha : 2 ≤ a) (hb : 2 ≤ b) : 4 ≤ a + b :=
   Nat.add_le_add ha hb
 
-end E213.Theory.Atomicity.NonDecomposable
-
-namespace E213.Theory.Atomicity.NonDecomposable
 
 /-- **Characterization of atoms.** The non-decomposable integers
     `≥ 2` are exactly `{2, 3}`. -/

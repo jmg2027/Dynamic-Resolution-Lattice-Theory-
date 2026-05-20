@@ -29,9 +29,6 @@ theorem add_three_ne_self (a : Nat) : a + 3 ≠ a := fun h =>
   let h_eq : a + 3 = a + 0 := h.trans (Nat.add_zero a).symm
   absurd (add_left_cancel h_eq) (by decide)
 
-end E213.Theory.Atomicity.FiveHelpers
-
-namespace E213.Theory.Atomicity.FiveHelpers
 
 /-- Bézout shift left: `3 ≤ a → 2*a + 3*b = 2*(a-3) + 3*(b+2)`. -/
 theorem bezout_left {a b : Nat} (ha : 3 ≤ a) :

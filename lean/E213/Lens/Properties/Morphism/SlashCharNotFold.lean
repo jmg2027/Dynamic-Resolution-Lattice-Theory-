@@ -44,12 +44,7 @@ def outerR : Raw :=
 /-- f r := decide (r = slashAB). -/
 def slashCharFn (r : Raw) : Bool := decide (r = slashAB)
 
-end E213.Lens.Properties.Morphism.SlashCharNotFold
 
-namespace E213.Lens.Properties.Morphism.SlashCharNotFold
-
-open E213.Theory E213.Lens
-open E213.Lens.Properties.Morphism.FoldStructured
 
 private theorem slashCharFn_a : slashCharFn Raw.a = false := by decide
 private theorem slashCharFn_b : slashCharFn Raw.b = false := by decide

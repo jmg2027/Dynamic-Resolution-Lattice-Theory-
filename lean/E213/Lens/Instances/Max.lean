@@ -52,9 +52,6 @@ theorem slash_ab_swap_fixed :
       = Raw.slash Raw.a Raw.b (by decide) := by
   apply Subtype.ext; rfl
 
-end E213.Lens.Instances.Max
-namespace E213.Lens.Instances.Max
-open E213.Theory E213.Lens
 open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ R4 fails: two Raw terms force inconsistent `conj 1` values ═══

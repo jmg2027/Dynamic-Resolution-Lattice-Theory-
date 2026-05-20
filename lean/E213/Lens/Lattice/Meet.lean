@@ -57,11 +57,7 @@ theorem prodLens_view {α β : Type} (L : Lens α) (M : Lens β)
       rw [hfsP, hfsL, hfsM, ihx, ihy]
       rfl
 
-end E213.Lens.Lattice.Meet
 
-namespace E213.Lens.Lattice.Meet
-
-open E213.Theory E213.Lens
 
 /-- the product refines the left Lens. -/
 theorem prodLens_refines_fst {α β : Type} (L : Lens α) (M : Lens β)
@@ -89,11 +85,7 @@ theorem prodLens_refines_snd {α β : Type} (L : Lens α) (M : Lens β)
     rw [← hx, ← hy]; exact hxy
   exact congrArg Prod.snd hp
 
-end E213.Lens.Lattice.Meet
 
-namespace E213.Lens.Lattice.Meet
-
-open E213.Theory E213.Lens
 
 /-- **Meet universal property**: if N refines both L and M, then N
     also refines their product.  Hence prodLens L M is the greatest

@@ -64,11 +64,7 @@ theorem leavesMod3Lens_view_eq :
         = (Lens.leaves.view x + Lens.leaves.view y) % 3
       rw [ihx, ihy, f3add_mod]
 
-end E213.Lens.Instances.Leaves.Mod3
 
-namespace E213.Lens.Instances.Leaves.Mod3
-
-open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
 /-- Factor function: leaves count → Fin 3. -/
 private def mod3Factor (n : Nat) : Fin 3 :=

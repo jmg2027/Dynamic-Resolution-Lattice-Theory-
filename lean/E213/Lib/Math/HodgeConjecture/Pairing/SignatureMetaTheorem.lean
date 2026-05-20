@@ -35,9 +35,6 @@ conjunction proven by `refine` + `exact`).
 
 namespace E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 
-end E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 
 /-! ## §1 — Three component masters (re-export) -/
 

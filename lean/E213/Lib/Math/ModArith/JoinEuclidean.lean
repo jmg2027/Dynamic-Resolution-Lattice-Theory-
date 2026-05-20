@@ -68,12 +68,7 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
         rw [hr', hexpand, ← Nat.add_assoc, ← hr'']
       exact step1.trans step2
 
-end E213.Lib.Math.ModArith.JoinEuclidean
 
-namespace E213.Lib.Math.ModArith.JoinEuclidean
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 /-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
     L_m + L_k → L_{m-k}.  ∅-axiom (uses

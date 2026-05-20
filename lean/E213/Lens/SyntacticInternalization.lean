@@ -305,11 +305,7 @@ theorem parseTree_printRaw (r : Raw) :
   show parseTree (printTree r.val) = some r.val
   exact parseTree_printTree r.val
 
-end E213.Lens.SyntacticInternalization
 
-namespace E213.Lens.SyntacticInternalization
-
-open E213.Term.Internal (Tree)
 open E213.Tactic.List213 (append_nil append_assoc)
 
 /-! ### Reverse round-trip — `printTree` is a left inverse for `parseTree`

@@ -51,11 +51,7 @@ theorem leaves_not_refines_depth : ¬ Lens.leaves.refines Lens.depth := by
   intro h
   exact depth_distinguishes (h rDeep rBalanced leaves_equates)
 
-end E213.Lens.Instances.Leaves.DepthIncomparable
 
-namespace E213.Lens.Instances.Leaves.DepthIncomparable
-
-open E213.Theory E213.Lens
 
 /-- Shallow narrow witness: `a / ((a/b) / b)`, leaves=4, depth=3. -/
 def rShallowNarrow : Raw :=

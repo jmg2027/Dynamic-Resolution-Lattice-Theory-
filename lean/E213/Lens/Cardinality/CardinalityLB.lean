@@ -92,11 +92,7 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       rw [heq, mod_self_pos k hk_pos]
       decide
 
-end E213.Lens.Cardinality.CardinalityLB
 
-namespace E213.Lens.Cardinality.CardinalityLB
-
-open E213.Theory E213.Lens E213.Lens.Instances.Leaves.ModNat
 
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
     ∅-axiom. -/

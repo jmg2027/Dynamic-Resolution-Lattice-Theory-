@@ -94,12 +94,7 @@ def Step.boundOk : Step → Bool
 /-- A certificate's bound steps are all valid. -/
 def Cert.boundsOk (c : Cert) : Bool := c.all Step.boundOk
 
-end E213.Lib.Physics.Certificates.Checker
 
-namespace E213.Lib.Physics.Certificates.Checker
-
-open E213.Lib.Physics.Basel.Bound (S upper)
-open E213.Lib.Physics.AlphaEM.V137Tight
   (inv_lower_tight inv_upper capstone_n20)
 
 -- ═══ §3.  Anchor: N = 20 α_em bracket certificate ═══

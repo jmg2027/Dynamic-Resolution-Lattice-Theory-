@@ -48,13 +48,7 @@ open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 open E213.Meta.Nat.BinomSymm
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-end E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
-
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-open E213.Meta.Nat.BinomSymm
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §0 — `2 * x / 2 = x` (213-native PURE)
 

@@ -55,12 +55,7 @@ theorem familyMeet_slash {I : Type} (E : I → Raw → Raw → Prop)
     familyMeet E (Raw.slash x y h) (Raw.slash x' y' h') :=
   fun hxx hyy i => hslash i x x' y y' h h' (hxx i) (hyy i)
 
-end E213.Lens.Lattice.FamilyMeet
 
-namespace E213.Lens.Lattice.FamilyMeet
-
-open E213.Theory E213.Lens
-open E213.Lens.Universal.QuotLens
 
 /-- **Family meet via universalLens**: the simultaneous slash-congruence
     intersection of an arbitrary family `⟨E_i⟩_{i ∈ I}` can be

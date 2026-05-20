@@ -40,11 +40,7 @@ def basis_b : C1 := fun
   | Cell1.a => 0
   | Cell1.b => 1
 
-end E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing
 
-namespace E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Minimal
 
 /-! ## §2 — Matrix entries -/
 

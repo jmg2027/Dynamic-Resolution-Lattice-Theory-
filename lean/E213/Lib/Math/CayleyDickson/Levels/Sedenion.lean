@@ -48,7 +48,6 @@ end Cayley
 
 namespace Sedenion
 
-open Cayley
 
 /-- CD multiplication (same formula, lifted once more). -/
 def mul (u v : Sedenion) : Sedenion :=
@@ -117,7 +116,6 @@ def zd_left : Sedenion := e3 + e10
 /-- `e_6 - e_15` — other side. -/
 def zd_right : Sedenion := e6 - e15
 
-open E213.Lib.Math.CayleyDickson.Levels.Cayley
 
 /-- **Moreno's sedenion zero divisor** (1998).
     `(e_3 + e_10) · (e_6 - e_15) = 0` in the standard
@@ -181,7 +179,6 @@ theorem not_alternative :
     ∃ a b : Sedenion, (a * a) * b ≠ a * (a * b) :=
   ⟨zd_left, zd_right, alt_fails_at_zd⟩
 
-open E213.Lib.Math.CayleyDickson.Levels.Cayley
 
 namespace Sedenion
 

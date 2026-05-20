@@ -65,9 +65,6 @@ STRICT ∅-AXIOM.
 
 namespace E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 
-end E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 
 open E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
   (HodgeDiamond T2_diamond P2_diamond P1Sq_diamond T2Sq_diamond)
@@ -149,9 +146,6 @@ theorem hodge_index_signature (d : KahlerGradeData) :
 
 end KahlerGradeData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 
 /-! ## §3 — Concrete instantiations of the 4 verified manifolds -/
 

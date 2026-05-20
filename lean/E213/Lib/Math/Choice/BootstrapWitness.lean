@@ -42,11 +42,7 @@ theorem boolXor_no_bootstrap :
     ∀ r : Raw, boolXorLensRaw.view r = boolXorLensRaw.view r := by
   intro r; rfl
 
-end E213.Lib.Math.Choice.BootstrapWitness
 
-namespace E213.Lib.Math.Choice.BootstrapWitness
-
-open E213.Theory E213.Lens
 
 /-! ## §2. Nat-valued Lens (bootstrap present)
 
@@ -87,11 +83,7 @@ theorem naiveLeaves_is_fixed_point_of_Nat_definition :
     ∀ r : Raw, naiveLeavesLens.view r = naiveLeavesLens.view r := by
   intro r; rfl
 
-end E213.Lib.Math.Choice.BootstrapWitness
 
-namespace E213.Lib.Math.Choice.BootstrapWitness
-
-open E213.Theory E213.Lens
 
 /-! ## §3. Attempted "Raw-first" Nat
 
