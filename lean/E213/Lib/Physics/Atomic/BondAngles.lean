@@ -36,15 +36,13 @@ namespace E213.Lib.Physics.Atomic.BondAngles
 
 open E213.Lib.Physics.Simplex.Counts
 
+/-! ## Cosine-denominator defs (all NS-derived) -/
+
 /-- CH₄ cosine denominator: NS = 3.  -1/NS = -1/3. -/
 def CH4_cos_denom : Nat := NS
 
-theorem CH4_cos_denom_eq_3 : CH4_cos_denom = 3 := by decide
-
 /-- H₂O cosine denominator: NS + 1 = 4.  -1/(NS+1) = -1/4. -/
 def H2O_cos_denom : Nat := NS + 1
-
-theorem H2O_cos_denom_eq_4 : H2O_cos_denom = 4 := by decide
 
 /-- NH₃ cosine numerator: NS + 1 = 4. -/
 def NH3_cos_numer : Nat := NS + 1
@@ -53,51 +51,31 @@ def NH3_cos_numer : Nat := NS + 1
     Structural: NS·(NS+1) + 1 — simplicial recurrence. -/
 def NH3_cos_denom : Nat := NS * NS + NS + 1
 
-theorem NH3_cos_eq : NH3_cos_numer = 4 ∧ NH3_cos_denom = 13 := by decide
+/-- ★★ Bond-angles capstone — structural + concrete values
+    in one statement.
 
-/-- ★ Simplicial structure of denominator 13 ★
-    NS² + NS + 1 = NS·(NS+1) + 1 = "edges in K_{NS,NT} + 1"
-    Or: cyclotomic polynomial-like form. -/
-theorem NH3_denom_decomp :
-    NS * NS + NS + 1 = NS * (NS + 1) + 1
-    ∧ NS * (NS + 1) = 12  -- 3·4 = 12 (= c·NS·NT)
-    ∧ 12 + 1 = 13 := by decide
+  Each cosine is determined by NS alone:
+    CH₄ cos = −1/NS      = −1/3       (measurement-Lens 109.471°)
+    H₂O cos = −1/(NS+1)  = −1/4       (measurement-Lens 104.45°)
+    NH₃ cos = −(NS+1)/(NS²+NS+1)
+             = −4/13                    (measurement-Lens ≈107.25°)
 
-/-- ★ Lens-reading agreement for bond angles ★
-    CH₄: measurement-Lens 109.471°, atomic Lens cos = -1/3 → 109.4712°
-    H₂O: measurement-Lens 104.45°,  atomic Lens cos = -1/4 → 104.478°
-    (two internal Lens readings of the same simplicial structure). -/
-theorem CH4_H2O_exact :
-    CH4_cos_denom = 3
-    ∧ H2O_cos_denom = 4
-    ∧ NH3_cos_numer = 4
-    ∧ NH3_cos_denom = 13 := by decide
-
-/-- ★★ Same atomic primitives ★★
-    All molecular cos values are determined solely by {NS}.  A single
-    spatial dimension count NS = 3 forces three different molecular geometries. -/
-theorem all_from_NS :
-    -- CH4: 1/NS
+  NH₃ denominator decomposes as NS·(NS+1) + 1 = 12 + 1 = 13;
+  the 12 = NS·(NS+1) is the same number as c·NS·NT (K_{3,2}^{(c=2)}
+  edge count). -/
+theorem bond_angles_capstone :
+    -- structural form (NS-only)
     (CH4_cos_denom = NS)
-    -- H2O: 1/(NS+1)
     ∧ (H2O_cos_denom = NS + 1)
-    -- NH3: (NS+1)/(NS²+NS+1)
     ∧ (NH3_cos_numer = NS + 1)
     ∧ (NH3_cos_denom = NS * NS + NS + 1)
-    -- NS = 3 from atomicity
-    ∧ (NS = 3) := by decide
-
-/-- ★ Capstone ★
-    Molecular bond angles are derived from *pure rational cos*.  No parameters
-    introduced to match observations.  Determined from NS=3. -/
-theorem bond_angles_capstone :
-    -- CH4 cos = -1/3
-    (CH4_cos_denom = 3)
-    -- H2O cos = -1/4
-    ∧ (H2O_cos_denom = 4)
-    -- NH3 cos = -4/13
+    -- concrete values
+    ∧ (CH4_cos_denom = 3) ∧ (H2O_cos_denom = 4)
     ∧ (NH3_cos_numer = 4) ∧ (NH3_cos_denom = 13)
-    -- all NS-derived
+    -- NH₃ denominator decomposition
+    ∧ (NS * NS + NS + 1 = NS * (NS + 1) + 1)
+    ∧ (NS * (NS + 1) = 12)
+    -- atomic anchor
     ∧ (NS = 3) := by decide
 
 end E213.Lib.Physics.Atomic.BondAngles
