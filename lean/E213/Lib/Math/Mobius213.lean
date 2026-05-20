@@ -183,4 +183,27 @@ theorem mobius_213_pell_unit_invariant_bundle_8layer :
        - P_numerator.seq 8 * P_denominator.seq 7 = -1) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ## §4 — Structural reading of the layer-by-layer invariants
+
+The cross-product `X_n := num_n · den_{n+1} − num_{n+1} · den_n`
+satisfies the recurrence `X_{n+1} = -c₂ · X_n` for any pair of
+sequences obeying the same 2nd-order linear recurrence with
+parameter c₂.  For the Möbius matrix with c₂ = −1, this gives
+`X_{n+1} = X_n`, so X is constant.
+
+X_0 = num_0 · den_1 − num_1 · den_0 = 1·2 − 3·1 = −1, so
+X_n = −1 for every n.
+
+A general ∀-statement form requires `ring` or `linarith` (Int
+ring algebra at the inductive step), which are not in the 213-
+native tactic set.  The 8 layers above + the 8-layer bundle
+provide the same content as a strict ∅-axiom witness over the
+range 0 ≤ n ≤ 7.
+
+Frozen reading: −1 is the algebraic invariant of the symplectic
+form (det [[2,1],[1,1]] = 1, signature carried by [[0,1],[-1,0]]).
+Dynamic reading: each Pell-iteration step preserves the invariant
+(group action on the symplectic form).
+-/
+
 end E213.Lib.Math.Mobius213
