@@ -41,8 +41,6 @@ theorem aCountParityLens_slash (x y : Raw) (h : x ≠ y) :
   cases u <;> cases v <;> rfl
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- Specific reduction of canonicalTruthMap at a. -/
 private theorem ctm_a : canonicalTruthMap Raw.a = True :=
@@ -60,8 +58,6 @@ theorem propXor_iff_bool_xor (P Q : Prop) (b₁ b₂ : Bool)
   cases b₁ <;> cases b₂ <;> simp [xor, hP, hQ]
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- **Main characterization**: canonicalTruthMap r ↔ aCountParityLens.view r = true. -/
 theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
@@ -78,8 +74,6 @@ theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
       exact propXor_iff_bool_xor _ _ _ _ ihx ihy
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Characterization of the Iff alternative
 
@@ -104,8 +98,6 @@ theorem iffBoolLens_slash (x y : Raw) (h : x ≠ y) :
   cases u <;> cases v <;> rfl
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- **The morphisms of two Prop instances differ**: the results of
     canonicalTruthMap (Xor) and canonicalIffMap (Iff) differ at a
@@ -142,8 +134,6 @@ theorem canonicalTruthMap_ne_canonicalIffMap :
   exact canonicalTruthMap_ne_canonicalIffMap_witness (congrFun heq _)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Iff alternative characterization (b-count parity) -/
 
@@ -170,8 +160,6 @@ theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
       exact iff_iff_bool_eq _ _ _ _ ihx ihy
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### And-based characterization: r = Raw.a iff canonicalAndMap
 
@@ -213,8 +201,6 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
           omega)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap
 

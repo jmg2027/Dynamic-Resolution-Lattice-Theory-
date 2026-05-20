@@ -43,7 +43,6 @@ theorem const_lenses_distinct : constTrueLens ≠ constFalseLens := by
     congrArg Lens.base_a h
   exact Bool.noConfusion h_base_a
 
-open E213.Lens.SemanticAtom
 
 /-- Pointwise xor combine of Lenses. -/
 def lensXor (L M : Lens Bool) : Lens Bool :=
@@ -89,7 +88,6 @@ theorem lensXor_eqPW_cong (L1 L2 M1 M2 : Lens Bool)
        = xor (L2.combine x y) (M2.combine x y)
     rw [hL.2.2 x y, hM.2.2 x y]
 
-open E213.Lens.SemanticAtom
 
 /-- **Lens-on-Lens**: Lens Bool itself is a HasDistinguishing instance. -/
 def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
@@ -99,7 +97,6 @@ def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
   combine := lensXor
   combine_sym := lensXor_comm
 
-open E213.Lens.SemanticAtom
 
 /-! ### Universal morphism Raw → Lens Bool
 
@@ -136,7 +133,6 @@ theorem lensUniversalMorphism_slash_eqPW (x y : Raw) (h : x ≠ y) :
   unfold lensUniversalMorphism
   exact Lens.fold_slash_eqPW _ _ _ lensXor_comm_eqPW x y h
 
-open E213.Lens.SemanticAtom
 
 /-! ### Generic Lens-on-Lens: recursive self-application
 
@@ -197,7 +193,6 @@ theorem lensCombineGeneric_eqPW_cong {α : Type} (c : α → α → α)
     show c (L1.combine x y) (M1.combine x y) = c (L2.combine x y) (M2.combine x y)
     rw [hL.2.2 x y, hM.2.2 x y]
 
-open E213.Lens.SemanticAtom
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
     (Lens α)`.  The Lens type itself is an instance of the semantic
@@ -213,7 +208,6 @@ def lensHasDistinguishing (α : Type) [d : HasDistinguishing α] :
   combine := lensCombineGeneric d.combine
   combine_sym := lensCombineGeneric_comm d.combine d.combine_sym
 
-open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 
 /-! ### Tower demonstration: infinite recursive instances

@@ -40,9 +40,6 @@ def boolToConstLens (b : Bool) : Lens Bool :=
 theorem boolToConstLens_true : boolToConstLens true = constTrueLens := rfl
 theorem boolToConstLens_false : boolToConstLens false = constFalseLens := rfl
 
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
-open E213.Lens.Properties.Morphism.BoolProp
 
 /-! ### lensXor acts as xor on {constTrueLens, constFalseLens} -/
 
@@ -58,9 +55,6 @@ theorem lensXor_FT : lensXor constFalseLens constTrueLens = constTrueLens := by
 theorem lensXor_FF : lensXor constFalseLens constFalseLens = constFalseLens := by
   unfold lensXor constFalseLens; rfl
 
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
-open E213.Lens.Properties.Morphism.BoolProp
 
 /-- boolToConstLens preserves the xor combine. -/
 theorem boolToConstLens_xor (x y : Bool) :
@@ -84,9 +78,6 @@ theorem boolToConstLens_xor (x y : Bool) :
         show constFalseLens = lensXor constFalseLens constFalseLens
         exact lensXor_FF.symm
 
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
-open E213.Lens.Properties.Morphism.BoolProp
 
 /-! ### Main: tower collapse factorization -/
 
@@ -111,9 +102,6 @@ theorem composite_slash (x y : Raw) (h : x ≠ y) :
   rw [@universalMorphism_slash Bool boolXorHasDistinguishing x y h]
   exact boolToConstLens_xor _ _
 
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
-open E213.Lens.Properties.Morphism.BoolProp
 
 /-- **Tower collapse**: lensUniversalMorphism factors through
     universalMorphism Bool.  The image of Lens-on-Lens equals the
@@ -147,9 +135,6 @@ theorem lensUniversalMorphism_factors_eqPW (r : Raw) :
   -- h : (composite r).eqPW (⟨...⟩.view r) = (composite r).eqPW (lensUniversalMorphism r)
   exact Lens.eqPW_symm h
 
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
-open E213.Lens.Properties.Morphism.BoolProp
 
 /-- **Image characterization**: the image of lensUniversalMorphism is
     exactly 2 elements — {constTrueLens, constFalseLens}. -/

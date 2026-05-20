@@ -166,7 +166,6 @@ theorem tensor_balanced_of_right {d1 d2 : SignaturePairData}
 end SignaturePairData
 
 
-open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
 namespace SignaturePairData
 

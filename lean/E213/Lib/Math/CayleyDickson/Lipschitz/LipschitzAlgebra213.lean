@@ -61,9 +61,6 @@ private theorem conj_add' (u v : Lipschitz) :
       exact E213.Meta.Int213.neg_add _ _
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- ∅-axiom: `(u + v) * w = u * w + v * w` componentwise via ZI add_mul. -/
 private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
@@ -98,9 +95,6 @@ private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
     exact Ring213.add_4_swap_mid _ _ _ _
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- ∅-axiom Lipschitz `mul_add`: `u * (v + w) = u * v + u * w`. -/
 private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
@@ -132,9 +126,6 @@ private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
     exact Ring213.add_4_swap_mid _ _ _ _
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- Helper: `ZI.conj 0 = 0`. -/
 private theorem conj_zero_zi : ZI.conj (0 : ZI) = 0 := by
@@ -177,9 +168,6 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   exact h_int
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- ★ ∅-axiom Lipschitz `self_mul_conj`: `z * conj z = ofInt z.normSq`.
     Uses ZI's `IntegerNormed213.self_mul_conj` recursively + ZI mul_comm
@@ -218,9 +206,6 @@ private theorem self_mul_conj' (z : Lipschitz) :
     exact Ring213.add_left_neg _
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- ∅-axiom Lipschitz `ofInt_central`: ofInt z commutes with all a. -/
 private theorem ofInt_central' (z : Int) (a : Lipschitz) :
@@ -249,9 +234,6 @@ private theorem ofInt_central' (z : Int) (a : Lipschitz) :
         Ring213.add_zero, Ring213.zero_add]
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- Generic Ring213 4-term cycle helper: `A + B + C + D = A + C + D + B`. -/
 private theorem add_4_cycle {α : Type} [Ring213 α] (A B C D : α) :
@@ -295,9 +277,6 @@ private theorem mul_assoc_re' (u v w : Lipschitz) :
   exact add_4_cycle _ _ _ _
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
-open E213.Meta.Algebra213
 
 /-- ★ ∅-axiom Lipschitz `mul_assoc.im`.  Same pattern as .re. -/
 private theorem mul_assoc_im' (u v w : Lipschitz) :
@@ -340,10 +319,7 @@ private theorem mul_assoc' (u v w : Lipschitz) :
   · exact mul_assoc_re' u v w
   · exact mul_assoc_im' u v w
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 
-open E213.Meta.Algebra213
 
 /-- ★ Lipschitz `Ring213` instance — all axioms PURE via ZI projections. -/
 instance : Ring213 Lipschitz where

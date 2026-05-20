@@ -58,8 +58,6 @@ theorem eulerNum_pos (_n : Nat) : 1 ≤ eulerNum _n := by
       exact Nat.le_add_left 1 _
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
 
@@ -107,8 +105,6 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
         exact Nat.le_trans (Nat.add_le_add_left hk1 _) h1
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Lower invariant** (n ≥ 2): a_n ≥ 2 * d_n + 1.  (S_n > 2 from n=2.)
     a_2 = 5, d_2 = 2: 5 = 2*2 + 1 ✓.
@@ -152,9 +148,6 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
         exact Nat.le_trans (Nat.le_trans step1 h1) (Nat.le_succ _)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Cauchy.PellSeq
 
 /-! ### Raw sequence + orderProj cuts -/
 
@@ -185,8 +178,6 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
   exact decide_eq_true (Nat.le_trans h1 h3)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Cut below 2**: m/k ≤ 2 (m ≤ 2k) → orderProj false (n ≥ 2).
     a_n ≥ 2 d_n + 1, so a_n * k ≥ (2 d_n + 1) * k > d_n * m. -/
@@ -238,8 +229,6 @@ theorem euler_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
         euler_orderProj_below_2 m k hk hm2k q hq]
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 open E213.Lib.Math.Cauchy.MonotonicBounded
 
 /-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/

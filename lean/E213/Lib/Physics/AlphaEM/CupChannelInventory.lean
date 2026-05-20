@@ -59,9 +59,6 @@ open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
 
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
 /-! ## §1 — Per-pair cup-channel value (Bool)
 
@@ -158,9 +155,6 @@ theorem all_other_blocks_zero :
     ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [3, 4, 5, 6, 7, 8] = 0 := by decide
 
 
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Cross-grade cup-channel totals on Δ⁴
@@ -186,7 +180,6 @@ open E213.Lib.Physics.Simplex.Counts (binom)
   interpretation remains open — see end-of-file note. -/
 
 
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §5 — Channels-per-output-grade closed form
 
@@ -244,7 +237,6 @@ def total_cross_terms : Nat :=
 theorem total_cross_terms_eq_785 : total_cross_terms = 785 := by decide
 
 
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §7 — Master inventory theorem -/
 

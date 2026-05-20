@@ -66,7 +66,6 @@ theorem parityXor_fst_eq_parity (r : Raw) :
            = xor (Raw.fold true true xor x) (Raw.fold true true xor y)
       rw [ihx, ihy]
 
-open E213.Lens.Instances.Bool E213.Lens.Instances.Parity
 
 /-! ## §2. Second component = boolXorLens -/
 
@@ -105,7 +104,6 @@ theorem parityXor_is_pair (r : Raw) :
   · exact parityXor_fst_eq_parity r
   · exact parityXor_snd_eq_boolXor r
 
-open E213.Lens.Instances.Bool E213.Lens.Instances.Parity
 
 /-! ## §3. Image has ≥ 3 elements — genuinely Bool × Bool valued
 
@@ -144,7 +142,6 @@ theorem parityXor_image_ge_three :
   refine ⟨Raw.a, Raw.b, ab, ?_, ?_, ?_⟩
   all_goals decide
 
-open E213.Lens.Instances.Bool E213.Lens.Instances.Parity
 
 /-! ## §4. Bootstrap-free claim (informal)
 

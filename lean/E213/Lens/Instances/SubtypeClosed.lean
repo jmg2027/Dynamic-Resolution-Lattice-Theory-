@@ -25,7 +25,6 @@ open E213.Lens.SemanticAtom
 class SlashClosed (P : Raw → Prop) : Prop where
   closed : ∀ {x y : Raw} (h : x ≠ y), P x → P y → P (Raw.slash x y h)
 
-open E213.Lens.SemanticAtom
 
 /-- Slash-based combine on Subtype.  Falls back to base_a when
     vals are equal (since slash only accepts distinct args). -/
@@ -49,7 +48,6 @@ theorem subtypeCombine_comm (P : Raw → Prop) [SlashClosed P]
     apply Subtype.ext
     exact Raw.slash_comm _ _ h
 
-open E213.Lens.SemanticAtom
 
 /-- **Slash-based HasDistinguishing instance** on
     `{r : Raw // P r}` for distinguishing-closed `P`.
@@ -68,7 +66,6 @@ def subtypeHasDistinguishingClosed (P : Raw → Prop) [SlashClosed P]
   combine := subtypeCombine P h_a
   combine_sym := subtypeCombine_comm P h_a
 
-open E213.Lens.SemanticAtom
 
 /-! ### Concrete instance: `True`-predicate (the trivial slash-closed)
 

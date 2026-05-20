@@ -41,7 +41,6 @@ def isOrderCauchy (xs : Nat → Raw) : Prop :=
     orderProj m k (abLens.view (xs i)) = orderProj m k (abLens.view (xs j))
 
 
-open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **orderProj is n-independent for (a, b) = (n, n) (n ≥ 1)**:
@@ -58,8 +57,6 @@ theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
     exact (decide_eq_false hnot).trans (decide_eq_false hkm).symm
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
 
 /-- **Order Cauchy data**: explicit witness structure (constructive). -/
 structure OrderCauchyData (xs : Nat → Raw) where
@@ -81,8 +78,6 @@ theorem cut_eq_tail {xs : Nat → Raw} (cd : OrderCauchyData xs)
   exact cd.cauchy m k n (cd.N m k) hk hn (Nat.le_refl _)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
     Assumes abLens.view (xs n) = (n+1, n+1). -/
@@ -117,8 +112,6 @@ theorem diagonal_seq_cut (xs : Nat → Raw)
   exact diagonal_seq_orderProj_const m k 1 (Nat.le_refl 1)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- orderProj of the (n+1, n+2) sequence is eventually constant
     (N differs for each (m, k)). -/
@@ -171,8 +164,6 @@ theorem ratio_one_below_orderProj_eventually
     exact (decide_eq_false hnotle).trans (decide_eq_false hkm).symm
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
     from below. -/
@@ -198,8 +189,6 @@ theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
   rw [hcdx, hcdy]
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- **General rational p/q sequence**: orderProj of (a, b) =
     (p*(n+1), q*(n+1)) is n-independent. -/
@@ -234,8 +223,6 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
   exact rational_seq_orderProj_const p q m k 1 (Nat.le_refl 1)
 
 
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
 theorem half_seq_orderCauchy (xs : Nat → Raw)
@@ -269,7 +256,6 @@ theorem half_seq_cut (xs : Nat → Raw)
   rw [Nat.one_mul]
 
 
-open E213.Theory E213.Lens
 
 /-- **Cut equivalence**: two OrderCauchyData with the same Dedekind cut
     represent the same ℝ-element. -/
