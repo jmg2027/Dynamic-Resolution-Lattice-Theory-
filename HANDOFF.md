@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 69 session
-commits (177 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 71 session
+commits (179 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -165,9 +165,14 @@ throughout, ∅-axiom preserved.  Two new sub-patterns added to
 per-parameter meta-applications) plus a 30%-over-flag caveat
 for agent-driven audits.
 
-Final wave (5): Endomorphic foldRaw_a/_b (rfls) +
-PairForcing 5 private half_* (unused scaffolds).  Verified-
-and-skipped candidates:
+Final waves:
+  · Wave 5: Endomorphic foldRaw_a/_b + PairForcing 5 private
+    half_* (unused scaffolds).
+  · Wave 6: Geometry/Rotation matrix-entry bundles — 4 Pell-
+    iter steps → 1 `p_iter_spiral`, 3+3 matrix entries → 2
+    `_entries` bundles (10 → 2 theorems).
+
+Verified-and-skipped candidates:
   · universalMorphism_a/_b (heavily externally used)
   · cases_lt_four/five/six/ten (used across Cohomology)
   · mod_add_mod (used by DyadicFSM)
