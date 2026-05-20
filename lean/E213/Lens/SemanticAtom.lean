@@ -63,11 +63,6 @@ class HasDistinguishing (α : Type) where
   combine : α → α → α
   combine_sym : ∀ x y, combine x y = combine y x
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Raw as HasDistinguishing instance
 
@@ -85,11 +80,6 @@ instance : HasDistinguishing Raw where
     · simp [h, Ne.symm h]
       apply Raw.slash_comm
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Universal morphism: Raw → α (HasDistinguishing α)
 
@@ -119,11 +109,6 @@ theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
   unfold universalMorphism
   apply Raw.fold_slash _ _ _ d.combine_sym
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Lens as a specific instance of HasDistinguishing
 
@@ -149,11 +134,6 @@ def lensToHasDistinguishing {α : Type} (L : Lens α)
   combine := L.combine
   combine_sym := h_sym
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### `Prop` as a `HasDistinguishing` instance
 
@@ -228,11 +208,6 @@ theorem canonicalTruthMap_slash (x y : Raw) (h : x ≠ y) :
       = propXor (canonicalTruthMap x) (canonicalTruthMap y) :=
   @universalMorphism_slash Prop propAsDistinguishing x y h
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Alternative connective: `Iff`
 
@@ -324,11 +299,6 @@ theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
       = (canonicalIffMap x ↔ canonicalIffMap y) :=
   @universalMorphism_slash Prop propAsDistinguishingIff x y h
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 open E213.Lens.Properties.Morphism.FoldStructured
 
 /-! ### Negative direction: boundary of Lens-expressibility
@@ -378,11 +348,6 @@ theorem exists_non_lens_expressible :
   rw [isLensExpressible_iff_foldStructured]
   exact E213.Lens.Properties.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 open E213.Lens.Initiality
 
 /-! ### Universal property of `HasDistinguishing` category

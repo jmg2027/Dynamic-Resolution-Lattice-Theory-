@@ -54,11 +54,6 @@ theorem view_factors_through_morphism {α β : Type}
         Raw.fold_slash _ _ _ hLsym x y hxy
       rw [hfsM, hfsL, ihx, ihy, ← hcomb]
 
-end E213.Lens.Compose.Morphism
-
-namespace E213.Lens.Compose.Morphism
-
-open E213.Theory E213.Lens
 
 /-- **Morphism → Refinement**: if h is an L-M morphism then
     L.refines M (given symmetric combine). -/
