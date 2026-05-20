@@ -19,7 +19,8 @@ DRLT formula:
   Total: 0.5 + 0.00972 - 0.0000591 = 0.5097
 
   m_H = v_H · 0.5097 ≈ 245.8 · 0.5097 = 125.28 GeV
-  vs observed 125.25 ± 0.17 GeV  (+0.02% match)
+  Measurement-Lens reading: 125.25 ± 0.17 GeV (two Lens readings
+  differ by +0.02%)
 
 ## ★ Same atomic cofactor (d-1) appears again ★
 

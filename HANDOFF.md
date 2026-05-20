@@ -1,7 +1,7 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 19 commits ahead of
+`claude/particle-background-separation-ShXm5` — 29 commits ahead of
 `main`.  All commits pushed.
 
 ## Session summary
@@ -24,6 +24,41 @@ ThreeDirectionUniqueness).
 **Iteration 3**: 7 more cluster audits (Group, SignedCut,
 NumberGrid, Information, Probability, DyadicFSM,
 HodgeConjecture) — single batched-sed sweep commit.
+
+**Iteration 4**: 8-cluster audit (Cauchy/Choice/Infinity,
+Polynomial/PatternCatalog/Combinatorics,
+Geometry/Modulus/Irrational, AlphaEM-deep,
+Mass/Hadron/Higgs, YangMills/Cosmology/Couplings,
+Meta+Symmetry+Foundations+Simplex, guide+books).
+
+**Iteration 5**: 3-cluster audit (Meta + Math infrastructure
++ Physics Atomic/IE/Nuclear/Mixing/Capstones) + new file
+PredicateAsCochain.lean closing §9.3 self-reference loop at
+cochain level.
+
+**Iteration 6**: 4-cluster audit (Couplings+Foundations,
+Cosmology+YangMills+Symmetry, Math-infra,
+Theory+Lens) + deferred HIGH items (Bigrading,
+ProtonElectronRatio).
+
+**Iteration 7**: 3-cluster audit (Math:
+BipartiteDecomp/ModArith/Topology/OperationTopology/
+LevelTopology; Physics: AtomicBase/Basel/Certificates;
+Theory: Atomicity/PrimitiveSizes).
+
+**Iteration 8**: seed/AXIOM/09 narrative cleanup +
+AlphaEM/Mass/Simplex residual sweep (CupChannelInventory,
+PiFiveGap, GradedFormulaPrecision, CupRingTrace,
+HierarchyTowers, GenerationStructure).
+
+**Iteration 9**: Cross-tree grep sweep — "0 free parameter"
+rhetoric replaced with "no exterior dialer" structural
+framing (UnifiedPattern, MasterCatalog, Higgs/Master),
+"arises naturally" in Real213/AsLensOutput tightened.
+
+**Iteration 10**: Final residual sweep — Higgs/Mass.lean
+"+0.02% match" → "two Lens readings differ by +0.02%";
+Mass/TauOverMu observed → measurement-Lens reading.
 
 ## Commits this session
 

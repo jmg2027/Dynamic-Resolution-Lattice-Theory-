@@ -74,12 +74,12 @@ theorem same_d_plus_1_cofactor :
     -- Concrete: (d+1) = 6
     ∧ (d + 1 = 6) := by decide
 
-/-- Bracket: 16.5 ≤ m_τ/m_μ ≤ 17.0 (covers observed 16.817).
-    Cross-mult: 16.5 = 165/10, 17.0 = 170/10.
+/-- Bracket: 16.5 ≤ m_τ/m_μ ≤ 17.0 (brackets measurement-Lens
+    reading 16.817).  Cross-mult: 16.5 = 165/10, 17.0 = 170/10.
     base · series ≈ 16 · 1.051 = 16.816 — inside [16.5, 17.0] -/
 theorem tau_mu_in_bracket :
-    -- Lower: base · 1.03 = 16.48 < 16.5 < observed
-    -- Upper: base · 1.07 = 17.12 > 17.0 > observed
+    -- Lower: base · 1.03 = 16.48 < 16.5 < measurement-Lens 16.817
+    -- Upper: base · 1.07 = 17.12 > 17.0 > measurement-Lens 16.817
     -- Conservative integer check: 16 ≤ m_τ/m_μ < 17 (since
     -- series 1.051 makes product 16.81)
     base_prefactor = 16
