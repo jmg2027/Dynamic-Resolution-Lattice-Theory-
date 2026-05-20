@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 39 session
-commits (147 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 52 session
+commits (160 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -87,6 +87,21 @@ Five new commits adding 13 new PURE theorems + 1 latent bug fix:
     until the new bridge file did.
 
 Cumulative new PURE theorems this session: **51**.
+
+**Iteration 12** (autonomous-research mode, continued):
+extends the substantive-theorem track with Mobius213 Pell-unit
+invariant layers 5-7 + 8-layer bundle (4 new), FibonacciExtended
+F_11..F_15 + Möbius-Fibonacci structural bridge (7 new), and
+Pisano-Fib ratio identity P_d(k) = F_{2k+1}, P_n(k) = F_{2k+2}.
+
+Plus a major mechanical cleanup: **namespace-block consolidation
+sweep across 133 files**, removing 1292 lines of repo-org §8
+violations (redundant `end NS / namespace NS / open ...`
+triplets).  6 sweep rounds, ~44 files remain with multi-block
+patterns the script's pattern matcher doesn't handle (manual
+handling deferred).
+
+Cumulative new PURE theorems this session: **76**.
 
 ## Commits this session
 
