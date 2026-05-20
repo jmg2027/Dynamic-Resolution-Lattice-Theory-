@@ -24,41 +24,23 @@ namespace E213.Lib.Physics.Atomic.IE.HundPenalty
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- p-shell size = NS·NT = 6 atomic. -/
-theorem p_shell_size : NS * NT = 6 := by decide
+/-- ★ Hund Penalty Atomic Capstone — Hund's rule from α_3
+    edge-occupancy penalty.
 
-/-- Half-fill = NS atomic (half of NS·NT). -/
-theorem half_fill : NS * NT = 2 * NS := by decide
-
-/-- ε_pair atomic = NS/(NS²-1) = 3/8. -/
-theorem epsilon_pair_atomic : NS * 8 = 3 * (NS * NS - 1) := by decide
-
-/-- α_3 atomic = 1/(NS²-1) = 1/8. -/
-theorem alpha_3_atomic : NS * NS - 1 = 8 := by decide
-
-/-- O paired count = 1 (= 2p⁴ - half). -/
-theorem O_paired : (4 : Nat) - NS = 1 := by decide
-
-/-- F paired count = 2. -/
-theorem F_paired : (5 : Nat) - NS = 2 := by decide
-
-/-- Ne paired count = 3. -/
-theorem Ne_paired : (6 : Nat) - NS = 3 := by decide
-
-/-- ★ Hund Penalty Atomic Capstone ★
-    No "strange correction".  α_3 · NS · R = atomic Lens output. -/
+  p-shell size NS·NT = 6, half-fill 2·NS = 6 (also NS), ε_pair
+  atomic = NS/(NS²-1) = 3/8, α_3 atomic = 1/(NS²-1) = 1/8.
+  Past half-fill, atoms O/F/Ne have 1, 2, 3 paired electrons
+  respectively.  No "strange correction"; this IS the atomic
+  α_3 · NS · R Lens readout. -/
 theorem hund_atomic :
-    -- p shell size atomic
-    (NS * NT = 6)
-    -- half = NS atomic
-    ∧ (NS * NT = 2 * NS)
-    -- ε_pair atomic = NS/(NS²-1)
+    -- p shell size + half-fill
+    (NS * NT = 6) ∧ (NS * NT = 2 * NS)
+    -- ε_pair atomic = NS/(NS²-1) = 3/8 cross-mult
     ∧ (NS * 8 = 3 * (NS * NS - 1))
-    -- α_3 atomic
+    -- α_3 atomic = 1/(NS²-1)
     ∧ (NS * NS - 1 = 8)
-    -- Paired counts
+    -- Paired counts O/F/Ne (n - NS for n = 4, 5, 6)
     ∧ (4 - NS = 1) ∧ (5 - NS = 2) ∧ (6 - NS = 3) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.HundPenalty
