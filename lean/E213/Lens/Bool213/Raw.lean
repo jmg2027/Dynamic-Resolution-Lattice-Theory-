@@ -75,10 +75,12 @@ theorem not_not (r : Raw) : not (not r) = r := Raw.swap_swap r
 def and (x y : Raw) : Raw :=
   if decide (x = T) ∧ decide (y = T) then T else F
 
-theorem and_TT : and T T = T := by unfold and; decide
-theorem and_TF : and T F = F := by unfold and; decide
-theorem and_FT : and F T = F := by unfold and; decide
-theorem and_FF : and F F = F := by unfold and; decide
+/-- `and` truth table at (T, T), (T, F), (F, T), (F, F) bundled
+    in one statement.  The four `_TT/_TF/_FT/_FF` cases compute
+    by `unfold and; decide`. -/
+theorem and_truth_table :
+    and T T = T ∧ and T F = F ∧ and F T = F ∧ and F F = F := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> (unfold and; decide)
 
 /-- `and` is commutative on every Raw input — `if`-branches match. -/
 theorem and_comm (x y : Raw) : and x y = and y x := by
@@ -259,10 +261,10 @@ algebra structure on the Bool213 canonical-form image.  -/
 def or (x y : Raw) : Raw :=
   if decide (x = T) ∨ decide (y = T) then T else F
 
-theorem or_TT : or T T = T := by unfold or; decide
-theorem or_TF : or T F = T := by unfold or; decide
-theorem or_FT : or F T = T := by unfold or; decide
-theorem or_FF : or F F = F := by unfold or; decide
+/-- `or` truth table bundled (parallel to `and_truth_table`). -/
+theorem or_truth_table :
+    or T T = T ∧ or T F = T ∧ or F T = T ∧ or F F = F := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> (unfold or; decide)
 
 /-- `or` is commutative on every Raw input. -/
 theorem or_comm (x y : Raw) : or x y = or y x := by

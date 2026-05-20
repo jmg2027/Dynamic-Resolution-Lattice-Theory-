@@ -622,27 +622,14 @@ theorem euler_lower_generic (j b N0 : Nat) (hb : b ≥ 1)
       · have h_inv := ih h_ge
         exact euler_lower_step j b k hb h_inv
 
-/-! ### Per-b applications via meta-algorithm -/
+/-! ### Per-b instantiations
 
-/-- e > 8/3 strict (b=3, j=8, N0=4). -/
-theorem e_gt_8_3 (n : Nat) (hn : n ≥ 4) :
-    3 * eulerNum n ≥ 8 * eulerDen n + 1 :=
-  euler_lower_generic 8 3 4 (by decide) (by decide) n hn
-
-/-- e > 10/4 = 5/2 strict (b=4, j=10, N0=4). -/
-theorem e_gt_10_4 (n : Nat) (hn : n ≥ 4) :
-    4 * eulerNum n ≥ 10 * eulerDen n + 1 :=
-  euler_lower_generic 10 4 4 (by decide) (by decide) n hn
-
-/-- e > 13/5 strict (b=5, j=13, N0=5). -/
-theorem e_gt_13_5 (n : Nat) (hn : n ≥ 5) :
-    5 * eulerNum n ≥ 13 * eulerDen n + 1 :=
-  euler_lower_generic 13 5 5 (by decide) (by decide) n hn
-
-/-- e > 19/7 strict (b=7, j=19, N0=6).  e ≈ 2.718, 19/7 ≈ 2.714. -/
-theorem e_gt_19_7 (n : Nat) (hn : n ≥ 6) :
-    7 * eulerNum n ≥ 19 * eulerDen n + 1 :=
-  euler_lower_generic 19 7 6 (by decide) (by decide) n hn
+The lower bound at any concrete (b, j, N₀) follows by a single
+call to `euler_lower_generic b j N0 (decide) (decide)`.  E.g.
+`e > 8/3` at n ≥ 4: `euler_lower_generic 8 3 4 (by decide) (by
+decide)`.  No per-parameter theorems are exposed at the file
+level; callers instantiate the meta-algorithm at the bound
+they need. -/
 
 /-! ### Upper bound meta-algorithm (symmetric) -/
 
@@ -698,15 +685,11 @@ theorem euler_upper_generic (j b N0 : Nat) (hb : b ≥ 1) (hN0 : N0 ≥ b)
         have h_k_ge_b : k ≥ b := Nat.le_trans hN0 h_ge
         exact euler_upper_step j b k h_k_ge_b h_inv
 
-/-- Per-b upper: e < 9/3 = 3 (b=3, j=9, N0=3). -/
-theorem e_lt_9_3 (n : Nat) (hn : n ≥ 3) :
-    9 * eulerDen n ≥ 3 * eulerNum n + 1 :=
-  euler_upper_generic 9 3 3 (by decide) (by decide) (by decide) n hn
+/-! ### Per-b instantiations (upper)
 
-/-- Per-b upper: e < 11/4 (b=4, j=11, N0=4). -/
-theorem e_lt_11_4 (n : Nat) (hn : n ≥ 4) :
-    11 * eulerDen n ≥ 4 * eulerNum n + 1 :=
-  euler_upper_generic 11 4 4 (by decide) (by decide) (by decide) n hn
+Symmetric to the lower-bound side: e.g. `e < 9/3` at n ≥ 3 is
+`euler_upper_generic 9 3 3 (by decide) (by decide) (by decide)`.
+Callers instantiate at the bound they need. -/
 
 /-! ### Transcendental cut discriminator
 
