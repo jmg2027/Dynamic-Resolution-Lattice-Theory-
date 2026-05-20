@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Cochain`.
 
-  213-native cochain complex foundation.
+  213-native cochain complex — core type + operations.
 
   ## Files
 

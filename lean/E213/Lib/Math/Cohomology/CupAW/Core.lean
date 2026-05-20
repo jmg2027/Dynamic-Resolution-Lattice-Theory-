@@ -16,9 +16,10 @@ fail.  Standard simplicial AW cup uses overlap at the shared vertex
   cupAW n a b α β τ := α(τ.take a) · β(τ.drop (a-1))
   type:  Cochain n a × Cochain n b → Cochain n (a+b-1)
 
-Since our `Cochain n k` indexes k-element subsets ≃ standard C^{k-1},
-the input arities a, b ≥ 1 correspond to standard cochains and
-output a+b-1 ≥ 1 corresponds to the standard sum.
+Our `Cochain n k` reads k-element subsets as Bool-functions on
+those subsets.  Degree-sum (a+b−1) is the AW overlap convention
+applied to this indexing — input arities a, b ≥ 1 and output
+a+b−1 ≥ 1.
 -/
 
 namespace E213.Lib.Math.Cohomology.CupAW.Core

@@ -74,7 +74,8 @@ theorem encoding_bijection_delta4 :
   E213.Lib.Math.Cohomology.Examples.EncodingBijection.encode_bijection
 
 /-- ★★★★★ Δ⁴ Cohomology capstone — full Prop-level lift of
-    cohomology axioms on the atomic substrate. -/
+    cohomology axioms on the atomic simplex (vertex/edge/face
+    strata of Δ⁴). -/
 theorem delta4_cohomology_capstone :
     (∀ σ : Cochain 5 1, ∀ i, delta (delta σ) i = false)
     ∧ (∀ σ : Cochain 5 2, ∀ i, delta (delta σ) i = false)

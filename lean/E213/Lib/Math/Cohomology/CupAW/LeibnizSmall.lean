@@ -9,13 +9,13 @@ import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Cup Leibniz at small atomic substrates — AW cup
+# Cup Leibniz at small atomic simplices — AW cup
 
   ∀ α β : Cochain n 1, δ(α ⌣AW β) = δα ⌣AW β XOR α ⌣AW δβ
 
 For n = 3: 8 × 8 = 64 pairs × 3 indices = 192 evals.
 Confirms the AW overlap convention is consistent with Leibniz
-across multiple atomic substrates.
+across multiple atomic simplices.
 -/
 
 namespace E213.Lib.Math.Cohomology.CupAW.LeibnizSmall

@@ -4,9 +4,7 @@ import E213.Meta.Int213.Core
 /-!
 # `ZOmegaDouble` — CD-doubling of Eisenstein integers (Type C L3)
 
-Mechanical CD-doubling construction + Type C L3 order analysis
-(consolidated 2026-05-18; previously split as `ZOmegaDouble.lean`
-+ `ZOmegaDoubleOrderDist.lean`).
+Mechanical CD-doubling construction + Type C L3 order analysis.
 
 ZOmegaDouble = CD-double of ZOmega = Type C L3 = 12 units.  This
 is the FIRST layer where Order-4 Monopoly's rule is non-trivial:

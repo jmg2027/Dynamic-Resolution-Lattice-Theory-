@@ -27,15 +27,18 @@ according to Type-specific cyclotomic content.
 
 This is the **meta fixed point**: the only invariant elements
 across CD doubling are the integers `±1`, and they are preserved
-at every layer.  As n → ∞:
-  - count(units, order = 4) → ∞
+at every layer.  At each layer n:
+  - count(units, order = 4) grows without bound across layers
   - count(units, order ≠ 4) = 2 (constant)
-  - rat_4 = 1 - 2/|units_n| → 1
+  - rat_4 = 1 − 2/|units_n| is a structural property of layer n
 
-So the tower **ascends infinitely** (no termination), with
-**asymptotic fixed point = 1.0** (every unit becomes order-4) and
-the **literal pointwise fixed set = {±1}** (the universal scalar
-subring).
+The sequence {rat_4(n)} is monotonically increasing across layers,
+bounded above by 1 (the structural identity 1 − 2/|units_n| ≤ 1
+at every finite layer).  The pointwise fixed set across all layers
+is exactly {±1} (the universal scalar subring) — these two
+readings (per-layer ratios + global pointwise fixed set) are
+aspects of the same residue, not separate phenomena (cf.
+`seed/AXIOM/07_self_reference.md` §8.7 frozen+dynamic).
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Tower.TowerFixedPoint

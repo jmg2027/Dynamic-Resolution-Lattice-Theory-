@@ -3,9 +3,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 /-!
 # `ZOmegaQuad` — CD-doubling of `ZOmegaDouble` (Type C L4)
 
-Mechanical CD-doubling extension + Type C L4 order analysis
-(consolidated 2026-05-18; previously split as `ZOmegaQuad.lean`
-+ `ZOmegaQuadOrderDist.lean`).
+Mechanical CD-doubling extension + Type C L4 order analysis.
 
 ZOmegaQuad = CD-double of ZOmegaDouble = Type C L4 = 24 units.
 

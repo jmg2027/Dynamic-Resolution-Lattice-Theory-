@@ -3,7 +3,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Cohomology — k-cochain type with ℤ/2 coefficients
 
-213-internal cochain complex foundation, Mathlib-free, 0 axiom.
+213-internal cochain complex — Bool-to-k-subsets mapping, Mathlib-free, 0 axiom.
 
 `Cochain n k = Fin (binom n k) → Bool` — Bool-valued functions on
 the i-th k-element subset of n vertices (i ∈ Fin (binom n k)).

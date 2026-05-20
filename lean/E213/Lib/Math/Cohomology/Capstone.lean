@@ -20,7 +20,7 @@ Closes the Cohomology 213 marathon as a self-contained branch of
 
 ## What's inside (all decide-checked, 0 axiom)
 
-### — cochain complex foundation
+### — cochain complex — core type + operations
   * `Cochain n k = Fin (binom n k) → Bool`
   * `delta : Cᵏ → Cᵏ⁺¹` via XOR over face removals
   * δ²=0 verified at multiple concrete cochains on Δ⁴

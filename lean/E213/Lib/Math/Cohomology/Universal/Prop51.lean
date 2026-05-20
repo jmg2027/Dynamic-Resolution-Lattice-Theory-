@@ -13,7 +13,7 @@ parametrization with 5 Bool values gives full enumeration.
 
 This is the **Δ⁴ vertex cochain** Universal δ²=0 — the case
 most directly relevant to physics (vertex functions on the
-5-vertex atomic substrate).
+5-vertex atomic simplex).
 
 **∅-axiom**: pattern is defined via `match i.val with` (Nat
 match, no `Fin (binom n k)` exhaustivity); the universal lift

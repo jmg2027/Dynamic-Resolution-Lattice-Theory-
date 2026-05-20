@@ -27,9 +27,11 @@ Standard simplicial cup product (Alexander-Whitney) splits a
   front = v_0..v_k  (k+1 vertices, a k-simplex)
   back  = v_k..v_{k+l}  (l+1 vertices, an l-simplex)
 
-Our convention has off-by-one: we map "k-subsets" to Bool, but
-standard k-cochain is on k-simplex (k+1 vertices).  So our
-`Cochain n k` ≃ standard C^{k-1}.
+Our convention: `Cochain n k = Fin (binom n k) → Bool` maps
+k-element subsets directly.  This indexing differs by one from
+some external simplicial-cohomology conventions (where k-cochain
+sits on k-simplex = k+1 vertices), but the AW overlap operation
++ Leibniz are stated here in the internal indexing.
 
 Cup product correct fix would be:
   cup' (a b : Nat) : Cochain n a × Cochain n b → Cochain n (a+b-1)
@@ -46,10 +48,11 @@ position a-1).
 
 ## Why we keep the current cup
 
-The current cup is still a meaningful XOR-bilinear operation
-on cochains.  It's just not the standard Alexander-Whitney
-cup product.  Renaming it to `xor_cup` or fixing the convention
-is future work.
+The current cup is a well-defined XOR-bilinear operation on
+cochains (distinct from the Alexander-Whitney cup product that
+satisfies the universal Leibniz identity; see `CupAW/` for the
+AW variant).  Possible renaming `cup → xor_cup` for clarity is
+future work.
 
 ## Honest negative formalization
 

@@ -37,10 +37,10 @@ namespace E213.Lib.Math.CayleyDickson.Misc.R5Vacuity
 open E213.Theory E213.Lens
 
 /-- **Fold totality (R5' — finitist R5).** Every Raw term has
-    a fully-determined Lens view. This is *automatic* for any
-    Lens under inductive Raw, because `L.view` is a total
-    function (built as a catamorphism). No `ring`, no
-    `sorry`. -/
+    a fully-determined Lens view.  This is *automatic*: `L.view`
+    is a catamorphism over the finite Raw structure (every Raw is
+    Raw.a, Raw.b, or Raw.slash with sub-Raws), so totality follows
+    by structural recursion.  No `ring`, no `sorry`. -/
 theorem foldTotality {α : Type} (L : Lens α) (r : Raw) :
     ∃ a : α, L.view r = a :=
   ⟨L.view r, rfl⟩
