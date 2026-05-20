@@ -55,12 +55,6 @@ namespace E213.Lib.Physics.AlphaEM.PiFiveGap
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
-
 /-! ## §1 — Observed gap (10⁻⁷ scale)
 
   Standard precision: 137.0359991 − 137.0354548 = 0.0005443
@@ -109,12 +103,6 @@ def pi5_gap_e7 : Nat :=
 
 theorem pi5_gap_e7_eq_5446 : pi5_gap_e7 = 5446 := by decide
 
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
-
 /-! ## §3 — α_GUT/45 reference value (existing SO(10) correction)
 
   α_GUT = 6/(25·π²) ≈ 0.024327
@@ -156,10 +144,6 @@ theorem alpha_gut_45_distance_eq_40 : alpha_gut_45_distance = 40 := by decide
     matches at 10⁻⁷ residual vs α_GUT/45's 10⁻⁶ residual. -/
 theorem pi5_closer_than_alpha_gut_45 :
     pi5_gap_distance * 10 < alpha_gut_45_distance := by decide
-
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
 
 /-! ## §5 — Master numerical gap-comparison theorem -/
 
@@ -203,5 +187,44 @@ theorem pi5_gap_master :
     -- π⁵ form is ~13× closer
     ∧ pi5_gap_distance * 10 < alpha_gut_45_distance := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ## §6 — Bracket form of the precision claim
+
+  The strict ratio of distances is `40 / 3` between the two
+  candidate gap-terms.  At the level of 10⁻⁷ precision, this
+  bracket statement captures the structural improvement of the
+  π⁵ form independent of the absolute precision of π_e9.
+-/
+
+/-- ★ **Bracket: π⁵ residual < α_GUT/45 residual / 13**.  Strict
+    integer inequality showing the π⁵ form's residual gap distance
+    of 3 × 10⁻⁷ is less than `40 / 13 = 3.077... × 10⁻⁷` — i.e.,
+    strictly within 1/13 of the α_GUT/45 residual. -/
+theorem pi5_residual_thirteen_bracket :
+    13 * pi5_gap_distance < alpha_gut_45_distance + 1 := by decide
+
+/-- ★ **Two-Lens bracket on the candidate gap**: the integer-
+    arithmetic value `pi5_gap_e7 = 5446` brackets the measurement-
+    Lens-derived `gap_e7 = 5443` strictly within ±5 × 10⁻⁷
+    (concretely: within 3 × 10⁻⁷).  This is the ∅-axiom
+    integer skeleton of the precision claim. -/
+theorem pi5_gap_two_lens_bracket :
+    gap_e7 + 5 > pi5_gap_e7
+    ∧ pi5_gap_e7 + 5 > gap_e7
+    ∧ pi5_gap_distance ≤ 3 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-- ★ **Cohomology-layer arithmetic identity**: at the integer-
+    skeleton level, `1/(NS·NT) = 1/6` is read by the Atomic-Lens
+    as the product `NS · NT = 6 = d + 1`, anchoring the π⁵
+    coefficient to the same `(NS·NT)` block that appears in
+    `m_p/m_e = NS·NT·π⁵` (Hadron/ProtonElectronRatio).  Two
+    distinct precision observables share the same `NS·NT·π⁵`
+    structural skeleton. -/
+theorem pi5_ns_nt_block :
+    NS * NT = 6
+    ∧ NS * NT = d + 1
+    ∧ NS + NT = d := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.PiFiveGap
