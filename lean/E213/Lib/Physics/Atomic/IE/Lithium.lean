@@ -45,14 +45,16 @@ def IE_Li_micro : Nat := 5391715
     13605693 · 25 / 64 = 340142325 / 64 = 5314723. -/
 def IE_Li_DRLT_micro : Nat := 5314723
 
-/-- DRLT vs observed difference = 76992 μeV out of 5.4M = 1.4%. -/
-theorem IE_Li_diff :
-    IE_Li_micro - IE_Li_DRLT_micro = 76992 := by decide
+/-- ★ Li IE atomic chain capstone.
 
-/-- Z_eff = 5/4 atomic (= d/(NS+1)). -/
-theorem Z_eff_Li_atomic : d * 4 = (NS + 1) * 5 := by decide
-
-/-- 25/64 = d² / (NT² · NT²) = d² / 16. -/
-theorem ratio_atomic : d * d * 16 = 25 * 16 := by decide
+  DRLT prediction vs measurement-Lens reading: differ by 76992
+  μeV out of 5.4M = 1.4%.  Z_eff = 5/4 = d/(NS+1) atomic
+  (cross-mult: d·4 = (NS+1)·5).  Leading ratio 25/64 = d²/(NT²·NT²)
+  = d²/16. -/
+theorem lithium_IE_atomic :
+    (IE_Li_micro - IE_Li_DRLT_micro = 76992)
+    ∧ (d * 4 = (NS + 1) * 5)
+    ∧ (d * d * 16 = 25 * 16) := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Lithium
