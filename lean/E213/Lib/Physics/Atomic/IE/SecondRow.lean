@@ -35,31 +35,34 @@ def IE_O : Nat := 13618054
 def IE_F : Nat := 17422820
 def IE_Ne : Nat := 21564540
 
-/-- Z values (atomic). -/
-theorem Z_B : d = 5 := by decide
-theorem Z_C : NS * NT = 6 := by decide
-theorem Z_N : NS * NT + 1 = 7 := by decide
-theorem Z_O : NS * NT + NT = 8 := by decide
-theorem Z_F : NS * NS = 9 := by decide
-theorem Z_Ne : NS * NT + NT * NT = 10 := by decide
+/-- ★ Second Row Capstone — Z values + σ atomic forms.
 
-/-- σ_2s_to_2p atomic ≈ 17/20 (= 17/(4d)). -/
-theorem sigma_2s2p_atomic : 4 * d = 20 := by decide
+  Z values per element (atomic-skeleton readouts):
+    Z(B)  = d                  = 5
+    Z(C)  = NS · NT            = 6
+    Z(N)  = NS · NT + 1        = 7
+    Z(O)  = NS · NT + NT       = 8
+    Z(F)  = NS²                = 9
+    Z(Ne) = NS · NT + NT²      = 10
 
-/-- σ_2p_to_2p atomic ≈ NS/(NS+1) = 3/4. -/
-theorem sigma_2p2p_atomic : NS + 1 = 4 := by decide
-
-/-- ★ Second Row Capstone ★ -/
+  σ atomic forms:
+    σ_2s_2p ≈ 17/(4d), with 4d = 20
+    σ_2p_2p ≈ NS/(NS+1) = 3/4, with NS+1 = 4
+    σ_2s_2s ≈ NS/d = 3/5 (cross-multed NS·5 = 3·d). -/
 theorem second_row_atomic :
-    -- atomic
+    -- atomic anchors
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- Z atomic for each
-    ∧ (NS * NT = 6) ∧ (NS * NS = 9)
-    ∧ (NS * NT + NT * NT = 10)
-    -- σ atomic
-    ∧ (NS * 5 = 3 * d)        -- σ_2s_2s
-    ∧ (NS + 1 = 4) := by       -- σ_2p_2p denom
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+    -- Z atomic for each second-row element
+    ∧ (d = 5)                          -- Z(B)
+    ∧ (NS * NT = 6)                    -- Z(C)
+    ∧ (NS * NT + 1 = 7)                -- Z(N)
+    ∧ (NS * NT + NT = 8)               -- Z(O)
+    ∧ (NS * NS = 9)                    -- Z(F)
+    ∧ (NS * NT + NT * NT = 10)         -- Z(Ne)
+    -- σ atomic forms
+    ∧ (4 * d = 20)                     -- σ_2s_2p denom
+    ∧ (NS + 1 = 4)                     -- σ_2p_2p denom
+    ∧ (NS * 5 = 3 * d) := by           -- σ_2s_2s cross-mult
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.SecondRow
