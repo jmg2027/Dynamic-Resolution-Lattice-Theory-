@@ -8,7 +8,7 @@ User insight (2026-04): N must be FINITE for the residual structure
 to live; ∞-N causes uniform cancellation of reverberations.
 
 Each SM coupling resonates at a different *finite* lattice N,
-each N derived from a structural invariant of K_{3,2}^{(2)}:
+each N derived from a structural property of K_{3,2}^{(2)}:
 
   1/α_2 (weak)   ←  N = b_1                = 8   (= 1/α_3 itself!)
   1/α_3 (strong) ←  N = (NS+1) · d         = 20  (face dim × atomic)
@@ -47,7 +47,7 @@ theorem finite_resonance_n_skeleton :
     ∧ (1225 < 41 * 36 ∧ 41 * 108 < 4575)     -- N_em = 41 in α_GUT bracket
     ∧ 8 < 20 ∧ 20 < 41 := by decide          -- hierarchy
 
-/-- Each coupling's N IS another structural invariant:
+/-- Each coupling's N is itself a derived structural quantity:
     N_2 = b_1 = 1/α_3 itself (8).  Self-referential cascade.
     N_3 = (NS+1)·d uses Dyson denominator (NS+1) and atomic dim d.
     N_em = ⌊d²·ζ(2)⌋ = the GUT scale rounded. -/

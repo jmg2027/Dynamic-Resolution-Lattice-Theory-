@@ -18,9 +18,10 @@ numbering.  This module captures that meta-pattern.
 ## Why this matters
 
 In standard mathematics: "the natural numbers are unique up to
-isomorphism" (Peano triple isomorphism).  Here in the closed
-universe: any two-element selection from Raw gives an isomorphic
-numbering, and `foldRaw` realises the isomorphism concretely.
+isomorphism" (Peano triple isomorphism).  Here: for any pair of
+distinguishable Raws (chart selection per `seed/AXIOM/
+09_chart_relativity.md` §9.1), `foldRaw` realises an isomorphic
+numbering concretely.
 
 Related: this is the chart-relativity claim of
 `seed/AXIOM/09_chart_relativity.md` §9.1 instantiated for the

@@ -35,9 +35,6 @@ theorem cutSum_zero_zero_at (m k : Nat) :
   · exact constCut_zero_always 0 (2*k)
   · exact constCut_zero_always (2*m - 0) (2*k)
 
--- DELETED 2026-05-XX session 27 ('박멸'): function-eq cutSum_zero_zero
--- removed.  Use cutSum_zero_zero_at (pointwise PURE) instead.
-
 /-- **cutMul 0 0 = 0** pointwise (∅-axiom).  Avoids `funext`. -/
 theorem cutMul_zero_zero_at (m k : Nat) :
     cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k := by

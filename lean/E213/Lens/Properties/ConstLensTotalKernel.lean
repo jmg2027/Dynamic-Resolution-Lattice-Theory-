@@ -3,7 +3,7 @@ import E213.Lens.Lattice.Lattice
 /-!
 # ConstLensTotalKernel: kernel of constLens = total relation
 
-Explicit version of the coarsest element claim in PAPER1 §3.3:
+Explicit version of the coarsest-element claim in the Lens preorder:
 constLens's equiv is true for every (x, y) pair.
 -/
 

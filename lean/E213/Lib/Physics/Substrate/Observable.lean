@@ -82,9 +82,10 @@ theorem axiom_level_observables :
   Quantities 213 can answer *from axioms alone* = 9 integers.
 
   All precision quantities of Phase 1 (137, m_p, ...) are deeper Lens outputs
-  *derived from these 9*.  Phase 1 = details on top of Phase 2.
+  *derived from these 9*.  Phase 1 = elaboration of Phase 2 via further
+  Lens application.
 
-  Phase 2 is the *blank starting point*, Phase 1 is the *detailed output*. -/
+  Phase 2 is the *minimum-reading*, Phase 1 is the *detailed reading*. -/
 theorem phase2_observable_summary :
     -- 9 axiom-level observables
     (cosmos_observables.length = 9)

@@ -3,7 +3,7 @@ import E213.Lens.LensCore
 /-!
 # RefinesPreorder: preorder structure of Lens.refines
 
-Explicit theorems for the preorder claim in PAPER1 §3.3:
+Explicit theorems for the Lens.refines preorder:
 reflexivity + transitivity.
 -/
 

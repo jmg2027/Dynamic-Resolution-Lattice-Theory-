@@ -5,7 +5,7 @@ import E213.Lens.Algebra.Congruence
 # KernelCorresp: explicit two-direction bijection of
 Kernel ↔ slash-congruence
 
-Formal statement of the implicit bijection in PAPER1 §3.2-§3.3.
+Formal statement of the implicit Kernel ↔ slash-congruence bijection.
 
 ## Two Core Directions
 

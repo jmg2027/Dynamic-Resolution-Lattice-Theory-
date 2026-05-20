@@ -9,8 +9,9 @@ The public surface of `Raw`.  The underlying `Tree` machinery
 ARCHITECTURE.md (2026-05-12) "Raw's implementation (Tree, etc.)"
 spec.
 
-This file layers `Raw := {t : Tree // canonical t}` on top of
-that Tree — the Theory ring's public surface for the Raw axiom.
+This file exposes `Raw := {t : Tree // canonical t}` as the
+Theory ring's public surface for the Raw axiom, built from the
+underlying Tree.
 -/
 
 namespace E213.Theory

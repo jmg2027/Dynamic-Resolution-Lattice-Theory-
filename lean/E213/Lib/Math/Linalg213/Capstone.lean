@@ -40,14 +40,14 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
 open E213.Lib.Math.Cohomology.Bridge.Paper1Chiral (chiralDim)
 open E213.Lib.Math.Cohomology.Examples.TopologyCompare (b1_bipartite b1_complete)
 
-/-- ★★★ PAPER 1 CHIRAL COMPRESSION — 213 CAPSTONE ★★★
+/-- ★★★ CHIRAL COMPRESSION — 213 CAPSTONE ★★★
 
     Single 0-axiom theorem bundling six results from atomicity
     through Linalg213 chiral split, Cohomology 213 bigrading,
     Bridge identification, K_{3,2}^{(2)} physics, and topology
     uniqueness.  Each conjunct is decide-checked or follows from
     a prior theorem. -/
-theorem paper1_chiral_compression :
+theorem chiral_compression_capstone :
     -- (i) Atomic forcing
     (NS = 3 ∧ NT = 2 ∧ NS + NT = d ∧ d = 5)
     -- (ii) Linalg213: chiral split round-trip ∀v

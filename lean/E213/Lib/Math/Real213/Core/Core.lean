@@ -3,7 +3,7 @@ import E213.Lib.Math.Modulus.HasModulus
 /-!
 # Real213: framework-internal Real number type
 
-*Type-level* formulation of the Cauchy completeness in PAPER1 §6, §7:
+*Type-level* formulation of Cauchy completeness:
 real number = (sequence + modulus) pair.
 
 ## Definition

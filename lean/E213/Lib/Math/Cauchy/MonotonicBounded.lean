@@ -209,7 +209,7 @@ of any monotonic sequence become a finite-witness affair.
 
 The general `∀ (m, k)` closure is **deliberately** not claimed —
 it would smuggle LEM, mirroring ZFC's power-set commitment to
-arbitrary subsets (cf. Risk-2 framing in `PAPER1_OUTLINE.md`).
+arbitrary subsets.
 -/
 
 /-- Constructive Cauchy at `(m, k)` given a false-witness. -/

@@ -45,7 +45,7 @@ theorem four_way_uniform : shannonEntropyUniformBits 2 = 2 := rfl
 theorem byte_uniform_entropy : shannonEntropyUniformBits 8 = 8 := rfl
 
 /-- N_U-scale uniform (2^25 outcomes) = entropy 25 bits.  Connects
-    to the system invariant `N_U = 5^25` via dyadic encoding. -/
+    to the count-Lens readout `N_U = 5^25` via dyadic encoding. -/
 theorem nU_dyadic_entropy : shannonEntropyUniformBits 25 = 25 := rfl
 
 /-- Atomic dyadic Bernoulli skew: probability `1/2^k`.  Surprise

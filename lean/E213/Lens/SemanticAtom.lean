@@ -10,7 +10,7 @@ Hub for the formalization of Note 75's thesis.  Clarifies that all previous
 vague framings (constructive subset, fold-structured, scale-invariance)
 are specific aspects of this thesis.
 
-## Thesis (Mingu, 2026-04-25)
+## Thesis
 
 > Nothing with meaning can escape 213.  213 is the semantic atom.
 > Nothing is more primitive than the axiom of 213.
@@ -127,8 +127,9 @@ Raw is the carrier (universal) for all Lenses. -/
     degenerate cases like constLens where distinguishing is absent
     (base_a = base_b), so only distinguishing-preserving Lenses are instances.
 
-    This partial functoriality is the formal expression of "the atom of
-    meaning is Raw, and Lens is its representation on top". -/
+    This partial functoriality is the formal expression of "Raw is
+    the atom of meaning, and Lens is another reading of the same
+    residue". -/
 def lensToHasDistinguishing {α : Type} (L : Lens α)
     (h_distinct : L.base_a ≠ L.base_b)
     (h_sym : ∀ u v, L.combine u v = L.combine v u) :

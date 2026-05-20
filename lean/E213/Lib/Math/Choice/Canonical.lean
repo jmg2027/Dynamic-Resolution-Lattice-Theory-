@@ -4,9 +4,9 @@ import E213.Theory.Raw.API
 # CanonicalChoice: canonical-form selection as an internal
 choice function
 
-Deeper formalization of PAPER1 §4.5 (encoding-artifact independence):
-The canonicalization of Raw.slash (smaller-first selection under
-Tree.cmp lex order) is a *constructive representative selector*.
+Encoding-artifact independence formalization: the canonicalization
+of Raw.slash (smaller-first selection under Tree.cmp lex order) is
+a *constructive representative selector*.
 In settings where ZFC Choice is used for representative selection,
 213 replaces it with canonical form.
 

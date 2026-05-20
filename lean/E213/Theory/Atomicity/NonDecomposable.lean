@@ -2,9 +2,8 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # Non-decomposable integers: {2, 3}
 
-Proposition (per archival PAPER1 §6.5, deleted 2026-05-12):
-  an integer `n ≥ 2` cannot be expressed
-as a sum `n = n_1 + … + n_k` with `k ≥ 2` and each `n_i ≥ 2` iff
+An integer `n ≥ 2` cannot be expressed as a sum
+`n = n_1 + … + n_k` with `k ≥ 2` and each `n_i ≥ 2` iff
 `n ∈ {2, 3}`.
 
 Any `k`-part decomposition collapses to a 2-part one — so we use

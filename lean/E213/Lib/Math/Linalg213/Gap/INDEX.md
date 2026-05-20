@@ -25,7 +25,7 @@ level.
     into positive/negative magnitude parts — sign is a separate
     oracle layer (truncated Nat-subtraction here gives magnitude).
   * **Tensor = product on Nat**: `5 ⊗ 5 = 25` is the K_{3,2}^{(c=2)}
-    channel count; `5^25` ties to N_U system invariant.
+    channel count; `5^25` matches the N_U count-Lens readout.
   * **Eigen = pointwise identity**: matched to
     `Functional/Spectrum.lean`'s `IsEigenpair` paradigm.
 

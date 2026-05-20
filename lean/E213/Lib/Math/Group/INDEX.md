@@ -41,4 +41,4 @@ Blueprint: `blueprints/math/11_group_213.md` (retired).
     K_{3,2}^{(c=2)} channel count.
   * `su5_generators = 24` is the input to the `α_em ~ 1/137`
     derivation (gauge boson count).
-  * `d_pow_d_sq_consistency : 5^25` ties to N_U system invariant.
+  * `d_pow_d_sq_consistency : 5^25` matches the N_U count-Lens readout.

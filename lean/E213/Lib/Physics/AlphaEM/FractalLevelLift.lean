@@ -8,8 +8,8 @@ per `research-notes/G35_chiral_cup_ring_catalog.md` §C5.
 
 The L-iterate fractal lift K^(L) of K_{3,2}^{(c=2)} replaces each
 vertex by a sub-K_{3,2}^{(c=2)}, recursively L times.  At
-L = N_U_level = d² = 25, the recursion reaches the resolution
-fixed-point N_U = d^(d²) = 5²⁵.
+L = N_U_level = d² = 25, the recursion's vertex count reaches the
+count-Lens readout N_U = d^(d²) = 5²⁵.
 
 This file encodes the **vertex-count and edge-count formulas** at
 each level L.  Spectrum / ζ_K^(L) computation is deferred to
@@ -25,7 +25,7 @@ Step 3 (substantial — requires explicit Laplacian construction).
   L = k: vertices = 5^(k+1)
          edges    = 12 · (1 + 5 + ... + 5^k) = 12 · (5^(k+1) − 1)/4
 
-  L = 24: vertices = 5²⁵ = N_U  ★ (fixed point)
+  L = 24: vertices = 5²⁵ = N_U  ★ (count-Lens readout)
          edges    = 12 · (5²⁵ − 1)/4 = 3·(N_U − 1)
 
 STRICT ∅-AXIOM (decide on Nat formulas).
@@ -92,8 +92,8 @@ theorem lift_H1_eq_2V_minus_2_small :
     STRICT ∅-AXIOM.
 
     Encodes the V, E, H¹ counts of K^(L) for L = 0, 1, 2, 3, 24,
-    and the fixed-point at L = d² = 24 (giving N_U = 5²⁵
-    vertices).  ζ_K^(L) spectrum computation deferred to Step 3. -/
+    and the ceiling level L = d² = 24 (vertex count = N_U = 5²⁵).
+    ζ_K^(L) spectrum computation deferred to Step 3. -/
 theorem fractal_lift_master :
     -- Vertex counts
     lift_V 0 = 5 ∧ lift_V 1 = 25 ∧ lift_V 2 = 125

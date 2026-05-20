@@ -3,7 +3,7 @@ import E213.Lens.Instances.Parity
 /-!
 # ParityLensCollapseFalse: parityLens is Collapse-False
 
-Explicit witness for the BoolSqClassification claim in PAPER1 §3.4:
+Explicit witness for the BoolSqClassification claim:
 parityLens.combine x x = false for all x.
 -/
 

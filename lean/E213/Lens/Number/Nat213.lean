@@ -30,10 +30,7 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
                            embedding; `value_toRaw` bijection;
                            value-level additive / multiplicative
                            homomorphism (`value_toRaw_add`,
-                           `value_toRaw_mul`).  Post-Option-C
-                           (2026-05-18): Raw-level arithmetic
-                           homomorphism + `leavesCountRaw`
-                           infrastructure removed.
+                           `value_toRaw_mul`).
     * `Lenses`           — characterization of `Raw → Peano.Nat213`
                            lenses; multiplicity, swap-invariance.
     * `AtomicityCorrespondence`
@@ -43,10 +40,7 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
                            as canonical numbering.
     * `RawCut`           — Lean-free cut prototype on
                            `Raw → Raw → Raw`; vertical projection
-                           parallel to `Bool213.booleanProj`
-                           (Nat213's former Raw-internal
-                           `leavesCountRaw` was deleted in the
-                           Option C refactor).
+                           parallel to `Bool213.booleanProj`.
 
   ## Tower/
 

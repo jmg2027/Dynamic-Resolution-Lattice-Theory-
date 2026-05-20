@@ -8,7 +8,7 @@ representation of the Lens-kernel space.
 
 ## Significance
 
-Type-level foundation of the cardinality question in PAPER1 §5.4.
+Type-level foundation of the Lens-kernel cardinality question.
 Determining the cardinality of KernelSpace fixes the position of the
 framework.
 

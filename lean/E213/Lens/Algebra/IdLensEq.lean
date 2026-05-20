@@ -4,7 +4,7 @@ import E213.Lens.Instances.Identity
 # IdLensKernelEq: idLens.equiv = equality
 
 `idLens` is the finest Lens — its kernel is exactly `=` on Raw.
-Explicit theorem for the finest element claim of PAPER1 §3.3.
+Explicit theorem for the finest-element claim in the Lens preorder.
 -/
 
 namespace E213.Lens.Algebra.IdLensEq

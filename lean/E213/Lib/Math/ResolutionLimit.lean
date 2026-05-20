@@ -25,7 +25,7 @@ namespace E213.Lib.Math.ResolutionLimit
 /-- Resolution dimension. -/
 def d : Nat := 5
 
-/-- Universal resolution limit `N_U = d^(d²) = 5^25`. -/
+/-- Resolution limit — count-Lens readout `N_U = d^(d²) = 5^25`. -/
 def N_U : Nat := d ^ (d * d)
 
 /-- Numerical value of `N_U`. -/

@@ -112,9 +112,9 @@ Properties:
   2. idempotence: `booleanProj² = booleanProj`  (for every r)
 
 This is the precise statement of the Bool-side vertical-internal
-projection.  Post-Option-C, this is the only Raw-side projection
-pattern in Bool213 — in Nat213 the pattern was dropped (since ℕ₊
-projects to the codomain `Nat`). -/
+projection — the Raw-side projection pattern for Bool213.  (For
+Nat213, ℕ₊ projects to the codomain `Nat` rather than back to
+Raw.) -/
 
 /-- The Bool-side vertical-internal projection —
     Raw → Bool213 canonical form. -/
@@ -179,10 +179,7 @@ theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
 
 /-- **Fixed-point characterisation**: `booleanProj` leaves `r`
     unchanged iff `r` is in Bool213 (`{T, F}`).  Parallel to
-    RawCut's `cutBooleanProj_id_iff_isBool` (post-Option-C: the
-    Nat213 counterpart `leavesCountRaw_id_iff_isChain` was deleted
-    when ℕ₊ became a Nat projection rather than a Raw quotient;
-    see `seed/CLOSED_FORM_SPEC.md`'s 3-domain table). -/
+    RawCut's `cutBooleanProj_id_iff_isBool`. -/
 theorem booleanProj_id_iff_isBool213 (r : Raw) :
     booleanProj r = r ↔ IsBool213 r :=
   ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩

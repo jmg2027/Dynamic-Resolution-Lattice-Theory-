@@ -3,8 +3,8 @@ import E213.Theory.Atomicity.NonDecomposable
 /-!
 # Primitive sizes: `{2, 3}` from the axiom
 
-Remark (per archival PAPER1 §6.6, deleted 2026-05-12): the atom set is read directly off the
-axiom, which names exactly two sizes:
+The atom set is read directly off the axiom, which names exactly
+two sizes:
 
 - `pairSize = 2`: the input pair (the axiom's "two objects").
 - `closureSize = 3`: the first closure (pair + their relation).

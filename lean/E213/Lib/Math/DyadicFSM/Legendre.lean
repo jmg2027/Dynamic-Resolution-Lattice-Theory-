@@ -16,8 +16,7 @@ Pisano-period variants:
   * `Legendre.PisanoExt` — extended-precision variant
 
 Per-variant namespaces preserved as sub-namespaces of `Legendre`.
-Pisano.Predictor consumes Legendre (not the other way) — the
-reverse import was dead and was removed 2026-05-13.
+Pisano.Predictor consumes Legendre.
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Legendre.V213

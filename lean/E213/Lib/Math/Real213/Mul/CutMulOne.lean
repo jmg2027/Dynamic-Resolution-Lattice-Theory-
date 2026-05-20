@@ -63,9 +63,6 @@ theorem cutMul_one_one_at (m k : Nat) :
       exact decide_eq_true (Nat.le_refl _)
     · exact Nat.mul_le_mul_right k h_km
 
--- DELETED 2026-05-XX session 27 ('박멸'): function-eq cutMul_one_one
--- removed.  Use cutMul_one_one_at (pointwise PURE) instead.
-
 /-- **cutMul (1) (constCut a b) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_one_const_at (a b m k : Nat) :
     cutMul (constCut 1 1) (constCut a b) m k = constCut a b m k := by

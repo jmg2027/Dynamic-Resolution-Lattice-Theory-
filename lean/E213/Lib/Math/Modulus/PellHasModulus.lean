@@ -5,7 +5,7 @@ import E213.Lib.Math.Irrational.Sqrt2KernelFree
 /-!
 # PellHasModulus: HasModulus instance for the Pell sequence
 
-The LEM-bound closure of PAPER1 §6.4 *fully closes* on the Pell
+The Cauchy-closure LEM dependency is bypassed for the Pell
 sequence: the explicit modulus N(m, k) is constructed from the
 combination of sqrt2_irrational and pellRaw_cut_above/below.
 
@@ -98,8 +98,7 @@ open E213.Lib.Math.Cauchy.PellSeq
 
 /-- **Pell HasModulus instance**: the explicit modulus is constructed
     from the combination of sqrt2_irrational and
-    pellRaw_cut_above/below.  The LEM-bound closure of PAPER1 §6.4
-    closes on Pell without LEM. -/
+    pellRaw_cut_above/below.  The Cauchy closure runs without LEM. -/
 def pellHasModulus : HasModulus pellRawSeq where
   N := pellModulusN
   cauchy_at := pell_cauchy_at

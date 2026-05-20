@@ -195,7 +195,7 @@ theorem atomicity_seeds_lucas :
   refine ⟨rfl, rfl⟩
 
 /-- ★ P itself encodes ALL atomicity numbers in its 4 entries
-    plus structural invariants. -/
+    plus their derived structural quantities. -/
 theorem p_packages_all_atomicity :
     (2 : Nat) = NT ∧ (3 : Int) = (NS : Int) ∧ (1 : Int) = (NS : Int) - (NT : Int) := by
   refine ⟨rfl, by decide, by decide⟩

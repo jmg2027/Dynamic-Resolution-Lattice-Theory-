@@ -4,7 +4,7 @@ import E213.Lens.SemanticAtom
 # SubtypeInstanceClosed: slash-based combine instance for
 distinguishing-closed subtype
 
-Fix for the third closed boundary in PAPER1 §8.2: bypasses the nested-Subtype
+Fix for the third closed-subtype boundary: bypasses the nested-Subtype
 elaborator via SlashClosed typeclass + decidable equality on Raw.
 
 ## Core
@@ -64,8 +64,8 @@ open E213.Lens.SemanticAtom
 /-- **Slash-based HasDistinguishing instance** on
     `{r : Raw // P r}` for distinguishing-closed `P`.
     The *meaningful* version of the degenerate combine in
-    `SubtypeInstance.lean`.  The third closed boundary in
-    PAPER1 §8.2 is resolved with the SlashClosed typeclass. -/
+    `SubtypeInstance.lean`.  The third closed-subtype boundary is
+    resolved with the SlashClosed typeclass. -/
 def subtypeHasDistinguishingClosed (P : Raw → Prop) [SlashClosed P]
     (h_a : P Raw.a) (h_b : P Raw.b) :
     HasDistinguishing {r : Raw // P r} where

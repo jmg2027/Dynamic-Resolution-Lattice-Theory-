@@ -28,7 +28,7 @@ open E213.Lib.Physics.Foundations.NUniverseFromFractal
   (n_universe_candidate n_universe_value n_universe_eq_hierarchy)
 open E213.Lib.Math.ResolutionLimit (N_U N_U_value N_U_tensor)
 
-/-- The universal resolution constant. -/
+/-- Resolution depth — count-Lens readout. -/
 def N_U : Nat := 5 ^ 25
 
 /-- ★ Concrete value: `N_U = 298023223876953125`. -/

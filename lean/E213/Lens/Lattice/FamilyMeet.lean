@@ -15,7 +15,7 @@ kernel via `universalLens`.
 
 ## Significance
 
-Family version of the "Choice → Lens specification" from PAPER1 §5.1:
+Family version of the "Choice → Lens specification":
 simultaneous representative selection for a countable family is possible
 inside 213 via a single Lens — no external countable Choice required.
 Formalization of the *complete meet-semilattice* structure of the

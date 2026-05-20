@@ -2,16 +2,13 @@
 
 ★★★ **G12 Tier 4 A2 ENDGAME demonstration** ★★★
 
-The session conversation observation (Mingu, 2026-05-XX):
+Lean's external axioms (propext, Quot.sound, funext) are not
+really external — in 213 they are residue-internal events.  Each
+is a specific Lens choice; applying it is a residue self-pointing,
+not a layer placed above Raw.
 
-> "Lean's external axioms (propext, Quot.sound, funext) aren't
->  really external — in 213's worldview, they should also be
->  213-internal results: specific lens choices applied on top of
->  the unique Raw substrate."
-
-This sub-cluster makes that observation explicit by reformulating
-each Lean axiom as a 213-internal **lens** that *collapses a
-specific raw distinction*.
+This sub-cluster reformulates each Lean axiom as a 213-internal
+**lens** that *collapses a specific raw distinction*.
 
 ## Architecture: Core / Bridges split (2026-05-XX, part 19)
 

@@ -3,10 +3,9 @@ import E213.Lib.Math.CascadeCalculus.Core
 /-!
 # Cascade-Delete Calculus — branch-instance test case
 
-The propext-extermination work of session 27 (stages 1-4) reduced
-to a minimal 6-node graph.
+The propext-extermination reduced to a minimal 6-node graph.
 
-## Picture (post-parallel-construction state)
+## Picture
 
 ```
  facade chain:           [DIRTY] 2 ─→ 1 ─→ 0

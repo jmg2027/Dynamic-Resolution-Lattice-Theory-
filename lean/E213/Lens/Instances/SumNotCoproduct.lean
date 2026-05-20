@@ -4,8 +4,8 @@ import E213.Lens.Properties.Morphism.BoolProp
 /-!
 # SumNotCoproduct: Sum α β is not a coproduct of DistMorphism
 
-Decisively closes the open question of PAPER1 §5.6, §9.4:
-*non-canonicity* of priority-based combine as a formal negative result.
+Decisively closes the open question of priority-based combine canonicity:
+formal negative result — priority-based combine is *non-canonical*.
 
 ## Core result
 
@@ -26,8 +26,8 @@ Combine preservation violated.
 
 Priority-based combine is *non-canonical*: it violates the coproduct
 universal property of the DistMorphism category.  It is merely a valid
-instance.  The admitted asymmetry in PAPER1 §5.6, §9.4 is elevated to
-a formal negative theorem.
+instance.  The previously-admitted asymmetry is elevated to a formal
+negative theorem.
 -/
 
 namespace E213.Lens.Instances.SumNotCoproduct

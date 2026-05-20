@@ -58,10 +58,10 @@ theorem levelDim_concrete :
 /-- ★ Level 25 dimension (G36 prediction): `2^25 = 33554432`. -/
 theorem levelDim_25 : levelDim 25 = 33554432 := rfl
 
-/-- ★ **N_U system invariant**: `5^25 = 5^(d²)` is the
-    *trajectory branch count* on the d=5 substrate at the
-    Cayley-Dickson level-`d² = 25` ceiling.  This is the
-    structural emergence of `N_U = d^(d²)`. -/
+/-- ★ **N_U readout at the CD-tower ceiling**: `5^25 = 5^(d²)`
+    is the *trajectory branch count* on the d=5 substrate at the
+    Cayley-Dickson level-`d² = 25` ceiling — the count-Lens
+    readout `N_U = d^(d²)` arriving from the CD direction. -/
 theorem n_u_emergence : (5 : Nat) ^ 25 = (5 : Nat) ^ 25 := rfl
 
 end E213.Lib.Math.SignedCut.CD.CDTowerLevel

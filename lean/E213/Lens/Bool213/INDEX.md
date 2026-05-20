@@ -1,12 +1,10 @@
 # `Lens/Bool213/` — 213-native closed-universe Bool
 
-Raw-encoded Bool: T, F 가 specific Raw 모양 (Method A: T=a, F=b).
-Catamorphism `booleanProj := Raw.fold T F and` 가 정의된 vertical-
-internal projection onto the two-element canonical form `{T, F}`.
-(Post-Option-C 2026-05-18: Bool213 keeps this Raw-internal
-projection — `{T, F}` *is* the Raw image; the former parallel
-Nat213 `leavesCountRaw` was deleted because ℕ₊ now projects to
-`Nat` codomain.  See `seed/CLOSED_FORM_SPEC.md` 3-domain table.)
+Raw-encoded Bool: T, F as specific Raw shapes (Method A: T=a, F=b).
+Catamorphism `booleanProj := Raw.fold T F and` defines a
+Raw-internal projection onto the two-element canonical form
+`{T, F}`.  `{T, F}` *is* the Raw image.  Cf. `seed/CLOSED_FORM_SPEC.md`
+3-domain table for the ℕ₊ projection comparison.
 
 ## Files (2)
 

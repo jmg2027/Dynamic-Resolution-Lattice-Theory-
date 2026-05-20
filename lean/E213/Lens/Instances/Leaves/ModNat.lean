@@ -161,11 +161,6 @@ theorem product_lower_bound (m k : Nat) :
   common_multiple_lower_bound m k (m * k)
     ⟨k, rfl⟩ ⟨m, Nat.mul_comm m k⟩
 
-/-! Note: the funext-based `gcd_upper_bound` (using Lean-core
-    `Nat.gcd`, [propext]-DIRTY) was removed — it had no remaining
-    consumers, and `gcd213_upper_bound` below provides the same
-    content in PURE form using 213-native `gcd213`. -/
-
 /-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: the L_gcd(m, k)
     upper-bound property using 213-native `gcd213` (fuel-driven
     Euclidean) instead of Lean-core `Nat.gcd` (well-founded
