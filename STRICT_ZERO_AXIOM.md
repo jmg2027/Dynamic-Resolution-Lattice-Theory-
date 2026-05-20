@@ -482,6 +482,7 @@ verified `#print axioms` returns "does not depend on any axioms".
 | Module | PURE count | Highlights |
 |---|---|---|
 | `E213.Lens.UndifferentiatedRaw` | 3 | `constLens_collapses`, `pre_lens_singleton`, `constLens_kernel_total` |
+| `E213.Lens.RawTopology` | 6 | `k_infty_at_raw_bundle` (4-property bundle), `indiscrete_kernel_total`, `indiscrete_image_singleton`, `indiscrete_globally_collapsed`, `indiscrete_is_top`, `indiscrete_is_coarsest_universal` |
 
 ### Three-direction uniqueness bundle (§1.3 realisation)
 
@@ -502,4 +503,4 @@ verified `#print axioms` returns "does not depend on any axioms".
 |---|---|
 | `raw_forcing_chain_unified` | positive complement to `raw_minimality_capstone`; documents the chain 1 → 2 → 3 → 4 |
 
-**Cumulative new PURE from this session: 29.**  All audit-verified.
+**Cumulative new PURE from this session: 35.**  All audit-verified.

@@ -62,7 +62,10 @@ statement at `lean/E213/Meta/ThreeDirectionUniqueness.lean`.
   - `lean/E213/Lens/PredicateSelfEncoding.lean` — §9.3 closure
     (predicates back to Raw via positional Gödel encoding).
   - `lean/E213/Lens/UndifferentiatedRaw.lean` — §9.5 K_∞ ≡ point
-    at raw level (constant-Lens collapse).
+    at raw level (constant-Lens collapse, 3 PURE).
+  - `lean/E213/Lens/RawTopology.lean` — §9.5 K_∞-at-raw bundle
+    + topology-lattice bookend (6 PURE; `k_infty_at_raw_bundle`
+    records the four-property witness).
 
 **§8 self-reference / Möbius realisations**:
 

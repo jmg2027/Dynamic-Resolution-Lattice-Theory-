@@ -175,6 +175,19 @@ residue's pre-Lens stage.  Different Lenses (count, topology,
 algebra, …) extract different aspects of this single state — they
 do not impose structure on a structureless object.
 
+**Lean realisation**:
+  - `lean/E213/Lens/UndifferentiatedRaw.lean` — constant-Lens
+    collapse: under `constLens e`, every Raw maps to `e`
+    (`constLens_collapses`, `pre_lens_singleton`,
+    `constLens_kernel_total`).
+  - `lean/E213/Lens/RawTopology.lean` — K_∞-at-raw bundle:
+    `k_infty_at_raw_bundle` records all four properties of the
+    indiscrete reading (singleton image + total kernel +
+    globally-collapsed + coarsest-Lens), realising "K_∞ ≡ point
+    ≡ trivial-topology" at the Lens-quotient level.
+  - `lean/E213/Lens/Algebra/IdLensEq.lean` — discrete bookend:
+    `idLens` kernel is exactly equality.
+
 ## §9.6 State-transition = state; operator = object
 
 For systems without external time and external role-assigner
