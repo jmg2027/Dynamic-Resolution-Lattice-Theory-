@@ -520,7 +520,7 @@ verified `#print axioms` returns "does not depend on any axioms".
 
 | Module | PURE count | Highlights |
 |---|---|---|
-| `E213.Lib.Physics.Capstones.NSNTPi5Block` | 4 | `ns_nt_six`, `cross_observable_ns_nt_block`, `reciprocal_lens_skeleton`, `ns_nt_pi5_block_capstone` — bundles m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton |
+| `E213.Lib.Physics.Capstones.NSNTPi5Block` | 1 | `ns_nt_pi5_block_capstone` — 10-conjunct cross-observable bridge linking m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton (atomic anchors + shared block + both precision brackets in one statement) |
 | `E213.Lib.Physics.AlphaEM.PiFiveGap` | +2 (17 → 19) | `pi5_residual_thirteen_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
 
 **Cumulative new PURE from this session, post-reduction: ~55** (raw count is lower since session-12 reductions collapsed enumerations into single bundles).  All audit-verified.
