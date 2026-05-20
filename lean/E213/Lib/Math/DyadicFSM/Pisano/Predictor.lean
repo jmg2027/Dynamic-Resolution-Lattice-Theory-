@@ -39,7 +39,7 @@ def pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
   else if leg = 1 then (p - 1) / 2  -- split (QR)
   else p + 1                     -- inert (NQR)
 
-/-- ★★★★★★ Predictor matches TIGHT Pell period at all four cases. -/
+/-- ★★★★★★ Predictor computes Pell period at all four cases. -/
 theorem pisano_predict_correct :
     pisano_predict 3 (by decide) = 4
     ∧ pisano_predict 5 (by decide) = 10

@@ -45,7 +45,7 @@ def thueMorseAuto : BitAuto2 2 where
   else s
   out s := s.val == 1
 
-/-- Thue-Morse automaton matches thueMorse on first 8 indices
+/-- Thue-Morse automaton generates thueMorse identically on first 8 indices
     (with bound 4 = enough digits for k ≤ 15). -/
 theorem thueMorseAuto_matches_first8 :
     thueMorseAuto.bits 4 0 = thueMorse 0

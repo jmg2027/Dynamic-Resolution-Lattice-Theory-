@@ -32,7 +32,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_peri
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
 
 
-/-- ★★★★★★ Predictor matches concrete period at extended primes. -/
+/-- ★★★★★★ Predictor computes period at extended primes. -/
 theorem pisano_predict_correct_6 :
     pisano_predict 3 (by decide) = 4
     ∧ pisano_predict 5 (by decide) = 10
@@ -42,7 +42,7 @@ theorem pisano_predict_correct_6 :
     ∧ pisano_predict 19 (by decide) = 9 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-- ★★★★★★★ Predictor REALISES Pell period at all 6 verified primes. -/
+/-- ★★★★★★★ Predictor computes Pell period at all 6 verified primes. -/
 theorem pisano_predict_realises_pell_6 :
     (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)

@@ -45,7 +45,7 @@ def fib_pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
   else if leg = 1 then p - 1         -- split (QR)
   else 2 * (p + 1)                   -- inert (NQR)
 
-/-- ★★★★★★ Predictor matches TIGHT Fibonacci period at all 4 cases. -/
+/-- ★★★★★★ Predictor computes Fibonacci period at all 4 cases. -/
 theorem fib_pisano_predict_correct :
     fib_pisano_predict 3 (by decide) = 8
     ∧ fib_pisano_predict 5 (by decide) = 20

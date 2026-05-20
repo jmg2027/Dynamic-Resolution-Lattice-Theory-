@@ -31,7 +31,7 @@ The fully general inductive A theorem `signature(H^n; T²ⁿ) =
 (½·C(2n, n), ½·C(2n, n))` for all `n` requires proving
 `C(2n, n)` is even for `n ≥ 1`, which in turn requires binom
 symmetry `C(n, k) = C(n, n−k)` — a substantial Pascal-recursion
-proof that is *external* to the Hodge Index program.
+proof that is *outside* the current capstone's scope.
 
 What naturally closes here:
 

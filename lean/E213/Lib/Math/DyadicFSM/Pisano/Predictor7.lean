@@ -40,7 +40,7 @@ open E213.Lib.Math.DyadicFSM.Pisano.Predictor6 (pisano_predict_correct_6)
 theorem legendre_5_mod_17 :
     legendre213 5 17 (by decide) = ⟨2, by decide⟩ := by decide
 
-/-- ★★★★★★★ Predictor REALISES Pell period at all 7 verified primes. -/
+/-- ★★★★★★★ Predictor computes Pell period at all 7 verified primes. -/
 theorem pisano_predict_realises_pell_7 :
     (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)

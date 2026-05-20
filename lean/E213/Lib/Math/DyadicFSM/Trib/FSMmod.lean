@@ -35,7 +35,7 @@ theorem tribFSMmod3_first13 :
     ∧ tribFSMmod3.bits 2 = true ∧ tribFSMmod3.bits 11 = true
     ∧ tribFSMmod3.bits 12 = false := by decide
 
-/-- ★★★ Tribonacci mod-3 run cycles with period 13 (TIGHT). -/
+/-- ★★★ Tribonacci mod-3 run cycles with period 13. -/
 theorem tribFSMmod3_run_period_13 :
     ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k := by
   intro k

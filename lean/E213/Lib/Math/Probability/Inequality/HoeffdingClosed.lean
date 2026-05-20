@@ -16,7 +16,7 @@ Chernoff argument can be expressed at the *formal-series* level:
 
 The optimal `t* = log(...)` becomes a `cutLog` evaluation; the
 resulting bound is `2·cutExp(−2nε²)` at the appropriate depth.
-At the substrate level all of this is finite-Grade.
+All of this is Grade-finite Lens operation.
 
 This file provides the **structural witness**: the bound CAN be
 expressed as `2·cutExp(−2nε² N) N` where the `−2nε²` argument

@@ -105,7 +105,7 @@ theorem pellFSMmod7_bits_period_8 :
       = pellFSMmod7.out (pellFSMmod7.run k)
   rw [pellFSMmod7_run_period_8]
 
-/-- ★★★★★ Pell mod-7 signature has period 8 (TIGHT). -/
+/-- ★★★★★ Pell mod-7 signature has period 8. -/
 theorem pellFSMmod7_signature_period_8 :
     ∀ k, signature pellFSMmod7.bits (k + 8) = signature pellFSMmod7.bits k :=
   signature_period_of_bits_period_and_anchor pellFSMmod7.bits 8
@@ -215,7 +215,7 @@ theorem pellFSMmod13_first5 :
     ∧ pellFSMmod13.bits 2 = false ∧ pellFSMmod13.bits 3 = false
     ∧ pellFSMmod13.bits 4 = false := by decide
 
-/-- ★★★ Pell mod-13 run cycles with period 14 (TIGHT). -/
+/-- ★★★ Pell mod-13 run cycles with period 14. -/
 theorem pellFSMmod13_run_period_14 :
     ∀ k, pellFSMmod13.run (k + 14) = pellFSMmod13.run k := by
   intro k
@@ -234,7 +234,7 @@ theorem pellFSMmod13_bits_period_14 :
       = pellFSMmod13.out (pellFSMmod13.run k)
   rw [pellFSMmod13_run_period_14]
 
-/-- ★★★★★ Pell mod-13 signature has period 14 (TIGHT). -/
+/-- ★★★★★ Pell mod-13 signature has period 14. -/
 theorem pellFSMmod13_signature_period_14 :
     ∀ k, signature pellFSMmod13.bits (k + 14)
         = signature pellFSMmod13.bits k :=
@@ -265,7 +265,7 @@ theorem pellFSMmod17_first5 :
     ∧ pellFSMmod17.bits 2 = false ∧ pellFSMmod17.bits 3 = false
     ∧ pellFSMmod17.bits 4 = false := by decide
 
-/-- ★★★ Pell mod-17 run cycles with period 18 (TIGHT). -/
+/-- ★★★ Pell mod-17 run cycles with period 18. -/
 theorem pellFSMmod17_run_period_18 :
     ∀ k, pellFSMmod17.run (k + 18) = pellFSMmod17.run k := by
   intro k
@@ -284,7 +284,7 @@ theorem pellFSMmod17_bits_period_18 :
       = pellFSMmod17.out (pellFSMmod17.run k)
   rw [pellFSMmod17_run_period_18]
 
-/-- ★★★★★ Pell mod-17 signature has period 18 (TIGHT). -/
+/-- ★★★★★ Pell mod-17 signature has period 18. -/
 theorem pellFSMmod17_signature_period_18 :
     ∀ k, signature pellFSMmod17.bits (k + 18)
         = signature pellFSMmod17.bits k :=
@@ -367,7 +367,7 @@ def pellFSMmod23 : ArithFSM2 23 where
      ⟨(a.val + b.val) % 23, Nat.mod_lt _ (by decide)⟩)
   out p := p.1.val == 1
 
-/-- ★★★ Pell mod-23 run cycles with period 24 (TIGHT). -/
+/-- ★★★ Pell mod-23 run cycles with period 24. -/
 theorem pellFSMmod23_run_period_24 :
     ∀ k, pellFSMmod23.run (k + 24) = pellFSMmod23.run k := by
   intro k
@@ -386,7 +386,7 @@ theorem pellFSMmod23_bits_period_24 :
       = pellFSMmod23.out (pellFSMmod23.run k)
   rw [pellFSMmod23_run_period_24]
 
-/-- ★★★★★ Pell mod-23 signature has period 24 (TIGHT). -/
+/-- ★★★★★ Pell mod-23 signature has period 24. -/
 theorem pellFSMmod23_signature_period_24 :
     ∀ k, signature pellFSMmod23.bits (k + 24)
         = signature pellFSMmod23.bits k :=

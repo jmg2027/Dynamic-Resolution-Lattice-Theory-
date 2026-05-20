@@ -15,7 +15,7 @@ Cubic-class capstone, parallel to `DyadicPellCapstone`.
 Bundles 6 conjuncts:
 
 1. Tribonacci mod 2: bit period 4 (universal)
-2. Tribonacci mod 2: signature period 4 from step 1 (TIGHT)
+2. Tribonacci mod 2: signature period 4 from step 1
 3. ArithFSM3(n) ⊂ BitFSM(n³) bit-stream equivalence (universal)
 4. ArithFSM3(n) signature period ≤ 5n³ (universal quantitative)
 5. Tribonacci mod 2: explicit signature period bound 40

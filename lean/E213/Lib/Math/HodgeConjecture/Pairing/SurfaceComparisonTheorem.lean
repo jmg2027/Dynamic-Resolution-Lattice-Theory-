@@ -93,7 +93,7 @@ def T2Sq_diamond : HodgeDiamond := ⟨1, 4, (3, 3)⟩
 
       (d) Riemann-surface Hodge Index `(g, g)` for T² (g = 1)
           gives (1, 1), matching ℙ¹×ℙ¹ surface signature
-          coincidentally — the formulas differ in derivation. -/
+          — both readings are valid on the same residue structure, with formulas differing in derivation. -/
 theorem surface_comparison_theorem :
     -- Each diamond records the predicted signature
     T2_diamond.predicted_signature = (1, 1)

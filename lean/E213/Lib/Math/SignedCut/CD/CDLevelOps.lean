@@ -26,17 +26,17 @@ open E213.Lib.Math.SignedCut.CD.CDMulRule
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
-/-- ★ **Sign rule first component** matches the existing
+/-- ★ **Sign rule first component** reads identically with the existing
     `Math.SignedCut.signedMul` first-component formula. -/
 theorem signMul_matches_signedMul (a b c d : Nat → Nat → Bool) :
     (signMul a b c d).1 = cutSum (cutMul a c) (cutMul b d) := rfl
 
-/-- ★ **Sign rule second component** matches the existing
+/-- ★ **Sign rule second component** reads identically with the existing
     `signedMul` second-component formula. -/
 theorem signMul_matches_signedMul_snd (a b c d : Nat → Nat → Bool) :
     (signMul a b c d).2 = cutSum (cutMul a d) (cutMul b c) := rfl
 
-/-- ★ **Complex rule second component** matches the existing
+/-- ★ **Complex rule second component** reads identically with the existing
     `Math.Complex.ComplexCut.cMul` `im` component formula. -/
 theorem complexMul_matches_cMul_im (a b c d : Nat → Nat → Bool) :
     (complexMul a b c d).2 = cutSum (cutMul a d) (cutMul b c) := rfl

@@ -12,7 +12,7 @@ of the entire CD tower (alongside conjugation, see CDConjugation):
 
   * Norm preservation under multiplication: `‖z·w‖² = ‖z‖²·‖w‖²`
     (Hurwitz; holds up to and including level 3 = 𝕆).
-  * Substrate-valued: `‖·‖² : CDLevel n → Cut`.
+  * Level-0-valued: `‖·‖² : CDLevel n → Cut`.
 
 213-native paradigm: at every level, `‖z‖²` is built recursively
 from the pair components, accumulating into a single `Cut` value

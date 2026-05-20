@@ -12,7 +12,7 @@ the Pell-proper Pisano period across both branch types:
   | 5 |  2 (NQR)       | inert  |    12        | 2(p+1) = 12 |
   | 7 |  1 (QR)        | split  |     6        | p-1    = 6  |
 
-All three predictions exactly match.  This demonstrates that
+All three formulas apply consistently.  This demonstrates that
 the Legendre-Pisano framework is *parametric* in the discriminant
 — same lens infrastructure works for D = 5 (Pell-Fibonacci-squared)
 and D = 8 (Pell proper).
@@ -37,7 +37,7 @@ theorem legendre_8_mod_5 :
 theorem legendre_8_mod_7 :
     legendre213 8 7 (by decide) = ⟨1, by decide⟩ := by decide
 
-/-- ★★★★★★ pisano_predict_proper matches TIGHT Pell proper periods. -/
+/-- ★★★★★★ pisano_predict_proper computes Pell proper periods. -/
 theorem pisano_predict_proper_correct :
     pisano_predict_proper 3 (by decide) = 8
     ∧ pisano_predict_proper 5 (by decide) = 12

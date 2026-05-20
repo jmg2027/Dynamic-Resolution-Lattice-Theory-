@@ -20,7 +20,7 @@ All 8 TIGHT.  Coverage:
   Split (2): {11, 19}
   Ramified (1): {5}
 
-Matches the original Pell 8-prime baseline (commit f8a5ca8) at the
+Extends the Pell 8-prime baseline (commit f8a5ca8) at the
 same prime set, with predictor formula 2× scaled (cross-recurrence
 relation, commit 35bef8d).
 -/
@@ -55,7 +55,7 @@ theorem fib_legendre_5_mod_19 :
 theorem fib_legendre_5_mod_23 :
     legendre213 5 23 (by decide) = ⟨2, by decide⟩ := by decide
 
-/-- ★★★★★★★ Fibonacci predictor REALISES Pell period at 8 primes. -/
+/-- ★★★★★★★ Fibonacci predictor computes Pell period at 8 primes. -/
 theorem fib_pisano_predict_realises_8 :
     (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by decide))
         = fibFSMmod3.bits k)

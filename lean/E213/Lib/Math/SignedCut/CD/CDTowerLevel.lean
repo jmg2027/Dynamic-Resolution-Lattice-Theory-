@@ -6,7 +6,7 @@ import E213.Lib.Math.SignedCut.Core.Core
 Formalisation of the G36 insight:
 
   > "ℝ, ℂ, ℍ, 𝕆, ... are all the same structural pair extension
-  >  on a common Cut substrate, layered as a Cayley-Dickson tower."
+  >  with Cut (level 0) as the base, structured as a Cayley-Dickson tower."
 
 213-native paradigm: define the tower **generically** by recursion
 on the level `n`.  Each level is `Pair × Pair` of the previous,
@@ -27,7 +27,7 @@ def CDLevel : Nat → Type
   | 0 => Nat → Nat → Bool
   | n + 1 => CDLevel n × CDLevel n
 
-/-- ★ Level 0 = `Cut` (substrate). -/
+/-- ★ Level 0 = `Cut` (base type). -/
 theorem CDLevel_zero : CDLevel 0 = (Nat → Nat → Bool) := rfl
 
 /-- ★ Level 1 = `Cut × Cut` = SignedCut shape (rfl). -/
@@ -61,7 +61,7 @@ theorem levelDim_25 : levelDim 25 = 33554432 := rfl
 /-- ★ **N_U readout at the CD-tower ceiling**: `5^25 = 5^(d²)`
     is the *trajectory branch count* on the d=5 substrate at the
     Cayley-Dickson level-`d² = 25` ceiling — the count-Lens
-    readout `N_U = d^(d²)` arriving from the CD direction. -/
+    readout `N_U = d^(d²)` counted via the CD-tower structure. -/
 theorem n_u_emergence : (5 : Nat) ^ 25 = (5 : Nat) ^ 25 := rfl
 
 end E213.Lib.Math.SignedCut.CD.CDTowerLevel

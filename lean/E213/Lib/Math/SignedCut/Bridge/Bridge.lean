@@ -19,7 +19,7 @@ that the basic operations agree at the structural level.
 sign extensions; they correspond to:
   * **Magnitude-sign** = polar form on the sign-half-line.
   * **Pair form** = Cayley-Dickson rectangular form.
-The bridge shows they're isomorphic at the substrate level.
+The bridge shows they're structurally equivalent at the level-0 (Cut) reading.
 -/
 
 namespace E213.Lib.Math.SignedCut.Bridge.Bridge

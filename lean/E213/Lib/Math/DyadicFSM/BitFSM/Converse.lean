@@ -50,7 +50,7 @@ theorem bitFSMOfPure_bits (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
   rw [bitFSMOfPure_run]
   rfl
 
-/-- ★★★★★ For purely periodic bs, the cyclic FSM matches bs exactly. -/
+/-- ★★★★★ For purely periodic bs, the cyclic FSM generates bs identically. -/
 theorem bitFSMOfPure_correct (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
     (hbs : ∀ n, bs (n + p) = bs n) :
     ∀ k, (bitFSMOfPure bs p hp).bits k = bs k := by
@@ -64,7 +64,7 @@ theorem bitFSMOfPure_correct (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
   rw [h1] at h2
   exact h2.symm
 
-/-- ★★★★★★ Tier 0 EQUIVALENCE: bs purely periodic ⇔ ∃ BitFSM matching bs. -/
+/-- ★★★★★★ Tier 0 EQUIVALENCE: bs purely periodic ⇔ ∃ BitFSM generating bs. -/
 theorem tier0_equiv_bitfsm (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
     (hbs : ∀ n, bs (n + p) = bs n) :
     ∃ (m : BitFSM p), ∀ k, m.bits k = bs k :=

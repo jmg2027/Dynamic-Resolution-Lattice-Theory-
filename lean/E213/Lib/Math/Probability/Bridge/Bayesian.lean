@@ -12,7 +12,7 @@ field.  Batch update is `+k` and `+(n − k)`.
 
 213-native: no continuous Beta density, no integration, no σ-algebra.
 Conjugate update = atomic counting addition.  This is the cleanest
-form of "frequency = belief" in a finite-resolution universe.
+form of "frequency = belief" — atomic Lens-pair self-agreement.
 -/
 
 namespace E213.Lib.Math.Probability.Bridge.Bayesian

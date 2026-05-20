@@ -19,7 +19,7 @@ Operations follow the additive group structure on pairs:
 
 No subtraction primitive on `Cut` is needed; sign tracking is
 purely *structural* via the pair.  The "value" is recovered by
-`positive − negative` at the implicit real layer (oracle).
+`positive − negative` at the oracle interpretation.
 -/
 
 namespace E213.Lib.Math.SignedCut.Core.Core
