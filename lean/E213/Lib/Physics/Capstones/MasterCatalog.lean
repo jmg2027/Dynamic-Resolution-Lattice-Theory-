@@ -111,7 +111,8 @@ theorem master_atomic_catalog :
     PMNS angles, nuclear binding, n-p mass diff,
     Cabibbo, generations.
 
-  This is the true meaning of DRLT's "0 free parameters":
-  all results are *simultaneously* forced from a single atomic configuration. -/
+  This is the structural reading of DRLT's "no exterior dialer"
+  position: all results are *simultaneously* forced from a single
+  atomic configuration. -/
 
 end E213.Lib.Physics.Capstones.MasterCatalog

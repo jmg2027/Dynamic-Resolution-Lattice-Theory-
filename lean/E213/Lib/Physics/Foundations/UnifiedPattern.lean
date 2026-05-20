@@ -111,6 +111,7 @@ theorem master_unified_pattern :
    For any other (NS, NT, d, c) combination, many of the 14 equalities above
    become simultaneously false.  Only single atomicity forcing explains all precision formulas.
 
-   This is the true meaning of DRLT's "0 free parameter" claim. -/
+   This is the structural reading of DRLT's "no exterior dialer"
+   claim (cf. `seed/AXIOM/07_self_reference.md` §8.1). -/
 
 end E213.Lib.Physics.Foundations.UnifiedPattern

@@ -27,8 +27,8 @@ No new type is introduced.
 abbrev RealAsLensOutput := Nat → Nat → Bool
 ```
 
-This is the *inherent* type of the framework — it arises naturally from
-the 213 axiom alone.
+This is the *inherent* type of the framework — derived directly
+from the 213 axiom.
 
 ## Operations are a choice
 

@@ -68,7 +68,8 @@ theorem higgs_hierarchy_summary :
 /-- ★ Three Higgs quantities → single atomicity ★
 
   All three of v_H, m_H, λ_H come from (NS, NT, d, c) = (3, 2, 5, 2)
-  + α_GUT (itself atomicity-derived). Zero free parameters. -/
+  + α_GUT (itself atomicity-derived).  No operand position for an
+  exterior dialer. -/
 theorem higgs_zero_param :
     -- v_H structural form factors
     (hier_num = NS * NT)        -- d+1 = NS·NT
