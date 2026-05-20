@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 52 session
-commits (160 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 60 session
+commits (168 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -102,6 +102,42 @@ patterns the script's pattern matcher doesn't handle (manual
 handling deferred).
 
 Cumulative new PURE theorems this session: **76**.
+
+**Iteration 13** (reduction pass, user-directed): "줄이는 작업"
+— theorem count and commit count don't matter; content density
+and readability do.  Reduce cognitive load to enable new
+insights.  This pass:
+
+  · Mobius213: 21 → 13 (− 8 layer enumerations, + 2 new
+    structural-insight theorems: `two_step_induction` and
+    `pell_recurrence_unique` — boundary-value uniqueness for
+    2nd-order linear recurrences, the lemma that lifts entire
+    layer-by-layer enumerations to a single application)
+  · FibonacciExtended: 16 → 9 (collapsed F_11..F_15 individual
+    theorems + two layer enumerations into one 16-conjunct
+    Möbius-Fibonacci bridge)
+  · PiFiveGap: 20 → 14 (dropped 6 incremental scaffold theorems
+    all already in the master)
+  · PureAtomicObservables: 17 → 14 conjuncts (removed 3
+    duplicates: NS=3 twice, NT=2 twice, NS²-1=8 twice);
+    reorganised by structural reading
+  · RawTopology + UndifferentiatedRaw: 12 → 7, files merged
+    (the two files had triple-redundant K_∞-at-raw reformulations)
+  · NSNTPi5Block: 4 → 1 (3 forwarder/subset theorems all
+    subsumed by the master capstone; structural framing moved
+    to file docstring)
+  · Latent build-break fix: Gcd213.lean had been broken since
+    namespace-sweep round 3 due to a multi-line `open` being
+    mis-handled by the regex — fixed by merging the orphan
+    continuation into the top-of-namespace open list.
+  · New documentation: `LESSONS_LEARNED.md` "Reduction patterns"
+    section + tiny pointer in CLAUDE.md (rule 9, within 220-line
+    budget).
+
+Net: 86 → 54 theorems across session-added files, one file
+merged-and-deleted, ~500 lines deleted, same mathematical
+content.  Plus the new `pell_recurrence_unique` is a real
+structural insight reusable across the codebase.
 
 ## Commits this session
 
