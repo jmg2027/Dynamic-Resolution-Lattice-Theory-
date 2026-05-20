@@ -501,18 +501,15 @@ verified `#print axioms` returns "does not depend on any axioms".
 | Theorem | content |
 |---|---|
 | `mobius_213_char_poly_at_trace` | char poly evaluated at trace = det (φ², 1/φ² as eigenvalues) |
-| `mobius_213_pell_unit_invariant_layer0..7` | `num_n · den_{n+1} − num_{n+1} · den_n = -1` across 8 convergent layers (witnessing det [[2,1],[1,1]] = 1) |
-| `mobius_213_pell_unit_invariant_bundle_8layer` | unified 8-layer And-bundle of the above |
-| `P_numerator_values_extended` / `P_denominator_values_extended` | concrete Pell convergent values for k = 6, 7, 8 |
+| `mobius_213_pell_unit_invariant` | `num_n · den_{n+1} − num_{n+1} · den_n = -1` across 8 convergent layers in one bundle (witnesses det [[2,1],[1,1]] = 1 lifted to consecutive-pair determinants) |
+| `P_numerator_values` / `P_denominator_values` | concrete Pell convergent values for k = 0..8 |
 
 ### Möbius ↔ Fibonacci structural bridge
 
 | Theorem | content |
 |---|---|
-| `F11_eq_89` … `F15_eq_610` | atomic readings of F_11 … F_15 (prime entries left as primes; `F12_eq_edge_squared` notes F_12 = (c·NS·NT)²) |
-| `pell_denominator_eq_odd_fib_layers0to7` | Pell-denom layer k = odd Fibonacci F_{2k+1} for k = 0..7 |
-| `pell_numerator_eq_even_fib_layers0to7` | Pell-numer layer k = even Fibonacci F_{2k+2} for k = 0..7 |
-| `mobius_fibonacci_bridge` | capstone — Pell convergents and Fibonacci sequence read the SAME integer skeleton through two distinct Lenses |
+| `F12_eq_edge_squared` | F_12 = (c·NS·NT)² — squared Phase-2 edge count, the one notable structural reading among F_11..F_15 |
+| `mobius_fibonacci_bridge` | 16-conjunct identity: Pell-denominator layer k = F_{2k+1} (odd Fibonacci), Pell-numerator layer k = F_{2k+2} (even Fibonacci), for k = 0..7.  Same integer skeleton, two structural Lenses |
 
 ### 4-clause forcing chain (§4.5)
 
@@ -525,6 +522,6 @@ verified `#print axioms` returns "does not depend on any axioms".
 | Module | PURE count | Highlights |
 |---|---|---|
 | `E213.Lib.Physics.Capstones.NSNTPi5Block` | 4 | `ns_nt_six`, `cross_observable_ns_nt_block`, `reciprocal_lens_skeleton`, `ns_nt_pi5_block_capstone` — bundles m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton |
-| `E213.Lib.Physics.AlphaEM.PiFiveGap` | +3 (17 → 20) | `pi5_residual_thirteen_bracket`, `pi5_gap_two_lens_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
+| `E213.Lib.Physics.AlphaEM.PiFiveGap` | +2 (17 → 19) | `pi5_residual_thirteen_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
 
-**Cumulative new PURE from this session: 65.**  All audit-verified.
+**Cumulative new PURE from this session, post-reduction: ~55** (raw count is lower since session-12 reductions collapsed enumerations into single bundles).  All audit-verified.

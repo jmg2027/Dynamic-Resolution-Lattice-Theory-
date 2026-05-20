@@ -106,7 +106,48 @@ theorem mobius_213_det : (2 : Int) * 1 - 1 * 1 = 1 := by decide
     witness that φ² and 1/φ² are the eigenvalues. -/
 theorem mobius_213_char_poly_at_trace : (3 : Int)^2 - 3 * 3 + 1 = 1 := by decide
 
-/-! ## §2 — Pell-unit invariant (frozen + dynamic)
+/-! ## §2 — Recurrence-uniqueness (structural lemma)
+
+A clean piece of insight reusable across the file (and across
+the Fibonacci bridge in `Lib/Physics/Foundations/
+FibonacciExtended`): if two integer sequences satisfy the
+**same** 2nd-order recurrence and agree at two consecutive
+initial values, they agree everywhere.
+
+This is the structural reason why Pell convergents and
+Fibonacci subsequences (odd / even indices) literally coincide:
+both satisfy the [[2,1],[1,1]] recurrence and start identically.
+-/
+
+/-- ★ **Two-step strong induction**: prove `∀ n, P n` from
+    `P 0`, `P 1`, and the implication `P n → P (n+1) → P (n+2)`.
+    ∅-axiom, term-mode lift of ordinary `Nat.rec`. -/
+theorem two_step_induction {P : Nat → Prop}
+    (h0 : P 0) (h1 : P 1)
+    (hstep : ∀ n, P n → P (n+1) → P (n+2)) :
+    ∀ n, P n := by
+  intro n
+  suffices h : P n ∧ P (n+1) from h.1
+  induction n with
+  | zero => exact ⟨h0, h1⟩
+  | succ k ih => exact ⟨ih.2, hstep k ih.1 ih.2⟩
+
+/-- ★★★ **Pell-recurrence uniqueness**: any pair of Int sequences
+    `f, g : Nat → Int` satisfying the Möbius-matrix recurrence
+    `s (n+2) = 3 · s (n+1) − s n` and agreeing at `n = 0, 1` are
+    identical for every `n`.  This is the "two boundary values
+    determine the entire trajectory" content of the [[2,1],[1,1]]
+    fixed-point structure. -/
+theorem pell_recurrence_unique (f g : Nat → Int)
+    (h₀ : f 0 = g 0) (h₁ : f 1 = g 1)
+    (hf : ∀ n, f (n+2) = 3 * f (n+1) - f n)
+    (hg : ∀ n, g (n+2) = 3 * g (n+1) - g n) :
+    ∀ n, f n = g n := by
+  apply two_step_induction (P := fun n => f n = g n) h₀ h₁
+  intro k ihk ihk1
+  rw [hf k, hg k, ihk, ihk1]
+
+/-! ## §3 — Pell-unit invariant (frozen + dynamic)
 
 The cross-product `X_n := num_n · den_{n+1} − num_{n+1} · den_n`
 satisfies `X_{n+1} = -c₂ · X_n` for any pair of sequences obeying
@@ -121,10 +162,10 @@ motion, equal to its initial value −1.
 
 Same algebraic content, two Lens readings (§3.4 + §8.7).
 
-A general ∀ n form would need Int ring algebra at the inductive
-step.  Without `ring`/`linarith` in the 213-native tactic set,
-we provide the strict ∅-axiom witness as the 8-layer bundle
-below — `decide` verifies all 8 consecutive layers in one go.
+A fully general ∀ n form for X_n = −1 would need Int ring
+algebra at the inductive step (`ring` / `linarith` not in 213-
+native set).  The 8-layer bundle below is the strict ∅-axiom
+witness — `decide` verifies all 8 consecutive layers in one go.
 -/
 
 /-- ★★ **8-layer Pell-unit invariant** — the cross-product
