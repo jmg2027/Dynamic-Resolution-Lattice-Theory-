@@ -15,6 +15,7 @@ import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
 import E213.Lens.SyntacticInternalization
+import E213.Lens.UndifferentiatedRaw
 import E213.Lens.Universal
 
 /-! Spec-as-code entry point for `E213.Lens`.
@@ -77,6 +78,10 @@ import E213.Lens.Universal
       back to Raw via positional truth-table Gödel numbering).
       Closes the self-reference loop: predicates that operate on
       Raw are themselves Raw.
+    * `Lens.UndifferentiatedRaw`          — §9.5 K_∞ ≡ point at
+      raw level realised as constant-Lens collapse: under
+      `constLens e`, every Raw maps to `e` — the no-distinction
+      reading of Raw is a singleton.
 
   ## Top-level
 
