@@ -8,7 +8,7 @@ DRLT derivation (SU(5)):
 
   ∧¹(ℂ⁵) = 5̄ representation (dim 5)  → 5 fermions
   ∧²(ℂ⁵) = 10 representation (dim 10) → 10 fermions
-  Total per generation: 5 + 10 = 15 fermions ★ matches SU(5)
+  Total per generation: 5 + 10 = 15 fermions ★ = SU(5) multiplet count
 
   3 generations × 15 fermions = 45 fermion states.
   

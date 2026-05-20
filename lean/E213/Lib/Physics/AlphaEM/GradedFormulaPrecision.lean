@@ -96,9 +96,9 @@ theorem alphaInv_213_bracket_e9 :
 
     This 2.16 ppm residual corresponds to the α_em²/d² Gram
     self-energy term (≈ 2.13 ppm).  Without that term (or its
-    cohomology-derived replacement), the π⁵ form alone is off
-    observed by 2.16 ppm.  Higher π precision does NOT close
-    this gap — it's a structural offset.
+    cohomology-derived replacement), the π⁵ form alone differs
+    from the measurement-Lens reading by 2.16 ppm.  Higher π
+    precision does NOT close this gap — it is a structural offset.
 
     Fully closing C1 requires either Gram-replacement at the
     cohomology level (e.g., L=2+ fractal correction) or a

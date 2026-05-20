@@ -183,15 +183,16 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 
     k = 1 (verts):   |(a, b) decomps| = 1, output basis = 5
     k = 2 (edges):   2 decomps × 10 = 20 channels
-    k = 3 (tris):    3 decomps × 10 = 30 channels  ← matches "30" coeff
+    k = 3 (tris):    3 decomps × 10 = 30 channels  ← equals "30" coeff
     k = 4 (tets):    4 × 5  = 20 channels
     k = 5 (4-cell):  5 × 1  = 5  channels
                                  ──
                                  80 total
 
-  The "30 = channels-to-triangle-outputs" matches `1/α_2 = 30`
-  (paper-2 gauge value).  The full impedance interpretation
-  remains open — see end-of-file note. -/
+  The integer "30 = channels-to-triangle-outputs" equals
+  `1/α_2 = 30` (paper-2 gauge value); two distinct atomic
+  readings yielding the same count.  The full impedance
+  interpretation remains open — see end-of-file note. -/
 
 end E213.Lib.Physics.AlphaEM.CupChannelInventory
 

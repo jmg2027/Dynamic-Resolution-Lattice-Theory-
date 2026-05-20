@@ -95,7 +95,7 @@ theorem hierarchy_towers_master :
 theorem hierarchy_from_cardinality :
     -- The smallness of v_H = the reciprocal of lattice cardinality
     (d ^ (d * d) > 100000000000000000)  -- > 10^17
-    -- meaning: d^(d²) huge → v_H ≪ M_Pl naturally
+    -- meaning: d^(d²) huge → v_H ≪ M_Pl (large count-Lens gap)
     := by decide
 
 end E213.Lib.Physics.Mass.HierarchyTowers

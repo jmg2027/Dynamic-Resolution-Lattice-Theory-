@@ -210,8 +210,8 @@ namespace E213.Lib.Physics.AlphaEM.CupRingTrace
           (the c=2 multiplicity doubles certain channel counts);
       (c) ℤ-coefficient signed cup pairings (Hodge–Riemann
           signature integrals), not Bool/ℤ_2;
-      (d) Cup-ring convolved with the resolution N_U = 5²⁵
-          (so that "ζ(2) ≈ S(5²⁵) ≈ π²/6" emerges as a finite
+      (d) Cup-ring convolved with the resolution N_resolution =
+          5²⁵ (so that "ζ(2) ≈ S(5²⁵) ≈ π²/6" reads as a finite
           rational at lattice scale).
 
   This bottom-up data argues (a) or (d) is the right direction —

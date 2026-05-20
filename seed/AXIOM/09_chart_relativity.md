@@ -25,8 +25,7 @@ themselves be a slash of (two deeper) Raws.
 
 `inductive Tree | a | b | slash` therefore hardcodes one chart.
 The chart-relativity statement — "any pair of distinct Raws can
-serve as atoms" — was originally implicit in the axiom and has
-since been made **explicit** in
+serve as atoms" — is made **explicit** in
 `lean/E213/Lens/Number/Nat213/ChartGeneral.lean`
 (Option D of the companion note, §5).  The file parameterises
 Method A over any `(r₀, r')` with `r₀ ≠ r'` and proves the

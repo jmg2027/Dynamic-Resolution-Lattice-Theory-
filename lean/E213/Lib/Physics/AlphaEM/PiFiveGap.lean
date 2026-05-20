@@ -171,9 +171,10 @@ namespace E213.Lib.Physics.AlphaEM.PiFiveGap
     the bracket-gap (two-Lens difference) of 137.0359991 − 137.0354548
     = 5443 × 10⁻⁷.
 
-    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ matches the bracket gap (count-Lens vs measurement-Lens) to
-    within 3 × 10⁻⁷, while α_GUT/45 ≈ 5403 × 10⁻⁷ matches only to
-    40 × 10⁻⁷.  The π⁵ form is **~13× closer**.
+    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ agrees with the bracket gap
+    (count-Lens vs measurement-Lens difference) within 3 × 10⁻⁷;
+    α_GUT/45 ≈ 5403 × 10⁻⁷ agrees only within 40 × 10⁻⁷.  The π⁵
+    form brackets the two-Lens difference **~13× more tightly**.
 
     This is numerical evidence (not proof) that
         Δ_gap_213 := 1/(NS · NT · S_Wallis(N_U)⁵)
