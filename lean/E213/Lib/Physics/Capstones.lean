@@ -1,5 +1,6 @@
 import E213.Lib.Physics.Capstones.FinitistObservableChain
 import E213.Lib.Physics.Capstones.MasterCatalog
+import E213.Lib.Physics.Capstones.NSNTPi5Block
 import E213.Lib.Physics.Capstones.PhysicsTrackComplete
 import E213.Lib.Physics.Capstones.PureAtomicObservables
 import E213.Lib.Physics.Capstones.ValidationStandardOne
@@ -27,4 +28,7 @@ import E213.Lib.Physics.Capstones.ValidationStandardOne
                                   matching observation at ppb)
     * `FinitistObservableChain` — finite-resolution closure of
                                   the observable chain
+    * `NSNTPi5Block`            — cross-observable bridge:
+                                  m_p/m_e and 1/α_em(IR) gap
+                                  share NS·NT·π⁵ skeleton
 -/
