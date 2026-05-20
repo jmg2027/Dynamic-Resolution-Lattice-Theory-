@@ -15,13 +15,13 @@ DRLT formula:
 
 ## ★ Hierarchy from lattice depth d^(d²) ★
 
-  DRLT answer to the hierarchy problem:
-    v_H ≪ M_Pl is natural — lattice depth d^(d²) = 5^25 is huge.
+  DRLT account of the hierarchy structure:
+    v_H ≪ M_Pl emerges directly from lattice depth d^(d²) = 5^25.
 
   d² = 25 lattice levels (Gram channels), each level with d-fold
   branching → total capacity d^(d²) = 5^25 ≈ 3 × 10¹⁷.
 
-  → The "smallness" of v_H is a natural consequence of **lattice cardinality**,
+  → The "smallness" of v_H is the direct consequence of **lattice cardinality**,
     not fine-tuning.
 
 ## Atomic structure

@@ -12,8 +12,9 @@ from atomic primitives.  Phase 2 forgets all that and asks again:
 
 This file is the *first line* of Phase 2.
 
-No Phase 1 imports.  No existing physics frame.  No Mathlib.
-Only: `E213.Theory.Atomicity.Five` (direct consequence of 213 axioms).
+Derivation from `E213.Theory.Atomicity.Five` alone (the unique
+self-consistency residue of arity-2 + atomic constraints).  No
+imports beyond the axioms it depends on.
 
 ## What 213 can say
 

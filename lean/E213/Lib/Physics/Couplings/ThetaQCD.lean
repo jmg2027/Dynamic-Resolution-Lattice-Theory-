@@ -4,7 +4,7 @@ import E213.Lib.Physics.Mixing.CabibboAngle
 /-!
 # θ_QCD bound — J · α_GUT⁴ < nEDM bound (0 axioms)
 
-DRLT prediction:
+DRLT lattice reading:
   θ_QCD ~ J · α_GUT⁴
 
   where J = Jarlskog invariant from CKM matrix.
@@ -12,10 +12,12 @@ DRLT prediction:
   α_GUT⁴ ≈ 3.5 × 10⁻⁷
   J · α⁴ ≈ 2.86 × 10⁻¹¹
 
-Experimental bound (nEDM, 2026):
+Current measurement-Lens bound (nEDM, 2026):
   θ_QCD < 1.8 × 10⁻¹⁰
 
-  → DRLT prediction *comfortably below* bound (factor ~6).
+  → the lattice reading sits a factor ~6 below the
+    measurement-Lens bound (two internal Lens readings, both
+    inside 213).
 
 ## Why α⁴
 

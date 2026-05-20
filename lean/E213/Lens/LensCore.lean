@@ -3,16 +3,20 @@ import E213.Theory.Raw.API
 /-!
 # Lens ring
 
-Each `Lens` supplies a codomain `α` with two base values and a
-binary op. `Lens.view` is the catamorphism `Raw → α`, implemented
-as a wrapper around the firmware's `Raw.fold`.
+A `Lens α` supplies a codomain `α` with two base values and a
+binary op.  `Lens.view` is the catamorphism `Raw → α`, implemented
+as a wrapper around `Raw.fold` — Raw's fold instantiated in the
+α algebra.  This is *Raw's self-reading recorded under the
+α-Lens*, not an external observation acting on Raw (cf.
+`seed/AXIOM/05_primacy.md` §6 + `07_self_reference.md` §8.1).
 
-The Lens's kernel `L.equiv x y := L.view x = L.view y` supplies
-the first notion of equality on `Raw`. Different Lenses impose
-different equalities; none is part of the axiom.
+The Lens-induced kernel `L.equiv x y := L.view x = L.view y`
+records α-view agreement on Raw — the equivalence Raw acquires
+when its α-readings are compared.  Different Lenses induce
+different kernels; none is part of the axiom.
 
-**This module uses only the Theory's public API (Theory.Raw)** (`Raw`,
-`Raw.a`, `Raw.b`, `Raw.slash`, `Raw.fold`, `Raw.slash_comm`). The
+**Module discipline**: only Theory's public API (`Raw`, `Raw.a`,
+`Raw.b`, `Raw.slash`, `Raw.fold`, `Raw.slash_comm`) is used.  The
 internal `Tree` type and its ordering are not referenced.
 -/
 
@@ -20,17 +24,27 @@ namespace E213.Lens
 
 open E213.Theory
 
-/-- A Lens: two base values + a binary op. -/
+/-- A Lens supplies the data that Raw's fold needs in codomain α:
+    images for the two atomic constructors (base_a, base_b — the
+    α-shadows of `Raw.a, Raw.b`) and a binary combine for slash.
+    Per `seed/AXIOM/09_chart_relativity.md` §9.1, "two" here is
+    the count-Lens reading of Raw's first distinguishing (not a
+    Raw cardinality claim); base_a, base_b are α-labels for one
+    chart choice. -/
 structure Lens (α : Type) where
   base_a  : α
   base_b  : α
   combine : α → α → α
 
-/-- The catamorphism. -/
+/-- The catamorphism: Raw's fold instantiated in α.  Not an
+    external projection of Raw — `view` is the α-side recording
+    of Raw's self-pointing (cf. §8.1 no exterior). -/
 protected def Lens.view {α : Type} (L : Lens α) (r : Raw) : α :=
   r.fold L.base_a L.base_b L.combine
 
--- Kernel equivalence: Lens-induced equality on Raw.
+/-- α-view equivalence on Raw: two Raws agree in α iff they map
+    to equal values.  This is Raw's α-shadow equivalence, not an
+    external relation imposed on Raw. -/
 protected def Lens.equiv {α : Type} (L : Lens α) (x y : Raw) : Prop :=
   L.view x = L.view y
 

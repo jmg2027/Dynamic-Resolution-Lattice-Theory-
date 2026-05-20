@@ -63,9 +63,10 @@ theorem NH3_denom_decomp :
     ∧ NS * (NS + 1) = 12  -- 3·4 = 12 (= c·NS·NT)
     ∧ 12 + 1 = 13 := by decide
 
-/-- ★ Exact agreement (observation vs prediction) ★
-    CH₄: observed 109.471°, DRLT cos = -1/3 → arccos(-1/3) = 109.4712°
-    H₂O: observed 104.45°,  DRLT cos = -1/4 → arccos(-1/4) = 104.478° -/
+/-- ★ Lens-reading agreement for bond angles ★
+    CH₄: measurement-Lens 109.471°, atomic Lens cos = -1/3 → 109.4712°
+    H₂O: measurement-Lens 104.45°,  atomic Lens cos = -1/4 → 104.478°
+    (two internal Lens readings of the same simplicial structure). -/
 theorem CH4_H2O_exact :
     CH4_cos_denom = 3
     ∧ H2O_cos_denom = 4

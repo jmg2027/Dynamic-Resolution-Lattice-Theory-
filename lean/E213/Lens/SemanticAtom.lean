@@ -37,15 +37,24 @@ namespace E213.Lens.SemanticAtom
 
 open E213.Theory E213.Lens
 
-/-! ### HasDistinguishing typeclass — abstraction of the meaning framework
+/-! ### HasDistinguishing typeclass — structure Raw induces on any codomain
 
-Minimum requirements for a "framework with meaning":
-1. Two distinguishable base elements (a ≠ b).
+This typeclass abstracts the structure that Raw's fold *forces*
+on any codomain α — not a property Lens "has" as an external
+attribute, but the shape Raw's self-pointing imposes on any α
+that wants to record a Raw reading.
+
+Minimum requirements for a meaning-framework on α:
+1. Two distinguishable atoms (a ≠ b) — α-shadows of `Raw.a, Raw.b`.
 2. A combining operation (binary).
-3. Symmetry of combine (swap-invariance) — commutativity of slash.
+3. Symmetry of combine (swap-invariance) — Raw's `slash_comm`
+   echoed in α (without it, encoding artifacts of Raw's
+   canonicalisation leak into α-results).
 
-Without (3), encoding artifacts leak into results — Raw axiom's
-slash_comm.  Therefore it is part of the meaning framework. -/
+Per `seed/AXIOM/00_nature.md` §1.2 "Single condition for
+meaning": distinguishable AND readable in the same event.  The
+three fields above are the notational decomposition of that
+single event for the Lean encoding. -/
 
 class HasDistinguishing (α : Type) where
   a : α

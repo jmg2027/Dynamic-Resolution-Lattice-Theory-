@@ -57,8 +57,11 @@ theorem NS_three_steps : (3 : Nat) ^ 3 = 27 := by decide
 
   NT 2 vs NS 3 → unfolding difference is always (3/2)^n.
 
-  That is, *space vs time asymmetry* comes from atomicity itself.
-  Without added Lens or external frame. -/
+  That is, *space vs time asymmetry* comes from atomicity itself
+  — a structural fact about the (3, 2) atomic pair, with no
+  external frame invoked (per `seed/AXIOM/07_self_reference.md`
+  §8.1: there is no exterior to 213, so no external dialer sets
+  the asymmetry). -/
 theorem NT_NS_asymmetry_at_n :
     -- NT 1 step: 2 states
     ((2 : Nat) ^ 1 = 2)

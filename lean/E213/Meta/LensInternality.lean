@@ -4,14 +4,14 @@ import E213.Lens.LensCore
 /-!
 # LensInternality — Lens is a Raw-internal concept
 
-The 213-internal counterpart of "every framework is a Lens".  We do
-NOT formalize that meta-claim (it requires an exterior to 213, which
-`seed/AXIOM/07_self_reference.md` §8 forbids).  Instead we formalize
-its honest dual: **every Lens is a Raw-internal concept** — its data
-is exactly the triple `(base_a, base_b, combine)` on the codomain α,
-and its view is exactly `Raw.fold` of that data.  Therefore Lens is
-not an external import; it is the canonical name for "α-side data
-needed to fold Raw".
+The "every framework is a Lens" meta-claim would require standing
+outside 213 to evaluate (which `seed/AXIOM/07_self_reference.md`
+§8.1 rules out).  Instead this file formalises the residue-side
+dual: **every Lens is a Raw-internal event** — its data is exactly
+the triple `(base_a, base_b, combine)` on the codomain α, and its
+view is exactly `Raw.fold` of that data.  Lens is therefore not an
+external import but the canonical name for "α-side data Raw's fold
+needs to read itself into α".
 
 Two ∅-axiom formal parts:
   (1) Type-level : `Lens α ≃ α × α × (α → α → α)` (round-trip)

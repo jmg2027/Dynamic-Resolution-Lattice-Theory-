@@ -4,6 +4,7 @@ import E213.Lens.AxiomLenses
 import E213.Lens.Bool213
 import E213.Lens.Compose
 import E213.Lens.Congruence
+import E213.Lens.FlatOntology
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
@@ -67,7 +68,10 @@ import E213.Lens.Universal
       internalisation prototype: 7-glyph alphabet (`a, b, /, (, ),
       `,`, whitespace`) Raw-encoded; Polish-prefix printer + parser
       + universal round-trip `∀ t, parseTree (printTree t) = some t`
-      (21 strict ∅-axiom).  Added 2026-05-18.
+      (21 strict ∅-axiom).
+    * `Lens.FlatOntology`                 — §9.3 flat-ontology
+      realisation: objects, types, relations, functions, and Lens
+      all as decidable predicates on Raw^n.
 
   ## Top-level
 
