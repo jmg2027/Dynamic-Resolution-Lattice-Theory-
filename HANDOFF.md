@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 60 session
-commits (168 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 68 session
+commits (176 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -138,6 +138,37 @@ Net: 86 → 54 theorems across session-added files, one file
 merged-and-deleted, ~500 lines deleted, same mathematical
 content.  Plus the new `pell_recurrence_unique` is a real
 structural insight reusable across the codebase.
+
+**Iteration 14** (reduction expanded to entire `lean/` tree):
+4 parallel audit agents (Theory+Term, Meta, Lens-A, Lens-B,
+Lib/Physics, Lib/Math ×3) reported ~120 candidate reductions.
+Verified each by `grep`-for-external-use and applied 15 files'
+worth of clean cuts:
+
+  · Symmetry/AutKChiral (13 internal scaffolds)
+  · Atomic/Hydrogen, Helium (8 scaffolds total)
+  · AlphaEM/{ChannelCohomologyLoss, LaplacianSpectrum} (~18
+    scaffolds total)
+  · AlphaEM/GluonChannelInterpretation (2 trivial)
+  · Cohomology/Surfaces/T2Squared/HodgeIndex (6 diag → bundle)
+  · Cauchy/Euler (6 per-parameter applications)
+  · Math/Combinatorics/Binomial (10 → 2)
+  · Mass/TauOverMu (6 scaffolds → master conjuncts)
+  · Lens/Cardinality/{Tower, LensCardinality}
+  · Lens/Bool213/Raw (8 truth tables → 2 bundles + iff merge)
+  · Lens/SyntacticInternalization (5 rfls)
+  · Meta/LensInternality (3 rfls)
+
+Net: ~85 theorems removed, ~300 lines off, build clean
+throughout, ∅-axiom preserved.  Two new sub-patterns added to
+`LESSONS_LEARNED.md` (Smell #5: biconditional split; Smell #6:
+per-parameter meta-applications) plus a 30%-over-flag caveat
+for agent-driven audits.
+
+Patterns DEFERRED as research directions (need structural
+insight, not mechanical cleanup): DyadicFSM/{Pell/ProperMod,
+Pisano/Predictor*} per-base files; CayleyDickson/Integer
+projection-lemma typeclass; PureNatMod3/5 mod-p descent template.
 
 ## Commits this session
 
