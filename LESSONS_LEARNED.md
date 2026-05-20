@@ -402,3 +402,121 @@ session-added 파일들에 적용:
 
 순 reduction: 86 → 57 theorems, ~500줄, 파일 1개.  
 *같은 수학적 content, 더 적은 cognitive surface*.
+
+---
+
+## Reduction patterns (2026-05-20, expanded after lean/-tree sweep)
+
+After the second sweep (lean/ tree, 4 parallel audit agents +
+~10 hand-applied reductions), the pattern catalog is enriched
+with new sub-patterns and explicit caveats about agent over-flagging.
+
+### Smell #1 refinement — truth-table singletons
+
+Specific instance of #1: four `_TT/_TF/_FT/_FF` rfl theorems
+(or 8 for two operations).  Collapse to one ∧-bundled
+"truth_table" theorem proved by `<;> (unfold; decide)`.
+
+Examples cleaned: `Lens/Bool213/Raw` (and/or 8 → 2),
+`Lens/Compose/OnLensImage` (declined — used as proof
+components downstream).
+
+### Smell #5: biconditional split into 3 theorems
+
+A new pattern not in the original list: a biconditional iff
+stated as three theorems — forward direction, reverse direction,
+and the iff itself.  Each direction's proof is small; the iff's
+proof is just `⟨reverse, forward⟩`.
+
+Reduction: keep ONLY the iff, with both proof directions inlined
+(`refine ⟨intro h; ..., intro h; ...⟩`).  Saves 2 theorems and
+the redundant docstrings.
+
+Example cleaned: `Lens/Bool213/Raw.booleanProj_id_iff_isBool213`.
+
+### Smell #6: per-parameter applications of a meta-algorithm
+
+A generic meta-theorem parameterised by `(a, b, j, N₀)` followed
+by 4-6 individual applications (`thm_8_3`, `thm_10_4`, ...).
+Each is a single call to the meta with concrete arguments.
+
+Reduction: drop the per-parameter applications.  Callers
+instantiate the meta inline (`euler_lower_generic 8 3 4 (by
+decide) (by decide)`).  Saves 4-6 theorems per such cluster.
+
+Example cleaned: `Cauchy/Euler` (e_gt_8_3, e_gt_10_4, etc., 6
+theorems dropped).
+
+### Agent-over-flagging caveat
+
+About **30%** of agent-flagged reductions turn out to be:
+
+  · **External API points**: referenced by other files via `open`
+    + named reference.  Always `grep` for external use before
+    deletion.  Example: `Lens/Compose/OnLens.lensXor_comm_eqPW`
+    looks redundant with `lensXor_comm` but is the canonical
+    cutEq form referenced downstream.
+  · **Proof components**: used by a "master" theorem in the
+    same file via explicit name reference (not by `rfl` /
+    `decide`).  Deleting breaks the master's proof. Example:
+    `Compose/OnLensImage.lensXor_TT/_TF/_FT/_FF` are used by
+    `boolToConstLens_xor`.
+  · **Pedagogical demos**: files explicitly named `Demo.lean` or
+    similar carry intentional narrative.  Example:
+    `Theory/Raw/Demo.lean` depth_a/b/ab/aab/bab enumeration is
+    pedagogical, not a true layer-by-layer enumeration.
+  · **External witness capstones**: per-prime/per-instance
+    theorems referenced by an aggregate bundle in another file.
+    Example: `DyadicFSM/Pell/ProperMod.pellProper{N}_bits_period_K`
+    are all referenced from `Pell/Proper8.lean`.
+
+**Process**: after agent reports candidates, always verify:
+  1. `grep -rn "<theorem_name>" lean/E213 | grep -v <own_file>`
+  2. Check whether the file is `Demo.lean` / `Examples.lean`
+  3. Open the file, check whether the theorem is referenced
+     elsewhere in the same file (proof component).
+
+### Hand-applied this session
+
+| File | Reduction | Net |
+|------|-----------|-----|
+| Symmetry/AutKChiral | dropped 13 internal scaffolds | ~50 lines |
+| Atomic/Hydrogen | dropped 4 scaffolds | 12 lines |
+| Atomic/Helium | dropped 4 scaffolds | 15 lines |
+| AlphaEM/ChannelCohomologyLoss | bundled 5 minor theorems | 10 lines |
+| Math/Combinatorics/Binomial | 10 → 2 (bundled rows) | 25 lines |
+| Lens/Cardinality/Tower | 6 layer rungs → 1 unbounded | 22 lines |
+| Lens/SyntacticInternalization | dropped 5 rfl | 8 lines |
+| Meta/LensInternality | dropped 3 rfl | 10 lines |
+| Symmetry/GluonChannelInterpretation | dropped 2 trivial | 14 lines |
+| Cohomology/Surfaces/T2Squared/HodgeIndex | 6 diag → 1 bundle | 7 lines |
+| AlphaEM/LaplacianSpectrum | dropped 13 scaffolds | 28 lines |
+| Mass/TauOverMu | 6 scaffolds → master conjuncts | 35 lines |
+| Lens/Bool213/Raw | 8 truth tables → 2 bundles + iff merge | 30 lines |
+| Cauchy/Euler | dropped 6 per-param applications | 25 lines |
+| Lens/Cardinality/LensCardinality | 4 witnesses → 1 bundle | 5 lines |
+
+Net: ~85 theorems removed across 15 files, ~300 lines off, build
+clean throughout, ∅-axiom contract preserved.
+
+### Patterns DEFERRED (require deeper refactor)
+
+  · `DyadicFSM/Pell/ProperMod` (per-prime enumeration): generic
+    `pellProperFSMmod_period_invariant` lemma would replace 10
+    theorems, but each proof needs a `decide` base step at the
+    specific (prime, period) — non-trivial to abstract.
+  · `DyadicFSM/Pisano/Predictor{6,7,8,11,...}` (8 per-base
+    files): consolidation into 1 master capstone is high-impact
+    but high-risk (cross-file API changes).
+  · `CayleyDickson/Integer` (15 files with parallel projection
+    lemmas): typeclass refactor (`GaussianLike`) would save 14
+    lemmas × 15 files = 210 statements; substantial Lean-design
+    work, not within this session's scope.
+  · `PureNatMod3/5` (mod-p descent templates): generic
+    `mod_p_descent_template` parameterised by `(p : Nat) [Prime
+    p]` would save ~18 theorems; requires careful prime
+    abstraction.
+
+These remain as **research directions** rather than mechanical
+cleanups — each needs structural thinking similar to the
+`pell_recurrence_unique` extraction from Mobius213.
