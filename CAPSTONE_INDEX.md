@@ -5,7 +5,7 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 
 ## Top-level achievements
 
-### Validation Standard satisfied (root)
+### Validation Standard satisfied
 - `Lib/Physics/Capstones/ValidationStandardOne.validation_standard_capstone`
   — CLAUDE.md #1+#2 explicit, 13 conjuncts, STRICT 0-AXIOM
 
@@ -27,7 +27,7 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lib/Physics/Foundations/FractalLensCardinality.fractal_lens_cardinality_capstone`
   — Lens count at fractal level
 
-### Other observables (inherit N_U)
+### Other observables (using N_resolution as count-Lens readout)
 - `Lib/Physics/Mass/MuOverE` — `mu_over_e_simplicial_pattern`
   (the former `MuOverEFinitist` was absorbed here 2026-05-05)
 - `Lib/Physics/Cosmology/DarkEnergy.dark_energy_pattern_capstone`
