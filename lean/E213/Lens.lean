@@ -7,6 +7,7 @@ import E213.Lens.Congruence
 import E213.Lens.FlatOntology
 import E213.Lens.Initiality
 import E213.Lens.PredicateSelfEncoding
+import E213.Lens.RawTopology
 import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
