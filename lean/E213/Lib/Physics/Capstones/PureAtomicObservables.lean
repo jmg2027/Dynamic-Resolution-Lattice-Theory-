@@ -47,7 +47,7 @@ theorem pure_atomic_observables_capstone :
     -- Hierarchy ratio: numerator 5²⁵, denominator d+1=6
     ∧ d ^ (d * d) = 298023223876953125
     ∧ d + 1 = 6
-    -- Lenz coincidence: NS·NT = 6
+    -- Lenz-type identity: NS·NT = 6
     ∧ NS * NT = 6
     -- Koide ratio: NT/NS = 2/3 ⟺ NT·3 = NS·2
     ∧ NT * 3 = NS * 2

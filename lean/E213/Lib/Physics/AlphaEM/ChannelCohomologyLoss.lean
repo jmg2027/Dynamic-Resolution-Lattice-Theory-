@@ -16,9 +16,10 @@ inclusion all equal 8, matching `1/α_3 = NS² − 1` from `Bare.lean`.
   (v)   NS² − 1                    adjoint SU(NS) (= QCD coupling form)
   (vi)  E − V + 1 in K_{3,2}^{(c=2)}  graph-theoretic loop rank
 
-These are not coincidence: relative cohomology of (Δ⁴, K) is
-**concentrated at degree 2 with rank 8** by the long exact
-sequence (using H^k(Δ⁴) = ℤ if k=0 else 0 and H¹(K) = ℤ⁸).
+These six readings agree by the structure of relative cohomology
+of (Δ⁴, K), which is **concentrated at degree 2 with rank 8** by
+the long exact sequence (using H^k(Δ⁴) = ℤ if k=0 else 0 and
+H¹(K) = ℤ⁸).
 
 ## Atomic constants consistency equation
 

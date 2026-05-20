@@ -6,11 +6,11 @@ import E213.Lib.Physics.Simplex.Counts
 
 ★ Summary of 31 milestone discoveries (consolidated 2026-05-05) ★
 
-Absorbs the former `Physics/FamousCoincidences/` exploration cluster:
-multi-reading magic integers (8, 12, 24, 27, 32, 120, 240, 248) all
-land here as a single capstone.  Physics-named coincidences (Lenz,
-Koide, proton-radius, hierarchy) are stated in their natural topical
-files (`ProtonElectronRatio`, `KoideFormula`, `ProtonMass`,
+Multi-reading magic integers (8, 12, 24, 27, 32, 120, 240, 248)
+all land here as a single capstone.  Physics-named numeric
+identities historically observed (Lenz, Koide, proton-radius,
+hierarchy) appear in their natural topical files
+(`ProtonElectronRatio`, `KoideFormula`, `ProtonMass`,
 `HierarchyTowers`).
 
 ## Small integers (1-10)

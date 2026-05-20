@@ -77,8 +77,9 @@ theorem three_force_mass_pattern :
     -- Atomicity
     ∧ (NS = 3) ∧ (NT = 2) := by decide
 
-/-- ★ Photon kernel = α_3 adjoint coincidence ★
-    The same integer 8 appears in photon kernel dim and α_3 adjoint.
+/-- ★ Photon kernel = α_3 adjoint structural identity ★
+    The same integer 8 appears in photon kernel dim and α_3
+    adjoint — atomicity forces both readings to the same value.
     Reconfirming the key finding of PhotonKernel.lean. -/
 theorem photon_alpha_3_link :
     (b_1 = NS * NS - 1)

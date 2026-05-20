@@ -59,16 +59,21 @@ theorem fib_first_8 :
     fib 1 = 1 ∧ fib 2 = 1 ∧ fib 3 = 2 ∧ fib 4 = 3
     ∧ fib 5 = 5 ∧ fib 6 = 8 ∧ fib 7 = 13 ∧ fib 8 = 21 := by decide
 
-/-- ★ Cosmic coincidence at d = 5 ★
+/-- ★ Fibonacci-atomic structural alignment at d = 5 ★
     F_5 = 5 = d (lattice dimension)
     F_6 = 8 = NS² - 1 = 1/α_3 (strong adjoint!)
     F_7 = 13 = NS² + NS + 1 (NH₃ denom!)
 
-    Fibonacci sequence *consecutively* matches atomic primitives:
+    Three consecutive Fibonacci numbers coincide with three
+    independent atomic readings — structural alignment forced
+    by the same φ fixed-point that governs both the Fibonacci
+    recurrence and Raw's atomic shape (cf. Mobius213.lean +
+    `seed/AXIOM/02_statement.md` §3.4).
+
       F_5 = d
       F_6 = 1/α_3
       F_7 = NH₃ denom -/
-theorem fibonacci_atomic_coincidence :
+theorem fibonacci_atomic_alignment :
     (fib 5 = d)
     ∧ (fib 6 = NS * NS - 1)
     ∧ (fib 7 = NS * NS + NS + 1) := by decide

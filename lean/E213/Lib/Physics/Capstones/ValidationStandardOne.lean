@@ -60,7 +60,7 @@ theorem validation_standard_capstone :
     ∧ d ^ (d * d) ≥ 10 ^ 17
     -- d²-1 = 24 (SU(5) adjoint, used in m_μ/m_e δ₂)
     ∧ d * d - 1 = 24
-    -- Lenz coincidence: NS·NT = 6 (chiral spoke count)
+    -- Lenz-type identity: NS·NT = 6 (chiral spoke count)
     ∧ NS * NT = 6
     -- Atomicity: NS+NT = d (forced)
     ∧ NS + NT = d := by

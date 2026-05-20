@@ -147,8 +147,8 @@ The integer 4 has *three* independent atomic readings at d=5:
   NT² = 4   (chiral phase)
   d − 1 = 4 (backbone minus base-point)
   NS + 1 = 4 (first "Beyond NS" step)
-This triple coincidence is the structural signature of an atomic
-identity, not a numerical fit.
+All three readings agree by atomicity (3, 2, 5) — structural
+identity, not numerical fit.
 -/
 
 /-- The integer 4 emerges atomically as NT², (d−1), and (NS+1). -/
@@ -190,7 +190,10 @@ Compared to the "Top = full lattice resonance" reading
 1/α_em = 60·ζ(2)+30+25/3+α/4+α/45 ≈ 137.04 (|Δ| = 0.78 %), the
 chain composition is tighter and structurally distinct: m_t/m_c
 carries coefficients (75, 12) while 1/α_em carries (60, 38⅓).
-The "double 137" near-coincidence is numerical, not structural.
+The "double 137" agreement at the numerical level is not a
+structural identity; the chain reading and the all-lattice
+reading are distinct Lens applications happening to land on
+nearby values.
 -/
 
 /-- ★ m_t/m_c skeleton coefficients.

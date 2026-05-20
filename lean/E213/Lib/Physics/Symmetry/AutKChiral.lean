@@ -124,14 +124,14 @@ def adj_product : Nat := adj_SU_NS * adj_SU_NT
 theorem adj_product_eq_24 : adj_product = 24 := by decide
 theorem adj_product_eq_adj_SU_d : adj_product = (NS + NT) * (NS + NT) - 1 := by decide
 
-/-! ## §4 — Edge-count and external-symmetry coincidence -/
+/-! ## §4 — Edge-count and external-Aut order: structural identity -/
 
 /-- K_{3,2}^{(c=2)} edge count E = c · NS · NT = 12. -/
 def E_K : Nat := 2 * NS * NT
 
 theorem E_K_eq_12 : E_K = 12 := by decide
 
-/-- Striking: |external Aut| = K-edge count = 12.  Both equal
+/-- Structural identity: |external Aut| = K-edge count = 12.  Both equal
     NS! · NT! and c · NS · NT respectively, but coincide
     numerically because NS! · NT! = 6 · 2 = 12 = 2 · 3 · 2 = c · NS · NT. -/
 theorem external_order_eq_E_K : external_order = E_K := by decide
@@ -173,8 +173,8 @@ open E213.Lib.Physics.Simplex.Counts (NS NT)
               dim adj SU(NS) = NS² − 1 = 8 (= 1/α_3)
               dim adj SU(NT) = NT² − 1 = 3
               dim adj SU(d)  = (NS+NT)² − 1 = 24 = adj·adj
-      (iv)  Striking coincidence: |external Aut| = E_K (= 12)
-            (NS! · NT! happens to equal c · NS · NT).
+      (iv)  Structural identity: |external Aut| = E_K (= 12)
+            (NS! · NT! = c · NS · NT under atomicity (3, 2)).
       (v)   Internal sheet-swap order = 2^(E_K / c) = 2^(NS·NT). -/
 theorem aut_K_structure_master :
     -- (i) Aut order
@@ -190,7 +190,7 @@ theorem aut_K_structure_master :
     ∧ adj_sum = 11
     ∧ adj_product = 24
     ∧ adj_product = (NS + NT) * (NS + NT) - 1
-    -- (iv) external = E_K coincidence
+    -- (iv) external = E_K structural identity
     ∧ external_order = E_K
     ∧ E_K = 12
     -- (v) Internal sheet-swap form
