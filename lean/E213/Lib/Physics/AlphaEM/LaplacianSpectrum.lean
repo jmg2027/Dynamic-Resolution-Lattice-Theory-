@@ -71,29 +71,22 @@ def delta4_lap_rank (k : Nat) : Nat :=
   else if k ≤ 5 then binom 5 k
   else 0
 
-theorem delta4_lap_rank_1 : delta4_lap_rank 1 = 4 := by decide
-theorem delta4_lap_rank_2 : delta4_lap_rank 2 = 10 := by decide
-theorem delta4_lap_rank_3 : delta4_lap_rank 3 = 10 := by decide
-theorem delta4_lap_rank_4 : delta4_lap_rank 4 = 5 := by decide
-theorem delta4_lap_rank_5 : delta4_lap_rank 5 = 1 := by decide
+/-! Per-grade ranks (k=1..5) compute to {4, 10, 10, 5, 1} and
+    sum to 30; uniform eigenvalue = d = 5; trace = 30·5 = 150.
+    These numerics are conjuncts of `laplacian_spectrum_master`
+    below; no need for standalone single-equation theorems. -/
 
 /-- Total Laplacian rank on Δ⁴ = sum of nonzero eigenvalue counts. -/
 def delta4_lap_total_rank : Nat :=
   delta4_lap_rank 1 + delta4_lap_rank 2 + delta4_lap_rank 3
   + delta4_lap_rank 4 + delta4_lap_rank 5
 
-theorem delta4_lap_total_rank_eq_30 : delta4_lap_total_rank = 30 := by decide
-
 /-- Δ⁴ uniform eigenvalue = n = d = 5 (classical: simplicial Laplacian
     on n-simplex has all nonzero eigenvalues equal to n). -/
 def delta4_eigenvalue : Nat := 5
 
-theorem delta4_eigenvalue_eq_d : delta4_eigenvalue = d := by decide
-
 /-- Trace of total Δ⁴ Laplacian = rank · eigenvalue = 30 · 5 = 150. -/
 def delta4_lap_trace : Nat := delta4_lap_total_rank * delta4_eigenvalue
-
-theorem delta4_lap_trace_eq_150 : delta4_lap_trace = 150 := by decide
 
 /-! ## §2 — Δ⁴ ζ-Laplacian function
 
@@ -105,14 +98,9 @@ theorem delta4_lap_trace_eq_150 : delta4_lap_trace = 150 := by decide
 def delta4_zeta_1_num : Nat := delta4_lap_total_rank
 def delta4_zeta_1_den : Nat := delta4_eigenvalue
 
-theorem delta4_zeta_1_eq : delta4_zeta_1_num = 30 ∧ delta4_zeta_1_den = 5 := by decide
-theorem delta4_zeta_1_simplifies : delta4_zeta_1_num / delta4_zeta_1_den = 6 := by decide
-
 /-- ζ_Δ⁴(2) numerator/denominator pair: 30/25 = 6/5. -/
 def delta4_zeta_2_num : Nat := delta4_lap_total_rank
 def delta4_zeta_2_den : Nat := delta4_eigenvalue * delta4_eigenvalue
-
-theorem delta4_zeta_2_eq : delta4_zeta_2_num = 30 ∧ delta4_zeta_2_den = 25 := by decide
 
 
 
@@ -133,12 +121,8 @@ theorem delta4_zeta_2_eq : delta4_zeta_2_num = 30 ∧ delta4_zeta_2_den = 25 := 
 /-- K_{3,2}^{(c=2)} number of vertices = NS + NT = d. -/
 def k32c2_V : Nat := d
 
-theorem k32c2_V_eq_5 : k32c2_V = 5 := by decide
-
 /-- Edge count = c · NS · NT (12). -/
 def k32c2_E : Nat := 2 * NS * NT
-
-theorem k32c2_E_eq_12 : k32c2_E = 12 := by decide
 
 /-- dim H⁰(K_{3,2}^{(c=2)}) = 1 (connected). -/
 def k32c2_H0 : Nat := 1
@@ -146,22 +130,14 @@ def k32c2_H0 : Nat := 1
 /-- dim H¹(K_{3,2}^{(c=2)}) = E − V + 1 = 8. -/
 def k32c2_H1 : Nat := k32c2_E - k32c2_V + 1
 
-theorem k32c2_H1_eq_8 : k32c2_H1 = 8 := by decide
-
 /-- Nonzero eigenvalue count of vertex Laplacian Δ_0 = V − H⁰ = 4. -/
 def k32c2_lap_rank_0 : Nat := k32c2_V - k32c2_H0
-
-theorem k32c2_lap_rank_0_eq_4 : k32c2_lap_rank_0 = 4 := by decide
 
 /-- Nonzero eigenvalue count of edge Laplacian Δ_1 = E − H¹ = 4. -/
 def k32c2_lap_rank_1 : Nat := k32c2_E - k32c2_H1
 
-theorem k32c2_lap_rank_1_eq_4 : k32c2_lap_rank_1 = 4 := by decide
-
 /-- Total nonzero Laplacian rank on K_{3,2}^{(c=2)} = 4 + 4 = 8. -/
 def k32c2_lap_total_rank : Nat := k32c2_lap_rank_0 + k32c2_lap_rank_1
-
-theorem k32c2_lap_total_rank_eq_8 : k32c2_lap_total_rank = 8 := by decide
 
 /-- Trace of vertex Laplacian = sum of all eigenvalues
     = 0 + 6 + 4 + 4 + 10 = 24 = 2·E (handshake). -/
