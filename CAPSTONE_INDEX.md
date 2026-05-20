@@ -176,3 +176,42 @@ lean/E213/
   - NS · NT = 6  (Lenz)
   - NS + 1 = d - 1 = 4  (SU(5) face / Dyson)
   - d^(d²) = 5²⁵ = 298023223876953125 (N_resolution)
+
+## 2026-05-20 — Deep philosophical revision pass additions
+
+New capstones from the 14-agent audit + revision pass:
+
+### §9.3 + §9.5 flat-ontology realisation (Lens)
+
+  - `Lens/FlatOntology.flatOntology` — objects, types,
+    relations, functions, Lens as decidable predicates on
+    Raw^n (12 PURE).
+  - `Lens/PredicateSelfEncoding.predicate_self_encoding_closure` —
+    predicates back to Raw via positional Gödel numbering
+    (7 PURE, closing the §9.3 loop).
+  - `Lens/UndifferentiatedRaw.constLens_collapses` — K_∞ ≡
+    point at raw level: constant-Lens collapses Raw to a
+    singleton (3 PURE, §9.5 witness).
+
+### §1.3 three-direction uniqueness bundle (Meta)
+
+  - `Meta/ThreeDirectionUniqueness.three_direction_uniqueness` —
+    single statement bundling Below (4-clause minimality) +
+    Sideways (universal-Lens factoring) + Above (Atomic ↔ five).
+
+### §3.4 + §8.7 Möbius frozen + dynamic (Lib/Math)
+
+  - `Lib/Math/Mobius213.mobius_213_char_poly_at_trace` — φ²,
+    1/φ² eigenvalues encoded at integer level.
+  - `Lib/Math/Mobius213.mobius_213_pell_unit_invariant_layer{0..4}` —
+    `num_n · den_{n+1} − num_{n+1} · den_n = -1` across
+    convergent layers, witnessing det = 1 (same algebraic
+    content, frozen + dynamic readings).
+
+### §4.5 forcing chain (Meta)
+
+  - `Meta/AxiomMinimalityCapstone.raw_forcing_chain_unified` —
+    positive complement to `raw_minimality_capstone`; records
+    the 1 → 2 → 3 → 4 structural forcing.
+
+All 29 new symbols verified PURE via `tools/scan_axioms.py`.

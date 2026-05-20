@@ -451,14 +451,94 @@ import E213.Lib.Math.Analysis
 -- 'FluxCut.cohomEquiv_refl' does not depend on any axioms  -- ★ ∅-axiom
 ```
 
-Per `STRICT_ZERO_AXIOM.md` "Terms (canonical)": the legacy
-`≤ {propext, Quot.sound}` tier is **deprecated** (since 2026-05-09);
-the standard is now strict ∅-axiom (`#print axioms` returns "does
-not depend on any axioms").
+Per `STRICT_ZERO_AXIOM.md` "Terms (canonical)": the standard is
+strict ∅-axiom (`#print axioms` returns "does not depend on any
+axioms").
 
 ---
 
-## L. Catalog statistics
+## J. Flat ontology + self-reference (§9.3 + §9.5 realisation)
+
+Added 2026-05-20.  Closes the residue framework's self-reference
+loop within the Lean tree.
+
+### J.1 `Lens/FlatOntology` — §9.3 forward direction
+
+```lean
+import E213.Lens.FlatOntology
+-- abbrev Type213 (n : Nat) : Type := (Fin n → Raw) → Bool
+-- abbrev UnaryType : Type := Raw → Bool
+-- abbrev Relation : Type := Raw → Raw → Bool
+-- def Object1 (r : Raw) : Raw → Bool
+-- def eqRelation : Relation
+-- def functionAsRelation (f : Raw → Raw) : Relation
+-- def lensBoolAsType (L : Lens Bool) : UnaryType
+-- def lensFibreType {α} [DecidableEq α] (L : Lens α) (a : α) : UnaryType
+```
+
+12 PURE / 0 DIRTY.  Realises §9.3's "objects, types, relations,
+functions, Lens all as decidable predicates on Raw^n".
+
+### J.2 `Lens/PredicateSelfEncoding` — §9.3 closure direction
+
+```lean
+import E213.Lens.PredicateSelfEncoding
+-- def truthTableNat (n : Nat) (P : Nat → Bool) : Nat
+-- def predicateToRaw (n : Nat) (P : Raw → Bool) : Raw
+-- theorem predicate_self_encoding_closure
+-- theorem predicateToRaw_kernel
+-- theorem predicateToRaw_injective_on_prefix
+```
+
+7 PURE / 0 DIRTY.  Encodes finite-prefix Raw-predicates back to
+Raw via positional truth-table Gödel numbering.
+
+### J.3 `Lens/UndifferentiatedRaw` — §9.5 K_∞ ≡ point at raw
+
+```lean
+import E213.Lens.UndifferentiatedRaw
+-- theorem constLens_collapses : ∀ {α} (e : α) (r s : Raw),
+--   (constLens e).view r = (constLens e).view s
+-- theorem pre_lens_singleton
+-- theorem constLens_kernel_total
+```
+
+3 PURE / 0 DIRTY.  Witness: under the constant Lens, every Raw
+maps to the same value — the no-distinction reading of Raw is a
+singleton.
+
+---
+
+## K. Three-direction uniqueness (§1.3 unified bundle)
+
+```lean
+import E213.Meta.ThreeDirectionUniqueness
+-- theorem three_direction_uniqueness :
+--   (below : 4-clause minimality)
+--   ∧ (sideways : universal-Lens factoring, 4 witnesses)
+--   ∧ (above : Atomic n ↔ n = 5)
+```
+
+1 PURE theorem bundling Below (AxiomMinimality) + Sideways
+(UniversalLens TripleCapstone) + Above (Atomicity Five).
+
+---
+
+## L. Möbius frozen + dynamic dualism (§3.4 + §8.7)
+
+```lean
+import E213.Lib.Math.Mobius213
+-- theorem mobius_213_char_poly_at_trace
+-- theorem mobius_213_pell_unit_invariant_layer{0..4}
+```
+
+`num_n · den_{n+1} − num_{n+1} · den_n = -1` across all convergent
+layers, witnessing det [[2,1],[1,1]] = 1.  Same algebraic content
+under frozen (fixed-point) + dynamic (iteration) readings.
+
+---
+
+## M. Catalog statistics
 
 | Category | Modules | Key theorems |
 |---|---|---|
@@ -471,7 +551,10 @@ not depend on any axioms").
 | G. ODE + physics | 6 | 20+ |
 | H. Series + transcendental | 9 | 20+ |
 | I. Capstone | 17 | 17 mega-conjunction |
-| **Total** | **88+** (core of 176 total modules) | **300+ theorems** |
+| J. Flat ontology + closure | 3 | 22+ |
+| K. Three-direction uniqueness | 1 | 1 unified |
+| L. Möbius frozen+dynamic | 1 | 6 |
+| **Total** | **91+** (core of 178 total modules) | **329+ theorems** |
 
 STRICT ∅-AXIOM · 0 sorry · Mathlib-free · 0 Classical · 0 native_decide
 

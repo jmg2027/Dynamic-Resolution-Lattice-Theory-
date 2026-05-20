@@ -52,3 +52,24 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
   12 = 2·NS·NT  [α_1, α_2, leptoquark]
   24 = d²-1     [SU(5), 4!, SM gauge]
   192 = 8·24    [Muon lifetime]
+
+## N_resolution and φ — count-Lens readouts
+
+  `N_resolution = d^(d²) = 5²⁵ = 298 023 223 876 953 125` —
+    count-Lens readout at fractal level 2.  Consistent across four
+    independent Lens applications (Lean formalisation,
+    K₂₅ graph coloring, rank-2 tensor DOF, type-theoretic
+    injective projection bound).  See `seed/RESOLUTION_LIMIT_SPEC
+    .md` §2 + `lean/E213/Lib/Math/ResolutionLimit.lean` +
+    `Lib/Physics/Foundations/NResolutionFromFractal.lean`
+    (`n_resolution_atomic_decomposition`,
+    `n_resolution_structural`).
+
+  `φ = (1+√5)/2` — fixed point of Möbius P(x) = (2x+1)/(x+1),
+    dominant eigenvalue of [[2,1],[1,1]] with characteristic
+    polynomial λ² − 3λ + 1 (trace 3 = NS, det 1, disc 5 = NS+NT).
+    Frozen + dynamic dual reading: P(φ) = φ (algebraic fixed
+    point) and num_n/den_n → φ (Pell convergence) — same residue
+    under two Lens readings.  Pell-unit invariant
+    num_n · den_{n+1} − num_{n+1} · den_n = -1 across all
+    convergent layers.  See `lean/E213/Lib/Math/Mobius213.lean`.
