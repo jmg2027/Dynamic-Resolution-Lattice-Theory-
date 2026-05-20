@@ -154,11 +154,7 @@ theorem class_of_a_iff_small (r : Raw) :
   · intro hs
     exact JoinEquiv.symm (small_joinEquiv_a r hs)
 
-end E213.Lens.Instances.Leaves.DepthJoin
 
-namespace E213.Lens.Instances.Leaves.DepthJoin
-
-open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- For non-small r: leaves r = 2 → depth r = 1 (all children of
     the slash are small). -/
@@ -365,11 +361,7 @@ private theorem tier_slash_from_inputs (x y x' y' : Raw)
     tier (Raw.slash x y hxy) = tier (Raw.slash x' y' hx'y') := by
   rw [tier_slash, tier_slash, htx, hty]
 
-end E213.Lens.Instances.Leaves.DepthJoin
 
-namespace E213.Lens.Instances.Leaves.DepthJoin
-
-open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- **Tier invariant**: tier is preserved under JoinEquiv leaves depth. -/
 theorem tier_invariant (r r' : Raw)
@@ -387,9 +379,6 @@ theorem tier_invariant (r r' : Raw)
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact tier_slash_from_inputs _ _ _ _ hxy hx'y' ih1 ih2
 
-end E213.Lens.Instances.Leaves.DepthJoin
-
-namespace E213.Lens.Instances.Leaves.DepthJoin
 
 open E213.Theory E213.Lens
 
@@ -425,11 +414,7 @@ theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
            = (if tier x = 0 ∧ tier y = 0 then 1 else 2)
       rfl
 
-end E213.Lens.Instances.Leaves.DepthJoin
 
-namespace E213.Lens.Instances.Leaves.DepthJoin
-
-open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- Concrete Raws: representatives of tiers 0, 1, 2. -/
 private def repr0 : Raw := Raw.a
@@ -491,11 +476,7 @@ theorem three_classes_distinct :
     rw [repr0_tier, repr2_tier] at this
     exact absurd this (by decide)
 
-end E213.Lens.Instances.Leaves.DepthJoin
 
-namespace E213.Lens.Instances.Leaves.DepthJoin
-
-open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- **leaves refines tierLens** (tierLens is an upper bound of leaves). -/
 theorem leaves_refines_tierLens : Lens.leaves.refines tierLens := by

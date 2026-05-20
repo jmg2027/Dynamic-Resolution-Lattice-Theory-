@@ -53,9 +53,6 @@ theorem leaves_surjective_pos :
   show Raw.fold 1 1 (· + ·) (rawTower m) = n
   rw [Raw.fold_eq_leaves, rawTower_leaves, hm]
 
-end E213.Lens.Cardinality
-
-namespace E213.Lens.Cardinality
 
 open E213.Term.Internal (Tree)
 
@@ -71,11 +68,7 @@ theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
       have hzm : Nat.max 0 m = m := Nat.zero_max m
       rw [hzm, Nat.add_comm 1 m]
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Theory E213.Lens
 
 -- ═══ depth surjective onto ℕ ═══
 
@@ -87,11 +80,7 @@ theorem depth_surjective :
   rw [Raw.fold_eq_depth]
   exact treeTower_depth n
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.Bool
 open E213.Lens.Instances.Parity
 open E213.Lens.Instances.Max
@@ -139,11 +128,7 @@ theorem maxLens_image_binary :
       rcases ihx with hx | hx <;> rcases ihy with hy | hy <;>
         rw [hx, hy] <;> decide
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Term.Internal (Tree)
 
 /-- Signed-view of the tree tower: `view(treeTower n) = n - 1`
     as an Int.  tower_0 = Tree.b → -1; each slash adds `1`.
@@ -172,13 +157,7 @@ theorem treeTower_signed :
         rw [E213.Tactic.NatHelper.add_sub_cancel_right m 1]
       exact lhs_eq.trans rhs_eq.symm
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Theory E213.Lens
-open E213.Term.Internal (Tree)
-open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
     `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)
@@ -236,11 +215,7 @@ theorem signedLens_unbounded_above :
     exact Int.NonNeg.mk 0
   exact ⟨r, Eq.subst (motive := fun x => (N : Int) ≤ x) hr.symm h_refl_N⟩
 
-end E213.Lens.Cardinality
 
-namespace E213.Lens.Cardinality
-
-open E213.Theory E213.Lens
 
 -- ═══ Σ7 summary — cardinality spectrum ═══
 

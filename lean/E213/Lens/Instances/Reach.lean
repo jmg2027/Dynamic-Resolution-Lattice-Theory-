@@ -65,12 +65,7 @@ theorem fin3_image_in_01 (r : Raw) :
     (fun x y h _ _ => Or.inl (universalMorphism_slash (Fin 3) x y h))
     r
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- **Strict subset of the image**: element 2 of Fin 3 is outside
     the image of universalMorphism.  Explicit witness of the separation
@@ -85,12 +80,7 @@ theorem fin3_image_strict :
   · rw [h] at hr
     exact absurd (congrArg Fin.val hr) (by decide)
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Dual: Bool instance is surjective
 
@@ -113,12 +103,7 @@ theorem bool_image_surjective :
   | true => exact ⟨Raw.a, universalMorphism_a Bool⟩
   | false => exact ⟨Raw.b, universalMorphism_b Bool⟩
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Minimality property of the image (closure under bases) -/
 
@@ -141,12 +126,7 @@ theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing �
         = d.combine (universalMorphism α rx) (universalMorphism α ry) :=
   ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Infinite surjective: Nat with addition
 
@@ -167,12 +147,7 @@ instance natHasDistinguishing : HasDistinguishing Nat where
   combine := (· + ·)
   combine_sym := Nat.add_comm
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
     {0, 1}, and slash generates larger elements. -/
@@ -189,12 +164,7 @@ theorem nat_image_via_slash_ab :
   rw [universalMorphism_a Nat, universalMorphism_b Nat]
   rfl
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Nat surjective: complete proof
 
@@ -244,12 +214,7 @@ private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
   -- hview : Nat.succ (max ...) = 0 — impossible
   cases hview
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### natWitness construction note
 
@@ -280,12 +245,7 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
   rw [Nat.add_comm 1 (max _ _)] at hview
   cases hview
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
 private theorem natWitness_ne_b_helper (r : Raw)
@@ -295,12 +255,7 @@ private theorem natWitness_ne_b_helper (r : Raw)
   · subst hra; decide
   · subst hsl; exact slash_ne_b x y h'
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- **Nat surjective with form invariant**: for every n, simultaneously
     induct on the explicit Raw witness's form (form invariant used in
@@ -328,12 +283,7 @@ theorem nat_image_surjective :
   obtain ⟨r, hview, _⟩ := nat_surjective_with_form n
   exact ⟨r, hview⟩
 
-end E213.Lens.Instances.Reach
 
-namespace E213.Lens.Instances.Reach
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Int with addition: infinite non-surjective
 
