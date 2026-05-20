@@ -46,12 +46,6 @@ theorem constLens_view {α : Type} (e : α) (r : Raw) :
         Raw.fold_slash _ _ _ (by intro _ _; rfl) x y h
       rw [hfs]; rfl
 
-end E213.Lens.Lattice.Lattice
-
-namespace E213.Lens.Lattice.Lattice
-
-open E213.Theory E213.Lens E213.Lens.Instances.Identity
-
 /-- **Bottom**: idLens refines every Lens.  Since the kernel of
     idLens is Raw equality `=`, it is contained in every kernel. -/
 theorem idLens_refines_all {α : Type} (L : Lens α) :
@@ -69,12 +63,6 @@ theorem all_refine_constLens {α : Type} (e : α) (L : Lens α) :
   intro x y _
   show (constLens e).view x = (constLens e).view y
   rw [constLens_view, constLens_view]
-
-end E213.Lens.Lattice.Lattice
-
-namespace E213.Lens.Lattice.Lattice
-
-open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- **Injectivity characterisation**: L refines idLens ↔ L.view is
     injective. -/
