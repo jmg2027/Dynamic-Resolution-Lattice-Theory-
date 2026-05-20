@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 71 session
-commits (179 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 91 session
+commits (199 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -165,12 +165,24 @@ throughout, ∅-axiom preserved.  Two new sub-patterns added to
 per-parameter meta-applications) plus a 30%-over-flag caveat
 for agent-driven audits.
 
-Final waves:
-  · Wave 5: Endomorphic foldRaw_a/_b + PairForcing 5 private
-    half_* (unused scaffolds).
-  · Wave 6: Geometry/Rotation matrix-entry bundles — 4 Pell-
-    iter steps → 1 `p_iter_spiral`, 3+3 matrix entries → 2
-    `_entries` bundles (10 → 2 theorems).
+Final waves (continued sweep across Atomic/IE/, Atomic/, Hadron/,
+AlphaEM/, Geometry/, Nuclear/):
+  · Wave 5: Endomorphic foldRaw_a/_b + PairForcing 5 private half_*
+  · Wave 6: Geometry/Rotation matrix-entry bundles (10 → 2)
+  · Wave 7: IE/Capstone + Atomic/Screening intermediate consolidation
+  · Wave 8: HeliumPPM + HydrogenPPM scaffold consolidation
+  · Wave 9: IE/SecondRow 8 scaffolds → master
+  · Wave 10: IE/PeriodClosures 7 per-period scaffolds → master
+  · Wave 11: Nuclear/MagicNumbers ho_magic_1..7 → list form
+  · Wave 12: IE/IonizationEnergies 5 → 1 (3 redundant NT=2 forms)
+  · Wave 13: Atomic/BondAngles 7 scaffolds → 1 master
+  · Wave 14: IE/Hydrogenic 4 scaffolds → 1 master
+  · Wave 15: IE/HundPenalty + CNOFNe scaffolds collapsed
+  · Wave 16: IE/Beryllium 3 → 1 + degenerate True∧True removed
+  · Wave 17: IE/Lithium 3 → 1
+  · Wave 18: Hadron/Bigrading 4 mn_mp_* scaffolds → master alone
+  · Wave 19: Hadron/Bigrading drop mnmp_me_prefactor (subset)
+  · Wave 20: AlphaEM/Bare 8 single-integer scaffolds → master
 
 Verified-and-skipped candidates:
   · universalMorphism_a/_b (heavily externally used)
