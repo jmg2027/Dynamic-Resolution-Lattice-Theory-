@@ -38,14 +38,17 @@ def IE_Be_micro : Nat := 9322699
     13605693 · 1089 / 1600 = 14816601477 / 1600 = 9260376. -/
 def IE_Be_DRLT_micro : Nat := 9260376
 
-/-- DRLT vs observed = 62323 μeV out of 9.32M = 0.67%. -/
-theorem IE_Be_diff :
-    IE_Be_micro - IE_Be_DRLT_micro = 62323 := by decide
+/-- ★ Be IE atomic chain capstone.
 
-/-- Z_eff = 33/20 atomic. -/
-theorem Z_eff_Be_atomic : (33 : Nat) = 33 ∧ (20 : Nat) = 20 := by decide
-
-/-- σ_2s_to_2s = NS/d = 3/5 atomic = inverse Y-norm. -/
-theorem sigma_2s_atomic : NS * 5 = 3 * d := by decide
+  DRLT prediction vs measurement-Lens reading: differ by 62323
+  μeV out of 9.32M = 0.67%.  Z_eff = 33/20 atomic.  σ_2s-to-2s
+  = NS/d = 3/5 (inverse Y-norm; same integer ratio appears in
+  Phase 1 ProtonMass and m_H). -/
+theorem beryllium_IE_atomic :
+    -- gap between two Lens readings
+    (IE_Be_micro - IE_Be_DRLT_micro = 62323)
+    -- σ_2s_to_2s = NS/d cross-mult
+    ∧ (NS * 5 = 3 * d) := by
+  refine ⟨?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Beryllium
