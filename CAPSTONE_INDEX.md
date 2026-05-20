@@ -37,6 +37,11 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lib/Physics/Capstones/FinitistObservableChain.finitist_observable_chain`
   — 4-observable bundle (the surviving aggregator)
 
+### Cross-observable bridge — NS·NT·π⁵ skeleton (2026-05-20)
+- `Lib/Physics/Capstones/NSNTPi5Block.ns_nt_pi5_block_capstone`
+  — m_p/m_e and 1/α_em(IR) gap as two readings of the same
+  NS·NT·π⁵ skeleton (4 PURE theorems)
+
 ## Pisano-CRT framework (number theory)
 
 ### Per-family capstones (post-DyadicFSM promotion from Cohomology)

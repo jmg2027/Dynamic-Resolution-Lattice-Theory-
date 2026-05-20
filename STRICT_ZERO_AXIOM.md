@@ -482,13 +482,19 @@ verified `#print axioms` returns "does not depend on any axioms".
 | Module | PURE count | Highlights |
 |---|---|---|
 | `E213.Lens.UndifferentiatedRaw` | 3 | `constLens_collapses`, `pre_lens_singleton`, `constLens_kernel_total` |
-| `E213.Lens.RawTopology` | 6 | `k_infty_at_raw_bundle` (4-property bundle), `indiscrete_kernel_total`, `indiscrete_image_singleton`, `indiscrete_globally_collapsed`, `indiscrete_is_top`, `indiscrete_is_coarsest_universal` |
+| `E213.Lens.RawTopology` | 9 | `k_infty_at_raw_bundle` + indiscrete bookend (6), plus discrete bookend (`discrete_kernel_eq`, `discrete_distinguishes_distinct`, `topology_two_bookends`) |
 
 ### Three-direction uniqueness bundle (§1.3 realisation)
 
 | Module | PURE count | Highlights |
 |---|---|---|
 | `E213.Meta.ThreeDirectionUniqueness` | 1 | `three_direction_uniqueness` — single statement bundling below/sideways/above closures |
+
+### Self-completion (§8.6 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.SelfCompletion` | 6 | atomic Clause 1 visibility (`view_at_a_uses_base_a`, `view_at_b_uses_base_b`, `atomic_self_completion_bundle`), slash-side Clauses 2-4 visibility (`view_slash_uses_combine`, `full_self_completion_bundle`, `leaves_self_completion`) |
 
 ### Möbius frozen + dynamic dualism (§3.4 / §8.7 realisation)
 
@@ -503,4 +509,11 @@ verified `#print axioms` returns "does not depend on any axioms".
 |---|---|
 | `raw_forcing_chain_unified` | positive complement to `raw_minimality_capstone`; documents the chain 1 → 2 → 3 → 4 |
 
-**Cumulative new PURE from this session: 35.**  All audit-verified.
+### Cross-observable precision bridge (NS·NT·π⁵ block)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Capstones.NSNTPi5Block` | 4 | `ns_nt_six`, `cross_observable_ns_nt_block`, `reciprocal_lens_skeleton`, `ns_nt_pi5_block_capstone` — bundles m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton |
+| `E213.Lib.Physics.AlphaEM.PiFiveGap` | +3 (17 → 20) | `pi5_residual_thirteen_bracket`, `pi5_gap_two_lens_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
+
+**Cumulative new PURE from this session: 51.**  All audit-verified.
