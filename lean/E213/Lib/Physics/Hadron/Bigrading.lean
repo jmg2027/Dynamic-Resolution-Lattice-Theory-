@@ -127,19 +127,6 @@ theorem mn_mp_split_atomic :
   (Hunter v6 best: 1264 ppm — 263× improvement via composition.)
 -/
 
-/-- Composite atomic prefactor for (m_n − m_p)/m_e:
-    = (NS·NT) · (NS² / (NT²·(NS²−1)))
-    = 6 · 9/32 = 54/32 = 27/16. -/
-theorem mnmp_me_prefactor_atomic :
-    NS * NT = 6
-    ∧ NS ^ 2 = 9
-    ∧ NT ^ 2 * (NS ^ 2 - 1) = 32
-    -- Combined: numerator (NS·NT)·NS² = 54
-    ∧ (NS * NT) * NS ^ 2 = 54
-    -- Reduced 54/32 = 27/16 (gcd 2)
-    ∧ 54 / 2 = 27 ∧ 32 / 2 = 16 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
 /-- ★ (m_n − m_p)/m_e closes by composition:
     Class C (m_p/m_e = NS·NT·π⁵) × Class F (mn_mp split).
     All atomic counts are 0-axiom; precision = 19 ppm ⊕ 1 ppb ≈ 5 ppm. -/
