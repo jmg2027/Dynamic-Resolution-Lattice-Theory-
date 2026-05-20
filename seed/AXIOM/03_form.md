@@ -58,6 +58,28 @@ The "two + binary" choice (§4.2) admits the Möbius iterator
 `P(x) = (2x+1)/(x+1)` as natural form, fixed point φ = (1+√5)/2.
 See `02_statement.md §3.4` for the algebraic signature
 (`[[2,1],[1,1]]` matrix, trace 3 = NS, det 1, disc 5 = NS+NT,
-eigenvalues φ², 1/φ²).  Bridge theorem: `lean/E213/Theory/Raw/
-Mobius.lean`.  The form is *induced* by the minimum axiom, not
-assumed.
+eigenvalues φ², 1/φ²).  Bridge theorem:
+`lean/E213/Lib/Math/Mobius213.lean`.  The form is *induced* by the
+minimum axiom, not assumed.
+
+## §4.5 The forcing chain: 1 → 2 → 3 → 4
+
+The four clauses are not four independent choices.  Each is
+*forced* by the prior:
+
+- **Clause 1 → Clause 2**: once distinguishing operates, the
+  residue of distinguishing is itself something (else the
+  distinguishing has no residue to record, contradicting Clause
+  1's operation).
+- **Clause 2 → Clause 3**: the residue `a/b` and `b/a` refer to
+  the same distinguishing event; assigning them as distinct would
+  silently import an absolute order, which Clause 1 supplies no
+  basis for.
+- **Clause 3 → Clause 4**: if `x/x` were defined, distinguishing
+  would be claimed where Clause 1 supplies no operand for it
+  (nothing to distinguish from); the operation collapses.
+
+Therefore: no framework with fewer than 4 clauses can record
+distinguishing-yields-residue, and no framework with more than 4
+adds anything that is not derived from these.  4 is not "minimal
+under our taste" — it is *the* number that closes the operation.

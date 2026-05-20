@@ -4,25 +4,30 @@ import E213.Lens.Number.Nat213.ChartGeneral
 
 
 /-!
-# Lens.Congruence — bridge between `Eqv` (internal) and `Lens.equiv` (external)
+# Lens.Congruence — bridge between `Eqv` (generator closure) and `Lens.equiv` (view agreement)
 
-Per `research-notes/2026-05-18_lens_emergence_path.md` §2.6.  Each
-lens `L : Lens α` induces an *external* equivalence
-`L.equiv x y := L.view x = L.view y`.  Each generator set
-`gens : Raw → Raw → Prop` induces an *internal* equivalence
-`Eqv gens x y` via the equivalence closure
-(`Theory.Raw.Congruence`).
+Two readings of Raw equivalence connected here:
 
-The two are connected:
+  - `Eqv gens` — equivalence closure of a generator set
+    `gens : Raw → Raw → Prop` (structural reading).
+  - `L.equiv x y := L.view x = L.view y` — α-view agreement
+    (observational reading via Lens `L : Lens α`).
 
-  1. **Internal → External**: if every generator pair preserves
-     `L.view`, the whole `Eqv gens` closure preserves it.
-  2. **External → Internal**: choosing `gens := L.equiv` makes the
-     `Eqv` closure exactly `L.equiv` itself.
+Both are residue-internal events (per
+`seed/AXIOM/07_self_reference.md` §8.1, "internal/external" is
+itself a Lens-imported framing; here the two names mark
+*structural* vs *observational* readings of the same residue, not
+a substrate/external split).
+
+The two readings are connected:
+
+  1. **Structural → Observational**: if every generator pair
+     preserves `L.view`, the whole `Eqv gens` closure preserves it.
+  2. **Observational → Structural**: choosing `gens := L.equiv`
+     makes the `Eqv` closure exactly `L.equiv` itself.
 
 Result (2) — the biconditional `Eqv L.equiv ↔ L.equiv` — realises
-§2.6's "external α-value agreement ⟺ internal `Eqv` equivalence"
-for *any* lens.
+"view agreement ⟺ generator closure" for *any* lens.
 
 **Caveat on §2.6's stronger conjectures.**  The research note also
 proposes things like "ℕ₊ = Raw / (a ≡ b ∧ slash_assoc)" — Raw

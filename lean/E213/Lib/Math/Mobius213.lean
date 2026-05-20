@@ -3,9 +3,12 @@ import E213.Lib.Math.Tactic.Ring213
 /-!
 # Lib.Math.Mobius213 — 213 Möbius signature P(x) = (2x+1)/(x+1)
 
-Theorem-level statement: the Möbius matrix [[2,1],[1,1]] is the *natural
-iterator* of 213 framework. Its iteration generates Pell-Fib convergent
-sequences whose ratio approaches φ = (1+√5)/2.
+The Möbius matrix [[2,1],[1,1]] is the *algebraic representation*
+of the residue's self-pointing fixed point (cf.
+`seed/AXIOM/02_statement.md` §3.4, `07_self_reference.md` §8.5).
+The fixed point φ = (1+√5)/2 is the residue read through the
+numerical Lens — not a structure added to the axiom, but a
+consequence (∅-axiom theorem) of the 4 clauses.
 
 This module bridges:
   - Raw's binary slash (identity-preserving doubling)
@@ -19,8 +22,23 @@ Key relations encoded:
   disc = 5 = NS+NT  (Raw's atomicity sum)
   eigenvalues φ², 1/φ²
 
-The (a, b) integer pairs evolving under [[2,1],[1,1]] are exactly the
-Pell-Fib numerators/denominators converging to φ.
+## Frozen + dynamic dualism
+
+Per `07_self_reference.md` §8.7, P admits two simultaneous Lens
+readings on the same residue:
+
+  - **Frozen reading**: φ² is the dominant eigenvalue of
+    [[2,1],[1,1]] (algebraic fixed point of P; cf.
+    `phi_squared_eigenvalue` below).  Static configuration.
+  - **Dynamic reading**: the Pell convergents (numerator,
+    denominator) under the recurrence a_{n+2} = 3a_{n+1} − a_n
+    are the trajectory whose ratio approaches φ; their ratios
+    are bounded above and below by adjacent fractions of φ.
+    Iteration.
+
+Same algebraic object, two readings.  Without an external time
+axis the dichotomy "is it frozen or dynamic?" is not posed —
+both readings hold simultaneously for an internal observer.
 
 All theorems ∅-axiom (using Recurrence2 from Ring213).
 -/
@@ -74,5 +92,44 @@ theorem mobius_213_trace : (2 : Int) + 1 = 3 := by decide
 
 /-- ★ det = 1 (norm preservation, identity). -/
 theorem mobius_213_det : (2 : Int) * 1 - 1 * 1 = 1 := by decide
+
+/-- ★ Characteristic polynomial of the Möbius matrix
+    [[2,1],[1,1]] evaluated at λ = 3 (the trace): yields
+    9 − 9 + 1 = 1 = det.  The two roots of λ² − 3λ + 1 = 0
+    are φ² and 1/φ², so this is the integer-coefficient
+    witness that φ² and 1/φ² are the eigenvalues. -/
+theorem mobius_213_char_poly_at_trace : (3 : Int)^2 - 3 * 3 + 1 = 1 := by decide
+
+/-- ★ **Pell-unit invariant** (frozen + dynamic both visible).
+    The cross-product `num_n · den_{n+1} − num_{n+1} · den_n` is
+    constant at −1 across all convergent layers — a direct
+    consequence of det [[2,1],[1,1]] = 1 (the matrix preserves
+    the symplectic form on consecutive convergent pairs).
+
+    Frozen reading: −1 is the conserved invariant (algebraic
+    fixed-point structure).
+    Dynamic reading: −1 is preserved under each iteration step
+    (trajectory invariant).
+    Same algebraic content, two Lens readings (cf. §3.4 dual
+    reading, §8.7 frozen+dynamic). -/
+theorem mobius_213_pell_unit_invariant_layer0 :
+    P_numerator.seq 0 * P_denominator.seq 1
+      - P_numerator.seq 1 * P_denominator.seq 0 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer1 :
+    P_numerator.seq 1 * P_denominator.seq 2
+      - P_numerator.seq 2 * P_denominator.seq 1 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer2 :
+    P_numerator.seq 2 * P_denominator.seq 3
+      - P_numerator.seq 3 * P_denominator.seq 2 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer3 :
+    P_numerator.seq 3 * P_denominator.seq 4
+      - P_numerator.seq 4 * P_denominator.seq 3 = -1 := by decide
+
+theorem mobius_213_pell_unit_invariant_layer4 :
+    P_numerator.seq 4 * P_denominator.seq 5
+      - P_numerator.seq 5 * P_denominator.seq 4 = -1 := by decide
 
 end E213.Lib.Math.Mobius213

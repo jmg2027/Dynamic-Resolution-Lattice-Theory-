@@ -5,13 +5,16 @@ import E213.Term.Tree
 
 The public surface of `Raw`.  The underlying `Tree` machinery
 (inductive + `cmp` + `canonical`) lives in the Term ring at
-`Term/Internal/Tree.lean` — separated per the
-ARCHITECTURE.md (2026-05-12) "Raw's implementation (Tree, etc.)"
-spec.
+`Term/Internal/Tree.lean` — separated per ARCHITECTURE.md.
 
 This file exposes `Raw := {t : Tree // canonical t}` as the
 Theory ring's public surface for the Raw axiom, built from the
-underlying Tree.
+underlying Tree.  The canonical-form subtype is the quotient
+emulation (encoding cost §8a.1 — Lean 4 has no primitive
+quotient; Tree.cmp selects one representative per slash-symmetry
+equivalence class).  Tree.cmp's specific order is arbitrary;
+cmp-independence is mechanically verified at
+`Theory/RawCmpIndependence.lean`.
 -/
 
 namespace E213.Theory

@@ -17,8 +17,9 @@ DRLT formula:
   - Cabibbo Ξ form (1-α_GUT)      : Cabibbo + δ₁ in this formula
 
   All structural building blocks are the *same* atomicity-locked lattice quantities.
-  The 0.48 ppb precision of m_μ/m_e is not a coincidence but a measurement
-  of a different quantity on the same simplicial complex K_{NS,NT}^{(c)}.
+  The 0.48 ppb agreement reflects that m_μ/m_e and α_em are
+  both Lens readings of the same simplicial complex
+  K_{NS,NT}^{(c)} — same residue under two readings.
 
 ## Numerics
 

@@ -58,13 +58,16 @@ theorem matter_reps_give_3_generations :
     binom d 6 = 0 in Pascal recursion. -/
 theorem no_lambda_6 : binom d 6 = 0 := by decide
 
-/-- **Falsifiability statement**: if observation reveals a 4th
-    lepton generation with mass spectrum following a Λ⁶ pattern,
-    DRLT's (3, 2) forcing is dead.  Lean form: no such slot exists
-    in the simplex combinatorics.
+/-- **Falsifiability statement**: if a measurement-Lens reading
+    yields a 4th lepton generation with Λ⁶ mass-spectrum pattern,
+    then the chosen (3, 2) atomicity does not match the
+    measurement-Lens output — the framework is contradicted
+    internally (cf. `seed/AXIOM/04_falsifiability.md` §5.2.1 +
+    "Falsification is internal" subsection).  Lean form: no such
+    slot exists in the simplex combinatorics.
 
-    This is the *measurable* prediction.  Unlike SM (which takes
-    N_gen = 3 as input), DRLT *derives* it. -/
+    DRLT derives N_gen = 3 from (3, 2) atomicity directly; this
+    contrasts with frameworks that take N_gen as input. -/
 theorem drlt_no_4th_gen_falsifier :
     N_gen = 3 ∧ binom NS 4 = 0 ∧ binom d 6 = 0 := by decide
 

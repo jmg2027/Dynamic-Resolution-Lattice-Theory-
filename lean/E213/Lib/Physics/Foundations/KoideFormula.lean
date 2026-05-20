@@ -39,9 +39,12 @@ open E213.Lib.Physics.Simplex.Counts
 
 /-- ★★★★★★★ Koide formula = NT/NS atomic ratio.
 
-    Lenz/Eddington/Koide-style coincidence (1981) → DRLT structural
-    identity.  The integer skeleton encoding 2/3 is captured by
-    cross-multiplication: `NT · 3 = NS · 2 = 6`. -/
+    DRLT structural identity: the integer skeleton encoding 2/3
+    is captured by cross-multiplication `NT · 3 = NS · 2 = 6`.
+    The 1981 Koide form (and earlier Lenz/Eddington-style numeric
+    observations) reads this identity through the lepton-mass
+    Lens; the underlying atomic ratio is independent of that
+    historical access point. -/
 theorem koide_atomic :
     -- Atomic anchors
     NT = 2 ∧ NS = 3

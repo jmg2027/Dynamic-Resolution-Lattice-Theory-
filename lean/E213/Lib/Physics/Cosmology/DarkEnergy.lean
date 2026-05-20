@@ -10,9 +10,9 @@ DRLT formula:
   Correction: (1 + α_GUT/d)             [trace-conservation factor]
   Total: 0.6817 · 1.00486 = 0.6850
 
-  Observed: Ω_Λ ≈ 0.685 ± 0.007  (Planck/DESI)
+  Measurement-Lens reading: Ω_Λ ≈ 0.685 ± 0.007  (Planck/DESI).
 
-## Match: 0.0008%
+## Lens-reading agreement: 0.0008%
 
   This is the most precise DRLT result among cosmological observables.
 

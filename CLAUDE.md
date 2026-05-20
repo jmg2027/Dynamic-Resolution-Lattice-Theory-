@@ -122,7 +122,9 @@ Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 ### Theoretical integrity
 - No forcible map onto existing physics/chemistry.  If a number differs,
   acknowledge honestly and look for missing physics.
-- "Fit parameters" = no longer 0-parameter theory.
+- 0-parameter is structural absence (no exterior dialer, per
+  `seed/AXIOM/07_self_reference.md` §8.1), not a methodological rule.
+  See `seed/AXIOM/04_falsifiability.md` §5.3.
 
 ### Algebraic priority
 - DRLT results come from **counting** (combinatorics, number theory,

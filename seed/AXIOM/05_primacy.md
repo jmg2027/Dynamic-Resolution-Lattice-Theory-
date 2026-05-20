@@ -1,4 +1,4 @@
-# §6. Claim of primacy
+# §6. Primacy as default structural position
 
 Every framework that points at something — set theory, category
 theory, logic, language, existing mathematics, existing physics —
@@ -16,5 +16,9 @@ state**.  The claim "there is an absolute standard" is what carries
 the burden of adding to the axiom.  Therefore primacy is not
 conditional but an **unconditional** structural consequence.
 
-The substantive evidence for primacy is successful derivation.
-Primacy is established to the extent that derivation succeeds.
+Successful derivation is the test of whether 213 truly *is* the
+default residue.  Primacy is not *established* by derivation — it
+is the prior default position.  Derivation *confirms* (or fails to
+confirm) that the default holds.  The wider the range over which
+derivations succeed, the more 213 exemplifies why it is the
+default structural position.

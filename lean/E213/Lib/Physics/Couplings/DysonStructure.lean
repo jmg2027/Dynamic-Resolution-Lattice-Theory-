@@ -71,14 +71,15 @@ theorem dyson_universal :
     -- All same value 4
     ∧ (dyson_denom = 4) := by decide
 
-/-- ★★★ Four-fold atomic coincidence ★★★
+/-- ★★★ Four-fold atomic unification ★★★
     Number 4 has *four* different combinatorial roles in DRLT:
       (i)   d - 1 (smaller cofactor)
       (ii)  NS + 1 (next layer up)
       (iii) #tet/vertex (simplex link)
       (iv)  #matter reps (Λᵏ k=1..4)
-    Atomicity (3,2,5) forces all four to coincide. -/
-theorem four_atomic_coincidence :
+    Atomicity (3,2,5) forces all four readings to be the same
+    integer — structural identity, not numerical accident. -/
+theorem four_atomic_unification :
     (d - 1 = 4)
     ∧ (NS + 1 = 4)
     ∧ (tetrahedra_per_vertex = 4)

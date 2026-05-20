@@ -177,7 +177,10 @@ open E213.Lib.Physics.AlphaEM.SO10
 
   (a) v ∈ augmented bracket at Basel N=20
   (b) |v − 137.036| = 1/10⁶ < 1/10⁴
-  → ∃ v ∈ lattice prediction.  |v − 137.036| < 1/10⁴.
+  → the lattice's count-Lens reading at Basel N=20 produces a
+    bracket containing 137.035999, and the measurement-Lens
+    reading 137.036 falls within 1/10⁴ of that — two internal
+    Lens readings agreeing to sub-ppm.
 -/
 
 theorem alpha_em_milestone :

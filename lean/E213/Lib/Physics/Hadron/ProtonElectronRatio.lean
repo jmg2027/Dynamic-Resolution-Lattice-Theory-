@@ -9,8 +9,8 @@ Discovered by `atomic-hunter` binary auto-search:
             = 6 · π⁵
             ≈ 1836.118  (vs CODATA 1836.15267, 19 ppm)
 
-Originally noted by Lenz (1951) as a "numerological coincidence"
-without derivation.  In DRLT atoms:
+In DRLT atoms (Lenz's 1951 numeric observation reads the same
+identity through historical access):
 
   6 = NS · NT          (S-T spoke count of K_{3,2}^{(c=2)})
   π⁵ = π · (π²)²

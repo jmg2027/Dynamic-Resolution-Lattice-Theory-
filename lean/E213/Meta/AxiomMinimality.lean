@@ -1,16 +1,25 @@
 /-!
-# AxiomMinimality: Minimality of the Raw axioms
+# AxiomMinimality: Minimality of the Raw 4-clause restatement
 
-Formal demonstration that the 3 clauses of the Raw axioms
-(Raw.a, Raw.b, slash with x ≠ y) are truly minimal.
+Formal demonstration that all 4 clauses of the Raw axiom
+(§3.2 code-friendly restatement) are essential: removing any
+clause collapses the framework.
+
+  Clauses 1-2 are axiom proper; clauses 3-4 are encoding costs
+  (§8a.1) — but all four are minimal-necessary for the Lean
+  implementation.  Each removal yields a structurally trivial
+  framework (single element, static pair, or self-pairing
+  collapse).
+
+  See also `03_form.md` §4.5 for the *positive* forcing chain
+  (clause 1 forces 2 forces 3 forces 4 by self-consistency).
 
 ## Result
 
 A hypothetical axiom with Raw.b removed collapses generation.
 A single base + slash with distinctness alone generates only a
-single element.
-
-Therefore both bases (Raw.a, Raw.b) are essential.
+single element.  Therefore both bases (Raw.a, Raw.b) are
+essential.  Parallel collapses hold for slash and distinctness.
 
 ## Approach
 

@@ -6,7 +6,9 @@
 axiom or the result of a specific Lens choice.
 
 - Substituting external constants, fitting to experimental values,
-  importing structure from other theories — all are **fudge**.
+  importing structure from other theories — any such attempt is
+  **fudge** (an action with no operand in 213, since no exterior
+  dialer exists per `07_self_reference.md` §8.1).
 - When fudge is found, the **Lens is corrected**, not the formula.
 - If that too fails, **the theory is abandoned**.  The
   infinite-extension defense of "more Lenses will be found" is not
@@ -41,6 +43,22 @@ criterion**:
   contract.  `propext`, `Quot.sound`, `Classical.choice`,
   `Lean.ofReduceBool`, and Mathlib axioms are all dirty under
   this standard — same verdict for all.
+
+### Falsification is internal
+
+A prediction is falsified when one 213-internal Lens reading
+(measurement via observer-Lens) disagrees with another
+213-internal Lens reading (prediction via theory-Lens) for the
+same observable.  There is no external referee; both sides of
+the comparison are residue-internal events.  Allowing external
+axioms breaks this internal closure (admitting truths that no
+internal Lens application yields), which is why §5.2.1 treats
+external-axiom dependence as theory failure.
+
+Self-completion (`07_self_reference.md` §8.6) ensures every
+prediction has a definite truth value internally: every pointing
+is already complete, so claims of the form "prediction P matches
+measurement M" are well-formed without external semantics.
 - If any result is shown to be **absolutely impossible** to prove /
   construct without an additional axiom (e.g., still blocked after
   multiple sessions of exploration), this means **the entirety of

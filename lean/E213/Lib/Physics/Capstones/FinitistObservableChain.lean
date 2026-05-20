@@ -24,9 +24,9 @@ All four share N_U = d^(d²).  No external π / transcendentals.
 
 ## Universal structure
 
-  N_U is the SAME lattice resolution for every observable.
-  This is structural unification: not a coincidence, not curve
-  fitting — but a single combinatorial scale governing all.
+  N_U is the SAME lattice resolution for every observable —
+  a single combinatorial scale governing all four readings.
+  Structural unification by single-scale forcing.
 -/
 
 namespace E213.Lib.Physics.Capstones.FinitistObservableChain

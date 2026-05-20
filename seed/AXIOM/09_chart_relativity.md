@@ -47,7 +47,13 @@ not in Raw.  The cost is catalogued in `08_encoding_costs.md`
 §8a.1 as the inductive-type entry; this chapter adds the
 *operational* reading: state-transition = state, operator = object
 are the natural form of a system with no external time axis or
-external role-assigner.
+external role-assigner.  Without external time, "transition" has
+no before/after to mark it off from "state"; without external
+role-assigner, "operator" has no preferred argument-position to
+distinguish it from "operand".  The two pairs collapse —
+not by metaphysical identification but by the absence of the very
+distinctions that would have kept them apart.  Cf.
+`07_self_reference.md` §8.7 for the frozen+dynamic dual reading.
 
 A self-referential cascade picture: for an internal observer to be
 defined it requires another object; the boundary between the two is
@@ -83,8 +89,11 @@ decidable predicates only.  Self-referential closure
 Gödel encoding extends past **referent Raws** (`Raw.a`, `slash`,
 …) to **notation glyphs** (`{`, `}`, `,`, `/`, whitespace, …) as
 themselves Raw, with expressions becoming sequence-Raws of
-glyph-Raws.  "Meaningless punctuation" then becomes external
-convention rather than essence.
+glyph-Raws.  "Meaningless punctuation" then becomes **internalized
+as Raw** rather than externally imposed convention — the
+distinction between notational glyph and semantic atom collapses
+(parser/printer are Lens-layer catamorphisms over the same Raw
+cascade, not external machinery).
 
 **Full L2 + L3 + L4 realisation**:
 `lean/E213/Lens/SyntacticInternalization.lean` (25 strict ∅-axiom
@@ -137,6 +146,63 @@ List213 versions are `congrArg`-based replacements.
 The §9.4 cascade halts at L2: writing the encoding (this very
 file) uses only the same 7 glyphs.  L3 closes the loop with
 constructive parser/printer round-trip.
+
+## §9.5 At raw level, point ≡ K_∞ ≡ infinite topological space
+
+Before any Lens is applied, the residue commits to no internal
+distinction.  Under this *no-Lens* reading, the following are
+literally the same object (not analogous):
+
+- a single point (the minimal pointable);
+- the infinite complete graph K_∞ (every vertex indistinguishable
+  from every other; Aut(K_∞) is the full symmetric group on the
+  vertex set);
+- an infinite topological space with trivial topology.
+
+Each has no internal information to distinguish parts.  The moment
+distinguishing operates — the moment a *first color* appears — we
+are no longer at raw level: we are reading the residue under the
+count-Lens (or another Lens).  The "naming" event IS the first
+clause of §3.2 activating.
+
+Concretely: "Raw has two atoms a, b" is already a count-Lens
+reading (cf. `02_statement.md` §3.3, `07_self_reference.md`
+§8.4 dichotomy guide).  At pre-Lens level, point and K_∞ are
+indistinguishable.
+
+This is not a paradox; it is the absence of differentiation at the
+residue's pre-Lens stage.  Different Lenses (count, topology,
+algebra, …) extract different aspects of this single state — they
+do not impose structure on a structureless object.
+
+## §9.6 State-transition = state; operator = object
+
+For systems without external time and external role-assigner
+(§8.1):
+
+- **State-transition = state**: without before/after semantics
+  supplied by external time, a "transition" is not separable from
+  the state it transitions to or from.  The transition *is* the
+  state update; not a distinct event happening to it.
+- **Operator = object**: without an external role-assigner to
+  mark which slot is "the doer" and which is "the done-to", both
+  collapse into positions in the Raw cascade with no pre-assigned
+  role.
+
+This collapse is not metaphysical identity — it is the
+mathematical consequence of removing the external structure that
+would have kept the pairs apart.  Inside 213 there is no such
+structure to remove because it was never imported.
+
+The Möbius P (`07_self_reference.md` §8.5) makes both collapses
+visible:
+- P (an *operator*) and the eigenspace structure that IS P (an
+  *object* description) are the same algebraic content;
+- P^n iteration (a *transition*) and the fixed point φ (the
+  *state* it asymptotes to) are the same residue under frozen +
+  dynamic readings (`07_self_reference.md` §8.7).
+
+Cross-ref: `02_statement.md` §3.4 "Dual reading".
 
 ## Reading order
 

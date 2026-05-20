@@ -27,10 +27,12 @@ decomposition `768 = NS! · NT! · 2^(NS·NT) = 6 · 2 · 64`.
 
 ## Connection to gauge group emergence
 
-The internal C_2^E "sheet swap" is a 213-finite analog of a
-ℤ₂-discretized U(1)^E gauge field — one ℤ₂ phase per edge.
-The external Sym(NS) × Sym(NT) is a 213-finite analog of
-the spacetime/gauge bipartite symmetry.
+The semidirect structure (Sym(NS) × Sym(NT)) ⋊ C_2^E exhibits a
+chiral bipartite factorization.  The internal C_2^E ("sheet
+swap") + external Sym(NS) × Sym(NT) decomposition is the
+213-internal structure that a gauge-and-spacetime Lens would
+name as a "bipartite gauge symmetry"; here it is intrinsic to
+the simplex, no spacetime/gauge dichotomy is invoked.
 
 Adjoint SU dimensions match cohomological loss counts:
   · dim adj SU(NS) = NS² − 1 = 8 = 1/α_3 = dim H¹(K)

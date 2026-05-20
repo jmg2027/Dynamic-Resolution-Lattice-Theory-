@@ -16,7 +16,7 @@ classification, axiom cross-check) lives at `lean/E213/AUDIT.md`.
 | 02 | `02_statement.md` | The 4-clause axiom + axiom-vs-encoding-cost markers + what is **absent** (§3) |
 | 03 | `03_form.md` | Why this form: austerity-as-audit; why 2 + binary; why symmetric + anti-reflexive (§4) |
 | 04 | `04_falsifiability.md` | Derive-not-reconcile; §5.2.1 axiom-addition discard rule; 7 measurement falsifiers |
-| 05 | `05_primacy.md` | Claim of primacy: every framework is a Lens on top (§6) |
+| 05 | `05_primacy.md` | Primacy as default structural position: every framework is a Lens reading of the same residue (§6) |
 | 06 | `06_formalization.md` | Lean correspondence notes; axiom-corpus boundary; concrete numerics = Lens or forced (§7) |
 | 07 | `07_self_reference.md` | No exterior; §8.4 dichotomy guide (re-read every Claude session) |
 | 08 | `08_encoding_costs.md` | The four encoding costs of putting 213 on Lean 4 (inductive / cmp / canonical-subtype / ≠-precondition).  Why these are codomain costs, not axiom commitments. |

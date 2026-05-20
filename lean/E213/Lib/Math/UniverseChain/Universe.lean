@@ -37,7 +37,7 @@ theorem N_U_concrete : N_U = 298023223876953125 := by decide
 /-- ★ Identification with the fractal candidate. -/
 theorem N_U_eq_fractal_candidate : N_U = n_universe_candidate := by decide
 
-/-- ★ Identification with the resolution-limit constant. -/
+/-- ★ Identification with the resolution-limit readout. -/
 theorem N_U_eq_resolution_limit :
     N_U = E213.Lib.Math.ResolutionLimit.N_U := by decide
 

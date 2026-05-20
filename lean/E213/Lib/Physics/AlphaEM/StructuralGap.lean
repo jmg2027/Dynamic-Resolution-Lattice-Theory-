@@ -33,9 +33,9 @@ zero-width bracket on the Basel sum, the candidate formula's value
     "channels per spatial dimension" ansatz.  An exact derivation
     from the Gram-channel structure may yield 25/3·(1+δ) with
     δ ≈ 6.5×10⁻⁵.  Open.
-  - **hadronic-VP analog.**  Standard QED needs a hadronic vacuum
-    polarization correction at the 10⁻⁴ scale; a 213-internal
-    counterpart from the d=5 atomic structure is unknown.
+  - **hadronic-sector correction analog.**  Standard QED requires
+    a hadronic-sector ~10⁻⁴ radiative correction; a 213-lattice
+    internal counterpart from the d=5 atomic structure is unknown.
 
 This file makes the gap a **first-class, rationally-stated falsifier**
 target so any future marathon resolves it as a single Lean theorem.

@@ -77,9 +77,17 @@ open E213.Lib.Physics.Simplex.Counts
 
   All atomic primitives + derived integers from single atomicity.
 
-  External inputs: NONE.
-  Free parameters: 0.
-  Constants introduced to fit: 0.
+  Per `seed/AXIOM/07_self_reference.md` §8.1, 213 commits to no
+  exterior.  "Free parameter" means "value set by an external
+  dialer"; absent an exterior, the category of values-set-from-
+  outside is unavailable.  Therefore 0-parameter form is not a
+  methodological commitment we choose to keep — it is the
+  *structural absence* of an operand the action "tuning" could
+  apply to.  See `seed/AXIOM/04_falsifiability.md` §5.3.
+
+  External inputs: NONE (structurally — no exterior dialer exists).
+  Free parameters: NONE (no operand).
+  Constants introduced to fit: 0 (no fitting category available).
 -/
 theorem drlt_zero_parameter_claim :
     -- Atomic primitives

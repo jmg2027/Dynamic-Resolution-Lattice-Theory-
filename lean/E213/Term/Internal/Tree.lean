@@ -4,14 +4,24 @@
 The underlying inductive `Tree` and ordering machinery
 (`Tree.cmp`, `Tree.canonical`) for Raw's canonical-form subtype.
 
-**Layer**: Term ring per ARCHITECTURE.md (2026-05-12) — "Raw 의
-구현체 (Tree 등)".  Theory imports this via its public path
-`Term.Internal.Tree` to define `Raw := {t : Tree // ...}`.
+**Layer**: Term ring per ARCHITECTURE.md.  Theory imports this via
+its public path `Term.Internal.Tree` to define
+`Raw := {t : Tree // ...}`.  Namespace `E213.Term.Internal` is
+path-aligned.
 
-**Namespace**: `E213.Term.Internal` — path-aligned (2026-05-15).
-Previous umbrella `E213.Theory.Internal` (kept while Tree.swap /
-Tree.fold etc. were still housed under `Theory/Raw/`) was renamed
-in lockstep with the move into `Term/Internal/Tree/`.
+**Encoding costs** (per `seed/AXIOM/08_encoding_costs.md`).  Three
+devices below are Lean-implementation artifacts, not axiom
+commitments:
+  - `inductive Tree | a | b | slash` — encoding cost §8a.1 (inductive
+    types presuppose ℕ induction; ℕ is itself a Lens output).
+    The `a, b` constructor names are chart-local labels per §9.1.
+  - `Tree.cmp` — encoding cost §8a.1 (canonical-form selector;
+    total order absent from the axiom per §3.3).  The specific
+    order is arbitrary; cmp-independence is mechanically verified
+    at `Theory/RawCmpIndependence.lean`.
+  - `Tree.canonical` — encoding cost §8a.1 (quotient emulation;
+    Lean 4 has no primitive quotient, so we select a canonical
+    representative per slash-symmetry equivalence class).
 -/
 
 namespace E213.Term.Internal
