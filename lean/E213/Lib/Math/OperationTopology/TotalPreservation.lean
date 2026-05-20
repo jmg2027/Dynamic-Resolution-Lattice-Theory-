@@ -10,12 +10,12 @@ Mingu's synthesis:
 213-native:
   * **25 distinct properties** introduced level-by-level
     (one per level).
-  * **Total preservation budget** = `5²⁵ = N_U` distinguishable
-    trajectories on d=5 substrate.
+  * **Total preservation budget** = `5²⁵ = N_resolution`
+    distinguishable trajectories at d=5.
 
 The 25 properties × 5²⁵ budget connection: each property is
-encoded in the 3-axis topology, which has cardinality bounded
-by the substrate.  The TOTAL distinguishable configurations
+encoded in the 3-axis topology, whose cardinality is bounded by
+the d=5 atomic count.  The TOTAL distinguishable configurations
 across all 25 properties = `5²⁵`.
 -/
 

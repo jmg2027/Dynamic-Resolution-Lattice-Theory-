@@ -21,7 +21,7 @@ This file: *do 3 pair types naturally produce 3 channels = 3 forces?*
 | BB  | 1 | NT-internal (within 2-block) | "weak-like" |
 | AB  | 6 | NS × NT cross | "EM-like" / U(1) |
 
-★ 3 forces *naturally emerge from 3 pair types* ★
+★ 3 forces classified by 3 pair types ★
 
 This is the *axiom-level origin* of Phase 1's α_3, α_2, α_1:
   α_3 (color, confined): AAA channel = NS-internal 3 pairs

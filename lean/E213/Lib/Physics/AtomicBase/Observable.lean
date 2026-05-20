@@ -34,8 +34,9 @@ Each quantity is an *atomic-derived integer* — determined by the axiom alone w
 
 ## Meaning of "measurable quantities"
 
-Phase 2 perspective: from 213 alone, *these 9 integers* naturally emerge.
-Further quantities (mass, energy, coupling, ...) arise when Lens is added.
+Phase 2 reading: from 213 alone, *these 9 integers* are derived
+from NS, NT, d, c primitives.  Further quantities (mass, energy,
+coupling, ...) come into view under further Lens applications.
 
 This file collects only the *values* of the 9 quantities.  Comprehensive theorem.
 -/

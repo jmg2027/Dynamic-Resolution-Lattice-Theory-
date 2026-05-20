@@ -67,8 +67,8 @@ theorem prop_general_concrete :
     ∧ propagator_weight 6 = (1, 36)
     ∧ propagator_weight 7 = (1, 49) := by decide
 
-/-- Basel partial sum in our framework matches the propagator
-    sum: S(N) = Σ_{n=1}^N D(n) where D(n) = (1, n²).
+/-- Basel partial sum in our framework equals the propagator sum:
+    S(N) = Σ_{n=1}^N D(n) where D(n) = (1, n²).
     Concrete check at N = 3: S(3) = 1 + 1/4 + 1/9 = 49/36. -/
 theorem basel_is_propagator_sum :
     -- S(3) = 49/36 already proved in BaselBound.S_3

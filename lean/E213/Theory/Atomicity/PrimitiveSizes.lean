@@ -34,7 +34,7 @@ theorem pairSize_nondecomposable : NonDecomposable pairSize :=
 theorem closureSize_nondecomposable : NonDecomposable closureSize :=
   (non_decomposable_iff 3).mpr (Or.inr rfl)
 
-/-- **Coincidence of the two atom characterizations.**
+/-- **Identity of the two atom characterizations.**
     The sizes named by the primitive (`pairSize` and `closureSize`)
     are exactly the non-decomposable integers `≥ 2`. -/
 theorem primitive_sizes_eq_nondecomposable (n : Nat) :

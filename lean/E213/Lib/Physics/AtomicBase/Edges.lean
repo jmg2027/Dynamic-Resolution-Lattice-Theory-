@@ -30,7 +30,7 @@ This file: *when those 6 cross pairs become directed (c=2), → 12 edges*.
   Phase 2 Edges: 12 directed edges (c=2 on AB)
   Phase 1 PhotonKernel: b_1(K_{NS,NT}^{(c)}) = NS²-1 = α_3
 
-  Phase 1's photon-α_3 link *naturally emerges* from Phase 2's *6 → 12 doubling*.
+  Phase 1's photon-α_3 link is read out of Phase 2's *6 → 12 doubling*.
 
 ## This file's summary
 

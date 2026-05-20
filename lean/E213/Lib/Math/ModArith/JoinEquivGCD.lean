@@ -9,7 +9,7 @@ Together they establish **L_gcd.equiv = JoinEquiv L_m L_k** —
 that is, **L_gcd is the concrete Lens realization of JoinEquiv**
 (for the mod family).
 
-Uses 213-native `gcd213` (∅-axiom) instead of Lean-core `Nat.gcd`.
+Uses the 213-native `gcd213` (∅-axiom).
 -/
 
 namespace E213.Lib.Math.ModArith.JoinEquivGCD

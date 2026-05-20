@@ -62,8 +62,9 @@ An edge between every two vertices.  A triangle among every three.  Full graph.
 
 ## Facts admissible from 213 alone
 
-This file formalizes only *numerical facts*.  Atomicity forces d=5 →
-binomial counts follow automatically.  10, 5, 1 are all atomic-forced.
+This file formalizes only *numerical facts*.  Atomicity yields
+d=5; the binomial counts are then structurally determined.
+10, 5, 1 are read out of the (5, 2) partition.
 -/
 
 namespace E213.Lib.Physics.AtomicBase.Shape

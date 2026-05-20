@@ -9,7 +9,7 @@ import E213.Lib.Math.Topology.EulerChi
 
 Five cluster witnesses + total bundle, all `#print axioms` ∅.
 
-The 213-native foundation of topology: dyadic-bracket open sets,
+The 213-native reading of topology: dyadic-bracket open sets,
 trivial Heine-Borel (every cover is finite by `List` construction),
 modulus-of-continuity, finite-chain connectedness, atomic Euler χ.
 -/

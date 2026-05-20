@@ -136,9 +136,9 @@ theorem cert_n20_boundsOk : cert_n20.boundsOk = true := by decide
 theorem cert_n20_length : cert_n20.length = 14 := rfl
 
 /-- ★ Trust-closure capstone: the bracket structure asserted by
-    `cert_n20` matches `capstone_n20` from the Brackets module.
-    This is the meeting point between the Rust certificate and the
-    Lean theorem. -/
+    `cert_n20` equals the bounds proved in `capstone_n20` from the
+    Brackets module.  This is the meeting point between the Rust
+    certificate and the Lean theorem. -/
 theorem cert_anchor_n20 :
     let lo := inv_lower_tight 20
     let hi := inv_upper 20
