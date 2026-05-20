@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 29 commits ahead of
-`main`.  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 30+ session
+commits (138 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
