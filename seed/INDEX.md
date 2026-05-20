@@ -63,13 +63,13 @@ all three sides:
   (`Theory/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw
   import).
 
-**Resolution limit (a fourth invariant).**  N_U = d^(d²) = 5²⁵
-arises independently in 4 mathematical domains (Lean fractal
-lens cardinality / K_25 graph coloring / rank-2 tensor dof at
-d=5 / max injective projection space).  This is the system
-invariant — see `RESOLUTION_LIMIT_SPEC.md` (it is canonical;
-when it diverges from any AXIOM/ chapter on resolution-limit,
-that spec wins).
+**Resolution limit — count-Lens readout at fractal level 2.**
+`N_U = d^(d²) = 5²⁵` arises under 4 independent Lens applications
+(Lean fractal lens cardinality / K_25 graph coloring / rank-2
+tensor dof at d=5 / max injective projection space) — the
+observation is the convergence, not a universe constant.  See
+`RESOLUTION_LIMIT_SPEC.md` (canonical; wins over any AXIOM/
+chapter on resolution-limit topics).
 
 ---
 
@@ -125,7 +125,7 @@ name; DRLT is a physics specialization).
 seed/
 ├── INDEX.md                   ← this file (standalone entry)
 ├── ORIGIN.md                  ← DRLT origin narrative (archival)
-├── RESOLUTION_LIMIT_SPEC.md   ← N_U structural-invariant authority
+├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 11 chapters
@@ -141,11 +141,9 @@ seed/
     ├── 08_encoding_costs.md   ← Lean codomain costs (inductive / cmp / subtype / ≠)
     ├── 09_chart_relativity.md ← chart-local labels, flat ontology,
     │                            §9.4 syntactic internalisation
-    └── 99_history.md          ← deprecated R-frame + change log
+    └── 99_history.md          ← change log
 
-# Lean implementation audit lives at lean/E213/AUDIT.md (moved 2026-05-12).
-# PAPER1.md (archival seed paper) deleted 2026-05-12; historical citations
-# in Lean docstrings (PAPER1 §X.Y) remain as narrative references.
+# Lean implementation audit: lean/E213/AUDIT.md.
 ```
 
 ## What seed/ is NOT

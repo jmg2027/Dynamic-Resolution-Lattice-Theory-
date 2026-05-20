@@ -49,35 +49,18 @@ distinguishability framework factors through Raw" obligation.
 Together with §1.3 these close axiom-uniqueness in three directions
 (below/sideways/above).
 
-## §7.2 Deleted paper drafts
+## §7.2 Axiom corpus boundary
 
-- `seed/PAPER1.md` (1377 lines, archival seed paper) — deleted
-  2026-05-12.  Historical citations in Lean docstrings
-  (`PAPER1 §X.Y`, ~25 files) remain as narrative references with
-  no live target.
-- `213/PAPER.md` (R1-R5 → ℂ derivation), `213/PAPER2.md` (r5-
-  critique) — deleted 2026-04-24.  Background:
-  `research-notes/archive/30_bool_is_liar_paradox.md` (the R1-R5
-  judgment game was revealed to be a self-reference loop on Bool).
-- `papers/` directory: only `papers/README.md` retained as historical
-  marker; original paper sources deleted (commit a02b751).
+The `seed/AXIOM/` sub-directory is the sole axiom corpus.
+Derivation is explored in `research-notes/` and in the Lean
+metatheory layer (`Meta/UniversalLens/`).  Active narratives live
+in `guide/` (deductively-ordered, T0/T1/T2/T3 tags) and
+`books/{math,physics}/` (213-internal).
 
-The seed/AXIOM/ sub-directory remains as the **sole axiom corpus**.
-Derivation is explored freely in `research-notes/` and in the Lean
-metatheory layer (`Meta/UniversalLens/`).
+## §7.3 Concrete numerics — Lens or forced
 
-## §7.3 Book / chapter audit (no longer applicable)
-
-The previous reference target `book/chapters/ch22_213.tex` no
-longer exists.  `book/` was emptied; new authoritative narratives
-now live in:
-
-- `guide/` — deductively-ordered narrative (T0/T1/T2/T3 tags)
-- `books/{math,physics}/` — 213-internal narrative
-
-The historical critique of ch22 (external `eval` substitution
-importing the §3.3 prohibited list as fudge) is enforced
-mechanically in the current Lean tree: every concrete numeric
-(d=5, NS=3, NT=2, 1/α_em=137.036, …) is either a Lens construction
-or, for the shape parameters, a forced-uniqueness theorem in
-`Theory/Atomicity/`.
+Every concrete numeric in the current Lean tree (d=5, NS=3, NT=2,
+1/α_em=137.036, …) is either a Lens construction or, for the
+shape parameters, a forced-uniqueness theorem in
+`Theory/Atomicity/`.  External `eval` substitution importing the
+§3.3 prohibited list as fudge is mechanically prevented.

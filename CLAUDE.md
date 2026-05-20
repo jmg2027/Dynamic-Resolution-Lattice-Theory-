@@ -86,9 +86,6 @@ No `propext`, `Quot.sound`, `Classical.choice`, `native_decide`, Mathlib
 axioms — nothing.  Any non-empty output = *axiom-dirty*, treated as
 `sorry`-equivalent (does not count toward DRLT Validation Standard).
 
-The legacy `≤ {propext, Quot.sound}` tier is **deprecated**.  No
-exceptions, no "minor leak".
-
 **Status + categorization**: `STRICT_ZERO_AXIOM.md` (canonical).
 **Audit**: `tools/scan_axioms.py <module>`, `tools/scan_all_axioms.py`.
 
@@ -114,9 +111,9 @@ observable.
 ## Resolution limit is structural (not "finitism")
 
 Canonical: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Cardinality /
-finite / infinite are Lens outputs, not Raw commitments.
-`N_U = d^(d²) = 5²⁵` is a system invariant.  Physics formalization
-uses ℕ + ℚ + finite simplex + interval bound at N_U.
+finite / infinite are Lens outputs, not Raw commitments.  Physics
+formalization uses ℕ + ℚ + finite simplex + interval bound at
+`N_U = d^(d²) = 5²⁵` (count-Lens readout at fractal level 2).
 
 Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 
@@ -212,6 +209,8 @@ When the user issues a correction (style / logic / pattern / framing):
 | Count-Lens import as Raw | "at least two somethings exist" | `2` is the count-Lens reading of the first distinguishing, not a Raw cardinality commitment |
 | Deferred ontology dichotomy | "ontology is open; we focus on derivation" | The split itself is the import; successful pointing IS what ontology asks |
 | Fine-tuning as forbidden | "we don't allow free parameters" | Free parameters have no operand — no exterior dialer exists; absence is structural, not a rule |
+| Legacy-deletion narration | "X was tolerated, now removed" / "previously Y, now Z" | Just remove the content; don't leave a record of the deletion |
+| Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 
 When the user catches one, *don't apologize and repeat* — actually
 internalize per Active Learning loop.

@@ -4,10 +4,8 @@ The 4-clause Raw axiom + every document needed to *audit* the axiom
 itself (falsifiability, encoding-cost analysis, self-reference,
 history).
 
-Files focused on the **Lean implementation** (faithful-emulator
-analysis, device classification, audit cross-check) have been moved
-to `lean/E213/AUDIT.md` (2026-05-12) — those are about the code, not
-the axiom.
+Lean implementation audit (faithful-emulator analysis, device
+classification, axiom cross-check) lives at `lean/E213/AUDIT.md`.
 
 ## Chapters
 
@@ -19,11 +17,11 @@ the axiom.
 | 03 | `03_form.md` | Why this form: austerity-as-audit; why 2 + binary; why symmetric + anti-reflexive (§4) |
 | 04 | `04_falsifiability.md` | Derive-not-reconcile; §5.2.1 axiom-addition discard rule; 7 measurement falsifiers |
 | 05 | `05_primacy.md` | Claim of primacy: every framework is a Lens on top (§6) |
-| 06 | `06_formalization.md` | Lean correspondence notes, deprecated paper / book references (§7) |
+| 06 | `06_formalization.md` | Lean correspondence notes; axiom-corpus boundary; concrete numerics = Lens or forced (§7) |
 | 07 | `07_self_reference.md` | No exterior; §8.4 dichotomy guide (re-read every Claude session) |
 | 08 | `08_encoding_costs.md` | The four encoding costs of putting 213 on Lean 4 (inductive / cmp / canonical-subtype / ≠-precondition).  Why these are codomain costs, not axiom commitments. |
 | 09 | `09_chart_relativity.md` | Chart-local labels (§9.1, made explicit by `Lens/Number/Nat213/ChartGeneral`), operation/object non-separation (§9.2), flat ontology (§9.3, strict ∅-axiom reading), syntactic internalization (§9.4, full L2 + L3 realisation in `Lens/SyntacticInternalization`).  Lens-emergence vocabulary; cf. `research-notes/2026-05-18_lens_emergence_path.md`. |
-| 99 | `99_history.md` | Deprecated R1–R5 frame + change history of all absorbed sources |
+| 99 | `99_history.md` | Change history of all absorbed sources |
 
 ## How to read
 
@@ -41,12 +39,9 @@ the axiom.
 ## Cross-references at seed/ root
 
 - `seed/ORIGIN.md` — DRLT origin narrative (untouched).
-- `seed/PAPER1.md` — **deleted 2026-05-12**.  Historical citations
-  in Lean docstrings (`PAPER1 §X.Y`) remain as narrative references
-  with no live target.
-- `seed/RESOLUTION_LIMIT_SPEC.md` — N_U structural-invariant
-  authority (4-domain convergence at 5²⁵).  Wins over any AXIOM/
-  chapter on resolution-limit topics.
+- `seed/RESOLUTION_LIMIT_SPEC.md` — cardinality / N_U readout spec
+  (4-Lens convergence at 5²⁵).  Wins over any AXIOM/ chapter on
+  resolution-limit topics.
 - `seed/NOTATION.md` — symbol conventions.
 
 ## Möbius interpretation — canonical location
@@ -62,11 +57,7 @@ discriminant, trace, det, Pell-Fib recurrences) and
 
 ## Audit / implementation reference
 
-The previous `08_implementation.md` (494 lines, faithful-emulator
-analysis) and an earlier `09_audit.md` (374 lines, Lean × axiom
-cross-check) have been moved to `lean/E213/AUDIT.md` — they audit
-Lean code, not the axiom itself.  The encoding-cost framing is now
-`08_encoding_costs.md` (concise restatement focusing on *why* the
-costs exist).  The current `09_chart_relativity.md` (this
-re-numbering, 2026-05-18) is unrelated to the deprecated
-`09_audit.md` and covers chart-relativity / flat ontology framing.
+Lean × axiom cross-check and faithful-emulator analysis live at
+`lean/E213/AUDIT.md`.  Encoding-cost framing: `08_encoding_costs.md`
+(why the costs exist).  Chart-relativity / flat-ontology framing:
+`09_chart_relativity.md`.

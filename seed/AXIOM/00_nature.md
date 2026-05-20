@@ -76,9 +76,8 @@ Results from `lean/E213/Lens/SemanticAtom.lean`:
 
 The above results are the self-justified core of the framework.  No
 external metatheory — `#print axioms` reports no axioms for all PURE
-results.  The legacy `≤ {propext, Quot.sound}` tier is deprecated
-(see `04_falsifiability.md` §5.2.1); any non-empty `#print axioms`
-output is treated as `sorry`-equivalent.
+results; any non-empty output is treated as `sorry`-equivalent
+(`04_falsifiability.md` §5.2.1).
 
 §1.1 and the **Universal Lens metatheory** in
 `lean/E213/Meta/UniversalLens/` are complementary statements — the

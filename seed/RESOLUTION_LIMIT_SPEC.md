@@ -1,7 +1,7 @@
 # RESOLUTION_LIMIT_SPEC
 
-Canonical reading on cardinality, infinity, and the constant N_U
-within 213.  Replaces the prior "Finitism is forced" framing.
+Canonical reading on cardinality, infinity, and the count-Lens
+readout `N_U` within 213.
 
 This document is mechanical-spec level: language is minimised,
 metaphor and value-judgment are excluded.  It is the source of
@@ -69,12 +69,11 @@ Bishop-style Real213 marathon operates *on the trajectory side*,
 proving Cauchy completeness without claiming `limit = exact value` —
 hence Real213 passes ∅-axiom.
 
-## Section 2 — N_U as multi-domain convergent invariant
+## Section 2 — N_U as four-Lens convergence
 
-The constant `N_U = d^(d²) = 5²⁵ = 298023223876953125` arises
-independently in four mathematical domains, all yielding the same
-value.  This is mechanical justification for treating N_U as a
-**system invariant**, not an axiomatic cap.
+The count-Lens at fractal level 2 yields the same numerical readout
+`N_U = d^(d²) = 5²⁵ = 298023223876953125` under four independent
+Lens applications:
 
   1. **Lean formalization**: fractal lens cardinality at level 2.
      `Physics/Foundations/NUniverseFromFractal.lean`:
@@ -92,62 +91,33 @@ value.  This is mechanical justification for treating N_U as a
      resolution.  Beyond depth N_U, projection induces structural
      collision (aliasing); ∅-axiom type checker reduces to noise.
 
-These four framings are not synonyms — they are distinct
-mathematical objects in distinct domains that *converge* on the
-same value.  Convergence across independent domains is the
-strongest available evidence of structural invariance.
+These four readings are distinct Lens applications converging on
+the same value.  The observation *is* the convergence; N_U is not
+a universe constant nor an axiomatic cap — it is what the
+count-Lens reads at fractal level 2 with the forced shape
+parameters.  Documents and Lean files cross-reference all four
+readings rather than privilege one.
 
-Refactoring directive: documents and Lean files must cross-
-reference all four framings rather than privilege one.  No single
-domain "defines" N_U; the invariant is the convergence itself.
+## Section 3 — Resolution limit is a Lens readout (not "finitism")
 
-## Section 3 — Resolution limit is a structural invariant (not "finitism")
+"Finitism is forced" imports the ZFC dichotomy "finite vs infinite"
+and elects one side.  The 213-internal statement:
 
-The phrase "Finitism is forced (not chosen)" overstates by importing
-the ZFC dichotomy "finite vs infinite" and electing one side.  The
-correct 213-internal statement:
-
-> **Resolution limit is a structural invariant emerging from
->   four-domain convergence at d=5.  Below resolution N_U, lenses
->   project injectively; beyond, structural collision aliases
->   trajectories together at type level.  Both potential infinity
+> **Resolution limit is the count-Lens readout at fractal level 2,
+>   consistent across four Lens applications.  Below readout `N_U`,
+>   lenses project injectively; beyond, structural collision
+>   aliases trajectories at type level.  Both potential infinity
 >   (unbounded inductive trajectories) and constructive infinity
 >   (Cantor tower, Bishop reals) are admitted; only completed-
 >   infinity equality (limit = exact value via propext-quotient)
 >   is structurally absent.**
 
-Equivalent shorter forms acceptable:
+Equivalent shorter forms:
   - "Cardinality and finiteness are lens outputs."
-  - "N_U is a cohomological invariant, not a cap."
   - "ZFC equality between trajectory and limit requires propext;
      ∅-axiom regime does not provide it."
 
-## Section 4 — Refactoring directives (status: completed)
-
-When this spec was first written (2026-04), the following directives
-were proposed.  All five have since been applied; this section is
-retained as historical record of the integration.
-
-  1. ✓ **CLAUDE.md** — "Finitism is forced" section replaced with a
-     pointer to this spec.  (Currently: §"Resolution limit is
-     structural".)
-
-  2. ✓ **DyadicTrajectory.lean** docstrings — "ZFC fiction" wording
-     replaced with "structural inequality preserved" framing
-     matching §1.
-
-  3. ✓ **`seed/AXIOM/02_statement.md`** §3.3 — cross-reference to
-     this spec added.
-
-  4. ✓ **Lean formalization** — `lean/E213/Lib/Math/ResolutionLimit
-     .lean` types `N_U` + the 4-way convergence + Cantor / Cauchy
-     theorems cross-references.  ∅-axiom + 213-native verified.
-
-  5. ✓ **Narrative docs** (`books/`, `guide/`) — "completed infinity
-     rejected" / "finitism" wording swept and replaced with §3
-     framing.
-
-## Section 5 — Why this spec, in two sentences
+## Section 4 — Why this spec, in two sentences
 
 213 is attacked most often on the infinity question, and even the
 originator and core contributors find it hard to keep the position

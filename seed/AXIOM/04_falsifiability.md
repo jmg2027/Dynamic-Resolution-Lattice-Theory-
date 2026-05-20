@@ -38,9 +38,9 @@ criterion**:
   Lean's structural type-checker + the Raw axiom alone.
 - A theorem with *any* non-empty `#print axioms` output is
   **`sorry`-equivalent**: it has not closed under the falsifiability
-  contract.  `propext` and `Quot.sound` were tolerated in earlier
-  sessions but are now treated identically to `Classical.choice` —
-  same dirty bit, same falsified-at-this-tier verdict.
+  contract.  `propext`, `Quot.sound`, `Classical.choice`,
+  `Lean.ofReduceBool`, and Mathlib axioms are all dirty under
+  this standard — same verdict for all.
 - If any result is shown to be **absolutely impossible** to prove /
   construct without an additional axiom (e.g., still blocked after
   multiple sessions of exploration), this means **the entirety of
