@@ -41,42 +41,29 @@ def spectrum : List ((Nat × Nat) × Nat) :=
   , ((1, 1), 26)
   ]
 
-/-- The spectrum has exactly 10 distinct entries. -/
-theorem distinct_count : spectrum.length = 10 := by decide
-
-/-- Sum of multiplicities = 146.
-    Breakdown: 4×5 (matter ∧¹∧⁴) + 4×10 (face/hinge yukawa+gauge)
-             + 1×50 (Higgs self-dual) + 1×26 (confined) = 146. -/
-theorem total_multiplicity :
-    (spectrum.map (·.2)).foldl (· + ·) 0 = 146 := by decide
-
-/-- All denominators are in {1, 2, 3, 4, 5} — exactly the
-    slot/face counts of the (3, 2) 5-simplex.  No transcendentals
-    in the spectrum. -/
-theorem denominators_finite :
-    ∀ x ∈ spectrum,
-      x.1.2 = 1 ∨ x.1.2 = 2 ∨ x.1.2 = 3
-      ∨ x.1.2 = 4 ∨ x.1.2 = 5 := by decide
-
-/-- All numerators are < d = 5 (or = 1 for f_occ = 1). -/
-theorem numerators_bounded :
-    ∀ x ∈ spectrum, x.1.1 ≤ d := by decide
-
-/-- Hodge pair check: (1, 5) and (4, 5) have same multiplicity. -/
-theorem hodge_pair_1_4 :
-    (spectrum.get? 0).map (·.2) = (spectrum.get? 8).map (·.2) := by decide
-
-/-- Hodge pair check: (2, 5) and (3, 5) have same multiplicity. -/
-theorem hodge_pair_2_3 :
-    (spectrum.get? 3).map (·.2) = (spectrum.get? 5).map (·.2) := by decide
-
-/-- The Higgs entry has the largest multiplicity (50). -/
-theorem higgs_dominant :
-    (spectrum.get? 4).map (·.2) = some 50 := by decide
-
-/-- The two confined-region entries (matter ∧¹ and full).  These are
-    f_occ = 1/d (multiplicity d) and f_occ = 1 (multiplicity 26). -/
-theorem matter_count : (spectrum.get? 0).map (·.2) = some d := by decide
-theorem confined_count : (spectrum.get? 9).map (·.1) = some (1, 1) := by decide
+/-- ★ f_occ spectrum master — distinct count, total multiplicity,
+    Hodge-pair invariance, denominator/numerator bounds, Higgs
+    dominance, and matter/confined identifications. -/
+theorem focc_spectrum_master :
+    -- 10 distinct entries
+    spectrum.length = 10
+    -- Sum of multiplicities: 4×5 + 4×10 + 50 + 26 = 146
+    ∧ (spectrum.map (·.2)).foldl (· + ·) 0 = 146
+    -- All denominators in slot/face counts {1, 2, 3, 4, 5}
+    ∧ (∀ x ∈ spectrum,
+         x.1.2 = 1 ∨ x.1.2 = 2 ∨ x.1.2 = 3
+         ∨ x.1.2 = 4 ∨ x.1.2 = 5)
+    -- Numerator bound x.num ≤ d
+    ∧ (∀ x ∈ spectrum, x.1.1 ≤ d)
+    -- Hodge pair (1, 5) ↔ (4, 5) same multiplicity
+    ∧ (spectrum.get? 0).map (·.2) = (spectrum.get? 8).map (·.2)
+    -- Hodge pair (2, 5) ↔ (3, 5) same multiplicity
+    ∧ (spectrum.get? 3).map (·.2) = (spectrum.get? 5).map (·.2)
+    -- Higgs entry dominant: 50
+    ∧ (spectrum.get? 4).map (·.2) = some 50
+    -- Matter ∧¹ multiplicity = d
+    ∧ (spectrum.get? 0).map (·.2) = some d
+    -- Confined entry = (1, 1)
+    ∧ (spectrum.get? 9).map (·.1) = some (1, 1) := by decide
 
 end E213.Lib.Physics.Simplex.FoccSpectrum
