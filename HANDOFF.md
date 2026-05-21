@@ -1,167 +1,156 @@
-# Session Handoff — 2026-05-22 (Part 3 marathon)
+# Session Handoff — 2026-05-22 (Part 3 marathon, continued)
 
 ## Branch
-`claude/handoff-part-3-marathon-0XWmn` — 3 substantive + 2 doc
-commits ahead of `origin/main`.  Pushed.
+`claude/handoff-part-3-marathon-0XWmn` — 8 commits ahead of
+`origin/main`.  All pushed.
 
-## What this session did
+## What this session did (both halves)
 
-Executed §2 mechanical-immediate items from the meta branch's
-`G107_action_items_registry.md` (the executor entry-point for
-G90-G107 surfaced abstraction candidates).
+Closed §2 mechanical-immediate items fully + 3 §4 items + 1 mid item.
 
-| Item | Status | Files | Net |
-|------|:------:|-------|-----|
-| **L2** — `h_components_{α,β}` 4-sibling | DONE | `LeibnizDecomp.lean` (new, 8 PURE) + `Leibniz{21,22}Final.lean` refactored | −147 lines |
-| **N7** — `caseElement` Prism truth table | DONE | `Lens/Instances/Prism.lean` (2 new PURE + 4 as one-line corollaries) | name-only |
-| **N8** — `NatHelper.mul_left_comm` adoption | DONE | 3 files (CutSumOne ×16, CutMidSelf ×2, Euler ×3) | ~38 tokens retired |
-| **N9** — `Nat.add_right_comm` adoption | DONE | 7 files | ~12 tokens retired |
+### Half 1 (prior message)
 
-Plus doc updates:
+| Item | Status | Net |
+|------|:------:|-----|
+| **L2** — `h_components_{α,β}` 4-sibling | DONE | `LeibnizDecomp.lean` (8 new PURE), −147 lines |
+| **N7** — `caseElement` Prism truth table | DONE | 2 PURE + 4 corollaries |
+| **N8** — `NatHelper.mul_left_comm` adoption | DONE | 19 sites / 3 files |
+| **N9** — `Nat.add_right_comm` adoption | DONE | 6 sites / 7 files |
+| Doc — Pattern #10/#11 + NAV-1/4 + CAT-1/2 | DONE | LESSONS_LEARNED + 2 catalogs |
 
-  · `LESSONS_LEARNED.md` — added Pattern #10 (adoption-gap detection
-    via k-gram cascade) + Pattern #11 (Cup-Leibniz dichotomy collapse).
-  · `STRICT_ZERO_AXIOM.md` — added "PURE-bounded on Lean 4 core"
-    note (NAV-4 per G107 §10.4).
-  · `seed/INDEX.md` — added meta-analysis G87-G107 listing (NAV-1).
-  · `catalogs/falsifier-roster.md` — new (CAT-1; auto-discovered
-    135 falsifiers from G100, cross-linked with manual F1-F26).
-  · `catalogs/abstraction-candidates.md` — new (CAT-2; executor
-    status tracker for G107 §2-§4 items).
+### Half 2 (this message)
+
+| Item | Status | Net |
+|------|:------:|-----|
+| **Sub-2** — `Tree.canonical_slash_decompose` helper | DONE | 2 PURE helpers + 5 sites refactored |
+| **M (Sub-3)** — Raw.recAux + RawBy.recAux | DONE | 2 sites refactored via Sub-2 helpers |
+| **Pell-FSM (partial)** — `ArithFSM2.bits_period_of_run_period` | DONE | 1 PURE helper + 27 sites refactored |
+| **ModArith** — mod3/mod5 per-residue corollaries | DONE | `mod3_three_mul_add` new + 6 corollaries |
 
 ## Verification
 
   · **Full `lake build`**: ✅ clean.
-  · **Axiom purity**: ✅ all 8 new `LeibnizDecomp` helpers PURE;
-    downstream `leibniz_universal_5_2_{1,2}` still PURE; 2 new
-    `caseElement_*` PURE; spot-check 6 N8/N9 sites still PURE.
+  · **Axiom purity**: ✅ all new helpers PURE; spot-checked 25+
+    refactored theorems, all PURE.
   · **No new DIRTY** introduced.
+  · 5/5 §2 items closed; 0/1 of §3 (L1 deferred); 3/7 §4 closed.
 
 ## Branch-side tally
 
 | Commit | Subject |
 |--------|---------|
-| `931c38cb` | N8 + N9 adoption (25 sites, ~50 tactic tokens retired) |
-| `95b78308` | N7 caseElement Prism truth-table generalisation |
-| `99fe6228` | L2 LeibnizDecomp 4-sibling consolidation (-147 lines) |
-| _(this commit)_ | docs: Pattern #10/#11, NAV-1/4, CAT-1/2, HANDOFF |
+| `931c38cb` | N8 + N9 adoption |
+| `95b78308` | N7 Prism truth-table generalisation |
+| `99fe6228` | L2 LeibnizDecomp 4-sibling consolidation |
+| `7ac3f3ce` | docs: Pattern #10/#11 + NAV-1/4 + CAT-1/2 |
+| `c7d5d7e8` | Sub-2: canonical_slash_decompose helper |
+| `da447545` | M (Sub-3): recursors via Sub-2 helpers |
+| `8379a10d` | Pell-FSM (partial): 27 sites refactored |
+| `fb769c4b` | ModArith: mod3/mod5 per-residue via _add |
+
+Cumulative net: ~300 lines retired, 13 new PURE helpers across 6
+new files/additions, 2 new patterns documented.
 
 ---
 
 # Part 1 — What this builds on (compressed)
 
-  · Prior PR #90 (`claude/subset-bijection-lemmas-w2FKf`): C3 chain
+  · PR #90 (`claude/subset-bijection-lemmas-w2FKf`): C3 chain
     18 phases + 12-conjunct `c3_chain_master`; Cup-Leibniz general
-    transfer; 6-theorem `ZOmega_units_exact_six`; alive predicate
-    derived from Clause 4; Validation Standard Phase 5 → 23/23
-    (F25 + F26).  ~410 new PURE, 0 DIRTY introduced.
-  · Prior PR #91 (`claude/analyze-lean4-ast-patterns-49Rh2`):
-    11 scanner tools + 18 research notes G90-G107.  Cross-branch
-    handshake loop G93→G96→G94→G97 closed.  G107 is the canonical
-    open-items registry.
+    transfer; 6-theorem; alive predicate; Validation Standard
+    Phase 5 → 23/23. ~410 new PURE.
+  · PR #91 (`claude/analyze-lean4-ast-patterns-49Rh2`): 11
+    scanner tools + 18 research notes G90-G107.  G107 is the
+    canonical open-items registry.
 
 ---
 
-# Part 2 — Open work
+# Part 2 — Open work (refreshed)
 
-The major open items below are still from G107.  Sorted by
-recommended execution order (§7).
+## A. L1 — LeibnizAlgLift (DEFERRED, biggest single)
 
-## A. Sub-2 — Tree slash-arm prologue tactic macro
+**Same Fin-index defeq blocker as L2**: `(a+1)+b-1 ≢ a+b` for
+abstract `a, b`.  G106's parametric sketch assumes elaboration-level
+abstraction; source-level requires `Fin.cast` plumbing.
 
-**Source**: G94 §6.2 Sub-3 (re-indexed §2 of G107).
-**Scope**: 5 Tree-induction siblings (`Tree.swap_depth/leaves`,
-`Swap.Tree.swap_swap`, `transportTree_roundtrip/canonical`) share
-10-token prefix `[intro, induction, rfl, rfl, have, unfold, obtain,
-obtain, have, have, ...]`.  Candidate: tactic macro
-`tree_induction_slash_unfold`.
-**Effort**: short.  **Blast radius**: 3 files (`Tree/Levels.lean`,
-`Swap.lean`, `RawCmpIndependence.lean`).
+Two paths forward:
+  1. **Specific-degree helpers** (analogue of L2's approach): 4
+     helpers for (k=1, l=2), (k=2, l=2), (k=2, l=1), (k=2, l=2)
+     — same count as siblings, no reduction.
+  2. **`Fin.cast` plumbing** — one parametric form with explicit
+     casts to bridge the type mismatch.  Doable but adds elaboration
+     noise.
 
-## B. L1 — LeibnizAlgLift 4-sibling (biggest single)
+Estimated effort: 1 medium marathon (~half a day) for path 2,
+yielding ~6.6M chars Expr-level reduction.
 
-**Source**: G91 L1 + G94 §1/§8.2 + G102 + G103 §3 + G106.
-**Scope**: G106 §3 sketches the parametric form.  4 sibling
-proofs collapse to 2 parametric theorems (`leibniz_via_α_decomp`
-+ `leibniz_via_β_decomp`) over `{n k l : Nat}` with originals
-as `@[reducible]` aliases.
-**Evidence**: 6-layer byte-identical (AST recursor / 48-token
-syntax / 43-cite multiset / 206,914 Expr invocations /
-628,271 Expr nodes / 3,309,145-char Expr string).
-**Effort**: medium marathon — requires understanding bz5_2
-generalisation; parallel branch's FinBridgeGeneral provides the
-∀(n, k, l) bridge infrastructure.
-**Net**: ~6.6 M chars retired (50 % of L1's elaborated mass).
+## B. C — CutSumOne 8-sibling 3-component template
 
-## C. C — CutSumOne 8-sibling 3-component template
+Still open.  8 `cutSum_*` decls share 9-token opener.  G94 §7
+proposes 3-component template (opener + per-instance body + closer).
+Medium marathon.
 
-**Source**: G94 §2 + §7.
-**Scope**: 8 `cutSum_*` decls share 9-token opener.  Template
-proposal: opener + per-instance arithmetic body + universal closer
-(`bool_eq_iff` + `decide_eq_true`).
-**Effort**: medium marathon.  **Blast radius**: 1 file +
-consumers.  **Net**: ~50-60 % of CutSumOne family tactic mass.
+## C. Remaining §4 open items
 
-## D. Smaller open items (G107 §4)
+  · **E** — `sqrt{2,3,5}_no_rational_aux` ×4.  Needs `IsPerfectSquare N`
+    infrastructure first.  Substantial design.
+  · **F** — Σ-fold cross-domain.  New `sigmaList` infrastructure
+    suggested by G90; small additive.
 
-L3 (Pisano 14/17), L4 (addLDD/mulLDD), L5 (CDDouble pair),
-M (Raw.recAux), E (sqrtN), F (Σ-fold), Pell-FSM, ModArith.  Each
-2-8 sites, short-to-medium effort.  See
-`catalogs/abstraction-candidates.md` for the per-item status table.
+## D. Deferred §4 items (not clean targets)
 
-## E. Cup-Leibniz general ∀(k, l) — deep open (carried from prior)
+  · **L3** Pisano 14/17 — incremental Pn → Pn+3 structure obscured
+    by abstraction.
+  · **L4** addLDD/mulLDD — requires `BinaryOpLDD` typeclass design.
+  · **L5** CDDouble pair — different concrete witnesses, not
+    structurally identical.
+
+## E. Pell-FSM completion
+
+27 sites done; remaining:
+  · LensPairs.lean `pellMod{3,5,7}_BitFSM_bits_period_*` — uses
+    BitFSM (different FSM type), needs a parallel
+    `BitFSM.bits_period_of_run_period` helper.
+  · Doubled-period (`_2T`) variants — intentionally kept; could
+    add `_2T_of_T` helper if desired.
+
+## F. Cup-Leibniz general ∀(k, l) — deep open (carried from prior)
 
 `research-notes/G86_self_referential_lex_cup_leibniz.md` — needs
-**deep 213-native structural insight**, not just mechanical
-extension.  See prior HANDOFF §2.A for the suggested next-session
-path ((3, 1) → (k, 1) → (1, l) → general).
+**deep 213-native structural insight**.  Untouched this session.
 
-## F. Doc work remaining (G107 §10)
+## G. Doc work remaining (G107 §10)
 
-Lower-priority but additive:
-
-  · TH-2 (Raw-derivation three levels) — highest-value standalone
-    theory doc; ~1 hr; synthesises G104.
-  · TH-1 (proof-shape fingerprint) — ~2 hr; G103 + G105.
-  · TH-3 (falsifiability surface quantified) — ~1.5 hr; G100.
-  · TH-4 (L1 extraction methodology) — ~2 hr; G106.
-  · CAT-3 (recursor inventory), CAT-4 (internal hubs) — ~30 min each.
-  · CL-1 (meta-scan archetypes in CLAUDE.md) — ~30 min.
-  · CL-2 (process-model note) — ~15 min.
-  · NAV-2 (README pointer to G101/G107) — ~10 min.
-  · NAV-3 (ARCHITECTURE.md empirical-verification note) — ~10 min.
+Lower-priority but additive: TH-2 / TH-1 / TH-3 / TH-4, CAT-3 /
+CAT-4, CL-1 / CL-2, NAV-2 / NAV-3.  See
+`research-notes/G107_action_items_registry.md` §10.
 
 ---
 
 ## Anchor docs (next session)
 
 ### Executor entry
-  · `research-notes/G107_action_items_registry.md` — full open-items
-    registry (start here for any new work).
-  · `catalogs/abstraction-candidates.md` — per-item status table
-    (CAT-2, this session).
+  · `research-notes/G107_action_items_registry.md` — full registry.
+  · `catalogs/abstraction-candidates.md` — per-item status (updated
+    twice this session).
 
-### Working files this session touched
-  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` (new)
-  · `lean/E213/Lens/Instances/Prism.lean` (N7)
-  · 10 files updated by N8/N9 mechanical adoption.
+### Working files touched this session
+  · **Helpers added**: LeibnizDecomp.lean, Prism.lean (N7 additions),
+    Tree/Swap.lean (Sub-2), Theory/RawCmpIndependence.lean (Sub-2 cmp
+    variant), ArithFSM.lean (Pell-FSM), PureNatMod3.lean (mod3_add).
+  · **Refactor targets**: Levels.lean, Hom.lean, Raw/Rec.lean (×2),
+    RawCmpIndependence.lean (×2), ProperMod.lean (×5), ArithFSM.lean
+    (×2), ArithFSM/Mod{Small,Medium,Large}.lean (×22), PureNatMod3.lean
+    (×2), PureNatMod5.lean (×4), CutSumOne.lean (×16), CutMidSelf.lean
+    (×2), Euler.lean (×3), Leibniz21/22Final.lean (×4 sites total).
 
-### Doctrine refreshers
+### Doctrine
   · `CLAUDE.md` boot sequence (unchanged).
-  · `STRICT_ZERO_AXIOM.md` — now includes Lean-core PURE-bounded
-    fact.
-  · `LESSONS_LEARNED.md` Patterns #1-#11 (Pattern #10/#11 new).
+  · `STRICT_ZERO_AXIOM.md` — Lean-core PURE-bounded fact.
+  · `LESSONS_LEARNED.md` Patterns #1-#11.
 
 ### Meta-analysis reference
-  · `research-notes/G101_metascan_synthesis.md` — capstone.
-  · `research-notes/G106_L1_expr_structure_extraction.md` — deepest
-    implicit-lemma finding (L1 target).
-  · `research-notes/G99_rw_cascade_adoption_gap.md` — closed this
-    session via N8/N9.
-  · `research-notes/G98_unfold_graph_implicit_lemma_extraction.md` —
-    closed this session via N7.
-
-### Tooling
-  · `tools/` — 11 scanners (all `--report-only` capable).
-  · Rerun any scanner before starting a new marathon to refresh
-    candidate rankings.
+  · `G107_action_items_registry.md`, `G101_metascan_synthesis.md`,
+    `G106_L1_expr_structure_extraction.md`,
+    `G99_rw_cascade_adoption_gap.md` (closed via N8/N9),
+    `G98_unfold_graph_implicit_lemma_extraction.md` (closed via N7).

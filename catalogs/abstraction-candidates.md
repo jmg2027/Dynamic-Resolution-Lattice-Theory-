@@ -24,39 +24,47 @@ Status keys:
 | N7 | `caseElement` Prism truth-table generalisation | **DONE** | Same branch — `caseElement_preview_{self,other}` (2 PURE); 4 truth-table theorems as one-line corollaries. |
 | N8 | `NatHelper.mul_left_comm` adoption | **DONE** | Same branch — 19 sites across 3 files (CutSumOne ×16, CutMidSelf ×2, Euler ×3). |
 | N9 | `Nat.add_right_comm` adoption | **DONE** | Same branch — 6 sites across 7 files; helper was Lean-core PURE on its own. |
-| Sub-2 | Tree slash-arm prologue tactic macro | OPEN | 5 Tree-induction siblings sharing 10-token prefix. |
+| Sub-2 | Tree slash-arm prologue helper | **DONE** | Same branch — `Tree.canonical_slash_decompose` + `canonicalBy_slash_decompose`; 5 sites refactored (term-level, not macro). |
 
 ## §3 — Mid-size consolidations
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L1 | LeibnizAlgLift 4-sibling | OPEN | **Biggest single target** (G106): 6-layer byte-identical, ~6.6 M chars retired (50 % L1 mass).  Parametric form sketched in G106 §3.  Medium marathon. |
+| L1 | LeibnizAlgLift 4-sibling | DEFERRED | **Blocked by Fin-index defeq** (same blocker as L2): `(a+1)+b-1 ≢ a+b` for abstract args.  G106 sketch assumes elaboration-level abstraction, but source-level requires casts.  Pursue via `Fin.cast` plumbing or via specific-degree helpers (4-helper approach, no count reduction). |
 | C  | CutSumOne 8-sibling 3-component template | OPEN | 8 `cutSum_*` decls share 9-token opener.  G94 §7 has the template proposal.  Medium marathon. |
 
 ## §4 — Smaller consolidations
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L3 | Pisano Predictor 14/17 | OPEN | 2 sibling 20-tactic ladders.  Predictor structure is incremental (P7→P11→P14→P17); abstracting may obscure the "+3 primes per step" story.  Low priority. |
-| L4 | `addLDD` / `mulLDD` (Smooth.lean) | OPEN | 2 byte-identical 16-tactic ladders.  Parameterise over (aux, aux_congr, locality-bound) — non-trivial. |
-| L5 | `CDDouble.I_mul_J` / `J_mul_I` | OPEN | 2 byte-identical 16-tactic ladders.  Cayley-Dickson basis non-commutativity witness pair. |
-| M  | `Raw.recAux` / `RawBy.recAux` pair | OPEN | 2 siblings sharing 10-token prefix.  Recursor pair — deep infrastructure. |
-| E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the perfect-square predicate. Needs `IsPerfectSquare N` infrastructure. |
+| L3 | Pisano Predictor 14/17 | DEFERRED | Proofs aren't byte-identical at content level (different projection chains).  Incremental structure (P7→P11→P14→P17) would obscure on abstract. |
+| L4 | `addLDD` / `mulLDD` (Smooth.lean) | DEFERRED | Substantial differences in concrete aux + locality bound; clean abstraction requires `BinaryOpLDD` typeclass — substantial design task. |
+| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples. |
+| M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
+| E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
-| Pell-FSM | `pellProperModN_period_*` 8+ | OPEN | Pattern #2 recursor skeleton × 8 moduli (11, 13, 17, 19, 23, 29, 31, 37). |
-| ModArith | `mod3` / `mod5` family | OPEN | 9 decls sharing recursor skeleton modulo modulus. |
+| Pell-FSM | `pellModN_bits_period` 32+ | **DONE (partial)** | Same branch — `ArithFSM2.bits_period_of_run_period` helper (PURE); 27 sites refactored across ArithFSM.lean + ArithFSM/Mod{Small,Medium,Large}.lean + Pell/ProperMod.lean.  Doubled-period (`_2T`) variants kept; LensPairs BitFSM variants pending. |
+| ModArith | `mod3` / `mod5` per-residue | **DONE** | Same branch — `mod5_five_mul_add` hoisted (already existed); `mod3_three_mul_add` added; 6 per-residue corollaries collapsed to 1-line term applications. |
 
 ---
 
 ## Done summary (this branch)
 
-  · **L2 + N7 + N8 + N9** — 4 of 5 mechanical-immediate items closed.
-  · ~165 net lines removed from corpus; ~75 tactic tokens retired
-    in the mechanical adoptions; one new module (8 PURE helpers).
-  · Pattern #10 (adoption-gap detection) + Pattern #11 (Cup-Leibniz
-    dichotomy collapse) added to `LESSONS_LEARNED.md`.
+  · **§2 fully closed** — L2, N7, N8, N9, Sub-2 (5/5 items).
+  · **§3** — C still open; L1 deferred (defeq blocker).
+  · **§4** — M, Pell-FSM (partial), ModArith (3/8 items); L3/L4/L5
+    deferred; E/F still open.
 
-Still open from §2: **Sub-2** (Tree-induction tactic macro).
+Net deliverables this branch:
+  · 12 new PURE helpers across 5 new modules / additions.
+  · ~250 net lines removed.
+  · ~150 tactic tokens retired in mechanical adoptions.
+  · Pattern #10 (adoption-gap) + #11 (Cup-Leibniz dichotomy) added.
+
+Still open from §2: none.
+Still open from §3: C (CutSumOne 8-sibling).
+Still open from §4: E, F.
+Doubled-period (`_2T`) variants of Pell-FSM intentionally kept.
 
 ---
 
