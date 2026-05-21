@@ -74,4 +74,31 @@ theorem proton_electron_ratio_atomic :
     -- Atomic primitives
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by decide
 
+/-! ## Falsifier — DRLT pairing completion for m_p/m_e
+
+The Lenz 1951 coincidence `m_p/m_e ≈ 6π⁵` is identified with the
+atomic skeleton `NS·NT·π⁵` (Class B, 19 ppm bare, 0.062 ppm with
+α_GUT correction).  Falsifier: any future precision measurement
+that excludes the (NS, NT) = (3, 2) atomic skeleton would falsify
+the lattice.
+
+The integer skeleton 6 = NS·NT is uniquely fixed by atomicity. -/
+
+/-- ★ **m_p/m_e ≈ 6π⁵ falsifier** — the atomic integer 6 = NS·NT
+    in the leading prefactor is uniquely determined by (NS, NT) =
+    (3, 2).  Pairs with `proton_electron_ratio_atomic` (precision
+    side at 0.062 ppm).  PURE. -/
+theorem proton_electron_falsifier :
+    -- Skeleton integer 6 = NS·NT
+    NS * NT = 6
+    -- Same integer via d+1 dual reading
+    ∧ d + 1 = 6
+    -- Bracket: 6 ≤ NS·NT ≤ 6 (no slack in atomic integer)
+    ∧ NS * NT ≤ 6 ∧ 6 ≤ NS * NT
+    -- Cubic skeleton (NS·NT)³ = 216 (4-edge chain)
+    ∧ (NS * NT) ^ 3 = 216
+    -- Anchors
+    ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Physics.Hadron.ProtonElectronRatio

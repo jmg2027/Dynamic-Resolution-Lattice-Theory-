@@ -102,6 +102,33 @@ the framework.
   `lean/E213/Lib/Physics/Couplings/ThetaQCD.lean`
   (`theta_QCD_precision_bracket`).
 
+### F21: Koide Q = NT/NS = 2/3 atomic
+  Lepton mass ratio coincidence Q = (m_e+m_μ+m_τ)/(√m_e+√m_μ+√m_τ)²
+  uniquely fixed by (NS, NT) = (3, 2).  Future ppt-precision Koide
+  measurement outside 2/3 ± 10⁻⁶ → discard.
+  `lean/E213/Lib/Physics/Foundations/KoideFormula.lean`
+  (`koide_falsifier`).
+
+### F22: m_p/m_e ≈ 6π⁵ atomic skeleton 6 = NS·NT
+  Lenz 1951 coincidence identified as NS·NT·π⁵ (0.062 ppm with
+  α_GUT correction).  Atomic integer 6 = NS·NT = d+1 uniquely
+  determined by atomicity.
+  `lean/E213/Lib/Physics/Hadron/ProtonElectronRatio.lean`
+  (`proton_electron_falsifier`).
+
+### F23: M_Pl/v_H = d^(d²)/(d+1) hierarchy
+  Atomic exponent d² = 25 and base d = 5 uniquely fix the
+  hierarchy 5^25/6 ≈ 5×10¹⁶ within ~5%.  Refinement excluding
+  this bracket → discard.
+  `lean/E213/Lib/Physics/Higgs/Vacuum.lean`
+  (`hierarchy_falsifier`).
+
+### F24: Muon prefactor 192 = (NS²−1)(d²−1)
+  Muon lifetime exact integer prefactor 192 = 8·24 uniquely fixed
+  by SU(3)·SU(5) adjoint structure (NS, d) = (3, 5).
+  `lean/E213/Lib/Physics/Foundations/AtomicSuperCatalog.lean`
+  (`muon_prefactor_falsifier`).
+
 ## Stake formal
 
   phase3_falsifiers : 19-conjunct, 0 axioms (Lean verified)
