@@ -799,3 +799,146 @@ lemmas:
 Total: 32 PURE theorems across `LeibnizLexStructural.lean` (8) and
 `LeibnizLexListLevel.lean` (24).  No Mathlib, no funext, no decide
 enumeration over the (α, β) parameter space.
+
+---
+
+## Pattern #8 — `Int.NonNeg` constructor inversion bypasses Int-ordering propext
+
+**Discovered**: 2026-05-22 session 2 (6-theorem marathon, Diophantine
+completeness sub-task).
+
+### Problem
+
+Lean-core Int ordering lemmas (`Int.le_trans`, `Int.lt_of_lt_of_le`,
+`Int.ofNat_le`, `Int.not_lt`, `Int.add_le_add`, `Nat.sub_lt_sub_right`,
+`Nat.add_sub_cancel`, etc.) all carry `propext` in their axiom
+dependency.  The Iff form `Int.ofNat_le : Int.ofNat a ≤ Int.ofNat b
+↔ a ≤ b` is the most common offender.  Likewise `omega`,
+`Bool.and_eq_true`, and several `Nat.*` ordering helpers.
+
+This blocks Int-side diophantine / bounded-square reasoning from
+being PURE.
+
+### Solution: direct `Int.NonNeg` constructor matching
+
+`Int.le a b := Int.NonNeg (b - a)` definitionally (`Init/Data/Int/Basic.lean`
+line 174).  `Int.NonNeg` is a single-constructor inductive Prop:
+
+```
+inductive Int.NonNeg : Int → Prop
+  | mk : ∀ (n : Nat), Int.NonNeg (Int.ofNat n)
+```
+
+When `b - a` reduces to `Int.negSucc k` (i.e., negative), the only
+inhabitant `Int.NonNeg.mk n` would require `Int.ofNat n = Int.negSucc k`
+— impossible by constructor injection.  `cases h` (on `h : a ≤ b`)
+**automatically detects this** and closes the goal with no further
+tactic.
+
+### Concrete idiom
+
+```lean
+-- Bypass Int.ofNat_le.mp (propext) for the n ≥ 2 contradiction
+private theorem ofNat_int_le_one (n : Nat) (h : (Int.ofNat n : Int) ≤ 1) :
+    n = 0 ∨ n = 1 := by
+  match n with
+  | 0 => left; rfl
+  | 1 => right; rfl
+  | k+2 =>
+    exfalso
+    cases h    -- ★ Int.NonNeg (1 - ofNat (k+2)) is on negSucc — cases impossible
+```
+
+### Where applied
+
+  · `ZOmegaUnits.lean §5` — `int_sq_le_one : x * x ≤ 1 → x ∈ {-1, 0, 1}`
+    PURE via `ofNat_int_le_one` helper.
+  · `KSubsetStructural.lean §0` — `nat_sub_lt_sub_right`,
+    `nat_add_sub_cancel` PURE replacements for Lean-core propext-tainted
+    versions, via Nat induction + the same NonNeg principle.
+  · `FinBridgeGeneral.lean §0` — `take_append_le`, `drop_append_le`,
+    `take_of_length_le`, `drop_of_length_le` PURE replacements for
+    `List.take_append_of_le_length` etc.
+
+### When NOT to apply
+
+Symbolic Int algebra (`ring`, `ring_nf`) is still propext-tainted and
+has no `Int.NonNeg`-style bypass.  Multi-variable polynomial identities
+must be expanded manually via `Int213` axioms.  See Pattern #10
+candidate (4·normSq ring identity, ~50 manual rewrites, currently
+deferred).
+
+---
+
+## Pattern #9 — Clause-4 recursive Lens application closes postulate gaps
+
+**Discovered**: 2026-05-22 session 2 (alive gap closure, G87 §11).
+
+### Problem
+
+The atomicity proof's `IsAlive` predicate (both decomposition parts
+have odd parity) was historically **postulated, not derived from Raw**
+— "the exterior-algebra / fermion-statistics pattern, natural partner
+to Raw's binary structure but postulated" (`Atomicity/Alive.lean`
+pre-2026-05-22 docstring).  This was identified as the single largest
+gap in the Raw → 5 inevitability chain (G87 §2.2).
+
+### Solution: Clause 4 applies recursively at every granularity
+
+User insight (2026-05-22):
+  > "Raw는 트리 형태가 아니다.  모든 Raw는 연산이기도 하고 객체이기도
+  >  하기 때문 — 즉 애초에 연산과 객체도 정의되지 않은 상태이다."
+
+If every Raw event is simultaneously operation and object — with no
+a-priori distinction — then Clause 4 of the 213 axiom (`x/x` forbidden,
+`seed/AXIOM/02_statement.md` §3.2 #4) is **not restricted to atomic
+Raw distinguishables**.  It applies at every granularity, including
+groups of Raw viewed as objects.
+
+For decomposition `n = 2a + 3b`: if `a` is even, the `a` binary-pair
+atoms can themselves be grouped into `a/2` pair-of-pairs — a Clause-4
+violation at the binary group level.  So `a` must be odd; similarly `b`.
+
+### Concrete dissolution
+
+```lean
+def IsSelfPaired (n : Nat) : Prop := ∃ k, n = 2 * k
+def IsClause4Alive (a b : Nat) : Prop := ¬IsSelfPaired a ∧ ¬IsSelfPaired b
+
+theorem alive_iff_clause4_alive (a b : Nat) :
+    IsAlive a b ↔ IsClause4Alive a b
+```
+
+The "both odd" alive predicate is the **count-Lens readout of Clause 4
+applied recursively** — not a separate postulate.  Lean witnesses in
+`Theory/Atomicity/AliveDerivation.lean` (7 PURE).
+
+### Generalisation
+
+Any apparently-postulated structural predicate `P` in 213-Algebra
+should be reconsidered through the lens: **does `P` correspond to
+Clause-4 (or another axiom clause) applied at a non-atomic
+granularity?**  The user's "all Raw are simultaneously operation and
+object" principle authorises recursive application of any 4-clause
+content to count-Lens groups, type objects, group objects, etc.
+
+### Where applied (so far)
+
+  · `AliveDerivation.lean` — `IsAlive` ↔ recursive Clause 4 on
+    NT-pairs and NS-triples.
+
+### Future candidates
+
+  · `Nodup` / distinctness postulates in cohomology — Clause 4
+    recursively applied at the list level.
+  · "Sortedness" postulates in colex enumeration — Clause 1
+    (distinguishing) applied recursively, giving canonical order.
+
+---
+
+## Pattern composition update
+
+The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
+bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) form the
+2026-05-22 composition table.  Together they enable the closure of the
+Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.
