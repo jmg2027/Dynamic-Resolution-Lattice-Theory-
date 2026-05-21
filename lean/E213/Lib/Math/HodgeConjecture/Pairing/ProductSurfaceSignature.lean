@@ -32,48 +32,13 @@ open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 
 
-/-! ## §1 — Σ_g × Σ_h product signature -/
+/-! ## §1 — Σ_g × Σ_h product signature def -/
 
 /-- Σ_g × Σ_h product signature on H²: (2gh + 1, 2gh + 1).
     From Künneth: H¹⊗H¹ piece (Tensor sig (2gh, 2gh)) +
     H⁰⊗H² ⊕ H²⊗H⁰ piece (hyperbolic (1, 1)). -/
 def product_signature_pair (g h : Nat) : SignaturePairData :=
   ⟨2 * g * h + 1, 2 * g * h + 1⟩
-
-/-- Numerical: σ(Σ_1 × Σ_1 = T²×T²) = (3, 3). -/
-theorem product_T2_T2 :
-    product_signature_pair 1 1 = ⟨3, 3⟩ := by decide
-
-/-- σ(Σ_2 × Σ_1) = (5, 5). -/
-theorem product_2_1 :
-    product_signature_pair 2 1 = ⟨5, 5⟩ := by decide
-
-/-- σ(Σ_2 × Σ_2) = (9, 9). -/
-theorem product_2_2 :
-    product_signature_pair 2 2 = ⟨9, 9⟩ := by decide
-
-/-- σ(Σ_3 × Σ_2) = (13, 13). -/
-theorem product_3_2 :
-    product_signature_pair 3 2 = ⟨13, 13⟩ := by decide
-
-/-! ## §2 — Structural properties (parametric) -/
-
-/-- pos = neg always (balanced product surfaces). -/
-theorem product_balanced (g h : Nat) :
-    (product_signature_pair g h).pos = (product_signature_pair g h).neg := rfl
-
-/-- Total rank = pos + neg = 2·(2gh + 1). -/
-theorem product_total_rank (g h : Nat) :
-    (product_signature_pair g h).total_rank = 2 * (2 * g * h + 1) := by
-  show (2 * g * h + 1) + (2 * g * h + 1) = 2 * (2 * g * h + 1)
-  exact (E213.Tactic.NatHelper.two_mul (2 * g * h + 1)).symm
-
-/-- Specific total ranks for small (g, h). -/
-theorem product_total_rank_small :
-    (product_signature_pair 1 1).total_rank = 6
-    ∧ (product_signature_pair 2 1).total_rank = 10
-    ∧ (product_signature_pair 2 2).total_rank = 18
-    ∧ (product_signature_pair 3 2).total_rank = 26 := by decide
 
 
 
@@ -110,14 +75,26 @@ theorem product_surface_signature_master :
     -- Parametric balance
     ∧ (∀ g h : Nat,
         (product_signature_pair g h).pos = (product_signature_pair g h).neg)
-    -- Parametric total rank
+    -- Parametric total rank = 2·(2gh + 1)
     ∧ (∀ g h : Nat,
         (product_signature_pair g h).total_rank = 2 * (2 * g * h + 1))
-    -- Specific total ranks
+    -- Specific total ranks (small cases, including (2, 2))
     ∧ (product_signature_pair 1 1).total_rank = 6
     ∧ (product_signature_pair 2 1).total_rank = 10
+    ∧ (product_signature_pair 2 2).total_rank = 18
     ∧ (product_signature_pair 3 2).total_rank = 26 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals first | decide | (intro g h; rfl) | (intro g h; exact product_total_rank g h)
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
+  · intro _ _; rfl
+  · intro g h
+    show (2 * g * h + 1) + (2 * g * h + 1) = 2 * (2 * g * h + 1)
+    exact (E213.Tactic.NatHelper.two_mul (2 * g * h + 1)).symm
+  · decide
+  · decide
+  · decide
+  · decide
 
 end E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
