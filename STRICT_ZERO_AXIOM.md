@@ -782,6 +782,58 @@ The **single master theorem `c3_chain_master`** in
 for the gauge-emergence narrative.  Imports all 12 phase modules
 and bundles their headline results.
 
+## 2026-05-22 — Phase 5 Validation Standard 23/23 closure + C3 extensions
+
+After the C3 chain master capstone, a follow-up marathon closed:
+  · 2 remaining Validation Standard pairing gaps (F25, F26)
+  · 3 C3 incremental extensions (C_2^6 on H1K, 3rd standard pair,
+    semidirect twist)
+  · 1 G80 structural derivation lift (c=2 binary cover)
+
+### F25 + F26: Phase 5 pairing → 23/23
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Hadron.MtOverMc` | 3 | m_t/m_c ≈ 137 atomic match with 1/α_em; chain composition `NS·d² + NS·NT² = 87 + 50 = 137`; bracket `[130, 145]`; **`mt_mc_falsifier_bracket`** |
+| `E213.Lib.Physics.Cosmology.EtaBFalsifier` | 4 | η_B ≈ 6 × 10⁻¹⁰ atomic; leading 6 = NS·NT, denominator 10 = d·NT; bracket `η_B × 10¹⁰ ∈ [5, 7]`; **`eta_B_falsifier_bracket`** |
+
+Both with cross-link to `catalogs/falsifiers.md` (F25, F26).
+
+### G80 c=2 binary-cover derivation
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.C2DoublingDerivation` | 10 | `half_period = d = 5` (`P^5 ≡ -I mod 5`); `full_period = 2·d = 10` (`P^10 ≡ +I mod 5`); **`c_multiplicity = 2 = NT`** (binary cover ratio); `K_edge_count_via_c = NS·NT·c = 12`; cross-domain readings (c = NT = c_lat = Sym(2) order); **`★ c2_doubling_derivation_capstone`** |
+
+### Phase 13: C_2^6 on H¹(K)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.C2_6OnH1K` | 15 | 6 bit-swap generators `σ_bit_0..5` (each multiplicity-flip on one S-T pair); all involutions, pairwise commuting; **`★ σ_bit_k_trivial_on_coboundary`** — C_2^6 acts trivially on coboundaries (preserves src/tgt) → automatic descent to H¹(K); clean bits 3, 5 explicit H1K transpositions (e_3 ↔ e_4 and e_6 ↔ e_7); mixed bits {0, 1, 2, 4} witness; **`★ C2_6OnH1K_phase13_capstone`** |
+
+### Phase 14: third standard 2-rep pair
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3StandardRepThird` | 10 | **`std3_v1 = e_1 + e_4 + e_6 + e_7`** (σ_S01-fixed), **`std3_v2 = e_3 + e_6`** (σ_S12-fixed); satisfies F_2 standard rep matrices; linear independence via distinguishing coordinate 3 (zero in all prior basis vectors); Cayley relations ρ³ = I; **`★ Sym3StandardRepThird_phase14_capstone`** |
+
+Combined with Phase 9 (fixed subspace {ω_10, ω_01}) + Phase 10
+(Pairs 1, 2), the **explicit 8-dim basis of H¹(K)** is now
+fully constructed: `2·trivial ⊕ 3·standard` over F_2.
+
+### Phase 15: Aut(K) semidirect product twist
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.AutKSemidirect` | 11 | `pair_index : Fin 3 × Fin 2 → Fin 6` (match-based, propext-free); bit-permutation generators `bit_perm_S01` (0 2)(1 3), `bit_perm_S12` (2 4)(3 5), `bit_perm_T` (0 1)(2 3)(4 5); all involutions; S × T commutation; `(S01·S12)³ = I` at bit level; bit-action `bit_act` on `C_2^6`; group homomorphism (preserves C_2^6 mul); `mul_semi_S01` semidirect mul (sample); **`mul_semi_differs_from_direct_sample`** concrete witness showing direct ≠ semidirect at non-trivial bit; **`★ AutKSemidirect_phase15_capstone`** |
+
+Both Phase 12 (direct product) and Phase 15 (semidirect) yield
+cardinality 768; differ only in multiplication table.
+
+**Cumulative new PURE: +60** (3 + 4 + 10 + 15 + 10 + 11) for 6
+follow-up files, bringing session 3 total to **+233 PURE** across
+19 new Lean files.
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 

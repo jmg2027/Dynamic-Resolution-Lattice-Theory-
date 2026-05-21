@@ -1,7 +1,7 @@
-# Session Handoff — 2026-05-22 (C3 chain marathon complete, MERGE-READY)
+# Session Handoff — 2026-05-22 (C3 chain + Phase-5 23/23 + extensions, MERGE-READY)
 
 ## Branch
-`claude/subset-bijection-lemmas-w2FKf` — 31 commits ahead of
+`claude/subset-bijection-lemmas-w2FKf` — 37 commits ahead of
 `origin/main`.  All pushed.
 
 ## TL;DR (merge gatekeepers)
@@ -43,8 +43,9 @@ a 12-conjunct PURE bundle of headline facts from all 12 phases.
 |---|---|---|---|
 | 1 | Cup-Leibniz general transfer | 67 | `cup_unfold_general` ∀(n,k,l); KSubset bijection; FinBridge general |
 | 2 | 6-theorem + alive + Mobius213 | 80 | ZOmega units exact 6 (diophantine completeness); alive_iff_clause4_alive; P^5 / P^10 mod 5 |
-| 3 | C3 chain (gauge emergence) | 173 | 12 phases + master capstone → gluon octet via ι: K → Δ⁴ + F_2 irrep decomp |
-| **Total** | | **~320 new PURE** | across 31 commits, 0 DIRTY introduced |
+| 3 (main) | C3 chain (gauge emergence) | 173 | 12 phases + master capstone → gluon octet via ι: K → Δ⁴ + F_2 irrep decomp |
+| 3 (followup) | Phase 5 23/23 + C3 extensions + c=2 | 60 | F25/F26 falsifiers, Phases 13/14/15, C2DoublingDerivation |
+| **Total** | | **~380 new PURE** | across 37 commits, 0 DIRTY introduced |
 
 ## Session 3 phase breakdown (this session, current marathon)
 
@@ -99,36 +100,49 @@ lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean       (new)
 STRICT_ZERO_AXIOM.md                                       (extended)
 ```
 
+## Phase 5 Validation Standard: 23/23 closed (this session follow-up)
+
+After the C3 chain master, follow-up marathon closed all remaining
+identified gaps:
+
+  · F25: m_t/m_c ≈ 137 ∈ [130, 145] (1/α_em atomic match)
+    → `lean/E213/Lib/Physics/Hadron/MtOverMc.lean` (3 PURE)
+  · F26: η_B × 10¹⁰ ∈ [5, 7], leading 6 = NS·NT
+    → `lean/E213/Lib/Physics/Cosmology/EtaBFalsifier.lean` (4 PURE)
+
+Catalog updated: `catalogs/falsifiers.md` lists F25, F26.
+
+## C3 incremental extensions closed (this session follow-up)
+
+The 3 deferred items from the prior session-end note are all now
+closed at PURE level:
+
+| Phase | Module | PURE | Achievement |
+|---|---|---|---|
+| 13 | `Lib/Physics/Symmetry/C2_6OnH1K.lean` | 15 | C_2^6 acts trivially on coboundaries → automatic descent to H¹(K); 2 clean bits with explicit H1K transpositions |
+| 14 | `Lib/Physics/Symmetry/Sym3StandardRepThird.lean` | 10 | Third standard 2-rep pair `(e_1+e_4+e_6+e_7, e_3+e_6)` → **complete explicit 8-dim basis** of `2·trivial ⊕ 3·standard` |
+| 15 | `Lib/Physics/Symmetry/AutKSemidirect.lean` | 11 | Bit-permutation `(Sym(3) × Sym(2)) → S_6`, semidirect twist sample `mul_semi_S01`, concrete witness that direct ≠ semidirect |
+
+## G80 c=2 derivation lifted (this session follow-up)
+
+  · `lean/E213/Lib/Math/C2DoublingDerivation.lean` (10 PURE)
+  · half_period = d = 5 (`P^5 ≡ -I mod 5`)
+  · full_period = 2·d = 10 (`P^10 ≡ +I mod 5`)
+  · `c = full / half = 2 = NT` — binary cover ratio
+  · K-edge count = NS·NT·c = 12 via cover-doubling
+
 ## Open work (post-merge)
-
-The C3 chain is closed end-to-end.  Remaining substantive gaps:
-
-### Validation Standard pairing (2 unpaired)
-  · **η_B (baryon asymmetry)**: precision side referenced in
-    DrltZeroParameters; no dedicated falsifier bracket file.
-  · **m_t/m_c**: precision side in `Hadron/QuarkHierarchy.lean`
-    (NS·d² = 75 / NS·NT² = 12 skeleton); no `*_falsifier` bracket.
-  Both small files closing Phase-5 to 23/23.
-
-### C3 chain extensions (incremental, polish)
-  · Semidirect product `(Sym(3) × Sym(2)) ⋉ C_2^6` (direct product
-    done, semidirect twist deferred — both yield card 768)
-  · C_2^6 action on H¹(K) (each bit flips one S-T pair's multiplicity)
-  · Third explicit standard 2-rep pair (modular non-semisimplicity
-    blocks "pure" pair; the third copy is implicit via composition
-    multiplicity)
 
 ### Cup-Leibniz general ∀(k, l) (deep)
   · G86 conjecture: list-level Leibniz at all bidegrees.
   · List-level proven for (1,1) and (2,1); ∀(k, l) needs the
     structural insight you've previously said to defer.
 
-### K_{3,2}^{(c=2)} multiplicity-2 derivation from Raw (medium)
-  · G80 sketches pentagonal binary-cover argument
-    (`P^10 = (P^5)² ≡ +I mod 5`, half-period → full-period).
-  · Matrix-level half/full closure formalized in `Mobius213ModFive.lean`,
-    but the structural identification `c=2 = NT = pentagonal binary
-    cover` isn't bundled into a single Lean theorem.
+### Polish / future C3
+  · Explicit H1K matrix for the 4 mixed C_2^6 bits (need tree-decomp)
+  · Full semidirect Group axioms for Phase 15 (currently sample-only)
+  · Block-diagonalization of M_S01 in the explicit 8-dim basis from
+    Phases 9, 10, 14 (would expose the 2+2+2+2 = 8 block structure)
 
 ## Merge recommendation
 
