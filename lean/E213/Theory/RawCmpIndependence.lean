@@ -241,11 +241,7 @@ private noncomputable def RawBy.recAux {cmp : Tree → Tree → Ordering}
   | b => intro _; exact b_case
   | slash x y ihx ihy =>
       intro hcanon
-      have hc := hcanon
-      unfold canonicalBy at hc
-      obtain ⟨h_xy_and, _⟩ := Bool.and_eq_true_to_pair hc
-      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair h_xy_and
-      have hcmp := canonicalBy_slash_lt hcanon
+      obtain ⟨hx, hy, hcmp⟩ := canonicalBy_slash_decompose hcanon
       let x' : RawBy cmp := ⟨x, hx⟩
       let y' : RawBy cmp := ⟨y, hy⟩
       have hne : x' ≠ y' := by
