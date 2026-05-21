@@ -57,7 +57,7 @@ end E213.Lib.Math.DyadicFSM.ArithFSM.Mod53
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod59
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -89,12 +89,8 @@ theorem pellFSMmod59_bits_period_29 :
 
 /-- Bipartite parity doubling: bit period 29 odd ⇒ predicted 58. -/
 theorem pellFSMmod59_bits_period_58 :
-    ∀ k, pellFSMmod59.bits (k + 58) = pellFSMmod59.bits k := by
-  intro k
-  have h1 := pellFSMmod59_bits_period_29 (k + 29)
-  have h2 := pellFSMmod59_bits_period_29 k
-  have hreshape : k + 58 = (k + 29) + 29 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, pellFSMmod59.bits (k + 58) = pellFSMmod59.bits k :=
+  bits_period_mul_of_period _ pellFSMmod59_bits_period_29 2
 
 set_option maxRecDepth 2048 in
 /-- ★★★★★ Pell mod-59 signature has period 58 (TIGHT, doubled). -/
@@ -281,7 +277,7 @@ namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod89
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 
 
 def pellFSMmod89 : ArithFSM2 89 where
@@ -307,12 +303,8 @@ theorem pellFSMmod89_bits_period_22 :
   ArithFSM2.bits_period_of_run_period _ pellFSMmod89_run_period_22
 
 theorem pellFSMmod89_bits_period_44 :
-    ∀ k, pellFSMmod89.bits (k + 44) = pellFSMmod89.bits k := by
-  intro k
-  have h1 := pellFSMmod89_bits_period_22 (k + 22)
-  have h2 := pellFSMmod89_bits_period_22 k
-  have hreshape : k + 44 = (k + 22) + 22 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, pellFSMmod89.bits (k + 44) = pellFSMmod89.bits k :=
+  bits_period_mul_of_period _ pellFSMmod89_bits_period_22 2
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod89
 
@@ -321,7 +313,7 @@ namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod101
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 
 
 def pellFSMmod101 : ArithFSM2 101 where
@@ -347,11 +339,7 @@ theorem pellFSMmod101_bits_period_25 :
   ArithFSM2.bits_period_of_run_period _ pellFSMmod101_run_period_25
 
 theorem pellFSMmod101_bits_period_50 :
-    ∀ k, pellFSMmod101.bits (k + 50) = pellFSMmod101.bits k := by
-  intro k
-  have h1 := pellFSMmod101_bits_period_25 (k + 25)
-  have h2 := pellFSMmod101_bits_period_25 k
-  have hreshape : k + 50 = (k + 25) + 25 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, pellFSMmod101.bits (k + 50) = pellFSMmod101.bits k :=
+  bits_period_mul_of_period _ pellFSMmod101_bits_period_25 2
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod101

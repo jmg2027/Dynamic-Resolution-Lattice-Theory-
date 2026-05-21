@@ -53,6 +53,25 @@ theorem ArithFSM2.bits_period_of_run_period
   show m.out (m.run (k + T)) = m.out (m.run k)
   rw [h]
 
+/-- **Period multiplication**: if `f` has period `T`, then `f` has
+    period `n * T` for any `n`.  Generic — applies to any
+    `f : Nat → Bool`, not just ArithFSM2 bits.  G107 §4 Pell-FSM
+    helper for `_period_2T` / `_period_3T` doubled and tripled variants.
+    PURE. -/
+theorem bits_period_mul_of_period
+    (f : Nat → Bool) {T : Nat}
+    (h : ∀ k, f (k + T) = f k) :
+    ∀ n k, f (k + n * T) = f k := by
+  intro n
+  induction n with
+  | zero => intro k; rw [Nat.zero_mul, Nat.add_zero]
+  | succ m ih =>
+      intro k
+      show f (k + (m + 1) * T) = f k
+      have hreshape : k + (m + 1) * T = (k + m * T) + T := by
+        rw [Nat.succ_mul, ← Nat.add_assoc]
+      rw [hreshape, h, ih]
+
 /-- Pell-style FSM mod 2: (a_{k+1}, b_{k+1}) = (2a + b, a + b) mod 2.
     Out: parity of a. -/
 def pellFSMmod2 : ArithFSM2 2 where
