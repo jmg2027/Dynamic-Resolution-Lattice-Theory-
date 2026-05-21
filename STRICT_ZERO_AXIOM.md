@@ -568,4 +568,14 @@ work (Phases 2–6).
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.AutKType` | 16 | `Sym3 := Fin 6`, `Sym2 := Fin 2`, `C2_6 := Fin 64`, **`Aut_K := Sym3 × Sym2 × C2_6`** as a Type; `DecidableEq` instances on all four; element constructors (`Sym3.max`, `Sym2.max`, `C2_6.max`, `Aut_K.max`, `Aut_K.one`, `Aut_K.mk`); **`component_cardinalities`** 12-conjunct bridge linking `fac NS`, `fac NT`, `2^(NS·NT)`, and `aut_order = external_order × internal_order = 768`; **`Aut_K_type_decomp`** Type-level decomposition; **`★ AutK_phase1_capstone`** — Phase-1 capstone bundling Type decomposition + identity + cardinality bridges |
 
-**Cumulative new PURE this session: +16** (Phase 1 of C3 chain).
+## 2026-05-22 — C3 chain Phase 2: H¹(K) as explicit ℤ/2-module of rank 8
+
+Phase 2 of the **C3 chain** — lifting `H¹(K_{3,2}^{(c=2)})` from
+the Betti counting result (`V32Betti.b_1 = 8`, |H¹| = 256) to an
+explicit ℤ/2-module of rank 8 with named cycle-generator basis.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.H1K` | 25 | **`H1K := Fin 8 → Bool`** as the rank-8 ℤ/2-module; ℤ/2-module operations `zero`, `add` (pointwise xor), `smul` (pointwise and); pointwise module axioms `zero_add`, `add_zero`, `add_self` (char-2), `add_assoc`, `add_comm`, `zero_smul`, `one_smul` (all PURE via pointwise form avoiding funext/`Quot.sound`); 8 basis vectors `H1K.basis i` with `basis_self`, `basis_other` characterisation; `nonTreeEdges`, `nonTreeEdge` mapping H1K-coordinates to the 8 non-tree edges {1, 3, 5, 6, 7, 9, 10, 11} (spanning tree {0, 2, 4, 8}); `nonTreeEdge_enumeration` 8-conjunct decide-bridge; `H1K.rank = 8 = NS² − 1` cross-links to `V32Betti.b_1_eq_8` and `PhotonKernel.b_1_eq_8`; `H1K_basis_distinct`; `H1K_count_bridge` `\|H1K\| = 2⁸ = 256`; **`★ H1K_phase2_capstone`** — Phase-2 capstone bundling Type definition + module axioms + basis + cardinality bridges |
+
+**Cumulative new PURE this session: +41** (16 Phase 1 + 25 Phase 2 of C3 chain).
