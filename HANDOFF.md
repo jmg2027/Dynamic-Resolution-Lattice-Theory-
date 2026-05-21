@@ -380,16 +380,18 @@ what closed and what deferred.
   · **~14,800 LOC** analysis + documentation + refactor
   · **~290 sites absorbed** (180 in Part 3+4 + ~110 effective sites
     in Part 5 templates × consumers including 10 Pisano period_lift sites)
-  · **11 abstraction templates** surfaced + integrated:
+  · **12 abstraction templates** surfaced + integrated:
     LeibnizAlgLiftBeta, LeibnizAlgLiftAlpha, cutSum_constCut_at,
+    CutMulOuterReduce.cutMulOuter_reduce_at (upstream),
     cutMulOuter_unitBracket_reduce_at, cutSumAux_unitBracket_reduce_at,
-    cutMulOuter_reduce_at (generic variant), Pattern10,
+    cutMulOuter_reduce_at (downstream generic), Pattern10,
     InvolutionTemplate, pisano_period_lift,
     LeibnizUniversalLift.leibniz_pointwise_lift,
     CutFnData.ldd_branch_via_maxRange
-  · **G110 FLUX-1**: 30 sites refactored via 2 templates (mul + sum
-    sides) across 9 consumer files — single largest cross-file
-    consolidation closed in Part 5
+  · **G110 FLUX-1**: 34 sites refactored via 3 templates (upstream
+    CutMulOuterReduce + downstream UnitBracketReduce ×2 +
+    UnitBracketReduceSum) across 11 consumer files — single largest
+    cross-file consolidation closed in Part 5
   · **G107 §10 doc closures**: 4 spec docs written
     (RAW_DERIVATION_SPEC, FALSIFIABILITY_SURFACE_SPEC,
     L1_PARAMETRIC_METHODOLOGY_SPEC, PROOF_SHAPE_FINGERPRINT_SPEC,
