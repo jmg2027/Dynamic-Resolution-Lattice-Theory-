@@ -197,9 +197,46 @@ simplicial AW Leibniz and pure exterior-algebra Koszul.
 **213 alignment**: most novel; produces a 213-native theorem
 that has no direct standard analog.
 
-## Recommended next step
+## Closure (2026-05-21, this session)
 
-Path **β** (commit to exterior-algebra Lens) — reasoning:
+**Path δ taken** under the directive "가장 213적으로 올바른 path로
+진행" (proceed with the most 213-correct path).  Reasoning:
+
+  · §8.4 says no exterior judge; the lex-projection cup is one
+    legitimate Lens reading, not a "wrong" cup needing replacement.
+  · Path δ surfaces the cup's *intrinsic algebra* as a 213-native
+    theorem — the boundary-endpoint correction is the operation's
+    own Leibniz signature, not a hack.
+  · Path γ (parallel Wedge/ + Simplicial/) is doctrinally
+    accurate but builds Lens readings that aren't actually used;
+    path δ trusts the implementation that's already there.
+  · Path β (commit to one Lens) would mean discarding the
+    lex-projection cup, an unnecessary structural loss.
+
+Deliverable (commit hash after this session):
+
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizLex.lean` (new,
+    4 PURE):
+      - `boundaryEndpoints (i : Fin 10) : Fin 5 × Fin 5` —
+        hardcoded `(τ[0], τ[2])` for each colex-indexed 3-face on Δ⁴
+      - `correction (α β : Fin 5 → Bool) (i : Fin 10) : Bool` —
+        `α(τ[0]) && β(τ[2])` boundary-endpoint product
+      - `lex_cup_leibniz_forall_1_1` (★★★) — universal twisted
+        Leibniz, decide-verified over 2¹⁰ · 10 = 10240 cases
+      - `phase2_native_closure` — re-export under capstone name
+  · `Cup/Core.lean` docstring — Alexander–Whitney misclaim
+    corrected to "lex-projection cup", self-disclosure paragraph
+    added.
+
+The standard Leibniz universal form remains decide-refuted (and
+correctly so — it's not the law of this cup); the 4 concrete
+cases in `Cup/Leibniz.lean` remain valid for the symmetric-cochain
+inputs they cover.
+
+## Why path δ over β / γ (for the archive)
+
+Path **β** (commit to exterior-algebra Lens) — reasoning at the
+time of writing G85:
   · Cochain n k = Fin (binom n k) → Bool is *literally* the basis
     of Λ^k(Bool^n).  The exterior-algebra reading is forced by
     the data type.

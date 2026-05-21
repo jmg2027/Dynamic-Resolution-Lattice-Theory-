@@ -99,10 +99,13 @@ The twisted Leibniz at bidegree (1, 1) is:
 
 The boundary-endpoint product is the 213-native correction.
 
-Recommended path is now **β** (commit to exterior-algebra Lens
-throughout: replace `delta` with `d_exterior` so wedge Leibniz
-holds natively without correction).  Path α (AW everywhere) is
-also viable.  See `research-notes/G85_cup_delta_lens_mismatch.md`.
+**Closed (2026-05-21)**: path δ taken — the lex-projection cup's
+native Leibniz, including the boundary-endpoint correction, is
+proved as PURE ∀ form in `Cohomology/Cup/LeibnizLex.lean` via
+Pattern #2 (Bool-tuple parameterisation).  The "bug" framing is
+self-corrected per §8.4 — what surfaced was the cup's intrinsic
+algebra, not a defect.  See `research-notes/G85_cup_delta_lens_
+mismatch.md` for the doctrinal re-reading.
 
 ## Phase 2 status
 
