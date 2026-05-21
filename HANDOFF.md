@@ -212,3 +212,83 @@ at all.
 Cup/ tree.  Cup-Leibniz generalisation: from "research finding"
 to **truly universal-in-(α, β, τ) symbolic PURE proof** at two
 bidegrees, with the path to ∀ (k, l) clearly laid out.
+
+---
+
+## 2026-05-22 — Session 2 continuation: Cup-Leibniz general + 6-theorem + alive
+
+This session extends the marathon on branch
+`claude/subset-bijection-lemmas-w2FKf` with **~68 new PURE
+theorems** across 8 files.
+
+### Marathons completed
+
+**(A) ∀(n, k) kSubset bijection + ∀(n, k, l) Cup unfold**
+
+  · `Cohomology/Cup/KSubsetStructural.lean` — `kSubset_length`,
+    `kSubset_all_lt`, `kSubset_injective` (9 PURE + 6 helpers)
+  · `Cohomology/Cup/SubsetIdxRoundtripGeneral.lean` — `roundtrip_n_1`,
+    `roundtrip_n_k` (+fin variants), via custom `find_range_witness`
+    bypassing `List.range_succ`'s propext (7 PURE)
+  · `Cohomology/Cup/FinBridgeGeneral.lean` — `kSubset_take_eq`,
+    `kSubset_drop_eq`, `frontIdx/backIdx + _lt`, and the capstone
+    **`cup_unfold_general`** subsuming the Δ⁴-specific decide-tables
+    of `FinBridge.lean` (7 PURE)
+
+**(B) 6-theorem master (G87 §5)**
+
+  · `CayleyDickson/Integer/ZOmegaUnits.lean` — `units6` (Eisenstein
+    units), `Zeta6 = 1+ω` order-6 generator, cyclic structure, count
+    bridges (18 PURE)
+  · `Theory/SixTheorem.lean` — 10 individual reading theorems
+    (Eisenstein, atomicity product, d+1, 3!, SU(3) roots, K_{NS,NT}
+    cross-pairs, Lorentz, χ-sum, α_GUT, clause permutations) plus
+    the unifying **`six_theorem`** master (11 PURE)
+
+**(C) Alive gap closure (G87 §11)**
+
+  · `Theory/Atomicity/AliveDerivation.lean` — `IsSelfPaired`,
+    `IsClause4Alive`, **`alive_iff_clause4_alive`** dissolves the
+    postulated alive predicate into Clause 4 of the 213 axiom
+    applied recursively (per user's "모든 Raw는 연산이자 객체"
+    insight) at count-Lens group level (7 PURE)
+
+**(D) Pentagonal closure matrix-level (G78 stale-path fix)**
+
+  · `Lib/Math/Mobius213ModFive.lean` — `P^5 ≡ -I (mod 5)` and
+    `P^10 ≡ +I (mod 5)` at matrix entry level, plus
+    `pentagonal_closure_signature` capstone (9 PURE)
+  · G78/G79/G80 stale-path references updated to point to actual
+    file locations
+
+### Status: Raw → (3, 2, 5) chain fully ∅-axiom-closed
+
+After this session's `alive_iff_clause4_alive` closure, the Raw →
+atomicity → (NS, NT, d) = (3, 2, 5) inevitability chain is
+**fully closed at the structural level**.  No postulate remains
+beyond the 4-clause statement of `seed/AXIOM/02_statement.md` §3.2.
+
+### Open structural problems (post-closure priorities)
+
+| Priority | Task | Status |
+|---|---|---|
+| 1 | Diophantine completeness (∀ u : ZOmega, normSq u = 1 → u ∈ units6) | 🟡 `int_sq_le_one` PURE; 4·normSq ring identity remains (~50 manual rewrites) |
+| 2 | Aut(K_{3,2}^{(c=2)}) as Group (currently only Nat product) | ⚪ |
+| 3 | H¹(K_{3,2}^{(c=2)}) as ℤ-module of rank 8 | ⚪ |
+| 4 | ι*: H¹(Δ⁴) → H¹(K) Sym(3)-equivariant morphism | ⚪ (the single biggest C3 gap) |
+| 5 | Sym(3)-irrep decomposition of H¹(K) → SU(3) adjoint | ⚪ |
+
+### Catalogs updated
+
+  · `catalogs/correspondences.md` — Integer 6 entry now includes
+    `|ZOmega^×|` and `−(χ-sum)` references with G87 cross-link
+  · `catalogs/atomic-integers.md` — Integer 6 readings list expanded
+  · `STRICT_ZERO_AXIOM.md` — full session 2 catalog appended
+
+### Branch summary
+
+  · Commits this session 2: ~12
+  · ~68 new PURE theorems, 0 dirty introduced
+  · Full repo `lake build`: clean
+  · All pushed to `origin/claude/subset-bijection-lemmas-w2FKf`
+

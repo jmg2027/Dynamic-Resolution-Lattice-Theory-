@@ -524,3 +524,34 @@ verified `#print axioms` returns "does not depend on any axioms".
 | `E213.Lib.Physics.AlphaEM.PiFiveGap` | +2 (17 → 19) | `pi5_residual_thirteen_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
 
 **Cumulative new PURE from this session, post-reduction: ~55** (raw count is lower since session-12 reductions collapsed enumerations into single bundles).  All audit-verified.
+
+## 2026-05-22 — Cup-Leibniz general transfer + 6-theorem + alive closure
+
+### ∀(n, k) kSubset bijection + ∀(n, k, l) Fin-bridge
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Cup.KSubsetStructural` | 9 (+6 helpers) | `kSubset_length`, `kSubset_all_lt`, `kSubset_injective`; helpers `nat_add_sub_cancel`, `nat_sub_lt_sub_right`, `list_length_append_singleton`, `nat_sub_pos_of_lt` (propext-free Lean-core replacements) |
+| `E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtripGeneral` | 7 | `find_range_witness` (avoids `List.range_succ` propext), `roundtrip_n_1`, `roundtrip_n_1_fin`, `roundtrip_n_k`, `roundtrip_n_k_fin` |
+| `E213.Lib.Math.Cohomology.Cup.FinBridgeGeneral` | 7 | `kSubset_take_eq`, `kSubset_drop_eq`, `frontIdx`, `backIdx`, `frontIdx_lt`, `backIdx_lt`, **`cup_unfold_general`** — ∀(n,k,l) capstone subsuming the Δ⁴-specific FinBridge.lean tables |
+
+### The 6-theorem (G87 §5 closure)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.CayleyDickson.Integer.ZOmegaUnits` | 18 | `units6` (6 Eisenstein units), `Zeta6 = 1+ω` order-6 generator, cyclic structure, count bridges `units_count_eq_NSNT / _six / _d_plus_one / _three_factorial`, `int_sq_le_one` diophantine helper |
+| `E213.Theory.SixTheorem` | 11 | 10 reading theorems + `★ six_theorem` master — all ten "6" readings unified on `\|units6\| = NS·NT = 6` with χ-sum bridge `χ(Δ⁴) + χ(K_{3,2}^{(c=2)}) = -(\|units6\| : Int)` |
+
+### Alive gap closure (G87 §11)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Theory.Atomicity.AliveDerivation` | 7 | `IsSelfPaired`, `IsClause4Alive`, `parity_iff_not_self_paired`, **★ `alive_iff_clause4_alive`** dissolves the postulated alive predicate into Clause 4 of the 213 axiom applied recursively at count-Lens group level; `atomic_iff_five_via_clause4` reformulates atomicity |
+
+### Pentagonal closure matrix-level (G78 stale-path fix)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213ModFive` | 9 | `P5_11/12/22_mod_5`, **`P_pow_5_eq_neg_I_mod_5`**, **`P_pow_10_eq_I_mod_5`**, `pentagonal_closure_signature` — consolidates G78's headline matrix-level claims |
+
+**Cumulative new PURE this session: ~68** across 8 new files + 3 doc updates.  All audit-verified.

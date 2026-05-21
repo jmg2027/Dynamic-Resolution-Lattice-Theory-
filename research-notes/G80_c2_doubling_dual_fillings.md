@@ -134,7 +134,7 @@ Both encoded in Raw, but via different fold structures:
 
 ## Lean ∅-axiom witnesses
 
-In `Theory/Nat213/AlgebraicGeometry.lean`:
+In `Lib/Math/Geometry/AlgebraicGeometry.lean`:
 
 | Theorem | Statement |
 |---|---|
@@ -184,7 +184,7 @@ The whole framework now has a complete narrative:
 
 ## See also
 
-- `lean/E213/Theory/Nat213/AlgebraicGeometry.lean` — this synthesis
+- `lean/E213/Lib/Math/Geometry/AlgebraicGeometry.lean` — this synthesis
 - `lean/E213/Lib/Math/Topology/EulerChi.lean` — both χ values
 - `research-notes/G76` — K_{3,2}^{(2)} graph realization
 - `research-notes/G78` — pentagonal closure
