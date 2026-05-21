@@ -56,8 +56,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPassthrough.FluxCut
 namespace FluxCut
 
 /-- Pointwise passthrough — strict ∅-axiom variant (no funext required
-    in `left/right` fields).  Sole Passthrough class — function-eq
-    Passthrough was deleted 2026-05-XX session 27 ('박멸'). -/
+    in `left/right` fields). -/
 structure Passthrough_at (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k
   right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k

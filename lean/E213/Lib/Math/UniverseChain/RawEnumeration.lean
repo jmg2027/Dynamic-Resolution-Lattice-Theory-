@@ -59,38 +59,27 @@ def enumTreeDepth : Nat → List Tree
   | 0 => [Tree.a, Tree.b]
   | n + 1 => [Tree.a, Tree.b] ++ newSlashes (enumTreeDepth n)
 
-theorem enumTreeDepth_succ (n : Nat) :
-    enumTreeDepth (n + 1) = [Tree.a, Tree.b] ++ newSlashes (enumTreeDepth n) :=
-  rfl
+/-- ★★★ **Enumeration capstone** — general recurrence + low-n checks.
 
-/-- ★★★ **General theorem**: enumeration length = `rawCount n`
-    for all n. -/
-theorem enumTreeDepth_length (n : Nat) :
-    (enumTreeDepth n).length
-      = E213.Lib.Math.UniverseChain.RawRecurrence.rawCount n := by
-  induction n with
-  | zero => rfl
-  | succ k ih =>
-    show ([Tree.a, Tree.b] ++ newSlashes (enumTreeDepth k)).length
-       = 2 + choose2 (E213.Lib.Math.UniverseChain.RawRecurrence.rawCount k)
-    rw [myLengthAppend, newSlashes_length, ih]
-    exact Nat.add_comm _ _
-
-/-- ★ Concrete checks. -/
-theorem enumLength_0 : (enumTreeDepth 0).length = 2 := by decide
-theorem enumLength_1 : (enumTreeDepth 1).length = 3 := by decide
-theorem enumLength_2 : (enumTreeDepth 2).length = 5 := by decide
-theorem enumLength_3 : (enumTreeDepth 3).length = 12 := by decide
-
-/-- ★★★ **Capstone**: general recurrence + low-n checks. -/
+    Bundles:
+      · ∀ n, (enumTreeDepth n).length = rawCount n  (general)
+      · concrete witnesses at n = 0..3  (depth-0..3 counts 2, 3, 5, 12). -/
 theorem enumeration_capstone :
     (∀ n, (enumTreeDepth n).length
         = E213.Lib.Math.UniverseChain.RawRecurrence.rawCount n)
     ∧ (enumTreeDepth 0).length = 2
     ∧ (enumTreeDepth 1).length = 3
     ∧ (enumTreeDepth 2).length = 5
-    ∧ (enumTreeDepth 3).length = 12 :=
-  ⟨enumTreeDepth_length, enumLength_0, enumLength_1,
-   enumLength_2, enumLength_3⟩
+    ∧ (enumTreeDepth 3).length = 12 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro n
+    induction n with
+    | zero => rfl
+    | succ k ih =>
+      show ([Tree.a, Tree.b] ++ newSlashes (enumTreeDepth k)).length
+         = 2 + choose2 (E213.Lib.Math.UniverseChain.RawRecurrence.rawCount k)
+      rw [myLengthAppend, newSlashes_length, ih]
+      exact Nat.add_comm _ _
+  all_goals decide
 
 end E213.Lib.Math.UniverseChain.RawEnumeration

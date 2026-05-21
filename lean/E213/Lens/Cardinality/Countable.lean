@@ -57,9 +57,6 @@ theorem treeTower_leaves :
       show 1 + (m + 1) = m + 1 + 1
       rw [Nat.add_comm 1 (m+1)]
 
-end E213.Lens.Cardinality
-
-namespace E213.Lens.Cardinality
 
 open E213.Theory
 

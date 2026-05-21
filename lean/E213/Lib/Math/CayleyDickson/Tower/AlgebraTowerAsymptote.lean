@@ -72,7 +72,8 @@ def omega (n : Nat) : Nat :=
 def computedRank (b : BaseType) : Nat :=
   (omega (unitOrder b) - 1) + (if nonAbelian b then 1 else 0)
 
-/-- ★ The hand-assigned rank matches the computable formula for all 4 Types. -/
+/-- ★ The hand-assigned rank IS the computable formula for all 4 Types
+    (definitional identity, not external agreement). -/
 theorem rank_matches_computed : ∀ b : BaseType, rank b = computedRank b := by
   intro b
   cases b <;> decide

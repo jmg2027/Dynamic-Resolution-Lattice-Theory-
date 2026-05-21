@@ -314,7 +314,7 @@ the exact axiom dependency listed.
 | `validation_standard_capstone` | CLAUDE.md Standards #1+#2 met |
 | `pure_atomic_observables_capstone` | 17-conjunct atomic ratios |
 | `finitist_observable_chain` | 4 observables share N_U |
-| `n_universe_self_consistent` | N_U = d^(d²) self-referential |
+| `n_resolution_self_consistent` | N_U = d^(d²) self-referential |
 | `fractal_lens_cardinality_capstone` | Lens count at fractal level |
 | `alpha_em_master_capstone` | α_em finitist with all corrections |
 | `alpha_em_so10_capstone` | SO(10) tail correction |
@@ -464,3 +464,63 @@ Cumulative session reduction: **164 → 144 DIRTY (12.2% reduction)**.
 Additional modules PURE in batches 11-12:
 - E213.Lib.Math.Choice.Canonical (was 1 dirty)
 - E213.Lens.Compose.OnLensImage (4 → 2, 2 fixes)
+
+## 2026-05-20 — Deep philosophical revision pass additions
+
+New PURE theorems from the 14-agent audit + revision pass.  All
+verified `#print axioms` returns "does not depend on any axioms".
+
+### Flat ontology + closure (§9.3 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.FlatOntology` | 12 | `Object1`, `Type213`, `UnaryType`, `Relation`, `eqRelation_refl/symm`, `functionAsRelation_functional`, `lensBoolAsType`, `lensFibreType` |
+| `E213.Lens.PredicateSelfEncoding` | 7 | `truthTableNat`, `predicateToRaw`, `predicate_self_encoding_closure`, `predicateToRaw_kernel`, `predicateToRaw_injective_on_prefix` |
+
+### K_∞ ≡ point at raw (§9.5 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.RawTopology` | 7 | merged-and-deduplicated: indiscrete bookend (`constLens_view_eq`, `constLens_equiv`, `constLens_is_top`, `k_infty_at_raw_bundle`), discrete bookend (`discrete_kernel_eq`, `discrete_distinguishes`), and the two-bookend topology bundle (`topology_two_bookends`).  `UndifferentiatedRaw.lean` merged in (was 3 theorems, all duplicates of indiscrete-bookend content). |
+
+### Three-direction uniqueness bundle (§1.3 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Meta.ThreeDirectionUniqueness` | 1 | `three_direction_uniqueness` — single statement bundling below/sideways/above closures |
+
+### Self-completion (§8.6 realisation)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lens.SelfCompletion` | 6 | atomic Clause 1 visibility (`view_at_a_uses_base_a`, `view_at_b_uses_base_b`, `atomic_self_completion_bundle`), slash-side Clauses 2-4 visibility (`view_slash_uses_combine`, `full_self_completion_bundle`, `leaves_self_completion`) |
+
+### Möbius frozen + dynamic dualism (§3.4 / §8.7 realisation)
+
+| Theorem | content |
+|---|---|
+| `mobius_213_char_poly_at_trace` | char poly evaluated at trace = det (φ², 1/φ² as eigenvalues) |
+| `mobius_213_pell_unit_invariant` | `num_n · den_{n+1} − num_{n+1} · den_n = -1` across 8 convergent layers in one bundle (witnesses det [[2,1],[1,1]] = 1 lifted to consecutive-pair determinants) |
+| `P_numerator_values` / `P_denominator_values` | concrete Pell convergent values for k = 0..8 |
+
+### Möbius ↔ Fibonacci structural bridge
+
+| Theorem | content |
+|---|---|
+| `F12_eq_edge_squared` | F_12 = (c·NS·NT)² — squared Phase-2 edge count, the one notable structural reading among F_11..F_15 |
+| `mobius_fibonacci_bridge` | 16-conjunct identity: Pell-denominator layer k = F_{2k+1} (odd Fibonacci), Pell-numerator layer k = F_{2k+2} (even Fibonacci), for k = 0..7.  Same integer skeleton, two structural Lenses |
+
+### 4-clause forcing chain (§4.5)
+
+| Theorem | content |
+|---|---|
+| `raw_forcing_chain_unified` | positive complement to `raw_minimality_capstone`; documents the chain 1 → 2 → 3 → 4 |
+
+### Cross-observable precision bridge (NS·NT·π⁵ block)
+
+| Module | PURE count | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Capstones.NSNTPi5Block` | 1 | `ns_nt_pi5_block_capstone` — 10-conjunct cross-observable bridge linking m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton (atomic anchors + shared block + both precision brackets in one statement) |
+| `E213.Lib.Physics.AlphaEM.PiFiveGap` | +2 (17 → 19) | `pi5_residual_thirteen_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
+
+**Cumulative new PURE from this session, post-reduction: ~55** (raw count is lower since session-12 reductions collapsed enumerations into single bundles).  All audit-verified.

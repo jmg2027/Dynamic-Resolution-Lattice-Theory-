@@ -39,7 +39,7 @@ theorem kolmogorov_eq_clauses : kolmogorov_213 = 4 := rfl
 theorem axiom_minimality (n : Nat) (h : kolmogorov_213 ≤ n) :
     4 ≤ n := h
 
-/-- Adding any external axiom = theory falsified (cf.
+/-- Adding any axiom increases the description length beyond K(213), violating minimality (cf.
     `seed/AXIOM/04_falsifiability.md` §5.2.1).  Atomic statement:
     if `K(213 + axiom) > K(213)`, the theory is no longer minimal. -/
 theorem truncation_at_minimum (extra : Nat) (h : 0 < extra) :

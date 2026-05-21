@@ -4,7 +4,7 @@ import E213.Lens.Instances.Identity
 /-!
 # IsLeafLens: "leaf indicator" as a valid Lens Bool
 
-A natural entry in the Lens catalogue of PAPER1 §3.4:
+A natural entry in the Lens catalogue:
 view r = true iff r is a leaf (Raw.a or Raw.b).
 
 ## Core

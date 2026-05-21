@@ -41,11 +41,7 @@ structure Prism (α : Type) where
   review : α → Raw
   coherence : ∀ a, preview (review a) = some a
 
-end E213.Lens.Instances.Prism
 
-namespace E213.Lens.Instances.Prism
-
-open E213.Theory E213.Lens
 
 /-- Specific case Prism from decidable equality on Raw. -/
 def caseElement (target : Raw) : Prism Unit where
@@ -61,11 +57,7 @@ def aPrism : Prism Unit := caseElement Raw.a
 /-- Case Prism for Raw.b. -/
 def bPrism : Prism Unit := caseElement Raw.b
 
-end E213.Lens.Instances.Prism
 
-namespace E213.Lens.Instances.Prism
-
-open E213.Theory E213.Lens
 
 /-- aPrism preview is some at Raw.a and none at Raw.b. -/
 theorem aPrism_a : aPrism.preview Raw.a = some () := by
@@ -88,11 +80,7 @@ theorem bPrism_b : bPrism.preview Raw.b = some () := by
   show (if (Raw.b : Raw) = Raw.b then some () else none) = some ()
   rw [if_pos rfl]
 
-end E213.Lens.Instances.Prism
 
-namespace E213.Lens.Instances.Prism
-
-open E213.Theory E213.Lens
 
 /-! ### Disjointness of Prisms (categorical universal property)
 

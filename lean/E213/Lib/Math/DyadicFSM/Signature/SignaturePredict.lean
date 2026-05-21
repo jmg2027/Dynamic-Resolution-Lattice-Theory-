@@ -55,7 +55,7 @@ def signature_predict (p : Nat) (hp : 1 < p) : Nat :=
   let bp := pisano_predict p hp
   if bp % 2 = 0 then bp else 2 * bp
 
-/-- ★★★★★★ signature_predict matches actual TIGHT signature periods. -/
+/-- ★★★★★★ signature_predict computes signature periods. -/
 theorem signature_predict_correct_7 :
     signature_predict 3 (by decide) = 4
     ∧ signature_predict 5 (by decide) = 10
@@ -66,7 +66,7 @@ theorem signature_predict_correct_7 :
     ∧ signature_predict 19 (by decide) = 18 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-- ★★★★★★★ Signature predictor REALISES Pell signature period at
+/-- ★★★★★★★ Signature predictor computes Pell signature period at
     all 7 primes (via Legendre lens trajectory). -/
 theorem signature_predict_realises_pell_7 :
     (∀ k, signature pellFSMmod3.bits (k + signature_predict 3 (by decide))

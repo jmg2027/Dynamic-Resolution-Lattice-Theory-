@@ -58,9 +58,6 @@ theorem hirzebruch_multiplicative (d1 d2 : HirzebruchData) :
 
 end HirzebruchData
 
-end E213.Lib.Math.HodgeConjecture.Pairing.HirzebruchMultiplicative
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.HirzebruchMultiplicative
 
 /-! ## §2 — Hirzebruch signatures of the 4 verified manifolds -/
 

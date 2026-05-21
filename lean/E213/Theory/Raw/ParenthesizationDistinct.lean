@@ -15,10 +15,14 @@ counter-example.
 
 ## Why this is *positive*, not a defect
 
-`Raw.slash` is the free commutative magma operation.  Canonical-form
-symmetry (`Raw.slash_comm`) is built in; *associativity is
-deliberately absent*.  The 213 axiom set commits to no equational
-law beyond what's intrinsic to the canonical-form quotient.
+`Raw.slash` is the *referring* mechanism of §3.2 (selecting a
+member of the residue family).  Read magma-algebraically, it is
+the free commutative-magma pairing — but per §3.3 the axiom does
+not commit to operations at Raw level, so the magma reading is a
+Lens framing, not an axiom commitment.  Canonical-form symmetry
+(`Raw.slash_comm`) is built in; *associativity is deliberately
+absent*.  The 213 axiom set commits to no equational law beyond
+what's intrinsic to the canonical-form quotient.
 
 If we wanted "(x/y)/z = x/(y/z)" as a Raw-level identity, we would
 be **adding** an axiom — discarding structural information about how

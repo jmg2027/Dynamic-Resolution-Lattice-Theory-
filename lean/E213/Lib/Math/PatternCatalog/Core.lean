@@ -10,7 +10,7 @@ additions discovered by H1 sweep: Dynamical (FSM cluster), ForcedUniq
 (Atomicity cluster).  One composite (Cohabitation) discovered in
 AxiomSystems cluster.
 
-H2 (composition rules) work yielded **three self-corrections**:
+H2 composition-rules work revealed the operator stratification:
 
   1. **`Aggregation` is not atomic** — it is a higher-order operator
      `Aggregate W : Type` that bundles N witnesses of any other game.
@@ -31,7 +31,7 @@ H2 (composition rules) work yielded **three self-corrections**:
      the system correctly *reporting* the heterogeneous shape as
      non-213-native, not a bug.  Bool case in Lens cohabitation
      (e.g. `isLeafLens.view`) reduces to depth-restricted Nat via
-     `boolAsNat`: this is canonical, not a workaround.
+     `boolAsNat`: this is the canonical Lens self-pointing on the depth-restricted Bool domain.
 
 Refined stratification:
 
@@ -265,7 +265,7 @@ structure LocalityAggregate (Idx : Type) (Val : Type) where
     Idx Val)`; `DynamicalAggregate` is `Aggregate (DynamicalWitness
     S Out)`; etc.
 
-    This is the catalog's first self-correction: the original
+    This is the catalog refinement to operator-level: the original
     `CapstoneBundle` (just `(arity, phase)`) was a degenerate case
     where the bundled content was elided.  `Aggregate W` makes the
     content explicit and parametric. -/
@@ -339,7 +339,7 @@ structure CataForcedForm (Source α β : Type) where
     At each index `i`, the value is forced unique: there is a per-index
     condition `cond i : Val → Prop` and a `forcedValue i` such that
     only `forcedValue i` satisfies `cond i`.  The locality function
-    `f_at` happens to satisfy `cond i (f_at i)` at every index, hence
+    f_at satisfies `cond i (f_at i)` at every index, hence
     `f_at i = forcedValue i` for all i (derivable from `forced` +
     `witness`).
 

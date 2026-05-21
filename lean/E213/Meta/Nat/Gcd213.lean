@@ -33,7 +33,8 @@ is ≥ `M(a, b)` for all `a, b`.
 namespace E213.Meta.Nat.Gcd213
 
 open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
+  (gcdFuel gcd213 sub_add_cancel add_sub_cancel_right
+   le_max_left le_max_right)
 
 /-- `0 < a → a % a = 0` via `(a - a) % a = 0 % a = 0`. -/
 theorem mod_self_pos : ∀ a, 0 < a → a % a = 0
@@ -50,12 +51,6 @@ theorem succ_sub_le_self (m a : Nat) (ha : 0 < a) : m + 1 - a ≤ m := by
     show m + 1 - (a' + 1) ≤ m
     rw [Nat.succ_sub_succ_eq_sub]; exact Nat.sub_le m a'
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- ★★★ **Key sub-lemma**: `g ∣ a ∧ g ∣ (b % a) → g ∣ b`.
 
@@ -81,12 +76,6 @@ theorem g_dvd_b_via_mod : ∀ (fuel a b g : Nat), 0 < a → b ≤ fuel →
       refine ⟨c2 + c1, ?_⟩
       rw [← sub_add_cancel hba', hc2, hc1, Nat.mul_add]
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- ★★★★ **Fuel-bounded divisibility**: when `n ≥ Nat.max a b + a`,
     `gcdFuel n a b` divides both `a` and `b`.
@@ -139,12 +128,6 @@ theorem gcdFuel_dvd_both : ∀ (n a b : Nat),
       exact g_dvd_b_via_mod b (a'+1) b _ (Nat.zero_lt_succ _) (Nat.le_refl b)
         ih_result.2 ih_result.1
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- Fuel sufficiency: `2 * (a + b) + 1 ≥ Nat.max a b + a`. -/
 private theorem fuel_sufficient (a b : Nat) :
@@ -170,13 +153,6 @@ theorem gcd213_dvd_left (a b : Nat) : gcd213 a b ∣ a :=
 theorem gcd213_dvd_right (a b : Nat) : gcd213 a b ∣ b :=
   (gcdFuel_dvd_both (2 * (a + b) + 1) a b (fuel_sufficient a b)).2
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel add_sub_cancel_right
-   le_max_left le_max_right)
 
 /-! ## Auxiliary arithmetic for Bezout/antisymmetry -/
 
@@ -213,12 +189,6 @@ theorem dvd_sub_213 (a b d : Nat) (hab : a ≤ b) (hda : d ∣ a) (hdb : d ∣ b
   · exact mul_sub_213 d c1 c2
       (Nat.le_of_mul_le_mul_left hab' (Nat.zero_lt_of_ne_zero hd))
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
-  (gcdFuel gcd213 sub_add_cancel le_max_left le_max_right)
 
 /-- `d ∣ a ∧ d ∣ b → d ∣ (b % a)` for `a > 0`.  ∅-axiom via fuel
     induction on `b`. -/
@@ -278,9 +248,6 @@ theorem gcdFuel_greatest : ∀ (n a b d : Nat),
         dvd_mod_via_fuel b (a'+1) b d (Nat.zero_lt_succ _) (Nat.le_refl b) hda hdb
       exact ih (b % (a'+1)) (a'+1) d hk_bound hd_mod hda
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
 
 open E213.Tactic.NatHelper (gcdFuel gcd213)
 
@@ -339,9 +306,6 @@ theorem gcd213_comm (a b : Nat) : gcd213 a b = gcd213 b a := by
   · exact gcd213_greatest a b (gcd213 b a)
       (gcd213_dvd_right b a) (gcd213_dvd_left b a)
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
 
 open E213.Tactic.NatHelper (gcd213)
 
@@ -366,9 +330,6 @@ theorem gcd213_rec (a b : Nat) (ha : 0 < a) : gcd213 a b = gcd213 (b % a) a := b
     · exact g_dvd_b_via_mod b a b _ ha (Nat.le_refl b)
         (gcd213_dvd_right (b % a) a) (gcd213_dvd_left (b % a) a)
 
-end E213.Meta.Nat.Gcd213
-
-namespace E213.Meta.Nat.Gcd213
 
 open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 
@@ -396,11 +357,7 @@ theorem gcd213_sub_left (m k : Nat) (h : k ≤ m) :
       exact h1
     · exact gcd213_dvd_right (m - k) k
 
-end E213.Meta.Nat.Gcd213
 
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper (gcd213)
 
 /-- `(k + 1) - k = 1` term-mode (∅-axiom).
     Lean-core `Nat.add_sub_cancel_left` brings `propext`. -/
@@ -425,11 +382,7 @@ theorem gcd213_succ_self (k : Nat) : gcd213 (k + 1) k = 1 := by
   rw [succ_sub_self_213 k]
   exact gcd213_one_left k
 
-end E213.Meta.Nat.Gcd213
 
-namespace E213.Meta.Nat.Gcd213
-
-open E213.Tactic.NatHelper
 open E213.Meta.Nat.AddMod213
 
 /-- `a + b = a + c → b = c`.  ∅-axiom replacement for

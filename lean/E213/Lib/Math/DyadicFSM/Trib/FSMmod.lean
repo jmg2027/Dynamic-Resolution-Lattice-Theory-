@@ -29,13 +29,7 @@ def tribFSMmod3 : ArithFSM3 3 where
     (b, c, ⟨(a.val + b.val + c.val) % 3, Nat.mod_lt _ (by decide)⟩)
   out p := p.1.val == 1
 
-/-- Tribonacci mod-3 first-13 sanity check. -/
-theorem tribFSMmod3_first13 :
-    tribFSMmod3.bits 0 = false  ∧ tribFSMmod3.bits 1 = true
-    ∧ tribFSMmod3.bits 2 = true ∧ tribFSMmod3.bits 11 = true
-    ∧ tribFSMmod3.bits 12 = false := by decide
-
-/-- ★★★ Tribonacci mod-3 run cycles with period 13 (TIGHT). -/
+/-- ★★★ Tribonacci mod-3 run cycles with period 13. -/
 theorem tribFSMmod3_run_period_13 :
     ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k := by
   intro k
@@ -89,11 +83,6 @@ def tribFSMmod5 : ArithFSM3 5 where
   step p := let (a, b, c) := p
     (b, c, ⟨(a.val + b.val + c.val) % 5, Nat.mod_lt _ (by decide)⟩)
   out p := p.1.val == 1
-
-/-- Tribonacci mod-5 first values check. -/
-theorem tribFSMmod5_first_check :
-    tribFSMmod5.bits 0 = false ∧ tribFSMmod5.bits 1 = true
-    ∧ tribFSMmod5.bits 30 = false := by decide
 
 /-- ★★★ Tribonacci mod-5 run cycles with TIGHT period 31. -/
 theorem tribFSMmod5_run_period_31 :

@@ -4,14 +4,14 @@ import E213.Lens.LensCore
 /-!
 # LensInternality — Lens is a Raw-internal concept
 
-The 213-internal counterpart of "every framework is a Lens".  We do
-NOT formalize that meta-claim (it requires an exterior to 213, which
-`seed/AXIOM/07_self_reference.md` §8 forbids).  Instead we formalize
-its honest dual: **every Lens is a Raw-internal concept** — its data
-is exactly the triple `(base_a, base_b, combine)` on the codomain α,
-and its view is exactly `Raw.fold` of that data.  Therefore Lens is
-not an external import; it is the canonical name for "α-side data
-needed to fold Raw".
+The "every framework is a Lens" meta-claim would require standing
+outside 213 to evaluate (which `seed/AXIOM/07_self_reference.md`
+§8.1 rules out).  Instead this file formalises the residue-side
+dual: **every Lens is a Raw-internal event** — its data is exactly
+the triple `(base_a, base_b, combine)` on the codomain α, and its
+view is exactly `Raw.fold` of that data.  Lens is therefore not an
+external import but the canonical name for "α-side data Raw's fold
+needs to read itself into α".
 
 Two ∅-axiom formal parts:
   (1) Type-level : `Lens α ≃ α × α × (α → α → α)` (round-trip)
@@ -42,20 +42,9 @@ def toData {α : Type} (L : Lens α) : α × α × (α → α → α) :=
 def ofData {α : Type} (d : α × α × (α → α → α)) : Lens α :=
   ⟨d.1, d.2.1, d.2.2⟩
 
-theorem toData_ofData {α : Type} (d : α × α × (α → α → α)) :
-    toData (ofData d) = d := rfl
-
-theorem ofData_toData {α : Type} (L : Lens α) :
-    ofData (toData L) = L := rfl
-
-/-! ## (2) View-level: every Lens.view is Raw.fold of its data -/
-
-/-- The view function of any Lens is exactly `Raw.fold` applied to
-    its data triple.  Holds by definition of `Lens.view`. -/
-theorem view_eq_fold {α : Type} (L : Lens α) (r : Raw) :
-    L.view r = Raw.fold L.base_a L.base_b L.combine r := rfl
-
-/-! ## Capstone: Lens is internal to (Raw, α-data) -/
+/-! ## (2) Round-trip + view-fold are definitional (`rfl`).
+    Stated below as conjuncts of `lens_is_raw_internal` rather
+    than as named one-line theorems. -/
 
 /-- ★★★★★★★ **Lens internality capstone**
 

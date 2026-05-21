@@ -23,5 +23,5 @@ import E213.Lib.Math.UniverseChain.Universe
   infinite / synthesis (17 files).
 
   Theme: the recursive Raw → Universe chain that anchors the DRLT
-  N_U = d^(d²) cardinality invariant.
+  N_U = d^(d²) count-Lens readout.
 -/

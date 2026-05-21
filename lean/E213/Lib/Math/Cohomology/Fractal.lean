@@ -4,8 +4,8 @@ import E213.Lib.Math.Cohomology.Fractal.V25
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Fractal`.
 
-  Fractal-lens cardinality scaffold underpinning N_universe = 5²⁵.
-  Companion to `Physics/Foundations/{NUniverseFromFractal,
+  Fractal-lens cardinality scaffold underpinning N_resolution = 5²⁵.
+  Companion to `Physics/Foundations/{NResolutionFromFractal,
   FractalLensCardinality}`.
 
   ## Files

@@ -64,20 +64,13 @@ theorem allTails_sampleMean (n : Nat) :
     ∧ sampleMeanDen (List.replicate n false) = n :=
   ⟨countTrue_allTails n, length_replicate false n⟩
 
-/-- Two trials, all heads: mean = 2/2 (decide). -/
-theorem two_heads_mean :
-    sampleMeanNum [true, true] = 2 ∧ sampleMeanDen [true, true] = 2 :=
-  ⟨by decide, by decide⟩
-
-/-- Balanced [true, false]: mean = 1/2 (decide). -/
-theorem balanced_two_mean :
-    sampleMeanNum [true, false] = 1 ∧ sampleMeanDen [true, false] = 2 :=
-  ⟨by decide, by decide⟩
-
-/-- Balanced [true, true, false, false]: mean = 2/4. -/
-theorem balanced_four_mean :
-    sampleMeanNum [true, true, false, false] = 2
-    ∧ sampleMeanDen [true, true, false, false] = 4 :=
-  ⟨by decide, by decide⟩
+/-- ★ Sample-mean concrete witnesses — two-heads (2/2), balanced
+    two-trial (1/2), balanced four-trial (2/4). -/
+theorem sample_mean_concrete :
+    (sampleMeanNum [true, true] = 2 ∧ sampleMeanDen [true, true] = 2)
+    ∧ (sampleMeanNum [true, false] = 1 ∧ sampleMeanDen [true, false] = 2)
+    ∧ (sampleMeanNum [true, true, false, false] = 2
+       ∧ sampleMeanDen [true, true, false, false] = 4) := by
+  refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ⟨?_, ?_⟩⟩ <;> decide
 
 end E213.Lib.Math.Probability.Foundation.SampleMean

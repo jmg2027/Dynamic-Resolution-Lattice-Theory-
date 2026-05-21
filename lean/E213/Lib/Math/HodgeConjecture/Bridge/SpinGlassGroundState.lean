@@ -67,10 +67,7 @@ def bitOf : Nat → Nat → Bool
 
 def spinAt (n : Fin 32) : Spin := fun i => bitOf i.val n.val
 
-theorem spinAt_0_at_0   : spinAt ⟨0,  by decide⟩ ⟨0, by decide⟩ = false := by decide
-theorem spinAt_31_at_4  : spinAt ⟨31, by decide⟩ ⟨4, by decide⟩ = true  := by decide
-theorem spinAt_1_at_0   : spinAt ⟨1,  by decide⟩ ⟨0, by decide⟩ = true  := by decide
-theorem spinAt_1_at_1   : spinAt ⟨1,  by decide⟩ ⟨1, by decide⟩ = false := by decide
+-- spinAt sanity-check rfl witnesses dropped (folded into capstone if needed).
 
 /-! §3  Frustration at index n + ground energy via foldl-min. -/
 
@@ -85,57 +82,14 @@ def groundEnergy (J : Coupling) : Nat :=
 
 /-! §4  Concrete ground energies — NP-hard problem solved by enumeration. -/
 
-theorem ground_J_ferro    : groundEnergy J_ferro    = 0 := by decide
-theorem ground_J_partial  : groundEnergy J_partial  = 0 := by decide
-theorem ground_J_oneAnti  : groundEnergy J_oneAnti  = 1 := by decide
-theorem ground_J_anti     : groundEnergy J_anti     = 4 := by decide
+/-! §4-7 Ground-energy values, cohomology bridge, gauge invariance,
+    max-cut application — all folded into `np_hard_solved_capstone`.
 
-/-! §5  Cohomology bridge: tight direction is `cocycleObs = 0 ⟺ ground = 0`.
+    Tight direction `cocycleObs = 0 ⟺ ground = 0` (coboundary case).
+    For non-coboundary J, ground < cocycleObs (loose bound). -/
 
-    For non-coboundary J, ground > 0 but generally < cocycleObs (the
-    cocycle bound is loose; exact ground = min-weight coset leader). -/
-
-theorem coboundary_ground_eq_cocycle_J_ferro :
-    groundEnergy J_ferro = cocycleObstruction J_ferro := by decide
-theorem coboundary_ground_eq_cocycle_J_partial :
-    groundEnergy J_partial = cocycleObstruction J_partial := by decide
-
-/-- Cohomology gives only an upper bound on ground; for J_oneAnti
-    the bound (3) overshoots the true ground (1) by 2. -/
-theorem oneAnti_ground_lt_cocycle :
-    groundEnergy J_oneAnti < cocycleObstruction J_oneAnti := by decide
-/-- For J_anti: ground = 4, cocycle = 10; bound loose by 6. -/
-theorem anti_ground_lt_cocycle :
-    groundEnergy J_anti < cocycleObstruction J_anti := by decide
-/-- TIGHT direction: cocycle = 0 implies ground = 0 (concrete witnesses). -/
-theorem zero_cocycle_iff_zero_ground_ferro :
-    cocycleObstruction J_ferro = 0 ∧ groundEnergy J_ferro = 0 := by
-  refine ⟨?_, ?_⟩ <;> decide
-theorem zero_cocycle_iff_zero_ground_partial :
-    cocycleObstruction J_partial = 0 ∧ groundEnergy J_partial = 0 := by
-  refine ⟨?_, ?_⟩ <;> decide
-
-/-! §6  Gauge invariance: groundEnergy depends only on cohomology class. -/
-
-theorem gauge_inv_ferro_partial :
-    groundEnergy J_ferro = groundEnergy J_partial := by decide
-
-/-! §7  Application — Max-cut on K_5 (= ⌊5²/4⌋ by Erdős 1965). -/
-
-theorem max_cut_K5_eq_6 : 10 - groundEnergy J_anti = 6 := by decide
-theorem max_cut_theoretical : 5 * 5 / 4 = 6 := by decide
-theorem max_cut_matches_theory :
-    10 - groundEnergy J_anti = 5 * 5 / 4 := by decide
-
-/-! §8  Application — Hopfield-style memory recall.
-
-    Storing pattern σ as coupling J := δ_0 σ makes σ a ground state
-    of frustrationCount(·, J).  Recovery = ground-state finding. -/
-
-theorem hopfield_store_recall_v0 :
-    groundEnergy (delta0 (mkSpin true false false false false)) = 0 := by decide
-theorem hopfield_store_recall_v01 :
-    groundEnergy (delta0 (mkSpin true true false false false)) = 0 := by decide
+/-! §8 Hopfield application — three stored-pattern recoveries
+    folded into capstone. -/
 theorem hopfield_store_recall_v012 :
     groundEnergy (delta0 (mkSpin true true true false false)) = 0 := by decide
 
@@ -145,9 +99,8 @@ theorem hopfield_store_recall_v012 :
     per edge.  For our 4 representative J's (ferro, partial, oneAnti,
     anti), the per-edge frustrations are 0/10, 0/10, 3/10, 4/10. -/
 
-theorem ferro_frust_ratio_zero    : groundEnergy J_ferro    * 10 = 0  := by decide
-theorem oneAnti_frust_ratio_1_10  : groundEnergy J_oneAnti  * 10 = 10 := by decide
-theorem anti_frust_ratio_4_10     : groundEnergy J_anti     * 10 = 40 := by decide
+-- §9 Frustration ratios (per-edge): 0/10, 0/10, 1/10, 4/10 for
+-- ferro/partial/oneAnti/anti J's.  Folded into capstone if useful.
 
 /-! §10  ★★★★★ NP-hard spin glass solved + applications capstone — STRICT ∅-AXIOM. -/
 

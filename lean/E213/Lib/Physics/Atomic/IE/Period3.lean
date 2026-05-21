@@ -51,17 +51,26 @@ def IE_S  : Nat := 10360010
 def IE_Cl : Nat := 12967632
 def IE_Ar : Nat := 15759610
 
-/-- Z atomic forms. -/
-theorem Z_Na_atomic : NS * NS + NT = 11 := by decide
-theorem Z_Mg_atomic : 2 * NS * NT = 12 := by decide
-theorem Z_Al_atomic : NS * NS + NT * NT = 13 := by decide
-theorem Z_Si_atomic : 3 * d - 1 = 14 := by decide
-theorem Z_P_atomic : NS * d = 15 := by decide
-theorem Z_S_atomic : NT * NT * NT * NT = 16 := by decide
-theorem Z_Cl_atomic : NS * NS + (NS * NS - 1) = 17 := by decide
-theorem Z_Ar_atomic : 2 * NS * NS = 18 := by decide
-
-/-- Period 3 closes at Ar = 2·NS² atomic ★. -/
-theorem period_3_close_atomic : 2 * NS * NS = 18 := by decide
+/-- ★ Period 3 atomic Z chain — Z(Na..Ar) each expressed as a tight
+    atomic form in {NS, NT, d}, plus the Ar = 2·NS² period-3 closing
+    identity.  STRICT ∅-AXIOM. -/
+theorem period3_atomic :
+    -- Na = NS² + NT
+    NS * NS + NT = 11
+    -- Mg = 2·NS·NT
+    ∧ 2 * NS * NT = 12
+    -- Al = NS² + NT² (= F_7)
+    ∧ NS * NS + NT * NT = 13
+    -- Si = 3d − 1
+    ∧ 3 * d - 1 = 14
+    -- P = NS·d
+    ∧ NS * d = 15
+    -- S = NT⁴
+    ∧ NT * NT * NT * NT = 16
+    -- Cl = NS² + (NS² − 1)
+    ∧ NS * NS + (NS * NS - 1) = 17
+    -- Ar = 2·NS² (Period 3 closing)
+    ∧ 2 * NS * NS = 18 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Period3

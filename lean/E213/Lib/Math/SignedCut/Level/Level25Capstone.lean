@@ -24,7 +24,7 @@ Answer: at d=5 substrate's Cayley-Dickson ceiling level 25:
   4. **N_U cardinality** `5^25 = 298023223876953125` — the
      substrate trajectory count at the ceiling.
 
-Together: a **Z/2-graded substrate-valued algebra** with
+Together: a **Z/2-graded algebra at the Cut (level-0) reading** with
 N_U-bounded trajectory cardinality, irreducibly preserved
 across the entire CD tower.
 -/

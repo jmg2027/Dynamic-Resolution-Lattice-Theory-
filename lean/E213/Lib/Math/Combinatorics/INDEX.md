@@ -34,7 +34,7 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
   * `Lib/Math/DyadicFSM/Pell/`: Pell hierarchy (already realized).
   * `Lib/Math/DyadicFSM/Fib/`, `Trib/`: Fibonacci, Tribonacci.
   * `Lib/Math/Cohomology/Bipartite/`: K_{3,2} structure.
-  * `Lib/Physics/Substrate/Pairs.lean`: 10-pair partition (3+1+6).
+  * `Lib/Physics/AtomicBase/Pairs.lean`: 10-pair partition (3+1+6).
   * `Lib/Math/Cohomology/CutExpFiniteTruncation.lean`: paradigm
     parallel — generating functions are *finite polynomials*
     on the substrate, exactly like `cutExp` is a *finite Taylor

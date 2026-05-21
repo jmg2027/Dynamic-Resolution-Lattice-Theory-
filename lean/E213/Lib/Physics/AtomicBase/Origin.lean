@@ -12,8 +12,9 @@ from atomic primitives.  Phase 2 forgets all that and asks again:
 
 This file is the *first line* of Phase 2.
 
-No Phase 1 imports.  No existing physics frame.  No Mathlib.
-Only: `E213.Theory.Atomicity.Five` (direct consequence of 213 axioms).
+Derivation from `E213.Theory.Atomicity.Five` alone (the unique
+self-consistency residue of arity-2 + atomic constraints).  No
+imports beyond the axioms it depends on.
 
 ## What 213 can say
 
@@ -32,7 +33,7 @@ exists → d = 5.
 "what is measurable", etc.)
 -/
 
-namespace E213.Lib.Physics.Substrate.Origin
+namespace E213.Lib.Physics.AtomicBase.Origin
 
 open E213.Theory.Atomicity.Five
 
@@ -58,4 +59,4 @@ theorem cosmos_dim_existence_and_uniqueness :
     Atomic 5 ∧ (∀ n, Atomic n → n = 5) :=
   ⟨atomic_five, fun n => atomic_implies_five n⟩
 
-end E213.Lib.Physics.Substrate.Origin
+end E213.Lib.Physics.AtomicBase.Origin

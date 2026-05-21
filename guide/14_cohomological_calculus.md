@@ -19,7 +19,7 @@ Cut := Nat → Nat → Bool
 ```
 
 `c m k = true` ⟺ "this cut value ≤ m/k". Bishop-style superficially,
-dyadic-axiom in fact. ZFC ℝ replaced by `(Nat → Raw) × HasModulus` in
+dyadic-axiom in fact. 213-internal analysis uses `(Nat → Raw) × HasModulus` in
 `E213/Math/Foundation.lean`.
 
 ### Core findings (F1–F5 from `analysis213.md`)

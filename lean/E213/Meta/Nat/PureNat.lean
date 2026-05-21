@@ -46,13 +46,7 @@ theorem mul_mul_mul_comm (a b c d : Nat) :
   rw [mul_assoc, ← mul_assoc b c d, Nat.mul_comm b c,
       mul_assoc c b d, ← mul_assoc]
 
-end E213.Meta.Nat.PureNat
 
-namespace E213.Meta.Nat.PureNat
-
-end E213.Meta.Nat.PureNat
-
-namespace E213.Meta.Nat.PureNat
 
 /-- Custom even-detection, structural recursion (no well-founded). -/
 def isEven : Nat → Bool

@@ -10,7 +10,7 @@ Hub for the formalization of Note 75's thesis.  Clarifies that all previous
 vague framings (constructive subset, fold-structured, scale-invariance)
 are specific aspects of this thesis.
 
-## Thesis (Mingu, 2026-04-25)
+## Thesis
 
 > Nothing with meaning can escape 213.  213 is the semantic atom.
 > Nothing is more primitive than the axiom of 213.
@@ -37,15 +37,24 @@ namespace E213.Lens.SemanticAtom
 
 open E213.Theory E213.Lens
 
-/-! ### HasDistinguishing typeclass — abstraction of the meaning framework
+/-! ### HasDistinguishing typeclass — structure Raw induces on any codomain
 
-Minimum requirements for a "framework with meaning":
-1. Two distinguishable base elements (a ≠ b).
+This typeclass abstracts the structure that Raw's fold *forces*
+on any codomain α — not a property Lens "has" as an external
+attribute, but the shape Raw's self-pointing imposes on any α
+that wants to record a Raw reading.
+
+Minimum requirements for a meaning-framework on α:
+1. Two distinguishable atoms (a ≠ b) — α-shadows of `Raw.a, Raw.b`.
 2. A combining operation (binary).
-3. Symmetry of combine (swap-invariance) — commutativity of slash.
+3. Symmetry of combine (swap-invariance) — Raw's `slash_comm`
+   echoed in α (without it, encoding artifacts of Raw's
+   canonicalisation leak into α-results).
 
-Without (3), encoding artifacts leak into results — Raw axiom's
-slash_comm.  Therefore it is part of the meaning framework. -/
+Per `seed/AXIOM/00_nature.md` §1.2 "Single condition for
+meaning": distinguishable AND readable in the same event.  The
+three fields above are the notational decomposition of that
+single event for the Lean encoding. -/
 
 class HasDistinguishing (α : Type) where
   a : α
@@ -54,11 +63,6 @@ class HasDistinguishing (α : Type) where
   combine : α → α → α
   combine_sym : ∀ x y, combine x y = combine y x
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Raw as HasDistinguishing instance
 
@@ -76,11 +80,6 @@ instance : HasDistinguishing Raw where
     · simp [h, Ne.symm h]
       apply Raw.slash_comm
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Universal morphism: Raw → α (HasDistinguishing α)
 
@@ -110,11 +109,6 @@ theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
   unfold universalMorphism
   apply Raw.fold_slash _ _ _ d.combine_sym
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Lens as a specific instance of HasDistinguishing
 
@@ -127,8 +121,9 @@ Raw is the carrier (universal) for all Lenses. -/
     degenerate cases like constLens where distinguishing is absent
     (base_a = base_b), so only distinguishing-preserving Lenses are instances.
 
-    This partial functoriality is the formal expression of "the atom of
-    meaning is Raw, and Lens is its representation on top". -/
+    This partial functoriality is the formal expression of "Raw is
+    the atom of meaning, and Lens is another reading of the same
+    residue". -/
 def lensToHasDistinguishing {α : Type} (L : Lens α)
     (h_distinct : L.base_a ≠ L.base_b)
     (h_sym : ∀ u v, L.combine u v = L.combine v u) :
@@ -139,11 +134,6 @@ def lensToHasDistinguishing {α : Type} (L : Lens α)
   combine := L.combine
   combine_sym := h_sym
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### `Prop` as a `HasDistinguishing` instance
 
@@ -218,11 +208,6 @@ theorem canonicalTruthMap_slash (x y : Raw) (h : x ≠ y) :
       = propXor (canonicalTruthMap x) (canonicalTruthMap y) :=
   @universalMorphism_slash Prop propAsDistinguishing x y h
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 
 /-! ### Alternative connective: `Iff`
 
@@ -314,11 +299,6 @@ theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
       = (canonicalIffMap x ↔ canonicalIffMap y) :=
   @universalMorphism_slash Prop propAsDistinguishingIff x y h
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 open E213.Lens.Properties.Morphism.FoldStructured
 
 /-! ### Negative direction: boundary of Lens-expressibility
@@ -368,11 +348,6 @@ theorem exists_non_lens_expressible :
   rw [isLensExpressible_iff_foldStructured]
   exact E213.Lens.Properties.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 
-end E213.Lens.SemanticAtom
-
-namespace E213.Lens.SemanticAtom
-
-open E213.Theory E213.Lens
 open E213.Lens.Initiality
 
 /-! ### Universal property of `HasDistinguishing` category

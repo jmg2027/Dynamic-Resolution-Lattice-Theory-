@@ -37,8 +37,8 @@ Blueprint: `blueprints/math/11_group_213.md` (retired).
 
 ## Connection to physics
 
-  * `SU5Channels.su5_total_channels = 25` matches DRLT's d²= 25
+  * `SU5Channels.su5_total_channels = 25` aligns with DRLT's d²= 25
     K_{3,2}^{(c=2)} channel count.
   * `su5_generators = 24` is the input to the `α_em ~ 1/137`
     derivation (gauge boson count).
-  * `d_pow_d_sq_consistency : 5^25` ties to N_U system invariant.
+  * `d_pow_d_sq_consistency : 5^25` agrees with the N_U count-Lens readout (definitional identity).

@@ -17,9 +17,9 @@ open E213.Lib.Math.DialogueAudit.AxisDistinction
   (vertical_at_25 horizontal_at_25 ceilings_unequal
    horizontal_strictly_greater vertical_2adic horizontal_5adic)
 open E213.Lib.Math.DialogueAudit.PigeonholeFiniteState
-  (pigeonhole_at_n_u maxDistinguishable_eq_n_u)
+  (pigeonhole_at_n_resolution maxDistinguishable_eq_n_resolution)
 open E213.Lib.Math.DialogueAudit.BitPrecision
-  (bit_tower_at_saturation n_u_distinguishable
+  (bit_tower_at_saturation n_resolution_distinguishable
    four_quantities_distinct)
 
 /-- ★ **Vertical 2-adic, Horizontal 5-adic, ceilings unequal**. -/
@@ -30,16 +30,16 @@ theorem axis_witness (n j : Nat) :
       = E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates j * 5 :=
   ⟨vertical_2adic n, horizontal_5adic j⟩
 
-/-- ★ **Pigeonhole at N_U** witness. -/
+/-- ★ **Pigeonhole at N_resolution** witness. -/
 theorem pigeonhole_witness :
-    (5 : Nat) ^ 25 < (5 : Nat) ^ 25 + 1 := pigeonhole_at_n_u
+    (5 : Nat) ^ 25 < (5 : Nat) ^ 25 + 1 := pigeonhole_at_n_resolution
 
 /-- ★ **Bit precision** witness — 4 distinct quantities. -/
 theorem bit_precision_witness :
     (2 : Nat) ^ 25 = 33554432
     ∧ (5 : Nat) ^ 25 = 298023223876953125
     ∧ (2 : Nat) ^ 25 < (5 : Nat) ^ 25 :=
-  ⟨bit_tower_at_saturation, n_u_distinguishable,
+  ⟨bit_tower_at_saturation, n_resolution_distinguishable,
    four_quantities_distinct.2⟩
 
 /-- ★ **Joint saturation** at index 25, different values. -/
@@ -57,6 +57,6 @@ theorem total_witness :
     ∧ (5 : Nat) ^ 25 = 298023223876953125
     ∧ E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim 25
       < E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates 25 :=
-  ⟨vertical_at_25, n_u_distinguishable, horizontal_strictly_greater⟩
+  ⟨vertical_at_25, n_resolution_distinguishable, horizontal_strictly_greater⟩
 
 end E213.Lib.Math.DialogueAudit.G43Capstone

@@ -31,9 +31,8 @@ def decomp_5_1 (α : Cochain 5 1) : Cochain 5 1 :=
       (bz5_1 α ⟨3, by decide⟩))
     (bz5_1 α ⟨4, by decide⟩)
 
-/-! Note: the funext-based `decomp_5_1_eq` was removed (unused).
-    This file currently exists for the bz5_1/decomp_5_1 definitions
-    only; no theorems remain.  See `V5_1DecompR.lean` for the AND-form
-    variant with PURE per-index `decomp_step_at_*` helpers. -/
+/-! This file provides the bz5_1 / decomp_5_1 definitions.
+    See `V5_1DecompR.lean` for the AND-form variant with PURE
+    per-index `decomp_step_at_*` helpers. -/
 
 end E213.Lib.Math.Cohomology.Cochain.V5Decomp

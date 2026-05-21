@@ -63,16 +63,6 @@ def numCodewords          : Nat := 16                  -- 2^k
 def minDistance           : Nat := 4                   -- d
 def correctableErrors     : Nat := (minDistance - 1) / 2
 
-theorem code_params :
-    codeLength = 10 ∧ codeDim = 4
-    ∧ numCodewords = 16 ∧ minDistance = 4
-    ∧ correctableErrors = 1 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-- Hamming bound check: Σᵢ₌₀ᵗ binom(n, i) ≤ 2^(n−k).
-    For (n=10, k=4, t=1): LHS = 1 + 10 = 11; RHS = 2⁶ = 64.  ✓ (slack = 53). -/
-theorem hamming_bound_satisfied : 1 + codeLength ≤ 2 ^ (codeLength - codeDim) := by decide
-
 /-! §2  ML decoder = ground state finder (argmin of Hamming distance). -/
 
 def decodeML (r : Coupling) : Fin 32 :=
@@ -102,65 +92,13 @@ def σ_test₂ : Fin 32 := ⟨11, by decide⟩    -- 0b01011
 def c₁ : Coupling := delta0 (spinAt σ_test₁)
 def c₂ : Coupling := delta0 (spinAt σ_test₂)
 
-/-! §5  No-error case: ground = 0, codeword received intact. -/
-
-theorem decode_clean_₁ : groundEnergy c₁ = 0 := by decide
-theorem decode_clean_₂ : groundEnergy c₂ = 0 := by decide
-
-/-! §6  1-bit channel error: ground = 1 ⇒ decoder identifies error position. -/
-
-theorem ber_1err_test₁ :
-    groundEnergy (flipBit c₁ ⟨0, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨1, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨2, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨3, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨4, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨5, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨6, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨7, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨8, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₁ ⟨9, by decide⟩) = 1 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-theorem ber_1err_test₂ :
-    groundEnergy (flipBit c₂ ⟨0, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₂ ⟨5, by decide⟩) = 1
-    ∧ groundEnergy (flipBit c₂ ⟨9, by decide⟩) = 1 := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
-
-/-! §7  Decoded codeword equals transmitted codeword (1-error case).
-
-    Even if Z/2 reflection σ ↔ ¬σ swaps the message, the codeword
-    δ_0 σ = δ_0 (¬σ) is the same. So decoded codeword = transmitted. -/
-
-theorem decoded_codeword_eq_test₁_at_e0 :
-    coupEq (decodedCodeword (flipBit c₁ ⟨0, by decide⟩)) c₁ = true := by decide
-theorem decoded_codeword_eq_test₁_at_e5 :
-    coupEq (decodedCodeword (flipBit c₁ ⟨5, by decide⟩)) c₁ = true := by decide
-theorem decoded_codeword_eq_test₁_at_e9 :
-    coupEq (decodedCodeword (flipBit c₁ ⟨9, by decide⟩)) c₁ = true := by decide
-
-/-! §8  2-bit error (beyond correction capability d/2 = 1):
-    ground ≤ 2; decoder may or may not recover original. -/
+/-! §5  2-bit error injection (beyond correction capability d/2 = 1):
+    `doubleFlip` flips two bits sequentially. -/
 
 def doubleFlip (J : Coupling) (e₁ e₂ : Fin 10) : Coupling :=
   flipBit (flipBit J e₁) e₂
 
-theorem ber_2err_e0_e1 : groundEnergy (doubleFlip c₁ ⟨0, by decide⟩ ⟨1, by decide⟩) = 2 := by decide
-theorem ber_2err_e0_e5 : groundEnergy (doubleFlip c₁ ⟨0, by decide⟩ ⟨5, by decide⟩) = 2 := by decide
-
-/-! §9  Syndrome decoding bridge: cocycleObstruction = parity-check syndrome. -/
-
-theorem clean_syndrome_zero_₁ : cocycleObstruction c₁ = 0 := by decide
-theorem clean_syndrome_zero_₂ : cocycleObstruction c₂ = 0 := by decide
-
-theorem syndrome_nonzero_under_1err :
-    cocycleObstruction (flipBit c₁ ⟨0, by decide⟩) = 3
-    ∧ cocycleObstruction (flipBit c₁ ⟨5, by decide⟩) = 3
-    ∧ cocycleObstruction (flipBit c₁ ⟨9, by decide⟩) = 3 := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
-
-/-! §10  Industry context: this is the Sourlas (1989) bridge.
+/-! §6  Industry context: this is the Sourlas (1989) bridge.
 
     Real linear codes used in practice (all share the same algebra):
       · Hamming (7, 4, 3)  — ECC RAM, single-error correcting
@@ -172,7 +110,13 @@ theorem syndrome_nonzero_under_1err :
     Our K_5 code is too small to be useful per se, but is the
     smallest non-trivial instance of the entire framework. -/
 
-/-! §11  ★★★★★ ML decoder + 1-error correction capstone — STRICT ∅-AXIOM. -/
+/-! §7  ★★★★★ ML decoder + 1-error correction capstone — STRICT ∅-AXIOM.
+
+    Bundles code parameters, Hamming bound, clean reception (both test
+    messages), full 1-bit error correction (10 positions for test₁, 3
+    positions for test₂), decoder recovery (3 positions test₁),
+    syndrome reading (clean = 0 for both, nonzero under 1-bit error),
+    2-bit error ground energies (e0_e1, e0_e5). -/
 
 theorem ml_decoder_capstone :
     -- Code parameters
@@ -180,17 +124,39 @@ theorem ml_decoder_capstone :
     ∧ minDistance = 4 ∧ correctableErrors = 1
     -- Hamming bound
     ∧ 1 + codeLength ≤ 2 ^ (codeLength - codeDim)
-    -- Clean reception (no error): ground = 0, syndrome = 0
-    ∧ groundEnergy c₁ = 0 ∧ cocycleObstruction c₁ = 0
-    -- 1-bit error: ground = 1, decoder recovers original codeword
+    -- Clean reception (both test messages): ground = 0, syndrome = 0
+    ∧ groundEnergy c₁ = 0
+    ∧ groundEnergy c₂ = 0
+    ∧ cocycleObstruction c₁ = 0
+    ∧ cocycleObstruction c₂ = 0
+    -- 1-bit error on test₁: ground = 1 at every bit position
     ∧ groundEnergy (flipBit c₁ ⟨0, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨1, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨2, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨3, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨4, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨5, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨6, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨7, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨8, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₁ ⟨9, by decide⟩) = 1
+    -- 1-bit error on test₂: ground = 1 at sample positions
+    ∧ groundEnergy (flipBit c₂ ⟨0, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₂ ⟨5, by decide⟩) = 1
+    ∧ groundEnergy (flipBit c₂ ⟨9, by decide⟩) = 1
+    -- Decoder recovers original codeword for test₁ (3 positions)
     ∧ coupEq (decodedCodeword (flipBit c₁ ⟨0, by decide⟩)) c₁ = true
     ∧ coupEq (decodedCodeword (flipBit c₁ ⟨5, by decide⟩)) c₁ = true
     ∧ coupEq (decodedCodeword (flipBit c₁ ⟨9, by decide⟩)) c₁ = true
-    -- 1-bit error syndromes are nonzero (decoder triggered)
+    -- 1-bit error syndromes are nonzero (decoder triggered) — 3 cases
     ∧ cocycleObstruction (flipBit c₁ ⟨0, by decide⟩) = 3
+    ∧ cocycleObstruction (flipBit c₁ ⟨5, by decide⟩) = 3
+    ∧ cocycleObstruction (flipBit c₁ ⟨9, by decide⟩) = 3
     -- 2-bit error: beyond correction capability, ground = 2
-    ∧ groundEnergy (doubleFlip c₁ ⟨0, by decide⟩ ⟨1, by decide⟩) = 2 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ groundEnergy (doubleFlip c₁ ⟨0, by decide⟩ ⟨1, by decide⟩) = 2
+    ∧ groundEnergy (doubleFlip c₁ ⟨0, by decide⟩ ⟨5, by decide⟩) = 2 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  <;> decide
 
 end E213.Lib.Math.HodgeConjecture.Bridge.MLDecoder

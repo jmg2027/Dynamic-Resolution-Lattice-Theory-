@@ -23,8 +23,8 @@ The vertices are the powers of `i`:
 This 4-cycle directly encodes the `i² = -1` rule:
 walking 2 steps around the cycle = sign flip.
 
-213-native: at CD level 2, `(0, 1)·(0, 1) = (-1, 0)` corresponds
-to "two cycle steps from `i`" landing at `-1`.
+213-native: at CD level 2, `(0, 1)·(0, 1) = (-1, 0)` is exactly
+"two cycle steps from `i` landing at `-1`".
 -/
 
 namespace E213.Lib.Math.LevelTopology.ComplexTopology

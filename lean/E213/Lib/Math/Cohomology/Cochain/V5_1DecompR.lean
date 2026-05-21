@@ -59,8 +59,5 @@ theorem decomp_step_at_4 (β : Cochain 5 1) :
        = β ⟨4, by decide⟩
   cases (β ⟨4, by decide⟩) <;> rfl
 
-/-! Note: the funext-based `decomp_5_1_eq : decomp_5_1 β = β` was
-    removed (LeibnizAlgLift21 now uses the per-index `decomp_step_at_*`
-    PURE helpers above). -/
 
 end E213.Lib.Math.Cohomology.Cochain.V5_1DecompR

@@ -32,16 +32,6 @@ namespace E213.Lib.Physics.Atomic.IE.CNOFNe
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- Z atomic forms. -/
-theorem Z_C_atomic : NS * NT = 6 := by decide
-theorem Z_N_atomic : NS * NT + 1 = 7 := by decide
-theorem Z_O_atomic : NS * NT + NT = 8 := by decide
-theorem Z_F_atomic : NS * NS = 9 := by decide
-theorem Z_Ne_atomic : NS * NT + NT * NT = 10 := by decide
-
-/-- σ_2p_2p atomic = (NS²+NT)/(d·NS) = 11/15. -/
-theorem sigma_2p_2p_atomic : NS * NS + NT = 11 := by decide
-
 /-- IE observed values in μeV. -/
 def IE_C : Nat := 11260288
 def IE_N : Nat := 14534130

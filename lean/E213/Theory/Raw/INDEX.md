@@ -45,8 +45,7 @@ Hook-enforced (`.claude/hooks/layer-import-guard.sh` Rule 2):
 **outside the `Theory/Raw/` cluster, code must import via
 `Theory.Raw.API`.**  Direct reach-in to specific submodules
 (Slash, Swap, Fold, Rec, Levels, Hom, Signed, Endomorphic) is
-blocked.  (The former `Theory.Raw` shim alias was removed
-2026-05-15; sole canonical entry is `Theory.Raw.API`.)
+blocked.  Sole canonical entry: `Theory.Raw.API`.
 
 ## Where to add new Raw-axiom theorems
 

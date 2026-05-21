@@ -21,7 +21,7 @@ via the 3-axis topology at that level.
 | 7 | e₇ | alternative |
 | 8 | sedenion 1st | zero divisor onset |
 | ... | ... | ... |
-| 25 | last operation | substrate ceiling |
+| 25 | last operation | atomic ceiling (d²) |
 
 Each level introduces ONE new orthogonal axis, embodying ONE
 property of the 2-operation.  Total = 25 distinct properties.

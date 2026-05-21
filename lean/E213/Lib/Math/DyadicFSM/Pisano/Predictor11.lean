@@ -66,7 +66,7 @@ theorem legendre_5_mod_31 :
 theorem legendre_5_mod_37 :
     legendre213 5 37 (by decide) = ⟨2, by decide⟩ := by decide
 
-/-- ★★★★★★★ Bit predictor REALISES Pell period at 11 primes.
+/-- ★★★★★★★ Bit predictor computes Pell period at 11 primes.
 
   Extends the 8-prime evidence (`pisano_predict_realises_pell_8`) by
   adding mod 29, 31, 37.  At each new prime, the Legendre-driven

@@ -18,46 +18,20 @@ namespace E213.Lib.Math.Combinatorics.Binomial
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-/-- C(0, 0) = 1 (rfl). -/
-theorem binom_0_0 : binom 0 0 = 1 := rfl
-
-/-- C(n, 0) = 1 for all n. -/
-theorem binom_n_0 (n : Nat) : binom n 0 = 1 := by
-  cases n <;> rfl
-
-/-- C(5, k) values forming Pascal's row 5: 1, 5, 10, 10, 5, 1. -/
-theorem binom_5_table :
+/-- ★ Pascal's row 5: 1, 5, 10, 10, 5, 1 — the d=5 simplex
+    grade dimensions for K_{3,2}^{(c=2)} ↪ Δ⁴.  Symmetric:
+    C(5, k) = C(5, 5−k).  Row sum 2⁵ = 32. -/
+theorem binom_5_row :
     binom 5 0 = 1 ∧ binom 5 1 = 5 ∧ binom 5 2 = 10
-    ∧ binom 5 3 = 10 ∧ binom 5 4 = 5 ∧ binom 5 5 = 1 := by decide
+    ∧ binom 5 3 = 10 ∧ binom 5 4 = 5 ∧ binom 5 5 = 1
+    ∧ binom 5 0 + binom 5 1 + binom 5 2
+        + binom 5 3 + binom 5 4 + binom 5 5 = 32
+    ∧ binom 5 6 = 0  -- vanishes above grade d
+    := by decide
 
-/-- C(4, k) values: 1, 4, 6, 4, 1. -/
-theorem binom_4_table :
-    binom 4 0 = 1 ∧ binom 4 1 = 4 ∧ binom 4 2 = 6
-    ∧ binom 4 3 = 4 ∧ binom 4 4 = 1 := by decide
-
-/-- ★ **Symmetry: C(n, k) = C(n, n-k)** ★ — atomic for small n. -/
-theorem binom_5_symmetry :
-    binom 5 0 = binom 5 5 ∧ binom 5 1 = binom 5 4
-    ∧ binom 5 2 = binom 5 3 := by decide
-
-/-- ★ **Row sum: Σ_k C(5, k) = 2^5 = 32** ★. -/
-theorem binom_5_row_sum :
-    binom 5 0 + binom 5 1 + binom 5 2 + binom 5 3 + binom 5 4 + binom 5 5
-    = 32 := by decide
-
-/-- Row sum: Σ_k C(4, k) = 2^4 = 16. -/
-theorem binom_4_row_sum :
-    binom 4 0 + binom 4 1 + binom 4 2 + binom 4 3 + binom 4 4 = 16 :=
-  by decide
-
-/-- Atomic Pascal step at (5, 2): C(5, 2) = C(4, 1) + C(4, 2) = 4 + 6 = 10. -/
+/-- ★ Atomic Pascal step at (5, 2): C(5, 2) = C(4, 1) + C(4, 2)
+    = 4 + 6 = 10.  The single non-trivial recursion call needed
+    in the d=5 simplex; row 4 enters only via this step. -/
 theorem pascal_5_2 : binom 5 2 = binom 4 1 + binom 4 2 := by decide
-
-/-- Vanishing for k > n: C(5, 6) = 0 (Grade-overflow, matches
-    cohomology dimensional bound). -/
-theorem binom_5_6_zero : binom 5 6 = 0 := by decide
-
-/-- Vanishing for k > n: C(4, 5) = 0. -/
-theorem binom_4_5_zero : binom 4 5 = 0 := by decide
 
 end E213.Lib.Math.Combinatorics.Binomial

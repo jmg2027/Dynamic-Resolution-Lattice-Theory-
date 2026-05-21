@@ -17,7 +17,7 @@ identity).
 213-native: at level 1 with `signMul`, the identity
   `(a·c + b·d)² + (a·d − b·c)²  =  (a² + b²)·(c² + d²)`
 is the **Brahmagupta–Fibonacci identity**.  In Nat-side
-positive-cut layer (no native sub), we work with the
+positive-Cut (level 0, no native sub), we work with the
 *magnitudes* and rely on the substrate-level expansion.
 
 Atomic content: level-1 expansion identity, plus level-4 failure

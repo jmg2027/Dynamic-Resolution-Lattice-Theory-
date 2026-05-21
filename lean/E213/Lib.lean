@@ -14,7 +14,7 @@ import E213.Lib.Physics
                     / Cauchy / and many other topical sub-trees)
     * `Physics/`  — 213-native physics (AlphaEM / Couplings / Mass /
                     Hadron / Higgs / Mixing / Cosmology / Foundations /
-                    Substrate / Capstones / and other observable
+                    AtomicBase / Capstones / and other observable
                     domains)
 
   Each Lib sub-tree is its own bounded context with explicit

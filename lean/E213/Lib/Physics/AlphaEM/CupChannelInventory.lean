@@ -58,13 +58,7 @@ open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
 
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
 /-! ## §1 — Per-pair cup-channel value (Bool)
 
@@ -105,19 +99,9 @@ def total_edge_cup_channels : Nat :=
 
 /-! ## §2 — Master count -/
 
-/-- ★★★★★ Total nonzero edge × edge cup-channels on Δ⁴ = 10.
-    STRICT ∅-AXIOM.
+-- §2 total_edge_cup_channels = 10 (Alexander-Whitney "one front-back
+-- decomposition per triangle") folded into cup_channel_inventory_master.
 
-    Each of the 10 triangles τ ∈ Cochain 5 3 has exactly ONE
-    decomposition τ = e_front ∪ e_back with overlap on the
-    middle vertex (Alexander–Whitney convention).  No other
-    edge pair contributes a nonzero cup output at that triangle. -/
-theorem total_edge_cup_channels_eq_10 :
-    total_edge_cup_channels = 10 := by decide
-
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 /-! ## §3 — Chiral classification of cup-channels
 
@@ -142,34 +126,23 @@ namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
 def chiral_block_count (i_set j_set : List Nat) : Nat :=
   (i_set.map (fun i => (j_set.map (fun j => cup_pair_count i j)).sum)).sum
 
-/-- SS × SS → AAA: 1 channel (the unique [0,1,2] triangle). -/
-theorem ss_ss_to_aaa :
-    chiral_block_count [0, 1, 2] [0, 1, 2] = 1 := by decide
-
-/-- SS × ST → AAB: 6 channels (one per AAB triangle). -/
-theorem ss_st_to_aab :
-    chiral_block_count [0, 1, 2] [3, 4, 5, 6, 7, 8] = 6 := by decide
-
-/-- ST × TT → ABB: 3 channels (one per ABB triangle). -/
-theorem st_tt_to_abb :
-    chiral_block_count [3, 4, 5, 6, 7, 8] [9] = 3 := by decide
-
-/-- All other chiral combinations: 0 channels. -/
-theorem all_other_blocks_zero :
-    chiral_block_count [0, 1, 2] [9] = 0          -- SS × TT
-    ∧ chiral_block_count [9] [0, 1, 2] = 0        -- TT × SS
-    ∧ chiral_block_count [9] [3, 4, 5, 6, 7, 8] = 0  -- TT × ST
-    ∧ chiral_block_count [9] [9] = 0              -- TT × TT
-    ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [0, 1, 2] = 0  -- ST × SS
+/-- ★ Chiral block-count master (allowed + forbidden).
+    SS·SS→AAA=1, SS·ST→AAB=6, ST·TT→ABB=3 (the 3 nonzero blocks);
+    all other 6 chiral combinations give 0 (forbidden by AW). -/
+theorem chiral_block_classification :
+    -- 3 nonzero blocks
+    chiral_block_count [0, 1, 2] [0, 1, 2] = 1
+    ∧ chiral_block_count [0, 1, 2] [3, 4, 5, 6, 7, 8] = 6
+    ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [9] = 3
+    -- 6 forbidden blocks
+    ∧ chiral_block_count [0, 1, 2] [9] = 0
+    ∧ chiral_block_count [9] [0, 1, 2] = 0
+    ∧ chiral_block_count [9] [3, 4, 5, 6, 7, 8] = 0
+    ∧ chiral_block_count [9] [9] = 0
+    ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [0, 1, 2] = 0
     ∧ chiral_block_count [3, 4, 5, 6, 7, 8] [3, 4, 5, 6, 7, 8] = 0 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
 
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Cross-grade cup-channel totals on Δ⁴
@@ -183,21 +156,18 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 
     k = 1 (verts):   |(a, b) decomps| = 1, output basis = 5
     k = 2 (edges):   2 decomps × 10 = 20 channels
-    k = 3 (tris):    3 decomps × 10 = 30 channels  ← matches "30" coeff
+    k = 3 (tris):    3 decomps × 10 = 30 channels  ← equals "30" coeff
     k = 4 (tets):    4 × 5  = 20 channels
     k = 5 (4-cell):  5 × 1  = 5  channels
                                  ──
                                  80 total
 
-  The "30 = channels-to-triangle-outputs" matches `1/α_2 = 30`
-  (paper-2 gauge value).  The full impedance interpretation
-  remains open — see end-of-file note. -/
+  The integer "30 = channels-to-triangle-outputs" equals
+  `1/α_2 = 30` (paper-2 gauge value); two distinct atomic
+  readings yielding the same count.  The full impedance
+  interpretation remains open — see end-of-file note. -/
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
 
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §5 — Channels-per-output-grade closed form
 
@@ -208,19 +178,13 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 /-- Channels-per-grade closed form. -/
 def channels_at_grade (k : Nat) : Nat := k * binom 5 k
 
-theorem channels_at_grade_1 : channels_at_grade 1 = 5  := by decide
-theorem channels_at_grade_2 : channels_at_grade 2 = 20 := by decide
-theorem channels_at_grade_3 : channels_at_grade 3 = 30 := by decide
-theorem channels_at_grade_4 : channels_at_grade 4 = 20 := by decide
-theorem channels_at_grade_5 : channels_at_grade 5 = 5  := by decide
+-- channels_at_grade_K (K=1..5) and total_channels_eq_80
+-- folded into `cup_channel_inventory_master` below.
 
 /-- Total cup-channels across all output grades 1..5 = 80. -/
 def total_channels : Nat :=
   channels_at_grade 1 + channels_at_grade 2 + channels_at_grade 3
   + channels_at_grade 4 + channels_at_grade 5
-
-/-- ★★★★★ Total cup-channels on Δ⁴ = 80.  STRICT ∅-AXIOM. -/
-theorem total_channels_eq_80 : total_channels = 80 := by decide
 
 /-! ## §6 — Connection to the bilinear cross-term cardinality 785
 
@@ -251,14 +215,9 @@ def total_cross_terms : Nat :=
   + cross_terms_ab 4 1 + cross_terms_ab 4 2
   + cross_terms_ab 5 1
 
-/-- ★★★★★ Total bilinear cross-terms on Δ⁴ = 785.  STRICT ∅-AXIOM. -/
-theorem total_cross_terms_eq_785 : total_cross_terms = 785 := by decide
+-- total_cross_terms_eq_785 folded into master below.
 
-end E213.Lib.Physics.AlphaEM.CupChannelInventory
 
-namespace E213.Lib.Physics.AlphaEM.CupChannelInventory
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §7 — Master inventory theorem -/
 
@@ -305,11 +264,6 @@ theorem cup_channel_inventory_master :
     -- Numerical identities
     ∧ 5 + 20 + 30 + 20 + 5 = 80
     ∧ 80 + 705 = 785 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact total_edge_cup_channels_eq_10
-  · exact ss_ss_to_aaa
-  · exact ss_st_to_aab
-  · exact st_tt_to_abb
-  all_goals decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.CupChannelInventory

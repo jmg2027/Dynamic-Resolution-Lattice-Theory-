@@ -63,11 +63,7 @@ open Lean Elab Command
 scoped syntax (name := deriveConjugationCodomain)
   "derive_conjugation_codomain " ident "with_bases" ident ident : command
 
-end E213.Tactic
 
-namespace E213.Tactic
-
-open Lean Elab Command
 
 @[command_elab deriveConjugationCodomain]
 def elabDeriveConjugation : CommandElab := fun stx => do

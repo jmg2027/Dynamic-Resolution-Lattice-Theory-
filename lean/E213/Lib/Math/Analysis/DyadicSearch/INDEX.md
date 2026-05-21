@@ -31,5 +31,5 @@ collapse closure) — connects to DRLT physics observables.
 
 ## Connection
 
-  - `Lib/Physics/Substrate/Capstone` — uses DyadicSearch IVT
+  - `Lib/Physics/AtomicBase/Capstone` — uses DyadicSearch IVT
   - `research-notes/G31` — trajectory-as-witness framework

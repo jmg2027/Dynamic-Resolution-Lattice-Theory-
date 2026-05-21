@@ -29,4 +29,4 @@ fermion-family count = 3).
 ## Connection
 
   - N_generations = 3 (DRLT prediction): closed by `Generations.lean`
-  - `Substrate.Capstone` consumes simplex counts
+  - `AtomicBase.Capstone` consumes simplex counts

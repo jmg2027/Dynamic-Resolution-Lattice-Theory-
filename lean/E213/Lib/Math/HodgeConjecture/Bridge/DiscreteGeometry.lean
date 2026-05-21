@@ -58,33 +58,10 @@ def isoperimetricProfile : Nat → Nat
   | 5 => 0
   | _ => 0
 
-theorem profile_0 : isoperimetricProfile 0 = 0 := by decide
-theorem profile_1 : isoperimetricProfile 1 = 4 := by decide
-theorem profile_2 : isoperimetricProfile 2 = 6 := by decide
-theorem profile_3 : isoperimetricProfile 3 = 6 := by decide
-theorem profile_4 : isoperimetricProfile 4 = 4 := by decide
-theorem profile_5 : isoperimetricProfile 5 = 0 := by decide
-
-/-! §2  Profile witnesses via Ising energy: |∂S| = energy(σ_S). -/
-
-theorem boundary_at_k1 : energy s_1up = isoperimetricProfile 1 := by decide
-theorem boundary_at_k2 : energy s_2up = isoperimetricProfile 2 := by decide
-theorem boundary_at_k3 : energy s_3up = isoperimetricProfile 3 := by decide
-theorem boundary_at_k4 : energy s_4up = isoperimetricProfile 4 := by decide
-theorem boundary_at_k0 : energy allDown = isoperimetricProfile 0 := by decide
-theorem boundary_at_k5 : energy allUp   = isoperimetricProfile 5 := by decide
-
-/-! §3  Cheeger constant h(K_5) = min |∂S|/|S| over |S| ≤ ⌊n/2⌋ = 2.
-
-    Candidates: 4/1 = 4, 6/2 = 3.  Minimum = 3, achieved at |S| = 2. -/
+/-! §2-3 Profile witnesses + Cheeger constant.  Per-k values and
+    Ising energy witnesses folded into `discrete_geometry_capstone`. -/
 
 def cheegerConstant : Nat := 3   -- = min ratio (numerator only since |S|·ratio = |∂S|)
-
-theorem cheeger_at_k1_ratio : isoperimetricProfile 1 = 4 * 1 := by decide
-theorem cheeger_at_k2_ratio : isoperimetricProfile 2 = 3 * 2 := by decide
-theorem cheeger_eq_3        : cheegerConstant = 3 := by decide
-theorem cheeger_le_4        : cheegerConstant ≤ 4 := by decide
-theorem cheeger_le_profile_1_div_1 : cheegerConstant ≤ isoperimetricProfile 1 := by decide
 
 /-! §4  Discrete Cheeger inequality on K_5.
 
@@ -96,24 +73,12 @@ theorem cheeger_le_profile_1_div_1 : cheegerConstant ≤ isoperimetricProfile 1 
 def lambda2_K5     : Nat := 5    -- Laplacian eigenvalue λ_2 = n for K_n
 def degree_max     : Nat := 4    -- d_max = n−1 for K_n
 
-theorem cheeger_lower_bound :
-    lambda2_K5 * (2 * degree_max) ≥ cheegerConstant * cheegerConstant := by decide
-    -- 5 · 8 = 40 ≥ 9 = 3·3 ✓
-theorem cheeger_upper_bound :
-    lambda2_K5 ≤ 2 * cheegerConstant := by decide  -- 5 ≤ 6 ✓
-theorem lambda2_eq_n_minus_1_plus_1 : lambda2_K5 = 5 := by decide
-
-/-! §5  Euler characteristic of K_5²: χ = V − E + F = 5 − 10 + 10. -/
+/-! §4-5 Cheeger inequality + Euler char.  All values folded into
+    `discrete_geometry_capstone`. -/
 
 def numV_K5_2 : Nat := 5
 def numE_K5_2 : Nat := 10
 def numF_K5_2 : Nat := 10                -- 10 triangles in K_5 = binom(5,3)
-
-theorem euler_char_K5_squared : numV_K5_2 + numF_K5_2 - numE_K5_2 = 5 := by decide
-/-- Equivalent rearrangement, matching the V−E+F convention. -/
-theorem euler_via_VEF : numV_K5_2 + numF_K5_2 = numE_K5_2 + 5 := by decide
-/-- 2-skeleton of Δ⁴ has H^0 = ℤ, H^1 = 0, H^2 = ℤ⁴ ⇒ χ = 1−0+4 = 5. -/
-theorem euler_via_betti : (1 : Nat) + 4 = 5 := by decide
 
 /-! §6  Hodge decomposition + cohomology census on K_5².
 
@@ -125,10 +90,8 @@ def numCodewords  : Nat := 16    -- |im δ_0| = 2^(NS+NT−1) = 2^4
 def numCohomClass : Nat := 64    -- |C¹/im δ_0| = |im δ_1|
 def numCochains   : Nat := 1024  -- |C¹| = 2^E = 2^10
 
-theorem hodge_count : numCodewords * numCohomClass = numCochains := by decide
-theorem hodge_total : numCochains = 2 ^ 10 := by decide
-theorem codewords_eq_2pow4 : numCodewords = 2 ^ 4 := by decide
-theorem cohom_eq_2pow6 : numCohomClass = 2 ^ 6 := by decide
+/-! §6 Hodge counts folded into capstone (numCodewords · numCohomClass
+    = numCochains = 2^10, codewords = 2^4, cohom = 2^6). -/
 
 /-! §7  Discrete Gauss-Bonnet (1-skeleton form).
 
@@ -140,14 +103,7 @@ theorem cohom_eq_2pow6 : numCohomClass = 2 ^ 6 := by decide
 def degSum_K5_corrected : Nat := 5 * (4 - 2)   -- 5 vertices × (deg−2)
 def edgeMinusVertex     : Nat := 10 - 5
 
-theorem discrete_gauss_bonnet : degSum_K5_corrected = 2 * edgeMinusVertex := by decide
-
-/-! §8  Bridge to Ising max-cut + spin glass ground state. -/
-
-theorem maxcut_eq_profile_peak :
-    (numE_K5_2 - groundEnergy J_anti) = isoperimetricProfile 2 := by decide
-theorem maxcut_K5_eq_6 : numE_K5_2 - groundEnergy J_anti = 6 := by decide
-theorem maxcut_theoretical : numV_K5_2 * numV_K5_2 / 4 = 6 := by decide
+/-! §7-8 Discrete Gauss-Bonnet + max-cut bridge folded into capstone. -/
 
 /-! §9  Geodesics on K_5: trivial (any two vertices at distance 1).
 
@@ -157,8 +113,7 @@ theorem maxcut_theoretical : numV_K5_2 * numV_K5_2 / 4 = 6 := by decide
     Rust binary handles K_n for n ∈ {3..7}. -/
 
 def diameter_K5 : Nat := 1
-theorem K5_diameter_one : diameter_K5 = 1 := rfl
-theorem K5_geodesic_count : numE_K5_2 = 5 * 4 / 2 := by decide  -- C(5,2) edges
+/-! §9 K_5 diameter + geodesic count folded into capstone. -/
 
 /-! §10  ★★★★★ Discrete differential geometry on K_5 capstone — STRICT ∅-AXIOM. -/
 

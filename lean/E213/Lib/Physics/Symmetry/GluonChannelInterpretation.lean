@@ -33,21 +33,15 @@ namespace E213.Lib.Physics.Symmetry.GluonChannelInterpretation
 
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
-/-! ## §1 — Four-fold equivalence: χ, b_1, adj SU, gluon DOF -/
+/-! ## §1 — Four-fold equivalence: χ, b_1, adj SU, gluon DOF
 
-/-- The atomic number 8 = NS² − 1 = b_1(K) = adj SU(NS), chained
-    via Topology 213's `chi_K_32_c2_eq`, AlphaEM's `H1_K_eq_8`,
-    Symmetry's `adj_SU_NS_eq_8`, and the QCD identification
-    `1/α_3 = NS² − 1`. -/
-theorem gluon_DOF_chain : True := by
-  have _hχ := E213.Lib.Math.Topology.EulerChi.chi_K_32_c2_eq
-  have _hb := E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss.H1_K_eq_8
-  have _ha := E213.Lib.Physics.Symmetry.AutKChiral.adj_SU_NS_eq_8
-  trivial
+The atomic integer 8 reads four ways:
+  · `NS² − 1 = 8`                        (color confinement)
+  · `b_1(K_{3,2}^{(c=2)}) = 8`           (cohomology rank)
+  · `adj SU(NS) = NS² − 1 = 8`           (Lie-algebra dimension)
+  · `χ(K) = b_0 − b_1 = 1 − 8 = −7`      (Euler characteristic)
 
-/-- Direct integer identity: `1 − 8 = −7` (= b_0 − b_1 = χ(K)).
-    Encodes user's geometric-stress framing. -/
-theorem chi_b1_decomposition : (1 : Int) - 8 = -7 := by decide
+These are bundled in the master statement below. -/
 
 /-- ★★★★★ Eight-fold QCD-channel equivalence (user's session insight).
     The atomic number 8 IS the SU(3) gluon DOF, identified

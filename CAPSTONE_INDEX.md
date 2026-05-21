@@ -5,7 +5,7 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 
 ## Top-level achievements
 
-### Validation Standard satisfied (root)
+### Validation Standard satisfied
 - `Lib/Physics/Capstones/ValidationStandardOne.validation_standard_capstone`
   — CLAUDE.md #1+#2 explicit, 13 conjuncts, STRICT 0-AXIOM
 
@@ -20,14 +20,14 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lib/Physics/AlphaEM/Augmented.alpha_em_gram_capstone` — 15 ppb → 0.18 ppb
 - `Lib/Physics/AlphaEM/Capstone.alpha_em_master_capstone` — 8-conjunct master
 
-### N_universe identification
-- `Lib/Physics/Foundations/NUniverseFromFractal.n_universe_atomic_decomposition`
-- `Lib/Physics/Foundations/NUniverseFractalDepth.n_universe_self_consistent`
+### N_resolution identification
+- `Lib/Physics/Foundations/NResolutionFromFractal.n_resolution_atomic_decomposition`
+- `Lib/Physics/Foundations/NResolutionFractalDepth.n_resolution_self_consistent`
   — L = d² self-referential
 - `Lib/Physics/Foundations/FractalLensCardinality.fractal_lens_cardinality_capstone`
   — Lens count at fractal level
 
-### Other observables (inherit N_U)
+### Other observables (using N_resolution as count-Lens readout)
 - `Lib/Physics/Mass/MuOverE` — `mu_over_e_simplicial_pattern`
   (the former `MuOverEFinitist` was absorbed here 2026-05-05)
 - `Lib/Physics/Cosmology/DarkEnergy.dark_energy_pattern_capstone`
@@ -36,6 +36,11 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
   (former `MassFinitist` absorbed 2026-05-05)
 - `Lib/Physics/Capstones/FinitistObservableChain.finitist_observable_chain`
   — 4-observable bundle (the surviving aggregator)
+
+### Cross-observable bridge — NS·NT·π⁵ skeleton (2026-05-20)
+- `Lib/Physics/Capstones/NSNTPi5Block.ns_nt_pi5_block_capstone`
+  — m_p/m_e and 1/α_em(IR) gap as two readings of the same
+  NS·NT·π⁵ skeleton (4 PURE theorems)
 
 ## Pisano-CRT framework (number theory)
 
@@ -175,4 +180,46 @@ lean/E213/
   - NS² · d = 45 (SO(10) adj, 3 gens × 15)
   - NS · NT = 6  (Lenz)
   - NS + 1 = d - 1 = 4  (SU(5) face / Dyson)
-  - d^(d²) = 5²⁵ = 298023223876953125 (N_universe)
+  - d^(d²) = 5²⁵ = 298023223876953125 (N_resolution)
+
+## 2026-05-20 — Deep philosophical revision pass additions
+
+New capstones from the 14-agent audit + revision pass:
+
+### §9.3 + §9.5 flat-ontology realisation (Lens)
+
+  - `Lens/FlatOntology.flatOntology` — objects, types,
+    relations, functions, Lens as decidable predicates on
+    Raw^n (12 PURE).
+  - `Lens/PredicateSelfEncoding.predicate_self_encoding_closure` —
+    predicates back to Raw via positional Gödel numbering
+    (7 PURE, closing the §9.3 loop).
+  - `Lens/RawTopology.k_infty_at_raw_bundle` — K_∞ ≡ point at
+    raw level (constLens bookend) plus discrete bookend (idLens
+    kernel = equality) plus two-bookend bracket — §9.5 witness,
+    7 PURE.  (Previously split between `UndifferentiatedRaw` and
+    `RawTopology`; merged 2026-05-20 to remove triple-redundant
+    reformulations.)
+
+### §1.3 three-direction uniqueness bundle (Meta)
+
+  - `Meta/ThreeDirectionUniqueness.three_direction_uniqueness` —
+    single statement bundling Below (4-clause minimality) +
+    Sideways (universal-Lens factoring) + Above (Atomic ↔ five).
+
+### §3.4 + §8.7 Möbius frozen + dynamic (Lib/Math)
+
+  - `Lib/Math/Mobius213.mobius_213_char_poly_at_trace` — φ²,
+    1/φ² eigenvalues encoded at integer level.
+  - `Lib/Math/Mobius213.mobius_213_pell_unit_invariant_layer{0..4}` —
+    `num_n · den_{n+1} − num_{n+1} · den_n = -1` across
+    convergent layers, witnessing det = 1 (same algebraic
+    content, frozen + dynamic readings).
+
+### §4.5 forcing chain (Meta)
+
+  - `Meta/AxiomMinimalityCapstone.raw_forcing_chain_unified` —
+    positive complement to `raw_minimality_capstone`; records
+    the 1 → 2 → 3 → 4 structural forcing.
+
+All 29 new symbols verified PURE via `tools/scan_axioms.py`.

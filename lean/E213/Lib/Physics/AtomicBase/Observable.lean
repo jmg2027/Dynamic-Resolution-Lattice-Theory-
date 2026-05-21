@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Space
+import E213.Lib.Physics.AtomicBase.Space
 
 /-!
 # Phase 2 Observable — what 213 can answer as *measurable*
@@ -34,13 +34,14 @@ Each quantity is an *atomic-derived integer* — determined by the axiom alone w
 
 ## Meaning of "measurable quantities"
 
-Phase 2 perspective: from 213 alone, *these 9 integers* naturally emerge.
-Further quantities (mass, energy, coupling, ...) arise when Lens is added.
+Phase 2 reading: from 213 alone, *these 9 integers* are derived
+from NS, NT, d, c primitives.  Further quantities (mass, energy,
+coupling, ...) come into view under further Lens applications.
 
 This file collects only the *values* of the 9 quantities.  Comprehensive theorem.
 -/
 
-namespace E213.Lib.Physics.Substrate.Observable
+namespace E213.Lib.Physics.AtomicBase.Observable
 
 /-- List of 9 axiom-level observable values. -/
 def cosmos_observables : List (String × Nat) :=
@@ -82,13 +83,14 @@ theorem axiom_level_observables :
   Quantities 213 can answer *from axioms alone* = 9 integers.
 
   All precision quantities of Phase 1 (137, m_p, ...) are deeper Lens outputs
-  *derived from these 9*.  Phase 1 = details on top of Phase 2.
+  *derived from these 9*.  Phase 1 = elaboration of Phase 2 via further
+  Lens application.
 
-  Phase 2 is the *blank starting point*, Phase 1 is the *detailed output*. -/
+  Phase 2 is the *minimum-reading*, Phase 1 is the *detailed reading*. -/
 theorem phase2_observable_summary :
     -- 9 axiom-level observables
     (cosmos_observables.length = 9)
     -- sum = 35 (sanity check)
     ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
 
-end E213.Lib.Physics.Substrate.Observable
+end E213.Lib.Physics.AtomicBase.Observable

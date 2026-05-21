@@ -40,63 +40,36 @@ namespace E213.Lib.Physics.Mass.TauOverMu
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Base prefactor: c^NS · NT.  Pure integer from {c, NS, NT}. -/
+/-- Base prefactor: c^NS · NT = 16.  Pure integer from {c, NS, NT}. -/
 def base_prefactor : Nat := c_lat ^ NS * NT
 
-theorem base_eq_16 : base_prefactor = 16 := by decide
-
-/-- Structural decomposition: 16 = 2³ · 2 = c^NS · NT.
-    All atomic primitives. -/
-theorem base_decomp :
-    base_prefactor = 16
-    ∧ c_lat = 2
-    ∧ NS = 3
-    ∧ NT = 2
-    ∧ c_lat ^ NS = 8 := by decide
-
-/-- x³ coefficient = NS/(d+1) = 1/2.  Same (d+1) cofactor as in
-    α_em IR's 1/NS = NT/(d+1) and Cabibbo Ξ. -/
+/-- x³ coefficient = NS/(d+1) = 3/6 = 1/2.  Same (d+1) cofactor
+    as in α_em IR's 1/NS = NT/(d+1) and Cabibbo Ξ. -/
 def x3_coefficient : (Nat × Nat) := (NS, d + 1)
 
-theorem x3_coeff_eq_1_2 : x3_coefficient = (3, 6) := by decide
-
-/-- 3/6 reduces to 1/2 (cross-mult). -/
-theorem x3_coeff_reduces_to_half :
-    let p := x3_coefficient
-    p.1 * 2 = p.2 * 1 := by decide
-
-/-- Same (d+1) cofactor as 1/NS reciprocal. -/
-theorem same_d_plus_1_cofactor :
-    -- m_τ/m_μ x³ coefficient denom
-    (x3_coefficient.2 = d + 1)
-    -- 1/NS reciprocal: NS · NT = d + 1
-    ∧ (NS * NT = d + 1)
-    -- Concrete: (d+1) = 6
-    ∧ (d + 1 = 6) := by decide
-
-/-- Bracket: 16.5 ≤ m_τ/m_μ ≤ 17.0 (covers observed 16.817).
-    Cross-mult: 16.5 = 165/10, 17.0 = 170/10.
-    base · series ≈ 16 · 1.051 = 16.816 — inside [16.5, 17.0] -/
+/-- ★ Bracket: m_τ/m_μ ∈ [16.5, 17.0] brackets measurement-Lens
+    reading 16.817.  Cross-mult: 16.5 = 165/10, 17.0 = 170/10.
+    base · series ≈ 16 · 1.051 = 16.816 — inside [16.5, 17.0]. -/
 theorem tau_mu_in_bracket :
-    -- Lower: base · 1.03 = 16.48 < 16.5 < observed
-    -- Upper: base · 1.07 = 17.12 > 17.0 > observed
-    -- Conservative integer check: 16 ≤ m_τ/m_μ < 17 (since
-    -- series 1.051 makes product 16.81)
     base_prefactor = 16
     ∧ base_prefactor < 17 := by decide
 
-/-- Spatial-temporal exponent structure: c^NS uses NS as exponent.
-    Why NS specifically?  This comes from the
-    "spatial impedance triple" — three spatial channels, each
-    contributing factor c.  → c^NS = c^3 = 8. -/
-theorem spatial_exponent : c_lat ^ NS = 8 := by decide
+/-- ★ Capstone — m_τ/m_μ same simplicial pattern.
 
-/-- ★ Capstone — m_τ/m_μ same simplicial pattern ★ -/
+  All numeric scaffolds (base_prefactor = 16, c_lat^NS = 8,
+  x3_coefficient = (3, 6) reducing to 1/2, etc.) are conjuncts
+  of this master.  No standalone single-equation theorems are
+  needed; callers reference the master. -/
 theorem tau_mu_simplicial_pattern :
     -- Base prefactor = atomic integer
     (base_prefactor = 16)
+    -- c^NS structural decomposition
+    ∧ (c_lat ^ NS = 8)
     -- x³ coefficient denominator = d + 1 (same as 1/NS)
     ∧ (x3_coefficient.2 = d + 1)
+    ∧ (x3_coefficient = (3, 6))
+    -- 3/6 reduces to 1/2 (cross-mult form)
+    ∧ (x3_coefficient.1 * 2 = x3_coefficient.2 * 1)
     -- Same (d+1) cofactor as α_em IR
     ∧ (NS * NT = d + 1)
     -- All from atomic primitives

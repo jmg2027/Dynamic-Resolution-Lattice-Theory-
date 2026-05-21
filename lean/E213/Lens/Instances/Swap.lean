@@ -68,9 +68,6 @@ theorem swapLens_injective : Function.Injective swapLens.view := by
   rw [swapLens_view_eq_swap, swapLens_view_eq_swap] at hxy
   exact Raw.swap_injective hxy
 
-end E213.Lens.Instances.Swap
-
-namespace E213.Lens.Instances.Swap
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity

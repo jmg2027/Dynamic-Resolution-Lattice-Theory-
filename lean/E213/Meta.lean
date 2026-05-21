@@ -7,6 +7,7 @@ import E213.Meta.LensInternality
 import E213.Meta.Nat
 import E213.Meta.SelfRecognising
 import E213.Meta.Tactic
+import E213.Meta.ThreeDirectionUniqueness
 
 /-! Spec-as-code entry point for `E213.Meta`.
 

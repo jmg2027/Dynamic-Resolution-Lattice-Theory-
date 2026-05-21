@@ -24,60 +24,21 @@ namespace E213.Lib.Physics.AlphaEM.GramSelfConsistency
 
 open E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 
-/-! ## §1 — Gram correction (α²/d²) at 10⁻⁹ -/
+/-! ## §1 — Gram correction (α²/d²) at 10⁻⁹ + refined formula -/
 
 /-- Squared 1/α_em(observed) × 10¹⁸. -/
 def observed_e9_squared : Nat := observed_e9 * observed_e9
-
-theorem observed_e9_squared_value :
-    observed_e9_squared = 18778865044950048839056 := by decide
 
 /-- Gram self-energy correction at 10⁻⁹:
     α²/d² · 10⁹ = 10²⁷ / (25 · (1/α)²·10¹⁸). -/
 def gram_correction_e9 : Nat :=
   1000000000000000000000000000 / (25 * observed_e9_squared)
 
-theorem gram_correction_e9_value :
-    gram_correction_e9 = 2130 := by decide
-
-/-- The 27 e-9 gap from actual residual 2157 e-9. -/
-theorem gram_correction_close_to_residual :
-    gram_correction_e9 + 27 = 2157 := by decide
-
-/-! ## §2 — Refined formula = π⁵ form − Gram correction -/
-
 /-- Refined 1/α_em × 10⁹: π⁵ form minus Gram self-energy. -/
 def alphaInv_refined_e9 : Nat :=
   alphaInv_213_e9 - gram_correction_e9
 
-theorem alphaInv_refined_e9_value :
-    alphaInv_refined_e9 = 137035999111 := by decide
-
-/-- Refined diff: 27 × 10⁻⁹ from observed (vs 2,157 raw). -/
-theorem alphaInv_refined_residual :
-    alphaInv_refined_e9 = observed_e9 + 27 := by decide
-
-/-- Refined bracket: |refined − observed| ≤ 30 in 10⁻⁹ units. -/
-theorem alphaInv_refined_bracket_e9 :
-    alphaInv_refined_e9 ≤ observed_e9 + 30
-    ∧ observed_e9 ≤ alphaInv_refined_e9 + 30 := by
-  refine ⟨?_, ?_⟩ <;> decide
-
-/-! ## §3 — Comparison: raw vs refined -/
-
-/-- Raw residual 2,157 × 10⁻⁹ (π⁵ form). -/
-theorem raw_residual_size :
-    alphaInv_213_e9 - observed_e9 = 2157 := by decide
-
-/-- Refined residual 27 × 10⁻⁹ (π⁵ + Gram form). -/
-theorem refined_residual_size :
-    alphaInv_refined_e9 - observed_e9 = 27 := by decide
-
-/-- Improvement factor: raw / refined ≥ 71 (2157 / 30 = 71). -/
-theorem refinement_improvement_factor :
-    2157 / 30 ≥ 71 := by decide
-
-/-! ## §4 — Master C1 Step 3 -/
+/-! ## §2 — Master C1 Step 3 -/
 
 /-- ★★★★★ Gram Self-Consistency Master (C1 Step 3).
     STRICT ∅-AXIOM.
@@ -98,15 +59,30 @@ theorem refinement_improvement_factor :
     size (2130 vs 2157 actual, 1.2% accuracy).
 
     Step 4+ (cohomological derivation of d² = NS²·NT prefactor)
-    remains open. -/
+    remains open.
+
+    Bundles: observed² value, Gram correction value (2130),
+    closeness to actual residual (+27 = 2157), refined formula
+    value, refined residual (+27), refined bracket (±30), raw
+    and refined residual sizes, improvement factor (≥ 71). -/
 theorem gram_self_consistency_master :
-    gram_correction_e9 = 2130
+    -- observed² × 10¹⁸
+    observed_e9_squared = 18778865044950048839056
+    -- Gram correction value
+    ∧ gram_correction_e9 = 2130
+    -- Gram + 27 = full 2157 residual
+    ∧ gram_correction_e9 + 27 = 2157
+    -- Refined formula value
     ∧ alphaInv_refined_e9 = 137035999111
+    -- Refined residual = +27
     ∧ alphaInv_refined_e9 = observed_e9 + 27
+    -- Refined bracket: |refined − observed| ≤ 30
     ∧ alphaInv_refined_e9 ≤ observed_e9 + 30
     ∧ observed_e9 ≤ alphaInv_refined_e9 + 30
+    -- Raw vs refined residual sizes
     ∧ alphaInv_213_e9 - observed_e9 = 2157
-    ∧ alphaInv_refined_e9 - observed_e9 = 27 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ alphaInv_refined_e9 - observed_e9 = 27
+    -- Improvement factor (raw / refined ≥ 71)
+    ∧ 2157 / 30 ≥ 71 := by decide
 
 end E213.Lib.Physics.AlphaEM.GramSelfConsistency

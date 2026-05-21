@@ -31,7 +31,7 @@ open E213.Lib.Math.UniverseChain.Recursion
   (self_ref_level numV_at_self_ref)
 open E213.Lib.Math.UniverseChain.Universe (N_U N_U_concrete)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
-open E213.Lib.Physics.Foundations.NUniverseFractalDepth (universe_level)
+open E213.Lib.Physics.Foundations.NResolutionFractalDepth (universe_level)
 
 /-- ★★ Step 1 ⇒ Step 2: atomicity → unique (1, 1) shape. -/
 theorem step1_to_step2 :

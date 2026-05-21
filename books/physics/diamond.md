@@ -66,7 +66,7 @@ corrections **without SM perturbative running**.
 NOT a fractal expansion of vertices.  The **rank-5 algebraic
 image** of K_N, forced into the chiral 4-simplex skeleton by
 atomicity.  N points **redundantly overlap** — same 5-vertex
-shape appears 10^∞ times, coincident in algebraic ℂ⁵.
+shape appears 10^∞ times, projecting consistently onto algebraic ℂ⁵.
 
 This is the geometric source for 213's atomic predictions:
 α_3, α_2, α_em, mass ratios, magic numbers — all emerge from

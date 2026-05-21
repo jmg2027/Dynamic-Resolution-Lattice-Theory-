@@ -5,7 +5,7 @@ import E213.Lens.Algebra.Congruence
 # KernelCorresp: explicit two-direction bijection of
 Kernel ↔ slash-congruence
 
-Formal statement of the implicit bijection in PAPER1 §3.2-§3.3.
+Formal statement of the implicit Kernel ↔ slash-congruence bijection.
 
 ## Two Core Directions
 
@@ -44,12 +44,7 @@ theorem lens_kernel_is_slash_cong {α : Type} (L : Lens α)
     exact E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence L hsym
       x x' y y' h h' hxx hyy
 
-end E213.Lens.Algebra.Corresp
 
-namespace E213.Lens.Algebra.Corresp
-
-open E213.Theory E213.Lens
-open E213.Lens.Universal.QuotLens
 
 /-- **Direction 2**: any slash-congruence is the kernel of some Lens.
     `universalLens E` is the explicit witness (§5.1). -/

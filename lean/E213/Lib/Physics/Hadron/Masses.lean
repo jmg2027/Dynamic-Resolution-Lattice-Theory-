@@ -40,58 +40,44 @@ namespace E213.Lib.Physics.Hadron.Masses
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- GMOR n_eff = NS² = 9.  This integer is the prefactor in the m_π² formula. -/
+/-- GMOR n_eff = NS² = 9.  Prefactor in the m_π² formula.
+    Externally consumed by `Hadron/Bridge` and `Capstones/PhysicsTrackComplete`. -/
 def gmor_n_eff : Nat := NS * NS
-
-theorem gmor_n_eff_eq_9 : gmor_n_eff = 9 := by decide
-
-/-- NS² = adjoint SU(NS) + 1 = 1/α_3 + 1. Connected to the same lattice quantity. -/
-theorem gmor_via_adjoint :
-    gmor_n_eff = (NS * NS - 1) + 1
-    ∧ NS * NS - 1 = 8 := by decide
 
 /-- Hyperfine factor: d / NT = 5/2. -/
 def hyperfine_num : Nat := d
 def hyperfine_den : Nat := NT
 
-theorem hyperfine_eq_5_2 :
-    hyperfine_num = 5 ∧ hyperfine_den = 2 := by decide
-
-/-- Hyperfine d/NT vs proton mass NS/d:
-    inverse-related atomic ratios. -/
-theorem hyperfine_vs_proton_factor :
-    -- Hyperfine: d/NT = 5/2
-    (hyperfine_num * 2 = hyperfine_den * 5)
-    -- Proton: NS/d = 3/5
-    ∧ (NS * 5 = d * 3)
-    -- Combined: (d/NT) · (NS/d) = NS/NT = 3/2 (m_μ/m_e ratio!)
-    ∧ (NS * 2 = NT * 3) := by decide
-
-/-- m_π² in 1% bracket (using DRLT 137.6 ± 1.4):
-    m_π² ≈ 18934 MeV², bracket [18000, 19500]. -/
-theorem mpi_sq_bracket :
-    18000 < 18934 ∧ 18934 < 19500 := by decide
-
-/-- m_ρ² in 1% bracket: 782.1² ≈ 611680, bracket [600000, 620000]. -/
-theorem mrho_sq_bracket :
-    600000 < 611680 ∧ 611680 < 620000 := by decide
-
-/-- Hyperfine Δ² = (770)² = 592900.
-    Predicted m_ρ² - m_π² = 592900 ≈ 611680 - 18934 = 592746.
-    Match within 0.03% (Δ²-level). -/
-theorem hyperfine_squared :
-    592900 - 592746 = 154 -- 154/592900 ≈ 0.026% (squared level)
-    ∧ 154 * 1000 < 592900 := by decide
-
 /-- ★ Atomicity-locked hadron pattern ★
-    GMOR + hyperfine both use the same lattice primitives. -/
+    GMOR + hyperfine both use the same lattice primitives.
+
+    Bundles:
+      · GMOR n_eff = NS² = 9; adjoint identity NS² = (NS²−1) + 1
+      · Hyperfine factor d/NT = 5/2 (cross-mult), atomic table
+      · Hyperfine × Proton-factor cross identities
+        (d/NT)·(NS/d) = NS/NT = 3/2 (m_μ/m_e ratio)
+      · m_π² and m_ρ² 1% brackets (18934, 611680 MeV²)
+      · Hyperfine Δ² gap = 592900 vs predicted 592746 (0.03% match)
+      · Atomic primitives -/
 theorem hadron_simplicial_pattern :
-    -- GMOR n_eff = NS²
-    (gmor_n_eff = 9)
-    -- Hyperfine = d/NT
-    ∧ (hyperfine_num = d) ∧ (hyperfine_den = NT)
-    -- Linked to other precision quantities
-    ∧ (NS * NS - 1 = 8)  -- 1/α_3
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
+    -- GMOR n_eff = NS² = 9
+    gmor_n_eff = 9
+    ∧ gmor_n_eff = (NS * NS - 1) + 1
+    ∧ NS * NS - 1 = 8                                   -- = 1/α_3
+    -- Hyperfine atomic
+    ∧ hyperfine_num = d ∧ hyperfine_den = NT
+    ∧ hyperfine_num = 5 ∧ hyperfine_den = 2
+    -- Hyperfine vs Proton factor cross identities
+    ∧ hyperfine_num * 2 = hyperfine_den * 5             -- d·2 = NT·5
+    ∧ NS * 5 = d * 3                                    -- NS/d = 3/5
+    ∧ NS * 2 = NT * 3                                   -- = m_μ/m_e
+    -- m_π² 1% bracket
+    ∧ (18000 < 18934 ∧ 18934 < 19500)
+    -- m_ρ² 1% bracket
+    ∧ (600000 < 611680 ∧ 611680 < 620000)
+    -- Hyperfine Δ² gap (squared level)
+    ∧ (592900 - 592746 = 154 ∧ 154 * 1000 < 592900)
+    -- Atomic primitives
+    ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by decide
 
 end E213.Lib.Physics.Hadron.Masses

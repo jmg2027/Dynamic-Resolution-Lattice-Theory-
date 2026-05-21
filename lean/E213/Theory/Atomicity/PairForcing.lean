@@ -50,12 +50,6 @@ def half : Nat → Nat
   | 1 => 0
   | n + 2 => half n + 1
 
-private theorem half_step (n : Nat) : half (n + 2) = half n + 1 := rfl
-private theorem half_zero : half 0 = 0 := rfl
-private theorem half_one  : half 1 = 0 := rfl
-private theorem half_two  : half 2 = 1 := rfl
-private theorem half_three: half 3 = 1 := rfl
-
 /-- Count of atomic candidate pairs (a, b):
     a odd positive, a < q; b odd positive, b < p.
     Equals half(p) · half(q). -/

@@ -72,9 +72,6 @@ theorem T2n_predicted_signature_values :
     ∧ T2n_predicted_signature 4 = (35, 35)
     ∧ T2n_predicted_signature 5 = (126, 126) := by decide
 
-end E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
-
-namespace E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 
 /-! ## §2 — Master pattern theorem -/
 

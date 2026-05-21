@@ -1,188 +1,555 @@
-# Session Handoff — 2026-05-18 (autonomous-research iterations #1–#30)
+# Session Handoff — 2026-05-21 (Theorem-density reduction pass — extended)
 
 ## Branch
-`claude/autonomous-research-cleanup-DFIdR` — pushed.
-Latest: `08ac0eee ChartGeneral + Rotation KO note`.
-Total commits on branch: 34.
+`claude/particle-background-separation-ShXm5` — 160 session
+commits (268 total ahead of `main`).  All commits pushed.
 
-## Cumulative iteration summary
+## 7-thm batch (latest wave)
 
-30 autonomous-research iterations via `.claude/skills/autonomous-research/SKILL.md`.
+Additional 7-thm-file reductions:
+  · Simplex/Generations 7→1, GenerationStructure 7→1
+  · Mixing/CabibboAngle 7→1
+  · AlphaEM/GramHigherOrder 7→1
+  · Nuclear/Shells 7→1
+  · AtomicBase/Phase1Bridge 7→1
+  · AtomicBase/Lens 7→1
+  · AtomicBase/Force 7→1
 
-**Theorem totals (new ∅-axiom symbols this branch):**
+Combined session totals: ~825 theorems folded into ~190 masters
+across 80+ files.
 
-| Iter | Focus | New thms |
-|------|-------|----------|
-| #1   | Eqv API (pre-branch) | 6 |
-| #2   | Doc-tier refresh + Eqv extremes + ChartGeneral residue | 9 |
-| #3   | Peano semiring laws | 6 |
-| #4   | ChartGeneral strict mono | 1 |
-| #5   | Peano add cancel | 2 |
-| #6   | Peano toNat_inj + mul cancel | 3 |
-| #7   | Bridge.toRaw_injective | 1 |
-| #8   | Bool213 or + De Morgan | 8 |
-| #9   | Bool213.System KO→EN | 0 |
-| #10  | Bool213.Raw KO→EN | 0 |
-| #11  | Bool213 lattice laws | 6 |
-| #12  | Peano helpers (left_comm, mul_two, succ_ne_one, succ_toNat) | 5 |
-| #13  | Nat213.Raw numeral algebra | 4 |
-| #14  | SyntacticInternalization biconditionals | 3 |
-| #15  | Theory.Raw.Swap biconditional | 2 |
-| #16  | Theory.Raw.Endomorphic slashOrSelf collapse | 2 |
-| #17  | Endomorphic KO→EN | 0 |
-| #18  | Theory.Raw.Slash slash_ne_left/both | 2 |
-| #19  | Bool213 boolValue injective | 1 |
-| #20  | Lens.Lattice.Preorder antisymm_kernel | 1 |
-| #21  | Lens.Lattice.Chain endpoints | 2 |
-| #22  | NatPairToQPos refl + symm + KO→EN | 2 |
-| #23  | NatPairToQPos transitivity | 1 |
-| #24  | Umbrella KO→EN translations | 0 |
-| #25  | NatPairToInt npairEquiv_trans | 1 |
-| #26  | Levels max_comm + depth_slash + leaves_pos | 3 |
-| #27  | Levels leaves_slash + depth_slash_pos | 2 |
-| #28  | Levels depth_lt_leaves + NatHelper max_eq_left_pure | 2 |
-| #29  | ChartGeneral chartChain_value_sub + Rotation KO note | 1 |
-| #30  | (HANDOFF final) | 0 |
+## Final extension (post-720)
 
-**Total: 76 new strict-∅-axiom theorems** + extensive KO → EN docstring
-translation pass + initial doc-tier refresh in iteration #2.
+Additional reductions touching medium-density files:
+  · HodgeConjecture/Pairing/ProductSurfaceSignature 8→1
+  · Cohomology/Examples/TopologyCompare 8→2
+  · SignedCut/Bridge/FanoK32Bridge 8→1
+  · DyadicFSM/ThueMorse 8→1
+  · Logic/Predicate 8→4 (3 externally-consumed kept)
+  · Combinatorics/Stirling 8→1
+  · AngleStructure/RotationOrder 8→1
 
-## Files extended (this branch)
+Combined session totals: ~770 theorems folded into ~175
+masters across 70+ files.  Build clean.  AtomicConstantsParametric*
+family skipped (proof-chain dependency structure, not scaffold
+pattern).
 
-### Theory.Raw
-  - `Core.lean` — KO → EN
-  - `Slash.lean` — `slash_ne_left`, `slash_ne_both`
-  - `Swap.lean` — `swap_eq_iff`, `swap_ne`
-  - `Levels.lean` — `leaves_pos`, `depth_slash`, `leaves_slash`,
-    `depth_slash_pos`, `depth_lt_leaves`
-  - `Endomorphic.lean` — `slashOrSelf_ne_of_ne`,
-    `slashOrSelf_eq_y_iff` + KO → EN
-  - `Congruence.lean` — `Eqv.trivial_top`, `Eqv.bracket` (+ earlier)
-  - `ParenthesizationDistinct.lean` — `lhs_rhs_leaves_eqv`,
-    `exists_distinct_leaves_eqv` (+ earlier)
+## Latest extensions (post-update)
 
-### Lens
-  - `Bool213/Raw.lean` — `or`, `or_comm`, `or_isBool`, `or_TT/TF/FT/FF`,
-    `demorgan_and`, `demorgan_or`, `and_idem`, `or_idem`,
-    `and_distrib_or`, `or_distrib_and`, `and_or_absorb`, `or_and_absorb`,
-    `boolValue_injective_on_isBool` + KO → EN
-  - `Bool213/System.lean` — KO → EN
-  - `Congruence.lean` — `exists_distinct_leaves_view_eqv` (+ earlier)
-  - `SyntacticInternalization.lean` — `printTree_eq_iff`,
-    `printRaw_injective`, `printRaw_eq_iff`
-  - `Lattice/Preorder.lean` — `refines_antisymm_kernel`
-  - `Lattice/Chain.lean` — `idLens_refines_constTrue`,
-    `leaves_refines_constTrue`
-  - `Number/Nat213/Raw.lean` — `numeral_eq_iff`, `value_numeral_succ`,
-    `value_numeral_le`, `value_numeral_lt`
-  - `Number/Nat213/Peano.lean` — `add_assoc`, `mul_succ_right`,
-    `mul_comm`, `add_mul`, `mul_assoc`, `mul_add`, `add_left_cancel`,
-    `add_right_cancel`, `toNat_injective`, `mul_left_cancel`,
-    `mul_right_cancel`, `add_left_comm`, `mul_left_comm`, `mul_two`,
-    `succ_ne_one`, `succ_toNat`
-  - `Number/Nat213/Bridge.lean` — `toRaw_injective`
-  - `Number/Nat213/ChartGeneral.lean` — `chartChain_value_mod`,
-    `chartChain_value_ge`, `chartChain_value_mono`,
-    `chartChain_value_strict_mono`, `chartChain_value_sub`
-  - `Number/Nat213/Tower/NatPairToQPos.lean` — `qpairEquiv_refl`,
-    `qpairEquiv_symm`, `qpairEquiv_trans` + KO → EN
-  - `Number/Nat213/Tower/NatPairToInt.lean` — `npairEquiv_trans`
+Continuing reduction across remaining file clusters:
+  · Nuclear/MagicNumbersAtomic 8→1, Hadron/ProtonElectronRatio 8→1
+  · AlphaEM/Bare 19→4 (per-namespace masters: Bare,
+    IntegerSkeleton, Prefactors, FiveTermDerivation)
+  · AlphaEM/ChannelCohomologyLoss 16→1
+  · AlphaEM/LaplacianSpectrum 9→1
+  · AlphaEM/FractalLevelZetaBracket 10→1
+  · AlphaEM/FractalLevelZetaCoeffSeq 9→1
+  · AlphaEM/FractalLevelZetaModulus 9→1
+  · AlphaEM/GramSelfConsistency 10→1
+  · AtomicBase/Existence 8→1, AtomicBase/Shape 8→1
+  · Simplex/FoccSpectrum 9→1
 
-### Meta.Tactic
-  - `NatHelper.lean` — `add_mul_mod_self_pure`, `max_comm_pure`,
-    `max_eq_left_pure`
+Combined session totals: ~720 theorems folded into ~165
+masters across 60+ files.  Build clean; ∅-axiom contracts
+preserved on all externally-consumed names; defs preserved.
 
-### Documentation
-  - 10 user-facing markdown files refreshed (deprecated tier label
-    → STRICT ∅-AXIOM) in iteration #2
-  - 5+ Lean source files: KO → EN docstring translation
-  - Umbrella headers (Theory.lean, Term.lean, Meta.lean) translated
-  - Rotation.lean: KO user-quote + English translation
+## Latest waves (extending 2026-05-21)
 
-## Verification state
+Additional commits beyond the initial wave list:
+  · HodgeConjecture/Bridge/SpinGlass 17→1
+  · HodgeConjecture/Bridge/MLDecoder 15→1
+  · Symmetry/AutEdgeOrbits 18→1
+  · Geometry/AlgebraicGeometry 25→4 (3 headlines + 1 supp.)
+  · Hadron/ProtonMass 11→1, Hadron/Masses 9→1,
+    Hadron/QuarkHierarchy 9→1
+  · Mixing/NeutrinoMixing 13→1
+  · Nuclear/Binding 9→1
+  · Probability/Bridge/Bayesian 9→2
+  · Probability/Inequality/ChernoffGrade 8→2
+  · Probability/Distribution/BetaNormalized 9→1, Binomial 7→1
+  · Probability/Foundation/Bernoulli 4→2, Independence 9→5,
+    SampleMean 8→6
+  · SignedCut/Core/Algebra 10→5
+
+Combined session totals: ~580 theorems folded into ~150 masters
+across 50+ files.  Build clean; ∅-axiom contracts preserved on all
+externally-consumed names; defs preserved everywhere.
+
+## Most recent work (2026-05-21 continuation)
+
+Continuing the master-capstone consolidation pass under active
+goal "안 본 부분을 모두 처리".  20 additional reduce-commits
+across:
+
+  · **HodgeConjecture/Bridge** (BeilinsonRegulator 14→1,
+    GaloisCounterfactual 12→1)
+  · **AlphaEM** (Augmented 25→4, FractalLevelLift 19→1,
+    FractalLevelZetaConvergence 9→1)
+  · **AtomicBase + Basel** (Falsifier 12→2, Space 10→1,
+    WhyBasel 9→1)
+  · **UniverseChain** (RawDepthCount 12→2, RawBipartition 11→1,
+    RawDepth3 9→1, RawEnumeration 9→5, RawRecurrence 14→2)
+  · **Multivariable/Stokes** (4 sub-ns × 3-4 scaffolds → 1
+    master per sub-ns)
+  · **Cohomology** (TrivialCases 9→1, CutExpFiniteTruncation 9→4,
+    Hodge/Prop50/53/54 η-alias drops)
+  · **HodgeConjecture/Pairing** (TensorSignature 24→6,
+    GenusGSurface 22→6)
+  · **Probability/Foundation** (Capstone 19→7,
+    Cut 7→1, Expectation 8→1, Variance 9→1,
+    Bernoulli 4→2, SampleMean 8→6, Independence 9→5,
+    ChernoffGrade 8→2, Bayesian 9→2)
+  · **Probability/Distribution** (BetaNormalized 9→1,
+    Binomial 7→1)
+  · **Atomic/IE** (Period3 9→1, Period4 11→1,
+    PeriodicTable 15→1)
+  · **Linalg213/Gap/Capstone** (5→1)
+  · **Foundations** (Fibonacci{Atomic,Extended} 16→4,
+    Higgs/Quartic 8→1, Higgs/Mass 8→1, Higgs/Vacuum 7→1,
+    TightenBracket 8→1, ResolutionDepth 8→1,
+    LensCardinalityFractalLevels 8→1, GoldenRatio 7→1,
+    HopHypothesis 6→1, MasslessParticles 6→1,
+    FiniteResonanceN 6→1)
+  · **Cosmology** (NeffDerivation 7→1, DarkEnergy 6→1,
+    HorizonInformation 6→1)
+  · **Mass/MuOverE** (7→1)
+  · **SignedCut/Core/Algebra** (10→5)
+
+Total ~440 theorems folded into ~115 masters across 40 files.
+All defs preserved.  All ∅-axiom contracts intact.  Full
+`lake build` clean after each batch.
+
+## Session summary
+
+Multi-day deep philosophical revision pass triggered by the
+2026-05-20 conversation on background/foreground non-separation,
+self-completion, and structural causality.
+
+**Iteration 1**: 14 parallel audit agents (architecture,
+definitions, naming, additions, T1–T4 theory scopes, X1–X6
+theory→Lean cross-audits), then synthesise + iterate revisions
+through 11 commits.
+
+**Iteration 2**: 5 additional cluster audits (CayleyDickson,
+Cohomology + Linalg213, Analysis, Real213) — applied + 3 new
+formal additions (FlatOntology, PredicateSelfEncoding,
+UndifferentiatedRaw, RawTopology, SelfCompletion,
+ThreeDirectionUniqueness).
+
+**Iteration 3**: 7 more cluster audits (Group, SignedCut,
+NumberGrid, Information, Probability, DyadicFSM,
+HodgeConjecture) — single batched-sed sweep commit.
+
+**Iteration 4**: 8-cluster audit (Cauchy/Choice/Infinity,
+Polynomial/PatternCatalog/Combinatorics,
+Geometry/Modulus/Irrational, AlphaEM-deep,
+Mass/Hadron/Higgs, YangMills/Cosmology/Couplings,
+Meta+Symmetry+Foundations+Simplex, guide+books).
+
+**Iteration 5**: 3-cluster audit (Meta + Math infrastructure
++ Physics Atomic/IE/Nuclear/Mixing/Capstones) + new file
+PredicateAsCochain.lean closing §9.3 self-reference loop at
+cochain level.
+
+**Iteration 6**: 4-cluster audit (Couplings+Foundations,
+Cosmology+YangMills+Symmetry, Math-infra,
+Theory+Lens) + deferred HIGH items (Bigrading,
+ProtonElectronRatio).
+
+**Iteration 7**: 3-cluster audit (Math:
+BipartiteDecomp/ModArith/Topology/OperationTopology/
+LevelTopology; Physics: AtomicBase/Basel/Certificates;
+Theory: Atomicity/PrimitiveSizes).
+
+**Iteration 8**: seed/AXIOM/09 narrative cleanup +
+AlphaEM/Mass/Simplex residual sweep (CupChannelInventory,
+PiFiveGap, GradedFormulaPrecision, CupRingTrace,
+HierarchyTowers, GenerationStructure).
+
+**Iteration 9**: Cross-tree grep sweep — "0 free parameter"
+rhetoric replaced with "no exterior dialer" structural
+framing (UnifiedPattern, MasterCatalog, Higgs/Master),
+"arises naturally" in Real213/AsLensOutput tightened.
+
+**Iteration 10**: Final residual sweep — Higgs/Mass.lean
+"+0.02% match" → "two Lens readings differ by +0.02%";
+Mass/TauOverMu observed → measurement-Lens reading.
+
+**Iteration 11** (autonomous-research mode): pivot from
+rhetorical sweep (converged) to substantive theorem addition.
+Five new commits adding 13 new PURE theorems + 1 latent bug fix:
+  · `n_u_* → n_resolution_*` identifier rename across 8 files
+    (completes the earlier docstring rename to the identifier
+    level).
+  · PiFiveGap consolidation (4 namespace blocks → 1) + 3 new
+    bracket theorems (`pi5_residual_thirteen_bracket`,
+    `pi5_gap_two_lens_bracket`, `pi5_ns_nt_block`) — 20 PURE
+    total.
+  · SelfCompletion slash-side extension: 3 new theorems
+    (`view_slash_uses_combine`, `full_self_completion_bundle`,
+    `leaves_self_completion`) — 6 PURE total.
+  · New file `Lib/Physics/Capstones/NSNTPi5Block.lean`: 4 PURE
+    cross-observable bridge theorems linking m_p/m_e and
+    1/α_em(IR) gap via shared NS·NT·π⁵ skeleton.
+  · RawTopology discrete bookend: 3 new theorems
+    (`discrete_kernel_eq`, `discrete_distinguishes_distinct`,
+    `topology_two_bookends`) — 9 PURE total.
+  · Latent parse-bug fix in Higgs/Mass.lean
+    (`cofactor_d_minus_1_atomicity-forced (uniform across
+    readings)` — invalid identifier — restored as
+    `cofactor_d_minus_1_atomic`); pre-existed from prior audit
+    pass, was dormant because no test imported the parser path
+    until the new bridge file did.
+
+Cumulative new PURE theorems this session: **51**.
+
+**Iteration 12** (autonomous-research mode, continued):
+extends the substantive-theorem track with Mobius213 Pell-unit
+invariant layers 5-7 + 8-layer bundle (4 new), FibonacciExtended
+F_11..F_15 + Möbius-Fibonacci structural bridge (7 new), and
+Pisano-Fib ratio identity P_d(k) = F_{2k+1}, P_n(k) = F_{2k+2}.
+
+Plus a major mechanical cleanup: **namespace-block consolidation
+sweep across 133 files**, removing 1292 lines of repo-org §8
+violations (redundant `end NS / namespace NS / open ...`
+triplets).  6 sweep rounds, ~44 files remain with multi-block
+patterns the script's pattern matcher doesn't handle (manual
+handling deferred).
+
+Cumulative new PURE theorems this session: **76**.
+
+**Iteration 13** (reduction pass, user-directed): "줄이는 작업"
+— theorem count and commit count don't matter; content density
+and readability do.  Reduce cognitive load to enable new
+insights.  This pass:
+
+  · Mobius213: 21 → 13 (− 8 layer enumerations, + 2 new
+    structural-insight theorems: `two_step_induction` and
+    `pell_recurrence_unique` — boundary-value uniqueness for
+    2nd-order linear recurrences, the lemma that lifts entire
+    layer-by-layer enumerations to a single application)
+  · FibonacciExtended: 16 → 9 (collapsed F_11..F_15 individual
+    theorems + two layer enumerations into one 16-conjunct
+    Möbius-Fibonacci bridge)
+  · PiFiveGap: 20 → 14 (dropped 6 incremental scaffold theorems
+    all already in the master)
+  · PureAtomicObservables: 17 → 14 conjuncts (removed 3
+    duplicates: NS=3 twice, NT=2 twice, NS²-1=8 twice);
+    reorganised by structural reading
+  · RawTopology + UndifferentiatedRaw: 12 → 7, files merged
+    (the two files had triple-redundant K_∞-at-raw reformulations)
+  · NSNTPi5Block: 4 → 1 (3 forwarder/subset theorems all
+    subsumed by the master capstone; structural framing moved
+    to file docstring)
+  · Latent build-break fix: Gcd213.lean had been broken since
+    namespace-sweep round 3 due to a multi-line `open` being
+    mis-handled by the regex — fixed by merging the orphan
+    continuation into the top-of-namespace open list.
+  · New documentation: `LESSONS_LEARNED.md` "Reduction patterns"
+    section + tiny pointer in CLAUDE.md (rule 9, within 220-line
+    budget).
+
+Net: 86 → 54 theorems across session-added files, one file
+merged-and-deleted, ~500 lines deleted, same mathematical
+content.  Plus the new `pell_recurrence_unique` is a real
+structural insight reusable across the codebase.
+
+**Iteration 14** (reduction expanded to entire `lean/` tree):
+4 parallel audit agents (Theory+Term, Meta, Lens-A, Lens-B,
+Lib/Physics, Lib/Math ×3) reported ~120 candidate reductions.
+Verified each by `grep`-for-external-use and applied 15 files'
+worth of clean cuts:
+
+  · Symmetry/AutKChiral (13 internal scaffolds)
+  · Atomic/Hydrogen, Helium (8 scaffolds total)
+  · AlphaEM/{ChannelCohomologyLoss, LaplacianSpectrum} (~18
+    scaffolds total)
+  · AlphaEM/GluonChannelInterpretation (2 trivial)
+  · Cohomology/Surfaces/T2Squared/HodgeIndex (6 diag → bundle)
+  · Cauchy/Euler (6 per-parameter applications)
+  · Math/Combinatorics/Binomial (10 → 2)
+  · Mass/TauOverMu (6 scaffolds → master conjuncts)
+  · Lens/Cardinality/{Tower, LensCardinality}
+  · Lens/Bool213/Raw (8 truth tables → 2 bundles + iff merge)
+  · Lens/SyntacticInternalization (5 rfls)
+  · Meta/LensInternality (3 rfls)
+
+Net: ~90 theorems removed, ~315 lines off, build clean
+throughout, ∅-axiom preserved.  Two new sub-patterns added to
+`LESSONS_LEARNED.md` (Smell #5: biconditional split; Smell #6:
+per-parameter meta-applications) plus a 30%-over-flag caveat
+for agent-driven audits.
+
+Final waves (continued sweep across Atomic/IE/, Atomic/, Hadron/,
+AlphaEM/, Geometry/, Nuclear/):
+  · Wave 5: Endomorphic foldRaw_a/_b + PairForcing 5 private half_*
+  · Wave 6: Geometry/Rotation matrix-entry bundles (10 → 2)
+  · Wave 7: IE/Capstone + Atomic/Screening intermediate consolidation
+  · Wave 8: HeliumPPM + HydrogenPPM scaffold consolidation
+  · Wave 9: IE/SecondRow 8 scaffolds → master
+  · Wave 10: IE/PeriodClosures 7 per-period scaffolds → master
+  · Wave 11: Nuclear/MagicNumbers ho_magic_1..7 → list form
+  · Wave 12: IE/IonizationEnergies 5 → 1 (3 redundant NT=2 forms)
+  · Wave 13: Atomic/BondAngles 7 scaffolds → 1 master
+  · Wave 14: IE/Hydrogenic 4 scaffolds → 1 master
+  · Wave 15: IE/HundPenalty + CNOFNe scaffolds collapsed
+  · Wave 16: IE/Beryllium 3 → 1 + degenerate True∧True removed
+  · Wave 17: IE/Lithium 3 → 1
+  · Wave 18: Hadron/Bigrading 4 mn_mp_* scaffolds → master alone
+  · Wave 19: Hadron/Bigrading drop mnmp_me_prefactor (subset)
+  · Wave 20: AlphaEM/Bare 8 single-integer scaffolds → master
+  · Wave 21: Couplings/AlphaGUT 6 → 1 (+ removed degenerate
+    `True := trivial`)
+  · Wave 22: Couplings/DysonStructure 7 → 1 (four-fold integer-4
+    unification in one statement)
+  · Wave 23: Couplings/RunningGap 11 → 1 (running-gap structural
+    decomposition unified)
+  · Wave 24: Couplings/PhotonKernel 9 → 2 (kept `b_1_eq_8`
+    standalone for external use: 12+ refs across AlphaEMBridge,
+    V32Betti, DiamondShape, Linalg213, HodgeConjecture, YangMills)
+  · Wave 25: Couplings/TripleCoupling 16 → 1
+  · Wave 26: HodgeConjecture/Bridge/MotiveEtaleFusion 54 → 1
+    (~50-conjunct master covers all per-bidegree facts)
+  · Wave 27: HodgeConjecture/Bridge/Ising 36 → 1
+  · Wave 28: HodgeConjecture/Bridge/Potts 38 → 1
+  · Wave 29: AlphaEM/GradedDecomposition 18 scaffolds → master alone
+  · Wave 30: AlphaEM/Brackets 19 → 4 (3 masters + 1 extended)
+  · Wave 31: AlphaEM/ProjectionRatios 18 scaffolds → master alone
+  · Wave 32: AlphaEM/Capstone UnifiedSum 9 → 2 masters
+  · Wave 33: AlphaEM/CupChannelInventory 12 → 2
+  · Wave 34: AlphaEM/GradedFormula 8 → master
+  · Wave 35: AlphaEM/CupRingTrace 8 → master
+  · Wave 36: YangMills/WeinbergAngle 6 → 2 masters
+  · Wave 37: Mixing/CKMHierarchy 8 → 1 master
+  · Wave 38: HodgeConjecture/Bridge/DiscreteGeometry 23 → master
+  · Wave 39: HodgeConjecture/Bridge/SpinGlassGroundState 21 → 1
+  · Wave 40: HodgeConjecture/Bridge/PhaseRouting 27 → 1
+
+Verified-and-skipped candidates:
+  · universalMorphism_a/_b (heavily externally used)
+  · cases_lt_four/five/six/ten (used across Cohomology)
+  · mod_add_mod (used by DyadicFSM)
+  · lensXor_comm + lensCombineGeneric_comm (in-file references)
+
+Patterns DEFERRED as research directions (need structural
+insight, not mechanical cleanup): DyadicFSM/{Pell/ProperMod,
+Pisano/Predictor*} per-base files; CayleyDickson/Integer
+projection-lemma typeclass; PureNatMod3/5 mod-p descent template.
+Wallis sharper-bound kernel-free instances and ResolutionShift
+cutHalfIter-from-composition derivation also deferred (require
+non-trivial structural work).
+
+## Commits this session
 
 ```
-lake build E213 (framework)                  ✔ clean
-lake build E213.Lib.Math E213.Lib.Physics    [verifying in iter #30]
+6a7998cc  7-cluster deep audits — Group, SignedCut, NumberGrid, Information, Probability, DyadicFSM, HodgeConjecture
+e0e7dafe  Lens/SelfCompletion.lean + Linalg213/Analysis/Real213 critical revisions
+3832ea45  CayleyDickson + Cohomology audit revisions (2 audit agents)
+4a5c8a3d  seed §9.5 + §7.1 + STRICT_ZERO_AXIOM cross-refs for RawTopology
+58e7e28e  LEAN_FILE_SUMMARY.md — N_universe → N_resolution propagation
+e93df97b  Lens/RawTopology.lean — K_∞ deeper formalization
+bdd27138  Catalogs + CAPSTONE_INDEX sync — 2026-05-20 session additions
+7a48e7a9  N_universe → N_resolution rename — universe-as-thing framing purged
+c2c3b791  06_formalization.md + PhysicsBridgeNT2.lean — final Lean-side cross-refs
+21dda0ba  STRICT_ZERO_AXIOM.md — 2026-05-20 session catalog sync
+6f187eb1  Phase H — UndifferentiatedRaw + ARCHITECTURE philosophical preamble + HANDOFF
+8bf51258  Major formalizations + Substrate→AtomicBase rename
+81114a8e  Further framing cleanups — running gap, Basel, Force, Weinberg, observer rename, falsifiers
+542f75c4  Physics framing — additional coincidence rhetoric sweep
+4814310f  Phase G — FlatOntology + further framing cleanups
+fc115747  Deep philosophical revision pass — 14-agent audit synthesis (Phase A-F)
+ca2296a3  Lean tree philosophical revision pass — substrate, N_U, count-as-Raw, legacy, PAPER1
+a4843f97  Drop universe-constant framing of N_U + remove legacy-deletion narration
+30cb70ea  Residue framework revision pass — drop substrate metaphor, count-Lens import, dichotomies
+```
+```
+81114a8e  Further framing cleanups — running gap, Basel, Force, Weinberg, observer rename, falsifiers
+542f75c4  Physics framing — additional coincidence rhetoric sweep
+4814310f  Phase G — FlatOntology formalization + further framing
+fc115747  Deep philosophical revision pass — 14-agent audit synthesis (Phase A-F)
+ca2296a3  Lean tree philosophical revision pass — substrate, N_U, count-as-Raw, legacy, PAPER1
+a4843f97  Drop universe-constant framing of N_U + remove legacy-deletion narration
+30cb70ea  Residue framework revision pass — drop substrate metaphor, count-Lens import, dichotomies
 ```
 
-All 76 new symbols PURE (`#print axioms` returns "does not depend
-on any axioms").  No `propext` / `Quot.sound` / `Classical.choice`
-/ `omega` / `Mathlib` / `native_decide` introduced.
+## Refined philosophy (this session's contributions)
 
-## Key new reusable utilities
+The 2026-05-20 conversation generated the following refinements,
+all of which have been applied across seed/AXIOM/ + lean/E213/:
 
-  - **`E213.Tactic.NatHelper.add_mul_mod_self_pure`** —
-    `(a + n*c) % c = a % c` propext-free
-  - **`E213.Tactic.NatHelper.max_comm_pure`** —
-    `Nat.max u v = Nat.max v u` propext-free
-  - **`E213.Tactic.NatHelper.max_eq_left_pure`** —
-    `v ≤ u → Nat.max u v = u` propext-free
-  - **`E213.Lens.Number.Nat213.Peano.Nat213.toNat_injective`** —
-    closes Nat213 ↔ ℕ₊ correspondence
+1. **No substrate metaphor**: Lens application IS a residue
+   self-pointing event, not a layer placed above Raw.
+2. **Count-as-Raw clarified**: `2` is the count-Lens reading of
+   distinguishing's residue, not a Raw cardinality commitment.
+3. **Single-event meaning**: distinguishable AND readable in the
+   same event (not two conditions).
+4. **No deferred ontology**: successful pointing IS what being
+   amounts to; the ontology/derivation split is the import.
+5. **No-exterior-dialer**: 0-parameter is structural absence, not
+   methodological commitment.
+6. **N_U is not a universe constant**: count-Lens readout at
+   fractal level 2, consistent across 4 independent Lens
+   applications.
+7. **Self-completion**: every pointing is already complete (all 4
+   clauses simultaneous, not sequential).
+8. **Frozen + dynamic dualism**: both readings valid under no
+   external time axis; same residue, two Lens views.
+9. **K_∞ ≡ point ≡ infinite topological space** at raw level
+   (pre-Lens / no-distinction state).
+10. **State-transition = state, operator = object** for systems
+    with no external time / role-assigner.
+11. **4-clause structural force**: 1 → 2 → 3 → 4 forcing chain;
+    not 3, not 5.
 
-## What this branch delivered
+## Seed corpus changes (new sections)
 
-  - **Full commutative semiring laws** on `Peano.Nat213` —
-    `add_comm/assoc/cancel`, `mul_comm/assoc/cancel`, distributivity,
-    + `toNat_injective` closing the Nat213 ↔ ℕ₊ correspondence.
-  - **Bridge injectivity** — Peano ↔ Raw chart-chain bijection
-    closed via `toRaw_injective`.
-  - **Extended chart-chain algebra** — residue invariant, weak +
-    strict monotonicity, lower bound, subtraction form.
-  - **Boolean algebra on Bool213** — `and` + `or` + complete
-    lattice laws (idempotence, distributivity, absorption, De Morgan).
-  - **Raw observables** — `leaves_pos`, `depth_slash`,
-    `leaves_slash`, `depth_lt_leaves` (universal binary-tree inequality).
-  - **Equivalence-relation closures** — `qpairEquiv` and `npairEquiv`
-    now have full refl/symm/trans for the Q-pair / Z-pair towers.
-  - **Eqv API extremes** — `trivial_top`, `bracket`,
-    `exists_distinct_leaves_eqv` (concrete strict-coarsening witness).
-  - **Lens refinement** — kernel antisymmetry +
-    transitive chain endpoint closures.
-  - **3 new propext-free NatHelper utilities** —
-    `add_mul_mod_self_pure`, `max_comm_pure`, `max_eq_left_pure`.
-  - **KO → EN docstring translation** — Bool213/{Raw,System}.lean,
-    Endomorphic.lean, umbrella headers, Theory/Raw/Core.lean +
-    in-flight cleanups of other files.
+  - `02_statement.md` §3.2: self-completion note.
+  - `02_statement.md` §3.4: dual reading (frozen + dynamic).
+  - `03_form.md` §4.5: forcing chain 1→2→3→4 (NEW section).
+  - `04_falsifiability.md`: §5.1 reframe + "Falsification is
+    internal" subsection (NEW).
+  - `05_primacy.md`: retitled "Primacy as default structural
+    position"; causal direction corrected.
+  - `07_self_reference.md`: §8.4 dichotomy guide expanded
+    (4 → 10 entries); §8.5 sharpened; §8.6 self-completion
+    (NEW); §8.7 frozen + dynamic dualism (NEW).
+  - `09_chart_relativity.md`: §9.4 reworded; §9.5 K_∞
+    equivalence (NEW); §9.6 state-transition = state (NEW).
+  - `RESOLUTION_LIMIT_SPEC.md`: Section 2 reframed (N_U as
+    four-Lens convergence, not universe constant); §3 retitled
+    "Lens readout"; Section 4 (legacy refactoring directives)
+    deleted.
+  - `seed/INDEX.md`, `seed/AXIOM/INDEX.md`: updated chapter
+    descriptions; cleaned legacy-deletion narration.
 
-## Open work (genuinely remaining)
+## Lean tree changes — new files
 
-### 1. Catalog-sync for the 76 new theorems
-`CAPSTONE_INDEX.md` "Substrate / metalogic" section could cite the
-new Peano semiring + ChartGeneral algebra + Bool213 lattice +
-equivalence closures.
+  - `lean/E213/Lens/FlatOntology.lean` — §9.3 forward direction
+    (12 PURE).  Objects, types, relations, functions, Lens all
+    as decidable predicates on Raw^n.
+  - `lean/E213/Lens/PredicateSelfEncoding.lean` — §9.3 closure
+    direction (7 PURE).  Predicates back to Raw via positional
+    truth-table Gödel numbering.
+  - `lean/E213/Lens/UndifferentiatedRaw.lean` — §9.5 Lean
+    witness (3 PURE).  Constant-Lens collapse: under
+    `constLens e`, every Raw maps to `e`; the no-distinction
+    reading of Raw is a singleton ≡ K_∞-at-raw ≡ point.
+  - `lean/E213/Meta/ThreeDirectionUniqueness.lean` — unified
+    single-statement bundle of below/sideways/above closures
+    from §1.3 (1 capstone thm, all PURE).
 
-### 2. KO docstring backlog
-Iteration cleaned major files (Bool213/, Endomorphic.lean,
-umbrellas).  Other Korean content remains in select Lib/Math
-files (Mobius213OneAsGlue, PatternCatalog/Core, various Audit
-files) — bulk grep:
-```
-grep -rln "가\|에\|를\|이\|하" lean/E213 | head
-```
+## Lean tree changes — additions to existing files
 
-### 3. Long-tail stale paths in catalogs/math-theorems.md
-Tier-claim updated; module-path refresh remains pending.
+  - `lean/E213/Lib/Math/Mobius213.lean`: 6 new ∅-axiom
+    theorems — `mobius_213_char_poly_at_trace` (φ², 1/φ²
+    eigenvalues encoded); `mobius_213_pell_unit_invariant_layer
+    {0,1,2,3,4}` (Pell-unit cross-product invariant = -1 across
+    convergent layers, witnessing det [[2,1],[1,1]] = 1).
+    Frozen + dynamic dual reading docstring added.
+  - `lean/E213/Meta/AxiomMinimalityCapstone.lean`:
+    `raw_forcing_chain_unified` meta-theorem (cross-ref to §4.5).
+  - `lean/E213/Theory.lean` umbrella: three-direction uniqueness
+    explained at docstring level.
 
-### 4. research-notes/G1_universal_lens.md
-10 legacy-tier occurrences — historical record, defensible as-is
-but could carry a "deprecated tier marker" header.
+## Lean tree changes — major rename
+
+  - `lean/E213/Lib/Physics/Substrate/` → `Lib/Physics/AtomicBase/`
+    (13 files + INDEX.md).
+  - `Substrate.lean` umbrella → `AtomicBase.lean`.
+  - Namespace `E213.Lib.Physics.Substrate` →
+    `E213.Lib.Physics.AtomicBase` across all moved files.
+  - External imports + references updated in ~10 files.
+  - Rationale: "Substrate" imported a substrate / superstructure
+    framing inconsistent with §8.1's no-exterior principle.
+
+## Lean tree changes — docstring + comment sweep
+
+  - Term/Internal/Tree.lean: encoding-cost docstring (inductive,
+    cmp, canonical — all §8a.1 costs flagged at origin).
+  - Theory/Raw/Core.lean, Theory/Raw/Slash.lean: encoding-cost
+    notes; slash as referring (not operator).
+  - Theory/Raw/ParenthesizationDistinct.lean: magma framing
+    softened.
+  - Meta/AxiomMinimality.lean: "3 clauses" → "4 clauses".
+  - Lens/Cardinality.lean: substrate metaphor purged.
+  - Lens/Congruence.lean: "internal/external" → "structural/
+    observational" (both residue-internal).
+  - Lens/LensCore.lean, Lens/SemanticAtom.lean: framing
+    sharpened — Lens as residue self-reading; HasDistinguishing
+    as structure Raw INDUCES.
+  - Meta/LensInternality.lean: tightened opening.
+  - Lens/Universal/Witnesses/Core.lean: `Observer O` →
+    `r₀` (basepoint).
+  - 20+ physics files: "coincidence" rhetoric → "structural
+    identity" / "Lens-reading agreement"; "vacuum" external →
+    ground-configuration Lens label; "observed vs predicted" →
+    "two internal Lens readings"; DrltZeroParameters explicit
+    §8.1 cross-ref; AutKChiral "spacetime/gauge analog"
+    removed; running gap reframed as lattice-internal depth
+    effect.
+  - Theorem renames (no external callers):
+    - `paper1_chiral_compression` → `chiral_compression_capstone`
+    - `four_atomic_coincidence` → `four_atomic_unification`
+    - `fibonacci_atomic_coincidence` → `fibonacci_atomic_alignment`
+
+## Architecture documentation
+
+  - `lean/E213/ARCHITECTURE.md`: new "Philosophical foundations
+    (canonical preamble)" section added before §0.  States that
+    rings are code-organization conveniences, not philosophical
+    hierarchies; cites the canonical philosophical commitments
+    across seed/AXIOM/ and how sub-INDEXes should read
+    architectural metaphors (substrate / foundation /
+    bare-metal / sits between as code-vocabulary only).
+
+## Verification
+
+  - `lake build` clean across all changes.
+  - All new theorems PURE (∅-axiom) — verified via
+    `tools/scan_axioms.py`:
+      - FlatOntology: 12/12 PURE.
+      - PredicateSelfEncoding: 7/7 PURE.
+      - UndifferentiatedRaw: 3/3 PURE.
+      - ThreeDirectionUniqueness: 1/1 PURE (39 cumulative deps).
+      - Mobius213 new theorems: 6/6 PURE (15/15 total).
+  - No theorem statements changed in existing files; only
+    docstrings/comments/identifiers updated mechanically, plus
+    new PURE additions.
+  - ∅-axiom contract preserved across all 100+ files touched.
+
+## Open / pending (next session)
+
+  1. Catalogs cross-sync — atomic-integers.md, math-theorems.md
+     could cite new additions (FlatOntology, PredicateSelfEncoding,
+     UndifferentiatedRaw, ThreeDirectionUniqueness,
+     forcing-chain capstone, Möbius dual-reading theorems).
+  2. CAPSTONE_INDEX.md update (if exists) to reference new
+     capstones.
+  3. STRICT_ZERO_AXIOM.md catalog sync for 28 new PURE symbols.
+  4. Long-tail: residual "coincidence" or framing issues in
+     research-notes/ (lower priority since research-notes is
+     exploratory).
 
 ## Anchor docs (next session start)
 
-- `CLAUDE.md` (top) — boot sequence
-- `seed/AXIOM/07_self_reference.md` §8.4 — dichotomy guide
-- `seed/AXIOM/09_chart_relativity.md` — chart-relativity chapter
-- `STRICT_ZERO_AXIOM.md` "Terms (canonical)" — the canonical PURE
-  definition
-- `lean/E213/Lens/Number/Nat213/Peano.lean` — extended with full
-  commutative semiring + cancellation + toNat-injectivity
-- `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — extended with
-  residue / monotonicity / strict mono / sub form
-- `lean/E213/Lens/Number/Nat213/Tower/{NatPairToInt,NatPairToQPos}.lean` —
-  full equivalence-relation closures for both towers
-- `lean/E213/Theory/Raw/Levels.lean` — extended with `leaves_pos`,
-  `depth_slash`, `leaves_slash`, `depth_slash_pos`, `depth_lt_leaves`
-- `lean/E213/Lens/Bool213/Raw.lean` — Boolean algebra closed
-- `lean/E213/Meta/Tactic/NatHelper.lean` — 3 new propext-free utils
+  - `CLAUDE.md` boot sequence (refreshed this session).
+  - `seed/AXIOM/07_self_reference.md` §8 — now includes §8.6
+    (self-completion) + §8.7 (frozen+dynamic) per the 2026-05-20
+    refinements.
+  - `seed/AXIOM/09_chart_relativity.md` — §9.5 K_∞ + §9.6
+    state-transition = state added.
+  - `lean/E213/ARCHITECTURE.md` — Philosophical foundations
+    preamble + cross-refs to sub-INDEX framings.
+  - `lean/E213/Lens/FlatOntology.lean` +
+    `lean/E213/Lens/PredicateSelfEncoding.lean` — §9.3 closure
+    realised.
+  - `lean/E213/Lens/UndifferentiatedRaw.lean` — §9.5 realised.
+  - `lean/E213/Meta/ThreeDirectionUniqueness.lean` — §1.3
+    closure realised.
+
+## Total impact
+
+~100 files touched across 9 commits.  ~600 lines added / 200
+lines removed net.  4 new Lean files; 1 directory + 1 umbrella
+file renamed; 14 audit agents employed; entire 2026-05-20
+conversation refinements integrated.

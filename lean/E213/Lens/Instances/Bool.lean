@@ -61,9 +61,6 @@ theorem boolOrLens_view_const (r : Raw) : boolOrLens.view r = true := by
           ihx, ihy]
       decide
 
-end E213.Lens.Instances.Bool
-namespace E213.Lens.Instances.Bool
-open E213.Theory E213.Lens
 
 -- ═══ Swap-visible Bool lens: XOR ═══
 

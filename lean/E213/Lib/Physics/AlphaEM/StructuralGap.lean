@@ -12,7 +12,7 @@ Difference (candidate − observed):  −5.443 × 10⁻⁴
 
 This gap is **independent of bracket tightening on ζ(2)**: even with a
 zero-width bracket on the Basel sum, the candidate formula's value
-137.0354548 misses observed 137.0359991 by 5.4×10⁻⁴.
+137.0354548 Lens-bracket endpoint differs from measurement-Lens reading 137.0359991 by 5.4×10⁻⁴.
 
 ## Open Problem #1 split (per HANDOFF)
 
@@ -33,9 +33,9 @@ zero-width bracket on the Basel sum, the candidate formula's value
     "channels per spatial dimension" ansatz.  An exact derivation
     from the Gram-channel structure may yield 25/3·(1+δ) with
     δ ≈ 6.5×10⁻⁵.  Open.
-  - **hadronic-VP analog.**  Standard QED needs a hadronic vacuum
-    polarization correction at the 10⁻⁴ scale; a 213-internal
-    counterpart from the d=5 atomic structure is unknown.
+  - **hadronic-sector correction analog.**  Standard QED requires
+    a hadronic-sector ~10⁻⁴ radiative correction; a 213-lattice
+    internal counterpart from the d=5 atomic structure is unknown.
 
 This file makes the gap a **first-class, rationally-stated falsifier**
 target so any future marathon resolves it as a single Lean theorem.
@@ -45,7 +45,7 @@ namespace E213.Lib.Physics.AlphaEM.StructuralGap
 
 open E213.Lib.Physics.AlphaEM.V137Tight
 
-/-- Observed 1/α_em(0) ≈ 137.0359991, expressed as 137036/1000
+/-- Measurement-Lens 1/α_em(0) ≈ 137.0359991, expressed as 137036/1000
     (4 significant figures past 137).  The 4/27-standard target is
     `|candidate − 137036/1000| < 137/10⁴`. -/
 def observed_milli : (Nat × Nat) := (137036, 1000)

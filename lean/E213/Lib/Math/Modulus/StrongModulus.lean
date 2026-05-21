@@ -37,12 +37,7 @@ structure StrongModulus (xs : Nat → Raw) where
       ≤ (abLens.view (xs i)).1 * (abLens.view (xs j)).2 * k
         + (abLens.view (xs i)).2 * (abLens.view (xs j)).2
 
-end E213.Lib.Math.Modulus.StrongModulus
 
-namespace E213.Lib.Math.Modulus.StrongModulus
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB
 
 /-- **Diagonal sequence** (view (n+1, n+1)) is a StrongModulus instance.
     Constant ratio 1 → variation = 0 → trivial bound. -/

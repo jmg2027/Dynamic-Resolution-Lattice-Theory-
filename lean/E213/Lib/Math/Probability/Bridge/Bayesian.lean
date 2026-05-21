@@ -12,7 +12,7 @@ field.  Batch update is `+k` and `+(n − k)`.
 
 213-native: no continuous Beta density, no integration, no σ-algebra.
 Conjugate update = atomic counting addition.  This is the cleanest
-form of "frequency = belief" in a finite-resolution universe.
+form of "frequency = belief" — atomic Lens-pair self-agreement.
 -/
 
 namespace E213.Lib.Math.Probability.Bridge.Bayesian
@@ -66,57 +66,46 @@ def updateBatch (b : BetaCount) (ks fs : Nat) : BetaCount where
       (Nat.add_le_add (Nat.le_add_right b.successes ks)
                        (Nat.le_add_right b.failures fs))
 
-/-- `updateOnSuccess` increments `successes` (rfl). -/
-theorem updateOnSuccess_successes (b : BetaCount) :
-    b.updateOnSuccess.successes = b.successes + 1 := rfl
-
-/-- `updateOnSuccess` preserves `failures` (rfl). -/
-theorem updateOnSuccess_failures (b : BetaCount) :
-    b.updateOnSuccess.failures = b.failures := rfl
-
-/-- `updateOnFailure` increments `failures` (rfl). -/
-theorem updateOnFailure_failures (b : BetaCount) :
-    b.updateOnFailure.failures = b.failures + 1 := rfl
-
-/-- `updateBatch b 0 0` is a no-op on the count fields (rfl). -/
+/-- `updateBatch b 0 0` is a no-op on the count fields (rfl).
+    Externally consumed by `Probability/Foundation/Capstone`. -/
 theorem updateBatch_zero (b : BetaCount) :
     (b.updateBatch 0 0).successes = b.successes
     ∧ (b.updateBatch 0 0).failures = b.failures :=
   ⟨Nat.add_zero b.successes, Nat.add_zero b.failures⟩
 
-/-- ★ **Bayesian batch ↔ sequential** ★ — single-success update is
-    the same as `updateBatch _ 1 0` (count fields). -/
-theorem updateOnSuccess_eq_batch (b : BetaCount) :
-    b.updateOnSuccess.successes = (b.updateBatch 1 0).successes
-    ∧ b.updateOnSuccess.failures = (b.updateBatch 1 0).failures :=
-  ⟨rfl, (Nat.add_zero b.failures).symm⟩
-
-/-- Sequential = batch (count fields): two successes via two updates
-    equals one batch with `ks = 2`. -/
-theorem two_successes_eq_batch (b : BetaCount) :
-    b.updateOnSuccess.updateOnSuccess.successes
-    = (b.updateBatch 2 0).successes := by
-  show b.successes + 1 + 1 = b.successes + 2
-  rw [Nat.add_assoc]
-
-/-- Uniform prior posterior mean = 1/2 (rfl). -/
-theorem uniformPrior_posteriorMean :
-    uniformPrior.posteriorMean.num = 1
-    ∧ uniformPrior.posteriorMean.den = 2 :=
-  ⟨rfl, rfl⟩
-
-/-- Posterior after one success on uniform prior: `2/3`
-    (Laplace's rule of succession at `n = 1`). -/
-theorem laplace_one_success :
-    uniformPrior.updateOnSuccess.posteriorMean.num = 2
-    ∧ uniformPrior.updateOnSuccess.posteriorMean.den = 3 :=
-  ⟨rfl, rfl⟩
-
-/-- Posterior after one failure on uniform prior: `1/3`. -/
-theorem laplace_one_failure :
-    uniformPrior.updateOnFailure.posteriorMean.num = 1
-    ∧ uniformPrior.updateOnFailure.posteriorMean.den = 3 :=
-  ⟨rfl, rfl⟩
+/-- ★ Bayesian conjugate master — per-update rfl identities and
+    Laplace's rule of succession witnesses on the uniform prior. -/
+theorem bayesian_conjugate_master :
+    -- updateOnSuccess (single-success): increments successes, preserves failures
+    (∀ b : BetaCount, b.updateOnSuccess.successes = b.successes + 1)
+    ∧ (∀ b : BetaCount, b.updateOnSuccess.failures = b.failures)
+    -- updateOnFailure: increments failures
+    ∧ (∀ b : BetaCount, b.updateOnFailure.failures = b.failures + 1)
+    -- Batch ↔ sequential (single success vs updateBatch _ 1 0)
+    ∧ (∀ b : BetaCount,
+        b.updateOnSuccess.successes = (b.updateBatch 1 0).successes
+        ∧ b.updateOnSuccess.failures = (b.updateBatch 1 0).failures)
+    -- Two sequential successes = batch 2
+    ∧ (∀ b : BetaCount,
+        b.updateOnSuccess.updateOnSuccess.successes
+          = (b.updateBatch 2 0).successes)
+    -- Uniform prior posterior mean = 1/2
+    ∧ (uniformPrior.posteriorMean.num = 1
+       ∧ uniformPrior.posteriorMean.den = 2)
+    -- Laplace one success → 2/3
+    ∧ (uniformPrior.updateOnSuccess.posteriorMean.num = 2
+       ∧ uniformPrior.updateOnSuccess.posteriorMean.den = 3)
+    -- Laplace one failure → 1/3
+    ∧ (uniformPrior.updateOnFailure.posteriorMean.num = 1
+       ∧ uniformPrior.updateOnFailure.posteriorMean.den = 3) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ⟨rfl, rfl⟩, ⟨rfl, rfl⟩, ⟨rfl, rfl⟩⟩
+  · intro _; rfl
+  · intro _; rfl
+  · intro _; rfl
+  · intro b; exact ⟨rfl, (Nat.add_zero b.failures).symm⟩
+  · intro b
+    show b.successes + 1 + 1 = b.successes + 2
+    rw [Nat.add_assoc]
 
 end BetaCount
 

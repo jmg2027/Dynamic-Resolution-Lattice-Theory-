@@ -52,9 +52,6 @@ protected theorem eqPW_trans {α : Type} {L M N : Lens α}
 
 end Lens
 
-end E213.Lens
-
-namespace E213.Lens
 
 open E213.Theory
 
@@ -106,11 +103,7 @@ protected theorem eqPW_view_of_sym {α : Type} {L M : Lens α} (h : L.eqPW M)
 
 end Lens
 
-end E213.Lens
 
-namespace E213.Lens
-
-open E213.Theory
 open E213.Term.Internal (Tree)
 
 namespace Lens
@@ -141,11 +134,7 @@ protected theorem fold_slash_eqPW {β : Type}
 
 end Lens
 
-end E213.Lens
 
-namespace E213.Lens
-
-open E213.Theory
 
 namespace Lens
 

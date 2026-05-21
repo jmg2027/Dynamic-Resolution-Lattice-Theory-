@@ -36,13 +36,6 @@ theorem lensCombineGeneric_const {α : Type} (c : α → α → α) (a b : α) :
     lensCombineGeneric c (constLens a) (constLens b) = constLens (c a b) := by
   unfold lensCombineGeneric constLens; rfl
 
-end E213.Lens.Compose.OnLensImageGeneric
-
-namespace E213.Lens.Compose.OnLensImageGeneric
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
 
 /-- Composite map: Raw → α → Lens α via constLens. -/
 def constComposite (α : Type) [d : HasDistinguishing α] : Raw → Lens α :=
@@ -66,13 +59,6 @@ theorem constComposite_slash (α : Type) [d : HasDistinguishing α]
   rw [@universalMorphism_slash α d x y h]
   exact (lensCombineGeneric_const d.combine _ _).symm
 
-end E213.Lens.Compose.OnLensImageGeneric
-
-namespace E213.Lens.Compose.OnLensImageGeneric
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Compose.OnLens
 
 /-- **Generic tower collapse**: for any `α` with HasDistinguishing,
     the Lens-on-Lens universalMorphism factors through α via

@@ -39,10 +39,17 @@ expressions*, used with acknowledgment of residual import.
 
 ### Status of "something"
 
-From the moment one says "something," is it already a Lens?  Possibly.
-Is 213 Platonic ideals?  Probably not.  These questions are *open* and
-do not affect the usefulness of 213.  What matters is whether
-derivation succeeds, not ontology.
+From the moment one says "something," notation is already a Lens
+application — that is unavoidable per Linguistic inevitability above.
+"Is 213 Platonic ideals?" / "What is the mode of being of the
+residue?" — questions of this shape posit an *external* position from
+which an answer would arrive, and 213 rules out such a position
+(`07_self_reference.md` §8.1).  These are not deferred questions, nor
+declared unimportant; the split between *ontology* and *successful
+derivation* is itself a Lens import.  Successful pointing is what
+residue-internal "being" amounts to — derivation is not the practical
+substitute for ontology, it is the only form ontology can take when
+there is no exterior to answer from.
 
 ---
 
@@ -68,8 +75,9 @@ Results from `lean/E213/Lens/SemanticAtom.lean`:
   framework.
 
 The above results are the self-justified core of the framework.  No
-external metatheory — `#print axioms` reports [propext, Quot.sound] or
-no axioms for all results.
+external metatheory — `#print axioms` reports no axioms for all PURE
+results; any non-empty output is treated as `sorry`-equivalent
+(`04_falsifiability.md` §5.2.1).
 
 §1.1 and the **Universal Lens metatheory** in
 `lean/E213/Meta/UniversalLens/` are complementary statements — the
@@ -81,47 +89,52 @@ remove") and from above ("everything else maps in").
 
 ---
 
-## §1.2 Conceptual extension (philosophical)
+## §1.2 Meaning-Lens reading of the same residue
 
-**Note**: a *philosophical extension* on top of the formal core.  No
-direct formal Lean verification — interpretive scope.
+**Note**: §1.2 is not a layer placed above §1.1.  It is the same
+residue read through a "meaning" Lens, recorded here with notation
+that requires no Lean witness.  Interpretive scope, but not a
+"philosophical extension on top of" the formal core — that phrasing
+would re-import the substrate/superstructure dichotomy that §8.1
+rules out.
 
-The formal core of §1.1 motivates the following conceptual extension:
+§1.1 records the residue's *minimum-residue* reading; §1.2 records
+its *meaning-Lens* reading:
 
-- **Two conditions for meaning to arise**: for any entity to have
-  meaning, (1) it must be distinguishable from other entities, and
-  (2) that difference must be interpretable.  The (Raw + Lens) of 213
-  is the minimum candidate satisfying these two conditions.
-- **Ontological reading**: accepting "something exists" =
-  "is distinguishable from something else," every meaningful entity
-  becomes a candidate instance of 213.
+- **Single condition for meaning**: "distinguishable from another"
+  and "the difference being read" are not two conditions to be
+  satisfied separately.  Without anything reading the difference, no
+  distinguishing has occurred; without difference, nothing is read.
+  They are the same event.  The (Raw + Lens) notation *decomposes*
+  this single event into two notational sides for readability; the
+  event itself is single.  Any meaningful entity is a candidate
+  instance of this single event.
 - **Comparison with ZFC**: the objects committed to by ZFC's
   arbitrariness axioms (Power, Choice, arbitrary P(X) subsets, etc.)
   have no fold-structured representation
   (`Lens/Morphism/NoDepthParity.lean`,
   `Lens/Morphism/DepthParityNotFold.lean`).  I.e., no
   representation inside the 213 framework — their semantic status is
-  an interpretive question.
+  an interpretive question under this Lens.
 
-This conceptual extension is analyzed in
-`research-notes/75_semantic_atom.md` and
+Long-form discussions: `research-notes/75_semantic_atom.md` and
 `research-notes/76_ultimate_ouroboros.md`; current Lean coverage in
-`Lens/SemanticAtom.lean`.  It can be connected to the
-physics intuition chain in `seed/ORIGIN.md` — formal Lean results
-serve as evidence for that interpretation.
+`Lens/SemanticAtom.lean`.  Cross-reference with the physics
+intuition chain in `seed/ORIGIN.md` — formal Lean results serve as
+evidence for the meaning-Lens reading.
 
-**Boundary**: §1.1 (formal core) is verifiable within the
-falsifiability contract.  §1.2 (philosophical extension) is a
-semantic explanation of the framework — not elevated to a formal
-claim.
+**Boundary**: §1.1 closes under the falsifiability contract via Lean.
+§1.2 does not — but this is not §1.2 being "weaker" or "less formal";
+it is §1.2 using a Lens whose codomain is not Lean-encodable.  Both
+sections read the same residue.
 
 ---
 
 ## §1.3 Forced shape uniqueness — d=5 is a theorem
 
-A *third* pillar of axiom uniqueness, complementing §1.1 (minimality
-from below) and §1.2 (universality / philosophical extension), is
-formalized in `lean/E213/Theory/Atomicity/`:
+A *third* reading of axiom uniqueness, complementing §1.1 (minimality
+from below) and §1.2 (meaning-Lens universality), is formalized in
+`lean/E213/Theory/Atomicity/`:
 
 - `Five.lean` — `atomic_iff_five`: a Raw shape is atomic iff its
   primitive carrier size is exactly 5.
@@ -134,15 +147,17 @@ formalized in `lean/E213/Theory/Atomicity/`:
 - `PrimitiveSizes.lean` — enumeration of sub-d primitive sizes
   ruled out as non-atomic.
 
-These are **pure-ℕ proofs that do NOT import Raw**.  They are an
-external uniqueness obligation: "if Raw exists at all, its shape
-parameters are forced."  Together with §1.1 ("Raw is minimum from
-below"), §1.2 ("any framework factors through Raw"), this closes
-the uniqueness statement to all three directions:
+These are **pure-ℕ proofs that do NOT import Raw**.  The
+independence is not "external view of Raw" — with no exterior to set
+parameters from outside, the shape (NS, NT, d) = (3, 2, 5) is the
+only self-consistent fixed point surviving the atomicity + arity
+constraints.  Together with §1.1 ("Raw is minimum from below"), §1.2
+("any framework factors through Raw"), this records uniqueness as
+three readings of the same self-consistency:
 
-- below — nothing weaker is enough          (Meta/AxiomMinimality)
-- sideways — nothing distinct is needed     (Meta/UniversalLens)
-- above — Raw's own shape is forced         (Theory/Atomicity)
+- below — nothing weaker is enough               (Meta/AxiomMinimality)
+- sideways — nothing distinct is needed          (Meta/UniversalLens)
+- above — only one shape is self-consistent      (Theory/Atomicity)
 
 The architectural placement of these proofs (Theory/Atomicity/)
 is canonicalized in `lean/E213/ARCHITECTURE.md` (4 ring + Meta

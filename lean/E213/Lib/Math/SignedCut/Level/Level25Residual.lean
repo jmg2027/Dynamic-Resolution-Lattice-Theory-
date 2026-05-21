@@ -8,11 +8,11 @@ import E213.Lib.Math.SignedCut.Hurwitz.HurwitzCeiling
 Mingu's question: at d=5 ceiling level 25, what operational
 invariant / topological symmetry survives?
 
-Answer (213-native): **Z/2-graded substrate-valued algebra**:
+Answer (213-native): **Z/2-graded algebra at the Cut (level-0) reading**:
   1. Conjugation involution `cdConj 25` (level-uniform).
   2. Substrate-valued norm `cdNormSq 25 : CDLevel 25 → Cut`.
   3. Z/2 grading by conjugation.
-  4. N_U = 5²⁵ trajectory branches as cardinality fingerprint.
+  4. N_U = 5²⁵ trajectory branches as count-Lens reading at level 25.
 -/
 
 namespace E213.Lib.Math.SignedCut.Level.Level25Residual

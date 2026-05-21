@@ -20,4 +20,4 @@ neutrino species), dark energy, gravity shadow, horizon information.
 
   - New cosmological observable     → `<Observable>.lean`
   - Horizon / boundary effect       → `Horizon<...>` / `<...>Shadow`
-  - Bridge to substrate / atomic    → `Bridge.lean`
+  - Bridge to atomic base    → `Bridge.lean`

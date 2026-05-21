@@ -53,9 +53,6 @@ def specLens : Lens α where
 
 end CommBinaryCodomain
 
-end E213.Meta.SelfRecognising
-
-namespace E213.Meta.SelfRecognising
 
 open E213.Theory E213.Lens CommBinaryCodomain
 open E213.Lens.Properties.Characterisation.Catalog

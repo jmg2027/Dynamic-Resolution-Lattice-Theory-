@@ -53,7 +53,7 @@ theorem fractal_edge_atomic :
 /-- ★ Bridge: α_GUT structural identification.
       6  = b_1(K_5)           = numerator
       25 = numV(K_{25})        = denominator integer
-      π² = ζ(2) · 6            = standard transcendental
+      π² = ζ(2) · 6            (Basel-sum identity)
     Therefore 1/α_GUT = 25 · ζ(2) = numV(K_{25}) · ζ(2),
     which matches `Physics.AlphaGUT` (Basel-sum bracket). -/
 theorem alpha_GUT_fractal_form :

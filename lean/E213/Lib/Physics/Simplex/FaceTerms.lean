@@ -19,7 +19,6 @@ import E213.Lib.Physics.Couplings.PhotonKernel
   - C(d-1, 3) = NS + 1 only at d = 5
 
 → PairForcing → Atomicity forces the simplicial cohomology origin of all five terms.
-  Not a mere arithmetic coincidence.
 
 ## Unified geometric origin of five terms
 

@@ -24,9 +24,6 @@ private def shiftAround {n : Nat} (v w : Fin (n+1)) (h : w ≠ v) : Fin n :=
     have hge : v.val ≤ w.val := Nat.le_of_not_lt hlt
     ⟨w.val - 1, sub_one_lt_of_lt_succ_ne hge hvw w.isLt⟩
 
-end E213.Lib.Math.Pigeonhole
-
-namespace E213.Lib.Math.Pigeonhole
 
 /-- `shiftAround` is injective on its domain. -/
 private theorem shiftAround_inj {n : Nat} (v : Fin (n+1))
@@ -79,9 +76,6 @@ private theorem shiftAround_inj {n : Nat} (v : Fin (n+1))
       have hadd : w₁.val - 1 + 1 = w₂.val - 1 + 1 := congrArg (· + 1) heqv
       exact Fin.ext (hs₁ ▸ hs₂ ▸ hadd)
 
-end E213.Lib.Math.Pigeonhole
-
-namespace E213.Lib.Math.Pigeonhole
 
 /-- **Pigeonhole.** No injection `Fin (N+1) → Fin N`. -/
 theorem no_inj_succ : ∀ (N : Nat) (g : Fin (N+1) → Fin N),

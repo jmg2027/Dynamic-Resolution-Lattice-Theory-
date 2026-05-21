@@ -22,7 +22,7 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
     d + 1 = 6         = NS·NT = bipartite edges (×c)
     NS² - 1 = 8       = b_1(K_{NS,NT}^{(c)}) = 1/α_3
     c·NS·NT = 12      = directed bipartite edges
-    c·NS·NT² = 24     = adjoint (= d²-1, hidden link!)
+    c·NS·NT² = 24     = adjoint (= d²-1, structural coupling!)
     c·NS·NT·d = 60    = Y-norm prefactor
     c^NS · NT = 16    = m_τ/m_μ base
     NS²+NS+1 = 13     = NH₃ denom
@@ -111,6 +111,7 @@ theorem master_unified_pattern :
    For any other (NS, NT, d, c) combination, many of the 14 equalities above
    become simultaneously false.  Only single atomicity forcing explains all precision formulas.
 
-   This is the true meaning of DRLT's "0 free parameter" claim. -/
+   This is the structural reading of DRLT's "no exterior dialer"
+   claim (cf. `seed/AXIOM/07_self_reference.md` §8.1). -/
 
 end E213.Lib.Physics.Foundations.UnifiedPattern

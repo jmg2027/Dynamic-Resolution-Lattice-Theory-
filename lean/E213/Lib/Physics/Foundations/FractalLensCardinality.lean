@@ -1,11 +1,11 @@
 import E213.Lib.Math.Cohomology.Fractal.V25
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
 # Fractal Lens Cardinality — Universal Lens count at level d²
 
-Structural derivation of why N_universe = d^(d²) is the natural
+Structural derivation of why N_resolution = d^(d²) is the natural
 "lattice configuration cardinality".
 
 ## The counting argument
@@ -18,13 +18,13 @@ Wait — this needs care.  Let me re-state precisely:
 
   Level 2 fractal K_{25}: numV(2) = 25 = d² vertices.
   Each vertex carries d-valued state (Lens codomain).
-  Configuration count = d^numV(2) = d^(d²) = N_universe.
+  Configuration count = d^numV(2) = d^(d²) = N_resolution.
 
 So **N_U = configurations of d-state on K_{d²} vertices**.
 
 ## Structural identity (Lean-encoded)
 
-  N_U = d^(d·d) (commit e893eef, n_universe_value)
+  N_U = d^(d·d) (commit e893eef, n_resolution_value)
       = configuration count of (Fin (d·d) → Fin d) function space
       = d-coloring count of K_{d²}
 
@@ -51,20 +51,20 @@ theorem K25_coloring_count : coloring_count numV d = d ^ (d * d) := by
   show d ^ 25 = d ^ (d * d)
   decide
 
-/-- ★ K_{25} d-coloring count = N_universe. -/
+/-- ★ K_{25} d-coloring count = N_resolution. -/
 theorem K25_coloring_count_eq_N_U :
     coloring_count numV d = 298023223876953125 := by
   show d ^ numV = 298023223876953125
   decide
 
 /-- ★★ Universal Lens cardinality structural identity:
-    distinct lens views at fractal level d² = d^(d²) = N_universe. -/
+    distinct lens views at fractal level d² = d^(d²) = N_resolution. -/
 theorem fractal_lens_cardinality_capstone :
     -- (a) Number of vertices at fractal level 2
     numV = d * d
     -- (b) Coloring count at d² vertices, d colors
     ∧ coloring_count numV d = d ^ (d * d)
-    -- (c) This equals N_universe value
+    -- (c) This equals N_resolution value
     ∧ d ^ (d * d) = 298023223876953125
     -- (d) Recursion structure: each new vertex multiplies by d
     ∧ (∀ n, coloring_count (n + 1) d = d * coloring_count n d)

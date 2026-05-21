@@ -16,8 +16,7 @@ Pisano-period variants:
   * `Legendre.PisanoExt` — extended-precision variant
 
 Per-variant namespaces preserved as sub-namespaces of `Legendre`.
-Pisano.Predictor consumes Legendre (not the other way) — the
-reverse import was dead and was removed 2026-05-13.
+Pisano.Predictor consumes Legendre.
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Legendre.V213
@@ -136,7 +135,7 @@ open E213.Lib.Math.DyadicFSM.Legendre.Small (legendre_5_mod_3 legendre_5_mod_5 l
 
 /-- ★★★★★★ Bridge: at p ∈ {3, 7} (NQR, inert), the Pell period
     matches the inert formula p + 1.  At p = 5 (ramified), the
-    period matches 2p.  The Legendre lens *predicts* the Pell
+    period matches 2p.  The Legendre lens computes the Pell
     period via trajectory branch law. -/
 theorem legendre_pisano_bridge_table :
     -- p = 3: NQR + inert, period = p+1 = 4

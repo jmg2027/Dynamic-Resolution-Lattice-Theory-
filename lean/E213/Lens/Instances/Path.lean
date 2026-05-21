@@ -58,9 +58,6 @@ theorem pathLens_view_ba_via_comm :
       = [false, true] := by
   rw [Raw.slash_comm]; rfl
 
-end E213.Lens.Instances.Path
-namespace E213.Lens.Instances.Path
-open E213.Theory E213.Lens
 
 theorem pathLens_view_a_slash_ab :
     pathLens.view (Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide))

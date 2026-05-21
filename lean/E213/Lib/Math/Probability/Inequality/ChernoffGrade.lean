@@ -34,37 +34,37 @@ abbrev GradeIndex := Fin 5
     Exposes the `binom 5 g` table: 1, 5, 10, 10, 5. -/
 def gradeDim (g : GradeIndex) : Nat := binom 5 g.val
 
-/-- Concrete grade dimensions.  Decided via `binom 5 g` for `g ≤ 4`. -/
-theorem gradeDim_zero : gradeDim ⟨0, by decide⟩ = 1 := by decide
-theorem gradeDim_one : gradeDim ⟨1, by decide⟩ = 5 := by decide
-theorem gradeDim_two : gradeDim ⟨2, by decide⟩ = 10 := by decide
-theorem gradeDim_three : gradeDim ⟨3, by decide⟩ = 10 := by decide
-theorem gradeDim_four : gradeDim ⟨4, by decide⟩ = 5 := by decide
-
-/-- Chernoff bound at a fixed grade `g`, given a discrete
-    distribution `[(mass_i, val_i)]` and threshold `a`: the Markov
-    inequality `a · tailMass ≤ tailMoment` holds at every grade —
-    by construction.  The "grade-index optimisation" picks the
-    grade where the bound is *tightest*, not where it newly holds. -/
-theorem chernoff_at_grade (g : GradeIndex) (a : Nat)
-    (xs : List (Nat × Nat)) :
-    a * tailMassNum a xs ≤ tailMomentNum a xs :=
-  markov_inequality a xs
-
-/-- ★ **Grade-0 closure** ★ — at the trivial grade (1-dim cohomology
-    layer), the Chernoff bound holds for the singleton list `[(1, 0)]`
-    decidably: `a · 0 ≤ 0` since `tailMassNum a [(1, 0)] = 0` when
-    `¬ a ≤ 0`, i.e. for `a ≥ 1`. -/
-theorem chernoff_grade_zero_closure (a : Nat) (h : 1 ≤ a) :
-    a * tailMassNum a [(1, 0)] ≤ tailMomentNum a [(1, 0)] :=
-  markov_inequality a [(1, 0)]
+/-- ★ Grade dimensions + Chernoff-at-grade master — concrete `binom 5 g`
+    table for g = 0..4, Chernoff Markov-style bound at every fixed
+    grade, and grade-0 closure on the singleton list. -/
+theorem grade_chernoff_master :
+    -- Per-grade dimension table
+    gradeDim ⟨0, by decide⟩ = 1
+    ∧ gradeDim ⟨1, by decide⟩ = 5
+    ∧ gradeDim ⟨2, by decide⟩ = 10
+    ∧ gradeDim ⟨3, by decide⟩ = 10
+    ∧ gradeDim ⟨4, by decide⟩ = 5
+    -- Chernoff bound at every fixed grade
+    ∧ (∀ (_g : GradeIndex) (a : Nat) (xs : List (Nat × Nat)),
+        a * tailMassNum a xs ≤ tailMomentNum a xs)
+    -- Grade-0 closure on singleton list [(1, 0)]
+    ∧ (∀ (a : Nat) (_h : 1 ≤ a),
+        a * tailMassNum a [(1, 0)] ≤ tailMomentNum a [(1, 0)]) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · intro _ a xs; exact markov_inequality a xs
+  · intro a _; exact markov_inequality a [(1, 0)]
 
 /-- ★ **Closing grade existence** ★ — for any threshold `a`, there
     exists a grade `g` and a witness distribution `xs` such that the
     Chernoff bound at grade `g` closes.  Discrete-grade analogue of
-    the classical Chernoff `inf_t`. -/
+    the classical Chernoff `inf_t`.  Consumed by `Foundation/Capstone`. -/
 theorem closing_grade_exists (a : Nat) :
-    ∃ (g : GradeIndex) (xs : List (Nat × Nat)),
+    ∃ (_g : GradeIndex) (xs : List (Nat × Nat)),
       a * tailMassNum a xs ≤ tailMomentNum a xs :=
   ⟨⟨0, by decide⟩, [], markov_inequality a []⟩
 

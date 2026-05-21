@@ -43,9 +43,6 @@ own domain; the conjunction itself is by `refine` + `exact`).
 
 namespace E213.Lib.Math.CrossDomainUnification
 
-end E213.Lib.Math.CrossDomainUnification
-
-namespace E213.Lib.Math.CrossDomainUnification
 
 /-! ## §1 — Shared grade-truncation identity
 
@@ -77,9 +74,6 @@ theorem shared_grade_truncation :
     ∧ binom 5 10 = 0 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.CrossDomainUnification
-
-namespace E213.Lib.Math.CrossDomainUnification
 
 /-! ## §2 — Cross-domain master witness
 
@@ -118,9 +112,6 @@ def sampleDB : E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket :
 /-- Sample DyadicMeasurableSet (= List DyadicBracket). -/
 def sampleMS : E213.Lib.Math.Measure.MeasurableSet.DyadicMeasurableSet := []
 
-end E213.Lib.Math.CrossDomainUnification
-
-namespace E213.Lib.Math.CrossDomainUnification
 
 /-- ★★★★★ Cross-Domain Unification Master Theorem (C6 step 1).
     STRICT ∅-AXIOM.

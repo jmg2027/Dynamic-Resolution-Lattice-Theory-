@@ -22,8 +22,10 @@ Both views agree on the same 5-vertex graph.  They co-exist
 `research-notes/G4_chiral_phase_duality.md` for the principle.
 
 This file is the canonical import site for any future "d = 5"
-theorem that needs either view, ensuring the two foundational
-decompositions are pulled in together.
+theorem that needs either reading, ensuring the two Lens
+readings (cyclotomic mod6 ↔ parity ⊗ mod3; chiral NS+NT=d) are
+pulled in together as simultaneous readings of the same (3, 2, 5)
+residue.
 -/
 
 namespace E213.Lib.Math.Linalg213.PhaseChiralBridge

@@ -15,7 +15,7 @@
 (distinct) a ≠ b primitively.
 ```
 
-This is the entire external input. Everything else is derived.
+This is the sole axiom. Everything else is derived.
 
 The axiom has three intrinsic operational rules on the free expression
 algebra on {e₁, e₂, e₃} with two binary operations (+, ×):

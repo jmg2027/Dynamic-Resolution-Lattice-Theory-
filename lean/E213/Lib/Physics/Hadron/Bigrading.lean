@@ -96,24 +96,12 @@ theorem class_F_hadron_skeleton :
   the runtime binary `mn-mp-split` (Q-arithmetic, no floats).
 -/
 
-/-- Leading factor numerator: NS². -/
-theorem mn_mp_lead_num : NS ^ 2 = 9 := by decide
-
-/-- Leading factor denominator: NT² · (NS² − 1).
-    NS² − 1 = 8 = SU(NS) adjoint generator count. -/
-theorem mn_mp_lead_den : NT ^ 2 * (NS ^ 2 - 1) = 32 := by decide
-
-/-- Power-set count identity: NT²·(NS²−1) = 2^d. -/
-theorem mn_mp_lead_den_pow2 : NT ^ 2 * (NS ^ 2 - 1) = 2 ^ d := by decide
-
-/-- Sub-leading α_em² coefficient: NS²·d. -/
-theorem mn_mp_subleading : NS ^ 2 * d = 45 := by decide
-
 /-- ★ Atomic skeleton for m_n/m_p split coefficients.
-    All three counts (9, 32, 45) come from NS, NT, d primitives —
-    no fitted parameter.  The numerical α_em·(1 − 45·α_em)
-    evaluation is in `mn-mp-split` runtime binary; this theorem
-    locks the integer count side. -/
+    All three counts (9, 32, 45) read out of NS, NT, d directly
+    — no operand position for an exterior dialer (cf.
+    `seed/AXIOM/07_self_reference.md` §8.1).  The numerical
+    α_em·(1 − 45·α_em) evaluation is in `mn-mp-split` runtime
+    binary; this theorem locks the integer count side. -/
 theorem mn_mp_split_atomic :
     NS = 3 ∧ NT = 2 ∧ d = 5
     ∧ NS ^ 2 = 9
@@ -138,19 +126,6 @@ theorem mn_mp_split_atomic :
   Numerical value: 2.530986 vs PDG 2.530998 → −4.8 ppm.
   (Hunter v6 best: 1264 ppm — 263× improvement via composition.)
 -/
-
-/-- Composite atomic prefactor for (m_n − m_p)/m_e:
-    = (NS·NT) · (NS² / (NT²·(NS²−1)))
-    = 6 · 9/32 = 54/32 = 27/16. -/
-theorem mnmp_me_prefactor_atomic :
-    NS * NT = 6
-    ∧ NS ^ 2 = 9
-    ∧ NT ^ 2 * (NS ^ 2 - 1) = 32
-    -- Combined: numerator (NS·NT)·NS² = 54
-    ∧ (NS * NT) * NS ^ 2 = 54
-    -- Reduced 54/32 = 27/16 (gcd 2)
-    ∧ 54 / 2 = 27 ∧ 32 / 2 = 16 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★ (m_n − m_p)/m_e closes by composition:
     Class C (m_p/m_e = NS·NT·π⁵) × Class F (mn_mp split).

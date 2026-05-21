@@ -40,12 +40,7 @@ theorem refinesEquiv_symm {α β} {L : Lens α} {M : Lens β} :
     refinesEquiv L M → refinesEquiv M L
   | ⟨h1, h2⟩ => ⟨h2, h1⟩
 
-end E213.Lens.Properties.CanonicalForm
 
-namespace E213.Lens.Properties.CanonicalForm
-
-open E213.Theory E213.Lens
-open E213.Lens.Universal.QuotLens
 
 /-- **Self-stabilization**: any Lens M is refines-equivalent to
     `universalLens M.equiv`. -/

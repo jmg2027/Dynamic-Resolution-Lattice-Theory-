@@ -32,36 +32,31 @@ def leftmostAtomT : Tree → Bool
 /-- Leftmost atom of a Raw. -/
 def Raw.leftmostAtom (r : Raw) : Bool := leftmostAtomT r.val
 
-/-- ★ Leftmost atom values for the 5 depth-≤-2 inhabitants. -/
-theorem leftmost_a : Raw.leftmostAtom Raw.a = true := rfl
-theorem leftmost_b : Raw.leftmostAtom Raw.b = false := rfl
-theorem leftmost_s_ab : Raw.leftmostAtom s_ab = true := by decide
-theorem leftmost_s_a_ab : Raw.leftmostAtom s_a_ab = true := by decide
-theorem leftmost_s_b_ab : Raw.leftmostAtom s_b_ab = false := by decide
-
 /-- a-side = {Raw whose leftmost atom is true}. -/
 def aSide : List Raw := depthLe2List.filter Raw.leftmostAtom
 
 /-- b-side = {Raw whose leftmost atom is false}. -/
 def bSide : List Raw := depthLe2List.filter (fun r => !Raw.leftmostAtom r)
 
-/-- ★★ **a-side count = 3** = NS. -/
-theorem aSide_count : aSide.length = 3 := by decide
+/-- ★★★ **Bipartition capstone**: depth-≤-2 Raw count (= 5) splits
+    `(3, 2)` by leftmost-atom rule, matching `(d, NS, NT) = (5, 3, 2)`.
 
-/-- ★★ **b-side count = 2** = NT. -/
-theorem bSide_count : bSide.length = 2 := by decide
-
-/-- ★★ **(3, 2) bipartition** of Raw at depth ≤ 2. -/
-theorem bipartition_3_2 :
-    aSide.length = 3 ∧ bSide.length = 2 ∧ aSide.length + bSide.length = 5 :=
-  ⟨aSide_count, bSide_count, by decide⟩
-
-/-- ★★★ **Capstone**: depth-≤-2 Raw count + (3, 2) split match
-    `(d, NS, NT) = (5, 3, 2)` from atomicity. -/
+    Bundles per-element leftmost values, per-side counts, the
+    full (3 + 2 = 5) identity, and the atomicity geometric match. -/
 theorem raw_atomicity_geometric_match :
-    depthLe2List.length = 5
+    -- Per-element leftmost atoms
+    Raw.leftmostAtom Raw.a = true
+    ∧ Raw.leftmostAtom Raw.b = false
+    ∧ Raw.leftmostAtom s_ab = true
+    ∧ Raw.leftmostAtom s_a_ab = true
+    ∧ Raw.leftmostAtom s_b_ab = false
+    -- Side counts
     ∧ aSide.length = 3
-    ∧ bSide.length = 2 :=
-  ⟨RawDepthCount.depth_2_count, aSide_count, bSide_count⟩
+    ∧ bSide.length = 2
+    -- Full identity 3 + 2 = depthLe2List.length = 5
+    ∧ aSide.length + bSide.length = 5
+    ∧ depthLe2List.length = 5 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  <;> first | rfl | decide
 
 end E213.Lib.Math.UniverseChain.RawBipartition

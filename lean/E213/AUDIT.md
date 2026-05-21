@@ -86,9 +86,10 @@ Lean inductive type.  Two nullary constructors + one binary
 constructor.
 
 - Two base constructors a, b: type-level re-expression of Axiom 1
-  ("two somethings"). → **(α) re-expression of the axiom**.
-- Binary constructor slash: re-expression of Axiom 2 ("pairing of
-  two somethings is yet another something").  However at the Tree
+  (distinguishing-yields-residue; the count-Lens reads this as
+  "two"). → **(α) re-expression of the axiom**.
+- Binary constructor slash: re-expression of Axiom 2 (pairing of
+  distinguished items is itself a residue).  However at the Tree
   level, order exists (x, y argument positions distinguished) —
   resolved at the next stage by the quotient.  → **(α) +
   (β) temporary artifact (order)**.
@@ -412,9 +413,10 @@ Is this an axiom or a derivation?
 - Does this Lean meta-theory axiom have priority over the 213
   axiom?  No.  The 213 axiom is **pre-linguistic** and Lean
   meta-theory is the layer for running the machine.  When the
-  213 axiom says "two somethings have primitive distinction,"
-  Lean's no-confusion is the means to put this idea on the
-  machine — a parallel track, not an additional commitment.
+  213 axiom records distinguishing-yields-residue (which the
+  count-Lens reads as "two somethings have primitive distinction"),
+  Lean's no-confusion is the means to put this on the machine —
+  a parallel track, not an additional commitment.
 
 **Verdict**: (α).  Lean meta-theory is imported, but only as the
 minimum means to re-express the 213 axiom.
@@ -581,9 +583,8 @@ axioms.  The `Infinity/` module is also a separate folder
 **Caution point (A)**.  The Internal namespace contains
 `Tree.cmp` (`Theory/Raw/Core.lean:23–36`).  This is an
 **encoding device** for selecting canonical forms, not a
-property of Raw.  PAPER1.md (archival) §1.2 already states *"the
-ordering is the encoding's selection function, not a property of
-the axiom"*.
+property of Raw — the ordering is the encoding's selection
+function, not a property of the axiom.
 
 → **Recommendation 1**: State in `06_formalization.md` §7.1 that
 "the Lean encoding uses canonical forms due to absence of

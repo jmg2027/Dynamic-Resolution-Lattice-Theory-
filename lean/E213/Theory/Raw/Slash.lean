@@ -4,8 +4,16 @@ import E213.Term.Tree
 /-!
 # Theory.Raw.Slash: the Raw smart constructor `slash` + Raw.depth
 
-`Raw.slash` canonicalises the child order using `Tree.cmp`;
-`Raw.slash_comm` reflects the axiom's directionless "between".
+`Raw.slash` is the *referring* mechanism of §3.2 (selecting a
+residue member), not an operator applied to arguments.  The
+smart constructor canonicalises child order using `Tree.cmp`;
+`Raw.slash_comm` reflects the axiom's directionless "between"
+(§9.2 operation/object non-separation — the axiom imposes no
+order, so the Tree's apparent (x, y) positions are encoding
+artifact, re-unified by canonicalisation).  The `x ≠ y`
+precondition enforces §3.2 clause 4 (anti-reflexive — pairing
+with self does not create distinction; cf. §4.3).
+
 `Raw.depth` is the basic structural observable (defined via
 `Tree.depth` from Term.Internal.Tree.Levels).
 -/

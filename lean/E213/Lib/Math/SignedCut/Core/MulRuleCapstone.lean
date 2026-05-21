@@ -11,7 +11,7 @@ post-G36 open items:
   * **Multiplication-rule parametrisation** of the CD tower
     (sign vs complex distinction at level 1).
   * **Hurwitz-style ceiling proof** at level 25 on d=5
-    substrate (= N_U emergence).
+    level-0 base (= N_U count-Lens readout).
 -/
 
 namespace E213.Lib.Math.SignedCut.Core.MulRuleCapstone

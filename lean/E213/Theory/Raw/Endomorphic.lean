@@ -79,14 +79,9 @@ theorem slashOrSelf_self (x : Raw) : slashOrSelf x x = x := by
 def foldRaw (fa fb : Raw) (fc : Raw → Raw → Raw) (r : Raw) : Raw :=
   Raw.fold fa fb fc r
 
-theorem foldRaw_a (fa fb : Raw) (fc : Raw → Raw → Raw) :
-    foldRaw fa fb fc Raw.a = fa := rfl
-
-theorem foldRaw_b (fa fb : Raw) (fc : Raw → Raw → Raw) :
-    foldRaw fa fb fc Raw.b = fb := rfl
-
-/-- `foldRaw`'s slash case — when `fc` is symmetric, decomposes as
-    `fc (foldRaw x) (foldRaw y)`.  Alias for `Raw.fold_slash`. -/
+/-- `foldRaw`'s atomic cases are definitional (`foldRaw fa fb fc
+    Raw.a = fa` and `Raw.b = fb` by `rfl`); the slash case is
+    `Raw.fold_slash` lifted to `foldRaw`. -/
 theorem foldRaw_slash (fa fb : Raw) (fc : Raw → Raw → Raw)
     (hsym : ∀ u v : Raw, fc u v = fc v u)
     (x y : Raw) (h : x ≠ y) :

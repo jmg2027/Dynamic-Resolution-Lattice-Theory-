@@ -40,7 +40,7 @@ quantization but not yet formalized.
 ## 213 sharpening
 
 - "Why dark energy is small but nonzero" → answer: rational fraction
-  in (NS, NT, d) at d = 5; not fine-tuned, fully forced.
+  in (NS, NT, d) at d = 5; fully determined by (NS, NT, d); no free parameters.
 - "Why H₀ tension exists" → narrative answer: lattice cycle c = 2
   produces two natural measurement scales; no fitted parameters
   resolve to the discrete prediction.

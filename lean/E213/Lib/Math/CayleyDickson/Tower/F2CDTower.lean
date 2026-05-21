@@ -11,7 +11,7 @@ the intersection of:
 - **CD tower** (algebraic signature: multiplication + conj)
 - **Bool tower** (bootstrap-free finite structure)
 
-Layer 1 turns out to be **dual numbers** 𝔽₂[ε]/(ε²), NOT
+Layer 1 (char-2 CD doubling) reads as **dual numbers** 𝔽₂[ε]/(ε²), NOT
 complex numbers — char-2 collapses the CD doubling differently.
 
 ## §1. Layer 0: 𝔽₂ = Bool

@@ -57,12 +57,7 @@ theorem eulerNum_pos (_n : Nat) : 1 ≤ eulerNum _n := by
       show 1 ≤ (k + 1) * eulerNum k + 1
       exact Nat.le_add_left 1 _
 
-end E213.Lib.Math.Cauchy.EulerSeq
 
-namespace E213.Lib.Math.Cauchy.EulerSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
 
@@ -109,12 +104,7 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
         rw [h_2_succ]
         exact Nat.le_trans (Nat.add_le_add_left hk1 _) h1
 
-end E213.Lib.Math.Cauchy.EulerSeq
 
-namespace E213.Lib.Math.Cauchy.EulerSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Lower invariant** (n ≥ 2): a_n ≥ 2 * d_n + 1.  (S_n > 2 from n=2.)
     a_2 = 5, d_2 = 2: 5 = 2*2 + 1 ✓.
@@ -157,13 +147,7 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
           Nat.add_le_add_left hk1 _
         exact Nat.le_trans (Nat.le_trans step1 h1) (Nat.le_succ _)
 
-end E213.Lib.Math.Cauchy.EulerSeq
 
-namespace E213.Lib.Math.Cauchy.EulerSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Cauchy.PellSeq
 
 /-! ### Raw sequence + orderProj cuts -/
 
@@ -193,12 +177,7 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
     Nat.mul_le_mul_left (eulerDen n) h3km
   exact decide_eq_true (Nat.le_trans h1 h3)
 
-end E213.Lib.Math.Cauchy.EulerSeq
 
-namespace E213.Lib.Math.Cauchy.EulerSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Cut below 2**: m/k ≤ 2 (m ≤ 2k) → orderProj false (n ≥ 2).
     a_n ≥ 2 d_n + 1, so a_n * k ≥ (2 d_n + 1) * k > d_n * m. -/
@@ -249,12 +228,7 @@ theorem euler_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
   · rw [euler_orderProj_below_2 m k hk hm2k p hp,
         euler_orderProj_below_2 m k hk hm2k q hq]
 
-end E213.Lib.Math.Cauchy.EulerSeq
 
-namespace E213.Lib.Math.Cauchy.EulerSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 open E213.Lib.Math.Cauchy.MonotonicBounded
 
 /-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/
@@ -648,27 +622,14 @@ theorem euler_lower_generic (j b N0 : Nat) (hb : b ≥ 1)
       · have h_inv := ih h_ge
         exact euler_lower_step j b k hb h_inv
 
-/-! ### Per-b applications via meta-algorithm -/
+/-! ### Per-b instantiations
 
-/-- e > 8/3 strict (b=3, j=8, N0=4). -/
-theorem e_gt_8_3 (n : Nat) (hn : n ≥ 4) :
-    3 * eulerNum n ≥ 8 * eulerDen n + 1 :=
-  euler_lower_generic 8 3 4 (by decide) (by decide) n hn
-
-/-- e > 10/4 = 5/2 strict (b=4, j=10, N0=4). -/
-theorem e_gt_10_4 (n : Nat) (hn : n ≥ 4) :
-    4 * eulerNum n ≥ 10 * eulerDen n + 1 :=
-  euler_lower_generic 10 4 4 (by decide) (by decide) n hn
-
-/-- e > 13/5 strict (b=5, j=13, N0=5). -/
-theorem e_gt_13_5 (n : Nat) (hn : n ≥ 5) :
-    5 * eulerNum n ≥ 13 * eulerDen n + 1 :=
-  euler_lower_generic 13 5 5 (by decide) (by decide) n hn
-
-/-- e > 19/7 strict (b=7, j=19, N0=6).  e ≈ 2.718, 19/7 ≈ 2.714. -/
-theorem e_gt_19_7 (n : Nat) (hn : n ≥ 6) :
-    7 * eulerNum n ≥ 19 * eulerDen n + 1 :=
-  euler_lower_generic 19 7 6 (by decide) (by decide) n hn
+The lower bound at any concrete (b, j, N₀) follows by a single
+call to `euler_lower_generic b j N0 (decide) (decide)`.  E.g.
+`e > 8/3` at n ≥ 4: `euler_lower_generic 8 3 4 (by decide) (by
+decide)`.  No per-parameter theorems are exposed at the file
+level; callers instantiate the meta-algorithm at the bound
+they need. -/
 
 /-! ### Upper bound meta-algorithm (symmetric) -/
 
@@ -724,15 +685,11 @@ theorem euler_upper_generic (j b N0 : Nat) (hb : b ≥ 1) (hN0 : N0 ≥ b)
         have h_k_ge_b : k ≥ b := Nat.le_trans hN0 h_ge
         exact euler_upper_step j b k h_k_ge_b h_inv
 
-/-- Per-b upper: e < 9/3 = 3 (b=3, j=9, N0=3). -/
-theorem e_lt_9_3 (n : Nat) (hn : n ≥ 3) :
-    9 * eulerDen n ≥ 3 * eulerNum n + 1 :=
-  euler_upper_generic 9 3 3 (by decide) (by decide) (by decide) n hn
+/-! ### Per-b instantiations (upper)
 
-/-- Per-b upper: e < 11/4 (b=4, j=11, N0=4). -/
-theorem e_lt_11_4 (n : Nat) (hn : n ≥ 4) :
-    11 * eulerDen n ≥ 4 * eulerNum n + 1 :=
-  euler_upper_generic 11 4 4 (by decide) (by decide) (by decide) n hn
+Symmetric to the lower-bound side: e.g. `e < 9/3` at n ≥ 3 is
+`euler_upper_generic 9 3 3 (by decide) (by decide) (by decide)`.
+Callers instantiate at the bound they need. -/
 
 /-! ### Transcendental cut discriminator
 

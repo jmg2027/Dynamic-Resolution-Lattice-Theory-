@@ -48,11 +48,7 @@ def L_on_H1 (α : C1) : C3 := fun
   | Cell3.a1a2b2 => α Cell1.a1
   | Cell3.b1a2b2 => α Cell1.b1
 
-end E213.Lib.Math.Cohomology.Surfaces.T2Squared.HardLefschetz
 
-namespace E213.Lib.Math.Cohomology.Surfaces.T2Squared.HardLefschetz
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared
 
 /-! ## §1 — `L²` is non-zero on H⁰ → H⁴ (iso over ℚ) -/
 

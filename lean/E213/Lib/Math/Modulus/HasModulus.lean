@@ -4,8 +4,8 @@ import E213.Lib.Math.Cauchy.Archimedean
 # HasModulus: Constructive Cauchy modulus typeclass
 
 Canonical Bishop-style infrastructure bypassing the LEM-bound
-`∀ (m, k), ∃ N` closure from PAPER1 §6.4: an explicit modulus
-is required as *data*.
+`∀ (m, k), ∃ N` Cauchy closure: an explicit modulus is required
+as *data*.
 
 ## Core
 

@@ -27,42 +27,22 @@ open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.Basel.Bound
 open E213.Lib.Physics.AlphaEM.Bare
 
-/-- 128 ∈ bare bracket at N = 10. -/
-theorem bracket_128_in_10 :
-    let lo := inv_alpha_em_bare_lower 10
-    let hi := inv_alpha_em_bare_upper 10
-    lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1 := by decide
-
-/-- 129 outside bare bracket at N = 10 (upper-end). -/
-theorem bracket_129_excluded_10 :
-    let hi := inv_alpha_em_bare_upper 10
-    hi.1 < 129 * hi.2 := by decide
-
-/-- 137 outside bare bracket at N = 10 — needs QED running. -/
-theorem bracket_137_excluded_10 :
-    let hi := inv_alpha_em_bare_upper 10
-    hi.1 < 137 * hi.2 := by decide
-
-/-- N = 20: tighter, 128 still inside. -/
-theorem bracket_128_in_20 :
-    let lo := inv_alpha_em_bare_lower 20
-    let hi := inv_alpha_em_bare_upper 20
-    lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1 := by decide
-
-/-- N = 20: 129 excluded. -/
-theorem bracket_129_excluded_20 :
-    let hi := inv_alpha_em_bare_upper 20
-    hi.1 < 129 * hi.2 := by decide
-
-/-- The 9 = 137 − 128 gap is QED running, NOT DRLT topology. -/
-theorem qed_running_gap : (137 : Nat) - 128 = 9 := by decide
-
-/-- Capstone: bare 1/α_em(M_Z) sharp at 128 ± 1 at N=20. -/
+/-- ★ Bare bracket master: 1/α_em(M_Z) sharp at 128 ± 1 at N=20,
+    excludes 137 (the 9 = 137 − 128 gap is QED running, NOT DRLT
+    topology).  Per-N bracket containments at N = 10, 20
+    folded into one statement. -/
 theorem alpha_em_bare_pure_drlt :
-    let lo := inv_alpha_em_bare_lower 20
-    let hi := inv_alpha_em_bare_upper 20
-    (lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1)
-    ∧ (hi.1 < 137 * hi.2)
+    -- N = 10 brackets
+    ((inv_alpha_em_bare_lower 10).1 < 128 * (inv_alpha_em_bare_lower 10).2
+      ∧ 128 * (inv_alpha_em_bare_upper 10).2 < (inv_alpha_em_bare_upper 10).1)
+    ∧ (inv_alpha_em_bare_upper 10).1 < 129 * (inv_alpha_em_bare_upper 10).2
+    ∧ (inv_alpha_em_bare_upper 10).1 < 137 * (inv_alpha_em_bare_upper 10).2
+    -- N = 20 brackets
+    ∧ ((inv_alpha_em_bare_lower 20).1 < 128 * (inv_alpha_em_bare_lower 20).2
+       ∧ 128 * (inv_alpha_em_bare_upper 20).2 < (inv_alpha_em_bare_upper 20).1)
+    ∧ (inv_alpha_em_bare_upper 20).1 < 129 * (inv_alpha_em_bare_upper 20).2
+    ∧ (inv_alpha_em_bare_upper 20).1 < 137 * (inv_alpha_em_bare_upper 20).2
+    -- QED running gap
     ∧ (137 - 128 = 9) := by decide
 
 end E213.Lib.Physics.AlphaEM.BareTightBracket
@@ -76,7 +56,7 @@ open E213.Lib.Physics.Basel.Bound
 
   bare(M_Z) + d²/NS + Ξ_tail
   = 128.696 + 8.333 + 0.00608
-  ≈ 137.035  (observed 137.036 — ppm match)
+  ≈ 137.035  (observed 137.036 — ppm Lens-reading agreement)
 
 Honest tagging: `+25/3 = d²/NS` is conjectural structural form.
 Plausible source: photon couples to all 25 Gram channels distributed
@@ -94,37 +74,17 @@ def inv_full_upper (N : Nat) : (Nat × Nat) :=
   let u := upper N
   (180 * u.1 + 115 * u.2, 3 * u.2)
 
-/-- N=3 lower endpoint. -/
-theorem inv_full_lower_3 :
-    inv_full_lower 3 = (180 * 49 + 115 * 36, 3 * 36) := by decide
-
-/-- N=3 upper endpoint. -/
-theorem inv_full_upper_3 :
-    inv_full_upper 3 = (180 * 183 + 115 * 108, 3 * 108) := by decide
-
-/-- 137 ∈ candidate bracket at N=10 (width ~6). -/
-theorem bracket_137_in_at_10 :
-    let lo := inv_full_lower 10
-    let hi := inv_full_upper 10
-    lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1 := by decide
-
-/-- 138 outside upper at N=10. -/
-theorem bracket_138_excluded_at_10 :
-    let hi := inv_full_upper 10
-    hi.1 < 138 * hi.2 := by decide
-
-/-- 131 below lower at N=10. -/
-theorem bracket_131_excluded_at_10 :
-    let lo := inv_full_lower 10
-    131 * lo.2 < lo.1 := by decide
-
-/-- Capstone: candidate bracket at N=10 with width ~6. -/
+/-- ★ Candidate-formula master: 137 ∈ bracket at N=10 (width ~6),
+    138 above + 131 below excluded.  N=3 endpoints also recorded. -/
 theorem candidate_formula_contains_137 :
-    let lo := inv_full_lower 10
-    let hi := inv_full_upper 10
-    (lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1)
-    ∧ (hi.1 < 138 * hi.2)
-    ∧ (131 * lo.2 < lo.1) := by decide
+    -- N=3 endpoints
+    inv_full_lower 3 = (180 * 49 + 115 * 36, 3 * 36)
+    ∧ inv_full_upper 3 = (180 * 183 + 115 * 108, 3 * 108)
+    -- N=10 contains 137, excludes 138 above and 131 below
+    ∧ ((inv_full_lower 10).1 < 137 * (inv_full_lower 10).2
+       ∧ 137 * (inv_full_upper 10).2 < (inv_full_upper 10).1)
+    ∧ (inv_full_upper 10).1 < 138 * (inv_full_upper 10).2
+    ∧ 131 * (inv_full_lower 10).2 < (inv_full_lower 10).1 := by decide
 
 end E213.Lib.Physics.AlphaEM.V137
 
@@ -149,35 +109,26 @@ def inv_upper (N : Nat) : (Nat × Nat) := AlphaEM.V137.inv_full_upper N
 /-- Cross-mult comparison. -/
 def lt (p q : Nat × Nat) : Bool := p.1 * q.2 < q.1 * p.2
 
-theorem lower_below_upper_20 :
-    lt (inv_lower_tight 20) (inv_upper 20) = true := by decide
+/-- ★ Capstone: N=20 tight contains 137 with width ≤ 0.14
+    (43× over N=10 baseline of width 6).  Externally referenced
+    by Certificates/Checker.
 
-theorem lower_below_upper_30 :
-    lt (inv_lower_tight 30) (inv_upper 30) = true := by decide
-
-/-- 137 ∈ tight bracket at N=10 (width ~0.55). -/
-theorem bracket_137_in_at_10_tight :
-    let lo := inv_lower_tight 10; let hi := inv_upper 10
-    lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1 := by decide
-
-/-- 137 ∈ tight bracket at N=20 (width ~0.14). -/
-theorem bracket_137_in_at_20_tight :
-    let lo := inv_lower_tight 20; let hi := inv_upper 20
-    lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1 := by decide
-
-/-- 138 excluded at N=20. -/
-theorem bracket_138_excluded_at_20 :
-    let hi := inv_upper 20
-    hi.1 < 138 * hi.2 := by decide
-
-/-- Capstone: N=20 tight contains 137 with width ≤ 0.14
-    (43× over N=10 baseline of width 6).  Headline 1/α_em = 137.036
-    at 10⁻⁴ ppm NOT reachable: candidate's asymptote 137.0354548
-    differs from observed 137.0359991 by 5.4×10⁻⁴.
-    See `AlphaEM/StructuralGap.lean`. -/
+    Headline 1/α_em = 137.036 at 10⁻⁴ ppm has structural gap:
+    count-Lens asymptote 137.0354548 vs measurement-Lens reading
+    137.0359991 by 5.4×10⁻⁴.  See `AlphaEM/StructuralGap.lean`. -/
 theorem capstone_n20 :
     let lo := inv_lower_tight 20; let hi := inv_upper 20
     (lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1)
     ∧ (hi.1 < 138 * hi.2) := by decide
+
+/-- ★ Tight-bracket extended master: N=10/20 contain 137,
+    N=20/30 lower < upper, N=20 excludes 138. -/
+theorem tight_bracket_extended :
+    -- N=10 tight contains 137
+    ((inv_lower_tight 10).1 < 137 * (inv_lower_tight 10).2
+      ∧ 137 * (inv_upper 10).2 < (inv_upper 10).1)
+    -- lower < upper at N=20, 30
+    ∧ lt (inv_lower_tight 20) (inv_upper 20) = true
+    ∧ lt (inv_lower_tight 30) (inv_upper 30) = true := by decide
 
 end E213.Lib.Physics.AlphaEM.V137Tight

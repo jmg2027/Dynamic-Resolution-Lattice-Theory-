@@ -5,7 +5,7 @@ import E213.Lib.Math.DyadicFSM.Pell.Proper
 
 5 instances of Pell-FSM proper-period evidence at primes
 {11, 13, 17, 19, 23}.  Each = direct ArithFSM mod p check that
-the Pell sequence's period matches the predicted bound.
+the Pell sequence's period equals the formula bound.
 
 Per-p namespaces preserved (`Pell.ProperMod{p}`).
 -/

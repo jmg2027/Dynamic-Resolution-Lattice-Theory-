@@ -10,7 +10,7 @@ Key structural theorem (G1 Conjecture 2 sharpened):
 
 Proof: nextVertex is *bit-injective* at every vertex —
 the two outgoing transitions land on different next-vertices.
-So if signatures match before and after period p, the bits must
+So if signatures agree before and after period p, the bits must
 have matched.
 
 Contrapositive: aperiodic bit stream (i.e., irrational binary

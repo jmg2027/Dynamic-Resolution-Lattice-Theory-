@@ -11,10 +11,10 @@ DRLT formula:
     cos²θ_W = 10π²/(30 + 10π²) = π²/(3 + π²)
             = 6·ζ(2)/(3 + 6·ζ(2))
 
-## Numerical match
+## Two Lens readings
 
-  cos²θ_W (DRLT bare) = 0.7669, observed 0.7686 (-0.22%)
-  m_W/m_Z = sqrt(cos²θ_W) ≈ 0.876, observed 0.881
+  cos²θ_W: Atomic-Lens 0.7669, measurement-Lens 0.7686 (Δ −0.22%)
+  m_W/m_Z: Atomic-Lens √cos²θ_W ≈ 0.876, measurement-Lens 0.881
   
   Same running gap signature as sin²θ_W.
 

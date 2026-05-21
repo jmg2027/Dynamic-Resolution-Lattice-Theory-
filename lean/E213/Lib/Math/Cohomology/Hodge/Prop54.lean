@@ -34,10 +34,11 @@ private theorem c2_eq_i_5_4 :
     ∀ i : Fin (binom 5 4),
       complementIdx 5 1 (complementIdx 5 4 i.val) = i.val := by decide
 
-/-- ★★★ Prop-level ∀ σ : Cochain 5 4, ⋆⋆σ = σ.  STRICT ∅-AXIOM. -/
-theorem hodge_sq_prop_5_4 (σ : Cochain 5 4)
-    (i : Fin (binom 5 4)) :
-    hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i := by
+/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 4).  STRICT ∅-AXIOM. -/
+theorem hodge_involution_capstone_5_4 :
+    ∀ σ : Cochain 5 4, ∀ i : Fin (binom 5 4),
+      hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i := by
+  intro σ i
   show (if h : complementIdx 5 4 i.val < binom 5 1 then
           (hodgeStar 5 4 1 σ) ⟨complementIdx 5 4 i.val, h⟩
         else false) = σ i
@@ -47,11 +48,5 @@ theorem hodge_sq_prop_5_4 (σ : Cochain 5 4)
         else false) = σ i
   rw [dif_pos (c2_lt_binom4_5_4 i)]
   exact congrArg σ (Fin.ext (c2_eq_i_5_4 i))
-
-/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 4).  STRICT ∅-AXIOM. -/
-theorem hodge_involution_capstone_5_4 :
-    ∀ σ : Cochain 5 4, ∀ i : Fin (binom 5 4),
-      hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i :=
-  hodge_sq_prop_5_4
 
 end E213.Lib.Math.Cohomology.Hodge.Prop54

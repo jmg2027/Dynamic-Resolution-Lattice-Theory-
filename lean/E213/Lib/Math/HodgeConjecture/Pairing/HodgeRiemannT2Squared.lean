@@ -43,12 +43,7 @@ namespace E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 open E213.Lib.Math.Cohomology.Surfaces.T2Squared
 open E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
-end E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
 /-! ## §1 — Kähler class and primitive (1,1) basis
 
@@ -89,12 +84,7 @@ theorem eta_2_primitive :
 theorem eta_3_primitive :
     cup primitive_eta_3 kahler_class Cell4.vol = 0 := by decide
 
-end E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
 /-! ## §4 — HR negative-definite: `cup(η_i, η_i) = −2 < 0`
 
@@ -140,12 +130,7 @@ theorem eta_distinct :
   · exact fun h => absurd (congrFun h Cell2.a1b1) (by decide)
   · exact fun h => absurd (congrFun h Cell2.a1b1) (by decide)
 
-end E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 
-namespace E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
-
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared
-open E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
 /-! ## §7 — Master Hodge–Riemann (1,1) refinement theorem -/
 

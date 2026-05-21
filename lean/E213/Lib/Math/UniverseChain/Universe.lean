@@ -1,5 +1,5 @@
 import E213.Lib.Math.UniverseChain.Recursion
-import E213.Lib.Physics.Foundations.NUniverseFromFractal
+import E213.Lib.Physics.Foundations.NResolutionFromFractal
 import E213.Lib.Math.ResolutionLimit
 
 /-!
@@ -15,8 +15,8 @@ This is `N_U`.  All facts in this step are ∅-axiom.
 
 Three independent witnesses for the same number:
 
-  * `NUniverseFromFractal.n_universe_value`
-  * `NUniverseFractalDepth.numV_at_universe_level_value`
+  * `NResolutionFromFractal.n_resolution_value`
+  * `NResolutionFractalDepth.numV_at_universe_level_value`
   * `ResolutionLimit.N_U_value`
 
 They agree by `decide`.
@@ -24,20 +24,20 @@ They agree by `decide`.
 
 namespace E213.Lib.Math.UniverseChain.Universe
 
-open E213.Lib.Physics.Foundations.NUniverseFromFractal
-  (n_universe_candidate n_universe_value n_universe_eq_hierarchy)
+open E213.Lib.Physics.Foundations.NResolutionFromFractal
+  (n_resolution_candidate n_resolution_value n_resolution_eq_hierarchy)
 open E213.Lib.Math.ResolutionLimit (N_U N_U_value N_U_tensor)
 
-/-- The universal resolution constant. -/
+/-- Resolution depth — count-Lens readout. -/
 def N_U : Nat := 5 ^ 25
 
 /-- ★ Concrete value: `N_U = 298023223876953125`. -/
 theorem N_U_concrete : N_U = 298023223876953125 := by decide
 
 /-- ★ Identification with the fractal candidate. -/
-theorem N_U_eq_fractal_candidate : N_U = n_universe_candidate := by decide
+theorem N_U_eq_fractal_candidate : N_U = n_resolution_candidate := by decide
 
-/-- ★ Identification with the resolution-limit constant. -/
+/-- ★ Identification with the resolution-limit readout. -/
 theorem N_U_eq_resolution_limit :
     N_U = E213.Lib.Math.ResolutionLimit.N_U := by decide
 
@@ -49,7 +49,7 @@ theorem universe_bundle :
     N_U = 5 ^ 25
     ∧ N_U = 5 ^ (5 * 5)
     ∧ N_U = 298023223876953125
-    ∧ N_U = n_universe_candidate
+    ∧ N_U = n_resolution_candidate
     ∧ N_U = E213.Lib.Math.ResolutionLimit.N_U := by
   refine ⟨rfl, rfl, ?_, ?_, ?_⟩ <;> decide
 

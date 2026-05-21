@@ -64,11 +64,7 @@ theorem wallisDen_pos (n : Nat) : 1 ≤ wallisDen n := by
       exact Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
                          (Nat.mul_le_mul ih h1)
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
 open E213.Polynomial213 (Poly eval C X add scale mul
                           eval_add eval_mul eval_scale eval_C eval_X
                           eval_le_of_add eval_lt_of_add_succ)
@@ -108,12 +104,7 @@ theorem kk_lt_4_kp1_sq (k : Nat) :
         show add kkLhs (C 1) = kkRhs
         exact kkLhs_add_one_eq_kkRhs)
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
 
@@ -156,12 +147,7 @@ theorem wallis_lower_inv (n : Nat) (hn : n ≥ 1) :
           Nat.mul_le_mul_left (3 * wallisNum k) hkk
         exact Nat.le_trans step1 step2
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-! ### Monotonicity (partial Cauchy demonstration) -/
 
@@ -190,13 +176,7 @@ theorem wallis_monotonic (n : Nat) :
           Nat.mul_le_mul (wallisNum_pos n) (wallisDen_pos n)
   exact Nat.mul_lt_mul_of_pos_left hkk_strict h_pos
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Cauchy.PellSeq
 
 /-! ### Raw sequence + orderProj (below 1) cut -/
 
@@ -252,12 +232,7 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
     E213.Tactic.NatHelper.le_of_add_le_add_left h_chain
   exact absurd (Nat.le_trans hdk h_dk_zero) (by decide)
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Polynomial213 (Poly eval C X add scale mul
                           eval_add eval_mul eval_scale eval_C eval_X)
 
 /-! ### Upper invariant via Polynomial213 reflection -/
@@ -301,12 +276,7 @@ theorem wallis_poly_identity (k : Nat) :
       ← eval_wallisRhsPoly k,
       congrArg (fun p => eval p k) wallisLhsPoly_eq_wallisRhsPoly]
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Upper invariant**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
     (W_n ≤ 2 - 1/(2n+1) < 2.)
@@ -374,12 +344,7 @@ theorem wallis_upper_inv (n : Nat) :
       rw [hRHS_goal]
       exact h7
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Cut above 2**: m/k ≥ 2 (2k ≤ m) → orderProj true (∀ n).
     Upper inv: a_n * (2n+1) ≤ (4n+1) * d_n.  (4n+1) ≤ 2(2n+1) so
@@ -428,12 +393,7 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
     Nat.mul_le_mul_left (wallisDen n) h2km
   exact Nat.le_trans h5 h7
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 
 /-- **Order Cauchy** at thresholds m/k ≥ 2 ∨ m/k ≤ 1.
     Other thresholds in (1, 2) — fine-grained analysis would need
@@ -451,12 +411,7 @@ theorem wallis_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
   · rw [wallis_orderProj_below_1 m k hk hmk p hp,
         wallis_orderProj_below_1 m k hk hmk q hq]
 
-end E213.Lib.Math.Cauchy.WallisSeq
 
-namespace E213.Lib.Math.Cauchy.WallisSeq
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 open E213.Lib.Math.Cauchy.MonotonicBounded
 
 /-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/

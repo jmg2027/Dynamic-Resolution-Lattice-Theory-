@@ -32,7 +32,8 @@ private theorem c2_eq_i_5_2 :
     ∀ i : Fin (binom 5 2),
       complementIdx 5 3 (complementIdx 5 2 i.val) = i.val := by decide
 
-/-- ★★★ Prop-level ∀ σ : Cochain 5 2, ⋆⋆σ = σ.  STRICT ∅-AXIOM. -/
+/-- ★★★ Prop-level + Universal ⋆⋆=id capstone at (5, 2).  STRICT ∅-AXIOM.
+    `hodge_sq_prop_5_2` form externally consumed by `Delta/V4Capstone`. -/
 theorem hodge_sq_prop_5_2 (σ : Cochain 5 2)
     (i : Fin (binom 5 2)) :
     hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i := by
@@ -46,7 +47,8 @@ theorem hodge_sq_prop_5_2 (σ : Cochain 5 2)
   rw [dif_pos (c2_lt_binom2_5_2 i)]
   exact congrArg σ (Fin.ext (c2_eq_i_5_2 i))
 
-/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 2).  STRICT ∅-AXIOM. -/
+/-- Universal ⋆⋆=id Prop-lift capstone at (5, 2) — η-form of
+    `hodge_sq_prop_5_2`, externally consumed by `InvolutionCapstone`. -/
 theorem hodge_involution_capstone_5_2 :
     ∀ σ : Cochain 5 2, ∀ i : Fin (binom 5 2),
       hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i :=

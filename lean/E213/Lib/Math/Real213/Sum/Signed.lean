@@ -22,10 +22,13 @@ Negation = sign flip.
 
 ## Significance
 
-- Real213's native is non-negative — negatives are a *separate layer*.
-- The 213 axiom itself has two *symmetric* distinct atoms a, b — sign
-  is attached externally, as a layer above the framework axiom.
-- Bishop also defines signed reals as |abs| × sign.
+- Real213's native cut is non-negative.  SignedCut adds a Boolean
+  sign reading (the second Boolean atom), giving the same residue
+  space a two-Boolean-dimension reading.
+- The 213 axiom's two symmetric distinct atoms `a, b` already
+  carry a parity structure; SignedCut reads the parity as sign.
+- Bishop also defines signed reals as |abs| × sign — same
+  decomposition, different Lens vocabulary.
 -/
 
 namespace E213.Lib.Math.Real213.Sum.Signed

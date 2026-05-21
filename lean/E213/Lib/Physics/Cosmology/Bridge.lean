@@ -10,7 +10,7 @@ He IE, and dark energy.
 Per `Physics/DarkEnergy.lean`:
   Ω_Λ_bare = 1/π (from trace ratio)
   Correction: (1 + α_GUT/d) where d = 5
-  Result: ≈ 0.685, observed = 0.685
+  DRLT reading ≈ 0.685; measurement-Lens reading = 0.685.
 -/
 
 namespace E213.Lib.Physics.Cosmology.Bridge

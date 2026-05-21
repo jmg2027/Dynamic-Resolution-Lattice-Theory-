@@ -58,30 +58,27 @@ def complement (p : ProbabilityCut) : ProbabilityCut where
   den_pos := p.den_pos
   mass_le := Nat.sub_le p.den p.num
 
-/-- Unit mass forward leg ≡ constant `1/1` (rfl). -/
-theorem unit_forward_eq : unit.toFlux.forward = constCut 1 1 := rfl
-
-/-- Zero mass forward leg ≡ constant `0/1` (rfl). -/
-theorem zero_forward_eq : zero.toFlux.forward = constCut 0 1 := rfl
-
-/-- Backward leg of any `toFlux` is constant `0/1` (rfl). -/
-theorem toFlux_backward (p : ProbabilityCut) :
-    p.toFlux.backward = constCut 0 1 := rfl
-
-/-- Complement of unit has forward leg `cutEq` to zero's forward leg. -/
-theorem complement_unit_forward :
-    cutEq (complement unit).toFlux.forward zero.toFlux.forward :=
-  fun _ _ => rfl
-
-/-- Complement of zero has forward leg `cutEq` to unit's forward leg. -/
-theorem complement_zero_forward :
-    cutEq (complement zero).toFlux.forward unit.toFlux.forward :=
-  fun _ _ => rfl
-
-/-- Complement is `num`-involutive: `den − (den − num) = num`. -/
-theorem complement_num_involutive (p : ProbabilityCut) :
-    (complement (complement p)).num = p.num :=
-  E213.Tactic.NatHelper.sub_sub_self p.mass_le
+/-- ★ ProbabilityCut master — unit/zero forward-leg identifications,
+    backward-leg constant 0/1, complement-of-unit / complement-of-zero
+    cutEq bridges, complement num-involutivity. -/
+theorem probabilityCut_master :
+    -- Unit mass forward leg ≡ constant 1/1 (rfl)
+    unit.toFlux.forward = constCut 1 1
+    -- Zero mass forward leg ≡ constant 0/1 (rfl)
+    ∧ zero.toFlux.forward = constCut 0 1
+    -- Backward leg of any toFlux is constant 0/1
+    ∧ (∀ p : ProbabilityCut, p.toFlux.backward = constCut 0 1)
+    -- Complement-unit's forward leg cutEq zero's forward leg
+    ∧ cutEq (complement unit).toFlux.forward zero.toFlux.forward
+    -- Complement-zero's forward leg cutEq unit's forward leg
+    ∧ cutEq (complement zero).toFlux.forward unit.toFlux.forward
+    -- Complement num-involutive: den − (den − num) = num
+    ∧ (∀ p : ProbabilityCut, (complement (complement p)).num = p.num) := by
+  refine ⟨rfl, rfl, ?_, ?_, ?_, ?_⟩
+  · intro _; rfl
+  · intro _ _; rfl
+  · intro _ _; rfl
+  · intro p; exact E213.Tactic.NatHelper.sub_sub_self p.mass_le
 
 end ProbabilityCut
 

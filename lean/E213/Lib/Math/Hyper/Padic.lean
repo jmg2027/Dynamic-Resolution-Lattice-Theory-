@@ -31,10 +31,10 @@ Index starts at p^1 (k = 0) so each modulus ≥ p ≥ 2.
 
 ## Significance
 
-ℤ_p is a heavy tool of standard number theory.  In the 213 framework
-it is naturally realized using only the `leavesModNat` sub-family and
-the `factorial` sequence.  A sub-tower of `ProfiniteSeq` (factorial
-entire = Ẑ).
+In the ZFC chart, ℤ_p requires substantial number-theoretic
+machinery.  In 213's type chart, the same object reads off the
+`leavesModNat` sub-family and the `factorial` sequence directly
+— a sub-tower of `ProfiniteSeq` (factorial entire = Ẑ).
 
 Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
@@ -67,13 +67,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
 
@@ -100,13 +94,7 @@ private theorem pow_succ_dvd (p : Nat) (k : Nat) :
   show p^(k+1) ∣ p^(k+1) * p
   exact ⟨p, rfl⟩
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
 
@@ -142,13 +130,7 @@ theorem padic_tower_refines (p : Nat) (k : Nat) :
     (padicFamily p (k+1)).refines (padicFamily p k) :=
   divides_refines (p^(k+2)) (p^(k+1)) (pow_succ_dvd p k)
 
-end E213.Lib.Math.Hyper.Padic
 
-namespace E213.Lib.Math.Hyper.Padic
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/
 theorem padic_familyCauchy (p : Nat) (hp : p ≥ 2)

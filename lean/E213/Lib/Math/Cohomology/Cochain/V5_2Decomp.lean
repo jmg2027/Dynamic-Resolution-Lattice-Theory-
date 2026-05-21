@@ -102,10 +102,4 @@ theorem decomp_step_at_9 (β : Cochain 5 2) :
        = β ⟨9, by decide⟩
   cases (β ⟨9, by decide⟩) <;> rfl
 
-/-! Note: the funext-based `decomp_5_2_eq : decomp_5_2 β = β` was
-    removed (it had no remaining consumers — all LeibnizAlgLift*
-    refactors now go through the per-index `decomp_step_at_*` PURE
-    helpers above).  Eliminating it removed the file's last DIRTY
-    entry (Quot.sound via funext, Cat 1 inherent). -/
-
 end E213.Lib.Math.Cohomology.Cochain.V5_2Decomp

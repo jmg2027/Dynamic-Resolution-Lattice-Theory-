@@ -67,12 +67,7 @@ theorem leaves_refines_parity : Lens.leaves.refines parityLens := by
   show parityLens.view x = parityLens.view y
   rw [parityLens_view_eq_leaves_odd x, parityLens_view_eq_leaves_odd y, hxy']
 
-end E213.Lens.Instances.Leaves.RefinesParity
 
-namespace E213.Lens.Instances.Leaves.RefinesParity
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Parity (parityLens)
 
 /-- Witness Raw element with leaves=3, parity=true. -/
 def sample3 : Raw :=

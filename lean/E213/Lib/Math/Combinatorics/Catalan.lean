@@ -46,7 +46,7 @@ theorem catalan_3 : catalan 3 = 5 := rfl
 /-- C₄ = 14. -/
 theorem catalan_4 : catalan 4 = 14 := rfl
 
-/-- C₅ = 42 (★ the ubiquitous "answer to the universe" of combinatorics). -/
+/-- C₅ = 42 (★ the ubiquitous "fundamental Catalan count on the d=5 substrate" of combinatorics). -/
 theorem catalan_5 : catalan 5 = 42 := rfl
 
 /-- C₆ = 132. -/

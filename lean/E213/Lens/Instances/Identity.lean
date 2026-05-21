@@ -46,11 +46,7 @@ theorem idLens_symmetric :
     rw [dif_pos h, dif_pos (Ne.symm h)]
     exact Raw.slash_comm u v h
 
-end E213.Lens.Instances.Identity
 
-namespace E213.Lens.Instances.Identity
-
-open E213.Theory E213.Lens
 
 theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
   intro r
@@ -67,11 +63,7 @@ theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
            = Raw.slash x y h
       rw [dif_pos h]
 
-end E213.Lens.Instances.Identity
 
-namespace E213.Lens.Instances.Identity
-
-open E213.Theory E213.Lens
 
 /-- `idLens.view` is injective (in fact, the identity). -/
 theorem idLens_injective : Function.Injective idLens.view := by

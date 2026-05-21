@@ -18,7 +18,7 @@ generalised CD tower skeleton (G36 formalisation):
     holds at every depth, no precision-dependent gating).
   * **CD Tower formalization**: `CDLevel : Nat → Type` recursive
     definition; concrete witnesses at levels 0, 1, 2; level-25
-    dimension `2^25 = 33554432`; N_U = 5²⁵ emergence.
+    dimension `2^25 = 33554432`; N_U = 5²⁵ count-Lens readout.
 -/
 
 namespace E213.Lib.Math.SignedCut.CD.CDTowerCapstone

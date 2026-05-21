@@ -39,15 +39,7 @@ open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
 
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — Unit cochain at each grade -/
 
@@ -78,23 +70,10 @@ def F1_at_grade (k : Nat) : Nat :=
 /-- F₁ := Σ_{k=1..4} F1_at_grade k. -/
 def F1 : Nat := F1_at_grade 1 + F1_at_grade 2 + F1_at_grade 3 + F1_at_grade 4
 
-/-- ★★★★★ Unit-class self-energy F₁ at top.  STRICT ∅-AXIOM. -/
-theorem F1_value : F1 = 4 := by decide
+-- F1_value (F1 = 4) and F1_grade_breakdown (F1_at_grade k = 1 for
+-- k=1..4) folded into `cup_ring_trace_master` below.
 
-/-- F₁ at each grade (all 1, since unit cochain hits everywhere). -/
-theorem F1_grade_breakdown :
-    F1_at_grade 1 = 1 ∧ F1_at_grade 2 = 1
-    ∧ F1_at_grade 3 = 1 ∧ F1_at_grade 4 = 1 := by decide
 
-end E213.Lib.Physics.AlphaEM.CupRingTrace
-
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.Cup.Core (cup)
-open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
-open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §3 — Cand-2: basis self-Hodge cup at top (all colex basis)
 
@@ -122,23 +101,10 @@ def F2_at_grade_4 : Nat :=
 /-- F₂ := Σ_{k=1..4} F2_at_grade_k. -/
 def F2 : Nat := F2_at_grade_1 + F2_at_grade_2 + F2_at_grade_3 + F2_at_grade_4
 
-/-- ★★★★★ Basis self-Hodge cup-pair count at top.  STRICT ∅-AXIOM. -/
-theorem F2_value : F2 = 4 := by decide
+-- F2_value (F2 = 4), F2_grade_breakdown, F1_eq_F2 folded into
+-- cup_ring_trace_master.
 
-/-- F₂ at each grade: only the colex-first basis at each grade
-    contributes — exactly 1 basis hit per grade. -/
-theorem F2_grade_breakdown :
-    F2_at_grade_1 = 1 ∧ F2_at_grade_2 = 1
-    ∧ F2_at_grade_3 = 1 ∧ F2_at_grade_4 = 1 := by decide
 
-/-- F₁ = F₂ = 4 (unit and basis-sum Hodge self-pair give same total). -/
-theorem F1_eq_F2 : F1 = F2 := by decide
-
-end E213.Lib.Physics.AlphaEM.CupRingTrace
-
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
-
-open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §4 — Total cup-channels (F₃, from Step A)
 
@@ -152,7 +118,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 def F3 : Nat := 1 * binom 5 1 + 2 * binom 5 2 + 3 * binom 5 3
               + 4 * binom 5 4 + 5 * binom 5 5
 
-theorem F3_value : F3 = 80 := by decide
+-- F3_value (F3 = 80) folded into master.
 
 /-! ## §5 — Cand-4: output-grade-weighted channel sum
 
@@ -164,7 +130,7 @@ theorem F3_value : F3 = 80 := by decide
 def F4 : Nat := 1*1 * binom 5 1 + 2*2 * binom 5 2 + 3*3 * binom 5 3
               + 4*4 * binom 5 4 + 5*5 * binom 5 5
 
-theorem F4_value : F4 = 240 := by decide
+-- F4_value (F4 = 240) folded into master.
 
 /-! ## §6 — Cand-5: input-grade-product weighted (a · b summed)
 
@@ -178,11 +144,7 @@ def F5 : Nat :=
   + 1*3 * binom 5 4 + 2*2 * binom 5 4 + 3*1 * binom 5 4
   + 1*4 * binom 5 5 + 2*3 * binom 5 5 + 3*2 * binom 5 5 + 4*1 * binom 5 5
 
-theorem F5_value : F5 = 120 := by decide
-
-end E213.Lib.Physics.AlphaEM.CupRingTrace
-
-namespace E213.Lib.Physics.AlphaEM.CupRingTrace
+-- F5_value (F5 = 120) folded into master.
 
 /-! ## §7 — Master cup-ring trace results + gap analysis
 
@@ -210,8 +172,8 @@ namespace E213.Lib.Physics.AlphaEM.CupRingTrace
           (the c=2 multiplicity doubles certain channel counts);
       (c) ℤ-coefficient signed cup pairings (Hodge–Riemann
           signature integrals), not Bool/ℤ_2;
-      (d) Cup-ring convolved with the resolution N_U = 5²⁵
-          (so that "ζ(2) ≈ S(5²⁵) ≈ π²/6" emerges as a finite
+      (d) Cup-ring convolved with the resolution N_resolution =
+          5²⁵ (so that "ζ(2) ≈ S(5²⁵) ≈ π²/6" reads as a finite
           rational at lattice scale).
 
   This bottom-up data argues (a) or (d) is the right direction —
@@ -232,8 +194,6 @@ theorem cup_ring_trace_master :
     ∧ F3 ≠ 137
     ∧ F4 ≠ 137
     ∧ F5 ≠ 137 := by
-  refine ⟨F1_value, F2_value, F1_eq_F2, F3_value, F4_value, F5_value,
-          ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.CupRingTrace

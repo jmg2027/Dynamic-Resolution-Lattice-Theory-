@@ -37,25 +37,20 @@ theorem joint_num (a b : ProbabilityCut) :
 theorem joint_den (a b : ProbabilityCut) :
     (joint a b).den = a.den * b.den := rfl
 
-/-- Joint with `unit` returns the original mass (numerator). -/
+/-- Joint with `unit` returns the original mass (numerator).
+    Externally consumed by `Probability/Foundation/Capstone`. -/
 theorem joint_unit_left_num (a : ProbabilityCut) :
     (joint ProbabilityCut.unit a).num = a.num := Nat.one_mul a.num
 
-/-- Joint with `unit` returns the original mass (denominator). -/
-theorem joint_unit_left_den (a : ProbabilityCut) :
-    (joint ProbabilityCut.unit a).den = a.den := Nat.one_mul a.den
-
-/-- Joint with `zero` is `zero` (numerator). -/
+/-- Joint with `zero` is `zero` (numerator).
+    Externally consumed by `Probability/Foundation/Capstone`. -/
 theorem joint_zero_left_num (a : ProbabilityCut) :
     (joint ProbabilityCut.zero a).num = 0 := Nat.zero_mul a.num
 
-/-- Joint commutes (numerator). -/
+/-- Joint commutes (numerator).
+    Externally consumed by `Probability/Foundation/Capstone`. -/
 theorem joint_comm_num (a b : ProbabilityCut) :
     (joint a b).num = (joint b a).num := Nat.mul_comm a.num b.num
-
-/-- Joint commutes (denominator). -/
-theorem joint_comm_den (a b : ProbabilityCut) :
-    (joint a b).den = (joint b a).den := Nat.mul_comm a.den b.den
 
 /-- Conditional probability numerator: `P(A ∩ B) / P(B) = a.num / b.num`
     *at the common scale*.  When `a, b` share the same `den`, this is
@@ -66,12 +61,22 @@ def conditionalNum (a _b : ProbabilityCut) : Nat := a.num
     must be at the same scale for the ratio to make sense atomically). -/
 def conditionalDen (_a b : ProbabilityCut) : Nat := b.num
 
-/-- Conditional numerator unfold (rfl). -/
+/-- Conditional numerator unfold (rfl).  Externally consumed by
+    `Probability/Foundation/Capstone`. -/
 theorem conditionalNum_eq (a b : ProbabilityCut) :
     conditionalNum a b = a.num := rfl
 
-/-- Conditional denominator unfold (rfl). -/
-theorem conditionalDen_eq (a b : ProbabilityCut) :
-    conditionalDen a b = b.num := rfl
+/-- ★ Independence supplementary identities — joint-with-unit
+    denominator, joint commutativity on denominator, conditional
+    denominator unfold (all rfl-level). -/
+theorem independence_supplementary :
+    (∀ a : ProbabilityCut,
+        (joint ProbabilityCut.unit a).den = a.den)
+    ∧ (∀ a b : ProbabilityCut, (joint a b).den = (joint b a).den)
+    ∧ (∀ a b : ProbabilityCut, conditionalDen a b = b.num) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro a; exact Nat.one_mul a.den
+  · intro a b; exact Nat.mul_comm a.den b.den
+  · intro _ _; rfl
 
 end E213.Lib.Math.Probability.Foundation.Independence

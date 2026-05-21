@@ -86,9 +86,6 @@ No `propext`, `Quot.sound`, `Classical.choice`, `native_decide`, Mathlib
 axioms — nothing.  Any non-empty output = *axiom-dirty*, treated as
 `sorry`-equivalent (does not count toward DRLT Validation Standard).
 
-The legacy `≤ {propext, Quot.sound}` tier is **deprecated**.  No
-exceptions, no "minor leak".
-
 **Status + categorization**: `STRICT_ZERO_AXIOM.md` (canonical).
 **Audit**: `tools/scan_axioms.py <module>`, `tools/scan_all_axioms.py`.
 
@@ -113,17 +110,10 @@ observable.
 
 ## Resolution limit is structural (not "finitism")
 
-Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Summary:
-
-  - 213 commits to no cardinality / finite / infinite property at T0
-    (Raw).  Cardinality = lens output.
-  - `N_U = d^(d²) = 5²⁵` is a system invariant (converges across 4
-    independent derivations).
-  - ZFC results received via type-theoretic distinction, not
-    philosophical rejection (e.g., Cantor by inhabitant absence;
-    Cauchy limit ≠ exact value by structural ineq preservation).
-  - Physics formalization uses ℕ + ℚ + finite simplex combinatorics +
-    interval bound at N_U; ÷, ∫, π, e, ζ(2) are unnecessary.
+Canonical: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Cardinality /
+finite / infinite are Lens outputs, not Raw commitments.  Physics
+formalization uses ℕ + ℚ + finite simplex + interval bound at
+`N_U = d^(d²) = 5²⁵` (count-Lens readout at fractal level 2).
 
 Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 
@@ -132,7 +122,9 @@ Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 ### Theoretical integrity
 - No forcible map onto existing physics/chemistry.  If a number differs,
   acknowledge honestly and look for missing physics.
-- "Fit parameters" = no longer 0-parameter theory.
+- 0-parameter is structural absence (no exterior dialer, per
+  `seed/AXIOM/07_self_reference.md` §8.1), not a methodological rule.
+  See `seed/AXIOM/04_falsifiability.md` §5.3.
 
 ### Algebraic priority
 - DRLT results come from **counting** (combinatorics, number theory,
@@ -162,6 +154,7 @@ classification** — NOT file count or merge density.
 6. INDEX.md per non-trivial sub-tree (≥ 5 files).
 7. Same-topic evolution (Seq → Pure) / instance sets (per modulus, per dim) — **한 파일에** 통합, 별도 파일 X.
 8. `open` repetition within a file (namespace 블록마다 반복) **금지** — 파일 top 한 번 또는 단일 namespace.
+9. Layer-by-layer enumeration (`_layer0..N`, `_at_level_5`) is a smell — prefer one bundle / one structural theorem.  See `LESSONS_LEARNED.md` "Reduction patterns".
 
 **Layer architecture**: `lean/E213/ARCHITECTURE.md` (4 ring + Meta since
 2026-05-12, canonical).  Ground truth — never duplicate here.
@@ -215,6 +208,12 @@ When the user issues a correction (style / logic / pattern / framing):
 | External classification | "let me classify by axiom-cost / MTD" | Let structure emerge; don't impose |
 | Metaphysical framing | "213 is the foundation of all math" | "213 is the residue of pointing"; avoid foundational rhetoric |
 | Self-soothing agreement | "yes you're right" without engagement | Genuinely test; agree only after testing |
+| Substrate metaphor | "Lens operates *on top of* residue" | Lens application IS a residue self-pointing event, not a layer above |
+| Count-Lens import as Raw | "at least two somethings exist" | `2` is the count-Lens reading of the first distinguishing, not a Raw cardinality commitment |
+| Deferred ontology dichotomy | "ontology is open; we focus on derivation" | The split itself is the import; successful pointing IS what ontology asks |
+| Fine-tuning as forbidden | "we don't allow free parameters" | Free parameters have no operand — no exterior dialer exists; absence is structural, not a rule |
+| Legacy-deletion narration | "X was tolerated, now removed" / "previously Y, now Z" | Just remove the content; don't leave a record of the deletion |
+| Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 
 When the user catches one, *don't apologize and repeat* — actually
 internalize per Active Learning loop.

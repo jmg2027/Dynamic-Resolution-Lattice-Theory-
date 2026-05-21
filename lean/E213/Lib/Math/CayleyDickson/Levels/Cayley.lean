@@ -61,9 +61,7 @@ instance : Mul Cayley := ⟨mul⟩
 def conj (u : Cayley) : Cayley := ⟨u.re.conj, -u.im⟩
 
 end Cayley
-open Cayley
 
-open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 /-- `Cayley.conj` is involutive. -/
 theorem conj_conj (u : Cayley) : conj (conj u) = u := by
@@ -124,7 +122,6 @@ theorem mul_not_associative :
   refine ⟨Cayley.I', Cayley.J', L, ?_⟩
   decide
 
-open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 /-- **Non-commutativity of Cayley multiplication.**
     `Cayley.I' * Cayley.J' ≠ Cayley.J' * Cayley.I'` at the Cayley level (inherited from
@@ -134,7 +131,6 @@ theorem mul_not_commutative :
   refine ⟨Cayley.I', Cayley.J', ?_⟩
   decide
 
-open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 /-- `Cayley.I' ≠ 0` in Cayley. -/
 theorem I'_ne_zero : (Cayley.I' : Cayley) ≠ 0 := by decide
@@ -187,7 +183,6 @@ theorem alt_L_L_I : (L * L) * Cayley.I' = L * (L * Cayley.I') := by decide
 /-- Right alternativity at `(Cayley.I', Cayley.J')`: `Cayley.I'·(Cayley.J'·Cayley.J') = (Cayley.I'·Cayley.J')·Cayley.J'`. -/
 theorem alt_right_I_J_J : Cayley.I' * (Cayley.J' * Cayley.J') = (Cayley.I' * Cayley.J') * Cayley.J' := by decide
 
-open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 
 -- ═══ Cayley Add/Neg/Sub (needed for hurwitz_ring) ═══
 

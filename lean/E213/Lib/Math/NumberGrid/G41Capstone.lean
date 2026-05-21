@@ -9,7 +9,7 @@ import E213.Lib.Math.NumberGrid.TwoDimGrid
 
 Mingu's insight: number systems form a **2D grid**, not a linear
 chain.  Vertical axis = CD tower level; horizontal axis = FSM
-recognizability grade.  Both saturate at 25 on d=5 substrate.
+recognizability grade.  Both reach count-Lens ceiling at index 25 under d=5 application Lens application.
 -/
 
 namespace E213.Lib.Math.NumberGrid.G41Capstone
@@ -39,7 +39,7 @@ theorem horizontal_axis_witness :
     ∧ gradeToType 1 = NumberType.integer
     ∧ gradeToType 5 = NumberType.rational
     ∧ gradeToType 20 = NumberType.algebraic
-    ∧ gradeToType 25 = NumberType.substrateMax :=
+    ∧ gradeToType 25 = NumberType.countLensCeiling :=
   ⟨grade0_natural, grade1_integer, grade5_rational,
    grade20_algebraic, grade25_substrate⟩
 
@@ -59,7 +59,7 @@ theorem total_witness :
     ∧ fsmGradeStates 25 = 298023223876953125
     ∧ gridSize = 625
     ∧ levelDim 25 = 33554432
-    ∧ gradeToType 25 = NumberType.substrateMax :=
+    ∧ gradeToType 25 = NumberType.countLensCeiling :=
   ⟨grade_0_states, grade_25_states, grid_size_eq_625,
    rfl, grade25_substrate⟩
 

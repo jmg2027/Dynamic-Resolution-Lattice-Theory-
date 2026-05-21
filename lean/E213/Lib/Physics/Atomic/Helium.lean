@@ -45,14 +45,7 @@ open E213.Lib.Physics.Atomic.Screening
 /-- Helium nuclear charge Z = 2 = NT. -/
 def Z_He : Nat := NT
 
-theorem Z_He_eq_2 : Z_He = NT := by decide
-
-/-- Z² factor: 4 = NT² in IE(He) leading. -/
-theorem Z_He_squared : Z_He * Z_He = NT * NT := by decide
-
-theorem NT_sq_eq_4 : NT * NT = 4 := by decide
-
-/-- Same σ_1s = 7/8 as in AtomicScreening.lean.  
+/-- Same σ_1s = 7/8 as in AtomicScreening.lean.
     He uses this for outer-electron screening from inner. -/
 theorem helium_uses_sigma_1s :
     -- σ_1s = 7/8 (from AtomicScreening)
@@ -61,9 +54,6 @@ theorem helium_uses_sigma_1s :
     -- Decomposition: (d²-1-NS)/(d²-1) reduced
     ∧ d * d - 1 - NS = 21
     ∧ d * d - 1 = 24 := by decide
-
-/-- Bohr "2" = NT also appears in He.  Same Bohr formula. -/
-theorem helium_bohr_via_NT : bohr_denom = NT := by decide
 
 /-- ★ He IE bracket: 24 ≤ IE ≤ 25 eV (1% sanity) ★ -/
 theorem he_IE_in_bracket :

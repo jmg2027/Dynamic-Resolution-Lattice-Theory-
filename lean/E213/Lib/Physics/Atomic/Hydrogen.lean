@@ -53,24 +53,17 @@ open E213.Lib.Physics.Simplex.Counts
 /-- Bohr formula denominator NT = 2.  *Atomicity-forced*. -/
 def bohr_denom : Nat := NT
 
-theorem bohr_denom_eq_2 : bohr_denom = 2 := by decide
-
-/-- Standard QM "2" = NT (DRLT-derived). -/
-theorem standard_2_is_NT : bohr_denom = NT ∧ NT = 2 := by decide
-
 /-- Energy level n=1 prefactor: 1/(NT · 1²) = 1/2. -/
 def n1_prefactor_denom : Nat := NT * 1 * 1
-
-theorem n1_prefactor_eq_2 : n1_prefactor_denom = 2 := by decide
 
 /-- Energy level n=2 prefactor: 1/(NT · 4) = 1/8. -/
 def n2_prefactor_denom : Nat := NT * 2 * 2
 
-theorem n2_prefactor_eq_8 : n2_prefactor_denom = 8 := by decide
-
-/-- ★ n=2 prefactor = 8 = 1/α_3 ★
-    The hydrogen second level denominator shares the same integer as the strong adjoint.
-    Coincidental atomic structure! -/
+/-- ★ n=2 prefactor = 8 = 1/α_3.  The hydrogen second-level
+    denominator equals the strong adjoint count NS² − 1.  Two
+    Lens readings of the integer 8.  (Numeric `bohr_denom = 2`,
+    `n1_prefactor_denom = 2`, `n2_prefactor_denom = 8` are
+    conjuncts of `hydrogen_atomic_pattern` below.) -/
 theorem n2_prefactor_eq_alpha_3 :
     n2_prefactor_denom = NS * NS - 1 := by decide
 

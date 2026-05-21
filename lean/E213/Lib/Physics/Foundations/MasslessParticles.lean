@@ -43,58 +43,30 @@ open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.Couplings.PhotonKernel
 open E213.Lib.Physics.Cosmology.NeffDerivation
 
-/-- Photon N_eff = ∞ (no rank exhaustion).
-    Cross-sector U(1), borrows from V_A and V_B. -/
-theorem photon_massless_no_saturation :
-    -- Cross-sector means neither sector exhausted
-    NS ≠ 0 ∧ NT ≠ 0 ∧ NS ≠ NT := by decide
+/-- ★ Capstone — massless particles atomic ★
 
-/-- Gluon: confined, but massless asymptotically.
-    Confinement ≠ mass (gluon massless inside hadron). -/
-theorem gluon_confined_massless :
-    -- α_3 N_eff = 1 (confinement)
-    alpha_3_Neff = 1
-    -- but gluon propagator UV-finite (massless theory)
-    ∧ NS * NS - 1 = 8 := by decide
+  Three forces × propagation regimes bundle (gluon, W/Z, photon),
+  photon kernel = α_3 adjoint structural identity, atomic
+  primitives.  Each massless reading is N_eff-derived:
 
-/-- W, Z: massive, N_eff = NT.  Rank exhaustion at temporal level. -/
-theorem WZ_massive_via_NT :
-    alpha_2_Neff = NT ∧ NT = 2 := by decide
+    · Photon (α_1): N_eff = ∞ (no rank exhaustion, cross-sector)
+    · Gluon (α_3):  N_eff = 1 (confined, UV-finite propagator)
+    · W, Z (α_2):   N_eff = NT (massive via Higgs)
 
-/-- ★ Three force massless/massive pattern ★
-    α_3:  N_eff=1, gluon massless (asymptotically free), confined
-    α_2:  N_eff=NT, W/Z massive (Higgs mechanism)
-    α_1:  N_eff=∞, photon massless (cross-sector)
-    
-    All from atomicity-derived rank structure. -/
-theorem three_force_mass_pattern :
-    -- α_3 : N_eff = 1
-    (alpha_3_Neff = 1)
-    -- α_2 : N_eff = NT
-    ∧ (alpha_2_Neff = NT)
-    -- α_1 : no saturation (photon massless)
-    ∧ (NS ≠ 0 ∧ NT ≠ 0)
-    -- Atomicity
-    ∧ (NS = 3) ∧ (NT = 2) := by decide
-
-/-- ★ Photon kernel = α_3 adjoint coincidence ★
-    The same integer 8 appears in photon kernel dim and α_3 adjoint.
-    Reconfirming the key finding of PhotonKernel.lean. -/
-theorem photon_alpha_3_link :
-    (b_1 = NS * NS - 1)
-    ∧ (b_1 = 8) := by decide
-
-/-- ★ Capstone — massless particles atomic ★ -/
+  Atomicity locks photon kernel = α_3 adjoint to the same integer 8. -/
 theorem massless_capstone :
-    -- Photon: cross-sector, no saturation
-    (NS ≠ 0 ∧ NT ≠ 0)
-    -- Gluon: confined N_eff = 1
+    -- Photon massless: cross-sector, no saturation, NS ≠ NT
+    (NS ≠ 0 ∧ NT ≠ 0 ∧ NS ≠ NT)
+    -- Gluon confined: N_eff = 1; α_3 adjoint NS² − 1 = 8
     ∧ (alpha_3_Neff = 1)
-    -- W, Z: massive at N_eff = NT
+    ∧ (NS * NS - 1 = 8)
+    -- W, Z massive: N_eff = NT = 2
     ∧ (alpha_2_Neff = NT)
-    -- Photon kernel = α_3 (atomicity-locked)
+    ∧ NT = 2
+    -- Photon kernel = α_3 adjoint (atomicity-locked: b_1 = NS² − 1 = 8)
     ∧ (b_1 = NS * NS - 1)
+    ∧ b_1 = 8
     -- All atomic
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
+    ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by decide
 
 end E213.Lib.Physics.Foundations.MasslessParticles

@@ -39,12 +39,7 @@ def subtypeHasDistinguishing (P : Raw → Prop)
   combine := fun _ _ => ⟨Raw.a, h_a⟩
   combine_sym := fun _ _ => rfl
 
-end E213.Lens.Instances.Subtype
 
-namespace E213.Lens.Instances.Subtype
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- Universal morphism Raw → {r : Raw // P r} via degenerate
     sub-instance.  Most Raws collapse to a — the natural result of

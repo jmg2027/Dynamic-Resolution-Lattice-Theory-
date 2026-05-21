@@ -34,13 +34,13 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_
 -- with period P) moved to `Signature/PeriodClosure.lean` 2026-05-13
 -- to break the ArithFSM ↔ ConcretePellSig build cycle.
 
-/-- ★★★★ Pell mod-3 signature has period 4 (TIGHT, matches bit period). -/
+/-- ★★★★ Pell mod-3 signature has period 4 (equal to bit period). -/
 theorem pellFSMmod3_signature_period_4 :
     ∀ k, signature pellFSMmod3.bits (k + 4) = signature pellFSMmod3.bits k :=
   signature_period_of_bits_period_and_anchor pellFSMmod3.bits 4
     pellFSMmod3_bits_period_4 (by decide)
 
-/-- ★★★★★ Pell mod-5 signature has period 10 (TIGHT, matches bit period). -/
+/-- ★★★★★ Pell mod-5 signature has period 10 (equal to bit period). -/
 theorem pellFSMmod5_signature_period_10 :
     ∀ k, signature pellFSMmod5.bits (k + 10) = signature pellFSMmod5.bits k :=
   signature_period_of_bits_period_and_anchor pellFSMmod5.bits 10

@@ -10,9 +10,9 @@ Mingu's insight (post G40): the number-system taxonomy is
 Each cell `(i, j)` = number system at CD level `i` and FSM
 recognizability grade `j`.  Total `25 × 25 = 625` cells.
 
-213-native paradigm: on d=5 substrate, an FSM with `5^j` states
+213-native paradigm: on d=5 Lens application, an FSM with `5^j` states
 can recognize patterns up to grade `j`.  Beyond grade 25 = beyond
-N_U = transcendental on d=5 substrate.
+N_U = transcendental on d=5 Lens application.
 
 Atomic content:
   * `FSMGrade : Nat → Nat` cardinality function (`5^j`).
@@ -23,7 +23,7 @@ Atomic content:
 namespace E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
 
 /-- **FSM Grade**: number of automaton states at level `j` =
-    `5^j` (matching d=5 substrate distinguishability). -/
+    `5^j` (matching d=5 Lens-distinguishability). -/
 def fsmGradeStates (j : Nat) : Nat := 5 ^ j
 
 /-- ★ **Grade 0**: 1 state = constant cuts (ℕ-like trivials). -/
@@ -42,12 +42,12 @@ theorem grade_3_states : fsmGradeStates 3 = 125 := rfl
 theorem grade_25_states :
     fsmGradeStates 25 = 298023223876953125 := rfl
 
-/-- ★ **N_U match**: grade 25 cardinality = N_U system invariant. -/
+/-- ★ **N_U match**: grade 25 cardinality agrees with the N_U count-Lens readout. -/
 theorem grade25_eq_n_u :
     fsmGradeStates 25 = (5 : Nat) ^ 25 := rfl
 
 /-- ★ **Grade 26 absence**: `5^26 > 5^25` = N_U.  No FSM with
-    more states than N_U can be distinguished on d=5 substrate. -/
+    more states than N_U can be distinguished on d=5 Lens application. -/
 theorem grade_26_excess :
     fsmGradeStates 25 < fsmGradeStates 26 := by decide
 

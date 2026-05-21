@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.Level
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
@@ -17,11 +17,11 @@ discrete state information.
   | 2 | 25            | 276          | K_{25} (Gram dim level)|
   | 3 | 125           | 7626         | super-Gram             |
   | d | 5^d = 3125    | huge         | atomic-deep            |
-  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | N_universe (self-ref)  |
+  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | N_resolution (self-ref)  |
 
 ## Self-referential signature
 
-  L = d²:  numV(L) = d^(d²) = N_universe
+  L = d²:  numV(L) = d^(d²) = N_resolution
   This level closes the recursion: vertex count equals d^L where L
   itself equals d² — a fixed-point property of the fractal recursion.
 
@@ -33,45 +33,30 @@ namespace E213.Lib.Physics.Foundations.LensCardinalityFractalLevels
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Math.Cohomology.Fractal.Level
 
-/-- Vertex count at level 0 (trivial). -/
-theorem level0_count : numV 0 = 1 := by decide
-
-/-- Vertex count at level 1: K_5 = single Δ⁴. -/
-theorem level1_count : numV 1 = 5 := by decide
-
-/-- Vertex count at level 2: K_{25} = Gram dim level. -/
-theorem level2_count : numV 2 = 25 := by decide
-
-/-- Vertex count at level 3: K_{125} = super-Gram. -/
-theorem level3_count : numV 3 = 125 := by decide
-
-/-- Vertex count at atomic-deep level d (= 5). -/
-theorem leveld_count : numV d = 3125 := by decide
-
-/-- ★★ Self-referential level d² = 25: numV = d^(d²) = N_universe. -/
-theorem level_d_sq_count :
-    numV (d * d) = d ^ (d * d) := rfl
-
-/-- ★★★ Lens cardinality progression — fixed-point at L = d². -/
-theorem lens_cardinality_progression :
-    -- Doubling pattern: numV(L+1) = d · numV(L)
-    -- Verified at small L
-    (numV 1 = d * numV 0)
-    ∧ (numV 2 = d * numV 1)
-    ∧ (numV 3 = d * numV 2)
-    -- Self-referential: numV(d²) = d^(d²)
-    ∧ numV (d * d) = d ^ (d * d) := by
-  refine ⟨?_, ?_, ?_, ?_⟩
+/-- ★★★★ Lens cardinality master — per-level vertex counts at
+    L = 0..3 and atomic-deep L = d (= 5); self-referential identity
+    `numV(d²) = d^(d²) = N_resolution` at L = 25; ∀ L recursive
+    self-similarity `numV(L+1) = d · numV(L)`. -/
+theorem lens_cardinality_master :
+    -- Per-level counts
+    numV 0 = 1
+    ∧ numV 1 = 5
+    ∧ numV 2 = 25
+    ∧ numV 3 = 125
+    ∧ numV d = 3125
+    -- Self-referential L = d² fixed point
+    ∧ numV (d * d) = d ^ (d * d)
+    -- ∀ L cardinality recursion (atomic self-similarity)
+    ∧ (∀ L : Nat, numV (L + 1) = d * numV L) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · rfl
   · rfl
   · rfl
-
-/-- ★★★★ Cardinality identity: each level multiplies by d.
-    numV(L+1) = d · numV(L) — atomic recursive self-similarity. -/
-theorem level_recursive_cardinality (L : Nat) :
-    numV (L + 1) = d * numV L := by
-  show 5 ^ (L + 1) = 5 * 5 ^ L
-  rw [Nat.pow_succ, Nat.mul_comm]
+  · rfl
+  · rfl
+  · intro L
+    show 5 ^ (L + 1) = 5 * 5 ^ L
+    rw [Nat.pow_succ, Nat.mul_comm]
 
 end E213.Lib.Physics.Foundations.LensCardinalityFractalLevels

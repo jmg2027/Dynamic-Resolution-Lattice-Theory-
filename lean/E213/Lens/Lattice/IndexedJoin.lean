@@ -89,11 +89,7 @@ theorem iJoinLens_is_least {ι : Type} {γ : Type}
   have hJE : IJoinEquiv F r r' := (iJoinLens_kernel F r r').mp h
   exact ijoin_implies_N F N hNsym hAll r r' hJE
 
-end E213.Lens.Lattice.IndexedJoin
 
-namespace E213.Lens.Lattice.IndexedJoin
-
-open E213.Theory E213.Lens
 open E213.Term.Internal (Tree)
 
 /-- **Indexed product Lens (meet)**: concrete meet of an arbitrary

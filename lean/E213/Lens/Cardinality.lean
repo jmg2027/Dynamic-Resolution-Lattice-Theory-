@@ -11,11 +11,15 @@ import E213.Lens.Cardinality.Tower
 /-! Spec-as-code entry point for `E213.Lens.Cardinality`.
 
   Lens-ring cardinality cluster — cardinality observables produced
-  by Lens on Raw.
+  by Lens application on Raw.
 
-  Raw is the substrate; Lens views project Raw → observable.
-  Cardinality of these projections (and of Raw itself) is a Lens
-  observable, hence lives in the Lens ring.
+  Cardinality is a Lens output, not a Raw commitment (per
+  `seed/AXIOM/02_statement.md` §3.3).  Each Lens view of Raw into
+  a codomain α defines a cardinality observable (finiteness,
+  countability, etc.) on that view; the observable is the Lens
+  reading, not a property of an underlying substrate.  Cf.
+  `seed/RESOLUTION_LIMIT_SPEC.md`: `N_resolution = d^(d²) = 5²⁵`
+  is the count-Lens readout at fractal level 2.
 
   ## Files
 

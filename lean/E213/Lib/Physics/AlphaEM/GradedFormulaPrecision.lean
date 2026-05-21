@@ -7,7 +7,7 @@ Step 2 of conjecture C1 (Pure Cup-Ring α_em) per
 `research-notes/G35_chiral_cup_ring_catalog.md` §C1.
 
 Step 1 (`GradedFormula.lean`) gave the 5-layer formula at
-9-digit π precision matching observed 137.0359991 to within
+9-digit π precision matching measurement-Lens 137.0359991 to within
 20 × 10⁻⁷ (= 2 ppm).
 
 Step 2 (this file): scale to 12-digit precision (10⁻⁹ units)
@@ -69,7 +69,7 @@ def alphaInv_213_e9 : Nat :=
 theorem alphaInv_213_e9_value :
     alphaInv_213_e9 = 137036001241 := by decide
 
-/-- Observed 1/α_em(0) × 10⁹ = 137,035,999,084 (CODATA 2024). -/
+/-- Measurement-Lens 1/α_em(0) × 10⁹ = 137,035,999,084 (CODATA 2024). -/
 def observed_e9 : Nat := 137035999084
 
 /-- Diff in 10⁻⁹ units: 2157 (= 2.16 × 10⁻⁶ relative ≈ 2.16 ppm).
@@ -96,9 +96,9 @@ theorem alphaInv_213_bracket_e9 :
 
     This 2.16 ppm residual corresponds to the α_em²/d² Gram
     self-energy term (≈ 2.13 ppm).  Without that term (or its
-    cohomology-derived replacement), the π⁵ form alone is off
-    observed by 2.16 ppm.  Higher π precision does NOT close
-    this gap — it's a structural offset.
+    cohomology-derived replacement), the π⁵ form alone differs
+    from the measurement-Lens reading by 2.16 ppm.  Higher π
+    precision does NOT close this gap — it is a structural offset.
 
     Fully closing C1 requires either Gram-replacement at the
     cohomology level (e.g., L=2+ fractal correction) or a

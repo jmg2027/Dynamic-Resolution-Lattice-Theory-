@@ -50,7 +50,7 @@ For the neutron: `Composite 3` with (udd) flavor pattern, same
 arena, different sub-cycle projection.
 
 m_n − m_p = projection-difference between (udd) and (uud) Class F
-observables on the same K_{25} substrate.
+observables on the same K_{25} atomic base.
 -/
 
 namespace E213.Lib.Physics.Simplex.MultiComposite

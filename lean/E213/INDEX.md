@@ -43,7 +43,7 @@ Lib/Math/    727 files (42 sub-clusters): CayleyDickson, Real213,
 Lib/Physics/ 165 files (17 sub-clusters): AlphaEM, Couplings,
              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
              Atomic, Simplex, Basel, YangMills, Capstones,
-             Substrate, Foundations, Certificates, …
+             AtomicBase, Foundations, Certificates, …
 
 Meta/    37 files (ring-independent) — Lean 4 bridge.
              SelfRecognising (CommBinary/NonVanishing/Conjugation
@@ -94,7 +94,7 @@ Top achievements:
 |---|---|
 | "What does DRLT compute?"     | `Lib/Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
 | "How does α_em derive?"       | `Lib/Physics/AlphaEM/` chain |
-| "Where is N_universe?"        | `Lib/Physics/Foundations/NUniverseFractalDepth.lean` |
+| "Where is N_resolution?"        | `Lib/Physics/Foundations/NResolutionFractalDepth.lean` |
 | "Why finite N only?"          | `Lib/Math/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Theory/Atomicity/Five.lean` + `Theory/Atomicity/PairForcing.lean` |
 | "How is Term ring 0-axiom?"   | `Term/` 12 files + `tools/kernel_regress.sh` + `STRICT_ZERO_AXIOM.md` |

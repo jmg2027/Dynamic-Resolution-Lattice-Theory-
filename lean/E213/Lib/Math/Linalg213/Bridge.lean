@@ -21,10 +21,11 @@ Both express the same atomic split (NS=3, NT=2) at different
 abstract levels (vector / cochain).  This file makes the
 correspondence formal.
 
-The bridge is *exact at level 1* (cochain on vertices ≅ vector
-indexing).  Higher cochain levels (k ≥ 2) involve faces (edges,
-triangles, etc.) which Linalg213 does not yet have a direct
-analogue for — that lifts to 6.
+The Linalg213 Lens aligns exactly with cohomology level 1
+(cochain on vertices ≅ vector indexing).  Level-k faces (k ≥ 2 —
+edges, triangles, etc.) extend the cohomology Lens; this is one
+reading enriched by further structure, not a different layer
+being added on top.
 -/
 
 namespace E213.Lib.Math.Linalg213.Bridge
@@ -71,9 +72,9 @@ theorem phase_L5_capstone :
     -- Atomic source: both equal NS, NT
     ∧ dimVecS = NS ∧ dimVecT = NT := by decide
 
-/-- ★ L6 target (statement only): full paper 1 chiral compression
-    theorem combining Linalg213 rank-5 + Cohomology bigrading.
-    Awaits future formalization. -/
-theorem L6_target_paper1_compression : True := trivial
+/-- ★ Target (statement only): full chiral compression theorem
+    combining Linalg213 rank-5 + Cohomology bigrading.  Awaits
+    future formalization. -/
+theorem chiral_compression_target : True := trivial
 
 end E213.Lib.Math.Linalg213.Bridge

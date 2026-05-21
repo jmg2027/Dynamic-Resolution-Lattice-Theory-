@@ -41,12 +41,12 @@ theorem cd_level_depth : (25 : Nat) = 25 := rfl
 theorem bit_tower_at_saturation :
     (2 : Nat) ^ 25 = 33554432 := rfl
 
-/-- ★ **N_U = substrate distinguishable trajectory count**. -/
-theorem n_u_distinguishable :
+/-- ★ **N_resolution = atomic-level distinguishable trajectory count**. -/
+theorem n_resolution_distinguishable :
     (5 : Nat) ^ 25 = 298023223876953125 := rfl
 
 /-- ★ **The four quantities are distinct**:
-    25 (CD level) ≠ `2²⁵` (bit-tower) ≠ `5²⁵` (N_U) ≠ ∞ (Nat index). -/
+    25 (CD level) ≠ `2²⁵` (bit-tower) ≠ `5²⁵` (N_resolution) ≠ ∞ (Nat index). -/
 theorem four_quantities_distinct :
     (25 : Nat) < (2 : Nat) ^ 25
     ∧ (2 : Nat) ^ 25 < (5 : Nat) ^ 25 := by

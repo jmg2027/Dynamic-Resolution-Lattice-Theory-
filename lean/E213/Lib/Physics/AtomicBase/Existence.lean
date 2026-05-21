@@ -1,4 +1,4 @@
-import E213.Lib.Physics.Substrate.Origin
+import E213.Lib.Physics.AtomicBase.Origin
 
 /-!
 # Phase 2 Existence — what *exists* in d=5?
@@ -7,7 +7,7 @@ import E213.Lib.Physics.Substrate.Origin
 the same pattern* as `isA, classify` in math track
 `Lib/Math/Combinatorics/Simplex5.lean`).
 
-Origin.lean: *the universe is d=5 dimensional*.
+Origin.lean: *the d=5 dimension is structurally forced (Atomicity)*.
 Shape.lean: *5 points, (3,2) partition, 10 pairs*.
 This file: *what are those 5, and what is the information between them?*
 
@@ -25,7 +25,7 @@ This file: *what are those 5, and what is the information between them?*
   Only *block sizes* are determined by axiom.
 -/
 
-namespace E213.Lib.Physics.Substrate.Existence
+namespace E213.Lib.Physics.AtomicBase.Existence
 
 /-- Type of d=5 things — Fin 5.  Minimal Lens output. -/
 def Vertex : Type := Fin 5
@@ -40,46 +40,27 @@ def inBigBlock (v : Vertex) : Bool := v.val < 3
 /-- Which vertex belongs to "small block" (size 2) — complement. -/
 def inSmallBlock (v : Vertex) : Bool := decide (3 ≤ v.val)
 
-/-- Every vertex is in exactly one block (mutually exclusive). -/
-theorem block_disjoint_at_0 :
-    inBigBlock ⟨0, by decide⟩ = !inSmallBlock ⟨0, by decide⟩ := by decide
-theorem block_disjoint_at_1 :
-    inBigBlock ⟨1, by decide⟩ = !inSmallBlock ⟨1, by decide⟩ := by decide
-theorem block_disjoint_at_2 :
-    inBigBlock ⟨2, by decide⟩ = !inSmallBlock ⟨2, by decide⟩ := by decide
-theorem block_disjoint_at_3 :
-    inBigBlock ⟨3, by decide⟩ = !inSmallBlock ⟨3, by decide⟩ := by decide
-theorem block_disjoint_at_4 :
-    inBigBlock ⟨4, by decide⟩ = !inSmallBlock ⟨4, by decide⟩ := by decide
-
-/-- Exactly 3 vertices in big block. -/
-theorem big_block_size_three :
-    ((List.finRange 5).filter (fun v => inBigBlock v)).length = 3 := by
-  decide
-
-/-- Exactly 2 vertices in small block. -/
-theorem small_block_size_two :
-    ((List.finRange 5).filter (fun v => inSmallBlock v)).length = 2 := by
-  decide
-
-/-- Two block sizes sum to 5 (total vertex count). -/
-theorem block_sizes_sum_to_5 :
-    ((List.finRange 5).filter (fun v => inBigBlock v)).length
-    + ((List.finRange 5).filter (fun v => inSmallBlock v)).length
-    = 5 := by decide
-
 /-- ★ Phase 2 Existence — everything 213 can answer ★
 
   In d=5 dimensions there are *5 vertices*.
   The atomic partition splits into *(3, 2)* sizes.
-  Further ontology (names, meanings) is not axiom-determined. -/
+  Further ontology (names, meanings) is not axiom-determined.
+
+  Bundles per-vertex block-disjointness (inBigBlock = ¬inSmallBlock
+  at every v ∈ Fin 5), block sizes (3, 2), and their sum (= 5). -/
 theorem cosmos_existence_minimal :
     -- (3, 2) block sizes
-    (((List.finRange 5).filter (fun v => inBigBlock v)).length = 3)
-    ∧ (((List.finRange 5).filter (fun v => inSmallBlock v)).length = 2)
+    ((List.finRange 5).filter (fun v => inBigBlock v)).length = 3
+    ∧ ((List.finRange 5).filter (fun v => inSmallBlock v)).length = 2
     -- Sum to 5
     ∧ (((List.finRange 5).filter (fun v => inBigBlock v)).length
        + ((List.finRange 5).filter (fun v => inSmallBlock v)).length
-       = 5) := by decide
+       = 5)
+    -- Per-vertex block disjointness
+    ∧ (inBigBlock ⟨0, by decide⟩ = !inSmallBlock ⟨0, by decide⟩)
+    ∧ (inBigBlock ⟨1, by decide⟩ = !inSmallBlock ⟨1, by decide⟩)
+    ∧ (inBigBlock ⟨2, by decide⟩ = !inSmallBlock ⟨2, by decide⟩)
+    ∧ (inBigBlock ⟨3, by decide⟩ = !inSmallBlock ⟨3, by decide⟩)
+    ∧ (inBigBlock ⟨4, by decide⟩ = !inSmallBlock ⟨4, by decide⟩) := by decide
 
-end E213.Lib.Physics.Substrate.Existence
+end E213.Lib.Physics.AtomicBase.Existence

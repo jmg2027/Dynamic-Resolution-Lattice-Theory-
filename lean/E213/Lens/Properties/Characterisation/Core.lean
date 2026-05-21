@@ -54,10 +54,6 @@ theorem swap_invariant_of_base_eq_comm
     (fun _ _ => rfl) hcomm r
   exact h
 
-end E213.Lens.Properties.Characterisation.Core
-namespace E213.Lens.Properties.Characterisation.Core
-open E213.Theory E213.Lens
-open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **Full characterisation under commutative combine.**  The
     Lens is swap-invariant iff its base values coincide.  The
@@ -103,10 +99,6 @@ theorem R4_conj_unique_of_surjective
   rw [hr] at this
   exact this
 
-end E213.Lens.Properties.Characterisation.Core
-namespace E213.Lens.Properties.Characterisation.Core
-open E213.Theory E213.Lens
-open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ Characterisation 3: R3 lifts from base to Raw ═══
 

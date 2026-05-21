@@ -25,7 +25,7 @@ namespace E213.Lib.Math.CayleyDickson.Misc.TypeAResidualClosedForm
 /-- Closed form for Type A residual numerator at L_{n+5}. -/
 def closed_form (n : Nat) : Int := 56 * (4 : Int)^n - 14 * (2 : Int)^n + 1
 
-/-- ★ closed_form matches measured values for n = 0..4. -/
+/-- ★ closed_form agrees with the per-layer computed numerators for n = 0..4. -/
 theorem closed_form_match :
     closed_form 0 = 43 ∧
     closed_form 1 = 197 ∧

@@ -1,6 +1,16 @@
 # Falsifiers Catalog
 
-CLAUDE.md verification criterion (2): 1 measurement violation → 213 discard.
+CLAUDE.md verification criterion (2): a single measurement-Lens
+reading contradicting the corresponding theory-Lens reading is a
+213-internal contradiction (cf. `seed/AXIOM/04_falsifiability.md`
+§5.2.1 + "Falsification is internal" subsection — both readings
+are 213-internal events; their disagreement is not external
+refutation but residue-internal incoherence).  Each entry below
+records a *structural necessity*: if the (3, 2, 5) atomicity is
+the correct residue reading, then the entry's quantity has the
+listed value.  Disagreement with measurement means the chosen
+Lens does not reflect 213, not that an exterior judge condemns
+the framework.
 
 ## Explicit falsifiers (Phase 3)
 

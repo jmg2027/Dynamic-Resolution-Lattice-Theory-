@@ -72,9 +72,6 @@ theorem nat_trichotomy (n : Nat) :
               left
               exact ⟨k + 1, by rw [hk, Nat.mul_succ]⟩
 
-end E213.Lib.Math.ModArith.PureNatMod3
-
-namespace E213.Lib.Math.ModArith.PureNatMod3
 
 open E213.Meta.Nat.PureNat
 

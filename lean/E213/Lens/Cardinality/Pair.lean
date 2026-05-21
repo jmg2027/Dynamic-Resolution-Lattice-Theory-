@@ -43,9 +43,6 @@ theorem pow_le_pair (x y : Nat) :
     2^(x + y) ≤ pair x y :=
   Nat.le_add_right _ _
 
-end E213.Lens.Cardinality
-
-namespace E213.Lens.Cardinality
 
 /-- **Pair injectivity — 4-arg form.**  If `pair x₁ y₁ =
     pair x₂ y₂` then `x₁ = x₂ ∧ y₁ = y₂`.  Proof via

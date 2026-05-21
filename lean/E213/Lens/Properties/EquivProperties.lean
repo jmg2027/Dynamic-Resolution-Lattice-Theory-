@@ -4,7 +4,7 @@ import E213.Lens.LensCore
 # LensEquivProperties: Lens.equiv is an equivalence relation
 
 Explicit theorems that `Lens.equiv` satisfies reflexivity + symmetry +
-transitivity, as stated in PAPER1 §3.2.
+transitivity.
 -/
 
 namespace E213.Lens.Properties.EquivProperties

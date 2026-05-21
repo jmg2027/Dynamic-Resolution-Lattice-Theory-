@@ -23,7 +23,7 @@ in which precision quantity.
 - 1/α_em IR Ξ correction denom (AlphaEMUnified)
 - m_μ/m_e δ₂ correction denom (MuOverE)
 - δ_CP leading 360°/(d²−1) = 15° (NeutrinoMixing)
-- α_2 prefactor c·NS·NT² = 24 (AlphaEMPrefactors) ★ hidden link
+- α_2 prefactor c·NS·NT² = 24 (AlphaEMPrefactors) ★ structural coupling
 
 ### (d − 1) = 4 = NS+1 = tetrahedra/vertex
 - α_em IR Dyson tail α_GUT/(NS+1) (AlphaEMUnified)
@@ -111,7 +111,8 @@ theorem master_atomic_catalog :
     PMNS angles, nuclear binding, n-p mass diff,
     Cabibbo, generations.
 
-  This is the true meaning of DRLT's "0 free parameters":
-  all results are *simultaneously* forced from a single atomic configuration. -/
+  This is the structural reading of DRLT's "no exterior dialer"
+  position: all results are *simultaneously* forced from a single
+  atomic configuration. -/
 
 end E213.Lib.Physics.Capstones.MasterCatalog

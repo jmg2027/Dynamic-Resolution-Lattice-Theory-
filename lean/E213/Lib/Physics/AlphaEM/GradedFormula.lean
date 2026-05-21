@@ -40,11 +40,7 @@ namespace E213.Lib.Physics.AlphaEM.GradedFormula
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §1 — Layer 1 (k=0, 1): harmonic base 60·ζ(2) + 30
 
@@ -58,16 +54,13 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
 /-- Layer 1a integer coefficient: 60 = c · NS · NT · d. -/
 def L1a_coeff : Nat := 2 * NS * NT * d
 
-theorem L1a_coeff_eq_60 : L1a_coeff = 60 := by decide
+-- L1a_coeff_eq_60 (and other layer-coeff scaffolds) folded into
+-- `graded_formula_master` below.
 
 /-- Layer 1b integer: 30 = adjoint·S(2) numerator structure
     (= 1/α_2 from `Bare.lean`, via 12 · NT · 5/4 = 30). -/
 def L1b_coeff : Nat := 30
 
-theorem L1b_coeff_eq_inv_alpha_2 : L1b_coeff = 30 := by decide
-
-/-- Layer 1b decomposition: 30 · 4 = (d² − 1) · 5. -/
-theorem L1b_adjoint_decomp : L1b_coeff * 4 = (d * d - 1) * 5 := by decide
 
 /-! ## §2 — Layer 2 (k=2): cup-product correction d²/NS = 25/3
 
@@ -81,28 +74,17 @@ theorem L1b_adjoint_decomp : L1b_coeff * 4 = (d * d - 1) * 5 := by decide
 /-- Layer 2 numerator: 25 = d². -/
 def L2_num : Nat := d * d
 
-theorem L2_num_eq_25 : L2_num = 25 := by decide
-
 /-- Layer 2 denominator: 3 = NS. -/
 def L2_den : Nat := NS
 
-theorem L2_den_eq_3 : L2_den = 3 := by decide
 
-/-- Layer 2 ratio identity: L2_num · 3 = 25 · L2_den. -/
-theorem L2_ratio : L2_num * 3 = 25 * L2_den := by decide
-
-end E213.Lib.Physics.AlphaEM.GradedFormula
-
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §3 — Layer 3 (k=3, 4): Hodge pairing 1/(NS·NT·π⁵)
 
   At grades 3 and 4 (cup of edge × triangle = tet, edge × tet = top),
   the Hodge pairing gives a vertex-self-energy that, in the
   continuum, reads `1/(NS·NT·π⁵)` ≈ 5.446 × 10⁻⁴ (5.446 in
-  10⁻⁷ units, matching the observed structural gap of 5443 × 10⁻⁷
+  10⁻⁷ units, matching the bracket-gap (two-Lens difference) of 5443 × 10⁻⁷
   to within 3 × 10⁻⁷ = 13× closer than α_GUT/45).
 
   See `PiFiveGap.lean` for the numerical comparison.  The π⁵
@@ -115,12 +97,8 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
 /-- Layer 3 denominator structure (excluding π⁵): NS · NT = 6. -/
 def L3_den_integer : Nat := NS * NT
 
-theorem L3_den_integer_eq_6 : L3_den_integer = 6 := by decide
-
 /-- Layer 3 numerator (always 1): the Hodge-form leading coefficient. -/
 def L3_num : Nat := 1
-
-theorem L3_num_eq_1 : L3_num = 1 := by decide
 
 /-- Reference: at 9-digit π precision, 1/(NS · NT · π⁵) × 10⁷ ≈ 5446.
     See `PiFiveGap.pi5_gap_e7_eq_5446` for the explicit decide check. -/
@@ -146,24 +124,20 @@ theorem L3_numerical_reference :
     denominators and π factors): 60 + 30 + 25 + 1 = 116. -/
 def leading_integer_sum : Nat := L1a_coeff + L1b_coeff + L2_num + L3_num
 
-theorem leading_integer_sum_eq_116 : leading_integer_sum = 116 := by decide
+-- leading_integer_sum_eq_116 folded into master.
 
 /-! Integer denominator-wise sum: L1a · ζ(2) + L1b + L2_num/L2_den
     + L3 ≈ 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵), with the continuum
     factors ζ(2) and π⁵ replaced by 213-finite Basel/Wallis at N_U. -/
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §5 — Numerical bracket: integer-formula × 10⁷ at fixed precision
 
   Existing `PiFiveGap.lean` encodes π² × 10¹⁰ and π⁵ × 10¹⁰ at
   9-digit precision.  Combined with Basel partial sums in
   `Basel/Bound.lean`, we can express the 4-layer formula as a
-  rational at fixed N and verify it brackets observed 137.0359991
+  rational at fixed N and verify it brackets measurement-Lens 137.0359991
   at the precision permitted by the truncations. -/
 
 /-- 1/α_em(IR) candidate × 10⁷ via the FIVE-layer formula at
@@ -208,11 +182,7 @@ theorem alphaInv_213_bracket :
     ∧ E213.Lib.Physics.AlphaEM.PiFiveGap.observed_e7 ≤ alphaInv_213_e7_at_pi9 + 30 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Physics.AlphaEM.GradedFormula
 
-namespace E213.Lib.Physics.AlphaEM.GradedFormula
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §6 — Master GradedFormula theorem (C1 step 1) -/
 

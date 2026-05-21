@@ -49,11 +49,7 @@ theorem JoinEquiv_slash_cong {α β : Type} (L : Lens α) (M : Lens β)
     JoinEquiv L M (Raw.slash x y hxy) (Raw.slash x' y' hx'y') :=
   JoinEquiv.slash_cong hxy hx'y' hxx' hyy'
 
-end E213.Lens.Lattice.JoinEquiv
 
-namespace E213.Lens.Lattice.JoinEquiv
-
-open E213.Theory E213.Lens
 open E213.Lens.Algebra.Congruence
 
 /-- **Join universal property**: if both L and M refine N (i.e.,

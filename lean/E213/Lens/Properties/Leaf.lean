@@ -73,9 +73,6 @@ theorem leaves_refines_leafLens : Lens.leaves.refines leafLens :=
   refines_of_factor Lens.leaves leafLens
     (fun n => decide (n ≥ 2)) leafLens_view_eq
 
-end E213.Lens.Properties.Leaf
-
-namespace E213.Lens.Properties.Leaf
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Parity

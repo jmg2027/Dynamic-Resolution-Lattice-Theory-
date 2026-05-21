@@ -66,7 +66,7 @@ theorem legendre_5_mod_59 :
 theorem legendre_5_mod_61 :
     legendre213 5 61 (by decide) = ⟨1, by decide⟩ := by decide
 
-/-- ★★★★★★★ Bit predictor REALISES Pell period at 17 primes. -/
+/-- ★★★★★★★ Bit predictor computes Pell period at 17 primes. -/
 theorem pisano_predict_realises_pell_17 :
     -- All 14 previous primes
     (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))

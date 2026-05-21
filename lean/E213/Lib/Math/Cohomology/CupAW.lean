@@ -57,7 +57,6 @@ import E213.Lib.Math.Cohomology.CupAW.Zero
 
   ## Status
 
-  All files included.  The funext-DIRTY `BilinearFunc.lean`
-  placeholder was deleted 2026-05-18 — PURE pointwise replacements
-  (`PointwiseBilinear`) have superseded it.
+  All files included.  PURE pointwise bilinear formulations live
+  at `PointwiseBilinear.lean`.
 -/

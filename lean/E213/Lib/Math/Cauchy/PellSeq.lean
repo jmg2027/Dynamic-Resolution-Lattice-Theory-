@@ -168,9 +168,6 @@ theorem pell_invariant (n : Nat) : IsPellSol (pellX n) (pellY n) := by
             (2 * pellX k + 3 * pellY k)]
       exact h_step
 
-end E213.Lib.Math.Cauchy.PellSeq
-
-namespace E213.Lib.Math.Cauchy.PellSeq
 
 open E213.Theory E213.Lens E213.Lens.Instances.AB
 
@@ -189,11 +186,7 @@ private theorem abLens_slash (x y : Raw) (h : x ≠ y) :
 -- abLens_surjective is now defined AFTER abLens_witness (below) as a
 -- direct PURE consequence, eliminating ~13 omega/simp uses.
 
-end E213.Lib.Math.Cauchy.PellSeq
 
-namespace E213.Lib.Math.Cauchy.PellSeq
-
-open E213.Theory E213.Lens E213.Lens.Instances.AB
 
 /-- Constructive Σ-version: abLens_witness is an explicit Raw function.
     Constructive version of abLens_surjective — no Classical. -/
@@ -283,11 +276,7 @@ theorem abLens_surjective (s a b : Nat) (hsum : a + b = s) (ha : 1 ≤ a)
   let ⟨r, hr⟩ := abLens_witness s a b hsum ha hb
   ⟨r, hr⟩
 
-end E213.Lib.Math.Cauchy.PellSeq
 
-namespace E213.Lib.Math.Cauchy.PellSeq
-
-open E213.Theory E213.Lens E213.Lens.Instances.AB E213.Lib.Math.Irrational.Sqrt2Cut
 
 /-- Pell X positivity. -/
 theorem pellX_pos (n : Nat) : 1 ≤ pellX n := by
@@ -333,11 +322,7 @@ theorem pellRaw_isPellSol (n : Nat) :
   rw [pellRaw_view]
   exact pell_invariant n
 
-end E213.Lib.Math.Cauchy.PellSeq
 
-namespace E213.Lib.Math.Cauchy.PellSeq
-
-open E213.Theory E213.Lens E213.Lens.Instances.AB E213.Lib.Math.Irrational.Sqrt2Cut
 open E213.Lib.Math.Cauchy.Archimedean
 
 /-- Lower bound for Pell Y: y_n ≥ n + 2 (linear growth). -/

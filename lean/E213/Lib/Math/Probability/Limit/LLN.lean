@@ -13,7 +13,7 @@ Generalization for an arbitrary Bernoulli `b = num/den`:
   *if `countTrue · den = length · num` (empirical = theoretical),
   then `sampleMean = E[X]`.*
 
-This makes "frequency → expectation" structurally exact under balance.
+This makes frequency-Lens and expectation-Lens readings agree structurally at balance.
 The Cauchy-modulus convergence form is deferred to a future phase
 that will lean on `Real213.CutSeries.partialSum`.
 -/

@@ -1,24 +1,23 @@
 import E213.Lib.Math.Linalg213.Vector
 
 /-!
-# 213 Linear Algebra — Gram matrix (foundation)
+# 213 Linear Algebra — Gram matrix Lens
 
 Given N vectors `v_1, ..., v_N : Vec d`, the Gram matrix
 `G : Fin N → Fin N → Nat` is defined by
 
   G(i, j) = ⟨v_i, v_j⟩ = Σ_{k=0}^{d-1} v_i(k) · v_j(k)
 
-This is the *213-internal* counterpart of the Gram matrix from
-paper 1: the matrix of pairwise inner products.
+This is the *213-internal* matrix of pairwise inner products.
 
-Key target (paper 1 chiral compression theorem):
+Key target (chiral compression):
   **rank(G) ≤ d = 5** for any N ≥ 1.
-This is the rank-5 compression: arbitrary number of relations
-project into a 5-dimensional algebraic image.
+Rank-5 compression means any collection of Gram matrices has
+Lens rank ≤ 5 in the linear-combination Lens.
 
-This file establishes only the *definition* and basic identities.
-The rank theorem itself awaits a 213-native rank definition, the
-next foundational piece (`Rank.lean`).
+This file establishes the Gram Lens definition + basic identities.
+Rank consequences appear when we add the linear-dependence reading
+(`Rank.lean`).
 -/
 
 namespace E213.Lib.Math.Linalg213.Gram

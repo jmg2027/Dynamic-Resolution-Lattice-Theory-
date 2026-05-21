@@ -43,41 +43,50 @@ Raw.  They sit in Theory structurally — they are part of "what
 Raw must look like" — but their dependency on Raw is zero.
 
 **Universal-Lens metatheory**: see `00_nature.md` §1.2 cross-ref.
-`Meta/UniversalLens/{Core, Nat2Inj, Q213Inj, Nat3, Nat4, Q213_3,
-TripleCapstone, Padding, PaddingCapstone}` formalize the "any
-distinguishability framework factors through Raw" obligation.
-Together with §1.3 these close axiom-uniqueness in three directions
-(below/sideways/above).
+`Lens/Universal/Witnesses/{Core, Nat2, Nat2Inj, Q213, Q213Inj,
+Nat3, Q213_3, TripleCapstone, Padding, PaddingCapstone}`
+formalize the "any distinguishability framework factors through
+Raw" obligation.  Together with §1.3 these close axiom-uniqueness
+in three directions (below/sideways/above), bundled into one
+statement at `lean/E213/Meta/ThreeDirectionUniqueness.lean`.
 
-## §7.2 Deleted paper drafts
+**§9 chart-relativity / flat-ontology realisations**:
 
-- `seed/PAPER1.md` (1377 lines, archival seed paper) — deleted
-  2026-05-12.  Historical citations in Lean docstrings
-  (`PAPER1 §X.Y`, ~25 files) remain as narrative references with
-  no live target.
-- `213/PAPER.md` (R1-R5 → ℂ derivation), `213/PAPER2.md` (r5-
-  critique) — deleted 2026-04-24.  Background:
-  `research-notes/archive/30_bool_is_liar_paradox.md` (the R1-R5
-  judgment game was revealed to be a self-reference loop on Bool).
-- `papers/` directory: only `papers/README.md` retained as historical
-  marker; original paper sources deleted (commit a02b751).
+  - `lean/E213/Lens/Number/Nat213/ChartGeneral.lean` — §9.1
+    chart-invariance theorem.
+  - `lean/E213/Lens/SyntacticInternalization.lean` — §9.4 L2 +
+    L3 + L4 (glyph encoding + parser/printer round-trip).
+  - `lean/E213/Lens/FlatOntology.lean` — §9.3 forward direction
+    (objects, types, relations, functions, Lens all as
+    decidable predicates on Raw^n).
+  - `lean/E213/Lens/PredicateSelfEncoding.lean` — §9.3 closure
+    (predicates back to Raw via positional Gödel encoding).
+  - `lean/E213/Lens/UndifferentiatedRaw.lean` — §9.5 K_∞ ≡ point
+    at raw level (constant-Lens collapse, 3 PURE).
+  - `lean/E213/Lens/RawTopology.lean` — §9.5 K_∞-at-raw bundle
+    + topology-lattice bookend (6 PURE; `k_infty_at_raw_bundle`
+    records the four-property witness).
 
-The seed/AXIOM/ sub-directory remains as the **sole axiom corpus**.
-Derivation is explored freely in `research-notes/` and in the Lean
-metatheory layer (`Meta/UniversalLens/`).
+**§8 self-reference / Möbius realisations**:
 
-## §7.3 Book / chapter audit (no longer applicable)
+  - `lean/E213/Lib/Math/Mobius213.lean` — §3.4 / §8.5 / §8.7
+    (Möbius matrix [[2,1],[1,1]], char poly, Pell-unit
+    invariants, frozen + dynamic dualism).
+  - `lean/E213/Meta/AxiomMinimality.lean` + Capstone —
+    §3.2 / §4.5 (clause minimality + positive forcing chain).
 
-The previous reference target `book/chapters/ch22_213.tex` no
-longer exists.  `book/` was emptied; new authoritative narratives
-now live in:
+## §7.2 Axiom corpus boundary
 
-- `guide/` — deductively-ordered narrative (T0/T1/T2/T3 tags)
-- `books/{math,physics}/` — 213-internal narrative
+The `seed/AXIOM/` sub-directory is the sole axiom corpus.
+Derivation is explored in `research-notes/` and in the Lean
+metatheory layer (`Meta/UniversalLens/`).  Active narratives live
+in `guide/` (deductively-ordered, T0/T1/T2/T3 tags) and
+`books/{math,physics}/` (213-internal).
 
-The historical critique of ch22 (external `eval` substitution
-importing the §3.3 prohibited list as fudge) is enforced
-mechanically in the current Lean tree: every concrete numeric
-(d=5, NS=3, NT=2, 1/α_em=137.036, …) is either a Lens construction
-or, for the shape parameters, a forced-uniqueness theorem in
-`Theory/Atomicity/`.
+## §7.3 Concrete numerics — Lens or forced
+
+Every concrete numeric in the current Lean tree (d=5, NS=3, NT=2,
+1/α_em=137.036, …) is either a Lens construction or, for the
+shape parameters, a forced-uniqueness theorem in
+`Theory/Atomicity/`.  External `eval` substitution importing the
+§3.3 prohibited list as fudge is mechanically prevented.

@@ -62,11 +62,7 @@ theorem limitAssign_eq_tail {α β : Type} {ι : Type}
     F i (L.view (xs n)) = cd.limitAssign i :=
   cd.cauchy i n (cd.N i) hn (Nat.le_refl _)
 
-end E213.Lib.Math.Cauchy.GenericFamily
 
-namespace E213.Lib.Math.Cauchy.GenericFamily
-
-open E213.Theory E213.Lens
 open E213.Lens.Instances.Cauchy
 
 /-- **LensCauchy is GFCauchy instance** with trivial family
@@ -80,11 +76,7 @@ theorem lensCauchy_is_GFCauchy {α : Type} (L : Lens α)
   intro k l hk hl
   exact hN k l hk hl
 
-end E213.Lib.Math.Cauchy.GenericFamily
 
-namespace E213.Lib.Math.Cauchy.GenericFamily
-
-open E213.Theory E213.Lens
 
 /-- **ArchimedeanCauchy is GFCauchy instance**: orderProj family +
     abLens is GFCauchy with ι = Nat × Nat, β = Bool. -/
@@ -117,11 +109,7 @@ theorem orderCauchy_is_GFCauchy
     rw [hk0, Nat.mul_zero, Nat.mul_zero]
     rw [decide_eq_true (Nat.zero_le _), decide_eq_true (Nat.zero_le _)]
 
-end E213.Lib.Math.Cauchy.GenericFamily
 
-namespace E213.Lib.Math.Cauchy.GenericFamily
-
-open E213.Theory E213.Lens
 
 /-- **Profinite (factorial) Cauchy is GFCauchy instance**:
     Lens.leaves + (· % (m+1)) family.  Index is ℕ with m+1 ensuring
@@ -142,11 +130,7 @@ theorem profinite_factorial_is_GFCauchy
       E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod
         (m+1) hmp l (Nat.le_succ_of_le hl)]
 
-end E213.Lib.Math.Cauchy.GenericFamily
 
-namespace E213.Lib.Math.Cauchy.GenericFamily
-
-open E213.Theory E213.Lens
 
 /-- **ProjectionLens**: when F is fold-compatible, constructs a
     single Lens (ι → β). -/
@@ -189,11 +173,7 @@ theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → �
       rw [hfsL]
       exact (compat i (L.view x) (L.view y)).symm
 
-end E213.Lib.Math.Cauchy.GenericFamily
 
-namespace E213.Lib.Math.Cauchy.GenericFamily
-
-open E213.Theory E213.Lens
 
 /-- **Mod family projectionLens**: leaves + mod are fold-compatible,
     giving a single fold-structured Lens (Nat → Nat). -/

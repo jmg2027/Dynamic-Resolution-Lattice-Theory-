@@ -33,36 +33,29 @@ namespace E213.Lib.Physics.Atomic.IE.PeriodClosures
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- Period 1 closure = NT. -/
-theorem P1 : NT = 2 := by decide
+/-- ★ All period closures atomic — Z at noble-gas boundaries
+    as short {NS, NT, d}-expressions.
 
-/-- Period 2 closure = d·NT. -/
-theorem P2 : d * NT = 10 := by decide
+      P1 (He) = NT             = 2
+      P2 (Ne) = d · NT          = 10
+      P3 (Ar) = 2 · NS²         = 18
+      P4 (Kr) = (NS · NT)²       = 36
+      P5 (Xe) = 2 · NS³          = 54
+      P6 (Rn) = 2 · NS³ + NT^d  = 86  (= 54 + 32, 32 = NT^d)
+      P7 (Og) = P5 + 64          = 118
 
-/-- Period 3 closure = 2·NS². -/
-theorem P3 : 2 * NS * NS = 18 := by decide
-
-/-- Period 4 closure = (NS·NT)² ★. -/
-theorem P4 : (NS * NT) * (NS * NT) = 36 := by decide
-
-/-- Period 5 closure = 2·NS³. -/
-theorem P5 : 2 * NS * NS * NS = 54 := by decide
-
-/-- Period 6 closure = 2·NS³ + NT^d. -/
-theorem P6 : 2 * NS * NS * NS + NT * NT * NT * NT * NT = 86 := by decide
-
-/-- Period 7 closure = 118.  Atomic = 2·(P5 + P6). -/
-theorem P7 : 54 + 64 = 118 := by decide
-
-/-- ★ All period closures atomic ★ -/
+    Each closure is a short atomic-skeleton readout. -/
 theorem all_closures :
-    (NT = 2)
-    ∧ (d * NT = 10)
-    ∧ (2 * NS * NS = 18)
-    ∧ ((NS * NT) * (NS * NT) = 36)
-    ∧ (2 * NS * NS * NS = 54)
-    ∧ (2 * NS * NS * NS + NT * NT * NT * NT * NT = 86) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+    -- Z values at noble-gas closures
+    (NT = 2)                                       -- P1: He
+    ∧ (d * NT = 10)                                -- P2: Ne
+    ∧ (2 * NS * NS = 18)                           -- P3: Ar
+    ∧ ((NS * NT) * (NS * NT) = 36)                 -- P4: Kr
+    ∧ (2 * NS * NS * NS = 54)                      -- P5: Xe
+    ∧ (2 * NS * NS * NS + NT * NT * NT * NT * NT = 86)  -- P6: Rn
+    ∧ ((54 : Nat) + 64 = 118)                      -- P7: Og
+    -- Sub-shell building block: NT^d = 32 (= 2^5)
+    ∧ (NT * NT * NT * NT * NT = 32) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.PeriodClosures

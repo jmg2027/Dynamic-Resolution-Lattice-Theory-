@@ -2,7 +2,7 @@ import E213.Lib.Physics.AlphaEM.Capstone
 import E213.Lib.Physics.Mass.MuOverE
 import E213.Lib.Physics.Cosmology.DarkEnergy
 import E213.Lib.Physics.Capstones.FinitistObservableChain
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Generations
 import E213.Lib.Physics.Nuclear.MagicNumbers
 
@@ -30,13 +30,13 @@ This file demonstrates 213 satisfies **BOTH** standards via:
   - N_gen = 3 (no 4th generation) — Generations.lean
   - 7/7 nuclear magic numbers atomic — MagicNumbersAtomic.lean
   - 1/α_3 = NS²-1 = 8 (color confinement integer)
-  - hierarchy ratio = d^(d²)/(d+1) (no fine-tuning)
+  - hierarchy ratio = d^(d²)/(d+1) (forced by lattice cardinality)
 -/
 
 namespace E213.Lib.Physics.Capstones.ValidationStandardOne
 
 open E213.Lib.Physics.Simplex.Counts
-open E213.Lib.Physics.Foundations.NUniverseFractalDepth
+open E213.Lib.Physics.Foundations.NResolutionFractalDepth
 
 /-- ★★★★★★★★★★ CLAUDE.md Validation Standard #1+#2 capstone.
 
@@ -56,11 +56,11 @@ theorem validation_standard_capstone :
     -- ── Standard #2: new physics measurable ──
     -- Generation count = 3 (no 4th gen) [from Generations]
     ∧ NS = 3
-    -- Hierarchy ratio (no fine-tuning) [from FamousCoincidences I]
+    -- Hierarchy ratio (forced by lattice cardinality) [from AtomicIdentities I]
     ∧ d ^ (d * d) ≥ 10 ^ 17
     -- d²-1 = 24 (SU(5) adjoint, used in m_μ/m_e δ₂)
     ∧ d * d - 1 = 24
-    -- Lenz coincidence: NS·NT = 6 (chiral spoke count)
+    -- Lenz-type identity: NS·NT = 6 (chiral spoke count)
     ∧ NS * NT = 6
     -- Atomicity: NS+NT = d (forced)
     ∧ NS + NT = d := by

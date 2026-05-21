@@ -52,9 +52,6 @@ theorem fold_structured_lens_expressible {α : Type} (f : Raw → α)
   intro r
   exact (Lens.view_unique (α := α) ⟨ba, bb, c⟩ hsym f hba hbb hslash r).symm
 
-end E213.Lens.Properties.Morphism.FoldStructured
-
-namespace E213.Lens.Properties.Morphism.FoldStructured
 
 open E213.Theory E213.Lens
 

@@ -8,6 +8,45 @@ Last revised: 2026-05-12 — layer spec confirmation (Mingu Jeong).
 Pre-2026-05-12 history (6-ring concentric model) available via
 `git log -- lean/E213/ARCHITECTURE.md`.
 
+## Philosophical foundations (canonical preamble)
+
+The ring architecture below is a *code-organization convenience*,
+not a philosophical hierarchy.  Per
+`seed/AXIOM/07_self_reference.md` §8.1, there is no exterior to
+213; per §1.2 (revised), Lens application is itself a
+residue-internal event, not a layer placed above Raw.
+
+Hence:
+
+- "X imports Y" is a Lean dependency relation, not an
+  ontological "X depends on Y as substrate".
+- The rings (Term → Theory → Lens → Lib + Meta) are
+  *expressions of one residue* at different levels of derivation
+  — Term encodes Raw mechanically; Theory states the axiom +
+  observables; Lens records readings of that residue; Lib
+  elaborates physics + math content.  Every ring is reading the
+  same residue from a different vantage; none is a foundation
+  supporting another.
+- The substrate / superstructure framing ("Theory is more
+  fundamental than Lens", "Term is the bare metal layer") is
+  not consistent with §8.1.  In practice the rings express
+  dependency order; nothing more.
+
+Canonical statements:
+  - "Lens is residue self-pointing" — `seed/AXIOM/00_nature.md`
+    §1.2 (revised 2026-05-20).
+  - "Layers in code are not layers in reality" — present
+    section.
+  - "Lens application IS a residue-internal event, not an
+    addition to Raw" — `seed/AXIOM/05_primacy.md` §6.
+  - "All classical foundations are Lens compositions reading
+    the same Raw residue" —
+    `lean/E213/Lib/Math/AxiomSystems/INDEX.md`.
+
+When any sub-INDEX uses "substrate", "foundation", "bare-metal",
+"sits between", or similar architectural metaphors, those are to
+be read as code-organization vocabulary, not ontological claims.
+
 ## 0. Layer model
 
 213 은 **4 ring + Meta** 구조.  Meta 는 ring-independent (Lean 4 bridge).

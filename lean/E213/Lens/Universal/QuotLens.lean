@@ -130,11 +130,7 @@ theorem universalLens_kernel_eq_E
     · intro hrs; exact htrans _ _ _ (hsymm _ _ hrr') hrs
     · intro hr's; exact htrans _ _ _ hrr' hr's
 
-end E213.Lens.Universal.QuotLens
 
-namespace E213.Lens.Universal.QuotLens
-
-open E213.Theory E213.Lens
 
 /-- **Canonical form theorem**: for any Lens M, the kernel of
     universalLens M.equiv equals the kernel of M.  That is,

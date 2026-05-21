@@ -62,22 +62,8 @@ def routeBL_motivic (q : Nat) : Route := fun p => motivicDim 5 p q
 /-- Étale BL route at twist q: stratum p ↦ binom 5 p (no drop). -/
 def routeBL_etale (q : Nat) : Route := fun p => etaleDim 5 p q
 
-/-- BL routes AGREE on p ≤ q (the strict-BL regime). -/
-theorem BL_routes_agree_2_at_0 : routesAgree (routeBL_motivic 2) (routeBL_etale 2) 0 = true := by decide
-theorem BL_routes_agree_2_at_1 : routesAgree (routeBL_motivic 2) (routeBL_etale 2) 1 = true := by decide
-theorem BL_routes_agree_2_at_2 : routesAgree (routeBL_motivic 2) (routeBL_etale 2) 2 = true := by decide
-
-/-- BL routes RE-ROUTE at p = q+1 (motivic kills, étale survives).
-    This is the "" — same lattice, different route. -/
-theorem BL_routes_diverge_2_at_3 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 3 = true := by decide
-theorem BL_routes_diverge_2_at_4 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 4 = true := by decide
-theorem BL_routes_diverge_2_at_5 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 5 = true := by decide
-
-/-- The re-route is sharp: divergence appears exactly at p = q+1, not earlier. -/
-theorem BL_sharp_at_q3 :
-    routesAgree (routeBL_motivic 3) (routeBL_etale 3) 3 = true
-    ∧ routesDiverge (routeBL_motivic 3) (routeBL_etale 3) 4 = true := by
-  refine ⟨?_, ?_⟩ <;> decide
+/-! BL agree (p ≤ q) / diverge (p > q) / sharp at q+1 — all
+    folded into `phase_routing_capstone`. -/
 
 /-! §3  Galois route-pair: full vs σ-fixed sub-trajectory on Δ⁴.
 
@@ -94,15 +80,10 @@ def routeFull : Route := fun k => binom 5 k
 def routeGalois : Route := fun k =>
   if k = 0 then 1 else if k = 5 then 1 else 0
 
-/-- The two routes COEXIST on the lattice; their indicator counts
-    differ at strata 1, 2, 3, 4 (where σ has no fixed atoms) and
-    agree at the extremes 0, 5 (where the unique subset is σ-fixed). -/
-theorem galois_route_agrees_at_0  : routesAgree    routeFull routeGalois 0 = true := by decide
-theorem galois_route_diverges_1   : routesDiverge  routeFull routeGalois 1 = true := by decide
-theorem galois_route_diverges_2   : routesDiverge  routeFull routeGalois 2 = true := by decide
-theorem galois_route_diverges_3   : routesDiverge  routeFull routeGalois 3 = true := by decide
-theorem galois_route_diverges_4   : routesDiverge  routeFull routeGalois 4 = true := by decide
-theorem galois_route_agrees_at_5  : routesAgree    routeFull routeGalois 5 = true := by decide
+-- The two routes COEXIST on the lattice; their indicator counts
+-- differ at strata 1..4 (no σ-fixed atom) and agree at the extremes
+-- 0, 5 (unique subset σ-fixed).  Galois route agree/diverge per-k
+-- folded into capstone.
 
 /-- Sum-over-route gives the conserved trajectory invariant.
     Full route ⇒ 32; Galois route ⇒ 2 = fixedCount.  Same lattice,
@@ -110,10 +91,7 @@ theorem galois_route_agrees_at_5  : routesAgree    routeFull routeGalois 5 = tru
 def routeSum (r : Route) (n : Nat) : Nat :=
   (List.range (n+1)).foldl (fun acc k => acc + r k) 0
 
-theorem routeSum_full   : routeSum routeFull 5   = 32 := by decide
-theorem routeSum_galois : routeSum routeGalois 5 = 2  := by decide
-theorem routeSum_full_eq_zeta : routeSum routeFull 5 = zetaΔ 5 0 := by decide
-theorem routeSum_galois_eq_fixed : routeSum routeGalois 5 = fixedCount := by decide
+-- routeSum_{full, galois, full_eq_zeta, galois_eq_fixed} folded into capstone.
 
 /-! §4  K_{3,2} cell-filling routing family.
 
@@ -132,31 +110,10 @@ def routeFilling (k : Nat) : Route := fun degree =>
   else if degree = 1 then 8 - k
   else 0
 
-/-- The four routes (k=0..3) all live on the same vertex/edge
-    skeleton.  Each pair of routes differs at degree 1 by 1 unit
-    (the # atomic indicators reached after extra cell-filling). -/
-theorem filling_route_0_at_1 : routeFilling 0 1 = 8 := by decide
-theorem filling_route_1_at_1 : routeFilling 1 1 = 7 := by decide
-theorem filling_route_2_at_1 : routeFilling 2 1 = 6 := by decide
-theorem filling_route_3_at_1 : routeFilling 3 1 = 5 := by decide
-
-/-- Adjacent filling routes differ by exactly 1 at degree 1: each
-    new 2-cell *re-routes* one cohomology class to be killed. -/
-theorem filling_step_0_to_1 :
-    routeFilling 0 1 = routeFilling 1 1 + 1 := by decide
-theorem filling_step_1_to_2 :
-    routeFilling 1 1 = routeFilling 2 1 + 1 := by decide
-theorem filling_step_2_to_3 :
-    routeFilling 2 1 = routeFilling 3 1 + 1 := by decide
-
-/-- Routes diverge at degree 1, but agree at degrees 0 and ≥ 2:
-    the cell-filling re-routes ONLY the H¹ trajectory, not the
-    others.  in route language. -/
-theorem filling_localised_at_degree_1 :
-    routesAgree    (routeFilling 0) (routeFilling 3) 0 = true
-    ∧ routesDiverge (routeFilling 0) (routeFilling 3) 1 = true
-    ∧ routesAgree   (routeFilling 0) (routeFilling 3) 2 = true := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
+-- The four routes (k=0..3) all live on the same vertex/edge
+-- skeleton.  Each pair differs at degree 1 by 1 unit.
+-- filling_route_X_at_1, filling_step_X_to_Y, filling_localised
+-- folded into `phase_routing_capstone`.
 
 /-! §5  Cross-bridge: BL route-pair gives the SAME pattern as
     Galois route-pair on the trajectory's "fixed indicator count".
@@ -166,15 +123,8 @@ theorem filling_localised_at_degree_1 :
     BL boundary (q = 0): motivic re-routes at p ≥ 1.
     Galois boundary (σ-fixed): Galois re-routes at strata 1..4. -/
 
-theorem BL_no_reroute_at_q5 :
-    routesAgree (routeBL_motivic 5) (routeBL_etale 5) 0 = true
-    ∧ routesAgree (routeBL_motivic 5) (routeBL_etale 5) 5 = true := by
-  refine ⟨?_, ?_⟩ <;> decide
-
-theorem BL_full_reroute_at_q0 :
-    routesAgree    (routeBL_motivic 0) (routeBL_etale 0) 0 = true
-    ∧ routesDiverge (routeBL_motivic 0) (routeBL_etale 0) 1 = true := by
-  refine ⟨?_, ?_⟩ <;> decide
+-- BL extreme cases (no-reroute at q=5; full-reroute at q=0)
+-- folded into `phase_routing_capstone`.
 
 /-! §6  ★★★★★ capstone — STRICT ∅-AXIOM by decide.
 

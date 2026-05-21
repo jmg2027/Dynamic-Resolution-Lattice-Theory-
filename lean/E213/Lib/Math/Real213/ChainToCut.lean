@@ -20,12 +20,11 @@ are usable inside Real213's actual machinery.
   - chain → cut: `chainToCut r m k = decide (value r * k ≤ m)`
   - integer v's Dedekind cut: "v ≤ m/k" iff "v*k ≤ m"
 
-## Note (Option C migration)
+## Arithmetic homomorphism level
 
-Arithmetic homomorphism is expressed at the **Peano level** rather
-than the (removed) Raw-level `Raw.add` / `Raw.mul`.  See
-`Lens.Number.Nat213.Bridge` `value_toRaw_add` / `value_toRaw_mul`
-for the value-level homomorphism this file relies on.
+Arithmetic homomorphism is expressed at the Peano level via
+`Lens.Number.Nat213.Bridge.value_toRaw_add` /
+`value_toRaw_mul`, which extract the sequence values.
 -/
 
 namespace E213.Lib.Math.Real213.ChainToCut
@@ -50,12 +49,12 @@ theorem chainToCut_numeral (n m k : Nat) :
      = decide ((n + 1) * k ≤ m)
   rw [E213.Lens.Number.Nat213.Raw.value_numeral]
 
-/-! ### Layer 2 image bridge — toRaw chain → Lean Nat cut -/
+/-! ### Peano.Nat213 image bridge — toRaw chain → Nat cut -/
 
 open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_toRaw_add value_toRaw_mul)
 
-/-- **`toRaw` image's cut**: Layer 2 element `m`'s chain image is the
-    cut of the integer `m.toNat`. -/
+/-- **`toRaw` image's cut**: the Peano.Nat213 element `m`'s
+    chain image agrees with the cut of the integer `m.toNat`. -/
 theorem chainToCut_toRaw (m : E213.Lens.Number.Nat213.Peano.Nat213) (mu k : Nat) :
     chainToCut (toRaw m) mu k = decide (m.toNat * k ≤ mu) := by
   show decide (E213.Lens.Number.Nat213.Raw.value (toRaw m) * k ≤ mu)
@@ -168,11 +167,7 @@ theorem cutSum_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213)
   · intro h
     exact (cutSum_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
 
-end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.ChainToCut
-
-open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw value_toRaw value_toRaw_mul)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMulOuter_eq_true_iff)
@@ -277,11 +272,7 @@ theorem cutLe_chainToCut_iff (a b : E213.Lens.Number.Nat213.Peano.Nat213) :
     have h_ak_le_m : a.toNat * k ≤ m := Nat.le_trans hak hbk
     exact (chainToCut_toRaw a m k).symm ▸ decide_eq_true h_ak_le_m
 
-end E213.Lib.Math.Real213.ChainToCut
 
-namespace E213.Lib.Math.Real213.ChainToCut
-
-open E213.Theory
 open E213.Lens.Number.Nat213.Bridge (toRaw)
 open E213.Lib.Math.Real213.Lattice.CutMaxMin (cutMax cutMin)
 open E213.Lib.Math.Real213.Core.CutPoset

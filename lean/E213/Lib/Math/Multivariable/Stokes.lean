@@ -25,8 +25,8 @@ In 213-native:
     the structural form of `d(dω) = 0` exterior derivative identity.
 
 Per-dim concrete (constant-field) witnesses establish
-`(interior, boundary)` both vanish atomically, matching the d=5
-substrate target scale of DRLT.
+`(interior, boundary)` both vanish atomically, reading at the
+d=5 atomic scale of DRLT.
 -/
 
 namespace E213.Lib.Math.Multivariable.Stokes
@@ -44,22 +44,16 @@ def stokes1D (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     FluxCut :=
   fluxAlong f db
 
-/-- 1D Stokes equals `fluxAlong` (rfl). -/
-theorem stokes1D_eq_fluxAlong (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (db : E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket) :
-    stokes1D f db = fluxAlong f db := rfl
-
 /-- ★ **n-D Stokes structural skeleton** ★ — for `n ≥ 1`, the n-D
     Stokes theorem reduces to per-axis 1D Stokes (= `fluxAlong`)
     iterated via Fubini.  Atomic statement: existence of the n-axis
     flux-along bundle. -/
-theorem stokes_n_existence (n : Nat) (h : 1 ≤ n) :
+theorem stokes_n_existence (n : Nat) (_ : 1 ≤ n) :
     ∃ k : Nat, k = n - 1 := ⟨n - 1, rfl⟩
 
 /-- **`δ² = 0` cohomological skeleton** — the exterior derivative
-    squared vanishes structurally.  In 213, this is the
-    `cohomEquiv`-form of `fluxBalance` (already proved in
-    `Lib/Math/Analysis/FluxMVT/FluxCut.lean` as `sub_self_balanced`). -/
+    squared vanishes structurally.  Externally consumed by
+    `Multivariable.Capstone`. -/
 theorem ddOmega_zero_skeleton (n : Nat) :
     (n : Nat) - n = 0 := Nat.sub_self n
 
@@ -74,42 +68,31 @@ open E213.Lib.Math.Multivariable.MultiIntegral
 def constField2D (c : Nat) : (Nat → Nat) → Nat := fun _ => c
 
 /-- Numerator of the 2D Stokes RHS for a constant field on the
-    unit dyadic square: ∫∫ ∂c/∂x dA − ∫∫ ∂c/∂y dA = 0 - 0 = 0. -/
+    unit dyadic square: ∫∫ ∂c/∂x dA − ∫∫ ∂c/∂y dA = 0 − 0 = 0. -/
 def stokes2D_constNum (c : Nat) : Nat := c * 1 - c * 1
 
-/-- ★ **2D Stokes for constant field**: result is 0. -/
-theorem stokes2D_const_zero (c : Nat) :
-    stokes2D_constNum c = 0 := by
-  show c * 1 - c * 1 = 0
-  rw [Nat.mul_one]
-  exact Nat.sub_self c
-
 /-- Boundary integral of a constant 1-form along the unit square's
-    boundary: 4 sides, each contributing `c · 1`, alternating
-    sign.  Net contribution: 0. -/
+    boundary: 4 sides, each contributing `c · 1`, alternating sign.
+    Net contribution: 0. -/
 def boundary_integral_constNum (c : Nat) : Nat :=
   (c + c) - (c + c)
 
-/-- ★ **Boundary integral of constant form vanishes** (rfl-style). -/
-theorem boundary_integral_const_zero (c : Nat) :
-    boundary_integral_constNum c = 0 := by
-  show (c + c) - (c + c) = 0
-  exact Nat.sub_self _
-
-/-- ★ **Green's theorem witness**: interior integral = boundary
-    integral, both = 0 for constant fields. -/
-theorem greens_constant_witness (c : Nat) :
-    stokes2D_constNum c = boundary_integral_constNum c := by
-  rw [stokes2D_const_zero, boundary_integral_const_zero]
-
-/-- ★ **2D unit cube volume** — `multiVolumeNum 2 = 1` (rfl,
-    inherited from Multivariable/MultiIntegral.lean). -/
-theorem unit_square_volume :
-    multiVolumeNum 2 = 1 := rfl
-
-/-- ★ **3D unit cube volume** — `multiVolumeNum 3 = 1`. -/
-theorem unit_cube_3d_volume :
-    multiVolumeNum 3 = 1 := rfl
+/-- ★ Green's theorem master (2D) — for constant fields, interior
+    integral = boundary integral = 0, and the unit-square / 3-cube
+    base volumes are 1. -/
+theorem greens_master (c : Nat) :
+    stokes2D_constNum c = 0
+    ∧ boundary_integral_constNum c = 0
+    ∧ stokes2D_constNum c = boundary_integral_constNum c
+    ∧ multiVolumeNum 2 = 1
+    ∧ multiVolumeNum 3 = 1 := by
+  refine ⟨?_, ?_, ?_, rfl, rfl⟩
+  · show c * 1 - c * 1 = 0
+    rw [Nat.mul_one]; exact Nat.sub_self c
+  · show (c + c) - (c + c) = 0
+    exact Nat.sub_self _
+  · show c * 1 - c * 1 = (c + c) - (c + c)
+    rw [Nat.mul_one]; rw [Nat.sub_self, Nat.sub_self]
 
 end E213.Lib.Math.Multivariable.Stokes2D
 
@@ -119,15 +102,9 @@ namespace E213.Lib.Math.Multivariable.Stokes3D
 def constField3D (c : Nat) : (Nat → Nat) → Nat := fun _ => c
 
 /-- Numerator of the 3D Stokes RHS for a constant field on the
-    unit dyadic cube: ∫∫∫ ∇·F dV = 0 - 0 = 0. -/
+    unit dyadic cube: ∫∫∫ ∇·F dV = 0 − 0 = 0. -/
 def stokes3D_constNum (c : Nat) : Nat := c * 1 + c * 1 + c * 1
                                          - (c * 1 + c * 1 + c * 1)
-
-/-- ★ **3D Stokes for constant field**: result is 0. -/
-theorem stokes3D_const_zero (c : Nat) :
-    stokes3D_constNum c = 0 := by
-  show c * 1 + c * 1 + c * 1 - (c * 1 + c * 1 + c * 1) = 0
-  exact Nat.sub_self _
 
 /-- Boundary flux of a constant 1-form through the unit cube's
     6 faces: outward normals contribute `+c`, inward contribute
@@ -135,26 +112,22 @@ theorem stokes3D_const_zero (c : Nat) :
 def divergence_boundaryNum (c : Nat) : Nat :=
   (c + c + c) - (c + c + c)
 
-/-- ★ **Boundary flux of constant field vanishes**. -/
-theorem divergence_boundary_zero (c : Nat) :
-    divergence_boundaryNum c = 0 := by
-  show (c + c + c) - (c + c + c) = 0
-  exact Nat.sub_self _
-
-/-- ★ **Divergence theorem witness**: interior = boundary = 0
-    for constant fields. -/
-theorem divergence_thm_constant (c : Nat) :
-    stokes3D_constNum c = divergence_boundaryNum c := by
-  rw [stokes3D_const_zero, divergence_boundary_zero]
-
-/-- ★ **Unit cube 3D volume**: `multiVolumeNum 3 = 1` (rfl,
-    inherited from Stokes2D). -/
-theorem unit_cube_volume_3d :
-    E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 3 = 1 := rfl
-
-/-- ★ **Unit cube 4D volume** — `multiVolumeNum 4 = 1`. -/
-theorem unit_cube_volume_4d :
-    E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 4 = 1 := rfl
+/-- ★ Divergence theorem master (3D) — interior = boundary = 0 for
+    constant fields, plus unit-cube 3D/4D volume = 1. -/
+theorem divergence_master (c : Nat) :
+    stokes3D_constNum c = 0
+    ∧ divergence_boundaryNum c = 0
+    ∧ stokes3D_constNum c = divergence_boundaryNum c
+    ∧ E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 3 = 1
+    ∧ E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 4 = 1 := by
+  refine ⟨?_, ?_, ?_, rfl, rfl⟩
+  · show c * 1 + c * 1 + c * 1 - (c * 1 + c * 1 + c * 1) = 0
+    exact Nat.sub_self _
+  · show (c + c + c) - (c + c + c) = 0
+    exact Nat.sub_self _
+  · show c * 1 + c * 1 + c * 1 - (c * 1 + c * 1 + c * 1)
+      = (c + c + c) - (c + c + c)
+    rw [Nat.sub_self, Nat.sub_self]
 
 end E213.Lib.Math.Multivariable.Stokes3D
 
@@ -168,36 +141,29 @@ def constField4D (c : Nat) : (Nat → Nat) → Nat := fun _ => c
 def stokes4D_constNum (c : Nat) : Nat :=
   (c * 1 + c * 1 + c * 1 + c * 1) - (c * 1 + c * 1 + c * 1 + c * 1)
 
-/-- ★ **4D Stokes for constant field**: result is 0. -/
-theorem stokes4D_const_zero (c : Nat) :
-    stokes4D_constNum c = 0 := by
-  show (c*1 + c*1 + c*1 + c*1) - (c*1 + c*1 + c*1 + c*1) = 0
-  exact Nat.sub_self _
-
 /-- Boundary flux of a constant field through the unit hypercube's
     8 faces (each face is a unit cube): outward `+c` and inward
     `-c` cancel pairwise. -/
 def hypercube_boundaryNum (c : Nat) : Nat :=
   (c + c + c + c) - (c + c + c + c)
 
-/-- ★ **8-face boundary cancellation**. -/
-theorem hypercube_boundary_zero (c : Nat) :
-    hypercube_boundaryNum c = 0 := Nat.sub_self _
-
-/-- ★ **4D Stokes (Generalized) witness**: interior = boundary
-    = 0 for constant fields. -/
-theorem stokes_4d_constant (c : Nat) :
-    stokes4D_constNum c = hypercube_boundaryNum c := by
-  rw [stokes4D_const_zero, hypercube_boundary_zero]
-
-/-- ★ **Unit hypercube volume** = 1 (rfl, from Stokes2D). -/
-theorem unit_hypercube_volume :
-    E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 4 = 1 := rfl
-
-/-- ★ **5D unit volume** at the DRLT primary scale (d=5). -/
-theorem unit_5d_volume :
-    E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 5
-      = 1 * E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 5 := by
-  rw [Nat.one_mul]
+/-- ★ Generalized Stokes master (4D) — interior = boundary = 0 for
+    constant fields, unit hypercube volume = 1, and DRLT-scale d=5
+    volume identity. -/
+theorem stokes_4d_master (c : Nat) :
+    stokes4D_constNum c = 0
+    ∧ hypercube_boundaryNum c = 0
+    ∧ stokes4D_constNum c = hypercube_boundaryNum c
+    ∧ E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 4 = 1
+    ∧ E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 5
+        = 1 * E213.Lib.Math.Multivariable.MultiIntegral.multiVolumeNum 5 := by
+  refine ⟨?_, ?_, ?_, rfl, ?_⟩
+  · show (c*1 + c*1 + c*1 + c*1) - (c*1 + c*1 + c*1 + c*1) = 0
+    exact Nat.sub_self _
+  · exact Nat.sub_self _
+  · show (c*1 + c*1 + c*1 + c*1) - (c*1 + c*1 + c*1 + c*1)
+      = (c + c + c + c) - (c + c + c + c)
+    rw [Nat.sub_self, Nat.sub_self]
+  · rw [Nat.one_mul]
 
 end E213.Lib.Math.Multivariable.Stokes4D

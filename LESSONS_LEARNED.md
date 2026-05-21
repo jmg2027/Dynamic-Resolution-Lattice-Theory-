@@ -72,15 +72,15 @@ cardinality 가 N_U 에서 4-domain convergent invariant 로 안정.
 `pure_atomic_observables_capstone`, `alpha_em_master_capstone` — 은
 strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 
-## 교훈 2: N_universe = d^(d²) — self-referential fractal depth
+## 교훈 2: N_resolution = d^(d²) — self-referential fractal depth
 
-**WRONG**: "N_universe is OPEN, holographic ~10¹²² 추정"
+**WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정"
 **RIGHT**: `N_U = d^(d²) = 5²⁵ = 298023223876953125`
 
 **근거**:
 - `Math/Cohomology/Fractal25.numV_eq_d_sq`: K_{25} vertex count = d²
 - `Math/Cohomology/FractalLevel`: vertex count at level L = 5^L
-- `Physics/NUniverseFractalDepth.n_universe_self_consistent`: L = d²,
+- `Physics/NResolutionFractalDepth.n_resolution_self_consistent`: L = d²,
   numV(L) = d^(d²) (self-referential fixed point)
 - `Physics/HierarchyTowers.hierarchy_cardinality`: d^(d²) 이미
   M_Pl/v_H ratio cardinality로 등장
@@ -243,7 +243,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `seed/AXIOM/00_nature.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
-- `lean/E213/Lib/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
+- `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
 - `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `guide/01_substrate.md` — substrate 도출 path
@@ -255,7 +255,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - m_p: 4-digit match (uses Λ_QCD external)
 - m_μ/m_e: depends on α_em chain
 - Magic numbers: 7/7 atomic decomposition closed
-- N_universe: identified = d^(d²) (self-referential)
+- N_resolution: identified = d^(d²) (self-referential)
 - Universal Lens: ℕ², Q²², ℕ³, Q²³, ℕ⁴ all universal
 - Pisano-CRT: 23 Pell + 8 Pell-proper + 8 Fibonacci primes
   + Tribonacci CRT closures
@@ -336,3 +336,187 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 "그 분야의 distinguishing framework는 어떤 Lens인가?"를 물을 것.
 새 분야 진입 = 새 Lens 정의 = Raw 트리 위 새 quotient 선택.
 이게 213 작업의 fixed procedure.
+
+---
+
+## Reduction patterns (2026-05-20)
+
+**원칙**: 정리 숫자나 줄 수가 아니라 *내용 밀도와 가독성*이 목표.
+많이 쌓이면 인지적 부하가 늘어나서 새 통찰이 안 나온다.  
+"줄이라"는 무작정 삭제가 아니라 *방향성·가독성·통찰 친화도*를
+높이는 작업.
+
+### Smell #1: layer-by-layer enumeration
+
+증상: `_layer0`, `_layer1`, ..., `_layerN` 형태의 정리 N개 +
+선택적으로 `_bundle_Nlayer` 형태의 묶음.
+
+원인: 일반 ∀-form이 증명 도구 부족 (e.g. `ring`/`linarith` 없음) 또는
+미완성이라 layer-by-layer 검증으로 회피.
+
+처리:
+- 묶음만 남기고 개별 layer 삭제.
+- 구조적 이유 (recurrence-uniqueness 등) 식별 → 별도 lemma로 추출.
+- 예: `Mobius213.pell_recurrence_unique` — 2nd-order recurrence + 
+  initial values 일치 ⟹ 두 sequence 일치.  16-conjunct bundle을
+  단일 uniqueness lemma + recurrence/initial 확인으로 대체 가능.
+
+### Smell #2: same-content reformulation across files
+
+증상: `Lens/UndifferentiatedRaw.constLens_collapses`,
+`Lens/RawTopology.indiscrete_kernel_total`,
+`Lens/RawTopology.indiscrete_globally_collapsed` — 모두 같은 사실
+"`(constLens e).view r = (constLens e).view s` for all r, s"의 
+다른 표현 (view 형 / kernel 형 / globally-collapsed 형).
+
+처리: 한 파일에 통합, canonical name 하나 + 필요시 view↔equiv 형
+대응 lemma 1개.  Triple-redundancy → 2개로 축소.
+
+### Smell #3: incremental scaffold theorems
+
+증상: 마스터 정리에 도달하기 위한 단일 등식 검증 정리들
+(`gap_e7_eq_5443`, `pi5_gap_e7_eq_5446`, `..._distance_eq_3`)이
+모두 마스터의 conjunct로 그대로 들어 있음.
+
+처리: 외부에서 직접 참조되지 않는 incremental은 삭제.  
+마스터의 conjunct로 충분.  외부 caller 있는 incremental만 유지.
+
+### Smell #4: cluster + atomic + bundle 패턴의 중복
+
+증상: 한 파일에 atomic_a, atomic_b 정리 + atomic_bundle (= atomic_a
+∧ atomic_b) + slash 정리 + full_bundle (= atomic_a ∧ atomic_b ∧
+slash).  atomic_bundle은 full_bundle의 부분 형식.
+
+처리: 미세한 redundancy.  파일 narrative가 atomic vs slash 구별을
+교육적으로 강조한다면 둘 다 유지 가능.  단순 alias라면 atomic_bundle
+삭제.  `Lens/SelfCompletion`은 narrative 가치로 6개 유지함.
+
+### 적용 결과 (2026-05-20)
+
+session-added 파일들에 적용:
+- Mobius213: 21 → 13 (8개 layer 삭제 + 2개 structural insight 추가)
+- FibonacciExtended: 16 → 9 (개별 F_N 5개 삭제, bridge 16-conjunct 1개로 통합)
+- PiFiveGap: 20 → 14 (incremental 6개 삭제)
+- PureAtomicObservables: 17 → 14 conjuncts (중복 3개 제거 + 구조별 grouping)
+- RawTopology+UndifferentiatedRaw: 12 → 7 + 파일 1개 통합 삭제
+
+순 reduction: 86 → 57 theorems, ~500줄, 파일 1개.  
+*같은 수학적 content, 더 적은 cognitive surface*.
+
+---
+
+## Reduction patterns (2026-05-20, expanded after lean/-tree sweep)
+
+After the second sweep (lean/ tree, 4 parallel audit agents +
+~10 hand-applied reductions), the pattern catalog is enriched
+with new sub-patterns and explicit caveats about agent over-flagging.
+
+### Smell #1 refinement — truth-table singletons
+
+Specific instance of #1: four `_TT/_TF/_FT/_FF` rfl theorems
+(or 8 for two operations).  Collapse to one ∧-bundled
+"truth_table" theorem proved by `<;> (unfold; decide)`.
+
+Examples cleaned: `Lens/Bool213/Raw` (and/or 8 → 2),
+`Lens/Compose/OnLensImage` (declined — used as proof
+components downstream).
+
+### Smell #5: biconditional split into 3 theorems
+
+A new pattern not in the original list: a biconditional iff
+stated as three theorems — forward direction, reverse direction,
+and the iff itself.  Each direction's proof is small; the iff's
+proof is just `⟨reverse, forward⟩`.
+
+Reduction: keep ONLY the iff, with both proof directions inlined
+(`refine ⟨intro h; ..., intro h; ...⟩`).  Saves 2 theorems and
+the redundant docstrings.
+
+Example cleaned: `Lens/Bool213/Raw.booleanProj_id_iff_isBool213`.
+
+### Smell #6: per-parameter applications of a meta-algorithm
+
+A generic meta-theorem parameterised by `(a, b, j, N₀)` followed
+by 4-6 individual applications (`thm_8_3`, `thm_10_4`, ...).
+Each is a single call to the meta with concrete arguments.
+
+Reduction: drop the per-parameter applications.  Callers
+instantiate the meta inline (`euler_lower_generic 8 3 4 (by
+decide) (by decide)`).  Saves 4-6 theorems per such cluster.
+
+Example cleaned: `Cauchy/Euler` (e_gt_8_3, e_gt_10_4, etc., 6
+theorems dropped).
+
+### Agent-over-flagging caveat
+
+About **30%** of agent-flagged reductions turn out to be:
+
+  · **External API points**: referenced by other files via `open`
+    + named reference.  Always `grep` for external use before
+    deletion.  Example: `Lens/Compose/OnLens.lensXor_comm_eqPW`
+    looks redundant with `lensXor_comm` but is the canonical
+    cutEq form referenced downstream.
+  · **Proof components**: used by a "master" theorem in the
+    same file via explicit name reference (not by `rfl` /
+    `decide`).  Deleting breaks the master's proof. Example:
+    `Compose/OnLensImage.lensXor_TT/_TF/_FT/_FF` are used by
+    `boolToConstLens_xor`.
+  · **Pedagogical demos**: files explicitly named `Demo.lean` or
+    similar carry intentional narrative.  Example:
+    `Theory/Raw/Demo.lean` depth_a/b/ab/aab/bab enumeration is
+    pedagogical, not a true layer-by-layer enumeration.
+  · **External witness capstones**: per-prime/per-instance
+    theorems referenced by an aggregate bundle in another file.
+    Example: `DyadicFSM/Pell/ProperMod.pellProper{N}_bits_period_K`
+    are all referenced from `Pell/Proper8.lean`.
+
+**Process**: after agent reports candidates, always verify:
+  1. `grep -rn "<theorem_name>" lean/E213 | grep -v <own_file>`
+  2. Check whether the file is `Demo.lean` / `Examples.lean`
+  3. Open the file, check whether the theorem is referenced
+     elsewhere in the same file (proof component).
+
+### Hand-applied this session
+
+| File | Reduction | Net |
+|------|-----------|-----|
+| Symmetry/AutKChiral | dropped 13 internal scaffolds | ~50 lines |
+| Atomic/Hydrogen | dropped 4 scaffolds | 12 lines |
+| Atomic/Helium | dropped 4 scaffolds | 15 lines |
+| AlphaEM/ChannelCohomologyLoss | bundled 5 minor theorems | 10 lines |
+| Math/Combinatorics/Binomial | 10 → 2 (bundled rows) | 25 lines |
+| Lens/Cardinality/Tower | 6 layer rungs → 1 unbounded | 22 lines |
+| Lens/SyntacticInternalization | dropped 5 rfl | 8 lines |
+| Meta/LensInternality | dropped 3 rfl | 10 lines |
+| Symmetry/GluonChannelInterpretation | dropped 2 trivial | 14 lines |
+| Cohomology/Surfaces/T2Squared/HodgeIndex | 6 diag → 1 bundle | 7 lines |
+| AlphaEM/LaplacianSpectrum | dropped 13 scaffolds | 28 lines |
+| Mass/TauOverMu | 6 scaffolds → master conjuncts | 35 lines |
+| Lens/Bool213/Raw | 8 truth tables → 2 bundles + iff merge | 30 lines |
+| Cauchy/Euler | dropped 6 per-param applications | 25 lines |
+| Lens/Cardinality/LensCardinality | 4 witnesses → 1 bundle | 5 lines |
+
+Net: ~85 theorems removed across 15 files, ~300 lines off, build
+clean throughout, ∅-axiom contract preserved.
+
+### Patterns DEFERRED (require deeper refactor)
+
+  · `DyadicFSM/Pell/ProperMod` (per-prime enumeration): generic
+    `pellProperFSMmod_period_invariant` lemma would replace 10
+    theorems, but each proof needs a `decide` base step at the
+    specific (prime, period) — non-trivial to abstract.
+  · `DyadicFSM/Pisano/Predictor{6,7,8,11,...}` (8 per-base
+    files): consolidation into 1 master capstone is high-impact
+    but high-risk (cross-file API changes).
+  · `CayleyDickson/Integer` (15 files with parallel projection
+    lemmas): typeclass refactor (`GaussianLike`) would save 14
+    lemmas × 15 files = 210 statements; substantial Lean-design
+    work, not within this session's scope.
+  · `PureNatMod3/5` (mod-p descent templates): generic
+    `mod_p_descent_template` parameterised by `(p : Nat) [Prime
+    p]` would save ~18 theorems; requires careful prime
+    abstraction.
+
+These remain as **research directions** rather than mechanical
+cleanups — each needs structural thinking similar to the
+`pell_recurrence_unique` extraction from Mobius213.

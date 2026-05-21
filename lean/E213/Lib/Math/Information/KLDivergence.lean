@@ -13,7 +13,7 @@ than q on the relevant outcome).
 
 Atomic: subtraction of dyadic depths, no real-valued log ratio.
 
-Jensen's inequality on dyadic substrate becomes the **monotonicity
+Jensen's inequality in dyadic Lens coordinates becomes the **monotonicity
 of `Nat`-subtraction**: `D(p ‖ q) ≥ 0` is just `Nat.zero_le`.
 -/
 

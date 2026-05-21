@@ -116,7 +116,7 @@ New files added in the same branch (listed at the end):
   - Layered architecture (4 ring + Meta: 1127 files 총합)
   - Layer roles (각 ring 파일 수 + axiom load)
   - Capstone navigation (CAPSTONE_INDEX.md, STRICT_ZERO_AXIOM.md)
-  - Where to read what (QA table: N_universe, finite N, atomic primitives, cohomology, 등)
+  - Where to read what (QA table: N_resolution, finite N, atomic primitives, cohomology, 등)
   - Distribution table (per top-folder)
   - Architecture audit history (Pre-2026-05-12 → current; App/ 2026-05-13 dissolution)
   - Branch (claude/encapsulate-ring-structure-CLeEG)
@@ -6079,7 +6079,7 @@ New files added in the same branch (listed at the end):
   - `numV_def`, `numV_level{1,2,3}`.
   - `self_ref_level`, `numV_at_self_ref`.
   - `recursion_bundle`.
-- **의존**: PairAxes, Cohomology.Fractal.Level, Physics.Foundations.NUniverseFractalDepth.
+- **의존**: PairAxes, Cohomology.Fractal.Level, Physics.Foundations.NResolutionFractalDepth.
 
 ### `lean/E213/Lib/Math/UniverseChain/Residue.lean`
 - **역할**: Step 0 — residue of distinction = recursion (G29).
@@ -6110,7 +6110,7 @@ New files added in the same branch (listed at the end):
   - `N_U`, `N_U_concrete`.
   - `N_U_eq_fractal_candidate`, `N_U_eq_resolution_limit`.
   - `N_U_eq_d_pow_dsq`, `universe_bundle`.
-- **의존**: Recursion, Physics.Foundations.NUniverseFromFractal, Math.ResolutionLimit.
+- **의존**: Recursion, Physics.Foundations.NResolutionFromFractal, Math.ResolutionLimit.
 
 ### `lean/E213/Lib/Math/Modulus/DepthCompleteness.lean`
 - **역할**: 213-native completeness via modulus.
@@ -7345,7 +7345,7 @@ New files added in the same branch (listed at the end):
   - `alpha_em_simplicial_capstone`.
   - `alpha_em_master_capstone`.
   - `alpha_em_milestone`.
-- **의존**: Augmented, Brackets, Foundations/NUniverseFractalDepth.
+- **의존**: Augmented, Brackets, Foundations/NResolutionFractalDepth.
 
 ### `lean/E213/Lib/Physics/AlphaEM/ChannelCohomologyLoss.lean`
 - **역할**: 1/α_3 = 8은 K↪Δ⁴ 6가지 등가 표현.
@@ -7472,7 +7472,7 @@ New files added in the same branch (listed at the end):
   - `laplacian_spectrum_master`.
 - **의존**: Simplex/SubInventory, ProjectionRatios.
 
-### `lean/E213/Lib/Physics/AlphaEM/NUniverseCandidates.lean`
+### `lean/E213/Lib/Physics/AlphaEM/NResolutionCandidates.lean`
 - **역할**: 원자 조합론 N_U 후보 7개.
 - **주요 선언**:
   - `candidate_dfactorial`, `candidate_2_to_d_sq`.
@@ -7576,7 +7576,7 @@ New files added in the same branch (listed at the end):
 - **주요 선언**:
   - `inv_alpha_em_finite`, `inv_alpha_em_finite_upper`.
   - `deviation_at_3`.
-  - `N_universe_open_problem`, `no_pi_in_finite_alpha_em`.
+  - `N_resolution_open_problem`, `no_pi_in_finite_alpha_em`.
 
 ### `lean/E213/Lib/Physics/Foundations/FractalLensCardinality.lean`
 - **역할**: 렌즈 카디널리티 = d^(d²).
@@ -7622,20 +7622,20 @@ New files added in the same branch (listed at the end):
   - `WZ_massive_via_NT`.
   - `three_force_mass_pattern`.
 
-### `lean/E213/Lib/Physics/Foundations/NUniverseFractalDepth.lean`
+### `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean`
 - **역할**: N_U = d^(d²) 자가참조 fractal 깊이.
 - **주요 선언**:
   - `universe_level`, `universe_level_value`.
   - `numV_at_universe_level`, `numV_at_universe_level_value`.
-  - `n_universe_self_consistent`.
+  - `n_resolution_self_consistent`.
 
-### `lean/E213/Lib/Physics/Foundations/NUniverseFromFractal.lean`
+### `lean/E213/Lib/Physics/Foundations/NResolutionFromFractal.lean`
 - **역할**: N_U = d^(d²) 구조 동정.
 - **주요 선언**:
   - `fractal_level2_vertex_count`.
-  - `n_universe_candidate`, `n_universe_value`.
-  - `n_universe_atomic_decomposition`.
-  - `n_universe_structural`.
+  - `n_resolution_candidate`, `n_resolution_value`.
+  - `n_resolution_atomic_decomposition`.
+  - `n_resolution_structural`.
 
 ### `lean/E213/Lib/Physics/Foundations/ResolutionDepth.lean`
 - **역할**: 왜 α_3, α_2는 정확이고 α_1은 괄호화인가.
@@ -8289,7 +8289,7 @@ New files added in the same branch (listed at the end):
 
 ### `lean/E213/Lib/Physics/AlphaEM.lean`
 - **역할**: α_em 정밀 도출 클러스터 통합 진입점 — 13 토픽 파일.
-- **주요 선언**: Augmented, Bare, Brackets, ChannelCohomologyLoss, CupRingTrace, GradedDecomposition, LaplacianSpectrum, NUniverseCandidates, StructuralGap 등.
+- **주요 선언**: Augmented, Bare, Brackets, ChannelCohomologyLoss, CupRingTrace, GradedDecomposition, LaplacianSpectrum, NResolutionCandidates, StructuralGap 등.
 - **의존**: Augmented, Bare, Brackets, Capstone.
 
 ### `lean/E213/Lib/Physics/Atomic.lean`
@@ -8321,7 +8321,7 @@ New files added in the same branch (listed at the end):
 
 ### `lean/E213/Lib/Physics/Foundations.lean`
 - **역할**: 기초 물리 뼈대 — N_U 기수, 원자상수, 공명구조.
-- **주요 선언**: NUniverseFractalDepth, FractalLensCardinality, AtomicSuperCatalog, DrltZeroParameters, UnifiedPattern, FibonacciAtomic, GoldenRatio, KoideFormula, HopHypothesis, TightenBracket.
+- **주요 선언**: NResolutionFractalDepth, FractalLensCardinality, AtomicSuperCatalog, DrltZeroParameters, UnifiedPattern, FibonacciAtomic, GoldenRatio, KoideFormula, HopHypothesis, TightenBracket.
 
 ### `lean/E213/Lib/Physics/Hadron.lean`
 - **역할**: 하드론 질량 클러스터 — m_p, m_n, 쿼크 위계.
@@ -8380,7 +8380,7 @@ New files added in the same branch (listed at the end):
 ### `lean/E213/Lib/Physics/Capstones/FinitistObservableChain.lean`
 - **역할**: 모든 관측 N_U=d^(d²)=5²⁵ 공유.
 - **주요 선언**: `finitist_observable_chain`.
-- **의존**: AlphaEM.Capstone, Mass.MuOverE, Cosmology.DarkEnergy, Foundations.NUniverseFractalDepth.
+- **의존**: AlphaEM.Capstone, Mass.MuOverE, Cosmology.DarkEnergy, Foundations.NResolutionFractalDepth.
 
 ### `lean/E213/Lib/Physics/Capstones/INDEX.md`
 - **역할**: 주요 섹션 — Capstones 5 files.

@@ -27,7 +27,7 @@ open E213.Lib.Math.Information.Entropy (shannonEntropyUniformBits)
 def jointEntropyIndependentUniforms (n m : Nat) : Nat := n + m
 
 /-- ★ **Joint of independent uniforms** ★ — additivity of entropy
-    under independence (rfl on dyadic substrate). -/
+    under independence (rfl in dyadic Lens coordinates). -/
 theorem joint_independent_eq_sum (n m : Nat) :
     jointEntropyIndependentUniforms n m
     = shannonEntropyUniformBits n + shannonEntropyUniformBits m := rfl

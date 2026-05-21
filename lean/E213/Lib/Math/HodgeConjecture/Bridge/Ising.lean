@@ -81,19 +81,8 @@ def s_2up   : Spin := mkSpin true  true  false false false
 def s_3up   : Spin := mkSpin true  true  true  false false
 def s_4up   : Spin := mkSpin true  true  true  true  false
 
-theorem energy_allDown : energy allDown = 0 := by decide
-theorem energy_allUp   : energy allUp   = 0 := by decide
-theorem energy_s_1up   : energy s_1up   = 4 := by decide
-theorem energy_s_2up   : energy s_2up   = 6 := by decide
-theorem energy_s_3up   : energy s_3up   = 6 := by decide
-theorem energy_s_4up   : energy s_4up   = 4 := by decide
-
-/-! §4  Z/2 reflection: allUp = reflect allDown, energies coincide. -/
-
-theorem reflect_at_0 : reflect allDown ⟨0, by decide⟩ = allUp ⟨0, by decide⟩ := by decide
-theorem reflect_at_4 : reflect allDown ⟨4, by decide⟩ = allUp ⟨4, by decide⟩ := by decide
-theorem reflect_preserves_energy_ground : energy (reflect allDown) = energy allUp := by decide
-theorem reflect_preserves_energy_1up   : energy (reflect s_1up) = energy s_4up := by decide
+/-! §4  Energy at six representative configurations + Z/2 reflection
+    symmetry — both consolidated into `ising_213_capstone` master. -/
 
 /-! §5  Energy-level multiplicities on K_5: 2, 10, 20 at E = 0, 4, 6.
 
@@ -107,22 +96,10 @@ def levelMult (E : Nat) : Nat :=
   else if E = 6 then binom 5 2 + binom 5 3
   else 0
 
-theorem level_0 : levelMult 0 = 2  := by decide
-theorem level_4 : levelMult 4 = 10 := by decide
-theorem level_6 : levelMult 6 = 20 := by decide
-theorem level_else_zero : levelMult 1 = 0 ∧ levelMult 5 = 0 ∧ levelMult 7 = 0 := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
-theorem total_configs : levelMult 0 + levelMult 4 + levelMult 6 = 32 := by decide
-
 /-! §6  Partition function as Nat polynomial Z(t) = Σ_E mult(E)·t^E. -/
 
 def Z (t : Nat) : Nat :=
   levelMult 0 * t^0 + levelMult 4 * t^4 + levelMult 6 * t^6
-
-theorem Z_at_0 : Z 0 = 2    := by decide
-theorem Z_at_1 : Z 1 = 32   := by decide
-theorem Z_at_2 : Z 2 = 1442 := by decide
-theorem Z_at_3 : Z 3 = 15392 := by decide
 
 /-! §7  Routing: same lattice, three sub-routes by energy threshold. -/
 
@@ -132,38 +109,13 @@ def routeIsing : Route := levelMult
 def routeUpTo (E_max : Nat) : Nat :=
   (List.range (E_max + 1)).foldl (fun acc E => acc + levelMult E) 0
 
-theorem routeUpTo_0  : routeUpTo 0  = 2  := by decide
-theorem routeUpTo_3  : routeUpTo 3  = 2  := by decide
-theorem routeUpTo_4  : routeUpTo 4  = 12 := by decide
-theorem routeUpTo_5  : routeUpTo 5  = 12 := by decide
-theorem routeUpTo_6  : routeUpTo 6  = 32 := by decide
-theorem routeUpTo_10 : routeUpTo 10 = 32 := by decide
-
-/-! §8  re-routings at the three discrete levels. -/
-
-theorem phase_boundary_at_E4 : routeUpTo 3 ≠ routeUpTo 4 := by decide
-theorem phase_boundary_at_E6 : routeUpTo 5 ≠ routeUpTo 6 := by decide
-theorem stable_below_E4      : routeUpTo 0 = routeUpTo 3 := by decide
-theorem stable_E4_to_E5      : routeUpTo 4 = routeUpTo 5 := by decide
-theorem stable_above_E6      : routeUpTo 6 = routeUpTo 10 := by decide
-
-/-! §9  Z/2 symmetry-broken ground routes coexist on the lattice. -/
-
-/-- The ground-state route splits into two singletons related by reflect:
+/-! §8-9  Z/2 symmetry-broken ground routes coexist on the lattice.
+    The ground-state route splits into two singletons related by reflect:
     routeGroundUp = {allUp}, routeGroundDown = {allDown}.  Total = 2. -/
 def routeGroundUp   : Nat := 1
 def routeGroundDown : Nat := 1
 
-theorem ground_split : routeGroundUp + routeGroundDown = levelMult 0 := by decide
-theorem ground_z2_partition : routeGroundUp + routeGroundDown = 2 := by decide
-
-/-! §10  Bridge to existing Bridge/ infrastructure. -/
-
-theorem ising_ground_eq_galois_fixed : levelMult 0 = fixedCount := by decide
-theorem ising_full_eq_total_atomic   : routeUpTo 6 = 2 ^ 5 := by decide
-theorem partition_at_unity_eq_total  : Z 1 = routeUpTo 6 := by decide
-
-/-! §11  ★★★★★ Ising²¹³ on K_5 capstone — STRICT ∅-AXIOM by decide.
+/-! §10 ★★★★★ Ising²¹³ on K_5 capstone — STRICT ∅-AXIOM by decide.
 
     The K_5 Ising model in 213-native form: 32 configurations on 5
     Bool sites, energy E(σ) ∈ {0, 4, 6} with multiplicities (2, 10, 20),
@@ -177,14 +129,21 @@ theorem ising_213_capstone :
     energy allDown = 0 ∧ energy allUp = 0
     ∧ energy s_1up = 4 ∧ energy s_4up = 4
     ∧ energy s_2up = 6 ∧ energy s_3up = 6
-    -- Z/2 reflection symmetry preserves energy (concrete witness)
+    -- Z/2 reflection symmetry preserves energy (concrete witnesses)
+    ∧ reflect allDown ⟨0, by decide⟩ = allUp ⟨0, by decide⟩
+    ∧ reflect allDown ⟨4, by decide⟩ = allUp ⟨4, by decide⟩
     ∧ energy (reflect allDown) = energy allUp
     ∧ energy (reflect s_1up)   = energy s_4up
     -- Level multiplicities on K_5
     ∧ levelMult 0 = 2 ∧ levelMult 4 = 10 ∧ levelMult 6 = 20
+    ∧ levelMult 1 = 0 ∧ levelMult 5 = 0 ∧ levelMult 7 = 0
     ∧ levelMult 0 + levelMult 4 + levelMult 6 = 32
     -- Partition function values
-    ∧ Z 0 = 2 ∧ Z 1 = 32 ∧ Z 2 = 1442
+    ∧ Z 0 = 2 ∧ Z 1 = 32 ∧ Z 2 = 1442 ∧ Z 3 = 15392
+    -- Cumulative routing values
+    ∧ routeUpTo 0 = 2 ∧ routeUpTo 3 = 2
+    ∧ routeUpTo 4 = 12 ∧ routeUpTo 5 = 12
+    ∧ routeUpTo 6 = 32 ∧ routeUpTo 10 = 32
     -- re-routings at exactly E ∈ {4, 6}
     ∧ routeUpTo 3 ≠ routeUpTo 4
     ∧ routeUpTo 5 ≠ routeUpTo 6
@@ -193,11 +152,15 @@ theorem ising_213_capstone :
     ∧ routeUpTo 6 = routeUpTo 10     -- stable above E=6
     -- Z/2 ground-state partition
     ∧ routeGroundUp + routeGroundDown = levelMult 0
+    ∧ routeGroundUp + routeGroundDown = 2
     -- Bridge identifications
     ∧ levelMult 0 = fixedCount       -- Ising ground = Galois σ-fixed count
+    ∧ routeUpTo 6 = 2 ^ 5
+    ∧ Z 1 = routeUpTo 6
     ∧ Z 1 = 2 ^ 5                    -- equal-weight sum = total atomic
     := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
-          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.HodgeConjecture.Bridge.Ising

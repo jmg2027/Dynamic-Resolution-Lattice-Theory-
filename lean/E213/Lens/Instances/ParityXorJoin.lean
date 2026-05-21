@@ -76,8 +76,6 @@ theorem refine_parity_boolXor_implies_const {γ : Type} (N : Lens γ)
 
 namespace E213.Lens.Instances.ParityXorJoin
 
-open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
-open E213.Lens.Instances.Bool E213.Lens.Instances.Parity
 
 private theorem leavesLens_to_a (r : Raw) :
     JoinEquiv Lens.leaves boolXorLens r Raw.a := by

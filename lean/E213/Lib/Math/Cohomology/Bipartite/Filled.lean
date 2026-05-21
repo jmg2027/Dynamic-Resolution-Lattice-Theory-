@@ -66,11 +66,10 @@ theorem b1_filling_table :
     Filling all 3 simple 4-cycles: b_1 drops to 5.
     Open: physical interpretation of "which cells filled".
 
-    Note: the prior 4th conjunct (b_2 = 0 above-degree triviality)
-    was discharged by `Audit.Bip32.b_k_graph_trivial`, which was
-    deleted with the Audit/ orphan sweep (Stage M7b).  The
-    above-degree triviality remains a classical fact (no
-    3-cells ⇒ C^k = 0 for k ≥ 3 ⇒ b_k = 0), and can be
+    Note: the prior 4th conjunct (b_2 = 0 in higher degrees)
+    was discharged by `Audit.Bip32.b_k_graph_trivial`.  The
+    higher-degree vanishing is a direct fact in this chart
+    (no 3-cells ⇒ C^k = 0 for k ≥ 3 ⇒ b_k = 0), and can be
     re-proved structurally if/when needed by reintroducing
     a typed `CochAbove` definition in `Bipartite/`. -/
 theorem phase_D_partial :

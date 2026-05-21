@@ -36,12 +36,7 @@ def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
          = (d_α.combine q.1 p.1, d_β.combine q.2 p.2)
     rw [d_α.combine_sym, d_β.combine_sym]
 
-end E213.Lens.Instances.Pair
 
-namespace E213.Lens.Instances.Pair
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-- **Universal property of binary product**: universalMorphism (α × β)
     is the pair of componentwise universalMorphisms. -/
@@ -80,12 +75,7 @@ theorem universalMorphism_pair_commute (α β : Type)
       rw [h_pair, h_α, h_β, ihx, ihy]
       rfl
 
-end E213.Lens.Instances.Pair
 
-namespace E213.Lens.Instances.Pair
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Pair forget projections (categorical projection morphisms)
 
@@ -124,12 +114,7 @@ theorem pair_forget_second_combine (α β : Type)
     Prod.snd ((pairHasDistinguishing α β).combine p q)
       = d_β.combine (Prod.snd p) (Prod.snd q) := rfl
 
-end E213.Lens.Instances.Pair
 
-namespace E213.Lens.Instances.Pair
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
 
 /-! ### Combination of universal property and forget projections
 

@@ -65,9 +65,6 @@ theorem abLens_refines_leaves : abLens.refines Lens.leaves := by
   intro r
   exact (abLens_sum_eq_leaves r).symm
 
-end E213.Lens.Instances.AB
-
-namespace E213.Lens.Instances.AB
 
 open E213.Theory E213.Lens
 

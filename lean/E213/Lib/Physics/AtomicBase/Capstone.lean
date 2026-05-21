@@ -1,13 +1,13 @@
-import E213.Lib.Physics.Substrate.Origin
-import E213.Lib.Physics.Substrate.Shape
-import E213.Lib.Physics.Substrate.Existence
-import E213.Lib.Physics.Substrate.Pairs
-import E213.Lib.Physics.Substrate.Time
-import E213.Lib.Physics.Substrate.Space
-import E213.Lib.Physics.Substrate.Observable
-import E213.Lib.Physics.Substrate.Force
-import E213.Lib.Physics.Substrate.Edges
-import E213.Lib.Physics.Substrate.Lens
+import E213.Lib.Physics.AtomicBase.Origin
+import E213.Lib.Physics.AtomicBase.Shape
+import E213.Lib.Physics.AtomicBase.Existence
+import E213.Lib.Physics.AtomicBase.Pairs
+import E213.Lib.Physics.AtomicBase.Time
+import E213.Lib.Physics.AtomicBase.Space
+import E213.Lib.Physics.AtomicBase.Observable
+import E213.Lib.Physics.AtomicBase.Force
+import E213.Lib.Physics.AtomicBase.Edges
+import E213.Lib.Physics.AtomicBase.Lens
 
 /-!
 # Phase 2 Capstone — synthesis of all 10 files
@@ -47,11 +47,11 @@ Questions answered by each file + comprehensive single theorem.
   and Fibonacci F_5/F_4
 -/
 
-namespace E213.Lib.Physics.Substrate.Capstone
+namespace E213.Lib.Physics.AtomicBase.Capstone
 
 open E213.Theory.Atomicity.Five
-open E213.Lib.Physics.Substrate.Existence
-open E213.Lib.Physics.Substrate.Pairs
+open E213.Lib.Physics.AtomicBase.Existence
+open E213.Lib.Physics.AtomicBase.Pairs
 
 /-- ★★★ PHASE 2 ABSOLUTE CAPSTONE ★★★
 
@@ -84,18 +84,18 @@ theorem phase2_absolute :
     -- (3/2) cross-mult (NS · NT_other = NT · NS_other)
     ∧ (3 * 2 = 2 * 3)
     -- (8) Force: 3 channels (AA, BB, AB)
-    ∧ (E213.Lib.Physics.Substrate.Force.num_channels = 3)
+    ∧ (E213.Lib.Physics.AtomicBase.Force.num_channels = 3)
     -- (9) Edges: c=2 doubling, 12 directed, b_1 = 8 = NS²-1
-    ∧ (E213.Lib.Physics.Substrate.Edges.c_lattice = 2)
-    ∧ (E213.Lib.Physics.Substrate.Edges.num_directed_edges = 12)
-    ∧ (E213.Lib.Physics.Substrate.Edges.num_directed_edges - 5 + 1 = 8)
-    ∧ (8 = E213.Lib.Physics.Substrate.Edges.NS_atomic
-            * E213.Lib.Physics.Substrate.Edges.NS_atomic - 1)
+    ∧ (E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2)
+    ∧ (E213.Lib.Physics.AtomicBase.Edges.num_directed_edges = 12)
+    ∧ (E213.Lib.Physics.AtomicBase.Edges.num_directed_edges - 5 + 1 = 8)
+    ∧ (8 = E213.Lib.Physics.AtomicBase.Edges.NS_atomic
+            * E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1)
     -- (10) Lens: explicit Lens demo
-    ∧ (E213.Lib.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.a = false)
-    ∧ (E213.Lib.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.b = true)
-    ∧ (E213.Lib.Physics.Substrate.Lens.bCountLens.view E213.Theory.Raw.a = 0)
-    ∧ (E213.Lib.Physics.Substrate.Lens.bCountLens.view E213.Theory.Raw.b = 1) := by
+    ∧ (E213.Lib.Physics.AtomicBase.Lens.parityLens.view E213.Theory.Raw.a = false)
+    ∧ (E213.Lib.Physics.AtomicBase.Lens.parityLens.view E213.Theory.Raw.b = true)
+    ∧ (E213.Lib.Physics.AtomicBase.Lens.bCountLens.view E213.Theory.Raw.a = 0)
+    ∧ (E213.Lib.Physics.AtomicBase.Lens.bCountLens.view E213.Theory.Raw.b = 1) := by
   refine ⟨atomic_five, fun n => atomic_implies_five n, ?_⟩
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -134,4 +134,4 @@ theorem phase2_absolute :
 
   The two tracks are *mutually consistent*. -/
 
-end E213.Lib.Physics.Substrate.Capstone
+end E213.Lib.Physics.AtomicBase.Capstone

@@ -62,11 +62,6 @@ protected theorem Lens.view_unique {α : Type} (L : Lens α)
       show L.view (Raw.slash x y h) = L.combine (L.view x) (L.view y)
       exact Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
 
-end E213.Lens.Initiality
-
-namespace E213.Lens.Initiality
-
-open E213.Theory E213.Lens
 
 /-! ## §2. Existence + uniqueness = universal property
 

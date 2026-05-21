@@ -6,7 +6,9 @@
 axiom or the result of a specific Lens choice.
 
 - Substituting external constants, fitting to experimental values,
-  importing structure from other theories — all are **fudge**.
+  importing structure from other theories — any such attempt is
+  **fudge** (an action with no operand in 213, since no exterior
+  dialer exists per `07_self_reference.md` §8.1).
 - When fudge is found, the **Lens is corrected**, not the formula.
 - If that too fails, **the theory is abandoned**.  The
   infinite-extension defense of "more Lenses will be found" is not
@@ -38,9 +40,25 @@ criterion**:
   Lean's structural type-checker + the Raw axiom alone.
 - A theorem with *any* non-empty `#print axioms` output is
   **`sorry`-equivalent**: it has not closed under the falsifiability
-  contract.  `propext` and `Quot.sound` were tolerated in earlier
-  sessions but are now treated identically to `Classical.choice` —
-  same dirty bit, same falsified-at-this-tier verdict.
+  contract.  `propext`, `Quot.sound`, `Classical.choice`,
+  `Lean.ofReduceBool`, and Mathlib axioms are all dirty under
+  this standard — same verdict for all.
+
+### Falsification is internal
+
+A prediction is falsified when one 213-internal Lens reading
+(measurement via observer-Lens) disagrees with another
+213-internal Lens reading (prediction via theory-Lens) for the
+same observable.  There is no external referee; both sides of
+the comparison are residue-internal events.  Allowing external
+axioms breaks this internal closure (admitting truths that no
+internal Lens application yields), which is why §5.2.1 treats
+external-axiom dependence as theory failure.
+
+Self-completion (`07_self_reference.md` §8.6) ensures every
+prediction has a definite truth value internally: every pointing
+is already complete, so claims of the form "prediction P matches
+measurement M" are well-formed without external semantics.
 - If any result is shown to be **absolutely impossible** to prove /
   construct without an additional axiom (e.g., still blocked after
   multiple sessions of exploration), this means **the entirety of
@@ -74,8 +92,23 @@ theory.
 
 From this axiom, by identifying a single Lens (the physical
 observer Lens), all observed physical constants must be derivable
-without fudge.  This is a strong empirical prediction; if it fails,
-the theory's scope is narrowed or the theory itself is abandoned.
+without fudge.
+
+This is not a *methodological commitment* to 0-parameter form — it
+is the *structural absence* of free parameters.  "Free parameter"
+means "value set by an external dialer"; 213 commits to no exterior
+(`07_self_reference.md` §8.1), so the category of
+values-set-from-outside is unavailable.  Physical constants appear
+only as residue-internal fixed points (cf. `02_statement.md` §3.4 —
+φ as the fixed point of self-pointing iteration; same φ in DRLT
+constants).  *Tuning* a constant is not forbidden — the action has
+no operand to apply to.
+
+The empirical prediction is therefore strong by structure, not by
+choice: if a constant has been derived as a residue-internal fixed
+point and measurement disagrees, the Lens reading was wrong, or the
+theory is wrong.  No third option ("we'll find a parameter to
+adjust") is available.
 
 The wider the range over which predictions hold, the stronger the
 claim of the axiom's primacy.

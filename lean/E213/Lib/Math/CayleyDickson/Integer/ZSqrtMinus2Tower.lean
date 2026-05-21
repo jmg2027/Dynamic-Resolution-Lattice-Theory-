@@ -42,9 +42,6 @@ def normSq (u : L3T) : Int :=
 
 end L3T
 
-end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
-
-namespace E213.Lib.Math.CayleyDickson.ZSqrtMinus2
 
 namespace _root_.E213.Lib.Math.CayleyDickson.ZSqrtMinus2.L3T
   instance : Add L3T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
@@ -72,9 +69,6 @@ def normSq (u : L4T) : Int :=
 
 end L4T
 
-end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
-
-namespace E213.Lib.Math.CayleyDickson.ZSqrtMinus2
 
 namespace L4T
   instance : Add L4T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
@@ -103,8 +97,6 @@ def normSq (u : L5T) : Int :=
 
 end L5T
 
-end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
-namespace E213.Lib.Math.CayleyDickson.ZSqrtMinus2
 
 namespace L5T
   instance : Add L5T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩

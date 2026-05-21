@@ -69,11 +69,7 @@ private theorem add2_mod2 (m : Nat) : (m + 2) % 2 = m % 2 := by
   rw [Nat.add_zero]
   exact Nat.mod_eq_of_lt (Nat.mod_lt m (by decide))
 
-end E213.Lib.Math.Irrational.Sqrt2KernelFree
 
-namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
-
-open E213.Meta.Nat.AddMod213
 
 /-! ## Core square + modular-2 lemmas -/
 
@@ -111,9 +107,6 @@ theorem mul_self_mod_two : ∀ (m : Nat), m * m % 2 = m % 2
     rw [Nat.mod_eq_of_lt (Nat.mod_lt m (by decide))]
     exact (add2_mod2 m).symm
 
-end E213.Lib.Math.Irrational.Sqrt2KernelFree
-
-namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
 
 /-! ## Even split + descent step -/
 
@@ -138,9 +131,6 @@ theorem descent_step (m k : Nat) (heq : m * m = 2 * (k * k))
   rw [h_rearrange] at heq
   exact Nat.eq_of_mul_eq_mul_left (by decide : 0 < 2) heq
 
-end E213.Lib.Math.Irrational.Sqrt2KernelFree
-
-namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
 
 /-- `m % 2 = 0 → ∃ m', m = 2 * m'`.  ∅-axiom via 2-step structural
     recursion. -/
@@ -167,9 +157,6 @@ private theorem half_lt_succ (k' n : Nat) (hbnd : 2 * k' ≤ n + 1)
   have h2 : k' + 1 ≤ k' + k' := Nat.add_le_add_left hk_pos k'
   exact Nat.le_of_succ_le_succ (Nat.le_trans h2 hbnd)
 
-end E213.Lib.Math.Irrational.Sqrt2KernelFree
-
-namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
 
 /-- **Bounded descent**: ∀ s, k ≤ s, m * m = 2 * (k * k) → k = 0.
     Manual Nat arithmetic — no `omega`. -/

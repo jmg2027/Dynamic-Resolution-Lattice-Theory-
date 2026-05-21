@@ -20,7 +20,7 @@
 
 ## Architecture notes
 
-- Real = (sequence + modulus) pair — PAPER1 §6, §7 type-level form.
+- Real = (sequence + modulus) pair — type-level form of Cauchy completeness.
 - Cut = `Nat → Nat → Bool` (m, k ↦ "value ≤ m/k").
 - Real213 marathon: ~90% PURE — most CutSum/CutMul/Lattice
   paths propext-free via pointwise eq + ChainToCut bridge.

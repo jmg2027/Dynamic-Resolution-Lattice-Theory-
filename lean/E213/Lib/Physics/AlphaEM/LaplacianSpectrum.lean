@@ -54,11 +54,7 @@ namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
 open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §1 — Δ⁴ Laplacian rank and trace
 
@@ -75,29 +71,22 @@ def delta4_lap_rank (k : Nat) : Nat :=
   else if k ≤ 5 then binom 5 k
   else 0
 
-theorem delta4_lap_rank_1 : delta4_lap_rank 1 = 4 := by decide
-theorem delta4_lap_rank_2 : delta4_lap_rank 2 = 10 := by decide
-theorem delta4_lap_rank_3 : delta4_lap_rank 3 = 10 := by decide
-theorem delta4_lap_rank_4 : delta4_lap_rank 4 = 5 := by decide
-theorem delta4_lap_rank_5 : delta4_lap_rank 5 = 1 := by decide
+/-! Per-grade ranks (k=1..5) compute to {4, 10, 10, 5, 1} and
+    sum to 30; uniform eigenvalue = d = 5; trace = 30·5 = 150.
+    These numerics are conjuncts of `laplacian_spectrum_master`
+    below; no need for standalone single-equation theorems. -/
 
 /-- Total Laplacian rank on Δ⁴ = sum of nonzero eigenvalue counts. -/
 def delta4_lap_total_rank : Nat :=
   delta4_lap_rank 1 + delta4_lap_rank 2 + delta4_lap_rank 3
   + delta4_lap_rank 4 + delta4_lap_rank 5
 
-theorem delta4_lap_total_rank_eq_30 : delta4_lap_total_rank = 30 := by decide
-
 /-- Δ⁴ uniform eigenvalue = n = d = 5 (classical: simplicial Laplacian
     on n-simplex has all nonzero eigenvalues equal to n). -/
 def delta4_eigenvalue : Nat := 5
 
-theorem delta4_eigenvalue_eq_d : delta4_eigenvalue = d := by decide
-
 /-- Trace of total Δ⁴ Laplacian = rank · eigenvalue = 30 · 5 = 150. -/
 def delta4_lap_trace : Nat := delta4_lap_total_rank * delta4_eigenvalue
-
-theorem delta4_lap_trace_eq_150 : delta4_lap_trace = 150 := by decide
 
 /-! ## §2 — Δ⁴ ζ-Laplacian function
 
@@ -109,20 +98,11 @@ theorem delta4_lap_trace_eq_150 : delta4_lap_trace = 150 := by decide
 def delta4_zeta_1_num : Nat := delta4_lap_total_rank
 def delta4_zeta_1_den : Nat := delta4_eigenvalue
 
-theorem delta4_zeta_1_eq : delta4_zeta_1_num = 30 ∧ delta4_zeta_1_den = 5 := by decide
-theorem delta4_zeta_1_simplifies : delta4_zeta_1_num / delta4_zeta_1_den = 6 := by decide
-
 /-- ζ_Δ⁴(2) numerator/denominator pair: 30/25 = 6/5. -/
 def delta4_zeta_2_num : Nat := delta4_lap_total_rank
 def delta4_zeta_2_den : Nat := delta4_eigenvalue * delta4_eigenvalue
 
-theorem delta4_zeta_2_eq : delta4_zeta_2_num = 30 ∧ delta4_zeta_2_den = 25 := by decide
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §3 — K_{3,2}^{(c=2)} graph Laplacian spectrum
 
@@ -141,12 +121,8 @@ open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 /-- K_{3,2}^{(c=2)} number of vertices = NS + NT = d. -/
 def k32c2_V : Nat := d
 
-theorem k32c2_V_eq_5 : k32c2_V = 5 := by decide
-
 /-- Edge count = c · NS · NT (12). -/
 def k32c2_E : Nat := 2 * NS * NT
-
-theorem k32c2_E_eq_12 : k32c2_E = 12 := by decide
 
 /-- dim H⁰(K_{3,2}^{(c=2)}) = 1 (connected). -/
 def k32c2_H0 : Nat := 1
@@ -154,46 +130,27 @@ def k32c2_H0 : Nat := 1
 /-- dim H¹(K_{3,2}^{(c=2)}) = E − V + 1 = 8. -/
 def k32c2_H1 : Nat := k32c2_E - k32c2_V + 1
 
-theorem k32c2_H1_eq_8 : k32c2_H1 = 8 := by decide
-
 /-- Nonzero eigenvalue count of vertex Laplacian Δ_0 = V − H⁰ = 4. -/
 def k32c2_lap_rank_0 : Nat := k32c2_V - k32c2_H0
-
-theorem k32c2_lap_rank_0_eq_4 : k32c2_lap_rank_0 = 4 := by decide
 
 /-- Nonzero eigenvalue count of edge Laplacian Δ_1 = E − H¹ = 4. -/
 def k32c2_lap_rank_1 : Nat := k32c2_E - k32c2_H1
 
-theorem k32c2_lap_rank_1_eq_4 : k32c2_lap_rank_1 = 4 := by decide
-
 /-- Total nonzero Laplacian rank on K_{3,2}^{(c=2)} = 4 + 4 = 8. -/
 def k32c2_lap_total_rank : Nat := k32c2_lap_rank_0 + k32c2_lap_rank_1
-
-theorem k32c2_lap_total_rank_eq_8 : k32c2_lap_total_rank = 8 := by decide
 
 /-- Trace of vertex Laplacian = sum of all eigenvalues
     = 0 + 6 + 4 + 4 + 10 = 24 = 2·E (handshake). -/
 def k32c2_lap_trace_0 : Nat := 0 + 6 + 4 + 4 + 10
 
-theorem k32c2_lap_trace_0_eq_24 : k32c2_lap_trace_0 = 24 := by decide
-theorem k32c2_handshake : k32c2_lap_trace_0 = 2 * k32c2_E := by decide
-
 /-- Trace of edge Laplacian = sum nonzero eigenvalues = 24
     (same as vertex Δ_0 nonzero spectrum). -/
 def k32c2_lap_trace_1 : Nat := 6 + 4 + 4 + 10
 
-theorem k32c2_lap_trace_1_eq_24 : k32c2_lap_trace_1 = 24 := by decide
-
 /-- Total trace of K_{3,2}^{(c=2)} Laplacian = 24 + 24 = 48. -/
 def k32c2_lap_total_trace : Nat := k32c2_lap_trace_0 + k32c2_lap_trace_1
 
-theorem k32c2_lap_total_trace_eq_48 : k32c2_lap_total_trace = 48 := by decide
 
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §4 — K_{3,2}^{(c=2)} ζ-Laplacian function
 
@@ -222,15 +179,9 @@ open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 def k32c2_zeta_1_num : Nat := 23
 def k32c2_zeta_1_den : Nat := 15
 
-theorem k32c2_zeta_1_check :
-    k32c2_zeta_1_num * 60 = (10 + 30 + 6) * 2 * k32c2_zeta_1_den := by decide
-
 /-- ζ_K(2) numerator/denominator: 293/900. -/
 def k32c2_zeta_2_num : Nat := 293
 def k32c2_zeta_2_den : Nat := 900
-
-theorem k32c2_zeta_2_check :
-    k32c2_zeta_2_num * 3600 = (100 + 450 + 36) * 2 * k32c2_zeta_2_den := by decide
 
 /-! ## §5 — Comparison: lattice ζ-Laplacian vs continuum ζ(2)
 
@@ -250,20 +201,7 @@ theorem k32c2_zeta_2_check :
   Laplacian, where the multigraph IS the resolution-finite
   channel structure replacing continuum integration. -/
 
-/-- Comparison: ζ_K(1) = 23/15 vs ζ_Δ(2) = 6/5 (= 18/15). -/
-theorem zeta_K1_vs_delta_zeta_2 :
-    k32c2_zeta_1_num * delta4_zeta_2_den = 23 * 25
-    ∧ delta4_zeta_2_num * k32c2_zeta_1_den = 30 * 15 := by decide
 
-/-- ζ_K(1) − ζ_Δ(2) = 23/15 − 18/15 = 5/15 = 1/3. -/
-theorem zeta_K1_minus_zeta_delta_2_is_one_third :
-    k32c2_zeta_1_num * 15 = (18 + 5) * k32c2_zeta_1_den := by decide
-
-end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-
-open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 /-! ## §6 — Master Test 2 theorem -/
 
@@ -305,8 +243,17 @@ theorem laplacian_spectrum_master :
     ∧ k32c2_lap_trace_0 = 2 * k32c2_E
     -- ζ-Laplacian numerator/denominator pairs
     ∧ k32c2_zeta_1_num = 23 ∧ k32c2_zeta_1_den = 15
-    ∧ k32c2_zeta_2_num = 293 ∧ k32c2_zeta_2_den = 900 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ k32c2_zeta_2_num = 293 ∧ k32c2_zeta_2_den = 900
+    -- ζ-Laplacian cross-mult sanity (per-grade Σ → total)
+    ∧ k32c2_zeta_1_num * 60 = (10 + 30 + 6) * 2 * k32c2_zeta_1_den
+    ∧ k32c2_zeta_2_num * 3600 = (100 + 450 + 36) * 2 * k32c2_zeta_2_den
+    -- Comparison ζ_K(1) vs ζ_Δ(2) (cross-mult products)
+    ∧ k32c2_zeta_1_num * delta4_zeta_2_den = 23 * 25
+    ∧ delta4_zeta_2_num * k32c2_zeta_1_den = 30 * 15
+    -- ζ_K(1) − ζ_Δ(2) = 5/15 = 1/3 (cross-mult)
+    ∧ k32c2_zeta_1_num * 15 = (18 + 5) * k32c2_zeta_1_den := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Lib.Physics.AlphaEM.LaplacianSpectrum

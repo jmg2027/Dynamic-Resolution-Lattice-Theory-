@@ -6,13 +6,12 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Cohomology 213 ↔ AlphaEMSimplicial bridge
 
-The five-term simplicial decomposition of `1/α_em(IR)` proven in
-`Physics/AlphaEMSimplicial.lean` was originally established at the
-*scalar* level (Betti numbers, face counts as plain Nat).
-
-The Cohomology 213 marathon (Phases CA-CF) lifted the same
-quantities to **full cochain-level cohomology** in 213-internal
-form.  This file makes the bridge formal:
+The five-term simplicial decomposition of `1/α_em(IR)` appears
+simultaneously at the *scalar* level (Betti numbers, face counts
+as plain Nat — proven in `Physics/AlphaEMSimplicial.lean`) and at
+the *cochain* level (full 213-internal cohomology — Phases CA-CF).
+Both are aspects of the same structural identity, two Lens
+readings of the same residue.  This file makes the bridge formal:
 
 * `b_1(K_{3,2}^{(2)}) = 8` is now derived two ways:
   - **Scalar**: `Physics.PhotonKernel.b_1_eq_8` (Euler formula

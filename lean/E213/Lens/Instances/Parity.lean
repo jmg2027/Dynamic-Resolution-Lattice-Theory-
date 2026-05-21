@@ -55,10 +55,6 @@ theorem parityLens_swap_invariant (r : Raw) :
     r
   exact h
 
-end E213.Lens.Instances.Parity
-namespace E213.Lens.Instances.Parity
-open E213.Theory E213.Lens
-open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **R5 fails.**  `Raw.a ≠ Raw.b` but both map to `true`. -/
 theorem parityLens_not_injective :

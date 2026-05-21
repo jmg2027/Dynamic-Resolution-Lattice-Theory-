@@ -30,6 +30,16 @@ In particular: `/` (slash) is **not an operator**.  "a/b exists" is a
 The slash is a **referring** — a way of pointing to a particular
 member of the residue family.
 
+### Self-completion
+
+The four clauses below are not sequential additions.  When pointing
+operates, all four are simultaneously present — distinguishing
+yields a residue, the residue is itself a something, the pairing is
+direction-free, no self-pair forms.  These are aspects of one
+event, not steps in a construction.  The numbering is a notational
+convenience for the Lean encoding; the act of pointing is already
+complete.
+
 ### Code-friendly 4-clause restatement (with cost markers)
 
 For Lean implementation, the axiom is restated as 4 clauses.  Clauses
@@ -39,8 +49,8 @@ in the axiom).  Details: `seed/AXIOM/08_encoding_costs.md`.
 
 | # | Clause | Status |
 |---|---|---|
-| 1 | Something exists.  At least two.  Recorded `a`, `b`. | **axiom** (re-expression of "a exists" together with its inevitable distinguishing residue) |
-| 2 | Pairing of two somethings is yet another something. `a/b`. | **axiom** (auto-emergence of the residue family — `/` is *referring*, not operator) |
+| 1 | Distinguishing operates; the residue is recorded as distinguishable somethings `a`, `b`. | **axiom** (re-expression of "a exists" with its inevitable distinguishing residue — `2` is the count-Lens reading of the result, not a Raw cardinality commitment; cardinality is absent at Raw per §3.3) |
+| 2 | The residue of distinguishing already-distinguished somethings is itself a something. `a/b`. | **axiom** (auto-emergence of the residue family — `/` is *referring*, not operator) |
 | 3 | Pairing is symmetric: `a/b = b/a`. | **encoding cost** (order is absent from the axiom; Lean's inductive imposes argument positions, so symmetry must be declared as quotient) |
 | 4 | No pairing with oneself: `x/x` undefined. | **encoding cost** (the concept "self-residue" is absent from the axiom; Lean must declare the precondition `x ≠ y` explicitly to block `slash x x`) |
 
@@ -84,7 +94,18 @@ The same φ appears in DRLT physics (CKM δ, Cabibbo, ν mass ratios)
 and in the algebra tower asymptote — cross-domain consistency.
 
 **Note**: this is an *interpretation*, not an addition.  Bridge
-theorem at `lean/E213/Lib/Math/Mobius213.lean` (Lib-ring after
-the §4 THEORY_AUDIT migration).  The 4 clauses in §3.2 remain the
-minimum-commitment statement; §3.4 records an algebraic
-*consequence* (∅-axiom theorem).
+theorem at `lean/E213/Lib/Math/Mobius213.lean`.  The 4 clauses in
+§3.2 remain the minimum-commitment statement; §3.4 records an
+algebraic *consequence* (∅-axiom theorem).
+
+**Dual reading** (frozen + dynamic).  The same matrix admits two
+Lens readings on the same residue:
+  - *Frozen*: φ is the unique fixed point of P (the attractor as
+    static configuration).
+  - *Dynamic*: P^n(x) → φ for any starting x (the iteration as
+    trajectory).
+Both readings hold simultaneously for an internal observer —
+absent an external time axis to compare them under, the dichotomy
+"frozen or dynamic?" is not posed.  Cf. `RESOLUTION_LIMIT_SPEC.md`
+§2 for the four independent Lens readings converging on the same
+N_U readout; the same convergence-as-content principle.

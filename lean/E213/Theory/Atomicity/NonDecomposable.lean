@@ -2,9 +2,8 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # Non-decomposable integers: {2, 3}
 
-Proposition (per archival PAPER1 §6.5, deleted 2026-05-12):
-  an integer `n ≥ 2` cannot be expressed
-as a sum `n = n_1 + … + n_k` with `k ≥ 2` and each `n_i ≥ 2` iff
+An integer `n ≥ 2` cannot be expressed as a sum
+`n = n_1 + … + n_k` with `k ≥ 2` and each `n_i ≥ 2` iff
 `n ∈ {2, 3}`.
 
 Any `k`-part decomposition collapses to a 2-part one — so we use
@@ -43,9 +42,6 @@ private theorem add_ge_four_of_each_ge_two {a b : Nat}
     (ha : 2 ≤ a) (hb : 2 ≤ b) : 4 ≤ a + b :=
   Nat.add_le_add ha hb
 
-end E213.Theory.Atomicity.NonDecomposable
-
-namespace E213.Theory.Atomicity.NonDecomposable
 
 /-- **Characterization of atoms.** The non-decomposable integers
     `≥ 2` are exactly `{2, 3}`. -/

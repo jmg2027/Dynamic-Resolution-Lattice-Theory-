@@ -7,7 +7,7 @@ Independent Bernoulli trials as **atomic counting**.
 
 Two views:
 
-  * **K_{3,2} pair distribution**: 10 pairs in `Physics.Substrate.Pairs`
+  * **K_{3,2} pair distribution**: 10 pairs in `Physics.AtomicBase.Pairs`
     classify as 3 AA + 1 BB + 6 AB.  These three numerators give a
     natural categorical distribution; the AB-or-not collapse yields
     an atomic Bernoulli with `p = 6/10`.
@@ -43,20 +43,10 @@ def pAB : ProbabilityCut where
   den_pos := Nat.zero_lt_succ 9
   mass_le := by decide
 
-/-- **K_{3,2} pair total**: 3 + 1 + 6 = 10 (atomic counting closure). -/
-theorem pair_total : pAA.num + pBB.num + pAB.num = pAA.den := by decide
-
 /-- **AB-or-not Bernoulli**: collapse the categorical pair distribution
     to a Bernoulli with success = "AB-pair", `p = 6/10`. -/
 def ABBernoulli : Bernoulli where
   p := pAB
-
-/-- AB-failure mass = 4/10 (AA + BB combined). -/
-theorem AB_failure_num : ABBernoulli.failure.num = 4 := rfl
-
-/-- AB-failure equals the AA + BB combined numerator. -/
-theorem AB_failure_eq_AA_plus_BB :
-    ABBernoulli.failure.num = pAA.num + pBB.num := by decide
 
 /-- Product numerator of an n-trial Bernoulli sequence (atomic count). -/
 def trialSequenceNum (b : Bernoulli) : List Bool → Nat
@@ -67,20 +57,27 @@ def trialSequenceNum (b : Bernoulli) : List Bool → Nat
 /-- Common denominator across `n` independent trials: `den^n`. -/
 def trialSequenceDen (b : Bernoulli) (n : Nat) : Nat := b.p.den ^ n
 
-/-- Empty trial sequence has numerator 1 (rfl). -/
-theorem trialSequenceNum_nil (b : Bernoulli) :
-    trialSequenceNum b [] = 1 := rfl
-
-/-- Two fair-coin heads: numerator = 1·1 = 1. -/
-theorem fair_two_heads :
-    trialSequenceNum Bernoulli.fair [true, true] = 1 := by decide
-
-/-- Two fair-coin tails: numerator = 1·1 = 1 (failure num = 1). -/
-theorem fair_two_tails :
-    trialSequenceNum Bernoulli.fair [false, false] = 1 := by decide
-
-/-- Fair coin n=2 denominator = 2² = 4. -/
-theorem fair_two_den :
-    trialSequenceDen Bernoulli.fair 2 = 4 := by decide
+/-- ★ Binomial master — K_{3,2} pair closure, AB-Bernoulli failure
+    identities, fair-coin n=2 trial-sequence numerics. -/
+theorem binomial_master :
+    -- K_{3,2} pair total: 3 + 1 + 6 = 10
+    pAA.num + pBB.num + pAB.num = pAA.den
+    -- AB-Bernoulli failure num = 4
+    ∧ ABBernoulli.failure.num = 4
+    -- AB-failure = AA + BB combined
+    ∧ ABBernoulli.failure.num = pAA.num + pBB.num
+    -- Empty trial sequence: numerator = 1 (rfl ∀ b)
+    ∧ (∀ b : Bernoulli, trialSequenceNum b [] = 1)
+    -- Fair coin n = 2 trial-sequence numerics
+    ∧ trialSequenceNum Bernoulli.fair [true, true] = 1
+    ∧ trialSequenceNum Bernoulli.fair [false, false] = 1
+    ∧ trialSequenceDen Bernoulli.fair 2 = 4 := by
+  refine ⟨?_, rfl, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · intro _; rfl
+  · decide
+  · decide
+  · decide
 
 end E213.Lib.Math.Probability.Distribution.Binomial

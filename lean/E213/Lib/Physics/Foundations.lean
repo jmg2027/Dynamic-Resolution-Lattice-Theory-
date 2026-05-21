@@ -15,21 +15,21 @@ import E213.Lib.Physics.Foundations.HopHypothesis
 import E213.Lib.Physics.Foundations.KoideFormula
 import E213.Lib.Physics.Foundations.LensCardinalityFractalLevels
 import E213.Lib.Physics.Foundations.MasslessParticles
-import E213.Lib.Physics.Foundations.NUniverseFractalDepth
-import E213.Lib.Physics.Foundations.NUniverseFromFractal
+import E213.Lib.Physics.Foundations.NResolutionFractalDepth
+import E213.Lib.Physics.Foundations.NResolutionFromFractal
 import E213.Lib.Physics.Foundations.ResolutionDepth
 import E213.Lib.Physics.Foundations.TightenBracket
 import E213.Lib.Physics.Foundations.UnifiedPattern
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Foundations`.
 
-  Foundational physics scaffolding — N_universe cardinality, atomic
+  Foundational physics scaffolding — N_resolution cardinality, atomic
   constants, finiteness witnesses, resonance structure.
 
-  ## N_universe = d^(d²) = 5²⁵ scaffold
+  ## N_resolution = d^(d²) = 5²⁵ scaffold
 
-    * `NUniverseFromFractal`        — fractal-lens derivation of 5²⁵
-    * `NUniverseFractalDepth`       — depth-as-fractal-level witness
+    * `NResolutionFromFractal`        — fractal-lens derivation of 5²⁵
+    * `NResolutionFractalDepth`       — depth-as-fractal-level witness
     * `FractalLensCardinality`      — combinatorial enumeration
     * `LensCardinalityFractalLevels` — per-level cardinality lemmas
     * `ResolutionDepth`             — N_U as resolution-limit invariant

@@ -8,9 +8,12 @@ primitive sizes {2, 3}, arity k=2, alive-pair (1, 1)) is the
 
 Each file is a pure-ℕ theorem.  None of them imports
 `Theory/Raw.lean` directly.  They are NOT consequences of Raw —
-they are **predictions of Raw's shape from outside** (forcings).
-The Theory Raw axiom is then justified *because* it instantiates
-the unique structure these theorems force.
+they are **structural forcings of Raw's shape** read at the ℕ
+chart (cf. `seed/AXIOM/07_self_reference.md` §8.1 — no
+exterior standpoint; the forcing is internal to 213, expressed
+through a Lens that does not yet name Raw).  The Theory Raw
+axiom is then justified *because* it instantiates the unique
+structure these theorems force.
 
 ## Files (7)
 

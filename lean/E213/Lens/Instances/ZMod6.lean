@@ -54,10 +54,6 @@ theorem zmod6Lens_R3_fails : ¬ NonVanishing zmod6Lens := by
   have : zmod6Lens.combine 2 3 = 0 := by decide
   exact hne this
 
-end E213.Lens.Instances.ZMod6
-namespace E213.Lens.Instances.ZMod6
-open E213.Theory E213.Lens
-open E213.Lens.Properties.Characterisation.Catalog
 
 /-- **Commutative combine.**  `zmod6Lens.combine` is commutative
     (inherits from `Nat` multiplication) — so R2 is OK.  The

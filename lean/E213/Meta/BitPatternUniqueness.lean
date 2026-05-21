@@ -85,11 +85,7 @@ private theorem parity_contradiction (d a b : Nat)
   have htrue : parity (2^(a + 1) + 2^(b + 1)) = true := heq ▸ hL
   exact Bool.noConfusion (htrue.symm.trans hR)
 
-end E213.Meta.BitPatternUniqueness
 
-namespace E213.Meta.BitPatternUniqueness
-
-open E213.Tactic.Pow213 E213.Tactic.Mod213
 open E213.Tactic.NatHelper (add_left_cancel)
 
 /-- ★★★★★★ Key uniqueness lemma: if `2^m + 2^n = 2^p + 2^q` with
@@ -143,9 +139,6 @@ theorem two_pow_sum_inj_lt
       hd ▸ ha ▸ hb ▸ heq'
     exact absurd heq'' (fun h => parity_contradiction _ _ _ h)
 
-end E213.Meta.BitPatternUniqueness
-
-namespace E213.Meta.BitPatternUniqueness
 
 open E213.Tactic.Pow213
 open E213.Tactic.NatHelper (add_sub_cancel_right)

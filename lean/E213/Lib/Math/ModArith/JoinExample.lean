@@ -43,12 +43,7 @@ theorem mod_4_6_chain_example {α : Type} (N : Lens α)
   have step2 : N.view r_7 = N.view r := h4 _ _ h_7_3
   exact step1.trans step2
 
-end E213.Lib.Math.ModArith.JoinExample
 
-namespace E213.Lib.Math.ModArith.JoinExample
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- +2 step via L_6 then L_4: chain of length 2. -/
 theorem mod_4_6_step_two {α : Type} (N : Lens α)
@@ -129,12 +124,7 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
         rw [hr', h_step, ← hr'']
       exact step1.trans step2
 
-end E213.Lib.Math.ModArith.JoinExample
 
-namespace E213.Lib.Math.ModArith.JoinExample
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat
 
 /-- **L_4 + L_6 → L_2 complete**.  Least direction of
     Join(L_4, L_6) = L_2 = L_gcd(4,6) in the refines preorder. -/

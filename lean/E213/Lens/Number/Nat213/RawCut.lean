@@ -85,11 +85,7 @@ theorem rawCutLe_of_rawCutEq (cx cy : RawCut) (h : rawCutEq cx cy) :
 example : rawCutEq constTrueCut constTrueCut := rawCutEq_refl _
 example : rawCutLe constTrueCut constTrueCut := rawCutLe_refl _
 
-end E213.Lens.Number.Nat213.RawCut
 
-namespace E213.Lens.Number.Nat213.RawCut
-
-open E213.Theory
 open E213.Lens.Bool213.Raw (T F booleanProj booleanProj_T booleanProj_F
                                   booleanProj_isBool booleanProj_idempotent
                                   boolValue boolValue_booleanProj)

@@ -35,55 +35,50 @@ def cupPow (α : Cochain 5 1) : (n : Nat) → Cochain 5 n
   | 0 => one_5
   | n + 1 => cup 5 n 1 (cupPow α n) α
 
-/-- `binom 5 n` for n = 0..5: the K_{3,2} ⊂ Δ⁴ grade dimensions.
-    Above grade 5, the binomial vanishes — that's the hard wall. -/
+/-- `binom 5 6 = 0` — the Grade-6 hard wall in Δ⁴.  Externally
+    consumed by `Bridge/CutLog` and `ParadigmDomainGradedRing`. -/
 theorem binom_5_6_zero : binom 5 6 = 0 := by decide
-theorem binom_5_7_zero : binom 5 7 = 0 := by decide
-theorem binom_5_8_zero : binom 5 8 = 0 := by decide
 
 /-- ★ **Grade-6 nilpotency** ★ — `cupPow α 6 i` is provably `false`
-    *pointwise*, because `i : Fin (binom 5 6) = Fin 0` is empty. -/
+    *pointwise*, because `i : Fin (binom 5 6) = Fin 0` is empty.
+    Externally consumed by `Probability/Foundation/Capstone`. -/
 theorem cupPow_grade_6_zero (α : Cochain 5 1) (i : Fin (binom 5 6)) :
     cupPow α 6 i = false :=
   False.elim (Nat.not_lt_zero i.val
     (Nat.lt_of_lt_of_eq i.isLt binom_5_6_zero))
 
-/-- Grade-7 nilpotency. -/
-theorem cupPow_grade_7_zero (α : Cochain 5 1) (i : Fin (binom 5 7)) :
-    cupPow α 7 i = false :=
-  False.elim (Nat.not_lt_zero i.val
-    (Nat.lt_of_lt_of_eq i.isLt binom_5_7_zero))
-
-/-- Grade-8 nilpotency. -/
-theorem cupPow_grade_8_zero (α : Cochain 5 1) (i : Fin (binom 5 8)) :
-    cupPow α 8 i = false :=
-  False.elim (Nat.not_lt_zero i.val
-    (Nat.lt_of_lt_of_eq i.isLt binom_5_8_zero))
-
 /-- ★★ **General overflow nilpotency** ★★ — for *any* `n` with
     `binom 5 n = 0`, `cupPow α n` is the unique empty function
-    (provably `false` at every index, vacuously).
-
-    Use with: `cupPow_zero_of_binom_zero α n binom_5_6_zero` for grade 6,
-    or supply your own `binom 5 n = 0` proof for higher grades. -/
+    (provably `false` at every index, vacuously).  Externally
+    consumed by `Bridge/CutLog`. -/
 theorem cupPow_zero_of_binom_zero (α : Cochain 5 1) (n : Nat)
     (h : binom 5 n = 0) (i : Fin (binom 5 n)) :
     cupPow α n i = false :=
   False.elim (Nat.not_lt_zero i.val (Nat.lt_of_lt_of_eq i.isLt h))
 
-/-- The Grade-4 hard wall in Δ⁴ doesn't fully kick in until Grade 6
-    (since `Cochain 5 5 = Fin 1 → Bool` is non-trivial: the unique
-    "top form" on Δ⁴).  But anything strictly above the simplex
-    dimension + 1 is empty — that's the structural truncation. -/
-theorem grade_5_top_dim : binom 5 5 = 1 := by decide
+/-- ★ Truncation master — bundles the Δ⁴ grade-dim table
+    (n = 0..5 non-trivial, n ≥ 6 vanishing) and grade-7/8 nilpotency
+    (further overflow witnesses).
 
-/-- Below the wall: grades 0..5 are non-trivial, and the cup-power
-    construction lives there.  Above grade 5 (i.e. n ≥ 6) the
-    `cupPow` reduces to the empty function — *exact* truncation,
-    no Cauchy modulus. -/
-theorem grade_dim_table :
+    The Grade-4 wall in Δ⁴ doesn't fully kick in until Grade 6
+    (`Cochain 5 5 = Fin 1 → Bool` is non-trivial: the unique top
+    form on Δ⁴).  Anything strictly above grade 5 is empty —
+    *exact* truncation, no Cauchy modulus. -/
+theorem truncation_master :
+    -- Full grade-dim table for Δ⁴: n = 0..6
     binom 5 0 = 1 ∧ binom 5 1 = 5 ∧ binom 5 2 = 10
     ∧ binom 5 3 = 10 ∧ binom 5 4 = 5 ∧ binom 5 5 = 1
-    ∧ binom 5 6 = 0 := by decide
+    ∧ binom 5 6 = 0
+    -- Higher overflow zeros (grade 7, 8)
+    ∧ binom 5 7 = 0 ∧ binom 5 8 = 0
+    -- Pointwise nilpotency at grade 7, 8 (vacuous Fin 0)
+    ∧ (∀ (α : Cochain 5 1) (i : Fin (binom 5 7)), cupPow α 7 i = false)
+    ∧ (∀ (α : Cochain 5 1) (i : Fin (binom 5 8)), cupPow α 8 i = false) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  all_goals first
+    | decide
+    | (intro α i
+       exact False.elim (Nat.not_lt_zero i.val
+         (Nat.lt_of_lt_of_eq i.isLt (by decide))))
 
 end E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation

@@ -47,7 +47,7 @@ theorem cartesian_overshoots :
     (5 : Nat) ^ 25 < (6 : Nat) ^ 25 := by decide
 
 /-- ★ **Numerical check**: `2²⁵ × 3²⁵ ≠ 5²⁵`. -/
-theorem cartesian_neq_n_u :
+theorem cartesian_neq_n_resolution :
     (2 : Nat) ^ 25 * (3 : Nat) ^ 25 ≠ (5 : Nat) ^ 25 := by decide
 
 /-- ★ **Both decompositions wrong, only binomial right**:

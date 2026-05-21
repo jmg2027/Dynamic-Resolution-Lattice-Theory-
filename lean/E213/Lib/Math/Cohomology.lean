@@ -52,10 +52,6 @@ import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
   Note: HodgeConjecture/ was peer-promoted to `Math/HodgeConjecture/`
   in M14 Phase C2 — see that umbrella for the bridge stack.
 
-  All files build clean (2026-05-18 audit).  The 2026-05-06
-  deferred-cluster repair (`HIERARCHICAL_PLACEMENT.md` §6.3) is
-  closed.  Dead `CupAW/BilinearFunc.lean` placeholder
-  (funext-DIRTY, no theorems) was deleted 2026-05-18; PURE
-  pointwise replacements (`CupAW/PointwiseBilinear.lean`)
-  supersede it.
+  All files build clean.  PURE pointwise bilinear formulations
+  live at `CupAW/PointwiseBilinear.lean`.
 -/

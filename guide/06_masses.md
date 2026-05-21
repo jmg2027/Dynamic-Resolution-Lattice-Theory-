@@ -46,7 +46,7 @@ parameters. Match is at percent-level, not yet ppm.
   in (NS, NT, d), 0.48 ppb match. Replaces the empirical
   Yukawa-coupling assignment of the Standard Model.
 - "Why m_H ≈ 125 GeV" → answer: occupation-ratio formula at d = 5,
-  +0.02% match. No fine-tuning.
+  +0.02% match. Fully forced by atomicity; no free parameters.
 - m_p is reproduced exactly by chiral decomposition (`paper1`); the
   individual quark masses are derived from m_p + ratios.
 

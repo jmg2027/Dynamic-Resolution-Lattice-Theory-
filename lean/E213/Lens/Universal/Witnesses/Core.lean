@@ -6,9 +6,10 @@ import E213.Lens.Lattice.Lattice
 /-!
 # Meta.UniversalLens — Universal Lens metatheory
 
-User-articulated thesis: 213 is not described from outside;
-it is the precondition for any "describing".  A Universal Lens
-is the lens built into the act of referring.  Formal core:
+User-articulated thesis: 213 is self-describing via Lens;
+every act of referring passes through Raw because Raw is the
+residue of "pointing at all".  A Universal Lens is the lens
+built into the act of referring.  Formal core:
 
   L is universal iff `L.view : Raw → α` is injective.
 
@@ -31,13 +32,14 @@ open E213.Lens.Lattice.Lattice (refines_idLens_iff_injective)
 def IsUniversal {α : Type} (L : Lens α) : Prop :=
   Function.Injective L.view
 
-/-- Origin at observer O: the basepoint of α relative to O. -/
-def OriginAt {α : Type} (L : Lens α) (O : Raw) : α := L.view O
+/-- Basepoint at `r₀`: the α-image of `r₀` under L. -/
+def OriginAt {α : Type} (L : Lens α) (r₀ : Raw) : α := L.view r₀
 
-/-- A universal lens distinguishes the observer from any distinct Raw. -/
+/-- A universal lens distinguishes the basepoint from any other Raw
+    via its α-reading. -/
 theorem distinguishes {α : Type} (L : Lens α)
-    (h : IsUniversal L) {O X : Raw} (hne : O ≠ X) :
-    L.view O ≠ L.view X := fun heq => hne (h heq)
+    (h : IsUniversal L) {r₀ x : Raw} (hne : r₀ ≠ x) :
+    L.view r₀ ≠ L.view x := fun heq => hne (h heq)
 
 /-- Universality ↔ refining the identity lens. -/
 theorem universal_iff_refines_idLens {α : Type} (L : Lens α) :

@@ -39,12 +39,7 @@ inductive FamilyJoinEquiv {I : Type} (E : I → Raw → Raw → Prop) :
       FamilyJoinEquiv E x x' → FamilyJoinEquiv E y y' →
       FamilyJoinEquiv E (Raw.slash x y h) (Raw.slash x' y' h')
 
-end E213.Lens.Lattice.FamilyJoin
 
-namespace E213.Lens.Lattice.FamilyJoin
-
-open E213.Theory E213.Lens
-open E213.Lens.Universal.QuotLens
 
 /-- **Family join via universalLens**: the join of an arbitrary family
     is expressed as the kernel of a single Lens.  FamilyJoinEquiv

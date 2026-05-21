@@ -81,7 +81,7 @@ theorem inv_alpha_GUT_eq_25 : inv_alpha_GUT_factor = 25 := by decide
 /-- ★ COUPLING SPECTRUM CAPSTONE ★
 
   All four couplings are products of atomic primitives × their own N_eff Basel partial.
-  α_2 prefactor = adjoint SU(5) hidden link. -/
+  α_2 prefactor = adjoint SU(5) structural coupling. -/
 theorem coupling_spectrum_atomic :
     -- α_3 = NS² - 1 = 8
     (alpha_3_channel = 8)

@@ -36,13 +36,7 @@ theorem boolToProp_and (x y : Bool) :
   unfold boolToProp
   cases x <;> cases y <;> simp
 
-end E213.Lens.Properties.Morphism.BoolProp
 
-namespace E213.Lens.Properties.Morphism.BoolProp
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Instances.Reach
 
 /-- **Functorial commutativity**: the images of Raw's universal morphism
     for Bool and for Prop (And) commute via boolToProp.
@@ -75,13 +69,7 @@ theorem universalMorphism_commute (r : Raw) :
         universalMorphism_slash Bool x y h
       rw [h1, h2, boolToProp_and, ihx, ihy]
 
-end E213.Lens.Properties.Morphism.BoolProp
 
-namespace E213.Lens.Properties.Morphism.BoolProp
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Instances.Reach
 
 /-! ### Commutativity of Bool with Xor + Prop with Xor
 
@@ -136,13 +124,7 @@ theorem universalMorphism_commute_xor (r : Raw) :
         @universalMorphism_slash Bool boolXorHasDistinguishing x y h
       rw [h1, h2, boolToProp_xor, ihx, ihy]
 
-end E213.Lens.Properties.Morphism.BoolProp
 
-namespace E213.Lens.Properties.Morphism.BoolProp
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Instances.Reach
 
 /-! ### Functoriality of Or and Iff connective pairs -/
 
@@ -188,13 +170,7 @@ theorem universalMorphism_commute_or (r : Raw) :
         @universalMorphism_slash Bool boolOrHasDistinguishing x y h
       rw [h1, h2, boolToProp_or, ihx, ihy]
 
-end E213.Lens.Properties.Morphism.BoolProp
 
-namespace E213.Lens.Properties.Morphism.BoolProp
-
-open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
-open E213.Lens.Instances.Reach
 
 /-- Bool with beq (= equality on Bool) combine instance. -/
 def boolIffHasDistinguishing : HasDistinguishing Bool where

@@ -50,7 +50,7 @@ theorem hamming_one_flip :
 def optimalCodeLength (n : Nat) : Nat := bitsAfterBisections n
 
 /-- ★ **Source coding atomic identity** ★ — optimal length =
-    log₂(alphabet) = depth on dyadic substrate. -/
+    log₂(alphabet) = depth in dyadic Lens coordinates. -/
 theorem source_coding_optimal (n : Nat) :
     optimalCodeLength n = n := rfl
 

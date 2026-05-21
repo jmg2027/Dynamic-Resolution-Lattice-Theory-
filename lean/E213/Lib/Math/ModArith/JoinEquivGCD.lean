@@ -9,7 +9,7 @@ Together they establish **L_gcd.equiv = JoinEquiv L_m L_k** —
 that is, **L_gcd is the concrete Lens realization of JoinEquiv**
 (for the mod family).
 
-Uses 213-native `gcd213` (∅-axiom) instead of Lean-core `Nat.gcd`.
+Uses the 213-native `gcd213` (∅-axiom).
 -/
 
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
@@ -117,15 +117,7 @@ theorem euclidean_step_JE (m k : Nat)
       (Lens.leaves.view r) (Lens.leaves.view r') (m - k) hd_pos hle h_mod
     exact JoinEquiv.symm (step_plus_nd_JE m k hk hmk r' q r hq)
 
-end E213.Lib.Math.ModArith.JoinEquivGCD
 
-namespace E213.Lib.Math.ModArith.JoinEquivGCD
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
-open E213.Lib.Math.ModArith.JoinGCD
-open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
-open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left succ_sub_self_213)
 
 /-- **Consecutive** at JE level. ∅-axiom. -/
@@ -172,15 +164,7 @@ theorem swap_JE (m k : Nat) (r r' : Raw)
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact JoinEquiv.slash_cong hxy hx'y' ih1 ih2
 
-end E213.Lib.Math.ModArith.JoinEquivGCD
 
-namespace E213.Lib.Math.ModArith.JoinEquivGCD
-
-open E213.Theory E213.Lens
-open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
-open E213.Lib.Math.ModArith.JoinGCD
-open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
-open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left)
 
 /-- **Main theorem (sorted)**: strong induction on m + k, m ≥ k assumed.

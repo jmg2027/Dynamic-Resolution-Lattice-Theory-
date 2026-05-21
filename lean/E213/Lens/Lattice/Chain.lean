@@ -5,7 +5,7 @@ import E213.Lens.Instances.Leaves.RefinesParity
 /-!
 # RefinesChain: explicit chain in the Lens.refines preorder
 
-Concrete witness for the meet-semilattice claim in PAPER1 §3.3:
+Concrete witness for the meet-semilattice claim:
 4-step chain from finest (idLens) → ... → coarsest (constLens).
 
 ## Chain

@@ -14,7 +14,7 @@ more than `M` steps, then it MUST revisit a state.
 
 We formalise the **abstract pigeonhole** at the FSM state-count
 level.  The application to "bit precision saturation at 5^25"
-is conditional on the d=5 substrate's resolution lens.
+is via the d=5 base's resolution Lens.
 -/
 
 namespace E213.Lib.Math.DialogueAudit.PigeonholeFiniteState
@@ -24,28 +24,28 @@ namespace E213.Lib.Math.DialogueAudit.PigeonholeFiniteState
 theorem strict_pigeon (n : Nat) :
     n < n + 1 := Nat.lt_succ_self n
 
-/-- ★ **Pigeonhole at 5²⁵**: the substrate's distinguishable
+/-- ★ **Pigeonhole at 5²⁵**: the atomic-level distinguishable
     state count.  `5²⁵ + 1` queries on a `5²⁵`-state system
     MUST revisit. -/
-theorem pigeonhole_at_n_u :
+theorem pigeonhole_at_n_resolution :
     (5 : Nat) ^ 25 < (5 : Nat) ^ 25 + 1 :=
   strict_pigeon _
 
-/-- ★ **Substrate resolution ceiling**: more than `N_U = 5²⁵`
-    queries cannot produce more than `N_U` distinguishable
+/-- ★ **Atomic resolution ceiling**: more than `N_resolution = 5²⁵`
+    queries cannot produce more than `N_resolution` distinguishable
     results. -/
-theorem substrate_resolution_ceiling :
+theorem atomic_resolution_ceiling :
     (5 : Nat) ^ 25 = 298023223876953125
     ∧ (5 : Nat) ^ 25 + 1 = 298023223876953126 := by
   refine ⟨rfl, ?_⟩
   decide
 
 /-- ★ **Cardinality of distinguishable Cut functions**: bounded
-    by `N_U = 5²⁵` on the d=5 substrate. -/
+    by `N_resolution = 5²⁵` at d=5. -/
 def maxDistinguishableCuts : Nat := (5 : Nat) ^ 25
 
-/-- ★ Max distinguishable = N_U. -/
-theorem maxDistinguishable_eq_n_u :
+/-- ★ Max distinguishable = N_resolution. -/
+theorem maxDistinguishable_eq_n_resolution :
     maxDistinguishableCuts = 298023223876953125 := rfl
 
 end E213.Lib.Math.DialogueAudit.PigeonholeFiniteState

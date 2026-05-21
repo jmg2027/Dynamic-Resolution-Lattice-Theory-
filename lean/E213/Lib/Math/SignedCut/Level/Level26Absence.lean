@@ -4,7 +4,7 @@ import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 /-!
 # Level 26 absence (negative Hurwitz on d=5, ∅-axiom)
 
-The companion to `HurwitzCeiling`: at d=5 substrate, **level 26
+The companion to `HurwitzCeiling`: at d=5 resolution, **level 26
 is structurally absent** because it would require `5^52` distinct
 trajectory branches, which exceeds the substrate's
 distinguishability budget of `5^25 = N_U`.
@@ -50,7 +50,7 @@ theorem level26_overflow_ratio :
     (5 : Nat) ^ 52 = (5 : Nat) ^ 25 * (5 : Nat) ^ 27 := rfl
 
 /-- ★ **Negative Hurwitz on d=5**: the tower cannot extend to
-    level 26 within the substrate's distinguishability budget.
+    level 26 within the count-Lens budget.
     Witness: `5^52 > 5^25 = N_U`. -/
 theorem negative_hurwitz_d5 :
     (5 : Nat) ^ 25 < (5 : Nat) ^ 52

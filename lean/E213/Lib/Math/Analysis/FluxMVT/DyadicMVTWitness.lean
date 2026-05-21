@@ -43,8 +43,7 @@ open E213.Lib.Math.Analysis.DifferentiableHigherPow
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 
 /-- ★ **PURE HasDyadicMVTWitness_at**: pointwise proof field
-    (∀ m k, ...).  No funext, no Quot.sound.  Sole class — function-eq
-    HasDyadicMVTWitness was deleted 2026-05-XX session 27 ('박멸'). -/
+    (∀ m k, ...).  No funext, no Quot.sound. -/
 structure HasDyadicMVTWitness_at
     {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : IsDifferentiable f) where

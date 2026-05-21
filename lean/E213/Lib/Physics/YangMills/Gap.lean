@@ -13,7 +13,10 @@ DRLT answer:
   α_3 SU(NS) Yang-Mills:
     N_eff = 1 (rank exhausted in single hop)
     → propagator confined within single hinge
-    → mass gap = "lowest excitation above confined vacuum"
+    → mass gap = lowest configuration-energy separation in the
+      lattice's ground reading ("vacuum" here is a Lens label for
+      the rank-exhaustion ground configuration, not an external
+      ontological category)
 
   Continuum: gap proof requires nonperturbative methods.
   DRLT: gap = N_eff < ∞.  Combinatorial fact.

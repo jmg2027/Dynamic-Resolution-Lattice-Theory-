@@ -17,7 +17,7 @@ Concrete:
 The dialogue's `≈` was wildly off; exact identity requires
 binomial expansion `(3+2)²⁵ = Σ C(25,k) · 3^k · 2^(25-k)`.
 
-213-native interpretation: at the SUBSTRATE level, `d = N_S +
+213-native interpretation: at the atomic level, `d = N_S +
 N_T = 3 + 2 = 5`.  But the level-25 saturation count is the
 **binomial expansion of `(3+2)²⁵`**, where each term encodes a
 partition of 25 doublings into S-type (3-factor) and T-type
@@ -26,7 +26,7 @@ partition of 25 doublings into S-type (3-factor) and T-type
 
 namespace E213.Lib.Math.BipartiteDecomp.AdditiveCheck
 
-/-- ★ **Atomic sum**: `5 = 3 + 2` at the substrate level
+/-- ★ **Atomic sum**: `5 = 3 + 2` at the atomic level
     (N_S + N_T = d). -/
 theorem substrate_sum : (5 : Nat) = 3 + 2 := rfl
 

@@ -37,22 +37,15 @@ namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 open E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 open E213.Lib.Physics.Basel.Bound
 
-end E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 
-namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
-
-/-! ## §1 — L=1 ζ value (existing) and reference values -/
+/-! ## §1 — L=1 ζ value, gap, and Basel partial sum references -/
 
 /-- ζ_K(1) at fractal level L=1 = 23/15.  From `LaplacianSpectrum.lean`. -/
 def zeta_K_L1_num : Nat := 23
 def zeta_K_L1_den : Nat := 15
 
-theorem zeta_K_L1_eq : zeta_K_L1_num = 23 ∧ zeta_K_L1_den = 15 := by decide
-
 /-- Numerical: 23/15 = 1.533... in 10⁻³ units = 1533.  -/
 def zeta_K_L1_e3 : Nat := zeta_K_L1_num * 1000 / zeta_K_L1_den
-
-theorem zeta_K_L1_e3_eq_1533 : zeta_K_L1_e3 = 1533 := by decide
 
 /-- ζ(2) = π²/6 ≈ 1.6449.  In 10⁻³ units: 1644 (truncated). -/
 def zeta_2_continuum_e3 : Nat := 1644  -- ≈ π²/6 · 10³ truncated
@@ -60,42 +53,12 @@ def zeta_2_continuum_e3 : Nat := 1644  -- ≈ π²/6 · 10³ truncated
 /-- Gap |ζ_K(L=1) − ζ(2)| at 10⁻³ precision: |1533 − 1644| = 111. -/
 def gap_L1_e3 : Nat := zeta_2_continuum_e3 - zeta_K_L1_e3
 
-theorem gap_L1_e3_eq_111 : gap_L1_e3 = 111 := by decide
-
-/-- Relative gap: 111/1644 ≈ 6.75% ≈ 7%.  Within 10% (decide-checked). -/
-theorem gap_L1_within_10pct :
-    gap_L1_e3 * 10 < zeta_2_continuum_e3 + 200 := by decide
-
-/-! ## §2 — Basel partial sum reference values
-
-  S(N) = Σ_{k=1..N} 1/k² brackets ζ(2) from below.  Hard-coded
-  at small N (matches `Basel/Bound.lean S(2) = (5, 4)`,
-  `S(3) = (49, 36)`):
-    S(2) = 5/4 = 1.250
-    S(3) = 49/36 ≈ 1.3611. -/
-
 /-- S(2) in 10⁻³ units: ⌊5/4 · 1000⌋ = 1250. -/
 def S_2_e3 : Nat := 5 * 1000 / 4
-theorem S_2_e3_eq_1250 : S_2_e3 = 1250 := by decide
 
 /-- S(3) in 10⁻³ units: ⌊49/36 · 1000⌋ = 1361. -/
 def S_3_e3 : Nat := 49 * 1000 / 36
-theorem S_3_e3_eq_1361 : S_3_e3 = 1361 := by decide
 
-/-- S(2) BELOW ζ_K(L=1): 1250 < 1533. -/
-theorem S2_below_zeta_K_L1 : S_2_e3 < zeta_K_L1_e3 := by decide
-
-/-- S(3) BELOW ζ_K(L=1): 1361 < 1533. -/
-theorem S3_below_zeta_K_L1 : S_3_e3 < zeta_K_L1_e3 := by decide
-
-/-- ζ_K(L=1) sandwich: S(3) < ζ_K(L=1) < ζ(2). -/
-theorem zeta_K_L1_between_S3_and_zeta_2 :
-    S_3_e3 < zeta_K_L1_e3 ∧ zeta_K_L1_e3 < zeta_2_continuum_e3 := by
-  refine ⟨?_, ?_⟩ <;> decide
-
-end E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
-
-namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 
 /-! ## §3 — Master fractal-level ζ-bracket theorem (C5 step 1) -/
 
@@ -129,11 +92,14 @@ theorem fractal_zeta_bracket_master :
     ∧ zeta_K_L1_e3 = 1533
     -- (iii) Basel reference values
     ∧ S_2_e3 = 1250 ∧ S_3_e3 = 1361
-    -- (iv) Sandwich
+    -- S(2) and S(3) both BELOW ζ_K(L=1)
+    ∧ S_2_e3 < zeta_K_L1_e3
     ∧ S_3_e3 < zeta_K_L1_e3
+    -- (iv) Sandwich
     ∧ zeta_K_L1_e3 < zeta_2_continuum_e3
-    -- (v) Gap ≈ 111
-    ∧ gap_L1_e3 = 111 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    -- (v) Gap ≈ 111, within 10% relative
+    ∧ gap_L1_e3 = 111
+    ∧ gap_L1_e3 * 10 < zeta_2_continuum_e3 + 200 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket

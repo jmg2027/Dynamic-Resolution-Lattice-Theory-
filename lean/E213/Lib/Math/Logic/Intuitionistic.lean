@@ -6,9 +6,9 @@ import E213.Lib.Math.Logic.Predicate
 213 is constructive: every theorem must show a *witness*.  Without
 Choice, LEM (`p ∨ ¬p` for arbitrary `p`) is **not** automatic.
 
-But on Bool — the substrate-native truth space — LEM **does** hold
-*atomically*: `b ∨ ¬b = true` for every `Bool`.  So the
-constructive/classical distinction collapses on the substrate.
+But on Bool — the native decidable truth type — LEM **does** hold
+*atomically*: `b ∨ ¬b = true` for every `Bool`.  So at the Bool
+level the constructive and classical readings coincide.
 
 This file:
 
@@ -17,8 +17,9 @@ This file:
   * `decidable_predicate`: Cut-style predicates are decidable at every
     `(m, k)` — no Classical.dec needed.
 
-Off-substrate (Prop-level) LEM is *not* asserted.  This is the
-"constructive only as feature" spirit of the framework.
+At the Prop level (where decidability is not assumed), LEM is
+*not* asserted.  This is the "constructive only as feature"
+character of the framework.
 -/
 
 namespace E213.Lib.Math.Logic.Intuitionistic
@@ -26,16 +27,16 @@ namespace E213.Lib.Math.Logic.Intuitionistic
 open E213.Lib.Math.Logic.Predicate
 
 /-- ★ **Bool LEM is atomic** ★ — every Bool is either true or
-    false; this is *not* the propext-laden classical LEM but a
-    direct decidable Bool fact. -/
+    false; this is a direct decidable Bool computation, distinct
+    from the propext-based Prop-level LEM. -/
 theorem bool_lem (b : Bool) : b = true ∨ b = false := by
   cases b
   · exact Or.inr rfl
   · exact Or.inl rfl
 
 /-- ★ **Predicate LEM at every point** ★ — `p m k = true ∨ p m k = false`.
-    The constructive/classical distinction collapses on the dyadic
-    substrate: each query has a decided Bool answer. -/
+    At the Bool level the constructive and classical readings
+    coincide: each query has a decided Bool answer. -/
 theorem predicate_lem (p : Predicate) (m k : Nat) :
     p m k = true ∨ p m k = false := bool_lem (p m k)
 

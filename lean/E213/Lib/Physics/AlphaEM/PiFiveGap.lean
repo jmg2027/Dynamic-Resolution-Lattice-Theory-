@@ -55,12 +55,6 @@ namespace E213.Lib.Physics.AlphaEM.PiFiveGap
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
-
 /-! ## §1 — Observed gap (10⁻⁷ scale)
 
   Standard precision: 137.0359991 − 137.0354548 = 0.0005443
@@ -75,7 +69,6 @@ def observed_e7 : Nat := 1370359991
 /-- Observed structural gap × 10⁷. -/
 def gap_e7 : Nat := observed_e7 - baseline_5term_e7
 
-theorem gap_e7_eq_5443 : gap_e7 = 5443 := by decide
 
 /-! ## §2 — Numerical check: 1/(NS·NT·π⁵) at fixed-precision π
 
@@ -109,12 +102,6 @@ def pi5_gap_e7 : Nat :=
 
 theorem pi5_gap_e7_eq_5446 : pi5_gap_e7 = 5446 := by decide
 
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
-
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
-
 /-! ## §3 — α_GUT/45 reference value (existing SO(10) correction)
 
   α_GUT = 6/(25·π²) ≈ 0.024327
@@ -132,48 +119,34 @@ def pi2_e10 : Nat := 98696044011    -- π² ≈ 9.8696044010893...
 def alpha_gut_45_e7 : Nat :=
   60000000 * 10000000000 / (1125 * pi2_e10)
 
-theorem alpha_gut_45_e7_eq_5403 : alpha_gut_45_e7 = 5403 := by decide
+/-! ## §4 — Distances + master gap-comparison theorem
 
-/-! ## §4 — Comparison: which is closer to observed gap? -/
+The distance defs below feed the master theorem.  All numeric
+sub-facts (gap_e7 = 5443, pi5_gap_e7 = 5446, distances = 3 / 40)
+are conjuncts of the master, so they are stated once there
+rather than as intermediate one-liners. -/
 
-/-- Distance from observed gap to 1/(6π⁵) candidate.
-    |5446 - 5443| = 3. -/
+/-- Distance from observed gap to 1/(6π⁵) candidate. -/
 def pi5_gap_distance : Nat :=
   if pi5_gap_e7 ≥ gap_e7 then pi5_gap_e7 - gap_e7 else gap_e7 - pi5_gap_e7
 
-theorem pi5_gap_distance_eq_3 : pi5_gap_distance = 3 := by decide
-
-/-- Distance from observed gap to α_GUT/45 (integer division floor):
-    |5443 - 5403| = 40. -/
+/-- Distance from observed gap to α_GUT/45. -/
 def alpha_gut_45_distance : Nat :=
   if alpha_gut_45_e7 ≥ gap_e7 then alpha_gut_45_e7 - gap_e7
   else gap_e7 - alpha_gut_45_e7
-
-theorem alpha_gut_45_distance_eq_40 : alpha_gut_45_distance = 40 := by decide
-
-/-- ★★★★★ 1/(NS·NT·π⁵) is ~10× closer to the observed structural
-    gap than α_GUT/45.  Both are at the 10⁻⁴ scale, but the π⁵ form
-    matches at 10⁻⁷ residual vs α_GUT/45's 10⁻⁶ residual. -/
-theorem pi5_closer_than_alpha_gut_45 :
-    pi5_gap_distance * 10 < alpha_gut_45_distance := by decide
-
-end E213.Lib.Physics.AlphaEM.PiFiveGap
-
-namespace E213.Lib.Physics.AlphaEM.PiFiveGap
-
-/-! ## §5 — Master numerical gap-comparison theorem -/
 
 /-- ★★★★★ π⁵ structural gap conjecture — numerical evidence.
     STRICT ∅-AXIOM (rational arithmetic at 9-digit precision).
 
     Compares the user's proposed gap term `1/(NS·NT·π⁵)` to the
     existing `α_GUT/(NS²·d) = α_GUT/45` SO(10) correction, against
-    the observed structural gap of 137.0359991 − 137.0354548
+    the bracket-gap (two-Lens difference) of 137.0359991 − 137.0354548
     = 5443 × 10⁻⁷.
 
-    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ matches the observed gap to
-    within 3 × 10⁻⁷, while α_GUT/45 ≈ 5403 × 10⁻⁷ matches only to
-    40 × 10⁻⁷.  The π⁵ form is **~13× closer**.
+    Result: 1/(6·π⁵) ≈ 5446 × 10⁻⁷ agrees with the bracket gap
+    (count-Lens vs measurement-Lens difference) within 3 × 10⁻⁷;
+    α_GUT/45 ≈ 5403 × 10⁻⁷ agrees only within 40 × 10⁻⁷.  The π⁵
+    form brackets the two-Lens difference **~13× more tightly**.
 
     This is numerical evidence (not proof) that
         Δ_gap_213 := 1/(NS · NT · S_Wallis(N_U)⁵)
@@ -202,5 +175,33 @@ theorem pi5_gap_master :
     -- π⁵ form is ~13× closer
     ∧ pi5_gap_distance * 10 < alpha_gut_45_distance := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ## §6 — Bracket form of the precision claim
+
+  The strict ratio of distances is `40 / 3` between the two
+  candidate gap-terms.  At the level of 10⁻⁷ precision, this
+  bracket statement captures the structural improvement of the
+  π⁵ form independent of the absolute precision of π_e9.
+-/
+
+/-- ★ **Bracket: π⁵ residual < α_GUT/45 residual / 13**.  Strict
+    integer inequality showing the π⁵ form's residual gap distance
+    of 3 × 10⁻⁷ is less than `40 / 13 = 3.077... × 10⁻⁷` — i.e.,
+    strictly within 1/13 of the α_GUT/45 residual. -/
+theorem pi5_residual_thirteen_bracket :
+    13 * pi5_gap_distance < alpha_gut_45_distance + 1 := by decide
+
+/-- ★ **NS·NT shared block**: at the integer-skeleton level,
+    `1/(NS·NT) = 1/6` reads from `NS · NT = 6 = d + 1`, anchoring
+    the π⁵ coefficient to the same `(NS·NT)` block that appears
+    in `m_p/m_e = NS·NT·π⁵` (Hadron/ProtonElectronRatio).  Two
+    distinct precision observables share the same `NS·NT·π⁵`
+    structural skeleton — see `Capstones.NSNTPi5Block` for the
+    cross-observable bridge. -/
+theorem pi5_ns_nt_block :
+    NS * NT = 6
+    ∧ NS * NT = d + 1
+    ∧ NS + NT = d := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.PiFiveGap
