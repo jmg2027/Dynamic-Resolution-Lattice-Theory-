@@ -152,4 +152,153 @@ inversion (no `propext`-tainted Int ordering iff lemmas). -/
     ∀ (x : Int), x * x ≤ (1 : Int) → x = -1 ∨ x = 0 ∨ x = 1 :=
   E213.Meta.Int213.int_sq_le_one
 
+/-! ## §6.  Diophantine completeness — ∀ u, normSq u = 1 → u ∈ units6 -/
+
+/-- Auxiliary: bound `u.im * u.im ≤ 1` from `normSq u = 1`.
+    Uses the 4·normSq ring identity + Int square non-negativity.  PURE. -/
+private theorem im_sq_le_one (u : ZOmega) (h : u.normSq = 1) :
+    u.im * u.im ≤ 1 := by
+  -- 4·normSq = (2re-im)² + 3·im² = 4·1 = 4
+  -- (2re-im)² ≥ 0 → 3·im² ≤ 4 → im² ≤ 1
+  have h_id := E213.Meta.Int213.four_normSq_ring_identity u.re u.im
+  -- h_id : (2*re + -im)*(2*re + -im) + 3*(im*im) = 4*(re*re + -(re*im) + im*im)
+  -- normSq u = re*re - re*im + im*im = re*re + -(re*im) + im*im (defeq)
+  have h_normSq_eq : u.re * u.re + -(u.re * u.im) + u.im * u.im = 1 := h
+  -- Multiply RHS of h_id by 4: 4 * normSq = 4
+  have h_four : 4 * (u.re * u.re + -(u.re * u.im) + u.im * u.im) = 4 := by
+    rw [h_normSq_eq]
+    rfl
+  -- So LHS of h_id = 4
+  have h_lhs_four : (2*u.re + -u.im) * (2*u.re + -u.im) + 3 * (u.im * u.im) = 4 :=
+    h_id.trans h_four
+  -- (2re-im)² ≥ 0
+  have h_sq_nn : 0 ≤ (2*u.re + -u.im) * (2*u.re + -u.im) :=
+    E213.Meta.Int213.int_sq_nonneg _
+  -- 3·im² ≤ 4 via le_of_add_eq_of_nonneg
+  have h_3im_le : 3 * (u.im * u.im) ≤ 4 :=
+    E213.Meta.Int213.le_of_add_eq_of_nonneg h_lhs_four h_sq_nn
+  -- im² ≤ 1
+  exact E213.Meta.Int213.three_sq_le_four_implies u.im h_3im_le
+
+/-- Solve `re² - re·im + im² = 1` for Int re given im ∈ {-1, 0, 1}.
+    PURE.  Returns explicit re value from the 6-element solution set. -/
+private theorem re_solve_for_im_zero (re : Int) (h : re * re - re * 0 + 0 * 0 = 1) :
+    re = -1 ∨ re = 1 := by
+  -- normSq with im=0: re*re - 0 + 0 = re*re = 1
+  -- So re² = 1, by int_sq_le_one re ∈ {-1, 0, 1}; only ±1 give re² = 1
+  have h_eq : re * re = 1 := by
+    have : re * re - re * 0 + 0 * 0 = re * re := by
+      show re * re + -(re * 0) + 0 * 0 = re * re
+      rw [Int.mul_zero, Int.neg_zero, Int.zero_mul]
+      show re * re + 0 + 0 = re * re
+      rw [Int.add_zero, Int.add_zero]
+    rw [this] at h
+    exact h
+  -- re*re = 1 ⇒ re*re ≤ 1, apply int_sq_le_one
+  have h_le : re * re ≤ 1 := h_eq ▸ Int.le_refl 1
+  rcases E213.Meta.Int213.int_sq_le_one re h_le with h_n | h_z | h_p
+  · left; exact h_n
+  · exfalso
+    rw [h_z] at h_eq
+    exact absurd h_eq (by decide)
+  · right; exact h_p
+
+/-- Symmetric bound: `u.re * u.re ≤ 1` from `normSq u = 1` (via swapping
+    roles of re/im in the 4·normSq identity).  PURE. -/
+private theorem re_sq_le_one (u : ZOmega) (h : u.normSq = 1) :
+    u.re * u.re ≤ 1 := by
+  -- Apply ring identity with arguments swapped (b ↦ re, a ↦ im)
+  have h_id := E213.Meta.Int213.four_normSq_ring_identity u.im u.re
+  -- h_id : (2*im + -re)*(2*im + -re) + 3*(re*re) = 4*(im*im + -(im*re) + re*re)
+  -- normSq = re² - re·im + im² = im² - im·re + re² (after mul_comm and add_comm)
+  have h_normSq_eq : u.im * u.im + -(u.im * u.re) + u.re * u.re = 1 := by
+    show u.im * u.im + -(u.im * u.re) + u.re * u.re = 1
+    have h_orig : u.re * u.re + -(u.re * u.im) + u.im * u.im = 1 := h
+    -- u.re * u.im = u.im * u.re by mul_comm
+    rw [show u.im * u.re = u.re * u.im from E213.Meta.Int213.mul_comm u.im u.re]
+    -- Now: u.im * u.im + -(u.re * u.im) + u.re * u.re = 1
+    -- which equals u.re * u.re + -(u.re * u.im) + u.im * u.im (after reordering)
+    rw [E213.Meta.Int213.add_comm (u.im * u.im) (-(u.re * u.im))]
+    rw [E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm (u.im * u.im) (u.re * u.re),
+        ← E213.Meta.Int213.add_assoc]
+    rw [E213.Meta.Int213.add_comm (-(u.re * u.im)) (u.re * u.re)]
+    exact h_orig
+  have h_four : 4 * (u.im * u.im + -(u.im * u.re) + u.re * u.re) = 4 := by
+    rw [h_normSq_eq]; rfl
+  have h_lhs_four : (2*u.im + -u.re) * (2*u.im + -u.re) + 3 * (u.re * u.re) = 4 :=
+    h_id.trans h_four
+  have h_sq_nn : 0 ≤ (2*u.im + -u.re) * (2*u.im + -u.re) :=
+    E213.Meta.Int213.int_sq_nonneg _
+  have h_3re_le : 3 * (u.re * u.re) ≤ 4 :=
+    E213.Meta.Int213.le_of_add_eq_of_nonneg h_lhs_four h_sq_nn
+  exact E213.Meta.Int213.three_sq_le_four_implies u.re h_3re_le
+
+/-- ★★★★ **Diophantine completeness**: every `u : ZOmega` with
+    `normSq u = 1` is one of the six listed Eisenstein units.
+
+    Bounds `u.re, u.im ∈ {-1, 0, 1}` (via 4·normSq ring identity +
+    Int square non-negativity), then enumerates the 9 candidates and
+    decides which are units.  Exactly 6 satisfy `normSq = 1` — exactly
+    `units6`.
+
+    Combined with §1-§2 (the 6 units exist), this proves
+    **`|ZOmega^×| = 6` exactly** — closing the structural side of the
+    6-theorem (G87 §5).  PURE.  -/
+theorem normSq_one_in_units6 (u : ZOmega) (h : u.normSq = 1) :
+    units6.contains u = true := by
+  have h_im := E213.Meta.Int213.int_sq_le_one u.im (im_sq_le_one u h)
+  have h_re := E213.Meta.Int213.int_sq_le_one u.re (re_sq_le_one u h)
+  have h_u_form : u = ⟨u.re, u.im⟩ := by cases u; rfl
+  rcases h_re with h_re_eq | h_re_eq | h_re_eq
+  -- re = -1
+  · rcases h_im with h_im_eq | h_im_eq | h_im_eq
+    -- im = -1
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+    -- im = 0
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+    -- im = 1: normSq = 1 + 1 + 1 = 3, contradicts h
+    · exfalso; rw [h_u_form, h_re_eq, h_im_eq] at h; exact absurd h (by decide)
+  -- re = 0
+  · rcases h_im with h_im_eq | h_im_eq | h_im_eq
+    -- im = -1
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+    -- im = 0: normSq = 0
+    · exfalso; rw [h_u_form, h_re_eq, h_im_eq] at h; exact absurd h (by decide)
+    -- im = 1
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+  -- re = 1
+  · rcases h_im with h_im_eq | h_im_eq | h_im_eq
+    -- im = -1: normSq = 1 - (1*-1) + 1 = 3
+    · exfalso; rw [h_u_form, h_re_eq, h_im_eq] at h; exact absurd h (by decide)
+    -- im = 0
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+    -- im = 1
+    · rw [h_u_form, h_re_eq, h_im_eq]; decide
+
+/-! ## §7.  ★★★★★ The exact-cardinality capstone -/
+
+/-- ★★★★★ **`|ZOmega^×| = 6` exactly** — the full structural identity.
+
+    Two-direction characterisation of Eisenstein units:
+      (1) Each `u ∈ units6` satisfies `normSq u = 1`  (§2: `units6_normSq_one`).
+      (2) Every `u : ZOmega` with `normSq u = 1` is in `units6`  (§6: `normSq_one_in_units6`).
+    Together with `units6_length = 6` and `units6_nodup`, this proves
+    `|{u : ZOmega | normSq u = 1}| = 6` exactly — the structural side
+    of the 6-theorem (G87 §5) now fully closed.
+
+    PURE.  Bundle of two PURE directions. -/
+theorem ZOmega_units_exact_six :
+    -- Forward: each listed unit has normSq = 1
+    (∀ u ∈ units6, u.normSq = 1)
+    -- Backward: every normSq = 1 element is in the list
+    ∧ (∀ u : ZOmega, u.normSq = 1 → units6.contains u = true)
+    -- Cardinality count
+    ∧ units6.length = 6
+    -- = NS · NT (the central identity of the 6-theorem)
+    ∧ units6.length = NS * NT
+    -- No duplicates
+    ∧ units6.Nodup := by
+  refine ⟨units6_normSq_one, normSq_one_in_units6, units6_length,
+          units_count_eq_NSNT, units6_nodup⟩
+
 end E213.Lib.Math.CayleyDickson.Integer.ZOmega

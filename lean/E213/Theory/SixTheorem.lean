@@ -129,4 +129,45 @@ theorem six_theorem :
   · show (1 : Int) + (-7) = -((6 : Nat) : Int)
     decide
 
+/-! ## §3.  ★★★★★★★ Structural-side closure: `|ZOmega^×| = 6` exactly
+
+The numerical 6-theorem master above unifies 10 readings on
+`units6.length = 6`.  The **structural side** — proving that
+`units6` is exactly the set of all Eisenstein units (no more, no
+fewer) — was the remaining piece flagged in G87 §5.
+
+This closure was completed via the diophantine bound chain:
+  · `four_normSq_ring_identity` (`Meta/Int213/Bound.lean §3`):
+      `(2a − b)² + 3·b² = 4·(a² − ab + b²)` (Int ring algebra)
+  · `int_sq_nonneg`, `three_sq_le_four_implies`,
+    `le_of_add_eq_of_nonneg` (`Meta/Int213/Bound.lean §4`):
+      diophantine helpers
+  · `normSq_one_in_units6`, `ZOmega_units_exact_six`
+    (`ZOmegaUnits.lean §6-§7`): the exact-cardinality theorem
+-/
+
+open E213.Lib.Math.CayleyDickson.Integer.ZOmega
+  (normSq_one_in_units6 ZOmega_units_exact_six)
+
+/-- ★★★★★★★★★★★ **6-theorem structural closure** — adds the
+    BACKWARD direction (every Eisenstein unit is listed) completing
+    the exact cardinality count.
+
+    Combined with `six_theorem` (numerical) above, the 6-theorem
+    is fully closed at BOTH numerical (10 readings agree) AND
+    structural (`|ZOmega^×| = 6` exactly) levels.  PURE. -/
+theorem six_theorem_structural :
+    -- (a) FORWARD: each listed unit is an Eisenstein unit
+    (∀ u ∈ units6, u.normSq = 1)
+    -- (b) BACKWARD: every Eisenstein unit is in the list
+    ∧ (∀ u : E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega,
+         u.normSq = 1 → units6.contains u = true)
+    -- (c) Count exactly 6
+    ∧ units6.length = 6
+    -- (d) = NS · NT (atomicity bridge)
+    ∧ units6.length = NS * NT
+    -- (e) No duplicates
+    ∧ units6.Nodup :=
+  ZOmega_units_exact_six
+
 end E213.Theory.SixTheorem
