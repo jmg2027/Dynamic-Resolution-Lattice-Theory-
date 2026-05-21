@@ -39,34 +39,13 @@ open E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
 /-- 2⁻ᴺ in 10⁻⁵ units: 10⁵ / 2ᴺ. -/
 def two_neg_N_e5 (N : Nat) : Nat := 100000 / (2 ^ N)
 
-theorem two_neg_0_e5 : two_neg_N_e5 0 = 100000 := by decide
-theorem two_neg_1_e5 : two_neg_N_e5 1 = 50000 := by decide
-theorem two_neg_2_e5 : two_neg_N_e5 2 = 25000 := by decide
-theorem two_neg_3_e5 : two_neg_N_e5 3 = 12500 := by decide
-theorem two_neg_4_e5 : two_neg_N_e5 4 = 6250 := by decide
-
-/-! ## §2 — `gap_e5` is below `2⁻³` at L=1 -/
-
-/-- The Step 4 gap `|ζ_K^(L=1)(1) − ζ(2)|_{e5} = 11161` is below
-    `2⁻³ · 10⁵ = 12500`, witnessing 3-bit precision at L=1. -/
-theorem gap_below_2_neg_3 : zeta_gap_L1_e5 < two_neg_N_e5 3 := by decide
-
-/-- The gap is NOT yet below 2⁻⁴ — i.e., L=1 gives only 3 bits. -/
-theorem gap_above_2_neg_4 : two_neg_N_e5 4 < zeta_gap_L1_e5 := by decide
-
-/-! ## §3 — DepthModulus encoding -/
+/-! ## §2 — DepthModulus encoding -/
 
 /-- Conjectural fractal-level modulus: at output bit-depth N,
     required input level L = N (1 bit per fractal step).  This is
     the IDENTITY DepthModulus (= classical "Cauchy completion"
     ⟨bound→delta⟩ in 213-discrete form). -/
 def zeta_modulus : DepthModulus := fun N => N
-
-theorem zeta_modulus_at_3 : zeta_modulus 3 = 3 := rfl
-
-/-- The `zeta_modulus` is exactly `identityDepthModulus`. -/
-theorem zeta_modulus_eq_identity (N : Nat) :
-    zeta_modulus N = N := rfl
 
 /-! ## §4 — Master C5 Step 6 -/
 
@@ -85,15 +64,29 @@ theorem zeta_modulus_eq_identity (N : Nat) :
     pattern; the `identityDepthModulus` form makes this explicit
     rather than existential. -/
 theorem fractal_zeta_modulus_master :
-    -- (i) 2⁻ᴺ table
-    two_neg_N_e5 3 = 12500
+    -- (i) 2⁻ᴺ table (full, N = 0..4)
+    two_neg_N_e5 0 = 100000
+    ∧ two_neg_N_e5 1 = 50000
+    ∧ two_neg_N_e5 2 = 25000
+    ∧ two_neg_N_e5 3 = 12500
     ∧ two_neg_N_e5 4 = 6250
-    -- (ii) Step 4 gap below 2⁻³
+    -- (ii) Step 4 gap is below 2⁻³ but above 2⁻⁴ (= 3-bit precision)
     ∧ zeta_gap_L1_e5 < two_neg_N_e5 3
     ∧ two_neg_N_e5 4 < zeta_gap_L1_e5
-    -- (iii) DepthModulus is identity
+    -- (iii) DepthModulus is identity (∀ N, zeta_modulus N = N)
     ∧ zeta_modulus 3 = 3
-    ∧ zeta_modulus 100 = 100 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ zeta_modulus 100 = 100
+    ∧ (∀ N : Nat, zeta_modulus N = N) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · intro _; rfl
 
 end E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
