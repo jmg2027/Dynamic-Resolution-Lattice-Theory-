@@ -1,8 +1,30 @@
 # Session Handoff — 2026-05-21 (Theorem-density reduction pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 131 session
-commits (239 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 139 session
+commits (247 total ahead of `main`).  All commits pushed.
+
+## Latest waves (extending 2026-05-21)
+
+Additional commits beyond the initial wave list:
+  · HodgeConjecture/Bridge/SpinGlass 17→1
+  · HodgeConjecture/Bridge/MLDecoder 15→1
+  · Symmetry/AutEdgeOrbits 18→1
+  · Geometry/AlgebraicGeometry 25→4 (3 headlines + 1 supp.)
+  · Hadron/ProtonMass 11→1, Hadron/Masses 9→1,
+    Hadron/QuarkHierarchy 9→1
+  · Mixing/NeutrinoMixing 13→1
+  · Nuclear/Binding 9→1
+  · Probability/Bridge/Bayesian 9→2
+  · Probability/Inequality/ChernoffGrade 8→2
+  · Probability/Distribution/BetaNormalized 9→1, Binomial 7→1
+  · Probability/Foundation/Bernoulli 4→2, Independence 9→5,
+    SampleMean 8→6
+  · SignedCut/Core/Algebra 10→5
+
+Combined session totals: ~580 theorems folded into ~150 masters
+across 50+ files.  Build clean; ∅-axiom contracts preserved on all
+externally-consumed names; defs preserved everywhere.
 
 ## Most recent work (2026-05-21 continuation)
 
