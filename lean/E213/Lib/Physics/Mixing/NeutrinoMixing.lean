@@ -45,140 +45,45 @@ open E213.Lib.Physics.Simplex.Counts
 /-- sin²θ₁₂ leading: 1/NS = 1/3. -/
 def sin2_12_leading_denom : Nat := NS
 
-theorem sin2_12_eq_1_3 : sin2_12_leading_denom = 3 := by decide
-
 /-- sin²θ₂₃ leading: 1/NT = 1/2.  Maximal mixing structurally. -/
 def sin2_23_leading_denom : Nat := NT
-
-theorem sin2_23_eq_1_2 : sin2_23_leading_denom = 2 := by decide
-
-/-- sin²θ₁₃ leading order = α_GUT (single primitive).
-    Prefactor = 1 (no integer prefactor). -/
-theorem sin2_13_leading_is_alpha_GUT :
-    -- α_GUT itself is 6/(25π²), structural primitive
-    -- This file just notes that sin²θ₁₃ leading = α_GUT (no extra factor)
-    True := trivial
 
 /-- δ_CP correction denom: d² − 1 = 24 = adjoint SU(5). -/
 def delta_CP_denom : Nat := d * d - 1
 
-theorem delta_CP_eq_24 : delta_CP_denom = 24 := by decide
+/-- ★ Capstone — PMNS same simplicial pattern ★
 
-/-- δ_CP leading degrees: 180° + 360°/(d²-1) = 180° + 15°.
-    Cross-mult: 360/24 = 15. -/
-theorem delta_CP_leading_eq_195 :
-    delta_CP_denom = 24
-    ∧ 360 / 24 = 15
-    ∧ 180 + 15 = 195 := by decide
+  All four PMNS angle leadings are single lattice primitives.
+  PMNS follows the same atomicity-locked pattern as α_em IR,
+  m_μ/m_e, m_H, Ω_Λ (adjoint SU(5) = d²−1 = 24 appears here too).
 
-/-- All four PMNS angle leadings are single lattice primitives. -/
-theorem all_PMNS_leadings_atomic :
-    -- θ₁₂ leading = 1/NS
-    (sin2_12_leading_denom = NS)
-    -- θ₂₃ leading = 1/NT
-    ∧ (sin2_23_leading_denom = NT)
-    -- δ_CP denom = d²-1 = 24 (adjoint!)
-    ∧ (delta_CP_denom = 24)
-    -- All from {NS, NT, d}
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
-
-/-- ★ Adjoint SU(5) appears in PMNS too ★
-    d²-1 = 24 appears in PMNS δ_CP →
-    PMNS follows the same pattern as α_em IR, m_μ/m_e, m_H, Ω_Λ. -/
-theorem adjoint_in_PMNS :
-    delta_CP_denom = d * d - 1
-    ∧ d * d - 1 = (d - 1) * (d + 1) := by decide
-
-/-- ★ Capstone — PMNS same simplicial pattern ★ -/
+  Bundles:
+    · sin²θ₁₂ leading 1/NS, sin²θ₂₃ leading 1/NT, sin²θ₁₃ ↔ α_GUT
+    · δ_CP denom (d²−1) = 24, 360/24 = 15, 180+15 = 195°
+    · sin²θ₁₃ tighter (Class D, 14 ppm vs PDG): NT² and NS·NT
+      coefficient identities + NS·NT = d+1 spoke-count
+    · sin²θ₁₂ Pythagorean rational (4/13, 0.054σ vs PDG):
+      Pythagorean magnitude NS² + NT² = 13, ratio NT²/(NS²+NT²) = 4/13
+    · Adjoint-SU(5) factorization (d−1)·(d+1) = d²−1
+    · Atomic primitives. -/
 theorem PMNS_simplicial_pattern :
-    -- sin²θ₁₂: 1/NS leading
-    (sin2_12_leading_denom = NS)
-    -- sin²θ₂₃: 1/NT leading
-    ∧ (sin2_23_leading_denom = NT)
-    -- δ_CP: 180 + 360/(d²-1) = 195°
-    ∧ (delta_CP_denom = 24)
-    ∧ (360 / 24 = 15)
-    -- All atomic
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
-
-/-! ## sin²θ₁₃ tighter — Class D triple cup (2026-05-01)
-
-Per Hunter Methodology Lesson L3, composite-particle / mixing
-observables benefit from triple cup-chain structure:
-
-  sin²θ₁₃ = α_GUT · (1 − NT² · α_GUT) · (1 + NS·NT · α_GUT²)
-          = α_GUT · (1 − 4·α_GUT) · (1 + 6·α_GUT²)
-
-  DRLT  = 0.022029685
-  PDG   = 0.02203 ± 0.00058 (NuFIT, ±26000 ppm experimental)
-  |Δ|   ≈ 14 ppm  ★ (was 3550 ppm — 250× tighter; 0.0005σ vs PDG)
-
-Atomic readings:
-  NT² = 4  : chirality (also = d−1 = NS+1)
-  NS·NT = 6: bipartite spoke count (also = d+1)
-
-Both coefficients reused from g_p (Class D triple cup) and
-m_n/m_p infrastructure — same K_25 cup-chain anchors. -/
-
-/-- α_GUT leading α_GUT-correction coefficient: NT² = 4. -/
-theorem sin2_13_alpha_GUT_coef : NT ^ 2 = 4 := by decide
-
-/-- α_GUT² coefficient: NS·NT = 6 (also d+1, bipartite spoke count). -/
-theorem sin2_13_alpha_GUT2_coef :
-    NS * NT = 6 ∧ d + 1 = NS * NT := by decide
-
-/-- ★★ sin²θ₁₃ tighter atomic skeleton (Class D, 14 ppm vs PDG).
-    All coefficients atomic in (NS, NT, d) primitives. -/
-theorem sin2_13_v2_atomic :
-    NS = 3 ∧ NT = 2 ∧ d = 5
-    -- α_GUT correction: NT² = 4
-    ∧ NT ^ 2 = 4
-    -- α_GUT² correction: NS·NT = 6 = d+1
-    ∧ NS * NT = 6
-    ∧ d + 1 = NS * NT := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-! ## sin²θ₁₂ — Pythagorean rational (L1-strong, 2026-05-01)
-
-User-driven principle: in DRLT every G_ij entry is rational-complex,
-including phase (sin/cos rational, Pythagorean-triple style).
-Direct application to PMNS:
-
-  tan θ₁₂ = NT / NS = 2/3
-  ⇒  sin²θ₁₂ = NT² / (NS² + NT²) = 4 / 13 = 0.307692…
-
-  PDG global fit = 0.307 ± 0.013  (42000 ppm experimental)
-  |Δ|            ≈ 2255 ppm  ★ (was 8500 ppm via 1/NS=1/3 leading)
-                = 0.054σ — well inside experimental
-
-★ The atomic count 13 = NS² + NT² is the Pythagorean magnitude
-of the (NS, NT) lattice — this is the SIMPLEST possible
-rational closed form for a mixing-angle observable, requiring
-NO α corrections.
-
-Reading: PMNS solar mixing is the angle of the diagonal in the
-(NS, NT) atomic-coordinate plane — exactly the most basic
-Pythagorean-triple sin²/cos² configuration.
--/
-
-/-- ★★ Pythagorean magnitude: NS² + NT² = 13. -/
-theorem pythagorean_13 :
-    NS ^ 2 + NT ^ 2 = 13
-    ∧ NS = 3 ∧ NT = 2 := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
-
-/-- ★★★ sin²θ₁₂ = NT²/(NS²+NT²) = 4/13.
-    Pure Pythagorean rational, NO α corrections, 0.054σ vs PDG.
-    Verifies L1-strong principle: rational sin/cos via Pythagorean
-    triple from atomic (NS, NT). -/
-theorem sin2_12_v2_atomic :
-    NS = 3 ∧ NT = 2 ∧ d = 5
-    -- sin²θ₁₂ numerator: NT² = 4
-    ∧ NT ^ 2 = 4
-    -- denominator: NS² + NT² = 13 (Pythagorean magnitude)
-    ∧ NS ^ 2 + NT ^ 2 = 13
-    -- ratio: 4 / 13
-    ∧ NT ^ 2 * 13 = 4 * (NS ^ 2 + NT ^ 2) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    -- Leading denominators
+    sin2_12_leading_denom = NS ∧ sin2_12_leading_denom = 3
+    ∧ sin2_23_leading_denom = NT ∧ sin2_23_leading_denom = 2
+    -- δ_CP denom = d²-1 = adjoint SU(5)
+    ∧ delta_CP_denom = 24
+    ∧ delta_CP_denom = d * d - 1
+    ∧ d * d - 1 = (d - 1) * (d + 1)
+    ∧ 360 / 24 = 15
+    ∧ 180 + 15 = 195
+    -- sin²θ₁₃ tighter coefficients (Class D)
+    ∧ NT ^ 2 = 4                              -- chirality NT²
+    ∧ NS * NT = 6                             -- spoke count NS·NT
+    ∧ d + 1 = NS * NT                         -- = d+1
+    -- sin²θ₁₂ Pythagorean rational 4/13
+    ∧ NS ^ 2 + NT ^ 2 = 13                    -- Pythagorean magnitude
+    ∧ NT ^ 2 * 13 = 4 * (NS ^ 2 + NT ^ 2)     -- ratio 4/13
+    -- Atomic primitives
+    ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by decide
 
 end E213.Lib.Physics.Mixing.NeutrinoMixing
