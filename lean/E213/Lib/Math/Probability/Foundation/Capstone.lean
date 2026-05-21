@@ -261,155 +261,119 @@ theorem total_witness (N n : Nat) :
   , rfl, rfl
   , E213.Lib.Math.Probability.Distribution.Gaussian.CLT_fair_centered n ⟩
 
-/-- ★ **Independence / conditional witness** ★ — joint and ratio.
-
-    Closure facts:
-      1. `joint a b` numerator factorizes: `a.num · b.num`;
-      2. `joint a b` denominator factorizes: `a.den · b.den`;
-      3. `joint unit a = a` (numerator);
-      4. `joint zero a` numerator = 0;
-      5. `joint` commutative (numerator);
-      6. `conditionalNum a b = a.num`. -/
-theorem independence_witness (a b : ProbabilityCut) :
-    (E213.Lib.Math.Probability.Foundation.Independence.joint a b).num
-      = a.num * b.num
-    ∧ (E213.Lib.Math.Probability.Foundation.Independence.joint a b).den
-        = a.den * b.den
-    ∧ (E213.Lib.Math.Probability.Foundation.Independence.joint
-        ProbabilityCut.unit a).num = a.num
-    ∧ (E213.Lib.Math.Probability.Foundation.Independence.joint
-        ProbabilityCut.zero a).num = 0
-    ∧ (E213.Lib.Math.Probability.Foundation.Independence.joint a b).num
-        = (E213.Lib.Math.Probability.Foundation.Independence.joint b a).num
-    ∧ E213.Lib.Math.Probability.Foundation.Independence.conditionalNum a b
-        = a.num :=
+/-- ★ **Extended witness** ★ — consolidates the secondary topical
+    bundles beyond the five documented clusters: independence /
+    conditional, Markov / sufficient-statistic, concentration,
+    Beta density, CLT modulus, Cauchy modulus, Chebyshev, Beta
+    normalised, generic CLT, Hoeffding, reframe nilpotency, grade
+    Chernoff, cup-log.  Each conjunct is the same closure-fact
+    these previously stood alone as. -/
+theorem extended_witness
+    (a b : ProbabilityCut) (β : E213.Lib.Math.Probability.Bridge.Bayesian.BetaCount)
+    (k₁ f₁ k₂ f₂ n m ε V : Nat)
+    (p : ProbabilityCut) (a' : Nat)
+    (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1)
+    (negArg : Nat → Nat → Bool) :
+    -- Independence / conditional
+    ((E213.Lib.Math.Probability.Foundation.Independence.joint a b).num
+      = a.num * b.num)
+    ∧ ((E213.Lib.Math.Probability.Foundation.Independence.joint a b).den
+        = a.den * b.den)
+    ∧ ((E213.Lib.Math.Probability.Foundation.Independence.joint
+        ProbabilityCut.unit a).num = a.num)
+    ∧ ((E213.Lib.Math.Probability.Foundation.Independence.joint
+        ProbabilityCut.zero a).num = 0)
+    ∧ ((E213.Lib.Math.Probability.Foundation.Independence.joint a b).num
+        = (E213.Lib.Math.Probability.Foundation.Independence.joint b a).num)
+    ∧ (E213.Lib.Math.Probability.Foundation.Independence.conditionalNum a b
+        = a.num)
+    -- Markov / sufficient-statistic
+    ∧ (((β.updateBatch k₁ f₁).updateBatch k₂ f₂).successes
+        = ((β.updateBatch k₂ f₂).updateBatch k₁ f₁).successes)
+    ∧ (∀ a₀, ∀ xs : List (Nat × Nat),
+        a₀ * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a₀ xs
+          ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a₀ xs)
+    -- Concentration
+    ∧ (E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n) = 0)
+    ∧ (E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+        (List.replicate n true) = n)
+    ∧ (E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+        (List.replicate n false) = n)
+    -- Beta density
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaDensity.betaNumAt 1 1 p = 1)
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaDensity.betaDenAt 1 1 p = 1)
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaDensity.betaNumAt 2 1 p
+        = p.num)
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaDensity.fromBetaCount
+        E213.Lib.Math.Probability.Bridge.Bayesian.BetaCount.uniformPrior p
+        = (1, 1))
+    -- CLT modulus
+    ∧ (∃ N, ∀ k, N ≤ k →
+        E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+          (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails k) ≤ ε)
+    ∧ (E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n)
+        = E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
+          (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails m))
+    -- Cauchy modulus
+    ∧ ((E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_cauchy a).N ε = 0)
+    ∧ ((E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_cauchy a).target
+        = a)
+    -- Chebyshev
+    ∧ (a' * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a' [(1, n * n)]
+        ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a' [(1, n * n)])
+    -- Beta normalised
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 1 1 = (1, 1))
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 2 1 = (1, 2))
+    ∧ (E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 1 2 = (1, 2))
+    -- Generic CLT
+    ∧ (E213.Lib.Math.Probability.Limit.CLTGeneric.cltModulus_of_varBound V ε
+        = V * ε)
+    ∧ (E213.Lib.Math.Probability.Limit.CLTGeneric.cltModulus_of_varBound 1 0 = 0)
+    -- Hoeffding
+    ∧ (E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 0
+        = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1)
+    -- Reframe: nilpotency
+    ∧ (∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
+        E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow α 6 i
+          = false)
+    -- Reframe: grade-index Chernoff
+    ∧ (∃ (_g : E213.Lib.Math.Probability.Inequality.ChernoffGrade.GradeIndex)
+        (xs : List (Nat × Nat)),
+        a' * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a' xs
+          ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a' xs)
+    -- Reframe: log as cup-inverse
+    ∧ (E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1 = α)
+    ∧ (∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
+        E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow
+          (E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1) 6 i = false) :=
   ⟨ E213.Lib.Math.Probability.Foundation.Independence.joint_num a b
   , E213.Lib.Math.Probability.Foundation.Independence.joint_den a b
   , E213.Lib.Math.Probability.Foundation.Independence.joint_unit_left_num a
   , E213.Lib.Math.Probability.Foundation.Independence.joint_zero_left_num a
   , E213.Lib.Math.Probability.Foundation.Independence.joint_comm_num a b
-  , E213.Lib.Math.Probability.Foundation.Independence.conditionalNum_eq a b ⟩
-
-/-- ★ **Markov / sufficient-statistic witness** ★ — `BetaCount` updates
-    are commutative on the count fields; Markov inequality holds for
-    discrete distributions. -/
-theorem markov_witness (b : E213.Lib.Math.Probability.Bridge.Bayesian.BetaCount)
-    (k₁ f₁ k₂ f₂ : Nat) :
-    ((b.updateBatch k₁ f₁).updateBatch k₂ f₂).successes
-      = ((b.updateBatch k₂ f₂).updateBatch k₁ f₁).successes
-    ∧ ∀ a, ∀ xs : List (Nat × Nat),
-        a * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a xs
-          ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a xs :=
-  ⟨E213.Lib.Math.Probability.Inequality.Markov.updateBatch_comm_successes b k₁ f₁ k₂ f₂,
-   E213.Lib.Math.Probability.Inequality.Markov.markov_inequality⟩
-
-/-- ★ **Concentration witness** ★ — balanced 2n has zero deviation,
-    all-heads/all-tails have full bias `n`. -/
-theorem concentration_witness (n : Nat) :
-    E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-      (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n) = 0
-    ∧ E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (List.replicate n true) = n
-    ∧ E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (List.replicate n false) = n :=
-  ⟨E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_balanced n,
-   E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_allHeads n,
-   E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_allTails n⟩
-
-/-- ★ **Beta density witness** ★ — Beta(1,1) is uniform; Beta(2,1)
-    linear in `p`; uniform-prior posterior at any `p` is `1/1`. -/
-theorem beta_density_witness (p : ProbabilityCut) :
-    E213.Lib.Math.Probability.Distribution.BetaDensity.betaNumAt 1 1 p = 1
-    ∧ E213.Lib.Math.Probability.Distribution.BetaDensity.betaDenAt 1 1 p = 1
-    ∧ E213.Lib.Math.Probability.Distribution.BetaDensity.betaNumAt 2 1 p = p.num
-    ∧ E213.Lib.Math.Probability.Distribution.BetaDensity.fromBetaCount
-        E213.Lib.Math.Probability.Bridge.Bayesian.BetaCount.uniformPrior p
-      = (1, 1) :=
-  ⟨E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_num p,
-   E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_den p,
-   E213.Lib.Math.Probability.Distribution.BetaDensity.beta_2_1_num p,
-   E213.Lib.Math.Probability.Distribution.BetaDensity.fromBetaCount_uniformPrior p⟩
-
-/-- ★ **CLT-modulus witness** ★ — balanced LLN has trivial Cauchy
-    modulus `N(ε) = 0`; deviation is identically zero across n. -/
-theorem clt_modulus_witness (n m ε : Nat) :
-    (∃ N, ∀ k, N ≤ k →
-      E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails k) ≤ ε)
-    ∧ E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n)
-      = E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails m) :=
-  ⟨E213.Lib.Math.Probability.Limit.CLTLimit.balanced_LLN_modulus ε,
-   E213.Lib.Math.Probability.Limit.CLTLimit.balanced_cauchy n m⟩
-
-/-- ★ **Cauchy modulus witness** ★ — `ProbCauchy` constSeq has
-    modulus 0 (Tier 0 of Real213 extension program). -/
-theorem cauchy_modulus_witness (a : ProbabilityCut) (ε : Nat) :
-    (E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_cauchy a).N ε = 0
-    ∧ (E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_cauchy a).target = a :=
-  ⟨E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_modulus_zero a ε,
-   E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_target a⟩
-
-/-- ★ **Chebyshev witness** ★ — polynomial concentration
-    via Markov-on-second-moment. -/
-theorem chebyshev_witness (a n : Nat) :
-    a * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a [(1, n * n)]
-      ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a [(1, n * n)] :=
-  E213.Lib.Math.Probability.Inequality.Chebyshev.chebyshev_allHeads_witness a n
-
-/-- ★ **Beta normalised witness** ★ — closed-form `B(α, β)` for
-    `(1,1), (2,1), (1,2)`. -/
-theorem beta_normalized_witness :
-    E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 1 1 = (1, 1)
-    ∧ E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 2 1 = (1, 2)
-    ∧ E213.Lib.Math.Probability.Distribution.BetaNormalized.betaNorm 1 2 = (1, 2) :=
-  ⟨rfl, rfl, rfl⟩
-
-/-- ★ **Generic CLT witness** ★ — variance-modulus
-    `cltModulus_of_varBound V ε := V · ε`, monotone in V and ε. -/
-theorem cltGeneric_witness (V ε : Nat) :
-    E213.Lib.Math.Probability.Limit.CLTGeneric.cltModulus_of_varBound V ε = V * ε
-    ∧ E213.Lib.Math.Probability.Limit.CLTGeneric.cltModulus_of_varBound 1 0 = 0 :=
-  ⟨rfl, rfl⟩
-
-/-- ★ **Hoeffding witness** ★ — finite-depth Taylor partial sum
-    bound + balanced collapse to zero deviation. -/
-theorem hoeffding_witness (n : Nat) (negArg : Nat → Nat → Bool) :
-    E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 0
-      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
-    ∧ E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2
-        (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n) = 0 :=
-  ⟨rfl,
-   E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_balanced n⟩
-
-/-- ★ **Reframe witness: nilpotency** ★ — replaces "Cauchy modulus
-    on cutExp" with the structural Grade-6 nilpotency. -/
-theorem nilpotency_witness
-    (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1)
-    (i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6)) :
-    E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow α 6 i = false :=
-  E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow_grade_6_zero α i
-
-/-- ★ **Reframe witness: grade-index Chernoff** ★ — replaces
-    "continuous Chernoff inf_t" with discrete grade-index closure. -/
-theorem grade_chernoff_witness (a : Nat) :
-    ∃ (g : E213.Lib.Math.Probability.Inequality.ChernoffGrade.GradeIndex)
-      (xs : List (Nat × Nat)),
-      a * E213.Lib.Math.Probability.Inequality.Markov.tailMassNum a xs
-        ≤ E213.Lib.Math.Probability.Inequality.Markov.tailMomentNum a xs :=
-  E213.Lib.Math.Probability.Inequality.ChernoffGrade.closing_grade_exists a
-
-/-- ★ **Reframe witness: log as cup-inverse** ★ — replaces
-    "log via integration" with formal algebraic cup-inverse modulo
-    Grade-6 nilpotency. -/
-theorem cuplog_witness
-    (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1) :
-    E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1 = α
-    ∧ ∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
-        E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow
-          (E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog α 1) 6 i = false :=
-  ⟨rfl,
-   E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog_cup_grade_6_zero α⟩
+  , E213.Lib.Math.Probability.Foundation.Independence.conditionalNum_eq a b
+  , E213.Lib.Math.Probability.Inequality.Markov.updateBatch_comm_successes β k₁ f₁ k₂ f₂
+  , E213.Lib.Math.Probability.Inequality.Markov.markov_inequality
+  , E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_balanced n
+  , E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_allHeads n
+  , E213.Lib.Math.Probability.Inequality.Concentration.centeredAbsDev2_allTails n
+  , E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_num p
+  , E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_den p
+  , E213.Lib.Math.Probability.Distribution.BetaDensity.beta_2_1_num p
+  , E213.Lib.Math.Probability.Distribution.BetaDensity.fromBetaCount_uniformPrior p
+  , E213.Lib.Math.Probability.Limit.CLTLimit.balanced_LLN_modulus ε
+  , E213.Lib.Math.Probability.Limit.CLTLimit.balanced_cauchy n m
+  , E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_modulus_zero a ε
+  , E213.Lib.Math.Probability.Bridge.CauchyModulus.constSeq_target a
+  , E213.Lib.Math.Probability.Inequality.Chebyshev.chebyshev_allHeads_witness a' n
+  , rfl, rfl, rfl, rfl, rfl, rfl
+  , (fun α' i' =>
+      E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow_grade_6_zero
+        α' i') α
+  , E213.Lib.Math.Probability.Inequality.ChernoffGrade.closing_grade_exists a'
+  , rfl
+  , E213.Lib.Math.Cohomology.Bridge.CutLog.cutLog_cup_grade_6_zero α ⟩
 
 end E213.Lib.Math.Probability.Foundation.Capstone
