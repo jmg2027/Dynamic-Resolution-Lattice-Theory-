@@ -67,57 +67,32 @@ namespace E213.Lib.Physics.AtomicBase.Force
 open E213.Lib.Physics.AtomicBase.Pairs
 open E213.Lib.Physics.AtomicBase.Existence
 
-/-- 3 channel = 3 pair type. -/
+/-- 3 channel = 3 pair type.  Externally consumed by `Capstone` + `Falsifier`. -/
 def num_channels : Nat := 3
-
-theorem channel_count : num_channels = 3 := by decide
-
-/-- Each PairType corresponds to one channel.  Total channels = 3. -/
-theorem three_channels_from_pair_types :
-    -- AA, BB, AB — 3 distinct constructors of PairType
-    -- (PairType inductive in Pairs.lean: AA | BB | AB)
-    num_channels = 3 := by decide
-
-/-- AA channel: NS-internal (within 3-block).  3 pairs. -/
-theorem AA_channel_count :
-    (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AA)).length = 3 := by
-  decide
-
-/-- BB channel: NT-internal (within 2-block).  1 pair. -/
-theorem BB_channel_count :
-    (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.BB)).length = 1 := by
-  decide
-
-/-- AB channel: cross-sector.  6 pairs (= K_{3,2} bipartite edges). -/
-theorem AB_channel_count :
-    (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AB)).length = 6 := by
-  decide
-
-/-- Channel sizes: AA(3) + BB(1) + AB(6) = 10 (Phase 2 Pairs).
-    *Not directly proportional* to Phase 1 coupling strengths (1/α_i).
-    Phase 1 prefactors (12·NT·S(2), 12·NS·ζ(2), NS²-1) are the origin. -/
-theorem channel_sizes_sum_10 :
-    (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AA)).length
-    + (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.BB)).length
-    + (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AB)).length
-    = 10 := by decide
 
 /-- ★ 3 channels = 3 forces candidate (Lens-output label level) ★
 
   Phase 2 axiom-level finding: 10 pairs classified into *exactly 3 types*.
   *Natural agreement* with Phase 1 SM's 3 forces (α_3, α_2, α_1).
 
-  Simple arithmetic fact + semantic interpretation.  Bridge to Phase 1 detailed prefactors. -/
+  Bundles num_channels = 3 (with parametric "three channels from
+  pair types" trivial witness), per-channel counts (AA = 3, BB = 1,
+  AB = 6), channel-sum sanity 3 + 1 + 6 = 10. -/
 theorem three_forces_natural :
-    -- 3 channel exist
-    (num_channels = 3)
-    -- AA = 3 pairs
-    ∧ ((allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AA)).length = 3)
-    -- BB = 1 pair
-    ∧ ((allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.BB)).length = 1)
-    -- AB = 6 pairs
-    ∧ ((allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AB)).length = 6)
-    -- Total 10 pairs (consistency)
-    ∧ (allPairs.length = 10) := by decide
+    -- 3 channels
+    num_channels = 3
+    -- Each PairType (AA, BB, AB) contributes one channel (trivial restatement)
+    ∧ num_channels = 3
+    -- Per-channel counts
+    ∧ (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AA)).length = 3
+    ∧ (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.BB)).length = 1
+    ∧ (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AB)).length = 6
+    -- Sum to 10
+    ∧ ((allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AA)).length
+       + (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.BB)).length
+       + (allPairs.filter (fun p => classifyPair p.1 p.2 = PairType.AB)).length
+       = 10)
+    -- Total 10 pairs (consistency with Phase 2 Pairs)
+    ∧ allPairs.length = 10 := by decide
 
 end E213.Lib.Physics.AtomicBase.Force
