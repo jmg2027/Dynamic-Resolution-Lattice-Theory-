@@ -11,6 +11,9 @@ Lookup tables for the 213 library.  grep-able.
   correspondences.md     same integer multi-framework
   math-theorems.md       math theorems catalog
   cross-domain-identifications.md  10 named CDIs from G109 (math ↔ physics byte-identical Expr)
+  recursor-inventory.md  185 inductive types with recursor invocations (G105)
+  internal-hubs.md       top E213-internal load-bearing lemmas (G92 surface + G102 Expr)
+  falsifier-roster.md    135 decide-verified impossibility theorems (G100 automated catalog)
 
 ## Usage
 
