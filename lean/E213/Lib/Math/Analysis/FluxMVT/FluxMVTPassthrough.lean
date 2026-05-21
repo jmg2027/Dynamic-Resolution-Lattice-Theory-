@@ -199,7 +199,8 @@ open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
 open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
 
-/-- Passthrough closed under cutMul — left, fully pointwise (∅-axiom). -/
+/-- Passthrough closed under cutMul — left, fully pointwise (∅-axiom).
+    G110 FLUX-1 template. -/
 theorem passthrough_mul_at_left
     (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (hf_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
@@ -208,20 +209,13 @@ theorem passthrough_mul_at_left
     cutMul (f (constCut 0 1)) (g (constCut 0 1)) m k = constCut 0 1 m k := by
   show cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 0 1 m k
-  have step :
-      cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 0 1) (constCut 0 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (f (constCut 0 1)) (constCut 0 1)
-      (g (constCut 0 1)) (constCut 0 1)
-      (fun m' _ => hf_left m' k)
-      (fun m' _ => hg_left m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]; exact cutMul_zero_zero_at m k
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (f (constCut 0 1)) (g (constCut 0 1)) 0 0 m k
+        (fun m' _ => hf_left m' k) (fun m' _ => hg_left m' k)]
+  exact cutMul_zero_zero_at m k
 
-/-- Passthrough closed under cutMul — right, fully pointwise (∅-axiom). -/
+/-- Passthrough closed under cutMul — right, fully pointwise (∅-axiom).
+    G110 FLUX-1 template. -/
 theorem passthrough_mul_at_right
     (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (hf_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k)
@@ -230,18 +224,10 @@ theorem passthrough_mul_at_right
     cutMul (f (constCut 1 1)) (g (constCut 1 1)) m k = constCut 1 1 m k := by
   show cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
-  have step :
-      cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 1 1) (constCut 1 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (f (constCut 1 1)) (constCut 1 1)
-      (g (constCut 1 1)) (constCut 1 1)
-      (fun m' _ => hf_right m' k)
-      (fun m' _ => hg_right m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]; exact cutMul_one_one_at m k
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (f (constCut 1 1)) (g (constCut 1 1)) 1 1 m k
+        (fun m' _ => hf_right m' k) (fun m' _ => hg_right m' k)]
+  exact cutMul_one_one_at m k
 
 /-- MVT for product of passthroughs (fluxCutEq, PURE). -/
 theorem mvt_mul_passthrough_pure
