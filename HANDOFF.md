@@ -227,6 +227,73 @@ pass on research-notes/G* would catch remaining stale links.
 
 ---
 
+---
+
+# Part 3 — Meta-analysis branch (`claude/analyze-lean4-ast-patterns-49Rh2`)
+
+Runs in tandem with this substantive branch.  Analysis-only:
+no PURE theorems added; 11 scanner tools + 18 research notes
+(G90-G107).  Cross-branch handshake loop (G93→G96→G94→G97)
+fully closed.
+
+## What the meta branch delivered
+
+  · 11 scanners spanning Tier-2 AST (Expr) / Tier-1 syntax
+    (tactic token) / Tier-1.5 citation graph / Tier-1.5+ unfold
+    chunks / Tier-1.5++ rw k-grams / falsifier mining /
+    call graph / shape density / type-sig + sort.
+  · ~2,000 LOC Python + ~250 LOC Lean meta + ~5,000 LOC research
+    notes.
+  · 135 auto-discovered falsifiers (G100).
+  · 6-layer byte-identical confirmation of L1 LeibnizAlgLift
+    (G103 §3 + G106).
+  · 14 Lean abstraction candidates (G107 §2-§5) + 13 theory-doc
+    action items (G107 §10).
+
+## Meta-branch entry-point
+
+**→ `research-notes/G107_action_items_registry.md`** — single
+authoritative table of contents for all surfaced action items.
+
+  · §2-§5 Lean abstraction candidates (L1, L2, C, N7, N8, N9,
+    Sub-2, M, L3-L5, E, F, Pell-FSM, ModArith).
+  · §7 ranked execution order by (mass × confidence) / effort.
+  · §10 theory documentation registry (Pattern #10-#13
+    candidates, 4 catalogs, 4 standalone theory docs, 4
+    navigation updates, 2 CLAUDE.md additions).
+
+## Cross-branch findings already actioned on this main branch
+
+The substantive branch (PR #90) closed 6 of meta's surfaced
+items in cycle:
+
+  · C1 NatHelper + ListHelper + Int213.Bound centralisation
+    (G93 §C1)
+  · C2 `XorPairCombine.foldr_xor_proj` general lemma
+    (G93 §C2)
+  · C3 Raw.fold_slash atlas TSV (delivered by meta as
+    `research-notes/data/raw_fold_slash_context.tsv`)
+  · C5 Pattern #2 quantitative numbers cited
+  · N5 `NatHelper.max_comm` centralisation (5 sites)
+  · N6 `Int213.{mul_sub,sub_mul}` centralisation (12 sites)
+
+After these, DRLT is **PURE-bounded on Lean 4 core** — zero
+non-test DIRTY citations.  Verified by G95 dep-purity audit.
+
+## Open on meta-side (handoff for executors)
+
+  · Mechanical (G107 §2): L2 (zero-rewrite alias), N7 (Prism),
+    N8/N9 (mul/add_left_comm adoption), Sub-2 (Tree macro).
+  · Mid-marathons (G107 §3): L1 (6-layer byte-identical = ~6.6 M
+    chars retired = 50 % L1 mass), C (CutSumOne 3-component).
+  · Smaller (G107 §4): L3 Pisano, L4 LDD, L5 CDDouble, M
+    Raw.recAux pair, E sqrtN, F Σ-fold, Pell-FSM, ModArith.
+  · Doc work (G107 §10): Pattern #10-#13 drafts, 4 catalogs,
+    4 theory docs (TH-2 Raw-derivation three levels = highest
+    value).
+
+---
+
 ## Merge recommendation
 
 **Safe to merge.**  C3 chain delivers the gauge-emergence
@@ -237,9 +304,18 @@ clean.
 
 ## Anchor docs (next session start)
 
+### Substantive side
   · `CLAUDE.md` boot sequence (unchanged)
-  · `STRICT_ZERO_AXIOM.md` (full catalog of S1, S2, S3 phases)
-  · `LESSONS_LEARNED.md` patterns #1–#9
-  · `research-notes/G86_self_referential_lex_cup_leibniz.md` — Open A
+  · `STRICT_ZERO_AXIOM.md` (full catalog of S1-S3 phases)
+  · `LESSONS_LEARNED.md` patterns #1–#9 (#10–#13 drafted in G107 §10.1)
   · `research-notes/G87_raw_native_emergence_audit.md` — S2 marathon
-  · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` — master result
+  · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` — C3 master
+
+### Meta-analysis side
+  · `research-notes/G107_action_items_registry.md` — START HERE for open items
+  · `research-notes/G101_metascan_synthesis.md` — capstone overview
+  · `research-notes/G106_L1_expr_structure_extraction.md` — deepest implicit-lemma finding
+  · `research-notes/G104_raw_derivation_three_levels.md` — α/β/γ distinction
+  · `research-notes/G100_decide_failure_mining.md` — 135 falsifier catalog
+  · `tools/` — 11 scanners (ast_*, syntax_*, falsifier_*) all `--report-only` capable
+
