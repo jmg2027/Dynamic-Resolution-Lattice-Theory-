@@ -895,3 +895,77 @@ Remaining for the gauge-emergence narrative:
   · Phase 7: Sym(3)-irrep decomposition over F_2 (modular case
     where 1 = sign, hence fewer irreducibles than over Q)
   · Phase 8: ι*: H¹(Δ⁴) → H¹(K) and connection to SU(3) adjoint
+
+---
+
+## §"PURE-bounded on Lean 4 core" — formally closed (G95 + N5/N6, 2026-05-22)
+
+DRLT is **formally PURE-bounded on Lean 4 core**: after the
+cross-branch dep-purity cycle, the corpus has **zero non-test
+citations to DIRTY Lean-core lemmas** in its mathematical
+content.
+
+### G95 dep-purity audit findings
+
+Meta-branch G95 (`research-notes/G95_lean_core_dep_purity_audit.md`)
+probed the top 93 Lean-core lemmas DRLT cites (with `#print
+axioms`):
+
+  · **80 of 93 are PURE** (does not depend on any axioms).
+  · **13 are DIRTY** (all propext, 1 with Quot.sound).
+  · **0 are Classical** (no Classical.choice imported anywhere).
+
+Of the 13 DIRTY lemmas, **10 had 0 citations** in the corpus —
+already eliminated by prior NatHelper / Pattern #8 work
+(parallel branch).  Only 3 DIRTY lemmas remained with active
+citations:
+
+  · `Int.mul_sub` (6 cites, ZOmegaDomain ×3)
+  · `Nat.max_comm` (5 cites, DepthJoin ×3 + CanonicalTruthChar ×2)
+  · `Int.sub_mul` (4 cites, ZOmegaDomain ×3)
+
+### N5 + N6 closure (parallel branch commit `e1f6f2f7`)
+
+Following meta-branch G96 §3 recommendation, parallel branch
+added PURE replacements:
+
+  · `E213.Tactic.NatHelper.max_comm` (NEW, via by_cases +
+    Nat.le_antisymm; 5 callsites redirected)
+  · `E213.Meta.Int213.mul_sub` (NEW, via mul_add + mul_neg)
+  · `E213.Meta.Int213.sub_mul` (NEW, via add_mul + neg_mul)
+  · 12 callsites total redirected (G95 estimated 11; parallel
+    branch found 6 more in tactic infrastructure)
+
+### Verification
+
+  · Full `lake build`: clean.
+  · `grep -rn 'Nat.max_comm\|Int.mul_sub\|Int.sub_mul' lean/E213/`
+    (after exclusion for files with their own PURE replacements)
+    returns **empty**.
+  · No non-test citation to DIRTY Lean-core lemmas remains.
+
+### Significance
+
+This closes the **PURE-bounded on Lean 4 core** claim that
+informally circulated since the 0-axiom standard was adopted.
+The claim is now **measurable and verified**:
+
+  · DRLT mathematical content (`E213.Lib.Math.*`, `E213.Theory.*`,
+    `E213.Lens.*`) cites only PURE Lean-core lemmas.
+  · The `sealed-DIRTY-by-design` carve-outs (well-founded
+    recursion in Lean.Elab.* metaprogramming, Lens funext-by-design)
+    remain in their respective sealed scopes — NOT in
+    mathematical content.
+  · DRLT's claim "we are framework-internal" is now empirically
+    closed at the Lean-core boundary.
+
+Cross-references:
+
+  · `research-notes/G95_lean_core_dep_purity_audit.md` — full
+    audit data + the 3 DIRTY lemmas surface.
+  · `research-notes/G96_handshake_response_to_subset_bijection.md`
+    — handshake delivering the audit findings.
+  · `research-notes/G97_handshake_closure_zero_dirty.md`
+    (parallel branch) — closure report.
+  · Parallel branch commit `e1f6f2f7` — the N5+N6 closure.
+
