@@ -192,4 +192,62 @@ theorem mobius_213_pell_unit_invariant :
        - P_numerator.seq 8 * P_denominator.seq 7 = -1) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ## §4 — `∀ n` Pell-unit invariant (L_∞ infrastructure)
+
+The 8-layer bundle above witnesses X(n) := num_n·den_{n+1} − num_{n+1}·den_n
+= -1 at concrete depths n = 0..7.  The universally-quantified version
+previously deferred for lack of 213-native `ring` tactics.
+
+The structural content: with c₂ = -1 in `[[3, -1], [1, 0]]`-style recurrence
+(equivalently P-iteration of `[[2,1],[1,1]]`), the cross-product X(n) is a
+**constant of motion**, taking the symplectic value -1 forever.
+
+Hero milestone 1a for the 213-tower L_∞ fixed point: ∀n witness that
+the Pell trajectory has an invariant under iteration — the dynamical
+reading of the frozen det = 1 identity.
+
+NOTE on axioms: the `∀n` step (`pell_unit_at_succ`) depends on Lean-core
+`[propext, Quot.sound]` via `simp only` + `omega` for the Int ring
+manipulation.  Per `STRICT_ZERO_AXIOM.md`, these are kernel-allowed and
+non-falsifying.  A strict-PURE refactor via explicit `Int213.*` rewrites
+is tractable (∼30 lines) and tagged as a follow-up. -/
+
+/-- Pell-unit cross-product at depth `n`. -/
+def pell_unit_at (n : Nat) : Int :=
+  P_numerator.seq n * P_denominator.seq (n+1)
+    - P_numerator.seq (n+1) * P_denominator.seq n
+
+/-- ★★ **Cross-product step identity** (`c₂ = -1` case):
+    X(n+1) = X(n).  The det-1 symplectic invariant of the [[2,1],[1,1]]
+    matrix propagates through every P-iteration step. -/
+theorem pell_unit_at_succ (n : Nat) :
+    pell_unit_at (n+1) = pell_unit_at n := by
+  unfold pell_unit_at
+  show P_numerator.seq (n+1) * P_denominator.seq (n+2)
+       - P_numerator.seq (n+2) * P_denominator.seq (n+1)
+     = P_numerator.seq n * P_denominator.seq (n+1)
+       - P_numerator.seq (n+1) * P_denominator.seq n
+  rw [show P_numerator.seq (n+2)
+        = 3 * P_numerator.seq (n+1) + (-1) * P_numerator.seq n + 0 from rfl,
+      show P_denominator.seq (n+2)
+        = 3 * P_denominator.seq (n+1) + (-1) * P_denominator.seq n + 0 from rfl]
+  simp only [Int.add_zero, Int.mul_add, Int.add_mul,
+             Int.mul_neg, Int.neg_mul, Int.mul_zero, Int.zero_mul,
+             Int.one_mul, Int.mul_one, Int.mul_left_comm, Int.mul_assoc]
+  omega
+
+/-- ★★★ **∀n Pell-unit invariant** — the L_∞ symplectic constant.
+    `num_n · den_{n+1} − num_{n+1} · den_n = -1` for **every** depth `n`.
+    Closes the deferred ∀n form noted in the §3 docstring.
+
+    Proof: base case X(0) = 1·2 − 3·1 = -1 by `decide`; inductive step
+    is `pell_unit_at_succ`.  Uses 213-native Int algebra throughout
+    (no Mathlib, no `ring`). -/
+theorem mobius_213_pell_unit_invariant_forall :
+    ∀ n, pell_unit_at n = -1 := by
+  intro n
+  induction n with
+  | zero => decide
+  | succ k ih => exact (pell_unit_at_succ k).trans ih
+
 end E213.Lib.Math.Mobius213
