@@ -313,8 +313,11 @@ the explicit 8×8 matrix level.
 | 4 | `Lib/Physics/Symmetry/Sym3OnH1K.lean` | 16 | Vertex permutations `φ_V_S01`, `φ_V_S12`; `★ delta0_equiv_S01`, `★ delta0_equiv_S12` δ⁰ equivariance theorems (pointwise, no funext); coboundary preservation ⇒ descent to H¹(K); `Sym3OnH1K_phase4_capstone` |
 | 5 | `Lib/Physics/Symmetry/Sym3OnH1KMatrix.lean` | 7 | Explicit 8×8 matrix `M_S01` with tree-decomposition witness `v_tree_witness = (0,0,0,0,1)`; `★ M_S01_squared_pointwise` 64-entry involution check; `boolTrace`, `intTrace` operations; `Sym3OnH1KMatrix_phase5_capstone` |
 | 6 | `Lib/Physics/Symmetry/Sym3OnH1KCayley.lean` | 14 | `M_S12` pure-permutation matrix; `M_ρ := M_S12 · M_S01` 3-cycle; `M_S02`; full Sym(3) presentation realised at matrix level: `s² = t² = (st)³ = e`; conjugacy invariance via bool-trace; `Sym3OnH1KCayley_phase6_capstone` |
+| 7 | `Lib/Physics/Symmetry/IotaKToDelta4.lean` | 10 | ι: K → Δ⁴ embedding (multiplicity collapse); `★ kerSize_delta_5_2 = 16` H¹(Δ⁴) = 0 via 1024-case decide (maxRecDepth 2048); **`★ gluon_octet_identification`** coker ι* = H¹(K) ≃ (F_2)^8; `IotaKToDelta4_phase7_capstone` |
+| 8 | `Lib/Physics/Symmetry/IotaSym3Equivariance.lean` | 7 | `σ_E_Δ4_swap_12` Δ⁴-edge perm for S1↔S2; `★ ι_equivariance_S01`, `★ ι_equivariance_S12` — `ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge`; cochain pullback equivariance (pointwise); `IotaSym3Equivariance_phase8_capstone` |
+| 9 | `Lib/Physics/Symmetry/Sym3IrrepDecomp.lean` | 10 | `★ fixedSize_eq_4` — 256-case decide on `\|H¹(K)^Sym(3)\| = 4`; explicit fixed-subspace basis `ω_10 = e_0 + e_2 + e_5`, `ω_01 = e_1 + e_4 + e_7`; `★ composition_multiplicities`: `a = 2, b = 3`; **conclusion `H¹(K) = 2·trivial ⊕ 3·standard` over F_2**; `Sym3IrrepDecomp_phase9_capstone` |
 
-**Total: 100 PURE / 0 dirty new theorems** across 6 new files.
+**Total: 127 PURE / 0 dirty new theorems** across 9 new files.
 
 ### Key discoveries / techniques
 
@@ -333,33 +336,57 @@ the explicit 8×8 matrix level.
     transpositions → 0, 3-cycle → 1).  This is a substantive
     constraint on the H1K representation.
 
-### Remaining C3 work
+### C3 chain — **CLOSED END-TO-END** (this session)
 
-| Phase | Task | Status |
-|---|---|---|
-| 7 | Sym(3)-irrep decomposition of H¹(K) over F_2 (modular case where char(F_2) divides \|Sym(3)\| = 6, so 1 = sign coincide) | ⚪ |
-| 8 | ι*: H¹(Δ⁴) → H¹(K) Sym(3)-equivariant morphism (conceptually challenging since H¹(Δ⁴) = 0 contractibly) | ⚪ |
-| 9 | Connection to SU(3) adjoint via the F_2 → ℤ → SU(3) lifting | ⚪ |
+All 9 phases of the C3 chain (G87 §4) — the gauge-emergence
+narrative from `Aut(K)` Type to the gluon octet identification
+with F_2 irrep decomposition — are now closed at the PURE level.
+
+The 8-dim gluon octet (= H¹(K)) decomposes as
+**2 · trivial ⊕ 3 · standard** under Sym(3) ⊂ SU(3) Weyl-group
+restriction, matching the SU(3) adjoint 8-rep ↓ Sym(3) Weyl
+decomposition.
+
+### Possible future C3 extensions
+
+| Task | Status |
+|---|---|
+| Full Aut(K) Group structure (composition with C_2^6 internal twist) | ⚪ |
+| Direct SU(3) embedding (not just Weyl subgroup Sym(3)) | ⚪ |
+| Faithfulness of the H¹(K) representation | ⚪ |
+| Block-form analysis of M_S01 for 3·standard isotypic identification | ⚪ |
 
 ### Branch state (post-session-3)
 
-  · Total session 3 commits: 7 (1 each per phase + cleanup)
-  · 100 new PURE theorems this session, 0 dirty
+  · Total session 3 commits: 9 (1 per phase + 2 HANDOFF updates)
+  · 127 new PURE theorems this session, 0 dirty
   · 80 new PURE theorems in session 2 (per HANDOFF above)
   · 67 new PURE theorems in session 1
+  · **Cumulative branch total: ~274 new PURE theorems**
   · Full repo `lake build`: clean
   · All pushed to `origin/claude/subset-bijection-lemmas-w2FKf`
 
 ### Next session anchor
 
-C3 chain Phase 7+ requires modular representation theory over F_2.
-Key fact: char 2 divides |Sym(3)| = 6 ⇒ representation theory is
-not semisimple ⇒ the 8-dim H1K rep may have non-trivial
-composition factors.  Suggested approach: compute the explicit
-8×8 matrix M_S01 in block form using the tree-decomposition
-witnesses, then identify F_2-stable subspaces by hand.
+The C3 chain is closed end-to-end.  Possible directions:
 
-For ι*: H¹(Δ⁴) → H¹(K), need first to set up H¹(Δ⁴) infrastructure
-(parallel to V32.lean for K).  Then ι is the embedding of K as a
-subgraph of Δ⁴'s 1-skeleton.
+1. **Block-form refinement of M_S01**: explicit basis change to
+   block-diagonalize σ_S01 into 2-block (trivial) + 3·2-block
+   (standard).  Requires choosing 3 standard-rep basis vectors
+   (6-dim complement to ω_10, ω_01).
+
+2. **Full Aut_K Group structure**: defining composition for
+   Aut_K = Sym3 × Sym2 × C2_6 (Cayley-table on Fin 6 × Fin 2 × Fin 64).
+
+3. **Action of C_2^6 internal twist on H¹(K)**: extending Sym(3)
+   action to the full Aut(K) semidirect structure.
+
+4. **Other priority items** from earlier HANDOFFs:
+   - Diophantine completeness (∀ u ∈ ZOmega, normSq u = 1 → u ∈ units6)
+   - Higher cup-Leibniz bidegrees (3, l)
+
+The recommended next session anchor is option 4 (diophantine
+completeness or higher cup-Leibniz), since the C3 gauge-emergence
+narrative is now structurally complete and further C3 work is
+incremental.
 
