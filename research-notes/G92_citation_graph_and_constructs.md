@@ -1,9 +1,9 @@
-# G89 — Citation graph & tactic-construct shapes (Tier-1.5)
+# G92 — Citation graph & tactic-construct shapes (Tier-1.5)
 
 **Date**: 2026-05-21  
 **Branch**: `claude/analyze-lean4-ast-patterns-49Rh2`  
 **Tool**: `tools/syntax_arg_scan.py` (+ shared `tools/lean_syntax_parse.py`)  
-**Companion**: G87 (AST motifs), G88 (syntax tactic skeletons)  
+**Companion**: G90 (AST motifs), G91 (syntax tactic skeletons)  
 **Scanned**: 3,283 decls / 780 files / 7,446 lemma citations /
 981 induction/cases/obtain constructs.
 
@@ -94,7 +94,7 @@ after NatHelper**.
 
 `absurd` at 177/104 confirms **proof-by-contradiction is the
 dominant negation strategy** (combined with the heavy `exact` use
-from G88).  Workflow is `... ; absurd hP h¬P` more often than
+from G91).  Workflow is `... ; absurd hP h¬P` more often than
 `... ; exfalso; exact h¬P hP`.
 
 `decide_eq_true` (84/47) is the **Pattern #2 bridge lemma**:
@@ -115,7 +115,7 @@ non-hypothesis citations route through this bridge.
 proof" move.
 
 `simp` is so rarely used (147 cites total across the whole
-corpus; G88 measured 0.3 % of tokens) that its top citations
+corpus; G91 measured 0.3 % of tokens) that its top citations
 have only 5-7 occurrences each — no clear pattern.
 
 ### Out-degree distribution
@@ -133,7 +133,7 @@ Cites per proof distribution:
 
   · **Mean: 4.05 cites per proof**
   · **Median: 2** (444 + 333 + 248 = 1,025 proofs at ≤ 3 cites)
-  · **Outliers**: proofs with > 20 cites cross-reference with G88's
+  · **Outliers**: proofs with > 20 cites cross-reference with G91's
     boilerplate ladders.
 
 ---
@@ -242,30 +242,30 @@ constructions, multi-case lex bridges).
 
 ---
 
-## Cross-layer reading (G87 + G88 + G89)
+## Cross-layer reading (G90 + G91 + G92)
 
 ### Three views of the same skeleton
 
 | Layer | What it sees | Strongest signal |
 |-------|-------------|------------------|
-| G87 (AST) | Elaborated `Expr` proof terms | 5 recursor tags, fold-XOR/Σ motifs |
-| G88 (Syntax skeletons) | Tactic-token sequence per decl | `decide` 36 %, 48-tactic Leibniz ladder |
-| G89 (Argument graph) | Lemma citations + construct shapes | NatHelper hub, Raw.fold_slash hub, a/b/slash induction |
+| G90 (AST) | Elaborated `Expr` proof terms | 5 recursor tags, fold-XOR/Σ motifs |
+| G91 (Syntax skeletons) | Tactic-token sequence per decl | `decide` 36 %, 48-tactic Leibniz ladder |
+| G92 (Argument graph) | Lemma citations + construct shapes | NatHelper hub, Raw.fold_slash hub, a/b/slash induction |
 
 ### Convergent findings
 
   · **Nat-structural recursion dominates** — 80 % of inductions
-    on Nat (G89), `Nat.recAux + brecOn` carry 42 % of AST sites
-    (G87), `[induction, decide, show, rw]` template covers 37
-    Pell-FSM decls (G88).
+    on Nat (G92), `Nat.recAux + brecOn` carry 42 % of AST sites
+    (G90), `[induction, decide, show, rw]` template covers 37
+    Pell-FSM decls (G91).
   · **Decide is the primary closer** — 36 % of proofs are pure
-    `[decide]` (G88), `decide_eq_true` cited 84 times (G89),
-    Pattern #2 universal across recursor families (G87 M3).
+    `[decide]` (G91), `decide_eq_true` cited 84 times (G92),
+    Pattern #2 universal across recursor families (G90 M3).
   · **`rw` over Nat algebra is the workhorse rewrite** — 17 % of
-    tokens (G88), `Nat.{mul_comm, add_assoc, add_comm}` are
-    top-3 external hubs (G89).
+    tokens (G91), `Nat.{mul_comm, add_assoc, add_comm}` are
+    top-3 external hubs (G92).
 
-### Newly visible from G89 alone
+### Newly visible from G92 alone
 
   · **NatHelper as load-bearing infrastructure** — 174 cites for
     a single lemma (`NatHelper.mul_assoc`).  If consolidation work
@@ -279,7 +279,7 @@ constructions, multi-case lex bridges).
 
 ---
 
-## Concrete next actions surfaced by G89
+## Concrete next actions surfaced by G92
 
   · **N1 — Audit NatHelper coverage**: `NatHelper.mul_assoc`
     has 174 cites.  Verify (a) it is PURE, (b) its statement is
@@ -296,12 +296,12 @@ constructions, multi-case lex bridges).
 
   · **N3 — `a | b | slash` induction template**: the 15 + 3 = 18
     decls that case-split on Raw's three clauses share the same
-    structural skeleton.  Cross-reference with G87 / G88 — are
+    structural skeleton.  Cross-reference with G90 / G91 — are
     these covered by the existing abstraction roster or new?
 
   · **N4 — Proofs with out-degree ≥ 20**: extract the decls that
     cite ≥ 20 distinct lemmas; these are the "boilerplate
-    ladders" — likely overlapping with G88 L1/L2 (LeibnizAlgLift,
+    ladders" — likely overlapping with G91 L1/L2 (LeibnizAlgLift,
     Leibniz{21,22}Final), validating the citation-graph and
     tactic-skeleton views point at the same outliers.
 
@@ -310,9 +310,9 @@ constructions, multi-case lex bridges).
 ## Artifact map
 
   · `tools/lean_syntax_parse.py` — shared surface-parsing helpers
-    (used by both G88 and G89 scanners)
+    (used by both G91 and G92 scanners)
   · `tools/syntax_arg_scan.py` — citation graph + construct
-    shape extractor (G89)
+    shape extractor (G92)
   · `tools/_syntax_arg_cites.tsv` — citation TSV (gitignored)
   · `tools/_syntax_arg_shapes.tsv` — construct-shape TSV (gitignored)
 

@@ -1,4 +1,4 @@
-# G88 — Tier-1 syntax-level tactic-block scan of E213
+# G91 — Tier-1 syntax-level tactic-block scan of E213
 
 **Date**: 2026-05-21  
 **Branch**: `claude/analyze-lean4-ast-patterns-49Rh2`  
@@ -48,7 +48,7 @@ Tail (notable rarities for an "induction-heavy" corpus):
 **Reading**: E213's proof culture is *decide + rewrite*, not
 *simp + omega + ring*.  `induction` appears in only 1.7 % of all
 tactic tokens; the structural recursion lives in `Nat.recAux` /
-`Nat.brecOn` terms (G87), often invoked indirectly through
+`Nat.brecOn` terms (G90), often invoked indirectly through
 `decide` and pre-computed bases rather than via the `induction`
 tactic.
 
@@ -94,7 +94,7 @@ entire corpus).
 |    13 | `[cases, cases, congr]` | `ext` |
 
 The **5-tactic Pell-FSM template** (`[intro, induction, decide,
-show, rw]`) covers 37 distinct theorems — confirming G87's M3 at
+show, rw]`) covers 37 distinct theorems — confirming G90's M3 at
 the syntax layer.  AST and syntax agree on the same family.
 
 ---
@@ -193,12 +193,12 @@ Same 16-tactic skeleton.  **Abstraction candidate E.**
 
 Patterns surfaced independently at both layers:
 
-| Pattern | AST evidence (G87) | Syntax evidence (G88) |
+| Pattern | AST evidence (G90) | Syntax evidence (G91) |
 |---------|--------------------|----------------------|
 | Pell-FSM modular periodicity | M3: 8 decls share `Nat.recAux` op-multiset | x37 share `[intro, induction, decide, show, rw]` |
 | Cup-Leibniz lex (α/β decomp) | Cup tree dominates `List.foldr` motifs | L1-L2: 8 decls share 32-48 tactic ladders |
 | Decide-driven proof culture | n/a (term level) | 36 % of decls are pure `[decide]` |
-| Module-local universals | "modal pattern" (G87 §Cross-cutting) | x37 Pell-FSM, x4 LeibnizAlgLift, x4 h_components |
+| Module-local universals | "modal pattern" (G90 §Cross-cutting) | x37 Pell-FSM, x4 LeibnizAlgLift, x4 h_components |
 
 Where AST + Syntax agree on a templated family, the abstraction
 opportunity is high-confidence — both the elaborated term and the
@@ -211,27 +211,27 @@ choice rather than a missed abstraction.
 
 ---
 
-## Updated abstraction roster (G87 + G88 combined)
+## Updated abstraction roster (G90 + G91 combined)
 
 Listed in **priority order by combined evidence strength**:
 
-  · **A. Leibniz factor-decomp** (G88 L1) — 4 copies of a
+  · **A. Leibniz factor-decomp** (G91 L1) — 4 copies of a
     48-tactic ladder.  Highest copy-paste cost.  Single
     parametric lemma over `(bidegree, factor)`.
-  · **B. Pell-FSM modular periodicity** (G87 M3 + G88 x37 cluster)
+  · **B. Pell-FSM modular periodicity** (G90 M3 + G91 x37 cluster)
     — 8+ recursors at AST, 37+ syntax instances.  Parametric
     `pellProperModN_period N` lemma.
-  · **C. √N irrationality** (G87 M4) — 4 copies of
+  · **C. √N irrationality** (G90 M4) — 4 copies of
     `Nat.recAux` shape; syntax not yet inspected for these.
-  · **D. Σ-fold cross-domain** (G87 M2) — 5 decls share fold
+  · **D. Σ-fold cross-domain** (G90 M2) — 5 decls share fold
     skeleton across math + physics.
-  · **E. XorPairCombine ↔ ℤ/2-bilinear projection** (G87 M6).
-  · **F. ModArith mod3 / mod5 family** (G87 M5).
-  · **G. Pisano Predictor templating** (G88 L3) — 2 copies of
+  · **E. XorPairCombine ↔ ℤ/2-bilinear projection** (G90 M6).
+  · **F. ModArith mod3 / mod5 family** (G90 M5).
+  · **G. Pisano Predictor templating** (G91 L3) — 2 copies of
     20-tactic ladder.
-  · **H. LDD smooth differential** (G88 L4) — 2 copies of
+  · **H. LDD smooth differential** (G91 L4) — 2 copies of
     16-tactic ladder, +/× duplication.
-  · **I. Cayley-Dickson I-J / J-I witness pair** (G88 L5).
+  · **I. Cayley-Dickson I-J / J-I witness pair** (G91 L5).
 
 ---
 

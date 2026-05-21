@@ -1,4 +1,4 @@
-# G87 — AST fold/recursor motif scan of the E213 corpus
+# G90 — AST fold/recursor motif scan of the E213 corpus
 
 **Date**: 2026-05-21  
 **Branch**: `claude/analyze-lean4-ast-patterns-49Rh2`  
@@ -217,7 +217,7 @@ The fundamental Nat induction skeleton.
    separate `_no_rational_aux` proofs whose elaborated recursors
    are byte-identical (in operator-multiset terms).  This screams
    `sqrtN_irrational : ∀ N, ¬IsPerfectSquare N → Irrational (√N)`
-   should exist as one Lean theorem.  G87's clearest immediate
+   should exist as one Lean theorem.  G90's clearest immediate
    action.
 
 ---
