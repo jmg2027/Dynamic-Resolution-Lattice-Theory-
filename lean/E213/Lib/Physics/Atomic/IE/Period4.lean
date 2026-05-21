@@ -32,23 +32,24 @@ namespace E213.Lib.Physics.Atomic.IE.Period4
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- Z atomic forms (clean cases). -/
-theorem Z_K_atomic : NS * NS * NS - NT * NT * NT = 19 := by decide
-theorem Z_Ca_atomic : 4 * d = 20 := by decide
-theorem Z_Ti_atomic : d * d - NS = 22 := by decide
-theorem Z_Cr_atomic : d * d - 1 = 24 := by decide
-theorem Z_Mn_atomic : d * d = 25 := by decide
-theorem Z_Co_atomic : NS * NS * NS = 27 := by decide
-theorem Z_Zn_atomic : NS * NT * d = 30 := by decide
-theorem Z_Ge_atomic : NT * NT * NT * NT * NT = 32 := by decide
-
-/-- ★ Kr Period 4 closure = (NS·NT)² atomic. -/
-theorem Z_Kr_atomic : (NS * NT) * (NS * NT) = 36 := by decide
-
-/-- Period 4 size = 18 = 2·NS². -/
-theorem period_4_size : 2 * NS * NS = 18 := by decide
-
-/-- Period 4 closure = Period 3 close + Period 4 size. -/
-theorem period_4_closure : 18 + 18 = 36 := by decide
+/-- ★ Period 4 atomic Z chain (clean cases) — Z(K..Kr) atomic forms in
+    {NS, NT, d} where they admit one; Period-4 size + closure identities.
+    STRICT ∅-AXIOM. -/
+theorem period4_atomic :
+    -- Clean Z atomic forms for the 9 elements that admit one
+    NS * NS * NS - NT * NT * NT = 19   -- K = NS³ − NT³
+    ∧ 4 * d = 20                       -- Ca = 4d
+    ∧ d * d - NS = 22                  -- Ti = d² − NS (= Cabibbo λ denom)
+    ∧ d * d - 1 = 24                   -- Cr = d² − 1
+    ∧ d * d = 25                       -- Mn = d²
+    ∧ NS * NS * NS = 27                -- Co = NS³
+    ∧ NS * NT * d = 30                 -- Zn = NS·NT·d (= 1/α_2)
+    ∧ NT * NT * NT * NT * NT = 32      -- Ge = NT^d (= 2^5)
+    ∧ (NS * NT) * (NS * NT) = 36       -- Kr = (NS·NT)² ★ Period 4 closure
+    -- Period 4 size = 18 = 2·NS²
+    ∧ 2 * NS * NS = 18
+    -- Period 4 closure = Period 3 close + Period 4 size
+    ∧ 18 + 18 = 36 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.Period4
