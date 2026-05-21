@@ -1,321 +1,167 @@
-# Session Handoff — 2026-05-22 (MERGE-READY)
+# Session Handoff — 2026-05-22 (Part 3 marathon)
 
 ## Branch
-`claude/subset-bijection-lemmas-w2FKf` — 40 commits ahead of
-`origin/main`.  All pushed.
+`claude/handoff-part-3-marathon-0XWmn` — 3 substantive + 2 doc
+commits ahead of `origin/main`.  Pushed.
 
-## Merge gatekeepers ✅
+## What this session did
 
-  · **Full repo `lake build`**: ✅ clean
-  · **Layer audit**: ✅ 0 violations / ~1180 files
-  · **Axiom purity**: ✅ all 18 new phase capstones + master
-    theorem `c3_chain_master` PURE (`#print axioms` empty)
-  · **No new DIRTY** introduced (pre-existing `propext` in
-    `CanonicalTruthChar` unchanged; branch removes one stale
-    Lean-core dep via NatHelper centralization)
-  · **Diff**: 53 files changed, **+8601 / −238 lines**
+Executed §2 mechanical-immediate items from the meta branch's
+`G107_action_items_registry.md` (the executor entry-point for
+G90-G107 surfaced abstraction candidates).
 
----
+| Item | Status | Files | Net |
+|------|:------:|-------|-----|
+| **L2** — `h_components_{α,β}` 4-sibling | DONE | `LeibnizDecomp.lean` (new, 8 PURE) + `Leibniz{21,22}Final.lean` refactored | −147 lines |
+| **N7** — `caseElement` Prism truth table | DONE | `Lens/Instances/Prism.lean` (2 new PURE + 4 as one-line corollaries) | name-only |
+| **N8** — `NatHelper.mul_left_comm` adoption | DONE | 3 files (CutSumOne ×16, CutMidSelf ×2, Euler ×3) | ~38 tokens retired |
+| **N9** — `Nat.add_right_comm` adoption | DONE | 7 files | ~12 tokens retired |
 
-# Part 1 — Completed (compressed)
+Plus doc updates:
 
-## Branch-wide tally (3 sessions, 40 commits)
+  · `LESSONS_LEARNED.md` — added Pattern #10 (adoption-gap detection
+    via k-gram cascade) + Pattern #11 (Cup-Leibniz dichotomy collapse).
+  · `STRICT_ZERO_AXIOM.md` — added "PURE-bounded on Lean 4 core"
+    note (NAV-4 per G107 §10.4).
+  · `seed/INDEX.md` — added meta-analysis G87-G107 listing (NAV-1).
+  · `catalogs/falsifier-roster.md` — new (CAT-1; auto-discovered
+    135 falsifiers from G100, cross-linked with manual F1-F26).
+  · `catalogs/abstraction-candidates.md` — new (CAT-2; executor
+    status tracker for G107 §2-§4 items).
 
-| Session | Marathon | PURE | One-line headline |
-|---|---|---|---|
-| S1 | Cup-Leibniz general transfer | 67 | `cup_unfold_general` ∀(n,k,l) + KSubset bijection + FinBridge general |
-| S2 | 6-theorem + alive + Mobius213 | 80 | `ZOmega_units_exact_six` (diophantine completeness) + `alive_iff_clause4_alive` + P^5/P^10 mod 5 |
-| S3 main | **C3 chain (gauge emergence) — 12 phases + master** | 173 | gluon octet = `coker(ι*: H¹(Δ⁴) → H¹(K))` = (F_2)^8 = 2·trivial ⊕ 3·standard |
-| S3 fup A | Phase 5 → 23/23 + C3 ext (13–15) + c=2 | 60 | F25/F26 + C_2^6 on H¹(K) + 3rd standard pair + semidirect sample + G80 lift |
-| S3 fup B | Polish — Phases 16, 17, 18 | 30 | mixed C_2^6 matrices + block-diag Sym(3) + **full semidirect Group axioms** |
-| **Total** | | **~410 new PURE** | **0 DIRTY** introduced |
+## Verification
 
-## C3 chain — 18 phases, single master result
+  · **Full `lake build`**: ✅ clean.
+  · **Axiom purity**: ✅ all 8 new `LeibnizDecomp` helpers PURE;
+    downstream `leibniz_universal_5_2_{1,2}` still PURE; 2 new
+    `caseElement_*` PURE; spot-check 6 N8/N9 sites still PURE.
+  · **No new DIRTY** introduced.
 
-```
-gluon octet := coker(ι*: H¹(Δ⁴) → H¹(K_{3,2}^{(c=2)}))
-            =  H¹(K) / 0                  (H¹(Δ⁴) = 0)
-            ≃  (F_2)^8
-            =  2 · trivial ⊕ 3 · standard  (over F_2)
-```
+## Branch-side tally
 
-Downstream-ready reference: `★★★★★ c3_chain_master` ∈
-`E213.Lib.Physics.Symmetry.C3ChainCapstone` (12-conjunct PURE bundle).
-
-| Phase | Module | What it gives |
-|---|---|---|
-| 1 | `AutKType` | Aut_K as Type, card 768 |
-| 2 | `H1K` | rank-8 ℤ/2-module + 8 cycle generators |
-| 3 | `Sym3OnKEdges` | Sym(3) on K-edges, full Cayley |
-| 4 | `Sym3OnH1K` | δ⁰ equivariance → descent to H¹(K) |
-| 5 | `Sym3OnH1KMatrix` | explicit 8×8 σ_S01 + tree-decomp witness |
-| 6 | `Sym3OnH1KCayley` | s²=t²=(st)³=e at matrix level |
-| 7 | `IotaKToDelta4` | gluon octet = coker ι*; H¹(Δ⁴) = 0 via 1024-decide |
-| 8 | `IotaSym3Equivariance` | ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge |
-| 9 | `Sym3IrrepDecomp` | 2·trivial ⊕ 3·standard over F_2 |
-| 10 | `Sym3StandardReps` | 2 explicit standard 2-rep pairs |
-| 11 | `Sym3Group` | Sym(3) Group on Fin 6 via Cayley table |
-| 12 | `AutKGroup` | Aut(K) direct-product Group, card 768 |
-| ★ | `C3ChainCapstone` | `c3_chain_master` 12-conjunct master bundle |
-| 13 | `C2_6OnH1K` | C_2^6 trivial on coboundaries → auto descent |
-| 14 | `Sym3StandardRepThird` | 3rd standard pair → **full explicit 8-dim basis** |
-| 15 | `AutKSemidirect` | bit_perm twist sample, direct ≠ semidirect witness |
-| 16 | `C2_6MixedMatrices` | H1K matrices for 4 mixed C_2^6 bits |
-| 17 | `Sym3BlockDiagonal` | M_S01, M_S12 fully block-diagonal in 8-dim basis |
-| 18 | `AutKSemidirectFull` | **Full semidirect Group axioms** PROVEN |
-
-## Other deliverables this branch
-
-  · **Validation Standard Phase 5: 23/23**
-    - F25 (m_t/m_c ≈ 137 ∈ [130, 145]) → `Hadron/MtOverMc.lean`
-    - F26 (η_B × 10¹⁰ ∈ [5, 7]) → `Cosmology/EtaBFalsifier.lean`
-    - Catalog updated: `catalogs/falsifiers.md`
-
-  · **G80 c=2 structural derivation lifted to Lean**
-    - `Lib/Math/C2DoublingDerivation.lean` (10 PURE)
-    - `c = full_period/half_period = 10/5 = 2 = NT` (binary cover ratio)
-
-  · **6-theorem fully closed (S2)**: `ZOmega_units_exact_six` —
-    `|{u : ZOmega | normSq u = 1}| = 6 = NS·NT` (diophantine completeness)
-
-  · **Alive gap closed (S2)**: `alive_iff_clause4_alive` —
-    alive predicate dissolves into Clause 4 of 213 axiom
-
-  · **Cup-Leibniz general transfer (S1)**: `cup_unfold_general`
-    ∀(n, k, l) capstone subsuming Δ⁴-specific decide-tables
-
-## Key technical patterns established (LESSONS_LEARNED.md #1–#9)
-
-  · **Pointwise (∀ i, ...) module/Group axioms** to bypass `funext`/`Quot.sound`
-  · **C_2^6 = `Fin 6 → Bool`** (not `Fin 64` + `Nat.xor` which pulls propext)
-  · **Tree-decomposition witnesses** for non-tree→tree edge transitions
-  · **`maxRecDepth 2048`** for 1024-case `H¹(Δ⁴) = 0` decide
-  · **Inverse-pullback action** to convert anti-hom → true hom in semidirect product
-  · **Match-based bit-index encoding** to avoid `omega`-induced propext
+| Commit | Subject |
+|--------|---------|
+| `931c38cb` | N8 + N9 adoption (25 sites, ~50 tactic tokens retired) |
+| `95b78308` | N7 caseElement Prism truth-table generalisation |
+| `99fe6228` | L2 LeibnizDecomp 4-sibling consolidation (-147 lines) |
+| _(this commit)_ | docs: Pattern #10/#11, NAV-1/4, CAT-1/2, HANDOFF |
 
 ---
 
-# Part 2 — Open work (detailed)
+# Part 1 — What this builds on (compressed)
 
-The only substantive remaining open item is **Cup-Leibniz general
-∀(k, l)** — every other identified gap (C3 chain extensions,
-Validation Standard pairings, c=2 derivation, polish items) is now
-PURE-closed.  Lower-priority follow-up extensions are also listed.
-
-## A. Cup-Leibniz general ∀(k, l) — DEEP open conjecture
-
-**G86 conjecture** (`research-notes/G86_self_referential_lex_cup_leibniz.md`):
-For **all bidegrees (k, l)**, the lex-projection cup admits the
-self-referential Leibniz rule
-
-```
-deltaList (k+l) (cupList k l α β) τ
-  =  (cupList (k+1) l (deltaList α) β) τ
-   ⊕ (cupList k (l+1) α (deltaList β)) τ
-   ⊕ correction(α, β, τ)
-```
-
-where `correction = (cupList k l α β)(τ \ {τ[mid]})` is the
-**self-referential face-removal** of the cup itself.
-
-### Current status
-
-| Bidegree | Status | File |
-|---|---|---|
-| (1, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
-| (1, 1) | ✅ Fin-indexed (Δ⁴) | `LeibnizLexSelfRef.lean` |
-| (2, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
-| (2, 1) | ✅ Fin-indexed (Δ³) | `LeibnizLex21.lean` |
-| (k, l) general | ⚪ **open** | — |
-
-### What's needed structurally
-
-The existing (1,1) and (2,1) proofs use the **3-way partition
-strategy** with 8 list-level structural lemmas in
-`LeibnizLexStructural.lean`.  Generalizing to ∀(k, l) needs:
-
-1. **General face-removal lemma**: prove that
-   `(cupList k l α β)(τ \ {τ[i]})` decomposes into front/back
-   sub-cups for arbitrary `i ∈ Fin (k+l+1)`, not just specific
-   indices.
-2. **Inductive partition**: extend the 3-way split to a
-   `(k+1)+1+(l+1)` partition with the middle piece being the
-   self-referential overlap.
-3. **List/Fin polymorphism**: the current structural lemmas are
-   stated for specific list lengths; the general case needs
-   length-parameterized versions.
-
-### Why deferred
-
-Per the prior session direction: "이건 이후로 ㄱㄱ" (defer this) —
-needs **deep 213-native structural insight**, not just mechanical
-extension.  The face-removal correction term's exact algebraic
-form is conjectured but not yet proven from first principles.
-
-### Suggested next-session path
-
-If attempted, try this order:
-  1. **(3, 1) list-level**: simplest next case, may reveal the
-     general pattern via comparison with (1,1), (2,1).
-  2. **(k, 1) list-level for all k**: induction on k, fixing l=1.
-  3. **(1, l) list-level for all l**: similar with l-induction.
-  4. **General (k, l)**: combine via the cup's symmetry
-     `cupList k l α β = ± cupList l k β α` (up to sign / parity).
-
-Estimated effort: ~2-3 sessions of focused structural work.
-
-### Physics motivation (G86 §3, speculative)
-
-The lex-projection cup's self-referential Leibniz may connect to:
-  · **α_em 5.4×10⁻⁴ residual** — cohomology cup-product origin (G35)
-  · **K_{3,2}^{(c=2)} bipartite cup-channel structure** — the
-    specific bidegrees (NS, NT) = (3, 2) cup may give the photon
-    self-energy correction
-  · **θ_QCD α⁴ suppression** as depth-(d-1) = depth-4 self-reference
-    iteration
-
-These are conjectural and would close ATM_026-028 / G35 gaps if
-proven.
-
-## B. Lower-priority extensions (incremental, optional)
-
-### B1. Inverse-pullback / hom-direction documentation
-Phase 18 uses `bit_act_of` with inverse-pullback to recover true
-group hom direction.  A short research note explaining the
-convention choice (pullback gives anti-hom, push-forward gives
-hom) would help future contributors avoid the same trap.  Small
-file (~50 lines).
-
-### B2. C2_6OnH1K full matrix capstone
-`C2_6OnH1K.lean` (Phase 13) covers clean bits and records mixed
-bits as future.  `C2_6MixedMatrices.lean` (Phase 16) has the
-explicit matrices.  A **bundle theorem** combining both into
-"the full 6-fold C_2^6 representation on H¹(K) as 6 commuting
-involutions" would consolidate.  ~30 PURE.
-
-### B3. C3 chain master v2 — incorporate Phases 13–18
-Current `c3_chain_master` (Phase 12 era) only references Phases 1–12.
-A v2 master incorporating Phases 13–18 (C_2^6 action, F_2 irreps,
-semidirect twist, block-diagonal form) would give the **fullest
-single-theorem** statement of the gauge-emergence narrative.  Pure
-documentation / consolidation, no new math.
-
-### B4. Connect C3 to specific physics observables
-The C3 chain gives the gluon octet structurally but doesn't
-compute α_3 (strong coupling) from the explicit Sym(3) rep.
-Bridging C3 to `Lib/Physics/Couplings/AlphaStrong.lean` would
-close the loop: "gauge group → coupling constant".  Medium effort.
-
-### B5. Δ⁴ full cohomology (b_0, b_1, b_2, b_3, b_4) — already at b_1
-`V32Betti.lean` covers K_{3,2}^{(c=2)} Betti numbers fully.
-`IotaKToDelta4.kerSize_delta_5_2 = 16` gives H¹(Δ⁴) = 0.  Other
-Betti numbers of Δ⁴ (b_0 = 1, b_k = 0 for k ≥ 1) would round
-out the cohomological picture.  Each is decide-on-2^binom-Nat cases.
-
-## C. Methodological / maintenance
-
-### C1. Layer-audit downgrade hints
-The layer auditor reports 63 "downgrade hints" (files that
-could optionally move to lower layers).  None are violations,
-but periodic review keeps the architecture clean.  See
-`tools/layer_audit.py` output.
-
-### C2. Stale-path cleanup in research-notes
-Some research-notes still reference outdated file paths.  Last
-session's G93-handshake commit refactored helpers; an audit
-pass on research-notes/G* would catch remaining stale links.
+  · Prior PR #90 (`claude/subset-bijection-lemmas-w2FKf`): C3 chain
+    18 phases + 12-conjunct `c3_chain_master`; Cup-Leibniz general
+    transfer; 6-theorem `ZOmega_units_exact_six`; alive predicate
+    derived from Clause 4; Validation Standard Phase 5 → 23/23
+    (F25 + F26).  ~410 new PURE, 0 DIRTY introduced.
+  · Prior PR #91 (`claude/analyze-lean4-ast-patterns-49Rh2`):
+    11 scanner tools + 18 research notes G90-G107.  Cross-branch
+    handshake loop G93→G96→G94→G97 closed.  G107 is the canonical
+    open-items registry.
 
 ---
 
+# Part 2 — Open work
+
+The major open items below are still from G107.  Sorted by
+recommended execution order (§7).
+
+## A. Sub-2 — Tree slash-arm prologue tactic macro
+
+**Source**: G94 §6.2 Sub-3 (re-indexed §2 of G107).
+**Scope**: 5 Tree-induction siblings (`Tree.swap_depth/leaves`,
+`Swap.Tree.swap_swap`, `transportTree_roundtrip/canonical`) share
+10-token prefix `[intro, induction, rfl, rfl, have, unfold, obtain,
+obtain, have, have, ...]`.  Candidate: tactic macro
+`tree_induction_slash_unfold`.
+**Effort**: short.  **Blast radius**: 3 files (`Tree/Levels.lean`,
+`Swap.lean`, `RawCmpIndependence.lean`).
+
+## B. L1 — LeibnizAlgLift 4-sibling (biggest single)
+
+**Source**: G91 L1 + G94 §1/§8.2 + G102 + G103 §3 + G106.
+**Scope**: G106 §3 sketches the parametric form.  4 sibling
+proofs collapse to 2 parametric theorems (`leibniz_via_α_decomp`
++ `leibniz_via_β_decomp`) over `{n k l : Nat}` with originals
+as `@[reducible]` aliases.
+**Evidence**: 6-layer byte-identical (AST recursor / 48-token
+syntax / 43-cite multiset / 206,914 Expr invocations /
+628,271 Expr nodes / 3,309,145-char Expr string).
+**Effort**: medium marathon — requires understanding bz5_2
+generalisation; parallel branch's FinBridgeGeneral provides the
+∀(n, k, l) bridge infrastructure.
+**Net**: ~6.6 M chars retired (50 % of L1's elaborated mass).
+
+## C. C — CutSumOne 8-sibling 3-component template
+
+**Source**: G94 §2 + §7.
+**Scope**: 8 `cutSum_*` decls share 9-token opener.  Template
+proposal: opener + per-instance arithmetic body + universal closer
+(`bool_eq_iff` + `decide_eq_true`).
+**Effort**: medium marathon.  **Blast radius**: 1 file +
+consumers.  **Net**: ~50-60 % of CutSumOne family tactic mass.
+
+## D. Smaller open items (G107 §4)
+
+L3 (Pisano 14/17), L4 (addLDD/mulLDD), L5 (CDDouble pair),
+M (Raw.recAux), E (sqrtN), F (Σ-fold), Pell-FSM, ModArith.  Each
+2-8 sites, short-to-medium effort.  See
+`catalogs/abstraction-candidates.md` for the per-item status table.
+
+## E. Cup-Leibniz general ∀(k, l) — deep open (carried from prior)
+
+`research-notes/G86_self_referential_lex_cup_leibniz.md` — needs
+**deep 213-native structural insight**, not just mechanical
+extension.  See prior HANDOFF §2.A for the suggested next-session
+path ((3, 1) → (k, 1) → (1, l) → general).
+
+## F. Doc work remaining (G107 §10)
+
+Lower-priority but additive:
+
+  · TH-2 (Raw-derivation three levels) — highest-value standalone
+    theory doc; ~1 hr; synthesises G104.
+  · TH-1 (proof-shape fingerprint) — ~2 hr; G103 + G105.
+  · TH-3 (falsifiability surface quantified) — ~1.5 hr; G100.
+  · TH-4 (L1 extraction methodology) — ~2 hr; G106.
+  · CAT-3 (recursor inventory), CAT-4 (internal hubs) — ~30 min each.
+  · CL-1 (meta-scan archetypes in CLAUDE.md) — ~30 min.
+  · CL-2 (process-model note) — ~15 min.
+  · NAV-2 (README pointer to G101/G107) — ~10 min.
+  · NAV-3 (ARCHITECTURE.md empirical-verification note) — ~10 min.
+
 ---
 
-# Part 3 — Meta-analysis branch (`claude/analyze-lean4-ast-patterns-49Rh2`)
+## Anchor docs (next session)
 
-Runs in tandem with this substantive branch.  Analysis-only:
-no PURE theorems added; 11 scanner tools + 18 research notes
-(G90-G107).  Cross-branch handshake loop (G93→G96→G94→G97)
-fully closed.
+### Executor entry
+  · `research-notes/G107_action_items_registry.md` — full open-items
+    registry (start here for any new work).
+  · `catalogs/abstraction-candidates.md` — per-item status table
+    (CAT-2, this session).
 
-## What the meta branch delivered
+### Working files this session touched
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` (new)
+  · `lean/E213/Lens/Instances/Prism.lean` (N7)
+  · 10 files updated by N8/N9 mechanical adoption.
 
-  · 11 scanners spanning Tier-2 AST (Expr) / Tier-1 syntax
-    (tactic token) / Tier-1.5 citation graph / Tier-1.5+ unfold
-    chunks / Tier-1.5++ rw k-grams / falsifier mining /
-    call graph / shape density / type-sig + sort.
-  · ~2,000 LOC Python + ~250 LOC Lean meta + ~5,000 LOC research
-    notes.
-  · 135 auto-discovered falsifiers (G100).
-  · 6-layer byte-identical confirmation of L1 LeibnizAlgLift
-    (G103 §3 + G106).
-  · 14 Lean abstraction candidates (G107 §2-§5) + 13 theory-doc
-    action items (G107 §10).
+### Doctrine refreshers
+  · `CLAUDE.md` boot sequence (unchanged).
+  · `STRICT_ZERO_AXIOM.md` — now includes Lean-core PURE-bounded
+    fact.
+  · `LESSONS_LEARNED.md` Patterns #1-#11 (Pattern #10/#11 new).
 
-## Meta-branch entry-point
+### Meta-analysis reference
+  · `research-notes/G101_metascan_synthesis.md` — capstone.
+  · `research-notes/G106_L1_expr_structure_extraction.md` — deepest
+    implicit-lemma finding (L1 target).
+  · `research-notes/G99_rw_cascade_adoption_gap.md` — closed this
+    session via N8/N9.
+  · `research-notes/G98_unfold_graph_implicit_lemma_extraction.md` —
+    closed this session via N7.
 
-**→ `research-notes/G107_action_items_registry.md`** — single
-authoritative table of contents for all surfaced action items.
-
-  · §2-§5 Lean abstraction candidates (L1, L2, C, N7, N8, N9,
-    Sub-2, M, L3-L5, E, F, Pell-FSM, ModArith).
-  · §7 ranked execution order by (mass × confidence) / effort.
-  · §10 theory documentation registry (Pattern #10-#13
-    candidates, 4 catalogs, 4 standalone theory docs, 4
-    navigation updates, 2 CLAUDE.md additions).
-
-## Cross-branch findings already actioned on this main branch
-
-The substantive branch (PR #90) closed 6 of meta's surfaced
-items in cycle:
-
-  · C1 NatHelper + ListHelper + Int213.Bound centralisation
-    (G93 §C1)
-  · C2 `XorPairCombine.foldr_xor_proj` general lemma
-    (G93 §C2)
-  · C3 Raw.fold_slash atlas TSV (delivered by meta as
-    `research-notes/data/raw_fold_slash_context.tsv`)
-  · C5 Pattern #2 quantitative numbers cited
-  · N5 `NatHelper.max_comm` centralisation (5 sites)
-  · N6 `Int213.{mul_sub,sub_mul}` centralisation (12 sites)
-
-After these, DRLT is **PURE-bounded on Lean 4 core** — zero
-non-test DIRTY citations.  Verified by G95 dep-purity audit.
-
-## Open on meta-side (handoff for executors)
-
-  · Mechanical (G107 §2): L2 (zero-rewrite alias), N7 (Prism),
-    N8/N9 (mul/add_left_comm adoption), Sub-2 (Tree macro).
-  · Mid-marathons (G107 §3): L1 (6-layer byte-identical = ~6.6 M
-    chars retired = 50 % L1 mass), C (CutSumOne 3-component).
-  · Smaller (G107 §4): L3 Pisano, L4 LDD, L5 CDDouble, M
-    Raw.recAux pair, E sqrtN, F Σ-fold, Pell-FSM, ModArith.
-  · Doc work (G107 §10): Pattern #10-#13 drafts, 4 catalogs,
-    4 theory docs (TH-2 Raw-derivation three levels = highest
-    value).
-
----
-
-## Merge recommendation
-
-**Safe to merge.**  C3 chain delivers the gauge-emergence
-narrative as a downstream-ready single capstone
-(`c3_chain_master`) that other layers can cite.  All polish
-items closed.  No DIRTY introduced.  Build clean.  Layer audit
-clean.
-
-## Anchor docs (next session start)
-
-### Substantive side
-  · `CLAUDE.md` boot sequence (unchanged)
-  · `STRICT_ZERO_AXIOM.md` (full catalog of S1-S3 phases)
-  · `LESSONS_LEARNED.md` patterns #1–#9 (#10–#13 drafted in G107 §10.1)
-  · `research-notes/G87_raw_native_emergence_audit.md` — S2 marathon
-  · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` — C3 master
-
-### Meta-analysis side
-  · `research-notes/G107_action_items_registry.md` — START HERE for open items
-  · `research-notes/G101_metascan_synthesis.md` — capstone overview
-  · `research-notes/G106_L1_expr_structure_extraction.md` — deepest implicit-lemma finding
-  · `research-notes/G104_raw_derivation_three_levels.md` — α/β/γ distinction
-  · `research-notes/G100_decide_failure_mining.md` — 135 falsifier catalog
-  · `tools/` — 11 scanners (ast_*, syntax_*, falsifier_*) all `--report-only` capable
-
+### Tooling
+  · `tools/` — 11 scanners (all `--report-only` capable).
+  · Rerun any scanner before starting a new marathon to refresh
+    candidate rankings.

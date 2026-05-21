@@ -936,9 +936,91 @@ content to count-Lens groups, type objects, group objects, etc.
 
 ---
 
+## Pattern #10 — Adoption-gap detection via k-gram cascade scan (2026-05-22)
+
+**Source**: G99 (k-gram cascade scanner) → N8/N9 batch execution this
+session.
+
+**Statement**: When a PURE helper lemma already exists in the codebase
+but the corpus shadows it via manual 2-3 step `rw` chains, the gap
+surfaces as a high-frequency k-gram in tactic-token scans.  Adopt the
+helper mechanically; the corpus shrinks without any new mathematics.
+
+**Witness** (this session):
+
+  · `NatHelper.mul_left_comm` (already PURE) ↔ 19 sites doing manual
+    `[← mul_assoc, mul_comm, mul_assoc]` 3-step.
+    Adopted across 3 files (CutSumOne ×16, CutMidSelf ×2, Euler ×3);
+    helper went from "cited once" to "cited 20+ times".
+  · `Nat.add_right_comm` (Lean-core PURE) ↔ 6 sites doing manual
+    `[add_assoc, add_comm, ← add_assoc]` 3-step.
+    Adopted across 7 files; one site (LeibnizLexListLevel) collapsed
+    to plain `rfl` once redundancy was stripped.
+
+**Diagnostic step**: `tools/syntax_rw_cascade_scan.py` (G99) ranks
+adjacent `rw` k-grams by frequency.  Top entries that aren't already
+named lemmas are adoption candidates.
+
+**Mechanical execution**: term-mode replacement
+(`exact NatHelper.mul_left_comm a b c`) where the goal is exactly the
+helper's RHS; tactic-mode (`rw [NatHelper.mul_left_comm]`) where
+the helper appears inside a longer chain.
+
+**Failure mode this catches**: lemma rot — a helper is added once,
+then forgotten as subsequent contributors reach for the underlying
+3-step rewrite without checking whether a wrapper exists.  The k-gram
+scan is the periodic-audit antidote.
+
+---
+
+## Pattern #11 — Pointwise dichotomy collapse for Cup-Leibniz lifts (2026-05-22)
+
+**Source**: G91 / G94 §8.1 L2 → execution this session
+(`LeibnizDecomp.lean`).
+
+**Statement**: When a basis-component family `bz5_X β k j` has the
+two-case pointwise shape
+
+```
+β k = false  →  ∀ j, bz5_X β k j = Cochain.zero _ _ j
+β k = true   →  ∀ j, bz5_X β k j = basis _ _ k j
+```
+
+Cup-AW Leibniz for the family decomposes into two reusable lemmas:
+
+  (a) **Zero collapse** — when `γ ≡ 0`, all three Leibniz terms
+      collapse to `false` via `cupAW_zero_left/right` + `delta_zero`,
+      and the identity reduces to `false = xor false false` (rfl).
+  (b) **Pointwise transport** — when `γ ≡ basis`, both sides rewrite
+      via `cupAW_pointwise_eq` + `delta_pointwise_eq` and the identity
+      reduces to the basis Leibniz at the basis element.
+
+The two helpers (one per side: `left` decomposes first cochain, `right`
+decomposes second) cover the 4 sibling `h_components_{α,β}` proofs in
+`Leibniz{21,22}Final.lean`.
+
+**Witness**: `Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` — 8 PURE
+helpers (4 zero-collapse + 4 pointwise-transport, specialised to
+right-degree b ∈ {1, 2} since `2 + b - 1 + 1` does not reduce
+definitionally for abstract `b`).
+
+  · Refactor result: 4 sites × ~30-line dichotomy → 4 sites × 6-line
+    `cases` + 2 helper invocations.
+  · Net: 147 lines removed, all `h_components_{α,β}` and
+    downstream `leibniz_universal_5_2_{1,2}` remain PURE.
+
+**Why specialised, not general**: a fully `(n, a, b)`-generic form
+needs type casts to handle `(a+1)+b-1 ≢ a+b` defeq.  At the cost of
+verbosity, specialising to the two actually-used (b=1, b=2) cases
+keeps Fin indices identity-on-the-nose and avoids `Fin.cast`
+plumbing.
+
+---
+
 ## Pattern composition update
 
 The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
-bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) form the
-2026-05-22 composition table.  Together they enable the closure of the
-Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.
+bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
+(adoption-gap k-gram) + Pattern #11 (Cup-Leibniz dichotomy collapse)
+form the 2026-05-22 composition table.  Together they enable the closure
+of the Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.

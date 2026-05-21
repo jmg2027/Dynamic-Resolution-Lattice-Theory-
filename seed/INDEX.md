@@ -171,3 +171,34 @@ seed/
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
+
+## Meta-analysis (2026-05-21 session, G87-G107)
+
+Cross-branch static-analysis cycle on the Lean corpus.  All in
+`research-notes/`.  Entry point: **G107** (action items registry).
+
+| ID | One-line description |
+|---|---|
+| G87 | Raw-native emergence audit (S2 marathon kickoff) |
+| G90 | AST fold-motif scanner (`tools/ast_fold_scan.py`) |
+| G91 | Syntax tactic-token motif scanner |
+| G92 | Citation graph + construct census |
+| G93 | Handshake → subset-bijection branch |
+| G94 | Handshake response from meta branch (+ addendum) |
+| G95 | Lean-core dependency-purity audit |
+| G96 | Handshake response to subset-bijection branch |
+| G97 | Handshake closure — zero DIRTY confirmed |
+| G98 | Unfold-graph implicit-lemma extraction (Chunk 5 → N7) |
+| G99 | `rw` cascade adoption-gap surface (→ N8/N9, Pattern #10) |
+| G100 | `decide`-failure mining: 135 auto-discovered falsifiers |
+| G101 | Meta-scan synthesis — 6-scanner unified view |
+| G102 | Full Expr-level call graph (G91 → Expr-level confirmation) |
+| G103 | Raw-depth BFS + Expr-shape density (5-layer L1 confirmation) |
+| G104 | Raw-derivation three levels (α logical / β content / γ operational) |
+| G105 | Per-namespace Expr-shape + full recursor inventory |
+| G106 | L1 LeibnizAlgLift Expr-structure extraction (6th-layer confirmation) |
+| G107 | **Action items registry** — consolidates G90-G106 (executor entry) |
+
+Cross-branch findings actioned in `claude/subset-bijection-lemmas-w2FKf`
+(C1–C5, N5, N6).  Items still open in G107 §2-§4: see registry.
+Companion tooling in `tools/` (11 scanners, all `--report-only` capable).
