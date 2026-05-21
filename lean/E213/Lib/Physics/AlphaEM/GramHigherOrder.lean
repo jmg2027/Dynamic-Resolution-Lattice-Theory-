@@ -29,45 +29,18 @@ namespace E213.Lib.Physics.AlphaEM.GramHigherOrder
 open E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 open E213.Lib.Physics.AlphaEM.GramSelfConsistency
 
-/-! ## §1 — observed^3 -/
+/-! ## §1 — Defs: observed cubes + α³/d² correction + doubly-refined formula -/
 
 /-- Cubed `observed_e9 = 1/α_em(observed) × 10⁹`. -/
 def observed_e9_cubed : Nat := observed_e9 * observed_e9_squared
-
-theorem observed_e9_cubed_value :
-    observed_e9_cubed = 2573380533098334511534633279424704 := by decide
-
-/-! ## §2 — α³/d² next-order Gram correction -/
 
 /-- α³/d² Gram correction at 10⁻⁹: 10³⁶ / (25 · observed³). -/
 def gram_correction_alpha3_e9 : Nat :=
   1000000000000000000000000000000000000 / (25 * observed_e9_cubed)
 
-theorem gram_correction_alpha3_e9_value :
-    gram_correction_alpha3_e9 = 15 := by decide
-
-/-- The α³/d² correction explains 15 of the 27 e-9 refined residual. -/
-theorem alpha3_explains_residual :
-    gram_correction_alpha3_e9 + 12 = 27 := by decide
-
-/-! ## §3 — Doubly-refined formula -/
-
 /-- Doubly-refined 1/α_em × 10⁹: subtract both α²/d² and α³/d² corrections. -/
 def alphaInv_doubly_refined_e9 : Nat :=
   alphaInv_refined_e9 - gram_correction_alpha3_e9
-
-theorem alphaInv_doubly_refined_e9_value :
-    alphaInv_doubly_refined_e9 = 137035999096 := by decide
-
-/-- Doubly-refined diff: 12 × 10⁻⁹ ≈ 0.09 ppb, ~3× tighter than Step 3. -/
-theorem alphaInv_doubly_refined_residual :
-    alphaInv_doubly_refined_e9 = observed_e9 + 12 := by decide
-
-/-- Doubly-refined bracket: |refined − observed| ≤ 15 in 10⁻⁹ units. -/
-theorem alphaInv_doubly_refined_bracket :
-    alphaInv_doubly_refined_e9 ≤ observed_e9 + 15
-    ∧ observed_e9 ≤ alphaInv_doubly_refined_e9 + 15 := by
-  refine ⟨?_, ?_⟩ <;> decide
 
 /-! ## §4 — Master C1 Step 4 -/
 
@@ -89,12 +62,19 @@ theorem alphaInv_doubly_refined_bracket :
     measurement uncertainty.  Higher-order terms (α⁴/d², N_U
     corrections) are below the noise floor. -/
 theorem gram_higher_order_master :
-    gram_correction_alpha3_e9 = 15
+    -- observed^3 explicit value
+    observed_e9_cubed = 2573380533098334511534633279424704
+    -- α³/d² correction = 15
+    ∧ gram_correction_alpha3_e9 = 15
+    -- α³ correction explains 15 of the 27 e-9 refined residual
+    ∧ gram_correction_alpha3_e9 + 12 = 27
+    -- Doubly-refined value
     ∧ alphaInv_doubly_refined_e9 = 137035999096
+    -- Doubly-refined residual = +12 e-9
     ∧ alphaInv_doubly_refined_e9 = observed_e9 + 12
+    -- Doubly-refined bracket ±15 e-9
     ∧ alphaInv_doubly_refined_e9 ≤ observed_e9 + 15
-    ∧ observed_e9 ≤ alphaInv_doubly_refined_e9 + 15
-    ∧ gram_correction_alpha3_e9 + 12 = 27 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ observed_e9 ≤ alphaInv_doubly_refined_e9 + 15 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.AlphaEM.GramHigherOrder
