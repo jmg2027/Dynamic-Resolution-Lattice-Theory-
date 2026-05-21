@@ -3,7 +3,7 @@ import E213.Lib.Math.HodgeConjecture.Bridge.DiscreteGeometry
 /-!
 # G6 — No continuum/discrete tradeoff: Lean witnesses for Class A
 
-Companion narrative: `research-notes/hodge/` (G6 series).  The
+Companion narrative: `research-notes/archive/hodge/` (G6 series).  The
 "no-continuum-tradeoff" thesis is now part of the G6 §0 corrected
 position: 213 strips redundant completed-infinity packaging rather
 than rejecting infinity.

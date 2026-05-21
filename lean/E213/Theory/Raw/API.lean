@@ -42,7 +42,7 @@ get the full public surface in one line.
 
 **Migration history**: an earlier `Theory.Raw.Mobius` (Möbius
 matrix bridge) had a ring violation via `Lib.Math.Tactic.Ring213`;
-it was promoted to `Lib/Math/Mobius213.lean` per THEORY_AUDIT.md
+it was promoted to `Lib/Math/Mobius213.lean` per `research-notes/archive/audits/THEORY_AUDIT.md`
 §4 (now complete).  Möbius results are imported directly from
 `Lib/Math/Mobius213` as Lib-ring content.
 
