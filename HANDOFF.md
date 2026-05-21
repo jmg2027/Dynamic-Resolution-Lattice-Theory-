@@ -292,3 +292,74 @@ beyond the 4-clause statement of `seed/AXIOM/02_statement.md` §3.2.
   · Full repo `lake build`: clean
   · All pushed to `origin/claude/subset-bijection-lemmas-w2FKf`
 
+---
+
+## 2026-05-22 — Session 3: C3 chain marathon (6 phases, 100 PURE)
+
+Branch: `claude/subset-bijection-lemmas-w2FKf` (continued).
+
+Session 3 ran the **C3 chain marathon** end-to-end through 6
+phases, building the gauge-emergence narrative from
+`Aut(K_{3,2}^{(c=2)})` Type → Sym(3) representation on H¹(K) at
+the explicit 8×8 matrix level.
+
+### Phase breakdown
+
+| Phase | Module | PURE | Substantive content |
+|---|---|---|---|
+| 1 | `Lib/Physics/Symmetry/AutKType.lean` | 16 | `Aut_K := Sym3 × Sym2 × C2_6` as a Type; component cardinality bridges to `aut_order = 768`; `AutK_phase1_capstone` |
+| 2 | `Lib/Math/Cohomology/Bipartite/H1K.lean` | 25 | `H1K := Fin 8 → Bool` as the rank-8 ℤ/2-module; 7 pointwise module axioms (no funext); 8 named basis vectors; non-tree edge map `{1, 3, 5, 6, 7, 9, 10, 11}`; `H1K_phase2_capstone` |
+| 3 | `Lib/Physics/Symmetry/Sym3OnKEdges.lean` | 22 | `σ_S01`, `σ_S12`, `σ_S02`, `ρ_S`, `ρ_S²` on Fin 12; involution + order-3 properties; Cayley relations; edge-cochain pullback action; `Sym3OnKEdges_phase3_capstone` |
+| 4 | `Lib/Physics/Symmetry/Sym3OnH1K.lean` | 16 | Vertex permutations `φ_V_S01`, `φ_V_S12`; `★ delta0_equiv_S01`, `★ delta0_equiv_S12` δ⁰ equivariance theorems (pointwise, no funext); coboundary preservation ⇒ descent to H¹(K); `Sym3OnH1K_phase4_capstone` |
+| 5 | `Lib/Physics/Symmetry/Sym3OnH1KMatrix.lean` | 7 | Explicit 8×8 matrix `M_S01` with tree-decomposition witness `v_tree_witness = (0,0,0,0,1)`; `★ M_S01_squared_pointwise` 64-entry involution check; `boolTrace`, `intTrace` operations; `Sym3OnH1KMatrix_phase5_capstone` |
+| 6 | `Lib/Physics/Symmetry/Sym3OnH1KCayley.lean` | 14 | `M_S12` pure-permutation matrix; `M_ρ := M_S12 · M_S01` 3-cycle; `M_S02`; full Sym(3) presentation realised at matrix level: `s² = t² = (st)³ = e`; conjugacy invariance via bool-trace; `Sym3OnH1KCayley_phase6_capstone` |
+
+**Total: 100 PURE / 0 dirty new theorems** across 6 new files.
+
+### Key discoveries / techniques
+
+  · **Pointwise module axioms** to avoid `funext` (which brings
+    `Quot.sound`).  All H1K axioms stated `∀ i, f i = g i` form.
+  · **Tree-decomposition witness** for σ_S01 on H1K: vertex
+    cochain `v_tree_witness` resolves the non-tree → tree
+    transition (edge 6 → edge 2) via the coboundary identity
+    `[edge 2] ≡ [e_1 + e_3 + e_4 + e_6 + e_7]`.
+  · **σ_S12 needs no tree correction**: it preserves both tree
+    set {0, 2, 4, 8} and non-tree set, hence is a pure
+    permutation matrix on H1K basis.
+  · **Bool-trace vs Int-trace discrepancy**: integer-trace is
+    basis-dependent (σ_S01 = 4, σ_S12 = 2 despite conjugacy);
+    bool-trace = F_2 character is conjugacy-invariant (both
+    transpositions → 0, 3-cycle → 1).  This is a substantive
+    constraint on the H1K representation.
+
+### Remaining C3 work
+
+| Phase | Task | Status |
+|---|---|---|
+| 7 | Sym(3)-irrep decomposition of H¹(K) over F_2 (modular case where char(F_2) divides \|Sym(3)\| = 6, so 1 = sign coincide) | ⚪ |
+| 8 | ι*: H¹(Δ⁴) → H¹(K) Sym(3)-equivariant morphism (conceptually challenging since H¹(Δ⁴) = 0 contractibly) | ⚪ |
+| 9 | Connection to SU(3) adjoint via the F_2 → ℤ → SU(3) lifting | ⚪ |
+
+### Branch state (post-session-3)
+
+  · Total session 3 commits: 7 (1 each per phase + cleanup)
+  · 100 new PURE theorems this session, 0 dirty
+  · 80 new PURE theorems in session 2 (per HANDOFF above)
+  · 67 new PURE theorems in session 1
+  · Full repo `lake build`: clean
+  · All pushed to `origin/claude/subset-bijection-lemmas-w2FKf`
+
+### Next session anchor
+
+C3 chain Phase 7+ requires modular representation theory over F_2.
+Key fact: char 2 divides |Sym(3)| = 6 ⇒ representation theory is
+not semisimple ⇒ the 8-dim H1K rep may have non-trivial
+composition factors.  Suggested approach: compute the explicit
+8×8 matrix M_S01 in block form using the tree-decomposition
+witnesses, then identify F_2-stable subspaces by hand.
+
+For ι*: H¹(Δ⁴) → H¹(K), need first to set up H¹(Δ⁴) infrastructure
+(parallel to V32.lean for K).  Then ι is the embedding of K as a
+subgraph of Δ⁴'s 1-skeleton.
+
