@@ -730,6 +730,41 @@ is the 6-fold direct product of ℤ/2.  Combining all three into a
 full Aut(K) Group structure would be the semidirect
 `(Sym(3) × Sym(2)) ⋉ C_2^6` per AutKChiral's docstring.
 
+## 2026-05-22 — C3 chain Phase 12: full Aut(K) as direct-product Group
+
+Phase 12 of the **C3 chain** — combines Sym(3) (Phase 11), Sym(2),
+and C_2^6 into a proper Group structure on
+`Aut(K_{3,2}^{(c=2)}) := Sym3 × Sym2 × C2_6`.  The direct-product
+version is constructed (semidirect twist deferred).
+
+Key design choice: **C_2^6 is represented as `Fin 6 → Bool`** (not
+`Fin 64` with `Nat.xor`) to keep the group axioms PURE — Lean-core
+`Nat.xor_assoc` brings `propext` + `Quot.sound`, while pointwise
+`Bool.xor` properties are PURE via case-analysis.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.AutKGroup` | 15 | `Sym2 := Fin 2` with XOR-style multiplication; `Sym2.one_mul`, `Sym2.mul_one`, `Sym2.inv_mul`, `Sym2.mul_assoc`, `Sym2.mul_comm` (decide-verified); **`C2_6 := Fin 6 → Bool`** (pointwise representation for PURE-ness); `C2_6.mul := xor pointwise`, `C2_6.inv = id` (each element self-inverse); pointwise C2_6 axioms `one_mul`, `mul_one`, `inv_mul`, `mul_comm`, `mul_assoc` (via `cases f i <;> rfl`); **`Aut_K := Sym3 × Sym2 × C2_6`** abbrev (direct-product); `Aut_K.mul`, `Aut_K.inv`, `Aut_K.one` component-wise; **`★ Aut_K.one_mul`**, **`★ Aut_K.mul_one`**, **`★ Aut_K.inv_mul`**, **`★ Aut_K.mul_assoc`** — Aut(K) group axioms (Sym3+Sym2 components as full equalities, C2_6 component as pointwise `∀ i : Fin 6`); **`★ AutKGroup_phase12_capstone`** — 8-conjunct Phase-12 capstone with cardinality bridge `6·2·64 = 768` |
+
+**Cumulative new PURE this session: +172** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 + 15 across 12 phases of C3 chain).
+
+The C3 chain through Phase 12 establishes the **full Aut(K_{3,2}^{(c=2)})
+Group structure** as a direct product `Sym(3) × Sym(2) × C_2^6` with
+cardinality 768.  The semidirect twist `(Sym(3) × Sym(2)) ⋉ C_2^6`
+(per AutKChiral docstring) is a future refinement; at the cardinality
+level both give 768.
+
+Combined with Phases 1-11, the C3 chain now provides:
+  · Aut(K) as proper Group (Phase 1 Type → Phase 12 Group)
+  · H¹(K) as ℤ/2-module rank 8 (Phase 2)
+  · Sym(3) acting on H¹(K) via explicit 8×8 matrices (Phases 3-6)
+  · ι: K → Δ⁴ embedding + gluon octet identification (Phase 7)
+  · Sym(3)-equivariance of ι (Phase 8)
+  · F_2 irrep decomposition `H¹(K) = 2·trivial ⊕ 3·standard` (Phase 9)
+  · Explicit standard 2-rep basis pairs (Phase 10)
+  · Sym(3) as Cayley Group (Phase 11)
+  · Aut(K) as direct-product Group (Phase 12)
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
