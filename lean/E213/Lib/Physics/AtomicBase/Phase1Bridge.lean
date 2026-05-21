@@ -24,41 +24,24 @@ namespace E213.Lib.Physics.AtomicBase.Phase1Bridge
 open E213.Lib.Physics.AtomicBase.Edges
 open E213.Lib.Physics.Simplex.Counts
 
-/-- NS_atomic (Phase 2) = NS (Phase 1).  Both are 3. -/
-theorem NS_match : NS_atomic = E213.Lib.Physics.Simplex.Counts.NS := by decide
+/-- ★ Phase 1 ↔ Phase 2 bridge — axiom-level = numeric track ★
 
-/-- c_lattice (Phase 2) = 2 = Phase 1 c_lat value. -/
-theorem c_match : c_lattice = 2 := by decide
+  Both tracks compute the same atomicity-locked quantities:
+  NS_atomic = NS = 3, c_lattice = 2, num_directed_edges = 12,
+  cycle space dim = 8 = NS² − 1 = photon kernel b_1.
 
-/-- num_directed_edges (Phase 2) = num_edges (Phase 1) = 12. -/
-theorem edges_match :
-    num_directed_edges = E213.Lib.Physics.Couplings.PhotonKernel.num_edges := by
-  decide
-
-/-- Phase 2 cycle space dim = Phase 1 b_1. -/
-theorem cycle_space_match :
-    num_directed_edges - 5 + 1 = E213.Lib.Physics.Couplings.PhotonKernel.b_1 := by
-  decide
-
-/-- Phase 2 NS² - 1 = Phase 1 photon kernel. -/
-theorem photon_kernel_match :
-    NS_atomic * NS_atomic - 1 = E213.Lib.Physics.Couplings.PhotonKernel.b_1 := by
-  decide
-
-/-- Atomicity-locked identity holds in Phase 2 quantities. -/
-theorem atomicity_locked_in_phase2 :
-    c_lattice * NS_atomic * 2 - (NS_atomic + 2) + 1
-    = NS_atomic * NS_atomic - 1 := by decide
-
-/-- ★ Bridge synthesis — Phase 1 ↔ Phase 2 arithmetic identical ★ -/
+  Bundles all six bridge identities and the atomicity-locked
+  algebraic identity c·NS·2 − (NS+2) + 1 = NS² − 1. -/
 theorem bridge_capstone :
-    (NS_atomic = E213.Lib.Physics.Simplex.Counts.NS)
-    ∧ (c_lattice = 2)
-    ∧ (num_directed_edges = E213.Lib.Physics.Couplings.PhotonKernel.num_edges)
-    ∧ (num_directed_edges = 12)
-    ∧ (num_directed_edges - 5 + 1 = E213.Lib.Physics.Couplings.PhotonKernel.b_1)
-    ∧ (NS_atomic * NS_atomic - 1 = 8) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals decide
+    NS_atomic = E213.Lib.Physics.Simplex.Counts.NS
+    ∧ c_lattice = 2
+    ∧ num_directed_edges = E213.Lib.Physics.Couplings.PhotonKernel.num_edges
+    ∧ num_directed_edges = 12
+    ∧ num_directed_edges - 5 + 1 = E213.Lib.Physics.Couplings.PhotonKernel.b_1
+    ∧ NS_atomic * NS_atomic - 1 = E213.Lib.Physics.Couplings.PhotonKernel.b_1
+    ∧ NS_atomic * NS_atomic - 1 = 8
+    -- Atomicity-locked algebraic identity
+    ∧ c_lattice * NS_atomic * 2 - (NS_atomic + 2) + 1
+        = NS_atomic * NS_atomic - 1 := by decide
 
 end E213.Lib.Physics.AtomicBase.Phase1Bridge
