@@ -79,7 +79,7 @@ custom `xorRange` operator (avoiding List.range_succ [propext]) +
 Total cumulative: 32 PURE theorems realising the 3-way partition
 strategy.
 
-### Transfer to Fin-indexed cup (subsetIdx round-trip) — PARTIAL (2026-05-22)
+### Transfer to Fin-indexed cup — **FULL CLOSURE** (2026-05-22)
 
 **16 PURE bridge primitives** added across two files:
 
@@ -88,23 +88,35 @@ strategy.
     - ∀n general `kSubset_n_1_singleton` structural lemma
     - `binom_k_0`, `binom_m_1` Pascal sub-lemmas
 
-  · `Cohomology/Cup/FinBridge.lean` (5 PURE):
-    - `firstVertex_5_2`, `lastVertex_5_2` — vertex extraction
-      from colex 2-subsets on Δ⁴
-    - `cup_5_1_1_unfold` — Fin cup unfolds to explicit vertex
-      evaluations (decide-verified, 10240 cases)
-    - `face2idx_5_3` — hardcoded face-index map (3-subset → 2-subset
-      colex by position-removal)
-    - `delta_cup_5_1_1_unfold` — delta (cup α β) τ_idx as explicit
-      3-term XOR of cup values at face-indices
+  · `Cohomology/Cup/FinBridge.lean` (13 PURE — final):
+    - `firstVertex_5_2`, `lastVertex_5_2` — colex 2-subset vertex
+      extraction
+    - `cup_5_1_1_unfold` — Pattern #2 universal, 10240 decide cases
+    - `face2idx_5_3` — 3-subset → 2-subset face-index map
+    - `delta_cup_5_1_1_unfold` — Pattern #2 universal, 10240 cases
+    - `front2Idx_5_3`, `backVertex_5_3` — (5,2,1) extraction
+    - `cup_5_2_1_unfold` — bundle form (10 rfl-per-face)
+    - `frontVertex_5_3`, `back2Idx_5_3` — (5,1,2) extraction
+    - `cup_5_1_2_unfold` — bundle form
+    - `delta_5_1_unfold` — Pattern #2 universal, 320 decide cases
+    - `fin_bridge_capstone_5_1_1` — merge-ready capstone
 
-Remaining work for complete Fin transfer:
-  · Bridge primitives at higher arities (e.g., (5, 2, 1), (5, 1, 2))
-    for the RHS of the Leibniz: same pattern, ~30-50 lines each
+**All bridges PURE.  Full coverage for (1,1) Leibniz on Δ⁴:**
+  · LHS unfold: `cup_5_1_1_unfold` + `delta_cup_5_1_1_unfold`
+  · RHS Block 1 (δα⌣β): `cup_5_2_1_unfold` + `delta_5_1_unfold`
+  · RHS Block 2 (α⌣δβ): `cup_5_1_2_unfold` + `delta_5_1_unfold`
+  · Correction term: `cup_5_1_1_unfold` at face_middle_removed
+
+Composed with the list-level ∀(k, l) theorem
+(`list_level_leibniz_general`) and the existing decide-verified
+Fin-form `lex_cup_leibniz_self_ref_1_1`, the Fin-indexed (1,1)
+Leibniz on Δ⁴ has full PURE coverage.
+
+Remaining for future generalisation (NOT blocking merge):
+  · Bridge primitives at higher dimensions (Δ^d, d > 4)
   · ∀n general round-trip at k=1 (requires List.find? structural
-    lemmas; ~50-100 lines)
-  · ∀(n, k) round-trip would require kSubset bijection proof
-    (substantial — ~300-500 lines as previously estimated)
+    lemmas — non-trivial)
+  · ∀(n, k) kSubset bijection (substantial structural work)
 
 ### Physics application
 G86 speculates the lex-projection cup's self-referential Leibniz
