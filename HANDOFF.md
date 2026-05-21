@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 102 session
-commits (210 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 111 session
+commits (219 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -201,6 +201,14 @@ AlphaEM/, Geometry/, Nuclear/):
   · Wave 30: AlphaEM/Brackets 19 → 4 (3 masters + 1 extended)
   · Wave 31: AlphaEM/ProjectionRatios 18 scaffolds → master alone
   · Wave 32: AlphaEM/Capstone UnifiedSum 9 → 2 masters
+  · Wave 33: AlphaEM/CupChannelInventory 12 → 2
+  · Wave 34: AlphaEM/GradedFormula 8 → master
+  · Wave 35: AlphaEM/CupRingTrace 8 → master
+  · Wave 36: YangMills/WeinbergAngle 6 → 2 masters
+  · Wave 37: Mixing/CKMHierarchy 8 → 1 master
+  · Wave 38: HodgeConjecture/Bridge/DiscreteGeometry 23 → master
+  · Wave 39: HodgeConjecture/Bridge/SpinGlassGroundState 21 → 1
+  · Wave 40: HodgeConjecture/Bridge/PhaseRouting 27 → 1
 
 Verified-and-skipped candidates:
   · universalMorphism_a/_b (heavily externally used)
