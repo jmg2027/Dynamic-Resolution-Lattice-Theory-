@@ -76,50 +76,39 @@ def d : Nat := 5
 def big_block : Nat := 3
 def small_block : Nat := 2
 
-/-- Two blocks combine to d — first arithmetic fact. -/
-theorem partition_sums : big_block + small_block = d := by decide
-
 /-- Total pairs = C(5, 2) = 10. -/
 def total_pairs : Nat := d * (d - 1) / 2
-
-theorem total_pairs_eq_10 : total_pairs = 10 := by decide
 
 /-- Pairs within 3-block = C(3, 2) = 3 (triangle). -/
 def big_block_pairs : Nat := big_block * (big_block - 1) / 2
 
-theorem big_block_pairs_eq_3 : big_block_pairs = 3 := by decide
-
 /-- Pairs within 2-block = C(2, 2) = 1 (edge). -/
 def small_block_pairs : Nat := small_block * (small_block - 1) / 2
-
-theorem small_block_pairs_eq_1 : small_block_pairs = 1 := by decide
 
 /-- Cross pairs = 3 · 2 = 6 (bipartite K_{3,2}). -/
 def cross_pairs : Nat := big_block * small_block
 
-theorem cross_pairs_eq_6 : cross_pairs = 6 := by decide
+/-- ★ Capstone — shape of the universe (5 vertices, (3,2), 10 edges) ★
 
-/-- ★ All pairs accounted for: 3 + 1 + 6 = 10 ★ -/
-theorem all_pairs_accounted :
-    big_block_pairs + small_block_pairs + cross_pairs = total_pairs := by
-  decide
-
-/-- 4-simplex face counts: 1, 5, 10, 10, 5, 1 (binomial). -/
-theorem simplex_face_counts :
-    (1 = 1) ∧ (d = 5) ∧ (total_pairs = 10) := by decide
-
-/-- ★ Capstone — shape of the universe (5 vertices, (3,2), 10 edges) ★ -/
+  Bundles: d = 5; (3, 2) partition sum; C(5, 2) = 10 total pairs;
+  decomposition 3 + 1 + 6 = 10; per-component values
+  (big_block_pairs = 3, small_block_pairs = 1, cross_pairs = 6);
+  4-simplex face-count base. -/
 theorem cosmos_shape_minimal :
     -- d = 5
-    (d = 5)
-    -- (3, 2) partition
-    ∧ (big_block + small_block = d)
+    d = 5
+    -- (3, 2) partition: big_block + small_block = d
+    ∧ big_block + small_block = d
     -- 10 total pairs
-    ∧ (total_pairs = 10)
-    -- decomposition: 3 + 1 + 6
-    ∧ (big_block_pairs + small_block_pairs + cross_pairs = 10)
-    -- each part
-    ∧ (big_block_pairs = 3) ∧ (small_block_pairs = 1)
-    ∧ (cross_pairs = 6) := by decide
+    ∧ total_pairs = 10
+    -- decomposition: 3 + 1 + 6 = 10
+    ∧ big_block_pairs + small_block_pairs + cross_pairs = total_pairs
+    ∧ big_block_pairs + small_block_pairs + cross_pairs = 10
+    -- per-component values
+    ∧ big_block_pairs = 3
+    ∧ small_block_pairs = 1
+    ∧ cross_pairs = 6
+    -- 4-simplex face-count base
+    ∧ (1 : Nat) = 1 := by decide
 
 end E213.Lib.Physics.AtomicBase.Shape
