@@ -114,9 +114,30 @@ Leibniz on Δ⁴ has full PURE coverage.
 
 Remaining for future generalisation (NOT blocking merge):
   · Bridge primitives at higher dimensions (Δ^d, d > 4)
-  · ∀n general round-trip at k=1 (requires List.find? structural
-    lemmas — non-trivial)
-  · ∀(n, k) kSubset bijection (substantial structural work)
+
+### ∀n round-trip at k=1 + ∀(n,k) kSubset bijection — **CLOSED** (this session)
+
+Both deferred items from the previous handoff are now closed:
+
+  · **`Cohomology/Cup/SubsetIdxRoundtripGeneral.lean`** (7 PURE):
+      - `find_range'_witness` — generic witness lemma on `range'`
+        (avoids `List.range_succ`'s propext via `List.range_eq_range'`)
+      - `find_range_witness` — specialised to `List.range n`
+      - `roundtrip_n_1`, `roundtrip_n_1_fin` — ∀n round-trip at k=1
+      - `kSubset_eq_kSubset_iff_idx` (private) — predicate-bridge via
+        `kSubset_injective`
+      - **`roundtrip_n_k`**, **`roundtrip_n_k_fin`** —
+        ∀(n, k) bijection capstone
+
+  · **`Cohomology/Cup/KSubsetStructural.lean`** (3 PURE + 6 helpers):
+      - `kSubset_length`     — `(kSubset n k j).length = k`
+      - `kSubset_all_lt`     — every element `< n`
+      - **`kSubset_injective`** — `i₁ ≠ i₂ ⇒ kSubset distinct`
+
+Required custom helpers bypassing propext-tainted Lean-core lemmas:
+`List.length_append`, `Nat.add_sub_cancel`, `Nat.sub_lt_sub_right`,
+`Nat.succ_ne_zero`, `Bool.and_eq_true` — all replaced with constructive
+equivalents.
 
 ### Physics application
 G86 speculates the lex-projection cup's self-referential Leibniz
