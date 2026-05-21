@@ -38,30 +38,20 @@ open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 
-/-- ★ id ∘ x² derivative at c = 1/2 = 1 — pointwise (∅-axiom). -/
+/-- ★ id ∘ x² derivative at c = 1/2 = 1 — pointwise (∅-axiom).
+    G110 FLUX-1 template. -/
 theorem id_compose_square_derivative_at_half_at (m k : Nat) :
     (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
         (constCut 1 2) m k = constCut 1 1 m k := by
   show cutMul (constCut 1 1)
               (squareIsDifferentiable.derivative (constCut 1 2)) m k
        = constCut 1 1 m k
-  -- Push pointwise eq through cutMulOuter: swap inner squareDeriv → constCut 1 1.
   show cutMulOuter (constCut 1 1)
                    (squareIsDifferentiable.derivative (constCut 1 2))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
-  have step :
-      cutMulOuter (constCut 1 1)
-                  (squareIsDifferentiable.derivative (constCut 1 2))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 1 1) (constCut 1 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (constCut 1 1) (constCut 1 1)
-      (squareIsDifferentiable.derivative (constCut 1 2)) (constCut 1 1)
-      (fun _ _ => rfl)
-      (fun m' _ => squareDerivative_at_half_at m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (constCut 1 1) (squareIsDifferentiable.derivative (constCut 1 2)) 1 1 m k
+        (fun _ _ => rfl) (fun m' _ => squareDerivative_at_half_at m' k)]
   exact cutMul_one_one_at m k
 
 /-! ### PURE pointwise variants (∅-axiom) -/
