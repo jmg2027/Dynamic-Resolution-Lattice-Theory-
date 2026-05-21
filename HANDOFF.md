@@ -282,3 +282,58 @@ ModArith executions + TH-2/TH-3 + Patterns #10-#13 + Part 3 NAV/CAT):
 The branch is **merge-ready** and reflects the combined work of:
   · Part 3 substantive marathon (parallel branch's executor work)
   · Part 4 meta deep dives + integration (this branch's analysis work)
+
+## Part 4 — Addendum (post-resume, additional Part 3 commits absorbed)
+
+After Part 4 initial integration, parallel branch added 4 more
+commits (`b28e64e4` → `097b39bc`) continuing Pell-FSM
+simplification:
+
+  · `b28e64e4` — Pell-FSM run_period_of_base helper + 44 site
+    refactor across ArithFSM/ModMedium, ArithFSM/ModSmall,
+    ArithFSM/V3, Fib/FSMmod, LucasFSMmod5, Pell/ProperMod,
+    Pell/ProperSmall, Trib/FSMmod
+  · `71a3fcb6` — HANDOFF + CAT-2 refresh after run_period sweep
+  · `6309a20a` — Pell.Bounds + ModSmall obtain-rebuild
+    simplification (5 sites)
+  · `097b39bc` — HANDOFF tally update
+
+Net: **+44 Pell-FSM run_period sites refactored, +5 mathematical
+obtain-rebuild simplifications**.  All PURE.
+
+This merge commit (`63e7cd3c`): absorbs the 4 additional Part 3
+commits cleanly (no conflicts, only Lean file simplifications).
+
+### Updated grand total
+
+Combined Part 3 (full) + Part 4 (meta deep dives + integration):
+
+  · ~54 commits this cycle
+  · ~13,500 LOC analysis + documentation
+  · **~180 sites absorbed** (49 + 44 = 93 Pell-FSM run/period
+    refactors, 12 mathematical, 25 mechanical N8/N9, 5
+    obtain-rebuild) + 9 Tier-2/3 deep dive G-docs
+  · 9,300 decls deep-dived (G108-G116)
+  · DRLT formally PURE-bounded on Lean 4 core (G95 + N5/N6)
+
+### Verification (post-merge)
+
+  · Full `lake build`: ✅ clean
+  · No `sorry` in actual code
+  · No new DIRTY axioms
+  · Working tree clean after merge resolution
+
+### Remaining still-open G107 items (unchanged)
+
+The 4 additional commits were all Pell-FSM site refactors —
+G113 FSM-1 work (which already had 49 sites done in initial
+Part 3; now 93 sites total).  Other open items unchanged:
+
+  · L1 α-side completion
+  · C (CutSumOne 3-component template)
+  · G110 FLUX-1 forward/backward parametric
+  · G108 REAL-1+REAL-2 Cut iff consolidation
+  · L3/L4/L5, G111 COH-1+2+3, G114 CD-1+2+3
+  · G112 HC-1, G115 PHYS-1/PHYS-2
+  · TH-1, TH-4, G117 Bishop comparison
+
