@@ -211,6 +211,18 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
+/-- Decompose `canonicalBy cmp (.slash x y) = true`: both sub-trees
+    are canonicalBy-cmp and `cmp x y = .lt`.  G107 §2 Sub-2 helper
+    (canonicalBy variant). -/
+theorem canonicalBy_slash_decompose {cmp : Tree → Tree → Ordering}
+    {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
+    canonicalBy cmp x = true ∧ canonicalBy cmp y = true ∧ cmp x y = .lt := by
+  have h' := h
+  unfold canonicalBy at h'
+  obtain ⟨hxy, _⟩ := Bool.and_eq_true_to_pair h'
+  obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
+  exact ⟨hx, hy, canonicalBy_slash_lt h⟩
+
 /-- **RawBy.recAux**: structural recursion on Tree, canonical
     form re-assembled via cmp-parameterized RawBy.slash. -/
 private noncomputable def RawBy.recAux {cmp : Tree → Tree → Ordering}
@@ -352,10 +364,7 @@ theorem transportTree_roundtrip
   | a => rfl
   | b => rfl
   | slash s u ihs ihu =>
-      have hsu : cmp2 s u = .lt := canonicalBy_slash_lt hcanon
-      unfold canonicalBy at hcanon
-      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon
-      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
+      obtain ⟨hcs, hcu, hsu⟩ := canonicalBy_slash_decompose hcanon
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       rw [transportTree_slash]
@@ -404,10 +413,7 @@ theorem transportTree_canonical
   | a => rfl
   | b => rfl
   | slash s u ihs ihu =>
-      have hsu1 : cmp1 s u = .lt := canonicalBy_slash_lt hcanon1
-      unfold canonicalBy at hcanon1
-      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon1
-      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
+      obtain ⟨hcs, hcu, hsu1⟩ := canonicalBy_slash_decompose hcanon1
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       -- transportTree cmp2 s, u canonical-by-cmp2 (IH).
