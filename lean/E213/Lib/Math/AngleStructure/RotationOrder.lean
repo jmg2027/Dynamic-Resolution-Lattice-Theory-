@@ -18,41 +18,28 @@ def levelRotationOrder : Nat → Nat
   | 1 => 2
   | _ + 2 => 4
 
-/-- ★ Level 0: trivial (no orthogonal slot). -/
-theorem level0 : levelRotationOrder 0 = 1 := rfl
-
-/-- ★ Level 1 sign: order 2 → 180°. -/
-theorem level1 : levelRotationOrder 1 = 2 := rfl
-
-/-- ★ Level 2 complex: order 4 → 90°. -/
-theorem level2 : levelRotationOrder 2 = 4 := rfl
-
-/-- ★ Per-axis order stable at 4 for n ≥ 2. -/
-theorem per_axis_stable (n : Nat) :
-    levelRotationOrder (n + 2) = 4 := rfl
-
 /-- Angle in degrees: 360 / rotation order. -/
 def angleAtLevel (n : Nat) : Nat := 360 / levelRotationOrder n
 
-/-- ★ Level 0 angle = 360 (trivial). -/
-theorem angle_level0 : angleAtLevel 0 = 360 := by
-  show 360 / 1 = 360
-  rfl
+/-- ★ Rotation-order master — per-level orders and angles.
 
-/-- ★ **Level 1 angle = 180°** (negative number = sign flip). -/
-theorem angle_level1 : angleAtLevel 1 = 180 := by
-  show 360 / 2 = 180
-  rfl
-
-/-- ★ **Level 2 angle = 90°** (imaginary i). -/
-theorem angle_level2 : angleAtLevel 2 = 90 := by
-  show 360 / 4 = 90
-  rfl
-
-/-- ★ Levels 3+ per-axis angle = 90°. -/
-theorem angle_level3_plus (n : Nat) :
-    angleAtLevel (n + 2) = 90 := by
-  show 360 / 4 = 90
-  rfl
+  level 0: trivial (no orthogonal slot), order = 1, angle = 360°
+  level 1: sign, order = 2, angle = 180°
+  level 2: complex, order = 4, angle = 90°
+  levels ≥ 2: per-axis stable at 4 (angle 90°). -/
+theorem rotation_order_master :
+    levelRotationOrder 0 = 1
+    ∧ levelRotationOrder 1 = 2
+    ∧ levelRotationOrder 2 = 4
+    ∧ (∀ n : Nat, levelRotationOrder (n + 2) = 4)
+    ∧ angleAtLevel 0 = 360
+    ∧ angleAtLevel 1 = 180
+    ∧ angleAtLevel 2 = 90
+    ∧ (∀ n : Nat, angleAtLevel (n + 2) = 90) := by
+  refine ⟨rfl, rfl, rfl, ?_, rfl, rfl, rfl, ?_⟩
+  · intro _; rfl
+  · intro _
+    show 360 / 4 = 90
+    rfl
 
 end E213.Lib.Math.AngleStructure.RotationOrder
