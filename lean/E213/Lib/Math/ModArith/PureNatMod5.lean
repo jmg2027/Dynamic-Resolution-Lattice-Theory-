@@ -116,7 +116,7 @@ theorem mod5_five_mul_add (X Y : Nat) : mod5 (5 * X + Y) = mod5 Y := by
       show mod5 (5 * (n + 1) + Y) = mod5 Y
       rw [Nat.mul_succ]
       show mod5 (5 * n + 5 + Y) = mod5 Y
-      rw [Nat.add_assoc, Nat.add_comm 5 Y, ← Nat.add_assoc]
+      rw [Nat.add_right_comm]
       show mod5 (5 * n + Y + 5) = mod5 Y
       -- mod5 (X + 5) = mod5 X by structural recursion
       change mod5 (5 * n + Y) = mod5 Y

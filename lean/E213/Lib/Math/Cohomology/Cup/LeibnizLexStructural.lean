@@ -100,8 +100,8 @@ theorem eraseIdx_drop_boundary {α} (l : List α) (k : Nat) :
 
 /-- Auxiliary: `k + 1 + j = k + j + 1` (Nat associativity). -/
 private theorem nat_add_one_swap (k j : Nat) :
-    k + 1 + j = k + j + 1 := by
-  rw [Nat.add_assoc, Nat.add_comm 1 j, ← Nat.add_assoc]
+    k + 1 + j = k + j + 1 :=
+  Nat.add_right_comm k 1 j
 
 /-- ★ **Drop commutes with eraseIdx for high indices**.  For i > k
     (write i = k + j + 1), removing position i of l and then

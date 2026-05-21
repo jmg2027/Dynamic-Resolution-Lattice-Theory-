@@ -20,7 +20,7 @@ theorem encode_div {n : Nat} (hn : 0 < n) :
   | k+1, b, hb => by
     show ((k + 1) * n + b) / n = k + 1
     have hreorder : (k + 1) * n + b = (k * n + b) + n := by
-      rw [Nat.succ_mul, Nat.add_assoc, Nat.add_comm n b, ← Nat.add_assoc]
+      rw [Nat.succ_mul, Nat.add_right_comm]
     rw [hreorder, add_div_right_pos hn]
     rw [encode_div hn k b hb]
 
@@ -33,7 +33,7 @@ theorem encode_mod {n : Nat} (hn : 0 < n) :
   | k+1, b, hb => by
     show ((k + 1) * n + b) % n = b
     have hreorder : (k + 1) * n + b = (k * n + b) + n := by
-      rw [Nat.succ_mul, Nat.add_assoc, Nat.add_comm n b, ← Nat.add_assoc]
+      rw [Nat.succ_mul, Nat.add_right_comm]
     rw [hreorder, add_mod_right_pos hn]
     rw [encode_mod hn k b hb]
 
