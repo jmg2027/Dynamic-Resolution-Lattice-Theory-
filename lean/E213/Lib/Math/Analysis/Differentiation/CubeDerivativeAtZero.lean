@@ -1,4 +1,6 @@
 import E213.Lib.Math.Analysis.ODE.NewtonFirst
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Mul.CutMul
@@ -33,7 +35,7 @@ open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at cutSum_zero_zero_
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 
-/-- ★ d/dx [x²] at x = 0 = 0 pointwise (PURE). -/
+/-- ★ d/dx [x²] at x = 0 = 0 pointwise (PURE).  G110 FLUX-1 sum template. -/
 theorem squareDerivative_at_zero_at (m k : Nat) :
     squareIsDifferentiable.derivative (constCut 0 1) m k = constCut 0 1 m k := by
   show cutSum (cutMul (constCut 1 1) (constCut 0 1))
@@ -41,20 +43,16 @@ theorem squareDerivative_at_zero_at (m k : Nat) :
   show cutSumAux (cutMul (constCut 1 1) (constCut 0 1))
                  (cutMul (constCut 0 1) (constCut 1 1)) k (2*m) (2*m)
        = constCut 0 1 m k
-  have h1 :
-      cutSumAux (cutMul (constCut 1 1) (constCut 0 1))
-                (cutMul (constCut 0 1) (constCut 1 1)) k (2*m) (2*m)
-      = cutSumAux (constCut 0 1) (constCut 0 1) k (2*m) (2*m) :=
-    cutSumAux_congr k (2*m)
-      (cutMul (constCut 1 1) (constCut 0 1)) (constCut 0 1)
-      (cutMul (constCut 0 1) (constCut 1 1)) (constCut 0 1)
-      (fun m' _ => cutMul_one_const_at 0 1 m' (2*k))
-      (fun m' _ => cutMul_const_one_at 0 1 m' (2*k))
-      (2*m) (Nat.le_refl _)
-  rw [h1]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (cutMul (constCut 1 1) (constCut 0 1))
+        (cutMul (constCut 0 1) (constCut 1 1))
+        (constCut 0 1) (constCut 0 1) k (2*m)
+        (fun m' _ => cutMul_one_const_at 0 1 m' (2*k))
+        (fun m' _ => cutMul_const_one_at 0 1 m' (2*k))]
   exact cutSum_zero_zero_at m k
 
-/-- ★ d/dx [x³] at x = 0 = 0 pointwise (PURE). -/
+/-- ★ d/dx [x³] at x = 0 = 0 pointwise (PURE).
+    G110 FLUX-1 templates (sum + mul). -/
 theorem cubeDerivative_at_zero_at (m k : Nat) :
     cubeIsDifferentiable.derivative (constCut 0 1) m k = constCut 0 1 m k := by
   show cutSum (cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)))
@@ -68,72 +66,42 @@ theorem cubeDerivative_at_zero_at (m k : Nat) :
           (cutSum (cutMul (constCut 1 1) (constCut 0 1))
                   (cutMul (constCut 0 1) (constCut 1 1))))
         k (2*m) (2*m) = constCut 0 1 m k
-  have h1 :
-      cutSumAux
-          (cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)))
-          (cutMul (constCut 0 1)
-            (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                    (cutMul (constCut 0 1) (constCut 1 1))))
-          k (2*m) (2*m)
-      = cutSumAux (constCut 0 1) (constCut 0 1) k (2*m) (2*m) :=
-    cutSumAux_congr k (2*m)
-      (cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)))
-      (constCut 0 1)
-      (cutMul (constCut 0 1)
-        (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                (cutMul (constCut 0 1) (constCut 1 1))))
-      (constCut 0 1)
-      (fun m' _ => by
-        show cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)) m' (2*k)
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)))
+        (cutMul (constCut 0 1)
+          (cutSum (cutMul (constCut 1 1) (constCut 0 1))
+                  (cutMul (constCut 0 1) (constCut 1 1))))
+        (constCut 0 1) (constCut 0 1) k (2*m)
+        (fun m' _ => by
+          show cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)) m' (2*k)
+                = constCut 0 1 m' (2*k)
+          show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 1 1)
+                (cutMul (constCut 0 1) (constCut 0 1))
+                (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
               = constCut 0 1 m' (2*k)
-        show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 1 1)
-              (cutMul (constCut 0 1) (constCut 0 1))
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            = constCut 0 1 m' (2*k)
-        have step :
-            E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 1 1)
-              (cutMul (constCut 0 1) (constCut 0 1))
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            = E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 1 1) (constCut 0 1)
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1)) :=
-          E213.Lib.Math.Real213.Mul.CutMulDetermined.cutMulOuter_congr
-            (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            (constCut 1 1) (constCut 1 1)
-            (cutMul (constCut 0 1) (constCut 0 1)) (constCut 0 1)
-            (fun _ _ => rfl)
-            (fun m'' _ => cutMul_zero_zero_at m'' (2*k))
-            ((m'+1)*((2*k)+1)) (Nat.le_refl _)
-        rw [step]
-        exact cutMul_one_const_at 0 1 m' (2*k))
-      (fun m' _ => by
-        show cutMul (constCut 0 1)
-              (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                      (cutMul (constCut 0 1) (constCut 1 1))) m' (2*k)
-            = constCut 0 1 m' (2*k)
-        show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 0 1)
-              (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                      (cutMul (constCut 0 1) (constCut 1 1)))
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            = constCut 0 1 m' (2*k)
-        have step :
-            E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 0 1)
-              (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                      (cutMul (constCut 0 1) (constCut 1 1)))
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            = E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 0 1) (constCut 0 1)
-              (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1)) :=
-          E213.Lib.Math.Real213.Mul.CutMulDetermined.cutMulOuter_congr
-            (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
-            (constCut 0 1) (constCut 0 1)
-            (cutSum (cutMul (constCut 1 1) (constCut 0 1))
-                    (cutMul (constCut 0 1) (constCut 1 1))) (constCut 0 1)
-            (fun _ _ => rfl)
-            (fun m'' _ => squareDerivative_at_zero_at m'' (2*k))
-            ((m'+1)*((2*k)+1)) (Nat.le_refl _)
-        rw [step]
-        exact cutMul_zero_zero_at m' (2*k))
-      (2*m) (Nat.le_refl _)
-  rw [h1]
+          rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+                (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)) 1 0 m' (2*k)
+                (fun _ _ => rfl)
+                (fun m'' _ => cutMul_zero_zero_at m'' (2*k))]
+          exact cutMul_one_const_at 0 1 m' (2*k))
+        (fun m' _ => by
+          show cutMul (constCut 0 1)
+                (cutSum (cutMul (constCut 1 1) (constCut 0 1))
+                        (cutMul (constCut 0 1) (constCut 1 1))) m' (2*k)
+              = constCut 0 1 m' (2*k)
+          show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 0 1)
+                (cutSum (cutMul (constCut 1 1) (constCut 0 1))
+                        (cutMul (constCut 0 1) (constCut 1 1)))
+                (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
+              = constCut 0 1 m' (2*k)
+          rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+                (constCut 0 1)
+                (cutSum (cutMul (constCut 1 1) (constCut 0 1))
+                        (cutMul (constCut 0 1) (constCut 1 1)))
+                0 0 m' (2*k)
+                (fun _ _ => rfl)
+                (fun m'' _ => squareDerivative_at_zero_at m'' (2*k))]
+          exact cutMul_zero_zero_at m' (2*k))]
   exact cutSum_zero_zero_at m k
 
 /-- ★ capstone (PURE). -/
