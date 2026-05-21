@@ -129,56 +129,7 @@ def J_partial  : Coupling := delta0 (mkSpin true false false false false)
 def σ_v0       : Spin := mkSpin true  false false false false
 def σ_v01      : Spin := mkSpin true  true  false false false   -- max-cut k=2
 
-/-! §6  Cocycle obstruction values for each coupling. -/
-
-theorem cocycle_J_ferro    : cocycleObstruction J_ferro    = 0  := by decide
-theorem cocycle_J_anti     : cocycleObstruction J_anti     = 10 := by decide
-theorem cocycle_J_oneAnti  : cocycleObstruction J_oneAnti  = 3  := by decide
-theorem cocycle_J_partial  : cocycleObstruction J_partial  = 0  := by decide
-
-/-! §7  Frustration counts at concrete σ — upper bounds achieved. -/
-
-theorem frust_ferro_allDown    : frustrationCount allDown J_ferro    = 0 := by decide
-theorem frust_ferro_allUp      : frustrationCount allUp   J_ferro    = 0 := by decide
-theorem frust_partial_at_v0    : frustrationCount σ_v0    J_partial  = 0 := by decide
-theorem frust_oneAnti_at_v0    : frustrationCount σ_v0    J_oneAnti  = 3 := by decide
-theorem frust_anti_at_v01      : frustrationCount σ_v01   J_anti     = 4 := by decide
-
-/-! §8  δ_1 ∘ δ_0 = 0  (cocycle from coboundary) — concrete witnesses.
-
-    Every coboundary J = δ_0 σ has zero triangle obstruction.
-    Verified at three explicit σ. -/
-
-theorem coboundary_is_cocycle_allDown :
-    cocycleObstruction (delta0 allDown) = 0 := by decide
-theorem coboundary_is_cocycle_allUp :
-    cocycleObstruction (delta0 allUp) = 0 := by decide
-theorem coboundary_is_cocycle_v0 :
-    cocycleObstruction (delta0 σ_v0) = 0 := by decide
-theorem coboundary_is_cocycle_v01 :
-    cocycleObstruction (delta0 σ_v01) = 0 := by decide
-
-/-! §9  Cohomology bridge — Ising/Potts/Glass discriminator.
-
-    Three regimes on the SAME K_5 lattice:
-      · Ising (J = J_ferro):  trivial cocycle class, all σ-routes
-        accessible, ground = constants.
-      · Spin glass (J ≠ coboundary): nontrivial cocycle class
-        ⇒ no σ achieves zero frustration ⇒ topologically forced
-        residual energy.
-
-    The integer cocycleObstruction(J) IS the cohomology-class
-    representative; it correlates with min frustration (lower bound). -/
-
-theorem ising_is_zero_obstruction :
-    cocycleObstruction J_ferro = 0 := by decide
-theorem glass_is_nonzero_obstruction :
-    cocycleObstruction J_anti ≠ 0 := by decide
-theorem oneAnti_obstruction_eq_frust : cocycleObstruction J_oneAnti = 3
-    ∧ frustrationCount σ_v0 J_oneAnti = 3 := by
-  refine ⟨?_, ?_⟩ <;> decide
-
-/-! §10  ★★★★★ Spin Glass²¹³ + frustration cocycle bridge — STRICT ∅-AXIOM. -/
+/-! §6  ★★★★★ Spin Glass²¹³ + frustration cocycle bridge — STRICT ∅-AXIOM. -/
 
 theorem spin_glass_213_capstone :
     -- δ² = 0: every δ_0 σ has zero triangle obstruction
