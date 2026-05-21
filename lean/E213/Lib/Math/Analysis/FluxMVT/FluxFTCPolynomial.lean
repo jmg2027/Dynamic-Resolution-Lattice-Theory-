@@ -61,44 +61,28 @@ theorem fluxAlong_square_unitBracket_backward_at (m k : Nat) :
       = (ofCut (constCut 1 1) : FluxCut).backward m k :=
   cutMul_zero_zero_at m k
 
-/-- fluxAlong x³ at unitBracket forward, pointwise (∅-axiom). -/
+/-- fluxAlong x³ at unitBracket forward, pointwise (∅-axiom).
+    G110 FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_forward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket).forward m k
       = (ofCut (constCut 1 1) : FluxCut).forward m k := by
   show cutMulOuter (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
-  have step :
-      cutMulOuter (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 1 1) (constCut 1 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (constCut 1 1) (constCut 1 1)
-      (cutMul (constCut 1 1) (constCut 1 1)) (constCut 1 1)
-      (fun _ _ => rfl)
-      (fun m' _ => cutMul_one_one_at m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1)) 1 1 m k
+        (fun _ _ => rfl) (fun m' _ => cutMul_one_one_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- fluxAlong x³ at unitBracket backward, pointwise (∅-axiom). -/
+/-- fluxAlong x³ at unitBracket backward, pointwise (∅-axiom).
+    G110 FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_backward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket).backward m k
       = (ofCut (constCut 1 1) : FluxCut).backward m k := by
   show cutMulOuter (constCut 0 1) (cutMul (constCut 0 1) (constCut 0 1))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 0 1 m k
-  have step :
-      cutMulOuter (constCut 0 1) (cutMul (constCut 0 1) (constCut 0 1))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 0 1) (constCut 0 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (constCut 0 1) (constCut 0 1)
-      (cutMul (constCut 0 1) (constCut 0 1)) (constCut 0 1)
-      (fun _ _ => rfl)
-      (fun m' _ => cutMul_zero_zero_at m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (constCut 0 1) (cutMul (constCut 0 1) (constCut 0 1)) 0 0 m k
+        (fun _ _ => rfl) (fun m' _ => cutMul_zero_zero_at m' k)]
   exact cutMul_zero_zero_at m k
 
 /-! ### PURE pointwise variants (fluxCutEq form)
