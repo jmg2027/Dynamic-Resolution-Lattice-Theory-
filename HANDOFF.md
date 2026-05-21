@@ -357,6 +357,9 @@ what closed and what deferred.
 | 10b | **TH-4** L1 parametric methodology spec | `2558e58b` | `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` |
 | 8a | **L3 Pisano** period_lift template | `fc105cd6` | 10 sites refactored across 4 Predictor files |
 | 3+ | **G110 FLUX-1 extension** (FTCPolynomial + Propagate) + ClassicCalc parse fix | `25e4c432` | +3 sites; ClassicCalc.lean fixed |
+| 3++ | **G110 FLUX-1 sum companion** (UnitBracketReduceSum + 5 derivative-witness sites) | `d39946dd` | +5 sites + new PURE template |
+| 3+++ | **G110 FLUX-1 extension 3** (ClassicCalcMid + CubeDerivativeAtZero) | `e1e6017c` | +4 sites |
+| 3++++ | **G110 FLUX-1 extension 4** (FluxMVTPassthrough + FluxPassthroughClass + MVTWitnessChain) | `fd7ceca2`, `9290104e` | +4 sites; FLUX-1 total 30 sites |
 
 ## Deferred (require separate marathons)
 
@@ -377,10 +380,14 @@ what closed and what deferred.
   · **~14,800 LOC** analysis + documentation + refactor
   · **~290 sites absorbed** (180 in Part 3+4 + ~110 effective sites
     in Part 5 templates × consumers including 10 Pisano period_lift sites)
-  · **8 abstraction templates** surfaced + integrated:
+  · **9 abstraction templates** surfaced + integrated:
     LeibnizAlgLiftBeta, LeibnizAlgLiftAlpha, cutSum_constCut_at,
-    cutMulOuter_unitBracket_reduce_at, Pattern10, InvolutionTemplate,
-    pisano_period_lift, LeibnizUniversalLift.leibniz_pointwise_lift
+    cutMulOuter_unitBracket_reduce_at, cutSumAux_unitBracket_reduce_at,
+    Pattern10, InvolutionTemplate, pisano_period_lift,
+    LeibnizUniversalLift.leibniz_pointwise_lift
+  · **G110 FLUX-1**: 30 sites refactored via 2 templates (mul + sum
+    sides) across 9 consumer files — single largest cross-file
+    consolidation closed in Part 5
 
 ## Verification (Part 5)
 
