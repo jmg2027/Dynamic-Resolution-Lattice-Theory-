@@ -84,115 +84,15 @@ def tensor (d1 d2 : SignaturePairData) : SignaturePairData :=
   ⟨d1.pos * d2.pos + d1.neg * d2.neg,
    d1.pos * d2.neg + d1.neg * d2.pos⟩
 
-/-! ## §2 — Definitional identities (rfl) -/
-
-theorem tensor_pos (d1 d2 : SignaturePairData) :
-    (d1.tensor d2).pos = d1.pos * d2.pos + d1.neg * d2.neg := rfl
-
-theorem tensor_neg (d1 d2 : SignaturePairData) :
-    (d1.tensor d2).neg = d1.pos * d2.neg + d1.neg * d2.pos := rfl
-
-/-! ## §3 — Rank multiplicativity -/
-
-/-- ★★★★★ Total rank is multiplicative on tensor.
-    STRICT ∅-AXIOM.
-
-      `(d1 ⊗ d2).total_rank = d1.total_rank · d2.total_rank`
-
-    i.e. `(p1·p2 + q1·q2) + (p1·q2 + q1·p2) = (p1 + q1) · (p2 + q2)`,
-    proved via `Nat.mul_add` (PURE), `Nat213.add_mul` (213-native),
-    and `Nat.add_add_add_comm` (PURE). -/
-theorem tensor_total_rank (d1 d2 : SignaturePairData) :
-    (d1.tensor d2).total_rank = d1.total_rank * d2.total_rank := by
-  show (d1.pos * d2.pos + d1.neg * d2.neg) + (d1.pos * d2.neg + d1.neg * d2.pos)
-        = (d1.pos + d1.neg) * (d2.pos + d2.neg)
-  rw [Nat.mul_add,
-      E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.pos,
-      E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.neg,
-      Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.neg)
-                            (d1.pos * d2.neg) (d1.neg * d2.pos),
-      Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.pos)
-                            (d1.pos * d2.neg) (d1.neg * d2.neg),
-      Nat.add_comm (d1.neg * d2.neg) (d1.neg * d2.pos)]
-
-end SignaturePairData
-
-
-namespace SignaturePairData
-
-/-! ## §4 — Hirzebruch multiplicativity (additive Nat form) -/
-
-/-- ★★★★★ Hirzebruch multiplicativity, additive Nat form.
-    STRICT ∅-AXIOM.
-
-      `pos(d1 ⊗ d2) + p1·q2 + q1·p2 = neg(d1 ⊗ d2) + p1·p2 + q1·q2`
-
-    Nat-shadow of the Int identity `σ(d1 ⊗ d2) = σ(d1) · σ(d2)`,
-    expanded as
-    `(p1·p2 + q1·q2) − (p1·q2 + q1·p2) = (p1 − q1)·(p2 − q2)`.
-    Both sides of our Nat identity are sums of the same four
-    cross-terms `{p1·p2, p1·q2, q1·p2, q1·q2}`. -/
-theorem tensor_hirzebruch_additive (d1 d2 : SignaturePairData) :
-    (d1.tensor d2).pos + d1.pos * d2.neg + d1.neg * d2.pos
-      = (d1.tensor d2).neg + d1.pos * d2.pos + d1.neg * d2.neg := by
-  show (d1.pos * d2.pos + d1.neg * d2.neg) + d1.pos * d2.neg + d1.neg * d2.pos
-      = (d1.pos * d2.neg + d1.neg * d2.pos) + d1.pos * d2.pos + d1.neg * d2.neg
-  rw [Nat.add_assoc (d1.pos * d2.pos + d1.neg * d2.neg)
-                     (d1.pos * d2.neg) (d1.neg * d2.pos),
-      Nat.add_comm (d1.pos * d2.pos + d1.neg * d2.neg)
-                    (d1.pos * d2.neg + d1.neg * d2.pos),
-      Nat.add_assoc (d1.pos * d2.neg + d1.neg * d2.pos)
-                     (d1.pos * d2.pos) (d1.neg * d2.neg)]
-
-/-! ## §5 — Balance preservation -/
-
-/-- ★★★★★ Tensor preserves balance — left side balanced. -/
-theorem tensor_balanced_of_left {d1 d2 : SignaturePairData}
-    (h : d1.pos = d1.neg) :
-    (d1.tensor d2).pos = (d1.tensor d2).neg := by
-  show d1.pos * d2.pos + d1.neg * d2.neg
-      = d1.pos * d2.neg + d1.neg * d2.pos
-  rw [h]
-  exact Nat.add_comm _ _
-
-/-- ★★★★★ Tensor preserves balance — right side balanced. -/
-theorem tensor_balanced_of_right {d1 d2 : SignaturePairData}
-    (h : d2.pos = d2.neg) :
-    (d1.tensor d2).pos = (d1.tensor d2).neg := by
-  show d1.pos * d2.pos + d1.neg * d2.neg
-      = d1.pos * d2.neg + d1.neg * d2.pos
-  rw [h]
-
-end SignaturePairData
-
-
-
-namespace SignaturePairData
-
-/-! ## §6 — Bridge to `BalancedSignatureData` -/
-
 /-- A `BalancedSignatureData` lifts to a `SignaturePairData`
     with `pos = neg = num_blocks`. -/
 def ofBalanced (b : BalancedSignatureData) : SignaturePairData :=
   ⟨b.num_blocks, b.num_blocks⟩
 
-theorem ofBalanced_balanced (b : BalancedSignatureData) :
-    (ofBalanced b).pos = (ofBalanced b).neg := rfl
-
-theorem ofBalanced_total_rank : ∀ b : BalancedSignatureData,
-    (ofBalanced b).total_rank = BalancedSignatureData.total_rank b
-  | ⟨n⟩ => (E213.Tactic.NatHelper.two_mul n).symm
-
-/-- Tensor of two `BalancedSignatureData` lifts is balanced. -/
-theorem tensor_ofBalanced_balanced (b1 b2 : BalancedSignatureData) :
-    ((ofBalanced b1).tensor (ofBalanced b2)).pos
-      = ((ofBalanced b1).tensor (ofBalanced b2)).neg :=
-  tensor_balanced_of_left (ofBalanced_balanced b1)
-
 end SignaturePairData
 
 
-/-! ## §7 — Per-Künneth-piece instance witnesses -/
+/-! ## §2 — Per-Künneth-piece instance signatures -/
 
 /-- Signature on H¹(T²) — the genus-1 surface. -/
 def T2_sig : SignaturePairData := ⟨1, 1⟩
@@ -206,29 +106,8 @@ def P1Sq_sig : SignaturePairData := ⟨1, 1⟩
 /-- Signature on H²(T²×T²) — three hyperbolic blocks. -/
 def T2Sq_sig : SignaturePairData := ⟨3, 3⟩
 
-/-! Per-Künneth-piece tensor products (each is the **diagonal piece**
-    `H^n(X) ⊗ H^m(Y)` of `H^{n+m}(X × Y)`). -/
 
-theorem T2_tensor_T2 :
-    T2_sig.tensor T2_sig = ⟨2, 2⟩ := by decide
-
-theorem P2_tensor_P2 :
-    P2_sig.tensor P2_sig = ⟨1, 0⟩ := by decide
-
-theorem P1Sq_tensor_P1Sq :
-    P1Sq_sig.tensor P1Sq_sig = ⟨2, 2⟩ := by decide
-
-theorem T2_tensor_P2 :
-    T2_sig.tensor P2_sig = ⟨1, 1⟩ := by decide
-
-theorem T2_tensor_T2_total_rank :
-    (T2_sig.tensor T2_sig).total_rank = 4 := by decide
-
-theorem P2_tensor_P2_total_rank :
-    (P2_sig.tensor P2_sig).total_rank = 1 := by decide
-
-
-/-! ## §8 — Master Tensor Signature Künneth theorem -/
+/-! ## §3 — Master Tensor Signature Künneth theorem -/
 
 /-- ★★★★★ Tensor Signature Künneth Master Theorem.
     STRICT ∅-AXIOM.
@@ -240,8 +119,8 @@ theorem P2_tensor_P2_total_rank :
 
     Bundles:
 
-      (i)   **Definitional**: `tensor` operation on
-            `SignaturePairData` with explicit pos/neg formulas.
+      (i)   **Definitional rfl identities**: `tensor` operation's
+            pos/neg formulas and `ofBalanced`-balanced lift.
       (ii)  **Rank multiplicativity** (Nat-level):
               `(d1 ⊗ d2).total_rank = d1.total_rank · d2.total_rank`.
       (iii) **Hirzebruch multiplicativity (Nat additive form)**:
@@ -249,23 +128,41 @@ theorem P2_tensor_P2_total_rank :
                 = neg(d1 ⊗ d2) + p1·p2 + q1·q2`.
             Equivalent in Int to `σ(d1 ⊗ d2) = σ(d1) · σ(d2)`.
       (iv)  **Balance preservation**: balanced ⊗ anything = balanced
-            (and symmetric).
-      (v)   **Per-Künneth-piece instance witnesses**: T²⊗T², ℙ²⊗ℙ²,
-            ℙ¹×ℙ¹⊗ℙ¹×ℙ¹, T²⊗ℙ². -/
+            (and symmetric); `ofBalanced` tensor preserves balance.
+      (v)   **`ofBalanced` total_rank bridge** to `BalancedSignatureData`.
+      (vi)  **Per-Künneth-piece instance witnesses**: T²⊗T², ℙ²⊗ℙ²,
+            ℙ¹×ℙ¹⊗ℙ¹×ℙ¹, T²⊗ℙ² + total-rank readouts. -/
 theorem tensor_signature_kunneth_master :
-    -- (ii) Rank multiplicativity
+    -- (i) Definitional pos/neg formulas
     (∀ d1 d2 : SignaturePairData,
+        (d1.tensor d2).pos = d1.pos * d2.pos + d1.neg * d2.neg)
+    ∧ (∀ d1 d2 : SignaturePairData,
+        (d1.tensor d2).neg = d1.pos * d2.neg + d1.neg * d2.pos)
+    -- (ii) Rank multiplicativity
+    ∧ (∀ d1 d2 : SignaturePairData,
         (d1.tensor d2).total_rank = d1.total_rank * d2.total_rank)
     -- (iii) Hirzebruch additive identity
     ∧ (∀ d1 d2 : SignaturePairData,
         (d1.tensor d2).pos + d1.pos * d2.neg + d1.neg * d2.pos
           = (d1.tensor d2).neg + d1.pos * d2.pos + d1.neg * d2.neg)
-    -- (iv) Balance preservation
+    -- (iv) Balance preservation (left, right)
     ∧ (∀ {d1 d2 : SignaturePairData},
         d1.pos = d1.neg → (d1.tensor d2).pos = (d1.tensor d2).neg)
     ∧ (∀ {d1 d2 : SignaturePairData},
         d2.pos = d2.neg → (d1.tensor d2).pos = (d1.tensor d2).neg)
-    -- (v) Per-Künneth-piece witnesses
+    -- (v) `ofBalanced` properties
+    ∧ (∀ b : BalancedSignatureData,
+        (SignaturePairData.ofBalanced b).pos
+          = (SignaturePairData.ofBalanced b).neg)
+    ∧ (∀ b : BalancedSignatureData,
+        (SignaturePairData.ofBalanced b).total_rank
+          = BalancedSignatureData.total_rank b)
+    ∧ (∀ b1 b2 : BalancedSignatureData,
+        ((SignaturePairData.ofBalanced b1).tensor
+          (SignaturePairData.ofBalanced b2)).pos
+        = ((SignaturePairData.ofBalanced b1).tensor
+            (SignaturePairData.ofBalanced b2)).neg)
+    -- (vi) Per-Künneth-piece witnesses
     ∧ T2_sig.tensor T2_sig = ⟨2, 2⟩
     ∧ P2_sig.tensor P2_sig = ⟨1, 0⟩
     ∧ P1Sq_sig.tensor P1Sq_sig = ⟨2, 2⟩
@@ -273,11 +170,54 @@ theorem tensor_signature_kunneth_master :
     -- Total rank checks
     ∧ (T2_sig.tensor T2_sig).total_rank = 4
     ∧ (P2_sig.tensor P2_sig).total_rank = 1 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · intro d1 d2; exact SignaturePairData.tensor_total_rank d1 d2
-  · intro d1 d2; exact SignaturePairData.tensor_hirzebruch_additive d1 d2
-  · intro _ _ h; exact SignaturePairData.tensor_balanced_of_left h
-  · intro _ _ h; exact SignaturePairData.tensor_balanced_of_right h
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro _ _; rfl
+  · intro _ _; rfl
+  · intro d1 d2
+    show (d1.pos * d2.pos + d1.neg * d2.neg)
+          + (d1.pos * d2.neg + d1.neg * d2.pos)
+          = (d1.pos + d1.neg) * (d2.pos + d2.neg)
+    rw [Nat.mul_add,
+        E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.pos,
+        E213.Tactic.NatHelper.add_mul d1.pos d1.neg d2.neg,
+        Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.neg)
+                              (d1.pos * d2.neg) (d1.neg * d2.pos),
+        Nat.add_add_add_comm (d1.pos * d2.pos) (d1.neg * d2.pos)
+                              (d1.pos * d2.neg) (d1.neg * d2.neg),
+        Nat.add_comm (d1.neg * d2.neg) (d1.neg * d2.pos)]
+  · intro d1 d2
+    show (d1.pos * d2.pos + d1.neg * d2.neg) + d1.pos * d2.neg + d1.neg * d2.pos
+        = (d1.pos * d2.neg + d1.neg * d2.pos) + d1.pos * d2.pos + d1.neg * d2.neg
+    rw [Nat.add_assoc (d1.pos * d2.pos + d1.neg * d2.neg)
+                       (d1.pos * d2.neg) (d1.neg * d2.pos),
+        Nat.add_comm (d1.pos * d2.pos + d1.neg * d2.neg)
+                      (d1.pos * d2.neg + d1.neg * d2.pos),
+        Nat.add_assoc (d1.pos * d2.neg + d1.neg * d2.pos)
+                       (d1.pos * d2.pos) (d1.neg * d2.neg)]
+  · intro d1 d2 h
+    show d1.pos * d2.pos + d1.neg * d2.neg
+        = d1.pos * d2.neg + d1.neg * d2.pos
+    rw [h]; exact Nat.add_comm _ _
+  · intro d1 d2 h
+    show d1.pos * d2.pos + d1.neg * d2.neg
+        = d1.pos * d2.neg + d1.neg * d2.pos
+    rw [h]
+  · intro _; rfl
+  · intro b
+    match b with
+    | ⟨n⟩ => exact (E213.Tactic.NatHelper.two_mul n).symm
+  · intro b1 _
+    show (SignaturePairData.ofBalanced b1).pos
+          * (SignaturePairData.ofBalanced _).pos
+        + (SignaturePairData.ofBalanced b1).neg
+          * (SignaturePairData.ofBalanced _).neg
+        = (SignaturePairData.ofBalanced b1).pos
+          * (SignaturePairData.ofBalanced _).neg
+        + (SignaturePairData.ofBalanced b1).neg
+          * (SignaturePairData.ofBalanced _).pos
+    show b1.num_blocks * _ + b1.num_blocks * _
+        = b1.num_blocks * _ + b1.num_blocks * _
+    rfl
   all_goals decide
 
 end E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
