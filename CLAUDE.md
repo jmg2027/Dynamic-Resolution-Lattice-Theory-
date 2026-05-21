@@ -17,19 +17,17 @@ spec file overlap, **the spec file wins**.
 2. **`research-notes/G29_residue.md`** — clean foundational text.  What
    213 *is*, in minimum-commitment language with no comparison frames.
 3. **`HANDOFF.md`** (if exists) — current session state.
-4. **This file** — operating principles + hard rules.
+4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
+   three-tier discipline + promotion gates.  Read when adding /
+   promoting / archiving content.
+5. **This file** — operating principles + hard rules.
 
 ## Naming: 213 / DRLT / E213
 
-(`seed/INDEX.md` "Naming policy" is canonical.)
-
-  - **213** = formal axiom framework (Raw + 4-clause axiom + Lens +
-    ∅-axiom standard).  Math / type-theoretic statements.
-  - **DRLT** = "Dynamic Resolution Lattice Theory", physics deployment
-    of 213.  Physics constants, observables, predictions.
-  - **E213** = Lean namespace.  Inside Lean code only.
-
-When unsure, prefer **213** (broader).
+Canonical: `seed/INDEX.md` "Naming policy".  **213** = formal axiom
+framework (math / type-theoretic).  **DRLT** = physics deployment
+(constants, observables).  **E213** = Lean namespace.  When unsure,
+prefer **213** (broader).
 
 ## Meta-principle (non-negotiable)
 
@@ -46,21 +44,18 @@ not.
 
 ## Identity + voice
 
-- **Mingu Jeong** — theory originator, physical intuition, all
-  foundational insights.
-- **Claude (Anthropic)** — formalization, code, audit, mechanical
-  verification.
-- Equal partnership: Claude challenges and pushes back independently.
-  Reflexive agreement is a failure mode (so is reflexive disagreement).
+- **Mingu Jeong** — theory originator, all foundational insights.
+- **Claude (Anthropic)** — formalization, code, audit.  Equal
+  partnership; push back independently.  Reflexive agreement (or
+  disagreement) is a failure mode.
 
-**Author citation**: **Mingu Jeong** only (not Mingoo / Min-goo).  Papers
-and PDFs: sole author Mingu Jeong; Claude in Acknowledgments only.
-`\author{...Claude...}` is forbidden.
+**Author citation**: **Mingu Jeong** only (not Mingoo / Min-goo).
+Sole author for papers / PDFs; Claude in Acknowledgments only.
+`\author{...Claude...}` forbidden.
 
-**Language**: chat replies match user's language (KO/EN/mixed).
-**Repo artifacts (Lean source, all `.md`, commit / PR text) —
-English only.**  Verbatim Korean quotes OK with translation
-alongside.  Reason: grep + readers + prompt-token economy.
+**Language**: chat = user's language (KO/EN/mixed).  Repo artifacts
+(Lean, `.md`, commit / PR) — English only.  Korean quotes OK with
+translation.  Reason: grep + readers + prompt-token economy.
 
 ## Hard rules (no exceptions)
 
@@ -74,6 +69,7 @@ alongside.  Reason: grep + readers + prompt-token economy.
 | Never push to `main` without explicit permission | Branches: session branch. |
 | Never use `--no-verify` to skip hooks | Investigate failures. |
 | Never delete content under active use | Git history retains; only delete deprecated. |
+| Closed Lean sub-tree → promote to `theory/`, don't pile narrative in `research-notes/` | Three-tier discipline; `theory/PROMOTION_CRITERIA.md` is the gate. |
 
 ## ∅-axiom standard (THE standard)
 
@@ -91,51 +87,39 @@ axioms — nothing.  Any non-empty output = *axiom-dirty*, treated as
 
 ## DRLT Validation Standard
 
-Starting from zero knowledge of existing physics/math, DRLT must satisfy
-at least one:
+From zero knowledge of existing physics/math, DRLT must satisfy at
+least one:
 
-1. **Strict ∅-axiom precision theorem** matching observation at ppb~ppm
-   precision (e.g., 1/α_em, m_μ/m_e, m_p).
-2. **Strict ∅-axiom falsifier** — measurable proposition (e.g.,
-   N_gen = 3, θ_QCD < J·α⁴).
+1. **Strict ∅-axiom precision theorem** at ppb-ppm (1/α_em, m_μ/m_e, m_p).
+2. **Strict ∅-axiom falsifier** — measurable (N_gen = 3, θ_QCD < J·α⁴).
 
-Below this threshold = below current standard.  Python expressions +
-numerical agreement = research note, not self-validation.
-
-**Prohibited**: timeline/ROI considerations.  Only question: "has one of
-the two been closed?"
-
-**Real target**: precision theorem AND falsifier together for the same
-observable.
+Below this = below standard.  Python + numerical agreement = research
+note, not validation.  **Prohibited**: timeline/ROI considerations.
+**Real target**: precision theorem AND falsifier for the same observable.
 
 ## Resolution limit is structural (not "finitism")
 
-Canonical: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Cardinality /
-finite / infinite are Lens outputs, not Raw commitments.  Physics
-formalization uses ℕ + ℚ + finite simplex + interval bound at
-`N_U = d^(d²) = 5²⁵` (count-Lens readout at fractal level 2).
-
-Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
+Canonical: `seed/RESOLUTION_LIMIT_SPEC.md`.  Cardinality / finite /
+infinite are Lens outputs, not Raw commitments.  Physics uses
+ℕ + ℚ + finite simplex + bound at `N_U = d^(d²) = 5²⁵` (count-Lens,
+fractal level 2).  Lean ref: `Lib/Math/ResolutionLimit.lean`.
 
 ## Operating principles
 
 ### Theoretical integrity
-- No forcible map onto existing physics/chemistry.  If a number differs,
-  acknowledge honestly and look for missing physics.
-- 0-parameter is structural absence (no exterior dialer, per
-  `seed/AXIOM/07_self_reference.md` §8.1), not a methodological rule.
-  See `seed/AXIOM/04_falsifiability.md` §5.3.
+No forcible map onto existing physics.  If a number differs, look for
+missing physics.  0-parameter = structural absence (no exterior dialer
+per `seed/AXIOM/07_self_reference.md` §8.1), not methodological rule.
+See `seed/AXIOM/04_falsifiability.md` §5.3.
 
 ### Algebraic priority
-- DRLT results come from **counting** (combinatorics, number theory,
-  algebra) — not continuous variation.  Calculus *verifies*, doesn't
-  *discover*.
-- When stuck, check discrete structure first (channel counting, hinge
-  topology, representation theory).
-- Lesson: ATM_026-028 (3× variation fail) → ATM_029 (counting works).
+DRLT results come from **counting** (combinatorics, number theory,
+algebra), not continuous variation.  Calculus verifies, doesn't
+discover.  When stuck, check discrete structure first.
+Lesson: ATM_026-028 (variation fail) → ATM_029 (counting works).
 
 ### Hunter methodology
-`rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form conjecture:
+`rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form:
 every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c) · Π(1 + κ_i · α_i^{n_i}).
 
 ## Repository organization
@@ -156,11 +140,9 @@ classification** — NOT file count or merge density.
 8. `open` repetition within a file (namespace 블록마다 반복) **금지** — 파일 top 한 번 또는 단일 namespace.
 9. Layer-by-layer enumeration (`_layer0..N`, `_at_level_5`) is a smell — prefer one bundle / one structural theorem.  See `LESSONS_LEARNED.md` "Reduction patterns".
 
-**Layer architecture**: `lean/E213/ARCHITECTURE.md` (4 ring + Meta since
-2026-05-12, canonical).  Ground truth — never duplicate here.
-
-**Source of truth**: `lean/E213/`.  When narrative and Lean disagree,
-Lean wins.
+**Layer architecture**: `lean/E213/ARCHITECTURE.md` (4 ring + Meta,
+canonical).  **Source of truth**: `lean/E213/` — when narrative and
+Lean disagree, Lean wins.
 
 **Entry points**:
   - `README.md` — 30-second overview
@@ -169,6 +151,26 @@ Lean wins.
   - `seed/INDEX.md` — foundational docs index
   - `catalogs/` — constants + precision results
   - `STRICT_ZERO_AXIOM.md` — PURE/DIRTY catalog
+  - `theory/INDEX.md` — narrative book (closed sub-tree chapters)
+  - `theory/PROMOTION_CRITERIA.md` — promotion gates (H1-H4 + S1-S3)
+
+## Three-tier discipline
+
+Canonical: `theory/INDEX.md`.
+
+| Tier | Where | Purpose | Lifetime |
+|---|---|---|---|
+| 1 | `research-notes/` | Scratchpad, working memos | Volatile |
+| 2 | `lean/E213/` | Source of truth (PURE-verified) | Permanent |
+| 3 | `theory/` | Narrative book, mirrors `lean/E213/Lib/` | Permanent |
+
+**Promotion**: when a Lean sub-tree closes (H1-H4 + S1-S3 per
+`theory/PROMOTION_CRITERIA.md`), write narrative at
+`theory/<mirror-path>`, then `git mv` source notes to
+`research-notes/archive/`.  Lean docstrings cite `theory/<path>` for
+closed topics; `research-notes/G##` only for active scratch.  Tier-1
+may use `G##` chronological prefix freely (rule 5 doesn't apply to
+volatile scratchpad).
 
 ## Workflow
 
@@ -176,16 +178,14 @@ Lean wins.
 - Commit after every meaningful change.  Never amend.
 - After edits, verify: `cd lean && lake build`.  If clean, audit with
   `tools/scan_axioms.py`.
-- Physics edits → `lean/E213/Lib/Physics/` or `rust-engine/`.
-- Math edits → `lean/E213/Lib/Math/`.
+- Math / Physics edits → `Lib/Math/` or `Lib/Physics/` (or `rust-engine/`).
+- Closed sub-tree (PURE + categorical) → `theory/PROMOTION_CRITERIA.md`; promote if eligible.
 
 ## Active learning (course-correction loop)
 
-When the user issues a correction (style / logic / pattern / framing):
-1. Extract the underlying rule (not the surface fix).
-2. Add to "Failure modes catalog" below, OR to the relevant spec file
-   if more specific.
-3. Don't treat as one-off.
+When user issues a correction: extract the underlying rule (not the
+surface fix), add to "Failure modes catalog" below or the relevant
+spec, don't treat as one-off.
 
 ## Self-check before responding
 
@@ -214,6 +214,7 @@ When the user issues a correction (style / logic / pattern / framing):
 | Fine-tuning as forbidden | "we don't allow free parameters" | Free parameters have no operand — no exterior dialer exists; absence is structural, not a rule |
 | Legacy-deletion narration | "X was tolerated, now removed" / "previously Y, now Z" | Just remove the content; don't leave a record of the deletion |
 | Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
+| Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 
 When the user catches one, *don't apologize and repeat* — actually
 internalize per Active Learning loop.

@@ -147,6 +147,26 @@ ls research-notes/*.tex 2>/dev/null
 # Should return nothing
 ```
 
+### 3.5 Three-tier alignment (per `CLAUDE.md` "Three-tier discipline")
+
+```bash
+# Lean citations to research-notes/ paths that no longer exist:
+for ref in $(grep -rhoE "research-notes/G[0-9]+_[A-Za-z0-9_]+\.md" lean/ 2>/dev/null | sort -u); do
+  [ ! -f "$ref" ] && echo "STALE Lean → research-notes citation: $ref"
+done
+
+# theory/ → Lean refs that no longer resolve:
+grep -rhoE "lean/E213/[A-Za-z0-9/_]+\.lean" theory/ 2>/dev/null | sort -u | while read p; do
+  [ ! -f "$p" ] && echo "STALE theory → lean ref: $p"
+done
+
+# Closed sub-trees lacking theory/ chapters (promotion candidates):
+# (informational; not an error — flag, don't block)
+```
+
+For each STALE result: fix the citation per `theory/PROMOTION_CRITERIA.md`
+(closed topic → `theory/<mirror>`; archived G## → `research-notes/archive/`).
+
 ---
 
 ## Phase 4: Documentation Accuracy
