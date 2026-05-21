@@ -942,3 +942,466 @@ The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
 bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) form the
 2026-05-22 composition table.  Together they enable the closure of the
 Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.
+
+---
+
+## Pattern #10 — Adoption-gap detection via k-gram cascade scan
+
+**Discovered**: 2026-05-21 meta-analysis (G99 rw-cascade scan).
+
+### Problem
+
+PURE helper lemmas exist in the codebase but are shadowed by manual
+n-step rewrite chains in many callers.  Specifically:
+`NatHelper.mul_left_comm (a b c) : a * (b * c) = b * (a * c)` exists
+(`Meta/Tactic/NatHelper.lean:293`) and is cited **once** in the
+corpus — yet 25 decls perform the equivalent 3-step manual rotation
+`rw [mul_assoc, mul_comm, mul_assoc]`.  Same pattern: `add_left_comm`
+exists in 3 places, manually rotated in 18 decls.
+
+### Solution
+
+Mine k-gram patterns in the corpus's tactic-citation stream
+(`syntax_rw_cascade_scan.py` over `_syntax_arg_cites.tsv`).  Top
+3-grams expose adoption gaps: a frequent rewrite cascade that already
+matches a named PURE lemma is a candidate for mechanical sed
+rewrite.
+
+### Concrete idiom
+
+```
+rw [NatHelper.mul_assoc, Nat.mul_comm, NatHelper.mul_assoc]    -- 25 sites
+  ⇒ rw [NatHelper.mul_left_comm]
+```
+
+### Where applied
+
+  · G107 N8/N9 surfaced: 25 mul-rotation + 18 add-rotation sites
+    queued for mechanical adoption.
+  · Mass saving: ~86 cite-tokens, 16 files cleaner.
+
+### Generalisation
+
+After **any** new helper lemma is added, scan k-grams for adoption
+gaps.  If the corpus already has manual k-step chains matching the
+new helper's shape, retrofit mechanically.
+
+---
+
+## Pattern #11 — Triple-layer (n-layer) agreement = abstraction inevitability
+
+**Discovered**: 2026-05-21 meta-analysis (G91 L1 + G94 §1 +
+G103 §3 + G106 + G108-G112 consistent observations).
+
+### Problem
+
+When sibling theorems share elaborated proof structure across
+multiple INDEPENDENT measurement layers — AST recursor /
+tactic-token sequence / citation graph / Expr-invocation count /
+Expr-node count / Expr-string length — abstraction is no longer
+"could be cleaner" but **overdetermined**.
+
+### Example: L1 LeibnizAlgLift (6-layer byte-identical)
+
+| Layer | Measure | All 4 siblings |
+|-------|---------|----------------|
+| AST G90 | recursor-tag profile | identical |
+| Syntax G91 | tactic-token count | 48 each |
+| Citation G92 | cite multiset | 43 each |
+| Expr G102 | const-invocations | 206,914 each |
+| Expr G103 | total Expr-node count | 628,271 each |
+| Expr G106 | normalised string length | 3,309,145 chars each |
+
+Six independent measurements agree byte-identical across 4
+siblings.  The only difference is the α/β factor knob (0.1 % at
+position 30 of 48 tactic-tokens).
+
+### Solution
+
+Use n-layer agreement as **abstraction-priority ordering**.  Pairs
+agreeing at one layer (G92 cite identity) are candidates; pairs
+agreeing at 3+ layers are high-confidence; pairs agreeing at 6
+layers are **overdetermined**.
+
+### Concrete metric
+
+```
+abstraction_confidence = #layers_agreeing × per_layer_strictness
+```
+
+L1's 6-layer match at 50 % mass cut = **single largest
+abstraction target in the corpus**.
+
+### Where applied
+
+  · G106 §3 sketches L1's parametric form.
+  · G114 §4 — CayleyDickson `*.ext` / `conj_ne_id` byte-
+    identical pairs (smaller scale).
+  · G110 §5 — FluxMVT forward/backward byte-identical pairs.
+  · G111 §4 — Cohomology Universal Prop52/53 + Hodge Prop 5_k
+    quartet.
+
+### Generalisation
+
+When designing abstraction priorities, prefer overdetermined
+candidates (5+ layer byte-identical) over single-layer cluster
+candidates.  The mass × overdetermination product is the right
+ranking metric.
+
+---
+
+## Pattern #12 — "Derived from Raw" has three technical levels
+
+**Discovered**: 2026-05-21 meta-analysis (G104).
+
+### Problem
+
+The phrase "X derives from Raw" is used colloquially but has at
+least three distinct technical meanings.  Conflating them muddies
+claims and invites unfair criticism.
+
+### Three levels
+
+**(α) Logical derivability** — every E213 theorem closes under
+Lean kernel + 4-clause Raw axiom + 213 axiom system, with 0
+external axioms.  Verified by `#print axioms`.  **TRUE** for
+DRLT.
+
+**(β) Structural-content derivability** — the mathematical
+content (atomicity chain, NS/NT/d, 6-theorem) provably derives
+from the 4 clauses.  Verified by the chain
+`atomic_iff_five → alive_iff_clause4_alive → six_theorem`.
+**TRUE** for DRLT.
+
+**(γ) Operational/definitional reduction** — every proof body's
+Expr transitively reduces to references to Raw atoms.  Carrier
+types (Cochain = Fin n → Bool, binom, Cut) are defined in
+generic Nat/Bool/Int/Fin terms, NOT in Raw construction terms.
+**FALSE** for DRLT.
+
+### Reading
+
+(α) + (β) hold; (γ) is FALSE BY DESIGN (encapsulation).  DRLT's
+architecture is **Raw-native mathematical content layered on
+generic Lean computational infrastructure**.
+
+The 14.8 % direct-Raw-reach measured at the body Expr layer
+(G103 §1, G104 §2) is the **encapsulation effect**, not derivation
+failure.  Most decls operate via derived structures
+(Lens.view, Cochain, Cut) whose definition routes back to Raw
+type-level but doesn't re-invoke Raw atoms at every Expr step.
+
+### Where applied
+
+  · G104 articulates the distinction.
+  · G108 §"Raw connection precise locations" — Real213/Analysis
+    case study (~98 % decls operate at Cut function level, 2
+    bridge points to Raw).
+  · G110 — FluxMVT has 0 direct Raw + clean encapsulation.
+  · G111 — Cohomology 0 direct Raw across 1,216 decls.
+  · G113 — DyadicFSM 0 direct Raw across 1,272 decls.
+
+### Generalisation
+
+Use the three-level distinction to avoid:
+  · Defending DRLT against "your proofs don't reach Raw" critique
+    — distinguish operational vs structural-content vs logical.
+  · Overclaiming "everything is Raw-derived" — the operational
+    layer is NOT (by design, for encapsulation efficiency).
+  · Underclaiming — (α) + (β) are TRUE and verified.
+
+---
+
+## Pattern #13 — Decide-finitism quantitative profile
+
+**Discovered**: 2026-05-21 meta-analysis (G91 + G100).
+
+### Problem
+
+Pattern #2 "decide universal" was documented qualitatively.
+Quantification clarifies its footprint.
+
+### Quantitative footprint
+
+  · **36 % of theorems** are pure `[decide]` proofs (1,178 of
+    3,283 decls with tactic bodies, G91).
+  · **8 % of theorems** are decide-verified negative claims
+    (135 of 1,117 theorem+lemma decls; G100 catalog).
+  · Combined: **~44 % of decls are decide-routed** at one
+    polarity or the other.
+  · `decide_eq_true` cited 84 times across 47 callers (G92) —
+    the Pattern #2 bridge lemma's quantified usage.
+  · `Bool.casesOn` is the corpus's largest recursor (1,681
+    invocations across 634 callers, G105 §2).
+
+### Falsifier breakdown (G100)
+
+| Category | Count | % |
+|----------|------:|--:|
+| `ne` (x ≠ y) | 105 | 78 % |
+| `not` (general ¬ P) | 20 | 15 % |
+| `not_exists` (¬ ∃) | 8 | 6 % |
+| `not_forall` (¬ ∀) | 2 | 1 % |
+
+Distinguishability (`≠`) dominates — consistent with Raw's
+distinguishability primitive in operational form.
+
+### Where applied
+
+  · G91 (positive `[decide]` quantification).
+  · G100 (negative falsifier catalog).
+  · G93 §C5 (cross-branch citation in handshake).
+
+### Generalisation
+
+DRLT's "decide-finitism" identity is **measurable in the proof
+shape**, not merely a methodological aspiration.  Future
+methodology shifts should preserve this property.
+
+---
+
+## Pattern #14 — Framework-internal subsumption (Bishop / classical)
+
+**Discovered**: 2026-05-21 meta-analysis (G108).
+
+### Problem
+
+Constructing ℝ classically requires ε-N moduli (Bishop's
+constructive ℝ) or Cauchy quotients (Cauchy's ℝ).  Both involve
+non-trivial machinery.
+
+### DRLT reframe (`AsLensOutput.lean`, user 2026-04-26 insight)
+
+> "Aren't there infinitely many different ways to extract natural
+> numbers from 213? Of course reals exist then. Computation? You
+> can always pick any way to operate on those infinitely many
+> natural numbers."
+
+> "The Bishop program itself is redundant within 213 — the Lens
+> space of 213 already contains the reals."
+
+The Lens output function space `Raw → Bool` (i.e., `Nat → Nat →
+Bool` cut functions) already contains the reals.  Specific
+operations like `cutSum`, `cutMul` are CHOICES of combine
+function in this space.  No external construction needed.
+
+### Concrete idiom
+
+```lean
+abbrev RealAsLensOutput := Nat → Nat → Bool
+
+def cutSum : RealAsLensOutput → RealAsLensOutput → RealAsLensOutput
+def cutMul : RealAsLensOutput → RealAsLensOutput → RealAsLensOutput
+-- Both are "valid choices" within the framework
+```
+
+### Where applied
+
+  · G108 §2 — articulates the subsumption.
+  · G108 §3 layer hierarchy — shows the layered architecture
+    that operationalises the doctrine.
+  · G110 §"213-native vs classical" — analytic analogue:
+    derivative = localDivergence, FTC = dyadic Stokes, MVT =
+    cohomological balance.  Subsumes classical limit-based
+    analysis.
+
+### Generalisation
+
+When a classical concept (real number, derivative, integral,
+cup product, etc.) requires a non-trivial construction
+externally, look for whether the **Lens-output space already
+contains it** as a choice of operation.  Real213 (G108) and
+FluxMVT (G110) demonstrate the pattern.
+
+---
+
+## Pattern #15 — Byte-identical Expr cross-domain bridges
+
+**Discovered**: 2026-05-22 meta-analysis (G109).
+
+### Problem
+
+Math and physics theorems may share more than analogical
+structure — at the elaborated `Expr` level, they may produce
+literally identical terms post-normalisation.
+
+### Discovery method
+
+Group all decls by 14-dimensional `Expr`-shape vector
+(`tools/_ast_shape_rows.tsv` from G103).  Filter to vectors
+shared by ≥ 2 decls across distinct top-level namespaces.
+
+### Quantification
+
+  · 109 cross-namespace byte-identical groups in DRLT.
+  · 25 of these span Math ↔ Physics (substantive bridges).
+  · 5-way structural identities: K_5 / K_25 first Betti ≡
+    inverse-α₃ ≡ SU(NS) adjoint, etc. (G109 ★ Bridges 20-25).
+
+### Where applied
+
+  · G109 — full scan and characterisation.
+  · `catalogs/cross-domain-identifications.md` — 10 named CDIs.
+  · G111 §5 / G112 §6 / others — Cohomology +
+    HodgeConjecture's role as math-side anchor for the bridges.
+
+### Generalisation
+
+Use shape-vector grouping as a routine analysis: after any
+substantial new theorem addition, re-run the scan to catch
+new cross-domain identifications.  These are LOAD-BEARING
+math-physics connections, not analogies.
+
+---
+
+## Pattern #16 — Forward/backward (α/β) factor-knob byte-identical pair
+
+**Discovered**: 2026-05-21 meta-analysis (G106 L1, G110 FluxMVT,
+G114 CayleyDickson).
+
+### Problem
+
+Many DRLT proofs come in forward/backward, α/β, real/imaginary,
+positive/negative orientation pairs.  Each pair often produces
+byte-identical Expr post-normalisation modulo the orientation
+choice.
+
+### Examples discovered
+
+| Pair | Layer | Size |
+|------|-------|------|
+| L1 LeibnizAlgLift α/β factor (4 siblings) | 6-layer agreement | 6.6 M chars |
+| FluxMVT forward/backward (5 pairs) | Expr nodes | 30K nodes |
+| Bilinear cupAW_add_left/right | Expr nodes | 113K each |
+| CayleyDickson sub_im / sub_re pair | Expr nodes | 1K |
+| ZI / ZSqrt2 / ZOmega conjugation pairs | Expr nodes | various |
+
+### Reading
+
+The pair is parameterised by an orientation knob.  The two
+instantiations are **literal same proof** with the knob value
+swapped.
+
+### Concrete form
+
+```lean
+theorem foo_α (x y : T) : property α x y :=
+  -- forward version
+theorem foo_β (x y : T) : property β x y :=
+  -- backward version (byte-identical to α post-normalisation)
+```
+
+### Solution
+
+Lift to one parametric:
+
+```lean
+theorem foo_factor (factor : α ∨ β) (x y : T) :
+    property factor x y := ...
+```
+
+OR keep both names as `@[reducible]` aliases of one general
+form.
+
+### Where applied
+
+  · G106 §3 — L1 LeibnizAlgLift refined signature.
+  · G110 §5 — FluxMVT forward/backward pairs.
+  · G111 + G114 — Cohomology + CayleyDickson byte-identical
+    pair groups.
+
+### Generalisation
+
+The factor-knob pair pattern generalises to **oriented
+structures**: oriented manifolds, oriented homology, signed
+measures, chirality.  Any signed/oriented framework will
+likely produce byte-identical pairs at the Expr level.
+
+---
+
+## Pattern #17 — Multiple Lens choices for the same categorical concept
+
+**Discovered**: 2026-05-22 meta-analysis (G108 + G110 + G111
+G85 disclosure).
+
+### Problem
+
+A categorical concept (cup product, derivative, integral, cut
+function) may admit multiple framework-internal realisations.
+Picking one as "canonical" loses generality; defining all as
+distinct Lens choices preserves freedom.
+
+### Examples discovered
+
+**Cup product** (G85, G111 §6): two distinct cups coexist in
+Cohomology:
+  · `cupAW` — Alexander-Whitney standard form
+  · `cup` (lex-projection) — boundary-endpoint correction form
+
+Both ∀(n, k, l) proven PURE.  Both serve distinct roles.
+
+**Derivative** (G110 §2): three forms:
+  · classical limit (not used in DRLT)
+  · `localDivergence` (213-native: flux × 2^expE)
+  · `IsDifferentiable` (`Differentiation/`, explicit derivative
+    data)
+
+DRLT formalises ALL three as framework-internal choices.
+
+**Cut function** (G108 §1): three carriers for real numbers:
+  · `Real213` struct (Raw sequence + modulus)
+  · `RealAsLensOutput := Nat → Nat → Bool` (Lens output abbrev)
+  · `DyadicBracket` (Analysis-time finite data structure)
+
+All three coexist; bridges connect them.
+
+### Reading
+
+DRLT systematically refuses to pick "the canonical" form when
+multiple framework-internal realisations exist.  This is
+consistent with the Lens-output doctrine — each choice is a
+Lens output of the underlying Raw structure.
+
+### Where applied
+
+  · G108 §2 (AsLensOutput doctrine).
+  · G110 §2 + §6 (three derivative forms).
+  · G111 §6 (cup vs cupAW, G85 self-correction).
+
+### Generalisation
+
+When introducing a new categorical concept, formalise multiple
+Lens-output realisations rather than picking one.  This
+generalises Pattern #14 (framework-internal subsumption) to
+**multiplicity within the framework** rather than just
+subsuming external constructions.
+
+---
+
+## Pattern composition update (2026-05-22 extended)
+
+The composition table is now Patterns #1-#17.
+
+  · #1-#7: Cup-Leibniz session 1 (original 7).
+  · #8-#9: Parallel branch session 2 (Int.NonNeg + Clause-4
+    recursive).
+  · #10-#17: Meta-analysis branch (G98-G114).
+
+| # | Pattern | Where |
+|---|---------|-------|
+| #1-#7 | Cup-Leibniz patterns | session 1 |
+| #8 | `Int.NonNeg` constructor inversion | parallel |
+| #9 | Clause-4 recursive Lens application | parallel |
+| **#10** | **Adoption-gap detection via k-gram scan** | **G99** |
+| **#11** | **n-layer agreement = abstraction inevitability** | **G91+G94+G103+G106** |
+| **#12** | **"Derived from Raw" 3-level distinction (α/β/γ)** | **G104** |
+| **#13** | **Decide-finitism quantitative profile** | **G91+G100** |
+| **#14** | **Framework-internal subsumption (Bishop / classical)** | **G108+G110** |
+| **#15** | **Byte-identical Expr cross-domain bridges** | **G109** |
+| **#16** | **Forward/backward factor-knob byte-identical pair** | **G106+G110+G114** |
+| **#17** | **Multiple Lens choices for same categorical concept** | **G108+G110+G111** |
+
+Together, Patterns #1-#17 form the complete methodological
+foundation surfaced by the meta-analysis branch + parallel
+substantive branch through 2026-05-22.
+
