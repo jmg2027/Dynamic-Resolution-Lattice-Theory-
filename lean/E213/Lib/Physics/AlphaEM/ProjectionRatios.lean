@@ -50,45 +50,22 @@ def c_lat : Nat := 2
 /-- Total Δ⁴ edges. -/
 def delta4_edges : Nat := binom 5 2
 
-theorem delta4_edges_eq_10 : delta4_edges = 10 := by decide
-
 /-- K_{3,2}^{(c=2)} multi-edges = c · NS · NT. -/
 def k32c2_edges : Nat := c_lat * NS * NT
-
-theorem k32c2_edges_eq_12 : k32c2_edges = 12 := by decide
 
 /-- Distinct ST edges (Δ⁴ ∩ K-support, ignoring multiplicity). -/
 def st_edges : Nat := NS * NT
 
-theorem st_edges_eq_6 : st_edges = 6 := by decide
-
 /-- SS edges of Δ⁴ (not in K_{3,2}^{(c=2)}). -/
 def ss_edges : Nat := binom NS 2
 
-theorem ss_edges_eq_3 : ss_edges = 3 := by decide
-
 /-- TT edges of Δ⁴ (not in K_{3,2}^{(c=2)}). -/
 def tt_edges : Nat := binom NT 2
-
-theorem tt_edges_eq_1 : tt_edges = 1 := by decide
-
-/-- Edge-type totals add to all of Δ⁴. -/
-theorem delta4_edge_decomp :
-    ss_edges + st_edges + tt_edges = delta4_edges := by decide
 
 /-! ## §2 — Projection kernel and image -/
 
 /-- Δ⁴ edges OUTSIDE K_{3,2}^{(c=2)} support (the "lost" edges). -/
 def kernel_edges : Nat := ss_edges + tt_edges
-
-theorem kernel_edges_eq_4 : kernel_edges = 4 := by decide
-
-/-- ST edges of Δ⁴ ARE the image of the K → Δ⁴ projection. -/
-theorem image_eq_st : st_edges = 6 := by decide
-
-/-- Δ⁴ edge decomposition: kernel + image = total. -/
-theorem kernel_plus_image :
-    kernel_edges + st_edges = delta4_edges := by decide
 
 
 
@@ -107,21 +84,8 @@ theorem kernel_plus_image :
   These ratios are NOT arbitrary — each appears as an integer
   identity in the AlphaEM formula, decoded structurally below. -/
 
-/-- Sheet-collapse: K-channels per distinct ST edge = c. -/
-theorem sheet_collapse : k32c2_edges = c_lat * st_edges := by decide
-
-/-- Coverage rationality: NS · delta4_edges = d · st_edges,
-    i.e. ST/Δ⁴ = NS/d as a rational ratio. -/
-theorem coverage_ratio : NS * delta4_edges = d * st_edges := by decide
-
-/-- Multiplicity inflation: NS · K-edges = c · NS² · NT,
-    while NS · Δ⁴-edges = d · NS² (as cross-check). -/
-theorem inflation_via_NS :
-    NS * k32c2_edges = c_lat * NS * NS * NT := by decide
-
-/-- Y-norm `d/NS = 5/3`: cross-multiplied as `5·NS = 3·d`. -/
-theorem y_norm_is_inverse_coverage :
-    d * NS = NS * d ∧ 5 * NS = 3 * d := by decide
+-- §3 ratios (sheet_collapse, coverage_ratio, inflation_via_NS,
+-- y_norm) folded into `projection_ratios_master` below.
 
 /-! ## §4 — Connection to 1/α_em integer coefficients
 
@@ -151,20 +115,8 @@ theorem y_norm_is_inverse_coverage :
   **5/3 (Y-norm)** is exactly the inverse coverage ratio
   d/NS = (Δ⁴-edges)/ST ≈ 10/6 (after canceling NS in numerator). -/
 
-/-- 60 = c · NS · NT · d (= K-edges times atomic dim). -/
-theorem coeff_60 : c_lat * NS * NT * d = 60 := by decide
-
-/-- 30 · 4 = (d² - 1) · 5 (= adjoint SU(d) times Basel S(2) numerator). -/
-theorem coeff_30 : 30 * 4 = (d * d - 1) * 5 := by decide
-
-/-- 25 = d² and 25/3 = d²/NS (cross-multiplied: 25 = 3 · (25/3)). -/
-theorem coeff_25_d_squared : d * d = 25 := by decide
-
-/-- 4 = NS + 1 (Dyson-tail face dim). -/
-theorem coeff_4_dyson : NS + 1 = 4 := by decide
-
-/-- 45 = NS² · d (SO(10) denominator). -/
-theorem coeff_45_so10 : NS * NS * d = 45 := by decide
+-- §4 AlphaEM coefficient origins (60, 30, 25, 4, 45) folded
+-- into `projection_ratios_master` below.
 
 
 
