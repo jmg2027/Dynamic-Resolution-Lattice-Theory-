@@ -62,43 +62,30 @@ open E213.Lib.Physics.Simplex.Counts (binom)
     for k = 0..4 (vertex, edge, triangle, tet, top). -/
 def C_dim (k : Nat) : Nat := binom 5 (k + 1)
 
-theorem C_dim_0 : C_dim 0 = 5  := by decide
-theorem C_dim_1 : C_dim 1 = 10 := by decide
-theorem C_dim_2 : C_dim 2 = 10 := by decide
-theorem C_dim_3 : C_dim 3 = 5  := by decide
-theorem C_dim_4 : C_dim 4 = 1  := by decide
+-- C_dim 0..4 = 5, 10, 10, 5, 1 (Pascal row 5); per-grade values
+-- are conjuncts of `graded_decomposition_master` below.
 
 /-- Grade 0 (vertex outputs): C⁰ ⌣ C⁰ = 5·5. -/
 def grade_0 : Nat := C_dim 0 * C_dim 0
 
-theorem grade_0_eq_25 : grade_0 = 25 := by decide
+-- grade_X_eq_NNN (5 per-grade theorems) folded into master.
 
 /-- Grade 1 (edge outputs): C⁰⌣C¹ + C¹⌣C⁰ = 50 + 50. -/
 def grade_1 : Nat := C_dim 0 * C_dim 1 + C_dim 1 * C_dim 0
 
-theorem grade_1_eq_100 : grade_1 = 100 := by decide
-
 /-- Grade 2 (tri outputs): C⁰⌣C² + C¹⌣C¹ + C²⌣C⁰ = 50+100+50. -/
 def grade_2 : Nat := C_dim 0 * C_dim 2 + C_dim 1 * C_dim 1 + C_dim 2 * C_dim 0
-
-theorem grade_2_eq_200 : grade_2 = 200 := by decide
 
 /-- Grade 3 (tet outputs): 4 decomps = 25+100+100+25 = 250. -/
 def grade_3 : Nat := C_dim 0 * C_dim 3 + C_dim 1 * C_dim 2
                   + C_dim 2 * C_dim 1 + C_dim 3 * C_dim 0
 
-theorem grade_3_eq_250 : grade_3 = 250 := by decide
-
 /-- Grade 4 (top outputs): 5 decomps = 5+50+100+50+5 = 210. -/
 def grade_4 : Nat := C_dim 0 * C_dim 4 + C_dim 1 * C_dim 3 + C_dim 2 * C_dim 2
                   + C_dim 3 * C_dim 1 + C_dim 4 * C_dim 0
 
-theorem grade_4_eq_210 : grade_4 = 210 := by decide
-
 /-- Total: 25 + 100 + 200 + 250 + 210 = 785. -/
 def total : Nat := grade_0 + grade_1 + grade_2 + grade_3 + grade_4
-
-theorem total_eq_785 : total = 785 := by decide
 
 
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
@@ -116,14 +103,9 @@ open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
   Witness: cup of vertex × vertex (a=b=1) lands at edge (k=2),
   never at any other grade. -/
 
-/-- Cup output at a different grade is type-incompatible (definitional). -/
-theorem cup_grade_isolated (a b : Nat) (α : Cochain 5 a) (β : Cochain 5 b) :
-    cup 5 a b α β = cup 5 a b α β := rfl
-
-/-- Vertex × vertex always lands at edge grade (a + b = 2). -/
-theorem cup_v_v_at_edge_grade :
-    ∀ (α β : Cochain 5 1), cup 5 1 1 α β = cup 5 1 1 α β := by
-  intros; rfl
+-- Topological isolation is type-level (cup outputs at `a+b` by def);
+-- the `cup_grade_isolated` and `cup_v_v_at_edge_grade` rfl-identities
+-- carried no content beyond the type signature.
 
 /-! ## §3 — Property 2: chirality (cup non-commutativity at cochain level)
 
@@ -141,17 +123,8 @@ def v_1 : Cochain 5 1 := basis 5 1 ⟨1, by decide⟩
 /-- Edge [0, 1] = first 2-subset, colex index 0. -/
 def edge_01 : Fin (binom 5 2) := ⟨0, by decide⟩
 
-/-- ★ cup(v_0, v_1) at edge [0,1] = true. -/
-theorem cup_v0_v1_at_edge01 :
-    cup 5 1 1 v_0 v_1 edge_01 = true := by decide
-
-/-- ★ cup(v_1, v_0) at edge [0,1] = false (asymmetric!). -/
-theorem cup_v1_v0_at_edge01 :
-    cup 5 1 1 v_1 v_0 edge_01 = false := by decide
-
-/-- ★★★★★ Chirality witness: cup is non-commutative at cochain level. -/
-theorem cup_chirality_witness :
-    cup 5 1 1 v_0 v_1 edge_01 ≠ cup 5 1 1 v_1 v_0 edge_01 := by decide
+-- Concrete chirality witnesses (cup v_0 v_1 = true, cup v_1 v_0 = false,
+-- and their inequality) are conjuncts of `graded_decomposition_master`.
 
 
 
@@ -162,18 +135,9 @@ theorem cup_chirality_witness :
   zero-dimensional space.  Interactions terminate cleanly at
   Grade 4 — no infinite tail. -/
 
-theorem binom_5_6_zero  : binom 5 6  = 0 := by decide
-theorem binom_5_7_zero  : binom 5 7  = 0 := by decide
-theorem binom_5_8_zero  : binom 5 8  = 0 := by decide
-theorem binom_5_9_zero  : binom 5 9  = 0 := by decide
-theorem binom_5_10_zero : binom 5 10 = 0 := by decide
-
-/-- Hard-wall sample range: binom 5 k = 0 for k ∈ {6, 7, 8, 9, 10}.
-    By Pascal recursion + the empty-domain rule, this extends
-    to all k ≥ 6 (infinite hard wall). -/
-theorem hard_wall_sample :
-    binom 5 6 = 0 ∧ binom 5 7 = 0 ∧ binom 5 8 = 0
-    ∧ binom 5 9 = 0 ∧ binom 5 10 = 0 := by decide
+-- Hard-wall samples (binom 5 6..10 = 0) are conjuncts of
+-- `graded_decomposition_master`.  Pascal recursion + empty-domain
+-- rule extends this to all k ≥ 6 (infinite hard wall).
 
 
 
