@@ -589,4 +589,16 @@ Cayley structure.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3OnKEdges` | 22 | Two transposition generators **`σ_S01`**, **`σ_S12`** acting on `Fin 12` K-edges (swap S0↔S1, S1↔S2 respectively); third transposition **`σ_S02 := σ_S01 ∘ σ_S12 ∘ σ_S01`** by conjugation; 3-cycle **`ρ_S := σ_S12 ∘ σ_S01`** and `ρ_S_sq`; involution properties `σ_S01_involution`, `σ_S12_involution`, `σ_S02_involution`; order-3 properties `ρ_S_order_3`, `ρ_S_sq_order_3`; Cayley relations `σ_S01_ρ` (= σ_S02), `ρ_compose` (ρ² = ρ·ρ); edge-cochain pullback action `σ_act_E` with pointwise involution `σ_act_E_S01_involution`, `σ_act_E_S12_involution` (no funext); specific edge mappings as sanity checks; **`★ Sym3OnKEdges_phase3_capstone`** bundling all generator + Cayley + action data |
 
-**Cumulative new PURE this session: +63** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 of C3 chain).
+## 2026-05-22 — C3 chain Phase 4: Sym(3) descent to H¹(K) via δ⁰ equivariance
+
+Phase 4 of the **C3 chain** — proves the edge action of Phase 3
+descends to a well-defined action on H¹(K_{3,2}^{(c=2)}) by
+exhibiting compatible vertex permutations and verifying δ⁰
+equivariance.  This is the substantive C3-step linking the edge-
+level group structure to cohomology-level group representation.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3OnH1K` | 16 | Vertex permutations **`φ_V_S01`**, **`φ_V_S12`** (Fin 5 → Fin 5) compatible with the edge transpositions; involution properties `φ_V_S01_involution`, `φ_V_S12_involution`; **src/tgt equivariance** `src_equiv_S01`, `tgt_equiv_S01`, `src_equiv_S12`, `tgt_equiv_S12` (decide-verified edge by edge); vertex-cochain pullback action `φ_act_V`; **`★ delta0_equiv_S01`**, **`★ delta0_equiv_S12`** — pointwise δ⁰ equivariance theorems (no funext); coboundary preservation `σ_S01_preserves_coboundaries`, `σ_S12_preserves_coboundaries` establishing well-defined descent to H¹(K); explicit non-tree edge behavior `σ_S01_nontree_1/3/6_to_tree/7`, `σ_S01_fixes_S2` documenting the basis-decomposition structure (some non-tree → tree transitions require coboundary correction); **`★ Sym3OnH1K_phase4_capstone`** — 10-conjunct Phase-4 capstone bundling all equivariance + descent data |
+
+**Cumulative new PURE this session: +79** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 of C3 chain).
