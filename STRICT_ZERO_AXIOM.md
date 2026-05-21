@@ -612,18 +612,36 @@ matrix involution verification.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix` | 7 | Explicit 8×8 matrix **`M_S01 : Fin 8 → H1K`** with 7 basis-to-basis permutation rows and 1 exceptional row (e_3 ↦ e_1 + e_3 + e_4 + e_6 + e_7) from tree-decomposition; **`v_tree_witness`** vertex cochain `(0,0,0,0,1)` providing the coboundary that resolves the non-tree → tree transition; **`delta0_v_tree_at_each_edge`** — 12-conjunct decide-bridge verifying which edges have tgt = vertex 4 (i.e. T_1); matrix-matrix product **`M_mul_M`** and **`★ M_S01_squared_pointwise`** — full involution verification at the matrix level (`M_S01 · M_S01 = IdMatrix`) on all 64 entries via decide; `boolTrace`, `intTrace` operations; **`boolTrace_M_S01 = false`** (mod-2 character); **`intTrace_M_S01 = 4`** (count of fixed basis vectors: e_3 diag, e_5, e_6, e_7); **`★ Sym3OnH1KMatrix_phase5_capstone`** — 11-conjunct Phase-5 capstone |
 
-**Cumulative new PURE this session: +86** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 + 7 Phase 5 of C3 chain).
+## 2026-05-22 — C3 chain Phase 6: Sym(3) Cayley structure on H1K matrix level
 
-The C3 chain through Phase 5 establishes:
+Phase 6 of the **C3 chain** — extends Phase 5 with the σ_S12
+representation matrix (no tree corrections needed) and verifies
+the full Sym(3) Cayley structure at the H1K 8×8 matrix level.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3OnH1KCayley` | 14 | **`M_S12`** — pure permutation matrix on H1K: identity on {e_0, e_1}, three transpositions (e_2 e_5)(e_3 e_6)(e_4 e_7); `M_S12_squared_pointwise` involution at matrix level; `boolTrace M_S12 = false`, `intTrace M_S12 = 2`; **`M_ρ := M_S12 · M_S01`** 3-cycle representation matrix; **`M_ρ_cubed_pointwise`** — full 64-entry decide on `(M_ρ)³ = I`; `boolTrace M_ρ = true`, `intTrace M_ρ = 1`; **`M_S02 := M_S01 · M_S12 · M_S01`** derived transposition matrix; `M_S02_squared_pointwise` involution; **Cayley relations** `cayley_σ_S01_sq`, `cayley_σ_S12_sq`, `cayley_ρ_cubed` realising the standard Sym(3) presentation ⟨s, t \| s² = t² = (st)³ = e⟩; **`★ Sym3OnH1KCayley_phase6_capstone`** — 10-conjunct Phase-6 capstone with conjugate-trace-agreement diagnostic (bool-trace conjugacy invariant: σ_S01, σ_S12 transpositions both → 0; σ_ρ 3-cycle → 1) |
+
+**Cumulative new PURE this session: +100** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 + 7 Phase 5 + 14 Phase 6 of C3 chain).
+
+The C3 chain through Phase 6 establishes the complete 8-dim
+Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
+
   · Aut(K) as a Type with cardinality 768 (Phase 1)
   · H¹(K) as an explicit rank-8 ℤ/2-module (Phase 2)
   · Sym(3) generators acting on K-edges with full Cayley structure (Phase 3)
   · δ⁰ equivariance ⇒ well-defined descent to H¹(K) (Phase 4)
-  · Explicit 8×8 representation matrix with involution check (Phase 5)
+  · Explicit 8×8 representation matrix M_S01 with tree-decomp (Phase 5)
+  · Full Sym(3) presentation ⟨s, t | s² = t² = (st)³ = e⟩ realised
+    at the H1K matrix level; conjugacy invariance verified via
+    bool-trace (Phase 6)
+
+Diagnostic finding (Phase 6): integer-trace data is basis-dependent
+(tr(M_S01) = 4 ≠ tr(M_S12) = 2 despite σ_S01, σ_S12 conjugate in
+Sym(3)); the basis-independent F_2 trace (bool-trace) correctly
+gives both = 0 for transpositions and 1 for 3-cycles.
 
 Remaining for the gauge-emergence narrative:
-  · Phase 6: σ_S12 representation matrix + ⟨σ_S01, σ_S12⟩ Cayley
-    structure on H1K
   · Phase 7: Sym(3)-irrep decomposition over F_2 (modular case
     where 1 = sign, hence fewer irreducibles than over Q)
   · Phase 8: ι*: H¹(Δ⁴) → H¹(K) and connection to SU(3) adjoint
