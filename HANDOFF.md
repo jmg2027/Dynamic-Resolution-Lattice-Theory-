@@ -360,6 +360,9 @@ what closed and what deferred.
 | 3++ | **G110 FLUX-1 sum companion** (UnitBracketReduceSum + 5 derivative-witness sites) | `d39946dd` | +5 sites + new PURE template |
 | 3+++ | **G110 FLUX-1 extension 3** (ClassicCalcMid + CubeDerivativeAtZero) | `e1e6017c` | +4 sites |
 | 3++++ | **G110 FLUX-1 extension 4** (FluxMVTPassthrough + FluxPassthroughClass + MVTWitnessChain) | `fd7ceca2`, `9290104e` | +4 sites; FLUX-1 total 30 sites |
+| 8b | **L4 addLDD/mulLDD** ldd_branch_via_maxRange template | `7c887e23` | 4 branches refactored, -31 lines net |
+| 10a | **TH-1** proof-shape fingerprint spec | `9616c8a6` | `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` + generic UnitBracketReduce variant |
+| 11 | **G117 Bishop comparison** doctrinal spec | `7eb619a6` | `seed/BISHOP_SUBSUMPTION_SPEC.md` |
 
 ## Deferred (require separate marathons)
 
@@ -368,11 +371,8 @@ what closed and what deferred.
 | 4 | **G108 REAL-1+REAL-2** Cut iff consolidation | `cutMulInner/Outer_eq_true_iff` proofs use induction on bound with bool-OR ladder + per-case case-splits on `cx i k` / `cy m2 k`.  Generic helper `boolOrLadder_exists_iff` PURE-verified standalone, but connecting to the existing `match`-defined `cutMulInner/Outer` requires either redefining via `Nat.rec` (invasive) or proving a `match = Nat.rec` bridge (verbose).  ~3-5 hour follow-up. |
 | 6 | **G114 CD-1+CD-2+CD-3** | `ext` proofs are already 2 lines each.  4-sibling × 2 lines = 8 lines.  Generic template would save ~4 lines but add ~10 lines infrastructure.  Not worth abstracting. |
 | 7 | **G112 HC-1, G115 PHYS-1/PHYS-2** | Capstone-level investigation work; each is its own session. |
-| 8b | **L4 addLDD/mulLDD** | Structural similarity but signature/bound mismatch (cutSumAux vs cutMulOuter; `(2*m, 2*m)` vs `((m+1)*(k+1), (m+1)*(k+1))`).  Helper would save ~4 lines net.  Marginal item. |
-| 8c | **L5 CDDouble I_mul_J/J_mul_I** | Proofs already 13 lines each; per-instance arithmetic differs (positions of I, negI, signs).  Abstraction overhead exceeds savings. |
+| 8c | **L5 CDDouble I_mul_J/J_mul_I** | Proofs already 13 lines each; per-instance arithmetic differs (positions of I, negI, signs).  Abstraction overhead exceeds savings.  `decide` ineffective due to conj evaluation depth. |
 | 9 | **G113 FSM-1 full ∀p** | Parametric over arbitrary prime modulus.  Part 3 + Part 4 absorbed 93 sites (specific moduli); the full ∀p form requires a new universal lift theorem.  Multi-session. |
-| 10a | **TH-1** proof-shape fingerprint spec | Already captured in `CAT-3 recursor-inventory` + `ARCHITECTURE NAV-3`.  Standalone doc would be redundant per Part 3 HANDOFF assessment. |
-| 11 | **G117 Bishop comparison** doctrinal capstone | 3-5 sessions; doctrinal AsLensOutput formalisation. |
 
 ## Updated grand total (Part 3 + Part 4 + Part 5)
 
@@ -380,14 +380,20 @@ what closed and what deferred.
   · **~14,800 LOC** analysis + documentation + refactor
   · **~290 sites absorbed** (180 in Part 3+4 + ~110 effective sites
     in Part 5 templates × consumers including 10 Pisano period_lift sites)
-  · **9 abstraction templates** surfaced + integrated:
+  · **11 abstraction templates** surfaced + integrated:
     LeibnizAlgLiftBeta, LeibnizAlgLiftAlpha, cutSum_constCut_at,
     cutMulOuter_unitBracket_reduce_at, cutSumAux_unitBracket_reduce_at,
-    Pattern10, InvolutionTemplate, pisano_period_lift,
-    LeibnizUniversalLift.leibniz_pointwise_lift
+    cutMulOuter_reduce_at (generic variant), Pattern10,
+    InvolutionTemplate, pisano_period_lift,
+    LeibnizUniversalLift.leibniz_pointwise_lift,
+    CutFnData.ldd_branch_via_maxRange
   · **G110 FLUX-1**: 30 sites refactored via 2 templates (mul + sum
     sides) across 9 consumer files — single largest cross-file
     consolidation closed in Part 5
+  · **G107 §10 doc closures**: 4 spec docs written
+    (RAW_DERIVATION_SPEC, FALSIFIABILITY_SURFACE_SPEC,
+    L1_PARAMETRIC_METHODOLOGY_SPEC, PROOF_SHAPE_FINGERPRINT_SPEC,
+    BISHOP_SUBSUMPTION_SPEC) + 5 spec docs already in seed/
 
 ## Verification (Part 5)
 
