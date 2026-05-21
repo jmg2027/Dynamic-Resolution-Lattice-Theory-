@@ -25,8 +25,11 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §0.  PURE Nat / List helpers (replacing propext-tainted Lean-core lemmas) -/
 
-/-- `(a + c) - c = a` — PURE via `Nat.succ_sub_succ_eq_sub`. -/
-private theorem nat_add_sub_cancel (a c : Nat) : (a + c) - c = a := by
+/-- `(a + c) - c = a` — PURE via `Nat.succ_sub_succ_eq_sub`.
+
+    Public so `FinBridgeGeneral` and other downstream modules can reuse
+    this propext-free replacement for `Nat.add_sub_cancel`. -/
+theorem nat_add_sub_cancel (a c : Nat) : (a + c) - c = a := by
   induction c with
   | zero => rfl
   | succ k ih =>
@@ -34,8 +37,11 @@ private theorem nat_add_sub_cancel (a c : Nat) : (a + c) - c = a := by
     rw [Nat.add_succ, Nat.succ_sub_succ_eq_sub]
     exact ih
 
-/-- `c ≤ a → a < b → a - c < b - c` — PURE via `Nat.pred_lt_pred`. -/
-private theorem nat_sub_lt_sub_right :
+/-- `c ≤ a → a < b → a - c < b - c` — PURE via `Nat.pred_lt_pred`.
+
+    Public so downstream modules can reuse this propext-free
+    replacement for `Nat.sub_lt_sub_right`. -/
+theorem nat_sub_lt_sub_right :
     ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c := by
   intro a b c
   induction c with
@@ -53,8 +59,8 @@ private theorem nat_sub_lt_sub_right :
     exact Nat.not_succ_le_self k h_ge
 
 /-- `(l ++ [x]).length = l.length + 1` — PURE via direct induction.
-    Specialised to `Nat` (the only use site below). -/
-private theorem list_length_append_singleton (l : List Nat) (x : Nat) :
+    Specialised to `Nat`.  Public for downstream modules. -/
+theorem list_length_append_singleton (l : List Nat) (x : Nat) :
     (l ++ [x]).length = l.length + 1 := by
   induction l with
   | nil => rfl
@@ -182,7 +188,7 @@ theorem kSubset_all_lt :
 /-! ## §3.  More PURE helpers for injectivity -/
 
 /-- `b < a → 0 < a - b` — PURE via `Nat.succ_sub_succ_eq_sub`. -/
-private theorem nat_sub_pos_of_lt :
+theorem nat_sub_pos_of_lt :
     ∀ {a b : Nat}, b < a → 0 < a - b := by
   intro a b
   induction b generalizing a with
