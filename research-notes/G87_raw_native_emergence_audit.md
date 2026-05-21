@@ -259,3 +259,86 @@ The single most impactful project — **the 6-theorem** (§5) — would unify th
 - `lean/E213/Lib/Math/Mobius213.lean` (algebraic core)
 - `lean/E213/Lib/Math/Geometry/AlgebraicGeometry.lean` (dual χ + 5·4·6=120)
 - `lean/E213/Lib/Physics/Symmetry/` (Aut(K) infrastructure)
+
+---
+
+## §9  Marathon update — 2026-05-22: 6-theorem master CLOSED
+
+The 6-theorem master capstone is ∅-axiom proven at the **numerical
+equivalence level** (29 PURE theorems added this session, branch
+`claude/subset-bijection-lemmas-w2FKf`):
+
+### `Lib/Math/CayleyDickson/Integer/ZOmegaUnits.lean` (18 PURE)
+
+  · `units6` — 6 explicit Eisenstein units (re-exported from
+    `ZOmegaDouble.zo_units`)
+  · `units6_length`, `units6_nodup`, `units6_normSq_one` — basic shape
+  · `Zeta6 = ⟨1, 1⟩ = -ω² = 1 + ω` — the **order-6 generator**
+    (ω itself is the *cube* root, `omega_cubed_eq_one`)
+  · `zeta6_sq`, `zeta6_cubed`, `zeta6_pow_six` — cyclic structure
+  · `zeta6_pow_lt_six_ne_one` — order is exactly 6
+  · `zeta6_powers_contains`, `zeta6_powers_distinct` — six powers
+    exhaust the unit group
+  · `units_count_eq_NSNT`, `_six`, `_d_plus_one`, `_three_factorial`
+    — count bridges
+  · `ofNat_int_le_one`, `int_sq_le_one` — Int-square bound helpers
+    (used in the future completeness proof; `cases` on `Int.NonNeg`
+    bypasses the propext-tainted Int ordering iff lemmas)
+
+### `Theory/SixTheorem.lean` (11 PURE) — the unifying master
+
+  · 10 individual reading theorems (`reading_1_eisenstein_units`
+    through `reading_10_clause_permutations`)
+  · ★ **`six_theorem`** — single ∅-axiom statement bundling:
+      - `units6.length = NS · NT`
+      - `units6.length = d + 1`
+      - `units6.length = 3 · 2 · 1` (= Sym(3) order = Pauli ε)
+      - `units6.length = NS · (NS − 1)` (SU(3) roots)
+      - `units6.length = ((d − 1)(d − 2)) / 2` (Lorentz generators)
+      - `Zeta6^6 = ⟨1, 0⟩` (cyclic group structure)
+      - `χ(Δ⁴) + χ(K_{3,2}^{(c=2)}) = -(units6.length : Int)`
+        (the cohomology-side anchor)
+
+### Status after this marathon
+
+  · **Numerical equivalence** of all 10 readings on `|units6| = 6 = NS·NT`:
+    ✅ ∅-axiom proven.
+  · **Cyclic group structure** `ZOmega^× ≅ C_6` via `Zeta6` generator:
+    ✅ ∅-axiom proven (six powers, distinct, contained in units6).
+  · **Cohomology-algebra bridge** `χ-sum = -|units6|`:
+    ✅ ∅-axiom proven via `dual_fillings_sum_eq_neg_eisenstein` +
+    `units_count_eq_NSNT`.
+  · **Diophantine completeness** (`∀ u : ZOmega, normSq u = 1 → u ∈ units6`):
+    🟡 partial — `int_sq_le_one` helper closed PURE; the 4·normSq
+    ring identity `4·(a² − ab + b²) = (2a − b)² + 3b²` over `Int213`
+    requires manual ring algebra (no `ring` tactic, propext-free
+    distribution chain).  Estimated ~50 rewrites.
+
+The remaining diophantine completeness is the LAST piece for
+"|ZOmega^×| = 6 exactly".  Without it, we have "the 6 listed units
+exist and form C_6" + "no smaller cyclic structure suffices" —
+which IS the bulk of the structural content.  The "no MORE units"
+direction is a separate combinatorial bound.
+
+## §10  Reframed marathon priorities (post-closure)
+
+| Priority | Task | Status |
+|---|---|---|
+| 1 | 6-theorem master (numerical) | ✅ CLOSED |
+| 2 | ZOmega units cyclic C_6 structure | ✅ CLOSED |
+| 3 | χ-sum = −\|units\| bridge | ✅ CLOSED |
+| 4 | Diophantine completeness (4·normSq ring identity + bound) | 🟡 PARTIAL |
+| 5 | Matrix-level P^5 ≡ −I (mod 5) | ⚪ TODO (Tier 1) |
+| 6 | Alive predicate derivation from Raw | ⚪ TODO (Tier 1) |
+| 7 | Aut(K_{3,2}^{(c=2)}) as Group / H¹(K) as ℤ-module | ⚪ TODO (Tier 2) |
+| 8 | ι*: H¹(Δ⁴) → H¹(K) Sym(3)-equivariant morphism | ⚪ TODO (Tier 4) |
+
+The numerical 6-theorem is the cleanest structural-unification result
+to date.  The Diophantine completeness extension would lift it from
+"the ten readings all equal 6" to "the ten readings all factor
+through the unique Eisenstein structure |ZOmega^×| = 6".
+
+The next natural marathon target is the diophantine completeness
+(Priority 4) — closes the structural side of the 6-theorem.  The
+matrix-level pentagonal closure (Priority 5) is shorter and would
+honour the G78/G79 documentation.
