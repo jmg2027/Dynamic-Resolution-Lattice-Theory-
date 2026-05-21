@@ -127,6 +127,7 @@ seed/
 ├── ORIGIN.md                  ← DRLT origin narrative (archival)
 ├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
+├── RAW_DERIVATION_SPEC.md     ← "derived from Raw" α/β/γ distinction
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
@@ -169,6 +170,8 @@ seed/
 - `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
   corpus.
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
+- `RAW_DERIVATION_SPEC.md` — what "X is derived from Raw" technically
+  means (three readings: logical / structural-content / operational).
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
 
