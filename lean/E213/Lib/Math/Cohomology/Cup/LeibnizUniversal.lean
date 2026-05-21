@@ -74,6 +74,36 @@ terms degenerate or self-cancel.  Asymmetric basis pairs (e.g.,
 Path A is recommended (matches standard simplicial cohomology
 literature).  Tagged for follow-up.
 
+## 213-native re-reading (follow-up, see G85)
+
+The framing above ("the cup is wrong because it's not AW") imports
+an external standard.  Under §8.4 dichotomy avoidance, both wedge
+and AW are valid Lens readings — the decide-refutation surfaces a
+**Lens mismatch** between the two halves of the cohomology
+infrastructure, not a bug:
+
+  · `cup` is the **wedge product on Λ^•(Bool^n)** — exterior-algebra
+    Lens.  Cochain n k = Fin (binom n k) → Bool is literally a
+    basis of Λ^k; sorted-concatenation of disjoint sets is wedge.
+  · `delta` is the **simplicial coboundary** — face-poset Lens.
+    Sum over face-removals on (k+1)-simplices.
+
+Standard Leibniz holds within each Lens but not between.  The
+concrete counterexample (basis₀ ⌣ basis₂ at [0,1,2]) is the
+*honest* gap between wedge-cup-output and simplicial-δ-expectation
+at the missing "shared vertex 1" position.
+
+The twisted Leibniz at bidegree (1, 1) is:
+
+  δ(α ⌣ β)(τ) = δα ⌣ β ⊕ α ⌣ δβ ⊕ α(τ[0])·β(τ[last])
+
+The boundary-endpoint product is the 213-native correction.
+
+Recommended path is now **β** (commit to exterior-algebra Lens
+throughout: replace `delta` with `d_exterior` so wedge Leibniz
+holds natively without correction).  Path α (AW everywhere) is
+also viable.  See `research-notes/G85_cup_delta_lens_mismatch.md`.
+
 ## Phase 2 status
 
 Per `/root/.claude/plans/smooth-mapping-metcalfe.md`, Phase 2's

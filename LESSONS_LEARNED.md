@@ -520,3 +520,199 @@ clean throughout, ∅-axiom contract preserved.
 These remain as **research directions** rather than mechanical
 cleanups — each needs structural thinking similar to the
 `pell_recurrence_unique` extraction from Mobius213.
+
+---
+
+## Hero-session methodological patterns (2026-05-21)
+
+Patterns surfaced during the Phase 1 hero target push (Möbius
+213-tower L_∞).  These are not domain-specific; they apply
+whenever 213-native PURE statements meet limitations of Lean 4
+core (no Mathlib).
+
+### Pattern #1: 213-native Int polynomial identity via Int213.* rw chain
+
+**Problem**: Mathlib's `ring` tactic is forbidden.  `simp only` +
+`omega` works for many Int identities but introduces [propext,
+Quot.sound] kernel-axiom dependency — kernel-allowed but not
+strict PURE.
+
+**Solution**: replace `simp + omega` with a manual `rw` chain
+using only `E213.Meta.Int213.*` lemmas.  PURE.
+
+**7-step canonical sequence** (proved on `cross_step_algebra` at
+`Mobius213.lean ~226`):
+
+```
+1. `(-1) * x → -x`        via Int213.neg_mul + Int.one_mul
+2. Drop `+ 0` summands     via Int.add_zero
+3. Distribute              via Int213.mul_add, Int213.add_mul
+4. Pull negatives          via Int213.mul_neg, Int213.neg_mul
+5. Normalise associativity via Int213.mul_left_comm + Int213.mul_assoc
+6. Cancel matching pairs   via Int213.add_assoc + add_left_comm + add_neg_cancel
+7. Sign cleanup            via Int213.add_comm + Int.sub_eq_add_neg
+```
+
+**When to use**: any moderate-degree (quadratic / cubic in the
+unknown variables) polynomial identity over Int.  The chain
+is ~25-30 lines but mechanical — each step has a single named
+lemma — and yields strict PURE.
+
+**Reusable target**: many of the ~50 real-DIRTY theorems in
+`STRICT_ZERO_AXIOM.md` that use `omega` shortcut after `simp` can
+likely be PURE-refactored with this pattern.  Identify by
+`grep -B 5 omega lean/ | grep simp` and applying the chain.
+
+**Anti-pattern**: do NOT use `ring`, `ring_nf`, `linarith`,
+`field_simp` — all Mathlib.  Do NOT use `set` (Mathlib tactic);
+work directly on the long expressions or use `let` in term mode.
+
+### Pattern #2: Decide-by-Bool-tuple parameterisation
+
+**Problem**: Lean 4 core (without Mathlib) does NOT synthesise
+`Decidable (∀ f : Fin n → Bool, P f)` from `Fintype` instances.
+Even `Fintype (Fin 5 → Bool)` doesn't get a usable
+`decidableForallFintype`.  Direct `∀ α : Fin n → Bool, … := by
+decide` fails with "failed to synthesise Decidable".
+
+**Solution**: parameterise the universal quantification by the
+function's pointwise Bool values.  Lift via an explicit
+`mkFn (b0 b1 … b_{n-1} : Bool) : Fin n → Bool := fun i =>
+  if i.val = 0 then b0 else if i.val = 1 then b1 else …`
+
+Then `∀ (b0 … b_{n-1} : Bool) (extra args), P (mkFn b0 … b_{n-1})
+:= by decide` works — Lean enumerates 2^n cases on the Bool tuple.
+
+**Logical equivalence**: this universal-over-tuple form is
+equivalent to the universal-over-function form by function
+extensionality on `Fin n → Bool`, which is `rfl` elementwise.
+
+**When to use**: any combinatorial statement quantified over a
+finite function space (cochains, characters, indicator vectors)
+that you want to prove by exhaustive enumeration.
+
+**Caveat (Phase 2 finding)**: this pattern *also exposed a bug*
+in `Cohomology/Cup/Core.lean` — see "Pattern #5" below.  The
+finer the decide-enumeration, the more likely you surface
+implementation issues that 4 hand-picked concrete cases missed.
+
+### Pattern #3: Docstring `-/` trap
+
+**Problem**: Lean 4's docstring delimiter is `/-! … -/` (or
+`/-- … -/`).  Any `-/` substring inside the docstring closes it
+prematurely, producing inscrutable "unexpected identifier" or
+"unexpected token '*'" errors at the line where the FALSE close
+ends.
+
+**Trap text examples observed this session**:
+  · `even-/odd-indexed Fibonacci numbers`  ← `-/` after "even"
+  · `delta sign-/ordering convention`       ← `-/` after "sign"
+
+**Solution**: avoid hyphen-immediately-followed-by-slash in
+docstring prose.  Replace with `and`, ` and `, `, ` etc.:
+  · `even- and odd-indexed Fibonacci`
+  · `delta sign and ordering convention`
+
+**Diagnostic hint**: when build fails with "unexpected token"
+errors *far below* the actual problem line, search for `-/` in
+preceding prose first.
+
+### Pattern #4: Catalog misclaim self-correction
+
+**Problem**: prior-session HANDOFF.md / catalog files advertise
+a file at path X with theorem names {A, B, C}, but the actual
+file tree has no such file — the content was merged into a
+neighbouring file or never made it to commit.  Silent staleness.
+
+**This session's instance** (commit 7a3e6e6e):
+  · `catalogs/math-theorems.md §J.3` advertised
+    `Lens/UndifferentiatedRaw.lean` with `constLens_collapses`,
+    `pre_lens_singleton`, `constLens_kernel_total`.
+  · `git log --diff-filter=A -- "**/UndifferentiatedRaw.lean"`
+    returned empty — file never existed in git history.
+  · Actual content lives in `Lens/RawTopology.lean` as
+    `constLens_view_eq`, `k_infty_at_raw_bundle`, etc.
+
+**Solution direction** (per CLAUDE.md §8): "fix the claim,
+not the file."  If the catalog advertises X but reality is Y,
+update the catalog to advertise Y at its current path with
+current theorem names.  Do NOT recreate the phantom file unless
+the original session-snapshot really intended it.
+
+**Detection heuristic**: in `ready-to-merge` audit, extract every
+`import E213.X.Y.Z` from catalog files and verify
+`lean/E213/X/Y/Z.lean` exists.  Mismatches = misclaims to
+correct.  Script:
+```
+grep -rh "import E213\." catalogs/ books/ blueprints/ \
+  | sed -E 's/.*import (E213\.[A-Za-z0-9_.]+).*/\1/' \
+  | sort -u \
+  | while IFS= read -r imp; do
+      path=$(echo "$imp" | sed 's|E213\.|lean/E213/|; s|\.|/|g').lean
+      test -f "$path" || echo "MISCLAIM: $imp"
+    done
+```
+
+**Counter-example (legitimate stale)**: when 100+ imports point at
+a moved subtree (e.g., Real213/* → Analysis/*), the catalog is
+"systematically stale" rather than misclaiming — fix with a top-of-
+file reorg note + umbrella import (Path A) or full rewrite (Path B,
+deferred).
+
+### Pattern #5: Decide as bug-finder for "universal claim"
+
+**Problem**: standard mathematical results (cup-product Leibniz,
+graded-ring identities, etc.) are often *asserted* as universal
+in the code's docstrings but the actual `def` may diverge from
+the standard convention.  Hand-picked concrete tests using
+highly-symmetric inputs miss the divergence.
+
+**This session's instance** (Phase 2):
+  · `Cup/Core.lean` docstring: "Cup product (Alexander–Whitney)"
+  · `Cup/Core.lean` implementation: `(α ⌣ β)(τ) = α(τ.take k) ·
+    β(τ.drop k)` — this is the **concatenation cup**, not AW
+    (AW has shared vertex at τ[k], so front has `k+1` elements).
+  · Existing `Cup/Leibniz.lean` proves Leibniz at 4 concrete
+    pairs (all symmetric: v0, all_true, zero).  All pass.
+  · Pattern #2 parameterised Leibniz over `Bool^{10}` (all
+    1024 cochain pairs at bidegree (1,1)) — `decide` reports
+    **false**.
+  · Manual eval pinpoints counterexample: `basis₀ ⌣ basis₂` at
+    face `[0, 1, 2]` gives LHS = true, RHS = false.
+
+**Pattern (the general one)**: when adding a universal claim
+that "everyone knows" holds, *force decide-level enumeration*
+via Pattern #2.  If decide refutes, you've found either:
+  (a) an implementation divergence from the standard convention
+      (docstring claims X, code implements Y), OR
+  (b) a sign / ordering / index off-by-one in a supporting def
+      (in Phase 2: cup's no-shared-vertex convention requires a
+      twisted Leibniz, not the standard one).
+
+**Why this matters strategically**: 213's "no Mathlib, all
+hand-rolled" approach means *every* foundational def is
+hand-written and could deviate from the literature.  Standard
+identities being mechanically *checked* (not just stated) is
+the only protection against silent drift.  The Pattern #2 +
+Pattern #5 combo (parameterise → decide) is the cheap insurance.
+
+**Action for next session**: replicate Pattern #5 across other
+"obvious" universal claims in `Cohomology/`, `HodgeConjecture/`,
+`Linalg213/`.  Each parameterisation is ~20 lines but can surface
+unknown drift.
+
+---
+
+## Cumulative pattern summary (post-2026-05-21)
+
+| Pattern | Domain | Reusability |
+|---|---|---|
+| #1 Int213 rw chain | strict-PURE polynomial identities | high — applicable to ~50 DIRTY budget |
+| #2 Bool-tuple parameterise | finite-function-space ∀-claims | high — Lean-core limitation workaround |
+| #3 docstring `-/` trap | doc-writing hygiene | universal |
+| #4 catalog misclaim correction | ready-to-merge audits | universal |
+| #5 decide as bug-finder | universal-claim verification | high — defends against silent drift |
+
+These compose: #2 enables #5 (enumeration), #5 surfaces bugs that
+hand-tests miss, #1 fixes the [propext] residue that often
+remains after #5's enumeration approach.
