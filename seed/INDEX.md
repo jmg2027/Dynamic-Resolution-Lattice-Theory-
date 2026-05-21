@@ -128,6 +128,7 @@ seed/
 ├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
 ├── RAW_DERIVATION_SPEC.md     ← "derived from Raw" α/β/γ distinction
+├── FALSIFIABILITY_SURFACE_SPEC.md ← quantitative profile of §5.2.1 enforcement
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
