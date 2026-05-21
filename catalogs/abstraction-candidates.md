@@ -38,8 +38,8 @@ Status keys:
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
 | L3 | Pisano Predictor extension steps | **DONE** | `pisano_period_lift {p pf N f}` PURE template absorbs per-prime `intro k; rw [h_p]; exact period_n k` boilerplate; 10 sites refactored across Predictor8/11/14/17 (commit fc105cd6). |
-| L4 | `addLDD` / `mulLDD` (Smooth.lean) | DEFERRED | Substantial differences in concrete aux + locality bound; clean abstraction requires `BinaryOpLDD` typeclass — substantial design task. |
-| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples. |
+| L4 | `addLDD` / `mulLDD` (Smooth.lean) | **DONE** | `ldd_branch_via_maxRange (sf cx cy M hagree S R side_chain m' hm')` PURE template (in `Real213/Core/CutFnData.lean`) absorbs the inner `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block; 4 branches refactored across addLDD + mulLDD (commit 7c887e23).  Parameterized helper instead of typeclass. |
+| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples.  `decide` ineffective due to conj evaluation depth. |
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
 | E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
