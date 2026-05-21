@@ -23,43 +23,30 @@ Numerical match (Rust binary `finite-resonance`) at v2 residuals:
 
 namespace E213.Lib.Physics.Foundations.FiniteResonanceN
 
-/-- 1/α_2 finite-N = b_1 of K_{3,2}^{(2)} = 8.
-    Cite: TopologyCompare.K32_c2_b1. -/
-theorem n_alpha_2_eq_b1 : 12 - 5 + 1 = 8 := by decide
+/-- ★ Finite-N self-resonance bundle.
 
-/-- 1/α_3 finite-N = (NS+1)·d = 4·5 = 20.
-    Structural: face dim × atomic dim. -/
-theorem n_alpha_3_eq_face_dim_times_d : (3 + 1) * 5 = 20 := by decide
+  Each gauge coupling's natural finite N (lattice scale) and the
+  structural origin of each N from K_{3,2}^{(2)} primitives.
 
-/-- 1/α_em finite-N = ⌊1/α_GUT⌋.  Standard 1/α_GUT bracket
-    contains 41 by AlphaGUT.standard_41_in_bracket. -/
-theorem n_alpha_em_is_41_in_alpha_gut_bracket :
-    -- exists in the same form as standard_41_in_bracket
-    1225 < 41 * 36 ∧ 41 * 108 < 4575 := by decide
-
-/-- Hierarchy of N-scales: weak < strong < EM. -/
-theorem n_hierarchy : 8 < 20 ∧ 20 < 41 := by decide
-
-/-- ★ Bundle: each coupling's natural finite N (0-axiom). -/
+    · N_2 (weak)   = b_1 = E − V + 1 = 12 − 5 + 1 = 8 (= 1/α_3)
+    · N_3 (strong) = (NS+1)·d        = 4·5  = 20 (Dyson denom × atomic dim)
+    · N_em (EM)    = ⌊25·ζ(2)⌋       = 41    (= ⌊1/α_GUT⌋)
+    · Hierarchy: 8 < 20 < 41 (weak < strong < EM)
+    · Self-referential cascade: N_2 = b_1 = 1/α_3 itself. -/
 theorem finite_resonance_n_skeleton :
-    12 - 5 + 1 = 8                          -- N_2 = b_1
-    ∧ (3 + 1) * 5 = 20                       -- N_3 = (NS+1)·d
-    ∧ (1225 < 41 * 36 ∧ 41 * 108 < 4575)     -- N_em = 41 in α_GUT bracket
-    ∧ 8 < 20 ∧ 20 < 41 := by decide          -- hierarchy
-
-/-- Each coupling's N is itself a derived structural quantity:
-    N_2 = b_1 = 1/α_3 itself (8).  Self-referential cascade.
-    N_3 = (NS+1)·d uses Dyson denominator (NS+1) and atomic dim d.
-    N_em = ⌊d²·ζ(2)⌋ = the GUT scale rounded. -/
-theorem n_self_referential :
-    -- N_2 (= 8) is the b_1 = 1/α_3, the *strong coupling*.
-    8 = 12 - 5 + 1
-    -- N_3 (= 20) is (NS+1)·d using Dyson (NS+1=4) and atomic d=5.
+    -- N_2 = b_1 = 8
+    12 - 5 + 1 = 8
+    -- N_3 = (NS+1)·d = 20 (Dyson denom × atomic dim)
+    ∧ (3 + 1) * 5 = 20
+    -- N_em = 41 in standard 1/α_GUT bracket
+    ∧ (1225 < 41 * 36 ∧ 41 * 108 < 4575)
+    -- N hierarchy
+    ∧ 8 < 20 ∧ 20 < 41
+    -- Self-referential cascade (N_2 = b_1 = 1/α_3 = strong coupling)
+    ∧ 8 = 12 - 5 + 1
     ∧ 20 = 4 * 5
-    -- 4 = NS+1 = the face dimension that also appears in α_GUT/(NS+1).
     ∧ 4 = 3 + 1 := by decide
 
 end E213.Lib.Physics.Foundations.FiniteResonanceN
 
 #print axioms E213.Lib.Physics.Foundations.FiniteResonanceN.finite_resonance_n_skeleton
-#print axioms E213.Lib.Physics.Foundations.FiniteResonanceN.n_self_referential
