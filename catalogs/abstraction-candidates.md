@@ -30,14 +30,14 @@ Status keys:
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L1 | LeibnizAlgLift 4-sibling | **PARTIAL** (β-side done) | `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general {a}` parameterises lens (a=1) + 22 (a=2); both β-siblings now 1-line corollaries.  α-side (b parametric, a=2 fixed) blocked: `2 + b` does not reduce for abstract b (Nat.add recurses on RHS).  Would need `Fin.cast` + explicit Eq plumbing. |
-| C  | CutSumOne 8-sibling 3-component template | OPEN | 8 `cutSum_*` decls share 9-token opener.  G94 §7 has the template proposal.  Medium marathon. |
+| L1 | LeibnizAlgLift 4-sibling | **DONE (full)** | β-side: `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general` (commit 0fabff84).  α-side: `LeibnizAlgLiftAlpha.leibniz_via_α_decomp_general` with `castA/castB` `Fin.cast` plumbing for the Nat.add asymmetry (commit a119b077).  All 4 siblings 1-line corollaries.  Methodology: `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md`. |
+| C  | CutSumOne 8-sibling 3-component template | **DONE** | `cutSum_constCut_at (a₁ b₁ a₂ b₂ X Y m k) (forward) (backward)` extracts the bidirectional iff opener + `decide_eq_true` closer.  All 8 substantive `cutSum_*` refactored; 478→337 lines (commit 4984c9ad). |
 
 ## §4 — Smaller consolidations
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L3 | Pisano Predictor 14/17 | DEFERRED | Proofs aren't byte-identical at content level (different projection chains).  Incremental structure (P7→P11→P14→P17) would obscure on abstract. |
+| L3 | Pisano Predictor extension steps | **DONE** | `pisano_period_lift {p pf N f}` PURE template absorbs per-prime `intro k; rw [h_p]; exact period_n k` boilerplate; 10 sites refactored across Predictor8/11/14/17 (commit fc105cd6). |
 | L4 | `addLDD` / `mulLDD` (Smooth.lean) | DEFERRED | Substantial differences in concrete aux + locality bound; clean abstraction requires `BinaryOpLDD` typeclass — substantial design task. |
 | L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples. |
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
@@ -48,13 +48,16 @@ Status keys:
 
 ---
 
-## Done summary (this branch)
+## Done summary (this branch, post Part 5 marathon)
 
   · **§2 fully closed** — L2, N7, N8, N9, Sub-2 (5/5 items).
-  · **§3** — C still open; L1 β-side done (2/4 L1 siblings), α-side
-    deferred (Nat.add asymmetry blocker).
-  · **§4** — M, Pell-FSM (full sweep), ModArith (3/8 items); L3/L4/L5
-    deferred; E/F still open.
+  · **§3 fully closed** — L1 (β + α, 4/4 siblings, Part 5 commits
+    0fabff84 + a119b077), C (CutSumOne 8/8, Part 5 commit 4984c9ad).
+  · **§4** — M, Pell-FSM (93 sites), ModArith, L3 (Part 5 commit
+    fc105cd6, 10 sites in Predictor8/11/14/17); L4/L5 deferred;
+    E/F still open.
+  · **Cross-tier (Part 5)** — G110 FLUX-1 (caea91c1), G111
+    COH-1+COH-2 (796016fa), TH-4 spec (2558e58b).
 
 Net Lean deliverables this branch:
   · 20 new PURE helpers across 7 new modules / additions
@@ -79,9 +82,10 @@ Doc deliverables (G107 §10):
   · `lean/E213/ARCHITECTURE.md` NAV-3 empirical-verification note.
 
 Still open from §2: none.
-Still open from §3: C (CutSumOne 8-sibling), L1 α-side (deferred).
+Still open from §3: none (Part 5 closed L1 + C).
 Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
-(Σ-fold; additive).
+(Σ-fold; additive), L4 (typeclass design needed), L5 (per-instance
+arithmetic differs).
 Still open from §10: TH-1 (proof-shape fingerprint, key data already
 in CAT-3 + ARCHITECTURE.md note), TH-4 (L1 methodology, partial via
 LeibnizAlgLiftBeta).  Neither blocks; redundancy with already-shipped

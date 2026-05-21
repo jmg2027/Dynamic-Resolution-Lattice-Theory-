@@ -353,7 +353,8 @@ what closed and what deferred.
 | 3 | **G110 FLUX-1** unitBracket cutMulOuter reduce | `caea91c1` | 765→711 lines + ~85 lines repeated retired |
 | 5a | **G111 COH-1** Pattern10 + Prop52/53 refactor | `796016fa` | ~50K Expr nodes retired |
 | 5b | **G111 COH-2** InvolutionTemplate + 4 Hodge Props | `796016fa` | ~25K Expr nodes retired |
-| 10b | **TH-4** L1 parametric methodology spec | (this commit) | `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` |
+| 10b | **TH-4** L1 parametric methodology spec | `2558e58b` | `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` |
+| 8a | **L3 Pisano** period_lift template | `fc105cd6` | 10 sites refactored across 4 Predictor files |
 
 ## Deferred (require separate marathons)
 
@@ -363,20 +364,22 @@ what closed and what deferred.
 | 5c | **G111 COH-3** Leibniz4Mixed + Leibniz pattern pair | Cochain types differ (5,1,1 vs 4,1,2).  Bidegree-parametric `pattern_decide_lift` template required.  Separate refactor. |
 | 6 | **G114 CD-1+CD-2+CD-3** | `ext` proofs are already 2 lines each.  4-sibling × 2 lines = 8 lines.  Generic template would save ~4 lines but add ~10 lines infrastructure.  Not worth abstracting. |
 | 7 | **G112 HC-1, G115 PHYS-1/PHYS-2** | Capstone-level investigation work; each is its own session. |
-| 8 | **L3/L4/L5** Pisano/LDD/CDDouble | Each ~2-5 line saving per file.  Abstraction overhead exceeds savings.  Marginal items. |
+| 8b | **L4 addLDD/mulLDD** | Structural similarity but signature/bound mismatch (cutSumAux vs cutMulOuter; `(2*m, 2*m)` vs `((m+1)*(k+1), (m+1)*(k+1))`).  Helper would save ~4 lines net.  Marginal item. |
+| 8c | **L5 CDDouble I_mul_J/J_mul_I** | Proofs already 13 lines each; per-instance arithmetic differs (positions of I, negI, signs).  Abstraction overhead exceeds savings. |
 | 9 | **G113 FSM-1 full ∀p** | Parametric over arbitrary prime modulus.  Part 3 + Part 4 absorbed 93 sites (specific moduli); the full ∀p form requires a new universal lift theorem.  Multi-session. |
 | 10a | **TH-1** proof-shape fingerprint spec | Already captured in `CAT-3 recursor-inventory` + `ARCHITECTURE NAV-3`.  Standalone doc would be redundant per Part 3 HANDOFF assessment. |
 | 11 | **G117 Bishop comparison** doctrinal capstone | 3-5 sessions; doctrinal AsLensOutput formalisation. |
 
 ## Updated grand total (Part 3 + Part 4 + Part 5)
 
-  · **~60 commits** this cycle
-  · **~14,500 LOC** analysis + documentation + refactor
-  · **~280 sites absorbed** (180 in Part 3+4 + ~100 effective sites
-    in Part 5 templates × consumers)
-  · 5 abstraction templates surfaced + integrated (LeibnizAlgLiftBeta,
-    LeibnizAlgLiftAlpha, cutSum_constCut_at, cutMulOuter_unitBracket_reduce_at,
-    Pattern10, InvolutionTemplate)
+  · **~62 commits** this cycle
+  · **~14,800 LOC** analysis + documentation + refactor
+  · **~290 sites absorbed** (180 in Part 3+4 + ~110 effective sites
+    in Part 5 templates × consumers including 10 Pisano period_lift sites)
+  · **7 abstraction templates** surfaced + integrated:
+    LeibnizAlgLiftBeta, LeibnizAlgLiftAlpha, cutSum_constCut_at,
+    cutMulOuter_unitBracket_reduce_at, Pattern10, InvolutionTemplate,
+    pisano_period_lift
 
 ## Verification (Part 5)
 
