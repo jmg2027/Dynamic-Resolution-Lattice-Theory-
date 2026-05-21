@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Cup.Core
 import E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtripGeneral
+import E213.Meta.Tactic.ListHelper
 
 /-!
 # Cohomology.Cup.FinBridgeGeneral
@@ -43,85 +44,37 @@ open E213.Lib.Math.Cohomology.Cup.KSubsetStructural
   (kSubset_length kSubset_all_lt kSubset_injective)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-/-! ## §0.  PURE List take/drop append helpers -/
+/-! ## §0.  PURE List take/drop helpers — aliases to ListHelper
 
-/-- `(l₁ ++ l₂).take k = l₁.take k` when `k ≤ l₁.length`.  PURE. -/
-private theorem take_append_le (l₁ l₂ : List Nat) (k : Nat)
-    (h : k ≤ l₁.length) :
-    (l₁ ++ l₂).take k = l₁.take k := by
-  induction l₁ generalizing k with
-  | nil =>
-    cases k with
-    | zero => rfl
-    | succ k' => exact absurd h (Nat.not_succ_le_zero k')
-  | cons a as ih =>
-    cases k with
-    | zero => rfl
-    | succ k' =>
-      show a :: (as ++ l₂).take k' = a :: as.take k'
-      rw [ih k' (Nat.le_of_succ_le_succ h)]
+All take/drop append helpers centralised in
+`Meta/Tactic/ListHelper.lean` per G93 §C1 / G94 §1.  Local aliases
+preserve existing call sites. -/
 
-/-- `(l₁ ++ l₂).drop k = l₁.drop k ++ l₂` when `k ≤ l₁.length`.  PURE. -/
-private theorem drop_append_le (l₁ l₂ : List Nat) (k : Nat)
-    (h : k ≤ l₁.length) :
-    (l₁ ++ l₂).drop k = l₁.drop k ++ l₂ := by
-  induction l₁ generalizing k with
-  | nil =>
-    cases k with
-    | zero => rfl
-    | succ k' => exact absurd h (Nat.not_succ_le_zero k')
-  | cons a as ih =>
-    cases k with
-    | zero => rfl
-    | succ k' =>
-      show (as ++ l₂).drop k' = as.drop k' ++ l₂
-      exact ih k' (Nat.le_of_succ_le_succ h)
+@[reducible] private def take_append_le :
+    ∀ (l₁ l₂ : List Nat) (k : Nat),
+      k ≤ l₁.length → (l₁ ++ l₂).take k = l₁.take k :=
+  E213.Tactic.ListHelper.take_append_le
 
-/-- `l.take l.length = l`.  PURE. -/
-private theorem take_length_self (l : List Nat) : l.take l.length = l := by
-  induction l with
-  | nil => rfl
-  | cons a as ih =>
-    show a :: as.take as.length = a :: as
-    rw [ih]
+@[reducible] private def drop_append_le :
+    ∀ (l₁ l₂ : List Nat) (k : Nat),
+      k ≤ l₁.length → (l₁ ++ l₂).drop k = l₁.drop k ++ l₂ :=
+  E213.Tactic.ListHelper.drop_append_le
 
-/-- `l.drop l.length = []`.  PURE. -/
-private theorem drop_length_self (l : List Nat) : l.drop l.length = [] := by
-  induction l with
-  | nil => rfl
-  | cons a as ih =>
-    show as.drop as.length = []
-    exact ih
+@[reducible] private def take_length_self :
+    ∀ (l : List Nat), l.take l.length = l :=
+  E213.Tactic.ListHelper.take_length_self
 
-/-- `l.length ≤ k → l.take k = l`.  PURE. -/
-private theorem take_of_length_le (l : List Nat) (k : Nat)
-    (h : l.length ≤ k) : l.take k = l := by
-  induction l generalizing k with
-  | nil =>
-    cases k with
-    | zero => rfl
-    | succ _ => rfl
-  | cons a as ih =>
-    cases k with
-    | zero => exact absurd h (Nat.not_succ_le_zero _)
-    | succ k' =>
-      show a :: as.take k' = a :: as
-      rw [ih k' (Nat.le_of_succ_le_succ h)]
+@[reducible] private def drop_length_self :
+    ∀ (l : List Nat), l.drop l.length = [] :=
+  E213.Tactic.ListHelper.drop_length_self
 
-/-- `l.length ≤ k → l.drop k = []`.  PURE. -/
-private theorem drop_of_length_le (l : List Nat) (k : Nat)
-    (h : l.length ≤ k) : l.drop k = [] := by
-  induction l generalizing k with
-  | nil =>
-    cases k with
-    | zero => rfl
-    | succ _ => rfl
-  | cons a as ih =>
-    cases k with
-    | zero => exact absurd h (Nat.not_succ_le_zero _)
-    | succ k' =>
-      show as.drop k' = []
-      exact ih k' (Nat.le_of_succ_le_succ h)
+@[reducible] private def take_of_length_le :
+    ∀ (l : List Nat) (k : Nat), l.length ≤ k → l.take k = l :=
+  E213.Tactic.ListHelper.take_of_length_le
+
+@[reducible] private def drop_of_length_le :
+    ∀ (l : List Nat) (k : Nat), l.length ≤ k → l.drop k = [] :=
+  E213.Tactic.ListHelper.drop_of_length_le
 
 open E213.Lib.Math.Cohomology.Cup.KSubsetStructural
   (nat_add_sub_cancel nat_sub_lt_sub_right list_length_append_singleton

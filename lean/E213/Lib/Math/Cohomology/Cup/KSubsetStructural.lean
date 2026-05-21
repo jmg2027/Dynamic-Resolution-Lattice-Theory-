@@ -1,6 +1,7 @@
 import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Tactic.ListHelper
 
 /-!
 # Cohomology.Cup.KSubsetStructural
@@ -42,37 +43,17 @@ them locally so existing call sites remain unaffected. -/
     ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c :=
   E213.Tactic.NatHelper.sub_lt_sub_right
 
-/-- `(l ++ [x]).length = l.length + 1` — PURE via direct induction.
-    Specialised to `Nat`.  Public for downstream modules. -/
-theorem list_length_append_singleton (l : List Nat) (x : Nat) :
-    (l ++ [x]).length = l.length + 1 := by
-  induction l with
-  | nil => rfl
-  | cons y ys ih =>
-    show (ys ++ [x]).length + 1 = ys.length + 1 + 1
-    rw [ih]
+/-- Local alias for `ListHelper.length_append_singleton`.
+    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+@[reducible] def list_length_append_singleton :
+    ∀ (l : List Nat) (x : Nat), (l ++ [x]).length = l.length + 1 :=
+  E213.Tactic.ListHelper.length_append_singleton
 
-/-- `x ∈ l ++ [m] → x ∈ l ∨ x = m` — PURE via inductive `List.Mem`
-    case-analysis (bypasses `List.mem_append`/`mem_singleton` propext-iff). -/
-private theorem list_mem_append_singleton :
-    ∀ (l : List Nat) (m x : Nat), x ∈ l ++ [m] → x ∈ l ∨ x = m := by
-  intro l m x
-  induction l with
-  | nil =>
-    intro h
-    -- h : x ∈ [] ++ [m] = [m]
-    cases h with
-    | head _ => exact Or.inr rfl
-    | tail _ h' => exact absurd h' (List.not_mem_nil x)
-  | cons y ys ih =>
-    intro h
-    -- h : x ∈ y :: (ys ++ [m])
-    cases h with
-    | head _ => exact Or.inl (List.Mem.head ys)
-    | tail _ h' =>
-      rcases ih h' with h_in | h_eq
-      · exact Or.inl (List.Mem.tail y h_in)
-      · exact Or.inr h_eq
+/-- Local alias for `ListHelper.mem_append_singleton`.
+    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+@[reducible] private def list_mem_append_singleton :
+    ∀ (l : List Nat) (m x : Nat), x ∈ l ++ [m] → x ∈ l ∨ x = m :=
+  E213.Tactic.ListHelper.mem_append_singleton
 
 /-! ## §1.  Length lemma -/
 
@@ -199,42 +180,17 @@ private theorem nat_sub_inj_right :
           exact h_eq
         rw [ih h_k_le_a' h_k_le_b' h_eq']
 
-/-- `l₁ ++ [x] = l₂ ++ [x] → l₁ = l₂` — PURE via cons-injection + length.
-    Uses `Nat.noConfusion` (PURE) instead of `Nat.succ_ne_zero` (propext). -/
-private theorem list_append_singleton_inj :
-    ∀ (l₁ l₂ : List Nat) (x : Nat), l₁ ++ [x] = l₂ ++ [x] → l₁ = l₂ := by
-  intro l₁
-  induction l₁ with
-  | nil =>
-    intro l₂ x h
-    cases l₂ with
-    | nil => rfl
-    | cons y ys =>
-      injection h with _ h_tail
-      have h_len : ([] : List Nat).length = (ys ++ [x]).length :=
-        congrArg List.length h_tail
-      rw [list_length_append_singleton] at h_len
-      exact Nat.noConfusion h_len
-  | cons a as ih =>
-    intro l₂ x h
-    cases l₂ with
-    | nil =>
-      injection h with _ h_tail
-      have h_len : (as ++ [x]).length = ([] : List Nat).length :=
-        congrArg List.length h_tail
-      rw [list_length_append_singleton] at h_len
-      exact Nat.noConfusion h_len
-    | cons b bs =>
-      injection h with h_head h_tail
-      rw [h_head, ih bs x h_tail]
+/-- Local alias for `ListHelper.append_singleton_inj`.
+    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+@[reducible] private def list_append_singleton_inj :
+    ∀ (l₁ l₂ : List Nat) (x : Nat), l₁ ++ [x] = l₂ ++ [x] → l₁ = l₂ :=
+  E213.Tactic.ListHelper.append_singleton_inj
 
-/-- `m ∈ l ++ [m]` — PURE constructive proof via `List.Mem`. -/
-private theorem mem_append_singleton_right :
-    ∀ (l : List Nat) (m : Nat), m ∈ l ++ [m] := by
-  intro l m
-  induction l with
-  | nil => exact List.Mem.head []
-  | cons y ys ih => exact List.Mem.tail y ih
+/-- Local alias for `ListHelper.mem_append_singleton_right`.
+    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+@[reducible] private def mem_append_singleton_right :
+    ∀ (l : List Nat) (m : Nat), m ∈ l ++ [m] :=
+  E213.Tactic.ListHelper.mem_append_singleton_right
 
 /-! ## §4.  kSubset injectivity (∀ n k) -/
 
