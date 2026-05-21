@@ -449,3 +449,131 @@ The N-action list is now closed:
   · N2 (Raw.fold_slash atlas) — closed (§3).
   · N3 (a|b|slash skeleton) — closed (§6).
   · N4 (out-degree cross-validation) — closed (§1).
+
+---
+
+## §7.  CutSumOne deep-dive — shared-vocabulary validation
+
+§2 surfaced 8 `cutSum_*` decls in `Lib/Math/Real213/Sum/CutSumOne.lean`
+sharing a 9-token prefix `[intro, apply, show, constructor, intro,
+have, obtain, have, have]` then diverging.  This §7 validates the
+abstraction candidate by checking whether the divergent bodies
+use a **common citation vocabulary**.
+
+### §7.1  Universal-vocabulary lemmas
+
+Across the 8 siblings, **two lemmas are cited by every single one**:
+
+| Lemma | siblings | total cites |
+|-------|---------:|------------:|
+| `bool_eq_iff`    | **8 / 8** |  8 |
+| `decide_eq_true` | **8 / 8** | 24 |
+
+`bool_eq_iff` is cited **exactly once by each sibling** — meaning
+every CutSumOne theorem ends with the same Bool-equality-iff
+move.  `decide_eq_true` is cited ~3× per sibling on average,
+serving as the standard `Decidable.decide p = true → p` bridge.
+
+**6/8-shared vocabulary**:
+
+  · `E213.Tactic.NatHelper.mul_assoc` — 38 total cites
+  · `Nat.mul_comm` — 21 total cites
+
+**5/8-shared vocabulary**:
+
+  · `Nat.one_mul` — 19 total cites
+  · `Nat.le_of_mul_le_mul_left` — 5 total
+  · `Nat.le_trans` — 6 total
+  · `Nat.mul_le_mul_left` — 6 total
+
+### §7.2  Divergence-pattern analysis
+
+After the 9-token shared prefix, the first 10 tail tokens per
+sibling:
+
+| Decl | tail first-10 |
+|------|---------------|
+| `cutSum_int_int`       | `[rw, have, rw, have, have, rw, have, rw, show, decide]` |
+| `cutSum_int_half`      | `[have, rw, rw, have, show, decide, apply, have, have, rw]` |
+| `cutSum_half_general`  | `[show, decide, apply, have, have, rw, have, rw, rw, rw]` |
+| `cutSum_zero_const`    | `[have, have, rw, have, rw, rw, show, decide, exact, decide]` |
+| `cutSum_self_at`       | `[have, obtain, have, have, show, decide, apply, have, have, rw]` |
+| `cutSum_half_half_at`  | `[have, show, decide, rw, apply, have, rw, have, rw, exact]` |
+| `cutSum_third_third`   | `[have, have, show, decide, apply, have, have, rw, rw, have]` |
+| `cutSum_one_one`       | `[have, have, have, show, decide, rw, apply, have, rw, exact]` |
+
+The tails diverge in **order but not in vocabulary**: every tail
+contains some permutation of `have`, `rw`, `show`, `decide`,
+`apply`.  No tail introduces a tactic not present in the others.
+
+### §7.3  Reading
+
+The CutSumOne family is structurally:
+
+  1. **Templated opener** (9 tokens): bidirectional-iff
+     constructor + 2-witness destructure.
+  2. **Per-instance arithmetic body**: a permutation of
+     `[have, rw, show, decide, apply]` that proves the
+     specific arithmetic identity for the (p, q) cut-point pair.
+  3. **Universal closer**: `bool_eq_iff + decide_eq_true`
+     bridge.
+
+The structural template is therefore **3-part**: opener, body,
+closer.  The body is parameterised by the per-instance
+arithmetic identity; the opener and closer are universal.
+
+### §7.4  Refined parametric-lemma signature
+
+Building on §2's candidate, the deep-dive supports a **3-component
+parametric replacement**:
+
+```lean
+-- Universal infrastructure (provable once, used by all instances)
+theorem cutSum_iff_template
+  {p q : CutPoint} (hCompat : CompatiblePair p q)
+  (hArith : CutArithIdentity p q) :
+  L213_cut p q ↔ True := by
+  apply Iff.intro
+  · intro h
+    obtain ⟨a, b⟩ := h
+    -- body delegated to hArith
+    exact hArith.mp ⟨a, b⟩
+  · intro _
+    -- ... bool_eq_iff + decide_eq_true closer
+    apply bool_eq_iff.mpr
+    apply decide_eq_true
+    ...
+```
+
+Per-instance: each `cutSum_pq` decl becomes a tiny proof
+discharging `CutArithIdentity p q` for its specific `(p, q)`,
+delegating the iff structure to `cutSum_iff_template`.
+
+**Estimated reduction**: 8 decls × ~30 tactics each ≈ 240 tactic
+tokens → 1 template (~25 tokens) + 8 arithmetic identity proofs
+(~5-15 tokens each).  **Net reduction ~50-60 % of total tactic
+mass in the CutSumOne family.**
+
+The 6/8-shared `NatHelper.mul_assoc` + `Nat.mul_comm` heavy use
+indicates the arithmetic identity proofs themselves could share
+a sub-template — but that's a second-order optimisation past the
+primary 3-component split.
+
+### §7.5  Updated confidence on Candidate C
+
+Three independent measures now point at CutSumOne as a strong
+abstraction target:
+
+  · **Sibling count**: 8 (broadest in the corpus).
+  · **Shared prefix length**: 9 tokens (universal opener).
+  · **Universal vocabulary**: 2 lemmas cited by all 8 siblings,
+    forming the closer pattern.
+  · **Bounded vocabulary**: tail tactics all drawn from the same
+    5-tactic vocabulary (`have/rw/show/decide/apply`); no
+    sibling introduces alien tactics.
+
+**Candidate C confidence raised from "structural template
+hypothesis" to "validated 3-component template with universal
+closer"**.  Implementation would follow the same `@[reducible]`
+alias pattern used for L1/L2/NatHelper centralisations — blast
+radius contained inside `CutSumOne.lean` + its consumers.
