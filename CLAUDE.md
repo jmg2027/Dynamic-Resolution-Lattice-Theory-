@@ -217,3 +217,11 @@ When the user issues a correction (style / logic / pattern / framing):
 
 When the user catches one, *don't apologize and repeat* — actually
 internalize per Active Learning loop.
+
+## Static-analysis tooling
+
+For "find all X that share property Y" or refactor-candidate
+audits, see `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner
+archetypes + dual-branch process model + anchor research notes
+(`G107` action items, `G101` capstone, `G108-G114` Tier-2 deep
+dives) + catalogs.  Re-use before writing new tooling.
