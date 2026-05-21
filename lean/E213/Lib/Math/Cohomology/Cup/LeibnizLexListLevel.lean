@@ -314,4 +314,169 @@ theorem list_level_leibniz_2_1 (α β : List Nat → Bool) (τ : List Nat) :
   cases β (τ.drop 3) <;>
   cases β ((τ.drop 2).eraseIdx 1) <;> rfl
 
+/-! ## §7.  List-level (1, 2) twisted Leibniz — symmetric to (2, 1)
+
+By the symmetry of the lex-projection cup's role, the (1, 2)
+case mirrors (2, 1) with α and β roles structurally swapped.
+Proven with the same structural lemma toolkit. -/
+
+/-- ★★★ **List-level (1, 2) twisted Leibniz** — PURE symbolic.
+
+    Statement (k=1, l=2; correction at position k=1):
+
+      deltaList 3 (cupList 1 2 α β) τ
+      = (cupList 2 2 (deltaList 1 α) β τ)
+        ⊕ (cupList 1 3 α (deltaList 2 β) τ)
+        ⊕ (cupList 1 2 α β (τ.eraseIdx 1))
+
+    PURE.  -/
+theorem list_level_leibniz_1_2 (α β : List Nat → Bool) (τ : List Nat) :
+    deltaList 3 (cupList 1 2 α β) τ
+    = xor (xor (cupList 2 2 (deltaList 1 α) β τ)
+               (cupList 1 3 α (deltaList 2 β) τ))
+          (cupList 1 2 α β (τ.eraseIdx 1)) := by
+  -- Face structural decomposition: τ has length k+l+1 = 4 in
+  -- semantic use; with k=1, the boundary face is at position 1.
+  -- For i = 0 (i < k = 1):
+  have e0_take : (τ.eraseIdx 0).take 1 = (τ.take 2).eraseIdx 0 :=
+    eraseIdx_take_low τ 0 1 (Nat.zero_le 1)
+  have e0_drop : (τ.eraseIdx 0).drop 1 = τ.drop 2 := by
+    cases τ <;> rfl
+  -- For i = 1 (= k):
+  have e1_take : (τ.eraseIdx 1).take 1 = τ.take 1 :=
+    eraseIdx_take_boundary τ 1
+  have e1_drop : (τ.eraseIdx 1).drop 1 = τ.drop 2 :=
+    eraseIdx_drop_boundary τ 1
+  -- For i = 2 (i > k, = k + 0 + 1):
+  have e2_take : (τ.eraseIdx 2).take 1 = τ.take 1 :=
+    eraseIdx_take_high τ 1 0
+  have e2_drop : (τ.eraseIdx 2).drop 1 = (τ.drop 1).eraseIdx 1 :=
+    eraseIdx_drop_high τ 1 0
+  -- For i = 3 (i > k, = k + 1 + 1):
+  have e3_take : (τ.eraseIdx 3).take 1 = τ.take 1 :=
+    eraseIdx_take_high τ 1 1
+  have e3_drop : (τ.eraseIdx 3).drop 1 = (τ.drop 1).eraseIdx 2 :=
+    eraseIdx_drop_high τ 1 1
+  -- (τ.take 2).eraseIdx 1 = τ.take 1
+  have take2_e1 : (τ.take 2).eraseIdx 1 = τ.take 1 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs <;> rfl
+  -- (τ.drop 1).eraseIdx 0 = τ.drop 2
+  have drop1_e0 : (τ.drop 1).eraseIdx 0 = τ.drop 2 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs <;> rfl
+  unfold cupList deltaList
+  show xor (xor (xor (xor false
+            (α ((τ.eraseIdx 0).take 1) && β ((τ.eraseIdx 0).drop 1)))
+            (α ((τ.eraseIdx 1).take 1) && β ((τ.eraseIdx 1).drop 1)))
+            (α ((τ.eraseIdx 2).take 1) && β ((τ.eraseIdx 2).drop 1)))
+           (α ((τ.eraseIdx 3).take 1) && β ((τ.eraseIdx 3).drop 1))
+       = xor (xor
+             ((xor (xor false (α ((τ.take 2).eraseIdx 0)))
+                     (α ((τ.take 2).eraseIdx 1))) && β (τ.drop 2))
+             (α (τ.take 1) && (xor (xor (xor false (β ((τ.drop 1).eraseIdx 0)))
+                                          (β ((τ.drop 1).eraseIdx 1)))
+                                          (β ((τ.drop 1).eraseIdx 2)))))
+           (α ((τ.eraseIdx 1).take 1) && β ((τ.eraseIdx 1).drop 1))
+  rw [e0_take, e0_drop, e1_take, e1_drop, e2_take, e2_drop,
+      e3_take, e3_drop, take2_e1, drop1_e0]
+  -- 5 atoms: α((τ.take 2).eraseIdx 0), α(τ.take 1), β(τ.drop 2),
+  --          β((τ.drop 1).eraseIdx 1), β((τ.drop 1).eraseIdx 2)
+  cases α ((τ.take 2).eraseIdx 0) <;>
+  cases α (τ.take 1) <;>
+  cases β (τ.drop 2) <;>
+  cases β ((τ.drop 1).eraseIdx 1) <;>
+  cases β ((τ.drop 1).eraseIdx 2) <;> rfl
+
+/-! ## §8.  List-level (2, 2) twisted Leibniz
+
+Both bidegree components equal — 4-th bidegree confirmed via the
+same 3-way partition strategy.  6 atoms (3 α + 3 β). -/
+
+/-- ★★★ **List-level (2, 2) twisted Leibniz** — PURE symbolic.
+
+    Statement (k=2, l=2; τ length k+l+1 = 5 in semantic use):
+
+      deltaList 4 (cupList 2 2 α β) τ
+      = (cupList 3 2 (deltaList 2 α) β τ)
+        ⊕ (cupList 2 3 α (deltaList 2 β) τ)
+        ⊕ (cupList 2 2 α β (τ.eraseIdx 2))
+
+    PURE.  -/
+theorem list_level_leibniz_2_2 (α β : List Nat → Bool) (τ : List Nat) :
+    deltaList 4 (cupList 2 2 α β) τ
+    = xor (xor (cupList 3 2 (deltaList 2 α) β τ)
+               (cupList 2 3 α (deltaList 2 β) τ))
+          (cupList 2 2 α β (τ.eraseIdx 2)) := by
+  -- Face decomposition: 5 faces at i = 0..4
+  -- For i = 0 (i < k = 2):
+  have e0_take : (τ.eraseIdx 0).take 2 = (τ.take 3).eraseIdx 0 :=
+    eraseIdx_take_low τ 0 2 (Nat.zero_le 2)
+  have e0_drop : (τ.eraseIdx 0).drop 2 = τ.drop 3 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs <;> rfl
+  -- For i = 1 (i < k = 2):
+  have e1_take : (τ.eraseIdx 1).take 2 = (τ.take 3).eraseIdx 1 :=
+    eraseIdx_take_low τ 1 2 (by decide)
+  have e1_drop : (τ.eraseIdx 1).drop 2 = τ.drop 3 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs <;> rfl
+  -- For i = 2 (= k):
+  have e2_take : (τ.eraseIdx 2).take 2 = τ.take 2 :=
+    eraseIdx_take_boundary τ 2
+  have e2_drop : (τ.eraseIdx 2).drop 2 = τ.drop 3 :=
+    eraseIdx_drop_boundary τ 2
+  -- For i = 3 (i > k, = k + 0 + 1):
+  have e3_take : (τ.eraseIdx 3).take 2 = τ.take 2 :=
+    eraseIdx_take_high τ 2 0
+  have e3_drop : (τ.eraseIdx 3).drop 2 = (τ.drop 2).eraseIdx 1 :=
+    eraseIdx_drop_high τ 2 0
+  -- For i = 4 (i > k, = k + 1 + 1):
+  have e4_take : (τ.eraseIdx 4).take 2 = τ.take 2 :=
+    eraseIdx_take_high τ 2 1
+  have e4_drop : (τ.eraseIdx 4).drop 2 = (τ.drop 2).eraseIdx 2 :=
+    eraseIdx_drop_high τ 2 1
+  -- (τ.take 3).eraseIdx 2 = τ.take 2
+  have take3_e2 : (τ.take 3).eraseIdx 2 = τ.take 2 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs with
+      | nil => rfl
+      | cons _ ys => cases ys <;> rfl
+  -- (τ.drop 2).eraseIdx 0 = τ.drop 3
+  have drop2_e0 : (τ.drop 2).eraseIdx 0 = τ.drop 3 := by
+    cases τ with
+    | nil => rfl
+    | cons _ xs => cases xs with
+      | nil => rfl
+      | cons _ ys => cases ys <;> rfl
+  unfold cupList deltaList
+  show xor (xor (xor (xor (xor false
+            (α ((τ.eraseIdx 0).take 2) && β ((τ.eraseIdx 0).drop 2)))
+            (α ((τ.eraseIdx 1).take 2) && β ((τ.eraseIdx 1).drop 2)))
+            (α ((τ.eraseIdx 2).take 2) && β ((τ.eraseIdx 2).drop 2)))
+            (α ((τ.eraseIdx 3).take 2) && β ((τ.eraseIdx 3).drop 2)))
+           (α ((τ.eraseIdx 4).take 2) && β ((τ.eraseIdx 4).drop 2))
+       = xor (xor
+             ((xor (xor (xor false (α ((τ.take 3).eraseIdx 0)))
+                                     (α ((τ.take 3).eraseIdx 1)))
+                                     (α ((τ.take 3).eraseIdx 2))) && β (τ.drop 3))
+             (α (τ.take 2) && (xor (xor (xor false (β ((τ.drop 2).eraseIdx 0)))
+                                          (β ((τ.drop 2).eraseIdx 1)))
+                                          (β ((τ.drop 2).eraseIdx 2)))))
+           (α ((τ.eraseIdx 2).take 2) && β ((τ.eraseIdx 2).drop 2))
+  rw [e0_take, e0_drop, e1_take, e1_drop, e2_take, e2_drop,
+      e3_take, e3_drop, e4_take, e4_drop, take3_e2, drop2_e0]
+  -- 6 atoms total
+  cases α ((τ.take 3).eraseIdx 0) <;>
+  cases α ((τ.take 3).eraseIdx 1) <;>
+  cases α (τ.take 2) <;>
+  cases β (τ.drop 3) <;>
+  cases β ((τ.drop 2).eraseIdx 1) <;>
+  cases β ((τ.drop 2).eraseIdx 2) <;> rfl
+
 end E213.Lib.Math.Cohomology.Cup.LeibnizLexListLevel
