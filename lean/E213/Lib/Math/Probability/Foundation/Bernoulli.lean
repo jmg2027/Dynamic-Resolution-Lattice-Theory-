@@ -46,22 +46,27 @@ def impossible : Bernoulli where
   p := ProbabilityCut.zero
 
 /-- **Two-outcome closure**: success and failure numerators sum to the
-    common denominator (= total mass 1). -/
+    common denominator (= total mass 1).  Externally consumed by
+    `Probability/Foundation/Capstone`. -/
 theorem sum_to_one (b : Bernoulli) :
     (b.success).num + (b.failure).num = b.p.den :=
   E213.Tactic.NatHelper.add_sub_of_le b.p.mass_le
 
-/-- Success and failure share the denominator (rfl). -/
-theorem success_failure_same_den (b : Bernoulli) :
-    (b.success).den = (b.failure).den := rfl
-
-/-- `failure` is the complement of `success` by construction (rfl). -/
-theorem failure_eq_complement (b : Bernoulli) :
-    b.failure = b.success.complement := rfl
-
-/-- Fair coin: success numerator = failure numerator = 1 (rfl). -/
-theorem fair_balanced :
-    fair.success.num = 1 ∧ fair.failure.num = 1 := ⟨rfl, rfl⟩
+/-- ★ Bernoulli structural rfl bundle — success/failure share
+    denominator, failure = success.complement, fair-coin balanced
+    numerators. -/
+theorem bernoulli_structural :
+    -- Same denominator
+    (∀ b : Bernoulli, (b.success).den = (b.failure).den)
+    -- failure = success.complement (rfl)
+    ∧ (∀ b : Bernoulli, b.failure = b.success.complement)
+    -- Fair coin: balanced numerators
+    ∧ (fair.success.num = 1 ∧ fair.failure.num = 1) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro _; rfl
+  · intro _; rfl
+  · rfl
+  · rfl
 
 end Bernoulli
 
