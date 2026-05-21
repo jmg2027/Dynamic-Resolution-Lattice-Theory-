@@ -26,7 +26,7 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
-/-- ★ Generic ∅-axiom reduction: rewrite
+/-- ★ Generic ∅-axiom reduction (constCut s 1 targets): rewrite
     `cutMulOuter f g k m ((m+1)*(k+1)) ((m+1)*(k+1))`
     to
     `cutMulOuter (constCut sL 1) (constCut sR 1) k m …`
@@ -40,5 +40,17 @@ theorem cutMulOuter_unitBracket_reduce_at
   cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
     f (constCut sL 1) g (constCut sR 1) hL hR
     ((m+1)*(k+1)) (Nat.le_refl _)
+
+/-- ★ Generic ∅-axiom reduction (arbitrary targets): mirror of
+    `cutSumAux_unitBracket_reduce_at`.  Caller specifies arbitrary
+    target cuts `gL`, `gR`.  Includes the cutMul-locality bound `bound`
+    as an explicit parameter (`(m+1)*(k+1)` for cutMul, but the helper
+    works for any bound). -/
+theorem cutMulOuter_reduce_at
+    (f g gL gR : Nat → Nat → Bool) (m k bound : Nat)
+    (hL : ∀ m', m' ≤ bound → f m' k = gL m' k)
+    (hR : ∀ m', m' ≤ bound → g m' k = gR m' k) :
+    cutMulOuter f g k m bound bound = cutMulOuter gL gR k m bound bound :=
+  cutMulOuter_congr k m bound bound f gL g gR hL hR bound (Nat.le_refl _)
 
 end E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
