@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtrip
+import E213.Lib.Math.Cohomology.Cup.KSubsetStructural
 
 /-!
 # Cohomology.Cup.SubsetIdxRoundtripGeneral
@@ -152,5 +153,102 @@ theorem roundtrip_n_1_fin (n : Nat) :
     rw [binom_m_1] at hv
     exact hv
   exact roundtrip_n_1 n v h_lt
+
+/-! ## §7.  ∀(n, k) general round-trip — the kSubset bijection capstone -/
+
+open E213.Lib.Math.Cohomology.Cup.KSubsetStructural
+  (kSubset_injective)
+
+/-- `List.beq` reflexivity for `List Nat`.  PURE. -/
+private theorem list_nat_beq_self (l : List Nat) : (l == l) = true := by
+  induction l with
+  | nil => rfl
+  | cons x xs ih =>
+    show ((x == x) && (xs == xs)) = true
+    rw [nat_beq_self]
+    show (xs == xs) = true
+    exact ih
+
+/-- `List.beq` correctness one direction: `(l₁ == l₂) = true → l₁ = l₂`.  PURE. -/
+private theorem list_nat_beq_eq_implies :
+    ∀ (l₁ l₂ : List Nat), (l₁ == l₂) = true → l₁ = l₂ := by
+  intro l₁
+  induction l₁ with
+  | nil =>
+    intro l₂ h
+    cases l₂ with
+    | nil => rfl
+    | cons y ys => exact Bool.noConfusion h
+  | cons x xs ih =>
+    intro l₂ h
+    cases l₂ with
+    | nil => exact Bool.noConfusion h
+    | cons y ys =>
+      have h_and : ((x == y) && (xs == ys)) = true := h
+      have h_x_eq_y : (x == y) = true := by
+        cases hxy : (x == y) with
+        | true => rfl
+        | false => rw [hxy] at h_and; exact Bool.noConfusion h_and
+      have h_xs_eq_ys : (xs == ys) = true := by
+        rw [h_x_eq_y] at h_and
+        exact h_and
+      have h_xy : x = y := of_decide_eq_true h_x_eq_y
+      have h_xs_ys : xs = ys := ih ys h_xs_eq_ys
+      rw [h_xy, h_xs_ys]
+
+/-- `j ≠ i → (j == i) = false` for `Nat`.  PURE.  -/
+private theorem nat_beq_eq_false_of_ne (j i : Nat) (h : j ≠ i) :
+    (j == i) = false := by
+  show decide (j = i) = false
+  exact decide_eq_false h
+
+/-- Auxiliary: `kSubset n k j == kSubset n k i` evaluates to `j == i`
+    for `j < binom n k` and `i < binom n k`.  Routes through
+    `kSubset_injective` (PURE in `KSubsetStructural`).  -/
+private theorem kSubset_eq_kSubset_iff_idx (n k j i : Nat)
+    (h_j : j < binom n k) (h_i : i < binom n k) :
+    (kSubset n k j == kSubset n k i) = (j == i) := by
+  by_cases h_eq : j = i
+  · subst h_eq
+    rw [list_nat_beq_self, nat_beq_self]
+  · have h_neq_kSubset : kSubset n k j ≠ kSubset n k i := by
+      intro h_eq_kSubset
+      exact h_eq (kSubset_injective n k j i h_j h_i h_eq_kSubset)
+    have h_beq_lhs : (kSubset n k j == kSubset n k i) = false := by
+      cases h_beq : (kSubset n k j == kSubset n k i) with
+      | true => exact absurd (list_nat_beq_eq_implies _ _ h_beq) h_neq_kSubset
+      | false => rfl
+    rw [h_beq_lhs, nat_beq_eq_false_of_ne j i h_eq]
+
+/-- ★★★ **General ∀(n, k) round-trip** — for any `n`, `k`, and `j < binom n k`,
+    `subsetIdx n k (kSubset n k j) = j`.  PURE.
+
+    This is `kSubset`'s **bijection content** on `Fin (binom n k)`,
+    proved via the `find?` witness lemma (§5) + `kSubset_injective`
+    (in `KSubsetStructural`).  -/
+theorem roundtrip_n_k (n k j : Nat) (h : j < binom n k) :
+    subsetIdx n k (kSubset n k j) = j := by
+  show ((List.range (binom n k)).find?
+        (fun i => kSubset n k i == kSubset n k j)).getD (binom n k) = j
+  have h_find :
+      (List.range (binom n k)).find?
+        (fun i => kSubset n k i == kSubset n k j) = some j := by
+    apply find_range_witness (binom n k) _ j h
+    · -- p j = true:  kSubset n k j == kSubset n k j = true
+      rw [kSubset_eq_kSubset_iff_idx n k j j h h, nat_beq_self]
+    · -- ∀ i < j, p i = false
+      intro i h_lt_i
+      have h_i_lt : i < binom n k := Nat.lt_trans h_lt_i h
+      rw [kSubset_eq_kSubset_iff_idx n k i j h_i_lt h]
+      exact nat_beq_eq_false_of_lt i j h_lt_i
+  rw [h_find]
+  rfl
+
+/-- Pointwise (Fin-indexed) form on `Fin (binom n k)`.  PURE. -/
+theorem roundtrip_n_k_fin (n k : Nat) :
+    ∀ (j : Fin (binom n k)),
+      subsetIdx n k (kSubset n k j.val) = j.val := by
+  intro ⟨v, hv⟩
+  exact roundtrip_n_k n k v hv
 
 end E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtrip
