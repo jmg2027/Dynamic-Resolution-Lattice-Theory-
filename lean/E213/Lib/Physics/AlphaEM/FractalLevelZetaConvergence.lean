@@ -29,60 +29,41 @@ STRICT ∅-AXIOM (Nat rational arithmetic).
 
 namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
 
-/-! ## §1 — ζ_K^(L=1)(1) — closest finite to ζ(2) -/
+/-! ## §1 — Definitions: per-s ζ values at L=1, gap, target -/
+
+open E213.Lib.Physics.AlphaEM.FractalLevelZetaSpectrum
 
 /-- ζ_K^(L=1)(1) in 10⁵ units. -/
 def zeta_K_L1_at_1_e5 : Nat :=
   2 * (2 * 100000 / 4 + 100000 / 6 + 100000 / 10)
 
-theorem zeta_K_L1_at_1_e5_value : zeta_K_L1_at_1_e5 = 153332 := by decide
-
-/-! ## §2 — ζ_K^(L=1)(2) -/
-
 /-- ζ_K^(L=1)(2) in 10⁵ units. -/
 def zeta_K_L1_at_2_e5 : Nat :=
   2 * (2 * 100000 / 16 + 100000 / 36 + 100000 / 100)
 
-theorem zeta_K_L1_at_2_e5_value : zeta_K_L1_at_2_e5 = 32554 := by decide
-
-/-! ## §3 — Convergence bracket to ζ(2) = π²/6 -/
-
-/-- Continuum ζ(2) = π²/6 in 10⁵ units (precision: 6-digit π).
-    π² ≈ 9.8696, π²/6 ≈ 1.64493 → 164493. -/
+/-- Continuum ζ(2) = π²/6 in 10⁵ units (6-digit π precision). -/
 def zeta_2_target_e5 : Nat := 164493
-
-/-- ζ_K(1) at L=1 is below ζ(2) (consistent with `S(N) < ζ(2)`). -/
-theorem zeta_K_L1_at_1_lt_zeta_2 : zeta_K_L1_at_1_e5 < zeta_2_target_e5 := by decide
 
 /-- Gap |ζ_K(1) − ζ(2)| in 10⁵ units. -/
 def zeta_gap_L1_e5 : Nat := zeta_2_target_e5 - zeta_K_L1_at_1_e5
 
-theorem zeta_gap_L1_e5_value : zeta_gap_L1_e5 = 11161 := by decide
-
-/-- Tight convergence bracket: gap ≤ 11200 in 10⁵ units (≈ 0.112). -/
-theorem zeta_gap_L1_bracket : zeta_gap_L1_e5 ≤ 11200 := by decide
-
-/-! ## §4 — Decreasing across all s from 0 to 4 -/
-
-open E213.Lib.Physics.AlphaEM.FractalLevelZetaSpectrum
-
-/-- The full ζ-sequence is monotone decreasing in s. -/
-theorem zeta_full_decreasing :
-    zeta_K_L1_at_4_e5 < zeta_K_L1_at_3_e5
-    ∧ zeta_K_L1_at_3_e5 < zeta_K_L1_at_2_e5
-    ∧ zeta_K_L1_at_2_e5 < zeta_K_L1_at_1_e5 := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
-
-/-! ## §5 — Master C5 Step 4 -/
+/-! ## §2 — Master C5 Step 4 -/
 
 /-- ★★★★★ Fractal Level ζ Convergence Master (C5 Step 4).
-    STRICT ∅-AXIOM. -/
+    STRICT ∅-AXIOM.  Bundles per-s ζ values at L=1, the convergence
+    gap and bracket to continuum ζ(2), and full monotone-decreasing
+    s-sequence (s = 1..4). -/
 theorem fractal_zeta_convergence_master :
+    -- Per-s values at L=1
     zeta_K_L1_at_1_e5 = 153332
     ∧ zeta_K_L1_at_2_e5 = 32554
+    -- ζ_K(1) at L=1 is below ζ(2) (consistent with S(N) < ζ(2))
     ∧ zeta_K_L1_at_1_e5 < zeta_2_target_e5
+    -- Gap to continuum ζ(2): 11161/10⁵ ≈ 0.112
     ∧ zeta_gap_L1_e5 = 11161
+    -- Convergence bracket: gap ≤ 11200/10⁵
     ∧ zeta_gap_L1_e5 ≤ 11200
+    -- Full ζ-sequence monotone decreasing in s
     ∧ zeta_K_L1_at_4_e5 < zeta_K_L1_at_3_e5
     ∧ zeta_K_L1_at_3_e5 < zeta_K_L1_at_2_e5
     ∧ zeta_K_L1_at_2_e5 < zeta_K_L1_at_1_e5 := by
