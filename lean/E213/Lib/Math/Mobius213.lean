@@ -1,4 +1,5 @@
 import E213.Lib.Math.Tactic.Ring213
+import E213.Meta.Int213.Core
 
 /-!
 # Lib.Math.Mobius213 — 213 Möbius signature P(x) = (2x+1)/(x+1)
@@ -206,20 +207,41 @@ Hero milestone 1a for the 213-tower L_∞ fixed point: ∀n witness that
 the Pell trajectory has an invariant under iteration — the dynamical
 reading of the frozen det = 1 identity.
 
-NOTE on axioms: the `∀n` step (`pell_unit_at_succ`) depends on Lean-core
-`[propext, Quot.sound]` via `simp only` + `omega` for the Int ring
-manipulation.  Per `STRICT_ZERO_AXIOM.md`, these are kernel-allowed and
-non-falsifying.  A strict-PURE refactor via explicit `Int213.*` rewrites
-is tractable (∼30 lines) and tagged as a follow-up. -/
+PURE: all theorems below are ∅-axiom.  The Int ring step (`pell_unit_at_succ`)
+is closed by `cross_step_algebra`, a manual `rw`-chain using `Meta.Int213.*`
+lemmas only — no `simp`, no `omega`, no Mathlib.  Falsifies neither propext
+nor Quot.sound. -/
 
 /-- Pell-unit cross-product at depth `n`. -/
 def pell_unit_at (n : Nat) : Int :=
   P_numerator.seq n * P_denominator.seq (n+1)
     - P_numerator.seq (n+1) * P_denominator.seq n
 
+/-- Helper: pure Int algebraic identity for the cross-product step under
+    `c₁ = 3, c₂ = -1` recurrence (d = 0).  Proved by explicit Int213.*
+    rewrites — no `simp`, no `omega`, no Mathlib.  PURE. -/
+private theorem cross_step_algebra (a b p q : Int) :
+    b * (3 * q + (-1) * p + 0) - (3 * b + (-1) * a + 0) * q = a * q - b * p := by
+  have hnp : ((-1 : Int) * p) = -p := by
+    rw [E213.Meta.Int213.neg_mul, Int.one_mul]
+  have hna : ((-1 : Int) * a) = -a := by
+    rw [E213.Meta.Int213.neg_mul, Int.one_mul]
+  rw [Int.add_zero, Int.add_zero, hnp, hna]
+  rw [E213.Meta.Int213.mul_add, E213.Meta.Int213.add_mul]
+  rw [E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_mul]
+  rw [E213.Meta.Int213.mul_left_comm b 3 q, E213.Meta.Int213.mul_assoc 3 b q]
+  -- 3*(b*q) + -(b*p) - (3*(b*q) + -(a*q)) = a*q - b*p
+  rw [Int.sub_eq_add_neg, E213.Meta.Int213.neg_add, Int.neg_neg]
+  -- 3*(b*q) + -(b*p) + (-(3*(b*q)) + a*q) = a*q - b*p
+  rw [E213.Meta.Int213.add_assoc (3*(b*q)) (-(b*p)) (-(3*(b*q)) + a*q)]
+  rw [E213.Meta.Int213.add_left_comm (-(b*p)) (-(3*(b*q))) (a*q)]
+  rw [← E213.Meta.Int213.add_assoc (3*(b*q)) (-(3*(b*q))) (-(b*p) + a*q)]
+  rw [E213.Meta.Int213.add_neg_cancel, E213.Meta.Int213.zero_add]
+  rw [E213.Meta.Int213.add_comm (-(b*p)) (a*q), ← Int.sub_eq_add_neg]
+
 /-- ★★ **Cross-product step identity** (`c₂ = -1` case):
     X(n+1) = X(n).  The det-1 symplectic invariant of the [[2,1],[1,1]]
-    matrix propagates through every P-iteration step. -/
+    matrix propagates through every P-iteration step.  PURE. -/
 theorem pell_unit_at_succ (n : Nat) :
     pell_unit_at (n+1) = pell_unit_at n := by
   unfold pell_unit_at
@@ -231,10 +253,7 @@ theorem pell_unit_at_succ (n : Nat) :
         = 3 * P_numerator.seq (n+1) + (-1) * P_numerator.seq n + 0 from rfl,
       show P_denominator.seq (n+2)
         = 3 * P_denominator.seq (n+1) + (-1) * P_denominator.seq n + 0 from rfl]
-  simp only [Int.add_zero, Int.mul_add, Int.add_mul,
-             Int.mul_neg, Int.neg_mul, Int.mul_zero, Int.zero_mul,
-             Int.one_mul, Int.mul_one, Int.mul_left_comm, Int.mul_assoc]
-  omega
+  exact cross_step_algebra _ _ _ _
 
 /-- ★★★ **∀n Pell-unit invariant** — the L_∞ symplectic constant.
     `num_n · den_{n+1} − num_{n+1} · den_n = -1` for **every** depth `n`.
