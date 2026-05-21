@@ -56,19 +56,34 @@ Status keys:
   · **§4** — M, Pell-FSM (full sweep), ModArith (3/8 items); L3/L4/L5
     deferred; E/F still open.
 
-Net deliverables this branch:
+Net Lean deliverables this branch:
   · 18 new PURE helpers across 7 new modules / additions
     (LeibnizDecomp, LeibnizAlgLiftBeta, Prism N7, Tree decompose,
     canonicalBy decompose, ArithFSM2/3 bits_period helpers, BitFSM
     lift helpers, period multiplication, mod3 absorption).
   · ~500+ net lines removed.
   · ~200 tactic tokens retired in mechanical adoptions.
-  · Pattern #10 (adoption-gap) + #11 (Cup-Leibniz dichotomy) added.
+
+Doc deliverables (G107 §10):
+  · `LESSONS_LEARNED.md` Patterns #10, #11, #12, #13 added.
+  · `seed/RAW_DERIVATION_SPEC.md` — TH-2 (α/β/γ readings).
+  · `seed/FALSIFIABILITY_SURFACE_SPEC.md` — TH-3 (quantitative §5.2.1).
+  · `catalogs/recursor-inventory.md` — CAT-3.
+  · `catalogs/internal-hubs.md` — CAT-4.
+  · `catalogs/falsifier-roster.md` — CAT-1.
+  · `catalogs/abstraction-candidates.md` (this file) — CAT-2.
+  · `README.md` NAV-2 pointer + `seed/INDEX.md` NAV-1 entries.
+  · `STRICT_ZERO_AXIOM.md` NAV-4 Lean-core PURE-bounded fact.
+  · `lean/E213/ARCHITECTURE.md` NAV-3 empirical-verification note.
 
 Still open from §2: none.
 Still open from §3: C (CutSumOne 8-sibling), L1 α-side (deferred).
 Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
 (Σ-fold; additive).
+Still open from §10: TH-1 (proof-shape fingerprint, key data already
+in CAT-3 + ARCHITECTURE.md note), TH-4 (L1 methodology, partial via
+LeibnizAlgLiftBeta).  Neither blocks; redundancy with already-shipped
+content.  CL-1/CL-2 promoted to Patterns #12/#13 instead.
 
 ---
 

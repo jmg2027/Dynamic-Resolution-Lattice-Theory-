@@ -1,7 +1,7 @@
-# Session Handoff — 2026-05-22 (Part 3 marathon, three halves)
+# Session Handoff — 2026-05-22 (Part 3 marathon, final)
 
 ## Branch
-`claude/handoff-part-3-marathon-0XWmn` — 13 commits ahead of
+`claude/handoff-part-3-marathon-0XWmn` — 17 commits ahead of
 `origin/main`.  All pushed.
 
 ## Cumulative summary
@@ -21,6 +21,11 @@
 | **Pell-FSM (toBitFSM_lift + period_mul, 9 sites)** | DONE | `519bd93a` |
 | **L1 β-side** — `leibniz_via_β_decomp_general` | DONE | `0fabff84` |
 | **Pell-FSM (Lucas+Trib+Fib+CrossClass, 13 sites)** | DONE | `a3162f31` |
+| **Doc batch C** — HANDOFF + CAT-2 refresh | DONE | `dccc6255` |
+| **TH-2** — `seed/RAW_DERIVATION_SPEC.md` | DONE | `a418b0f4` |
+| **NAV-2/3 + CAT-3/4** — README, ARCHITECTURE, catalogs | DONE | `c07e6ea1` |
+| **Patterns #12, #13** — meta-scan archetypes + process model | DONE | `dc0b7e81` |
+| **TH-3** — `seed/FALSIFIABILITY_SURFACE_SPEC.md` | DONE | `aab3a7b3` |
 
 ## Verification
 
@@ -33,74 +38,58 @@
 
   · ~500+ lines retired from corpus.
   · 49 Pell-FSM family sites refactored via 5 generic FSM helpers.
-  · 12 mathematical sites refactored via 8 helpers
-    (L2 LeibnizDecomp + L1 β-side LeibnizAlgLiftBeta + Sub-2
-    canonical_slash + Prism N7 + ModArith mod3_add).
+  · 12 mathematical sites refactored via 8 helpers.
   · 25 mechanical adoptions (N8/N9 mul_left_comm/add_right_comm).
-  · 2 new patterns documented (#10 adoption-gap, #11 Cup-Leibniz
-    dichotomy).
-  · 2 new catalogs (falsifier-roster, abstraction-candidates).
-  · 5/5 §2 + 1.5/2 §3 + 4/8 §4 items closed from G107.
+  · 4 new patterns documented (#10/#11/#12/#13).
+  · 4 new catalogs (CAT-1/2/3/4).
+  · 2 new top-level spec docs (RAW_DERIVATION_SPEC, FALSIFIABILITY_SURFACE_SPEC).
+  · NAV-1/2/3/4 updates across INDEX/README/ARCHITECTURE/STRICT_ZERO_AXIOM.
+  · 5/5 §2 + 1.5/2 §3 + 4/8 §4 + 6/8 §10 items closed from G107.
 
 ---
 
-# Part 2 — Open work (refreshed for third half)
+# Part 2 — Open work (final)
 
 ## A. L1 α-side — Nat.add asymmetry blocker (DEFERRED)
 
-The α-side parametric form `leibniz_via_α_decomp_general {b : Nat}`
-hits a defeq blocker:
-
-  · Index type `Fin (binom 5 (2 + b - 1 + 1))` has `2 + b` where
-    the variable is on the RHS of Nat.add — DOES NOT REDUCE for
-    abstract b.
-  · Bilinearity helpers expect `Fin (binom 5 (3 + b - 1))` etc.
-    All these reduce to the same Nat (`b + 2`) propositionally
-    but not definitionally.
-
-The β-side worked because `a + 2` reduces (`+2` on RHS of Nat.add).
-
-**Path forward**: explicit `Fin.cast` + `Eq` plumbing, OR specific
-(b=1, b=2) helpers (no count reduction).
+Same defeq blocker as before.  Would need `Fin.cast` + Eq plumbing
+OR specific (b=1, b=2) helpers (no count reduction).  Documented
+in `catalogs/abstraction-candidates.md` §3.
 
 ## B. C — CutSumOne 8-sibling
 
-Still open.  The 8 `cutSum_*` decls share a 9-token opener but have
-substantially different numeric reasoning bodies.  A clean abstraction
-needs intermediate predicates (`IsRationalApprox`) and a 3-component
-template (opener + per-instance body + closer).  Medium marathon.
+Still open.  Medium marathon.
 
 ## C. E — sqrtN_no_rational_aux
 
-Still open.  4 byte-identical proofs (sqrt2/3/5 + Sqrt2KernelFree)
-differ only in the prime/perfect-square predicate.  Needs `IsPerfectSquare N`
-infrastructure as a prereq.  Substantial design.
+Still open.  Needs `IsPerfectSquare N` infrastructure prereq.
 
 ## D. F — Σ-fold cross-domain
 
-Still open.  Adding `sigmaList : List α → (α → ℕ) → ℕ` infrastructure
-would absorb 5 fold + HAdd skeletons across math + physics.  Small
-additive value.
+Still open.  Adding `sigmaList` infrastructure; small additive.
 
 ## E. L3, L4, L5 — DEFERRED (not byte-identical at content level)
 
-  · **L3** Pisano 14/17 — incremental Pn → Pn+3 structure.
-  · **L4** addLDD/mulLDD — needs `BinaryOpLDD` typeclass design.
-  · **L5** CDDouble pair — different concrete witnesses per call.
-
 ## F. Cup-Leibniz general ∀(k, l) — deep open (G86)
 
-Carried from prior session.  `research-notes/G86_self_referential_lex_cup_leibniz.md`
-— needs deep 213-native structural insight.  Untouched this branch.
+Carried from prior session.  Untouched.
 
-## G. Doc work remaining (G107 §10)
+## G. Doc work remaining
 
-Lower-priority but additive: TH-2 (Raw-derivation three levels;
-HIGHEST value, ~1 hr), TH-1 (proof-shape fingerprint, 2 hr), TH-3
-(falsifiability quantified, 1.5 hr), TH-4 (L1 extraction methodology,
-2 hr), CAT-3 (recursor inventory), CAT-4 (internal hubs), CL-1
-(meta-scan archetypes), CL-2 (process model), NAV-2 (README),
-NAV-3 (ARCHITECTURE.md).
+  · TH-1 (proof-shape fingerprint, 2 hr) — key data already in
+    CAT-3 + ARCHITECTURE NAV-3 note; the standalone doc is
+    redundant.
+  · TH-4 (L1 extraction methodology, 2 hr) — partial via
+    LeibnizAlgLiftBeta (β-side); α-side would extend the same
+    methodology.
+
+## H. CLAUDE.md updates
+
+CL-1 (meta-scan archetypes) + CL-2 (process model) were promoted
+to **Patterns #12 and #13 in LESSONS_LEARNED.md** because
+CLAUDE.md is at 219/220 lines and would overflow the size
+discipline.  The content is captured; the routing chose the
+larger companion doc.
 
 ---
 
@@ -109,13 +98,17 @@ NAV-3 (ARCHITECTURE.md).
 ### Executor entry
   · `research-notes/G107_action_items_registry.md` — full registry.
   · `catalogs/abstraction-candidates.md` — per-item status table
-    (updated thrice this branch).
+    (this branch closed most of §2-§4 + §10).
 
-### Working files / new modules this branch
-  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` (L2).
-  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLiftBeta.lean` (L1 β).
+### New top-level spec docs (this branch)
+  · `seed/RAW_DERIVATION_SPEC.md` — TH-2 (α/β/γ).
+  · `seed/FALSIFIABILITY_SURFACE_SPEC.md` — TH-3 (quantitative §5.2.1).
+
+### Working files / new Lean modules this branch
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` (L2, 8 PURE).
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLiftBeta.lean` (L1 β, 1 PURE).
   · `lean/E213/Lib/Math/DyadicFSM/ArithFSM.lean` (Pell helpers).
-  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/V3.lean` (ArithFSM3 helpers).
+  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/V3.lean` (ArithFSM3 helper).
   · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/ToBitFSM.lean` (lift).
   · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/V3Bound.lean` (V3 lift).
   · `lean/E213/Term/Internal/Tree/Swap.lean` (Sub-2 decompose).
@@ -124,13 +117,21 @@ NAV-3 (ARCHITECTURE.md).
   · `lean/E213/Lib/Math/ModArith/PureNatMod3.lean` (mod3_add).
 
 ### Doctrine
-  · `CLAUDE.md` boot sequence (unchanged).
-  · `STRICT_ZERO_AXIOM.md` — Lean-core PURE-bounded fact (this branch).
-  · `LESSONS_LEARNED.md` Patterns #1-#11.
+  · `CLAUDE.md` boot sequence (unchanged; at 219/220 lines).
+  · `STRICT_ZERO_AXIOM.md` — Lean-core PURE-bounded fact.
+  · `LESSONS_LEARNED.md` Patterns #1-#13.
+  · `seed/RAW_DERIVATION_SPEC.md` — α/β/γ distinction.
+  · `seed/FALSIFIABILITY_SURFACE_SPEC.md` — quantitative §5.2.1.
 
 ### Meta-analysis reference
-  · `G107_action_items_registry.md` — registry.
+  · `G107_action_items_registry.md` — registry (mostly closed by
+    this branch).
   · `G99_rw_cascade_adoption_gap.md` — closed via N8/N9.
   · `G98_unfold_graph_implicit_lemma_extraction.md` — closed via N7.
   · `G91_syntax_tactic_motifs.md` — closed via L2 + Sub-2 + Pell-FSM.
   · `G106_L1_expr_structure_extraction.md` — partially closed via L1 β-side.
+  · `G104_raw_derivation_three_levels.md` — synthesised into TH-2.
+  · `G100_decide_failure_mining.md` — synthesised into TH-3.
+  · `G105_namespace_shape_and_full_recursor_inventory.md` — CAT-3 + ARCHITECTURE NAV-3.
+  · `G92_citation_graph_and_constructs.md` — CAT-4.
+  · `G102_full_expr_callgraph.md` — CAT-4 Expr-level table.
