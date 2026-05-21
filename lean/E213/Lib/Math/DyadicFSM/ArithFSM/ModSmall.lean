@@ -32,14 +32,8 @@ theorem pellFSMmod5_first12 :
     ∧ pellFSMmod5.bits 10 = true ∧ pellFSMmod5.bits 11 = false := by decide
 /-- ★★★ Pell mod-5 run cycles with period 10 (universally). -/
 theorem pellFSMmod5_run_period_10 :
-    ∀ k, pellFSMmod5.run (k + 10) = pellFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod5.step (pellFSMmod5.run (k' + 10))
-        = pellFSMmod5.step (pellFSMmod5.run k')
-    rw [ih]
+    ∀ k, pellFSMmod5.run (k + 10) = pellFSMmod5.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 /-- ★★★★ Pell mod-5 bits cycle with period 10 (universally). -/
 theorem pellFSMmod5_bits_period_10 :
     ∀ k, pellFSMmod5.bits (k + 10) = pellFSMmod5.bits k :=
@@ -85,14 +79,8 @@ theorem pellFSMmod7_first12 :
 
 /-- ★★★ Pell mod-7 run cycles with period 8. -/
 theorem pellFSMmod7_run_period_8 :
-    ∀ k, pellFSMmod7.run (k + 8) = pellFSMmod7.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod7.step (pellFSMmod7.run (k' + 8))
-        = pellFSMmod7.step (pellFSMmod7.run k')
-    rw [ih]
+    ∀ k, pellFSMmod7.run (k + 8) = pellFSMmod7.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-7 bits cycle with period 8. -/
 theorem pellFSMmod7_bits_period_8 :
@@ -109,10 +97,8 @@ theorem pellFSMmod7_signature_period_8 :
 theorem pellFSMmod7_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 245
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod7.bits (k + P) = signature pellFSMmod7.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod7.bits (k + P) = signature pellFSMmod7.bits k :=
+  arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 
@@ -143,14 +129,8 @@ theorem pellFSMmod11_first12 :
 
 /-- ★★★ Pell mod-11 run cycles with period 5 (SPLIT — shorter than inert). -/
 theorem pellFSMmod11_run_period_5 :
-    ∀ k, pellFSMmod11.run (k + 5) = pellFSMmod11.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod11.step (pellFSMmod11.run (k' + 5))
-        = pellFSMmod11.step (pellFSMmod11.run k')
-    rw [ih]
+    ∀ k, pellFSMmod11.run (k + 5) = pellFSMmod11.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-11 bits cycle with period 5. -/
 theorem pellFSMmod11_bits_period_5 :
@@ -177,10 +157,8 @@ theorem pellFSMmod11_signature_period_10 :
 theorem pellFSMmod11_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 605
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod11.bits (k + P) = signature pellFSMmod11.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 11) (by decide) pellFSMmod11
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod11.bits (k + P) = signature pellFSMmod11.bits k :=
+  arithFSM2_signature_period_bound (n := 11) (by decide) pellFSMmod11
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
 
@@ -208,14 +186,8 @@ theorem pellFSMmod13_first5 :
 
 /-- ★★★ Pell mod-13 run cycles with period 14. -/
 theorem pellFSMmod13_run_period_14 :
-    ∀ k, pellFSMmod13.run (k + 14) = pellFSMmod13.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod13.step (pellFSMmod13.run (k' + 14))
-        = pellFSMmod13.step (pellFSMmod13.run k')
-    rw [ih]
+    ∀ k, pellFSMmod13.run (k + 14) = pellFSMmod13.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-13 bits cycle with period 14. -/
 theorem pellFSMmod13_bits_period_14 :
@@ -255,14 +227,8 @@ theorem pellFSMmod17_first5 :
 
 /-- ★★★ Pell mod-17 run cycles with period 18. -/
 theorem pellFSMmod17_run_period_18 :
-    ∀ k, pellFSMmod17.run (k + 18) = pellFSMmod17.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod17.step (pellFSMmod17.run (k' + 18))
-        = pellFSMmod17.step (pellFSMmod17.run k')
-    rw [ih]
+    ∀ k, pellFSMmod17.run (k + 18) = pellFSMmod17.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-17 bits cycle with period 18. -/
 theorem pellFSMmod17_bits_period_18 :
@@ -301,14 +267,8 @@ theorem pellFSMmod19_first10 :
 
 /-- ★★★ Pell mod-19 run cycles with period 9. -/
 theorem pellFSMmod19_run_period_9 :
-    ∀ k, pellFSMmod19.run (k + 9) = pellFSMmod19.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod19.step (pellFSMmod19.run (k' + 9))
-        = pellFSMmod19.step (pellFSMmod19.run k')
-    rw [ih]
+    ∀ k, pellFSMmod19.run (k + 9) = pellFSMmod19.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-19 bits cycle with period 9. -/
 theorem pellFSMmod19_bits_period_9 :
@@ -351,14 +311,8 @@ def pellFSMmod23 : ArithFSM2 23 where
 
 /-- ★★★ Pell mod-23 run cycles with period 24. -/
 theorem pellFSMmod23_run_period_24 :
-    ∀ k, pellFSMmod23.run (k + 24) = pellFSMmod23.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod23.step (pellFSMmod23.run (k' + 24))
-        = pellFSMmod23.step (pellFSMmod23.run k')
-    rw [ih]
+    ∀ k, pellFSMmod23.run (k + 24) = pellFSMmod23.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-23 bits cycle with period 24. -/
 theorem pellFSMmod23_bits_period_24 :
@@ -388,9 +342,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 theorem pellFSMmod5_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 125
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k :=
+  arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM

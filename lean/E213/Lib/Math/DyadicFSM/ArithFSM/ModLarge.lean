@@ -31,14 +31,8 @@ def pellFSMmod53 : ArithFSM2 53 where
 set_option maxRecDepth 2048 in
 /-- ★★★ Pell mod-53 run cycles with TIGHT period 54. -/
 theorem pellFSMmod53_run_period_54 :
-    ∀ k, pellFSMmod53.run (k + 54) = pellFSMmod53.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod53.step (pellFSMmod53.run (k' + 54))
-        = pellFSMmod53.step (pellFSMmod53.run k')
-    rw [ih]
+    ∀ k, pellFSMmod53.run (k + 54) = pellFSMmod53.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-53 bits cycle with TIGHT period 54. -/
 theorem pellFSMmod53_bits_period_54 :
@@ -73,14 +67,8 @@ def pellFSMmod59 : ArithFSM2 59 where
 
 /-- ★★★ Pell mod-59 run cycles with TIGHT period 29. -/
 theorem pellFSMmod59_run_period_29 :
-    ∀ k, pellFSMmod59.run (k + 29) = pellFSMmod59.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod59.step (pellFSMmod59.run (k' + 29))
-        = pellFSMmod59.step (pellFSMmod59.run k')
-    rw [ih]
+    ∀ k, pellFSMmod59.run (k + 29) = pellFSMmod59.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-59 bits cycle with TIGHT period 29. -/
 theorem pellFSMmod59_bits_period_29 :
@@ -120,14 +108,8 @@ def pellFSMmod61 : ArithFSM2 61 where
 
 /-- ★★★ Pell mod-61 run cycles with TIGHT period 30. -/
 theorem pellFSMmod61_run_period_30 :
-    ∀ k, pellFSMmod61.run (k + 30) = pellFSMmod61.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod61.step (pellFSMmod61.run (k' + 30))
-        = pellFSMmod61.step (pellFSMmod61.run k')
-    rw [ih]
+    ∀ k, pellFSMmod61.run (k + 30) = pellFSMmod61.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-61 bits cycle with TIGHT period 30. -/
 theorem pellFSMmod61_bits_period_30 :
@@ -161,14 +143,8 @@ def pellFSMmod67 : ArithFSM2 67 where
 
 set_option maxRecDepth 2048 in
 theorem pellFSMmod67_run_period_68 :
-    ∀ k, pellFSMmod67.run (k + 68) = pellFSMmod67.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod67.step (pellFSMmod67.run (k' + 68))
-        = pellFSMmod67.step (pellFSMmod67.run k')
-    rw [ih]
+    ∀ k, pellFSMmod67.run (k + 68) = pellFSMmod67.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod67_bits_period_68 :
     ∀ k, pellFSMmod67.bits (k + 68) = pellFSMmod67.bits k :=
@@ -193,14 +169,8 @@ def pellFSMmod71 : ArithFSM2 71 where
 
 set_option maxRecDepth 1024 in
 theorem pellFSMmod71_run_period_35 :
-    ∀ k, pellFSMmod71.run (k + 35) = pellFSMmod71.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod71.step (pellFSMmod71.run (k' + 35))
-        = pellFSMmod71.step (pellFSMmod71.run k')
-    rw [ih]
+    ∀ k, pellFSMmod71.run (k + 35) = pellFSMmod71.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod71_bits_period_35 :
     ∀ k, pellFSMmod71.bits (k + 35) = pellFSMmod71.bits k :=
@@ -225,14 +195,8 @@ def pellFSMmod73 : ArithFSM2 73 where
 
 set_option maxRecDepth 2048 in
 theorem pellFSMmod73_run_period_74 :
-    ∀ k, pellFSMmod73.run (k + 74) = pellFSMmod73.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod73.step (pellFSMmod73.run (k' + 74))
-        = pellFSMmod73.step (pellFSMmod73.run k')
-    rw [ih]
+    ∀ k, pellFSMmod73.run (k + 74) = pellFSMmod73.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod73_bits_period_74 :
     ∀ k, pellFSMmod73.bits (k + 74) = pellFSMmod73.bits k :=
@@ -257,14 +221,8 @@ def pellFSMmod79 : ArithFSM2 79 where
 
 set_option maxRecDepth 1024 in
 theorem pellFSMmod79_run_period_39 :
-    ∀ k, pellFSMmod79.run (k + 39) = pellFSMmod79.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod79.step (pellFSMmod79.run (k' + 39))
-        = pellFSMmod79.step (pellFSMmod79.run k')
-    rw [ih]
+    ∀ k, pellFSMmod79.run (k + 39) = pellFSMmod79.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod79_bits_period_39 :
     ∀ k, pellFSMmod79.bits (k + 39) = pellFSMmod79.bits k :=
@@ -289,14 +247,8 @@ def pellFSMmod89 : ArithFSM2 89 where
 
 set_option maxRecDepth 1024 in
 theorem pellFSMmod89_run_period_22 :
-    ∀ k, pellFSMmod89.run (k + 22) = pellFSMmod89.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod89.step (pellFSMmod89.run (k' + 22))
-        = pellFSMmod89.step (pellFSMmod89.run k')
-    rw [ih]
+    ∀ k, pellFSMmod89.run (k + 22) = pellFSMmod89.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod89_bits_period_22 :
     ∀ k, pellFSMmod89.bits (k + 22) = pellFSMmod89.bits k :=
@@ -325,14 +277,8 @@ def pellFSMmod101 : ArithFSM2 101 where
 
 set_option maxRecDepth 1024 in
 theorem pellFSMmod101_run_period_25 :
-    ∀ k, pellFSMmod101.run (k + 25) = pellFSMmod101.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod101.step (pellFSMmod101.run (k' + 25))
-        = pellFSMmod101.step (pellFSMmod101.run k')
-    rw [ih]
+    ∀ k, pellFSMmod101.run (k + 25) = pellFSMmod101.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellFSMmod101_bits_period_25 :
     ∀ k, pellFSMmod101.bits (k + 25) = pellFSMmod101.bits k :=

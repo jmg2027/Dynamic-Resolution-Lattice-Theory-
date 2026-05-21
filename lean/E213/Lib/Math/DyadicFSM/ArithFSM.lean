@@ -42,6 +42,25 @@ def ArithFSM2.run {n : Nat} (m : ArithFSM2 n) : Nat → Fin n × Fin n
 def ArithFSM2.bits {n : Nat} (m : ArithFSM2 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
+/-- **run-period from base case** — given `m.run T = m.run 0`,
+    the period extends to all k by step-induction.  Absorbs the
+    byte-identical `intro k; induction k with | zero => decide | succ
+    k' ih => show step ... = step ...; rw [ih]` pattern in every
+    per-modulus `_run_period_T` proof.  PURE. -/
+theorem ArithFSM2.run_period_of_base
+    {n T : Nat} (m : ArithFSM2 n)
+    (h_base : m.run T = m.run 0) :
+    ∀ k, m.run (k + T) = m.run k := by
+  intro k
+  induction k with
+  | zero =>
+    show m.run (0 + T) = m.run 0
+    rw [Nat.zero_add]; exact h_base
+  | succ k' ih =>
+    rw [Nat.succ_add k' T]
+    show m.step (m.run (k' + T)) = m.step (m.run k')
+    rw [ih]
+
 /-- **bits-period from run-period** — `bits = out ∘ run` by def, so any
     period of `run` transfers to `bits`.  G107 §4 Pell-FSM helper —
     absorbs the duplicated `show m.out (m.run _) = m.out (m.run _); rw [...]`
@@ -90,14 +109,8 @@ theorem pellFSMmod2_first8 :
 
 /-- ★★★ Pell mod-2 run cycles with period 3 (universally). -/
 theorem pellFSMmod2_run_period_3 :
-    ∀ k, pellFSMmod2.run (k + 3) = pellFSMmod2.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod2.step (pellFSMmod2.run (k' + 3))
-        = pellFSMmod2.step (pellFSMmod2.run k')
-    rw [ih]
+    ∀ k, pellFSMmod2.run (k + 3) = pellFSMmod2.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-2 bits cycle with period 3 (universally). -/
 theorem pellFSMmod2_bits_period_3 :
@@ -120,14 +133,8 @@ theorem pellFSMmod3_first8 :
 
 /-- ★★★ Pell mod-3 run cycles with period 4. -/
 theorem pellFSMmod3_run_period_4 :
-    ∀ k, pellFSMmod3.run (k + 4) = pellFSMmod3.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod3.step (pellFSMmod3.run (k' + 4))
-        = pellFSMmod3.step (pellFSMmod3.run k')
-    rw [ih]
+    ∀ k, pellFSMmod3.run (k + 4) = pellFSMmod3.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-3 bits cycle with period 4 (universally). -/
 theorem pellFSMmod3_bits_period_4 :

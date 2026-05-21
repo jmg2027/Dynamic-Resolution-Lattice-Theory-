@@ -18,14 +18,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 set_option maxRecDepth 1024 in
 theorem pellProper11_run_period_24 :
     ∀ k, (pellProperFSMmod 11 (by decide)).run (k + 24)
-        = (pellProperFSMmod 11 (by decide)).run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show (pellProperFSMmod 11 (by decide)).step _
-        = (pellProperFSMmod 11 (by decide)).step _
-    rw [ih]
+        = (pellProperFSMmod 11 (by decide)).run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellProper11_bits_period_24 :
     ∀ k, (pellProperFSMmod 11 (by decide)).bits (k + 24)
@@ -42,14 +36,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 set_option maxRecDepth 1024 in
 theorem pellProper13_run_period_28 :
     ∀ k, (pellProperFSMmod 13 (by decide)).run (k + 28)
-        = (pellProperFSMmod 13 (by decide)).run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show (pellProperFSMmod 13 (by decide)).step _
-        = (pellProperFSMmod 13 (by decide)).step _
-    rw [ih]
+        = (pellProperFSMmod 13 (by decide)).run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellProper13_bits_period_28 :
     ∀ k, (pellProperFSMmod 13 (by decide)).bits (k + 28)
@@ -65,14 +53,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 theorem pellProper17_run_period_16 :
     ∀ k, (pellProperFSMmod 17 (by decide)).run (k + 16)
-        = (pellProperFSMmod 17 (by decide)).run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show (pellProperFSMmod 17 (by decide)).step _
-        = (pellProperFSMmod 17 (by decide)).step _
-    rw [ih]
+        = (pellProperFSMmod 17 (by decide)).run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellProper17_bits_period_16 :
     ∀ k, (pellProperFSMmod 17 (by decide)).bits (k + 16)
@@ -89,14 +71,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 set_option maxRecDepth 2048 in
 theorem pellProper19_run_period_40 :
     ∀ k, (pellProperFSMmod 19 (by decide)).run (k + 40)
-        = (pellProperFSMmod 19 (by decide)).run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show (pellProperFSMmod 19 (by decide)).step _
-        = (pellProperFSMmod 19 (by decide)).step _
-    rw [ih]
+        = (pellProperFSMmod 19 (by decide)).run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellProper19_bits_period_40 :
     ∀ k, (pellProperFSMmod 19 (by decide)).bits (k + 40)
@@ -113,14 +89,8 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 set_option maxRecDepth 1024 in
 theorem pellProper23_run_period_22 :
     ∀ k, (pellProperFSMmod 23 (by decide)).run (k + 22)
-        = (pellProperFSMmod 23 (by decide)).run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show (pellProperFSMmod 23 (by decide)).step _
-        = (pellProperFSMmod 23 (by decide)).step _
-    rw [ih]
+        = (pellProperFSMmod 23 (by decide)).run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem pellProper23_bits_period_22 :
     ∀ k, (pellProperFSMmod 23 (by decide)).bits (k + 22)

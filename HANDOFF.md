@@ -26,6 +26,10 @@
 | **NAV-2/3 + CAT-3/4** — README, ARCHITECTURE, catalogs | DONE | `c07e6ea1` |
 | **Patterns #12, #13** — meta-scan archetypes + process model | DONE | `dc0b7e81` |
 | **TH-3** — `seed/FALSIFIABILITY_SURFACE_SPEC.md` | DONE | `aab3a7b3` |
+| **Doc batch D** — TH-3 + Patterns #12/#13 + HANDOFF | DONE | `a834f1b7` |
+| **Pell-FSM (run_period 44 sites)** | DONE | `b28e64e4` |
+| **Doc batch E** — HANDOFF + CAT-2 refresh (run_period) | DONE | `71a3fcb6` |
+| **Bounds + ModSmall** — obtain-rebuild simplification (5 sites) | DONE | `6309a20a` |
 
 ## Verification
 
@@ -36,15 +40,19 @@
 
 ## Net deliverables
 
-  · ~500+ lines retired from corpus.
-  · 49 Pell-FSM family sites refactored via 5 generic FSM helpers.
+  · ~750+ lines retired from corpus.
+  · **93** Pell-FSM family sites refactored via 7 generic FSM helpers
+    (49 bits-period sites + 44 run-period sites).
   · 12 mathematical sites refactored via 8 helpers.
   · 25 mechanical adoptions (N8/N9 mul_left_comm/add_right_comm).
+  · 5 obtain-rebuild simplifications (Pell.Bounds + ModSmall).
   · 4 new patterns documented (#10/#11/#12/#13).
   · 4 new catalogs (CAT-1/2/3/4).
   · 2 new top-level spec docs (RAW_DERIVATION_SPEC, FALSIFIABILITY_SURFACE_SPEC).
   · NAV-1/2/3/4 updates across INDEX/README/ARCHITECTURE/STRICT_ZERO_AXIOM.
   · 5/5 §2 + 1.5/2 §3 + 4/8 §4 + 6/8 §10 items closed from G107.
+
+**Total sites absorbed: 135** (93 Pell-FSM + 12 mathematical + 25 mechanical + 5 obtain-rebuild).
 
 ---
 
