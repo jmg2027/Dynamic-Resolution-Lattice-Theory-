@@ -112,8 +112,27 @@ Composed with the list-level ∀(k, l) theorem
 Fin-form `lex_cup_leibniz_self_ref_1_1`, the Fin-indexed (1,1)
 Leibniz on Δ⁴ has full PURE coverage.
 
-Remaining for future generalisation (NOT blocking merge):
-  · Bridge primitives at higher dimensions (Δ^d, d > 4)
+### List-level → Fin-indexed automatic bridge — **CLOSED** (this session, follow-up)
+
+The hardcoded `Cohomology/Cup/FinBridge.lean` (Δ⁴-specific, 10240
+decide cases per bidegree) is now subsumed by a structural ∀(n, k, l)
+capstone.
+
+`Cohomology/Cup/FinBridgeGeneral.lean` (7 PURE theorems):
+  · `kSubset_take_eq` — `(kSubset n m j).take k = kSubset n k j_a`,
+    valid `j_a < binom n k`.
+  · `kSubset_drop_eq` — `(kSubset n m j).drop k = kSubset n (m-k) j_b`,
+    valid `j_b < binom n (m-k)`.
+  · `frontIdx`, `backIdx` — general index extractions
+    (`subsetIdx n k (take k)` / `subsetIdx n l (drop k)`).
+  · `frontIdx_lt`, `backIdx_lt` — validity (via `roundtrip_n_k`).
+  · **`cup_unfold_general`** —
+    `cup n k l α β τ_idx = α ⟨frontIdx, _⟩ && β ⟨backIdx, _⟩`
+    for any `(n, k, l)` and any `τ_idx : Fin (binom n (k+l))`.
+
+Builds on the prior `roundtrip_n_k` + `kSubset_injective` work.
+Bypasses propext-tainted Lean-core lemmas (`List.length_take`,
+`List.take_append_*`, `omega`, etc.) with PURE constructive equivalents.
 
 ### ∀n round-trip at k=1 + ∀(n,k) kSubset bijection — **CLOSED** (this session)
 
