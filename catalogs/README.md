@@ -10,6 +10,7 @@ Lookup tables for the 213 library.  grep-able.
   falsifiers.md          14 sharp measurement decision propositions
   correspondences.md     same integer multi-framework
   math-theorems.md       math theorems catalog
+  cross-domain-identifications.md  10 named CDIs from G109 (math ↔ physics byte-identical Expr)
 
 ## Usage
 
