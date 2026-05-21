@@ -46,58 +46,29 @@ open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.Foundations.GoldenRatio
 open E213.Lib.Physics.Foundations.FibonacciAtomic
 
-/-- F_8 = 21 = (d² - 1) - NS = σ_1s unreduced numerator. -/
-theorem F8_eq_21 : fib 8 = 21 := by decide
-
-/-- ★ F_8 = adjoint SU(5) − spatial dim ★ -/
-theorem F8_atomic_decomp :
-    fib 8 = (d * d - 1) - NS
-    ∧ fib 8 = 21 := by decide
-
-/-- F_9 = 34 = c · (d(d-1) - NS) = c · σ_even_num. -/
-theorem F9_eq_34 : fib 9 = 34 := by decide
-
-theorem F9_atomic_decomp :
-    fib 9 = 34
-    ∧ 2 * (d * (d - 1) - NS) = 34
-    -- = 2 · 17 = c · σ_even_num
-    ∧ d * (d - 1) - NS = 17 := by decide
-
-/-- F_10 = 55 = 5·11 = d·11.  11 = ? not immediately clear atomic.
-    Could be 11 = d² - 14 or d² - NT·d - NT.
-    Actually NS²+NS-1+c-1 = 9+3-1+1 = 12.  Not 11.
-    Or: NS² + NT = 11. ✓ 9 + 2 = 11. -/
-theorem F10_eq_55 : fib 10 = 55 := by decide
-
-theorem F10_atomic_decomp :
-    fib 10 = 55
-    ∧ d * (NS * NS + NT) = 55  -- d · 11 = 55
-    ∧ NS * NS + NT = 11 := by decide
-
 /-- ★ Fibonacci deep penetration ★
     F_3..F_10 = 2, 3, 5, 8, 13, 21, 34, 55
-    
-    F_3 = NT
-    F_4 = NS
-    F_5 = d
-    F_6 = NS² - 1 = 1/α_3
-    F_7 = NS² + NS + 1 (NH₃ denom)
-    F_8 = (d²-1) - NS (σ_1s unreduced numerator)
-    F_9 = c · (d(d-1) - NS) (c · σ_even unreduced)
-    F_10 = d · (NS² + NT) (= d · 11)
-    
+
     Eight consecutive Fibonacci numbers read out as eight
     different combinations of {NS, NT, d, c} primitives —
-    a single structural identity, expressed eight ways. -/
+    a single structural identity, expressed eight ways.  Bundles
+    concrete values F_8/9/10 and the sub-decompositions
+    (d(d−1)−NS) = 17, (NS²+NT) = 11. -/
 theorem fibonacci_deep_atomicity :
+    -- Eight-Fibonacci atomic correspondence
     (fib 3 = NT)
     ∧ (fib 4 = NS)
     ∧ (fib 5 = d)
-    ∧ (fib 6 = NS * NS - 1)
-    ∧ (fib 7 = NS * NS + NS + 1)
-    ∧ (fib 8 = (d * d - 1) - NS)
-    ∧ (fib 9 = 2 * (d * (d - 1) - NS))
-    ∧ (fib 10 = d * (NS * NS + NT)) := by decide
+    ∧ (fib 6 = NS * NS - 1)             -- 1/α_3
+    ∧ (fib 7 = NS * NS + NS + 1)        -- NH₃ denom
+    ∧ (fib 8 = (d * d - 1) - NS)        -- σ_1s unreduced numerator
+    ∧ (fib 9 = 2 * (d * (d - 1) - NS))  -- c·σ_even unreduced
+    ∧ (fib 10 = d * (NS * NS + NT))     -- = d · 11
+    -- Concrete values
+    ∧ (fib 8 = 21) ∧ (fib 9 = 34) ∧ (fib 10 = 55)
+    -- Sub-decompositions: σ_even unreduced 17, NS²+NT = 11
+    ∧ (d * (d - 1) - NS = 17)
+    ∧ (NS * NS + NT = 11) := by decide
 
 /-! ## §3 — Structural reading at higher Fibonacci indices
 
