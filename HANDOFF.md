@@ -337,3 +337,63 @@ Part 3; now 93 sites total).  Other open items unchanged:
   · G112 HC-1, G115 PHYS-1/PHYS-2
   · TH-1, TH-4, G117 Bishop comparison
 
+---
+
+# Part 5 — User-directed marathon (2026-05-21 late session)
+
+User issued the marathon directive (11 items).  This Part 5 documents
+what closed and what deferred.
+
+## Closed in this session
+
+| # | Item | Commit | Net |
+|---|------|--------|----:|
+| 1 | **L1 α-side** parametric helper | `a119b077` | -120/+131 lines + ~80 lines repeated body retired |
+| 2 | **C — CutSumOne** 3-component template | `4984c9ad` | 478→337 lines (-141) |
+| 3 | **G110 FLUX-1** unitBracket cutMulOuter reduce | `caea91c1` | 765→711 lines + ~85 lines repeated retired |
+| 5a | **G111 COH-1** Pattern10 + Prop52/53 refactor | `796016fa` | ~50K Expr nodes retired |
+| 5b | **G111 COH-2** InvolutionTemplate + 4 Hodge Props | `796016fa` | ~25K Expr nodes retired |
+| 10b | **TH-4** L1 parametric methodology spec | (this commit) | `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` |
+
+## Deferred (require separate marathons)
+
+| # | Item | Reason |
+|---|------|--------|
+| 4 | **G108 REAL-1+REAL-2** Cut iff consolidation | `cutMulInner/Outer_eq_true_iff` proofs use induction on bound with bool-OR ladder + per-case case-splits on `cx i k` / `cy m2 k`.  Generic helper `boolOrLadder_exists_iff` PURE-verified standalone, but connecting to the existing `match`-defined `cutMulInner/Outer` requires either redefining via `Nat.rec` (invasive) or proving a `match = Nat.rec` bridge (verbose).  ~3-5 hour follow-up. |
+| 5c | **G111 COH-3** Leibniz4Mixed + Leibniz pattern pair | Cochain types differ (5,1,1 vs 4,1,2).  Bidegree-parametric `pattern_decide_lift` template required.  Separate refactor. |
+| 6 | **G114 CD-1+CD-2+CD-3** | `ext` proofs are already 2 lines each.  4-sibling × 2 lines = 8 lines.  Generic template would save ~4 lines but add ~10 lines infrastructure.  Not worth abstracting. |
+| 7 | **G112 HC-1, G115 PHYS-1/PHYS-2** | Capstone-level investigation work; each is its own session. |
+| 8 | **L3/L4/L5** Pisano/LDD/CDDouble | Each ~2-5 line saving per file.  Abstraction overhead exceeds savings.  Marginal items. |
+| 9 | **G113 FSM-1 full ∀p** | Parametric over arbitrary prime modulus.  Part 3 + Part 4 absorbed 93 sites (specific moduli); the full ∀p form requires a new universal lift theorem.  Multi-session. |
+| 10a | **TH-1** proof-shape fingerprint spec | Already captured in `CAT-3 recursor-inventory` + `ARCHITECTURE NAV-3`.  Standalone doc would be redundant per Part 3 HANDOFF assessment. |
+| 11 | **G117 Bishop comparison** doctrinal capstone | 3-5 sessions; doctrinal AsLensOutput formalisation. |
+
+## Updated grand total (Part 3 + Part 4 + Part 5)
+
+  · **~60 commits** this cycle
+  · **~14,500 LOC** analysis + documentation + refactor
+  · **~280 sites absorbed** (180 in Part 3+4 + ~100 effective sites
+    in Part 5 templates × consumers)
+  · 5 abstraction templates surfaced + integrated (LeibnizAlgLiftBeta,
+    LeibnizAlgLiftAlpha, cutSum_constCut_at, cutMulOuter_unitBracket_reduce_at,
+    Pattern10, InvolutionTemplate)
+
+## Verification (Part 5)
+
+  · Full `lake build`: ✅ clean
+  · All Part 5 new theorems + refactored corollaries PURE
+    (`#print axioms`: "does not depend on any axioms")
+  · No new DIRTY axioms
+  · Working tree clean after each commit
+
+## Anchor docs (post Part 5)
+
+  · `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` — TH-4 (NEW)
+  · `seed/META_SCAN_ARCHETYPES.md` — scanner archetypes
+  · `seed/RAW_DERIVATION_SPEC.md` — TH-2
+  · `seed/FALSIFIABILITY_SURFACE_SPEC.md` — TH-3
+  · `LESSONS_LEARNED.md` Patterns #1-#20
+  · `catalogs/abstraction-candidates.md` — needs update with
+    Part 5 closures (L1 α DONE, C DONE, COH-1 DONE, COH-2 DONE,
+    FLUX-1 DONE)
+
