@@ -42,6 +42,17 @@ def ArithFSM2.run {n : Nat} (m : ArithFSM2 n) : Nat → Fin n × Fin n
 def ArithFSM2.bits {n : Nat} (m : ArithFSM2 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
+/-- **bits-period from run-period** — `bits = out ∘ run` by def, so any
+    period of `run` transfers to `bits`.  G107 §4 Pell-FSM helper —
+    absorbs the duplicated `show m.out (m.run _) = m.out (m.run _); rw [...]`
+    closer in every per-modulus instance.  PURE. -/
+theorem ArithFSM2.bits_period_of_run_period
+    {n T : Nat} (m : ArithFSM2 n)
+    (h : ∀ k, m.run (k + T) = m.run k) :
+    ∀ k, m.bits (k + T) = m.bits k := fun k => by
+  show m.out (m.run (k + T)) = m.out (m.run k)
+  rw [h]
+
 /-- Pell-style FSM mod 2: (a_{k+1}, b_{k+1}) = (2a + b, a + b) mod 2.
     Out: parity of a. -/
 def pellFSMmod2 : ArithFSM2 2 where
@@ -71,11 +82,8 @@ theorem pellFSMmod2_run_period_3 :
 
 /-- ★★★★ Pell mod-2 bits cycle with period 3 (universally). -/
 theorem pellFSMmod2_bits_period_3 :
-    ∀ k, pellFSMmod2.bits (k + 3) = pellFSMmod2.bits k := by
-  intro k
-  show pellFSMmod2.out (pellFSMmod2.run (k + 3))
-      = pellFSMmod2.out (pellFSMmod2.run k)
-  rw [pellFSMmod2_run_period_3]
+    ∀ k, pellFSMmod2.bits (k + 3) = pellFSMmod2.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod2_run_period_3
 
 /-- Pell-style FSM mod 3: same recurrence, bigger modulus. -/
 def pellFSMmod3 : ArithFSM2 3 where
@@ -104,11 +112,8 @@ theorem pellFSMmod3_run_period_4 :
 
 /-- ★★★★ Pell mod-3 bits cycle with period 4 (universally). -/
 theorem pellFSMmod3_bits_period_4 :
-    ∀ k, pellFSMmod3.bits (k + 4) = pellFSMmod3.bits k := by
-  intro k
-  show pellFSMmod3.out (pellFSMmod3.run (k + 4))
-      = pellFSMmod3.out (pellFSMmod3.run k)
-  rw [pellFSMmod3_run_period_4]
+    ∀ k, pellFSMmod3.bits (k + 4) = pellFSMmod3.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod3_run_period_4
 
 /-- ★★★★★ Different moduli give different periods (mod 2 → 3,
     mod 3 → 4) — algebraic structure visible at the FSM level. -/

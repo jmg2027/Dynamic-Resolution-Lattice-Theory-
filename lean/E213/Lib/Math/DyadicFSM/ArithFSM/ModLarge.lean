@@ -42,11 +42,8 @@ theorem pellFSMmod53_run_period_54 :
 
 /-- ★★★★ Pell mod-53 bits cycle with TIGHT period 54. -/
 theorem pellFSMmod53_bits_period_54 :
-    ∀ k, pellFSMmod53.bits (k + 54) = pellFSMmod53.bits k := by
-  intro k
-  show pellFSMmod53.out (pellFSMmod53.run (k + 54))
-      = pellFSMmod53.out (pellFSMmod53.run k)
-  rw [pellFSMmod53_run_period_54]
+    ∀ k, pellFSMmod53.bits (k + 54) = pellFSMmod53.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod53_run_period_54
 
 set_option maxRecDepth 2048 in
 /-- ★★★★★ Pell mod-53 signature has period 54 (TIGHT, even). -/
@@ -87,11 +84,8 @@ theorem pellFSMmod59_run_period_29 :
 
 /-- ★★★★ Pell mod-59 bits cycle with TIGHT period 29. -/
 theorem pellFSMmod59_bits_period_29 :
-    ∀ k, pellFSMmod59.bits (k + 29) = pellFSMmod59.bits k := by
-  intro k
-  show pellFSMmod59.out (pellFSMmod59.run (k + 29))
-      = pellFSMmod59.out (pellFSMmod59.run k)
-  rw [pellFSMmod59_run_period_29]
+    ∀ k, pellFSMmod59.bits (k + 29) = pellFSMmod59.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod59_run_period_29
 
 /-- Bipartite parity doubling: bit period 29 odd ⇒ predicted 58. -/
 theorem pellFSMmod59_bits_period_58 :
@@ -141,11 +135,8 @@ theorem pellFSMmod61_run_period_30 :
 
 /-- ★★★★ Pell mod-61 bits cycle with TIGHT period 30. -/
 theorem pellFSMmod61_bits_period_30 :
-    ∀ k, pellFSMmod61.bits (k + 30) = pellFSMmod61.bits k := by
-  intro k
-  show pellFSMmod61.out (pellFSMmod61.run (k + 30))
-      = pellFSMmod61.out (pellFSMmod61.run k)
-  rw [pellFSMmod61_run_period_30]
+    ∀ k, pellFSMmod61.bits (k + 30) = pellFSMmod61.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod61_run_period_30
 
 set_option maxRecDepth 2048 in
 /-- ★★★★★ Pell mod-61 signature has period 30 (TIGHT, even). -/
@@ -184,11 +175,8 @@ theorem pellFSMmod67_run_period_68 :
     rw [ih]
 
 theorem pellFSMmod67_bits_period_68 :
-    ∀ k, pellFSMmod67.bits (k + 68) = pellFSMmod67.bits k := by
-  intro k
-  show pellFSMmod67.out (pellFSMmod67.run (k + 68))
-      = pellFSMmod67.out (pellFSMmod67.run k)
-  rw [pellFSMmod67_run_period_68]
+    ∀ k, pellFSMmod67.bits (k + 68) = pellFSMmod67.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod67_run_period_68
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod67
 
@@ -219,11 +207,8 @@ theorem pellFSMmod71_run_period_35 :
     rw [ih]
 
 theorem pellFSMmod71_bits_period_35 :
-    ∀ k, pellFSMmod71.bits (k + 35) = pellFSMmod71.bits k := by
-  intro k
-  show pellFSMmod71.out (pellFSMmod71.run (k + 35))
-      = pellFSMmod71.out (pellFSMmod71.run k)
-  rw [pellFSMmod71_run_period_35]
+    ∀ k, pellFSMmod71.bits (k + 35) = pellFSMmod71.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod71_run_period_35
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod71
 
@@ -254,11 +239,8 @@ theorem pellFSMmod73_run_period_74 :
     rw [ih]
 
 theorem pellFSMmod73_bits_period_74 :
-    ∀ k, pellFSMmod73.bits (k + 74) = pellFSMmod73.bits k := by
-  intro k
-  show pellFSMmod73.out (pellFSMmod73.run (k + 74))
-      = pellFSMmod73.out (pellFSMmod73.run k)
-  rw [pellFSMmod73_run_period_74]
+    ∀ k, pellFSMmod73.bits (k + 74) = pellFSMmod73.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod73_run_period_74
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod73
 
@@ -289,11 +271,8 @@ theorem pellFSMmod79_run_period_39 :
     rw [ih]
 
 theorem pellFSMmod79_bits_period_39 :
-    ∀ k, pellFSMmod79.bits (k + 39) = pellFSMmod79.bits k := by
-  intro k
-  show pellFSMmod79.out (pellFSMmod79.run (k + 39))
-      = pellFSMmod79.out (pellFSMmod79.run k)
-  rw [pellFSMmod79_run_period_39]
+    ∀ k, pellFSMmod79.bits (k + 39) = pellFSMmod79.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod79_run_period_39
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod79
 
@@ -324,11 +303,8 @@ theorem pellFSMmod89_run_period_22 :
     rw [ih]
 
 theorem pellFSMmod89_bits_period_22 :
-    ∀ k, pellFSMmod89.bits (k + 22) = pellFSMmod89.bits k := by
-  intro k
-  show pellFSMmod89.out (pellFSMmod89.run (k + 22))
-      = pellFSMmod89.out (pellFSMmod89.run k)
-  rw [pellFSMmod89_run_period_22]
+    ∀ k, pellFSMmod89.bits (k + 22) = pellFSMmod89.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod89_run_period_22
 
 theorem pellFSMmod89_bits_period_44 :
     ∀ k, pellFSMmod89.bits (k + 44) = pellFSMmod89.bits k := by
@@ -367,11 +343,8 @@ theorem pellFSMmod101_run_period_25 :
     rw [ih]
 
 theorem pellFSMmod101_bits_period_25 :
-    ∀ k, pellFSMmod101.bits (k + 25) = pellFSMmod101.bits k := by
-  intro k
-  show pellFSMmod101.out (pellFSMmod101.run (k + 25))
-      = pellFSMmod101.out (pellFSMmod101.run k)
-  rw [pellFSMmod101_run_period_25]
+    ∀ k, pellFSMmod101.bits (k + 25) = pellFSMmod101.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod101_run_period_25
 
 theorem pellFSMmod101_bits_period_50 :
     ∀ k, pellFSMmod101.bits (k + 50) = pellFSMmod101.bits k := by
