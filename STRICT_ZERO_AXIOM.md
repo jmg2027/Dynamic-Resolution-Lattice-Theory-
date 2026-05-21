@@ -555,3 +555,17 @@ verified `#print axioms` returns "does not depend on any axioms".
 | `E213.Lib.Math.Mobius213ModFive` | 9 | `P5_11/12/22_mod_5`, **`P_pow_5_eq_neg_I_mod_5`**, **`P_pow_10_eq_I_mod_5`**, `pentagonal_closure_signature` — consolidates G78's headline matrix-level claims |
 
 **Cumulative new PURE this session: ~68** across 8 new files + 3 doc updates.  All audit-verified.
+
+## 2026-05-22 — C3 chain Phase 1: Aut(K) as Type
+
+Phase 1 of the **C3 chain** (G87 §4) — lifting `Aut(K_{3,2}^{(c=2)})`
+from Nat-only `aut_order = 768` to a Lean `Type` via the explicit
+direct-product structure `Sym3 × Sym2 × C2_6`.  This is the
+foundational layer for downstream Group / module / representation
+work (Phases 2–6).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.AutKType` | 16 | `Sym3 := Fin 6`, `Sym2 := Fin 2`, `C2_6 := Fin 64`, **`Aut_K := Sym3 × Sym2 × C2_6`** as a Type; `DecidableEq` instances on all four; element constructors (`Sym3.max`, `Sym2.max`, `C2_6.max`, `Aut_K.max`, `Aut_K.one`, `Aut_K.mk`); **`component_cardinalities`** 12-conjunct bridge linking `fac NS`, `fac NT`, `2^(NS·NT)`, and `aut_order = external_order × internal_order = 768`; **`Aut_K_type_decomp`** Type-level decomposition; **`★ AutK_phase1_capstone`** — Phase-1 capstone bundling Type decomposition + identity + cardinality bridges |
+
+**Cumulative new PURE this session: +16** (Phase 1 of C3 chain).
