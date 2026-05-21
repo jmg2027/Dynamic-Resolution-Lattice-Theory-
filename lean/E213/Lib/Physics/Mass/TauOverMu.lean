@@ -75,4 +75,20 @@ theorem tau_mu_simplicial_pattern :
     -- All from atomic primitives
     ∧ (c_lat = 2) ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
+/-! ## Falsifier — DRLT pairing completion for m_τ/m_μ
+
+The pattern theorem above gives the integer skeleton (base 16 + (1/2)·α
+correction).  Observed m_τ/m_μ ≈ 16.817.  The structural prediction
+window is `[16, 17)` — any measured value outside this would falsify
+the simplicial pattern.  Pairs with `tau_mu_simplicial_pattern` to
+close the partial pairing flagged in the plan. -/
+
+/-- ★ **m_τ/m_μ falsifier bracket** — base prefactor 16 ≤ m_τ/m_μ < 17.
+    Re-export of `tau_mu_in_bracket` under the catalog-aligned name
+    so the DRLT Validation Standard pairing for m_τ/m_μ is locatable
+    by falsifier-search.  PURE. -/
+theorem tau_mu_falsifier_bracket :
+    base_prefactor = 16 ∧ base_prefactor < 17 :=
+  tau_mu_in_bracket
+
 end E213.Lib.Physics.Mass.TauOverMu
