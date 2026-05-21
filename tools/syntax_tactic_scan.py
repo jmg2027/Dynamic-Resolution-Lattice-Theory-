@@ -20,6 +20,9 @@ Usage:
 from __future__ import annotations
 import re, sys, pathlib, collections, argparse
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from lean_syntax_parse import find_decl_bodies, walk_e213_files  # noqa: E402
+
 ROOT      = pathlib.Path(__file__).resolve().parent.parent
 LEAN_DIR  = ROOT / "lean" / "E213"
 ROWS_PATH = ROOT / "tools" / "_syntax_tactic_rows.tsv"
@@ -39,69 +42,11 @@ TACTIC_NAMES = frozenset([
 ])
 
 
-def strip_comments(src: str) -> str:
-    """Strip /- ... -/ (one level of nesting) and -- line comments."""
-    out = []
-    i, depth = 0, 0
-    n = len(src)
-    while i < n:
-        c2 = src[i:i+2]
-        if depth == 0 and c2 == '/-':
-            depth = 1; i += 2
-        elif depth > 0 and c2 == '/-':
-            depth += 1; i += 2
-        elif depth > 0 and c2 == '-/':
-            depth -= 1; i += 2
-        elif depth == 0 and c2 == '--':
-            j = src.find('\n', i)
-            i = n if j == -1 else j
-        elif depth == 0:
-            out.append(src[i]); i += 1
-        else:
-            i += 1
-    return ''.join(out)
-
-
-DECL_KW = r'(?:theorem|lemma|def|example|instance)'
-DECL_HEAD_RE = re.compile(
-    r'^(?:@\[[^\]]*\]\s*|protected\s+|private\s+|noncomputable\s+|partial\s+|unsafe\s+|abbrev\s+)*'
-    + DECL_KW + r'\s+(?P<name>[A-Za-z_][\w\'.`]*)?',
-    re.MULTILINE
-)
-
-# Top-level boundaries that end a decl block
-BOUNDARY_RE = re.compile(
-    r'^(?:@\[[^\]]*\]\s*|protected\s+|private\s+|noncomputable\s+|partial\s+|unsafe\s+|abbrev\s+)*'
-    r'(?:' + DECL_KW + r'|namespace|end|section|open|variable|axiom|inductive|structure|class|export|attribute|import|#\w+)\b',
-    re.MULTILINE
-)
-
-BY_RE = re.compile(r':=\s*by\b')
-
 TACTIC_TOKEN_RE = re.compile(
     r'(?:(?<=\s)|(?<=;)|(?<=\|)|(?<=·)|(?<=>)|(?<==>)|^)'
     r'([a-z][a-z_]*)'
     r"(?:'|\b)"
 )
-
-
-def find_decl_bodies(src: str):
-    """Yield (name, body_after_by) for each `<kw> name ... := by <body>`
-    at top level.  Body terminates at next top-level boundary."""
-    src = strip_comments(src)
-    decl_positions = [(m.start(), m.group('name') or '_anon_')
-                      for m in DECL_HEAD_RE.finditer(src)]
-    boundaries = [m.start() for m in BOUNDARY_RE.finditer(src)]
-    boundaries.append(len(src))
-    for idx, (start, name) in enumerate(decl_positions):
-        # End = first boundary strictly after start (skipping start itself)
-        end = next((b for b in boundaries if b > start), len(src))
-        chunk = src[start:end]
-        by_match = BY_RE.search(chunk)
-        if not by_match:
-            continue
-        body = chunk[by_match.end():]
-        yield name, body
 
 
 def extract_tactic_seq(body: str) -> tuple[str, ...]:
@@ -115,14 +60,7 @@ def extract_tactic_seq(body: str) -> tuple[str, ...]:
 
 def scan_all() -> list[tuple[str, str, tuple[str, ...]]]:
     rows = []
-    for p in sorted(LEAN_DIR.rglob("*.lean")):
-        if p.name.startswith("_"):
-            continue
-        try:
-            src = p.read_text()
-        except UnicodeDecodeError:
-            continue
-        rel = p.relative_to(LEAN_DIR).as_posix()
+    for rel, src in walk_e213_files(LEAN_DIR):
         for name, body in find_decl_bodies(src):
             seq = extract_tactic_seq(body)
             if not seq:

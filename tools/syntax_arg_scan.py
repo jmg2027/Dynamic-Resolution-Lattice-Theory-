@@ -1,0 +1,358 @@
+#!/usr/bin/env python3
+"""Tier-1.5 tactic-argument scanner for E213.
+
+Extracts argument patterns from tactic bodies:
+  (B) `rw [a, b, c]` / `simp only [...]` / `rewrite [...]` /
+      `simp_rw [...]`  — lemma citations (dependency-graph hint).
+      Also captures `apply <name>` and `exact <name>` heads.
+  (C) `induction <x> (with | ... =>)?` — induction target + case
+      tags.
+      `cases <h> (with | ... =>)?` — same.
+      `obtain ⟨...⟩ := ...` — destructuring shape (token count +
+      pattern).
+
+Emits a citation TSV (`rel\tdecl\tkind\tname`) and a shape TSV
+(`rel\tdecl\tconstruct\tdetail`), then prints:
+  · top cited lemmas (frequency + by distinct caller)
+  · top citations missing from E213 (probably Lean / std)
+  · induction-variable popularity + case-count distribution
+  · top obtain destructuring shapes
+
+Usage:
+    tools/syntax_arg_scan.py
+    tools/syntax_arg_scan.py --report-only
+"""
+from __future__ import annotations
+import re, sys, pathlib, collections, argparse
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from lean_syntax_parse import find_decl_bodies, walk_e213_files  # noqa: E402
+
+ROOT      = pathlib.Path(__file__).resolve().parent.parent
+LEAN_DIR  = ROOT / "lean" / "E213"
+CITE_PATH = ROOT / "tools" / "_syntax_arg_cites.tsv"
+SHAPE_PATH = ROOT / "tools" / "_syntax_arg_shapes.tsv"
+
+
+# ---------- (B) citation extraction ----------
+
+# Header keywords whose arg list is a lemma-bracket: `rw [..]`,
+# `rewrite [..]`, `simp only [..]`, `simp_rw [..]`, `simp_all only
+# [..]`.  We require the `[` immediately after the (possibly
+# multi-word) header.
+BRACKET_HDR_RE = re.compile(
+    r'\b(rw|rewrite|simp_rw|simp_all_rw)\s*\['
+    r'|\b(simp)(?:_all)?\s+only\s*\['
+    r'|\b(simp_all|simp)\s*\['
+)
+
+# Apply / exact heads (just the leading identifier, dotted path OK).
+APPLY_HEAD_RE = re.compile(r'\bapply\s+([A-Za-z_][\w\'.]*)')
+EXACT_HEAD_RE = re.compile(r'\bexact\s+([A-Za-z_][\w\'.]*)')
+REFINE_HEAD_RE = re.compile(r'\brefine\s+([A-Za-z_][\w\'.]*)')
+
+
+def balance_brackets(src: str, start: int) -> int:
+    """Given src[start] == '[', return idx of the matching ']'."""
+    depth = 1; j = start + 1
+    n = len(src)
+    while j < n and depth > 0:
+        c = src[j]
+        if c == '[': depth += 1
+        elif c == ']': depth -= 1
+        j += 1
+    return j  # one past the ']'
+
+
+def split_top_level(content: str, sep: str = ',') -> list[str]:
+    items, cur = [], []
+    dp = db = dc = da = 0  # paren / brack / brace / angle (⟨⟩)
+    for c in content:
+        if c == '(': dp += 1
+        elif c == ')': dp -= 1
+        elif c == '[': db += 1
+        elif c == ']': db -= 1
+        elif c == '{': dc += 1
+        elif c == '}': dc -= 1
+        elif c == '⟨': da += 1
+        elif c == '⟩': da -= 1
+        if c == sep and dp == db == dc == da == 0:
+            items.append(''.join(cur).strip()); cur = []
+        else:
+            cur.append(c)
+    if cur:
+        items.append(''.join(cur).strip())
+    return items
+
+
+HEAD_NAME_RE = re.compile(r'([A-Za-z_][\w\'.]*)')
+
+
+def parse_lemma_head(item: str) -> str | None:
+    s = item.lstrip()
+    # Skip `← ` (backward) and `show ... from ...` prefixes
+    while s and s[0] in '←↑':
+        s = s[1:].lstrip()
+    if s.startswith('show '):
+        # `show <T> from <name>` — head identifier after `from`
+        m = re.search(r'\bfrom\s+([A-Za-z_][\w\'.]*)', s)
+        return m.group(1) if m else None
+    m = HEAD_NAME_RE.match(s)
+    return m.group(1) if m else None
+
+
+def extract_citations(rel: str, name: str, body: str):
+    """Yield (kind, lemma_head) tuples for every citation."""
+    # Bracket-list tactics: rw, rewrite, simp_rw, simp only, simp_all only
+    i = 0
+    while i < len(body):
+        m = BRACKET_HDR_RE.search(body, i)
+        if not m:
+            break
+        # find `[` start (at m.end() - 1 since regex includes the `[`)
+        lb = body.find('[', m.start())
+        if lb == -1 or lb >= len(body):
+            i = m.end(); continue
+        rb = balance_brackets(body, lb)
+        content = body[lb+1:rb-1]
+        kind = next(g for g in m.groups() if g)
+        for item in split_top_level(content):
+            head = parse_lemma_head(item)
+            if head:
+                yield (kind, head)
+        i = rb
+
+    # Single-name tactics: apply / exact / refine
+    for m in APPLY_HEAD_RE.finditer(body):
+        yield ('apply', m.group(1))
+    for m in EXACT_HEAD_RE.finditer(body):
+        yield ('exact', m.group(1))
+    for m in REFINE_HEAD_RE.finditer(body):
+        yield ('refine', m.group(1))
+
+
+# ---------- (C) construct shape extraction ----------
+
+INDUCTION_RE = re.compile(r'\binduction\s+([A-Za-z_][\w\'.]*)')
+CASES_RE     = re.compile(r'\bcases\s+([A-Za-z_][\w\'.]*)')
+OBTAIN_RE    = re.compile(r'\bobtain\s+(⟨)')
+
+
+def find_with_block(body: str, idx: int) -> list[str]:
+    """If `with` follows at position idx (after stripping whitespace),
+    parse the immediately-following case-tag block.  Returns list of
+    case tags after `|`."""
+    tail = body[idx:]
+    m = re.match(r'\s+with\b', tail)
+    if not m:
+        return []
+    after = tail[m.end():]
+    # Heuristic: collect tags `| Foo =>` until either next top-level
+    # tactic keyword on a fresh-bullet line or end of immediate block.
+    tags = []
+    for cm in re.finditer(r'\|\s*([A-Za-z_][\w\'.]*)', after):
+        tags.append(cm.group(1))
+        # bail out at 200 chars or after 12 cases for safety
+        if cm.end() > 4000 or len(tags) >= 12:
+            break
+    return tags
+
+
+def extract_obtain_pattern(body: str, start_angle: int) -> str:
+    """Balance ⟨ ⟩ starting at start_angle.  Return the literal pattern."""
+    depth = 0; j = start_angle
+    while j < len(body):
+        c = body[j]
+        if c == '⟨': depth += 1
+        elif c == '⟩':
+            depth -= 1
+            if depth == 0:
+                return body[start_angle:j+1]
+        j += 1
+    return ''
+
+
+def classify_obtain(pat: str) -> str:
+    """Normalise an obtain pattern to a shape string: e.g.
+    `⟨a, b⟩` -> `⟨_,_⟩`, `⟨a, ⟨b, c⟩⟩` -> `⟨_,⟨_,_⟩⟩`."""
+    out = []
+    for c in pat:
+        if c in '⟨⟩,':
+            out.append(c)
+    return ''.join(out).replace('', '').replace(' ', '')
+
+
+def extract_shapes(rel: str, name: str, body: str):
+    """Yield (construct, detail) tuples."""
+    for m in INDUCTION_RE.finditer(body):
+        var = m.group(1)
+        tags = find_with_block(body, m.end())
+        yield ('induction', f'{var}\t{len(tags)}\t{",".join(tags)}')
+    for m in CASES_RE.finditer(body):
+        var = m.group(1)
+        tags = find_with_block(body, m.end())
+        yield ('cases', f'{var}\t{len(tags)}\t{",".join(tags)}')
+    for m in OBTAIN_RE.finditer(body):
+        pat = extract_obtain_pattern(body, m.start(1))
+        if pat:
+            shape = classify_obtain(pat)
+            yield ('obtain', f'{len(shape)}\t{shape}')
+
+
+# ---------- scan loop + reporting ----------
+
+def scan_all():
+    cites, shapes = [], []
+    for rel, src in walk_e213_files(LEAN_DIR):
+        for name, body in find_decl_bodies(src):
+            for kind, lemma in extract_citations(rel, name, body):
+                cites.append((rel, name, kind, lemma))
+            for ctype, detail in extract_shapes(rel, name, body):
+                shapes.append((rel, name, ctype, detail))
+    return cites, shapes
+
+
+def write_tsv(rows, path):
+    path.write_text("\n".join("\t".join(r) for r in rows) + "\n")
+
+
+def read_cites(path):
+    rows = []
+    for line in path.read_text().splitlines():
+        parts = line.split('\t', 3)
+        if len(parts) == 4:
+            rows.append(tuple(parts))
+    return rows
+
+
+def read_shapes(path):
+    rows = []
+    for line in path.read_text().splitlines():
+        parts = line.split('\t', 3)
+        if len(parts) == 4:
+            rows.append(tuple(parts))
+    return rows
+
+
+def report(cites, shapes):
+    # ---- (B) citation summary ----
+    print(f"# Citations extracted: {len(cites)}")
+    print(f"# Distinct cited names: {len({c[3] for c in cites})}")
+    print()
+
+    by_kind = collections.Counter(c[2] for c in cites)
+    print("## Citations by tactic kind")
+    for k, n in by_kind.most_common():
+        print(f"  {k:<14} {n}")
+    print()
+
+    freq = collections.Counter(c[3] for c in cites)
+    callers = collections.defaultdict(set)
+    for rel, decl, _, lemma in cites:
+        callers[lemma].add((rel, decl))
+
+    print("## Top 30 cited lemmas (by total occurrences)")
+    for lem, n in freq.most_common(30):
+        nc = len(callers[lem])
+        print(f"  {n:>5}  ({nc:>4} callers)  {lem}")
+    print()
+
+    print("## Top 20 cited lemmas (by distinct callers)")
+    rank = sorted(callers.items(), key=lambda kv: -len(kv[1]))[:20]
+    for lem, cs in rank:
+        print(f"  {len(cs):>4} callers   total {freq[lem]:>5}   {lem}")
+    print()
+
+    # External vs internal
+    e213 = sum(1 for l in freq if l.startswith('E213') or '.' in l and l.split('.')[0] == 'E213')
+    print(f"## E213-internal vs external citations")
+    is_e213 = lambda l: l.startswith('E213.')
+    internal = sum(c for l, c in freq.items() if is_e213(l))
+    external = sum(c for l, c in freq.items() if not is_e213(l))
+    print(f"  E213.* names cited:   {internal:>6}  ({100*internal/(internal+external):.1f}%)")
+    print(f"  External (Nat/List/Lean core): {external:>6}  ({100*external/(internal+external):.1f}%)")
+    print()
+
+    # ---- (C) construct shapes ----
+    print(f"# Construct shape rows: {len(shapes)}")
+    ctypes = collections.Counter(s[2] for s in shapes)
+    for k, n in ctypes.most_common():
+        print(f"  {k:<14} {n}")
+    print()
+
+    # induction targets
+    ind_rows = [s for s in shapes if s[2] == 'induction']
+    ind_vars = collections.Counter()
+    ind_cases = collections.Counter()
+    ind_tagsets = collections.Counter()
+    for _, _, _, detail in ind_rows:
+        parts = detail.split('\t', 2)
+        if len(parts) == 3:
+            var, ncases, tags = parts
+            ind_vars[var] += 1
+            ind_cases[int(ncases)] += 1
+            if tags:
+                ind_tagsets[tags] += 1
+    print("## Top induction target variables")
+    for v, n in ind_vars.most_common(15):
+        print(f"  {n:>4}   induction {v}")
+    print()
+    print("## Induction `with` block case-count distribution")
+    for nc in sorted(ind_cases):
+        print(f"  with-{nc:<2} cases: {ind_cases[nc]}")
+    print()
+    print("## Top induction case-tag sets")
+    for tags, n in ind_tagsets.most_common(10):
+        print(f"  x{n:<3}   with | {' | '.join(tags.split(','))}")
+    print()
+
+    # cases targets
+    cas_rows = [s for s in shapes if s[2] == 'cases']
+    cas_tagsets = collections.Counter()
+    cas_vars = collections.Counter()
+    for _, _, _, detail in cas_rows:
+        parts = detail.split('\t', 2)
+        if len(parts) == 3:
+            v, _, tags = parts
+            cas_vars[v] += 1
+            if tags:
+                cas_tagsets[tags] += 1
+    print("## Top `cases` target variables")
+    for v, n in cas_vars.most_common(15):
+        print(f"  {n:>4}   cases {v}")
+    print()
+    print("## Top `cases ... with` tag sets")
+    for tags, n in cas_tagsets.most_common(10):
+        print(f"  x{n:<3}   with | {' | '.join(tags.split(','))}")
+    print()
+
+    # obtain patterns
+    obt_rows = [s for s in shapes if s[2] == 'obtain']
+    obt_shapes = collections.Counter()
+    for _, _, _, detail in obt_rows:
+        parts = detail.split('\t', 1)
+        if len(parts) == 2:
+            obt_shapes[parts[1]] += 1
+    print("## Top `obtain` destructuring shapes")
+    for s, n in obt_shapes.most_common(15):
+        print(f"  x{n:<4}  {s}")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--report-only", action="store_true",
+                    help="reuse cached TSV files")
+    args = ap.parse_args()
+    if args.report_only:
+        cites = read_cites(CITE_PATH)
+        shapes = read_shapes(SHAPE_PATH)
+    else:
+        cites, shapes = scan_all()
+        write_tsv(cites, CITE_PATH)
+        write_tsv(shapes, SHAPE_PATH)
+    report(cites, shapes)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
