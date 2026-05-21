@@ -1,8 +1,22 @@
 # Session Handoff — 2026-05-21 (Theorem-density reduction pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 153 session
-commits (261 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 160 session
+commits (268 total ahead of `main`).  All commits pushed.
+
+## 7-thm batch (latest wave)
+
+Additional 7-thm-file reductions:
+  · Simplex/Generations 7→1, GenerationStructure 7→1
+  · Mixing/CabibboAngle 7→1
+  · AlphaEM/GramHigherOrder 7→1
+  · Nuclear/Shells 7→1
+  · AtomicBase/Phase1Bridge 7→1
+  · AtomicBase/Lens 7→1
+  · AtomicBase/Force 7→1
+
+Combined session totals: ~825 theorems folded into ~190 masters
+across 80+ files.
 
 ## Final extension (post-720)
 
