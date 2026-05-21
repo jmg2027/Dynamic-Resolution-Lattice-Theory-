@@ -704,6 +704,32 @@ The third standard pair requires the tree-decomp row e_3 and lives
 in the remaining 2-dim subspace; constructing it explicitly is a
 future refinement.
 
+## 2026-05-22 — C3 chain Phase 11: Sym(3) as a proper Group on Fin 6
+
+Phase 11 of the **C3 chain** — promotes Sym(3) from a flat
+enumeration (Fin 6) to a **proper Group** via an explicit Cayley
+table.  This completes the structural lift of Sym(3) — the
+external factor of `Aut(K_{3,2}^{(c=2)})` — from "6-element set"
+to "group with explicit multiplication, identity, inverses, and
+associativity".
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3Group` | 17 | `Sym3 := Fin 6` (abbrev for instance transfer); 6 named elements `e, a, b, c, x, y` encoding identity / 3 transpositions / 2 3-cycles; **`Sym3.mul`** — explicit 36-entry Cayley table via match on `(i.val, j.val)`; **`Sym3.inv`** with transpositions self-inverse and `x ↔ y`; group axioms **`★ one_mul`**, **`★ mul_one`**, **`★ inv_mul`**, **`★ mul_inv`** (decide on all 6 cases) and **`★ mul_assoc`** (216-case decide); Cayley relations `a² = b² = c² = e`, `x³ = y³ = e`, `(ba)³ = e` (standard S_3 presentation); definitional bridges `x = b·a`, `y = a·b`, `y = x²`; `★ non_abelian` proving `a·b ≠ b·a`; **`★ Sym3Group_phase11_capstone`** — 11-conjunct Phase-11 capstone |
+
+**Cumulative new PURE this session: +157** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 across 11 phases of C3 chain).
+
+The C3 chain through Phase 11 provides the complete Group-theoretic
+structure for the external factor of `Aut(K_{3,2}^{(c=2)})`:
+  · Sym(3) as Type (Phase 1) — 6 elements
+  · Sym(3) as Group (Phase 11) — proper multiplication, axioms
+
+The remaining external factor Sym(2) = Fin 2 has trivial Group
+structure (= ℤ/2 = Bool with XOR); the internal factor C_2^6 = Fin 64
+is the 6-fold direct product of ℤ/2.  Combining all three into a
+full Aut(K) Group structure would be the semidirect
+`(Sym(3) × Sym(2)) ⋉ C_2^6` per AutKChiral's docstring.
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
