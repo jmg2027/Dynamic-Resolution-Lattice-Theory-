@@ -684,3 +684,51 @@ The branch can be either:
     parallel substantive branches consult.
 
 Either way, G107 is the canonical entry-point.
+
+---
+
+## §12.  Real213 / Analysis-specific items (G108 augmentation)
+
+G108 deep-dive into Real213 + Analysis subtrees surfaced 6
+abstraction candidates + 6 follow-up research questions specific
+to this Tier-2 sub-area.  Cross-referenced here for executor
+convenience.
+
+### Abstraction candidates (G108 §11)
+
+| ID | Source | Description | Mass | Effort |
+|----|--------|-------------|------|--------|
+| **REAL-1** | G108 §11 | `cutMulInner/Outer_eq_true_iff` pair (Real213.Mul.CutMulComm) | ~140K nodes | medium marathon |
+| **REAL-2** | G108 §11 | `cutSumAux/cutSum_diff_denom_forward` pair (Real213.Sum) | ~70K nodes | medium marathon |
+| **REAL-3** | G108 §11 | `bisectN_collapsed_*` family if multi-instance | small marathon | short investigation first |
+| **REAL-4** | G108 §11 | `IsResolutionShift_*` instance audit (likely already typeclass-factored) | short | audit |
+| **REAL-5** | G108 §11 | √N Cut representation extending PhiCut pattern | medium | overlaps RES1 |
+| **REAL-6** | G108 §11 | `IsDifferentiable` instance chain audit | short | audit |
+
+### Follow-up research questions (G108 §10)
+
+| ID | Source | Description | Effort |
+|----|--------|-------------|--------|
+| **REAL-RES1** | G108 §10 | Generalise PhiCut → √N family via Pell-like recurrences | 3-5 sessions |
+| **REAL-RES2** | G108 §10 | Full ring axioms on `stdCutAlgebra` | 5-7 sessions |
+| **REAL-RES3** | G108 §10 | ResolutionShift graded-monoid expansion (`cutMul`, `cutPow`, `cutInv` grades) | 2-3 sessions |
+| **REAL-RES4** | G108 §10 | FluxMVT 22-file sub-subtree deep-dive (would be G109) | 1-2 sessions |
+| **REAL-RES5** | G108 §10 | Cross-domain identification scan (modified callgraph scanner) | 1-2 sessions |
+| **REAL-RES6** | G108 §10 | Bishop ↔ DRLT comparison formalisation (would be G110) | 3-5 sessions |
+
+### Pattern candidate (G108 §12)
+
+**Pattern #14 — framework-internal subsumption**: when a framework's
+internal structure subsumes an external program (e.g., DRLT's
+AsLensOutput doctrine subsuming Bishop's constructive ℝ).
+Document as 4th Pattern candidate to add to LESSONS_LEARNED.
+
+### Recommended next session (G108 §13)
+
+  · Most information-dense: **REAL-RES4 (G109 FluxMVT)** — 1-2
+    sessions to characterise 22 files.
+  · Highest doctrinal value: **REAL-RES6 (G110 Bishop comparison)** —
+    formalises a positioning claim DRLT has been making
+    informally.
+  · Most direct mass reduction: **REAL-1 + REAL-2** combined
+    marathon — ~210K Expr nodes retired across 4 heavy decls.
