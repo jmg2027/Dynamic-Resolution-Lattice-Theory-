@@ -624,6 +624,29 @@ the full Sym(3) Cayley structure at the H1K 8×8 matrix level.
 
 **Cumulative new PURE this session: +100** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 + 7 Phase 5 + 14 Phase 6 of C3 chain).
 
+## 2026-05-22 — C3 chain Phase 7: ι: K → Δ⁴ + gluon octet identification
+
+Phase 7 of the **C3 chain** — the inclusion `ι: K_{3,2}^{(c=2)} → Δ⁴`,
+the cochain pullback `ι#: CochE(Δ⁴) → CochE(K)`, the cohomology
+descent `ι*: H¹(Δ⁴) → H¹(K)`, and the **gluon octet identification**
+`coker ι* = H¹(K) ≃ (F_2)^8`.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.IotaKToDelta4` | 10 | **`ι_edge : Fin 12 → Fin 10`** collapsing both multiplicities of each S-T pair to the underlying colex-indexed Δ⁴ edge (6-way pairing 2k ↔ 2k+1); `ι_edge_collapses_multiplicities`; `ι_edge_image_complement` — image omits {0, 1, 2, 9} (3 S-S edges + 1 T-T edge); cochain pullback **`ι_pullback : Cochain 5 2 → CochE`**; `ι_pullback_all_true`, `ι_pullback_edge3` sanity; **`★ kerSize_delta_5_2 = 16`** — direct 1024-case decide enumeration of `Cochain 5 2` (with `maxRecDepth 2048`) establishing `H¹(Δ⁴) = 0` (16 cocycles = 16 coboundaries since `\|im δ⁰\| = 2^(5-1) = 16`); `H1_delta4_trivial_card` 4-conjunct cardinality bridge; `ι_star_zero_on_zero` — ι* of zero is zero; `cardH1K_eq_256` cross-link to V32Betti; **`★ gluon_octet_identification`** — 5-conjunct bridge `\|coker ι*\| = \|H¹(K)\| / \|im ι*\| = 256 / 1 = 2^8`; **`★ IotaKToDelta4_phase7_capstone`** — 12-conjunct Phase-7 capstone bundling embedding + image + H¹(Δ⁴) = 0 + ι* = 0 + gluon octet identification |
+
+**Cumulative new PURE this session: +110** (16 + 25 + 22 + 16 + 7 + 14 + 10 across 7 phases of C3 chain).
+
+The C3 chain through Phase 7 establishes the full **gauge-emergence
+narrative**: from `Aut(K)` Type (Phase 1) through Sym(3) representation
+on H¹(K) at the explicit matrix level (Phases 3–6) to the **gluon
+octet identification** `H¹(K) ≃ (F_2)^8 = coker ι*` (Phase 7).
+
+Physics reading: the 8 generators of H¹(K) are the 8 cycles in
+K_{3,2}^{(c=2)} that **remain non-trivial after embedding into the
+contractible Δ⁴** — match the 8 gluons of the SU(3) adjoint
+representation (the QCD octet).
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
