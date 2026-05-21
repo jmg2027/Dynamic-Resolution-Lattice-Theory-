@@ -1,8 +1,8 @@
 # Session Handoff — 2026-05-20 (Deep philosophical revision pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 95 session
-commits (203 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 102 session
+commits (210 total ahead of `main`).  All commits pushed.
 
 ## Session summary
 
@@ -192,6 +192,15 @@ AlphaEM/, Geometry/, Nuclear/):
   · Wave 24: Couplings/PhotonKernel 9 → 2 (kept `b_1_eq_8`
     standalone for external use: 12+ refs across AlphaEMBridge,
     V32Betti, DiamondShape, Linalg213, HodgeConjecture, YangMills)
+  · Wave 25: Couplings/TripleCoupling 16 → 1
+  · Wave 26: HodgeConjecture/Bridge/MotiveEtaleFusion 54 → 1
+    (~50-conjunct master covers all per-bidegree facts)
+  · Wave 27: HodgeConjecture/Bridge/Ising 36 → 1
+  · Wave 28: HodgeConjecture/Bridge/Potts 38 → 1
+  · Wave 29: AlphaEM/GradedDecomposition 18 scaffolds → master alone
+  · Wave 30: AlphaEM/Brackets 19 → 4 (3 masters + 1 extended)
+  · Wave 31: AlphaEM/ProjectionRatios 18 scaffolds → master alone
+  · Wave 32: AlphaEM/Capstone UnifiedSum 9 → 2 masters
 
 Verified-and-skipped candidates:
   · universalMorphism_a/_b (heavily externally used)
