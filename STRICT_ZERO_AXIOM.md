@@ -601,4 +601,29 @@ level group structure to cohomology-level group representation.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3OnH1K` | 16 | Vertex permutations **`φ_V_S01`**, **`φ_V_S12`** (Fin 5 → Fin 5) compatible with the edge transpositions; involution properties `φ_V_S01_involution`, `φ_V_S12_involution`; **src/tgt equivariance** `src_equiv_S01`, `tgt_equiv_S01`, `src_equiv_S12`, `tgt_equiv_S12` (decide-verified edge by edge); vertex-cochain pullback action `φ_act_V`; **`★ delta0_equiv_S01`**, **`★ delta0_equiv_S12`** — pointwise δ⁰ equivariance theorems (no funext); coboundary preservation `σ_S01_preserves_coboundaries`, `σ_S12_preserves_coboundaries` establishing well-defined descent to H¹(K); explicit non-tree edge behavior `σ_S01_nontree_1/3/6_to_tree/7`, `σ_S01_fixes_S2` documenting the basis-decomposition structure (some non-tree → tree transitions require coboundary correction); **`★ Sym3OnH1K_phase4_capstone`** — 10-conjunct Phase-4 capstone bundling all equivariance + descent data |
 
-**Cumulative new PURE this session: +79** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 of C3 chain).
+## 2026-05-22 — C3 chain Phase 5: Sym(3) representation matrix on H1K basis
+
+Phase 5 of the **C3 chain** — computes the **explicit 8×8 matrix**
+of σ_S01 acting on the H1K basis (the 8 non-tree edge classes),
+with tree-decomposition witness for the exceptional row and full
+matrix involution verification.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix` | 7 | Explicit 8×8 matrix **`M_S01 : Fin 8 → H1K`** with 7 basis-to-basis permutation rows and 1 exceptional row (e_3 ↦ e_1 + e_3 + e_4 + e_6 + e_7) from tree-decomposition; **`v_tree_witness`** vertex cochain `(0,0,0,0,1)` providing the coboundary that resolves the non-tree → tree transition; **`delta0_v_tree_at_each_edge`** — 12-conjunct decide-bridge verifying which edges have tgt = vertex 4 (i.e. T_1); matrix-matrix product **`M_mul_M`** and **`★ M_S01_squared_pointwise`** — full involution verification at the matrix level (`M_S01 · M_S01 = IdMatrix`) on all 64 entries via decide; `boolTrace`, `intTrace` operations; **`boolTrace_M_S01 = false`** (mod-2 character); **`intTrace_M_S01 = 4`** (count of fixed basis vectors: e_3 diag, e_5, e_6, e_7); **`★ Sym3OnH1KMatrix_phase5_capstone`** — 11-conjunct Phase-5 capstone |
+
+**Cumulative new PURE this session: +86** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 + 7 Phase 5 of C3 chain).
+
+The C3 chain through Phase 5 establishes:
+  · Aut(K) as a Type with cardinality 768 (Phase 1)
+  · H¹(K) as an explicit rank-8 ℤ/2-module (Phase 2)
+  · Sym(3) generators acting on K-edges with full Cayley structure (Phase 3)
+  · δ⁰ equivariance ⇒ well-defined descent to H¹(K) (Phase 4)
+  · Explicit 8×8 representation matrix with involution check (Phase 5)
+
+Remaining for the gauge-emergence narrative:
+  · Phase 6: σ_S12 representation matrix + ⟨σ_S01, σ_S12⟩ Cayley
+    structure on H1K
+  · Phase 7: Sym(3)-irrep decomposition over F_2 (modular case
+    where 1 = sign, hence fewer irreducibles than over Q)
+  · Phase 8: ι*: H¹(Δ⁴) → H¹(K) and connection to SU(3) adjoint
