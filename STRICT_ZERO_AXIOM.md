@@ -765,6 +765,23 @@ Combined with Phases 1-11, the C3 chain now provides:
   · Sym(3) as Cayley Group (Phase 11)
   · Aut(K) as direct-product Group (Phase 12)
 
+## 2026-05-22 — C3 chain master capstone (single bundle)
+
+`E213.Lib.Physics.Symmetry.C3ChainCapstone` — a single bundle
+theorem `★★★★★ c3_chain_master` consolidating the headline
+results from all 12 phases into one 12-conjunct statement.  PURE.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.C3ChainCapstone` | 1 | **`★★★★★ c3_chain_master`** — 12-conjunct end-to-end gauge-emergence master: Aut(K) cardinality 768, Aut(K) Group identity, Sym(3) non-abelian, H¹(K) rank 8, M_S01 matrix involution, ι embedding multiplicity-collapse, H¹(Δ⁴) = 0 (|ker δ¹| = 16), Sym(3)-equivariance of ι, fixed subspace dim 2, composition multiplicities a + 2b = 8 (a=2, b=3), explicit standard 2-rep verification, cardinality |H¹(K)| = 2⁸ = 256 |
+
+**Cumulative new PURE this session: +173** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 + 15 + 1 across 12 phases + 1 capstone of C3 chain).
+
+The **single master theorem `c3_chain_master`** in
+`C3ChainCapstone.lean` serves as the downstream-ready reference
+for the gauge-emergence narrative.  Imports all 12 phase modules
+and bundles their headline results.
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
