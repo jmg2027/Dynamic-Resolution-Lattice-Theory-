@@ -578,4 +578,15 @@ explicit ℤ/2-module of rank 8 with named cycle-generator basis.
 |---|---|---|
 | `E213.Lib.Math.Cohomology.Bipartite.H1K` | 25 | **`H1K := Fin 8 → Bool`** as the rank-8 ℤ/2-module; ℤ/2-module operations `zero`, `add` (pointwise xor), `smul` (pointwise and); pointwise module axioms `zero_add`, `add_zero`, `add_self` (char-2), `add_assoc`, `add_comm`, `zero_smul`, `one_smul` (all PURE via pointwise form avoiding funext/`Quot.sound`); 8 basis vectors `H1K.basis i` with `basis_self`, `basis_other` characterisation; `nonTreeEdges`, `nonTreeEdge` mapping H1K-coordinates to the 8 non-tree edges {1, 3, 5, 6, 7, 9, 10, 11} (spanning tree {0, 2, 4, 8}); `nonTreeEdge_enumeration` 8-conjunct decide-bridge; `H1K.rank = 8 = NS² − 1` cross-links to `V32Betti.b_1_eq_8` and `PhotonKernel.b_1_eq_8`; `H1K_basis_distinct`; `H1K_count_bridge` `\|H1K\| = 2⁸ = 256`; **`★ H1K_phase2_capstone`** — Phase-2 capstone bundling Type definition + module axioms + basis + cardinality bridges |
 
-**Cumulative new PURE this session: +41** (16 Phase 1 + 25 Phase 2 of C3 chain).
+## 2026-05-22 — C3 chain Phase 3: Sym(3) action on K_{3,2} edges
+
+Phase 3 of the **C3 chain** — constructs the external Sym(3)
+factor of Aut(K_{3,2}^{(c=2)}) acting on the 12 edges via two
+transposition generators (σ_S01, σ_S12) and verifies the full
+Cayley structure.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3OnKEdges` | 22 | Two transposition generators **`σ_S01`**, **`σ_S12`** acting on `Fin 12` K-edges (swap S0↔S1, S1↔S2 respectively); third transposition **`σ_S02 := σ_S01 ∘ σ_S12 ∘ σ_S01`** by conjugation; 3-cycle **`ρ_S := σ_S12 ∘ σ_S01`** and `ρ_S_sq`; involution properties `σ_S01_involution`, `σ_S12_involution`, `σ_S02_involution`; order-3 properties `ρ_S_order_3`, `ρ_S_sq_order_3`; Cayley relations `σ_S01_ρ` (= σ_S02), `ρ_compose` (ρ² = ρ·ρ); edge-cochain pullback action `σ_act_E` with pointwise involution `σ_act_E_S01_involution`, `σ_act_E_S12_involution` (no funext); specific edge mappings as sanity checks; **`★ Sym3OnKEdges_phase3_capstone`** bundling all generator + Cayley + action data |
+
+**Cumulative new PURE this session: +63** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 of C3 chain).
