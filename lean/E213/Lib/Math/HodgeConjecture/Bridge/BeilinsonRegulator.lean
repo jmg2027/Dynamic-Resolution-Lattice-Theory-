@@ -58,26 +58,11 @@ def regulatorΔ (n : Nat) : Nat :=
 /-- K_{3,2}^{(c=2)} regulator: vertex-stratum × edge-stratum det. -/
 def regulatorK : Nat := (NS + NT) * (NS * NT * 2)
 
-/-! §4  Concrete witnesses on Δ⁴ and K_{3,2}^{(c=2)}. -/
+/-! §4  ★★★★★ Beilinson Regulator²¹³ capstone — STRICT ∅-AXIOM by decide.
 
-theorem zetaΔ_delta4_at_0 : zetaΔ 5 0 = 32  := by decide
-theorem zetaΔ_delta4_at_1 : zetaΔ 5 1 = 112 := by decide
-theorem zetaΔ_delta4_at_2 : zetaΔ 5 2 = 432 := by decide
-theorem regulatorΔ_delta4 : regulatorΔ 5 = 2500 := by decide
-theorem zetaK_at_0 : zetaK 0 = 17 := by decide
-theorem zetaK_at_1 : zetaK 1 = 29 := by decide
-theorem regulatorK_eq : regulatorK = 60 := by decide
-
-/-! §5  Atomic-Gram structure: diagonal entries = true, off-diag = false. -/
-
-theorem gram_delta4_diag_2_0 : atomicΔ 5 2 ⟨0, by decide⟩ ⟨0, by decide⟩ = true  := by decide
-theorem gram_delta4_diag_2_9 : atomicΔ 5 2 ⟨9, by decide⟩ ⟨9, by decide⟩ = true  := by decide
-theorem gram_delta4_off_2_01 : atomicΔ 5 2 ⟨0, by decide⟩ ⟨1, by decide⟩ = false := by decide
-theorem gram_K_diag_0  : atomicK ⟨0, by decide⟩  ⟨0, by decide⟩  = true  := by decide
-theorem gram_K_diag_11 : atomicK ⟨11, by decide⟩ ⟨11, by decide⟩ = true  := by decide
-theorem gram_K_off_0_5 : atomicK ⟨0, by decide⟩  ⟨5, by decide⟩  = false := by decide
-
-/-! §6  ★★★★★ Beilinson Regulator²¹³ capstone — STRICT ∅-AXIOM by decide. -/
+    Bundles trajectory ζ-values, regulator determinants, Beilinson
+    trace identities, AND atomic-Gram diagonal / off-diagonal structure
+    on both Δ⁴ and K_{3,2}^{(c=2)}. -/
 
 theorem beilinson_regulator_213_capstone :
     -- Δ⁴ trajectory zeta values
@@ -90,7 +75,16 @@ theorem beilinson_regulator_213_capstone :
     -- K_{3,2}^{(c=2)} trajectory zeta values
     ∧ zetaK 0 = 17 ∧ zetaK 1 = 29 ∧ regulatorK = 60
     -- Beilinson trace identity on K_{3,2}^{(c=2)}
-    ∧ zetaK 0 = (NS + NT) + (NS * NT * 2) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ zetaK 0 = (NS + NT) + (NS * NT * 2)
+    -- Atomic-Gram diagonal entries on Δ⁴ (self-orthogonal indicators)
+    ∧ atomicΔ 5 2 ⟨0, by decide⟩ ⟨0, by decide⟩ = true
+    ∧ atomicΔ 5 2 ⟨9, by decide⟩ ⟨9, by decide⟩ = true
+    -- Atomic-Gram off-diagonal entry on Δ⁴ (distinct indicators orthogonal)
+    ∧ atomicΔ 5 2 ⟨0, by decide⟩ ⟨1, by decide⟩ = false
+    -- Atomic-Gram diagonal / off-diagonal on K_{3,2}^{(c=2)}
+    ∧ atomicK ⟨0, by decide⟩  ⟨0, by decide⟩  = true
+    ∧ atomicK ⟨11, by decide⟩ ⟨11, by decide⟩ = true
+    ∧ atomicK ⟨0, by decide⟩  ⟨5, by decide⟩  = false := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.HodgeConjecture.Bridge.BeilinsonRegulator
