@@ -597,4 +597,24 @@ def gcdFuel : Nat → Nat → Nat → Nat
 /-- 213-native gcd.  `rfl` reduces closed terms; ∅-axiom. -/
 def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
 
+/-- `Nat.max` commutativity — PURE replacement for `Nat.max_comm`
+    (Lean-core proof brings propext via Iff-chain derivation).
+
+    Signature uses `max` (the `Max` typeclass call) to match
+    Lean-core's `Nat.max_comm` exactly — drop-in replacement.
+
+    Added 2026-05-22 per G95 §N5 / G96 §3 dep-purity cleanup.
+    Proof: case-split on `a ≤ b` and `b ≤ a` via `by_cases`. -/
+theorem max_comm (a b : Nat) : max a b = max b a := by
+  show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+  by_cases h : a ≤ b
+  · rw [if_pos h]
+    by_cases h2 : b ≤ a
+    · rw [if_pos h2]
+      exact (Nat.le_antisymm h h2).symm
+    · rw [if_neg h2]
+  · rw [if_neg h]
+    have h2 : b ≤ a := Nat.le_of_lt (Nat.lt_of_not_le h)
+    rw [if_pos h2]
+
 end E213.Tactic.NatHelper
