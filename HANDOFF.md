@@ -1,8 +1,24 @@
 # Session Handoff — 2026-05-21 (Theorem-density reduction pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 147 session
-commits (255 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 153 session
+commits (261 total ahead of `main`).  All commits pushed.
+
+## Final extension (post-720)
+
+Additional reductions touching medium-density files:
+  · HodgeConjecture/Pairing/ProductSurfaceSignature 8→1
+  · Cohomology/Examples/TopologyCompare 8→2
+  · SignedCut/Bridge/FanoK32Bridge 8→1
+  · DyadicFSM/ThueMorse 8→1
+  · Logic/Predicate 8→4 (3 externally-consumed kept)
+  · Combinatorics/Stirling 8→1
+  · AngleStructure/RotationOrder 8→1
+
+Combined session totals: ~770 theorems folded into ~175
+masters across 70+ files.  Build clean.  AtomicConstantsParametric*
+family skipped (proof-chain dependency structure, not scaffold
+pattern).
 
 ## Latest extensions (post-update)
 
