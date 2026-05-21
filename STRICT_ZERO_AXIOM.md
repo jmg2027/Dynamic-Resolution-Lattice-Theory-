@@ -682,6 +682,28 @@ Sym(3) ⊂ SU(3) Weyl-group restriction as 2 trivial (Sym(3)-fixed)
 structure (the 8-rep ↓ Sym(3) ⊂ SU(3) gives the trivial-isotypic
 + standard-isotypic decomposition).
 
+## 2026-05-22 — C3 chain Phase 10: explicit standard 2-rep pairs in H¹(K)
+
+Phase 10 of the **C3 chain** — extends Phase 9's irrep decomposition
+result with **explicit construction of 2 standard 2-rep pairs** in
+H¹(K), realising the standard rep matrices over F_2.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3StandardReps` | 13 | **Pair 1**: `std1_v1 := e_0 + e_2`, `std1_v2 := e_2 + e_5`; **Pair 2**: `std2_v1 := e_1 + e_4`, `std2_v2 := e_4 + e_7`; both satisfy the standard rep matrices `σ_S01 ↦ [[1, 1], [0, 1]]`, `σ_S12 ↦ [[1, 0], [1, 1]]` over F_2 with: `★ std1_S01_v1`, `★ std1_S01_v2`, `★ std1_S12_v1`, `★ std1_S12_v2`, plus the four for pair 2; `std_pairs_distinct` linear independence at distinguishing coordinates; `std1_rho_v1`, `std1_rho_sq_v1`, **`★ std1_rho_cubed_v1`** — order-3 verification of ρ_S = σ_S12·σ_S01 at v_1^(1); **`★ Sym3StandardReps_phase10_capstone`** — 11-conjunct Phase-10 capstone |
+
+**Cumulative new PURE this session: +140** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 across 10 phases of C3 chain).
+
+The C3 chain through Phase 10 provides **explicit basis vectors**
+for 2 of the 3 standard isotypic components.  Combined with the
+fixed-subspace basis {ω_10, ω_01} from Phase 9, this gives an
+explicit 6-dim sub-realisation of the 8-dim H¹(K) decomposition
+`2·trivial ⊕ 2·standard (concrete) ⊕ 1·standard (abstract)`.
+
+The third standard pair requires the tree-decomp row e_3 and lives
+in the remaining 2-dim subspace; constructing it explicitly is a
+future refinement.
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
