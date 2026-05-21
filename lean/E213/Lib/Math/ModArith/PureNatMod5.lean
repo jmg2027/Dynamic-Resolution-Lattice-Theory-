@@ -37,25 +37,36 @@ theorem mod5_five_mul (k : Nat) : mod5 (5 * k) = 0 := by
       show mod5 (5 * n + 5) = 0
       exact ih
 
-theorem mod5_five_mul_one (k : Nat) : mod5 (5 * k + 1) = 1 := by
-  induction k with
-  | zero => rfl
-  | succ n ih => show mod5 (5 * (n + 1) + 1) = 1; rw [Nat.mul_succ]; exact ih
+/-- mod5 (5*X + Y) = mod5 Y — generic absorption.  Hoisted above
+    the per-residue corollaries (originally line 108). -/
+theorem mod5_five_mul_add (X Y : Nat) : mod5 (5 * X + Y) = mod5 Y := by
+  induction X with
+  | zero => rw [Nat.mul_zero, Nat.zero_add]
+  | succ n ih =>
+      show mod5 (5 * (n + 1) + Y) = mod5 Y
+      rw [Nat.mul_succ]
+      show mod5 (5 * n + 5 + Y) = mod5 Y
+      rw [Nat.add_right_comm]
+      show mod5 (5 * n + Y + 5) = mod5 Y
+      -- mod5 (X + 5) = mod5 X by structural recursion
+      change mod5 (5 * n + Y) = mod5 Y
+      exact ih
 
-theorem mod5_five_mul_four (k : Nat) : mod5 (5 * k + 4) = 4 := by
-  induction k with
-  | zero => rfl
-  | succ n ih => show mod5 (5 * (n + 1) + 4) = 4; rw [Nat.mul_succ]; exact ih
+-- Per-residue corollaries of `mod5_five_mul_add` (proven below).
+-- The inductive proofs were one-line each but byte-identical except for
+-- the residue value; replaced with explicit term-mode applications of
+-- the parametric helper (defeq closes `mod5 r = r` for r ∈ {1,2,3,4}).
+theorem mod5_five_mul_one (k : Nat) : mod5 (5 * k + 1) = 1 :=
+  mod5_five_mul_add k 1
 
-theorem mod5_five_mul_two (k : Nat) : mod5 (5 * k + 2) = 2 := by
-  induction k with
-  | zero => rfl
-  | succ n ih => show mod5 (5 * (n + 1) + 2) = 2; rw [Nat.mul_succ]; exact ih
+theorem mod5_five_mul_four (k : Nat) : mod5 (5 * k + 4) = 4 :=
+  mod5_five_mul_add k 4
 
-theorem mod5_five_mul_three (k : Nat) : mod5 (5 * k + 3) = 3 := by
-  induction k with
-  | zero => rfl
-  | succ n ih => show mod5 (5 * (n + 1) + 3) = 3; rw [Nat.mul_succ]; exact ih
+theorem mod5_five_mul_two (k : Nat) : mod5 (5 * k + 2) = 2 :=
+  mod5_five_mul_add k 2
+
+theorem mod5_five_mul_three (k : Nat) : mod5 (5 * k + 3) = 3 :=
+  mod5_five_mul_add k 3
 
 /-- 5-trichotomy: every Nat is 5k, 5k+1, 5k+2, 5k+3, or 5k+4. -/
 theorem nat_quintichotomy (n : Nat) :
@@ -107,20 +118,6 @@ theorem five_mul_r_sq (k r : Nat) :
   rw [show 5 * (2 * (r * k)) = 5 * (r * k) + 5 * (r * k) from by
     rw [Nat.two_mul, Nat.mul_add]]
   exact reassoc4 (5*(5*(k*k))) (5*(r*k)) (5*(r*k)) (r*r)
-
-/-- mod5 (5*X + Y) = mod5 Y — generic absorption. -/
-theorem mod5_five_mul_add (X Y : Nat) : mod5 (5 * X + Y) = mod5 Y := by
-  induction X with
-  | zero => rw [Nat.mul_zero, Nat.zero_add]
-  | succ n ih =>
-      show mod5 (5 * (n + 1) + Y) = mod5 Y
-      rw [Nat.mul_succ]
-      show mod5 (5 * n + 5 + Y) = mod5 Y
-      rw [Nat.add_right_comm]
-      show mod5 (5 * n + Y + 5) = mod5 Y
-      -- mod5 (X + 5) = mod5 X by structural recursion
-      change mod5 (5 * n + Y) = mod5 Y
-      exact ih
 
 /-- m^2 mod 5 = 0 → m mod 5 = 0. -/
 theorem mod5_self_mul_zero (m : Nat) :
