@@ -67,4 +67,38 @@ theorem combine_5 (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 : Bool) :
   simp only [List.foldr, Bool.xor_false] at h
   exact h
 
+/-- ★ **General XOR-projection factorisation** (G93 §C2 absorption).
+
+    `foldr (xor (φ p) acc) false l = foldr xor false (l.map φ)`.
+
+    Absorbs three byte-identical motifs surfaced by the
+    `ast_fold_scan.py` Tier-2 scan:
+      · φ = `Prod.snd`  (150 sites in cup-XOR proofs)
+      · φ = `Prod.fst`  ( 82 sites)
+      · φ = `fun p => xor (Prod.fst p) (Prod.snd p)`  (16 sites)
+    plus any future projection composable with this shape.
+
+    The structural content is the ℤ/2-linearity of foldr-XOR over
+    pre-mapping by an arbitrary `Bool × Bool → Bool` function.  PURE. -/
+theorem foldr_xor_proj {α : Type} (φ : α → Bool) (l : List α) :
+    l.foldr (fun p acc => xor (φ p) acc) false
+      = (l.map φ).foldr xor false := by
+  induction l with
+  | nil => rfl
+  | cons hd tl ih =>
+    show xor (φ hd) (tl.foldr (fun p acc => xor (φ p) acc) false)
+       = xor (φ hd) ((tl.map φ).foldr xor false)
+    rw [ih]
+
+/-- Corollary: the three concrete projections all collapse to a single
+    `(map · l).foldr xor false` shape.  PURE. -/
+theorem foldr_xor_proj_three (l : List (Bool × Bool)) :
+    (l.foldr (fun p acc => xor (Prod.snd p) acc) false
+      = (l.map Prod.snd).foldr xor false)
+    ∧ (l.foldr (fun p acc => xor (Prod.fst p) acc) false
+       = (l.map Prod.fst).foldr xor false)
+    ∧ (l.foldr (fun p acc => xor (xor (Prod.fst p) (Prod.snd p)) acc) false
+       = (l.map (fun p => xor (Prod.fst p) (Prod.snd p))).foldr xor false) := by
+  exact ⟨foldr_xor_proj _ l, foldr_xor_proj _ l, foldr_xor_proj _ l⟩
+
 end E213.Lib.Math.Cohomology.Bridge.XorPairCombine

@@ -125,6 +125,27 @@ theorem sub_pos_of_lt {a b : Nat} (h : a < b) : 0 < b - a :=
   -- Substitute (a+1) - a → 1 in step: 1 ≤ b - a, i.e., 0 < b - a.
   Eq.subst (motive := fun x => x ≤ b - a) h_eq step
 
+/-- `c ≤ a → a < b → a - c < b - c`.  ∅-axiom replacement for
+    `Nat.sub_lt_sub_right` (Lean-core proof brings propext).
+    Added 2026-05-22 (G93 §C1 centralisation — promoted from
+    `Cohomology/Cup/KSubsetStructural.lean`). -/
+theorem sub_lt_sub_right :
+    ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c := by
+  intro a b c
+  induction c with
+  | zero => intro _ h; exact h
+  | succ k ih =>
+    intro h_ge h_lt
+    have h_k_le_a : k ≤ a := Nat.le_of_succ_le h_ge
+    have h_sub_ih : a - k < b - k := ih h_k_le_a h_lt
+    rw [Nat.sub_succ, Nat.sub_succ]
+    apply Nat.pred_lt_pred _ h_sub_ih
+    intro h_eq
+    have h_a_le_k : a ≤ k := Nat.le_of_sub_eq_zero h_eq
+    have h_eq_a : a = k := Nat.le_antisymm h_a_le_k h_k_le_a
+    rw [h_eq_a] at h_ge
+    exact Nat.not_succ_le_self k h_ge
+
 /-- `a + b ≤ a + c → b ≤ c`.  ∅-axiom replacement for
     `Nat.le_of_add_le_add_left` (Lean-core proof brings propext). -/
 theorem le_of_add_le_add_left {a b c : Nat} (h : a + b ≤ a + c) : b ≤ c :=

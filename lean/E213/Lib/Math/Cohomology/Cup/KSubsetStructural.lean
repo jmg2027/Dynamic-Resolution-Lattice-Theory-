@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Cohomology.Cup.KSubsetStructural
@@ -23,40 +24,23 @@ namespace E213.Lib.Math.Cohomology.Cup.KSubsetStructural
 open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
-/-! ## §0.  PURE Nat / List helpers (replacing propext-tainted Lean-core lemmas) -/
+/-! ## §0.  PURE Nat / List helpers (replacing propext-tainted Lean-core lemmas)
 
-/-- `(a + c) - c = a` — PURE via `Nat.succ_sub_succ_eq_sub`.
+Nat helpers (`add_sub_cancel_right`, `sub_lt_sub_right`,
+`sub_pos_of_lt`) are sourced from the central
+`E213.Tactic.NatHelper` PURE-shield layer (G93 §C1).  We rename
+them locally so existing call sites remain unaffected. -/
 
-    Public so `FinBridgeGeneral` and other downstream modules can reuse
-    this propext-free replacement for `Nat.add_sub_cancel`. -/
-theorem nat_add_sub_cancel (a c : Nat) : (a + c) - c = a := by
-  induction c with
-  | zero => rfl
-  | succ k ih =>
-    show (a + (k + 1)) - (k + 1) = a
-    rw [Nat.add_succ, Nat.succ_sub_succ_eq_sub]
-    exact ih
+/-- Local alias for `NatHelper.add_sub_cancel_right`.
+    Centralised in `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+@[reducible] def nat_add_sub_cancel : ∀ (a c : Nat), (a + c) - c = a :=
+  E213.Tactic.NatHelper.add_sub_cancel_right
 
-/-- `c ≤ a → a < b → a - c < b - c` — PURE via `Nat.pred_lt_pred`.
-
-    Public so downstream modules can reuse this propext-free
-    replacement for `Nat.sub_lt_sub_right`. -/
-theorem nat_sub_lt_sub_right :
-    ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c := by
-  intro a b c
-  induction c with
-  | zero => intro _ h; exact h
-  | succ k ih =>
-    intro h_ge h_lt
-    have h_k_le_a : k ≤ a := Nat.le_of_succ_le h_ge
-    have h_sub_ih : a - k < b - k := ih h_k_le_a h_lt
-    rw [Nat.sub_succ, Nat.sub_succ]
-    apply Nat.pred_lt_pred _ h_sub_ih
-    intro h_eq
-    have h_a_le_k : a ≤ k := Nat.le_of_sub_eq_zero h_eq
-    have h_eq_a : a = k := Nat.le_antisymm h_a_le_k h_k_le_a
-    rw [h_eq_a] at h_ge
-    exact Nat.not_succ_le_self k h_ge
+/-- Local alias for `NatHelper.sub_lt_sub_right`.
+    Centralised in `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+@[reducible] def nat_sub_lt_sub_right :
+    ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c :=
+  E213.Tactic.NatHelper.sub_lt_sub_right
 
 /-- `(l ++ [x]).length = l.length + 1` — PURE via direct induction.
     Specialised to `Nat`.  Public for downstream modules. -/
@@ -187,20 +171,12 @@ theorem kSubset_all_lt :
 
 /-! ## §3.  More PURE helpers for injectivity -/
 
-/-- `b < a → 0 < a - b` — PURE via `Nat.succ_sub_succ_eq_sub`. -/
-theorem nat_sub_pos_of_lt :
-    ∀ {a b : Nat}, b < a → 0 < a - b := by
-  intro a b
-  induction b generalizing a with
-  | zero => intro h; rwa [Nat.sub_zero]
-  | succ k ih =>
-    intro h_lt
-    cases a with
-    | zero => exact absurd h_lt (Nat.not_lt_zero _)
-    | succ a' =>
-      show 0 < a' + 1 - (k + 1)
-      rw [Nat.succ_sub_succ_eq_sub]
-      exact ih (Nat.lt_of_succ_lt_succ h_lt)
+/-- Local alias for `NatHelper.sub_pos_of_lt` with the b/a arg
+    order convention used by downstream callers.  Centralised in
+    `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+@[reducible] def nat_sub_pos_of_lt :
+    ∀ {a b : Nat}, b < a → 0 < a - b :=
+  fun h => E213.Tactic.NatHelper.sub_pos_of_lt h
 
 /-- `c ≤ a → c ≤ b → a - c = b - c → a = b` — PURE right-cancellation. -/
 private theorem nat_sub_inj_right :
