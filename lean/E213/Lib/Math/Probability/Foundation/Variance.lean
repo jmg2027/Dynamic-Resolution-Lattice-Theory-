@@ -30,45 +30,38 @@ def bernoulliNum (b : Bernoulli) : Nat :=
 def bernoulliDen (b : Bernoulli) : Nat :=
   b.p.den * b.p.den
 
-/-- Numerator equality: `bernoulliNum b = num · (den − num)` (rfl). -/
-theorem bernoulliNum_eq (b : Bernoulli) :
-    bernoulliNum b = b.p.num * (b.p.den - b.p.num) := rfl
-
-/-- Fair coin variance: `1/4`. -/
-theorem fair_variance_num : bernoulliNum Bernoulli.fair = 1 := by decide
-theorem fair_variance_den : bernoulliDen Bernoulli.fair = 4 := by decide
-
-/-- Certain Bernoulli variance numerator = 0 (`p · 0 = 0`). -/
-theorem certain_variance_num : bernoulliNum Bernoulli.certain = 0 := rfl
-
-/-- Impossible Bernoulli variance numerator = 0 (`0 · q = 0`). -/
-theorem impossible_variance_num : bernoulliNum Bernoulli.impossible = 0 := rfl
-
 /-- Discrete second moment numerator: `Σ m_i · v_i²`. -/
 def discreteSecondMomentNum : List (Nat × Nat) → Nat
   | [] => 0
   | (m, v) :: rest => m * (v * v) + discreteSecondMomentNum rest
 
-/-- Empty second-moment numerator = 0 (rfl). -/
-theorem discreteSecondMomentNum_nil :
-    discreteSecondMomentNum [] = 0 := rfl
-
-/-- **K_{3,2} second moment**: AA→0, BB→1, AB→2.
-    `Σ m·v² = 3·0 + 1·1 + 6·4 = 25` over `D = 10`. -/
-theorem K32_secondMoment_num :
-    discreteSecondMomentNum [(3, 0), (1, 1), (6, 2)] = 25 := by decide
-
-/-- **AB-indicator second moment** = AB-indicator first moment
-    (since indicator squared = indicator). -/
-theorem AB_indicator_secondMoment_eq_firstMoment :
-    discreteSecondMomentNum [(3, 0), (1, 0), (6, 1)]
-      = discreteNum [(3, 0), (1, 0), (6, 1)] := by decide
-
-/-- **AB-indicator variance numerator** (Bernoulli view, `p = 6/10`):
-    `success · failure = 6 · 4 = 24`, denominator = 100. -/
-theorem AB_indicator_variance :
-    bernoulliNum E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 24
-    ∧ bernoulliDen E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 100 :=
-  ⟨by decide, by decide⟩
+/-- ★ Variance master — Bernoulli formula identity (rfl), fair-coin
+    1/4 closure, certain/impossible degenerate cases, discrete
+    second-moment empty rfl, K_{3,2} pair second moment 25/10,
+    AB-indicator second moment = first moment (since indicator² =
+    indicator), AB-indicator Bernoulli variance 24/100.
+    STRICT ∅-AXIOM. -/
+theorem variance_master :
+    -- Bernoulli numerator identity (rfl)
+    (∀ b : Bernoulli, bernoulliNum b = b.p.num * (b.p.den - b.p.num))
+    -- Fair coin variance 1/4
+    ∧ bernoulliNum Bernoulli.fair = 1
+    ∧ bernoulliDen Bernoulli.fair = 4
+    -- Degenerate cases: certain / impossible have variance numerator 0
+    ∧ bernoulliNum Bernoulli.certain = 0
+    ∧ bernoulliNum Bernoulli.impossible = 0
+    -- Discrete second moment identities
+    ∧ discreteSecondMomentNum [] = 0
+    -- K_{3,2} second moment: AA→0, BB→1, AB→2 ⇒ 25/10
+    ∧ discreteSecondMomentNum [(3, 0), (1, 1), (6, 2)] = 25
+    -- AB-indicator second moment = first moment (indicator² = indicator)
+    ∧ discreteSecondMomentNum [(3, 0), (1, 0), (6, 1)]
+        = discreteNum [(3, 0), (1, 0), (6, 1)]
+    -- AB-indicator Bernoulli variance: 24/100
+    ∧ bernoulliNum E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 24
+    ∧ bernoulliDen E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 100 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro _; rfl
+  all_goals decide
 
 end E213.Lib.Math.Probability.Foundation.Variance
