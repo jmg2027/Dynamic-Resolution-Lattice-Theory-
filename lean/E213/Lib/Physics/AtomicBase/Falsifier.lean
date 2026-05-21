@@ -30,66 +30,43 @@ namespace E213.Lib.Physics.AtomicBase.Falsifier
 
 open E213.Theory.Atomicity.Five
 
-/-- (F1) d=5 falsifier.  Atomic n → n=5.  contrapositive: n≠5 → ¬Atomic n. -/
+/-- (F1) d=5 falsifier.  Atomic n → n=5; contrapositive n≠5 → ¬Atomic n.
+    Kept as standalone because it's a parameterized lemma used inside
+    the synthesis below for ∀-quantified F1 and the F1' instances. -/
 theorem falsifier_d_unique (n : Nat) (hn : n ≠ 5) : ¬ Atomic n := by
   intro h
   exact hn (atomic_implies_five n h)
 
-/-- (F1') d=4 specific: ¬ Atomic 4. -/
-theorem falsifier_not_atomic_4 : ¬ Atomic 4 :=
-  falsifier_d_unique 4 (by decide)
-
-/-- (F1'') d=6 specific: ¬ Atomic 6. -/
-theorem falsifier_not_atomic_6 : ¬ Atomic 6 :=
-  falsifier_d_unique 6 (by decide)
-
-/-- (F1''') d=11 (string theory) specific: ¬ Atomic 11. -/
-theorem falsifier_not_atomic_11 : ¬ Atomic 11 :=
-  falsifier_d_unique 11 (by decide)
-
-/-- (F4) Total pair count ≠ 10 falsifier.  C(5,2) = 10 forced. -/
-theorem falsifier_pair_count : 5 * (5 - 1) / 2 = 10 := by decide
-
-theorem falsifier_pair_count_not_9 : ¬ (5 * (5 - 1) / 2 = 9) := by decide
-
-theorem falsifier_pair_count_not_15 : ¬ (5 * (5 - 1) / 2 = 15) := by decide
-
-/-- (F6) Cycle space dim ≠ 8 falsifier.  NS²-1 = 8 forced. -/
-theorem falsifier_cycle_space :
-    E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
-    E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 8 := by decide
-
-theorem falsifier_cycle_space_not_5 :
-    ¬ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
-       E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 5) := by decide
-
-/-- (F7) c_lat ≠ 2 falsifier.  Phase 2 Edges definition. -/
-theorem falsifier_c_lat : E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2 := by decide
-
-/-- (F5) Channel count ≠ 3 falsifier. -/
-theorem falsifier_channels : E213.Lib.Physics.AtomicBase.Force.num_channels = 3 := by decide
-
 /-- ★ Phase 2 Falsifier synthesis ★
     A single formal theorem of *all integers* forced by DRLT.
-    If *any one* of these differs from observation, 213 is refuted. -/
+    If *any one* of these differs from observation, 213 is refuted.
+
+    Bundles F1 (d unique), F1' (¬Atomic n for standard candidates),
+    F4 (C(5,2)=10 plus the not-9 / not-15 contrapositive bracket),
+    F5 (channels=3), F6 (cycle space=8 plus the not-5 contrapositive),
+    F7 (c_lat=2). -/
 theorem phase2_falsifiers :
-    -- (F1) d unique
+    -- (F1) d unique: n ≠ 5 → ¬ Atomic n
     (∀ n, n ≠ 5 → ¬ Atomic n)
-    -- (F1') all standard candidates are falsifiers
+    -- (F1') concrete refutations at standard non-5 candidates
     ∧ (¬ Atomic 4) ∧ (¬ Atomic 6) ∧ (¬ Atomic 11)
-    -- (F4) C(5,2) = 10
+    -- (F4) C(5,2) = 10, with not-9 / not-15 contrapositives
     ∧ (5 * (5 - 1) / 2 = 10)
+    ∧ ¬ (5 * (5 - 1) / 2 = 9)
+    ∧ ¬ (5 * (5 - 1) / 2 = 15)
     -- (F5) Channel count = 3
     ∧ (E213.Lib.Physics.AtomicBase.Force.num_channels = 3)
-    -- (F6) Cycle space = 8 = NS²-1
+    -- (F6) Cycle space = 8 = NS²-1 (with not-5 contrapositive)
     ∧ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
        E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 8)
+    ∧ ¬ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
+         E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 5)
     -- (F7) c_lat = 2
     ∧ (E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2) := by
-  refine ⟨falsifier_d_unique, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact falsifier_not_atomic_4
-  · exact falsifier_not_atomic_6
-  · exact falsifier_not_atomic_11
+  refine ⟨falsifier_d_unique, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact falsifier_d_unique 4 (by decide)
+  · exact falsifier_d_unique 6 (by decide)
+  · exact falsifier_d_unique 11 (by decide)
   all_goals decide
 
 end E213.Lib.Physics.AtomicBase.Falsifier
