@@ -54,16 +54,13 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
 /-- Layer 1a integer coefficient: 60 = c · NS · NT · d. -/
 def L1a_coeff : Nat := 2 * NS * NT * d
 
-theorem L1a_coeff_eq_60 : L1a_coeff = 60 := by decide
+-- L1a_coeff_eq_60 (and other layer-coeff scaffolds) folded into
+-- `graded_formula_master` below.
 
 /-- Layer 1b integer: 30 = adjoint·S(2) numerator structure
     (= 1/α_2 from `Bare.lean`, via 12 · NT · 5/4 = 30). -/
 def L1b_coeff : Nat := 30
 
-theorem L1b_coeff_eq_inv_alpha_2 : L1b_coeff = 30 := by decide
-
-/-- Layer 1b decomposition: 30 · 4 = (d² − 1) · 5. -/
-theorem L1b_adjoint_decomp : L1b_coeff * 4 = (d * d - 1) * 5 := by decide
 
 /-! ## §2 — Layer 2 (k=2): cup-product correction d²/NS = 25/3
 
@@ -77,15 +74,8 @@ theorem L1b_adjoint_decomp : L1b_coeff * 4 = (d * d - 1) * 5 := by decide
 /-- Layer 2 numerator: 25 = d². -/
 def L2_num : Nat := d * d
 
-theorem L2_num_eq_25 : L2_num = 25 := by decide
-
 /-- Layer 2 denominator: 3 = NS. -/
 def L2_den : Nat := NS
-
-theorem L2_den_eq_3 : L2_den = 3 := by decide
-
-/-- Layer 2 ratio identity: L2_num · 3 = 25 · L2_den. -/
-theorem L2_ratio : L2_num * 3 = 25 * L2_den := by decide
 
 
 
@@ -107,12 +97,8 @@ theorem L2_ratio : L2_num * 3 = 25 * L2_den := by decide
 /-- Layer 3 denominator structure (excluding π⁵): NS · NT = 6. -/
 def L3_den_integer : Nat := NS * NT
 
-theorem L3_den_integer_eq_6 : L3_den_integer = 6 := by decide
-
 /-- Layer 3 numerator (always 1): the Hodge-form leading coefficient. -/
 def L3_num : Nat := 1
-
-theorem L3_num_eq_1 : L3_num = 1 := by decide
 
 /-- Reference: at 9-digit π precision, 1/(NS · NT · π⁵) × 10⁷ ≈ 5446.
     See `PiFiveGap.pi5_gap_e7_eq_5446` for the explicit decide check. -/
@@ -138,7 +124,7 @@ theorem L3_numerical_reference :
     denominators and π factors): 60 + 30 + 25 + 1 = 116. -/
 def leading_integer_sum : Nat := L1a_coeff + L1b_coeff + L2_num + L3_num
 
-theorem leading_integer_sum_eq_116 : leading_integer_sum = 116 := by decide
+-- leading_integer_sum_eq_116 folded into master.
 
 /-! Integer denominator-wise sum: L1a · ζ(2) + L1b + L2_num/L2_den
     + L3 ≈ 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵), with the continuum
