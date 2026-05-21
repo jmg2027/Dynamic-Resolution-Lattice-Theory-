@@ -1017,10 +1017,85 @@ plumbing.
 
 ---
 
+## Pattern #12 — Meta-scan archetype catalog (2026-05-22)
+
+**Source**: G101 §6 + G107 §6 tool inventory.
+
+**Statement**: When the corpus needs static-analysis investigation,
+pick a scanner from the 6 established archetypes rather than
+inventing a one-off scan.  Each archetype answers a different
+question; together they triangulate.
+
+**The 6 archetypes**:
+
+| # | Archetype | Question answered | Reference tools |
+|---|-----------|-------------------|-----------------|
+| 1 | **AST motif scan** | Which fold/recursor primitives are used and where? | `tools/ast_fold_scan.py` (G90) |
+| 2 | **Syntax skeleton scan** | Which tactic-token sequences repeat? | `tools/syntax_tactic_scan.py` (G91) |
+| 3 | **Citation graph** | Who depends on whom at the lemma surface? | `tools/syntax_arg_scan.py` (G92) |
+| 4 | **Context dumper** | What surrounds each cite of a key lemma? | `tools/syntax_arg_scan.py --context-target` (G94, G96) |
+| 5 | **Co-occurrence chunk** | Which tactic sub-sequences cluster together? | `tools/syntax_unfold_scan.py` (G98) |
+| 6 | **k-gram cascade** | Which manual sub-rewrites shadow existing helpers? | `tools/syntax_rw_cascade_scan.py` (G99, Pattern #10) |
+
+Plus two Expr-level scanners:
+
+| 7 | **Expr-level call graph** | Same as #3 but at elaboration layer | `tools/ast_callgraph_scan.py` (G102) |
+| 8 | **Expr-shape density** | What's the proof-shape fingerprint per namespace? | `tools/ast_shape_scan.py` (G103) |
+
+**Usage rule**: before writing a new scanner, check if one of the
+8 covers the question.  If yes, run it (TSV is gitignored;
+regenerate on demand).  If no, write a new one and add it to the
+archetype list.
+
+**Status**: SURFACED; CL-1 of G107 §10.5.
+
+---
+
+## Pattern #13 — Process model: meta surfaces, substantive executes (2026-05-22)
+
+**Source**: G97 §6 + G107 §0 (cross-branch handshake documentation).
+
+**Statement**: For static-analysis-heavy tasks, run two branches in
+parallel:
+
+  · **meta branch** — pattern surfacing, scanner tooling, research
+    notes.  No PURE theorems added on this side; analysis only.
+  · **substantive branch** — PURE theorem additions, abstraction
+    execution, math marathons.
+
+The two branches communicate via numbered research-notes
+(`research-notes/G##*.md`) acting as handshake documents.  Each
+handshake doc references the G-IDs it consumes / produces.
+
+**Witness**: G93 → G96 → G94 → G97 handshake loop closed across
+this pattern.  The substantive branch (PR #90) closed 6 meta-surfaced
+items in cycle (C1 / C2 / C3 / C5 / N5 / N6).
+
+**This branch's adoption**: G107's open registry was the executor
+entry-point for the `claude/handoff-part-3-marathon-0XWmn` branch's
+sweep, which closed:
+
+  · §2: L2 + N7 + N8 + N9 + Sub-2 (5 of 5 mechanical-immediate).
+  · §3: L1 β-side (2 of 4 L1 siblings) + C deferred.
+  · §4: M + Pell-FSM (full sweep) + ModArith (3 of 8).
+
+49 Pell-FSM family sites + 12 mathematical sites + 25 mechanical
+adoptions = 86 sites absorbed via 18 PURE helpers.
+
+**Rule for future cycles**: if the next investigation is
+static-analysis-heavy and likely to surface many candidate items,
+spin up a meta branch.  Otherwise stay on one branch.
+
+**Status**: VALIDATED across one full cycle; CL-2 of G107 §10.5.
+
+---
+
 ## Pattern composition update
 
 The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
 bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
 (adoption-gap k-gram) + Pattern #11 (Cup-Leibniz dichotomy collapse)
-form the 2026-05-22 composition table.  Together they enable the closure
-of the Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.
++ Pattern #12 (meta-scan archetypes) + Pattern #13 (cross-branch
+process model) form the 2026-05-22 composition table.  Together they
+enable the closure of the Raw → (3, 2, 5) inevitability chain at full
+∅-axiom level + a validated meta-substantive cross-branch workflow.
