@@ -637,15 +637,32 @@ descent `ι*: H¹(Δ⁴) → H¹(K)`, and the **gluon octet identification**
 
 **Cumulative new PURE this session: +110** (16 + 25 + 22 + 16 + 7 + 14 + 10 across 7 phases of C3 chain).
 
-The C3 chain through Phase 7 establishes the full **gauge-emergence
+## 2026-05-22 — C3 chain Phase 8: Sym(3)-equivariance of ι
+
+Phase 8 of the **C3 chain** — proves the embedding `ι_edge` from
+Phase 7 is **Sym(3)-equivariant**: `ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge`
+for both transposition generators.  This makes the gluon octet
+identification a Sym(3)-equivariant isomorphism, with the Sym(3)
+representation lifting (via Weyl-group embedding Sym(3) ⊂ SU(3))
+to the full SU(3) adjoint structure on the QCD octet.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.IotaSym3Equivariance` | 7 | **`σ_E_Δ4_swap_12`** — Δ⁴-edge permutation for the S1↔S2 (vertex 1↔2) generator with cycle structure (0 1)(4 5)(7 8) + fixed {2, 3, 6, 9}; `σ_E_Δ4_swap_12_involution`; **`★ ι_equivariance_S01`** — edge-level commutation `ι_edge ∘ σ_S01 = σ_E_swap_01 ∘ ι_edge`; **`★ ι_equivariance_S12`** — same for second generator; cochain pullback equivariance **`ι_pullback_equivariance_S01`**, **`ι_pullback_equivariance_S12`** (pointwise, no funext); **`Δ4_ρ_order_3`** — Δ⁴ 3-cycle Cayley check; **`★ IotaSym3Equivariance_phase8_capstone`** — 6-conjunct Phase-8 capstone |
+
+**Cumulative new PURE this session: +117** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 across 8 phases of C3 chain).
+
+The C3 chain through Phase 8 establishes the full **gauge-emergence
 narrative**: from `Aut(K)` Type (Phase 1) through Sym(3) representation
 on H¹(K) at the explicit matrix level (Phases 3–6) to the **gluon
-octet identification** `H¹(K) ≃ (F_2)^8 = coker ι*` (Phase 7).
+octet identification** `H¹(K) ≃ (F_2)^8 = coker ι*` (Phase 7), now
+verified **Sym(3)-equivariant** (Phase 8).
 
 Physics reading: the 8 generators of H¹(K) are the 8 cycles in
 K_{3,2}^{(c=2)} that **remain non-trivial after embedding into the
-contractible Δ⁴** — match the 8 gluons of the SU(3) adjoint
-representation (the QCD octet).
+contractible Δ⁴**.  The Sym(3) action lifts via Weyl-group embedding
+Sym(3) ⊂ SU(3) to the full SU(3) adjoint structure of the QCD
+gluon octet.
 
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
