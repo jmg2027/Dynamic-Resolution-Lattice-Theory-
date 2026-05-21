@@ -135,3 +135,142 @@ larger companion doc.
   · `G105_namespace_shape_and_full_recursor_inventory.md` — CAT-3 + ARCHITECTURE NAV-3.
   · `G92_citation_graph_and_constructs.md` — CAT-4.
   · `G102_full_expr_callgraph.md` — CAT-4 Expr-level table.
+
+---
+
+# Part 4 — Meta-branch G108-G116 Tier-2/3 deep dives + merge integration (2026-05-22 evening)
+
+After Part 3 marathon merged into main (PR#91 referenced), the
+meta-branch `claude/analyze-lean4-ast-patterns-49Rh2` continued
+with systematic Tier-2/3 deep dives.  This Part 4 wraps that
+work + the merge integration.
+
+## What this Part 4 added
+
+### G108-G116 — 9 new deep-dive research notes
+
+| Doc | Subtree | decls |
+|-----|---------|------:|
+| G108 | Real213 + Analysis | 1,981 |
+| G109 | Cross-domain identification scan (orthogonal) | 109 groups |
+| G110 | FluxMVT (sub of Analysis) | 182 |
+| G111 | Cohomology | 1,216 |
+| G112 | HodgeConjecture | 961 |
+| G113 | DyadicFSM | 1,272 |
+| G114 | CayleyDickson | 629 |
+| G115 | Lib.Physics (LARGEST single subtree) | 2,159 |
+| G116 | PatternCatalog (Tier-1 meta-meta) | 943 |
+| **Total** | | **~9,343 decls** |
+
+= **~80 % of Lib.Math + Lib.Physics** covered by dedicated
+deep-dive G-docs.
+
+### Catalogs added on meta branch (then merged with Part 3's)
+
+  · `catalogs/cross-domain-identifications.md` (G109 → 10 CDIs)
+  · `catalogs/recursor-inventory.md` (G105 → 185 inductives)
+  · `catalogs/internal-hubs.md` (G92 + G102 hubs)
+  · `catalogs/falsifier-roster.md` (G100 → 135 falsifiers + G87 cross-ref)
+  · Part 3 added: `catalogs/abstraction-candidates.md` (CAT-2 — G107 §2-§5 distilled)
+
+### Pattern #14-#20 (extend Part 3's Pattern #10-#13)
+
+LESSONS_LEARNED now lists Patterns #1-#20:
+
+  · Patterns #1-#9: original Cup-Leibniz + parallel #8-#9 (Int.NonNeg + recursive Clause 4)
+  · Patterns #10-#13: Part 3 marathon (adoption-gap, Cup-Leibniz dichotomy collapse, meta-scan archetypes, process model)
+  · **Patterns #14-#20** (Part 4): n-layer agreement, Raw-derivation 3-level
+    (→ seed/RAW_DERIVATION_SPEC.md), decide-finitism (→ seed/FALSIFIABILITY_SURFACE_SPEC.md),
+    framework-internal subsumption, byte-identical Expr cross-domain bridges,
+    forward/backward factor-knob, multiple Lens choices.
+
+### NAV updates (consolidated)
+
+  · seed/INDEX.md — Meta-analysis section covers G87 + G90-G116
+  · STRICT_ZERO_AXIOM.md — PURE-bounded on Lean 4 core verified (G95 + N5/N6)
+  · CLAUDE.md → seed/META_SCAN_ARCHETYPES.md — 11 scanner archetypes + dual-branch process
+
+## Merge verification (this commit)
+
+  · **Full `lake build`**: ✅ clean.
+  · **No `sorry` in actual code**: confirmed via grep (only docstring mentions).
+  · **No new DIRTY axioms**: 0.
+  · **Layer audit**: 0 violations.
+  · **Working tree**: clean after merge resolution.
+
+## Status of G107 action items (post-merge)
+
+### ✅ DONE (Part 3 marathon + Part 4 surfacing)
+
+| Item | Done where |
+|------|------------|
+| L2 | Part 3 (commit 99fe6228) |
+| N7 | Part 3 (commit 95b78308) |
+| N8 | Part 3 (commit 931c38cb) |
+| N9 | Part 3 (commit 931c38cb) |
+| Sub-2 | Part 3 (commit c7d5d7e8) |
+| M (Sub-3) | Part 3 (commit da447545) |
+| L1 β-side (partial) | Part 3 (commit 0fabff84) |
+| Pell-FSM (49 sites!) | Part 3 (commits 8379a10d, 519bd93a, a3162f31) |
+| ModArith mod3/mod5 | Part 3 (commit fb769c4b) |
+| TH-2 → RAW_DERIVATION_SPEC.md | Part 3 (a418b0f4) |
+| TH-3 → FALSIFIABILITY_SURFACE_SPEC.md | Part 3 (aab3a7b3) |
+| Patterns #10-#13 | Part 3 (7ac3f3ce, dc0b7e81) |
+| Patterns #14-#20 | Part 4 (a9113933) |
+| NAV-1/2/3/4 | Combined Part 3 + Part 4 |
+| CAT-1/2/3/4 | Combined Part 3 + Part 4 |
+| CL-1/2 → META_SCAN_ARCHETYPES.md | Part 4 (0fe07152) |
+| G108-G116 deep dives | Part 4 |
+
+### ⚪ STILL OPEN (post-merge)
+
+| Item | Notes |
+|------|-------|
+| **L1 α-side** (full parametric) | Part 3 did β-side partial; α-side remaining |
+| **C** — CutSumOne 8-sibling 3-component template | G94 §7 / G108 §C |
+| **G110 FLUX-1** forward/backward parametric | ~30K nodes |
+| **G108 REAL-1 + REAL-2** Cut iff consolidation | ~210K nodes |
+| **L3 Pisano Predictor 14/17** | small marathon |
+| **L4 LDD addLDD/mulLDD** | small |
+| **L5 CDDouble I·J / J·I** | small |
+| **G111 COH-1+COH-2+COH-3** | Universal Prop52/53, Hodge 5_k quartet |
+| **G114 CD-1+CD-2+CD-3** | CayleyDickson ring extensionality / conj |
+| **G112 HC-1** capstone investigation | 5 capstones templated check |
+| **G115 PHYS-1 / PHYS-2** | AlphaEM ζ-sequence + bracket containment |
+| **G113 FSM-1** | pellFSMmod parametric ∀p — but ★ Part 3 did 49 sites of this! |
+| **TH-1, TH-4** | proof-shape fingerprint + L1 extraction methodology specs |
+| **G117 Bishop comparison** | doctrinal capstone (3-5 sessions) |
+
+## Recommended next session
+
+Highest-value remaining items by impact / effort:
+
+  1. **L1 α-side completion** — 50% mass cut remaining (β-side done)
+  2. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
+  3. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
+  4. **G108 CutSumOne C** — universal closer + 3-component template
+  5. **G117 Bishop comparison** — doctrinal AsLensOutput formalisation
+
+If only one: **L1 α-side** completes the biggest single
+mass-reduction in the corpus.
+
+## Branch state at this merge
+
+Branch: `claude/analyze-lean4-ast-patterns-49Rh2`  
+Merge tip: `b2783339`  
+Net G-docs G90-G116: 19 research notes (~7,500 LOC)  
+Total branch additions (excluding parallel-branch's Part 3 content):
+  · 11 scanners, 19 research notes, 4 catalogs (CDI + 3 from meta),
+    1 archetype spec, Patterns #14-#20 extension,
+    NAV updates, HANDOFF refresh
+
+Combined with Part 3 marathon (Sub-2/M/N7/N8/N9/L2/L1β/Pell-FSM/
+ModArith executions + TH-2/TH-3 + Patterns #10-#13 + Part 3 NAV/CAT):
+  · ~50 commits this cycle
+  · ~13,000 LOC analysis + documentation
+  · ~500+ tactic-tokens retired via mechanical adoptions
+  · ~9,300 decls deep-dived (G108-G116 + scan-derived)
+
+The branch is **merge-ready** and reflects the combined work of:
+  · Part 3 substantive marathon (parallel branch's executor work)
+  · Part 4 meta deep dives + integration (this branch's analysis work)
