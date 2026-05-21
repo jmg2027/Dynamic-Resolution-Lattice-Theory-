@@ -55,84 +55,7 @@ def orbit_3 : EdgePred := fun e =>
 /-- Orbit 4: {9}. -/
 def orbit_4 : EdgePred := fun e => e.val == 9
 
-/-! ## §2 — Orbits are closed under both generators -/
-
-/-- Orbit 1 is closed under σ_E_swap_01. -/
-theorem orbit_1_closed_swap_01 :
-    ∀ e : Fin 10, orbit_1 e = true → orbit_1 (σ_E_swap_01 e) = true := by
-  decide
-
-/-- Orbit 1 is closed under σ_E_swap_12. -/
-theorem orbit_1_closed_swap_12 :
-    ∀ e : Fin 10, orbit_1 e = true → orbit_1 (σ_E_swap_12 e) = true := by
-  decide
-
-/-- Orbit 2 is closed under σ_E_swap_01. -/
-theorem orbit_2_closed_swap_01 :
-    ∀ e : Fin 10, orbit_2 e = true → orbit_2 (σ_E_swap_01 e) = true := by
-  decide
-
-/-- Orbit 2 is closed under σ_E_swap_12. -/
-theorem orbit_2_closed_swap_12 :
-    ∀ e : Fin 10, orbit_2 e = true → orbit_2 (σ_E_swap_12 e) = true := by
-  decide
-
-/-- Orbit 3 is closed under σ_E_swap_01. -/
-theorem orbit_3_closed_swap_01 :
-    ∀ e : Fin 10, orbit_3 e = true → orbit_3 (σ_E_swap_01 e) = true := by
-  decide
-
-/-- Orbit 3 is closed under σ_E_swap_12. -/
-theorem orbit_3_closed_swap_12 :
-    ∀ e : Fin 10, orbit_3 e = true → orbit_3 (σ_E_swap_12 e) = true := by
-  decide
-
-/-- Orbit 4 is closed under σ_E_swap_01 (singleton fixed). -/
-theorem orbit_4_closed_swap_01 :
-    ∀ e : Fin 10, orbit_4 e = true → orbit_4 (σ_E_swap_01 e) = true := by
-  decide
-
-/-- Orbit 4 is closed under σ_E_swap_12 (singleton fixed). -/
-theorem orbit_4_closed_swap_12 :
-    ∀ e : Fin 10, orbit_4 e = true → orbit_4 (σ_E_swap_12 e) = true := by
-  decide
-
-/-! ## §3 — Orbits partition Edges_K(10) -/
-
-/-- Every edge belongs to exactly one of the 4 orbits. -/
-theorem orbits_cover :
-    ∀ e : Fin 10,
-      orbit_1 e || orbit_2 e || orbit_3 e || orbit_4 e = true := by decide
-
-/-- Orbits are pairwise disjoint. -/
-theorem orbits_disjoint_12 :
-    ∀ e : Fin 10, !(orbit_1 e && orbit_2 e) = true := by decide
-theorem orbits_disjoint_13 :
-    ∀ e : Fin 10, !(orbit_1 e && orbit_3 e) = true := by decide
-theorem orbits_disjoint_14 :
-    ∀ e : Fin 10, !(orbit_1 e && orbit_4 e) = true := by decide
-theorem orbits_disjoint_23 :
-    ∀ e : Fin 10, !(orbit_2 e && orbit_3 e) = true := by decide
-theorem orbits_disjoint_24 :
-    ∀ e : Fin 10, !(orbit_2 e && orbit_4 e) = true := by decide
-theorem orbits_disjoint_34 :
-    ∀ e : Fin 10, !(orbit_3 e && orbit_4 e) = true := by decide
-
-/-! ## §4 — Orbit cardinalities -/
-
-/-- Orbit 1 has 3 elements. -/
-theorem orbit_1_card_3 :
-    orbit_1 ⟨0, by decide⟩ = true ∧ orbit_1 ⟨1, by decide⟩ = true
-    ∧ orbit_1 ⟨2, by decide⟩ = true
-    ∧ orbit_1 ⟨3, by decide⟩ = false := by decide
-
-/-- Orbit 4 is a singleton {9}. -/
-theorem orbit_4_singleton :
-    orbit_4 ⟨9, by decide⟩ = true
-    ∧ orbit_4 ⟨0, by decide⟩ = false
-    ∧ orbit_4 ⟨5, by decide⟩ = false := by decide
-
-/-! ## §5 — Master C3 Step 5 -/
+/-! ## §2 — Master C3 Step 5 -/
 
 /-- ★★★★★ Aut Edge Orbit Decomposition Master (C3 Step 5).
     STRICT ∅-AXIOM.
@@ -149,22 +72,39 @@ theorem orbit_4_singleton :
     classification of edges by their endpoint structure relative
     to the S/T bipartition.  Encoded via `EdgePred = Fin 10 → Bool`
     (the cochain-style predicate type, mirroring `Logic.Predicate`
-    from main #43). -/
+    from main #43).
+
+    Bundles: 8 generator-closure conditions (each orbit × each
+    generator), 4-orbit cover, 6 pairwise disjointness conditions,
+    orbit 1 cardinality witness, orbit 4 singleton witness. -/
 theorem aut_edge_orbits_master :
     -- Each orbit closed under both Sym(3) generators
     (∀ e : Fin 10, orbit_1 e = true → orbit_1 (σ_E_swap_01 e) = true)
     ∧ (∀ e : Fin 10, orbit_1 e = true → orbit_1 (σ_E_swap_12 e) = true)
+    ∧ (∀ e : Fin 10, orbit_2 e = true → orbit_2 (σ_E_swap_01 e) = true)
+    ∧ (∀ e : Fin 10, orbit_2 e = true → orbit_2 (σ_E_swap_12 e) = true)
+    ∧ (∀ e : Fin 10, orbit_3 e = true → orbit_3 (σ_E_swap_01 e) = true)
+    ∧ (∀ e : Fin 10, orbit_3 e = true → orbit_3 (σ_E_swap_12 e) = true)
     ∧ (∀ e : Fin 10, orbit_4 e = true → orbit_4 (σ_E_swap_01 e) = true)
-    -- Orbits cover and are disjoint
+    ∧ (∀ e : Fin 10, orbit_4 e = true → orbit_4 (σ_E_swap_12 e) = true)
+    -- Orbits cover Edges_K(10)
     ∧ (∀ e : Fin 10,
         orbit_1 e || orbit_2 e || orbit_3 e || orbit_4 e = true)
+    -- Orbits pairwise disjoint
+    ∧ (∀ e : Fin 10, !(orbit_1 e && orbit_2 e) = true)
+    ∧ (∀ e : Fin 10, !(orbit_1 e && orbit_3 e) = true)
+    ∧ (∀ e : Fin 10, !(orbit_1 e && orbit_4 e) = true)
+    ∧ (∀ e : Fin 10, !(orbit_2 e && orbit_3 e) = true)
+    ∧ (∀ e : Fin 10, !(orbit_2 e && orbit_4 e) = true)
+    ∧ (∀ e : Fin 10, !(orbit_3 e && orbit_4 e) = true)
+    -- Orbit 1 has 3 elements (cardinality witness)
+    ∧ (orbit_1 ⟨0, by decide⟩ = true ∧ orbit_1 ⟨1, by decide⟩ = true
+       ∧ orbit_1 ⟨2, by decide⟩ = true ∧ orbit_1 ⟨3, by decide⟩ = false)
     -- Orbit 4 is the singleton {9}
-    ∧ orbit_4 ⟨9, by decide⟩ = true
-    ∧ orbit_4 ⟨0, by decide⟩ = false := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact orbit_1_closed_swap_01
-  · exact orbit_1_closed_swap_12
-  · exact orbit_4_closed_swap_01
-  all_goals decide
+    ∧ (orbit_4 ⟨9, by decide⟩ = true
+       ∧ orbit_4 ⟨0, by decide⟩ = false
+       ∧ orbit_4 ⟨5, by decide⟩ = false) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  <;> decide
 
 end E213.Lib.Physics.Symmetry.AutEdgeOrbits
