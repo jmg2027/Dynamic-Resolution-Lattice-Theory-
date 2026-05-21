@@ -413,14 +413,100 @@ def extract_apply_contexts(body: str, targets: set[str], window: int = 5):
         yield (kind, lemma, before, after)
 
 
+def _line_no(src: str, pos: int) -> int:
+    """Approximate line number (1-indexed) for a position in src."""
+    return src.count('\n', 0, pos) + 1
+
+
+# Heuristic granularity hint for `Raw.fold_slash` (and similar Raw-axiom
+# direct invocations).  The hint is inferred from the surrounding body
+# text within ± 400 characters of the cite — looks for marker tokens
+# that suggest either atomic-Raw or count-Lens-group level.
+GROUP_MARKERS = ('Decomp', 'count', 'Atomicity', 'partition', 'IsAlive',
+                 'Clause4', 'pair_forcing', 'kSubset', 'binom', 'NS·NT',
+                 'NS * NT')
+ATOMIC_MARKERS = ('Tree.', 'Raw.a', 'Raw.b', 'Raw.slash', 'a/b',
+                  'binaryProj', 'booleanProj', 'isBool')
+
+
+def _granularity_hint(body: str, pos: int) -> str:
+    """Inspect ± 400 chars around `pos` and decide 'atomic' vs 'group'."""
+    lo, hi = max(0, pos - 400), min(len(body), pos + 400)
+    window = body[lo:hi]
+    g_hits = sum(1 for m in GROUP_MARKERS if m in window)
+    a_hits = sum(1 for m in ATOMIC_MARKERS if m in window)
+    if g_hits > a_hits:
+        return 'group'
+    if a_hits > g_hits:
+        return 'atomic'
+    return 'ambiguous'
+
+
 def scan_contexts(targets: set[str], window: int = 5):
-    rows = []  # (rel, decl, kind, lemma, before_tuple, after_tuple)
+    rows = []  # (rel, decl, line, kind, lemma, before_tuple, after_tuple, hint)
     for rel, src in walk_e213_files(LEAN_DIR):
         for name, body in find_decl_bodies(src):
-            for kind, lemma, before, after in extract_apply_contexts(
+            # Compute body offset to translate body-pos → src-pos.  body
+            # is a suffix of src; find its start.
+            body_off = src.find(body)
+            if body_off < 0:
+                body_off = 0
+            # Extract with positions for line-number + granularity hint:
+            for kind, lemma, before, after, pos in extract_apply_contexts_pos(
                     body, targets, window):
-                rows.append((rel, name, kind, lemma, before, after))
+                line = _line_no(src, body_off + pos)
+                hint = _granularity_hint(body, pos)
+                rows.append((rel, name, line, kind, lemma, before, after, hint))
     return rows
+
+
+def extract_apply_contexts_pos(body: str, targets: set[str], window: int = 5):
+    """Same as extract_apply_contexts but also yields the body-relative
+    position of the citation event."""
+    tokens = []
+    for m in CTX_TOKEN_RE.finditer(body):
+        if m.group(1) in TACTIC_NAMES:
+            tokens.append((m.start(1), m.group(1)))
+    events = []
+    for m in APPLY_HEAD_RE.finditer(body):
+        if m.group(1) in targets:
+            events.append((m.start(), 'apply', m.group(1)))
+    for m in EXACT_HEAD_RE.finditer(body):
+        if m.group(1) in targets:
+            events.append((m.start(), 'exact', m.group(1)))
+    i = 0
+    while i < len(body):
+        m = BRACKET_HDR_RE.search(body, i)
+        if not m:
+            break
+        lb = body.find('[', m.start())
+        if lb == -1:
+            i = m.end(); continue
+        rb = balance_brackets(body, lb)
+        content = body[lb+1:rb-1]
+        kind = next(g for g in m.groups() if g)
+        for item in split_top_level(content):
+            head = parse_lemma_head(item)
+            if head in targets:
+                events.append((lb, kind, head))
+        i = rb
+    events.sort(key=lambda e: e[0])
+    for pos, kind, lemma in events:
+        idx = None
+        for k, (tp, tn) in enumerate(tokens):
+            if tp == pos and tn == kind:
+                idx = k; break
+        if idx is None:
+            for k, (tp, _) in enumerate(tokens):
+                if tp > pos:
+                    idx = max(0, k - 1); break
+            else:
+                idx = len(tokens) - 1
+        lo = max(0, idx - window)
+        hi = min(len(tokens), idx + window + 1)
+        before = tuple(t for _, t in tokens[lo:idx])
+        after  = tuple(t for _, t in tokens[idx+1:hi])
+        yield (kind, lemma, before, after, pos)
 
 
 def report_contexts(rows, window: int):
@@ -430,29 +516,50 @@ def report_contexts(rows, window: int):
     print()
     # Cluster by (kind, before-tuple, after-tuple)
     cluster = collections.defaultdict(list)
-    for rel, decl, kind, lemma, before, after in rows:
-        cluster[(kind, before, after)].append((rel, decl, lemma))
+    for r in rows:
+        rel, decl, line, kind, lemma, before, after, hint = r
+        cluster[(kind, before, after)].append((rel, decl, line, lemma, hint))
     print(f"# Distinct ±{window} context skeletons: {len(cluster)}\n")
     print(f"## Top context skeletons around target citation")
     ranked = sorted(cluster.items(), key=lambda kv: -len(kv[1]))
     for (kind, b, a), occs in ranked[:15]:
-        decls = sorted({(r, d) for r, d, _ in occs})
-        print(f"  x{len(occs)}   {len(decls)} distinct (file, decl)")
+        decls = sorted({(r, d) for r, d, _, _, _ in occs})
+        hints = collections.Counter(h for _, _, _, _, h in occs)
+        hint_summary = ', '.join(f'{h}={n}' for h, n in hints.most_common())
+        print(f"  x{len(occs)}   {len(decls)} distinct (file, decl)   [{hint_summary}]")
         print(f"    BEFORE: [{', '.join(b) if b else '(start of proof)'}]")
         print(f"    KIND:   {kind}  <target>")
         print(f"    AFTER:  [{', '.join(a) if a else '(end of proof)'}]")
-        for r, d, _ in occs[:3]:
+        for r, d, _, _, _ in occs[:3]:
             print(f"    · {r} :: {d}")
         if len(occs) > 3:
             print(f"    · ... +{len(occs)-3}")
         print()
 
     # by lemma if multiple targets
-    by_lemma = collections.Counter(r[3] for r in rows)
+    by_lemma = collections.Counter(r[4] for r in rows)
     if len(by_lemma) > 1:
         print("## Hits per target")
         for lem, n in by_lemma.most_common():
             print(f"  {n:>4}  {lem}")
+    # granularity summary
+    by_hint = collections.Counter(r[7] for r in rows)
+    print()
+    print("## Granularity-hint distribution")
+    for h, n in by_hint.most_common():
+        print(f"  {h:<10} {n}")
+
+
+def write_context_tsv(rows, path):
+    """Write a TSV deliverable: file, line, decl, kind, lemma,
+    before-tactics, after-tactics, granularity-hint."""
+    lines = ['file\tline\tdecl\tkind\tlemma\tbefore\tafter\thint']
+    for rel, decl, line, kind, lemma, before, after, hint in rows:
+        lines.append('\t'.join([
+            rel, str(line), decl, kind, lemma,
+            ','.join(before), ','.join(after), hint
+        ]))
+    path.write_text('\n'.join(lines) + '\n')
 
 
 def main() -> int:
@@ -464,11 +571,17 @@ def main() -> int:
                          "context around every citation site")
     ap.add_argument("--context-window", type=int, default=5,
                     help="window size in tactic tokens (default 5)")
+    ap.add_argument("--context-tsv",
+                    help="also write a TSV (file/line/decl/kind/lemma/"
+                         "before/after/hint) to the given path")
     args = ap.parse_args()
     if args.context_target:
         targets = {t.strip() for t in args.context_target.split(',')}
         rows = scan_contexts(targets, args.context_window)
         report_contexts(rows, args.context_window)
+        if args.context_tsv:
+            write_context_tsv(rows, pathlib.Path(args.context_tsv))
+            print(f"\n# TSV written to {args.context_tsv}  ({len(rows)} rows)")
         return 0
     if args.report_only:
         cites = read_cites(CITE_PATH)

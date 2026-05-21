@@ -1,0 +1,63 @@
+file	line	decl	kind	lemma	before	after	hint
+Lens/Cardinality/LensCardinality.lean	5	maxLens_image_binary	rw	Raw.fold_slash	induction,left,rfl,right,rfl	rcases,rcases,rw,decide	ambiguous
+Lens/Compose/OnLens.lean	2	lensUniversalMorphism_slash	exact	Raw.fold_slash	unfold		ambiguous
+Lens/EqPW.lean	99	eqPW_view_of_sym	rw	Raw.fold_slash	have,induction,exact,exact,show	show,rw	atomic
+Lens/EqPW.lean	99	eqPW_view_of_sym	rw	Raw.fold_slash	have,induction,exact,exact,show	show,rw	atomic
+Lens/Initiality.lean	8	Lens.view_unique	exact	Raw.fold_slash	rw,rfl,rw,symm,show		atomic
+Lens/Instances/AB.lean	15	abLens_sum_eq_leaves	apply	Raw.fold_slash	induction,rfl,rfl,have,have	intro,exact,rw,show,rw	atomic
+Lens/Instances/Bool.lean	50	boolAndLens_view_const	rw	Raw.fold_slash	show,induction,rfl,rfl	cases,cases,rfl,decide	ambiguous
+Lens/Instances/Bool.lean	6	boolOrLens_view_const	rw	Raw.fold_slash	show,induction,rfl,rfl	cases,cases,rfl,decide	ambiguous
+Lens/Instances/CompoundBool.lean	24	parityXor_fst_eq_parity	rw	Raw.fold_slash	have,intro,show,rw,have	show,rw	ambiguous
+Lens/Instances/CompoundBool.lean	24	parityXor_fst_eq_parity	rw	Raw.fold_slash	have,intro,show,rw,have	show,rw	ambiguous
+Lens/Instances/CompoundBool.lean	24	parityXor_snd_eq_boolXor	rw	Raw.fold_slash	have,intro,show,rw,have	show,rw	ambiguous
+Lens/Instances/CompoundBool.lean	24	parityXor_snd_eq_boolXor	rw	Raw.fold_slash	have,intro,show,rw,have	show,rw	ambiguous
+Lens/Instances/CompoundBool.lean	17	parityXor_ab	rw	Raw.fold_slash	decide,have,intro,show,rw	decide,rfl	atomic
+Lens/Instances/F9.lean	5	f9Lens_view_ab	rw	Raw.fold_slash	show	decide,rfl	atomic
+Lens/Instances/Leaves/DepthJoin.lean	7	leaves_ge_one	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,omega	atomic
+Lens/Instances/Leaves/DepthJoin.lean	6	not_small_slash	apply	Raw.fold_slash	intro,have	intro,exact,have,have,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	12	small_iff_depth_zero	apply	Raw.fold_slash	induction,simp,simp,have	intro,exact,have,apply,intro	atomic
+Lens/Instances/Leaves/DepthJoin.lean	20	small_iff_depth_zero	apply	Raw.fold_slash	have,apply,intro,exact,have	intro,show,rw,have,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	12	leaves_two_iff_depth_one	apply	Raw.fold_slash	exfalso,apply,unfold,rfl,have	intro,exact,have,apply,intro	atomic
+Lens/Instances/Leaves/DepthJoin.lean	17	leaves_two_iff_depth_one	apply	Raw.fold_slash	have,apply,intro,exact,have	intro,show,rw,have,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	12	depth_ge_two_leaves_ge_three	apply	Raw.fold_slash	unfold,simp,unfold,simp,have	intro,exact,have,apply,intro	atomic
+Lens/Instances/Leaves/DepthJoin.lean	20	depth_ge_two_leaves_ge_three	apply	Raw.fold_slash	have,apply,intro,exact,have	intro,show,rw,have,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	6	tier_slash	apply	Raw.fold_slash	have	intro,exact,have,have,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	13	tierLens_view_eq_tier	apply	Raw.fold_slash	rfl,unfold,show,rfl,have	intro,exact,rw,show,rfl	atomic
+Lens/Instances/Leaves/DepthJoin.lean	433	repr1_tier	apply	Raw.fold_slash	unfold,have,decide,have,decide	intro,exact,rw,rfl,rw	atomic
+Lens/Instances/Leaves/DepthJoin.lean	10	repr2_tier	apply	Raw.fold_slash	unfold,have,decide,have,decide	intro,exact,rw,rfl,have	atomic
+Lens/Instances/Leaves/DepthJoin.lean	24	repr2_tier	apply	Raw.fold_slash	decide,have,decide,decide,decide	intro,exact,rw,rfl,rw	atomic
+Lens/Instances/Leaves/Mod3.lean	13	leavesMod3Lens_view_eq	apply	Raw.fold_slash	induction,rfl,rfl,have,have	intro,exact,rw,unfold,show	atomic
+Lens/Instances/Leaves/ModNat.lean	15	leavesModNat_view_eq	apply	Raw.fold_slash	induction,rfl,rfl,have,have	intro,exact,rw,show,rw	atomic
+Lens/Instances/Leaves/RefinesParity.lean	10	parityLens_view_eq_leaves_odd	apply	Raw.fold_slash	intro,induction,decide,decide,have	intro,cases,cases,rfl,have	atomic
+Lens/Instances/Leaves/RefinesParity.lean	14	parityLens_view_eq_leaves_odd	apply	Raw.fold_slash	intro,cases,cases,rfl,have	intro,exact,rw,exact	atomic
+Lens/Instances/Parity.lean	3	parityLens_sample_even_view	rw	Raw.fold_slash	show	decide,rfl	atomic
+Lens/Instances/RawAChar.lean	49	rawACharLens_view_eq	apply	Raw.fold_slash	intro,induction,decide,decide,have	intro,rfl,rw,show,decide	atomic
+Lens/Instances/Reach.lean	7	slash_ne_a	apply	Raw.fold_slash	intro,have,have	intro,show,exact,rw,show	atomic
+Lens/Instances/Reach.lean	7	slash_ne_b	apply	Raw.fold_slash	intro,have,have	intro,show,exact,rw,show	atomic
+Lens/Number/Nat213/ChartGeneral.lean	14	chartChain_value	rw	E213.Theory.Raw.fold_slash	rw,show,rw,show,unfold	show,rw,rw	atomic
+Lens/Number/Nat213/Lenses.lean	9	lensConstOne_always_one	rw	Raw.fold_slash	induction,rfl,rfl,show	rfl	atomic
+Lens/Number/Nat213/Raw.lean	6	value_succ_of_ne	rw	Raw.fold_slash	unfold,rw,show	show,rfl	atomic
+Lens/Properties/ABRefines.lean	9	boolXorLens_view_eq	apply	Raw.fold_slash	induction,decide,decide,have	intro,cases,cases,rfl,have	atomic
+Lens/Properties/ABRefines.lean	16	boolXorLens_view_eq	apply	Raw.fold_slash	intro,cases,cases,rfl,have	intro,show,rw,rw,have	atomic
+Lens/Properties/Characterisation/Core.lean	130	R3_view_nonVanishing	exact	Raw.fold_slash	show,exact,show,have,show	rw,intro,rcases,exact,exact	atomic
+Lens/Properties/Leaf.lean	9	leaves_ge_one	apply	Raw.fold_slash	intro,induction,decide,decide,have	intro,exact,rw,exact	atomic
+Lens/Properties/Leaf.lean	8	leafLens_view_eq	apply	Raw.fold_slash	intro,induction,decide,decide,have	intro,rfl,have,apply,intro	atomic
+Lens/Properties/Leaf.lean	12	leafLens_view_eq	apply	Raw.fold_slash	have,apply,intro,rfl,have	intro,exact,have,have,rw	atomic
+Lens/Properties/Morphism/FoldStructured.lean	5	lens_view_fold_structured	exact	Raw.fold_slash	refine,rfl,rfl,intro		ambiguous
+Lens/SelfCompletion.lean	7	view_slash_uses_combine	exact	Raw.fold_slash	show		atomic
+Lens/SemanticAtom.lean	2	universalMorphism_slash	apply	Raw.fold_slash	unfold		ambiguous
+Lens/Universal/QuotLens.lean	13	universalLens_view_eq	apply	Raw.fold_slash	induction,rfl,rfl,have	intro,exact,rw,funext,apply	atomic
+Lib/Math/Cauchy/GenericFamily.lean	22	projectionLens_view	apply	Raw.fold_slash	have,intro,funext,exact,have	have,apply,rw,funext,show	atomic
+Lib/Math/Cauchy/GenericFamily.lean	28	projectionLens_view	apply	Raw.fold_slash	funext,exact,have,apply,have	rw,funext,show,rw,exact	atomic
+Lib/Math/Cauchy/PellSeq.lean	1	abLens_slash	apply	Raw.fold_slash		intro,show,rw	ambiguous
+Lib/Math/Choice/CanonicalTruthChar.lean	1	aCountParityLens_slash	apply	Raw.fold_slash		intro,show,cases,cases,rfl	ambiguous
+Lib/Math/Choice/CanonicalTruthChar.lean	1	iffBoolLens_slash	apply	Raw.fold_slash		intro,show,decide,decide,cases	ambiguous
+Lib/Math/Choice/CanonicalTruthChar.lean	27	canonicalAndMap_iff_eq_a	apply	Raw.fold_slash	rfl,intro,exact,have,have	intro,show,rw,rw,have	atomic
+Lib/Math/Choice/CanonicalTruthChar.lean	217	slash_ne_b_via_depth	apply	Raw.fold_slash	intro,have,have	intro,show,rw,rw,have	atomic
+Lib/Math/ModArith/JoinBezout.lean	8	leaves_ge_one	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,exact	atomic
+Lib/Math/ModArith/JoinCoprime.lean	10	leaves_ge_one	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,exact	atomic
+Lib/Math/ModArith/JoinEquivGCD.lean	8	leaves_ge_one_local	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,exact	atomic
+Lib/Math/ModArith/JoinEuclidean.lean	27	leaves_ge_one_local	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,exact	atomic
+Lib/Math/ModArith/JoinExample.lean	10	leaves_ge_one	apply	Raw.fold_slash	induction,decide,decide,have	intro,exact,rw,exact	atomic
+Theory/Raw/Levels.lean	8	Raw.depth_slash	exact	Raw.fold_slash	rw,have		ambiguous
+Theory/Raw/Levels.lean	4	Raw.leaves_slash	exact	Raw.fold_slash	rw		ambiguous
