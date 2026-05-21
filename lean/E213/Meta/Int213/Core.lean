@@ -660,4 +660,18 @@ theorem add_right_comm (a b c : Int) : a + b + c = a + c + b := by
 theorem mul_one (a : Int) : a * 1 = a := by
   rw [mul_comm]; exact Int.one_mul a
 
+/-- `Int.mul_sub` — PURE replacement for Lean-core
+    `Int.mul_sub` (which brings propext via Iff-chain derivation).
+
+    Added 2026-05-22 per G95 §N6 / G96 §3 dep-purity cleanup.
+    Composed from `mul_add` + `mul_neg`. -/
+theorem mul_sub (a b c : Int) : a * (b - c) = a * b - a * c := by
+  show a * (b + -c) = a * b + -(a * c)
+  rw [mul_add a b (-c), mul_neg]
+
+/-- `Int.sub_mul` — PURE replacement for Lean-core `Int.sub_mul`. -/
+theorem sub_mul (a b c : Int) : (a - b) * c = a * c - b * c := by
+  show (a + -b) * c = a * c + -(b * c)
+  rw [add_mul a (-b) c, neg_mul]
+
 end E213.Meta.Int213

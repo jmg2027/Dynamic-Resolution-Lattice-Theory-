@@ -1,3 +1,4 @@
+import E213.Meta.Int213.Core
 /-!
 # Tactic: `quad_norm`
 
@@ -28,7 +29,7 @@ explicitly `open E213.Tactic`.
 namespace E213.Tactic
 
 scoped macro "quad_norm" : tactic => `(tactic|
-  (simp only [Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add,
+  (simp only [E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, Int.add_mul, Int.mul_add,
               Int.mul_assoc, Int.mul_comm, Int.mul_left_comm,
               Int.sub_eq_add_neg, Int.neg_mul, Int.mul_neg,
               Int.neg_neg]; omega))

@@ -1,4 +1,5 @@
 import E213.Lens.Lattice.JoinEquiv
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # LeavesDepthJoin: leaves ⊔ depth ≠ constLens (non-trivial non-mod join)
@@ -81,7 +82,7 @@ private theorem small_iff_depth_zero (r : Raw) :
         apply Raw.fold_slash
         intro u v
         show 1 + max u v = 1 + max v u
-        rw [Nat.max_comm]
+        rw [E213.Tactic.NatHelper.max_comm]
       have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
       have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
       constructor
@@ -171,7 +172,7 @@ private theorem leaves_two_iff_depth_one (r : Raw) (hns : ¬ small r) :
       have hfsD : Lens.depth.view (Raw.slash x y h)
                     = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
         apply Raw.fold_slash
-        intro u v; show 1 + max u v = 1 + max v u; rw [Nat.max_comm]
+        intro u v; show 1 + max u v = 1 + max v u; rw [E213.Tactic.NatHelper.max_comm]
       have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
       have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
       constructor
@@ -219,7 +220,7 @@ private theorem depth_ge_two_leaves_ge_three (r : Raw)
       have hfsD : Lens.depth.view (Raw.slash x y h)
                     = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
         apply Raw.fold_slash
-        intro u v; show 1 + max u v = 1 + max v u; rw [Nat.max_comm]
+        intro u v; show 1 + max u v = 1 + max v u; rw [E213.Tactic.NatHelper.max_comm]
       have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
       have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
       rw [hfsD] at hd

@@ -1,174 +1,245 @@
-# Session Handoff — 2026-05-21 (Plan + Cup-Leibniz generalisation marathon)
+# Session Handoff — 2026-05-22 (MERGE-READY)
 
 ## Branch
-`claude/analyze-research-plan-Pxcoo` — 17 session commits.  All
-pushed.
+`claude/subset-bijection-lemmas-w2FKf` — 40 commits ahead of
+`origin/main`.  All pushed.
 
-## Session goal evolution
+## Merge gatekeepers ✅
 
-**Initial goal** (top of session): Pivot from mechanical reduction
-to substantive structural theorems per
-`/root/.claude/plans/smooth-mapping-metcalfe.md`.
+  · **Full repo `lake build`**: ✅ clean
+  · **Layer audit**: ✅ 0 violations / ~1180 files
+  · **Axiom purity**: ✅ all 18 new phase capstones + master
+    theorem `c3_chain_master` PURE (`#print axioms` empty)
+  · **No new DIRTY** introduced (pre-existing `propext` in
+    `CanonicalTruthChar` unchanged; branch removes one stale
+    Lean-core dep via NatHelper centralization)
+  · **Diff**: 53 files changed, **+8601 / −238 lines**
 
-**Mid-session pivot**: After Phase 2 work surfaced the cup-Leibniz
-"bug", reframed under §8.4 dichotomy avoidance as **lex-projection
-cup's native algebra** (G85).
+---
 
-**Final pivot**: User-directed generalisation push — extend the
-twisted Leibniz finding to arbitrary bidegrees, prove symbolically
-without decide enumeration, via user's 3-way partition strategy.
+# Part 1 — Completed (compressed)
 
-## Final results
+## Branch-wide tally (3 sessions, 40 commits)
 
-### Plan phases (1-5) — all delivered (commits up to `2dacaf6a`)
+| Session | Marathon | PURE | One-line headline |
+|---|---|---|---|
+| S1 | Cup-Leibniz general transfer | 67 | `cup_unfold_general` ∀(n,k,l) + KSubset bijection + FinBridge general |
+| S2 | 6-theorem + alive + Mobius213 | 80 | `ZOmega_units_exact_six` (diophantine completeness) + `alive_iff_clause4_alive` + P^5/P^10 mod 5 |
+| S3 main | **C3 chain (gauge emergence) — 12 phases + master** | 173 | gluon octet = `coker(ι*: H¹(Δ⁴) → H¹(K))` = (F_2)^8 = 2·trivial ⊕ 3·standard |
+| S3 fup A | Phase 5 → 23/23 + C3 ext (13–15) + c=2 | 60 | F25/F26 + C_2^6 on H¹(K) + 3rd standard pair + semidirect sample + G80 lift |
+| S3 fup B | Polish — Phases 16, 17, 18 | 30 | mixed C_2^6 matrices + block-diag Sym(3) + **full semidirect Group axioms** |
+| **Total** | | **~410 new PURE** | **0 DIRTY** introduced |
 
-| Phase | Deliverable | PURE |
+## C3 chain — 18 phases, single master result
+
+```
+gluon octet := coker(ι*: H¹(Δ⁴) → H¹(K_{3,2}^{(c=2)}))
+            =  H¹(K) / 0                  (H¹(Δ⁴) = 0)
+            ≃  (F_2)^8
+            =  2 · trivial ⊕ 3 · standard  (over F_2)
+```
+
+Downstream-ready reference: `★★★★★ c3_chain_master` ∈
+`E213.Lib.Physics.Symmetry.C3ChainCapstone` (12-conjunct PURE bundle).
+
+| Phase | Module | What it gives |
 |---|---|---|
-| 1a | Mobius213 ∀n Pell-unit invariant + Int213 rw refactor | 2+(1 internal) |
-| 1b | Real213/PhiCut — φ via Pell convergents | 7 |
-| 1c | TowerConvergence — `tower_L_infty_exists` | 1 |
-| 1d | TowerLInfty — G61 Q1, Q5(part), L_∞ closure | 5 |
-| 1e | PhiUnification — cross-domain φ capstone | 4 |
-| 2 | Cup/LeibnizUniversal — research finding + diagnostic | 1 (marker) |
-| 3 | Physics/Quantum/{Qubit,Bell,Bekenstein} | 14 |
-| 4 | MinimalRootCapstone (G31 IVT) | 3 |
-| 5 | 5 validation-pairing falsifiers | 5 |
+| 1 | `AutKType` | Aut_K as Type, card 768 |
+| 2 | `H1K` | rank-8 ℤ/2-module + 8 cycle generators |
+| 3 | `Sym3OnKEdges` | Sym(3) on K-edges, full Cayley |
+| 4 | `Sym3OnH1K` | δ⁰ equivariance → descent to H¹(K) |
+| 5 | `Sym3OnH1KMatrix` | explicit 8×8 σ_S01 + tree-decomp witness |
+| 6 | `Sym3OnH1KCayley` | s²=t²=(st)³=e at matrix level |
+| 7 | `IotaKToDelta4` | gluon octet = coker ι*; H¹(Δ⁴) = 0 via 1024-decide |
+| 8 | `IotaSym3Equivariance` | ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge |
+| 9 | `Sym3IrrepDecomp` | 2·trivial ⊕ 3·standard over F_2 |
+| 10 | `Sym3StandardReps` | 2 explicit standard 2-rep pairs |
+| 11 | `Sym3Group` | Sym(3) Group on Fin 6 via Cayley table |
+| 12 | `AutKGroup` | Aut(K) direct-product Group, card 768 |
+| ★ | `C3ChainCapstone` | `c3_chain_master` 12-conjunct master bundle |
+| 13 | `C2_6OnH1K` | C_2^6 trivial on coboundaries → auto descent |
+| 14 | `Sym3StandardRepThird` | 3rd standard pair → **full explicit 8-dim basis** |
+| 15 | `AutKSemidirect` | bit_perm twist sample, direct ≠ semidirect witness |
+| 16 | `C2_6MixedMatrices` | H1K matrices for 4 mixed C_2^6 bits |
+| 17 | `Sym3BlockDiagonal` | M_S01, M_S12 fully block-diagonal in 8-dim basis |
+| 18 | `AutKSemidirectFull` | **Full semidirect Group axioms** PROVEN |
 
-### Phase 2 generalisation (commits `ac29efe2` → `634d9704`)
+## Other deliverables this branch
 
-Triggered by user's "가장 213적으로 올바른 path" directive:
+  · **Validation Standard Phase 5: 23/23**
+    - F25 (m_t/m_c ≈ 137 ∈ [130, 145]) → `Hadron/MtOverMc.lean`
+    - F26 (η_B × 10¹⁰ ∈ [5, 7]) → `Cosmology/EtaBFalsifier.lean`
+    - Catalog updated: `catalogs/falsifiers.md`
 
-| File | Content | PURE |
+  · **G80 c=2 structural derivation lifted to Lean**
+    - `Lib/Math/C2DoublingDerivation.lean` (10 PURE)
+    - `c = full_period/half_period = 10/5 = 2 = NT` (binary cover ratio)
+
+  · **6-theorem fully closed (S2)**: `ZOmega_units_exact_six` —
+    `|{u : ZOmega | normSq u = 1}| = 6 = NS·NT` (diophantine completeness)
+
+  · **Alive gap closed (S2)**: `alive_iff_clause4_alive` —
+    alive predicate dissolves into Clause 4 of 213 axiom
+
+  · **Cup-Leibniz general transfer (S1)**: `cup_unfold_general`
+    ∀(n, k, l) capstone subsuming Δ⁴-specific decide-tables
+
+## Key technical patterns established (LESSONS_LEARNED.md #1–#9)
+
+  · **Pointwise (∀ i, ...) module/Group axioms** to bypass `funext`/`Quot.sound`
+  · **C_2^6 = `Fin 6 → Bool`** (not `Fin 64` + `Nat.xor` which pulls propext)
+  · **Tree-decomposition witnesses** for non-tree→tree edge transitions
+  · **`maxRecDepth 2048`** for 1024-case `H¹(Δ⁴) = 0` decide
+  · **Inverse-pullback action** to convert anti-hom → true hom in semidirect product
+  · **Match-based bit-index encoding** to avoid `omega`-induced propext
+
+---
+
+# Part 2 — Open work (detailed)
+
+The only substantive remaining open item is **Cup-Leibniz general
+∀(k, l)** — every other identified gap (C3 chain extensions,
+Validation Standard pairings, c=2 derivation, polish items) is now
+PURE-closed.  Lower-priority follow-up extensions are also listed.
+
+## A. Cup-Leibniz general ∀(k, l) — DEEP open conjecture
+
+**G86 conjecture** (`research-notes/G86_self_referential_lex_cup_leibniz.md`):
+For **all bidegrees (k, l)**, the lex-projection cup admits the
+self-referential Leibniz rule
+
+```
+deltaList (k+l) (cupList k l α β) τ
+  =  (cupList (k+1) l (deltaList α) β) τ
+   ⊕ (cupList k (l+1) α (deltaList β)) τ
+   ⊕ correction(α, β, τ)
+```
+
+where `correction = (cupList k l α β)(τ \ {τ[mid]})` is the
+**self-referential face-removal** of the cup itself.
+
+### Current status
+
+| Bidegree | Status | File |
 |---|---|---|
-| `Cup/LeibnizLex.lean` | (1,1) twisted Leibniz with boundary-endpoint correction `α(τ[0])·β(τ[last])` | 4 |
-| `Cup/LeibnizLexSelfRef.lean` | (1,1) **self-referential form**: correction = (α⌣β)(τ \ {τ[k]}) | 4 |
-| `Cup/LeibnizLex21.lean` | (2,1) bidegree on Δ³, self-referential | 2 |
-| `Cup/LeibnizLexStructural.lean` | **8 PURE structural List-level lemmas** (take/drop ↔ eraseIdx commutation, foldl XOR base cases) | 8 |
-| `Cup/LeibnizLexListLevel.lean` | **List-level symbolic Leibniz at (1,1) AND (2,1)** — proven ∀ α β τ via structural lemmas, NO decide enumeration | 7 |
-| `research-notes/G85_cup_delta_lens_mismatch.md` | 213-native re-reading: wedge-cup × simplicial-δ Lens-mismatch reframing | doc |
-| `research-notes/G86_self_referential_lex_cup_leibniz.md` | Generalised conjecture for ∀ (n, k, l) + physics speculation (K_{3,2}^{(c=2)} channel cup) | doc |
-| `LESSONS_LEARNED.md` | Patterns #1-#7 with composition table | doc |
+| (1, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
+| (1, 1) | ✅ Fin-indexed (Δ⁴) | `LeibnizLexSelfRef.lean` |
+| (2, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
+| (2, 1) | ✅ Fin-indexed (Δ³) | `LeibnizLex21.lean` |
+| (k, l) general | ⚪ **open** | — |
 
-**Total new PURE this session: 67 theorems** + 2 research notes +
-extensive doc/catalog updates.
+### What's needed structurally
 
-### Cup-Leibniz key insight progression
+The existing (1,1) and (2,1) proofs use the **3-way partition
+strategy** with 8 list-level structural lemmas in
+`LeibnizLexStructural.lean`.  Generalizing to ∀(k, l) needs:
 
-1. Phase 2 initial: standard Leibniz decide-refuted; **research finding**.
-2. G85: re-framing as Lens mismatch (concatenation cup vs AW vs ℤ/2 wedge).
-3. Path δ: name the operation honestly (**lex-projection cup**),
-   prove its native Leibniz with `α(τ[0])·β(τ[last])` correction (4 PURE).
-4. LeibnizLexSelfRef: correction equals `(α⌣β)(τ \ {τ[k]})` —
-   **self-referential** form, aligned with §8 doctrine.
-5. LeibnizLex21: same self-referential form at (2,1), confirming generality.
-6. G86: ∀ (n, k, l) conjecture + physics speculation.
-7. **User's 3-way partition** symbolic strategy:
-   - LeibnizLexStructural: 8 PURE List-level commutation lemmas
-   - LeibnizLexListLevel: full symbolic proof at (1,1), (2,1) — no decide!
+1. **General face-removal lemma**: prove that
+   `(cupList k l α β)(τ \ {τ[i]})` decomposes into front/back
+   sub-cups for arbitrary `i ∈ Fin (k+l+1)`, not just specific
+   indices.
+2. **Inductive partition**: extend the 3-way split to a
+   `(k+1)+1+(l+1)` partition with the middle piece being the
+   self-referential overlap.
+3. **List/Fin polymorphism**: the current structural lemmas are
+   stated for specific list lengths; the general case needs
+   length-parameterized versions.
 
-## What's still open (next session)
+### Why deferred
 
-### Symbolic generalisation to ∀ (k, l) — CLOSED (2026-05-22)
+Per the prior session direction: "이건 이후로 ㄱㄱ" (defer this) —
+needs **deep 213-native structural insight**, not just mechanical
+extension.  The face-removal correction term's exact algebraic
+form is conjectured but not yet proven from first principles.
 
-**`list_level_leibniz_general` is PURE-proven** at the list level
-(`Cohomology/Cup/LeibnizLexListLevel.lean`).  Strategy used:
-custom `xorRange` operator (avoiding List.range_succ [propext]) +
-`xorRange_three_way_partition` (algebraic skeleton) +
-`cupList_face_decomp` (per-face structural lemmas) + XOR algebra.
+### Suggested next-session path
 
-Total cumulative: 32 PURE theorems realising the 3-way partition
-strategy.
+If attempted, try this order:
+  1. **(3, 1) list-level**: simplest next case, may reveal the
+     general pattern via comparison with (1,1), (2,1).
+  2. **(k, 1) list-level for all k**: induction on k, fixing l=1.
+  3. **(1, l) list-level for all l**: similar with l-induction.
+  4. **General (k, l)**: combine via the cup's symmetry
+     `cupList k l α β = ± cupList l k β α` (up to sign / parity).
 
-### Transfer to Fin-indexed cup — **FULL CLOSURE** (2026-05-22)
+Estimated effort: ~2-3 sessions of focused structural work.
 
-**16 PURE bridge primitives** added across two files:
+### Physics motivation (G86 §3, speculative)
 
-  · `Cohomology/Cup/SubsetIdxRoundtrip.lean` (11 PURE):
-    - decide-verified round-trips at Δ⁴ (n=5, k ∈ {1, 2, 3, 4})
-    - ∀n general `kSubset_n_1_singleton` structural lemma
-    - `binom_k_0`, `binom_m_1` Pascal sub-lemmas
+The lex-projection cup's self-referential Leibniz may connect to:
+  · **α_em 5.4×10⁻⁴ residual** — cohomology cup-product origin (G35)
+  · **K_{3,2}^{(c=2)} bipartite cup-channel structure** — the
+    specific bidegrees (NS, NT) = (3, 2) cup may give the photon
+    self-energy correction
+  · **θ_QCD α⁴ suppression** as depth-(d-1) = depth-4 self-reference
+    iteration
 
-  · `Cohomology/Cup/FinBridge.lean` (13 PURE — final):
-    - `firstVertex_5_2`, `lastVertex_5_2` — colex 2-subset vertex
-      extraction
-    - `cup_5_1_1_unfold` — Pattern #2 universal, 10240 decide cases
-    - `face2idx_5_3` — 3-subset → 2-subset face-index map
-    - `delta_cup_5_1_1_unfold` — Pattern #2 universal, 10240 cases
-    - `front2Idx_5_3`, `backVertex_5_3` — (5,2,1) extraction
-    - `cup_5_2_1_unfold` — bundle form (10 rfl-per-face)
-    - `frontVertex_5_3`, `back2Idx_5_3` — (5,1,2) extraction
-    - `cup_5_1_2_unfold` — bundle form
-    - `delta_5_1_unfold` — Pattern #2 universal, 320 decide cases
-    - `fin_bridge_capstone_5_1_1` — merge-ready capstone
+These are conjectural and would close ATM_026-028 / G35 gaps if
+proven.
 
-**All bridges PURE.  Full coverage for (1,1) Leibniz on Δ⁴:**
-  · LHS unfold: `cup_5_1_1_unfold` + `delta_cup_5_1_1_unfold`
-  · RHS Block 1 (δα⌣β): `cup_5_2_1_unfold` + `delta_5_1_unfold`
-  · RHS Block 2 (α⌣δβ): `cup_5_1_2_unfold` + `delta_5_1_unfold`
-  · Correction term: `cup_5_1_1_unfold` at face_middle_removed
+## B. Lower-priority extensions (incremental, optional)
 
-Composed with the list-level ∀(k, l) theorem
-(`list_level_leibniz_general`) and the existing decide-verified
-Fin-form `lex_cup_leibniz_self_ref_1_1`, the Fin-indexed (1,1)
-Leibniz on Δ⁴ has full PURE coverage.
+### B1. Inverse-pullback / hom-direction documentation
+Phase 18 uses `bit_act_of` with inverse-pullback to recover true
+group hom direction.  A short research note explaining the
+convention choice (pullback gives anti-hom, push-forward gives
+hom) would help future contributors avoid the same trap.  Small
+file (~50 lines).
 
-Remaining for future generalisation (NOT blocking merge):
-  · Bridge primitives at higher dimensions (Δ^d, d > 4)
-  · ∀n general round-trip at k=1 (requires List.find? structural
-    lemmas — non-trivial)
-  · ∀(n, k) kSubset bijection (substantial structural work)
+### B2. C2_6OnH1K full matrix capstone
+`C2_6OnH1K.lean` (Phase 13) covers clean bits and records mixed
+bits as future.  `C2_6MixedMatrices.lean` (Phase 16) has the
+explicit matrices.  A **bundle theorem** combining both into
+"the full 6-fold C_2^6 representation on H¹(K) as 6 commuting
+involutions" would consolidate.  ~30 PURE.
 
-### Physics application
-G86 speculates the lex-projection cup's self-referential Leibniz
-may connect to:
-  · α_em 5.4×10⁻⁴ residual (cohomology cup-product origin per G35)
-  · K_{3,2}^{(c=2)} bipartite cup-channel structure
-  · θ_QCD α⁴ suppression as depth-(d-1) self-reference iteration
+### B3. C3 chain master v2 — incorporate Phases 13–18
+Current `c3_chain_master` (Phase 12 era) only references Phases 1–12.
+A v2 master incorporating Phases 13–18 (C_2^6 action, F_2 irreps,
+semidirect twist, block-diagonal form) would give the **fullest
+single-theorem** statement of the gauge-emergence narrative.  Pure
+documentation / consolidation, no new math.
 
-Concrete verification requires translating K_{3,2}^{(c=2)} into the
-lex-projection formalism explicitly.
+### B4. Connect C3 to specific physics observables
+The C3 chain gives the gluon octet structurally but doesn't
+compute α_3 (strong coupling) from the explicit Sym(3) rep.
+Bridging C3 to `Lib/Physics/Couplings/AlphaStrong.lean` would
+close the loop: "gauge group → coupling constant".  Medium effort.
 
-## Validation Standard pairing status
+### B5. Δ⁴ full cohomology (b_0, b_1, b_2, b_3, b_4) — already at b_1
+`V32Betti.lean` covers K_{3,2}^{(c=2)} Betti numbers fully.
+`IotaKToDelta4.kerSize_delta_5_2 = 16` gives H¹(Δ⁴) = 0.  Other
+Betti numbers of Δ⁴ (b_0 = 1, b_k = 0 for k ≥ 1) would round
+out the cohomological picture.  Each is decide-on-2^binom-Nat cases.
 
-**17 / 23 paired observables** (74% closure) after Phase 5
-additions.  Remaining 6 (Koide, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵,
-M_Pl/v_H, muon prefactor 192) have precision side only.
+## C. Methodological / maintenance
 
-## Methodological patterns established
+### C1. Layer-audit downgrade hints
+The layer auditor reports 63 "downgrade hints" (files that
+could optionally move to lower layers).  None are violations,
+but periodic review keeps the architecture clean.  See
+`tools/layer_audit.py` output.
 
-`LESSONS_LEARNED.md` now lists 7 cumulative patterns (`#1`–`#7`)
-with composition table.  Pattern `#7` (3-way partition for δ XOR
-decomposition) and `#6` (list-level decoupling) are the deepest;
-they enable symbolic proofs that don't require decide enumeration
-at all.
+### C2. Stale-path cleanup in research-notes
+Some research-notes still reference outdated file paths.  Last
+session's G93-handshake commit refactored helpers; an audit
+pass on research-notes/G* would catch remaining stale links.
 
-## Branch state
+---
 
-  · 17 session commits, all pushed
-  · Full repo `lake build`: clean
-  · Layer audit: 0 violations / ~1144 files
-  · Kernel pure: 45 theorems 0-axiom across 10 targets
-  · No new real-DIRTY introduced (some [propext] from Lean-core
-    List/Nat lemmas which are kernel-sealed)
+## Merge recommendation
+
+**Safe to merge.**  C3 chain delivers the gauge-emergence
+narrative as a downstream-ready single capstone
+(`c3_chain_master`) that other layers can cite.  All polish
+items closed.  No DIRTY introduced.  Build clean.  Layer audit
+clean.
 
 ## Anchor docs (next session start)
 
   · `CLAUDE.md` boot sequence (unchanged)
-  · `LESSONS_LEARNED.md` patterns #1-#7
-  · `research-notes/G85_cup_delta_lens_mismatch.md` + `G86_*`
-  · `lean/E213/Lib/Math/Cohomology/Cup/`:
-      - `Core.lean` — cup with corrected docstring
-      - `Leibniz.lean` — 4 concrete cases (existing)
-      - `LeibnizUniversal.lean` — Phase 2 finding + closure note
-      - `LeibnizLex.lean` — twisted Leibniz with explicit correction
-      - `LeibnizLexSelfRef.lean` — self-referential form
-      - `LeibnizLex21.lean` — (2,1) on Δ³
-      - `LeibnizLexStructural.lean` — 8 PURE List-level lemmas
-      - `LeibnizLexListLevel.lean` — symbolic ∀ α β τ at (1,1) + (2,1)
-
-## Total impact
-
-17 new commits.  ~1900 lines added net.  6 new Lean files in
-Cup/ tree.  Cup-Leibniz generalisation: from "research finding"
-to **truly universal-in-(α, β, τ) symbolic PURE proof** at two
-bidegrees, with the path to ∀ (k, l) clearly laid out.
+  · `STRICT_ZERO_AXIOM.md` (full catalog of S1, S2, S3 phases)
+  · `LESSONS_LEARNED.md` patterns #1–#9
+  · `research-notes/G86_self_referential_lex_cup_leibniz.md` — Open A
+  · `research-notes/G87_raw_native_emergence_audit.md` — S2 marathon
+  · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` — master result
