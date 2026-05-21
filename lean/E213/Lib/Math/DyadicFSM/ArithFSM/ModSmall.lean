@@ -42,11 +42,8 @@ theorem pellFSMmod5_run_period_10 :
     rw [ih]
 /-- ★★★★ Pell mod-5 bits cycle with period 10 (universally). -/
 theorem pellFSMmod5_bits_period_10 :
-    ∀ k, pellFSMmod5.bits (k + 10) = pellFSMmod5.bits k := by
-  intro k
-  show pellFSMmod5.out (pellFSMmod5.run (k + 10))
-      = pellFSMmod5.out (pellFSMmod5.run k)
-  rw [pellFSMmod5_run_period_10]
+    ∀ k, pellFSMmod5.bits (k + 10) = pellFSMmod5.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod5_run_period_10
 /-- Pell mod-5 has period STRICTLY greater than mod-3.  -/
 theorem pellMod5_period_gt_mod3 :
     (10 : Nat) > 4 := by decide
@@ -99,11 +96,8 @@ theorem pellFSMmod7_run_period_8 :
 
 /-- ★★★★ Pell mod-7 bits cycle with period 8. -/
 theorem pellFSMmod7_bits_period_8 :
-    ∀ k, pellFSMmod7.bits (k + 8) = pellFSMmod7.bits k := by
-  intro k
-  show pellFSMmod7.out (pellFSMmod7.run (k + 8))
-      = pellFSMmod7.out (pellFSMmod7.run k)
-  rw [pellFSMmod7_run_period_8]
+    ∀ k, pellFSMmod7.bits (k + 8) = pellFSMmod7.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod7_run_period_8
 
 /-- ★★★★★ Pell mod-7 signature has period 8. -/
 theorem pellFSMmod7_signature_period_8 :
@@ -160,11 +154,8 @@ theorem pellFSMmod11_run_period_5 :
 
 /-- ★★★★ Pell mod-11 bits cycle with period 5. -/
 theorem pellFSMmod11_bits_period_5 :
-    ∀ k, pellFSMmod11.bits (k + 5) = pellFSMmod11.bits k := by
-  intro k
-  show pellFSMmod11.out (pellFSMmod11.run (k + 5))
-      = pellFSMmod11.out (pellFSMmod11.run k)
-  rw [pellFSMmod11_run_period_5]
+    ∀ k, pellFSMmod11.bits (k + 5) = pellFSMmod11.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod11_run_period_5
 
 /-- Bit period doubles to signature period 10 (bipartite parity coupling,
     bit period 5 is odd). -/
@@ -228,11 +219,8 @@ theorem pellFSMmod13_run_period_14 :
 
 /-- ★★★★ Pell mod-13 bits cycle with period 14. -/
 theorem pellFSMmod13_bits_period_14 :
-    ∀ k, pellFSMmod13.bits (k + 14) = pellFSMmod13.bits k := by
-  intro k
-  show pellFSMmod13.out (pellFSMmod13.run (k + 14))
-      = pellFSMmod13.out (pellFSMmod13.run k)
-  rw [pellFSMmod13_run_period_14]
+    ∀ k, pellFSMmod13.bits (k + 14) = pellFSMmod13.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod13_run_period_14
 
 /-- ★★★★★ Pell mod-13 signature has period 14. -/
 theorem pellFSMmod13_signature_period_14 :
@@ -278,11 +266,8 @@ theorem pellFSMmod17_run_period_18 :
 
 /-- ★★★★ Pell mod-17 bits cycle with period 18. -/
 theorem pellFSMmod17_bits_period_18 :
-    ∀ k, pellFSMmod17.bits (k + 18) = pellFSMmod17.bits k := by
-  intro k
-  show pellFSMmod17.out (pellFSMmod17.run (k + 18))
-      = pellFSMmod17.out (pellFSMmod17.run k)
-  rw [pellFSMmod17_run_period_18]
+    ∀ k, pellFSMmod17.bits (k + 18) = pellFSMmod17.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod17_run_period_18
 
 /-- ★★★★★ Pell mod-17 signature has period 18. -/
 theorem pellFSMmod17_signature_period_18 :
@@ -327,11 +312,8 @@ theorem pellFSMmod19_run_period_9 :
 
 /-- ★★★★ Pell mod-19 bits cycle with period 9. -/
 theorem pellFSMmod19_bits_period_9 :
-    ∀ k, pellFSMmod19.bits (k + 9) = pellFSMmod19.bits k := by
-  intro k
-  show pellFSMmod19.out (pellFSMmod19.run (k + 9))
-      = pellFSMmod19.out (pellFSMmod19.run k)
-  rw [pellFSMmod19_run_period_9]
+    ∀ k, pellFSMmod19.bits (k + 9) = pellFSMmod19.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod19_run_period_9
 
 /-- Bipartite parity doubling: bit period 9 odd ⇒ signature period 18. -/
 theorem pellFSMmod19_bits_period_18 :
@@ -380,11 +362,8 @@ theorem pellFSMmod23_run_period_24 :
 
 /-- ★★★★ Pell mod-23 bits cycle with period 24. -/
 theorem pellFSMmod23_bits_period_24 :
-    ∀ k, pellFSMmod23.bits (k + 24) = pellFSMmod23.bits k := by
-  intro k
-  show pellFSMmod23.out (pellFSMmod23.run (k + 24))
-      = pellFSMmod23.out (pellFSMmod23.run k)
-  rw [pellFSMmod23_run_period_24]
+    ∀ k, pellFSMmod23.bits (k + 24) = pellFSMmod23.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod23_run_period_24
 
 /-- ★★★★★ Pell mod-23 signature has period 24. -/
 theorem pellFSMmod23_signature_period_24 :

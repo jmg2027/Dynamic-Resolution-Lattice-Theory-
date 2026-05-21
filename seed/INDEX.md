@@ -127,6 +127,8 @@ seed/
 ├── ORIGIN.md                  ← DRLT origin narrative (archival)
 ├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
+├── RAW_DERIVATION_SPEC.md     ← "derived from Raw" α/β/γ distinction
+├── FALSIFIABILITY_SURFACE_SPEC.md ← quantitative profile of §5.2.1 enforcement
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
@@ -169,23 +171,25 @@ seed/
 - `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
   corpus.
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
+- `RAW_DERIVATION_SPEC.md` — what "X is derived from Raw" technically
+  means (three readings: logical / structural-content / operational).
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
 
 ## Meta-analysis findings (2026-05-21 session)
 
 Branch `claude/analyze-lean4-ast-patterns-49Rh2` produced 11
-scanners + 23 research notes (G90-G114) characterising the
+scanners + 23 research notes (G90-G116) characterising the
 corpus's quantitative structure:
 
   · **Tier-2/3 subtree deep dives**: G108 Real213/Analysis,
     G110 FluxMVT, G111 Cohomology, G112 HodgeConjecture, G113
-    DyadicFSM, G114 CayleyDickson.  ~6,400 decls covered.
+    DyadicFSM, G114 CayleyDickson, G115 Lib.Physics (2,159 decls — largest), G116 PatternCatalog (943 decls — meta-meta).  ~9,300 decls covered.
   · **Cross-domain identifications**: G109 surfaced 109
     cross-namespace byte-identical-shape groups; 25 substantive
     math↔physics bridges.  Catalogued in
     `catalogs/cross-domain-identifications.md`.
-  · **Pattern extensions**: 8 new patterns (#10-#17) formally
+  · **Pattern extensions**: 11 new patterns (#10-#20, including parallel branch's #10-#13 + meta branch's #14-#20) formally
     added to `LESSONS_LEARNED.md` covering adoption-gap
     detection, n-layer agreement, three-level Raw-derivation,
     decide-finitism quantitative profile, framework-internal
@@ -217,3 +221,9 @@ corpus's quantitative structure:
 
 All scanners support `--report-only` for instant re-cluster
 against cached TSV.
+**Full G-doc enumeration** (G87 from parallel branch, G90-G116 from
+meta branch): see `research-notes/G107_action_items_registry.md` §"DONE"
++ §"Pointers" for the full per-doc table.  G87 = Raw-native emergence
+audit (parallel branch's S2 marathon kickoff); G90-G116 = meta-branch
+scanners + tier deep dives.
+

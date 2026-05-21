@@ -936,59 +936,181 @@ content to count-Lens groups, type objects, group objects, etc.
 
 ---
 
+## Pattern #10 — Adoption-gap detection via k-gram cascade scan (2026-05-22)
+
+**Source**: G99 (k-gram cascade scanner) → N8/N9 batch execution this
+session.
+
+**Statement**: When a PURE helper lemma already exists in the codebase
+but the corpus shadows it via manual 2-3 step `rw` chains, the gap
+surfaces as a high-frequency k-gram in tactic-token scans.  Adopt the
+helper mechanically; the corpus shrinks without any new mathematics.
+
+**Witness** (this session):
+
+  · `NatHelper.mul_left_comm` (already PURE) ↔ 19 sites doing manual
+    `[← mul_assoc, mul_comm, mul_assoc]` 3-step.
+    Adopted across 3 files (CutSumOne ×16, CutMidSelf ×2, Euler ×3);
+    helper went from "cited once" to "cited 20+ times".
+  · `Nat.add_right_comm` (Lean-core PURE) ↔ 6 sites doing manual
+    `[add_assoc, add_comm, ← add_assoc]` 3-step.
+    Adopted across 7 files; one site (LeibnizLexListLevel) collapsed
+    to plain `rfl` once redundancy was stripped.
+
+**Diagnostic step**: `tools/syntax_rw_cascade_scan.py` (G99) ranks
+adjacent `rw` k-grams by frequency.  Top entries that aren't already
+named lemmas are adoption candidates.
+
+**Mechanical execution**: term-mode replacement
+(`exact NatHelper.mul_left_comm a b c`) where the goal is exactly the
+helper's RHS; tactic-mode (`rw [NatHelper.mul_left_comm]`) where
+the helper appears inside a longer chain.
+
+**Failure mode this catches**: lemma rot — a helper is added once,
+then forgotten as subsequent contributors reach for the underlying
+3-step rewrite without checking whether a wrapper exists.  The k-gram
+scan is the periodic-audit antidote.
+
+---
+
+## Pattern #11 — Pointwise dichotomy collapse for Cup-Leibniz lifts (2026-05-22)
+
+**Source**: G91 / G94 §8.1 L2 → execution this session
+(`LeibnizDecomp.lean`).
+
+**Statement**: When a basis-component family `bz5_X β k j` has the
+two-case pointwise shape
+
+```
+β k = false  →  ∀ j, bz5_X β k j = Cochain.zero _ _ j
+β k = true   →  ∀ j, bz5_X β k j = basis _ _ k j
+```
+
+Cup-AW Leibniz for the family decomposes into two reusable lemmas:
+
+  (a) **Zero collapse** — when `γ ≡ 0`, all three Leibniz terms
+      collapse to `false` via `cupAW_zero_left/right` + `delta_zero`,
+      and the identity reduces to `false = xor false false` (rfl).
+  (b) **Pointwise transport** — when `γ ≡ basis`, both sides rewrite
+      via `cupAW_pointwise_eq` + `delta_pointwise_eq` and the identity
+      reduces to the basis Leibniz at the basis element.
+
+The two helpers (one per side: `left` decomposes first cochain, `right`
+decomposes second) cover the 4 sibling `h_components_{α,β}` proofs in
+`Leibniz{21,22}Final.lean`.
+
+**Witness**: `Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` — 8 PURE
+helpers (4 zero-collapse + 4 pointwise-transport, specialised to
+right-degree b ∈ {1, 2} since `2 + b - 1 + 1` does not reduce
+definitionally for abstract `b`).
+
+  · Refactor result: 4 sites × ~30-line dichotomy → 4 sites × 6-line
+    `cases` + 2 helper invocations.
+  · Net: 147 lines removed, all `h_components_{α,β}` and
+    downstream `leibniz_universal_5_2_{1,2}` remain PURE.
+
+**Why specialised, not general**: a fully `(n, a, b)`-generic form
+needs type casts to handle `(a+1)+b-1 ≢ a+b` defeq.  At the cost of
+verbosity, specialising to the two actually-used (b=1, b=2) cases
+keeps Fin indices identity-on-the-nose and avoids `Fin.cast`
+plumbing.
+
+---
+
+## Pattern #12 — Meta-scan archetype catalog (2026-05-22)
+
+**Source**: G101 §6 + G107 §6 tool inventory.
+
+**Statement**: When the corpus needs static-analysis investigation,
+pick a scanner from the 6 established archetypes rather than
+inventing a one-off scan.  Each archetype answers a different
+question; together they triangulate.
+
+**The 6 archetypes**:
+
+| # | Archetype | Question answered | Reference tools |
+|---|-----------|-------------------|-----------------|
+| 1 | **AST motif scan** | Which fold/recursor primitives are used and where? | `tools/ast_fold_scan.py` (G90) |
+| 2 | **Syntax skeleton scan** | Which tactic-token sequences repeat? | `tools/syntax_tactic_scan.py` (G91) |
+| 3 | **Citation graph** | Who depends on whom at the lemma surface? | `tools/syntax_arg_scan.py` (G92) |
+| 4 | **Context dumper** | What surrounds each cite of a key lemma? | `tools/syntax_arg_scan.py --context-target` (G94, G96) |
+| 5 | **Co-occurrence chunk** | Which tactic sub-sequences cluster together? | `tools/syntax_unfold_scan.py` (G98) |
+| 6 | **k-gram cascade** | Which manual sub-rewrites shadow existing helpers? | `tools/syntax_rw_cascade_scan.py` (G99, Pattern #10) |
+
+Plus two Expr-level scanners:
+
+| 7 | **Expr-level call graph** | Same as #3 but at elaboration layer | `tools/ast_callgraph_scan.py` (G102) |
+| 8 | **Expr-shape density** | What's the proof-shape fingerprint per namespace? | `tools/ast_shape_scan.py` (G103) |
+
+**Usage rule**: before writing a new scanner, check if one of the
+8 covers the question.  If yes, run it (TSV is gitignored;
+regenerate on demand).  If no, write a new one and add it to the
+archetype list.
+
+**Status**: SURFACED; CL-1 of G107 §10.5.
+
+---
+
+## Pattern #13 — Process model: meta surfaces, substantive executes (2026-05-22)
+
+**Source**: G97 §6 + G107 §0 (cross-branch handshake documentation).
+
+**Statement**: For static-analysis-heavy tasks, run two branches in
+parallel:
+
+  · **meta branch** — pattern surfacing, scanner tooling, research
+    notes.  No PURE theorems added on this side; analysis only.
+  · **substantive branch** — PURE theorem additions, abstraction
+    execution, math marathons.
+
+The two branches communicate via numbered research-notes
+(`research-notes/G##*.md`) acting as handshake documents.  Each
+handshake doc references the G-IDs it consumes / produces.
+
+**Witness**: G93 → G96 → G94 → G97 handshake loop closed across
+this pattern.  The substantive branch (PR #90) closed 6 meta-surfaced
+items in cycle (C1 / C2 / C3 / C5 / N5 / N6).
+
+**This branch's adoption**: G107's open registry was the executor
+entry-point for the `claude/handoff-part-3-marathon-0XWmn` branch's
+sweep, which closed:
+
+  · §2: L2 + N7 + N8 + N9 + Sub-2 (5 of 5 mechanical-immediate).
+  · §3: L1 β-side (2 of 4 L1 siblings) + C deferred.
+  · §4: M + Pell-FSM (full sweep) + ModArith (3 of 8).
+
+49 Pell-FSM family sites + 12 mathematical sites + 25 mechanical
+adoptions = 86 sites absorbed via 18 PURE helpers.
+
+**Rule for future cycles**: if the next investigation is
+static-analysis-heavy and likely to surface many candidate items,
+spin up a meta branch.  Otherwise stay on one branch.
+
+**Status**: VALIDATED across one full cycle; CL-2 of G107 §10.5.
+
+---
+
 ## Pattern composition update
 
 The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
-bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) form the
-2026-05-22 composition table.  Together they enable the closure of the
-Raw → (3, 2, 5) inevitability chain at full ∅-axiom level.
+bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
+(adoption-gap k-gram) + Pattern #11 (Cup-Leibniz dichotomy collapse)
++ Pattern #12 (meta-scan archetypes) + Pattern #13 (cross-branch
+process model) form the 2026-05-22 composition table.  Patterns
+#14-#20 (this commit) extend the table with meta-scan branch
+findings: n-layer agreement, three-level Raw-derivation
+(→ seed/RAW_DERIVATION_SPEC.md), decide-finitism
+(→ seed/FALSIFIABILITY_SURFACE_SPEC.md), framework-internal
+subsumption, byte-identical Expr cross-domain bridges,
+forward/backward factor-knob, multiple Lens choices.  Together
+they enable the closure of the Raw → (3, 2, 5) inevitability
+chain at full ∅-axiom level + a validated meta-substantive
+cross-branch workflow.
+
 
 ---
 
-## Pattern #10 — Adoption-gap detection via k-gram cascade scan
-
-**Discovered**: 2026-05-21 meta-analysis (G99 rw-cascade scan).
-
-### Problem
-
-PURE helper lemmas exist in the codebase but are shadowed by manual
-n-step rewrite chains in many callers.  Specifically:
-`NatHelper.mul_left_comm (a b c) : a * (b * c) = b * (a * c)` exists
-(`Meta/Tactic/NatHelper.lean:293`) and is cited **once** in the
-corpus — yet 25 decls perform the equivalent 3-step manual rotation
-`rw [mul_assoc, mul_comm, mul_assoc]`.  Same pattern: `add_left_comm`
-exists in 3 places, manually rotated in 18 decls.
-
-### Solution
-
-Mine k-gram patterns in the corpus's tactic-citation stream
-(`syntax_rw_cascade_scan.py` over `_syntax_arg_cites.tsv`).  Top
-3-grams expose adoption gaps: a frequent rewrite cascade that already
-matches a named PURE lemma is a candidate for mechanical sed
-rewrite.
-
-### Concrete idiom
-
-```
-rw [NatHelper.mul_assoc, Nat.mul_comm, NatHelper.mul_assoc]    -- 25 sites
-  ⇒ rw [NatHelper.mul_left_comm]
-```
-
-### Where applied
-
-  · G107 N8/N9 surfaced: 25 mul-rotation + 18 add-rotation sites
-    queued for mechanical adoption.
-  · Mass saving: ~86 cite-tokens, 16 files cleaner.
-
-### Generalisation
-
-After **any** new helper lemma is added, scan k-grams for adoption
-gaps.  If the corpus already has manual k-step chains matching the
-new helper's shape, retrofit mechanically.
-
----
-
-## Pattern #11 — Triple-layer (n-layer) agreement = abstraction inevitability
+## Pattern #14 — Triple-layer (n-layer) agreement = abstraction inevitability
 
 **Discovered**: 2026-05-21 meta-analysis (G91 L1 + G94 §1 +
 G103 §3 + G106 + G108-G112 consistent observations).
@@ -1050,117 +1172,49 @@ ranking metric.
 
 ---
 
-## Pattern #12 — "Derived from Raw" has three technical levels
 
-**Discovered**: 2026-05-21 meta-analysis (G104).
+## Pattern #15 — Three-level "Derived from Raw" distinction (G104)
 
-### Problem
+**Reference**: full spec in `seed/RAW_DERIVATION_SPEC.md`.
 
-The phrase "X derives from Raw" is used colloquially but has at
-least three distinct technical meanings.  Conflating them muddies
-claims and invites unfair criticism.
+**Summary**: The phrase "X derives from Raw" has three distinct
+technical meanings:
 
-### Three levels
+  · **(α) Logical derivability** — `#print axioms` empty (TRUE for DRLT).
+  · **(β) Structural-content derivability** — math content derives
+    from Raw via atomic_iff_five → alive_iff_clause4_alive →
+    six_theorem chain (TRUE for DRLT).
+  · **(γ) Operational/definitional reduction** — every Expr
+    reduces to Raw atoms (FALSE BY DESIGN — encapsulation efficiency).
 
-**(α) Logical derivability** — every E213 theorem closes under
-Lean kernel + 4-clause Raw axiom + 213 axiom system, with 0
-external axioms.  Verified by `#print axioms`.  **TRUE** for
-DRLT.
+(α) + (β) hold; (γ) is FALSE BY DESIGN.  Don't conflate the levels.
 
-**(β) Structural-content derivability** — the mathematical
-content (atomicity chain, NS/NT/d, 6-theorem) provably derives
-from the 4 clauses.  Verified by the chain
-`atomic_iff_five → alive_iff_clause4_alive → six_theorem`.
-**TRUE** for DRLT.
+Full text + worked examples (Real213, FluxMVT, Cohomology):
+`seed/RAW_DERIVATION_SPEC.md`.
 
-**(γ) Operational/definitional reduction** — every proof body's
-Expr transitively reduces to references to Raw atoms.  Carrier
-types (Cochain = Fin n → Bool, binom, Cut) are defined in
-generic Nat/Bool/Int/Fin terms, NOT in Raw construction terms.
-**FALSE** for DRLT.
 
-### Reading
+## Pattern #16 — Decide-finitism quantitative profile (G100)
 
-(α) + (β) hold; (γ) is FALSE BY DESIGN (encapsulation).  DRLT's
-architecture is **Raw-native mathematical content layered on
-generic Lean computational infrastructure**.
+**Reference**: full spec in `seed/FALSIFIABILITY_SURFACE_SPEC.md`.
 
-The 14.8 % direct-Raw-reach measured at the body Expr layer
-(G103 §1, G104 §2) is the **encapsulation effect**, not derivation
-failure.  Most decls operate via derived structures
-(Lens.view, Cochain, Cut) whose definition routes back to Raw
-type-level but doesn't re-invoke Raw atoms at every Expr step.
+**Summary**: Pattern #2 (decide-finitism) has measurable footprint:
 
-### Where applied
-
-  · G104 articulates the distinction.
-  · G108 §"Raw connection precise locations" — Real213/Analysis
-    case study (~98 % decls operate at Cut function level, 2
-    bridge points to Raw).
-  · G110 — FluxMVT has 0 direct Raw + clean encapsulation.
-  · G111 — Cohomology 0 direct Raw across 1,216 decls.
-  · G113 — DyadicFSM 0 direct Raw across 1,272 decls.
-
-### Generalisation
-
-Use the three-level distinction to avoid:
-  · Defending DRLT against "your proofs don't reach Raw" critique
-    — distinguish operational vs structural-content vs logical.
-  · Overclaiming "everything is Raw-derived" — the operational
-    layer is NOT (by design, for encapsulation efficiency).
-  · Underclaiming — (α) + (β) are TRUE and verified.
-
----
-
-## Pattern #13 — Decide-finitism quantitative profile
-
-**Discovered**: 2026-05-21 meta-analysis (G91 + G100).
-
-### Problem
-
-Pattern #2 "decide universal" was documented qualitatively.
-Quantification clarifies its footprint.
-
-### Quantitative footprint
-
-  · **36 % of theorems** are pure `[decide]` proofs (1,178 of
-    3,283 decls with tactic bodies, G91).
+  · **36 % of theorems** are pure `[decide]` proofs (G91).
   · **8 % of theorems** are decide-verified negative claims
-    (135 of 1,117 theorem+lemma decls; G100 catalog).
-  · Combined: **~44 % of decls are decide-routed** at one
-    polarity or the other.
-  · `decide_eq_true` cited 84 times across 47 callers (G92) —
-    the Pattern #2 bridge lemma's quantified usage.
-  · `Bool.casesOn` is the corpus's largest recursor (1,681
-    invocations across 634 callers, G105 §2).
+    (135 falsifiers from G100).
+  · Combined **~44 % decide-routed** at one polarity or the other.
+  · `Bool.casesOn` is the corpus's largest recursor (1,681 invocations
+    / 634 callers; G105).
 
-### Falsifier breakdown (G100)
+Distinguishability (`≠`) dominates negation (78 % of falsifiers) —
+consistent with Raw's distinguishability primitive in operational form.
 
-| Category | Count | % |
-|----------|------:|--:|
-| `ne` (x ≠ y) | 105 | 78 % |
-| `not` (general ¬ P) | 20 | 15 % |
-| `not_exists` (¬ ∃) | 8 | 6 % |
-| `not_forall` (¬ ∀) | 2 | 1 % |
+Full quantitative profile + falsifier catalog references:
+`seed/FALSIFIABILITY_SURFACE_SPEC.md` and
+`catalogs/falsifier-roster.md`.
 
-Distinguishability (`≠`) dominates — consistent with Raw's
-distinguishability primitive in operational form.
 
-### Where applied
-
-  · G91 (positive `[decide]` quantification).
-  · G100 (negative falsifier catalog).
-  · G93 §C5 (cross-branch citation in handshake).
-
-### Generalisation
-
-DRLT's "decide-finitism" identity is **measurable in the proof
-shape**, not merely a methodological aspiration.  Future
-methodology shifts should preserve this property.
-
----
-
-## Pattern #14 — Framework-internal subsumption (Bishop / classical)
+## Pattern #17 — Framework-internal subsumption (Bishop / classical)
 
 **Discovered**: 2026-05-21 meta-analysis (G108).
 
@@ -1215,7 +1269,8 @@ FluxMVT (G110) demonstrate the pattern.
 
 ---
 
-## Pattern #15 — Byte-identical Expr cross-domain bridges
+
+## Pattern #18 — Byte-identical Expr cross-domain bridges
 
 **Discovered**: 2026-05-22 meta-analysis (G109).
 
@@ -1254,7 +1309,8 @@ math-physics connections, not analogies.
 
 ---
 
-## Pattern #16 — Forward/backward (α/β) factor-knob byte-identical pair
+
+## Pattern #19 — Forward/backward (α/β) factor-knob byte-identical pair
 
 **Discovered**: 2026-05-21 meta-analysis (G106 L1, G110 FluxMVT,
 G114 CayleyDickson).
@@ -1319,7 +1375,8 @@ likely produce byte-identical pairs at the Expr level.
 
 ---
 
-## Pattern #17 — Multiple Lens choices for the same categorical concept
+
+## Pattern #20 — Multiple Lens choices for the same categorical concept
 
 **Discovered**: 2026-05-22 meta-analysis (G108 + G110 + G111
 G85 disclosure).
@@ -1377,31 +1434,4 @@ generalises Pattern #14 (framework-internal subsumption) to
 subsuming external constructions.
 
 ---
-
-## Pattern composition update (2026-05-22 extended)
-
-The composition table is now Patterns #1-#17.
-
-  · #1-#7: Cup-Leibniz session 1 (original 7).
-  · #8-#9: Parallel branch session 2 (Int.NonNeg + Clause-4
-    recursive).
-  · #10-#17: Meta-analysis branch (G98-G114).
-
-| # | Pattern | Where |
-|---|---------|-------|
-| #1-#7 | Cup-Leibniz patterns | session 1 |
-| #8 | `Int.NonNeg` constructor inversion | parallel |
-| #9 | Clause-4 recursive Lens application | parallel |
-| **#10** | **Adoption-gap detection via k-gram scan** | **G99** |
-| **#11** | **n-layer agreement = abstraction inevitability** | **G91+G94+G103+G106** |
-| **#12** | **"Derived from Raw" 3-level distinction (α/β/γ)** | **G104** |
-| **#13** | **Decide-finitism quantitative profile** | **G91+G100** |
-| **#14** | **Framework-internal subsumption (Bishop / classical)** | **G108+G110** |
-| **#15** | **Byte-identical Expr cross-domain bridges** | **G109** |
-| **#16** | **Forward/backward factor-knob byte-identical pair** | **G106+G110+G114** |
-| **#17** | **Multiple Lens choices for same categorical concept** | **G108+G110+G111** |
-
-Together, Patterns #1-#17 form the complete methodological
-foundation surfaced by the meta-analysis branch + parallel
-substantive branch through 2026-05-22.
 

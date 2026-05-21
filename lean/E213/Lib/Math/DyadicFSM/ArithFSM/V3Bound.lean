@@ -54,6 +54,16 @@ theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
   show m.out (aDec, bDec, cDec) = _
   rw [hdec]
 
+/-- Lift an ArithFSM3 bits-period to the encoded BitFSM via
+    `toBitFSM3_bits_eq`.  G107 §4 Pell-FSM helper (ArithFSM3 analogue
+    of `toBitFSM_bits_period_lift`).  PURE. -/
+theorem toBitFSM3_bits_period_lift {n T : Nat} (hn : 0 < n) (m : ArithFSM3 n)
+    (h : ∀ k, m.bits (k + T) = m.bits k) :
+    ∀ k, (ArithFSM3.toBitFSM hn m).bits (k + T)
+        = (ArithFSM3.toBitFSM hn m).bits k :=
+  fun k => (toBitFSM3_bits_eq hn m (k + T)).trans
+    ((h k).trans (toBitFSM3_bits_eq hn m k).symm)
+
 /-- ★★★★★ ArithFSM3(n) signature has explicit period bound 5n³. -/
 theorem arithFSM3_signature_period_bound {n : Nat} (hn : 0 < n)
     (m : ArithFSM3 n) :

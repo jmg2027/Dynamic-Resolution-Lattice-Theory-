@@ -84,10 +84,8 @@ theorem cutSum_zero_const (a b : Nat) :
     have h_2bm : b * (2*m - i) ≤ b * (2*m) :=
       Nat.mul_le_mul_left b (Nat.sub_le _ _)
     have h_2ak_2bm : a * (2*k) ≤ b * (2*m) := Nat.le_trans h0 h_2bm
-    have e1 : a * (2*k) = 2 * (a*k) := by
-      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
-    have e2 : b * (2*m) = 2 * (b*m) := by
-      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+    have e1 : a * (2*k) = 2 * (a*k) := E213.Tactic.NatHelper.mul_left_comm a 2 k
+    have e2 : b * (2*m) = 2 * (b*m) := E213.Tactic.NatHelper.mul_left_comm b 2 m
     rw [e1, e2] at h_2ak_2bm
     show decide (a*k ≤ b*m) = true
     exact decide_eq_true (Nat.le_of_mul_le_mul_left h_2ak_2bm (by decide : 0 < 2))
@@ -101,9 +99,9 @@ theorem cutSum_zero_const (a b : Nat) :
       rw [Nat.sub_zero]
       apply decide_eq_true
       have e1 : a * (2*k) = 2 * (a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       have e2 : b * (2*m) = 2 * (b*m) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e1, e2]
       exact Nat.mul_le_mul_left 2 h_ak
 
@@ -239,9 +237,9 @@ theorem cutSum_half_general (a b : Nat) :
     apply decide_eq_true
     have h_add : i + (2*m - i) = 2*m := E213.Tactic.NatHelper.add_sub_of_le hi
     have h_e1 : a*(2*k) = 2*(a*k) := by
-      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_left_comm]
     have h_e2 : b*(2*k) = 2*(b*k) := by
-      rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+      rw [E213.Tactic.NatHelper.mul_left_comm]
     rw [h_e1] at h_2ak_2i
     rw [h_e2] at h_2bk_2mi
     have h_ak : a*k ≤ i := Nat.le_of_mul_le_mul_left h_2ak_2i (by decide : 0 < 2)
@@ -261,13 +259,13 @@ theorem cutSum_half_general (a b : Nat) :
     · show decide (a*(2*k) ≤ 2*(a*k)) = true
       apply decide_eq_true
       have : a*(2*k) = 2*(a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [this]
       exact Nat.le_refl _
     · show decide (b*(2*k) ≤ 2*(2*m - a*k)) = true
       apply decide_eq_true
       have e1 : b*(2*k) = 2*(b*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e1]
       have h_abk' : a*k + b*k ≤ 2*m := by
         rw [show a*k + b*k = (a+b)*k from (E213.Tactic.NatHelper.add_mul a b k).symm]
@@ -293,14 +291,14 @@ theorem cutSum_int_half (a b : Nat) :
     have h_2ak_i : 2*(a*k) ≤ i := by
       have h1 : a*(2*k) ≤ 1*i := of_decide_eq_true hci
       have e : a*(2*k) = 2*(a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [Nat.one_mul] at h1; rwa [e] at h1
     have h_2bk_2mi : b*(2*k) ≤ 2*(2*m - i) := of_decide_eq_true hcsi
     show decide ((2*a + b)*k ≤ 2*m) = true
     apply decide_eq_true
     have h_bk : b*k ≤ 2*m - i := by
       have e : b*(2*k) = 2*(b*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e] at h_2bk_2mi
       exact Nat.le_of_mul_le_mul_left h_2bk_2mi (by decide : 0 < 2)
     have h_add : i + (2*m - i) = 2*m := E213.Tactic.NatHelper.add_sub_of_le hi
@@ -325,13 +323,13 @@ theorem cutSum_int_half (a b : Nat) :
     · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
       rw [Nat.one_mul]
       have : a*(2*k) = 2*(a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [this]
       exact decide_eq_true (Nat.le_refl _)
     · show decide (b*(2*k) ≤ 2*(2*m - 2*(a*k))) = true
       apply decide_eq_true
       have e : b*(2*k) = 2*(b*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e]
       have h_bk_sub : b*k ≤ 2*m - 2*(a*k) := by
         have h_swap : b*k + 2*(a*k) ≤ 2*m := by
@@ -362,13 +360,13 @@ theorem cutSum_int_int (a b : Nat) :
       have : a*(2*k) ≤ 1*i := of_decide_eq_true hci
       rw [Nat.one_mul] at this
       have e : a*(2*k) = 2*(a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rwa [e] at this
     have h_2bk_2mi : 2*(b*k) ≤ 2*m - i := by
       have : b*(2*k) ≤ 1*(2*m - i) := of_decide_eq_true hcsi
       rw [Nat.one_mul] at this
       have e : b*(2*k) = 2*(b*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rwa [e] at this
     show decide ((a+b)*k ≤ 1*m) = true
     rw [Nat.one_mul]
@@ -400,14 +398,14 @@ theorem cutSum_int_int (a b : Nat) :
     · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
       rw [Nat.one_mul]
       have e : a*(2*k) = 2*(a*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm a, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e]
       exact decide_eq_true (Nat.le_refl _)
     · show decide (b*(2*k) ≤ 1*(2*m - 2*(a*k))) = true
       rw [Nat.one_mul]
       apply decide_eq_true
       have e : b*(2*k) = 2*(b*k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm b, E213.Tactic.NatHelper.mul_assoc]
+        rw [E213.Tactic.NatHelper.mul_left_comm]
       rw [e]
       have h_2bk_sub : 2*(b*k) ≤ 2*m - 2*(a*k) := by
         have h_sum : 2*(b*k) + 2*(a*k) ≤ 2*m := by

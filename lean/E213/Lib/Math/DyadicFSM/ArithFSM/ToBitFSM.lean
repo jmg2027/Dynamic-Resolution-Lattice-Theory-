@@ -81,6 +81,15 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
   show m.out (aDec, bDec) = _
   rw [hdec]
 
+/-- Lift an ArithFSM2 bits-period to the encoded BitFSM via
+    `toBitFSM_bits_eq`.  G107 §4 Pell-FSM helper (BitFSM analogue
+    of `ArithFSM2.bits_period_of_run_period`).  PURE. -/
+theorem toBitFSM_bits_period_lift {n T : Nat} (hn : 0 < n) (m : ArithFSM2 n)
+    (h : ∀ k, m.bits (k + T) = m.bits k) :
+    ∀ k, (m.toBitFSM hn).bits (k + T) = (m.toBitFSM hn).bits k :=
+  fun k => (toBitFSM_bits_eq hn m (k + T)).trans
+    ((h k).trans (toBitFSM_bits_eq hn m k).symm)
+
 /-- ★★★★★ ArithFSM2(n) signature has explicit period bound 5n².
     Strict-zero axiom (uses signature_eq_of_pointwise_eq instead of funext). -/
 theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)

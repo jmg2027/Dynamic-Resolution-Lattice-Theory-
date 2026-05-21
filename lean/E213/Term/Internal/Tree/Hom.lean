@@ -27,11 +27,7 @@ theorem Tree.fold_swap_hom {α : Type}
   | a => exact h_ba.symm
   | b => exact h_bb.symm
   | slash x y ihx ihy =>
-      have hcan := h
-      unfold Tree.canonical at hcan
-      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
-      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
-      have hlt := Tree.canonical_slash_lt h
+      obtain ⟨hx, hy, hlt⟩ := Tree.canonical_slash_decompose h
       have ihx' := ihx hx
       have ihy' := ihy hy
       show Tree.fold ba bb c

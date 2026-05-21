@@ -59,26 +59,40 @@ def bPrism : Prism Unit := caseElement Raw.b
 
 
 
+/-! ### Generic preview truth table
+
+The 4 truth-table entries below (`aPrism_a/b`, `bPrism_a/b`) all
+follow from two generic lemmas about `caseElement` — preview on the
+target yields `some`, preview on any other Raw yields `none`.
+
+This is the Prism analogue of "decidable-eq dispatches to itself
+vs other"; the truth table is forced by the `preview r := if r = target`
+shape. -/
+
+/-- `caseElement target` previews `target` as `some ()`. -/
+theorem caseElement_preview_self (target : Raw) :
+    (caseElement target).preview target = some () := by
+  show (if target = target then some () else none) = some ()
+  rw [if_pos rfl]
+
+/-- `caseElement target` previews any other `r ≠ target` as `none`. -/
+theorem caseElement_preview_other (target r : Raw) (h : r ≠ target) :
+    (caseElement target).preview r = none := by
+  show (if r = target then some () else none) = none
+  rw [if_neg h]
+
 /-- aPrism preview is some at Raw.a and none at Raw.b. -/
-theorem aPrism_a : aPrism.preview Raw.a = some () := by
-  unfold aPrism caseElement
-  show (if (Raw.a : Raw) = Raw.a then some () else none) = some ()
-  rw [if_pos rfl]
+theorem aPrism_a : aPrism.preview Raw.a = some () :=
+  caseElement_preview_self Raw.a
 
-theorem aPrism_b : aPrism.preview Raw.b = none := by
-  unfold aPrism caseElement
-  show (if (Raw.b : Raw) = Raw.a then some () else none) = none
-  rw [if_neg (by decide)]
+theorem aPrism_b : aPrism.preview Raw.b = none :=
+  caseElement_preview_other Raw.a Raw.b (by decide)
 
-theorem bPrism_a : bPrism.preview Raw.a = none := by
-  unfold bPrism caseElement
-  show (if (Raw.a : Raw) = Raw.b then some () else none) = none
-  rw [if_neg (by decide)]
+theorem bPrism_a : bPrism.preview Raw.a = none :=
+  caseElement_preview_other Raw.b Raw.a (by decide)
 
-theorem bPrism_b : bPrism.preview Raw.b = some () := by
-  unfold bPrism caseElement
-  show (if (Raw.b : Raw) = Raw.b then some () else none) = some ()
-  rw [if_pos rfl]
+theorem bPrism_b : bPrism.preview Raw.b = some () :=
+  caseElement_preview_self Raw.b
 
 
 

@@ -30,6 +30,31 @@ them via Lean-core well-founded recursion proofs.
 
 ---
 
+## PURE-bounded on Lean 4 core (2026-05-22)
+
+**Verification**: G95 (dependency-purity audit) +
+`claude/subset-bijection-lemmas-w2FKf` branch's N5 + N6 closures.
+
+Beyond avoiding `Classical.*`/`native_decide`/`sorryAx`, the DRLT
+corpus has been audited for *Lean-core* axiom dependencies (those
+inherited transitively via Lean's standard-library lemmas that
+themselves bring `propext`/`Quot.sound`).
+
+Net status: **DRLT is PURE-bounded on Lean 4 core** — no non-test
+DIRTY citation chain reaches outside the kernel.  Two centralisations
+made this possible during the cycle:
+
+  · **N5**: `Nat.max_comm` → `NatHelper.max_comm` (5 sites).
+  · **N6**: `Int.mul_sub` / `Int.sub_mul` → `Meta.Int213.{mul_sub, sub_mul}`
+    (12 sites).
+  · **N8/N9** (this branch): `NatHelper.mul_left_comm` + `Nat.add_right_comm`
+    adoption (25 sites, Pattern #10).
+
+Future Lean-core upgrades that change axiom dependencies of
+standard-library lemmas are caught by re-running G95.
+
+---
+
 ## Latest scan
 
 (Numbers vary by run due to scanner timeouts on slow modules; refer

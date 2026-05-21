@@ -34,6 +34,16 @@ def ArithFSM3.run {n : Nat} (m : ArithFSM3 n) : Nat → Fin n × Fin n × Fin n
 def ArithFSM3.bits {n : Nat} (m : ArithFSM3 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
+/-- **bits-period from run-period** for ArithFSM3 (3-state analogue
+    of `ArithFSM2.bits_period_of_run_period`).  G107 §4 Pell-FSM
+    family helper.  PURE. -/
+theorem ArithFSM3.bits_period_of_run_period
+    {n T : Nat} (m : ArithFSM3 n)
+    (h : ∀ k, m.run (k + T) = m.run k) :
+    ∀ k, m.bits (k + T) = m.bits k := fun k => by
+  show m.out (m.run (k + T)) = m.out (m.run k)
+  rw [h]
+
 /-- Tribonacci shift mod 2: state (a, b, c) → (b, c, a + b + c).
     Out: parity of a. -/
 def tribFSMmod2 : ArithFSM3 2 where
