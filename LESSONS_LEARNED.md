@@ -712,7 +712,67 @@ unknown drift.
 | #3 docstring `-/` trap | doc-writing hygiene | universal |
 | #4 catalog misclaim correction | ready-to-merge audits | universal |
 | #5 decide as bug-finder | universal-claim verification | high — defends against silent drift |
+| #6 list-level decoupling | bypassing Fin/colex indexing for symbolic proofs | high |
+| #7 3-way partition (face-removal) | δ XOR sum decomposition at boundary | high — general cohomology |
 
 These compose: #2 enables #5 (enumeration), #5 surfaces bugs that
 hand-tests miss, #1 fixes the [propext] residue that often
-remains after #5's enumeration approach.
+remains after #5's enumeration approach.  #6 + #7 enable
+*symbolic* proofs that don't need decide enumeration at all.
+
+---
+
+## Pattern #6: List-level decoupling for symbolic proofs
+
+**Problem**: cup/delta operations in `Cohomology/` use
+`Fin (binom n k)` indexing with `subsetIdx` colex lookups.  This
+makes universal-form proofs at general (n, k, l) require
+`subsetIdx ↔ kSubset` round-trip lemmas (substantial structural
+work).  Yet the *algebraic content* of the theorem doesn't need
+the Fin indexing — it's about take/drop/eraseIdx on lists.
+
+**Solution**: define list-level analogs `cupList`, `deltaList`
+that take `α β : List Nat → Bool` and `τ : List Nat` directly.
+Prove the theorem at this level.  Transfer back to Fin-indexed
+form via the round-trip lemmas (out of scope for the symbolic
+result itself).
+
+Pioneer demonstration: `Cohomology/Cup/LeibnizLexListLevel.lean`
+proves the (1, 1) AND (2, 1) twisted Leibniz at the list level
+without any decide enumeration — just structural lemmas + Bool
+case analysis on (k+l+2) atoms.
+
+**When to apply**: any theorem about Fin-indexed operations whose
+algebraic content is "shape-preserving" (take/drop/eraseIdx on
+sequences) — define a List-level abstraction, prove there, transfer.
+
+---
+
+## Pattern #7: 3-way partition strategy for δ XOR sum decomposition
+
+**Problem**: at the cochain level, `δ(α ⌣ β)(τ)` is a foldl-XOR
+sum over face removals.  Standard Leibniz captures faces at
+"endpoint" positions but may miss "interior" positions (per
+G85/G86's lex-projection cup finding).
+
+**Solution** (user's 3-way partition strategy):
+- Partition the foldl XOR over `[0..k+l]` at position k into:
+  - Block 1: i ∈ [0..k-1]  →  corresponds to (δα ⌣ β)(τ)
+  - Block 2: i = k          →  the missing-face *correction*
+  - Block 3: i ∈ [k+1..k+l] →  corresponds to (α ⌣ δβ)(τ)
+- Apply take/drop ↔ eraseIdx commutation lemmas at each i
+- (δα ⌣ β) covers Blocks 1 + 2 (overlap with Block 2 at i=k)
+- (α ⌣ δβ) covers Blocks 2 + 3 (overlap with Block 2 at j=0)
+- Block 2 appears TWICE in RHS → XOR-cancels in ℤ/2
+- Net: LHS = (δα⌣β) ⊕ (α⌣δβ) ⊕ Block 2 = standard RHS ⊕ correction
+
+**Concrete realisation**: `Cohomology/Cup/LeibnizLexStructural.lean`
+(8 PURE structural lemmas covering all three i-cases) plus
+`Cohomology/Cup/LeibnizLexListLevel.lean` (foldl XOR algebra + the
+3-way assembly at (1,1) and (2,1) bidegrees).
+
+**Generalisation**: same strategy applies to other "boundary
+self-correcting" operations in cohomology — cap product, twisted
+ring operations, K_{m,n}^{(c)} bipartite cup channels.  The
+**self-referential Leibniz** (correction = operation at face)
+is structurally similar across these contexts.

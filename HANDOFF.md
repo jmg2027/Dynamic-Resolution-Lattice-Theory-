@@ -1,157 +1,145 @@
-# Session Handoff — 2026-05-21 (Plan-driven substantive theorem push)
+# Session Handoff — 2026-05-21 (Plan + Cup-Leibniz generalisation marathon)
 
 ## Branch
-`claude/analyze-research-plan-Pxcoo` — 11 new session commits beyond
-the prior reduction marathon.  All pushed.
+`claude/analyze-research-plan-Pxcoo` — 17 session commits.  All
+pushed.
 
-## Session goal
+## Session goal evolution
 
-Pivot from mechanical theorem-count reduction (14 prior iterations
-on `claude/particle-background-separation-ShXm5`, saturated) to
-**substantive structural-theorem additions** per
+**Initial goal** (top of session): Pivot from mechanical reduction
+to substantive structural theorems per
 `/root/.claude/plans/smooth-mapping-metcalfe.md`.
 
-## Final result — all 5 plan phases delivered
+**Mid-session pivot**: After Phase 2 work surfaced the cup-Leibniz
+"bug", reframed under §8.4 dichotomy avoidance as **lex-projection
+cup's native algebra** (G85).
 
-| Phase | Deliverable | New PURE |
+**Final pivot**: User-directed generalisation push — extend the
+twisted Leibniz finding to arbitrary bidegrees, prove symbolically
+without decide enumeration, via user's 3-way partition strategy.
+
+## Final results
+
+### Plan phases (1-5) — all delivered (commits up to `2dacaf6a`)
+
+| Phase | Deliverable | PURE |
 |---|---|---|
-| 1a | `Mobius213.∀n Pell-unit invariant` + Int213 rw refactor | 2 + (1 internal) |
-| 1b | `Real213/PhiCut.lean` — φ via Pell convergents | 7 |
-| 1c | `Mobius213/TowerConvergence.lean` — `tower_L_infty_exists` | 1 |
-| 1d | `Mobius213/TowerLInfty.lean` — G61 Q1, Q5(part), L_∞ closure | 5 |
-| 1e | `Capstones/PhiUnification.lean` — cross-domain φ capstone | 4 |
-| 2 | `Cup/LeibnizUniversal.lean` — research finding + diagnostic | 1 (marker) |
-| 3 | `Physics/Quantum/{Qubit,Bell,Bekenstein}.lean` — greenfield | 14 |
-| 4 | `Analysis/DyadicSearch/MinimalRootCapstone.lean` — G31 closure | 3 |
-| 5 | 5 validation-pairing falsifiers (R∞, m_τ/μ, Z-widths, θ_QCD, e-folds) | 5 |
+| 1a | Mobius213 ∀n Pell-unit invariant + Int213 rw refactor | 2+(1 internal) |
+| 1b | Real213/PhiCut — φ via Pell convergents | 7 |
+| 1c | TowerConvergence — `tower_L_infty_exists` | 1 |
+| 1d | TowerLInfty — G61 Q1, Q5(part), L_∞ closure | 5 |
+| 1e | PhiUnification — cross-domain φ capstone | 4 |
+| 2 | Cup/LeibnizUniversal — research finding + diagnostic | 1 (marker) |
+| 3 | Physics/Quantum/{Qubit,Bell,Bekenstein} | 14 |
+| 4 | MinimalRootCapstone (G31 IVT) | 3 |
+| 5 | 5 validation-pairing falsifiers | 5 |
 
-**Total new PURE theorems: 42** + 1 research finding.
+### Phase 2 generalisation (commits `ac29efe2` → `634d9704`)
 
-## Hero target achievement (Phase 1)
+Triggered by user's "가장 213적으로 올바른 path" directive:
 
-All four hero-acceptance criteria from the plan met:
-  - ✓ `mobius_213_pell_unit_invariant_forall` PURE
-  - ✓ `tower_L_infty_exists` PURE
-  - ✓ `phiCut` sequence defined (`pellConvergentCut`) + φ-bracket PURE
-  - ✓ `phi_unification_capstone` ties 5+ φ appearances across domains
+| File | Content | PURE |
+|---|---|---|
+| `Cup/LeibnizLex.lean` | (1,1) twisted Leibniz with boundary-endpoint correction `α(τ[0])·β(τ[last])` | 4 |
+| `Cup/LeibnizLexSelfRef.lean` | (1,1) **self-referential form**: correction = (α⌣β)(τ \ {τ[k]}) | 4 |
+| `Cup/LeibnizLex21.lean` | (2,1) bidegree on Δ³, self-referential | 2 |
+| `Cup/LeibnizLexStructural.lean` | **8 PURE structural List-level lemmas** (take/drop ↔ eraseIdx commutation, foldl XOR base cases) | 8 |
+| `Cup/LeibnizLexListLevel.lean` | **List-level symbolic Leibniz at (1,1) AND (2,1)** — proven ∀ α β τ via structural lemmas, NO decide enumeration | 7 |
+| `research-notes/G85_cup_delta_lens_mismatch.md` | 213-native re-reading: wedge-cup × simplicial-δ Lens-mismatch reframing | doc |
+| `research-notes/G86_self_referential_lex_cup_leibniz.md` | Generalised conjecture for ∀ (n, k, l) + physics speculation (K_{3,2}^{(c=2)} channel cup) | doc |
+| `LESSONS_LEARNED.md` | Patterns #1-#7 with composition table | doc |
 
-The Möbius 213-tower L_∞ fixed point is realised as a 213-native
-algebraic structure via:
-  · `pell_unit_at_succ` — algebraic step (X(n+1) = X(n)) by manual
-    `Meta.Int213.*` rw chain, no simp/omega/Mathlib.
-  · `mobius_213_pell_unit_invariant_forall` — ∀n form, single
-    induction over `pell_unit_at_succ` + base `decide`.
-  · `tower_L_infty_exists` — 6-conjunct existence capstone bundling
-    (Pell-unit ∀n) ∧ (φ-bracket) ∧ (trajectory uniqueness) ∧
-    (concrete sequence-existence witnesses).
+**Total new PURE this session: 67 theorems** + 2 research notes +
+extensive doc/catalog updates.
 
-## Physics blueprint coverage shift
+### Cup-Leibniz key insight progression
 
-  · **Quantum-info blueprint 12**: 0% → capstone-realised
-    (Qubit + Bell + Bekenstein, all PURE, atomic integer
-    cross-references to α_1 / α_2 / (d-1) cofactor).
-  · **DRLT Validation Standard pairings**: 12 → 17 out of 23
-    observables now have both PURE precision and PURE falsifier
-    (74% closure).
-  · Remaining 6 unpaired observables: Koide 2/3, η_B, m_t/m_c,
-    m_p/m_e ≈ 6π⁵, M_Pl/v_H, muon prefactor 192 (follow-up).
+1. Phase 2 initial: standard Leibniz decide-refuted; **research finding**.
+2. G85: re-framing as Lens mismatch (concatenation cup vs AW vs ℤ/2 wedge).
+3. Path δ: name the operation honestly (**lex-projection cup**),
+   prove its native Leibniz with `α(τ[0])·β(τ[last])` correction (4 PURE).
+4. LeibnizLexSelfRef: correction equals `(α⌣β)(τ \ {τ[k]})` —
+   **self-referential** form, aligned with §8 doctrine.
+5. LeibnizLex21: same self-referential form at (2,1), confirming generality.
+6. G86: ∀ (n, k, l) conjecture + physics speculation.
+7. **User's 3-way partition** symbolic strategy:
+   - LeibnizLexStructural: 8 PURE List-level commutation lemmas
+   - LeibnizLexListLevel: full symbolic proof at (1,1), (2,1) — no decide!
 
-## Research finding — Phase 2 cup-Leibniz universal form
+## What's still open (next session)
 
-`decide` enumeration over the 1024 Bool-tuple (α, β) pairs at
-bidegree (1, 1) on Δ⁴ refutes the universal Leibniz statement.
-Post-session diagnostic eval traced the failure to a specific
-counterexample: `basis₀ ⌣ basis₂` at face `[0, 1, 2]` gives
-LHS = true, RHS = false.
+### Symbolic generalisation to ∀ (k, l)
+The list-level (1,1) and (2,1) proofs follow the SAME 3-way
+partition pattern.  Generalisation to arbitrary (k, l) needs:
+  · `foldl_xor_range_split` lemma — partition `List.range (k+l+1)`
+    at position k into `[0..k-1] ++ [k] ++ [k+1..k+l]`
+  · Reindexing j ↔ k+j+1 for the high-i Block 3
+  · The 8 structural lemmas already cover the per-face content
 
-**Root cause** (documented in `Cup/LeibnizUniversal.lean`): the
-existing `Cup.Core.cup` is the *concatenation cup*
-`(α ⌣ β)(τ) = α(τ.take k) · β(τ.drop k)`, NOT the standard
-*Alexander-Whitney cup* with shared vertex at τ[k].  The standard
-Leibniz rule is proven for AW; for concatenation cup, a twisted
-form applies.  The existing 4 concrete tests in `Cup/Leibniz.lean`
-pass because the symmetric cochains used (v0_5, all_true, 0)
-degenerate the asymmetric correction terms.
+Estimated: 100-150 lines of careful Lean.  Same pattern as (1,1)/(2,1)
+but parameterised by k+l+2 Bool atoms instead of fixed 4 or 5.
 
-**Resolution paths**:
-  A. Replace `cup` definition with Alexander-Whitney shared-vertex
-     convention.  Existing 4 tests will likely still pass.
-  B. Derive and prove the correct twisted Leibniz for the
-     concatenation cup.
+### Transfer to Fin-indexed cup (subsetIdx round-trip)
+The list-level theorems use `cupList` and `deltaList` on raw lists.
+To transfer to the Fin-indexed `cup`/`delta` in `Cohomology/Cup/Core.lean`:
+  · `subsetIdx_kSubset_roundtrip` lemma: `subsetIdx n k (kSubset n k j) = j`
+    for `j < binom n k` (kSubset bijection content)
+  · This is substantial structural work — induction on n with case
+    splits per (n, k) pair, exhibiting kSubset injectivity
 
-Tagged as next-session follow-up (path A recommended).
+Estimated: 300-500 lines of careful Lean.
 
-## Catalog cross-sync (post-session 후속)
+### Physics application
+G86 speculates the lex-projection cup's self-referential Leibniz
+may connect to:
+  · α_em 5.4×10⁻⁴ residual (cohomology cup-product origin per G35)
+  · K_{3,2}^{(c=2)} bipartite cup-channel structure
+  · θ_QCD α⁴ suppression as depth-(d-1) self-reference iteration
 
-  · `catalogs/falsifiers.md`: +F15–F20 (Bell, R∞, e-folds N,
-    m_τ/m_μ, Z-widths, θ_QCD precision) with file-path
-    cross-references.
-  · `catalogs/math-theorems.md`: +§M (Tower L_∞ closure G61),
-    +§N (Minimal Root IVT G31); §L extended with `pell_unit_at_succ`
-    and `mobius_213_pell_unit_invariant_forall`; total updated to
-    354+ theorems across 96+ modules.
-  · `catalogs/physics-constants.md`: +Quantum-info section pointing
-    at Phase 3 modules; +DRLT Validation Standard pairings section
-    recording 17/23 closure.
+Concrete verification requires translating K_{3,2}^{(c=2)} into the
+lex-projection formalism explicitly.
 
-## Commits this session (11 total)
+## Validation Standard pairing status
 
-```
-HEAD  docs(catalogs + HANDOFF + Phase 2 diagnostic): post-session 후속 sync
-530c3121  add(PhiCut + TowerConvergence): Phase 1b/1c hero closure
-8be299b1  add(Cup/LeibnizUniversal): Phase 2 partial closure + research finding
-867309fa  add(MinimalRootCapstone): G31 IVT closure capstone (Phase 4)
-dc2f5bc7  add(Quantum/): Bell + Bekenstein + Qubit greenfield capstones (Phase 3)
-428520e4  add(Phase 5): validation-pairing falsifier brackets — 5 observables
-f0801d97  add(Capstones/PhiUnification): cross-domain φ unification capstone (Phase 1e)
-cb87c090  add(Mobius213/TowerLInfty): G61 structural questions closed at ∅-axiom
-4e6da3ba  refactor(Mobius213): pell_unit_at_succ PURE via Int213.* rw chain
-fe15dc4a  add(Mobius213): ∀n Pell-unit invariant (Phase 1a hero target)
-```
+**17 / 23 paired observables** (74% closure) after Phase 5
+additions.  Remaining 6 (Koide, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵,
+M_Pl/v_H, muon prefactor 192) have precision side only.
 
-## Open / pending (next session)
+## Methodological patterns established
 
-  1. **Phase 2 cup-Leibniz fix (path A)**: replace `Cup.Core.cup`
-     with Alexander-Whitney shared-vertex definition.  Verify the
-     existing 4 concrete tests still pass.  Re-attempt universal
-     Leibniz (will still need Bool-tuple parameterisation for
-     decide, but the math should hold).
-  2. **Phase 5 remainder**: 5 more observables (Koide, η_B, m_t/m_c,
-     m_p/m_e ≈ 6π⁵, M_Pl/v_H, muon prefactor 192) — add falsifier
-     side to complete 22/23 closure.
-  3. **G61 Q2/Q3 follow-up**: 213-internal L0 via `Raw.swap`-as-
-     negation (research-note thread G62/G63).
-  4. **Strict-PURE refactor**: extend the `Meta.Int213.*` rw chain
-     pattern to other DIRTY [propext]-cluster theorems where
-     omega-via-simp was used as shortcut.
-  5. **Cohomology cup-product refactor** (if path A chosen): the
-     ring structure `Cup/Ring.lean` may need realignment too.
+`LESSONS_LEARNED.md` now lists 7 cumulative patterns (`#1`–`#7`)
+with composition table.  Pattern `#7` (3-way partition for δ XOR
+decomposition) and `#6` (list-level decoupling) are the deepest;
+they enable symbolic proofs that don't require decide enumeration
+at all.
+
+## Branch state
+
+  · 17 session commits, all pushed
+  · Full repo `lake build`: clean
+  · Layer audit: 0 violations / ~1144 files
+  · Kernel pure: 45 theorems 0-axiom across 10 targets
+  · No new real-DIRTY introduced (some [propext] from Lean-core
+    List/Nat lemmas which are kernel-sealed)
 
 ## Anchor docs (next session start)
 
-  · `CLAUDE.md` boot sequence (unchanged).
-  · `lean/E213/Lib/Math/Mobius213.lean` — Pell-unit ∀n form,
-    `cross_step_algebra` Int213 rw-chain pattern.
-  · `lean/E213/Lib/Math/Mobius213/TowerLInfty.lean` — G61 closure.
-  · `lean/E213/Lib/Math/Mobius213/TowerConvergence.lean` — L_∞.
-  · `lean/E213/Lib/Math/Real213/PhiCut.lean` — Pell convergent Cut.
-  · `lean/E213/Lib/Physics/Capstones/PhiUnification.lean` — capstone.
-  · `lean/E213/Lib/Physics/Quantum/` — Quantum-info realisation.
-  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizUniversal.lean` —
-    research finding + diagnostic + resolution paths.
-
-## Verification
-
-  · `cd lean && lake build` — clean across all changes.
-  · All new theorems PURE — verified via `tools/scan_axioms.py`
-    on each module.
-  · 42 new PURE / 0 new real DIRTY introduced in this session.
+  · `CLAUDE.md` boot sequence (unchanged)
+  · `LESSONS_LEARNED.md` patterns #1-#7
+  · `research-notes/G85_cup_delta_lens_mismatch.md` + `G86_*`
+  · `lean/E213/Lib/Math/Cohomology/Cup/`:
+      - `Core.lean` — cup with corrected docstring
+      - `Leibniz.lean` — 4 concrete cases (existing)
+      - `LeibnizUniversal.lean` — Phase 2 finding + closure note
+      - `LeibnizLex.lean` — twisted Leibniz with explicit correction
+      - `LeibnizLexSelfRef.lean` — self-referential form
+      - `LeibnizLex21.lean` — (2,1) on Δ³
+      - `LeibnizLexStructural.lean` — 8 PURE List-level lemmas
+      - `LeibnizLexListLevel.lean` — symbolic ∀ α β τ at (1,1) + (2,1)
 
 ## Total impact
 
-11 new commits.  ~700 lines added net.  4 new directories
-(`Mobius213/`, `Physics/Quantum/`).  5 new top-level files +
-multiple file extensions.  All Phase 1–5 plan phases delivered
-to acceptance.  Hero target (Möbius 213-tower L_∞) realised PURE.
-Research finding on cup-Leibniz documented with concrete
-counterexample and resolution paths.
+17 new commits.  ~1900 lines added net.  6 new Lean files in
+Cup/ tree.  Cup-Leibniz generalisation: from "research finding"
+to **truly universal-in-(α, β, τ) symbolic PURE proof** at two
+bidegrees, with the path to ∀ (k, l) clearly laid out.
