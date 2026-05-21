@@ -57,7 +57,7 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutPow (cutPow cutScale)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge ldd_branch_via_maxRange)
 open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
@@ -114,8 +114,8 @@ def cutHalfIsSmooth : IsSmooth cutHalf where
   linearityModulus := id
 
 /-- **Pointwise addition LDD**: if f, g are LDD then so is
-    fun x => cutSum (f x) (g x).  Uses cutSumAux_congr directly
-    with bound 2m for the search range. -/
+    fun x => cutSum (f x) (g x).  Uses `ldd_branch_via_maxRange`
+    (G107 §4 L4 template) for both branches. -/
 def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : LocallyDeterminedData f)
     (sg : LocallyDeterminedData g) :
@@ -128,25 +128,11 @@ def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
        = cutSumAux (f cy) (g cy) k (2*m) (2*m)
     apply cutSumAux_congr
     · intro m' hm'
-      apply sf.prop
-      intro m'' k'' hm'' hk''
-      apply hagree
-      · exact Nat.le_trans hm''
-          (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
-      · exact Nat.le_trans hk''
-          (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
+      exact ldd_branch_via_maxRange sf cx cy _ hagree (2*m) (2*k)
+              (E213.Meta.Nat.Max213.le_max_left _ _) m' hm'
     · intro m' hm'
-      apply sg.prop
-      intro m'' k'' hm'' hk''
-      apply hagree
-      · exact Nat.le_trans hm''
-          (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
-      · exact Nat.le_trans hk''
-          (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
+      exact ldd_branch_via_maxRange sg cx cy _ hagree (2*m) (2*k)
+              (E213.Meta.Nat.Max213.le_max_right _ _) m' hm'
     · exact Nat.le_refl _
 
 /-- **Pointwise sum of smooth is smooth**.  Per user's Sec 2:
@@ -164,8 +150,8 @@ def addIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     max (sf.linearityModulus n) (sg.linearityModulus n)
 
 /-- **Pointwise product LDD**: if f, g are LDD then so is
-    fun x => cutMul (f x) (g x).  Uses cutMulOuter_congr with the
-    cutMul-locality bound (m+1)*(k+1). -/
+    fun x => cutMul (f x) (g x).  Uses `ldd_branch_via_maxRange`
+    (G107 §4 L4 template) for both branches. -/
 def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : LocallyDeterminedData f)
     (sg : LocallyDeterminedData g) :
@@ -179,25 +165,11 @@ def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
        = cutMulOuter (f cy) (g cy) k m ((m+1)*(k+1)) ((m+1)*(k+1))
     apply cutMulOuter_congr
     · intro m' hm'
-      apply sf.prop
-      intro m'' k'' hm'' hk''
-      apply hagree
-      · exact Nat.le_trans hm''
-          (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
-      · exact Nat.le_trans hk''
-          (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
+      exact ldd_branch_via_maxRange sf cx cy _ hagree ((m+1)*(k+1)) k
+              (E213.Meta.Nat.Max213.le_max_left _ _) m' hm'
     · intro m' hm'
-      apply sg.prop
-      intro m'' k'' hm'' hk''
-      apply hagree
-      · exact Nat.le_trans hm''
-          (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
-      · exact Nat.le_trans hk''
-          (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
+      exact ldd_branch_via_maxRange sg cx cy _ hagree ((m+1)*(k+1)) k
+              (E213.Meta.Nat.Max213.le_max_right _ _) m' hm'
     · exact Nat.le_refl _
 
 /-- **Pointwise product of smooth is smooth**.  Per user's Sec 2:

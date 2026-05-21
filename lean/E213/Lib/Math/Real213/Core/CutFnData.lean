@@ -147,4 +147,27 @@ def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
     · intro m' hm'; exact h m' k hm' hk_le
     · exact Nat.le_refl _
 
+/-- ★ Generic LDD branch helper (G107 §4 L4).  Extracts the recurring
+    `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block
+    from binary LDD proofs (addLDD, mulLDD).  PURE.
+
+    Given: agreement `hagree` of `cx` and `cy` up to bound `M`,
+    a `LocallyDeterminedData` `sf`, search bounds `S R`, and a
+    `side_chain` proof that `maxRange sf.N S R ≤ M`.  Concludes
+    `f cx m' R = f cy m' R` for any `m' ≤ maxRange sf.N S R`. -/
+theorem ldd_branch_via_maxRange
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f) (cx cy : Nat → Nat → Bool) (M : Nat)
+    (hagree : ∀ m' k', m' ≤ M → k' ≤ M → cx m' k' = cy m' k')
+    (S R : Nat) (side_chain : maxRange sf.N S R ≤ M)
+    (m' : Nat) (hm' : m' ≤ S) :
+    f cx m' R = f cy m' R := by
+  apply sf.prop
+  intro m'' k'' hm'' hk''
+  apply hagree
+  · exact Nat.le_trans hm''
+      (Nat.le_trans (maxRange_ge sf.N S R m' R hm' (Nat.le_refl _)) side_chain)
+  · exact Nat.le_trans hk''
+      (Nat.le_trans (maxRange_ge sf.N S R m' R hm' (Nat.le_refl _)) side_chain)
+
 end E213.Lib.Math.Real213.Core.CutFnData
