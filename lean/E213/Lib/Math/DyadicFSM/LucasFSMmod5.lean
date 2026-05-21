@@ -43,14 +43,8 @@ theorem lucasFSMmod5_first6 :
 
 /-- ★★★★ Lucas mod-5 run cycles with TIGHT period 4. -/
 theorem lucasFSMmod5_run_period_4 :
-    ∀ k, lucasFSMmod5.run (k + 4) = lucasFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show lucasFSMmod5.step (lucasFSMmod5.run (k' + 4))
-        = lucasFSMmod5.step (lucasFSMmod5.run k')
-    rw [ih]
+    ∀ k, lucasFSMmod5.run (k + 4) = lucasFSMmod5.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★★ Lucas mod-5 bits cycle with TIGHT period 4. -/
 theorem lucasFSMmod5_bits_period_4 :

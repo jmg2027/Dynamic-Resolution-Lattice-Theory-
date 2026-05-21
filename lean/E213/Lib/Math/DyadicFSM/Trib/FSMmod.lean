@@ -33,14 +33,8 @@ def tribFSMmod3 : ArithFSM3 3 where
 
 /-- ★★★ Tribonacci mod-3 run cycles with period 13. -/
 theorem tribFSMmod3_run_period_13 :
-    ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod3.step (tribFSMmod3.run (k' + 13))
-        = tribFSMmod3.step (tribFSMmod3.run k')
-    rw [ih]
+    ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-3 bits cycle with period 13. -/
 theorem tribFSMmod3_bits_period_13 :
@@ -83,14 +77,8 @@ def tribFSMmod5 : ArithFSM3 5 where
 
 /-- ★★★ Tribonacci mod-5 run cycles with TIGHT period 31. -/
 theorem tribFSMmod5_run_period_31 :
-    ∀ k, tribFSMmod5.run (k + 31) = tribFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod5.step (tribFSMmod5.run (k' + 31))
-        = tribFSMmod5.step (tribFSMmod5.run k')
-    rw [ih]
+    ∀ k, tribFSMmod5.run (k + 31) = tribFSMmod5.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-5 bits cycle with period 31. -/
 theorem tribFSMmod5_bits_period_31 :
@@ -132,14 +120,8 @@ def tribFSMmod7 : ArithFSM3 7 where
 
 /-- ★★★ Tribonacci mod-7 run cycles with TIGHT period 48. -/
 theorem tribFSMmod7_run_period_48 :
-    ∀ k, tribFSMmod7.run (k + 48) = tribFSMmod7.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod7.step (tribFSMmod7.run (k' + 48))
-        = tribFSMmod7.step (tribFSMmod7.run k')
-    rw [ih]
+    ∀ k, tribFSMmod7.run (k + 48) = tribFSMmod7.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-7 bits cycle with TIGHT period 48. -/
 theorem tribFSMmod7_bits_period_48 :

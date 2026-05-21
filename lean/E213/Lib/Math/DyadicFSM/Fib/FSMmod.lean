@@ -36,14 +36,8 @@ def fibFSMmod3 : ArithFSM2 3 where
 
 /-- ★★★ Fibonacci mod-3 run cycles with TIGHT period 8. -/
 theorem fibFSMmod3_run_period_8 :
-    ∀ k, fibFSMmod3.run (k + 8) = fibFSMmod3.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod3.step (fibFSMmod3.run (k' + 8))
-        = fibFSMmod3.step (fibFSMmod3.run k')
-    rw [ih]
+    ∀ k, fibFSMmod3.run (k + 8) = fibFSMmod3.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-3 bits cycle with TIGHT period 8. -/
 theorem fibFSMmod3_bits_period_8 :
@@ -79,14 +73,8 @@ def fibFSMmod5 : ArithFSM2 5 where
 
 /-- ★★★ Fibonacci mod-5 run cycles with TIGHT period 20. -/
 theorem fibFSMmod5_run_period_20 :
-    ∀ k, fibFSMmod5.run (k + 20) = fibFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod5.step (fibFSMmod5.run (k' + 20))
-        = fibFSMmod5.step (fibFSMmod5.run k')
-    rw [ih]
+    ∀ k, fibFSMmod5.run (k + 20) = fibFSMmod5.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-5 bits cycle with TIGHT period 20. -/
 theorem fibFSMmod5_bits_period_20 :
@@ -121,14 +109,8 @@ def fibFSMmod7 : ArithFSM2 7 where
 
 /-- ★★★ Fibonacci mod-7 run cycles with TIGHT period 16. -/
 theorem fibFSMmod7_run_period_16 :
-    ∀ k, fibFSMmod7.run (k + 16) = fibFSMmod7.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod7.step (fibFSMmod7.run (k' + 16))
-        = fibFSMmod7.step (fibFSMmod7.run k')
-    rw [ih]
+    ∀ k, fibFSMmod7.run (k + 16) = fibFSMmod7.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-7 bits cycle with TIGHT period 16. -/
 theorem fibFSMmod7_bits_period_16 :
@@ -163,14 +145,8 @@ def fibFSMmod11 : ArithFSM2 11 where
 
 /-- ★★★ Fibonacci mod-11 run cycles with TIGHT period 10. -/
 theorem fibFSMmod11_run_period_10 :
-    ∀ k, fibFSMmod11.run (k + 10) = fibFSMmod11.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod11.step (fibFSMmod11.run (k' + 10))
-        = fibFSMmod11.step (fibFSMmod11.run k')
-    rw [ih]
+    ∀ k, fibFSMmod11.run (k + 10) = fibFSMmod11.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-11 bits cycle with TIGHT period 10. -/
 theorem fibFSMmod11_bits_period_10 :
@@ -203,14 +179,8 @@ def fibFSMmod13 : ArithFSM2 13 where
   out p := p.1.val == 1
 
 theorem fibFSMmod13_run_period_28 :
-    ∀ k, fibFSMmod13.run (k + 28) = fibFSMmod13.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod13.step (fibFSMmod13.run (k' + 28))
-        = fibFSMmod13.step (fibFSMmod13.run k')
-    rw [ih]
+    ∀ k, fibFSMmod13.run (k + 28) = fibFSMmod13.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod13_bits_period_28 :
     ∀ k, fibFSMmod13.bits (k + 28) = fibFSMmod13.bits k :=
@@ -242,14 +212,8 @@ def fibFSMmod17 : ArithFSM2 17 where
 
 set_option maxRecDepth 1024 in
 theorem fibFSMmod17_run_period_36 :
-    ∀ k, fibFSMmod17.run (k + 36) = fibFSMmod17.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod17.step (fibFSMmod17.run (k' + 36))
-        = fibFSMmod17.step (fibFSMmod17.run k')
-    rw [ih]
+    ∀ k, fibFSMmod17.run (k + 36) = fibFSMmod17.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod17_bits_period_36 :
     ∀ k, fibFSMmod17.bits (k + 36) = fibFSMmod17.bits k :=
@@ -280,14 +244,8 @@ def fibFSMmod19 : ArithFSM2 19 where
   out p := p.1.val == 1
 
 theorem fibFSMmod19_run_period_18 :
-    ∀ k, fibFSMmod19.run (k + 18) = fibFSMmod19.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod19.step (fibFSMmod19.run (k' + 18))
-        = fibFSMmod19.step (fibFSMmod19.run k')
-    rw [ih]
+    ∀ k, fibFSMmod19.run (k + 18) = fibFSMmod19.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod19_bits_period_18 :
     ∀ k, fibFSMmod19.bits (k + 18) = fibFSMmod19.bits k :=
@@ -318,14 +276,8 @@ def fibFSMmod23 : ArithFSM2 23 where
 
 set_option maxRecDepth 2048 in
 theorem fibFSMmod23_run_period_48 :
-    ∀ k, fibFSMmod23.run (k + 48) = fibFSMmod23.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod23.step (fibFSMmod23.run (k' + 48))
-        = fibFSMmod23.step (fibFSMmod23.run k')
-    rw [ih]
+    ∀ k, fibFSMmod23.run (k + 48) = fibFSMmod23.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod23_bits_period_48 :
     ∀ k, fibFSMmod23.bits (k + 48) = fibFSMmod23.bits k :=

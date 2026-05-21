@@ -34,6 +34,22 @@ def ArithFSM3.run {n : Nat} (m : ArithFSM3 n) : Nat → Fin n × Fin n × Fin n
 def ArithFSM3.bits {n : Nat} (m : ArithFSM3 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
+/-- **run-period from base case** for ArithFSM3 (3-state analogue
+    of `ArithFSM2.run_period_of_base`).  PURE. -/
+theorem ArithFSM3.run_period_of_base
+    {n T : Nat} (m : ArithFSM3 n)
+    (h_base : m.run T = m.run 0) :
+    ∀ k, m.run (k + T) = m.run k := by
+  intro k
+  induction k with
+  | zero =>
+    show m.run (0 + T) = m.run 0
+    rw [Nat.zero_add]; exact h_base
+  | succ k' ih =>
+    rw [Nat.succ_add k' T]
+    show m.step (m.run (k' + T)) = m.step (m.run k')
+    rw [ih]
+
 /-- **bits-period from run-period** for ArithFSM3 (3-state analogue
     of `ArithFSM2.bits_period_of_run_period`).  G107 §4 Pell-FSM
     family helper.  PURE. -/

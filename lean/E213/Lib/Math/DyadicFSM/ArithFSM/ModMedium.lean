@@ -36,14 +36,8 @@ theorem pellFSMmod29_first_check :
 
 /-- ★★★ Pell mod-29 run cycles with TIGHT period 7. -/
 theorem pellFSMmod29_run_period_7 :
-    ∀ k, pellFSMmod29.run (k + 7) = pellFSMmod29.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod29.step (pellFSMmod29.run (k' + 7))
-        = pellFSMmod29.step (pellFSMmod29.run k')
-    rw [ih]
+    ∀ k, pellFSMmod29.run (k + 7) = pellFSMmod29.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-29 bits cycle with TIGHT period 7. -/
 theorem pellFSMmod29_bits_period_7 :
@@ -88,14 +82,8 @@ theorem pellFSMmod31_first_check :
 
 /-- ★★★ Pell mod-31 run cycles with TIGHT period 15. -/
 theorem pellFSMmod31_run_period_15 :
-    ∀ k, pellFSMmod31.run (k + 15) = pellFSMmod31.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod31.step (pellFSMmod31.run (k' + 15))
-        = pellFSMmod31.step (pellFSMmod31.run k')
-    rw [ih]
+    ∀ k, pellFSMmod31.run (k + 15) = pellFSMmod31.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-31 bits cycle with TIGHT period 15. -/
 theorem pellFSMmod31_bits_period_15 :
@@ -134,14 +122,8 @@ def pellFSMmod37 : ArithFSM2 37 where
 
 /-- ★★★ Pell mod-37 run cycles with TIGHT period 38. -/
 theorem pellFSMmod37_run_period_38 :
-    ∀ k, pellFSMmod37.run (k + 38) = pellFSMmod37.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod37.step (pellFSMmod37.run (k' + 38))
-        = pellFSMmod37.step (pellFSMmod37.run k')
-    rw [ih]
+    ∀ k, pellFSMmod37.run (k + 38) = pellFSMmod37.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-37 bits cycle with TIGHT period 38. -/
 theorem pellFSMmod37_bits_period_38 :
@@ -175,14 +157,8 @@ def pellFSMmod41 : ArithFSM2 41 where
 
 /-- ★★★ Pell mod-41 run cycles with TIGHT period 20. -/
 theorem pellFSMmod41_run_period_20 :
-    ∀ k, pellFSMmod41.run (k + 20) = pellFSMmod41.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod41.step (pellFSMmod41.run (k' + 20))
-        = pellFSMmod41.step (pellFSMmod41.run k')
-    rw [ih]
+    ∀ k, pellFSMmod41.run (k + 20) = pellFSMmod41.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-41 bits cycle with TIGHT period 20. -/
 theorem pellFSMmod41_bits_period_20 :
@@ -216,14 +192,8 @@ def pellFSMmod43 : ArithFSM2 43 where
 
 /-- ★★★ Pell mod-43 run cycles with TIGHT period 44. -/
 theorem pellFSMmod43_run_period_44 :
-    ∀ k, pellFSMmod43.run (k + 44) = pellFSMmod43.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod43.step (pellFSMmod43.run (k' + 44))
-        = pellFSMmod43.step (pellFSMmod43.run k')
-    rw [ih]
+    ∀ k, pellFSMmod43.run (k + 44) = pellFSMmod43.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-43 bits cycle with TIGHT period 44. -/
 theorem pellFSMmod43_bits_period_44 :
@@ -258,14 +228,8 @@ def pellFSMmod47 : ArithFSM2 47 where
 
 /-- ★★★ Pell mod-47 run cycles with TIGHT period 16. -/
 theorem pellFSMmod47_run_period_16 :
-    ∀ k, pellFSMmod47.run (k + 16) = pellFSMmod47.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod47.step (pellFSMmod47.run (k' + 16))
-        = pellFSMmod47.step (pellFSMmod47.run k')
-    rw [ih]
+    ∀ k, pellFSMmod47.run (k + 16) = pellFSMmod47.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-47 bits cycle with TIGHT period 16. -/
 theorem pellFSMmod47_bits_period_16 :
