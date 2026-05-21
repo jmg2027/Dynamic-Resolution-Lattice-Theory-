@@ -9,7 +9,7 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
   3 = NS, NT² - 1
   4 = d - 1, NS + 1, NT²
   5 = d, NS + NT, F_5
-  6 = NS · NT, 3!, NS·(NS-1), d + 1
+  6 = NS · NT, 3!, NS·(NS-1), d + 1, |ZOmega^×| (Eisenstein units, G87 §5)
   7 = NS² - NT, prime
   8 = NS² - 1, F_6, NT³
   9 = NS²
@@ -47,7 +47,8 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
 
 ## Multi-output (same integer across unrelated frameworks)
 
-  6 = NS·NT     [Pauli ε, Lorentz, AB pair, 3!]
+  6 = NS·NT     [Pauli ε, Lorentz, AB pair, 3!, |ZOmega^×|, χ-sum defect]
+                  → 6-theorem master: Theory/SixTheorem.lean
   8 = NS²-1     [α_3, SU(3), b_1, Einstein, Hawking]
   12 = 2·NS·NT  [α_1, α_2, leptoquark]
   24 = d²-1     [SU(5), 4!, SM gauge]

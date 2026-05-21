@@ -1,4 +1,5 @@
 import E213.Lens.SemanticAtom
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # CanonicalTruthChar: Exact characterization of canonicalTruthMap
@@ -194,7 +195,7 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
             apply Raw.fold_slash
             intro u v
             show 1 + max u v = 1 + max v u
-            rw [Nat.max_comm]
+            rw [E213.Tactic.NatHelper.max_comm]
           rw [hslash] at hview
           have h_a : Lens.depth.view Raw.a = 0 := rfl
           rw [h_a] at hview
@@ -217,7 +218,7 @@ private theorem slash_ne_b_via_depth (x y : Raw) (h : x ≠ y) :
     apply Raw.fold_slash
     intro u v
     show 1 + max u v = 1 + max v u
-    rw [Nat.max_comm]
+    rw [E213.Tactic.NatHelper.max_comm]
   rw [hslash] at hview
   have h_b : Lens.depth.view Raw.b = 0 := rfl
   rw [h_b] at hview

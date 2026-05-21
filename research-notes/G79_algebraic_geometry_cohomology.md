@@ -124,7 +124,7 @@ In our framework:
 
 ## Lean ∅-axiom witnesses (this commit)
 
-10 theorems in `Theory/Nat213/AlgebraicGeometry.lean`:
+10 theorems in `Lib/Math/Geometry/AlgebraicGeometry.lean`:
 
 | Theorem | Statement |
 |---|---|
@@ -154,8 +154,8 @@ modular geometry**.
 
 ## See also
 
-- `lean/E213/Theory/Nat213/AlgebraicGeometry.lean` — this synthesis
-- `lean/E213/Theory/Nat213/RotationGeometry.lean` — pentagon closure
+- `lean/E213/Lib/Math/Geometry/AlgebraicGeometry.lean` — this synthesis
+- `lean/E213/Lib/Math/Mobius213ModFive.lean` — P^5/P^10 mod 5 matrix-level (pentagonal closure)
 - `lean/E213/Lib/Math/CayleyDickson/TypeE_Rejection.lean` — G53
 - `lean/E213/Lib/Math/Topology/EulerChi.lean` — χ = -7
 - `research-notes/G53` — Type E rejection (icosian needs ℤ[φ])

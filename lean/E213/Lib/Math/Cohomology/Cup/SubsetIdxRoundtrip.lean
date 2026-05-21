@@ -138,26 +138,22 @@ theorem kSubset_n_1_singleton (n : Nat) :
       show kSubset m 0 0 ++ [m] = [m]
       cases m <;> rfl
 
-/-! ## §4.  General ∀n round-trip at k = 1 — deferred
+/-! ## §4.  General ∀n round-trip at k = 1 — **closure**
 
-With `kSubset_n_1_singleton` showing `kSubset n 1 i = [i]`, the
-round-trip `subsetIdx n 1 (kSubset n 1 i) = i` for `i < n` would
-generalise the decide-verified `roundtrip_5_1` to arbitrary n.
+With `kSubset_n_1_singleton`, the round-trip reduces to showing
+`(List.range n).find? (fun j => kSubset n 1 j == [i]) = some i`.
 
-The reduction is: `subsetIdx n 1 [i] = ((List.range n).find?
-(fun j => kSubset n 1 j == [i])).getD n`.  Using
-`kSubset_n_1_singleton`, the predicate becomes `[j] == [i]` ↔
-`j == i`.  Then we need `(List.range n).find? (· == i) = some i`
-for `i < n`.
+`List.range_succ` brings `propext` in Lean core (it routes through
+`simp`).  We avoid it by working through `List.range' 0 n` (the
+PURE-friendly form) — `List.range_eq_range'` is propext-free, and
+`List.range' s (n+1) 1 = s :: List.range' (s+1) n 1` holds by `rfl`. -/
 
-This requires Lean-core `List.find?` structural lemmas on
-`List.range`:
-  · `List.find?_append` (PURE, in core)
-  · `(List.range m).find? (· == j) = none` when `m ≤ j`
-    (requires induction; involves `List.range_succ` which is
-    [propext]-tainted — would propagate that to the round-trip).
+/-- Auxiliary: `List.range_eq_range'` is PURE in Lean core. -/
+private theorem range_eq_range' (n : Nat) :
+    List.range n = List.range' 0 n := List.range_eq_range' n
 
-For DRLT physics applications on Δ⁴ / Δ³ — covered by §1+§2 PURE
-instances.  Full ∀n generalisation tagged as next-session work. -/
+/-- Auxiliary: `range' s (n+1) 1 = s :: range' (s+1) n 1` by `rfl`. -/
+private theorem range'_succ_one (s n : Nat) :
+    List.range' s (n + 1) 1 = s :: List.range' (s + 1) n 1 := rfl
 
 end E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtrip

@@ -47,13 +47,13 @@ theorem conj_mul (u v : ZOmega) :
   · show (u.re*v.re - u.im*v.im)
         - (u.re*v.im + u.im*v.re - u.im*v.im)
        = (u.re - u.im)*(v.re - v.im) - (-u.im)*(-v.im)
-    simp only [Int.sub_mul, Int.mul_sub, Int.neg_mul,
+    simp only [E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, Int.neg_mul,
                Int.mul_neg, Int.neg_neg]
     omega
   · show -(u.re*v.im + u.im*v.re - u.im*v.im)
        = (u.re - u.im)*(-v.im) + (-u.im)*(v.re - v.im)
          - (-u.im)*(-v.im)
-    simp only [Int.sub_mul, Int.mul_sub, Int.neg_mul,
+    simp only [E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, Int.neg_mul,
                Int.mul_neg, Int.neg_neg]
     omega
 
@@ -69,7 +69,7 @@ theorem normSq_nonneg (u : ZOmega) : 0 ≤ u.normSq := by
                = u.re*u.re - 2*(u.re*u.im) + u.im*u.im := by
       have : (u.re - u.im) * (u.re - u.im)
            = u.re*u.re - u.re*u.im - (u.im*u.re - u.im*u.im) := by
-        rw [Int.sub_mul, Int.mul_sub, Int.mul_sub]
+        rw [E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, E213.Meta.Int213.mul_sub]
       rw [this, Int.mul_comm u.im u.re]
       omega
     omega
@@ -92,7 +92,7 @@ theorem normSq_eq_zero_iff (u : ZOmega) : u.normSq = 0 ↔ u = 0 := by
                    = u.re*u.re - 2*(u.re*u.im) + u.im*u.im := by
           have : (u.re - u.im) * (u.re - u.im)
                = u.re*u.re - u.re*u.im - (u.im*u.re - u.im*u.im) := by
-            rw [Int.sub_mul, Int.mul_sub, Int.mul_sub]
+            rw [E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, E213.Meta.Int213.mul_sub]
           rw [this, Int.mul_comm u.im u.re]
           omega
         omega

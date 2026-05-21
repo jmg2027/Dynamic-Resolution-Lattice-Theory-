@@ -100,15 +100,20 @@ The two are linked:
 
 ## Lean ∅-axiom witnesses (this commit)
 
-5 new theorems in `Theory/Nat213/RotationGeometry.lean`:
+Updated 2026-05-22: the matrix-level closure was previously
+advertised at `Theory/Nat213/RotationGeometry.lean` (file did not
+exist).  It is now consolidated in `Lib/Math/Mobius213ModFive.lean`
+(9 PURE theorems):
 
 | Theorem | Statement |
 |---|---|
-| p5_top_left_mod_5 | 89 mod 5 = 4 |
-| p5_mod_5_is_neg_i | P^5 ≡ -I (mod 5) |
-| p10_top_left_mod_5 | 10946 mod 5 = 1 |
-| ★★★★★★★★★ p10_mod_5_is_identity | P^10 ≡ I (mod 5) |
-| mobius_p_dihedral_order | P has order 10 mod 5 |
+| `P5_11_mod_5` | 89 mod 5 = 4 (top-left of P^5) |
+| `P5_12_mod_5` | 55 mod 5 = 0 (off-diagonal) |
+| `P5_22_mod_5` | 34 mod 5 = 4 (bottom-right of P^5) |
+| ★ `P_pow_5_eq_neg_I_mod_5` | bundled: P^5 ≡ -I (mod 5) at matrix level |
+| `neg_one_sq` | (-1)² = 1 (full-period restoration) |
+| ★ `P_pow_10_eq_I_mod_5` | (P^5)² ≡ I (mod 5) + c = NT = 2 |
+| ★★★★★★★ `pentagonal_closure_signature` | full pentagon-closure signature capstone |
 
 All ∅-axiom.
 
@@ -144,7 +149,7 @@ The whole framework is **driven by pentagon symmetry**.
 
 ## See also
 
-- `lean/E213/Theory/Nat213/RotationGeometry.lean` — pentagonal closure
+- `lean/E213/Lib/Math/Mobius213ModFive.lean` — P^5/P^10 mod 5 (pentagonal closure)
 - `lean/E213/Lib/Math/UniverseChain/Atomicity.lean` — d=5 proof
 - `research-notes/G74` — 1 as glue, 5-perspective conjecture
 - `research-notes/G77` — Lucas/Mersenne dual at 7

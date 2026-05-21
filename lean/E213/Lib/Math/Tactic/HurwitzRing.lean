@@ -1,3 +1,4 @@
+import E213.Meta.Int213.Core
 import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Tower.CDDouble
 import E213.Lib.Math.CayleyDickson.Levels.Cayley
@@ -90,7 +91,7 @@ scoped macro "hurwitz_ring" : tactic => `(tactic|
      E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.I_re, E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.I_im,
      E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.negI_re, E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.negI_im,
      E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.re_zero, E213.Lib.Math.CayleyDickson.Integer.ZI.ZI.im_zero,
-     Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add,
+     E213.Meta.Int213.sub_mul, E213.Meta.Int213.mul_sub, Int.add_mul, Int.mul_add,
      Int.mul_assoc, Int.mul_comm, Int.mul_left_comm,
      Int.sub_eq_add_neg, Int.neg_mul, Int.mul_neg, Int.neg_neg
    ] <;> omega))
