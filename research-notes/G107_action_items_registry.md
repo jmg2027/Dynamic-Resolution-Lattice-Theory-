@@ -396,3 +396,291 @@ optional extensions.  Executing all would:
 
 The branch's job is to make these items findable and
 characterised.  That job is done.
+
+---
+
+## §10.  THEORY DOCUMENTATION action items
+
+Lean-side abstractions (§2-§5) are not the only outputs of the
+meta scans.  The findings also generate **theory-documentation**
+work — patterns to add to LESSONS_LEARNED, catalogs to write,
+narrative docs to update.
+
+### §10.1  LESSONS_LEARNED.md — new patterns to add
+
+`LESSONS_LEARNED.md` carries Patterns #1-#9 (parallel branch
+added #8-#9).  Meta-scan findings surface 4 strong candidates
+for #10-#13:
+
+#### Candidate **Pattern #10 — Adoption-gap detection**
+**Source**: G99  
+**Statement**: when a PURE helper lemma already exists but the
+codebase shadows it via 3-step manual rewrites, surface the
+gap with a k-gram cascade scan and adopt mechanically.  
+**Evidence**: `NatHelper.mul_left_comm` exists, 25 decls do
+manual rotation; `add_left_comm` similarly with 18 decls.  
+**Effort**: short.  `LESSONS_LEARNED.md` template entry under
+"Adoption patterns" section.  
+**Status**: SURFACED, drafted in G99 §"N-action surface".
+
+#### Candidate **Pattern #11 — Triple-layer agreement = abstraction inevitability**
+**Source**: G94 §1 + G103 §3 + G106  
+**Statement**: when AST recursor / syntax tactic-token /
+citation multiset / Expr-mass all agree byte-identical across
+sibling decls, the abstraction is overdetermined — proof
+content is invariant under the surface knob (here:
+bidegree).  Empirical rule for ranking abstraction priority.  
+**Evidence**: L1 LeibnizAlgLift 6-layer byte-identical.  
+**Effort**: short.  L1 example becomes the methodology
+illustration.  
+**Status**: SURFACED, see G106 for full data.
+
+#### Candidate **Pattern #12 — Three-level Raw-derivation distinction**
+**Source**: G104  
+**Statement**: "X is derived from Raw" has three technical
+meanings — (α) logical, (β) structural-content, (γ)
+operational/definitional.  (α) + (β) hold for DRLT; (γ) is
+false in general (carrier types like `Cochain := Fin n → Bool`
+are operationally Raw-independent generic infrastructure).
+Conflation muddies the reading; the distinction sharpens
+claims.  
+**Evidence**: G102 + G103 §1 + G104 §2 — 14.8 % decls reach
+Raw at Expr level; 100 % are logically Raw-derived
+(#print axioms).  
+**Effort**: short.  Critical for any future "everything from
+Raw" discussion.  
+**Status**: SURFACED, full articulation in G104.
+
+#### Candidate **Pattern #13 — Decide-finitism quantitative profile**
+**Source**: G91 + G100  
+**Statement**: DRLT's Pattern #2 (decide-finitism) has a
+measurable footprint: 36 % positive `[decide]` + 8 % negative
+`decide`-proven impossibility = ~44 % of all decls are
+decide-routed.  Pattern #2 isn't merely a methodological
+choice; it's the operational signature of the corpus.  
+**Evidence**: G91 1,178 single-tactic `[decide]` + G100 135
+falsifiers.  
+**Effort**: short.  
+**Status**: G93 §C5 quantitative numbers already cited in
+LESSONS_LEARNED by parallel branch; full Pattern #13
+formulation pending.
+
+### §10.2  Catalogs to write
+
+#### **CAT-1** — `catalogs/falsifier-roster.md`
+**Source**: G100  
+**Scope**: All 135 auto-discovered falsifiers, categorised:
+105 `ne` / 20 `not` / 8 `not_exists` / 2 `not_forall`.  Cross-
+referenced with parallel branch's G87 manual falsifier roster
+(headline ~5-10 entries vs full 135).  
+**Effort**: ~1 hr.  TSV → markdown table with grouping by
+namespace.  
+**Value**: closes parallel branch's G97 §5 "open offers"
+entry; provides direct empirical input for any future
+falsifiability discussion.
+
+#### **CAT-2** — `catalogs/abstraction-candidates.md`
+**Source**: G107 §2-§4 (this doc)  
+**Scope**: All 14 open abstraction candidates with
+specifications (signature sketch, mass-reduction estimate,
+blast radius).  Acts as the executor's table-of-contents.  
+**Effort**: ~30 min (this content already exists in G107;
+catalog form makes it easier to track per-item status).  
+**Value**: low-friction status tracking.
+
+#### **CAT-3** — `catalogs/recursor-inventory.md`
+**Source**: G105 §2  
+**Scope**: All 185 distinct inductive types with recursor
+usage, ranked by invocation count.  Documents the corrected
+recursor-vocabulary picture (Bool dominates, Tree is the only
+E213-internal in the top 11).  
+**Effort**: ~30 min.  TSV → markdown.  
+**Value**: corrects the G90 narrowness claim that propagated
+into G101; serves as ground truth for future "what recursors
+does DRLT use" questions.
+
+#### **CAT-4** — `catalogs/internal-hubs.md`
+**Source**: G92 + G102  
+**Scope**: Top E213-internal hubs at both surface-citation
+and Expr-level (NatHelper.mul_assoc, Raw.fold_slash, Cochain,
+binom, NS/NT/d, Lens.view, ...).  Includes caller-breadth +
+invocation-total per hub.  
+**Effort**: ~30 min.  
+**Value**: makes the "load-bearing infrastructure" picture
+queryable; useful before any refactor of those names.
+
+### §10.3  Theory docs to write/extend
+
+#### **TH-1** — Synthesise G103+G105 into a standalone "DRLT proof-shape fingerprint" doc
+**Source**: G103 §2 + G105 §1  
+**Scope**: Document DRLT's quantitative proof-shape signature
+— 99 % flat application trees (app + const + lit + bvar),
+1 % binder structure, ~0 % structure projections.  Combined
+with the architectural λ-density layered split (Theory 100/decl,
+Lens ~10/decl, Lib.* ~2-7/decl).  Frame as a structural fact
+about the kind of formal mathematics DRLT IS.  
+**Effort**: ~2 hr.  Pulls existing G-doc content into
+narrative form suitable for `seed/` or `theory/` siting.  
+**Value**: medium — provides quotable "DRLT is X kind of
+mathematics" characterisation backed by data.
+
+#### **TH-2** — Synthesise G104 into "Raw-derivation, three levels"
+**Source**: G104 entirely.  
+**Scope**: Standalone doc articulating (α) logical / (β)
+structural-content / (γ) operational distinction.  Cites
+verification artefacts for each.  Should live in `seed/` or
+near `AXIOM/04_falsifiability.md`.  
+**Effort**: ~1 hr.  Largely repackaging G104.  
+**Value**: HIGH — this is the cleanest methodological
+contribution of the meta branch.  Forecloses a common
+conflation in future "everything from Raw" claims.
+
+#### **TH-3** — Synthesise G100 into "DRLT's falsifiability surface, quantified"
+**Source**: G100 + G105 §2.5 (recursor data for Bool casesOn).  
+**Scope**: How DRLT operationally enacts the
+falsifiability contract (§4 of AXIOM/04).  135 machine-
+verified impossibility/distinguishability theorems.
+Cayley-Dickson tower as systematic negation generator.  
+**Effort**: ~1.5 hr.  
+**Value**: medium-high — connects meta-scan finding directly
+to the foundational falsifiability doctrine.
+
+#### **TH-4** — Synthesise G106 into "L1 implicit lemma extraction methodology"
+**Source**: G106 entirely.  
+**Scope**: Standalone methodology doc: how to extract an
+implicit parametric lemma from a byte-identical family using
+Expr-string analysis.  Includes the L1 worked example.  
+**Effort**: ~2 hr.  
+**Value**: medium — generalises the L1 technique for future
+analogous cases (CutSumOne could use the same methodology).
+
+### §10.4  Index / navigation updates
+
+#### **NAV-1** — `seed/INDEX.md`
+**Source**: 17 new G-docs (G90-G107) on this branch.  
+**Scope**: Add "Meta-analysis (2026-05-21 session)" subsection
+listing G90-G107 with one-line descriptions.  
+**Effort**: ~15 min.  Mechanical addition.  
+**Value**: high — without this, future readers won't find the
+meta findings via INDEX.
+
+#### **NAV-2** — `README.md` quantitative-architecture pointer
+**Source**: G101 + G107.  
+**Scope**: Add ~5-line section pointing readers to G101
+synthesis and G107 action items.  
+**Effort**: ~10 min.  
+**Value**: medium.
+
+#### **NAV-3** — `lean/E213/ARCHITECTURE.md`
+**Source**: G105's three-layer λ-density finding.  
+**Scope**: The existing ARCHITECTURE.md describes the 4-ring
++ Meta layer structure normatively.  G105 confirmed this
+empirically via Expr-density measurement.  Add an "Empirical
+verification" note pointing at G105.  
+**Effort**: ~10 min.  
+**Value**: medium.
+
+#### **NAV-4** — `STRICT_ZERO_AXIOM.md`
+**Source**: G95 dep-purity audit.  
+**Scope**: STRICT_ZERO_AXIOM.md tracks PURE/DIRTY E213 decls.
+Add Lean-core PURE-bounded fact (verified by G95 + parallel
+branch's N5/N6 closure).  Important context: DRLT is
+PURE-bounded on Lean core AS WELL as internally.  
+**Effort**: ~10 min.  
+**Value**: high — completes the PURE-bounded claim.
+
+### §10.5  CLAUDE.md updates
+
+#### **CL-1** — Meta-scan archetype list
+**Source**: G101 §6 + G107 §6 tool inventory.  
+**Scope**: Add to CLAUDE.md a "meta-scan archetypes" section
+listing the 6 reusable scanner patterns (AST motif / syntax
+skeleton / citation graph / context dumper / co-occurrence
+chunk / k-gram cascade).  Future static-analysis tasks
+should pick from this set.  
+**Effort**: ~30 min.  
+**Value**: medium-high — institutionalises the methodology.
+
+#### **CL-2** — Process model (meta surfaces / substantive executes)
+**Source**: G97 §6 (parallel branch's process note) + G107 §0.  
+**Scope**: Document the dual-branch parallelism as a working
+pattern for static-analysis-heavy tasks.  Reference G93→G97
+handshake loop as the validated example.  
+**Effort**: ~15 min.  
+**Value**: medium — codifies a pattern that worked once;
+useful baseline if reapplied.
+
+### §10.6  HANDOFF.md current state
+
+#### **HO-1** — Update for G107 registry
+**Source**: this commit.  
+**Scope**: Update HANDOFF.md to point at G107 as the canonical
+entry-point for outstanding work.  Note the branch's
+analysis-mode status.  
+**Effort**: ~10 min.  
+**Value**: high — anyone resuming on this branch needs to
+know G107 is the table-of-contents.
+
+### §10.7  Suggested execution order for doc work
+
+Sorted by (value × portability) / effort:
+
+  1. **HO-1** — HANDOFF.md update (10 min, blocks nothing
+     downstream but immediately useful).
+  2. **NAV-1** — seed/INDEX.md update (15 min, makes G90-G107
+     findable).
+  3. **NAV-4** — STRICT_ZERO_AXIOM.md note (10 min, completes
+     PURE-bounded claim).
+  4. **Pattern #10/#11/#12/#13** drafts into LESSONS_LEARNED
+     (~30 min each, 4 items).
+  5. **CAT-1** through **CAT-4** — four catalog files
+     (~30-60 min each).
+  6. **TH-2** Raw-derivation three levels (1 hr) — highest-
+     value standalone theory doc.
+  7. **TH-1** Proof-shape fingerprint (2 hr).
+  8. **TH-3** Falsifiability surface quantified (1.5 hr).
+  9. **TH-4** L1 extraction methodology (2 hr).
+  10. **CL-1** Meta-scan archetypes in CLAUDE.md (30 min).
+  11. **CL-2** Process model note (15 min).
+  12. **NAV-2** README pointer (10 min).
+  13. **NAV-3** ARCHITECTURE.md verification note (10 min).
+
+**Doc work total estimated**: 13 items, ~15 hours.  None are
+blocking.  All are net additive — closing the documentation
+debt left by the meta-scan session.
+
+### §10.8  Mandatory items before any future contributor uses G107
+
+If a successor branch wants to execute §2-§5 items, two doc
+updates SHOULD precede:
+
+  · **HO-1** (HANDOFF.md) — so the successor sees G107.
+  · **CAT-2** (abstraction-candidates.md) — easier per-item
+    status tracking than the inline §2-§5 lists.
+
+Both are short (~30 min combined).  Pre-requisites for clean
+hand-off.
+
+---
+
+## §11.  Branch state at G107
+
+  · 18 new research-notes added on this branch (G90-G107),
+    representing ~4,800 LOC of analysis writing.
+  · 11 scanner tools committed (~2,000 Python LOC + ~250 Lean
+    LOC across body files).
+  · 0 new PURE theorems (analysis-only mode).
+  · 4 cross-branch handshakes (G93/G96/G94/G97) all closed.
+  · DRLT itself was advanced significantly via parallel
+    branch using meta-surfaced findings: NatHelper centralised,
+    ListHelper added, Int213.Bound added, 6-theorem closed,
+    Pattern #8/#9 documented, alive predicate derived from
+    Clause 4, PURE-bounded on Lean 4 core verified.
+
+The branch can be either:
+  · merged as analysis-only delta (no new PURE; pure tooling
+    + research), or
+  · kept open as a long-term meta-analysis branch that
+    parallel substantive branches consult.
+
+Either way, G107 is the canonical entry-point.
