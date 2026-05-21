@@ -79,15 +79,32 @@ custom `xorRange` operator (avoiding List.range_succ [propext]) +
 Total cumulative: 32 PURE theorems realising the 3-way partition
 strategy.
 
-### Transfer to Fin-indexed cup (subsetIdx round-trip)
-The list-level theorems use `cupList` and `deltaList` on raw lists.
-To transfer to the Fin-indexed `cup`/`delta` in `Cohomology/Cup/Core.lean`:
-  · `subsetIdx_kSubset_roundtrip` lemma: `subsetIdx n k (kSubset n k j) = j`
-    for `j < binom n k` (kSubset bijection content)
-  · This is substantial structural work — induction on n with case
-    splits per (n, k) pair, exhibiting kSubset injectivity
+### Transfer to Fin-indexed cup (subsetIdx round-trip) — PARTIAL (2026-05-22)
 
-Estimated: 300-500 lines of careful Lean.
+**16 PURE bridge primitives** added across two files:
+
+  · `Cohomology/Cup/SubsetIdxRoundtrip.lean` (11 PURE):
+    - decide-verified round-trips at Δ⁴ (n=5, k ∈ {1, 2, 3, 4})
+    - ∀n general `kSubset_n_1_singleton` structural lemma
+    - `binom_k_0`, `binom_m_1` Pascal sub-lemmas
+
+  · `Cohomology/Cup/FinBridge.lean` (5 PURE):
+    - `firstVertex_5_2`, `lastVertex_5_2` — vertex extraction
+      from colex 2-subsets on Δ⁴
+    - `cup_5_1_1_unfold` — Fin cup unfolds to explicit vertex
+      evaluations (decide-verified, 10240 cases)
+    - `face2idx_5_3` — hardcoded face-index map (3-subset → 2-subset
+      colex by position-removal)
+    - `delta_cup_5_1_1_unfold` — delta (cup α β) τ_idx as explicit
+      3-term XOR of cup values at face-indices
+
+Remaining work for complete Fin transfer:
+  · Bridge primitives at higher arities (e.g., (5, 2, 1), (5, 1, 2))
+    for the RHS of the Leibniz: same pattern, ~30-50 lines each
+  · ∀n general round-trip at k=1 (requires List.find? structural
+    lemmas; ~50-100 lines)
+  · ∀(n, k) round-trip would require kSubset bijection proof
+    (substantial — ~300-500 lines as previously estimated)
 
 ### Physics application
 G86 speculates the lex-projection cup's self-referential Leibniz
