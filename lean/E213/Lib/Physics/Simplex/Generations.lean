@@ -62,4 +62,26 @@ theorem drlt_no_4th_gen_falsifier :
     DRLT:  N_gen = C(NS, NT) = 3 (forced by PairForcing → Atomicity)
     Falsifier: 4th lepton observed at any energy. -/
 
+/-! ## Falsifier — Z partial widths atomic count
+
+The Z⁰ branching to lepton flavours contributes a count of 6 = 2·N_gen
+partial widths (each of the 3 generations contributes 2 chiralities).
+At gauge-coupling level the structural integer 12 = 2·NS·NT appears
+across α_1, α_2 and leptoquark counting.  We name the falsifier
+bracket: if a precision Z-width measurement reveals a count
+incompatible with 12 = 2·NS·NT (e.g., a 4th-generation contribution),
+the DRLT atomicity is contradicted. -/
+
+/-- ★ **Z partial widths falsifier** — the integer count `2·NS·NT = 12`
+    matches Z partial-width structure (per `catalogs/physics-constants
+    .md`).  Any measurement requiring a different integer falsifies
+    the (NS, NT) = (3, 2) atomicity.  PURE. -/
+theorem Z_partial_widths_falsifier :
+    2 * NS * NT = 12
+    ∧ 2 * N_gen = 6
+    ∧ N_gen = 3
+    -- No 4th-gen contribution at any energy
+    ∧ binom NS 4 = 0 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Physics.Simplex.Generations

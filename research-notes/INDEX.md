@@ -38,6 +38,7 @@ research-notes/
 | `G35_chiral_cup_ring_catalog.md` | **213-Algebra catalog** — synthesis of Δⁿ cohomology + K_{m,n}^{(c)} bipartite + fractal recursion + resolution-finite arithmetic + Aut/Pisano + meta layers (12 domains).  Five frontier conjectures (C1–C5) | Active; `Lib/Physics/AlphaEM/{CupChannelInventory, ProjectionRatios, ChannelCohomologyLoss, GradedDecomposition, LaplacianSpectrum, PiFiveGap}.lean` instantiate the framework |
 | `hodge/` (sub-tree, 6 notes) | Hodge program closure: G6 translation, G7 Lens initiality + cup blueprint, G8 standard-math bridge, G9 HC²¹³ closure, G10 17-theorem programme, G11 Galois historical | Closed in `Math/Cohomology/HodgeConjecture/`; see `hodge/INDEX.md` |
 | `G12_layered_api_classification.md` | Layered API classification (Lens ring) | Cited from `Lens/API.lean`.  Pre-2026-05-12 path was `Hypervisor/API.lean`; OS/INDEX.md is no longer present (OS ring dissolved). |
+| `G85_cup_delta_lens_mismatch.md` | Cup / δ Lens-mismatch — Phase 2 finding re-read as **wedge-cup × simplicial-δ** Lens incompatibility, not a "bug"; twisted Leibniz derived at bidegree (1, 1) with boundary-endpoint correction `α(τ[0])·β(τ[last])`; 4 resolution paths (α: AW everywhere; β: exterior d everywhere — recommended; γ: parallel APIs; δ: keep mixture, prove twisted) | Active; `Cohomology/Cup/LeibnizUniversal.lean` docstring cross-links. |
 
 ## Subdirectories
 

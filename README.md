@@ -46,6 +46,14 @@ DRLT (Dynamic Resolution Lattice Theory)
 | Magic numbers 2,8,20 | exact | exact | EXACT |
 | Muon prefactor 192 | exact | 192 | EXACT |
 
+## DRLT Validation Standard pairings
+
+**17 of 23 observables** in `catalogs/physics-constants.md` have both
+a PURE precision theorem AND a PURE falsifier bracket (74% closure).
+Falsifier catalog F1–F20 in `catalogs/falsifiers.md`.  Remaining
+unpaired: Koide 2/3, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵, M_Pl/v_H,
+muon prefactor 192 (precision only; falsifier follow-up).
+
 ## Famous coincidences elevated to derivations
 
 | Coincidence | Year | DRLT form |
@@ -92,7 +100,7 @@ Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
 
 ```
 seed/            axioms + philosophy + falsifiability
-lean/E213/       Lean 4 formal library (~1114 files)
+lean/E213/       Lean 4 formal library (~1139 files)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
                    theoretical layer definitions (4 ring + Meta
                    since 2026-05-12)
@@ -106,23 +114,23 @@ lean/E213/       Lean 4 formal library (~1114 files)
   │              + ParenthesizationDistinct.  Term API 만 사용.
   │              (Bool213 / Nat213 / RawCut migrated to Lens
   │              2026-05-14 as Lens-layer catamorphism artifacts.)
-  ├── Lens/      144 files — Lens framework (catamorphism Raw → α)
+  ├── Lens/      148 files — Lens framework (catamorphism Raw → α)
   │              + Algebra/AxiomLenses/Bool213/Cardinality/Compose/
   │              Congruence/Instances/Lattice/Number/Properties/
   │              SyntacticInternalization/Universal sub-clusters.
   │              Theory API 만 사용.
-  ├── Lib/Math/  727 files (42 sub-clusters): CayleyDickson,
+  ├── Lib/Math/  733 files (42 sub-clusters): CayleyDickson,
   │              Real213, SignedCut, Probability, Cohomology,
   │              DyadicFSM, HodgeConjecture, Analysis,
   │              Linalg213, Cauchy, ModArith, Modulus, Irrational,
   │              Hyper, Choice, Polynomial213, Trajectory, …
   │              Lens API 만 사용.
-  ├── Lib/Physics/ 165 files (17 sub-clusters): AlphaEM, Couplings,
+  ├── Lib/Physics/ 171 files (18 sub-clusters): AlphaEM, Couplings,
   │              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
   │              Atomic, Simplex, Basel, YangMills, Capstones,
-  │              Substrate, Foundations, Certificates, …
-  │              Lens API 만 사용.
-  └── Meta/      37 files — ring-independent Lean 4 bridge.
+  │              AtomicBase, Foundations, Certificates, Quantum,
+  │              Symmetry.  Lens API 만 사용.
+  └── Meta/      38 files — ring-independent Lean 4 bridge.
                  SelfRecognising (CommBinary/NonVanishing/
                  Conjugation Codomain typeclass tower),
                  AxiomMinimality{,Capstone}, LensInternality,

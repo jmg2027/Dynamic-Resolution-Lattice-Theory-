@@ -76,4 +76,19 @@ theorem IE_formula_sub_ppm :
         - m_e_centi * 10000000000 = 2211460256 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
+/-! ## Falsifier — DRLT pairing completion for R_∞
+
+The precision side (`IE_formula_sub_ppm`) brackets at 4.3 ppb.
+Future muonic-hydrogen / Lamb-shift refinement to ppt precision
+must remain consistent with the bracket below; any measured value
+outside the ±1 μeV window around the DRLT atomic prediction
+falsifies the lattice reading. -/
+
+/-- ★ **R_∞ falsifier bracket** — IE(H) = 13605693 μeV ± 1.
+    Pairs with the precision-side `IE_formula_sub_ppm` to complete
+    the DRLT Validation Standard for H ionization. -/
+theorem R_infinity_falsifier_bracket :
+    13605692 < IE_H_micro ∧ IE_H_micro < 13605694 := by
+  refine ⟨?_, ?_⟩ <;> decide
+
 end E213.Lib.Physics.Atomic.IE.HydrogenPPM

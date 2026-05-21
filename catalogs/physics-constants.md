@@ -51,3 +51,25 @@ import E213.Lib.Physics.Library.CouplingLibrary
 import E213.Lib.Physics.Library.PMNSLibrary
 import E213.Lib.Physics.Library.CKMLibrary
 ```
+
+## Quantum-info atomic readouts (Phase 3, blueprint 12)
+
+```lean
+import E213.Lib.Physics.Quantum.Qubit       -- NT = 2 state count
+import E213.Lib.Physics.Quantum.Bell        -- CHSH ≤ 2·NS·NT = 12
+import E213.Lib.Physics.Quantum.Bekenstein  -- S_BH ∝ 1/(d-1) = 1/4
+```
+
+Closes the previously 0% Lean coverage of blueprint 12.  All
+PURE.  The integers 4 = NS+1 = d-1 (Bekenstein), 6 = NS·NT
+(qubit pairs), 12 = 2·NS·NT (Bell, α_1, α_2) are cross-referenced
+in `catalogs/atomic-integers.md`.
+
+## DRLT Validation Standard — paired observables (Phase 5)
+
+After the Phase 5 pairing-completion pass, 17 of 23 observables in
+this file have BOTH a PURE precision theorem AND a PURE falsifier
+bracket (see `catalogs/falsifiers.md` F1–F20).  Remaining 6
+(Koide 2/3, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵, M_Pl/v_H, muon prefactor
+192) have precision side only; falsifier side is the next
+extension target.

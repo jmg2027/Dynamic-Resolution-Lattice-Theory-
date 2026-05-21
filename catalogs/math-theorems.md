@@ -2,19 +2,28 @@
 
 Library usage manual.  **Name + import path + usage** of each theorem/structure.
 
+> **Post-reorg note**: The Analysis subtree was reorganised from
+> `Lib/Math/Real213/{Antiderivative,ClassicCalc,Flux*,...}.lean`
+> into the topical sub-clusters `Lib/Math/Analysis/{ClassicCalc,
+> Differentiation,DyadicSearch,FluxMVT,Integration,ODE,Series}/`.
+> Many code blocks below still cite the old `Real213/*` paths; the
+> umbrella import `E213.Lib.Math.Analysis` (below) pulls in
+> everything either way.  Use the umbrella for new code and consult
+> `lean/E213/Lib/Math/Analysis.lean` for the current sub-cluster
+> map.  Section §M, §N, §J.3 below are post-reorg accurate.
+
 ---
 
 ## Quick start — single import
 
 ```lean
-import E213.Lib.Math.Analysis213    -- import all Analysis213 results in one line
+import E213.Lib.Math.Analysis       -- canonical umbrella (post-reorg)
 ```
 
-Or by layer:
-
-```lean
-import E213.Lib.Math.Analysis       -- existing umbrella
-```
+The umbrella `Analysis.lean` re-exports everything that used to be
+at `Real213/Antiderivative`, `Real213/ClassicCalc`, etc., now
+relocated under `Analysis/{Integration,ClassicCalc,Differentiation,
+FluxMVT,Series,ODE,DyadicSearch}/`.
 
 ---
 
@@ -493,19 +502,24 @@ import E213.Lens.PredicateSelfEncoding
 7 PURE / 0 DIRTY.  Encodes finite-prefix Raw-predicates back to
 Raw via positional truth-table Gödel numbering.
 
-### J.3 `Lens/UndifferentiatedRaw` — §9.5 K_∞ ≡ point at raw
+### J.3 `Lens/RawTopology` — §9.5 K_∞ ≡ point ≡ discrete bookends
 
 ```lean
-import E213.Lens.UndifferentiatedRaw
--- theorem constLens_collapses : ∀ {α} (e : α) (r s : Raw),
---   (constLens e).view r = (constLens e).view s
--- theorem pre_lens_singleton
--- theorem constLens_kernel_total
+import E213.Lens.RawTopology
+-- theorem constLens_view_eq  : ∀ {α} (e : α) (r s : Raw), ...
+-- theorem constLens_equiv    : constLens-induced equivalence
+-- theorem constLens_is_top   : K_∞ is the top of the Lens lattice
+-- theorem k_infty_at_raw_bundle  ★ §9.5 bundle
+-- theorem discrete_kernel_eq, discrete_distinguishes
+-- theorem topology_two_bookends  ★ discrete / indiscrete bookends
 ```
 
-3 PURE / 0 DIRTY.  Witness: under the constant Lens, every Raw
-maps to the same value — the no-distinction reading of Raw is a
-singleton.
+The §9.5 "K_∞ ≡ point ≡ trivial-topology infinite space" content
+lives in `RawTopology.lean` (merged from the prior
+`UndifferentiatedRaw.lean` plan).  Witnesses: under the constant
+Lens every Raw maps to the same value (indiscrete bookend); under
+the strict-eq Lens every distinct pair is distinguished (discrete
+bookend); both readings are valid at the raw layer.
 
 ---
 
@@ -530,15 +544,64 @@ import E213.Meta.ThreeDirectionUniqueness
 import E213.Lib.Math.Mobius213
 -- theorem mobius_213_char_poly_at_trace
 -- theorem mobius_213_pell_unit_invariant_layer{0..4}
+-- theorem pell_unit_at_succ           ★★ X(n+1) = X(n) via Int213.* rw
+-- theorem mobius_213_pell_unit_invariant_forall  ★★★ ∀n X(n) = -1
 ```
 
 `num_n · den_{n+1} − num_{n+1} · den_n = -1` across all convergent
 layers, witnessing det [[2,1],[1,1]] = 1.  Same algebraic content
 under frozen (fixed-point) + dynamic (iteration) readings.
 
+The ∀n form (`mobius_213_pell_unit_invariant_forall`) closes the
+deferred universal form previously blocked by lack of 213-native
+Int ring algebra; proven via `cross_step_algebra` (manual rw chain
+using `Meta.Int213.*` only — no simp, no omega, no Mathlib).
+
 ---
 
-## M. Catalog statistics
+## M. 213-tower L_∞ structural closure (G61, Phase 1 hero)
+
+```lean
+import E213.Lib.Math.Mobius213.TowerLInfty
+-- theorem tower_trajectory_unique          ★ G61 Q1: deterministic P-iter
+-- theorem tower_growth_phi_squared_bracket ★ φ² ∈ (2, 3) at layers 1..7
+-- theorem pell_unit_constant_under_iteration ★★★ tower invariant -1
+-- theorem g61_partial_capstone             ★★★ Q1 + Q5(part) + L_∞
+
+import E213.Lib.Math.Mobius213.TowerConvergence
+-- theorem tower_L_infty_exists  ★★★ Phase 1c hero: L_∞ existence
+                                    witness via (Pell-unit ∀n,
+                                    φ-bracket, trajectory uniqueness)
+
+import E213.Lib.Math.Real213.PhiCut
+-- def pellConvergentCut (n : Nat)  φ approximant Cut at layer n
+-- theorem pell_bracket_width_witness  Pell-unit invariant in Nat form
+-- theorem phi_bracket_via_pell        concrete φ ∈ (3/2, 5/3)
+-- theorem phi_cut_capstone            ★★★ Phase 1b closure (7-conjunct)
+```
+
+Closes three of the five G61 structural questions (Q1, Q5 partial,
+L_∞ existence).  Q2 + Q3 (213-internal L0 via swap-as-negation) and
+Q4 (3-side extension) remain research-thread follow-ups.
+
+---
+
+## N. Minimal Root Lens IVT certificate (G31, Phase 4)
+
+```lean
+import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootCapstone
+-- def ivt_root_certificate     ★★★ 4-input typed-witness IVT root
+-- theorem ivt_four_axis_correspondence  modulus/trajectory/structure/residue
+-- theorem g31_phase4_closure   ★★ G31 design realised
+```
+
+213-native locatedness as four typed data witnesses, no classical
+content imported.  Pairs with the existing
+`MinimalRootLens.fromConsistentOracleRatio` infrastructure.
+
+---
+
+## O. Catalog statistics
 
 | Category | Modules | Key theorems |
 |---|---|---|
@@ -553,8 +616,10 @@ under frozen (fixed-point) + dynamic (iteration) readings.
 | I. Capstone | 17 | 17 mega-conjunction |
 | J. Flat ontology + closure | 3 | 22+ |
 | K. Three-direction uniqueness | 1 | 1 unified |
-| L. Möbius frozen+dynamic | 1 | 6 |
-| **Total** | **91+** (core of 178 total modules) | **329+ theorems** |
+| L. Möbius frozen+dynamic | 1 | 8 |
+| M. Tower L_∞ closure (G61, Phase 1) | 3 | 14 |
+| N. Minimal Root IVT cert (G31, Phase 4) | 1 | 3 |
+| **Total** | **96+** (core of 178+ total modules) | **354+ theorems** |
 
 STRICT ∅-AXIOM · 0 sorry · Mathlib-free · 0 Classical · 0 native_decide
 

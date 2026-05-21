@@ -6,12 +6,40 @@ import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Cohomology — cup product
+# Cohomology — lex-projection cup product
 
-Alexander–Whitney cup product
-    ⌣ : Cᵏ × Cˡ → Cᵏ⁺ˡ
-    (α ⌣ β)(τ) = α(τ first k) · β(τ last l)
+  ⌣ : Cᵏ × Cˡ → Cᵏ⁺ˡ
+  (α ⌣ β)(τ) = α(τ first k) · β(τ last l)
 over a sorted (k+l)-subset τ.  In ℤ/2 (Bool) `·` is AND.
+
+## Identity disclosure (post-2026-05-21)
+
+This is the **lex-projection cup** — for a sorted (k+l)-subset τ
+it picks the *single sorted partition* (front k vertices, back l
+vertices) and multiplies the cochain values at those two parts.
+
+It is NOT:
+  · Standard simplicial Alexander–Whitney cup (which uses
+    (k+1)+(l+1)-vertex τ with a shared vertex at position k —
+    different type signature).
+  · The ℤ/2 antisymmetric wedge `Λ^k ⊗ Λ^l → Λ^(k+l)` (which
+    XOR-sums over all k-l partitions of τ; in ℤ/2 the sign
+    vanishes but partitions still differ from sorted-only).
+
+The lex-projection cup admits its own natural Leibniz rule with a
+**boundary-endpoint correction term** distinguishing it from both
+AW and full wedge.  See `Cup/LeibnizLex.lean` for the (1, 1)
+universal form, and `research-notes/G85_cup_delta_lens_mismatch.md`
+for the 213-native re-reading of cup / δ as parallel Lens choices.
+
+The prior docstring's "Alexander–Whitney" label was a misclaim —
+self-corrected here in the spirit of `CLAUDE.md` §8 (catalog
+misclaim self-correction).  Existing 4-pair Leibniz tests in
+`Cup/Leibniz.lean` happen to satisfy the standard Leibniz at their
+symmetric cochain inputs (v0, all_true, zero) because the
+boundary-endpoint correction degenerates for these; asymmetric
+basis pairs expose the genuine algebraic content.
+
 All three arities (n, k, l) explicit to avoid metavariables.
 -/
 
@@ -23,7 +51,8 @@ open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 
-/-- Cup product (Alexander–Whitney) at fixed (n, k, l). -/
+/-- Cup product (lex-projection) at fixed (n, k, l).  See file
+    docstring for identity disclosure. -/
 def cup (n k l : Nat) (α : Cochain n k) (β : Cochain n l) :
     Cochain n (k + l) :=
   fun τ_idx =>
