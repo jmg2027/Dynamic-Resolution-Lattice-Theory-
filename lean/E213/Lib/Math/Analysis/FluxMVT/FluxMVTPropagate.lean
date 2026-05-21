@@ -73,19 +73,10 @@ theorem mid_witness_propagates_at {f g}
   show E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (sf.derivative (constCut 1 2))
                  (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
        = constCut 1 1 m k
-  have step :
-      E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
-                (sf.derivative (constCut 1 2))
-                (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
-      = E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
-                (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) :=
-    E213.Lib.Math.Real213.Sum.CutSumDetermined.cutSumAux_congr k (2*(2*m))
-      (sf.derivative (constCut 1 2)) (constCut 1 1)
-      (sg.derivative (constCut 1 2)) (constCut 1 1)
-      (fun m' _ => hf m' (2*k))
-      (fun m' _ => hg m' (2*k))
-      (2*(2*m)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (sf.derivative (constCut 1 2)) (sg.derivative (constCut 1 2))
+        (constCut 1 1) (constCut 1 1) k (2*(2*m))
+        (fun m' _ => hf m' (2*k)) (fun m' _ => hg m' (2*k))]
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 

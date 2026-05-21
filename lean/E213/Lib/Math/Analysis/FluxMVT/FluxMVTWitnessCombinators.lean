@@ -1,5 +1,6 @@
 import E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 
 import E213.Lib.Math.Real213.Core.Core
@@ -69,38 +70,23 @@ theorem mid_id_square_derivative_at_half_at (m k : Nat) :
                  (cutSum (cutMul (constCut 1 1) (constCut 1 2))
                          (cutMul (constCut 1 2) (constCut 1 1)))
                  k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
-  have step :
-      cutSumAux (constCut 1 1)
-                (cutSum (cutMul (constCut 1 1) (constCut 1 2))
-                        (cutMul (constCut 1 2) (constCut 1 1)))
-                k (2*(2*m)) (2*(2*m))
-      = cutSumAux (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) :=
-    cutSumAux_congr k (2*(2*m))
-      (constCut 1 1) (constCut 1 1)
-      (cutSum (cutMul (constCut 1 1) (constCut 1 2))
-              (cutMul (constCut 1 2) (constCut 1 1)))
-      (constCut 1 1)
-      (fun _ _ => rfl)
-      (fun m' _ => by
-        show cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
-                       (cutMul (constCut 1 2) (constCut 1 1))
-                       (2*k) (2*m') (2*m') = constCut 1 1 m' (2*k)
-        have inner :
-            cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
-                      (cutMul (constCut 1 2) (constCut 1 1))
-                      (2*k) (2*m') (2*m')
-            = cutSumAux (constCut 1 2) (constCut 1 2)
-                      (2*k) (2*m') (2*m') :=
-          cutSumAux_congr (2*k) (2*m')
-            (cutMul (constCut 1 1) (constCut 1 2)) (constCut 1 2)
-            (cutMul (constCut 1 2) (constCut 1 1)) (constCut 1 2)
-            (fun m'' _ => cutMul_one_const_at 1 2 m'' (2*(2*k)))
-            (fun m'' _ => cutMul_const_one_at 1 2 m'' (2*(2*k)))
-            (2*m') (Nat.le_refl _)
-        rw [inner]
-        exact cutSum_half_half_at m' (2*k))
-      (2*(2*m)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (constCut 1 1)
+        (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+                (cutMul (constCut 1 2) (constCut 1 1)))
+        (constCut 1 1) (constCut 1 1) k (2*(2*m))
+        (fun _ _ => rfl)
+        (fun m' _ => by
+          show cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
+                         (cutMul (constCut 1 2) (constCut 1 1))
+                         (2*k) (2*m') (2*m') = constCut 1 1 m' (2*k)
+          rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+                (cutMul (constCut 1 1) (constCut 1 2))
+                (cutMul (constCut 1 2) (constCut 1 1))
+                (constCut 1 2) (constCut 1 2) (2*k) (2*m')
+                (fun m'' _ => cutMul_one_const_at 1 2 m'' (2*(2*k)))
+                (fun m'' _ => cutMul_const_one_at 1 2 m'' (2*(2*k)))]
+          exact cutSum_half_half_at m' (2*k))]
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
@@ -149,21 +135,13 @@ theorem mid_id_mid_id_square_derivative_at_half_at (m k : Nat) :
               ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
                 ).derivative (constCut 1 2))
               k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
-  have step :
-      E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (constCut 1 1)
-            ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-              ).derivative (constCut 1 2))
-            k (2*(2*m)) (2*(2*m))
-      = E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (constCut 1 1) (constCut 1 1)
-            k (2*(2*m)) (2*(2*m)) :=
-    E213.Lib.Math.Real213.Sum.CutSumDetermined.cutSumAux_congr k (2*(2*m))
-      (constCut 1 1) (constCut 1 1)
-      ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-        ).derivative (constCut 1 2)) (constCut 1 1)
-      (fun _ _ => rfl)
-      (fun m' _ => mid_id_square_derivative_at_half_at m' (2*k))
-      (2*(2*m)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (constCut 1 1)
+        ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+          ).derivative (constCut 1 2))
+        (constCut 1 1) (constCut 1 1) k (2*(2*m))
+        (fun _ _ => rfl)
+        (fun m' _ => mid_id_square_derivative_at_half_at m' (2*k))]
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
@@ -214,22 +192,13 @@ theorem mid_mid_id_square_square_derivative_at_half_at (m k : Nat) :
                 ).derivative (constCut 1 2))
               (squareIsDifferentiable.derivative (constCut 1 2))
               k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
-  have step :
-      E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
-            ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-              ).derivative (constCut 1 2))
-            (squareIsDifferentiable.derivative (constCut 1 2))
-            k (2*(2*m)) (2*(2*m))
-      = E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (constCut 1 1) (constCut 1 1)
-            k (2*(2*m)) (2*(2*m)) :=
-    E213.Lib.Math.Real213.Sum.CutSumDetermined.cutSumAux_congr k (2*(2*m))
-      ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-        ).derivative (constCut 1 2)) (constCut 1 1)
-      (squareIsDifferentiable.derivative (constCut 1 2)) (constCut 1 1)
-      (fun m' _ => mid_id_square_derivative_at_half_at m' (2*k))
-      (fun m' _ => squareDerivative_at_half_at m' (2*k))
-      (2*(2*m)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+          ).derivative (constCut 1 2))
+        (squareIsDifferentiable.derivative (constCut 1 2))
+        (constCut 1 1) (constCut 1 1) k (2*(2*m))
+        (fun m' _ => mid_id_square_derivative_at_half_at m' (2*k))
+        (fun m' _ => squareDerivative_at_half_at m' (2*k))]
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
