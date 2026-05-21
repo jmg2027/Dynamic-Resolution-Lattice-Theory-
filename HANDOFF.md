@@ -1,8 +1,27 @@
 # Session Handoff — 2026-05-21 (Theorem-density reduction pass — extended)
 
 ## Branch
-`claude/particle-background-separation-ShXm5` — 139 session
-commits (247 total ahead of `main`).  All commits pushed.
+`claude/particle-background-separation-ShXm5` — 147 session
+commits (255 total ahead of `main`).  All commits pushed.
+
+## Latest extensions (post-update)
+
+Continuing reduction across remaining file clusters:
+  · Nuclear/MagicNumbersAtomic 8→1, Hadron/ProtonElectronRatio 8→1
+  · AlphaEM/Bare 19→4 (per-namespace masters: Bare,
+    IntegerSkeleton, Prefactors, FiveTermDerivation)
+  · AlphaEM/ChannelCohomologyLoss 16→1
+  · AlphaEM/LaplacianSpectrum 9→1
+  · AlphaEM/FractalLevelZetaBracket 10→1
+  · AlphaEM/FractalLevelZetaCoeffSeq 9→1
+  · AlphaEM/FractalLevelZetaModulus 9→1
+  · AlphaEM/GramSelfConsistency 10→1
+  · AtomicBase/Existence 8→1, AtomicBase/Shape 8→1
+  · Simplex/FoccSpectrum 9→1
+
+Combined session totals: ~720 theorems folded into ~165
+masters across 60+ files.  Build clean; ∅-axiom contracts
+preserved on all externally-consumed names; defs preserved.
 
 ## Latest waves (extending 2026-05-21)
 
