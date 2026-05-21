@@ -113,7 +113,35 @@ This is conjecture; concrete verification requires translating
 the K_{3,2}^{(c=2)} channel cup-product into the lex-projection
 formalism.
 
-## General conjecture (∀ k, l, n)
+## ★★★★★ Closure (2026-05-22): ∀ (k, l) PROVED — strict PURE
+
+`lean/E213/Lib/Math/Cohomology/Cup/LeibnizLexListLevel.lean`
+contains `list_level_leibniz_general`, a strict-PURE proof of the
+symbolic twisted Leibniz at arbitrary (k, l):
+
+  xorRange (k+l+1) (fun i => cupList k l α β (τ.eraseIdx i))
+  = xor (xor (cupList (k+1) l (deltaListR k α) β τ)
+             (cupList k (l+1) α (deltaListR l β) τ))
+        (cupList k l α β (τ.eraseIdx k))
+
+Proven via user's 3-way partition strategy:
+  · `xorRange_three_way_partition` — abstract algebraic skeleton
+  · `cupList_face_decomp` — per-face structural decomposition
+  · `list_level_LHS_partition` — LHS expansion to 3 blocks
+  · XOR algebra (AND/XOR distributivity, xorRange (n+1) unfold,
+    drop/take boundary lemmas, xorRange_congr for reindexing
+    without funext)
+  · 4-atom Bool case analysis closes final XOR equality
+
+24 PURE / 0 DIRTY in this file.  No Mathlib, no omega, no funext,
+no decide enumeration over (α, β) parameter space.
+
+The remaining work is the Fin-indexed transfer
+(`Cohomology/Cup/Core.cup` form) via `subsetIdx ↔ kSubset`
+round-trip — substantial structural work, separate from the
+algebraic content of this result.
+
+## Original general conjecture (∀ k, l, n)
 
 Stated formally:
 

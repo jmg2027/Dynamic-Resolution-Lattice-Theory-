@@ -748,7 +748,7 @@ sequences) — define a List-level abstraction, prove there, transfer.
 
 ---
 
-## Pattern #7: 3-way partition strategy for δ XOR sum decomposition
+## Pattern #7: 3-way partition strategy — CLOSED at ∀(k,l) (2026-05-22)
 
 **Problem**: at the cochain level, `δ(α ⌣ β)(τ)` is a foldl-XOR
 sum over face removals.  Standard Leibniz captures faces at
@@ -776,3 +776,26 @@ self-correcting" operations in cohomology — cap product, twisted
 ring operations, K_{m,n}^{(c)} bipartite cup channels.  The
 **self-referential Leibniz** (correction = operation at face)
 is structurally similar across these contexts.
+
+**Closure status** (2026-05-22): the ∀(k,l) symbolic twisted
+Leibniz is PROVED PURE at the list level in
+`Cohomology/Cup/LeibnizLexListLevel.list_level_leibniz_general`.
+Required additional infrastructure beyond Pattern #7's structural
+lemmas:
+
+  · Custom `xorRange : Nat → (Nat → Bool) → Bool` (avoids
+    List.range_succ which is [propext]).
+  · `xorRange_split` — at position k decomposes xorRange (k+l+1)
+    into three blocks.  Pure structural induction on l.
+  · `xorRange_three_way_partition` — abstract algebraic skeleton
+    composing xorRange_split with xorRange_congr.  PURE.
+  · `cupList_face_decomp` — discharges the three hypotheses of
+    xorRange_three_way_partition for the cup operation.
+  · `list_level_LHS_partition` — LHS in explicit 3-block form.
+  · XOR algebra closures (and_xor_distrib_left/right,
+    and_distrib_xorRange_left/right, xor_self', xor_false_right,
+    xor_assoc') reducing to 4-atom Bool case analysis.
+
+Total: 32 PURE theorems across `LeibnizLexStructural.lean` (8) and
+`LeibnizLexListLevel.lean` (24).  No Mathlib, no funext, no decide
+enumeration over the (α, β) parameter space.

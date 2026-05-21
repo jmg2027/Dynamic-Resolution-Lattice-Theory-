@@ -68,16 +68,16 @@ extensive doc/catalog updates.
 
 ## What's still open (next session)
 
-### Symbolic generalisation to ∀ (k, l)
-The list-level (1,1) and (2,1) proofs follow the SAME 3-way
-partition pattern.  Generalisation to arbitrary (k, l) needs:
-  · `foldl_xor_range_split` lemma — partition `List.range (k+l+1)`
-    at position k into `[0..k-1] ++ [k] ++ [k+1..k+l]`
-  · Reindexing j ↔ k+j+1 for the high-i Block 3
-  · The 8 structural lemmas already cover the per-face content
+### Symbolic generalisation to ∀ (k, l) — CLOSED (2026-05-22)
 
-Estimated: 100-150 lines of careful Lean.  Same pattern as (1,1)/(2,1)
-but parameterised by k+l+2 Bool atoms instead of fixed 4 or 5.
+**`list_level_leibniz_general` is PURE-proven** at the list level
+(`Cohomology/Cup/LeibnizLexListLevel.lean`).  Strategy used:
+custom `xorRange` operator (avoiding List.range_succ [propext]) +
+`xorRange_three_way_partition` (algebraic skeleton) +
+`cupList_face_decomp` (per-face structural lemmas) + XOR algebra.
+
+Total cumulative: 32 PURE theorems realising the 3-way partition
+strategy.
 
 ### Transfer to Fin-indexed cup (subsetIdx round-trip)
 The list-level theorems use `cupList` and `deltaList` on raw lists.
