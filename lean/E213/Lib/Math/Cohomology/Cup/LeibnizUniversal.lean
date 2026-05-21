@@ -32,28 +32,47 @@ The same outcome on the basis × basis pair quantification
 (j, k ∈ Fin 5, with `basis1 j` the indicator at vertex j) — `decide`
 reports false.
 
-## Interpretation
+## Diagnostic (post-session 후속 investigation)
 
-Two plausible causes for the universal-Leibniz refutation:
+A concrete diagnostic-eval traced the failure:
 
-  · **subsetIdx silent-fail**: `Cup.Core.cup` invokes `Delta.Core
-    .subsetIdx` (brute-force linear search of `kSubset n k i`).
-    When the search fails it returns `binom n k` (out-of-range
-    sentinel) and `cup` then yields `false` non-canonically.  For
-    certain (front, back) splits this may not match the true
-    Alexander-Whitney value.
-  · **delta sign and ordering convention**: `Delta.Core.delta` uses
-    ℤ/2 XOR over τ \ {τ[i]} faces with `subsetIdx` looking up the
-    face's colex index.  An off-by-one in the colex enumeration
-    of `kSubset` would break Leibniz universally even though
-    matching at the four `v0_5` / `all_true_5_1` / `zero` cases
-    that the existing `Cup/Leibniz.lean` tests cover.
+  `basis₀ ⌣ basis₂` at the 3-vertex face `[0, 1, 2]` gives
+    LHS = δ(basis₀ ⌣ basis₂)([0,1,2]) = true
+    RHS = (δ basis₀ ⌣ basis₂)([0,1,2]) ⊕ (basis₀ ⌣ δ basis₂)([0,1,2])
+        = true ⊕ true = false
 
-The four `Cup/Leibniz.lean` concrete cases all involve highly-
-symmetric cochains (constant true, constant false, vertex-0
-indicator) where any such silent-fail mode may happen to cancel
-on both sides.  The asymmetric basis pairs would expose the
-mismatch.
+So LHS ≠ RHS, with both sides decidably evaluated.
+
+**Root cause**: `Cup.Core.cup` is the **concatenation cup**
+  `(α ⌣ β)(τ) = α(τ.take k) · β(τ.drop k)`
+NOT the standard Alexander-Whitney cup
+  `(α ⌣ β)(τ) = α(τ.take (k+1)) · β(τ.drop k)`  -- shared vertex at τ[k]
+
+The standard Leibniz rule `δ(α ⌣ β) = (δα) ⌣ β ⊕ α ⌣ (δβ)` is
+proved for Alexander-Whitney cup (shared-vertex convention).  For
+the concatenation cup, a different (twisted) Leibniz rule applies
+because the face-removal operation at position `i ∈ [k..k+l]`
+shifts the front/back boundary asymmetrically — terms that cancel
+in the AW derivation no longer cancel.
+
+The existing four concrete cases in `Cup/Leibniz.lean` happen to
+pass because they involve highly-symmetric cochains (constant true,
+constant false, vertex-0 indicator) where the asymmetric correction
+terms degenerate or self-cancel.  Asymmetric basis pairs (e.g.,
+`basis₀ ⌣ basis₂`) expose the mismatch.
+
+## Resolution paths
+
+  A. **Fix the cup definition** to use Alexander-Whitney with shared
+     vertex at position k.  Then standard Leibniz applies; existing
+     concrete tests likely still pass (and certainly do for the
+     symmetric ones).
+  B. **Re-state Leibniz** for the concatenation cup — derive the
+     correct twisted-Leibniz formula and prove that instead.  This
+     is mathematically valid but produces a non-standard rule.
+
+Path A is recommended (matches standard simplicial cohomology
+literature).  Tagged for follow-up.
 
 ## Phase 2 status
 
