@@ -577,3 +577,128 @@ hypothesis" to "validated 3-component template with universal
 closer"**.  Implementation would follow the same `@[reducible]`
 alias pattern used for L1/L2/NatHelper centralisations — blast
 radius contained inside `CutSumOne.lean` + its consumers.
+
+---
+
+## §8.  L1 / L2 byte-identity deep-dive
+
+Same shared-vocabulary lens applied to L1 (LeibnizAlgLift × 4)
+and L2 (h_components_{α,β} × Leibniz{21,22}Final).
+
+### §8.1  L2 — **fully byte-identical**
+
+| Sibling | tac-len | cite-count |
+|---------|--------:|-----------:|
+| `Leibniz21Final.h_components_α` | 32 | 12 |
+| `Leibniz21Final.h_components_β` | 32 | 12 |
+| `Leibniz22Final.h_components_α` | 32 | 12 |
+| `Leibniz22Final.h_components_β` | 32 | 12 |
+
+**All 4 tactic sequences are identical at every position** (32
+tokens, byte-by-byte match).  Cite multisets are also identical:
+the same 12 lemmas cited with the same multiplicities — 6 of
+them shared by all 4 (`h_lhs`, `h_rhs1`, `h_rhs2`,
+`delta_pointwise_eq`, `step.trans`, `cupAW_pointwise_eq`).
+
+This is **literal copy-paste of one proof across 4 theorem
+names**.  The L2 abstraction is therefore not parametric in any
+substantive sense; it is a **name-only difference**.  A single
+theorem with the bidegree (21/22) and factor (α/β) as parameters
+would replace all 4 with zero proof-content rewriting.
+
+**L2 abstraction effort: minimal.**  Write one `h_components_general`
+theorem; redirect 4 callers (or keep them as `@[reducible]`
+aliases).
+
+### §8.2  L1 — **30-token prefix + 43-cite identity, then α/β fork**
+
+| Sibling | tac-len | cite-count |
+|---------|--------:|-----------:|
+| `LeibnizAlgLift.leibniz_via_β_decomp_lens`        | 48 | 43 |
+| `LeibnizAlgLift22.leibniz_via_β_decomp_22`        | 48 | 43 |
+| `LeibnizAlgLift21Alpha.leibniz_via_α_decomp_21`   | 48 | 43 |
+| `LeibnizAlgLift22Alpha.leibniz_via_α_decomp_22`   | 48 | 43 |
+
+  · **Longest common tactic prefix**: 30 tokens (62.5 % of length).
+  · **Divergence position 30**: `[rfl, rfl, have, have]` — the
+    β-decomp pair (`_lens`, `_22`) splits with `rfl`; the
+    α-decomp pair (`_21`, `_22 α`) splits with `have`.
+
+The fork is **exactly the factor knob** (α vs β).  The bidegree
+knob (1,1 lens / (2,1) / (2,2)) does **not** affect proof
+structure at this token level — proofs are byte-identical
+across bidegrees, only the factor differs after position 30.
+
+  · **Cite multisets**: **identical across all 4 siblings** —
+    same 43 lemma names, same multiplicities.  Lemmas cited by
+    all 4 include `h_lhs`, `h_rhs1`, `h_rhs2`, `h_components`,
+    `delta_pointwise_eq`, `cupAW_pointwise_eq`, `combine_10`.
+
+So at the citation level L1 is fully identical; at the tactic
+level the last 18 tokens fork on the α/β knob alone.
+
+### §8.3  Refined L1 parametric signature
+
+The original G93 §C4 candidate
+
+```
+leibniz_via_factor_decomp : ∀ (bidegree : Nat × Nat) (factor : α ∨ β), ...
+```
+
+is over-parameterised.  The deep-dive shows **bidegree doesn't
+affect proof structure** at the token level — meaning the
+template is bidegree-uniform.  Refined signature:
+
+```lean
+theorem leibniz_via_decomp
+  {n : Nat × Nat} {factor : Factor}      -- bidegree erased, factor essential
+  (h_components : ComponentsAt n factor) : ... := by
+  -- 30-token universal prologue (identical across all 4 siblings)
+  ...
+  -- factor-conditional fork (18 tokens, dispatches on factor)
+  match factor with
+  | .α => -- the α-decomp 18-token tail
+  | .β => -- the β-decomp 18-token tail
+```
+
+Or, even simpler if the 18-token forks are themselves
+α/β-conjugates: a single tail with a `factor.flip` parameter
+threading through the rfl-vs-have positions.
+
+### §8.4  Combined L1 + L2 effort estimate
+
+  · **L2**: 1 parametric theorem (~32 tokens, copy of any
+    sibling) + 4 reducible aliases.  Net: -3 proofs.
+  · **L1**: 1 parametric theorem with internal `match factor`
+    (~30 + 2×18 + match-overhead ≈ 75 tokens) + 4 reducible
+    aliases.  Net: -3 proofs.
+
+Total mass reduction:
+
+  · L1: 4 × 48 = 192 tokens → ~75 tokens.  **Saves ~117 tokens.**
+  · L2: 4 × 32 = 128 tokens → ~32 tokens.  **Saves ~96 tokens.**
+  · Combined: **~213 tactic tokens** retired in 2 marathons
+    (small ones; the blast radius is `Cup/AW/` only).
+
+Compared to CutSumOne (Candidate C, ~140-token reduction): L1 +
+L2 together would retire **more total mass** with smaller
+per-proof effort (no per-instance arithmetic identity to
+discharge — the per-sibling work is zero for L2 and the α/β
+fork only for L1).
+
+### §8.5  Abstraction-priority re-ranking
+
+Updated by deep-dive evidence strength:
+
+| Rank | ID | Family | Status | Mass saving |
+|-----:|----|--------|--------|------------:|
+| 1 | **L2** | h_components × 4 | **fully byte-identical**, name-only | ~96 tok |
+| 2 | **L1** | LeibnizAlgLift × 4 | 30-tok prefix + 43-cite identity, α/β fork | ~117 tok |
+| 3 | **C**  | CutSumOne × 8 | 9-tok prefix, universal closer, 3-part template | ~140 tok |
+| 4 | M  | Raw.recAux × 2 (G94 §6 Sub-3) | high-leverage recursor pair | small |
+| 5 | A→J... (other candidates) | (G94 §4) | various | various |
+
+**L2 is now the cleanest possible abstraction**: zero
+proof-content rewriting required.  Worth doing first as a low-risk
+warm-up to validate the `@[reducible]` alias machinery for the
+Cup/AW/ subtree, before tackling L1 + C.
