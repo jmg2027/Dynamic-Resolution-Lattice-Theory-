@@ -143,19 +143,12 @@ def k32c2_lap_total_rank : Nat := k32c2_lap_rank_0 + k32c2_lap_rank_1
     = 0 + 6 + 4 + 4 + 10 = 24 = 2·E (handshake). -/
 def k32c2_lap_trace_0 : Nat := 0 + 6 + 4 + 4 + 10
 
-theorem k32c2_lap_trace_0_eq_24 : k32c2_lap_trace_0 = 24 := by decide
-theorem k32c2_handshake : k32c2_lap_trace_0 = 2 * k32c2_E := by decide
-
 /-- Trace of edge Laplacian = sum nonzero eigenvalues = 24
     (same as vertex Δ_0 nonzero spectrum). -/
 def k32c2_lap_trace_1 : Nat := 6 + 4 + 4 + 10
 
-theorem k32c2_lap_trace_1_eq_24 : k32c2_lap_trace_1 = 24 := by decide
-
 /-- Total trace of K_{3,2}^{(c=2)} Laplacian = 24 + 24 = 48. -/
 def k32c2_lap_total_trace : Nat := k32c2_lap_trace_0 + k32c2_lap_trace_1
-
-theorem k32c2_lap_total_trace_eq_48 : k32c2_lap_total_trace = 48 := by decide
 
 
 
@@ -186,15 +179,9 @@ theorem k32c2_lap_total_trace_eq_48 : k32c2_lap_total_trace = 48 := by decide
 def k32c2_zeta_1_num : Nat := 23
 def k32c2_zeta_1_den : Nat := 15
 
-theorem k32c2_zeta_1_check :
-    k32c2_zeta_1_num * 60 = (10 + 30 + 6) * 2 * k32c2_zeta_1_den := by decide
-
 /-- ζ_K(2) numerator/denominator: 293/900. -/
 def k32c2_zeta_2_num : Nat := 293
 def k32c2_zeta_2_den : Nat := 900
-
-theorem k32c2_zeta_2_check :
-    k32c2_zeta_2_num * 3600 = (100 + 450 + 36) * 2 * k32c2_zeta_2_den := by decide
 
 /-! ## §5 — Comparison: lattice ζ-Laplacian vs continuum ζ(2)
 
@@ -213,15 +200,6 @@ theorem k32c2_zeta_2_check :
   natural: the s=1 trace-weighted sum on the bipartite multigraph
   Laplacian, where the multigraph IS the resolution-finite
   channel structure replacing continuum integration. -/
-
-/-- Comparison: ζ_K(1) = 23/15 vs ζ_Δ(2) = 6/5 (= 18/15). -/
-theorem zeta_K1_vs_delta_zeta_2 :
-    k32c2_zeta_1_num * delta4_zeta_2_den = 23 * 25
-    ∧ delta4_zeta_2_num * k32c2_zeta_1_den = 30 * 15 := by decide
-
-/-- ζ_K(1) − ζ_Δ(2) = 23/15 − 18/15 = 5/15 = 1/3. -/
-theorem zeta_K1_minus_zeta_delta_2_is_one_third :
-    k32c2_zeta_1_num * 15 = (18 + 5) * k32c2_zeta_1_den := by decide
 
 
 
@@ -265,8 +243,17 @@ theorem laplacian_spectrum_master :
     ∧ k32c2_lap_trace_0 = 2 * k32c2_E
     -- ζ-Laplacian numerator/denominator pairs
     ∧ k32c2_zeta_1_num = 23 ∧ k32c2_zeta_1_den = 15
-    ∧ k32c2_zeta_2_num = 293 ∧ k32c2_zeta_2_den = 900 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ k32c2_zeta_2_num = 293 ∧ k32c2_zeta_2_den = 900
+    -- ζ-Laplacian cross-mult sanity (per-grade Σ → total)
+    ∧ k32c2_zeta_1_num * 60 = (10 + 30 + 6) * 2 * k32c2_zeta_1_den
+    ∧ k32c2_zeta_2_num * 3600 = (100 + 450 + 36) * 2 * k32c2_zeta_2_den
+    -- Comparison ζ_K(1) vs ζ_Δ(2) (cross-mult products)
+    ∧ k32c2_zeta_1_num * delta4_zeta_2_den = 23 * 25
+    ∧ delta4_zeta_2_num * k32c2_zeta_1_den = 30 * 15
+    -- ζ_K(1) − ζ_Δ(2) = 5/15 = 1/3 (cross-mult)
+    ∧ k32c2_zeta_1_num * 15 = (18 + 5) * k32c2_zeta_1_den := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Lib.Physics.AlphaEM.LaplacianSpectrum
