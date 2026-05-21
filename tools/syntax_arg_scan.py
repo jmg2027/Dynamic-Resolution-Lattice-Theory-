@@ -338,11 +338,138 @@ def report(cites, shapes):
         print(f"  x{n:<4}  {s}")
 
 
+# ---------- target-context dump (C3 from G93) ----------
+
+# Reuse the tactic whitelist from the sibling scanner.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from syntax_tactic_scan import TACTIC_NAMES  # noqa: E402
+
+CTX_TOKEN_RE = re.compile(
+    r'(?:(?<=\s)|(?<=;)|(?<=\|)|(?<=·)|(?<=>)|(?<==>)|^)'
+    r'([a-z][a-z_]*)'
+    r"(?:'|\b)"
+)
+
+
+def extract_apply_contexts(body: str, targets: set[str], window: int = 5):
+    """For each `apply <name>` (or `rw [<name>, ...]`, `exact <name>`)
+    with name in `targets`, yield (tokens_before, tokens_after) — the
+    surrounding ±window whitelisted tactic-name tokens, EXCLUDING the
+    `apply`/`rw`/`exact` itself."""
+    # Build sorted (pos, tac) stream of all whitelisted tactic tokens.
+    tokens = []
+    for m in CTX_TOKEN_RE.finditer(body):
+        if m.group(1) in TACTIC_NAMES:
+            tokens.append((m.start(1), m.group(1)))
+
+    # Build a list of citation-event positions: (pos, kind, name)
+    events = []
+    for m in APPLY_HEAD_RE.finditer(body):
+        if m.group(1) in targets:
+            events.append((m.start(), 'apply', m.group(1)))
+    for m in EXACT_HEAD_RE.finditer(body):
+        if m.group(1) in targets:
+            events.append((m.start(), 'exact', m.group(1)))
+    # Also bracket-list cites of the targets
+    i = 0
+    while i < len(body):
+        m = BRACKET_HDR_RE.search(body, i)
+        if not m:
+            break
+        lb = body.find('[', m.start())
+        if lb == -1:
+            i = m.end(); continue
+        rb = balance_brackets(body, lb)
+        content = body[lb+1:rb-1]
+        kind = next(g for g in m.groups() if g)
+        for item in split_top_level(content):
+            head = parse_lemma_head(item)
+            if head in targets:
+                events.append((lb, kind, head))
+        i = rb
+
+    events.sort(key=lambda e: e[0])
+
+    for pos, kind, lemma in events:
+        # Find idx in `tokens` where token pos == pos (the tactic
+        # before/at this citation).  The kind itself is a tactic
+        # name; find its index.
+        # Identify the index of the *kind* token closest to pos.
+        idx = None
+        for k, (tp, tn) in enumerate(tokens):
+            if tp == pos and tn == kind:
+                idx = k; break
+        if idx is None:
+            # Fallback: nearest tactic token starting at/before pos
+            for k, (tp, _) in enumerate(tokens):
+                if tp > pos:
+                    idx = max(0, k - 1); break
+            else:
+                idx = len(tokens) - 1
+        lo = max(0, idx - window)
+        hi = min(len(tokens), idx + window + 1)
+        before = tuple(t for _, t in tokens[lo:idx])
+        after  = tuple(t for _, t in tokens[idx+1:hi])
+        yield (kind, lemma, before, after)
+
+
+def scan_contexts(targets: set[str], window: int = 5):
+    rows = []  # (rel, decl, kind, lemma, before_tuple, after_tuple)
+    for rel, src in walk_e213_files(LEAN_DIR):
+        for name, body in find_decl_bodies(src):
+            for kind, lemma, before, after in extract_apply_contexts(
+                    body, targets, window):
+                rows.append((rel, name, kind, lemma, before, after))
+    return rows
+
+
+def report_contexts(rows, window: int):
+    print(f"# Context-extracted citation rows: {len(rows)}")
+    by_decl = collections.Counter(r[0] + '::' + r[1] for r in rows)
+    print(f"# Distinct (file, decl) hosting a target citation: {len(by_decl)}")
+    print()
+    # Cluster by (kind, before-tuple, after-tuple)
+    cluster = collections.defaultdict(list)
+    for rel, decl, kind, lemma, before, after in rows:
+        cluster[(kind, before, after)].append((rel, decl, lemma))
+    print(f"# Distinct ±{window} context skeletons: {len(cluster)}\n")
+    print(f"## Top context skeletons around target citation")
+    ranked = sorted(cluster.items(), key=lambda kv: -len(kv[1]))
+    for (kind, b, a), occs in ranked[:15]:
+        decls = sorted({(r, d) for r, d, _ in occs})
+        print(f"  x{len(occs)}   {len(decls)} distinct (file, decl)")
+        print(f"    BEFORE: [{', '.join(b) if b else '(start of proof)'}]")
+        print(f"    KIND:   {kind}  <target>")
+        print(f"    AFTER:  [{', '.join(a) if a else '(end of proof)'}]")
+        for r, d, _ in occs[:3]:
+            print(f"    · {r} :: {d}")
+        if len(occs) > 3:
+            print(f"    · ... +{len(occs)-3}")
+        print()
+
+    # by lemma if multiple targets
+    by_lemma = collections.Counter(r[3] for r in rows)
+    if len(by_lemma) > 1:
+        print("## Hits per target")
+        for lem, n in by_lemma.most_common():
+            print(f"  {n:>4}  {lem}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--report-only", action="store_true",
                     help="reuse cached TSV files")
+    ap.add_argument("--context-target",
+                    help="comma-separated lemma names; dump ±W tactic "
+                         "context around every citation site")
+    ap.add_argument("--context-window", type=int, default=5,
+                    help="window size in tactic tokens (default 5)")
     args = ap.parse_args()
+    if args.context_target:
+        targets = {t.strip() for t in args.context_target.split(',')}
+        rows = scan_contexts(targets, args.context_window)
+        report_contexts(rows, args.context_window)
+        return 0
     if args.report_only:
         cites = read_cites(CITE_PATH)
         shapes = read_shapes(SHAPE_PATH)
