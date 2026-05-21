@@ -11,3 +11,4 @@ E213/_TestNat.lean
 E213/_AstFoldScanProbe.lean
 E213/_DepPurityProbe.lean
 E213/_AstCallGraphProbe.lean
+E213/_AstShapeProbe.lean
