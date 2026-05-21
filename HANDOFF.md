@@ -1,7 +1,7 @@
-# Session Handoff — 2026-05-22 (C3 chain + Phase-5 23/23 + extensions, MERGE-READY)
+# Session Handoff — 2026-05-22 (C3 chain + Phase-5 23/23 + ALL POLISH, MERGE-READY)
 
 ## Branch
-`claude/subset-bijection-lemmas-w2FKf` — 37 commits ahead of
+`claude/subset-bijection-lemmas-w2FKf` — 40+ commits ahead of
 `origin/main`.  All pushed.
 
 ## TL;DR (merge gatekeepers)
@@ -44,8 +44,9 @@ a 12-conjunct PURE bundle of headline facts from all 12 phases.
 | 1 | Cup-Leibniz general transfer | 67 | `cup_unfold_general` ∀(n,k,l); KSubset bijection; FinBridge general |
 | 2 | 6-theorem + alive + Mobius213 | 80 | ZOmega units exact 6 (diophantine completeness); alive_iff_clause4_alive; P^5 / P^10 mod 5 |
 | 3 (main) | C3 chain (gauge emergence) | 173 | 12 phases + master capstone → gluon octet via ι: K → Δ⁴ + F_2 irrep decomp |
-| 3 (followup) | Phase 5 23/23 + C3 extensions + c=2 | 60 | F25/F26 falsifiers, Phases 13/14/15, C2DoublingDerivation |
-| **Total** | | **~380 new PURE** | across 37 commits, 0 DIRTY introduced |
+| 3 (followup A) | Phase 5 23/23 + C3 extensions + c=2 | 60 | F25/F26 falsifiers, Phases 13/14/15, C2DoublingDerivation |
+| 3 (followup B) | Polish — Phases 16, 17, 18 | 30 | mixed C_2^6 matrices, block-diagonal Sym3, **full semidirect Group axioms** |
+| **Total** | | **~410 new PURE** | across 40+ commits, 0 DIRTY introduced |
 
 ## Session 3 phase breakdown (this session, current marathon)
 
@@ -131,18 +132,22 @@ closed at PURE level:
   · `c = full / half = 2 = NT` — binary cover ratio
   · K-edge count = NS·NT·c = 12 via cover-doubling
 
+## Phases 16, 17, 18: ALL POLISH CLOSED (this session followup)
+
+The 3 polish items previously listed as "open" are now all PURE-closed:
+
+| Phase | Module | PURE | Achievement |
+|---|---|---|---|
+| 16 | `Lib/Physics/Symmetry/C2_6MixedMatrices.lean` | 11 | H1K matrices for 4 mixed C_2^6 bits via tree-decomp witnesses |
+| 17 | `Lib/Physics/Symmetry/Sym3BlockDiagonal.lean` | 3+16 | M_S01, M_S12 block-diagonal in explicit 8-dim basis (consolidates Phases 9/10/14) |
+| 18 | `Lib/Physics/Symmetry/AutKSemidirectFull.lean` | 16 | **Full semidirect Group axioms** PROVEN (not sample): `mul_assoc` via φ-homomorphism (`bit_act_of_hom`) using `(gh)⁻¹ = h⁻¹·g⁻¹` identity |
+
 ## Open work (post-merge)
 
 ### Cup-Leibniz general ∀(k, l) (deep)
   · G86 conjecture: list-level Leibniz at all bidegrees.
   · List-level proven for (1,1) and (2,1); ∀(k, l) needs the
     structural insight you've previously said to defer.
-
-### Polish / future C3
-  · Explicit H1K matrix for the 4 mixed C_2^6 bits (need tree-decomp)
-  · Full semidirect Group axioms for Phase 15 (currently sample-only)
-  · Block-diagonalization of M_S01 in the explicit 8-dim basis from
-    Phases 9, 10, 14 (would expose the 2+2+2+2 = 8 block structure)
 
 ## Merge recommendation
 

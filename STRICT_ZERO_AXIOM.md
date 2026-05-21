@@ -834,6 +834,46 @@ cardinality 768; differ only in multiplication table.
 follow-up files, bringing session 3 total to **+233 PURE** across
 19 new Lean files.
 
+## 2026-05-22 — Phases 16, 17, 18 polish closure (all 3 deferred items)
+
+The 3 deferred polish items from the prior merge-ready handoff
+are all closed at PURE level:
+
+### Phase 16: H1K matrices for 4 mixed C_2^6 bits
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.C2_6MixedMatrices` | 11 | Four explicit 8×8 matrices `M_bit_0/1/2/4` for the bits where the multiplicity pair contains a tree edge; each has one tree-decomp row + 7 identity rows; vertex witnesses `v_bit_k_witness` resolving each tree-edge image; all 4 involutions at matrix level (64-entry decide); pairwise commutation; **`★ C2_6MixedMatrices_phase16_capstone`** |
+
+Combined with Phase 13's clean bits 3, 5, gives the **complete
+explicit C_2^6 → GL(F_2^8) representation** on H¹(K).
+
+### Phase 17: block-diagonal Sym(3) in explicit 8-dim basis
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3BlockDiagonal` | 3 (+16 wrappers) | Consolidates Phases 9, 10, 14 into the global block-diagonal statement: in the basis `B = [ω_10, ω_01, std1_*, std2_*, std3_*]`, `M_S01 = diag(1, 1, [[1,1],[0,1]]×3)` and `M_S12 = diag(1, 1, [[1,0],[1,1]]×3)`; block isolation samples (M_S01·ω_10 has zero at coord 6); **`★ Sym3BlockDiagonal_phase17_capstone`** — 12-conjunct |
+
+Realizes `H¹(K) = 2·trivial ⊕ 3·standard` over F_2 at the **explicit
+matrix level**, not just as a composition-factor identity.
+
+### Phase 18: full semidirect Group axioms
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.AutKSemidirectFull` | 16 | `sym3_act : Sym3 → Fin 3 → Fin 3`, `sym2_act : Sym2 → Fin 2 → Fin 2` — group homomorphisms (decide on 108, 8 cases); `s_of, t_of, pair_idx` bit-index encoding/decoding (match-based, propext-free); **`bit_perm_of : Sym3 × Sym2 → (Fin 6 → Fin 6)`** — 12-element general lookup; **`★ bit_perm_of_hom`** (864-case decide); `bit_act_of` pullback via **inverse** to recover true homomorphism direction; **`★ bit_act_of_hom`** via `(gh)⁻¹ = h⁻¹·g⁻¹` (`sym3_inv_mul`, `sym2_inv_mul`); full `mul_semi`, `one_semi`, `inv_semi`; helper `mul_semi_C2_6_at`; **all four group axioms PROVEN**: `mul_semi_one_mul`, `mul_semi_mul_one`, `mul_semi_inv_mul`, **`★ mul_semi_assoc`** — associativity via the φ-homomorphism for the C_2^6 cross-term; compatibility check `bit_perm_of_a_e` matches Phase-15 generators; **`★★★ AutKSemidirectFull_phase18_capstone`** — 8-conjunct |
+
+This realizes the **true Aut(K_{3,2}^{(c=2)}) = (Sym(3) × Sym(2)) ⋉ C_2^6**
+as a proper Group with full axioms, going beyond Phase 12 (direct
+product) and Phase 15 (sample twist).
+
+**Cumulative new PURE: +30** (11 + 3 + 16) for the 3 polish files,
+bringing session 3 total to **+263 PURE** across **22 new Lean files**.
+
+The C3 chain narrative is now **completely closed at every level**:
+Type → Group → Action → Equivariance → Irrep → Explicit basis →
+Block-diagonal → True semidirect product.
+
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
 
