@@ -1,129 +1,106 @@
-# Session Handoff — 2026-05-22 (Part 3 marathon, continued)
+# Session Handoff — 2026-05-22 (Part 3 marathon, three halves)
 
 ## Branch
-`claude/handoff-part-3-marathon-0XWmn` — 8 commits ahead of
+`claude/handoff-part-3-marathon-0XWmn` — 13 commits ahead of
 `origin/main`.  All pushed.
 
-## What this session did (both halves)
+## Cumulative summary
 
-Closed §2 mechanical-immediate items fully + 3 §4 items + 1 mid item.
-
-### Half 1 (prior message)
-
-| Item | Status | Net |
-|------|:------:|-----|
-| **L2** — `h_components_{α,β}` 4-sibling | DONE | `LeibnizDecomp.lean` (8 new PURE), −147 lines |
-| **N7** — `caseElement` Prism truth table | DONE | 2 PURE + 4 corollaries |
-| **N8** — `NatHelper.mul_left_comm` adoption | DONE | 19 sites / 3 files |
-| **N9** — `Nat.add_right_comm` adoption | DONE | 6 sites / 7 files |
-| Doc — Pattern #10/#11 + NAV-1/4 + CAT-1/2 | DONE | LESSONS_LEARNED + 2 catalogs |
-
-### Half 2 (this message)
-
-| Item | Status | Net |
-|------|:------:|-----|
-| **Sub-2** — `Tree.canonical_slash_decompose` helper | DONE | 2 PURE helpers + 5 sites refactored |
-| **M (Sub-3)** — Raw.recAux + RawBy.recAux | DONE | 2 sites refactored via Sub-2 helpers |
-| **Pell-FSM (partial)** — `ArithFSM2.bits_period_of_run_period` | DONE | 1 PURE helper + 27 sites refactored |
-| **ModArith** — mod3/mod5 per-residue corollaries | DONE | `mod3_three_mul_add` new + 6 corollaries |
+| Item | Status | Commit |
+|------|:------:|--------|
+| **L2** — `h_components_{α,β}` 4-sibling | DONE | `99fe6228` |
+| **N7** — `caseElement` Prism truth table | DONE | `95b78308` |
+| **N8** — `NatHelper.mul_left_comm` adoption | DONE | `931c38cb` |
+| **N9** — `Nat.add_right_comm` adoption | DONE | `931c38cb` |
+| **Doc batch A** — Pattern #10/#11, NAV-1/4, CAT-1/2 | DONE | `7ac3f3ce` |
+| **Sub-2** — `Tree.canonical_slash_decompose` | DONE | `c7d5d7e8` |
+| **M (Sub-3)** — Raw.recAux + RawBy.recAux | DONE | `da447545` |
+| **Pell-FSM (run→bits 27 sites)** | DONE | `8379a10d` |
+| **ModArith** — mod3/mod5 per-residue | DONE | `fb769c4b` |
+| **Doc batch B** — HANDOFF + CAT-2 refresh | DONE | `6b1bef7e` |
+| **Pell-FSM (toBitFSM_lift + period_mul, 9 sites)** | DONE | `519bd93a` |
+| **L1 β-side** — `leibniz_via_β_decomp_general` | DONE | `0fabff84` |
+| **Pell-FSM (Lucas+Trib+Fib+CrossClass, 13 sites)** | DONE | `a3162f31` |
 
 ## Verification
 
   · **Full `lake build`**: ✅ clean.
-  · **Axiom purity**: ✅ all new helpers PURE; spot-checked 25+
-    refactored theorems, all PURE.
+  · **Axiom purity**: 18 new PURE helpers across 7 new files;
+    spot-checked 40+ refactored theorems, all PURE.
   · **No new DIRTY** introduced.
-  · 5/5 §2 items closed; 0/1 of §3 (L1 deferred); 3/7 §4 closed.
 
-## Branch-side tally
+## Net deliverables
 
-| Commit | Subject |
-|--------|---------|
-| `931c38cb` | N8 + N9 adoption |
-| `95b78308` | N7 Prism truth-table generalisation |
-| `99fe6228` | L2 LeibnizDecomp 4-sibling consolidation |
-| `7ac3f3ce` | docs: Pattern #10/#11 + NAV-1/4 + CAT-1/2 |
-| `c7d5d7e8` | Sub-2: canonical_slash_decompose helper |
-| `da447545` | M (Sub-3): recursors via Sub-2 helpers |
-| `8379a10d` | Pell-FSM (partial): 27 sites refactored |
-| `fb769c4b` | ModArith: mod3/mod5 per-residue via _add |
-
-Cumulative net: ~300 lines retired, 13 new PURE helpers across 6
-new files/additions, 2 new patterns documented.
+  · ~500+ lines retired from corpus.
+  · 49 Pell-FSM family sites refactored via 5 generic FSM helpers.
+  · 12 mathematical sites refactored via 8 helpers
+    (L2 LeibnizDecomp + L1 β-side LeibnizAlgLiftBeta + Sub-2
+    canonical_slash + Prism N7 + ModArith mod3_add).
+  · 25 mechanical adoptions (N8/N9 mul_left_comm/add_right_comm).
+  · 2 new patterns documented (#10 adoption-gap, #11 Cup-Leibniz
+    dichotomy).
+  · 2 new catalogs (falsifier-roster, abstraction-candidates).
+  · 5/5 §2 + 1.5/2 §3 + 4/8 §4 items closed from G107.
 
 ---
 
-# Part 1 — What this builds on (compressed)
+# Part 2 — Open work (refreshed for third half)
 
-  · PR #90 (`claude/subset-bijection-lemmas-w2FKf`): C3 chain
-    18 phases + 12-conjunct `c3_chain_master`; Cup-Leibniz general
-    transfer; 6-theorem; alive predicate; Validation Standard
-    Phase 5 → 23/23. ~410 new PURE.
-  · PR #91 (`claude/analyze-lean4-ast-patterns-49Rh2`): 11
-    scanner tools + 18 research notes G90-G107.  G107 is the
-    canonical open-items registry.
+## A. L1 α-side — Nat.add asymmetry blocker (DEFERRED)
 
----
+The α-side parametric form `leibniz_via_α_decomp_general {b : Nat}`
+hits a defeq blocker:
 
-# Part 2 — Open work (refreshed)
+  · Index type `Fin (binom 5 (2 + b - 1 + 1))` has `2 + b` where
+    the variable is on the RHS of Nat.add — DOES NOT REDUCE for
+    abstract b.
+  · Bilinearity helpers expect `Fin (binom 5 (3 + b - 1))` etc.
+    All these reduce to the same Nat (`b + 2`) propositionally
+    but not definitionally.
 
-## A. L1 — LeibnizAlgLift (DEFERRED, biggest single)
+The β-side worked because `a + 2` reduces (`+2` on RHS of Nat.add).
 
-**Same Fin-index defeq blocker as L2**: `(a+1)+b-1 ≢ a+b` for
-abstract `a, b`.  G106's parametric sketch assumes elaboration-level
-abstraction; source-level requires `Fin.cast` plumbing.
+**Path forward**: explicit `Fin.cast` + `Eq` plumbing, OR specific
+(b=1, b=2) helpers (no count reduction).
 
-Two paths forward:
-  1. **Specific-degree helpers** (analogue of L2's approach): 4
-     helpers for (k=1, l=2), (k=2, l=2), (k=2, l=1), (k=2, l=2)
-     — same count as siblings, no reduction.
-  2. **`Fin.cast` plumbing** — one parametric form with explicit
-     casts to bridge the type mismatch.  Doable but adds elaboration
-     noise.
+## B. C — CutSumOne 8-sibling
 
-Estimated effort: 1 medium marathon (~half a day) for path 2,
-yielding ~6.6M chars Expr-level reduction.
+Still open.  The 8 `cutSum_*` decls share a 9-token opener but have
+substantially different numeric reasoning bodies.  A clean abstraction
+needs intermediate predicates (`IsRationalApprox`) and a 3-component
+template (opener + per-instance body + closer).  Medium marathon.
 
-## B. C — CutSumOne 8-sibling 3-component template
+## C. E — sqrtN_no_rational_aux
 
-Still open.  8 `cutSum_*` decls share 9-token opener.  G94 §7
-proposes 3-component template (opener + per-instance body + closer).
-Medium marathon.
+Still open.  4 byte-identical proofs (sqrt2/3/5 + Sqrt2KernelFree)
+differ only in the prime/perfect-square predicate.  Needs `IsPerfectSquare N`
+infrastructure as a prereq.  Substantial design.
 
-## C. Remaining §4 open items
+## D. F — Σ-fold cross-domain
 
-  · **E** — `sqrt{2,3,5}_no_rational_aux` ×4.  Needs `IsPerfectSquare N`
-    infrastructure first.  Substantial design.
-  · **F** — Σ-fold cross-domain.  New `sigmaList` infrastructure
-    suggested by G90; small additive.
+Still open.  Adding `sigmaList : List α → (α → ℕ) → ℕ` infrastructure
+would absorb 5 fold + HAdd skeletons across math + physics.  Small
+additive value.
 
-## D. Deferred §4 items (not clean targets)
+## E. L3, L4, L5 — DEFERRED (not byte-identical at content level)
 
-  · **L3** Pisano 14/17 — incremental Pn → Pn+3 structure obscured
-    by abstraction.
-  · **L4** addLDD/mulLDD — requires `BinaryOpLDD` typeclass design.
-  · **L5** CDDouble pair — different concrete witnesses, not
-    structurally identical.
+  · **L3** Pisano 14/17 — incremental Pn → Pn+3 structure.
+  · **L4** addLDD/mulLDD — needs `BinaryOpLDD` typeclass design.
+  · **L5** CDDouble pair — different concrete witnesses per call.
 
-## E. Pell-FSM completion
+## F. Cup-Leibniz general ∀(k, l) — deep open (G86)
 
-27 sites done; remaining:
-  · LensPairs.lean `pellMod{3,5,7}_BitFSM_bits_period_*` — uses
-    BitFSM (different FSM type), needs a parallel
-    `BitFSM.bits_period_of_run_period` helper.
-  · Doubled-period (`_2T`) variants — intentionally kept; could
-    add `_2T_of_T` helper if desired.
-
-## F. Cup-Leibniz general ∀(k, l) — deep open (carried from prior)
-
-`research-notes/G86_self_referential_lex_cup_leibniz.md` — needs
-**deep 213-native structural insight**.  Untouched this session.
+Carried from prior session.  `research-notes/G86_self_referential_lex_cup_leibniz.md`
+— needs deep 213-native structural insight.  Untouched this branch.
 
 ## G. Doc work remaining (G107 §10)
 
-Lower-priority but additive: TH-2 / TH-1 / TH-3 / TH-4, CAT-3 /
-CAT-4, CL-1 / CL-2, NAV-2 / NAV-3.  See
-`research-notes/G107_action_items_registry.md` §10.
+Lower-priority but additive: TH-2 (Raw-derivation three levels;
+HIGHEST value, ~1 hr), TH-1 (proof-shape fingerprint, 2 hr), TH-3
+(falsifiability quantified, 1.5 hr), TH-4 (L1 extraction methodology,
+2 hr), CAT-3 (recursor inventory), CAT-4 (internal hubs), CL-1
+(meta-scan archetypes), CL-2 (process model), NAV-2 (README),
+NAV-3 (ARCHITECTURE.md).
 
 ---
 
@@ -131,26 +108,29 @@ CAT-4, CL-1 / CL-2, NAV-2 / NAV-3.  See
 
 ### Executor entry
   · `research-notes/G107_action_items_registry.md` — full registry.
-  · `catalogs/abstraction-candidates.md` — per-item status (updated
-    twice this session).
+  · `catalogs/abstraction-candidates.md` — per-item status table
+    (updated thrice this branch).
 
-### Working files touched this session
-  · **Helpers added**: LeibnizDecomp.lean, Prism.lean (N7 additions),
-    Tree/Swap.lean (Sub-2), Theory/RawCmpIndependence.lean (Sub-2 cmp
-    variant), ArithFSM.lean (Pell-FSM), PureNatMod3.lean (mod3_add).
-  · **Refactor targets**: Levels.lean, Hom.lean, Raw/Rec.lean (×2),
-    RawCmpIndependence.lean (×2), ProperMod.lean (×5), ArithFSM.lean
-    (×2), ArithFSM/Mod{Small,Medium,Large}.lean (×22), PureNatMod3.lean
-    (×2), PureNatMod5.lean (×4), CutSumOne.lean (×16), CutMidSelf.lean
-    (×2), Euler.lean (×3), Leibniz21/22Final.lean (×4 sites total).
+### Working files / new modules this branch
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean` (L2).
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLiftBeta.lean` (L1 β).
+  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM.lean` (Pell helpers).
+  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/V3.lean` (ArithFSM3 helpers).
+  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/ToBitFSM.lean` (lift).
+  · `lean/E213/Lib/Math/DyadicFSM/ArithFSM/V3Bound.lean` (V3 lift).
+  · `lean/E213/Term/Internal/Tree/Swap.lean` (Sub-2 decompose).
+  · `lean/E213/Theory/RawCmpIndependence.lean` (Sub-2 cmp variant).
+  · `lean/E213/Lens/Instances/Prism.lean` (N7 generics).
+  · `lean/E213/Lib/Math/ModArith/PureNatMod3.lean` (mod3_add).
 
 ### Doctrine
   · `CLAUDE.md` boot sequence (unchanged).
-  · `STRICT_ZERO_AXIOM.md` — Lean-core PURE-bounded fact.
+  · `STRICT_ZERO_AXIOM.md` — Lean-core PURE-bounded fact (this branch).
   · `LESSONS_LEARNED.md` Patterns #1-#11.
 
 ### Meta-analysis reference
-  · `G107_action_items_registry.md`, `G101_metascan_synthesis.md`,
-    `G106_L1_expr_structure_extraction.md`,
-    `G99_rw_cascade_adoption_gap.md` (closed via N8/N9),
-    `G98_unfold_graph_implicit_lemma_extraction.md` (closed via N7).
+  · `G107_action_items_registry.md` — registry.
+  · `G99_rw_cascade_adoption_gap.md` — closed via N8/N9.
+  · `G98_unfold_graph_implicit_lemma_extraction.md` — closed via N7.
+  · `G91_syntax_tactic_motifs.md` — closed via L2 + Sub-2 + Pell-FSM.
+  · `G106_L1_expr_structure_extraction.md` — partially closed via L1 β-side.

@@ -30,7 +30,7 @@ Status keys:
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L1 | LeibnizAlgLift 4-sibling | DEFERRED | **Blocked by Fin-index defeq** (same blocker as L2): `(a+1)+b-1 ≢ a+b` for abstract args.  G106 sketch assumes elaboration-level abstraction, but source-level requires casts.  Pursue via `Fin.cast` plumbing or via specific-degree helpers (4-helper approach, no count reduction). |
+| L1 | LeibnizAlgLift 4-sibling | **PARTIAL** (β-side done) | `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general {a}` parameterises lens (a=1) + 22 (a=2); both β-siblings now 1-line corollaries.  α-side (b parametric, a=2 fixed) blocked: `2 + b` does not reduce for abstract b (Nat.add recurses on RHS).  Would need `Fin.cast` + explicit Eq plumbing. |
 | C  | CutSumOne 8-sibling 3-component template | OPEN | 8 `cutSum_*` decls share 9-token opener.  G94 §7 has the template proposal.  Medium marathon. |
 
 ## §4 — Smaller consolidations
@@ -43,7 +43,7 @@ Status keys:
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
 | E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
-| Pell-FSM | `pellModN_bits_period` 32+ | **DONE (partial)** | Same branch — `ArithFSM2.bits_period_of_run_period` helper (PURE); 27 sites refactored across ArithFSM.lean + ArithFSM/Mod{Small,Medium,Large}.lean + Pell/ProperMod.lean.  Doubled-period (`_2T`) variants kept; LensPairs BitFSM variants pending. |
+| Pell-FSM | `*FSMmod*_bits_period_T` 49 sites | **DONE (full sweep)** | Same branch — 5 generic helpers (`ArithFSM2.bits_period_of_run_period`, `bits_period_mul_of_period`, `toBitFSM_bits_period_lift`, `ArithFSM3.bits_period_of_run_period`, `toBitFSM3_bits_period_lift`).  49 sites refactored across Pell + Lucas + Fib + Trib + CrossClass + LensPairs.  Single/double/triple periods + ArithFSM2/3 + BitFSM lifts all covered. |
 | ModArith | `mod3` / `mod5` per-residue | **DONE** | Same branch — `mod5_five_mul_add` hoisted (already existed); `mod3_three_mul_add` added; 6 per-residue corollaries collapsed to 1-line term applications. |
 
 ---
@@ -51,20 +51,24 @@ Status keys:
 ## Done summary (this branch)
 
   · **§2 fully closed** — L2, N7, N8, N9, Sub-2 (5/5 items).
-  · **§3** — C still open; L1 deferred (defeq blocker).
-  · **§4** — M, Pell-FSM (partial), ModArith (3/8 items); L3/L4/L5
+  · **§3** — C still open; L1 β-side done (2/4 L1 siblings), α-side
+    deferred (Nat.add asymmetry blocker).
+  · **§4** — M, Pell-FSM (full sweep), ModArith (3/8 items); L3/L4/L5
     deferred; E/F still open.
 
 Net deliverables this branch:
-  · 12 new PURE helpers across 5 new modules / additions.
-  · ~250 net lines removed.
-  · ~150 tactic tokens retired in mechanical adoptions.
+  · 18 new PURE helpers across 7 new modules / additions
+    (LeibnizDecomp, LeibnizAlgLiftBeta, Prism N7, Tree decompose,
+    canonicalBy decompose, ArithFSM2/3 bits_period helpers, BitFSM
+    lift helpers, period multiplication, mod3 absorption).
+  · ~500+ net lines removed.
+  · ~200 tactic tokens retired in mechanical adoptions.
   · Pattern #10 (adoption-gap) + #11 (Cup-Leibniz dichotomy) added.
 
 Still open from §2: none.
-Still open from §3: C (CutSumOne 8-sibling).
-Still open from §4: E, F.
-Doubled-period (`_2T`) variants of Pell-FSM intentionally kept.
+Still open from §3: C (CutSumOne 8-sibling), L1 α-side (deferred).
+Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
+(Σ-fold; additive).
 
 ---
 
