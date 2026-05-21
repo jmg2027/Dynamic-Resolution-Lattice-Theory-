@@ -652,17 +652,35 @@ to the full SU(3) adjoint structure on the QCD octet.
 
 **Cumulative new PURE this session: +117** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 across 8 phases of C3 chain).
 
-The C3 chain through Phase 8 establishes the full **gauge-emergence
-narrative**: from `Aut(K)` Type (Phase 1) through Sym(3) representation
-on H¹(K) at the explicit matrix level (Phases 3–6) to the **gluon
-octet identification** `H¹(K) ≃ (F_2)^8 = coker ι*` (Phase 7), now
-verified **Sym(3)-equivariant** (Phase 8).
+## 2026-05-22 — C3 chain Phase 9: Sym(3)-irrep decomposition over F_2
 
-Physics reading: the 8 generators of H¹(K) are the 8 cycles in
-K_{3,2}^{(c=2)} that **remain non-trivial after embedding into the
-contractible Δ⁴**.  The Sym(3) action lifts via Weyl-group embedding
-Sym(3) ⊂ SU(3) to the full SU(3) adjoint structure of the QCD
-gluon octet.
+Phase 9 of the **C3 chain** — decomposes the 8-dim H¹(K)
+representation of Sym(3) over F_2 into irreducibles via
+direct enumeration of the Sym(3)-fixed subspace.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.Symmetry.Sym3IrrepDecomp` | 10 | `H1Kat` binary enumeration of H1K; `isSym3Fixed` predicate (M_S01·ω = ω ∧ M_S12·ω = ω); `fixedSize` count; **`★ fixedSize_eq_4`** — direct 256-case decide enumeration giving `\|H¹(K)^Sym(3)\| = 4 = 2²`; explicit basis **`ω_10 = e_0 + e_2 + e_5`** and **`ω_01 = e_1 + e_4 + e_7`** of the 2-dim fixed subspace; `ω_10_fixed_S01`, `ω_10_fixed_S12`, `ω_01_fixed_S01`, `ω_01_fixed_S12` — all four fixed-vector verifications; `ω_10_ω_01_distinct` linear independence; **`★ composition_multiplicities`** — `a = 2, b = 3` with `a + 2b = 8`; **`★ bool_trace_consistency`** — verifies `trace(transp) = 0`, `trace(3-cycle) = 1` match Phase-6 character data; **`★ Sym3IrrepDecomp_phase9_capstone`** — 10-conjunct capstone establishing `H¹(K) = 2 · trivial ⊕ 3 · standard` over F_2 |
+
+**Cumulative new PURE this session: +127** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 across 9 phases of C3 chain).
+
+The C3 chain through Phase 9 **completes the gauge-emergence narrative**:
+
+  · Phase 1: Aut(K) as Type with cardinality 768
+  · Phase 2: H¹(K) as ℤ/2-module rank 8
+  · Phase 3: Sym(3) on K-edges, full Cayley structure
+  · Phase 4: δ⁰ equivariance → Sym(3) descent to H¹(K)
+  · Phase 5: explicit 8×8 σ_S01 matrix with tree-decomp witness
+  · Phase 6: σ_S12 matrix + full Sym(3) Cayley on H¹(K) at matrix level
+  · Phase 7: ι: K → Δ⁴ + gluon octet identification (coker ι* = H¹(K) ≃ ℤ⁸)
+  · Phase 8: Sym(3)-equivariance of ι
+  · Phase 9: irrep decomposition **H¹(K) = 2 · trivial ⊕ 3 · standard** over F_2
+
+Physics reading: the gluon octet (= H¹(K)) decomposes under
+Sym(3) ⊂ SU(3) Weyl-group restriction as 2 trivial (Sym(3)-fixed)
++ 3 standard 2-rep, matching the SU(3) adjoint's Weyl-restriction
+structure (the 8-rep ↓ Sym(3) ⊂ SU(3) gives the trivial-isotypic
++ standard-isotypic decomposition).
 
 The C3 chain through Phase 6 establishes the complete 8-dim
 Sym(3) representation on H¹(K_{3,2}^{(c=2)}) at the matrix level:
