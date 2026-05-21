@@ -103,6 +103,39 @@ def skel_hash(s: str) -> str:
     return hashlib.sha1(canon_skel(s).encode()).hexdigest()[:10]
 
 
+# Step-function arg index per recursor/fold tag.  Derived from the
+# fully-applied @-signature after elaboration: all implicit args are
+# present in `Expr.getAppArgs`.  Source-of-truth verified against
+# observed rows in `tools/_ast_fold_scan_rows.tsv` for the 5 tags
+# present in the current corpus (List.foldl/foldr/rec,
+# Nat.recAux/brecOn).  Other entries are forward-looking.
+STEP_IDX: dict[str, int] = {
+    # fold
+    "List.foldl":  2, "List.foldr":  2,   # α β f init l
+    "List.foldlM": 4, "List.foldrM": 4,   # m α β [Monad] f init l
+    "Fin.foldl":   2, "Fin.foldr":   2,   # α n f init  (no l)
+    "Fin.foldlM":  4, "Fin.foldrM":  4,
+    "Array.foldl":  2, "Array.foldr":  2,
+    "Array.foldlM": 4, "Array.foldrM": 4,
+    # recursors — argIdx of the recursive (cons / succ) step
+    "List.rec":     3,   # α motive nil cons l
+    "List.recOn":   4,   # α motive l nil cons
+    "Nat.rec":      2,   # motive zero succ t
+    "Nat.recAux":   2,
+    "Nat.recOn":    3,   # motive t zero succ
+    "Nat.brecOn":   2,   # motive t F
+    # Nat.fold f n init — f at 0 (no implicits in @-form for older Lean)
+    "Nat.fold":     0,
+    "Nat.foldRev":  0,
+}
+
+
+def step_idx(tag: str) -> int:
+    """Return the canonical step-function arg index for a fold/rec tag.
+    Returns -1 when unknown — caller can fall back to first-lambda."""
+    return STEP_IDX.get(tag, -1)
+
+
 CONST_RE = re.compile(
     r'(?:E213\.)[A-Za-z_][\w.]*'
     r'|\b(?:Bool|Nat|Int|List|Eq|Ne|HAdd|HMul|HSub|HDiv|HMod'
@@ -128,11 +161,15 @@ def report_strict(rows):
     for t, n in sites_by_tag.most_common():
         print(f"  {t:<14} {n}")
     print()
-    step = [(d, u, t, s) for d, u, t, i, s in rows if i == 2]
+    step = [(d, u, t, s) for d, u, t, i, s in rows if i == step_idx(t)]
     motifs = collections.defaultdict(list)
     for d, u, t, s in step:
         motifs[(t, skel_hash(s))].append((d, u, s))
-    print("## Top step-function motifs (strict hash, argIdx=2)")
+    print("## Top step-function motifs (strict hash, per-tag STEP_IDX)")
+    print("## (STEP_IDX: " +
+          ", ".join(f"{t}={i}"
+                    for t, i in sorted(STEP_IDX.items())
+                    if t in sites_by_tag) + ")")
     ranked = sorted(motifs.items(), key=lambda kv: -len(kv[1]))
     for (tag, h), occs in ranked[:20]:
         skel = canon_skel(occs[0][2])
@@ -148,7 +185,7 @@ def report_strict(rows):
 
 
 def report_loose(rows):
-    step = [(d, u, t, s) for d, u, t, i, s in rows if i == 2]
+    step = [(d, u, t, s) for d, u, t, i, s in rows if i == step_idx(t)]
     buckets = collections.defaultdict(list)
     for d, u, t, s in step:
         buckets[(t, extract_ops(s))].append((d, s))
