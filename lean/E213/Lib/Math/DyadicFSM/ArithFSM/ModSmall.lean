@@ -97,10 +97,8 @@ theorem pellFSMmod7_signature_period_8 :
 theorem pellFSMmod7_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 245
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod7.bits (k + P) = signature pellFSMmod7.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod7.bits (k + P) = signature pellFSMmod7.bits k :=
+  arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 
@@ -159,10 +157,8 @@ theorem pellFSMmod11_signature_period_10 :
 theorem pellFSMmod11_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 605
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod11.bits (k + P) = signature pellFSMmod11.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 11) (by decide) pellFSMmod11
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod11.bits (k + P) = signature pellFSMmod11.bits k :=
+  arithFSM2_signature_period_bound (n := 11) (by decide) pellFSMmod11
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
 
@@ -346,9 +342,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 theorem pellFSMmod5_signature_period_bound :
     ∃ N P, 0 < P ∧ N + P ≤ 125
       ∧ ∀ k, k ≥ N →
-        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
-  exact ⟨N, P, hP, hbound, hk⟩
+        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k :=
+  arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
