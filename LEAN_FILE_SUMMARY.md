@@ -7306,7 +7306,7 @@ New files added in the same branch (listed at the end):
 
 ### `lean/E213/Lib/Physics.lean`
 - **역할**: E213.Lib.Physics — DRLT physics deployment 213 axiom. 모든 Physics sub-tree umbrella import.
-- **주요 선언**: (re-export shim) — 17 sub-tree (AlphaEM, Atomic, Basel, Capstones, Certificates, Cosmology, Couplings, Foundations, Hadron, Higgs, Mass, Mixing, Nuclear, Simplex, Substrate, Symmetry, YangMills).
+- **주요 선언**: (re-export shim) — 17 sub-tree (AlphaEM, Atomic, Basel, Capstones, Certificates, Cosmology, Couplings, Foundations, Hadron, Higgs, Mass, Mixing, Nuclear, Simplex, AtomicBase, Symmetry, YangMills).
 - **의존**: 17 sub-module umbrella.
 
 ### Batch P1 — AlphaEM + Foundations (47 files)
@@ -7656,7 +7656,7 @@ New files added in the same branch (listed at the end):
 - **주요 선언**: `master_unified_pattern`.
 - **의존**: Capstone, Mass/*, Higgs/Mass, YangMills/*, Cosmology/*, Atomic/BondAngles.
 
-### Batch P2 — Atomic + Substrate + Hadron (46 files)
+### Batch P2 — Atomic + AtomicBase + Hadron (46 files)
 
 ### `lean/E213/Lib/Physics/Atomic/BondAngles.lean`
 - **역할**: 분자 결합각 = 순수 유리수 코사인.
@@ -7859,19 +7859,19 @@ New files added in the same branch (listed at the end):
   - `mb_mc_correction_atomic`, `mt_mc_chain_atomic`.
   - `top_yukawa_skeleton`.
 
-### `lean/E213/Lib/Physics/Substrate/Capstone.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Capstone.lean`
 - **역할**: Phase 2 절대 캡스톤 (10 파일 종합).
 - **주요 선언**: `phase2_absolute`.
-- **의존**: 모든 Substrate/*.lean, Atomicity.Five.
+- **의존**: 모든 AtomicBase/*.lean, Atomicity.Five.
 
-### `lean/E213/Lib/Physics/Substrate/Edges.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Edges.lean`
 - **역할**: Phase 2 엣지 — c=2 배증.
 - **주요 선언**:
   - `c_lattice`, `num_directed_edges`.
   - `cycle_space_dim_via_euler`.
   - `edges_capstone`.
 
-### `lean/E213/Lib/Physics/Substrate/Existence.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Existence.lean`
 - **역할**: Phase 2 존재 — d=5에 무엇이 존재하는가.
 - **주요 선언**:
   - `Vertex`, `inBigBlock`, `inSmallBlock`.
@@ -7879,7 +7879,7 @@ New files added in the same branch (listed at the end):
   - `big_block_size_three`, `small_block_size_two`.
   - `cosmos_existence_minimal`.
 
-### `lean/E213/Lib/Physics/Substrate/Falsifier.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Falsifier.lean`
 - **역할**: Phase 2 반박 가능한 제안.
 - **주요 선언**:
   - `falsifier_d_unique`.
@@ -7887,24 +7887,24 @@ New files added in the same branch (listed at the end):
   - `falsifier_pair_count`, `falsifier_cycle_space`.
   - `phase2_falsifiers`.
 
-### `lean/E213/Lib/Physics/Substrate/Force.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Force.lean`
 - **역할**: Phase 2 힘 — 3 채널 = 3 힘 후보.
 - **주요 선언**:
   - `num_channels`.
   - `AA_channel_count`, `BB_channel_count`, `AB_channel_count`.
   - `three_forces_natural`.
 
-### `lean/E213/Lib/Physics/Substrate/INDEX.md`
-- **역할**: 주요 섹션 — Substrate 클러스터 13 files.
+### `lean/E213/Lib/Physics/AtomicBase/INDEX.md`
+- **역할**: 주요 섹션 — AtomicBase 클러스터 13 files.
 
-### `lean/E213/Lib/Physics/Substrate/Lens.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Lens.lean`
 - **역할**: Phase 2 첫 명시적 Lens 객체.
 - **주요 선언**:
   - `parityLens`, `parity_at_a`, `parity_at_b`.
   - `bCountLens`, `bCount_at_a`, `bCount_at_b`.
   - `phase2_lens_demo`.
 
-### `lean/E213/Lib/Physics/Substrate/Observable.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Observable.lean`
 - **역할**: Phase 2 관찰자 — 9개 측정 가능 정수.
 - **주요 선언**:
   - `cosmos_observables`.
@@ -7912,28 +7912,28 @@ New files added in the same branch (listed at the end):
   - `axiom_level_observables`.
   - `phase2_observable_summary`.
 
-### `lean/E213/Lib/Physics/Substrate/Origin.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Origin.lean`
 - **역할**: Phase 2 원점 — d=5 유일성.
 - **주요 선언**:
   - `cosmos_dim_5_exists`.
   - `cosmos_dim_unique`, `only_one_cosmos_dim`.
   - `cosmos_dim_existence_and_uniqueness`.
 
-### `lean/E213/Lib/Physics/Substrate/Pairs.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Pairs.lean`
 - **역할**: Phase 2 쌍 — 10쌍 구조.
 - **주요 선언**:
   - `PairType`, `classifyPair`, `allPairs`.
   - `AA_pairs_count`, `BB_pairs_count`, `AB_pairs_count`.
   - `cosmos_pair_structure`.
 
-### `lean/E213/Lib/Physics/Substrate/Phase1Bridge.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Phase1Bridge.lean`
 - **역할**: Phase 2 ↔ Phase 1 다리.
 - **주요 선언**:
   - `NS_match`, `edges_match`.
   - `cycle_space_match`, `photon_kernel_match`.
   - `bridge_capstone`.
 
-### `lean/E213/Lib/Physics/Substrate/Shape.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Shape.lean`
 - **역할**: Phase 2 형태 — d=5 보이는 방식.
 - **주요 선언**:
   - `d`, `big_block`, `small_block`.
@@ -7942,7 +7942,7 @@ New files added in the same branch (listed at the end):
   - `all_pairs_accounted`, `simplex_face_counts`.
   - `cosmos_shape_minimal`.
 
-### `lean/E213/Lib/Physics/Substrate/Space.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Space.lean`
 - **역할**: Phase 2 공간 — NS=3 부채글.
 - **주요 선언**:
   - `NS_atomic_size`.
@@ -7952,7 +7952,7 @@ New files added in the same branch (listed at the end):
   - `NT_NS_ratio_cross_mult_at_{2,3}`.
   - `space_is_NS_unfolded`.
 
-### `lean/E213/Lib/Physics/Substrate/Time.lean`
+### `lean/E213/Lib/Physics/AtomicBase/Time.lean`
 - **역할**: Phase 2 시간 — NT=2 부채글.
 - **주요 선언**:
   - `NT_atomic_size`, `NT_one_step`.
@@ -8350,7 +8350,7 @@ New files added in the same branch (listed at the end):
 - **역할**: Δ⁴ 단체 결합론 — 생성, 면항, 점유 스펙트럼.
 - **주요 선언**: Counts, FaceTerms, Generations, GenerationStructure, FoccSpectrum, MultiComposite, SubInventory.
 
-### `lean/E213/Lib/Physics/Substrate.lean`
+### `lean/E213/Lib/Physics/AtomicBase.lean`
 - **역할**: 기판 생성 클러스터 (이전 "Phase 2") — d=5 원자성, 정점, 쌍, 시공.
 - **주요 선언**: Origin, Shape, Existence, Pairs, Time, Space, Observable, Force, Edges, Lens, Capstone, Phase1Bridge, Falsifier.
 

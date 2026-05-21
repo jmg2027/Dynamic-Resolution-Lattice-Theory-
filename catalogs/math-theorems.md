@@ -2,19 +2,28 @@
 
 Library usage manual.  **Name + import path + usage** of each theorem/structure.
 
+> **Post-reorg note**: The Analysis subtree was reorganised from
+> `Lib/Math/Real213/{Antiderivative,ClassicCalc,Flux*,...}.lean`
+> into the topical sub-clusters `Lib/Math/Analysis/{ClassicCalc,
+> Differentiation,DyadicSearch,FluxMVT,Integration,ODE,Series}/`.
+> Many code blocks below still cite the old `Real213/*` paths; the
+> umbrella import `E213.Lib.Math.Analysis` (below) pulls in
+> everything either way.  Use the umbrella for new code and consult
+> `lean/E213/Lib/Math/Analysis.lean` for the current sub-cluster
+> map.  Section §M, §N, §J.3 below are post-reorg accurate.
+
 ---
 
 ## Quick start — single import
 
 ```lean
-import E213.Lib.Math.Analysis213    -- import all Analysis213 results in one line
+import E213.Lib.Math.Analysis       -- canonical umbrella (post-reorg)
 ```
 
-Or by layer:
-
-```lean
-import E213.Lib.Math.Analysis       -- existing umbrella
-```
+The umbrella `Analysis.lean` re-exports everything that used to be
+at `Real213/Antiderivative`, `Real213/ClassicCalc`, etc., now
+relocated under `Analysis/{Integration,ClassicCalc,Differentiation,
+FluxMVT,Series,ODE,DyadicSearch}/`.
 
 ---
 
@@ -493,19 +502,24 @@ import E213.Lens.PredicateSelfEncoding
 7 PURE / 0 DIRTY.  Encodes finite-prefix Raw-predicates back to
 Raw via positional truth-table Gödel numbering.
 
-### J.3 `Lens/UndifferentiatedRaw` — §9.5 K_∞ ≡ point at raw
+### J.3 `Lens/RawTopology` — §9.5 K_∞ ≡ point ≡ discrete bookends
 
 ```lean
-import E213.Lens.UndifferentiatedRaw
--- theorem constLens_collapses : ∀ {α} (e : α) (r s : Raw),
---   (constLens e).view r = (constLens e).view s
--- theorem pre_lens_singleton
--- theorem constLens_kernel_total
+import E213.Lens.RawTopology
+-- theorem constLens_view_eq  : ∀ {α} (e : α) (r s : Raw), ...
+-- theorem constLens_equiv    : constLens-induced equivalence
+-- theorem constLens_is_top   : K_∞ is the top of the Lens lattice
+-- theorem k_infty_at_raw_bundle  ★ §9.5 bundle
+-- theorem discrete_kernel_eq, discrete_distinguishes
+-- theorem topology_two_bookends  ★ discrete / indiscrete bookends
 ```
 
-3 PURE / 0 DIRTY.  Witness: under the constant Lens, every Raw
-maps to the same value — the no-distinction reading of Raw is a
-singleton.
+The §9.5 "K_∞ ≡ point ≡ trivial-topology infinite space" content
+lives in `RawTopology.lean` (merged from the prior
+`UndifferentiatedRaw.lean` plan).  Witnesses: under the constant
+Lens every Raw maps to the same value (indiscrete bookend); under
+the strict-eq Lens every distinct pair is distinguished (discrete
+bookend); both readings are valid at the raw layer.
 
 ---
 
