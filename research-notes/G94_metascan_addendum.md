@@ -274,15 +274,178 @@ it but G92 out-degree + L=7 prefix-share surfaces it cleanly.
 
 ## §5.  What's left
 
-Two more N-actions from G92 remain open:
-
   · **N1** (NatHelper coverage audit): cited as G93 §C1 offer.
     Status: pinged but pending parallel-branch action.
-  · **N3** (a|b|slash 18-decl shared skeleton): unaddressed in this
-    addendum.  Tractable — 18 decls is a small set; could be
-    closed in a follow-up.
 
 The Raw.fold_slash context atlas (§3) is the operational data
 for C3 from G93 — the offer to extend `syntax_arg_scan.py` was
 already delivered as the `--context-target` flag.  No further
 pinging needed.
+
+---
+
+## §6.  N3 closure — `a | b | slash` family anatomy
+
+The G92 induction-tag scanner found **23 decls** whose `induction
+… with` or `cases … with` block contains the `{a, b, slash}`
+tag-set (18 with exact 3-tag, 5 with extended tag-sets like
+`{a, b, slash, lt, eq, gt}`).  This is DRLT's unique
+structural-induction signature: every proof here is **case-splitting
+directly on the Raw 3-clause atomic structure**.
+
+### §6.1  File concentration
+
+| File | count |
+|------|------:|
+| `Term/Internal/Tree/Levels.lean` | 4 |
+| `Theory/RawCmpIndependence.lean` | 4 |
+| `Lens/Bool213/Raw.lean` | 3 |
+| `Term/Internal/Tree/Cmp.lean` | 3 |
+| `Lens/Cardinality/Godel.lean` | 2 |
+| `Lens/SyntacticInternalization.lean` | 2 |
+| `Term/Internal/Tree/Swap.lean` | 2 |
+| `Lens/Number/Int213/Raw.lean` | 1 |
+| `Term/Internal/Tree/Hom.lean` | 1 |
+| `Theory/Raw/Rec.lean` | 1 |
+
+**`Term/Internal/Tree/*` + `Theory/RawCmpIndependence.lean` is
+the epicentre** (12 of 23).  These are the modules that *implement*
+the Raw axiom's Tree carrier directly; every proof there has to
+talk to the 3-clause structure.
+
+### §6.2  Three sub-clusters by tactic skeleton
+
+#### Sub-1 — Lens-view family (7 decls, 6-9 tactics each)
+
+Short proofs.  Templated skeleton:
+**`[(intro), induction, rfl, rfl, show, rw]`** — induct, base
+arms = `rfl`, slash arm = `show ... ; rw [...]`.
+
+  · `Bool213/Raw.booleanProj_isBool` (len 9)
+  · `Bool213/Raw.fold_T_F_and_isBool` (len 6)
+  · `Bool213/Raw.boolValue_booleanProj` (len 7)
+  · `Number/Int213/Raw.tree_signedLens_factor` (len 6)
+  · `RawCmpIndependence.canonicalBy_Tree_cmp` (len 6)
+  · `Levels.Tree.fold_eq_depth` (len 6)  — **byte-identical** to:
+  · `Levels.Tree.fold_eq_leaves` (len 6)  — `[intro, induction, rfl, rfl, show, rw]`
+
+The two `fold_eq_{depth,leaves}` decls are full byte-identical
+tactic sequences (a small but tight sibling pair) — depth and
+leaves are two Lens projections of the same Tree fold, so the
+proofs are identical modulo the projection name.
+
+#### Sub-2 — Tree-manipulation family (5+ decls sharing 10-token prefix)
+
+**This is a new ladder candidate that G91's exact-match clusterer
+missed because total lengths vary (18 to 43).**
+
+Shared opening — `[intro, induction, rfl, rfl, have, unfold,
+obtain, obtain, have, have, ...]`:
+
+  · `Levels.Tree.swap_depth` (len 19)
+  · `Levels.Tree.swap_leaves` (len 18)
+  · `Swap.Tree.swap_swap` (len 40)
+  · `RawCmpIndependence.transportTree_roundtrip` (len 42)
+  · `RawCmpIndependence.transportTree_canonical` (len 43)
+
+Plus near-variants (with `decide`/`exact` instead of `rfl` in
+positions 3-4):
+
+  · `Hom.Tree.fold_swap_hom` (len 18) — `[intro, induction, exact, exact, have, unfold, obtain, obtain, ...]`
+  · `Swap.Tree.swap_canonical` (len 18) — `[intro, induction, decide, decide, unfold, obtain, obtain, ...]`
+
+**Reading**: every "Tree-manipulation" proof has the same
+prologue — induction on `t`, dispose of the base arms with rfl /
+decide / exact, then in the slash arm: `unfold` the operation,
+`obtain` the two recursive components, accumulate `have`-chained
+properties.  At least **5 byte-identical-prologue siblings**;
+candidate for a `tree_induction_slash_unfold` tactic macro or a
+`Tree.slash_case` helper lemma that bundles `unfold + obtain ×
+2 + have ×` for the slash arm.
+
+#### Sub-3 — Recursor family
+
+Two byte-identical pairs:
+
+  · `Theory/Raw/Rec.Raw.recAux` (len 31) and
+    `Theory/RawCmpIndependence.RawBy.recAux` (len 28) share
+    `[intro, induction, intro, exact, intro, exact, intro,
+    have, unfold, obtain, ...]` for ≥ 10 tokens.
+
+These two recursors prove "Raw structural recursion = explicit
+Tree fold over a/b/slash" — one for the canonical Raw, one for
+the `RawBy.cmp`-quotiented variant.  They're sibling proofs of
+the same recursor theorem under two equivalent constructions; a
+single parametric `Raw.recAux_for_relation` would absorb both.
+
+### §6.3  Existing internal abstraction: `transportTree_slash`
+
+Most-cited internal lemma across the 23-decl family:
+**`transportTree_slash` x4** — a derived lemma that already
+extracts the slash-arm reasoning for `transportTree`.  Together
+with `Raw.fold_slash` (G94 §3 — 50 callers across the corpus),
+this is the **second example of DRLT having already factored out
+a slash-arm-specific API**:
+
+  · `Raw.fold_slash` — the operational form of the 4-clause
+    axiom (50 callers).
+  · `transportTree_slash` — the slash-arm of the carrier-transport
+    construction (4 callers).
+
+Both follow the same architectural principle: **the slash arm is
+where the structural recursion lives, so isolate it as a named
+lemma**.  The Sub-2 ladder (5+ decls sharing the
+`obtain+obtain+have*` prologue) would benefit from a similar
+abstraction — currently each sibling re-derives the same
+slash-arm boilerplate.
+
+### §6.4  Most-cited lemmas in the `a | b | slash` family
+
+| count | lemma | role |
+|------:|-------|------|
+| 12 | `ihx'`         | induction hypothesis (slash-arm left subtree) |
+| 11 | `ihy'`         | induction hypothesis (slash-arm right subtree) |
+|  6 | `Nat.noConfusion` | injectivity for size / depth conclusions |
+|  5 | `ihu'`         | additional IH name |
+|  4 | `Nat.add_comm` | size arithmetic |
+|  4 | `transportTree_slash` | slash-arm carrier transport |
+|  4 | `ihs'`         | IH name variant |
+|  4 | `hus_val`      | hypothesis on the slash-arm value |
+|  4 | `hcmp`         | comparison hypothesis (Cmp / RawCmpIndependence) |
+
+The dominance of `ihx'`/`ihy'`/`ihu'`/`ihs'` (over 30 total IH
+citations) means **every slash arm recursively invokes the IH on
+both subtrees**.  This is the operational form of Pattern #9 from
+the parallel branch — Clause 4 applied recursively at the binary
+group level — already implicit in every Sub-2 proof.
+
+### §6.5  Implications for the abstraction roster
+
+Sub-2 is added as **candidate L (G94 §4 expansion)** — the
+"Tree-manipulation slash-arm prologue" ladder.  5+ siblings
+sharing a 10-token tactic prefix; structural significance equals
+or exceeds CutSumOne (§2, candidate C) since Sub-2 lives at the
+**Raw-axiom-implementing layer** rather than at a derived
+arithmetic layer.
+
+The Sub-3 `Raw.recAux` / `RawBy.recAux` pair adds **candidate M**
+— a two-sibling templated recursor pair where the only difference
+is the equivalence used for canonicalisation.  Strong unification
+candidate: `Raw.recAux_under_relation : ∀ (~ : Tree → Tree → Prop)
+[congruence ~], ...`.
+
+Final roster augmentation:
+
+| ID | Source | Family | siblings |
+|----|--------|--------|---------:|
+| L | G94 §6.2 Sub-2 | Tree-manipulation slash-arm prologue | 5+ |
+| M | G94 §6.2 Sub-3 | Raw.recAux / RawBy.recAux | 2 |
+
+L is structurally significant; M is small but high-leverage
+(recursors are deep infrastructure).
+
+The N-action list is now closed:
+  · N1 (NatHelper audit) — ceded to parallel branch (G93 §C1).
+  · N2 (Raw.fold_slash atlas) — closed (§3).
+  · N3 (a|b|slash skeleton) — closed (§6).
+  · N4 (out-degree cross-validation) — closed (§1).
