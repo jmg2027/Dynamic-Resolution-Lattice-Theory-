@@ -100,7 +100,15 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 106 PURE / 0 DIRTY across 4 modules.**
+**Padic total: 117 PURE / 0 DIRTY across 6 modules.**
+
+  · `lean/E213/Lib/Math/Padic/Field.lean` — 5 PURE.  ℚ_p
+    localization scaffold: `QpSeq p` type, `QpSeq.ofZp` embedding
+    ℤ_p ↪ ℚ_p, canonical `zero`/`one`, definitional unfolds.
+  · `lean/E213/Lib/Math/Padic/DRLT.lean` — 4 PURE.  The 5-adic lift
+    of `N_U = 5^25` via `digits_of_nat` + digit-level smokes
+    (`canonical_5adic_NU.digits 0 = 0`, `canonical_5adic_NU.digits 1
+    = 0`).  Phase 6 starter.
 
 Closure log: `research-notes/G122_real213_padic_research_direction.md`
 (Phase 1 closure log + Phase 2 partial closure + updated phase

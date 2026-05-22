@@ -357,21 +357,21 @@ This gives a propositional handle on the p-adic valuation suitable
 for Hensel-style induction without committing to an extended
 numeric type.
 
-## Updated phase outline (post-session)
+## Updated phase outline
 
 | Phase | Status |
 |---|---|
-| 1. Foundation | DONE (16 PURE) |
-| 2. Arith — add + neg | DONE (15 PURE with full truncation correctness; comm + identity at digit level) |
-| 2'. Arith — mul | LARGE PROGRESS (37 PURE: defs + identity-laws both sides + absorbing-zero both sides + `mul_trunc_one` foothold + `mul_trunc` step 1 (structural identity) + step 2 partial (bilinear sum machinery); bridge step 3 pending) |
+| 1. Foundation | DONE (17 PURE) — incl. `trunc_neg_one_succ` structural identity |
+| 2. Arith — add + neg | DONE (full truncation correctness; comm + identity at trunc level) |
+| 2'. Arith — mul | LARGE PROGRESS — defs + identity-laws + absorbing-zero (both sides, both at digit and trunc level) + `mul_trunc_one` + `mul_trunc_two` + bilinear sum infrastructure; general bridge pending |
 | 3. Norm + valuation | STARTER (9 PURE; `valAtLeast` + `valEq` + uniqueness) |
-| 4. Hensel lifting | PENDING |
-| 5. ℚ_p localization | PENDING |
-| 6. DRLT integration (5-adic N_U lift) | PENDING |
+| 4. Hensel lifting | STARTER (5 PURE; `unit0` predicate + `invDigit0` via Bezout) |
+| 5. ℚ_p localization | STARTER (5 PURE; `QpSeq` type + canonical elements + embedding) |
+| 6. DRLT integration (5-adic N_U lift) | STARTER (4 PURE; `canonical_5adic_NU` + digit-level smokes) |
 
-**This session's deliverables**: 93 PURE declarations across 3
-Padic modules (Foundation + Arith + Norm).  Branch
-`claude/g122-real213-p-adic-LwxL9` pushed across multiple commits.
+**Current**: 117 PURE declarations across 6 Padic modules.
+Branch `claude/g122-real213-p-adic-LwxL9` pushed across many
+commits.
 
 ## Bridge analysis (recorded for next session)
 
