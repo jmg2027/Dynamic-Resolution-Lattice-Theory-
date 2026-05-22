@@ -243,5 +243,77 @@ Next session: implement Phase 1 (truncation + zero/one/neg_one).
 
 ---
 
-**Status**: PLANNED.  Foundational infrastructure (G119 Phase 3.3
-Bezout/FLT/F_{p²}) READY for reuse.  Ready to begin.
+## Phase 1 closure log (this session)
+
+**`lean/E213/Lib/Math/Padic/Foundation.lean`** (16 PURE):
+
+  · `ZpDigit`, `ZpSeq` types + `trunc` (LSB-first base-p sum).
+  · Canonical: `zero`, `one`, `neg_one` (= all-`(p-1)`).
+  · `eq_mod_pn` — digit-by-digit agreement predicate.
+  · `trunc_lt_p_pow` — `x.trunc n < p^n` (justifies ℤ/p^n
+    interpretation).
+  · `trunc_eq_of_eq_mod_pn` / `trunc_succ_inj` /
+    `eq_mod_pn_of_trunc_eq` — backward iff via mod-p^n
+    cancellation + per-digit `mul_left_cancel_pos`.
+  · `eq_mod_pn_iff_trunc` — the full iff.
+  · `digits_of_nat` — embedding `ℕ ↪ ZpSeq` (k-th digit
+    `(n / p^k) % p`).
+  · 16 per-prime smokes at p ∈ {2, 3, 5, 7}.
+
+## Phase 2 partial closure (this session)
+
+**`lean/E213/Lib/Math/Padic/Arith.lean`** (15 PURE):
+
+  · `Zp.carry` — recursive carry FSM (initial 0, step
+    `(d_x + d_y + carry) / p`).
+  · `Zp.add` — digit-by-digit + carry; total function.
+  · `Zp.add_trunc_eq` — structural identity
+        `x.trunc n + y.trunc n
+          = (Zp.add x y).trunc n + carry n · p^n`
+    proved by induction with calc + a `split_mul_pow` helper
+    routed through PURE `div_add_mod`.
+  · `Zp.add_trunc` — the ring-quotient theorem
+        `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`.
+    Truncation `ZpSeq p → ℤ/p^n` is an additive homomorphism.
+  · `Zp.complement` — digit-wise `p - 1 - d`.
+  · `Zp.neg` — `complement x + one`.
+  · `Zp.carry_x_complement` — when summing `x + complement x`,
+    every digit-pair sums to `p - 1 < p`, so carry stays at 0
+    for all positions.
+  · `Zp.add_complement_digit` — every digit of `x + complement x`
+    equals `p - 1`, i.e., the sum is the all-`(p-1)` sequence
+    (= `-1` in ℤ_p).  Structural reason `-x := complement x + 1`
+    works: `x + (-x) = neg_one + one = 0` in ℤ_p (carry cascades).
+  · Smokes for `add` / `neg`.
+
+**Padic total**: 47 PURE / 0 DIRTY.
+
+## Phase 2 remaining work
+
+  · `Zp.mul` — digit-by-digit multiplication (convolution + carry).
+    Statement: `(Zp.mul x y).trunc n = (x.trunc n * y.trunc n) % p^n`.
+    Harder than `add` because the digit at position k depends on
+    `Σ_{i+j=k} (x.digits i).val * (y.digits j).val` (a multi-term
+    sum) plus higher-position carries from the partial products.
+  · `Zp.neg_add_self` — full algebraic statement
+    `Zp.add x (Zp.neg x) = Zp.zero` (sequence equality, requires
+    funext-by-design pattern OR per-truncation rephrasing).
+    Cleanest version: `(Zp.add x (Zp.neg x)).trunc n = 0`.
+
+## Updated phase outline (post-session)
+
+| Phase | Status |
+|---|---|
+| 1. Foundation | DONE (16 PURE) |
+| 2. Arith — add + neg | DONE (15 PURE, mul deferred) |
+| 2'. Arith — mul | PENDING |
+| 3. Norm + valuation | PENDING |
+| 4. Hensel lifting | PENDING |
+| 5. ℚ_p localization | PENDING |
+| 6. DRLT integration (5-adic N_U lift) | PENDING |
+
+---
+
+**Status**: Phase 1 complete + Phase 2 partial (add, neg, complement
+with full truncation correctness).  Foundational substrate (PURE)
+ready for `mul`, norm/val, and Hensel lifting.

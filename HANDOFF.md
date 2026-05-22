@@ -2,8 +2,11 @@
 
 ## Branch
 
-`claude/research-notes-organization-Gr3Tp` — 204 commits ahead of
-`origin/main`, pushed.  No active conflict.
+`claude/g122-real213-p-adic-LwxL9` — branched off
+`claude/research-notes-organization-Gr3Tp` (which was 204 commits
+ahead of `origin/main`).  G122 Real213-p-adic campaign in progress;
+Phase 1 closed, Phase 2 partial (add + neg + structural identities).
+No active conflict.
 
 ## Recently closed (this branch)
 
@@ -55,7 +58,41 @@ Currently still open:
 - **TH-1 / TH-4** doc work routed earlier into
   `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
 
-## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
+## Active campaign: G122 — Real213-p-adic (IN PROGRESS)
+
+**Phase 1 + Phase 2 (partial) closed this session.**
+
+  · `lean/E213/Lib/Math/Padic/Foundation.lean` — 16 PURE.
+    `ZpDigit`, `ZpSeq`, `trunc`, `trunc_lt_p_pow`,
+    `eq_mod_pn_iff_trunc`, `digits_of_nat` embedding + per-prime
+    smokes.
+  · `lean/E213/Lib/Math/Padic/Arith.lean` — 15 PURE.
+    `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq` (structural identity),
+    `Zp.add_trunc` (ring-quotient theorem
+    `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`),
+    `Zp.complement`, `Zp.neg`, `Zp.carry_x_complement`,
+    `Zp.add_complement_digit`.
+
+**Padic total: 47 PURE / 0 DIRTY.**
+
+Closure log: `research-notes/G122_real213_padic_research_direction.md`
+(Phase 1 closure log + Phase 2 partial closure + updated phase
+outline + Phase 2 remaining work).
+
+### Next-session start (G122 continuation)
+
+1. Pick up at Phase 2': `Zp.mul` (digit-by-digit convolution + carry).
+2. Or Phase 3: `Zp.val` (p-adic valuation) — index of first nonzero
+   digit with finite bound (avoid `WithTop` if axiom-cost permits;
+   use `Option Nat` style).
+3. After Phase 2/3: Phase 4 Hensel lifting + inverses (the natural
+   bridge to the G119 Bezout / FLT / F_{p²} substrate).
+
+### Below: the original (pre-session) Phase 1 launch instructions
+
+retained for reference.
+
+## Original campaign launch (Phase 1, completed this session)
 
 (Renumbered on merge: originally proposed as G120 on the
 `claude/lean4-ast-patterns-g1gWN` branch.  G120 was already used
