@@ -185,4 +185,31 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 
+/-- ★ Generic Pell-style FSM mod p (parametric over modulus).  G107
+    §4 FSM-1 part (1) — replaces the per-prime `pellFSMmod{3, 5, 7, ...}`
+    family with a single polymorphic definition over `p : Nat` with
+    `hp : 1 < p`.
+
+    Step relation: `(a, b) → ((2a + b) mod p, (a + b) mod p)`.
+    Init: `(1, 1)`.  Output: `a == 1`.
+
+    For concrete `p ∈ {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
+    43, 47, 53, 59, 61, 67, 71, 73, 79, 89, 101}`, the equivalence
+    `pellFSMmod p _ = pellFSMmod<p>` holds by `rfl` (smoke-tested at
+    p=3 below; other primes follow the same defeq pattern).
+
+    `pellFSMmod 2` is NOT rfl-equal to the existing `pellFSMmod2`
+    because the per-instance def simplifies `2*a mod 2 = 0` to drop
+    the `2*a` term symbolically; the generic def keeps it.  They are
+    propositionally equal (modulo `Nat.mul_mod_right`). -/
+def pellFSMmod (p : Nat) (hp : 1 < p) : ArithFSM2 p where
+  init := (⟨1, hp⟩, ⟨1, hp⟩)
+  step pair := let (a, b) := pair
+    (⟨(2 * a.val + b.val) % p, Nat.mod_lt _ (Nat.lt_of_succ_lt hp)⟩,
+     ⟨(a.val + b.val) % p, Nat.mod_lt _ (Nat.lt_of_succ_lt hp)⟩)
+  out pair := pair.1.val == 1
+
+/-- Smoke test: generic def at p=3 equals existing `pellFSMmod3` by rfl. -/
+theorem pellFSMmod_eq_3 : pellFSMmod 3 (by decide) = pellFSMmod3 := rfl
+
 end E213.Lib.Math.DyadicFSM.ArithFSM

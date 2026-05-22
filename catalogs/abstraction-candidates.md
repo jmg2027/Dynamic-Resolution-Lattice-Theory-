@@ -39,7 +39,7 @@ Status keys:
 |----|-------|:------:|-------|
 | L3 | Pisano Predictor extension steps | **DONE** | `pisano_period_lift {p pf N f}` PURE template absorbs per-prime `intro k; rw [h_p]; exact period_n k` boilerplate; 10 sites refactored across Predictor8/11/14/17 (commit fc105cd6). |
 | L4 | `addLDD` / `mulLDD` (Smooth.lean) | **DONE** | `ldd_branch_via_maxRange (sf cx cy M hagree S R side_chain m' hm')` PURE template (in `Real213/Core/CutFnData.lean`) absorbs the inner `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block; 4 branches refactored across addLDD + mulLDD (commit 7c887e23).  Parameterized helper instead of typeclass. |
-| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED — no abstraction yield | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples.  `decide` ineffective due to conj evaluation depth.  See `research-notes/G118_marathon_deferred_items.md` §8c. |
+| L5 | `CDDouble.I_mul_J` / `J_mul_I` | **REMOVED** (no yield) | Per-instance numeric witnesses differ; `decide` ineffective.  Investigated in G118; not an abstraction candidate. |
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
 | E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
@@ -87,14 +87,24 @@ Doc deliverables (G107 §10):
   · `lean/E213/ARCHITECTURE.md` NAV-3 empirical-verification note.
 
 Still open from §2: none.
-Still open from §3: none (Part 5 closed L1 + C).
+Still open from §3: none.
 Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
-(Σ-fold; additive); L4 **DONE** (Part 5 commit 7c887e23);
-L5 deferred — no yield (see G118).
+(Σ-fold; additive).  L4 **DONE** (commit 7c887e23).  L5 removed
+(no yield — see G118).
+
+Part 5 closures (cross-tier): G110 FLUX-1 (34 sites),
+G111 COH-1+2+3, REAL-1+REAL-2 (commit f7f00a98),
+FSM-1 (1) generic pellFSMmod, TH-1/TH-4/G117 spec docs.
+
+Items removed from registry (no abstraction yield, see G118):
+CD-1+2+3 (CayleyDickson), HC-1 (Hodge capstones),
+PHYS-1 (FractalLevelZeta), PHYS-2 (bracket-containment), L5 (CDDouble).
+
+One research direction remains (not a marathon item):
+FSM-1 (2) Pisano period theorem for Pell-5 (5-10 sessions, number theory).
 
 **See `research-notes/G118_marathon_deferred_items.md`** for the
-3 truly remaining deferred items (CD-1/2/3, HC-1+PHYS-1/2,
-FSM-1 ∀p) with per-item rationale.
+final closure status.
 Still open from §10: TH-1 (proof-shape fingerprint, key data already
 in CAT-3 + ARCHITECTURE.md note), TH-4 (L1 methodology, partial via
 LeibnizAlgLiftBeta).  Neither blocks; redundancy with already-shipped

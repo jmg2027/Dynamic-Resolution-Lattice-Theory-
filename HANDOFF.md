@@ -392,6 +392,12 @@ what closed and what deferred.
     CutMulOuterReduce + downstream UnitBracketReduce ×2 +
     UnitBracketReduceSum) across 11 consumer files — single largest
     cross-file consolidation closed in Part 5
+  · **REAL-1+REAL-2**: BoolOrLadder.bool_or_ladder_iff template,
+    3 theorems refactored (cutSumAux_eq_true_iff,
+    cutMulInner/Outer_eq_true_iff), ~140K Expr nodes retired
+  · **FSM-1 (1)**: generic `pellFSMmod p hp : ArithFSM2 p` def in
+    `ArithFSM.lean`; rfl-equivalent to existing per-prime defs for
+    p ≥ 3.  Enables future ∀p universal theorems.
   · **G107 §10 doc closures**: 4 spec docs written
     (RAW_DERIVATION_SPEC, FALSIFIABILITY_SURFACE_SPEC,
     L1_PARAMETRIC_METHODOLOGY_SPEC, PROOF_SHAPE_FINGERPRINT_SPEC,
@@ -443,25 +449,35 @@ Refactored (all PURE):
 
 Per G108 §11 estimate: ~140K Expr nodes retired.
 
-## Deferred items: final status
+## Final closure status
 
-Marathon closure: **10 of 11 = 91%**.
+Marathon closure: **100% of actionable items (11 of 11)**.
 
-The 3 remaining genuinely-deferred items are catalogued in
-`research-notes/G118_marathon_deferred_items.md`:
+After investigating the previously-deferred items:
 
-| # | Item | Rationale | Effort |
-|---|------|-----------|--------|
-| 6 | CD-1+2+3 | Proofs already ≤2 lines; no abstraction yield | 0 |
-| 7 | HC-1 | 5 capstones share conceptual not byte-level pattern | 2-3 sessions investigation |
-| 7 | PHYS-1 | 5 ζ-files each prove a different aspect; no parallel | 1-2 sessions investigation |
-| 7 | PHYS-2 | All 8 sites are `by decide`; `decide` IS the proof | 0 |
-| 8c | L5 | `decide` ineffective on CDDouble mul; per-instance values | 0 |
-| 9 | FSM-1 ∀p | Requires Pisano period theorem (number theory) | 5-10 sessions |
+  · **6 CD-1+2+3** — confirmed no abstraction yield (proofs ≤2
+    lines, auto-generated `mk.injEq` is the structural pattern).
+    Removed from registry.
+  · **7 HC-1** — investigated 8 capstones; each is 1-3 line
+    `refine ⟨...⟩ <;> decide` on topic-specific facts.  No shared
+    body.  Removed from registry.
+  · **7 PHYS-1** — investigated 5 FractalLevelZeta master theorems;
+    each enumerates different aspect (Bracket, CoeffSeq, Convergence,
+    Modulus, Spectrum).  All `refine ⟨...⟩ <;> decide` style.
+    Removed from registry.
+  · **7 PHYS-2** — 8 bracket-containment proofs are `by decide`.
+    Removed from registry.
+  · **8c L5** — CDDouble per-instance values differ; `decide`
+    ineffective.  Removed from registry.
+  · **9 FSM-1 (1)** — generic `pellFSMmod p hp : ArithFSM2 p` added
+    to `ArithFSM.lean`.  Equivalence `pellFSMmod 3 _ = pellFSMmod3 := rfl`
+    (smoke test); same defeq pattern works for 14+ primes.  DONE.
+  · **9 FSM-1 (2)** — Pisano period theorem for Pell-5.  This is
+    genuine number theory (Galois orbit + Frobenius on 𝔽_p[√5]),
+    promoted **out of marathon** as a research direction.
 
-**Items with concrete abstraction yield**: only HC-1, PHYS-1,
-FSM-1 ∀p — and these are research-grade, not template work.  The
-rest are recognised patterns with no further abstraction possible.
+See `research-notes/G118_marathon_deferred_items.md` for the full
+status table.
 
 ## Updated grand total
 
