@@ -2642,6 +2642,83 @@ that are verified by `decide` at each instantiation.
 
 ---
 
+# Next campaign: G120 — Real213-p-adic (PREPARED, ready to begin)
+
+The G119 modular arithmetic library (Bezout, FLT, F_{p²}, Frobenius)
+is exactly the foundational substrate for a **∅-axiom construction
+of the p-adic integers** `ℤ_p`.
+
+## Resources prepared
+
+  · **`research-notes/G120_real213_padic_research_direction.md`**
+    — Comprehensive 6-phase research direction (6-10 sessions est.).
+  · **`lean/E213/Lib/Math/Padic/Foundation.lean`** — Phase 1 starter
+    with `ZpDigit`, `ZpSeq`, truncation skeleton + roadmap comments.
+    7 PURE, builds clean.
+
+## Why this is the natural next campaign
+
+DRLT context:
+  · Current FSM framework is **2-adic-flavored** (dyadic bit-streams).
+  · `ResolutionLimit` uses `N_U = 5^25` — base-5 finite-resolution.
+  · Real213-p-adic generalizes resolution lattice base 2 → base p.
+
+Mathematical context:
+  · No known ∅-axiom p-adic construction exists.  Mathlib's `Padic`
+    brings Cauchy + Classical + propext.
+  · 213-native Real213-p-adic would be the first.
+
+## Reuse from G119
+
+| G119 component | G120 usage |
+|----------------|-----------|
+| `add_mod_gen`, `mul_mod_pure` | Digit-by-digit arithmetic |
+| `modBezout`, `modInverseFromBezout` | Hensel-lifted inverse |
+| `universal_flt_main` | Teichmüller / Frobenius |
+| `universal_freshman_dream` | p-adic Frobenius automorphism |
+| F_{p²} machinery (FP2Sqrt5) | Quadratic extensions over ℤ_p |
+| `phiFP2_pow_p_eq_frob` | Teichmüller lifts in F_{p²} |
+
+All reused infrastructure is PURE.
+
+## G120 phase outline
+
+  · Phase 1: ZpDigit + ZpSeq foundation (1-2 sessions) ← STARTED
+  · Phase 2: Arithmetic (`Zp.add`, `Zp.mul`, `Zp.neg`) (1-2 sessions)
+  · Phase 3: p-adic norm + valuation (1 session)
+  · Phase 4: Hensel lifting + inverses (2 sessions)
+  · Phase 5: ℚ_p localization (1 session)
+  · Phase 6: DRLT integration (1-2 sessions)
+
+  **Total**: 6-10 sessions.
+
+## Anchor target (5-adic, DRLT alignment)
+
+Since DRLT uses `N_U = 5^25`, the **5-adic Real213** is especially
+relevant.  Phase 6 anchor:
+
+```lean
+theorem nU_lifts_to_Z5_canonically :
+    ∀ n ≤ 25, (canonical_5adic_NU).trunc n = ... := ...
+```
+
+Concrete bridge from finite-resolution DRLT lattice to (potentially)
+infinite-precision 5-adic.  Whether infinite is operationally
+meaningful in DRLT is itself a research question.
+
+## Next session start instructions
+
+1. Read `research-notes/G120_real213_padic_research_direction.md`.
+2. Open `lean/E213/Lib/Math/Padic/Foundation.lean`.
+3. Implement Phase 1 TODOs:
+   - `ZpSeq.trunc_lt_p_pow`
+   - `ZpSeq.eq_mod_pn_iff_trunc`
+   - `ZpSeq.digits_of_nat` embedding
+   - Per-prime smokes at p ∈ {2, 3, 5, 7}.
+4. Then proceed to `Phase 2`: new file `Arith.lean`.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
