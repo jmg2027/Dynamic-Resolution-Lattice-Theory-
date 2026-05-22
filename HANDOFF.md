@@ -88,7 +88,21 @@ Source: `research-notes/G123_geometrization_open_followups.md` §4.5.
 Single tip-of-chain citation: `KChartLensAbstract.geometrization_followup_close_certificate`
 — 33-conjunct mega-capstone bundling all 10 follow-up items.
 
-## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
+## G122 Real213-p-adic — PARTIAL CLOSE (Phases 1, 2, 3, 6)
+
+**Status** (2026-05-22): 4 files, 42 PURE in `lean/E213/Lib/Math/Padic/`.
+
+| File | Phase | PURE | Content |
+|---|---|---|---|
+| `Foundation.lean` | 1 | 14 | ZpDigit/ZpSeq/trunc + zero/one/neg_one + trunc_lt_p_pow + trunc_eq forward |
+| `Arith.lean` | 2 | 11 | Zp.carry, Zp.add, Zp.complement, Zp.neg + smokes |
+| `Valuation.lean` | 3 | 11 | vAt bounded valuation + characterization + per-prime smokes |
+| `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ N_U=5^25 alignment anchor |
+
+Open phases: Phase 4 (Hensel lifting), Phase 5 (ℚ_p localisation),
+Phase 2 multiplication, and substantive Phase 6 integration.
+
+### (Original prep notes — for reference)
 
 (Renumbered on merge: originally proposed as G120 on the
 `claude/lean4-ast-patterns-g1gWN` branch.  G120 was already used
