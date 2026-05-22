@@ -253,4 +253,53 @@ theorem Zp.add_complement_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
 theorem Zp.smoke_neg_one_5_d0 :
     ((Zp.neg 5 (by decide) (ZpSeq.one 5 (by decide))).digits 0).val = 4 := rfl
 
+/-! ## Multiplication (digit convolution + carry)
+
+p-adic multiplication is a convolution-with-carry:
+  · The "raw" sum at position `k` is `Σ_{i=0..k} (x.digits i) · (y.digits (k-i))`.
+  · The carry into position `k+1` is `(rawSum k + carry k) / p`.
+  · The digit at position `k` is `(rawSum k + carry k) % p`.
+
+The truncation-correctness theorem (`(Zp.mul x y).trunc n
+= (x.trunc n * y.trunc n) % p^n`) is structurally analogous to
+`Zp.add_trunc` but requires more bookkeeping for the convolution.
+We provide the PURE definitions here; the correctness theorem
+is the natural next step.
+-/
+
+/-- Inner partial sum: `Σ_{i=0..upper-1} (x.digits i).val · (y.digits (k-i)).val`. -/
+def Zp.mulRawSum (p : Nat) (x y : ZpSeq p) (k : Nat) : Nat → Nat
+  | 0 => 0
+  | i + 1 =>
+      Zp.mulRawSum p x y k i + (x.digits i).val * (y.digits (k - i)).val
+
+/-- Raw convolution at position `k`: `Σ_{i=0..k} (x.digits i).val · (y.digits (k-i)).val`. -/
+def Zp.mulRaw (p : Nat) (x y : ZpSeq p) (k : Nat) : Nat :=
+  Zp.mulRawSum p x y k (k + 1)
+
+/-- The carry into digit position `k` when multiplying `x * y`. -/
+def Zp.mulCarry (p : Nat) (x y : ZpSeq p) : Nat → Nat
+  | 0 => 0
+  | k + 1 =>
+      (Zp.mulRaw p x y k + Zp.mulCarry p x y k) / p
+
+/-- p-adic multiplication `x * y`. -/
+def Zp.mul (p : Nat) (hp : 0 < p) (x y : ZpSeq p) : ZpSeq p where
+  digits := fun k =>
+    ⟨(Zp.mulRaw p x y k + Zp.mulCarry p x y k) % p, Nat.mod_lt _ hp⟩
+
+/-- Initial carry of `mul` is 0 by definition. -/
+theorem Zp.mulCarry_zero (p : Nat) (x y : ZpSeq p) :
+    Zp.mulCarry p x y 0 = 0 := rfl
+
+/-- Step rule for `mulCarry`. -/
+theorem Zp.mulCarry_succ (p : Nat) (x y : ZpSeq p) (k : Nat) :
+    Zp.mulCarry p x y (k+1)
+      = (Zp.mulRaw p x y k + Zp.mulCarry p x y k) / p := rfl
+
+/-- Digit unfolding for `Zp.mul`. -/
+theorem Zp.mul_digit_val (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
+    ((Zp.mul p hp x y).digits k).val
+      = (Zp.mulRaw p x y k + Zp.mulCarry p x y k) % p := rfl
+
 end E213.Lib.Math.Padic
