@@ -182,6 +182,22 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### G122 closure addition (2026-05-22)
+
+`E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **207 PURE
+declarations** across 6 modules (`Foundation`, `Arith`, `Norm`,
+`Hensel`, `Field`, `DRLT`).  Headline closures:
+
+  · `Zp.add_trunc` / `Zp.mul_trunc` — ring-quotient theorems for
+    truncation `ZpSeq p → ℤ/p^n`.
+  · `Zp.mul_invSeq_correct` — Hensel-lifted multiplicative inverse
+    correct at every level `n`.
+  · `QpSeq` ℚ_p localization with add/mul/neg/sub/ofNat.
+  · `canonical_5adic_NU` — 5-adic lift of `N_U = 5^25`.
+
+Chapter: `theory/math/padic_real213.md`.
+Source note: `research-notes/archive/G122_real213_padic_research_direction.md`.
+
 **2026-05-09 (later, marathon batch 1)**: User directive "seal
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
 scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.

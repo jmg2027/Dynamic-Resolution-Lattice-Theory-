@@ -240,6 +240,11 @@ pass 후):
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
+  * `Padic/{Foundation,Arith,Norm,Hensel,Field,DRLT}` (6 files,
+    207 PURE) — Real213-p-adic library: `ZpSeq` + ring-quotient
+    theorems `add_trunc` / `mul_trunc` + Hensel-lifted inverse
+    `invSeq` with general correctness `mul_invSeq_correct` +
+    ℚ_p localization (`QpSeq`) + 5-adic `N_U` integration.
 
 각 Lib sub-tree 는 cross-context citation 용 `Bridge.lean` 보유
 (anti-corruption layer pattern).
