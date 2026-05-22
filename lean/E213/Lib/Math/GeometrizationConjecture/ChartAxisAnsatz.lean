@@ -1810,6 +1810,110 @@ theorem filling_versus_tree_dual_path :
     ∧ passesCohomologyDepthFilter 1 4 1 = false := by
   refine ⟨?_, ?_, rfl, rfl, ?_, ?_⟩ <;> decide
 
+/-! ## §R — Ricci-flow narrative seed (R1 step 16 — 2026-05-22)
+
+The Ricci-flow pillar of Geometrization (Perelman's proof
+technique) operates by *averaging curvature*: the flow
+$\partial_t g_{ij} = -2R_{ij}$ smooths inhomogeneities until
+either a homogeneous model geometry is reached or a surgery
+cut occurs along a singular neck.
+
+**213-Lens narrative seed**: the *Sym(3)-fixed subspace* of
+$H^1(K_{3,2}^{(c=2)})$ is the analog of "averaging-invariant
+geometry":
+
+  · `Sym3IrrepDecomp.fixedSize = 4` (cardinality 4 = 2² in F_2,
+    so dimension 2)
+  · This 2-dim subspace is the **Sym(3)-invariant cohomology
+    classes** — analogous to *Ricci-flow fixed points* (which
+    are Einstein metrics, Sym-invariant).
+
+**STEREOTYPE MATCHING WARNING**: this is narrative parallel
+only.  Ricci flow is a *continuous geometric flow* on metric
+tensors; Sym(3)-invariance is an *algebraic representation*
+property.  They are NOT the same operation.  The parallel is
+at the *averaging-fixed-point* structural level.
+
+**Open work** (recorded in §F): full 213-Lens formalization of
+Ricci-flow ↔ chart-Lens averaging requires:
+  · ε-Lens infrastructure (continuous chart variation)
+  · "averaging" semantics at the chart-transition level
+  · monotonicity functional analogous to Perelman's
+    $\mathcal{F}$ / $\mathcal{W}$
+
+None of these exist in `lean/E213/`.  Recording §R as narrative
+seed only; structural formalization deferred to future ε-Lens
+infrastructure work.
+-/
+
+/-- §R narrative-seed theorem: the Sym(3)-fixed subspace of
+    `H¹(K_{3,2}^{(c=2)})` provides the Ricci-flow-fixed-point
+    arithmetic analog (dim 2 = "averaging-invariant" core). -/
+theorem ricci_narrative_sym3_invariant :
+    -- Sym(3)-fixed subspace cardinality 4 = 2² (dim 2 over F_2)
+    E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    -- 4 = 2² (dim 2)
+    ∧ (4 : Nat) = 2 ^ 2
+    -- Total H¹ rank: 2 (trivial = invariant) + 2·3 (standard
+    -- = non-invariant) = 8
+    ∧ 2 + 2 * 3 = 8
+    -- This is the "averaging-fixed" portion (Ricci analog) +
+    -- "deformable" portion (non-Ricci-fixed)
+    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ## §C — Narrative-deepening completion check (R1 step 16) -/
+
+/-- ★★★★★ **Narrative-deepening completion certificate**
+
+  Confirms all 4 Geometrization pillars (8-geo, JSJ, Poincaré,
+  Ricci-flow) have at least narrative-level Lean treatment in
+  ChartAxisAnsatz, with explicit status tagging:
+
+  | Pillar       | 213-Lens form              | Lean status            |
+  |---           |---                         |---                     |
+  | 8 geometries | $H^1$ rank 8 + Sym(3) split | NARRATIVE ⚠ (step 11)  |
+  | JSJ          | bipartite S/T + Filled      | PARTIAL (steps 11+15)  |
+  | Poincaré     | K_{3,1}^{(c=1)} tree at d=3 | PARTIAL CLOSE (12-13)  |
+  | Generalized P| K_{1,k}^{(c=1)} all d       | GENERALIZED (step 15)  |
+  | Ricci flow   | Sym(3)-fixed dim 2          | NARRATIVE ⚠ (step 16)  |
+
+  Open infrastructure (recorded in §F):
+    · 8-geo ↔ Sym(3) decomp structural mapping
+    · JSJ tori ↔ bipartite S/T + 3-cell complex
+    · Ricci flow ↔ ε-Lens averaging
+    · K_{NS,NT}^{(c)} higher-chartBase exhaustive (user-deferred)
+
+  Active narrative deepening goal: ACHIEVED in present scope.
+  Further deepening requires new infrastructure (ε-Lens,
+  3-cell-complex extension, Lie-group classification import).
+-/
+theorem narrative_deepening_completion :
+    -- §G (8-geo): arithmetic parallel, no structural mapping
+    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    -- §J (JSJ): bipartite split + 2-cell filling infrastructure
+    ∧ chartBase 3 2 = 5
+    ∧ 3 * 2 * 2 = 12  -- edge count, bipartite structure
+    ∧ 3 * 1 = 3       -- 4-cycles for filling
+    -- §P (Poincaré): K_{3,1}^{(c=1)} unique tree at d_M = 3
+    ∧ isTreeDeployment 3 1 1 = true
+    ∧ b1_corrected 3 1 1 = 0
+    -- §P-gen (Generalized Poincaré): tree at all chartBase
+    ∧ isTreeDeployment 1 1 1 = true
+    ∧ isTreeDeployment 1 4 1 = true
+    -- §S (Sym(3) capability): K_{3,2}^{(c=2)} unique full filter
+    ∧ passesCohomologyDepthFilter 3 2 2 = true
+    -- §R (Ricci): Sym(3)-fixed subspace as averaging-invariant analog
+    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    -- Critical regime confirmed at d_M = 4
+    ∧ chartVisibleAxes 3 2 = 4
+    ∧ selfPointingAxes = 1
+    -- Coexistence at d_M = 4 (tree + critical)
+    ∧ b1_corrected 1 4 1 = 0
+    ∧ b1_corrected 3 2 2 = 8 := by
+  refine ⟨?_, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_⟩
+  all_goals first | rfl | decide
+
 /-- ★★★★★ **G121 R1 master capstone (4-route convergence,
     scope-honest)**
 

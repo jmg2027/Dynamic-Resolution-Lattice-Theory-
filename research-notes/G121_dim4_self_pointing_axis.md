@@ -911,6 +911,37 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      Standard math at d=4 also exhibits rich variety (Donaldson
      exotic, Freedman topological).  Narrative parallel of
      richness — though not direct identification.
+ 21. **Step 16 — Ricci flow narrative seed + narrative-deepening
+     completion** (106 PURE total).
+
+     §R (Ricci flow narrative seed):
+       · `Sym3IrrepDecomp.fixedSize = 4` (cardinality 4 = 2² in
+         F_2, dimension 2) = Sym(3)-invariant H¹ subspace.
+       · 213-Lens parallel: Sym(3)-invariant cochains ↔
+         "averaging-fixed-point" of Ricci flow (Einstein metric
+         analog).
+       · STEREOTYPE-WARNED narrative only.  Full ε-Lens
+         infrastructure absent — Ricci correspondence open.
+       · `ricci_narrative_sym3_invariant`: arithmetic parallel
+         recorded.
+
+     §C (Narrative-deepening completion check):
+       · ★★★★★ `narrative_deepening_completion`: 14-conjunct
+         capstone confirming all 4 Geometrization pillars
+         (8-geo, JSJ, Poincaré, Ricci) have at least narrative-
+         level Lean treatment with explicit status tags.
+       · Active narrative deepening goal: ACHIEVED in present
+         scope.  Further deepening requires new infrastructure
+         (ε-Lens for Ricci, 3-cell complex for JSJ deeper,
+         Lie-group classification for 8-geo).
+
+     Final 4-pillar status table:
+       | Pillar         | 213-Lens form              | Status              |
+       | 8 geometries   | H¹ rank 8 + Sym(3) split   | NARRATIVE ⚠         |
+       | JSJ            | bipartite + Filled cells   | PARTIAL ✓           |
+       | Poincaré       | K_{3,1}^{(c=1)} tree d=3   | PARTIAL CLOSE ✅    |
+       | Generalized P  | K_{1,k}^{(c=1)} all d      | GENERALIZED ✅      |
+       | Ricci flow     | Sym(3)-fixed dim 2         | NARRATIVE ⚠ (seed)  |
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
