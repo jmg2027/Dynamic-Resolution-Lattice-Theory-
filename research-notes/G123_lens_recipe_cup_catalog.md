@@ -5,7 +5,12 @@
 **Research direction.**  2026-05-22.  Spawned directly by G86 closure
 (`research-notes/G86_self_referential_lex_cup_leibniz.md`).
 Comprehensive program; broken into A→F sub-directions below.
-Sub-direction **A** is being executed first.
+
+**A.1-A.3 LIST LEVEL: CLOSED (2026-05-22)** — catalog dispatch theorem
+in `lean/E213/Lib/Math/Cohomology/Cup/LeibnizCatalog.lean` packages
+the recipe ↔ δ-closure correspondence for the three single-partition
+recipes (lex, mirror, sym).  8 new strict-PURE theorems across 3 new
+files (`LeibnizMirror`, `LeibnizSym`, `LeibnizCatalog`).
 
 ## Motivation
 
@@ -47,14 +52,21 @@ boundary behaviour.
 Build the recipe-to-closure 4-tuple catalog.  Each row = one Lens
 recipe → one cup definition → one δ-closure law → one Lean theorem.
 
-| # | Recipe | Cup | δ-closure | Status |
+| # | Recipe | Cup | δ-closure (list level) | Status |
 |---|---|---|---|---|
-| 1 | sorted-single-partition (ascending) | `cup` (lex-projection) | self-ref at `τ[k]` | **PROVED (G86)** |
-| 2 | all-partitions, ℤ/2 sign | wedge `α ∧ β` | no correction (sign vanish) | KNOWN |
-| 3 | sorted-single-partition (descending) | `cupRev` (reverse-lex) | self-ref at `τ[l]` (mirror) | **CONJECTURE (A.3)** |
-| 4 | middle-out (split-at-pivot) | `cupMid` | unknown | OPEN |
+| 1 | sorted-single-partition (ascending, s=k) | `cup` (lex-projection) | self-ref at `τ.eraseIdx k` | **PROVED — `list_level_leibniz_general` (G86)** |
+| 2 | all-partitions, ℤ/2 sign | wedge `α ∧ β` | no correction (sign vanish) | KNOWN (external) |
+| 3 | sorted-single-partition (s=l, mirror) | `cupRev α β` = `cup l k β α` (swap) | self-ref at `τ.eraseIdx l` (mirror) | **PROVED — `list_level_leibniz_mirror`** |
+| 4 | middle-out (split at `s ∉ {k, l}`) | (degenerate type signature) | — | INADMISSIBLE (lengths mismatch) |
 | 5 | anti-symmetric ℤ/2 wedge of 2 cochains | (degenerate) | vanish on Bool | TRIVIAL |
-| 6 | bidegree-symmetric (α⌣β + β⌣α) / 2 | `cupSym` | doubled correction (cancels in ℤ/2) | **CONJECTURE (A.4)** |
+| 6 | XOR-symmetrised (α⌣β ⊕ β⌣α) | `cupSymList` | XOR of corrections at k and l | **PROVED — `list_level_leibniz_sym`** |
+
+**Catalog finiteness theorem**: Rows 1, 3, 6 exhaust the
+admissible count-Lens-canonical sorted-single-partition recipes.
+For sorted lists τ of length k+l, the split position `s` must
+satisfy `s = k` (α to front) or `s = l = (k+l) - k` (α to back).
+Row 6 is the only XOR-symmetrisation of rows 1 and 3.  No further
+admissible single-partition recipe exists.
 
 The catalog is finite (the count-Lens choices on a (k+l)-subset are
 enumerable — pick a partition rule for sorted lists).
@@ -161,12 +173,36 @@ The catalog is THE single "every count-Lens recipe gives a self-
 referential Leibniz at its split position" theorem — a 213-native
 **no-exterior** principle made concrete at the cochain level.
 
-## Next steps (THIS SESSION)
+## Done (2026-05-22)
 
-1. Define `cupRev` (reverse-lex), prove basic algebraic properties.
-2. State the mirror Leibniz for `cupRev`.
-3. Prove via mirror-image of the G86 proof structure.
-4. Catalogue `cupMid` definition (proof deferred).
+1. Defined `cupRev` (reverse-lex), proved `cupRev_eq_cup_swapped`
+   (value equality with `cup l k β α` after Fin re-typing).  PURE.
+2. Stated and proved `list_level_leibniz_mirror` as direct 1-line
+   corollary of `list_level_leibniz_general` at swapped `(l, k)`
+   bidegree.  PURE.
+3. Defined `cupSymList` (XOR symmetrisation) and proved
+   `list_level_leibniz_sym` — the doubled-correction Leibniz of
+   the symmetric cup.  PURE.
+4. Packaged the catalog as a single dispatch theorem
+   `catalog_dispatch (r : Recipe k l)` over an inductive `Recipe`
+   data type (`.lex / .mirror / .sym`).  PURE.
+5. Catalog finiteness argued in §"Catalog finiteness theorem"
+   above (sorted-single-partition admissibility forces s ∈ {k, l}).
+
+8 new strict-PURE theorems across 3 new files:
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizMirror.lean`
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizSym.lean`
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizCatalog.lean`
+
+## Open frontier
+
+- Fin-level transfer of `catalog_dispatch` (analogous to G86's
+  `fin_level_leibniz_general` for row 1).  Mechanical replication
+  of G86 machinery with k ↔ l swap for row 3; XOR-of-two-G86 for
+  row 6.  Deferred — list-level dispatch suffices for downstream
+  physics applications.
+- Sub-directions B (depth → α^(d-1) suppression), C (channel κᵢ
+  derivation), E (cup-atomic subalgebra), F (p-adic confluence).
 
 ## See also
 
