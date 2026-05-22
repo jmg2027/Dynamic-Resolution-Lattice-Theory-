@@ -48,6 +48,41 @@ Currently still open:
 | **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
 | **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
+### B+. G123 N_U-family theory — PREPARED, ready to begin
+
+Successor to G120.  G120 demoted `N_U` to `configCount 2` and
+opened the **level** `n` as a parametric axis; G123 audits that
+closure and proposes the natural 2-parameter extension
+`configCountD d n := d^(d^n)` as a mathematical family, while
+recording the three-pillar structural forcing of `d = 5`
+(PairForcing / Atomicity.Five, C2a cohomology-loss, C2b adjoint-
+product identity) at the physics lens.
+
+**Resources prepared**:
+  · `research-notes/G123_n_u_family_theory.md` — 7-phase research
+    direction (3-6 sessions est., ~7 hr mean / 14 hr tail).
+  · Phase 1-4 + 6 + 7 are minimum-viable; Phase 5 (modular
+    reduction via UniversalFLT) is a stretch.
+
+**Anchor S-tier capstones**:
+  · `configCountD d n := d^(d^n)`, PURE.
+  · `configCountD_succ : configCountD d (n+1) = (configCountD d n)^d`.
+  · `configCount = configCountD 5` (compat layer).
+  · Per-d table at n = 2 for d ∈ {2, 3, 5, 7}.
+  · Bridge to physics (`n_resolution_candidate_eq`,
+    `K_d_sq_coloring_count_eq`).
+
+**Physics-layer caveat captured (not solved)**:
+  · 1/α_em ppb closure uses one observation-seeded coefficient
+    (`AlphaEM/Augmented.lean:134-141`, Gram self-energy).
+    Structural derivation stops at ~ 4 ppm.  G123 does not
+    attempt the structural derivation; it is logged as the
+    principal downstream physics open problem.
+
+**Next-session start instructions**: read
+`research-notes/G123_n_u_family_theory.md` §"Next-session start
+instructions".
+
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
   addition (current overflow is post-G120 + tier discipline + failure
