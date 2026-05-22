@@ -1086,4 +1086,36 @@ theorem Zp.mul_trunc_zero_left {p : Nat} (hp : 0 < p) (x : ZpSeq p) (n : Nat) :
       Nat.zero_mul]
   exact (E213.Tactic.NatHelper.zero_mod _).symm
 
+/-! ## Off-diagonal sum scaffold (for general `mul_trunc`)
+
+For each row `i`, the off-diagonal contributions at level `n` are
+the values `(x.digits i).val · (y.digits (n - i + m)).val · p^m`
+for `m ∈ [0, i)` — equivalently, `(i, j)` pairs with `j = n - i + m`,
+i.e., `j ∈ [n - i, n)`.  The outer accumulator sums these rows.
+
+The full bridge `bilinSum n n = mulSumRaw n + offDiagSum n n · p^n`
+is verified by hand for `n ∈ {0, 1, 2, 3}` and matches the
+expected off-diagonal decomposition.  Lean proof: future work.
+-/
+
+/-- Inner off-diagonal row sum at level `n`, row `i`, up to count `m`. -/
+def Zp.offDiagRow (p : Nat) (x y : ZpSeq p) (n i : Nat) : Nat → Nat
+  | 0 => 0
+  | m + 1 => Zp.offDiagRow p x y n i m
+              + (x.digits i).val * (y.digits (n - i + m)).val * p^m
+
+/-- Outer off-diagonal accumulator at level `n`, summing rows
+    `i ∈ [0, upper)`. -/
+def Zp.offDiagSum (p : Nat) (x y : ZpSeq p) (n : Nat) : Nat → Nat
+  | 0 => 0
+  | i + 1 => Zp.offDiagSum p x y n i + Zp.offDiagRow p x y n i i
+
+/-- Off-diagonal row at empty count is zero (definitional). -/
+theorem Zp.offDiagRow_zero (p : Nat) (x y : ZpSeq p) (n i : Nat) :
+    Zp.offDiagRow p x y n i 0 = 0 := rfl
+
+/-- Off-diagonal sum at empty outer bound is zero (definitional). -/
+theorem Zp.offDiagSum_zero (p : Nat) (x y : ZpSeq p) (n : Nat) :
+    Zp.offDiagSum p x y n 0 = 0 := rfl
+
 end E213.Lib.Math.Padic
