@@ -29,7 +29,24 @@ ModulusStructure) renumbered to G128/G129/G130 to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
-## G131 Gram self-energy structural derivation — PRECISION THEOREM CLOSED at 0.2 ppb (Phases 1-3 + 5 done)
+## G131 Gram self-energy structural derivation — PROMOTED to theory chapter
+
+`1/α_em` precision theorem at 0.2 ppb absorbed into
+`theory/physics/alpha_em/precision_derivation.md` (chapter expanded
+with C1 Step 5 closure: self-referentiality eliminated via cubic
+Newton-from-X derivation).  Lean source: 4 new files in
+`Lib/Physics/AlphaEM/` (42 PURE total).  G131 research note archived
+to `research-notes/archive/`.
+
+Sub-ppb precision (post-Gram residual 27 × 10⁻⁹ structural
+derivation) is the new open frontier — tracked as **G132**
+(`research-notes/G132_alphaEm_higher_cohomology_residual.md`).
+Five candidate principles analyzed; most 213-native is
+**K_{3,2}^{(c=2)} higher cohomology contribution** via Filled3Cell
+b_2 / b_3 extension.  Shared Filled3Cell-with-attaching-maps prereq
+with G123 FW-2 and G126 Phase 7+.
+
+### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
 Gram self-energy term in `AlphaEM/Augmented.lean:134-141` (the 4 ppm

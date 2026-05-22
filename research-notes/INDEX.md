@@ -113,7 +113,7 @@ Active top-level registries after merge:
 | `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
 | `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
 | `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
-| `G131_gram_structural_derivation.md` | Gram self-energy α²/d² structural derivation via cubic self-consistency `25y³ + 1 = 25Xy²` — supersedes self-referential observed-α-in-RHS computation.  Phase 1 anchor done (`GramStructural.lean`, 11 PURE).  Direct path to `1/α_em` precision-theorem promotion (DRLT Validation Standard) | Phase 1 anchor laid; Phases 2-5 = ~180 PURE / 10-15 sessions to full close |
+| `G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — open frontier from G131 Phase 4: derive the 27 × 10⁻⁹ post-Gram residual structurally.  Most 213-native candidate: Filled3Cell b_2 / b_3 contribution to cup-ring trace.  Depends on G123 FW-2 (Filled3Cell deepening) — shared prereq with G126 Phase 7+ cork-extension | open research direction |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN
@@ -132,7 +132,7 @@ to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G132**).  Once formalized:
+Use next available G prefix (currently **G133**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -156,7 +156,9 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `b258a3f8` | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
 | `b258a3f8` | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
-11 chapters total covering all promotable closed work
+| (this session) | G131 1/α_em precision theorem (0.2 ppb) → `theory/physics/alpha_em/precision_derivation.md` (chapter expanded with C1 Step 5 closure: GramStructural/Bracket/Newton/Capstone files); G131 note archived | 3 (mixed-status: chapter expansion) |
+
+11+ chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
 
 ### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)

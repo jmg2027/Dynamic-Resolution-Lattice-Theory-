@@ -1138,3 +1138,31 @@ Cross-references:
 |---|---|---|
 | `E213.Lib.Math.Cohomology.Cup.SelfRefDepth` | 43 | `selfRefIter` (face-iteration depth signature), `selfRefIter_length`; codim catalog at d = 5 — endpoint pair firings at codim `5 - k - l` for all 6 admissible bidegrees; universal closed form **`totalCupChannels_eq_binom`** (`= binom (d-1) 2` for any d); codim stratification `6 = NS + NT + 1`; **`codim_one_channels_eq_NS`** (★ physical: 3 codim-1 channels = `α_GUT` coefficient in `1/α_2 = 30 - 1/2 + 3·α_GUT`); 6 per-bidegree uniqueness contracts over 325 indicator basis pairs (★ falsifiability) |
 
+
+## 2026-05-22 — G131 1/α_em precision theorem via structural Gram (0.2 ppb tier)
+
+### Structural Gram derivation eliminates self-referentiality
+
+Newton-1 from y₀ = X on the cubic self-consistency
+`25y³ + 1 = 25Xy²` (cohomological-trace identity at H¹ of
+`K_{3,2}^{(c=2)}` over the 5-layer base) yields the Gram correction
+`α²/d² = 10²⁷ / (25 · X²)` derived purely from atomic 213 parameters
+`(NS, NT, c, d) = (3, 2, 2, 5)` — no observed α on RHS, matching
+the observed-based `gram_correction_e9` exactly at e9 precision.
+
+Combined with `Cohomology/Cup/InvAlphaEMDecomp` (structural X via
+6 denominator decomposition) → **fully 213-internal precision
+theorem at 0.2 ppb tier**, DRLT Validation Standard satisfied.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.GramStructural` | 11 | `cubic_lhs_25y3`, `cubic_rhs_25Xy2`, `cubic_one_e27`, `cubic_residual_e27` (cubic at e27 scale), gap-decomposition theorems, ★★★★ `gram_structural_bracket` (Gram captures 98.7% of gap) |
+| `E213.Lib.Physics.AlphaEM.GramStructuralBracket` | 14 | Parametric `cubic_lhs y` / `cubic_rhs y`, sign-change witnesses at X and X − 2200, tight bracket `(X − 2131, X − 2129)` on cubic root, cubic-root sits 27 above observed (= post-Gram residual), ★★★★★ `phase2_cubic_bracket_close` |
+| `E213.Lib.Physics.AlphaEM.GramStructuralNewton` | 10 | `X_squared_e18`, `gram_correction_structural := 10²⁷/(25·X²)` (Newton-1 from y₀ = X), `gram_correction_structural_value` (= 2130, matches observed-based), `alphaInv_structural_e9 = 137,035,999,111`, `structural_vs_observed_27` (residual = 27 × 10⁻⁹ ≈ 0.2 ppb), ★★★★★★★ `phase3_newton_close` |
+| `E213.Lib.Physics.AlphaEM.GramStructuralCapstone` | 7 | Bundles `InvAlphaEMDecomp` structural X + `GramStructuralNewton` Gram derivation, ★★★★★★★★★★ **`invAlphaEm_precision_theorem`** (15-conjunct: base-formula coefficients structural; Gram from cubic Newton-1; structural prediction 137,035,999,111 vs CODATA 137,035,999,084 = 27 × 10⁻⁹; atomic-parameter independence: only (NS=3, NT=2, c=2, d=5)) |
+
+**Total: 42 new PURE / 4 files**.  `1/α_em` is now a **fully
+213-internal precision theorem at 0.2 ppb**, with the 27 × 10⁻⁹
+residual documented as the open sub-ppb-precision direction
+(higher cohomology candidate: `K_{3,2}^{(c=2)}` b_2 / b_3 via
+Filled3Cell extension).
