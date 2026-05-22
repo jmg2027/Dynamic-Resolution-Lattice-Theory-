@@ -1,8 +1,8 @@
 # G131 — Gram self-energy structural derivation
 
 **Date**: 2026-05-22
-**Status**: **PHASES 1-3 CLOSED** (Newton-1 structural Gram derivation
-matches observed-based at e9 precision; self-referentiality removed)
+**Status**: **PHASES 1-3 + 5 CLOSED** — `1/α_em` precision theorem
+at 0.2 ppb, fully 213-internal, DRLT Validation Standard satisfied
 **Branch**: `claude/g121-open-followup-BCOp3`
 **Source**: post-merge HANDOFF, identified as "principal
 physics-layer open problem" from n-u-followup branch
@@ -128,14 +128,19 @@ DRLT Validation Standard.
 | 1 | Anchor (`GramStructural.lean`) | 11 | 1 | **DONE** 2026-05-22 (11 PURE) |
 | 2 | Cubic uniqueness + bracket (`GramStructuralBracket.lean`) | ~40 | 2-3 | **DONE** 2026-05-22 (14 PURE, width-2 bracket on cubic root) |
 | 3 | Newton cubic-root iteration (`GramStructuralNewton.lean`) | ~50 | 3-4 | **DONE** 2026-05-22 (10 PURE, exact match at e9 precision) |
-| 4 | Post-Gram 27 × 10⁻⁹ resolution | ~60 | 3-5 | open |
-| 5 | Precision-theorem capstone | ~20 | 1-2 | open |
+| 4 | Post-Gram 27 × 10⁻⁹ resolution | ~60 | 3-5 | open (not blocking for ppb tier) |
+| 5 | Precision-theorem capstone (`GramStructuralCapstone.lean`) | ~20 | 1-2 | **DONE** 2026-05-22 (7 PURE, combines InvAlphaEMDecomp + GramStructuralNewton) |
 
-**Closed-so-far**: 35 PURE / 3 files / 1 session.  Faster than
-estimate because Newton-1 step turns out to match observed-based
-at e9 precision exactly (X² ≈ observed² at this scale).
+**Closed-so-far**: 42 PURE / 4 files / 1 session.  Faster than
+estimate (~180 PURE / 10-15 sessions) because (a) Newton-1 matches
+observed-based at e9 exactly, no further iteration needed and
+(b) Phase 5 just bundles `InvAlphaEMDecomp.lean` (from merged
+cup-atomic branch) with `GramStructuralNewton.lean` — both
+already provide structural derivations of their respective halves.
 
-**Remaining to full close**: ~80 PURE, 4-7 sessions for Phases 4-5.
+**Phase 4 still open** but NOT blocking precision-theorem promotion
+at 0.2 ppb tier.  The 27 × 10⁻⁹ residual is documented as next-
+order Dyson tail; resolving it would tighten precision below 0.2 ppb.
 
 ## Phase 3 headline result (2026-05-22)
 

@@ -29,7 +29,7 @@ ModulusStructure) renumbered to G128/G129/G130 to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
-## Active campaign: G131 Gram self-energy structural derivation (Phases 1-3 done)
+## G131 Gram self-energy structural derivation — PRECISION THEOREM CLOSED at 0.2 ppb (Phases 1-3 + 5 done)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
 Gram self-energy term in `AlphaEM/Augmented.lean:134-141` (the 4 ppm
@@ -65,12 +65,24 @@ in RHS) removed without numerical loss.
   · Phase 4: 27 × 10⁻⁹ post-Gram residual decomposition (~60 PURE, 3-5 sessions)
   · Phase 5: precision-theorem capstone (~20 PURE, 1-2 sessions)
 
-**Closed so far**: 35 PURE / 3 files / 1 session (vs original
-estimate of ~100 PURE / 6-7 sessions — Newton-1 turned out to
-match observed-based at e9 exactly, no further iteration needed
-at this precision).
+**Phase 5 (precision-theorem capstone) — DONE 2026-05-22**:
+`GramStructuralCapstone.lean` (7 PURE).  Combines `InvAlphaEMDecomp`
+(from merged cup-atomic branch: X-side structural derivation —
+all six denominators 60, 30, 25, 3, 4, 45 from (NS, NT, c, d) =
+(3, 2, 2, 5)) with `GramStructuralNewton` (this campaign: α²/d²
+structural via Newton-1 from y₀ = X).
 
-**Remaining to full close**: ~80 PURE, 4-7 sessions.
+★★★★★★★★★★ `invAlphaEm_precision_theorem` — fully 213-internal
+**precision theorem** at 0.2 ppb tier.  All numerators / denominators
+derive from atomic 213 parameters; no observed α anywhere.
+
+**DRLT Validation Standard SATISFIED** at the ∅-axiom precision-
+theorem tier.
+
+**Closed total**: 42 PURE / 4 files / 1 session (vs original
+estimate of ~180 PURE / 10-15 sessions).  Phase 4 (27 × 10⁻⁹
+post-Gram residual decomposition) remains open but NOT blocking
+precision-theorem promotion at 0.2 ppb.
 
 **Excluded scope** (per merge instruction):
   · n-u-followup branch's open frontier: G124 N_U cross-field
