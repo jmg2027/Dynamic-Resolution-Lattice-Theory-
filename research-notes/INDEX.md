@@ -103,6 +103,7 @@ chapter.
 | `G124_v32betti_parametric_generalization.md` | V32Betti generalization to arbitrary K_{NS,NT}^{(c)} (M2 universal close, ~95 PURE est., 6-10 sessions) | pre-marathon research direction |
 | `G125_bracket_cauchy_ricci_functor.md` | BracketCauchy ↔ IsRicciModulus typeclass-bridge or cross-category functor (Option A typeclass: ~40 PURE, 2-3 sessions; Option B full category theory: separate larger marathon) | pre-marathon research direction |
 | `G126_akbulut_cork_213_native.md` | Akbulut cork theorem as 213-native exotic-structure framework — supersedes FW-1.  Cork = (contractible K_{1,4} tree, Z/2 M_S01 involution); cork-twist gives natural Z/2 grading on Sym(3)-orbits → signed exotic-count entirely 213-internal.  ~120 PURE, 8-12 sessions, HIGH-PRIORITY | pre-marathon research direction |
+| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog for Geometrization family (G123/G124/G125/G126) and G122 Real213-p-adic.  Maps "follow-up implementation backlog" to PROMOTION_CRITERIA (H1-H4 + S1-S3) blockers per marathon.  Recommends sweep ordering: G125 → G124 → G126 → G123, with G122 independent | tracking / audit document |
 
 G107: G90-G106 promoted to `theory/meta/scanner_suite.md` +
 `theory/meta/raw_derivation_levels.md` (2026-05-22); closed items
@@ -124,7 +125,7 @@ and small refinements left in the wake.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G127**).  Once formalized:
+Use next available G prefix (currently **G128**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`

@@ -70,6 +70,25 @@ Currently still open:
 - **TH-1 / TH-4** doc work routed earlier into
   `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
 
+### D'. Promotion-readiness audit (G127)
+
+Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
+**S1 categorical closure** and cannot promote to `theory/` chapters
+without follow-up implementation work.  The "follow-up backlog"
+is the **promotion-blocker work**, not "new research".
+
+See `research-notes/G127_promotion_readiness_audit.md` for the full
+per-marathon blocker catalog.
+
+Recommended promotion-sweep ordering:
+  1. **G125** (Option A close; only S3 absorption needed) — 1 session
+  2. **G124** (universal Nat-theorem via graph-walk infra) — 5-8 sessions
+  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8 sessions
+  4. **G123** (FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
+  5. **G122** (independent track: Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions
+
+**Grand total: ~38-58 sessions** to promote all 5 marathons.
+
 ### D. G123 long-tail — spin-off marathons assigned
 Source: `research-notes/G123_geometrization_open_followups.md` §4.5.
 
