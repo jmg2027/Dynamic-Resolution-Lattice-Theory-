@@ -206,6 +206,72 @@ mod-{2, 3, 5, 7, 13} fingerprint into a single statement.
 lookup: `configCountD 5 (2k) % 7 = 5`,
 `configCountD 5 (2k+1) % 7 = 3`.
 
+#### Extended modular fingerprint — `ConfigCountModular.lean §H`
+
+Beyond the small prime layer `{2, 3, 5, 7, 11, 13}`, the
+fingerprint extends to `{17, 23, 31, 41, 137}`.  The pattern is
+*not* uniform period-2; new cycle structures emerge:
+
+| `p` | cycle length | parametric closure |
+|---|---|---|
+| 17 | 4 | `configCountD_5_period_4_mod_17` (★ ∀m) |
+| 23 | 5 | table (parametric deferred — 5-step template) |
+| 31 | 2 | `configCountD_5_period_2_mod_31` (★ ∀m) |
+| 41 | 1 (constant) | `configCountD_5_succ_mod_41` (★★ ∀m) |
+| 137 | 16 | table; parametric deferred (16-step template) |
+
+The proofs at `p ∈ {17, 31, 41}` use a shared template:
+induct on `m`, propagate via `pow_mul_pure` + the auxiliary
+`pow_mod_base` lemma, close each substep with a decidable
+cycle fact `(cycle_i)^5 % p = cycle_{i+1}`.  Cycle-length 1
+(fixed point at `p = 41`) is the structurally simplest; lengths
+2, 4 follow the same template with proportional code growth.
+
+##### The α series
+
+The two α-catalogue primes produce structurally distinguished
+readouts:
+
+```
+α_GUT integer (p = 41):
+  ★ configCountD 5 n ≡ 9 = NS² (mod 41)   for all n ≥ 1.
+  Fractal-level-invariant: the α_GUT residue is fixed under
+  level iteration.  Cleanest result in the extended catalogue.
+
+α_em integer (p = 137 = 1/α_em):
+  configCountD 5 2 ≡ 86 = Rn (mod 137).
+  86 = NS²·NT² + d²·NT   (Hunter form, additive).
+  Cycle length 16 in n; the physics-slice readout (`n = 2`) lands
+  on the catalogue atom `Rn` (radon atomic number).
+```
+
+Both readouts (`9, 86`) are themselves catalogue atoms.  The
+count-Lens at each α prime projects `N_U` to a catalogue atom,
+but only `α_GUT` does so uniformly across all `n`.  The
+`(p, value) = (α_GUT, NS²)` pair is the cleanest cross-readout
+between physics-constants atoms and count-Lens outputs.
+
+The `α_em` readout is a single-slice resonance: `N_U mod 1/α_em
+= Rn` connects two catalogue atoms but doesn't extend to a
+fractal-level invariant.  The 16-step cycle is the next-level
+algebraic complication.
+
+##### Cycle-template scaling
+
+The three closed parametric proofs at `p ∈ {41, 31, 17}` span
+cycle lengths 1, 2, 4, demonstrating that the
+`pow_mul_pure + pow_mod_base + k cycle seeds + k substeps`
+template scales to arbitrary cycle length.  Each new cycle
+length adds O(k) lines of Lean (k seeds + k substep blocks);
+no new structural lemmas required.
+
+For `p = 17` the m=0 base case requires
+`set_option exponentiation.threshold 1000` to handle
+`5^(5^4) = 5^625` without triggering Lean's default reduction
+limit.  Larger cycle lengths need correspondingly higher
+thresholds; this is a compile-time directive, not an axiom
+addition.
+
 ### 5. Combinatorial reading + diagonal-tetration coincidence
 
 `configCountD d n` equals the count of functions `[d]^n → [d]`,
@@ -278,6 +344,11 @@ Both bridges are additive; consumer literals are unchanged.
 | `configCountD_mod_pure` | `Fractal.ConfigCountModular` | family-level corollary |
 | `configCountD_5_modular_structure` | `Fractal.ConfigCountModular` | ★★★ unified mod-{2, 3, 5, 7, 13} capstone |
 | `configCountD_5_mod_7_table` | `Fractal.ConfigCountModular` | even/odd closed-form lookup |
+| `configCountD_5_succ_mod_41` | `Fractal.ConfigCountModular` §H.1 | ★ constant `9 = NS²` mod `41 = α_GUT` for all `n ≥ 1` |
+| `configCountD_5_period_2_mod_31` | `Fractal.ConfigCountModular` §H.3 | ★ period-2 `{25, 5}` mod 31 ∀m |
+| `configCountD_5_period_4_mod_17` | `Fractal.ConfigCountModular` §H.4 | ★ period-4 cycle `(14, 12, 3, 5)` mod 17 ∀m |
+| `configCountD_5_2_mod_137` | `Fractal.ConfigCountModular` §H.5 | ★ `N_U mod 1/α_em = 86 = Rn` (catalogue cross-readout) |
+| `configCountD_5_2_mod_table_extended` | `Fractal.ConfigCountModular` §H | physics-slice readouts mod `{17, 23, 31, 41}` |
 | `fractal_betti_spectrum` | `Fractal.Level` | `b₁(K_{5^L})` for `L = 1..4` |
 | `numV_eq_d_sq` | `Fractal.V25` | `numV = d² = 25` (level-2 enumeration) |
 | `K25_coloring_count_eq_configCountD` | `Physics.Foundations.FractalLensCardinality` | `coloring_count numV d = configCountD 5 2` |

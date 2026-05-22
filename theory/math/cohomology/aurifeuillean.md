@@ -176,6 +176,33 @@ forcing in `Theory.Atomicity.Five`) algebraically demands an
 golden-ratio / Möbius / Pell-Fibonacci structures are other
 faces of the same algebraic requirement.
 
+### The cut-off line: scale matching of two independent frameworks
+
+The Hunter ⇔ Aurifeuillean correspondence at `(29, 8) = (d² + NT², NT³)`
+is not merely "a clean numerical hit" — it is the location where two
+**independently-defined structural frameworks** match in scale.
+
+| Framework | Object generated | Scale at `Φ_{2bm²}(b)` for `b = 5` |
+|---|---|---|
+| **Aurifeuillean** (algebraic Galois split, external) | `(L_m, M_m)` ∈ ℤ[√5] | magnitude `~ 5^(φ(2·5·m²)/2)`, polynomial in 5 with degree growing as `m²` |
+| **Hunter primitives** (computational atomicity, DRLT-internal) | `{NS, NT, d, c}^{depth ≤ k}` ∪ `(+, *, ^)` | bounded by tower function of `k`; standard atoms ≲ few thousand |
+
+Concrete numerical scales:
+
+```
+m = 1 (Φ_10):   degree  2 → L₁ ~ 5²    ≈ 25            (actual: 29 = d² + NT²)   ✓ Hunter
+m = 3 (Φ_90):   degree 12 → L₃ ~ 5¹²   ≈ 2.4 × 10⁸     (actual: 8.5 × 10⁸)        ✗ Hunter
+m = 7 (Φ_490):  degree 84 → L₇ ~ 5⁸⁴   ≈ 10⁵⁹                                      ✗ Hunter
+m = 9 (Φ_810): degree 108 → L₉ ~ 5¹⁰⁸  ≈ 10⁷⁵                                      ✗ Hunter
+```
+
+**Scale-matching slice**: the Aurifeuillean L-coefficient and the
+"reasonable Hunter expression" value range overlap only at `m = 1`.
+For `m ≥ 3`, Aurifeuillean instantly exceeds the Hunter expression
+range achievable at small depth.  This is the **cut-off line** —
+the boundary where two unrelated structural frameworks meet in
+exactly one slice of the cyclotomic tower above `d = 5`.
+
 ### Last discrete Galois split before tetration
 
 `configCountD d n = d^(d^n)` is depth-2 tetration, sitting at
@@ -201,6 +228,43 @@ takes over.  Its expressibility in Hunter primitives is what
 makes it a DRLT structural object rather than an arithmetic
 coincidence.
 
+### Bounded Lean realisation
+
+The full cut-off claim ("Aurifeuillean L-coefficients beyond `m = 1`
+admit no Hunter expression at any depth") is a conjecture about an
+infinite family.  A **bounded version** is decidable and Lean-verified
+in `Lib/Math/Cohomology/Fractal/AurifeuilleanCutoff.lean`:
+
+  · **Positive (depth-3 witness)**:
+    `hunter_521_explicit : NT^(NS^2) + NS^2 = 521`
+    (`= 2^9 + 9 = 512 + 9 = 521`).  Three operations on `{NS, NT}`
+    suffice to express `521` exactly.
+
+  · **Negative (bounded parameter search)**:
+    `L_90_not_pow_sum_pow : ∀ (a b c e : Fin 10),
+                             a.val^b.val + c.val^e.val ≠ 850554441`.
+
+    The Aurifeuillean L-coefficient at `Φ_90(5)` is **not expressible
+    as `a^b + c^d`** for any `a, b, c, d ∈ {0, 1, …, 9}`.  Decidable
+    via exhaustive enumeration (10⁴ cases).  Companion theorems
+    cover the forms `a^b * c^d`, `(a + b)^c` over the same
+    parameter range, and the M-coefficient `364242064`.
+
+The honest interpretation of these bounded results:
+  · They **confirm** the scale-mismatch numerically at the next
+    Aurifeuillean index — `L = 850554441` is not reachable by
+    "natural" depth-3 Hunter expressions with single-digit
+    parameters.
+  · They **do not** rule out exotic large-parameter Hunter
+    expressions hitting the value (which would be needed for the
+    full cut-off theorem).
+  · They establish the conjecture at the bounded-decidable level —
+    upgrading to a full theorem requires a complexity-theoretic
+    lower bound on minimum Hunter expression depth for specific
+    Aurifeuillean L values, or an enumerative argument over all
+    bounded-depth Hunter expressions (currently intractable beyond
+    depth 3-4).
+
 ## Catalogue cross-reference
 
 `catalogs/atomic-integers.md` registers `521` under
@@ -221,6 +285,17 @@ Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean       (11 PURE)
   · configCount_one/two_plus_one_eq_mul_521     — exact cofactors
   · aurifeuillean_phi_90_at_5             — Φ_90(5) factor identity
   · aurifeuillean_fingerprint_n_u         — capstone at n=2
+
+Lib/Math/Cohomology/Fractal/AurifeuilleanCutoff.lean            (9 PURE)
+  · hunter_521_explicit          — 521 = NT^(NS²) + NS² (depth-3 witness)
+  · hunter_29_explicit           — 29 = d² + NT²
+  · hunter_8_explicit            — 8 = NT^NS
+  · L_90_not_pow_sum_pow         — 850M ≠ a^b + c^d for a,b,c,d ∈ Fin 10
+  · L_90_not_pow_mul_pow         — 850M ≠ a^b · c^d
+  · L_90_not_sum_pow             — 850M ≠ (a+b)^c
+  · M_90_not_pow_sum_pow         — 364M ≠ a^b + c^d
+  · M_90_not_pow_mul_pow         — 364M ≠ a^b · c^d
+  · bounded_cutoff_at_m3         — ★ capstone: m=1 ✓ Hunter, m=3 ✗ Hunter (bounded)
 
 Lib/Math/Cohomology/Fractal/ConfigCountAurifeuilleanParam.lean  (5 PURE)
   · pow_mod_base                          — private aux (induction)

@@ -5,10 +5,13 @@
 `claude/g121-open-followup-BCOp3` — post-merge of
 `claude/n-u-followup-campaign-3PnDm` (G86/G107/G117/G123-N_U/
 G124-cross-field/G125-Aurifeuillean closures + N_U family theory
-promoted) and `claude/cup-atomic-subalgebra` (G125 Lens-recipe
-cup catalog + K32 projection + 1/α_em decomposition).  My-side
-G123/G124/G125 (Geometrization follow-ups / V32Betti parametric /
-ModulusStructure) renumbered to G128/G129/G130 to avoid collision.
+promoted), `claude/cup-atomic-subalgebra` (G125 Lens-recipe cup
+catalog + K32 projection + 1/α_em decomposition), and `origin/main`
+(PR #98 `claude/aurifeuillean-cutoff` — bounded cut-off Lean
+realisation for Hunter ⇔ Aurifeuillean correspondence at m=1 vs
+m=3).  My-side G123/G124/G125 (Geometrization follow-ups /
+V32Betti parametric / ModulusStructure) renumbered to G128/G129/G130
+to avoid collision.
 
 ## Recently closed (post-merge unified)
 
@@ -152,7 +155,7 @@ section.  Research note: `research-notes/G125_lens_recipe_cup_catalog.md`.
 |---|---|
 | ~~Mirror catalog uniqueness~~ | **OBSOLETE** — symmetric to original under swap, no new content |
 | **Structural ∀d codim correspondence** | **CLOSED** (`Cup/IterErase.lean` 7 PURE).  `endpoint_pair_firing_characterisation` is the universal structural theorem; d=5 catalog + d=6 spot checks are now corollaries.  Proof: iterErase + cupList factorisation, no decide |
-| **Sub-direction E: cup-atomic subalgebra** | **INITIAL CLOSURE 2026-05-22** (`Cup/CupAtomic.lean` 15 PURE + `Cup/CupAtomicExtended.lean` 16 PURE).  Cup-closed-trivially cochain pair count at (1, 1) on Δ⁴: 320 out of 1024.  Universal formula `count = d · 2^(d+1)` decide-verified at d ∈ {3, 4, 5}.  Conjectured ∀d ≥ 2 |
+| **Sub-direction E: cup-atomic subalgebra** | **FULL ∀d CLOSURE 2026-05-22** (`Cup/CupAtomic.lean` 15 PURE + `Cup/CupAtomicExtended.lean` 16 PURE + `Cup/CupAtomicGeneralD.lean` 10 PURE).  Cup-closed-trivially cochain pair count at (1, 1) on Δ⁴: 320 out of 1024.  ★★★★★★★★ Universal formula `count = d · 2^(d+1)` proven by structural Nat induction (no longer just decide-verified) |
 | **K_{3,2}^{(c=2)} 8-channel projection** | **CLOSED 2026-05-22** (`Cup/K32Projection.lean` 11 PURE).  Quadruple structural identity at DRLT: `b_1 = 8 = E-V+1 = cup-channels + NT = NT·(NS+1) = NS²-1`.  Four independent count-Lens readings converge uniquely at (NS,NT,c)=(3,2,2) |
 | **1/α_em decomposition derivation** | **CLOSED 2026-05-22** (`Cup/InvAlphaEMDecomp.lean` 12 PURE).  All six denominators (60, 30, 25, 3, 4, 45) in `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45` decomposed in terms of (NS, NT, c, d) = (3, 2, 2, 5).  Numerical match 137.03 vs CODATA 137.036 (0.07 ppm) |
 | Sub-direction F: p-adic cup ring | Active in `claude/g122-real213-p-adic-LwxL9` (out of scope for this branch) |

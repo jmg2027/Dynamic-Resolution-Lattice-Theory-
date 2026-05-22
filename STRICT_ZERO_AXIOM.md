@@ -1137,6 +1137,13 @@ Cross-references:
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Math.Cohomology.Cup.SelfRefDepth` | 43 | `selfRefIter` (face-iteration depth signature), `selfRefIter_length`; codim catalog at d = 5 — endpoint pair firings at codim `5 - k - l` for all 6 admissible bidegrees; universal closed form **`totalCupChannels_eq_binom`** (`= binom (d-1) 2` for any d); codim stratification `6 = NS + NT + 1`; **`codim_one_channels_eq_NS`** (★ physical: 3 codim-1 channels = `α_GUT` coefficient in `1/α_2 = 30 - 1/2 + 3·α_GUT`); 6 per-bidegree uniqueness contracts over 325 indicator basis pairs (★ falsifiability) |
+| `E213.Lib.Math.Cohomology.Cup.SelfRefDepthExtended` | 8 | Channel counts at d ∈ {6, 7, 8} = 10, 15, 21; codim-correspondence spot checks `d6_endpoint_*` validating the catalog beyond d = 5 |
+| `E213.Lib.Math.Cohomology.Cup.IterErase` | 7 | Universal ∀d structural iteration: `iterEraseAt` + `iterErase_front_back` + `cupList_iterErase_front_back` + `selfRefIter_get_eq_cupList_iterErase` + ★★★★★ **`endpoint_pair_firing_characterisation`** (∀d codim correspondence by structural induction, no decide enumeration) |
+| `E213.Lib.Math.Cohomology.Cup.CupAtomic` | 15 | Cup-closed-trivially cochain pair classification at (1, 1) on Δ⁴; full 32×32 = 1024 pair enumeration; **`cupClosedCount_d5_11_eq = 320`** (cup-closed pair count); density `5/16 = d/2^(d-1)` |
+| `E213.Lib.Math.Cohomology.Cup.CupAtomicExtended` | 16 | d ∈ {3, 4} catalog validation; cup-closed counts 48, 128; closed-form `count = d · 2^(d+1)` (decide-verified at d ∈ {3, 4, 5}) |
+| `E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD` | 10 | ★★★★★★★★ **`cupClosedCount_param_eq`**: ∀d closed form `count = d · 2^(d+1)` proven by Nat induction + `step_identity` (NatHelper.mul_assoc + Nat.two_mul + Nat.add_comm + add_mul).  No decide enumeration — structural ∀d proof |
+| `E213.Lib.Math.Cohomology.Cup.K32Projection` | 11 | K_{NS,NT}^{(c)} bipartite cohomology bridge.  ★★★★★★★ **Quadruple structural identity at DRLT**: `b_1(K_{3,2}^{(c=2)}) = 8 = E-V+1 = cup-channels + NT = NT·(NS+1) = NS²-1`.  Lost cohomology = NT = 2 |
+| `E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp` | 12 | Full 1/α_em integer + denominator catalog: 60 = E·d, 30 = cup-channels · d, 25 = d², 4 = d-1, 45 = NS²·d.  Multiplicity factor c = 60/30 = 2 distinguishes 1/α_em from 1/α_2.  Numerical match 137.03 vs CODATA 137.036 (0.07 ppm) |
 
 
 ## 2026-05-22 — G131 1/α_em precision theorem via structural Gram (0.2 ppb tier)

@@ -32,7 +32,7 @@ enumeration).
 namespace E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
 
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD pow_add_pure pow_mul_pure)
-open E213.Meta.Nat.MulMod213 (mul_mod_pure)
+open E213.Meta.Nat.MulMod213 (mul_mod_pure mul_mod_left_pure)
 open E213.Meta.Nat.AddMod213 (div_add_mod mod_mod)
 
 /-! ## Parametric modular helper
@@ -456,6 +456,301 @@ theorem configCountD_2_2_mod_7 : configCountD 2 2 % 7 = 2 := by decide   -- 16 m
 theorem configCountD_3_2_mod_7 : configCountD 3 2 % 7 = 6 := by decide   -- 3^9 mod 7
 theorem configCountD_5_2_mod_7' : configCountD 5 2 % 7 = 5 := by decide
 
+/-! ## §H Extended modular fingerprint — primes 17, 23, 31, 41
+
+Extends the catalogue `{2, 3, 5, 7, 11, 13}` to the next prime
+layer.  Empirical periods:
+
+  · `p = 17`: period 4 in `n` (from `ord_17(5) = 16`, `5^4 ≡ 1 mod 16`)
+  · `p = 23`: period 5 (`ord_23(5) = 22`, `5^5 ≡ 1 mod 22`)
+  · `p = 31`: period 2 (`ord_31(5) = 3`, parallel to mod-7 / mod-13)
+  · `p = 41`: **constant** `9` from `n ≥ 1`
+    (`ord_41(5) = 20`, `5^n mod 20 = 5` for `n ≥ 1`,
+    hence `5^(5^n) ≡ 5^5 ≡ 9 (mod 41)`)
+
+The period-2 dominance observed at `{7, 11, 13}` does *not* extend
+universally: `p = 41` produces a constant, `p = 17, 23` produce
+longer periods.  The constant readout at `p = 41` is structurally
+distinguished — `41` is the `α_GUT` integer (catalogue), and the
+fixed value `9 = NS²` is a count-Lens 2-power.  The modular
+fingerprint at `α_GUT` is invariant under fractal level iteration.
+-/
+
+/-- Power-mod-base reduction: `a^k % p = (a % p)^k % p`.  Used to
+    swap inside the outer power when the inductive hypothesis
+    fixes the base mod p.  Standalone induction on the exponent. -/
+private theorem pow_mod_base (a p : Nat) :
+    ∀ k, a^k % p = (a % p)^k % p
+  | 0     => rfl
+  | k + 1 => by
+      show (a^k * a) % p = ((a % p)^k * (a % p)) % p
+      have ih : a^k % p = (a % p)^k % p := pow_mod_base a p k
+      calc (a^k * a) % p
+          = (a^k % p * (a % p)) % p := mul_mod_pure (a^k) a p
+        _ = ((a % p)^k % p * (a % p)) % p := by rw [ih]
+        _ = ((a % p)^k * (a % p)) % p :=
+              (mul_mod_left_pure ((a % p)^k) (a % p) p).symm
+
+/-! ### §H.1 `p = 41` — constant readout `9` -/
+
+/-- Seed: `5^5 ≡ 9 (mod 41)`.  `3125 = 76·41 + 9`. -/
+private theorem five_pow_5_mod_41 : 5^5 % 41 = 9 := by decide
+
+/-- Inductive seed: `9^5 ≡ 9 (mod 41)`.  `59049 = 1440·41 + 9` —
+    so `9` is a `5`-power fixed point modulo `41`. -/
+private theorem nine_pow_5_mod_41 : 9^5 % 41 = 9 := by decide
+
+/-- ★ **`configCountD 5 (m+1) % 41 = 9` for all `m`**.
+    The mod-41 fingerprint is constant across every fractal level
+    `n ≥ 1`.  Same proof structure as the Aurifeuillean parametric
+    `5^(5^n) ≡ −1 (mod 521)`: induct on `m`, propagate the seed
+    via `pow_mul_pure` + `pow_mod_base`, close with the
+    self-stabilising identity `9^5 ≡ 9 (mod 41)`. -/
+theorem configCountD_5_succ_mod_41 :
+    ∀ m, 5^(5^(m+1)) % 41 = 9
+  | 0     => five_pow_5_mod_41
+  | m + 1 => by
+      have ih : 5^(5^(m+1)) % 41 = 9 :=
+        configCountD_5_succ_mod_41 m
+      have h_pow : 5^(5^(m+1) * 5) = (5^(5^(m+1)))^5 :=
+        pow_mul_pure 5 (5^(m+1)) 5
+      show 5^(5^(m+2)) % 41 = 9
+      rw [show 5^(m+2) = 5^(m+1) * 5 from rfl, h_pow,
+          pow_mod_base (5^(5^(m+1))) 41 5, ih]
+      -- Goal reduces to `9^5 % 41 = 9`, closed by kernel computation
+      -- (the content of `nine_pow_5_mod_41`).
+
+/-- `configCountD 5 1 % 41 = 9` — concrete `n = 1` instance. -/
+theorem configCountD_5_1_mod_41 : configCountD 5 1 % 41 = 9 :=
+  configCountD_5_succ_mod_41 0
+
+/-- `configCountD 5 2 % 41 = 9` — physics slice (`N_U mod α_GUT`). -/
+theorem configCountD_5_2_mod_41 : configCountD 5 2 % 41 = 9 :=
+  configCountD_5_succ_mod_41 1
+
+/-- `configCountD 5 3 % 41 = 9` — confirms the constant extends
+    beyond the physics slice. -/
+theorem configCountD_5_3_mod_41 : configCountD 5 3 % 41 = 9 :=
+  configCountD_5_succ_mod_41 2
+
+/-! ### §H.2 Concrete decidable readouts for `p ∈ {17, 23, 31}`
+
+Period structure detected empirically (each verified by `decide`
+on small `n`); the corresponding parametric `∀ n` proofs use the
+same induction template as `configCountD_5_succ_mod_41` but with
+longer-period self-stabilising seeds.  Recorded here as decidable
+instances; the parametric proofs are tractable but deferred. -/
+
+/-- `p = 17` table (period 4 from `n = 1`):
+    partial cycle through the physics-relevant `n ∈ {0, 1, 2, 3}`. -/
+theorem configCountD_5_mod_17_table :
+    configCountD 5 0 % 17 = 5
+    ∧ configCountD 5 1 % 17 = 14
+    ∧ configCountD 5 2 % 17 = 12
+    ∧ configCountD 5 3 % 17 = 3 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- `p = 23` table (period 5 from `n = 1`):
+    partial cycle through `n ∈ {0, 1, 2, 3}`. -/
+theorem configCountD_5_mod_23_table :
+    configCountD 5 0 % 23 = 5
+    ∧ configCountD 5 1 % 23 = 20
+    ∧ configCountD 5 2 % 23 = 10
+    ∧ configCountD 5 3 % 23 = 19 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- `p = 31` table (period 2 from `n = 1`, parallel to mod-7 / mod-13):
+    full cycle visible in `n ∈ {0, 1, 2, 3}` as `5 → 25 → 5 → 25`. -/
+theorem configCountD_5_mod_31_table :
+    configCountD 5 0 % 31 = 5
+    ∧ configCountD 5 1 % 31 = 25
+    ∧ configCountD 5 2 % 31 = 5
+    ∧ configCountD 5 3 % 31 = 25 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ### §H.3 `p = 31` — period 2 parametric proof
+
+Same self-propagating dynamic as `p = 41`, but with a 2-cycle
+`{25, 5}` (the orbit of `5` under `x ↦ x^5 mod 31`) instead of a
+fixed point.  Explicitly: `f(5) = 5^5 ≡ 25`, `f(25) = 25^5 ≡ 5`,
+so `{25, 5}` is a 2-cycle under `f`.
+
+Hence `5^(5^n) mod 31` alternates `25` (for odd `n`, i.e. `n = 2m+1`)
+and `5` (for even `n ≥ 2`, i.e. `n = 2m+2`).  At `n = 0` the value
+is `5` (from `5^1 = 5`); the period-2 pattern is fully described
+by the pair `(2m+1, 2m+2)` for `m ≥ 0`. -/
+
+/-- Cycle seed: `25^5 ≡ 5 (mod 31)`.  `25^5 = 9765625 = 315020·31 + 5`,
+    completing the 2-cycle `25 ↦ 5 ↦ 25 ↦ …` under `x ↦ x^5 mod 31`. -/
+private theorem twentyfive_pow_5_mod_31 : 25^5 % 31 = 5 := by decide
+
+/-- ★ **Parametric period 2 at `p = 31`**:
+    `5^(5^(2m+1)) ≡ 25 (mod 31)` and `5^(5^(2m+2)) ≡ 5 (mod 31)`
+    for every `m ≥ 0`.
+
+    Same proof template as `configCountD_5_succ_mod_41`: induct on
+    `m`, propagate via `pow_mul_pure` + `pow_mod_base`, close
+    each step with one of the two decidable cycle facts
+    (`5^5 % 31 = 25`, `25^5 % 31 = 5`). -/
+theorem configCountD_5_period_2_mod_31 :
+    ∀ m, 5^(5^(2*m+1)) % 31 = 25 ∧ 5^(5^(2*m+2)) % 31 = 5
+  | 0     => ⟨by decide, by decide⟩
+  | m + 1 => by
+      have ih := configCountD_5_period_2_mod_31 m
+      -- step1: 5^(5^(2m+3)) % 31 = 25
+      --   via 5^(2m+3) = 5^(2m+2) * 5 and ih.2 = (5^(5^(2m+2)) % 31 = 5)
+      have step1 : 5^(5^(2*m + 3)) % 31 = 25 := by
+        have h_pow : 5^(5^(2*m+2) * 5) = (5^(5^(2*m+2)))^5 :=
+          pow_mul_pure 5 (5^(2*m+2)) 5
+        rw [show 5^(2*m+3) = 5^(2*m+2) * 5 from rfl,
+            h_pow, pow_mod_base (5^(5^(2*m+2))) 31 5, ih.2]
+        -- goal: 5^5 % 31 = 25, closed by kernel
+      -- step2: 5^(5^(2m+4)) % 31 = 5
+      --   via 5^(2m+4) = 5^(2m+3) * 5 and step1
+      have step2 : 5^(5^(2*m + 4)) % 31 = 5 := by
+        have h_pow : 5^(5^(2*m+3) * 5) = (5^(5^(2*m+3)))^5 :=
+          pow_mul_pure 5 (5^(2*m+3)) 5
+        rw [show 5^(2*m+4) = 5^(2*m+3) * 5 from rfl,
+            h_pow, pow_mod_base (5^(5^(2*m+3))) 31 5, step1]
+        -- goal: 25^5 % 31 = 5, closed by kernel
+      exact ⟨step1, step2⟩
+
+/-- Convenience: `configCountD 5 1 % 31 = 25` (m = 0 first part). -/
+theorem configCountD_5_1_mod_31 : configCountD 5 1 % 31 = 25 :=
+  (configCountD_5_period_2_mod_31 0).1
+
+/-- Convenience: `configCountD 5 2 % 31 = 5` (m = 0 second part). -/
+theorem configCountD_5_2_mod_31 : configCountD 5 2 % 31 = 5 :=
+  (configCountD_5_period_2_mod_31 0).2
+
+/-! ### §H.4 `p = 17` — period 4 parametric proof
+
+The orbit of `5` under `x ↦ x^5 mod 17` has length 4:
+`5 → 14 → 12 → 3 → 5 → …`.  Verified by the four decidable
+seeds below.  Hence `5^(5^n) mod 17` cycles through `(14, 12, 3, 5)`
+indexed by `n mod 4` (for `n ≥ 1`). -/
+
+/-- Cycle seed (step 1): `5^5 ≡ 14 (mod 17)`. -/
+private theorem five_pow_5_mod_17 : 5^5 % 17 = 14 := by decide
+
+/-- Cycle seed (step 2): `14^5 ≡ 12 (mod 17)`. -/
+private theorem fourteen_pow_5_mod_17 : 14^5 % 17 = 12 := by decide
+
+/-- Cycle seed (step 3): `12^5 ≡ 3 (mod 17)`. -/
+private theorem twelve_pow_5_mod_17 : 12^5 % 17 = 3 := by decide
+
+/-- Cycle seed (step 4 closing the cycle): `3^5 ≡ 5 (mod 17)`. -/
+private theorem three_pow_5_mod_17 : 3^5 % 17 = 5 := by decide
+
+set_option exponentiation.threshold 1000 in
+/-- ★ **Parametric period 4 at `p = 17`**: the cycle
+    `(14, 12, 3, 5)` indexed by `(4m+1, 4m+2, 4m+3, 4m+4)`.
+
+    Each substep at index `m + 1` is derived from the previous
+    substep within the same `m` (i.e., the chain runs through
+    `(4m+1) → (4m+2) → (4m+3) → (4m+4) → (4m+5) = 4(m+1)+1`,
+    each step applying `x ↦ x^5 mod 17` once).  The `m = 0`
+    base case uses three small decidable values plus one
+    derivation via `f` (the fourth `5^(5^4) = 5^625` triggers
+    Lean's default `exponentiation.threshold = 256`; the local
+    `set_option` raises it so the chain rewrite proceeds). -/
+theorem configCountD_5_period_4_mod_17 :
+    ∀ m, 5^(5^(4*m+1)) % 17 = 14 ∧ 5^(5^(4*m+2)) % 17 = 12
+         ∧ 5^(5^(4*m+3)) % 17 = 3 ∧ 5^(5^(4*m+4)) % 17 = 5
+  | 0     => by
+      refine ⟨?_, ?_, ?_, ?_⟩
+      · decide  -- 5^(5^1) % 17 = 14
+      · decide  -- 5^(5^2) % 17 = 12
+      · decide  -- 5^(5^3) % 17 = 3
+      · -- 5^(5^4) % 17 = 5, derived (5^4 is borderline for decide)
+        have h3 : 5^(5^3) % 17 = 3 := by decide
+        have h_pow : 5^(5^3 * 5) = (5^(5^3))^5 := pow_mul_pure 5 (5^3) 5
+        show 5^(5^4) % 17 = 5
+        rw [show 5^4 = 5^3 * 5 from rfl, h_pow,
+            pow_mod_base (5^(5^3)) 17 5, h3]
+  | m + 1 => by
+      have ih := configCountD_5_period_4_mod_17 m
+      -- Chain: from ih.2.2.2 (= ... mod 17 = 5) propagate via f four times.
+      have s1 : 5^(5^(4*m+5)) % 17 = 14 := by
+        have hp : 5^(5^(4*m+4) * 5) = (5^(5^(4*m+4)))^5 :=
+          pow_mul_pure 5 (5^(4*m+4)) 5
+        rw [show 5^(4*m+5) = 5^(4*m+4) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+4))) 17 5, ih.2.2.2]
+      have s2 : 5^(5^(4*m+6)) % 17 = 12 := by
+        have hp : 5^(5^(4*m+5) * 5) = (5^(5^(4*m+5)))^5 :=
+          pow_mul_pure 5 (5^(4*m+5)) 5
+        rw [show 5^(4*m+6) = 5^(4*m+5) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+5))) 17 5, s1]
+      have s3 : 5^(5^(4*m+7)) % 17 = 3 := by
+        have hp : 5^(5^(4*m+6) * 5) = (5^(5^(4*m+6)))^5 :=
+          pow_mul_pure 5 (5^(4*m+6)) 5
+        rw [show 5^(4*m+7) = 5^(4*m+6) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+6))) 17 5, s2]
+      have s4 : 5^(5^(4*m+8)) % 17 = 5 := by
+        have hp : 5^(5^(4*m+7) * 5) = (5^(5^(4*m+7)))^5 :=
+          pow_mul_pure 5 (5^(4*m+7)) 5
+        rw [show 5^(4*m+8) = 5^(4*m+7) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+7))) 17 5, s3]
+      exact ⟨s1, s2, s3, s4⟩
+
+/-- Convenience: `configCountD 5 1 % 17 = 14`. -/
+theorem configCountD_5_1_mod_17 : configCountD 5 1 % 17 = 14 :=
+  (configCountD_5_period_4_mod_17 0).1
+
+/-- Convenience: `configCountD 5 2 % 17 = 12` (physics slice). -/
+theorem configCountD_5_2_mod_17 : configCountD 5 2 % 17 = 12 :=
+  (configCountD_5_period_4_mod_17 0).2.1
+
+/-! ### §H.5 `p = 137` — α_em modular fingerprint
+
+`137 = 1/α_em` (catalogue atom).  Cycle structure: `ord_137(5) = 136 = 2³·17`
+and `ord_136(5) = 16`, so the sequence `n ↦ 5^(5^n) mod 137` has period
+`16` from `n = 0`.  The cycle is too long for a clean parametric proof
+(diminishing returns vs. the `p = 41` constant), but the physics-slice
+readout has a clean catalogue-to-catalogue resonance:
+
+```
+configCountD 5 2 % 137 = 86 = Rn   (radon atomic number)
+```
+
+Both `137 = 1/α_em` and `86 = Rn` are catalogue atoms.  The count-Lens
+output at the physics slice projects one catalogue atom (`1/α_em`) to
+another (`Rn`) — an "α series" cross-readout parallel to the
+`(41, 9 = NS²)` constant.
+
+Hunter expressibility of `86`:
+
+```
+86 = NS² · NT² + d² · NT   = 9·4 + 25·2 = 36 + 50
+```
+
+(uses only `NS, NT, d` Hunter primitives, additively).
+-/
+
+/-- Hunter form of `86`: `86 = NS²·NT² + d²·NT` in primitives
+    `{NS = 3, NT = 2, d = 5}`.  Recast in `Nat`. -/
+theorem hunter_form_86 : 3^2 * 2^2 + 5^2 * 2 = 86 := by decide
+
+/-- Physics-slice readout at `p = 137 = 1/α_em`:
+    `configCountD 5 2 % 137 = 86 = Rn`.  Connects two catalogue
+    atoms (`1/α_em` and `Rn`) via the count-Lens at the physics
+    slice. -/
+theorem configCountD_5_2_mod_137 : configCountD 5 2 % 137 = 86 := by decide
+
+/-- Cycle structure at `p = 137`: full orbit
+    `5 → 111 → 86 → 70 → 29 → 57 → 113 → 90 → 117 → 46 → 53 → 116
+       → 6 → 104 → 27 → 75 → 5` (length 16).  Recorded as a small
+    table of the first 4 values; the full cycle is in the
+    research-note catalogue (`research-notes/G126_carmichael_chain_ext.md`).
+    Parametric ∀ n proof template applies but with 16 cycle seeds +
+    16 substeps — deferred for diminishing returns. -/
+theorem configCountD_5_mod_137_table :
+    configCountD 5 0 % 137 = 5
+    ∧ configCountD 5 1 % 137 = 111
+    ∧ configCountD 5 2 % 137 = 86
+    ∧ configCountD 5 3 % 137 = 70 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base
@@ -470,5 +765,17 @@ theorem configCountD_5_2_mod_table :
     ∧ configCountD 5 2 % 11 = 1
     ∧ configCountD 5 2 % 13 = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- Extended capstone — modular table at the physics slice `n = 2`
+    across the prime set `{17, 23, 31, 41}`.  The `mod 41` entry is
+    structurally distinguished: `41 = α_GUT integer`, and the
+    constant `9` extends to every `n ≥ 1` (cf.
+    `configCountD_5_succ_mod_41`). -/
+theorem configCountD_5_2_mod_table_extended :
+    configCountD 5 2 % 17 = 12
+    ∧ configCountD 5 2 % 23 = 10
+    ∧ configCountD 5 2 % 31 = 5
+    ∧ configCountD 5 2 % 41 = 9 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
