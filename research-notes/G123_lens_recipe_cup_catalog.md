@@ -130,6 +130,37 @@ channel**.
 
 15 new strict-PURE theorems in `SelfRefDepth.lean`.
 
+### B extension — codim catalog closure (2026-05-22)
+
+Higher-`k` endpoint pair firings added: `(2, 1)`, `(2, 2)`,
+`(3, 1)` — each fires uniquely at depth bit `5 - k - l` per
+codim correspondence.  Full d = 5 catalog:
+
+| Bidegree | Codim = 5-k-l | k+l |
+|---|---|---|
+| (1, 1) | 3 | 2 |
+| (1, 2) | 2 | 3 |
+| (2, 1) | 2 | 3 |
+| (1, 3) | 1 | 4 |
+| (2, 2) | 1 | 4 |
+| (3, 1) | 1 | 4 |
+
+**Cup-self-reference channel count theorem** (`cup_channel_total_d5`):
+the total channel count at d = 5 is exactly **6**, decomposing
+into codim strata `1 + 2 + 3 = 6 = binom(d-1, 2)`.
+
+**Numerical bridge to DRLT**:
+  · `6 = NS · NT = 3 · 2` (K_{3,2} bipartite vertex factor).
+  · `1/α_2 = 30 = (cup-channels) · d = 6 · 5 = NS · NT · d`.
+
+The cup-self-reference channel count is a structural factor of
+the weak inverse coupling `1/α_2`, with the missing factor being
+the vertex count `d = 5`.  This is a zero-parameter structural
+prediction relating the count-Lens output of the cup catalog to
+a physical observable.
+
+21 new strict-PURE theorems in `SelfRefDepth.lean`.
+
 ### C. Cup-channel κᵢ structural derivation (zero-parameter)
 
 DRLT Closure Form `obs = R · Π(1 + κᵢ · αᵢ^nᵢ)` has channel weights

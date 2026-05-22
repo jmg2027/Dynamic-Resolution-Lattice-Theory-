@@ -290,4 +290,45 @@ The grading is **count-Lens-canonical**: the firing depth is a
 finite-resolution Lens-output entirely determined by the support
 codimension of the cup product in Δ⁴. -/
 
+/-! ## §9.  Channel count at d = 5 — combinatorial closure -/
+
+/-- Number of admissible bidegrees `(k, l)` with `k, l ≥ 1` and
+    `k + l = total` for a given total. -/
+def bidegreeCount (total : Nat) : Nat :=
+  match total with
+  | 0 => 0
+  | 1 => 0
+  | n + 2 => n + 1
+
+/-- ★★ **Channel count per codim at d = 5**.
+
+      codim 3 = (k + l = 2): 1 bidegree {(1, 1)}
+      codim 2 = (k + l = 3): 2 bidegrees {(1, 2), (2, 1)}
+      codim 1 = (k + l = 4): 3 bidegrees {(1, 3), (2, 2), (3, 1)}
+
+    Total `1 + 2 + 3 = 6` cup-self-reference channels.  PURE. -/
+theorem cup_channel_count_per_codim :
+    bidegreeCount 2 = 1 ∧ bidegreeCount 3 = 2 ∧ bidegreeCount 4 = 3 := by
+  decide
+
+/-- ★★★★ **Total cup-self-reference channel count at d = 5 is `6`**.
+
+    For d = 5 and Δ⁴, summing across all admissible bidegrees
+    `(k, l)` with `k, l ≥ 1` and `k + l ≤ 4 = d - 1`:
+
+      Σ bidegreeCount(k + l) over k + l ∈ {2, 3, 4}
+      = 1 + 2 + 3 = 6 = binom(d - 1, 2) = binom(4, 2).
+
+    The count `6 = C(d-1, 2)` is the dimension of the
+    codim-stratified cup-self-reference channel space at d = 5.
+
+    Connections:
+      · `6 = NS · NT = 3 · 2` (bipartite vertex counts at K_{3,2}).
+      · `1/α_2 = 30 = NS · NT · d = 6 · 5 = 30`.
+        Cup channel count × vertex count = 1/α_2 inverse.
+
+    PURE. -/
+theorem cup_channel_total_d5 :
+    bidegreeCount 2 + bidegreeCount 3 + bidegreeCount 4 = 6 := by decide
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
