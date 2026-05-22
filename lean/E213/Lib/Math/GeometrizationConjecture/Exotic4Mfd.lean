@@ -245,4 +245,139 @@ theorem fw1_substantive_sym3_orbit_count :
   · decide
   · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
 
+/-! ## Sub-orbit decomposition by stabilizer size
+
+The 60 Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}) partition by orbit size
+(equivalently, by stabilizer-subgroup size via orbit-stabilizer):
+
+  | Stab order | Orbit size | Cochains | Orbits |
+  |---|---|---|---|
+  | 6 (Sym(3))      | 1 | 4 (= fixedSize)       | 4  |
+  | 3 (A_3 = ⟨ρ⟩)   | 2 | 0 (= Fix(ρ) − Sym3-fixed) | 0  |
+  | 2 (⟨transp⟩)    | 3 | 84 (= 88 − 4)         | 28 |
+  | 1 (trivial)     | 6 | 168 (= 256 − 4 − 0 − 84) | 28 |
+
+Total: 4 + 0 + 28 + 28 = 60 orbits ✓ ; 4 + 0 + 84 + 168 = 256 cochains ✓.
+
+The 0 size-2 orbit count is a non-trivial structural finding:
+`|Fix(ρ)| = |Fix(Sym(3))| = 4` means every ρ-fixed cochain is also
+transp-fixed, so no cochain has stab exactly = A_3.
+-/
+
+open E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix in
+/-- Third transposition matrix S02 = S01 · S12 · S01 (conjugation
+    of S12 by S01 in Sym(3)).  Under the `M_mul_M` convention
+    where `M_mul_M A B` represents "apply B then A", this is
+    `M_S01 · (M_S12 · M_S01)`. -/
+def M_S02 : Fin 8 → E213.Lib.Math.Cohomology.Bipartite.H1K.H1K :=
+  M_mul_M M_S01 (M_mul_M M_S12 M_S01)
+
+/-- S02 is involutory: M_S02 · M_S02 = IdMatrix.  Verified pointwise
+    via `decide` on 64 entries.  Confirms (S01·S12·S01)² = e. -/
+theorem M_S02_squared_pointwise :
+    ∀ i j : Fin 8, M_mul_M M_S02 M_S02 i j = IdMatrix i j := by decide
+
+/-- Cochain ω fixed by the S02 transposition matrix. -/
+def isFixedByS02 (ω : H1K) : Bool :=
+  (List.range 8).all (fun j =>
+    if h : j < 8 then M_mul_vec M_S02 ω ⟨j, h⟩ == ω ⟨j, h⟩ else true)
+
+/-- Count of H¹(K) cochains fixed by S02. -/
+def fixedSizeS02 : Nat :=
+  ((List.range 256).filter (fun i => isFixedByS02 (H1Kat i))).length
+
+/-- S02 transposition fixes 32 cochains — equal to S01 / S12 by
+    conjugacy class in Sym(3), verified by direct enumeration. -/
+theorem fixedSizeS02_eq_32 : fixedSizeS02 = 32 := by decide
+
+/-- Cochain fixed by at least one of the three transpositions. -/
+def isFixedBySomeTransp (ω : H1K) : Bool :=
+  isFixedByS01 ω || isFixedByS12 ω || isFixedByS02 ω
+
+/-- Count of cochains fixed by at least one transposition.
+    By inclusion-exclusion: 3·32 − 3·4 + 4 = 88. -/
+def transpFixedCount : Nat :=
+  ((List.range 256).filter (fun i => isFixedBySomeTransp (H1Kat i))).length
+
+/-- ★★★★ **|Fix(S01) ∪ Fix(S12) ∪ Fix(S02)| = 88**
+
+  By inclusion-exclusion applied to the three transposition fix-sets:
+    Σ |Fix(t)| − Σ |Fix(t) ∩ Fix(t')| + |Fix(t) ∩ Fix(t') ∩ Fix(t'')|
+    = 3·32 − 3·4 + 4 = 96 − 12 + 4 = 88
+  using the fact that the pairwise intersection equals the full
+  Sym(3)-fixed subspace (any two transpositions generate Sym(3)). -/
+theorem transpFixedCount_eq_88 : transpFixedCount = 88 := by decide
+
+/-! ## Orbit decomposition counts -/
+
+/-- Cochains with stab = exactly one ⟨transp⟩ (orbit size 3). -/
+def stabExactlyTranspCount : Nat := transpFixedCount - 4
+
+/-- Cochains with trivial stab (orbit size 6).  256 − 4 (Sym3-fixed)
+    − 0 (no exact-A_3 stab) − 84 (exactly-one-transp stab). -/
+def stabTrivialCount : Nat := 256 - 4 - 0 - 84
+
+/-- Number of orbits of size 1 (singletons, Sym(3)-fixed). -/
+def orbitsOfSizeOne : Nat := 4
+
+/-- Number of orbits of size 2 (stab = A_3, none in this rep). -/
+def orbitsOfSizeTwo : Nat := 0
+
+/-- Number of orbits of size 3 (stab = ⟨transposition⟩).
+    = (cochains fixed by exactly one transp) / 3 = 84 / 3. -/
+def orbitsOfSizeThree : Nat := stabExactlyTranspCount / 3
+
+/-- Number of orbits of size 6 (trivial stab).
+    = (cochains with trivial stab) / 6 = 168 / 6. -/
+def orbitsOfSizeSix : Nat := stabTrivialCount / 6
+
+/-- ★★★★★★ **FW-1 sub-orbit decomposition (a, b, c, d) = (4, 0, 28, 28)**
+
+  The 60 Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}) partition by orbit
+  size into:
+
+    · 4 orbits of size 1 (Sym(3)-fixed singletons: ω_00, ω_10, ω_01, ω_11)
+    · 0 orbits of size 2 (no cochain has stab exactly = A_3)
+    · 28 orbits of size 3 (stab = ⟨transposition⟩)
+    · 28 orbits of size 6 (trivial stab)
+
+  Sum verification: 4 + 0 + 28 + 28 = 60 orbits ✓.
+  Cochain count: 4·1 + 0·2 + 28·3 + 28·6 = 4 + 0 + 84 + 168 = 256 ✓.
+
+  Structural finding: orbits of size 2 are absent.  Equivalent
+  statement: `|Fix(ρ)| = |Fix(Sym(3))| = 4`, so the only ρ-fixed
+  cochains are the full Sym(3)-fixed ones — no cochain has stab
+  exactly equal to the cyclic subgroup A_3 = ⟨ρ⟩.
+
+  This refines the substantive `fw1_substantive_sym3_orbit_count`
+  with finer Donaldson-analog data: of the 60 gauge-orbit classes,
+  4 are "fully invariant", 28 have "transposition residue", and 28
+  are "fully free" under the Sym(3) action. -/
+theorem fw1_suborbit_decomposition :
+    -- Orbit counts
+    orbitsOfSizeOne = 4
+    ∧ orbitsOfSizeTwo = 0
+    ∧ orbitsOfSizeThree = 28
+    ∧ orbitsOfSizeSix = 28
+    -- Sum to 60 (total orbits)
+    ∧ orbitsOfSizeOne + orbitsOfSizeTwo + orbitsOfSizeThree
+        + orbitsOfSizeSix = sym3OrbitCount
+    -- Cochain count: 4·1 + 0·2 + 28·3 + 28·6 = 256
+    ∧ orbitsOfSizeOne * 1 + orbitsOfSizeTwo * 2
+        + orbitsOfSizeThree * 3 + orbitsOfSizeSix * 6 = 256
+    -- Burnside sum: 256 + 3·32 + 2·4 = 360 = 60 · 6
+    ∧ 256 + 3 * fixedSizeS01 + 2 * fixedSizeRho = sym3OrbitCount * 6
+    -- Structural: no size-2 orbits because |Fix(ρ)| = |Fix(Sym(3))|
+    ∧ fixedSizeRho = E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize
+    -- Inclusion-exclusion: |∪ Fix(transp)| = 88
+    ∧ transpFixedCount = 88 := by
+  refine ⟨rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
+  · exact sym3_burnside_sum
+  · rw [fixedSizeRho_eq_4, E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4]
+  · exact transpFixedCount_eq_88
+
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

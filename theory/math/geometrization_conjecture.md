@@ -250,9 +250,14 @@ For full ~149 PURE inventory, see
 Decomposition: 4 singleton orbits (Sym(3)-fixed = `ω_00, ω_10,
 ω_01, ω_11`) + 56 non-singleton orbits = 60.
 
-Still open: signed counting (Donaldson invariants are signed sums),
-standard-math interface for "smooth-structure equivalence", finer
-sub-orbit decomposition (a, b, c, d) for orbits of size (1, 2, 3, 6).
+**Sub-orbit decomposition** (`fw1_suborbit_decomposition`):
+the 60 orbits partition into (4, 0, 28, 28) by orbit size
+(1, 2, 3, 6).  The 0 size-2 count is a structural finding:
+`|Fix(ρ)| = |Fix(Sym(3))| = 4` means no cochain has stab exactly
+equal to A_3 = ⟨ρ⟩.
+
+Still open: signed counting (Donaldson invariants are signed sums)
+and standard-math interface for "smooth-structure equivalence".
 
 ### M3 / M4 knots (doc-level only)
 
@@ -316,6 +321,8 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 #check @JSJ_deeper_consolidation           -- JSJ-pillar deepening
 #check @mod_k_lens_family_F5_unique_close  -- F_5 Nil uniqueness
 #check @fw1_substantive_sym3_orbit_count   -- 60 Sym(3)-orbits (Burnside)
+#check @fw1_suborbit_decomposition         -- (4, 0, 28, 28) sub-orbit decomp
+#check @geometrization_followup_close_certificate  -- 33-conjunct mega-capstone
 ```
 
 ## Citation guidance

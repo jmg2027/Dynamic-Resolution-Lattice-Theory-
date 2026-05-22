@@ -78,14 +78,25 @@ enumeration: 60 distinct Sym(3)-gauge-equivalence classes of
 cochains, of which 4 are gauge-invariant (singletons) and 56 are
 non-trivial gauge orbits (sizes 2, 3, or 6 by stabilizer subgroup).
 
+**Sub-orbit decomposition added 2026-05-22**:
+  · `M_S02` explicit matrix (= `M_S01 · M_S12 · M_S01`) with
+    involution verification `M_S02_squared_pointwise`.
+  · `fixedSizeS02 = 32` (third transposition, decide-verified).
+  · `transpFixedCount = 88` via inclusion-exclusion `3·32 − 3·4 + 4`.
+  · **Sub-orbit decomposition `(4, 0, 28, 28)`**:
+      - 4 orbits of size 1 (Sym(3)-fixed singletons)
+      - 0 orbits of size 2 (no cochain has stab = A_3 since
+        `|Fix(ρ)| = |Fix(Sym(3))| = 4`)
+      - 28 orbits of size 3 (stab = ⟨transposition⟩)
+      - 28 orbits of size 6 (trivial stab)
+  · `fw1_suborbit_decomposition` capstone (8-conjunct bundle).
+
 **Still missing** (full Donaldson-comparison close):
   · Signed counting: Donaldson invariants are signed sums; the
     213-native sign assignment from K-deployment data is open.
   · Standard-math interface for "smooth structure equivalence"
     on a topological 4-manifold — 213 doesn't have this by design;
     comparison requires an external bridge.
-  · Sub-orbit decomposition (a, b, c) where a·1 + b·2 + c·3 + d·6
-    = 56 — exact orbit-size distribution.
 
 **Effort spent**: ~1 session.  Substantive enumeration achieved;
 remaining 4-10 sessions for full Donaldson comparison.

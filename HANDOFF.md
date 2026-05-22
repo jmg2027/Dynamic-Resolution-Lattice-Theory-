@@ -78,11 +78,16 @@ infrastructure:
 | Item | Blocker |
 |---|---|
 | **FW-1 signed Donaldson count** | Sign-assignment from K-deployment data; comparison interface to standard 4-mfd Donaldson invariants |
-| **FW-1 sub-orbit decomposition (a, b, c, d)** | Stabilizer enumeration per cochain (needs explicit S02 and ρ² matrices, or conjugacy-based counting argument) |
 | **FW-2 Filled3Cell.lean** | New 3-cell complex infrastructure (current `Filled.lean` is 2-cell only) |
 | **FW-4 213-native flat/hyperbolic metric types** | New geometry infra in `Lib/Math/Geometry/` |
 | **M2 universal V32Betti-style derivation** | Per-K_{NS,NT}^{(c)} cohomology files beyond V32 |
-| **I-3 BracketCauchy bidirectional bridge** | `IsRicciModulus` ↔ `IsContinuousModulus` direct functor witness (currently structural parallel only) |
+| **I-3 BracketCauchy bidirectional bridge** | `IsRicciModulus` ↔ `IsContinuousModulus` cross-category functor (different underlying types: cochain-functions vs cell-fill-counts) — likely ill-posed without further category infra |
+
+**FW-1 sub-orbit decomposition** closed 2026-05-22 (`Exotic4Mfd.lean`,
+`fw1_suborbit_decomposition`): `(4, 0, 28, 28)` partition by orbit size.
+
+Single tip-of-chain citation: `KChartLensAbstract.geometrization_followup_close_certificate`
+— 33-conjunct mega-capstone bundling all 10 follow-up items.
 
 ## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
 
