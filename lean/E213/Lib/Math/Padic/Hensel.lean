@@ -202,6 +202,21 @@ private theorem mul_div_cancel_pure (a b : Nat) (hb : 0 < b) :
   have hdm' : b * ((a * b) / b) = b * a := hdm.trans (Nat.mul_comm a b)
   exact E213.Tactic.NatHelper.mul_left_cancel_pos hb hdm'
 
+/-- `1 < p^(k+1)` for `1 < p` and any `k`. -/
+private theorem one_lt_pow_succ (p : Nat) (hp : 1 < p) (k : Nat) :
+    1 < p^(k + 1) := by
+  induction k with
+  | zero =>
+    show 1 < p^1
+    rw [Nat.pow_one]; exact hp
+  | succ m ih =>
+    have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+    have hpm_pos : 0 < p^(m + 1) := Nat.pos_pow_of_pos _ hp_pos
+    calc 1 < p^(m + 1) := ih
+      _ ≤ p^(m + 1) * p :=
+          Nat.le_mul_of_pos_right (p^(m + 1)) hp_pos
+      _ = p^(m + 2) := (Nat.pow_succ p (m + 1)).symm
+
 /-- For any A, `(A · p^(n+1)) % p^(n+2) = (A % p) · p^(n+1)`. -/
 private theorem mul_pow_succ_mod (A p n : Nat) (hp : 0 < p) :
     (A * p^(n + 1)) % p^(n + 2) = (A % p) * p^(n + 1) := by
