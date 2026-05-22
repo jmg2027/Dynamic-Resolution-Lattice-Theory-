@@ -81,19 +81,38 @@ reading: `5²⁵` is **one value of a parametric family**, not a
 ### Canonical object — the parametric family
 
 ```
+configCountD : Nat → Nat → Nat
+configCountD d n := d ^ (d ^ n)
+
 configCount : Nat → Nat
-configCount n := 5 ^ (numV n)
-              := 5 ^ (5^n)        -- numV from Cohomology/Fractal/Level
+configCount n := configCountD 5 n   -- display alias, d = 5 slice
 ```
 
-Concrete values:
+The base `d` is selected at the physics lens by
+`Theory.Atomicity.Five.atomic_iff_five` (and corroborating C2a /
+C2b derivations in `Lib/Physics/Foundations/AtomicConstantsUnique`).
+The level `n` is parametric — `configCount 2 = 5^25` is the
+level-2 readout, not a privileged constant.
+
+Concrete values at the `d = 5` slice:
 
   · `configCount 0 = 5`
   · `configCount 1 = 3125`
-  · `configCount 2 = 298023223876953125` (= `5^25`, historically `N_U`)
+  · `configCount 2 = 298023223876953125` (= `5^25`, display-aliased `N_U`)
   · `configCount 3 ≈ 2.35 × 10^87`
 
-Lean: `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (N_U re-derivation Phase 1).
+The full 2-parameter family at `n = 2` (level-2 readout, other
+bases for mathematical reference only):
+
+  · `configCountD 2 2 = 16`           (= `2^4`)
+  · `configCountD 3 2 = 19683`        (= `3^9`)
+  · `configCountD 5 2 = 298023223876953125`   (= `5^25`)
+  · `configCountD 7 2 = 7^49`         (≈ `2.56 × 10^41`)
+
+Clean recursion: `configCountD d (n+1) = (configCountD d n) ^ d`
+— the canonical "level-up" operation, ∅-axiom PURE in Lean.
+
+Lean: `Lib/Math/Cohomology/Fractal/ConfigCount.lean`.
 
 ### Two real derivations at level n = 2
 
