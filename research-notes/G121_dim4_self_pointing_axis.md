@@ -274,37 +274,49 @@ candidates yet, only narrative parallels.
 
 ## §6 Open knots — what must be derived
 
-### §6.1 M1 — Why $d_{213} = 5$  [TWO-ROUTE CLOSE 2026-05-22]
+### §6.1 M1 — Why $d_{213} = 5$  [ROUTE-STRENGTH-HONEST CLOSE 2026-05-22]
 
 `configCount n = d^(numV n)` with $d = 5$ in current 213 deployment.
-What forces $d = 5$ rather than $d \in \{3, 7, 11, \ldots\}$?
+What forces $d = 5$?
 
-**Two independent close routes achieved** (both PURE):
+**Two routes investigated; strength-asymmetric**:
 
-**Route A (atomicity-side, step 4)** via
-`GenerationRule/TriangleIteration`:
+**Route A (atomicity-side, step 4) — STRONG forcing of (NS, NT)**
+via `GenerationRule/TriangleIteration`:
   · `triIter 2 0 = 2 = N_T`, `triIter 2 1 = 3 = N_S`.
   · $d_{213} = N_S + N_T = 5$ derives from atomicity $a_0 = 2$.
+  · *c is unconstrained by atomicity.*
   · Lean: `ChartAxisAnsatz.chartBase_K32_derived_from_triangle_iteration`.
 
-**Route B (cohomology-side, step 5)** via
-`Cohomology/Examples/TopologyCompare.topology_uniqueness`:
-  · `b1_bipartite n m c = c*n*m - (n+m) + 1` (Euler).
-  · Among small (n, m, c) with $n+m \le 5$, $c \le 3$: ONLY
-    (3,2,2) and (2,3,2) give `b_1 = 8 = 1/α_3`.
-  · The (3,2,2) ↔ (2,3,2) symmetry is S/T-swap; same deployment
-    modulo labelling.
-  · Cohomology-α_3 match forces K_{3,2}^{(c=2)} uniquely.
-  · Lean: `ChartAxisAnsatz.M1_cohomology_route_close`.
+**Route B (cohomology-side, steps 5+7) — PARTIAL, scope-limited**
+via `Cohomology/Examples/TopologyCompare`:
+  · `b1_bipartite n m c = c*n*m - (n+m) + 1 = 8` has **10 (n,m,c)
+    solutions** across chartBase ∈ {5, 8, 9, 11}:
+      - chartBase=5: (3,2,2), (2,3,2), (4,1,3), (1,4,3)
+      - chartBase=8: (5,3,1), (3,5,1)
+      - chartBase=9: (8,1,2), (1,8,2)
+      - chartBase=11: (9,2,1), (2,9,1)
+  · `WhyDimFive` / `topology_uniqueness` claimed "doubly forced"
+    only because candidate set was restricted to NS+NT ≤ 5, c ≤ 3.
+    Step 7 extended the search and found 8 additional matches.
+  · Cohomology-α_3 alone does NOT force K_{3,2}^{(c=2)} uniquely.
+  · Lean: `ChartAxisAnsatz.cohomology_route_not_unique`.
 
-The two routes operate at different layers — atomicity at Raw
-Clause 1, cohomology at α_3-matching — and converge on the same
-deployment.
+**Combined uniqueness** (intersection of routes):
+  · Atomicity → (NS, NT) = (3, 2)
+  · Cohomology under (NS,NT)=(3,2) → c = 2 (only c=2 gives b_1=8)
+  · Together → K_{3,2}^{(c=2)} uniquely
+  · Lean: `ChartAxisAnsatz.combined_atomicity_cohomology_uniqueness`.
+
+**Standard-math comparison**: Donaldson's d_M = 4 critical is
+unique across *all* dimensions.  213-Lens cohomology-route is NOT
+unique across all chartBase — it merely contains K_{3,2}^{(c=2)}
+as one of 10 b_1=8 matches.  The d_M=4-unique reading requires
+atomicity to co-force.  **There is a strength gap** between
+standard-math d=4 uniqueness and 213-Lens cohomology-route.
 
 **Irreducible remaining commitment**: $a_0 = 2$ (Route A) =
 Raw axiom Clause 1: "two distinct atoms".  No further derivation.
-Route B does not reduce further either — it accepts $b_1 = 1/α_3 = 8$
-as the empirical anchor, and shows uniqueness from there.
 
 ### §6.2 M2 — Chart-Lens structurally omits self-pointing axes
 
@@ -626,20 +638,30 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      spacetime interpretation (M3 NT-axis split) is NOT the goal;
      the goal is *Geometrization-conjecture itself*.  Refocus
      onto manifold-dim spectrum.
- 13. **Geometrization spectrum analysis** added (34 PURE total).
+ 13. **Geometrization spectrum analysis** + **scope correction**
+     added (37 PURE total).
      Invokes `WhyDimFive` to project 213-deployment cohomology
      across d_M ∈ {3, 4, 5, 6}:
        · d_M = 3 (chartBase=4): K_{2,2}, K_{3,1} — no α_3 match
        · d_M = 4 (chartBase=5): K_{3,2}^{(c=2)} **UNIQUE**
        · d_M = 5 (chartBase=6): K_{3,3}, K_{4,2} — no match
        · d_M = 6 (chartBase=7): K_{4,3} — no match
-     ★★★ `geometrization_spectrum_capstone`: d_M=4 is the
-     **unique** critical dimension at which a 213 deployment
-     α_3-matches in tested chartBase∈{4..7} range.  Two spectra
-     (standard-math smooth-structure cardinality regime split +
-     213-Lens cohomology-α_3 deployment uniqueness) both single
-     out d_M=4 — convergence on the empirical anchor of G121
-     ansatz §4.1.
+     ★★★ `geometrization_spectrum_capstone`: d_M=4 unique within
+     chartBase ∈ {4..7}.  But **step 7 scope correction**: solving
+     `b_1 = 8` Euler equation across all (n, m, c) reveals **10
+     deployments** match across chartBase ∈ {5, 8, 9, 11}.
+     K_{5,3}^{(c=1)} (chartBase=8), K_{1,8}^{(c=2)} (chartBase=9)
+     etc. are counterexamples to WhyDimFive's "doubly forced" claim.
+
+     **Strength assessment** (`cohomology_route_not_unique` +
+     `combined_atomicity_cohomology_uniqueness`):
+       · Atomicity-route: STRONG forcing of (NS, NT) = (3, 2)
+       · Cohomology-route: PARTIAL (10 b_1=8 deployments)
+       · Combined: K_{3,2}^{(c=2)} uniquely forced
+
+     Standard-math d_M=4 critical (Donaldson) is unique across
+     ALL d.  213-Lens cohomology alone is NOT — strength gap
+     explicitly recorded.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.

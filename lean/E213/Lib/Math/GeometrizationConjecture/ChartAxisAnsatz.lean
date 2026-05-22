@@ -555,6 +555,110 @@ theorem dim_spectrum_dM6_no_match :
     ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 4 3 2 ≠ 8
     ∧ chartVisibleAxes 4 3 = 6 := by decide
 
+/-! ## Cohomology-route uniqueness scope (R1 step 7 — 2026-05-22)
+
+**Honest finding**: the M1 cohomology-route close of step 5 is
+*scope-limited*.  Step 5 invoked `TopologyCompare.topology_uniqueness`
+which proves uniqueness only within `NS + NT ≤ 5` and `c ≤ 3`.
+Extending the search shows the Euler formula
+`b_1 = c·n·m - (n+m) + 1 = 8` has **10 distinct (n, m, c)
+solutions**, sorted by chartBase = n + m:
+
+| chartBase | (n, m, c) | b_1 |
+|---|---|---|
+| 5 | (3, 2, 2), (2, 3, 2) | 8 |
+| 5 | (4, 1, 3), (1, 4, 3) | 8 |
+| 8 | (5, 3, 1), (3, 5, 1) | 8 |
+| 9 | (8, 1, 2), (1, 8, 2) | 8 |
+| 11 | (9, 2, 1), (2, 9, 1) | 8 |
+
+So `b_1 = 1/α_3 = 8` does **not uniquely force** K_{3,2}^{(c=2)}
+from cohomology alone.  The atomicity-route (step 4: Raw Clause 1
+→ `triIter 2 → (N_T, N_S) = (2, 3)`) IS a strong forcing of
+(NS, NT) = (3, 2).
+
+**Strength asymmetry**:
+  · Atomicity-route: forces (NS, NT) = (3, 2) uniquely from
+    `a₀ = 2` (Raw Clause 1).  c is not determined.
+  · Cohomology-route: among deployments with b_1 = 8, narrows to
+    10 (n, m, c) solutions; not unique.
+
+**Combined uniqueness** requires both:
+  · Atomicity → (NS, NT) = (3, 2)
+  · Cohomology α_3 match → c = 2 (only c=2 gives b_1=8 at
+    (3, 2)).
+
+Then K_{3,2}^{(c=2)} is uniquely forced by atomicity + cohomology
+together.  Neither alone suffices.
+
+This sharpens the G121 §6.1 status: M1 close is **partial** in
+the sense that *each individual route is partial* (atomicity
+fixes only (NS, NT); cohomology has 10 candidates), but their
+*intersection* fixes (NS, NT, c) = (3, 2, 2).
+
+Standard-math comparison: Donaldson's d=4 critical is *unique
+across all dimensions*.  213-Lens cohomology-route is *not unique
+across all chartBase* — it merely contains K_{3,2}^{(c=2)} as one
+of 10 matches.  The d_M=4-unique reading needs *atomicity to
+co-force*.
+-/
+
+/-- The 10 (n, m, c) deployments satisfying b_1 = 8:
+    cohomology-α_3 match is NOT unique across all chartBase. -/
+theorem cohomology_route_not_unique :
+    -- chartBase = 5 matches
+    E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 2 3 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 4 1 3 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 1 4 3 = 8
+    -- chartBase = 8 matches (counterexample to step-5 uniqueness)
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 5 3 1 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 5 1 = 8
+    -- chartBase = 9 matches
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 8 1 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 1 8 2 = 8
+    -- chartBase = 11 matches
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 9 2 1 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 2 9 1 = 8 := by
+  decide
+
+/-- chartBase=5 + c=2 narrows cohomology-α_3 match to {(3,2), (2,3)} —
+    the S/T-swap pair (one deployment modulo labelling). -/
+theorem cohomology_uniqueness_under_chartBase5_c2 :
+    -- (3, 2, 2) matches
+    E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
+    -- (2, 3, 2) matches (S/T swap)
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 2 3 2 = 8
+    -- (4, 1, 2) at chartBase=5 with c=2 does NOT match
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 4 1 2 ≠ 8
+    -- (1, 4, 2) similarly does NOT match
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 1 4 2 ≠ 8 := by
+  decide
+
+/-- ★★★ **Combined-route uniqueness for K_{3,2}^{(c=2)}**
+
+  Neither atomicity-route nor cohomology-route alone forces
+  K_{3,2}^{(c=2)} uniquely.  Atomicity fixes (NS, NT) = (3, 2);
+  cohomology α_3-match restricts c (under (NS, NT) = (3, 2),
+  only c = 2 gives b_1 = 8).
+
+  Together: K_{3,2}^{(c=2)} uniquely forced.
+-/
+theorem combined_atomicity_cohomology_uniqueness :
+    -- Atomicity: (N_T, N_S) = (2, 3) from triIter 2
+    E213.Lib.Math.GenerationRule.TriangleIteration.triIter 2 0 = 2
+    ∧ E213.Lib.Math.GenerationRule.TriangleIteration.triIter 2 1 = 3
+    -- Cohomology under (NS, NT) = (3, 2): only c = 2 matches α_3
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 1 ≠ 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 3 ≠ 8
+    -- Combined → K_{3,2}^{(c=2)} unique
+    ∧ chartBase 3 2 = 5
+    ∧ chartVisibleAxes 3 2 = 4
+    ∧ selfPointingAxes = 1 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, rfl, rfl, rfl⟩
+  all_goals first | rfl | decide
+
 /-- ★★★ **Geometrization spectrum capstone**
 
   d_M = 4 is the **unique critical dimension** at which a 213
@@ -595,41 +699,47 @@ theorem geometrization_spectrum_capstone :
     ∧ chartVisibleAxes 3 3 = 5
     ∧ chartVisibleAxes 4 3 = 6 := by decide
 
-/-- ★★★★★ **G121 R1 master capstone (4-route convergence)**
+/-- ★★★★★ **G121 R1 master capstone (4-route convergence,
+    scope-honest)**
 
-  Records the full state of R1 close after steps 1-5 (2026-05-22):
+  Records the full state of R1 close after steps 1-7 (2026-05-22):
 
   · **Step 1 — Definitional scaffold**: `chartVisibleAxes NS NT =
     NS + NT - 1`, parametric in deployment parameters.
   · **Step 2 — Axiom-level shadow**: `Meta.LensInternality` proves
     every `Lens α` has 3 data components = 2 atoms + 1 operator.
-    The `combine` operator is the axiom-level self-encoding.
   · **Step 3 — Deployment-level M2 close**: `V32Betti` proves
-    `dim ker δ⁰ = 1` for K_{3,2}^{(c=2)} (connected graph), hence
-    `selfPointingAxes = 1` derives from graph connectedness.
-  · **Step 4 — M1 atomicity-route close**: `TriangleIteration`
-    proves `(N_S, N_T) = (3, 2)` is the first two terms of
-    `triIter 2`.  Hence `chartBase 3 2 = 5` derives from `a₀ = 2`
-    (Raw axiom Clause 1's two-atom commitment).
-  · **Step 5 — M1 cohomology-route close**: `TopologyCompare.
-    topology_uniqueness` proves that ONLY `(3,2,2)` and `(2,3,2)`
-    among small candidates yield `b_1 = 8 = 1/α_3`.  Cohomology
-    forces K_{3,2}^{(c=2)} (modulo S/T-swap), independent of
-    atomicity-route forcing.
+    `dim ker δ⁰ = 1` for K_{3,2}^{(c=2)} via connectedness.
+  · **Step 4 — M1 atomicity-route**: `TriangleIteration` proves
+    `(N_S, N_T) = (3, 2)` from atomicity `a₀ = 2`.  **Strong
+    forcing** of (NS, NT); c is unconstrained.
+  · **Step 5 — M1 cohomology-route**: `TopologyCompare.
+    topology_uniqueness` proves (3,2,2)/(2,3,2) match α_3 within
+    `NS+NT ≤ 5, c ≤ 3`.  **Scope-limited** — see step 7.
+  · **Step 6 — Geometrization spectrum**: d_M ∈ {3..6} cohomology
+    analysis; K_{3,2}^{(c=2)} unique within tested chartBase∈{4..7}.
+  · **Step 7 — Cohomology-route scope correction**: extending
+    search reveals **10 (n, m, c) solutions to b_1 = 8** across
+    chartBase ∈ {5, 8, 9, 11}.  Cohomology-route alone is NOT a
+    strong forcing.  Atomicity + cohomology TOGETHER force
+    K_{3,2}^{(c=2)} uniquely.
 
-  Four independent routes converge on `chartVisibleAxes 3 2 = 4`:
+  Honest strength assessment:
 
-    (Axiom route)         Lens 3-tuple → 1 self-encoding component.
-    (Connectedness route) K_{3,2}^{(c=2)} connected ⟹ b₀ = 1.
-    (Atomicity route)     Raw 2 atoms ⟹ triIter 2 → (2, 3).
-    (Cohomology route)    Only (3,2,2)/(2,3,2) give b_1 = 1/α_3.
+    (Axiom route)         strong - directly from Lens structure
+    (Connectedness route) strong - K-graph b₀ = 1 (connected)
+    (Atomicity route)     strong - (NS, NT) = (3, 2) uniquely
+    (Cohomology route)    PARTIAL - 10 b_1=8 deployments exist;
+                                    forces c=2 ONLY UNDER (NS,NT)=(3,2)
 
-  All four ∅-axiom PURE.  The two M1 routes (atomicity and
-  cohomology) are independent forcings of the same deployment from
-  different layers (Raw axiom Clause 1 vs. α_3 integer match).
+  Combined atomicity + cohomology = K_{3,2}^{(c=2)} unique
+  (see `combined_atomicity_cohomology_uniqueness`).
 
-  Remaining irreducible commitment: `a₀ = 2` in the atomicity
-  route — Raw Clause 1's two-atom axiom, the 213 starting point.
+  Standard-math d_M = 4 critical: unique across ALL d.
+  213-Lens cohomology-route: unique only when paired with
+  atomicity-route.  This **strength gap** is the honest reading.
+
+  Remaining irreducible commitment: `a₀ = 2` (Raw Clause 1).
 -/
 theorem G121_R1_master_capstone :
     -- (Step 1) definitional scaffold consistency
