@@ -94,20 +94,20 @@ chapter.
 | `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
 | `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
-### Meta-scan action items (G107 — live tracker)
+### Action-item registries (live trackers)
 
-From `claude/analyze-lean4-ast-patterns-49Rh2` (merged as PR #91).
-G90-G106 promoted to `theory/meta/scanner_suite.md` +
-`theory/meta/raw_derivation_levels.md` (2026-05-22).  Only G107
-remains active at top-level as the live action-items registry.
-
-| File | Theme | Status |
+| File | Scope | Status |
 |---|---|---|
-| `G107_action_items_registry.md` | 24 actionable items (mechanical / mid-marathons / smaller / deferred) from G90-G106 scanner findings | **Active** — live tracker, ranked by mass × confidence / effort |
+| `G107_action_items_registry.md` | 24 actionable items from G90-G106 scanner findings (mechanical / mid-marathons / smaller / deferred), cross-branch handshake history | **Active** — ranked by mass × confidence / effort |
+| `G123_geometrization_open_followups.md` | G121 post-R1 follow-ups: FW-1..FW-4 marathon candidates (4-mfd exotic, JSJ-deep, chartBase-gen, metric-geometries) + I-series narrative deepening + M3/M4 residual knots | **Active** — registry for G121 open frontier |
 
-Closed items (C1-C6, N5-N6) are still listed in G107 §1 for
-historical context; they were executed via the cross-branch
-handshake (G93→G94→G96→G97).
+G107: G90-G106 promoted to `theory/meta/scanner_suite.md` +
+`theory/meta/raw_derivation_levels.md` (2026-05-22); closed items
+C1-C6, N5-N6 listed in G107 §1 for historical context.
+
+G123: companion to `theory/math/geometrization_conjecture.md` —
+R1 itself is CLOSED, this registry covers the marathon candidates
+and small refinements left in the wake.
 
 ## Subdirectories
 
@@ -121,7 +121,7 @@ handshake (G93→G94→G96→G97).
 
 ## Adding a new note
 
-Use next available G prefix (currently **G108**).  Once formalized:
+Use next available G prefix (currently **G124**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
