@@ -459,4 +459,58 @@ theorem Zp.mul_one_right_digit {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
   rw [Zp.mulRaw_one_right hp x k, Zp.mulCarry_one_right hp x k, Nat.add_zero]
   exact Nat.mod_eq_of_lt (x.digits k).isLt
 
+/-! ## Multiplication by one on the left (`1 · x = x`)
+
+Symmetric to `mul_one_right`: for the left operand `ZpSeq.one`, the
+convolution `Σ (one).digits i · x.digits (k-i)` collapses to the
+single term at `i = 0`, contributing `1 · (x.digits k).val =
+(x.digits k).val`.  All other terms have `(one).digits i = 0` for
+`i ≥ 1`.
+-/
+
+/-- For all `j ≥ 0`, `mulRawSum p one x k (j + 1) = (x.digits k).val`.
+    The `i = 0` term contributes `(x.digits k).val`; all later terms
+    contribute 0 since `(one).digits i = 0` for `i ≥ 1`. -/
+theorem Zp.mulRawSum_one_left_succ {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
+    ∀ j, Zp.mulRawSum p (ZpSeq.one p hp) x k (j + 1) = (x.digits k).val
+  | 0 => by
+    show (0 : Nat) + ((ZpSeq.one p hp).digits 0).val * (x.digits (k - 0)).val
+          = (x.digits k).val
+    rw [Zp.one_digit_val hp 0, if_pos rfl, Nat.sub_zero, Nat.one_mul,
+        Nat.zero_add]
+  | j + 1 => by
+    show Zp.mulRawSum p (ZpSeq.one p hp) x k (j + 1)
+          + ((ZpSeq.one p hp).digits (j + 1)).val
+              * (x.digits (k - (j + 1))).val
+        = (x.digits k).val
+    rw [Zp.mulRawSum_one_left_succ hp x k j]
+    rw [Zp.one_digit_val hp (j + 1),
+        if_neg (fun h => Nat.noConfusion h),
+        Nat.zero_mul, Nat.add_zero]
+
+/-- `mulRaw one x k = (x.digits k).val`. -/
+theorem Zp.mulRaw_one_left {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p (ZpSeq.one p hp) x k = (x.digits k).val :=
+  Zp.mulRawSum_one_left_succ hp x k k
+
+/-- Carry stays at zero when multiplying with `one` on the left. -/
+theorem Zp.mulCarry_one_left {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ k, Zp.mulCarry p (ZpSeq.one p hp) x k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show (Zp.mulRaw p (ZpSeq.one p hp) x k
+            + Zp.mulCarry p (ZpSeq.one p hp) x k) / p = 0
+    rw [Zp.mulRaw_one_left hp x k, Zp.mulCarry_one_left hp x k, Nat.add_zero]
+    exact Nat.div_eq_of_lt (x.digits k).isLt
+
+/-- `1 · x = x` (digit level). -/
+theorem Zp.mul_one_left_digit {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).digits k).val
+      = (x.digits k).val := by
+  show (Zp.mulRaw p (ZpSeq.one p hp) x k
+          + Zp.mulCarry p (ZpSeq.one p hp) x k) % p
+        = (x.digits k).val
+  rw [Zp.mulRaw_one_left hp x k, Zp.mulCarry_one_left hp x k, Nat.add_zero]
+  exact Nat.mod_eq_of_lt (x.digits k).isLt
+
 end E213.Lib.Math.Padic
