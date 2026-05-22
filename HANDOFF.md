@@ -2454,6 +2454,50 @@ Total Phase 3.3 marathon: 54 parts, 80+ universal PURE theorems.
 
 ---
 
+# Part 55 — 2·phi = 1 + √5 identity (commit `56d46c77`)
+
+  · `two_phi_eq_one_sqrt5 (p hp hpo)` :
+        `fp2Mul p (2 % p, 0) (phiFP2 p) = (1 % p, 1 % p)`
+    -- For odd 1 < p; via two_mul_inv2.
+
+This is the bridge: in F_{p²}, phi = (1 + √5)/2, so 2·phi = 1 + √5.
+In our encoding `(1, 1) = (1, 0) + (0, 1)` represents 1 + √5, and
+`(2 % p, 0) · phi = (1, 1)`.
+
+86 PURE in FP2Sqrt5.lean.
+
+## Remaining path to Frobenius FLT for phi
+
+To prove `phi^p = σ(phi)` universally, the cleanest path is:
+
+  · `fp2Mul_assoc` (universal F_{p²} associativity).
+  · `(x · y)^n = x^n · y^n` in F_{p²} (via fp2Mul_comm + fp2Mul_assoc).
+  · Freshman's dream `(x + y)^p = x^p + y^p` in F_{p²}
+    (substantial; via binomial expansion + middle binomial vanishing).
+  · Combine with FLT for inv2 (UniversalFLT) + Frobenius FLT for √5 (Part 53):
+      phi^p = ((inv2, 0) + (0, inv2))^p
+           = (inv2, 0)^p + (0, inv2)^p  [freshman's dream]
+           = (inv2, 0) + ((inv2, 0) · (0, 1))^p  [factoring (0, inv2)]
+           = (inv2, 0) + (inv2, 0)^p · (0, 1)^p  [(xy)^p]
+           = (inv2, 0) + (inv2, 0) · (0, p-1)  [FLT + Frob-FLT-for-√5]
+           = (inv2, p - inv2) = σ(phi)
+
+Each piece is substantial.  Freshman's dream is the most non-trivial.
+
+## Total Phase 3.3 marathon status
+
+  · 55 parts committed.
+  · FP2Sqrt5.lean: 86 PURE.
+  · PellFibBridge.lean: 56 PURE.
+  · UniversalPhase33.lean: 7 PURE.
+  · PhiMod5.lean: 25 PURE.
+  · Total in Phase 3.3 modules: ~174 PURE theorems.
+  · No DIRTY axioms introduced.
+  · The complete pipeline structure is in place; only Frobenius FLT
+    for phi (via freshman's dream) remains as the final universal step.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
