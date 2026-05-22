@@ -135,4 +135,30 @@ theorem Zp.invTemplate_digit_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
         else (⟨0, hp⟩ : Fin p)).val = 0
   rw [if_neg (fun h => Nat.noConfusion h)]
 
+/-- Level-1 Hensel correctness: `x · invTemplate ≡ 1 (mod p)`.
+    The base case of the Hensel-lifted inverse construction. -/
+theorem Zp.mul_invTemplate_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    (Zp.mul p hp x (Zp.invTemplate p hp x h_gcd)).trunc 1 = 1 % p := by
+  show (0 : Nat)
+        + ((Zp.mul p hp x (Zp.invTemplate p hp x h_gcd)).digits 0).val * p^0
+      = 1 % p
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  show ((Zp.mul p hp x (Zp.invTemplate p hp x h_gcd)).digits 0).val = 1 % p
+  show (Zp.mulRaw p x (Zp.invTemplate p hp x h_gcd) 0
+          + Zp.mulCarry p x (Zp.invTemplate p hp x h_gcd) 0) % p
+      = 1 % p
+  -- mulCarry 0 = 0 (by def).
+  show (Zp.mulRaw p x (Zp.invTemplate p hp x h_gcd) 0 + 0) % p = 1 % p
+  rw [Nat.add_zero]
+  -- mulRaw 0 = mulRawSum 0 1 = 0 + (x.digits 0).val * (invT.digits 0).val
+  show ((0 : Nat) + (x.digits 0).val
+          * ((Zp.invTemplate p hp x h_gcd).digits (0 - 0)).val) % p = 1 % p
+  rw [Nat.sub_zero, Nat.zero_add]
+  -- Replace (invT.digits 0).val with (invDigit0).val.
+  rw [Zp.invTemplate_digit_zero p hp x h_gcd]
+  -- Final: ((x.digits 0).val · (invDigit0).val) % p = 1 % p
+  exact Zp.invDigit0_eq p hp x h_gcd
+
 end E213.Lib.Math.Padic
