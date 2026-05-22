@@ -13,6 +13,7 @@ contains.
 |---|---|
 | `CONSOLIDATION_PROTOCOL.md` | 13-step procedure for cleaning up a leaf directory (V1/V2/V3, Phase capstones, Tight/Sharp progressions).  Codified R1–R11 reorganization rules.  Derived from the 2026-05-05 FamousCoincidences consolidation. |
 | `HIERARCHICAL_PLACEMENT.md` | Post-M11 final-state audit: every directory has umbrella file, every umbrella links every constituent file.  §6 "deferred-28" inventory (now closed). |
+| `PROMOTION_PATTERNS.md` | Three operational patterns for `research-notes/` → `theory/` promotion (multi-note absorption, narrative-from-scratch, mixed-status absorption).  Companion to `theory/PROMOTION_CRITERIA.md` (the gate spec). |
 
 ## Status
 

@@ -23,6 +23,27 @@ sub-tree has **closed** per `PROMOTION_CRITERIA.md`.
 2. `math/INDEX.md` — math chapters (closed sub-trees only).
 3. `physics/INDEX.md` — physics chapters.
 
+## Current chapters (9)
+
+### Math (5)
+
+| Chapter | Lean sub-tree | Promoted |
+|---|---|---|
+| `math/cohomology/hodge_conjecture.md` | `Lib/Math/HodgeConjecture/` | 2026-05-21 |
+| `math/cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/` | 2026-05-22 |
+| `math/cross_domain_unification.md` | `Lib/Math/{CrossDomainUnification, ParadigmDomain*}` | 2026-05-22 |
+| `math/pattern_catalog/pattern_catalog.md` | `Lib/Math/PatternCatalog/` | 2026-05-22 |
+| `math/universe_chain.md` | `Lib/Math/UniverseChain/`, `Lens/Number/Nat213/`, `Lib/Math/Mobius213*` | 2026-05-22 |
+| `math/analysis/minimal_root.md` | `Lib/Math/Analysis/DyadicSearch/` | 2026-05-22 |
+
+### Physics (3)
+
+| Chapter | Lean sub-tree | Promoted |
+|---|---|---|
+| `physics/symmetry/c3_chain.md` | `Lib/Physics/Symmetry/` | 2026-05-22 |
+| `physics/alpha_em/precision_derivation.md` | `Lib/Physics/AlphaEM/` | 2026-05-22 |
+| `physics/foundations/atomic_constants.md` | `Lib/Physics/Foundations/AtomicConstants*` | 2026-05-22 |
+
 ## Layout
 
 ```
@@ -33,37 +54,56 @@ theory/
 │
 ├── math/
 │   ├── INDEX.md
+│   ├── analysis/
+│   │   └── minimal_root.md          (G31 — trajectory-as-witness IVT)
+│   ├── cayley_dickson/
+│   │   └── algebra_tower.md         (G36, G51-G58 — CD tower 4-row matrix)
 │   ├── cohomology/
-│   │   └── hodge_conjecture.md   ← promoted 2026-05-21
-│   ├── cayley_dickson/           ← (algebra tower — pending)
-│   ├── mobius/                   ← (Mobius213 — pending)
-│   ├── nat213/                   ← (Nat213 lens fractal — pending)
-│   ├── analysis/                 ← (Analysis213 / DyadicSearch — pending)
-│   └── pattern_catalog/          ← (G28/G30 — pending)
+│   │   └── hodge_conjecture.md      (Hodge G6-G11 + 17 post-HC programme)
+│   ├── pattern_catalog/
+│   │   └── pattern_catalog.md       (G28, G30 — 5-entry generating set)
+│   ├── cross_domain_unification.md  (G35 §C6 — graded ring across 9 domains)
+│   └── universe_chain.md            (G65-G82 — atomicity → Möbius → CRT)
 │
 └── physics/
     ├── INDEX.md
     ├── alpha_em/
-    │   └── precision_derivation.md  ← promoted 2026-05-22 (C1 + C5; mixed status)
-    ├── symmetry/
-    │   └── c3_chain.md              ← promoted 2026-05-22 (gauge emergence)
-    └── couplings/                   ← (TripleCoupling / Basel — pending)
+    │   └── precision_derivation.md   (G35 §C1+§C5 — 0.09 ppb α_em)
+    ├── foundations/
+    │   └── atomic_constants.md       (G35 §C2 — (NS,NT)=(3,2) uniqueness)
+    └── symmetry/
+        └── c3_chain.md               (18-phase gauge emergence)
 ```
 
-## Current chapters (3)
+## How promotion works
 
-| Chapter | Lean sub-tree | Promoted |
-|---|---|---|
-| `math/cohomology/hodge_conjecture.md` | `lean/E213/Lib/Math/HodgeConjecture/` | 2026-05-21 |
-| `physics/symmetry/c3_chain.md` | `lean/E213/Lib/Physics/Symmetry/` | 2026-05-22 |
-| `physics/alpha_em/precision_derivation.md` | `lean/E213/Lib/Physics/AlphaEM/` | 2026-05-22 |
+See `PROMOTION_CRITERIA.md` for the H1-H4 + S1-S3 gates and
+`lean/E213/docs/PROMOTION_PATTERNS.md` for the three operational
+patterns:
 
-## Adding a chapter
+1. **Multi-note absorption** (Hodge, algebra tower, pattern catalog,
+   minimal root, universe chain): closed G-notes → chapter + archive.
+2. **Narrative-from-scratch** (C3 chain): Lean-only work → chapter.
+3. **Mixed-status absorption** (α_em, atomic constants,
+   cross-domain): active multi-topic catalog where some sub-topics
+   close → chapter for the closed part; catalog stays active with
+   §0.5 promotion tracker.
 
-1. Check `PROMOTION_CRITERIA.md` — all Hard criteria must pass.
-2. Soft criteria need Mingu's judgment.
-3. Write the chapter at the mirrored path.
-4. Update the relevant `math/INDEX.md` or `physics/INDEX.md`.
-5. Move the source research notes to `research-notes/archive/`.
-6. Update Lean docstring citations from `research-notes/G##` to
-   the new `theory/<path>`.
+## Active research (not promoted)
+
+The following research-notes top-level files remain **active scratch**
+(open conjectures, foundational baseline, or cross-cutting
+observations not tied to a single Lean sub-tree):
+
+- `G29_residue.md` — boot-sequence foundational read
+- `G1-G5, G12` — foundational thesis (lens, trajectory, chiral, ...)
+- `75, 76` — semantic atom + ouroboros
+- `G35_chiral_cup_ring_catalog.md` — 213-Algebra field catalog
+  (17 domains, status per-conjecture tracked in §0.5)
+- `G37-G50` — number-systems + level-25 + topology cross-cutting
+- `G59-G64` — orthogonal-axis tower (companions to universe chain)
+- `G85-G87` — cup-Δ Lens mismatch + **G86 open conjecture
+  (Cup-Leibniz general ∀(k,l))**
+- `G88+` (`2026-05-18_lens_emergence_path`) — lens emergence spec
+  (12 citations from `lean/` + `seed/`)
+- `G90-G107` — meta-scan branch deliverables (entry: `G107`)
