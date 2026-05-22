@@ -22,7 +22,7 @@ while keeping the work visible.
 
 ---
 
-## §1.  G123 (Geometrization follow-up registry) — promotion status
+## §1.  G128 (Geometrization follow-up registry) — promotion status
 
 **Current state**: 10 marathon items closed at various depths in
 `lean/E213/Lib/Math/GeometrizationConjecture/` (~200+ PURE) +
@@ -34,7 +34,7 @@ while keeping the work visible.
 already exists with "Open frontier" section; needs upgrade to full
 chapter when blockers close.
 
-### G123 promotion blockers
+### G128 promotion blockers
 
 | FW item | Promotion blocker | Lines of work est. |
 |---|---|---|
@@ -49,11 +49,11 @@ chapter when blockers close.
 **Soft criteria audit**:
 - S1 Categorical closure: ✗ (FW-2/FW-4/I-3/8-geo all narrative-deep but implementation-shallow)
 - S2 Downstream-ready: partial (`Capstone.dim4_information_richness` etc. cited by AkbulutCork; API exists)
-- S3 Research-note closure: ✗ (G121, G123 still active top-level)
+- S3 Research-note closure: ✗ (G121, G128 still active top-level)
 
 ---
 
-## §2.  G124 (V32Betti parametric) — promotion status
+## §2.  G129 (V32Betti parametric) — promotion status
 
 **Current state**: 3 files, 36 PURE in `Cohomology/Bipartite/Parametric/`.
 `decide`-based verification across G121-relevant deployments.
@@ -61,7 +61,7 @@ chapter when blockers close.
 **Target chapter**: `theory/math/cohomology/bipartite_parametric.md`
 (would be new chapter).
 
-### G124 promotion blockers
+### G129 promotion blockers
 
 | Item | Blocker | Lines of work est. |
 |---|---|---|
@@ -73,11 +73,11 @@ chapter when blockers close.
 **Soft criteria audit**:
 - S1: ✗ (representative range ≠ universal — categorical closure fails)
 - S2: ✓ (Bridge to KChartLensAbstract exists)
-- S3: ✗ (G124 research note still active)
+- S3: ✗ (G129 research note still active)
 
 ---
 
-## §3.  G125 (BracketCauchy ↔ IsRicciModulus) — promotion status
+## §3.  G130 (BracketCauchy ↔ IsRicciModulus) — promotion status
 
 **Current state**: `Topology/ModulusStructure.lean` (12 PURE).
 
@@ -85,7 +85,7 @@ chapter when blockers close.
 `theory/math/analysis/cauchy.md` or similar (small enough not to
 need a standalone chapter).
 
-### G125 promotion blockers
+### G130 promotion blockers
 
 | Item | Blocker | Lines of work est. |
 |---|---|---|
@@ -96,7 +96,7 @@ is a deeper extension that may not be necessary for promotion (the
 typeclass framework suffices for S1 categorical closure of the
 shared modulus pattern).
 
-**Recommended path**: declare G125 promotable at Option A close.
+**Recommended path**: declare G130 promotable at Option A close.
 Option B becomes a *separate* future marathon if/when category
 theory infra is needed for other reasons.
 
@@ -104,9 +104,9 @@ theory infra is needed for other reasons.
 - S1: ✓ (3-way framework captures the shared pattern; nothing
   material missing for the modulus-bridge use case)
 - S2: ✓ (Bridge usable from any Nat → Nat modulus source)
-- S3: ✗ (G125 research note still active; needs absorption)
+- S3: ✗ (G130 research note still active; needs absorption)
 
-**G125 is the closest to promotion** — only S3 (absorb research
+**G130 is the closest to promotion** — only S3 (absorb research
 note into target chapter) blocks.
 
 ---
@@ -122,7 +122,7 @@ cork-twist count `+4` established.
 
 | Item | Blocker | Lines of work est. |
 |---|---|---|
-| Higher cohomology cork-twist (b_2, b_3) | `Filled3Cell.lean` cell-complex extension to b_2 / b_3 calculations; M_S01 action on higher cohomology classes; currently only H¹ level | ~70 PURE, 3-5 sessions (depends on G123 FW-2 deepening) |
+| Higher cohomology cork-twist (b_2, b_3) | `Filled3Cell.lean` cell-complex extension to b_2 / b_3 calculations; M_S01 action on higher cohomology classes; currently only H¹ level | ~70 PURE, 3-5 sessions (depends on G128 FW-2 deepening) |
 | Multi-cork structures | Cork-of-cork iterated Z/2 actions on K-deployment; higher-order signed counts | ~40 PURE, 2-3 sessions |
 | Specific 4-mfd Donaldson comparison | OPEN by design (external interface, 213/standard-math boundary) — NOT a promotion blocker for the 213-internal cork-theorem chapter | — |
 
@@ -167,21 +167,21 @@ partial.
 If the goal is **promotion of as many marathons as possible**,
 optimal ordering:
 
-1. **G125 → promote at Option A close** (S3 absorption only blocker)
+1. **G130 → promote at Option A close** (S3 absorption only blocker)
    — 1 session: write `theory/math/analysis/modulus_structures.md`
-   absorbing the G125 note.
+   absorbing the G130 note.
 
-2. **G124 → promote after universal Nat-theorem** (graph-walk
+2. **G129 → promote after universal Nat-theorem** (graph-walk
    infra is single new prereq)
    — 5-8 sessions: build `GraphWalk/` + Nat-universal close +
    chapter write.
 
-3. **G126 → promote after b_2/b_3 cork extension** (G123 FW-2
+3. **G126 → promote after b_2/b_3 cork extension** (G128 FW-2
    deepening is prereq)
    — 5-8 sessions: Filled3Cell extension + cork higher-cohomology +
    chapter write.
 
-4. **G123 → promote LAST** (depends on G126 substantive close +
+4. **G128 → promote LAST** (depends on G126 substantive close +
    FW-2/FW-4/I-3/8-geo deepenings)
    — 16-25 sessions: full sweep + chapter write.
 
@@ -190,16 +190,16 @@ optimal ordering:
    — 11-16 sessions: Phases 2-mul, 4, 5 + substantive 6 + chapter.
 
 **Grand total**: ~38-58 sessions for full promotion of all 5
-marathons.  G125 is the cheapest first win.
+marathons.  G130 is the cheapest first win.
 
 ---
 
 ## §7.  Decision points before sweeping
 
-  · Is the "graph-walk connectedness" infrastructure for G124
+  · Is the "graph-walk connectedness" infrastructure for G129
     Nat-universal worth building as a standalone marathon?  Once
-    built, it enables G124 promotion + future K-deployment proofs.
-  · Should G123 FW-2 deepening (attaching maps) be its own
+    built, it enables G129 promotion + future K-deployment proofs.
+  · Should G128 FW-2 deepening (attaching maps) be its own
     sub-tree, or merged into `Cohomology/Bipartite/`?
   · For G126 multi-cork structures: do iterated cork-twists give
     a meaningful 213-native invariant beyond the signed count +4?

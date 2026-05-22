@@ -16,26 +16,19 @@ open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Theory E213.Lens
 
 /-- cutSumAux is true iff an existential witness exists.
-    PURE — corollary of `BoolOrLadder.bool_or_ladder_iff` (REAL-2 template). -/
+    PURE — `bool_or_ladder_iff_with_pack` instance over the
+    2-conjunct CutSum predicate. -/
 theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Nat) :
     cutSumAux cx cy k M n = true ↔
-    ∃ i, i ≤ n ∧ cx i (2*k) = true ∧ cy (M - i) (2*k) = true := by
-  have iff1 := E213.Lib.Math.Real213.Sum.BoolOrLadder.bool_or_ladder_iff
-      (fun i => cx i (2*k) && cy (M - i) (2*k))
-      (cutSumAux cx cy k M)
-      (by show (cx 0 (2*k) && cy M (2*k)) = (cx 0 (2*k) && cy (M - 0) (2*k));
-          rw [Nat.sub_zero])
-      (fun _ => rfl)
-      n
-  constructor
-  · intro h
-    obtain ⟨i, hi, hand⟩ := iff1.mp h
-    obtain ⟨hcx, hcy⟩ :=
-      (E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mp hand
-    exact ⟨i, hi, hcx, hcy⟩
-  · rintro ⟨i, hi, hcx, hcy⟩
-    exact iff1.mpr ⟨i, hi,
-      (E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mpr ⟨hcx, hcy⟩⟩
+    ∃ i, i ≤ n ∧ cx i (2*k) = true ∧ cy (M - i) (2*k) = true :=
+  E213.Lib.Math.Real213.Sum.BoolOrLadder.bool_or_ladder_iff_with_pack
+    (fun i => cx i (2*k) && cy (M - i) (2*k))
+    (cutSumAux cx cy k M)
+    (fun _ => E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _)
+    (by show (cx 0 (2*k) && cy M (2*k)) = (cx 0 (2*k) && cy (M - 0) (2*k));
+        rw [Nat.sub_zero])
+    (fun _ => rfl)
+    n
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum cutSumAux)

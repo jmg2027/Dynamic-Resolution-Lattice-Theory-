@@ -1,10 +1,10 @@
 # Abstraction Candidates — executor status
 
-CAT-2 per `research-notes/G107_action_items_registry.md` §10.2.
+CAT-2 per `research-notes/archive/metascan/G107_action_items_registry.md` §10.2.
 Tracks per-item status of every abstraction candidate surfaced by
 the G90-G106 meta scans.  Update when an item closes.
 
-Source registry: `research-notes/G107_action_items_registry.md`
+Source registry: `research-notes/archive/metascan/G107_action_items_registry.md`
 sections §2 (mechanical), §3 (mid-size), §4 (smaller).
 
 Status keys:

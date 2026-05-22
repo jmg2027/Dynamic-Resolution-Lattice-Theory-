@@ -94,24 +94,30 @@ chapter.
 | `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
 | `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
-### Action-item registries (live trackers)
+### Active registries + recent G-notes (post-merge unified)
+
+The n-u-followup branch's G107 + G108-G116 metascan cluster was
+archived after every item reached final disposition (six executed
+in Lean — L3/L4/L5/F/E/REAL-1 — four substantively done at audit
+— L1/C/G110/G111 — five structurally infeasible per G118, one
+folded into G86, one narrative-complete G117).  Closure summary
+in `theory/meta/scanner_suite.md` §"Open frontier".
+
+Active top-level registries after merge:
 
 | File | Scope | Status |
 |---|---|---|
-| `G107_action_items_registry.md` | 24 actionable items from G90-G106 scanner findings (mechanical / mid-marathons / smaller / deferred), cross-branch handshake history | **Active** — ranked by mass × confidence / effort |
-| `G123_geometrization_open_followups.md` | G121 post-R1 follow-ups: FW-1..FW-4 marathon candidates (4-mfd exotic, JSJ-deep, chartBase-gen, metric-geometries) + I-series narrative deepening + M3/M4 residual knots | **Active** — registry for G121 open frontier |
-| `G124_v32betti_parametric_generalization.md` | V32Betti generalization to arbitrary K_{NS,NT}^{(c)} (M2 universal close, ~95 PURE est., 6-10 sessions) | pre-marathon research direction |
-| `G125_bracket_cauchy_ricci_functor.md` | BracketCauchy ↔ IsRicciModulus typeclass-bridge or cross-category functor (Option A typeclass: ~40 PURE, 2-3 sessions; Option B full category theory: separate larger marathon) | pre-marathon research direction |
-| `G126_akbulut_cork_213_native.md` | Akbulut cork theorem as 213-native exotic-structure framework — supersedes FW-1.  Cork = (contractible K_{1,4} tree, Z/2 M_S01 involution); cork-twist gives natural Z/2 grading on Sym(3)-orbits → signed exotic-count entirely 213-internal.  ~120 PURE, 8-12 sessions, HIGH-PRIORITY | pre-marathon research direction |
-| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog for Geometrization family (G123/G124/G125/G126) and G122 Real213-p-adic.  Maps "follow-up implementation backlog" to PROMOTION_CRITERIA (H1-H4 + S1-S3) blockers per marathon.  Recommends sweep ordering: G125 → G124 → G126 → G123, with G122 independent | tracking / audit document |
+| `G124_n_u_family_cross_field_connections.md` | (FROM N-U BRANCH) cross-field survey at `(d, n) = (5, 2)` — 10 directions catalogued; **OPEN frontier of the merged branch, EXCLUDED THIS SESSION** | merged-branch open survey |
+| `G126_akbulut_cork_213_native.md` | Akbulut cork theorem as 213-native exotic-structure framework — supersedes FW-1.  6-phase partial close (44 PURE), signed cork-twist count = +4 | partial close — needs b_2/b_3 extension for full promotion |
+| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog: G128/G129/G130/G126/G122 (all post-rename) | tracking / audit document |
+| `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
+| `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
+| `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
 
-G107: G90-G106 promoted to `theory/meta/scanner_suite.md` +
-`theory/meta/raw_derivation_levels.md` (2026-05-22); closed items
-C1-C6, N5-N6 listed in G107 §1 for historical context.
-
-G123: companion to `theory/math/geometrization_conjecture.md` —
-R1 itself is CLOSED, this registry covers the marathon candidates
-and small refinements left in the wake.
+Renaming note: my G123/G124/G125 collided with the n-u branch's
+G123 (N_U family, promoted), G124 (cross-field survey, OPEN
+frontier), G125 (Aurifeuillean, promoted).  My-side files renamed
+to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Subdirectories
 
@@ -125,7 +131,7 @@ and small refinements left in the wake.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G128**).  Once formalized:
+Use next available G prefix (currently **G131**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -146,8 +152,18 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `b258a3f8` | Pattern catalog → `theory/math/pattern_catalog/pattern_catalog.md` | 1 (G28, G30) |
 | `b258a3f8` | Minimal root → `theory/math/analysis/minimal_root.md` | 1 (G31) |
 | `b258a3f8` | Universe chain → `theory/math/universe_chain.md` | 1 (G65-G82) |
-| (this commit) | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
-| (this commit) | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
+| `b258a3f8` | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
+| `b258a3f8` | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
 11 chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
+
+### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)
+
+After every G107 §4 item reached a final disposition (six
+executed in Lean during this branch's session, four
+substantively done already at audit, five structurally
+infeasible per G118, one folded into G86), G107 + G108-G116
+moved from top-level into `archive/metascan/`.  The closure
+summary lives in `theory/meta/scanner_suite.md` §"Open
+frontier".

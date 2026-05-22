@@ -3,6 +3,7 @@ import E213.Lib.Math.HodgeConjecture.Bridge.MotiveEtaleFusion
 import E213.Lib.Math.HodgeConjecture.Bridge.BeilinsonRegulator
 import E213.Lib.Math.HodgeConjecture.Bridge.GaloisCounterfactual
 import E213.Lib.Physics.Simplex.Counts
+import E213.Meta.Tactic.ListHelper
 /-!
 # — same lattice, different trajectory routes
 
@@ -38,6 +39,7 @@ open E213.Lib.Math.HodgeConjecture.Bridge.BeilinsonRegulator (zetaΔ)
 open E213.Lib.Math.HodgeConjecture.Bridge.GaloisCounterfactual (fixedCount)
 open E213.Lib.Math.HodgeConjecture.Bridge.MotiveEtaleFusion
   (motivicDim etaleDim)
+open E213.Tactic.ListHelper (sigmaList)
 
 /-! §1  The Route abstraction.
 
@@ -89,7 +91,7 @@ def routeGalois : Route := fun k =>
     Full route ⇒ 32; Galois route ⇒ 2 = fixedCount.  Same lattice,
     two parallel sums = two coexisting "phases". -/
 def routeSum (r : Route) (n : Nat) : Nat :=
-  (List.range (n+1)).foldl (fun acc k => acc + r k) 0
+  sigmaList (List.range (n+1)) r
 
 -- routeSum_{full, galois, full_eq_zeta, galois_eq_fixed} folded into capstone.
 

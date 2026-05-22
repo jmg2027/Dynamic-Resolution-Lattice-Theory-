@@ -1,4 +1,4 @@
-# G123 — Geometrization open follow-ups registry
+# G128 — Geometrization open follow-ups registry
 
 **Date**: 2026-05-22
 **Branch**: `claude/g121-open-followup-BCOp3`
@@ -23,7 +23,7 @@ R1+ files (`Generalization`, `JsjDeep`, `MetricGeometries`) landed.
 ## §0.  Numbering note — G122 collision
 
 G121's own `§FW` registry (step 25, commit `5d4137b0`) tagged its
-four marathon candidates **G122 / G123 / G124 / G125**.  Between
+four marathon candidates **G122 / G128 / G129 / G130**.  Between
 G121's close and this registry, branch
 `claude/lean4-ast-patterns-g1gWN` merged and claimed **G122** for
 the Real213-p-adic campaign (per `HANDOFF.md` "Next campaign").
@@ -32,9 +32,9 @@ The G121-internal labels are therefore stale:
 | G121 §FW label | G121-internal topic            | Post-renumber name used in this registry |
 |---|---|---|
 | ex-G122 | 4-mfd exotic enum via Sym(3) gauge | **FW-1**  (marathon, unnumbered until launch) |
-| ex-G123 | JSJ deeper close (3-cell complex)  | **FW-2**  (partial via `JsjDeep.lean`) |
-| ex-G124 | K_{NS,NT}^{(c)} chartBase ≥ 9      | **FW-3**  (partial via `Generalization.lean`) |
-| ex-G125 | E³/H³/H²×ℝ direct realization      | **FW-4**  (partial via `MetricGeometries.lean`) |
+| ex-G128 | JSJ deeper close (3-cell complex)  | **FW-2**  (partial via `JsjDeep.lean`) |
+| ex-G129 | K_{NS,NT}^{(c)} chartBase ≥ 9      | **FW-3**  (partial via `Generalization.lean`) |
+| ex-G130 | E³/H³/H²×ℝ direct realization      | **FW-4**  (partial via `MetricGeometries.lean`) |
 
 `theory/math/geometrization_conjecture.md` already silently
 relabeled these as "Real213-p-adic extensions A/B/C"; this file
@@ -269,15 +269,15 @@ X-1 is a meta-capstone — adds no new mathematics, just records the
 
 ---
 
-## §4.5  Spin-off marathons (post-G123 numbering)
+## §4.5  Spin-off marathons (post-G128 numbering)
 
-The G123 sweep leaves three items that don't fit a single follow-up
+The G128 sweep leaves three items that don't fit a single follow-up
 marathon scope; each gets its own G-number for future launch:
 
 | G-number | Topic | Status | Note |
 |---|---|---|---|
-| **G124** | M2 universal V32Betti-style generalization | open marathon, ~95 PURE est. | `G124_v32betti_parametric_generalization.md` |
-| **G125** | BracketCauchy ↔ IsRicciModulus typeclass-bridge | open marathon, Option A ~40 PURE est. | `G125_bracket_cauchy_ricci_functor.md` |
+| **G129** | M2 universal V32Betti-style generalization | open marathon, ~95 PURE est. | `G129_v32betti_parametric_generalization.md` |
+| **G130** | BracketCauchy ↔ IsRicciModulus typeclass-bridge | open marathon, Option A ~40 PURE est. | `G130_bracket_cauchy_ricci_functor.md` |
 | **(no G)** | FW-1 signed Donaldson count | **SUPERSEDED by G126** — meta-research at the 213/standard-math boundary; redirect to cork-frame | See §1 FW-1 entry; cork-frame supersedes via `G126_akbulut_cork_213_native.md` |
 | **G126** | Akbulut cork as 213-native exotic-structure framework | open marathon, ~120 PURE est., 8-12 sessions | `G126_akbulut_cork_213_native.md` — **HIGH-PRIORITY** alternative to FW-1; converts the unresolved sign problem into a concrete 213-internal cork-twist enumeration with all ingredients pre-existing (M_S01 involution, K_{1,4} tree as cork, ∂Δ⁴ = S³, tree-critical coexistence) |
 
@@ -299,7 +299,7 @@ Lean marathon launch is well-posed.
     chapter "Below DRLT Validation Standard" — none of FW-1..FW-4
     is a precision theorem yet.  FW-1 has the strongest path
     toward falsifier-form (Donaldson-comparable count).
-  · **Not a renumbering proposal**.  The G121-internal G122-G125
+  · **Not a renumbering proposal**.  The G121-internal G122-G130
     labels are kept as historical references in §0; new marathon
     numbers are picked at launch time only.
 

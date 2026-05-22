@@ -2,114 +2,136 @@
 
 ## Branch
 
-`claude/g121-open-followup-BCOp3` — pushed.  No active conflict.
+`claude/g121-open-followup-BCOp3` — post-merge of
+`claude/n-u-followup-campaign-3PnDm` (G86/G107/G117/G123-N_U/
+G124-cross-field/G125-Aurifeuillean closures + N_U family theory
+promoted).  My-side G123/G124/G125 (Geometrization follow-ups /
+V32Betti parametric / ModulusStructure) renumbered to
+G128/G129/G130 to avoid collision.
 
-## Recently closed (this branch)
+## Recently closed (post-merge unified)
 
 | Campaign | Status | Promoted to |
 |---|---|---|
-| **G123 follow-up marathons** (X-1 / I-1 / I-3 / I-4 / FW-1 / FW-2 / FW-3 / FW-4 + M1 universal / M2 abstract) | COMPLETE / SUBSTANTIVE | `theory/math/geometrization_conjecture.md` "Open frontier" rewritten + `lean/E213/Lib/Math/GeometrizationConjecture/` extended from 13 → 14 files |
-| **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
-| **G120 N_U re-derivation** (7 phases) | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 rewrite + `theory/INDEX.md` vocabulary + cascade across `theory/math/*`, `theory/physics/*`, `seed/AXIOM/*` |
-| **G119 marathon** (Pisano-period for Pell, universal in `p` via FLT + F_{p²} + Frobenius) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` (101 files), `theory/math/modular_arithmetic.md` (13 files) |
-| **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
-| **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
-| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Pre-G123 scan: **1145 PURE / 0 real DIRTY / 56 sealed-DIRTY-by-design (1201 total)**.  G123 added ~50 new PURE theorems; lake build clean. |
+| **G123 N_U-family theory** (configCountD parametric + modular structure) | COMPLETE + PROMOTED | `theory/math/cohomology/fractal.md` |
+| **G125 Aurifeuillean handle** (521 = Φ_10(5), n-uniform across all n ≥ 1) | COMPLETE + PROMOTED | `theory/math/cohomology/aurifeuillean.md` |
+| **G86 Cup-Leibniz ∀(n, k, l)** | CLOSED | `LeibnizFinGeneral` + `LeibnizFinPureForm` |
+| **G107 §4 action items** (24-entry registry) | CLOSED (archived) | `archive/metascan/INDEX.md` |
+| **G117 Bishop comparison** | NARRATIVE-COMPLETE / LEAN-INFEASIBLE | `seed/CLOSED_FORM_SPEC.md` + `theory/math/analysis/minimal_root.md` |
+| **G128 follow-up marathons** (X-1 / I-1 / I-3 / I-4 / FW-1 / FW-2 / FW-3 / FW-4 + M1 universal / M2 abstract; was G123) | COMPLETE / SUBSTANTIVE | `theory/math/geometrization_conjecture.md` "Open frontier" rewritten + GeometrizationConjecture/ extended |
+| **G126 Akbulut cork** (cork-frame supersedes FW-1) | 6-PHASE PARTIAL CLOSE | `lean/E213/Lib/Math/AkbulutCork/` (44 PURE), signed cork-twist count = +4 |
+| **G129 V32Betti parametric** (was G124) | PARTIAL CLOSE | `Cohomology/Bipartite/Parametric/` (36 PURE) |
+| **G130 ModulusStructure** (was G125) | OPTION A CLOSE | `Topology/ModulusStructure.lean` (12 PURE) |
+| **G122 Real213-p-adic** (Phases 1, 2, 3, 6) | PARTIAL CLOSE | `lean/E213/Lib/Math/Padic/` (42 PURE) |
+| **G121 R1 Geometrization** | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
+| **G120 N_U re-derivation** | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 + cascade |
+| **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
+| **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
-### G123 closure breakdown (10 marathon items, 2026-05-22)
+## Next campaign: Gram self-energy structural derivation
 
-| Item | Status | Key Lean artifact |
-|---|---|---|
-| X-1 cross-frame Sym(3) capstone | CLOSED | `CrossFrame.G121_X1_sym3_cross_frame_capstone` |
-| I-1 Sym(3) basis ↔ Thurston mapping | CLOSED | `CrossFrame.sym3_basis_thurston_mapping` |
-| I-3 Ricci ε-Lens integration | CLOSED | `Ricci.IsRicciModulus` + `ricci_eps_lens_full_integration` |
-| I-4 Poincaré two-layer | CLOSED | `Poincare.poincare_two_layer_trivial_loop` |
-| FW-1 Burnside Sym(3)-orbit count | SUBSTANTIVE | `Exotic4Mfd.fw1_substantive_sym3_orbit_count` (= 60) |
-| FW-2 JSJ-deeper consolidation | PARTIAL DEEPENED | `JsjDeep.JSJ_deeper_consolidation` |
-| FW-3 universal filter characterization | DONE (Prop + Boolean) | `Generalization.sym3_c2_iff_K32_or_K23` + `passes_filter_universal_bool` |
-| FW-4 F_5 Nil uniqueness | PARTIAL DEEPENED | `MetricGeometries.mod_k_lens_family_F5_unique_close` |
-| M1 universal closure | CLOSED (subsumes FW-3) | `Generalization.sym3_c2_force_K32` |
-| M2 abstract close | ABSTRACT CLOSE | `KChartLensAbstract.m2_abstract_close` |
+**Source**: n-u-followup HANDOFF flagged "Structural derivation of the
+Gram self-energy term in `AlphaEM/Augmented.lean:134-141` (the 4 ppm
+structural gap of `1/α_em`)" as the **principal physics-layer open
+problem** explicitly out-of-scope for N_U-family work.
 
-Closure logs preserved in git history; the live state is the Lean
-source + theory chapters.  Don't read the per-Part marathon logs that
-used to live here — they recorded transitional state of G119 and
-G120 phase-by-phase.
+**Why this is the next valuable open frontier**:
+  · DRLT Validation Standard requires either a ∅-axiom precision
+    theorem (ppb-ppm) or a measurable falsifier
+  · `1/α_em` is already derived at 0.07 ppm via the existing
+    AlphaEM infrastructure; the 4 ppm structural gap is the
+    Gram self-energy term
+  · Closing this gap promotes `1/α_em` from "near-precision-theorem"
+    to "precision-theorem at the structural-derivation tier"
+  · Direct path to DRLT Validation Standard satisfaction
 
-## Open work
+**Anchor file**: `lean/E213/Lib/Physics/AlphaEM/Augmented.lean`
+lines 134-141.
 
-### A. Cup-Leibniz general ∀(k, l) — G86 (deep open)
-Self-referential Leibniz for the lex-projection cup.  Empirically
-verified at two bidegrees; symbolic proof for general `(k, l, n)`
-deferred.  Source: `research-notes/G86_self_referential_leibniz.md`.
+**Excluded scope** (per merge instruction):
+  · n-u-followup branch's open frontier: G124 N_U cross-field
+    §6 directions (Aurifeuillean factor reading, Łukasiewicz L_5,
+    base-5 Wieferich primes, etc.) — these are the merged branch's
+    own open work, not for this session.
+  · G125 Q2 / Q3 / Q5 (Aurifeuillean side-questions) — same
+    branch's open queue.
 
-### B. G107 action-items still-open (high-priority subset)
-Source: `research-notes/G107_action_items_registry.md` (§3-§5).
-Currently still open:
+## Open work (post-merge)
 
-| Item | Notes |
-|---|---|
-| **L1 α-side** (full parametric) | β-side done; α-side blocked by `Nat.add` asymmetry — needs `Fin.cast` + Eq plumbing or per-`b` helpers |
-| **L3** Pisano Predictor 14/17 consolidation | Small marathon |
-| **L4** `addLDD` / `mulLDD` | Small |
-| **L5** `CDDouble.I_mul_J` / `J_mul_I` | Small |
-| **C** — CutSumOne 8-sibling 3-component template | Medium marathon |
-| **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
-| **F** — Σ-fold cross-domain | Adding `sigmaList` infra; small additive |
-| **G110 FLUX-1** forward/backward parametric | ~30K nodes |
-| **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
-| **G108 REAL-1/2** Cut iff consolidation | ~210K nodes |
-| **G114 CD-1/2/3** | CayleyDickson ring ext / conj (no consolidation possible per G118) |
-| **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
-| **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
+### A. Cup-Leibniz general — CLOSED 2026-05-22 (from n-u branch)
 
-### C. Doc work remaining (low priority)
-- **CLAUDE.md size** — 228 / 220 target.  Compress at next major
-  addition (current overflow is post-G120 + tier discipline + failure
-  modes catalog growth).
-- **TH-1 / TH-4** doc work routed earlier into
-  `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
+Fin-level ∀(n, k, l) twisted Leibniz proven strict PURE in
+`Cup/LeibnizFinGeneral.lean` + pure Fin-index form in
+`LeibnizFinPureForm.lean`.  6 supporting PURE files.  Four Δ⁴
+bidegree corollaries.  Self-referential restatement included.
+Source: `research-notes/G86_self_referential_lex_cup_leibniz.md`.
 
-### D'. Promotion-readiness audit (G127)
+### B. G107 §4 — CLOSED (archived from n-u branch)
+
+24-entry registry fully dispositioned: 6 executed in Lean, 4
+substantively done at audit, 5 structurally infeasible per G118,
+1 folded into G86, 1 narrative-complete / Lean-infeasible (G117).
+
+Closure index: `archive/metascan/INDEX.md`.
+
+### B+. G123 N_U-family theory — PROMOTED (from n-u branch)
+
+`theory/math/cohomology/fractal.md` is the promoted chapter.
+`configCountD d n := d^(d^n)` is the canonical 2-parameter family.
+Phase 5 includes parametric Fermat-style reduction
+`pow_mod_period_pure`, per-prime period-2 capstones at (5,7) and
+(5,13), and the modular-structure capstone bundling mod-2/mod-3/
+mod-5 constants with mod-7/mod-13 period-2 identities.
+
+### B++. G124 N_U-family cross-field connections — OPEN SURVEY (from n-u branch, EXCLUDED THIS SESSION)
+
+Multi-agent survey of cross-field connections.  Headline:
+seven-reading convergence at `(d, n) = (5, 2)` (number theory,
+universal algebra, finite-field affine plane, CA, CCC exponential,
+STLC, DRLT count-Lens).
+
+10 concrete research directions catalogued (G124 §6) including:
+Aurifeuillean factor reading, finite-field affine-plane ideal
+correspondence, Łukasiewicz L_5, iterated Carmichael chain, etc.
+
+**Status**: this is the merged branch's OPEN frontier — explicitly
+**excluded** from this session per merge instruction.
+
+### B+++. G125 Aurifeuillean — PROMOTED (from n-u branch)
+
+`theory/math/cohomology/aurifeuillean.md`.  521 = Φ_10(5) =
+N(29 + 8√5) is the unique Aurifeuillean cyclotomic factor of
+`5^(5^n) + 1`, n-uniform across all n ≥ 1.  14 PURE / 0 DIRTY
+across two files.  Q2 / Q3 / Q5 deferred (merged-branch open
+queue, EXCLUDED THIS SESSION).
+
+### C. Doc work remaining
+- **CLAUDE.md size** — 228 / 220 target.
+
+### D'. Promotion-readiness audit (G127, my side)
 
 Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
-**S1 categorical closure** and cannot promote to `theory/` chapters
-without follow-up implementation work.  The "follow-up backlog"
-is the **promotion-blocker work**, not "new research".
+S1 categorical closure and cannot promote.  G127 audit (still
+relevant after rename):
 
-See `research-notes/G127_promotion_readiness_audit.md` for the full
-per-marathon blocker catalog.
-
-Recommended promotion-sweep ordering:
-  1. **G125** (Option A close; only S3 absorption needed) — 1 session
-  2. **G124** (universal Nat-theorem via graph-walk infra) — 5-8 sessions
+  1. **G130** (was G125, Option A close; only S3 absorption needed) — 1 session
+  2. **G129** (was G124, universal Nat-theorem via graph-walk infra) — 5-8 sessions
   3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8 sessions
-  4. **G123** (FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
-  5. **G122** (independent track: Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions
+  4. **G128** (was G123, FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
+  5. **G122** (Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions
 
-**Grand total: ~38-58 sessions** to promote all 5 marathons.
+### D. G128 long-tail — spin-off marathons (formerly G123)
 
-### D. G123 long-tail — spin-off marathons assigned
-Source: `research-notes/G123_geometrization_open_followups.md` §4.5.
-
-| Item | New G-number | Status |
+| Item | Status | Note |
 |---|---|---|
-| **FW-2 topological 3-mfd attaching-map formalization** | none — structure-level scaffold done | `Cohomology/Bipartite/Filled3Cell.lean` (`Cell3ComplexK32` + Euler-char + realization predicate).  Full topological close would need new attaching-map types — not currently scoped. |
-| **FW-4 real-metric-tensor formalization** | none — 213-native classifier done | `Geometry/MetricTypes.lean` (`MetricSignature` + `LensChoice` + `classify`).  Real metrics by design absent from 213; the signature classifier is the 213-native replacement. |
-| **G124 M2 universal V32Betti-style derivation** | **PARTIAL CLOSE** | `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/` (3 files, 36 PURE).  Decide-based representative range covers all G121-relevant deployments.  Fully universal Nat-quantified theorem deferred (needs graph-walk connectedness). |
-| **G125 BracketCauchy ↔ IsRicciModulus bridge** | **OPTION A CLOSE** | `lean/E213/Lib/Math/Topology/ModulusStructure.lean` (12 PURE).  3-way typeclass framework with `IsModulusStructure` bare structure + 3 projection functions + canonical instances. |
-| **FW-1 signed Donaldson count** | **SUPERSEDED by G126** | Cork-frame closes FW-1 internally via Z/2-graded signed count. |
-| **G126 Akbulut cork as 213-native exotic-structure framework** | **6-PHASE PARTIAL CLOSE** | `lean/E213/Lib/Math/AkbulutCork/` (4 files, 44 PURE).  `signedCorkTwistCount = +4` — the 213-native signed exotic-count, fully 213-internal supersession of FW-1.  ★★★★★★★★★★ `akbulut_cork_213_native` capstone bundles all 6 phases. |
+| **FW-2 topological 3-mfd attaching-map formalization** | Scaffold done (Filled3Cell.lean) | Full topological close needs attaching-map types |
+| **FW-4 real-metric-tensor formalization** | Signature classifier done (Geometry/MetricTypes.lean) | Real metrics by design absent from 213 |
+| **G129 M2 universal V32Betti-style derivation** | PARTIAL CLOSE (decide range) | `Cohomology/Bipartite/Parametric/` (36 PURE) |
+| **G130 BracketCauchy ↔ IsRicciModulus bridge** | OPTION A CLOSE | `Topology/ModulusStructure.lean` (12 PURE) |
+| **FW-1 signed Donaldson count** | SUPERSEDED by G126 | Cork-frame closes internally via Z/2-graded signed count +4 |
+| **G126 Akbulut cork as 213-native exotic-structure framework** | 6-PHASE PARTIAL CLOSE | `lean/E213/Lib/Math/AkbulutCork/` (4 files, 44 PURE) |
 
-**FW-1 sub-orbit decomposition** closed 2026-05-22 (`Exotic4Mfd.lean`,
-`fw1_suborbit_decomposition`): `(4, 0, 28, 28)` partition by orbit size.
-
-Single tip-of-chain citation: `KChartLensAbstract.geometrization_followup_close_certificate`
-— 33-conjunct mega-capstone bundling all 10 follow-up items.
-
-## G122 Real213-p-adic — PARTIAL CLOSE (Phases 1, 2, 3, 6)
-
-**Status** (2026-05-22): 4 files, 42 PURE in `lean/E213/Lib/Math/Padic/`.
+## G122 Real213-p-adic — PARTIAL CLOSE
 
 | File | Phase | PURE | Content |
 |---|---|---|---|
@@ -118,95 +140,18 @@ Single tip-of-chain citation: `KChartLensAbstract.geometrization_followup_close_
 | `Valuation.lean` | 3 | 11 | vAt bounded valuation + characterization + per-prime smokes |
 | `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ N_U=5^25 alignment anchor |
 
-Open phases: Phase 4 (Hensel lifting), Phase 5 (ℚ_p localisation),
-Phase 2 multiplication, and substantive Phase 6 integration.
-
-### (Original prep notes — for reference)
-
-(Renumbered on merge: originally proposed as G120 on the
-`claude/lean4-ast-patterns-g1gWN` branch.  G120 was already used
-for the N_U re-derivation campaign and G121 for the Geometrization
-closure, so the p-adic campaign takes G122.)
-
-The G119 modular arithmetic library (Bezout, FLT, F_{p²},
-Frobenius) is the foundational substrate for a **∅-axiom
-construction of the p-adic integers** `ℤ_p`.
-
-### Resources prepared
-
-- **`research-notes/G122_real213_padic_research_direction.md`** —
-  comprehensive 6-phase research direction (6-10 sessions est.).
-- **`lean/E213/Lib/Math/Padic/Foundation.lean`** — Phase 1 starter
-  with `ZpDigit`, `ZpSeq`, truncation skeleton + roadmap comments.
-  7 PURE, builds clean.
-
-### Why this is the natural next campaign
-
-- Current FSM framework is **2-adic-flavored** (dyadic bit-streams).
-- `ResolutionLimit` uses `N_U = configCount 2 = 5²⁵` — base-5
-  finite-resolution.
-- Real213-p-adic generalises the resolution lattice base 2 → base p.
-- No known ∅-axiom p-adic construction exists.  Mathlib's `Padic`
-  brings Cauchy + Classical + propext.
-
-### Reuse from G119
-
-| G119 component | G122 usage |
-|---|---|
-| `add_mod_gen`, `mul_mod_pure` | Digit-by-digit arithmetic |
-| `modBezout`, `modInverseFromBezout` | Hensel-lifted inverse |
-| `universal_flt_main` | Teichmüller / Frobenius |
-| `universal_freshman_dream` | p-adic Frobenius automorphism |
-| F_{p²} machinery (FP2Sqrt5) | Quadratic extensions over ℤ_p |
-| `phiFP2_pow_p_eq_frob` | Teichmüller lifts in F_{p²} |
-
-All reused infrastructure is PURE.
-
-### Phase outline
-
-1. Phase 1: ZpDigit + ZpSeq foundation (1-2 sessions) — STARTED
-2. Phase 2: Arithmetic (`Zp.add`, `Zp.mul`, `Zp.neg`) (1-2 sessions)
-3. Phase 3: p-adic norm + valuation (1 session)
-4. Phase 4: Hensel lifting + inverses (2 sessions)
-5. Phase 5: ℚ_p localisation (1 session)
-6. Phase 6: DRLT integration (1-2 sessions)
-
-### Anchor target (5-adic, DRLT alignment)
-
-Since DRLT uses `N_U = 5²⁵`, the **5-adic Real213** is especially
-relevant.  Phase 6 anchor:
-
-```lean
-theorem nU_lifts_to_Z5_canonically :
-    ∀ n ≤ 25, (canonical_5adic_NU).trunc n = ... := ...
-```
-
-Concrete bridge from finite-resolution DRLT lattice to (potentially)
-infinite-precision 5-adic.  Whether infinite is operationally
-meaningful in DRLT is itself a research question.
-
-### Next-session start instructions
-
-1. Read `research-notes/G122_real213_padic_research_direction.md`.
-2. Open `lean/E213/Lib/Math/Padic/Foundation.lean`.
-3. Implement Phase 1 TODOs:
-   - `ZpSeq.trunc_lt_p_pow`
-   - `ZpSeq.eq_mod_pn_iff_trunc`
-   - `ZpSeq.digits_of_nat` embedding
-   - Per-prime smokes at `p ∈ {2, 3, 5, 7}`.
-4. Then proceed to Phase 2: new file `Arith.lean`.
+Open phases: Phase 4 (Hensel), Phase 5 (ℚ_p), Phase 2 multiplication,
+substantive Phase 6 integration.
 
 ## Anchor docs (next session)
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence — re-read every session start |
-| `research-notes/G29_residue.md` | Clean foundational text |
-| `theory/INDEX.md` | Book map (90 chapters) |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence |
+| `research-notes/G29_residue.md` | Foundational text |
+| `theory/INDEX.md` | Book map (90+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
-| `lean/E213/ARCHITECTURE.md` | Layer spec (4 ring + Meta) |
-| `lean/E213/docs/PROMOTION_PATTERNS.md` | Three promotion patterns |
+| `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
-| `seed/META_SCAN_ARCHETYPES.md` | 11 scanner archetypes |
-| `research-notes/G107_action_items_registry.md` | Open action items |
-| `research-notes/G122_real213_padic_research_direction.md` | Next campaign |
+| `lean/E213/Lib/Physics/AlphaEM/Augmented.lean` | **Next target: Gram self-energy gap, lines 134-141** |
+| `research-notes/G127_promotion_readiness_audit.md` | Promotion-blocker registry |

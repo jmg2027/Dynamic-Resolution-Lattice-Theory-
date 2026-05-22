@@ -57,7 +57,7 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutPow (cutPow cutScale)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge ldd_branch_via_maxRange)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge ldd_branch_via_maxRange ldd_branch_max_left ldd_branch_max_right)
 open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
@@ -114,8 +114,8 @@ def cutHalfIsSmooth : IsSmooth cutHalf where
   linearityModulus := id
 
 /-- **Pointwise addition LDD**: if f, g are LDD then so is
-    fun x => cutSum (f x) (g x).  Uses `ldd_branch_via_maxRange`
-    (G107 §4 L4 template) for both branches. -/
+    fun x => cutSum (f x) (g x).  Branches discharged by the
+    bilateral helpers `ldd_branch_max_{left,right}`. -/
 def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : LocallyDeterminedData f)
     (sg : LocallyDeterminedData g) :
@@ -127,12 +127,8 @@ def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     show cutSumAux (f cx) (g cx) k (2*m) (2*m)
        = cutSumAux (f cy) (g cy) k (2*m) (2*m)
     apply cutSumAux_congr
-    · intro m' hm'
-      exact ldd_branch_via_maxRange sf cx cy _ hagree (2*m) (2*k)
-              (E213.Meta.Nat.Max213.le_max_left _ _) m' hm'
-    · intro m' hm'
-      exact ldd_branch_via_maxRange sg cx cy _ hagree (2*m) (2*k)
-              (E213.Meta.Nat.Max213.le_max_right _ _) m' hm'
+    · exact ldd_branch_max_left sf sg cx cy (2*m) (2*k) hagree
+    · exact ldd_branch_max_right sf sg cx cy (2*m) (2*k) hagree
     · exact Nat.le_refl _
 
 /-- **Pointwise sum of smooth is smooth**.  Per user's Sec 2:
@@ -150,8 +146,8 @@ def addIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     max (sf.linearityModulus n) (sg.linearityModulus n)
 
 /-- **Pointwise product LDD**: if f, g are LDD then so is
-    fun x => cutMul (f x) (g x).  Uses `ldd_branch_via_maxRange`
-    (G107 §4 L4 template) for both branches. -/
+    fun x => cutMul (f x) (g x).  Branches discharged by the
+    bilateral helpers `ldd_branch_max_{left,right}`. -/
 def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : LocallyDeterminedData f)
     (sg : LocallyDeterminedData g) :
@@ -164,12 +160,8 @@ def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     show cutMulOuter (f cx) (g cx) k m ((m+1)*(k+1)) ((m+1)*(k+1))
        = cutMulOuter (f cy) (g cy) k m ((m+1)*(k+1)) ((m+1)*(k+1))
     apply cutMulOuter_congr
-    · intro m' hm'
-      exact ldd_branch_via_maxRange sf cx cy _ hagree ((m+1)*(k+1)) k
-              (E213.Meta.Nat.Max213.le_max_left _ _) m' hm'
-    · intro m' hm'
-      exact ldd_branch_via_maxRange sg cx cy _ hagree ((m+1)*(k+1)) k
-              (E213.Meta.Nat.Max213.le_max_right _ _) m' hm'
+    · exact ldd_branch_max_left sf sg cx cy ((m+1)*(k+1)) k hagree
+    · exact ldd_branch_max_right sf sg cx cy ((m+1)*(k+1)) k hagree
     · exact Nat.le_refl _
 
 /-- **Pointwise product of smooth is smooth**.  Per user's Sec 2:

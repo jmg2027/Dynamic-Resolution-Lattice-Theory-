@@ -184,4 +184,103 @@ theorem append_singleton_inj :
       injection h with h_head h_tail
       rw [h_head, ih bs x h_tail]
 
+/-! ## §6.  `eraseIdx` interaction with `++ [x]`
+
+Two structural lemmas about `(l ++ [x]).eraseIdx i`:
+
+  · `eraseIdx_append_singleton_low`: when `i < l.length`, the
+    `eraseIdx` lands inside `l` and the trailing `[x]` is preserved.
+  · `eraseIdx_append_singleton_at_len`: when `i = l.length`, the
+    `eraseIdx` removes the trailing `[x]`, returning `l`.
+
+Used by the `kSubset_eraseIdx_eq` structural lemma. -/
+
+/-- `(l ++ [x]).eraseIdx i = l.eraseIdx i ++ [x]` when `i < l.length`. -/
+theorem eraseIdx_append_singleton_low :
+    ∀ (l : List Nat) (x : Nat) (i : Nat),
+      i < l.length → (l ++ [x]).eraseIdx i = l.eraseIdx i ++ [x] := by
+  intro l x
+  induction l with
+  | nil =>
+    intro i h
+    exact absurd h (Nat.not_lt_zero i)
+  | cons a as ih =>
+    intro i h
+    cases i with
+    | zero => rfl
+    | succ i' =>
+      have h' : i' < as.length := Nat.lt_of_succ_lt_succ h
+      have ih' := ih i' h'
+      show a :: (as ++ [x]).eraseIdx i' = a :: as.eraseIdx i' ++ [x]
+      rw [ih']; rfl
+
+/-- `(l ++ [x]).eraseIdx l.length = l` — removing the trailing singleton
+    returns the prefix.  PURE. -/
+theorem eraseIdx_append_singleton_at_len :
+    ∀ (l : List Nat) (x : Nat), (l ++ [x]).eraseIdx l.length = l := by
+  intro l x
+  induction l with
+  | nil => rfl
+  | cons a as ih =>
+    show a :: (as ++ [x]).eraseIdx as.length = a :: as
+    rw [ih]
+
+/-- `(l.eraseIdx i).length + 1 = l.length` when `i < l.length`.  PURE.
+    Replaces the propext-tainted `List.length_eraseIdx` from Lean core. -/
+theorem length_eraseIdx_of_lt :
+    ∀ (l : List Nat) (i : Nat),
+      i < l.length → (l.eraseIdx i).length + 1 = l.length := by
+  intro l
+  induction l with
+  | nil =>
+    intro i h
+    exact absurd h (Nat.not_lt_zero i)
+  | cons a as ih =>
+    intro i h
+    cases i with
+    | zero =>
+      show as.length + 1 = as.length + 1
+      rfl
+    | succ i' =>
+      have h' : i' < as.length := Nat.lt_of_succ_lt_succ h
+      have := ih i' h'
+      show (as.eraseIdx i').length + 1 + 1 = as.length + 1
+      rw [this]
+
+/-! ## §7.  Σ-over-list — `sigmaList`
+
+Single primitive for "sum `f` over the elements of `xs`".  Unifies the
+`(xs.map f).foldl (· + ·) 0` skeleton recurring across math (Vec.inner,
+routeSum) and physics (observable_sum, focc_spectrum_master) layers.
+
+Reducible so that `decide` unfolds it transparently; PURE
+(no `propext`, no `Classical`). -/
+
+/-- Σ over a list with respect to a Nat-valued weight. -/
+@[reducible] def sigmaList {α : Type u} (xs : List α) (f : α → Nat) : Nat :=
+  (xs.map f).foldl (· + ·) 0
+
+/-- `sigmaList` of the empty list is `0`. -/
+theorem sigmaList_nil {α : Type u} (f : α → Nat) :
+    sigmaList ([] : List α) f = 0 := rfl
+
+/-- `sigmaList` over `range (n+1)` indexed by `r : Nat → Nat`
+    matches the bare `foldl (fun acc k => acc + r k) 0` shape that
+    `PhaseRouting.routeSum` previously inlined. -/
+theorem sigmaList_range_eq_foldl_acc (n : Nat) (r : Nat → Nat) :
+    sigmaList (List.range (n+1)) r
+      = (List.range (n+1)).foldl (fun acc k => acc + r k) 0 := by
+  show ((List.range (n+1)).map r).foldl (· + ·) 0
+     = (List.range (n+1)).foldl (fun acc k => acc + r k) 0
+  generalize hxs : List.range (n+1) = xs
+  clear hxs
+  suffices h : ∀ (acc : Nat),
+      (xs.map r).foldl (· + ·) acc
+        = xs.foldl (fun a k => a + r k) acc by
+    exact h 0
+  intro acc
+  induction xs generalizing acc with
+  | nil => rfl
+  | cons y ys ih => exact ih (acc + r y)
+
 end E213.Tactic.ListHelper

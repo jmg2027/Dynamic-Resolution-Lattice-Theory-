@@ -1,9 +1,9 @@
-# G124 — V32Betti parametric generalization (M2 universal)
+# G129 — V32Betti parametric generalization (M2 universal)
 
 **Date**: 2026-05-22
 **Status**: **PARTIAL CLOSE** (Phase 1-6, decide-based representative range)
 **Branch**: `claude/g121-open-followup-BCOp3`
-**Source**: G123 §2 (M2 residual), `HANDOFF.md` §D
+**Source**: G128 §2 (M2 residual), `HANDOFF.md` §D
 
 ## Partial close summary (2026-05-22)
 
@@ -17,7 +17,7 @@ created with 3 files, ~36 PURE:
     K_{2,1}, K_{1,3}, K_{3,1}, K_{2,2} (c=1,2), K_{1,4}, K_{4,1},
     K_{3,2}^{(c=2)}, K_{2,3}^{(c=2)}, K_{3,3}^{(c=2)}
   · `EulerAndCapstone.lean` (7 PURE) — Euler char + b_1 formula
-    + G124 capstone bundling the parametric cohomology summary
+    + G129 capstone bundling the parametric cohomology summary
 
 V32Betti compatibility verified: parametric `kerSizeDelta0Direct
 3 2 2` = `V32Betti.kerSizeDelta0` exactly.
@@ -32,7 +32,7 @@ V32Betti compatibility verified: parametric `kerSizeDelta0Direct
 
 ## Why this is a distinct marathon
 
-The G123 marathon closed M2 *abstractly* via `KChartLensAbstract`:
+The G128 marathon closed M2 *abstractly* via `KChartLensAbstract`:
 the `KChartLens NS NT c` structure carries the (chartVisibleAxes,
 selfPointingAxes) axes-partition pattern for any K-deployment.
 For K_{3,2}^{(c=2)} specifically, the deployment-level witness
@@ -86,7 +86,7 @@ Effort: 6-10 sessions.
 
 ## Anchor M2 closure target
 
-After G124 close, the M2 knot becomes universally proven:
+After G129 close, the M2 knot becomes universally proven:
 
 ```lean
 theorem M2_universal (NS NT c : Nat) (hNS : 1 ≤ NS) (hNT : 1 ≤ NT) (hc : 1 ≤ c) :
@@ -97,14 +97,14 @@ theorem M2_universal (NS NT c : Nat) (hNS : 1 ≤ NS) (hNT : 1 ≤ NT) (hc : 1 �
 bridging the abstract `KChartLens` structure to parametric
 cohomology data for any K-deployment.
 
-## Connection to G121 / G123
+## Connection to G121 / G128
 
   · G121 §6.3 (M2) ansatz: chart-Lens count = chartBase − 1, with
     selfPointingAxes = 1 for the forced K_{3,2}^{(c=2)} deployment.
-  · G123 M2 abstract close: `KChartLens NS NT c` structure type
+  · G128 M2 abstract close: `KChartLens NS NT c` structure type
     + 3 instances (K_{3,2}, K_{3,1}, K_{1,4}) all with
     selfPointingAxes = 1.
-  · G124 (this): show `selfPointingAxes = 1 = dim ker δ⁰ / 2` for
+  · G129 (this): show `selfPointingAxes = 1 = dim ker δ⁰ / 2` for
     arbitrary K_{NS,NT}^{(c)} via parametric cohomology — closes
     M2 universally.
 

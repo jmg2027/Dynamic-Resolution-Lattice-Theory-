@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
+import E213.Meta.Tactic.ListHelper
 
 /-!
 # f_occ spectrum — pattern occupation fractions on the (3, 2) 5-simplex
@@ -16,6 +17,7 @@ This file is 0-axiom, decide-checked throughout.  No real numbers.
 namespace E213.Lib.Physics.Simplex.FoccSpectrum
 
 open E213.Lib.Physics.Simplex.Counts
+open E213.Tactic.ListHelper (sigmaList)
 
 /-- The 10-entry f_occ spectrum on the (3, 2) 5-simplex.
 
@@ -48,7 +50,7 @@ theorem focc_spectrum_master :
     -- 10 distinct entries
     spectrum.length = 10
     -- Sum of multiplicities: 4×5 + 4×10 + 50 + 26 = 146
-    ∧ (spectrum.map (·.2)).foldl (· + ·) 0 = 146
+    ∧ sigmaList spectrum (·.2) = 146
     -- All denominators in slot/face counts {1, 2, 3, 4, 5}
     ∧ (∀ x ∈ spectrum,
          x.1.2 = 1 ∨ x.1.2 = 2 ∨ x.1.2 = 3

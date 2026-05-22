@@ -1,11 +1,11 @@
-# G125 — BracketCauchy ↔ IsRicciModulus cross-category functor
+# G130 — BracketCauchy ↔ IsRicciModulus cross-category functor
 
 **Date**: 2026-05-22
 **Status**: **OPTION A CLOSE** — typeclass-bridge framework
 established via `Topology/ModulusStructure.lean` (12 PURE, single
 session)
 **Branch**: `claude/g121-open-followup-BCOp3`
-**Source**: G123 §3 I-3 residual, `HANDOFF.md` §D
+**Source**: G128 §3 I-3 residual, `HANDOFF.md` §D
 
 ## Close summary (2026-05-22) — Option A
 
@@ -22,7 +22,7 @@ Option B (full category theory) deferred — not required for the
 
 ## Why this is a distinct marathon
 
-G123 I-3 closed Ricci-flow ε-Lens integration via the
+G128 I-3 closed Ricci-flow ε-Lens integration via the
 `IsRicciModulus` structure parallel to `IsContinuousModulus` in
 `Topology/Continuity`.  Both are `Nat → Nat` modulus-style
 structures with positional-control properties.
@@ -116,5 +116,5 @@ NONE — pure structural framework.  No measurable prediction.
 
 Before launch, decide: Option A (typeclass) or Option C (document
 obstruction).  Option B (full categories) is likely *outside*
-G125 scope and would be a separate marathon (e.g., G126: 213-native
+G130 scope and would be a separate marathon (e.g., G126: 213-native
 category theory infrastructure).

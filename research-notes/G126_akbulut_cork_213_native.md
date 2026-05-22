@@ -164,11 +164,11 @@ interface needed.
 ## Connection to existing G-numbers
 
   · G121: parent (Geometrization + 4-mfd anomaly conjecture)
-  · G123 FW-1: superseded by this; redirect FW-1 to cork-frame
-  · G124 (V32Betti parametric): orthogonal — cork-frame uses K_{1,4}
-    AND K_{3,2}^{(c=2)} side-by-side; G124 generalizes V32Betti to
+  · G128 FW-1: superseded by this; redirect FW-1 to cork-frame
+  · G129 (V32Betti parametric): orthogonal — cork-frame uses K_{1,4}
+    AND K_{3,2}^{(c=2)} side-by-side; G129 generalizes V32Betti to
     arbitrary K_{NS,NT}, possibly to K_{1,4} as needed
-  · G125 (Ricci/BracketCauchy bridge): independent
+  · G130 (Ricci/BracketCauchy bridge): independent
 
 ## Falsifier potential
 
