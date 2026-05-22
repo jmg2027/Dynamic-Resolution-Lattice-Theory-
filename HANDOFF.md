@@ -2324,6 +2324,75 @@ This is the final multi-session lift for FULL universal Phase 3.3.
 
 ---
 
+# Parts 49-51 — Bridge from Frobenius FLT to Phase 3.3 closure
+
+## Part 49 — inv2 cancellation lemmas (commit `b7739a9d`)
+
+In FP2Sqrt5.lean (73 PURE):
+  · `inv2_cancel_zero` : `(X * inv2) % p = 0  ⟹  X % p = 0`
+  · `inv2_cancel_eq` : `(X * inv2) % p = c % p  ⟹  X % p = (2*c) % p`
+  
+Universal mod-p arithmetic: extract X from `X · inv2 ≡ c` by multiplying
+both sides by 2 and using `2·inv2 ≡ 1 (mod p)`.
+
+## Part 50 — Bridge: F_p ≡ -1 from Frobenius FLT (commit `d3942dfa`)
+
+New file `lean/E213/Lib/Math/DyadicFSM/UniversalPhase33.lean`.
+
+  · `fp_eq_neg_one_of_frob_phi` (p hp hpo)
+      (h_frob : fp2Pow p phiFP2 p = fp2Frob p phiFP2) :
+      fibFst p % p = p - 1
+
+Proof chain: Binet (Part 48) → .2 component of h_frob →
+`(F_p · inv2 + inv2) % p = 0` → `((F_p+1)·inv2) % p = 0` →
+`inv2_cancel_zero` → `(F_p + 1) % p = 0` →
+`mod_eq_p_minus_one_of_succ_mod_zero` (BinetBridge) → `F_p % p = p - 1`.
+
+## Part 51 — UNIVERSAL Phase 3.3 via Frobenius FLT (commit `79304848`)
+
+  · `phiFP2_pow_pp1_of_frob` : phi^(p+1) = (p-1, 0) under h_frob.
+  · `fpp1_eq_zero_of_frob_phi` : F_{p+1} ≡ 0 (via Binet at p+1 + inv2_cancel_zero).
+  · `fpm1_eq_one_of_frob_phi` : F_{p-1} ≡ 1 (via Fibonacci recurrence + mod_cancel_right).
+  · ★★★★★ **`universal_phase_3_3_via_frob`** :
+        Given a SINGLE decidable hypothesis (Frobenius FLT for phi),
+        derives the Phase 3.3 matrix-order closure pellCoeff (p+1) = pellCoeff 0.
+
+This compresses the inert F-characteristic (two F-identity hypotheses
+in universal_phase_3_3) into ONE Frobenius FLT hypothesis.
+
+Per-prime smokes at p=3 and p=7 (h_frob verified by `decide`).
+
+## Status: Phase 3.3 universal closure STRUCTURE COMPLETE
+
+The complete Phase 3.3 derivation pipeline is now in place:
+
+```
+Frobenius FLT in F_{p^2}  (the last remaining piece)
+   ⇓ specialized to phi
+fp2Pow p phiFP2 p = fp2Frob p phiFP2
+   ⇓ universal_phase_3_3_via_frob (Part 51)
+inert F-identities (F_p = -1, F_{p-1} = 1 mod p)
+   ⇓ universal_phase_3_3 (Part 44)
+phase_3_3_closure (matrix-Fibonacci bridge, Part 40)
+   ⇓
+pellCoeff p hp (p+1) = pellCoeff p hp 0   -- M_pell^(p+1) = I in F_p
+```
+
+All steps PURE.  The "Frobenius FLT" piece is now isolated as the only
+remaining target; it is decidable per prime via `decide`.
+
+## Total Phase 3.3 marathon (Parts 33-51): 51 commits
+
+  · FP2Sqrt5.lean: 0 → 73 PURE (full F_{p^2} infrastructure + Binet + inv2 cancel)
+  · PellFibBridge.lean: extended with Fib add formula + universal_phase_3_3
+  · UniversalPhase33.lean: new file, 7 PURE (Frobenius-FLT-based bridge)
+  · PhiMod5.lean: 1 unprivate
+  · HANDOFF.md: progressively documented
+
+Total: 80+ universal theorems in 213-native PURE, no DIRTY introduced.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
