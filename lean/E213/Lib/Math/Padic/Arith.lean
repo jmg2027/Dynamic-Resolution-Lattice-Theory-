@@ -189,4 +189,68 @@ theorem Zp.smoke_add_zero_one_5 :
       (ZpSeq.zero 5 (by decide)) (ZpSeq.one 5 (by decide))).trunc 1 = 1 := by
   rw [Zp.add_trunc, ZpSeq.trunc_zero, ZpSeq.trunc_one_at_one]
 
+/-! ## Digit-complement and negation
+
+For each digit `d ∈ {0, …, p-1}`, the complement is `p-1-d`.  At
+the sequence level, `complement x` has digit-k equal to `p-1 -
+(x.digits k).val`.  Then `x + (complement x) = neg_one` (all-(p-1)
+sequence, no carries), and `neg x := complement x + one` gives the
+p-adic negation: `x + neg x = neg_one + one = 0` in ℤ_p (since
+adding 1 to all-(p-1) cascades carry through all positions,
+yielding all-zero).
+-/
+
+/-- Digit complement: `p - 1 - d`. -/
+def Zp.complement (p : Nat) (hp : 0 < p) (x : ZpSeq p) : ZpSeq p where
+  digits := fun k =>
+    ⟨p - 1 - (x.digits k).val,
+     Nat.lt_of_le_of_lt (Nat.sub_le _ _) (Nat.sub_lt hp Nat.one_pos)⟩
+
+/-- p-adic negation `-x := complement x + 1`. -/
+def Zp.neg (p : Nat) (hp : 1 < p) (x : ZpSeq p) : ZpSeq p :=
+  Zp.add p (Nat.lt_of_succ_lt hp) (Zp.complement p (Nat.lt_of_succ_lt hp) x)
+    (ZpSeq.one p hp)
+
+/-- Digit value of `complement`: by `rfl`. -/
+theorem Zp.complement_digit_val (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.complement p hp x).digits k).val = p - 1 - (x.digits k).val := rfl
+
+/-- The carry stays at `0` for the `x + complement x` sum, because
+    each digit-pair sums to `p - 1 < p`. -/
+theorem Zp.carry_x_complement (p : Nat) (hp : 0 < p) (x : ZpSeq p) :
+    ∀ k, Zp.carry p x (Zp.complement p hp x) k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show ((x.digits k).val + ((Zp.complement p hp x).digits k).val
+            + Zp.carry p x (Zp.complement p hp x) k) / p = 0
+    rw [Zp.carry_x_complement p hp x k, Nat.add_zero]
+    show ((x.digits k).val + (p - 1 - (x.digits k).val)) / p = 0
+    have hle : (x.digits k).val ≤ p - 1 :=
+      Nat.le_sub_one_of_lt (x.digits k).isLt
+    -- a + (p-1 - a) = p-1 when a ≤ p-1.
+    have hcancel : (x.digits k).val + (p - 1 - (x.digits k).val) = p - 1 := by
+      rw [Nat.add_comm]; exact E213.Tactic.NatHelper.sub_add_cancel hle
+    rw [hcancel]
+    -- (p-1) / p = 0 when p > 0.
+    exact Nat.div_eq_of_lt (Nat.sub_lt hp Nat.one_pos)
+
+/-- `(x + complement x)` digit-k value is `p - 1`.  No carries
+    propagate because each digit-pair sums to `p - 1 < p`. -/
+theorem Zp.add_complement_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.add p hp x (Zp.complement p hp x)).digits k).val = p - 1 := by
+  show ((x.digits k).val + ((Zp.complement p hp x).digits k).val
+          + Zp.carry p x (Zp.complement p hp x) k) % p = p - 1
+  rw [Zp.carry_x_complement p hp x k, Nat.add_zero]
+  show ((x.digits k).val + (p - 1 - (x.digits k).val)) % p = p - 1
+  have hle : (x.digits k).val ≤ p - 1 :=
+    Nat.le_sub_one_of_lt (x.digits k).isLt
+  have hcancel : (x.digits k).val + (p - 1 - (x.digits k).val) = p - 1 := by
+    rw [Nat.add_comm]; exact E213.Tactic.NatHelper.sub_add_cancel hle
+  rw [hcancel]
+  exact Nat.mod_eq_of_lt (Nat.sub_lt hp Nat.one_pos)
+
+/-- Smoke: `Zp.neg 5 (one) = neg_one` at digit 0. -/
+theorem Zp.smoke_neg_one_5_d0 :
+    ((Zp.neg 5 (by decide) (ZpSeq.one 5 (by decide))).digits 0).val = 4 := rfl
+
 end E213.Lib.Math.Padic
