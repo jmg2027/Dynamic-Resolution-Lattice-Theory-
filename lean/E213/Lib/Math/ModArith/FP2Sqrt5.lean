@@ -834,4 +834,106 @@ private theorem two_Fk_inv2_sq_eq (Fk p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
   rw [mul_assoc Fk 2 (inv2 p * inv2 p)]
   exact F_mul_two_inv2_sq Fk p hp hpo
 
+/-- ★★ **Binet inductive step**: from
+    `((Fk·inv2 + Fkm) % p, (Fk·inv2) % p)` (Binet form for index k)
+    multiplied by `phiFP2`, get the Binet form for index k+1
+    `((F_{k+1}·inv2 + Fk) % p, (F_{k+1}·inv2) % p)` where
+    `F_{k+1} = Fk + Fkm`.  PURE for odd `1 < p`. -/
+private theorem phiFP2_pow_step (Fk Fkm p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Mul p ((Fk * inv2 p + Fkm) % p, (Fk * inv2 p) % p) (phiFP2 p)
+      = (((Fk + Fkm) * inv2 p + Fk) % p, ((Fk + Fkm) * inv2 p) % p) := by
+  apply Prod.ext
+  · -- First component
+    show ((((Fk * inv2 p + Fkm) % p) * inv2 p
+            + 5 * ((Fk * inv2 p) % p) * inv2 p) % p)
+       = ((Fk + Fkm) * inv2 p + Fk) % p
+    rw [add_mod_gen (((Fk * inv2 p + Fkm) % p) * inv2 p)
+                     (5 * ((Fk * inv2 p) % p) * inv2 p) p]
+    rw [← mul_mod_left_pure (Fk * inv2 p + Fkm) (inv2 p) p]
+    rw [show (5 * ((Fk * inv2 p) % p) * inv2 p) % p
+            = (5 * (Fk * inv2 p) * inv2 p) % p from by
+        rw [mul_mod_left_pure (5 * ((Fk * inv2 p) % p)) (inv2 p) p]
+        rw [← mul_mod_right_pure 5 (Fk * inv2 p) p]
+        rw [← mul_mod_left_pure (5 * (Fk * inv2 p)) (inv2 p) p]]
+    rw [← add_mod_gen ((Fk * inv2 p + Fkm) * inv2 p)
+                       (5 * (Fk * inv2 p) * inv2 p) p]
+    rw [add_mul (Fk * inv2 p) Fkm (inv2 p)]
+    rw [show 5 * (Fk * inv2 p) * inv2 p = 5 * Fk * inv2 p * inv2 p from by
+        rw [mul_assoc 5 Fk (inv2 p)]]
+    rw [fp2_pow_step_alg_lhs1 Fk Fkm p]
+    rw [add_mod_gen (6 * Fk * (inv2 p * inv2 p)) (Fkm * inv2 p) p]
+    rw [six_Fk_inv2_sq_eq Fk p hp hpo]
+    rw [← add_mod_gen (Fk * (inv2 p + 1)) (Fkm * inv2 p) p]
+    rw [Nat.mul_add Fk (inv2 p) 1, Nat.mul_one]
+    rw [Nat.add_right_comm (Fk * inv2 p) Fk (Fkm * inv2 p)]
+    rw [← add_mul Fk Fkm (inv2 p)]
+  · -- Second component (no factor of 5)
+    show ((((Fk * inv2 p + Fkm) % p) * inv2 p
+            + ((Fk * inv2 p) % p) * inv2 p) % p)
+       = ((Fk + Fkm) * inv2 p) % p
+    rw [add_mod_gen (((Fk * inv2 p + Fkm) % p) * inv2 p)
+                     (((Fk * inv2 p) % p) * inv2 p) p]
+    rw [← mul_mod_left_pure (Fk * inv2 p + Fkm) (inv2 p) p]
+    rw [← mul_mod_left_pure (Fk * inv2 p) (inv2 p) p]
+    rw [← add_mod_gen ((Fk * inv2 p + Fkm) * inv2 p)
+                       ((Fk * inv2 p) * inv2 p) p]
+    rw [add_mul (Fk * inv2 p) Fkm (inv2 p)]
+    rw [fp2_pow_step_alg_lhs2 Fk Fkm p]
+    rw [add_mod_gen (2 * Fk * (inv2 p * inv2 p)) (Fkm * inv2 p) p]
+    rw [two_Fk_inv2_sq_eq Fk p hp hpo]
+    rw [← add_mod_gen (Fk * inv2 p) (Fkm * inv2 p) p]
+    rw [← add_mul Fk Fkm (inv2 p)]
+
+/-- ★★★★ **Binet expansion in 𝔽_{p²}**:
+    `phiFP2^k = F_k · phiFP2 + F_{k-1}` (using fibLike convention
+    `(F_k, F_{k-1})`).  Specifically:
+
+      `fp2Pow p (phiFP2 p) k
+         = ((F_k * inv2 + F_{k-1}) % p, (F_k * inv2) % p)`
+
+    By induction on k using `phiFP2_pow_step` (which encodes
+    `phi² = phi + 1` via the inductive step algebra).
+
+    PURE for odd `1 < p`.  This is the 𝔽_{p²}-analog of
+    `phi_pow_eq_fibLike` in PhiMod5 (split case). -/
+theorem phiFP2_pow_eq_fibLike (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    ∀ k, fp2Pow p (phiFP2 p) k
+       = (((fibLike k).1 * inv2 p + (fibLike k).2) % p,
+          ((fibLike k).1 * inv2 p) % p)
+  | 0 => by
+    show fp2One p = ((0 * inv2 p + 1) % p, (0 * inv2 p) % p)
+    show (1 % p, 0) = ((0 * inv2 p + 1) % p, (0 * inv2 p) % p)
+    rw [Nat.zero_mul, Nat.zero_add, zero_mod p]
+  | k + 1 => by
+    have ih := phiFP2_pow_eq_fibLike p hp hpo k
+    -- Recurrence on fibLike (k + 1):
+    -- (fibLike (k+1)).1 = (fibLike k).1 + (fibLike k).2
+    -- (fibLike (k+1)).2 = (fibLike k).1
+    show fp2Pow p (phiFP2 p) (k + 1)
+       = (((fibLike (k + 1)).1 * inv2 p + (fibLike (k + 1)).2) % p,
+          ((fibLike (k + 1)).1 * inv2 p) % p)
+    rw [fp2Pow_succ p (phiFP2 p) k, ih]
+    -- Goal:
+    --   fp2Mul p ((Fk * inv2 + Fkm) % p, (Fk * inv2) % p) phiFP2
+    -- = ((F_{k+1} * inv2 + Fk) % p, (F_{k+1} * inv2) % p)
+    -- where F_{k+1} = Fk + Fkm via fibLike_succ_fst.
+    show fp2Mul p (((fibLike k).1 * inv2 p + (fibLike k).2) % p,
+                    ((fibLike k).1 * inv2 p) % p)
+                 (phiFP2 p)
+       = ((((fibLike k).1 + (fibLike k).2) * inv2 p + (fibLike k).1) % p,
+          (((fibLike k).1 + (fibLike k).2) * inv2 p) % p)
+    exact phiFP2_pow_step (fibLike k).1 (fibLike k).2 p hp hpo
+
+/-- Smoke at p=3 (k=2): fibLike 2 = (1, 1). phi² = (0, 2) mod 3.
+    RHS: ((1 * 2 + 1) % 3, (1 * 2) % 3) = (0, 2). ✓ -/
+theorem phiFP2_pow_eq_fibLike_3_2 :
+    fp2Pow 3 (phiFP2 3) 2 = (0, 2) := by decide
+
+/-- Smoke at p=7 (k=3): fibLike 3 = (2, 1). phi³ = (8 + 1, 8) mod 7 = (2, 1).
+    Actually phi³ via fp2Mul at p=7. Compute: phi = (4, 4). phi² = (4·4 + 5·4·4, 4·4 + 4·4) = (96, 32) mod 7 = (5, 4).
+    phi³ = phi² · phi = (5, 4) · (4, 4) = (20 + 80, 20 + 16) = (100, 36) mod 7 = (2, 1).
+    RHS: ((2*4 + 1) % 7, (2*4) % 7) = (9 % 7, 8 % 7) = (2, 1). ✓ -/
+theorem phiFP2_pow_eq_fibLike_7_3 :
+    fp2Pow 7 (phiFP2 7) 3 = (2, 1) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
