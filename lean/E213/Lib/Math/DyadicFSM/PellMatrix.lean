@@ -95,4 +95,38 @@ theorem matrixOrder_3_eq_4 : isMatrixOrder 3 (by decide) 4 := by
 theorem matrixOrder_5_divides_10 :
     pellCoeff 5 (by decide) 10 = (⟨0, by decide⟩, ⟨1, by decide⟩) := rfl
 
+/-! ## Bridge: `pellCoeff` ↔ `pellFSMmod.run` at the initial state `(1, 1)`
+
+The matrix `M = [[2, 1], [1, 1]]` applied to `(1, 1)` gives `(3, 2)`.
+So `M^k · (1, 1) = a_k · (3, 2) + b_k · (1, 1) = (3·a_k + b_k, 2·a_k + b_k)`.
+
+Specifically, the existing `(pellFSMmod p hp).run k = M^k · (1, 1)`.
+
+When `(a_N, b_N) = (0, 1)`, the formula gives `(0 + 1, 0 + 1) = (1, 1) = init`,
+so `pellFSMmod.run N = init`, i.e., N is a period.
+
+The full proof requires an induction `run k = (3·a_k + b_k mod p, 2·a_k + b_k mod p)`.
+This bridge is the structural Phase 1 closure for FSM-1 (2) — connecting
+the matrix-order detector to the existing FSM period theorems.
+-/
+
+/-- Bridge lemma at N = 0: trivially, run 0 = init.  PURE. -/
+theorem pellFSMmod_run_zero (p : Nat) (hp : 1 < p) :
+    (pellFSMmod p hp).run 0 = (pellFSMmod p hp).init := rfl
+
+/-- Smoke verification of the bridge at p=11 (split, period 5 via matrix order):
+    pellCoeff_11_5 = (0, 1) AND pellFSMmod11.run 5 = init. -/
+theorem bridge_smoke_11 :
+    pellCoeff 11 (by decide) 5 = (⟨0, by decide⟩, ⟨1, by decide⟩)
+    ∧ (pellFSMmod 11 (by decide)).run 5 = (pellFSMmod 11 (by decide)).init := by
+  refine ⟨rfl, ?_⟩
+  decide
+
+/-- Smoke verification at p=3 (period 4). -/
+theorem bridge_smoke_3 :
+    pellCoeff 3 (by decide) 4 = (⟨0, by decide⟩, ⟨1, by decide⟩)
+    ∧ (pellFSMmod 3 (by decide)).run 4 = (pellFSMmod 3 (by decide)).init := by
+  refine ⟨rfl, ?_⟩
+  decide
+
 end E213.Lib.Math.DyadicFSM.PellMatrix
