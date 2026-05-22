@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.V25
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 import E213.Lib.Physics.Foundations.FiniteUniverse
 import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Physics.AlphaEM.NResolutionCandidates
@@ -31,6 +32,7 @@ namespace E213.Lib.Physics.Foundations.NResolutionFromFractal
 
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Math.Cohomology.Fractal.V25
+open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD)
 
 /-- ★ Vertex count of fractal level 2 = d² (already closed). -/
 theorem fractal_level2_vertex_count : numV = d * d := by decide
@@ -66,5 +68,39 @@ theorem n_resolution_structural :
     -- (c) finite-N deviation 36/N_U is sub-ppb
     ∧ n_resolution_candidate ≥ 10 ^ 17 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-! ## Bridge to the parametric `configCountD` family
+
+The level-2 readout `d^(d²) = d^numV` is one slice of the
+parametric family `configCountD d n := d^(d^n)`.  The bridge
+records both that the d=5 candidate equals the family evaluated
+at `(d=5, n=2)`, and that the parametric form
+`n_resolution_candidateD b := configCountD b 2` lifts the
+candidate to arbitrary base. -/
+
+/-- Parametric candidate at the level-2 readout: `b^(b²)` for any
+    base `b`.  The `b = 5` instance equals `n_resolution_candidate`. -/
+def n_resolution_candidateD (b : Nat) : Nat := configCountD b 2
+
+/-- Bridge: the original `n_resolution_candidate` (at the
+    Atomicity-forced base `d = 5`) is the `b = 5` slice of the
+    parametric `n_resolution_candidateD`. -/
+theorem n_resolution_candidate_eq :
+    n_resolution_candidate = n_resolution_candidateD 5 := by decide
+
+/-- Concrete values of the parametric family at small bases.
+    `b = 5` is selected by `Theory.Atomicity.Five`; the other
+    bases are mathematically well-defined but have no physical
+    reading. -/
+theorem n_resolution_candidateD_table :
+    n_resolution_candidateD 2 = 16
+    ∧ n_resolution_candidateD 3 = 19683
+    ∧ n_resolution_candidateD 5 = 298023223876953125
+    ∧ n_resolution_candidateD 7 = 7 ^ 49 := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · rfl
 
 end E213.Lib.Physics.Foundations.NResolutionFromFractal
