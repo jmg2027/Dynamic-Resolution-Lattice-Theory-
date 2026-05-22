@@ -104,11 +104,22 @@ Together with the G123 `configCountD_5_2_mod_table` for primes
 
 ## §6 Closure status + open
 
-  · ★ G126.1 (`p = 41` constant) — closed in Lean, parametric.
-  · G126.2 (`p = 31` period-2) — closed as table; parametric proof
-    follows mod-7 template.
-  · G126.3 (longer periods at 17, 23, 19, 29, 37, 43, 47) —
-    closed as concrete tables; parametric ∀ n proofs deferred.
+  · ★ G126.1 (`p = 41` constant 9) — closed in Lean, parametric ∀m.
+  · ★ G126.2 (`p = 31` period-2 `{25, 5}`) — closed in Lean,
+    parametric ∀m (2-cycle variant of the G126.1 template).
+  · ★ G126.3 (`p = 17` period-4 `{14, 12, 3, 5}`) — closed in Lean,
+    parametric ∀m (4-cycle variant, needs
+    `set_option exponentiation.threshold 1000` to step past
+    `5^(5^4) = 5^625`).
+  · G126.4 (longer periods at 23, 19, 29, 37, 43, 47) — closed as
+    concrete tables; parametric ∀n proofs follow the same
+    `k`-cycle template (k seeds + k substeps).  Deferred.
+
+The three parametric proofs (G126.1-3) demonstrate that the
+template `seed + pow_mul_pure + pow_mod_base + cycle facts`
+scales to arbitrary cycle length under `x ↦ x^5 mod p`.  Each
+new cycle length requires only the corresponding number of
+decidable cycle seeds and a chained inductive step.
 
 Open: structural reading of the `(p = 41, value = 9) = (α_GUT, NS²)`
 pair.  Is it forced by the same physics-base selection that gives

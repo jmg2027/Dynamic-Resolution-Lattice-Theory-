@@ -323,7 +323,7 @@ decidable identity.
 Three parallel follow-up tracks from G124 §6 catalogue.  Started
 2026-05-22 on the same `n-u-followup-campaign` branch.
 
-**G126 — Carmichael chain extension (closed in Lean)**:
+**G126 — Carmichael chain extension (Lean closed, 3 parametric ∀m)**:
 
   Extends G123 modular fingerprint catalogue to primes
   `{17, 23, 31, 41}` (next prime layer beyond `{2, 3, 5, 7, 11, 13}`).
@@ -338,11 +338,21 @@ Three parallel follow-up tracks from G124 §6 catalogue.  Started
   with two decidable seeds `5^5 % 41 = 9` and the self-stabilising
   `9^5 % 41 = 9`).
 
-  Lean (8 new PURE in `ConfigCountModular.lean §H`):
-    · `configCountD_5_succ_mod_41` (★ parametric ∀m)
-    · `configCountD_5_{1,2,3}_mod_41` (specialisations)
+  Lean (13 new PURE in `ConfigCountModular.lean §H`):
+    · `configCountD_5_succ_mod_41` (★ parametric ∀m, constant 9)
+    · `configCountD_5_period_2_mod_31` (★ parametric ∀m, 2-cycle)
+    · `configCountD_5_period_4_mod_17` (★ parametric ∀m, 4-cycle;
+      needs `set_option exponentiation.threshold 1000` for the
+      `5^(5^4) = 5^625` base step)
+    · `configCountD_5_{1,2,3}_mod_41`, `configCountD_5_{1,2}_mod_31`,
+      `configCountD_5_{1,2}_mod_17` (specialisations)
     · `configCountD_5_mod_{17,23,31}_table` (decide tables)
     · `configCountD_5_2_mod_table_extended` (physics-slice capstone)
+
+  The three parametric proofs demonstrate that the cycle template
+  (`pow_mul_pure` + `pow_mod_base` + k decidable cycle seeds)
+  scales to arbitrary cycle length under `x ↦ x^5 mod p` —
+  fixed-point at 41, 2-cycle at 31, 4-cycle at 17.
 
   Research note: `research-notes/G126_carmichael_chain_ext.md`.
   Catalogue: `catalogs/atomic-integers.md` `41` entry updated.

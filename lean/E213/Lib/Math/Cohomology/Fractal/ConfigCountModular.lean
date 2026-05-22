@@ -568,6 +568,139 @@ theorem configCountD_5_mod_31_table :
     ∧ configCountD 5 3 % 31 = 25 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ### §H.3 `p = 31` — period 2 parametric proof
+
+Same self-propagating dynamic as `p = 41`, but with a 2-cycle
+`{25, 5}` (the orbit of `5` under `x ↦ x^5 mod 31`) instead of a
+fixed point.  Explicitly: `f(5) = 5^5 ≡ 25`, `f(25) = 25^5 ≡ 5`,
+so `{25, 5}` is a 2-cycle under `f`.
+
+Hence `5^(5^n) mod 31` alternates `25` (for odd `n`, i.e. `n = 2m+1`)
+and `5` (for even `n ≥ 2`, i.e. `n = 2m+2`).  At `n = 0` the value
+is `5` (from `5^1 = 5`); the period-2 pattern is fully described
+by the pair `(2m+1, 2m+2)` for `m ≥ 0`. -/
+
+/-- Cycle seed: `25^5 ≡ 5 (mod 31)`.  `25^5 = 9765625 = 315020·31 + 5`,
+    completing the 2-cycle `25 ↦ 5 ↦ 25 ↦ …` under `x ↦ x^5 mod 31`. -/
+private theorem twentyfive_pow_5_mod_31 : 25^5 % 31 = 5 := by decide
+
+/-- ★ **Parametric period 2 at `p = 31`**:
+    `5^(5^(2m+1)) ≡ 25 (mod 31)` and `5^(5^(2m+2)) ≡ 5 (mod 31)`
+    for every `m ≥ 0`.
+
+    Same proof template as `configCountD_5_succ_mod_41`: induct on
+    `m`, propagate via `pow_mul_pure` + `pow_mod_base`, close
+    each step with one of the two decidable cycle facts
+    (`5^5 % 31 = 25`, `25^5 % 31 = 5`). -/
+theorem configCountD_5_period_2_mod_31 :
+    ∀ m, 5^(5^(2*m+1)) % 31 = 25 ∧ 5^(5^(2*m+2)) % 31 = 5
+  | 0     => ⟨by decide, by decide⟩
+  | m + 1 => by
+      have ih := configCountD_5_period_2_mod_31 m
+      -- step1: 5^(5^(2m+3)) % 31 = 25
+      --   via 5^(2m+3) = 5^(2m+2) * 5 and ih.2 = (5^(5^(2m+2)) % 31 = 5)
+      have step1 : 5^(5^(2*m + 3)) % 31 = 25 := by
+        have h_pow : 5^(5^(2*m+2) * 5) = (5^(5^(2*m+2)))^5 :=
+          pow_mul_pure 5 (5^(2*m+2)) 5
+        rw [show 5^(2*m+3) = 5^(2*m+2) * 5 from rfl,
+            h_pow, pow_mod_base (5^(5^(2*m+2))) 31 5, ih.2]
+        -- goal: 5^5 % 31 = 25, closed by kernel
+      -- step2: 5^(5^(2m+4)) % 31 = 5
+      --   via 5^(2m+4) = 5^(2m+3) * 5 and step1
+      have step2 : 5^(5^(2*m + 4)) % 31 = 5 := by
+        have h_pow : 5^(5^(2*m+3) * 5) = (5^(5^(2*m+3)))^5 :=
+          pow_mul_pure 5 (5^(2*m+3)) 5
+        rw [show 5^(2*m+4) = 5^(2*m+3) * 5 from rfl,
+            h_pow, pow_mod_base (5^(5^(2*m+3))) 31 5, step1]
+        -- goal: 25^5 % 31 = 5, closed by kernel
+      exact ⟨step1, step2⟩
+
+/-- Convenience: `configCountD 5 1 % 31 = 25` (m = 0 first part). -/
+theorem configCountD_5_1_mod_31 : configCountD 5 1 % 31 = 25 :=
+  (configCountD_5_period_2_mod_31 0).1
+
+/-- Convenience: `configCountD 5 2 % 31 = 5` (m = 0 second part). -/
+theorem configCountD_5_2_mod_31 : configCountD 5 2 % 31 = 5 :=
+  (configCountD_5_period_2_mod_31 0).2
+
+/-! ### §H.4 `p = 17` — period 4 parametric proof
+
+The orbit of `5` under `x ↦ x^5 mod 17` has length 4:
+`5 → 14 → 12 → 3 → 5 → …`.  Verified by the four decidable
+seeds below.  Hence `5^(5^n) mod 17` cycles through `(14, 12, 3, 5)`
+indexed by `n mod 4` (for `n ≥ 1`). -/
+
+/-- Cycle seed (step 1): `5^5 ≡ 14 (mod 17)`. -/
+private theorem five_pow_5_mod_17 : 5^5 % 17 = 14 := by decide
+
+/-- Cycle seed (step 2): `14^5 ≡ 12 (mod 17)`. -/
+private theorem fourteen_pow_5_mod_17 : 14^5 % 17 = 12 := by decide
+
+/-- Cycle seed (step 3): `12^5 ≡ 3 (mod 17)`. -/
+private theorem twelve_pow_5_mod_17 : 12^5 % 17 = 3 := by decide
+
+/-- Cycle seed (step 4 closing the cycle): `3^5 ≡ 5 (mod 17)`. -/
+private theorem three_pow_5_mod_17 : 3^5 % 17 = 5 := by decide
+
+set_option exponentiation.threshold 1000 in
+/-- ★ **Parametric period 4 at `p = 17`**: the cycle
+    `(14, 12, 3, 5)` indexed by `(4m+1, 4m+2, 4m+3, 4m+4)`.
+
+    Each substep at index `m + 1` is derived from the previous
+    substep within the same `m` (i.e., the chain runs through
+    `(4m+1) → (4m+2) → (4m+3) → (4m+4) → (4m+5) = 4(m+1)+1`,
+    each step applying `x ↦ x^5 mod 17` once).  The `m = 0`
+    base case uses three small decidable values plus one
+    derivation via `f` (the fourth `5^(5^4) = 5^625` triggers
+    Lean's default `exponentiation.threshold = 256`; the local
+    `set_option` raises it so the chain rewrite proceeds). -/
+theorem configCountD_5_period_4_mod_17 :
+    ∀ m, 5^(5^(4*m+1)) % 17 = 14 ∧ 5^(5^(4*m+2)) % 17 = 12
+         ∧ 5^(5^(4*m+3)) % 17 = 3 ∧ 5^(5^(4*m+4)) % 17 = 5
+  | 0     => by
+      refine ⟨?_, ?_, ?_, ?_⟩
+      · decide  -- 5^(5^1) % 17 = 14
+      · decide  -- 5^(5^2) % 17 = 12
+      · decide  -- 5^(5^3) % 17 = 3
+      · -- 5^(5^4) % 17 = 5, derived (5^4 is borderline for decide)
+        have h3 : 5^(5^3) % 17 = 3 := by decide
+        have h_pow : 5^(5^3 * 5) = (5^(5^3))^5 := pow_mul_pure 5 (5^3) 5
+        show 5^(5^4) % 17 = 5
+        rw [show 5^4 = 5^3 * 5 from rfl, h_pow,
+            pow_mod_base (5^(5^3)) 17 5, h3]
+  | m + 1 => by
+      have ih := configCountD_5_period_4_mod_17 m
+      -- Chain: from ih.2.2.2 (= ... mod 17 = 5) propagate via f four times.
+      have s1 : 5^(5^(4*m+5)) % 17 = 14 := by
+        have hp : 5^(5^(4*m+4) * 5) = (5^(5^(4*m+4)))^5 :=
+          pow_mul_pure 5 (5^(4*m+4)) 5
+        rw [show 5^(4*m+5) = 5^(4*m+4) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+4))) 17 5, ih.2.2.2]
+      have s2 : 5^(5^(4*m+6)) % 17 = 12 := by
+        have hp : 5^(5^(4*m+5) * 5) = (5^(5^(4*m+5)))^5 :=
+          pow_mul_pure 5 (5^(4*m+5)) 5
+        rw [show 5^(4*m+6) = 5^(4*m+5) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+5))) 17 5, s1]
+      have s3 : 5^(5^(4*m+7)) % 17 = 3 := by
+        have hp : 5^(5^(4*m+6) * 5) = (5^(5^(4*m+6)))^5 :=
+          pow_mul_pure 5 (5^(4*m+6)) 5
+        rw [show 5^(4*m+7) = 5^(4*m+6) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+6))) 17 5, s2]
+      have s4 : 5^(5^(4*m+8)) % 17 = 5 := by
+        have hp : 5^(5^(4*m+7) * 5) = (5^(5^(4*m+7)))^5 :=
+          pow_mul_pure 5 (5^(4*m+7)) 5
+        rw [show 5^(4*m+8) = 5^(4*m+7) * 5 from rfl, hp,
+            pow_mod_base (5^(5^(4*m+7))) 17 5, s3]
+      exact ⟨s1, s2, s3, s4⟩
+
+/-- Convenience: `configCountD 5 1 % 17 = 14`. -/
+theorem configCountD_5_1_mod_17 : configCountD 5 1 % 17 = 14 :=
+  (configCountD_5_period_4_mod_17 0).1
+
+/-- Convenience: `configCountD 5 2 % 17 = 12` (physics slice). -/
+theorem configCountD_5_2_mod_17 : configCountD 5 2 % 17 = 12 :=
+  (configCountD_5_period_4_mod_17 0).2.1
+
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base
