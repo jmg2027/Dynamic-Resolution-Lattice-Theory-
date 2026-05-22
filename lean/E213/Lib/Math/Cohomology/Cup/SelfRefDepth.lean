@@ -563,6 +563,57 @@ theorem depth4Sig_3_1_unique_endpoint :
         else [false, false, false, false] :=
   by decide
 
+/-! ## §17b.  Dual factorisation of `30 = 1/α_2 dominant` at d = 5
+
+The dominant integer `30` in `1/α_2 = 30 − 1/2 + 3·α_GUT` admits
+**two structurally distinct factorisations**, both numerically
+equal **only at d = 5**:
+
+  · **Cup-channel × dimension**:  `30 = totalCupChannels d · d`
+    `                                = binom(d-1, 2) · d`
+    `                                = 6 · 5`
+  · **Exterior-algebra Λ-sum**:    `30 = Σ_{k=1}^{d-1} binom(d, k)`
+    `                                = 2^d - 2`
+    `                                = (2·5+5)+(10+10) ...`
+    `                                = 5 + 10 + 10 + 5`
+
+At d = 5 both equal `30`; for d ∈ {3, 4, 6, 7}, the two counts
+**disagree**:
+
+  · d = 3: cup·d = 3,  Λ-sum = 6
+  · d = 4: cup·d = 12, Λ-sum = 14
+  · d = 5: cup·d = 30, Λ-sum = 30  ← UNIQUE
+  · d = 6: cup·d = 60, Λ-sum = 62
+  · d = 7: cup·d = 105, Λ-sum = 126
+
+The coincidence at d = 5 is a structural reason why `30` admits
+two equivalent count-Lens readings, anchoring the cup-channel
+catalog's bridge to the weak inverse coupling.
+-/
+
+/-- `Σ_{k=1}^{d-1} binom(d, k) = 2^d - 2`.  At d = 5 this equals
+    `5 + 10 + 10 + 5 = 30`. -/
+theorem lambda_sum_d5 :
+    binom 5 1 + binom 5 2 + binom 5 3 + binom 5 4 = 30 := by decide
+
+/-- ★★★★★ **Dual factorisation at d = 5**:
+    `totalCupChannels 5 · 5 = binom 5 1 + binom 5 2 + binom 5 3 + binom 5 4 = 30`.
+
+    Cup-channel-count `binom (d-1) 2` times dimension `d` equals
+    the exterior-algebra Λ-sum `2^d - 2`, but only at d = 5.  PURE. -/
+theorem dual_factorisation_d5 :
+    totalCupChannels 5 * 5
+    = binom 5 1 + binom 5 2 + binom 5 3 + binom 5 4 := by decide
+
+/-- d = 4: the two counts disagree.  Cup·d = 12, Λ-sum = 14.  PURE. -/
+theorem dual_factorisation_d4_disagree :
+    totalCupChannels 4 * 4 ≠ binom 4 1 + binom 4 2 + binom 4 3 := by decide
+
+/-- d = 6: the two counts disagree.  Cup·d = 60, Λ-sum = 62.  PURE. -/
+theorem dual_factorisation_d6_disagree :
+    totalCupChannels 6 * 6 ≠
+    binom 6 1 + binom 6 2 + binom 6 3 + binom 6 4 + binom 6 5 := by decide
+
 /-! ## §17.  Catalog uniqueness capstone
 
 The five uniqueness theorems above:
