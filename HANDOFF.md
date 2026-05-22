@@ -628,3 +628,68 @@ full Phase 2-4 plan and next-session entry points.
   · `scan_axioms.py E213.Meta.Nat.ModPow213`: 10 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere
   · Working tree clean
+
+---
+
+# Part 8 — G119 Phase 2 supply: pellCoeff invertibility + translation
+
+After the ModPow213 seed, this session also closed the structural
+ingredient for **existential** Pisano-period proofs: the pellCoeff
+recurrence step is now provably invertible, and any coincidence in
+the sequence produces a period via translation.
+
+## What landed (commits 577f5e2c, fd6dd4b2, 3dba74b0)
+
+### `PellMatrix.lean` extension
+  · `stepInv p hp (a, b) := (-b mod p, (a + 3b) mod p)`
+  · 3 decide-smoke tests at p = 3, 11, 13.
+
+### `PellMatrixInverse.lean` (new file, 8 PURE)
+  · `neg_neg_mod (p x hp hx)` : `(p - (p - x) % p) % p = x`
+                                — double negation in 𝔽_p.
+  · `three_mul_sub (p a)`     : `3 * (p - a) = 3 * p - 3 * a`
+                                — via NatHelper.mul_sub.
+  · `b_plus_three_p (p a b h)` : `3a + b + (3p - 3a) = b + 3p`
+                                — Nat algebra.
+  · `step_b_cancel (p a b ha hb)` :
+       `((3a + b) % p + 3 * ((p - a) % p)) % p = b`
+                                — b-component cancellation.
+  · `pellCoeffFSM_step_pellCoeff (p hp k)` :
+       `(pellCoeffFSM p hp).step (pellCoeff p hp k) = pellCoeff p hp (k+1)`
+                                — definitional.
+  · **`stepInv_step (p hp v)`** :
+       `stepInv (step v) = v`   — universal invertibility on Fin p × Fin p.
+  · `stepInv_pellCoeff_succ (p hp k)` :
+       `stepInv (pellCoeff (k+1)) = pellCoeff k`
+                                — pellCoeff-specific corollary.
+  · **`pellCoeff_translation (p hp i j hij h)`** :
+       `pellCoeff i = pellCoeff j ∧ i ≤ j → pellCoeff (j - i) = pellCoeff 0`
+                                — collision-implies-period engine.
+
+## What this buys
+
+`pellCoeff_translation` is the engine: any future coincidence in the
+pellCoeff sequence (whatever its source — pigeonhole, FLT, explicit
+construction) produces a Pisano-period witness `pellCoeff p hp N = (0, 1)`
+that the bridge theorem lifts to an FSM-period claim.
+
+## What's still open
+
+  · **Pigeonhole on (Fin p × Fin p)**: enumerate `pellCoeff p hp i` for
+    `i ∈ {0, ..., p²}`; by size, two must coincide.  Then translation
+    closes the existential.
+    - Existing `E213.Lib.Math.Pigeonhole.no_inj_lt` gives non-injection,
+      but we need an existential `∃ i j, ...` form.  Constructive search
+      function or decidable-not-forall→exists-not bridge needed.
+  · **Pin the period value**: an existential `N ≤ p²` is strictly
+    weaker than the full Pisano theorem `N = pisano_predict p`.  The
+    latter still requires FLT + legendre dispatch.
+
+## Verification (post Part 8)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py E213.Lib.Math.DyadicFSM.PellMatrixInverse`:
+       8 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+  · 13 new commits on session branch, pushed
+  · Working tree clean

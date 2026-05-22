@@ -253,7 +253,30 @@ This research direction is **open-ended**.  Subsequent sessions can
 pick up at any Phase 2-4 sub-goal.  The Phase 1 infrastructure is in
 place and ∅-axiom-clean.
 
-## Phase 2 seed (this session)
+## Phase 2 supply: pellCoeff invertibility + translation
+
+`E213.Lib.Math.DyadicFSM.PellMatrixInverse` — 8 PURE declarations
+culminating in:
+
+  · **`stepInv_step (p hp v)`** : `stepInv (step v) = v`  ∀ v : Fin p × Fin p
+  · **`pellCoeff_translation (p hp i j)`** :
+       `pellCoeff i = pellCoeff j  ∧  i ≤ j  ⟹  pellCoeff (j-i) = (0, 1)`
+
+This is the "collision-to-period engine": any future coincidence in
+the pellCoeff sequence (from any source) yields the Pisano-period
+witness needed by the bridge theorem.
+
+Together with the bridge, the only piece still separating us from a
+*universal existential* Pisano period is the pigeonhole on
+`(Fin p × Fin p)` of size `p²`.  Existing `Pigeonhole.no_inj_lt` gives
+non-injection; converting that to an existential `∃ i j, i ≠ j ∧
+pellCoeff i = pellCoeff j` either needs a constructive search function
+or a decidable-not-forall→exists-not bridge.
+
+The *full* Pisano theorem (pinning N = pisano_predict p) still requires
+the FLT + legendre dispatch path of Phase 2-4.
+
+## Phase 2 seed (ModPow infrastructure)
 
 `E213.Meta.Nat.ModPow213` introduced — 213-native modular
 exponentiation toward FLT.  10 PURE declarations:
