@@ -107,4 +107,51 @@ theorem modPow_eq_one_pow (p a : Nat) (hp : 0 < p) (m n : Nat)
   rw [modPow_mod_left]
   exact modPow_one_base p n
 
+/-- Helper: `(a * b) * (c * d) = (a * c) * (b * d)` in Nat. -/
+private theorem rearrange_pair (a b c d : Nat) :
+    (a * b) * (c * d) = (a * c) * (b * d) := by
+  rw [mul_assoc a b (c * d), ← mul_assoc b c d, Nat.mul_comm b c,
+      mul_assoc c b d, ← mul_assoc a c (b * d)]
+
+/-- ★ **Distributivity of `modPow` over multiplication of bases**:
+    `modPow p (a * b) k = (modPow p a k * modPow p b k) % p`.  PURE.
+
+    Foundation for the modular-inverse / multiplicative-order
+    cancellation argument: if `(a * b) % p = 1 % p` then
+    `modPow p b k` acts as the multiplicative inverse of
+    `modPow p a k` mod p. -/
+theorem modPow_dist_mul (p a b : Nat) (hp : 0 < p) :
+    ∀ k, modPow p (a * b) k = (modPow p a k * modPow p b k) % p
+  | 0 => by
+    show 1 % p = ((1 % p) * (1 % p)) % p
+    rw [← mul_mod_pure 1 1 p, Nat.one_mul]
+  | k + 1 => by
+    show (modPow p (a * b) k * (a * b)) % p
+       = (modPow p a (k + 1) * modPow p b (k + 1)) % p
+    -- IH on k
+    rw [modPow_dist_mul p a b hp k]
+    -- Goal: (((modPow a k * modPow b k) % p) * (a * b)) % p
+    --     = (modPow a (k+1) * modPow b (k+1)) % p
+    rw [← mul_mod_left_pure (modPow p a k * modPow p b k) (a * b) p]
+    -- Goal: ((modPow a k * modPow b k) * (a * b)) % p
+    --     = (modPow a (k+1) * modPow b (k+1)) % p
+    rw [rearrange_pair (modPow p a k) (modPow p b k) a b]
+    -- Goal: ((modPow a k * a) * (modPow b k * b)) % p
+    --     = (modPow a (k+1) * modPow b (k+1)) % p
+    rw [mul_mod_pure (modPow p a k * a) (modPow p b k * b) p]
+    -- modPow a (k+1) = (modPow a k * a) % p definitionally; same for b.
+    rfl
+
+/-- ★ **Modular inverse propagates through `modPow`**: if `(a * b) % p = 1 % p`,
+    then `(modPow p a k * modPow p b k) % p = 1 % p`.  PURE.
+
+    Corollary of `modPow_dist_mul` + `modPow_mod_left` + `modPow_one_base`. -/
+theorem modPow_mul_inv (p a b : Nat) (hp : 0 < p)
+    (hab : (a * b) % p = 1 % p) (k : Nat) :
+    (modPow p a k * modPow p b k) % p = 1 % p := by
+  rw [← modPow_dist_mul p a b hp k]
+  -- Goal: modPow p (a * b) k = 1 % p
+  rw [← modPow_mod_left p (a * b) k, hab, modPow_mod_left p 1 k,
+      modPow_one_base p k]
+
 end E213.Meta.Nat.ModPow213
