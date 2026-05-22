@@ -860,4 +860,18 @@ theorem Zp.sqrtSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
   exact Zp.sqrtSeq_digit_zero p hp x sb n
 
+/-- Level-1 sqrt correctness for any approximation:
+    `(sqrtSeq n)² ≡ x (mod p)`.  Reduces to `sb.sq_eq` via
+    `sqrtSeq_trunc_one`. -/
+theorem Zp.sqr_sqrtSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.mul p hp (Zp.sqrtSeq p hp x sb n) (Zp.sqrtSeq p hp x sb n)).trunc 1
+      = (x.trunc 1) % p := by
+  rw [Zp.mul_trunc p hp _ _ 1, Zp.sqrtSeq_trunc_one p hp x sb n]
+  rw [Nat.pow_one]
+  show (sb.d_0 * sb.d_0) % p
+      = ((0 : Nat) + (x.digits 0).val * p^0) % p
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  exact sb.sq_eq
+
 end E213.Lib.Math.Padic
