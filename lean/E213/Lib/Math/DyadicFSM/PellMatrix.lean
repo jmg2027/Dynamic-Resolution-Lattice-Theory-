@@ -129,4 +129,41 @@ theorem bridge_smoke_3 :
   refine ⟨rfl, ?_⟩
   decide
 
+/-! ## Inverse step — structural setup for pigeonhole arguments
+
+The pellCoeff step `(a, b) → (3a + b mod p, -a mod p)` corresponds to
+right-multiplication by `M = [[2, 1], [1, 1]]` in the C-H basis.
+Since `det M = 1`, M is invertible, and the inverse action in the
+C-H basis is
+
+  `(a', b') → (-b' mod p, (a' + 3 b') mod p)`
+
+derived from `M⁻¹ = 3I - M` (which follows from `M² = 3M - I`).
+This `stepInv` lets us argue invertibility of the iteration, which
+combined with pigeonhole on `(Fin p × Fin p)` of size `p²` would
+give an existential Pisano period (separate session work).
+-/
+
+/-- Inverse C-H step: `(a, b) → (-b mod p, (a + 3 b) mod p)`. -/
+def stepInv (p : Nat) (hp : 1 < p) (v : Fin p × Fin p) : Fin p × Fin p :=
+  let (a, b) := v
+  (⟨((p - b.val % p) % p), Nat.mod_lt _ (Nat.lt_of_succ_lt hp)⟩,
+   ⟨((a.val + 3 * b.val) % p), Nat.mod_lt _ (Nat.lt_of_succ_lt hp)⟩)
+
+/-- Smoke test: at p=11, stepInv reverses one pellCoeff step.
+    pellCoeff 11 _ 1 = (1, 0); stepInv applied gives (0, 1) = pellCoeff 11 _ 0. -/
+theorem stepInv_smoke_11 :
+    stepInv 11 (by decide) (pellCoeff 11 (by decide) 1)
+      = pellCoeff 11 (by decide) 0 := by decide
+
+/-- Smoke test at p=3. -/
+theorem stepInv_smoke_3 :
+    stepInv 3 (by decide) (pellCoeff 3 (by decide) 1)
+      = pellCoeff 3 (by decide) 0 := by decide
+
+/-- Smoke test at p=13. -/
+theorem stepInv_smoke_13 :
+    stepInv 13 (by decide) (pellCoeff 13 (by decide) 1)
+      = pellCoeff 13 (by decide) 0 := by decide
+
 end E213.Lib.Math.DyadicFSM.PellMatrix
