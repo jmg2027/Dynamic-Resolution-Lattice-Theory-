@@ -1052,24 +1052,116 @@ private theorem trunc_succ_mod_K (p : Nat) (hp : 0 < p) (x : ZpSeq p) (n : Nat) 
   rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
   exact Nat.mod_eq_of_lt (ZpSeq.trunc_lt_p_pow hp x (n + 1))
 
-/-- PURE: if `xt < M` and `(Z + (M - xt)) % M = 0`, then `Z % M = xt`.
-    The Nat-friendly form of `Z ≡ xt (mod M)`. -/
+/-- PURE: `M % K = 0` where `K = p^(n+1)`, `M = p^(n+2)`. -/
+private theorem M_mod_K_zero (p n : Nat) : p^(n + 2) % p^(n + 1) = 0 := by
+  rw [show p^(n + 2) = p^(n + 1) * p from Nat.pow_succ p (n + 1)]
+  exact E213.Tactic.NatHelper.mul_mod_right (p^(n + 1)) p
+
+/-- PURE: `K ∣ M` where `K = p^(n+1)`, `M = p^(n+2)`. -/
+private theorem K_dvd_M (p n : Nat) : p^(n + 1) ∣ p^(n + 2) :=
+  ⟨p, (Nat.pow_succ p (n + 1)).symm⟩
+
+/-- PURE: given `s % K = xt % K`, `xt < M = K · p`, derive
+    `(s + (M - xt)) % K = 0`.  Used to extract `err = ((s + M - xt) % M) / K`. -/
+private theorem add_neg_mod_K_zero (p n s xt : Nat) (hp : 0 < p)
+    (hxt : xt < p^(n + 2)) (h_eq : s % p^(n + 1) = xt % p^(n + 1)) :
+    (s + (p^(n + 2) - xt)) % p^(n + 1) = 0 := by
+  have hK_pos : 0 < p^(n + 1) := Nat.pos_pow_of_pos _ hp
+  rw [E213.Meta.Nat.AddMod213.add_mod hK_pos s (p^(n + 2) - xt), h_eq]
+  rw [← E213.Meta.Nat.AddMod213.add_mod hK_pos xt (p^(n + 2) - xt)]
+  rw [E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hxt)]
+  exact M_mod_K_zero p n
+
+/-- PURE: if `xt < M` and `(Z + (M - xt)) % M = 0`, then `Z % M = xt`. -/
 private theorem mod_eq_from_neg_eq (M Z xt : Nat) (hM : 0 < M) (hxt : xt < M)
     (h : (Z + (M - xt)) % M = 0) : Z % M = xt := by
-  -- ((Z + (M - xt)) + xt) % M = (0 + xt) % M = xt (using h).
   have h_chain : ((Z + (M - xt)) + xt) % M = xt := by
     rw [E213.Meta.Nat.AddMod213.add_mod_gen,
         h, Nat.zero_add, E213.Tactic.NatHelper.mod_mod_pure,
         Nat.mod_eq_of_lt hxt]
-  -- Rearrange: ((Z + (M - xt)) + xt) = Z + (xt + (M - xt)) = Z + M.
   have h_rear : (Z + (M - xt)) + xt = Z + M := by
     rw [Nat.add_assoc Z (M - xt) xt, Nat.add_comm (M - xt) xt,
         E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hxt)]
   rw [h_rear] at h_chain
-  -- h_chain : (Z + M) % M = xt
-  -- Convert to Z % M = xt via add_mod_left + mod_self.
   rw [Nat.add_comm Z M, E213.Meta.Nat.AddMod213.add_mod_left hM M Z,
       E213.Meta.Nat.AddMod213.mod_self M, Nat.zero_add] at h_chain
   exact h_chain
+
+/-- `(Zp.mul (sqrtSeq n) (sqrtSeq n)).trunc (n + 2) = (a * a) % p^(n+2)`
+    where `a = (sqrtSeq n).trunc (n + 1)`.  Uses `sqrtSeq_trunc_at_succ`
+    to collapse `trunc (n + 2) = trunc (n + 1)` for the input. -/
+private theorem prev_sq_trunc_form (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.mul p hp (Zp.sqrtSeq p hp x sb n) (Zp.sqrtSeq p hp x sb n)).trunc (n + 2)
+      = ((Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+          * (Zp.sqrtSeq p hp x sb n).trunc (n + 1)) % p^(n + 2) := by
+  rw [Zp.mul_trunc p hp _ _ (n + 2), Zp.sqrtSeq_trunc_at_succ p hp x sb n]
+
+/-- PURE: the abstract sqrt Hensel step.  Given `a`, `xt`, `d_0`,
+    `two_d_0_inv`, `err`, `d` satisfying:
+    - `(a*a) % K = xt % K` (IH after mul_trunc)
+    - `a % p = d_0 % p` (sqrtSeq digit-0 invariant)
+    - `(2*d_0*two_d_0_inv) % p = 1 % p` (SqrtBase guarantee)
+    - `err = ((a*a + (M-xt)) % M) / K` (sqrtSeq err definition)
+    - `d = negMod p (err * two_d_0_inv)` (sqrtSeq new digit)
+    Conclude: `((a + d*K) * (a + d*K)) % M = xt`.
+    where `K = p^(n+1)`, `M = p^(n+2)`. -/
+private theorem sqrt_cancel_full (p : Nat) (hp : 1 < p) (n : Nat)
+    (a xt d_0 two_d_0_inv err d : Nat)
+    (hxt : xt < p^(n + 2))
+    (h_aa_K : (a * a) % p^(n + 1) = xt % p^(n + 1))
+    (h_a_mod : a % p = d_0 % p)
+    (h_inv_eq : (2 * d_0 * two_d_0_inv) % p = 1 % p)
+    (h_err : err = ((a * a + (p^(n + 2) - xt)) % p^(n + 2)) / p^(n + 1))
+    (h_d : d = Zp.negMod p (err * two_d_0_inv)) :
+    ((a + d * p^(n + 1)) * (a + d * p^(n + 1))) % p^(n + 2) = xt := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have hM_pos : 0 < p^(n + 2) := Nat.pos_pow_of_pos _ hp'
+  -- Step 1: binomial expansion.
+  rw [binomial_sq_mod_pure a d (p^(n + 1)) (p^(n + 2)) hM_pos
+        (K_sq_mod_M_zero p n)]
+  -- Goal: (a*a + 2*(a*d*K)) % M = xt
+  apply mod_eq_from_neg_eq (p^(n + 2)) _ _ hM_pos hxt
+  -- Goal: ((a*a + 2*(a*d*K)) + (M - xt)) % M = 0
+  -- Step 2: rearrange to ((a*a + (M-xt)) + 2*(a*d*K)) % M = 0.
+  have h_rearr : a * a + 2 * (a * d * p^(n + 1)) + (p^(n + 2) - xt)
+              = (a * a + (p^(n + 2) - xt)) + 2 * (a * d * p^(n + 1)) := by
+    rw [Nat.add_assoc (a * a) (2 * (a * d * p^(n + 1))) (p^(n + 2) - xt),
+        Nat.add_comm (2 * (a * d * p^(n + 1))) (p^(n + 2) - xt),
+        ← Nat.add_assoc]
+  rw [h_rearr]
+  -- Step 3: derive (a*a + (M - xt)) % K = 0.
+  have h_diff_K : (a * a + (p^(n + 2) - xt)) % p^(n + 1) = 0 :=
+    add_neg_mod_K_zero p n (a * a) xt hp' hxt h_aa_K
+  -- Step 4: (a*a + (M - xt)) % M % K = 0 by mod_mod_of_dvd.
+  have h_diff_M_K : ((a * a + (p^(n + 2) - xt)) % p^(n + 2)) % p^(n + 1) = 0 := by
+    rw [E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ (K_dvd_M p n)]
+    exact h_diff_K
+  -- Step 5: diff_M = err * K where err = diff_M / K.
+  have h_diff_eq_err_K : (a * a + (p^(n + 2) - xt)) % p^(n + 2)
+                       = err * p^(n + 1) := by
+    have hdm := E213.Meta.Nat.AddMod213.div_add_mod
+                  ((a * a + (p^(n + 2) - xt)) % p^(n + 2)) (p^(n + 1))
+    rw [h_diff_M_K, Nat.add_zero, Nat.mul_comm] at hdm
+    rw [← hdm, ← h_err]
+  -- Step 6: sqrt_cancel gives (err + 2*a*d) % p = 0.
+  have h_d_neg : (err * two_d_0_inv + d) % p = 0 := by
+    rw [h_d]; exact negMod_cancel p hp' (err * two_d_0_inv)
+  have h_cancel : (err + 2 * a * d) % p = 0 :=
+    sqrt_cancel p hp' a err d_0 two_d_0_inv d h_a_mod h_inv_eq h_d_neg
+  -- Step 7: use add_mod_left to absorb (a*a + (M-xt)) into diff_M.
+  rw [E213.Meta.Nat.AddMod213.add_mod_left hM_pos
+        (a * a + (p^(n + 2) - xt)) (2 * (a * d * p^(n + 1)))]
+  -- Goal: ((a*a + (M-xt)) % M + 2*(a*d*K)) % M = 0
+  rw [h_diff_eq_err_K]
+  -- Goal: (err*K + 2*(a*d*K)) % M = 0
+  -- Reshape: 2*(a*d*K) = (2*a*d)*K, then err*K + (2*a*d)*K = (err + 2*a*d)*K.
+  rw [show 2 * (a * d * p^(n + 1)) = 2 * a * d * p^(n + 1) by
+        rw [← E213.Tactic.NatHelper.mul_assoc 2 (a * d) (p^(n + 1)),
+            ← E213.Tactic.NatHelper.mul_assoc 2 a d]]
+  rw [← E213.Tactic.NatHelper.add_mul err (2 * a * d) (p^(n + 1))]
+  -- Goal: ((err + 2*a*d) * p^(n+1)) % p^(n+2) = 0
+  rw [mul_pow_succ_mod (err + 2 * a * d) p n hp', h_cancel,
+      Nat.zero_mul]
 
 end E213.Lib.Math.Padic
