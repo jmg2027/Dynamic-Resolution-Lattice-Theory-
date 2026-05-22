@@ -262,6 +262,33 @@ private theorem negMod_cancel (p : Nat) (hp : 0 < p) (a : Nat) :
     rw [hadd]
     exact E213.Meta.Nat.AddMod213.mod_self p
 
+/-- Hensel cancellation: with `(x_0 · i0) ≡ 1 (mod p)`, the
+    correction `negMod p (e · i0)` makes `(x_0 · correction)`
+    cancel `e` modulo `p`:
+        `(e + x_0 · negMod p (e · i0) % p) % p = 0`. -/
+private theorem hensel_cancel (p x_0 i0 e_n : Nat) (hp : 1 < p)
+    (h_x_i0 : (x_0 * i0) % p = 1 % p) :
+    (e_n + (x_0 * Zp.negMod p (e_n * i0)) % p) % p = 0 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have h_one : 1 % p = 1 := Nat.mod_eq_of_lt hp
+  have hcancel : ((e_n * i0) + Zp.negMod p (e_n * i0)) % p = 0 :=
+    negMod_cancel p hp' (e_n * i0)
+  have hmul : (x_0 * ((e_n * i0) + Zp.negMod p (e_n * i0))) % p = 0 := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure x_0 _ p, hcancel]
+    show (x_0 * 0) % p = 0
+    rw [Nat.mul_zero]; exact E213.Tactic.NatHelper.zero_mod p
+  rw [Nat.mul_add x_0 (e_n * i0) (Zp.negMod p (e_n * i0))] at hmul
+  rw [show x_0 * (e_n * i0) = e_n * (x_0 * i0) from by
+        rw [← E213.Tactic.NatHelper.mul_assoc x_0 e_n i0,
+            Nat.mul_comm x_0 e_n,
+            E213.Tactic.NatHelper.mul_assoc e_n x_0 i0]] at hmul
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen] at hmul
+  rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure e_n (x_0 * i0) p,
+      h_x_i0, h_one, Nat.mul_one] at hmul
+  rw [← E213.Meta.Nat.AddMod213.add_mod_left hp' e_n
+        ((x_0 * Zp.negMod p (e_n * i0)) % p)] at hmul
+  exact hmul
+
 /-! ## Hensel-lifted inverse sequence
 
 Given `x : ZpSeq p` with `(x.digits 0).val` coprime to `p`
