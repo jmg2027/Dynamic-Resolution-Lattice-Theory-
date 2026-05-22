@@ -1656,6 +1656,71 @@ applications.
 
 ---
 
+# Part 27 — Bezout marathon: xgcd algorithm + per-prime smokes
+
+Start of the Bezout marathon (Mathlib-level number theory).  Builds
+the constructive extended Euclidean algorithm with modular tracking
+so that we can synthesise `ModInverse p a` for arbitrary coprime
+`(a, p)` — unblocking universal FLT (Part 22) + universal Phase
+3.2 closure (Part 26).
+
+## What landed
+
+`Lib/Math/ModArith/ModBezout.lean` (new, 12 PURE):
+
+  · `bezoutSubMod p q x₀ x₁ := (x₀ + (p - (q · x₁) % p)) % p`
+    — in-Nat form of `(x₀ - q · x₁) mod p`.
+  · `xgcdAux` — iterative xgcd with fuel and mod-p coefficient
+    tracking.  State `(r₀, r₁, x₀, x₁)`; step takes
+    `q := r₀/r₁`, `r₂ := r₀ % r₁`, `x₂ := bezoutSubMod p q x₀ x₁`.
+    Terminates when `r₁ = 0`; returns `(r₀, x₀)`.
+  · `modBezout a p := xgcdAux p (a + p + 1) a p 1 0` —
+    convenience wrapper with safe fuel.
+  · Per-prime smokes:  `modBezout (2, 5) = (1, 3)`,
+    `modBezout (3, 7) = (1, 5)`, `modBezout (4, 11) = (1, 3)`,
+    `modBezout (9, 19) = (1, 17)`, `modBezout (4, 6).1 = 2`
+    (non-coprime gcd = 2).
+  · Inverse extraction smokes:  for each coprime case above,
+    `(a · (modBezout a p).2) % p = 1 % p` via `decide`.
+
+## What this unlocks (per-prime, NOW)
+
+For any specific `(a, p)` with gcd = 1, the modular inverse is
+extractable via `(modBezout a p).2` — a single `decide` call gives
+both the value and the verification `(a · inv) % p = 1 % p`.
+
+This lets us close, mechanically per prime:
+  · `ModInverse p a` for any coprime `(a, p)`
+  · FLT main `(Part 22)` applied universally for that prime
+  · Universal `phase_3_2_at_p_via_full_FLT_route`
+
+## What's coming next (multi-session continuation)
+
+| Step | Status |
+|------|--------|
+| xgcd algorithm + per-prime smokes (this Part) | ✅ Part 27 |
+| Single-step Bezout invariant lemma | ⚪ next (Part 28) |
+| Universal correctness via induction on fuel | ⚪ Part 29 |
+| `modInvOfCoprime` extractor + applications | ⚪ Part 30 |
+
+The single-step invariant: given
+  · `r₀ % p = (a · x₀) % p`
+  · `r₁ % p = (a · x₁) % p`
+  · `r₁ > 0`
+show that after one xgcd step,
+  · `(r₀ % r₁) % p = (a · bezoutSubMod p (r₀/r₁) x₀ x₁) % p`.
+
+Key Nat algebra: `r₂ = r₀ - q · r₁` and `a · (p - r) = a·p - a·r ≡ -a·r mod p`.
+Multi-step but tractable.
+
+## Verification (post Part 27)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.ModBezout`: 12 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
