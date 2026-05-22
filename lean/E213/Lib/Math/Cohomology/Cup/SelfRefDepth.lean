@@ -217,4 +217,77 @@ Each codimension fires at exactly one depth-bit position.  The
 bit-string of all firings across the codim spectrum encodes the
 "depth-resolved channel structure" of the cochain product. -/
 
+/-! ## §7.  Higher-k endpoint pairs and the codim correspondence
+
+`(k, l)` endpoint pair at d = 5: α supports the front-`k` vertex
+indicator `[0, ..., k-1]`, β supports the back-`l` vertex
+indicator `[5-l, ..., 4]`.  These are the "boundary-diameter"
+configurations that span Δ⁴ with the unique gap pattern. -/
+
+/-- Two-vertex front indicator on `[0, 1]`. -/
+def α_e2_01 : List Nat → Bool := fun s => decide (s = [0, 1])
+
+/-- Three-vertex front indicator on `[0, 1, 2]`. -/
+def α_e3_012 : List Nat → Bool := fun s => decide (s = [0, 1, 2])
+
+/-- ★★★ **(2, 1) endpoint pair fires at codim 2 = bit position 2**:
+
+    Bidegree (2, 1), split at k = 2, on Δ⁴.  Endpoint pair
+    `(α_e2 [0,1], α_e 4)` traces:
+      τ_2 = [0, 1, 4] → take 2 = [0, 1], drop 2 = [4]
+        → α([0,1]) ∧ β([4]) = true ∧ true = true.
+
+    Firing bit position = `d - k - l = 5 - 2 - 1 = 2`.  PURE. -/
+theorem depth4Sig_2_1_endpoint :
+    selfRefIter 2 1 α_e2_01 (α_e 4) 4 [0, 1, 2, 3, 4]
+    = [false, false, true, false] := by decide
+
+/-- ★★★ **(2, 2) endpoint pair fires at codim 1 = bit position 1**.
+
+    Bidegree (2, 2), split at k = 2, on Δ⁴.  Endpoint pair
+    `(α_e2 [0,1], β_e2 3 4)` traces:
+      τ_1 = [0, 1, 3, 4] → take 2 = [0, 1], drop 2 = [3, 4]
+        → α([0,1]) ∧ β([3,4]) = true ∧ true = true.
+
+    Firing bit position = `d - k - l = 5 - 2 - 2 = 1`.  PURE. -/
+theorem depth4Sig_2_2_endpoint :
+    selfRefIter 2 2 α_e2_01 (β_e2 3 4) 4 [0, 1, 2, 3, 4]
+    = [false, true, false, false] := by decide
+
+/-- ★★★ **(3, 1) endpoint pair fires at codim 1 = bit position 1**.
+
+    Bidegree (3, 1), split at k = 3, on Δ⁴.  Endpoint pair
+    `(α_e3 [0,1,2], α_e 4)` traces:
+      τ_1 = [0, 1, 2, 4] → take 3 = [0, 1, 2], drop 3 = [4]
+        → α([0,1,2]) ∧ β([4]) = true ∧ true = true.
+
+    Firing bit position = `d - k - l = 5 - 3 - 1 = 1`.  PURE. -/
+theorem depth4Sig_3_1_endpoint :
+    selfRefIter 3 1 α_e3_012 (α_e 4) 4 [0, 1, 2, 3, 4]
+    = [false, true, false, false] := by decide
+
+/-! ## §8.  d = 5 codim catalog summary
+
+Across all admissible bidegrees `(k, l)` with `k, l ≥ 1` and
+`k + l ≤ 4`, the endpoint pair `(α_front-k, β_back-l)` fires at
+depth bit position `d - k - l = 5 - k - l`:
+
+| Bidegree (k, l) | k + l | Codim (5 - k - l) | Verified |
+|---|---|---|---|
+| (1, 1) | 2 | 3 | `basisDepth4Sig_unique_survivor` |
+| (1, 2) | 3 | 2 | `depth4Sig_1_2_e0_e34` |
+| (2, 1) | 3 | 2 | `depth4Sig_2_1_endpoint` |
+| (1, 3) | 4 | 1 | `depth4Sig_1_3_e0_e234` |
+| (2, 2) | 4 | 1 | `depth4Sig_2_2_endpoint` |
+| (3, 1) | 4 | 1 | `depth4Sig_3_1_endpoint` |
+
+**Codim correspondence theorem (d = 5)**: Each `(k, l)` endpoint pair
+fires uniquely at depth bit `5 - k - l`.  Three distinct firing
+positions {1, 2, 3} partition the six bidegrees into a graded
+catalog by total degree `k + l ∈ {2, 3, 4}`.
+
+The grading is **count-Lens-canonical**: the firing depth is a
+finite-resolution Lens-output entirely determined by the support
+codimension of the cup product in Δ⁴. -/
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
