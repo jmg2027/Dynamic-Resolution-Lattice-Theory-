@@ -25,7 +25,7 @@ convergence"**
 π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
 parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
 213 axiom set은 "finite vs infinite" dichotomy 자체를 체결하지
-않음 (`seed/AXIOM/02_statement.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
+않음 (`seed/AXIOM/02_axiom.md` §2.5, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
 - `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
@@ -262,7 +262,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `HANDOFF.md` — 현재 상태
 - `LESSONS_LEARNED.md` — 이 파일
 - `seed/AXIOM/` — axiom seed doc
-- `seed/AXIOM/00_nature.md` — 213 철학
+- `seed/AXIOM/01_residue.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
 - `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
@@ -913,7 +913,7 @@ User insight (2026-05-22):
 
 If every Raw event is simultaneously operation and object — with no
 a-priori distinction — then Clause 4 of the 213 axiom (`x/x` forbidden,
-`seed/AXIOM/02_statement.md` §3.2 #4) is **not restricted to atomic
+`seed/AXIOM/02_axiom.md` §2.2 #4) is **not restricted to atomic
 Raw distinguishables**.  It applies at every granularity, including
 groups of Raw viewed as objects.
 
@@ -1121,8 +1121,8 @@ bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
 process model) form the 2026-05-22 composition table.  Patterns
 #14-#20 (this commit) extend the table with meta-scan branch
 findings: n-layer agreement, three-level Raw-derivation
-(→ seed/RAW_DERIVATION_SPEC.md), decide-finitism
-(→ seed/FALSIFIABILITY_SURFACE_SPEC.md), framework-internal
+(→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-2), decide-finitism
+(→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-3), framework-internal
 subsumption, byte-identical Expr cross-domain bridges,
 forward/backward factor-knob, multiple Lens choices.  Together
 they enable the closure of the Raw → (3, 2, 5) inevitability
@@ -1197,7 +1197,7 @@ ranking metric.
 
 ## Pattern #15 — Three-level "Derived from Raw" distinction (G104)
 
-**Reference**: full spec in `seed/RAW_DERIVATION_SPEC.md`.
+**Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
 **Summary**: The phrase "X derives from Raw" has three distinct
 technical meanings:
@@ -1212,12 +1212,12 @@ technical meanings:
 (α) + (β) hold; (γ) is FALSE BY DESIGN.  Don't conflate the levels.
 
 Full text + worked examples (Real213, FluxMVT, Cohomology):
-`seed/RAW_DERIVATION_SPEC.md`.
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
 
 ## Pattern #16 — Decide-finitism quantitative profile (G100)
 
-**Reference**: full spec in `seed/FALSIFIABILITY_SURFACE_SPEC.md`.
+**Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.
 
 **Summary**: Pattern #2 (decide-finitism) has measurable footprint:
 
@@ -1232,7 +1232,7 @@ Distinguishability (`≠`) dominates negation (78 % of falsifiers) —
 consistent with Raw's distinguishability primitive in operational form.
 
 Full quantitative profile + falsifier catalog references:
-`seed/FALSIFIABILITY_SURFACE_SPEC.md` and
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 and
 `catalogs/falsifier-roster.md`.
 
 

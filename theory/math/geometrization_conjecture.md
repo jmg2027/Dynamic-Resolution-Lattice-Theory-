@@ -1,13 +1,13 @@
 # Geometrization Conjecture (213-Lens reading)
 
-**Status**: G121 R1 closed (~149 PURE / 0 DIRTY across 25 steps); R1+
-extensions partial (G123/G124/G125); G122 open (4-mfd exotic
+**Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps); R1+
+extensions partial; Real213-p-adic research open (4-mfd exotic
 enumeration via Sym(3) gauge).
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 3 (mixed-status absorption): R1 closure + R1+ partials +
-open G122-G125 marathon candidates.  G121 note stays as the
-companion research direction.
+open Real213-p-adic research lines.  The source notes remain as the
+companion research directions.
 
 ## Overview
 
@@ -24,20 +24,20 @@ where each piece carries one of 8 homogeneous geometries.  The
                  (a COUNTING result, not geometric)
 ```
 
-Per `seed/AXIOM/09_chart_relativity.md` + CLAUDE.md "Algebraic
+Per `seed/AXIOM/06_lens_readings.md` + CLAUDE.md "Algebraic
 priority": *213 sees discrete decomposition first*.  JSJ becomes
 *non-separable component enumeration*; incompressible torus becomes
 *π₁-injectivity* (algebraic); Ricci flow becomes *chart-Lens
 coherentization flow*.
 
-The G121 R1 close certificate (step 25, `Capstone.G121_R1_close_certificate`)
+The R1 close certificate (step 25, `Capstone.G121_R1_close_certificate`)
 bundles 20 conjuncts across the 5 Geometrization pillars.
 
 ## d=4 anomaly reframing (Mingu's central insight)
 
 Standard math reads d=4 exotic smoothness as **anomaly** — continuum-many
 smooth structures on a single topological 4-manifold, no structural
-reason known.  G121 reads it as **feature**:
+reason known.  The chapter reads it as **feature**:
 
 | d_M | structural options visible | reading |
 |---|---|---|
@@ -50,7 +50,7 @@ tree-branch (Poincaré-flat topology) and critical-branch (rich
 K_{3,2}^{(c=2)} cohomology) coexist visibly.  *Defect is signal
 richness.*
 
-The G121 ansatz: **d_M = d_213 − 1 = 5 − 1 = 4** is *forced by Raw
+The self-pointing-dim-4 ansatz: **d_M = d_213 − 1 = 5 − 1 = 4** is *forced by Raw
 self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 "knots" formalize the chain.
 
@@ -80,9 +80,9 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | G124 | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
-| `JsjDeep.lean` | G123 | ~6 | JSJ 3-cell complex Euler-target scaffold |
-| `MetricGeometries.lean` | G125 | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
+| `Generalization.lean` | Real213-p-adic extensions B | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
+| `JsjDeep.lean` | Real213-p-adic extensions A | ~6 | JSJ 3-cell complex Euler-target scaffold |
+| `MetricGeometries.lean` | Real213-p-adic extensions C | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
 
 ### Dependency chain
 
@@ -102,7 +102,7 @@ Linear chain.  All under namespace
 | Pillar | 213-Lens form | Status |
 |---|---|---|
 | **8 geometries** | Möbius P + 3 Lenses (ℝ/ℤ/F_5) ↔ Sym(3) decomp (2·trivial + 3·standard) | ✅ COMPLETE |
-| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL (G123 partial) |
+| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL (Real213-p-adic extensions A partial) |
 | **Poincaré** | K_{3,1}^{(c=1)} unique tree + S³ = ∂Δ⁴ | ✅ DOUBLY REALIZED |
 | **Generalized Poincaré** | K_{1,k}^{(c=1)} all chartBase | ✅ GENERALIZED |
 | **Ricci flow** | `K32_ricci_modulus` averaging | ✅ PARTIAL CLOSE |
@@ -161,7 +161,7 @@ gauge theory (Donaldson).  Gluon octet = coker(ι*: H¹(Δ⁴) →
 H¹(K_{3,2}^{(c=2)})) = (F_2)^8 — same formal role as instanton
 moduli space.
 
-The G121 ansatz **d_M = d_213 − 1 = 5 − 1 = 4** thus identifies
+The self-pointing-dim-4 ansatz **d_M = d_213 − 1 = 5 − 1 = 4** thus identifies
 the standard 4-mfd exotic as **the 213-native dimension** where the
 self-pointing residue is fully visible.
 
@@ -194,47 +194,24 @@ reading — significant cross-frame convergence.
 For full ~149 PURE inventory, see
 `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`.
 
-## Research-note provenance
-
-Single source note `research-notes/G121_dim4_self_pointing_axis.md`
-(1531 lines) — stays as **active research direction** rather than
-fully archived.  Reason: G121 *also* hosts the G122-G125 marathon
-candidates which are currently OPEN or PARTIAL, plus M3/M4 knots
-still doc-level.
-
-| G121 §section | Status | Promoted? |
-|---|---|---|
-| §1-§3 Setup + ansatz + d=4 anomaly | Closed R1 | ✓ in this chapter |
-| §4 5 pillars | Closed R1 | ✓ in this chapter |
-| §5 Structural mapping | Closed step 24 | ✓ in this chapter |
-| §6 Four open knots (M1-M4) | M1/M2 partial Lean; M3/M4 doc-level | ✓ status in this chapter |
-| §7 R1+ extensions (G123/G124/G125) | Partial | ✓ in this chapter §Open frontier |
-| §8 G122 4-mfd exotic enumeration | Open marathon | ✗ stays in G121 |
-| §9-§N Side observations | Active | ✗ stays in G121 |
-
-The G121 note is partially absorbed (R1 closure) but stays active
-for the open marathon candidates.  Same pattern as G35 (213-Algebra
-catalog) — chapter covers closed sub-topics; note hosts the
-research frontier.
-
 ## Open frontier
 
 ### R1+ partial extensions (PARTIAL closure achieved 2026-05-22)
 
-- **G123 JSJ 3-cell complex** (`JsjDeep.lean`, ~6 PURE): Euler-target
+- **Real213-p-adic extensions A JSJ 3-cell complex** (`JsjDeep.lean`, ~6 PURE): Euler-target
   scaffold for closed 3-mfds + sphere Euler via ∂Δⁿ.  Full JSJ
   closure pending.
-- **G124 K_{NS,NT}^{(c)} generalization** (`Generalization.lean`,
+- **Real213-p-adic extensions B K_{NS,NT}^{(c)} generalization** (`Generalization.lean`,
   ~7 PURE): chartBase ∈ {4..8} extended tree enumeration +
   cohomology-depth uniqueness extended range.  Full generalization
   pending.
-- **G125 Metric geometries direct realization** (`MetricGeometries.lean`,
+- **Real213-p-adic extensions C Metric geometries direct realization** (`MetricGeometries.lean`,
   ~7 PURE): E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2 / F_3
   / F_5 / F_7 / F_11).  Full direct realization pending.
 
-### G122 4-mfd exotic enumeration via Sym(3) gauge — OPEN
+### Real213-p-adic research 4-mfd exotic enumeration via Sym(3) gauge — OPEN
 
-The biggest open marathon.  G121 step 25 (Capstone) gestures at
+The biggest open marathon.  Dim-4 self-pointing closure step 25 (Capstone) gestures at
 the formal infrastructure (Sym(3) gauge action on K_{3,2}^{(c=2)}
 matches Donaldson's gauge theory shape) but a full **enumeration
 of exotic smooth structures via 213-native gauge data** is the
@@ -251,12 +228,12 @@ exotic-counting theorem.
 | M3 | NT axis split (physics interpretation) | doc-level downstream |
 | M4 | KK firewall stereotype warning | doc-level only |
 
-Neither has Lean witness yet; both noted in G121 §6.
+Neither has Lean witness yet; both noted in source §6.
 
 ### Below DRLT Validation Standard
 
-G121 R1 is **structural** but not yet a *precision theorem* or
-*falsifier* per DRLT Validation Standard (`seed/AXIOM/04_falsifiability.md`).
+R1 is **structural** but not yet a *precision theorem* or
+*falsifier* per DRLT Validation Standard (`seed/AXIOM/08_falsifiability.md`).
 The ansatz d_M = d_213 − 1 is structural; converting to a measurable
 falsifier (e.g., "no exotic smooth structures on a specific closed
 4-mfd are observable" or similar) is a separate research arc.
@@ -305,7 +282,7 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 -- ✅ preferred (closed R1 narrative)
 `theory/math/geometrization_conjecture.md`
 
--- ✅ also valid (R1+ extensions, open frontier, G122-G125, side observations)
+-- ✅ also valid (R1+ extensions, open frontier, Real213-p-adic research and its extensions, side observations)
 `research-notes/G121_dim4_self_pointing_axis.md`
 
 -- specific theorems
@@ -313,5 +290,5 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 `Lib/Math/GeometrizationConjecture/Capstone.G121_R1_master_capstone`
 ```
 
-G121 stays active per Pattern 3 (mixed-status): chapter handles R1
-closure, G121 hosts the open marathon front.
+the chapter stays active per Pattern 3 (mixed-status): chapter handles R1
+closure, dim-4 self-pointing closure hosts the open marathon front.

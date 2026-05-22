@@ -26,7 +26,7 @@ CLAUDE.md criteria 1+2 intersection:
   * New physics (criterion 2): SM treats sin θ_C as input parameter; DRLT
     derives 5/22 from {D, C} alone — if a measurement-Lens reading
     contradicts the rational 5/22, the chosen Lens does not reflect
-    the 213 structure (cf. `seed/AXIOM/04_falsifiability.md` §5.2.1).
+    the 213 structure (cf. `seed/AXIOM/08_falsifiability.md` §8.2).
 -/
 
 namespace E213.Lib.Physics.Mixing.CabibboAngle

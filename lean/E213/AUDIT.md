@@ -12,8 +12,8 @@ This file contains:
 - **Part II** (§9.*) — Lean ↔ axiom 4-clause cross-check + corner
   cases + 5 silent-leak paths.
 
-For the axiom itself: `seed/AXIOM/02_statement.md`.
-For the encoding-costs framing: `seed/AXIOM/08_encoding_costs.md`.
+For the axiom itself: `seed/AXIOM/02_axiom.md`.
+For the encoding-costs framing: `seed/AXIOM/10_encoding_costs.md`.
 
 
 (formerly seed/IMPLEMENTATION.md)
@@ -380,7 +380,7 @@ If this meta-theorem is formalized:
   formally proves RawBy cmp₁ ≃ RawBy cmp₂.
 
 `#print axioms RawBy_bijection`: [propext] only —
-Classical.choice absent.  `04_falsifiability.md` §5.2.1
+Classical.choice absent.  `04_falsifiability.md` §8.2
 falsifiability maintained.
 
 Therefore the cmp choice in Theory is mechanically verified to

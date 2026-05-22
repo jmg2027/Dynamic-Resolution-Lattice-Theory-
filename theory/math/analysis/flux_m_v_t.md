@@ -11,13 +11,13 @@ Pattern 2 (narrative-from-scratch).
 
 **Flux-form Mean Value Theorem** in 213: chain of MVT instances
 on **FluxCut** structures + dyadic-bracket modulus tracking.  No
-classical ε-δ; flux-bracket arithmetic with explicit moduli per G40.
+classical ε-δ; flux-bracket arithmetic with explicit moduli per ε-δ modulus.
 
 FluxMVT is the operational MVT used downstream by `Lib/Physics/Couplings/`
 running-coupling derivations and `Lib/Physics/AlphaEM/` precision
 work (Gram-self-energy term).
 
-Per G110 (Tier-2 deep dive, 2026-05-22): **0 direct Raw atom
+Per FluxMVT deep dive (Tier-2 deep dive, 2026-05-22): **0 direct Raw atom
 touches** in the 182-decl FluxMVT inventory — operates entirely on
 the FluxCut + DyadicBracket carrier types.  Per the (α/β/γ)
 Raw-derivation taxonomy (`theory/meta/raw_derivation_levels.md`),
@@ -41,7 +41,7 @@ references.
 | Pass-through | `FluxPassthroughClass`, `FluxPassthroughCatalog` | Class machinery for MVT-pass-through |
 | Equivalences | `FluxEquiv` | Equivalence of flux statements |
 | Propagation | `FluxMVTPropagate`, `MVTWitnessChain` | Chain of MVT instances propagating across coupling levels |
-| **Unit bracket** | `UnitBracketReduce`, `UnitBracketReduceSum` (new 2026-05-22) | Unit-bracket reduction lemma (G117 TH-1 / REAL-1+REAL-2 template) |
+| **Unit bracket** | `UnitBracketReduce`, `UnitBracketReduceSum` (new 2026-05-22) | Unit-bracket reduction lemma (Bishop comparison TH-1 / REAL-1+REAL-2 template) |
 
 The `UnitBracketReduce*` files (2026-05-22 marathon, REAL-1+REAL-2
 closure) provide the *generic template* for collapsing flux
@@ -54,13 +54,13 @@ HANDOFF Part 5.
 
 `FluxCut` is a Real213-cut-based structure carrying flux quantity
 + explicit modulus.  All FluxMVT operations preserve modulus
-(per G40 discipline).  Mean value statements have form:
+(per ε-δ modulus discipline).  Mean value statements have form:
 
 > ∀ FluxCut input, ∃ explicit witness w such that the flux
 > output equals the MVT identity at w, with bracket-precision N.
 
 The witness is *part of the data*, not Skolemized — same pattern as
-G31 trajectory-as-witness + G40 modulus.
+trajectory-as-witness + ε-δ modulus.
 
 ### Telescoping = conservation
 
@@ -85,12 +85,12 @@ observation, not yet capstoned in Lean.
 
 ## Connection
 
-- `theory/math/analysis/minimal_root.md` (G31 DyadicSearch sibling) — trajectory-as-witness shares the modulus discipline
-- `theory/math/modulus.md` (G40) — explicit moduli
+- `theory/math/analysis/minimal_root.md` (DyadicSearch sibling) — trajectory-as-witness shares the modulus discipline
+- `theory/math/modulus.md` — explicit moduli
 - `theory/math/real213.md` — Real213 carrier underlies FluxCut
 - `theory/physics/couplings.md` — primary downstream consumer
 - `research-notes/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive (2026-05-22)
-- `research-notes/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
+- `research-notes/archive/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
 
 ## Open frontier
 
@@ -100,4 +100,4 @@ observation, not yet capstoned in Lean.
 - **MVT chain at higher depth**: current chains close at 3-4
   bracket levels; deeper chains (d-depth-5 per resolution limit)
   pending.
-- Per G118 REAL-RES4 follow-ups in deeper FluxMVT analysis.
+- Per marathon deferred-items log REAL-RES4 follow-ups in deeper FluxMVT analysis.

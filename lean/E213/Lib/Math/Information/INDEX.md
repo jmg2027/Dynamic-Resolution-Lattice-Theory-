@@ -51,8 +51,7 @@ Blueprint: `blueprints/math/12_information_213.md`.
   * **Noiseless channel capacity = 1 bit/symbol** (rfl).
   * **K(213) = 4**: the Raw axiom's 4 clauses are the minimum
     description of the entire 213 framework — Kolmogorov-minimal
-    by construction (cf. `seed/AXIOM/04_falsifiability.md`
-    §5.2.1: any extra axiom = theory falsified).
+    by construction (cf. `seed/AXIOM/08_falsifiability.md` §8.2: any extra axiom = theory falsified).
 
 ## Next continuations (out of scope here)
 

@@ -6,7 +6,7 @@ import E213.Lens.Algebra.IdLensEq
 /-!
 # Lens.RawTopology — K_∞ ≡ point ≡ discrete vs indiscrete bookends
 
-Formalisation of `seed/AXIOM/09_chart_relativity.md` §9.5:
+Formalisation of `seed/AXIOM/06_lens_readings.md` §6.5:
 under different Lens readings, Raw exhibits two extreme
 topological pictures.
 

@@ -163,7 +163,7 @@ operationalises falsifiability:
     using Raw's distinguishability primitive.
 
 This makes DRLT's "falsifiability contract"
-(`seed/AXIOM/04_falsifiability.md`) **measurable**: 135
+(`seed/AXIOM/08_falsifiability.md`) **measurable**: 135
 decide-verified impossibilities provide the empirical basis.
 
 ---
@@ -184,7 +184,7 @@ python3 tools/falsifier_mining_scan.py
     automated catalog with categories + samples.
   · `research-notes/G87_raw_native_emergence_audit.md`
     (parallel branch) — manual headline catalog.
-  · `seed/AXIOM/04_falsifiability.md` — falsifiability
+  · `seed/AXIOM/08_falsifiability.md` — falsifiability
     doctrine.
   · `LESSONS_LEARNED.md` Pattern #2 (decide-finitism) +
     Pattern #13 (quantitative profile).

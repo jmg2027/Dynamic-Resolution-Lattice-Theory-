@@ -32,7 +32,7 @@ Each is decidable + small + composable.  Together they constitute
 the **library of Lens primitives** that other DRLT layers (Math,
 Physics) build on.
 
-`PrismLens` ↔ truth-table identities (G98 unfold-graph candidate
+`PrismLens` ↔ truth-table identities (unfold-graph chunks unfold-graph candidate
 N7, see scanner_suite.md).
 
 ## Connection

@@ -6,11 +6,11 @@ past-Moufang layer.
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 1 (multi-note absorption).  9 source notes
-(G36, G51-G58) → 1 chapter; sources archived.
+ → 1 chapter; sources archived.
 
 ## Overview
 
-ℝ, ℂ, ℍ, 𝕆, ... are **not** different mathematical worlds.  They
+ℝ, ℂ, ℍ, 𝕆, ... Are **not** different mathematical worlds.  They
 are *the same structural pair extension* on a common `Cut` substrate,
 layered as a **Cayley-Dickson tower**:
 
@@ -175,23 +175,6 @@ the rest of 213.
 | Type E rejection | `Misc/TypeE_Rejection` | 4-row matrix complete |
 | Möbius signature φ fixed point | `Theory/Raw/Mobius` (Pell-Fib bridge) | 213 = [[2,1],[1,1]] |
 
-## Research-note provenance
-
-Nine exploratory notes fed this chapter
-(`research-notes/G36, G51-G58` — archived 2026-05-22):
-
-| Note | Theme |
-|---|---|
-| `G36` | Cayley-Dickson basis unification (213-native, foundational) |
-| `G51` | Eisenstein ladder + 213-algebra tower observation |
-| `G52` | Tower layer probes (probe txts already in `data/probes/`) |
-| `G53` | Type E rejection — ℤ-base 4-row matrix completeness |
-| `G54` | Substitution-discovery algorithm skeleton |
-| `G55` | Type A transient residual = closed linear recurrence |
-| `G56` | Session summary 2026-05-09 (algebra tower conquest) |
-| `G57` | 213 = Möbius signature multi-layer reading (Tier A) |
-| `G58` | Final cumulative summary (this chapter's primary source) |
-
 ## Open frontier
 
 The 4-row matrix is **complete** at the first past-Moufang layer.
@@ -209,7 +192,7 @@ Open extensions:
 
 3. **Type D Hurwitz extension**: 2T binary tetrahedral is base
    level; whether a "Type D tower" exists in the same sense as
-   Types A/B/C is open.  G53 rejection covered Type E
+   Types A/B/C is open.  Type-E rejection rejection covered Type E
    (`ℤ`-base square matrices); a parallel Type D analysis is
    pending.
 

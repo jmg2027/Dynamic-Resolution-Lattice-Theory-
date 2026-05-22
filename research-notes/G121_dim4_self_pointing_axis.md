@@ -42,7 +42,7 @@ are not Raw commitments — they are Lens outputs.  Translating
 Geometrization into 213-native phrasing:
 
 **3-manifold**: a global coherence of chart-Lens self-pointing
-(local coordinate readout) per `seed/AXIOM/09_chart_relativity.md`.
+(local coordinate readout) per `seed/AXIOM/06_lens_readings.md`.
 Smoothness = chart-transition resonance.  Dimension 3 = count-Lens
 readout of independent chart freedoms.
 
@@ -203,7 +203,7 @@ Subsequent audit (`G120 §11`, commit 84539748) surfaced:
 Operationally:
 
   · 213 fractal base $d_{213} = 5$ (from `numV L = 5^L`).
-  · Per `seed/AXIOM/07_self_reference.md` §8.1 (no exterior),
+  · Per `seed/AXIOM/05_no_exterior.md` §5.1 (no exterior),
     the observer cannot stand outside Raw.  The self-pointing
     residue cannot be coordinatized externally.
   · One of the $d_{213} = 5$ axes is therefore structurally
@@ -379,13 +379,13 @@ Raw axiom Clause 1: "two distinct atoms".  No further derivation.
 The ansatz requires: chart-Lens readout count = $d_{213} - 1$,
 where the omitted axis is the self-pointing residue.
 
-Status: not formalized.  `seed/AXIOM/09_chart_relativity.md`
+Status: not formalized.  `seed/AXIOM/06_lens_readings.md`
 defines chart-relativity but does not currently carry a theorem
 of the form "chart-Lens count = $d_{213} - 1$" or
 "self-pointing axis is chart-invisible".
 
 Required: a formal statement linking
-`seed/AXIOM/07_self_reference.md` §8.1 (no exterior) to chart-Lens
+`seed/AXIOM/05_no_exterior.md` §5.1 (no exterior) to chart-Lens
 coordinate count.  This is the deepest 213-internal knot of G121.
 
 **Falsifier for M2**: exhibit a 213-deployment where chart-Lens
@@ -582,8 +582,8 @@ candidate for `DRLT Validation Standard` clause 2.
 ## §10 Cross-references
 
 ### 213 internals
-  · `seed/AXIOM/07_self_reference.md` §8.1 — no exterior
-  · `seed/AXIOM/09_chart_relativity.md` — chart-Lens
+  · `seed/AXIOM/05_no_exterior.md` §5.1 — no exterior
+  · `seed/AXIOM/06_lens_readings.md` — chart-Lens
   · `seed/INDEX.md` — naming policy
   · `CLAUDE.md` failure modes table — universe-constant framing,
     stereotype matching, dichotomy import

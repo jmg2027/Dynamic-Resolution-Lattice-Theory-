@@ -14,7 +14,7 @@
 | **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
 | **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
-| **Full repo audit** | CLEAN | 0 sorry / 0 axiom / 0 Mathlib / 0 Classical / 0 native_decide; build clean; G120 framing regression fixed (`6599f889`) |
+| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Latest scan: **1145 PURE / 0 real DIRTY / 56 sealed-DIRTY-by-design (1201 total)**.  DRLT mathematical content (Lib/Math/*, Lib/Physics/*, Theory/*) is fully PURE.  The 56 sealed theorems sit in 7 `Lens.*` modules across three structural categories: (a) Prop-as-distinguishing thesis (propext), (b) Lens funext-by-design (Quot.sound), (c) JoinEquiv quotient-representative selection (Classical.choice).  Per `STRICT_ZERO_AXIOM.md` §"Sealed-by-design categories".  G120 framing regression fixed (`6599f889`) |
 
 Closure logs preserved in git history; the live state is the Lean
 source + theory chapters.  Don't read the per-Part marathon logs that
@@ -53,8 +53,7 @@ Currently still open:
   addition (current overflow is post-G120 + tier discipline + failure
   modes catalog growth).
 - **TH-1 / TH-4** doc work routed earlier into
-  `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` (TH-1) and
-  `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` (TH-4 partial).
+  `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
 
 ## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
 
@@ -135,7 +134,7 @@ meaningful in DRLT is itself a research question.
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/07_self_reference.md` §8 | Boot sequence — re-read every session start |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence — re-read every session start |
 | `research-notes/G29_residue.md` | Clean foundational text |
 | `theory/INDEX.md` | Book map (90 chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |

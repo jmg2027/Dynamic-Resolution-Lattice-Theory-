@@ -8,7 +8,7 @@ falsifier.
 The directory name is "AtomicBase" rather than "Substrate" per
 the 2026-05-20 substrate-metaphor revision: this cluster is
 *atomic-primitive readings* of Raw, not a foundation supporting
-later layers (per `seed/AXIOM/07_self_reference.md` §8.1, there
+later layers (per `seed/AXIOM/05_no_exterior.md` §5.1, there
 is no underlying foundation; every reading is residue-internal).
 
 ## Files (13)

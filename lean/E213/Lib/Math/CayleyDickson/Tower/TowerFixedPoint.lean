@@ -38,7 +38,7 @@ at every finite layer).  The pointwise fixed set across all layers
 is exactly {±1} (the universal scalar subring) — these two
 readings (per-layer ratios + global pointwise fixed set) are
 aspects of the same residue, not separate phenomena (cf.
-`seed/AXIOM/07_self_reference.md` §8.7 frozen+dynamic).
+`seed/AXIOM/05_no_exterior.md` §5.7 frozen+dynamic).
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Tower.TowerFixedPoint

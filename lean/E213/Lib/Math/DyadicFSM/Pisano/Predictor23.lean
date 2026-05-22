@@ -27,7 +27,7 @@ Frobenius-orbit interpretation: predictor is upper bound, tight
 period coincides iff no Frobenius-stable proper subgroup intersects
 the (1,1)-orbit.
 
-Per `research-notes/G119_pisano_pell5_research_direction.md`, the
+Per `theory/math/dyadic_fsm.md` (universal-Pisano section), the
 tight-period analysis at sub-tight primes is a separate (deeper)
 research sub-direction within FSM-1 (2).
 -/

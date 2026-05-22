@@ -4,15 +4,14 @@ import E213.Lens.LensCore
 /-!
 # Lens.SelfCompletion — every Raw application uses all 4 clauses
 
-`seed/AXIOM/07_self_reference.md` §8.6 records the self-completion
+`seed/AXIOM/05_no_exterior.md` §5.5 records the self-completion
 principle: every pointing is already complete (all 4 clauses
 simultaneously present), not stepwise constructed.
 
 This file records the Lean witness via the catamorphism: any Lens
 `L : Lens α` requires *all three* data fields (`base_a`, `base_b`,
 `combine`) plus Raw's `slash_comm` symmetry property to define
-`L.view : Raw → α`.  The 4 clauses of `seed/AXIOM/02_statement.md`
-§3.2 are thus visible at every Lens reading:
+`L.view : Raw → α`.  The 4 clauses of `seed/AXIOM/02_axiom.md` §2.2 are thus visible at every Lens reading:
 
   - Clause 1 (two distinct atoms): the Lens's `base_a` and
     `base_b` are α-images of `Raw.a` and `Raw.b`.

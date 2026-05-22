@@ -14,7 +14,7 @@ Two readings of Raw equivalence connected here:
     (observational reading via Lens `L : Lens α`).
 
 Both are residue-internal events (per
-`seed/AXIOM/07_self_reference.md` §8.1, "internal/external" is
+`seed/AXIOM/05_no_exterior.md` §5.1, "internal/external" is
 itself a Lens-imported framing; here the two names mark
 *structural* vs *observational* readings of the same residue, not
 a substrate/external split).

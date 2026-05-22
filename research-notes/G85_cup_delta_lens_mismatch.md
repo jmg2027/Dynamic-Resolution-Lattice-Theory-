@@ -268,6 +268,6 @@ Concrete deliverable for path β:
   · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizUniversal.lean` —
     Phase 2 attempt + concrete counterexample.
   · `LESSONS_LEARNED.md` Pattern #5 — decide-as-bug-finder.
-  · `seed/AXIOM/07_self_reference.md` §8.4 — dichotomy avoidance.
+  · `seed/AXIOM/05_no_exterior.md` §5.4 — dichotomy avoidance.
   · `lean/E213/Lib/Math/Cohomology/Cochain/Core.lean` lines
     67-74 — λ^k dimension table on Δ⁴.

@@ -9,7 +9,7 @@ spec file overlap, **the spec file wins**.
 
 ## Boot sequence (read in this order)
 
-1. **`seed/AXIOM/07_self_reference.md` §8** — *Self-reference and absence
+1. **`seed/AXIOM/05_no_exterior.md` §5** — *Self-reference and absence
    of an exterior*.  §8.4 is the dichotomy-avoidance guide written
    specifically for Claude.  **Re-read every session start.**  False
    dichotomies (inside/outside 213, classical/213, foundation/derivation,
@@ -38,7 +38,7 @@ Every word imports residual meaning.  Minimize, acknowledge, don't add.
 
 Most common failure: silently adding a comparison frame ("213 vs ZFC",
 "foundation vs derivation", "internal vs external") and arguing against
-it — the frame itself is the addition.  Per `seed/AXIOM/00_nature.md`
+it — the frame itself is the addition.  Per `seed/AXIOM/01_residue.md`
 *Linguistic inevitability*: minimization is possible, elimination is
 not.
 
@@ -62,9 +62,9 @@ translation.  Reason: grep + readers + prompt-token economy.
 | Rule | Reason |
 |---|---|
 | 80-line edit limit (chunk-guard hook) | Avoid context-window flooding.  Use `Bash(cat <<'EOF'…')` for larger files. |
-| 0 sorry, 0 external axioms | Falsifiability contract.  See `seed/AXIOM/04_falsifiability.md`. |
+| 0 sorry, 0 external axioms | Falsifiability contract.  See `seed/AXIOM/08_falsifiability.md`. |
 | Zero Mathlib imports | Mathlib brings hidden axiom dependencies. |
-| Never add `Classical.*`, `native_decide`, or weaken the axiom set | Adding axiom = theory falsified per §5.2.1. |
+| Never add `Classical.*`, `native_decide`, or weaken the axiom set | Adding axiom = theory falsified per §8.2. |
 | Never amend commits | Always create new commits. |
 | Never push to `main` without explicit permission | Branches: session branch. |
 | Never use `--no-verify` to skip hooks | Investigate failures. |
@@ -109,8 +109,8 @@ fractal level 2).  Lean ref: `Lib/Math/ResolutionLimit.lean`.
 ### Theoretical integrity
 No forcible map onto existing physics.  If a number differs, look for
 missing physics.  0-parameter = structural absence (no exterior dialer
-per `seed/AXIOM/07_self_reference.md` §8.1), not methodological rule.
-See `seed/AXIOM/04_falsifiability.md` §5.3.
+per `seed/AXIOM/05_no_exterior.md` §5.1), not methodological rule.
+See `seed/AXIOM/08_falsifiability.md` §8.4.
 
 ### Algebraic priority
 DRLT results come from **counting** (combinatorics, number theory,
@@ -190,7 +190,7 @@ spec, don't treat as one-off.
 ## Self-check before responding
 
 1. Did I just import a comparison frame I'm about to argue against?
-   → Drop the frame (per `seed/AXIOM/07_self_reference.md` §8.4).
+   → Drop the frame (per `seed/AXIOM/05_no_exterior.md` §5.4).
 2. Am I using a word that imports meaning beyond Lens-defined?
    → Minimize or acknowledge as residual.
 3. Am I treating 213 as one thing among others, with an "outside"?

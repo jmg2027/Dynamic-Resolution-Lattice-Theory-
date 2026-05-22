@@ -1,9 +1,9 @@
-# Modulus Combinators (G40)
+# Modulus Combinators
 
 **Status**: Closed (10 files, capstone `G40Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G40 → chapter + archive.
+Pattern 1 — ε-δ modulus → chapter + archive.
 
 ## Overview
 
@@ -51,11 +51,6 @@ diagonal trick to convert sequence-of-sequences moduli into
 single-sequence moduli; `DepthCompleteness` shows that any
 classically-converging sequence in 213's substrate has a
 computable modulus.
-
-## Research-note provenance
-
-`research-notes/G40_epsilon_delta_modulus.md` — archived to
-`research-notes/archive/discrete_geometry/G40_*.md`.
 
 ## How to verify
 

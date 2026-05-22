@@ -1,9 +1,9 @@
-# Operation × Topology (G48)
+# Operation × Topology
 
 **Status**: Closed (4 files, capstone `G48Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G48 → chapter + archive.
+Pattern 1 — operation topology → chapter + archive.
 
 ## Overview
 
@@ -48,9 +48,5 @@ classes" boilerplate that classical algebra requires.
 
 ## Companion clusters
 
-- `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
-- `Lib/Math/GenerationRule/` (G46 — `theory/math/generation_rule.md`)
-
-## Research-note provenance
-
-`research-notes/G48_operation_topology.md` — archived.
+- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)

@@ -1,9 +1,9 @@
-# Algebra213 Meta-Theorems (G50)
+# Algebra213 Meta-Theorems
 
 **Status**: Closed — `Math/Tactic/{Ring213, HurwitzRing, QuadExtension}` infrastructure + Hurwitz layer in SignedCut.
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G50 → chapter + archive.
+Pattern 1 — algebra-213 meta-theorems → chapter + archive.
 
 ## Overview
 
@@ -59,10 +59,6 @@ the algebraic side of the tower.
 - **Universe chain** (`theory/math/universe_chain.md`): Möbius P
   matrix identities (`P^10 ≡ I mod 5`) use `Ring213` at the
   underlying linear-algebra level.
-
-## Research-note provenance
-
-`research-notes/G50_algebra213_meta_theorems.md` — archived.
 
 ## How to verify
 

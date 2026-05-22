@@ -3,7 +3,7 @@
 **Status**: Closed via Steps 1-7 (full `∀(m, n)` iff with bounds 2 ≤ m, n).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 3 (mixed-status, sub-conjecture of G35).  G35 §C2 statement
+Pattern 3 (mixed-status, sub-conjecture of chiral cup ring catalog).  Chiral cup ring catalog §C2 statement
 + step log remains in the catalog; the closure proof + narrative are
 here.
 
@@ -125,11 +125,11 @@ the canonical reading; (2, 3) is the same lattice with NS/NT swapped.
 ## Research-note provenance
 
 `research-notes/G35_chiral_cup_ring_catalog.md` **§C2** — conjecture
-statement + step log (Steps 1-7 closed).  G35 itself stays active
+statement + step log (Steps 1-7 closed).  Chiral cup ring catalog itself stays active
 (field-level catalog); this chapter is the per-conjecture closure
 narrative.
 
-The §0.5 promotion-status section of G35 tracks this chapter as
+The §0.5 promotion-status section of chiral cup ring catalog tracks this chapter as
 the C2 destination.
 
 ## Open frontier

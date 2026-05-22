@@ -203,7 +203,7 @@ after:
 
 References:
   - `theory/` as the database
-  - `seed/AXIOM/07_self_reference.md` §8.4 + CLAUDE.md "Failure
+  - `seed/AXIOM/05_no_exterior.md` §5.4 + CLAUDE.md "Failure
     modes catalog" as the immune-system rules
   - `lean/E213/docs/PROMOTION_PATTERNS.md` for the catalog-side
     promotion shape (this skill is the essay-side counterpart)

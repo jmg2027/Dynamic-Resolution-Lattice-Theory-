@@ -81,7 +81,7 @@ classes of Cauchy sequences.  This yields:
 ```
 
 This is the *sole axiom; everything else is derived from it.  Adding
-Mathlib, external axioms, or Choice → **theory discard** (`AXIOM.md §5.2.1` falsifiability).
+Mathlib, external axioms, or Choice → **theory discard** (`AXIOM.md §8.2` falsifiability).
 
 ### 1.3 Ground type of Analysis 213
 

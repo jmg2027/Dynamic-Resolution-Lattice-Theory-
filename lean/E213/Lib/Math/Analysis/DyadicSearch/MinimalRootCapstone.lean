@@ -7,7 +7,7 @@ This file bundles the existing `MinimalRootLens` + `MinimalRootLensMonotone`
 machinery as a clean public-facing IVT certificate, closing G31's main
 deliverable per `/root/.claude/plans/smooth-mapping-metcalfe.md` Phase 4.
 
-G31 design (per `research-notes/G31_minimal_root_lens.md`): the IVT
+Design (per `theory/math/analysis/minimal_root.md`): the IVT
 holds in 213-native form by giving the user *typed data witnesses*
 instead of classical locatedness.  The four inputs are:
 
@@ -67,7 +67,7 @@ def ivt_root_certificate
 
 A pair-level theorem recording that the IVT constructor's input
 signature lines up with the 4-clause Raw axiom (per
-`seed/AXIOM/03_form.md` §4.5 forcing chain). -/
+`seed/AXIOM/03_form.md` §3.4 forcing chain). -/
 
 /-- ★ **Four-axis structural correspondence** — the IVT certificate
     consumes the same four data types as the 4-clause Raw axiom

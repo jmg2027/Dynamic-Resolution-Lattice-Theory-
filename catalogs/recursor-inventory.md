@@ -56,7 +56,7 @@ landscape by **~50×**:
   · **Only one E213-internal inductive in the top 11**:
     `E213.Term.Internal.Tree`.  All other heavy-use recursors
     are Lean-core inductive types.  Consistent with the
-    Reading (γ) finding (`seed/RAW_DERIVATION_SPEC.md`): DRLT's
+    Reading (γ) finding (`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2): DRLT's
     Expr-level substrate is overwhelmingly Lean-stdlib generics,
     with the Tree recursor as the Raw-side touchpoint.
   · **Bool dominates** (1,681) because most DRLT theorems
@@ -86,5 +86,5 @@ Or re-derive from G102's atlas TSV.
     §2 — full data + per-type breakdown.
   · `research-notes/G90_ast_fold_motifs.md` — earlier 5-recursor
     pass (corrected by G105).
-  · `seed/RAW_DERIVATION_SPEC.md` — α/β/γ context for the
+  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ context for the
     Lean-stdlib substrate finding.

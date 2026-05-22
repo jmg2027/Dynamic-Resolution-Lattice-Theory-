@@ -17,9 +17,8 @@ lifts the existential up to the user-facing FSM run/bits sequences.
 
 All declarations PURE.
 
-The G119 Phase 3 work (predictive form `N = pisano_predict p` via
-FLT + legendre dispatch) remains a multi-session research direction
-documented in `research-notes/G119_pisano_pell5_research_direction.md`.
+The predictive form `N = pisano_predict p` (via FLT + legendre
+dispatch): see `theory/math/dyadic_fsm.md` (universal-Pisano section).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.PellMatrixPigeonhole

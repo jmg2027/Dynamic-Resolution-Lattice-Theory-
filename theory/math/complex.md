@@ -28,7 +28,7 @@ realized as `SignedCut`-arithmetic on the components.  No new
 substrate primitive (per the SignedCut chapter); ℂ is structurally
 the same construction at L2 of the CD tower.
 
-Classical residue theory needed for α_em (G35) C5 reduces to
+Classical residue theory needed for α_em C5 reduces to
 finite-bracket sums in this representation.
 
 ## Connection to other chapters

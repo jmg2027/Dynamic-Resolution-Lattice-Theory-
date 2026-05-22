@@ -30,7 +30,7 @@ Status keys:
 
 | ID | Title | Status | Notes |
 |----|-------|:------:|-------|
-| L1 | LeibnizAlgLift 4-sibling | **DONE (full)** | β-side: `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general` (commit 0fabff84).  α-side: `LeibnizAlgLiftAlpha.leibniz_via_α_decomp_general` with `castA/castB` `Fin.cast` plumbing for the Nat.add asymmetry (commit a119b077).  All 4 siblings 1-line corollaries.  Methodology: `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md`. |
+| L1 | LeibnizAlgLift 4-sibling | **DONE (full)** | β-side: `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general` (commit 0fabff84).  α-side: `LeibnizAlgLiftAlpha.leibniz_via_α_decomp_general` with `castA/castB` `Fin.cast` plumbing for the Nat.add asymmetry (commit a119b077).  All 4 siblings 1-line corollaries.  Methodology: `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-4. |
 | C  | CutSumOne 8-sibling 3-component template | **DONE** | `cutSum_constCut_at (a₁ b₁ a₂ b₂ X Y m k) (forward) (backward)` extracts the bidirectional iff opener + `decide_eq_true` closer.  All 8 substantive `cutSum_*` refactored; 478→337 lines (commit 4984c9ad). |
 
 ## §4 — Smaller consolidations
@@ -76,8 +76,8 @@ Net Lean deliverables this branch:
 
 Doc deliverables (G107 §10):
   · `LESSONS_LEARNED.md` Patterns #10, #11, #12, #13 added.
-  · `seed/RAW_DERIVATION_SPEC.md` — TH-2 (α/β/γ readings).
-  · `seed/FALSIFIABILITY_SURFACE_SPEC.md` — TH-3 (quantitative §5.2.1).
+  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ readings.
+  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface (quantitative §8.2).
   · `catalogs/recursor-inventory.md` — CAT-3.
   · `catalogs/internal-hubs.md` — CAT-4.
   · `catalogs/falsifier-roster.md` — CAT-1.

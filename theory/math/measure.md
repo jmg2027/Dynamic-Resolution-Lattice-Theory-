@@ -28,7 +28,7 @@ re-realized via **cup-product**:
 - "Measure" = cup-product evaluation on cochains
 - "Lebesgue integral" = cup-pairing with Real213-valued integrand
 
-This is the cup-as-measure paradigm shift (per G35 §C6).
+This is the cup-as-measure paradigm shift (per chiral cup ring catalog §C6).
 
 ## Connection to other chapters
 

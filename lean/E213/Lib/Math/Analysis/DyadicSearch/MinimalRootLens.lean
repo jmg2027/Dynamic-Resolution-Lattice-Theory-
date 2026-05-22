@@ -14,7 +14,7 @@ the bisection trajectory *is* the root cut.  No locatedness, no
 is concretised by `signedLeftOracle`; the readout is the limit of
 the midpoint sequence under `ConsistentOracle`'s typed protocol.
 
-Design recorded in `research-notes/G31_minimal_root_lens.md`.
+Design: `theory/math/analysis/minimal_root.md`.
 
 ## Skeleton (this file)
 

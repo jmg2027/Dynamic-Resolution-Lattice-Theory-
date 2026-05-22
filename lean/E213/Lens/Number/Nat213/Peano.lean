@@ -23,7 +23,7 @@ axis quotients, group completions, etc.).  Including 0 in the
 
 All theorems satisfy ∅-axiom standard.
 
-**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This
+**Framing (per `seed/AXIOM/06_lens_readings.md`).**  This
 inductive `Nat213` is an *ergonomic parallel* to the lens-derived
 form; it is not itself lens-derived.  The `.Bridge` module witnesses
 the iso to the Method A chain (`.Raw`); `Lens.leaves` then maps both

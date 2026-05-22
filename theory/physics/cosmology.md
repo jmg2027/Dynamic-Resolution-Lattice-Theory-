@@ -24,7 +24,7 @@ closure (per `theory/math/universe_chain.md`) — the same atomic
 substrate that produces the gluon octet at the gauge level
 produces large-scale observables at the cosmological level via
 the family-evaluation count `configCount 2 = 5²⁵` (historically
-called `N_U`; per G120 Round 3 one value of the parametric
+called `N_U`; per N_U re-derivation Round 3 one value of the parametric
 `configCount` family).
 
 **F26 falsifier (`EtaBFalsifier.lean`)**: η_B (baryon-to-photon

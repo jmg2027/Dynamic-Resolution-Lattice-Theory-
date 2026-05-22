@@ -4,7 +4,7 @@
 + unit oracles + signed-left collapse).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 (multi-note absorption).  G31 → 1 chapter; archived.
+Pattern 1 (multi-note absorption).  Trajectory-witness IVT → 1 chapter; archived.
 
 ## Overview
 
@@ -34,7 +34,7 @@ Analysis/DyadicSearch/MinimalRootLens.lean`.
 | Sub-cluster | Files | Purpose |
 |---|---|---|
 | **Core mechanics** | `DyadicBracket`, `DyadicTrajectory`, `DyadicRiemann`, `IVT` | Dyadic-bracket type, bisection trajectory, Riemann sum, base IVT |
-| **Minimal-root Lens (G31)** | `MinimalRootLens`, `MinimalRootLensMonotone` | Trajectory-as-witness + monotone refinement |
+| **Minimal-root Lens** | `MinimalRootLens`, `MinimalRootLensMonotone` | Trajectory-as-witness + monotone refinement |
 | **Oracle + collapse** | `ConsistentOracle`, `UnitConsistentOracles`, `SignedLeftCollapse` | Consistent-oracle predicate, unit-interval oracles, signed-left collapse |
 
 ## The narrative
@@ -73,7 +73,7 @@ sign-witness allows, else the right.  The infinite trajectory
 **is** the root cut — not "converges to" the root, but **is** the
 root, as a Real213 `Cut`.
 
-### Why this matters (G31's thesis)
+### Why this matters (trajectory-witness IVT's thesis)
 
 > *"편한 길은 213이 아니지"*  — Mingu
 
@@ -116,15 +116,6 @@ machinery directly.
 | `unit_consistent_oracle` | `UnitConsistentOracles` | Unit-interval instances |
 | `signedLeftCollapse` | `SignedLeftCollapse` | Always-prefer-left collapse |
 | Base IVT | `IVT` | Classical statement in 213-native form |
-
-## Research-note provenance
-
-One note (`G31`) — archived to
-`research-notes/archive/minimal_root/`:
-
-| Note | Theme |
-|---|---|
-| `G31_minimal_root_lens.md` | Trajectory-as-witness IVT — typed protocol replaces existential |
 
 ## Open frontier
 

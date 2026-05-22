@@ -5,8 +5,7 @@ import E213.Lens.LensCore
 # LensInternality — Lens is a Raw-internal concept
 
 The "every framework is a Lens" meta-claim would require standing
-outside 213 to evaluate (which `seed/AXIOM/07_self_reference.md`
-§8.1 rules out).  Instead this file formalises the residue-side
+outside 213 to evaluate (which `seed/AXIOM/05_no_exterior.md` §5.1 rules out).  Instead this file formalises the residue-side
 dual: **every Lens is a Raw-internal event** — its data is exactly
 the triple `(base_a, base_b, combine)` on the codomain α, and its
 view is exactly `Raw.fold` of that data.  Lens is therefore not an

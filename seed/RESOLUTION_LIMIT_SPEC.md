@@ -10,14 +10,14 @@ file docstrings drift from this spec, this spec wins.
 
 ## Section 0 — T0 (Raw) layer commits to nothing about cardinality
 
-The 213 axiom set (`seed/AXIOM/02_statement.md` §3.3) explicitly excludes from
+The 213 axiom set (`seed/AXIOM/02_axiom.md` §2.5) explicitly excludes from
 its commitment list: size, cardinality, finiteness, infinity, order,
 hierarchy, set/element relation, observer, space, perception.
 
 Raw is an inductive trajectory carrier, not a set.  At the T0 layer
 no cardinality predicate is defined.  "Finite" and "infinite" are
 NOT properties of Raw — they are outputs of specific lens
-applications (`seed/AXIOM/02_statement.md` §3.3, `Math/Infinity/LensCardinality
+applications (`seed/AXIOM/02_axiom.md` §2.5, `Math/Infinity/LensCardinality
 .lean`).
 
 Implication: *both* "Strict finitism" and "completed infinity
@@ -72,7 +72,7 @@ hence Real213 passes ∅-axiom.
 ## Section 2 — `configCount 2 = 5²⁵`: family readout at level 2
 
 **Round 3 rewrite (2026-05-22)**: the previous "four-Lens
-convergence" framing was retracted per G120 audit (§1 + §11) —
+convergence" framing was retracted per N_U re-derivation audit (§1 + §11) —
 of the original four readings, only two had real Lean derivations
 and the other two were placeholders or absent.  The corrected
 reading: `5²⁵` is **one value of a parametric family**, not a
@@ -93,7 +93,7 @@ Concrete values:
   · `configCount 2 = 298023223876953125` (= `5^25`, historically `N_U`)
   · `configCount 3 ≈ 2.35 × 10^87`
 
-Lean: `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (G120 Phase 1).
+Lean: `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (N_U re-derivation Phase 1).
 
 ### Two real derivations at level n = 2
 
@@ -112,7 +112,7 @@ privileged constant.
 ### `N_U` is a display name only
 
 Historically the name `N_U` carried "universe constant" framing
-(per CLAUDE.md "Universe-constant framing" failure mode).  Post-G120:
+(per CLAUDE.md "Universe-constant framing" failure mode).  Post-N_U re-derivation:
 `N_U` is an `abbrev` for `configCount 2` (one value of the
 parametric family).  No `def N_U` exists.  The display name is
 retained for readability of physics formulas, not as an

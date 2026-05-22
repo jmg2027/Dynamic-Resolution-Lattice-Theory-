@@ -15,9 +15,9 @@ final closure status for the 11-item marathon.
 | 8a | L3 Pisano period_lift | `fc105cd6` | pisano_period_lift |
 | 8b | L4 ldd_branch_via_maxRange | `7c887e23` | CutFnData.ldd_branch_via_maxRange |
 | 9 (1) | FSM-1 generic pellFSMmod | (this commit) | ArithFSM.pellFSMmod |
-| 10a | TH-1 fingerprint spec | `9616c8a6` | seed/PROOF_SHAPE_FINGERPRINT_SPEC.md |
-| 10b | TH-4 L1 methodology spec | `2558e58b` | seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md |
-| 11 | G117 Bishop subsumption spec | `7eb619a6` | seed/BISHOP_SUBSUMPTION_SPEC.md |
+| 10a | TH-1 fingerprint spec | `9616c8a6` | seed/THEOREM_METHODOLOGY_SUITE.md §TH-1 |
+| 10b | TH-4 L1 methodology spec | `2558e58b` | seed/THEOREM_METHODOLOGY_SUITE.md §TH-4 |
+| 11 | G117 Bishop subsumption spec | `7eb619a6` | seed/CLOSED_FORM_SPEC.md §"Bishop subsumption" |
 
 **14 abstraction templates** integrated.  All refactored theorems
 verified PURE (`#print axioms`: "does not depend on any axioms").

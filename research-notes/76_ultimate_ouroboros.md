@@ -89,7 +89,7 @@ alternative — showing the freedom in connective choice.
 - iff_comm_eq, propAsDistinguishingIff, canonicalIffMap:
   [propext] only.
 
-Lean baseline minimum.  Consistent with AXIOM.md §5.2.1
+Lean baseline minimum.  Consistent with AXIOM.md §8.2
 falsifiability.
 
 ## Relationship to Note 75

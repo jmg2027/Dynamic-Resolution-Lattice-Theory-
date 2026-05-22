@@ -9,7 +9,7 @@ Pattern 2.
 
 213-native geometry primitives: algebraic geometry (cross-link to
 HodgeConjecture and universe_chain) + rotation geometry (companion
-to AngleStructure G42).
+to AngleStructure angle-structure).
 
 ## Lean source
 
@@ -28,7 +28,7 @@ geometry content lives in `Lib/Math/Cohomology/HodgeConjecture/`
 or `Lens/Number/Nat213/AlgebraicGeometry.lean` (universe-chain).
 
 `Rotation.lean` provides 213-native rotation operations
-(angle = Lens-output structural angle per G42 angle_structure
+(angle = Lens-output structural angle per angle-structure angle_structure
 chapter).
 
 ## Connection

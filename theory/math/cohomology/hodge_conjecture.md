@@ -148,11 +148,11 @@ non-vacuous lift lives on the **T² minimal CW substrate**:
 - `Pairing/HodgeRiemannT2.lean` — Kähler class ω with cup(ω, ω) > 0
 - Both with explicit signature decomposition
 
-These were the 2026-05 follow-up closures of G10 Phase 2.
+These were the 2026-05 follow-up closures of post-Hodge programme Phase 2.
 
 ### 5. Motivic + Cross-discipline bridges
 
-Six motivic-cohomology counterparts (G10 Phase 3) and eleven
+Six motivic-cohomology counterparts (post-Hodge programme Phase 3) and eleven
 cross-discipline bridges (statistical mechanics, ML, CS, physics)
 are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 
@@ -160,7 +160,7 @@ are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 - `MotivicBridge/BlochBeilinson.lean` — motivic cohomology / Chow
 - `Bridge/Ising.lean`, `Bridge/Potts.lean` — Ising/Potts on 4-simplex
 - `Bridge/SpinGlassGroundState.lean` — NP-hard ground-state witness
-- `Bridge/GaloisCounterfactual.lean` — G11 80-year Galois counterfactual
+- `Bridge/GaloisCounterfactual.lean` — Galois-at-eighty counterfactual 80-year Galois counterfactual
 - `Bridge/G6Vacuity.lean` — G6 §0 corrected-position witness
 
 These demonstrate that **once Hodge is 213-native, the cohomology
@@ -182,25 +182,6 @@ machinery used by physics + CS + arithmetic geometry inherits the
 
 For the full 31-capstone list, see
 `lean/E213/Lib/Math/HodgeConjecture/INDEX.md`.
-
-## Research-note provenance
-
-Six exploratory notes fed this chapter
-(`research-notes/hodge/` — archived 2026-05-21):
-
-| Note | Theme | Lean closure |
-|---|---|---|
-| `G6_hodge_213_translation.md` | Standard Hodge ↔ 213 dictionary; §0 corrected position | `Foundation/{Conjecture,Canonical,Filled}.lean` |
-| `G7_lens_initiality_cup_blueprint.md` | Lens initiality + cup-subring blueprint | `Foundation/LensCata.lean` |
-| `G8_hodge_213_bridge_to_standard_math.md` | HC²¹³ ↔ standard HC bridge | `Bridge/` cluster |
-| `G9_hodge_conjecture_complete.md` | HC²¹³ closure narrative | `Foundation/Complete.lean` |
-| `G10_post_hodge_program.md` | 17 post-HC classical theorems programme | `Refinement/`, `Toolkit/`, `Pairing/`, `Structure/` |
-| `G11_galois_at_eighty.md` | Galois-at-eighty counterfactual | `Bridge/GaloisCounterfactual.lean` |
-
-The corrected position of G6 §0 (replacing the deprecated "Finitism
-is Forced" framing) is now the canonical reading; §1–§7 of G6
-contain the math content with the framing corrected per
-`seed/RESOLUTION_LIMIT_SPEC.md` §3.
 
 ## Open frontier
 

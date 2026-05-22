@@ -5,7 +5,7 @@
 
 ## Overview
 
-**Predicates about a Lens** (is it a leaf? canonical? does it
+**Predicates about a Lens** (is it a leaf? Canonical? Does it
 have A-B refinement? ...) and the theorems characterising them.
 
 The "meta-Lens" layer: Lenses about Lenses.

@@ -9,7 +9,7 @@ its public path `Term.Internal.Tree` to define
 `Raw := {t : Tree // ...}`.  Namespace `E213.Term.Internal` is
 path-aligned.
 
-**Encoding costs** (per `seed/AXIOM/08_encoding_costs.md`).  Three
+**Encoding costs** (per `seed/AXIOM/10_encoding_costs.md`).  Three
 devices below are Lean-implementation artifacts, not axiom
 commitments:
   - `inductive Tree | a | b | slash` — encoding cost §8a.1 (inductive

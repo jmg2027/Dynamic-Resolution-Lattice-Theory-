@@ -2,8 +2,7 @@
 
 CLAUDE.md verification criterion (2): a single measurement-Lens
 reading contradicting the corresponding theory-Lens reading is a
-213-internal contradiction (cf. `seed/AXIOM/04_falsifiability.md`
-§5.2.1 + "Falsification is internal" subsection — both readings
+213-internal contradiction (cf. `seed/AXIOM/08_falsifiability.md` §8.2 + "Falsification is internal" subsection — both readings
 are 213-internal events; their disagreement is not external
 refutation but residue-internal incoherence).  Each entry below
 records a *structural necessity*: if the (3, 2, 5) atomicity is

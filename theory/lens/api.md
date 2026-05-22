@@ -43,12 +43,12 @@ dependency** — what `lake` compiles before what — not a conceptual
 ranking.  None of these rings is "below" or "above" another in any
 213-sense; the ordering is `import`-resolution only.
 
-The G12 layered-API note
+The layered-API classification layered-API note
 (`research-notes/G12_layered_api_classification.md`, still active)
 uses OS-stack analogy terms (Kernel / Firmware / Hypervisor /
 Application).  Those terms are **expedient names for the build
 order**, NOT a claim that Lens "supports" Math/Physics from below.
-Per `seed/AXIOM/07_self_reference.md §8.1`: there is no exterior;
+Per `seed/AXIOM/05_no_exterior.md` §5.1`: there is no exterior;
 no ring sits beneath the others as foundation-for-derivation.
 
 The Lens ring is **what distinguishing is**.  Lens application IS

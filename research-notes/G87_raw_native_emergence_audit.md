@@ -246,8 +246,8 @@ The single most impactful project — **the 6-theorem** (§5) — would unify th
 
 ## §8  See also
 
-- `seed/AXIOM/02_statement.md` §3.4 (Möbius interpretation)
-- `seed/AXIOM/07_self_reference.md` §8 (self-reference doctrine)
+- `seed/AXIOM/03_form.md` §3.5 (Möbius interpretation)
+- `seed/AXIOM/05_no_exterior.md` §5 (self-reference doctrine)
 - `seed/RESOLUTION_LIMIT_SPEC.md` (N_U = 5²⁵ Lens convergence)
 - `research-notes/G29_residue.md` (the residue concept, foundational)
 - `research-notes/G35_chiral_cup_ring_catalog.md` §C1-C6 (the six open conjectures)
@@ -361,7 +361,7 @@ the `IsAlive` predicate (`parity a = true ∧ parity b = true`) being
 
 If every Raw event is *simultaneously* operation and object — with
 no a-priori distinction — then Clause 4 of the 213 axiom (`x/x`
-forbidden, `seed/AXIOM/02_statement.md` §3.2 #4) is **not restricted
+forbidden, `seed/AXIOM/02_axiom.md` §2.2 #4) is **not restricted
 to atomic Raw distinguishables**.  It applies *at every granularity*,
 including to **groups of Raw viewed as objects**.
 
@@ -400,8 +400,7 @@ The previously-postulated alive predicate is now structurally
 derived from **Clause 4 of the 213 axiom** + the user's principle
 that Raw events are simultaneously operations and objects.  No new
 postulate is introduced; the recursive applicability of Clause 4 is
-already implicit in the 4-clause statement (`seed/AXIOM/02_statement.md`
-§3.2) since the axiom does not restrict the granularity at which
+already implicit in the 4-clause statement (`seed/AXIOM/02_axiom.md` §2.2) since the axiom does not restrict the granularity at which
 distinguishables are pointed.
 
 After this closure, the **Raw → (NS, NT, d) = (3, 2, 5) inevitability
@@ -409,7 +408,7 @@ chain is fully ∅-axiom**:
 
 | Step | Theorem | Status |
 |---|---|---|
-| Raw axiom 4 clauses | `seed/AXIOM/02_statement.md` §3.2 | doctrine |
+| Raw axiom 4 clauses | `seed/AXIOM/02_axiom.md` §2.2 | doctrine |
 | Recursive Clause 4 → Alive | `alive_iff_clause4_alive` | ✅ ∅-axiom |
 | Alive + decomp 2a+3b = n | `atomic_iff_five` | ✅ ∅-axiom |
 | Atomic n → n = 5 | `atomic_implies_five` | ✅ ∅-axiom |

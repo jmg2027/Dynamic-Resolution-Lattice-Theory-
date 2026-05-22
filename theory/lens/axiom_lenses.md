@@ -1,11 +1,11 @@
-# Axiom Lenses — G12 Tier 4 A2 Endgame
+# Axiom Lenses — layered-API classification Tier 4 A2 Endgame
 
 **Status**: Closed (7 files).
 **Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 
-★★★ **G12 Tier 4 A2 ENDGAME demonstration** ★★★
+★★★ **layered-API classification Tier 4 A2 ENDGAME demonstration** ★★★
 
 Lean's external axioms (`propext`, `Quot.sound`, `funext`) are
 **not external** to 213 — they are **213-internal Lens choices**
@@ -36,11 +36,11 @@ not:
 PURE.  Other Lean libraries that DO apply them are using
 those Lenses, but the choice is operational, not foundational.
 
-This is the **G12 Tier 4 A2 endgame**: classical foundations
+This is the **layered-API classification Tier 4 A2 endgame**: classical foundations
 themselves are Lens choices on Raw.
 
 ## Connection
 
 - `research-notes/G12_layered_api_classification.md` (active foundational)
-- `theory/math/axiom_systems.md` — G12 Tier 5 (the level above this)
-- `seed/AXIOM/06_formalization.md` — R1-R5 judgment game framework
+- `theory/math/axiom_systems.md` — layered-API classification Tier 5 (the level above this)
+- `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game framework

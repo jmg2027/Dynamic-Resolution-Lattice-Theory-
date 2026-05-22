@@ -4,8 +4,8 @@
 across 4 sub-trees).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 (multi-note absorption).  17 source notes (G65-G84,
-plus G82 navigation index) → 1 chapter; archived.
+Pattern 1 (multi-note absorption).  17 source notes (Nat213 type synthesis-closed-form pattern unification,
+plus universe-chain navigation navigation index) → 1 chapter; archived.
 
 ## Overview
 
@@ -17,35 +17,35 @@ closure, passing through:
 Atomicity (NS, NT, d) [UniverseChain Steps 1-5]
         │
         ▼
-Step 6: Raw + Nat213 ctor count = (NS, NT, d)        [G70]
+Step 6: Raw + Nat213 ctor count = (NS, NT, d)
         │
         ▼
-Step 7: Möbius P encodes atomicity                    [G74-G75]
+Step 7: Möbius P encodes atomicity
         - top-left = NT, trace = NS, det = glue
         - 1 = glue = NS − NT = det(P)
         │
         ▼
-Step 8: Lucas seq seeds atomicity                     [G77]
+Step 8: Lucas seq seeds atomicity
         - L_0 = NT, L_1 = NS
         - L_2 = 7 (= Mersenne M_3, = −χ(K_{3,2}^{(2)}))
         │
         ▼
-Step 9: Pentagonal closure                            [G78]
+Step 9: Pentagonal closure
         - P^5 ≡ −I (mod 5), P^10 ≡ I (mod 5)
         - Spiral starts at (NS, NT)
         │
         ▼
-Step 10: SL(2, F_5) ≅ 2I                             [G79]
+Step 10: SL(2, F_5) ≅ 2I
         - |2I| = 120 = 24·5
         - K_{3,2}^{(2)} cohomology: H¹ = ℤ^8
         │
         ▼
-Step 11: Dual fillings (Δ⁴ ⊥ K_{3,2}^{(2)})          [G80]
+Step 11: Dual fillings (Δ⁴ ⊥ K_{3,2}^{(2)})
         - χ(Δ⁴) + χ(K_{3,2}^{(2)}) = 1 + (−7) = −6
         - = −(NS·NT) = −(Type C ZOmega units)
         │
         ▼
-Step 12: CRT (mod 5, mod 2) decomposition             [G81]
+Step 12: CRT (mod 5, mod 2) decomposition
         - mod 5: order 10 = pentagonal D_5
         - mod 2: order 3 = triangular S_3
         - lcm = 30 = full closure
@@ -132,7 +132,7 @@ L_4 = 12, L_5 = 19, ...
 The Lucas-Mersenne dual at 7 is **the same 7** that appears as
 the Euler characteristic stress of K_{3,2}^{(c=2)} — the
 algebra-side and topology-side fingerprints of the same atomicity
-(G77).
+.
 
 ### 5. Pentagonal closure (Step 9)
 
@@ -204,7 +204,7 @@ chain steps + the CRT decomposition.
 | Theorem / Def | Module | Statement |
 |---|---|---|
 | `Nat213` type | `Lens/Number/Nat213/Core` | NS-spatial + NT-temporal constructor types |
-| `add_emergence` | `Lens/Number/Nat213/Core` | Addition via slash-projection (G69) |
+| `add_emergence` | `Lens/Number/Nat213/Core` | Addition via slash-projection |
 | `Nat213.atomicity` | `Lens/Number/Nat213/AtomicityCorrespondence` | NS=3 ctors, NT=2 ctors |
 | `algebraic_geometric_core` | `Lens/Number/Nat213/AlgebraicGeometry` | SL(2,F_5) ≅ 2I + K_{3,2} cohomology bundle |
 | `dual_fillings_sum_eq_neg_eisenstein` | `Lens/Number/Nat213/AlgebraicGeometry` | χ(Δ⁴) + χ(K_{3,2}) = −6 |
@@ -213,21 +213,6 @@ chain steps + the CRT decomposition.
 | Pentagonal closure | `Lens/Number/Nat213/RotationGeometry` | P^10 ≡ I (mod 5) |
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
 | `Mobius213.MobiusChain` | `Lib/Math/UniverseChain/MobiusChain` | Chain sentinel (imports all steps) |
-
-## Research-note provenance
-
-Seventeen notes (`G65-G81` plus index `G82`) plus closure-form
-notes (`G83-G84` partially) — archived to
-`research-notes/archive/universe_chain/`:
-
-| Range | Notes | Theme |
-|---|---|---|
-| G65-G70 | 6 | Nat213 type synthesis, lenses, fractal atom, addition emergence |
-| G71-G75 | 5 | Fold direction duality, glue, det = axis-generator fold |
-| G76-G79 | 4 | Rotation geometry, Lucas-Mersenne, pentagonal closure, SL(2,F_5)≅2I |
-| G80-G81 | 2 | Dual fillings, CRT decomposition |
-| G82 | 1 | Navigation index (chain summary) |
-| G83-G84 | 2 | Lens equality refactor + closed-form unification |
 
 ## Open frontier
 

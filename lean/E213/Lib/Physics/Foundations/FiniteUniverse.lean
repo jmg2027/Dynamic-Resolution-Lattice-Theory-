@@ -3,7 +3,7 @@ import E213.Lib.Physics.AlphaEM.Bare
 /-!
 # Finite-N universe — π² is a limit-label, not a 213 primitive
 
-The 213 axiom commits to NO cardinality (`seed/AXIOM/02_statement.md` §3.3); the
+The 213 axiom commits to NO cardinality (`seed/AXIOM/02_axiom.md` §2.5); the
 DRLT physics deployment realizes the lattice picture as the
 count-Lens readout `N_U = d^(d²) = 5²⁵` consistent across four
 Lens applications (`seed/RESOLUTION_LIMIT_SPEC.md` §2).  Therefore the *true* 1/α_em at

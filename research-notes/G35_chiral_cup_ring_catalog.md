@@ -16,7 +16,7 @@ when the AlphaEM session work was the only post-PR-#35 contribution.
 A subsequent merge of `claude/combinatorics-marathon` (commits up
 through 2a4526d6) added FOUR marathon-completed paradigm domains
 (D13–D16) plus a **tightened ∅-axiom policy** (propext + Quot.sound
-now sorry-equivalent per `seed/AXIOM/04_falsifiability.md` §5.2.1).
+now sorry-equivalent per `seed/AXIOM/08_falsifiability.md` §8.2).
 The catalog is updated accordingly.
 
 This is **not** a new mathematics from scratch.  Each of the
@@ -490,7 +490,7 @@ sample, not exhaustive.
   · 122/122 Lens cluster ∅-axiom (A-task)
   · ~2000+ ∅-axiom theorems repo-wide
   · Tightened policy: propext + Quot.sound now sorry-equivalent
-    (`seed/AXIOM/04_falsifiability.md` §5.2.1)
+    (`seed/AXIOM/08_falsifiability.md` §8.2)
 
 ---
 
@@ -795,7 +795,7 @@ combinatorics-marathon branch (commit `f651c4da`):
   · **STRICT ∅-AXIOM**: every theorem certified by
     `#print axioms <name>` returning "does not depend on any
     axioms".  **propext + Quot.sound now sorry-equivalent**
-    (per `seed/AXIOM/04_falsifiability.md` §5.2.1) — earlier
+    (per `seed/AXIOM/08_falsifiability.md` §8.2) — earlier
     sessions tolerated propext/Quot.sound but the standard now
     treats them identically to Classical.choice.
   · **No fitting**: numerical coincidences are reported but

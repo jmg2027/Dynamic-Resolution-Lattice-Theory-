@@ -35,11 +35,10 @@ for "find all X that share property Y in the corpus".
 
 ---
 
-## Dual-branch process model (G93→G97 validated)
+## Dual-branch process model
 
 The meta-analysis branch + parallel substantive branch
-(`claude/subset-bijection-lemmas-w2FKf`) cycle through 4
-handshakes (G93→G96→G94→G97) demonstrated a working
+(`claude/subset-bijection-lemmas-w2FKf`) cycle through cross-branch handshakes demonstrated a working
 collaborative pattern:
 
   · **Meta branch** — scans + pattern surfacing + research
@@ -48,7 +47,7 @@ collaborative pattern:
   · **Substantive branch** — PURE theorem additions, abstraction
     execution, math marathons.  Uses meta-branch findings as
     input.
-  · **Handshake docs** — `Gxx_handshake_*.md` research notes
+  · **Handshake docs** — the handshake research notes research notes
     explicitly addressed cross-branch.  Format: §C1..§Cn proposal
     items, the receiving side responds with done/deferred/declined.
 
@@ -64,13 +63,13 @@ same separation.
 
 ## Anchor research notes
 
-  · `research-notes/G101_metascan_synthesis.md` — capstone
-    overview (6-scanner unified view + honest assessment of
+  · `research-notes/archive/metascan/G101_metascan_synthesis.md` —
+    capstone overview (6-scanner unified view + honest assessment of
     what was/wasn't found).
   · `research-notes/G107_action_items_registry.md` — executor
     entry-point (14 Lean abstraction candidates + 13 doc-work
     items, all ranked by priority).
-  · `research-notes/G108-G114` — per-subtree Tier-2/3 deep
+  · the per-subtree deep-dive research notes — per-subtree Tier-2/3 deep
     dives (Real213/Analysis, FluxMVT, Cohomology,
     HodgeConjecture, DyadicFSM, CayleyDickson — ~6,400 decls).
   · `LESSONS_LEARNED.md` Patterns #10-#17 — methodological
@@ -81,13 +80,13 @@ same separation.
 ## Catalogs (lookup-table consolidations)
 
   · `catalogs/cross-domain-identifications.md` — 10 CDIs
-    (math ↔ physics byte-identical Expr from G109).
+    (math ↔ physics byte-identical Expr from cross-domain identification scan).
   · `catalogs/recursor-inventory.md` — 185 inductive types
-    using recursors (G105).
+    using recursors.
   · `catalogs/internal-hubs.md` — top E213-internal load-bearing
-    lemmas (G92 surface + G102 Expr).
+    lemmas (citation-graph + Expr-level callgraph surfaces).
   · `catalogs/falsifier-roster.md` — 135 decide-verified
-    impossibility theorems (G100 automated).
+    impossibility theorems (automated decide-failure mining).
 
 ---
 
@@ -101,8 +100,7 @@ Static-analysis tasks where this document applies:
     cascade) + archetype 9 (Expr shape) + Pattern #11 (n-layer
     agreement = abstraction inevitability).
   · "Cross-domain identification check" — use shape-vector
-    grouping over G103 data + cross-namespace filter (G109
-    method).
+    grouping over Expr-shape density data + cross-namespace filter (the cross-domain identification scan).
 
 Sit out from THIS document when the task is substantive Lean
 theorem development — that's the substantive-branch role.

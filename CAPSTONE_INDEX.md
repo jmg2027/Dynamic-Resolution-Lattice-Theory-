@@ -136,7 +136,7 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 
 - `Lib/Physics/Simplex/Generations.drlt_no_4th_gen_falsifier` — N_gen = 3, no 4th gen
 - `Lib/Physics/Couplings/ThetaQCD.theta_QCD_pattern` — θ_QCD < J·α⁴ < bound
-- `seed/AXIOM/04_falsifiability.md` — 7 observational falsifiers
+- `seed/AXIOM/08_falsifiability.md` — 7 observational falsifiers
 
 ## Documentation files
 
@@ -145,7 +145,7 @@ Must-read for new sessions:
 - `LESSONS_LEARNED.md` — finitist position guardrails
 - `HANDOFF.md` — current state
 - `CAPSTONE_INDEX.md` — this file
-- `seed/AXIOM/`, `seed/AXIOM/00_nature.md`
+- `seed/AXIOM/`, `seed/AXIOM/01_residue.md`
 
 ## Lean library map
 

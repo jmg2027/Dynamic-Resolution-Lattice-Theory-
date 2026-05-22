@@ -1,9 +1,9 @@
-# Bipartite Decomposition 5 = 3 + 2 (G44)
+# Bipartite Decomposition 5 = 3 + 2
 
 **Status**: Closed (4 files, capstone `G44Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G44 → chapter + archive.
+Pattern 1 — bipartite decomposition → chapter + archive.
 
 ## Overview
 
@@ -48,7 +48,3 @@ cochain level.
 This is the **atomic-numerical** reading of (NS, NT) = (3, 2);
 the **structural** reading is in C2 atomic constants chapter
 (`theory/physics/foundations/atomic_constants.md`).
-
-## Research-note provenance
-
-`research-notes/G44_bipartite_decomposition.md` — archived.

@@ -3,7 +3,7 @@ import E213.Term.Term
 /-!
 # Term.Pair — pairwise distinguishability primitive
 
-Per `seed/AXIOM/02_statement.md` §3.2 clause 2: "pairing of two
+Per `seed/AXIOM/02_axiom.md` §2.2 clause 2: "pairing of two
 somethings is yet another something".  This file represents the
 binary distinguishability check `G(i, j)` via a Lens identity:
 

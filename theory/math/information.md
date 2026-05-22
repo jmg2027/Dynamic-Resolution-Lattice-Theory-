@@ -21,7 +21,7 @@ Replaces continuous Shannon entropy with **discrete bit-counting**.
 ## Narrative
 
 Per Mingu's framing: distinguishing IS the primitive (per
-`seed/AXIOM/00_nature.md` "Linguistic inevitability").  Information
+`seed/AXIOM/01_residue.md` "Linguistic inevitability").  Information
 in 213 is what survives this primitive:
 
 - 1 distinguishing = 1 bit

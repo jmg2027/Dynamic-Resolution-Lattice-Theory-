@@ -17,7 +17,7 @@ All theorems referenced are **0-sorry, 0-Mathlib, 0-Classical,
 0-native_decide, ∅-axiom** (the strict standard: every theorem
 satisfies `#print axioms T` → "does not depend on any axioms").
 Anything with a non-empty axiom list is `sorry`-equivalent and
-does not count.  See `seed/AXIOM/04_falsifiability.md` §5.2.1 +
+does not count.  See `seed/AXIOM/08_falsifiability.md` §8.2 +
 `CLAUDE.md` "∅-axiom standard".
 
 **Status**: **Marathon COMPLETE.**  Atomic core closed across 11
@@ -413,7 +413,7 @@ no `Classical.choice`, no Mathlib axioms, no `native_decide`.
 Anything with a non-empty axiom list is `sorry`-equivalent.
 
 The legacy `≤ {propext, Quot.sound}` tier is **deprecated**
-(see `seed/AXIOM/04_falsifiability.md` §5.2.1).
+(see `seed/AXIOM/08_falsifiability.md` §8.2).
 
 Audit:
 

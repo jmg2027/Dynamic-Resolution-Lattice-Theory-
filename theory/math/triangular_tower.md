@@ -1,9 +1,9 @@
-# Triangular Tower Architecture (G47)
+# Triangular Tower Architecture
 
 **Status**: Closed (5 files, capstone `G47Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G47 → chapter + archive.
+Pattern 1 — triangular-tower architecture → chapter + archive.
 
 ## Overview
 
@@ -47,17 +47,13 @@ through the tower.
 - **RealAsSquashed**: any classical ℝ-claim reduces to a finite
   tower-path encoding
 
-This is the **structural** version of G31's trajectory-as-witness
+This is the **structural** version of trajectory-witness IVT's trajectory-as-witness
 IVT (`theory/math/analysis/minimal_root.md`) — minimal-root says
 *the trajectory is the witness*, triangular tower says *the
 trajectory is finite at every level*.
 
 ## Companion clusters
 
-- `Lib/Math/AngleStructure/` (G42 — `theory/math/angle_structure.md`)
-- `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
-- `Lib/Math/GenerationRule/` (G46 — `theory/math/generation_rule.md`)
-
-## Research-note provenance
-
-`research-notes/G47_triangular_tower_architecture.md` — archived.
+- `Lib/Math/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
+- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)

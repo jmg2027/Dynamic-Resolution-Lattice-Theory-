@@ -7,7 +7,7 @@ import E213.Lens.Universal.Witnesses.TripleCapstone
 /-!
 # Meta.ThreeDirectionUniqueness — unified three-direction closure
 
-`seed/AXIOM/00_nature.md` §1.3 records that Raw's uniqueness is
+`seed/AXIOM/04_uniqueness.md` §4.3 records that Raw's uniqueness is
 closed in three directions — three readings of the same
 self-consistency:
 

@@ -76,7 +76,7 @@ instantiated in proof bodies.
 `E213.Theory.Raw` is referenced more in **type signatures**
 (1,183) than in **bodies** (1,087).  More decls operate on
 Raw-typed objects than directly compute via Raw atoms — confirms
-the (γ) finding (`seed/RAW_DERIVATION_SPEC.md`): the substrate is
+the (γ) finding (`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2): the substrate is
 generic-Lean infrastructure, but the types DO carry Raw.
 
 ## Centralisation tactics (Pattern #10, this branch)

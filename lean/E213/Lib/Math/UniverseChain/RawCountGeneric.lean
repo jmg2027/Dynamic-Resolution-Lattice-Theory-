@@ -16,7 +16,7 @@ Sequences:
   N = 4: 4, 10, 49, …
   N = 5: 5, 15, 110, …
 
-213 picks N = 2 by minimality (`seed/AXIOM/03_form.md` §4.2):
+213 picks N = 2 by minimality (`seed/AXIOM/03_form.md` §3.2):
   * N = 1: no distinction (vacuous)
   * N = 2: minimum for distinction
   * N ≥ 3: redundant

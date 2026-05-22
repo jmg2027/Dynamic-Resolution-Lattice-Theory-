@@ -30,7 +30,7 @@ appears on both sides.
 
 ## Why this matters (213-native reading)
 
-Per `seed/AXIOM/07_self_reference.md` §8, 213 has no exterior;
+Per `seed/AXIOM/05_no_exterior.md` §5, 213 has no exterior;
 every operation that *appears* to require external structure
 actually closes within the residue.  The lex-projection cup's
 Leibniz is an explicit cochain-level instance of this principle:
@@ -186,7 +186,7 @@ Mathlib-free; achievable via the 213-native `Int213.*` /
     (1, 1) self-referential form via face map.
   · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizLex21.lean` —
     (2, 1) on Δ³ confirming generality.
-  · `seed/AXIOM/07_self_reference.md` §8 — doctrinal anchor.
+  · `seed/AXIOM/05_no_exterior.md` §5 — doctrinal anchor.
   · `research-notes/G35_chiral_cup_ring_catalog.md` — K_{3,2}^{(c=2)}
     bipartite cup framework where this finding may have physics
     implications.

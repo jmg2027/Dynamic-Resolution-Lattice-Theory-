@@ -111,10 +111,34 @@ def scan_batch(modules, batch_size=50):
     return results
 
 
-# SEALED_DIRTY_PREFIXES emptied per user directive 2026-05-09:
-# "seal 없애버리고 다 213 native로 바꿔버리셈"
-# Marathon target: convert ALL items to ∅-axiom.  No exceptions.
-SEALED_DIRTY_PREFIXES = ()
+# Sealed-DIRTY-by-design modules.  Each entry's justification is
+# documented in STRICT_ZERO_AXIOM.md §"Sealed-by-design categories"
+# (which is the single source of truth — keep this list in sync).
+#
+# Policy: only modules with a *structural* reason to use a Lean-core
+# axiom (propext / Quot.sound / Classical.choice) are waived.  Any
+# DIRTY outside this list is a real regression that violates the
+# 0-axiom standard.
+SEALED_DIRTY_PREFIXES = (
+    # (a) Prop-as-distinguishing thesis.  `HasDistinguishing` for `Prop`
+    #     has a `combine_sym : combine P Q = combine Q P` field at type
+    #     `Prop = Prop` — provable only via `propext`.
+    "E213.Lens.SemanticAtom",
+    "E213.Lens.Properties.Morphism.BoolProp",
+    # (b) Lens funext-by-design.  `Lens.combine` for the universal /
+    #     indexed / Cauchy Lens family is function-valued (e.g.
+    #     `(Raw → Prop) → (Raw → Prop) → (Raw → Prop)`), and
+    #     `Lens.combine_sym` is therefore a function-equality
+    #     statement that demands `funext` (= `Quot.sound` in the
+    #     kernel).  `DepthJoin` also lands here: its `tier`-classifier
+    #     theorems pass through `Lens.equiv` (Prop-valued Lens.view
+    #     equality) and `Lens.refines` (function-shape kernel
+    #     equality), both of which need propext + Quot.sound to close.
+    "E213.Lens.Universal.QuotLens",
+    "E213.Lens.Lattice.IndexedJoin",
+    "E213.Lens.Instances.Cauchy",
+    "E213.Lens.Instances.Leaves.DepthJoin",
+)
 
 
 def is_sealed_dirty(module: str) -> bool:

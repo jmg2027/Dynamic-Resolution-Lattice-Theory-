@@ -111,7 +111,7 @@ the resolution depth.
 
 The Step 6 closure converts the ZFC-style existential ε-δ
 convergence statement into an **explicit modulus function**
-(`DepthModulus`), per G40 (main #67).
+(`DepthModulus`), per ε-δ modulus (main #67).
 
 ### 4. The simplicial decomposition (Capstone)
 
@@ -174,7 +174,7 @@ of independent gluon channels."*
 ## Research-note provenance
 
 **Mixed**: this chapter absorbs the C1 + C5 specific work from
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1 + §C5, but G35
+`research-notes/G35_chiral_cup_ring_catalog.md` §C1 + §C5, but chiral cup ring catalog
 itself **remains active** as a top-level research note covering the
 broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
 
@@ -256,6 +256,6 @@ For the α_em derivation itself, prefer this chapter:
 `research-notes/G35_chiral_cup_ring_catalog.md` §<C##>  (specific conjecture)
 ```
 
-Existing Lean docstring citations to `G35 §C1` / `§C5` remain valid
+Existing Lean docstring citations to the relevant section / `§C5` remain valid
 (they reference the conjecture statement, not the closure proof).
 The closed-derivation reference is this chapter.

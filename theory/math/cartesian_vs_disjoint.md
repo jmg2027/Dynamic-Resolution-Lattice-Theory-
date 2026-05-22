@@ -1,9 +1,9 @@
-# Cartesian vs Disjoint (G45)
+# Cartesian vs Disjoint
 
 **Status**: Closed (3 files, capstone `G45Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G45 → chapter + archive.
+Pattern 1 — Cartesian-vs-disjoint → chapter + archive.
 
 ## Overview
 
@@ -47,7 +47,3 @@ The same elements can underlie both, but the Lens application
 213 keeps them separate as named Lenses.  `CartesianCheck` and
 `DisjointVsProduct` enforce the type-level separation; the capstone
 proves that confusing them produces type errors.
-
-## Research-note provenance
-
-`research-notes/G45_cartesian_vs_disjoint.md` — archived.

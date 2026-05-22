@@ -8,7 +8,7 @@ binary op.  `Lens.view` is the catamorphism `Raw → α`, implemented
 as a wrapper around `Raw.fold` — Raw's fold instantiated in the
 α algebra.  This is *Raw's self-reading recorded under the
 α-Lens*, not an external observation acting on Raw (cf.
-`seed/AXIOM/05_primacy.md` §6 + `07_self_reference.md` §8.1).
+`seed/AXIOM/07_primacy.md` §7 + `07_self_reference.md` §8.1).
 
 The Lens-induced kernel `L.equiv x y := L.view x = L.view y`
 records α-view agreement on Raw — the equivalence Raw acquires
@@ -27,7 +27,7 @@ open E213.Theory
 /-- A Lens supplies the data that Raw's fold needs in codomain α:
     images for the two atomic constructors (base_a, base_b — the
     α-shadows of `Raw.a, Raw.b`) and a binary combine for slash.
-    Per `seed/AXIOM/09_chart_relativity.md` §9.1, "two" here is
+    Per `seed/AXIOM/06_lens_readings.md` §6.1, "two" here is
     the count-Lens reading of Raw's first distinguishing (not a
     Raw cardinality claim); base_a, base_b are α-labels for one
     chart choice. -/

@@ -1,9 +1,9 @@
-# Dialogue Audit — Provable vs Heuristic (G43)
+# Dialogue Audit — Provable vs Heuristic
 
 **Status**: Closed (4 files, capstone `G43Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G43 → chapter + archive.  G43's session-bound name
+Pattern 1 — dialogue audit → chapter + archive.  Dialogue audit's session-bound name
 ("dialogue audit") is preserved at the Lean side (`Math/DialogueAudit/`)
 but the chapter title clarifies the actual content.
 
@@ -15,7 +15,7 @@ A 213-internal **audit primitive** distinguishing what is
 
 The four sub-witnesses formalize the audit categories: axis
 distinction, bit precision, pigeonhole finite-state count, and
-overall G43 capstone.
+overall dialogue audit capstone.
 
 ## Lean source
 
@@ -49,12 +49,8 @@ The result is a **decidable audit category** for every
 session-level claim — a meta-tool preventing heuristic claims
 from drifting into "we proved it" status.
 
-## Research-note provenance
-
-`research-notes/G43_dialogue_audit.md` — archived.
-
 ## Open frontier
 
-Could be extended with **citation-graph auditing** (G92 meta-scan
+Could be extended with **citation-graph auditing** (citation graph + tactic constructs meta-scan
 adjacent) to mechanically flag dialogue claims whose Lean
 references don't resolve.

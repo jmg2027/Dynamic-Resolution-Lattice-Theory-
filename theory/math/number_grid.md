@@ -1,9 +1,9 @@
-# 2D Number Grid (G41)
+# 2D Number Grid
 
 **Status**: Closed (4 files, capstone `G41Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G41 → chapter + archive.
+Pattern 1 — 2-D number grid → chapter + archive.
 
 ## Overview
 
@@ -47,10 +47,6 @@ At the level-2 family evaluation (`configCount 2 = 5²⁵`), the
 25×25 grid closes; positions beyond (24, 24) require a higher
 family-evaluation level.  This is the geometric realization of the
 algebra-tower's asymptotic behaviour (see `algebra_tower.md`).
-
-## Research-note provenance
-
-`research-notes/G41_2d_number_grid.md` — archived.
 
 ## How to verify
 

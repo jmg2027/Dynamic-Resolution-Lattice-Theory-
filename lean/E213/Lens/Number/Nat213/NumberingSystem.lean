@@ -24,7 +24,7 @@ distinguishable Raws (chart selection per `seed/AXIOM/
 numbering concretely.
 
 Related: this is the chart-relativity claim of
-`seed/AXIOM/09_chart_relativity.md` §9.1 instantiated for the
+`seed/AXIOM/06_lens_readings.md` §6.1 instantiated for the
 numbering case.  `ChartGeneral.lean` is the closely-related (and
 more recent) parameterised-chain construction.
 -/

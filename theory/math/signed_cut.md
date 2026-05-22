@@ -3,9 +3,9 @@
 **Status**: Closed (35 files in 6 sub-clusters, sub-organized 2026-05-13).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 (multi-note absorption from G37-G39).  Absorbs
-G37 (Level25 residual), G38 (Unified 25-level algebra),
-G39 (Octonion non-assoc witness).
+Pattern 1 (multi-note absorption from Level-25 residual-octonion non-assoc witness).  Absorbs
+Level-25 residual (Level25 residual), unified 25-level algebra (Unified 25-level algebra),
+octonion non-assoc witness (Octonion non-assoc witness).
 
 ## Overview
 
@@ -63,13 +63,13 @@ Equality on SignedCut is `signedEq`, not propositional equality.
 This **avoids the propext load** that ℤ-as-quotient would
 require.
 
-### Level 25 closure (G37/G38)
+### Level 25 closure
 
 The CD tower on SignedCut closes at level 25 (the family-evaluation
 level chosen for physics-side readings, `configCount 2 = 5²⁵`):
 - L25: full CD-doubled signed structure
 - L26: **absent** — exceeds the level-2 family evaluation
-  `configCount 2 = 5²⁵` (per G120 Round 3: the boundary is a
+  `configCount 2 = 5²⁵` (per N_U re-derivation Round 3: the boundary is a
   level-choice, not a privileged "resolution limit cap")
 
 `Level/Level25Residual.lean` and `Level26Absence.lean` prove the
@@ -80,7 +80,7 @@ level under the resolution-limit reading.
 all CD-derived structures up to L25 exist within SignedCut's
 machinery without external import.
 
-### Octonion non-associativity (G39)
+### Octonion non-associativity
 
 At L3 (octonion level), associativity drops.  `Octonion/NonAssociativity.lean`
 provides the **explicit witness**:
@@ -108,11 +108,6 @@ structures: Fano plane (7-point projective geometry of octonions),
 FanoK32 (Fano ↔ K_{3,2}^{(c=2)} structural bridge),
 GenericGeomBridge (abstract geometric bridge interface).
 
-## Research-note provenance
-
-Three notes (`G37`, `G38`, `G39`) — archived to
-`research-notes/archive/discrete_geometry/` (previous batch).
-
 ## Open frontier
 
 - **CD level beyond L25**: not closed at the level-2 `configCount`
@@ -122,7 +117,7 @@ Three notes (`G37`, `G38`, `G39`) — archived to
 - **Hurwitz failure characterization**: `Failure.lean` documents
   specific failures; a parametric "when does Hurwitz fail at level
   N" theorem is open
-- **Non-associativity quantification**: G39 gives one witness; a
+- **Non-associativity quantification**: octonion non-assoc witness gives one witness; a
   characterization of the obstruction at each L ≥ 3 is open
 
 ## How to verify

@@ -71,11 +71,11 @@ is `cutEq`: same lower set.
   addition by elementwise sum on representative dyadic brackets.
   Closure-form: bracket(a + b, n) ⊂ bracket(a, n) + bracket(b, n)
   with explicit modulus.  BoolOrLadder is a generic ladder template
-  for bool-or sums (REAL-2 per G118).
+  for bool-or sums (REAL-2 per marathon deferred-items log).
 - **`cutMul`** (Mul/, + `CutMulOuterReduce.lean` new 2026-05-22):
   multiplication via 4-quadrant case decomposition (sign of a, sign
   of b).  CutMulOuterReduce is the outer-reduce refactor enabling
-  FluxMVT-side reuse (FLUX-1 upstream per G110).
+  FluxMVT-side reuse (FLUX-1 upstream per FluxMVT deep dive).
 - **`cutInv`** (Inv/): reciprocal via bracket-reflection.
 - **`cutOrder`** (Order/): total order via lower-set inclusion.
 
@@ -84,23 +84,14 @@ modulus is a computable function of the input's modulus.
 
 ### Connection to other chapters
 
-- `theory/math/analysis/minimal_root.md` (G31) — IVT via Real213 cuts
-- `theory/math/modulus.md` (G40) — modulus combinators used here
+- `theory/math/analysis/minimal_root.md` — IVT via Real213 cuts
+- `theory/math/modulus.md` — modulus combinators used here
 - `theory/math/cauchy.md` (separate chapter) — sequence machinery
 - `theory/math/signed_cut.md` (separate chapter) — sign extension
 
-## Research-note provenance
-
-`research-notes/archive/F0_213_native_arithmetic_synthesis.md` +
-F1-F6 (already archived pre-this-branch).  The F-series was the
-Real213 marathon final state.
-
-Original F0-F6 archived in `research-notes/archive/` (not under a
-sub-cluster directory; pre-2026-05-18 archive scheme).
-
 ## Open frontier
 
-- **Continuity-without-ε** via consistent oracles (companion to G31)
+- **Continuity-without-ε** via consistent oracles (companion to trajectory-witness IVT)
 - **Differentiation** via `DiffCut` + modulus tracking — partially
   in `Modulus/Translation.lean`, full deferred
 - **Measure-theoretic extension** — `Lib/Math/Measure/` provides

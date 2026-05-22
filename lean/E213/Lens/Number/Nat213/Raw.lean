@@ -31,7 +31,7 @@ Other related files in this directory:
   - `Chain.lean`  — `{r : Raw // IsMethodAChain r}` Raw-subtype
                     carrier with Nat-routed arithmetic.
 
-**Framing (per `seed/AXIOM/09_chart_relativity.md`).**  This is *one
+**Framing (per `seed/AXIOM/06_lens_readings.md`).**  This is *one
 representation* along the lens-emergence path — Method A's chain
 under `Lens.leaves`.  `Raw.a` and `Raw.b` are chart-local labels
 (§9.1); under a different chart, any pair of distinct Raws could

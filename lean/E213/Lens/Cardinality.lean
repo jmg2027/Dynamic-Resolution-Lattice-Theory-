@@ -14,7 +14,7 @@ import E213.Lens.Cardinality.Tower
   by Lens application on Raw.
 
   Cardinality is a Lens output, not a Raw commitment (per
-  `seed/AXIOM/02_statement.md` §3.3).  Each Lens view of Raw into
+  `seed/AXIOM/02_axiom.md` §2.5).  Each Lens view of Raw into
   a codomain α defines a cardinality observable (finiteness,
   countability, etc.) on that view; the observable is the Lens
   reading, not a property of an underlying substrate.  Cf.

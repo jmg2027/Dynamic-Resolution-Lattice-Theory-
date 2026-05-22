@@ -27,7 +27,7 @@ def chartBase (NS NT : Nat) : Nat := NS + NT
 
 /-- Count of chart-Lens-invisible axes under the G121 ansatz §4.1.
 
-    Per `seed/AXIOM/07_self_reference.md` §8.1 (no exterior), the
+    Per `seed/AXIOM/05_no_exterior.md` §5.1 (no exterior), the
     self-pointing residue does not pass through chart-Lens readout.
     The ansatz commits to exactly **one** such axis.
 
