@@ -103,8 +103,17 @@ already-promoted chapters:
 - `G114_cayley_dickson_deep_dive.md` — annotates `theory/math/cayley_dickson/algebra_tower.md`
 - `G115_lib_physics_deep_dive.md` — annotates `theory/physics/*.md`
 - `G116_pattern_catalog_deep_dive.md` — annotates `theory/math/pattern_catalog/pattern_catalog.md`
-- `G118_marathon_deferred_items.md` — live tracker (companion to G107)
-- `G119_pisano_pell5_research_direction.md` — Pisano period prime-23 closure in progress
+- `G118_marathon_deferred_items.md` — *archived* (closure log; absorbed
+  into `theory/math/dyadic_fsm.md` G119 marathon section + this INDEX)
+- `G119_pisano_pell5_research_direction.md` — *archived* (universal-prime
+  closure achieved; absorbed into `theory/math/dyadic_fsm.md` G119
+  marathon section + `theory/math/modular_arithmetic.md` G119 section)
+
+`claude/lean4-ast-patterns-g1gWN` merge (2026-05-22 late) brought:
+- G119 marathon (Phase 3.2/3.3/4 universal Pisano closure) — promoted
+  to `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md`
+- G122 (Real213-p-adic) research direction — STARTER + plan only,
+  not yet promotable
 
 ## Companion seed/ specs (2026-05-22 merge)
 

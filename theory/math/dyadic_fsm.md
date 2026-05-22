@@ -1,10 +1,12 @@
 # DyadicFSM — 213-native Number Theory
 
-**Status**: Closed (78 files, sub-organized 2026-05-13).
+**Status**: Closed (101 files; G119 marathon merged 2026-05-22).
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 2 (narrative-from-scratch).  No source G-note; large
-multi-session Lean closure.
+multi-session Lean closure.  G119 marathon (Parts 28-58) closed
+the Pisano-period theorem for Pell universal in the prime `p`
+via FLT + Frobenius in `F_{p²} = F_p[√5]`.
 
 ## Overview
 
@@ -19,7 +21,7 @@ the FSM's accumulated state.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/DyadicFSM/` (78 files)
+- **Sub-tree**: `lean/E213/Lib/Math/DyadicFSM/` (101 files)
 - **Umbrella**: `DyadicFSM.lean`
 - **∅-axiom status**: PURE
 
@@ -27,13 +29,23 @@ the FSM's accumulated state.
 
 | Sub-cluster | Topic |
 |---|---|
-| `ArithFSM/` (9 + 3 Mod buckets) | Per-modulus arithmetic FSM (Mod{Small,Medium,Large}) + Hierarchy + Hardness + helpers |
+| `ArithFSM/` (10 + 3 Mod buckets) | Per-modulus arithmetic FSM (Mod{Small,Medium,Large}) + Hierarchy + Hardness + helpers; G119 added `InvertibleArithFSM2` (Phase 2 abstraction template) |
 | `Pell/` | Pell sequence FSM (Pell numbers, Pell-Lucas) |
 | `Fib/` | Fibonacci FSM (Fibonacci, Lucas, Tribonacci) |
 | `Pisano/` | Pisano periods (per-modulus, parametric predictors) |
 | `Legendre/` | Legendre symbol via FSM |
-| `PellMatrix*` (5 files, 2026-05-22 marathon) | Pell matrix Cayley-Hamilton + action + cases + inverse + pigeonhole — Phase-3-bridge infrastructure for G119 Pisano-prime-23 closure |
+| `PellMatrix*` (5 files, 2026-05-22 marathon) | Pell matrix Cayley-Hamilton + action + cases + inverse + pigeonhole — Phase-3-bridge infrastructure for G119 Pisano-prime universal closure |
+| `FLT/` (8 files, G119 Phase 3.2-3.3) | Binomial / BinomialTheorem / ChoosePrime / FreshmanDream / FLTPrimary / FLTMain / PhiFLT / Sum — Fermat's Little Theorem chain for Pisano closure |
 | `Capstones/` | Master theorems per family |
+
+G119 marathon top-level additions (Pell-Fibonacci universal closure):
+- `BinetBridge` — `FLT(φ) + FLT(ψ) → F_{p−1} ≡ 0 (mod p)` bridge
+- `PellFibBridge` — Pell ↔ Fibonacci coupled identities
+- `PhiMod5`, `PsiMod5` — `φ ≡ ψ ≡ (1 + √5) / 2 (mod 5)` per-residue
+- `MulOrderPigeonhole` — existential multiplicative order via pigeonhole
+- `UniversalPhase32` — Phase 3.2 universal in prime `p` (Binet → mod-p FLT)
+- `UniversalPhase33` — Phase 3.3 universal: `F_{p²} = F_p[√5]` Frobenius FLT
+- `UniversalPhase4` — Phase 4 terminal closure via Legendre dispatch
 
 Companion Meta modules (Lean-4 bridge, ring-independent):
 - `Meta/Nat/ModPow213.lean` — modular exponentiation with period reduction
@@ -96,6 +108,45 @@ action + inverse + pigeonhole** structure:
 Closes G119 Phase 2 (existential Pisano period); paves Phase 3
 (constructive prediction per prime).
 
+### G119 marathon — Pell-Fibonacci universal closure (Phase 3.2/3.3/4)
+
+The Pell sequence's period mod `p` admits a closed-form prediction
+driven by `legendre213 5 p` (the Legendre symbol of 5 mod `p`):
+
+- `legendre213 5 p = 0` (ramified)  →  predict = `2p`
+- `legendre213 5 p = 1` (split, QR) →  predict = `(p−1) / 2`
+- `legendre213 5 p = 2` (inert, NQR) →  predict = `p + 1`
+
+G119 closes this universally in `p` (any prime `p ≥ 2`), no
+per-prime evidence required.  The route splits at Phase 3.2 and
+recombines at Phase 4:
+
+**Phase 3.2 (split case, `5 ≡ □ mod p`).** When 5 is a quadratic
+residue mod `p`, the golden ratio `φ = (1 + √5) / 2` lives in
+`F_p` directly.  The Binet formula `F_n = (φ^n − ψ^n) / √5`
+then reduces the Pisano period to FLT in `F_p`:
+`φ^(p−1) ≡ 1` ⇒ `F_{p−1} ≡ 0 (mod p)`.  `BinetBridge` formalises
+this; `UniversalFLT` (in ModArith) supplies the FLT.
+
+**Phase 3.3 (inert case, `5` is a non-residue mod `p`).** `φ` no
+longer lives in `F_p`; instead it lives in `F_{p²} = F_p[√5]`
+(see `theory/math/modular_arithmetic.md` G119 section).  The
+Frobenius `σ : F_{p²} → F_{p²}`, `x ↦ x^p`, swaps `√5 ↦ −√5` in
+this case, so `σ(φ) = ψ` (the conjugate).  The identity
+`φ · σ(φ) = N(φ) = −1` gives `φ^(p+1) = φ · σ(φ) = −1`, hence
+`φ^(2(p+1)) = 1`.  Combined with Fibonacci's recurrence,
+`F_{p+1} ≡ 0 (mod p)`.
+
+**Phase 4 (terminal closure).** Legendre dispatch unifies both
+branches: regardless of which case `(5/p)` lands in, the period
+predicted by `pisano_predict` matches the actual Pell period.
+This closes the original G119 conjecture universally in `p`.
+
+The key algebraic moves are all in
+`theory/math/modular_arithmetic.md` (UniversalFLT, FP2Sqrt5);
+DyadicFSM contributes the bridge from FLT-statements-in-F_p (or
+F_{p²}) to Pisano-statements-on-the-FSM.
+
 ### Connection to other chapters
 
 - `theory/math/universe_chain.md` — Möbius P matrix [[2,1],[1,1]]
@@ -109,9 +160,11 @@ Closes G119 Phase 2 (existential Pisano period); paves Phase 3
 - **Higher-order recursions** (Tribonacci, k-bonacci) — partially
   done (Tribonacci has FSM); generalization to arbitrary k open
 - **Continued fractions** as FSM — sketched, not yet capstoned
-- **G119 Phase 3+** — full `pisano_predict_realises_pell_universal`
-  closure ∀ prime p (currently closed for 23 primes via bridge; full
-  parametric statement in progress).  Source: `research-notes/G119_pisano_pell5_research_direction.md`.
+- **Real213-p-adic (G122)** — the modular-arithmetic substrate
+  G119 produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
+  foundation for a 213-native p-adic construction.  STARTER at
+  `lean/E213/Lib/Math/Padic/Foundation.lean`; campaign plan at
+  `research-notes/G122_real213_padic_research_direction.md`.
 
 ## How to verify
 

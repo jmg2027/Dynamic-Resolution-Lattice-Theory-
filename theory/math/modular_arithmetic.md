@@ -1,6 +1,6 @@
 # Modular Arithmetic 213
 
-**Status**: Closed (9 files).
+**Status**: Closed (13 files; G119 marathon merged 2026-05-22).
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 2.
@@ -12,21 +12,32 @@ algorithm, modular inverse, Chinese Remainder Theorem.  All
 **explicit-witness** (no existential) — Bézout coefficients are
 computed, GCD has explicit step bound.
 
+G119 (Phase 3.2/3.3 marathon) extends the chapter with:
+- An explicit-Nat Bezout via xgcd that universalises modular inverse
+- Fermat's Little Theorem (FLT) universal in the prime p, derived
+  from a 213-native binomial theorem
+- The quadratic field extension `F_{p²} = F_p[√5]` with Frobenius
+
+These three are the algebraic substrate for the Pell-Fibonacci
+universal-prime closures in `theory/math/dyadic_fsm.md` (G119
+Phase 3.2/3.3/4).
+
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/ModArith/` (9 files)
+- **Sub-tree**: `lean/E213/Lib/Math/ModArith/` (13 files)
 - **Umbrella**: `ModArith.lean`
-- **∅-axiom status**: PURE
+- **∅-axiom status**: PURE (all 13)
 
-| File | Purpose |
-|---|---|
-| `GCD` | Euclidean algorithm GCD |
-| `Bezout` | Bézout coefficients (s, t) with `s·a + t·b = gcd a b` |
-| `ModInv` | Modular inverse via Bézout |
-| `CRT` | Chinese Remainder Theorem |
-| ... | (5 more) |
+| Group | Files | Topic |
+|---|---:|---|
+| Bezout / GCD / Euclidean | 6 | `JoinGCD`, `JoinBezout`, `JoinEuclidean`, `JoinCoprime`, `JoinEquivGCD`, `JoinExample` |
+| CRT (Lens) | 1 | `LensCRT` |
+| Per-modulus PureNat | 2 | `PureNatMod3`, `PureNatMod5` |
+| G119 Bezout / FLT / F_{p²} | 4 | `ModBezout`, `ModBezoutInvariant`, `UniversalFLT`, `FP2Sqrt5` |
 
 ## Narrative
+
+### Core (pre-G119)
 
 Standard `Nat.gcd` uses Lean's well-founded recursion.  213's
 `GCD` is dyadic-FSM-style: explicit step-count bound (≤ log_2 of
@@ -35,9 +46,76 @@ the GCD output (not Skolemized).
 
 CRT is used in the universe chain (Step 12: lcm(5, 2) = 30).
 
+### G119 — Bezout, FLT, F_{p²}
+
+**Explicit-Nat Bezout (`ModBezout`, `ModBezoutInvariant`).** The
+extended Euclidean algorithm is reformulated as a `Nat`-valued
+xgcd: rather than `(s, t) ∈ ℤ × ℤ`, the algorithm produces
+`(u, v) ∈ ℕ × ℕ` together with a sign-bit, satisfying
+`u · a = v · b + gcd a b`  or  `v · b = u · a + gcd a b`.
+This makes Bezout decidable without any signed-integer machinery
+and gives a `modInverseFromBezout : (a p : ℕ) → coprime a p → ℕ`
+that the rest of G119 builds on.
+
+**Universal FLT (`UniversalFLT`).** The chain:
+
+1. **Freshman's dream**: `(a + b)^p ≡ a^p + b^p (mod p)` for any
+   prime `p`.  Proved via the binomial theorem combined with a
+   key divisibility fact: for `0 < k < p`, the prime `p` divides
+   `C(p, k)`.
+2. **Binomial theorem** (213-native, `BinomialTheorem`):
+   `(a + b)^n = Σ_{k=0}^{n} C(n, k) · a^k · b^{n-k}` using a
+   `Sigma`-fold infrastructure.
+3. **FLT primary** (`FLTPrimary`): for `a < p`, `a^p ≡ a (mod p)`.
+   Proved by induction on `a` using freshman's dream as the step.
+4. **FLT main** (`FLTMain`): for `a` coprime to `p`,
+   `a^(p-1) ≡ 1 (mod p)`.  Follows from primary + modular inverse.
+
+The chain is fully universal in `p` (any `p` with `1 < p`, with a
+primality hypothesis where needed).  Concrete instances verified
+at `p ∈ {2, 3, 5, 7, 11}`.
+
+**F_{p²} = F_p[√5] (`FP2Sqrt5`).** Elements `x ∈ F_{p²}` are pairs
+`(a, b) : Fin p × Fin p` representing `a + b·√5`.  Multiplication
+uses `(a + b√5)(c + d√5) = (ac + 5bd) + (ad + bc)√5` interpreted
+mod `p`.  Key results:
+
+- **Ring structure**: additive group + commutative multiplication
+  + distributivity (`fp2_ring_axioms`)
+- **Frobenius** `φ : F_{p²} → F_{p²}`, `x ↦ x^p`:
+  - additive: `(x + y)^p = x^p + y^p`  (`frob_add`, follows from
+    freshman's dream in `F_{p²}`)
+  - multiplicative: `(x · y)^p = x^p · y^p`  (`frob_mul`)
+  - thus a ring homomorphism (`frob_ring_hom`)
+- **`√5 ↦ ±√5` under Frobenius**: by FLT in `F_p`,
+  `√5^p = √5 · 5^((p-1)/2) = ± √5`, sign = Legendre symbol
+  `(5/p)`.  Drives the **split vs inert** dichotomy that the Pell
+  closures need.
+- **Norm**: `N(a + b√5) = a² − 5b²`.  `N(x · σx) = N(x)` where
+  `σ` is the Galois automorphism = Frobenius.
+- **Frobenius FLT** (in `F_{p²}`): for `x ∈ F_{p²}` invertible,
+  `x^(p²−1) = 1`.  Specialises to FLT in `F_p` and to the
+  Pisano-period-prime closures.
+
+The 5 in `F_p[√5]` is forced by `φ = (1 + √5)/2` (golden ratio,
+the Pell-matrix eigenvalue from `theory/math/dyadic_fsm.md`'s
+Pell story).  Phase 3.3 in DyadicFSM lifts this into the
+universal-prime closure of the Pisano-period theorem for Pell.
+
+## Open frontier
+
+- **Real213-p-adic (G122)**: extend Bezout / FLT / F_{p²}
+  infrastructure to `ℤ_p` via Hensel lifting.  STARTER at
+  `lean/E213/Lib/Math/Padic/Foundation.lean`; full plan at
+  `research-notes/G122_real213_padic_research_direction.md`.
+- **Higher quadratic extensions** `F_p[√D]` for general `D`:
+  Phase 3.3 needed only `D = 5`; generalising the Frobenius FLT
+  chain to arbitrary `D` is straightforward but unautomated.
+
 ## Connection
 
 - `theory/math/universe_chain.md` — CRT decomposition (mod 5, mod 2)
-- `theory/math/dyadic_fsm.md` — dyadic FSM realization of GCD
+- `theory/math/dyadic_fsm.md` — Pell-Fibonacci universal closures
+  (Phase 3.2/3.3/4) consume `UniversalFLT` and `FP2Sqrt5`
 - `theory/physics/foundations/atomic_constants.md` — C2 uses
   `Nat.lt` + `Nat.sub` bridges similar to ModArith

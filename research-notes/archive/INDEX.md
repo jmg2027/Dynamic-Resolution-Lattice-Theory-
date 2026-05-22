@@ -67,6 +67,13 @@ family — G120 Round 3 reframing).
 | `F5_full_proofs_summary.md` | Full proofs summary | Real213 capstones |
 | `F6_general_theorems_state.md` | General theorems state | Real213 capstones |
 
+## G119 marathon (2 files, archived 2026-05-22)
+
+| File | Theme | Closed in |
+|---|---|---|
+| `G118_marathon_deferred_items.md` | Marathon Part 5 closure log (11 items closed) | absorbed into `theory/math/dyadic_fsm.md` G119 section + `theory/INDEX.md` |
+| `G119_pisano_pell5_research_direction.md` | Pisano-period-for-Pell research direction (closed universally in `p` via Phase 3.2/3.3/4) | `theory/math/dyadic_fsm.md` G119 marathon section + `theory/math/modular_arithmetic.md` G119 section (FLT, F_{p²}, Frobenius) |
+
 ## Status
 
 Don't read these for current state.  Read instead:
