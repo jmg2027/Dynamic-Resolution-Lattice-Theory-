@@ -1,6 +1,7 @@
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
+import E213.Lib.Math.DyadicFSM.MulOrderPigeonhole
 /-!
 # Golden ratio mod p — G119 Phase 3.2 algebraic foundation
 
@@ -356,5 +357,40 @@ theorem phi_pow_5_mod_11 :
 
 /-- Smoke: at p=11, the Fibonacci expansion confirms `fibLike 5 = (5, 3)`. -/
 theorem fibLike_5_eq : fibLike 5 = (5, 3) := by decide
+
+/-! ## phi multiplicative order at split primes (smoke)
+
+For split primes p, `phi^{-1} ≡ (s - 1) * inv2 p (mod p)` (derivable
+from `phi(phi - 1) ≡ 1 mod p`, the unscaled φ recurrence rearranged).
+Combined with `MulOrderPigeonhole.exists_modPow_period`, this gives
+the multiplicative period of phi as a Phase 3.2 building block.
+The universal form (period | (p-1)/2) still requires FLT for phi,
+multi-session.
+-/
+
+open E213.Lib.Math.DyadicFSM.MulOrderPigeonhole (ModInverse exists_modPow_period)
+open E213.Meta.Nat.ModPow213 (modPow)
+
+/-- Smoke: at p=11, `phi 11 4 = 8` has modular inverse `7`
+    (since `8 * 7 = 56 ≡ 1 mod 11`). -/
+def phi11_modInv : ModInverse 11 (phi 11 4) :=
+  { inv := 7, inv_lt := by decide, inv_eq := by decide }
+
+/-- Smoke: at p=11, phi has multiplicative period ≤ 11
+    (actually 5, matching the Pisano predict (p-1)/2 = 5). -/
+theorem exists_phi11_mul_order :
+    ∃ N, 0 < N ∧ N ≤ 11 ∧ modPow 11 (phi 11 4) N = 1 % 11 :=
+  exists_modPow_period 11 (phi 11 4) (by decide) phi11_modInv
+
+/-- Smoke: at p=19, `phi 19 9 = 5` has modular inverse `4`
+    (since `5 * 4 = 20 ≡ 1 mod 19`). -/
+def phi19_modInv : ModInverse 19 (phi 19 9) :=
+  { inv := 4, inv_lt := by decide, inv_eq := by decide }
+
+/-- Smoke: at p=19, phi has multiplicative period ≤ 19
+    (actually 9, matching Pisano predict (p-1)/2 = 9). -/
+theorem exists_phi19_mul_order :
+    ∃ N, 0 < N ∧ N ≤ 19 ∧ modPow 19 (phi 19 9) N = 1 % 19 :=
+  exists_modPow_period 19 (phi 19 9) (by decide) phi19_modInv
 
 end E213.Lib.Math.DyadicFSM.PhiMod5

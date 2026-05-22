@@ -974,3 +974,87 @@ expansion `phi^k = F_k · phi + F_{k-1}` reduces "phi^k = 1" to
   · `lake build`: ✅ clean
   · `scan_axioms.py PhiMod5`: 20 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere
+
+---
+
+# Part 12 — multi-session FLT job: explicit-inverse multiplicative order
+
+Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
+to `M^((p-1)/2) = I` needs FLT for phi (`phi^(p-1) ≡ 1 mod p`).
+Rather than tackling FLT head-on (Lagrange / binomial expansion,
+multi-session each), this part delivers a **constructive
+weakening**: given an explicit modular inverse witness, the
+multiplicative orbit returns to 1 within `p` steps.  This is
+**existential** mul-order, FLT-independent.
+
+Combined with explicit phi^{-1} constructions (via `phi(phi-1) ≡ 1`
+rearrangement), it gives per-prime mul-order existentials for phi
+**without FLT** — sufficient for many Phase 3.2 sub-goals.
+
+## What landed
+
+### Extension to `Meta/Nat/ModPow213.lean` (2 new PURE)
+
+  · `modPow_dist_mul` : `modPow p (a · b) k ≡ modPow p a k · modPow p b k (mod p)`.
+    Foundation for the modular-inverse cancellation argument.
+  · `modPow_mul_inv` : if `(a · b) % p = 1 % p`, then
+    `(modPow p a k · modPow p b k) % p = 1 % p` for all k.
+    Direct consequence: `modPow b k` is the mod-p inverse of `modPow a k`.
+
+### `Lib/Math/DyadicFSM/MulOrderPigeonhole.lean` (new, 8 PURE)
+
+  · `ModInverse p a` — structure for explicit `(b : Nat) (b < p) (a·b % p = 1 % p)`.
+  · `modPowFin` — encode `modPow p a i.val ∈ Fin p` for pigeonhole.
+  · `modPow_coincidence` — pigeonhole on `[0, p]` gives `i < j`
+    with `modPow p a i = modPow p a j`.
+  · **`modPow_translation`** — translation engine:
+       `modPow p a i = modPow p a j ∧ i ≤ j ⟹ modPow p a (j - i) = 1 % p`,
+       proven by multiplying coincidence by `modPow p b i` and
+       using `modPow_mul_inv` to cancel.
+  · **`exists_modPow_period`** (★★★ EXISTENTIAL MUL-ORDER):
+       `∀ p > 1, ∀ a, ModInverse p a → ∃ N, 0 < N ≤ p ∧ modPow p a N = 1 % p`.
+  · Smoke tests at p ∈ {5, 7}.
+
+### Extension to `Lib/Math/DyadicFSM/PhiMod5.lean` (4 new PURE)
+
+  · `phi11_modInv` / `phi19_modInv` — explicit inverse witnesses
+    for phi at split primes 11 and 19.
+  · `exists_phi11_mul_order` / `exists_phi19_mul_order` — phi
+    has multiplicative period ≤ p, derived from the generic
+    existential without FLT.
+
+Per-prime values match Pisano predict `(p-1)/2`:
+  · p=11: phi = 8, phi⁻¹ = 7, period 5 = (11-1)/2 ✓
+  · p=19: phi = 5, phi⁻¹ = 4, period 9 = (19-1)/2 ✓
+
+## What this buys for Phase 3.2
+
+The chain Phase 3.2 needs:
+  1. ✅ `phi² ≡ phi + 1 mod p` (Part 11, unscaled)
+  2. ✅ Existential `∃ N ≤ p, phi^N ≡ 1 mod p` (this Part, per-prime)
+  3. Pin `N = (p-1)/2` for split primes  ← FLT-equivalent, multi-session
+  4. Eigenvector argument: phi² is eigenvalue of M  ← multi-session
+  5. Diagonalisability + final assembly  ← multi-session
+
+Items 1+2 are PURE-closed without FLT.  Items 3-5 remain
+multi-session.  The "explicit inverse + pigeonhole" path of
+this Part is general infrastructure useful beyond Phase 3.2 —
+any consumer needing FLT-replacement (e.g., for `2 mod p`,
+`5 mod p`, etc.) plugs in via the same `ModInverse` interface.
+
+## Purity hiccups + fixes
+
+  · `Nat.add_sub_cancel'` / `Nat.add_sub_of_le` → propext leak.
+    Replaced with `NatHelper.sub_add_cancel` + `Nat.add_comm`.
+  · `conv_lhs` / `▸` substitution issues (Lean substituting
+    too aggressively across `j → i + (j - i)`).  Resolved by
+    using `have key + rw [hsum] at key` — explicit local
+    rewriting confined to a single expression.
+
+## Verification (post Part 12)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModPow213`: 12 PURE / 0 DIRTY (was 10)
+  · `scan_axioms.py MulOrderPigeonhole`: 8 PURE / 0 DIRTY
+  · `scan_axioms.py PhiMod5`: 24 PURE / 0 DIRTY (was 20)
+  · No new DIRTY axioms anywhere
