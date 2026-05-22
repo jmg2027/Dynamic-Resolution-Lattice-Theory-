@@ -83,9 +83,11 @@ After execution:
 - **Effort**: 1 hr.
 - **Depends on**: nothing.
 
-### Phase 2 — Demote `N_U` to `abbrev`; collapse three defs
+### Phase 2 — Demote `N_U` + collapse 5+ parallel defs of `5^25`
 
-- **Scope**: drop privileged status of `N_U`.
+- **Scope**: drop privileged status of `N_U`.  Audit (§11.2 #1)
+  surfaced **5+ independent defs of `5^25`** under different framing
+  rhetoric — all must collapse.
 - **Files changed**:
   - `Lib/Math/ResolutionLimit.lean`: change `def N_U : Nat := d^(d*d)`
     to `abbrev N_U : Nat := configCount 2`.
@@ -95,9 +97,23 @@ After execution:
     `n_resolution_candidate` only as a *local* convenience; replace
     with theorem `n_resolution_candidate_eq : n_resolution_candidate
     = configCount 2`.
+  - `Lib/Math/OperationTopology/TotalPreservation.lean`: replace
+    `def totalBudget : Nat := 5^25` with
+    `theorem totalBudget_eq_configCount_2 : ... = configCount 2`.
+  - `Lib/Math/NumberGrid/FSMGradeTaxonomy.lean`: `fsmGradeStates 25`
+    bridge theorem to `configCount 2`.
+  - `Lib/Math/DialogueAudit/PigeonholeFiniteState.lean`: replace
+    `def maxDistinguishableCuts := 5^25` with bridge theorem.
+  - `Lib/Math/SignedCut/CD/CDTowerLevel.lean`: **DELETE** vacuous
+    tautology `theorem n_resolution_emergence : 5^25 = 5^25 := rfl`
+    (audit §11.2 #2; re-exported by 4 downstream files but content-empty).
+  - `Lib/Math/Information/Bit.lean`: fix docstring claim
+    `N_U = 2^25 = 5^25 analogue` (false per `AxisDistinction.lean`).
 - **Success**: `grep -rn "^def N_U" lean/E213/` returns 0 hits;
-  `grep -rn "^abbrev N_U" lean/E213/` returns ≤ 1 hit.
-- **Effort**: 1 hr.
+  `grep -rn "^abbrev N_U" lean/E213/` returns ≤ 1 hit; the 4 parallel
+  `def *budget*/*states*/*Cuts := 5^25` defs become theorems bridging
+  to `configCount 2`.
+- **Effort**: **2-3 hr** (revised from 1 hr per audit §11.2 #1).
 - **Depends on**: Phase 1.
 
 ### Phase 3 — Delete `ResolutionInvariant` record (Critic Option e)
@@ -160,19 +176,55 @@ After execution:
 - **Scope**: regression-test the consumer cascade.
 - **Files NOT changed**: ValidationStandard capstones, AlphaEM
   capstones — their `decide`-chains on `5^25` literal value should
-  resolve unchanged.
+  resolve unchanged at the *value* level.  But **docstring rhetoric
+  needs touch** (audit §11.3): `FinitistObservableChain`,
+  `ValidationStandardOne`, `FiniteUniverse` carry universe-constant
+  framing in narrative text.
 - **Success**:
   - `cd lean && lake build` clean
   - `python tools/scan_axioms.py` PURE on all touched modules
   - `lake build E213.Lib.Physics.Capstones.ValidationStandardOne`
     succeeds (decide-chain preserved)
   - `#print axioms configCount` / `#print axioms N_U` clean
-- **Effort**: 1 hr.
+  - Capstone docstrings reworded: "N_U is the SAME lattice resolution
+    for every observable" → "all observables evaluate at the same
+    family point (configCount 2)" or similar.
+- **Effort**: **2-3 hr** (revised from 1 hr per audit §11.3 capstone
+  docstring rewrite load).
 - **Depends on**: Phases 1-5.
 
-**Total mean effort**: ~6-7 hr.  Critic-flagged tail risk: 8-12 hr if
-ValidationStandard cascade surfaces a hidden `decide`-shape
-dependency.
+### Phase 7 — Doc cascade (rhetorical update, per audit §11.5)
+
+- **Scope**: docs across `seed/`, `theory/`, `catalogs/`, root .md.
+- **High-impact spec rewrite**:
+  - `seed/RESOLUTION_LIMIT_SPEC.md` §2 (entire section) — replace
+    "N_U as four-Lens convergence" with "configCount family +
+    n=2 readout" framing.  §0/§1/§3/§4 salvageable with light
+    adjustment.
+  - `seed/INDEX.md:66-72` reproduces 4-way claim — rewrite.
+  - `seed/AXIOM/{99_history,02_statement,INDEX}.md` cite-chain.
+- **Active Tier-3 chapter cap-framing rewording**:
+  - `theory/math/{hyper,topology,number_grid,signed_cut,
+    cross_domain_unification,combinatorics}.md` — replace
+    "beyond N_U", "≤ N_U", "at resolution N_U" with "at the
+    configCount 2 readout" / "at family-evaluation level 2"
+  - `theory/physics/{foundations,cosmology}.md` — same
+- **Critical doc fixes**:
+  - `LESSONS_LEARNED.md` 교훈 1+2 — Korean phrasing encodes
+    the exact failure mode CLAUDE.md catalogs as warning.
+    Full rewrite of both lessons.
+  - `catalogs/atomic-integers.md:57-67` — 4-way framing listing.
+  - `research-notes/{G12,G35}*.md` — active research-notes still
+    citing 4-way convergence (G35 lines 172/428/541 specifically).
+- **Effort**: **4-6 hr** (spec rewrite + lessons rewrite + ~10
+  chapter docstring touches).
+- **Depends on**: Phases 1-6.
+
+**Total mean effort**: **~12-15 hr** (revised from 6-7 hr per
+audit-grounded re-estimate).  Tail risk: **~20 hr** if
+ValidationStandard cascade surfaces hidden `decide`-shape
+dependency OR spec rewrite triggers re-discussion of canonical
+framing.
 
 ## §4 Resolution (Round 3 sharpened — clean Option (c))
 
@@ -456,3 +508,121 @@ This plan should land before further N_U-using results are added.
 This plan is registered as next-session work in `HANDOFF.md` Part 2
 "Open work" (or wherever HANDOFF tracks pending items).  Execution
 not started; conversation closure pending.
+
+## §11 Comprehensive consumer audit (2026-05-22 evening)
+
+Two parallel agents audited all consumers of `N_U`, `5^25`,
+`d^(d*d)`, `298023223876953125`, `n_resolution_candidate`,
+`universe_level`, and `ResolutionInvariant`-family identifiers.
+
+### §11.1 Total scope
+
+**Lean (68 files)**:
+- 149 `N_U` whole-word hits, 61 `5^25` regex, 66 decimal-literal hits, 34 `d^(d*d)` structural
+- 12 `n_resolution_candidate`, 22 `universe_level`, 8 `ResolutionInvariant` family
+
+**Docs (~70 files)**:
+- 212 `N_U` hits, 93 `5^25` / `5²⁵` hits, 131 `d^(d²)` hits, 15 decimal-literal hits, 8 `ResolutionInvariant` (all in G120 itself)
+- Distribution: 8 in `seed/`, 16 in `theory/`, 6 in `research-notes/` top + 17 in archive, 2 in `catalogs/`, 6 in root .md
+
+### §11.2 Major new discoveries (vs Round 1-3 estimates)
+
+1. **5+ independent defs of `5^25` (not 3)**.  Beyond `ResolutionLimit.N_U`,
+   `Universe.N_U`, `n_resolution_candidate` — also `TotalPreservation.totalBudget`
+   (Operation × Topology framing), `FSMGradeTaxonomy.fsmGradeStates 25`
+   (FSM-grade framing), `PigeonholeFiniteState.maxDistinguishableCuts`
+   (pigeonhole framing).  Each presents the same number under a
+   different framing-rhetoric.
+2. **Vacuous tautology**: `lean/E213/Lib/Math/SignedCut/CD/CDTowerLevel.lean:66`
+   has `theorem n_resolution_emergence : 5^25 = 5^25 := rfl` — re-exported
+   by 4 downstream files as if it were structural.  Phase 3 should
+   delete (no content beyond reflexivity).
+3. **Internal contradiction**: `Information/Bit.lean:54` docstring claims
+   `N_U = 2^25 = 5^25 analogue` — but `DialogueAudit/AxisDistinction.lean:42`
+   proves `2^25 ≠ 5^25`.  Minor side-fix.
+4. **Universe-constant framing has leaked to Lens layer**:
+   `Lens/Cardinality.lean:21` INDEX docstring cites
+   `seed/RESOLUTION_LIMIT_SPEC.md: N_resolution = d^(d²) = 5²⁵`.
+   Framing rhetoric one ring deeper than anticipated.
+5. **`ResolutionInvariant` external import count = 0**.  Only
+   `Meta/Tactic/{Pure,Native}GuardTest.lean` reference
+   `resolutionInvariantWitness` by name (via `#guard_*` lines).
+   Phase 3 deletion is **very safe**.
+
+### §11.3 Critical misuses (highest priority Class M / Class U)
+
+**Capstone docstring violations (load-bearing rhetoric)**:
+- `Lib/Physics/Capstones/FinitistObservableChain.lean:11,27` — "N_U is
+  the SAME lattice resolution for every observable"
+- `Lib/Physics/Capstones/ValidationStandardOne.lean:26` — "All 4
+  observables share single N_U"
+- `Lib/Physics/Foundations/FiniteUniverse.lean:83-87` — "N_resolution
+  is determined by the four-domain convergent invariant"
+
+**Spec-side violation** (loudest single doc):
+- `seed/RESOLUTION_LIMIT_SPEC.md` §2 (entire section) — "N_U as
+  four-Lens convergence" — direct codification of the fictional
+  4-way claim that G120 dissolves
+
+**Meta-failure** (doc that warns against frame imports IS importing them):
+- `LESSONS_LEARNED.md` 교훈 1: "lens cardinality 가 N_U 에서
+  4-domain convergent invariant 로 안정" — Korean phrasing encodes
+  exactly the "Universe-constant framing" failure mode that
+  CLAUDE.md:216 catalogs as a warning
+
+**Active Tier-3 chapters with cap-framing**:
+- `theory/math/hyper.md:23-28` — "Beyond N_U, the value is not 213-internal"
+- `theory/math/topology.md:43-44` — "every Set X at resolution N_U has ≤ N_U elements"
+- `theory/math/cross_domain_unification.md:22` — "N_U = 5²⁵ as the resolution cutoff"
+- `theory/math/signed_cut.md:70` — "L26: absent — beyond the resolution limit"
+- `theory/math/number_grid.md` — "At N_U, the grid closes"
+
+**Pre-G120 archive direct violation**:
+- `research-notes/archive/discrete_geometry/G37_*.md:60` — exact phrase
+  "system invariant" used positively (the exact phrase CLAUDE.md catalogs
+  as failure mode)
+
+### §11.4 Model exemplar (Class L, framing-correct)
+
+- `theory/lens/cardinality.md`: "count-Lens at fractal level 2 → N_U
+  = 5²⁵" with explicit disclaimer "None is 'THE cardinality of Raw'
+  — each is a Lens output."  This is the target framing for all
+  cap-style chapters.
+
+### §11.5 Doc cascade per G120 phase
+
+| Phase | Doc updates |
+|---|---|
+| 1 | None mandatory.  Optional: `theory/00_axioms_summary.md` companion-specs row for `configCount`. |
+| 2 | `STRICT_ZERO_AXIOM.md:342`, `CAPSTONE_INDEX.md:183` reword to cite `configCount 2`. |
+| **3** | **HIGH-impact wave** — full rewrite of `seed/RESOLUTION_LIMIT_SPEC.md` §2; `seed/INDEX.md:66-72`; `seed/AXIOM/{99_history,02_statement,INDEX}.md`; `catalogs/atomic-integers.md:57-67`; `LESSONS_LEARNED.md` 교훈 1+2; `research-notes/{G12,G35}*.md` 4-way refs. |
+| 4 | `research-notes/audit/G17_inspect_capstone.md` annotate as pre-G120 snapshot. |
+| 5 | (no docs) |
+| **6** | Active Tier-3 chapter cap-framing rewording: `theory/math/{hyper,topology,number_grid,signed_cut,cross_domain_unification,combinatorics}.md`; `theory/physics/{foundations,cosmology}.md`.  Capstone docstring fixes: `FinitistObservableChain`, `ValidationStandardOne`, `FiniteUniverse`. |
+
+### §11.6 Surprising findings (audit-surfaced)
+
+1. **The canonical spec is the loudest 4-way-convergence vector.**
+   Every other doc using 4-way framing cites
+   `seed/RESOLUTION_LIMIT_SPEC.md` §2 as authority.  Fixing §2
+   cascades trust-wise across `seed/INDEX.md`, `99_history.md`,
+   `catalogs/`, `LESSONS_LEARNED.md`.
+2. **The exact phrase "system invariant"** appears verbatim only
+   twice: (a) `CLAUDE.md:216` as failure-mode warning, (b)
+   archive G37 as positive citation.  Pre-G120 archive directly
+   uses the phrase CLAUDE.md flags.
+3. **G35 (213-Algebra field catalog, active top-level)** has 4-way
+   convergence assertions at lines 172, 428, 541.  Not archive —
+   currently flagged foundational.  MEDIUM urgency.
+4. **HANDOFF.md is already Round-3-aligned** — cleanest doc
+   currently encoding post-G120 framing.  Can be the rhetorical
+   template for the cascade.
+5. **NResolutionCandidates.lean enumerates "5 candidates for N_U"**
+   — entire "candidate selection" framing collapses under G120
+   (configCount is the family, n=2 is the lens application of
+   interest; no candidates).  File likely needs full deprecation
+   or rewrite, not just rebinding.
+6. **Effort re-estimate**: original ~6-7 hr mean was Lean-only.
+   With doc cascade: **~12-15 hr realistic, ~20 hr tail risk**
+   (per agent's 10-12 hr Lean + doc rewrite of spec/lessons
+   ~4-6 hr).
