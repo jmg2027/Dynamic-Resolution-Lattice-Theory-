@@ -1148,6 +1148,55 @@ terms.
 
 ---
 
+# Part 15 — FLT: prime divisibility of binomial middle terms
+
+`Lib/Math/DyadicFSM/FLT/ChoosePrime.lean` (new, 7 PURE):
+
+Closes the prime-divisibility of `choose p k` for `0 < k < p`,
+given an explicit modular inverse for k mod p.  Avoids full
+Euclid's lemma / Bezout infrastructure by relying on the
+caller-provided `ModInverse` witness (from Part 12).
+
+  · `mul_p_mod_eq_zero` : `(p · x) % p = 0` (PURE replacement
+    for `Nat.mul_mod_right` which leaks propext).
+  · `key_mul_choose_mod` : `((k+1) · choose p (k+1)) % p = 0`
+    for `p ≥ 1`, direct from `choose_succ_mul` + the fact that
+    `(p · _) % p = 0`.
+  · **`choose_p_dvd_of_inverse`** (★★★ KEY DIVISIBILITY):
+       For `p > 1` and `ModInverse p (k+1)`,
+       `(choose p (k+1)) % p = 0`.
+       Multiplies the `key_mul_choose_mod` equation by the
+       inverse to cancel `(k+1)`, leaving `choose p (k+1) ≡ 0`.
+  · Smokes: `choose_5_2_mod_5 = 0` (via inv 2 mod 5 = 3),
+    `choose_7_3_mod_7 = 0` (via inv 3 mod 7 = 5).
+
+## Purity hiccup
+
+`Nat.zero_mod p` leaks propext.  Replaced with `rfl` (Lean's
+`0 % p` reduces definitionally to 0 for any p, including 0).
+
+## FLT chain status
+
+| Sub-step | Status |
+|---|---|
+| `choose` definition + Pascal | ✅ Part 14 |
+| Key identity `(k+1)·choose p (k+1) = p·choose (p-1) k` | ✅ Part 14 |
+| **`p ∣ choose p (k+1)` via explicit inverse** | ✅ Part 15 |
+| Binomial theorem `(a+b)^n = Σ C(n,k) a^{n-k} b^k` | ⚪ next (needs Σ) |
+| `(a+1)^p ≡ a^p + 1 (mod p)` for prime p | ⚪ multi-session |
+| `a^p ≡ a (mod p)` (FLT primary form) by induction on a | ⚪ multi-session |
+| `a^(p-1) ≡ 1 (mod p)` for `a ≠ 0 mod p` (FLT main form) | ⚪ multi-session |
+| Fibonacci-Pisano `F_{p-1} ≡ 0 mod p` at split primes | ⚪ multi-session |
+| Phase 3.2 universal closure | ⚪ multi-session |
+
+## Verification (post Part 15)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.ChoosePrime`: 7 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
