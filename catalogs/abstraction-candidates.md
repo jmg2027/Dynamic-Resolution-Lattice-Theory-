@@ -39,7 +39,7 @@ Status keys:
 |----|-------|:------:|-------|
 | L3 | Pisano Predictor extension steps | **DONE** | `pisano_period_lift {p pf N f}` PURE template absorbs per-prime `intro k; rw [h_p]; exact period_n k` boilerplate; 10 sites refactored across Predictor8/11/14/17 (commit fc105cd6). |
 | L4 | `addLDD` / `mulLDD` (Smooth.lean) | **DONE** | `ldd_branch_via_maxRange (sf cx cy M hagree S R side_chain m' hm')` PURE template (in `Real213/Core/CutFnData.lean`) absorbs the inner `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block; 4 branches refactored across addLDD + mulLDD (commit 7c887e23).  Parameterized helper instead of typeclass. |
-| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples.  `decide` ineffective due to conj evaluation depth. |
+| L5 | `CDDouble.I_mul_J` / `J_mul_I` | DEFERRED — no abstraction yield | Not byte-identical at content level — compute different numeric witnesses for different `(α, β, γ, δ)` tuples.  `decide` ineffective due to conj evaluation depth.  See `research-notes/G118_marathon_deferred_items.md` §8c. |
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
 | E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
@@ -54,10 +54,15 @@ Status keys:
   · **§3 fully closed** — L1 (β + α, 4/4 siblings, Part 5 commits
     0fabff84 + a119b077), C (CutSumOne 8/8, Part 5 commit 4984c9ad).
   · **§4** — M, Pell-FSM (93 sites), ModArith, L3 (Part 5 commit
-    fc105cd6, 10 sites in Predictor8/11/14/17); L4/L5 deferred;
-    E/F still open.
-  · **Cross-tier (Part 5)** — G110 FLUX-1 (caea91c1), G111
-    COH-1+COH-2 (796016fa), TH-4 spec (2558e58b).
+    fc105cd6, 10 sites in Predictor8/11/14/17), **L4 DONE** (commit
+    7c887e23 — ldd_branch_via_maxRange template); L5 deferred
+    (no consolidation possible — see G118); E/F still open.
+  · **Cross-tier (Part 5)** — G110 FLUX-1 (34 sites via
+    CutMulOuterReduce + UnitBracketReduce/×2 + UnitBracketReduceSum),
+    G111 COH-1+2+3 (Pattern10 + InvolutionTemplate +
+    LeibnizUniversalLift), **REAL-1+REAL-2 DONE** (commit f7f00a98 —
+    BoolOrLadder.bool_or_ladder_iff template, 3 theorems refactored,
+    ~140K Expr nodes retired), TH-1/TH-4/G117 spec docs.
 
 Net Lean deliverables this branch:
   · 20 new PURE helpers across 7 new modules / additions
@@ -84,8 +89,12 @@ Doc deliverables (G107 §10):
 Still open from §2: none.
 Still open from §3: none (Part 5 closed L1 + C).
 Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
-(Σ-fold; additive), L4 (typeclass design needed), L5 (per-instance
-arithmetic differs).
+(Σ-fold; additive); L4 **DONE** (Part 5 commit 7c887e23);
+L5 deferred — no yield (see G118).
+
+**See `research-notes/G118_marathon_deferred_items.md`** for the
+3 truly remaining deferred items (CD-1/2/3, HC-1+PHYS-1/2,
+FSM-1 ∀p) with per-item rationale.
 Still open from §10: TH-1 (proof-shape fingerprint, key data already
 in CAT-3 + ARCHITECTURE.md note), TH-4 (L1 methodology, partial via
 LeibnizAlgLiftBeta).  Neither blocks; redundancy with already-shipped
