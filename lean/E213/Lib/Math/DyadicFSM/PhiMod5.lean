@@ -181,6 +181,68 @@ theorem four_phi_sq_eq_four_phi_plus_one (p s : Nat)
   rw [one_plus_s_sq_eq p s hs2]
   rw [← four_phi_plus_one_eq p s hp hpo]
 
+/-! ## Cancellation of 4 via explicit `4⁻¹ ≡ inv2² (mod p)`
+
+Without FLT, the multiplicative inverse of 4 mod p can be constructed
+explicitly as `inv2 p * inv2 p`:  since `2 * inv2 ≡ 1 mod p`, squaring
+gives `4 * inv2² ≡ 1 mod p`.  This lets us cancel the 4 in the kernel
+and recover the **unscaled** φ recurrence `phi² ≡ phi + 1 (mod p)`.
+
+The general FLT-based cancellation infrastructure (for arbitrary
+constants coprime to p) remains G119 Phase 2.1 work, but for the
+specific constant 4, the explicit construction is direct.
+-/
+
+/-- `4 · inv2² ≡ 1 (mod p)` for odd `p > 1`.  Explicit `4⁻¹ mod p`. -/
+private theorem four_mul_inv2_sq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (4 * (inv2 p * inv2 p)) % p = 1 % p := by
+  -- 4 * inv2² = (2 * inv2)² in Nat, then mod-p reduces via two_mul_inv2.
+  have h_pow : 4 * (inv2 p * inv2 p) = (2 * inv2 p) * (2 * inv2 p) :=
+    four_mul_sq (inv2 p)
+  rw [h_pow, mul_mod_pure (2 * inv2 p) (2 * inv2 p) p,
+      two_mul_inv2 p hp hpo, ← mul_mod_pure 1 1 p, Nat.mul_one]
+
+/-- Helper: `inv2² * (4 * x) = (4 * inv2²) * x`. -/
+private theorem rearrange_inv2sq_four (p x : Nat) :
+    inv2 p * inv2 p * (4 * x) = (4 * (inv2 p * inv2 p)) * x := by
+  rw [← mul_assoc (inv2 p * inv2 p) 4 x, Nat.mul_comm (inv2 p * inv2 p) 4]
+
+/-- ★★★★ **Unscaled φ recurrence** (G119 Phase 3.2 full algebraic kernel):
+    `phi² ≡ phi + 1 (mod p)`, given `s² ≡ 5 (mod p)` and odd `p > 1`.
+
+    Derived from `four_phi_sq_eq_four_phi_plus_one` (scaled form) by
+    multiplying both sides by `inv2²` (which is `4⁻¹ mod p` via
+    `four_mul_inv2_sq`) — the cancellation is explicit, no FLT
+    needed.  PURE. -/
+theorem phi_sq_eq_phi_add_one (p s : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (hs2 : (s * s) % p = 5 % p) :
+    (phi p s * phi p s) % p = (phi p s + 1) % p := by
+  -- From kernel:  (4 * phi²) % p = (4 * (phi + 1)) % p
+  have hker := four_phi_sq_eq_four_phi_plus_one p s hp hpo hs2
+  have h_invsq := four_mul_inv2_sq p hp hpo
+  -- Multiply both sides by inv2², use `4 * inv2² ≡ 1 mod p` to cancel.
+  -- LHS reduction: inv2² · (4 · phi²) % p ≡ phi² % p
+  have hL : (inv2 p * inv2 p * (4 * (phi p s * phi p s))) % p
+          = (phi p s * phi p s) % p := by
+    rw [rearrange_inv2sq_four p (phi p s * phi p s),
+        mul_mod_left_pure (4 * (inv2 p * inv2 p)) (phi p s * phi p s) p,
+        h_invsq,
+        ← mul_mod_left_pure 1 (phi p s * phi p s) p,
+        Nat.one_mul]
+  have hR : (inv2 p * inv2 p * (4 * (phi p s + 1))) % p
+          = (phi p s + 1) % p := by
+    rw [rearrange_inv2sq_four p (phi p s + 1),
+        mul_mod_left_pure (4 * (inv2 p * inv2 p)) (phi p s + 1) p,
+        h_invsq,
+        ← mul_mod_left_pure 1 (phi p s + 1) p,
+        Nat.one_mul]
+  have hmid : (inv2 p * inv2 p * (4 * (phi p s * phi p s))) % p
+            = (inv2 p * inv2 p * (4 * (phi p s + 1))) % p := by
+    rw [mul_mod_right_pure (inv2 p * inv2 p) (4 * (phi p s * phi p s)) p,
+        hker,
+        ← mul_mod_right_pure (inv2 p * inv2 p) (4 * (phi p s + 1)) p]
+  exact hL.symm.trans (hmid.trans hR)
+
 /-! ## Smoke tests at split primes -/
 
 /-- Smoke: at p=11, s=4 satisfies 4² ≡ 5 (mod 11). -/
@@ -191,6 +253,11 @@ theorem phi_mod_11_scaled :
     (4 * (phi 11 4 * phi 11 4)) % 11 = (4 * (phi 11 4 + 1)) % 11 :=
   four_phi_sq_eq_four_phi_plus_one 11 4 (by decide) (by decide) sqrt5_mod_11
 
+/-- Smoke: at p=11, the **unscaled** φ identity `phi² ≡ phi + 1 mod 11`. -/
+theorem phi_mod_11_unscaled :
+    (phi 11 4 * phi 11 4) % 11 = (phi 11 4 + 1) % 11 :=
+  phi_sq_eq_phi_add_one 11 4 (by decide) (by decide) sqrt5_mod_11
+
 /-- Smoke: at p=19, s=9 satisfies 9² = 81 = 4·19 + 5 ≡ 5 (mod 19). -/
 theorem sqrt5_mod_19 : (9 * 9) % 19 = 5 % 19 := by decide
 
@@ -198,5 +265,10 @@ theorem sqrt5_mod_19 : (9 * 9) % 19 = 5 % 19 := by decide
 theorem phi_mod_19_scaled :
     (4 * (phi 19 9 * phi 19 9)) % 19 = (4 * (phi 19 9 + 1)) % 19 :=
   four_phi_sq_eq_four_phi_plus_one 19 9 (by decide) (by decide) sqrt5_mod_19
+
+/-- Smoke: at p=19, the **unscaled** φ identity `phi² ≡ phi + 1 mod 19`. -/
+theorem phi_mod_19_unscaled :
+    (phi 19 9 * phi 19 9) % 19 = (phi 19 9 + 1) % 19 :=
+  phi_sq_eq_phi_add_one 19 9 (by decide) (by decide) sqrt5_mod_19
 
 end E213.Lib.Math.DyadicFSM.PhiMod5

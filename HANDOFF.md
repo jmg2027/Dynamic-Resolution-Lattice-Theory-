@@ -872,7 +872,7 @@ This Part 11 closes the **algebraic kernel** (φ's defining recurrence
 in `F_p`) — the piece that's independent of FLT/eigenvector machinery
 and depends only on `s² ≡ 5 mod p` + odd `p > 1`.
 
-## What landed: `Lib/Math/DyadicFSM/PhiMod5.lean` (new, 13 PURE)
+## What landed: `Lib/Math/DyadicFSM/PhiMod5.lean` (new, 16 PURE)
 
   · `inv2 p := p / 2 + 1` — multiplicative inverse of 2 mod p.
   · `two_mul_inv2` : `2 * inv2 p ≡ 1 (mod p)` for odd `p > 1`.
@@ -882,23 +882,30 @@ and depends only on `s² ≡ 5 mod p` + odd `p > 1`.
   · `four_phi_sq_eq` : `4 * phi² ≡ (1+s)·(1+s) (mod p)`.
   · `one_plus_s_sq_eq` : `(1+s)·(1+s) ≡ 6 + 2s (mod p)`, given `s² ≡ 5`.
   · `four_phi_plus_one_eq` : `4 * (phi + 1) ≡ 6 + 2s (mod p)`.
-  · **`four_phi_sq_eq_four_phi_plus_one`** (★★★ KERNEL) :
+  · **`four_phi_sq_eq_four_phi_plus_one`** (★★★ SCALED KERNEL) :
        `4 * phi² ≡ 4 * (phi + 1) (mod p)`,
        given `s² ≡ 5 (mod p)` and odd `p > 1`.
-  · Smoke tests at p ∈ {11, 19} (sqrt5 witness + scaled identity).
+  · **`phi_sq_eq_phi_add_one`** (★★★★ UNSCALED KERNEL) :
+       `phi² ≡ phi + 1 (mod p)` — the *unscaled* φ defining
+       recurrence, derived by cancelling the factor of 4 via
+       explicit `4⁻¹ ≡ inv2² (mod p)` (no FLT needed).
+  · Smoke tests at p ∈ {11, 19} for both scaled and unscaled forms.
 
-## Why the *scaled* form
+## Why both scaled + unscaled
 
-The unscaled `phi² ≡ phi + 1 (mod p)` requires multiplicative
-cancellation of 4 mod p (i.e., existence of `4⁻¹ mod p`, equivalently
-gcd(4, p) = 1 which holds for odd p > 1).  That cancellation is
-itself non-trivial in Lean without xgcd/FLT infrastructure (G119
-Phase 2.1, multi-session).
+The scaled form `4·phi² ≡ 4·(phi+1)` falls out of the substitution
+`(1+s)² ≡ 6 + 2s = 2·(3+s) (mod p)` (using `s² ≡ 5`) almost
+directly, requiring no inverse-mod machinery.
 
-The 4-scaled form `4·phi² ≡ 4·(phi+1)` is *equivalent* in F_p (since
-4 is invertible for odd p), and captures the algebraic content
-completely.  Future cancellation work will collapse the factor of 4
-once `4⁻¹ mod p` is constructed.
+The unscaled `phi² ≡ phi + 1` requires `4⁻¹ mod p`.  Surprisingly,
+this DOES NOT require FLT — `4⁻¹` can be constructed explicitly as
+`inv2 p * inv2 p`, since `(2 · inv2 p)² ≡ 1² = 1 (mod p)` gives
+`4 · inv2² ≡ 1 (mod p)`.  Multiplying both sides of the scaled
+identity by `inv2²` collapses the factor of 4 cleanly.
+
+The general FLT-based cancellation for arbitrary constants coprime
+to p (e.g., for the eigenvector argument involving `(α - β)⁻¹`)
+remains G119 Phase 2.1 work.
 
 ## Purity hiccups + fixes
 
@@ -932,5 +939,5 @@ Future Phase 3.2 work can layer on:
 ## Verification (post Part 11)
 
   · `lake build`: ✅ clean
-  · `scan_axioms.py PhiMod5`: 13 PURE / 0 DIRTY
+  · `scan_axioms.py PhiMod5`: 16 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere
