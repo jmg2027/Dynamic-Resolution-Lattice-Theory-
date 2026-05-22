@@ -74,6 +74,27 @@ family — G120 Round 3 reframing).
 | `G118_marathon_deferred_items.md` | Marathon Part 5 closure log (11 items closed) | absorbed into `theory/math/dyadic_fsm.md` G119 section + `theory/INDEX.md` |
 | `G119_pisano_pell5_research_direction.md` | Pisano-period-for-Pell research direction (closed universally in `p` via Phase 3.2/3.3/4) | `theory/math/dyadic_fsm.md` G119 marathon section + `theory/math/modular_arithmetic.md` G119 section (FLT, F_{p²}, Frobenius) |
 
+## Metascan action items + deep dives (10 files, archived 2026-05-22)
+
+Moved into `metascan/` sub-cluster (joining G90-G106) once every
+item in the G107 action-items registry reached a final
+disposition.  See `metascan/INDEX.md` for the per-note closure
+table and `theory/meta/scanner_suite.md` §"Open frontier" for the
+narrative summary.
+
+| File | Theme |
+|---|---|
+| `metascan/G107_action_items_registry.md` | 24-item registry surfaced by G90-G106 (live tracker until 2026-05-22) |
+| `metascan/G108_real213_analysis_deep_dive.md` | Real213 sub-tree audit (REAL-1/2 closed via `bool_or_ladder_iff_with_pack`) |
+| `metascan/G109_cross_domain_identification_scan.md` | Math ∩ physics Expr-level identification candidates |
+| `metascan/G110_fluxmvt_deep_dive.md` | FLUX-1 closed via `mvt_cutPow_unitBracket_*_at` parametric |
+| `metascan/G111_cohomology_deep_dive.md` | COH-1/2/3 closed via three universal templates |
+| `metascan/G112_hodge_conjecture_deep_dive.md` | Absorbed into `theory/math/cohomology/hodge_conjecture.md` |
+| `metascan/G113_dyadic_fsm_deep_dive.md` | Absorbed into `theory/math/dyadic_fsm.md` |
+| `metascan/G114_cayley_dickson_deep_dive.md` | CD-1/2/3 declared structurally minimal per G118 |
+| `metascan/G115_lib_physics_deep_dive.md` | PHYS-1/2 declared structurally minimal per G118 |
+| `metascan/G116_pattern_catalog_deep_dive.md` | Absorbed into `theory/math/pattern_catalog/pattern_catalog.md` |
+
 ## Status
 
 Don't read these for current state.  Read instead:

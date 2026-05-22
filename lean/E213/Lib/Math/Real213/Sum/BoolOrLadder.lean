@@ -85,4 +85,30 @@ theorem and3_eq_true_pure (a b c : Bool) :
     exact (and_eq_true_pure (a && b) c).mpr
       ⟨(and_eq_true_pure a b).mpr ⟨ha, hb⟩, hc⟩
 
+/-- ★ PURE decide iff: `decide R = true ↔ R`.  Avoids the
+    propext-laden `decide_eq_true_eq` from Lean core. -/
+theorem decide_eq_true_pure {R : Prop} [Decidable R] :
+    decide R = true ↔ R :=
+  ⟨of_decide_eq_true, decide_eq_true⟩
+
+/-- ★ OR-ladder existence iff with a Prop-level pack.  Composes
+    `bool_or_ladder_iff` with a per-index bool↔Prop equivalence to
+    yield a direct Prop-existential characterisation of the ladder
+    — the shape every `cut{Sum,Mul}{Inner,Outer}_eq_true_iff` lands at. -/
+theorem bool_or_ladder_iff_with_pack
+    {Q : Nat → Prop}
+    (P : Nat → Bool) (ladder : Nat → Bool)
+    (pack : ∀ i, P i = true ↔ Q i)
+    (h_zero : ladder 0 = P 0)
+    (h_succ : ∀ n, ladder (n+1) = (P (n+1) || ladder n))
+    (n : Nat) :
+    ladder n = true ↔ ∃ i, i ≤ n ∧ Q i := by
+  have iff1 := bool_or_ladder_iff P ladder h_zero h_succ n
+  constructor
+  · intro h
+    obtain ⟨i, hi, hP⟩ := iff1.mp h
+    exact ⟨i, hi, (pack i).mp hP⟩
+  · rintro ⟨i, hi, hQ⟩
+    exact iff1.mpr ⟨i, hi, (pack i).mpr hQ⟩
+
 end E213.Lib.Math.Real213.Sum.BoolOrLadder

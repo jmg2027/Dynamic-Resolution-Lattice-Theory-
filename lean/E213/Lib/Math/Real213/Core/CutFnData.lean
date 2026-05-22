@@ -173,4 +173,36 @@ theorem ldd_branch_via_maxRange
   · exact Nat.le_trans hk''
       (Nat.le_trans (maxRange_ge sf.N S R m' R hm' (Nat.le_refl _)) side_chain)
 
+/-- ★ Bilateral LDD branch (left).  Specialises
+    `ldd_branch_via_maxRange` to the canonical
+    `M = max (maxRange sf.N S R) (maxRange sg.N S R)` shape that
+    `addLDD`/`mulLDD` use for their `apply ..._congr` step. -/
+theorem ldd_branch_max_left
+    {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f) (sg : LocallyDeterminedData g)
+    (cx cy : Nat → Nat → Bool) (S R : Nat)
+    (hagree : ∀ m' k',
+        m' ≤ max (maxRange sf.N S R) (maxRange sg.N S R) →
+        k' ≤ max (maxRange sf.N S R) (maxRange sg.N S R) →
+        cx m' k' = cy m' k')
+    (m' : Nat) (hm' : m' ≤ S) :
+    f cx m' R = f cy m' R :=
+  ldd_branch_via_maxRange sf cx cy _ hagree S R
+    (E213.Meta.Nat.Max213.le_max_left _ _) m' hm'
+
+/-- ★ Bilateral LDD branch (right).  Right-hand companion of
+    `ldd_branch_max_left`. -/
+theorem ldd_branch_max_right
+    {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f) (sg : LocallyDeterminedData g)
+    (cx cy : Nat → Nat → Bool) (S R : Nat)
+    (hagree : ∀ m' k',
+        m' ≤ max (maxRange sf.N S R) (maxRange sg.N S R) →
+        k' ≤ max (maxRange sf.N S R) (maxRange sg.N S R) →
+        cx m' k' = cy m' k')
+    (m' : Nat) (hm' : m' ≤ S) :
+    g cx m' R = g cy m' R :=
+  ldd_branch_via_maxRange sg cx cy _ hagree S R
+    (E213.Meta.Nat.Max213.le_max_right _ _) m' hm'
+
 end E213.Lib.Math.Real213.Core.CutFnData

@@ -116,11 +116,9 @@ theorem pisano_predict_realises_pell_14 :
         = pellFSMmod43.bits k)
     ∧ (∀ k, pellFSMmod47.bits (k + pisano_predict 47 (by decide))
         = pellFSMmod47.bits k) := by
-  let H := pisano_predict_realises_pell_11
-  exact ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
-         H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
-         H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
-         H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2,
+  obtain ⟨h3, h5, h7, h11, h13, h17, h19, h23, h29, h31, h37⟩ :=
+    pisano_predict_realises_pell_11
+  exact ⟨h3, h5, h7, h11, h13, h17, h19, h23, h29, h31, h37,
          pisano_period_lift (by decide : pisano_predict 41 (by decide) = 20)
                             pellFSMmod41_bits_period_20,
          pisano_period_lift (by decide : pisano_predict 43 (by decide) = 44)

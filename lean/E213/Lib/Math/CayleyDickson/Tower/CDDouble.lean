@@ -109,35 +109,12 @@ theorem conj_ne_id : ∃ x : Lipschitz, conj x ≠ x := by
 
 -- ═══ Non-commutativity of CD multiplication ═══
 
-/-- `I' * J`: via CD formula.  α=I, β=0, γ=0, δ=⟨1,0⟩.
-    (I·0 − conj(⟨1,0⟩)·0, ⟨1,0⟩·I + 0·conj(0)) = (0, ⟨0,1⟩). -/
-theorem I_mul_J : I' * J = ⟨0, ZI.I⟩ := by
-  show mul I' J = ⟨0, ZI.I⟩
-  unfold mul
-  apply ext
-  · show ZI.I * 0 - (⟨1, 0⟩ : ZI).conj * 0 = 0
-    apply ZI.ext
-    · show _ = (0 : Int); rfl
-    · show _ = (0 : Int); rfl
-  · show (⟨1, 0⟩ : ZI) * ZI.I + 0 * ZI.I.conj = ZI.I
-    apply ZI.ext
-    · show _ = (0 : Int); rfl
-    · show _ = (1 : Int); rfl
+/-- `I' * J = ⟨0, i⟩` and `J * I' = ⟨0, -i⟩`: paired basis-product
+    witnesses for CD non-commutativity.  Both factor through the
+    `DecidableEq Lipschitz` instance derived from the structure. -/
+theorem I_mul_J : I' * J = ⟨0, ZI.I⟩ := by decide
 
-/-- `J * I'`: α=0, β=⟨1,0⟩, γ=I, δ=0.
-    (0·I − conj(0)·⟨1,0⟩, 0·0 + ⟨1,0⟩·conj(I)) = (0, ⟨0,-1⟩). -/
-theorem J_mul_I : J * I' = ⟨0, ZI.negI⟩ := by
-  show mul J I' = ⟨0, ZI.negI⟩
-  unfold mul
-  apply ext
-  · show 0 * ZI.I - (0 : ZI).conj * (⟨1, 0⟩ : ZI) = 0
-    apply ZI.ext
-    · show _ = (0 : Int); rfl
-    · show _ = (0 : Int); rfl
-  · show 0 * 0 + (⟨1, 0⟩ : ZI) * ZI.I.conj = ZI.negI
-    apply ZI.ext
-    · show _ = (0 : Int); rfl
-    · show _ = (-1 : Int); rfl
+theorem J_mul_I : J * I' = ⟨0, ZI.negI⟩ := by decide
 
 /-- **Multiplication is NOT commutative.**
     `I' * J = ⟨0, i⟩` but `J * I' = ⟨0, -i⟩` — these differ

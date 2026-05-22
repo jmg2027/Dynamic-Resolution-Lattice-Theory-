@@ -1,4 +1,5 @@
 import E213.Lib.Physics.AtomicBase.Space
+import E213.Meta.Tactic.ListHelper
 
 /-!
 # Phase 2 Observable — what 213 can answer as *measurable*
@@ -43,6 +44,8 @@ This file collects only the *values* of the 9 quantities.  Comprehensive theorem
 
 namespace E213.Lib.Physics.AtomicBase.Observable
 
+open E213.Tactic.ListHelper (sigmaList)
+
 /-- List of 9 axiom-level observable values. -/
 def cosmos_observables : List (String × Nat) :=
   [ ("dim",           5)
@@ -60,7 +63,7 @@ theorem observable_count : cosmos_observables.length = 9 := by decide
 
 /-- Sum of all axiom-level observables = 5+5+10+3+1+6+2+3+0 = 35. -/
 theorem observable_sum :
-    (cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35 := by decide
+    sigmaList cosmos_observables (·.2) = 35 := by decide
 
 /-- ★ 213-axiom-level observables synthesis ★
 
@@ -91,6 +94,6 @@ theorem phase2_observable_summary :
     -- 9 axiom-level observables
     (cosmos_observables.length = 9)
     -- sum = 35 (sanity check)
-    ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
+    ∧ (sigmaList cosmos_observables (·.2) = 35) := by decide
 
 end E213.Lib.Physics.AtomicBase.Observable

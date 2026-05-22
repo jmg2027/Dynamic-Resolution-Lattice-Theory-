@@ -15,55 +15,42 @@ namespace E213.Lib.Math.Real213.Mul.CutMulComm
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulInner cutMulOuter)
 
+open E213.Lib.Math.Real213.Sum.BoolOrLadder
+  (and_eq_true_pure and3_eq_true_pure decide_eq_true_pure
+   bool_or_ladder_iff_with_pack)
+
 /-- cutMulInner true iff existential witness on m2.
-    PURE — corollary of `BoolOrLadder.bool_or_ladder_iff` (REAL-1 template). -/
+    PURE — `bool_or_ladder_iff_with_pack` instance over the
+    3-conjunct + `decide` Inner predicate. -/
 theorem cutMulInner_eq_true_iff (cx cy : Nat → Nat → Bool)
     (k m m1 : Nat) (n : Nat) :
     cutMulInner cx cy k m m1 n = true ↔
-    ∃ m2, m2 ≤ n ∧ cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k := by
-  have iff1 := E213.Lib.Math.Real213.Sum.BoolOrLadder.bool_or_ladder_iff
-      (fun m2 => cx m1 k && cy m2 k && decide (m1 * m2 ≤ m * k))
-      (cutMulInner cx cy k m m1)
-      (rfl) (fun _ => rfl) n
-  constructor
-  · intro h
-    obtain ⟨m2, hm2, hand⟩ := iff1.mp h
-    obtain ⟨h12, hd⟩ :=
-      (E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mp hand
-    obtain ⟨hcx, hcy⟩ :=
-      (E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mp h12
-    exact ⟨m2, hm2, hcx, hcy, of_decide_eq_true hd⟩
-  · rintro ⟨m2, hm2, hcx, hcy, hmul⟩
-    refine iff1.mpr ⟨m2, hm2, ?_⟩
-    exact (E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mpr
-      ⟨(E213.Lib.Math.Real213.Sum.BoolOrLadder.and_eq_true_pure _ _).mpr ⟨hcx, hcy⟩,
-       decide_eq_true hmul⟩
+    ∃ m2, m2 ≤ n ∧ cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k :=
+  bool_or_ladder_iff_with_pack
+    (fun m2 => cx m1 k && cy m2 k && decide (m1 * m2 ≤ m * k))
+    (cutMulInner cx cy k m m1)
+    (fun _ => Iff.trans (and3_eq_true_pure _ _ _)
+      (Iff.intro
+        (fun ⟨hcx, hcy, hd⟩ => ⟨hcx, hcy, of_decide_eq_true hd⟩)
+        (fun ⟨hcx, hcy, hmul⟩ => ⟨hcx, hcy, decide_eq_true hmul⟩)))
+    rfl (fun _ => rfl) n
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulInner cutMulOuter)
 
 /-- cutMulOuter true iff ∃ m1 ≤ n, ∃ m2 ≤ m2Bound, witnesses.
-    PURE — corollary of `BoolOrLadder.bool_or_ladder_iff` composed with
-    `cutMulInner_eq_true_iff` (REAL-1 template). -/
+    PURE — `bool_or_ladder_iff_with_pack` instance composed with
+    `cutMulInner_eq_true_iff`. -/
 theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
     (k m m2Bound : Nat) (n : Nat) :
     cutMulOuter cx cy k m m2Bound n = true ↔
     ∃ m1, m1 ≤ n ∧ ∃ m2, m2 ≤ m2Bound ∧
-      cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k := by
-  have iff1 := E213.Lib.Math.Real213.Sum.BoolOrLadder.bool_or_ladder_iff
-      (fun m1 => cutMulInner cx cy k m m1 m2Bound)
-      (cutMulOuter cx cy k m m2Bound)
-      (rfl) (fun _ => rfl) n
-  constructor
-  · intro h
-    obtain ⟨m1, hm1, hinner⟩ := iff1.mp h
-    obtain ⟨m2, hm2, hcx, hcy, hmul⟩ :=
-      (cutMulInner_eq_true_iff cx cy k m m1 m2Bound).mp hinner
-    exact ⟨m1, hm1, m2, hm2, hcx, hcy, hmul⟩
-  · rintro ⟨m1, hm1, m2, hm2, hcx, hcy, hmul⟩
-    refine iff1.mpr ⟨m1, hm1, ?_⟩
-    exact (cutMulInner_eq_true_iff cx cy k m m1 m2Bound).mpr
-      ⟨m2, hm2, hcx, hcy, hmul⟩
+      cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k :=
+  bool_or_ladder_iff_with_pack
+    (fun m1 => cutMulInner cx cy k m m1 m2Bound)
+    (cutMulOuter cx cy k m m2Bound)
+    (fun m1 => cutMulInner_eq_true_iff cx cy k m m1 m2Bound)
+    rfl (fun _ => rfl) n
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulInner cutMulOuter)

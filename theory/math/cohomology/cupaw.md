@@ -92,7 +92,7 @@ infrastructure is structural pre-work toward closure.
 - `theory/physics/alpha_em/precision_derivation.md` — α_em uses cup-channel inventory built on CupAW
 - `research-notes/G85_cup_delta_lens_mismatch.md` — Why strict cup fails Leibniz; CupAW is the resolution
 - `research-notes/G86_self_referential_lex_cup_leibniz.md` — **OPEN** ∀(k, l) conjecture
-- `research-notes/G111_cohomology_deep_dive.md` — 2026-05-22 Tier-2 Cohomology deep dive
+- `research-notes/archive/metascan/G111_cohomology_deep_dive.md` — 2026-05-22 Tier-2 Cohomology deep dive
 
 ## Open frontier
 
