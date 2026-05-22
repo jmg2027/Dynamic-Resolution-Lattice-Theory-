@@ -267,23 +267,25 @@ column is the *conjectural 213-Lens correspondence* under §4.1.
 
 ## §6 Open knots — what must be derived
 
-### §6.1 M1 — Why $d_{213} = 5$
+### §6.1 M1 — Why $d_{213} = 5$  [PARTIAL CLOSE 2026-05-22]
 
 `configCount n = d^(numV n)` with $d = 5$ in current 213 deployment.
 What forces $d = 5$ rather than $d \in \{3, 7, 11, \ldots\}$?
 
-Candidates:
-  · $d_{213} = N_S + N_T$ from K_{3,2}^{(c=2)} axis total
-  · $d_{213}$ from an independent fractal-base derivation
-  · $d_{213}$ as a free deployment parameter (213 admits a family
-    of deployments; K_{3,2}^{(c=2)} is one specific choice)
+**Partial close achieved** via `GenerationRule/TriangleIteration`:
 
-Per G120 §7, fractal base $d$ is parametric in principle —
-`configCount` should generalize to `(d : Nat) → (n : Nat) → Nat`.
-The "why 5" question is precisely the deferred hook.
+  · Triangle iteration $T(n) = n(n+1)/2$ starting from atomicity 2:
+    `triIter 2 0 = 2 = N_T`, `triIter 2 1 = 3 = N_S`,
+    `triIter 2 2 = 6`, ...
+  · So $d_{213} = N_S + N_T = T(2) + 2 = 3 + 2 = 5$ derives from
+    atomicity $a_0 = 2$.
 
-Until M1 closes, $d_M = 4$ derivation is half-answer at best: 4
-follows from 5, but 5 itself is unmotivated.
+**Irreducible remaining commitment**: $a_0 = 2$.  This IS the 213
+axiom Clause 1: "two distinct atoms".  No further derivation —
+this is the 213 starting point.
+
+Lean: `ChartAxisAnsatz.chartBase_K32_derived_from_triangle_iteration`
++ `NS_NT_derived_from_atomicity_two`.
 
 ### §6.2 M2 — Chart-Lens structurally omits self-pointing axes
 
@@ -389,8 +391,32 @@ material (e.g., `Lens/Number/Nat213/ChartGeneral.lean`).
     derivation (5 = 1 + 4) — two independent routes both yielding
     `selfPointingAxes = 1`.
 
-**M2 status update**: partial close at deployment level for
-K_{3,2}^{(c=2)} specifically.  Full R1 close still requires:
+  · *Step 4* (**M1 partial close — atomicity-2 derivation**):
+    24 → 27 PURE.  Discovered that `GenerationRule/
+    TriangleIteration.lean` already derives `(N_S, N_T) = (3, 2)`
+    from triangle iteration starting at atomicity 2:
+      - `triIter 2 0 = 2 = N_T` (Raw atomicity, Clause 1)
+      - `triIter 2 1 = 3 = N_S` (first generation, T(2) = 3)
+      - `triIter 2 2 = 6`, ... (higher levels exit axis scope)
+    Hence `chartBase 3 2 = N_S + N_T = 3 + 2 = 5` derives from
+    atomicity `a₀ = 2` (Raw Clause 1's two-atom commitment).
+
+    The irreducible remaining commitment is `a₀ = 2` itself —
+    this IS the 213 axiom (Clause 1: "two distinct atoms").  No
+    further derivation possible; this is the 213 starting point.
+
+  · **★★★★ G121_R1_master_capstone**: 3-route convergence
+    theorem (PURE).  All three routes — axiom-level shadow,
+    deployment connectedness, and atomicity-2 triangle iteration —
+    independently yield `chartVisibleAxes 3 2 = 4` and
+    `selfPointingAxes = 1`.
+
+**M1 status update**: partial close for K_{3,2}^{(c=2)}
+deployment.  Reduces to Raw Clause 1's `a₀ = 2` commitment —
+the irreducible 213 axiom.
+
+**M2 status update**: partial close for K_{3,2}^{(c=2)}.  Full
+R1 close still requires:
 
   · Generalization to arbitrary K_{NS, NT}^{(c)} (need V32Betti-style
     files for other (NS, NT) — straightforward but currently absent).
@@ -546,8 +572,19 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      two-route convergence theorem.
 
      **M2 partial close achieved** for K_{3,2}^{(c=2)}
-     deployment.  Generalization to arbitrary K_{NS,NT}^{(c)}
-     remains open work.
+     deployment.
+ 10. User says "ㄱㄱ" again — **M1 partial close via
+     TriangleIteration** (27 PURE total).  Discovered that
+     `GenerationRule/TriangleIteration.triIter_2_0/triIter_2_1`
+     already proves `(N_T, N_S) = (2, 3)` as the first two terms
+     of `triIter 2`.  Hence `chartBase 3 2 = 5` derives from
+     atomicity `a₀ = 2` = Raw Clause 1 two-atom commitment.
+     Remaining irreducible: `a₀ = 2` itself = the 213 axiom.
+
+     **★★★★ G121_R1_master_capstone** added: 3-route
+     convergence theorem (axiom-level shadow + deployment
+     connectedness + atomicity-2 triangle iteration) all
+     yield `chartVisibleAxes 3 2 = 4`, `selfPointingAxes = 1`.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
@@ -556,9 +593,8 @@ thread without context loss.
 
 **Next-session entry point**: (1) generalize V32Betti-style
 cochain enumeration to K_{NS, NT}^{(c)} for arbitrary (NS, NT, c)
-— would derive `selfPointingAxes = 1` for any 213-deployment,
-not just K_{3,2}^{(c=2)}; (2) tackle M1 (why d_213 = 5 / why
-N_S + N_T = 5) at the K-graph axis-total layer; (3) tackle M3
-(time = remaining N_T axis) via c=2 binary cover analysis.
+— would lift the M2 derivation from K_{3,2}-specific to
+deployment-parametric; (2) tackle M3 (time = remaining N_T axis)
+via c=2 binary cover analysis; (3) M4 (KK firewall) doc work.
 See §6 + §7.
 
