@@ -45,6 +45,16 @@ theorem modPow_mod_left (p a k : Nat) :
     rw [ih]
     rw [← mul_mod_right_pure (modPow p a k) a p]
 
+/-- `modPow p 1 k = 1 % p` — powers of one are one. -/
+theorem modPow_one_base (p k : Nat) : modPow p 1 k = 1 % p := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    show (modPow p 1 k * 1) % p = 1 % p
+    rw [Nat.mul_one]
+    rw [ih]
+    exact mod_mod 1 p
+
 /-- `modPow p a k` is always `< p` (when 0 < p). -/
 theorem modPow_lt (p a : Nat) (hp : 0 < p) (k : Nat) : modPow p a k < p := by
   induction k with
@@ -87,5 +97,14 @@ theorem modPow_mul (p a : Nat) (hp : 0 < p) (m n : Nat) :
     rw [Nat.mul_succ]
     rw [modPow_add p a hp (m * n) m]
     rw [ih]
+
+/-- Period reduction: if `modPow p a m = 1 % p`, then `modPow p a (m * n) = 1 % p`. -/
+theorem modPow_eq_one_pow (p a : Nat) (hp : 0 < p) (m n : Nat)
+    (hm : modPow p a m = 1 % p) :
+    modPow p a (m * n) = 1 % p := by
+  rw [modPow_mul p a hp m n]
+  rw [hm]
+  rw [modPow_mod_left]
+  exact modPow_one_base p n
 
 end E213.Meta.Nat.ModPow213
