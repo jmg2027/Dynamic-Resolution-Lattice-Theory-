@@ -1,9 +1,34 @@
 # G124 — V32Betti parametric generalization (M2 universal)
 
 **Date**: 2026-05-22
-**Status**: research direction (pre-marathon)
-**Branch suggestion**: `claude/g124-v32betti-parametric-*`
+**Status**: **PARTIAL CLOSE** (Phase 1-6, decide-based representative range)
+**Branch**: `claude/g121-open-followup-BCOp3`
 **Source**: G123 §2 (M2 residual), `HANDOFF.md` §D
+
+## Partial close summary (2026-05-22)
+
+Sub-tree `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/`
+created with 3 files, ~36 PURE:
+
+  · `CochSpaces.lean` (13 PURE) — parametric `CochV NS NT` /
+    `CochE NS NT c` types + `srcOf` / `tgtOf` / `delta0`
+  · `Delta0AndConnectedness.lean` (16 PURE) — `b_0 = 1`
+    (ker size = 2) verified via `decide` for K_{1,1}, K_{1,2},
+    K_{2,1}, K_{1,3}, K_{3,1}, K_{2,2} (c=1,2), K_{1,4}, K_{4,1},
+    K_{3,2}^{(c=2)}, K_{2,3}^{(c=2)}, K_{3,3}^{(c=2)}
+  · `EulerAndCapstone.lean` (7 PURE) — Euler char + b_1 formula
+    + G124 capstone bundling the parametric cohomology summary
+
+V32Betti compatibility verified: parametric `kerSizeDelta0Direct
+3 2 2` = `V32Betti.kerSizeDelta0` exactly.
+
+**Still open** (full universal parametric closure):
+  · `∀ (NS NT c : Nat), 1 ≤ NS → 1 ≤ NT → 1 ≤ c →
+    kerSizeDelta0 NS NT c = 2` requires graph-walk connectedness
+    induction (no infrastructure for that yet in 213).
+  · The `decide`-based representative range covers all G121-relevant
+    deployments; full universal closure is the natural follow-up
+    when graph-walk infrastructure becomes available.
 
 ## Why this is a distinct marathon
 
