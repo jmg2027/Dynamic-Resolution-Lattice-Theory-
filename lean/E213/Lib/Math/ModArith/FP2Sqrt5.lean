@@ -2,6 +2,7 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.DyadicFSM.PhiMod5
+import E213.Lib.Math.ModArith.ModBezoutInvariant
 /-!
 # 𝔽_{p²} = 𝔽_p[x] / (x² - 5) — universal foundation for Phase 3.3 (inert case)
 
@@ -27,7 +28,7 @@ infrastructure, 213-native.
 
 namespace E213.Lib.Math.ModArith.FP2Sqrt5
 
-open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self)
+open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self zero_mod)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure mul_mod_pure)
 open E213.Tactic.NatHelper (mul_assoc sub_add_cancel add_sub_cancel_right)
 
@@ -276,5 +277,118 @@ theorem fp2Frob_canonical (p : Nat) (hp : 0 < p) (x : FP2)
   apply Prod.ext
   · show x.1 % p = x.1; exact Nat.mod_eq_of_lt hx1
   · show x.2 % p = x.2; exact Nat.mod_eq_of_lt hx2
+
+/-- ★ **fp2Add zero left**: `0 + x = canonical(x)` (universal). -/
+theorem fp2Add_zero_left (p : Nat) (x : FP2) :
+    fp2Add p fp2Zero x = (x.1 % p, x.2 % p) := by
+  show ((0 + x.1) % p, (0 + x.2) % p) = (x.1 % p, x.2 % p)
+  rw [Nat.zero_add, Nat.zero_add]
+
+/-- ★ **fp2Mul one left** (universal, for `1 ≤ p`):
+    `1 · x` simplifies to `(x.1 mod p, x.2 mod p)`. -/
+theorem fp2Mul_one_left (p : Nat) (hp : 1 ≤ p) (x : FP2) :
+    fp2Mul p (fp2One p) x = (x.1 % p, x.2 % p) := by
+  show ((1 % p * x.1 + 5 * 0 * x.2) % p, (1 % p * x.2 + 0 * x.1) % p)
+     = (x.1 % p, x.2 % p)
+  apply Prod.ext
+  · show (1 % p * x.1 + 5 * 0 * x.2) % p = x.1 % p
+    rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+    -- Goal: (1 % p * x.1) % p = x.1 % p
+    rw [← mul_mod_left_pure 1 x.1 p, Nat.one_mul]
+  · show (1 % p * x.2 + 0 * x.1) % p = x.2 % p
+    rw [Nat.zero_mul, Nat.add_zero]
+    rw [← mul_mod_left_pure 1 x.2 p, Nat.one_mul]
+
+/-- ★ **fp2Mul zero left**: `0 · x = (0, 0)` (universal). -/
+theorem fp2Mul_zero_left (p : Nat) (x : FP2) :
+    fp2Mul p fp2Zero x = (0, 0) := by
+  show ((0 * x.1 + 5 * 0 * x.2) % p, (0 * x.2 + 0 * x.1) % p) = (0, 0)
+  apply Prod.ext
+  · show (0 * x.1 + 5 * 0 * x.2) % p = 0
+    rw [Nat.zero_mul, Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+    rfl
+  · show (0 * x.2 + 0 * x.1) % p = 0
+    rw [Nat.zero_mul, Nat.zero_mul, Nat.add_zero]
+    rfl
+
+/-- ★ **fp2 power 0**: `x^0 = 1` (canonical). -/
+theorem fp2Pow_zero (p : Nat) (x : FP2) : fp2Pow p x 0 = fp2One p := rfl
+
+/-- ★ **fp2 power succ**: `x^(n+1) = x^n · x`. -/
+theorem fp2Pow_succ (p : Nat) (x : FP2) (n : Nat) :
+    fp2Pow p x (n + 1) = fp2Mul p (fp2Pow p x n) x := rfl
+
+/-! ## Mod-p negation (foundation for Frobenius ring hom) -/
+
+/-- ★ **Negation-addition identity**: `((p - r%p)%p + r) ≡ 0 (mod p)` (universal).
+    The "additive inverse" property in mod-p arithmetic.  PURE. -/
+theorem nmod_add_self_zero (p r : Nat) (hp : 0 < p) :
+    ((p - r % p) % p + r) % p = 0 := by
+  -- Combine via add_mod_gen, then case on r % p.
+  rw [add_mod_gen ((p - r % p) % p) r p, mod_mod (p - r % p) p]
+  -- Goal: ((p - r%p) % p + r % p) % p = 0
+  by_cases h : r % p = 0
+  · rw [h, Nat.sub_zero, mod_self, Nat.zero_add, zero_mod]
+  · have hr_pos : 0 < r % p := Nat.pos_of_ne_zero h
+    have hr_lt : r % p < p := Nat.mod_lt _ hp
+    have hp_sub_lt : p - r % p < p := Nat.sub_lt hp hr_pos
+    rw [Nat.mod_eq_of_lt hp_sub_lt]
+    rw [sub_add_cancel (Nat.le_of_lt hr_lt)]
+    exact mod_self p
+
+/-- ★ **Negation is additive** in mod-p arithmetic (universal):
+    `(p - (a + b) % p) % p = ((p - a%p) % p + (p - b%p) % p) % p`.
+
+    Both equal `-(a + b) ≡ -a + -b (mod p)`.  Proven by showing both sides
+    cancel `(a + b)` to 0 mod p, then applying `mod_cancel_right`. -/
+theorem neg_mod_add (p a b : Nat) (hp : 0 < p) :
+    (p - (a + b) % p) % p
+      = ((p - a % p) % p + (p - b % p) % p) % p := by
+  -- Show both sides are equal by showing both + (a+b) ≡ 0 mod p.
+  -- Use mod_cancel_right from ModBezoutInvariant.
+  -- Plan:
+  --   LHS := (p - (a+b) % p) % p < p
+  --   RHS := ((p - a%p) % p + (p - b%p) % p) % p < p
+  --   (LHS + (a+b)) % p = 0 by nmod_add_self_zero
+  --   (RHS + (a+b)) % p = 0 by reorder + nmod_add_self_zero (twice)
+  --   So LHS + (a+b) ≡ RHS + (a+b) mod p, so LHS = RHS by mod_cancel_right.
+  have hLHS_lt : (p - (a + b) % p) % p < p := Nat.mod_lt _ hp
+  have hRHS_lt : ((p - a % p) % p + (p - b % p) % p) % p < p := Nat.mod_lt _ hp
+  -- LHS + (a + b) ≡ 0 mod p
+  have h_LHS_add : ((p - (a + b) % p) % p + (a + b)) % p = 0 :=
+    nmod_add_self_zero p (a + b) hp
+  -- For RHS + (a + b) ≡ 0:
+  -- RHS = ((p - a%p) % p + (p - b%p) % p) % p
+  -- RHS + (a+b) = (RHS + a + b) by Nat.add_assoc reverse
+  -- Strategy: ((p - a%p)%p + (p - b%p)%p + (a + b)) % p
+  --        = ((p - a%p)%p + (p - b%p)%p + a + b) % p     [add_assoc]
+  --        = (((p - a%p)%p + a) + ((p - b%p)%p + b)) % p  [reorder]
+  --        = ((((p - a%p)%p + a) % p) + (((p - b%p)%p + b) % p)) % p  [add_mod_gen]
+  --        = (0 + 0) % p = 0
+  -- But the outer ((RHS % p) form ...) needs careful handling.
+  have h_RHS_add : (((p - a % p) % p + (p - b % p) % p) % p + (a + b)) % p = 0 := by
+    -- First, drop outer mod via add_mod_gen
+    rw [add_mod_gen (((p - a % p) % p + (p - b % p) % p) % p) (a + b) p]
+    rw [mod_mod ((p - a % p) % p + (p - b % p) % p) p]
+    rw [← add_mod_gen ((p - a % p) % p + (p - b % p) % p) (a + b) p]
+    -- Goal: ((p - a%p)%p + (p - b%p)%p + (a + b)) % p = 0
+    -- Rearrange: ... + a + b ≡ (... + a) + (... + b)
+    rw [show (p - a % p) % p + (p - b % p) % p + (a + b)
+          = ((p - a % p) % p + a) + ((p - b % p) % p + b) from by
+        rw [Nat.add_assoc ((p - a % p) % p) ((p - b % p) % p) (a + b)]
+        rw [← Nat.add_assoc ((p - b % p) % p) a b]
+        rw [Nat.add_comm ((p - b % p) % p) a]
+        rw [Nat.add_assoc a ((p - b % p) % p) b]
+        rw [← Nat.add_assoc ((p - a % p) % p) a ((p - b % p) % p + b)]]
+    -- Goal: (((p - a%p)%p + a) + ((p - b%p)%p + b)) % p = 0
+    rw [add_mod_gen (((p - a % p) % p + a)) (((p - b % p) % p + b)) p]
+    rw [nmod_add_self_zero p a hp, nmod_add_self_zero p b hp]
+    rfl
+  -- Both have the same value + (a+b) ≡ 0 mod p, so LHS = RHS by cancellation
+  have h_eq : ((p - (a + b) % p) % p + (a + b)) % p
+            = (((p - a % p) % p + (p - b % p) % p) % p + (a + b)) % p :=
+    h_LHS_add.trans h_RHS_add.symm
+  exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
+    p _ _ (a + b) hp hLHS_lt hRHS_lt h_eq
 
 end E213.Lib.Math.ModArith.FP2Sqrt5
