@@ -1,19 +1,19 @@
-# AxiomSystems — G12 Tier 5 Endgame
+# AxiomSystems — layered-API classification Tier 5 Endgame
 
 **Status**: Closed (4 files).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 2 (narrative-from-scratch; G12 already promoted as a
+Pattern 2 (narrative-from-scratch; layered-API classification already promoted as a
 foundational note remaining at top-level).
 
 ## Overview
 
-**G12 Tier 5 (C1-C4) ENDGAME demonstration**: classical foundations
+**layered-API classification Tier 5 (C1-C4) ENDGAME demonstration**: classical foundations
 (ZFC, intuitionistic logic, type theory, category theory) are
 realized as **Lens compositions on Raw** — not as alternatives to
 213, but as Lens-derived views of the same Raw substrate.
 
-This closes the layered-API classification arc (G12) at the
+This closes the layered-API classification arc at the
 **axiom-system level**.
 
 ## Lean source
@@ -23,7 +23,7 @@ This closes the layered-API classification arc (G12) at the
 
 ## Narrative
 
-G12 introduced a layered API classification, now generalized to
+layered-API classification introduced a layered API classification, now generalized to
 the build-order ring partition (Term → Theory → Lens → Meta → Lib)
 in `lean/E213/ARCHITECTURE.md`.  The "layered" reading there is
 **compile-time dependency**, not foundation-vs-derivation.

@@ -4,7 +4,7 @@
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 2 (narrative-from-scratch).  Companion to Operation×Topology
-(G48) and LevelTopology (G49) chapters.
+ and LevelTopology chapters.
 
 ## Overview
 
@@ -43,13 +43,13 @@ Continuous f := preimage of any list-finite cover is list-finite
 Compactness is automatic: every Set X readable at fractal level n
 (via the parametric family `configCount`) has `≤ configCount n`
 elements, so any cover restricts to a finite sub-cover.  Common
-working level: n = 2, where `configCount 2 = 5²⁵`.  Per G120
+working level: n = 2, where `configCount 2 = 5²⁵`.  Per N_U re-derivation
 Round 3: the level is parametric — not a privileged "resolution
 cap" — so compactness holds at every finite level.
 
 ### Connection to other chapters
 
-- `theory/math/operation_topology.md` (G48) — operations × topology
-- `theory/math/level_topology.md` (G49) — per-level topology
+- `theory/math/operation_topology.md` — operations × topology
+- `theory/math/level_topology.md` — per-level topology
 - `theory/math/cross_domain_unification.md` (C6) — Topology as a
   paradigm domain instance

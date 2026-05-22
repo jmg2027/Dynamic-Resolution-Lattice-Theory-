@@ -6,11 +6,11 @@ past-Moufang layer.
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 1 (multi-note absorption).  9 source notes
-(G36, G51-G58) → 1 chapter; sources archived.
+ → 1 chapter; sources archived.
 
 ## Overview
 
-ℝ, ℂ, ℍ, 𝕆, ... are **not** different mathematical worlds.  They
+ℝ, ℂ, ℍ, 𝕆, ... Are **not** different mathematical worlds.  They
 are *the same structural pair extension* on a common `Cut` substrate,
 layered as a **Cayley-Dickson tower**:
 
@@ -192,7 +192,7 @@ Open extensions:
 
 3. **Type D Hurwitz extension**: 2T binary tetrahedral is base
    level; whether a "Type D tower" exists in the same sense as
-   Types A/B/C is open.  G53 rejection covered Type E
+   Types A/B/C is open.  Type-E rejection rejection covered Type E
    (`ℤ`-base square matrices); a parallel Type D analysis is
    pending.
 

@@ -27,7 +27,7 @@ happens beyond the chosen evaluation level:
 
 - `a ↑↑ b ≤ configCount 2` is decidable for explicit (a, b)
 - Beyond `configCount 2`, the value lives at a *different family
-  evaluation level* (per G120 Round 3 — the resolution boundary is
+  evaluation level* (per N_U re-derivation Round 3 — the resolution boundary is
   a level-choice, not a privileged cap; CLAUDE.md "Universe-constant
   framing" failure mode forbids treating any one value as the
   invariant), and dynamic readings (Pell-Fib, Möbius P^n, ...) do

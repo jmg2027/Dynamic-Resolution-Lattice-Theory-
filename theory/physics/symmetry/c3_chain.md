@@ -4,7 +4,7 @@
 (24 .lean files; 18 phase capstones + master, all strict ∅-axiom).
 **Promoted from research-notes**: 2026-05-22.
 
-This is a distinct shape of promotion vs. the Hodge chapter: there
+This is a distinct shape of promotion vs. The Hodge chapter: there
 are **no source research-notes** to absorb.  The 12-phase chain (plus
 6 extension phases) was developed directly in Lean across three
 sub-sessions of the `claude/subset-bijection-lemmas-w2FKf` branch,
@@ -85,7 +85,7 @@ K_{3,2}^{(c=2)} is the bipartite multigraph with NS = 3 spatial
 vertices, NT = 2 temporal vertices, and c = 2 edges between every
 (spatial, temporal) pair — total 3 × 2 × 2 = 12 edges.  In 213,
 this is the canonical Lattice substrate for physics (per
-`seed/AXIOM/` and the 213-Algebra catalog G35).
+`seed/AXIOM/` and the 213-Algebra catalog chiral cup ring catalog).
 
 Its automorphism group `Aut(K)` factors as:
 

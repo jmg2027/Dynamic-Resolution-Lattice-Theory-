@@ -20,12 +20,12 @@ dep-purity gaps, falsifier catalogs.
 The suite's distinguishing property: **the substantive research
 branch was running in parallel**, and the meta scans surfaced
 abstraction candidates that the substantive branch then executed.
-The G93→G94→G96→G97 cross-branch handshake closed with **zero
-DIRTY Lean-core citations** in DRLT (G95 audit).
+The meta→substantive handshake→substantive→meta response→meta response on subset bijection→handshake closure cross-branch handshake closed with **zero
+DIRTY Lean-core citations** in DRLT (Lean-core dep-purity audit audit).
 
 Net deliverable: ~89 PURE additions across 7 modules, DRLT now
 PURE-bounded on Lean 4 core, 14 abstraction candidates surfaced
-(G107 §2-§5), 135 auto-discovered falsifiers (G100).
+(action-items registry §2-§5), 135 auto-discovered falsifiers.
 
 ## Source
 
@@ -69,20 +69,20 @@ Six independent scanners pointed at the same outlier — the
   × 4 siblings.
 - **rw cascade** (Tier 1.5++): identical `h_components × 4`
   4-gram in exactly these 4 + LeibnizAlgLift21.
-- **Expr callgraph** (G102): identical 4-layer L1 hub.
-- **Raw-depth BFS** (G103): identical 5-layer L1 encapsulation
+- **Expr callgraph**: identical 4-layer L1 hub.
+- **Raw-depth BFS**: identical 5-layer L1 encapsulation
   depth profile.
 
 Six-layer byte-identical confirmation = **the strongest possible
-abstraction signal**.  G106 extracted the implicit lemma
+abstraction signal**.  Implicit-lemma extraction extracted the implicit lemma
 structurally: a 30-token shared prefix + α/β fork at position
 30 — bidegree knob doesn't affect proof structure.
 
 This is the cleanest empirical demonstration of "multiple
 sibling theorems differ only by an instantiation parameter, share
-implicit structural lemma."  Open execution target G107 §3 L1.
+implicit structural lemma."  Open execution target action-items registry §3 L1.
 
-### 2. Three-level "Raw-derived" taxonomy (G104)
+### 2. Three-level "Raw-derived" taxonomy
 
 Distinct chapter: see `raw_derivation_levels.md` for the
 conceptual analysis of (α) logical / (β) structural / (γ)
@@ -92,7 +92,7 @@ Key finding: (α) and (β) TRUE; (γ) **empirically FALSE** at the
 generic-Lean-infrastructure level.  This refines the
 understanding of DRLT's architecture.
 
-### 3. 135 auto-discovered falsifiers (G100)
+### 3. 135 auto-discovered falsifiers
 
 `falsifier_mining_scan.py` identified 135 theorems whose
 **negation shape** could serve as a DRLT-validation-standard
@@ -102,36 +102,36 @@ if their negation held.  Per DRLT Validation Standard
 proposition.
 
 Catalog raw at `tools/output/falsifier_catalog.tsv` (gitignored);
-top entries documented in G100.  Many overlap existing falsifiers
+top entries documented in decide-failure falsifier mining.  Many overlap existing falsifiers
 (N_gen = 3, θ_QCD bound); ~70 are novel candidates.
 
-### 4. Lean-core dep purity audit (G95) — closure
+### 4. Lean-core dep purity audit — closure
 
-The G95 dep-purity audit confirmed DRLT is **PURE-bounded on
+The Lean-core dep-purity audit confirmed DRLT is **PURE-bounded on
 Lean 4 core**: zero non-test DIRTY citations remain after the
-G93→G97 handshake closure (C1-C6 + N5-N6 executed by the
+meta→substantive handshake→handshake closure handshake closure (C1-C6 + N5-N6 executed by the
 parallel substantive branch).
 
 This is the deepest hygiene confirmation: not just "0 sorry,
 0 external axiom" but "0 propext-tainted Lean-core dep" beyond
 the few sealed-by-design entries.
 
-### 5. Unfold-graph chunks (G98 + G106)
+### 5. Unfold-graph chunks (unfold-graph chunks + implicit-lemma extraction)
 
 `syntax_unfold_scan.py` identified 6 unfold "chunks" — places
 where `unfold X at h; unfold Y at h; ...` patterns suggest an
 underlying implicit lemma `X_Y_chain : ∀ ..., X = Y` that should
 be extracted.  1 / 6 candidates was confirmed structural
-(`caseElement` Prism truth-table, G107 §2 N7).
+(`caseElement` Prism truth-table, action-items registry §2 N7).
 
-### 6. rw-cascade adoption gap (G99)
+### 6. Rw-cascade adoption gap
 
 `syntax_rw_cascade_scan.py` found that `mul_left_comm` and
 `add_left_comm` are **underused** despite being available.  ~150
 sites could be simplified by adopting them.  Mechanical
-candidate G107 §2 N8/N9.
+candidate action-items registry §2 N8/N9.
 
-## Cross-branch handshake (G93 → G97 protocol)
+## Cross-branch handshake (meta→substantive handshake → handshake closure protocol)
 
 Two branches operated in tandem during the meta-scan work:
 
@@ -139,18 +139,18 @@ Two branches operated in tandem during the meta-scan work:
 - **substantive**: `claude/subset-bijection-lemmas-w2FKf` (parallel)
 
 The handshake protocol:
-1. **Meta surfaces** abstraction candidates (G93 §C1-C5 + N1-N3)
-2. **Substantive responds** with execution status (G94)
-3. **Meta delivers** support artifacts (G94 addendum atlas)
+1. **Meta surfaces** abstraction candidates (meta→substantive handshake §C1-C5 + N1-N3)
+2. **Substantive responds** with execution status
+3. **Meta delivers** support artifacts (substantive→meta response addendum atlas)
 4. **Substantive executes** the OPEN items (N5/N6/etc.)
-5. **Meta confirms closure** via re-scan (G96, G97)
+5. **Meta confirms closure** via re-scan
 
 Net result: 6 items closed in cycle (C1 NatHelper centralisation,
 C2 XorPairCombine lemma, C3 fold_slash atlas, C5 quantitative
 numbers, N5 max_comm, N6 mul_sub/sub_mul).
 
 The protocol is the **"meta surfaces, substantive executes"**
-division.  Documented in detail at G107 §0.
+division.  Documented in detail at action-items registry §0.
 
 This protocol generalizes: any future meta-analysis branch can
 follow the same surfacing → handshake → closure cycle.
@@ -184,7 +184,7 @@ the reports in the archived G-notes.
 ## Open frontier
 
 The scanner suite itself is closed.  Open follow-up work is
-tracked in **G107 action items registry** (~14 OPEN items in
+tracked in **action-items registry** (~14 OPEN items in
 §2-§5, ranked by mass × confidence / effort in §7).
 
 Mechanical (≤ 1 day each): N7 (Prism), N8/N9 (mul/add_left_comm
@@ -221,7 +221,7 @@ non-sealed DIRTY citations.
 ## Citation guidance
 
 - ✅ `theory/meta/scanner_suite.md` (this chapter; scanner suite + findings)
-- ✅ `theory/meta/raw_derivation_levels.md` (G104 conceptual taxonomy)
+- ✅ `theory/meta/raw_derivation_levels.md` (Raw-derivation three-level taxonomy)
 - ✅ `research-notes/G107_action_items_registry.md` (active OPEN items)
 - ✅ archived G-notes for deep dives:
   `research-notes/archive/metascan/G##_*.md`

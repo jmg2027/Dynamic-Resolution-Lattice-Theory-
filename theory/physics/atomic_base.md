@@ -41,7 +41,7 @@ The 26-conjunct synthesis covers:
 - χ(Δ⁴) = +1
 - χ(K_{3,2}^{(c=2)}) = −7
 - 6 = NS·NT (Eisenstein dual signature)
-- ... plus 18 more atomic readings
+- ... Plus 18 more atomic readings
 
 Each is a `decide`-checked equality on the explicit vertex/edge
 inventory; bundled in the master capstone for downstream

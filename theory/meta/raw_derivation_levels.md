@@ -1,10 +1,10 @@
 # "Raw-derived" at Three Levels — Logical / Structural / Operational
 
-**Status**: Closed (conceptual taxonomy from G104 meta-scan;
-empirical evidence from G102, G103, G105).
+**Status**: Closed (conceptual taxonomy from Raw-derivation three-level taxonomy;
+empirical evidence from Expr-level callgraph, Raw-depth BFS, namespace-shape + recursor inventory).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 (multi-note absorption) — single source G104, but
+Pattern 1 (multi-note absorption) — single source Raw-derivation three-level taxonomy, but
 foundational enough to warrant its own chapter rather than
 folding into `scanner_suite.md`.
 
@@ -28,8 +28,8 @@ Raw-derived; the carriers (Nat, Bool, Int, Fin, ...) are not.
 ## Source
 
 - **Primary**: `research-notes/archive/metascan/G104_raw_derivation_three_levels.md`
-- **Empirical evidence**: G102 (Expr callgraph BFS), G103 (Raw-depth
-  density), G105 (per-namespace shape + recursor inventory),
+- **Empirical evidence**: Expr-level callgraph (Expr callgraph BFS), Raw-depth BFS (Raw-depth
+  density), namespace-shape + recursor inventory (per-namespace shape + recursor inventory),
   `tools/ast_typesig_scan.py`, `tools/ast_callgraph_scan.py`
 
 ## The three levels
@@ -43,7 +43,7 @@ Verified by:
 - `#print axioms` on every cited core lemma → "does not depend on
   any axioms" or `≤ {propext, Quot.sound}` for the sealed-by-design
   set
-- G95 dep-purity audit: 0 non-sealed DIRTY citations
+- Lean-core dep-purity audit: 0 non-sealed DIRTY citations
 - Parallel branch closure of all DIRTY-cited remnants (N5/N6
   centralisation)
 
@@ -67,7 +67,7 @@ parallel branch's `AliveDerivation.alive_iff_clause4_alive`),
 **is provably derivable from the 4-clause Raw axiom alone**.
 
 The atomicity / Pell unit invariant / ZOmega^× = C_6 / dual filling
-χ-sum chain (parallel branch's G87 + diophantine completeness
+χ-sum chain (parallel branch's Raw-native emergence audit + diophantine completeness
 commits) constructs the corpus's headline numbers from Raw
 without invoking external content.
 
@@ -87,7 +87,7 @@ See:
 should transitively reduce to references to Raw atoms (`raw.ctor`,
 `raw.elim`, etc.) via forward Expr edges within finite depth.
 
-**Empirically false.**  G102 (body refs) + G103 §1 + G104 §2
+**Empirically false.**  Expr-level callgraph (body refs) + Raw-depth BFS §1 + Raw-derivation three-level taxonomy §2
 (type-sig refs) show only **~15%** of E213 declarations reach a
 Raw atom via Expr-level forward edges within finite depth.
 
@@ -123,7 +123,7 @@ Conflating (α/β) with (γ) leads to either:
 ### For abstraction work
 
 The L1 LeibnizAlgLift family (6-layer byte-identical confirmation,
-G106) shows that abstraction candidates should be sought at the
+implicit-lemma extraction) shows that abstraction candidates should be sought at the
 **Expr-level structural** layer, not the **logical/content** layer.
 The 6 layers of confirmation isolate **proof-skeleton** patterns
 that are independent of mathematical content.
@@ -149,7 +149,7 @@ The three-level distinction was extracted by:
 1. **(α) verification**: `tools/audit_axioms.py` + per-theorem
    `#print axioms`.  Outcome: 0 non-sealed DIRTY.
 2. **(β) verification**: parallel substantive branch's content
-   theorems (G87 audit, diophantine completeness, atomicity
+   theorems (Raw-native emergence audit audit, diophantine completeness, atomicity
    chain).  Outcome: Raw → headline numbers chain closes.
 3. **(γ) measurement**: `tools/ast_typesig_scan.py` +
    `tools/ast_callgraph_scan.py` BFS from each E213 declaration

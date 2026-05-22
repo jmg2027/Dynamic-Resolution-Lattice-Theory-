@@ -148,11 +148,11 @@ non-vacuous lift lives on the **T² minimal CW substrate**:
 - `Pairing/HodgeRiemannT2.lean` — Kähler class ω with cup(ω, ω) > 0
 - Both with explicit signature decomposition
 
-These were the 2026-05 follow-up closures of G10 Phase 2.
+These were the 2026-05 follow-up closures of post-Hodge programme Phase 2.
 
 ### 5. Motivic + Cross-discipline bridges
 
-Six motivic-cohomology counterparts (G10 Phase 3) and eleven
+Six motivic-cohomology counterparts (post-Hodge programme Phase 3) and eleven
 cross-discipline bridges (statistical mechanics, ML, CS, physics)
 are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 
@@ -160,7 +160,7 @@ are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 - `MotivicBridge/BlochBeilinson.lean` — motivic cohomology / Chow
 - `Bridge/Ising.lean`, `Bridge/Potts.lean` — Ising/Potts on 4-simplex
 - `Bridge/SpinGlassGroundState.lean` — NP-hard ground-state witness
-- `Bridge/GaloisCounterfactual.lean` — G11 80-year Galois counterfactual
+- `Bridge/GaloisCounterfactual.lean` — Galois-at-eighty counterfactual 80-year Galois counterfactual
 - `Bridge/G6Vacuity.lean` — G6 §0 corrected-position witness
 
 These demonstrate that **once Hodge is 213-native, the cohomology

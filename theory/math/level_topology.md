@@ -1,9 +1,9 @@
-# Level Topology (G49)
+# Level Topology
 
 **Status**: Closed (6 files, capstone `G49Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G49 → chapter + archive.
+Pattern 1 — concrete topology per floor → chapter + archive.
 
 ## Overview
 
@@ -60,5 +60,5 @@ topological.
 ## Companion clusters
 
 - `Lib/Math/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
-- `Lib/Math/AngleStructure/` (G42 — `theory/math/angle_structure.md`)
-- `Lib/Math/TriangularTower/` (G47 — `theory/math/triangular_tower.md`)
+- `Lib/Math/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
+- `Lib/Math/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)

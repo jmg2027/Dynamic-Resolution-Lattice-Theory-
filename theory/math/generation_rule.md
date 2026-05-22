@@ -1,9 +1,9 @@
-# Generation Rule (G46)
+# Generation Rule
 
 **Status**: Closed (4 files, capstone `G46Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G46 → chapter + archive.
+Pattern 1 — generation rule → chapter + archive.
 
 ## Overview
 
@@ -41,4 +41,4 @@ full atomic-vertex inventory of Δ⁴.
 
 This is the 213-native realization of "dimensions emerge by
 counting orthogonal directions", made structural.  Companion to
-G47 triangular tower (`theory/math/triangular_tower.md`).
+triangular-tower architecture triangular tower (`theory/math/triangular_tower.md`).

@@ -44,4 +44,4 @@ documents the dependency.
 ## Connection
 
 - `STRICT_ZERO_AXIOM.md` — `CanonicalTruthChar` listed as sealed-by-design
-- `theory/lens/axiom_lenses.md` (G12 Tier 4 A2) — propext as a Lens
+- `theory/lens/axiom_lenses.md` (layered-API classification Tier 4 A2) — propext as a Lens

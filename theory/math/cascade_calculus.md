@@ -9,7 +9,7 @@ Pattern 2.
 
 Cascade calculus: combinator + instance for **chained
 rewrite-cascade reasoning** in 213.  Sibling of the rw-cascade
-adoption (per scanner suite G99 finding).
+adoption (per scanner suite rw-cascade adoption gap finding).
 
 ## Lean source
 
@@ -33,10 +33,10 @@ Used by:
 - Algebra tower (recurrence rewrites)
 - Cohomology cup-product chain rewrites
 
-Sibling of G99 (scanner suite finding: `mul_left_comm`/`add_left_comm`
+Sibling of rw-cascade adoption gap (scanner suite finding: `mul_left_comm`/`add_left_comm`
 under-adoption); cascade_calculus is the **alternative direction** —
 explicit combinator instead of cascade of named tactics.
 
 ## Connection
 
-- `theory/meta/scanner_suite.md` (G99) — rw cascade adoption gap
+- `theory/meta/scanner_suite.md` — rw cascade adoption gap

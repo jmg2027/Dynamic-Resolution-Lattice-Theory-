@@ -1,9 +1,9 @@
-# Angle Structure (G42)
+# Angle Structure
 
 **Status**: Closed (5 files, capstone `G42Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G42 → chapter + archive.
+Pattern 1 — angle-structure → chapter + archive.
 
 ## Overview
 
@@ -47,5 +47,5 @@ reduces to one of these three readings via the
 
 ## Companion clusters
 
-- `Lib/Math/TriangularTower/` (G47 — `theory/math/triangular_tower.md`)
-- `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
+- `Lib/Math/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
+- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)

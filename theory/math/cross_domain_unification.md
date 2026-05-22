@@ -4,7 +4,7 @@
 cup-product refinement (Step 6+) open.
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 3 (mixed-status, sub-conjecture of G35).  G35 §C6 statement
+Pattern 3 (mixed-status, sub-conjecture of chiral cup ring catalog).  Chiral cup ring catalog §C6 statement
 remains in the catalog; the closure narrative + open frontier are
 here.
 
@@ -20,7 +20,7 @@ Cup-Ring core (D1-D9).  Specifically:
 Each classical-analysis residue across domains reduces to a
 `Cochain n k` truncation at appropriate grade k,
 with `configCount 2 = 5²⁵` as the level-2 evaluation point
-(historically called "N_U", per G120 Round 3 just one value of
+(historically called "N_U", per N_U re-derivation Round 3 just one value of
 the parametric `configCount : Nat → Nat` family).
 ```
 
@@ -115,7 +115,7 @@ The empirical observation in Steps 1-2 was a coincidence.  Step 5
 elevates it to a **theorem**: the 9 domains aren't parallel
 constructions, they are 9 instantiations of one graded ring.
 
-Per Mingu's framing (G35 §4 C6): *"closing C6 would be the final
+Per Mingu's framing (chiral cup ring catalog §4 C6): *"closing C6 would be the final
 structural confirmation that 213-Algebra is internally coherent —
 the four marathon domains and the cup-ring core are facets of one
 mathematical object, not parallel constructions."*

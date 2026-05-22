@@ -1,6 +1,6 @@
 # Modular Arithmetic 213
 
-**Status**: Closed (13 files; G119 marathon merged 2026-05-22).
+**Status**: Closed (13 files; universal-Pisano marathon merged 2026-05-22).
 **Promoted from research-notes**: 2026-05-22.
 
 Pattern 2.
@@ -12,14 +12,14 @@ algorithm, modular inverse, Chinese Remainder Theorem.  All
 **explicit-witness** (no existential) — Bézout coefficients are
 computed, GCD has explicit step bound.
 
-G119 (Phase 3.2/3.3 marathon) extends the chapter with:
+Universal-Pisano marathon (Phase 3.2/3.3 marathon) extends the chapter with:
 - An explicit-Nat Bezout via xgcd that universalises modular inverse
 - Fermat's Little Theorem (FLT) universal in the prime p, derived
   from a 213-native binomial theorem
 - The quadratic field extension `F_{p²} = F_p[√5]` with Frobenius
 
 These three are the algebraic substrate for the Pell-Fibonacci
-universal-prime closures in `theory/math/dyadic_fsm.md` (G119
+universal-prime closures in `theory/math/dyadic_fsm.md` (universal-Pisano marathon
 Phase 3.2/3.3/4).
 
 ## Lean source
@@ -33,11 +33,11 @@ Phase 3.2/3.3/4).
 | Bezout / GCD / Euclidean | 6 | `JoinGCD`, `JoinBezout`, `JoinEuclidean`, `JoinCoprime`, `JoinEquivGCD`, `JoinExample` |
 | CRT (Lens) | 1 | `LensCRT` |
 | Per-modulus PureNat | 2 | `PureNatMod3`, `PureNatMod5` |
-| G119 Bezout / FLT / F_{p²} | 4 | `ModBezout`, `ModBezoutInvariant`, `UniversalFLT`, `FP2Sqrt5` |
+| universal-Pisano marathon Bezout / FLT / F_{p²} | 4 | `ModBezout`, `ModBezoutInvariant`, `UniversalFLT`, `FP2Sqrt5` |
 
 ## Narrative
 
-### Core (pre-G119)
+### Core (pre-universal-Pisano marathon)
 
 Standard `Nat.gcd` uses Lean's well-founded recursion.  213's
 `GCD` is dyadic-FSM-style: explicit step-count bound (≤ log_2 of
@@ -46,7 +46,7 @@ the GCD output (not Skolemized).
 
 CRT is used in the universe chain (Step 12: lcm(5, 2) = 30).
 
-### G119 — Bezout, FLT, F_{p²}
+### universal-Pisano marathon — Bezout, FLT, F_{p²}
 
 **Explicit-Nat Bezout (`ModBezout`, `ModBezoutInvariant`).** The
 extended Euclidean algorithm is reformulated as a `Nat`-valued
@@ -55,7 +55,7 @@ xgcd: rather than `(s, t) ∈ ℤ × ℤ`, the algorithm produces
 `u · a = v · b + gcd a b`  or  `v · b = u · a + gcd a b`.
 This makes Bezout decidable without any signed-integer machinery
 and gives a `modInverseFromBezout : (a p : ℕ) → coprime a p → ℕ`
-that the rest of G119 builds on.
+that the rest of universal-Pisano marathon builds on.
 
 **Universal FLT (`UniversalFLT`).** The chain:
 
@@ -104,7 +104,7 @@ universal-prime closure of the Pisano-period theorem for Pell.
 
 ## Open frontier
 
-- **Real213-p-adic (G122)**: extend Bezout / FLT / F_{p²}
+- **Real213-p-adic**: extend Bezout / FLT / F_{p²}
   infrastructure to `ℤ_p` via Hensel lifting.  STARTER at
   `lean/E213/Lib/Math/Padic/Foundation.lean`; full plan at
   `research-notes/G122_real213_padic_research_direction.md`.

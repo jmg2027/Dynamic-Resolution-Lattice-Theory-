@@ -1,9 +1,9 @@
-# Modulus Combinators (G40)
+# Modulus Combinators
 
 **Status**: Closed (10 files, capstone `G40Capstone`).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 — G40 → chapter + archive.
+Pattern 1 — ε-δ modulus → chapter + archive.
 
 ## Overview
 

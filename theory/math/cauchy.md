@@ -10,7 +10,7 @@ Pattern 2 (narrative-from-scratch).
 213-native sequence machinery: monotone-bounded convergence,
 Archimedean property, profinite sequences, and classical sequence
 families (Euler, Wallis, Pell, generic).  All sequence-level
-theorems are stated with **explicit moduli** (per G40), not
+theorems are stated with **explicit moduli** (per ε-δ modulus), not
 existential ε-δ.
 
 ## Lean source
@@ -39,7 +39,7 @@ provides the Archimedean property for Real213 cuts.
 
 ### Classical families
 
-- **Euler**: e ≈ 2.71828... as `Σ 1/k!` with explicit truncation
+- **Euler**: e ≈ 2.71828... As `Σ 1/k!` with explicit truncation
   bound
 - **Wallis**: π/2 as the Wallis product with explicit bracket
 - **Pell**: Pell numbers as DyadicFSM output, used for √2 brackets
@@ -51,7 +51,7 @@ corrected position).
 ## Connection to other chapters
 
 - `theory/math/real213.md` — Cauchy sequences feed Real213 cuts
-- `theory/math/modulus.md` (G40) — explicit moduli used here
+- `theory/math/modulus.md` — explicit moduli used here
 - `theory/math/dyadic_fsm.md` — Pell sequence via DyadicFSM
 - `theory/physics/alpha_em/precision_derivation.md` — Wallis used
   in α_em derivation (S_Wallis bracket)

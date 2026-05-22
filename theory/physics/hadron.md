@@ -27,7 +27,7 @@ machinery).
 [130, 145] from DRLT structure.  Measured value ~137 sits in this
 bracket.  Measured ratio outside [130, 145] would falsify.
 
-Proton mass / electron mass = 1836.152... derived similarly via
+Proton mass / electron mass = 1836.152... Derived similarly via
 cup-channel structure.  Proton g-factor 2.0023 from atomic
 substrate Hodge correction.
 

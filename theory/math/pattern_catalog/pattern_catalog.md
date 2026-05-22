@@ -3,13 +3,13 @@
 **Status**: Closed (5 file catalog, all PURE).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 1 (multi-note absorption).  G28 + G30 → 1 chapter; archived.
+Pattern 1 (multi-note absorption).  Every-pattern-present theorem + pattern-catalog metaformalization → 1 chapter; archived.
 
 ## Overview
 
 The pattern catalog is the **metaformalization** of recurring
 algebraic / structural patterns across 213's sub-trees.  Per the
-G27 → G28 → G30 audit arc (213 has every stateable pattern), the
+pattern-presence audit → every-pattern-present theorem → pattern-catalog metaformalization audit arc (213 has every stateable pattern), the
 catalog organizes these into a small set of named combinators:
 
 - **Algebra**: algebraic pattern (closure / inverse / etc.)
@@ -39,23 +39,23 @@ catalog gives them one canonical home.
 
 ## The narrative
 
-### From G27 to G28: "every pattern present"
+### From pattern-presence audit to every-pattern-present theorem: "every pattern present"
 
-The G17-G27 pattern audit arc analyzed 6125 declarations and found
+The pattern-presence audit-pattern-presence audit pattern audit arc analyzed 6125 declarations and found
 that 213's existing infrastructure realizes essentially **every**
-stateable algebraic pattern.  G28 made this precise:
+stateable algebraic pattern.  Every-pattern-present theorem made this precise:
 
 > **Every operationally-stateable pattern lives in 213** — not as a
 > conjecture, but as a derivable theorem given the 4-clause axiom +
 > Lens framework.
 
-G28 corrects G27: the previous note treated patterns as "imposed
+Every-pattern-present theorem corrects pattern-presence audit: the previous note treated patterns as "imposed
 classifications".  The corrected reading: patterns *emerge* from the
 axiom + Lens application, and the catalog records what has emerged.
 
-### G30: metaformalization synthesis
+### pattern-catalog metaformalization: metaformalization synthesis
 
-G30 closes the arc by formalizing the catalog as **Lean code** —
+pattern-catalog metaformalization closes the arc by formalizing the catalog as **Lean code** —
 not as documentation but as actual `def`s and `theorem`s that other
 sub-trees instantiate.  `Lib/Math/PatternCatalog/` is the formal
 realization.
