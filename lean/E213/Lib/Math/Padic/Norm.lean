@@ -108,4 +108,38 @@ theorem Zp.valEq_unique {p : Nat} {x : ZpSeq p} {n m : Nat}
       exact absurd hnz hm.2
     | .inr heq => exact heq.symm
 
+/-! ## Valuation of canonical elements -/
+
+/-- `valAtLeast (zero) n` for any n. -/
+theorem Zp.valAtLeast_zero_seq (p : Nat) (hp : 0 < p) (n : Nat) :
+    Zp.valAtLeast (ZpSeq.zero p hp) n :=
+  fun _ _ => rfl
+
+/-- `valEq (one) 0` — the multiplicative identity has valuation 0. -/
+theorem Zp.valEq_one (p : Nat) (hp : 1 < p) :
+    Zp.valEq (ZpSeq.one p hp) 0 := by
+  refine ⟨?_, ?_⟩
+  · exact fun _ hk => absurd hk (Nat.not_lt_zero _)
+  · show ((ZpSeq.one p hp).digits 0).val ≠ 0
+    show (if (0 : Nat) = 0 then (1 : Nat) else 0) ≠ 0
+    rw [if_pos rfl]
+    exact fun h => Nat.noConfusion h
+
+/-- `valEq (neg_one) 0` — `-1` also has valuation 0 (its digit-0
+    is `p - 1 ≠ 0` for `1 < p`). -/
+theorem Zp.valEq_neg_one (p : Nat) (hp : 1 < p) :
+    Zp.valEq (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp)) 0 := by
+  refine ⟨?_, ?_⟩
+  · exact fun _ hk => absurd hk (Nat.not_lt_zero _)
+  · show ((ZpSeq.neg_one p (Nat.lt_of_succ_lt hp)).digits 0).val ≠ 0
+    show (p - 1 : Nat) ≠ 0
+    -- p - 1 ≠ 0 since p > 1 means p ≥ 2 means p - 1 ≥ 1 ≠ 0.
+    intro hp1
+    have h_p_le_1 : p ≤ 1 := by
+      have := E213.Tactic.NatHelper.sub_add_cancel
+                (Nat.le_of_lt hp)
+      rw [hp1, Nat.zero_add] at this
+      exact this.symm ▸ Nat.le_refl 1
+    exact absurd h_p_le_1 (Nat.not_le_of_gt hp)
+
 end E213.Lib.Math.Padic
