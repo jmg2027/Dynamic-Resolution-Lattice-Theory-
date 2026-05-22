@@ -169,8 +169,79 @@ moved to `research-notes/archive/`).
 physics bridges`.
 
 **Plan reference**:
-`research-notes/G123_n_u_family_theory.md` — 7-phase plan + open
-questions registry.
+`research-notes/archive/G123_n_u_family_theory.md` — original
+7-phase plan + open questions registry (archived after
+promotion).
+
+### B++. G124 N_U-family cross-field connections — OPEN SURVEY
+
+Cross-field follow-up to G123's promoted chapter.  Multi-agent
+survey (4 parallel research agents: number theory, universal
+algebra + logic, CA + complexity, category + type theory) of
+how `configCountD d n := d^(d^n)` connects to established
+mathematical fields outside DRLT.
+
+**Source**:
+`research-notes/G124_n_u_family_cross_field_connections.md`
+(522 lines, 10 sections).
+
+**Headline result — seven-reading convergence at `(d, n) = (5, 2)`**:
+the integer `5^25` is simultaneously
+  · `5^(5²)` (number theory, Aurifeuillean handle on `5^25 + 1`)
+  · arity-2 component of `Pol([5])` maximal clone (Łukasiewicz
+    `L_5` functionally complete since 5 is prime)
+  · `dim_{F_5} F_5[x, y] / (x⁵ − x, y⁵ − y)` — function ring of
+    affine plane `A²_{F_5}` (algebraic-geometric identity)
+  · CA rule-space size for 2-input 5-state automata (sampling
+    regime between full enumeration and Game-of-Life scale)
+  · `|Hom_Set([5]², [5])| = |[5]^([5]²)|` (CCC exponential)
+  · STLC `b² → b` inhabitant count over `|b| = 5` (gateway
+    between elementary and non-elementary βη decidability,
+    Statman 1979)
+  · DRLT count-Lens output at K_{3,2}^{(c=2)} → K_{25} fractal
+    closure
+All seven derivations are independent.  Their numerical
+agreement is forced, not arranged — strongest 213-internal
+evidence that the slice `(5, 2)` is structurally selected.
+
+**Concrete research directions catalogued (G124 §6)**:
+  1. Aurifeuillean factor reading of `5^(5^n) + 1` — does the
+     split match atomic-cofactor structure in the Hunter
+     `{NS, NT, d, c}` catalogue?
+  2. Finite-field affine-plane sub-ideal correspondence —
+     does the bipartite K_{3,2}^{(c=2)} substrate map to a
+     specific ideal of `F_5[x, y] / (x⁵ − x, y⁵ − y)`?
+  3. Łukasiewicz `L_5` as the DRLT lens language reformulation.
+  4. Iterated Carmichael chain extension to `p ∈ {17, 19, 23,
+     29, 31, …}` — verify period-2 dominance vs new patterns.
+  5. Tetration-depth-3 categorical invariant `F(5, 5) = 5^3125`
+     as potential 5-adic depth-3 truncation.
+  6. Sheffer-function fraction of `F(5, 2)` (Słupecki density).
+  7. Reversible-CA fraction `25! / 5^25` characterisation.
+  8. **Base-5 Wieferich prime search** — primes `p` with
+     `p² | 5^(p-1) − 1`.  Obstructs higher-power lifts; no
+     published list at base 5.
+  9. MCSP correspondence — does the Hunter catalogue
+     correspond to "small-MCSP" compressible functions?
+ 10. Quantum-CA lift of the count-Lens to unitaries on
+     `(ℂ⁵)^⊗²`.
+
+**Open frontier surveyed (G124 §7)**: Fermat primes beyond
+`F_4` (1640); Dedekind closed form `M(n)` (1897); clone-lattice
+structure for `d ≥ 3` (uncountable per Yanov–Muchnik);
+explicit circuit lower-bound gap (Shannon `Ω(2^n/n)` random vs
+`(3 + 1/86) n` explicit); CA universality decidability (Kari);
+MCSP intermediate status; bounded-tetration categorical
+models.
+
+**Status**: research-note Tier-1 (volatile scratchpad).  None
+of §6's directions on the immediate critical path; several
+are cheap empirical extensions of the closed N_U-family
+infrastructure if a future session greenlights one.
+
+**Anchor commit**: `fc10585d` —
+`research-notes/G124: N_U family cross-field connection
+survey`.
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
