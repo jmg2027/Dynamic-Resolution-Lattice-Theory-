@@ -45,8 +45,8 @@ Currently still open:
 | **G111 COH-1** Universal Prop52/53 pattern_eq_at | DONE — `Universal.Pattern10.pattern10_eq_at` template, Prop52/Prop53 delegate |
 | **G111 COH-2** Hodge Prop 5_k quartet | DONE — `Hodge.InvolutionTemplate.hodge_involution_pointwise_5` template, all 4 (k ∈ {1,2,3,4}) delegate |
 | **G111 COH-3** Leibniz4Mixed + Leibniz pattern pair | DONE — `CupAW.LeibnizUniversalLift.leibniz_pointwise_lift` template, both delegate |
-| **G108 REAL-1** `cutMul{Inner,Outer}_eq_true_iff` parametric | OPEN — concrete proofs complete but the pair lacks a `cutMulComm_eq_true_iff_general`; medium marathon (~140K nodes) |
-| **G108 REAL-2** `cutSumAux_eq_true_iff` + `cutSum_diff_denom_forward` | DONE — `cutSum_diff_denom_forward` is already universal (∀ b, d ≥ 1); no further consolidation needed |
+| **G108 REAL-1** `cutMul{Inner,Outer}_eq_true_iff` parametric | DONE — `BoolOrLadder.bool_or_ladder_iff_with_pack` (Prop-pack composer of `bool_or_ladder_iff`) drives both Inner / Outer iffs as term-level corollaries; `decide_eq_true_pure` lands alongside |
+| **G108 REAL-2** `cutSumAux_eq_true_iff` + `cutSum_diff_denom_forward` | DONE — `cutSum_diff_denom_forward` already universal (∀ b, d ≥ 1); `cutSumAux_eq_true_iff` now also a `bool_or_ladder_iff_with_pack` instance |
 | **G114 CD-1/2/3** | INFEASIBLE per G118 — ext theorems are 2-line `cases u; cases v; congr`; `conj_ne_id` picks per-instance witness (5-param helper as verbose as original); `assoc_*` are `by decide` (no body) |
 | **G115 PHYS-1** FractalLevelZeta master theorems | INFEASIBLE per G118 — already maximally compact (`refine ⟨...⟩ <;> decide` on ~10-conjuncts) |
 | **G115 PHYS-2** bracket-containment | INFEASIBLE per G118 — `by decide` IS the proof |
