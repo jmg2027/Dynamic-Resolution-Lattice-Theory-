@@ -2097,6 +2097,61 @@ Remaining for full Phase 3.3 closure (Frobenius FLT + matrix order):
 
 ---
 
+# Part 40 — Phase 3.3 closure structural bridge
+
+Add `phase_3_3_closure` to `PellFibBridge.lean` as a corollary of
+`phase_3_2_closure` with `N' = p`:
+
+```
+theorem phase_3_3_closure (p : Nat) (hp : 1 < p)
+    (h_F_top : fibFst (2 * p + 2) % p = 0)
+    (h_F_low : fibFst (2 * p) % p = p - 1) :
+    pellCoeff p hp (p + 1) = pellCoeff p hp 0 :=
+  phase_3_2_closure p hp p h_F_top h_F_low
+```
+
+For inert primes, the Pisano period of the Pell matrix is `p + 1`
+(half of `2(p+1)` for the Fibonacci matrix M_phi).  The closure
+requires the inert Fibonacci-mod-p identities (per-prime decidable):
+  · F_{2(p+1)} ≡ 0 (mod p)
+  · F_{2p} ≡ -1 (mod p)
+
+Per-prime smokes added for inert primes p = 3, 7, 13, 17, each
+verifying the F-identities via `decide` and producing the matrix
+closure `pellCoeff p _ (p+1) = pellCoeff p _ 0`.
+
+The **universal** derivation of `h_F_top, h_F_low` for arbitrary
+inert primes requires **Frobenius FLT** in 𝔽_{p²} (next session).
+
+Commit: `de83891f`.
+
+## What's left for Phase 3.3 universal closure
+
+Universal derivation of `h_F_top, h_F_low` requires:
+  · Freshman's dream in 𝔽_{p²}: `(x + y)^p = x^p + y^p`
+    -- via binomial theorem in 𝔽_{p²} and middle binomials ≡ 0 mod p.
+  · FLT for 𝔽_p components (already have via `universal_flt_main`).
+  · `(√5)^p ≡ -√5` (inert hypothesis: `5^((p-1)/2) ≡ -1 (mod p)`).
+  · ⟹ **Frobenius FLT**: `x^p = σ(x)` in 𝔽_{p²} for inert primes.
+  · ⟹ `phi^(p+1) = phi · σ(phi) = -1` (via Part 39).
+  · ⟹ `phi^(2(p+1)) = 1` (squaring).
+  · Apply Binet at index 2(p+1): F_{2(p+1)} = (phi^{2(p+1)} - psi^{2(p+1)}) / √5 = 0.
+  · Apply Binet at index 2p: F_{2p} ≡ -1 via similar computation.
+  · Assemble `universal_phase_3_3` (analog of `universal_phase_3_2`).
+
+## Session totals (Parts 33-40)
+
+  · 26 new universal theorems in FP2Sqrt5.lean (36 → 62 PURE).
+  · 1 new universal theorem in PellFibBridge.lean (`phase_3_3_closure`).
+  · 4 per-prime Phase 3.3 demonstrations (p=3, 7, 13, 17).
+  · 1 unprivate in PhiMod5.lean (`four_mul_inv2_sq`).
+  · Foundation + Frobenius ring hom + Norm identity + key milestone
+    `phi · σ(phi) = (-1, 0)` universal.
+  · Closure structural bridge in place; universal F-identities
+    deferred to next session.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
