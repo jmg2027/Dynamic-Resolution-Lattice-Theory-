@@ -56,4 +56,16 @@ theorem canonical_5adic_NU_digit_26 :
   -- 5^25 / 5^26 = 0 since 5^25 < 5^26.
   rw [Nat.div_eq_of_lt (by decide : (5 : Nat)^25 < 5^26)]
 
+/-- Digit-24 of `5^25` in base 5 is `0`. -/
+theorem canonical_5adic_NU_digit_24 :
+    (canonical_5adic_NU.digits 24).val = 0 := by
+  show ((5 : Nat)^25 / 5^24) % 5 = 0
+  decide
+
+/-- Digit-2 of `5^25` in base 5 is `0` (a low-position smoke). -/
+theorem canonical_5adic_NU_digit_2 :
+    (canonical_5adic_NU.digits 2).val = 0 := by
+  show ((5 : Nat)^25 / 5^2) % 5 = 0
+  decide
+
 end E213.Lib.Math.Padic
