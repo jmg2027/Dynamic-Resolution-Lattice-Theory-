@@ -4,6 +4,17 @@ Closed historical exploratory drafts.  Each is either formalized in
 `lean/E213/` or superseded.  Preserved as record of the path that led
 to the current formalization.
 
+**Note on N_U framing (post G120 Round 3, 2026-05-22)**: archived
+notes here predate the G120 N_U re-derivation work.  Phrases like
+"four-domain convergent invariant", "N_U as system invariant",
+"4-Lens convergence", and `def universe_level` appear throughout
+this archive — these reflect the *pre-G120 framing* that was
+retracted on 2026-05-22.  Current canonical reading:
+`seed/RESOLUTION_LIMIT_SPEC.md` §2 (G120 Round 3 rewrite) +
+`LESSONS_LEARNED.md` 교훈 1+2 (G120 Round 3 rewrite).  Archived
+text retained as record of the path; do NOT cite pre-G120 phrasings
+as current canon.
+
 ## Pre-G era (3 files)
 
 | File | Theme | Now at |
@@ -24,8 +35,9 @@ to the current formalization.
 ## Resolution-limit early framing (3 files)
 
 Originally written under "finitism conviction" framing; superseded by
-`seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a per-lens output;
-N_U = 5²⁵ is a four-domain convergent invariant).
+`seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a per-Lens output;
+`5²⁵ = configCount 2`, one value of the parametric `configCount`
+family — G120 Round 3 reframing).
 
 | File | Theme | Closed in |
 |---|---|---|

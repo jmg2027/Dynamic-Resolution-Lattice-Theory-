@@ -38,7 +38,9 @@ readout** of the universe-chain's terminal cardinality (per
 
 Other foundational primitives:
 - **Finiteness witnesses**: any DRLT observable's value bracket
-  has explicit finite-precision representation at `N_U`
+  has explicit finite-precision representation at the chosen
+  `configCount` family-evaluation level (`configCount 2 = 5²⁵`
+  for canonical physics-side work)
 - **Resonance structure**: which integer ratios admit resonant
   interpretations (matches CKM, mass ratios, ...)
 - **Koide formula**: lepton mass relation `(m_e + m_μ + m_τ)² /

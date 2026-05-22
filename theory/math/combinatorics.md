@@ -30,8 +30,9 @@ combinatorics is one of the 9 paradigm domain instances of the
 ## Narrative
 
 Combinatorial primitives in 213 are **structurally decidable** —
-every counting predicate reduces to a finite enumeration at
-resolution `N_U`.  The `GeneratingFunction.CoeffSeq` provides the
+every counting predicate reduces to a finite enumeration at any
+chosen `configCount` family-evaluation level (typically n = 2 for
+physics-side work).  The `GeneratingFunction.CoeffSeq` provides the
 graded-ring underlying type used in:
 
 - Cross-domain unification (C6) — paradigm domain instances

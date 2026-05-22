@@ -169,7 +169,9 @@ d times.  Cardinality = d^(d²) = N_U at fixed-point.
          `Level.lean`, `Lib/Math/ResolutionLimit.lean`,
          `Lib/Physics/Foundations/LensCardinalityFractalLevels.lean`,
          `NUniverseFromFractal.lean`, `FractalLensCardinality.lean`
-  Status: 4-domain N_U convergence ∅-axiom closed.
+  Status: `configCount 2 = 5²⁵` family readout ∅-axiom closed
+  (G120 Round 3 retracted "4-domain convergence" framing —
+  only 2 of 4 readings had real Lean derivations).
 
 ### §2.2  Resolution-finite analytic (3)
 
@@ -423,11 +425,16 @@ sample, not exhaustive.
 
 ### §3.2  Resolution-finite
 
-  · `N_U = d^(d²) = 5²⁵ = 298,023,223,876,953,125` ★∅
-    `Lib/Math/ResolutionLimit.lean`
-  · 4-domain N_U convergence (fractal lens · K₂₅ coloring ·
-    tensor DOF · injective projection) ★∅
-    same file
+  · `configCount 2 = 5²⁵ = 298,023,223,876,953,125` ★∅
+    `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (G120 Phase 1);
+    historical `N_U` = `abbrev` to this value in
+    `Lib/Math/ResolutionLimit.lean` (G120 Phase 2)
+  · Two real derivations at level n = 2:
+    fractal-iteration count (`NResolutionFromFractal`) +
+    K₂₅ coloring count (`FractalLensCardinality`).
+    (G120 Round 3 retracted "4-domain convergence" — only 2 of 4
+    readings had real Lean derivations; tensor DOF was rfl identity,
+    injective projection had zero witness.)
   · Wallis partial product W_N → π/2
     `Lib/Math/Cauchy/WallisSeq.lean`
   · Basel partial sum S(N) brackets ζ(2)
@@ -538,7 +545,9 @@ References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 > derivable from 213-Algebra alone, without external input.
 
 Already known constraints:
-  · 4-domain N_U convergence forces d^(d²) self-reference.
+  · `configCount` parametric family at level n = d² yields
+    `5^(d²) = d^(d²)` self-reference (G120 Round 3 reframing of
+    earlier "4-domain N_U convergence" — see §0.5 promotion status).
   · `dim H¹(K_{m,n}^{(c)}) = m² − 1` (= 1/α_3) requires
     `c·m·n = m² + m + n − 2` (213 = smallest non-trivial soln
     at NT=2)

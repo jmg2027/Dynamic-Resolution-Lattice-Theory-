@@ -107,5 +107,6 @@ Lens readings on the same residue:
 Both readings hold simultaneously for an internal observer —
 absent an external time axis to compare them under, the dichotomy
 "frozen or dynamic?" is not posed.  Cf. `RESOLUTION_LIMIT_SPEC.md`
-§2 for the four independent Lens readings converging on the same
-N_U readout; the same convergence-as-content principle.
+§2 (G120 Round 3 rewrite) for the parametric `configCount` family
+where the same family value `5²⁵` is read via different routes —
+family-evaluation-as-content principle.

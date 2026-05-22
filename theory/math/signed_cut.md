@@ -65,9 +65,12 @@ require.
 
 ### Level 25 closure (G37/G38)
 
-The CD tower on SignedCut closes at level 25:
+The CD tower on SignedCut closes at level 25 (the family-evaluation
+level chosen for physics-side readings, `configCount 2 = 5²⁵`):
 - L25: full CD-doubled signed structure
-- L26: **absent** — beyond the resolution limit `N_U = 5²⁵`
+- L26: **absent** — exceeds the level-2 family evaluation
+  `configCount 2 = 5²⁵` (per G120 Round 3: the boundary is a
+  level-choice, not a privileged "resolution limit cap")
 
 `Level/Level25Residual.lean` and `Level26Absence.lean` prove the
 absence directly: any putative L26 element reduces to a smaller
@@ -112,7 +115,8 @@ Three notes (`G37`, `G38`, `G39`) — archived to
 
 ## Open frontier
 
-- **CD level beyond L25**: per the resolution limit, none — but
+- **CD level beyond L25**: not closed at the level-2 `configCount`
+  evaluation — but
   reformulating "beyond" structurally requires the next-resolution
   layer (currently outside DRLT scope)
 - **Hurwitz failure characterization**: `Failure.lean` documents

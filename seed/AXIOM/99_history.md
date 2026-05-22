@@ -20,9 +20,12 @@ The current uniqueness story does NOT route through R1–R5:
     forced to d=5, (3,2) structurally — see
     `Theory/Atomicity/Five.lean` and the related Atomicity
     cluster.
-  - **Resolution-limit invariant**
-    (`seed/RESOLUTION_LIMIT_SPEC.md`): N_U = d^(d²) = 5²⁵ as
-    4-way convergent invariant.
+  - **Resolution-limit family readout**
+    (`seed/RESOLUTION_LIMIT_SPEC.md` §2 — G120 Round 3 rewrite):
+    `configCount 2 = 5²⁵` as one value of the parametric Lens-output
+    family `configCount : Nat → Nat`.  Historical "4-way convergent
+    invariant" framing was retracted (only 2 of 4 readings had
+    real Lean derivations).
 
 ℂ enters downstream as a Lens construction
 (`Lib/Math/CayleyDickson/`), NOT as a consequence of any R1–R5
@@ -98,7 +101,8 @@ R1–R5 as the canonical uniqueness story.
   - §9 substantially rewritten as "deprecated R1–R5 frame": the
     R-game judgment frame is stepped back from.  The current
     uniqueness story is Universal-Lens + Atomicity +
-    Resolution-limit (4-way invariant N_U).
+    Resolution-limit (`configCount` parametric family; G120 Round 3
+    retracted "4-way invariant N_U" framing).
 - **2026-05-05**: §9.1 typeclass rename executed.
   `Meta/SelfRecognising.lean`'s `R12Codomain` / `R3Codomain` /
   `R4Codomain` → `CommBinaryCodomain` / `NonVanishingCodomain` /

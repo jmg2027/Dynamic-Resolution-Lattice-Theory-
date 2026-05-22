@@ -10,8 +10,9 @@ Pattern 1 — G41 → chapter + archive.
 The **2D number grid** organizes 213's number systems by two
 orthogonal axes: vertical = Cayley-Dickson level (ℝ, ℂ, ℍ, 𝕆, ...),
 horizontal = FSM-grade type.  The grid is **25 × 25** at the
-resolution limit `N_U = 5²⁵`, with the entry at position (i, j)
-being a specific number-system instance.
+level-2 `configCount` evaluation (`configCount 2 = 5²⁵`,
+historically called `N_U`), with the entry at position (i, j) being
+a specific number-system instance.
 
 This is the "every number system as a grid coordinate" reading —
 no number system is foundational; all are positions in the grid.
@@ -42,8 +43,9 @@ identifies each system:
 - (i, 0) = i-th CD level
 - (i, j) = i-th CD level on j-th FSM-grade base
 
-At `N_U`, the grid closes: positions beyond (24, 24) collapse into
-the fixed-point.  This is the geometric realization of the
+At the level-2 family evaluation (`configCount 2 = 5²⁵`), the
+25×25 grid closes; positions beyond (24, 24) require a higher
+family-evaluation level.  This is the geometric realization of the
 algebra-tower's asymptotic behaviour (see `algebra_tower.md`).
 
 ## Research-note provenance
