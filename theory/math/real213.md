@@ -89,15 +89,6 @@ modulus is a computable function of the input's modulus.
 - `theory/math/cauchy.md` (separate chapter) — sequence machinery
 - `theory/math/signed_cut.md` (separate chapter) — sign extension
 
-## Research-note provenance
-
-`research-notes/archive/F0_213_native_arithmetic_synthesis.md` +
-F1-F6 (already archived pre-this-branch).  The F-series was the
-Real213 marathon final state.
-
-Original F0-F6 archived in `research-notes/archive/` (not under a
-sub-cluster directory; pre-2026-05-18 archive scheme).
-
 ## Open frontier
 
 - **Continuity-without-ε** via consistent oracles (companion to G31)

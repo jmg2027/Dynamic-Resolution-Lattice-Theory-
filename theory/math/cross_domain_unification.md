@@ -131,12 +131,6 @@ mathematical object, not parallel constructions."*
 | `CoeffSeq` as graded ring | `ParadigmDomainGradedRing` | `(1+x)⁵` realization |
 | Self-cup row sum 1024 | `ParadigmDomainGradedRing` | `(1+x)¹⁰` |
 
-## Research-note provenance
-
-`research-notes/G35_chiral_cup_ring_catalog.md` **§C6** — conjecture
-statement + step log (Steps 1-5 closed; Step 6+ open).  G35 §0.5
-tracks this chapter as the C6 destination.
-
 ## Open frontier
 
 ### Step 6+ — Per-domain cup-product refinement

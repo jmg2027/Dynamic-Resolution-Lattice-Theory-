@@ -87,19 +87,6 @@ Other sub-trees cite the catalog rather than reinventing patterns:
 content is in their *use* across other sub-trees, not in their
 own depth.)
 
-## Research-note provenance
-
-Two notes (`G28`, `G30`) — archived to
-`research-notes/archive/pattern_catalog/`:
-
-| Note | Theme |
-|---|---|
-| `G28_every_pattern_present.md` | Operational primitives: every stateable pattern lives in 213 (corrects G27) |
-| `G30_pattern_catalog_synthesis.md` | Pattern catalog metaformalization (Lean realization) |
-
-The G27 → G28 correction (patterns as emergent, not imposed) is
-the canonical reading.
-
 ## Open frontier
 
 Pattern catalog is **closed** at the 5-entry level.  Open extensions:

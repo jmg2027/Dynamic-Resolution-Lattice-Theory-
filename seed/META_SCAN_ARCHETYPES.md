@@ -64,8 +64,8 @@ same separation.
 
 ## Anchor research notes
 
-  · `research-notes/G101_metascan_synthesis.md` — capstone
-    overview (6-scanner unified view + honest assessment of
+  · `research-notes/archive/metascan/G101_metascan_synthesis.md` —
+    capstone overview (6-scanner unified view + honest assessment of
     what was/wasn't found).
   · `research-notes/G107_action_items_registry.md` — executor
     entry-point (14 Lean abstraction candidates + 13 doc-work

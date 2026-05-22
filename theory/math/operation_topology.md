@@ -50,7 +50,3 @@ classes" boilerplate that classical algebra requires.
 
 - `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
 - `Lib/Math/GenerationRule/` (G46 — `theory/math/generation_rule.md`)
-
-## Research-note provenance
-
-`research-notes/G48_operation_topology.md` — archived.

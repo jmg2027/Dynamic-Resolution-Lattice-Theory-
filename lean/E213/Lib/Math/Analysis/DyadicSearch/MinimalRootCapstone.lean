@@ -7,7 +7,7 @@ This file bundles the existing `MinimalRootLens` + `MinimalRootLensMonotone`
 machinery as a clean public-facing IVT certificate, closing G31's main
 deliverable per `/root/.claude/plans/smooth-mapping-metcalfe.md` Phase 4.
 
-G31 design (per `research-notes/G31_minimal_root_lens.md`): the IVT
+Design (per `theory/math/analysis/minimal_root.md`): the IVT
 holds in 213-native form by giving the user *typed data witnesses*
 instead of classical locatedness.  The four inputs are:
 

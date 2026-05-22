@@ -117,15 +117,6 @@ machinery directly.
 | `signedLeftCollapse` | `SignedLeftCollapse` | Always-prefer-left collapse |
 | Base IVT | `IVT` | Classical statement in 213-native form |
 
-## Research-note provenance
-
-One note (`G31`) — archived to
-`research-notes/archive/minimal_root/`:
-
-| Note | Theme |
-|---|---|
-| `G31_minimal_root_lens.md` | Trajectory-as-witness IVT — typed protocol replaces existential |
-
 ## Open frontier
 
 `MinimalRootLens` skeleton is closed.  Open extensions:

@@ -143,8 +143,8 @@ disambiguation.
     enforcing (α).
   · `research-notes/G104_raw_derivation_three_levels.md` — full
     quantitative evidence behind this spec.
-  · `research-notes/G102_full_expr_callgraph.md` — Expr-level
-    call graph methodology.
+  · `research-notes/archive/metascan/G102_full_expr_callgraph.md` —
+    Expr-level call graph methodology.
   · `lean/E213/Theory/Atomicity/PairForcing.lean` etc. — substantive
     derivations realising (β).
   · `lean/E213/Lib/Math/Cohomology/Cochain/Core.lean` — example

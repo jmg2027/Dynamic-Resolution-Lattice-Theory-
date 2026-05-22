@@ -62,7 +62,3 @@ topological.
 - `Lib/Math/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
 - `Lib/Math/AngleStructure/` (G42 — `theory/math/angle_structure.md`)
 - `Lib/Math/TriangularTower/` (G47 — `theory/math/triangular_tower.md`)
-
-## Research-note provenance
-
-`research-notes/G49_concrete_topology_per_floor.md` — archived.

@@ -53,7 +53,8 @@ rather than duplicating.
 
 Companion: `lean/E213/Lib/Math/Mobius213.lean` (7 ∅-axiom theorems —
 discriminant, trace, det, Pell-Fib recurrences) and
-`research-notes/G57_213_mobius_signature.md` (multi-layer reading).
+`research-notes/archive/algebra_tower/G57_213_mobius_signature.md`
+(multi-layer reading).
 
 ## Audit / implementation reference
 

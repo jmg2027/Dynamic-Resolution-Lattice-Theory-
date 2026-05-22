@@ -57,7 +57,3 @@ trajectory is finite at every level*.
 - `Lib/Math/AngleStructure/` (G42 — `theory/math/angle_structure.md`)
 - `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
 - `Lib/Math/GenerationRule/` (G46 — `theory/math/generation_rule.md`)
-
-## Research-note provenance
-
-`research-notes/G47_triangular_tower_architecture.md` — archived.

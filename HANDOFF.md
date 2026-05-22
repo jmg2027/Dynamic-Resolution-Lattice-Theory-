@@ -14,7 +14,7 @@
 | **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
 | **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
-| **Full repo audit** | CLEAN | 0 sorry / 0 axiom / 0 Mathlib / 0 Classical / 0 native_decide; build clean; G120 framing regression fixed (`6599f889`) |
+| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Lean kernel axioms: DRLT mathematical content (Lib/Math/*, Theory/*) is fully PURE; the residual 56 DIRTY theorems sit in `Lens.*` (per `STRICT_ZERO_AXIOM.md` §"Latest scan" 2026-05-22).  G120 framing regression fixed (`6599f889`) |
 
 Closure logs preserved in git history; the live state is the Lean
 source + theory chapters.  Don't read the per-Part marathon logs that

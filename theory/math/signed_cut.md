@@ -108,11 +108,6 @@ structures: Fano plane (7-point projective geometry of octonions),
 FanoK32 (Fano ↔ K_{3,2}^{(c=2)} structural bridge),
 GenericGeomBridge (abstract geometric bridge interface).
 
-## Research-note provenance
-
-Three notes (`G37`, `G38`, `G39`) — archived to
-`research-notes/archive/discrete_geometry/` (previous batch).
-
 ## Open frontier
 
 - **CD level beyond L25**: not closed at the level-2 `configCount`

@@ -47,7 +47,3 @@ The same elements can underlie both, but the Lens application
 213 keeps them separate as named Lenses.  `CartesianCheck` and
 `DisjointVsProduct` enforce the type-level separation; the capstone
 proves that confusing them produces type errors.
-
-## Research-note provenance
-
-`research-notes/G45_cartesian_vs_disjoint.md` — archived.

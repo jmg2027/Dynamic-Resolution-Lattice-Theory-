@@ -383,7 +383,8 @@ named, grep-discoverable.
 ### Empirical verification of the ring split (G105)
 
 The ring boundaries above are normatively-stated.  G105
-(`research-notes/G105_namespace_shape_and_full_recursor_inventory.md`)
+(`research-notes/archive/metascan/G105_namespace_shape_and_full_recursor_inventory.md`;
+deliverable at `catalogs/recursor-inventory.md`)
 verified them empirically by measuring per-namespace Expr-shape
 densities:
 

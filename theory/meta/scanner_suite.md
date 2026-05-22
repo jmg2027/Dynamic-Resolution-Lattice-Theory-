@@ -181,37 +181,6 @@ python3 tools/falsifier_mining_scan.py
 TSVs land in `tools/output/` (gitignored).  Stdout summaries match
 the reports in the archived G-notes.
 
-## Research-note provenance
-
-13 notes archived to `research-notes/archive/metascan/`:
-
-| Note | Theme |
-|---|---|
-| `G90_ast_fold_motifs.md` | AST fold/recursor motif scan |
-| `G91_syntax_tactic_motifs.md` | Tier-1 syntax tactic block scan |
-| `G92_citation_graph_and_constructs.md` | Citation graph & tactic-construct shapes |
-| `G93_handshake_to_subset_bijection_branch.md` | Meta→substantive handshake |
-| `G94_handshake_response_to_meta_branch.md` | Substantive→meta response (1 of 2) |
-| `G94_metascan_addendum.md` | N4 cross-validation + fold_slash atlas (2 of 2) |
-| `G95_lean_core_dep_purity_audit.md` | Lean-core purity (0 DIRTY) |
-| `G96_handshake_response_to_subset_bijection.md` | Meta's response to substantive's G94 |
-| `G97_handshake_closure_zero_dirty.md` | Handshake closure confirmation |
-| `G98_unfold_graph_implicit_lemma_extraction.md` | 6 unfold chunks, 1 confirmed |
-| `G99_rw_cascade_adoption_gap.md` | mul/add_left_comm under-adoption |
-| `G100_decide_failure_mining.md` | 135 auto-discovered falsifiers |
-| `G101_metascan_synthesis.md` | This chapter's primary source (capstone) |
-| `G102_full_expr_callgraph.md` | Full Expr-level callgraph, 4-layer L1 |
-| `G103_raw_depth_and_expr_shape.md` | Raw-depth BFS + Expr-shape density |
-| `G105_namespace_shape_and_full_recursor_inventory.md` | Per-namespace Expr-shape + recursor |
-| `G106_L1_expr_structure_extraction.md` | L1 LeibnizAlgLift Expr extraction (deepest) |
-
-G104 promoted to separate chapter `theory/meta/raw_derivation_levels.md`
-(conceptual taxonomy, distinct from scanner-suite findings).
-
-G107 (action items registry) **stays active** as
-`research-notes/G107_action_items_registry.md` — it's a live
-tracker of executable items, not a closed narrative.
-
 ## Open frontier
 
 The scanner suite itself is closed.  Open follow-up work is

@@ -60,10 +60,6 @@ the algebraic side of the tower.
   matrix identities (`P^10 ≡ I mod 5`) use `Ring213` at the
   underlying linear-algebra level.
 
-## Research-note provenance
-
-`research-notes/G50_algebra213_meta_theorems.md` — archived.
-
 ## How to verify
 
 ```bash

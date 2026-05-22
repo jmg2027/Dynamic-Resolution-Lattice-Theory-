@@ -46,5 +46,5 @@ import E213.Lib.Math.Analysis.ResolutionShift
   ## Status
 
   ∅-axiom standard on the production critical path.  Trajectory-as-
-  witness IVT design recorded in `research-notes/G31_minimal_root_lens.md`.
+  witness IVT design: `theory/math/analysis/minimal_root.md`.
 -/

@@ -49,7 +49,3 @@ reduces to one of these three readings via the
 
 - `Lib/Math/TriangularTower/` (G47 — `theory/math/triangular_tower.md`)
 - `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
-
-## Research-note provenance
-
-`research-notes/G42_angle_structure_zfc_squashing.md` — archived.

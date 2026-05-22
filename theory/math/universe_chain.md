@@ -214,21 +214,6 @@ chain steps + the CRT decomposition.
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
 | `Mobius213.MobiusChain` | `Lib/Math/UniverseChain/MobiusChain` | Chain sentinel (imports all steps) |
 
-## Research-note provenance
-
-Seventeen notes (`G65-G81` plus index `G82`) plus closure-form
-notes (`G83-G84` partially) — archived to
-`research-notes/archive/universe_chain/`:
-
-| Range | Notes | Theme |
-|---|---|---|
-| G65-G70 | 6 | Nat213 type synthesis, lenses, fractal atom, addition emergence |
-| G71-G75 | 5 | Fold direction duality, glue, det = axis-generator fold |
-| G76-G79 | 4 | Rotation geometry, Lucas-Mersenne, pentagonal closure, SL(2,F_5)≅2I |
-| G80-G81 | 2 | Dual fillings, CRT decomposition |
-| G82 | 1 | Navigation index (chain summary) |
-| G83-G84 | 2 | Lens equality refactor + closed-form unification |
-
 ## Open frontier
 
 Universe chain is structurally **closed** through Step 12 (CRT).

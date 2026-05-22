@@ -90,7 +90,7 @@ observation, not yet capstoned in Lean.
 - `theory/math/real213.md` — Real213 carrier underlies FluxCut
 - `theory/physics/couplings.md` — primary downstream consumer
 - `research-notes/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive (2026-05-22)
-- `research-notes/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
+- `research-notes/archive/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
 
 ## Open frontier
 

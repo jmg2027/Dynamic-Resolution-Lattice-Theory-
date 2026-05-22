@@ -49,10 +49,6 @@ The result is a **decidable audit category** for every
 session-level claim — a meta-tool preventing heuristic claims
 from drifting into "we proved it" status.
 
-## Research-note provenance
-
-`research-notes/G43_dialogue_audit.md` — archived.
-
 ## Open frontier
 
 Could be extended with **citation-graph auditing** (G92 meta-scan

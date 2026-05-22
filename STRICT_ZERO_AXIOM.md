@@ -58,9 +58,38 @@ standard-library lemmas are caught by re-running G95.
 ## Latest scan
 
 (Numbers vary by run due to scanner timeouts on slow modules; refer
-to HANDOFF.md "current state" for the freshest reading.  994 total
-`.lean` files; scanner enumerates ~500-800 ★-marked theorems
+to HANDOFF.md "current state" for the freshest reading.  1232 total
+`.lean` files; scanner enumerates ~500-1000 ★-marked theorems
 depending on timeout state.)
+
+**2026-05-22 (audit branch `claude/document-file-audit-FeGcU`)**:
+Full repo scan reports **976 PURE / 56 DIRTY + 0 sealed-DIRTY-by-design
+(1032 total)**.  Real DIRTY breakdown:
+
+  · 33  [propext]
+  · 14  [propext, Quot.sound]
+  ·  5  [propext, Classical.choice, Quot.sound]
+  ·  2  [Quot.sound]
+  ·  2  [propext, Quot.sound] (split format)
+
+Per-module distribution of the 56 DIRTY:
+
+  · 23  E213.Lens.SemanticAtom
+  · 10  E213.Lens.Properties.Morphism.BoolProp
+  · 10  E213.Lens.Instances.Leaves.DepthJoin     ← all 5 Classical.choice cases
+  ·  5  E213.Lens.Universal.QuotLens
+  ·  4  E213.Lens.Lattice.IndexedJoin
+  ·  3  E213.Lens.Instances.Cauchy
+  ·  1  E213.Lens.Instances.FunctionSpace
+
+DRLT mathematical content (`E213.Lib.Math.*`, `E213.Theory.*`,
+including all Lib/Math/Physics/* capstones) is **fully PURE**.  All
+56 DIRTY theorems reside in `E213.Lens.*` and trace back to the
+mathematical-content categories described in the marathon log
+below (Lens funext-by-design; SemanticAtom propAsDistinguishing
+Iff-with-propext; DepthJoin JoinEquiv-on-Raw Classical.choice for
+quotient representative selection).  Conversion to PURE remains
+the open marathon target.
 
 **2026-05-09 (later, marathon batch 1)**: User directive "seal
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
@@ -986,11 +1015,11 @@ The claim is now **measurable and verified**:
 
 Cross-references:
 
-  · `research-notes/G95_lean_core_dep_purity_audit.md` — full
-    audit data + the 3 DIRTY lemmas surface.
-  · `research-notes/G96_handshake_response_to_subset_bijection.md`
+  · `research-notes/archive/metascan/G95_lean_core_dep_purity_audit.md`
+    — full audit data + the 3 DIRTY lemmas surface.
+  · `research-notes/archive/metascan/G96_handshake_response_to_subset_bijection.md`
     — handshake delivering the audit findings.
-  · `research-notes/G97_handshake_closure_zero_dirty.md`
+  · `research-notes/archive/metascan/G97_handshake_closure_zero_dirty.md`
     (parallel branch) — closure report.
   · Parallel branch commit `e1f6f2f7` — the N5+N6 closure.
 

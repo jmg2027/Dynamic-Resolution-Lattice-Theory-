@@ -169,8 +169,8 @@ TSV is gitignored.  Re-running takes ~1 minute.
   · `catalogs/falsifier-roster.md` — auto-discovered structural
     roster (135 entries).
   · `LESSONS_LEARNED.md` Pattern #2 — decide-finitism doctrine.
-  · `research-notes/G100_decide_failure_mining.md` — full
-    methodology + per-category sample listings.
-  · `research-notes/G105_namespace_shape_and_full_recursor_inventory.md`
+  · `research-notes/archive/metascan/G100_decide_failure_mining.md` —
+    full methodology + per-category sample listings.
+  · `research-notes/archive/metascan/G105_namespace_shape_and_full_recursor_inventory.md`
     §2.5 — `Bool.casesOn` 1,681 invocations (the operational
     backbone of decide-based falsification).

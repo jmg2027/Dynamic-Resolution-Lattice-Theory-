@@ -52,11 +52,6 @@ single-sequence moduli; `DepthCompleteness` shows that any
 classically-converging sequence in 213's substrate has a
 computable modulus.
 
-## Research-note provenance
-
-`research-notes/G40_epsilon_delta_modulus.md` — archived to
-`research-notes/archive/discrete_geometry/G40_*.md`.
-
 ## How to verify
 
 ```bash

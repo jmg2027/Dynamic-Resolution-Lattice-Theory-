@@ -183,25 +183,6 @@ machinery used by physics + CS + arithmetic geometry inherits the
 For the full 31-capstone list, see
 `lean/E213/Lib/Math/HodgeConjecture/INDEX.md`.
 
-## Research-note provenance
-
-Six exploratory notes fed this chapter
-(`research-notes/hodge/` — archived 2026-05-21):
-
-| Note | Theme | Lean closure |
-|---|---|---|
-| `G6_hodge_213_translation.md` | Standard Hodge ↔ 213 dictionary; §0 corrected position | `Foundation/{Conjecture,Canonical,Filled}.lean` |
-| `G7_lens_initiality_cup_blueprint.md` | Lens initiality + cup-subring blueprint | `Foundation/LensCata.lean` |
-| `G8_hodge_213_bridge_to_standard_math.md` | HC²¹³ ↔ standard HC bridge | `Bridge/` cluster |
-| `G9_hodge_conjecture_complete.md` | HC²¹³ closure narrative | `Foundation/Complete.lean` |
-| `G10_post_hodge_program.md` | 17 post-HC classical theorems programme | `Refinement/`, `Toolkit/`, `Pairing/`, `Structure/` |
-| `G11_galois_at_eighty.md` | Galois-at-eighty counterfactual | `Bridge/GaloisCounterfactual.lean` |
-
-The corrected position of G6 §0 (replacing the deprecated "Finitism
-is Forced" framing) is now the canonical reading; §1–§7 of G6
-contain the math content with the framing corrected per
-`seed/RESOLUTION_LIMIT_SPEC.md` §3.
-
 ## Open frontier
 
 None at the HC²¹³ level — the conjecture is closed.

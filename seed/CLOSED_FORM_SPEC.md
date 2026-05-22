@@ -6,11 +6,12 @@ Where `funext` / `propext` / `Quot.sound` previously entered, we
 substitute **vertical-internal projection** + **pointwise eq**.
 
 See also:
-  - `research-notes/G84_closed_form_pattern_unification.md` (探索 note)
+  - `research-notes/archive/universe_chain/G84_closed_form_pattern_unification.md`
+    (探索 note)
   - `lean/E213/Lens/Number/Nat213/*` and
     `lean/E213/Lens/Bool213/*` (Lean implementation, post-Option-C
     layout)
-  - `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean` (bridge)
+  - `lean/E213/Lib/Math/Real213/ChainToCut.lean` (bridge)
 
 ## 3-domain meta-pattern (post-Option-C, 2026-05-18)
 

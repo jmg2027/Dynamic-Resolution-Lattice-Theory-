@@ -42,7 +42,3 @@ full atomic-vertex inventory of Δ⁴.
 This is the 213-native realization of "dimensions emerge by
 counting orthogonal directions", made structural.  Companion to
 G47 triangular tower (`theory/math/triangular_tower.md`).
-
-## Research-note provenance
-
-`research-notes/G46_generation_rule.md` — archived.

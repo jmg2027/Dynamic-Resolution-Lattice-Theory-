@@ -194,29 +194,6 @@ reading — significant cross-frame convergence.
 For full ~149 PURE inventory, see
 `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`.
 
-## Research-note provenance
-
-Single source note `research-notes/G121_dim4_self_pointing_axis.md`
-(1531 lines) — stays as **active research direction** rather than
-fully archived.  Reason: G121 *also* hosts the G122-G125 marathon
-candidates which are currently OPEN or PARTIAL, plus M3/M4 knots
-still doc-level.
-
-| G121 §section | Status | Promoted? |
-|---|---|---|
-| §1-§3 Setup + ansatz + d=4 anomaly | Closed R1 | ✓ in this chapter |
-| §4 5 pillars | Closed R1 | ✓ in this chapter |
-| §5 Structural mapping | Closed step 24 | ✓ in this chapter |
-| §6 Four open knots (M1-M4) | M1/M2 partial Lean; M3/M4 doc-level | ✓ status in this chapter |
-| §7 R1+ extensions (G123/G124/G125) | Partial | ✓ in this chapter §Open frontier |
-| §8 G122 4-mfd exotic enumeration | Open marathon | ✗ stays in G121 |
-| §9-§N Side observations | Active | ✗ stays in G121 |
-
-The G121 note is partially absorbed (R1 closure) but stays active
-for the open marathon candidates.  Same pattern as G35 (213-Algebra
-catalog) — chapter covers closed sub-topics; note hosts the
-research frontier.
-
 ## Open frontier
 
 ### R1+ partial extensions (PARTIAL closure achieved 2026-05-22)
