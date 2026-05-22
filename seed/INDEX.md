@@ -126,14 +126,19 @@ name; DRLT is a physics specialization).
 
 ```
 seed/
-├── INDEX.md                   ← this file (standalone entry)
-├── ORIGIN.md                  ← DRLT origin narrative (archival)
-├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
-├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
-├── RAW_DERIVATION_SPEC.md     ← "derived from Raw" α/β/γ distinction
-├── FALSIFIABILITY_SURFACE_SPEC.md ← quantitative profile of §5.2.1 enforcement
-├── NOTATION.md                ← symbol conventions
-└── AXIOM/                     ← the axiom corpus, 11 chapters
+├── INDEX.md                          ← this file (standalone entry)
+├── ORIGIN.md                         ← DRLT origin narrative (archival)
+├── NOTATION.md                       ← symbol conventions
+├── RESOLUTION_LIMIT_SPEC.md          ← cardinality / N_U readout spec
+├── CLOSED_FORM_SPEC.md               ← 3-domain projection catalogue
+│                                       + Bishop subsumption + bridges
+├── THEOREM_METHODOLOGY_SUITE.md      ← TH-1 fingerprint + TH-2 Raw-
+│                                       derivation readings + TH-3
+│                                       falsifiability surface + TH-4
+│                                       L1 parametric methodology
+├── META_SCAN_ARCHETYPES.md           ← 11 scanner archetypes + dual-
+│                                       branch process model
+└── AXIOM/                            ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
     ├── 00_nature.md           ← residue, distinction, 3-dir uniqueness
     ├── 01_notation_recursion.md
@@ -174,8 +179,9 @@ seed/
 - `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
   corpus.
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
-- `RAW_DERIVATION_SPEC.md` — what "X is derived from Raw" technically
-  means (three readings: logical / structural-content / operational).
+- `THEOREM_METHODOLOGY_SUITE.md` §TH-2 — what "X is derived from
+  Raw" technically means (three readings: logical / structural-
+  content / operational).
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
 

@@ -1,4 +1,9 @@
-# §8a. Encoding costs of the Lean implementation
+# §A. Encoding costs of the Lean implementation
+
+*Appendix to the axiom corpus: catalogues the Lean-4 codomain
+costs incurred when emulating the axiom.  Independent of the §8
+self-reference material — placed here because it documents the
+implementation boundary.*
 
 The 213 axiom (§3.2) is **closure of "something exists" under primitive
 distinction**.  No order, no operator, no inductive structure, no
@@ -11,7 +16,7 @@ axiom.  This file catalogs the costs and their justifications.
 For device-by-device classification (α/β/γ/δ) and audit cross-check,
 see `lean/E213/AUDIT.md`.
 
-## §8a.1 The four encoding costs
+## §A.1 The four encoding costs
 
 | Encoding device | What it imports | Why it's a cost |
 |---|---|---|
@@ -24,7 +29,7 @@ see `lean/E213/AUDIT.md`.
 not the axiom.  The axiom is the same; only the machine emulation
 needs them.
 
-## §8a.2 Why these costs are unavoidable in Lean 4
+## §A.2 Why these costs are unavoidable in Lean 4
 
 Lean 4's type-theory codomain dictates:
 
@@ -41,7 +46,7 @@ Lean 4's type-theory codomain dictates:
 The encoding costs are **the price of running 213 on Lean**, nothing
 more.
 
-## §8a.3 Faithful emulator claim
+## §A.3 Faithful emulator claim
 
 Despite the costs, the Lean implementation is a faithful emulator of
 the axiom — no (δ) additional commitment.  Classification of every
@@ -59,7 +64,7 @@ implementation device:
 
 Full device-by-device analysis: `lean/E213/AUDIT.md` Part I (§I.*).
 
-## §8a.4 Meta-theorem: cmp-independence (formalized)
+## §A.4 Meta-theorem: cmp-independence (formalized)
 
 The specific choice of `Tree.cmp` (which total order to use as the
 canonical-form selector) has **no mathematical effect**.  Proven:
@@ -76,14 +81,14 @@ inductive-structure cost (Lean inductive vs. some other codomain
 presentation) if a 213-codomain-independence proof were attempted —
 not currently formalized.
 
-## §8a.5 Tree machinery split (2026-05-12)
+## §A.5 Tree machinery split (2026-05-12)
 
 Per ARCHITECTURE.md (4 ring + Meta), Tree machinery itself (inductive
 `Tree`, `Tree.cmp`, `Tree.canonical`, cmp lemmas) lives in **Term
 ring** at `lean/E213/Term/Internal/Tree*`.  Theory ring (Raw axiom +
 structure) imports Tree via the public API `E213.Term.Tree`.
 
-This split reflects §8a's framing:
+This split reflects this appendix's framing:
 
 - **Term** = encoding mechanism (Raw 의 구현체 — Mingu Jeong 2026-05-12).
 - **Theory** = axiom commitment over Term API.

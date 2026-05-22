@@ -53,8 +53,7 @@ Currently still open:
   addition (current overflow is post-G120 + tier discipline + failure
   modes catalog growth).
 - **TH-1 / TH-4** doc work routed earlier into
-  `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` (TH-1) and
-  `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` (TH-4 partial).
+  `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
 
 ## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
 

@@ -119,12 +119,12 @@ already-promoted chapters:
 
 Foundational specs added alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
 
-- `seed/RAW_DERIVATION_SPEC.md` — formal Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`)
-- `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` — proof-shape fingerprinting (companions `theory/meta/scanner_suite.md`)
+- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — formal Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`)
+- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 — proof-shape fingerprinting (companions `theory/meta/scanner_suite.md`)
 - `seed/META_SCAN_ARCHETYPES.md` — meta-scan archetype catalog
-- `seed/FALSIFIABILITY_SURFACE_SPEC.md` — falsifier surface spec (DRLT Validation Standard depth)
-- `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` — L1 parametric methodology (G106 / `theory/meta/scanner_suite.md` §1)
-- `seed/BISHOP_SUBSUMPTION_SPEC.md` — Bishop comparison doctrinal subsumption
+- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface spec (DRLT Validation Standard depth)
+- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-4 — L1 parametric methodology (G106 / `theory/meta/scanner_suite.md` §1)
+- `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption" — Bishop comparison doctrinal subsumption
 
 ## Companion catalogs/ (2026-05-22 merge)
 

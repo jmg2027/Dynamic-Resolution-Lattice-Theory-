@@ -104,7 +104,7 @@ Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
   · `catalogs/abstraction-candidates.md` — per-item status tracker.
   · `catalogs/falsifier-roster.md` — 135 auto-discovered falsifiers
     (mined via decide-negation scan).
-  · `seed/RAW_DERIVATION_SPEC.md` — "X is derived from Raw"
+  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — "X is derived from Raw"
     α / β / γ three-reading distinction.
 
 ## Directory

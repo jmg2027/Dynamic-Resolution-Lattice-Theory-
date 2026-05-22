@@ -1121,8 +1121,8 @@ bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
 process model) form the 2026-05-22 composition table.  Patterns
 #14-#20 (this commit) extend the table with meta-scan branch
 findings: n-layer agreement, three-level Raw-derivation
-(→ seed/RAW_DERIVATION_SPEC.md), decide-finitism
-(→ seed/FALSIFIABILITY_SURFACE_SPEC.md), framework-internal
+(→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-2), decide-finitism
+(→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-3), framework-internal
 subsumption, byte-identical Expr cross-domain bridges,
 forward/backward factor-knob, multiple Lens choices.  Together
 they enable the closure of the Raw → (3, 2, 5) inevitability
@@ -1197,7 +1197,7 @@ ranking metric.
 
 ## Pattern #15 — Three-level "Derived from Raw" distinction (G104)
 
-**Reference**: full spec in `seed/RAW_DERIVATION_SPEC.md`.
+**Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
 **Summary**: The phrase "X derives from Raw" has three distinct
 technical meanings:
@@ -1212,12 +1212,12 @@ technical meanings:
 (α) + (β) hold; (γ) is FALSE BY DESIGN.  Don't conflate the levels.
 
 Full text + worked examples (Real213, FluxMVT, Cohomology):
-`seed/RAW_DERIVATION_SPEC.md`.
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
 
 ## Pattern #16 — Decide-finitism quantitative profile (G100)
 
-**Reference**: full spec in `seed/FALSIFIABILITY_SURFACE_SPEC.md`.
+**Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.
 
 **Summary**: Pattern #2 (decide-finitism) has measurable footprint:
 
@@ -1232,7 +1232,7 @@ Distinguishability (`≠`) dominates negation (78 % of falsifiers) —
 consistent with Raw's distinguishability primitive in operational form.
 
 Full quantitative profile + falsifier catalog references:
-`seed/FALSIFIABILITY_SURFACE_SPEC.md` and
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 and
 `catalogs/falsifier-roster.md`.
 
 

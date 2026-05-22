@@ -141,6 +141,112 @@ refactor via `eqPW`.
     with full bijection: forward (`parseTree_printTree`), reverse
     (`printTree_parseTree`), and injectivity (`printTree_injective`).
 
+## Bishop subsumption
+
+The Lens-output function space of 213 contains the reals as a named
+subspace — no Bishop-style piecewise construction needed.  Companion
+to the Real213-Analysis deep-dive reading and
+`Lib/Math/Real213/Core/AsLensOutput.lean` (formal carrier).
+
+### The doctrinal claim
+
+Classical analytic constructions of ℝ each build the real line from
+some substrate with careful definitions of equality, ordering,
+arithmetic, completeness:
+
+  · Cauchy sequences (Bishop's choice for constructive analysis)
+  · Dedekind cuts (set-theoretic)
+  · Decimal / signed-digit expansions
+  · …
+
+Bishop's program is the most delicate of these because it must
+hand-rebuild every operation with explicit ε-N moduli.
+
+213's approach: the Lens-output function space `Raw → Bool` (or
+`Nat → Nat → Bool` after a count-Lens application) is
+**structurally present** the moment the axiom + Lens framework is
+committed.  ℝ is a **choice of subspace**: pick
+`Cut := Nat → Nat → Bool` with a specific interpretation
+(`c m k = true ⟺ x ≤ m/k`).  Operations like `cutSum`, `cutMul`,
+`cutMid` are **chosen functions** that happen to satisfy rational
+arithmetic under that interpretation.
+
+The key insight: **the function space `Nat → Nat → Bool` is not a
+construction of ℝ; it is a space large enough to contain ℝ for
+free**.  Operations are then named, not invented.
+
+### Operational realisation
+
+`lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean`:
+
+```lean
+/-- Reals as cuts.  Lens-output realisation — no construction needed,
+    only a named subspace of the universal `Nat → Nat → Bool`. -/
+abbrev RealAsLensOutput := Nat → Nat → Bool
+```
+
+Subsequent files (`CutSum.lean`, `CutMul.lean`, `CutMid.lean`, …)
+each pick a function in this space and prove the interpretation
+identity.
+
+### What's formalised vs. what's a bridge
+
+Formalised:
+
+  · `RealAsLensOutput := Nat → Nat → Bool` (the abbreviation).
+  · `Real213` struct (Layer 2) ↔ `chainToCut` bridge ↔
+    `RealAsLensOutput` (Layer 3).
+  · Per-operation correctness (cutSum, cutMul, cutMid, …): each
+    operation's identity at concrete rational pairs proven via
+    `decide` or pointwise reduction (e.g. `cutSum_int_int`,
+    `cutMul_one_const_at`).
+  · Algebraic structure (CutPoset, lattice, dyadic completeness).
+
+Bridge work (multi-session):
+
+  · Bishop ↔ DRLT formal equivalence — Bishop's `CauchyReal` ≃
+    `Real213` modulo equivalence; Bishop's operations ↔ DRLT's cut
+    operations; the framing-level extensions DRLT introduces.
+  · Universal characterisation: prove `RealAsLensOutput` satisfies
+    the Bishop axioms (Cauchy completeness, Archimedean,
+    decidable order at rationals).
+
+### Why the bridge is principled, not a gap
+
+The Bishop comparison is a **translation layer into another
+framework**, not a DRLT-internal closure.  213's falsifiability
+rule (`seed/AXIOM/04_falsifiability.md` §5.2.1) demands that DRLT
+predictions hold without external axioms.
+
+The PURE proof status of `RealAsLensOutput`, the cut operations,
+and the algebraic structure (verified by `#print axioms`) is the
+DRLT-internal closure.  Bishop subsumption is the *outer claim*
+that DRLT's space is bigger — to formalise it Lean-level requires
+an external Bishop API to compare against, which is outside the
+∅-axiom contract.
+
+### Companion pointers
+
+  · `lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean` — formal
+    carrier.
+  · `seed/RESOLUTION_LIMIT_SPEC.md` — relates `RealAsLensOutput` to
+    the finite-N_U bound (cuts evaluated at `m, k ≤ N_U`).
+  · `LESSONS_LEARNED.md` Pattern #17 — framework-internal
+    subsumption.
+  · `catalogs/cross-domain-identifications.md` — math ↔ physics
+    bridges sit on top of `RealAsLensOutput`.
+
+The full Bishop ↔ DRLT comparison (5-7 sessions): implement a
+minimal Bishop API in the 213 namespace; prove `RealAsLensOutput`
+↔ Bishop carrier (via `chainToCut` + dyadic bisection); prove the
+operations match; characterise the extensions (graded structure,
+Lens-output realisation, resolution-limit ceiling).  This is
+**doctrinal closure**, not predictive enhancement.  DRLT's
+falsifier surface (`THEOREM_METHODOLOGY_SUITE.md` §TH-3) is
+independent of the Bishop comparison.
+
+---
+
 ## Conclusion
 
 The 3-domain projection catalog (Bool213 / RawCut / CauchyCutSeq) +
