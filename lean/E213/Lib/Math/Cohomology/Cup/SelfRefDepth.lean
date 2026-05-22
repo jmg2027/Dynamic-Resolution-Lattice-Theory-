@@ -633,4 +633,30 @@ Each bidegree contributes exactly one firing configuration, and
 all 6 firings together match the universal closed form
 `totalCupChannels 5 = binom 4 2 = 6`. -/
 
+/-! ## §18.  Final catalog enumeration
+
+The 6 cup-self-reference channels at d = 5 listed as
+`(k, l, firing_depth_bit)` triples. -/
+
+/-- ★★★★★ **The d = 5 cup-self-reference channel catalog**:
+    six channels, one per admissible bidegree, each firing at the
+    indicated depth bit position.  PURE. -/
+def cupChannels_d5 : List (Nat × Nat × Nat) :=
+  [(1, 1, 3), (1, 2, 2), (2, 1, 2), (1, 3, 1), (2, 2, 1), (3, 1, 1)]
+
+/-- Smoke: the catalog has 6 entries. -/
+theorem cupChannels_d5_length :
+    cupChannels_d5.length = 6 := by decide
+
+/-- Smoke: matches `totalCupChannels 5 = 6`. -/
+theorem cupChannels_d5_count :
+    cupChannels_d5.length = totalCupChannels 5 := by decide
+
+/-- ★ **Codim stratum membership**: each channel's codim equals
+    `5 - k - l` (the firing depth bit position).  Decide-verified
+    across the catalog.  PURE. -/
+theorem cupChannels_d5_codim_correspondence :
+    ∀ (c : Nat × Nat × Nat), c ∈ cupChannels_d5 →
+      c.2.2 = 5 - c.1 - c.2.1 := by decide
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
