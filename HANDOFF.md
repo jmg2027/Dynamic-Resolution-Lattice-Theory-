@@ -2,8 +2,9 @@
 
 ## Branch
 
-`claude/research-notes-organization-Gr3Tp` — 204 commits ahead of
-`origin/main`, pushed.  No active conflict.
+`claude/cup-catalog-extensions` (active) — d ≥ 6 catalog
+validation pushed.  `main` integrated G125 cup-self-reference
+catalog (commit `7ef94e16`).
 
 ## Recently closed (this branch)
 
@@ -34,6 +35,44 @@ new PURE files: `KSubsetEraseIdx`, `FaceIdxGeneral`, `CupOnList`,
 Includes a self-referential restatement and four Δ⁴ bidegree
 corollaries (1,1)/(2,1)/(1,2)/(2,2).  Source / closure notes:
 `research-notes/G86_self_referential_lex_cup_leibniz.md`.
+
+### A.next. G125 Lens-recipe cup catalog — **CLOSED 2026-05-22**
+4 new PURE Lean files / 64+ strict-PURE theorems.
+
+  · `Cup/LeibnizMirror.lean` — `cupRev`, `cupRev_eq_cup_swapped`,
+    `list_level_leibniz_mirror`.
+  · `Cup/LeibnizSym.lean` — `cupSymList`,
+    `list_level_leibniz_sym` (doubled correction).
+  · `Cup/LeibnizCatalog.lean` — `Recipe` inductive,
+    `catalog_dispatch` capstone (3 recipes → δ-closure).
+  · `Cup/SelfRefDepth.lean` (51 PURE) — `selfRefIter`, 6-channel
+    catalog at d = 5, universal closed form
+    `totalCupChannels d = binom (d-1) 2`, codim stratification
+    `6 = NS + NT + 1`, 325-pair indicator basis uniqueness
+    contracts (falsifiability), dual factorisation at d = 5
+    `30 = cup·d = Λ-sum`.
+  · `Cup/SelfRefDepthExtended.lean` (8 PURE, this branch) —
+    d ∈ {6, 7, 8} channel counts + 5 d=6 endpoint pair firings.
+
+**Zero-parameter physical bridges**:
+  · `30 = cup-channels · d = NS · NT · d = 1/α_2 leading integer`.
+  · codim-1 channel count `= 3 = NS = α_GUT coefficient` in
+    `1/α_2 = 30 - 1/2 + 3·α_GUT`.
+  · d = 5 unique: `cup·d = 2^d - 2` only at d = 5.
+
+Theory promotion: `theory/math/cohomology/cup.md` self-reference
+section.  Research note: `research-notes/G125_lens_recipe_cup_catalog.md`.
+
+### A.next.open. Cup catalog further extensions (Tier-1)
+
+| Item | Status / Notes |
+|---|---|
+| ~~Mirror catalog uniqueness~~ | **OBSOLETE** — symmetric to original under swap, no new content |
+| **Structural ∀d codim correspondence** | **CLOSED** (`Cup/IterErase.lean` 7 PURE).  `endpoint_pair_firing_characterisation` is the universal structural theorem; d=5 catalog + d=6 spot checks are now corollaries.  Proof: iterErase + cupList factorisation, no decide |
+| K_{3,2}^{(c=2)} 8-channel projection | Bridge cup-channels (6 on Δ⁴) ↔ K_{3,2} cohomology (8 channels = gluon DOF) via vertex assignment NS=3, NT=2 |
+| 1/α_em decomposition derivation | `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45` — can cup catalog derive 60, 25/3? |
+| Sub-direction E: cup-atomic subalgebra | Translation-invariant cochains (correction trivial) |
+| Sub-direction F: p-adic cup ring | Needs G122 progress |
 
 ### B. G107 §4 action-items registry — CLOSED (archived 2026-05-22)
 
