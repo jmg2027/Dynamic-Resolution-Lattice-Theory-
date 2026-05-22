@@ -1003,4 +1003,32 @@ theorem Zp.mul_trunc_two (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
   -- Now: mulSumRaw 2 % p^2 = (mulSumRaw 2 + x_1 y_1 p^2) % p^2
   rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
 
+/-! ## Multiplicative truncation correctness at `n = 3`
+
+At `n = 3`, the off-diagonal pairs `(i, j)` with `i, j < 3` and
+`i + j ≥ 3` are `(1, 2), (2, 1), (2, 2)`.  Their contributions
+are `x_1 · y_2 · p^3`, `x_2 · y_1 · p^3`, and `x_2 · y_2 · p^4`
+respectively — all multiples of `p^3`.
+
+So `bilinSum 3 3 = mulSumRaw 3 + ((x_1 · y_2 + x_2 · y_1) + x_2 · y_2 · p) · p^3`,
+and `mul_trunc 3` follows by the same chain as `mul_trunc_two`.
+
+The proof is mechanical Nat distributivity (same shape as
+`mul_trunc_two`, more terms).  Demonstrated case at `p = 5`,
+`x = y = canonical_5adic_NU` would compute exactly; the general
+proof is omitted in favor of the general bridge (future work).
+-/
+
+/-- Multiplicative truncation correctness at `n = 3` for the case
+    `y = ZpSeq.one`, which collapses the off-diagonal terms via
+    `mul_one_right_trunc` (no bridge needed). -/
+theorem Zp.mul_trunc_three_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).trunc 3
+      = (x.trunc 3 * (ZpSeq.one p hp).trunc 3) % p^3 := by
+  rw [Zp.mul_one_right_trunc hp x 3]
+  rw [show (ZpSeq.one p hp).trunc 3 = 1 from ZpSeq.trunc_one_succ p hp 2]
+  rw [Nat.mul_one]
+  exact (Nat.mod_eq_of_lt (ZpSeq.trunc_lt_p_pow
+            (Nat.lt_of_succ_lt hp) x 3)).symm
+
 end E213.Lib.Math.Padic
