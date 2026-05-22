@@ -204,6 +204,43 @@ theorem sym3_c2_iff_K32_or_K23 (n m c : Nat) :
     exact sym3_c2_force_K32 n m c h1 h2
   · rintro (⟨rfl, rfl, rfl⟩ | ⟨rfl, rfl, rfl⟩) <;> exact ⟨by decide, by decide⟩
 
+/-- Propext-free helper: extract both sides of a Boolean conjunction
+    that equals `true`.  PURE via explicit Bool case match. -/
+private theorem and_eq_true_extract :
+    ∀ {a b : Bool}, (a && b) = true → a = true ∧ b = true
+  | true, true, _ => ⟨rfl, rfl⟩
+  | false, _, h => Bool.noConfusion h
+  | true, false, h => Bool.noConfusion h
+
+/-- ★★★★★ **Boolean ↔ universal characterization** — propext-free
+    closure of the FW-3 universal-filter theorem.
+
+  The Prop-level `sym3_c2_iff_K32_or_K23` is extended to the full
+  Boolean `passesCohomologyDepthFilter ↔ ...` form using a
+  hand-rolled propext-free Bool-conjunction extractor.  All
+  arithmetic discharges via `decide`. -/
+theorem passes_filter_universal_bool (n m c : Nat) :
+    passesCohomologyDepthFilter n m c = true ↔
+    ((n = 3 ∧ m = 2 ∧ c = 2) ∨ (n = 2 ∧ m = 3 ∧ c = 2)) := by
+  constructor
+  · intro h
+    unfold passesCohomologyDepthFilter at h
+    obtain ⟨h12, h3⟩ := and_eq_true_extract h
+    obtain ⟨_, h2⟩ := and_eq_true_extract h12
+    exact sym3_c2_force_K32 n m c h2 h3
+  · rintro (⟨rfl, rfl, rfl⟩ | ⟨rfl, rfl, rfl⟩) <;> decide
+
+/-- The filter rejects every deployment outside K_{3,2}^{(c=2)} ± S/T-swap. -/
+theorem filter_rejects_outside_K32 (n m c : Nat)
+    (hne1 : ¬(n = 3 ∧ m = 2 ∧ c = 2))
+    (hne2 : ¬(n = 2 ∧ m = 3 ∧ c = 2)) :
+    passesCohomologyDepthFilter n m c = false := by
+  cases h : passesCohomologyDepthFilter n m c
+  · rfl
+  · rcases (passes_filter_universal_bool n m c).mp h with h1 | h2
+    · exact absurd h1 hne1
+    · exact absurd h2 hne2
+
 /-- ★★★★ **Filter-passers live only at chartBase = 5** (asymptotic
     closure of the chartBase enumeration).
 

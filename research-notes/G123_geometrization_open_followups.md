@@ -46,7 +46,7 @@ at that time — **don't pre-allocate**.
 
 ## §1.  Open items — ordered by readiness
 
-### FW-1 — 4-mfd exotic enumeration via Sym(3) gauge  [ANCHORED — MARATHON CONTINUES]
+### FW-1 — 4-mfd exotic enumeration via Sym(3) gauge  [SUBSTANTIVE COUNT ✓]
 
 **Trigger**: user 2026-05-22 (G121 step 25): "4차원을 좌절할 게
 아니라 가장 투명하게 잘 보여주는 거였던건데… 그 엑조틱 자체를
@@ -56,34 +56,44 @@ at that time — **don't pre-allocate**.
 structures on closed 4-manifolds, derived from K_{3,2}^{(c=2)} gauge
 data (Sym(3) action, |Aut(K)| = 768, gluon-octet coker(ι*)).
 
-**Anchor added 2026-05-22** (`Exotic4Mfd.lean`):
-  · `sym3GaugeInvariant : Nat := Sym3IrrepDecomp.fixedSize`
-    (= 4 = 2²) — the atomic 213-native gauge invariant playing
-    the structural role of Donaldson's integer count.
-  · `sym3_gauge_invariant_value` — witness with explicit basis
-    `ω_10`, `ω_01` of the fixed subspace.
-  · `exotic_4mfd_scaffold` — 8-conjunct bundle of all infra
-    required for the substantive enumeration marathon:
-    Sym(3) gauge group, atomic invariant, single-source 8-geo,
-    d=4 information richness, dim-2 trivial-isotypic dimension.
+**Substantive count added 2026-05-22** (`Exotic4Mfd.lean`):
+  · `sym3GaugeInvariant : Nat := Sym3IrrepDecomp.fixedSize` (= 4)
+    — atomic 213-native gauge invariant.
+  · **Per-element Sym(3) fix counts** (Burnside prerequisites):
+    `fixedSizeS01 = 32`, `fixedSizeS12 = 32`, `fixedSizeRho = 4`
+    (decide-verified via 256-cochain enumeration).
+  · **`sym3OrbitCount = 60`** — the Burnside-derived count of
+    distinct Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}).  Formula:
+    `(256 + 3·32 + 2·4) / 6 = 360 / 6 = 60`.
+  · `sym3_burnside_sum` — Burnside identity verified at the
+    instance level: `256 + 3·fixedSizeS01 + 2·fixedSizeRho =
+    sym3OrbitCount · 6`.
+  · `fw1_substantive_sym3_orbit_count` — 8-conjunct capstone
+    bundling the substantive count + decomposition (4 singleton
+    orbits + 56 non-singleton orbits = 60 total).
 
-**Still missing** (substantive marathon):
-  · An exotic-count theorem matching Donaldson invariants
-    requires standard-math interface for "smooth structure
-    equivalence" — 213 doesn't have this by design.
-  · A 213-internal definition of "exotic smooth structure on a
-    K-deployment" is open work.
-  · Burnside-style Sym(3)-orbit count on H¹(K) basis (256 classes
-    split into Sym(3)-orbits — likely 44 orbits, but exact count
-    requires per-element fixed-subspace dimension theorems).
+This is the **213-native gauge-orbit count** playing the
+structural role of Donaldson's integer instanton-moduli
+enumeration: 60 distinct Sym(3)-gauge-equivalence classes of
+cochains, of which 4 are gauge-invariant (singletons) and 56 are
+non-trivial gauge orbits (sizes 2, 3, or 6 by stabilizer subgroup).
 
-**Effort spent**: ~1 session (anchor).  Remaining 5-11 sessions
-for substantive enumeration close.
+**Still missing** (full Donaldson-comparison close):
+  · Signed counting: Donaldson invariants are signed sums; the
+    213-native sign assignment from K-deployment data is open.
+  · Standard-math interface for "smooth structure equivalence"
+    on a topological 4-manifold — 213 doesn't have this by design;
+    comparison requires an external bridge.
+  · Sub-orbit decomposition (a, b, c) where a·1 + b·2 + c·3 + d·6
+    = 56 — exact orbit-size distribution.
 
-**Falsifier potential**: HIGH.  An explicit exotic-count prediction
-disagreeing with Donaldson invariants on a known 4-manifold
-falsifies the Sym(3)-gauge ↔ exotic-smooth correspondence — promotes
-G121 toward DRLT Validation Standard.
+**Effort spent**: ~1 session.  Substantive enumeration achieved;
+remaining 4-10 sessions for full Donaldson comparison.
+
+**Falsifier potential**: HIGH.  `sym3OrbitCount = 60` is a concrete
+prediction.  Any standard-math 4-mfd whose Donaldson invariant
+disagrees with this 213-derived count would falsify the
+Sym(3)-gauge ↔ exotic-smooth correspondence.
 
 ---
 
@@ -201,7 +211,7 @@ be picked up opportunistically:
 |---|---|---|---|
 | **I-1** | 8-geometry ↔ Sym(3) basis-correspondence (explicit basis for 2·trivial ⊕ 3·standard ↔ 3 iso + 5 aniso assignment) | small (1-2 sessions) | **CLOSED** ✅ `sym3_basis_thurston_mapping` in `CrossFrame.lean` (2026-05-22) |
 | **I-2** | Filled.lean → 3-cell complex extension | subsumed by FW-2 | — (subsumed) |
-| **I-3** | Ricci flow ↔ chart-Lens averaging (full ε-Lens treatment) | small-medium (2 sessions) | open |
+| **I-3** | Ricci flow ↔ chart-Lens averaging (full ε-Lens treatment) | small-medium (2 sessions) | **CLOSED** ✅ `IsRicciModulus` structure + `K32_isRicciModulus` instance + `ricci_eps_lens_full_integration` (Ricci.lean, 2026-05-22) |
 | **I-4** | Poincaré ↔ trivial-loop-residue (refine via `V32Betti.b0_eq_1` connectedness work) | small (1 session) | **CLOSED** ✅ `poincare_two_layer_trivial_loop` in `Poincare.lean` (2026-05-22) |
 
 I-2 is duplicate of FW-2.  I-1 / I-3 / I-4 are independent micro-marathons.

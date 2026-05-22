@@ -227,5 +227,105 @@ theorem ricci_modulus_bracket_cauchy_parallel :
     ∧ selfPointingAxes = 1 := by
   refine ⟨?_, ?_, ?_, ?_, rfl, rfl⟩ <;> decide
 
+/-! ## ε-Lens full integration: monotone-Nat closure + RicciModulus structure -/
+
+/-- Propext-free helper: subtraction is anti-monotone in the
+    subtrahend on a fixed minuend.  Pure induction on `Nat.le`. -/
+private theorem sub_le_sub_left_pure (n : Nat) :
+    ∀ {a b : Nat}, a ≤ b → n - b ≤ n - a := by
+  intro a b hab
+  induction hab with
+  | refl => exact Nat.le_refl _
+  | step _ ih => exact Nat.le_trans (Nat.pred_le _) ih
+
+/-- ★★★★ **K32_ricci_modulus is anti-monotone on all of ℕ**.
+
+  Extends the bounded `K32_ricci_modulus_monotone` (target ∈ [5, 8])
+  to the full `target : ℕ` regime.  Ricci-flow analog: tighter
+  precision target requires (weakly) more averaging steps,
+  universally. -/
+theorem K32_ricci_modulus_anti_monotone :
+    ∀ a b : Nat, a ≤ b → K32_ricci_modulus b ≤ K32_ricci_modulus a := by
+  intro a b hab
+  unfold K32_ricci_modulus
+  exact sub_le_sub_left_pure 8 hab
+
+/-- 213-native Ricci-style modulus structure: the data of a `Nat → Nat`
+    step-count function with the Ricci-flow anti-monotone property.
+
+    Parallels `Topology.Continuity.IsContinuousModulus` in shape
+    (a `Nat → Nat` function with a structural witness), specialized
+    to averaging-step semantics rather than continuity. -/
+structure IsRicciModulus where
+  /-- The step-count modulus: target precision ↦ averaging steps. -/
+  modulus : Nat → Nat
+  /-- Anti-monotone in the precision target: tighter target needs
+      ≥ as many steps. -/
+  anti_monotone : ∀ {a b : Nat}, a ≤ b → modulus b ≤ modulus a
+
+/-- ★★★★★ **K32_ricci_modulus as a canonical `IsRicciModulus`**.
+
+  Constructs the explicit instance witnessing that K_{3,2}^{(c=2)}'s
+  cell-filling step count is a well-formed Ricci-style modulus. -/
+def K32_isRicciModulus : IsRicciModulus where
+  modulus := K32_ricci_modulus
+  anti_monotone := fun {a b} hab => K32_ricci_modulus_anti_monotone a b hab
+
+/-- The structure projection unfolds to the underlying modulus
+    function via `K32_isRicciModulus` unfolding. -/
+theorem K32_isRicciModulus_modulus_eq :
+    K32_isRicciModulus.modulus = K32_ricci_modulus := by
+  unfold K32_isRicciModulus
+  rfl
+
+/-- The instance's modulus values match the explicit reachable
+    targets — bridging the structural definition to concrete
+    Ricci-flow analog data. -/
+theorem K32_isRicciModulus_reachable :
+    K32_isRicciModulus.modulus 8 = 0
+    ∧ K32_isRicciModulus.modulus 7 = 1
+    ∧ K32_isRicciModulus.modulus 6 = 2
+    ∧ K32_isRicciModulus.modulus 5 = 3 := by
+  rw [K32_isRicciModulus_modulus_eq]
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★★★★ **Ricci pillar full ε-Lens integration capstone**
+
+  Bundles the Ricci-flow ↔ chart-Lens averaging full close:
+
+    · `K32_ricci_modulus` is an `IsRicciModulus` instance
+      (`K32_isRicciModulus`).
+    · Anti-monotone on all of ℕ (not just bounded target range).
+    · Reachable target values match cell-filling cardinalities
+      (0..3 filled simple 4-cycles → b₁ ∈ [5, 8]).
+    · Structural parallel to `IsContinuousModulus` from
+      `Topology/Continuity` (both are `Nat → Nat` modulus
+      structures with a positional control property).
+
+  Standard math comparison: Perelman's Ricci flow uses
+  monotone-decreasing functionals (𝓕 / 𝓦 entropies); 213-Lens
+  uses the discrete anti-monotone `K32_ricci_modulus` as the
+  averaging-step-count analog.  The structural shape match
+  permits formal 213-Lens treatment without metric tensors. -/
+theorem ricci_eps_lens_full_integration :
+    -- Instance exists
+    K32_isRicciModulus.modulus 5 = 3
+    -- Anti-monotone fully
+    ∧ (∀ a b : Nat, a ≤ b →
+          K32_isRicciModulus.modulus b ≤ K32_isRicciModulus.modulus a)
+    -- Modulus values at reachable targets match cell-fill counts
+    ∧ K32_isRicciModulus.modulus 8 = 0
+    ∧ K32_isRicciModulus.modulus 7 = 1
+    -- Sym(3)-fixed averaging-invariant subspace (dim 2 → cardinality 4)
+    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    -- Critical dimension d_M = 4 confirmed
+    ∧ chartVisibleAxes 3 2 = 4 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, rfl⟩
+  · rw [K32_isRicciModulus_modulus_eq]; decide
+  · intro a b hab; exact K32_isRicciModulus.anti_monotone hab
+  · rw [K32_isRicciModulus_modulus_eq]; decide
+  · rw [K32_isRicciModulus_modulus_eq]; decide
+  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
+
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

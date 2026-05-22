@@ -33,7 +33,7 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 | `JsjDeep.lean` | G123 FW-2 | ~20 | JSJ 3-cell complex Euler-target scaffold + 3-mfd target catalog (S³/T³/L(p,q)/# sums) + bipartite S/T cut canonical decomposition + `JSJ_deeper_consolidation` |
 | `MetricGeometries.lean` | G123 FW-4 | ~15 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2/F_3/F_5/F_7/F_11/F_13) + ★★★★ `F5_unique_nil_collapse_small_primes` + ★★★★★ `mod_k_lens_family_F5_unique_close` |
 | `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
-| `Exotic4Mfd.lean` | G123 FW-1 anchor | ~3 | `sym3GaugeInvariant` def + ★★★★★★ `exotic_4mfd_scaffold` — Sym(3) gauge invariant as 213-native Donaldson analog; marathon-scale enumeration deferred |
+| `Exotic4Mfd.lean` | G123 FW-1 substantive | ~15 | `sym3GaugeInvariant` def + ★★★★★★ `exotic_4mfd_scaffold` + per-element fix counts (`fixedSizeS01/S12/Rho = 32, 32, 4`) + ★★★★★★ `fw1_substantive_sym3_orbit_count` = **60 Burnside-derived Sym(3)-orbit count** on H¹(K) — 213-native Donaldson-analog gauge-orbit enumeration |
 | `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
 
 ## Pillar status (5-pillar Geometrization)
