@@ -658,4 +658,107 @@ theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
   rw [Zp.mul_trunc, Zp.invFull_trunc_succ, ← Zp.mul_trunc]
   exact Zp.mul_invSeq_correct p hp x h_gcd n
 
+/-! ## Hensel for square root — base data
+
+Square-root extraction in `ZpSeq` follows the same Hensel-lift
+template as inversion, with `f(y) = y² − x` instead of `f(y) = x·y − 1`.
+The derivative `f'(y) = 2y` must be a unit at digit 0, requiring
+`(2 · d_0)` coprime to `p` — automatic for odd `p` when `d_0 ≠ 0`,
+delicate for `p = 2`.
+
+`SqrtBase x` packages the digit-0 data: a candidate square root
+`d_0` with `d_0² ≡ x.digits 0 (mod p)`, plus the modular inverse
+of `2 · d_0` (for the correction formula).
+-/
+
+/-- Base data for square-root Hensel lifting: digit-0 square root
+    `d_0` with `d_0² ≡ x.digits 0 (mod p)`, plus `(2 · d_0)⁻¹ mod p`. -/
+structure Zp.SqrtBase (p : Nat) (x : ZpSeq p) : Type where
+  d_0          : Nat
+  d_0_lt       : d_0 < p
+  sq_eq        : (d_0 * d_0) % p = (x.digits 0).val % p
+  two_d_0_inv  : Nat
+  two_d_0_inv_lt : two_d_0_inv < p
+  two_d_0_inv_eq : (2 * d_0 * two_d_0_inv) % p = 1 % p
+
+/-- Smoke: for p = 5, x = the constant-4 sequence, the digit-0
+    square root is `d_0 = 2` (since 2² = 4 ≡ 4 mod 5).  And
+    `2 · 2 = 4`, with `4 · 4 = 16 ≡ 1 mod 5`, so `(2·2)⁻¹ = 4 mod 5`. -/
+example : Zp.SqrtBase 5 ⟨fun _ => ⟨4, by decide⟩⟩ where
+  d_0 := 2
+  d_0_lt := by decide
+  sq_eq := by decide
+  two_d_0_inv := 4
+  two_d_0_inv_lt := by decide
+  two_d_0_inv_eq := by decide
+
+/-! ## Sqrt iteration
+
+`sqrtSeq n` is the Hensel-lifted square-root approximation, correct
+mod `p^(n+1)`.  At each level, the next digit corrects the residue
+`(prev² - x) / p^(n+1) ∈ [0, p)` via the formula
+`d_{n+1} = negMod p (err · (2·d_0)⁻¹)`, parallel to `invSeq`.
+
+The signed difference is taken modulo `p^(n+2)` via the Nat
+identity `(a + (M - b)) % M = (a - b) mod M` (well-defined since
+`b < M = p^(n+2)`).
+-/
+
+/-- Approximate `√x` at level `n` — digit 0 is `sb.d_0`, higher
+    digits computed by Hensel correction. -/
+def Zp.sqrtSeq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) : Nat → ZpSeq p
+  | 0 => ⟨fun k => if k = 0 then ⟨sb.d_0, sb.d_0_lt⟩ else ⟨0, hp⟩⟩
+  | n + 1 =>
+    let prev := Zp.sqrtSeq p hp x sb n
+    let sq := (Zp.mul p hp prev prev).trunc (n + 2)
+    let xt := x.trunc (n + 2)
+    let diff := (sq + (p^(n + 2) - xt)) % p^(n + 2)
+    let err := diff / p^(n + 1)
+    let new_digit_val := Zp.negMod p (err * sb.two_d_0_inv)
+    ⟨fun j =>
+      if j = n + 1 then (⟨new_digit_val, Zp.negMod_lt hp _⟩ : Fin p)
+      else prev.digits j⟩
+
+/-- Digit-0 of `sqrtSeq 0` is `sb.d_0`. -/
+theorem Zp.sqrtSeq_zero_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ((Zp.sqrtSeq p hp x sb 0).digits 0).val = sb.d_0 := by
+  show (if (0 : Nat) = 0 then (⟨sb.d_0, sb.d_0_lt⟩ : Fin p)
+        else (⟨0, hp⟩ : Fin p)).val = sb.d_0
+  rw [if_pos rfl]
+
+/-- For `k > 0`, digit-k of `sqrtSeq 0` is 0. -/
+theorem Zp.sqrtSeq_zero_digit_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (k : Nat) :
+    ((Zp.sqrtSeq p hp x sb 0).digits (k + 1)).val = 0 := by
+  show (if (k + 1 : Nat) = 0 then (⟨sb.d_0, sb.d_0_lt⟩ : Fin p)
+        else (⟨0, hp⟩ : Fin p)).val = 0
+  rw [if_neg (fun h => Nat.noConfusion h)]
+
+/-- `(sqrtSeq 0).trunc 1 = sb.d_0`. -/
+theorem Zp.sqrtSeq_zero_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    (Zp.sqrtSeq p hp x sb 0).trunc 1 = sb.d_0 := by
+  show (0 : Nat) + ((Zp.sqrtSeq p hp x sb 0).digits 0).val * p^0 = sb.d_0
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  exact Zp.sqrtSeq_zero_digit_zero p hp x sb
+
+/-- **Level-1 sqrt correctness**: `(sqrtSeq 0)² ≡ x (mod p)`.  This is
+    the base case of the Hensel induction — by construction, `sb.d_0`
+    satisfies `d_0² ≡ (x.digits 0) (mod p)`, which we read off as
+    `(sqrtSeq 0 · sqrtSeq 0).trunc 1 = x.trunc 1 mod p`. -/
+theorem Zp.sqr_sqrtSeq_zero_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    (Zp.mul p hp (Zp.sqrtSeq p hp x sb 0) (Zp.sqrtSeq p hp x sb 0)).trunc 1
+      = (x.trunc 1) % p := by
+  rw [Zp.mul_trunc p hp _ _ 1, Zp.sqrtSeq_zero_trunc_one p hp x sb]
+  -- Goal: (sb.d_0 * sb.d_0) % p^1 = x.trunc 1 % p
+  rw [Nat.pow_one]
+  -- Goal: (sb.d_0 * sb.d_0) % p = x.trunc 1 % p
+  show (sb.d_0 * sb.d_0) % p
+      = ((0 : Nat) + (x.digits 0).val * p^0) % p
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  exact sb.sq_eq
+
 end E213.Lib.Math.Padic
