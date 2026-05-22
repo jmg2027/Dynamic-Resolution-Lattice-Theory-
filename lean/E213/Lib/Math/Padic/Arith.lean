@@ -565,6 +565,20 @@ theorem Zp.add_zero_left_trunc {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
         = x.trunc n + (x.digits n).val * p^n
     rw [Zp.add_zero_left_trunc hp x n, Zp.add_zero_left_digit p hp x n]
 
+/-- `(x + y).trunc n = (y + x).trunc n` (commutativity at trunc). -/
+theorem Zp.add_comm_trunc {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :
+    ∀ n, (Zp.add p hp x y).trunc n = (Zp.add p hp y x).trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.add p hp x y).trunc n + ((Zp.add p hp x y).digits n).val * p^n
+        = (Zp.add p hp y x).trunc n + ((Zp.add p hp y x).digits n).val * p^n
+    rw [Zp.add_comm_trunc hp x y n, Zp.add_comm_digit p hp x y n]
+
+/-- `(x + complement x).trunc n` digit-by-digit is `p - 1`. -/
+theorem Zp.add_complement_trunc_digit {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ k, ((Zp.add p hp x (Zp.complement p hp x)).digits k).val = p - 1 :=
+  fun k => Zp.add_complement_digit p hp x k
+
 /-! ## Multiplication by zero on the left (`0 · x = 0`) -/
 
 /-- Partial sum with `zero` on the left vanishes (every term factor
