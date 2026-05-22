@@ -39,7 +39,7 @@ Currently still open:
 | **L4** `addLDD` / `mulLDD` | DONE — `ldd_branch_max_{left,right}` bilateral helpers |
 | **L5** `CDDouble.I_mul_J` / `J_mul_I` | DONE — `by decide` (via derived `DecidableEq Lipschitz`) |
 | **C** — CutSumOne 8-sibling 3-component template | DONE — `cutSum_constCut_at` template + 8 sibling reductions, all 13 PURE |
-| **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
+| **E** — `sqrt{2,3,5}_no_rational_aux` × 3 (SqrtPure) | DONE — `DescentBase N` structure + parametric `sqrtN_no_rational_aux_generic` in `Irrational.SqrtPure`; Sqrt2/3/5Pure each supply a `descentBase` instance + thin corollary.  Sqrt2KernelFree (kernel-free experimental file) intentionally untouched. |
 | **F** — Σ-fold cross-domain | DONE — `sigmaList` in `Meta.Tactic.ListHelper` + 5 callsites unified (Vec.inner / routeSum / observable_sum / phase2 / focc_spectrum) |
 | **G110 FLUX-1** forward/backward parametric | ~30K nodes |
 | **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
