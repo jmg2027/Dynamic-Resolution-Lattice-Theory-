@@ -49,7 +49,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod47 (pellFSMmod47 pellFSMmod47_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod53 (pellFSMmod53 pellFSMmod53_bits_period_54)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod59 (pellFSMmod59 pellFSMmod59_bits_period_29)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod61 (pellFSMmod61 pellFSMmod61_bits_period_30)
-open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
+open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict pisano_period_lift)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor14 (pisano_predict_realises_pell_14)
 
@@ -104,20 +104,19 @@ theorem pisano_predict_realises_pell_17 :
         = pellFSMmod59.bits k)
     ∧ (∀ k, pellFSMmod61.bits (k + pisano_predict 61 (by decide))
         = pellFSMmod61.bits k) := by
-  have h53 : pisano_predict 53 (by decide) = 54 := by decide
-  have h59 : pisano_predict 59 (by decide) = 29 := by decide
-  have h61 : pisano_predict 61 (by decide) = 30 := by decide
   let H := pisano_predict_realises_pell_14
-  refine ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
-          H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.2.2.2.2.2.2,
-          ?_, ?_, ?_⟩
-  · intro k; rw [h53]; exact pellFSMmod53_bits_period_54 k
-  · intro k; rw [h59]; exact pellFSMmod59_bits_period_29 k
-  · intro k; rw [h61]; exact pellFSMmod61_bits_period_30 k
+  exact ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
+         H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.2.2.2.2.2.2,
+         pisano_period_lift (by decide : pisano_predict 53 (by decide) = 54)
+                            pellFSMmod53_bits_period_54,
+         pisano_period_lift (by decide : pisano_predict 59 (by decide) = 29)
+                            pellFSMmod59_bits_period_29,
+         pisano_period_lift (by decide : pisano_predict 61 (by decide) = 30)
+                            pellFSMmod61_bits_period_30⟩
 
 end E213.Lib.Math.DyadicFSM.Pisano.Predictor17

@@ -1,9 +1,14 @@
-# research-notes/hodge/ — Hodge program closure (six notes)
+# research-notes/archive/hodge/ — Hodge program closure (archived)
 
 The Hodge-conjecture-translation arc, formalised in
-`lean/E213/Lib/Math/Cohomology/HodgeConjecture/`.  Six exploratory
-notes that fed into the closed Lean program (138+ strict ∅-axiom
-theorems, per G10).
+`lean/E213/Lib/Math/HodgeConjecture/`.  Six (now seven, incl. G12)
+exploratory notes that fed into the closed Lean program (31 master
+capstones, per G10).
+
+**Archived 2026-05-21**: this cluster has been promoted to a
+`theory/` chapter at `theory/math/cohomology/hodge_conjecture.md`.
+The notes here are kept as **record of the path** — read the
+theory chapter for current narrative.
 
 ## Reading order
 
@@ -25,10 +30,12 @@ theorems summarised in G10.
 
 ## Cross-references
 
-  - `lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md` — formal
-    side navigation.
-  - `lean/E213/Lib/Math/Cohomology/HodgeConjecture/Foundation/` — Lens
-    initiality + cup-chain core.
+  - **`theory/math/cohomology/hodge_conjecture.md`** — promoted
+    narrative (read this for current state).
+  - `lean/E213/Lib/Math/HodgeConjecture/INDEX.md` — formal-side
+    navigation (67 .lean files, 31 master capstones).
+  - `lean/E213/Lib/Math/HodgeConjecture/Foundation/Complete.lean` —
+    master theorem `hodge_conjecture_213_complete`.
   - `research-notes/INDEX.md` — top-level note registry.
 
 ## Note on framing (2026-05-05 audit)

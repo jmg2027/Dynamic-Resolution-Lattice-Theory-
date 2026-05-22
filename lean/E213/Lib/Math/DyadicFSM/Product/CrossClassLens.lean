@@ -40,10 +40,9 @@ theorem tribMod2_BitFSM_bits_period_4 :
     ∀ k, (E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
             (by decide : (0:Nat) < 2) tribFSMmod2).bits (k + 4)
         = (E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
-            (by decide : (0:Nat) < 2) tribFSMmod2).bits k := by
-  intro k
-  rw [toBitFSM3_bits_eq, toBitFSM3_bits_eq]
-  exact tribFSMmod2_bits_period_4 k
+            (by decide : (0:Nat) < 2) tribFSMmod2).bits k :=
+  E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound.toBitFSM3_bits_period_lift
+    _ tribFSMmod2 tribFSMmod2_bits_period_4
 
 /-- ★★★★★★ Cross-class: Pell mod 3 × Tribonacci mod 2: period | 4.
     ∅-axiom via `lens_composition_period_dvd` (explicit `L = 4` with

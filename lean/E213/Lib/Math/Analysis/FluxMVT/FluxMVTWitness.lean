@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Mul.CutMul
@@ -60,11 +61,14 @@ open E213.Lib.Math.Real213.Mul.CutMulOne
   (cutMul_one_const_at cutMul_const_one_at)
 open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_half_half_at)
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
+  (cutSumAux_unitBracket_reduce_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial.FluxCut
   (mvt_square_unitBracket_pure)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
 
-/-- d/dx [x²] at x = 1/2 = 1 (pointwise, ∅-axiom). -/
+/-- d/dx [x²] at x = 1/2 = 1 (pointwise, ∅-axiom).
+    G110 FLUX-1 sum template. -/
 theorem squareDerivative_at_half_at (m k : Nat) :
     squareIsDifferentiable.derivative (constCut 1 2) m k = constCut 1 1 m k := by
   show cutSum (cutMul (constCut 1 1) (constCut 1 2))
@@ -73,17 +77,12 @@ theorem squareDerivative_at_half_at (m k : Nat) :
   show cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
                  (cutMul (constCut 1 2) (constCut 1 1)) k (2*m) (2*m)
        = constCut 1 1 m k
-  have step :
-      cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
-                (cutMul (constCut 1 2) (constCut 1 1)) k (2*m) (2*m)
-      = cutSumAux (constCut 1 2) (constCut 1 2) k (2*m) (2*m) :=
-    cutSumAux_congr k (2*m)
-      (cutMul (constCut 1 1) (constCut 1 2)) (constCut 1 2)
-      (cutMul (constCut 1 2) (constCut 1 1)) (constCut 1 2)
-      (fun m' _ => cutMul_one_const_at 1 2 m' (2*k))
-      (fun m' _ => cutMul_const_one_at 1 2 m' (2*k))
-      (2*m) (Nat.le_refl _)
-  rw [step]
+  rw [cutSumAux_unitBracket_reduce_at
+        (cutMul (constCut 1 1) (constCut 1 2))
+        (cutMul (constCut 1 2) (constCut 1 1))
+        (constCut 1 2) (constCut 1 2) k (2*m)
+        (fun m' _ => cutMul_one_const_at 1 2 m' (2*k))
+        (fun m' _ => cutMul_const_one_at 1 2 m' (2*k))]
   exact cutSum_half_half_at m k
 
 /-- The witness c = 1/2 is interior to [0, 1]. -/

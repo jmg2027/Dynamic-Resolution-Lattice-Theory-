@@ -103,7 +103,6 @@ def derivative {f} (cc : ClassicCalc_at f) :
   cc.diff.derivative
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
-  (mvt_pure ftc_pure)
 
 /-- MVT one-liner (fluxCutEq, PURE). -/
 theorem mvt_pure {f} (cc : ClassicCalc_at f) :

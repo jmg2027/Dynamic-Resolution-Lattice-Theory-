@@ -197,8 +197,44 @@ If a seed/ doc claims something is "deleted" or "moved", verify with
   - `guide/*.md` — Lean theorem refs use current paths
   - `CAPSTONE_INDEX.md` (root) — every theorem path resolvable
   - `STRICT_ZERO_AXIOM.md` (root) — every theorem path resolvable
+  - `theory/**/*.md` — every Lean module / theorem citation resolves;
+    every `research-notes/G##` provenance pointer hits an existing
+    file (now in `research-notes/archive/` for promoted topics)
 
 For each broken ref: fix the path or remove the line.
+
+### Phase 5.5: Three-tier alignment (per `CLAUDE.md` "Three-tier
+discipline" + `theory/PROMOTION_CRITERIA.md`)
+
+For each closed Lean sub-tree (PURE + categorically closed):
+
+  - Does a `theory/<mirror-path>/<chapter>.md` exist?
+  - If NO + sub-tree satisfies H1-H4 + S1-S3 → flag as a promotion
+    candidate (do NOT block merge; record in verdict's "Outstanding"
+    section).  Promotion is best done in a dedicated commit, not
+    folded into a merge audit.
+  - If YES → verify the chapter's "Lean source" section file paths
+    + theorem names still resolve.
+
+For each `research-notes/G##` cited from Lean docstrings:
+
+  - Is the note still at `research-notes/G##_*.md` (active scratch)
+    or moved to `research-notes/archive/`?
+  - If archived → Lean citation must use the `archive/` path.  If
+    a `theory/<mirror>` chapter exists for the same topic → update
+    the Lean citation to point at the chapter (primary) with optional
+    parenthetical archive reference (deep-dive).
+
+  ```bash
+  # Find Lean citations to research-notes that no longer exist at top level:
+  for ref in $(grep -rhoE "research-notes/G[0-9]+_[A-Za-z0-9_]+\.md" lean/ | sort -u); do
+    [ ! -f "$ref" ] && echo "STALE: $ref"
+  done
+  ```
+
+Action: bulk sed for each stale path (`research-notes/G##_*.md` →
+`research-notes/archive/<subdir>/G##_*.md` OR
+`theory/<mirror>/<chapter>.md`).
 
 ---
 
@@ -268,7 +304,9 @@ Checks passed:
   ✓ Stale-path sweep: 0 hits
   ✓ ARCHITECTURE / CLAUDE / HANDOFF cross-check: aligned
   ✓ seed/ ↔ Lean: consistent
-  ✓ Catalogs / books / blueprints: 0 broken refs
+  ✓ Catalogs / books / blueprints / theory/: 0 broken refs
+  ✓ Three-tier alignment: 0 stale research-notes/ citations,
+                          0 broken theory/ → Lean refs
   ✓ Working tree clean, branch ahead-only
 
 Fixes applied this pass:
@@ -276,6 +314,8 @@ Fixes applied this pass:
 
 Outstanding (informational, NOT blockers):
   - <e.g. 19 downgrade hints, 1 WIDE sub-cluster Cohomology>
+  - <e.g. 3 promotion candidates: X/Y/Z PURE-closed sub-trees
+    awaiting theory/ chapter>
 
 Verdict: READY TO MERGE
 ```

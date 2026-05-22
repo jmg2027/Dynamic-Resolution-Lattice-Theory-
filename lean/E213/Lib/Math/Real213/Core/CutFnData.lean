@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.Bisection.CutContinuity
 import E213.Lib.Math.Real213.Bisection.CutBisection
 import E213.Lib.Math.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.Real213.Mul.CutMulOuterReduce
 import E213.Lib.Math.Real213.Mul.CutPow
 import E213.Meta.Nat.Max213
 
@@ -129,22 +130,47 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
-/-- LocallyDeterminedData for cutScale a b (via cutMul_locallyDetermined). -/
+/-- LocallyDeterminedData for cutScale a b (via cutMul_locallyDetermined).
+    G110 FLUX-1 template (upstream variant). -/
 def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
   N := fun m k => (m + 1) * (k + 1)
   prop := by
     intro m k cx cy h
     show cutMul (constCut a b) cx m k = cutMul (constCut a b) cy m k
+    show cutMulOuter (constCut a b) cx k m ((m+1)*(k+1)) ((m+1)*(k+1))
+        = cutMulOuter (constCut a b) cy k m ((m+1)*(k+1)) ((m+1)*(k+1))
     have hk_le : k ≤ (m + 1) * (k + 1) :=
       Nat.le_trans (Nat.le_succ k)
         (Nat.le_mul_of_pos_left _ (Nat.succ_pos _))
-    apply cutMulOuter_congr
-    · intro _ _; rfl
-    · intro m' hm'; exact h m' k hm' hk_le
-    · exact Nat.le_refl _
+    exact E213.Lib.Math.Real213.Mul.CutMulOuterReduce.cutMulOuter_reduce_at
+      (constCut a b) cx (constCut a b) cy m k ((m+1)*(k+1))
+      (fun _ _ => rfl) (fun m' hm' => h m' k hm' hk_le)
+
+/-- ★ Generic LDD branch helper (G107 §4 L4).  Extracts the recurring
+    `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block
+    from binary LDD proofs (addLDD, mulLDD).  PURE.
+
+    Given: agreement `hagree` of `cx` and `cy` up to bound `M`,
+    a `LocallyDeterminedData` `sf`, search bounds `S R`, and a
+    `side_chain` proof that `maxRange sf.N S R ≤ M`.  Concludes
+    `f cx m' R = f cy m' R` for any `m' ≤ maxRange sf.N S R`. -/
+theorem ldd_branch_via_maxRange
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f) (cx cy : Nat → Nat → Bool) (M : Nat)
+    (hagree : ∀ m' k', m' ≤ M → k' ≤ M → cx m' k' = cy m' k')
+    (S R : Nat) (side_chain : maxRange sf.N S R ≤ M)
+    (m' : Nat) (hm' : m' ≤ S) :
+    f cx m' R = f cy m' R := by
+  apply sf.prop
+  intro m'' k'' hm'' hk''
+  apply hagree
+  · exact Nat.le_trans hm''
+      (Nat.le_trans (maxRange_ge sf.N S R m' R hm' (Nat.le_refl _)) side_chain)
+  · exact Nat.le_trans hk''
+      (Nat.le_trans (maxRange_ge sf.N S R m' R hm' (Nat.le_refl _)) side_chain)
 
 end E213.Lib.Math.Real213.Core.CutFnData

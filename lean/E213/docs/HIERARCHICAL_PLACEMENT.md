@@ -1,7 +1,7 @@
 # Hierarchical Placement — post-M11 final state (+ 2026-05-18 audit)
 
 **Companion document to** `lean/E213/ARCHITECTURE.md` and
-`research-notes/CONSOLIDATION_PROTOCOL.md` (R1–R11 rules).
+`lean/E213/docs/CONSOLIDATION_PROTOCOL.md` (R1–R11 rules).
 
 This document captures the post-Stage-M11 state of the E213 tree:
 **every directory has an umbrella file**, and **every umbrella links

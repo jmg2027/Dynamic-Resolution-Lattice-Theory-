@@ -32,6 +32,30 @@ rather than re-treading the components.
 
 ---
 
+## §0.5  Promotion status (2026-05-22)
+
+G35 itself **remains active scratch** — it is the 17-domain
+field-level catalog spanning multiple sub-trees and is broader than
+any single `theory/` chapter.
+
+Per-conjecture promotion state:
+
+| Conjecture | Status | Promoted chapter |
+|---|---|---|
+| C1 (pure cup-ring α_em) | Closed through Step 4 (0.09 ppb); Step 5+ open | `theory/physics/alpha_em/precision_derivation.md` |
+| C2 (atomic constants uniqueness) | Closed Steps 1-7 (full ∀(m,n) iff) | `theory/physics/foundations/atomic_constants.md` |
+| C3 (Aut(K) gauge group emergence) | **Closed** via 18-phase C3 chain | `theory/physics/symmetry/c3_chain.md` |
+| C4 (Σ-spectral signature theorem) | Closed Steps 1-4 (parametric Σ_g × Σ_h × Σ_k) | Absorbed in `theory/math/cohomology/hodge_conjecture.md` §Pairing |
+| C5 (fractal ζ_K^{(L)} → ζ(2)) | Closed through Step 6 (`zeta_modulus`); Step 7+ open | `theory/physics/alpha_em/precision_derivation.md` |
+| C6 (cross-domain unification) | Closed Steps 1-5 (graded ring); per-domain Step 6+ open | `theory/math/cross_domain_unification.md` |
+
+Citations to `G35` from Lean docstrings (specifically `§C##` for
+conjecture statements + step logs) **remain valid** — G35 is the
+catalog these conjectures live in, irrespective of where their
+closed derivations are written.
+
+---
+
 ## §0  How to read this document
 
   · **§1** — naming, scope, what 213-Algebra is and is not.

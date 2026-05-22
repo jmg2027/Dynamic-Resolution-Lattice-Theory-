@@ -47,6 +47,17 @@ theorem pisano_predict_correct :
     ∧ pisano_predict 11 (by decide) = 5 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
+/-- ★ Generic Pisano period lift: if `pisano_predict p pf = N` and
+    `f` has period `N`, then `f` has period `pisano_predict p pf`.
+    G107 §4 L3 template — used to compose `pisano_predict_realises_pell_K`
+    chains as `K → K+ΔK` extensions. -/
+theorem pisano_period_lift
+    {p : Nat} {pf : 1 < p} {N : Nat} {f : Nat → Bool}
+    (h_pred : pisano_predict p pf = N)
+    (h_per : ∀ k, f (k + N) = f k) :
+    ∀ k, f (k + pisano_predict p pf) = f k :=
+  fun k => h_pred ▸ h_per k
+
 /-- ★★★★★★★ The Legendre lens-driven predictor PREDICTS the
     actual Pell bit periods at all four primes — a single
     formula that reads the trajectory and yields the period. -/

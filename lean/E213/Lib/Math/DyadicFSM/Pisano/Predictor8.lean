@@ -32,7 +32,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9 pellFSMmod19_bits_period_18)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod23 (pellFSMmod23 pellFSMmod23_bits_period_24)
-open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
+open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict pisano_period_lift)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
 
 
@@ -58,15 +58,14 @@ theorem pisano_predict_realises_pell_8 :
         = pellFSMmod19.bits k)
     ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by decide))
         = pellFSMmod23.bits k) := by
-  have h23 : pisano_predict 23 (by decide) = 24 := by decide
-  refine ⟨pisano_predict_realises_pell_7.1,
-          pisano_predict_realises_pell_7.2.1,
-          pisano_predict_realises_pell_7.2.2.1,
-          pisano_predict_realises_pell_7.2.2.2.1,
-          pisano_predict_realises_pell_7.2.2.2.2.1,
-          pisano_predict_realises_pell_7.2.2.2.2.2.1,
-          pisano_predict_realises_pell_7.2.2.2.2.2.2,
-          ?_⟩
-  intro k; rw [h23]; exact pellFSMmod23_bits_period_24 k
+  exact ⟨pisano_predict_realises_pell_7.1,
+         pisano_predict_realises_pell_7.2.1,
+         pisano_predict_realises_pell_7.2.2.1,
+         pisano_predict_realises_pell_7.2.2.2.1,
+         pisano_predict_realises_pell_7.2.2.2.2.1,
+         pisano_predict_realises_pell_7.2.2.2.2.2.1,
+         pisano_predict_realises_pell_7.2.2.2.2.2.2,
+         pisano_period_lift (by decide : pisano_predict 23 (by decide) = 24)
+                            pellFSMmod23_bits_period_24⟩
 
 end E213.Lib.Math.DyadicFSM.Pisano.Predictor8

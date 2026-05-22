@@ -1,4 +1,5 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 import E213.Lib.Math.Real213.Mul.CutMulDetermined
 
 import E213.Lib.Math.Real213.Core.Core
@@ -45,7 +46,8 @@ def localDivergence (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (db : DyadicBracket) : FluxCut :=
   fluxScale (2^db.expE) 1 (fluxAlong f db)
 
-/-- Scaling preserves balance (cohomological vanishing carries through, PURE). -/
+/-- Scaling preserves balance (cohomological vanishing carries through, PURE).
+    G110 FLUX-1 template (generic variant). -/
 theorem fluxScale_balanced (a b : Nat) (fc : FluxCut) (h : isBalanced fc) :
     isBalanced (fluxScale a b fc) := by
   intro m k
@@ -55,11 +57,9 @@ theorem fluxScale_balanced (a b : Nat) (fc : FluxCut) (h : isBalanced fc) :
          ((m+1)*(k+1)) ((m+1)*(k+1))
      = E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut a b) fc.backward k m
          ((m+1)*(k+1)) ((m+1)*(k+1))
-  exact E213.Lib.Math.Real213.Mul.CutMulDetermined.cutMulOuter_congr
-    k m ((m+1)*(k+1)) ((m+1)*(k+1))
-    (constCut a b) (constCut a b) fc.forward fc.backward
+  exact E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_reduce_at
+    (constCut a b) fc.forward (constCut a b) fc.backward m k ((m+1)*(k+1))
     (fun _ _ => rfl) (fun m' _ => h m' k)
-    ((m+1)*(k+1)) (Nat.le_refl _)
 
 /-- Constant function divergence is balanced (∂c = 0). -/
 theorem localDivergence_const_balanced (c : Nat → Nat → Bool)

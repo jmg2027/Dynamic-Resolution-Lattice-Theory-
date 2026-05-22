@@ -25,29 +25,26 @@ open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
 open E213.Lib.Math.DyadicFSM.Product.ProductFSM
 open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod (lens_composition_period)
 open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd (lens_composition_period_dvd)
-open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq toBitFSM_bits_period_lift)
 
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 3 (BitFSM form). -/
 theorem pellMod3_BitFSM_bits_period_4 :
     ∀ k, (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits (k + 4)
         = (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits k :=
-  fun k => (toBitFSM_bits_eq _ _ (k + 4)).trans
-    ((pellFSMmod3_bits_period_4 k).trans (toBitFSM_bits_eq _ _ k).symm)
+  toBitFSM_bits_period_lift _ _ pellFSMmod3_bits_period_4
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 5. -/
 theorem pellMod5_BitFSM_bits_period_10 :
     ∀ k, (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits (k + 10)
         = (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits k :=
-  fun k => (toBitFSM_bits_eq _ _ (k + 10)).trans
-    ((pellFSMmod5_bits_period_10 k).trans (toBitFSM_bits_eq _ _ k).symm)
+  toBitFSM_bits_period_lift _ _ pellFSMmod5_bits_period_10
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 7. -/
 theorem pellMod7_BitFSM_bits_period_8 :
     ∀ k, (pellFSMmod7.toBitFSM (by decide : (0:Nat) < 7)).bits (k + 8)
         = (pellFSMmod7.toBitFSM (by decide : (0:Nat) < 7)).bits k :=
-  fun k => (toBitFSM_bits_eq _ _ (k + 8)).trans
-    ((pellFSMmod7_bits_period_8 k).trans (toBitFSM_bits_eq _ _ k).symm)
+  toBitFSM_bits_period_lift _ _ pellFSMmod7_bits_period_8
 
 /-- ★★★★★★ Pell mod 3 × mod 7 (XOR): period | 8.  Tactic-free ∅-axiom. -/
 theorem pellLens_3x7_period_8 :

@@ -29,7 +29,7 @@ matching `ABLens.view`.  Comparison via cross-multiplication.
 Consolidation note (2026-05-05): formerly split into `Bound.lean`
 (loose endpoints + concrete N=2,3) and `BoundTight.lean` (tight
 two-sided + N=10,20,30,50).  Merged here per
-`research-notes/CONSOLIDATION_PROTOCOL.md`.
+`lean/E213/docs/CONSOLIDATION_PROTOCOL.md`.
 -/
 
 namespace E213.Lib.Physics.Basel.Bound

@@ -213,7 +213,7 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
           have ha' : 1 ≤ a - 1 := E213.Tactic.NatHelper.le_pred_of_succ_le h_a2
           have hsum' : (a - 1) + b = n := by
             have h1 : a - 1 + b + 1 = a + b := by
-              rw [Nat.add_assoc, Nat.add_comm b 1, ← Nat.add_assoc,
+              rw [Nat.add_right_comm,
                   E213.Tactic.NatHelper.sub_one_add_one ha_ne]
             exact Nat.succ.inj (h1.trans hsum)
           let ⟨r, hr⟩ := ih (a - 1) b hsum' ha' hb
