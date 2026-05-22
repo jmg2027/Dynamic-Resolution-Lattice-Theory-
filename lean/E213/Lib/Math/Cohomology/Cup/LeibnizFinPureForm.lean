@@ -181,4 +181,83 @@ def lp1Fin (n k l : Nat) (τ : Fin (binom n (k + l + 1))) :
     rw [add_succ_sub_self k l] at h
     exact h⟩
 
+/-! ## §6.  Side-term bridges: cupList → Fin form -/
+
+/-- ★★★ **(k+1, l) side in pure Fin form.**  PURE.  -/
+theorem cupList_kp1_l_eq_fin
+    (n k l : Nat) (α : Cochain n k) (β : Cochain n l)
+    (τ : Fin (binom n (k + l + 1))) :
+    cupList (k+1) l
+      (deltaListR k (asListCochain n k α))
+      (asListCochain n l β)
+      (kSubset n (k + l + 1) τ.val)
+    = (delta α (kp1Fin n k l τ) && β (lFin n k l τ)) := by
+  have h_le : k + 1 ≤ k + l + 1 := Nat.succ_le_succ (Nat.le_add_right k l)
+  unfold cupList
+  rw [kSubset_take_via_takeIdxNat n k l (k+1) h_le τ.val τ.isLt]
+  rw [kSubset_drop_via_dropIdxNat n k l (k+1) h_le τ.val τ.isLt]
+  rw [deltaListR_kSubset_eq_delta n k (takeIdxNat n k l (k+1) τ.val)
+      (kp1Fin n k l τ).isLt α]
+  -- LHS now: delta α ⟨takeIdxNat ..., (kp1Fin ...).isLt⟩
+  --          && asListCochain n l β (kSubset n (k+l+1-(k+1)) (dropIdxNat ...))
+  have h_kSub_eq :
+      kSubset n (k + l + 1 - (k + 1)) (dropIdxNat n k l (k+1) τ.val)
+    = kSubset n l (dropIdxNat n k l (k+1) τ.val) :=
+    congrArg (fun m => kSubset n m (dropIdxNat n k l (k+1) τ.val))
+      (succ_add_sub_succ k l)
+  rw [h_kSub_eq]
+  rw [asListCochain_kSubset n l (dropIdxNat n k l (k+1) τ.val)
+      (lFin n k l τ).isLt β]
+  rfl
+
+/-- ★★★ **(k, l+1) side in pure Fin form.**  PURE.  -/
+theorem cupList_k_lp1_eq_fin
+    (n k l : Nat) (α : Cochain n k) (β : Cochain n l)
+    (τ : Fin (binom n (k + l + 1))) :
+    cupList k (l+1)
+      (asListCochain n k α)
+      (deltaListR l (asListCochain n l β))
+      (kSubset n (k + l + 1) τ.val)
+    = (α (kFin n k l τ) && delta β (lp1Fin n k l τ)) := by
+  have h_le : k ≤ k + l + 1 := Nat.le_succ_of_le (Nat.le_add_right k l)
+  unfold cupList
+  rw [kSubset_take_via_takeIdxNat n k l k h_le τ.val τ.isLt]
+  rw [kSubset_drop_via_dropIdxNat n k l k h_le τ.val τ.isLt]
+  rw [asListCochain_kSubset n k (takeIdxNat n k l k τ.val)
+      (kFin n k l τ).isLt α]
+  have h_kSub_eq :
+      kSubset n (k + l + 1 - k) (dropIdxNat n k l k τ.val)
+    = kSubset n (l + 1) (dropIdxNat n k l k τ.val) :=
+    congrArg (fun m => kSubset n m (dropIdxNat n k l k τ.val))
+      (add_succ_sub_self k l)
+  rw [h_kSub_eq]
+  rw [deltaListR_kSubset_eq_delta n l (dropIdxNat n k l k τ.val)
+      (lp1Fin n k l τ).isLt β]
+  rfl
+
+/-! ## §7.  Capstone — pure Fin-index form -/
+
+/-- ★★★★★★ **Pure Fin-index form of the ∀(n, k, l) twisted Leibniz.**
+
+    The two side terms appear in fully Fin-typed form:
+    `(delta α) (Fin idx) && β (Fin idx)` for the (k+1, l)-side and
+    `α (Fin idx) && (delta β) (Fin idx)` for the (k, l+1)-side.
+    No list-level wrappers in the conclusion.
+
+    Composes `fin_level_leibniz_general` with the two side-term
+    bridges `cupList_kp1_l_eq_fin` / `cupList_k_lp1_eq_fin`.  PURE. -/
+theorem fin_level_leibniz_pure_form
+    (n k l : Nat) (α : Cochain n k) (β : Cochain n l)
+    (τ : Fin (binom n (k + l + 1))) :
+    delta (cup n k l α β) τ
+    = xor (xor (delta α (kp1Fin n k l τ) && β (lFin n k l τ))
+               (α (kFin n k l τ) && delta β (lp1Fin n k l τ)))
+          (cup n k l α β
+            (faceIdx n (k+l+1) k
+              (Nat.lt_succ_of_le (Nat.le_add_right k l)) τ)) := by
+  rw [E213.Lib.Math.Cohomology.Cup.LeibnizFinGeneral.fin_level_leibniz_general
+        n k l α β τ]
+  rw [cupList_kp1_l_eq_fin n k l α β τ]
+  rw [cupList_k_lp1_eq_fin n k l α β τ]
+
 end E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
