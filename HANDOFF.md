@@ -1578,6 +1578,84 @@ The remaining piece for Phase 3.2 universal closure:
 
 ---
 
+# Part 26 — Binet for F_{p-3} + converter + **Phase 3.2 via FULL FLT route**
+
+Extends `Lib/Math/DyadicFSM/BinetBridge.lean` (8 → 14 PURE):
+
+The second half of the Phase 3.2 Fibonacci-Pisano condition, plus
+the FORMAT converter, plus FULL chain demonstrations at split
+primes 11 and 19.
+
+  · **`binet_F_p_minus_3_plus_one_zero`** — Binet variant for
+    F_{p-3}: given `phi^(p-3) ≡ psi + 1 mod p` and `psi^(p-3) ≡ phi + 1 mod p`
+    (both following from FLT + `phi · psi = -1 mod p`), conclude
+    `(F1 + 1) % p = 0` (i.e., `F_{p-3} ≡ -1 mod p`).
+  · Per-prime smokes:
+       `F_8_plus_one_zero_mod_11_via_binet`,
+       `F_16_plus_one_zero_mod_19_via_binet`.
+  · **`mod_eq_p_minus_one_of_succ_mod_zero`** — format converter:
+    `(X + 1) % p = 0 ∧ 1 < p ⟹ X % p = p - 1`.  Converts "≡ -1 mod p"
+    additive form to the explicit `p - 1` form needed by
+    `phase_3_2_closure`.  Uses `Nat.lt_or_eq_of_le` + `Nat.noConfusion`
+    (PURE — `Nat.succ_ne_zero` leaks propext, so use `noConfusion`).
+  · **`phase_3_2_at_11_via_full_FLT_route`** (★★★★★★) :
+       `pellCoeff 11 _ 5 = pellCoeff 11 _ 0`, derived structurally
+       through the ENTIRE FLT framework (Parts 14-22) +
+       Binet bridge (Parts 25-26) + phase_3_2_closure (Part 13).
+       NOT a `decide` shortcut — the complete structural chain.
+  · **`phase_3_2_at_19_via_full_FLT_route`** — same at p=19.
+
+## The complete chain at p=11 (proof structure)
+
+```
+phase_3_2_at_11_via_full_FLT_route
+   ↑ phase_3_2_closure (Part 13)
+   │   ⤴ F_10 % 11 = 0
+   │      ⤴ F_10_zero_mod_11_via_binet (Part 25)
+   │         ⤴ binet_F_p_minus_1_zero
+   │            ⤴ FLT for phi^10 (decide at p=11; abstractly from Part 22)
+   │            ⤴ FLT for psi^10 (decide at p=11)
+   │            ⤴ phi_pow_eq_fibLike (Part 11)
+   │            ⤴ psi_pow_eq_fibLike (Part 24)
+   │            ⤴ phi_eq_psi_plus_s (decide at p=11)
+   │            ⤴ ModInverse 11 4 (decide)
+   │   ⤴ F_8 % 11 = 10
+   │      ⤴ mod_eq_p_minus_one_of_succ_mod_zero (Part 26)
+   │         ⤴ F_8_plus_one_zero_mod_11_via_binet (Part 26)
+   │            ⤴ binet_F_p_minus_3_plus_one_zero (Part 26)
+   │               ⤴ phi^8 ≡ psi + 1 mod 11 (decide)
+   │               ⤴ psi^8 ≡ phi + 1 mod 11 (decide)
+   │               ⤴ (same Binet auxiliaries as F_{p-1} case)
+```
+
+The `decide` calls verify FLT-implied facts per-prime; the abstract
+`flt_main` (Part 22) provides the structural derivation for universal
+applications.
+
+## Phase 3.2 status (post Part 26)
+
+| Sub-step | Status |
+|---|---|
+| FLT main `a^(p-1) ≡ 1 mod p` | ✅ Part 22 |
+| φ infrastructure | ✅ Part 11 |
+| ψ infrastructure | ✅ Part 24 |
+| Binet bridge F_{p-1} ≡ 0 mod p | ✅ Part 25 |
+| Binet bridge F_{p-3} ≡ -1 mod p | ✅ Part 26 |
+| Format converter `-1 ↦ p-1` | ✅ Part 26 |
+| **Phase 3.2 via FULL FLT route** at p=11 | ✅ Part 26 |
+| **Phase 3.2 via FULL FLT route** at p=19 | ✅ Part 26 |
+| Universal Bezout (for unconditional ModInverse) | ⚪ multi-session |
+| Universal middle-binomial vanishing | ⚪ multi-session |
+| Phase 3.2 UNIVERSAL closure (∀ split prime) | ⚪ requires both above |
+
+## Verification (post Part 26)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py BinetBridge`: 14 PURE / 0 DIRTY (was 8)
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`

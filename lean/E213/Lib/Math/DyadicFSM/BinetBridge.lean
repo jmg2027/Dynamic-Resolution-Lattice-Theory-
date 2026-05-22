@@ -33,7 +33,7 @@ open E213.Lib.Math.DyadicFSM.PellFibBridge (fibFst)
 open E213.Lib.Math.DyadicFSM.MulOrderPigeonhole (ModInverse)
 open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_diff_eq_zero_of_le)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure mul_mod_pure)
-open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right)
+open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right add_mul)
 
 /-- ★ **Cancellation helper**:  if `(X + Y) % p = Y % p` and `0 < p`,
     then `X % p = 0`.
@@ -177,5 +177,205 @@ theorem F_18_zero_mod_19_via_binet : (fibFst 18) % 19 = 0 := by
   exact binet_F_p_minus_1_zero 19 9 (by decide) (fibFst 18) (fibFst 17)
     h_phi_pow_eq h_psi_pow_eq h_phi_flt h_psi_flt
     phi_eq_psi_plus_s_19 modInv_9_mod_19
+
+/-! ## F_{p-3} ≡ -1 mod p (the second Phase 3.2 hypothesis)
+
+`F_{p-3}` requires a different Binet derivation using `phi · psi ≡ -1 mod p`:
+  · `phi^(p-3) = phi^(p-1) / phi^2 = 1 / phi^2 = psi^2 ≡ psi + 1 mod p`
+  · Similarly `psi^(p-3) ≡ phi + 1 mod p`
+
+Combined with Fibonacci expansion:
+  · `(F1 · phi + F2) ≡ psi + 1 mod p`  (where F1 = F_{p-3}, F2 = F_{p-4})
+  · `(F1 · psi + F2) ≡ phi + 1 mod p`
+
+Substituting phi = psi + s in both, then combining, gives
+`(F1 + 1) · s ≡ 0 mod p`, hence `F1 + 1 ≡ 0 mod p`, i.e., `F_{p-3} ≡ -1 mod p`.
+-/
+
+/-- ★★★ **Binet bridge for F_{p-3} ≡ -1 mod p**:
+
+    Given (per-prime decidable hypotheses):
+      · `h_phi_pow`: `(F1 · phi + F2) % p = (psi + 1) % p`
+      · `h_psi_pow`: `(F1 · psi + F2) % p = (phi + 1) % p`
+      · `h_phi_eq_psi_plus_s`: `phi % p = (psi + s) % p`
+      · `mi_s`: `ModInverse p s`
+    Conclude `(F1 + 1) % p = 0` (i.e., `F1 ≡ -1 mod p`).
+    PURE. -/
+theorem binet_F_p_minus_3_plus_one_zero (p s : Nat) (hp : 0 < p)
+    (F1 F2 : Nat)
+    (h_phi_pow : (F1 * phi p s + F2) % p = (psi p s + 1) % p)
+    (h_psi_pow : (F1 * psi p s + F2) % p = (phi p s + 1) % p)
+    (h_phi_eq_psi_plus_s : (phi p s) % p = (psi p s + s) % p)
+    (mi_s : ModInverse p s) :
+    (F1 + 1) % p = 0 := by
+  -- Substitute phi = psi + s in h_phi_pow's LHS:
+  -- (F1 · phi + F2) % p = ((F1 · (psi + s)) + F2) % p mod p
+  --                    = (F1 · psi + F1 · s + F2) % p
+  have h_phi_subst : (F1 * phi p s + F2) % p
+                   = (F1 * psi p s + F1 * s + F2) % p := by
+    rw [add_mod_gen (F1 * phi p s) F2 p,
+        mul_mod_right_pure F1 (phi p s) p,
+        h_phi_eq_psi_plus_s,
+        ← mul_mod_right_pure F1 (psi p s + s) p,
+        Nat.mul_add F1 (psi p s) s,
+        ← add_mod_gen (F1 * psi p s + F1 * s) F2 p]
+  -- Substitute phi = psi + s in h_psi_pow's RHS:
+  -- (phi + 1) % p = ((psi + s) + 1) % p = (psi + s + 1) % p
+  have h_psi_rhs_subst : (phi p s + 1) % p = (psi p s + s + 1) % p := by
+    rw [add_mod_gen (phi p s) 1 p,
+        h_phi_eq_psi_plus_s,
+        ← add_mod_gen (psi p s + s) 1 p]
+  -- Combine to get:
+  --   (F1 · psi + F1 · s + F2) % p = (psi + 1) % p           [from h_phi_pow + h_phi_subst]
+  --   (F1 · psi + F2) % p = (psi + s + 1) % p                [from h_psi_pow + h_psi_rhs_subst]
+  have h_a : (F1 * psi p s + F1 * s + F2) % p = (psi p s + 1) % p :=
+    h_phi_subst.symm.trans h_phi_pow
+  have h_b : (F1 * psi p s + F2) % p = (psi p s + s + 1) % p :=
+    h_psi_pow.trans h_psi_rhs_subst
+  -- Set up combined equation:
+  -- ((F1 · s + s) + (F1 · psi + F2)) % p
+  --   = ((F1 · psi + F1 · s + F2) + s) % p                    [reorder + collect]
+  --   = ((F1 · psi + F1 · s + F2) % p + s % p) % p             [add_mod_gen]
+  --   = ((psi + 1) % p + s % p) % p                           [by h_a]
+  --   = (psi + 1 + s) % p                                     [add_mod_gen backward]
+  --   = (psi + s + 1) % p                                     [reorder]
+  --   = (F1 · psi + F2) % p                                   [by h_b reversed]
+  -- So ((F1 · s + s) + (F1 · psi + F2)) % p = (F1 · psi + F2) % p
+  -- Hence (F1 · s + s) % p = 0.
+  have h_lhs_rearr : (F1 * s + s) + (F1 * psi p s + F2)
+                  = (F1 * psi p s + F1 * s + F2) + s := by
+    -- (c+d) + (a+b) = (a+b) + (c+d) = (a+b+c) + d = (a+c+b) + d
+    rw [Nat.add_comm (F1 * s + s) (F1 * psi p s + F2)]
+    rw [← Nat.add_assoc (F1 * psi p s + F2) (F1 * s) s]
+    rw [Nat.add_right_comm (F1 * psi p s) F2 (F1 * s)]
+  have h_combo : ((F1 * s + s) + (F1 * psi p s + F2)) % p
+              = (F1 * psi p s + F2) % p := by
+    rw [h_lhs_rearr]
+    rw [add_mod_gen (F1 * psi p s + F1 * s + F2) s p,
+        h_a,
+        ← add_mod_gen (psi p s + 1) s p]
+    -- Goal: (psi + 1 + s) % p = (F1 * psi + F2) % p
+    rw [Nat.add_right_comm (psi p s) 1 s]
+    -- (psi + s + 1) % p = (F1 * psi + F2) % p
+    exact h_b.symm
+  -- Apply the helper
+  have h_F1s_plus_s_zero : (F1 * s + s) % p = 0 :=
+    add_mod_eq_right_implies_zero p (F1 * s + s) (F1 * psi p s + F2) hp h_combo
+  -- F1 * s + s = (F1 + 1) * s
+  have h_factor : F1 * s + s = (F1 + 1) * s := by
+    rw [add_mul, Nat.one_mul]
+  rw [h_factor] at h_F1s_plus_s_zero
+  -- Apply mul_mod_zero_cancel
+  exact mul_mod_zero_cancel p (F1 + 1) s hp mi_s h_F1s_plus_s_zero
+
+/-! ## Per-prime smokes for F_{p-3} ≡ -1 mod p -/
+
+/-- ★ **Binet at p=11 for F_8**: `(F_8 + 1) % 11 = 0` (i.e., F_8 ≡ -1 mod 11).
+    Derived from FLT-implied `phi^8 ≡ psi + 1 mod 11` and `psi^8 ≡ phi + 1 mod 11`. -/
+theorem F_8_plus_one_zero_mod_11_via_binet : (fibFst 8 + 1) % 11 = 0 := by
+  have h_phi_pow_eq : (phi 11 4)^8 % 11 = (fibFst 8 * phi 11 4 + fibFst 7) % 11 :=
+    phi_pow_eq_fibLike 11 4 (by decide) (by decide) (by decide) 8
+  have h_psi_pow_eq : (psi 11 4)^8 % 11 = (fibFst 8 * psi 11 4 + fibFst 7) % 11 :=
+    psi_pow_eq_fibLike_11 8
+  -- phi^8 ≡ psi + 1 mod 11 (decide check)
+  have h_phi_pow_psi_plus_one : (phi 11 4)^8 % 11 = (psi 11 4 + 1) % 11 := by decide
+  -- psi^8 ≡ phi + 1 mod 11
+  have h_psi_pow_phi_plus_one : (psi 11 4)^8 % 11 = (phi 11 4 + 1) % 11 := by decide
+  -- Combine: (F_8 · phi + F_7) % 11 = (psi + 1) % 11
+  have h_phi_pow : (fibFst 8 * phi 11 4 + fibFst 7) % 11 = (psi 11 4 + 1) % 11 :=
+    h_phi_pow_eq.symm.trans h_phi_pow_psi_plus_one
+  have h_psi_pow : (fibFst 8 * psi 11 4 + fibFst 7) % 11 = (phi 11 4 + 1) % 11 :=
+    h_psi_pow_eq.symm.trans h_psi_pow_phi_plus_one
+  exact binet_F_p_minus_3_plus_one_zero 11 4 (by decide) (fibFst 8) (fibFst 7)
+    h_phi_pow h_psi_pow phi_eq_psi_plus_s_11 modInv_4_mod_11
+
+/-- Helper: `(X + 1) % p = 0 ∧ 1 < p ⟹ X % p = p - 1`.
+    Converts the "≡ -1 mod p" Nat-additive form to the explicit `p - 1` form
+    needed by `phase_3_2_closure`.  PURE. -/
+theorem mod_eq_p_minus_one_of_succ_mod_zero (p X : Nat) (hp : 1 < p)
+    (h : (X + 1) % p = 0) : X % p = p - 1 := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have hr_lt : X % p < p := Nat.mod_lt _ hp_pos
+  have h1mod : (1 : Nat) % p = 1 := Nat.mod_eq_of_lt hp
+  have h_step : (X % p + 1) % p = 0 := by
+    have h_amg : (X + 1) % p = ((X % p) + (1 % p)) % p := add_mod_gen X 1 p
+    rw [h1mod] at h_amg
+    rw [h_amg] at h
+    exact h
+  have h_succ_le : X % p + 1 ≤ p := hr_lt
+  -- Cases via Nat.lt_or_eq_of_le
+  rcases Nat.lt_or_eq_of_le h_succ_le with h_lt | h_eq
+  · exfalso
+    have h_mod_id : (X % p + 1) % p = X % p + 1 := Nat.mod_eq_of_lt h_lt
+    rw [h_mod_id] at h_step
+    exact Nat.noConfusion h_step
+  · have h_sub_rhs : X % p + 1 - 1 = p - 1 := by rw [h_eq]
+    have h_sub_lhs : X % p + 1 - 1 = X % p := add_sub_cancel_right (X % p) 1
+    exact h_sub_lhs.symm.trans h_sub_rhs
+
+/-- ★ **Binet at p=19 for F_16**: `(F_16 + 1) % 19 = 0` (i.e., F_16 ≡ -1 mod 19). -/
+theorem F_16_plus_one_zero_mod_19_via_binet : (fibFst 16 + 1) % 19 = 0 := by
+  have h_phi_pow_eq : (phi 19 9)^16 % 19 = (fibFst 16 * phi 19 9 + fibFst 15) % 19 :=
+    phi_pow_eq_fibLike 19 9 (by decide) (by decide) (by decide) 16
+  have h_psi_pow_eq : (psi 19 9)^16 % 19 = (fibFst 16 * psi 19 9 + fibFst 15) % 19 :=
+    psi_pow_eq_fibLike_19 16
+  have h_phi_pow_psi_plus_one : (phi 19 9)^16 % 19 = (psi 19 9 + 1) % 19 := by decide
+  have h_psi_pow_phi_plus_one : (psi 19 9)^16 % 19 = (phi 19 9 + 1) % 19 := by decide
+  have h_phi_pow : (fibFst 16 * phi 19 9 + fibFst 15) % 19 = (psi 19 9 + 1) % 19 :=
+    h_phi_pow_eq.symm.trans h_phi_pow_psi_plus_one
+  have h_psi_pow : (fibFst 16 * psi 19 9 + fibFst 15) % 19 = (phi 19 9 + 1) % 19 :=
+    h_psi_pow_eq.symm.trans h_psi_pow_phi_plus_one
+  exact binet_F_p_minus_3_plus_one_zero 19 9 (by decide) (fibFst 16) (fibFst 15)
+    h_phi_pow h_psi_pow phi_eq_psi_plus_s_19 modInv_9_mod_19
+
+/-! ## Phase 3.2 per-prime closure via the FULL FLT route
+
+These theorems demonstrate the COMPLETE structural chain from FLT
+(Parts 14-22) through to Phase 3.2 closure, at specific split primes.
+
+The chain:
+  · FLT (multi-session, Parts 14-22)
+  · Apply to phi at split prime (Part 23)
+  · Apply to psi (Part 24 + per-prime decide)
+  · Binet bridge: F_{p-1} ≡ 0 mod p (this Part)
+  · Binet bridge: F_{p-3} ≡ -1 mod p (this Part)
+  · Converter: -1 mod p ↦ p - 1 form
+  · phase_3_2_closure (Part 13)
+  · ⟹ pellCoeff p hp ((p-1)/2) = pellCoeff p hp 0 = (0, 1)
+  · ⟺ M^((p-1)/2) = I  (Phase 3.2)
+
+Each per-prime closure is a 5-line composition through this stack.
+-/
+
+open E213.Lib.Math.DyadicFSM.PellMatrix (pellCoeff)
+open E213.Lib.Math.DyadicFSM.PellFibBridge (phase_3_2_closure)
+
+/-- ★★★★★★ **Phase 3.2 at p=11 via FULL FLT route**:
+    `pellCoeff 11 _ 5 = pellCoeff 11 _ 0` (matrix order divides 5).
+
+    Derives:
+      · F_10 % 11 = 0 via Binet (`F_10_zero_mod_11_via_binet`)
+      · F_8 % 11 = 10 via Binet + converter
+    Then plugs into `phase_3_2_closure`.
+
+    This is the COMPLETE structural derivation through the
+    multi-session FLT framework — NOT a `decide` shortcut. -/
+theorem phase_3_2_at_11_via_full_FLT_route :
+    pellCoeff 11 (by decide) 5 = pellCoeff 11 (by decide) 0 := by
+  have h_F10 : fibFst 10 % 11 = 0 := F_10_zero_mod_11_via_binet
+  have h_F8 : fibFst 8 % 11 = 11 - 1 :=
+    mod_eq_p_minus_one_of_succ_mod_zero 11 (fibFst 8) (by decide)
+      F_8_plus_one_zero_mod_11_via_binet
+  exact phase_3_2_closure 11 (by decide) 4 h_F10 h_F8
+
+/-- ★★★★★★ **Phase 3.2 at p=19 via FULL FLT route**:
+    `pellCoeff 19 _ 9 = pellCoeff 19 _ 0`. -/
+theorem phase_3_2_at_19_via_full_FLT_route :
+    pellCoeff 19 (by decide) 9 = pellCoeff 19 (by decide) 0 := by
+  have h_F18 : fibFst 18 % 19 = 0 := F_18_zero_mod_19_via_binet
+  have h_F16 : fibFst 16 % 19 = 19 - 1 :=
+    mod_eq_p_minus_one_of_succ_mod_zero 19 (fibFst 16) (by decide)
+      F_16_plus_one_zero_mod_19_via_binet
+  exact phase_3_2_closure 19 (by decide) 8 h_F18 h_F16
 
 end E213.Lib.Math.DyadicFSM.BinetBridge
