@@ -1043,4 +1043,33 @@ private theorem sqrt_cancel (p : Nat) (hp : 0 < p)
               h_a_mod]]
   exact add_mod_swap_right p err (2 * d_0 * d) (2 * a * d) hp h_step3 h_rw2
 
+/-- PURE: `x.trunc (n+2) % p^(n+1) = x.trunc (n+1)`.  Higher digit
+    is killed by the mod, and `trunc (n+1) < p^(n+1)`. -/
+private theorem trunc_succ_mod_K (p : Nat) (hp : 0 < p) (x : ZpSeq p) (n : Nat) :
+    x.trunc (n + 2) % p^(n + 1) = x.trunc (n + 1) := by
+  show (x.trunc (n + 1) + (x.digits (n + 1)).val * p^(n + 1)) % p^(n + 1)
+       = x.trunc (n + 1)
+  rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+  exact Nat.mod_eq_of_lt (ZpSeq.trunc_lt_p_pow hp x (n + 1))
+
+/-- PURE: if `xt < M` and `(Z + (M - xt)) % M = 0`, then `Z % M = xt`.
+    The Nat-friendly form of `Z ≡ xt (mod M)`. -/
+private theorem mod_eq_from_neg_eq (M Z xt : Nat) (hM : 0 < M) (hxt : xt < M)
+    (h : (Z + (M - xt)) % M = 0) : Z % M = xt := by
+  -- ((Z + (M - xt)) + xt) % M = (0 + xt) % M = xt (using h).
+  have h_chain : ((Z + (M - xt)) + xt) % M = xt := by
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen,
+        h, Nat.zero_add, E213.Tactic.NatHelper.mod_mod_pure,
+        Nat.mod_eq_of_lt hxt]
+  -- Rearrange: ((Z + (M - xt)) + xt) = Z + (xt + (M - xt)) = Z + M.
+  have h_rear : (Z + (M - xt)) + xt = Z + M := by
+    rw [Nat.add_assoc Z (M - xt) xt, Nat.add_comm (M - xt) xt,
+        E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hxt)]
+  rw [h_rear] at h_chain
+  -- h_chain : (Z + M) % M = xt
+  -- Convert to Z % M = xt via add_mod_left + mod_self.
+  rw [Nat.add_comm Z M, E213.Meta.Nat.AddMod213.add_mod_left hM M Z,
+      E213.Meta.Nat.AddMod213.mod_self M, Nat.zero_add] at h_chain
+  exact h_chain
+
 end E213.Lib.Math.Padic
