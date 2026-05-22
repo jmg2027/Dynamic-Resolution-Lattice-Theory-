@@ -991,7 +991,7 @@ For Phase 3.2 (`N = (p-1)/2` at split primes), this becomes:
 
 — the classical Fibonacci-Pisano congruence at split primes.
 
-## What landed: `Lib/Math/DyadicFSM/PellFibBridge.lean` (new, 12 PURE)
+## What landed: `Lib/Math/DyadicFSM/PellFibBridge.lean` (new, 19 PURE)
 
   · `fibFst k := (fibLike k).1`, `fibSnd k := (fibLike k).2` accessors.
   · `fibLike_succ_fst` / `fibLike_succ_snd` — definitional unfolds.
@@ -1006,29 +1006,49 @@ For Phase 3.2 (`N = (p-1)/2` at split primes), this becomes:
   · `fib_phase_3_2_at_{11,19,29,31,41}` — per-prime smoke
     verifications of `F_{p-1} ≡ 0 mod p ∧ F_{p-3} ≡ -1 mod p`
     for split primes in the G119 Predictor23 chain.
+  · **`add_p_sub_mod`** : `B + (p - B%p) = (B/p + 1) · p` —
+    foundational modular-arithmetic helper that absorbs the
+    Nat-truncated `(p - B%p)` "−B mod p" into an explicit
+    multiple of `p`.
+  · **`first_step`** : `(3·(A%p) + (p - B%p)%p) % p = C%p` given
+    `C + B = 3·A` — the modular cancellation closing the
+    inductive step of the bridge.
+  · **`pellCoeff_eq_fib_bridge`** (★★★★ COUPLED BRIDGE):
+       For all k: `(pellCoeff p hp (k+1)).1.val = F_{2k+2} % p`
+                AND `(pellCoeff p hp (k+1)).2.val = (p - F_{2k} % p) % p`.
+       Coupled induction; inductive step uses `first_step` +
+       `fibFst_pell_recur`.
+  · **`phase_3_2_closure`** (★★★★★ CONDITIONAL PHASE 3.2):
+       For N' with `F_{2N'+2} ≡ 0 mod p` and `F_{2N'} ≡ -1 mod p`,
+       `pellCoeff p hp (N'+1) = pellCoeff p hp 0` = `(0, 1)`.
+       i.e., M^(N'+1) = I mod p.
+  · `pellCoeff_{11_5, 19_9, 29_14}_eq_init_via_bridge` —
+    per-prime Phase 3.2 closures (split primes), each ONE LINE
+    via `phase_3_2_closure` + per-prime fibLike smokes.
 
 ## What this buys for Phase 3.2
 
-The Pell-Fib bridge makes the FULL chain explicit:
+The Pell-Fib bridge **fully closes the Phase 3.2 reduction**:
 
 ```
 Phase 3.2 goal:  pellCoeff p hp ((p-1)/2) = (0, 1)
-       ↕ bridge (TBD, multi-session): pellCoeff k.1 = F_{2k} mod p,
-                                     pellCoeff k.2 = -F_{2k-2} mod p
+       ↕ pellCoeff_eq_fib_bridge (★★★★ this Part 13)
 Phase 3.2 reduced:  F_{p-1} ≡ 0 mod p  AND  F_{p-3} ≡ -1 mod p
-       ↕ classical Fibonacci-Pisano (FLT-equivalent, multi-session)
+       ↕ classical Fibonacci-Pisano theorem (FLT-equivalent)
 Phase 3.2 universal closure
 ```
 
-The PURE work done so far covers:
-  · The Pell recurrence on `F_{2k}` (`fibFst_pell_recur`) — provides
-    the algebraic identity matching pellCoeff's step.
-  · Per-prime verification of the Phase 3.2 fibLike condition for
-    5 split primes (decide-able).
+The reduction is COMPLETE (PURE).  The remaining work is the
+**universal Fibonacci-Pisano theorem** (`∀ split prime p,
+F_{p-1} ≡ 0 mod p ∧ F_{p-3} ≡ -1 mod p`), classical
+FLT-equivalent, multi-session.
 
-The remaining bridge `pellCoeff_first_eq_F_2k` is a coupled
-induction (a_k and b_k of pellCoeff must be tracked together via
-the Pell recurrence) — single multi-step proof, multi-session.
+For each split prime in the Predictor23 chain, the Fibonacci-
+Pisano condition is decidable, so Phase 3.2 closes per-prime
+via 1-line `phase_3_2_closure` corollary (demonstrated at p ∈
+{11, 19, 29}).  Adding the other 8 split primes (31, 41, 59,
+61, 71, 79, 89, 101) is mechanical — each is a new
+`fib_phase_3_2_at_p` smoke + `phase_3_2_closure` invocation.
 
 ## Phase 3.2 chain status (updated)
 
@@ -1045,10 +1065,24 @@ the Pell recurrence) — single multi-step proof, multi-session.
 | Eigenvector argument + diagonalisability | ⚪ multi-session |
 | Final assembly to `M^((p-1)/2) = I` | ⚪ multi-session |
 
+## Phase 3.2 chain status (UPDATED post Part 13)
+
+| Sub-goal | Status |
+|---|---|
+| `phi² ≡ phi + 1 mod p` (algebraic kernel) | ✅ Part 11 unscaled |
+| `phi^k = F_k·phi + F_{k-1} mod p` (power expansion) | ✅ Part 11 |
+| `∃ N ≤ p, modPow p a N = 1` (mul-order via explicit inv) | ✅ Part 12 |
+| `F_{2k+4} + F_{2k} = 3·F_{2k+2}` (Pell recur) | ✅ Part 13 |
+| **`pellCoeff_eq_fib_bridge`** (coupled bridge) | ✅ Part 13 |
+| **`phase_3_2_closure`** (conditional Phase 3.2) | ✅ Part 13 |
+| Per-prime closure at p ∈ {11, 19, 29} via bridge | ✅ Part 13 |
+| Per-prime closure at remaining 8 split primes | ⚪ mechanical, 1 commit |
+| Universal `F_{p-1} ≡ 0 ∧ F_{p-3} ≡ -1 mod p` at split primes | ⚪ multi-session (FLT-equivalent) |
+
 ## Verification (post Part 13)
 
   · `lake build`: ✅ clean
-  · `scan_axioms.py PellFibBridge`: 12 PURE / 0 DIRTY
+  · `scan_axioms.py PellFibBridge`: 19 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere
 
 ---
