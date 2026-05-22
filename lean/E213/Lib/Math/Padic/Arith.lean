@@ -513,4 +513,44 @@ theorem Zp.mul_one_left_digit {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
   rw [Zp.mulRaw_one_left hp x k, Zp.mulCarry_one_left hp x k, Nat.add_zero]
   exact Nat.mod_eq_of_lt (x.digits k).isLt
 
+/-! ## Multiplication by zero on the left (`0 · x = 0`) -/
+
+/-- Partial sum with `zero` on the left vanishes (every term factor
+    `(zero.digits i).val = 0`). -/
+theorem Zp.mulRawSum_zero_left {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ∀ upper, Zp.mulRawSum p (ZpSeq.zero p hp) x k upper = 0
+  | 0 => rfl
+  | i + 1 => by
+    show Zp.mulRawSum p (ZpSeq.zero p hp) x k i
+          + ((ZpSeq.zero p hp).digits i).val * (x.digits (k - i)).val = 0
+    rw [Zp.mulRawSum_zero_left hp x k i]
+    show (0 : Nat) + 0 * (x.digits (k - i)).val = 0
+    rw [Nat.zero_mul, Nat.zero_add]
+
+/-- Raw convolution `mulRaw zero x k = 0`. -/
+theorem Zp.mulRaw_zero_left {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p (ZpSeq.zero p hp) x k = 0 :=
+  Zp.mulRawSum_zero_left hp x k (k + 1)
+
+/-- Carry from `0 · x` stays at zero. -/
+theorem Zp.mulCarry_zero_left {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ k, Zp.mulCarry p (ZpSeq.zero p hp) x k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show (Zp.mulRaw p (ZpSeq.zero p hp) x k
+            + Zp.mulCarry p (ZpSeq.zero p hp) x k) / p = 0
+    rw [Zp.mulRaw_zero_left hp x k, Zp.mulCarry_zero_left hp x k]
+    show (0 + 0) / p = 0
+    rw [Nat.zero_add, Nat.zero_div]
+
+/-- `0 · x = 0` (digit level). -/
+theorem Zp.mul_zero_left_digit {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.mul p hp (ZpSeq.zero p hp) x).digits k).val = 0 := by
+  show (Zp.mulRaw p (ZpSeq.zero p hp) x k
+          + Zp.mulCarry p (ZpSeq.zero p hp) x k) % p = 0
+  rw [Zp.mulRaw_zero_left hp x k, Zp.mulCarry_zero_left hp x k]
+  show (0 + 0) % p = 0
+  rw [Nat.zero_add]
+  exact E213.Tactic.NatHelper.zero_mod p
+
 end E213.Lib.Math.Padic
