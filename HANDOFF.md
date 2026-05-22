@@ -41,12 +41,16 @@ Currently still open:
 | **C** — CutSumOne 8-sibling 3-component template | DONE — `cutSum_constCut_at` template + 8 sibling reductions, all 13 PURE |
 | **E** — `sqrt{2,3,5}_no_rational_aux` × 3 (SqrtPure) | DONE — `DescentBase N` structure + parametric `sqrtN_no_rational_aux_generic` in `Irrational.SqrtPure`; Sqrt2/3/5Pure each supply a `descentBase` instance + thin corollary.  Sqrt2KernelFree (kernel-free experimental file) intentionally untouched. |
 | **F** — Σ-fold cross-domain | DONE — `sigmaList` in `Meta.Tactic.ListHelper` + 5 callsites unified (Vec.inner / routeSum / observable_sum / phase2 / focc_spectrum) |
-| **G110 FLUX-1** forward/backward parametric | ~30K nodes |
-| **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
-| **G108 REAL-1/2** Cut iff consolidation | ~210K nodes |
-| **G114 CD-1/2/3** | CayleyDickson ring ext / conj (no consolidation possible per G118) |
-| **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
-| **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
+| **G110 FLUX-1** forward/backward parametric | DONE — `mvt_cutPow_unitBracket_{forward,backward}_at` parametric in `Analysis/FluxMVT/FluxMVTPolynomial.lean`; specific degrees (square / cube / quartic) are corollaries |
+| **G111 COH-1** Universal Prop52/53 pattern_eq_at | DONE — `Universal.Pattern10.pattern10_eq_at` template, Prop52/Prop53 delegate |
+| **G111 COH-2** Hodge Prop 5_k quartet | DONE — `Hodge.InvolutionTemplate.hodge_involution_pointwise_5` template, all 4 (k ∈ {1,2,3,4}) delegate |
+| **G111 COH-3** Leibniz4Mixed + Leibniz pattern pair | DONE — `CupAW.LeibnizUniversalLift.leibniz_pointwise_lift` template, both delegate |
+| **G108 REAL-1** `cutMul{Inner,Outer}_eq_true_iff` parametric | OPEN — concrete proofs complete but the pair lacks a `cutMulComm_eq_true_iff_general`; medium marathon (~140K nodes) |
+| **G108 REAL-2** `cutSumAux_eq_true_iff` + `cutSum_diff_denom_forward` | DONE — `cutSum_diff_denom_forward` is already universal (∀ b, d ≥ 1); no further consolidation needed |
+| **G114 CD-1/2/3** | INFEASIBLE per G118 — ext theorems are 2-line `cases u; cases v; congr`; `conj_ne_id` picks per-instance witness (5-param helper as verbose as original); `assoc_*` are `by decide` (no body) |
+| **G115 PHYS-1** FractalLevelZeta master theorems | INFEASIBLE per G118 — already maximally compact (`refine ⟨...⟩ <;> decide` on ~10-conjuncts) |
+| **G115 PHYS-2** bracket-containment | INFEASIBLE per G118 — `by decide` IS the proof |
+| **G117 Bishop comparison** | OPEN — AsLensOutput capstone; depends on building a minimal Bishop Lean API to compare against `RealAsLensOutput`; 3-5 sessions |
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
