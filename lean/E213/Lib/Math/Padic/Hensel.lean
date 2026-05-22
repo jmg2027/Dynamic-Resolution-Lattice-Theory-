@@ -891,4 +891,46 @@ theorem Zp.sqrtSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
               * p^(n + 1)
   rw [Zp.sqrtSeq_succ_trunc_low p hp x sb n (n + 1) (Nat.le_refl _)]
 
+/-! ### Helpers for sqrt induction
+
+The full Hensel sqrt correctness uses three algebraic helpers:
+
+1. `pow_n1_sq_eq_pow_n2_mul_pow_n`: `p^(n+1)·p^(n+1) = p^n · p^(n+2)`.
+   The key identity making `K² ≡ 0 (mod M)` work where
+   `K = p^(n+1)`, `M = p^(n+2)`.
+2. `K_sq_mod_M_zero`: `p^(n+1)·p^(n+1) % p^(n+2) = 0`.
+3. `binomial_sq_mod_pure`: `(a + d·K)² mod M = (a² + 2·a·d·K) mod M`
+   given `K² mod M = 0`.
+-/
+
+/-- PURE: `p^n · p^m = p^(n + m)` by induction on `m`. -/
+private theorem pow_add_pure_hensel (p : Nat) :
+    ∀ n m, p^n * p^m = p^(n + m)
+  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | n, m + 1 => by
+    rw [Nat.pow_succ, ← E213.Tactic.NatHelper.mul_assoc,
+        pow_add_pure_hensel p n m]
+    show p^(n + m) * p = p^(n + (m + 1))
+    rw [← Nat.add_assoc, ← Nat.pow_succ]
+
+/-- PURE: `p^(n+1) · p^(n+1) = p^n · p^(n+2)`. -/
+private theorem pow_n1_sq_eq_pow_n2_mul_pow_n (p n : Nat) :
+    p^(n + 1) * p^(n + 1) = p^n * p^(n + 2) := by
+  rw [pow_add_pure_hensel p (n + 1) (n + 1),
+      pow_add_pure_hensel p n (n + 2)]
+  -- Goal: p^(n+1+(n+1)) = p^(n+(n+2))
+  show p^(n + 1 + (n + 1)) = p^(n + (n + 2))
+  -- Reduce exponents: n + 1 + (n + 1) = n + (n + 2).
+  have hsum : n + 1 + (n + 1) = n + (n + 2) := by
+    rw [Nat.add_assoc n 1 (n + 1), Nat.add_comm 1 (n + 1)]
+  rw [hsum]
+
+/-- PURE: `K² mod M = 0` where `K = p^(n+1)`, `M = p^(n+2)`. -/
+private theorem K_sq_mod_M_zero (p n : Nat) :
+    p^(n + 1) * p^(n + 1) % p^(n + 2) = 0 := by
+  rw [pow_n1_sq_eq_pow_n2_mul_pow_n p n]
+  -- p^n · p^(n+2) % p^(n+2) = 0
+  rw [Nat.mul_comm]
+  exact E213.Tactic.NatHelper.mul_mod_right (p^(n + 2)) (p^n)
+
 end E213.Lib.Math.Padic
