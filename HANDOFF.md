@@ -323,7 +323,7 @@ decidable identity.
 Three parallel follow-up tracks from G124 §6 catalogue.  Started
 2026-05-22 on the same `n-u-followup-campaign` branch.
 
-**G126 — Carmichael chain extension (Lean closed, 3 parametric ∀m)**:
+**G126 — Carmichael chain extension (Lean closed + PROMOTED)**:
 
   Extends G123 modular fingerprint catalogue to primes
   `{17, 23, 31, 41}` (next prime layer beyond `{2, 3, 5, 7, 11, 13}`).
@@ -353,6 +353,17 @@ Three parallel follow-up tracks from G124 §6 catalogue.  Started
   (`pow_mul_pure` + `pow_mod_base` + k decidable cycle seeds)
   scales to arbitrary cycle length under `x ↦ x^5 mod p` —
   fixed-point at 41, 2-cycle at 31, 4-cycle at 17.
+
+  ★ **α series closure** at p=137 (= 1/α_em): single-slice readout
+  `configCountD 5 2 % 137 = 86 = Rn` connects two catalogue atoms
+  via the count-Lens.  Cycle length 16 (parametric ∀m deferred,
+  diminishing return vs. mod-41 fractal-level invariant).
+
+  **PROMOTED** to `theory/math/cohomology/fractal.md` §4
+  "Extended modular fingerprint" sub-section + α-series narrative.
+  Research note archived to `research-notes/archive/`.
+
+  Total ConfigCountModular: 52 PURE / 0 DIRTY.
 
   Research note: `research-notes/G126_carmichael_chain_ext.md`.
   Catalogue: `catalogs/atomic-integers.md` `41` entry updated.
