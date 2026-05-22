@@ -381,4 +381,60 @@ theorem codim_stratification :
     bidegreeCount 4 + bidegreeCount 3 + bidegreeCount 2 = 3 + 2 + 1 := by
   decide
 
+/-! ## §11.  Channel count for arbitrary `d` — `binom (d-1) 2` closed form -/
+
+open E213.Lib.Physics.Simplex.Counts (binom)
+open E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtrip (binom_m_1)
+
+/-- Total cup-self-reference channel count up to dimension `d`. -/
+def totalCupChannels : Nat → Nat
+  | 0 => 0
+  | d + 1 => totalCupChannels d + bidegreeCount d
+
+/-- `bidegreeCount d = d - 1` in `Nat`-subtraction.  PURE. -/
+theorem bidegreeCount_eq_pred (d : Nat) : bidegreeCount d = d - 1 := by
+  cases d with
+  | zero => rfl
+  | succ d' =>
+    cases d' with
+    | zero => rfl
+    | succ _ => rfl
+
+/-- `binom (n+1) 2 = n + binom n 2` (Pascal at column 2).  PURE. -/
+theorem binom_succ_two (n : Nat) : binom (n + 1) 2 = n + binom n 2 := by
+  show binom n 1 + binom n 2 = n + binom n 2
+  rw [binom_m_1]
+
+/-- ★★★★★★ **General cup-channel count formula** — the cup-self-
+    reference channel count at d-dimension is `binom (d - 1) 2`.
+
+    For d = 5: `binom 4 2 = 6`.
+    For d = 4: `binom 3 2 = 3`.
+    For d = 3: `binom 2 2 = 1`.
+    For d ≤ 2: 0 channels (no admissible bidegree).
+
+    The closed form encodes the codim-stratified summation
+    `Σ_{s=2}^{d-1} (s - 1) = (d-2)(d-1)/2 = binom (d-1) 2`.
+
+    PURE (induction on d + Pascal at column 2). -/
+theorem totalCupChannels_eq_binom (d : Nat) :
+    totalCupChannels d = binom (d - 1) 2 := by
+  induction d with
+  | zero => rfl
+  | succ d' ih =>
+    show totalCupChannels d' + bidegreeCount d' = binom d' 2
+    rw [ih, bidegreeCount_eq_pred d']
+    cases d' with
+    | zero => rfl
+    | succ d'' =>
+      show binom d'' 2 + (d'' + 1 - 1) = binom (d'' + 1) 2
+      show binom d'' 2 + d'' = binom (d'' + 1) 2
+      rw [Nat.add_comm (binom d'' 2) d'', binom_succ_two d'']
+
+/-- Spot checks at d = 3, 4, 5, 6.  PURE. -/
+theorem totalCupChannels_d3 : totalCupChannels 3 = 1 := by decide
+theorem totalCupChannels_d4 : totalCupChannels 4 = 3 := by decide
+theorem totalCupChannels_d5 : totalCupChannels 5 = 6 := by decide
+theorem totalCupChannels_d6 : totalCupChannels 6 = 10 := by decide
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
