@@ -2,19 +2,34 @@
 
 ## Branch
 
-`claude/research-notes-organization-Gr3Tp` — 204 commits ahead of
-`origin/main`, pushed.  No active conflict.
+`claude/g121-open-followup-BCOp3` — pushed.  No active conflict.
 
 ## Recently closed (this branch)
 
 | Campaign | Status | Promoted to |
 |---|---|---|
+| **G123 follow-up marathons** (X-1 / I-1 / I-3 / I-4 / FW-1 / FW-2 / FW-3 / FW-4 + M1 universal / M2 abstract) | COMPLETE / SUBSTANTIVE | `theory/math/geometrization_conjecture.md` "Open frontier" rewritten + `lean/E213/Lib/Math/GeometrizationConjecture/` extended from 13 → 14 files |
+| **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **G120 N_U re-derivation** (7 phases) | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 rewrite + `theory/INDEX.md` vocabulary + cascade across `theory/math/*`, `theory/physics/*`, `seed/AXIOM/*` |
 | **G119 marathon** (Pisano-period for Pell, universal in `p` via FLT + F_{p²} + Frobenius) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` (101 files), `theory/math/modular_arithmetic.md` (13 files) |
-| **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
 | **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
-| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Latest scan: **1145 PURE / 0 real DIRTY / 56 sealed-DIRTY-by-design (1201 total)**.  DRLT mathematical content (Lib/Math/*, Lib/Physics/*, Theory/*) is fully PURE.  The 56 sealed theorems sit in 7 `Lens.*` modules across three structural categories: (a) Prop-as-distinguishing thesis (propext), (b) Lens funext-by-design (Quot.sound), (c) JoinEquiv quotient-representative selection (Classical.choice).  Per `STRICT_ZERO_AXIOM.md` §"Sealed-by-design categories".  G120 framing regression fixed (`6599f889`) |
+| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Pre-G123 scan: **1145 PURE / 0 real DIRTY / 56 sealed-DIRTY-by-design (1201 total)**.  G123 added ~50 new PURE theorems; lake build clean. |
+
+### G123 closure breakdown (10 marathon items, 2026-05-22)
+
+| Item | Status | Key Lean artifact |
+|---|---|---|
+| X-1 cross-frame Sym(3) capstone | CLOSED | `CrossFrame.G121_X1_sym3_cross_frame_capstone` |
+| I-1 Sym(3) basis ↔ Thurston mapping | CLOSED | `CrossFrame.sym3_basis_thurston_mapping` |
+| I-3 Ricci ε-Lens integration | CLOSED | `Ricci.IsRicciModulus` + `ricci_eps_lens_full_integration` |
+| I-4 Poincaré two-layer | CLOSED | `Poincare.poincare_two_layer_trivial_loop` |
+| FW-1 Burnside Sym(3)-orbit count | SUBSTANTIVE | `Exotic4Mfd.fw1_substantive_sym3_orbit_count` (= 60) |
+| FW-2 JSJ-deeper consolidation | PARTIAL DEEPENED | `JsjDeep.JSJ_deeper_consolidation` |
+| FW-3 universal filter characterization | DONE (Prop + Boolean) | `Generalization.sym3_c2_iff_K32_or_K23` + `passes_filter_universal_bool` |
+| FW-4 F_5 Nil uniqueness | PARTIAL DEEPENED | `MetricGeometries.mod_k_lens_family_F5_unique_close` |
+| M1 universal closure | CLOSED (subsumes FW-3) | `Generalization.sym3_c2_force_K32` |
+| M2 abstract close | ABSTRACT CLOSE | `KChartLensAbstract.m2_abstract_close` |
 
 Closure logs preserved in git history; the live state is the Lean
 source + theory chapters.  Don't read the per-Part marathon logs that
@@ -54,6 +69,20 @@ Currently still open:
   modes catalog growth).
 - **TH-1 / TH-4** doc work routed earlier into
   `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
+
+### D. G123 long-tail (post-marathon, infrastructure-bound)
+Source: `research-notes/G123_geometrization_open_followups.md`.
+Substantive items closed; the following remain bound by missing
+infrastructure:
+
+| Item | Blocker |
+|---|---|
+| **FW-1 signed Donaldson count** | Sign-assignment from K-deployment data; comparison interface to standard 4-mfd Donaldson invariants |
+| **FW-1 sub-orbit decomposition (a, b, c, d)** | Stabilizer enumeration per cochain (needs explicit S02 and ρ² matrices, or conjugacy-based counting argument) |
+| **FW-2 Filled3Cell.lean** | New 3-cell complex infrastructure (current `Filled.lean` is 2-cell only) |
+| **FW-4 213-native flat/hyperbolic metric types** | New geometry infra in `Lib/Math/Geometry/` |
+| **M2 universal V32Betti-style derivation** | Per-K_{NS,NT}^{(c)} cohomology files beyond V32 |
+| **I-3 BracketCauchy bidirectional bridge** | `IsRicciModulus` ↔ `IsContinuousModulus` direct functor witness (currently structural parallel only) |
 
 ## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
 
