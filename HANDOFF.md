@@ -2152,6 +2152,114 @@ Universal derivation of `h_F_top, h_F_low` requires:
 
 ---
 
+# Parts 41-44 — Universal Phase 3.3 closure (inert characteristic)
+
+Final pieces assembling **universal_phase_3_3** in PellFibBridge.lean.
+
+## Part 41 — Fibonacci addition formula (commit `24246e32`)
+
+Mathlib-level Fibonacci identity, paired (both components):
+
+```
+fibLike_pair_add (m n : Nat) :
+  (fibLike (m + n)).1 = (fibLike (m + 1)).1 * (fibLike n).1
+                      + (fibLike m).1 * (fibLike n).2
+  ∧ (fibLike (m + n)).2 = (fibLike m).1 * (fibLike n).1
+                        + (fibLike m).2 * (fibLike n).2
+```
+
+Proved by single-step induction on n, tracking both components via
+fibLike_succ_fst/snd recurrence + distributivity (add_mul) +
+Nat algebra rearrangement.
+
+## Part 42 — F_{2(k+1)} = 0 from F_{k+1} = 0 (commit `4abee18b`)
+
+```
+fibFst_double_zero_of_succ_zero (k p) (h : fibFst (k+1) % p = 0) :
+    fibFst (2 * (k+1)) % p = 0
+```
+
+Universal Fibonacci-mod-p doubling-to-zero identity.  Applied at
+k = p gives h_F_top : F_{2(p+1)} = 0 mod p (the inert h_F_top).
+
+## Part 43 — F_{2(q+1)} = -1 from inert characteristic (commit `1e446b49`)
+
+```
+fibFst_double_eq_neg_one_of_inert (q p) (hp : 1 < p)
+    (h_F_qq1 : fibFst (q + 2) % p = 0)
+    (h_F_q1 : fibFst (q + 1) % p = p - 1)
+    (h_F_q : fibFst q % p = 1) :
+    fibFst (2 * (q + 1)) % p = p - 1
+```
+
+Universal F_{2(q+1)} = -1 mod p derivation.  Applied at q = p - 1
+gives h_F_low : F_{2p} = -1 mod p (the inert h_F_low).
+
+## Part 44 — UNIVERSAL PHASE 3.3 CLOSURE (commit `0aeeb1ff`)
+
+```
+universal_phase_3_3 (p) (hp : 1 < p)
+    (h_F_p : fibFst p % p = p - 1)
+    (h_F_pm1 : fibFst (p - 1) % p = 1) :
+    pellCoeff p hp (p + 1) = pellCoeff p hp 0
+```
+
+Structural analog of `universal_phase_3_2` for the inert case.
+Internal chain:
+  · h_F_pp1 via Fibonacci recurrence + h_F_p + h_F_pm1
+    -- F_{p+1} = (p-1) + 1 = p ≡ 0 mod p.
+  · h_F_top via Part 42 (with k = p).
+  · h_F_low via Part 43 (with q = p - 1).
+  · phase_3_3_closure (Part 40) glues everything.
+
+Used PURE `sub_add_cancel` (NatHelper) instead of `Nat.sub_add_cancel`
+(propext-dirty) to maintain ∅-axiom standard.
+
+Per-prime instantiations at p = 3, 7, 13, 17 (all `by decide` on F-hyps).
+
+## Session totals (Parts 33-44)
+
+  · 26 universal theorems in FP2Sqrt5.lean (36 → 62 PURE).
+  · 7 new universal theorems in PellFibBridge.lean:
+      - phase_3_3_closure (Part 40)
+      - fibLike_pair_add + nat_add_swap + fib_step_algebra (Part 41)
+      - fibFst_double_zero_of_succ_zero (Part 42)
+      - fibFst_double_eq_neg_one_of_inert (Part 43)
+      - universal_phase_3_3 (Part 44)
+  · 12 per-prime demos (p=3, 5, 7, 13, 17 across the parts).
+  · 1 unprivate in PhiMod5.lean (`four_mul_inv2_sq`).
+  · Foundation + Frobenius ring hom + Norm identity + key milestone
+    `phi · σ(phi) = (-1, 0)` universal.
+  · **Universal Phase 3.3 closure complete** at structural level
+    (parametric in F-identities, which are decidable per prime).
+
+## Verification (post Part 44)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.FP2Sqrt5`: 62 PURE / 0 DIRTY
+  · `scan_axioms.py DyadicFSM.PellFibBridge`: 56 PURE / 0 DIRTY
+  · `scan_axioms.py DyadicFSM.PhiMod5`: 25 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+## Remaining for FULL universal Phase 3.3 (Frobenius-FLT-based)
+
+Currently `universal_phase_3_3` takes the inert F-identities as
+decidable-per-prime hypotheses.  To derive these from a single
+primitive inert hypothesis `h_inert : 5^((p-1)/2) % p = p - 1`
+(Euler's criterion for 5 NQR mod p), need:
+
+  · F_p ≡ 5^((p-1)/2) mod p (Binet-binomial identity in F_p[x]):
+      2^(p-1) · F_p = Σ_{j=0}^{(p-1)/2} C(p, 2j+1) · 5^j
+      ≡ 5^((p-1)/2) mod p   (middle binomials vanish + FLT 2^(p-1)=1)
+  · F_{p-1} ≡ 1 mod p (similar Binet-binomial derivation)
+  · Or via Frobenius FLT in F_{p^2}: x^p = σ(x), then phi^p = ψ,
+    phi^p = F_p · phi + F_{p-1} = 1 - phi gives the relations.
+
+Either path is substantial (multi-session).  The structural Phase 3.3
+closure is now complete and reusable.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
