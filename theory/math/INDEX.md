@@ -2,7 +2,7 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (50)
+## Closed chapters (51)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
@@ -13,8 +13,8 @@ Hub chapters:
 - [`signed_cut.md`](signed_cut.md) — SignedCut/ (35 files; absorbs G37/G38/G39)
 - [`geometrization_conjecture.md`](geometrization_conjecture.md) — GeometrizationConjecture/ (13 files, G121 R1 closed, R1+ partial)
 
-Cohomology sub-clusters (11 in `cohomology/`):
-- `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, hodge, surfaces, universal, examples, bridge}.md`
+Cohomology sub-clusters (12 in `cohomology/`):
+- `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, aurifeuillean, hodge, surfaces, universal, examples, bridge}.md`
 
 Analysis sub-clusters (5 in `analysis/`):
 - `analysis/{minimal_root, classic_calc, differentiation, flux_m_v_t, integration}.md`

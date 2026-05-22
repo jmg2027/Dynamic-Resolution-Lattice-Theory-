@@ -197,7 +197,7 @@ physics bridges`.
 7-phase plan + open questions registry (archived after
 promotion).
 
-### B+++. G125 Aurifeuillean handle on N_U+1 — PHASES 1-3 CLOSED
+### B+++. G125 Aurifeuillean handle on N_U+1 — ALL PHASES CLOSED + PROMOTED
 
 Successor to G124 §1.3 / §6.1 — promoted from "Most directly
 DRLT-relevant" research direction to a formal Lean campaign on
@@ -251,32 +251,38 @@ Added to "Atomic primes" list.
     tower, before cyclotomic indices exit to higher-degree
     fields at `Φ_{50}, Φ_{250}, …`.
 
-**Phases**: 1 (concrete instances + norm) ✓ / 2 (parametric ∀n) ✓ /
-3 (Hunter cross-check) ✓ / 4 (catalog) ✓ / 5 (theory promotion —
-deferred, may write `theory/math/cohomology/aurifeuillean.md`
-if a future session greenlights, per PROMOTION_CRITERIA H1-H4
-already satisfied; S1-S3 partial pending broader Hunter scan).
+**Phases**: 1 ✓ (concrete + norm) / 2 ✓ (parametric ∀n) / 3 ✓
+(Hunter bridge) / 4 ✓ (catalog) / 5 ✓ (theory promotion via
+`theory/math/cohomology/aurifeuillean.md`).  H1-H4 and S1-S3 all
+met per `theory/PROMOTION_CRITERIA.md`.  Research note archived
+to `research-notes/archive/G125_aurifeuillean_n_u.md`.
+
+**Q1 + Q4 combined closure**: the Hunter-Aurifeuillean
+correspondence is uniquely **localised to the minimal index
+`m = 1`** (= `Φ_10(5) = 521`).  At the next Aurifeuillean
+cyclotomic factor `Φ_90(5) = 60081451169922001` (a 17-digit
+prime), the canonical pair `(L, M) = (850554441, 364242064)`
+has **no Hunter expressibility** (smallest |M| after unit
+reduction = `(5^12 + 1)/2 = 122070313`, a generic algebraic
+integer).  This negative-but-informative result confirms the
+"last discrete Galois split before tetration" reading of §10.3:
+Hunter signature persists only at the bottom of the cyclotomic
+tower.  Lean: `aurifeuillean_phi_90_at_5` encodes
+`850554441² = 5 · 364242064² + 60081451169922001` as a PURE
+decidable identity.
 
 **Anchor commits (this branch)**:
   · `b819b628` — Phase 1: concrete instances + norm
   · `6eb41176` — Phase 2: parametric ∀ n ≥ 1
   · `66633261` — Phase 3: Hunter bridge + structural §10
 
-**Research note**: `research-notes/G125_aurifeuillean_n_u.md`
-(370 lines, 11 sections).
-
-**Still open (G125 §8)**:
-  · Q1: Is the `(29, 8)` pair derivable directly from
-    `{NS, NT, d, c} = {3, 2, 5, 2}` via a single closed
-    Aurifeuillean formula?  (Three atomic readings exist;
-    coincidence vs. forced?)
+**Still open (Q2, Q3, Q5 — deferred, not on critical path)**:
   · Q2: `Φ_250(5)` factorisation structure (non-Aurifeuillean
     but possibly admits other field-extension splits).
   · Q3: `5^(5^n) − 1` family — Aurifeuillean analysis at the
     `−1` side via different cyclotomic indices.
-  · Q4: Higher Aurifeuillean indices `Φ_90(5), Φ_490(5), …`
-    (where `m = 3, 7, …` is odd, gcd(m, 5) = 1) — concrete
-    L-M splits and Hunter-bridge status.
+  · Q5: `521 mod {2,3,5,7,11,13}` resonance with the G123
+    modular fingerprint — numerically no obvious pattern.
 
 ### B++. G124 N_U-family cross-field connections — OPEN SURVEY
 

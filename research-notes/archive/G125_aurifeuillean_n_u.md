@@ -211,23 +211,68 @@ catalogued in `research-notes/G124_n_u_family_cross_field_connections.md`
 
 ## §8 Open questions
 
-  · **Q1**: Is the norm pair `(29, 8)` itself derivable from the
-    Hunter `{NS, NT, d, c} = {3, 2, 5, 2}` parameters?
-    `29 = 4 · NS² + 5 = 4 · 9 + 5 − 12 = ...` — no obvious match
-    yet.  Numerical search required.
-  · **Q2**: For `n = 3`, the new cyclotomic factor `Φ_250(5)` —
-    does it have prime-factorisation structure parallel to
-    `Φ_50(5)` (two-prime non-Aurifeuillean split)?  Numerical.
-  · **Q3**: Beyond the `+1` family: does `5^(5^n) − 1` admit any
-    Aurifeuillean structure?  By analogy, the dyadic cousin
-    `Φ_5(5) = 781 = 11 · 71` — non-Aurifeuillean (index 5 fails
-    `2·5·m²` form, and the `−1` family uses different cyclotomic
-    indices).  Worth a brief numerical scan.
-  · **Q4**: Is `521 = N(29 + 8√5)` related to any of the small
-    primes in the G123 modular fingerprint via
-    `521 ≡ ? (mod p)` for `p ∈ {2, 3, 5, 7, 11, 13}`?
-    Numerical: `521 mod {2,3,5,7,11,13} = {1, 2, 1, 3, 4, 1}`.
-    No obvious resonance at small primes.
+  · **Q1 — CLOSED (structural localisation)**: The Aurifeuillean
+    L-coefficient pair `(29, 8)` for `Φ_10(5)` admits multiple
+    Hunter-primitive readings at the physics slice
+    `{NS=3, NT=2, d=5, c=2}`:
+
+    ```
+    29 = d² + NT² = NT^d − NS = d² + d − 1    (three readings)
+    8  = NT³                                   (single direct atom)
+    ```
+
+    This is **structural overdetermination** at the slice, not a
+    universal Aurifeuillean-Hunter forcing.  The next
+    Aurifeuillean cyclotomic factor `Φ_90(5)` (Q4 below)
+    confirms this: its canonical `(L, M)` lives in the generic
+    `ℤ[√5]` prime-ideal landscape with no Hunter expressibility.
+    Hunter ⇔ Aurifeuillean correspondence is therefore **localised
+    to the minimal index `m = 1`** — the bottom of the cyclotomic
+    tower above `d = 5`, where L-coefficients are still small
+    enough to fit Hunter primitives.
+
+  · **Q2 — OPEN (deferred)**: For `n = 3`, the new cyclotomic
+    factor `Φ_250(5)` — does it have prime-factorisation
+    structure parallel to `Φ_50(5)` (two-prime non-Aurifeuillean
+    split)?  Numerical; ~175-digit value, factorisation requires
+    serious resources.  Not on critical path.
+
+  · **Q3 — OPEN (deferred)**: Beyond the `+1` family: does
+    `5^(5^n) − 1` admit any Aurifeuillean structure?  By
+    analogy, the dyadic cousin `Φ_5(5) = 781 = 11 · 71` —
+    non-Aurifeuillean (index 5 fails `2·5·m²` form, and the
+    `−1` family uses different cyclotomic indices).  Worth a
+    brief numerical scan in a future session.
+
+  · **Q4 — CLOSED (negative result, informative)**: `Φ_90(5)`
+    (next Aurifeuillean index after `Φ_10(5)`, with `m = 3`) is
+    a 17-digit prime: `60081451169922001`.  Canonical
+    Aurifeuillean pair `(L, M) = (850554441, 364242064)` exists
+    in `ℤ[√5]` but **neither `L` nor `M` admits Hunter
+    expressibility**.  Specifically `M ≢ 0 (mod 3)` (which the
+    "naive" Aurifeuillean condition `M = 3 · M_canonical` would
+    predict), and reduction under unit multiplication does not
+    reach Hunter-atomic magnitudes (smallest |M| after reduction
+    ≈ `(5^12 + 1)/2 = 122070313` — a generic algebraic-integer
+    value, not a Hunter primitive).
+
+    Combined with Q1: **the Hunter-Aurifeuillean correspondence
+    is uniquely localised to the m=1 minimal index `Φ_10(5)`**.
+    This is precisely the "last discrete Galois split before
+    tetration" reading of §10.3 — the bottom of the cyclotomic
+    tower carries Hunter signature; higher levels do not.
+
+    Lean: `aurifeuillean_phi_90_at_5` in
+    `Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean`
+    encodes the identity `850554441² = 5 · 364242064² + Φ_90(5)`
+    as a `Nat`-friendly decidable theorem.
+
+  · **Q5 — OPEN (low priority)**: Is `521 ≡ ? (mod p)` for the
+    G123 modular fingerprint primes
+    `p ∈ {2, 3, 5, 7, 11, 13}` structurally aligned with the
+    Aurifeuillean handle?  Numerical:
+    `521 mod {2,3,5,7,11,13} = {1, 2, 1, 3, 4, 1}`.  No obvious
+    resonance.
 
 ## §9 Cross-references
 

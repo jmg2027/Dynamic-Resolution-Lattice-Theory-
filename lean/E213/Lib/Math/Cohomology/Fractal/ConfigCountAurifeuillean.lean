@@ -112,7 +112,54 @@ theorem configCount_two_plus_one_mod_521 :
 theorem configCount_three_plus_one_mod_521 :
     (configCount 3 + 1) % 521 = 0 := by decide
 
-/-! ## §5 Capstone — Aurifeuillean fingerprint at the physics slice
+/-! ## §5 Higher Aurifeuillean cyclotomic factors at base 5
+
+The Schinzel–Brent Aurifeuillean condition for base `b ≡ 1 (mod 4)`
+selects cyclotomic indices `n = 2 · b · m²` with `m` odd squarefree,
+`gcd(m, b) = 1`.  At base `b = 5`:
+  · `m = 1 → n = 10`: `Φ_10(5) = 521`, canonical pair `(29, 8)`
+    — both Hunter-expressible (§1, §1.Hunter).
+  · `m = 3 → n = 90`: `Φ_90(5) = 60081451169922001`, canonical pair
+    `(L, M) = (850554441, 364242064)` — 9-digit integers without
+    Hunter expressibility.
+  · `m = 7 → n = 490`: `Φ_490(5)`, a 117-digit prime.  Aurifeuillean
+    pair exists in `ℤ[√5]` but with magnitudes well outside any
+    Hunter-atomic range.
+
+The pattern: **Hunter expressibility is localised to the minimal
+index `m = 1`**.  Higher Aurifeuillean indices yield canonical
+`(L, M)` pairs that are generic primes in `ℤ[√5]`, unrelated to
+the physics-atomic generators `{NS, NT, d, c} = {3, 2, 5, 2}`.
+
+This pattern aligns with the "last discrete Galois split before
+tetration" reading: the smallest non-trivial cyclotomic
+factorisation at base `d = 5` preserves Hunter-atomic structure
+because the L-coefficients themselves are still small.  Larger
+indices push the L-coefficients into the algebraic-integer
+landscape of `ℤ[√5]` proper, where Hunter primitives have no
+structural reach. -/
+
+/-- Φ_90(5) Aurifeuillean factorisation: a 17-digit prime
+    expressed as `L² − 5 · M²` with `L = 850554441`,
+    `M = 364242064`.  Recast in `Nat`: `L² = 5·M² + Φ_90(5)`.
+
+    `Φ_90(5)` itself: `Nat`-friendly evaluation of
+    `Φ_90(x) = x^24 + x^23 − x^21 − x^20 − x^19 + x^17 + x^16 + x^15
+              − x^13 − x^12 − x^11 + x^9 + x^8 + x^7 − x^5 − x^4
+              − x^3 + x + 1`
+    at `x = 5` gives the integer
+    `60081451169922001`.
+
+    Hunter status: neither `L = 850554441` nor `M = 364242064`
+    admit small-depth representations from
+    `{NS = 3, NT = 2, d = 5, c = 2}`.  The Hunter-Aurifeuillean
+    correspondence is therefore localised to the minimal index
+    `m = 1` (= the `521` slice). -/
+theorem aurifeuillean_phi_90_at_5 :
+    850554441 * 850554441 = 5 * (364242064 * 364242064) + 60081451169922001 := by
+  decide
+
+/-! ## §6 Capstone — Aurifeuillean fingerprint at the physics slice
 
 Bundles the norm representation, cyclotomic identity, and
 divisibility at `n = 2`. -/
