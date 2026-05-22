@@ -173,4 +173,97 @@ theorem fin_level_leibniz_general
   rw [← cup_at_faceIdx_eq_cupOnList_eraseIdx n k l k
         (Nat.lt_succ_of_le (Nat.le_add_right k l)) α β τ]
 
+/-! ## §5.  Self-referential restatement -/
+
+/-- ★★★ **Self-referential reading** — the same theorem with the
+    correction packaged as the cup itself at the **middle-removed
+    face**.  The δ behaviour of `cup` refers back to `cup`'s own
+    face value, no external term enters.  PURE. -/
+theorem fin_level_leibniz_self_referential
+    (n k l : Nat) (α : Cochain n k) (β : Cochain n l)
+    (τ : Fin (binom n (k + l + 1))) :
+    let std_part :=
+      xor (cupList (k+1) l
+              (deltaListR k (asListCochain n k α))
+              (asListCochain n l β)
+              (kSubset n (k+l+1) τ.val))
+          (cupList k (l+1)
+              (asListCochain n k α)
+              (deltaListR l (asListCochain n l β))
+              (kSubset n (k+l+1) τ.val))
+    let correction :=
+      cup n k l α β
+        (faceIdx n (k+l+1) k
+          (Nat.lt_succ_of_le (Nat.le_add_right k l)) τ)
+    delta (cup n k l α β) τ = xor std_part correction := by
+  exact fin_level_leibniz_general n k l α β τ
+
+/-! ## §6.  Specific bidegree corollaries -/
+
+/-- Twisted Leibniz at bidegree (1, 1) on Δ⁴ — corollary of the
+    `∀(n, k, l)` capstone.  PURE. -/
+theorem leibniz_1_1_on_d5 (α β : Cochain 5 1) (τ : Fin (binom 5 3)) :
+    delta (cup 5 1 1 α β) τ
+    = xor (xor (cupList 2 1
+                  (deltaListR 1 (asListCochain 5 1 α))
+                  (asListCochain 5 1 β)
+                  (kSubset 5 3 τ.val))
+               (cupList 1 2
+                  (asListCochain 5 1 α)
+                  (deltaListR 1 (asListCochain 5 1 β))
+                  (kSubset 5 3 τ.val)))
+          (cup 5 1 1 α β
+            (faceIdx 5 3 1 (by decide) τ)) :=
+  fin_level_leibniz_general 5 1 1 α β τ
+
+/-- Twisted Leibniz at bidegree (2, 1) on Δ⁴ — corollary of the
+    `∀(n, k, l)` capstone.  Subsumes the prior decide-OOM case.  PURE. -/
+theorem leibniz_2_1_on_d5 (α : Cochain 5 2) (β : Cochain 5 1)
+    (τ : Fin (binom 5 4)) :
+    delta (cup 5 2 1 α β) τ
+    = xor (xor (cupList 3 1
+                  (deltaListR 2 (asListCochain 5 2 α))
+                  (asListCochain 5 1 β)
+                  (kSubset 5 4 τ.val))
+               (cupList 2 2
+                  (asListCochain 5 2 α)
+                  (deltaListR 1 (asListCochain 5 1 β))
+                  (kSubset 5 4 τ.val)))
+          (cup 5 2 1 α β
+            (faceIdx 5 4 2 (by decide) τ)) :=
+  fin_level_leibniz_general 5 2 1 α β τ
+
+/-- Twisted Leibniz at bidegree (1, 2) on Δ⁴ — corollary of the
+    `∀(n, k, l)` capstone.  Subsumes the prior decide-OOM case.  PURE. -/
+theorem leibniz_1_2_on_d5 (α : Cochain 5 1) (β : Cochain 5 2)
+    (τ : Fin (binom 5 4)) :
+    delta (cup 5 1 2 α β) τ
+    = xor (xor (cupList 2 2
+                  (deltaListR 1 (asListCochain 5 1 α))
+                  (asListCochain 5 2 β)
+                  (kSubset 5 4 τ.val))
+               (cupList 1 3
+                  (asListCochain 5 1 α)
+                  (deltaListR 2 (asListCochain 5 2 β))
+                  (kSubset 5 4 τ.val)))
+          (cup 5 1 2 α β
+            (faceIdx 5 4 1 (by decide) τ)) :=
+  fin_level_leibniz_general 5 1 2 α β τ
+
+/-- Twisted Leibniz at bidegree (2, 2) on Δ⁴ — corollary of the
+    `∀(n, k, l)` capstone.  Subsumes the prior decide-OOM case.  PURE. -/
+theorem leibniz_2_2_on_d5 (α β : Cochain 5 2) (τ : Fin (binom 5 5)) :
+    delta (cup 5 2 2 α β) τ
+    = xor (xor (cupList 3 2
+                  (deltaListR 2 (asListCochain 5 2 α))
+                  (asListCochain 5 2 β)
+                  (kSubset 5 5 τ.val))
+               (cupList 2 3
+                  (asListCochain 5 2 α)
+                  (deltaListR 2 (asListCochain 5 2 β))
+                  (kSubset 5 5 τ.val)))
+          (cup 5 2 2 α β
+            (faceIdx 5 5 2 (by decide) τ)) :=
+  fin_level_leibniz_general 5 2 2 α β τ
+
 end E213.Lib.Math.Cohomology.Cup.LeibnizFinGeneral
