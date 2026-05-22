@@ -116,22 +116,117 @@ theorem ZpSeq.trunc_one_at_one (p : Nat) (hp : 1 < p) :
   show 0 + 1 * p^0 = 1
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
 
-/-! ## Phase 1 TODO list
+/-! ## Truncation bound
 
-Next session: implement these helpers and prove they're PURE.
+Each truncation `x.trunc n` lies in `[0, p^n)` — justifying the
+"ℤ/p^n" interpretation.  The bound is the structural reason
+`ZpSeq` is a faithful pre-image of the inverse limit
+`lim_n ℤ/p^n = ℤ_p`.
+-/
 
-  · `ZpSeq.trunc_lt_p_pow` : `x.trunc n < p^n` (for `0 < p`)
-    — Justifies the "ℤ/p^n" interpretation.
+/-- `x.trunc n < p^n` for any digit sequence and any `0 < p`.
 
-  · `ZpSeq.eq_mod_pn_iff_trunc` :
-      `eq_mod_pn x y n ↔ x.trunc n = y.trunc n`
+    Inductive on `n`.  Base: `trunc 0 = 0 < 1 = p^0`.
+    Step: by the IH `trunc x n < p^n` and `(x.digits n).val + 1 ≤ p`,
+    we get `trunc x n + (x.digits n).val · p^n < ((digit)+1) · p^n
+    ≤ p · p^n = p^(n+1)`. -/
+theorem ZpSeq.trunc_lt_p_pow {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, x.trunc n < p^n
+  | 0 => Nat.one_pos
+  | n + 1 => by
+    have ih : x.trunc n < p^n := ZpSeq.trunc_lt_p_pow hp x n
+    have hd : (x.digits n).val + 1 ≤ p :=
+      Nat.succ_le_of_lt (x.digits n).isLt
+    show x.trunc n + (x.digits n).val * p^n < p^(n+1)
+    calc x.trunc n + (x.digits n).val * p^n
+        < p^n + (x.digits n).val * p^n :=
+              Nat.add_lt_add_right ih _
+      _ = ((x.digits n).val + 1) * p^n := by
+              rw [Nat.succ_mul]; exact Nat.add_comm _ _
+      _ ≤ p * p^n := Nat.mul_le_mul_right _ hd
+      _ = p^(n+1) := by rw [Nat.pow_succ]; exact Nat.mul_comm _ _
 
-  · `ZpSeq.digits_of_nat` : embedding Nat → ZpSeq p
-    (via base-p expansion of the Nat).
+/-! ## Equality up to truncation ↔ truncation equality
 
-  · Per-prime smoke tests at p = 2, 3, 5, 7.
+The two natural notions of "agreement to `n` digits" coincide:
+digit-by-digit (`eq_mod_pn`) and truncation-value
+(`trunc x n = trunc y n`).  Forward is structural; backward uses
+the `trunc < p^n` bound to extract digits via mod-cancellation.
+-/
 
-## Phase 2 preview (next file: Arith.lean)
+/-- Forward: if digits agree for all `k < n`, the truncations agree.
+    Pure structural induction on `n`. -/
+theorem ZpSeq.trunc_eq_of_eq_mod_pn {p : Nat} {x y : ZpSeq p} :
+    ∀ n, ZpSeq.eq_mod_pn x y n → x.trunc n = y.trunc n
+  | 0, _ => rfl
+  | n + 1, h => by
+    have hbelow : ZpSeq.eq_mod_pn x y n :=
+      fun k hk => h k (Nat.lt_succ_of_lt hk)
+    have ih : x.trunc n = y.trunc n :=
+      ZpSeq.trunc_eq_of_eq_mod_pn n hbelow
+    have hkn : x.digits n = y.digits n := h n (Nat.lt_succ_self n)
+    show x.trunc n + (x.digits n).val * p^n
+          = y.trunc n + (y.digits n).val * p^n
+    rw [ih, hkn]
+
+/-- Backward: if `x.trunc (n+1) = y.trunc (n+1)`, then `x.digits n =
+    y.digits n` and `x.trunc n = y.trunc n`.  This is the
+    "extract one digit" lemma: take both sides mod `p^n` and use
+    `trunc_lt_p_pow` + `add_mul_mod_self_pure`. -/
+theorem ZpSeq.trunc_succ_inj {p : Nat} (hp : 0 < p) {x y : ZpSeq p}
+    (n : Nat) (h : x.trunc (n+1) = y.trunc (n+1)) :
+    x.trunc n = y.trunc n ∧ x.digits n = y.digits n := by
+  have hxlt : x.trunc n < p^n := ZpSeq.trunc_lt_p_pow hp x n
+  have hylt : y.trunc n < p^n := ZpSeq.trunc_lt_p_pow hp y n
+  have hp_pow : 0 < p^n := Nat.pos_pow_of_pos n hp
+  have hxmod : x.trunc (n+1) % p^n = x.trunc n := by
+    show (x.trunc n + (x.digits n).val * p^n) % p^n = x.trunc n
+    rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+    exact Nat.mod_eq_of_lt hxlt
+  have hymod : y.trunc (n+1) % p^n = y.trunc n := by
+    show (y.trunc n + (y.digits n).val * p^n) % p^n = y.trunc n
+    rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+    exact Nat.mod_eq_of_lt hylt
+  have htrunc_eq : x.trunc n = y.trunc n :=
+    hxmod.symm.trans ((congrArg (· % p^n) h).trans hymod)
+  have hmul_eq : (x.digits n).val * p^n = (y.digits n).val * p^n := by
+    have h' : x.trunc n + (x.digits n).val * p^n
+              = y.trunc n + (y.digits n).val * p^n := h
+    rw [htrunc_eq] at h'
+    exact E213.Tactic.NatHelper.add_left_cancel h'
+  have hcomm1 : (x.digits n).val * p^n = p^n * (x.digits n).val :=
+    Nat.mul_comm _ _
+  have hcomm2 : (y.digits n).val * p^n = p^n * (y.digits n).val :=
+    Nat.mul_comm _ _
+  have hmul_eq' : p^n * (x.digits n).val = p^n * (y.digits n).val := by
+    rw [← hcomm1, ← hcomm2]; exact hmul_eq
+  have hdig_val : (x.digits n).val = (y.digits n).val :=
+    E213.Tactic.NatHelper.mul_left_cancel_pos hp_pow hmul_eq'
+  exact ⟨htrunc_eq, Fin.eq_of_val_eq hdig_val⟩
+
+/-- Backward (full): if truncations agree at level `n`, then digits
+    agree for all `k < n`.  By induction iterating `trunc_succ_inj`. -/
+theorem ZpSeq.eq_mod_pn_of_trunc_eq {p : Nat} (hp : 0 < p) {x y : ZpSeq p} :
+    ∀ n, x.trunc n = y.trunc n → ZpSeq.eq_mod_pn x y n
+  | 0, _ => fun k hk => absurd hk (Nat.not_lt_zero k)
+  | n + 1, h => by
+    have hpair := ZpSeq.trunc_succ_inj hp n h
+    have htn : x.trunc n = y.trunc n := hpair.1
+    have hdn : x.digits n = y.digits n := hpair.2
+    have ih : ZpSeq.eq_mod_pn x y n :=
+      ZpSeq.eq_mod_pn_of_trunc_eq hp n htn
+    intro k hk
+    have hkn : k ≤ n := Nat.le_of_lt_succ hk
+    match Nat.lt_or_eq_of_le hkn with
+    | .inl hlt => exact ih k hlt
+    | .inr heq => exact heq ▸ hdn
+
+/-- The two notions of "agreement to `n` digits" coincide. -/
+theorem ZpSeq.eq_mod_pn_iff_trunc {p : Nat} (hp : 0 < p) {x y : ZpSeq p}
+    (n : Nat) : ZpSeq.eq_mod_pn x y n ↔ x.trunc n = y.trunc n :=
+  ⟨ZpSeq.trunc_eq_of_eq_mod_pn n, ZpSeq.eq_mod_pn_of_trunc_eq hp n⟩
+
+/-! ## Phase 2 preview (next file: Arith.lean)
 
   · `Zp.add p x y : ZpSeq p` with carry propagation FSM
   · `Zp.add_trunc` : truncation respects addition mod p^n
