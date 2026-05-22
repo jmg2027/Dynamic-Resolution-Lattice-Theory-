@@ -662,4 +662,28 @@ theorem fp2Norm_phi_eq_neg_one_3 : fp2Norm 3 (phiFP2 3) = 2 := by decide
 /-- Smoke at p=7: `Norm(phiFP2 7) = 7 - 1 = 6`. -/
 theorem fp2Norm_phi_eq_neg_one_7 : fp2Norm 7 (phiFP2 7) = 6 := by decide
 
+/-! ## φ · σ(φ) = -1 (universal Phase 3.3 milestone) -/
+
+/-- ★★★ **`φ · σ(φ) = (-1, 0)`** (universal, for odd `1 < p`):
+    the key Phase 3.3 identity.  Combines `fp2Mul_self_frob` (Part 37)
+    with `fp2Norm_phi_eq_neg_one` (Part 38).
+
+    In 𝔽_{p²}: φ · σ(φ) = N(φ) = -1, identifying `-1 ∈ 𝔽_p` with `(p-1, 0)`.
+
+    This is the Phase 3.3 analog of `phi * psi ≡ -1 (mod p)` in the split
+    case (Phase 3.2), now lifted to 𝔽_{p²} for the inert case.  PURE. -/
+theorem phiFP2_mul_frob_phi_eq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Mul p (phiFP2 p) (fp2Frob p (phiFP2 p)) = (p - 1, 0) := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  rw [fp2Mul_self_frob p hp_pos (phiFP2 p)]
+  rw [fp2Norm_phi_eq_neg_one p hp hpo]
+
+/-- Smoke at p=3: φ · σ(φ) = (2, 0) = (-1, 0). -/
+theorem phiFP2_mul_frob_phi_3 :
+    fp2Mul 3 (phiFP2 3) (fp2Frob 3 (phiFP2 3)) = (2, 0) := by decide
+
+/-- Smoke at p=7: φ · σ(φ) = (6, 0) = (-1, 0). -/
+theorem phiFP2_mul_frob_phi_7 :
+    fp2Mul 7 (phiFP2 7) (fp2Frob 7 (phiFP2 7)) = (6, 0) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
