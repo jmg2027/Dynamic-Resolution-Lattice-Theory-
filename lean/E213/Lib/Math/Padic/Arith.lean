@@ -1379,4 +1379,77 @@ theorem Zp.smoke_shiftLeft_one_5_d0 :
   exact Zp.shiftLeft_digit_low 5 (by decide) 1 (ZpSeq.one 5 (by decide))
           0 (by decide)
 
+/-! ## Ring laws at the truncation level
+
+From the ring-quotient theorems `add_trunc` and `mul_trunc`, the
+truncation-level ring laws (commutativity, associativity,
+distributivity) follow by reducing to Nat-level identities.
+-/
+
+/-- Multiplicative commutativity at trunc level. -/
+theorem Zp.mul_trunc_comm (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp x y).trunc n = (Zp.mul p hp y x).trunc n := by
+  rw [Zp.mul_trunc p hp x y n, Zp.mul_trunc p hp y x n, Nat.mul_comm]
+
+/-- Additive commutativity at trunc level. -/
+theorem Zp.add_trunc_comm (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat) :
+    (Zp.add p hp x y).trunc n = (Zp.add p hp y x).trunc n := by
+  rw [Zp.add_trunc p hp x y n, Zp.add_trunc p hp y x n, Nat.add_comm]
+
+/-- Multiplicative associativity at trunc level. -/
+theorem Zp.mul_trunc_assoc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp x (Zp.mul p hp y z)).trunc n
+      = (Zp.mul p hp (Zp.mul p hp x y) z).trunc n := by
+  rw [Zp.mul_trunc p hp x (Zp.mul p hp y z) n,
+      Zp.mul_trunc p hp y z n,
+      Zp.mul_trunc p hp (Zp.mul p hp x y) z n,
+      Zp.mul_trunc p hp x y n,
+      ← E213.Meta.Nat.MulMod213.mul_mod_right_pure (x.trunc n)
+            (y.trunc n * z.trunc n) (p^n),
+      ← E213.Meta.Nat.MulMod213.mul_mod_left_pure (x.trunc n * y.trunc n)
+            (z.trunc n) (p^n),
+      E213.Tactic.NatHelper.mul_assoc (x.trunc n) (y.trunc n) (z.trunc n)]
+
+/-- Additive associativity at trunc level. -/
+theorem Zp.add_trunc_assoc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
+    (Zp.add p hp x (Zp.add p hp y z)).trunc n
+      = (Zp.add p hp (Zp.add p hp x y) z).trunc n := by
+  rw [Zp.add_trunc p hp x (Zp.add p hp y z) n,
+      Zp.add_trunc p hp y z n,
+      Zp.add_trunc p hp (Zp.add p hp x y) z n,
+      Zp.add_trunc p hp x y n]
+  -- LHS: (x.trunc n + (y.trunc n + z.trunc n) % p^n) % p^n
+  -- RHS: ((x.trunc n + y.trunc n) % p^n + z.trunc n) % p^n
+  -- Reduce RHS to (x.trunc n + y.trunc n + z.trunc n) % p^n.
+  rw [E213.Meta.Nat.AddMod213.mod_add_mod (Nat.pos_pow_of_pos n hp)
+        (x.trunc n + y.trunc n) (z.trunc n)]
+  -- Reduce LHS via add_comm + mod_add_mod + add_comm + ← add_assoc.
+  rw [Nat.add_comm (x.trunc n) ((y.trunc n + z.trunc n) % p^n)]
+  rw [E213.Meta.Nat.AddMod213.mod_add_mod (Nat.pos_pow_of_pos n hp)
+        (y.trunc n + z.trunc n) (x.trunc n)]
+  rw [Nat.add_comm (y.trunc n + z.trunc n) (x.trunc n)]
+  rw [← Nat.add_assoc]
+
+/-- Left distributivity at trunc level: x · (y + z) ≡ x · y + x · z. -/
+theorem Zp.mul_add_trunc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp x (Zp.add p hp y z)).trunc n
+      = (Zp.add p hp (Zp.mul p hp x y) (Zp.mul p hp x z)).trunc n := by
+  rw [Zp.mul_trunc, Zp.add_trunc, Zp.add_trunc, Zp.mul_trunc, Zp.mul_trunc,
+      ← E213.Meta.Nat.MulMod213.mul_mod_right_pure (x.trunc n)
+            (y.trunc n + z.trunc n) (p^n),
+      Nat.mul_add,
+      ← E213.Meta.Nat.AddMod213.add_mod (Nat.pos_pow_of_pos n hp)
+            (x.trunc n * y.trunc n) (x.trunc n * z.trunc n)]
+
+/-- Right distributivity at trunc level: (x + y) · z ≡ x · z + y · z. -/
+theorem Zp.add_mul_trunc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp (Zp.add p hp x y) z).trunc n
+      = (Zp.add p hp (Zp.mul p hp x z) (Zp.mul p hp y z)).trunc n := by
+  rw [Zp.mul_trunc, Zp.add_trunc, Zp.add_trunc, Zp.mul_trunc, Zp.mul_trunc,
+      ← E213.Meta.Nat.MulMod213.mul_mod_left_pure
+            (x.trunc n + y.trunc n) (z.trunc n) (p^n),
+      E213.Tactic.NatHelper.add_mul,
+      ← E213.Meta.Nat.AddMod213.add_mod (Nat.pos_pow_of_pos n hp)
+            (x.trunc n * z.trunc n) (y.trunc n * z.trunc n)]
+
 end E213.Lib.Math.Padic
