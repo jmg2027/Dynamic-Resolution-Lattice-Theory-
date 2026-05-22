@@ -126,18 +126,17 @@ SEALED_DIRTY_PREFIXES = (
     "E213.Lens.SemanticAtom",
     "E213.Lens.Properties.Morphism.BoolProp",
     # (b) Lens funext-by-design.  `Lens.combine` for the universal /
-    #     indexed / Cauchy / function-space Lens family is function-
-    #     valued (e.g. `(Raw → Prop) → (Raw → Prop) → (Raw → Prop)`),
-    #     and `Lens.combine_sym` is therefore a function-equality
+    #     indexed / Cauchy Lens family is function-valued (e.g.
+    #     `(Raw → Prop) → (Raw → Prop) → (Raw → Prop)`), and
+    #     `Lens.combine_sym` is therefore a function-equality
     #     statement that demands `funext` (= `Quot.sound` in the
-    #     kernel).
+    #     kernel).  `DepthJoin` also lands here: its `tier`-classifier
+    #     theorems pass through `Lens.equiv` (Prop-valued Lens.view
+    #     equality) and `Lens.refines` (function-shape kernel
+    #     equality), both of which need propext + Quot.sound to close.
     "E213.Lens.Universal.QuotLens",
     "E213.Lens.Lattice.IndexedJoin",
     "E213.Lens.Instances.Cauchy",
-    "E213.Lens.Instances.FunctionSpace",
-    # (c) Quotient-representative selection.  `JoinEquiv` on `Raw`
-    #     defines a three-tier classification whose representative
-    #     extraction is Skolem-style, requiring `Classical.choice`.
     "E213.Lens.Instances.Leaves.DepthJoin",
 )
 

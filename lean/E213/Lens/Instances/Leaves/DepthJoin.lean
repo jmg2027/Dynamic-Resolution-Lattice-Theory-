@@ -70,8 +70,10 @@ private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
 private theorem small_iff_depth_zero (r : Raw) :
     small r ↔ Lens.depth.view r = 0 := by
   induction r using Raw.rec with
-  | a => simp [small, Lens.leaves, Lens.depth, Lens.view, Raw.fold_a]
-  | b => simp [small, Lens.leaves, Lens.depth, Lens.view, Raw.fold_b]
+  | a =>
+      refine ⟨fun _ => ?_, fun _ => ?_⟩ <;> rfl
+  | b =>
+      refine ⟨fun _ => ?_, fun _ => ?_⟩ <;> rfl
   | slash x y h _ _ =>
       have hfsL : Lens.leaves.view (Raw.slash x y h)
                     = Lens.leaves.view x + Lens.leaves.view y := by
@@ -85,14 +87,25 @@ private theorem small_iff_depth_zero (r : Raw) :
         rw [E213.Tactic.NatHelper.max_comm]
       have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
       have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
-      constructor
-      · intro hs
+      refine ⟨fun hs => ?_, fun hd => ?_⟩
+      · -- small slash → contradiction: leaves(slash) ≥ 2 ≠ 1
         unfold small at hs
         rw [hfsL] at hs
-        omega
-      · intro hd
+        -- hs : Lens.leaves.view x + Lens.leaves.view y = 1
+        -- but x ≥ 1 and y ≥ 1 → sum ≥ 2.  Constructive Nat contradiction.
+        exact absurd hs (by
+          intro heq
+          have h2 : 2 ≤ Lens.leaves.view x + Lens.leaves.view y :=
+            Nat.add_le_add hxge hyge
+          have : (2 : Nat) ≤ 1 := heq ▸ h2
+          exact Nat.not_succ_le_self 1 this)
+      · -- 1 + max d_x d_y = 0 → contradiction.
         rw [hfsD] at hd
-        omega
+        -- 1 ≤ 1 + n, but hd says 1 + n = 0, so 1 ≤ 0, impossible.
+        have h1 : 1 ≤ 1 + max (Lens.depth.view x) (Lens.depth.view y) :=
+          Nat.le_add_right 1 _
+        rw [hd] at h1
+        exact absurd h1 (Nat.not_succ_le_zero 0)
 
 /-- **Core invariant**: `small r ↔ small r'` under JoinEquiv leaves depth. -/
 theorem small_invariant (r r' : Raw)

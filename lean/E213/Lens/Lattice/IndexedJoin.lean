@@ -159,27 +159,13 @@ theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
   rw [← iProdLens_view F hAllSym r i,
       ← iProdLens_view F hAllSym r' i, hview]
 
-/-- **iProdLens universal property (greatest lower bound)**: any L
-    that refines all (F i).2 also refines iProdLens F.  Uses pointwise
-    extensionality at the index level — the only function-eq invocation
-    is the final `funext i` to assemble the kernel equality, which lives
-    on the `Raw → ((j:ι) → β j)` codomain side.  Funext-free version
-    below states the conclusion *via* `iProdLens_view` projection. -/
-theorem iProdLens_is_greatest {ι : Type} {α : Type}
-    (F : ι → (β : Type) × Lens β) (L : Lens α)
-    (hAllSym : ∀ i (u v : (F i).1),
-                (F i).2.combine u v = (F i).2.combine v u)
-    (hAll : ∀ i, L.refines (F i).2) :
-    L.refines (iProdLens F) := by
-  intro r r' h
-  show (iProdLens F).view r = (iProdLens F).view r'
-  funext i
-  rw [iProdLens_view F hAllSym r i, iProdLens_view F hAllSym r' i]
-  exact hAll i r r' h
-
-/-- ∅-axiom companion: greatest-lower-bound property stated **pointwise
-    at each index** to avoid `funext` on the dependent function-space
-    codomain.  The full `refines` form (above) follows by `funext i`. -/
+/-- **iProdLens universal property (greatest lower bound), stated
+    pointwise at each index**.  Any `L` that refines all `(F i).2`
+    produces equal `iProdLens F`-views at every index `i`.  This is
+    the ∅-axiom form: a function-equality reassembly
+    `L.refines (iProdLens F)` would require `funext` (= `Quot.sound`
+    in the Lean 4 kernel), so we expose only the pointwise statement.
+    Downstream consumers reason pointwise at the chosen index. -/
 theorem iProdLens_is_greatest_pw {ι : Type} {α : Type}
     (F : ι → (β : Type) × Lens β) (L : Lens α)
     (hAllSym : ∀ i (u v : (F i).1),

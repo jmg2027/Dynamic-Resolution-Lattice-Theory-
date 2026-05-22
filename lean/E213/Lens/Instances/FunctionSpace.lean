@@ -2,19 +2,25 @@ import E213.Lens.SemanticAtom
 import E213.Lens.Instances.Reach
 
 /-!
-# FunctionSpace: function space `α → β` as a meaning-framework instance
+# FunctionSpace: function space `α → β` as a fold-target
 
-`HasDistinguishing β → HasDistinguishing (α → β)` (with α inhabited).
-Instance for function types — categorical exponential.
+`Raw.fold` directly produces `Raw → (α → β)` when `β` is a
+distinguishing-framework instance.  The result is the categorical
+exponential's universal morphism, PURE (∅-axiom).
 
 ## Results
 
-- `funHasDistinguishing α β [HasDistinguishing β] [Inhabited α]`:
-  α → β is an instance.
-- `universalMorphism (α → β)`: fold-derived Raw → (α → β).
+- `funUniversalMorphism (α → β)`: fold-derived Raw → (α → β),
+  computed via `Raw.fold` on `(fun _ => d_β.a, fun _ => d_β.b,
+  pointwise d_β.combine)`.
+- `boolFunUniversal : Raw → (Bool → Bool)` — concrete `Bool → Bool` case.
 
-A function type is also a framework instance — a trivial result
-analogous to Lens.
+A typeclass instance `funHasDistinguishing : HasDistinguishing (α → β)`
+would require `combine_sym` at function-equality type, demanding
+`funext` (= `Quot.sound` in the Lean 4 kernel) — i.e. it would be
+DIRTY.  We do not produce such an instance: the direct fold above
+gives the universal morphism without typeclass machinery, keeping
+the module ∅-axiom.
 -/
 
 namespace E213.Lens.Instances.FunctionSpace
@@ -23,32 +29,8 @@ open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 
-/-- HasDistinguishing instance for function space `α → β`.
-    α is assumed to be inhabited (a witness element is needed
-    to prove distinctness). -/
-def funHasDistinguishing (α β : Type) [Inhabited α]
-    [d_β : HasDistinguishing β] : HasDistinguishing (α → β) where
-  a := fun _ => d_β.a
-  b := fun _ => d_β.b
-  distinct := by
-    intro h
-    have h_at : (fun _ : α => d_β.a) (default : α)
-                = (fun _ : α => d_β.b) (default : α) :=
-      congrFun h (default : α)
-    exact d_β.distinct h_at
-  combine := fun f g x => d_β.combine (f x) (g x)
-  combine_sym := by
-    intro f g
-    funext x
-    exact d_β.combine_sym _ _
-
-
-
 /-- **Universal morphism Raw → (α → β)** — defined directly via
-    `Raw.fold`, bypassing the DIRTY `funHasDistinguishing` typeclass
-    (whose `combine_sym` field uses funext on the function-space).
-    Definitionally equivalent to `@universalMorphism (α → β)
-    (funHasDistinguishing α β)` but ∅-axiom. -/
+    `Raw.fold` on pointwise `combine`.  ∅-axiom. -/
 def funUniversalMorphism (α β : Type) [d_β : HasDistinguishing β] :
     Raw → (α → β) :=
   Raw.fold (fun _ => d_β.a) (fun _ => d_β.b)
@@ -59,3 +41,4 @@ def boolFunUniversal : Raw → (Bool → Bool) :=
   @funUniversalMorphism Bool Bool boolHasDistinguishing
 
 end E213.Lens.Instances.FunctionSpace
+

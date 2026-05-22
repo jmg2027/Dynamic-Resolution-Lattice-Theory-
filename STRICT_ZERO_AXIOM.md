@@ -68,11 +68,15 @@ HasDistinguishing instance, which removes the thesis.
 
 ### (b) Lens funext-by-design — `Quot.sound` (= `funext`)
 
-`Lens.combine : α → α → α` for the universal / indexed / Cauchy /
-function-space Lens family is function-valued — `α = Raw → β` or
-`α = (i : ι) → ...`.  Then `Lens.combine_sym : combine x y =
-combine y x` becomes a function equality, which in the Lean 4
-kernel is `funext`, derived from `Quot.sound`.
+`Lens.combine : α → α → α` for the universal / indexed / Cauchy
+Lens family is function-valued — `α = Raw → β` or `α = (i : ι) →
+...`.  Then `Lens.combine_sym : combine x y = combine y x` becomes
+a function equality, which in the Lean 4 kernel is `funext`,
+derived from `Quot.sound`.  `Lens.equiv` on Raw is the same
+pattern at one level up: it states `L.view r = L.view r'` at type
+`Prop` (Iff↔Eq via propext) and `Lens.refines` says
+`L.equiv r r' → M.view r = M.view r'` (function equality on
+view).  Both patterns inherit propext + Quot.sound from the kernel.
 
 Sealed modules:
 
@@ -88,8 +92,10 @@ Sealed modules:
       `iJoinLens.view : Raw → (ι → α)` is the indexed-join function;
       `combine` is pointwise.  Kernel theorems (`each_refines`,
       `is_least`, `kernel`) close through `universalLens_kernel_eq_E`
-      with QuotLens-inherited DIRTY.  `iProdLens_is_greatest`
-      uses raw `Quot.sound` for the indexed-product carrier.
+      with QuotLens-inherited DIRTY.  Companion theorems
+      `iProdLens_refines_each` and `iProdLens_is_greatest_pw` are
+      PURE — they expose the pointwise-at-index statement that
+      avoids the final `funext i` reassembly.
 
   · `E213.Lens.Instances.Cauchy`
       `limitLens` for Cauchy chains is universalLens applied to
@@ -97,41 +103,30 @@ Sealed modules:
       all close via `universalLens_kernel_eq_E`, inheriting the
       QuotLens funext-by-design seal.
 
-  · `E213.Lens.Instances.FunctionSpace`
-      `funHasDistinguishing : HasDistinguishing (α → β)` with
-      `combine = pointwise d_β.combine`; `combine_sym` requires
-      `funext` directly.  Companion `funUniversalMorphism` is
-      explicitly PURE — it bypasses the typeclass and folds Raw
-      directly to (α → β).  The typeclass instance itself remains
-      sealed; consumers prefer `funUniversalMorphism`.
-
-### (c) Quotient-representative selection — `Classical.choice`
-
-`JoinEquiv L M` on `Raw` is the equivalence closure under the
-union of two Lens kernels.  Several invariant theorems on this
-relation extract a "representative" of a JoinEquiv-class without
-a decidable selector, which requires `Classical.choice`.
-
-Sealed module:
-
   · `E213.Lens.Instances.Leaves.DepthJoin`
       Three-tier classification of `Raw` via `JoinEquiv
-      Lens.leaves Lens.depth`.  Tier invariants
+      Lens.leaves Lens.depth`.  All 10 tier invariants
       (`small_invariant`, `tier_invariant`, `class_of_a_iff_small`,
       `three_classes_distinct`, `tierLens_*`,
       `depth_refines_tierLens`, `leaves_refines_tierLens`,
       `joinEquiv_subset_tierLens`, `leaves_depth_join_not_universal`)
-      require Skolem-style selection from JoinEquiv classes —
-      Classical.choice via the Quot.lift adjoint.
+      close through `Lens.equiv` (propext for Iff↔Eq at Prop) and
+      `Lens.refines` (funext-via-Quot.sound for view equality).
 
 ### Net effect
 
   · **Non-sealed DRLT mathematical content** (Lib/Math/*, Lib/Physics/*,
     Theory/*) is **fully PURE** on Lean 4 core.
-  · **Sealed Lens.* modules** carry 56 DIRTY theorems whose Lean-core
-    axiom use is structural per the categories above.
+  · **Sealed Lens.* modules** carry 54 DIRTY theorems whose Lean-core
+    axiom use is structural per categories (a) + (b) above.
+  · **`Classical.choice` is absent from all DRLT mathematical
+    content** — the previous 5 DepthJoin theorems that carried
+    Classical.choice via `omega` / `simp` tactic artifacts were
+    refactored to use constructive Nat reasoning (`Nat.le_add_right`,
+    `Nat.not_succ_le_zero`, explicit case analysis), closing the
+    Classical.choice surface.
   · `tools/scan_all_axioms.py` reports `<N> PURE / 0 real DIRTY /
-    56 sealed-DIRTY-by-design`.
+    54 sealed-DIRTY-by-design`.
 
 ---
 
