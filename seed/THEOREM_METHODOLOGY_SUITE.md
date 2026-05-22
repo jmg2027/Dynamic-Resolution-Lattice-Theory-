@@ -22,7 +22,7 @@ the falsifier surface, TH-4 extracts the parametric helper.
 
 Companions: `seed/META_SCAN_ARCHETYPES.md` (the 11 scanner
 archetypes + dual-branch process model), `LESSONS_LEARNED.md`
-Patterns #1-#20, `research-notes/G107_action_items_registry.md`
+Patterns #1-#20, `research-notes/archive/metascan/G107_action_items_registry.md`
 (open registry).
 
 ---
@@ -564,5 +564,5 @@ retired.
     methodology.
   · `theory/meta/raw_derivation_levels.md` — Tier-3 chapter
     expanding §TH-2.
-  · `research-notes/G107_action_items_registry.md` — full
+  · `research-notes/archive/metascan/G107_action_items_registry.md` — full
     abstraction registry.

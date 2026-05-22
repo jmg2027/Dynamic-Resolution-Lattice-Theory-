@@ -28,29 +28,38 @@ Self-referential Leibniz for the lex-projection cup.  Empirically
 verified at two bidegrees; symbolic proof for general `(k, l, n)`
 deferred.  Source: `research-notes/G86_self_referential_leibniz.md`.
 
-### B. G107 action-items still-open (high-priority subset)
-Source: `research-notes/G107_action_items_registry.md` (§3-§5).
-Currently still open:
+### B. G107 §4 action-items registry — CLOSED (archived 2026-05-22)
 
-| Item | Notes |
-|---|---|
-| **L1** (n, k, l) fully general | 4-sibling collapse done (α/β-general parametric + 4 thin corollaries, all PURE).  Fully (n, k, l)-general form would require generalising V5_2Decomp beyond fixed (5, 2); overlaps with G86 Cup-Leibniz |
-| **L3** Pisano Predictor 14/17 consolidation | DONE — `obtain` destructure, both PURE |
-| **L4** `addLDD` / `mulLDD` | DONE — `ldd_branch_max_{left,right}` bilateral helpers |
-| **L5** `CDDouble.I_mul_J` / `J_mul_I` | DONE — `by decide` (via derived `DecidableEq Lipschitz`) |
-| **C** — CutSumOne 8-sibling 3-component template | DONE — `cutSum_constCut_at` template + 8 sibling reductions, all 13 PURE |
-| **E** — `sqrt{2,3,5}_no_rational_aux` × 3 (SqrtPure) | DONE — `DescentBase N` structure + parametric `sqrtN_no_rational_aux_generic` in `Irrational.SqrtPure`; Sqrt2/3/5Pure each supply a `descentBase` instance + thin corollary.  Sqrt2KernelFree (kernel-free experimental file) intentionally untouched. |
-| **F** — Σ-fold cross-domain | DONE — `sigmaList` in `Meta.Tactic.ListHelper` + 5 callsites unified (Vec.inner / routeSum / observable_sum / phase2 / focc_spectrum) |
-| **G110 FLUX-1** forward/backward parametric | DONE — `mvt_cutPow_unitBracket_{forward,backward}_at` parametric in `Analysis/FluxMVT/FluxMVTPolynomial.lean`; specific degrees (square / cube / quartic) are corollaries |
-| **G111 COH-1** Universal Prop52/53 pattern_eq_at | DONE — `Universal.Pattern10.pattern10_eq_at` template, Prop52/Prop53 delegate |
-| **G111 COH-2** Hodge Prop 5_k quartet | DONE — `Hodge.InvolutionTemplate.hodge_involution_pointwise_5` template, all 4 (k ∈ {1,2,3,4}) delegate |
-| **G111 COH-3** Leibniz4Mixed + Leibniz pattern pair | DONE — `CupAW.LeibnizUniversalLift.leibniz_pointwise_lift` template, both delegate |
-| **G108 REAL-1** `cutMul{Inner,Outer}_eq_true_iff` parametric | DONE — `BoolOrLadder.bool_or_ladder_iff_with_pack` (Prop-pack composer of `bool_or_ladder_iff`) drives both Inner / Outer iffs as term-level corollaries; `decide_eq_true_pure` lands alongside |
-| **G108 REAL-2** `cutSumAux_eq_true_iff` + `cutSum_diff_denom_forward` | DONE — `cutSum_diff_denom_forward` already universal (∀ b, d ≥ 1); `cutSumAux_eq_true_iff` now also a `bool_or_ladder_iff_with_pack` instance |
-| **G114 CD-1/2/3** | INFEASIBLE per G118 — ext theorems are 2-line `cases u; cases v; congr`; `conj_ne_id` picks per-instance witness (5-param helper as verbose as original); `assoc_*` are `by decide` (no body) |
-| **G115 PHYS-1** FractalLevelZeta master theorems | INFEASIBLE per G118 — already maximally compact (`refine ⟨...⟩ <;> decide` on ~10-conjuncts) |
-| **G115 PHYS-2** bracket-containment | INFEASIBLE per G118 — `by decide` IS the proof |
-| **G117 Bishop comparison** | NARRATIVE-COMPLETE / LEAN-INFEASIBLE — `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption" + `theory/math/analysis/minimal_root.md` (locatedness reframing) + `Real213/Core/AsLensOutput.lean` (formal carrier) discharge the doctrinal claim.  A Lean-level equivalence proof requires importing an external Bishop API, which sits outside the ∅-axiom contract per CLOSED_FORM_SPEC §"Why the bridge is principled, not a gap". |
+Every item in the 24-entry registry has a final disposition:
+
+  · **Executed in Lean this branch** (six): L3 Pisano `obtain`,
+    L4 LDD bilateral helpers, L5 CDDouble `by decide`, F
+    `sigmaList`, E `DescentBase` parametric √N descent,
+    REAL-1 / REAL-2 `bool_or_ladder_iff_with_pack` composer.
+  · **Substantively done at audit** (four): L1 4-sibling Leibniz
+    collapse, C CutSumOne 3-component template, G110 FLUX-1
+    parametric, G111 COH-1/2/3 universal templates.
+  · **Structurally infeasible per G118 verdict** (five): CD-1
+    (ext = 2-line `cases u; cases v; congr`), CD-2 (`conj_ne_id`
+    per-instance witness irreducible), CD-3 (Lipschitz `assoc_*`
+    are `by decide` with no body), PHYS-1 (FractalLevelZeta master
+    theorems are `refine ⟨...⟩ <;> decide` — already maximally
+    compact), PHYS-2 (bracket-containment is `by decide` on Nat —
+    the `decide` IS the proof).
+  · **Folded into G86** (one): L1 `(n, k, l)`-fully-general
+    Leibniz lift requires V5_2Decomp generalisation, joining the
+    self-referential Cup-Leibniz open in §A.
+  · **Narrative-complete / Lean-infeasible** (one): G117 Bishop
+    comparison.  `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption"
+    + `theory/math/analysis/minimal_root.md` + `Real213/Core/
+    AsLensOutput.lean` discharge the doctrinal claim.  Formal
+    equivalence would require importing an external Bishop API,
+    which sits outside the ∅-axiom contract per CLOSED_FORM_SPEC
+    §"Why the bridge is principled, not a gap".
+
+Closure index: `research-notes/archive/metascan/INDEX.md`
+(per-note disposition); narrative: `theory/meta/scanner_suite.md`
+§"Open frontier".
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
@@ -146,5 +155,5 @@ meaningful in DRLT is itself a research question.
 | `lean/E213/docs/PROMOTION_PATTERNS.md` | Three promotion patterns |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
 | `seed/META_SCAN_ARCHETYPES.md` | 11 scanner archetypes |
-| `research-notes/G107_action_items_registry.md` | Open action items |
+| `research-notes/archive/metascan/INDEX.md` | Closed action-items registry + per-note disposition |
 | `research-notes/G122_real213_padic_research_direction.md` | Next campaign |

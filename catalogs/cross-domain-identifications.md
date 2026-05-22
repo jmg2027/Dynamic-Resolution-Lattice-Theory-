@@ -10,7 +10,7 @@ analogous — they have **literally the same proof structure**
 at the elaborated level.  Each named CDI below is a
 machine-verified cross-domain identification.
 
-Source: `research-notes/G109_cross_domain_identification_scan.md`.
+Source: `research-notes/archive/metascan/G109_cross_domain_identification_scan.md`.
 109 cross-namespace groups discovered total; 25 are
 substantive Math ↔ Physics bridges.  This catalog names the
 top entries.
@@ -275,7 +275,7 @@ cross-namespace groups in DRLT (G109).
 
 ## Pointers
 
-  · Source method: `research-notes/G109_cross_domain_identification_scan.md`
+  · Source method: `research-notes/archive/metascan/G109_cross_domain_identification_scan.md`
   · Re-run: shape-vector grouping over
     `tools/_ast_shape_rows.tsv` (gitignored; regenerable via
     `python3 tools/ast_shape_scan.py`)

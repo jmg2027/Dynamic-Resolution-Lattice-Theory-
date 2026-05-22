@@ -25,15 +25,14 @@ still clean, since scanners can be re-run).
 | [`scanner_suite.md`](scanner_suite.md) | `tools/{ast_*,syntax_*,falsifier_*}.py` (11 scanners) | G90-G103, G105, G106 (16 notes) | 2026-05-22 |
 | [`raw_derivation_levels.md`](raw_derivation_levels.md) | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems | G104 (1 note, foundational) | 2026-05-22 |
 
-## Active research
+## Action-items registry — closed
 
-| File | Theme | Status |
-|---|---|---|
-| `research-notes/G107_action_items_registry.md` | 24 actionable items surfaced by G90-G106 | **Active** — live tracker; not promotable as a closed chapter |
-
-The G107 registry remains a working artifact.  As items close,
-they may be archived; new items may be added by future meta-analysis
-work.
+The 24-item registry that the scanner suite surfaced, plus the
+nine per-sub-tree deep dives that elaborated each candidate,
+reached every-item closure on 2026-05-22.  See
+`scanner_suite.md` §"Open frontier" for the closure summary
+and `research-notes/archive/metascan/INDEX.md` for the per-note
+table.
 
 ## Layout
 

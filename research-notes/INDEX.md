@@ -94,20 +94,17 @@ chapter.
 | `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
 | `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
-### Meta-scan action items (G107 — live tracker)
+### Meta-scan action items + sub-tree deep dives (G107 + G108-G116 → archived 2026-05-22)
 
-From `claude/analyze-lean4-ast-patterns-49Rh2` (merged as PR #91).
 G90-G106 promoted to `theory/meta/scanner_suite.md` +
-`theory/meta/raw_derivation_levels.md` (2026-05-22).  Only G107
-remains active at top-level as the live action-items registry.
-
-| File | Theme | Status |
-|---|---|---|
-| `G107_action_items_registry.md` | 24 actionable items (mechanical / mid-marathons / smaller / deferred) from G90-G106 scanner findings | **Active** — live tracker, ranked by mass × confidence / effort |
-
-Closed items (C1-C6, N5-N6) are still listed in G107 §1 for
-historical context; they were executed via the cross-branch
-handshake (G93→G94→G96→G97).
+`theory/meta/raw_derivation_levels.md` (2026-05-22).  G107
+(action items registry) + G108-G116 (per-sub-tree deep dives)
+archived to `archive/metascan/` once every item in the
+registry reached a final disposition — six executed in Lean
+(L3/L4/L5/F/E/REAL-1), four already substantively done at audit
+(L1/C/G110/G111), five structurally infeasible per G118, one
+folded into G86.  Closure summary at the §"Open frontier"
+section of `theory/meta/scanner_suite.md`.
 
 ## Subdirectories
 
@@ -121,7 +118,7 @@ handshake (G93→G94→G96→G97).
 
 ## Adding a new note
 
-Use next available G prefix (currently **G108**).  Once formalized:
+Use next available G prefix (currently **G123**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -142,8 +139,18 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `b258a3f8` | Pattern catalog → `theory/math/pattern_catalog/pattern_catalog.md` | 1 (G28, G30) |
 | `b258a3f8` | Minimal root → `theory/math/analysis/minimal_root.md` | 1 (G31) |
 | `b258a3f8` | Universe chain → `theory/math/universe_chain.md` | 1 (G65-G82) |
-| (this commit) | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
-| (this commit) | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
+| `b258a3f8` | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
+| `b258a3f8` | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
 11 chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
+
+### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)
+
+After every G107 §4 item reached a final disposition (six
+executed in Lean during this branch's session, four
+substantively done already at audit, five structurally
+infeasible per G118, one folded into G86), G107 + G108-G116
+moved from top-level into `archive/metascan/`.  The closure
+summary lives in `theory/meta/scanner_suite.md` §"Open
+frontier".
