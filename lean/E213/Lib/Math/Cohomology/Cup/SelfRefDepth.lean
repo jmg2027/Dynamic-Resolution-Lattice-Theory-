@@ -470,4 +470,116 @@ theorem depth4Sig_1_2_unique_endpoint :
         else [false, false, false, false] :=
   by decide
 
+/-! ## §13.  Endpoint uniqueness at (2, 1) — 50 pairs -/
+
+/-- Generalised 2-vertex indicator with explicit pair. -/
+def α_e2 (i j : Nat) : List Nat → Bool := fun s => decide (s = [i, j])
+
+/-- Depth-4 signature at bidegree (2, 1). -/
+def depth4Sig_2_1 (α : List Nat → Bool) (β : List Nat → Bool) :
+    List Bool :=
+  selfRefIter 2 1 α β 4 [0, 1, 2, 3, 4]
+
+/-- ★★★★ **Uniqueness at bidegree (2, 1)**: across all 10 × 5 = 50
+    indicator basis pairs `(α_e2 i j, α_e k)` with `(i, j)` a sorted
+    2-subset of {0..4} and `k ∈ {0..4}`, the **only** pair with a
+    non-zero depth-4 signature is `(0, 1; 4)`.  PURE. -/
+theorem depth4Sig_2_1_unique_endpoint :
+    ∀ (ij : Fin 10) (k : Fin 5),
+      let p := all_2subsets[ij.val]?.getD (0, 0)
+      depth4Sig_2_1 (α_e2 p.1 p.2) (α_e k.val)
+      = if p.1 = 0 ∧ p.2 = 1 ∧ k.val = 4
+        then [false, false, true, false]
+        else [false, false, false, false] :=
+  by decide
+
+/-! ## §14.  Endpoint uniqueness at (1, 3) — 50 pairs -/
+
+/-- Sorted 3-element subsets of {0..4}.  10 subsets total. -/
+def all_3subsets : List (Nat × Nat × Nat) :=
+  [(0,1,2), (0,1,3), (0,1,4), (0,2,3), (0,2,4),
+   (0,3,4), (1,2,3), (1,2,4), (1,3,4), (2,3,4)]
+
+/-- Generalised 3-vertex indicator with explicit triple. -/
+def β_e3' (i j k : Nat) : List Nat → Bool :=
+  fun s => decide (s = [i, j, k])
+
+/-- ★★★★ **Uniqueness at bidegree (1, 3)**: across all 5 × 10 = 50
+    indicator basis pairs `(α_e i, β_e3' j k m)` with `i ∈ {0..4}`
+    and `(j, k, m)` a sorted 3-subset of {0..4}, the **only** pair
+    with a non-zero depth-4 signature is `(0; 2, 3, 4)`.  PURE. -/
+theorem depth4Sig_1_3_unique_endpoint :
+    ∀ (i : Fin 5) (jkm : Fin 10),
+      let p := all_3subsets[jkm.val]?.getD (0, 0, 0)
+      depth4Sig_1_3 (α_e i.val) (β_e3' p.1 p.2.1 p.2.2)
+      = if i.val = 0 ∧ p.1 = 2 ∧ p.2.1 = 3 ∧ p.2.2 = 4
+        then [false, true, false, false]
+        else [false, false, false, false] :=
+  by decide
+
+/-! ## §15.  Endpoint uniqueness at (2, 2) — 100 pairs -/
+
+/-- Depth-4 signature at bidegree (2, 2). -/
+def depth4Sig_2_2 (α β : List Nat → Bool) : List Bool :=
+  selfRefIter 2 2 α β 4 [0, 1, 2, 3, 4]
+
+/-- Generalised 2-vertex indicator on the β side (alias for `α_e2`). -/
+def β_e2' (i j : Nat) : List Nat → Bool := fun s => decide (s = [i, j])
+
+/-- ★★★★ **Uniqueness at bidegree (2, 2)**: across all 10 × 10 = 100
+    indicator basis pairs `(α_e2 i j, β_e2' k m)` with both pairs
+    sorted 2-subsets of {0..4}, the **only** pair with a non-zero
+    depth-4 signature is `((0, 1); (3, 4))`.  PURE. -/
+theorem depth4Sig_2_2_unique_endpoint :
+    ∀ (ij km : Fin 10),
+      let p := all_2subsets[ij.val]?.getD (0, 0)
+      let q := all_2subsets[km.val]?.getD (0, 0)
+      depth4Sig_2_2 (α_e2 p.1 p.2) (β_e2' q.1 q.2)
+      = if p.1 = 0 ∧ p.2 = 1 ∧ q.1 = 3 ∧ q.2 = 4
+        then [false, true, false, false]
+        else [false, false, false, false] :=
+  by decide
+
+/-! ## §16.  Endpoint uniqueness at (3, 1) — 50 pairs -/
+
+/-- Depth-4 signature at bidegree (3, 1). -/
+def depth4Sig_3_1 (α β : List Nat → Bool) : List Bool :=
+  selfRefIter 3 1 α β 4 [0, 1, 2, 3, 4]
+
+/-- Generalised 3-vertex indicator (alias for `β_e3'`). -/
+def α_e3' (i j k : Nat) : List Nat → Bool :=
+  fun s => decide (s = [i, j, k])
+
+/-- ★★★★ **Uniqueness at bidegree (3, 1)**: across all 10 × 5 = 50
+    indicator basis pairs `(α_e3' i j k, α_e m)` with `(i, j, k)` a
+    sorted 3-subset of {0..4} and `m ∈ {0..4}`, the **only** pair
+    with a non-zero depth-4 signature is `((0, 1, 2); 4)`.  PURE. -/
+theorem depth4Sig_3_1_unique_endpoint :
+    ∀ (ijk : Fin 10) (m : Fin 5),
+      let p := all_3subsets[ijk.val]?.getD (0, 0, 0)
+      depth4Sig_3_1 (α_e3' p.1 p.2.1 p.2.2) (α_e m.val)
+      = if p.1 = 0 ∧ p.2.1 = 1 ∧ p.2.2 = 2 ∧ m.val = 4
+        then [false, true, false, false]
+        else [false, false, false, false] :=
+  by decide
+
+/-! ## §17.  Catalog uniqueness capstone
+
+The five uniqueness theorems above:
+
+  · basisDepth4Sig_unique_survivor  (1, 1 over 25 pairs)
+  · depth4Sig_1_2_unique_endpoint   (1, 2 over 50 pairs)
+  · depth4Sig_2_1_unique_endpoint   (2, 1 over 50 pairs)
+  · depth4Sig_1_3_unique_endpoint   (1, 3 over 50 pairs)
+  · depth4Sig_2_2_unique_endpoint   (2, 2 over 100 pairs)
+  · depth4Sig_3_1_unique_endpoint   (3, 1 over 50 pairs)
+
+— a total of `25 + 50 + 50 + 50 + 100 + 50 = 325` decide-verified
+indicator basis pair signatures, exhaustively confirming the
+6-channel catalog at d = 5.
+
+Each bidegree contributes exactly one firing configuration, and
+all 6 firings together match the universal closed form
+`totalCupChannels 5 = binom 4 2 = 6`. -/
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
