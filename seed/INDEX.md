@@ -179,54 +179,14 @@ seed/
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
 
-## Meta-analysis findings (2026-05-21 session)
+## Meta-analysis entry points
 
-Branch `claude/analyze-lean4-ast-patterns-49Rh2` produced 11
-scanners + 23 research notes (G90-G116) characterising the
-corpus's quantitative structure:
-
-  · **Tier-2/3 subtree deep dives**: G108 Real213/Analysis,
-    G110 FluxMVT, G111 Cohomology, G112 HodgeConjecture, G113
-    DyadicFSM, G114 CayleyDickson, G115 Lib.Physics (2,159 decls — largest), G116 PatternCatalog (943 decls — meta-meta).  ~9,300 decls covered.
-  · **Cross-domain identifications**: G109 surfaced 109
-    cross-namespace byte-identical-shape groups; 25 substantive
-    math↔physics bridges.  Catalogued in
-    `catalogs/cross-domain-identifications.md`.
-  · **Pattern extensions**: 11 new patterns (#10-#20, including parallel branch's #10-#13 + meta branch's #14-#20) formally
-    added to `LESSONS_LEARNED.md` covering adoption-gap
-    detection, n-layer agreement, three-level Raw-derivation,
-    decide-finitism quantitative profile, framework-internal
-    subsumption, byte-identical cross-domain bridges,
-    forward/backward factor-knob pair, multiple Lens choices.
-  · **Action items registry**: G107 §2-§5 lists 14 abstraction
-    candidates + 6 research questions + 13 doc-work items =
-    33 items total + REAL-1..6 + RES1..6 + CD-1..5 + COH-1..5
-    + COH-RES1..5 + HC-1..3 + HC-RES1..4 + FSM-1..5 + FSM-RES1..4
-    augmentations from G108-G114.
-
-**Canonical entry-point for executors**:
-  `research-notes/G107_action_items_registry.md`
-
-**Capstone synthesis** (read after G107):
-  `research-notes/G101_metascan_synthesis.md`
-
-**Tooling** (`tools/`):
-  · `ast_fold_scan.py` — Tier-2 Expr fold/recursor (G90)
-  · `syntax_tactic_scan.py` — Tier-1 tactic token (G91)
-  · `syntax_arg_scan.py` — Tier-1.5 citation + construct (G92, G96)
-  · `syntax_unfold_scan.py` — unfold chunks (G98)
-  · `syntax_rw_cascade_scan.py` — rw k-grams (G99)
-  · `falsifier_mining_scan.py` — negation catalog (G100)
-  · `ast_callgraph_scan.py` — full Expr call graph (G102)
-  · `ast_shape_scan.py` — Expr-constructor density (G103)
-  · `ast_typesig_scan.py` — type-sig deps + sort (G104)
-  · `lean_syntax_parse.py` — shared helpers
-
-All scanners support `--report-only` for instant re-cluster
-against cached TSV.
-**Full G-doc enumeration** (G87 from parallel branch, G90-G116 from
-meta branch): see `research-notes/G107_action_items_registry.md` §"DONE"
-+ §"Pointers" for the full per-doc table.  G87 = Raw-native emergence
-audit (parallel branch's S2 marathon kickoff); G90-G116 = meta-branch
-scanners + tier deep dives.
+Static-analysis archetypes (11 scanner types + dual-branch process
+model): `seed/META_SCAN_ARCHETYPES.md`.  Pattern catalogue +
+methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Open
+action items + abstraction candidates registry:
+`research-notes/G107_action_items_registry.md`.  Tier-2/3 corpus
+quantitative profiles: `research-notes/G108`-`G116`.  Tooling
+inventory: `tools/*.py` (each scanner accepts `--report-only`
+against cached TSV).
 

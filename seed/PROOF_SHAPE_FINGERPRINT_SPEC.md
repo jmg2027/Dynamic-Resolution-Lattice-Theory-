@@ -10,13 +10,13 @@ and TH-4 (`L1_PARAMETRIC_METHODOLOGY_SPEC.md`).
 A fingerprint of a proof is a normalized abstraction that captures its
 structural pattern while ignoring per-instance content:
 
-  · **Tactic token sequence** (G91): the ordered list of top-level
+  · **Tactic token sequence**: the ordered list of top-level
     tactic names — `[intro, apply, show, constructor, intro, have, ...]`.
-  · **Expr-node shape** (G103): the AST shape after `unfold` and
+  · **Expr-node shape**: the AST shape after `unfold` and
     `simp`-normalisation, as a multiset of constructor/elim tags.
-  · **Recursor invocation set** (G105): which inductive types' `.rec`
+  · **Recursor invocation set**: which inductive types' `.rec`
     or `.casesOn` are called inside the proof body.
-  · **Citation graph** (G92 / G102): which other theorems are
+  · **Citation graph**: which other theorems are
     `exact`-applied or `rw`-rewritten.
 
 Two proofs are **byte-identical at fingerprint level** when they share
@@ -29,18 +29,18 @@ names, specific Nat literals).
 The canonical fingerprint inventory is split across:
 
   · `catalogs/recursor-inventory.md` — 185 inductive types × recursor
-    invocations (G105).  The recursor set is the most stable
+    invocations.  The recursor set is the most stable
     discriminator (re-running the scanner is deterministic).
   · `catalogs/internal-hubs.md` — top E213-internal load-bearing
-    lemmas by citation count (G92 surface + G102 Expr).
+    lemmas by citation count (citation-graph + Expr-level callgraph surfaces).
   · `catalogs/falsifier-roster.md` — 135 `by decide` falsifier-style
-    proofs (G100), grouped by negation shape.
+    proofs, grouped by negation shape.
   · `catalogs/cross-domain-identifications.md` — 109 cross-namespace
-    byte-identical-shape groups (G109), 25 of which are substantive
+    byte-identical-shape groups, 25 of which are substantive
     math↔physics bridges.
   · `lean/E213/ARCHITECTURE.md` NAV-3 note — empirical-verification
     fact that `Bool.casesOn` (1,681 invocations) was missing from
-    G90's hardcoded 5-tag list, leading to the G105 correction
+    AST fold-motif scanner's hardcoded 5-tag list, leading to the namespace-shape + recursor inventory correction
     (185 inductive types, not 5).
 
 ## What the fingerprint enables
@@ -52,13 +52,13 @@ COH-1/2/3, L3, L4, Pell-FSM, ModArith, M-recursor, Pattern10,
 InvolutionTemplate).  Each template was surfaced by a
 fingerprint-cluster scan.
 
-**Mass tracking**: Expr-node mass (G103) gives a numeric metric for
+**Mass tracking**: Expr-node mass gives a numeric metric for
 "how much elaboration would be retired" if a template absorbed the
 cluster.  L1 α/β-side at 6.6M chars and FLUX-1 at 30K nodes
 were the largest single consolidations.
 
 **Cross-domain bridges**: when fingerprint clusters span math vs.
-physics namespaces (G109), the bridge IS the equation.  CDI-5
+physics namespaces, the bridge IS the equation.  CDI-5
 (physics atomic-bracket containment) is 8 distinct
 "observed constant X in DRLT-bracket [low, high]" proofs that are
 byte-identical post-normalisation.
@@ -66,13 +66,13 @@ byte-identical post-normalisation.
 ## How to re-run the scanner
 
 ```bash
-python3 tools/syntax_tactic_scan.py     # G91 surface tactic motifs
-python3 tools/ast_callgraph_scan.py     # G102 Expr-level call graph
-python3 tools/ast_shape_scan.py         # G103 shape density + L1 zones
-python3 tools/syntax_rw_cascade_scan.py # G99 rw-cascade k-grams (adoption gap)
-python3 tools/falsifier_mining_scan.py  # G100 by-decide falsifier catalog
-python3 tools/ast_typesig_scan.py       # G104 type-sig + sort-universe
-python3 tools/ast_callgraph_scan.py     # G102 recompute
+python3 tools/syntax_tactic_scan.py     # tactic-token scanner surface tactic motifs
+python3 tools/ast_callgraph_scan.py     # Expr-level callgraph scanner Expr-level call graph
+python3 tools/ast_shape_scan.py         # Expr-shape density scanner shape density + L1 zones
+python3 tools/syntax_rw_cascade_scan.py # rw-cascade adoption gap rw-cascade k-grams (adoption gap)
+python3 tools/falsifier_mining_scan.py  # decide-failure falsifier mining by-decide falsifier catalog
+python3 tools/ast_typesig_scan.py       # Raw-derivation three-level taxonomy type-sig + sort-universe
+python3 tools/ast_callgraph_scan.py     # Expr-level callgraph scanner recompute
 ```
 
 Each scanner writes a cached TSV to `tools/_<scan_name>_rows.tsv`

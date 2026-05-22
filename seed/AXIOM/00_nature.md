@@ -1,6 +1,6 @@
 # §1. Nature of the axiom
 
-## §1.0 Position (formerly PHILOSOPHY.md)
+## §1.0 Position
 
 The 213 axiom is **not** a declaration about "the foundation of the
 world."  It is **the minimum residue that inevitably remains the moment

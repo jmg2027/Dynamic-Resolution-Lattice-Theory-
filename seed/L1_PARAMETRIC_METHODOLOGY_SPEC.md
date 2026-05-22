@@ -1,10 +1,10 @@
 # L1 4-sibling parametric methodology (TH-4)
 
 How to consolidate a Cup-AW Leibniz lift 4-sibling group into 2
-parametric helpers (one per side).  Companion to G106's structural
+parametric helpers (one per side).  Companion to implicit-lemma extraction's structural
 analysis and the L1 β/α-side commits.
 
-## Surface pattern (G91/G106)
+## Surface pattern
 
 A 4-sibling L1 family at degrees `(n, a, b)` consists of:
 - 2 β-decomp lenses (typically `b = 2`, varies over `a ∈ {1, 2}`)
@@ -112,6 +112,6 @@ Net: 380 → 362 lines but ~170 lines of repeated 10-step body retired.
 - `LeibnizAlgLiftBeta.lean` (β-side generic, commit 0fabff84)
 - `LeibnizAlgLiftAlpha.lean` (α-side generic, commit a119b077)
 - `LeibnizAlgLift{21,22,21Alpha,22Alpha}.lean` (4 corollaries)
-- `G91/G94 §1/G106` (deep dives on L1 structural analysis)
+- The tactic-token + handshake-response + implicit-lemma extraction notes (deep dives on L1 structural analysis)
 - `LESSONS_LEARNED.md` Pattern #11 (Cup-Leibniz dichotomy collapse)
 - `seed/RAW_DERIVATION_SPEC.md` (Raw-derivation three levels)

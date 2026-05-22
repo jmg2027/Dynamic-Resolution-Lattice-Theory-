@@ -28,8 +28,7 @@ that an experimentalist confronts.
 
 ### Structural surface (`catalogs/falsifier-roster.md`)
 
-135 auto-discovered entries from `tools/falsifier_mining_scan.py`
-(G100).  Each is a Lean theorem of the shape "X ≠ Y" or "¬ ∃ ..."
+135 auto-discovered entries from `tools/falsifier_mining_scan.py`.  Each is a Lean theorem of the shape "X ≠ Y" or "¬ ∃ ..."
 or "¬ ∀ ...", body-verified by `decide` / `native_decide`.
 
 Each certifies what 213 itself forbids — internal impossibility
@@ -39,13 +38,13 @@ content.
 
 ---
 
-## Quantitative profile (G100, 2026-05-21 scan)
+## Quantitative profile (decide-failure falsifier mining, 2026-05-21 scan)
 
 ### Category breakdown
 
   · 135 decls match falsifier shape (negation marker + decide body).
   · 8 % of all tactic-bodied decls (population 1,117).
-  · Compared to ~36 % positive `[decide]` proofs (G91): roughly
+  · Compared to ~36 % positive `[decide]` proofs: roughly
     **1 in 4 decide-proofs is a falsifier**.
 
 | Category | Count | %   | Operational meaning |
@@ -139,7 +138,7 @@ observed.
 
 The Pattern #2 quantification (`LESSONS_LEARNED.md`):
 
-  · 1,178 single-tactic `[decide]` proofs (G91).
+  · 1,178 single-tactic `[decide]` proofs.
   · 135 negative-side `decide` proofs (this catalog).
   · ~44 % of all decls are decide-routed (positive or negative).
 

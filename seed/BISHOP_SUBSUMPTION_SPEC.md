@@ -1,8 +1,8 @@
-# Bishop subsumption (G117 / AsLensOutput doctrine)
+# Bishop subsumption (Bishop comparison / AsLensOutput doctrine)
 
 How DRLT's Lens-output function space subsumes Bishop's constructive
 ℝ program — without constructing ℝ piece-by-piece.  Companion to
-G108 §2 (deep-dive reading) and `Lib/Math/Real213/Core/AsLensOutput.lean`
+Real213-Analysis deep dive §2 (deep-dive reading) and `Lib/Math/Real213/Core/AsLensOutput.lean`
 (formal carrier).
 
 ## The doctrinal claim
@@ -71,7 +71,7 @@ identity.
     `cutMul_one_const_at`).
   · Algebraic structure (CutPoset, lattice, dyadic completeness).
 
-**Deferred** (G117 / REAL-RES6 — 3-5 sessions):
+**Deferred** (Bishop comparison / REAL-RES6 — 3-5 sessions):
   · Bishop ↔ DRLT formal equivalence:
     - Bishop's `CauchyReal` ≃ DRLT's `Real213` modulo equiv
     - Bishop's operations ↔ DRLT's cut operations
@@ -105,7 +105,7 @@ external Bishop API to compare against, which is outside the
   · `catalogs/cross-domain-identifications.md` — math↔physics bridges
     sit on top of `RealAsLensOutput`.
 
-## Future research direction (REAL-RES6 / G117 follow-up)
+## Future research direction (REAL-RES6 / Bishop comparison follow-up)
 
 The full Bishop ↔ DRLT comparison is **5-7 sessions of bridge work**:
 

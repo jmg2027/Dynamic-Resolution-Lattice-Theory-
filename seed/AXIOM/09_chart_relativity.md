@@ -135,9 +135,8 @@ Together L3 + L4 establish a bijection between `Tree` and
 its left inverse on the image.
 
 All Nat / List arithmetic uses Lean 4 core lemmas or the
-∅-axiom utility `E213.Tactic.List213.{append_nil, append_assoc,
-length_append, length_append_rev, length_map}` (promoted to
-`Meta/Tactic/List213.lean` 2026-05-17).  The standard
+∅-axiom utility `E213.Meta.Tactic.List213.{append_nil, append_assoc,
+length_append, length_append_rev, length_map}`.  The standard
 `List.append_assoc`, `List.append_nil`, `List.length_append`
 carry `propext` and would corrupt the strict-∅ contract; the
 List213 versions are `congrArg`-based replacements.

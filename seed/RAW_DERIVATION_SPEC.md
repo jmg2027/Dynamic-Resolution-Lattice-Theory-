@@ -25,7 +25,7 @@ canonical PURE/DIRTY ledger and `seed/AXIOM/04_falsifiability.md`
 §5.2.1 for the falsifiability rule that enforces this.
 
 **Independently verified**:
-  · G95 dep-purity audit on every cited core lemma.
+  · Lean-core dep-purity audit dep-purity audit on every cited core lemma.
   · Parallel branch closure of all DIRTY-cited remnants
     (N5 / N6 centralisations).
   · DRLT is **PURE-bounded on Lean 4 core** — no axiomatic
@@ -62,8 +62,8 @@ the mathematics itself, not just its kernel-checkability.
 signature** Expr should transitively reduce to references to Raw
 atoms via Expr-level forward edges.
 
-**Status**.  **FALSE in general.**  Empirically (G102 + G103 §1 +
-G104 §2): only ~15 % of E213 declarations reach a Raw atom via
+**Status**.  **FALSE in general.**  Empirically (Expr-level callgraph scanner + Expr-shape density scanner §1 +
+Raw-derivation three-level taxonomy §2): only ~15 % of E213 declarations reach a Raw atom via
 Expr-level forward edges within finite depth.
 
 The remaining ~85 % use carrier types like:
@@ -92,7 +92,7 @@ counting Raw sub-trees, etc.  This is **not the current design** and
 **not desirable** — the chosen substrate (Nat/Bool/Fin) is what
 makes the corpus mechanically tractable.
 
-### Empirical evidence (G104 §2)
+### Empirical evidence (Raw-derivation three-level taxonomy §2)
 
 | Metric | Body-only edges | Body ∪ type edges |
 |--------|----------------:|------------------:|
@@ -115,10 +115,10 @@ The three readings answer different questions:
 |---------|----------|--------|-------------|
 | (α) | "Is the proof logically closed under the Raw axiom set?" | YES | `#print axioms` |
 | (β) | "Does the mathematics derive from Raw structurally?" | YES | substantive branch proofs |
-| (γ) | "Does every Expr reduce to Raw atoms operationally?" | NO | G102/G103/G104 meta-scans |
+| (γ) | "Does every Expr reduce to Raw atoms operationally?" | NO | Expr-level callgraph scanner/Expr-shape density scanner/Raw-derivation three-level taxonomy meta-scans |
 
 A statement like "DRLT is grounded in Raw" usually means (α) + (β).
-Citing G102's "14.8 % reach Raw" as a counter-claim only contradicts
+Citing Expr-level callgraph scanner's "14.8 % reach Raw" as a counter-claim only contradicts
 (γ), which is not what (α)/(β) require.
 
 Conflation is the failure mode.  Specifying which reading is at

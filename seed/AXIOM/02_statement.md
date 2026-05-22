@@ -107,6 +107,6 @@ Lens readings on the same residue:
 Both readings hold simultaneously for an internal observer —
 absent an external time axis to compare them under, the dichotomy
 "frozen or dynamic?" is not posed.  Cf. `RESOLUTION_LIMIT_SPEC.md`
-§2 (G120 Round 3 rewrite) for the parametric `configCount` family
+§2 (N_U re-derivation Round 3 rewrite) for the parametric `configCount` family
 where the same family value `5²⁵` is read via different routes —
 family-evaluation-as-content principle.

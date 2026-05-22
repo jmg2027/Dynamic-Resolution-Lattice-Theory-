@@ -2,8 +2,10 @@
 
 The substantial mathematics of 213 can be expressed without external
 axioms (`propext`, `funext`, `Quot.sound`, `Classical`, Mathlib).
-Where `funext` / `propext` / `Quot.sound` previously entered, we
-substitute **vertical-internal projection** + **pointwise eq**.
+The mechanism is **vertical-internal projection** + **pointwise eq**:
+points where a naïve formulation would call `funext` / `propext` /
+`Quot.sound` are recast as projections to canonical-form-image
+relations stated pointwise.
 
 See also:
   - `research-notes/archive/universe_chain/G84_closed_form_pattern_unification.md`
@@ -125,7 +127,7 @@ deeper Lean-core dependencies remain:
   - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases
     + decide chain.
 
-These need either deeper trick development or G83-style staged
+These need either deeper trick development or Lens-equality refactor-style staged
 refactor via `eqPW`.
 
 ## Future work
