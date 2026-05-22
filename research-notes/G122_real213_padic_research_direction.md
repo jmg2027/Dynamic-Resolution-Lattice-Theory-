@@ -290,15 +290,18 @@ Next session: implement Phase 1 (truncation + zero/one/neg_one).
 
 ## Phase 2 remaining work
 
-  · `Zp.mul` — DEFINITION SCAFFOLDED (this session).
-    `mulRawSum`, `mulRaw`, `mulCarry`, `mul` all PURE.
-    Absorbing-zero proven: `Zp.mul_zero_right_digit` (every digit
-    of `x · 0` is 0).
-    REMAINING: the truncation correctness theorem
+  · `Zp.mul` — DEFINITIONS COMPLETE, identity laws proven, n = 1
+    truncation case proven.  Multiplicative identity established
+    both sides: `mul_one_{left,right}_digit`.  Absorbing zero
+    established both sides: `mul_zero_{left,right}_digit`.
+    Base case for truncation correctness: `Zp.mul_trunc_one`.
+    REMAINING: the general truncation correctness theorem
         `(Zp.mul x y).trunc n = (x.trunc n * y.trunc n) % p^n`
-    Structurally analogous to `add_trunc` but with convolution
-    bookkeeping (k-th raw sum depends on a multi-term Σ over
-    i + j = k).
+    for all `n`.  Structurally analogous to `add_trunc` but with
+    convolution bookkeeping (k-th raw sum depends on a multi-term Σ
+    over i + j = k); the proof likely needs a "partial product"
+    rearrangement lemma to match `x.trunc n · y.trunc n`'s
+    expansion to the digit-by-digit FSM sum.
   · `Zp.neg_add_self` — full algebraic statement
     `Zp.add x (Zp.neg x) = Zp.zero` (sequence equality, requires
     funext-by-design pattern OR per-truncation rephrasing).
@@ -325,21 +328,23 @@ numeric type.
 | Phase | Status |
 |---|---|
 | 1. Foundation | DONE (16 PURE) |
-| 2. Arith — add + neg | DONE (15 PURE with truncation correctness) |
-| 2'. Arith — mul | SCAFFOLDED (11 PURE; truncation correctness pending) |
+| 2. Arith — add + neg | DONE (15 PURE with full truncation correctness; comm + identity at digit level) |
+| 2'. Arith — mul | LARGE PROGRESS (30 PURE: defs + identity-laws both sides + absorbing-zero both sides + `mul_trunc_one` foothold; general `mul_trunc` pending) |
 | 3. Norm + valuation | STARTER (9 PURE; `valAtLeast` + `valEq` + uniqueness) |
 | 4. Hensel lifting | PENDING |
 | 5. ℚ_p localization | PENDING |
 | 6. DRLT integration (5-adic N_U lift) | PENDING |
 
-**This session's deliverables**: 67 PURE declarations across 3
+**This session's deliverables**: 86 PURE declarations across 3
 Padic modules (Foundation + Arith + Norm).  Branch
-`claude/g122-real213-p-adic-LwxL9` pushed.
+`claude/g122-real213-p-adic-LwxL9` pushed across 14 commits.
 
 ---
 
 **Status**: Phase 1 complete + Phase 2 add/neg with full truncation
-correctness + Phase 2' mul scaffolded with absorbing-zero proved +
-Phase 3 starter with valuation predicates.  Next session: prove
-`Zp.mul_trunc` (the multiplicative ring-quotient theorem) and
-extend toward Hensel lifting.
+correctness + digit-level commutativity + Phase 2' multiplication
+substantially developed (defs PURE, identity / absorbing-zero
+laws both sides, n = 1 truncation foothold) + Phase 3 starter
+with valuation predicates.  Next session: prove the general
+`Zp.mul_trunc` ring-quotient theorem (analog of `add_trunc`),
+then extend toward Hensel lifting + ℚ_p localization.

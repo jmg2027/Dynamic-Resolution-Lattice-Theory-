@@ -66,22 +66,27 @@ Currently still open:
     `ZpDigit`, `ZpSeq`, `trunc`, `trunc_lt_p_pow`,
     `eq_mod_pn_iff_trunc`, `digits_of_nat` embedding + per-prime
     smokes.
-  · `lean/E213/Lib/Math/Padic/Arith.lean` — 26 PURE.
-    Addition: `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq` (structural
-    identity), `Zp.add_trunc` (ring-quotient theorem
+  · `lean/E213/Lib/Math/Padic/Arith.lean` — 45 PURE.
+    Addition layer: `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq`
+    (structural identity), `Zp.add_trunc` (ring-quotient theorem
     `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`),
     `Zp.complement`, `Zp.neg`, `Zp.carry_x_complement`,
-    `Zp.add_complement_digit`.
-    Multiplication (scaffolded): `Zp.mulRawSum`, `Zp.mulRaw`,
-    `Zp.mulCarry`, `Zp.mul`, absorbing-zero theorem
-    `Zp.mul_zero_right_digit`.  Truncation correctness for `mul`
-    deferred.
+    `Zp.add_complement_digit`, `Zp.add_zero_{left,right}_digit`,
+    `Zp.add_comm_digit` (via `carry_comm`).
+    Multiplication layer: `Zp.mulRawSum`, `Zp.mulRaw`,
+    `Zp.mulCarry`, `Zp.mul`; absorbing-zero
+    `Zp.mul_zero_{left,right}_digit`; multiplicative identity
+    `Zp.mul_one_{left,right}_digit` (via convolution-collapse
+    lemmas `mulRawSum_one_*`); base case `Zp.mul_trunc_one`
+    (truncation correctness at n = 1).  The general
+    `Zp.mul_trunc : (Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n`
+    is the natural next step.
   · `lean/E213/Lib/Math/Padic/Norm.lean` — 9 PURE.
     `Zp.valAtLeast`, `Zp.valAtLeast_mono`, `Zp.valAtLeast_iff_trunc`,
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 67 PURE / 0 DIRTY across 3 modules.**
+**Padic total: 86 PURE / 0 DIRTY across 3 modules.**
 
 Closure log: `research-notes/G122_real213_padic_research_direction.md`
 (Phase 1 closure log + Phase 2 partial closure + updated phase
