@@ -253,15 +253,23 @@ LESSONS_LEARNED now lists Patterns #1-#20:
 
 Highest-value remaining items by impact / effort:
 
-  1. **G120 N_U re-derivation plan (Round 3 sharpened)** — execute
-     6-phase plan in `research-notes/G120_n_u_rederivation_plan.md`.
+  1. **G120 N_U re-derivation plan (Round 3 sharpened + audit-grounded)**
+     — execute 7-phase plan in `research-notes/G120_n_u_rederivation_plan.md`.
      Round 3 reframes: the *name* `N_U` is the universe-constant
      framing import; correct fix is demote to `abbrev` over parametric
-     family `configCount : Nat → Nat`.  Closes N_U muddle: 3 defs →
-     parametric family + abbrev, `ResolutionInvariant` record deleted
-     entirely (4-way claim was fictional), `numV` collision resolved.
-     Total mean ~6-7 hr (Phases 1-6).  Critic-flagged tail risk 8-12 hr.
-     Produced by 3-round 7-touch debate 2026-05-22.
+     family `configCount : Nat → Nat`.  Closes N_U muddle: 5+ parallel
+     defs of 5^25 → parametric family + abbrev, `ResolutionInvariant`
+     record deleted entirely (4-way claim was fictional), `numV`
+     collision resolved, vacuous tautology `n_resolution_emergence`
+     deleted.  Phase 7 added: doc cascade (spec rewrite, lessons
+     rewrite, ~10 chapter docstring touches).  Total mean
+     **~12-15 hr** (Phases 1-7); tail **~20 hr**.
+     Audit (§11 of G120) cataloged 68 Lean files + ~70 doc files;
+     5 critical Class M / Class U violations identified including
+     meta-failure (LESSONS_LEARNED.md 교훈 1+2 encodes the exact
+     failure mode CLAUDE.md:216 catalogs as warning).
+     Produced by 3-round 8-agent debate + 2-agent comprehensive
+     consumer audit 2026-05-22.
   2. **L1 α-side completion** — 50% mass cut remaining (β-side done)
   3. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
   4. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
