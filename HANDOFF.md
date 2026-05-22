@@ -1807,6 +1807,57 @@ AddMod213, MulMod213) developed over the multi-session FLT work.
 
 ---
 
+# Part 31 — **Universal FLT closed (Bezout-based)**
+
+`Lib/Math/ModArith/UniversalFLT.lean` (new, 10 PURE):
+
+Combines `modInverseFromBezout` (Bezout marathon) with the conditional
+FLT framework to get truly universal FLT:
+
+  · **`universal_middle_binomial_vanish`** (★★★ UNIVERSAL) :
+       For `1 < p` and `h_prime_gcd : ∀ m, 0 < m → m < p → (modBezout m p).1 = 1`
+       (primality as coprimality), `∀ k, k < p - 1 → (choose p (k+1)) % p = 0`.
+       Per-`k`, build `ModInverse p (k+1)` via Bezout + apply
+       `choose_p_dvd_of_inverse` (Part 15).
+  · **`universal_freshman_dream`** : `(a + 1)^p ≡ a^p + 1 (mod p)`.
+  · **`universal_flt_primary`** : `a^p ≡ a (mod p)`.
+  · **`universal_flt_main`** (★★★★★ FERMAT'S LITTLE THEOREM):
+       `a^(p-1) ≡ 1 (mod p)` for `1 < p`, `0 < a`, `a < p`, and
+       `h_prime_gcd`.  **No per-prime hypothesis on `a`** — `ModInverse p a`
+       is constructed via `modInverseFromBezout` from `h_prime_gcd a`.
+  · `prime_gcd_{5,7,11}` — `h_prime_gcd` verified by enumeration on m
+    (using `match m with | 0 | 1 | 2 | ... | n + p`; avoid hypothesis
+    destructuring which pulls Quot.sound).
+  · `universal_flt_main_{5_2, 7_3, 11_4}` — fully universal FLT
+    applications, no per-prime decide on `inv_eq`.
+
+## Purity hiccup
+  · `Nat.add_sub_cancel` (Lean core) → `NatHelper.add_sub_cancel_right`.
+  · `match m, hm, hmlt with` (hypothesis destructure) pulls Quot.sound;
+    replaced with `match m with | 0 => absurd hm ... | 1 => decide | ...`.
+
+## What this finally means
+
+**Fermat's Little Theorem** is now PURE-proven in 213-native form,
+**TRULY UNIVERSAL** for any (a, p) given the gcd-primality hypothesis.
+The hypothesis is decidable per specific p via enumeration.
+
+The next step toward Phase 3.2 universal closure:
+  · `universal_phase_3_2_split` — combine universal FLT + Binet
+    bridges (Parts 25-26) at split primes.
+  · Some per-prime decidable hypotheses remain (e.g.,
+    `phi % p = (psi + s) % p`, `phi^(p-3) ≡ psi + 1 mod p`); these
+    are operationally trivial per prime and can be derived universally
+    in a follow-up sub-session.
+
+## Verification (post Part 31)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.UniversalFLT`: 10 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
