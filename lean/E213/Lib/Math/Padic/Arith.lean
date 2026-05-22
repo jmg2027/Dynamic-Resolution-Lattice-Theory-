@@ -230,6 +230,13 @@ theorem Zp.add_comm_digit (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
   rw [Zp.carry_comm p x y k]
   rw [Nat.add_comm (x.digits k).val (y.digits k).val]
 
+/-- `0 + x = x` (digit level): follows from `add_zero_right_digit`
+    via `add_comm_digit`. -/
+theorem Zp.add_zero_left_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.add p hp (ZpSeq.zero p hp) x).digits k).val = (x.digits k).val := by
+  rw [Zp.add_comm_digit p hp (ZpSeq.zero p hp) x k]
+  exact Zp.add_zero_right_digit p hp x k
+
 /-! ## Digit-complement and negation
 
 For each digit `d ∈ {0, …, p-1}`, the complement is `p-1-d`.  At
