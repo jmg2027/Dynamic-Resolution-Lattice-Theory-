@@ -339,4 +339,83 @@ theorem Zp.mul_zero_right_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
   rw [Nat.zero_add]
   exact E213.Tactic.NatHelper.zero_mod p
 
+/-! ## Multiplication by one (`x · 1 = x`)
+
+For `y = ZpSeq.one`, the digit `y.digits j` is `1` at `j = 0`
+and `0` elsewhere.  Hence the convolution `Σ x.digits i · y.digits (k-i)`
+collapses to a single nonzero term at `i = k`: the sum is
+`(x.digits k).val`.  The carry stays at zero because each
+`mulRaw k = (x.digits k).val < p`.  So digit `k` of `x · one` is
+`(x.digits k).val % p = (x.digits k).val`.
+-/
+
+/-- `(one).digits k` value: `1` if `k = 0`, else `0`. -/
+theorem Zp.one_digit_val {p : Nat} (hp : 1 < p) (k : Nat) :
+    ((ZpSeq.one p hp).digits k).val = if k = 0 then 1 else 0 := by
+  show (if k = 0 then (⟨1, hp⟩ : Fin p) else ⟨0, _⟩).val
+        = if k = 0 then 1 else 0
+  cases hk : decide (k = 0) with
+  | true =>
+    have hk' : k = 0 := of_decide_eq_true hk
+    rw [if_pos hk', if_pos hk']
+  | false =>
+    have hk' : ¬ (k = 0) := of_decide_eq_false hk
+    rw [if_neg hk', if_neg hk']
+
+/-- For `upper ≤ k`, the partial convolution with `one` vanishes
+    because every term has `(one.digits (k - i)).val = 0` (since
+    `k - i ≥ 1` when `i < upper ≤ k`). -/
+theorem Zp.mulRawSum_one_right_le {p : Nat} (hp : 1 < p) (x : ZpSeq p)
+    (k : Nat) :
+    ∀ upper, upper ≤ k → Zp.mulRawSum p x (ZpSeq.one p hp) k upper = 0
+  | 0, _ => rfl
+  | i + 1, hi => by
+    show Zp.mulRawSum p x (ZpSeq.one p hp) k i
+          + (x.digits i).val * ((ZpSeq.one p hp).digits (k - i)).val = 0
+    have hi' : i ≤ k := Nat.le_of_lt (Nat.lt_of_succ_le hi)
+    rw [Zp.mulRawSum_one_right_le hp x k i hi']
+    show (0 : Nat) + (x.digits i).val * ((ZpSeq.one p hp).digits (k - i)).val = 0
+    have hpos : 0 < k - i :=
+      E213.Tactic.NatHelper.sub_pos_of_lt (Nat.lt_of_succ_le hi)
+    have hne : k - i ≠ 0 := Nat.ne_of_gt hpos
+    rw [Zp.one_digit_val hp (k - i), if_neg hne]
+    rw [Nat.mul_zero, Nat.add_zero]
+
+/-- `mulRaw x one k = (x.digits k).val`.  The convolution collapses
+    to its single nonzero term at `i = k`. -/
+theorem Zp.mulRaw_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p x (ZpSeq.one p hp) k = (x.digits k).val := by
+  show Zp.mulRawSum p x (ZpSeq.one p hp) k (k + 1) = (x.digits k).val
+  show Zp.mulRawSum p x (ZpSeq.one p hp) k k
+          + (x.digits k).val * ((ZpSeq.one p hp).digits (k - k)).val
+        = (x.digits k).val
+  rw [Zp.mulRawSum_one_right_le hp x k k (Nat.le_refl k)]
+  rw [Nat.sub_self, Zp.one_digit_val hp 0]
+  show (0 : Nat) + (x.digits k).val * (if (0 : Nat) = 0 then 1 else 0)
+        = (x.digits k).val
+  rw [if_pos rfl, Nat.mul_one, Nat.zero_add]
+
+/-- Carry stays at zero when multiplying by `one` because each
+    `mulRaw k = (x.digits k).val < p`, so `mulRaw k / p = 0`. -/
+theorem Zp.mulCarry_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ k, Zp.mulCarry p x (ZpSeq.one p hp) k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show (Zp.mulRaw p x (ZpSeq.one p hp) k
+            + Zp.mulCarry p x (ZpSeq.one p hp) k) / p = 0
+    rw [Zp.mulRaw_one_right hp x k, Zp.mulCarry_one_right hp x k,
+        Nat.add_zero]
+    exact Nat.div_eq_of_lt (x.digits k).isLt
+
+/-- `x · 1 = x` (digit level): every digit of the product equals
+    the corresponding digit of `x`. -/
+theorem Zp.mul_one_right_digit {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).digits k).val
+      = (x.digits k).val := by
+  show (Zp.mulRaw p x (ZpSeq.one p hp) k
+          + Zp.mulCarry p x (ZpSeq.one p hp) k) % p
+        = (x.digits k).val
+  rw [Zp.mulRaw_one_right hp x k, Zp.mulCarry_one_right hp x k, Nat.add_zero]
+  exact Nat.mod_eq_of_lt (x.digits k).isLt
+
 end E213.Lib.Math.Padic
