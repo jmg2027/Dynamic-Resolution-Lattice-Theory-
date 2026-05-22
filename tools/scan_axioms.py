@@ -16,7 +16,11 @@ import subprocess, sys, re, pathlib, tempfile
 
 LEAN_ROOT = pathlib.Path('lean/E213')
 DECL_RX = re.compile(
-    r'^(?:protected\s+)?(?:theorem|lemma|def)\s+([A-Za-z_][\w\']*)',
+    r'^(?:protected\s+)?(?:theorem|lemma|def)\s+([A-Za-z_][\w\'.]*)',
+    re.MULTILINE,
+)
+PRIVATE_RX = re.compile(
+    r'^private\s+(?:theorem|lemma|def)\s+([A-Za-z_][\w\'.]*)',
     re.MULTILINE,
 )
 NAMESPACE_RX = re.compile(r'^namespace\s+(\S+)', re.MULTILINE)
@@ -39,7 +43,9 @@ def find_decls(module: str):
     if not ns.startswith('E213'):
         ns = module
     decls = DECL_RX.findall(src)
-    return [f'{ns}.{n}' for n in decls if not n.startswith('_')]
+    privates = set(PRIVATE_RX.findall(src))
+    return [f'{ns}.{n}' for n in decls
+            if not n.startswith('_') and n not in privates]
 
 
 def scan(modules):
