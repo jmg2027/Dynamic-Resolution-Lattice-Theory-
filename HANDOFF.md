@@ -977,6 +977,82 @@ expansion `phi^k = F_k · phi + F_{k-1}` reduces "phi^k = 1" to
 
 ---
 
+# Part 13 — Pell-Fibonacci bridge: Phase 3.2 reduction infrastructure
+
+The classical identity `U_k = F_{2k}` (Pell numbers = even-indexed
+Fibonacci) reduces Phase 3.2's matrix order requirement to a
+Fibonacci-Pisano condition mod p:
+
+  **`pellCoeff p hp N = (0, 1)` ⟺ `F_{2N} ≡ 0 mod p` ∧ `F_{2N-2} ≡ -1 mod p`**
+
+For Phase 3.2 (`N = (p-1)/2` at split primes), this becomes:
+
+  `F_{p-1} ≡ 0 mod p`  AND  `F_{p-3} ≡ -1 mod p`
+
+— the classical Fibonacci-Pisano congruence at split primes.
+
+## What landed: `Lib/Math/DyadicFSM/PellFibBridge.lean` (new, 12 PURE)
+
+  · `fibFst k := (fibLike k).1`, `fibSnd k := (fibLike k).2` accessors.
+  · `fibLike_succ_fst` / `fibLike_succ_snd` — definitional unfolds.
+  · `fibFst_recur` : `F_{k+2} = F_{k+1} + F_k` (standard Fibonacci).
+  · `fibFst_table` : first 11 Fibonacci values.
+  · **`fibFst_pell_recur`** (★ PELL-FIB IDENTITY) :
+       `F_{2k+4} + F_{2k} = 3·F_{2k+2}`
+       — additive Nat form (avoids truncated subtraction) of the
+       Pell recurrence `U_{k+1} = 3·U_k - U_{k-1}` translated to
+       Fibonacci even-index form.  Proven from `fibFst_recur` by
+       step-by-step expansion.
+  · `fib_phase_3_2_at_{11,19,29,31,41}` — per-prime smoke
+    verifications of `F_{p-1} ≡ 0 mod p ∧ F_{p-3} ≡ -1 mod p`
+    for split primes in the G119 Predictor23 chain.
+
+## What this buys for Phase 3.2
+
+The Pell-Fib bridge makes the FULL chain explicit:
+
+```
+Phase 3.2 goal:  pellCoeff p hp ((p-1)/2) = (0, 1)
+       ↕ bridge (TBD, multi-session): pellCoeff k.1 = F_{2k} mod p,
+                                     pellCoeff k.2 = -F_{2k-2} mod p
+Phase 3.2 reduced:  F_{p-1} ≡ 0 mod p  AND  F_{p-3} ≡ -1 mod p
+       ↕ classical Fibonacci-Pisano (FLT-equivalent, multi-session)
+Phase 3.2 universal closure
+```
+
+The PURE work done so far covers:
+  · The Pell recurrence on `F_{2k}` (`fibFst_pell_recur`) — provides
+    the algebraic identity matching pellCoeff's step.
+  · Per-prime verification of the Phase 3.2 fibLike condition for
+    5 split primes (decide-able).
+
+The remaining bridge `pellCoeff_first_eq_F_2k` is a coupled
+induction (a_k and b_k of pellCoeff must be tracked together via
+the Pell recurrence) — single multi-step proof, multi-session.
+
+## Phase 3.2 chain status (updated)
+
+| Sub-goal | Status |
+|---|---|
+| `phi² ≡ phi + 1 mod p` (algebraic kernel) | ✅ Part 11 unscaled |
+| `phi^k = F_k·phi + F_{k-1} mod p` (power expansion) | ✅ Part 11 |
+| `∃ N ≤ p, modPow p a N = 1` (mul-order via explicit inv) | ✅ Part 12 |
+| Per-prime φ mul-order at split primes | ✅ Part 12 |
+| `F_{2k+4} + F_{2k} = 3·F_{2k+2}` (Pell recur) | ✅ Part 13 |
+| Per-prime `F_{p-1} ≡ 0 ∧ F_{p-3} ≡ -1 mod p` | ✅ Part 13 (5 split primes) |
+| `pellCoeff k.1 = F_{2k} mod p` (Pell-Fib bridge) | ⚪ multi-session |
+| Universal Fibonacci-Pisano at split primes | ⚪ multi-session (FLT-equivalent) |
+| Eigenvector argument + diagonalisability | ⚪ multi-session |
+| Final assembly to `M^((p-1)/2) = I` | ⚪ multi-session |
+
+## Verification (post Part 13)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py PellFibBridge`: 12 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
