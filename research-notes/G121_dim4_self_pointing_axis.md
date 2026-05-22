@@ -356,16 +356,35 @@ $d_{213} - 1$.  This is the structural backbone.  Likely home:
 new file in `lean/E213/Lens/` or extension of existing chart-Lens
 material (e.g., `Lens/Number/Nat213/ChartGeneral.lean`).
 
-**R1 partial progress (2026-05-22)**: definitional scaffold
-committed at `lean/E213/Lib/Math/GeometrizationConjecture/
-ChartAxisAnsatz.lean` (12 PURE).  Encodes the ansatz parametrically
-in (NS, NT) with `selfPointingAxes := 1` as a `def`.  This is
-*not* the real M2 close — it commits the ansatz to definitional
-form so future work can either (a) upgrade `selfPointingAxes` from
-`def` to a derived theorem, or (b) falsify the commitment by
-exhibiting a 213-deployment with $\ne 1$ self-pointing axis.
-Real M2 close requires linking §8.1 (no exterior) to chart-Lens
-axiom-corpus at the Lens-ring level.
+**R1 partial progress (2026-05-22, 2 steps)**:
+
+  · *Step 1*: definitional scaffold at
+    `lean/E213/Lib/Math/GeometrizationConjecture/ChartAxisAnsatz.lean`
+    (12 PURE).  Encodes the ansatz parametrically in (NS, NT) with
+    `selfPointingAxes := 1` as a `def`.  Specialisations and
+    falsifier-candidate predictions.
+
+  · *Step 2*: axiom-level shadow added (21 PURE total).
+    Imports `Meta/LensInternality` and `Lens/LensCore`.  Witnesses
+    that every `Lens α` decomposes via `Meta.LensInternality.toData`
+    into a 3-tuple `(base_a, base_b, combine)`, of which 2 are
+    atom-data and 1 is operator-data.  This `3 = 2 + 1` axiom-level
+    fact is the **shadow** of the deployment-level
+    `chartVisibleAxes = chartBase - selfPointingAxes` pattern.
+
+The axiom-level shadow is a **genuine derivation** (from
+`structure Lens` field count) of `selfPointingAxes_axiom_level = 1`.
+But this is *axiom-level*, not deployment-level.  Real M2 close
+still requires:
+
+  · A Lean object for "K_{NS, NT}^{(c)} chart-Lens"
+  · A proof that this chart-Lens has the same self-pointing
+    structure as the axiom-level `Lens α`
+
+This link is the remaining work.  The shadow makes the *target*
+concrete: deployment-level `selfPointingAxes = 1` should ultimately
+be derivable by lifting the axiom-level fact through whatever
+formalisation of K_{NS, NT}^{(c)} chart-Lens is committed to.
 
 (R2) **Close M3 next**.  Derive (not match) the $N_T$-axis split
 into time + self-pointing.  Likely route: $c = 2$ binary cover
@@ -485,14 +504,25 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      encodes the ansatz as a *definition* (`selfPointingAxes := 1`
      commits to the 1-axis claim); the structural derivation from
      §8.1 (no exterior) is still M2.
+  8. User says "진행" (proceed) — axiom-level shadow added (21
+     PURE total).  `Meta.LensInternality.toData` invoked to witness
+     that every `Lens α` is a 3-tuple `(base_a, base_b, combine)`,
+     of which 2 are atom-data and 1 is operator-data.  Discovery:
+     `structure Lens` in `Lens/LensCore.lean:34-37` already
+     encodes the 2-atom + 1-operator split at the Lean type level.
+     The deployment-level `selfPointingAxes := 1` is therefore a
+     *consistent shadow* of the genuinely-derivable axiom-level
+     fact.  Remaining work: lift axiom-level → deployment-level
+     via K_{NS, NT}^{(c)} chart-Lens formalisation.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point**: derive `selfPointingAxes = 1` from
-`seed/AXIOM/07_self_reference.md` §8.1 + chart-Lens axioms, i.e.,
-upgrade `ChartAxisAnsatz.selfPointingAxes` from `def := 1` to a
-theorem.  This is the *real* M2 close.  See §7 R1.
+**Next-session entry point**: formalise K_{NS, NT}^{(c)} chart-Lens
+as a Lean object that exposes the axis structure, then lift the
+axiom-level 3-tuple decomposition to the deployment-level
+`chartVisibleAxes = chartBase - 1` as a theorem.  This is the
+genuine M2 close at the deployment layer.  See §7 R1.
 

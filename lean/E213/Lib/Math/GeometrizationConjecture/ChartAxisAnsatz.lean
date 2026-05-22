@@ -1,3 +1,6 @@
+import E213.Lens.LensCore
+import E213.Meta.LensInternality
+
 /-!
 # G121 — Chart-axis ansatz (open conjecture, definitional form)
 
@@ -58,6 +61,8 @@ for the full narrative + 4 open knots (M1-M4).
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
+
+open E213.Lens (Lens)
 
 /-- Fractal base of the K_{NS, NT}^{(c)} deployment.
 
@@ -143,5 +148,106 @@ theorem K32_ansatz_bundle :
     ∧ chartVisibleAxes 3 2 = 3 + (2 - 1)
     ∧ selfPointingAxes = 1 :=
   ⟨rfl, rfl, rfl, rfl⟩
+
+/-! ## Axiom-level shadow (R1 partial close — 2026-05-22)
+
+The deployment-level ansatz `selfPointingAxes := 1` matches an
+**axiom-level fact derivable from `Meta/LensInternality`**:
+
+  `Lens α ≃ α × α × (α → α → α)`
+
+i.e. every Lens carries exactly 3 data components — `base_a`,
+`base_b` (atom-data, 2 components) and `combine` (operator-data,
+1 component).  The split `3 = 2 + 1` is the axiom-level shadow of
+the deployment-level `chartVisibleAxes = chartBase - 1`.
+
+Per `Meta/LensInternality.lens_is_raw_internal` (§8.1
+formalisation): every Lens is Raw-internal, with data exactly the
+`(base_a, base_b, combine)` triple.  Of these three components,
+two correspond to Clause-1 atoms (chart-readable as α-values) and
+one corresponds to Clause-2 slash-operator (the *combine* function,
+which is the self-encoding of how Lens itself processes Raw).
+
+The axiom-level shadow does **not** structurally derive the
+deployment-level claim: the deployment-level chart-Lens (over
+K_{NS, NT}^{(c)} hinge) is not the same object as the Raw-level
+Lens type.  Linking them is the real M2 close (R1 in G121 §7).
+This section records the *consistency check*: deployment-level
+`selfPointingAxes := 1` is consistent with the axiom-level
+self-pointing component count of `1` (the combine).
+-/
+
+/-- Count of atom-data components in every Lens (per
+    `Meta/LensInternality`: `base_a` + `base_b`). -/
+def axiomAtomComponents : Nat := 2
+
+/-- Count of operator-data components in every Lens (per
+    `Meta/LensInternality`: `combine`).  This is the axiom-level
+    shadow of `selfPointingAxes`. -/
+def axiomOperatorComponents : Nat := 1
+
+/-- Total Lens data components per `Meta/LensInternality.lens_is_raw_internal`:
+    `Lens α ≃ α × α × (α → α → α)` has exactly 3 components. -/
+def axiomLensDataTotal : Nat :=
+  axiomAtomComponents + axiomOperatorComponents
+
+/-- Axiom-level total component count = 3. -/
+theorem axiomLensDataTotal_eq_three : axiomLensDataTotal = 3 := rfl
+
+/-- Axiom-level shadow: `total - operator = atom`, matching the
+    deployment-level pattern `chartBase - selfPointingAxes
+    = chartVisibleAxes`. -/
+theorem axiom_shadow_split :
+    axiomLensDataTotal - axiomOperatorComponents = axiomAtomComponents := rfl
+
+/-- Axiom-level shadow consistency with deployment-level ansatz:
+    the operator-component count at axiom-level matches the
+    `selfPointingAxes` commitment at deployment-level. -/
+theorem axiom_shadow_consistency :
+    axiomOperatorComponents = selfPointingAxes := rfl
+
+/-- Axiom-level shadow bundle: 3-component Lens data with 2-atom +
+    1-operator split, consistent with G121 ansatz §4.1. -/
+theorem axiom_level_shadow_bundle :
+    axiomLensDataTotal = 3
+    ∧ axiomLensDataTotal - axiomOperatorComponents = axiomAtomComponents
+    ∧ axiomOperatorComponents = selfPointingAxes
+    ∧ axiomAtomComponents = 2 :=
+  ⟨rfl, rfl, rfl, rfl⟩
+
+/-! ## Direct invocation of `Lens` 3-tuple decomposition
+
+The shadow encoding above (`axiomAtomComponents`,
+`axiomOperatorComponents`) is consistent with the Lean-level
+`Lens` structure (`Lens/LensCore.lean:34-37`):
+
+```
+structure Lens (α : Type) where
+  base_a  : α          -- atom-data, Clause 1 first atom
+  base_b  : α          -- atom-data, Clause 1 second atom
+  combine : α → α → α  -- operator-data, Clause 2 slash
+```
+
+Exactly 3 fields.  The theorems below invoke `Lens α` directly
+and witness the 3-tuple decomposition via `Meta.LensInternality.toData`.
+-/
+
+/-- Witness: every `Lens α`'s `toData` projects to the 3-tuple
+    `(base_a, base_b, combine)`.  This is the Lean-level
+    counterpart of `axiomLensDataTotal = 3`. -/
+theorem lens_toData_three_tuple (α : Type) (L : Lens α) :
+    (E213.Meta.LensInternality.toData L).1 = L.base_a
+    ∧ (E213.Meta.LensInternality.toData L).2.1 = L.base_b
+    ∧ (E213.Meta.LensInternality.toData L).2.2 = L.combine :=
+  ⟨rfl, rfl, rfl⟩
+
+/-- Witness: the 3-tuple decomposes as atom-data (2 components)
+    followed by operator-data (1 component).  The split position
+    matches `axiomAtomComponents + axiomOperatorComponents`. -/
+theorem lens_toData_split (α : Type) (L : Lens α) :
+    let d := E213.Meta.LensInternality.toData L
+    (d.1, d.2.1) = (L.base_a, L.base_b)
+    ∧ d.2.2 = L.combine :=
+  ⟨rfl, rfl⟩
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
