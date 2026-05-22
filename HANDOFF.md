@@ -2,8 +2,12 @@
 
 ## Branch
 
-`claude/research-notes-organization-Gr3Tp` — 204 commits ahead of
-`origin/main`, pushed.  No active conflict.
+`claude/n-u-followup-campaign-3PnDm` — G125 Aurifeuillean campaign
+(N_U follow-up).  3 commits ahead of merge-base with `main`
+(post-PR-95 merge).  Pushed.
+
+Prior branch `claude/research-notes-organization-Gr3Tp` merged via
+PR #95.
 
 ## Recently closed (this branch)
 
@@ -192,6 +196,87 @@ physics bridges`.
 `research-notes/archive/G123_n_u_family_theory.md` — original
 7-phase plan + open questions registry (archived after
 promotion).
+
+### B+++. G125 Aurifeuillean handle on N_U+1 — PHASES 1-3 CLOSED
+
+Successor to G124 §1.3 / §6.1 — promoted from "Most directly
+DRLT-relevant" research direction to a formal Lean campaign on
+this branch (`claude/n-u-followup-campaign-3PnDm`).
+
+**Headline result**: the prime `521 = Φ_10(5) = N(29 + 8√5)` is
+the **unique Aurifeuillean cyclotomic factor** of the family
+`5^(5^n) + 1`, **n-uniform across all n ≥ 1**.  Lean PURE proof
+via clean induction; no FLT, no period reduction, no Carmichael.
+
+**Hunter-catalogue bridge (Phase 3)**: the Aurifeuillean norm
+pair `(29, 8)` decomposes into Hunter primitives at the
+physics-selected base:
+
+```
+521 = (d² + NT²)² − d · (NT³)²
+    = N((d² + NT²) + NT³ · √d)   in ℤ[√d]
+```
+
+with `29 = d² + NT² = NT^d − NS = d² + d − 1` (three
+independent atomic readings) and `8 = NT³` already in catalog.
+
+**Lean** (14 PURE / 0 DIRTY across two files):
+  · `Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean`
+    (10 theorems): norm representation, Hunter-bridge, cyclotomic
+    `Φ_10(5) = 521`, seed `5^5 + 1 = 6·521`, concrete divisibility
+    at `n ∈ {1, 2, 3}`, and the `aurifeuillean_fingerprint_n_u`
+    capstone at the physics slice.
+  · `Lib/Math/Cohomology/Fractal/ConfigCountAurifeuilleanParam.lean`
+    (5 theorems): parametric `∀m, (configCount (m+1) + 1) % 521 = 0`
+    via induction on `m` with auxiliary `pow_mod_base` and two
+    decidable seeds (`5^5 % 521 = 520`, `520^5 % 521 = 520`).
+
+**Catalog update**: `catalogs/atomic-integers.md` now registers
+`521` under "Large integers (100+)" with the norm form, Aurifeuillean
+reading, three atomic readings of 29, and Lean cross-references.
+Added to "Atomic primes" list.
+
+**Structural significance** (research-note §10):
+  · §10.1 **Scale-free anchor**: 521 is preserved across every
+    fractal level `n ≥ 1`; provides a complete mod-521 shadow of
+    the entire `5^(5^n) + 1` sequence independent of
+    sampling-regime explosion.
+  · §10.2 **ℤ[√5] algebraically forced**: `Φ_10` irreducible
+    over ℤ but splits in ℤ[√5] — same algebraic substrate as
+    `φ = (1+√5)/2` (Mobius213.lean), Pell-Fibonacci over `F_{p²}`
+    (modular_arithmetic.md), dyadic FSM (dyadic_fsm.md).
+  · §10.3 **Last discrete Galois split before tetration**:
+    `(29, 8) = (d² + NT², NT³)` is the cleanest discrete
+    algebraic signature at the bottom of the hyper-exponential
+    tower, before cyclotomic indices exit to higher-degree
+    fields at `Φ_{50}, Φ_{250}, …`.
+
+**Phases**: 1 (concrete instances + norm) ✓ / 2 (parametric ∀n) ✓ /
+3 (Hunter cross-check) ✓ / 4 (catalog) ✓ / 5 (theory promotion —
+deferred, may write `theory/math/cohomology/aurifeuillean.md`
+if a future session greenlights, per PROMOTION_CRITERIA H1-H4
+already satisfied; S1-S3 partial pending broader Hunter scan).
+
+**Anchor commits (this branch)**:
+  · `b819b628` — Phase 1: concrete instances + norm
+  · `6eb41176` — Phase 2: parametric ∀ n ≥ 1
+  · `66633261` — Phase 3: Hunter bridge + structural §10
+
+**Research note**: `research-notes/G125_aurifeuillean_n_u.md`
+(370 lines, 11 sections).
+
+**Still open (G125 §8)**:
+  · Q1: Is the `(29, 8)` pair derivable directly from
+    `{NS, NT, d, c} = {3, 2, 5, 2}` via a single closed
+    Aurifeuillean formula?  (Three atomic readings exist;
+    coincidence vs. forced?)
+  · Q2: `Φ_250(5)` factorisation structure (non-Aurifeuillean
+    but possibly admits other field-extension splits).
+  · Q3: `5^(5^n) − 1` family — Aurifeuillean analysis at the
+    `−1` side via different cyclotomic indices.
+  · Q4: Higher Aurifeuillean indices `Φ_90(5), Φ_490(5), …`
+    (where `m = 3, 7, …` is odd, gcd(m, 5) = 1) — concrete
+    L-M splits and Hunter-bridge status.
 
 ### B++. G124 N_U-family cross-field connections — OPEN SURVEY
 
