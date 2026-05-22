@@ -67,11 +67,15 @@ is `cutEq`: same lower set.
 
 ### Operations
 
-- **`cutSum`** (Sum/, 11 files): addition by elementwise sum on
-  representative dyadic brackets.  Closure-form: bracket(a + b, n)
-  ⊂ bracket(a, n) + bracket(b, n) with explicit modulus.
-- **`cutMul`** (Mul/): multiplication via 4-quadrant case
-  decomposition (sign of a, sign of b).
+- **`cutSum`** (Sum/, 11 files + `BoolOrLadder.lean` new 2026-05-22):
+  addition by elementwise sum on representative dyadic brackets.
+  Closure-form: bracket(a + b, n) ⊂ bracket(a, n) + bracket(b, n)
+  with explicit modulus.  BoolOrLadder is a generic ladder template
+  for bool-or sums (REAL-2 per G118).
+- **`cutMul`** (Mul/, + `CutMulOuterReduce.lean` new 2026-05-22):
+  multiplication via 4-quadrant case decomposition (sign of a, sign
+  of b).  CutMulOuterReduce is the outer-reduce refactor enabling
+  FluxMVT-side reuse (FLUX-1 upstream per G110).
 - **`cutInv`** (Inv/): reciprocal via bracket-reflection.
 - **`cutOrder`** (Order/): total order via lower-set inclusion.
 

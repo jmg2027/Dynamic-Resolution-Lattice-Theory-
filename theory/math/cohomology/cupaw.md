@@ -1,20 +1,106 @@
 # Cohomology — CupAW
 
-**Status**: Closed.
+**Status**: Partially closed.  21+ files (Leibniz family expanded
+2026-05-22 with Decomp + UniversalLift + AlgLift{Alpha, Beta}).
 **Promoted from research-notes**: 2026-05-22.
 
-Pattern 2 (narrative-from-scratch).
+Pattern 3 (mixed status — closed bidegrees + G86 open ∀(k, l)).
 
 ## Overview
 
-Alexander-Whitney cup (homotopy-coherent variant). 21 files. The non-strict version satisfying graded Leibniz. Used in Hodge index proofs + α_em cup-channel inventory.
+Alexander-Whitney cup (homotopy-coherent variant): the non-strict
+cup product satisfying **graded Leibniz** `δ(α ∪ β) = δα ∪ β ± α ∪ δβ`.
+Used in Hodge index proofs + α_em cup-channel inventory.
+
+The CupAW layer is where the **G86 open conjecture** sits — the
+∀(k, l) self-referential Leibniz rule (HANDOFF Part 2 §A).
 
 ## Lean source
 
-- `lean/E213/Lib/Math/Cohomology/CupAW/`
+- `lean/E213/Lib/Math/Cohomology/CupAW/` (21+ files)
 - ∅-axiom PURE on production critical path
+
+### Leibniz family (closed bidegrees + decomposition machinery)
+
+| File | Role |
+|---|---|
+| `Leibniz.lean` | Base Leibniz statements |
+| `LeibnizLex*.lean` | Lex-projection cup variants |
+| `Leibniz21Final.lean`, `Leibniz22Final.lean`, `Leibniz4Mixed.lean` | Specific bidegree closures (2,1) (2,2) mixed-4 |
+| `LeibnizAlgLift.lean` + `21Alpha`, `22`, `22Alpha` | Algebraic-lift variants of Leibniz (G86 Phase decomposition) |
+| `LeibnizAlgLiftAlpha.lean` (new 2026-05-22) | Alpha-side algebraic lift parametric in bidegree |
+| `LeibnizAlgLiftBeta.lean` (new 2026-05-22) | Beta-side algebraic lift parametric in bidegree |
+| `LeibnizDecomp.lean` (new 2026-05-22) | **Decomposition machinery** for splitting Leibniz proofs into α/β halves |
+| `LeibnizUniversalLift.lean` (new 2026-05-22) | Universal-lift infrastructure for arbitrary bidegree |
+
+The 2026-05-22 batch (Decomp + UniversalLift + AlgLift{Alpha, Beta})
+represents **structural progress toward G86 closure**.  The strategy:
+decompose the ∀(k, l) Leibniz into α/β halves + universal lift across
+the bidegree parameter; each half is closeable parametrically (per
+LeibnizAlgLiftAlpha/Beta), and Universal lifts the bundle.
+
+## Narrative
+
+### What CupAW is
+
+The strict cup (`Cohomology/Cup/`) satisfies anti-commutativity but
+NOT graded Leibniz: `δ(α ⌣ β) ≠ δα ⌣ β ± α ⌣ δβ` in general
+(per G85 Lens-mismatch).  Alexander-Whitney's homotopy-coherent
+variant **does** satisfy graded Leibniz at each fixed bidegree —
+but the proof must be done **per bidegree**, not uniformly.
+
+### Closed bidegrees
+
+| (k, l) | Status | File |
+|---|---|---|
+| (1, 1) | ✓ list-level + Fin-indexed (Δ⁴) | `LeibnizLexListLevel`, `LeibnizLexSelfRef` |
+| (2, 1) | ✓ list-level + Fin-indexed (Δ³) | `LeibnizLexStructural`, `LeibnizLex21` |
+| (2, 2) | ✓ partial | `Leibniz22Final` |
+| (mixed 4) | ✓ | `Leibniz4Mixed` |
+| **(k, l) general** | **OPEN (G86)** | — |
+
+### G86 open conjecture — Phase decomposition
+
+Per `research-notes/G86_self_referential_lex_cup_leibniz.md`
+(currently top-level active), the ∀(k, l) general case has the form:
+
+```
+deltaList (k+l) (cupList k l α β) τ
+  =  (cupList (k+1) l (deltaList α) β) τ
+   ⊕ (cupList k (l+1) α (deltaList β)) τ
+   ⊕ correction(α, β, τ)
+```
+
+where `correction = (cupList k l α β)(τ \ {τ[mid]})` is the
+**self-referential face-removal**.
+
+The 2026-05-22 algebraic-lift batch (Alpha/Beta/Decomp/UniversalLift)
+sets up the *decomposition* machinery to attack this — split the
+proof into:
+- α-half: bidegree-parametric δα contribution
+- β-half: bidegree-parametric δβ contribution
+- universal lift: combine + handle the correction term
+
+The G86 conjecture remains **open** at the full ∀(k, l) level (per
+HANDOFF Part 2 §A and `research-notes/G86_*.md`); the Decomp + Lift
+infrastructure is structural pre-work toward closure.
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
-- Other cohomology sub-clusters cite this layer
+- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture/ uses CupAW machinery for the Hodge index pairings
+- `theory/math/cohomology/cup.md` — strict cup (CupAW's non-Leibniz cousin)
+- `theory/physics/alpha_em/precision_derivation.md` — α_em uses cup-channel inventory built on CupAW
+- `research-notes/G85_cup_delta_lens_mismatch.md` — Why strict cup fails Leibniz; CupAW is the resolution
+- `research-notes/G86_self_referential_lex_cup_leibniz.md` — **OPEN** ∀(k, l) conjecture
+- `research-notes/G111_cohomology_deep_dive.md` — 2026-05-22 Tier-2 Cohomology deep dive
+
+## Open frontier
+
+**G86 ∀(k, l) Cup-Leibniz general** is the active frontier.  Phase
+decomposition machinery (Decomp + UniversalLift + AlgLift{Alpha,
+Beta}) landed 2026-05-22.  Full closure pending.
+
+Per G86 §3 (speculative): closure may unlock
+- α_em 5.4×10⁻⁴ residual via cup-product origin (G35 §C1)
+- K_{3,2}^{(c=2)} bipartite cup-channel structure
+- θ_QCD α⁴ suppression as depth-(d-1) self-reference iteration

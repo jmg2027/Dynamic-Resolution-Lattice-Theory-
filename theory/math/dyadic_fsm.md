@@ -30,9 +30,14 @@ the FSM's accumulated state.
 | `ArithFSM/` (9 + 3 Mod buckets) | Per-modulus arithmetic FSM (Mod{Small,Medium,Large}) + Hierarchy + Hardness + helpers |
 | `Pell/` | Pell sequence FSM (Pell numbers, Pell-Lucas) |
 | `Fib/` | Fibonacci FSM (Fibonacci, Lucas, Tribonacci) |
-| `Pisano/` | Pisano periods (per-modulus) |
+| `Pisano/` | Pisano periods (per-modulus, parametric predictors) |
 | `Legendre/` | Legendre symbol via FSM |
+| `PellMatrix*` (5 files, 2026-05-22 marathon) | Pell matrix Cayley-Hamilton + action + cases + inverse + pigeonhole — Phase-3-bridge infrastructure for G119 Pisano-prime-23 closure |
 | `Capstones/` | Master theorems per family |
+
+Companion Meta modules (Lean-4 bridge, ring-independent):
+- `Meta/Nat/ModPow213.lean` — modular exponentiation with period reduction
+- `Meta/Nat/MulMod213.lean` — mul-mod helpers (Phase 2 prerequisites)
 
 ## The narrative
 
@@ -69,7 +74,27 @@ is the FSM's cycle length on the Fibonacci-mod-n transition.
 **Decidable in O(n²)** by detecting cycle return to initial state.
 
 `Pisano/` provides per-n decided values for n ≤ ~100, plus
-parametric results for prime n (Pisano (p) divides p - 1 or p + 1).
+parametric **Predictor** files (Predictor8/11/14/17/20/22/23) that
+prove the bridge "predicted period from prime p ⇒ Pisano period
+matches" for specific prime cases.  Predictor23 (2026-05-22)
+closed the 23-prime case via the Phase-3 bridge.
+
+### PellMatrix infrastructure (Phase 1-2-3 of G119)
+
+The Pell sequence's matrix realization [[2,1],[1,0]]^n is upgraded
+from per-step FSM transitions to a **matrix-level Cayley-Hamilton +
+action + inverse + pigeonhole** structure:
+
+- `PellMatrix` — 2×2 integer matrix base + Cayley-Hamilton identity
+- `PellMatrixAction` — group action of P^n on pellCoeff state space
+- `PellMatrixCases` — case-by-case behaviour at small n
+- `PellMatrixInverse` — invertibility of P (det = ±1) + universal
+  `stepInv_step` proof
+- `PellMatrixPigeonhole` — existential Pisano period via pigeonhole
+  (state space finite → must collide → collision = period)
+
+Closes G119 Phase 2 (existential Pisano period); paves Phase 3
+(constructive prediction per prime).
 
 ### Connection to other chapters
 
@@ -84,6 +109,9 @@ parametric results for prime n (Pisano (p) divides p - 1 or p + 1).
 - **Higher-order recursions** (Tribonacci, k-bonacci) — partially
   done (Tribonacci has FSM); generalization to arbitrary k open
 - **Continued fractions** as FSM — sketched, not yet capstoned
+- **G119 Phase 3+** — full `pisano_predict_realises_pell_universal`
+  closure ∀ prime p (currently closed for 23 primes via bridge; full
+  parametric statement in progress).  Source: `research-notes/G119_pisano_pell5_research_direction.md`.
 
 ## How to verify
 

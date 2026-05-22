@@ -83,6 +83,43 @@ Foundational baseline (top-level `research-notes/`):
 - `2026-05-18_lens_emergence_path.md` — lens emergence spec
 - `G107_action_items_registry.md` — meta-scan live tracker
 
+2026-05-22 merge from `claude/lean4-ast-patterns-g1gWN` brought
+additional active research notes — Tier-2 deep dives + research
+directions, NOT promoted (deep dives are analytical scans, not
+closure narratives; per `essay` skill protocol).  All annotate
+already-promoted chapters:
+
+- `G108_real213_analysis_deep_dive.md` — Tier-2 precise analysis (annotates `theory/math/real213.md`, `theory/math/analysis/*.md`)
+- `G109_cross_domain_identification_scan.md` — cross-domain identifications scan
+- `G110_fluxmvt_deep_dive.md` — annotates `theory/math/analysis/flux_m_v_t.md`
+- `G111_cohomology_deep_dive.md` — annotates `theory/math/cohomology/*.md`
+- `G112_hodge_conjecture_deep_dive.md` — annotates `theory/math/cohomology/hodge_conjecture.md`
+- `G113_dyadic_fsm_deep_dive.md` — annotates `theory/math/dyadic_fsm.md`
+- `G114_cayley_dickson_deep_dive.md` — annotates `theory/math/cayley_dickson/algebra_tower.md`
+- `G115_lib_physics_deep_dive.md` — annotates `theory/physics/*.md`
+- `G116_pattern_catalog_deep_dive.md` — annotates `theory/math/pattern_catalog/pattern_catalog.md`
+- `G118_marathon_deferred_items.md` — live tracker (companion to G107)
+- `G119_pisano_pell5_research_direction.md` — Pisano period prime-23 closure in progress
+
+## Companion seed/ specs (2026-05-22 merge)
+
+Foundational specs added alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
+
+- `seed/RAW_DERIVATION_SPEC.md` — formal Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`)
+- `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` — proof-shape fingerprinting (companions `theory/meta/scanner_suite.md`)
+- `seed/META_SCAN_ARCHETYPES.md` — meta-scan archetype catalog
+- `seed/FALSIFIABILITY_SURFACE_SPEC.md` — falsifier surface spec (DRLT Validation Standard depth)
+- `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` — L1 parametric methodology (G106 / `theory/meta/scanner_suite.md` §1)
+- `seed/BISHOP_SUBSUMPTION_SPEC.md` — Bishop comparison doctrinal subsumption
+
+## Companion catalogs/ (2026-05-22 merge)
+
+- `catalogs/abstraction-candidates.md` — abstraction roster (G107 §2-§5 promoted)
+- `catalogs/cross-domain-identifications.md` — G109 deliverable
+- `catalogs/falsifier-roster.md` — 135-falsifier catalog (G100 deliverable)
+- `catalogs/internal-hubs.md` — internal hub catalog (G102 deliverable)
+- `catalogs/recursor-inventory.md` — full recursor inventory (G105 deliverable)
+
 ## Note on framing (2026-05-22 revision)
 
 Earlier draft used OS-stack analogy ("Firmware", "Hypervisor",
