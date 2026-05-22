@@ -138,4 +138,83 @@ theorem basisDepth4Sig_unique_survivor :
         else [false, false, false, false] :=
   by decide
 
+/-! ## §5.  Higher-bidegree firing positions
+
+The unique-survivor result above is for bidegree (1, 1) at split
+position 1.  Different bidegrees fire at different depth positions
+— a **bidegree-to-depth correspondence** structurally encoded by
+the cup recipe.
+
+Below we catalogue the depth-4 signature at bidegree (1, 2) with
+split position 1 and 2-vertex indicator on the β side. -/
+
+/-- Two-vertex indicator cochain.  `β_e2 [i, j]` returns `true`
+    iff its argument is the sorted pair `[i, j]`. -/
+def β_e2 (i j : Nat) : List Nat → Bool := fun s => decide (s = [i, j])
+
+/-- Depth-4 signature at bidegree (1, 2).  PURE. -/
+def depth4Sig_1_2 (α : List Nat → Bool) (β : List Nat → Bool) :
+    List Bool :=
+  selfRefIter 1 2 α β 4 [0, 1, 2, 3, 4]
+
+/-- ★★★ **Bidegree (1, 2) firing at depth-2** — for `(α_e 0, β_e2 3 4)`
+    on Δ⁴ at split position 1, the depth-4 signature fires at
+    bit position 2 (depth-2 step):
+
+    Iteration trace:
+      τ_2 = [0, 3, 4]  →  α_e 0([0]) ∧ β_e2 3 4([3, 4]) = true ∧ true = true
+
+    earlier and later steps evaluate `false` because the drop-side
+    has the wrong length to match the 2-vertex indicator.  Signature:
+    [false, false, true, false].  PURE. -/
+theorem depth4Sig_1_2_e0_e34 :
+    depth4Sig_1_2 (α_e 0) (β_e2 3 4)
+    = [false, false, true, false] := by decide
+
+/-! The (1, 1) case fires at depth 3, the (1, 2) case fires at
+depth 2.  Bidegree (1, l)'s firing depth at split 1 on Δ⁴ follows
+the codimension pattern `d - 1 - l`: for l = 1 → depth 3, for
+l = 2 → depth 2, for l = 3 → depth 1.  The next spot check
+confirms (1, 3) → depth 1. -/
+
+/-- Three-vertex indicator cochain. -/
+def β_e3 (i j k : Nat) : List Nat → Bool :=
+  fun s => decide (s = [i, j, k])
+
+/-- Depth-4 signature at bidegree (1, 3). -/
+def depth4Sig_1_3 (α : List Nat → Bool) (β : List Nat → Bool) :
+    List Bool :=
+  selfRefIter 1 3 α β 4 [0, 1, 2, 3, 4]
+
+/-- ★★★ **Bidegree (1, 3) firing at depth-1** — for
+    `(α_e 0, β_e3 2 3 4)` on Δ⁴ at split position 1, the depth-4
+    signature is `[false, true, false, false]`.  Fires at bit
+    position 1, **one bit earlier** than (1, 2).  PURE. -/
+theorem depth4Sig_1_3_e0_e234 :
+    depth4Sig_1_3 (α_e 0) (β_e3 2 3 4)
+    = [false, true, false, false] := by decide
+
+/-! ## §6.  Bidegree-to-depth correspondence
+
+The empirical pattern across bidegrees:
+
+| Bidegree (k, l) | Specific (α, β) | Firing depth bit |
+|---|---|---|
+| (1, 1) | `(α_e 0, α_e 4)` | 3 |
+| (1, 2) | `(α_e 0, β_e2 3 4)` | 2 |
+| (1, 3) | `(α_e 0, β_e3 2 3 4)` | 1 |
+
+Pattern: at split position 1 on Δ⁴ initial τ, the firing depth
+bit for an (α_e 0, β_eN i₁ … iₗ) pair is `d - 1 - l = 4 - l`.
+
+This is a **count-Lens output**: the firing depth IS the
+codimension `d - 1 - l` of the β-support face within Δ⁴.  The
+boundary-endpoint pair `(α_e 0, α_e 4)` (l = 1, codim 3) sits at
+the deepest end of this hierarchy, the **canonical depth-(d-1)
+saturation channel**.
+
+Each codimension fires at exactly one depth-bit position.  The
+bit-string of all firings across the codim spectrum encodes the
+"depth-resolved channel structure" of the cochain product. -/
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth

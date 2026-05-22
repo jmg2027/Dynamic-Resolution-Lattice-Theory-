@@ -107,13 +107,28 @@ the simplex.  This single surviving channel is a candidate for
 the **leading α^(d-1) = α^4 suppression contribution** in DRLT
 physical constants.
 
-Open: extend the survivor analysis to (a) non-indicator cochain
-bases (Hodge dual basis, affine basis), (b) other split positions
-(k = 0, 2), (c) other initial τ (proper sub-faces of Δ⁴).  The
-unique-survivor count per basis × split × τ is a finite,
-catalog-extracting computation.
+**Bidegree-to-depth correspondence** (extended catalog):
 
-11 new strict-PURE theorems in `SelfRefDepth.lean`.
+| Bidegree (k, l) | Specific (α, β) | Firing depth bit | Codimension |
+|---|---|---|---|
+| (1, 1) | `(α_e 0, α_e 4)`           | 3 | 3 |
+| (1, 2) | `(α_e 0, β_e2 3 4)`        | 2 | 2 |
+| (1, 3) | `(α_e 0, β_e3 2 3 4)`      | 1 | 1 |
+
+Pattern: at split position 1 on the full Δ⁴ initial τ, the firing
+depth of an `(α_e 0, β_eN i₁ … iₗ)` configuration is `d - 1 - l`
+(where d = 5).  This **IS** the codimension of the β-support face
+in Δ⁴: a length-l indicator face has codim `d - 1 - l = 4 - l`.
+
+So the depth-bit position of the firing **equals** the codimension
+of the β-support face.  The cup self-reference depth is a direct
+count-Lens output of the codim hierarchy.
+
+The boundary-endpoint pair `(α_e 0, α_e 4)` (l = 1, codim 3)
+sits at the deepest end — the **canonical depth-(d-1) saturation
+channel**.
+
+15 new strict-PURE theorems in `SelfRefDepth.lean`.
 
 ### C. Cup-channel κᵢ structural derivation (zero-parameter)
 
