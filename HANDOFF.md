@@ -69,7 +69,7 @@ section.  Research note: `research-notes/G125_lens_recipe_cup_catalog.md`.
 | ~~Mirror catalog uniqueness~~ | **OBSOLETE** — symmetric to original under swap, no new content |
 | **Structural ∀d codim correspondence** | **CLOSED** (`Cup/IterErase.lean` 7 PURE).  `endpoint_pair_firing_characterisation` is the universal structural theorem; d=5 catalog + d=6 spot checks are now corollaries.  Proof: iterErase + cupList factorisation, no decide |
 | **Sub-direction E: cup-atomic subalgebra** | **INITIAL CLOSURE 2026-05-22** (`Cup/CupAtomic.lean` 15 PURE + `Cup/CupAtomicExtended.lean` 16 PURE).  Cup-closed-trivially cochain pair count at (1, 1) on Δ⁴: 320 out of 1024.  Universal formula `count = d · 2^(d+1)` decide-verified at d ∈ {3, 4, 5}.  Conjectured ∀d ≥ 2 |
-| K_{3,2}^{(c=2)} 8-channel projection | Bridge cup-channels (6 on Δ⁴) ↔ K_{3,2} cohomology (8 channels = gluon DOF) via vertex assignment NS=3, NT=2 |
+| **K_{3,2}^{(c=2)} 8-channel projection** | **CLOSED 2026-05-22** (`Cup/K32Projection.lean` 11 PURE).  Quadruple structural identity at DRLT: `b_1 = 8 = E-V+1 = cup-channels + NT = NT·(NS+1) = NS²-1`.  Four independent count-Lens readings converge uniquely at (NS,NT,c)=(3,2,2) |
 | 1/α_em decomposition derivation | `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45` — can cup catalog derive 60, 25/3? |
 | Sub-direction F: p-adic cup ring | Needs G122 progress |
 
