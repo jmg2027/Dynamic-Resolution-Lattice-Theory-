@@ -22,11 +22,28 @@ def modPow (p a : Nat) : Nat → Nat
   | 0 => 1 % p
   | k+1 => (modPow p a k * a) % p
 
+/-- `modPow p a 0 = 1 % p`.  Definitional. -/
+theorem modPow_zero (p a : Nat) : modPow p a 0 = 1 % p := rfl
+
+/-- `modPow p a (k+1) = (modPow p a k * a) % p`.  Definitional. -/
+theorem modPow_succ (p a k : Nat) :
+    modPow p a (k + 1) = (modPow p a k * a) % p := rfl
+
 /-- `modPow p a 1 = a % p`. -/
 theorem modPow_one (p a : Nat) : modPow p a 1 = a % p := by
   show ((1 % p) * a) % p = a % p
   rw [← mul_mod_left_pure 1 a p]
   rw [Nat.one_mul]
+
+/-- `modPow` is mod-invariant in the base: `modPow p (a % p) k = modPow p a k`. -/
+theorem modPow_mod_left (p a k : Nat) :
+    modPow p (a % p) k = modPow p a k := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    show (modPow p (a % p) k * (a % p)) % p = (modPow p a k * a) % p
+    rw [ih]
+    rw [← mul_mod_right_pure (modPow p a k) a p]
 
 /-- `modPow p a k` is always `< p` (when 0 < p). -/
 theorem modPow_lt (p a : Nat) (hp : 0 < p) (k : Nat) : modPow p a k < p := by
