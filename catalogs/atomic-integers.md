@@ -30,10 +30,19 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
 
   32 = NT^d   36 = (NS·NT)²   40 = (NS²-1)·d
   41 = α_GUT integer (prime)
+       · Modular fingerprint: configCountD 5 n ≡ 9 = NS² (mod 41)
+         for all n ≥ 1.  The α_GUT residue is invariant under
+         fractal level iteration.
+         Lean: Lib/Math/Cohomology/Fractal/ConfigCountModular.lean
+               §H.1 configCountD_5_succ_mod_41
   48 = NT⁴·NS   49 = (NS²-NT)²   50 = 2·d²
   54 = 2·NS³   60 = e-folds   64 = NT⁶
   72 = (d²-1)·NS   75 = NS·d²   80 = NT⁴·d
-  81 = NS⁴   86 = Rn   100 = NT²·d²
+  81 = NS⁴   86 = Rn = NS²·NT² + d²·NT   100 = NT²·d²
+       · 86 = configCountD 5 2 % 137 — physics-slice readout
+         mod 1/α_em projects N_U to Rn.  Two catalogue atoms
+         connected via count-Lens.
+         Lean: configCountD_5_2_mod_137 (Fractal.ConfigCountModular §H.5)
 
 ## Large integers (100+)
 
