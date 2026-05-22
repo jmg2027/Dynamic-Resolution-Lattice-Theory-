@@ -78,8 +78,8 @@ infrastructure:
 | Item | Blocker |
 |---|---|
 | **FW-1 signed Donaldson count** | Sign-assignment from K-deployment data; comparison interface to standard 4-mfd Donaldson invariants |
-| **FW-2 Filled3Cell.lean** | New 3-cell complex infrastructure (current `Filled.lean` is 2-cell only) |
-| **FW-4 213-native flat/hyperbolic metric types** | New geometry infra in `Lib/Math/Geometry/` |
+| **FW-2 topological 3-mfd attaching-map formalization** | Beyond Euler-target arithmetic; requires attaching-map types.  Structure-level scaffold added in `Cohomology/Bipartite/Filled3Cell.lean` (`Cell3ComplexK32` + Euler-char + realization predicate). |
+| **FW-4 real-metric-tensor formalization** | By design absent from 213.  Signature-level classifier added in `Geometry/MetricTypes.lean` (`MetricSignature` + `LensChoice` + `classify`) as 213-native replacement. |
 | **M2 universal V32Betti-style derivation** | Per-K_{NS,NT}^{(c)} cohomology files beyond V32 |
 | **I-3 BracketCauchy bidirectional bridge** | `IsRicciModulus` ↔ `IsContinuousModulus` cross-category functor (different underlying types: cochain-functions vs cell-fill-counts) — likely ill-posed without further category infra |
 

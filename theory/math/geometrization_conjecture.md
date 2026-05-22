@@ -198,11 +198,15 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension** (`JsjDeep.lean`, ~20 PURE): Euler-target
+- **JSJ extension** (`JsjDeep.lean`, ~22 PURE): Euler-target
   scaffold extended with 3-mfd target catalog (S³, T³, L(p,q),
   connected sums all at χ = 0), K_{3,2}^{(c=2)} cell-complex
   parameter family (k − j = 7), bipartite S/T cut as canonical
-  decomposition, `JSJ_deeper_consolidation` capstone.
+  decomposition, `JSJ_deeper_consolidation` capstone.  Bridges to
+  the parametric `Cell3ComplexK32` structure in
+  `Cohomology/Bipartite/Filled3Cell.lean` (21 PURE) — provides
+  k 2-cells + j 3-cells data type, Euler-char computation,
+  closed-3-mfd realization predicate, naive Betti numbers.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
   universal characterization** `sym3_c2_force_K32` (Sym(3) +
@@ -210,11 +214,16 @@ For full ~149 PURE inventory, see
   no chartBase bound) + Boolean ↔ form `passes_filter_universal_bool`
   + asymptotic `filter_passes_only_chartBase_5`.
 - **Metric geometries direct realization** (`MetricGeometries.lean`,
-  ~15 PURE): mod-k Möbius P Lens family across F_2/F_3/F_5/F_7/F_11/F_13
+  ~17 PURE): mod-k Möbius P Lens family across F_2/F_3/F_5/F_7/F_11/F_13
   + **F_5 uniqueness** (`F5_unique_nil_collapse_small_primes`,
   `mod_k_lens_family_F5_unique_close`): across primes 2..23, only
   p = 5 collapses the discriminant — 213's d=5 fractal base
-  structurally aligns with the unique Nil-Lens.
+  structurally aligns with the unique Nil-Lens.  Bridges to
+  `Geometry/MetricTypes.lean` (16 PURE) — 213-native
+  `MetricSignature` inductive type with 8 constructors + `LensChoice`
+  + `classify : LensChoice → MetricSignature` total function,
+  providing the discrete-algebraic-signature replacement for
+  real-valued metric tensors.
 - **Sym(3) cross-frame capstone** (`CrossFrame.lean`, ~5 PURE):
   `G121_X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
   convergence (Geometrization + gluon octet + HC_K32 + Möbius P

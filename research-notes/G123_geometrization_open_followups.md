@@ -122,16 +122,25 @@ Deepening added 2026-05-22:
     sum-to-chartBase, non-triviality at K_{3,2} formalized.
   · `JSJ_deeper_consolidation` capstone bundling all of the above.
 
+**3-cell infrastructure added 2026-05-22** (`Filled3Cell.lean`,
+21 PURE):
+  · `Cell3ComplexK32` structure (k 2-cells + j 3-cells)
+  · `chi` Euler-characteristic computation (5 − 12 + k − j)
+  · `realizesClosed3Mfd` predicate (k − j = 7)
+  · Specific 3-mfd realizations: (7,0), (8,1), (9,2), (10,3) all χ=0
+  · Naive Betti-number computations (b₀ = 1, b₂ = k − j, b₃ = j)
+  · Filling chain χ values for k ∈ [0,3]: −7, −6, −5, −4
+  · `cell3_extension_scaffold` capstone (10-conjunct)
+  · Bridge in `JsjDeep.lean`:
+    `chi_K32_extended_eq_Cell3ComplexK32_chi` — inline ↔ structured form
+    `closed_3mfd_targets_match_Cell3Complex` — realization predicate consistency
+
 **Still missing**:
-  · Full 3-cell complex `Filled.lean` extension (current `Filled.lean`
-    handles 2-cells only).  Requires new file `Filled3Cell.lean`.
   · Topological 3-mfd structure verification (not just Euler-target
-    match).
+    match) — requires attaching-map formalization (significant infra).
   · JSJ-torus-cut lift from graph cut to manifold cut.
 
-**Effort spent**: ~1 session.  Remaining 2-4 sessions for full close.
-
-**Falsifier potential**: LOW (structural pillar deepening).
+**Falsifier potential**: LOW unchanged (structural pillar deepening).
 
 ---
 
@@ -180,19 +189,33 @@ Deepening added 2026-05-22:
   · `mod_k_lens_family_F5_unique_close`: 213's `d = 5` fractal
     base aligns with the unique Nil-producing Lens — not arbitrary.
 
-**Still missing**:
-  · Metric-formalization for flat (E³): currently "irreducible over
-    F_2" narrative.  Needs 213-native flat-metric type.
-  · Hyperbolic (H², H³, H²×ℝ): narrative-only via P trace > 2.
-    Needs 213-native hyperbolic-metric type.
-  · Promotion to uniqueness theorems of the form "modulus k forces
-    geometry G_k" for k ∈ {2, 3, 7, 11}.
+**213-native metric type added 2026-05-22** (`Geometry/MetricTypes.lean`,
+16 PURE):
+  · `MetricSignature` inductive type with 8 constructors (E³, S³,
+    H³, S²×ℝ, H²×ℝ, ~SL₂, Sol, Nil)
+  · `LensChoice` inductive type with constructors for identity,
+    ∂Δⁿ-boundary, real-trace, real-trace-plus-axis, integer-lattice,
+    Pell-spiral, mod-p (parameterized)
+  · `classify : LensChoice → MetricSignature` total function
+  · 8 individual `classify_*` witnesses (one per Thurston geometry)
+  · `isIsotropic` / `isAnisotropic` predicates with 3 + 5 = 8 partition
+  · `F5_unique_Nil_classifier` (signature-level F_5 uniqueness)
+  · `metric_signature_classifier_capstone` (16-conjunct)
+  · Bridge in `MetricGeometries.lean`:
+    `mod5_Lens_matches_Nil_signature` — algebraic ↔ signature
+    `F5_Nil_bridge` — 6-conjunct bundling both sides
 
-**Effort spent**: ~1 session.  Remaining 4-7 sessions for full close.
+**Still missing** (full real-metric-tensor formalization):
+  · Real-valued metric tensors (E³ = Euclidean, H³ = hyperbolic,
+    etc.) — by design absent from 213; the signature classification
+    is the 213-native replacement.
+  · Promotion to "modulus k forces geometry G_k" uniqueness
+    theorems for k ∈ {2, 3, 7, 11} beyond F_5 ↔ Nil — needs deeper
+    Lens-classifier theory.
 
-**Falsifier potential**: MEDIUM.  F_5 uniqueness sharpens the
-falsifier: any K-deployment whose Möbius P has discriminant ≠ 5
-would NOT produce Nil narrative — testable structural prediction.
+**Falsifier potential**: MEDIUM unchanged.  F_5 uniqueness now at
+two formalization levels (algebraic discriminant + signature
+classifier) — falsifier sharpened.
 
 ---
 

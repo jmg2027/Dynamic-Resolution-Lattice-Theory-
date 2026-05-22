@@ -1,4 +1,5 @@
 import E213.Lib.Math.GeometrizationConjecture.JsjDeep
+import E213.Lib.Math.Geometry.MetricTypes
 
 /-!
 # G121 R1+ — E³/H³/H²×ℝ direct realization scaffold (G125 partial)
@@ -295,5 +296,48 @@ theorem mod_k_lens_family_F5_unique_close :
     -- 213's d=5 fractal base aligns with the unique Nil Lens
     ∧ mobius_P_disc = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl⟩ <;> decide
+
+/-! ## Bridge to `MetricSignature` classifier
+
+`Geometry/MetricTypes.lean` provides a 213-native discrete
+classification of the 8 Thurston model geometries via
+(`MetricSignature`, `LensChoice`) data and a `classify` function.
+The mod-k Lens narrative here (F_2 / F_3 / F_5 / F_7 / F_11 / F_13)
+corresponds to specific `LensChoice.modP` values; the F_5 → Nil
+uniqueness matches the `F5_unique_Nil_classifier` theorem at the
+signature level. -/
+
+/-- The mod-5 Lens narrative for Nil matches the
+    `MetricSignature.nilNilpotent` classification. -/
+theorem mod5_Lens_matches_Nil_signature :
+    E213.Lib.Math.Geometry.MetricTypes.classify
+      (E213.Lib.Math.Geometry.MetricTypes.LensChoice.modP 5)
+    = E213.Lib.Math.Geometry.MetricTypes.MetricSignature.nilNilpotent := rfl
+
+/-- ★★★★★ **F_5 Nil uniqueness ↔ signature classifier match**
+
+  Bundles two complementary statements of F_5's uniqueness:
+    · `mobius_P_disc % 5 = 0` (algebraic side, this file)
+    · `classify (.modP 5) = .nilNilpotent` (signature side,
+      `Geometry/MetricTypes.lean`)
+
+  Plus their absence at p ≠ 5 — same structural finding from two
+  different formalization angles. -/
+theorem F5_Nil_bridge :
+    -- Algebraic side (this file)
+    mobius_P_disc % 5 = 0
+    ∧ mobius_P_disc % 2 ≠ 0
+    ∧ mobius_P_disc % 3 ≠ 0
+    -- Signature side (Geometry/MetricTypes.lean)
+    ∧ E213.Lib.Math.Geometry.MetricTypes.classify
+        (E213.Lib.Math.Geometry.MetricTypes.LensChoice.modP 5)
+      = E213.Lib.Math.Geometry.MetricTypes.MetricSignature.nilNilpotent
+    ∧ E213.Lib.Math.Geometry.MetricTypes.classify
+        (E213.Lib.Math.Geometry.MetricTypes.LensChoice.modP 2)
+      ≠ E213.Lib.Math.Geometry.MetricTypes.MetricSignature.nilNilpotent
+    ∧ E213.Lib.Math.Geometry.MetricTypes.classify
+        (E213.Lib.Math.Geometry.MetricTypes.LensChoice.modP 3)
+      ≠ E213.Lib.Math.Geometry.MetricTypes.MetricSignature.nilNilpotent := by
+  refine ⟨?_, ?_, ?_, rfl, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

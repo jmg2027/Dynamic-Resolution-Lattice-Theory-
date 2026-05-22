@@ -1,4 +1,5 @@
 import E213.Lib.Math.GeometrizationConjecture.Generalization
+import E213.Lib.Math.Cohomology.Bipartite.Filled3Cell
 
 /-!
 # G121 R1+ — JSJ deeper: 3-cell complex extension scaffold (G123 partial)
@@ -265,5 +266,45 @@ theorem JSJ_deeper_consolidation :
     -- Sphere boundary chain confirmed (∂Δⁿ → Sⁿ⁻¹)
     ∧ (5 : Int) - 10 + 10 - 5 = 0 := by
   refine ⟨rfl, rfl, ?_, ?_, rfl, rfl, rfl, ?_⟩ <;> decide
+
+/-! ## Bridge to `Cell3ComplexK32` infrastructure
+
+`Filled3Cell.lean` provides a parametric `Cell3ComplexK32` structure
+holding (k 2-cells, j 3-cells) data, with Euler characteristic and
+naive Betti-number computations.  The K_{3,2}^{(c=2)}-specific
+`chi_K32_extended` def here computes the same Euler characteristic
+under the same arithmetic.  Make the equivalence explicit and use
+the structured form for downstream propagation. -/
+
+/-- The inline `chi_K32_extended` matches the structured
+    `Filled3Cell.chi` on the corresponding `Cell3ComplexK32` instance.
+    Bridges the standalone K_{3,2}-specific definition to the
+    parametric cell-complex infrastructure. -/
+theorem chi_K32_extended_eq_Cell3ComplexK32_chi (k j : Nat) :
+    chi_K32_extended k j
+    = E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.chi
+        { num2Cells := k, num3Cells := j } := by
+  rfl
+
+/-- ★★★★ **Closed-3-mfd target families coincide under the
+    parametric `Cell3ComplexK32` shape**.
+
+  The `chi_K32_extended` Euler-target family matches the
+  `Filled3Cell.realizesClosed3Mfd` predicate via the equivalence
+  above.  Reachable (k, j) for closed 3-mfd target shapes:
+  (7, 0), (8, 1), (9, 2), (10, 3) — all χ = 0. -/
+theorem closed_3mfd_targets_match_Cell3Complex :
+    E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.realizesClosed3Mfd
+      { num2Cells := 7, num3Cells := 0 } = true
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.realizesClosed3Mfd
+        { num2Cells := 8, num3Cells := 1 } = true
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.realizesClosed3Mfd
+        { num2Cells := 9, num3Cells := 2 } = true
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.realizesClosed3Mfd
+        { num2Cells := 10, num3Cells := 3 } = true
+    -- The (k, j) = (3, 0) shape is NOT a closed 3-mfd candidate
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Filled3Cell.realizesClosed3Mfd
+        { num2Cells := 3, num3Cells := 0 } = false := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
