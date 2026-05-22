@@ -721,4 +721,91 @@ theorem Zp.bilinSum_eq (p : Nat) (x y : ZpSeq p) (b : Nat) :
     rw [Zp.bilinSum_eq p x y b a, Zp.colSum_eq p x y a b,
         E213.Tactic.NatHelper.add_mul]
 
+/-! ## Multiplicative truncation correctness at `n = 2`
+
+The next stepping stone after `mul_trunc_one`.  At `n = 2`, the
+bilinear sum `bilinSum 2 2` has exactly one off-diagonal pair
+`(i, j) = (1, 1)` with `i + j = 2 ≥ n = 2`.  Its contribution is
+`x.digits 1 · y.digits 1 · p^2`, a multiple of `p^2`.
+
+Hence: `bilinSum 2 2 = mulSumRaw 2 + (x.digits 1).val ·
+(y.digits 1).val · p^2`, and after `% p^2` the off-diagonal term
+vanishes, giving `bilinSum 2 2 % p^2 = mulSumRaw 2 % p^2 =
+(Zp.mul x y).trunc 2`.
+-/
+
+/-- Multiplicative truncation correctness at `n = 2`. -/
+theorem Zp.mul_trunc_two (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    (Zp.mul p hp x y).trunc 2 = (x.trunc 2 * y.trunc 2) % p^2 := by
+  -- (Zp.mul x y).trunc 2 = mulSumRaw 2 % p^2  (Step 1 corollary)
+  rw [← Zp.mulSumRaw_mod_eq_trunc p hp x y 2]
+  -- Goal: mulSumRaw 2 % p^2 = (x.trunc 2 * y.trunc 2) % p^2
+  -- Substitute x.trunc 2 * y.trunc 2 ← bilinSum 2 2 (Step 2 closed form).
+  rw [← Zp.bilinSum_eq p x y 2 2]
+  -- Goal: mulSumRaw 2 % p^2 = bilinSum 2 2 % p^2
+  -- bilinSum 2 2 = mulSumRaw 2 + (x.digits 1).val · (y.digits 1).val · p^2.
+  -- The mod-p^2 of (mulSumRaw 2 + ·*p^2) drops the second summand.
+  rw [show Zp.bilinSum p x y 2 2
+            = Zp.mulSumRaw p x y 2
+                + (x.digits 1).val * (y.digits 1).val * p^2 from by
+        -- LHS unfolds to: colSum 0 2 + colSum 1 2
+        --              = (x_0 p^0 * y.trunc 2) + (x_1 p^1 * y.trunc 2)
+        --              = (x_0 + x_1 p) * y.trunc 2
+        --              = x.trunc 2 * y.trunc 2
+        -- by bilinSum_eq.
+        -- RHS = mulRaw 0 * p^0 + mulRaw 1 * p^1 + x_1 y_1 p^2
+        --     = mulRaw 0 + mulRaw 1 p + x_1 y_1 p^2
+        -- mulRaw 0 = x_0 y_0; mulRaw 1 = x_0 y_1 + x_1 y_0.
+        -- So RHS = x_0 y_0 + (x_0 y_1 + x_1 y_0) p + x_1 y_1 p^2.
+        -- And LHS via bilinSum_eq = x.trunc 2 * y.trunc 2
+        --   = (x_0 + x_1 p)(y_0 + y_1 p)
+        --   = x_0 y_0 + x_0 y_1 p + x_1 y_0 p + x_1 y_1 p^2
+        --   = RHS by distributing the middle (x_0 y_1 + x_1 y_0) p.
+        rw [Zp.bilinSum_eq]
+        -- Goal: x.trunc 2 · y.trunc 2 = mulSumRaw 2 + x_1 y_1 p^2
+        -- Unfold both sides.
+        show (0 + (x.digits 0).val * p^0 + (x.digits 1).val * p^1)
+              * (0 + (y.digits 0).val * p^0 + (y.digits 1).val * p^1)
+            = ((0 + Zp.mulRaw p x y 0 * p^0) + Zp.mulRaw p x y 1 * p^1)
+                + (x.digits 1).val * (y.digits 1).val * p^2
+        -- mulRaw 0 = x_0 * y_0 by definition unfolding.
+        -- mulRaw 1 = x_0 y_1 + x_1 y_0 by definition.
+        show (0 + (x.digits 0).val * p^0 + (x.digits 1).val * p^1)
+              * (0 + (y.digits 0).val * p^0 + (y.digits 1).val * p^1)
+            = ((0 + (0 + (x.digits 0).val * (y.digits 0).val) * p^0)
+                  + (0 + (x.digits 0).val * (y.digits 1).val
+                          + (x.digits 1).val * (y.digits 0).val) * p^1)
+                + (x.digits 1).val * (y.digits 1).val * p^2
+        -- Now reduce p^0 = 1, p^1 = p, and verify by Nat arithmetic.
+        rw [Nat.pow_zero, Nat.pow_one, Nat.mul_one, Nat.mul_one,
+            Nat.mul_one, Nat.zero_add, Nat.zero_add, Nat.zero_add,
+            Nat.zero_add, Nat.zero_add]
+        -- Goal: (x_0 + x_1 p) * (y_0 + y_1 p)
+        --     = (x_0 y_0 + (x_0 y_1 + x_1 y_0) p) + x_1 y_1 p^2
+        -- Expand LHS by distributivity.
+        rw [E213.Tactic.NatHelper.add_mul, Nat.mul_add, Nat.mul_add]
+        -- Goal: (x_0 y_0 + x_0 (y_1 p)) + (x_1 p y_0 + x_1 p (y_1 p))
+        --     = (x_0 y_0 + (x_0 y_1 + x_1 y_0) p) + x_1 y_1 p^2
+        rw [Nat.add_assoc, ← Nat.add_assoc ((x.digits 0).val
+                * ((y.digits 1).val * p))]
+        rw [show (x.digits 0).val * ((y.digits 1).val * p)
+                  + (x.digits 1).val * p * (y.digits 0).val
+                = ((x.digits 0).val * (y.digits 1).val
+                    + (x.digits 1).val * (y.digits 0).val) * p from by
+              rw [E213.Tactic.NatHelper.add_mul]
+              rw [← E213.Tactic.NatHelper.mul_assoc (x.digits 0).val
+                    (y.digits 1).val p]
+              rw [E213.Tactic.NatHelper.mul_assoc (x.digits 1).val p
+                    (y.digits 0).val]
+              rw [Nat.mul_comm p (y.digits 0).val]
+              rw [← E213.Tactic.NatHelper.mul_assoc (x.digits 1).val
+                    (y.digits 0).val p]]
+        rw [Nat.add_assoc]
+        rw [show (x.digits 1).val * p * ((y.digits 1).val * p)
+                = (x.digits 1).val * (y.digits 1).val * p^2 from by
+              rw [show p^2 = p * p from by rw [Nat.pow_succ, Nat.pow_one]]
+              exact E213.Tactic.NatHelper.mul_mul_mul_comm_213 _ _ _ _]]
+  -- Now: mulSumRaw 2 % p^2 = (mulSumRaw 2 + x_1 y_1 p^2) % p^2
+  rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+
 end E213.Lib.Math.Padic
