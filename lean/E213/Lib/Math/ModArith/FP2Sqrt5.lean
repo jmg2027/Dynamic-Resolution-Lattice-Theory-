@@ -1181,4 +1181,62 @@ theorem two_phi_eq_one_sqrt5 (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
 theorem two_phi_eq_one_sqrt5_3 :
     fp2Mul 3 (2 % 3, 0) (phiFP2 3) = (1 % 3, 1 % 3) := by decide
 
+/-! ## (p - 1) · X mod p = -X mod p
+
+Universal mod-p identity needed for the Frobenius-FLT bridge. -/
+
+/-- ★ **`(p - 1) · X ≡ -X (mod p)`**: universal for `1 < p`.  PURE.
+    Both sides equal `(p - X % p) % p`.  Proved via `mod_cancel_right`
+    with `Z = X`: both `(p-1)·X` and `(p - X%p)%p` add `X` to give
+    a multiple of `p`. -/
+theorem p_minus_one_mul_mod (p X : Nat) (hp : 1 < p) :
+    ((p - 1) * X) % p = (p - X % p) % p := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have hp_le : 1 ≤ p := Nat.le_of_lt hp
+  have h_LHS_lt : ((p - 1) * X) % p < p := Nat.mod_lt _ hp_pos
+  have h_RHS_lt : (p - X % p) % p < p := Nat.mod_lt _ hp_pos
+  have h_LHS_add_X : (((p - 1) * X) % p + X) % p = 0 := by
+    rw [mod_add_eq_left ((p - 1) * X) X p]
+    -- ((p - 1) * X + X) % p = 0
+    have h_factor : (p - 1) * X + X = p * X := by
+      have h1 : ((p - 1) + 1) * X = (p - 1) * X + 1 * X := add_mul (p - 1) 1 X
+      rw [Nat.one_mul] at h1
+      rw [sub_add_cancel hp_le] at h1
+      exact h1.symm
+    rw [h_factor]
+    exact mul_p_mod_eq_zero p X
+  have h_RHS_add_X : ((p - X % p) % p + X) % p = 0 :=
+    nmod_add_self_zero p X hp_pos
+  exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
+    p _ _ X hp_pos h_LHS_lt h_RHS_lt
+    (h_LHS_add_X.trans h_RHS_add_X.symm)
+
+/-- ★ **`(p - inv2 % p) % p + 1 ≡ inv2 (mod p)`** for odd `1 < p`.  PURE.
+    Equivalent to `2·inv2 ≡ 1`, the defining property of inv2.
+    Proved via `mod_cancel_right` with `Z = inv2`. -/
+theorem neg_inv2_plus_one_eq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    ((p - inv2 p % p) % p + 1) % p = inv2 p % p := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have h_LHS_lt : ((p - inv2 p % p) % p + 1) % p < p := Nat.mod_lt _ hp_pos
+  have h_RHS_lt : inv2 p % p < p := Nat.mod_lt _ hp_pos
+  -- Compare via adding inv2 to both sides.
+  have h_LHS_add_inv2 :
+      (((p - inv2 p % p) % p + 1) % p + inv2 p) % p = 1 % p := by
+    rw [mod_add_eq_left ((p - inv2 p % p) % p + 1) (inv2 p) p]
+    -- ((p - inv2 % p) % p + 1 + inv2) % p
+    rw [Nat.add_right_comm ((p - inv2 p % p) % p) 1 (inv2 p)]
+    -- ((p - inv2 % p) % p + inv2 + 1) % p
+    rw [add_mod_gen ((p - inv2 p % p) % p + inv2 p) 1 p]
+    rw [nmod_add_self_zero p (inv2 p) hp_pos]
+    rw [Nat.zero_add, mod_mod]
+  have h_RHS_add_inv2 :
+      (inv2 p % p + inv2 p) % p = 1 % p := by
+    rw [mod_add_eq_left (inv2 p) (inv2 p) p]
+    -- (inv2 + inv2) % p
+    rw [← Nat.two_mul (inv2 p)]
+    exact two_mul_inv2 p hp hpo
+  exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
+    p _ _ (inv2 p) hp_pos h_LHS_lt h_RHS_lt
+    (h_LHS_add_inv2.trans h_RHS_add_inv2.symm)
+
 end E213.Lib.Math.ModArith.FP2Sqrt5

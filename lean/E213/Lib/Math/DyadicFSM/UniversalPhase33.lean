@@ -177,4 +177,78 @@ theorem universal_phase_3_3_via_frob_at_7 :
       = E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 7 (by decide) 0 :=
   universal_phase_3_3_via_frob 7 (by decide) (by decide) (by decide)
 
+/-! ## IF direction: Frobenius FLT for phi FROM inert F-identities
+
+Combined with Parts 50/51 (ONLY-IF direction: Frobenius FLT for phi ⟹
+inert F-identities), this establishes the equivalence:
+
+  `phi^p = σ(phi)` in 𝔽_{p²}
+    ⟺
+  `F_p ≡ -1 ∧ F_{p-1} ≡ 1` (mod p)
+
+for odd `1 < p`.  This IFF is the structural content of inert primes:
+Frobenius FLT for phi and the inert Fibonacci characteristic are
+two manifestations of the same algebraic fact.  PURE.
+-/
+
+open E213.Lib.Math.ModArith.FP2Sqrt5
+  (p_minus_one_mul_mod neg_inv2_plus_one_eq)
+
+/-- ★★★★★ **Frobenius FLT for phi FROM the inert F-identities**.
+
+    Given `h_F_p : fibFst p % p = p - 1` and `h_F_pm1 : fibFst (p-1) % p = 1`,
+    derives `phi^p = σ(phi)` in 𝔽_{p²} for odd `1 < p`.
+
+    Proof: apply Binet (Part 48) to phi^p; for each component, substitute
+    the F-identities and use `p_minus_one_mul_mod` + `neg_inv2_plus_one_eq`
+    to match σ(phi).  PURE. -/
+theorem phiFP2_pow_p_eq_frob_of_F_identities
+    (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (h_F_p : fibFst p % p = p - 1)
+    (h_F_pm1 : fibFst (p - 1) % p = 1) :
+    fp2Pow p (phiFP2 p) p = fp2Frob p (phiFP2 p) := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have hp_le : 1 ≤ p := Nat.le_of_lt hp
+  -- Binet expansion at index p
+  rw [phiFP2_pow_eq_fibLike p hp hpo p]
+  -- LHS: (((fibLike p).1 * inv2 + (fibLike p).2) % p, ((fibLike p).1 * inv2) % p)
+  -- RHS (fp2Frob p phi): (inv2 % p, (p - inv2 % p) % p)
+  have h_snd_eq : (fibLike p).2 = fibFst (p - 1) := by
+    show (fibLike p).2 = (fibLike (p - 1)).1
+    rw [show p = (p - 1) + 1 from (sub_add_cancel hp_le).symm]
+    exact fibLike_succ_snd (p - 1)
+  show (((fibLike p).1 * inv2 p + (fibLike p).2) % p,
+        ((fibLike p).1 * inv2 p) % p)
+      = (inv2 p % p, (p - inv2 p % p) % p)
+  rw [show (fibLike p).1 = fibFst p from rfl, h_snd_eq]
+  apply Prod.ext
+  · -- (fibFst p * inv2 + fibFst (p - 1)) % p = inv2 % p
+    show (fibFst p * inv2 p + fibFst (p - 1)) % p = inv2 p % p
+    rw [add_mod_gen (fibFst p * inv2 p) (fibFst (p - 1)) p]
+    -- ((fibFst p * inv2) % p + fibFst (p-1) % p) % p = inv2 % p
+    rw [mul_mod_left_pure (fibFst p) (inv2 p) p]
+    -- ((fibFst p % p * inv2) % p + fibFst (p-1) % p) % p = inv2 % p
+    rw [h_F_p, h_F_pm1]
+    -- (((p - 1) * inv2) % p + 1) % p = inv2 % p
+    rw [p_minus_one_mul_mod p (inv2 p) hp]
+    -- ((p - inv2 % p) % p + 1) % p = inv2 % p
+    exact neg_inv2_plus_one_eq p hp hpo
+  · -- (fibFst p * inv2) % p = (p - inv2 % p) % p
+    show (fibFst p * inv2 p) % p = (p - inv2 p % p) % p
+    rw [mul_mod_left_pure (fibFst p) (inv2 p) p]
+    rw [h_F_p]
+    exact p_minus_one_mul_mod p (inv2 p) hp
+
+/-- Smoke at p=3: phi^3 = sigma(phi) from F_3 ≡ 2, F_2 ≡ 1. -/
+theorem phiFP2_pow_p_eq_frob_of_F_identities_3 :
+    fp2Pow 3 (phiFP2 3) 3 = fp2Frob 3 (phiFP2 3) :=
+  phiFP2_pow_p_eq_frob_of_F_identities 3 (by decide) (by decide)
+    (by decide) (by decide)
+
+/-- Smoke at p=7: phi^7 = sigma(phi). -/
+theorem phiFP2_pow_p_eq_frob_of_F_identities_7 :
+    fp2Pow 7 (phiFP2 7) 7 = fp2Frob 7 (phiFP2 7) :=
+  phiFP2_pow_p_eq_frob_of_F_identities 7 (by decide) (by decide)
+    (by decide) (by decide)
+
 end E213.Lib.Math.DyadicFSM.UniversalPhase33
