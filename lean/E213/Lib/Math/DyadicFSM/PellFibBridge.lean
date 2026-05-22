@@ -703,4 +703,94 @@ theorem fibFst_double_neg_one_smoke_7 :
   fibFst_double_eq_neg_one_of_inert 6 7 (by decide)
     (by decide) (by decide) (by decide)
 
+/-! ## Universal Phase 3.3 closure (inert characteristic) -/
+
+/-- ★★★★★ **Universal Phase 3.3 closure** at inert primes.
+
+    Takes the inert characteristic Fibonacci-mod-p identities as
+    universal hypotheses (decidable per prime via `decide`):
+      · `h_F_p : fibFst p % p = p - 1`     (F_p ≡ -1 mod p)
+      · `h_F_pm1 : fibFst (p - 1) % p = 1` (F_{p-1} ≡ 1 mod p)
+
+    Derives `h_F_pp1 : F_{p+1} ≡ 0` via Fibonacci recurrence, then
+    `h_F_top` (via Part 42) and `h_F_low` (via Part 43), and applies
+    `phase_3_3_closure` to conclude
+      `pellCoeff p hp (p + 1) = pellCoeff p hp 0`.
+
+    PURE.  This is the analog of `universal_phase_3_2` (Part 32) for
+    the inert case, modulo the inert F-identities being taken as
+    decidable hypotheses (universal derivation via Binet-binomial /
+    Frobenius FLT is the multi-session follow-up). -/
+theorem universal_phase_3_3
+    (p : Nat) (hp : 1 < p)
+    (h_F_p : fibFst p % p = p - 1)
+    (h_F_pm1 : fibFst (p - 1) % p = 1) :
+    pellCoeff p hp (p + 1) = pellCoeff p hp 0 := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have hp_le : 1 ≤ p := Nat.le_of_lt hp
+  -- Step 1: F_{p+1} ≡ 0 mod p (via Fibonacci recurrence + hypotheses).
+  -- fibFst_recur (p - 1) : fibFst ((p - 1) + 2) = fibFst ((p - 1) + 1) + fibFst (p - 1)
+  -- (p - 1) + 1 = p,  (p - 1) + 2 = p + 1, so fibFst (p + 1) = fibFst p + fibFst (p - 1).
+  have h_pm1_p1 : (p - 1) + 1 = p := sub_add_cancel hp_le
+  have h_pm1_p2 : (p - 1) + 2 = p + 1 := by
+    rw [show (p - 1) + 2 = ((p - 1) + 1) + 1 from rfl, h_pm1_p1]
+  have h_F_pp1_eq : fibFst (p + 1) = fibFst p + fibFst (p - 1) := by
+    rw [← h_pm1_p2]
+    rw [fibFst_recur (p - 1)]
+    rw [h_pm1_p1]
+  have h_F_pp1 : fibFst (p + 1) % p = 0 := by
+    rw [h_F_pp1_eq]
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen (fibFst p) (fibFst (p - 1)) p]
+    rw [h_F_p, h_F_pm1]
+    -- ((p - 1) + 1) % p = 0
+    rw [sub_add_cancel hp_le]
+    exact E213.Meta.Nat.AddMod213.mod_self p
+  -- Step 2: F_{2(p+1)} ≡ 0 via Part 42.
+  have h_F_top_lift : fibFst (2 * (p + 1)) % p = 0 :=
+    fibFst_double_zero_of_succ_zero p p h_F_pp1
+  -- Convert 2*(p+1) to 2*p+2 (Nat).
+  have h_2pp1_eq : 2 * (p + 1) = 2 * p + 2 := by
+    rw [Nat.mul_add 2 p 1]
+  have h_F_top : fibFst (2 * p + 2) % p = 0 := by
+    rw [← h_2pp1_eq]; exact h_F_top_lift
+  -- Step 3: F_{2p} ≡ p - 1 via Part 43 with q = p - 1.
+  -- We need:
+  --   h_F_qq1 : fibFst ((p - 1) + 2) % p = 0  = h_F_pp1 (after index rewrite)
+  --   h_F_q1  : fibFst ((p - 1) + 1) % p = p - 1  = h_F_p (after index rewrite)
+  --   h_F_q   : fibFst (p - 1) % p = 1  = h_F_pm1
+  -- Resulting in: fibFst (2 * ((p - 1) + 1)) % p = p - 1, i.e., fibFst (2 * p) % p = p - 1.
+  have h_F_qq1' : fibFst ((p - 1) + 2) % p = 0 := by
+    rw [h_pm1_p2]; exact h_F_pp1
+  have h_F_q1' : fibFst ((p - 1) + 1) % p = p - 1 := by
+    rw [h_pm1_p1]; exact h_F_p
+  have h_F_low_lift : fibFst (2 * ((p - 1) + 1)) % p = p - 1 :=
+    fibFst_double_eq_neg_one_of_inert (p - 1) p hp h_F_qq1' h_F_q1' h_F_pm1
+  have h_2p_eq : 2 * p = 2 * ((p - 1) + 1) := by rw [h_pm1_p1]
+  have h_F_low : fibFst (2 * p) % p = p - 1 := by
+    rw [h_2p_eq]; exact h_F_low_lift
+  -- Step 4: Apply phase_3_3_closure
+  exact phase_3_3_closure p hp h_F_top h_F_low
+
+/-! ## Per-prime instantiations of `universal_phase_3_3` -/
+
+/-- Universal Phase 3.3 at p = 3.  All hypotheses decided. -/
+theorem universal_phase_3_3_at_3 :
+    pellCoeff 3 (by decide) 4 = pellCoeff 3 (by decide) 0 :=
+  universal_phase_3_3 3 (by decide) (by decide) (by decide)
+
+/-- Universal Phase 3.3 at p = 7. -/
+theorem universal_phase_3_3_at_7 :
+    pellCoeff 7 (by decide) 8 = pellCoeff 7 (by decide) 0 :=
+  universal_phase_3_3 7 (by decide) (by decide) (by decide)
+
+/-- Universal Phase 3.3 at p = 13. -/
+theorem universal_phase_3_3_at_13 :
+    pellCoeff 13 (by decide) 14 = pellCoeff 13 (by decide) 0 :=
+  universal_phase_3_3 13 (by decide) (by decide) (by decide)
+
+/-- Universal Phase 3.3 at p = 17. -/
+theorem universal_phase_3_3_at_17 :
+    pellCoeff 17 (by decide) 18 = pellCoeff 17 (by decide) 0 :=
+  universal_phase_3_3 17 (by decide) (by decide) (by decide)
+
 end E213.Lib.Math.DyadicFSM.PellFibBridge
