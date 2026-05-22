@@ -43,18 +43,20 @@ theory/
 │
 └── physics/
     ├── INDEX.md
-    ├── alpha_em/                 ← (α_em precision — pending)
+    ├── alpha_em/
+    │   └── precision_derivation.md  ← promoted 2026-05-22 (C1 + C5; mixed status)
     ├── symmetry/
-    │   └── c3_chain.md           ← promoted 2026-05-22 (gauge emergence)
-    └── couplings/                ← (TripleCoupling / Basel — pending)
+    │   └── c3_chain.md              ← promoted 2026-05-22 (gauge emergence)
+    └── couplings/                   ← (TripleCoupling / Basel — pending)
 ```
 
-## Current chapters (2)
+## Current chapters (3)
 
 | Chapter | Lean sub-tree | Promoted |
 |---|---|---|
 | `math/cohomology/hodge_conjecture.md` | `lean/E213/Lib/Math/HodgeConjecture/` | 2026-05-21 |
 | `physics/symmetry/c3_chain.md` | `lean/E213/Lib/Physics/Symmetry/` | 2026-05-22 |
+| `physics/alpha_em/precision_derivation.md` | `lean/E213/Lib/Physics/AlphaEM/` | 2026-05-22 |
 
 ## Adding a chapter
 
