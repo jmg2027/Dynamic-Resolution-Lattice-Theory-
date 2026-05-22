@@ -1058,4 +1058,57 @@ theorem fp2Pow_sqrt5_smoke_3_2 : fp2Pow 3 (0, 1) 2 = (2, 0) := by decide
 /-- Smoke at p=7: (0, 1)^3 = (0, 5 % 7) = (0, 5). ✓ -/
 theorem fp2Pow_sqrt5_smoke_7_3 : fp2Pow 7 (0, 1) 3 = (0, 5) := by decide
 
+/-- ★★ **(√5)^p = (0, 5^((p-1)/2) % p)** for odd `p`.
+    Direct corollary of `fp2Pow_sqrt5_pair` at `k := p/2` using
+    `p = 2·(p/2) + 1` (since `p % 2 = 1`). -/
+theorem fp2Pow_sqrt5_p (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Pow p (0, 1) p = (0, 5^(p / 2) % p) := by
+  have hp_eq : p = 2 * (p / 2) + 1 := by
+    have h := E213.Meta.Nat.AddMod213.div_add_mod p 2
+    rw [hpo] at h
+    exact h.symm
+  have h := (fp2Pow_sqrt5_pair p (p / 2)).2
+  -- h : fp2Pow p (0, 1) (2 * (p / 2) + 1) = (0, 5^(p / 2) % p)
+  -- Convert exponent 2 * (p / 2) + 1 to p via ← hp_eq.
+  rw [← hp_eq] at h
+  exact h
+
+/-- ★★★ **Frobenius FLT for √5 (inert case)**:
+    `(0, 1)^p = σ((0, 1))` in 𝔽_{p²}, for odd `p` with the inert
+    hypothesis `5^((p-1)/2) ≡ -1 (mod p)`.
+
+    Combines `fp2Pow_sqrt5_p` with the inert hypothesis (`h_inert`)
+    to identify `(0, 5^((p-1)/2) % p) = (0, p - 1) = σ((0, 1))`.
+    PURE. -/
+theorem fp2Pow_sqrt5_eq_frob (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (h_inert : 5^(p / 2) % p = p - 1) :
+    fp2Pow p (0, 1) p = fp2Frob p (0, 1) := by
+  rw [fp2Pow_sqrt5_p p hp hpo]
+  show (0, 5^(p / 2) % p) = (0 % p, (p - 1 % p) % p)
+  rw [h_inert]
+  -- (0, p - 1) = (0 % p, (p - 1 % p) % p)
+  apply Prod.ext
+  · show (0 : Nat) = 0 % p
+    exact (zero_mod p).symm
+  · show p - 1 = (p - 1 % p) % p
+    have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+    have hone_lt_p : (1 : Nat) < p := hp
+    have h_pm1_lt_p : p - 1 < p := Nat.sub_lt hp_pos Nat.one_pos
+    -- 1 % p = 1 since 1 < p
+    rw [Nat.mod_eq_of_lt hone_lt_p]
+    -- (p - 1) % p = p - 1 since p - 1 < p
+    rw [Nat.mod_eq_of_lt h_pm1_lt_p]
+
+/-- Smoke at p=3: (0, 1)^3 = sigma((0, 1)) under h_inert : 5^1 % 3 = 2.
+    Note: p/2 = 1 for p=3, 5^1 % 3 = 2 = p - 1 ✓. -/
+theorem fp2Pow_sqrt5_eq_frob_3 :
+    fp2Pow 3 (0, 1) 3 = fp2Frob 3 (0, 1) :=
+  fp2Pow_sqrt5_eq_frob 3 (by decide) (by decide) (by decide)
+
+/-- Smoke at p=7: (0, 1)^7 = sigma((0, 1)) under h_inert : 5^3 % 7 = 6.
+    p/2 = 3 for p=7, 5^3 = 125, 125 % 7 = 6 = p - 1 ✓. -/
+theorem fp2Pow_sqrt5_eq_frob_7 :
+    fp2Pow 7 (0, 1) 7 = fp2Frob 7 (0, 1) :=
+  fp2Pow_sqrt5_eq_frob 7 (by decide) (by decide) (by decide)
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
