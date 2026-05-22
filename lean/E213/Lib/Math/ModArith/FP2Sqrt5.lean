@@ -469,4 +469,61 @@ theorem neg_mod_mul_neg (p x y : Nat) (hp : 0 < p) :
   -- Goal: (p - ((p - (x*y) % p) % p)) % p = (x*y) % p
   exact double_neg_mod p (x * y) hp
 
+/-! ## Frobenius is a ring homomorphism (multiplicative part) -/
+
+/-- ★ **Frobenius is multiplicative** (universal): `σ(x · y) = σ(x) · σ(y)`
+    in 𝔽_{p²}.  PURE.  The first component uses `neg_mod_mul_neg`
+    (since `(-x.2)(-y.2) ≡ x.2·y.2 mod p`); the second component
+    uses `neg_mod_mul_left/right + neg_mod_add`. -/
+theorem fp2Frob_mul (p : Nat) (hp : 0 < p) (x y : FP2) :
+    fp2Frob p (fp2Mul p x y) = fp2Mul p (fp2Frob p x) (fp2Frob p y) := by
+  show (((x.1*y.1 + 5*x.2*y.2) % p) % p,
+        (p - ((x.1*y.2 + x.2*y.1) % p) % p) % p)
+     = ((x.1%p * (y.1%p) + 5 * ((p - x.2%p)%p) * ((p - y.2%p)%p)) % p,
+        (x.1%p * ((p - y.2%p)%p) + ((p - x.2%p)%p) * (y.1%p)) % p)
+  apply Prod.ext
+  · -- First component
+    show ((x.1*y.1 + 5*x.2*y.2) % p) % p
+       = (x.1%p * (y.1%p) + 5 * ((p - x.2%p)%p) * ((p - y.2%p)%p)) % p
+    rw [mod_mod]
+    -- Break both sides via add_mod_gen
+    rw [add_mod_gen (x.1 * y.1) (5 * x.2 * y.2) p]
+    rw [add_mod_gen (x.1 % p * (y.1 % p))
+                    (5 * ((p - x.2 % p) % p) * ((p - y.2 % p) % p)) p]
+    congr 1
+    congr 1
+    · -- (x.1 * y.1) % p = (x.1 % p * (y.1 % p)) % p
+      exact mul_mod_pure x.1 y.1 p
+    · -- (5 * x.2 * y.2) % p = (5 * ((p - x.2%p)%p) * ((p - y.2%p)%p)) % p
+      rw [mul_assoc 5 x.2 y.2]
+      rw [mul_assoc 5 ((p - x.2 % p) % p) ((p - y.2 % p) % p)]
+      rw [mul_mod_right_pure 5 (x.2 * y.2) p]
+      rw [mul_mod_right_pure 5 (((p - x.2 % p) % p) * ((p - y.2 % p) % p)) p]
+      rw [← neg_mod_mul_neg p x.2 y.2 hp]
+  · -- Second component
+    show (p - ((x.1*y.2 + x.2*y.1) % p) % p) % p
+       = (x.1%p * ((p - y.2%p)%p) + ((p - x.2%p)%p) * (y.1%p)) % p
+    rw [mod_mod]
+    -- Goal: (p - (x.1*y.2 + x.2*y.1) % p) % p
+    --     = (x.1%p * ((p - y.2%p)%p) + ((p - x.2%p)%p) * (y.1%p)) % p
+    rw [add_mod_gen (x.1 % p * ((p - y.2 % p) % p))
+                    (((p - x.2 % p) % p) * (y.1 % p)) p]
+    -- RHS = ((x.1%p * ((p - y.2%p)%p)) % p
+    --        + (((p - x.2%p)%p) * (y.1%p)) % p) % p
+    rw [← mul_mod_left_pure x.1 ((p - y.2 % p) % p) p]
+    rw [neg_mod_mul_right p x.1 y.2 hp]
+    rw [← mul_mod_right_pure ((p - x.2 % p) % p) y.1 p]
+    rw [neg_mod_mul_left p x.2 y.1 hp]
+    -- Now: (p - (x.1*y.2 + x.2*y.1) % p) % p
+    --    = ((p - (x.1*y.2) % p) % p + (p - (x.2*y.1) % p) % p) % p
+    exact neg_mod_add p (x.1 * y.2) (x.2 * y.1) hp
+
+/-- Smoke at p=7: σ((2, 3) · (4, 1)) = σ((2, 0)) = (2, 0)
+                  = (2, 4) · (4, 6) = σ((2, 3)) · σ((4, 1)).
+    Check (2, 4)*(4, 6) = (2*4 + 5*4*6, 2*6 + 4*4) = (8+120, 12+16)
+                       = (128, 28).  Mod 7: (128 % 7, 28 % 7) = (2, 0). ✓ -/
+theorem fp2Frob_mul_smoke_7 :
+    fp2Frob 7 (fp2Mul 7 (2, 3) (4, 1))
+      = fp2Mul 7 (fp2Frob 7 (2, 3)) (fp2Frob 7 (4, 1)) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
