@@ -2,25 +2,29 @@
 
 Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 
-DRLT = "Dynamic Resolution Lattice Theory", physics deployment of 213.
-Per CLAUDE.md naming policy: physics observables, constants, and
-predictions live here; pure math goes to `theory/math/`.
+## Closed chapters (17)
 
-## Closed chapters (3)
+| Chapter | Lean sub-tree |
+|---|---|
+| [`symmetry/c3_chain.md`](symmetry/c3_chain.md) | Symmetry/ (24 files) |
+| [`alpha_em/precision_derivation.md`](alpha_em/precision_derivation.md) | AlphaEM/ (23 files) |
+| [`foundations/atomic_constants.md`](foundations/atomic_constants.md) | Foundations/AtomicConstants* (5 files) |
+| [`atomic_base.md`](atomic_base.md) | AtomicBase/ (13 files) |
+| [`atomic.md`](atomic.md) | Atomic/ (21 files) |
+| [`couplings.md`](couplings.md) | Couplings/ (11 files) |
+| [`foundations.md`](foundations.md) | Foundations/ (22 files) |
+| [`hadron.md`](hadron.md) | Hadron/ (9 files; F25) |
+| [`cosmology.md`](cosmology.md) | Cosmology/ (8 files; F26) |
+| [`nuclear.md`](nuclear.md) | Nuclear/ (6 files) |
+| [`mixing.md`](mixing.md) | Mixing/ (5 files) |
+| [`simplex.md`](simplex.md) | Simplex/ (7 files; N_gen=3) |
+| [`yang_mills.md`](yang_mills.md) | YangMills/ (5 files) |
+| [`capstones.md`](capstones.md) | Capstones/ (7 files) |
+| [`higgs.md`](higgs.md) | Higgs/ (4 files) |
+| [`mass.md`](mass.md) | Mass/ (3 files) |
+| [`quantum.md`](quantum.md) | Quantum/ (3 files) |
+| [`basel.md`](basel.md) | Basel/ (2 files) |
 
-| Chapter | Lean sub-tree | Lean files | Promoted |
-|---|---|---|---|
-| [`symmetry/c3_chain.md`](symmetry/c3_chain.md) | `Physics/Symmetry/` | 24 (18 phases + 6 substrate) | 2026-05-22 |
-| [`alpha_em/precision_derivation.md`](alpha_em/precision_derivation.md) | `Physics/AlphaEM/` | 23 (4 sub-clusters) | 2026-05-22 |
-| [`foundations/atomic_constants.md`](foundations/atomic_constants.md) | `Physics/Foundations/AtomicConstants*` | 5 | 2026-05-22 |
-
-## Pending sub-trees (candidates)
-
-| Sub-tree | Lean location | Source research notes | Notes |
-|---|---|---|---|
-| `couplings/` | `Physics/Couplings/`, `Physics/Basel/` | (none) | Triple coupling + Basel bound |
-| `hadron/` | `Physics/Hadron/` | (none) | F25 m_t/m_c falsifier |
-| `cosmology/` | `Physics/Cosmology/` | (none) | F26 η_B falsifier |
+All Lib/Physics/ sub-trees covered.
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
-Patterns: `lean/E213/docs/PROMOTION_PATTERNS.md`.
