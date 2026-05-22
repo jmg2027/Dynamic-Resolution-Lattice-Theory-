@@ -29,7 +29,7 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | G124 | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended: tree enumeration + cohomology-depth uniqueness extended range |
+| `Generalization.lean` | G124 (G123 FW-3) | ~14 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended + ★★★★★ universal Prop-level closure (`sym3_c2_force_K32`, `sym3_c2_iff_K32_or_K23`, `filter_passes_only_chartBase_5`) — supersedes per-chartBase enumeration |
 | `JsjDeep.lean` | G123 | ~6 | JSJ 3-cell complex Euler-target scaffold: χ-targets for closed 3-mfds + sphere Euler via ∂Δⁿ |
 | `MetricGeometries.lean` | G125 | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2 / F_3 / F_5 / F_7 / F_11) |
 | `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |

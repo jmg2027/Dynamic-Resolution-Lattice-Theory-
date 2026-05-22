@@ -102,26 +102,34 @@ measurable prediction).
 
 ---
 
-### FW-3 — K_{NS,NT}^{(c)} higher-chartBase generalization  [PARTIAL]
+### FW-3 — K_{NS,NT}^{(c)} higher-chartBase generalization  [UNIVERSAL CLOSURE — PARTIAL]
 
-**Current state**: `Generalization.lean` (~7 PURE) — chartBase
-∈ {4..8} extended.  Key theorem: **K_{3,2}^{(c=2)} unique across
-chartBase ∈ {4..8}** under `passesCohomologyDepthFilter`.
+**Current state**: `Generalization.lean` (~14 PURE) — chartBase
+∈ {4..8} extended + **universal Prop-level characterization**.
 
-**Missing**:
-  · chartBase ≥ 9 exhaustive depth-filter verification.
-  · `passesCohomologyDepthFilter` parameterized over (n, m, c) at
-    arbitrary bound — abstract filter machinery, replacing the
-    per-chartBase exhaustive lists.
-  · Asymptotic statement: K_{3,2}^{(c=2)} is the **unique** match
-    across **all** chartBase ≥ 4 (not just 4..8).
+Universal closure added 2026-05-22:
+  · `sym3_c2_force_K32` — Sym(3) ∧ c=2-binary-cover forces
+    `{n,m}={2,3} ∧ c=2`, without chartBase bound.
+  · `sym3_c2_iff_K32_or_K23` — biconditional iff form.
+  · `filter_passes_only_chartBase_5` — filter passers live only
+    at chartBase = 5 (asymptotic across all Nat).
 
-**Effort**: medium (3-5 sessions, mostly mechanical via abstraction
-patterns from `META_SCAN_ARCHETYPES`).
+The two representation-structure filters alone determine the
+deployment; b₁=8 conjunct is automatic.  No per-chartBase ≥ 9
+enumeration needed.
 
-**Falsifier potential**: MEDIUM.  A chartBase ≥ 9 deployment that
-passes the depth filter would falsify K_{3,2}^{(c=2)} uniqueness —
-re-opens M1.
+**Still missing** (Boolean-level corollary):
+  · Boolean ↔ form `passesCohomologyDepthFilter n m c = true ↔ ...`
+    — blocked by `Bool.and_eq_true` rewriting through propext.
+    Workaround: use the Prop-level `sym3_c2_iff_K32_or_K23` for
+    downstream proofs; Boolean form is sugar.
+
+**Effort spent**: ~1 session (universal closure achieved cheaply
+via structural deduction; per-chartBase enumeration obviated).
+
+**Falsifier potential**: MEDIUM unchanged.  The universal theorem
+makes the falsifier sharper: ANY (n, m, c) passing both Sym(3) +
+c2-binary-cover MUST be (3,2,2) or (2,3,2).
 
 ---
 
@@ -223,6 +231,8 @@ Conditional on user direction; default sequencing:
 
 1. ~~**X-1** (1 session, easy capstone)~~ — **DONE** 2026-05-22.
 2. ~~**I-1** + **I-4** (2-3 sessions combined)~~ — **DONE** 2026-05-22.
+3. ~~**FW-3** (medium marathon, universal closure)~~ — **DONE** 2026-05-22
+   (Prop-level closure; Boolean ↔ corollary deferred).
 3. **FW-3** (medium marathon) — abstract filter machinery is
    reusable and folds M1/M2 residual into one place.
 4. **FW-2** (medium marathon) — Filled.lean 3-cell extension is
