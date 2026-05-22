@@ -84,4 +84,35 @@ theorem QpSeq.smoke_mul_one_one_5 :
         (QpSeq.one 5 (by decide))
         (QpSeq.one 5 (by decide))).num.digits 0).val = 1 := rfl
 
+/-! ## Addition on ℚ_p (same-shift)
+
+When both operands have the same shift `s`, addition is just
+numerator-addition (via `Zp.add`) with the shift preserved:
+    `(num₁, s) + (num₂, s) := ⟨Zp.add num₁ num₂, s⟩`.
+
+The general case (unequal shifts) needs a `Zp.shiftLeft`
+operation; we handle it in a subsequent commit.
+-/
+
+/-- Addition on `QpSeq` when shifts agree.  -/
+def QpSeq.addAligned (p : Nat) (hp : 0 < p) (a b : QpSeq p)
+    (_h : a.shift = b.shift) : QpSeq p where
+  num := Zp.add p hp a.num b.num
+  shift := a.shift
+
+/-- Numerator of an aligned sum is the underlying `Zp.add`. -/
+theorem QpSeq.addAligned_num (p : Nat) (hp : 0 < p) (a b : QpSeq p)
+    (h : a.shift = b.shift) :
+    (QpSeq.addAligned p hp a b h).num = Zp.add p hp a.num b.num := rfl
+
+/-- Shift of an aligned sum is the common shift. -/
+theorem QpSeq.addAligned_shift (p : Nat) (hp : 0 < p) (a b : QpSeq p)
+    (h : a.shift = b.shift) :
+    (QpSeq.addAligned p hp a b h).shift = a.shift := rfl
+
+/-- Embedding respects same-shift addition: aligned shifts are 0. -/
+theorem QpSeq.ofZp_add (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    QpSeq.addAligned p hp (QpSeq.ofZp p x) (QpSeq.ofZp p y) rfl
+      = QpSeq.ofZp p (Zp.add p hp x y) := rfl
+
 end E213.Lib.Math.Padic
