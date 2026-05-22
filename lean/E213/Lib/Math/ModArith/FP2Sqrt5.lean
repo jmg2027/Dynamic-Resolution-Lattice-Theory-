@@ -30,7 +30,8 @@ namespace E213.Lib.Math.ModArith.FP2Sqrt5
 
 open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self zero_mod)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure mul_mod_pure)
-open E213.Tactic.NatHelper (mul_assoc sub_add_cancel add_sub_cancel_right)
+open E213.Tactic.NatHelper (mul_assoc sub_add_cancel add_sub_cancel_right add_mul)
+open E213.Lib.Math.DyadicFSM.FLT.ChoosePrime (mul_p_mod_eq_zero)
 
 /-- 𝔽_{p²} element representation: `(a, b)` for `a + b·√5`. -/
 abbrev FP2 : Type := Nat × Nat
@@ -390,5 +391,82 @@ theorem neg_mod_add (p a b : Nat) (hp : 0 < p) :
     h_LHS_add.trans h_RHS_add.symm
   exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
     p _ _ (a + b) hp hLHS_lt hRHS_lt h_eq
+
+/-! ## Frobenius is a ring homomorphism (additive part) -/
+
+/-- ★ **Frobenius is additive** (universal): `σ(x + y) = σ(x) + σ(y)` in 𝔽_{p²}.
+    PURE.  Reduces to `neg_mod_add` on the second component. -/
+theorem fp2Frob_add (p : Nat) (hp : 0 < p) (x y : FP2) :
+    fp2Frob p (fp2Add p x y) = fp2Add p (fp2Frob p x) (fp2Frob p y) := by
+  show (((x.1 + y.1) % p) % p, (p - ((x.2 + y.2) % p) % p) % p)
+     = ((x.1 % p + y.1 % p) % p,
+        ((p - x.2 % p) % p + (p - y.2 % p) % p) % p)
+  apply Prod.ext
+  · -- ((x.1 + y.1) % p) % p = (x.1 % p + y.1 % p) % p
+    show ((x.1 + y.1) % p) % p = (x.1 % p + y.1 % p) % p
+    rw [mod_mod, add_mod_gen]
+  · -- (p - ((x.2 + y.2) % p) % p) % p
+    --   = ((p - x.2 % p) % p + (p - y.2 % p) % p) % p
+    show (p - ((x.2 + y.2) % p) % p) % p
+       = ((p - x.2 % p) % p + (p - y.2 % p) % p) % p
+    rw [mod_mod]
+    exact neg_mod_add p x.2 y.2 hp
+
+/-- Smoke at p=7: σ((2, 3) + (4, 1)) = σ((6, 4)) = (6, 3)
+    = (2, 4) + (4, 6) = σ((2, 3)) + σ((4, 1)). -/
+theorem fp2Frob_add_smoke_7 :
+    fp2Frob 7 (fp2Add 7 (2, 3) (4, 1))
+      = fp2Add 7 (fp2Frob 7 (2, 3)) (fp2Frob 7 (4, 1)) := by decide
+
+/-! ## Mod-p negation × multiplication (foundation for Frobenius mul-hom) -/
+
+/-- **Negation × y identity** (universal): `((p - x%p)%p) * y + x*y ≡ 0 mod p`.
+    Reduces via `Nat.add_mul` (factoring `y` out) to `nmod_add_self_zero`. -/
+theorem mul_neg_add_self (p x y : Nat) (hp : 0 < p) :
+    ((p - x % p) % p * y + x * y) % p = 0 := by
+  rw [← add_mul]
+  -- Goal: (((p - x%p) % p + x) * y) % p = 0
+  rw [mul_mod_left_pure ((p - x % p) % p + x) y p]
+  -- Goal: (((p - x%p) % p + x) % p * y) % p = 0
+  rw [nmod_add_self_zero p x hp]
+  rw [Nat.zero_mul]
+  exact zero_mod p
+
+/-- ★ **Negation × left** (universal): `(-x) * y ≡ -(x*y) (mod p)`, i.e.,
+    `((p - x%p)%p * y) % p = (p - (x*y)%p) % p`.  PURE. -/
+theorem neg_mod_mul_left (p x y : Nat) (hp : 0 < p) :
+    ((p - x % p) % p * y) % p = (p - (x * y) % p) % p := by
+  have hLHS_lt : ((p - x % p) % p * y) % p < p := Nat.mod_lt _ hp
+  have hRHS_lt : (p - (x * y) % p) % p < p := Nat.mod_lt _ hp
+  -- LHS + (x*y) ≡ 0 mod p via mul_neg_add_self after add_mod_gen unification
+  have h_LHS_add : (((p - x % p) % p * y) % p + x * y) % p = 0 := by
+    rw [add_mod_gen (((p - x % p) % p * y) % p) (x * y) p]
+    rw [mod_mod ((p - x % p) % p * y) p]
+    rw [← add_mod_gen ((p - x % p) % p * y) (x * y) p]
+    exact mul_neg_add_self p x y hp
+  -- RHS + (x*y) ≡ 0 mod p by nmod_add_self_zero
+  have h_RHS_add : ((p - (x * y) % p) % p + x * y) % p = 0 :=
+    nmod_add_self_zero p (x * y) hp
+  exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
+    p _ _ (x * y) hp hLHS_lt hRHS_lt
+    (h_LHS_add.trans h_RHS_add.symm)
+
+/-- ★ **Negation × right** (universal): `x * (-y) ≡ -(x*y) (mod p)`.  PURE. -/
+theorem neg_mod_mul_right (p x y : Nat) (hp : 0 < p) :
+    (x * ((p - y % p) % p)) % p = (p - (x * y) % p) % p := by
+  rw [Nat.mul_comm x ((p - y % p) % p)]
+  rw [Nat.mul_comm x y]
+  exact neg_mod_mul_left p y x hp
+
+/-- ★ **Double-negation × multiplication** (universal):
+    `(-x) * (-y) ≡ (x*y) (mod p)`.  PURE.  Two applications of
+    `neg_mod_mul_left`/`right` reduce to `double_neg_mod`. -/
+theorem neg_mod_mul_neg (p x y : Nat) (hp : 0 < p) :
+    (((p - x % p) % p) * ((p - y % p) % p)) % p = (x * y) % p := by
+  rw [neg_mod_mul_left p x ((p - y % p) % p) hp]
+  -- Goal: (p - (x * ((p - y%p)%p)) % p) % p = (x*y) % p
+  rw [neg_mod_mul_right p x y hp]
+  -- Goal: (p - ((p - (x*y) % p) % p)) % p = (x*y) % p
+  exact double_neg_mod p (x * y) hp
 
 end E213.Lib.Math.ModArith.FP2Sqrt5
