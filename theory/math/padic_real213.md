@@ -218,13 +218,19 @@ extension only, is itself a research question.  See
 | `Zp.valEq_unique` | `Norm` | p-adic valuation is unique |
 | `Zp.mul_invSeq_correct` | `Hensel` | `(x · invSeq n).trunc (n+1) = 1` (Hensel correctness) |
 | `Zp.invDigit0_eq` | `Hensel` | `(x.digits 0).val · invDigit0 ≡ 1 (mod p)` (Bezout base) |
+| `Zp.add_trunc_comm` | `Arith` | additive commutativity at trunc |
+| `Zp.mul_trunc_comm` | `Arith` | multiplicative commutativity at trunc |
+| `Zp.add_trunc_assoc` | `Arith` | additive associativity at trunc |
+| `Zp.mul_trunc_assoc` | `Arith` | multiplicative associativity at trunc |
+| `Zp.mul_add_trunc` / `Zp.add_mul_trunc` | `Arith` | distributivity at trunc |
 | `QpSeq.add_shift` | `Field` | shift of `a + b` is `max a.shift b.shift` |
 
 ## Open frontier
 
-- **`Zp.mul_comm_digit` / `mul_assoc`**: ring laws beyond
-  identity / absorbing have not been written.  Convolution
-  symmetry argument is the natural next step.
+- **Digit-level ring laws** (`mul_comm_digit`, `mul_assoc_digit`):
+  trunc-level versions are closed (commutativity, associativity,
+  distributivity).  Digit-level would require a convolution
+  reindexing argument for `mulRaw x y k = mulRaw y x k`.
 - **Hensel for square root**: the inverse construction generalizes
   to `Hensel_lift f f' a₀` for arbitrary polynomial `f`.  Not yet
   written.
