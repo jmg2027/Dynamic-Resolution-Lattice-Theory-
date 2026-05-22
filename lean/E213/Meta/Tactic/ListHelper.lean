@@ -184,4 +184,67 @@ theorem append_singleton_inj :
       injection h with h_head h_tail
       rw [h_head, ih bs x h_tail]
 
+/-! ## §6.  `eraseIdx` interaction with `++ [x]`
+
+Two structural lemmas about `(l ++ [x]).eraseIdx i`:
+
+  · `eraseIdx_append_singleton_low`: when `i < l.length`, the
+    `eraseIdx` lands inside `l` and the trailing `[x]` is preserved.
+  · `eraseIdx_append_singleton_at_len`: when `i = l.length`, the
+    `eraseIdx` removes the trailing `[x]`, returning `l`.
+
+Used by the `kSubset_eraseIdx_eq` structural lemma. -/
+
+/-- `(l ++ [x]).eraseIdx i = l.eraseIdx i ++ [x]` when `i < l.length`. -/
+theorem eraseIdx_append_singleton_low :
+    ∀ (l : List Nat) (x : Nat) (i : Nat),
+      i < l.length → (l ++ [x]).eraseIdx i = l.eraseIdx i ++ [x] := by
+  intro l x
+  induction l with
+  | nil =>
+    intro i h
+    exact absurd h (Nat.not_lt_zero i)
+  | cons a as ih =>
+    intro i h
+    cases i with
+    | zero => rfl
+    | succ i' =>
+      have h' : i' < as.length := Nat.lt_of_succ_lt_succ h
+      have ih' := ih i' h'
+      show a :: (as ++ [x]).eraseIdx i' = a :: as.eraseIdx i' ++ [x]
+      rw [ih']; rfl
+
+/-- `(l ++ [x]).eraseIdx l.length = l` — removing the trailing singleton
+    returns the prefix.  PURE. -/
+theorem eraseIdx_append_singleton_at_len :
+    ∀ (l : List Nat) (x : Nat), (l ++ [x]).eraseIdx l.length = l := by
+  intro l x
+  induction l with
+  | nil => rfl
+  | cons a as ih =>
+    show a :: (as ++ [x]).eraseIdx as.length = a :: as
+    rw [ih]
+
+/-- `(l.eraseIdx i).length + 1 = l.length` when `i < l.length`.  PURE.
+    Replaces the propext-tainted `List.length_eraseIdx` from Lean core. -/
+theorem length_eraseIdx_of_lt :
+    ∀ (l : List Nat) (i : Nat),
+      i < l.length → (l.eraseIdx i).length + 1 = l.length := by
+  intro l
+  induction l with
+  | nil =>
+    intro i h
+    exact absurd h (Nat.not_lt_zero i)
+  | cons a as ih =>
+    intro i h
+    cases i with
+    | zero =>
+      show as.length + 1 = as.length + 1
+      rfl
+    | succ i' =>
+      have h' : i' < as.length := Nat.lt_of_succ_lt_succ h
+      have := ih i' h'
+      show (as.eraseIdx i').length + 1 + 1 = as.length + 1
+      rw [this]
+
 end E213.Tactic.ListHelper
