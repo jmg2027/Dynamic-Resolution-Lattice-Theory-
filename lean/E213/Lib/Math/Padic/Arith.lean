@@ -1051,4 +1051,39 @@ theorem Zp.mul_trunc_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
   | 0 => rfl
   | n + 1 => Zp.mul_trunc_succ_one_right hp x n
 
+/-- Multiplicative truncation correctness for `x = ZpSeq.one` at
+    the successor level `n + 1`. -/
+theorem Zp.mul_trunc_succ_one_left {p : Nat} (hp : 1 < p) (x : ZpSeq p)
+    (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).trunc (n + 1)
+      = ((ZpSeq.one p hp).trunc (n + 1) * x.trunc (n + 1)) % p^(n + 1) := by
+  rw [Zp.mul_one_left_trunc hp x (n + 1)]
+  rw [ZpSeq.trunc_one_succ p hp n, Nat.one_mul]
+  exact (Nat.mod_eq_of_lt
+            (ZpSeq.trunc_lt_p_pow (Nat.lt_of_succ_lt hp) x (n + 1))).symm
+
+/-- Multiplicative truncation correctness for `x = ZpSeq.one`
+    at any level. -/
+theorem Zp.mul_trunc_one_left {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).trunc n
+          = ((ZpSeq.one p hp).trunc n * x.trunc n) % p^n
+  | 0 => rfl
+  | n + 1 => Zp.mul_trunc_succ_one_left hp x n
+
+/-- Multiplicative truncation correctness for `y = ZpSeq.zero`. -/
+theorem Zp.mul_trunc_zero_right {p : Nat} (hp : 0 < p) (x : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp x (ZpSeq.zero p hp)).trunc n
+      = (x.trunc n * (ZpSeq.zero p hp).trunc n) % p^n := by
+  rw [Zp.mul_zero_right_trunc hp x n, ZpSeq.trunc_zero p hp n,
+      Nat.mul_zero]
+  exact (E213.Tactic.NatHelper.zero_mod _).symm
+
+/-- Multiplicative truncation correctness for `x = ZpSeq.zero`. -/
+theorem Zp.mul_trunc_zero_left {p : Nat} (hp : 0 < p) (x : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp (ZpSeq.zero p hp) x).trunc n
+      = ((ZpSeq.zero p hp).trunc n * x.trunc n) % p^n := by
+  rw [Zp.mul_zero_left_trunc hp x n, ZpSeq.trunc_zero p hp n,
+      Nat.zero_mul]
+  exact (E213.Tactic.NatHelper.zero_mod _).symm
+
 end E213.Lib.Math.Padic
