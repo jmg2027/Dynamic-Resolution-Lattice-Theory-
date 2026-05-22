@@ -72,15 +72,44 @@ decomposition that the formal layer uses is a notational
 convenience for readability, separating two sides of one event
 so that proofs can address them independently.
 
+### Raw as initial object
+
+The technical content of "factors through" is the categorical
+notion of an initial object.  The typeclass `HasDistinguishing`
+in `lean/E213/Lens/SemanticAtom.lean` captures the abstract
+shape of a distinguishing framework: two atoms (`a`, `b`), a
+binary `combine`, and a `combine_sym` field stating that
+`combine` is symmetric.  Read at this level, the 213 axiom is
+**the unique Raw-level instance of `HasDistinguishing`** —
+"unique" because the §4.1 minimality forbids any weakening, and
+"Raw-level" because the axiom commits to no encoding beyond
+what the abstraction itself requires.
+
+Raw sits at the initial position in the category of
+distinguishing frameworks.  Every other instance — `Bool` with
+xor, `Prop` with `propXor` or `Iff`, function spaces with
+pointwise combine, and so on — receives a unique morphism *from*
+Raw via the catamorphism `Raw.fold`.  The companion theorem
+`view_unique` at `lean/E213/Lens/Initiality.lean` certifies
+the uniqueness side of this universal property explicitly: any
+two morphisms `Raw → α` that agree on the basis and respect the
+combine agree everywhere.  So when one writes "any
+distinguishability framework factors through Raw," the technical
+content is that **Raw is the initial object in the category of
+`HasDistinguishing` instances with commutative-combine
+homomorphisms**.
+
 The witness families `Lens/Universal/Witnesses/{Core, Nat2,
 Nat2Inj, Q213, Q213Inj, Nat3, Q213_3, TripleCapstone, Padding,
-PaddingCapstone}` realise this claim for the codomains that
+PaddingCapstone}` realise the factoring for the codomains that
 Lean can handle directly.  An entity earns the description
-"meaningful" exactly when it can serve as a candidate instance
-of this single event — and being a candidate is precisely
-factoring through Raw.
+"meaningful" exactly when it can serve as a `HasDistinguishing`
+instance — and being a candidate is precisely receiving from
+Raw via the universal morphism.
 
-A useful contrast: the objects committed to by ZFC's
+### What lies outside the picture
+
+A useful contrast.  The objects committed to by ZFC's
 arbitrariness axioms (Power, Choice, arbitrary `P(X)` subsets)
 have no fold-structured representation
 (`Lens/Morphism/NoDepthParity.lean`, `DepthParityNotFold.lean`).

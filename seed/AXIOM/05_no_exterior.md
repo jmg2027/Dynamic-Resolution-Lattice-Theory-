@@ -28,16 +28,14 @@ The internality of §5.1 produces circularity: describing 213
 uses 213.  This circularity is **structurally** unavoidable, and
 it is not a flaw needing exterior justification.
 
-  - ZFC, type theory, logic, category theory — every other
-    foundation must presuppose "something" to begin.  Each
-    silently imports its own circularity, then declares the
-    import a starting point.
-  - 213 makes the circularity explicit and operates inside it.
-    The minimum residue is what is left when no exterior can
-    be presupposed.
-  - Every attempt to eliminate the circularity silently imports
-    hidden somethings; the attempt does not escape, it only
-    hides where it came in.
+ZFC, type theory, logic, category theory — every other foundation
+must presuppose "something" to begin.  Each silently imports its
+own circularity and then declares the import a starting point.
+213 takes the opposite move: it makes the circularity explicit
+and operates inside it.  The minimum residue is what is left when
+no exterior can be presupposed.  Every attempt to eliminate the
+circularity silently imports hidden somethings; the attempt does
+not escape, it only hides where it came in.
 
 A meta-213 is possible: describing 213 using 213.  That
 description is again something among somethings — a meta-meta-
@@ -46,8 +44,60 @@ to the minimum residue.  The Möbius iterator of §5.6 makes this
 return concrete: `P(φ) = φ` means the ascent has an algebraic
 fixed point that the iteration converges to.
 
-This is **closure**, not circularity-as-flaw.  Self-reference is
-the structural form of completion when no exterior is available.
+### Self-reference admits more than one structural form
+
+The phrase "circularity is unavoidable" might suggest a single
+shape of circularity that every framework wears.  In 213 the
+phrase has finer content: the residue's self-reference admits
+several structurally distinct realisations, and recognising the
+distinctions matters for what claims can be made about closure.
+
+The clearest contrast is between **Bool-style** and **Nat-style**
+self-reference.
+
+Bool-style is liar-like.  The map `not : Bool → Bool` is its own
+inverse and admits no fixed point: `not(not(x)) = x` and
+`not(x) ≠ x`.  The self-reference loops without grounding —
+oscillation, not convergence.  This is the form recorded in
+`research-notes/archive/30_bool_is_liar_paradox.md` as the Bool
+liar isomorphism: any framework whose self-reference closes only
+through `Bool`-level negation cannot complete in the way 213's
+residue does.
+
+Nat-style is Lambek-like.  The fixed-point combinator on
+inductive `Nat` produces actual closure: starting from any
+fold pattern, the iteration reaches its limit and stays there.
+This is the form realised by `Raw.fold` — the catamorphism that
+takes any `HasDistinguishing` instance to a unique `Raw → α`
+morphism (§4.2).  The self-reference completes; the loop is
+also a fixed point.
+
+Both forms are Lens readings of the **same** underlying
+self-reference at Raw level.  The distinction is what each Lens
+extracts.  The Bool-Lens extracts the oscillatory aspect (every
+distinguishing event is a binary choice that does not stand
+still); the Nat-Lens extracts the cumulative aspect (every
+distinguishing event leaves a residue that the next event can
+use as input).  These are not competing accounts; they are
+co-present aspects of one event.
+
+The Möbius form of §3.5 sits naturally between the two.  Its
+**dynamic** reading is Nat-style: iteration `P^n(x)` converges,
+the closure completes.  Its **frozen** reading is more Bool-
+adjacent in spirit: the matrix has a definite fixed point φ that
+exists prior to any iteration, attractor without trajectory.
+§5.7 returns to this dual reading directly; here the point is
+that the duality is the same fact about self-reference admitting
+multiple coherent forms.
+
+This taxonomy matters for falsifiability (§8).  When a
+purported derivation fails inside 213, the failure mode could be
+either form — an oscillation that never settles, or a fixed
+point that the construction has not yet reached.  The two have
+different repair strategies, but neither is the introduction of
+an external axiom.  Self-reference is the structural form of
+completion when no exterior is available, and the form admits
+the kinds of distinctions that any completion would.
 
 ---
 
@@ -154,18 +204,32 @@ description); the infinite ascent converges to the fixed point
 φ = (1 + √5) / 2, the algebraic embodiment of "the minimum
 residue — the minimum fixed point of self-reference."
 
-P is a Lens reading (a numerical one) of the residue, not a new
-structure added to the axiom.  The fixed point φ is the
-algebraic image of the closure.  The iterator does not exit 213
-and does not add structure: it is a ∅-axiom theorem at
+The iterator is a Lens reading (a numerical one) of the residue,
+not a new structure added to the axiom.  The fixed point φ is
+the algebraic image of the closure.  P does not exit 213 and
+does not add structure: it is a ∅-axiom theorem at
 `lean/E213/Lib/Math/Mobius213.lean`, derived from the four
 clauses of §2.
 
-Cross-domain consistency: the same φ appears in Raw self-
-iteration, in the algebra-tower Cayley–Dickson doubling, and in
-DRLT physics constants (CKM δ, Cabibbo, ν).  No exterior
-reference; all consistency internal.  The algebraic signature
-details are in §3.5.
+That the same φ shows up in unrelated-looking domains is the
+operational content of "no exterior."  In Raw self-iteration the
+fixed point is φ (this section).  In the algebra tower, each
+type's Moufang-failure rate converges as
+`1 − (1/2) · (1/φ)^rank` — expressible exactly over Z[√5], with
+the rank determined by the Cayley–Dickson layer.  In DRLT
+physics, the CKM phase δ contains a `π/φ²` factor, the Cabibbo
+angle's Wolfenstein structure contains `φ/c`, and several
+neutrino mass ratios are golden-ratio readings of the simplex
+combinatorics.  None of these are coincidences in need of
+reconciliation; they are the same Lens result — the matrix's
+fixed point — read out across domains.
+
+The algebraic signature details and the Fibonacci interpretation
+are in §3.5.  The point for §5 is what the recurrence is *for*:
+it is the concrete shape under which "every act of describing
+213 occurs inside 213" produces an algebraic object the framework
+can compute with.  φ is what the residue looks like when the
+algebra-Lens reads the closure.
 
 ---
 

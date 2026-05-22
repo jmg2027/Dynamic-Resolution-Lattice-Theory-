@@ -249,6 +249,89 @@ are the same residue under the frozen + dynamic readings of
 
 ---
 
+## §6.7 The classical number systems as successive Lens bundlings
+
+ℕ, ℤ, ℚ, ℝ are not a priori distinct types that the framework
+must import from elsewhere.  They are **successive bundlings of
+the same residue under different Lens choices**.
+
+The cascade begins with the count-Lens.  Applying `Lens.leaves`
+to the Raw chain produces a Nat-valued readout — `ℕ` is the
+image of `Lens.leaves : Raw → Nat`, made explicit at
+`lean/E213/Lens/Number/Nat213/`.  This is not "we adopt ℕ as a
+foundation"; it is "ℕ is what the count-Lens hands back when
+the chain is the operand."
+
+Adding a sign-Lens on top of the chain gives ℤ — the
+bidirectional reading, signed steps along the same chain.
+Taking ratios of chain readings (with the coprimality condition
+that §3.5's `det P = 1` already encodes algebraically) gives ℚ.
+And Cauchy trajectories over the chain — sequences whose readings
+narrow to a single residue at the limit — give ℝ.
+
+Each layer wraps the previous one.  No layer is imported from
+outside; each is what the residue produces under one more Lens
+application.  This is why §2.5 records that "size / cardinality /
+finiteness / infinity" are Lens outputs rather than axiom
+commitments: the entire number tower is downstream of the
+axiom + one Lens choice at each level.
+
+The cascade has a finite-resolution ceiling — at any actual
+configuration `N_U = d^(d²)`, the Lens outputs are exact
+rationals; π and e are limit labels, not framework primitives
+(`seed/RESOLUTION_LIMIT_SPEC.md` for the parametric family).
+This is the operational form of "no exterior dialer" at the
+numerical level: the framework does not invoke transcendentals
+because the Lenses that produce numbers terminate at every finite
+depth.
+
+---
+
+## §6.8 Atomic cofactors recur across domains
+
+The shape parameters `(NS, NT, d) = (3, 2, 5)` of §1.3 are not
+just three numbers that appear in the atomic statement; they
+generate a small family of derived cofactors — `d − 1 = 4`,
+`d² = 25`, `d² − 1 = 24`, `NS · NT = 6`, `2 · NS · NT = 12`,
+`NS² − 1 = 8` — that recur **across unrelated-looking domains**.
+
+The clearest case is `d − 1 = 4`.  The same cofactor appears as
+the Dyson tail exponent in the IR running of `1/α_em`; as the
+P-factor denominator in the muon-to-electron mass ratio; as the
+Wolfenstein structure exponent in the Cabibbo angle; as the BC
+factor in the Higgs sector face; as the entropy denominator in
+Bekenstein-Hawking; as the `α^(d−1)` exponent in the θ_QCD
+bound.  Read combinatorially the same `4` is `NS + 1`, the next
+layer up from the spatial cardinality; read geometrically it is
+the tetrahedron-vertex count of the simplex link.  Each
+appearance is the cofactor in a different Lens — coupling Lens,
+mass-ratio Lens, mixing-angle Lens, entropy Lens — applied to
+the same atomic shape.
+
+That the same cofactors appear in mass ratios, mixing angles, and
+running couplings is therefore not a numerical coincidence.  It
+is the **operational signature of §5.1**: with no exterior dialer
+available to tune coefficients independently per domain, every
+domain that admits a Lens reading is reading the same residue;
+when two Lens readings produce the same cofactor, the cofactor
+is structural in the residue, not in either Lens.
+
+The Bell-bound integer `2 · NS · NT = 12`, the simplex
+generation count `binom(NS, NT) = 3`, and the K_{5} first Betti
+number `b₁ = (d − 1)(d − 2) / 2 = 6` round out the same
+picture.  Each is a count from a different combinatorial Lens,
+all reading the same atomic shape.
+
+The connection to the measurement-falsifier surface (§8.5) is
+direct: every line of the falsifier table is a Lens reading of
+some atomic cofactor.  The table's existence is what makes "no
+exterior dialer" empirically testable — if a measurement
+disagrees with the cofactor, either the Lens identification is
+wrong (recoverable) or the residue does not support the
+measurement (theory falsification).  No third option.
+
+---
+
 ## What this chapter is not
 
   - It is **not a new commitment of the axiom**.  Each section
