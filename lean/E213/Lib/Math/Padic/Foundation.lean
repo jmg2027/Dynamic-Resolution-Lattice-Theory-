@@ -116,6 +116,28 @@ theorem ZpSeq.trunc_one_at_one (p : Nat) (hp : 1 < p) :
   show 0 + 1 * p^0 = 1
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
 
+/-- `(neg_one).trunc n + 1 = p^n`.  Avoids Nat subtraction; encodes
+    the fact that the all-`(p-1)` sequence truncated to `n` digits
+    is `p^n - 1`. -/
+theorem ZpSeq.trunc_neg_one_succ (p : Nat) (hp : 0 < p) :
+    ∀ n, (ZpSeq.neg_one p hp).trunc n + 1 = p^n
+  | 0 => by show (0 : Nat) + 1 = p^0; rw [Nat.pow_zero]
+  | n + 1 => by
+    have ih : (ZpSeq.neg_one p hp).trunc n + 1 = p^n :=
+      ZpSeq.trunc_neg_one_succ p hp n
+    show ((ZpSeq.neg_one p hp).trunc n
+            + ((ZpSeq.neg_one p hp).digits n).val * p^n) + 1
+        = p^(n+1)
+    show ((ZpSeq.neg_one p hp).trunc n + (p - 1) * p^n) + 1 = p^(n+1)
+    -- Rearrange `(a + b * pn) + 1 = (a + 1) + b * pn = p^n + (p-1)*p^n
+    --         = (1 + (p-1)) * p^n = p * p^n = p^(n+1)`.
+    rw [Nat.add_right_comm, ih]
+    rw [Nat.add_comm (p^n) ((p - 1) * p^n)]
+    rw [← Nat.succ_mul]
+    show ((p - 1) + 1) * p^n = p^(n+1)
+    rw [E213.Tactic.NatHelper.sub_add_cancel hp]
+    rw [Nat.pow_succ, Nat.mul_comm]
+
 /-! ## Truncation bound
 
 Each truncation `x.trunc n` lies in `[0, p^n)` — justifying the
