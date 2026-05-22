@@ -189,6 +189,47 @@ theorem Zp.smoke_add_zero_one_5 :
       (ZpSeq.zero 5 (by decide)) (ZpSeq.one 5 (by decide))).trunc 1 = 1 := by
   rw [Zp.add_trunc, ZpSeq.trunc_zero, ZpSeq.trunc_one_at_one]
 
+/-! ## Additive identity and commutativity (digit level) -/
+
+/-- Carry from `x + 0` stays at zero (each digit sum `x + 0 + 0 < p`). -/
+theorem Zp.carry_x_zero_right (p : Nat) (hp : 0 < p) (x : ZpSeq p) :
+    ∀ k, Zp.carry p x (ZpSeq.zero p hp) k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show ((x.digits k).val + ((ZpSeq.zero p hp).digits k).val
+            + Zp.carry p x (ZpSeq.zero p hp) k) / p = 0
+    rw [Zp.carry_x_zero_right p hp x k]
+    show (x.digits k).val / p = 0
+    exact Nat.div_eq_of_lt (x.digits k).isLt
+
+/-- `x + 0 = x` (digit level). -/
+theorem Zp.add_zero_right_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.add p hp x (ZpSeq.zero p hp)).digits k).val = (x.digits k).val := by
+  show ((x.digits k).val + ((ZpSeq.zero p hp).digits k).val
+          + Zp.carry p x (ZpSeq.zero p hp) k) % p = (x.digits k).val
+  rw [Zp.carry_x_zero_right p hp x k]
+  show (x.digits k).val % p = (x.digits k).val
+  exact Nat.mod_eq_of_lt (x.digits k).isLt
+
+/-- Carry is symmetric in `x` and `y` (since digit-sums are commutative). -/
+theorem Zp.carry_comm (p : Nat) (x y : ZpSeq p) :
+    ∀ k, Zp.carry p x y k = Zp.carry p y x k
+  | 0 => rfl
+  | k + 1 => by
+    show ((x.digits k).val + (y.digits k).val + Zp.carry p x y k) / p
+          = ((y.digits k).val + (x.digits k).val + Zp.carry p y x k) / p
+    rw [Zp.carry_comm p x y k]
+    rw [Nat.add_comm (x.digits k).val (y.digits k).val]
+
+/-- Commutativity of `Zp.add` at the digit level: `(x + y).digits k =
+    (y + x).digits k`. -/
+theorem Zp.add_comm_digit (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
+    ((Zp.add p hp x y).digits k).val = ((Zp.add p hp y x).digits k).val := by
+  show ((x.digits k).val + (y.digits k).val + Zp.carry p x y k) % p
+        = ((y.digits k).val + (x.digits k).val + Zp.carry p y x k) % p
+  rw [Zp.carry_comm p x y k]
+  rw [Nat.add_comm (x.digits k).val (y.digits k).val]
+
 /-! ## Digit-complement and negation
 
 For each digit `d ∈ {0, …, p-1}`, the complement is `p-1-d`.  At
