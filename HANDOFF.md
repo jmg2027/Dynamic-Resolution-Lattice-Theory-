@@ -5,9 +5,10 @@
 `claude/g121-open-followup-BCOp3` — post-merge of
 `claude/n-u-followup-campaign-3PnDm` (G86/G107/G117/G123-N_U/
 G124-cross-field/G125-Aurifeuillean closures + N_U family theory
-promoted).  My-side G123/G124/G125 (Geometrization follow-ups /
-V32Betti parametric / ModulusStructure) renumbered to
-G128/G129/G130 to avoid collision.
+promoted) and `claude/cup-atomic-subalgebra` (G125 Lens-recipe
+cup catalog + K32 projection + 1/α_em decomposition).  My-side
+G123/G124/G125 (Geometrization follow-ups / V32Betti parametric /
+ModulusStructure) renumbered to G128/G129/G130 to avoid collision.
 
 ## Recently closed (post-merge unified)
 
@@ -89,7 +90,45 @@ Fin-level ∀(n, k, l) twisted Leibniz proven strict PURE in
 bidegree corollaries.  Self-referential restatement included.
 Source: `research-notes/G86_self_referential_lex_cup_leibniz.md`.
 
-### B. G107 §4 — CLOSED (archived from n-u branch)
+### A.next. G125 Lens-recipe cup catalog — **CLOSED 2026-05-22** (from cup-atomic branch)
+4 new PURE Lean files / 64+ strict-PURE theorems.
+
+  · `Cup/LeibnizMirror.lean` — `cupRev`, `cupRev_eq_cup_swapped`,
+    `list_level_leibniz_mirror`.
+  · `Cup/LeibnizSym.lean` — `cupSymList`,
+    `list_level_leibniz_sym` (doubled correction).
+  · `Cup/LeibnizCatalog.lean` — `Recipe` inductive,
+    `catalog_dispatch` capstone (3 recipes → δ-closure).
+  · `Cup/SelfRefDepth.lean` (51 PURE) — `selfRefIter`, 6-channel
+    catalog at d = 5, universal closed form
+    `totalCupChannels d = binom (d-1) 2`, codim stratification
+    `6 = NS + NT + 1`, 325-pair indicator basis uniqueness
+    contracts (falsifiability), dual factorisation at d = 5
+    `30 = cup·d = Λ-sum`.
+  · `Cup/SelfRefDepthExtended.lean` (8 PURE, this branch) —
+    d ∈ {6, 7, 8} channel counts + 5 d=6 endpoint pair firings.
+
+**Zero-parameter physical bridges**:
+  · `30 = cup-channels · d = NS · NT · d = 1/α_2 leading integer`.
+  · codim-1 channel count `= 3 = NS = α_GUT coefficient` in
+    `1/α_2 = 30 - 1/2 + 3·α_GUT`.
+  · d = 5 unique: `cup·d = 2^d - 2` only at d = 5.
+
+Theory promotion: `theory/math/cohomology/cup.md` self-reference
+section.  Research note: `research-notes/G125_lens_recipe_cup_catalog.md`.
+
+### A.next.open. Cup catalog further extensions (Tier-1)
+
+| Item | Status / Notes |
+|---|---|
+| ~~Mirror catalog uniqueness~~ | **OBSOLETE** — symmetric to original under swap, no new content |
+| **Structural ∀d codim correspondence** | **CLOSED** (`Cup/IterErase.lean` 7 PURE).  `endpoint_pair_firing_characterisation` is the universal structural theorem; d=5 catalog + d=6 spot checks are now corollaries.  Proof: iterErase + cupList factorisation, no decide |
+| **Sub-direction E: cup-atomic subalgebra** | **INITIAL CLOSURE 2026-05-22** (`Cup/CupAtomic.lean` 15 PURE + `Cup/CupAtomicExtended.lean` 16 PURE).  Cup-closed-trivially cochain pair count at (1, 1) on Δ⁴: 320 out of 1024.  Universal formula `count = d · 2^(d+1)` decide-verified at d ∈ {3, 4, 5}.  Conjectured ∀d ≥ 2 |
+| **K_{3,2}^{(c=2)} 8-channel projection** | **CLOSED 2026-05-22** (`Cup/K32Projection.lean` 11 PURE).  Quadruple structural identity at DRLT: `b_1 = 8 = E-V+1 = cup-channels + NT = NT·(NS+1) = NS²-1`.  Four independent count-Lens readings converge uniquely at (NS,NT,c)=(3,2,2) |
+| **1/α_em decomposition derivation** | **CLOSED 2026-05-22** (`Cup/InvAlphaEMDecomp.lean` 12 PURE).  All six denominators (60, 30, 25, 3, 4, 45) in `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45` decomposed in terms of (NS, NT, c, d) = (3, 2, 2, 5).  Numerical match 137.03 vs CODATA 137.036 (0.07 ppm) |
+| Sub-direction F: p-adic cup ring | Active in `claude/g122-real213-p-adic-LwxL9` (out of scope for this branch) |
+
+### B. G107 §4 action-items registry — CLOSED (archived 2026-05-22)
 
 24-entry registry fully dispositioned: 6 executed in Lean, 4
 substantively done at audit, 5 structurally infeasible per G118,
