@@ -290,30 +290,56 @@ Next session: implement Phase 1 (truncation + zero/one/neg_one).
 
 ## Phase 2 remaining work
 
-  · `Zp.mul` — digit-by-digit multiplication (convolution + carry).
-    Statement: `(Zp.mul x y).trunc n = (x.trunc n * y.trunc n) % p^n`.
-    Harder than `add` because the digit at position k depends on
-    `Σ_{i+j=k} (x.digits i).val * (y.digits j).val` (a multi-term
-    sum) plus higher-position carries from the partial products.
+  · `Zp.mul` — DEFINITION SCAFFOLDED (this session).
+    `mulRawSum`, `mulRaw`, `mulCarry`, `mul` all PURE.
+    Absorbing-zero proven: `Zp.mul_zero_right_digit` (every digit
+    of `x · 0` is 0).
+    REMAINING: the truncation correctness theorem
+        `(Zp.mul x y).trunc n = (x.trunc n * y.trunc n) % p^n`
+    Structurally analogous to `add_trunc` but with convolution
+    bookkeeping (k-th raw sum depends on a multi-term Σ over
+    i + j = k).
   · `Zp.neg_add_self` — full algebraic statement
     `Zp.add x (Zp.neg x) = Zp.zero` (sequence equality, requires
     funext-by-design pattern OR per-truncation rephrasing).
     Cleanest version: `(Zp.add x (Zp.neg x)).trunc n = 0`.
+
+## Phase 3 starter (this session)
+
+**`lean/E213/Lib/Math/Padic/Norm.lean`** (9 PURE):
+
+  · `Zp.valAtLeast x n` — predicate "every digit < n is zero".
+    PURE alternative to `v_p(x) ≥ n` (avoiding `WithTop`).
+  · `Zp.valAtLeast_zero`, `valAtLeast_mono` (downward closed).
+  · `Zp.valAtLeast_iff_trunc` — `valAtLeast x n ↔ x.trunc n = 0`
+    (via Foundation `eq_mod_pn` ↔ `trunc` bridge).
+  · `Zp.valEq x n` — exact valuation: `valAtLeast x n ∧ x.digits n ≠ 0`.
+  · `Zp.valEq_unique` — uniqueness (Nat trichotomy + contradiction).
+
+This gives a propositional handle on the p-adic valuation suitable
+for Hensel-style induction without committing to an extended
+numeric type.
 
 ## Updated phase outline (post-session)
 
 | Phase | Status |
 |---|---|
 | 1. Foundation | DONE (16 PURE) |
-| 2. Arith — add + neg | DONE (15 PURE, mul deferred) |
-| 2'. Arith — mul | PENDING |
-| 3. Norm + valuation | PENDING |
+| 2. Arith — add + neg | DONE (15 PURE with truncation correctness) |
+| 2'. Arith — mul | SCAFFOLDED (11 PURE; truncation correctness pending) |
+| 3. Norm + valuation | STARTER (9 PURE; `valAtLeast` + `valEq` + uniqueness) |
 | 4. Hensel lifting | PENDING |
 | 5. ℚ_p localization | PENDING |
 | 6. DRLT integration (5-adic N_U lift) | PENDING |
 
+**This session's deliverables**: 67 PURE declarations across 3
+Padic modules (Foundation + Arith + Norm).  Branch
+`claude/g122-real213-p-adic-LwxL9` pushed.
+
 ---
 
-**Status**: Phase 1 complete + Phase 2 partial (add, neg, complement
-with full truncation correctness).  Foundational substrate (PURE)
-ready for `mul`, norm/val, and Hensel lifting.
+**Status**: Phase 1 complete + Phase 2 add/neg with full truncation
+correctness + Phase 2' mul scaffolded with absorbing-zero proved +
+Phase 3 starter with valuation predicates.  Next session: prove
+`Zp.mul_trunc` (the multiplicative ring-quotient theorem) and
+extend toward Hensel lifting.
