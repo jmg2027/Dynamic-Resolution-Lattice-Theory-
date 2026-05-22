@@ -252,18 +252,25 @@ is forced by $d_{213} = 5$ once one axis is taken by self-pointing.
 
 ## §5 Standard-math ↔ 213-Lens correspondence
 
-| Standard | 213-Lens |
-|---|---|
-| $d_M \le 3$: DIFF = PL = TOP (Moise) | confinement: chart count $<$ external axes; no exotic separation possible |
-| $d_M = 4$: $\mathbb{R}^4$ has $2^{\aleph_0}$ exotic | level-cofinal residue in configCount-family; never stabilizes at finite $n$ |
-| $d_M \ge 5$: $\Theta_d$ finite abelian | self-pointing residue averaged out; surgery (= chart-Lens path swap) closes the gap |
-| Ricci flow | chart-Lens coherentization flow at ε-readout |
-| JSJ tori | $\pi_1$-injective discrete skeleton (algebraic) |
-| 8 model geometries | 3-dim Lie-group enumeration with compact isotropy |
-| $\pi_1 = 1$ ⟹ $S^3$ | maximal symmetry under trivial loop-residue |
+| Standard | 213-Lens | Lean status |
+|---|---|---|
+| $d_M \le 3$: DIFF = PL = TOP (Moise) | confinement: no K-deployment α_3-matches at chartBase=4 | `dim_spectrum_dM3_no_match` ✅ |
+| $d_M = 4$: $\mathbb{R}^4$ has $2^{\aleph_0}$ exotic | K_{3,2}^{(c=2)} UNIQUE α_3-match at chartBase=5 | `dim_spectrum_dM4_unique_match` ✅ |
+| $d_M \ge 5$: $\Theta_d$ finite abelian | no K-deployment α_3-matches at chartBase≥6 | `dim_spectrum_dM5/6_no_match` ✅ |
+| Ricci flow | chart-Lens coherentization flow at ε-readout | open (conjectural) |
+| JSJ tori | $\pi_1$-injective discrete skeleton (algebraic) | open (conjectural) |
+| 8 model geometries | 3-dim Lie-group enumeration with compact isotropy | open (conjectural) |
+| $\pi_1 = 1$ ⟹ $S^3$ | maximal symmetry under trivial loop-residue | open (conjectural) |
 
-The middle column is the *observation* (standard fact).  The right
-column is the *conjectural 213-Lens correspondence* under §4.1.
+The dim-spectrum rows are now **Lean-verified** (PURE) via
+`geometrization_spectrum_capstone`.  Standard-math regime split
+(confinement / critical / smearing) and 213-Lens cohomology-α_3
+deployment uniqueness both single out d_M=4 — empirical anchor
+for G121 §4.1.
+
+The other rows (Ricci flow / JSJ / 8 geometries / Poincaré) remain
+conjectural 213-Lens correspondences; they are not falsifier
+candidates yet, only narrative parallels.
 
 ## §6 Open knots — what must be derived
 
@@ -614,17 +621,40 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      ★★★★★ `G121_R1_master_capstone` upgraded to 4-route
      convergence: axiom-level shadow + deployment connectedness +
      atomicity-2 triangle iteration + cohomology-α_3 forcing.
+ 12. User redirects: "물리적 인터프리에이트가 최종목적이라기보단
+     기하화 추측의 머시기머시기를 하는게 목적" — physical
+     spacetime interpretation (M3 NT-axis split) is NOT the goal;
+     the goal is *Geometrization-conjecture itself*.  Refocus
+     onto manifold-dim spectrum.
+ 13. **Geometrization spectrum analysis** added (34 PURE total).
+     Invokes `WhyDimFive` to project 213-deployment cohomology
+     across d_M ∈ {3, 4, 5, 6}:
+       · d_M = 3 (chartBase=4): K_{2,2}, K_{3,1} — no α_3 match
+       · d_M = 4 (chartBase=5): K_{3,2}^{(c=2)} **UNIQUE**
+       · d_M = 5 (chartBase=6): K_{3,3}, K_{4,2} — no match
+       · d_M = 6 (chartBase=7): K_{4,3} — no match
+     ★★★ `geometrization_spectrum_capstone`: d_M=4 is the
+     **unique** critical dimension at which a 213 deployment
+     α_3-matches in tested chartBase∈{4..7} range.  Two spectra
+     (standard-math smooth-structure cardinality regime split +
+     213-Lens cohomology-α_3 deployment uniqueness) both single
+     out d_M=4 — convergence on the empirical anchor of G121
+     ansatz §4.1.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point**: (1) M3 close (time = remaining
-N_T axis split, c=2 binary cover analysis) — possible cohomology
-decomposition into 1 trivial + 2 std_S + 1 sgn_T under
-Sym(3) × Sym(2); (2) K_{NS,NT}^{(c)} M2 generalization to
-arbitrary (NS, NT, c) — abstract chart-Lens type or
-V32Betti-style files for additional deployments; (3) M4 (KK
-firewall) doc work.  See §6 + §7.
+**Next-session entry point** (geometrization-conjecture focused,
+not physics-interpretation focused — per user 2026-05-22):
+(1) extend dim-spectrum table to chartBase ∈ {8, 9, 10, ...} to
+confirm d_M=4 uniqueness scales — would require expanding
+`WhyDimFive` candidates; (2) 213-Lens reading of *8 model
+geometries* — does 3-dim Lie-group enumeration have a
+deployment-counting analogue in K-graph space?; (3) JSJ
+decomposition / Ricci flow correspondences as new Lean
+formalization candidates.  M3 (NT-axis split) and M4 (KK
+firewall) are downstream — only relevant if/when physics
+interpretation is reactivated.  See §6 + §7.
 
