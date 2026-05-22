@@ -100,4 +100,39 @@ example (digits_rest : Nat → ZpDigit 5)
           2 5 (by decide) h_gcd).inv = 3
   rfl
 
+/-! ## Level-1 inverse template
+
+The "template" inverse: digit 0 is `invDigit0`, all other digits 0.
+At level 1, this template multiplied by `x` truncates to `1 % p`
+— the base case of the full Hensel lift.
+-/
+
+/-- The level-1 inverse template: only digit 0 is set (to the
+    Bezout inverse); all higher digits are zero. -/
+def Zp.invTemplate (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) : ZpSeq p where
+  digits := fun k =>
+    if k = 0 then Zp.invDigit0 p hp x h_gcd else ⟨0, hp⟩
+
+/-- Digit-0 of the template equals `invDigit0`. -/
+theorem Zp.invTemplate_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ((Zp.invTemplate p hp x h_gcd).digits 0).val
+      = (Zp.invDigit0 p hp x h_gcd).val := by
+  show (if (0 : Nat) = 0 then Zp.invDigit0 p hp x h_gcd
+        else (⟨0, hp⟩ : Fin p)).val
+      = (Zp.invDigit0 p hp x h_gcd).val
+  rw [if_pos rfl]
+
+/-- Higher digits of the template are zero. -/
+theorem Zp.invTemplate_digit_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (k : Nat) :
+    ((Zp.invTemplate p hp x h_gcd).digits (k + 1)).val = 0 := by
+  show (if (k + 1 : Nat) = 0 then Zp.invDigit0 p hp x h_gcd
+        else (⟨0, hp⟩ : Fin p)).val = 0
+  rw [if_neg (fun h => Nat.noConfusion h)]
+
 end E213.Lib.Math.Padic
