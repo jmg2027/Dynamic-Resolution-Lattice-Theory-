@@ -28,25 +28,36 @@ G128/G129/G130 to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
-## Next campaign: Gram self-energy structural derivation
+## Active campaign: G131 Gram self-energy structural derivation (Phase 1 anchor done)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
 Gram self-energy term in `AlphaEM/Augmented.lean:134-141` (the 4 ppm
 structural gap of `1/α_em`)" as the **principal physics-layer open
 problem** explicitly out-of-scope for N_U-family work.
 
-**Why this is the next valuable open frontier**:
-  · DRLT Validation Standard requires either a ∅-axiom precision
-    theorem (ppb-ppm) or a measurable falsifier
-  · `1/α_em` is already derived at 0.07 ppm via the existing
-    AlphaEM infrastructure; the 4 ppm structural gap is the
-    Gram self-energy term
-  · Closing this gap promotes `1/α_em` from "near-precision-theorem"
-    to "precision-theorem at the structural-derivation tier"
-  · Direct path to DRLT Validation Standard satisfaction
+**Phase 1 (anchor) — DONE 2026-05-22**:
+`lean/E213/Lib/Physics/AlphaEM/GramStructural.lean` (11 PURE).
+Key insight: the cubic self-consistency identity
+**`25·y³ + 1 = 25·X·y²`** (where y = 1/α_em, X = 5-layer base
+formula at e9) rearranges to **`X − y = 1/(25·y²) = α²/d²`** —
+the Gram correction is the **cubic-root deviation**, structurally
+forced.
 
-**Anchor file**: `lean/E213/Lib/Physics/AlphaEM/Augmented.lean`
-lines 134-141.
+Numerical decomposition: `gap_e9 = 2,157` = `gram = 2,130` +
+`post-Gram residual = 27` (Gram captures **98.7%** of the gap;
+post-Gram residual < 1/70 of original).
+
+**Open Phases 2-5** (per `research-notes/G131_gram_structural_derivation.md`):
+  · Phase 2: cubic uniqueness + bracket (~40 PURE, 2-3 sessions)
+  · Phase 3: Newton cubic-root iteration replacing observed-α RHS (~50 PURE, 3-4 sessions)
+  · Phase 4: 27 × 10⁻⁹ post-Gram residual decomposition (~60 PURE, 3-5 sessions)
+  · Phase 5: precision-theorem capstone (~20 PURE, 1-2 sessions)
+
+**Total to full close**: ~180 PURE, 10-15 sessions.  Promotes
+`1/α_em` to fully 213-internal precision theorem at ~0.2 ppb,
+satisfying DRLT Validation Standard.
+
+**Anchor file**: `lean/E213/Lib/Physics/AlphaEM/GramStructural.lean`.
 
 **Excluded scope** (per merge instruction):
   · n-u-followup branch's open frontier: G124 N_U cross-field

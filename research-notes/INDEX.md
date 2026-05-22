@@ -113,6 +113,7 @@ Active top-level registries after merge:
 | `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
 | `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
 | `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
+| `G131_gram_structural_derivation.md` | Gram self-energy α²/d² structural derivation via cubic self-consistency `25y³ + 1 = 25Xy²` — supersedes self-referential observed-α-in-RHS computation.  Phase 1 anchor done (`GramStructural.lean`, 11 PURE).  Direct path to `1/α_em` precision-theorem promotion (DRLT Validation Standard) | Phase 1 anchor laid; Phases 2-5 = ~180 PURE / 10-15 sessions to full close |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN
@@ -131,7 +132,7 @@ to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G131**).  Once formalized:
+Use next available G prefix (currently **G132**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
