@@ -1225,4 +1225,64 @@ theorem Zp.sqr_sqrtSeq_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
       (ZpSeq.trunc_lt_p_pow hp' x (n + 2))
       h_aa_K h_a_mod sb.two_d_0_inv_eq rfl h_d
 
+/-! ## The full square root `sqrtFull`
+
+Diagonal extraction: `sqrtFull.digits k := (sqrtSeq k).digits k`,
+collecting the "settled" digit at each position into a single
+`ZpSeq`.  This is the true p-adic square root of `x`.
+-/
+
+/-- Digit stability: `(sqrtSeq n).digits j = (sqrtSeq j).digits j`
+    for `j ≤ n` — higher-level approximations preserve lower digits. -/
+theorem Zp.sqrtSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ∀ n j, j ≤ n →
+      (Zp.sqrtSeq p hp x sb n).digits j = (Zp.sqrtSeq p hp x sb j).digits j
+  | 0, j, h => by
+    have hj : j = 0 := Nat.le_zero.mp h
+    rw [hj]
+  | n + 1, j, h => by
+    cases hcase : Nat.decEq j (n + 1) with
+    | isTrue heq => rw [heq]
+    | isFalse hne =>
+      have hjle_n : j ≤ n :=
+        Nat.le_of_lt_succ (Nat.lt_of_le_of_ne h hne)
+      rw [Zp.sqrtSeq_succ_digit_below p hp x sb n j hne]
+      exact Zp.sqrtSeq_digit_stable p hp x sb n j hjle_n
+
+/-- The full sqrt `ZpSeq p`: extract each "settled" digit. -/
+def Zp.sqrtFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) : ZpSeq p where
+  digits := fun k => (Zp.sqrtSeq p hp x sb k).digits k
+
+/-- `sqrtFull.trunc (n+1) = (sqrtSeq n).trunc (n+1)` — at level n+1,
+    sqrtFull's truncation matches the level-n approximation. -/
+theorem Zp.sqrtFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ∀ n, (Zp.sqrtFull p hp x sb).trunc (n + 1)
+          = (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+  | 0 => rfl
+  | n + 1 => by
+    have ih : (Zp.sqrtFull p hp x sb).trunc (n + 1)
+              = (Zp.sqrtSeq p hp x sb n).trunc (n + 1) :=
+      Zp.sqrtFull_trunc_succ p hp x sb n
+    show (Zp.sqrtFull p hp x sb).trunc (n + 1)
+          + ((Zp.sqrtFull p hp x sb).digits (n + 1)).val * p^(n + 1)
+        = (Zp.sqrtSeq p hp x sb (n + 1)).trunc (n + 1)
+          + ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val * p^(n + 1)
+    rw [ih]
+    rw [← Zp.sqrtSeq_succ_trunc_low p hp x sb n (n + 1) (Nat.le_refl _)]
+    rfl
+
+/-- **Full Hensel sqrt correctness**: `sqrtFull² ≡ x (mod p^(n+1))`
+    for all `n`. -/
+theorem Zp.sqr_sqrtFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp)
+      (Zp.sqrtFull p (Nat.lt_of_succ_lt hp) x sb)
+      (Zp.sqrtFull p (Nat.lt_of_succ_lt hp) x sb)).trunc (n + 1)
+      = x.trunc (n + 1) := by
+  rw [Zp.mul_trunc, Zp.sqrtFull_trunc_succ, ← Zp.mul_trunc]
+  exact Zp.sqr_sqrtSeq_correct p hp x sb n
+
 end E213.Lib.Math.Padic
