@@ -48,7 +48,7 @@ Currently still open:
 | **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
 | **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
-### B+. G123 N_U-family theory — Phase 1-4 + 7 DONE
+### B+. G123 N_U-family theory — Phase 1-5 + 7 DONE
 
 Successor to G120.  G120 demoted `N_U` to `configCount 2` and
 opened the **level** `n` as a parametric axis; G123 promotes the
@@ -67,9 +67,11 @@ lens.
     with 213-native `pow_add_pure` / `pow_mul_pure` helpers
     (no `rw [Nat.pow_mul]` which brought `propext`).
   · Phase 3: `configCountD_pos`, `configCountD_mono_n`,
-    `configCountD_diagonal`.  Monotonicity-in-`d`
-    (`configCountD_mono_d`) deferred — needs additional pow
-    helpers.
+    `configCountD_mono_d`, `configCountD_diagonal`.  Three
+    additional 213-native power helpers (`pow_le_pow_base`,
+    `pow_le_succ`, `pow_le_pow_exp`) added inline; mono_d uses
+    a 3-step chain through `d^(e^n)` (base monotonicity →
+    exponent monotonicity → base monotonicity).
   · Phase 4: additive physics-layer hooks added to
     `Physics/Foundations/NResolutionFromFractal.lean`
     (`n_resolution_candidateD`, `n_resolution_candidate_eq`,
@@ -78,6 +80,13 @@ lens.
     (`K_b_sq_coloring_count_eq` — `rfl` bridge,
     `K25_coloring_count_eq_configCountD`).  No migration of
     consumer literals.
+  · Phase 5: concrete `decide`-checked modular table in new
+    file `Lib/Math/Cohomology/Fractal/ConfigCountModular.lean`
+    — `configCountD 5 n % p` per-prime for `p ∈ {2, 3, 7, 11,
+    13}` and `n ∈ {0, 1, 2}`; cross-base level-2 sample at
+    `p = 7`; capstone `configCountD_5_2_mod_table`.  Parametric
+    eventual-periodicity statement (consumes
+    `UniversalFLT.flt_main`) deferred — see "Still open" below.
   · Phase 6: `lake build` clean end-to-end;
     `scan_axioms.py` PURE on every new theorem (17 / 0 on
     ConfigCount; 9 / 0 on NResolutionFromFractal; 7 / 0 on
@@ -88,12 +97,13 @@ lens.
     `theory/math/cohomology/fractal.md` expanded from stub.
 
 **Still open**:
-  · Phase 3 — `configCountD_mono_d` (monotonicity in `d`).
-    Needs pow-base-monotonicity helper.  ~ 1-2 hr.
-  · Phase 5 — modular reduction
-    (`configCountD_mod_prime`, `configCountD_mod_prime_eventually_periodic`).
-    Stretch phase; consumes `UniversalFLT.FLTMain` chain.
-    ~ 4-8 hr.
+  · Phase 5 — **parametric** modular reduction
+    (`configCountD_mod_prime : (a^k) % p = (a^(k % (p-1))) % p`
+    for `gcd(a, p) = 1` and `1 < p`).  Consumes
+    `UniversalFLT.flt_main` + a Nat-pow modular-reduction
+    lemma (`a^(qm + r) % p = ((a^m)^q * a^r) % p` style).
+    ~ 4-6 hr.  The concrete decide-checked table is in place;
+    the parametric statement remains as the next deepening.
   · Downstream physics — structural derivation of the Gram
     self-energy term in `AlphaEM/Augmented.lean:134-141`
     (the 4 ppm structural gap of `1/α_em`).  Out of scope for

@@ -88,6 +88,32 @@ private theorem le_self_pow_pure : ∀ (m d : Nat), 1 ≤ m → 1 ≤ d → m �
       -- Replace the `1 * m` on the LHS with `m` via explicit motive.
       exact @Eq.subst Nat (fun x => x ≤ m^k * m) (1 * m) m (Nat.one_mul m) step
 
+/-- `a ≤ b → a^k ≤ b^k`.  Base monotonicity of `Nat.pow`, proved by
+    structural recursion on `k` with `Nat.mul_le_mul`. -/
+private theorem pow_le_pow_base : ∀ (a b k : Nat), a ≤ b → a^k ≤ b^k
+  | _, _, 0,     _ => Nat.le.refl
+  | a, b, k + 1, h => by
+      show a^k * a ≤ b^k * b
+      have ih : a^k ≤ b^k := pow_le_pow_base a b k h
+      exact Nat.mul_le_mul ih h
+
+/-- `a^k ≤ a^(k+1)` for `1 ≤ a`.  Single-step monotonicity in the
+    exponent, used as the inductive step of `pow_le_pow_exp`. -/
+private theorem pow_le_succ (a : Nat) (h : 1 ≤ a) (k : Nat) :
+    a^k ≤ a^(k+1) := by
+  show a^k ≤ a^k * a
+  have hle : a^k * 1 ≤ a^k * a := Nat.mul_le_mul_left (a^k) h
+  exact @Eq.subst Nat (fun x => x ≤ a^k * a) (a^k * 1) (a^k) (Nat.mul_one (a^k)) hle
+
+/-- `m ≤ n → 1 ≤ a → a^m ≤ a^n`.  Exponent monotonicity, by
+    induction on the `Nat.le` proof. -/
+private theorem pow_le_pow_exp (a : Nat) (h : 1 ≤ a) {m : Nat} :
+    ∀ {n : Nat}, m ≤ n → a^m ≤ a^n := by
+  intro n hmn
+  induction hmn with
+  | refl       => exact Nat.le.refl
+  | step _ ih  => exact Nat.le_trans ih (pow_le_succ a h _)
+
 /-- Parametric count-Lens readout: configurations of a level-`n`
     fractal complex with `d^n` vertices, each carrying `d` states. -/
 def configCountD (d n : Nat) : Nat := d ^ (d ^ n)
@@ -172,6 +198,21 @@ theorem configCountD_mono_n (d n : Nat) (h : 1 ≤ d) :
   have hself : configCountD d n ≤ (configCountD d n) ^ d :=
     le_self_pow_pure (configCountD d n) d hpos h
   exact hsucc.symm ▸ hself
+
+/-- Monotonicity in `d`: increasing the base (with both bases at
+    least one) never decreases the count.  Two-step chain through
+    `d^(e^n)`: first exponent monotonicity (`pow_le_pow_exp`), then
+    base monotonicity (`pow_le_pow_base`). -/
+theorem configCountD_mono_d (d e n : Nat) (hd : 1 ≤ d) (h : d ≤ e) :
+    configCountD d n ≤ configCountD e n := by
+  show d ^ (d ^ n) ≤ e ^ (e ^ n)
+  -- Step 1: `d^n ≤ e^n` by base monotonicity.
+  have h1 : d ^ n ≤ e ^ n := pow_le_pow_base d e n h
+  -- Step 2: `d^(d^n) ≤ d^(e^n)` by exponent monotonicity (needs `1 ≤ d`).
+  have h2 : d ^ (d ^ n) ≤ d ^ (e ^ n) := pow_le_pow_exp d hd h1
+  -- Step 3: `d^(e^n) ≤ e^(e^n)` by base monotonicity again.
+  have h3 : d ^ (e ^ n) ≤ e ^ (e ^ n) := pow_le_pow_base d e (e ^ n) h
+  exact Nat.le_trans h2 h3
 
 /-! ## Concrete per-`d` values at `n = 2` (decide-checked) -/
 

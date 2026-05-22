@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Fractal.AlphaGUT
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
+import E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
 import E213.Lib.Math.Cohomology.Fractal.Level
 import E213.Lib.Math.Cohomology.Fractal.V25
 
@@ -23,6 +24,9 @@ import E213.Lib.Math.Cohomology.Fractal.V25
                        `configCountD (d n : Nat) := d^(d^n)`,
                        with `configCount` the `d = 5` alias
                        (clean recursion, monotonicity, per-d table)
+    * `ConfigCountModular` — `configCountD d n % p` per-prime
+                       decide-checked table (d = 5, small p)
+                       + cross-base level-2 sample at p = 7
     * `V25`          — `5²⁵` enumeration witness at level 2
     * `AlphaGUT`     — `α_GUT = 6/(25π²)` as the level-2 fractal
                        cardinality ratio
