@@ -47,7 +47,7 @@ recursion on the exponent, using only `Eq.subst` (`▸`) and
 `mul_assoc` from `NatHelper`. -/
 
 /-- `a^(n + k) = a^n * a^k`.  Structural recursion on `k`. -/
-private theorem pow_add_pure : ∀ (a n k : Nat), a^(n + k) = a^n * a^k
+theorem pow_add_pure : ∀ (a n k : Nat), a^(n + k) = a^n * a^k
   | _, _, 0     => (Nat.mul_one _).symm
   | a, n, k + 1 => by
       show a^(n + k) * a = a^n * (a^k * a)
@@ -57,7 +57,7 @@ private theorem pow_add_pure : ∀ (a n k : Nat), a^(n + k) = a^n * a^k
       exact h1.trans h2
 
 /-- `a^(m * k) = (a^m)^k`.  Structural recursion on `k`. -/
-private theorem pow_mul_pure : ∀ (a m k : Nat), a^(m * k) = (a^m)^k
+theorem pow_mul_pure : ∀ (a m k : Nat), a^(m * k) = (a^m)^k
   | _, _, 0     => rfl
   | a, m, k + 1 => by
       show a^(m * k + m) = (a^m)^k * a^m

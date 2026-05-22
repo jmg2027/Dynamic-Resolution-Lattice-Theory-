@@ -48,7 +48,7 @@ Currently still open:
 | **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
 | **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
-### B+. G123 N_U-family theory — Phase 1-5 + 7 DONE
+### B+. G123 N_U-family theory — ALL PHASES CLOSED
 
 Successor to G120.  G120 demoted `N_U` to `configCount 2` and
 opened the **level** `n` as a parametric axis; G123 promotes the
@@ -80,13 +80,30 @@ lens.
     (`K_b_sq_coloring_count_eq` — `rfl` bridge,
     `K25_coloring_count_eq_configCountD`).  No migration of
     consumer literals.
-  · Phase 5: concrete `decide`-checked modular table in new
-    file `Lib/Math/Cohomology/Fractal/ConfigCountModular.lean`
-    — `configCountD 5 n % p` per-prime for `p ∈ {2, 3, 7, 11,
-    13}` and `n ∈ {0, 1, 2}`; cross-base level-2 sample at
-    `p = 7`; capstone `configCountD_5_2_mod_table`.  Parametric
-    eventual-periodicity statement (consumes
-    `UniversalFLT.flt_main`) deferred — see "Still open" below.
+  · Phase 5: full modular-reduction story in
+    `Lib/Math/Cohomology/Fractal/ConfigCountModular.lean`.
+    - Concrete `decide`-checked table for
+      `configCountD 5 n % p` at `p ∈ {2, 3, 7, 11, 13}`,
+      `n ∈ {0, 1, 2}` + cross-base level-2 sample at `p = 7`.
+    - **Parametric Fermat-style reduction**:
+      `pow_mod_period_pure (a p : Nat) (h_flt : a^(p-1) % p
+                          = 1 % p) (k : Nat)
+        : a^k % p = a^(k % (p-1)) % p`
+      proved 213-native using `pow_add_pure`, `pow_mul_pure`,
+      `mul_mod_pure`, `div_add_mod`.
+    - Corollary on the family:
+      `configCountD_mod_pure d p h_flt n
+        : configCountD d n % p = d^((d^n) % (p-1)) % p`.
+    - FLT-instantiated smoke at `(d, p) = (5, 7)`:
+      `configCountD_5_mod_7 n
+        : configCountD 5 n % 7 = 5^((5^n) % 6) % 7`,
+      composed via `UniversalFLT.universal_flt_main` +
+      `prime_gcd_7`.
+    - The previously-private `pow_add_pure` /
+      `pow_mul_pure` helpers in
+      `Lib/Math/Cohomology/Fractal/ConfigCount.lean` were
+      promoted to `theorem` (no longer `private`) so the
+      parametric reduction can reuse them.
   · Phase 6: `lake build` clean end-to-end;
     `scan_axioms.py` PURE on every new theorem (17 / 0 on
     ConfigCount; 9 / 0 on NResolutionFromFractal; 7 / 0 on
@@ -96,19 +113,21 @@ lens.
     `catalogs/atomic-integers.md` ConfigCount-family section,
     `theory/math/cohomology/fractal.md` expanded from stub.
 
-**Still open**:
-  · Phase 5 — **parametric** modular reduction
-    (`configCountD_mod_prime : (a^k) % p = (a^(k % (p-1))) % p`
-    for `gcd(a, p) = 1` and `1 < p`).  Consumes
-    `UniversalFLT.flt_main` + a Nat-pow modular-reduction
-    lemma (`a^(qm + r) % p = ((a^m)^q * a^r) % p` style).
-    ~ 4-6 hr.  The concrete decide-checked table is in place;
-    the parametric statement remains as the next deepening.
-  · Downstream physics — structural derivation of the Gram
-    self-energy term in `AlphaEM/Augmented.lean:134-141`
-    (the 4 ppm structural gap of `1/α_em`).  Out of scope for
-    N_U-family work; logged as the principal physics-layer open
-    problem.
+**Still open (downstream — out of N_U-family scope)**:
+  · Structural derivation of the Gram self-energy term in
+    `AlphaEM/Augmented.lean:134-141` (the 4 ppm structural gap
+    of `1/α_em`).  Out of scope for N_U-family work; logged as
+    the principal physics-layer open problem.
+  · Eventual-periodicity capstone: building on
+    `configCountD_mod_pure` and the per-prime smokes (e.g.
+    `configCountD_5_mod_7`), one can articulate
+    `n ↦ configCountD d n % p` is eventually periodic with
+    period dividing `ord_{p-1}(d)`.  The arithmetic is
+    available; the structural-period statement is a small
+    additive marathon.
+
+**Repo-wide audit**: 585 PURE / 0 DIRTY (post-all-phases scan).
+`lake build` clean.
 
 **Anchor commit (Phase 1-4)**: `224f417f` —
 `Lib/Math/Cohomology/Fractal/ConfigCount: 2-parameter family +
