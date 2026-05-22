@@ -1,7 +1,8 @@
 # G131 — Gram self-energy structural derivation
 
 **Date**: 2026-05-22
-**Status**: ANCHOR (Phase 1 of structural-close marathon)
+**Status**: **PHASES 1-3 CLOSED** (Newton-1 structural Gram derivation
+matches observed-based at e9 precision; self-referentiality removed)
 **Branch**: `claude/g121-open-followup-BCOp3`
 **Source**: post-merge HANDOFF, identified as "principal
 physics-layer open problem" from n-u-followup branch
@@ -120,17 +121,36 @@ Once Phase 2-4 close, `1/α_em` becomes a fully 213-internal
 precision theorem at the 27 × 10⁻⁹ ≈ 0.2 ppb level — satisfying
 DRLT Validation Standard.
 
-## Estimated scope
+## Estimated scope (vs actual)
 
-| Phase | Content | PURE est. | Sessions est. |
-|---|---|---|---|
-| 1 | Anchor (THIS) | 11 (done) | 1 (done) |
-| 2 | Cubic uniqueness + bracket | ~40 | 2-3 |
-| 3 | Newton cubic-root iteration | ~50 | 3-4 |
-| 4 | Post-Gram 27 × 10⁻⁹ resolution | ~60 | 3-5 |
-| 5 | Precision-theorem capstone | ~20 | 1-2 |
+| Phase | Content | PURE est. | Sessions est. | Actual |
+|---|---|---|---|---|
+| 1 | Anchor (`GramStructural.lean`) | 11 | 1 | **DONE** 2026-05-22 (11 PURE) |
+| 2 | Cubic uniqueness + bracket (`GramStructuralBracket.lean`) | ~40 | 2-3 | **DONE** 2026-05-22 (14 PURE, width-2 bracket on cubic root) |
+| 3 | Newton cubic-root iteration (`GramStructuralNewton.lean`) | ~50 | 3-4 | **DONE** 2026-05-22 (10 PURE, exact match at e9 precision) |
+| 4 | Post-Gram 27 × 10⁻⁹ resolution | ~60 | 3-5 | open |
+| 5 | Precision-theorem capstone | ~20 | 1-2 | open |
 
-**Total to full close**: ~180 PURE, 10-15 sessions.
+**Closed-so-far**: 35 PURE / 3 files / 1 session.  Faster than
+estimate because Newton-1 step turns out to match observed-based
+at e9 precision exactly (X² ≈ observed² at this scale).
+
+**Remaining to full close**: ~80 PURE, 4-7 sessions for Phases 4-5.
+
+## Phase 3 headline result (2026-05-22)
+
+Newton iteration on cubic `f(y) = 25y³ + 10²⁷ − 25Xy²` starting
+from `y₀ = X = alphaInv_213_e9`:
+
+  · Newton step: `y₁ = X − f(X)/f'(X) = X − 10²⁷/(25X²)`
+  · Structural Gram = `X − y₁ = 10²⁷/(25X²) = 2130` at e9
+  · **Exact match** with observed-based Gram correction at e9
+  · Structural prediction: `1/α_em × 10⁹ = 137,035,999,111`
+  · Residual to CODATA: **27 × 10⁻⁹ ≈ 0.2 ppb**
+
+The self-referentiality (observed-α-in-RHS) is **removed without
+numerical loss**.  Structural derivation now matches observed-based
+post-Gram residual exactly.
 
 ## Connection to existing infrastructure
 

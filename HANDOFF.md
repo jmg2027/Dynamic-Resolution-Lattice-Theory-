@@ -28,7 +28,7 @@ G128/G129/G130 to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
-## Active campaign: G131 Gram self-energy structural derivation (Phase 1 anchor done)
+## Active campaign: G131 Gram self-energy structural derivation (Phases 1-3 done)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
 Gram self-energy term in `AlphaEM/Augmented.lean:134-141` (the 4 ppm
@@ -36,28 +36,40 @@ structural gap of `1/α_em`)" as the **principal physics-layer open
 problem** explicitly out-of-scope for N_U-family work.
 
 **Phase 1 (anchor) — DONE 2026-05-22**:
-`lean/E213/Lib/Physics/AlphaEM/GramStructural.lean` (11 PURE).
-Key insight: the cubic self-consistency identity
-**`25·y³ + 1 = 25·X·y²`** (where y = 1/α_em, X = 5-layer base
-formula at e9) rearranges to **`X − y = 1/(25·y²) = α²/d²`** —
-the Gram correction is the **cubic-root deviation**, structurally
-forced.
+`GramStructural.lean` (11 PURE).  Key insight: the cubic
+self-consistency identity **`25·y³ + 1 = 25·X·y²`** rearranges
+to **`X − y = 1/(25·y²) = α²/d²`** — the Gram correction is the
+**cubic-root deviation**, structurally forced.
 
 Numerical decomposition: `gap_e9 = 2,157` = `gram = 2,130` +
-`post-Gram residual = 27` (Gram captures **98.7%** of the gap;
-post-Gram residual < 1/70 of original).
+`post-Gram residual = 27`.
 
-**Open Phases 2-5** (per `research-notes/G131_gram_structural_derivation.md`):
-  · Phase 2: cubic uniqueness + bracket (~40 PURE, 2-3 sessions)
-  · Phase 3: Newton cubic-root iteration replacing observed-α RHS (~50 PURE, 3-4 sessions)
+**Phase 2 (cubic bracket) — DONE 2026-05-22**:
+`GramStructuralBracket.lean` (14 PURE).  Cubic root located in
+width-2 bracket `(X − 2131, X − 2129)`.  Cubic root at X − 2130
+matches `gram_correction_e9` exactly.  Observed CODATA = X − 2157
+sits 27 below cubic root (= post-Gram residual).
+
+**Phase 3 (Newton-from-X) — DONE 2026-05-22**:
+`GramStructuralNewton.lean` (10 PURE).  Newton-1 step from y₀ = X
+gives structural Gram = `10²⁷/(25X²) = 2130` — **exactly matches**
+observed-based at e9 precision.  Self-referentiality (observed-α
+in RHS) removed without numerical loss.
+
+  · Structural prediction: `1/α_em × 10⁹ = 137,035,999,111`
+  · CODATA observed: `137,035,999,084`
+  · Residual: **27 × 10⁻⁹ ≈ 0.2 ppb** (post-Gram, next-order target)
+
+**Open Phases 4-5**:
   · Phase 4: 27 × 10⁻⁹ post-Gram residual decomposition (~60 PURE, 3-5 sessions)
   · Phase 5: precision-theorem capstone (~20 PURE, 1-2 sessions)
 
-**Total to full close**: ~180 PURE, 10-15 sessions.  Promotes
-`1/α_em` to fully 213-internal precision theorem at ~0.2 ppb,
-satisfying DRLT Validation Standard.
+**Closed so far**: 35 PURE / 3 files / 1 session (vs original
+estimate of ~100 PURE / 6-7 sessions — Newton-1 turned out to
+match observed-based at e9 exactly, no further iteration needed
+at this precision).
 
-**Anchor file**: `lean/E213/Lib/Physics/AlphaEM/GramStructural.lean`.
+**Remaining to full close**: ~80 PURE, 4-7 sessions.
 
 **Excluded scope** (per merge instruction):
   · n-u-followup branch's open frontier: G124 N_U cross-field
