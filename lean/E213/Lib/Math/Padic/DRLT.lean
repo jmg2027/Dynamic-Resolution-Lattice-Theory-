@@ -38,4 +38,22 @@ theorem canonical_5adic_NU_digit_0 :
 theorem canonical_5adic_NU_digit_1 :
     (canonical_5adic_NU.digits 1).val = 0 := rfl
 
+/-- PURE `n / n = 1` for `0 < n`. -/
+private theorem nat_div_self (n : Nat) (hn : 0 < n) : n / n = 1 := by
+  rw [Nat.div_eq, if_pos ⟨hn, Nat.le_refl n⟩, Nat.sub_self, Nat.zero_div]
+
+/-- Digit-25 of `5^25` in base 5 is `1` — the leading digit
+    in the canonical representation `5^25 = 1·5^25`. -/
+theorem canonical_5adic_NU_digit_25 :
+    (canonical_5adic_NU.digits 25).val = 1 := by
+  show ((5 : Nat)^25 / 5^25) % 5 = 1
+  rw [nat_div_self (5^25) (by decide)]
+
+/-- Digit-26 of `5^25` in base 5 is `0` — beyond the leading digit. -/
+theorem canonical_5adic_NU_digit_26 :
+    (canonical_5adic_NU.digits 26).val = 0 := by
+  show ((5 : Nat)^25 / 5^26) % 5 = 0
+  -- 5^25 / 5^26 = 0 since 5^25 < 5^26.
+  rw [Nat.div_eq_of_lt (by decide : (5 : Nat)^25 < 5^26)]
+
 end E213.Lib.Math.Padic
