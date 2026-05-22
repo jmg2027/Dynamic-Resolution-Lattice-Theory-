@@ -100,15 +100,25 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 117 PURE / 0 DIRTY across 6 modules.**
+**Padic total: 153 PURE / 0 DIRTY across 6 modules.**
 
-  · `lean/E213/Lib/Math/Padic/Field.lean` — 5 PURE.  ℚ_p
-    localization scaffold: `QpSeq p` type, `QpSeq.ofZp` embedding
-    ℤ_p ↪ ℚ_p, canonical `zero`/`one`, definitional unfolds.
-  · `lean/E213/Lib/Math/Padic/DRLT.lean` — 4 PURE.  The 5-adic lift
-    of `N_U = 5^25` via `digits_of_nat` + digit-level smokes
-    (`canonical_5adic_NU.digits 0 = 0`, `canonical_5adic_NU.digits 1
-    = 0`).  Phase 6 starter.
+  · `lean/E213/Lib/Math/Padic/Field.lean` — full arithmetic
+    scaffold for ℚ_p: `QpSeq` type, embedding `ofZp`,
+    `QpSeq.mul` (multiplicative shift sum), `QpSeq.addAligned`
+    (same-shift addition), `QpSeq.add` (general — uses
+    `Zp.shiftLeft` to align), `QpSeq.neg` (numerator negation,
+    shift preserved).  Smokes for `1·1`, `-1` digit-0.
+  · `lean/E213/Lib/Math/Padic/Arith.lean` — extended with
+    `Zp.shiftLeft` (multiplication by p^k) + structural identities
+    `shiftLeft_trunc_below` (zero below threshold),
+    `shiftLeft_trunc_above` (factors as p^k · x.trunc n above),
+    `add_neg_one_one_trunc_succ` (truncation cancellation), plus
+    full `mul_trunc` ring-quotient theorem for the special cases
+    where one operand is `zero` or `one` (left/right, all n).
+  · `lean/E213/Lib/Math/Padic/DRLT.lean` — `canonical_5adic_NU`
+    digit smokes at positions 0, 1, 2, 24, 25, 26 — verifying the
+    expected base-5 pattern of `5^25` (zero everywhere except
+    position 25, where digit = 1).
 
 Closure log: `research-notes/G122_real213_padic_research_direction.md`
 (Phase 1 closure log + Phase 2 partial closure + updated phase
