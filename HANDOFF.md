@@ -62,11 +62,12 @@ Currently still open:
 
 **Phase 1 + Phase 2 (partial) closed this session.**
 
-  · `lean/E213/Lib/Math/Padic/Foundation.lean` — 16 PURE.
+  · `lean/E213/Lib/Math/Padic/Foundation.lean` — 17 PURE.
     `ZpDigit`, `ZpSeq`, `trunc`, `trunc_lt_p_pow`,
     `eq_mod_pn_iff_trunc`, `digits_of_nat` embedding + per-prime
-    smokes.
-  · `lean/E213/Lib/Math/Padic/Arith.lean` — 52 PURE.
+    smokes; `trunc_neg_one_succ` (structural identity
+    `(neg_one).trunc n + 1 = p^n`).
+  · `lean/E213/Lib/Math/Padic/Arith.lean` — 61 PURE.
     Addition layer: `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq`
     (structural identity), `Zp.add_trunc` (ring-quotient theorem
     `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`),
@@ -83,15 +84,23 @@ Currently still open:
     sum + `Zp.mulSumRaw_eq_trunc` structural identity +
     `Zp.mulSumRaw_mod_eq_trunc` mod corollary) DONE; step 2
     (`Zp.colSum` / `Zp.bilinSum` + closed forms `Zp.colSum_eq` /
-    `Zp.bilinSum_eq`) DONE.  Step 3 (bridge
-    `bilinSum n n % p^n = mulSumRaw n % p^n`) PENDING — analysis
-    + plan recorded in `research-notes/G122_*.md`.
+    `Zp.bilinSum_eq`) DONE; concrete bridge cases `Zp.mul_trunc_one`,
+    `Zp.mul_trunc_two` DONE.  Step 3 (general bridge
+    `bilinSum n n % p^n = mulSumRaw n % p^n` for all n) PENDING —
+    analysis + plan recorded in `research-notes/G122_*.md`.
+    Trunc-level identity laws: `Zp.mul_one_{left,right}_trunc`,
+    `Zp.mul_zero_{left,right}_trunc`, `Zp.add_zero_{left,right}_trunc`,
+    `Zp.add_comm_trunc`.
+  · `lean/E213/Lib/Math/Padic/Hensel.lean` — 3 PURE.  Scaffolding
+    for Hensel-lifted inverse: `Zp.unit0` predicate (digit-0
+    nonzero, necessary condition for invertibility in ℤ_p) +
+    smokes for `one`/`zero`.
   · `lean/E213/Lib/Math/Padic/Norm.lean` — 9 PURE.
     `Zp.valAtLeast`, `Zp.valAtLeast_mono`, `Zp.valAtLeast_iff_trunc`,
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 93 PURE / 0 DIRTY across 3 modules.**
+**Padic total: 106 PURE / 0 DIRTY across 4 modules.**
 
 Closure log: `research-notes/G122_real213_padic_research_direction.md`
 (Phase 1 closure log + Phase 2 partial closure + updated phase
