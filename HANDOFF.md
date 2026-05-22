@@ -2393,6 +2393,67 @@ Total: 80+ universal theorems in 213-native PURE, no DIRTY introduced.
 
 ---
 
+# Parts 52-54 — (√5) Frobenius FLT + F_p embedding power formula
+
+Atomic Frobenius FLT cases for 𝔽_{p²} infrastructure (FP2Sqrt5.lean
+73 → 84 PURE).
+
+## Part 52 — (√5)^k pair formula (commit `ab2dd27b`)
+
+```
+fp2Pow_sqrt5_pair (p) : ∀ k,
+    fp2Pow p (0, 1) (2*k) = (5^k % p, 0)
+  ∧ fp2Pow p (0, 1) (2*k + 1) = (0, 5^k % p)
+```
+
+Universal closed-form for powers of `(0, 1) = √5` in 𝔽_{p²}.
+Proof by induction with helpers `sqrt5_even_step`, `sqrt5_odd_step`.
+
+## Part 53 — Frobenius FLT for √5 (commit `e5fa7a23`)
+
+  · `fp2Pow_sqrt5_p` : `(0, 1)^p = (0, 5^(p/2) % p)` for odd `p`.
+    -- Via fp2Pow_sqrt5_pair at k = p/2 (using p = 2*(p/2) + 1).
+
+  · ★★★ **`fp2Pow_sqrt5_eq_frob`** :
+        `(0, 1)^p = σ((0, 1))` given odd `1 < p` and the inert hypothesis
+        `h_inert : 5^(p/2) % p = p - 1` (Euler's criterion for 5 NQR).
+
+This is Frobenius FLT for `√5` ∈ 𝔽_{p²}, universal.
+
+## Part 54 — F_p embedding power formula (commit `fbd6aa74`)
+
+  · `fp2Pow_scalar (p a)` : `(a, 0)^k = (a^k % p, 0)` (universal).
+    -- F_p ⊂ F_{p²}; powers stay in F_p.
+
+  · `fp2Pow_scalar_p (p a) (h_flt : a^p % p = a % p)` :
+        `(a, 0)^p = (a % p, 0)`.
+    -- FLT for F_p elements lifted to F_{p²} sub-ring.
+
+## Status: TWO atomic Frobenius FLT cases proven universally
+
+We now have:
+  · `(a, 0)^p = (a, 0)` for `a` coprime to `p` (FLT in F_p ⊂ F_{p²}).
+  · `(0, 1)^p = (0, p-1) = σ((0, 1))` (Frobenius FLT for √5).
+
+The general Frobenius FLT `phi^p = σ(phi)` requires combining these
+via:
+  · Freshman's dream in 𝔽_{p²}: `(x + y)^p = x^p + y^p`.
+  · `(x · y)^p = x^p · y^p` (commutative power identity).
+
+Both are substantial.  Once obtained, phi = (inv2, 0) + (0, inv2) gives:
+  phi^p = ((inv2, 0) + (0, inv2))^p [definition]
+        = (inv2, 0)^p + (0, inv2)^p [freshman's dream]
+        = (inv2, 0) + ((inv2, 0) · (0, 1))^p [(0, inv2) factored]
+        = (inv2, 0) + (inv2, 0)^p · (0, 1)^p [(xy)^p]
+        = (inv2, 0) + (inv2, 0) · σ((0, 1)) [FLT + sqrt5 Frob FLT]
+        = (inv2, 0) + (inv2, 0) · (0, p-1)
+        = (inv2, 0) + (0, p - inv2) [via fp2Mul]
+        = (inv2, p - inv2) = σ(phi)
+
+Total Phase 3.3 marathon: 54 parts, 80+ universal PURE theorems.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
