@@ -1,5 +1,6 @@
 import E213.Lib.Math.Padic.Arith
 import E213.Lib.Math.Padic.Norm
+import E213.Lib.Math.ModArith.ModBezoutInvariant
 import E213.Meta.Tactic.NatHelper
 /-!
 # Real213-p-adic Hensel scaffold
@@ -53,5 +54,50 @@ theorem Zp.not_unit0_zero {p : Nat} (hp : 0 < p) :
   show ¬ ((ZpSeq.zero p hp).digits 0).val ≠ 0
   show ¬ (0 ≠ 0)
   exact fun h => h rfl
+
+/-! ## Digit-0 inverse via Bezout
+
+Given `x : ZpSeq p` with `(x.digits 0).val` coprime to `p`
+(`gcd = 1`), the digit-0 of `x`'s inverse is the modular Bezout
+inverse: a `Fin p` satisfying `(x.digits 0).val · y₀ ≡ 1 (mod p)`.
+
+For prime `p`, `unit0 x` (digit-0 nonzero) is enough by Fermat;
+for general `p`, we need the explicit gcd-1 hypothesis.
+
+This is the base case of Hensel lifting for the multiplicative
+inverse construction.
+-/
+
+/-- The digit-0 of `x`'s inverse — the modular Bezout witness
+    for `(x.digits 0).val` mod `p`. -/
+def Zp.invDigit0 (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ZpDigit p :=
+  let mi := E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+              (x.digits 0).val p hp h_gcd
+  ⟨mi.inv, mi.inv_lt⟩
+
+/-- The digit-0 inverse satisfies the modular identity
+    `(x.digits 0).val · invDigit0 ≡ 1 (mod p)`. -/
+theorem Zp.invDigit0_eq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ((x.digits 0).val * (Zp.invDigit0 p hp x h_gcd).val) % p = 1 % p :=
+  (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+    (x.digits 0).val p hp h_gcd).inv_eq
+
+/-! ## Smoke applications -/
+
+/-- Smoke: for `x : ZpSeq 5` with digit-0 = 2, the inverse digit
+    is `3` (since `2 · 3 = 6 ≡ 1 (mod 5)`). -/
+example (digits_rest : Nat → ZpDigit 5)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout 2 5).1 = 1) :
+    (Zp.invDigit0 5 (by decide)
+      ⟨fun k => if k = 0 then ⟨2, by decide⟩ else digits_rest k⟩
+      h_gcd).val = 3 := by
+  show (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+          2 5 (by decide) h_gcd).inv = 3
+  rfl
 
 end E213.Lib.Math.Padic
