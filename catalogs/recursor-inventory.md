@@ -1,6 +1,6 @@
 # Recursor Inventory
 
-CAT-3 per `research-notes/G107_action_items_registry.md` §10.2.
+CAT-3 per `research-notes/archive/metascan/G107_action_items_registry.md` §10.2.
 
 Distilled from G105 §2 (`research-notes/G105_namespace_shape_and_full_recursor_inventory.md`).
 

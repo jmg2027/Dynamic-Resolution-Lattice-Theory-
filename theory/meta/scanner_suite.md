@@ -183,24 +183,45 @@ the reports in the archived G-notes.
 
 ## Open frontier
 
-The scanner suite itself is closed.  Open follow-up work is
-tracked in **action-items registry** (~14 OPEN items in
-§2-§5, ranked by mass × confidence / effort in §7).
+The scanner suite itself is closed.  The follow-on action items
+that the scanners surfaced have all been resolved:
 
-Mechanical (≤ 1 day each): N7 (Prism), N8/N9 (mul/add_left_comm
-adoption), Sub-2 (Tree macro), L2 (zero-rewrite alias).
+  · Mechanical abstractions land as small refactors in the Lean
+    source: the Pisano predictor `obtain`-destructure, the
+    bilateral LDD branch helpers, the CDDouble basis non-
+    commutativity witness via the derived `DecidableEq Lipschitz`,
+    `sigmaList` over `List` in `Meta.Tactic.ListHelper`, the
+    `DescentBase N` parametric for √N infinite descent, and the
+    `bool_or_ladder_iff_with_pack` composer in `BoolOrLadder`.
+  · Mid-marathons that initially looked open turned out to be
+    substantively closed already (4-sibling Leibniz collapse with
+    α / β parametric helpers + four thin corollaries; CutSumOne
+    3-component `cutSum_constCut_at` template + eight sibling
+    reductions; `mvt_cutPow_unitBracket_{forward,backward}_at`
+    flux-MVT parametric; the `pattern10_eq_at` /
+    `hodge_involution_pointwise_5` / `leibniz_pointwise_lift`
+    cohomology templates).
+  · Several scanner-surfaced clusters were determined to be
+    **structurally minimal** under further inspection — ring
+    extensionality `cases u; cases v; congr` is already two
+    lines, `conj_ne_id` picks a per-instance witness so a
+    parameterised helper is as verbose as the original,
+    Lipschitz `assoc_*` are pure `by decide` (no symbolic body
+    to abstract), FractalLevelZeta master theorems are
+    `refine ⟨...⟩ <;> decide` on ten-conjunct shape (already
+    maximally compact), and the Physics bracket-containment
+    proofs are `by decide` on Nat inequalities (the `decide`
+    *is* the proof).
+  · The remaining mass-reduction target — fully `(n, k, l)`-
+    general Leibniz lift — folds into the Cup-Leibniz open
+    in `research-notes/G86_self_referential_lex_cup_leibniz.md`.
 
-Mid-marathons (multiple sessions): L1 6-layer byte-identical
-extraction (~6.6M chars retired = 50% L1 mass), C (CutSumOne
-3-component).
-
-Smaller (1-3 days): L3 Pisano, L4 LDD, L5 CDDouble, M Raw.recAux
-pair, E sqrtN, F Σ-fold, Pell-FSM, ModArith.
-
-Theory documentation (§10): pattern #10-#13 drafts (4 patterns),
-4 catalogs, 4 standalone theory docs (highest value: TH-2
-Raw-derivation three levels — now closed as
-`theory/meta/raw_derivation_levels.md`), 4 navigation updates.
+Theory documentation lands alongside: a Raw-derivation
+three-level taxonomy (`theory/meta/raw_derivation_levels.md`),
+plus the four scanner-surfaced patterns (#10 adoption-gap
+detection, #11 triple-layer agreement, #12 three-level Raw
+derivation, #13 decide-finitism quantitative profile) absorbed
+into `LESSONS_LEARNED.md`.
 
 ## How to verify
 
@@ -222,6 +243,5 @@ non-sealed DIRTY citations.
 
 - ✅ `theory/meta/scanner_suite.md` (this chapter; scanner suite + findings)
 - ✅ `theory/meta/raw_derivation_levels.md` (Raw-derivation three-level taxonomy)
-- ✅ `research-notes/G107_action_items_registry.md` (active OPEN items)
-- ✅ archived G-notes for deep dives:
-  `research-notes/archive/metascan/G##_*.md`
+- ✅ `research-notes/archive/metascan/G107_action_items_registry.md` (closed 24-item registry)
+- ✅ sub-tree deep dives at `research-notes/archive/metascan/G##_*.md`

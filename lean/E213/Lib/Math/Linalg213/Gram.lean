@@ -1,4 +1,5 @@
 import E213.Lib.Math.Linalg213.Vector
+import E213.Meta.Tactic.ListHelper
 
 /-!
 # 213 Linear Algebra — Gram matrix Lens
@@ -23,12 +24,13 @@ Rank consequences appear when we add the linear-dependence reading
 namespace E213.Lib.Math.Linalg213.Gram
 
 open E213.Lib.Math.Linalg213.Vector
+open E213.Tactic.ListHelper (sigmaList)
 
 /-- Inner product (213-native): Σ vᵢ · wᵢ over ℕ, computed via
-    `List.range` for `decide`-friendliness. -/
+    `sigmaList` on `List.range n` for `decide`-friendliness. -/
 def Vec.inner {n : Nat} (v w : Vec n) : Nat :=
-  ((List.range n).map (fun i =>
-    if h : i < n then v ⟨i, h⟩ * w ⟨i, h⟩ else 0)).foldl (· + ·) 0
+  sigmaList (List.range n) (fun i =>
+    if h : i < n then v ⟨i, h⟩ * w ⟨i, h⟩ else 0)
 
 /-- Smoke: ⟨e_0, e_0⟩ = 1 in Vec 5. -/
 theorem inner_e0_e0 : Vec.inner e0_5 e0_5 = 1 := by decide

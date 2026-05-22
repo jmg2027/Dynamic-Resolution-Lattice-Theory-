@@ -28,25 +28,38 @@ Self-referential Leibniz for the lex-projection cup.  Empirically
 verified at two bidegrees; symbolic proof for general `(k, l, n)`
 deferred.  Source: `research-notes/G86_self_referential_leibniz.md`.
 
-### B. G107 action-items still-open (high-priority subset)
-Source: `research-notes/G107_action_items_registry.md` (§3-§5).
-Currently still open:
+### B. G107 §4 action-items registry — CLOSED (archived 2026-05-22)
 
-| Item | Notes |
-|---|---|
-| **L1 α-side** (full parametric) | β-side done; α-side blocked by `Nat.add` asymmetry — needs `Fin.cast` + Eq plumbing or per-`b` helpers |
-| **L3** Pisano Predictor 14/17 consolidation | Small marathon |
-| **L4** `addLDD` / `mulLDD` | Small |
-| **L5** `CDDouble.I_mul_J` / `J_mul_I` | Small |
-| **C** — CutSumOne 8-sibling 3-component template | Medium marathon |
-| **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
-| **F** — Σ-fold cross-domain | Adding `sigmaList` infra; small additive |
-| **G110 FLUX-1** forward/backward parametric | ~30K nodes |
-| **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
-| **G108 REAL-1/2** Cut iff consolidation | ~210K nodes |
-| **G114 CD-1/2/3** | CayleyDickson ring ext / conj (no consolidation possible per G118) |
-| **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
-| **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
+Every item in the 24-entry registry has a final disposition:
+
+  · **Executed in Lean this branch** (six): L3 Pisano `obtain`,
+    L4 LDD bilateral helpers, L5 CDDouble `by decide`, F
+    `sigmaList`, E `DescentBase` parametric √N descent,
+    REAL-1 / REAL-2 `bool_or_ladder_iff_with_pack` composer.
+  · **Substantively done at audit** (four): L1 4-sibling Leibniz
+    collapse, C CutSumOne 3-component template, G110 FLUX-1
+    parametric, G111 COH-1/2/3 universal templates.
+  · **Structurally infeasible per G118 verdict** (five): CD-1
+    (ext = 2-line `cases u; cases v; congr`), CD-2 (`conj_ne_id`
+    per-instance witness irreducible), CD-3 (Lipschitz `assoc_*`
+    are `by decide` with no body), PHYS-1 (FractalLevelZeta master
+    theorems are `refine ⟨...⟩ <;> decide` — already maximally
+    compact), PHYS-2 (bracket-containment is `by decide` on Nat —
+    the `decide` IS the proof).
+  · **Folded into G86** (one): L1 `(n, k, l)`-fully-general
+    Leibniz lift requires V5_2Decomp generalisation, joining the
+    self-referential Cup-Leibniz open in §A.
+  · **Narrative-complete / Lean-infeasible** (one): G117 Bishop
+    comparison.  `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption"
+    + `theory/math/analysis/minimal_root.md` + `Real213/Core/
+    AsLensOutput.lean` discharge the doctrinal claim.  Formal
+    equivalence would require importing an external Bishop API,
+    which sits outside the ∅-axiom contract per CLOSED_FORM_SPEC
+    §"Why the bridge is principled, not a gap".
+
+Closure index: `research-notes/archive/metascan/INDEX.md`
+(per-note disposition); narrative: `theory/meta/scanner_suite.md`
+§"Open frontier".
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
@@ -142,5 +155,5 @@ meaningful in DRLT is itself a research question.
 | `lean/E213/docs/PROMOTION_PATTERNS.md` | Three promotion patterns |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
 | `seed/META_SCAN_ARCHETYPES.md` | 11 scanner archetypes |
-| `research-notes/G107_action_items_registry.md` | Open action items |
+| `research-notes/archive/metascan/INDEX.md` | Closed action-items registry + per-note disposition |
 | `research-notes/G122_real213_padic_research_direction.md` | Next campaign |
