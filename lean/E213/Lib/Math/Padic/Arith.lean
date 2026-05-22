@@ -520,6 +520,51 @@ theorem Zp.mul_one_left_digit {p : Nat} (hp : 1 < p) (x : ZpSeq p) (k : Nat) :
   rw [Zp.mulRaw_one_left hp x k, Zp.mulCarry_one_left hp x k, Nat.add_zero]
   exact Nat.mod_eq_of_lt (x.digits k).isLt
 
+/-- `(1 · x).trunc n = x.trunc n` — the truncation-level identity
+    obtained from the per-digit `mul_one_left_digit` by induction. -/
+theorem Zp.mul_one_left_trunc {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).trunc n
+          = x.trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).trunc n
+          + ((Zp.mul p (Nat.lt_of_succ_lt hp) (ZpSeq.one p hp) x).digits n).val
+              * p^n
+        = x.trunc n + (x.digits n).val * p^n
+    rw [Zp.mul_one_left_trunc hp x n, Zp.mul_one_left_digit hp x n]
+
+/-- `(x · 1).trunc n = x.trunc n`. -/
+theorem Zp.mul_one_right_trunc {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).trunc n
+          = x.trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).trunc n
+          + ((Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).digits n).val
+              * p^n
+        = x.trunc n + (x.digits n).val * p^n
+    rw [Zp.mul_one_right_trunc hp x n, Zp.mul_one_right_digit hp x n]
+
+/-- `(x + 0).trunc n = x.trunc n`. -/
+theorem Zp.add_zero_right_trunc {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.add p hp x (ZpSeq.zero p hp)).trunc n = x.trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.add p hp x (ZpSeq.zero p hp)).trunc n
+          + ((Zp.add p hp x (ZpSeq.zero p hp)).digits n).val * p^n
+        = x.trunc n + (x.digits n).val * p^n
+    rw [Zp.add_zero_right_trunc hp x n, Zp.add_zero_right_digit p hp x n]
+
+/-- `(0 + x).trunc n = x.trunc n`. -/
+theorem Zp.add_zero_left_trunc {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.add p hp (ZpSeq.zero p hp) x).trunc n = x.trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.add p hp (ZpSeq.zero p hp) x).trunc n
+          + ((Zp.add p hp (ZpSeq.zero p hp) x).digits n).val * p^n
+        = x.trunc n + (x.digits n).val * p^n
+    rw [Zp.add_zero_left_trunc hp x n, Zp.add_zero_left_digit p hp x n]
+
 /-! ## Multiplication by zero on the left (`0 · x = 0`) -/
 
 /-- Partial sum with `zero` on the left vanishes (every term factor
@@ -559,6 +604,26 @@ theorem Zp.mul_zero_left_digit {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
   show (0 + 0) % p = 0
   rw [Nat.zero_add]
   exact E213.Tactic.NatHelper.zero_mod p
+
+/-- `(0 · x).trunc n = 0`. -/
+theorem Zp.mul_zero_left_trunc {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p hp (ZpSeq.zero p hp) x).trunc n = 0
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.mul p hp (ZpSeq.zero p hp) x).trunc n
+          + ((Zp.mul p hp (ZpSeq.zero p hp) x).digits n).val * p^n = 0
+    rw [Zp.mul_zero_left_trunc hp x n, Zp.mul_zero_left_digit hp x n,
+        Nat.zero_mul, Nat.add_zero]
+
+/-- `(x · 0).trunc n = 0`. -/
+theorem Zp.mul_zero_right_trunc {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p hp x (ZpSeq.zero p hp)).trunc n = 0
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.mul p hp x (ZpSeq.zero p hp)).trunc n
+          + ((Zp.mul p hp x (ZpSeq.zero p hp)).digits n).val * p^n = 0
+    rw [Zp.mul_zero_right_trunc hp x n, Zp.mul_zero_right_digit p hp x n,
+        Nat.zero_mul, Nat.add_zero]
 
 /-! ## Multiplicative truncation correctness at `n = 1`
 
