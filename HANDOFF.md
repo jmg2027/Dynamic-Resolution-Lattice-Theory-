@@ -1507,6 +1507,77 @@ Pell-Fib bridge but goes universal (not per-prime).
 
 ---
 
+# Part 24 — ψ infrastructure + generic Fibonacci-power theorem
+
+`Lib/Math/DyadicFSM/PsiMod5.lean` (new, 13 PURE):
+
+The "other" golden ratio mod p, satisfying the same `x² = x + 1`
+recurrence.  Plus a **generic** Fibonacci-power theorem that
+abstracts the φ-specific `phi_pow_eq_fibLike` over any element with
+this recurrence.
+
+  · ★ **`fibLike_pow`** (GENERIC) : `x² ≡ x + 1 mod p ⟹
+       x^k ≡ F_k · x + F_{k-1} mod p`.  Provides the same expansion
+       as `phi_pow_eq_fibLike` (Part 11) for ANY carrier `x` (not
+       just phi).
+  · `psi p s := ((1 + p) - s) · inv2 p mod p` — the "other" root.
+  · `psi_lt`, `psi_11_4`, `psi_19_9` (per-prime values).
+  · `psi_sq_11`, `psi_sq_19` (per-prime recurrence verification).
+  · `psi_pow_eq_fibLike_11`, `psi_pow_eq_fibLike_19` (Fib expansion
+    via generic theorem).
+  · φ-ψ relationships at p=11, p=19: `phi + psi ≡ 1 mod p`,
+    `phi ≡ psi + s mod p`.
+
+# Part 25 — Binet bridge: FLT(φ) + FLT(ψ) → `F_{p-1} ≡ 0 mod p`
+
+`Lib/Math/DyadicFSM/BinetBridge.lean` (new, 8 PURE):
+
+The classical Binet-style derivation that connects FLT for both φ
+and ψ to the Fibonacci-Pisano condition `F_{p-1} ≡ 0 mod p` for
+split primes.
+
+  · ★ `add_mod_eq_right_implies_zero` : `(X + Y) % p = Y % p ∧ 0 < p
+       ⟹ X % p = 0`.  Via `mod_diff_eq_zero_of_le` + `Nat.add_sub_cancel`
+       (PURE via `add_sub_cancel_right` from NatHelper).
+  · ★ `mul_mod_zero_cancel` : `(X · a) % p = 0 ∧ ModInverse p a
+       ⟹ X % p = 0`.  Multiplicative cancellation via explicit inverse.
+  · **`binet_F_p_minus_1_zero`** (★★★ BINET BRIDGE):
+       Given FLT for both φ and ψ (Fibonacci-expanded forms),
+       `phi ≡ psi + s mod p`, and `ModInverse p s`, conclude
+       `(fibFst (p-1)) % p = 0` (after universalising `F_{p-1}, F_{p-2}`
+       as `F1, F2` arguments).
+  · Per-prime smokes:
+       `F_10_zero_mod_11_via_binet` — F_10 ≡ 0 mod 11 via Binet.
+       `F_18_zero_mod_19_via_binet` — F_18 ≡ 0 mod 19 via Binet.
+       Both PURE-derived from FLT framework (Parts 11, 19, 22) +
+       Binet bridge.
+
+## What this buys
+
+The Binet bridge closes half of the Phase 3.2 Fibonacci-Pisano
+condition: `F_{p-1} ≡ 0 mod p` for split primes, GIVEN
+  · FLT for phi (Part 22, per-prime via decide)
+  · FLT for psi (per-prime via decide; could use same flt_main framework)
+  · The `phi ≡ psi + s mod p` relationship (decidable per-prime)
+  · ModInverse for s (decidable per-prime)
+
+Per-prime: all four hypotheses are PURE smokes via `decide`.
+Universal: needs universal FLT (Bezout for inverses, multi-session).
+
+The remaining piece for Phase 3.2 universal closure:
+  · `F_{p-3} ≡ -1 mod p`: similar Binet variant using
+    `phi^(p-3) = psi^2` and `psi^(p-3) = phi^2` (from phi·psi = -1).
+  · Combine both for `phase_3_2_closure` universal form.
+
+## Verification (post Part 25)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py PsiMod5`: 13 PURE / 0 DIRTY
+  · `scan_axioms.py BinetBridge`: 8 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
