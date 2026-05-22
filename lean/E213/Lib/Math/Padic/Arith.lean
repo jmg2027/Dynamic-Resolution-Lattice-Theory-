@@ -590,4 +590,59 @@ theorem Zp.mul_trunc_one (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
         = (x.digits 0).val * (y.digits 0).val % p
   rw [Nat.sub_zero, Nat.zero_add]
 
+/-! ## Structural identity for multiplication (analog of `add_trunc_eq`)
+
+The "raw-sum" `mulSumRaw x y n := Σ_{k<n} mulRaw k · p^k` is the
+formal sum of raw convolution values weighted by their digit
+positions, before applying any carry propagation.  The digit-carry
+FSM step `(mulRaw k + mulCarry k) = (mul.digits k) + mulCarry (k+1) · p`
+cascades to give the structural identity:
+
+    mulSumRaw x y n = (Zp.mul x y).trunc n + mulCarry n · p^n
+
+Proof is by induction on `n`; the step reuses `split_mul_pow`.
+-/
+
+/-- Partial sum `Σ_{k=0..n-1} mulRaw k · p^k`. -/
+def Zp.mulSumRaw (p : Nat) (x y : ZpSeq p) : Nat → Nat
+  | 0 => 0
+  | n + 1 => Zp.mulSumRaw p x y n + Zp.mulRaw p x y n * p^n
+
+/-- Structural identity: `mulSumRaw` equals truncation plus the
+    top-position carry contribution. -/
+theorem Zp.mulSumRaw_eq_trunc (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    ∀ n, Zp.mulSumRaw p x y n
+          = (Zp.mul p hp x y).trunc n + Zp.mulCarry p x y n * p^n
+  | 0 => by show (0 : Nat) = 0 + 0 * p^0; rfl
+  | n + 1 => by
+    have ih : Zp.mulSumRaw p x y n
+              = (Zp.mul p hp x y).trunc n + Zp.mulCarry p x y n * p^n :=
+      Zp.mulSumRaw_eq_trunc p hp x y n
+    have hpow : p^(n+1) = p^n * p := Nat.pow_succ p n
+    show Zp.mulSumRaw p x y n + Zp.mulRaw p x y n * p^n
+          = ((Zp.mul p hp x y).trunc n
+                + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n)
+              + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * p^(n+1)
+    calc Zp.mulSumRaw p x y n + Zp.mulRaw p x y n * p^n
+        = ((Zp.mul p hp x y).trunc n + Zp.mulCarry p x y n * p^n)
+            + Zp.mulRaw p x y n * p^n := by rw [ih]
+      _ = (Zp.mul p hp x y).trunc n
+            + (Zp.mulCarry p x y n + Zp.mulRaw p x y n) * p^n := by
+              rw [Nat.add_assoc, ← E213.Tactic.NatHelper.add_mul]
+      _ = (Zp.mul p hp x y).trunc n
+            + (Zp.mulRaw p x y n + Zp.mulCarry p x y n) * p^n := by
+              rw [Nat.add_comm (Zp.mulCarry p x y n) (Zp.mulRaw p x y n)]
+      _ = (Zp.mul p hp x y).trunc n
+            + (((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n
+                + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * (p^n * p)) := by
+              rw [split_mul_pow]
+      _ = ((Zp.mul p hp x y).trunc n
+            + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n)
+          + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * (p^n * p) :=
+            (Nat.add_assoc _ _ _).symm
+      _ = ((Zp.mul p hp x y).trunc n
+            + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n)
+          + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * p^(n+1) := by
+              rw [hpow]
+
 end E213.Lib.Math.Padic
