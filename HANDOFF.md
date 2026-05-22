@@ -1945,7 +1945,70 @@ universal FLT, Binet bridges — all usable as a library.
   · `scan_axioms.py UniversalPhase32`: 2 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere
 
-**Campaign complete.**
+**Phase 3.2 universal closure complete.**  Phase 3.3 (inert case)
++ Phase 4 (universal lift) marathon continues below.
+
+---
+
+# Part 33 — **Phase 3.3 marathon start: 𝔽_{p²} = 𝔽_p[√5] foundation**
+
+`Lib/Math/ModArith/FP2Sqrt5.lean` (new, 36 PURE):
+
+The substantive marathon for the **inert case** (5 NQR mod p):
+Universal infrastructure for `𝔽_{p²} = 𝔽_p[x] / (x² - 5)` where
+elements are pairs `(a, b)` representing `a + b·√5`.
+
+## Foundation (17 PURE — universal definitions + per-prime smokes)
+
+  · `FP2 := Nat × Nat` — element representation
+  · `fp2Zero`, `fp2One`, `fp2OfNat` — embeddings
+  · `fp2Add`, `fp2Sub`, `fp2Mul` — ring operations
+  · `fp2Frob` — Frobenius σ : `(a, b) ↦ (a, -b)` sending √5 ↦ -√5
+  · `fp2Norm` — `Norm(a + b√5) = a² - 5·b²` (mod p)
+  · `fp2Pow` — recursive power
+  · Smoke tests at p ∈ {3, 7} (inert primes for 5)
+
+## Frobenius (3 PURE universal)
+
+  · `double_neg_mod` (private) — `(p - (p - x % p) % p) % p = x % p`
+  · **`fp2Frob_involution`** : `σ(σ(x)) = (x.1 % p, x.2 % p)` (canonical form)
+  · `fp2Frob_involution_smoke_7` — smoke
+
+## φ, ψ in 𝔽_{p²} (8 PURE definitions + smokes)
+
+  · `phiFP2 p := (inv2 p, inv2 p)` — `φ = (1 + √5)/2`
+  · `psiFP2 p := (inv2 p, (p - inv2 p % p) % p)` — `ψ = (1 - √5)/2 = σ(φ)`
+  · `phiFP2_3, psiFP2_3, psi_eq_frob_phi_3` — smokes at p=3
+  · `phiFP2_7, psiFP2_7, psi_eq_frob_phi_7` — smokes at p=7
+  · `phi_psi_eq_neg_one_3, phi_psi_eq_neg_one_7` — φ · ψ ≡ -1 mod p
+  · `phi_sq_eq_phi_plus_one_3, phi_sq_eq_phi_plus_one_7` — φ² = φ + 1
+
+## Universal ring properties (5 PURE universal)
+
+  · **`fp2Add_comm`** : `x + y = y + x` (universal)
+  · **`fp2Mul_comm`** : `x · y = y · x` (universal)
+  · **`fp2Frob_zero`** : `σ(0) = 0` (universal)
+  · **`fp2Frob_one`** : `σ(1) = 1` (universal, for `1 < p`)
+  · **`fp2Frob_canonical`** : `σ(σ(x)) = x` for canonical x (universal)
+
+## Phase 3.3 roadmap (remaining)
+
+  · Additive Frobenius: σ(x + y) = σ(x) + σ(y) — multi-step Nat-mod
+  · Multiplicative Frobenius: σ(x · y) = σ(x) · σ(y) — multi-step
+  · Norm multiplicativity: `Norm(x · y) = Norm(x) · Norm(y)`
+  · Norm = `x · σ(x)` identity
+  · Multiplicative inverse for nonzero elements
+  · FLT in 𝔽_{p²}*: `x^(p²-1) = 1`
+  · Frobenius FLT: `x^p = σ(x)` (key for the inert case)
+  · Apply: `(φ²)^(p+1) = φ² · σ(φ²) = φ² · ψ² = (φψ)² = 1`
+  · Connect M^(p+1) = I in 𝔽_p (since M ∈ GL_2(𝔽_p) ⊂ GL_2(𝔽_{p²}))
+  · `universal_phase_3_3` end-to-end theorem
+
+## Verification (post Part 33)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.FP2Sqrt5`: 36 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
 
 ---
 
