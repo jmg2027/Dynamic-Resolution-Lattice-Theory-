@@ -1721,6 +1721,92 @@ Multi-step but tractable.
 
 ---
 
+# Parts 28-30 — **Bezout marathon COMPLETE: universal modular inverse**
+
+`Lib/Math/ModArith/ModBezoutInvariant.lean` (new, 15 PURE):
+
+The universal correctness of xgcd + universal `ModInverse` constructor.
+Mathlib-level number theory infrastructure, 213-native PURE.
+
+## Part 28 — Helpers + single-step invariant (3 PURE)
+
+  · `add_sub_add_right_pure : (B + Z) - (A + Z) = B - A`
+    — PURE replacement for `Nat.add_sub_add_right` (propext-dirty).
+    By induction on Z + `Nat.succ_sub_succ_eq_sub`.
+  · `mod_cancel_right` : `A, B < p ∧ (A + Z) % p = (B + Z) % p ⟹ A = B`.
+    Via `Nat.le_total` + `mod_diff_eq_zero_of_le` + `add_sub_add_right_pure`.
+  · **`step_invariant`** (★★★ KEY LEMMA):
+       `r₀ % p = (a · x₀) % p ∧ r₁ % p = (a · x₁) % p ⟹`
+       `(r₀ % r₁) % p = (a · bezoutSubMod p (r₀/r₁) x₀ x₁) % p`.
+    Via two auxiliary lemmas (`aux_lhs_eq`, `aux_rhs_eq`) + `mod_cancel_right`.
+
+## Part 29 — Inductive correctness (1 PURE)
+
+  · **`xgcdAux_invariant`** (★★★★ UNIVERSAL CORRECTNESS):
+       Inductive proof on fuel: invariants `(r_i % p = a · x_i % p)`
+       maintained throughout, so output `(g, x)` satisfies
+       `g % p = (a · x) % p`.
+
+## Part 30 — Universal modular inverse (11 PURE)
+
+  · **`modBezout_invariant`** (★★★★ UNIVERSAL):
+       For any `0 < p`, `(modBezout a p).1 % p = (a · (modBezout a p).2) % p`.
+       Apply `xgcdAux_invariant` at initial state `(a, p, 1, 0)`,
+       which trivially satisfies the invariants.
+  · **`modBezout_inverse_correct`** (★★★★★ COROLLARY):
+       Given `(modBezout a p).1 = 1`, `(a · (modBezout a p).2) % p = 1 % p`.
+  · Universal smokes: `smoke_{2_5, 3_7, 4_11, 9_19}` via the universal
+    theorem (not per-prime decide).
+  · **`modInverseFromBezout`** (★★★★★★★ UNIVERSAL CONSTRUCTOR):
+       Given `0 < p` and `(modBezout a p).1 = 1`,
+       `modInverseFromBezout a p hp h : ModInverse p a`
+       with `inv := (modBezout a p).2 % p`.
+       
+       **No per-prime hypothesis needed.**  The `inv_eq` field
+       is provided by the universal `modBezout_inverse_correct`.
+  · Universal smokes: `modInverse_{2_5, 3_7, 4_11, 9_19}_universal :
+       ModInverse p a` — all four constructed via the universal
+       constructor.
+
+## What this unlocks
+
+`modInverseFromBezout` is Mathlib-level: any consumer needing
+`ModInverse p a` for coprime `(a, p)` now has a 1-line constructor,
+with `h_gcd` being decidable per `(a, p)`.
+
+Applications:
+  · **Universal FLT** (Part 22): `flt_main a p' hp' h_middle mi` —
+    `mi` can now be `modInverseFromBezout a (p'+1) ... ...`.
+  · **Universal middle-binomial vanishing** (Part 15): same.
+  · **Universal Phase 3.2** (Parts 13, 25, 26): `phase_3_2_closure`
+    + Binet bridges + universal FLT + universal ModInverse =
+    universal Phase 3.2 closure for split primes.
+  · Other DRLT applications needing mod-p inverses (no enumeration).
+
+## Mathlib-level achievement
+
+The 213-native PURE chain matches the standard textbook proof:
+
+```
+extended Euclidean algorithm
+   ↓ tracks Bezout coefficients (mod p form)
+modular Bezout identity (g % p = a · x % p)
+   ↓ when g = 1
+modular inverse exists (and is constructible)
+```
+
+All without Mathlib imports, no axioms beyond Lean core's
+constructive base.  Built atop the 213-native helpers (NatHelper,
+AddMod213, MulMod213) developed over the multi-session FLT work.
+
+## Verification (post Part 30)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.ModBezoutInvariant`: 15 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
