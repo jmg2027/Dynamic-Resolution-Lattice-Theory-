@@ -679,6 +679,14 @@ verified `#print axioms` returns "does not depend on any axioms".
 | `E213.Lib.Math.Cohomology.Cup.KSubsetStructural` | 9 (+6 helpers) | `kSubset_length`, `kSubset_all_lt`, `kSubset_injective`; helpers `nat_add_sub_cancel`, `nat_sub_lt_sub_right`, `list_length_append_singleton`, `nat_sub_pos_of_lt` (propext-free Lean-core replacements) |
 | `E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtripGeneral` | 7 | `find_range_witness` (avoids `List.range_succ` propext), `roundtrip_n_1`, `roundtrip_n_1_fin`, `roundtrip_n_k`, `roundtrip_n_k_fin` |
 | `E213.Lib.Math.Cohomology.Cup.FinBridgeGeneral` | 7 | `kSubset_take_eq`, `kSubset_drop_eq`, `frontIdx`, `backIdx`, `frontIdx_lt`, `backIdx_lt`, **`cup_unfold_general`** — ∀(n,k,l) capstone subsuming the Δ⁴-specific FinBridge.lean tables |
+| `E213.Lib.Math.Cohomology.Cup.KSubsetEraseIdx` | 1 | **`kSubset_eraseIdx_eq`** — third sibling of take/drop: eraseIdx of a kSubset is a kSubset (with the index in `binom n (m-1)`) |
+| `E213.Lib.Math.Cohomology.Cup.FaceIdxGeneral` | 4 | `faceIdxNat`, `faceIdxNat_lt`, `kSubset_faceIdxNat_eq`, **`faceIdx`** — well-defined Fin-typed face map `Fin (binom n m) → Fin (binom n (m-1))` |
+| `E213.Lib.Math.Cohomology.Cup.CupOnList` | 3 | `cupOnList`, `cup_eq_cupOnList_kSubset`, **`cup_at_faceIdx_eq_cupOnList_eraseIdx`** — Fin-cup ↔ list-cup bridge |
+| `E213.Lib.Math.Cohomology.Cup.RangeFoldXor` | 5 | `append_assoc`, `foldl_append`, `range_loop_eq_range_append`, `range_succ'` (PURE replacement for `List.range_succ`), **`foldl_xor_range_eq_xorRange`** |
+| `E213.Lib.Math.Cohomology.Cup.DeltaUnfoldGeneral` | 5 | `sigmaAtFaceRaw`, `delta_eq_foldl_xor_raw`, `delta_eq_xorRange`, `sigmaAtFaceRaw_eq_faceIdx`, **`delta_via_faceIdx_xorRange`** — Fin-delta as xorRange of σ(faceIdx) |
+| `E213.Lib.Math.Cohomology.Cup.LeibnizFinGeneral` | 10 | `asListCochain`, `cupOnList_eq_cupList`, `delta_eq_deltaListR`, `delta_cup_eq_xorRange_cupOnList`, **★ `fin_level_leibniz_general` — G86 ∀(n, k, l) Fin-level twisted Leibniz capstone**, `fin_level_leibniz_self_referential` (self-referential restatement), 4 Δ⁴ bidegree corollaries (`leibniz_1_1/2_1/1_2/2_2_on_d5`) |
+| `E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm` | 17 | Pure Fin-index take/drop helpers (`takeIdxNat`, `dropIdxNat`, boundedness lemmas), `asListCochain_kSubset`, `kSubset_take/drop_via_*IdxNat`, PURE arithmetic helpers (`succ_add_sub_succ`, `add_succ_sub_self`), `deltaListR_kSubset_eq_delta`, Fin-typed take/drop indices (`kp1Fin`, `lFin`, `kFin`, `lp1Fin`), side-term bridges (`cupList_kp1_l_eq_fin`, `cupList_k_lp1_eq_fin`), **★ `fin_level_leibniz_pure_form` — pure Fin-index form of the G86 twisted Leibniz (no list-level wrappers in conclusion)** |
+| `E213.Meta.Tactic.ListHelper` | 3 (+10 pre-existing) | `eraseIdx_append_singleton_low`, `eraseIdx_append_singleton_at_len`, `length_eraseIdx_of_lt` |
 
 ### The 6-theorem (G87 §5 closure)
 

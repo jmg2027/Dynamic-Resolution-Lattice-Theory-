@@ -352,6 +352,8 @@ Mega theorems *directly callable* when using the library:
 | `phaseCS_antiderivative_capstone` | `Real213PhaseCSCapstone` | 8 |
 | `phaseDA_omega_omega_capstone` | `Real213PhaseDAOmegaOmega` | 14 |
 | **★★★★ `phaseDK_ultimate_capstone`** | `Real213PhaseDKUltimate` | **18** |
+| **★★★★★ `fin_level_leibniz_general`** | `Math.Cohomology.Cup.LeibnizFinGeneral` | ∀(n, k, l) twisted Leibniz for lex-projection cup |
+| **★★★★★ `fin_level_leibniz_pure_form`** | `Math.Cohomology.Cup.LeibnizFinPureForm` | pure Fin-index restatement (no list-level wrappers) |
 
 ---
 
