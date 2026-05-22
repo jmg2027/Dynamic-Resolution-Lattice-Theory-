@@ -1197,6 +1197,45 @@ caller-provided `ModInverse` witness (from Part 12).
 
 ---
 
+# Part 16 — FLT: Σ-sum infrastructure
+
+`Lib/Math/DyadicFSM/FLT/Sum.lean` (new, 7 PURE):
+
+Foundational sum infrastructure for the binomial theorem.
+
+  · `sumTo : Nat → (Nat → Nat) → Nat` — recursive Σ over `[0, n)`.
+    `sumTo 0 f = 0`, `sumTo (n+1) f = sumTo n f + f n`.
+  · `sumTo_zero` / `sumTo_succ` — definitional unfolds (`@[simp]`).
+  · `sumTo_smoke` : `sumTo 5 (fun k => k + 1) = 15`.
+  · **`sumTo_mod`** : `(sumTo n f) % p = (sumTo n (fun k => f k % p)) % p`
+    — mod-p distributes over Σ.
+  · **`sumTo_eq_zero_of_all_zero`** : if `∀ k < n, f k % p = 0`,
+    then `(sumTo n f) % p = 0`.  Foundational for the binomial-mod-p
+    "middle terms vanish" argument.
+  · `sumTo_extract_last` — restate of `sumTo_succ` for chained
+    rewriting.
+
+## What's next (multi-session)
+
+  · Binomial theorem at b=1: `(a+1)^n = sumTo (n+1) (k => choose n k · a^k)`.
+    Requires sum reindexing + Pascal lemma application; coupled
+    induction on `n`.  ~1-2 sessions.
+  · Freshman's dream: `(a+1)^p ≡ a^p + 1 (mod p)` for prime p.
+    Combines binomial theorem with prime divisibility (Part 15) +
+    `sumTo_eq_zero_of_all_zero` (this Part).  ~1 session.
+  · FLT primary form: `a^p ≡ a (mod p)` by induction on `a`.
+  · FLT main form: `a^(p-1) ≡ 1 (mod p)` via explicit inverse.
+  · Fibonacci-Pisano + Phase 3.2 universal closure.
+
+## Verification (post Part 16)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.Sum`: 5 PURE / 0 DIRTY (+ 2 `@[simp]`
+    decls verified separately PURE)
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
