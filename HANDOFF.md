@@ -1466,6 +1466,47 @@ The remaining work for Phase 3.2 universal closure:
 
 ---
 
+# Part 23 — FLT applied to φ at split primes (per-prime)
+
+`Lib/Math/DyadicFSM/FLT/PhiFLT.lean` (new, 6 PURE):
+
+Demonstrates the multi-session FLT framework on φ (golden ratio mod p)
+at split primes 11 and 19.  Two routes:
+
+  · **Abstract derivation** via `flt_main` (the multi-session framework):
+    - `middle_vanish_11`: ∀ k < 10, `choose 11 (k+1) % 11 = 0` (decide)
+    - **`phi_flt_11`**: `(phi 11 4)^10 ≡ 1 (mod 11)` via `flt_main`
+    - Similarly at p = 19.
+  · **Direct decide** as cross-check:
+    - `phi_flt_11_decide` / `phi_flt_19_decide`: same result by `decide`.
+
+Both routes produce PURE proofs.  The abstract derivation goes
+through:
+  freshman_dream (Part 20) → flt_primary (Part 21) → flt_main (Part 22)
+  → applied with phi-specific ModInverse witness (from Part 12).
+
+## What's next for Phase 3.2
+
+The final chain to Phase 3.2 universal closure:
+
+  1. ✅ FLT for φ: `phi^(p-1) ≡ 1 mod p` for split primes (this Part)
+  2. ⚪ Binet formula: `F_n = (φ^n - ψ^n) / (φ - ψ)` where `ψ = 1 - φ`
+     (in F_p; or equivalent without explicit division)
+  3. ⚪ Conclude `F_{p-1} ≡ 0 mod p` from `φ^(p-1) = ψ^(p-1) = 1`
+  4. ⚪ Conclude `F_{p-3} ≡ -1 mod p` (similar)
+  5. ⚪ Plug into `phase_3_2_closure` (Part 13) for universal closure
+
+Steps 2-4 are mathematical work; the proof structure mirrors Part 13's
+Pell-Fib bridge but goes universal (not per-prime).
+
+## Verification (post Part 23)
+
+  · `lake build`: ✅ clean (47/47)
+  · `scan_axioms.py FLT.PhiFLT`: 6 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
