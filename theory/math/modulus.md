@@ -1,0 +1,71 @@
+# Modulus Combinators (G40)
+
+**Status**: Closed (10 files, capstone `G40Capstone`).
+**Promoted from research-notes**: 2026-05-22.
+
+Pattern 1 — G40 → chapter + archive.
+
+## Overview
+
+The **ε-δ discrete depth modulus** replaces classical ε-δ
+convergence with explicit `HasModulus` predicates on Real213 cuts.
+This makes all convergence statements **decidable** in 213 by
+exhibiting the modulus function directly, rather than asserting
+its existence.
+
+`zeta_modulus = identityDepthModulus` (used in α_em C5 chapter)
+is the canonical example.
+
+## Lean source
+
+- **Sub-tree**: `lean/E213/Lib/Math/Modulus/` (10 files)
+- **Capstone**: `G40Capstone.lean`
+- **∅-axiom status**: PURE
+
+| Group | Files |
+|---|---|
+| Core predicate | `HasModulus`, `HasModulusBoundsExtra`, `StrongModulus` |
+| Diagonal / depth / info | `DiagonalHasModulus`, `DiagonalIrrelevance`, `DepthCompleteness`, `InfoClosure` |
+| Concrete witnesses | `PellHasModulus`, `Translation` |
+| Capstone | `G40Capstone` |
+
+## Narrative
+
+Classical real analysis hides convergence behind existential
+quantifiers (`∀ ε > 0, ∃ δ > 0, ...`).  In 213, this hides
+decidability behind unrealizable Skolemization.  The 213-native
+approach: provide the `δ` (or `N`, or `L`) as an explicit
+function.
+
+```
+HasModulus s := ∀ N, ∃ δ : Nat, ∀ k ≥ δ, |s_k| < 1/2^N
+```
+becomes
+```
+HasModulus s := { f : Nat → Nat // ∀ N k, k ≥ f N → |s_k| < 1/2^N }
+```
+
+The function `f` is the modulus.  `StrongModulus` requires the
+function to be **monotone**; `DiagonalHasModulus` provides the
+diagonal trick to convert sequence-of-sequences moduli into
+single-sequence moduli; `DepthCompleteness` shows that any
+classically-converging sequence in 213's substrate has a
+computable modulus.
+
+## Research-note provenance
+
+`research-notes/G40_epsilon_delta_modulus.md` — archived to
+`research-notes/archive/discrete_geometry/G40_*.md`.
+
+## How to verify
+
+```bash
+cd lean
+lake build E213.Lib.Math.Modulus
+python3 tools/scan_axioms.py Lib/Math/Modulus
+```
+
+## Citation guidance
+
+- ✅ `theory/math/modulus.md`
+- ✅ archived: `research-notes/archive/discrete_geometry/G40_epsilon_delta_modulus.md`
