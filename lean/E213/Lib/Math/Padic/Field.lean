@@ -49,4 +49,39 @@ theorem QpSeq.ofZp_shift (p : Nat) (x : ZpSeq p) :
 theorem QpSeq.ofZp_num (p : Nat) (x : ZpSeq p) :
     (QpSeq.ofZp p x).num = x := rfl
 
+/-! ## Multiplication on ℚ_p
+
+For `(num₁, s₁) · (num₂, s₂)` representing
+`(num₁ / p^s₁) · (num₂ / p^s₂) = (num₁ · num₂) / p^(s₁+s₂)`,
+define:
+    `(num₁, s₁) · (num₂, s₂) := ⟨Zp.mul num₁ num₂, s₁ + s₂⟩`.
+
+The shift accumulates additively under multiplication.
+-/
+
+/-- Multiplication on `QpSeq`. -/
+def QpSeq.mul (p : Nat) (hp : 0 < p) (a b : QpSeq p) : QpSeq p where
+  num := Zp.mul p hp a.num b.num
+  shift := a.shift + b.shift
+
+/-- The shift of a product is the sum of shifts. -/
+theorem QpSeq.mul_shift (p : Nat) (hp : 0 < p) (a b : QpSeq p) :
+    (QpSeq.mul p hp a b).shift = a.shift + b.shift := rfl
+
+/-- The numerator of a product is the product of numerators
+    (in `ZpSeq`). -/
+theorem QpSeq.mul_num (p : Nat) (hp : 0 < p) (a b : QpSeq p) :
+    (QpSeq.mul p hp a b).num = Zp.mul p hp a.num b.num := rfl
+
+/-- Embedding respects multiplication: `ofZp (x · y) = ofZp x · ofZp y`. -/
+theorem QpSeq.ofZp_mul (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    QpSeq.mul p hp (QpSeq.ofZp p x) (QpSeq.ofZp p y)
+      = QpSeq.ofZp p (Zp.mul p hp x y) := rfl
+
+/-- Smoke: `1 · 1 = 1` in ℚ_p (digit-0 of the resulting numerator). -/
+theorem QpSeq.smoke_mul_one_one_5 :
+    ((QpSeq.mul 5 (by decide)
+        (QpSeq.one 5 (by decide))
+        (QpSeq.one 5 (by decide))).num.digits 0).val = 1 := rfl
+
 end E213.Lib.Math.Padic
