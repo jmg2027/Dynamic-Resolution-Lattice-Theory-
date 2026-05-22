@@ -933,4 +933,54 @@ private theorem K_sq_mod_M_zero (p n : Nat) :
   rw [Nat.mul_comm]
   exact E213.Tactic.NatHelper.mul_mod_right (p^(n + 2)) (p^n)
 
+/-- PURE: `(a + b)² = a·a + (a·b + a·b) + b·b`. -/
+private theorem binomial_sq_expand (a b : Nat) :
+    (a + b) * (a + b) = a * a + (a * b + a * b) + b * b := by
+  -- (a+b)·(a+b) = (a+b)·a + (a+b)·b  [Nat.mul_add]
+  rw [Nat.mul_add (a + b) a b]
+  -- = a·a + b·a + ((a+b)·b)
+  rw [E213.Tactic.NatHelper.add_mul a b a,
+      E213.Tactic.NatHelper.add_mul a b b]
+  -- a·a + b·a + (a·b + b·b)
+  rw [Nat.mul_comm b a]
+  -- a·a + a·b + (a·b + b·b)
+  rw [Nat.add_assoc (a * a) (a * b) (a * b + b * b),
+      ← Nat.add_assoc (a * b) (a * b) (b * b),
+      ← Nat.add_assoc (a * a) (a * b + a * b) (b * b)]
+
+/-- PURE: `(d·K) · (d·K) = (d·d) · (K·K)`. -/
+private theorem mul_sq_swap (d K : Nat) :
+    (d * K) * (d * K) = (d * d) * (K * K) := by
+  rw [E213.Tactic.NatHelper.mul_assoc d K (d * K)]
+  -- d · (K · (d · K)) = d · (d · (K · K))
+  -- K · (d · K) = d · (K · K) by mul_comm + mul_assoc
+  rw [show K * (d * K) = d * (K * K) by
+        rw [← E213.Tactic.NatHelper.mul_assoc K d K, Nat.mul_comm K d,
+            E213.Tactic.NatHelper.mul_assoc d K K]]
+  rw [← E213.Tactic.NatHelper.mul_assoc d d (K * K)]
+
+/-- PURE binomial: `(a + d·K)² mod M = (a² + 2·(a·d·K)) mod M`
+    given `K² mod M = 0`. -/
+private theorem binomial_sq_mod_pure (a d K M : Nat) (hM : 0 < M)
+    (hK : K * K % M = 0) :
+    (a + d * K) * (a + d * K) % M
+      = (a * a + 2 * (a * d * K)) % M := by
+  rw [binomial_sq_expand a (d * K)]
+  -- LHS = (a·a + (a·(d·K) + a·(d·K)) + (d·K)·(d·K)) % M
+  rw [mul_sq_swap d K]
+  -- LHS = (a·a + (a·(d·K) + a·(d·K)) + (d·d)·(K·K)) % M
+  -- The (d·d)·(K·K) term: mod M = 0.
+  have h_zero : ((d * d) * (K * K)) % M = 0 := by
+    rw [Nat.mul_comm (d * d) (K * K), Nat.mul_mod, hK, Nat.zero_mul,
+        E213.Tactic.NatHelper.zero_mod]
+  -- Strip the d²·K² term mod M.
+  rw [E213.Meta.Nat.AddMod213.add_mod hM
+        (a * a + (a * (d * K) + a * (d * K))) ((d * d) * (K * K))]
+  rw [h_zero, Nat.add_zero, E213.Tactic.NatHelper.mod_mod_pure]
+  -- Goal: (a·a + (a·(d·K) + a·(d·K))) % M = (a·a + 2·(a·d·K)) % M
+  -- Show a·(d·K) = a·d·K by mul_assoc, and a·d·K + a·d·K = 2·(a·d·K).
+  rw [← E213.Tactic.NatHelper.mul_assoc a d K]
+  -- Goal: (a·a + (a·d·K + a·d·K)) % M = (a·a + 2·(a·d·K)) % M
+  rw [← Nat.two_mul (a * d * K)]
+
 end E213.Lib.Math.Padic
