@@ -1087,6 +1087,67 @@ via 1-line `phase_3_2_closure` corollary (demonstrated at p ∈
 
 ---
 
+# Part 14 — multi-session FLT proof: binomial infrastructure (start)
+
+The remaining Phase 3.2 closure requires Fermat's Little Theorem
+(FLT, `a^p ≡ a mod p` for prime p), which lifts via Fibonacci-Pisano
+to `F_{p-1} ≡ 0 mod p` at split primes.  The cleanest path: binomial
+expansion of `(a+1)^p` with the middle terms `C(p, k)` for
+`1 ≤ k ≤ p-1` vanishing mod p (since `p ∣ C(p, k)`).
+
+This Part 14 lays the **binomial foundation**.
+
+## What landed: `Lib/Math/DyadicFSM/FLT/Binomial.lean` (new, 9 PURE)
+
+  · `choose : Nat → Nat → Nat` — 213-native via Pascal recurrence.
+  · `choose_zero_right` / `choose_zero_succ` / `choose_succ_succ` —
+    Pascal base + step.
+  · `choose_eq_zero_of_lt` : `n < k → choose n k = 0`.
+  · `choose_self` : `choose n n = 1`.
+  · `choose_one_right` : `choose n 1 = n`.
+  · `choose_table` : smoke values up to `choose 7 3 = 35`.
+  · **`choose_succ_mul`** (★ KEY FLT IDENTITY):
+       `(k + 1) · choose (n + 1) (k + 1) = (n + 1) · choose n k`
+       — recursive form of `k · C(n, k) = n · C(n - 1, k - 1)`.
+       Proven by induction on `n` using two IHs (at `k` and `k+1`)
+       + two Pascal expansions; the Nat algebra is bookkeeping
+       via `Nat.add_assoc` + `Nat.add_comm` rearrangement.
+
+## What this buys
+
+Setting `n + 1 = p` (so `n = p - 1`), the key identity becomes:
+
+  `(k + 1) · choose p (k + 1) = p · choose (p - 1) k`
+
+So `p ∣ (k + 1) · choose p (k + 1)`.  If `gcd(k + 1, p) = 1`
+(which holds for `k + 1 < p`, prime `p`), Euclid's lemma gives
+`p ∣ choose p (k + 1)` — the prime-divisibility of binomial middle
+terms.
+
+## Multi-session FLT roadmap
+
+| Sub-step | Status |
+|---|---|
+| `choose` definition + Pascal | ✅ Part 14 |
+| Key identity `(k+1)·choose p (k+1) = p·choose (p-1) k` | ✅ Part 14 |
+| `p ∣ choose p (k+1)` for `0 < k+1 < p` (via explicit inverse) | ⚪ next session |
+| Binomial theorem `(a+b)^n = Σ C(n,k) a^(n-k) b^k` | ⚪ multi-session |
+| `(a+1)^p ≡ a^p + 1 (mod p)` for prime p | ⚪ multi-session |
+| `a^p ≡ a (mod p)` (FLT primary form) by induction on a | ⚪ multi-session |
+| `a^(p-1) ≡ 1 (mod p)` for `a ≠ 0 mod p` (FLT main form) | ⚪ multi-session |
+| Fibonacci-Pisano `F_{p-1} ≡ 0 mod p` at split primes | ⚪ multi-session |
+| Phase 3.2 universal closure | ⚪ multi-session |
+
+## Verification (post Part 14)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.Binomial`: 9 PURE / 0 DIRTY
+    (6 scanned + 3 `@[simp]` decls verified separately PURE;
+    scanner regex skips `@[simp]` attribute lines)
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
