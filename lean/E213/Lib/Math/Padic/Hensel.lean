@@ -983,4 +983,64 @@ private theorem binomial_sq_mod_pure (a d K M : Nat) (hM : 0 < M)
   -- Goal: (a·a + (a·d·K + a·d·K)) % M = (a·a + 2·(a·d·K)) % M
   rw [← Nat.two_mul (a * d * K)]
 
+/-- PURE: `(X + Y) % p = 0 → ∀ c, (c·X + c·Y) % p = 0`. -/
+private theorem scale_mod (p c X Y : Nat) (h : (X + Y) % p = 0) :
+    (c * X + c * Y) % p = 0 := by
+  rw [← Nat.mul_add c X Y,
+      E213.Meta.Nat.MulMod213.mul_mod_right_pure c (X + Y) p,
+      h, Nat.mul_zero, E213.Tactic.NatHelper.zero_mod]
+
+/-- PURE: replace `A` in `(A + B) % p` by `A'` with same mod-p residue. -/
+private theorem add_mod_swap_left (p A A' B : Nat) (hp : 0 < p)
+    (h : (A + B) % p = 0) (heq : A % p = A' % p) :
+    (A' + B) % p = 0 := by
+  rw [E213.Meta.Nat.AddMod213.add_mod hp A' B]
+  rw [← heq, ← E213.Meta.Nat.AddMod213.add_mod hp A B]
+  exact h
+
+/-- PURE: replace `B` in `(A + B) % p` by `B'` with same mod-p residue. -/
+private theorem add_mod_swap_right (p A B B' : Nat) (hp : 0 < p)
+    (h : (A + B) % p = 0) (heq : B % p = B' % p) :
+    (A + B') % p = 0 := by
+  rw [E213.Meta.Nat.AddMod213.add_mod hp A B']
+  rw [← heq, ← E213.Meta.Nat.AddMod213.add_mod hp A B]
+  exact h
+
+/-- PURE sqrt cancellation: given `a ≡ d_0 (mod p)`,
+    `2·d_0·two_d_0_inv ≡ 1 (mod p)`, and `(err·two_d_0_inv + d) ≡ 0 (mod p)`,
+    we get `(err + 2·a·d) % p = 0`.  This is the algebraic core of
+    the Hensel sqrt cancellation. -/
+private theorem sqrt_cancel (p : Nat) (hp : 0 < p)
+    (a err d_0 two_d_0_inv d : Nat)
+    (h_a_mod : a % p = d_0 % p)
+    (h_inv_eq : (2 * d_0 * two_d_0_inv) % p = 1 % p)
+    (h_d_neg : (err * two_d_0_inv + d) % p = 0) :
+    (err + 2 * a * d) % p = 0 := by
+  -- Step 1: scale h_d_neg by 2·d_0.
+  have h_scale : (2 * d_0 * (err * two_d_0_inv) + 2 * d_0 * d) % p = 0 :=
+    scale_mod p (2 * d_0) (err * two_d_0_inv) d h_d_neg
+  -- Step 2: reorder 2·d_0·(err·two_d_0_inv) → err·(2·d_0·two_d_0_inv).
+  have h_reorder : 2 * d_0 * (err * two_d_0_inv)
+                   = err * (2 * d_0 * two_d_0_inv) := by
+    rw [← E213.Tactic.NatHelper.mul_assoc (2 * d_0) err two_d_0_inv,
+        Nat.mul_comm (2 * d_0) err,
+        E213.Tactic.NatHelper.mul_assoc err (2 * d_0) two_d_0_inv]
+  rw [h_reorder] at h_scale
+  -- Step 3: in mod-p, (err·(2·d_0·two_d_0_inv)) ≡ err (using h_inv_eq).
+  have h_rw1 : (err * (2 * d_0 * two_d_0_inv)) % p = err % p := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure err _ p, h_inv_eq,
+        ← E213.Meta.Nat.MulMod213.mul_mod_right_pure err 1 p,
+        Nat.mul_one]
+  have h_step3 : (err + 2 * d_0 * d) % p = 0 :=
+    add_mod_swap_left p _ err (2 * d_0 * d) hp h_scale h_rw1
+  -- Step 4: in mod-p, (2·d_0·d) ≡ (2·a·d) using h_a_mod.
+  have h_rw2 : (2 * d_0 * d) % p = (2 * a * d) % p := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * d_0) d p,
+        E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * a) d p]
+    rw [show (2 * d_0) % p = (2 * a) % p by
+          rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure 2 d_0 p,
+              E213.Meta.Nat.MulMod213.mul_mod_right_pure 2 a p,
+              h_a_mod]]
+  exact add_mod_swap_right p err (2 * d_0 * d) (2 * a * d) hp h_step3 h_rw2
+
 end E213.Lib.Math.Padic
