@@ -85,6 +85,14 @@ theorem step_b_cancel (p a b : Nat) (ha : a < p) (hb : b < p) :
   rw [E213.Tactic.NatHelper.add_mul_mod_self_pure b p 3]
   exact Nat.mod_eq_of_lt hb
 
+open E213.Lib.Math.DyadicFSM.PellMatrix (pellCoeffFSM_run_eq_pellCoeff)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+
+/-- The `pellCoeffFSM`'s `step` agrees with the `pellCoeff` recurrence:
+    applying it to `pellCoeff k` gives `pellCoeff (k+1)`.  Definitional. -/
+theorem pellCoeffFSM_step_pellCoeff (p : Nat) (hp : 1 < p) (k : Nat) :
+    (pellCoeffFSM p hp).step (pellCoeff p hp k) = pellCoeff p hp (k + 1) := rfl
+
 /-- Universal `stepInv ∘ step = id` on `Fin p × Fin p`.  PURE. -/
 theorem stepInv_step (p : Nat) (hp : 1 < p) (v : Fin p × Fin p) :
     stepInv p hp ((pellCoeffFSM p hp).step v) = v := by
@@ -101,5 +109,38 @@ theorem stepInv_step (p : Nat) (hp : 1 < p) (v : Fin p × Fin p) :
     show ((3 * a.val + b.val) % p + 3 * ((p - a.val % p) % p)) % p = b.val
     rw [Nat.mod_eq_of_lt a.isLt]
     exact step_b_cancel p a.val b.val a.isLt b.isLt
+
+/-- `stepInv` undoes one `pellCoeff` step: stepInv (pellCoeff (k+1)) = pellCoeff k. -/
+theorem stepInv_pellCoeff_succ (p : Nat) (hp : 1 < p) (k : Nat) :
+    stepInv p hp (pellCoeff p hp (k + 1)) = pellCoeff p hp k := by
+  rw [← pellCoeffFSM_step_pellCoeff p hp k]
+  exact stepInv_step p hp (pellCoeff p hp k)
+
+/-- Translation lemma:  if `pellCoeff p hp i = pellCoeff p hp j` and `i ≤ j`,
+    then `pellCoeff p hp (j - i) = pellCoeff p hp 0 = (0, 1)`.
+
+    This is the existential Pisano period mechanism: any coincidence at index
+    `(i, j)` in the pellCoeff sequence produces a period `j - i`. -/
+theorem pellCoeff_translation (p : Nat) (hp : 1 < p) :
+    ∀ i j, i ≤ j → pellCoeff p hp i = pellCoeff p hp j →
+      pellCoeff p hp (j - i) = pellCoeff p hp 0
+  | 0, j, _, h => by rw [Nat.sub_zero]; exact h.symm
+  | i+1, j, hij, h => by
+    -- From `i+1 ≤ j` we get `j ≥ 1`, so `j = m+1` for some `m`.
+    match j, hij, h with
+    | m+1, hm1, h' =>
+      -- Apply stepInv to both sides of h' : pellCoeff (i+1) = pellCoeff (m+1).
+      have hstep : stepInv p hp (pellCoeff p hp (i+1)) =
+                   stepInv p hp (pellCoeff p hp (m+1)) := congrArg _ h'
+      rw [stepInv_pellCoeff_succ p hp i,
+          stepInv_pellCoeff_succ p hp m] at hstep
+      -- hstep : pellCoeff i = pellCoeff m
+      have him : i ≤ m := Nat.le_of_succ_le_succ hm1
+      have hrec : pellCoeff p hp (m - i) = pellCoeff p hp 0 :=
+        pellCoeff_translation p hp i m him hstep
+      -- m + 1 - (i + 1) = m - i.
+      show pellCoeff p hp (m + 1 - (i + 1)) = pellCoeff p hp 0
+      rw [Nat.succ_sub_succ_eq_sub]
+      exact hrec
 
 end E213.Lib.Math.DyadicFSM.PellMatrixInverse
