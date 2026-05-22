@@ -826,4 +826,38 @@ theorem Zp.sqrtSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
           + ((Zp.sqrtSeq p hp x sb n).digits k).val * p^k
     rw [ih, Zp.sqrtSeq_succ_digit_below p hp x sb n k hk_ne]
 
+/-- `(sqrtSeq n).trunc (n + 2) = (sqrtSeq n).trunc (n + 1)` — digit
+    at position `n + 1` of `sqrtSeq n` is zero (only `sqrtSeq (n+1)`
+    sets it). -/
+theorem Zp.sqrtSeq_trunc_at_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.sqrtSeq p hp x sb n).trunc (n + 2)
+      = (Zp.sqrtSeq p hp x sb n).trunc (n + 1) := by
+  show (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+        + ((Zp.sqrtSeq p hp x sb n).digits (n + 1)).val * p^(n + 1)
+      = (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+  rw [Zp.sqrtSeq_digit_above p hp x sb n (n + 1) (Nat.lt_succ_self n)]
+  rw [Nat.zero_mul, Nat.add_zero]
+
+/-- Digit 0 of `sqrtSeq n` is always `sb.d_0` (Hensel invariant —
+    each lifting step adds digits at position `n + 1` only). -/
+theorem Zp.sqrtSeq_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ∀ n, ((Zp.sqrtSeq p hp x sb n).digits 0).val = sb.d_0
+  | 0 => Zp.sqrtSeq_zero_digit_zero p hp x sb
+  | n + 1 => by
+    have hne : (0 : Nat) ≠ n + 1 := fun h => Nat.noConfusion h
+    rw [show (Zp.sqrtSeq p hp x sb (n + 1)).digits 0
+              = (Zp.sqrtSeq p hp x sb n).digits 0 from
+          Zp.sqrtSeq_succ_digit_below p hp x sb n 0 hne]
+    exact Zp.sqrtSeq_digit_zero p hp x sb n
+
+/-- `(sqrtSeq n).trunc 1 = sb.d_0` for any level `n`. -/
+theorem Zp.sqrtSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.sqrtSeq p hp x sb n).trunc 1 = sb.d_0 := by
+  show (0 : Nat) + ((Zp.sqrtSeq p hp x sb n).digits 0).val * p^0 = sb.d_0
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  exact Zp.sqrtSeq_digit_zero p hp x sb n
+
 end E213.Lib.Math.Padic
