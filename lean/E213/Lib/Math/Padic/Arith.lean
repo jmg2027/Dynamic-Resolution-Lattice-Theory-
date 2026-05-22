@@ -68,6 +68,13 @@ follows by reducing both sides mod `p^n` (carry term is a multiple
 of `p^n`, so it vanishes; both truncations sit in `[0, p^n)`).
 -/
 
+/-- Inner-swap rearrangement: `(a + b) + (c + d) = (a + c) + (b + d)`. -/
+private theorem swap_inner (a b c d : Nat) :
+    (a + b) + (c + d) = (a + c) + (b + d) := by
+  rw [Nat.add_assoc a b (c + d), ← Nat.add_assoc b c d,
+      Nat.add_comm b c, Nat.add_assoc c b d,
+      ← Nat.add_assoc a c (b + d)]
+
 /-- Rearrangement helper: `(a + bp) + (c + dp) = (a + c) + (b + d) · pn`. -/
 private theorem swap_distrib (a b c d pn : Nat) :
     (a + b * pn) + (c + d * pn) = (a + c) + (b + d) * pn :=
@@ -1203,6 +1210,156 @@ theorem Zp.colSum_split (p : Nat) (x y : ZpSeq p) (i n : Nat) (h : i ≤ n) :
     Zp.colSum_extend p x y i (n - i) i
   rw [hsum] at h1
   rw [h1, Zp.extColSum_eq_offDiagRow p x y i n h i]
+
+/-- Diagonal sum at level `n`: `Σ_{i<upper} colSum p x y i (n - i)`. -/
+def Zp.diagSum (p : Nat) (x y : ZpSeq p) (n : Nat) : Nat → Nat
+  | 0 => 0
+  | i + 1 => Zp.diagSum p x y n i + Zp.colSum p x y i (n - i)
+
+/-- One-step `colSum` extension at the diagonal cut-off: for `i ≤ N`,
+    `colSum p x y i ((N + 1) - i) = colSum p x y i (N - i)
+    + x_i · y_{N-i} · p^N`. -/
+private theorem colSum_one_step (p : Nat) (x y : ZpSeq p) (i N : Nat)
+    (hi : i ≤ N) :
+    Zp.colSum p x y i ((N + 1) - i)
+      = Zp.colSum p x y i (N - i)
+          + (x.digits i).val * (y.digits (N - i)).val * p^N := by
+  have h1 : (N + 1) - i = (N - i) + 1 := by
+    rw [Nat.add_comm N 1, E213.Tactic.NatHelper.add_sub_assoc 1 hi,
+        Nat.add_comm 1 (N - i)]
+  have h2 : i + (N - i) = N := by
+    rw [Nat.add_comm]; exact E213.Tactic.NatHelper.sub_add_cancel hi
+  rw [h1]
+  -- Goal: colSum p x y i ((N - i) + 1) = colSum p x y i (N - i) + ... * p^N
+  show Zp.colSum p x y i (N - i)
+        + (x.digits i).val * (y.digits (N - i)).val * p^(i + (N - i))
+      = Zp.colSum p x y i (N - i)
+          + (x.digits i).val * (y.digits (N - i)).val * p^N
+  rw [h2]
+
+/-- Bilinear-sum decomposition: for `upper ≤ n`,
+    `bilinSum p x y n upper = diagSum p x y n upper + p^n · offDiagSum p x y n upper`. -/
+theorem Zp.bilinSum_decomp (p : Nat) (x y : ZpSeq p) (n : Nat) :
+    ∀ upper, upper ≤ n → Zp.bilinSum p x y n upper
+      = Zp.diagSum p x y n upper + p^n * Zp.offDiagSum p x y n upper
+  | 0, _ => by show (0 : Nat) = 0 + p^n * 0; rw [Nat.mul_zero, Nat.add_zero]
+  | i + 1, h => by
+    have h_le : i ≤ n := Nat.le_of_succ_le h
+    have ih : Zp.bilinSum p x y n i
+              = Zp.diagSum p x y n i + p^n * Zp.offDiagSum p x y n i :=
+      Zp.bilinSum_decomp p x y n i h_le
+    show Zp.bilinSum p x y n i + Zp.colSum p x y i n
+        = Zp.diagSum p x y n i + Zp.colSum p x y i (n - i)
+            + p^n * (Zp.offDiagSum p x y n i + Zp.offDiagRow p x y n i i)
+    rw [ih, Zp.colSum_split p x y i n h_le, Nat.mul_add]
+    exact swap_inner (Zp.diagSum p x y n i) (p^n * Zp.offDiagSum p x y n i)
+            (Zp.colSum p x y i (n - i)) (p^n * Zp.offDiagRow p x y n i i)
+
+/-- Diagonal-sum level extension: for `upper ≤ N + 1`,
+    `diagSum p x y (N + 1) upper = diagSum p x y N upper +
+    p^N · mulRawSum p x y N upper`. -/
+theorem Zp.diagSum_succ_level (p : Nat) (x y : ZpSeq p) (N : Nat) :
+    ∀ upper, upper ≤ N + 1 →
+      Zp.diagSum p x y (N + 1) upper
+        = Zp.diagSum p x y N upper + p^N * Zp.mulRawSum p x y N upper
+  | 0, _ => by
+    show (0 : Nat) = 0 + p^N * 0
+    rw [Nat.mul_zero, Nat.add_zero]
+  | i + 1, h => by
+    have hi : i ≤ N := Nat.le_of_succ_le_succ h
+    have ih : Zp.diagSum p x y (N + 1) i
+              = Zp.diagSum p x y N i + p^N * Zp.mulRawSum p x y N i :=
+      Zp.diagSum_succ_level p x y N i (Nat.le_of_lt h)
+    show Zp.diagSum p x y (N + 1) i + Zp.colSum p x y i ((N + 1) - i)
+        = (Zp.diagSum p x y N i + Zp.colSum p x y i (N - i))
+            + p^N * (Zp.mulRawSum p x y N i
+                      + (x.digits i).val * (y.digits (N - i)).val)
+    rw [ih, colSum_one_step p x y i N hi, Nat.mul_add]
+    -- Goal: (diagSum_N_i + p^N · mulRawSum_N_i) + (colSum_(N-i) + x_i · y_{N-i} · p^N)
+    --     = (diagSum_N_i + colSum_(N-i))
+    --         + (p^N · mulRawSum_N_i + p^N · (x_i · y_{N-i}))
+    -- Convert x_i · y_{N-i} · p^N → p^N · (x_i · y_{N-i}) via mul_comm.
+    rw [show (x.digits i).val * (y.digits (N - i)).val * p^N
+              = p^N * ((x.digits i).val * (y.digits (N - i)).val) from
+            Nat.mul_comm _ _]
+    -- Now apply swap_inner.
+    exact swap_inner _ _ _ _
+
+/-- The diagonal sum at the top index equals `mulSumRaw`:
+    `diagSum p x y N N = mulSumRaw p x y N`. -/
+theorem Zp.diagSum_eq_mulSumRaw (p : Nat) (x y : ZpSeq p) :
+    ∀ N, Zp.diagSum p x y N N = Zp.mulSumRaw p x y N
+  | 0 => rfl
+  | N + 1 => by
+    have ih : Zp.diagSum p x y N N = Zp.mulSumRaw p x y N :=
+      Zp.diagSum_eq_mulSumRaw p x y N
+    show Zp.diagSum p x y (N + 1) N + Zp.colSum p x y N ((N + 1) - N)
+        = Zp.mulSumRaw p x y N + Zp.mulRaw p x y N * p^N
+    have step1 : Zp.diagSum p x y (N + 1) N
+                  = Zp.diagSum p x y N N + p^N * Zp.mulRawSum p x y N N :=
+      Zp.diagSum_succ_level p x y N N (Nat.le_succ N)
+    have hsub : (N + 1) - N = 1 := by
+      rw [Nat.add_comm N 1]
+      exact E213.Tactic.NatHelper.add_sub_cancel_right 1 N
+    rw [step1, ih, hsub]
+    -- Simplify colSum p x y N 1 = x_N · y_0 · p^N.
+    rw [show Zp.colSum p x y N 1
+              = (x.digits N).val * (y.digits 0).val * p^N from by
+          show (0 : Nat) + (x.digits N).val * (y.digits 0).val * p^(N + 0)
+                = (x.digits N).val * (y.digits 0).val * p^N
+          rw [Nat.add_zero, Nat.zero_add]]
+    -- Unfold mulRaw N = mulRawSum N N + x_N · y_0.
+    rw [show Zp.mulRaw p x y N
+              = Zp.mulRawSum p x y N N
+                  + (x.digits N).val * (y.digits 0).val from by
+          show Zp.mulRawSum p x y N N
+                + (x.digits N).val * (y.digits (N - N)).val
+              = Zp.mulRawSum p x y N N
+                  + (x.digits N).val * (y.digits 0).val
+          rw [Nat.sub_self]]
+    -- Expand RHS: (mulRawSum + x_N · y_0) · p^N = mulRawSum · p^N + x_N · y_0 · p^N.
+    rw [E213.Tactic.NatHelper.add_mul]
+    -- Swap p^N · mulRawSum to mulRawSum · p^N.
+    rw [Nat.mul_comm (p^N) (Zp.mulRawSum p x y N N)]
+    -- Final: associativity.
+    exact Nat.add_assoc _ _ _
+
+/-- **The bridge** (structural identity for `mul_trunc`):
+    `bilinSum p x y n n = mulSumRaw p x y n + p^n · offDiagSum p x y n n`.
+
+    The bilinear-sum decomposition (`bilinSum_decomp` at upper = n,
+    which requires n ≤ n) plus the diagonal-sum identity
+    (`diagSum_eq_mulSumRaw`). -/
+theorem Zp.bilinSum_eq_mulSumRaw_plus_offDiag (p : Nat) (x y : ZpSeq p)
+    (n : Nat) :
+    Zp.bilinSum p x y n n
+      = Zp.mulSumRaw p x y n + p^n * Zp.offDiagSum p x y n n := by
+  have h := Zp.bilinSum_decomp p x y n n (Nat.le_refl n)
+  rw [h, Zp.diagSum_eq_mulSumRaw p x y n]
+
+/-- **The bridge (mod form)**:
+    `bilinSum p x y n n % p^n = mulSumRaw p x y n % p^n`. -/
+theorem Zp.bilinSum_mod_eq_mulSumRaw_mod (p : Nat) (x y : ZpSeq p) (n : Nat) :
+    Zp.bilinSum p x y n n % p^n = Zp.mulSumRaw p x y n % p^n := by
+  rw [Zp.bilinSum_eq_mulSumRaw_plus_offDiag]
+  -- Goal: (mulSumRaw + p^n · offDiagSum) % p^n = mulSumRaw % p^n
+  rw [Nat.mul_comm (p^n) (Zp.offDiagSum p x y n n)]
+  -- (mulSumRaw + offDiagSum · p^n) % p^n = mulSumRaw % p^n via add_mul_mod_self_pure.
+  exact E213.Tactic.NatHelper.add_mul_mod_self_pure _ _ _
+
+/-- **General `mul_trunc`**: the multiplicative ring-quotient theorem
+    for arbitrary operands at any level `n`.
+
+    Derivation:
+      `(Zp.mul x y).trunc n`
+        = `mulSumRaw n % p^n`            (by `mulSumRaw_mod_eq_trunc`)
+        = `bilinSum n n % p^n`           (by the bridge)
+        = `(x.trunc n * y.trunc n) % p^n`  (by `bilinSum_eq`). -/
+theorem Zp.mul_trunc (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat) :
+    (Zp.mul p hp x y).trunc n = (x.trunc n * y.trunc n) % p^n := by
+  rw [← Zp.mulSumRaw_mod_eq_trunc p hp x y n,
+      ← Zp.bilinSum_mod_eq_mulSumRaw_mod p x y n,
+      Zp.bilinSum_eq p x y n n]
 
 /-! ## Shift smokes -/
 
