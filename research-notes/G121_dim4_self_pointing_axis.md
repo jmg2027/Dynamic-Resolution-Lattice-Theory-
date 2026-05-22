@@ -353,8 +353,19 @@ For G121 to promote from open conjecture to theorem candidate:
 
 (R1) **Close M2 first**.  Formalize chart-Lens readout count =
 $d_{213} - 1$.  This is the structural backbone.  Likely home:
-new file `lean/E213/Lib/Theory/Lens/ChartCount.lean` or extension
-of existing chart-Lens material.
+new file in `lean/E213/Lens/` or extension of existing chart-Lens
+material (e.g., `Lens/Number/Nat213/ChartGeneral.lean`).
+
+**R1 partial progress (2026-05-22)**: definitional scaffold
+committed at `lean/E213/Lib/Math/GeometrizationConjecture/
+ChartAxisAnsatz.lean` (12 PURE).  Encodes the ansatz parametrically
+in (NS, NT) with `selfPointingAxes := 1` as a `def`.  This is
+*not* the real M2 close — it commits the ansatz to definitional
+form so future work can either (a) upgrade `selfPointingAxes` from
+`def` to a derived theorem, or (b) falsify the commitment by
+exhibiting a 213-deployment with $\ne 1$ self-pointing axis.
+Real M2 close requires linking §8.1 (no exterior) to chart-Lens
+axiom-corpus at the Lens-ring level.
 
 (R2) **Close M3 next**.  Derive (not match) the $N_T$-axis split
 into time + self-pointing.  Likely route: $c = 2$ binary cover
@@ -465,12 +476,23 @@ branch `claude/geometrization-conjecture-9Vf6i`:
   5. User sharpens with the $d_M = d_{213} - 1$ ansatz (§4.1).
   6. Knots M1-M4 surfaced; user requests record as G121 entry
      point for future work.
+  7. User says "ㄱㄱ" (go ahead) on R1.  Definitional scaffold
+     committed: `lean/E213/Lib/Math/GeometrizationConjecture/
+     ChartAxisAnsatz.lean` (12 PURE theorems, ∅-axiom verified).
+     Parametric in (NS, NT); K_{3,2}^{(c=2)} specialisation gives
+     `chartVisibleAxes 3 2 = 4`; falsifier-candidate predictions
+     for K_{2,2}, K_{4,2}, K_{3,3}.  **R1 not closed** — the file
+     encodes the ansatz as a *definition* (`selfPointingAxes := 1`
+     commits to the 1-axis claim); the structural derivation from
+     §8.1 (no exterior) is still M2.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point**: R1 — formalize chart-Lens readout
-count = $d_{213} - 1$ (close M2).  See §7.
+**Next-session entry point**: derive `selfPointingAxes = 1` from
+`seed/AXIOM/07_self_reference.md` §8.1 + chart-Lens axioms, i.e.,
+upgrade `ChartAxisAnsatz.selfPointingAxes` from `def := 1` to a
+theorem.  This is the *real* M2 close.  See §7 R1.
 

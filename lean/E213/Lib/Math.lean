@@ -13,6 +13,7 @@ import E213.Lib.Math.DyadicFSM
 import E213.Lib.Math.Extras
 import E213.Lib.Math.Functional
 import E213.Lib.Math.GenerationRule
+import E213.Lib.Math.GeometrizationConjecture
 import E213.Lib.Math.Geometry
 import E213.Lib.Math.Group
 import E213.Lib.Math.HodgeConjecture
@@ -90,6 +91,10 @@ The directory tree is the spec; this file is the top-level entry.
     * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
                           classification engine (116 files; promoted from
                           Cohomology/Dyadic in Phase C1)
+    * `GeometrizationConjecture` — 213-Lens reading of
+                          Thurston/Perelman Geometrization + d=4
+                          exotic-smoothness anomaly (G121 ansatz;
+                          1 file, open conjecture)
     * `HodgeConjecture` — Hodge-conjecture programme (Foundation /
                           Structure / Pairing / Refinement / Toolkit /
                           Bridge / MotivicBridge — 47 files; promoted
