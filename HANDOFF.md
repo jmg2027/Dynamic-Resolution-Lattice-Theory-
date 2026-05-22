@@ -2012,6 +2012,91 @@ elements are pairs `(a, b)` representing `a + b·√5`.
 
 ---
 
+# Parts 34-39 — Phase 3.3 marathon: Frobenius hom + Norm(φ) = -1
+
+Extending `Lib/Math/ModArith/FP2Sqrt5.lean` (36 → 62 PURE).
+
+## Part 34 — Mod-p negation lemmas (43 PURE, commit `bc98e4b2`)
+
+  · `nmod_add_self_zero` : `((p - r%p)%p + r) % p = 0`
+    -- additive-inverse property in mod-p Nat arithmetic
+  · `neg_mod_add` : `(p - (a+b)%p)%p = ((p - a%p)%p + (p - b%p)%p) % p`
+    -- negation is additive
+  · Add `ModBezoutInvariant` import for `mod_cancel_right`
+
+## Part 35 — Frobenius additive hom + mul-negation (49 PURE, commit `bbfd2282`)
+
+  · **`fp2Frob_add`** : `σ(x + y) = σ(x) + σ(y)` (universal)
+  · `mul_neg_add_self` : Nat algebra helper
+  · `neg_mod_mul_left` : `((p - x%p)%p * y) % p = (p - (x*y)%p) % p`
+    -- "-x · y = -(x·y) mod p"
+  · `neg_mod_mul_right` : symmetric variant
+  · `neg_mod_mul_neg` : `(-x)*(-y) ≡ x·y (mod p)`
+
+## Part 36 — Frobenius multiplicative hom (51 PURE, commit `f611567f`)
+
+  · **`fp2Frob_mul`** : `σ(x · y) = σ(x) · σ(y)` (universal)
+    -- First component via `neg_mod_mul_neg`,
+       second via `neg_mod_mul_left/right + neg_mod_add`.
+
+Frobenius is now a verified ring homomorphism `𝔽_{p²} → 𝔽_{p²}`.
+
+## Part 37 — `x · σ(x) = (Norm(x), 0)` (54 PURE, commit `c76b6810`)
+
+  · `nmod_self_mod_zero` : helper variant of nmod_add_self_zero
+  · **`fp2Mul_self_frob`** : `fp2Mul p x (fp2Frob p x) = (fp2Norm p x, 0)`
+    -- universal: x times its Frobenius conjugate yields a scalar in
+       𝔽_p ⊂ 𝔽_{p²} equal to the norm.
+
+Un-private `four_mul_inv2_sq` in `PhiMod5.lean` for downstream use.
+
+## Part 38 — `Norm(φ) = -1` (59 PURE, commit `969f35b9`)
+
+  · `mod_add_eq_left` : `((X % p) + Y) % p = (X + Y) % p` (universal)
+  · `five_inv2_sq_eq` : `(5·inv2²) % p = (1 + inv2² % p) % p`
+    -- via 5 = 4 + 1 expansion + `four_mul_inv2_sq`
+  · **`fp2Norm_phi_eq_neg_one`** : `fp2Norm p (phiFP2 p) = p - 1`
+    -- for odd `1 < p`; classical `N(φ) = (1+√5)/2 · (1-√5)/2 = -1`,
+       proved via `mod_cancel_right` with `Z = 1`.
+
+## Part 39 — **φ · σ(φ) = (-1, 0)** (62 PURE, commit `bac7a3c4`)
+
+  · ★★★ **`phiFP2_mul_frob_phi_eq`** : `fp2Mul p phi (sigma phi) = (p-1, 0)`
+    for odd `1 < p`.  Combines Parts 37 + 38.
+
+This is the Phase 3.3 analog of the split-case identity
+`phi * psi ≡ -1 (mod p)` (already in Phase 3.2), now lifted to 𝔽_{p²}
+for the inert case.  **Universal milestone.**
+
+## Phase 3.3 roadmap (remaining after Part 39)
+
+Achieved:
+  · ✅ 𝔽_{p²} foundation: types, ops, basic identities
+  · ✅ Frobenius ring homomorphism (additive + multiplicative)
+  · ✅ Norm identity: `x · σ(x) = (Norm(x), 0)`
+  · ✅ Norm(φ) = -1 universal
+  · ✅ φ · σ(φ) = (-1, 0) universal
+
+Remaining for full Phase 3.3 closure (Frobenius FLT + matrix order):
+  · Freshman's dream in 𝔽_{p²}: `(x + y)^p = x^p + y^p`
+  · Apply FLT in 𝔽_p (Part 31) to component-wise expansion
+  · `(√5)^p ≡ -√5 (mod p)` via inert hypothesis (Legendre symbol)
+  · ⟹ Frobenius FLT: `x^p = σ(x)` in 𝔽_{p²} for inert primes
+  · ⟹ `φ^(p+1) = φ · σ(φ) = -1`, hence `φ^(2(p+1)) = 1`
+  · Lift `M^(2(p+1)) = I` via spectral/eigenvalue or
+    Lucas-mod-p identities (`F_{2(p+1)} ≡ 0`, `F_{2p} ≡ -1`)
+  · `phase_3_3_closure` analog of `phase_3_2_closure`
+  · `universal_phase_3_3` end-to-end theorem
+
+## Verification (post Part 39)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py ModArith.FP2Sqrt5`: 62 PURE / 0 DIRTY
+  · `scan_axioms.py DyadicFSM.PhiMod5`: 25 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
