@@ -32,7 +32,7 @@ enumeration).
 namespace E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
 
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD pow_add_pure pow_mul_pure)
-open E213.Meta.Nat.MulMod213 (mul_mod_pure)
+open E213.Meta.Nat.MulMod213 (mul_mod_pure mul_mod_left_pure)
 open E213.Meta.Nat.AddMod213 (div_add_mod mod_mod)
 
 /-! ## Parametric modular helper
@@ -456,6 +456,118 @@ theorem configCountD_2_2_mod_7 : configCountD 2 2 % 7 = 2 := by decide   -- 16 m
 theorem configCountD_3_2_mod_7 : configCountD 3 2 % 7 = 6 := by decide   -- 3^9 mod 7
 theorem configCountD_5_2_mod_7' : configCountD 5 2 % 7 = 5 := by decide
 
+/-! ## §H Extended modular fingerprint — primes 17, 23, 31, 41
+
+Extends the catalogue `{2, 3, 5, 7, 11, 13}` to the next prime
+layer.  Empirical periods:
+
+  · `p = 17`: period 4 in `n` (from `ord_17(5) = 16`, `5^4 ≡ 1 mod 16`)
+  · `p = 23`: period 5 (`ord_23(5) = 22`, `5^5 ≡ 1 mod 22`)
+  · `p = 31`: period 2 (`ord_31(5) = 3`, parallel to mod-7 / mod-13)
+  · `p = 41`: **constant** `9` from `n ≥ 1`
+    (`ord_41(5) = 20`, `5^n mod 20 = 5` for `n ≥ 1`,
+    hence `5^(5^n) ≡ 5^5 ≡ 9 (mod 41)`)
+
+The period-2 dominance observed at `{7, 11, 13}` does *not* extend
+universally: `p = 41` produces a constant, `p = 17, 23` produce
+longer periods.  The constant readout at `p = 41` is structurally
+distinguished — `41` is the `α_GUT` integer (catalogue), and the
+fixed value `9 = NS²` is a count-Lens 2-power.  The modular
+fingerprint at `α_GUT` is invariant under fractal level iteration.
+-/
+
+/-- Power-mod-base reduction: `a^k % p = (a % p)^k % p`.  Used to
+    swap inside the outer power when the inductive hypothesis
+    fixes the base mod p.  Standalone induction on the exponent. -/
+private theorem pow_mod_base (a p : Nat) :
+    ∀ k, a^k % p = (a % p)^k % p
+  | 0     => rfl
+  | k + 1 => by
+      show (a^k * a) % p = ((a % p)^k * (a % p)) % p
+      have ih : a^k % p = (a % p)^k % p := pow_mod_base a p k
+      calc (a^k * a) % p
+          = (a^k % p * (a % p)) % p := mul_mod_pure (a^k) a p
+        _ = ((a % p)^k % p * (a % p)) % p := by rw [ih]
+        _ = ((a % p)^k * (a % p)) % p :=
+              (mul_mod_left_pure ((a % p)^k) (a % p) p).symm
+
+/-! ### §H.1 `p = 41` — constant readout `9` -/
+
+/-- Seed: `5^5 ≡ 9 (mod 41)`.  `3125 = 76·41 + 9`. -/
+private theorem five_pow_5_mod_41 : 5^5 % 41 = 9 := by decide
+
+/-- Inductive seed: `9^5 ≡ 9 (mod 41)`.  `59049 = 1440·41 + 9` —
+    so `9` is a `5`-power fixed point modulo `41`. -/
+private theorem nine_pow_5_mod_41 : 9^5 % 41 = 9 := by decide
+
+/-- ★ **`configCountD 5 (m+1) % 41 = 9` for all `m`**.
+    The mod-41 fingerprint is constant across every fractal level
+    `n ≥ 1`.  Same proof structure as the Aurifeuillean parametric
+    `5^(5^n) ≡ −1 (mod 521)`: induct on `m`, propagate the seed
+    via `pow_mul_pure` + `pow_mod_base`, close with the
+    self-stabilising identity `9^5 ≡ 9 (mod 41)`. -/
+theorem configCountD_5_succ_mod_41 :
+    ∀ m, 5^(5^(m+1)) % 41 = 9
+  | 0     => five_pow_5_mod_41
+  | m + 1 => by
+      have ih : 5^(5^(m+1)) % 41 = 9 :=
+        configCountD_5_succ_mod_41 m
+      have h_pow : 5^(5^(m+1) * 5) = (5^(5^(m+1)))^5 :=
+        pow_mul_pure 5 (5^(m+1)) 5
+      show 5^(5^(m+2)) % 41 = 9
+      rw [show 5^(m+2) = 5^(m+1) * 5 from rfl, h_pow,
+          pow_mod_base (5^(5^(m+1))) 41 5, ih]
+      -- Goal reduces to `9^5 % 41 = 9`, closed by kernel computation
+      -- (the content of `nine_pow_5_mod_41`).
+
+/-- `configCountD 5 1 % 41 = 9` — concrete `n = 1` instance. -/
+theorem configCountD_5_1_mod_41 : configCountD 5 1 % 41 = 9 :=
+  configCountD_5_succ_mod_41 0
+
+/-- `configCountD 5 2 % 41 = 9` — physics slice (`N_U mod α_GUT`). -/
+theorem configCountD_5_2_mod_41 : configCountD 5 2 % 41 = 9 :=
+  configCountD_5_succ_mod_41 1
+
+/-- `configCountD 5 3 % 41 = 9` — confirms the constant extends
+    beyond the physics slice. -/
+theorem configCountD_5_3_mod_41 : configCountD 5 3 % 41 = 9 :=
+  configCountD_5_succ_mod_41 2
+
+/-! ### §H.2 Concrete decidable readouts for `p ∈ {17, 23, 31}`
+
+Period structure detected empirically (each verified by `decide`
+on small `n`); the corresponding parametric `∀ n` proofs use the
+same induction template as `configCountD_5_succ_mod_41` but with
+longer-period self-stabilising seeds.  Recorded here as decidable
+instances; the parametric proofs are tractable but deferred. -/
+
+/-- `p = 17` table (period 4 from `n = 1`):
+    partial cycle through the physics-relevant `n ∈ {0, 1, 2, 3}`. -/
+theorem configCountD_5_mod_17_table :
+    configCountD 5 0 % 17 = 5
+    ∧ configCountD 5 1 % 17 = 14
+    ∧ configCountD 5 2 % 17 = 12
+    ∧ configCountD 5 3 % 17 = 3 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- `p = 23` table (period 5 from `n = 1`):
+    partial cycle through `n ∈ {0, 1, 2, 3}`. -/
+theorem configCountD_5_mod_23_table :
+    configCountD 5 0 % 23 = 5
+    ∧ configCountD 5 1 % 23 = 20
+    ∧ configCountD 5 2 % 23 = 10
+    ∧ configCountD 5 3 % 23 = 19 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- `p = 31` table (period 2 from `n = 1`, parallel to mod-7 / mod-13):
+    full cycle visible in `n ∈ {0, 1, 2, 3}` as `5 → 25 → 5 → 25`. -/
+theorem configCountD_5_mod_31_table :
+    configCountD 5 0 % 31 = 5
+    ∧ configCountD 5 1 % 31 = 25
+    ∧ configCountD 5 2 % 31 = 5
+    ∧ configCountD 5 3 % 31 = 25 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base
@@ -470,5 +582,17 @@ theorem configCountD_5_2_mod_table :
     ∧ configCountD 5 2 % 11 = 1
     ∧ configCountD 5 2 % 13 = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- Extended capstone — modular table at the physics slice `n = 2`
+    across the prime set `{17, 23, 31, 41}`.  The `mod 41` entry is
+    structurally distinguished: `41 = α_GUT integer`, and the
+    constant `9` extends to every `n ≥ 1` (cf.
+    `configCountD_5_succ_mod_41`). -/
+theorem configCountD_5_2_mod_table_extended :
+    configCountD 5 2 % 17 = 12
+    ∧ configCountD 5 2 % 23 = 10
+    ∧ configCountD 5 2 % 31 = 5
+    ∧ configCountD 5 2 % 41 = 9 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Cohomology.Fractal.ConfigCountModular

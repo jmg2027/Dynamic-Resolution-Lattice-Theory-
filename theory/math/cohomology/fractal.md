@@ -278,6 +278,8 @@ Both bridges are additive; consumer literals are unchanged.
 | `configCountD_mod_pure` | `Fractal.ConfigCountModular` | family-level corollary |
 | `configCountD_5_modular_structure` | `Fractal.ConfigCountModular` | ★★★ unified mod-{2, 3, 5, 7, 13} capstone |
 | `configCountD_5_mod_7_table` | `Fractal.ConfigCountModular` | even/odd closed-form lookup |
+| `configCountD_5_succ_mod_41` | `Fractal.ConfigCountModular` §H.1 | ★ constant `9 = NS²` mod `41 = α_GUT` for all `n ≥ 1` |
+| `configCountD_5_2_mod_table_extended` | `Fractal.ConfigCountModular` §H | physics-slice readouts mod `{17, 23, 31, 41}` |
 | `fractal_betti_spectrum` | `Fractal.Level` | `b₁(K_{5^L})` for `L = 1..4` |
 | `numV_eq_d_sq` | `Fractal.V25` | `numV = d² = 25` (level-2 enumeration) |
 | `K25_coloring_count_eq_configCountD` | `Physics.Foundations.FractalLensCardinality` | `coloring_count numV d = configCountD 5 2` |

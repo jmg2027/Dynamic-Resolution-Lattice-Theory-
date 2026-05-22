@@ -318,6 +318,85 @@ decidable identity.
   · Q5: `521 mod {2,3,5,7,11,13}` resonance with the G123
     modular fingerprint — numerically no obvious pattern.
 
+### B++++. G126 / G127 / G128 — extended Hunter cross-checks
+
+Three parallel follow-up tracks from G124 §6 catalogue.  Started
+2026-05-22 on the same `n-u-followup-campaign` branch.
+
+**G126 — Carmichael chain extension (closed in Lean)**:
+
+  Extends G123 modular fingerprint catalogue to primes
+  `{17, 23, 31, 41}` (next prime layer beyond `{2, 3, 5, 7, 11, 13}`).
+  Empirical finding: **period-2 dominance does NOT extend
+  universally**.  Periods at the new primes are
+  `{17: 4, 23: 5, 31: 2, 41: ★ constant 9}`.
+
+  ★ Headline: `configCountD 5 n ≡ 9 = NS² (mod 41)` for every
+  `n ≥ 1` — **the α_GUT residue is invariant under fractal
+  level iteration**.  Same proof structure as G125 Aurifeuillean
+  parametric (induct on m via `pow_mul_pure` + `pow_mod_base`
+  with two decidable seeds `5^5 % 41 = 9` and the self-stabilising
+  `9^5 % 41 = 9`).
+
+  Lean (8 new PURE in `ConfigCountModular.lean §H`):
+    · `configCountD_5_succ_mod_41` (★ parametric ∀m)
+    · `configCountD_5_{1,2,3}_mod_41` (specialisations)
+    · `configCountD_5_mod_{17,23,31}_table` (decide tables)
+    · `configCountD_5_2_mod_table_extended` (physics-slice capstone)
+
+  Research note: `research-notes/G126_carmichael_chain_ext.md`.
+  Catalogue: `catalogs/atomic-integers.md` `41` entry updated.
+  Chapter: `theory/math/cohomology/fractal.md` Lean-summary table
+  extended.
+
+**G127 — Base-5 Wieferich primes (research note, Lean deferred)**:
+
+  Brute-force search at `5^(p-1) % p² = 1` over primes
+  `p ∈ [7, 10⁵]` yields **two** Wieferich-5 primes:
+
+  ```
+  p = 20771   (matches OEIS A123693)
+  p = 40487
+  ```
+
+  Atomicity: neither admits Hunter-primitive expressibility.
+  `p − 1` factorisations: `20770 = 2·5·31·67` and `40486 = 2·31·653`
+  both contain the factor `31` (the G126.2 mod-31 prime), but
+  the rest are generic.
+
+  Lean verification deferred — `5^20770 % 20771²` is kernel-
+  impractical at these magnitudes even via `modPow`.  Empirical
+  fact verified externally (Python).  Falsifier-asset catalogue
+  entry proposed.
+
+  Research note: `research-notes/G127_base_5_wieferich.md`.
+
+**G128 — Affine plane reading of K_25 (research note, Lean
+infrastructure pending)**:
+
+  Records the algebraic-geometric reading of the count-Lens
+  output:
+
+  ```
+  5^25 = |F_5[x, y] / (x^5 − x, y^5 − y)|
+       = function ring of A²_{F_5}
+  ```
+
+  The G124 §6.2 question — does the bipartite `K_{3,2}^{(c=2)}`
+  substrate correspond to a specific sub-ideal of this ring? —
+  is genuinely open and requires new infrastructure (finite-field
+  formalisation in `lean/E213/`).  G128 records the seven-reading
+  context (joining G124 §5) and the sub-space cardinality table
+  for `R_{≤k}` polynomial degree filtration.
+
+  Research note: `research-notes/G128_affine_plane_K25.md`.
+  Lean: deferred (multi-session infrastructure needed).
+
+**Status summary**: G126 fully closed (Lean PURE + chapter integration);
+G127 closed at research-note + catalogue level (Lean deferred for
+tractability); G128 closed at research-note + sub-space catalogue
+level (Lean infrastructure pending).
+
 ### B++. G124 N_U-family cross-field connections — OPEN SURVEY
 
 Cross-field follow-up to G123's promoted chapter.  Multi-agent
