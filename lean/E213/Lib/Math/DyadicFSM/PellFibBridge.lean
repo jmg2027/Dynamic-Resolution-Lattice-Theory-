@@ -585,4 +585,61 @@ theorem fibLike_pair_add (m n : Nat) :
       rw [Nat.add_comm ((fibLike m).2 * (fibLike n).1)
                           ((fibLike m).1 * (fibLike n).2)]
 
+/-! ## Fibonacci doubling smokes -/
+
+/-- Smoke: F_6 = 8 = F_4·F_3 + F_3·F_2 = 3·2 + 2·1 = 8. -/
+theorem fibLike_pair_add_smoke_3 :
+    (fibLike (3 + 3)).1 = (fibLike 4).1 * (fibLike 3).1
+                        + (fibLike 3).1 * (fibLike 3).2 := by decide
+
+/-- Smoke: F_10 = 55 = F_6·F_5 + F_5·F_4 = 8·5 + 5·3 = 40 + 15 = 55. -/
+theorem fibLike_pair_add_smoke_5 :
+    (fibLike (5 + 5)).1 = (fibLike 6).1 * (fibLike 5).1
+                        + (fibLike 5).1 * (fibLike 5).2 := by decide
+
+/-- ★ **F_{2(k+1)} ≡ 0 mod p** when **F_{k+1} ≡ 0 mod p**.
+    Universal Fibonacci-mod-p identity: at any index k for which
+    F_{k+1} vanishes mod p, the doubled index F_{2(k+1)} also vanishes.
+
+    Apply fibLike_pair_add at m = n = k + 1:
+      F_{2(k+1)} = F_{k+2}·F_{k+1} + F_{k+1}·F_k = F_{k+1}·(F_{k+2} + F_k).
+    Mod p with F_{k+1} ≡ 0:  ≡ 0 · (anything) ≡ 0.  PURE. -/
+theorem fibFst_double_zero_of_succ_zero (k p : Nat)
+    (h : fibFst (k + 1) % p = 0) :
+    fibFst (2 * (k + 1)) % p = 0 := by
+  -- 2 * (k + 1) = (k + 1) + (k + 1) via Nat.two_mul.
+  rw [E213.Tactic.NatHelper.two_mul (k + 1)]
+  -- fibFst ((k+1) + (k+1)) = (fibLike ((k+1) + (k+1))).1
+  show (fibLike ((k + 1) + (k + 1))).1 % p = 0
+  have h_pair := (fibLike_pair_add (k + 1) (k + 1)).1
+  -- h_pair: (fibLike ((k+1) + (k+1))).1 = (fibLike (k+2)).1 * (fibLike (k+1)).1
+  --                                     + (fibLike (k+1)).1 * (fibLike (k+1)).2
+  rw [h_pair]
+  -- Goal: ((fibLike (k+2)).1 * (fibLike (k+1)).1
+  --        + (fibLike (k+1)).1 * (fibLike (k+1)).2) % p = 0
+  -- Factor out (fibLike (k+1)).1 = fibFst (k+1):
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen
+        ((fibLike (k + 2)).1 * (fibLike (k + 1)).1)
+        ((fibLike (k + 1)).1 * (fibLike (k + 1)).2) p]
+  rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure
+        (fibLike (k + 2)).1 (fibLike (k + 1)).1 p]
+  rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure
+        (fibLike (k + 1)).1 (fibLike (k + 1)).2 p]
+  show ((fibLike (k + 2)).1 * (fibFst (k + 1) % p) % p
+        + (fibFst (k + 1) % p * (fibLike (k + 1)).2) % p) % p = 0
+  rw [h]
+  rw [Nat.mul_zero, Nat.zero_mul]
+  rw [E213.Meta.Nat.AddMod213.zero_mod p, Nat.add_zero,
+      E213.Meta.Nat.AddMod213.zero_mod p]
+
+/-- Smoke at p = 3 with k = 3 (k + 1 = 4): F_4 = 3, 3 % 3 = 0. ⟹ F_8 = 21 % 3 = 0. ✓ -/
+theorem fibFst_double_zero_smoke_3 :
+    fibFst (2 * (3 + 1)) % 3 = 0 :=
+  fibFst_double_zero_of_succ_zero 3 3 (by decide)
+
+/-- Smoke at p = 7 with k = 7 (k + 1 = 8): F_8 = 21, 21 % 7 = 0. ⟹ F_16 = 987 % 7 = 0. ✓ -/
+theorem fibFst_double_zero_smoke_7 :
+    fibFst (2 * (7 + 1)) % 7 = 0 :=
+  fibFst_double_zero_of_succ_zero 7 7 (by decide)
+
 end E213.Lib.Math.DyadicFSM.PellFibBridge
