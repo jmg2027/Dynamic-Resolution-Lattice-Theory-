@@ -50,7 +50,7 @@ Currently still open:
 | **G114 CD-1/2/3** | INFEASIBLE per G118 — ext theorems are 2-line `cases u; cases v; congr`; `conj_ne_id` picks per-instance witness (5-param helper as verbose as original); `assoc_*` are `by decide` (no body) |
 | **G115 PHYS-1** FractalLevelZeta master theorems | INFEASIBLE per G118 — already maximally compact (`refine ⟨...⟩ <;> decide` on ~10-conjuncts) |
 | **G115 PHYS-2** bracket-containment | INFEASIBLE per G118 — `by decide` IS the proof |
-| **G117 Bishop comparison** | OPEN — AsLensOutput capstone; depends on building a minimal Bishop Lean API to compare against `RealAsLensOutput`; 3-5 sessions |
+| **G117 Bishop comparison** | NARRATIVE-COMPLETE / LEAN-INFEASIBLE — `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption" + `theory/math/analysis/minimal_root.md` (locatedness reframing) + `Real213/Core/AsLensOutput.lean` (formal carrier) discharge the doctrinal claim.  A Lean-level equivalence proof requires importing an external Bishop API, which sits outside the ∅-axiom contract per CLOSED_FORM_SPEC §"Why the bridge is principled, not a gap". |
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
