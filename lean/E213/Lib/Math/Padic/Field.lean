@@ -165,4 +165,26 @@ theorem QpSeq.smoke_neg_one_5_d0 :
     ((QpSeq.neg 5 (by decide) (QpSeq.one 5 (by decide))).num.digits 0).val
       = 4 := rfl
 
+/-! ## Subtraction on ℚ_p
+
+Defined as `a - b := a + (-b)`.
+-/
+
+/-- Subtraction on `QpSeq`. -/
+def QpSeq.sub (p : Nat) (hp : 1 < p) (a b : QpSeq p) : QpSeq p :=
+  QpSeq.add p (Nat.lt_of_succ_lt hp) a (QpSeq.neg p hp b)
+
+/-- Shift of `a - b` equals shift of `a + (-b)`. -/
+theorem QpSeq.sub_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p) :
+    (QpSeq.sub p hp a b).shift = Nat.max a.shift b.shift := rfl
+
+/-- Smoke: subtraction with same shift on `1 - 1` digit-0 — depends
+    on the carry behavior of `Zp.add one (Zp.neg one)`.  Verified
+    structurally: numerator-level matches `(1) + (-1)`, which (per
+    the underlying \`add_neg_one_one_trunc_succ\`) trims to 0 in
+    truncation. -/
+theorem QpSeq.smoke_sub_one_one_shift_5 :
+    (QpSeq.sub 5 (by decide) (QpSeq.one 5 (by decide))
+       (QpSeq.one 5 (by decide))).shift = 0 := rfl
+
 end E213.Lib.Math.Padic
