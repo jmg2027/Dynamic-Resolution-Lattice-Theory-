@@ -580,3 +580,51 @@ status table.
   · No new DIRTY axioms
   · Working tree clean
 
+---
+
+# Part 7 — G119 Phase 2 seed: ModPow213 (2026-05-22)
+
+`E213.Meta.Nat.ModPow213` introduced as the 213-native modular
+exponentiation library — first concrete step toward FLT for the
+universal Pisano period theorem.
+
+## What landed (commits 487f54de, c039b9e0, 35a7cc52)
+
+10 PURE declarations for `a^k mod p`:
+  · `modPow p a k`        — definition (recursive on k).
+  · `modPow_zero`         — definitional.
+  · `modPow_succ`         — definitional.
+  · `modPow_one`          — `modPow p a 1 = a % p`.
+  · `modPow_lt`           — `0 < p → modPow p a k < p`.
+  · `modPow_mod_left`     — `modPow p (a % p) k = modPow p a k`.
+  · `modPow_one_base`     — `modPow p 1 k = 1 % p`.
+  · `modPow_add`          — `modPow p a (m+n) = (modPow p a m * modPow p a n) % p`.
+  · `modPow_mul`          — `modPow p a (m*n) = modPow p (modPow p a m) n`.
+  · `modPow_eq_one_pow`   — period propagation:
+       `modPow p a m = 1 % p → modPow p a (m*n) = 1 % p`.
+
+Construction technique: `% p` peels via backwards `mul_mod_left_pure` /
+`mul_mod_right_pure` from `MulMod213`, then `mul_assoc` from `NatHelper`
+closes the associativity.  Zero case for `modPow_add` needs `0 < p` to
+apply `Nat.mod_eq_of_lt` on the `modPow_lt` result.
+
+## What's still open
+
+The G119 Phase 2 push remains the substantive bottleneck:
+  · **Initial period witness** (FLT proper or via pigeonhole/Lagrange)
+  · **QR refinement** (`m | (p-1)/2` when 5 is QR mod p)
+  · **Frobenius case** (`m | p+1` when 5 is NQR mod p)
+
+`modPow_eq_one_pow` is the *consumer* of a period witness; the
+*supplier* (FLT, Lagrange, or pigeonhole-existence) still needs to be
+built.
+
+See `research-notes/G119_pisano_pell5_research_direction.md` for the
+full Phase 2-4 plan and next-session entry points.
+
+## Verification (post Part 7)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py E213.Meta.Nat.ModPow213`: 10 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+  · Working tree clean

@@ -253,6 +253,34 @@ This research direction is **open-ended**.  Subsequent sessions can
 pick up at any Phase 2-4 sub-goal.  The Phase 1 infrastructure is in
 place and ∅-axiom-clean.
 
+## Phase 2 seed (this session)
+
+`E213.Meta.Nat.ModPow213` introduced — 213-native modular
+exponentiation toward FLT.  10 PURE declarations:
+
+  · `modPow p a k`        : Nat — `a^k mod p`, recursive on k.
+  · `modPow_zero`         — definitional.
+  · `modPow_succ`         — definitional.
+  · `modPow_one`          : `modPow p a 1 = a % p`.
+  · `modPow_lt`           : `0 < p → modPow p a k < p`.
+  · `modPow_mod_left`     : `modPow p (a % p) k = modPow p a k`.
+  · `modPow_one_base`     : `modPow p 1 k = 1 % p`.
+  · `modPow_add`          : `m+n` decomposition.
+  · `modPow_mul`          : `m*n` decomposition.
+  · `modPow_eq_one_pow`   : witness-propagation —
+       `modPow p a m = 1 % p → modPow p a (m*n) = 1 % p`.
+
+The `modPow_eq_one_pow` lemma is the *consumer-side* form: once any
+period witness is established for a (whether from FLT proper or from
+QR refinement), all multiples of that period inherit `≡ 1 (mod p)`.
+
+What this does NOT yet give:
+  · The initial witness `a^m = 1 (mod p)` for some specific m.
+  · The Lagrange-style claim that `m | (p-1)` for gcd(a, p) = 1.
+  · Quadratic-residue refinement `m | (p-1)/2`.
+
+These remain the substantive Phase 2 work.
+
 Immediate next steps (lowest blocker):
   1. **Lagrange's theorem in `Fin p^*`** for prime p — define
      cyclic subgroup of an element, then count cosets.
@@ -261,6 +289,10 @@ Immediate next steps (lowest blocker):
   3. **FLT primary form** `a^p ≡ a (mod p)` via the
      `(a+1)^p = a^p + ∑_{k=1}^{p-1} C(p,k) a^k + 1` argument
      (uses `p | C(p, k)` for `1 ≤ k ≤ p-1`).
+  4. **Pigeonhole existence**: prove that for any a with `gcd(a, p)=1`,
+     there exists m > 0 with `modPow p a m = 1 % p`, by tracking
+     `modPow p a 0, ..., modPow p a p` and using the recurrence
+     bijection.  Weaker than Lagrange but constructively useful.
 
 A `lake build` of `E213.Lib.Math.DyadicFSM.PellMatrix` confirms the
 matrix-order detector compiles PURE.  All smoke tests pass via
