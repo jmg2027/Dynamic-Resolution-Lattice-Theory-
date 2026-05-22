@@ -32,7 +32,7 @@ or fails — making R1–R4 a **mechanical falsifier of candidates**.
 XOR-fails-R4 is the first concrete demonstration that an alternative
 substrate candidate is rejected by 213's own metalogic.
 
-## Falsifiability discipline (seed/AXIOM/04_falsifiability.md)
+## Falsifiability discipline (`seed/AXIOM/08_falsifiability.md`)
 
 Seven explicit observational falsifiers:
 
@@ -70,7 +70,7 @@ forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
 
 ## Sources
 
-- `seed/AXIOM/`, `seed/AXIOM/00_nature.md`, `seed/AXIOM/04_falsifiability.md`.
+- `seed/AXIOM/`, `seed/AXIOM/01_residue.md`, `seed/AXIOM/08_falsifiability.md`.
 - `papers/paper14_213.tex` § Swap symmetry, decidability.
 - `lean/E213/Meta/SelfRecognising.lean`, `Meta/LensCatalog.lean`.
 - `lean/E213/Tactic/VerifyR4.lean`.

@@ -43,4 +43,4 @@ themselves are Lens choices on Raw.
 
 - `research-notes/G12_layered_api_classification.md` (active foundational)
 - `theory/math/axiom_systems.md` — layered-API classification Tier 5 (the level above this)
-- `seed/AXIOM/06_formalization.md` — R1-R5 judgment game framework
+- `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game framework

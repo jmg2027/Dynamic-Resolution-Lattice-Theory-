@@ -12,7 +12,7 @@ Pre-2026-05-12 history (6-ring concentric model) available via
 
 The ring architecture below is a *code-organization convenience*,
 not a philosophical hierarchy.  Per
-`seed/AXIOM/07_self_reference.md` §8.1, there is no exterior to
+`seed/AXIOM/05_no_exterior.md` §5.1, there is no exterior to
 213; per §1.2 (revised), Lens application is itself a
 residue-internal event, not a layer placed above Raw.
 
@@ -33,12 +33,11 @@ Hence:
   dependency order; nothing more.
 
 Canonical statements:
-  - "Lens is residue self-pointing" — `seed/AXIOM/00_nature.md`
-    §1.2 (revised 2026-05-20).
+  - "Lens is residue self-pointing" — `seed/AXIOM/04_uniqueness.md` §4.2 (revised 2026-05-20).
   - "Layers in code are not layers in reality" — present
     section.
   - "Lens application IS a residue-internal event, not an
-    addition to Raw" — `seed/AXIOM/05_primacy.md` §6.
+    addition to Raw" — `seed/AXIOM/07_primacy.md` §7.
   - "All classical foundations are Lens compositions reading
     the same Raw residue" —
     `lean/E213/Lib/Math/AxiomSystems/INDEX.md`.

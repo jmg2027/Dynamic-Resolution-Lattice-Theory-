@@ -24,7 +24,7 @@ DRLT (Dynamic Resolution Lattice Theory)
   `#print axioms T → "does not depend on any axioms"`.  Any
   non-empty axiom list (incl. `propext`, `Quot.sound`) is
   `sorry`-equivalent and does not count toward closure.  See
-  `seed/AXIOM/04_falsifiability.md` §5.2.1 + `CLAUDE.md`
+  `seed/AXIOM/08_falsifiability.md` §8.2 + `CLAUDE.md`
   "∅-axiom standard".
 - ★ **Kernel layer ∅-axiom**: deep-embedded `Term` system; neither
   propext nor Quot.sound is load-bearing.

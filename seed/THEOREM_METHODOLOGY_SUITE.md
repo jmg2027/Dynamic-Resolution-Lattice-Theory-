@@ -11,7 +11,7 @@ into one read-through:
     "X is derived from Raw" is asserted, which of (α) / (β) / (γ)
     is meant.
   · **§TH-3** Falsifiability surface — the quantitative profile
-    that operationalises `seed/AXIOM/04_falsifiability.md` §5.2.1.
+    that operationalises `seed/AXIOM/08_falsifiability.md` §8.2.
   · **§TH-4** L1 4-sibling parametric methodology — the closure
     pattern that absorbed Part 3 + Part 5 of the Cup-AW Leibniz
     marathon into 2 parametric helpers.
@@ -140,8 +140,7 @@ kernel + the 4-clause Raw axiom set (no further axiom).
 **Status.**  **TRUE.**  Verified by `#print axioms` on every
 `★`-marked theorem.  No `Classical.choice`, no `native_decide`,
 no `sorryAx`, no external axiom.  See `STRICT_ZERO_AXIOM.md` for
-the canonical PURE/DIRTY ledger and `seed/AXIOM/04_falsifiability.md`
-§5.2.1 for the falsifiability rule that enforces this.
+the canonical PURE/DIRTY ledger and `seed/AXIOM/08_falsifiability.md` §8.2 for the falsifiability rule that enforces this.
 
 **Independently verified:**
 
@@ -251,7 +250,7 @@ disambiguation.
 ## §TH-3 Falsifiability surface — quantitative profile
 
 Quantifies the falsifiability rule of
-`seed/AXIOM/04_falsifiability.md` §5.2.1 as an operational
+`seed/AXIOM/08_falsifiability.md` §8.2 as an operational
 footprint in the Lean corpus.  Pairs with the manual measurement-
 falsifier roster in `catalogs/falsifiers.md` and the auto-
 discovered roster in `catalogs/falsifier-roster.md`.
@@ -346,7 +345,7 @@ impossibilities.
 
 ### Connection to the falsifiability doctrine
 
-`seed/AXIOM/04_falsifiability.md` §5.2.1 says:
+`seed/AXIOM/08_falsifiability.md` §8.2 says:
 
 > 213 must never require any external axiom addition.  If any
 > result is shown to be absolutely impossible without adding an
@@ -522,7 +521,7 @@ retired.
 
 ### Specs
 
-  · `seed/AXIOM/04_falsifiability.md` §5.2.1 — the discard rule
+  · `seed/AXIOM/08_falsifiability.md` §8.2 — the discard rule
     grounding (α) and §TH-3.
   · `STRICT_ZERO_AXIOM.md` — canonical PURE / DIRTY ledger
     enforcing (α).

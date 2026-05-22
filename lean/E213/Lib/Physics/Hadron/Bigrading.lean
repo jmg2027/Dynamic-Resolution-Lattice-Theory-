@@ -99,7 +99,7 @@ theorem class_F_hadron_skeleton :
 /-- ★ Atomic skeleton for m_n/m_p split coefficients.
     All three counts (9, 32, 45) read out of NS, NT, d directly
     — no operand position for an exterior dialer (cf.
-    `seed/AXIOM/07_self_reference.md` §8.1).  The numerical
+    `seed/AXIOM/05_no_exterior.md` §5.1).  The numerical
     α_em·(1 − 45·α_em) evaluation is in `mn-mp-split` runtime
     binary; this theorem locks the integer count side. -/
 theorem mn_mp_split_atomic :

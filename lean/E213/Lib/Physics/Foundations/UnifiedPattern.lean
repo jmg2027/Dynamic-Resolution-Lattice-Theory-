@@ -112,6 +112,6 @@ theorem master_unified_pattern :
    become simultaneously false.  Only single atomicity forcing explains all precision formulas.
 
    This is the structural reading of DRLT's "no exterior dialer"
-   claim (cf. `seed/AXIOM/07_self_reference.md` §8.1). -/
+   claim (cf. `seed/AXIOM/05_no_exterior.md` §5.1). -/
 
 end E213.Lib.Physics.Foundations.UnifiedPattern

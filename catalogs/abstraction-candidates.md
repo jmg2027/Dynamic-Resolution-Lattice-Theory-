@@ -77,7 +77,7 @@ Net Lean deliverables this branch:
 Doc deliverables (G107 §10):
   · `LESSONS_LEARNED.md` Patterns #10, #11, #12, #13 added.
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ readings.
-  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface (quantitative §5.2.1).
+  · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface (quantitative §8.2).
   · `catalogs/recursor-inventory.md` — CAT-3.
   · `catalogs/internal-hubs.md` — CAT-4.
   · `catalogs/falsifier-roster.md` — CAT-1.

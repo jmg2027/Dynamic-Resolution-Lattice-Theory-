@@ -231,7 +231,7 @@ glyph-Raws.
 not essential; every glyph carries meaning.
 
 **Status: gestural, not formal.**  213's *no exterior* principle
-(`seed/AXIOM/07_self_reference.md` §8.1) is suggestive of this
+(`seed/AXIOM/05_no_exterior.md` §5.1) is suggestive of this
 extension, and the meta-meta-…-language cascade is expected to halt
 in a finite chart at the resolution limit.  The halting itself is
 asserted here, not constructed.  Treat §2.7 as conjecture pending a

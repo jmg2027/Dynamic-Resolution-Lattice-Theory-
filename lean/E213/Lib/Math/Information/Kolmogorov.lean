@@ -17,7 +17,7 @@ Atomic content:
   * `axiomClauseCount = 4` — the Raw axiom literal count.
   * `kolmogorov_213 = 4` — minimum description length.
   * `truncation_at_minimum` — adding any axiom = theory falsified
-    (cf. `seed/AXIOM/04_falsifiability.md` §5.2.1).
+    (cf. `seed/AXIOM/08_falsifiability.md` §8.2).
 -/
 
 namespace E213.Lib.Math.Information.Kolmogorov
@@ -40,7 +40,7 @@ theorem axiom_minimality (n : Nat) (h : kolmogorov_213 ≤ n) :
     4 ≤ n := h
 
 /-- Adding any axiom increases the description length beyond K(213), violating minimality (cf.
-    `seed/AXIOM/04_falsifiability.md` §5.2.1).  Atomic statement:
+    `seed/AXIOM/08_falsifiability.md` §8.2).  Atomic statement:
     if `K(213 + axiom) > K(213)`, the theory is no longer minimal. -/
 theorem truncation_at_minimum (extra : Nat) (h : 0 < extra) :
     kolmogorov_213 + extra > kolmogorov_213 := by

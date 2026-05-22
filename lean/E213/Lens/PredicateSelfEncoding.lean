@@ -5,7 +5,7 @@ import E213.Lens.FlatOntology
 /-!
 # Lens.PredicateSelfEncoding — §9.3 closure direction
 
-`seed/AXIOM/09_chart_relativity.md` §9.3 records the flat-ontology
+`seed/AXIOM/06_lens_readings.md` §6.3 records the flat-ontology
 table: every entity (object, type, relation, function, Lens) is a
 decidable predicate on Raw^n.  `Lens/FlatOntology.lean` realised
 the *forward* direction (Raws → predicates via indicator

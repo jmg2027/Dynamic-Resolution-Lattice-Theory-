@@ -257,7 +257,7 @@ New files added in the same branch (listed at the end):
   - `pair_self_nS`, `pair_nS_nT`, `pair_symm_nS_nT` — 성질 정리
   - `diag_trace_zero`, `off_count_d`, `K32_pairs` — 계산
 - **의존**: E213.Term.Term
-- **비고**: AXIOM/02_statement.md §3.2 인용.
+- **비고**: seed/AXIOM/02_axiom.md §2.2 인용.
 
 ### `lean/E213/Term/Rat.lean`
 - **역할**: Rational 산술을 cross-multiplication으로 구현 (ℚ type 없음). p/q ≡ r/s ⇔ p·s = q·r 유지. ℕ + finite simplex 내에서.

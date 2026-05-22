@@ -215,7 +215,7 @@ Bridge work (multi-session):
 
 The Bishop comparison is a **translation layer into another
 framework**, not a DRLT-internal closure.  213's falsifiability
-rule (`seed/AXIOM/04_falsifiability.md` §5.2.1) demands that DRLT
+rule (`seed/AXIOM/08_falsifiability.md` §8.2) demands that DRLT
 predictions hold without external axioms.
 
 The PURE proof status of `RealAsLensOutput`, the cut operations,

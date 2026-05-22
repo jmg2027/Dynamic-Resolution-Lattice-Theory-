@@ -10,14 +10,14 @@ file docstrings drift from this spec, this spec wins.
 
 ## Section 0 — T0 (Raw) layer commits to nothing about cardinality
 
-The 213 axiom set (`seed/AXIOM/02_statement.md` §3.3) explicitly excludes from
+The 213 axiom set (`seed/AXIOM/02_axiom.md` §2.5) explicitly excludes from
 its commitment list: size, cardinality, finiteness, infinity, order,
 hierarchy, set/element relation, observer, space, perception.
 
 Raw is an inductive trajectory carrier, not a set.  At the T0 layer
 no cardinality predicate is defined.  "Finite" and "infinite" are
 NOT properties of Raw — they are outputs of specific lens
-applications (`seed/AXIOM/02_statement.md` §3.3, `Math/Infinity/LensCardinality
+applications (`seed/AXIOM/02_axiom.md` §2.5, `Math/Infinity/LensCardinality
 .lean`).
 
 Implication: *both* "Strict finitism" and "completed infinity

@@ -24,12 +24,11 @@ it imports `Classical.choice` in Lean.  213's version is the
 **atomic Bool LEM**: for every Bool-valued indicator, `b = true ∨
 b = false` decidably.
 
-The R1-R5 judgment-game framework (per `seed/AXIOM/06_formalization.md`
-§7) provides the meta-discipline: each judgment has a typed protocol,
+The R1-R5 judgment-game framework (per `seed/AXIOM/09_lean_correspondence.md` §9) provides the meta-discipline: each judgment has a typed protocol,
 LEM applies only at the typed-Bool boundary.
 
 ## Connection
 
 - `theory/math/cross_domain_unification.md` (C6) — Logic as paradigm
   instance
-- `seed/AXIOM/06_formalization.md` — R1-R5 judgment game canonical
+- `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game canonical

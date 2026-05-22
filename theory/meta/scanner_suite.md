@@ -98,7 +98,7 @@ understanding of DRLT's architecture.
 **negation shape** could serve as a DRLT-validation-standard
 falsifier — i.e., decidable propositions that would falsify 213
 if their negation held.  Per DRLT Validation Standard
-(`seed/AXIOM/04_falsifiability.md`), each adds a measurable
+(`seed/AXIOM/08_falsifiability.md`), each adds a measurable
 proposition.
 
 Catalog raw at `tools/output/falsifier_catalog.tsv` (gitignored);

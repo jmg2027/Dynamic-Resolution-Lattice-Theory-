@@ -21,7 +21,7 @@ host, 213 = real foundation" is a formal fact.
 **Standard (THE standard):** every theorem must satisfy
 `#print axioms T → "does not depend on any axioms"`.  Any
 non-empty axiom list = `sorry`-equivalent (CLAUDE.md +
-`seed/AXIOM/04_falsifiability.md` §5.2.1).
+`seed/AXIOM/08_falsifiability.md` §8.2).
 
 ## Architecture
 

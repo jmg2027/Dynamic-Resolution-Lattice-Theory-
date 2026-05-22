@@ -11,7 +11,7 @@ import E213.Theory.RawCmpIndependence
   (depth, leaves, fold, swap).  Built on Term API (Tree machinery).
   Consumed by Lens.
 
-  ## Three-direction uniqueness (per `seed/AXIOM/00_nature.md` §1.3)
+  ## Three-direction uniqueness (per `seed/AXIOM/04_uniqueness.md` §4.3)
 
   Raw's uniqueness is closed in three directions, all three being
   readings of the same self-consistency:

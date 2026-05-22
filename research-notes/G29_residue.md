@@ -99,8 +99,8 @@ eigenvalues = (3±√5)/2 = φ², 1/φ²
 → 잔여 의 quantitative 측정 = φ ∈ Z[√5].
 
 Cross-reference:
-- `seed/AXIOM/02_statement.md §3.4` (algebraic signature)
-- `seed/AXIOM/07_self_reference.md §8.5` (concrete model)
+- `seed/AXIOM/03_form.md` §3.5` (algebraic signature)
+- `seed/AXIOM/05_no_exterior.md` §5.6` (concrete model)
 - `lean/E213/Lib/Math/Mobius213.lean` (∅-axiom proofs)
 - `research-notes/G57_213_mobius_signature.md` (multi-layer reading)
 

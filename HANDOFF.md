@@ -134,7 +134,7 @@ meaningful in DRLT is itself a research question.
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/07_self_reference.md` §8 | Boot sequence — re-read every session start |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence — re-read every session start |
 | `research-notes/G29_residue.md` | Clean foundational text |
 | `theory/INDEX.md` | Book map (90 chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |

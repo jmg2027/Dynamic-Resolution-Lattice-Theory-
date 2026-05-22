@@ -16,8 +16,7 @@ Hence the twisted Leibniz rewrites as a **self-referential** identity:
   δ(α ⌣ β)(τ) = (δα ⌣ β)(τ) ⊕ (α ⌣ δβ)(τ) ⊕ (α ⌣ β)(τ \ {τ[k]})
 
 δ of (α ⌣ β) involves α ⌣ β *itself* evaluated at a shifted
-argument.  Aligns perfectly with `seed/AXIOM/07_self_reference.md`
-§8 — the operation's δ behaviour refers back to the operation's
+argument.  Aligns perfectly with `seed/AXIOM/05_no_exterior.md` §5 — the operation's δ behaviour refers back to the operation's
 own face values.
 
 ## General conjecture (∀ n, k, l)

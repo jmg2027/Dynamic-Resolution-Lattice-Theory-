@@ -207,7 +207,7 @@ Three layers, one substrate — Raw + Lens + Initiality.
 ## Cross-references
 
   - `seed/AXIOM/` — the four-clause Raw axiom
-  - `seed/AXIOM/00_nature.md` — primitive distinction
+  - `seed/AXIOM/01_residue.md` — primitive distinction
   - `Firmware/Raw.lean` — Raw inductive (free magma)
   - `Firmware/Raw/Slash.lean`, `Swap.lean`, `Rec.lean`, `Fold.lean`,
     `Cmp.lean` — 213-Lean's foundational primitives, all ∅-axiom

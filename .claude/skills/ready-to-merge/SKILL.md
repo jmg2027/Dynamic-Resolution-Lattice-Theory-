@@ -176,7 +176,7 @@ For each, verify:
 
 Then check seed/ ↔ Lean alignment:
 
-  - `seed/AXIOM/06_formalization.md` §7 path references point to files that exist
+  - `seed/AXIOM/09_lean_correspondence.md` §9 path references point to files that exist
   - `lean/E213/AUDIT.md` cross-refs are at current paths
   - `lean/E213/AUDIT.md` recommendation status reflects whether each
     has been done / superseded / deferred

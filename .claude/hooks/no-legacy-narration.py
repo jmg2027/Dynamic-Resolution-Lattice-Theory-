@@ -78,6 +78,7 @@ EXEMPT_EXACT = {
     "theory/INDEX.md",
     "seed/INDEX.md",
     "seed/AXIOM/INDEX.md",
+    "seed/AXIOM/99_history.md",
     "lean/E213/ARCHITECTURE.md",
     "lean/E213/AUDIT.md",
 }

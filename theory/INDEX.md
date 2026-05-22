@@ -7,8 +7,7 @@ prose (explanation) by path.
 ## What 213 says (1 paragraph)
 
 Pointing leaves a residue (Raw).  Lens application IS distinguishing —
-not a tool acting on Raw from outside (per `seed/AXIOM/07_self_reference.md`
-§8.1: no exterior).  Self-consistency forces atomicity
+not a tool acting on Raw from outside (per `seed/AXIOM/05_no_exterior.md` §5.1: no exterior).  Self-consistency forces atomicity
 **(NS, NT, c, d) = (3, 2, 2, 5)** uniquely.  From this the algebra
 tower, K_{3,2}^{(c=2)} cohomology (gauge content = 8 gluon
 channels), and α_em to **0.09 ppb** all derive — without
@@ -20,7 +19,7 @@ external parameters, all PURE in Lean.
 |---|---|
 | **Raw** | The residue of pointing.  Free magma on 2 generators.  Not "raw data below derivations" — Raw IS what 213 says. |
 | **Lens** | A `Raw → α` distinguishing.  Lens application = residue self-pointing event.  Not a tool above Raw. |
-| **Distinguishing** | The primitive act 213 names.  Per `seed/AXIOM/00_nature.md`. |
+| **Distinguishing** | The primitive act 213 names.  Per `seed/AXIOM/01_residue.md`. |
 | **(NS, NT, c, d)** | Atomic 4-tuple = (3, 2, 2, 5).  Uniquely forced (see `physics/foundations/atomic_constants.md`). |
 | **K_{m,n}^{(c)}** | Bipartite multigraph with m S-vertices, n T-vertices, c edges per (s, t) pair.  213's canonical Lattice. |
 | **Δⁿ** | n-simplex on (n+1) vertices.  Δ⁴ pairs with K_{3,2}^{(2)} as dual fillings. |
@@ -138,7 +137,7 @@ Foundational specs added alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
 
 Earlier draft used OS-stack analogy ("Firmware", "Hypervisor",
 "second 213 layer") in some `lens/` files.  Per
-`seed/AXIOM/07_self_reference.md` §8.1 (no exterior) + CLAUDE.md
+`seed/AXIOM/05_no_exterior.md` §5.1 (no exterior) + CLAUDE.md
 "Substrate metaphor" failure mode, those framings have been
 replaced with build-time ring ordering language.  Lens / Theory
 / Term are not infrastructure below Math / Physics — the ring

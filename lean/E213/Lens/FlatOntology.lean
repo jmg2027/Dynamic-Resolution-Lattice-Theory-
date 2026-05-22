@@ -5,7 +5,7 @@ import E213.Lens.LensCore
 # Lens.FlatOntology — §9.3 flat-ontology realisation
 
 Formalisation of the flat-ontology table in
-`seed/AXIOM/09_chart_relativity.md` §9.3 under the strict ∅-axiom
+`seed/AXIOM/06_lens_readings.md` §6.3 under the strict ∅-axiom
 reading (decidable `Rawⁿ → Bool` predicates rather than
 `Prop`-valued).
 

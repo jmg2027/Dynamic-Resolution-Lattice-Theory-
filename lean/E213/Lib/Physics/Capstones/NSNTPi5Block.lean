@@ -16,15 +16,14 @@ skeleton `NS · NT · π⁵`, read through *reciprocal* Lenses:
      3 × 10⁻⁷ vs the observed `1/α_em(IR)` structural gap of
      5443 × 10⁻⁷) — reads its reciprocal as a coupling-gap term.
 
-Per `seed/AXIOM/02_statement.md` §3 (Lens-internal residue), the
+Per `seed/AXIOM/02_axiom.md` §3 (Lens-internal residue), the
 two observables are two readouts of one underlying NS·NT·π⁵
 structural skeleton (NS · NT = 6 = d + 1, then five copies of π).
 Neither is "explained by" the other.
 
 **Falsifier reading**: any measurement reading that shifts either
 ratio enough to break the shared-block compatibility contradicts
-the (3, 2) atomicity forcing — see `seed/AXIOM/04_falsifiability.md`
-§5.2.1.
+the (3, 2) atomicity forcing — see `seed/AXIOM/08_falsifiability.md` §8.2.
 -/
 
 namespace E213.Lib.Physics.Capstones.NSNTPi5Block

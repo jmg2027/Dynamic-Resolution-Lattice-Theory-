@@ -67,7 +67,7 @@ def ivt_root_certificate
 
 A pair-level theorem recording that the IVT constructor's input
 signature lines up with the 4-clause Raw axiom (per
-`seed/AXIOM/03_form.md` §4.5 forcing chain). -/
+`seed/AXIOM/03_form.md` §3.4 forcing chain). -/
 
 /-- ★ **Four-axis structural correspondence** — the IVT certificate
     consumes the same four data types as the 4-clause Raw axiom

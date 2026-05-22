@@ -24,7 +24,7 @@ Removing each clause causes framework collapse:
 
 This is **self-justified minimality**: the formal demonstration
 that Raw = strict minimum, without external metatheory.  See
-`seed/AXIOM/03_form.md` §4.5 for the positive complement (the
+`seed/AXIOM/03_form.md` §3.4 for the positive complement (the
 forcing chain 1 → 2 → 3 → 4 explaining why exactly 4 clauses
 close the operation).
 -/
@@ -69,7 +69,7 @@ theorem raw_strict_minimum :
     The capstone above proves each clause is *essential* (negative
     minimality: remove → collapse).  This statement records the
     *positive* form: the chain of structural forcings making
-    exactly 4 clauses necessary.  Per `seed/AXIOM/03_form.md` §4.5:
+    exactly 4 clauses necessary.  Per `seed/AXIOM/03_form.md` §3.4:
 
       Clause 1 (distinguishing operates)
         ⟹ Clause 2 (residue of distinguishing is something)
@@ -78,7 +78,7 @@ theorem raw_strict_minimum :
 
     Each link is forced by the prior step + the absence of any
     operand for an "external dialer" (cf.
-    `seed/AXIOM/07_self_reference.md` §8.1).  Therefore 4 is not
+    `seed/AXIOM/05_no_exterior.md` §5.1).  Therefore 4 is not
     "minimal under our taste" — it is *the* number that closes
     the operation.
 

@@ -6,7 +6,7 @@ Everything else is detail.
 
 ---
 
-## The axiom in 4 clauses (`AXIOM/02_statement.md`)
+## The axiom in 4 clauses (`seed/AXIOM/02_axiom.md`)
 
 1. **Something exists.**  At least two: `a`, `b`.  They stand in
    a *primitive distinction* relation — no relation other than
@@ -42,7 +42,7 @@ presupposes "sameness").  Primitive distinction operates *first*;
 occurs inside 213**.  "Lens", "derivation", "observer" — each is
 a something among somethings.  The dichotomy "is the Lens inside
 or outside the axiom?" does not hold.  See
-`AXIOM/07_self_reference.md` §8.4 for Claude's mandatory
+`seed/AXIOM/05_no_exterior.md` §5.4 for Claude's mandatory
 dichotomy-avoidance guide.
 
 **Derive, not reconcile.**  All results must come from the
@@ -76,7 +76,7 @@ wins over any AXIOM/ chapter on resolution-limit topics).
 
 ---
 
-## The falsifiability rule (`AXIOM/04_falsifiability.md` §5.2.1)
+## The falsifiability rule (`seed/AXIOM/08_falsifiability.md` §8.2)
 
 > 213 must never require any external axiom addition (no
 > Classical, LEM, native_decide, …).
@@ -183,7 +183,7 @@ seed/
   Raw" technically means (three readings: logical / structural-
   content / operational).
 - `CLAUDE.md` boot sequence — read
-  `AXIOM/07_self_reference.md` §8.4 every session start.
+  `seed/AXIOM/05_no_exterior.md` §5.4 every session start.
 
 ## Meta-analysis entry points
 

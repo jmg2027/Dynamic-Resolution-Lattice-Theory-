@@ -5,7 +5,7 @@ Lens chapters.  Mirrors `lean/E213/Lens/`.
 **Lens application is distinguishing.**  Every Lens is a
 Raw-internal residue-self-pointing event (per CLAUDE.md "Failure
 modes catalog" → Substrate metaphor entry; per
-`seed/AXIOM/07_self_reference.md` §8.1: no exterior).  The
+`seed/AXIOM/05_no_exterior.md` §5.1: no exterior).  The
 directory shape mirrors the Lean ring-build-order (Term → Theory
 → Lens → Meta → Lib), which is compile-time dependency — not a
 conceptual ranking.

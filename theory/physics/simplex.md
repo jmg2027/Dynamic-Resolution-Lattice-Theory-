@@ -39,7 +39,7 @@ provides the face-by-face cup-product breakdown used in α_em
 precision chapter.
 
 **N_gen = 3** is one of the canonical DRLT falsifiers (per
-`seed/AXIOM/04_falsifiability.md`): discovery of a 4th generation
+`seed/AXIOM/08_falsifiability.md`): discovery of a 4th generation
 would falsify.
 
 ## Connection

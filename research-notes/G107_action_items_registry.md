@@ -529,7 +529,7 @@ mathematics" characterisation backed by data.
 **Scope**: Standalone doc articulating (α) logical / (β)
 structural-content / (γ) operational distinction.  Cites
 verification artefacts for each.  Should live in `seed/` or
-near `AXIOM/04_falsifiability.md`.  
+near `seed/AXIOM/08_falsifiability.md`.  
 **Effort**: ~1 hr.  Largely repackaging G104.  
 **Value**: HIGH — this is the cleanest methodological
 contribution of the meta branch.  Forecloses a common

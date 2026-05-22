@@ -25,7 +25,7 @@ convergence"**
 π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
 parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
 213 axiom set은 "finite vs infinite" dichotomy 자체를 체결하지
-않음 (`seed/AXIOM/02_statement.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
+않음 (`seed/AXIOM/02_axiom.md` §2.5, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
 - `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
@@ -262,7 +262,7 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `HANDOFF.md` — 현재 상태
 - `LESSONS_LEARNED.md` — 이 파일
 - `seed/AXIOM/` — axiom seed doc
-- `seed/AXIOM/00_nature.md` — 213 철학
+- `seed/AXIOM/01_residue.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
 - `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
@@ -913,7 +913,7 @@ User insight (2026-05-22):
 
 If every Raw event is simultaneously operation and object — with no
 a-priori distinction — then Clause 4 of the 213 axiom (`x/x` forbidden,
-`seed/AXIOM/02_statement.md` §3.2 #4) is **not restricted to atomic
+`seed/AXIOM/02_axiom.md` §2.2 #4) is **not restricted to atomic
 Raw distinguishables**.  It applies at every granularity, including
 groups of Raw viewed as objects.
 

@@ -1,85 +1,140 @@
-# §4. Why this form was chosen
+# §3. Form
 
-## §4.1 Austerity as audit
+The axiom is austere by design.  This chapter explains why each
+of its features is forced and what algebraic shape the
+combination takes.
 
-The axiom is intentionally austere.  The intent is **defensive**.
+## §3.1 Austerity as audit
 
-- The moment it is written in language, residual import is
-  unavoidable, but its footprint can be minimized.
-- If additional commitment slips in during derivation, **the
-  contrast with the austere axiom immediately detects it as fudge**.
-- The axiom itself serves as the contract for "can everything be
-  derived from just this?"
+Residual import is unavoidable the moment one writes anything in
+language (§1.4), but the footprint can be minimised.  The
+smaller the axiom, the sharper the contrast with anything that
+slips in during derivation — if a result requires more than the
+axiom itself, the gap is immediately visible against the
+austere background.  The axiom plays the role of a contract:
+*can everything be derived from just this?*
 
-Austerity is not poverty — it is **auditability**.
+Austerity here is not poverty.  It is **auditability**.  A wider
+axiom buries fudge inside its commitments; a narrow axiom forces
+fudge into the open.
 
-## §4.2 Why two, why binary
+---
 
-(Caveat: "two" throughout this section is the *count-Lens reading*
-of distinguishing's residue, not a Raw cardinality commitment.
-Cardinality at Raw is absent per `02_statement.md` §3.3.)
+## §3.2 Why two, why binary
 
-- **One**: Distinguishing cannot operate at all — no second
-  something for the first to be distinguishable from.  Nothing is
-  pointed at.
-- **Two**: The minimum count-Lens reading of a successful
-  distinguishing.  Not "two somethings prior to distinguishing":
-  the count `2` *is* the residue of the first distinguishing
-  operation.
-- **Three or more as primitive**: a third something is the
-  count-Lens reading of *further* distinguishing operations applied
-  to the existing residue.  Treating count `≥ 3` as primitive
-  imports cardinality where distinguishing has not yet produced
-  that count.
+(The "two" in this section is the count-Lens reading of the
+residue, not a Raw-level cardinality commitment.  Per §2.5, Raw
+commits to no cardinality.)
 
-- **Unary (operation on one)**: Self-reflexive and cannot produce a
-  new something.
-- **Binary**: The minimum form in which a new something arises from
-  a residue with two-count.  Necessary and sufficient.
-- **Ternary or more**: Reconstructible by repetition of binary.  No
-  reason to treat as primitive.
+Could one suffice?  No.  Distinguishing has nothing to operate
+on without a second something for the first to be distinguishable
+from.  A single Raw atom is not a state of the framework; it is
+a state in which the framework has not begun.
 
-That is, **two + binary** is the unique minimum *count-Lens shape*
-of the Raw residue — not a chosen pair of numbers but the only
-count-Lens reading the first distinguishing admits.
+Two, then, is the minimum count-Lens reading of a successful
+first distinguishing.  Not "two somethings present prior to
+distinguishing" — the count `2` *is* the residue of the first
+distinguishing.
 
-## §4.3 Why symmetric, why anti-reflexive
+Could three or more be primitive?  No.  A third something is the
+count-Lens reading of *further* distinguishing applied to the
+existing residue; making it primitive imports cardinality where
+distinguishing has not yet produced it.
 
-- **Symmetric**: No basis for assigning an absolute order.
-  Distinguishing `a/b` from `b/a` silently imports an absolute
-  criterion for which comes "first."
-- **Anti-reflexive**: Pairing with oneself does not create an
-  object of distinction (oneself is not distinguished from oneself).
-  This directly conflicts with Axiom 1 (primitive distinction).
+Could the pairing be unary?  No.  A unary operation on one
+something is self-reflexive and produces no new something —
+nothing has been distinguished.
 
-## §4.4 Algebraic signature (cross-ref)
+Ternary or more?  Reconstructible by repetition of binary.  No
+reason to treat as primitive.
 
-The "two + binary" choice (§4.2) admits the Möbius iterator
-`P(x) = (2x+1)/(x+1)` as natural form, fixed point φ = (1+√5)/2.
-See `02_statement.md §3.4` for the algebraic signature
-(`[[2,1],[1,1]]` matrix, trace 3 = NS, det 1, disc 5 = NS+NT,
-eigenvalues φ², 1/φ²).  Bridge theorem:
-`lean/E213/Lib/Math/Mobius213.lean`.  The form is *induced* by the
-minimum axiom, not assumed.
+So **two + binary** is the unique minimum count-Lens shape that
+the first distinguishing admits.  Not a chosen pair of numbers,
+but the only reading the operation allows.
 
-## §4.5 The forcing chain: 1 → 2 → 3 → 4
+---
 
-The four clauses are not four independent choices.  Each is
-*forced* by the prior:
+## §3.3 Why symmetric, why anti-reflexive
 
-- **Clause 1 → Clause 2**: once distinguishing operates, the
-  residue of distinguishing is itself something (else the
-  distinguishing has no residue to record, contradicting Clause
-  1's operation).
-- **Clause 2 → Clause 3**: the residue `a/b` and `b/a` refer to
-  the same distinguishing event; assigning them as distinct would
-  silently import an absolute order, which Clause 1 supplies no
-  basis for.
-- **Clause 3 → Clause 4**: if `x/x` were defined, distinguishing
-  would be claimed where Clause 1 supplies no operand for it
-  (nothing to distinguish from); the operation collapses.
+The pairing is **symmetric**.  There is no basis for assigning
+an absolute order to `a/b` versus `b/a`.  Distinguishing the two
+sides would silently import a criterion for which comes "first,"
+and the axiom supplies no such criterion.
 
-Therefore: no framework with fewer than 4 clauses can record
-distinguishing-yields-residue, and no framework with more than 4
-adds anything that is not derived from these.  4 is not "minimal
-under our taste" — it is *the* number that closes the operation.
+The pairing is **anti-reflexive**.  `x/x` is undefined.  Pairing
+something with itself does not create an object of distinction —
+the thing is not distinguished from itself.  Allowing `x/x`
+would directly contradict the content of clause 1 (primitive
+distinction).
+
+---
+
+## §3.4 The forcing chain: 1 → 2 → 3 → 4
+
+The four clauses of §2.4 are not four independent choices.  Each
+is forced by the prior.
+
+  - **Clause 1 → Clause 2.**  Once distinguishing operates, the
+    residue of distinguishing is itself a something.  If it were
+    not, the operation would have no residue to record,
+    contradicting clause 1.
+  - **Clause 2 → Clause 3.**  The residues `a/b` and `b/a` refer
+    to the same distinguishing event.  Treating them as distinct
+    would silently import an absolute order, for which clause 1
+    supplies no basis.
+  - **Clause 3 → Clause 4.**  If `x/x` were defined,
+    distinguishing would be claimed where clause 1 supplies no
+    operand (nothing to distinguish from).  The operation
+    collapses.
+
+So fewer than four clauses cannot record distinguishing-yields-
+residue, and more than four would add what is already derived
+from these.  Four is not the result of taste; it is **the**
+number that closes the operation.
+
+---
+
+## §3.5 Algebraic signature — the Möbius form
+
+The four-clause restatement admits a compact algebraic encoding
+as the Möbius matrix
+
+```
+P = [[2, 1],
+     [1, 1]]
+```
+
+with iterator `P(x) = (2x + 1) / (x + 1)`.  The entries record
+the axiom's content directly:
+
+  - `2` — two somethings, `a` and `b`.
+  - `1` — identity preservation (`det P = 1`).
+  - `trace P = 2 + 1 = 3 = NS` (the spatial-axis cardinality).
+  - `discriminant = trace² − 4 · det = 9 − 4 = 5 = NS + NT`
+    (the atomicity sum).
+  - `eigenvalues = (3 ± √5) / 2 = φ², 1/φ²`.
+
+The Möbius iterator is the natural algebraic form of the "two +
+binary" choice (§3.2).  Its fixed point φ = (1 + √5) / 2 is the
+residue of self-pointing iteration — the algebraic embodiment of
+"the minimum fixed point of self-reference" that §5.6 describes
+in detail.
+
+The same φ appears in DRLT physics (the CKM phase δ, the Cabibbo
+angle, neutrino mass ratios) and at the asymptote of the algebra
+tower.  This cross-domain consistency is not coincidence: it is
+the same Lens result reading the same residue from different
+framings.
+
+This is an **interpretation**, not an addition.  The bridge
+theorem at `lean/E213/Lib/Math/Mobius213.lean` is ∅-axiom — the
+algebraic encoding is derivable, not imposed.  The four clauses
+remain the minimum-commitment statement; §3.5 records an
+algebraic *consequence*.
+
+A reminder: the matrix admits two simultaneous Lens readings
+(frozen + dynamic), discussed in §5.7.  The same parametric
+`configCount : Nat → Nat` family in
+`seed/RESOLUTION_LIMIT_SPEC.md` realises the same point at a
+different level — its values agree across routes because they
+read the same residue, not because external coincidences align.

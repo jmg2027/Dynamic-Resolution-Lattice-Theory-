@@ -9,7 +9,7 @@ note `G87_raw_native_emergence_audit.md` §11).
 ## Derivation summary
 
 The "alive" predicate (both atom-multiplicities odd) is **derived**
-from Clause 4 of the 213 axiom (`seed/AXIOM/02_statement.md` §3.2 #4:
+from Clause 4 of the 213 axiom (`seed/AXIOM/02_axiom.md` §2.2 #4:
 no self-pair `x/x`) **applied recursively at the count-Lens group
 level**.
 

@@ -57,8 +57,7 @@ def NS_atomic_size : Nat := 3
   Atomicity-level origin of Phase 1's m_μ/m_e (NS/NT factor 3/2),
   Y-norm (5/3 = d/NS), and Fibonacci F_5/F_4 = 5/3.
 
-  No external frame is invoked (per `seed/AXIOM/07_self_reference.md`
-  §8.1: there is no exterior to 213, so no external dialer sets the
+  No external frame is invoked (per `seed/AXIOM/05_no_exterior.md` §5.1: there is no exterior to 213, so no external dialer sets the
   asymmetry). -/
 theorem space_is_NS_unfolded :
     -- NS atomic size

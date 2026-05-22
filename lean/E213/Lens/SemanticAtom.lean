@@ -51,7 +51,7 @@ Minimum requirements for a meaning-framework on α:
    echoed in α (without it, encoding artifacts of Raw's
    canonicalisation leak into α-results).
 
-Per `seed/AXIOM/00_nature.md` §1.2 "Single condition for
+Per `seed/AXIOM/04_uniqueness.md` §4.2 "Single condition for
 meaning": distinguishable AND readable in the same event.  The
 three fields above are the notational decomposition of that
 single event for the Lean encoding. -/

@@ -27,7 +27,7 @@ what's intrinsic to the canonical-form quotient.
 If we wanted "(x/y)/z = x/(y/z)" as a Raw-level identity, we would
 be **adding** an axiom — discarding structural information about how
 the Raw tree was built.  That contradicts the minimum-commitment
-discipline (`seed/AXIOM/04_falsifiability.md` §5.2.1: axiom-addition
+discipline (`seed/AXIOM/08_falsifiability.md` §8.2: axiom-addition
 is falsification, not strengthening).
 
 The two trees with leaves `{x, y, z}`:

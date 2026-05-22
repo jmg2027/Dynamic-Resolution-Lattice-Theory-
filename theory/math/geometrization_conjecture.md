@@ -24,7 +24,7 @@ where each piece carries one of 8 homogeneous geometries.  The
                  (a COUNTING result, not geometric)
 ```
 
-Per `seed/AXIOM/09_chart_relativity.md` + CLAUDE.md "Algebraic
+Per `seed/AXIOM/06_lens_readings.md` + CLAUDE.md "Algebraic
 priority": *213 sees discrete decomposition first*.  JSJ becomes
 *non-separable component enumeration*; incompressible torus becomes
 *π₁-injectivity* (algebraic); Ricci flow becomes *chart-Lens
@@ -233,7 +233,7 @@ Neither has Lean witness yet; both noted in source §6.
 ### Below DRLT Validation Standard
 
 R1 is **structural** but not yet a *precision theorem* or
-*falsifier* per DRLT Validation Standard (`seed/AXIOM/04_falsifiability.md`).
+*falsifier* per DRLT Validation Standard (`seed/AXIOM/08_falsifiability.md`).
 The ansatz d_M = d_213 − 1 is structural; converting to a measurable
 falsifier (e.g., "no exotic smooth structures on a specific closed
 4-mfd are observable" or similar) is a separate research arc.

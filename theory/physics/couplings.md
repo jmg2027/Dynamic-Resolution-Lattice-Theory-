@@ -38,7 +38,7 @@ explicit modulus per ε-δ modulus).  Asymptotic freedom = β > 0 at small
 coupling (decidable bracket on the β value).
 
 **`θ_QCD < J·α⁴`** is one of two key falsifiers in the DRLT
-Validation Standard (`seed/AXIOM/04_falsifiability.md`).
+Validation Standard (`seed/AXIOM/08_falsifiability.md`).
 Currently J = 1, α⁴ ≈ 10⁻⁹; measured θ_QCD ≤ 10⁻¹⁰ confirms
 the bound, but a measured θ_QCD > 10⁻⁹ would falsify DRLT.
 
