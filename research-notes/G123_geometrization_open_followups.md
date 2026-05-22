@@ -278,7 +278,8 @@ marathon scope; each gets its own G-number for future launch:
 |---|---|---|---|
 | **G124** | M2 universal V32Betti-style generalization | open marathon, ~95 PURE est. | `G124_v32betti_parametric_generalization.md` |
 | **G125** | BracketCauchy ↔ IsRicciModulus typeclass-bridge | open marathon, Option A ~40 PURE est. | `G125_bracket_cauchy_ricci_functor.md` |
-| **(no G)** | FW-1 signed Donaldson count | **NOT a 213-internal marathon** — meta-research at the 213/standard-math boundary | See §1 FW-1 entry; resolves only with sign-rule discovery or external interface formalization |
+| **(no G)** | FW-1 signed Donaldson count | **SUPERSEDED by G126** — meta-research at the 213/standard-math boundary; redirect to cork-frame | See §1 FW-1 entry; cork-frame supersedes via `G126_akbulut_cork_213_native.md` |
+| **G126** | Akbulut cork as 213-native exotic-structure framework | open marathon, ~120 PURE est., 8-12 sessions | `G126_akbulut_cork_213_native.md` — **HIGH-PRIORITY** alternative to FW-1; converts the unresolved sign problem into a concrete 213-internal cork-twist enumeration with all ingredients pre-existing (M_S01 involution, K_{1,4} tree as cork, ∂Δ⁴ = S³, tree-critical coexistence) |
 
 FW-1 stays unassigned: its open piece is "what's the 213-native
 sign-rule for Sym(3)-orbits, AND/OR how to compare to Donaldson
