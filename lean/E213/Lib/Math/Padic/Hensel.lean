@@ -971,8 +971,9 @@ private theorem binomial_sq_mod_pure (a d K M : Nat) (hM : 0 < M)
   -- LHS = (a·a + (a·(d·K) + a·(d·K)) + (d·d)·(K·K)) % M
   -- The (d·d)·(K·K) term: mod M = 0.
   have h_zero : ((d * d) * (K * K)) % M = 0 := by
-    rw [Nat.mul_comm (d * d) (K * K), Nat.mul_mod, hK, Nat.zero_mul,
-        E213.Tactic.NatHelper.zero_mod]
+    rw [Nat.mul_comm (d * d) (K * K),
+        E213.Meta.Nat.MulMod213.mul_mod_left_pure (K * K) (d * d) M,
+        hK, Nat.zero_mul, E213.Tactic.NatHelper.zero_mod]
   -- Strip the d²·K² term mod M.
   rw [E213.Meta.Nat.AddMod213.add_mod hM
         (a * a + (a * (d * K) + a * (d * K))) ((d * d) * (K * K))]
@@ -1163,5 +1164,65 @@ private theorem sqrt_cancel_full (p : Nat) (hp : 1 < p) (n : Nat)
   -- Goal: ((err + 2*a*d) * p^(n+1)) % p^(n+2) = 0
   rw [mul_pow_succ_mod (err + 2 * a * d) p n hp', h_cancel,
       Nat.zero_mul]
+
+/-- **General Hensel sqrt correctness**: for `1 < p`, any `n`, and
+    `x` with a valid `SqrtBase` `sb`, the approximate sqrt
+    `sqrtSeq n` satisfies `(sqrtSeq n)² ≡ x (mod p^(n+1))`. -/
+theorem Zp.sqr_sqrtSeq_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp)
+            (Zp.sqrtSeq p (Nat.lt_of_succ_lt hp) x sb n)
+            (Zp.sqrtSeq p (Nat.lt_of_succ_lt hp) x sb n)).trunc (n + 1)
+          = x.trunc (n + 1)
+  | 0 => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    rw [Zp.sqr_sqrtSeq_zero_trunc_one p hp' x sb]
+    have h_lt : x.trunc 1 < p := by
+      show 0 + (x.digits 0).val * p^0 < p
+      rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+      exact (x.digits 0).isLt
+    exact Nat.mod_eq_of_lt h_lt
+  | n + 1 => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    have ih := Zp.sqr_sqrtSeq_correct p hp x sb n
+    -- IH transformed: (a*a) % K = xt % K.
+    have h_aa_K : ((Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+                    * (Zp.sqrtSeq p hp' x sb n).trunc (n + 1)) % p^(n + 1)
+                  = x.trunc (n + 2) % p^(n + 1) := by
+      have h1 := ih
+      rw [Zp.mul_trunc p hp' _ _ (n + 1)] at h1
+      rw [h1, trunc_succ_mod_K p hp' x n]
+    -- a % p = sb.d_0 % p.
+    have h_a_mod : (Zp.sqrtSeq p hp' x sb n).trunc (n + 1) % p
+                  = sb.d_0 % p := by
+      rw [trunc_succ_mod_p p hp' (Zp.sqrtSeq p hp' x sb n) n,
+          Zp.sqrtSeq_digit_zero p hp' x sb n]
+    -- New digit definition reduces to err·two_d_0_inv form.
+    have h_d : ((Zp.sqrtSeq p hp' x sb (n + 1)).digits (n + 1)).val
+              = Zp.negMod p
+                  ((((Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+                    * (Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+                    + (p^(n + 2) - x.trunc (n + 2))) % p^(n + 2)
+                    / p^(n + 1)) * sb.two_d_0_inv) := by
+      rw [Zp.sqrtSeq_succ_new_digit p hp' x sb n]
+      rw [prev_sq_trunc_form p hp' x sb n]
+      rw [E213.Meta.Nat.AddMod213.mod_add_mod (Nat.pos_pow_of_pos _ hp')
+            ((Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+              * (Zp.sqrtSeq p hp' x sb n).trunc (n + 1))
+            (p^(n + 2) - x.trunc (n + 2))]
+    -- Apply mul_trunc + succ_trunc_extend, then sqrt_cancel_full.
+    rw [Zp.mul_trunc p hp' _ _ (n + 2),
+        Zp.sqrtSeq_succ_trunc_extend p hp' x sb n]
+    exact sqrt_cancel_full p hp n
+      ((Zp.sqrtSeq p hp' x sb n).trunc (n + 1))
+      (x.trunc (n + 2))
+      sb.d_0
+      sb.two_d_0_inv
+      (((Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+          * (Zp.sqrtSeq p hp' x sb n).trunc (n + 1)
+          + (p^(n + 2) - x.trunc (n + 2))) % p^(n + 2) / p^(n + 1))
+      ((Zp.sqrtSeq p hp' x sb (n + 1)).digits (n + 1)).val
+      (ZpSeq.trunc_lt_p_pow hp' x (n + 2))
+      h_aa_K h_a_mod sb.two_d_0_inv_eq rfl h_d
 
 end E213.Lib.Math.Padic
