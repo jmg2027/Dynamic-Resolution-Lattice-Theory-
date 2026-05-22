@@ -48,40 +48,65 @@ Currently still open:
 | **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
 | **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
-### B+. G123 N_U-family theory — PREPARED, ready to begin
+### B+. G123 N_U-family theory — Phase 1-4 + 7 DONE
 
 Successor to G120.  G120 demoted `N_U` to `configCount 2` and
-opened the **level** `n` as a parametric axis; G123 audits that
-closure and proposes the natural 2-parameter extension
-`configCountD d n := d^(d^n)` as a mathematical family, while
-recording the three-pillar structural forcing of `d = 5`
-(PairForcing / Atomicity.Five, C2a cohomology-loss, C2b adjoint-
-product identity) at the physics lens.
+opened the **level** `n` as a parametric axis; G123 promotes the
+natural 2-parameter extension `configCountD d n := d^(d^n)` to a
+canonical Lean family, while recording the three-pillar
+structural forcing of `d = 5` (PairForcing / Atomicity.Five, C2a
+cohomology-loss, C2b adjoint-product identity) at the physics
+lens.
 
-**Resources prepared**:
-  · `research-notes/G123_n_u_family_theory.md` — 7-phase research
-    direction (3-6 sessions est., ~7 hr mean / 14 hr tail).
-  · Phase 1-4 + 6 + 7 are minimum-viable; Phase 5 (modular
-    reduction via UniversalFLT) is a stretch.
+**Closed this branch (Phases 1-4 + 7)**:
+  · Phase 1-2: `configCountD (d n : Nat) : Nat := d^(d^n)` lives in
+    `Lib/Math/Cohomology/Fractal/ConfigCount.lean`.  `configCount`
+    demoted to `abbrev configCountD 5 n`.  Concrete table at
+    `n = 2` for `d ∈ {2, 3, 5, 7}`.  Clean recursion
+    `configCountD_succ : configCountD d (n+1) = (configCountD d n)^d`
+    with 213-native `pow_add_pure` / `pow_mul_pure` helpers
+    (no `rw [Nat.pow_mul]` which brought `propext`).
+  · Phase 3: `configCountD_pos`, `configCountD_mono_n`,
+    `configCountD_diagonal`.  Monotonicity-in-`d`
+    (`configCountD_mono_d`) deferred — needs additional pow
+    helpers.
+  · Phase 4: additive physics-layer hooks added to
+    `Physics/Foundations/NResolutionFromFractal.lean`
+    (`n_resolution_candidateD`, `n_resolution_candidate_eq`,
+    `n_resolution_candidateD_table`) and
+    `Physics/Foundations/FractalLensCardinality.lean`
+    (`K_b_sq_coloring_count_eq` — `rfl` bridge,
+    `K25_coloring_count_eq_configCountD`).  No migration of
+    consumer literals.
+  · Phase 6: `lake build` clean end-to-end;
+    `scan_axioms.py` PURE on every new theorem (17 / 0 on
+    ConfigCount; 9 / 0 on NResolutionFromFractal; 7 / 0 on
+    FractalLensCardinality).
+  · Phase 7: docstring + catalog update — `Fractal.lean` index,
+    `seed/RESOLUTION_LIMIT_SPEC.md` §2,
+    `catalogs/atomic-integers.md` ConfigCount-family section,
+    `theory/math/cohomology/fractal.md` expanded from stub.
 
-**Anchor S-tier capstones**:
-  · `configCountD d n := d^(d^n)`, PURE.
-  · `configCountD_succ : configCountD d (n+1) = (configCountD d n)^d`.
-  · `configCount = configCountD 5` (compat layer).
-  · Per-d table at n = 2 for d ∈ {2, 3, 5, 7}.
-  · Bridge to physics (`n_resolution_candidate_eq`,
-    `K_d_sq_coloring_count_eq`).
+**Still open**:
+  · Phase 3 — `configCountD_mono_d` (monotonicity in `d`).
+    Needs pow-base-monotonicity helper.  ~ 1-2 hr.
+  · Phase 5 — modular reduction
+    (`configCountD_mod_prime`, `configCountD_mod_prime_eventually_periodic`).
+    Stretch phase; consumes `UniversalFLT.FLTMain` chain.
+    ~ 4-8 hr.
+  · Downstream physics — structural derivation of the Gram
+    self-energy term in `AlphaEM/Augmented.lean:134-141`
+    (the 4 ppm structural gap of `1/α_em`).  Out of scope for
+    N_U-family work; logged as the principal physics-layer open
+    problem.
 
-**Physics-layer caveat captured (not solved)**:
-  · 1/α_em ppb closure uses one observation-seeded coefficient
-    (`AlphaEM/Augmented.lean:134-141`, Gram self-energy).
-    Structural derivation stops at ~ 4 ppm.  G123 does not
-    attempt the structural derivation; it is logged as the
-    principal downstream physics open problem.
+**Anchor commit (Phase 1-4)**: `224f417f` —
+`Lib/Math/Cohomology/Fractal/ConfigCount: 2-parameter family +
+physics bridges`.
 
-**Next-session start instructions**: read
-`research-notes/G123_n_u_family_theory.md` §"Next-session start
-instructions".
+**Plan reference**:
+`research-notes/G123_n_u_family_theory.md` — 7-phase plan + open
+questions registry.
 
 ### C. Doc work remaining (low priority)
 - **CLAUDE.md size** — 228 / 220 target.  Compress at next major
