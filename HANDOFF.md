@@ -2260,6 +2260,70 @@ closure is now complete and reusable.
 
 ---
 
+# Parts 45-48 — phi² recurrence + Binet expansion in 𝔽_{p²}
+
+Foundation pieces toward Frobenius FLT in 𝔽_{p²}.
+
+## Part 45 — phiFP2² = phiFP2 + 1 (commit `69b04158`)
+
+Universal golden-ratio recurrence in 𝔽_{p²}.  Foundation lemmas:
+  · `two_inv2_sq_eq` : `2·inv2² ≡ inv2 (mod p)`
+  · `six_inv2_sq_eq` : `6·inv2² ≡ inv2 + 1 (mod p)`
+  · `phiFP2_sq_eq_phi_add_one` : `phiFP2² = phiFP2 + 1` in 𝔽_{p²}
+
+## Parts 46-47 — Algebra helpers for Binet step (commits `552c1928`, `37ac22ce`)
+
+Six private helpers for the inductive step on `phiFP2^k`:
+  · F_mul_six_inv2_sq, F_mul_two_inv2_sq -- scalar-lifted inv2² identities
+  · fp2_pow_step_alg_lhs1/2 -- Nat algebra combining inv2² terms
+  · six_Fk_inv2_sq_eq, two_Fk_inv2_sq_eq -- mul_comm + mul_assoc wrappers
+
+## Part 48 — Binet expansion in 𝔽_{p²} (commit `81ba7936`)
+
+  · `phiFP2_pow_step` (private) : inductive step (50 lines of careful
+    mod-p Nat algebra: strip inner mods, expand via add_mul + mul_assoc,
+    apply six_Fk/two_Fk identities, combine via add_mul backwards).
+  · ★★★★ **`phiFP2_pow_eq_fibLike`** : universal Binet expansion
+    `phiFP2^k = F_k · phiFP2 + F_{k-1}` in 𝔽_{p²}, for odd `1 < p`.
+    Proof by induction on k using phiFP2_pow_step.
+
+This is the 𝔽_{p²}-analog of `phi_pow_eq_fibLike` from PhiMod5 (split case).
+
+70/70 PURE in FP2Sqrt5.lean.
+
+## Path to F_p ≡ -1, F_{p-1} ≡ 1 mod p
+
+Given Binet expansion + Frobenius FLT in 𝔽_{p²} (phi^p = σ(phi)):
+
+  phi^p = F_p · phi + F_{p-1}        [by Binet, Part 48]
+       = (F_p · inv2 + F_{p-1}, F_p · inv2) % p
+  σ(phi) = (inv2, p - inv2) % p      [for odd 1 < p, inv2 < p]
+       
+Equate component-wise + use inv2 invertibility (2·inv2 ≡ 1):
+  F_p · inv2 ≡ -inv2  ⟹  F_p ≡ -1 mod p
+  F_p · inv2 + F_{p-1} ≡ inv2  ⟹  F_{p-1} ≡ 2·inv2 ≡ 1 mod p
+
+Then apply `universal_phase_3_3` (Part 44) to complete.
+
+## Remaining: Frobenius FLT in 𝔽_{p²}
+
+The single piece needed:
+
+  ★ `fp2Pow p x p = fp2Frob p x` for x ∈ 𝔽_{p²}, inert prime p.
+
+Reduces (via freshman's dream + FLT in 𝔽_p) to:
+  · `(√5)^p ≡ -√5 (mod p)` (inert hypothesis: (0,1)^p = (0, p-1) in 𝔽_{p²})
+  · Freshman's dream in 𝔽_{p²}: `(x + y)^p = x^p + y^p`
+
+The latter requires:
+  · Sum + scalar-mul in 𝔽_{p²}
+  · Binomial expansion in 𝔽_{p²}
+  · Middle binomials vanish (have for 𝔽_p; lift to 𝔽_{p²})
+
+This is the final multi-session lift for FULL universal Phase 3.3.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
