@@ -189,4 +189,67 @@ theorem Zp.smoke_negMod_5_2 : Zp.negMod 5 2 = 3 := by decide
 /-- Smoke: `negMod 5 4 = 1`. -/
 theorem Zp.smoke_negMod_5_4 : Zp.negMod 5 4 = 1 := by decide
 
+/-! ## Hensel-lifted inverse sequence
+
+Given `x : ZpSeq p` with `(x.digits 0).val` coprime to `p`
+(witnessed by `h_gcd`), construct a sequence of approximate
+inverses `invSeq x n : ZpSeq p` such that `invSeq x n` has its
+digits 0 through `n` correctly set (and digits beyond `n` are 0),
+satisfying:
+
+  `(Zp.mul x (invSeq x n)).trunc (n + 1) = 1 % p^(n + 1)`.
+
+Construction is Hensel: at each step `n → n + 1`, compute the
+error `err_n = ((x · invSeq n).trunc (n + 2) - 1) / p^(n + 1) ∈ [0, p)`
+and set the new digit `d_n = negMod p (err_n · invDigit0).
+Replace digit `(n + 1)` of `invSeq n` with `d_n` to get `invSeq (n+1)`.
+-/
+
+/-- Approximate inverse sequence at level `n` — has digits 0..n
+    correctly set, digits beyond n are 0. -/
+def Zp.invSeq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) : Nat → ZpSeq p
+  | 0 => Zp.invTemplate p hp x h_gcd
+  | n + 1 =>
+    let prev := Zp.invSeq p hp x h_gcd n
+    let i0 := (Zp.invDigit0 p hp x h_gcd).val
+    let xy := (Zp.mul p hp x prev).trunc (n + 2)
+    let err := (xy - 1) / p^(n + 1)
+    let new_digit_val := Zp.negMod p (err * i0)
+    ⟨fun j =>
+      if j = n + 1 then (⟨new_digit_val, Zp.negMod_lt hp _⟩ : Fin p)
+      else prev.digits j⟩
+
+/-- Level-0 of the sequence is the `invTemplate`. -/
+theorem Zp.invSeq_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    Zp.invSeq p hp x h_gcd 0 = Zp.invTemplate p hp x h_gcd := rfl
+
+/-- The new digit at level `n + 1` (definitional). -/
+theorem Zp.invSeq_succ_new_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
+      = Zp.negMod p
+          (((Zp.mul p hp x (Zp.invSeq p hp x h_gcd n)).trunc (n + 2) - 1)
+              / p^(n + 1)
+            * (Zp.invDigit0 p hp x h_gcd).val) := by
+  show (if (n + 1 : Nat) = n + 1 then
+          (⟨Zp.negMod p _, Zp.negMod_lt hp _⟩ : Fin p)
+        else (Zp.invSeq p hp x h_gcd n).digits (n + 1)).val = _
+  rw [if_pos rfl]
+
+/-- Digits below `n + 1` are inherited from the previous level. -/
+theorem Zp.invSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n j : Nat) (hj : j ≠ n + 1) :
+    ((Zp.invSeq p hp x h_gcd (n + 1)).digits j)
+      = (Zp.invSeq p hp x h_gcd n).digits j := by
+  show (if j = n + 1 then
+          (⟨Zp.negMod p _, Zp.negMod_lt hp _⟩ : Fin p)
+        else (Zp.invSeq p hp x h_gcd n).digits j) = _
+  rw [if_neg hj]
+
 end E213.Lib.Math.Padic
