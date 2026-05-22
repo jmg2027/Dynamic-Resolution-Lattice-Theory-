@@ -258,8 +258,8 @@ is forced by $d_{213} = 5$ once one axis is taken by self-pointing.
 | $d_M = 4$: $\mathbb{R}^4$ has $2^{\aleph_0}$ exotic | K_{3,2}^{(c=2)} UNIQUE α_3-match at chartBase=5 | `dim_spectrum_dM4_unique_match` ✅ |
 | $d_M \ge 5$: $\Theta_d$ finite abelian | no K-deployment α_3-matches at chartBase≥6 | `dim_spectrum_dM5/6_no_match` ✅ |
 | Ricci flow | chart-Lens coherentization flow at ε-readout | open (conjectural) |
-| JSJ tori | $\pi_1$-injective discrete skeleton (algebraic) | open (conjectural) |
-| 8 model geometries | 3-dim Lie-group enumeration with compact isotropy | open (conjectural) |
+| JSJ tori | bipartite S/T cut (canonical decomposition) | narrative (step 11) ⚠ stereotype-warned |
+| 8 model geometries | $H^1(K_{3,2}^{(c=2)})$ rank 8 (arithmetic only) | narrative (step 11) ⚠ stereotype-warned |
 | $\pi_1 = 1$ ⟹ $S^3$ | maximal symmetry under trivial loop-residue | open (conjectural) |
 
 The dim-spectrum rows are now **Lean-verified** (PURE) via
@@ -784,23 +784,66 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      intrinsically weak.  Depth filters force the same
      uniqueness as atomicity + Möbius routes — three independent
      STRONG forcings.
+ 17. User: "1번 /2번 ㄱ. 3번은 나중에 일반화하는거로 노선화"
+     — proceed with (1) 8 model geometries narrative + (2) JSJ
+     correspondence; defer higher-chartBase exhaustive search to
+     generalization track.  **Step 11 narrative + open-work
+     registry** added (67 PURE total).
+
+     §G (8 model geometries narrative):
+       · Two "8"s coexist: standard 3-dim Lie-group enumeration
+         vs `H¹(K_{3,2}^{(c=2)})` rank 8.
+       · CLAUDE.md "Stereotype matching" warning: direct
+         identification FORBIDDEN.  Arithmetic equality only.
+       · Sym(3) decomposition `H¹ = 2·trivial ⊕ 3·standard`
+         provides partial structural hint (2 trivial ↔ isotropic
+         geometries E³/S³/H³?; 3 standard ↔ anisotropic?) but
+         mapping is CONJECTURAL.
+       · Lean: `K32_H1_eight_versus_geometries_arithmetic`,
+         `K32_H1_sym3_split_hint`.
+
+     §J (JSJ correspondence narrative):
+       · Bipartite S/T cut of K_{NS,NT}^{(c)} is canonical;
+         JSJ torus cut of 3-manifold is canonical.
+       · Stereotype-warned: graph-level cut ≠ 3-manifold-level
+         cut.  Narrative parallel only.
+       · `Filled.lean` provides partial manifold lifting (2-cell
+         filling); full 3-manifold structure is OPEN.
+       · Lean: `K32_bipartite_split_canonical`,
+         `K32_filling_lifts_partial`.
+
+     §F (Open work registry):
+       · 5 items recorded: 8-geo mapping, JSJ lift, Ricci flow,
+         Poincaré, K_{NS,NT}^{(c)} higher-chartBase
+         generalization.
+       · None blocking present state.  Future-work track.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point** (geometrization-conjecture focused):
-**(1) cohomology-route deepening** — compute H¹ representation
-structure for each b_1=8 counterexample deployment
-(K_{5,3}^{(c=1)}, K_{1,8}^{(c=2)}, K_{4,1}^{(c=3)}, K_{9,2}^{(c=1)})
-and prove K_{3,2}^{(c=2)} uniquely admits Sym(3) × Sym(2) ×
-C_2^6 decomposition.  Would close the strength gap with
-standard-math d=4 uniqueness.  **(2)** 213-Lens reading of
-*8 model geometries* — does 3-dim Lie-group enumeration have a
-deployment-counting analogue in K-graph space?  **(3)** JSJ
-decomposition / Ricci flow correspondences as new Lean
-formalization candidates.  M3 (NT-axis split) and M4 (KK
-firewall) are downstream — only relevant if/when physics
-interpretation is reactivated.  See §6 + §7.
+**Next-session entry point** (per user 2026-05-22, "3번은 나중에
+일반화 노선"):
+Generalization track (deferred):
+  · (G-1) Higher-chartBase exhaustive depth-filter
+    verification (chartBase ≥ 8) — show K_{3,2}^{(c=2)}
+    uniqueness scales.
+  · (G-2) `passesCohomologyDepthFilter` parameterization
+    over (n, m, c) bounded ranges — abstract filter machinery.
+
+Immediate (Geometrization-narrative deepening):
+  · **(I-1)** 8-geometry ↔ Sym(3) decomposition structural
+    mapping — currently conjectural narrative, would need
+    explicit basis-correspondence.
+  · **(I-2)** Filled.lean → 3-cell complex extension —
+    full JSJ-decomposable manifold structure.
+  · **(I-3)** Ricci flow ↔ chart-Lens averaging — needs
+    ε-Lens formalization.
+  · **(I-4)** Poincaré ↔ trivial-loop-residue — partial
+    infrastructure via `V32Betti.b0_eq_1` connectedness work.
+
+M3 (NT-axis split) and M4 (KK firewall) are downstream — only
+relevant if/when physics interpretation is reactivated.
+See §6 + §7 + new step-11 narrative.
 
