@@ -40,8 +40,12 @@ Continuity becomes:
 Continuous f := preimage of any list-finite cover is list-finite
 ```
 
-Compactness is automatic: every Set X at resolution `N_U` has
-≤ N_U elements, so any cover restricts to a finite sub-cover.
+Compactness is automatic: every Set X readable at fractal level n
+(via the parametric family `configCount`) has `≤ configCount n`
+elements, so any cover restricts to a finite sub-cover.  Common
+working level: n = 2, where `configCount 2 = 5²⁵`.  Per G120
+Round 3: the level is parametric — not a privileged "resolution
+cap" — so compactness holds at every finite level.
 
 ### Connection to other chapters
 

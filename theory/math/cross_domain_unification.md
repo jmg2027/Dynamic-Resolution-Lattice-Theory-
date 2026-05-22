@@ -19,7 +19,9 @@ Cup-Ring core (D1-D9).  Specifically:
 ```
 Each classical-analysis residue across domains reduces to a
 `Cochain n k` truncation at appropriate grade k,
-with N_U = 5²⁵ as the resolution cutoff.
+with `configCount 2 = 5²⁵` as the level-2 evaluation point
+(historically called "N_U", per G120 Round 3 just one value of
+the parametric `configCount : Nat → Nat` family).
 ```
 
 The shared object is the `CoeffSeq = Nat → Nat` graded ring with

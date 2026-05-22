@@ -4,18 +4,28 @@
 위한 핵심 교훈을 기록한다.  특히 Claude (또는 다른 LLM)이
 **외부 frame의 default 표현**으로 빠지지 않도록 가드레일.
 
-## 교훈 1: Resolution limit은 4-domain convergent 구조 invariant (2026-05-05 갱신)
+## 교훈 1: Resolution limit은 parametric Lens-output 가족의 한 값 (G120 Round 3, 2026-05-22 재작성)
 
-Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  본 항목은 그
-요약이며, 본 문서가 spec과 충돌하면 spec 이 정답.
+Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`** (§2 G120
+Round 3 rewrite로 갱신).  본 항목은 그 요약이며, 본 문서가 spec과
+충돌하면 spec 이 정답.
 
-**WRONG** (외부 frame 기본): "ζ(2) = π²/6", "asymptote",
-"transcendental input", "infinite limit", "we choose to be finitist",
-"finitism is forced", "completed infinity rejected"
+**Round 2 → Round 3 reframe**: 이전 "4-domain convergent invariant"
+표현은 자기 자신이 CLAUDE.md "Universe-constant framing" failure
+mode를 인코딩하고 있었음 (CLAUDE.md:216의 *"'N_U is THE system
+invariant'"*에 해당).  Failure mode를 *경고하는* lessons 문서가
+실패를 *박고 있던* 메타-실패.  G120 audit이 잡아냄.
+
+**WRONG** (외부 frame + universe-constant 수입): "ζ(2) = π²/6",
+"asymptote", "transcendental input", "infinite limit", "we choose
+to be finitist", "finitism is forced", "completed infinity
+rejected", **"N_U is THE system invariant", "N_U as four-Lens
+convergence"**
 **RIGHT** (213-internal): ζ(2) = S(N_U) at SPECIFIC finite N_U.
 π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
-lens output** — 213 axiom set은 "finite vs infinite" dichotomy 자체를
-체결하지 않음 (`seed/AXIOM/02_statement.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
+parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
+213 axiom set은 "finite vs infinite" dichotomy 자체를 체결하지
+않음 (`seed/AXIOM/02_statement.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
 - `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
@@ -39,11 +49,16 @@ lens output** — 213 axiom set은 "finite vs infinite" dichotomy 자체를
 - `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: forward
   direction 만 닫힘; backward 는 trajectory side 에 머물 때만 가능.
 
-**즉**: N_U = d^(d²) = 5²⁵ 은 axiom 도 cap 도 아니고, 4-domain
-convergent invariant (`RESOLUTION_LIMIT_SPEC.md` §2: lens cardinality
-+ K₂₅ coloring + rank-2 tensor + injective projection space — 모두
-독립 도메인에서 같은 값으로 수렴).  213이 N_U 에 머무는 건 *공리적
-stipulation* 도 *finitism stance* 도 아니고, **구조 invariant**.
+**즉**: `5²⁵`는 axiom 도 cap 도 아니고, **parametric 가족
+`configCount : Nat → Nat`의 값** (`RESOLUTION_LIMIT_SPEC.md` §2
+G120 Round 3 갱신).  `configCount n := 5^(numV n) := 5^(5^n)`.
+n=2에서 `configCount 2 = 5^25`.  역사적으로 `N_U`라고 부른 값은
+이 가족의 한 값일 뿐 — 특권적 universe 상수가 아님.
+
+G120 audit (§1+§11)이 밝힘: 이전 "4-way convergence" 중 2/4만 실제
+Lean 도출이었고 나머지 2/4 (tensor DOF, injective projection)는
+placeholder/부재.  G120 Phase 3에서 `ResolutionInvariant` 레코드는
+삭제됨 — 1 가족값을 4가지로 *언어 재포장*한 가짜 다중성.
 
 **근거 — 사용자 직접 진술** (2026-04-27, 2026-05-01):
 - "유리수 급수값이 정확한값임", "무리수가 구라고 유리수가 리얼임"
@@ -65,29 +80,36 @@ finitism", "finitist framing accepted then...", "ZFC fiction",
 `#print axioms alwaysTrueUnit_limit_distinct_from_zero` →
 "depends on axioms: [propext, Quot.sound]" — Lean kernel base.
 ZFC 가 trajectory/limit 을 동일시하기 위해 쓰는 propext-quotient 가
-∅-axiom regime 에서는 적용되지 않으므로 type 분리가 보존되며, lens
-cardinality 가 N_U 에서 4-domain convergent invariant 로 안정.
+∅-axiom regime 에서는 적용되지 않으므로 type 분리가 보존됨.  그리고
+"N_U까지"라는 표현 자체가 frame-creep 위험 — 정확히는 *parametric
+가족 `configCount`를 level 2에서 evaluate한 결과* 라는 family-point
+관찰. 다른 level (n = 0, 1, 3, ...)도 동일 가족의 값으로 의미가
+있음; level 2가 *특권적*인 게 아니라 physics observable과 짝지어
+사용되는 경험적 evaluation point.
 
 (주: 물리 capstone 들 — `validation_standard_capstone`,
 `pure_atomic_observables_capstone`, `alpha_em_master_capstone` — 은
 strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 
-## 교훈 2: N_resolution = d^(d²) — self-referential fractal depth
+## 교훈 2: `configCount` 가족이 canonical object (G120 Round 3 재작성)
 
-**WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정"
-**RIGHT**: `N_U = d^(d²) = 5²⁵ = 298023223876953125`
+**WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정",
+"N_U is THE 자기-참조 fixed point"
+**RIGHT**: `configCount : Nat → Nat`이 canonical object;
+`configCount 2 = 5^25 = 298023223876953125`은 한 값.
 
 **근거**:
-- `Math/Cohomology/Fractal25.numV_eq_d_sq`: K_{25} vertex count = d²
-- `Math/Cohomology/FractalLevel`: vertex count at level L = 5^L
-- `Physics/NResolutionFractalDepth.n_resolution_self_consistent`: L = d²,
-  numV(L) = d^(d²) (self-referential fixed point)
-- `Physics/HierarchyTowers.hierarchy_cardinality`: d^(d²) 이미
-  M_Pl/v_H ratio cardinality로 등장
+- `Math/Cohomology/Fractal/Level.numV (L : Nat) := 5^L`: vertex count 가족
+- `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: G120 Phase 1, configuration count 가족
+- `Math/Cohomology/Fractal/V25.numV` (Phase 5 후): `abbrev` to `Level.numV 2`
+- `Physics/NResolutionFractalDepth.numV_at_d_squared`: level `n = d²`에서의
+  family-property `numV (d*d) = d^(d*d)` (Phase 4 후 universe_level 삭제)
+- `Physics/HierarchyTowers.hierarchy_cardinality`: `d^(d²)` 이미 M_Pl/v_H
+  ratio cardinality로 등장 (consumer 사이트 — 가족값 사용)
 
-**구조적 이유**: fractal level L = Gram dimension d² (자기 참조).
-이 level에서 vertex count = d^L = d^(d²) — 격자가 자기 자신을
-보는 fixed point.
+**구조적 관찰**: fractal level n = d² 지점에서 `numV (d²) = d^(d²)`라는
+family fixed-point 등식이 성립.  이는 *가족의 한 성질*이지 별도
+"self-referential framing"이 아님 (G120 Phase 4가 이 점을 명시).
 
 ## 교훈 3: 격자 내부 frame 도구
 

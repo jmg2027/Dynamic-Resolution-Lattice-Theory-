@@ -63,13 +63,16 @@ all three sides:
   (`Theory/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw
   import).
 
-**Resolution limit — count-Lens readout at fractal level 2.**
-`N_U = d^(d²) = 5²⁵` arises under 4 independent Lens applications
-(Lean fractal lens cardinality / K_25 graph coloring / rank-2
-tensor dof at d=5 / max injective projection space) — the
-observation is the convergence, not a universe constant.  See
-`RESOLUTION_LIMIT_SPEC.md` (canonical; wins over any AXIOM/
-chapter on resolution-limit topics).
+**Resolution-depth family — parametric Lens output**
+(G120 Round 3, 2026-05-22 rewrite).  Canonical object is the
+parametric family `configCount : Nat → Nat` (`Lib/Math/Cohomology/
+Fractal/ConfigCount`).  The historical value `N_U = 5²⁵` is
+`configCount 2`, one value of the family — not a privileged
+universe constant.  Two real Lean derivations at level n = 2
+(fractal iteration count + K₂₅ graph coloring); earlier "4-way
+convergence" was reduced to 2-of-4 real per G120 audit.  See
+`RESOLUTION_LIMIT_SPEC.md` §2 (canonical; G120 Round 3 rewrite;
+wins over any AXIOM/ chapter on resolution-limit topics).
 
 ---
 

@@ -20,12 +20,18 @@ Establishes the **upper boundary** of 213's representable numbers.
 
 ## Narrative
 
-Tetration `a ↑↑ b` and higher hyper-operations exceed `N_U` very
-quickly: `2 ↑↑ 5 > N_U`.  Hyper 213 formalizes which hyper-values
-are representable + what happens at the boundary:
+Tetration `a ↑↑ b` and higher hyper-operations exceed
+`configCount 2 = 5²⁵` very quickly: `2 ↑↑ 5 > configCount 2`.
+Hyper 213 formalizes which hyper-values are representable + what
+happens beyond the chosen evaluation level:
 
-- `a ↑↑ b ≤ N_U` is decidable for explicit (a, b)
-- Beyond `N_U`, the value is **not 213-internal** (per
+- `a ↑↑ b ≤ configCount 2` is decidable for explicit (a, b)
+- Beyond `configCount 2`, the value lives at a *different family
+  evaluation level* (per G120 Round 3 — the resolution boundary is
+  a level-choice, not a privileged cap; CLAUDE.md "Universe-constant
+  framing" failure mode forbids treating any one value as the
+  invariant), and dynamic readings (Pell-Fib, Möbius P^n, ...) do
+  not close at the same substrate (per
   `seed/RESOLUTION_LIMIT_SPEC.md`) — only its bracket-class is
   representable
 
