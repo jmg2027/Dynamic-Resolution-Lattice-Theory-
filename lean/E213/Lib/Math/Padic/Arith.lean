@@ -553,4 +553,34 @@ theorem Zp.mul_zero_left_digit {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
   rw [Nat.zero_add]
   exact E213.Tactic.NatHelper.zero_mod p
 
+/-! ## Multiplicative truncation correctness at `n = 1`
+
+The base case `(Zp.mul x y).trunc 1 = (x.trunc 1 · y.trunc 1) % p`
+is structurally direct: at level 1, every term reduces to the
+zeroth digit, and the carry is identically zero.  This is the
+foothold for the general `mul_trunc` theorem (analog of
+`Zp.add_trunc`), which requires more elaborate convolution
+bookkeeping and is left for the next session.
+-/
+
+/-- Multiplicative truncation correctness at `n = 1`:
+    `(Zp.mul x y).trunc 1 = (x.trunc 1 · y.trunc 1) % p`. -/
+theorem Zp.mul_trunc_one (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    (Zp.mul p hp x y).trunc 1 = (x.trunc 1 * y.trunc 1) % p := by
+  -- Unfold trunc 1 = 0 + digit 0 * p^0 = digit 0.
+  show (0 : Nat) + ((Zp.mul p hp x y).digits 0).val * p^0
+        = (0 + (x.digits 0).val * p^0) * (0 + (y.digits 0).val * p^0) % p
+  rw [Nat.pow_zero, Nat.mul_one, Nat.mul_one, Nat.mul_one,
+      Nat.zero_add, Nat.zero_add, Nat.zero_add]
+  -- Goal: ((mul x y).digits 0).val = (x.digits 0).val * (y.digits 0).val % p.
+  show (Zp.mulRaw p x y 0 + Zp.mulCarry p x y 0) % p
+        = (x.digits 0).val * (y.digits 0).val % p
+  -- Unfold mulCarry 0 = 0 and mulRaw 0 = mulRawSum 0 1 = (x.digit 0)·(y.digit 0).
+  show (Zp.mulRaw p x y 0 + 0) % p
+        = (x.digits 0).val * (y.digits 0).val % p
+  rw [Nat.add_zero]
+  show ((0 : Nat) + (x.digits 0).val * (y.digits (0 - 0)).val) % p
+        = (x.digits 0).val * (y.digits 0).val % p
+  rw [Nat.sub_zero, Nat.zero_add]
+
 end E213.Lib.Math.Padic
