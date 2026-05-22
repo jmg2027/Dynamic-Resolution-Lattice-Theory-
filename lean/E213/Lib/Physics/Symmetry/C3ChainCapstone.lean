@@ -20,6 +20,9 @@ realisation of "gauge group emergence from Raw" — the QCD gluon
 octet identified with `H¹(K_{3,2}^{(c=2)})` as a Sym(3) ⊂ SU(3)
 representation.
 
+**Narrative**: `theory/physics/symmetry/c3_chain.md` (promoted
+2026-05-22; covers the 18-phase chain + master + open frontier).
+
 ## Phase summary
 
 | # | Module | Achievement |

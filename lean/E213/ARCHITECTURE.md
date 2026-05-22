@@ -216,7 +216,7 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
 
 (9 sub-clusters 후 — Cardinality (+1), Leaves 폴드 (−1), Refines 폴드
 (−1), Characterisation/Morphism 폴드 (−2), Diagonal 폴드 (root file,
-sub-cluster count 무관): 14→9, `research-notes/LENS_AUDIT.md` §4 의
+sub-cluster count 무관): 14→9, `research-notes/archive/audits/LENS_AUDIT.md` §4 의
 13→7 권장 거의 달성 (Axiom Lenses + Internal 별도 유지로 9).)
 
 ### Lib/  (Mathematics + Physics content)
@@ -346,7 +346,7 @@ named, grep-discoverable.
          structure of the same name as the file lives inside the
          file's namespace, downstream extension files declare a
          doubled namespace.  R10 in
-         `research-notes/CONSOLIDATION_PROTOCOL.md`.
+         `lean/E213/docs/CONSOLIDATION_PROTOCOL.md`.
        - **Cross-ring extension of `Term/Internal/Tree`** — files
          in higher rings (Lens, Lib, Theory) that add Tree-level
          decls (e.g., `Lens/Cardinality/Godel.lean`'s `Tree.toNat`)
@@ -379,6 +379,22 @@ named, grep-discoverable.
   * `tools/kernel_regress.sh`  — Term ring 0-axiom regression
   * `tools/scan_axioms.py`     — per-module axiom audit
   * `tools/scan_all_axioms.py` — repo-wide axiom audit
+
+### Empirical verification of the ring split (G105)
+
+The ring boundaries above are normatively-stated.  G105
+(`research-notes/G105_namespace_shape_and_full_recursor_inventory.md`)
+verified them empirically by measuring per-namespace Expr-shape
+densities:
+
+  * Theory ring: ~100 Expr nodes / decl (deep proofs about Raw).
+  * Lens ring:   ~10 Expr nodes / decl (Lens-projection plumbing).
+  * Lib ring:    ~2-7 Expr nodes / decl (composite results on
+                 derived APIs).
+
+The three-layer λ-density split is **measurable**, not just stated.
+Any future architectural change can be re-validated via the same
+scanner (`tools/ast_shape_scan.py`).
 
 ## 4. Companion artifact: rust-engine
 

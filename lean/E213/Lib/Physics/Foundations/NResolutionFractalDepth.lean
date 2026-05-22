@@ -3,25 +3,26 @@ import E213.Lib.Physics.Foundations.NResolutionFromFractal
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# N_resolution = d^(d²) via SELF-REFERENTIAL fractal depth L = d²
+# Family theorem at level `n = d * d`
 
-Sharpens `NResolutionFromFractal.lean` by deriving WHY the relevant
-fractal level is L = d² = 25, not some other level.
+Per G120 Round 3 (2026-05-22): the earlier `def universe_level :=
+d * d` was a wrapper for the constant `d * d` carrying the
+"self-referential level" framing.  The framing was a separate
+*conceptual reading*, not a separate Lean object.  Wrapper deleted;
+the underlying observation is recast as a property of the
+parametric `numV` family at the special point `n = d * d`.
 
-## Self-referential identity
+## Theorem statement (all 0-axiom)
 
-  fractal level L = Gram dimension = d²
+At fractal level `n = d * d = 25`, the vertex-count family satisfies:
 
-At this self-referential level:
-  - vertex count = d^L = d^(d²) = 5²⁵
-  - this is the lens cardinality at universe scale
-  - this is N_resolution
+  · `numV (d * d) = d ^ (d * d)`        ← family value
+  · `numV (d * d) = 298023223876953125`  ← concrete value
+  · `numV (d * d) = NResolutionFromFractal.n_resolution_candidate`
 
-## Theorems (all 0-axiom)
-
-  - level_eq_gram_dim: L = d²
-  - vertex_count_at_self_level: numV(d²) = d^(d²)
-  - N_resolution value: 5²⁵ = 298023223876953125
+This is a **family property**, not a separate framing — the same
+`numV : Nat → Nat := λ L => 5^L` from `Fractal/Level.lean`,
+evaluated at the special level `n = d²`.
 -/
 
 namespace E213.Lib.Physics.Foundations.NResolutionFractalDepth
@@ -29,36 +30,30 @@ namespace E213.Lib.Physics.Foundations.NResolutionFractalDepth
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Math.Cohomology.Fractal.Level
 
-/-- ★ The self-referential fractal level: L = d² = 25. -/
-def universe_level : Nat := d * d
-
-/-- ★ universe_level = 25 = d². -/
-theorem universe_level_value : universe_level = 25 := by decide
-
-/-- ★ universe_level = Gram matrix dimension (d² = block-pair count). -/
-theorem universe_level_eq_gram : universe_level = d * d := rfl
-
-/-- ★★ Vertex count at self-referential fractal level = d^(d²) = 5²⁵. -/
-theorem numV_at_universe_level :
-    numV universe_level = d ^ (d * d) := by
-  show 5 ^ universe_level = d ^ (d * d)
+/-- ★★ Vertex count at level `n = d * d` = `d^(d*d)` = `5^25`. -/
+theorem numV_at_d_squared :
+    numV (d * d) = d ^ (d * d) := by
+  show 5 ^ (d * d) = d ^ (d * d)
   rfl
 
-/-- ★★ Concrete value: vertex count = 298023223876953125. -/
-theorem numV_at_universe_level_value :
-    numV universe_level = 298023223876953125 := by decide
+/-- ★★ Concrete value at level `d * d`. -/
+theorem numV_at_d_squared_value :
+    numV (d * d) = 298023223876953125 := by decide
 
-/-- ★★★ Self-consistent N_resolution identification. -/
-theorem n_resolution_self_consistent :
-    -- (a) self-referential level L = Gram dim d²
-    universe_level = d * d
+/-- ★★★ Family-property bundle at level `n = d * d`.
+
+    All four conjuncts are properties of the `numV` family evaluated
+    at the special point `n = d²`, NOT separate "framings". -/
+theorem numV_family_at_d_squared :
+    -- (a) tautology: d * d = d * d
+    d * d = d * d
     -- (b) vertex count at this level = d^(d²)
-    ∧ numV universe_level = d ^ (d * d)
+    ∧ numV (d * d) = d ^ (d * d)
     -- (c) concrete value 5²⁵
-    ∧ numV universe_level = 298023223876953125
+    ∧ numV (d * d) = 298023223876953125
     -- (d) equals NResolutionFromFractal candidate
-    ∧ numV universe_level
+    ∧ numV (d * d)
        = E213.Lib.Physics.Foundations.NResolutionFromFractal.n_resolution_candidate := by
-  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+  refine ⟨rfl, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Foundations.NResolutionFractalDepth

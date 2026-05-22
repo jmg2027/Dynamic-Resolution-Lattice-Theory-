@@ -74,6 +74,14 @@ Description. Current status. Suggested approach.
 ## Next Experiment
 EXP_NNN (available).
 
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: theory/<path> ← research-notes/<source>
+  (or "none")
+- **Promotion candidates**: PURE-closed Lean sub-trees lacking
+  theory/ chapters.  Check `theory/PROMOTION_CRITERIA.md`.
+- **Active scratchpad**: top-level research-notes/G## still
+  in-progress.
+
 ## File Map
 ```
 path/to/new_file    ← description

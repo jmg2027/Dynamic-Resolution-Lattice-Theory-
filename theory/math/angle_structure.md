@@ -1,0 +1,55 @@
+# Angle Structure (G42)
+
+**Status**: Closed (5 files, capstone `G42Capstone`).
+**Promoted from research-notes**: 2026-05-22.
+
+Pattern 1 — G42 → chapter + archive.
+
+## Overview
+
+The **angle-structure programme** identifies which angles are
+**Truth** (structural, like 90° at the bipartite split),
+**Illusion** (notational artifacts of ZFC squashing, like 180°),
+and **Gauge** (free-choice, like 45°).
+
+In 213's discrete substrate, only finitely many angles are
+structural; the rest are continuous-extension artifacts.
+
+## Lean source
+
+- **Sub-tree**: `lean/E213/Lib/Math/AngleStructure/` (5 files)
+- **Capstone**: `G42Capstone`
+- **∅-axiom status**: PURE
+
+| File | Purpose |
+|---|---|
+| `SharedPairSlot` | Shared-pair slot algebra |
+| `RotationOrder` | Rotation-order computation |
+| `GaugeDiagonal` | Gauge-diagonal structure (45° = free choice) |
+| `OrthogonalDoubling` | Orthogonal-doubling step (90° structural) |
+| `G42Capstone` | Angle programme master |
+
+## Narrative
+
+In ZFC-style continuous geometry, any angle in [0, 2π) is
+"available".  In 213's discrete substrate:
+
+- **90° (orthogonal doubling)** = STRUCTURAL.  The bipartite split
+  NS × NT at the K_{3,2}^{(c=2)} substrate forces orthogonality.
+- **180° (rotation by π)** = NOTATIONAL ILLUSION.  No primitive
+  realization; an artifact of continuous-completion thinking.
+- **45° (gauge diagonal)** = GAUGE.  A free choice equivalent under
+  the SharedPairSlot equivalence relation.
+
+The capstone proves: every angle assertion in 213-derived geometry
+reduces to one of these three readings via the
+`SharedPairSlot ∘ RotationOrder ∘ GaugeDiagonal` decomposition.
+
+## Companion clusters
+
+- `Lib/Math/TriangularTower/` (G47 — `theory/math/triangular_tower.md`)
+- `Lib/Math/LevelTopology/` (G49 — `theory/math/level_topology.md`)
+
+## Research-note provenance
+
+`research-notes/G42_angle_structure_zfc_squashing.md` — archived.

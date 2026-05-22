@@ -3,6 +3,10 @@
 1/α_em (≈ 137.0359991) derivation from K_{3,2}^{(c=2)} cup-ring +
 Δ⁴ topology + fractal level structure.
 
+**Narrative**: `theory/physics/alpha_em/precision_derivation.md`
+(promoted 2026-05-22; covers C1 Steps 1-4 + C5 Steps 1-6 + open
+frontier).
+
 The cluster is organised around two `research-notes/G35` conjectures:
   - **C1** — pure cup-ring 1/α_em formula (no SO(10), no Dyson)
   - **C5** — fractal-level ζ_K^{(L)} → ζ(2) convergence
@@ -63,9 +67,11 @@ header).  Other files may carry decidability dependencies.
 
 ## Connection to other clusters
 
-  - `Lib/Physics/Couplings/AlphaGUT` — α_GUT ⇒ α_em(IR) at low scale
-  - `Lib/Math/Cohomology/CupAW`      — Alexander-Whitney cup product
-  - `research-notes/G35`             — conjecture catalog
+  - `Lib/Physics/Couplings/AlphaGUT`            — α_GUT ⇒ α_em(IR) at low scale
+  - `Lib/Math/Cohomology/CupAW`                 — Alexander-Whitney cup product
+  - `Lib/Physics/Symmetry/`                     — C3 chain (gluon octet from H¹(K))
+  - `theory/physics/alpha_em/precision_derivation.md` — narrative
+  - `research-notes/G35_chiral_cup_ring_catalog.md`   — broader 213-Algebra catalog (active scratch)
 
 ## Where to add new α_em-related files
 

@@ -96,6 +96,17 @@ Current session state: `HANDOFF.md`.
 Agent guardrails: `LESSONS_LEARNED.md`.
 Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
 
+**Quantitative-architecture entry**:
+  · `research-notes/G101_metascan_synthesis.md` — 6-scanner unified
+    view of corpus shape, recursor inventory, citation hubs.
+  · `research-notes/G107_action_items_registry.md` — open-items
+    registry from the meta-scan tree (executor entry).
+  · `catalogs/abstraction-candidates.md` — per-item status tracker.
+  · `catalogs/falsifier-roster.md` — 135 auto-discovered falsifiers
+    (mined via decide-negation scan).
+  · `seed/RAW_DERIVATION_SPEC.md` — "X is derived from Raw"
+    α / β / γ three-reading distinction.
+
 ## Directory
 
 ```

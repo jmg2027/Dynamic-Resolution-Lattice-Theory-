@@ -53,7 +53,7 @@ theorem hc213_filled_b2_zero : 0 = 0 := rfl
     — HC²¹³ closes uniformly across the filled K_{3,2}^{(c=2)}
     family.
 
-    See `research-notes/hodge/G6_hodge_213_translation.md` §7.B. -/
+    See `research-notes/archive/hodge/G6_hodge_213_translation.md` §7.B. -/
 theorem hodge_conjecture_213_filled :
     -- 4-cycle count
     3 * 1 = 3

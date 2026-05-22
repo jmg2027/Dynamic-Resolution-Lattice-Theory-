@@ -32,6 +32,30 @@ rather than re-treading the components.
 
 ---
 
+## §0.5  Promotion status (2026-05-22)
+
+G35 itself **remains active scratch** — it is the 17-domain
+field-level catalog spanning multiple sub-trees and is broader than
+any single `theory/` chapter.
+
+Per-conjecture promotion state:
+
+| Conjecture | Status | Promoted chapter |
+|---|---|---|
+| C1 (pure cup-ring α_em) | Closed through Step 4 (0.09 ppb); Step 5+ open | `theory/physics/alpha_em/precision_derivation.md` |
+| C2 (atomic constants uniqueness) | Closed Steps 1-7 (full ∀(m,n) iff) | `theory/physics/foundations/atomic_constants.md` |
+| C3 (Aut(K) gauge group emergence) | **Closed** via 18-phase C3 chain | `theory/physics/symmetry/c3_chain.md` |
+| C4 (Σ-spectral signature theorem) | Closed Steps 1-4 (parametric Σ_g × Σ_h × Σ_k) | Absorbed in `theory/math/cohomology/hodge_conjecture.md` §Pairing |
+| C5 (fractal ζ_K^{(L)} → ζ(2)) | Closed through Step 6 (`zeta_modulus`); Step 7+ open | `theory/physics/alpha_em/precision_derivation.md` |
+| C6 (cross-domain unification) | Closed Steps 1-5 (graded ring); per-domain Step 6+ open | `theory/math/cross_domain_unification.md` |
+
+Citations to `G35` from Lean docstrings (specifically `§C##` for
+conjecture statements + step logs) **remain valid** — G35 is the
+catalog these conjectures live in, irrespective of where their
+closed derivations are written.
+
+---
+
 ## §0  How to read this document
 
   · **§1** — naming, scope, what 213-Algebra is and is not.
@@ -145,7 +169,9 @@ d times.  Cardinality = d^(d²) = N_U at fixed-point.
          `Level.lean`, `Lib/Math/ResolutionLimit.lean`,
          `Lib/Physics/Foundations/LensCardinalityFractalLevels.lean`,
          `NUniverseFromFractal.lean`, `FractalLensCardinality.lean`
-  Status: 4-domain N_U convergence ∅-axiom closed.
+  Status: `configCount 2 = 5²⁵` family readout ∅-axiom closed
+  (G120 Round 3 retracted "4-domain convergence" framing —
+  only 2 of 4 readings had real Lean derivations).
 
 ### §2.2  Resolution-finite analytic (3)
 
@@ -399,11 +425,16 @@ sample, not exhaustive.
 
 ### §3.2  Resolution-finite
 
-  · `N_U = d^(d²) = 5²⁵ = 298,023,223,876,953,125` ★∅
-    `Lib/Math/ResolutionLimit.lean`
-  · 4-domain N_U convergence (fractal lens · K₂₅ coloring ·
-    tensor DOF · injective projection) ★∅
-    same file
+  · `configCount 2 = 5²⁵ = 298,023,223,876,953,125` ★∅
+    `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (G120 Phase 1);
+    historical `N_U` = `abbrev` to this value in
+    `Lib/Math/ResolutionLimit.lean` (G120 Phase 2)
+  · Two real derivations at level n = 2:
+    fractal-iteration count (`NResolutionFromFractal`) +
+    K₂₅ coloring count (`FractalLensCardinality`).
+    (G120 Round 3 retracted "4-domain convergence" — only 2 of 4
+    readings had real Lean derivations; tensor DOF was rfl identity,
+    injective projection had zero witness.)
   · Wallis partial product W_N → π/2
     `Lib/Math/Cauchy/WallisSeq.lean`
   · Basel partial sum S(N) brackets ζ(2)
@@ -514,7 +545,9 @@ References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 > derivable from 213-Algebra alone, without external input.
 
 Already known constraints:
-  · 4-domain N_U convergence forces d^(d²) self-reference.
+  · `configCount` parametric family at level n = d² yields
+    `5^(d²) = d^(d²)` self-reference (G120 Round 3 reframing of
+    earlier "4-domain N_U convergence" — see §0.5 promotion status).
   · `dim H¹(K_{m,n}^{(c)}) = m² − 1` (= 1/α_3) requires
     `c·m·n = m² + m + n − 2` (213 = smallest non-trivial soln
     at NT=2)

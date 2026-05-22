@@ -16,6 +16,8 @@ Per-N namespaces preserved (`Trib.FSMmod{N}`).
 namespace E213.Lib.Math.DyadicFSM.Trib.FSMmod3
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
+open E213.Lib.Math.DyadicFSM.ArithFSM.V3.ArithFSM3 (bits_period_of_run_period)
+open E213.Lib.Math.DyadicFSM.ArithFSM (bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -31,31 +33,18 @@ def tribFSMmod3 : ArithFSM3 3 where
 
 /-- ★★★ Tribonacci mod-3 run cycles with period 13. -/
 theorem tribFSMmod3_run_period_13 :
-    ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod3.step (tribFSMmod3.run (k' + 13))
-        = tribFSMmod3.step (tribFSMmod3.run k')
-    rw [ih]
+    ∀ k, tribFSMmod3.run (k + 13) = tribFSMmod3.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-3 bits cycle with period 13. -/
 theorem tribFSMmod3_bits_period_13 :
-    ∀ k, tribFSMmod3.bits (k + 13) = tribFSMmod3.bits k := by
-  intro k
-  show tribFSMmod3.out (tribFSMmod3.run (k + 13))
-      = tribFSMmod3.out (tribFSMmod3.run k)
-  rw [tribFSMmod3_run_period_13]
+    ∀ k, tribFSMmod3.bits (k + 13) = tribFSMmod3.bits k :=
+  bits_period_of_run_period _ tribFSMmod3_run_period_13
 
 /-- Bipartite parity doubling: bit period 13 odd ⇒ predicted 26 (sig). -/
 theorem tribFSMmod3_bits_period_26 :
-    ∀ k, tribFSMmod3.bits (k + 26) = tribFSMmod3.bits k := by
-  intro k
-  have h1 := tribFSMmod3_bits_period_13 (k + 13)
-  have h2 := tribFSMmod3_bits_period_13 k
-  have hreshape : k + 26 = (k + 13) + 13 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, tribFSMmod3.bits (k + 26) = tribFSMmod3.bits k :=
+  bits_period_mul_of_period _ tribFSMmod3_bits_period_13 2
 
 /-- ★★★★★ Tribonacci mod-3 signature has period 26 from step 1
     (pre-period 1; bit period 13 odd ⇒ signature doubled). -/
@@ -71,6 +60,8 @@ end E213.Lib.Math.DyadicFSM.Trib.FSMmod3
 namespace E213.Lib.Math.DyadicFSM.Trib.FSMmod5
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
+open E213.Lib.Math.DyadicFSM.ArithFSM.V3.ArithFSM3 (bits_period_of_run_period)
+open E213.Lib.Math.DyadicFSM.ArithFSM (bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -86,31 +77,18 @@ def tribFSMmod5 : ArithFSM3 5 where
 
 /-- ★★★ Tribonacci mod-5 run cycles with TIGHT period 31. -/
 theorem tribFSMmod5_run_period_31 :
-    ∀ k, tribFSMmod5.run (k + 31) = tribFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod5.step (tribFSMmod5.run (k' + 31))
-        = tribFSMmod5.step (tribFSMmod5.run k')
-    rw [ih]
+    ∀ k, tribFSMmod5.run (k + 31) = tribFSMmod5.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-5 bits cycle with period 31. -/
 theorem tribFSMmod5_bits_period_31 :
-    ∀ k, tribFSMmod5.bits (k + 31) = tribFSMmod5.bits k := by
-  intro k
-  show tribFSMmod5.out (tribFSMmod5.run (k + 31))
-      = tribFSMmod5.out (tribFSMmod5.run k)
-  rw [tribFSMmod5_run_period_31]
+    ∀ k, tribFSMmod5.bits (k + 31) = tribFSMmod5.bits k :=
+  bits_period_of_run_period _ tribFSMmod5_run_period_31
 
 /-- Bipartite parity doubling: bit period 31 odd ⇒ predicted 62 (sig). -/
 theorem tribFSMmod5_bits_period_62 :
-    ∀ k, tribFSMmod5.bits (k + 62) = tribFSMmod5.bits k := by
-  intro k
-  have h1 := tribFSMmod5_bits_period_31 (k + 31)
-  have h2 := tribFSMmod5_bits_period_31 k
-  have hreshape : k + 62 = (k + 31) + 31 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, tribFSMmod5.bits (k + 62) = tribFSMmod5.bits k :=
+  bits_period_mul_of_period _ tribFSMmod5_bits_period_31 2
 
 set_option maxRecDepth 1024 in
 /-- ★★★★★ Tribonacci mod-5 signature has period 62 from step 1
@@ -127,6 +105,7 @@ end E213.Lib.Math.DyadicFSM.Trib.FSMmod5
 namespace E213.Lib.Math.DyadicFSM.Trib.FSMmod7
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
+open E213.Lib.Math.DyadicFSM.ArithFSM.V3.ArithFSM3 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -141,22 +120,13 @@ def tribFSMmod7 : ArithFSM3 7 where
 
 /-- ★★★ Tribonacci mod-7 run cycles with TIGHT period 48. -/
 theorem tribFSMmod7_run_period_48 :
-    ∀ k, tribFSMmod7.run (k + 48) = tribFSMmod7.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show tribFSMmod7.step (tribFSMmod7.run (k' + 48))
-        = tribFSMmod7.step (tribFSMmod7.run k')
-    rw [ih]
+    ∀ k, tribFSMmod7.run (k + 48) = tribFSMmod7.run k :=
+  ArithFSM3.run_period_of_base _ (by decide)
 
 /-- ★★★★ Tribonacci mod-7 bits cycle with TIGHT period 48. -/
 theorem tribFSMmod7_bits_period_48 :
-    ∀ k, tribFSMmod7.bits (k + 48) = tribFSMmod7.bits k := by
-  intro k
-  show tribFSMmod7.out (tribFSMmod7.run (k + 48))
-      = tribFSMmod7.out (tribFSMmod7.run k)
-  rw [tribFSMmod7_run_period_48]
+    ∀ k, tribFSMmod7.bits (k + 48) = tribFSMmod7.bits k :=
+  bits_period_of_run_period _ tribFSMmod7_run_period_48
 
 set_option maxRecDepth 2048 in
 /-- ★★★★★ Tribonacci mod-7 signature has period 48 from step 1

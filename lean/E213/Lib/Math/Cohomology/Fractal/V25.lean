@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Examples.K5
-
 import E213.Lib.Math.Cohomology.Cochain.Core
+import E213.Lib.Math.Cohomology.Fractal.Level
 /-!
 # Fractal-simplex level 2 — K_{25} cohomology
 
@@ -38,8 +38,16 @@ namespace E213.Lib.Math.Cohomology.Fractal.V25
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 
 
-/-- Number of leaf vertices at level 2: 5 × 5 = 25 = d². -/
-def numV : Nat := 25
+/-- Number of leaf vertices at level 2: 5 × 5 = 25 = d².
+
+    Per G120 Round 3 Phase 5: this is now an `abbrev` to
+    `Level.numV 2` (the parametric vertex-count family
+    `λ L => 5^L` evaluated at L = 2).  No name collision —
+    `V25.numV` is the *level-2 instance*, `Level.numV` is the
+    *parametric family*.  Definitionally equal: `Level.numV 2
+    = 5^2 = 25`. -/
+abbrev numV : Nat :=
+  E213.Lib.Math.Cohomology.Fractal.Level.numV 2
 
 /-- Number of edges in K_{25}: C(25, 2) = 300. -/
 def numE : Nat := 300

@@ -38,11 +38,7 @@ theorem Tree.swap_depth :
   | a => rfl
   | b => rfl
   | slash x y ihx ihy =>
-      have hcan := h
-      unfold Tree.canonical at hcan
-      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
-      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
-      have hlt := Tree.canonical_slash_lt h
+      obtain ⟨hx, hy, hlt⟩ := Tree.canonical_slash_decompose h
       have ihx' := ihx hx
       have ihy' := ihy hy
       show (match Tree.cmp (Tree.swap x) (Tree.swap y) with
@@ -67,11 +63,7 @@ theorem Tree.swap_leaves :
   | a => rfl
   | b => rfl
   | slash x y ihx ihy =>
-      have hcan := h
-      unfold Tree.canonical at hcan
-      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
-      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
-      have hlt := Tree.canonical_slash_lt h
+      obtain ⟨hx, hy, hlt⟩ := Tree.canonical_slash_decompose h
       have ihx' := ihx hx
       have ihy' := ihy hy
       show (match Tree.cmp (Tree.swap x) (Tree.swap y) with

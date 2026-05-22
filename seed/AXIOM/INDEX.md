@@ -39,9 +39,9 @@ classification, axiom cross-check) lives at `lean/E213/AUDIT.md`.
 ## Cross-references at seed/ root
 
 - `seed/ORIGIN.md` — DRLT origin narrative (untouched).
-- `seed/RESOLUTION_LIMIT_SPEC.md` — cardinality / N_U readout spec
-  (4-Lens convergence at 5²⁵).  Wins over any AXIOM/ chapter on
-  resolution-limit topics.
+- `seed/RESOLUTION_LIMIT_SPEC.md` — parametric `configCount`
+  family spec (G120 Round 3 rewrite; `configCount 2 = 5²⁵`).
+  Wins over any AXIOM/ chapter on resolution-limit topics.
 - `seed/NOTATION.md` — symbol conventions.
 
 ## Möbius interpretation — canonical location

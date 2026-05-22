@@ -47,7 +47,7 @@ invocation, or as many as fit before context pressure):
     done
     ```
 
-### Tier B: Stale documentation
+### Tier B: Stale documentation + promotion candidates
 
   - `git grep "(2026-0[0-4]\|2025-)" -- '*.md' | head` — old date
     markers that may indicate stale claims.
@@ -57,6 +57,13 @@ invocation, or as many as fit before context pressure):
     against `INDEX.md`, `README.md`, `CAPSTONE_INDEX.md`.
   - Orphan sub-files: any `<X>.lean` umbrella missing imports of
     siblings under `<X>/`.
+  - **Promotion candidates**: for each Lean sub-tree that is PURE +
+    categorically closed, check `theory/PROMOTION_CRITERIA.md`
+    (H1-H4 hard + S1-S3 soft).  If eligible and no `theory/<mirror>`
+    chapter exists, draft the chapter, move source `research-notes/`
+    to `archive/`, update Lean docstring citations.
+  - Stale Tier-1 → Tier-3 references: `grep -rln "research-notes/G##" --include="*.lean"`
+    where `G##` corresponds to a now-promoted topic.
 
 ### Tier C: Theorem development
 
@@ -95,9 +102,18 @@ Look for stated-but-not-yet-proven claims in:
   - `seed/AXIOM/09_chart_relativity.md` §9.{1, 2, 3, 4}
   - `seed/CLOSED_FORM_SPEC.md` "Future work"
   - `STRICT_ZERO_AXIOM.md` "Future cleanup"
+  - `theory/math/INDEX.md` + `theory/physics/INDEX.md` "Pending
+    sub-trees" — promotion-eligible candidates
 
 If a claim is stated abstractly and a concrete Lean realisation
 is missing, that's a candidate target.
+
+### Tier-1 vs Tier-3 discipline
+
+New ideas / observations / half-baked thoughts → `research-notes/G##`
+(volatile, G-prefix OK).  Closed narrative → `theory/<mirror>/<chapter>.md`
+(stable, descriptive name).  See `CLAUDE.md` "Three-tier discipline"
+and `theory/PROMOTION_CRITERIA.md`.
 
 ## Workflow per invocation
 

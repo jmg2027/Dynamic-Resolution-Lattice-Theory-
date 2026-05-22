@@ -56,15 +56,18 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
 
 ## N_resolution and φ — count-Lens readouts
 
-  `N_resolution = d^(d²) = 5²⁵ = 298 023 223 876 953 125` —
-    count-Lens readout at fractal level 2.  Consistent across four
-    independent Lens applications (Lean formalisation,
-    K₂₅ graph coloring, rank-2 tensor DOF, type-theoretic
-    injective projection bound).  See `seed/RESOLUTION_LIMIT_SPEC
-    .md` §2 + `lean/E213/Lib/Math/ResolutionLimit.lean` +
-    `Lib/Physics/Foundations/NResolutionFromFractal.lean`
-    (`n_resolution_atomic_decomposition`,
-    `n_resolution_structural`).
+  `configCount 2 = 5²⁵ = 298 023 223 876 953 125` —
+    count-Lens readout at fractal level 2.  One value of the
+    parametric family `configCount : Nat → Nat` (G120 Round 3,
+    2026-05-22).  Two real Lean derivations at level n = 2:
+    (1) fractal iteration count
+    (`Physics/Foundations/NResolutionFromFractal.n_resolution_eq_hierarchy`)
+    (2) K₂₅ graph d-coloring count
+    (`Physics/Foundations/FractalLensCardinality.K25_coloring_count_eq_N_U`).
+    Historical name `N_U` retained as `abbrev`
+    (`Lib/Math/ResolutionLimit.N_U := configCount 2`); no
+    `def N_U` per CLAUDE.md "Universe-constant framing" failure mode.
+    See `seed/RESOLUTION_LIMIT_SPEC.md` §2 (G120 Round 3 rewrite).
 
   `φ = (1+√5)/2` — fixed point of Möbius P(x) = (2x+1)/(x+1),
     dominant eigenvalue of [[2,1],[1,1]] with characteristic

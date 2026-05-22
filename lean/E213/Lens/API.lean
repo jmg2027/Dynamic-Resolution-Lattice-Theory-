@@ -75,7 +75,7 @@ form algebras — useful but not always needed; importing them
 on-demand via `Lens.{Lattice, Compose, Universal}` keeps the
 common-import surface narrow.
 
-Split executed 2026-05-13 per `research-notes/LENS_AUDIT.md` §5.
+Split executed 2026-05-13 per `research-notes/archive/audits/LENS_AUDIT.md` §5.
 
 See `research-notes/G12_layered_api_classification.md` §4 for the
 rigorous public-API classification.

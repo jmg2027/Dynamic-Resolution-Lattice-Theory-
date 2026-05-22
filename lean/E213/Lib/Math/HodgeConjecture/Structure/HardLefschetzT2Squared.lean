@@ -19,7 +19,7 @@ dim 2.  Realises G10 Phase 2 closure summary's third deferred
 follow-up:
 
   > "Hard Lefschetz on a T²×T² shadow with non-zero middle
-  >  cohomology" — research-notes/hodge/G10_post_hodge_program.md
+  >  cohomology" — research-notes/archive/hodge/G10_post_hodge_program.md
 
 STRICT ∅-AXIOM (all by `decide` on finite enumerations).
 -/

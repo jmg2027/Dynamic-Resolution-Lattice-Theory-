@@ -53,7 +53,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod37 (pellFSMmod37 pellFSMmod37_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod41 (pellFSMmod41 pellFSMmod41_bits_period_20)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod43 (pellFSMmod43 pellFSMmod43_bits_period_44)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod47 (pellFSMmod47 pellFSMmod47_bits_period_48)
-open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
+open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict pisano_period_lift)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor11 (pisano_predict_realises_pell_11)
 
@@ -116,17 +116,16 @@ theorem pisano_predict_realises_pell_14 :
         = pellFSMmod43.bits k)
     ∧ (∀ k, pellFSMmod47.bits (k + pisano_predict 47 (by decide))
         = pellFSMmod47.bits k) := by
-  have h41 : pisano_predict 41 (by decide) = 20 := by decide
-  have h43 : pisano_predict 43 (by decide) = 44 := by decide
-  have h47 : pisano_predict 47 (by decide) = 48 := by decide
   let H := pisano_predict_realises_pell_11
-  refine ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
-          H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
-          H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2,
-          ?_, ?_, ?_⟩
-  · intro k; rw [h41]; exact pellFSMmod41_bits_period_20 k
-  · intro k; rw [h43]; exact pellFSMmod43_bits_period_44 k
-  · intro k; rw [h47]; exact pellFSMmod47_bits_period_48 k
+  exact ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
+         H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
+         H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2,
+         pisano_period_lift (by decide : pisano_predict 41 (by decide) = 20)
+                            pellFSMmod41_bits_period_20,
+         pisano_period_lift (by decide : pisano_predict 43 (by decide) = 44)
+                            pellFSMmod43_bits_period_44,
+         pisano_period_lift (by decide : pisano_predict 47 (by decide) = 48)
+                            pellFSMmod47_bits_period_48⟩
 
 end E213.Lib.Math.DyadicFSM.Pisano.Predictor14

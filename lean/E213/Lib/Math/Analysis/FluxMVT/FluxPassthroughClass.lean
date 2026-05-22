@@ -79,41 +79,26 @@ def compose_id_id : Passthrough_at (id ∘ id) :=
   { left := fun _ _ => rfl, right := fun _ _ => rfl }
 
 /-- Product of passthrough_at's is passthrough_at — fully pointwise
-    via `cutMulOuter_congr`.  No funext, no propext, no Quot.sound. -/
+    via G110 FLUX-1 template `cutMulOuter_unitBracket_reduce_at`.
+    No funext, no propext, no Quot.sound. -/
 def mul_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
     Passthrough_at (fun x => cutMul (f x) (g x)) :=
   { left := fun m k => by
       show cutMul (f (constCut 0 1)) (g (constCut 0 1)) m k = constCut 0 1 m k
       show cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
                        k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 0 1 m k
-      have step :
-          cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
-                      k m ((m+1)*(k+1)) ((m+1)*(k+1))
-          = cutMulOuter (constCut 0 1) (constCut 0 1)
-                      k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-        cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-          (f (constCut 0 1)) (constCut 0 1)
-          (g (constCut 0 1)) (constCut 0 1)
-          (fun m' _ => pf.left m' k)
-          (fun m' _ => pg.left m' k)
-          ((m+1)*(k+1)) (Nat.le_refl _)
-      rw [step]; exact cutMul_zero_zero_at m k
+      rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+            (f (constCut 0 1)) (g (constCut 0 1)) 0 0 m k
+            (fun m' _ => pf.left m' k) (fun m' _ => pg.left m' k)]
+      exact cutMul_zero_zero_at m k
     right := fun m k => by
       show cutMul (f (constCut 1 1)) (g (constCut 1 1)) m k = constCut 1 1 m k
       show cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
                        k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
-      have step :
-          cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
-                      k m ((m+1)*(k+1)) ((m+1)*(k+1))
-          = cutMulOuter (constCut 1 1) (constCut 1 1)
-                      k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-        cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-          (f (constCut 1 1)) (constCut 1 1)
-          (g (constCut 1 1)) (constCut 1 1)
-          (fun m' _ => pf.right m' k)
-          (fun m' _ => pg.right m' k)
-          ((m+1)*(k+1)) (Nat.le_refl _)
-      rw [step]; exact cutMul_one_one_at m k }
+      rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+            (f (constCut 1 1)) (g (constCut 1 1)) 1 1 m k
+            (fun m' _ => pf.right m' k) (fun m' _ => pg.right m' k)]
+      exact cutMul_one_one_at m k }
 
 end Passthrough_at
 

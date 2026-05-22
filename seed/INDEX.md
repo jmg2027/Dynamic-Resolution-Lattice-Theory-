@@ -63,13 +63,16 @@ all three sides:
   (`Theory/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw
   import).
 
-**Resolution limit — count-Lens readout at fractal level 2.**
-`N_U = d^(d²) = 5²⁵` arises under 4 independent Lens applications
-(Lean fractal lens cardinality / K_25 graph coloring / rank-2
-tensor dof at d=5 / max injective projection space) — the
-observation is the convergence, not a universe constant.  See
-`RESOLUTION_LIMIT_SPEC.md` (canonical; wins over any AXIOM/
-chapter on resolution-limit topics).
+**Resolution-depth family — parametric Lens output**
+(G120 Round 3, 2026-05-22 rewrite).  Canonical object is the
+parametric family `configCount : Nat → Nat` (`Lib/Math/Cohomology/
+Fractal/ConfigCount`).  The historical value `N_U = 5²⁵` is
+`configCount 2`, one value of the family — not a privileged
+universe constant.  Two real Lean derivations at level n = 2
+(fractal iteration count + K₂₅ graph coloring); earlier "4-way
+convergence" was reduced to 2-of-4 real per G120 audit.  See
+`RESOLUTION_LIMIT_SPEC.md` §2 (canonical; G120 Round 3 rewrite;
+wins over any AXIOM/ chapter on resolution-limit topics).
 
 ---
 
@@ -127,6 +130,8 @@ seed/
 ├── ORIGIN.md                  ← DRLT origin narrative (archival)
 ├── RESOLUTION_LIMIT_SPEC.md   ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
+├── RAW_DERIVATION_SPEC.md     ← "derived from Raw" α/β/γ distinction
+├── FALSIFIABILITY_SURFACE_SPEC.md ← quantitative profile of §5.2.1 enforcement
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 11 chapters
     ├── INDEX.md               ← chapter TOC
@@ -169,5 +174,59 @@ seed/
 - `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
   corpus.
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
+- `RAW_DERIVATION_SPEC.md` — what "X is derived from Raw" technically
+  means (three readings: logical / structural-content / operational).
 - `CLAUDE.md` boot sequence — read
   `AXIOM/07_self_reference.md` §8.4 every session start.
+
+## Meta-analysis findings (2026-05-21 session)
+
+Branch `claude/analyze-lean4-ast-patterns-49Rh2` produced 11
+scanners + 23 research notes (G90-G116) characterising the
+corpus's quantitative structure:
+
+  · **Tier-2/3 subtree deep dives**: G108 Real213/Analysis,
+    G110 FluxMVT, G111 Cohomology, G112 HodgeConjecture, G113
+    DyadicFSM, G114 CayleyDickson, G115 Lib.Physics (2,159 decls — largest), G116 PatternCatalog (943 decls — meta-meta).  ~9,300 decls covered.
+  · **Cross-domain identifications**: G109 surfaced 109
+    cross-namespace byte-identical-shape groups; 25 substantive
+    math↔physics bridges.  Catalogued in
+    `catalogs/cross-domain-identifications.md`.
+  · **Pattern extensions**: 11 new patterns (#10-#20, including parallel branch's #10-#13 + meta branch's #14-#20) formally
+    added to `LESSONS_LEARNED.md` covering adoption-gap
+    detection, n-layer agreement, three-level Raw-derivation,
+    decide-finitism quantitative profile, framework-internal
+    subsumption, byte-identical cross-domain bridges,
+    forward/backward factor-knob pair, multiple Lens choices.
+  · **Action items registry**: G107 §2-§5 lists 14 abstraction
+    candidates + 6 research questions + 13 doc-work items =
+    33 items total + REAL-1..6 + RES1..6 + CD-1..5 + COH-1..5
+    + COH-RES1..5 + HC-1..3 + HC-RES1..4 + FSM-1..5 + FSM-RES1..4
+    augmentations from G108-G114.
+
+**Canonical entry-point for executors**:
+  `research-notes/G107_action_items_registry.md`
+
+**Capstone synthesis** (read after G107):
+  `research-notes/G101_metascan_synthesis.md`
+
+**Tooling** (`tools/`):
+  · `ast_fold_scan.py` — Tier-2 Expr fold/recursor (G90)
+  · `syntax_tactic_scan.py` — Tier-1 tactic token (G91)
+  · `syntax_arg_scan.py` — Tier-1.5 citation + construct (G92, G96)
+  · `syntax_unfold_scan.py` — unfold chunks (G98)
+  · `syntax_rw_cascade_scan.py` — rw k-grams (G99)
+  · `falsifier_mining_scan.py` — negation catalog (G100)
+  · `ast_callgraph_scan.py` — full Expr call graph (G102)
+  · `ast_shape_scan.py` — Expr-constructor density (G103)
+  · `ast_typesig_scan.py` — type-sig deps + sort (G104)
+  · `lean_syntax_parse.py` — shared helpers
+
+All scanners support `--report-only` for instant re-cluster
+against cached TSV.
+**Full G-doc enumeration** (G87 from parallel branch, G90-G116 from
+meta branch): see `research-notes/G107_action_items_registry.md` §"DONE"
++ §"Pointers" for the full per-doc table.  G87 = Raw-native emergence
+audit (parallel branch's S2 marathon kickoff); G90-G116 = meta-branch
+scanners + tier deep dives.
+

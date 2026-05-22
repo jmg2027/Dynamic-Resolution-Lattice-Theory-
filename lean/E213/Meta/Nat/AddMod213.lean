@@ -29,9 +29,7 @@ theorem add_mod_left {n : Nat} (hn : 0 < n) :
         have ih' := ih (a - n) hsub_lt
         have hmod_a : a % n = (a - n) % n := Nat.mod_eq_sub_mod hge
         have hadd_eq : a + b = (a - n) + b + n := by
-          rw [show (a - n) + b + n = (a - n) + n + b from by
-                rw [Nat.add_assoc, Nat.add_comm b n, ← Nat.add_assoc],
-              sub_add_cancel hge]
+          rw [Nat.add_right_comm (a - n) b n, sub_add_cancel hge]
         rw [hadd_eq, add_mod_right_pos hn, ih', hmod_a]
 
 /-- `a % n % n = a % n`.  ∅-axiom. -/
@@ -98,7 +96,7 @@ theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>
         have hm : a % b = (a - b) % b := by
           rw [Nat.mod_eq]; rw [if_pos hbound]
         rw [hd, hm, Nat.mul_add, Nat.mul_one]
-        rw [Nat.add_assoc, Nat.add_comm b _, ← Nat.add_assoc, ih']
+        rw [Nat.add_right_comm, ih']
         exact sub_add_cancel hbound.2
       · by_cases hb : 0 < b
         · have ha : a < b :=

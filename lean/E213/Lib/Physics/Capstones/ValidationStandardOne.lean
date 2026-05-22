@@ -20,10 +20,17 @@ This file demonstrates 213 satisfies **BOTH** standards via:
 
 ## Standard #1 (precision): bundled finitist closures
 
-  - 1/α_em(IR) at N_U = d^(d²) (commit 46ca653)
-  - m_μ/m_e at N_U = d^(d²) (commit c36348f)
-  - Ω_Λ at N_U = d^(d²) (commit d62197d)
-  - All 4 observables share single N_U (commit 58a550f)
+  - 1/α_em(IR) at `configCount 2 = 5^25` (commit 46ca653)
+  - m_μ/m_e at `configCount 2 = 5^25` (commit c36348f)
+  - Ω_Λ at `configCount 2 = 5^25` (commit d62197d)
+  - All 4 observables evaluate at the same family point —
+    `configCount` family level n = 2 (commit 58a550f)
+
+(Per G120 Round 3: the value `5^25` is the readout of the
+parametric `configCount` family at level 2, not a privileged
+"single N_U".  Earlier "share single N_U" framing reworded
+to "evaluate at the same family point" per CLAUDE.md
+"Universe-constant framing" failure mode.)
 
 ## Standard #2 (new physics measurable): formalized falsifiers
 

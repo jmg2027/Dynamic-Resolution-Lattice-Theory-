@@ -69,34 +69,62 @@ Bishop-style Real213 marathon operates *on the trajectory side*,
 proving Cauchy completeness without claiming `limit = exact value` —
 hence Real213 passes ∅-axiom.
 
-## Section 2 — N_U as four-Lens convergence
+## Section 2 — `configCount 2 = 5²⁵`: family readout at level 2
 
-The count-Lens at fractal level 2 yields the same numerical readout
-`N_U = d^(d²) = 5²⁵ = 298023223876953125` under four independent
-Lens applications:
+**Round 3 rewrite (2026-05-22)**: the previous "four-Lens
+convergence" framing was retracted per G120 audit (§1 + §11) —
+of the original four readings, only two had real Lean derivations
+and the other two were placeholders or absent.  The corrected
+reading: `5²⁵` is **one value of a parametric family**, not a
+4-way convergent invariant.
 
-  1. **Lean formalization**: fractal lens cardinality at level 2.
-     `Physics/Foundations/NResolutionFromFractal.lean`:
-     `N_resolution := d^(d²) = lens cardinality at fractal level 2`.
+### Canonical object — the parametric family
 
-  2. **Combinatorics**: K₂₅ graph coloring count.
-     `Physics/Foundations/FractalLensCardinality.lean`: coloring
-     count at K_{25} (d² vertices, d colors) = d^(d²).
+```
+configCount : Nat → Nat
+configCount n := 5 ^ (numV n)
+              := 5 ^ (5^n)        -- numV from Cohomology/Fractal/Level
+```
 
-  3. **Geometry**: rank-2 tensor degrees of freedom over base
-     resolution d=5.  Tensor has d² = 25 components; each carries
-     d = 5 independent states; total = 5^25.
+Concrete values:
 
-  4. **Type theory**: maximum injective projection space at d=5
-     resolution.  Beyond depth N_U, projection induces structural
-     collision (aliasing); ∅-axiom type checker reduces to noise.
+  · `configCount 0 = 5`
+  · `configCount 1 = 3125`
+  · `configCount 2 = 298023223876953125` (= `5^25`, historically `N_U`)
+  · `configCount 3 ≈ 2.35 × 10^87`
 
-These four readings are distinct Lens applications converging on
-the same value.  The observation *is* the convergence; N_U is not
-a universe constant nor an axiomatic cap — it is what the
-count-Lens reads at fractal level 2 with the forced shape
-parameters.  Documents and Lean files cross-reference all four
-readings rather than privilege one.
+Lean: `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (G120 Phase 1).
+
+### Two real derivations at level n = 2
+
+Two ∅-axiom Lean derivations of the same family value at n = 2:
+
+  1. **Fractal iteration**: `Physics/Foundations/NResolutionFromFractal.lean`
+     proves `numV (d²) = d^(d²)` via fractal recursion to depth 2.
+
+  2. **K₂₅ graph coloring**: `Physics/Foundations/FractalLensCardinality.lean`
+     proves the K_{25} d-coloring count equals the same value.
+
+These two are *bridging lemmas* into the family — same family value
+viewed from different angles, not separate derivations of a
+privileged constant.
+
+### `N_U` is a display name only
+
+Historically the name `N_U` carried "universe constant" framing
+(per CLAUDE.md "Universe-constant framing" failure mode).  Post-G120:
+`N_U` is an `abbrev` for `configCount 2` (one value of the
+parametric family).  No `def N_U` exists.  The display name is
+retained for readability of physics formulas, not as an
+ontological commitment.
+
+### Out of scope — earlier "framings" not promoted
+
+  · Rank-2 tensor DOF: was docstring-only; no Lean `Tensor` type
+    or rank predicate.  The structural equality `d^(d*d) = N_U`
+    is `rfl` identity, not separate derivation.
+  · Maximum injective projection space: had zero Lean witness.
+    Removed from `ResolutionInvariant` (now deleted).
 
 ## Section 3 — Resolution limit is a Lens readout (not "finitism")
 

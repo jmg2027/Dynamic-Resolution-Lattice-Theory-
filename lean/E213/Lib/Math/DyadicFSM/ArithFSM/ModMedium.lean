@@ -14,7 +14,7 @@ Per-N namespaces preserved (`ArithFSM.Mod{N}`).
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod29
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -36,31 +36,18 @@ theorem pellFSMmod29_first_check :
 
 /-- ★★★ Pell mod-29 run cycles with TIGHT period 7. -/
 theorem pellFSMmod29_run_period_7 :
-    ∀ k, pellFSMmod29.run (k + 7) = pellFSMmod29.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod29.step (pellFSMmod29.run (k' + 7))
-        = pellFSMmod29.step (pellFSMmod29.run k')
-    rw [ih]
+    ∀ k, pellFSMmod29.run (k + 7) = pellFSMmod29.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-29 bits cycle with TIGHT period 7. -/
 theorem pellFSMmod29_bits_period_7 :
-    ∀ k, pellFSMmod29.bits (k + 7) = pellFSMmod29.bits k := by
-  intro k
-  show pellFSMmod29.out (pellFSMmod29.run (k + 7))
-      = pellFSMmod29.out (pellFSMmod29.run k)
-  rw [pellFSMmod29_run_period_7]
+    ∀ k, pellFSMmod29.bits (k + 7) = pellFSMmod29.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod29_run_period_7
 
 /-- Bipartite parity doubling: bit period 7 odd ⇒ predicted 14. -/
 theorem pellFSMmod29_bits_period_14 :
-    ∀ k, pellFSMmod29.bits (k + 14) = pellFSMmod29.bits k := by
-  intro k
-  have h1 := pellFSMmod29_bits_period_7 (k + 7)
-  have h2 := pellFSMmod29_bits_period_7 k
-  have hreshape : k + 14 = (k + 7) + 7 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, pellFSMmod29.bits (k + 14) = pellFSMmod29.bits k :=
+  bits_period_mul_of_period _ pellFSMmod29_bits_period_7 2
 
 /-- ★★★★★ Pell mod-29 signature has period 14 (TIGHT, doubled). -/
 theorem pellFSMmod29_signature_period_14 :
@@ -73,7 +60,7 @@ end E213.Lib.Math.DyadicFSM.ArithFSM.Mod29
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod31
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -95,31 +82,18 @@ theorem pellFSMmod31_first_check :
 
 /-- ★★★ Pell mod-31 run cycles with TIGHT period 15. -/
 theorem pellFSMmod31_run_period_15 :
-    ∀ k, pellFSMmod31.run (k + 15) = pellFSMmod31.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod31.step (pellFSMmod31.run (k' + 15))
-        = pellFSMmod31.step (pellFSMmod31.run k')
-    rw [ih]
+    ∀ k, pellFSMmod31.run (k + 15) = pellFSMmod31.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-31 bits cycle with TIGHT period 15. -/
 theorem pellFSMmod31_bits_period_15 :
-    ∀ k, pellFSMmod31.bits (k + 15) = pellFSMmod31.bits k := by
-  intro k
-  show pellFSMmod31.out (pellFSMmod31.run (k + 15))
-      = pellFSMmod31.out (pellFSMmod31.run k)
-  rw [pellFSMmod31_run_period_15]
+    ∀ k, pellFSMmod31.bits (k + 15) = pellFSMmod31.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod31_run_period_15
 
 /-- Bipartite parity doubling: bit period 15 odd ⇒ sig period 30. -/
 theorem pellFSMmod31_bits_period_30 :
-    ∀ k, pellFSMmod31.bits (k + 30) = pellFSMmod31.bits k := by
-  intro k
-  have h1 := pellFSMmod31_bits_period_15 (k + 15)
-  have h2 := pellFSMmod31_bits_period_15 k
-  have hreshape : k + 30 = (k + 15) + 15 := rfl
-  rw [hreshape, h1, h2]
+    ∀ k, pellFSMmod31.bits (k + 30) = pellFSMmod31.bits k :=
+  bits_period_mul_of_period _ pellFSMmod31_bits_period_15 2
 
 /-- ★★★★★ Pell mod-31 signature has period 30 (TIGHT, doubled). -/
 theorem pellFSMmod31_signature_period_30 :
@@ -148,22 +122,13 @@ def pellFSMmod37 : ArithFSM2 37 where
 
 /-- ★★★ Pell mod-37 run cycles with TIGHT period 38. -/
 theorem pellFSMmod37_run_period_38 :
-    ∀ k, pellFSMmod37.run (k + 38) = pellFSMmod37.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod37.step (pellFSMmod37.run (k' + 38))
-        = pellFSMmod37.step (pellFSMmod37.run k')
-    rw [ih]
+    ∀ k, pellFSMmod37.run (k + 38) = pellFSMmod37.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-37 bits cycle with TIGHT period 38. -/
 theorem pellFSMmod37_bits_period_38 :
-    ∀ k, pellFSMmod37.bits (k + 38) = pellFSMmod37.bits k := by
-  intro k
-  show pellFSMmod37.out (pellFSMmod37.run (k + 38))
-      = pellFSMmod37.out (pellFSMmod37.run k)
-  rw [pellFSMmod37_run_period_38]
+    ∀ k, pellFSMmod37.bits (k + 38) = pellFSMmod37.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod37_run_period_38
 
 /-- ★★★★★ Pell mod-37 signature has period 38 (TIGHT, even bit period). -/
 theorem pellFSMmod37_signature_period_38 :
@@ -192,22 +157,13 @@ def pellFSMmod41 : ArithFSM2 41 where
 
 /-- ★★★ Pell mod-41 run cycles with TIGHT period 20. -/
 theorem pellFSMmod41_run_period_20 :
-    ∀ k, pellFSMmod41.run (k + 20) = pellFSMmod41.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod41.step (pellFSMmod41.run (k' + 20))
-        = pellFSMmod41.step (pellFSMmod41.run k')
-    rw [ih]
+    ∀ k, pellFSMmod41.run (k + 20) = pellFSMmod41.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-41 bits cycle with TIGHT period 20. -/
 theorem pellFSMmod41_bits_period_20 :
-    ∀ k, pellFSMmod41.bits (k + 20) = pellFSMmod41.bits k := by
-  intro k
-  show pellFSMmod41.out (pellFSMmod41.run (k + 20))
-      = pellFSMmod41.out (pellFSMmod41.run k)
-  rw [pellFSMmod41_run_period_20]
+    ∀ k, pellFSMmod41.bits (k + 20) = pellFSMmod41.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod41_run_period_20
 
 /-- ★★★★★ Pell mod-41 signature has period 20 (TIGHT, even). -/
 theorem pellFSMmod41_signature_period_20 :
@@ -236,22 +192,13 @@ def pellFSMmod43 : ArithFSM2 43 where
 
 /-- ★★★ Pell mod-43 run cycles with TIGHT period 44. -/
 theorem pellFSMmod43_run_period_44 :
-    ∀ k, pellFSMmod43.run (k + 44) = pellFSMmod43.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod43.step (pellFSMmod43.run (k' + 44))
-        = pellFSMmod43.step (pellFSMmod43.run k')
-    rw [ih]
+    ∀ k, pellFSMmod43.run (k + 44) = pellFSMmod43.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-43 bits cycle with TIGHT period 44. -/
 theorem pellFSMmod43_bits_period_44 :
-    ∀ k, pellFSMmod43.bits (k + 44) = pellFSMmod43.bits k := by
-  intro k
-  show pellFSMmod43.out (pellFSMmod43.run (k + 44))
-      = pellFSMmod43.out (pellFSMmod43.run k)
-  rw [pellFSMmod43_run_period_44]
+    ∀ k, pellFSMmod43.bits (k + 44) = pellFSMmod43.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod43_run_period_44
 
 set_option maxRecDepth 1024 in
 /-- ★★★★★ Pell mod-43 signature has period 44 (TIGHT, even). -/
@@ -265,7 +212,7 @@ end E213.Lib.Math.DyadicFSM.ArithFSM.Mod43
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Mod47
 
-open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2 bits_period_mul_of_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -281,32 +228,18 @@ def pellFSMmod47 : ArithFSM2 47 where
 
 /-- ★★★ Pell mod-47 run cycles with TIGHT period 16. -/
 theorem pellFSMmod47_run_period_16 :
-    ∀ k, pellFSMmod47.run (k + 16) = pellFSMmod47.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show pellFSMmod47.step (pellFSMmod47.run (k' + 16))
-        = pellFSMmod47.step (pellFSMmod47.run k')
-    rw [ih]
+    ∀ k, pellFSMmod47.run (k + 16) = pellFSMmod47.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Pell mod-47 bits cycle with TIGHT period 16. -/
 theorem pellFSMmod47_bits_period_16 :
-    ∀ k, pellFSMmod47.bits (k + 16) = pellFSMmod47.bits k := by
-  intro k
-  show pellFSMmod47.out (pellFSMmod47.run (k + 16))
-      = pellFSMmod47.out (pellFSMmod47.run k)
-  rw [pellFSMmod47_run_period_16]
+    ∀ k, pellFSMmod47.bits (k + 16) = pellFSMmod47.bits k :=
+  ArithFSM2.bits_period_of_run_period _ pellFSMmod47_run_period_16
 
 /-- Predicted period (3× tight): bits cycle with predict = p+1 = 48. -/
 theorem pellFSMmod47_bits_period_48 :
-    ∀ k, pellFSMmod47.bits (k + 48) = pellFSMmod47.bits k := by
-  intro k
-  have h1 := pellFSMmod47_bits_period_16 (k + 32)
-  have h2 := pellFSMmod47_bits_period_16 (k + 16)
-  have h3 := pellFSMmod47_bits_period_16 k
-  have hreshape : k + 48 = ((k + 16) + 16) + 16 := rfl
-  rw [hreshape, h1, h2, h3]
+    ∀ k, pellFSMmod47.bits (k + 48) = pellFSMmod47.bits k :=
+  bits_period_mul_of_period _ pellFSMmod47_bits_period_16 3
 
 /-- ★★★★★ Pell mod-47 signature has period 16 (TIGHT, even). -/
 theorem pellFSMmod47_signature_period_16 :

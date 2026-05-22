@@ -32,23 +32,24 @@ theorem mod3_three_mul (k : Nat) : mod3 (3 * k) = 0 := by
       show mod3 (3 * n + 3) = 0
       exact ih
 
-theorem mod3_three_mul_one (k : Nat) : mod3 (3 * k + 1) = 1 := by
-  induction k with
-  | zero => rfl
+/-- mod3 (3*X + Y) = mod3 Y — generic absorption. -/
+theorem mod3_three_mul_add (X Y : Nat) : mod3 (3 * X + Y) = mod3 Y := by
+  induction X with
+  | zero => rw [Nat.mul_zero, Nat.zero_add]
   | succ n ih =>
-      show mod3 (3 * (n + 1) + 1) = 1
+      show mod3 (3 * (n + 1) + Y) = mod3 Y
       rw [Nat.mul_succ]
-      show mod3 (3 * n + 3 + 1) = 1
+      show mod3 (3 * n + 3 + Y) = mod3 Y
+      rw [Nat.add_right_comm]
+      show mod3 (3 * n + Y + 3) = mod3 Y
+      change mod3 (3 * n + Y) = mod3 Y
       exact ih
 
-theorem mod3_three_mul_two (k : Nat) : mod3 (3 * k + 2) = 2 := by
-  induction k with
-  | zero => rfl
-  | succ n ih =>
-      show mod3 (3 * (n + 1) + 2) = 2
-      rw [Nat.mul_succ]
-      show mod3 (3 * n + 3 + 2) = 2
-      exact ih
+theorem mod3_three_mul_one (k : Nat) : mod3 (3 * k + 1) = 1 :=
+  mod3_three_mul_add k 1
+
+theorem mod3_three_mul_two (k : Nat) : mod3 (3 * k + 2) = 2 :=
+  mod3_three_mul_add k 2
 
 /-- Trichotomy: every Nat is 3k, 3k+1, or 3k+2. -/
 theorem nat_trichotomy (n : Nat) :

@@ -70,8 +70,8 @@ theorem find_range'_witness :
       apply ih (s + 1) p i
       · exact Nat.succ_le_of_lt h_lt_si
       · -- i < s + (m + 1) ⇒ i < (s + 1) + m
-        have hrw : s + (m + 1) = (s + 1) + m := by
-          rw [Nat.add_assoc, Nat.add_comm m 1, ← Nat.add_assoc]
+        have hrw : s + (m + 1) = (s + 1) + m :=
+          Nat.add_right_comm s m 1
         rw [hrw] at h_lt
         exact h_lt
       · exact h_pi

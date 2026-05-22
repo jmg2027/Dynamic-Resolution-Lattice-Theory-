@@ -46,11 +46,7 @@ private noncomputable def Raw.recAux {motive : Raw → Sort u}
   | b => intro _; exact b
   | slash x y ihx ihy =>
       intro hcanon
-      have hc := hcanon
-      unfold Tree.canonical at hc
-      obtain ⟨hxy, _⟩ := Bool.and_eq_true_to_pair hc
-      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
-      have hcmp := Tree.canonical_slash_lt hcanon
+      obtain ⟨hx, hy, hcmp⟩ := Tree.canonical_slash_decompose hcanon
       let x' : Raw := ⟨x, hx⟩
       let y' : Raw := ⟨y, hy⟩
       have hne : x' ≠ y' := by

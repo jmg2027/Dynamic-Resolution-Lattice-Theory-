@@ -492,9 +492,11 @@ Ordered by ROI / safety:
 
   - `## Repository Organization Philosophy` — 8 numbered guidelines
     informing this classification
-  - `## Resolution limit is a structural invariant (not "finitism")`
-    — N_U as four-domain convergent invariant (canonical:
-    `seed/RESOLUTION_LIMIT_SPEC.md`)
+  - `## Resolution limit is structural (not "finitism")` — the
+    parametric `configCount` family; historical `N_U = configCount 2`
+    one value of the family (canonical:
+    `seed/RESOLUTION_LIMIT_SPEC.md` §2 G120 Round 3 rewrite;
+    "four-domain convergent invariant" framing retracted)
   - `## DRLT Axiom Standard` — strict ∅-axiom requirement
 
 ---

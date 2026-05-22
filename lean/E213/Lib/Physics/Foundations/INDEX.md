@@ -11,7 +11,7 @@ theoretic atomic-integer patterns (Fibonacci, golden ratio, Koide).
   - `NResolutionFractalDepth.lean`        — depth-as-fractal-level witness
   - `FractalLensCardinality.lean`       — combinatorial enumeration
   - `LensCardinalityFractalLevels.lean` — per-level cardinality lemmas
-  - `ResolutionDepth.lean`              — N_U as resolution-limit invariant
+  - `ResolutionDepth.lean`              — Basel resolution depth per gauge coupling (α_3, α_2, α_1)
   - `FiniteUniverse.lean`               — finiteness from resolution limit
   - `FiniteResonanceN.lean`             — resonance count = N
 

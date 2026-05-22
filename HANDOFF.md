@@ -1,321 +1,147 @@
-# Session Handoff — 2026-05-22 (MERGE-READY)
+# Session Handoff — 2026-05-22
 
 ## Branch
-`claude/subset-bijection-lemmas-w2FKf` — 40 commits ahead of
-`origin/main`.  All pushed.
 
-## Merge gatekeepers ✅
+`claude/research-notes-organization-Gr3Tp` — 204 commits ahead of
+`origin/main`, pushed.  No active conflict.
 
-  · **Full repo `lake build`**: ✅ clean
-  · **Layer audit**: ✅ 0 violations / ~1180 files
-  · **Axiom purity**: ✅ all 18 new phase capstones + master
-    theorem `c3_chain_master` PURE (`#print axioms` empty)
-  · **No new DIRTY** introduced (pre-existing `propext` in
-    `CanonicalTruthChar` unchanged; branch removes one stale
-    Lean-core dep via NatHelper centralization)
-  · **Diff**: 53 files changed, **+8601 / −238 lines**
+## Recently closed (this branch)
 
----
-
-# Part 1 — Completed (compressed)
-
-## Branch-wide tally (3 sessions, 40 commits)
-
-| Session | Marathon | PURE | One-line headline |
-|---|---|---|---|
-| S1 | Cup-Leibniz general transfer | 67 | `cup_unfold_general` ∀(n,k,l) + KSubset bijection + FinBridge general |
-| S2 | 6-theorem + alive + Mobius213 | 80 | `ZOmega_units_exact_six` (diophantine completeness) + `alive_iff_clause4_alive` + P^5/P^10 mod 5 |
-| S3 main | **C3 chain (gauge emergence) — 12 phases + master** | 173 | gluon octet = `coker(ι*: H¹(Δ⁴) → H¹(K))` = (F_2)^8 = 2·trivial ⊕ 3·standard |
-| S3 fup A | Phase 5 → 23/23 + C3 ext (13–15) + c=2 | 60 | F25/F26 + C_2^6 on H¹(K) + 3rd standard pair + semidirect sample + G80 lift |
-| S3 fup B | Polish — Phases 16, 17, 18 | 30 | mixed C_2^6 matrices + block-diag Sym(3) + **full semidirect Group axioms** |
-| **Total** | | **~410 new PURE** | **0 DIRTY** introduced |
-
-## C3 chain — 18 phases, single master result
-
-```
-gluon octet := coker(ι*: H¹(Δ⁴) → H¹(K_{3,2}^{(c=2)}))
-            =  H¹(K) / 0                  (H¹(Δ⁴) = 0)
-            ≃  (F_2)^8
-            =  2 · trivial ⊕ 3 · standard  (over F_2)
-```
-
-Downstream-ready reference: `★★★★★ c3_chain_master` ∈
-`E213.Lib.Physics.Symmetry.C3ChainCapstone` (12-conjunct PURE bundle).
-
-| Phase | Module | What it gives |
+| Campaign | Status | Promoted to |
 |---|---|---|
-| 1 | `AutKType` | Aut_K as Type, card 768 |
-| 2 | `H1K` | rank-8 ℤ/2-module + 8 cycle generators |
-| 3 | `Sym3OnKEdges` | Sym(3) on K-edges, full Cayley |
-| 4 | `Sym3OnH1K` | δ⁰ equivariance → descent to H¹(K) |
-| 5 | `Sym3OnH1KMatrix` | explicit 8×8 σ_S01 + tree-decomp witness |
-| 6 | `Sym3OnH1KCayley` | s²=t²=(st)³=e at matrix level |
-| 7 | `IotaKToDelta4` | gluon octet = coker ι*; H¹(Δ⁴) = 0 via 1024-decide |
-| 8 | `IotaSym3Equivariance` | ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge |
-| 9 | `Sym3IrrepDecomp` | 2·trivial ⊕ 3·standard over F_2 |
-| 10 | `Sym3StandardReps` | 2 explicit standard 2-rep pairs |
-| 11 | `Sym3Group` | Sym(3) Group on Fin 6 via Cayley table |
-| 12 | `AutKGroup` | Aut(K) direct-product Group, card 768 |
-| ★ | `C3ChainCapstone` | `c3_chain_master` 12-conjunct master bundle |
-| 13 | `C2_6OnH1K` | C_2^6 trivial on coboundaries → auto descent |
-| 14 | `Sym3StandardRepThird` | 3rd standard pair → **full explicit 8-dim basis** |
-| 15 | `AutKSemidirect` | bit_perm twist sample, direct ≠ semidirect witness |
-| 16 | `C2_6MixedMatrices` | H1K matrices for 4 mixed C_2^6 bits |
-| 17 | `Sym3BlockDiagonal` | M_S01, M_S12 fully block-diagonal in 8-dim basis |
-| 18 | `AutKSemidirectFull` | **Full semidirect Group axioms** PROVEN |
+| **G120 N_U re-derivation** (7 phases) | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 rewrite + `theory/INDEX.md` vocabulary + cascade across `theory/math/*`, `theory/physics/*`, `seed/AXIOM/*` |
+| **G119 marathon** (Pisano-period for Pell, universal in `p` via FLT + F_{p²} + Frobenius) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` (101 files), `theory/math/modular_arithmetic.md` (13 files) |
+| **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
+| **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
+| **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
+| **Full repo audit** | CLEAN | 0 sorry / 0 axiom / 0 Mathlib / 0 Classical / 0 native_decide; build clean; G120 framing regression fixed (`6599f889`) |
 
-## Other deliverables this branch
+Closure logs preserved in git history; the live state is the Lean
+source + theory chapters.  Don't read the per-Part marathon logs that
+used to live here — they recorded transitional state of G119 and
+G120 phase-by-phase.
 
-  · **Validation Standard Phase 5: 23/23**
-    - F25 (m_t/m_c ≈ 137 ∈ [130, 145]) → `Hadron/MtOverMc.lean`
-    - F26 (η_B × 10¹⁰ ∈ [5, 7]) → `Cosmology/EtaBFalsifier.lean`
-    - Catalog updated: `catalogs/falsifiers.md`
+## Open work
 
-  · **G80 c=2 structural derivation lifted to Lean**
-    - `Lib/Math/C2DoublingDerivation.lean` (10 PURE)
-    - `c = full_period/half_period = 10/5 = 2 = NT` (binary cover ratio)
+### A. Cup-Leibniz general ∀(k, l) — G86 (deep open)
+Self-referential Leibniz for the lex-projection cup.  Empirically
+verified at two bidegrees; symbolic proof for general `(k, l, n)`
+deferred.  Source: `research-notes/G86_self_referential_leibniz.md`.
 
-  · **6-theorem fully closed (S2)**: `ZOmega_units_exact_six` —
-    `|{u : ZOmega | normSq u = 1}| = 6 = NS·NT` (diophantine completeness)
+### B. G107 action-items still-open (high-priority subset)
+Source: `research-notes/G107_action_items_registry.md` (§3-§5).
+Currently still open:
 
-  · **Alive gap closed (S2)**: `alive_iff_clause4_alive` —
-    alive predicate dissolves into Clause 4 of 213 axiom
+| Item | Notes |
+|---|---|
+| **L1 α-side** (full parametric) | β-side done; α-side blocked by `Nat.add` asymmetry — needs `Fin.cast` + Eq plumbing or per-`b` helpers |
+| **L3** Pisano Predictor 14/17 consolidation | Small marathon |
+| **L4** `addLDD` / `mulLDD` | Small |
+| **L5** `CDDouble.I_mul_J` / `J_mul_I` | Small |
+| **C** — CutSumOne 8-sibling 3-component template | Medium marathon |
+| **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
+| **F** — Σ-fold cross-domain | Adding `sigmaList` infra; small additive |
+| **G110 FLUX-1** forward/backward parametric | ~30K nodes |
+| **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
+| **G108 REAL-1/2** Cut iff consolidation | ~210K nodes |
+| **G114 CD-1/2/3** | CayleyDickson ring ext / conj (no consolidation possible per G118) |
+| **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
+| **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
-  · **Cup-Leibniz general transfer (S1)**: `cup_unfold_general`
-    ∀(n, k, l) capstone subsuming Δ⁴-specific decide-tables
+### C. Doc work remaining (low priority)
+- **CLAUDE.md size** — 228 / 220 target.  Compress at next major
+  addition (current overflow is post-G120 + tier discipline + failure
+  modes catalog growth).
+- **TH-1 / TH-4** doc work routed earlier into
+  `seed/PROOF_SHAPE_FINGERPRINT_SPEC.md` (TH-1) and
+  `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` (TH-4 partial).
 
-## Key technical patterns established (LESSONS_LEARNED.md #1–#9)
+## Next campaign: G122 — Real213-p-adic (PREPARED, ready to begin)
 
-  · **Pointwise (∀ i, ...) module/Group axioms** to bypass `funext`/`Quot.sound`
-  · **C_2^6 = `Fin 6 → Bool`** (not `Fin 64` + `Nat.xor` which pulls propext)
-  · **Tree-decomposition witnesses** for non-tree→tree edge transitions
-  · **`maxRecDepth 2048`** for 1024-case `H¹(Δ⁴) = 0` decide
-  · **Inverse-pullback action** to convert anti-hom → true hom in semidirect product
-  · **Match-based bit-index encoding** to avoid `omega`-induced propext
+(Renumbered on merge: originally proposed as G120 on the
+`claude/lean4-ast-patterns-g1gWN` branch.  G120 was already used
+for the N_U re-derivation campaign and G121 for the Geometrization
+closure, so the p-adic campaign takes G122.)
 
----
+The G119 modular arithmetic library (Bezout, FLT, F_{p²},
+Frobenius) is the foundational substrate for a **∅-axiom
+construction of the p-adic integers** `ℤ_p`.
 
-# Part 2 — Open work (detailed)
+### Resources prepared
 
-The only substantive remaining open item is **Cup-Leibniz general
-∀(k, l)** — every other identified gap (C3 chain extensions,
-Validation Standard pairings, c=2 derivation, polish items) is now
-PURE-closed.  Lower-priority follow-up extensions are also listed.
+- **`research-notes/G122_real213_padic_research_direction.md`** —
+  comprehensive 6-phase research direction (6-10 sessions est.).
+- **`lean/E213/Lib/Math/Padic/Foundation.lean`** — Phase 1 starter
+  with `ZpDigit`, `ZpSeq`, truncation skeleton + roadmap comments.
+  7 PURE, builds clean.
 
-## A. Cup-Leibniz general ∀(k, l) — DEEP open conjecture
+### Why this is the natural next campaign
 
-**G86 conjecture** (`research-notes/G86_self_referential_lex_cup_leibniz.md`):
-For **all bidegrees (k, l)**, the lex-projection cup admits the
-self-referential Leibniz rule
+- Current FSM framework is **2-adic-flavored** (dyadic bit-streams).
+- `ResolutionLimit` uses `N_U = configCount 2 = 5²⁵` — base-5
+  finite-resolution.
+- Real213-p-adic generalises the resolution lattice base 2 → base p.
+- No known ∅-axiom p-adic construction exists.  Mathlib's `Padic`
+  brings Cauchy + Classical + propext.
 
+### Reuse from G119
+
+| G119 component | G122 usage |
+|---|---|
+| `add_mod_gen`, `mul_mod_pure` | Digit-by-digit arithmetic |
+| `modBezout`, `modInverseFromBezout` | Hensel-lifted inverse |
+| `universal_flt_main` | Teichmüller / Frobenius |
+| `universal_freshman_dream` | p-adic Frobenius automorphism |
+| F_{p²} machinery (FP2Sqrt5) | Quadratic extensions over ℤ_p |
+| `phiFP2_pow_p_eq_frob` | Teichmüller lifts in F_{p²} |
+
+All reused infrastructure is PURE.
+
+### Phase outline
+
+1. Phase 1: ZpDigit + ZpSeq foundation (1-2 sessions) — STARTED
+2. Phase 2: Arithmetic (`Zp.add`, `Zp.mul`, `Zp.neg`) (1-2 sessions)
+3. Phase 3: p-adic norm + valuation (1 session)
+4. Phase 4: Hensel lifting + inverses (2 sessions)
+5. Phase 5: ℚ_p localisation (1 session)
+6. Phase 6: DRLT integration (1-2 sessions)
+
+### Anchor target (5-adic, DRLT alignment)
+
+Since DRLT uses `N_U = 5²⁵`, the **5-adic Real213** is especially
+relevant.  Phase 6 anchor:
+
+```lean
+theorem nU_lifts_to_Z5_canonically :
+    ∀ n ≤ 25, (canonical_5adic_NU).trunc n = ... := ...
 ```
-deltaList (k+l) (cupList k l α β) τ
-  =  (cupList (k+1) l (deltaList α) β) τ
-   ⊕ (cupList k (l+1) α (deltaList β)) τ
-   ⊕ correction(α, β, τ)
-```
 
-where `correction = (cupList k l α β)(τ \ {τ[mid]})` is the
-**self-referential face-removal** of the cup itself.
+Concrete bridge from finite-resolution DRLT lattice to (potentially)
+infinite-precision 5-adic.  Whether infinite is operationally
+meaningful in DRLT is itself a research question.
 
-### Current status
+### Next-session start instructions
 
-| Bidegree | Status | File |
-|---|---|---|
-| (1, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
-| (1, 1) | ✅ Fin-indexed (Δ⁴) | `LeibnizLexSelfRef.lean` |
-| (2, 1) | ✅ list-level proven | `LeibnizLexListLevel.lean` |
-| (2, 1) | ✅ Fin-indexed (Δ³) | `LeibnizLex21.lean` |
-| (k, l) general | ⚪ **open** | — |
+1. Read `research-notes/G122_real213_padic_research_direction.md`.
+2. Open `lean/E213/Lib/Math/Padic/Foundation.lean`.
+3. Implement Phase 1 TODOs:
+   - `ZpSeq.trunc_lt_p_pow`
+   - `ZpSeq.eq_mod_pn_iff_trunc`
+   - `ZpSeq.digits_of_nat` embedding
+   - Per-prime smokes at `p ∈ {2, 3, 5, 7}`.
+4. Then proceed to Phase 2: new file `Arith.lean`.
 
-### What's needed structurally
+## Anchor docs (next session)
 
-The existing (1,1) and (2,1) proofs use the **3-way partition
-strategy** with 8 list-level structural lemmas in
-`LeibnizLexStructural.lean`.  Generalizing to ∀(k, l) needs:
-
-1. **General face-removal lemma**: prove that
-   `(cupList k l α β)(τ \ {τ[i]})` decomposes into front/back
-   sub-cups for arbitrary `i ∈ Fin (k+l+1)`, not just specific
-   indices.
-2. **Inductive partition**: extend the 3-way split to a
-   `(k+1)+1+(l+1)` partition with the middle piece being the
-   self-referential overlap.
-3. **List/Fin polymorphism**: the current structural lemmas are
-   stated for specific list lengths; the general case needs
-   length-parameterized versions.
-
-### Why deferred
-
-Per the prior session direction: "이건 이후로 ㄱㄱ" (defer this) —
-needs **deep 213-native structural insight**, not just mechanical
-extension.  The face-removal correction term's exact algebraic
-form is conjectured but not yet proven from first principles.
-
-### Suggested next-session path
-
-If attempted, try this order:
-  1. **(3, 1) list-level**: simplest next case, may reveal the
-     general pattern via comparison with (1,1), (2,1).
-  2. **(k, 1) list-level for all k**: induction on k, fixing l=1.
-  3. **(1, l) list-level for all l**: similar with l-induction.
-  4. **General (k, l)**: combine via the cup's symmetry
-     `cupList k l α β = ± cupList l k β α` (up to sign / parity).
-
-Estimated effort: ~2-3 sessions of focused structural work.
-
-### Physics motivation (G86 §3, speculative)
-
-The lex-projection cup's self-referential Leibniz may connect to:
-  · **α_em 5.4×10⁻⁴ residual** — cohomology cup-product origin (G35)
-  · **K_{3,2}^{(c=2)} bipartite cup-channel structure** — the
-    specific bidegrees (NS, NT) = (3, 2) cup may give the photon
-    self-energy correction
-  · **θ_QCD α⁴ suppression** as depth-(d-1) = depth-4 self-reference
-    iteration
-
-These are conjectural and would close ATM_026-028 / G35 gaps if
-proven.
-
-## B. Lower-priority extensions (incremental, optional)
-
-### B1. Inverse-pullback / hom-direction documentation
-Phase 18 uses `bit_act_of` with inverse-pullback to recover true
-group hom direction.  A short research note explaining the
-convention choice (pullback gives anti-hom, push-forward gives
-hom) would help future contributors avoid the same trap.  Small
-file (~50 lines).
-
-### B2. C2_6OnH1K full matrix capstone
-`C2_6OnH1K.lean` (Phase 13) covers clean bits and records mixed
-bits as future.  `C2_6MixedMatrices.lean` (Phase 16) has the
-explicit matrices.  A **bundle theorem** combining both into
-"the full 6-fold C_2^6 representation on H¹(K) as 6 commuting
-involutions" would consolidate.  ~30 PURE.
-
-### B3. C3 chain master v2 — incorporate Phases 13–18
-Current `c3_chain_master` (Phase 12 era) only references Phases 1–12.
-A v2 master incorporating Phases 13–18 (C_2^6 action, F_2 irreps,
-semidirect twist, block-diagonal form) would give the **fullest
-single-theorem** statement of the gauge-emergence narrative.  Pure
-documentation / consolidation, no new math.
-
-### B4. Connect C3 to specific physics observables
-The C3 chain gives the gluon octet structurally but doesn't
-compute α_3 (strong coupling) from the explicit Sym(3) rep.
-Bridging C3 to `Lib/Physics/Couplings/AlphaStrong.lean` would
-close the loop: "gauge group → coupling constant".  Medium effort.
-
-### B5. Δ⁴ full cohomology (b_0, b_1, b_2, b_3, b_4) — already at b_1
-`V32Betti.lean` covers K_{3,2}^{(c=2)} Betti numbers fully.
-`IotaKToDelta4.kerSize_delta_5_2 = 16` gives H¹(Δ⁴) = 0.  Other
-Betti numbers of Δ⁴ (b_0 = 1, b_k = 0 for k ≥ 1) would round
-out the cohomological picture.  Each is decide-on-2^binom-Nat cases.
-
-## C. Methodological / maintenance
-
-### C1. Layer-audit downgrade hints
-The layer auditor reports 63 "downgrade hints" (files that
-could optionally move to lower layers).  None are violations,
-but periodic review keeps the architecture clean.  See
-`tools/layer_audit.py` output.
-
-### C2. Stale-path cleanup in research-notes
-Some research-notes still reference outdated file paths.  Last
-session's G93-handshake commit refactored helpers; an audit
-pass on research-notes/G* would catch remaining stale links.
-
----
-
----
-
-# Part 3 — Meta-analysis branch (`claude/analyze-lean4-ast-patterns-49Rh2`)
-
-Runs in tandem with this substantive branch.  Analysis-only:
-no PURE theorems added; 11 scanner tools + 18 research notes
-(G90-G107).  Cross-branch handshake loop (G93→G96→G94→G97)
-fully closed.
-
-## What the meta branch delivered
-
-  · 11 scanners spanning Tier-2 AST (Expr) / Tier-1 syntax
-    (tactic token) / Tier-1.5 citation graph / Tier-1.5+ unfold
-    chunks / Tier-1.5++ rw k-grams / falsifier mining /
-    call graph / shape density / type-sig + sort.
-  · ~2,000 LOC Python + ~250 LOC Lean meta + ~5,000 LOC research
-    notes.
-  · 135 auto-discovered falsifiers (G100).
-  · 6-layer byte-identical confirmation of L1 LeibnizAlgLift
-    (G103 §3 + G106).
-  · 14 Lean abstraction candidates (G107 §2-§5) + 13 theory-doc
-    action items (G107 §10).
-
-## Meta-branch entry-point
-
-**→ `research-notes/G107_action_items_registry.md`** — single
-authoritative table of contents for all surfaced action items.
-
-  · §2-§5 Lean abstraction candidates (L1, L2, C, N7, N8, N9,
-    Sub-2, M, L3-L5, E, F, Pell-FSM, ModArith).
-  · §7 ranked execution order by (mass × confidence) / effort.
-  · §10 theory documentation registry (Pattern #10-#13
-    candidates, 4 catalogs, 4 standalone theory docs, 4
-    navigation updates, 2 CLAUDE.md additions).
-
-## Cross-branch findings already actioned on this main branch
-
-The substantive branch (PR #90) closed 6 of meta's surfaced
-items in cycle:
-
-  · C1 NatHelper + ListHelper + Int213.Bound centralisation
-    (G93 §C1)
-  · C2 `XorPairCombine.foldr_xor_proj` general lemma
-    (G93 §C2)
-  · C3 Raw.fold_slash atlas TSV (delivered by meta as
-    `research-notes/data/raw_fold_slash_context.tsv`)
-  · C5 Pattern #2 quantitative numbers cited
-  · N5 `NatHelper.max_comm` centralisation (5 sites)
-  · N6 `Int213.{mul_sub,sub_mul}` centralisation (12 sites)
-
-After these, DRLT is **PURE-bounded on Lean 4 core** — zero
-non-test DIRTY citations.  Verified by G95 dep-purity audit.
-
-## Open on meta-side (handoff for executors)
-
-  · Mechanical (G107 §2): L2 (zero-rewrite alias), N7 (Prism),
-    N8/N9 (mul/add_left_comm adoption), Sub-2 (Tree macro).
-  · Mid-marathons (G107 §3): L1 (6-layer byte-identical = ~6.6 M
-    chars retired = 50 % L1 mass), C (CutSumOne 3-component).
-  · Smaller (G107 §4): L3 Pisano, L4 LDD, L5 CDDouble, M
-    Raw.recAux pair, E sqrtN, F Σ-fold, Pell-FSM, ModArith.
-  · Doc work (G107 §10): Pattern #10-#13 drafts, 4 catalogs,
-    4 theory docs (TH-2 Raw-derivation three levels = highest
-    value).
-
----
-
-## Merge recommendation
-
-**Safe to merge.**  C3 chain delivers the gauge-emergence
-narrative as a downstream-ready single capstone
-(`c3_chain_master`) that other layers can cite.  All polish
-items closed.  No DIRTY introduced.  Build clean.  Layer audit
-clean.
-
-## Anchor docs (next session start)
-
-### Substantive side
-  · `CLAUDE.md` boot sequence (unchanged)
-  · `STRICT_ZERO_AXIOM.md` (full catalog of S1-S3 phases)
-  · `LESSONS_LEARNED.md` patterns #1–#9 (#10–#13 drafted in G107 §10.1)
-  · `research-notes/G87_raw_native_emergence_audit.md` — S2 marathon
-  · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` — C3 master
-
-### Meta-analysis side
-  · `research-notes/G107_action_items_registry.md` — START HERE for open items
-  · `research-notes/G101_metascan_synthesis.md` — capstone overview
-  · `research-notes/G106_L1_expr_structure_extraction.md` — deepest implicit-lemma finding
-  · `research-notes/G104_raw_derivation_three_levels.md` — α/β/γ distinction
-  · `research-notes/G100_decide_failure_mining.md` — 135 falsifier catalog
-  · `tools/` — 11 scanners (ast_*, syntax_*, falsifier_*) all `--report-only` capable
-
+| Doc | Purpose |
+|---|---|
+| `seed/AXIOM/07_self_reference.md` §8 | Boot sequence — re-read every session start |
+| `research-notes/G29_residue.md` | Clean foundational text |
+| `theory/INDEX.md` | Book map (90 chapters) |
+| `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
+| `lean/E213/ARCHITECTURE.md` | Layer spec (4 ring + Meta) |
+| `lean/E213/docs/PROMOTION_PATTERNS.md` | Three promotion patterns |
+| `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `seed/META_SCAN_ARCHETYPES.md` | 11 scanner archetypes |
+| `research-notes/G107_action_items_registry.md` | Open action items |
+| `research-notes/G122_real213_padic_research_direction.md` | Next campaign |

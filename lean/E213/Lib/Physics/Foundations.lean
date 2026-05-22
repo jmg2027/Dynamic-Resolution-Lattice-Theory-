@@ -32,7 +32,7 @@ import E213.Lib.Physics.Foundations.UnifiedPattern
     * `NResolutionFractalDepth`       — depth-as-fractal-level witness
     * `FractalLensCardinality`      — combinatorial enumeration
     * `LensCardinalityFractalLevels` — per-level cardinality lemmas
-    * `ResolutionDepth`             — N_U as resolution-limit invariant
+    * `ResolutionDepth`             — Basel resolution depth per gauge coupling (α_3, α_2, α_1)
     * `FiniteUniverse`              — finiteness from resolution limit
     * `FiniteResonanceN`            — resonance count = N
 
