@@ -642,4 +642,65 @@ theorem fibFst_double_zero_smoke_7 :
     fibFst (2 * (7 + 1)) % 7 = 0 :=
   fibFst_double_zero_of_succ_zero 7 7 (by decide)
 
+/-- ★ **F_{2(q+1)} ≡ -1 mod p** given the inert-characteristic Fibonacci
+    relations:
+      `F_{q+2} ≡ 0 (mod p)` (= F_{p+1} when q = p - 1)
+      `F_{q+1} ≡ p - 1 (mod p)` (= F_p = -1 when q = p - 1)
+      `F_q ≡ 1 (mod p)` (= F_{p-1} when q = p - 1)
+
+    Apply fibLike_pair_add at m = n = q + 1:
+      F_{2(q+1)} = F_{q+2}·F_{q+1} + F_{q+1}·F_q
+    Mod p with hypotheses:
+                = 0·(p-1) + (p-1)·1
+                = p - 1.
+    PURE. -/
+theorem fibFst_double_eq_neg_one_of_inert
+    (q p : Nat) (hp : 1 < p)
+    (h_F_qq1 : fibFst (q + 2) % p = 0)
+    (h_F_q1 : fibFst (q + 1) % p = p - 1)
+    (h_F_q : fibFst q % p = 1) :
+    fibFst (2 * (q + 1)) % p = p - 1 := by
+  rw [E213.Tactic.NatHelper.two_mul (q + 1)]
+  show (fibLike ((q + 1) + (q + 1))).1 % p = p - 1
+  rw [(fibLike_pair_add (q + 1) (q + 1)).1]
+  -- Goal: ((fibLike (q+1+1)).1 * (fibLike (q+1)).1
+  --        + (fibLike (q+1)).1 * (fibLike (q+1)).2) % p = p - 1
+  rw [show (fibLike (q + 1)).2 = fibFst q from fibLike_succ_snd q]
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen
+        ((fibLike (q + 1 + 1)).1 * (fibLike (q + 1)).1)
+        ((fibLike (q + 1)).1 * fibFst q) p]
+  rw [E213.Meta.Nat.MulMod213.mul_mod_pure
+        (fibLike (q + 1 + 1)).1 (fibLike (q + 1)).1 p]
+  rw [E213.Meta.Nat.MulMod213.mul_mod_pure
+        (fibLike (q + 1)).1 (fibFst q) p]
+  -- Identify (fibLike (q+1+1)).1 = fibFst (q+2) and (fibLike (q+1)).1 = fibFst (q+1)
+  show ((fibFst (q + 2) % p * (fibFst (q + 1) % p) % p
+        + fibFst (q + 1) % p * (fibFst q % p) % p) % p) = p - 1
+  rw [h_F_qq1, h_F_q1, h_F_q]
+  -- State: ((0 * (p - 1)) % p + ((p - 1) * 1) % p) % p = p - 1
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have h_pm1_lt : p - 1 < p := Nat.sub_lt hp_pos Nat.one_pos
+  rw [Nat.zero_mul, Nat.mul_one]
+  -- State: (0 % p + (p - 1) % p) % p = p - 1
+  rw [E213.Meta.Nat.AddMod213.zero_mod p]
+  rw [Nat.zero_add]
+  -- State: ((p - 1) % p) % p = p - 1
+  rw [Nat.mod_eq_of_lt h_pm1_lt]
+  -- State: (p - 1) % p = p - 1
+  exact Nat.mod_eq_of_lt h_pm1_lt
+
+/-- Smoke at p = 3 with q = 2 (q + 1 = 3 = p): F_3=2, F_2=1, F_4=3.
+    Mod 3: F_3=2=p-1, F_2=1, F_4=0.  Should give F_6 % 3 = 2 = p-1. -/
+theorem fibFst_double_neg_one_smoke_3 :
+    fibFst (2 * (2 + 1)) % 3 = 2 :=
+  fibFst_double_eq_neg_one_of_inert 2 3 (by decide)
+    (by decide) (by decide) (by decide)
+
+/-- Smoke at p = 7 with q = 6 (q + 1 = 7 = p): F_7=13, F_6=8, F_8=21.
+    Mod 7: F_7=6=p-1, F_6=1, F_8=0.  Should give F_14 % 7 = 6 = p-1. -/
+theorem fibFst_double_neg_one_smoke_7 :
+    fibFst (2 * (6 + 1)) % 7 = 6 :=
+  fibFst_double_eq_neg_one_of_inert 6 7 (by decide)
+    (by decide) (by decide) (by decide)
+
 end E213.Lib.Math.DyadicFSM.PellFibBridge
