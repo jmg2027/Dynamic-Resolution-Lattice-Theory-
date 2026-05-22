@@ -172,12 +172,12 @@ Below-FW-priority refinements surfaced in G121 R1+ tail
 ("next-session entry point" §3).  None are blocking; all could
 be picked up opportunistically:
 
-| ID | Topic | Effort |
-|---|---|---|
-| **I-1** | 8-geometry ↔ Sym(3) basis-correspondence (explicit basis for 2·trivial ⊕ 3·standard ↔ 3 iso + 5 aniso assignment) | small (1-2 sessions) |
-| **I-2** | Filled.lean → 3-cell complex extension | subsumed by FW-2 |
-| **I-3** | Ricci flow ↔ chart-Lens averaging (full ε-Lens treatment) | small-medium (2 sessions) |
-| **I-4** | Poincaré ↔ trivial-loop-residue (refine via `V32Betti.b0_eq_1` connectedness work) | small (1 session) |
+| ID | Topic | Effort | Status |
+|---|---|---|---|
+| **I-1** | 8-geometry ↔ Sym(3) basis-correspondence (explicit basis for 2·trivial ⊕ 3·standard ↔ 3 iso + 5 aniso assignment) | small (1-2 sessions) | **CLOSED** ✅ `sym3_basis_thurston_mapping` in `CrossFrame.lean` (2026-05-22) |
+| **I-2** | Filled.lean → 3-cell complex extension | subsumed by FW-2 | — (subsumed) |
+| **I-3** | Ricci flow ↔ chart-Lens averaging (full ε-Lens treatment) | small-medium (2 sessions) | open |
+| **I-4** | Poincaré ↔ trivial-loop-residue (refine via `V32Betti.b0_eq_1` connectedness work) | small (1 session) | **CLOSED** ✅ `poincare_two_layer_trivial_loop` in `Poincare.lean` (2026-05-22) |
 
 I-2 is duplicate of FW-2.  I-1 / I-3 / I-4 are independent micro-marathons.
 
@@ -222,8 +222,7 @@ X-1 is a meta-capstone — adds no new mathematics, just records the
 Conditional on user direction; default sequencing:
 
 1. ~~**X-1** (1 session, easy capstone)~~ — **DONE** 2026-05-22.
-2. **I-1** + **I-4** (2-3 sessions combined) — small Lean
-   additions, narrative-deepening, no new infrastructure.
+2. ~~**I-1** + **I-4** (2-3 sessions combined)~~ — **DONE** 2026-05-22.
 3. **FW-3** (medium marathon) — abstract filter machinery is
    reusable and folds M1/M2 residual into one place.
 4. **FW-2** (medium marathon) — Filled.lean 3-cell extension is

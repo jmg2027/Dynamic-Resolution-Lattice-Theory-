@@ -32,7 +32,8 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 | `Generalization.lean` | G124 | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended: tree enumeration + cohomology-depth uniqueness extended range |
 | `JsjDeep.lean` | G123 | ~6 | JSJ 3-cell complex Euler-target scaffold: χ-targets for closed 3-mfds + sphere Euler via ∂Δⁿ |
 | `MetricGeometries.lean` | G125 | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2 / F_3 / F_5 / F_7 / F_11) |
-| `CrossFrame.lean` | G123 X-1 | 1 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` — 4-way Sym(3) convergence (Geometrization + gluon octet + HC_K32 + Möbius P mod-5) |
+| `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
+| `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
 
 ## Pillar status (5-pillar Geometrization)
 

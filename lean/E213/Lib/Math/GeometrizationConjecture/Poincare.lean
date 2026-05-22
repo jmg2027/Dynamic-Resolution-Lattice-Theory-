@@ -483,5 +483,46 @@ theorem filling_versus_tree_dual_path :
     ∧ passesCohomologyDepthFilter 1 4 1 = false := by
   refine ⟨?_, ?_, rfl, rfl, ?_, ?_⟩ <;> decide
 
+/-! ### Poincaré two-layer trivial-loop reading -/
+
+/-- ★★★★ **Poincaré two-layer trivial-loop residue**
+
+  Bring `V32Betti.b0_eq_1` connectedness explicitly into the
+  Poincaré pillar narrative.
+
+  "Trivial loop residue" splits into two layers in 213-Lens:
+
+    · **Layer A** (`b_0 = 1`) — connectedness, single residue component
+    · **Layer B** (`b_1 = 0`) — cycle absence, no closed-loop residue
+
+  Both layers must vanish for the K-deployment to read as π₁-trivial
+  in the Poincaré-analog sense.  At chartBase = 5 (d_M = 4):
+
+    · **Critical branch K_{3,2}^{(c=2)}**: Layer A vanishes
+      (`V32Betti.kerSizeDelta0 = 2^1` → b_0 = 1, connected) but
+      Layer B does NOT (b_1 = 8).  Reading: connected with rich loops.
+    · **Tree branch K_{3,1}^{(c=1)}** (and K_{1,3}, K_{1,4}, ...):
+      both layers vanish — Layer A by `isTreeDeployment` (a tree
+      is a single connected component by definition), Layer B by
+      `b1_corrected = 0`.  Reading: π₁-trivial.
+
+  Refines `Poincare_analog_chartBase_4` and
+  `regime_transition_corrected` with explicit connectedness witness
+  from `V32Betti.b0_eq_1`. -/
+theorem poincare_two_layer_trivial_loop :
+    -- Layer A for critical branch (V32Betti witness: b_0 = 1)
+    E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2 ^ 1
+    -- Layer A for tree branch (encoded in tree predicate)
+    ∧ isTreeDeployment 3 1 1 = true
+    -- Layer B: critical has rich loops, tree has none
+    ∧ b1_corrected 3 2 2 = 8
+    ∧ b1_corrected 3 1 1 = 0
+    -- π₁-trivial reading: BOTH layers vanish on tree branch
+    ∧ b1_corrected 1 3 1 = 0
+    ∧ b1_corrected 1 4 1 = 0 := by
+  refine ⟨E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1,
+          ?_, ?_, ?_, ?_, ?_⟩
+  all_goals decide
+
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
