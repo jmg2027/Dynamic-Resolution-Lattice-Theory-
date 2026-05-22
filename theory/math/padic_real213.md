@@ -224,6 +224,8 @@ extension only, is itself a research question.  See
 | `Zp.mul_trunc_assoc` | `Arith` | multiplicative associativity at trunc |
 | `Zp.mul_add_trunc` / `Zp.add_mul_trunc` | `Arith` | distributivity at trunc |
 | `QpSeq.add_shift` | `Field` | shift of `a + b` is `max a.shift b.shift` |
+| `ZpSeq.digits_of_nat_trunc` | `Foundation` | `(digits_of_nat p hp m).trunc n = m % p^n` |
+| `canonical_5adic_NU_trunc_le_25` | `DRLT` | `∀ n ≤ 25, canonical_5adic_NU.trunc n = 0` (DRLT anchor) |
 
 ## Open frontier
 
@@ -234,10 +236,12 @@ extension only, is itself a research question.  See
 - **Hensel for square root**: the inverse construction generalizes
   to `Hensel_lift f f' a₀` for arbitrary polynomial `f`.  Not yet
   written.
-- **Full anchor theorem** `∀ n ≤ 25, canonical_5adic_NU.trunc n = 0`:
-  would require an inductive proof of "digits below 25 are zero"
-  using base-p mod arithmetic.  Six concrete-position smokes are
-  in place (digit 0, 1, 2, 24, 25, 26).
+- **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
+  closes the n ≤ 25 case.  Beyond level 25, the truncation
+  recovers `5^25 % 5^n`, which is `5^25 - q · 5^n` for the
+  appropriate quotient — not zero in general; this regime
+  corresponds to "infinite precision beyond the resolution
+  limit" (see `seed/RESOLUTION_LIMIT_SPEC.md`).
 - **ℚ_p inverse / field structure**: `QpSeq` has add/mul/neg/sub
   but no general inverse yet (would need a Hensel-lifted
   `QpSeq.inv` using `Zp.invSeq` + shift bookkeeping).
