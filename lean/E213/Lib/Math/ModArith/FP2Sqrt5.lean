@@ -936,4 +936,47 @@ theorem phiFP2_pow_eq_fibLike_3_2 :
 theorem phiFP2_pow_eq_fibLike_7_3 :
     fp2Pow 7 (phiFP2 7) 3 = (2, 1) := by decide
 
+/-! ## inv2-cancellation (mod p inverse) -/
+
+/-- ★ **Cancel inv2 from X·inv2 ≡ 0**: if `(X · inv2) % p = 0`, then
+    `X % p = 0` (for odd `1 < p`).  Uses `2·inv2 ≡ 1 mod p`.  PURE. -/
+theorem inv2_cancel_zero (X p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (h : (X * inv2 p) % p = 0) : X % p = 0 := by
+  -- (X * inv2 * 2) % p = 0 via h.
+  have h_step1 : (X * inv2 p * 2) % p = 0 := by
+    rw [mul_mod_left_pure (X * inv2 p) 2 p, h, Nat.zero_mul]
+    exact zero_mod p
+  -- (X * inv2 * 2) % p = X % p via 2·inv2 ≡ 1 mod p.
+  have h_step2 : (X * inv2 p * 2) % p = X % p := by
+    rw [mul_assoc X (inv2 p) 2]
+    rw [Nat.mul_comm (inv2 p) 2]
+    rw [mul_mod_right_pure X (2 * inv2 p) p]
+    rw [two_mul_inv2 p hp hpo]
+    rw [Nat.mod_eq_of_lt hp, Nat.mul_one]
+  exact h_step2.symm.trans h_step1
+
+/-- ★ **Cancel inv2 with constant `c`**: if `(X · inv2) % p = c % p`, then
+    `X % p = (2·c) % p`.  PURE. -/
+theorem inv2_cancel_eq (X c p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (h : (X * inv2 p) % p = c % p) : X % p = (2 * c) % p := by
+  -- (X * inv2 * 2) % p = (c * 2) % p = (2 * c) % p.
+  have h_step1 : (X * inv2 p * 2) % p = (2 * c) % p := by
+    rw [mul_mod_left_pure (X * inv2 p) 2 p, h]
+    rw [← mul_mod_left_pure c 2 p, Nat.mul_comm c 2]
+  -- (X * inv2 * 2) % p = X % p.
+  have h_step2 : (X * inv2 p * 2) % p = X % p := by
+    rw [mul_assoc X (inv2 p) 2]
+    rw [Nat.mul_comm (inv2 p) 2]
+    rw [mul_mod_right_pure X (2 * inv2 p) p]
+    rw [two_mul_inv2 p hp hpo]
+    rw [Nat.mod_eq_of_lt hp, Nat.mul_one]
+  exact h_step2.symm.trans h_step1
+
+/-- Smoke at p=3: 2·inv2 = 2·2 = 4, 4·inv2 = 8, 8 % 3 = 2 ≠ 0.
+    For h : (X*inv2)%p = 0 case, take X = 0 trivially. -/
+theorem inv2_cancel_zero_smoke :
+    (∀ X : Nat, (X * inv2 3) % 3 = 0 → X % 3 = 0) := by
+  intro X h
+  exact inv2_cancel_zero X 3 (by decide) (by decide) h
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
