@@ -1236,6 +1236,40 @@ Foundational sum infrastructure for the binomial theorem.
 
 ---
 
+# Part 17 — FLT: Σ-helpers + binomSum infrastructure
+
+`Lib/Math/DyadicFSM/FLT/BinomialTheorem.lean` (new, 8 PURE):
+
+Three Σ-manipulation lemmas + `binomSum` definition + base case +
+empirical smokes.  Sets up the next-session binomial theorem proof
+`(a + 1)^n = binomSum a n`.
+
+  · `sumTo_mul_left` : `a · Σ f = Σ (a · f)`.
+  · `sumTo_add_func` : `Σ f + Σ g = Σ (f + g)` (pointwise add).
+  · `sumTo_split_first` : `Σ_{k=0}^{n} f(k) = f(0) + Σ_{k=0}^{n-1} f(k+1)`.
+  · `binomSum a n := sumTo (n+1) (fun k => choose n k · a^k)`
+    — the Σ-form of `(a+1)^n`.
+  · `binomSum_zero a` : `binomSum a 0 = 1`.
+  · Smokes: `binomSum 2 3 = 27`, `binomSum 3 4 = 256`,
+    `binomSum 1 5 = 32` (all empirically `= (a+1)^n`).
+
+## What's next
+
+  · Inductive step `(a + 1) · binomSum a n = binomSum a (n + 1)`
+    — substantial rearrangement using all three Σ helpers + Pascal,
+    multi-session.
+  · Once binomial theorem closes, freshman's dream follows quickly:
+    `(a + 1)^p mod p = (a^p + 1) mod p` via `sumTo_eq_zero_of_all_zero`
+    (Part 16) applied to middle terms `C(p, k)` (Part 15).
+
+## Verification (post Part 17)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.BinomialTheorem`: 8 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
