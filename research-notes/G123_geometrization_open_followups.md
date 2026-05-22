@@ -269,6 +269,24 @@ X-1 is a meta-capstone — adds no new mathematics, just records the
 
 ---
 
+## §4.5  Spin-off marathons (post-G123 numbering)
+
+The G123 sweep leaves three items that don't fit a single follow-up
+marathon scope; each gets its own G-number for future launch:
+
+| G-number | Topic | Status | Note |
+|---|---|---|---|
+| **G124** | M2 universal V32Betti-style generalization | open marathon, ~95 PURE est. | `G124_v32betti_parametric_generalization.md` |
+| **G125** | BracketCauchy ↔ IsRicciModulus typeclass-bridge | open marathon, Option A ~40 PURE est. | `G125_bracket_cauchy_ricci_functor.md` |
+| **(no G)** | FW-1 signed Donaldson count | **NOT a 213-internal marathon** — meta-research at the 213/standard-math boundary | See §1 FW-1 entry; resolves only with sign-rule discovery or external interface formalization |
+
+FW-1 stays unassigned: its open piece is "what's the 213-native
+sign-rule for Sym(3)-orbits, AND/OR how to compare to Donaldson
+invariants" — these are theoretical questions to settle BEFORE a
+Lean marathon launch is well-posed.
+
+---
+
 ## §5.  What this registry is NOT
 
   · **Not a marathon launch**.  FW-1 and FW-4 are marathon-shaped

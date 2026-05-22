@@ -70,18 +70,16 @@ Currently still open:
 - **TH-1 / TH-4** doc work routed earlier into
   `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 and §TH-4 (partial).
 
-### D. G123 long-tail (post-marathon, infrastructure-bound)
-Source: `research-notes/G123_geometrization_open_followups.md`.
-Substantive items closed; the following remain bound by missing
-infrastructure:
+### D. G123 long-tail — spin-off marathons assigned
+Source: `research-notes/G123_geometrization_open_followups.md` §4.5.
 
-| Item | Blocker |
-|---|---|
-| **FW-1 signed Donaldson count** | Sign-assignment from K-deployment data; comparison interface to standard 4-mfd Donaldson invariants |
-| **FW-2 topological 3-mfd attaching-map formalization** | Beyond Euler-target arithmetic; requires attaching-map types.  Structure-level scaffold added in `Cohomology/Bipartite/Filled3Cell.lean` (`Cell3ComplexK32` + Euler-char + realization predicate). |
-| **FW-4 real-metric-tensor formalization** | By design absent from 213.  Signature-level classifier added in `Geometry/MetricTypes.lean` (`MetricSignature` + `LensChoice` + `classify`) as 213-native replacement. |
-| **M2 universal V32Betti-style derivation** | Per-K_{NS,NT}^{(c)} cohomology files beyond V32 |
-| **I-3 BracketCauchy bidirectional bridge** | `IsRicciModulus` ↔ `IsContinuousModulus` cross-category functor (different underlying types: cochain-functions vs cell-fill-counts) — likely ill-posed without further category infra |
+| Item | New G-number | Status |
+|---|---|---|
+| **FW-2 topological 3-mfd attaching-map formalization** | none — structure-level scaffold done | `Cohomology/Bipartite/Filled3Cell.lean` (`Cell3ComplexK32` + Euler-char + realization predicate).  Full topological close would need new attaching-map types — not currently scoped. |
+| **FW-4 real-metric-tensor formalization** | none — 213-native classifier done | `Geometry/MetricTypes.lean` (`MetricSignature` + `LensChoice` + `classify`).  Real metrics by design absent from 213; the signature classifier is the 213-native replacement. |
+| **M2 universal V32Betti-style derivation** | **G124** | `research-notes/G124_v32betti_parametric_generalization.md` — 6-10 session marathon, ~95 PURE est., `Cohomology/Bipartite/Parametric/` new sub-tree |
+| **I-3 BracketCauchy ↔ IsRicciModulus bridge** | **G125** | `research-notes/G125_bracket_cauchy_ricci_functor.md` — Option A typeclass (~40 PURE, 2-3 sessions) recommended; Option B full category theory deferred |
+| **FW-1 signed Donaldson count** | unassigned | NOT a 213-internal marathon — meta-research at the 213/standard-math boundary.  Resolves only with (a) a 213-native sign-rule for Sym(3)-orbits discovered, or (b) external standard-math interface formalized.  Both require theoretical settling before Lean marathon launch is well-posed. |
 
 **FW-1 sub-orbit decomposition** closed 2026-05-22 (`Exotic4Mfd.lean`,
 `fw1_suborbit_decomposition`): `(4, 0, 28, 28)` partition by orbit size.

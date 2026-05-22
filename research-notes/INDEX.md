@@ -100,6 +100,8 @@ chapter.
 |---|---|---|
 | `G107_action_items_registry.md` | 24 actionable items from G90-G106 scanner findings (mechanical / mid-marathons / smaller / deferred), cross-branch handshake history | **Active** — ranked by mass × confidence / effort |
 | `G123_geometrization_open_followups.md` | G121 post-R1 follow-ups: FW-1..FW-4 marathon candidates (4-mfd exotic, JSJ-deep, chartBase-gen, metric-geometries) + I-series narrative deepening + M3/M4 residual knots | **Active** — registry for G121 open frontier |
+| `G124_v32betti_parametric_generalization.md` | V32Betti generalization to arbitrary K_{NS,NT}^{(c)} (M2 universal close, ~95 PURE est., 6-10 sessions) | pre-marathon research direction |
+| `G125_bracket_cauchy_ricci_functor.md` | BracketCauchy ↔ IsRicciModulus typeclass-bridge or cross-category functor (Option A typeclass: ~40 PURE, 2-3 sessions; Option B full category theory: separate larger marathon) | pre-marathon research direction |
 
 G107: G90-G106 promoted to `theory/meta/scanner_suite.md` +
 `theory/meta/raw_derivation_levels.md` (2026-05-22); closed items
@@ -121,7 +123,7 @@ and small refinements left in the wake.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G124**).  Once formalized:
+Use next available G prefix (currently **G126**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
