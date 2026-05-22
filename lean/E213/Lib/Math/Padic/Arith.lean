@@ -315,6 +315,42 @@ theorem Zp.add_neg_one_one_trunc_succ (p : Nat) (hp : 1 < p) (n : Nat) :
       ZpSeq.trunc_neg_one_succ p (Nat.lt_of_succ_lt hp) (n+1)]
   exact E213.Meta.Nat.AddMod213.mod_self _
 
+/-! ## Digit shift on `ZpSeq` (multiplication by `p^k`)
+
+`Zp.shiftLeft k x` pushes `x`'s digits `k` positions higher,
+filling the low `k` positions with zero.  Value-wise this
+multiplies by `p^k`: `(Zp.shiftLeft k x).digits j` is
+`x.digits (j - k)` when `j ≥ k`, else `0`.
+
+This enables ℚ_p addition with unequal shifts (align via shift).
+-/
+
+/-- Shift `x`'s digits left by `k` positions. -/
+def Zp.shiftLeft (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) : ZpSeq p where
+  digits := fun j =>
+    if j < k then (⟨0, hp⟩ : Fin p) else x.digits (j - k)
+
+/-- Shifting by 0 is the identity (digit-by-digit). -/
+theorem Zp.shiftLeft_zero_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (j : Nat) :
+    ((Zp.shiftLeft p hp 0 x).digits j) = x.digits j := by
+  show (if j < 0 then (⟨0, hp⟩ : Fin p) else x.digits (j - 0))
+        = x.digits j
+  rw [if_neg (Nat.not_lt_zero j), Nat.sub_zero]
+
+/-- Shifting `zero` is still zero (digit-by-digit). -/
+theorem Zp.shiftLeft_zero_seq_digit (p : Nat) (hp : 0 < p) (k j : Nat) :
+    ((Zp.shiftLeft p hp k (ZpSeq.zero p hp)).digits j).val = 0 := by
+  show (if j < k then (⟨0, hp⟩ : Fin p) else (ZpSeq.zero p hp).digits (j - k)).val
+        = 0
+  cases hjk : decide (j < k) with
+  | true =>
+    have hjk' : j < k := of_decide_eq_true hjk
+    rw [if_pos hjk']
+  | false =>
+    have hjk' : ¬ (j < k) := of_decide_eq_false hjk
+    rw [if_neg hjk']
+    rfl
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:
