@@ -195,7 +195,7 @@ specific constant 4, the explicit construction is direct.
 -/
 
 /-- `4 · inv2² ≡ 1 (mod p)` for odd `p > 1`.  Explicit `4⁻¹ mod p`. -/
-private theorem four_mul_inv2_sq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+theorem four_mul_inv2_sq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
     (4 * (inv2 p * inv2 p)) % p = 1 % p := by
   -- 4 * inv2² = (2 * inv2)² in Nat, then mod-p reduces via two_mul_inv2.
   have h_pow : 4 * (inv2 p * inv2 p) = (2 * inv2 p) * (2 * inv2 p) :=

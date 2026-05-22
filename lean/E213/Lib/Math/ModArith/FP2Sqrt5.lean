@@ -526,4 +526,59 @@ theorem fp2Frob_mul_smoke_7 :
     fp2Frob 7 (fp2Mul 7 (2, 3) (4, 1))
       = fp2Mul 7 (fp2Frob 7 (2, 3)) (fp2Frob 7 (4, 1)) := by decide
 
+/-! ## Norm via Frobenius: `x · σ(x) = (Norm(x), 0)`
+
+The key universal identity tying multiplication, Frobenius, and norm
+together.  Sets up the Phase 3.3 closure chain `(φ · σ(φ)) = (-1, 0)`.
+-/
+
+/-- Helper: `((p - z%p)%p + z%p) % p = 0` (mod-p reduction of
+    `nmod_add_self_zero`).  PURE. -/
+theorem nmod_self_mod_zero (p z : Nat) (hp : 0 < p) :
+    ((p - z % p) % p + z % p) % p = 0 := by
+  have h_eq : ((p - z % p) % p + z % p) % p = ((p - z % p) % p + z) % p := by
+    rw [add_mod_gen ((p - z % p) % p) (z % p) p]
+    rw [mod_mod z p]
+    rw [← add_mod_gen ((p - z % p) % p) z p]
+  rw [h_eq]
+  exact nmod_add_self_zero p z hp
+
+/-- ★ **`x · σ(x) = (Norm(x), 0)`** (universal, for `0 < p`):
+    multiplication of `x` by its Frobenius conjugate yields a scalar
+    in `𝔽_p ⊂ 𝔽_{p²}` equal to the norm.  PURE. -/
+theorem fp2Mul_self_frob (p : Nat) (hp : 0 < p) (x : FP2) :
+    fp2Mul p x (fp2Frob p x) = (fp2Norm p x, 0) := by
+  show ((x.1 * (x.1 % p) + 5 * x.2 * ((p - x.2 % p) % p)) % p,
+        (x.1 * ((p - x.2 % p) % p) + x.2 * (x.1 % p)) % p)
+     = (((x.1 * x.1) % p + (p - (5 * x.2 * x.2) % p)) % p, 0)
+  apply Prod.ext
+  · -- First component:
+    -- (x.1 * (x.1 % p) + 5 * x.2 * ((p - x.2 % p) % p)) % p
+    --   = ((x.1 * x.1) % p + (p - (5 * x.2 * x.2) % p)) % p
+    show (x.1 * (x.1 % p) + 5 * x.2 * ((p - x.2 % p) % p)) % p
+       = ((x.1 * x.1) % p + (p - (5 * x.2 * x.2) % p)) % p
+    rw [add_mod_gen (x.1 * (x.1 % p)) (5 * x.2 * ((p - x.2 % p) % p)) p]
+    rw [add_mod_gen ((x.1 * x.1) % p) (p - (5 * x.2 * x.2) % p) p]
+    rw [mod_mod (x.1 * x.1) p]
+    congr 1
+    congr 1
+    · -- (x.1 * (x.1 % p)) % p = (x.1 * x.1) % p
+      exact (mul_mod_right_pure x.1 x.1 p).symm
+    · -- (5 * x.2 * ((p - x.2 % p) % p)) % p = (p - (5 * x.2 * x.2) % p) % p
+      exact neg_mod_mul_right p (5 * x.2) x.2 hp
+  · -- Second component:
+    -- (x.1 * ((p - x.2 % p) % p) + x.2 * (x.1 % p)) % p = 0
+    show (x.1 * ((p - x.2 % p) % p) + x.2 * (x.1 % p)) % p = 0
+    rw [add_mod_gen (x.1 * ((p - x.2 % p) % p)) (x.2 * (x.1 % p)) p]
+    rw [neg_mod_mul_right p x.1 x.2 hp]
+    rw [← mul_mod_right_pure x.2 x.1 p]
+    rw [Nat.mul_comm x.2 x.1]
+    -- Goal: ((p - (x.1*x.2) % p) % p + (x.1*x.2) % p) % p = 0
+    exact nmod_self_mod_zero p (x.1 * x.2) hp
+
+/-- Smoke at p=7: `(2, 3) · σ((2, 3)) = (2, 3) · (2, 4) = (Norm((2, 3)), 0)`.
+    Norm((2, 3)) at p=7: `2² - 5·3² = 4 - 45 ≡ 1 mod 7`.  So result = (1, 0). -/
+theorem fp2Mul_self_frob_smoke_7 :
+    fp2Mul 7 (2, 3) (fp2Frob 7 (2, 3)) = (fp2Norm 7 (2, 3), 0) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
