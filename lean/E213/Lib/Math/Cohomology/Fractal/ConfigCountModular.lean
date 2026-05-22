@@ -701,6 +701,56 @@ theorem configCountD_5_1_mod_17 : configCountD 5 1 % 17 = 14 :=
 theorem configCountD_5_2_mod_17 : configCountD 5 2 % 17 = 12 :=
   (configCountD_5_period_4_mod_17 0).2.1
 
+/-! ### §H.5 `p = 137` — α_em modular fingerprint
+
+`137 = 1/α_em` (catalogue atom).  Cycle structure: `ord_137(5) = 136 = 2³·17`
+and `ord_136(5) = 16`, so the sequence `n ↦ 5^(5^n) mod 137` has period
+`16` from `n = 0`.  The cycle is too long for a clean parametric proof
+(diminishing returns vs. the `p = 41` constant), but the physics-slice
+readout has a clean catalogue-to-catalogue resonance:
+
+```
+configCountD 5 2 % 137 = 86 = Rn   (radon atomic number)
+```
+
+Both `137 = 1/α_em` and `86 = Rn` are catalogue atoms.  The count-Lens
+output at the physics slice projects one catalogue atom (`1/α_em`) to
+another (`Rn`) — an "α series" cross-readout parallel to the
+`(41, 9 = NS²)` constant.
+
+Hunter expressibility of `86`:
+
+```
+86 = NS² · NT² + d² · NT   = 9·4 + 25·2 = 36 + 50
+```
+
+(uses only `NS, NT, d` Hunter primitives, additively).
+-/
+
+/-- Hunter form of `86`: `86 = NS²·NT² + d²·NT` in primitives
+    `{NS = 3, NT = 2, d = 5}`.  Recast in `Nat`. -/
+theorem hunter_form_86 : 3^2 * 2^2 + 5^2 * 2 = 86 := by decide
+
+/-- Physics-slice readout at `p = 137 = 1/α_em`:
+    `configCountD 5 2 % 137 = 86 = Rn`.  Connects two catalogue
+    atoms (`1/α_em` and `Rn`) via the count-Lens at the physics
+    slice. -/
+theorem configCountD_5_2_mod_137 : configCountD 5 2 % 137 = 86 := by decide
+
+/-- Cycle structure at `p = 137`: full orbit
+    `5 → 111 → 86 → 70 → 29 → 57 → 113 → 90 → 117 → 46 → 53 → 116
+       → 6 → 104 → 27 → 75 → 5` (length 16).  Recorded as a small
+    table of the first 4 values; the full cycle is in the
+    research-note catalogue (`research-notes/G126_carmichael_chain_ext.md`).
+    Parametric ∀ n proof template applies but with 16 cycle seeds +
+    16 substeps — deferred for diminishing returns. -/
+theorem configCountD_5_mod_137_table :
+    configCountD 5 0 % 137 = 5
+    ∧ configCountD 5 1 % 137 = 111
+    ∧ configCountD 5 2 % 137 = 86
+    ∧ configCountD 5 3 % 137 = 70 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base

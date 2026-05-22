@@ -125,6 +125,41 @@ Open: structural reading of the `(p = 41, value = 9) = (α_GUT, NS²)`
 pair.  Is it forced by the same physics-base selection that gives
 `d = 5`, or coincidental?
 
+## §7 The α series — physics-prime modular fingerprints
+
+The two atomic-catalogue α primes share a count-Lens "shadow"
+structure but with different cycle dynamics:
+
+```
+α_GUT integer p = 41:  5^(5^n) ≡ 9 = NS²              (mod 41)
+                       constant for all n ≥ 1.
+
+α_em  integer p = 137: 5^(5^2) ≡ 86 = NS²·NT² + d²·NT  (mod 137)
+                       = Rn (radon atomic number).
+                       Cycle length 16 in n (generic).
+```
+
+Both readouts (`9, 86`) are themselves catalogue atoms — `9 = NS²`
+explicitly, `86 = Rn` via the physics-table cross-identification.
+The count-Lens projects the N_U value across each α prime to a
+catalogue atom, but only `α_GUT` does so *uniformly across all `n`*
+(structural invariance under fractal level iteration).
+
+The mod-137 cycle is `5 → 111 → 86 → 70 → 29 → 57 → 113 → 90
+→ 117 → 46 → 53 → 116 → 6 → 104 → 27 → 75 → 5` (length 16).
+The physics slice `n = 2` lands at index 2 in the cycle = 86.
+The parametric ∀ n proof template applies but requires 16 cycle
+seeds + 16 substeps — deferred (diminishing return vs. the
+mod-41 constant).
+
+Lean (§H.5):
+  · `configCountD_5_2_mod_137 : configCountD 5 2 % 137 = 86`
+  · `hunter_form_86 : 3^2 * 2^2 + 5^2 * 2 = 86`
+  · `configCountD_5_mod_137_table` (first 4 cycle values)
+
+Catalogue: `86 = Rn` entry in `catalogs/atomic-integers.md`
+expanded with Hunter form and mod-137 cross-reference.
+
 ## §7 Cross-references
 
   · `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCountModular.lean` §H
