@@ -2,13 +2,17 @@
 
 ## Status
 
-**Research note.**  2026-05-21.  Generalisation / extension of
+**CLOSED 2026-05-22** — Fin-level ∀(n, k, l) twisted Leibniz
+**proved strict PURE** in
+`lean/E213/Lib/Math/Cohomology/Cup/LeibnizFinGeneral.lean` as
+`fin_level_leibniz_general`.  See §"Closure (2026-05-22 capstone)"
+below.
+
+Originally drafted 2026-05-21 as generalisation / extension of
 G85's "Lens mismatch" finding.  Articulates the **structural
-conjecture** that the lex-projection cup's δ obeys a self-
-referential Leibniz where the correction term is the cup
-*itself* at the middle-removed face.  Empirically verified at
-two distinct bidegrees; symbolic proof for general (k, l, n)
-deferred.
+identity** that the lex-projection cup's δ obeys a self-referential
+Leibniz where the correction term is the cup *itself* at the
+middle-removed face.
 
 ## The structural identity
 
@@ -113,7 +117,53 @@ This is conjecture; concrete verification requires translating
 the K_{3,2}^{(c=2)} channel cup-product into the lex-projection
 formalism.
 
-## ★★★★★ Closure (2026-05-22): ∀ (k, l) PROVED — strict PURE
+## ★★★★★★ Closure (2026-05-22 capstone): Fin-level ∀(n, k, l) PROVED
+
+`lean/E213/Lib/Math/Cohomology/Cup/LeibnizFinGeneral.lean` —
+`fin_level_leibniz_general`:
+
+```lean
+∀ (n k l : Nat) (α : Cochain n k) (β : Cochain n l)
+  (τ : Fin (binom n (k + l + 1))),
+  delta (cup n k l α β) τ
+    = xor (xor (cupList (k+1) l (deltaListR k (asListCochain n k α))
+                                 (asListCochain n l β)
+                                 (kSubset n (k+l+1) τ.val))
+               (cupList k (l+1) (asListCochain n k α)
+                                 (deltaListR l (asListCochain n l β))
+                                 (kSubset n (k+l+1) τ.val)))
+          (cup n k l α β (faceIdx n (k+l+1) k
+            (Nat.lt_succ_of_le (Nat.le_add_right k l)) τ))
+```
+
+The middle-removed correction is in pure Fin form via the
+**general face-index map** `faceIdx n m k h_k τ` built on
+`kSubset_eraseIdx_eq` + `subsetIdx ↔ kSubset` round-trip; the
+two side terms use the equivalent list-level
+`cupList`+`deltaListR` formulation over the kSubset list,
+which is linked to Fin-level `delta α` / `delta β` via
+`delta_eq_deltaListR`.
+
+Assembly composes (all PURE):
+
+  · `kSubset_eraseIdx_eq` (`Cup/KSubsetEraseIdx.lean`) — eraseIdx of a
+    kSubset is a kSubset.
+  · `faceIdx`, `faceIdxNat_lt`, `kSubset_faceIdxNat_eq`
+    (`Cup/FaceIdxGeneral.lean`) — well-defined Fin-typed face map.
+  · `cupOnList`, `cup_eq_cupOnList_kSubset`,
+    `cup_at_faceIdx_eq_cupOnList_eraseIdx` (`Cup/CupOnList.lean`) —
+    Fin-cup ↔ list-cup bridge.
+  · `range_succ'`, `foldl_xor_range_eq_xorRange`
+    (`Cup/RangeFoldXor.lean`) — PURE replacements for
+    propext-tainted Lean-core `List.range_succ`.
+  · `delta_eq_xorRange`, `delta_via_faceIdx_xorRange`
+    (`Cup/DeltaUnfoldGeneral.lean`) — Fin-delta as xorRange.
+  · `list_level_leibniz_general` (`Cup/LeibnizLexListLevel.lean`)
+    — the algebraic content (existing).
+
+22 new strict-PURE theorems across 5 new files; 0 sorry / 0 axiom.
+
+## ★★★★★ Previous Closure (2026-05-22): ∀ (k, l) PROVED — strict PURE
 
 `lean/E213/Lib/Math/Cohomology/Cup/LeibnizLexListLevel.lean`
 contains `list_level_leibniz_general`, a strict-PURE proof of the
@@ -136,10 +186,9 @@ Proven via user's 3-way partition strategy:
 24 PURE / 0 DIRTY in this file.  No Mathlib, no omega, no funext,
 no decide enumeration over (α, β) parameter space.
 
-The remaining work is the Fin-indexed transfer
-(`Cohomology/Cup/Core.cup` form) via `subsetIdx ↔ kSubset`
-round-trip — substantial structural work, separate from the
-algebraic content of this result.
+(Previous note: "remaining work is the Fin-indexed transfer".
+That transfer is now complete — see the §"Closure (2026-05-22
+capstone): Fin-level ∀(n, k, l) PROVED" section above.)
 
 ## Original general conjecture (∀ k, l, n)
 
@@ -157,7 +206,7 @@ Stated formally:
 where `faceMiddleRemoved n k l : Fin (binom n (k+l+1)) → Fin
 (binom n (k+l))` maps τ to the colex index of `τ \ {τ[k]}`.
 
-## Symbolic proof sketch (next session)
+## Symbolic proof sketch (HISTORICAL — superseded by closure)
 
 The general form admits a structural proof by face decomposition:
 
@@ -171,10 +220,12 @@ The general form admits a structural proof by face decomposition:
   · For i = k: face removes the *boundary* vertex.  This face's
     (α⌣β)-value is **the correction**.
 
-In ℤ/2, all matches XOR to RHS_std + correction = LHS.  Formal
-ℓean proof requires inducting on (k+l) or unfolding δ explicitly.
-Mathlib-free; achievable via the 213-native `Int213.*` /
-`NatHelper` machinery, scoped for the next session.
+This sketch was realised — first at the list level
+(`list_level_leibniz_general`, via the 3-way `xorRange` partition
++ take/drop boundary lemmas), then transferred to the Fin-indexed
+`Cohomology/Cup/Core.cup` (`fin_level_leibniz_general`) via the
+`kSubset_eraseIdx_eq` structural lemma + `subsetIdx ↔ kSubset`
+round-trip + delta xorRange unfolding.  PURE.
 
 ## See also
 
@@ -186,6 +237,21 @@ Mathlib-free; achievable via the 213-native `Int213.*` /
     (1, 1) self-referential form via face map.
   · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizLex21.lean` —
     (2, 1) on Δ³ confirming generality.
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizLexListLevel.lean` —
+    ∀(k, l) list-level twisted Leibniz (algebraic content).
+  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizFinGeneral.lean` —
+    **∀(n, k, l) Fin-level twisted Leibniz capstone (this closure).**
+  · `lean/E213/Lib/Math/Cohomology/Cup/KSubsetEraseIdx.lean` —
+    `kSubset_eraseIdx_eq` structural lemma (eraseIdx of a kSubset
+    is a kSubset).
+  · `lean/E213/Lib/Math/Cohomology/Cup/FaceIdxGeneral.lean` —
+    general face-index map `Fin (binom n m) → Fin (binom n (m-1))`.
+  · `lean/E213/Lib/Math/Cohomology/Cup/CupOnList.lean` —
+    cup ↔ cupOnList bridge.
+  · `lean/E213/Lib/Math/Cohomology/Cup/DeltaUnfoldGeneral.lean` —
+    Fin-delta as xorRange of σ-at-faceIdx values.
+  · `lean/E213/Lib/Math/Cohomology/Cup/RangeFoldXor.lean` —
+    PURE replacements for propext-tainted `List.range_succ`.
   · `seed/AXIOM/05_no_exterior.md` §5 — doctrinal anchor.
   · `research-notes/G35_chiral_cup_ring_catalog.md` — K_{3,2}^{(c=2)}
     bipartite cup framework where this finding may have physics
