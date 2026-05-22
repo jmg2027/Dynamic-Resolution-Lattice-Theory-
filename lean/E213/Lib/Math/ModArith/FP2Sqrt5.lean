@@ -771,4 +771,42 @@ theorem phiFP2_sq_eq_phi_add_one_3 :
 theorem phiFP2_sq_eq_phi_add_one_7 :
     fp2Mul 7 (phiFP2 7) (phiFP2 7) = fp2Add 7 (phiFP2 7) (fp2One 7) := by decide
 
+/-! ## Binet expansion in 𝔽_{p²}: `φ^k = F_k · φ + F_{k-1}` -/
+
+open E213.Lib.Math.DyadicFSM.PhiMod5 (fibLike)
+
+/-- Helper: `(F * (6 * (inv2² mod p))) % p = (F * (inv2 + 1)) % p`
+    for odd `1 < p`.  PURE. -/
+private theorem F_mul_six_inv2_sq (F p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (F * (6 * (inv2 p * inv2 p))) % p = (F * (inv2 p + 1)) % p := by
+  rw [mul_mod_right_pure F (6 * (inv2 p * inv2 p)) p]
+  rw [six_inv2_sq_eq p hp hpo]
+  rw [← mul_mod_right_pure F (inv2 p + 1) p]
+
+/-- Helper: `(F * (2 * (inv2² mod p))) % p = (F * inv2) % p`
+    for odd `1 < p`.  PURE. -/
+private theorem F_mul_two_inv2_sq (F p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (F * (2 * (inv2 p * inv2 p))) % p = (F * inv2 p) % p := by
+  rw [mul_mod_right_pure F (2 * (inv2 p * inv2 p)) p]
+  rw [two_inv2_sq_eq p hp hpo]
+  rw [← mul_mod_right_pure F (inv2 p) p]
+
+/-- Helper: `Fk · inv2 · inv2 + Fkm · inv2 + 5·Fk · inv2 · inv2 = 6·Fk · (inv2·inv2) + Fkm·inv2`
+    Pure Nat algebra (combine inv2² terms). -/
+private theorem fp2_pow_step_alg_lhs1 (Fk Fkm p : Nat) :
+    Fk * inv2 p * inv2 p + Fkm * inv2 p + 5 * Fk * inv2 p * inv2 p
+      = 6 * Fk * (inv2 p * inv2 p) + Fkm * inv2 p := by
+  rw [Nat.add_right_comm (Fk * inv2 p * inv2 p) (Fkm * inv2 p)
+                          (5 * Fk * inv2 p * inv2 p)]
+  -- (Fk·inv2·inv2 + 5·Fk·inv2·inv2) + Fkm·inv2 = (6·Fk·(inv2·inv2)) + Fkm·inv2
+  rw [mul_assoc Fk (inv2 p) (inv2 p)]
+  rw [mul_assoc (5 * Fk) (inv2 p) (inv2 p)]
+  -- Fk·(inv2·inv2) + 5·Fk·(inv2·inv2) + Fkm·inv2
+  rw [← add_mul Fk (5 * Fk) (inv2 p * inv2 p)]
+  -- (Fk + 5·Fk)·(inv2·inv2) + Fkm·inv2 = 6·Fk·(inv2·inv2) + Fkm·inv2
+  rw [show Fk + 5 * Fk = 6 * Fk from by
+      rw [show (5 : Nat) * Fk = 5 * Fk from rfl]
+      rw [show (6 : Nat) = 1 + 5 from rfl]
+      rw [add_mul 1 5 Fk, Nat.one_mul]]
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
