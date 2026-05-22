@@ -18,7 +18,7 @@ facts in this step are ∅-axiom.
 Three Lean references that agree by `decide`:
 
   * `NResolutionFromFractal.n_resolution_value`
-  * `NResolutionFractalDepth.numV_at_universe_level_value`
+  * `NResolutionFractalDepth.numV_at_d_squared_value`
   * `ResolutionLimit.N_U_value`
 -/
 

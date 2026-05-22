@@ -3,6 +3,7 @@ import E213.Lib.Math.UniverseChain.Decomposition
 import E213.Lib.Math.UniverseChain.PairAxes
 import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.UniverseChain.Universe
+import E213.Lib.Math.ResolutionLimit
 
 /-!
 # Synthesis — Atomicity to N_U, the full deductive chain (∅-axiom)
@@ -27,11 +28,9 @@ open E213.Lib.Math.UniverseChain.Decomposition
   (decomp_five_one_one one_one_alive unique_alive_decomp)
 open E213.Lib.Math.UniverseChain.PairAxes (axes_sum_eq_total)
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
-open E213.Lib.Math.UniverseChain.Recursion
-  (self_ref_level numV_at_self_ref)
-open E213.Lib.Math.UniverseChain.Universe (N_U N_U_concrete)
+open E213.Lib.Math.UniverseChain.Recursion (numV_at_d_squared)
+open E213.Lib.Math.ResolutionLimit (N_U N_U_value)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
-open E213.Lib.Physics.Foundations.NResolutionFractalDepth (universe_level)
 
 /-- ★★ Step 1 ⇒ Step 2: atomicity → unique (1, 1) shape. -/
 theorem step1_to_step2 :
@@ -44,25 +43,29 @@ theorem step1_to_step2 :
 theorem step2_to_step3 : NS = 3 ∧ NT = 2 ∧ NS + NT = d :=
   ⟨rfl, rfl, axes_sum_eq_total⟩
 
-/-- ★★ Step 3 ⇒ Step 4: total `d` recurses to `d^L` vertices. -/
+/-- ★★ Step 3 ⇒ Step 4: total `d` recurses to `d^L` vertices at
+    level `n = d * d`. -/
 theorem step3_to_step4 :
-    universe_level = d * d ∧ numV universe_level = d ^ (d * d) :=
-  ⟨rfl, rfl⟩
+    (d * d : Nat) = 25 ∧ numV (d * d) = d ^ (d * d) := by
+  refine ⟨rfl, ?_⟩
+  show 5 ^ (d * d) = d ^ (d * d)
+  rfl
 
-/-- ★★ Step 4 ⇒ Step 5: each vertex d-stated → `N_U = d^(d²)`. -/
+/-- ★★ Step 4 ⇒ Step 5: each vertex d-stated → `N_U = configCount 2`. -/
 theorem step4_to_step5 :
-    N_U = d ^ (d * d) ∧ N_U = 298023223876953125 :=
-  ⟨rfl, N_U_concrete⟩
+    N_U = d ^ (d * d) ∧ N_U = 298023223876953125 := by
+  refine ⟨?_, N_U_value⟩
+  decide
 
-/-- ★★★ **Full chain**: atomicity ⇒ N_U = 5²⁵. -/
+/-- ★★★ **Full chain**: atomicity ⇒ `N_U = 5²⁵`. -/
 theorem universe_chain :
     (∀ n, Atomic n ↔ n = 5)
     ∧ (NS = 3 ∧ NT = 2 ∧ NS + NT = d)
-    ∧ universe_level = d * d
+    ∧ (d * d : Nat) = 25
     ∧ N_U = d ^ (d * d)
     ∧ N_U = 298023223876953125 := by
-  refine ⟨atomic_iff_five, ?_, rfl, rfl, ?_⟩
+  refine ⟨atomic_iff_five, ?_, rfl, ?_, N_U_value⟩
   · exact ⟨rfl, rfl, axes_sum_eq_total⟩
-  · exact N_U_concrete
+  · decide
 
 end E213.Lib.Math.UniverseChain.Synthesis

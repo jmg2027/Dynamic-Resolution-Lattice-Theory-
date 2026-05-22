@@ -11,20 +11,19 @@ Step 3 fixes `d = 5`.  This step encodes the recursion rule:
 
 After `L` levels of recursion, the leaf vertex count is `5^L`.
 
-The **self-referential level** picks `L = d² = 25`: at this depth
-the vertex count `5^25` matches the Gram-matrix dimension of the
-two-axis (3, 2) decomposition (`d² = NS² + 2·NS·NT + NT²`).
+The **family at level `n = d * d = 25`**: at this depth the vertex
+count `5^25` matches the Gram-matrix dimension of the two-axis
+(3, 2) decomposition (`d² = NS² + 2·NS·NT + NT²`).
 
-The recursion operator and its level-2 closed form are already
-∅-axiom (`Cohomology.Fractal.Level`); the self-referential
-identification is ∅-axiom in `NResolutionFractalDepth`.
+Per G120 Round 3: this is a *family property*, not a separate
+"self-referential" framing.  The wrapper `def universe_level :=
+d * d` was deleted; the underlying observation lives as
+`NResolutionFractalDepth.numV_at_d_squared`.
 -/
 
 namespace E213.Lib.Math.UniverseChain.Recursion
 
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
-open E213.Lib.Physics.Foundations.NResolutionFractalDepth
-  (universe_level universe_level_value)
 
 /-- ★ Recursive vertex count: `numV L = 5^L`. -/
 theorem numV_def (L : Nat) : numV L = 5 ^ L := rfl
@@ -38,18 +37,15 @@ theorem numV_level2 : numV 2 = 25 := rfl
 /-- ★ Level 3: 125 vertices (= d³). -/
 theorem numV_level3 : numV 3 = 125 := rfl
 
-/-- ★ The self-referential level is `d² = 25`. -/
-theorem self_ref_level : universe_level = 25 := universe_level_value
+/-- ★ At level `n = d * d = 25`, vertex count = `5^25`. -/
+theorem numV_at_d_squared : numV (5 * 5) = 5 ^ 25 := rfl
 
-/-- ★ At self-referential level, vertex count = d² = 25. -/
-theorem numV_at_self_ref : numV universe_level = 5 ^ 25 := rfl
-
-/-- ★★ **Step 4 bundle**: recursion + self-referential closure. -/
+/-- ★★ **Step 4 bundle**: recursion + level-`d²` value. -/
 theorem recursion_bundle :
     numV 1 = 5
     ∧ numV 2 = 25
-    ∧ universe_level = 25
-    ∧ numV universe_level = 5 ^ 25 :=
-  ⟨rfl, rfl, universe_level_value, rfl⟩
+    ∧ (5 * 5 : Nat) = 25
+    ∧ numV (5 * 5) = 5 ^ 25 :=
+  ⟨rfl, rfl, rfl, rfl⟩
 
 end E213.Lib.Math.UniverseChain.Recursion
