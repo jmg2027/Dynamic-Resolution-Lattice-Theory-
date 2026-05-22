@@ -850,6 +850,38 @@ branch `claude/geometrization-conjecture-9Vf6i`:
        (8-geo NARRATIVE ⚠, JSJ NARRATIVE ⚠, Poincaré PARTIAL
        CLOSE ✅, Ricci flow OPEN).  Poincaré pillar is the
        strongest 213-Lens close at the Geometrization layer.
+ 19. **Step 14 — Sym(3)-capable spectrum analysis** (100 PURE
+     total, milestone).
+
+     §S enumerates Sym(3)-capable K_{NS,NT}^{(c)} deployments
+     across chartBase ∈ {4, 5, 6, 7}, refining step 6's bare
+     dim-spectrum.  Sym(3)-capable ⟺ NS = 3 ∨ NT = 3.
+
+     Per chartBase:
+       · cB = 4 (d_M=3): K_{3,1}, K_{1,3} for c∈{1,2,3} = 6
+         Sym(3)-capable
+       · cB = 5 (d_M=4): K_{3,2}, K_{2,3} = 6 (forced one!)
+       · cB = 6 (d_M=5): K_{3,3} for each c = 3
+       · cB = 7 (d_M=6): K_{3,4}, K_{4,3} = 6
+
+     ★★★★ `K32_c2_unique_triple_intersection`: among ALL
+     chartBase ∈ {4..7} Sym(3)-capable deployments with c=2,
+     ONLY K_{3,2}^{(c=2)} (and S/T swap K_{2,3}^{(c=2)}) pass
+     the full cohomology-depth filter.  All other Sym(3)-
+     capable deployments fail at least one filter.
+
+     Triple-criterion intersection theorems:
+       · `three_criterion_K31_fails_all_c`: K_{3,1}^{(c)} family
+         fails for every c ∈ {1, 2, 3}
+       · `three_criterion_K32_unique_c`: K_{3,2}^{(c)} passes
+         ONLY at c = 2; c = 1, 3 fail
+
+     This is the **213-Lens manifestation of "d_M = 4 critical"**
+     — uniquely at chartBase = 5, all three structural conditions
+     (Sym(3) action, c=2 binary cover, b_1 = 8 = 1/α_3) coincide.
+     Geometrization's d=3-uniqueness narrative parallel is sharpened:
+     standard "3-ness" of Lie-group classification ↔ 213-Lens
+     "3-ness" via NS = 3 OR NT = 3 Sym(3)-capability filter.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
