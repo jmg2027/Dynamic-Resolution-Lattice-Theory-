@@ -63,12 +63,12 @@ corollaries (1,1)/(2,1)/(1,2)/(2,2).  Source / closure notes:
 Theory promotion: `theory/math/cohomology/cup.md` self-reference
 section.  Research note: `research-notes/G125_lens_recipe_cup_catalog.md`.
 
-### A.next.open. Cup catalog further extensions (Tier-1, open)
+### A.next.open. Cup catalog further extensions (Tier-1)
 
-| Item | Notes |
+| Item | Status / Notes |
 |---|---|
-| Mirror catalog uniqueness | cupRev 6 channels' uniqueness (symmetric to original by swap; decide-verifiable) |
-| Structural ∀d codim correspondence | Currently decide-verified at d=5 and d=6.  Generalisation requires iterated-eraseIdx reasoning over `List.range d`. |
+| ~~Mirror catalog uniqueness~~ | **OBSOLETE** — symmetric to original under swap, no new content |
+| **Structural ∀d codim correspondence** | **CLOSED** (`Cup/IterErase.lean` 7 PURE).  `endpoint_pair_firing_characterisation` is the universal structural theorem; d=5 catalog + d=6 spot checks are now corollaries.  Proof: iterErase + cupList factorisation, no decide |
 | K_{3,2}^{(c=2)} 8-channel projection | Bridge cup-channels (6 on Δ⁴) ↔ K_{3,2} cohomology (8 channels = gluon DOF) via vertex assignment NS=3, NT=2 |
 | 1/α_em decomposition derivation | `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45` — can cup catalog derive 60, 25/3? |
 | Sub-direction E: cup-atomic subalgebra | Translation-invariant cochains (correction trivial) |

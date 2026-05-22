@@ -203,6 +203,38 @@ Total: `325` decide-verified indicator basis pair signatures.
 Any additional firing pair outside the boundary-endpoint
 configurations would contradict the catalog.
 
+### Universal ∀d codim correspondence — structural proof
+
+The codim correspondence holds for **arbitrary** d via the
+structural lemma chain in `Cup/IterErase.lean`:
+
+  · `iterErase_front_back` — iterating `eraseIdx k` on `front ++ back`
+    drops the tail: `iterEraseAt k i (front ++ back) = front ++ back.drop i`
+    when `front.length = k`.
+
+  · `cupList_iterErase_front_back` — the cup value at the iterated
+    face is `α front && β (back.drop i)` (locked front, shrinking tail).
+
+  · `selfRefIter_get_eq_cupList_iterErase` — position-wise bridge:
+    the `i`-th bit of `selfRefIter` equals `cupList` over `iterEraseAt`.
+
+  · `selfRefIter_get_at_front_back` — combines: position `i` of the
+    depth signature on `front ++ back` (with `front.length = k`) is
+    `α front && β (back.drop i)`.
+
+  · ★★★★★ `endpoint_pair_firing_characterisation` — for indicator
+    cochains `α(s) = decide(s = front)` and `β(s) = decide(s = back_target)`,
+    position `i` fires iff `back.drop i = back_target`.
+
+For the canonical setting `front = [0..k-1]`, `back = [k..d-1]`,
+`back_target = [d-l..d-1]`, this gives firing iff `i = d - k - l`
+— the codim.
+
+The d = 5 catalog (`basisDepth4Sig_unique_survivor` and per-bidegree
+uniqueness contracts) and d = 6 spot checks
+(`SelfRefDepthExtended.lean`) are now **corollaries** of this
+structural ∀d theorem.
+
 ## How to verify
 
 ```bash
