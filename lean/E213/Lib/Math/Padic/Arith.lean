@@ -301,6 +301,20 @@ theorem Zp.add_complement_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
 theorem Zp.smoke_neg_one_5_d0 :
     ((Zp.neg 5 (by decide) (ZpSeq.one 5 (by decide))).digits 0).val = 4 := rfl
 
+/-- `(neg_one + one).trunc (n+1) = 0` — additive cancellation at
+    the truncation level for `n ≥ 1`.  Derivation:
+        `((neg_one).trunc (n+1) + (one).trunc (n+1)) % p^(n+1)`
+        `= ((p^(n+1) - 1) + 1) % p^(n+1)`
+        `= p^(n+1) % p^(n+1) = 0`.
+    Uses `add_trunc` + `trunc_neg_one_succ` + `trunc_one_succ`. -/
+theorem Zp.add_neg_one_one_trunc_succ (p : Nat) (hp : 1 < p) (n : Nat) :
+    (Zp.add p (Nat.lt_of_succ_lt hp)
+      (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp)) (ZpSeq.one p hp)).trunc (n+1)
+        = 0 := by
+  rw [Zp.add_trunc, ZpSeq.trunc_one_succ p hp n,
+      ZpSeq.trunc_neg_one_succ p (Nat.lt_of_succ_lt hp) (n+1)]
+  exact E213.Meta.Nat.AddMod213.mod_self _
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:

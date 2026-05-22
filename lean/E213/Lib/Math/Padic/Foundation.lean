@@ -138,6 +138,22 @@ theorem ZpSeq.trunc_neg_one_succ (p : Nat) (hp : 0 < p) :
     rw [E213.Tactic.NatHelper.sub_add_cancel hp]
     rw [Nat.pow_succ, Nat.mul_comm]
 
+/-- `(one).trunc (n+1) = 1` — `one`'s only nonzero digit (at position 0)
+    contributes `1`; higher truncations don't add new bits. -/
+theorem ZpSeq.trunc_one_succ (p : Nat) (hp : 1 < p) :
+    ∀ n, (ZpSeq.one p hp).trunc (n + 1) = 1
+  | 0 => ZpSeq.trunc_one_at_one p hp
+  | n + 1 => by
+    show (ZpSeq.one p hp).trunc (n + 1)
+          + ((ZpSeq.one p hp).digits (n + 1)).val * p^(n + 1) = 1
+    rw [ZpSeq.trunc_one_succ p hp n]
+    show (1 : Nat)
+          + ((ZpSeq.one p hp).digits (n + 1)).val * p^(n + 1) = 1
+    show (1 : Nat)
+          + (if (n + 1 : Nat) = 0 then (1 : Nat) else 0) * p^(n + 1) = 1
+    rw [if_neg (fun h => Nat.noConfusion h),
+        Nat.zero_mul, Nat.add_zero]
+
 /-! ## Truncation bound
 
 Each truncation `x.trunc n` lies in `[0, p^n)` — justifying the
