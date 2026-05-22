@@ -1319,6 +1319,63 @@ and requires the multi-session FLT proof (Parts 14-17 in progress).
 
 ---
 
+# Part 19 — FLT: **Binomial theorem at b=1 CLOSED**
+
+`Lib/Math/DyadicFSM/FLT/BinomialTheorem.lean` extended (8 → 11 PURE):
+
+The binomial theorem at b=1 is now proven:
+
+  **`(a + 1)^n = Σ_{k=0}^{n} C(n, k) · a^k`**
+
+This is the central algebraic identity for the FLT freshman's dream
+chain.  Combined with prime divisibility (Part 15) + middle-term
+vanishing (Part 16's `sumTo_eq_zero_of_all_zero`), it gives
+`(a + 1)^p ≡ a^p + 1 (mod p)` for prime p directly.
+
+## Added in this Part
+
+  · `sumTo_congr` — PURE alternative to `funext` (which pulls
+    `Quot.sound`).  By induction on `n`: if `f k = g k` for all
+    `k < n`, then `sumTo n f = sumTo n g`.
+  · `mul_pow_step` (private) — `a · (C n k · a^k) = C n k · a^(k+1)`.
+  · `a_mul_binomSum` (private) — `a · binomSum a n = Σ C n k · a^(k+1)`.
+  · `binomSum_split` (private) — extract first term of `binomSum`.
+  · `rearrange_4` (private) — 4-term Nat add rearrangement.
+  · `lhs_to_common` (private) — `(a+1) · binomSum a n` → common form.
+  · `rhs_to_common` (private) — `binomSum a (n+1)` → common form.
+  · **`binomSum_step`** — `(a + 1) · binomSum a n = binomSum a (n + 1)`.
+  · **`binom_theorem_b_eq_one`** (★★★★ KEY): induction on `n` using
+    `binomSum_step`.
+
+## Purity hiccups
+
+  · `funext` pulls `Quot.sound`.  Replaced with custom `sumTo_congr`
+    helper (PURE induction on `n`).
+
+## Next FLT step
+
+The freshman's dream `(a + 1)^p ≡ a^p + 1 (mod p)` is now a direct
+corollary:
+  1. Apply `binom_theorem_b_eq_one`: `(a+1)^p = binomSum a p`.
+  2. Apply `sumTo_split_first` + `sumTo_succ`: separate `k=0` (= 1)
+     and `k=p` (= a^p) terms from middle.
+  3. Apply `sumTo_eq_zero_of_all_zero` + `choose_p_dvd_of_inverse`
+     (Part 15): middle terms vanish mod p.
+  4. Conclude `(a+1)^p mod p = (1 + a^p) mod p`.
+
+Step 3 needs an explicit modular inverse for each k+1 with
+1 ≤ k+1 ≤ p-1 — for any specific prime, decide gives these
+constructively.  Universal (over all primes) needs Bezout
+infrastructure, still multi-session.
+
+## Verification (post Part 19)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.BinomialTheorem`: 11 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`

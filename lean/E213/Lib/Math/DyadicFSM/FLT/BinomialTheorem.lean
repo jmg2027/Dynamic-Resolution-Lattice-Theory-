@@ -69,6 +69,18 @@ theorem sumTo_split_first :
     --     = f 0 + (sumTo n (fun k => f (k+1)) + f (n+1))
     rw [Nat.add_assoc]
 
+/-- Σ congruence: if `f k = g k` for all `k < n`, then `Σ f = Σ g`.
+    PURE alternative to `funext` (which pulls `Quot.sound`).  By
+    induction on `n`. -/
+theorem sumTo_congr :
+    ∀ (n : Nat) (f g : Nat → Nat),
+      (∀ k, k < n → f k = g k) → sumTo n f = sumTo n g
+  | 0, _, _, _ => rfl
+  | n + 1, f, g, h => by
+    show sumTo n f + f n = sumTo n g + g n
+    rw [sumTo_congr n f g (fun k hk => h k (Nat.lt_succ_of_lt hk))]
+    rw [h n (Nat.lt_succ_self n)]
+
 /-! ## binomSum: Σ-form of (a + 1)^n
 
 The binomial theorem `(a+1)^n = binomSum a n` is the multi-step
@@ -94,5 +106,158 @@ theorem binomSum_3_4 : binomSum 3 4 = 256 := by decide
 
 /-- Smoke: `binomSum 1 5 = 2^5 = 32`. -/
 theorem binomSum_1_5 : binomSum 1 5 = 32 := by decide
+
+/-! ## Binomial theorem inductive step
+
+Both LHS = `(a + 1) · binomSum a n` and RHS = `binomSum a (n + 1)`
+reduce to a common form:
+
+  `1 + sumTo n (fun k => C n k · a^(k+1))
+     + sumTo n (fun k => C n (k+1) · a^(k+1))
+     + a^(n+1)`
+
+via the Σ helpers + Pascal applied pointwise.
+-/
+
+open E213.Lib.Math.DyadicFSM.FLT.Binomial
+  (choose_zero_succ choose_succ_succ choose_self)
+open E213.Tactic.NatHelper (mul_assoc add_mul)
+
+/-- Helper: `a · (C n k · a^k) = C n k · a^(k+1)`. -/
+private theorem mul_pow_step (a n k : Nat) :
+    a * (choose n k * a^k) = choose n k * a^(k + 1) := by
+  rw [← mul_assoc, Nat.mul_comm a (choose n k), mul_assoc,
+      Nat.mul_comm a (a^k)]
+  rfl
+
+/-- Helper: `a · binomSum a n = sumTo (n+1) (fun k => C n k · a^(k+1))`. -/
+private theorem a_mul_binomSum (a n : Nat) :
+    a * binomSum a n = sumTo (n + 1) (fun k => choose n k * a^(k + 1)) := by
+  show a * sumTo (n + 1) (fun k => choose n k * a^k)
+     = sumTo (n + 1) (fun k => choose n k * a^(k + 1))
+  rw [sumTo_mul_left a (n + 1) (fun k => choose n k * a^k)]
+  exact sumTo_congr (n + 1)
+    (fun k => a * (choose n k * a^k))
+    (fun k => choose n k * a^(k + 1))
+    (fun k _ => mul_pow_step a n k)
+
+/-- Helper: split first term of binomSum.
+    `binomSum a n = 1 + sumTo n (fun k => C n (k+1) · a^(k+1))`. -/
+private theorem binomSum_split (a n : Nat) :
+    binomSum a n = 1 + sumTo n (fun k => choose n (k + 1) * a^(k + 1)) := by
+  show sumTo (n + 1) (fun k => choose n k * a^k)
+     = 1 + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+  rw [sumTo_split_first n (fun k => choose n k * a^k)]
+  show choose n 0 * a^0 + _ = 1 + _
+  rw [choose_zero_right, Nat.one_mul]
+  rfl
+
+/-- 4-term Nat-add rearrange: `(A + B) + (C + D) = C + A + D + B`. -/
+private theorem rearrange_4 (A B C D : Nat) :
+    (A + B) + (C + D) = C + A + D + B := by
+  -- (A + B) + (C + D) = A + B + C + D = A + (B + C) + D = A + (C + B) + D
+  --                  = A + C + B + D = C + A + B + D = C + A + (B + D)
+  --                  = C + A + (D + B) = C + A + D + B
+  rw [Nat.add_assoc A B (C + D)]
+  rw [← Nat.add_assoc B C D]
+  rw [Nat.add_comm B C]
+  rw [Nat.add_assoc C B D]
+  rw [Nat.add_comm B D]
+  rw [← Nat.add_assoc C D B]
+  rw [← Nat.add_assoc A (C + D) B]
+  rw [Nat.add_comm A (C + D)]
+  rw [Nat.add_assoc C D A]
+  rw [Nat.add_comm D A]
+  rw [← Nat.add_assoc C A D]
+
+/-- LHS reduction.  `(a + 1) · binomSum a n` reduces to common form. -/
+private theorem lhs_to_common (a n : Nat) :
+    (a + 1) * binomSum a n
+      = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+          + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+          + a^(n + 1) := by
+  rw [add_mul, Nat.one_mul]
+  -- Goal: a * binomSum a n + binomSum a n = ...
+  rw [a_mul_binomSum a n, binomSum_split a n]
+  -- Goal: sumTo (n+1) (..a^(k+1)) + (1 + sumTo n (..a^(k+1))) = ...
+  -- Extract last from first sum
+  show sumTo n (fun k => choose n k * a^(k + 1))
+         + choose n n * a^(n + 1)
+       + (1 + sumTo n (fun k => choose n (k + 1) * a^(k + 1)))
+     = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+         + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+         + a^(n + 1)
+  rw [choose_self, Nat.one_mul]
+  -- Goal: (sumTo n .. + a^(n+1)) + (1 + sumTo n ..) = 1 + sumTo n .. + sumTo n .. + a^(n+1)
+  -- Use rearrange_4 with A = sumTo n .. (first), B = a^(n+1), C = 1, D = sumTo n .. (second)
+  rw [rearrange_4 (sumTo n (fun k => choose n k * a^(k + 1)))
+        (a^(n + 1)) 1 (sumTo n (fun k => choose n (k + 1) * a^(k + 1)))]
+
+/-- RHS reduction.  `binomSum a (n + 1)` reduces to common form. -/
+private theorem rhs_to_common (a n : Nat) :
+    binomSum a (n + 1)
+      = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+          + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+          + a^(n + 1) := by
+  show sumTo (n + 2) (fun k => choose (n + 1) k * a^k)
+     = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+         + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+         + a^(n + 1)
+  -- Extract last
+  show sumTo (n + 1) (fun k => choose (n + 1) k * a^k)
+       + choose (n + 1) (n + 1) * a^(n + 1)
+     = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+         + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+         + a^(n + 1)
+  rw [choose_self, Nat.one_mul]
+  -- Split first on the remaining sum
+  rw [sumTo_split_first n (fun k => choose (n + 1) k * a^k)]
+  show choose (n + 1) 0 * a^0
+       + sumTo n (fun k => choose (n + 1) (k + 1) * a^(k + 1))
+       + a^(n + 1)
+     = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+         + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+         + a^(n + 1)
+  rw [choose_zero_right, Nat.one_mul]
+  show 1 + sumTo n (fun k => choose (n + 1) (k + 1) * a^(k + 1)) + a^(n + 1)
+     = 1 + sumTo n (fun k => choose n k * a^(k + 1))
+         + sumTo n (fun k => choose n (k + 1) * a^(k + 1))
+         + a^(n + 1)
+  -- Apply Pascal pointwise inside the sum, then split via sumTo_add_func.
+  -- Use `sumTo_congr` to avoid `funext` (Quot.sound).
+  rw [sumTo_congr n
+        (fun k => choose (n + 1) (k + 1) * a^(k + 1))
+        (fun k => choose n k * a^(k + 1) + choose n (k + 1) * a^(k + 1))
+        (fun k _ => by
+          show choose (n + 1) (k + 1) * a^(k + 1)
+             = choose n k * a^(k + 1) + choose n (k + 1) * a^(k + 1)
+          rw [choose_succ_succ n k, add_mul])]
+  -- Goal: 1 + sumTo n (fun k => C n k * a^(k+1) + C n (k+1) * a^(k+1)) + a^(n+1)
+  --     = 1 + sumTo n (fun k => C n k * a^(k+1))
+  --         + sumTo n (fun k => C n (k+1) * a^(k+1)) + a^(n+1)
+  -- Backward sumTo_add_func: sumTo (f + g) = sumTo f + sumTo g
+  rw [← sumTo_add_func n (fun k => choose n k * a^(k + 1))
+        (fun k => choose n (k + 1) * a^(k + 1))]
+  -- Final associativity: 1 + (A + B) + C = (1 + A) + B + C
+  rw [← Nat.add_assoc 1 _ _]
+
+/-- ★★★ **Binomial theorem inductive step**:
+    `(a + 1) · binomSum a n = binomSum a (n + 1)`.  PURE. -/
+theorem binomSum_step (a n : Nat) :
+    (a + 1) * binomSum a n = binomSum a (n + 1) :=
+  (lhs_to_common a n).trans (rhs_to_common a n).symm
+
+/-- ★★★★ **Binomial theorem at b = 1**:
+    `(a + 1)^n = binomSum a n = Σ_{k=0}^{n} C(n, k) · a^k`.
+
+    By induction on `n`, using `binomSum_step` for the inductive step.
+    PURE. -/
+theorem binom_theorem_b_eq_one (a : Nat) :
+    ∀ n, (a + 1)^n = binomSum a n
+  | 0 => (binomSum_zero a).symm
+  | n + 1 => by
+    -- Nat.pow def: a^(n+1) = a^n * a
+    show (a + 1)^n * (a + 1) = binomSum a (n + 1)
+    rw [binom_theorem_b_eq_one a n, Nat.mul_comm, binomSum_step]
 
 end E213.Lib.Math.DyadicFSM.FLT.BinomialTheorem
