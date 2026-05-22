@@ -253,23 +253,45 @@ LESSONS_LEARNED now lists Patterns #1-#20:
 
 Highest-value remaining items by impact / effort:
 
-  1. **G120 N_U re-derivation plan (Round 3 sharpened + audit-grounded)**
-     — execute 7-phase plan in `research-notes/G120_n_u_rederivation_plan.md`.
-     Round 3 reframes: the *name* `N_U` is the universe-constant
-     framing import; correct fix is demote to `abbrev` over parametric
-     family `configCount : Nat → Nat`.  Closes N_U muddle: 5+ parallel
-     defs of 5^25 → parametric family + abbrev, `ResolutionInvariant`
-     record deleted entirely (4-way claim was fictional), `numV`
-     collision resolved, vacuous tautology `n_resolution_emergence`
-     deleted.  Phase 7 added: doc cascade (spec rewrite, lessons
-     rewrite, ~10 chapter docstring touches).  Total mean
-     **~12-15 hr** (Phases 1-7); tail **~20 hr**.
-     Audit (§11 of G120) cataloged 68 Lean files + ~70 doc files;
-     5 critical Class M / Class U violations identified including
-     meta-failure (LESSONS_LEARNED.md 교훈 1+2 encodes the exact
-     failure mode CLAUDE.md:216 catalogs as warning).
-     Produced by 3-round 8-agent debate + 2-agent comprehensive
-     consumer audit 2026-05-22.
+  1. **G120 N_U re-derivation — ✅ COMPLETED 2026-05-22 evening**
+     (commits b2b4e25f → c8422b45, 7 commits).  All 7 phases
+     executed.  Lean side:
+       - Phase 1: `configCount : Nat → Nat` family established
+         (`Lib/Math/Cohomology/Fractal/ConfigCount.lean`).
+       - Phase 2+3: `def N_U` → `abbrev N_U := configCount 2`;
+         `ResolutionInvariant` record deleted (4-way fiction);
+         vacuous tautology `n_resolution_emergence` deleted.
+       - Phase 4: `def universe_level` deleted; (B) self-referential
+         framing recast as family theorem `numV_at_d_squared`.
+       - Phase 5: `numV` collision resolved (V25.numV → abbrev to
+         Level.numV 2).
+       - Phase 6: capstone docstring fixes (FinitistObservableChain,
+         ValidationStandardOne, FiniteUniverse).
+     Doc side (Phase 7 partial — critical-mass done, minor docs
+     deferred):
+       - `seed/RESOLUTION_LIMIT_SPEC.md` §2 — full rewrite
+       - `seed/INDEX.md` — Resolution-limit paragraph rewrite
+       - `LESSONS_LEARNED.md` 교훈 1+2 — META-FAILURE FIX (lessons
+         doc was encoding the failure mode it warns against)
+       - `catalogs/atomic-integers.md` — N_resolution entry rewrite
+       - `theory/math/{hyper, topology, cross_domain_unification}.md`
+         — active Tier-3 chapter rewordings
+     Success criteria (G120 §6) all met:
+       - `^def N_U` hits: 0 ✓
+       - `^abbrev N_U` hits: 1 ✓
+       - `ResolutionInvariant` (struct) hits: 0 ✓
+       - `def universe_level` hits: 0 ✓
+       - `lake build` clean ✓
+     Effort: ~3 hr actual vs 12-15 hr mean estimate (came in under
+     budget because (a) hooks caught issues early, (b) abbrev path
+     was definitionally compatible with most existing decide-checks).
+
+     Remaining doc cleanup (low priority, can defer):
+       - `seed/AXIOM/{99_history, 02_statement, INDEX}.md` — pending
+       - `theory/math/{signed_cut, number_grid, combinatorics}.md` — pending
+       - `theory/physics/{foundations, cosmology}.md` — pending
+       - `research-notes/{G12, G35}*.md` — active research, defer
+       - `research-notes/archive/` — annotate as pre-G120 history
   2. **L1 α-side completion** — 50% mass cut remaining (β-side done)
   3. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
   4. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
