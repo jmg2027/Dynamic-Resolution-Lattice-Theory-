@@ -252,6 +252,25 @@ theorem Zp.invSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
         else (Zp.invSeq p hp x h_gcd n).digits j) = _
   rw [if_neg hj]
 
+/-- Above level `n`, digits of `invSeq n` are zero. -/
+theorem Zp.invSeq_digit_above (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ∀ n k, n < k → ((Zp.invSeq p hp x h_gcd n).digits k).val = 0
+  | 0, k, hk => by
+    show (if k = 0 then Zp.invDigit0 p hp x h_gcd
+          else (⟨0, hp⟩ : Fin p)).val = 0
+    rw [if_neg (Nat.ne_of_gt hk)]
+  | n + 1, k, hk => by
+    have hkne : k ≠ n + 1 := by
+      intro heq
+      rw [heq] at hk
+      exact Nat.lt_irrefl _ hk
+    rw [show (Zp.invSeq p hp x h_gcd (n + 1)).digits k
+              = (Zp.invSeq p hp x h_gcd n).digits k from
+          Zp.invSeq_succ_digit_below p hp x h_gcd n k hkne]
+    exact Zp.invSeq_digit_above p hp x h_gcd n k (Nat.lt_of_succ_lt hk)
+
 /-- Truncation at levels `k ≤ n + 1` is preserved when extending
     `invSeq n` to `invSeq (n + 1)` — the new digit only affects
     position `n + 1`, which is outside the trunc bound `k`. -/
@@ -276,5 +295,35 @@ theorem Zp.invSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
         = (Zp.invSeq p hp x h_gcd n).trunc k
           + ((Zp.invSeq p hp x h_gcd n).digits k).val * p^k
     rw [ih, Zp.invSeq_succ_digit_below p hp x h_gcd n k hk_ne]
+
+/-- `(invSeq n).trunc (n + 2) = (invSeq n).trunc (n + 1)` — extending
+    the trunc beyond level `n` doesn't add anything (digit `n+1` is 0). -/
+theorem Zp.invSeq_trunc_at_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.invSeq p hp x h_gcd n).trunc (n + 2)
+      = (Zp.invSeq p hp x h_gcd n).trunc (n + 1) := by
+  show (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
+        + ((Zp.invSeq p hp x h_gcd n).digits (n + 1)).val * p^(n + 1)
+      = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
+  rw [Zp.invSeq_digit_above p hp x h_gcd n (n + 1) (Nat.lt_succ_self n)]
+  rw [Nat.zero_mul, Nat.add_zero]
+
+/-- `(invSeq (n+1)).trunc (n + 2) = (invSeq n).trunc (n + 1) +
+    new_digit · p^(n+1)` — the extension formula. -/
+theorem Zp.invSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.invSeq p hp x h_gcd (n + 1)).trunc (n + 2)
+      = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
+          + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
+              * p^(n + 1) := by
+  show (Zp.invSeq p hp x h_gcd (n + 1)).trunc (n + 1)
+        + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
+            * p^(n + 1)
+      = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
+          + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
+              * p^(n + 1)
+  rw [Zp.invSeq_succ_trunc_low p hp x h_gcd n (n + 1) (Nat.le_refl _)]
 
 end E213.Lib.Math.Padic
