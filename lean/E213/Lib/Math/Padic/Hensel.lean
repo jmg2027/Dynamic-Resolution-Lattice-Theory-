@@ -309,6 +309,44 @@ theorem Zp.invSeq_trunc_at_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
   rw [Zp.invSeq_digit_above p hp x h_gcd n (n + 1) (Nat.lt_succ_self n)]
   rw [Nat.zero_mul, Nat.add_zero]
 
+/-- Digit 0 of `invSeq n` is always `invDigit0` (invariant under
+    Hensel lifting, since each step only adds digits at position n+1). -/
+theorem Zp.invSeq_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ∀ n, ((Zp.invSeq p hp x h_gcd n).digits 0).val
+          = (Zp.invDigit0 p hp x h_gcd).val
+  | 0 => Zp.invTemplate_digit_zero p hp x h_gcd
+  | n + 1 => by
+    have hne : (0 : Nat) ≠ n + 1 := fun h => Nat.noConfusion h
+    rw [show (Zp.invSeq p hp x h_gcd (n + 1)).digits 0
+              = (Zp.invSeq p hp x h_gcd n).digits 0 from
+          Zp.invSeq_succ_digit_below p hp x h_gcd n 0 hne]
+    exact Zp.invSeq_digit_zero p hp x h_gcd n
+
+/-- `(invSeq n).trunc 1 = invDigit0` for any level `n`. -/
+theorem Zp.invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.invSeq p hp x h_gcd n).trunc 1
+      = (Zp.invDigit0 p hp x h_gcd).val := by
+  show (0 : Nat) + ((Zp.invSeq p hp x h_gcd n).digits 0).val * p^0
+      = (Zp.invDigit0 p hp x h_gcd).val
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  exact Zp.invSeq_digit_zero p hp x h_gcd n
+
+/-- Level-1 Hensel correctness for any approximation: `x · invSeq x n ≡ 1 (mod p)`. -/
+theorem Zp.mul_invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.mul p hp x (Zp.invSeq p hp x h_gcd n)).trunc 1 = 1 % p := by
+  rw [Zp.mul_trunc p hp x (Zp.invSeq p hp x h_gcd n) 1,
+      Zp.invSeq_trunc_one p hp x h_gcd n]
+  show ((0 + (x.digits 0).val * p^0) * (Zp.invDigit0 p hp x h_gcd).val) % p^1
+      = 1 % p
+  rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add, Nat.pow_one]
+  exact Zp.invDigit0_eq p hp x h_gcd
+
 /-- `(invSeq (n+1)).trunc (n + 2) = (invSeq n).trunc (n + 1) +
     new_digit · p^(n+1)` — the extension formula. -/
 theorem Zp.invSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
