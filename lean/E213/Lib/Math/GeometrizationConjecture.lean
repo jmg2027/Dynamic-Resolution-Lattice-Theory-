@@ -7,13 +7,23 @@ import E213.Lib.Math.GeometrizationConjecture.Ricci
 import E213.Lib.Math.GeometrizationConjecture.EightGeometries
 import E213.Lib.Math.GeometrizationConjecture.StructuralMapping
 import E213.Lib.Math.GeometrizationConjecture.Capstone
+import E213.Lib.Math.GeometrizationConjecture.Generalization
+import E213.Lib.Math.GeometrizationConjecture.JsjDeep
+import E213.Lib.Math.GeometrizationConjecture.MetricGeometries
 
 /-! Spec-as-code entry point for `E213.Lib.Math.GeometrizationConjecture`.
 
-  G121 R1 — 213-Lens reading of the Thurston/Perelman Geometrization
-  conjecture and the dimension-4 exotic-smoothness anomaly.
+  G121 R1 (CLOSED) — 213-Lens reading of Thurston/Perelman
+  Geometrization conjecture + dimension-4 exotic anomaly.
+
+  G121 R1+ (PARTIAL) — Future-work partials advancing G123/G124/G125:
+    · `Generalization.lean` — K_{NS,NT}^{(c)} parametric extended range (G124)
+    · `JsjDeep.lean` — JSJ 3-cell complex extension scaffold (G123)
+    · `MetricGeometries.lean` — E³/H³/H²×ℝ via mod-k Möbius P Lens family (G125)
 
   Sub-tree organization (see `GeometrizationConjecture/INDEX.md`):
+
+  ## Core (G121 R1, CLOSED at 149 PURE / 0 DIRTY)
 
     · `Ansatz.lean`           — Steps 1-3 (core defs + M2 dual layers)
     · `M1Routes.lean`         — Steps 4, 5, 8 (atomicity + Möbius)
@@ -25,18 +35,12 @@ import E213.Lib.Math.GeometrizationConjecture.Capstone
     · `StructuralMapping.lean`— Steps 21, 23, 24 (HC_K32 + universal-8 + ultimate)
     · `Capstone.lean`         — Step 25 (d=4 info richness + master + close certificate)
 
-  All sub-files share the `namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz`
-  for backwards-compatible theorem-name preservation across the
-  pre-split (single-file) → post-split (9-file sub-tree) refactor.
+  ## R1+ Extensions (G123/G124/G125 partials)
 
-  ## Cross-references
+    · `Generalization.lean`    — K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended (G124)
+    · `JsjDeep.lean`           — JSJ 3-cell complex Euler-target scaffold (G123)
+    · `MetricGeometries.lean`  — Mod-k Möbius P Lens family for E³/H³/H²×ℝ (G125)
 
-    · `research-notes/G121_dim4_self_pointing_axis.md` — full narrative
-      + open knots M1-M4 + validation routes R1-R4 + close certificate
-    · `lean/E213/Lib/Math/BipartiteDecomp/G44Capstone.lean` —
-      substrate_sum (chartBase 3 2 = 5 numerical agreement)
-    · `lean/E213/Lib/Physics/Symmetry/C3ChainCapstone.lean` —
-      Sym(3) gauge structure on K_{3,2}^{(c=2)}
-
-  **G121 R1 — CLOSED at 149 PURE / 0 DIRTY across 25 steps.**
+  All sub-files share `namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz`
+  for backwards-compatible theorem-name preservation.
 -/

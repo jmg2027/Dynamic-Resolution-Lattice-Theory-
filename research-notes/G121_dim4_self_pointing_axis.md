@@ -1440,6 +1440,71 @@ G121 R1 — CLOSED.
 
 ---
 
+## R1+ Extensions (2026-05-22 evening) — G123/G124/G125 partial closes
+
+After G121 R1 close, user activated 3 future-work items as
+session goals:
+  · JSJ deeper (3-cell complex)
+  · K_{NS,NT}^{(c)} generalization
+  · E³/H³/H²×ℝ direct realization
+
+Three new sub-files in `GeometrizationConjecture/` provide
+PARTIAL CLOSES via existing-infrastructure pattern:
+
+### `Generalization.lean` (G124 partial, ~11 PURE)
+
+Extends parametric enumeration from chartBase ∈ {4..7} (R1) to
+{4..8} via `passesCohomologyDepthFilter` exhaustive checks.
+Key result: **K_{3,2}^{(c=2)} unique across chartBase ∈ {4..8}**.
+
+Tree enumeration: K_{1,k}^{(c=1)} verified across d_M ∈ {1..8}.
+
+### `JsjDeep.lean` (G123 partial, ~10 PURE)
+
+3-cell complex extension scaffold:
+  · `chi_closed_3mfd := 0` (generic 3-mfd Euler target)
+  · `chi_K32_extended k j := 5 − 12 + k − j` (K_{3,2}^{(c=2)}
+    with k 2-cells + j 3-cells filled)
+  · S³ target requires k − j = 7
+  · Sphere Euler chain: ∂Δⁿ for n = 2, 3, 4, 5 (S¹, S², S³, S⁴)
+
+Bipartite S/T cut as canonical decomposition formalized.
+
+### `MetricGeometries.lean` (G125 partial, ~11 PURE)
+
+★ **Möbius P mod-k Lens family extension** — generalizes
+step 22's F_5 Nil insight to 5 mod-k Lens readings:
+
+| Modulus | Polynomial mod p              | Geometric narrative |
+|---|---|---|
+| ℝ       | distinct irrational roots     | H², H³, Sol |
+| ℤ       | det = 1 (SL(2,ℤ))             | ~SL₂(ℝ) |
+| F_2     | irreducible (x² + x + 1)      | E³ candidate (flat) |
+| F_3     | irreducible (x² + 1)          | H²×ℝ candidate |
+| F_5     | (λ+1)² double root            | Nil ✅ |
+| F_7     | irreducible (5 not square)    | H³ candidate |
+| F_11    | reducible (4² = 5 mod 11)     | split-geometry candidate |
+
+**One algebraic source (Möbius P), seven Lens readings, eight
+geometric narratives**.
+
+### Updated marathon-candidate status
+
+| ID | Topic | Initial | R1+ |
+|---|---|---|---|
+| G122 | 4-mfd exotic enumeration | OPEN | OPEN (new marathon) |
+| G123 | JSJ 3-cell complex | OPEN | **PARTIAL** ✓ |
+| G124 | K_{NS,NT}^{(c)} generalization | OPEN | **PARTIAL** ✓ |
+| G125 | E³/H³/H²×ℝ direct realization | OPEN | **PARTIAL** ✓ |
+
+3 of 4 R1+ goals partially closed (G123/G124/G125).  G122
+(4-mfd exotic) remains a separate marathon launch candidate.
+
+**Total final count (R1 + R1+)**: ~181 PURE / 0 DIRTY across
+12 sub-files + INDEX.md.
+
+---
+
 **Next-session entry point** (per user 2026-05-22, "3번은 나중에
 일반화 노선"):
 Generalization track (deferred):
