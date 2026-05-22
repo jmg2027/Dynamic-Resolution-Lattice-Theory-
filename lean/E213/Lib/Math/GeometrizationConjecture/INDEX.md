@@ -29,9 +29,20 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | G124 | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended: tree enumeration + cohomology-depth uniqueness extended range |
-| `JsjDeep.lean` | G123 | ~6 | JSJ 3-cell complex Euler-target scaffold: χ-targets for closed 3-mfds + sphere Euler via ∂Δⁿ |
-| `MetricGeometries.lean` | G125 | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2 / F_3 / F_5 / F_7 / F_11) |
+| `Generalization.lean` | G124 (G123 FW-3) | ~14 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended + ★★★★★ universal Prop-level closure (`sym3_c2_force_K32`, `sym3_c2_iff_K32_or_K23`, `filter_passes_only_chartBase_5`) — supersedes per-chartBase enumeration |
+| `JsjDeep.lean` | G123 FW-2 | ~22 | JSJ 3-cell complex Euler-target scaffold + 3-mfd target catalog (S³/T³/L(p,q)/# sums) + bipartite S/T cut canonical decomposition + `JSJ_deeper_consolidation` + bridge to `Filled3Cell.Cell3ComplexK32` parametric structure |
+| `MetricGeometries.lean` | G123 FW-4 | ~17 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2/F_3/F_5/F_7/F_11/F_13) + ★★★★ `F5_unique_nil_collapse_small_primes` + ★★★★★ `mod_k_lens_family_F5_unique_close` + bridge to `Geometry.MetricTypes` signature classifier |
+| `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
+| `Exotic4Mfd.lean` | G123 FW-1 substantive + sub-orbit | ~33 | `sym3GaugeInvariant` + ★★★★★★ `exotic_4mfd_scaffold` + per-element fix counts (`fixedSizeS01/S12/S02/Rho = 32, 32, 32, 4`) + Burnside `sym3OrbitCount = 60` + ★★★★★★ `fw1_suborbit_decomposition` `(4, 0, 28, 28)` |
+| `KChartLensAbstract.lean` | G123 M2 abstract + close certificate | ~11 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + ★★★★★★★★★★★ `geometrization_followup_close_certificate` (33-conjunct mega-capstone bundling all 10 follow-up items) |
+| `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
+
+## Supporting infrastructure (outside sub-tree, referenced from above)
+
+| File | Purpose | PURE |
+|---|---|---|
+| `Cohomology/Bipartite/Filled3Cell.lean` | `Cell3ComplexK32` parametric 3-cell extension structure (k 2-cells + j 3-cells, χ computation, closed 3-mfd realization predicate) | 21 |
+| `Geometry/MetricTypes.lean` | 213-native `MetricSignature` + `LensChoice` + `classify` for 8 Thurston geometries; F_5 → Nil uniqueness at signature level | 16 |
 
 ## Pillar status (5-pillar Geometrization)
 
@@ -84,6 +95,9 @@ Ansatz
                                                       └── Generalization
                                                             └── JsjDeep
                                                                   └── MetricGeometries
+                                                                        └── CrossFrame
+                                                                              └── Exotic4Mfd
+                                                                                    └── KChartLensAbstract
 ```
 
 Linear chain (each file imports previous one).
@@ -93,7 +107,7 @@ All under namespace `E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz`.
 
 | Knot | Status |
 |---|---|
-| M1 (why $d_{213}=5$) | TWO-ROUTE CLOSE (atomicity + Möbius) |
-| M2 (chart count = $d-1$) | PARTIAL CLOSE (V32Betti + axiom shadow) |
+| M1 (why $d_{213}=5$) | TWO-ROUTE CLOSE (atomicity + Möbius); universal closure via `sym3_c2_force_K32` (chartBase-free) |
+| M2 (chart count = $d-1$) | ABSTRACT CLOSE via `KChartLens NS NT c` + V32Betti compatibility for K_{3,2}^{(c=2)} |
 | M3 (NT axis split) | downstream (physics interpretation) |
 | M4 (KK firewall) | doc-level stereotype warnings |

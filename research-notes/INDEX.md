@@ -94,17 +94,31 @@ chapter.
 | `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
 | `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
-### Meta-scan action items + sub-tree deep dives (G107 + G108-G116 → archived 2026-05-22)
+### Active registries + recent G-notes (post-merge unified)
 
-G90-G106 promoted to `theory/meta/scanner_suite.md` +
-`theory/meta/raw_derivation_levels.md` (2026-05-22).  G107
-(action items registry) + G108-G116 (per-sub-tree deep dives)
-archived to `archive/metascan/` once every item in the
-registry reached a final disposition — six executed in Lean
-(L3/L4/L5/F/E/REAL-1), four already substantively done at audit
-(L1/C/G110/G111), five structurally infeasible per G118, one
-folded into G86.  Closure summary at the §"Open frontier"
-section of `theory/meta/scanner_suite.md`.
+The n-u-followup branch's G107 + G108-G116 metascan cluster was
+archived after every item reached final disposition (six executed
+in Lean — L3/L4/L5/F/E/REAL-1 — four substantively done at audit
+— L1/C/G110/G111 — five structurally infeasible per G118, one
+folded into G86, one narrative-complete G117).  Closure summary
+in `theory/meta/scanner_suite.md` §"Open frontier".
+
+Active top-level registries after merge:
+
+| File | Scope | Status |
+|---|---|---|
+| `G124_n_u_family_cross_field_connections.md` | (FROM N-U BRANCH) cross-field survey at `(d, n) = (5, 2)` — 10 directions catalogued; **OPEN frontier of the merged branch, EXCLUDED THIS SESSION** | merged-branch open survey |
+| `G126_akbulut_cork_213_native.md` | Akbulut cork theorem as 213-native exotic-structure framework — supersedes FW-1.  6-phase partial close (44 PURE), signed cork-twist count = +4 | partial close — needs b_2/b_3 extension for full promotion |
+| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog: G128/G129/G130/G126/G122 (all post-rename) | tracking / audit document |
+| `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
+| `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
+| `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
+| `G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — open frontier from G131 Phase 4: derive the 27 × 10⁻⁹ post-Gram residual structurally.  Most 213-native candidate: Filled3Cell b_2 / b_3 contribution to cup-ring trace.  Depends on G123 FW-2 (Filled3Cell deepening) — shared prereq with G126 Phase 7+ cork-extension | open research direction |
+
+Renaming note: my G123/G124/G125 collided with the n-u branch's
+G123 (N_U family, promoted), G124 (cross-field survey, OPEN
+frontier), G125 (Aurifeuillean, promoted).  My-side files renamed
+to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Subdirectories
 
@@ -118,7 +132,7 @@ section of `theory/meta/scanner_suite.md`.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G123**).  Once formalized:
+Use next available G prefix (currently **G133**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -142,7 +156,9 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `b258a3f8` | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
 | `b258a3f8` | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
-11 chapters total covering all promotable closed work
+| (this session) | G131 1/α_em precision theorem (0.2 ppb) → `theory/physics/alpha_em/precision_derivation.md` (chapter expanded with C1 Step 5 closure: GramStructural/Bracket/Newton/Capstone files); G131 note archived | 3 (mixed-status: chapter expansion) |
+
+11+ chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
 
 ### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)

@@ -116,44 +116,105 @@ theorem ZpSeq.trunc_one_at_one (p : Nat) (hp : 1 < p) :
   show 0 + 1 * p^0 = 1
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
 
-/-! ## Phase 1 TODO list
+/-! ## Phase 1 substantive results
 
-Next session: implement these helpers and prove they're PURE.
+Implemented 2026-05-22, building on the smoke tests above.
+-/
 
-  · `ZpSeq.trunc_lt_p_pow` : `x.trunc n < p^n` (for `0 < p`)
-    — Justifies the "ℤ/p^n" interpretation.
+/-- ★★★★ **Truncation lives in ℤ/p^n**: `x.trunc n < p^n` for all
+    `n` and any p-adic sequence `x`.  Justifies the "ℤ/p^n"
+    interpretation of truncation.
 
-  · `ZpSeq.eq_mod_pn_iff_trunc` :
-      `eq_mod_pn x y n ↔ x.trunc n = y.trunc n`
+  Proof by induction on `n`:
+    · Base (n = 0): `x.trunc 0 = 0 < 1 = p^0`.
+    · Step (n → n+1): use IH + `digits n < p` to bound
+      `x.trunc n + (x.digits n).val * p^n < p * p^n = p^(n+1)`. -/
+theorem ZpSeq.trunc_lt_p_pow {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, x.trunc n < p^n
+  | 0 => Nat.one_pos
+  | n + 1 => by
+    have ih : x.trunc n < p^n := trunc_lt_p_pow hp x n
+    have hd : (x.digits n).val < p := (x.digits n).isLt
+    have hd_succ : (x.digits n).val + 1 ≤ p := Nat.succ_le_of_lt hd
+    show x.trunc n + (x.digits n).val * p^n < p^(n+1)
+    have h_pow : p^(n+1) = p * p^n := by
+      rw [Nat.pow_succ, Nat.mul_comm]
+    rw [h_pow]
+    -- Now goal: x.trunc n + (x.digits n).val * p^n < p * p^n
+    have h1 : x.trunc n + (x.digits n).val * p^n
+            < p^n + (x.digits n).val * p^n :=
+      Nat.add_lt_add_right ih _
+    have h2 : p^n + (x.digits n).val * p^n
+            = ((x.digits n).val + 1) * p^n := by
+      rw [Nat.add_comm, Nat.add_one_mul]
+    have h1' : x.trunc n + (x.digits n).val * p^n
+             < ((x.digits n).val + 1) * p^n := h2 ▸ h1
+    have h3 : ((x.digits n).val + 1) * p^n ≤ p * p^n :=
+      Nat.mul_le_mul_right (p^n) hd_succ
+    exact Nat.lt_of_lt_of_le h1' h3
 
-  · `ZpSeq.digits_of_nat` : embedding Nat → ZpSeq p
-    (via base-p expansion of the Nat).
+/-- ★★★ **Forward direction**: per-digit agreement implies
+    truncation agreement.
 
-  · Per-prime smoke tests at p = 2, 3, 5, 7.
+  `x.eq_mod_pn y n → x.trunc n = y.trunc n`.
 
-## Phase 2 preview (next file: Arith.lean)
+  Proof by induction on `n`.  Base: `trunc 0 = 0` for both.
+  Step: `trunc (n+1) = trunc n + digits n · p^n`; IH gives
+  `trunc n` equality, `eq_mod_pn` provides `digits n` equality. -/
+theorem ZpSeq.trunc_eq_of_eq_mod_pn {p : Nat} (x y : ZpSeq p) :
+    ∀ n, x.eq_mod_pn y n → x.trunc n = y.trunc n
+  | 0, _ => rfl
+  | n + 1, h => by
+    show x.trunc n + (x.digits n).val * p^n
+       = y.trunc n + (y.digits n).val * p^n
+    have hn : x.eq_mod_pn y n := fun k hk => h k (Nat.lt_succ_of_lt hk)
+    have htn : x.trunc n = y.trunc n :=
+      trunc_eq_of_eq_mod_pn x y n hn
+    have hdn : x.digits n = y.digits n := h n (Nat.lt_succ_self n)
+    rw [htn, hdn]
 
-  · `Zp.add p x y : ZpSeq p` with carry propagation FSM
+/-! ## Per-prime smoke tests -/
+
+/-- Smoke: at p = 2, `zero.trunc 5 = 0`. -/
+theorem ZpSeq.smoke_zero_p2 : (ZpSeq.zero 2 Nat.zero_lt_two).trunc 5 = 0 :=
+  ZpSeq.trunc_zero 2 Nat.zero_lt_two 5
+
+/-- Smoke: at p = 3, `zero.trunc 4 = 0`. -/
+theorem ZpSeq.smoke_zero_p3 : (ZpSeq.zero 3 (by decide)).trunc 4 = 0 :=
+  ZpSeq.trunc_zero 3 (by decide) 4
+
+/-- Smoke: at p = 5, `one.trunc 1 = 1`. -/
+theorem ZpSeq.smoke_one_p5 : (ZpSeq.one 5 (by decide)).trunc 1 = 1 :=
+  ZpSeq.trunc_one_at_one 5 (by decide)
+
+/-- Smoke: at p = 7, `one.trunc 1 = 1`. -/
+theorem ZpSeq.smoke_one_p7 : (ZpSeq.one 7 (by decide)).trunc 1 = 1 :=
+  ZpSeq.trunc_one_at_one 7 (by decide)
+
+/-- Smoke: `trunc_lt_p_pow` at p = 5, n = 3.  For any p-adic
+    sequence, `x.trunc 3 < 125`. -/
+theorem ZpSeq.smoke_trunc_lt_p3_p5 (x : ZpSeq 5) :
+    x.trunc 3 < 125 :=
+  ZpSeq.trunc_lt_p_pow (by decide) x 3
+
+/-! ## Phase 2 preview (next file: Arith.lean)
+
+Next-phase content:
+  · `Zp.add p x y : ZpSeq p` with carry-propagation FSM
   · `Zp.add_trunc` : truncation respects addition mod p^n
-  · `Zp.mul p x y : ZpSeq p` with digit-by-digit multiplication
-  · `Zp.neg p x : ZpSeq p` (= ZpSeq.neg_one + complement)
+  · `Zp.mul p x y : ZpSeq p` digit-by-digit multiplication
+  · `Zp.neg p x : ZpSeq p`
 
-## Reuse from G119
-
-Carry propagation will rely on:
-  · `E213.Meta.Nat.AddMod213.add_mod_gen` for (a + b) % p
-  · Carry FSM structure (similar to existing dyadic FSMs)
+The carry propagation will reuse:
+  · `E213.Meta.Nat.AddMod213.add_mod_gen` for `(a + b) % p`
 
 Multiplication will leverage:
-  · `E213.Meta.Nat.MulMod213.mul_mod_pure` for (a * b) % p
-  · Distributive expansion
+  · `E213.Meta.Nat.MulMod213.mul_mod_pure` for `(a * b) % p`
 
-Inverse (Phase 4, Hensel) will reuse:
+Inverse (Hensel phase) will reuse:
   · `E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout`
-    (G119 Bezout marathon, Part 30)
 
-These are all ∅-axiom PURE, so the resulting p-adic library is
-guaranteed PURE by transitivity.
+All upstream ingredients are ∅-axiom PURE.
 -/
 
 end E213.Lib.Math.Padic

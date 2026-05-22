@@ -1,4 +1,4 @@
-# G129 — Hunter ⇔ Aurifeuillean cut-off proof marathon
+# G133 — Hunter ⇔ Aurifeuillean cut-off proof marathon
 
 *(Continuation of the G125 / PR #98 bounded cut-off result.  Attempts
 the full conjecture "∀ Aurifeuillean m ≥ 3, ∀ Hunter depth k,
@@ -208,7 +208,7 @@ theorem cardinality_cutoff (k : Nat) : ∃ m_0, ∀ m ≥ m_0, AurifeuilleanL m 
 ## §8 Cross-references
 
   · `theory/math/cohomology/aurifeuillean.md` — chapter to be updated
-    with refined cut-off section and link to G129 results.
+    with refined cut-off section and link to G133 results.
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanCutoff.lean`
     (PR #98) — bounded cut-off precursor.
   · `research-notes/archive/G125_aurifeuillean_n_u.md` — G125 closure.
@@ -343,7 +343,7 @@ The depth-≥-2 extension is documented as continuation.
     — 9 PURE (PR #98 bounded cut-off, predecessor)
   · `theory/math/cohomology/aurifeuillean.md` — chapter to be
     updated with marathon results
-  · `research-notes/G129_full_cutoff_marathon.md` — this note
+  · `research-notes/G133_cutoff_marathon.md` — this note
 
 ## §12 Cross-references
 

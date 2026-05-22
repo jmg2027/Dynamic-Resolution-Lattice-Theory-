@@ -153,4 +153,108 @@ theorem K32_c2_uniqueness_extended_range :
     ∧ passesCohomologyDepthFilter 4 4 2 = false := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ## Universal cohomology-depth filter characterization
+
+The per-chartBase enumeration tables above (chartBase ∈ {4..8})
+generalize to a closed-form characterization across **all** Nat
+inputs.  The Sym(3) + c=2-binary-cover filters combined force
+`{n, m} = {2, 3} ∧ c = 2`, after which b₁ = 8 is automatic.
+-/
+
+/-- The Sym(3) + c=2-binary-cover filters alone — without the b₁ = 8
+    conjunct — already force `{n, m} = {2, 3} ∧ c = 2`. -/
+theorem sym3_c2_force_K32 (n m c : Nat) :
+    hasNaturalSym3 n m = true →
+    hasC2BinaryCoverMatch n m c = true →
+    ((n = 3 ∧ m = 2 ∧ c = 2) ∨ (n = 2 ∧ m = 3 ∧ c = 2)) := by
+  intro hsymBool hc2Bool
+  unfold hasNaturalSym3 at hsymBool
+  unfold hasC2BinaryCoverMatch at hc2Bool
+  have hsym := of_decide_eq_true hsymBool
+  have hc2 := of_decide_eq_true hc2Bool
+  obtain ⟨hc, hnm⟩ := hc2
+  cases hnm with
+  | inl hn2 =>
+      cases hsym with
+      | inl hn3 => exact absurd (hn3.symm.trans hn2) (by decide)
+      | inr hm3 => exact Or.inr ⟨hn2, hm3, hc⟩
+  | inr hm2 =>
+      cases hsym with
+      | inl hn3 => exact Or.inl ⟨hn3, hm2, hc⟩
+      | inr hm3 => exact absurd (hm3.symm.trans hm2) (by decide)
+
+/-- ★★★★★ **Filter universal characterization (Prop-level)**
+
+  `sym3_c2_force_K32` says: any (n, m, c) satisfying both
+  representation-structure filters (Sym(3) + c=2-binary-cover) MUST
+  be `(3, 2, 2)` or `(2, 3, 2)` — no chartBase bound, no b₁=8
+  conjunct needed.
+
+  This is the **universal closure** of the per-chartBase tables
+  above: instead of checking each (n+m) ∈ {4..8} case by case, the
+  iff below directly characterizes filter-passers via two pure
+  Prop-level conditions.  The b₁=8 conjunct of the full Boolean
+  filter is automatic from `K32_c2_b1` (b₁(3,2,2) = 8) and its
+  S/T-swap; that piece is already covered by `b1_eight_chartBase_5`. -/
+theorem sym3_c2_iff_K32_or_K23 (n m c : Nat) :
+    (hasNaturalSym3 n m = true ∧ hasC2BinaryCoverMatch n m c = true) ↔
+    ((n = 3 ∧ m = 2 ∧ c = 2) ∨ (n = 2 ∧ m = 3 ∧ c = 2)) := by
+  constructor
+  · rintro ⟨h1, h2⟩
+    exact sym3_c2_force_K32 n m c h1 h2
+  · rintro (⟨rfl, rfl, rfl⟩ | ⟨rfl, rfl, rfl⟩) <;> exact ⟨by decide, by decide⟩
+
+/-- Propext-free helper: extract both sides of a Boolean conjunction
+    that equals `true`.  PURE via explicit Bool case match. -/
+private theorem and_eq_true_extract :
+    ∀ {a b : Bool}, (a && b) = true → a = true ∧ b = true
+  | true, true, _ => ⟨rfl, rfl⟩
+  | false, _, h => Bool.noConfusion h
+  | true, false, h => Bool.noConfusion h
+
+/-- ★★★★★ **Boolean ↔ universal characterization** — propext-free
+    closure of the FW-3 universal-filter theorem.
+
+  The Prop-level `sym3_c2_iff_K32_or_K23` is extended to the full
+  Boolean `passesCohomologyDepthFilter ↔ ...` form using a
+  hand-rolled propext-free Bool-conjunction extractor.  All
+  arithmetic discharges via `decide`. -/
+theorem passes_filter_universal_bool (n m c : Nat) :
+    passesCohomologyDepthFilter n m c = true ↔
+    ((n = 3 ∧ m = 2 ∧ c = 2) ∨ (n = 2 ∧ m = 3 ∧ c = 2)) := by
+  constructor
+  · intro h
+    unfold passesCohomologyDepthFilter at h
+    obtain ⟨h12, h3⟩ := and_eq_true_extract h
+    obtain ⟨_, h2⟩ := and_eq_true_extract h12
+    exact sym3_c2_force_K32 n m c h2 h3
+  · rintro (⟨rfl, rfl, rfl⟩ | ⟨rfl, rfl, rfl⟩) <;> decide
+
+/-- The filter rejects every deployment outside K_{3,2}^{(c=2)} ± S/T-swap. -/
+theorem filter_rejects_outside_K32 (n m c : Nat)
+    (hne1 : ¬(n = 3 ∧ m = 2 ∧ c = 2))
+    (hne2 : ¬(n = 2 ∧ m = 3 ∧ c = 2)) :
+    passesCohomologyDepthFilter n m c = false := by
+  cases h : passesCohomologyDepthFilter n m c
+  · rfl
+  · rcases (passes_filter_universal_bool n m c).mp h with h1 | h2
+    · exact absurd h1 hne1
+    · exact absurd h2 hne2
+
+/-- ★★★★ **Filter-passers live only at chartBase = 5** (asymptotic
+    closure of the chartBase enumeration).
+
+  Across **all** Nat chartBase values, the Sym(3) + c=2-binary-cover
+  filter together force the deployment onto chartBase = 5 = NS + NT
+  with K_{3,2}^{(c=2)} or K_{2,3}^{(c=2)}.  No chartBase ≥ 9
+  enumeration table needed — the universal Prop-level theorem above
+  closes the entire range. -/
+theorem filter_passes_only_chartBase_5 (n m c : Nat)
+    (hsym : hasNaturalSym3 n m = true)
+    (hcc : hasC2BinaryCoverMatch n m c = true) :
+    chartBase n m = 5 := by
+  rcases sym3_c2_force_K32 n m c hsym hcc with ⟨hn, hm, _⟩ | ⟨hn, hm, _⟩
+  · subst hn; subst hm; rfl
+  · subst hn; subst hm; rfl
+
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

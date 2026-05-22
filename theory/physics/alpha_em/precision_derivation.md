@@ -1,7 +1,9 @@
 # α_em Precision Derivation (C1 + C5)
 
-**Status**: AlphaEM sub-tree closed up through C1 Step 4 + C5 Step 6;
-further steps open (see §Open frontier).
+**Status**: AlphaEM sub-tree closed up through **C1 Step 5 (fully
+213-internal precision theorem at 0.2 ppb, DRLT Validation Standard
+satisfied)** + C5 Step 6.  Sub-ppb precision (Step 6+) open via
+higher cohomology.
 **Promoted from research-notes**: 2026-05-22.
 
 This is the **mixed-status** promotion shape: the chapter covers the
@@ -88,11 +90,8 @@ into 5 output-grade buckets).
 | 2 | `GradedFormulaPrecision` | 12-digit π → residual 2,157 × 10⁻⁹ (= 2.16 ppm); structural offset = α_em²/d² |
 | 3 | `GramSelfConsistency` | self-consistency: `gram_correction_e9 = 10²⁷/(25·observed²) = 2,130`; matches 2,157 to 1.2%; refined diff **27 × 10⁻⁹ ≈ 0.2 ppb** |
 | 4 | `GramHigherOrder` | next-order α³/d²: `gram_correction_alpha3_e9 = 10³⁶/(25·observed³) = 15`; explains 15 of 27 e-9 refined residual; **doubly-refined diff 12 × 10⁻⁹ ≈ 0.09 ppb** — within CODATA 2024 uncertainty |
-
-Caveat: Steps 3-4 use the *observed* α_em on the RHS for the Gram
-correction (self-referential bootstrap).  The cohomological derivation
-of the α^k/d² coefficient pattern from cup-ring algebra is the
-**open Step 5+** below.
+| **5** | **`GramStructural` + `GramStructuralBracket` + `GramStructuralNewton`** | **Self-referentiality removed**: cubic self-consistency `25y³ + 1 = 25Xy²` rearranges to `X − y = 1/(25y²) = α²/d²`.  Newton-1 from `y₀ = X` gives `gram_correction_structural = 10²⁷/(25·X²) = 2,130` — **exactly matches observed-based at e9**, no observed α on RHS.  Cubic root in width-2 bracket `(X − 2131, X − 2129)`. |
+| **5+** | **`GramStructuralCapstone`** | **Precision theorem**: combines `InvAlphaEMDecomp` (structural X via (NS, NT, c, d) = (3, 2, 2, 5)) with Newton-from-X Gram correction.  `1/α_em(structural) × 10⁹ = 137,035,999,111` vs CODATA `137,035,999,084` = **27 × 10⁻⁹ ≈ 0.2 ppb** residual.  **Fully 213-internal, DRLT Validation Standard satisfied.** |
 
 ### 3. C5 ζ_K^{(L)} convergence
 
@@ -197,15 +196,46 @@ promotions.
 
 The α_em derivation is **incrementally closing**.  Current open work:
 
-### C1 Step 5+ — Cohomological derivation of the α^k/d² pattern
+### C1 Step 5 — Cohomological derivation of α²/d² (self-referentiality eliminated)
 
-The doubly-refined Step 4 demonstrates that the residual at each
-precision stage follows an `α^k / d²` pattern.  But the coefficient
-1 of the leading α²/d² Gram term, and the relationship d² = NS²·NT,
-are not yet derived from first principles — only matched empirically.
+The cubic self-consistency identity `25y³ + 1 = 25Xy²` rearranges
+to `X − y = 1/(25y²) = α²/d²`: the Gram correction is the
+**cubic-root deviation**, structurally forced.  Newton-1 from
+y₀ = X gives `gram_correction_structural = 10²⁷/(25·X²) = 2,130`
+using ONLY the 213-internal X (5-layer base from
+`(NS, NT, c, d) = (3, 2, 2, 5)` via `Cohomology/Cup/InvAlphaEMDecomp`).
+No observed α on RHS.
 
-**Required**: derive `α^k / d²` coefficients from the K_{3,2}^{(c=2)}
-cup-ring self-energy structure.  This is the deepest C1 problem.
+Lean: `GramStructural` (anchor) + `GramStructuralBracket` (cubic
+root in width-2 bracket) + `GramStructuralNewton` (Newton-1 from X,
+exact match with observed-based at e9) + `GramStructuralCapstone`
+(★★★★★★★★★★ `invAlphaEm_precision_theorem`).
+
+The relationship `d² = NS² · NT` is captured by
+`Cohomology.Cup.InvAlphaEMDecomp.inv_alpha_em_full_denominator_catalog`:
+all six denominators (60, 30, 25, 3, 4, 45) of the 5-layer base
+formula decomposed in terms of (NS, NT, c, d).
+
+### C1 Step 6+ — Sub-ppb precision via higher cohomology — OPEN
+
+Current closure: residual 27 × 10⁻⁹ ≈ 0.2 ppb (Step 5 above).
+
+The mathematical principle that structurally derives the 27 × 10⁻⁹
+post-Gram residual is the open frontier.  Five candidates analyzed
+in the higher-cohomology research note: Dyson series beyond α²,
+quartic self-consistency, α_GUT² · structural divisor, mixed
+α·α_GUT cross-coupling, and (most 213-native) **K_{3,2}^{(c=2)}
+higher cohomology contribution** via Filled3Cell b_2 / b_3 extension.
+
+This frontier connects to the Filled3Cell-with-attaching-maps
+prereq shared with the JSJ-deepening track and the cork-twist
+higher-cohomology track.  All three open marathons (sub-ppb α_em,
+JSJ-deep, cork-extension) wait on the same cohomology-functor
+extension of the cell complex.
+
+Note: 0.2 ppb tier already satisfies DRLT Validation Standard;
+sub-ppb tier closure is precision tightening, not validation
+blocking.
 
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 
