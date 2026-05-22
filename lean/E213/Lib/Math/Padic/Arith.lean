@@ -99,7 +99,7 @@ private theorem pow_add_pure (a : Nat) :
 
 /-- Split a sum `s · p^n` into `(s % p) · p^n + (s / p) · p^(n+1)`,
     using `div_add_mod`.  Pure arithmetic rearrangement. -/
-private theorem split_mul_pow (s p pn : Nat) :
+theorem Zp.split_mul_pow (s p pn : Nat) :
     s * pn = (s % p) * pn + (s / p) * (pn * p) := by
   have hdm := E213.Meta.Nat.AddMod213.div_add_mod s p
   rw [Nat.mul_comm p (s/p)] at hdm
@@ -155,7 +155,7 @@ theorem Zp.add_trunc_eq (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
                   + Zp.carry p x y n) % p * p^n
                 + ((x.digits n).val + (y.digits n).val
                       + Zp.carry p x y n) / p * (p^n * p)) := by
-              rw [split_mul_pow]
+              rw [Zp.split_mul_pow]
       _ = ((Zp.add p hp x y).trunc n
             + ((x.digits n).val + (y.digits n).val
                 + Zp.carry p x y n) % p * p^n)
@@ -846,7 +846,7 @@ theorem Zp.mulSumRaw_eq_trunc (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
       _ = (Zp.mul p hp x y).trunc n
             + (((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n
                 + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * (p^n * p)) := by
-              rw [split_mul_pow]
+              rw [Zp.split_mul_pow]
       _ = ((Zp.mul p hp x y).trunc n
             + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) % p) * p^n)
           + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * (p^n * p) :=

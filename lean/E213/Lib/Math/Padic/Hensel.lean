@@ -202,6 +202,26 @@ private theorem mul_div_cancel_pure (a b : Nat) (hb : 0 < b) :
   have hdm' : b * ((a * b) / b) = b * a := hdm.trans (Nat.mul_comm a b)
   exact E213.Tactic.NatHelper.mul_left_cancel_pos hb hdm'
 
+/-- For any A, `(A · p^(n+1)) % p^(n+2) = (A % p) · p^(n+1)`. -/
+private theorem mul_pow_succ_mod (A p n : Nat) (hp : 0 < p) :
+    (A * p^(n + 1)) % p^(n + 2) = (A % p) * p^(n + 1) := by
+  rw [Zp.split_mul_pow A p (p^(n + 1))]
+  -- A·p^(n+1) = (A%p)·p^(n+1) + (A/p)·(p^(n+1)·p)
+  rw [show p^(n + 1) * p = p^(n + 2) from (Nat.pow_succ p (n + 1)).symm]
+  -- ((A%p)·p^(n+1) + (A/p)·p^(n+2)) % p^(n+2) = (A%p)·p^(n+1)
+  rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+  -- (A%p)·p^(n+1) % p^(n+2) = (A%p)·p^(n+1)
+  have h_lt : (A % p) * p^(n + 1) < p^(n + 2) := by
+    have hAp : A % p < p := Nat.mod_lt _ hp
+    have hpp : 0 < p^(n + 1) := Nat.pos_pow_of_pos _ hp
+    have hlt : (A % p) * p^(n + 1) < p * p^(n + 1) :=
+      Nat.mul_lt_mul_of_pos_right hAp hpp
+    have hpow : p * p^(n + 1) = p^(n + 2) :=
+      (Nat.mul_comm p (p^(n + 1))).trans (Nat.pow_succ p (n + 1)).symm
+    rw [hpow] at hlt
+    exact hlt
+  exact Nat.mod_eq_of_lt h_lt
+
 /-- `negMod` is the additive inverse: `(a + negMod p a) % p = 0` for `0 < p`. -/
 private theorem negMod_cancel (p : Nat) (hp : 0 < p) (a : Nat) :
     (a + Zp.negMod p a) % p = 0 := by
@@ -384,6 +404,39 @@ theorem Zp.mul_invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
       = 1 % p
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add, Nat.pow_one]
   exact Zp.invDigit0_eq p hp x h_gcd
+
+/-- `x.trunc m mod p = (x.digits 0).val mod p` for `m ≥ 1`.  Only digit-0
+    contributes mod p; higher digits are multiplied by p^≥1. -/
+private theorem trunc_succ_mod_p (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (m : Nat) :
+    (x.trunc (m + 1)) % p = (x.digits 0).val % p := by
+  induction m with
+  | zero =>
+    show (0 + (x.digits 0).val * p^0) % p = (x.digits 0).val % p
+    rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  | succ k ih =>
+    show (x.trunc (k + 1) + (x.digits (k + 1)).val * p^(k + 1)) % p
+        = (x.digits 0).val % p
+    -- Use add_mod_gen.
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen]
+    -- ((x.trunc (k+1)) % p + (x_(k+1) · p^(k+1)) % p) % p
+    rw [ih]
+    -- ((x_0) % p + (x_(k+1) · p^(k+1)) % p) % p = x_0 % p
+    -- (x_(k+1) · p^(k+1)) % p: p^(k+1) is divisible by p, so this is 0 mod p.
+    have h_mul_mod : ((x.digits (k + 1)).val * p^(k + 1)) % p = 0 := by
+      show ((x.digits (k + 1)).val * p^(k + 1)) % p = 0
+      rw [show p^(k + 1) = p^k * p from Nat.pow_succ p k]
+      rw [show (x.digits (k + 1)).val * (p^k * p)
+              = p * ((x.digits (k + 1)).val * p^k) from by
+            rw [Nat.mul_comm (p^k) p,
+                ← E213.Tactic.NatHelper.mul_assoc
+                  (x.digits (k + 1)).val p (p^k),
+                Nat.mul_comm ((x.digits (k + 1)).val) p,
+                E213.Tactic.NatHelper.mul_assoc
+                  p (x.digits (k + 1)).val (p^k)]]
+      exact E213.Tactic.NatHelper.mul_mod_right p _
+    rw [h_mul_mod, Nat.add_zero]
+    exact E213.Tactic.NatHelper.mod_mod_pure _ _
 
 /-- `(invSeq (n+1)).trunc (n + 2) = (invSeq n).trunc (n + 1) +
     new_digit · p^(n+1)` — the extension formula. -/
