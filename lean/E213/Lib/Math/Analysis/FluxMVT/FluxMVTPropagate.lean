@@ -1,5 +1,6 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitnessCombinators
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
+import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 
 import E213.Lib.Math.Real213.Core.Core
@@ -72,19 +73,10 @@ theorem mid_witness_propagates_at {f g}
   show E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (sf.derivative (constCut 1 2))
                  (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
        = constCut 1 1 m k
-  have step :
-      E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
-                (sf.derivative (constCut 1 2))
-                (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
-      = E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
-                (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) :=
-    E213.Lib.Math.Real213.Sum.CutSumDetermined.cutSumAux_congr k (2*(2*m))
-      (sf.derivative (constCut 1 2)) (constCut 1 1)
-      (sg.derivative (constCut 1 2)) (constCut 1 1)
-      (fun m' _ => hf m' (2*k))
-      (fun m' _ => hg m' (2*k))
-      (2*(2*m)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+        (sf.derivative (constCut 1 2)) (sg.derivative (constCut 1 2))
+        (constCut 1 1) (constCut 1 1) k (2*(2*m))
+        (fun m' _ => hf m' (2*k)) (fun m' _ => hg m' (2*k))]
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
@@ -107,6 +99,7 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 /-- id-compose witness propagation at c = 1/2 (pointwise PURE).
+    G110 FLUX-1 template (unitBracket reduce).
     For `g ∘ f` via `composeIsDifferentiable f g`, chain rule gives
     `g'(f(x))·f'(x)`.  When `g = id`, `g'(·) = 1`, so derivative = `f'(x)`. -/
 theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)
@@ -118,17 +111,9 @@ theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)
        = constCut 1 1 m k
   show cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
                    k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
-  have step :
-      cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      = cutMulOuter (constCut 1 1) (constCut 1 1)
-                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
-    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
-      (constCut 1 1) (constCut 1 1)
-      (sf.derivative (constCut 1 2)) (constCut 1 1)
-      (fun _ _ => rfl) (fun m' _ => hf m' k)
-      ((m+1)*(k+1)) (Nat.le_refl _)
-  rw [step]
+  rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce.cutMulOuter_unitBracket_reduce_at
+        (constCut 1 1) (sf.derivative (constCut 1 2)) 1 1 m k
+        (fun _ _ => rfl) (fun m' _ => hf m' k)]
   exact cutMul_one_one_at m k
 
 end E213.Lib.Math.Analysis.FluxMVTPropagateCompose

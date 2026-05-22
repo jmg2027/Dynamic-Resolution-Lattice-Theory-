@@ -380,6 +380,22 @@ named, grep-discoverable.
   * `tools/scan_axioms.py`     — per-module axiom audit
   * `tools/scan_all_axioms.py` — repo-wide axiom audit
 
+### Empirical verification of the ring split (G105)
+
+The ring boundaries above are normatively-stated.  G105
+(`research-notes/G105_namespace_shape_and_full_recursor_inventory.md`)
+verified them empirically by measuring per-namespace Expr-shape
+densities:
+
+  * Theory ring: ~100 Expr nodes / decl (deep proofs about Raw).
+  * Lens ring:   ~10 Expr nodes / decl (Lens-projection plumbing).
+  * Lib ring:    ~2-7 Expr nodes / decl (composite results on
+                 derived APIs).
+
+The three-layer λ-density split is **measurable**, not just stated.
+Any future architectural change can be re-validated via the same
+scanner (`tools/ast_shape_scan.py`).
+
 ## 4. Companion artifact: rust-engine
 
 `rust-engine/` mirrors this ring structure crate-by-crate:

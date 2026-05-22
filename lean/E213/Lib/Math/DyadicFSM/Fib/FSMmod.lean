@@ -21,6 +21,7 @@ Per-N namespaces preserved (`Fib.FSMmod{N}`).
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod3
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -35,22 +36,13 @@ def fibFSMmod3 : ArithFSM2 3 where
 
 /-- ★★★ Fibonacci mod-3 run cycles with TIGHT period 8. -/
 theorem fibFSMmod3_run_period_8 :
-    ∀ k, fibFSMmod3.run (k + 8) = fibFSMmod3.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod3.step (fibFSMmod3.run (k' + 8))
-        = fibFSMmod3.step (fibFSMmod3.run k')
-    rw [ih]
+    ∀ k, fibFSMmod3.run (k + 8) = fibFSMmod3.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-3 bits cycle with TIGHT period 8. -/
 theorem fibFSMmod3_bits_period_8 :
-    ∀ k, fibFSMmod3.bits (k + 8) = fibFSMmod3.bits k := by
-  intro k
-  show fibFSMmod3.out (fibFSMmod3.run (k + 8))
-      = fibFSMmod3.out (fibFSMmod3.run k)
-  rw [fibFSMmod3_run_period_8]
+    ∀ k, fibFSMmod3.bits (k + 8) = fibFSMmod3.bits k :=
+  bits_period_of_run_period _ fibFSMmod3_run_period_8
 
 /-- ★★★★★ Fibonacci mod-3 signature has period 8 from step 1
     (pre-period 1; init bit is `false`, distinct from base sig 0). -/
@@ -66,6 +58,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod3
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod5
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -80,22 +73,13 @@ def fibFSMmod5 : ArithFSM2 5 where
 
 /-- ★★★ Fibonacci mod-5 run cycles with TIGHT period 20. -/
 theorem fibFSMmod5_run_period_20 :
-    ∀ k, fibFSMmod5.run (k + 20) = fibFSMmod5.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod5.step (fibFSMmod5.run (k' + 20))
-        = fibFSMmod5.step (fibFSMmod5.run k')
-    rw [ih]
+    ∀ k, fibFSMmod5.run (k + 20) = fibFSMmod5.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-5 bits cycle with TIGHT period 20. -/
 theorem fibFSMmod5_bits_period_20 :
-    ∀ k, fibFSMmod5.bits (k + 20) = fibFSMmod5.bits k := by
-  intro k
-  show fibFSMmod5.out (fibFSMmod5.run (k + 20))
-      = fibFSMmod5.out (fibFSMmod5.run k)
-  rw [fibFSMmod5_run_period_20]
+    ∀ k, fibFSMmod5.bits (k + 20) = fibFSMmod5.bits k :=
+  bits_period_of_run_period _ fibFSMmod5_run_period_20
 
 /-- ★★★★★ Fibonacci mod-5 signature has period 20 from step 1. -/
 theorem fibFSMmod5_signature_period_20_from_1 :
@@ -110,6 +94,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod5
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod7
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -124,22 +109,13 @@ def fibFSMmod7 : ArithFSM2 7 where
 
 /-- ★★★ Fibonacci mod-7 run cycles with TIGHT period 16. -/
 theorem fibFSMmod7_run_period_16 :
-    ∀ k, fibFSMmod7.run (k + 16) = fibFSMmod7.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod7.step (fibFSMmod7.run (k' + 16))
-        = fibFSMmod7.step (fibFSMmod7.run k')
-    rw [ih]
+    ∀ k, fibFSMmod7.run (k + 16) = fibFSMmod7.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-7 bits cycle with TIGHT period 16. -/
 theorem fibFSMmod7_bits_period_16 :
-    ∀ k, fibFSMmod7.bits (k + 16) = fibFSMmod7.bits k := by
-  intro k
-  show fibFSMmod7.out (fibFSMmod7.run (k + 16))
-      = fibFSMmod7.out (fibFSMmod7.run k)
-  rw [fibFSMmod7_run_period_16]
+    ∀ k, fibFSMmod7.bits (k + 16) = fibFSMmod7.bits k :=
+  bits_period_of_run_period _ fibFSMmod7_run_period_16
 
 /-- ★★★★★ Fibonacci mod-7 signature has period 16 from step 1. -/
 theorem fibFSMmod7_signature_period_16_from_1 :
@@ -154,6 +130,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod7
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod11
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -168,22 +145,13 @@ def fibFSMmod11 : ArithFSM2 11 where
 
 /-- ★★★ Fibonacci mod-11 run cycles with TIGHT period 10. -/
 theorem fibFSMmod11_run_period_10 :
-    ∀ k, fibFSMmod11.run (k + 10) = fibFSMmod11.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod11.step (fibFSMmod11.run (k' + 10))
-        = fibFSMmod11.step (fibFSMmod11.run k')
-    rw [ih]
+    ∀ k, fibFSMmod11.run (k + 10) = fibFSMmod11.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 /-- ★★★★ Fibonacci mod-11 bits cycle with TIGHT period 10. -/
 theorem fibFSMmod11_bits_period_10 :
-    ∀ k, fibFSMmod11.bits (k + 10) = fibFSMmod11.bits k := by
-  intro k
-  show fibFSMmod11.out (fibFSMmod11.run (k + 10))
-      = fibFSMmod11.out (fibFSMmod11.run k)
-  rw [fibFSMmod11_run_period_10]
+    ∀ k, fibFSMmod11.bits (k + 10) = fibFSMmod11.bits k :=
+  bits_period_of_run_period _ fibFSMmod11_run_period_10
 
 /-- ★★★★★ Fibonacci mod-11 signature has period 10 from step 1. -/
 theorem fibFSMmod11_signature_period_10_from_1 :
@@ -198,6 +166,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod11
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod13
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -210,21 +179,12 @@ def fibFSMmod13 : ArithFSM2 13 where
   out p := p.1.val == 1
 
 theorem fibFSMmod13_run_period_28 :
-    ∀ k, fibFSMmod13.run (k + 28) = fibFSMmod13.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod13.step (fibFSMmod13.run (k' + 28))
-        = fibFSMmod13.step (fibFSMmod13.run k')
-    rw [ih]
+    ∀ k, fibFSMmod13.run (k + 28) = fibFSMmod13.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod13_bits_period_28 :
-    ∀ k, fibFSMmod13.bits (k + 28) = fibFSMmod13.bits k := by
-  intro k
-  show fibFSMmod13.out (fibFSMmod13.run (k + 28))
-      = fibFSMmod13.out (fibFSMmod13.run k)
-  rw [fibFSMmod13_run_period_28]
+    ∀ k, fibFSMmod13.bits (k + 28) = fibFSMmod13.bits k :=
+  bits_period_of_run_period _ fibFSMmod13_run_period_28
 
 set_option maxRecDepth 1024 in
 theorem fibFSMmod13_signature_period_28_from_1 :
@@ -238,6 +198,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod13
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod17
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -251,21 +212,12 @@ def fibFSMmod17 : ArithFSM2 17 where
 
 set_option maxRecDepth 1024 in
 theorem fibFSMmod17_run_period_36 :
-    ∀ k, fibFSMmod17.run (k + 36) = fibFSMmod17.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod17.step (fibFSMmod17.run (k' + 36))
-        = fibFSMmod17.step (fibFSMmod17.run k')
-    rw [ih]
+    ∀ k, fibFSMmod17.run (k + 36) = fibFSMmod17.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod17_bits_period_36 :
-    ∀ k, fibFSMmod17.bits (k + 36) = fibFSMmod17.bits k := by
-  intro k
-  show fibFSMmod17.out (fibFSMmod17.run (k + 36))
-      = fibFSMmod17.out (fibFSMmod17.run k)
-  rw [fibFSMmod17_run_period_36]
+    ∀ k, fibFSMmod17.bits (k + 36) = fibFSMmod17.bits k :=
+  bits_period_of_run_period _ fibFSMmod17_run_period_36
 
 set_option maxRecDepth 2048 in
 theorem fibFSMmod17_signature_period_36_from_1 :
@@ -279,6 +231,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod17
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod19
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -291,21 +244,12 @@ def fibFSMmod19 : ArithFSM2 19 where
   out p := p.1.val == 1
 
 theorem fibFSMmod19_run_period_18 :
-    ∀ k, fibFSMmod19.run (k + 18) = fibFSMmod19.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod19.step (fibFSMmod19.run (k' + 18))
-        = fibFSMmod19.step (fibFSMmod19.run k')
-    rw [ih]
+    ∀ k, fibFSMmod19.run (k + 18) = fibFSMmod19.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod19_bits_period_18 :
-    ∀ k, fibFSMmod19.bits (k + 18) = fibFSMmod19.bits k := by
-  intro k
-  show fibFSMmod19.out (fibFSMmod19.run (k + 18))
-      = fibFSMmod19.out (fibFSMmod19.run k)
-  rw [fibFSMmod19_run_period_18]
+    ∀ k, fibFSMmod19.bits (k + 18) = fibFSMmod19.bits k :=
+  bits_period_of_run_period _ fibFSMmod19_run_period_18
 
 theorem fibFSMmod19_signature_period_18_from_1 :
     ∀ k, k ≥ 1 →
@@ -318,6 +262,7 @@ end E213.Lib.Math.DyadicFSM.Fib.FSMmod19
 namespace E213.Lib.Math.DyadicFSM.Fib.FSMmod23
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
@@ -331,21 +276,12 @@ def fibFSMmod23 : ArithFSM2 23 where
 
 set_option maxRecDepth 2048 in
 theorem fibFSMmod23_run_period_48 :
-    ∀ k, fibFSMmod23.run (k + 48) = fibFSMmod23.run k := by
-  intro k
-  induction k with
-  | zero => decide
-  | succ k' ih =>
-    show fibFSMmod23.step (fibFSMmod23.run (k' + 48))
-        = fibFSMmod23.step (fibFSMmod23.run k')
-    rw [ih]
+    ∀ k, fibFSMmod23.run (k + 48) = fibFSMmod23.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
 
 theorem fibFSMmod23_bits_period_48 :
-    ∀ k, fibFSMmod23.bits (k + 48) = fibFSMmod23.bits k := by
-  intro k
-  show fibFSMmod23.out (fibFSMmod23.run (k + 48))
-      = fibFSMmod23.out (fibFSMmod23.run k)
-  rw [fibFSMmod23_run_period_48]
+    ∀ k, fibFSMmod23.bits (k + 48) = fibFSMmod23.bits k :=
+  bits_period_of_run_period _ fibFSMmod23_run_period_48
 
 set_option maxRecDepth 2048 in
 theorem fibFSMmod23_signature_period_48_from_1 :

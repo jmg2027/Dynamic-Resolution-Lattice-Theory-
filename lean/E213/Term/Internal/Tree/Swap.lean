@@ -111,6 +111,18 @@ theorem Tree.canonical_slash_lt
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
+/-- Decompose `Tree.canonical (.slash x y) = true`: both sub-trees
+    are canonical and `Tree.cmp x y = .lt`.  G107 §2 Sub-2 helper —
+    factors the shared 5-line prologue out of Tree-induction proofs. -/
+theorem Tree.canonical_slash_decompose
+    {x y : Tree} (h : Tree.canonical (.slash x y) = true) :
+    x.canonical = true ∧ y.canonical = true ∧ Tree.cmp x y = .lt := by
+  have h' := h
+  unfold Tree.canonical at h'
+  obtain ⟨hxy, _⟩ := Bool.and_eq_true_to_pair h'
+  obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
+  exact ⟨hx, hy, Tree.canonical_slash_lt h⟩
+
 -- On a canonical `slash x y`, the inner-swap `.eq`
 -- branch is impossible.
 theorem Tree.swap_eq_unreach

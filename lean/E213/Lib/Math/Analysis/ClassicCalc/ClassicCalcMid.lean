@@ -48,39 +48,27 @@ open E213.Lib.Math.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
 open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- Midpoint of two passthrough_at's is passthrough_at (PURE).
-    Uses cutSumAux_congr to push pointwise pf/pg eq through cutMid
-    (= cutHalf ∘ cutSum). -/
+    Uses `cutSumAux_unitBracket_reduce_at` (G110 FLUX-1 sum template)
+    to push pointwise pf/pg eq through cutMid (= cutHalf ∘ cutSum). -/
 def mid_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
     Passthrough_at (fun x => cutMid (f x) (g x)) :=
   { left := fun m k => by
       show cutSumAux (f (constCut 0 1)) (g (constCut 0 1))
                      k (2*(2*m)) (2*(2*m)) = constCut 0 1 m k
-      have step : cutSumAux (f (constCut 0 1)) (g (constCut 0 1))
-                            k (2*(2*m)) (2*(2*m))
-                = cutSumAux (constCut 0 1) (constCut 0 1)
-                            k (2*(2*m)) (2*(2*m)) :=
-        cutSumAux_congr k (2*(2*m))
-          (f (constCut 0 1)) (constCut 0 1)
-          (g (constCut 0 1)) (constCut 0 1)
-          (fun m' _ => pf.left m' (2*k))
-          (fun m' _ => pg.left m' (2*k))
-          (2*(2*m)) (Nat.le_refl _)
-      rw [step]
+      rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+            (f (constCut 0 1)) (g (constCut 0 1))
+            (constCut 0 1) (constCut 0 1) k (2*(2*m))
+            (fun m' _ => pf.left m' (2*k))
+            (fun m' _ => pg.left m' (2*k))]
       exact cutMid_zero_zero_at m k
     right := fun m k => by
       show cutSumAux (f (constCut 1 1)) (g (constCut 1 1))
                      k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
-      have step : cutSumAux (f (constCut 1 1)) (g (constCut 1 1))
-                            k (2*(2*m)) (2*(2*m))
-                = cutSumAux (constCut 1 1) (constCut 1 1)
-                            k (2*(2*m)) (2*(2*m)) :=
-        cutSumAux_congr k (2*(2*m))
-          (f (constCut 1 1)) (constCut 1 1)
-          (g (constCut 1 1)) (constCut 1 1)
-          (fun m' _ => pf.right m' (2*k))
-          (fun m' _ => pg.right m' (2*k))
-          (2*(2*m)) (Nat.le_refl _)
-      rw [step]
+      rw [E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum.cutSumAux_unitBracket_reduce_at
+            (f (constCut 1 1)) (g (constCut 1 1))
+            (constCut 1 1) (constCut 1 1) k (2*(2*m))
+            (fun m' _ => pf.right m' (2*k))
+            (fun m' _ => pg.right m' (2*k))]
       exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _) }
 
 end FluxCut.Passthrough_at

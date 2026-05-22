@@ -75,8 +75,8 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
       -- (k+1)*(3*d_k - a_k) ≥ 2.  By ih: 3*d_k - a_k ≥ 1.
       -- For k+1 ≥ 2 (k ≥ 1): trivial.  For k = 0: 3*d_0 - a_0 = 2.  ✓
       have h_dpos : 1 ≤ eulerDen k := eulerDen_pos k
-      have hexp : 3 * ((k + 1) * eulerDen k) = (k + 1) * (3 * eulerDen k) := by
-        rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm 3 (k+1), E213.Tactic.NatHelper.mul_assoc]
+      have hexp : 3 * ((k + 1) * eulerDen k) = (k + 1) * (3 * eulerDen k) :=
+        E213.Tactic.NatHelper.mul_left_comm 3 (k+1) (eulerDen k)
       rw [hexp]
       -- Want: (k+1) * (3 * d_k) ≥ (k+1) * a_k + 2.
       have h1 : (k + 1) * (3 * eulerDen k) ≥ (k + 1) * (eulerNum k + 1) :=
@@ -283,14 +283,13 @@ theorem euler_sharper_lower (n : Nat) (hn : n ≥ 3) :
         have h1 : 2 * ((k + 1) * eulerNum k) ≥
                   (k + 1) * (5 * eulerDen k + 1) := by
           have step : 2 * ((k + 1) * eulerNum k) =
-                      (k + 1) * (2 * eulerNum k) := by
-            rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm 2 (k+1), E213.Tactic.NatHelper.mul_assoc]
+                      (k + 1) * (2 * eulerNum k) :=
+            E213.Tactic.NatHelper.mul_left_comm 2 (k+1) (eulerNum k)
           rw [step]
           exact Nat.mul_le_mul_left (k+1) h_inv
         have h2 : (k + 1) * (5 * eulerDen k + 1)
                   = 5 * ((k + 1) * eulerDen k) + (k + 1) := by
-          rw [Nat.mul_add, Nat.mul_one, ← E213.Tactic.NatHelper.mul_assoc,
-              Nat.mul_comm (k+1) 5, E213.Tactic.NatHelper.mul_assoc]
+          rw [Nat.mul_add, Nat.mul_one, E213.Tactic.NatHelper.mul_left_comm]
         -- h1 : (k+1) * (5*eulerDen k + 1) ≤ 2 * ((k+1) * eulerNum k)
         -- h2 says LHS = 5 * ((k+1)*eulerDen k) + (k+1)
         -- Goal: 5 * ((k+1)*eulerDen k) + 1 ≤ 2 * ((k+1)*eulerNum k + 1)

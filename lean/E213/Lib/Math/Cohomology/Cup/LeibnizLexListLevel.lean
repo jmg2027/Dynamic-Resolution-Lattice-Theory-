@@ -520,9 +520,7 @@ theorem xorRange_split (k l : Nat) (f : Nat → Bool) :
     --     = xor (xor (xorRange k f) (f k))
     --           (xor (xorRange l' (fun j => f(k+j+1))) (f (k+l'+1)))
     -- Apply IH + associativity
-    have hk : k + (l' + 1) + 1 = (k + l' + 1) + 1 := by
-      rw [Nat.add_assoc, Nat.add_assoc, Nat.add_comm 1 1, ← Nat.add_assoc,
-          ← Nat.add_assoc]
+    have hk : k + (l' + 1) + 1 = (k + l' + 1) + 1 := rfl
     rw [hk]
     show xor (xorRange (k + l' + 1) f) (f (k + l' + 1))
        = xor (xor (xorRange k f) (f k))
