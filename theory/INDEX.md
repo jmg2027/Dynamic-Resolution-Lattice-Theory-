@@ -60,11 +60,11 @@ Chapter exists when the Lean sub-tree closed per
 [`PROMOTION_CRITERIA.md`](PROMOTION_CRITERIA.md).  Patterns:
 [`lean/E213/docs/PROMOTION_PATTERNS.md`](../lean/E213/docs/PROMOTION_PATTERNS.md).
 
-## Current chapters (89 total)
+## Current chapters (90 total)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 58 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 59 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  2 | [`meta/INDEX.md`](meta/INDEX.md) |
@@ -82,6 +82,11 @@ Foundational baseline (top-level `research-notes/`):
 - **`G86` — Cup-Leibniz general ∀(k,l) (OPEN conjecture; HANDOFF Part 2 §A)**
 - `2026-05-18_lens_emergence_path.md` — lens emergence spec
 - `G107_action_items_registry.md` — meta-scan live tracker
+- **`G121_dim4_self_pointing_axis.md` — Geometrization conjecture
+  research direction (R1 closed; R1+ partial; G122 4-mfd exotic
+  enumeration OPEN).  R1 closure promoted to
+  `theory/math/geometrization_conjecture.md`; G121 stays active for
+  G122-G125 marathon candidates + M3/M4 knots.**
 
 2026-05-22 merge from `claude/lean4-ast-patterns-g1gWN` brought
 additional active research notes — Tier-2 deep dives + research

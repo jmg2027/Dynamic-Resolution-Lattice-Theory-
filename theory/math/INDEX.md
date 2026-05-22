@@ -2,7 +2,7 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (49)
+## Closed chapters (50)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
@@ -11,6 +11,7 @@ Hub chapters:
 - [`real213.md`](real213.md) — Real213/ (57 files, 7 sub-clusters)
 - [`dyadic_fsm.md`](dyadic_fsm.md) — DyadicFSM/ (78 files)
 - [`signed_cut.md`](signed_cut.md) — SignedCut/ (35 files; absorbs G37/G38/G39)
+- [`geometrization_conjecture.md`](geometrization_conjecture.md) — GeometrizationConjecture/ (13 files, G121 R1 closed, R1+ partial)
 
 Cohomology sub-clusters (11 in `cohomology/`):
 - `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, hodge, surfaces, universal, examples, bridge}.md`
