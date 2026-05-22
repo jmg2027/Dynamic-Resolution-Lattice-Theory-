@@ -189,6 +189,44 @@ theorem Zp.smoke_negMod_5_2 : Zp.negMod 5 2 = 3 := by decide
 /-- Smoke: `negMod 5 4 = 1`. -/
 theorem Zp.smoke_negMod_5_4 : Zp.negMod 5 4 = 1 := by decide
 
+/-- PURE `(a * b) / b = a` for `0 < b`. -/
+private theorem mul_div_cancel_pure (a b : Nat) (hb : 0 < b) :
+    (a * b) / b = a := by
+  have hdm := E213.Meta.Nat.AddMod213.div_add_mod (a * b) b
+  have hmod : a * b % b = 0 := by
+    rw [Nat.mul_comm]
+    exact E213.Tactic.NatHelper.mul_mod_right b a
+  rw [hmod, Nat.add_zero] at hdm
+  -- hdm : b * ((a*b) / b) = a * b
+  -- Want: (a*b) / b = a.  Form hdm' : b · (a*b/b) = b · a, then cancel.
+  have hdm' : b * ((a * b) / b) = b * a := hdm.trans (Nat.mul_comm a b)
+  exact E213.Tactic.NatHelper.mul_left_cancel_pos hb hdm'
+
+/-- `negMod` is the additive inverse: `(a + negMod p a) % p = 0` for `0 < p`. -/
+private theorem negMod_cancel (p : Nat) (hp : 0 < p) (a : Nat) :
+    (a + Zp.negMod p a) % p = 0 := by
+  -- Reduce a mod p first using add_mod_left.
+  rw [E213.Meta.Nat.AddMod213.add_mod_left hp a (Zp.negMod p a)]
+  -- Goal: (a % p + negMod p a) % p = 0
+  -- negMod p a := (p - a % p) % p
+  show (a % p + (p - a % p) % p) % p = 0
+  -- Case on whether a % p = 0.
+  cases hr : Nat.decEq (a % p) 0 with
+  | isTrue hr0 =>
+    rw [hr0, Nat.sub_zero, E213.Meta.Nat.AddMod213.mod_self p,
+        Nat.add_zero, E213.Tactic.NatHelper.zero_mod]
+  | isFalse hr_ne =>
+    have hr_pos : 0 < a % p := Nat.pos_of_ne_zero hr_ne
+    have hpa : a % p < p := Nat.mod_lt _ hp
+    have hsublt : p - a % p < p := Nat.sub_lt hp hr_pos
+    rw [Nat.mod_eq_of_lt hsublt]
+    -- Goal: (a % p + (p - a % p)) % p = 0
+    have hadd : a % p + (p - a % p) = p := by
+      rw [Nat.add_comm]
+      exact E213.Tactic.NatHelper.sub_add_cancel (Nat.le_of_lt hpa)
+    rw [hadd]
+    exact E213.Meta.Nat.AddMod213.mod_self p
+
 /-! ## Hensel-lifted inverse sequence
 
 Given `x : ZpSeq p` with `(x.digits 0).val` coprime to `p`
