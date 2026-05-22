@@ -161,4 +161,32 @@ theorem Zp.mul_invTemplate_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
   -- Final: ((x.digits 0).val · (invDigit0).val) % p = 1 % p
   exact Zp.invDigit0_eq p hp x h_gcd
 
+/-! ## Negation modulo `p`
+
+For Hensel-lift corrections, we need `(-a) mod p` in `Nat` form:
+the unique value in `[0, p)` that, added to `a mod p`, gives `0 mod p`.
+-/
+
+/-- Negation modulo `p`: `(p - a % p) % p`, the additive inverse
+    of `a` in `ℤ/p`. -/
+def Zp.negMod (p a : Nat) : Nat := (p - a % p) % p
+
+/-- `negMod p a < p` when `0 < p`. -/
+theorem Zp.negMod_lt {p : Nat} (hp : 0 < p) (a : Nat) :
+    Zp.negMod p a < p :=
+  Nat.mod_lt _ hp
+
+/-- `negMod p 0 = 0`. -/
+theorem Zp.negMod_zero (p : Nat) (hp : 0 < p) :
+    Zp.negMod p 0 = 0 := by
+  show ((p - 0 % p) % p) = 0
+  rw [E213.Tactic.NatHelper.zero_mod p, Nat.sub_zero,
+      E213.Meta.Nat.AddMod213.mod_self p]
+
+/-- Smoke: `negMod 5 2 = 3` (since `2 + 3 = 5 ≡ 0 mod 5`). -/
+theorem Zp.smoke_negMod_5_2 : Zp.negMod 5 2 = 3 := by decide
+
+/-- Smoke: `negMod 5 4 = 1`. -/
+theorem Zp.smoke_negMod_5_4 : Zp.negMod 5 4 = 1 := by decide
+
 end E213.Lib.Math.Padic
