@@ -81,6 +81,15 @@ private theorem swap_distrib (a b c d pn : Nat) :
     _ = (a + c) + (b + d) * pn := by
           rw [← E213.Tactic.NatHelper.add_mul]
 
+/-- PURE replacement for `Nat.pow_add` (which leaks propext): by
+    induction on the second exponent. -/
+private theorem pow_add_pure (a : Nat) :
+    ∀ m n, a^(m + n) = a^m * a^n
+  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | m, n + 1 => by
+    rw [← Nat.add_assoc, Nat.pow_succ, Nat.pow_succ, pow_add_pure a m n]
+    exact E213.Tactic.NatHelper.mul_assoc (a^m) (a^n) a
+
 /-- Split a sum `s · p^n` into `(s % p) · p^n + (s / p) · p^(n+1)`,
     using `div_add_mod`.  Pure arithmetic rearrangement. -/
 private theorem split_mul_pow (s p pn : Nat) :
@@ -388,6 +397,34 @@ theorem Zp.shiftLeft_digit_high (p : Nat) (hp : 0 < p) (k : Nat)
   rw [Nat.add_comm k j]
   show (x.digits (j + k - k)).val = (x.digits j).val
   rw [E213.Tactic.NatHelper.add_sub_cancel_right]
+
+/-- Truncation above the shift threshold: `(Zp.shiftLeft k x).trunc (k + n)
+    = p^k · x.trunc n`.  The shift acts as multiplication by `p^k`. -/
+theorem Zp.shiftLeft_trunc_above (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) :
+    ∀ n, (Zp.shiftLeft p hp k x).trunc (k + n) = p^k * x.trunc n
+  | 0 => by
+    show (Zp.shiftLeft p hp k x).trunc (k + 0) = p^k * 0
+    rw [Nat.add_zero, Nat.mul_zero]
+    exact Zp.shiftLeft_trunc_below p hp k x k (Nat.le_refl k)
+  | n + 1 => by
+    have ih : (Zp.shiftLeft p hp k x).trunc (k + n) = p^k * x.trunc n :=
+      Zp.shiftLeft_trunc_above p hp k x n
+    show (Zp.shiftLeft p hp k x).trunc (k + n)
+          + ((Zp.shiftLeft p hp k x).digits (k + n)).val * p^(k + n)
+        = p^k * (x.trunc n + (x.digits n).val * p^n)
+    rw [ih, Zp.shiftLeft_digit_high p hp k x n]
+    rw [Nat.mul_add]
+    -- Goal: p^k · x.trunc n + (x.digits n).val · p^(k+n)
+    --     = p^k · x.trunc n + p^k · ((x.digits n).val · p^n)
+    -- Show the algebraic identity step-by-step on the second summand.
+    have hstep : (x.digits n).val * p^(k + n)
+                  = p^k * ((x.digits n).val * p^n) := by
+      have hpow : p^(k + n) = p^k * p^n := pow_add_pure p k n
+      calc (x.digits n).val * p^(k + n)
+          = (x.digits n).val * (p^k * p^n) := by rw [hpow]
+        _ = p^k * ((x.digits n).val * p^n) :=
+            E213.Tactic.NatHelper.mul_left_comm _ _ _
+    rw [hstep]
 
 /-! ## Multiplication (digit convolution + carry)
 
@@ -850,15 +887,6 @@ def Zp.colSum (p : Nat) (x y : ZpSeq p) (i : Nat) : Nat → Nat
 def Zp.bilinSum (p : Nat) (x y : ZpSeq p) (b : Nat) : Nat → Nat
   | 0 => 0
   | a + 1 => Zp.bilinSum p x y b a + Zp.colSum p x y a b
-
-/-- PURE replacement for `Nat.pow_add` (which leaks propext): by
-    induction on the second exponent. -/
-private theorem pow_add_pure (a : Nat) :
-    ∀ m n, a^(m + n) = a^m * a^n
-  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | m, n + 1 => by
-    rw [← Nat.add_assoc, Nat.pow_succ, Nat.pow_succ, pow_add_pure a m n]
-    exact E213.Tactic.NatHelper.mul_assoc (a^m) (a^n) a
 
 /-- Closed form for `colSum`:
     `colSum i b = (x.digits i).val · p^i · y.trunc b`. -/
