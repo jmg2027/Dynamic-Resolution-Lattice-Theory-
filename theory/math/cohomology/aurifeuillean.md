@@ -286,6 +286,23 @@ Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean       (11 PURE)
   · aurifeuillean_phi_90_at_5             — Φ_90(5) factor identity
   · aurifeuillean_fingerprint_n_u         — capstone at n=2
 
+Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean        (28 PURE)
+  · HunterTerm inductive type + eval, depth functions
+  · t521 explicit depth-3 witness for 521 = NT^(NS^2) + NS^2
+  · t29 (depth 2), t8 (depth 1) companion witnesses
+  · frobenius_850554441 + literal_cutoff_vacuous_at_L_90
+    — demonstrates the literal "∀ depth" cut-off is false (Chicken
+      McNugget: 850554441 = 2·425277219 + 3 has a Hunter expression
+      at huge depth)
+  · L_90_not_at_depth_0, L_90_not_at_depth_1, M_90_not_at_depth_1
+    — Fin-quantified bounded cut-off at depth ≤ 1
+  · depth_1_value_bound — every depth-1 Hunter value ≤ 3125
+  · asymptotic_cutoff_at_depth_1 — ★ ∀ v > 3125, v ∉ depth-1 Hunter
+  · cutoff_marathon_at_depth_1 — ★★ marathon capstone:
+      (m=1 positive at depth 3) ∧ (∀ v > 3125 negative at depth 1)
+    Captures the entire Aurifeuillean L tail (L_m for m ≥ 3, all
+    ≫ 3125) at depth 1.
+
 Lib/Math/Cohomology/Fractal/AurifeuilleanCutoff.lean            (9 PURE)
   · hunter_521_explicit          — 521 = NT^(NS²) + NS² (depth-3 witness)
   · hunter_29_explicit           — 29 = d² + NT²
