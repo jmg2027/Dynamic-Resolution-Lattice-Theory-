@@ -34,10 +34,10 @@ Currently still open:
 
 | Item | Notes |
 |---|---|
-| **L1 α-side** (full parametric) | β-side done; α-side blocked by `Nat.add` asymmetry — needs `Fin.cast` + Eq plumbing or per-`b` helpers |
-| **L3** Pisano Predictor 14/17 consolidation | Small marathon |
-| **L4** `addLDD` / `mulLDD` | Small |
-| **L5** `CDDouble.I_mul_J` / `J_mul_I` | Small |
+| **L1** (n, k, l) fully general | 4-sibling collapse done (α/β-general parametric + 4 thin corollaries, all PURE).  Fully (n, k, l)-general form would require generalising V5_2Decomp beyond fixed (5, 2); overlaps with G86 Cup-Leibniz |
+| **L3** Pisano Predictor 14/17 consolidation | DONE — `obtain` destructure, both PURE |
+| **L4** `addLDD` / `mulLDD` | DONE — `ldd_branch_max_{left,right}` bilateral helpers |
+| **L5** `CDDouble.I_mul_J` / `J_mul_I` | DONE — `by decide` (via derived `DecidableEq Lipschitz`) |
 | **C** — CutSumOne 8-sibling 3-component template | Medium marathon |
 | **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
 | **F** — Σ-fold cross-domain | Adding `sigmaList` infra; small additive |
