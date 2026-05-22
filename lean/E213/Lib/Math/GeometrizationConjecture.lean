@@ -10,6 +10,7 @@ import E213.Lib.Math.GeometrizationConjecture.Capstone
 import E213.Lib.Math.GeometrizationConjecture.Generalization
 import E213.Lib.Math.GeometrizationConjecture.JsjDeep
 import E213.Lib.Math.GeometrizationConjecture.MetricGeometries
+import E213.Lib.Math.GeometrizationConjecture.CrossFrame
 
 /-! Spec-as-code entry point for `E213.Lib.Math.GeometrizationConjecture`.
 

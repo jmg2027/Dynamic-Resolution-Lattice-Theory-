@@ -191,12 +191,12 @@ algebraic spine` (theory chapter §"Cross-frame connections")
 already cites four chapters.  Open: a single capstone theorem
 bundling these four sources into a unified statement.
 
-| ID | Statement (informal) | Effort |
-|---|---|---|
-| **X-1** | Capstone theorem: "Sym(3) decomposition of 8-element substrate is invariant across {Geometrization classification, gluon octet, HC_K32 cohomology, Möbius P mod-5 closure}" | small (1 session, mostly bundling existing PURE results) |
+| ID | Statement (informal) | Effort | Status |
+|---|---|---|---|
+| **X-1** | Capstone theorem: "Sym(3) decomposition of 8-element substrate is invariant across {Geometrization classification, gluon octet, HC_K32 cohomology, Möbius P mod-5 closure}" | small (1 session, mostly bundling existing PURE results) | **CLOSED** ✅ `G121_X1_sym3_cross_frame_capstone` in `lean/E213/Lib/Math/GeometrizationConjecture/CrossFrame.lean` (2026-05-22) |
 
 X-1 is a meta-capstone — adds no new mathematics, just records the
-4-way convergence as a single citable theorem.  Optional.
+4-way convergence as a single citable theorem.
 
 ---
 
@@ -221,8 +221,7 @@ X-1 is a meta-capstone — adds no new mathematics, just records the
 
 Conditional on user direction; default sequencing:
 
-1. **X-1** (1 session, easy capstone) — closes the loose
-   cross-frame thread cheaply.
+1. ~~**X-1** (1 session, easy capstone)~~ — **DONE** 2026-05-22.
 2. **I-1** + **I-4** (2-3 sessions combined) — small Lean
    additions, narrative-deepening, no new infrastructure.
 3. **FW-3** (medium marathon) — abstract filter machinery is
