@@ -686,4 +686,89 @@ theorem phiFP2_mul_frob_phi_3 :
 theorem phiFP2_mul_frob_phi_7 :
     fp2Mul 7 (phiFP2 7) (fp2Frob 7 (phiFP2 7)) = (6, 0) := by decide
 
+/-! ## φ² = φ + 1 in 𝔽_{p²} (universal recurrence)
+
+Foundation for Binet expansion in 𝔽_{p²}.  Uses `four_mul_inv2_sq`
+and `two_mul_inv2` from PhiMod5 — the same algebra that proves
+`phi² = phi + 1` in 𝔽_p (split case), lifted componentwise to 𝔽_{p²}.
+-/
+
+open E213.Lib.Math.DyadicFSM.PhiMod5 (two_mul_inv2)
+
+/-- ★ **`2·inv2² ≡ inv2 (mod p)`** for odd `1 < p`.  Direct corollary
+    of `two_mul_inv2`.  PURE. -/
+theorem two_inv2_sq_eq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (2 * (inv2 p * inv2 p)) % p = inv2 p % p := by
+  -- 2·(inv2·inv2) = (2·inv2)·inv2 [mul_assoc]
+  -- mod p: ≡ (1 % p) · inv2 [two_mul_inv2]
+  --      ≡ inv2 [Nat.one_mul + mod_mod]
+  rw [← mul_assoc 2 (inv2 p) (inv2 p)]
+  rw [mul_mod_left_pure (2 * inv2 p) (inv2 p) p]
+  rw [two_mul_inv2 p hp hpo]
+  rw [← mul_mod_left_pure 1 (inv2 p) p, Nat.one_mul]
+
+/-- ★★ **`6·inv2² ≡ inv2 + 1 (mod p)`** for odd `1 < p`.  Combines
+    `four_mul_inv2_sq` + `two_inv2_sq_eq`: `6·inv2² = 4·inv2² + 2·inv2²
+    ≡ 1 + inv2`.  PURE. -/
+theorem six_inv2_sq_eq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (6 * (inv2 p * inv2 p)) % p = (inv2 p + 1) % p := by
+  -- 6 = 4 + 2
+  have h_expand : 6 * (inv2 p * inv2 p)
+                = 4 * (inv2 p * inv2 p) + 2 * (inv2 p * inv2 p) := by
+    show (4 + 2) * (inv2 p * inv2 p)
+       = 4 * (inv2 p * inv2 p) + 2 * (inv2 p * inv2 p)
+    exact add_mul 4 2 (inv2 p * inv2 p)
+  rw [h_expand]
+  rw [add_mod_gen (4 * (inv2 p * inv2 p)) (2 * (inv2 p * inv2 p)) p]
+  rw [four_mul_inv2_sq p hp hpo]
+  rw [two_inv2_sq_eq p hp hpo]
+  -- (1 % p + inv2 p % p) % p = (inv2 p + 1) % p
+  rw [← add_mod_gen 1 (inv2 p) p]
+  rw [Nat.add_comm 1 (inv2 p)]
+
+/-- ★★★ **`φ² = φ + 1` in 𝔽_{p²}** (universal recurrence for odd `1 < p`).
+
+    The Lucas/golden-ratio recurrence, lifted from 𝔽_p to 𝔽_{p²}.
+    First component:  inv2² + 5·inv2² = 6·inv2² ≡ inv2 + 1 mod p.
+    Second component: inv2² + inv2² = 2·inv2² ≡ inv2 mod p.
+
+    PURE.  Foundation for Binet expansion in 𝔽_{p²}. -/
+theorem phiFP2_sq_eq_phi_add_one (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Mul p (phiFP2 p) (phiFP2 p) = fp2Add p (phiFP2 p) (fp2One p) := by
+  show ((inv2 p * inv2 p + 5 * inv2 p * inv2 p) % p,
+        (inv2 p * inv2 p + inv2 p * inv2 p) % p)
+     = ((inv2 p + 1 % p) % p, (inv2 p + 0) % p)
+  apply Prod.ext
+  · -- First component: (inv2² + 5·inv2²) % p = (inv2 + 1 % p) % p
+    show (inv2 p * inv2 p + 5 * inv2 p * inv2 p) % p
+       = (inv2 p + 1 % p) % p
+    -- Factor LHS as 6·inv2²
+    rw [show inv2 p * inv2 p + 5 * inv2 p * inv2 p
+            = 6 * (inv2 p * inv2 p) from by
+        rw [mul_assoc 5 (inv2 p) (inv2 p)]
+        show inv2 p * inv2 p + 5 * (inv2 p * inv2 p)
+           = 6 * (inv2 p * inv2 p)
+        rw [show (6 : Nat) = 1 + 5 from rfl]
+        rw [add_mul 1 5 (inv2 p * inv2 p), Nat.one_mul]]
+    rw [six_inv2_sq_eq p hp hpo]
+    -- (inv2 + 1) % p = (inv2 + 1 % p) % p, convert 1 % p → 1
+    rw [Nat.mod_eq_of_lt hp]
+  · -- Second component: (inv2² + inv2²) % p = (inv2 + 0) % p = inv2 % p
+    show (inv2 p * inv2 p + inv2 p * inv2 p) % p = (inv2 p + 0) % p
+    rw [Nat.add_zero]
+    rw [show inv2 p * inv2 p + inv2 p * inv2 p
+            = 2 * (inv2 p * inv2 p) from by
+        rw [show (2 : Nat) = 1 + 1 from rfl]
+        rw [add_mul 1 1 (inv2 p * inv2 p), Nat.one_mul]]
+    exact two_inv2_sq_eq p hp hpo
+
+/-- Smoke at p=3: phi² = (2,2)·(2,2) = (4+20, 4+4) = (24, 8) % 3 = (0, 2).
+    phi + 1 = (2+1, 2+0) % 3 = (0, 2). ✓ -/
+theorem phiFP2_sq_eq_phi_add_one_3 :
+    fp2Mul 3 (phiFP2 3) (phiFP2 3) = fp2Add 3 (phiFP2 3) (fp2One 3) := by decide
+
+/-- Smoke at p=7. -/
+theorem phiFP2_sq_eq_phi_add_one_7 :
+    fp2Mul 7 (phiFP2 7) (phiFP2 7) = fp2Add 7 (phiFP2 7) (fp2One 7) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
