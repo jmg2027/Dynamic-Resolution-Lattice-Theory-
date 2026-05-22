@@ -979,4 +979,83 @@ theorem inv2_cancel_zero_smoke :
   intro X h
   exact inv2_cancel_zero X 3 (by decide) (by decide) h
 
+/-! ## (√5)^k formula in 𝔽_{p²}
+
+The element `(0, 1)` represents `√5` in 𝔽_{p²} (since `(0, 1)² = (5, 0)`).
+Its k-th power has the closed form:
+  · `(0, 1)^(2k) = (5^k % p, 0)`
+  · `(0, 1)^(2k+1) = (0, 5^k % p)`
+
+Foundation for Frobenius FLT on `√5`: combined with `h_inert : 5^((p-1)/2) ≡ -1
+(mod p)` (Euler's criterion), gives `(0, 1)^p = (0, p - 1) = σ((0, 1))` for
+odd `p`.  PURE.
+-/
+
+/-- Helper: even-power step.  PURE. -/
+private theorem sqrt5_even_step (p k : Nat) :
+    fp2Mul p (0, 5^k % p) (0, 1) = (5^(k + 1) % p, 0) := by
+  show ((0 * 0 + 5 * (5^k % p) * 1) % p, (0 * 1 + (5^k % p) * 0) % p)
+     = (5^(k + 1) % p, 0)
+  apply Prod.ext
+  · show (0 * 0 + 5 * (5^k % p) * 1) % p = 5^(k + 1) % p
+    rw [Nat.zero_mul, Nat.mul_one, Nat.zero_add]
+    rw [← mul_mod_right_pure 5 (5^k) p]
+    rw [Nat.mul_comm 5 (5^k)]
+    rw [← Nat.pow_succ 5 k]
+  · show (0 * 1 + (5^k % p) * 0) % p = 0
+    rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+    exact zero_mod p
+
+/-- Helper: odd-power step. PURE. -/
+private theorem sqrt5_odd_step (p k : Nat) :
+    fp2Mul p (5^(k + 1) % p, 0) (0, 1) = (0, 5^(k + 1) % p) := by
+  show ((5^(k + 1) % p * 0 + 5 * 0 * 1) % p,
+        (5^(k + 1) % p * 1 + 0 * 0) % p) = (0, 5^(k + 1) % p)
+  apply Prod.ext
+  · show (5^(k + 1) % p * 0 + 5 * 0 * 1) % p = 0
+    rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+    exact zero_mod p
+  · show (5^(k + 1) % p * 1 + 0 * 0) % p = 5^(k + 1) % p
+    rw [Nat.mul_one, Nat.mul_zero, Nat.add_zero, mod_mod]
+
+/-- ★ **(√5)^k pair formula in 𝔽_{p²}**:
+    `(0, 1)^(2k) = (5^k % p, 0)` and `(0, 1)^(2k + 1) = (0, 5^k % p)`.
+    Universal (no constraint on p).  PURE. -/
+theorem fp2Pow_sqrt5_pair (p : Nat) :
+    ∀ k, fp2Pow p (0, 1) (2 * k) = (5^k % p, 0)
+         ∧ fp2Pow p (0, 1) (2 * k + 1) = (0, 5^k % p)
+  | 0 => by
+    refine ⟨?_, ?_⟩
+    · show fp2One p = (5^0 % p, 0)
+      rfl
+    · show fp2Mul p (fp2One p) (0, 1) = (0, 5^0 % p)
+      show ((1 % p * 0 + 5 * 0 * 1) % p, (1 % p * 1 + 0 * 0) % p) = (0, 1 % p)
+      apply Prod.ext
+      · show (1 % p * 0 + 5 * 0 * 1) % p = 0
+        rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+        exact zero_mod p
+      · show (1 % p * 1 + 0 * 0) % p = 1 % p
+        rw [Nat.mul_one, Nat.zero_mul, Nat.add_zero, mod_mod]
+  | k + 1 => by
+    have ⟨_ih_even, ih_odd⟩ := fp2Pow_sqrt5_pair p k
+    -- Derive even at k + 1 via odd at k:
+    have h_even_k1 : fp2Pow p (0, 1) (2 * (k + 1)) = (5^(k + 1) % p, 0) := by
+      rw [show 2 * (k + 1) = 2 * k + 1 + 1 from by
+          rw [Nat.mul_add 2 k 1, Nat.mul_one]]
+      rw [fp2Pow_succ p (0, 1) (2 * k + 1)]
+      rw [ih_odd]
+      exact sqrt5_even_step p k
+    refine ⟨h_even_k1, ?_⟩
+    -- Derive odd at k + 1 via even at k + 1:
+    show fp2Pow p (0, 1) (2 * (k + 1) + 1) = (0, 5^(k + 1) % p)
+    rw [fp2Pow_succ p (0, 1) (2 * (k + 1))]
+    rw [h_even_k1]
+    exact sqrt5_odd_step p k
+
+/-- Smoke at p=3: (0, 1)^2 = (5 % 3, 0) = (2, 0). ✓ -/
+theorem fp2Pow_sqrt5_smoke_3_2 : fp2Pow 3 (0, 1) 2 = (2, 0) := by decide
+
+/-- Smoke at p=7: (0, 1)^3 = (0, 5 % 7) = (0, 5). ✓ -/
+theorem fp2Pow_sqrt5_smoke_7_3 : fp2Pow 7 (0, 1) 3 = (0, 5) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
