@@ -100,7 +100,24 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 194 PURE / 0 DIRTY across 6 modules.**
+**Padic total: 207 PURE / 0 DIRTY across 6 modules.**
+
+**Hensel inverse construction this stretch**:
+  · `Zp.invSeq x n` — recursive approximate-inverse sequence.
+  · Structural facts: `invSeq_digit_above`, `invSeq_succ_digit_below`,
+    `invSeq_succ_trunc_low`, `invSeq_trunc_at_succ`,
+    `invSeq_succ_trunc_extend`.
+  · `invSeq_digit_zero` — digit 0 invariant across all levels.
+  · `invSeq_trunc_one` — `(invSeq n).trunc 1 = invDigit0`.
+  · `mul_invSeq_trunc_one` — for all `n`,
+    `(Zp.mul x (invSeq n)).trunc 1 = 1 % p` (level-1 correctness).
+  · PURE helpers: `mul_div_cancel_pure` + `negMod_cancel`.
+
+**Remaining**: full general Hensel correctness
+`(Zp.mul x (invSeq n)).trunc (n+1) = 1 % p^(n+1)` for `1 < p` —
+proof structure is clear (induct on n, use `mul_trunc` + the
+extension formula + `negMod_cancel` cancellation), but the
+inductive step is ~150 lines of mod-arith manipulation.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
