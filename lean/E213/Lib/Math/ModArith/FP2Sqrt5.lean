@@ -1211,6 +1211,53 @@ theorem p_minus_one_mul_mod (p X : Nat) (hp : 1 < p) :
     p _ _ X hp_pos h_LHS_lt h_RHS_lt
     (h_LHS_add_X.trans h_RHS_add_X.symm)
 
+/-! ## Nat algebra helpers for downstream proofs -/
+
+/-- Nat algebra: rearrangement of 4-term sum.  PURE. -/
+private theorem mul_assoc_term_rearrange (A B C D : Nat) :
+    A + B + (C + D) = A + (C + D + B) := by
+  rw [Nat.add_assoc A B (C + D)]
+  rw [Nat.add_comm B (C + D)]
+
+/-- Nat algebra: 5 * (a * b) * c = 5 * a * (b * c). PURE. -/
+private theorem five_mul_assoc (a b c : Nat) :
+    5 * (a * b) * c = 5 * a * (b * c) := by
+  rw [mul_assoc 5 (a * b) c]
+  rw [mul_assoc a b c]
+  rw [← mul_assoc 5 a (b * c)]
+
+/-- ★ **`2·inv2 = p + 1`** for odd `p`.  Nat identity (no mod).  PURE. -/
+theorem two_mul_inv2_eq_p_plus_one (p : Nat) (hpo : p % 2 = 1) :
+    2 * inv2 p = p + 1 := by
+  show 2 * (p / 2 + 1) = p + 1
+  rw [Nat.mul_add, Nat.mul_one]
+  -- 2 * (p / 2) + 2 = p + 1
+  have h := E213.Meta.Nat.AddMod213.div_add_mod p 2
+  -- h : 2 * (p / 2) + p % 2 = p
+  rw [hpo] at h
+  -- h : 2 * (p / 2) + 1 = p
+  show (2 * (p / 2) + 1) + 1 = p + 1
+  rw [h]
+
+/-- ★ **`inv2 p < p`** for odd `1 < p`.  PURE.
+    Direct case analysis (term-mode) from `2·inv2 = p + 1`. -/
+theorem inv2_lt_self (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    inv2 p < p :=
+  let h_2_inv2 : 2 * inv2 p = p + 1 := two_mul_inv2_eq_p_plus_one p hpo
+  match Nat.lt_or_ge (inv2 p) p with
+  | Or.inl h => h
+  | Or.inr h =>
+    let h_2le : 2 * p ≤ 2 * inv2 p := Nat.mul_le_mul_left 2 h
+    let h_2le' : 2 * p ≤ p + 1 := h_2_inv2 ▸ h_2le
+    let h_2le'' : p + p ≤ p + 1 := (Nat.two_mul p) ▸ h_2le'
+    let h_p_le_1 : p ≤ 1 :=
+      E213.Tactic.NatHelper.le_of_add_le_add_left h_2le''
+    absurd h_p_le_1 (Nat.not_le_of_lt hp)
+
+/-- Smoke at p=3: inv2 3 = 2 < 3. ✓ -/
+theorem inv2_lt_self_3 : inv2 3 < 3 :=
+  inv2_lt_self 3 (by decide) (by decide)
+
 /-- ★ **`(p - inv2 % p) % p + 1 ≡ inv2 (mod p)`** for odd `1 < p`.  PURE.
     Equivalent to `2·inv2 ≡ 1`, the defining property of inv2.
     Proved via `mod_cancel_right` with `Z = inv2`. -/
