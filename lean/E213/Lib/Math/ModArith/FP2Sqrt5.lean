@@ -1156,4 +1156,29 @@ theorem fp2Pow_scalar_p_3 :
     fp2Pow 3 (2, 0) 3 = (2 % 3, 0) :=
   fp2Pow_scalar_p 3 2 (by decide)
 
+/-! ## (2, 0) · phi = (1, 1) — the "2·phi = 1 + √5" identity
+
+For odd `1 < p`, the element `(1, 1) ∈ 𝔽_{p²}` represents `1 + √5`,
+and equals `2 · phi` since `phi = (1 + √5)/2`. -/
+
+/-- ★ **`2 · phi = 1 + √5`** in 𝔽_{p²} for odd `1 < p`.
+    PURE.  Direct computation via `two_mul_inv2`. -/
+theorem two_phi_eq_one_sqrt5 (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Mul p (2 % p, 0) (phiFP2 p) = (1 % p, 1 % p) := by
+  show ((2 % p * inv2 p + 5 * 0 * inv2 p) % p,
+        (2 % p * inv2 p + 0 * inv2 p) % p) = (1 % p, 1 % p)
+  apply Prod.ext
+  · show (2 % p * inv2 p + 5 * 0 * inv2 p) % p = 1 % p
+    rw [Nat.zero_mul, Nat.add_zero]
+    rw [← mul_mod_left_pure 2 (inv2 p) p]
+    exact two_mul_inv2 p hp hpo
+  · show (2 % p * inv2 p + 0 * inv2 p) % p = 1 % p
+    rw [Nat.zero_mul, Nat.add_zero]
+    rw [← mul_mod_left_pure 2 (inv2 p) p]
+    exact two_mul_inv2 p hp hpo
+
+/-- Smoke at p=3: `(2 % 3, 0) · (2, 2) = (4, 4) % 3 = (1, 1)`. ✓ -/
+theorem two_phi_eq_one_sqrt5_3 :
+    fp2Mul 3 (2 % 3, 0) (phiFP2 3) = (1 % 3, 1 % 3) := by decide
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
