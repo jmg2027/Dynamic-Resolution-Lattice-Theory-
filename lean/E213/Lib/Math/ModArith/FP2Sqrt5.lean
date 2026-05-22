@@ -1111,4 +1111,49 @@ theorem fp2Pow_sqrt5_eq_frob_7 :
     fp2Pow 7 (0, 1) 7 = fp2Frob 7 (0, 1) :=
   fp2Pow_sqrt5_eq_frob 7 (by decide) (by decide) (by decide)
 
+/-! ## F_p ⊂ F_{p²} embedding: (a, 0)^k = (a^k % p, 0)
+
+The first-coordinate-only elements (a, 0) form a sub-ring 𝔽_p ⊂ 𝔽_{p²}.
+Powers stay in this sub-ring: `(a, 0)^k = (a^k % p, 0)`.
+-/
+
+/-- ★ **F_p embedding power formula**: `(a, 0)^k = (a^k % p, 0)` (universal).
+    By induction on k.  PURE. -/
+theorem fp2Pow_scalar (p a : Nat) :
+    ∀ k, fp2Pow p (a, 0) k = (a^k % p, 0)
+  | 0 => by
+    show fp2One p = (a^0 % p, 0)
+    rfl
+  | k + 1 => by
+    have ih := fp2Pow_scalar p a k
+    show fp2Pow p (a, 0) (k + 1) = (a^(k + 1) % p, 0)
+    rw [fp2Pow_succ p (a, 0) k, ih]
+    show ((a^k % p * a + 5 * 0 * 0) % p, (a^k % p * 0 + 0 * a) % p)
+       = (a^(k + 1) % p, 0)
+    apply Prod.ext
+    · show (a^k % p * a + 5 * 0 * 0) % p = a^(k + 1) % p
+      rw [Nat.mul_zero, Nat.add_zero]
+      -- (a^k % p * a) % p = a^(k+1) % p
+      rw [← mul_mod_left_pure (a^k) a p]
+      -- (a^k * a) % p = a^(k+1) % p
+      rw [← Nat.pow_succ a k]
+    · show (a^k % p * 0 + 0 * a) % p = 0
+      rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+      exact zero_mod p
+
+/-- Smoke at p=3, a=2, k=3: (2, 0)^3 = (2^3 % 3, 0) = (8 % 3, 0) = (2, 0). ✓ -/
+theorem fp2Pow_scalar_smoke_3 : fp2Pow 3 (2, 0) 3 = (2, 0) := by decide
+
+/-- ★★ **FLT for F_p elements in F_{p²}**: `(a, 0)^p % p = (a, 0) % p`
+    given h_flt : `a^p % p = a % p` (FLT in F_p, available via UniversalFLT).
+    More precisely: `(a, 0)^p = (a % p, 0)` modulo canonical form. -/
+theorem fp2Pow_scalar_p (p a : Nat) (h_flt : a^p % p = a % p) :
+    fp2Pow p (a, 0) p = (a % p, 0) := by
+  rw [fp2Pow_scalar p a p, h_flt]
+
+/-- Smoke at p=3, a=2 (using FLT for 2 mod 3: 2^3 = 8 % 3 = 2). -/
+theorem fp2Pow_scalar_p_3 :
+    fp2Pow 3 (2, 0) 3 = (2 % 3, 0) :=
+  fp2Pow_scalar_p 3 2 (by decide)
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
