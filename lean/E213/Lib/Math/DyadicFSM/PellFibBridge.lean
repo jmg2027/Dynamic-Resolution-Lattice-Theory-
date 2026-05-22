@@ -330,4 +330,72 @@ theorem pellCoeff_29_14_eq_init_via_bridge :
   phase_3_2_closure 29 (by decide) 13
     fib_phase_3_2_at_29.1 fib_phase_3_2_at_29.2
 
+/-- Phase 3.2 at p=31 (split, predict=15). -/
+theorem pellCoeff_31_15_eq_init_via_bridge :
+    pellCoeff 31 (by decide) 15 = pellCoeff 31 (by decide) 0 :=
+  phase_3_2_closure 31 (by decide) 14
+    fib_phase_3_2_at_31.1 fib_phase_3_2_at_31.2
+
+/-- Phase 3.2 at p=41 (split, predict=20). -/
+theorem pellCoeff_41_20_eq_init_via_bridge :
+    pellCoeff 41 (by decide) 20 = pellCoeff 41 (by decide) 0 :=
+  phase_3_2_closure 41 (by decide) 19
+    fib_phase_3_2_at_41.1 fib_phase_3_2_at_41.2
+
+/-! ## Extended split primes: 59, 61, 71, 79, 89, 101 -/
+
+/-- Smoke at p=59 (split, predict 29). -/
+theorem fib_phase_3_2_at_59 :
+    fibFst 58 % 59 = 0 ∧ fibFst 56 % 59 = 58 := by decide
+
+theorem pellCoeff_59_29_eq_init_via_bridge :
+    pellCoeff 59 (by decide) 29 = pellCoeff 59 (by decide) 0 :=
+  phase_3_2_closure 59 (by decide) 28
+    fib_phase_3_2_at_59.1 fib_phase_3_2_at_59.2
+
+/-- Smoke at p=61 (split, predict 30). -/
+theorem fib_phase_3_2_at_61 :
+    fibFst 60 % 61 = 0 ∧ fibFst 58 % 61 = 60 := by decide
+
+theorem pellCoeff_61_30_eq_init_via_bridge :
+    pellCoeff 61 (by decide) 30 = pellCoeff 61 (by decide) 0 :=
+  phase_3_2_closure 61 (by decide) 29
+    fib_phase_3_2_at_61.1 fib_phase_3_2_at_61.2
+
+/-- Smoke at p=71 (split, predict 35). -/
+theorem fib_phase_3_2_at_71 :
+    fibFst 70 % 71 = 0 ∧ fibFst 68 % 71 = 70 := by decide
+
+theorem pellCoeff_71_35_eq_init_via_bridge :
+    pellCoeff 71 (by decide) 35 = pellCoeff 71 (by decide) 0 :=
+  phase_3_2_closure 71 (by decide) 34
+    fib_phase_3_2_at_71.1 fib_phase_3_2_at_71.2
+
+/-- Smoke at p=79 (split, predict 39). -/
+theorem fib_phase_3_2_at_79 :
+    fibFst 78 % 79 = 0 ∧ fibFst 76 % 79 = 78 := by decide
+
+theorem pellCoeff_79_39_eq_init_via_bridge :
+    pellCoeff 79 (by decide) 39 = pellCoeff 79 (by decide) 0 :=
+  phase_3_2_closure 79 (by decide) 38
+    fib_phase_3_2_at_79.1 fib_phase_3_2_at_79.2
+
+/-- Smoke at p=89 (split, sub-tight predict 44). -/
+theorem fib_phase_3_2_at_89 :
+    fibFst 88 % 89 = 0 ∧ fibFst 86 % 89 = 88 := by decide
+
+theorem pellCoeff_89_44_eq_init_via_bridge :
+    pellCoeff 89 (by decide) 44 = pellCoeff 89 (by decide) 0 :=
+  phase_3_2_closure 89 (by decide) 43
+    fib_phase_3_2_at_89.1 fib_phase_3_2_at_89.2
+
+/-- Smoke at p=101 (split, sub-tight predict 50). -/
+theorem fib_phase_3_2_at_101 :
+    fibFst 100 % 101 = 0 ∧ fibFst 98 % 101 = 100 := by decide
+
+theorem pellCoeff_101_50_eq_init_via_bridge :
+    pellCoeff 101 (by decide) 50 = pellCoeff 101 (by decide) 0 :=
+  phase_3_2_closure 101 (by decide) 49
+    fib_phase_3_2_at_101.1 fib_phase_3_2_at_101.2
+
 end E213.Lib.Math.DyadicFSM.PellFibBridge

@@ -1270,6 +1270,55 @@ empirical smokes.  Sets up the next-session binomial theorem proof
 
 ---
 
+# Part 18 — All 11 split primes: per-prime Phase 3.2 closure via bridge
+
+Extends `Lib/Math/DyadicFSM/PellFibBridge.lean` with the remaining
+8 split-prime closures (19 → 33 PURE total in the module).  Each
+new closure is **one line** via `phase_3_2_closure` + per-prime
+fibLike smoke (Fibonacci-Pisano via `decide`).
+
+## Newly closed split primes
+
+Added 6 new smokes (`fib_phase_3_2_at_p`) + 8 new closures
+(`pellCoeff_p_N_eq_init_via_bridge`) for split primes:
+
+  · p=31 (predict 15): `pellCoeff_31_15_eq_init_via_bridge`
+  · p=41 (predict 20): `pellCoeff_41_20_eq_init_via_bridge`
+  · p=59 (predict 29): `pellCoeff_59_29_eq_init_via_bridge`
+  · p=61 (predict 30): `pellCoeff_61_30_eq_init_via_bridge`
+  · p=71 (predict 35): `pellCoeff_71_35_eq_init_via_bridge`
+  · p=79 (predict 39): `pellCoeff_79_39_eq_init_via_bridge`
+  · p=89 (sub-tight, predict 44): `pellCoeff_89_44_eq_init_via_bridge`
+  · p=101 (sub-tight, predict 50): `pellCoeff_101_50_eq_init_via_bridge`
+
+Combined with earlier closures (11, 19, 29) and ramified (5),
+**all 12 primes in the G119 Predictor23 chain** with `pellFSMmod`
+period reachable in `≤ p²` steps now have per-prime Phase 3.2
+matrix-order closure verified.
+
+## Phase 3.2 status (per-prime view)
+
+| Type | Primes | Closure |
+|------|--------|---------|
+| Ramified | 5 | direct decide (`matrixOrder_5_divides_10`) |
+| Split | 11, 19, 29, 31, 41, 59, 61, 71, 79, 89, 101 | bridge (Part 13 + Part 18) |
+| Inert | 3, 7, 13, 17, 23, 37, 43, 47, 53, 67, 73 | via `decide` (PellMatrixCases.lean, pre-existing) |
+
+So the per-prime side of Phase 3.2 is **fully covered** for the
+empirical chain (23 primes total in Predictor23, all bridged).
+
+The remaining work is the **universal** Phase 3.2 closure (∀ split
+prime, the Fibonacci-Pisano condition holds), which is FLT-equivalent
+and requires the multi-session FLT proof (Parts 14-17 in progress).
+
+## Verification (post Part 18)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py PellFibBridge`: 33 PURE / 0 DIRTY (was 19)
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
