@@ -66,7 +66,7 @@ Currently still open:
     `ZpDigit`, `ZpSeq`, `trunc`, `trunc_lt_p_pow`,
     `eq_mod_pn_iff_trunc`, `digits_of_nat` embedding + per-prime
     smokes.
-  · `lean/E213/Lib/Math/Padic/Arith.lean` — 45 PURE.
+  · `lean/E213/Lib/Math/Padic/Arith.lean` — 52 PURE.
     Addition layer: `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq`
     (structural identity), `Zp.add_trunc` (ring-quotient theorem
     `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`),
@@ -78,15 +78,20 @@ Currently still open:
     `Zp.mul_zero_{left,right}_digit`; multiplicative identity
     `Zp.mul_one_{left,right}_digit` (via convolution-collapse
     lemmas `mulRawSum_one_*`); base case `Zp.mul_trunc_one`
-    (truncation correctness at n = 1).  The general
-    `Zp.mul_trunc : (Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n`
-    is the natural next step.
+    (truncation correctness at n = 1).
+    `mul_trunc` infrastructure: step 1 (`Zp.mulSumRaw` partial
+    sum + `Zp.mulSumRaw_eq_trunc` structural identity +
+    `Zp.mulSumRaw_mod_eq_trunc` mod corollary) DONE; step 2
+    (`Zp.colSum` / `Zp.bilinSum` + closed forms `Zp.colSum_eq` /
+    `Zp.bilinSum_eq`) DONE.  Step 3 (bridge
+    `bilinSum n n % p^n = mulSumRaw n % p^n`) PENDING — analysis
+    + plan recorded in `research-notes/G122_*.md`.
   · `lean/E213/Lib/Math/Padic/Norm.lean` — 9 PURE.
     `Zp.valAtLeast`, `Zp.valAtLeast_mono`, `Zp.valAtLeast_iff_trunc`,
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 86 PURE / 0 DIRTY across 3 modules.**
+**Padic total: 93 PURE / 0 DIRTY across 3 modules.**
 
 Closure log: `research-notes/G122_real213_padic_research_direction.md`
 (Phase 1 closure log + Phase 2 partial closure + updated phase
