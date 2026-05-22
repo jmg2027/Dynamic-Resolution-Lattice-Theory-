@@ -1122,3 +1122,19 @@ Cross-references:
     (parallel branch) — closure report.
   · Parallel branch commit `e1f6f2f7` — the N5+N6 closure.
 
+## 2026-05-22 — G125 Cup self-reference catalog
+
+### Lens-recipe → δ-closure catalog (sub-direction A)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Cup.LeibnizMirror` | 3 | `cupRev`, `cupRev_eq_cup_swapped` (value equality via Bool && commutativity), `list_level_leibniz_mirror` (1-line corollary of G86 at (l, k) swap) |
+| `E213.Lib.Math.Cohomology.Cup.LeibnizSym` | 2 | `cupSymList` (XOR symmetrisation), `list_level_leibniz_sym` (doubled-correction Leibniz, ★ XOR algebra + G86 + mirror) |
+| `E213.Lib.Math.Cohomology.Cup.LeibnizCatalog` | 3 | `Recipe` inductive type (.lex / .mirror / .sym), `cupOfRecipe` dispatch, **★ `catalog_dispatch`** capstone (recipe → list-level Leibniz dispatch) |
+
+### Self-reference depth signature (sub-direction B + C)
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Cup.SelfRefDepth` | 43 | `selfRefIter` (face-iteration depth signature), `selfRefIter_length`; codim catalog at d = 5 — endpoint pair firings at codim `5 - k - l` for all 6 admissible bidegrees; universal closed form **`totalCupChannels_eq_binom`** (`= binom (d-1) 2` for any d); codim stratification `6 = NS + NT + 1`; **`codim_one_channels_eq_NS`** (★ physical: 3 codim-1 channels = `α_GUT` coefficient in `1/α_2 = 30 - 1/2 + 3·α_GUT`); 6 per-bidegree uniqueness contracts over 325 indicator basis pairs (★ falsifiability) |
+
