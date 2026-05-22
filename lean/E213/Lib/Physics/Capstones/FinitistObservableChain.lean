@@ -5,11 +5,12 @@ import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Mass.HierarchyTowers
 
 /-!
-# Finitist Observable Chain — N_U = d^(d²) universal scale
+# Finitist Observable Chain — observables at family value `configCount 2`
 
-All observables that use ζ(2) or π in their formula inherit the
-SAME finite lattice resolution N_U = d^(d²) = 5²⁵ from the
-underlying simplex structure.
+All observables that use ζ(2) or π in their formula evaluate at the
+same family point: the parametric Lens-output family
+`configCount : Nat → Nat` at level n = 2 (where `configCount 2 = 5^25`,
+historically called `N_U` and now `ResolutionLimit.N_U` as `abbrev`).
 
 ## Observables verified (all 213-internal finitist)
 
@@ -20,13 +21,17 @@ underlying simplex structure.
     `OmegaLambdaFinitist`, absorbed 2026-05-05)
   - M_Pl/v_H = d^(d²)/(d+1) — `Mass.HierarchyTowers`
 
-All four share N_U = d^(d²).  No external π / transcendentals.
+All four evaluate at the same family point `configCount 2 = 5^25`.
+No external π / transcendentals.
 
-## Universal structure
+## Family-point coincidence (not "universe constant")
 
-  N_U is the SAME lattice resolution for every observable —
-  a single combinatorial scale governing all four readings.
-  Structural unification by single-scale forcing.
+Per G120 Round 3: the four observables share the family
+*evaluation point* (level n = 2), not a privileged "universe
+resolution".  Earlier framing called this "the SAME lattice
+resolution N_U", which imported the CLAUDE.md "Universe-constant
+framing" failure mode.  Reframed: a single family-point
+evaluation, parametric over the level.
 -/
 
 namespace E213.Lib.Physics.Capstones.FinitistObservableChain
