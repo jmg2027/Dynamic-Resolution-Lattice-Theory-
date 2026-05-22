@@ -26,9 +26,13 @@ G120 phase-by-phase.
 ### A. Cup-Leibniz general ∀(n, k, l) — G86 **CLOSED 2026-05-22**
 Fin-level ∀(n, k, l) twisted Leibniz proven strict PURE in
 `lean/E213/Lib/Math/Cohomology/Cup/LeibnizFinGeneral.lean` as
-`fin_level_leibniz_general`.  Built atop 5 new PURE files:
-`KSubsetEraseIdx`, `FaceIdxGeneral`, `CupOnList`, `RangeFoldXor`,
-`DeltaUnfoldGeneral`.  Source / closure notes:
+`fin_level_leibniz_general`, plus the **pure Fin-index form**
+`fin_level_leibniz_pure_form` (no list-level wrappers in
+conclusion) in `Cup/LeibnizFinPureForm.lean`.  Built atop 6
+new PURE files: `KSubsetEraseIdx`, `FaceIdxGeneral`, `CupOnList`,
+`RangeFoldXor`, `DeltaUnfoldGeneral`, `LeibnizFinPureForm`.
+Includes a self-referential restatement and four Δ⁴ bidegree
+corollaries (1,1)/(2,1)/(1,2)/(2,2).  Source / closure notes:
 `research-notes/G86_self_referential_lex_cup_leibniz.md`.
 
 ### B. G107 action-items still-open (high-priority subset)
