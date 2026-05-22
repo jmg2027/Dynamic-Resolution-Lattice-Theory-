@@ -52,6 +52,20 @@ Recast in `Nat` (no subtraction): `29² = 5 · 8² + 521`. -/
 /-- Aurifeuillean norm: `521 = 29² − 5·8²`, in `Nat`-friendly form. -/
 theorem aurifeuillean_norm_521 : 29 * 29 = 5 * (8 * 8) + 521 := by decide
 
+/-- Hunter-catalogue bridge: the Aurifeuillean norm pair `(29, 8)`
+    of `521` decomposes into Hunter primitives `{NS=3, NT=2, d=5, c=2}`:
+
+    ```
+    29 = d² + NT²    (= 25 + 4)
+    8  = NT³         (= 2³, catalog atom)
+    521 = (d² + NT²)² − d · (NT³)²
+    ```
+
+    Equivalently in `ℤ[√d]`: `521 = N((d² + NT²) + NT³ · √d)`.
+    Recast in `Nat`: `(d² + NT²)² = d · (NT³)² + 521`. -/
+theorem aurifeuillean_norm_521_hunter :
+    (5^2 + 2^2) * (5^2 + 2^2) = 5 * ((2^3) * (2^3)) + 521 := by decide
+
 /-! ## §2 Cyclotomic identity `Φ_10(5) = 521`
 
 `Φ_10(x) = x^4 − x^3 + x^2 − x + 1`.  At `x = 5`:

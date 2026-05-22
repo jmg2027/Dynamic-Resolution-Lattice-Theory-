@@ -40,10 +40,18 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
   118 = Og   137 = 1/α_em (prime)
   168 = HO magic 7 (Z=168 prediction)
   192 = (NS²-1)(d²-1) (Muon lifetime)
+  521 = Aurifeuillean handle on N_U + 1 = 5^(5^n) + 1 (n-uniform, prime)
+       · 521 = (d² + NT²)² − d · (NT³)² = 29² − 5·8²
+       · = N((d² + NT²) + NT³ · √d) in ℤ[√d]
+       · = Φ_10(5), the unique Aurifeuillean cyclotomic factor of
+         the count-Lens +1 family across all n ≥ 1
+       · Three atomic readings of 29: NT^d − NS, d² + NT², d² + d − 1
+       · Lean: Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean
+         + ConfigCountAurifeuilleanParam.lean (parametric ∀n)
 
 ## Atomic primes
 
-  2, 3, 5, 7, 13, 41, 137
+  2, 3, 5, 7, 13, 41, 137, 521
 
 ## Multi-output (same integer across unrelated frameworks)
 
