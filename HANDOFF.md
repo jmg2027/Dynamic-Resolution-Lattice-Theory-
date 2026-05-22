@@ -2,10 +2,11 @@
 
 ## Branch
 
-`claude/aurifeuillean-cutoff` — bounded cut-off Lean realisation
-for the Hunter ⇔ Aurifeuillean correspondence at `m = 1` (Φ_10(5))
-vs `m = 3` (Φ_90(5)).  Extends G125 closure with a complexity-
-theoretic structural reading.
+`claude/g129-cutoff-marathon` — full cut-off proof marathon.
+Closes the asymptotic cut-off at depth 1 (∀ v > 3125, v ∉
+HunterValues_1, covering the entire L_m tail for m ≥ 3).
+Documents the literal-version vacuousness via Frobenius and
+the refined complexity-theoretic conjecture.
 
 ## Recently closed (this branch)
 
