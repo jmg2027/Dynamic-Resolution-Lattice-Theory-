@@ -1858,6 +1858,97 @@ The next step toward Phase 3.2 universal closure:
 
 ---
 
+# Part 32 — **UNIVERSAL PHASE 3.2 CLOSURE COMPLETE**
+
+`Lib/Math/DyadicFSM/UniversalPhase32.lean` (new, 2 PURE):
+
+The endgame.  End-to-end universal Phase 3.2 closure combining the
+entire campaign (Parts 11-31).
+
+  · **`universal_phase_3_2`** (★★★★★★★★ ENDGAME):
+       For split prime p with sqrt5 witness s and the universal
+       primality hypothesis (`h_prime_gcd`), plus per-prime
+       decidable hypotheses (`h_phi_pos`, `h_psi_pos`, etc.),
+       conclude `pellCoeff p hp (N' + 1) = pellCoeff p hp 0`
+       (matrix M^(N'+1) ≡ I mod p, with N'+1 = (p-1)/2).
+
+  · **`phase_3_2_at_11_universal`** (★★★★★★★★★ DEMONSTRATION):
+       `pellCoeff 11 _ 5 = pellCoeff 11 _ 0` derived end-to-end
+       through the universal framework — **NO `decide` shortcut**
+       on FLT or matrix order.  Every step structural:
+         · Universal FLT (Part 31) for phi^10 and psi^10
+         · Bezout-derived ModInverse for sqrt5 = 4 mod 11
+         · Binet bridges for F_10 ≡ 0 and F_8 ≡ -1 mod 11
+         · phase_3_2_closure (Part 13)
+
+## The complete chain at p=11 (proof structure)
+
+```
+phase_3_2_at_11_universal
+  ↑ universal_phase_3_2 (Part 32)
+  │  ↑ phase_3_2_closure (Part 13)
+  │  │  ↑ F_10 ≡ 0 mod 11
+  │  │  │  ↑ binet_F_p_minus_1_zero (Part 25)
+  │  │  │  │  ↑ universal_flt_main (Part 31, FLT for phi^10)
+  │  │  │  │  │  ↑ flt_main (Part 22)
+  │  │  │  │  │  │  ↑ flt_primary (Part 21)
+  │  │  │  │  │  │  │  ↑ freshman_dream (Part 20)
+  │  │  │  │  │  │  │  │  ↑ binom_theorem_b_eq_one (Part 19)
+  │  │  │  │  │  │  │  │  │  ↑ choose + Pascal (Part 14)
+  │  │  │  │  │  │  │  │  └  ↑ sumTo infra (Part 16-17)
+  │  │  │  │  │  │  │  └ choose_p_dvd_of_inverse (Part 15)
+  │  │  │  │  │  └ modInverseFromBezout (Part 30)
+  │  │  │  │  │     └ Bezout marathon (Parts 27-30)
+  │  │  │  │  └ phi_pow_eq_fibLike (Part 11)
+  │  │  └ F_8 ≡ -1 mod 11
+  │  │     ↑ binet_F_p_minus_3_plus_one_zero (Part 26)
+  │  │     └ mod_eq_p_minus_one_of_succ_mod_zero (Part 26)
+  │  └ phi_eq_psi_plus_s, h_psi_sq, etc. (per-prime decidable)
+  └ prime_gcd_11 (enumeration, Part 31)
+```
+
+Every step is PURE, 213-native, ∅-axiom verified.
+
+## Campaign status
+
+| Marathon | Status |
+|----------|--------|
+| Phase 3.2 algebraic foundation | ✅ Parts 11-13 |
+| FLT (multi-session) | ✅ Parts 14-22 |
+| ψ infra + Binet bridges | ✅ Parts 24-26 |
+| Per-prime closures (11 split primes via decide) | ✅ Part 18 |
+| **Bezout marathon (universal modular inverse)** | ✅ Parts 27-30 |
+| **Universal FLT (Bezout-based)** | ✅ Part 31 |
+| **Universal Phase 3.2 closure** | ✅ Part 32 |
+
+**The universal Phase 3.2 closure marathon is COMPLETE.**
+
+The theorem `universal_phase_3_2` is parameterised by p, s, N' + the
+hypotheses; applying at any specific split prime requires only
+`decide` calls for the per-prime hypotheses + `prime_gcd_p` enumeration.
+`phase_3_2_at_11_universal` demonstrates this at p=11.
+
+Adding closures at the other split primes (19, 29, 31, 41, 59, 61,
+71, 79, 89, 101) is mechanical: each requires a `prime_gcd_p`
+enumeration theorem + a one-line `universal_phase_3_2` invocation.
+
+## What this means for DRLT
+
+The entire chain from "primality (gcd-coprimality)" to "matrix order
+divides (p-1)/2 at split primes" is now 213-native PURE.  Mathlib-level
+number theory infrastructure: `modBezout`, `modInverseFromBezout`,
+universal FLT, Binet bridges — all usable as a library.
+
+## Verification (post Part 32)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py UniversalPhase32`: 2 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+**Campaign complete.**
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
