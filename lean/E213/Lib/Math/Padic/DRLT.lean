@@ -68,4 +68,33 @@ theorem canonical_5adic_NU_digit_2 :
   show ((5 : Nat)^25 / 5^2) % 5 = 0
   decide
 
+/-! ## Other canonical 5-adic elements -/
+
+/-- The 5-adic lift of `5` itself — has digit 1 at position 1
+    and zero elsewhere. -/
+def canonical_5adic_p : ZpSeq 5 :=
+  ZpSeq.digits_of_nat 5 (by decide) 5
+
+/-- Digit-0 of `5` in base 5 is `0`. -/
+theorem canonical_5adic_p_digit_0 :
+    (canonical_5adic_p.digits 0).val = 0 := by decide
+
+/-- Digit-1 of `5` in base 5 is `1`. -/
+theorem canonical_5adic_p_digit_1 :
+    (canonical_5adic_p.digits 1).val = 1 := by decide
+
+/-- Digit-2 of `5` in base 5 is `0`. -/
+theorem canonical_5adic_p_digit_2 :
+    (canonical_5adic_p.digits 2).val = 0 := by decide
+
+/-! ## ResolutionLimit bridge — first 25 digits
+
+The canonical 5-adic lift `canonical_5adic_NU` of `N_U = 5^25`
+has all digits below position 25 equal to zero — consistent with
+the `5^25` factor.  The full anchor theorem
+`∀ n ≤ 25, canonical_5adic_NU.trunc n = 0` would require either
+inductive verification across each level or a general `n / p^k`
+mod analysis.
+-/
+
 end E213.Lib.Math.Padic
