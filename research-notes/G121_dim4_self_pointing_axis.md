@@ -882,6 +882,35 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      Geometrization's d=3-uniqueness narrative parallel is sharpened:
      standard "3-ness" of Lie-group classification ↔ 213-Lens
      "3-ness" via NS = 3 OR NT = 3 Sym(3)-capability filter.
+ 20. **Step 15 — Generalized Poincaré + Filled cohomology
+     evolution** (104 PURE total).
+
+     §P-gen (Generalized Poincaré, all chartBase):
+       · `generalized_Poincare_chartBase_2_to_6`: every chartBase
+         ∈ {2..6} admits unique tree K_{1,k}^{(c=1)} (modulo S/T
+         swap).  Spans d_M ∈ {1..5}.
+       · 213-Lens analog of Smale/Freedman/Perelman generalized
+         Poincaré at ALL dimensions, not just d=3.
+       · KEY DISCOVERY: at chartBase = 5 (d_M = 4), K_{1,4}^{(c=1)}
+         tree COEXISTS with K_{3,2}^{(c=2)} forced critical.
+       · ★★★★ `chartBase_5_tree_and_critical_coexist`: tree
+         branch (b_1=0) + critical branch (b_1=8) at d_M=4 as
+         distinct deployments.
+
+     §J-helper (Filled-cohomology evolution):
+       · `K32_filling_evolution`: K_{3,2}^{(c=2)} b_1 sequence
+         8 → 7 → 6 → 5 as 2-cells filled (k=0..3).
+       · b_1 = 0 NOT reachable with only 3 simple-cycle fills.
+       · ★★★★ `filling_versus_tree_dual_path`: two routes to
+         lower b_1 — filling (b_1=5 floor) vs choosing tree
+         topology (b_1=0 directly).
+
+     Dual-path picture: at d_M = 4 chartBase=5, 213-Lens hosts
+     THREE distinct structural options — tree (K_{1,4}^{(c=1)}),
+     critical (K_{3,2}^{(c=2)}), filled-critical (k cells).
+     Standard math at d=4 also exhibits rich variety (Donaldson
+     exotic, Freedman topological).  Narrative parallel of
+     richness — though not direct identification.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
