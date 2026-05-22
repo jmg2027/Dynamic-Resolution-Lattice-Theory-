@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.V25
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Counts
 
@@ -35,6 +36,7 @@ namespace E213.Lib.Physics.Foundations.FractalLensCardinality
 
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Math.Cohomology.Fractal.V25
+open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD)
 
 /-- Number of d-colorings of n-vertex graph: d^n. -/
 def coloring_count (n d : Nat) : Nat := d ^ n
@@ -76,5 +78,23 @@ theorem fractal_lens_cardinality_capstone :
   · decide
   · intro n; exact coloring_count_succ n d
   · decide
+
+/-! ## Bridge to the parametric `configCountD` family
+
+The `d`-coloring count on K_{b²} (the b^2-vertex complete graph)
+is the level-2 readout of the parametric family `configCountD b n`
+specialised at the diagonal `(d = b)`.  The bridge is `rfl`
+because both sides unfold to `b^(b^2)`. -/
+
+/-- Coloring count at `b²` vertices with `b` colours equals
+    `configCountD b 2 = b^(b^2)`.  Free `rfl` once both sides
+    are unfolded. -/
+theorem K_b_sq_coloring_count_eq (b : Nat) :
+    coloring_count (b ^ 2) b = configCountD b 2 := rfl
+
+/-- The K_{25} coloring count (the `b = 5` instance) equals
+    `configCountD 5 2 = 298023223876953125`. -/
+theorem K25_coloring_count_eq_configCountD :
+    coloring_count numV d = configCountD 5 2 := by decide
 
 end E213.Lib.Physics.Foundations.FractalLensCardinality
