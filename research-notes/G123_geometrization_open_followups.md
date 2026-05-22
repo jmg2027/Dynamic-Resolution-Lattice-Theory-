@@ -46,7 +46,7 @@ at that time — **don't pre-allocate**.
 
 ## §1.  Open items — ordered by readiness
 
-### FW-1 — 4-mfd exotic enumeration via Sym(3) gauge  [MARATHON, OPEN]
+### FW-1 — 4-mfd exotic enumeration via Sym(3) gauge  [ANCHORED — MARATHON CONTINUES]
 
 **Trigger**: user 2026-05-22 (G121 step 25): "4차원을 좌절할 게
 아니라 가장 투명하게 잘 보여주는 거였던건데… 그 엑조틱 자체를
@@ -56,49 +56,61 @@ at that time — **don't pre-allocate**.
 structures on closed 4-manifolds, derived from K_{3,2}^{(c=2)} gauge
 data (Sym(3) action, |Aut(K)| = 768, gluon-octet coker(ι*)).
 
-**Scaffold already in place**:
-  · `c3_chain_master` (`Physics/Symmetry/C3ChainCapstone.lean`) —
-    Sym(3) gauge action + (F_2)^8 coker
-  · `EightGeometries.all_eight_via_single_mobius_P` — single P,
-    7 mod-k Lenses, 8 narratives
-  · `Capstone.dim4_information_richness` — d=4 = unique two-branch
-    dimension
+**Anchor added 2026-05-22** (`Exotic4Mfd.lean`):
+  · `sym3GaugeInvariant : Nat := Sym3IrrepDecomp.fixedSize`
+    (= 4 = 2²) — the atomic 213-native gauge invariant playing
+    the structural role of Donaldson's integer count.
+  · `sym3_gauge_invariant_value` — witness with explicit basis
+    `ω_10`, `ω_01` of the fixed subspace.
+  · `exotic_4mfd_scaffold` — 8-conjunct bundle of all infra
+    required for the substantive enumeration marathon:
+    Sym(3) gauge group, atomic invariant, single-source 8-geo,
+    d=4 information richness, dim-2 trivial-isotypic dimension.
 
-**Missing**: a Lean-formalized exotic-count statement
-`exoticCount4Mfd : Nat → Nat` (or analogous) with a structural
-derivation from the Sym(3) gauge layer.  Standard math comparison:
-Donaldson's instanton-moduli space.
+**Still missing** (substantive marathon):
+  · An exotic-count theorem matching Donaldson invariants
+    requires standard-math interface for "smooth structure
+    equivalence" — 213 doesn't have this by design.
+  · A 213-internal definition of "exotic smooth structure on a
+    K-deployment" is open work.
+  · Burnside-style Sym(3)-orbit count on H¹(K) basis (256 classes
+    split into Sym(3)-orbits — likely 44 orbits, but exact count
+    requires per-element fixed-subspace dimension theorems).
 
-**Effort**: marathon (likely 6-12 sessions, parallels FLUX-1 / COH
-scale per `HANDOFF.md` open work §B).
+**Effort spent**: ~1 session (anchor).  Remaining 5-11 sessions
+for substantive enumeration close.
 
 **Falsifier potential**: HIGH.  An explicit exotic-count prediction
-that disagrees with Donaldson invariants on a known 4-manifold
-falsifies the Sym(3)-gauge ↔ exotic-smooth correspondence — i.e.,
-falsifies M2/M3 together for the 4-mfd deployment.  Promotes G121
-toward DRLT Validation Standard.
+disagreeing with Donaldson invariants on a known 4-manifold
+falsifies the Sym(3)-gauge ↔ exotic-smooth correspondence — promotes
+G121 toward DRLT Validation Standard.
 
 ---
 
-### FW-2 — JSJ deeper close (3-cell complex)  [PARTIAL]
+### FW-2 — JSJ deeper close (3-cell complex)  [PARTIAL DEEPENED]
 
-**Current state**: `JsjDeep.lean` (~10 PURE) — χ-target scaffold
-(`chi_closed_3mfd := 0`, `chi_K32_extended k j`, sphere Euler chain
-∂Δⁿ for n=2..5).  Bipartite S/T cut as canonical decomposition
-formalized.
+**Current state**: `JsjDeep.lean` (~20 PURE) — χ-target scaffold +
+3-mfd catalog + bipartite S/T cut canonical decomposition.
 
-**Missing**:
-  · Full 3-cell complex `Filled.lean` extension (current Filled
-    only handles 2-cells).
-  · K_{3,2}^{(c=2)} ∪ k 2-cells ∪ j 3-cells → S³ realization
-    (need k − j = 7).
-  · JSJ-torus-cut lift from bipartite-graph cut to manifold-level
-    cut (still narrative-only).
+Deepening added 2026-05-22:
+  · 3-mfd Euler-target catalog: S³, T³, L(p,q), connected sums
+    all unified at χ = 0 (`closed_3mfd_euler_unified`).
+  · K_{3,2}^{(c=2)} cell-complex (k, j) parameter family realizing
+    closed 3-mfd targets (`K32_cell_complex_3mfd_parameter_family`).
+  · Bipartite S/T cut as canonical decomposition: S-side, T-side,
+    sum-to-chartBase, non-triviality at K_{3,2} formalized.
+  · `JSJ_deeper_consolidation` capstone bundling all of the above.
 
-**Effort**: medium (3-5 sessions).
+**Still missing**:
+  · Full 3-cell complex `Filled.lean` extension (current `Filled.lean`
+    handles 2-cells only).  Requires new file `Filled3Cell.lean`.
+  · Topological 3-mfd structure verification (not just Euler-target
+    match).
+  · JSJ-torus-cut lift from graph cut to manifold cut.
 
-**Falsifier potential**: LOW (structural pillar deepening, not a
-measurable prediction).
+**Effort spent**: ~1 session.  Remaining 2-4 sessions for full close.
+
+**Falsifier potential**: LOW (structural pillar deepening).
 
 ---
 
@@ -133,28 +145,33 @@ c2-binary-cover MUST be (3,2,2) or (2,3,2).
 
 ---
 
-### FW-4 — E³/H³/H²×ℝ direct realization (metric geometries)  [PARTIAL]
+### FW-4 — E³/H³/H²×ℝ direct realization (metric geometries)  [PARTIAL DEEPENED]
 
-**Current state**: `MetricGeometries.lean` (~11 PURE) — Möbius P
-mod-k Lens family extended to F_2 / F_3 / F_5 / F_7 / F_11.  Per
-the table in `INDEX.md`: F_2 → E³ candidate (flat), F_3 → H²×ℝ
-candidate, F_7 → H³ candidate, F_11 → split-geometry candidate.
+**Current state**: `MetricGeometries.lean` (~15 PURE) — Möbius P
+mod-k Lens family extended to F_2 / F_3 / F_5 / F_7 / F_11 / F_13
++ **F_5 uniqueness structural result**.
 
-**Missing**:
-  · Metric-formalization for flat (E³): currently only "irreducible
-    over F_2" narrative.  Need a 213-native flat-metric type.
+Deepening added 2026-05-22:
+  · `F5_unique_nil_collapse_small_primes`: across primes 2..23,
+    only `p = 5` collapses the Möbius P discriminant (= 5).  This
+    establishes F_5 as the *structurally unique* Nil-Lens.
+  · `F13_lens_irreducible`: extends prime table to F_13.
+  · `mod_k_lens_family_F5_unique_close`: 213's `d = 5` fractal
+    base aligns with the unique Nil-producing Lens — not arbitrary.
+
+**Still missing**:
+  · Metric-formalization for flat (E³): currently "irreducible over
+    F_2" narrative.  Needs 213-native flat-metric type.
   · Hyperbolic (H², H³, H²×ℝ): narrative-only via P trace > 2.
-    Need 213-native hyperbolic-metric type.
-  · The mod-k Lens narratives are **candidates**, not derivations.
-    Promotion requires a uniqueness theorem of the form "modulus k
-    forces geometry G_k" for each k ∈ {2, 3, 7, 11}.
+    Needs 213-native hyperbolic-metric type.
+  · Promotion to uniqueness theorems of the form "modulus k forces
+    geometry G_k" for k ∈ {2, 3, 7, 11}.
 
-**Effort**: marathon (likely 5-8 sessions; depends on whether
-ε-Lens infrastructure from `Topology/Continuity` + `Analysis/
-BracketCauchyModulus` extends to flat/hyperbolic metrics).
+**Effort spent**: ~1 session.  Remaining 4-7 sessions for full close.
 
-**Falsifier potential**: MEDIUM.  Concrete mod-k Lens → geometry
-assignment is testable against Thurston's classification.
+**Falsifier potential**: MEDIUM.  F_5 uniqueness sharpens the
+falsifier: any K-deployment whose Möbius P has discriminant ≠ 5
+would NOT produce Nil narrative — testable structural prediction.
 
 ---
 
@@ -233,15 +250,13 @@ Conditional on user direction; default sequencing:
 2. ~~**I-1** + **I-4** (2-3 sessions combined)~~ — **DONE** 2026-05-22.
 3. ~~**FW-3** (medium marathon, universal closure)~~ — **DONE** 2026-05-22
    (Prop-level closure; Boolean ↔ corollary deferred).
-3. **FW-3** (medium marathon) — abstract filter machinery is
-   reusable and folds M1/M2 residual into one place.
-4. **FW-2** (medium marathon) — Filled.lean 3-cell extension is
-   prerequisite to FW-4's hyperbolic metric work anyway.
-5. **FW-4** (marathon) — direct metric realization closes the
-   metric-geometries side of EightGeometries pillar.
-6. **FW-1** (marathon) — exotic enumeration via Sym(3) gauge.
-   **Highest falsifier potential**; biggest single advance toward
-   DRLT Validation Standard for G121.
+4. ~~**FW-2** (partial deepening)~~ — **DONE** 2026-05-22
+   (3-mfd target catalog + JSJ-cut canonical; full 3-cell complex deferred).
+5. ~~**FW-4** (partial deepening)~~ — **DONE** 2026-05-22
+   (F_5 uniqueness for Nil collapse; metric formalization deferred).
+6. ~~**FW-1** (marathon, anchor)~~ — **ANCHORED** 2026-05-22
+   (`sym3GaugeInvariant` + `exotic_4mfd_scaffold`; substantive
+   enumeration is the continuing marathon for future sessions).
 
 I-3 is parallel to anything; can interleave.
 

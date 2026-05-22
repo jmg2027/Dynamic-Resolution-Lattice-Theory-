@@ -11,6 +11,7 @@ import E213.Lib.Math.GeometrizationConjecture.Generalization
 import E213.Lib.Math.GeometrizationConjecture.JsjDeep
 import E213.Lib.Math.GeometrizationConjecture.MetricGeometries
 import E213.Lib.Math.GeometrizationConjecture.CrossFrame
+import E213.Lib.Math.GeometrizationConjecture.Exotic4Mfd
 
 /-! Spec-as-code entry point for `E213.Lib.Math.GeometrizationConjecture`.
 
