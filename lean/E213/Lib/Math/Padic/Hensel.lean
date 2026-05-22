@@ -262,6 +262,25 @@ private theorem negMod_cancel (p : Nat) (hp : 0 < p) (a : Nat) :
     rw [hadd]
     exact E213.Meta.Nat.AddMod213.mod_self p
 
+/-- Hensel final combinator: given `(e + S % p) ≡ 0 (mod p)` and
+    `1 < p^(n+2)`, conclude `(1 + (e + S % p) · p^(n+1)) % p^(n+2) = 1`. -/
+private theorem hensel_final (e S p n : Nat) (hp_pow : 1 < p^(n + 2))
+    (h_cancel : (e + S % p) % p = 0) :
+    (1 + (e + S % p) * p^(n + 1)) % p^(n + 2) = 1 := by
+  -- (e + S % p) = ((e + S % p) / p) · p (since the mod is 0).
+  have h_q : e + S % p = ((e + S % p) / p) * p := by
+    have hdm := E213.Meta.Nat.AddMod213.div_add_mod (e + S % p) p
+    rw [h_cancel, Nat.add_zero, Nat.mul_comm] at hdm
+    exact hdm.symm
+  rw [h_q]
+  -- ((e + S % p)/p · p) · p^(n+1) = ((e + S % p)/p) · (p · p^(n+1)) = ... · p^(n+2)
+  rw [E213.Tactic.NatHelper.mul_assoc ((e + S % p) / p) p (p^(n + 1))]
+  rw [show p * p^(n + 1) = p^(n + 2) from
+        (Nat.mul_comm p (p^(n + 1))).trans (Nat.pow_succ p (n + 1)).symm]
+  -- (1 + ((e + S % p)/p) · p^(n+2)) % p^(n+2) = 1 % p^(n+2) = 1
+  rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+  exact Nat.mod_eq_of_lt hp_pow
+
 /-- Hensel cancellation: with `(x_0 · i0) ≡ 1 (mod p)`, the
     correction `negMod p (e · i0)` makes `(x_0 · correction)`
     cancel `e` modulo `p`:
@@ -496,5 +515,79 @@ theorem Zp.invSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
           + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
               * p^(n + 1)
   rw [Zp.invSeq_succ_trunc_low p hp x h_gcd n (n + 1) (Nat.le_refl _)]
+
+/-- The Hensel inductive step: given the IH at level n, the next
+    digit chosen by `invSeq` makes `(x · invSeq (n+1)).trunc (n+2) = 1`. -/
+private theorem hensel_step (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat)
+    (ih : (Zp.mul p (Nat.lt_of_succ_lt hp) x
+            (Zp.invSeq p (Nat.lt_of_succ_lt hp) x h_gcd n)).trunc (n + 1) = 1) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) x
+      (Zp.invSeq p (Nat.lt_of_succ_lt hp) x h_gcd (n + 1))).trunc (n + 2)
+        = 1 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have hpow_pos : 0 < p^(n + 1) := Nat.pos_pow_of_pos _ hp'
+  have h_one_lt : 1 < p^(n + 2) := one_lt_pow_succ p hp (n + 1)
+  have h1 : (Zp.mul p hp' x (Zp.invSeq p hp' x h_gcd n)).trunc (n + 2)
+            = 1 + ((Zp.mul p hp' x
+                    (Zp.invSeq p hp' x h_gcd n)).digits (n + 1)).val
+                  * p^(n + 1) := by
+    show (Zp.mul p hp' x (Zp.invSeq p hp' x h_gcd n)).trunc (n + 1) + _ = _
+    rw [ih]
+  have h2 : ((Zp.mul p hp' x (Zp.invSeq p hp' x h_gcd n)).trunc (n + 2) - 1)
+            / p^(n + 1)
+            = ((Zp.mul p hp' x
+                  (Zp.invSeq p hp' x h_gcd n)).digits (n + 1)).val := by
+    rw [h1, Nat.add_comm 1, E213.Tactic.NatHelper.add_sub_cancel_right]
+    exact mul_div_cancel_pure _ _ hpow_pos
+  have h3 : ((Zp.invSeq p hp' x h_gcd (n + 1)).digits (n + 1)).val
+            = Zp.negMod p
+                (((Zp.mul p hp' x (Zp.invSeq p hp' x h_gcd n)).digits (n + 1)).val
+                  * (Zp.invDigit0 p hp' x h_gcd).val) := by
+    rw [Zp.invSeq_succ_new_digit p hp' x h_gcd n, h2]
+  rw [Zp.mul_trunc p hp' x (Zp.invSeq p hp' x h_gcd (n + 1)) (n + 2)]
+  rw [Zp.invSeq_succ_trunc_extend p hp' x h_gcd n]
+  rw [Nat.mul_add]
+  rw [← Zp.invSeq_trunc_at_succ p hp' x h_gcd n]
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen]
+  rw [← Zp.mul_trunc p hp' x (Zp.invSeq p hp' x h_gcd n) (n + 2)]
+  rw [h1]
+  -- Regroup x.trunc(n+2) · (new_digit · p^(n+1)) to (x.trunc(n+2) · new_digit) · p^(n+1)
+  rw [← E213.Tactic.NatHelper.mul_assoc (x.trunc (n + 2))
+        ((Zp.invSeq p hp' x h_gcd (n + 1)).digits (n + 1)).val (p^(n + 1))]
+  rw [mul_pow_succ_mod _ p n hp']
+  rw [Nat.add_assoc, ← E213.Tactic.NatHelper.add_mul]
+  rw [h3]
+  rw [show (x.trunc (n + 2)
+            * Zp.negMod p
+                (((Zp.mul p hp' x (Zp.invSeq p hp' x h_gcd n)).digits (n + 1)).val
+                  * (Zp.invDigit0 p hp' x h_gcd).val)) % p
+          = ((x.digits 0).val
+                * Zp.negMod p
+                    (((Zp.mul p hp' x
+                        (Zp.invSeq p hp' x h_gcd n)).digits (n + 1)).val
+                      * (Zp.invDigit0 p hp' x h_gcd).val)) % p from by
+        rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure (x.trunc (n + 2))]
+        rw [trunc_succ_mod_p p hp' x (n + 1)]
+        rw [← E213.Meta.Nat.MulMod213.mul_mod_left_pure]]
+  exact hensel_final _ _ p n h_one_lt
+          (hensel_cancel p (x.digits 0).val (Zp.invDigit0 p hp' x h_gcd).val
+            _ hp (Zp.invDigit0_eq p hp' x h_gcd))
+
+/-- **General Hensel correctness**: for `1 < p`, any `n`, and
+    `x` with digit-0 coprime to `p`, the approximate inverse
+    `invSeq n` satisfies `(x · invSeq n).trunc (n + 1) = 1`,
+    i.e., `x · invSeq n ≡ 1 (mod p^(n+1))`. -/
+theorem Zp.mul_invSeq_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) x
+            (Zp.invSeq p (Nat.lt_of_succ_lt hp) x h_gcd n)).trunc (n + 1) = 1
+  | 0 => by
+    rw [Zp.mul_invSeq_trunc_one p (Nat.lt_of_succ_lt hp) x h_gcd 0]
+    exact Nat.mod_eq_of_lt hp
+  | n + 1 =>
+    hensel_step p hp x h_gcd n (Zp.mul_invSeq_correct p hp x h_gcd n)
 
 end E213.Lib.Math.Padic
