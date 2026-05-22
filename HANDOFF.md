@@ -2,9 +2,8 @@
 
 ## Branch
 
-`claude/cup-catalog-extensions` (active) — d ≥ 6 catalog
-validation pushed.  `main` integrated G125 cup-self-reference
-catalog (commit `7ef94e16`).
+`main` — integrated cup-catalog ∀d closure (`Cup/IterErase.lean`)
+and G125 Aurifeuillean campaign on the same merge cycle.
 
 ## Recently closed (this branch)
 
@@ -231,6 +230,93 @@ physics bridges`.
 `research-notes/archive/G123_n_u_family_theory.md` — original
 7-phase plan + open questions registry (archived after
 promotion).
+
+### B+++. G125 Aurifeuillean handle on N_U+1 — ALL PHASES CLOSED + PROMOTED
+
+Successor to G124 §1.3 / §6.1 — promoted from "Most directly
+DRLT-relevant" research direction to a formal Lean campaign on
+this branch (`claude/n-u-followup-campaign-3PnDm`).
+
+**Headline result**: the prime `521 = Φ_10(5) = N(29 + 8√5)` is
+the **unique Aurifeuillean cyclotomic factor** of the family
+`5^(5^n) + 1`, **n-uniform across all n ≥ 1**.  Lean PURE proof
+via clean induction; no FLT, no period reduction, no Carmichael.
+
+**Hunter-catalogue bridge (Phase 3)**: the Aurifeuillean norm
+pair `(29, 8)` decomposes into Hunter primitives at the
+physics-selected base:
+
+```
+521 = (d² + NT²)² − d · (NT³)²
+    = N((d² + NT²) + NT³ · √d)   in ℤ[√d]
+```
+
+with `29 = d² + NT² = NT^d − NS = d² + d − 1` (three
+independent atomic readings) and `8 = NT³` already in catalog.
+
+**Lean** (14 PURE / 0 DIRTY across two files):
+  · `Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean.lean`
+    (10 theorems): norm representation, Hunter-bridge, cyclotomic
+    `Φ_10(5) = 521`, seed `5^5 + 1 = 6·521`, concrete divisibility
+    at `n ∈ {1, 2, 3}`, and the `aurifeuillean_fingerprint_n_u`
+    capstone at the physics slice.
+  · `Lib/Math/Cohomology/Fractal/ConfigCountAurifeuilleanParam.lean`
+    (5 theorems): parametric `∀m, (configCount (m+1) + 1) % 521 = 0`
+    via induction on `m` with auxiliary `pow_mod_base` and two
+    decidable seeds (`5^5 % 521 = 520`, `520^5 % 521 = 520`).
+
+**Catalog update**: `catalogs/atomic-integers.md` now registers
+`521` under "Large integers (100+)" with the norm form, Aurifeuillean
+reading, three atomic readings of 29, and Lean cross-references.
+Added to "Atomic primes" list.
+
+**Structural significance** (research-note §10):
+  · §10.1 **Scale-free anchor**: 521 is preserved across every
+    fractal level `n ≥ 1`; provides a complete mod-521 shadow of
+    the entire `5^(5^n) + 1` sequence independent of
+    sampling-regime explosion.
+  · §10.2 **ℤ[√5] algebraically forced**: `Φ_10` irreducible
+    over ℤ but splits in ℤ[√5] — same algebraic substrate as
+    `φ = (1+√5)/2` (Mobius213.lean), Pell-Fibonacci over `F_{p²}`
+    (modular_arithmetic.md), dyadic FSM (dyadic_fsm.md).
+  · §10.3 **Last discrete Galois split before tetration**:
+    `(29, 8) = (d² + NT², NT³)` is the cleanest discrete
+    algebraic signature at the bottom of the hyper-exponential
+    tower, before cyclotomic indices exit to higher-degree
+    fields at `Φ_{50}, Φ_{250}, …`.
+
+**Phases**: 1 ✓ (concrete + norm) / 2 ✓ (parametric ∀n) / 3 ✓
+(Hunter bridge) / 4 ✓ (catalog) / 5 ✓ (theory promotion via
+`theory/math/cohomology/aurifeuillean.md`).  H1-H4 and S1-S3 all
+met per `theory/PROMOTION_CRITERIA.md`.  Research note archived
+to `research-notes/archive/G125_aurifeuillean_n_u.md`.
+
+**Q1 + Q4 combined closure**: the Hunter-Aurifeuillean
+correspondence is uniquely **localised to the minimal index
+`m = 1`** (= `Φ_10(5) = 521`).  At the next Aurifeuillean
+cyclotomic factor `Φ_90(5) = 60081451169922001` (a 17-digit
+prime), the canonical pair `(L, M) = (850554441, 364242064)`
+has **no Hunter expressibility** (smallest |M| after unit
+reduction = `(5^12 + 1)/2 = 122070313`, a generic algebraic
+integer).  This negative-but-informative result confirms the
+"last discrete Galois split before tetration" reading of §10.3:
+Hunter signature persists only at the bottom of the cyclotomic
+tower.  Lean: `aurifeuillean_phi_90_at_5` encodes
+`850554441² = 5 · 364242064² + 60081451169922001` as a PURE
+decidable identity.
+
+**Anchor commits (this branch)**:
+  · `b819b628` — Phase 1: concrete instances + norm
+  · `6eb41176` — Phase 2: parametric ∀ n ≥ 1
+  · `66633261` — Phase 3: Hunter bridge + structural §10
+
+**Still open (Q2, Q3, Q5 — deferred, not on critical path)**:
+  · Q2: `Φ_250(5)` factorisation structure (non-Aurifeuillean
+    but possibly admits other field-extension splits).
+  · Q3: `5^(5^n) − 1` family — Aurifeuillean analysis at the
+    `−1` side via different cyclotomic indices.
+  · Q5: `521 mod {2,3,5,7,11,13}` resonance with the G123
+    modular fingerprint — numerically no obvious pattern.
 
 ### B++. G124 N_U-family cross-field connections — OPEN SURVEY
 
