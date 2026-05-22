@@ -2,8 +2,10 @@
 
 ## Branch
 
-`main` — integrated cup-catalog ∀d closure (`Cup/IterErase.lean`)
-and G125 Aurifeuillean campaign on the same merge cycle.
+`claude/aurifeuillean-cutoff` — bounded cut-off Lean realisation
+for the Hunter ⇔ Aurifeuillean correspondence at `m = 1` (Φ_10(5))
+vs `m = 3` (Φ_90(5)).  Extends G125 closure with a complexity-
+theoretic structural reading.
 
 ## Recently closed (this branch)
 
