@@ -373,6 +373,22 @@ theorem Zp.shiftLeft_trunc_below (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) 
         Zp.shiftLeft_digit_low p hp k x m hmk,
         Nat.zero_mul, Nat.zero_add]
 
+/-- Above the shift threshold, the digit matches the original
+    (with the index shifted): `(shiftLeft k x).digits (k + j) =
+    x.digits j`. -/
+theorem Zp.shiftLeft_digit_high (p : Nat) (hp : 0 < p) (k : Nat)
+    (x : ZpSeq p) (j : Nat) :
+    ((Zp.shiftLeft p hp k x).digits (k + j)).val = (x.digits j).val := by
+  show (if k + j < k then (⟨0, hp⟩ : Fin p) else x.digits (k + j - k)).val
+        = (x.digits j).val
+  have hne : ¬ (k + j < k) :=
+    fun h => Nat.lt_irrefl k (Nat.lt_of_le_of_lt (Nat.le_add_right k j) h)
+  rw [if_neg hne]
+  show (x.digits (k + j - k)).val = (x.digits j).val
+  rw [Nat.add_comm k j]
+  show (x.digits (j + k - k)).val = (x.digits j).val
+  rw [E213.Tactic.NatHelper.add_sub_cancel_right]
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:
