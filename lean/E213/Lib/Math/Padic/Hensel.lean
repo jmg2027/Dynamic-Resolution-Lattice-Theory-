@@ -252,4 +252,29 @@ theorem Zp.invSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
         else (Zp.invSeq p hp x h_gcd n).digits j) = _
   rw [if_neg hj]
 
+/-- Truncation at levels `k ≤ n + 1` is preserved when extending
+    `invSeq n` to `invSeq (n + 1)` — the new digit only affects
+    position `n + 1`, which is outside the trunc bound `k`. -/
+theorem Zp.invSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    ∀ k, k ≤ n + 1 →
+      (Zp.invSeq p hp x h_gcd (n + 1)).trunc k
+        = (Zp.invSeq p hp x h_gcd n).trunc k
+  | 0, _ => rfl
+  | k + 1, h => by
+    have hk : k ≤ n := Nat.le_of_succ_le_succ h
+    have hk_ne : k ≠ n + 1 := by
+      intro heq
+      rw [heq] at hk
+      exact Nat.not_succ_le_self n hk
+    have ih : (Zp.invSeq p hp x h_gcd (n + 1)).trunc k
+              = (Zp.invSeq p hp x h_gcd n).trunc k :=
+      Zp.invSeq_succ_trunc_low p hp x h_gcd n k (Nat.le_of_lt h)
+    show (Zp.invSeq p hp x h_gcd (n + 1)).trunc k
+          + ((Zp.invSeq p hp x h_gcd (n + 1)).digits k).val * p^k
+        = (Zp.invSeq p hp x h_gcd n).trunc k
+          + ((Zp.invSeq p hp x h_gcd n).digits k).val * p^k
+    rw [ih, Zp.invSeq_succ_digit_below p hp x h_gcd n k hk_ne]
+
 end E213.Lib.Math.Padic
