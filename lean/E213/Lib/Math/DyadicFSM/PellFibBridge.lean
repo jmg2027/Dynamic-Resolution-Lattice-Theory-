@@ -398,4 +398,77 @@ theorem pellCoeff_101_50_eq_init_via_bridge :
   phase_3_2_closure 101 (by decide) 49
     fib_phase_3_2_at_101.1 fib_phase_3_2_at_101.2
 
+/-! ## Phase 3.3 closure (inert primes)
+
+For inert primes (5 NQR mod p), the Pell-Pisano period is 2(p+1),
+corresponding to `N' = p` in the `phase_3_2_closure` template:
+  · `N' + 1 = p + 1` (matrix-order claim index)
+  · `2N' + 2 = 2(p + 1)` (h_F_top index: F_{2(p+1)} ≡ 0)
+  · `2N' = 2p` (h_F_low index: F_{2p} ≡ -1)
+
+The closure is structurally identical to Phase 3.2; only the value
+of N' differs.  The hypotheses h_F_top, h_F_low are the inert-case
+Fibonacci-mod-p identities (decidable per prime; universal derivation
+via Frobenius FLT in 𝔽_{p²} is the multi-session follow-up). -/
+
+/-- ★★★ **Phase 3.3 closure** at inert primes.  Universal, given the
+    inert-characteristic Fibonacci-mod-p hypotheses:
+      · `h_F_top` : F_{2(p+1)} ≡ 0 (mod p)
+      · `h_F_low` : F_{2p} ≡ -1 (mod p)
+
+    Conclusion: `pellCoeff p hp (p + 1) = pellCoeff p hp 0`, i.e.,
+    the Pell matrix returns to the identity at iteration p + 1.
+
+    For inert primes, the Pisano period is 2(p+1) for the Fibonacci
+    matrix M_phi (and the Pell matrix M = M_phi² has order p + 1).
+
+    PURE.  Trivial corollary of `phase_3_2_closure` with N' = p. -/
+theorem phase_3_3_closure (p : Nat) (hp : 1 < p)
+    (h_F_top : fibFst (2 * p + 2) % p = 0)
+    (h_F_low : fibFst (2 * p) % p = p - 1) :
+    pellCoeff p hp (p + 1) = pellCoeff p hp 0 :=
+  phase_3_2_closure p hp p h_F_top h_F_low
+
+/-! ## Per-prime Phase 3.3 smokes (inert primes) -/
+
+/-- Smoke at p=3 (inert, predict period 2·4 = 8, half = 4 = p+1).
+    F_8 = 21, 21 % 3 = 0. F_6 = 8, 8 % 3 = 2 = p - 1. ✓ -/
+theorem fib_phase_3_3_at_3 :
+    fibFst 8 % 3 = 0 ∧ fibFst 6 % 3 = 2 := by decide
+
+theorem pellCoeff_3_4_eq_init_via_bridge :
+    pellCoeff 3 (by decide) 4 = pellCoeff 3 (by decide) 0 :=
+  phase_3_3_closure 3 (by decide)
+    fib_phase_3_3_at_3.1 fib_phase_3_3_at_3.2
+
+/-- Smoke at p=7 (inert): period 2·8 = 16, half = 8 = p+1.
+    F_16 = 987, 987 % 7 = 0.  F_14 = 377, 377 % 7 = 6 = p - 1. ✓ -/
+theorem fib_phase_3_3_at_7 :
+    fibFst 16 % 7 = 0 ∧ fibFst 14 % 7 = 6 := by decide
+
+theorem pellCoeff_7_8_eq_init_via_bridge :
+    pellCoeff 7 (by decide) 8 = pellCoeff 7 (by decide) 0 :=
+  phase_3_3_closure 7 (by decide)
+    fib_phase_3_3_at_7.1 fib_phase_3_3_at_7.2
+
+/-- Smoke at p=13 (inert): period 2·14 = 28, half = 14 = p+1.
+    F_28 = 317811, 317811 % 13 = 0.
+    F_26 = 121393, 121393 % 13 = 12 = p - 1. ✓ -/
+theorem fib_phase_3_3_at_13 :
+    fibFst 28 % 13 = 0 ∧ fibFst 26 % 13 = 12 := by decide
+
+theorem pellCoeff_13_14_eq_init_via_bridge :
+    pellCoeff 13 (by decide) 14 = pellCoeff 13 (by decide) 0 :=
+  phase_3_3_closure 13 (by decide)
+    fib_phase_3_3_at_13.1 fib_phase_3_3_at_13.2
+
+/-- Smoke at p=17 (inert): predict half = 18 = p+1. -/
+theorem fib_phase_3_3_at_17 :
+    fibFst 36 % 17 = 0 ∧ fibFst 34 % 17 = 16 := by decide
+
+theorem pellCoeff_17_18_eq_init_via_bridge :
+    pellCoeff 17 (by decide) 18 = pellCoeff 17 (by decide) 0 :=
+  phase_3_3_closure 17 (by decide)
+    fib_phase_3_3_at_17.1 fib_phase_3_3_at_17.2
+
 end E213.Lib.Math.DyadicFSM.PellFibBridge
