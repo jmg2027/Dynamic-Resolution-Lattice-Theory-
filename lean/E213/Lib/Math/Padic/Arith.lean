@@ -1031,4 +1031,24 @@ theorem Zp.mul_trunc_three_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
   exact (Nat.mod_eq_of_lt (ZpSeq.trunc_lt_p_pow
             (Nat.lt_of_succ_lt hp) x 3)).symm
 
+/-- Multiplicative truncation correctness for `y = ZpSeq.one` at
+    any positive level `n + 1`.  Generalizes
+    `mul_trunc_one_one` / `mul_trunc_two` / `mul_trunc_three_one_right`. -/
+theorem Zp.mul_trunc_succ_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p)
+    (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).trunc (n + 1)
+      = (x.trunc (n + 1) * (ZpSeq.one p hp).trunc (n + 1)) % p^(n + 1) := by
+  rw [Zp.mul_one_right_trunc hp x (n + 1)]
+  rw [ZpSeq.trunc_one_succ p hp n, Nat.mul_one]
+  exact (Nat.mod_eq_of_lt
+            (ZpSeq.trunc_lt_p_pow (Nat.lt_of_succ_lt hp) x (n + 1))).symm
+
+/-- Multiplicative truncation correctness for `y = ZpSeq.one` at
+    any level `n` (including `n = 0`). -/
+theorem Zp.mul_trunc_one_right {p : Nat} (hp : 1 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) x (ZpSeq.one p hp)).trunc n
+          = (x.trunc n * (ZpSeq.one p hp).trunc n) % p^n
+  | 0 => rfl
+  | n + 1 => Zp.mul_trunc_succ_one_right hp x n
+
 end E213.Lib.Math.Padic
