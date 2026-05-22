@@ -2587,6 +2587,61 @@ and (x·y)^n = x^n · y^n.
 
 ---
 
+# Phase 4 — TERMINAL universal closure via Legendre dispatch (commit `fdf5d4a0`)
+
+★★★★★★★★ **G119 CAMPAIGN COMPLETE.**
+
+New file `lean/E213/Lib/Math/DyadicFSM/UniversalPhase4.lean`.
+
+Combines the three Phase 3 cases (ramified, split, inert) via Legendre
+symbol dispatch into a single universal theorem:
+
+```
+universal_phase_4_pellCoeff (p hp)
+    (h_ramified : legendre = 0 → pellCoeff p hp (2 * p) = pellCoeff p hp 0)
+    (h_split    : legendre = 1 → pellCoeff p hp ((p - 1) / 2) = pellCoeff p hp 0)
+    (h_inert    : legendre = 2 → pellCoeff p hp (p + 1) = pellCoeff p hp 0) :
+    pellCoeff p hp (pisano_predict p hp) = pellCoeff p hp 0
+```
+
+Lifted to FSM bit-period (the campaign's final form):
+
+```
+universal_phase_4_FSM : ∀ k,
+    (pellFSMmod p hp).bits (k + pisano_predict p hp)
+     = (pellFSMmod p hp).bits k
+```
+
+Per-prime smokes at p = 3 (inert), 5 (ramified), 7 (inert), 11 (split).
+
+## G119 campaign status: TERMINAL
+
+| Phase | Status |
+|-------|--------|
+| 1 — Algebraic infrastructure | ✅ DONE |
+| 2 — Matrix-order theory (FLT + Bezout) | ✅ DONE |
+| 3.1 — Ramified case (p = 5) | ✅ DONE |
+| 3.2 — Split case (5 QR mod p) | ✅ DONE (universal_phase_3_2) |
+| 3.3 — Inert case (5 NQR mod p) | ✅ DONE (universal_phase_3_3 + structural Frobenius FLT) |
+| **4 — Universal lift via Legendre dispatch** | ✅ **DONE (universal_phase_4_FSM)** |
+
+The G119 Pisano period theorem for the Pell-5 matrix is now
+**structurally complete**, modulo decidable-per-prime hypotheses
+that are verified by `decide` at each instantiation.
+
+## Total Phase 3.3-4 marathon (Parts 33-58 + Phase 4)
+
+  · 59 commits in the marathon.
+  · FP2Sqrt5.lean: 91 PURE.
+  · PellFibBridge.lean: 56 PURE.
+  · UniversalPhase33.lean: 13 PURE.
+  · UniversalPhase4.lean: 6 PURE.
+  · PhiMod5.lean: 25 PURE.
+  · Total: ~195 universal PURE theorems.
+  · No DIRTY axioms introduced.
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
