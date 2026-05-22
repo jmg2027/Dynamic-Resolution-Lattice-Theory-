@@ -411,6 +411,62 @@ what closed and what deferred.
   · No new DIRTY axioms
   · Working tree clean after each commit
 
+---
+
+# Part 6 — FSM-1 (2) research direction: Phase 1 + empirical extension
+
+Promoted from "marathon-deferred" to active research direction (commits
+`03f91946`, `182cb321`, `5f53b973`).  Goal: prove the Pisano period
+theorem for the Pell matrix `M = [[2, 1], [1, 1]]` via
+algebraic number theory.
+
+## Phase 1 (DONE)
+
+  · **`Lib/Math/DyadicFSM/PellMatrix.lean`** — Cayley-Hamilton
+    coefficients `pellCoeff p hp k` for `M^k = a_k · M + b_k · I`.
+    Recurrence: `(a_{k+1}, b_{k+1}) = (3a_k + b_k mod p, -a_k mod p)`.
+  · `pellCoeffFSM p hp` — coefficient FSM with matrix-order period
+    detector output `(k=0 ∧ b=1)`.
+  · Bridge smoke tests: `bridge_smoke_{3, 11}` verify both
+    `pellCoeff p hp N = (0, 1)` AND `(pellFSMmod p hp).run N = init`.
+  · Smoke tests at p ∈ {3, 5, 11}: matrix order matches predict formula.
+  · All PURE.
+
+## Empirical chain extension (17 → 23 primes)
+
+  · `Predictor20` chain (was stub): adds mod 67, 71, 73 (3 TIGHT).
+  · `Predictor22` chain (was stub): adds mod 79, 89 (79 TIGHT, 89 ×2 sub-tight).
+  · `Predictor23` (NEW): adds mod 101 (×2 sub-tight).
+
+Sub-tight pattern (4 of 23):
+  · p=29  (split, ×2), p=47 (inert, ×3)
+  · p=89  (split, ×2), p=101 (split, ×2)
+
+The 3 split sub-tight primes are all `p ≡ 1 mod 4 AND p ≡ 1 mod 5`.
+
+## Phase 2-4 (PENDING — multi-session)
+
+See `research-notes/G119_pisano_pell5_research_direction.md`:
+  · Phase 2: FLT for primes + modular inverse (3-4 sessions).
+  · Phase 3.1: ramified (DONE, decide at p=5).
+  · Phase 3.2: split case via FLT in `𝔽_p^*` (1-2 sessions).
+  · Phase 3.3: inert case via Frobenius on `𝔽_{p²}` (3-4 sessions).
+  · Phase 4: universal lift via legendre dispatch (1 session).
+
+Total remaining: 8-11 sessions for full theorem.
+
+## Next session entry point
+
+Pick any of:
+  1. **Lagrange's theorem in `Fin p^*`** (foundational for FLT).
+  2. **Modular inverse via xgcd** (Bezout witnesses; Lean core has
+     `Nat.gcd` only).
+  3. **FLT primary form** `a^p ≡ a (mod p)` via the
+     `(a+1)^p = a^p + ∑_{k=1}^{p-1} C(p,k) a^k + 1` induction.
+  4. **Cayley-Hamilton as Lean theorem** (Mat² = 3M - I) — proves
+     `(pellFSMmod p hp).step^2 v = (5a + 3b mod p, 3a + 2b mod p)`
+     for arbitrary p.  Foundational arithmetic identity.
+
 ## Anchor docs (post Part 5)
 
   · `seed/L1_PARAMETRIC_METHODOLOGY_SPEC.md` — TH-4
