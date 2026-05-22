@@ -115,4 +115,31 @@ theorem QpSeq.ofZp_add (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
     QpSeq.addAligned p hp (QpSeq.ofZp p x) (QpSeq.ofZp p y) rfl
       = QpSeq.ofZp p (Zp.add p hp x y) := rfl
 
+/-! ## Addition on ℚ_p (general shifts)
+
+When shifts differ, align them by shifting the lower-shift
+numerator left.  Specifically: let `s = max a.shift b.shift`;
+each numerator is shifted left by `s - own.shift` (which is 0
+for the higher-shift operand, identity-shift) before adding.
+-/
+
+/-- General addition on `QpSeq`: align shifts via `Zp.shiftLeft`. -/
+def QpSeq.add (p : Nat) (hp : 0 < p) (a b : QpSeq p) : QpSeq p :=
+  let s := Nat.max a.shift b.shift
+  ⟨Zp.add p hp
+      (Zp.shiftLeft p hp (s - a.shift) a.num)
+      (Zp.shiftLeft p hp (s - b.shift) b.num),
+   s⟩
+
+/-- The shift of the result of `add` is `max` of the input shifts. -/
+theorem QpSeq.add_shift (p : Nat) (hp : 0 < p) (a b : QpSeq p) :
+    (QpSeq.add p hp a b).shift = Nat.max a.shift b.shift := rfl
+
+/-- `ofZp` embeds: shift-0 additions go through unchanged. -/
+theorem QpSeq.add_ofZp (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
+    QpSeq.add p hp (QpSeq.ofZp p x) (QpSeq.ofZp p y)
+      = QpSeq.ofZp p (Zp.add p hp
+                        (Zp.shiftLeft p hp 0 x)
+                        (Zp.shiftLeft p hp 0 y)) := rfl
+
 end E213.Lib.Math.Padic
