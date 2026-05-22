@@ -872,7 +872,7 @@ This Part 11 closes the **algebraic kernel** (φ's defining recurrence
 in `F_p`) — the piece that's independent of FLT/eigenvector machinery
 and depends only on `s² ≡ 5 mod p` + odd `p > 1`.
 
-## What landed: `Lib/Math/DyadicFSM/PhiMod5.lean` (new, 16 PURE)
+## What landed: `Lib/Math/DyadicFSM/PhiMod5.lean` (new, 20 PURE)
 
   · `inv2 p := p / 2 + 1` — multiplicative inverse of 2 mod p.
   · `two_mul_inv2` : `2 * inv2 p ≡ 1 (mod p)` for odd `p > 1`.
@@ -889,7 +889,16 @@ and depends only on `s² ≡ 5 mod p` + odd `p > 1`.
        `phi² ≡ phi + 1 (mod p)` — the *unscaled* φ defining
        recurrence, derived by cancelling the factor of 4 via
        explicit `4⁻¹ ≡ inv2² (mod p)` (no FLT needed).
-  · Smoke tests at p ∈ {11, 19} for both scaled and unscaled forms.
+  · `fibLike : Nat → Nat × Nat` — Fibonacci-like coefficient
+    pair recurrence `(0, 1) → (1, 0) → (1, 1) → (2, 1) → ...`.
+  · **`phi_pow_eq_fibLike`** (★★★ POWER EXPANSION) :
+       `phi^k ≡ (fibLike k).1 · phi + (fibLike k).2 (mod p)`
+       — by induction using `phi² ≡ phi + 1`, reduces any
+       `phi^k mod p` to a Fibonacci coefficient computation.
+       Foundation for the eigenvector argument (`M^k =
+       (phi²)^k = phi^(2k)` on the φ²-eigenspace).
+  · Smoke tests at p ∈ {11, 19} for scaled/unscaled forms +
+    `phi^5 mod 11 ≡ 5·phi + 3` via Fibonacci.
 
 ## Why both scaled + unscaled
 
@@ -936,8 +945,32 @@ Future Phase 3.2 work can layer on:
   · FLT for φ: `φ^(p-1) ≡ 1 mod p`.
   · Final: `M^((p-1)/2) = I` for split primes.
 
+## What's still open for Phase 3.2 closure
+
+The algebraic foundation (φ recurrence + power expansion) is now
+complete.  Remaining for the full Phase 3.2 theorem
+`pellCoeff p hp ((p-1)/2) = (0, 1)` for split primes:
+
+  · **Sqrt5 universal existence** — Euler's criterion gives this
+    from `5^((p-1)/2) ≡ 1 (mod p)`, requires FLT.
+  · **FLT for φ**: `phi^(p-1) ≡ 1 (mod p)` for `phi ≠ 0`.  Either
+    from FLT in `(Fin p)*` (Lagrange / pigeonhole on residues with
+    invertibility) or specialised via the matrix-order argument.
+  · **Eigenvector connection**: M acts as `phi²` on `(1, phi - 1)`;
+    so `M^k · (1, phi - 1) = phi^(2k) · (1, phi - 1)`.  Combined
+    with `phi^(p-1) = 1`, M's action on the φ²-eigenspace is trivial
+    at `k = (p-1)/2`.
+  · **Diagonalisability**: in the split case φ² ≠ 1/φ², so M has
+    distinct eigenvalues and is diagonalisable.  Both eigenvalues
+    return to 1 at the same exponent, giving M^((p-1)/2) = I.
+
+Each of these is a non-trivial sub-marathon.  The Fibonacci
+expansion `phi^k = F_k · phi + F_{k-1}` reduces "phi^k = 1" to
+"F_k = 0 ∧ F_{k-1} = 1 (when phi ∉ F_p)" OR "specific F_p constraint
+(when phi ∈ F_p)" — the split case is the latter.
+
 ## Verification (post Part 11)
 
   · `lake build`: ✅ clean
-  · `scan_axioms.py PhiMod5`: 16 PURE / 0 DIRTY
+  · `scan_axioms.py PhiMod5`: 20 PURE / 0 DIRTY
   · No new DIRTY axioms anywhere

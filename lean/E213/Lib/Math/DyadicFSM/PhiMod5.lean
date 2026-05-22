@@ -243,6 +243,83 @@ theorem phi_sq_eq_phi_add_one (p s : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
         ← mul_mod_right_pure (inv2 p * inv2 p) (4 * (phi p s + 1)) p]
   exact hL.symm.trans (hmid.trans hR)
 
+/-! ## Fibonacci-like expansion of `phi^n`
+
+Using `phi² = phi + 1 (mod p)`, every power `phi^n` decomposes
+as `a_n · phi + b_n` for some Fibonacci-like coefficients.  The
+recurrence
+
+  `phi^(n+1) = phi · phi^n = phi · (a phi + b) = a phi² + b phi
+            = a (phi + 1) + b phi = (a + b) phi + a`
+
+gives the coefficient recurrence `(a, b) → (a + b, a)` starting
+from `(0, 1)` for `phi^0`.
+
+This is the matrix-eigenvector connection: in the split case M
+acts on the `(1, phi - 1)` direction with eigenvalue `phi²`, so
+`M^k · (1, phi - 1) = (phi²)^k · (1, phi - 1)` and `(phi²)^k =
+phi^(2k)` is computable via the expansion below.
+
+For Phase 3.2 (period divides `(p-1)/2`), the chain needs
+`phi^(p-1) ≡ 1 (mod p)` (FLT, still multi-session); the
+expansion alone reduces this to a Fibonacci-coefficient
+divisibility claim.
+-/
+
+/-- Fibonacci-like coefficient pair for `phi^n`:  `(a, b)` with
+    `phi^n ≡ a · phi + b (mod p)` (for valid phi).
+    Recurrence: `(0, 1) → (1, 0) → (1, 1) → (2, 1) → (3, 2) → ...` -/
+def fibLike : Nat → Nat × Nat
+  | 0     => (0, 1)
+  | k + 1 => let p := fibLike k; (p.1 + p.2, p.1)
+
+/-- ★ **Fibonacci expansion of `phi^k`** mod p:
+    `phi^k ≡ a_k · phi + b_k (mod p)` where `(a_k, b_k) = fibLike k`.
+    By induction on `k`, using `phi² ≡ phi + 1 (mod p)`.  PURE. -/
+theorem phi_pow_eq_fibLike (p s : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (hs2 : (s * s) % p = 5 % p) :
+    ∀ k, (phi p s)^k % p
+       = ((fibLike k).1 * phi p s + (fibLike k).2) % p
+  | 0 => by
+    -- phi^0 = 1, (fibLike 0) = (0, 1), so RHS = 0*phi + 1 = 1.
+    show 1 % p = (0 * phi p s + 1) % p
+    rw [Nat.zero_mul, Nat.zero_add]
+  | k + 1 => by
+    have ih := phi_pow_eq_fibLike p s hp hpo hs2 k
+    have hsq := phi_sq_eq_phi_add_one p s hp hpo hs2
+    -- Unfold fibLike (k+1):
+    show (phi p s)^(k + 1) % p
+       = (((fibLike k).1 + (fibLike k).2) * phi p s + (fibLike k).1) % p
+    -- phi^(k+1) = phi^k * phi (definitional)
+    show ((phi p s)^k * phi p s) % p
+       = (((fibLike k).1 + (fibLike k).2) * phi p s + (fibLike k).1) % p
+    -- Pull `% p` into phi^k via mul_mod_left_pure, apply IH, push back
+    rw [mul_mod_left_pure ((phi p s)^k) (phi p s) p, ih,
+        ← mul_mod_left_pure ((fibLike k).1 * phi p s + (fibLike k).2)
+                            (phi p s) p]
+    -- Goal: ((a*phi + b) * phi) % p = ((a + b)*phi + a) % p
+    -- Expand: (a*phi + b)*phi = a*phi*phi + b*phi
+    rw [add_mul ((fibLike k).1 * phi p s) (fibLike k).2 (phi p s)]
+    -- Reassociate: a*phi*phi = a * (phi*phi)
+    rw [mul_assoc (fibLike k).1 (phi p s) (phi p s)]
+    -- Substitute phi*phi ≡ phi+1 mod p (via add_mod_gen + mul_mod_right_pure)
+    rw [add_mod_gen ((fibLike k).1 * (phi p s * phi p s))
+                    ((fibLike k).2 * phi p s) p,
+        mul_mod_right_pure (fibLike k).1 (phi p s * phi p s) p,
+        hsq,
+        ← mul_mod_right_pure (fibLike k).1 (phi p s + 1) p,
+        ← add_mod_gen ((fibLike k).1 * (phi p s + 1))
+                      ((fibLike k).2 * phi p s) p]
+    -- Goal: (a * (phi + 1) + b * phi) % p = ((a + b)*phi + a) % p
+    -- Expand a * (phi + 1) = a*phi + a
+    rw [Nat.mul_add (fibLike k).1 (phi p s) 1, Nat.mul_one]
+    -- Goal: (a*phi + a + b*phi) % p = ((a + b)*phi + a) % p
+    -- Rearrange: a*phi + a + b*phi = a*phi + b*phi + a
+    rw [Nat.add_right_comm ((fibLike k).1 * phi p s) (fibLike k).1
+                           ((fibLike k).2 * phi p s)]
+    -- Combine a*phi + b*phi = (a + b)*phi
+    rw [← add_mul (fibLike k).1 (fibLike k).2 (phi p s)]
+
 /-! ## Smoke tests at split primes -/
 
 /-- Smoke: at p=11, s=4 satisfies 4² ≡ 5 (mod 11). -/
@@ -270,5 +347,14 @@ theorem phi_mod_19_scaled :
 theorem phi_mod_19_unscaled :
     (phi 19 9 * phi 19 9) % 19 = (phi 19 9 + 1) % 19 :=
   phi_sq_eq_phi_add_one 19 9 (by decide) (by decide) sqrt5_mod_19
+
+/-- Smoke: at p=11, `phi^5 ≡ F_5 · phi + F_4 (mod 11)` where
+    `F_5 = 5, F_4 = 3`, so `phi^5 ≡ 5·phi + 3 mod 11`. -/
+theorem phi_pow_5_mod_11 :
+    (phi 11 4)^5 % 11 = (5 * phi 11 4 + 3) % 11 :=
+  phi_pow_eq_fibLike 11 4 (by decide) (by decide) sqrt5_mod_11 5
+
+/-- Smoke: at p=11, the Fibonacci expansion confirms `fibLike 5 = (5, 3)`. -/
+theorem fibLike_5_eq : fibLike 5 = (5, 3) := by decide
 
 end E213.Lib.Math.DyadicFSM.PhiMod5
