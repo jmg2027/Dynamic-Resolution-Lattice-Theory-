@@ -100,24 +100,37 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 207 PURE / 0 DIRTY across 6 modules.**
+**Padic total: ~236 PURE / 0 DIRTY across 6 modules.**
 
-**Hensel inverse construction this stretch**:
-  · `Zp.invSeq x n` — recursive approximate-inverse sequence.
-  · Structural facts: `invSeq_digit_above`, `invSeq_succ_digit_below`,
-    `invSeq_succ_trunc_low`, `invSeq_trunc_at_succ`,
-    `invSeq_succ_trunc_extend`.
-  · `invSeq_digit_zero` — digit 0 invariant across all levels.
-  · `invSeq_trunc_one` — `(invSeq n).trunc 1 = invDigit0`.
-  · `mul_invSeq_trunc_one` — for all `n`,
-    `(Zp.mul x (invSeq n)).trunc 1 = 1 % p` (level-1 correctness).
-  · PURE helpers: `mul_div_cancel_pure` + `negMod_cancel`.
+**Hensel inverse construction (CLOSED)**:
+  · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
+  · `Zp.invFull` builds the inverse as a single `ZpSeq` via
+    `digits k := (invSeq k).digits k` + `invSeq_digit_stable`.
 
-**Remaining**: full general Hensel correctness
-`(Zp.mul x (invSeq n)).trunc (n+1) = 1 % p^(n+1)` for `1 < p` —
-proof structure is clear (induct on n, use `mul_trunc` + the
-extension formula + `negMod_cancel` cancellation), but the
-inductive step is ~150 lines of mod-arith manipulation.
+**Hensel sqrt construction (this stretch)**:
+  · `Zp.SqrtBase p x` — packages digit-0 sqrt `d_0` with
+    `d_0² ≡ (x.digits 0) mod p` + modular inverse of `2·d_0`.
+  · `Zp.sqrtSeq` — recursive approximate sqrt, parallel to `invSeq`
+    with `negMod ((prev² - x).trunc / p^(n+1) · (2·d_0)⁻¹)`.
+  · Structural lemmas (mirror invSeq):
+    `sqrtSeq_succ_new_digit`, `sqrtSeq_succ_digit_below`,
+    `sqrtSeq_digit_above`, `sqrtSeq_succ_trunc_low`,
+    `sqrtSeq_trunc_at_succ`, `sqrtSeq_succ_trunc_extend`.
+  · Invariants: `sqrtSeq_digit_zero` (digit-0 = `sb.d_0` at all `n`),
+    `sqrtSeq_trunc_one` (= `sb.d_0`).
+  · Level-1 correctness: `sqr_sqrtSeq_zero_trunc_one`
+    (level 0 base case) + `sqr_sqrtSeq_trunc_one` (general level-1
+    for any approximation).
+
+**ℚ_p inverse**: `QpSeq.inv` (CLOSED) — uses `Zp.invFull` on `a.num`
+then `Zp.shiftLeft` by `a.shift` to absorb the original p-adic shift.
+
+**Sqrt remaining**: full general Hensel correctness
+`(Zp.mul (sqrtSeq n) (sqrtSeq n)).trunc (n+1) = x.trunc (n+1)` —
+proof structure parallels `mul_invSeq_correct` (induct on n, use
+`mul_trunc` + `sqrtSeq_succ_trunc_extend` + binomial expansion of
+`(a + d·p^(n+1))² mod p^(n+2)` + `2·d_0·two_d_0_inv ≡ 1 mod p`
+cancellation), ~200 lines deferred.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary

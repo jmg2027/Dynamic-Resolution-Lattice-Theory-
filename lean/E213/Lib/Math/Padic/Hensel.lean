@@ -874,4 +874,21 @@ theorem Zp.sqr_sqrtSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
   exact sb.sq_eq
 
+/-- `(sqrtSeq (n+1)).trunc (n+2) = (sqrtSeq n).trunc (n+1) + d · p^(n+1)`
+    where `d` is the new digit at position `n+1`.  The Hensel extension
+    formula for sqrt. -/
+theorem Zp.sqrtSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    (Zp.sqrtSeq p hp x sb (n + 1)).trunc (n + 2)
+      = (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+          + ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val
+              * p^(n + 1) := by
+  show (Zp.sqrtSeq p hp x sb (n + 1)).trunc (n + 1)
+        + ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val
+            * p^(n + 1)
+      = (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
+          + ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val
+              * p^(n + 1)
+  rw [Zp.sqrtSeq_succ_trunc_low p hp x sb n (n + 1) (Nat.le_refl _)]
+
 end E213.Lib.Math.Padic
