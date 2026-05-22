@@ -645,4 +645,80 @@ theorem Zp.mulSumRaw_eq_trunc (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
           + ((Zp.mulRaw p x y n + Zp.mulCarry p x y n) / p) * p^(n+1) := by
               rw [hpow]
 
+/-- Corollary: `mulSumRaw n` modulo `p^n` equals `(Zp.mul x y).trunc n`.
+    Follows from the structural identity (the carry term is a
+    multiple of `p^n`) plus the bound `trunc < p^n`. -/
+theorem Zp.mulSumRaw_mod_eq_trunc (p : Nat) (hp : 0 < p) (x y : ZpSeq p)
+    (n : Nat) :
+    Zp.mulSumRaw p x y n % p^n = (Zp.mul p hp x y).trunc n := by
+  have hstruct := Zp.mulSumRaw_eq_trunc p hp x y n
+  have hlt : (Zp.mul p hp x y).trunc n < p^n :=
+    ZpSeq.trunc_lt_p_pow hp _ n
+  rw [hstruct, E213.Tactic.NatHelper.add_mul_mod_self_pure]
+  exact Nat.mod_eq_of_lt hlt
+
+/-! ## Bilinear-sum decomposition (step 2 of mul_trunc — partial)
+
+To bridge `mulSumRaw n` and `x.trunc n · y.trunc n`, decompose
+the latter as a bilinear sum:
+
+  x.trunc a · y.trunc b = Σ_{i<a} Σ_{j<b} x_i · y_j · p^(i+j)
+
+This sum, restricted to indices `i + j < n` and unrestricted in
+the corners, exactly recovers `mulSumRaw n` via convolution
+reindexing.  Indices `(i, j)` with both `< n` but `i + j ≥ n`
+contribute a `p^n`-multiple, vanishing mod `p^n`.
+
+We define the column sum `colSum i b` for the inner sum over `j`,
+and the full bilinear sum `bilinSum a b` for the double sum.
+-/
+
+/-- Inner column sum: `Σ_{j<b} (x.digits i).val · (y.digits j).val · p^(i+j)`. -/
+def Zp.colSum (p : Nat) (x y : ZpSeq p) (i : Nat) : Nat → Nat
+  | 0 => 0
+  | b + 1 => Zp.colSum p x y i b
+              + (x.digits i).val * (y.digits b).val * p^(i + b)
+
+/-- Bilinear sum `Σ_{i<a} colSum p x y i b`. -/
+def Zp.bilinSum (p : Nat) (x y : ZpSeq p) (b : Nat) : Nat → Nat
+  | 0 => 0
+  | a + 1 => Zp.bilinSum p x y b a + Zp.colSum p x y a b
+
+/-- PURE replacement for `Nat.pow_add` (which leaks propext): by
+    induction on the second exponent. -/
+private theorem pow_add_pure (a : Nat) :
+    ∀ m n, a^(m + n) = a^m * a^n
+  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | m, n + 1 => by
+    rw [← Nat.add_assoc, Nat.pow_succ, Nat.pow_succ, pow_add_pure a m n]
+    exact E213.Tactic.NatHelper.mul_assoc (a^m) (a^n) a
+
+/-- Closed form for `colSum`:
+    `colSum i b = (x.digits i).val · p^i · y.trunc b`. -/
+theorem Zp.colSum_eq (p : Nat) (x y : ZpSeq p) (i : Nat) :
+    ∀ b, Zp.colSum p x y i b = (x.digits i).val * p^i * y.trunc b
+  | 0 => by show (0 : Nat) = (x.digits i).val * p^i * 0; rw [Nat.mul_zero]
+  | b + 1 => by
+    show Zp.colSum p x y i b
+          + (x.digits i).val * (y.digits b).val * p^(i + b)
+        = (x.digits i).val * p^i * (y.trunc b + (y.digits b).val * p^b)
+    rw [Zp.colSum_eq p x y i b, Nat.mul_add, pow_add_pure]
+    -- Goal: x_i p^i y.trunc b + x_i y_b (p^i p^b)
+    --     = x_i p^i y.trunc b + x_i p^i (y_b p^b)
+    -- Reduces to: x_i y_b (p^i p^b) = x_i p^i (y_b p^b), which is
+    -- (a · b) · (c · d) = (a · c) · (b · d) with a = x_i, b = y_b,
+    -- c = p^i, d = p^b — `mul_mul_mul_comm_213`.
+    rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213
+          (x.digits i).val (y.digits b).val (p^i) (p^b)]
+
+/-- Closed form for `bilinSum`: `bilinSum b a = x.trunc a · y.trunc b`. -/
+theorem Zp.bilinSum_eq (p : Nat) (x y : ZpSeq p) (b : Nat) :
+    ∀ a, Zp.bilinSum p x y b a = x.trunc a * y.trunc b
+  | 0 => by show (0 : Nat) = 0 * y.trunc b; rw [Nat.zero_mul]
+  | a + 1 => by
+    show Zp.bilinSum p x y b a + Zp.colSum p x y a b
+          = (x.trunc a + (x.digits a).val * p^a) * y.trunc b
+    rw [Zp.bilinSum_eq p x y b a, Zp.colSum_eq p x y a b,
+        E213.Tactic.NatHelper.add_mul]
+
 end E213.Lib.Math.Padic
