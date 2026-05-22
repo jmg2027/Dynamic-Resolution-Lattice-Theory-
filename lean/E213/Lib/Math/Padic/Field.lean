@@ -187,4 +187,30 @@ theorem QpSeq.smoke_sub_one_one_shift_5 :
     (QpSeq.sub 5 (by decide) (QpSeq.one 5 (by decide))
        (QpSeq.one 5 (by decide))).shift = 0 := rfl
 
+/-! ## ℕ embedding ℚ_p
+
+Any natural number `n` embeds into ℚ_p via the base-p expansion
+of `n` (shift 0).
+-/
+
+/-- Embed `ℕ` into `ℚ_p` (shift 0). -/
+def QpSeq.ofNat (p : Nat) (hp : 0 < p) (n : Nat) : QpSeq p :=
+  QpSeq.ofZp p (ZpSeq.digits_of_nat p hp n)
+
+/-- Digit unfolding: by definition. -/
+theorem QpSeq.ofNat_digit (p : Nat) (hp : 0 < p) (n k : Nat) :
+    ((QpSeq.ofNat p hp n).num.digits k).val = (n / p^k) % p := rfl
+
+/-- Shift of `ofNat` is always 0. -/
+theorem QpSeq.ofNat_shift (p : Nat) (hp : 0 < p) (n : Nat) :
+    (QpSeq.ofNat p hp n).shift = 0 := rfl
+
+/-- Smoke: `7 ↪ ℚ_2` has digit-0 = 1, digit-1 = 1, digit-2 = 1
+    (since 7 = 111₂). -/
+theorem QpSeq.smoke_ofNat_7_2_d0 :
+    ((QpSeq.ofNat 2 (by decide) 7).num.digits 0).val = 1 := rfl
+
+theorem QpSeq.smoke_ofNat_7_2_d2 :
+    ((QpSeq.ofNat 2 (by decide) 7).num.digits 2).val = 1 := rfl
+
 end E213.Lib.Math.Padic
