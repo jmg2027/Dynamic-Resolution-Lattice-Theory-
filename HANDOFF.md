@@ -1,4 +1,4 @@
-# Session Handoff — 2026-05-22 (Part 9: existential Pisano closed)
+# Session Handoff — 2026-05-22 (Part 10: invertible-FSM template extracted)
 
 ## Branch
 `claude/handoff-part-3-marathon-0XWmn` — 17 commits ahead of
@@ -774,3 +774,85 @@ holds unconditionally for every `p > 1` by pigeonhole alone.
   · No new DIRTY axioms anywhere
   · Branch tip ahead of `origin/main` by 1 fresh commit on top of the
     merge-integrated Part 8 state
+
+---
+
+# Part 10 — InvertibleArithFSM2 template extracted (Pell refactored)
+
+After Part 9 closed the existential Pisano period for the Pell C-H
+FSM via a direct application of pigeonhole + stepInv + translation,
+this Part 10 lifts the pattern into a **generic structure** so that
+any future invertible 2-state FSM gets the existential period for
+free (1-line corollary).
+
+## What landed
+
+### `Lib/Math/DyadicFSM/ArithFSM/InvertibleArithFSM2.lean` (new, 4 PURE)
+
+  · **`structure InvertibleArithFSM2 (n : Nat) extends ArithFSM2 n`**
+    — augments `ArithFSM2 n` with two new fields:
+      - `stepInv  : Fin n × Fin n → Fin n × Fin n`
+      - `inv_left : ∀ v, stepInv (step v) = v`
+    Note: only LEFT cancellation is required, not the full
+    inverse — `stepInv` need not act correctly on states outside
+    the forward orbit.
+  · `stepInv_run_succ` — `stepInv (F.run (k+1)) = F.run k`
+    by definitional unfolding through `F.step (F.run k)` +
+    `inv_left`.
+  · **`run_translation`** — translation engine generalised from
+    Part 8's `pellCoeff_translation`: any coincidence
+    `F.run i = F.run j` with `i ≤ j` produces a period
+    `F.run (j - i) = F.run 0`.  Induction on `i`, peeling
+    `stepInv` on both sides.
+  · `runEncode` — generic pair-encoder
+    `(F.run i.val).1.val * n + (F.run i.val).2.val ∈ Fin (n·n)`,
+    bound via `(a+1)·n ≤ n·n` for `a < n`.
+  · **`exists_period`** — generic existential: any
+    `InvertibleArithFSM2 n` with `1 < n` has a period `N ≤ n²`
+    with `F.run N = F.run 0`.  Same pigeonhole + encode_inj +
+    Prod.ext + Fin.ext + translation chain as Part 9, hoisted
+    to the abstract structure.
+
+### `Lib/Math/DyadicFSM/PellMatrixPigeonhole.lean` (refactored, 4 PURE)
+
+  · **`pellCoeffInvertibleFSM`** — wraps `pellCoeffFSM p hp` as an
+    `InvertibleArithFSM2 p` by pairing it with `stepInv p hp` from
+    `PellMatrix` and `stepInv_step p hp` from `PellMatrixInverse`.
+  · `exists_pisano_period` — now a 5-line corollary
+    of `InvertibleArithFSM2.exists_period` (was a ~40-line direct
+    proof in the Part 9 first cut).
+  · `exists_pellFSMmod_period` / `exists_pellFSMmod_bits_period`
+    — unchanged bridge corollaries.
+
+Net: 4 PURE generic + 4 PURE consumer = same 4 user-facing
+theorems, half the line count, generic template available for
+future FSMs.
+
+## What this unlocks
+
+Any future 2-state arithmetic FSM whose step admits a left-inverse
+on the state space gets:
+
+  · `exists_period` — pigeonhole bound `≤ n²` for free.
+  · Composed with the user-facing bridge theorems, an existential
+    "FSM is periodic" statement for free.
+
+Concrete candidates (out of scope for this commit, listed for next
+sessions):
+
+  · **Lucas / Fib companion matrix** `M = [[1, 1], [1, 0]]` has
+    `det M = -1`, so M is invertible in `GL_2(𝔽_p)` for any p; a
+    `stepInv` analogous to Pell's `stepInv = 3I - M` gives instant
+    Pisano existential for the Fibonacci sequence.
+  · **Arbitrary `M ∈ SL_2(𝔽_p)`** — wherever the Cayley-Hamilton
+    `M² = (tr M)M - (det M)I` factorisation gives invertibility,
+    the same template applies.
+
+## Refactor verification
+
+  · `lake build`: ✅ clean (50/50)
+  · `scan_axioms.py InvertibleArithFSM2`: 4 PURE / 0 DIRTY
+  · `scan_axioms.py PellMatrixPigeonhole`: 4 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+  · Same 4 user-facing theorems available with same signatures —
+    no API break for downstream consumers.
