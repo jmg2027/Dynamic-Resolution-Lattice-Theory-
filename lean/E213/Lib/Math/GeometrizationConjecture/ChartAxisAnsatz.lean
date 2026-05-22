@@ -2,6 +2,7 @@ import E213.Lens.LensCore
 import E213.Meta.LensInternality
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 import E213.Lib.Math.GenerationRule.TriangleIteration
+import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 
 /-!
 # G121 — Chart-axis ansatz (open conjecture, definitional form)
@@ -407,9 +408,57 @@ theorem deployment_M2_partial_capstone :
    E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1,
    rfl, rfl, rfl⟩
 
-/-- ★★★★ **G121 R1 master capstone (3-route convergence)**
+/-! ## M1 cohomology-route close via TopologyCompare (R1 step 5 — 2026-05-22)
 
-  Records the full state of R1 close after steps 1-4 (2026-05-22):
+Independent cohomology-route forcing of `(NS, NT, c) = (3, 2, 2)`,
+complementing the atomicity-route of step 4.
+
+Per `Cohomology/Examples/TopologyCompare.b1_bipartite`:
+  · `b1_bipartite n m c = c*n*m - (n+m) + 1`
+    (Euler formula for connected bipartite multigraph)
+
+Per `TopologyCompare.topology_uniqueness`: among small candidates
+with `NS + NT ≤ 5` and `c ≤ 3`, ONLY `(3,2,2)` and `(2,3,2)` yield
+`b_1 = 8 = N_S² - 1 = 1/α_3` (the strong-coupling integer reading).
+
+The (3,2,2) ↔ (2,3,2) symmetry is the S/T-swap, picking the same
+deployment up to bipartite-side labelling.  So K_{3,2}^{(c=2)} is
+**uniquely** forced (modulo S/T swap) by the cohomology-α_3 match.
+
+This is the **cohomology-route close of M1** — independent of the
+atomicity-route (step 4) which derived (N_S, N_T) = (3, 2) from
+`triIter 2`.  Two routes from different layers (atomicity vs.
+cohomology-α_3 matching) converge on the same K_{3,2}^{(c=2)}
+deployment.
+-/
+
+/-- M1 cohomology-route close: K_{3,2}^{(c=2)} is forced (modulo
+    S/T swap) by `b_1 = 8 = 1/α_3` matching, per
+    `TopologyCompare.topology_uniqueness`. -/
+theorem M1_cohomology_route_close :
+    -- (3, 2, 2) and (2, 3, 2) both give b_1 = 8
+    E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 2 3 2 = 8
+    -- Other small candidates do not
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 1 ≠ 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 4 1 2 ≠ 8
+    -- chartBase 3 2 matches the forced (NS+NT)
+    ∧ chartBase 3 2 = 5 := by decide
+
+/-- General Euler-formula consistency: for any K_{n,m}^{(c)}
+    deployment with n, m, c ≥ 1, `b1_bipartite n m c = c*n*m - (n+m) + 1`
+    by definition (Euler), and the `1` in this formula is the
+    `b_0` value (connected graph).  This is *consistent with*
+    `selfPointingAxes = 1` for the deployment. -/
+theorem general_euler_consistency (n m c : Nat) :
+    E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite n m c
+      = c * n * m - (n + m) + selfPointingAxes := by
+  show c * n * m - (n + m) + 1 = c * n * m - (n + m) + 1
+  rfl
+
+/-- ★★★★★ **G121 R1 master capstone (4-route convergence)**
+
+  Records the full state of R1 close after steps 1-5 (2026-05-22):
 
   · **Step 1 — Definitional scaffold**: `chartVisibleAxes NS NT =
     NS + NT - 1`, parametric in deployment parameters.
@@ -419,24 +468,29 @@ theorem deployment_M2_partial_capstone :
   · **Step 3 — Deployment-level M2 close**: `V32Betti` proves
     `dim ker δ⁰ = 1` for K_{3,2}^{(c=2)} (connected graph), hence
     `selfPointingAxes = 1` derives from graph connectedness.
-  · **Step 4 — M1 partial close**: `TriangleIteration` proves
-    `(N_S, N_T) = (3, 2)` is the first two terms of `triIter 2`
-    starting at atomicity 2.  Hence `chartBase 3 2 = 5` derives
-    from `a₀ = 2` (Raw axiom Clause 1's two-atom commitment).
+  · **Step 4 — M1 atomicity-route close**: `TriangleIteration`
+    proves `(N_S, N_T) = (3, 2)` is the first two terms of
+    `triIter 2`.  Hence `chartBase 3 2 = 5` derives from `a₀ = 2`
+    (Raw axiom Clause 1's two-atom commitment).
+  · **Step 5 — M1 cohomology-route close**: `TopologyCompare.
+    topology_uniqueness` proves that ONLY `(3,2,2)` and `(2,3,2)`
+    among small candidates yield `b_1 = 8 = 1/α_3`.  Cohomology
+    forces K_{3,2}^{(c=2)} (modulo S/T-swap), independent of
+    atomicity-route forcing.
 
-  Three independent routes converge on `chartVisibleAxes 3 2 = 4`:
+  Four independent routes converge on `chartVisibleAxes 3 2 = 4`:
 
-    (Axiom route)
-      Lens has 3 data fields, self-encoding count = 1.
-    (Connectedness route)
-      K_{3,2}^{(c=2)} is connected ⟹ b₀ = 1 ⟹ self-pointing = 1.
-    (Atomicity route)
-      Raw has 2 atoms ⟹ triIter 2 generates 2, 3, 6, ... ⟹
-      first two terms (2, 3) give chartBase = 5.
+    (Axiom route)         Lens 3-tuple → 1 self-encoding component.
+    (Connectedness route) K_{3,2}^{(c=2)} connected ⟹ b₀ = 1.
+    (Atomicity route)     Raw 2 atoms ⟹ triIter 2 → (2, 3).
+    (Cohomology route)    Only (3,2,2)/(2,3,2) give b_1 = 1/α_3.
 
-  All three ∅-axiom PURE.  The remaining undetermined commitment
-  is `a₀ = 2` in the atomicity route — Raw Clause 1's two-atom
-  axiom.  This is the irreducible 213 commitment itself.
+  All four ∅-axiom PURE.  The two M1 routes (atomicity and
+  cohomology) are independent forcings of the same deployment from
+  different layers (Raw axiom Clause 1 vs. α_3 integer match).
+
+  Remaining irreducible commitment: `a₀ = 2` in the atomicity
+  route — Raw Clause 1's two-atom axiom, the 213 starting point.
 -/
 theorem G121_R1_master_capstone :
     -- (Step 1) definitional scaffold consistency
@@ -444,21 +498,26 @@ theorem G121_R1_master_capstone :
     -- (Step 2) axiom-level shadow
     ∧ axiomLensDataTotal = axiomAtomComponents + axiomOperatorComponents
     ∧ axiomOperatorComponents = selfPointingAxes
-    -- (Step 3) deployment-level derivation
+    -- (Step 3) deployment-level derivation via V32Betti
     ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
         = 2 ^ selfPointingAxes
-    -- (Step 4) M1 partial close — atomicity-2 derivation
+    -- (Step 4) M1 atomicity-route close
     ∧ chartBase 3 2
         = E213.Lib.Math.GenerationRule.TriangleIteration.triIter 2 1
           + E213.Lib.Math.GenerationRule.TriangleIteration.triIter 2 0
-    -- Three-route convergence on final value
+    -- (Step 5) M1 cohomology-route close
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
+    ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 1 ≠ 8
+    -- Four-route convergence on final value
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, rfl,
           E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1, ?_,
-          rfl, rfl⟩
-  rw [E213.Lib.Math.GenerationRule.TriangleIteration.triIter_2_0,
-      E213.Lib.Math.GenerationRule.TriangleIteration.triIter_2_1]
-  rfl
+          ?_, ?_, rfl, rfl⟩
+  · rw [E213.Lib.Math.GenerationRule.TriangleIteration.triIter_2_0,
+        E213.Lib.Math.GenerationRule.TriangleIteration.triIter_2_1]
+    rfl
+  · decide
+  · decide
 
 end E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

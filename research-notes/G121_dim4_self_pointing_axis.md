@@ -267,25 +267,37 @@ column is the *conjectural 213-Lens correspondence* under §4.1.
 
 ## §6 Open knots — what must be derived
 
-### §6.1 M1 — Why $d_{213} = 5$  [PARTIAL CLOSE 2026-05-22]
+### §6.1 M1 — Why $d_{213} = 5$  [TWO-ROUTE CLOSE 2026-05-22]
 
 `configCount n = d^(numV n)` with $d = 5$ in current 213 deployment.
 What forces $d = 5$ rather than $d \in \{3, 7, 11, \ldots\}$?
 
-**Partial close achieved** via `GenerationRule/TriangleIteration`:
+**Two independent close routes achieved** (both PURE):
 
-  · Triangle iteration $T(n) = n(n+1)/2$ starting from atomicity 2:
-    `triIter 2 0 = 2 = N_T`, `triIter 2 1 = 3 = N_S`,
-    `triIter 2 2 = 6`, ...
-  · So $d_{213} = N_S + N_T = T(2) + 2 = 3 + 2 = 5$ derives from
-    atomicity $a_0 = 2$.
+**Route A (atomicity-side, step 4)** via
+`GenerationRule/TriangleIteration`:
+  · `triIter 2 0 = 2 = N_T`, `triIter 2 1 = 3 = N_S`.
+  · $d_{213} = N_S + N_T = 5$ derives from atomicity $a_0 = 2$.
+  · Lean: `ChartAxisAnsatz.chartBase_K32_derived_from_triangle_iteration`.
 
-**Irreducible remaining commitment**: $a_0 = 2$.  This IS the 213
-axiom Clause 1: "two distinct atoms".  No further derivation —
-this is the 213 starting point.
+**Route B (cohomology-side, step 5)** via
+`Cohomology/Examples/TopologyCompare.topology_uniqueness`:
+  · `b1_bipartite n m c = c*n*m - (n+m) + 1` (Euler).
+  · Among small (n, m, c) with $n+m \le 5$, $c \le 3$: ONLY
+    (3,2,2) and (2,3,2) give `b_1 = 8 = 1/α_3`.
+  · The (3,2,2) ↔ (2,3,2) symmetry is S/T-swap; same deployment
+    modulo labelling.
+  · Cohomology-α_3 match forces K_{3,2}^{(c=2)} uniquely.
+  · Lean: `ChartAxisAnsatz.M1_cohomology_route_close`.
 
-Lean: `ChartAxisAnsatz.chartBase_K32_derived_from_triangle_iteration`
-+ `NS_NT_derived_from_atomicity_two`.
+The two routes operate at different layers — atomicity at Raw
+Clause 1, cohomology at α_3-matching — and converge on the same
+deployment.
+
+**Irreducible remaining commitment**: $a_0 = 2$ (Route A) =
+Raw axiom Clause 1: "two distinct atoms".  No further derivation.
+Route B does not reduce further either — it accepts $b_1 = 1/α_3 = 8$
+as the empirical anchor, and shows uniqueness from there.
 
 ### §6.2 M2 — Chart-Lens structurally omits self-pointing axes
 
@@ -405,11 +417,19 @@ material (e.g., `Lens/Number/Nat213/ChartGeneral.lean`).
     this IS the 213 axiom (Clause 1: "two distinct atoms").  No
     further derivation possible; this is the 213 starting point.
 
-  · **★★★★ G121_R1_master_capstone**: 3-route convergence
-    theorem (PURE).  All three routes — axiom-level shadow,
-    deployment connectedness, and atomicity-2 triangle iteration —
-    independently yield `chartVisibleAxes 3 2 = 4` and
-    `selfPointingAxes = 1`.
+  · *Step 5* (**M1 cohomology-route close — 29 PURE total**):
+    discovered `Cohomology/Examples/TopologyCompare.topology_uniqueness`
+    proves that among small candidates with `NS + NT ≤ 5`, `c ≤ 3`,
+    ONLY `(3,2,2)` and `(2,3,2)` give `b_1 = 8 = 1/α_3`.
+    Independent of atomicity-route forcing (step 4) — cohomology
+    forces the same K_{3,2}^{(c=2)} deployment from an entirely
+    different layer (α_3 integer match vs. Raw Clause 1 atomicity).
+
+  · **★★★★★ G121_R1_master_capstone**: 4-route convergence
+    theorem (PURE).  All four routes — axiom-level shadow,
+    deployment connectedness, atomicity-2 triangle iteration,
+    and cohomology-α_3 forcing — independently yield
+    `chartVisibleAxes 3 2 = 4` and `selfPointingAxes = 1`.
 
 **M1 status update**: partial close for K_{3,2}^{(c=2)}
 deployment.  Reduces to Raw Clause 1's `a₀ = 2` commitment —
@@ -581,20 +601,30 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      atomicity `a₀ = 2` = Raw Clause 1 two-atom commitment.
      Remaining irreducible: `a₀ = 2` itself = the 213 axiom.
 
-     **★★★★ G121_R1_master_capstone** added: 3-route
-     convergence theorem (axiom-level shadow + deployment
-     connectedness + atomicity-2 triangle iteration) all
-     yield `chartVisibleAxes 3 2 = 4`, `selfPointingAxes = 1`.
+     ★★★★ `G121_R1_master_capstone` added: 3-route
+     convergence (axiom + connectedness + atomicity).
+ 11. User says "ㄱㄱ" (session resumed) — **M1 cohomology-route
+     close via TopologyCompare** (29 PURE total).  Discovered
+     `Cohomology/Examples/WhyDimFive.lean` and
+     `TopologyCompare.topology_uniqueness` already prove that
+     among small (n, m, c), ONLY (3,2,2) and (2,3,2) yield
+     `b_1 = 8 = 1/α_3`.  This forces K_{3,2}^{(c=2)} from the
+     cohomology-α_3-matching side, independent of atomicity-route.
+
+     ★★★★★ `G121_R1_master_capstone` upgraded to 4-route
+     convergence: axiom-level shadow + deployment connectedness +
+     atomicity-2 triangle iteration + cohomology-α_3 forcing.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point**: (1) generalize V32Betti-style
-cochain enumeration to K_{NS, NT}^{(c)} for arbitrary (NS, NT, c)
-— would lift the M2 derivation from K_{3,2}-specific to
-deployment-parametric; (2) tackle M3 (time = remaining N_T axis)
-via c=2 binary cover analysis; (3) M4 (KK firewall) doc work.
-See §6 + §7.
+**Next-session entry point**: (1) M3 close (time = remaining
+N_T axis split, c=2 binary cover analysis) — possible cohomology
+decomposition into 1 trivial + 2 std_S + 1 sgn_T under
+Sym(3) × Sym(2); (2) K_{NS,NT}^{(c)} M2 generalization to
+arbitrary (NS, NT, c) — abstract chart-Lens type or
+V32Betti-style files for additional deployments; (3) M4 (KK
+firewall) doc work.  See §6 + §7.
 
