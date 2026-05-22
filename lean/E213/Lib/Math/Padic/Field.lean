@@ -1,5 +1,6 @@
 import E213.Lib.Math.Padic.Arith
 import E213.Lib.Math.Padic.Norm
+import E213.Lib.Math.Padic.Hensel
 import E213.Meta.Tactic.NatHelper
 /-!
 # Real213-p-adic Field (ℚ_p localization)
@@ -212,5 +213,37 @@ theorem QpSeq.smoke_ofNat_7_2_d0 :
 
 theorem QpSeq.smoke_ofNat_7_2_d2 :
     ((QpSeq.ofNat 2 (by decide) 7).num.digits 2).val = 1 := rfl
+
+/-! ## Multiplicative inverse on ℚ_p
+
+For `a : QpSeq p` representing `a.num · p^(-a.shift)` with
+`a.num.digits 0` coprime to `p`, the inverse is
+    `1/a = (1/a.num) · p^(a.shift) = invFull(a.num) · p^(a.shift)`.
+
+As a `QpSeq`, this is `(Zp.shiftLeft a.shift (invFull a.num), 0)`
+— numerator is the shifted full p-adic inverse, shift is 0.
+-/
+
+/-- Multiplicative inverse on `QpSeq` (requires unit numerator). -/
+def QpSeq.inv (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (a.num.digits 0).val p).1 = 1) : QpSeq p where
+  num := Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
+            (Zp.invFull p (Nat.lt_of_succ_lt hp) a.num h_gcd)
+  shift := 0
+
+/-- The shift of `QpSeq.inv` is always 0 (inverse is "integer-shaped"). -/
+theorem QpSeq.inv_shift (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (a.num.digits 0).val p).1 = 1) :
+    (QpSeq.inv p hp a h_gcd).shift = 0 := rfl
+
+/-- The numerator unfolding for `QpSeq.inv`. -/
+theorem QpSeq.inv_num (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (a.num.digits 0).val p).1 = 1) :
+    (QpSeq.inv p hp a h_gcd).num
+      = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
+            (Zp.invFull p (Nat.lt_of_succ_lt hp) a.num h_gcd) := rfl
 
 end E213.Lib.Math.Padic

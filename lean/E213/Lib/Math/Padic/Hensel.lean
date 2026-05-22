@@ -590,4 +590,72 @@ theorem Zp.mul_invSeq_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
   | n + 1 =>
     hensel_step p hp x h_gcd n (Zp.mul_invSeq_correct p hp x h_gcd n)
 
+/-! ## The full inverse `invFull`
+
+The approximations `invSeq n` set digits 0..n correctly while
+leaving higher digits zero.  Diagonal-extraction —
+`invFull.digits k := (invSeq k).digits k` — collects the
+"settled" digit at each position into a single `ZpSeq`.  This is
+the true multiplicative inverse of `x` (every truncation level
+satisfies `x · invFull ≡ 1`).
+-/
+
+/-- Digit stability: `(invSeq n).digits j = (invSeq j).digits j` for
+    `j ≤ n` — higher-level approximations preserve lower digits. -/
+theorem Zp.invSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ∀ n j, j ≤ n →
+      (Zp.invSeq p hp x h_gcd n).digits j
+        = (Zp.invSeq p hp x h_gcd j).digits j
+  | 0, j, h => by
+    have hj : j = 0 := Nat.le_zero.mp h
+    rw [hj]
+  | n + 1, j, h => by
+    cases hcase : Nat.decEq j (n + 1) with
+    | isTrue heq => rw [heq]
+    | isFalse hne =>
+      have hjle_n : j ≤ n :=
+        Nat.le_of_lt_succ (Nat.lt_of_le_of_ne h hne)
+      rw [Zp.invSeq_succ_digit_below p hp x h_gcd n j hne]
+      exact Zp.invSeq_digit_stable p hp x h_gcd n j hjle_n
+
+/-- The full inverse `ZpSeq p`: extract each "settled" digit. -/
+def Zp.invFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) : ZpSeq p where
+  digits := fun k => (Zp.invSeq p hp x h_gcd k).digits k
+
+/-- `invFull.trunc (n+1) = (invSeq n).trunc (n+1)` — at level n+1,
+    invFull's truncation matches the level-n approximation
+    (which has all digits 0..n correctly set). -/
+theorem Zp.invFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) :
+    ∀ n, (Zp.invFull p hp x h_gcd).trunc (n + 1)
+          = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
+  | 0 => rfl
+  | n + 1 => by
+    have ih : (Zp.invFull p hp x h_gcd).trunc (n + 1)
+              = (Zp.invSeq p hp x h_gcd n).trunc (n + 1) :=
+      Zp.invFull_trunc_succ p hp x h_gcd n
+    show (Zp.invFull p hp x h_gcd).trunc (n + 1)
+          + ((Zp.invFull p hp x h_gcd).digits (n + 1)).val * p^(n + 1)
+        = (Zp.invSeq p hp x h_gcd (n + 1)).trunc (n + 1)
+          + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val * p^(n + 1)
+    rw [ih]
+    -- (invSeq n).trunc (n+1) → (invSeq (n+1)).trunc (n+1) via ← invSeq_succ_trunc_low.
+    rw [← Zp.invSeq_succ_trunc_low p hp x h_gcd n (n + 1) (Nat.le_refl _)]
+    -- invFull.digits (n+1) = invSeq (n+1).digits (n+1) by definition (rfl).
+    rfl
+
+/-- **Full Hensel correctness**: `x · invFull ≡ 1 (mod p^(n+1))` for all `n`. -/
+theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) x
+      (Zp.invFull p (Nat.lt_of_succ_lt hp) x h_gcd)).trunc (n + 1) = 1 := by
+  rw [Zp.mul_trunc, Zp.invFull_trunc_succ, ← Zp.mul_trunc]
+  exact Zp.mul_invSeq_correct p hp x h_gcd n
+
 end E213.Lib.Math.Padic
