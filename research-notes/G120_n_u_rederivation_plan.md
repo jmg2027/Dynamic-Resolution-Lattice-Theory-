@@ -1,5 +1,11 @@
 # G120 — N_U re-derivation plan
 
+**Round 3 sharpened version (2026-05-22 evening).**  Earlier Round
+2 hybrid retracted per user observation (§9 Round 3): the name
+`N_U` itself is the universe-constant framing import; correct fix is
+demote to `abbrev` (or inline) atop a parametric family
+`configCount : Nat → Nat`.  See §4 + §9 for the diagnosis chain.
+
 ## §1 Diagnosis (current state)
 
 - **Three syntactically distinct definitions of `N_U` coexist and agree
@@ -28,113 +34,192 @@
   `numV (L : Nat) : Nat := 5^L` (self-referential framing B).  Same
   name, different shape, bridged only by `decide` on `L = 2`.
 
-## §2 Goal (target state)
+## §2 Goal (target state — Round 3 sharpened)
 
 After execution:
 
-1. `N_U` has **one** definition in `Lib/Math/ResolutionLimit.lean`.
-   `UniverseChain.Universe.N_U` and `NResolutionFromFractal.n_resolution_candidate`
-   become `theorem`s (not `def`s) that reduce to it.
-2. Each spec-sanctioned framing that has a real derivation is wired
-   into `ResolutionInvariant` as a *theorem field*, not a placeholder.
-3. Framings without a derivation are either deleted from the record
-   or replaced with an honest `Prop`-level marker, not a bare `:= N_U`.
-4. `numV` name collision resolved by namespace separation.
-5. ValidationStandard decide-chain unchanged.  Literal value
-   `298023223876953125` preserved at consumer sites.
+1. **Canonical object is a parametric family**:
+   `configCount : Nat → Nat` (vertex / configuration count at fractal
+   level n), built on existing `Cohomology/Fractal/Level.lean`'s
+   `numV (L : Nat) : Nat := 5^L`.  `5^25` is the value at level 2,
+   not a privileged constant.
+2. **`N_U` demoted to display-name `abbrev`** (or deleted entirely):
+   `abbrev N_U : Nat := configCount 2`.  No `def N_U` anywhere.
+   Three current `def N_U` instances collapse to this single
+   `abbrev` (or are inlined to `configCount 2` directly).
+3. **`ResolutionInvariant` record DELETED**.  The 4 framings were
+   not 4 independent derivations — they were 4 verbal relabellings
+   of a single family value (`fractalLens` = "configurations at
+   level 2"; `coloringK25` = "configurations at level 2 named after
+   the bipartite graph"; `tensorDOF` = "configurations at level 2
+   named after rank-2 tensor"; `injProjSpace` = missing entirely).
+   Critic's Option (e) adopted; Round 3 sharpening confirms.
+4. **(B) self-referential framing** becomes a `theorem` ABOUT the
+   family: `numV (d*d) = d^(d*d)` is a property of the family at the
+   special point n = d² = 25, not a separate framing.
+5. **`numV` name collision resolved**: keep parametric `numV (L : Nat)
+   := 5^L` (Level.lean) as canonical; `V25.lean`'s constant `numV := 25`
+   becomes either a theorem `numV_at_2 : Level.numV 2 = 25` or is
+   inlined where used.
+6. **ValidationStandard cascade unchanged**: consumer literals
+   `298_023_223_876_953_125` still resolve via `decide` to
+   `configCount 2`.  Only the *naming path* changes — the literal
+   value is preserved.
+7. **d generalization hook open**: `configCount` is parametric in
+   the level; making it also parametric in `d` (base of the
+   fractal) is a one-line extension if/when future research needs it.
 
-## §3 Phases
+## §3 Phases (Round 3 sharpened — 6 phases)
 
-### Phase 1 — Canonicalize the definition (small)
+### Phase 1 — Establish parametric `configCount` family
 
-- **Scope**: collapse three defs into one.
-- **Files changed**:
-  - `Lib/Math/UniverseChain/Universe.lean`: replace `def N_U : Nat := 5^25`
-    with `theorem N_U_eq : Universe.N_U = ResolutionLimit.N_U := by decide`,
-    or rewrite the structure field to reference `ResolutionLimit.N_U`
-    directly.
-  - `Lib/Physics/Foundations/NResolutionFromFractal.lean`: keep
-    `n_resolution_candidate` as a *local* convenience def with a
-    `theorem n_resolution_candidate_eq_N_U` bridge.
-- **Success**: `grep -rn "def N_U" lean/E213/` returns exactly one hit.
-- **Effort**: 30 min.
+- **Scope**: introduce or canonicalize the parametric Lens output.
+- **Decision**: use `Cohomology/Fractal/Level.lean`'s existing
+  `numV (L : Nat) : Nat := 5^L` as the family of "vertex count at
+  level L".  Add `def configCount (n : Nat) : Nat := d ^ (numV n)`
+  in a canonical home (probably new file
+  `Lib/Math/Cohomology/Fractal/ConfigCount.lean` or appended to
+  `Lib/Math/ResolutionLimit.lean`).
+- **Effort**: 1 hr.
 - **Depends on**: nothing.
 
-### Phase 2 — Wire real derivations into `ResolutionInvariant` (medium)
+### Phase 2 — Demote `N_U` to `abbrev`; collapse three defs
 
-- **Scope**: replace the rfl-placeholders for `fractalLens` and
-  `coloringK25` with the existing external theorems.
+- **Scope**: drop privileged status of `N_U`.
 - **Files changed**:
-  - `Lib/Math/ResolutionLimit.lean`: change `ResolutionInvariant`
-    fields from `Nat := N_U` to `: (… = N_U)`-shaped propositions, OR
-    keep numeric fields but add a sibling `ResolutionInvariantProofs`
-    record holding the four equality theorems.
-  - Import `NResolutionFromFractal.n_resolution_eq_hierarchy` and
-    `FractalLensCardinality.K25_coloring_count_eq_N_U`.
-- **Success**: `#print axioms` clean on the new record; old
-  placeholders gone; consumers still compile.
-- **Effort**: 2-3 hr.
+  - `Lib/Math/ResolutionLimit.lean`: change `def N_U : Nat := d^(d*d)`
+    to `abbrev N_U : Nat := configCount 2`.
+  - `Lib/Math/UniverseChain/Universe.lean`: delete `def N_U := 5^25`;
+    use `ResolutionLimit.N_U` (the abbrev) or inline `configCount 2`.
+  - `Lib/Physics/Foundations/NResolutionFromFractal.lean`: keep
+    `n_resolution_candidate` only as a *local* convenience; replace
+    with theorem `n_resolution_candidate_eq : n_resolution_candidate
+    = configCount 2`.
+- **Success**: `grep -rn "^def N_U" lean/E213/` returns 0 hits;
+  `grep -rn "^abbrev N_U" lean/E213/` returns ≤ 1 hit.
+- **Effort**: 1 hr.
 - **Depends on**: Phase 1.
 
-### Phase 3 — Honest treatment of stub framings (small)
+### Phase 3 — Delete `ResolutionInvariant` record (Critic Option e)
 
-- **Scope**: tensor (#3) and injProj (#4).
+- **Scope**: dismantle the 4-way convergence fiction.
+- **Files changed**: `Lib/Math/ResolutionLimit.lean`.
 - **Decision**:
-  - `tensorDOF`: **DELETE** from `ResolutionInvariant`.  Re-add only
-    if/when a real Tensor type with a rank predicate exists.  Until
-    then it is docstring fiction.
-  - `injProjSpace`: **DO NOT ADD**.  Spec §2.4 informal; no witness;
-    keep out of the Lean record.
-- **Files changed**: `Lib/Math/ResolutionLimit.lean` (remove two
-  fields), `STRICT_ZERO_AXIOM.md` (update categorization).
-- **Success**: every field of `ResolutionInvariant` has a real
-  external derivation cited in its docstring.
-- **Effort**: 30 min.
+  - Delete `structure ResolutionInvariant` + `resolutionInvariantWitness`
+    entirely.
+  - Move the 2 real derivations (`fractalLens`-equivalent and
+    `coloringK25`-equivalent) to standalone lemmas:
+    - `theorem fractal_iter_two_count : configCount 2 = NResolutionFromFractal.n_resolution_candidate`
+    - `theorem coloring_K25_count : configCount 2 = FractalLensCardinality.K25_coloring_count`
+  - `tensorDOF` and `injProjSpace`: simply **gone**.  No replacement.
+- **Files changed**: `Lib/Math/ResolutionLimit.lean`,
+  `STRICT_ZERO_AXIOM.md` (update categorization).
+- **Success**: no `ResolutionInvariant` in codebase; 2 standalone
+  bridging lemmas exist; `lake build` clean.
+- **Effort**: 1-2 hr.
 - **Depends on**: Phase 2.
 
-### Phase 4 — Resolve `numV` collision (small)
+### Phase 4 — Recast (B) self-referential as family-theorem
 
-- **Scope**: rename one of the two `numV` definitions.
-- **Decision**: rename `Fractal/Level.lean`'s parametric version to
-  `vertexCountAtLevel (L : Nat) : Nat := 5^L`.  Keep `V25.lean`'s
-  `numV : Nat := 25` as the concrete instance.  Add
-  `theorem numV_eq_vertexCountAtLevel_two : numV = vertexCountAtLevel 2`.
-- **Files changed**: `Fractal/Level.lean` and any callers.
-- **Success**: `grep -rn "def numV" lean/E213/` returns exactly one hit.
+- **Scope**: dissolve the special-framing claim.
+- **Decision**:
+  - Delete `def universe_level := d * d` from
+    `NResolutionFractalDepth.lean` (it was a wrapper for `d * d`).
+  - Replace with a `theorem numV_at_d_squared : numV (d * d) = d ^ (d * d)`
+    stated as a property of the family (a numerical fixed-point
+    observation at the special level n = d² = 25).
+  - This makes the (A) iteration-count framing and the (B) self-ref
+    framing into ONE thing: the configCount family + a theorem about
+    its behaviour at a special point.
+- **Files changed**: `NResolutionFractalDepth.lean`.
+- **Success**: `grep -rn "universe_level" lean/E213/` returns 0 hits
+  (the wrapper is gone); the self-ref theorem stands as a family
+  property.
 - **Effort**: 1 hr.
-- **Depends on**: nothing (parallel to Phases 1-3).
+- **Depends on**: Phase 1.
 
-### Phase 5 — Audit + commit
+### Phase 5 — Resolve `numV` collision
 
-- `lake build` clean, `tools/scan_axioms.py` PURE on every touched
-  module, decide-chain in ValidationStandard capstones still resolves.
-- **Effort**: 30 min.
+- **Scope**: keep parametric `numV` as canonical; demote constant.
+- **Decision**:
+  - Keep `Cohomology/Fractal/Level.lean`'s
+    `def numV (L : Nat) : Nat := 5^L` as the canonical parametric
+    family.
+  - Inline `V25.lean`'s `def numV : Nat := 25` to `Level.numV 2`
+    everywhere (it was just the parametric form evaluated at L=2).
+    Delete the constant `def` or convert to
+    `theorem numV_at_2 : Level.numV 2 = 25 := rfl`.
+- **Files changed**: `V25.lean` + any callers using its `numV`.
+- **Success**: `grep -rn "^def numV" lean/E213/` returns exactly 1 hit
+  (the parametric one in Level.lean).
+- **Effort**: 1 hr.
+- **Depends on**: Phase 1.
 
-## §4 Resolution of A-vs-D divergence
+### Phase 6 — Audit + ValidationStandard cascade preservation
 
-**Reject Option (b)** (split constants per framing): produces four
-disconnected numerals, severs the decide-chain D identified, no
-spec-§8 benefit since the framings already share a single numeric
-target — splitting the *definition* doesn't change the fact that the
-*number* is one.
+- **Scope**: regression-test the consumer cascade.
+- **Files NOT changed**: ValidationStandard capstones, AlphaEM
+  capstones — their `decide`-chains on `5^25` literal value should
+  resolve unchanged.
+- **Success**:
+  - `cd lean && lake build` clean
+  - `python tools/scan_axioms.py` PURE on all touched modules
+  - `lake build E213.Lib.Physics.Capstones.ValidationStandardOne`
+    succeeds (decide-chain preserved)
+  - `#print axioms configCount` / `#print axioms N_U` clean
+- **Effort**: 1 hr.
+- **Depends on**: Phases 1-5.
 
-**Adopt Option (a) augmented with Phase 3 of Option (c/d)**: single
-canonical `N_U` definition (D's recommendation), but `ResolutionInvariant`
-is purged of placeholder fields and only carries framings with real
-derivations (C's concern about cosmetic identity).
+**Total mean effort**: ~6-7 hr.  Critic-flagged tail risk: 8-12 hr if
+ValidationStandard cascade surfaces a hidden `decide`-shape
+dependency.
 
-- **Neutralizing D's concern** (capstone cascade): Phase 1 preserves
-  the literal value and the `decide` chain.  ValidationStandard
-  consumers are untouched.  Cost: 30 min, not 1-2 days.
-- **Neutralizing C's concern** (universe-constant smell): Phase 3
-  deletes the two fields that exist only to *look* like a universe
-  invariant.  The record stops claiming "four observables share one
-  invariant" via placeholders; it claims "two derivations land on the
-  same numeral" via theorems.  No framing (B) self-reference promotion;
-  no §8 violation.
+## §4 Resolution (Round 3 sharpened — clean Option (c))
 
-This is a hybrid leaning toward (a), with the §8-hygiene step from (c)
-applied surgically rather than as a full migration.
+**Round 2 hybrid retracted.**  Earlier draft chose hybrid (a + c.phase3)
+to neutralize D's downstream-cascade risk + C's universe-constant
+smell simultaneously.  Critic flagged hybrid as "indecision encoding";
+Round 3 user sharpening confirmed: the *name* `N_U` is itself the
+problem (carries universe-constant connotation per CLAUDE.md
+"Universe-constant framing" failure mode), and the 4-way convergence
+was never 4 independent derivations but a single family-value
+relabeled 4 ways.
+
+**Adopt clean Option (c) + Critic's Option (e)**: demote `N_U`,
+promote the *parametric family* `configCount : Nat → Nat`, and
+**delete `ResolutionInvariant` entirely**.
+
+### How this resolves earlier concerns
+
+- **D's cascade risk**: still neutralized.  Consumer-site literals
+  `5^25` / `298_023_223_876_953_125` remain.  Only the *naming
+  path* changes from `N_U` to `configCount 2` — the literal value
+  resolves identically via decide.  ValidationStandard capstones
+  untouched.
+- **C's universe-constant smell**: fully eliminated.  No constant
+  named `N_U` privileged; just a Nat-valued family + a display
+  abbrev.
+- **Critic's "delete record entirely"**: adopted.  4-way claim was
+  fiction (1 value × 4 verbal relabels).
+- **d ≠ 5 generalization hook**: open by construction.  Family is
+  parametric in `n`; making it also parametric in `d` is a one-line
+  extension.
+
+### Why earlier hybrid was wrong
+
+The hybrid kept `ResolutionInvariant` to "honor C's record-stays
+but-with-real-proofs intuition" while keeping `def N_U` to "honor
+D's preserve-decide-chain intuition".  But:
+- The record was never useful — the 2 real framings can be
+  standalone lemmas.
+- `def N_U` carries the failure-mode-flagged name; `abbrev` (or
+  inlined `configCount 2`) accomplishes the same decide-chain
+  preservation without the privileged constant.
+
+The empirical risk (D) was real but addressable without the
+privileged name.  The frame import (C, critic) was the actual
+blocker.  Round 3 sharpening (the user) reframed: the family is
+the natural object, the name was the import.
 
 ## §5 Risks + mitigations
 
@@ -176,33 +261,55 @@ applied surgically rather than as a full migration.
   **Mitigation**: §8 Open question records this; do not refactor
   consumer literals to non-parametric form in this plan.
 
-## §6 Success criteria (objective)
+## §6 Success criteria (Round 3 sharpened)
 
-1. `grep -rn "^def N_U" lean/E213/` returns exactly one line.
-2. `grep -rn "^def numV" lean/E213/` returns exactly one line.
-3. Every field of `ResolutionInvariant` has form `: <expr> = N_U` with
-   a proof referencing an external theorem (not `rfl` on a placeholder).
-4. `cd lean && lake build` clean.
-5. `python tools/scan_axioms.py E213.Lib.Math.ResolutionLimit` reports
-   PURE on every theorem touched.
-6. ValidationStandard capstones
-   (`ValidationStandardOne`, `FinitistObservableChain`,
-   `PureAtomicObservables`, `AlphaEM.Capstone`) build unchanged.
-7. `#print axioms` on the new theorem fields → "does not depend on any
-   axioms".
+1. `grep -rn "^def N_U" lean/E213/` returns **0** hits.
+2. `grep -rn "^abbrev N_U" lean/E213/` returns at most 1 hit (or 0 if inlined).
+3. `grep -rn "^def numV" lean/E213/` returns exactly 1 hit (parametric in Level.lean).
+4. `grep -rn "ResolutionInvariant" lean/E213/` returns 0 hits (record gone).
+5. `grep -rn "universe_level" lean/E213/` returns 0 hits (def gone).
+6. `def configCount : Nat → Nat` exists in canonical home.
+7. `cd lean && lake build` clean.
+8. `python tools/scan_axioms.py` PURE on all touched modules.
+9. ValidationStandard capstones build unchanged (decide-chain preserved):
+   - `ValidationStandardOne`
+   - `FinitistObservableChain`
+   - `PureAtomicObservables`
+   - `AlphaEM.Capstone`
+   - `AlphaEM.NResolutionCandidates`
+   - `AlphaEM.FractalLevelLift`
+10. `#print axioms configCount`, `#print axioms N_U` (if abbrev kept) →
+    "does not depend on any axioms".
+11. The 2 retained bridging lemmas (`fractal_iter_two_count`,
+    `coloring_K25_count`) cite their external derivations and are PURE.
 
-## §7 Out of scope
+## §7 Out of scope (Round 3 sharpened)
 
-- Promoting `N_U` to a privileged status, or renaming
-  `ResolutionInvariant`.  The record stays a numerical agreement
-  artifact, not a universe-constant claim.
-- Adding tensor or injProj derivations.  If they emerge later they
-  re-enter via a new file, not by un-deleting placeholder fields.
-- Framing (B) self-reference formalization.
-- Restructuring `PureAtomicObservables` orientation ("no N_U
-  dependence" branding).  Orthogonal concern; address in a separate
-  note if it becomes problematic.
-- Touching `catalogs/constants.md` numerics.
+- **Restoring `N_U` as a `def`** — explicitly forbidden.  `abbrev`
+  or inline only.  The name carries universe-constant connotation
+  (CLAUDE.md "Universe-constant framing" failure mode); making it a
+  `def` re-imports the frame.
+- **Re-introducing `ResolutionInvariant` or similar 4-way records** —
+  the 4-way claim was fiction (1 family-value × 4 relabels).  If
+  future research finds genuinely independent derivations of
+  `configCount 2`, they enter as standalone lemmas, not as a
+  catch-all record.
+- **Adding tensor or injProj framings** as Lean theorems.  No work
+  in current scope.  If a real `Tensor` type or injective-projection
+  cardinality bound emerges later, it gets a standalone lemma —
+  not a re-instantiated `ResolutionInvariant`.
+- **`PureAtomicObservables` vs `FinitistObservableChain` orientation
+  reconciliation** — orthogonal to N_U structure.  Open for a separate
+  note if it surfaces.
+- **`catalogs/constants.md` numerics** — preserved as-is (the value
+  is the same; only the path through Lean is changed).
+- **d ≠ 5 generalization execution** — the *hook* is opened by the
+  parametric family, but the actual `d` parametrization is deferred
+  pending genuine research need.
+- **Docstring claims silently re-importing "the resolution limit"**
+  framing — every docstring touched in this plan must be reviewed
+  against the universe-constant failure mode.  Phrasings like "the
+  resolution limit value", "the system invariant" are forbidden.
 
 ## §8 Open questions
 
@@ -218,18 +325,20 @@ applied surgically rather than as a full migration.
   reconciliation with `FinitistObservableChain`'s opposite orientation,
   or are they genuinely two different observable classes?  Open for
   G121 if it surfaces during Phase 2 wiring.
-- **Generalization hook**: if d ≠ 5 questions surface (or fractal
-  level ≠ 2 generalizations), is `numV` / N_U structure parametric
-  enough to extend, or does `5^25` baked at consumer sites prevent
-  generalization?  Currently consumer literals are hardcoded; this
-  is a present-vs-future-research tradeoff.  Plan does not refactor
-  to parametric form, but flags this as the next generalization gate.
-- **Option (e) deferred**: critic surfaced "delete `ResolutionInvariant`
-  entirely".  Only 2 of 4 framings are real (fractalLens, coloringK25);
-  the record may be conjectural overreach.  Plan adopts middle path
-  (delete 2 placeholder fields, keep 2 proven ones) but a future
-  promotion or further audit may opt for full deletion.  Re-evaluate
-  after Phase 3 lands.
+- **Consumer-site literal generalization** — Round 3 sharpening
+  opens `configCount` parametrically in level, but consumer sites
+  still hardcode `5^25` value.  If d ≠ 5 generalization research
+  emerges, those literals need parametric rewrite.  Not part of
+  this plan.
+- **Option (e) adopted** — Round 3 confirmed: `ResolutionInvariant`
+  fully deleted (was Critic's recommendation, Round 2 plan
+  rejected, Round 3 plan accepts).
+- **Self-referential framing's structural justification** — the
+  theorem `numV (d*d) = d^(d*d)` (Phase 4) is currently a
+  numerical fixed-point observation via `decide`.  Whether there's
+  a *structural* (non-`decide`) proof that the family fixed-points at
+  level d² (a deep self-reference fact) remains open.  If found, it
+  would be a non-trivial property of the configCount family.
 
 ## §9 Debate trace (multi-agent provenance)
 
@@ -270,10 +379,68 @@ C voted (d), D voted (a) — divergence.
 | d ≠ 5 generalization hook | §8 explicit tradeoff acknowledgment |
 | Critic's vote for (c) over hybrid | §4 retains hybrid; rationale: D's value-only-consumer count is empirical, not cost-as-excuse |
 
-### What was *not* absorbed
+### What was *not* absorbed in Round 2
 
-- Critic argued "hybrids encode indecision" and recommended (c) clean.  Plan rejected this: D's risk audit is empirical (25 value-only consumers + ValidationStandard cascade), not a §8.4-disguised cost argument.  Cost reflects real downstream load, which matters for whether the plan can execute without breaking the precision chain that DRLT Validation Standard #1 depends on.
-- Critic's "Option (e) delete record entirely": plan adopts middle path (delete 2 placeholders, keep 2 proven), with full deletion as deferred open question.  Rationale: 2 proven framings (fractalLens, coloringK25) are real derivations and deserve a slot somewhere; if not in `ResolutionInvariant`, they need a new home — that's more cost than the placeholder removal.
+- Critic argued "hybrids encode indecision" and recommended (c) clean.  Round 2 plan rejected this; Round 3 (below) accepted.
+- Critic's "Option (e) delete record entirely": Round 2 plan adopted middle path; Round 3 (below) adopted full deletion.
+
+### Round 3 — user sharpening (2026-05-22 evening)
+
+After Round 2 plan committed, user observed:
+
+> "걍 N_U같은 거창한 네임이 아니라 그냥 count-Lens at fractal
+> level 2인거고 level Nat도 다 되는거자나?"
+> ("It's not a grand name like N_U — it's just count-Lens at
+> fractal level 2, and the level can be any Nat right?")
+
+This reframing collapsed two earlier disputes:
+
+1. **The name `N_U` is the import**.  Per CLAUDE.md
+   "Universe-constant framing" failure mode catalog: "*Numerical
+   readouts are Lens outputs; no quantity is a universe constant*".
+   The `N_U` name *itself* is the violation; whatever it's
+   defined as, the `def N_U` keeps the failure mode in scope.
+2. **The 4-way convergence was fictional**.  fractalLens /
+   coloringK25 / tensorDOF / injProjSpace are not 4 independent
+   derivations of "5^25" — they are 4 verbal relabellings of ONE
+   family value (`configCount 2`).  The record never had real
+   content beyond decide-trivial identity.
+
+### Round 3 absorbed into plan
+
+- §2 Goal rewritten: canonical object is parametric family
+  `configCount : Nat → Nat`; `N_U` demoted to `abbrev` (or deleted);
+  `ResolutionInvariant` deleted entirely.
+- §3 Phases restructured to 6 phases reflecting the sharpened goal.
+- §4 explicitly retracts Round 2 hybrid; chooses clean Option (c) +
+  Critic's Option (e).
+- §6 Success criteria updated (0 `def N_U`, 0 `ResolutionInvariant`,
+  0 `universe_level` def, plus `configCount` exists).
+- §7 Out of scope strengthened (no `def N_U` restoration, no
+  4-way record re-introduction).
+- §8 Open questions trimmed (d generalization remains open;
+  self-referential structural proof remains open).
+
+### Self-check on Round 3
+
+- §8.4 frame-import: the name `N_U` was the actual import; demoting
+  it to `abbrev` (or inlining `configCount 2`) closes that channel
+- Substrate metaphor: `configCount` is Lens *output*, parametric in
+  level n — not a substrate
+- Constructive accessibility: every phase has grep success criterion
+  + Lean file deliverable
+- Future-proofing: d generalization automatically open (parametric
+  family extends naturally)
+- Effort acknowledged: ~6-7 hr mean, 8-12 hr tail
+
+The Round 3 sharpening shows that the *failure-mode catalog itself*
+provided the diagnosis — the name `N_U` is *exactly* what CLAUDE.md
+"Universe-constant framing" failure-mode warns against — and the
+plan now treats the name as the import to be removed.  Earlier
+rounds (synthesizer + critic) circled around this but didn't name
+it; user (the framework originator) named it.
+
+This plan should land before further N_U-using results are added.
 
 ### Self-check on this plan
 

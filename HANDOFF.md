@@ -253,12 +253,15 @@ LESSONS_LEARNED now lists Patterns #1-#20:
 
 Highest-value remaining items by impact / effort:
 
-  1. **G120 N_U re-derivation plan** — execute 5-phase plan in
-     `research-notes/G120_n_u_rederivation_plan.md`.  Closes N_U
-     muddle: 3 redundant defs → 1, 3 placeholder ResolutionInvariant
-     fields → 2 real + 2 deleted, numV name collision resolved.
-     Total mean ~5 hr (Phases 1-5).  Critic-flagged tail risk 4-8 hr.
-     Produced by 2-round 6-agent debate 2026-05-22.
+  1. **G120 N_U re-derivation plan (Round 3 sharpened)** — execute
+     6-phase plan in `research-notes/G120_n_u_rederivation_plan.md`.
+     Round 3 reframes: the *name* `N_U` is the universe-constant
+     framing import; correct fix is demote to `abbrev` over parametric
+     family `configCount : Nat → Nat`.  Closes N_U muddle: 3 defs →
+     parametric family + abbrev, `ResolutionInvariant` record deleted
+     entirely (4-way claim was fictional), `numV` collision resolved.
+     Total mean ~6-7 hr (Phases 1-6).  Critic-flagged tail risk 8-12 hr.
+     Produced by 3-round 7-touch debate 2026-05-22.
   2. **L1 α-side completion** — 50% mass cut remaining (β-side done)
   3. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
   4. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
