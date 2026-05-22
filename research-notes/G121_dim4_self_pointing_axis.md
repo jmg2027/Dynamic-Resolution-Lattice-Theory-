@@ -302,11 +302,29 @@ via `Cohomology/Examples/TopologyCompare`:
   · Cohomology-α_3 alone does NOT force K_{3,2}^{(c=2)} uniquely.
   · Lean: `ChartAxisAnsatz.cohomology_route_not_unique`.
 
-**Combined uniqueness** (intersection of routes):
+**Combined uniqueness — TWO formulations**:
+
+*Weaker (step 7)*: atomicity + cohomology-restricted-to-(NS,NT)=(3,2)
   · Atomicity → (NS, NT) = (3, 2)
   · Cohomology under (NS,NT)=(3,2) → c = 2 (only c=2 gives b_1=8)
   · Together → K_{3,2}^{(c=2)} uniquely
   · Lean: `ChartAxisAnsatz.combined_atomicity_cohomology_uniqueness`.
+
+*Stronger (step 8 — independent of cohomology)*:
+**Route C (Möbius-side)** via `C2DoublingDerivation` (G80):
+  · `half_period = 5` (P^5 ≡ -I mod 5, pentagonal half-rotation)
+  · `full_period = 10` (P^10 ≡ +I mod 5, full closure)
+  · `c = full_period / half_period = 10 / 5 = 2 = NT`
+  · c = 2 is **structurally forced** by Möbius mod-5 period, NOT
+    by cohomology.
+  · Lean: `ChartAxisAnsatz.c2_derived_from_mobius_period`.
+
+Combined: atomicity (Routes A: NS=3, NT=2) + Möbius (Route C: c=2)
+**alone** uniquely force K_{3,2}^{(c=2)}, independent of any
+cohomology scope.  Cohomology α_3 match (Route B) is now
+*consistency verification*, not forcing source.
+
+  · Lean: ★★★★ `ChartAxisAnsatz.triple_route_K32_c2_unique`.
 
 **Standard-math comparison**: Donaldson's d_M = 4 critical is
 unique across *all* dimensions.  213-Lens cohomology-route is NOT
@@ -662,6 +680,22 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      Standard-math d_M=4 critical (Donaldson) is unique across
      ALL d.  213-Lens cohomology alone is NOT — strength gap
      explicitly recorded.
+ 14. User says "ㄱㄱ" — **c=2 Möbius-route forcing** added (39
+     PURE total).  Discovered `Lib/Math/C2DoublingDerivation.lean`
+     already derives c=2 from G80 Möbius mod-5 period structure:
+       · `half_period = 5` (P^5 ≡ -I mod 5)
+       · `full_period = 10` (P^10 ≡ +I mod 5)
+       · `c = full / half = 2 = NT`  (structurally forced)
+
+     This is **independent of cohomology-route** (which we showed
+     was partial).  Combined with atomicity (NS=3, NT=2) gives
+     **strong K_{3,2}^{(c=2)} uniqueness** without depending on
+     cohomology uniqueness scope.
+
+     ★★★★ `triple_route_K32_c2_unique`: atomicity + Möbius +
+     cohomology-verification together fully fix K_{3,2}^{(c=2)}.
+     Routes A and C are now the *forcing* sources; Route B is
+     consistency verification.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
