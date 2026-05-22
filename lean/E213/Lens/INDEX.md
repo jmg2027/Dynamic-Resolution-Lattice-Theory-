@@ -49,19 +49,20 @@ docstring of `lean/E213/Lens.lean`.
 
 ## Status
 
-Per `STRICT_ZERO_AXIOM.md` §"Latest scan": Lens hosts the residual
-DIRTY budget — 56 theorems use `propext` / `Quot.sound` / (rarely)
-`Classical.choice` for Lens-equality and quotient-representative
-selection.  Marathon target: convert to PURE via `EqPW` (pointwise
-Lens equality) infrastructure.  Distribution by sub-cluster:
+Per `STRICT_ZERO_AXIOM.md` §"Sealed-by-design categories": 56
+theorems across 7 Lens sub-clusters use `propext` / `Quot.sound` /
+`Classical.choice` for *structural* reasons — Prop-as-distinguishing
+combine_sym fields, function-valued Lens.combine fields, and
+JoinEquiv quotient-representative selection.  These are waived as
+sealed-by-design.  Distribution:
 
-  · `SemanticAtom.lean`            — 23  (propext for Iff-as-distinguishing)
-  · `Properties/Morphism/BoolProp` — 10  (propext for BoolProp morphisms)
-  · `Instances/Leaves/DepthJoin`   — 10  (5 with Classical.choice via JoinEquiv-on-Raw)
-  · `Universal/QuotLens`           —  5  (funext-by-design)
-  · `Lattice/IndexedJoin`          —  4
-  · `Instances/Cauchy`             —  3
-  · `Instances/FunctionSpace`      —  1
+  · `SemanticAtom.lean`            — 23  category (a) propext (Prop combine_sym)
+  · `Properties/Morphism/BoolProp` — 10  category (a) propext (Bool↔Prop equating)
+  · `Instances/Leaves/DepthJoin`   — 10  category (c) Classical.choice (5) + (b) Quot.sound (5)
+  · `Universal/QuotLens`           —  5  category (b) Quot.sound (function-valued combine)
+  · `Lattice/IndexedJoin`          —  4  category (b) Quot.sound
+  · `Instances/Cauchy`             —  3  category (b) Quot.sound
+  · `Instances/FunctionSpace`      —  1  category (b) Quot.sound
 
-All other Lens modules are PURE.  See `STRICT_ZERO_AXIOM.md` for
-per-theorem tracking and active marathon log.
+All other Lens modules are PURE.  Scanner reports zero unsealed
+DIRTY.

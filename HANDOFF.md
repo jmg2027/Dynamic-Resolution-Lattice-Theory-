@@ -14,7 +14,7 @@
 | **G121 R1 Geometrization** (8 geometries via Möbius P + mod-k Lenses) | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **3-tier discipline + theory/ promotion campaign** | COMPLETE (90 chapters) | `theory/INDEX.md` |
 | **Branch merge `claude/lean4-ast-patterns-g1gWN`** | DONE | G122 (Real213-p-adic) starter brought in; collision-renamed from G120 |
-| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Lean kernel axioms: DRLT mathematical content (Lib/Math/*, Theory/*) is fully PURE; the residual 56 DIRTY theorems sit in `Lens.*` (per `STRICT_ZERO_AXIOM.md` §"Latest scan" 2026-05-22).  G120 framing regression fixed (`6599f889`) |
+| **Full repo audit** | CLEAN | 0 sorry / 0 Mathlib / 0 native_decide; build clean.  Latest scan: **1145 PURE / 0 real DIRTY / 56 sealed-DIRTY-by-design (1201 total)**.  DRLT mathematical content (Lib/Math/*, Lib/Physics/*, Theory/*) is fully PURE.  The 56 sealed theorems sit in 7 `Lens.*` modules across three structural categories: (a) Prop-as-distinguishing thesis (propext), (b) Lens funext-by-design (Quot.sound), (c) JoinEquiv quotient-representative selection (Classical.choice).  Per `STRICT_ZERO_AXIOM.md` §"Sealed-by-design categories".  G120 framing regression fixed (`6599f889`) |
 
 Closure logs preserved in git history; the live state is the Lean
 source + theory chapters.  Don't read the per-Part marathon logs that

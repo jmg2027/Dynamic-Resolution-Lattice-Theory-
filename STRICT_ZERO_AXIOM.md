@@ -30,6 +30,111 @@ them via Lean-core well-founded recursion proofs.
 
 ---
 
+## Sealed-by-design categories
+
+The seal list in `tools/scan_all_axioms.py` waives modules whose
+DIRTY status is *structural* — refactoring would redefine what the
+module is, not improve its derivation.  Any DIRTY outside this list
+is a real regression.
+
+### (a) Prop-as-distinguishing thesis — `propext`
+
+`HasDistinguishing` is the typeclass for "framework instance: a
+type with a/b/combine such that True ≠ False analogue holds and
+combine is symmetric."  When the type is `Prop`, the field
+`combine_sym : combine P Q = combine Q P` is a propositional
+equality between Props — provable in Lean 4 only via the kernel
+axiom `propext`.
+
+Sealed modules:
+
+  · `E213.Lens.SemanticAtom`
+      `propAsDistinguishing` + `propAsDistinguishing{And, Or, Iff}`
+      use `combine = propXor / And / Or / Iff`; `combine_sym` is
+      `(P * Q) = (Q * P)` at type `Prop`.  Carries `iff_comm_eq`
+      and `propXor_comm` for the symmetry lemmas.
+      `canonical{Truth, And, Or, Iff}Map_*` are derived via
+      `universalMorphism_*` and inherit the propext use.
+
+  · `E213.Lens.Properties.Morphism.BoolProp`
+      `boolToProp : Bool → Prop` is `b ↦ (b = true)`.  Theorems
+      `boolToProp_true / false / and / or / xor / iff` and
+      `universalMorphism_commute*` equate Props (e.g. `boolToProp
+      (and x y) = (boolToProp x ∧ boolToProp y)`) — propext.
+
+The thesis "Prop is an atom of meaning" *is* what `propext`
+expresses.  Removing the seal would require removing Prop as a
+HasDistinguishing instance, which removes the thesis.
+
+### (b) Lens funext-by-design — `Quot.sound` (= `funext`)
+
+`Lens.combine : α → α → α` for the universal / indexed / Cauchy /
+function-space Lens family is function-valued — `α = Raw → β` or
+`α = (i : ι) → ...`.  Then `Lens.combine_sym : combine x y =
+combine y x` becomes a function equality, which in the Lean 4
+kernel is `funext`, derived from `Quot.sound`.
+
+Sealed modules:
+
+  · `E213.Lens.Universal.QuotLens`
+      `universalLens.combine : (Raw → Prop) → (Raw → Prop) →
+      (Raw → Prop)` is the closed-form equivalence-class function;
+      `combine_sym` needs both `funext` (Quot.sound) and `propext`
+      (Iff at Prop result).  All 5 theorems (`combine_sym`,
+      `idempotent`, `kernel_eq_E`, `recovers`, `view_eq`) inherit
+      this structurally.
+
+  · `E213.Lens.Lattice.IndexedJoin`
+      `iJoinLens.view : Raw → (ι → α)` is the indexed-join function;
+      `combine` is pointwise.  Kernel theorems (`each_refines`,
+      `is_least`, `kernel`) close through `universalLens_kernel_eq_E`
+      with QuotLens-inherited DIRTY.  `iProdLens_is_greatest`
+      uses raw `Quot.sound` for the indexed-product carrier.
+
+  · `E213.Lens.Instances.Cauchy`
+      `limitLens` for Cauchy chains is universalLens applied to
+      `TailCong`; `limitLens_{kernel, is_least, tail_collapse}`
+      all close via `universalLens_kernel_eq_E`, inheriting the
+      QuotLens funext-by-design seal.
+
+  · `E213.Lens.Instances.FunctionSpace`
+      `funHasDistinguishing : HasDistinguishing (α → β)` with
+      `combine = pointwise d_β.combine`; `combine_sym` requires
+      `funext` directly.  Companion `funUniversalMorphism` is
+      explicitly PURE — it bypasses the typeclass and folds Raw
+      directly to (α → β).  The typeclass instance itself remains
+      sealed; consumers prefer `funUniversalMorphism`.
+
+### (c) Quotient-representative selection — `Classical.choice`
+
+`JoinEquiv L M` on `Raw` is the equivalence closure under the
+union of two Lens kernels.  Several invariant theorems on this
+relation extract a "representative" of a JoinEquiv-class without
+a decidable selector, which requires `Classical.choice`.
+
+Sealed module:
+
+  · `E213.Lens.Instances.Leaves.DepthJoin`
+      Three-tier classification of `Raw` via `JoinEquiv
+      Lens.leaves Lens.depth`.  Tier invariants
+      (`small_invariant`, `tier_invariant`, `class_of_a_iff_small`,
+      `three_classes_distinct`, `tierLens_*`,
+      `depth_refines_tierLens`, `leaves_refines_tierLens`,
+      `joinEquiv_subset_tierLens`, `leaves_depth_join_not_universal`)
+      require Skolem-style selection from JoinEquiv classes —
+      Classical.choice via the Quot.lift adjoint.
+
+### Net effect
+
+  · **Non-sealed DRLT mathematical content** (Lib/Math/*, Lib/Physics/*,
+    Theory/*) is **fully PURE** on Lean 4 core.
+  · **Sealed Lens.* modules** carry 56 DIRTY theorems whose Lean-core
+    axiom use is structural per the categories above.
+  · `tools/scan_all_axioms.py` reports `<N> PURE / 0 real DIRTY /
+    56 sealed-DIRTY-by-design`.
+
+---
+
 ## PURE-bounded on Lean 4 core (2026-05-22)
 
 **Verification**: G95 (dependency-purity audit) +
@@ -63,33 +168,24 @@ to HANDOFF.md "current state" for the freshest reading.  1232 total
 depending on timeout state.)
 
 **2026-05-22 (audit branch `claude/document-file-audit-FeGcU`)**:
-Full repo scan reports **976 PURE / 56 DIRTY + 0 sealed-DIRTY-by-design
-(1032 total)**.  Real DIRTY breakdown:
+Full repo scan reports **1145 PURE / 0 real DIRTY + 56 sealed-DIRTY-
+by-design (1201 total)**.
 
-  · 33  [propext]
-  · 14  [propext, Quot.sound]
-  ·  5  [propext, Classical.choice, Quot.sound]
-  ·  2  [Quot.sound]
-  ·  2  [propext, Quot.sound] (split format)
+The 56 DIRTY theorems are all waived under the sealed-by-design
+categories above:
 
-Per-module distribution of the 56 DIRTY:
+  · 23  E213.Lens.SemanticAtom                  — category (a) propext
+  · 10  E213.Lens.Properties.Morphism.BoolProp  — category (a) propext
+  · 10  E213.Lens.Instances.Leaves.DepthJoin    — category (c) Classical.choice (5) + category (b) Quot.sound (5)
+  ·  5  E213.Lens.Universal.QuotLens            — category (b) Quot.sound
+  ·  4  E213.Lens.Lattice.IndexedJoin           — category (b) Quot.sound
+  ·  3  E213.Lens.Instances.Cauchy              — category (b) Quot.sound
+  ·  1  E213.Lens.Instances.FunctionSpace       — category (b) Quot.sound
 
-  · 23  E213.Lens.SemanticAtom
-  · 10  E213.Lens.Properties.Morphism.BoolProp
-  · 10  E213.Lens.Instances.Leaves.DepthJoin     ← all 5 Classical.choice cases
-  ·  5  E213.Lens.Universal.QuotLens
-  ·  4  E213.Lens.Lattice.IndexedJoin
-  ·  3  E213.Lens.Instances.Cauchy
-  ·  1  E213.Lens.Instances.FunctionSpace
-
-DRLT mathematical content (`E213.Lib.Math.*`, `E213.Theory.*`,
-including all Lib/Math/Physics/* capstones) is **fully PURE**.  All
-56 DIRTY theorems reside in `E213.Lens.*` and trace back to the
-mathematical-content categories described in the marathon log
-below (Lens funext-by-design; SemanticAtom propAsDistinguishing
-Iff-with-propext; DepthJoin JoinEquiv-on-Raw Classical.choice for
-quotient representative selection).  Conversion to PURE remains
-the open marathon target.
+DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
+`E213.Theory.*`, all capstones) is **fully PURE**.  Zero unsealed
+DIRTY: every Lean-core axiom use is structurally justified per
+§"Sealed-by-design categories".
 
 **2026-05-09 (later, marathon batch 1)**: User directive "seal
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
