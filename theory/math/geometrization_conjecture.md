@@ -196,30 +196,63 @@ For full ~149 PURE inventory, see
 
 ## Open frontier
 
-### R1+ partial extensions (PARTIAL closure achieved 2026-05-22)
+### Substantive deepenings (closed via cross-frame extensions)
 
-- **Real213-p-adic extensions A JSJ 3-cell complex** (`JsjDeep.lean`, ~6 PURE): Euler-target
-  scaffold for closed 3-mfds + sphere Euler via ∂Δⁿ.  Full JSJ
-  closure pending.
-- **Real213-p-adic extensions B K_{NS,NT}^{(c)} generalization** (`Generalization.lean`,
-  ~7 PURE): chartBase ∈ {4..8} extended tree enumeration +
-  cohomology-depth uniqueness extended range.  Full generalization
-  pending.
-- **Real213-p-adic extensions C Metric geometries direct realization** (`MetricGeometries.lean`,
-  ~7 PURE): E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2 / F_3
-  / F_5 / F_7 / F_11).  Full direct realization pending.
+- **JSJ extension** (`JsjDeep.lean`, ~20 PURE): Euler-target
+  scaffold extended with 3-mfd target catalog (S³, T³, L(p,q),
+  connected sums all at χ = 0), K_{3,2}^{(c=2)} cell-complex
+  parameter family (k − j = 7), bipartite S/T cut as canonical
+  decomposition, `JSJ_deeper_consolidation` capstone.
+- **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
+  ~16 PURE): per-chartBase tables extended + **Prop-level
+  universal characterization** `sym3_c2_force_K32` (Sym(3) +
+  c=2-binary-cover ALONE force {n,m}={2,3} ∧ c=2 across all Nat,
+  no chartBase bound) + Boolean ↔ form `passes_filter_universal_bool`
+  + asymptotic `filter_passes_only_chartBase_5`.
+- **Metric geometries direct realization** (`MetricGeometries.lean`,
+  ~15 PURE): mod-k Möbius P Lens family across F_2/F_3/F_5/F_7/F_11/F_13
+  + **F_5 uniqueness** (`F5_unique_nil_collapse_small_primes`,
+  `mod_k_lens_family_F5_unique_close`): across primes 2..23, only
+  p = 5 collapses the discriminant — 213's d=5 fractal base
+  structurally aligns with the unique Nil-Lens.
+- **Sym(3) cross-frame capstone** (`CrossFrame.lean`, ~5 PURE):
+  `G121_X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
+  convergence (Geometrization + gluon octet + HC_K32 + Möbius P
+  mod-5) + `sym3_basis_thurston_mapping` (explicit Sym(3)-irrep
+  basis ↔ Thurston geometry assignment with the +1/−1 reshape
+  arithmetic translating 2+6 → 3+5).
+- **Ricci pillar ε-Lens integration** (`Ricci.lean`, ~14 PURE):
+  `IsRicciModulus` structure parallel to `Topology.Continuity.
+  IsContinuousModulus`; `K32_isRicciModulus` instance; full Nat
+  anti-monotonicity (`K32_ricci_modulus_anti_monotone`);
+  `ricci_eps_lens_full_integration` capstone.
+- **Poincaré two-layer reading** (`Poincare.lean`, +1):
+  `poincare_two_layer_trivial_loop` via `V32Betti.b0_eq_1` —
+  explicit b₀ (connectedness) + b₁ (cycle absence) decomposition
+  of "trivial loop residue".
 
-### Real213-p-adic research 4-mfd exotic enumeration via Sym(3) gauge — OPEN
+### 4-mfd exotic enumeration via Sym(3) gauge — substantive count
 
-The biggest open marathon.  Dim-4 self-pointing closure step 25 (Capstone) gestures at
-the formal infrastructure (Sym(3) gauge action on K_{3,2}^{(c=2)}
-matches Donaldson's gauge theory shape) but a full **enumeration
-of exotic smooth structures via 213-native gauge data** is the
-distinct open marathon.
+`Exotic4Mfd.lean` (~15 PURE):
 
-Connection to `c3_chain_master` (Phase 12 in C3 chain) suggests the
-formal scaffolding is in place — what's missing is the explicit
-exotic-counting theorem.
+- **Atomic gauge invariant**: `sym3GaugeInvariant = 4` (=
+  `Sym3IrrepDecomp.fixedSize`, dim 2 trivial-isotypic subspace).
+- **Per-element Sym(3) fix counts** (Burnside prerequisites):
+  `fixedSizeS01 = 32`, `fixedSizeS12 = 32`, `fixedSizeRho = 4`
+  via 256-cochain enumeration + `decide`.
+- **`sym3OrbitCount = 60`** — Burnside-derived count of distinct
+  Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}):
+  `(256 + 3·32 + 2·4) / 6 = 360 / 6 = 60`.
+- **`fw1_substantive_sym3_orbit_count`** capstone — the
+  213-native gauge-orbit count playing the structural role of
+  Donaldson's integer instanton-moduli enumeration.
+
+Decomposition: 4 singleton orbits (Sym(3)-fixed = `ω_00, ω_10,
+ω_01, ω_11`) + 56 non-singleton orbits = 60.
+
+Still open: signed counting (Donaldson invariants are signed sums),
+standard-math interface for "smooth-structure equivalence", finer
+sub-orbit decomposition (a, b, c, d) for orbits of size (1, 2, 3, 6).
 
 ### M3 / M4 knots (doc-level only)
 
@@ -272,8 +305,17 @@ The single citable theorems from elsewhere:
 ```lean
 import E213.Lib.Math.GeometrizationConjecture
 open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
-#check @G121_R1_close_certificate   -- 20-conjunct close
-#check @G121_R1_master_capstone     -- 4-route convergence
+#check @G121_R1_close_certificate          -- 20-conjunct R1 close
+#check @G121_R1_master_capstone            -- 4-route M1 convergence
+#check @G121_X1_sym3_cross_frame_capstone  -- 4-way Sym(3) cross-frame
+#check @sym3_basis_thurston_mapping        -- explicit basis ↔ geometry
+#check @sym3_c2_iff_K32_or_K23             -- universal filter closure
+#check @passes_filter_universal_bool       -- Boolean ↔ form
+#check @poincare_two_layer_trivial_loop    -- b₀ + b₁ Poincaré reading
+#check @ricci_eps_lens_full_integration    -- ε-Lens integration
+#check @JSJ_deeper_consolidation           -- JSJ-pillar deepening
+#check @mod_k_lens_family_F5_unique_close  -- F_5 Nil uniqueness
+#check @fw1_substantive_sym3_orbit_count   -- 60 Sym(3)-orbits (Burnside)
 ```
 
 ## Citation guidance

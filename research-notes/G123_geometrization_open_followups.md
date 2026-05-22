@@ -192,7 +192,7 @@ From G121 §6, the knots survive R1 close in reduced form:
 | Knot | R1 status | Residual open part |
 |---|---|---|
 | **M1** | TWO-ROUTE CLOSE (atomicity + Möbius, K_{3,2}^{(c=2)}) | Generalize M1-close to all chartBase ≥ 9 → folded into FW-3 |
-| **M2** | PARTIAL CLOSE (V32Betti + axiom-level shadow, K_{3,2}^{(c=2)}) | Abstract `KChartLens` type with `chartVisibleAxes = dim im δ⁰` for any K_{NS,NT}^{(c)} — folded into FW-3 |
+| **M2** | ABSTRACT CLOSE 2026-05-22 via `KChartLens NS NT c` structure (`KChartLensAbstract.lean`) | `KChartLens` type + canonical instances K_{3,2}/K_{3,1}/K_{1,4} + V32Betti compatibility for K_{3,2} via `m2_abstract_close`.  Full V32Betti-style derivation for arbitrary K_{NS,NT}^{(c)} still open (requires per-deployment cohomology files) |
 | **M3** | downstream (physics interpretation) | NT-axis split into time + self-pointing.  **Re-activate only when physics push reactivates**; not a Lean-formalizable item in current state.  See G121 §6.3. |
 | **M4** | doc-level (stereotype-matching warnings) | Maintain "this is not Kaluza-Klein" anchor in any expansion; cite G121 §6.4.  Permanent doc-hygiene, no marathon. |
 
