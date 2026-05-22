@@ -302,4 +302,41 @@ theorem Zp.mul_digit_val (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
     ((Zp.mul p hp x y).digits k).val
       = (Zp.mulRaw p x y k + Zp.mulCarry p x y k) % p := rfl
 
+/-- Multiplying by zero on the right: every partial sum vanishes. -/
+theorem Zp.mulRawSum_zero_right {p : Nat} (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ∀ upper, Zp.mulRawSum p x (ZpSeq.zero p hp) k upper = 0
+  | 0 => rfl
+  | i + 1 => by
+    show Zp.mulRawSum p x (ZpSeq.zero p hp) k i
+          + (x.digits i).val * ((ZpSeq.zero p hp).digits (k - i)).val = 0
+    rw [Zp.mulRawSum_zero_right hp x k i]
+    show (0 : Nat) + (x.digits i).val * 0 = 0
+    rw [Nat.mul_zero, Nat.zero_add]
+
+/-- Raw convolution with zero is zero. -/
+theorem Zp.mulRaw_zero_right (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p x (ZpSeq.zero p hp) k = 0 :=
+  Zp.mulRawSum_zero_right hp x k (k+1)
+
+/-- Carry from zero multiplication stays at zero. -/
+theorem Zp.mulCarry_zero_right (p : Nat) (hp : 0 < p) (x : ZpSeq p) :
+    ∀ k, Zp.mulCarry p x (ZpSeq.zero p hp) k = 0
+  | 0 => rfl
+  | k + 1 => by
+    show (Zp.mulRaw p x (ZpSeq.zero p hp) k
+            + Zp.mulCarry p x (ZpSeq.zero p hp) k) / p = 0
+    rw [Zp.mulRaw_zero_right p hp x k, Zp.mulCarry_zero_right p hp x k]
+    show (0 + 0) / p = 0
+    rw [Nat.zero_add, Nat.zero_div]
+
+/-- `x · 0 = 0` (digit level): every digit of the product is zero. -/
+theorem Zp.mul_zero_right_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p) (k : Nat) :
+    ((Zp.mul p hp x (ZpSeq.zero p hp)).digits k).val = 0 := by
+  show (Zp.mulRaw p x (ZpSeq.zero p hp) k
+          + Zp.mulCarry p x (ZpSeq.zero p hp) k) % p = 0
+  rw [Zp.mulRaw_zero_right p hp x k, Zp.mulCarry_zero_right p hp x k]
+  show (0 + 0) % p = 0
+  rw [Nat.zero_add]
+  exact E213.Tactic.NatHelper.zero_mod p
+
 end E213.Lib.Math.Padic
