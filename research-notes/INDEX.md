@@ -34,7 +34,7 @@ research-notes/
 ├── G59–G64              ← orthogonal-axis (companions to universe_chain)
 ├── G85–G87              ← cup-Δ Lens mismatch + **G86 open conjecture**
 ├── G88+ (2026-05-18_*)  ← lens emergence path spec
-├── G90–G107             ← meta-scan branch deliverables (G107 = registry)
+├── G107                 ← meta-scan action items (live tracker)
 ├── audit/               ← G17 empirical audit + G18–G27 (closed)
 ├── archive/             ← closed historical
 │   ├── audits/          ← AUDIT_PASS_*, MATH/LENS/THEORY_AUDIT
@@ -42,7 +42,8 @@ research-notes/
 │   ├── algebra_tower/   ← G36, G51–G58 (→ theory/math/cayley_dickson/algebra_tower.md)
 │   ├── universe_chain/  ← G65–G84 (→ theory/math/universe_chain.md)
 │   ├── pattern_catalog/ ← G28, G30 (→ theory/math/pattern_catalog/pattern_catalog.md)
-│   └── minimal_root/    ← G31 (→ theory/math/analysis/minimal_root.md)
+│   ├── minimal_root/    ← G31 (→ theory/math/analysis/minimal_root.md)
+│   └── metascan/        ← G90–G106 (→ theory/meta/{scanner_suite,raw_derivation_levels}.md)
 └── data/                ← raw evidence
     └── probes/          ← G52 algebra-tower probe txts
 ```
@@ -93,19 +94,20 @@ chapter.
 | `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
 | `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
-### Meta-scan branch (G90–G107)
+### Meta-scan action items (G107 — live tracker)
 
-Cross-branch deliverables from `claude/analyze-lean4-ast-patterns-49Rh2`
-(merged in PR #91).  Entry point: **`G107_action_items_registry.md`**.
+From `claude/analyze-lean4-ast-patterns-49Rh2` (merged as PR #91).
+G90-G106 promoted to `theory/meta/scanner_suite.md` +
+`theory/meta/raw_derivation_levels.md` (2026-05-22).  Only G107
+remains active at top-level as the live action-items registry.
 
-| Range | Theme |
-|---|---|
-| G90-G92 | AST fold motifs, syntax tactic motifs, citation graph |
-| G93-G97 | 4-step handshake closure with subset-bijection branch + Lean-core dep purity audit (0 DIRTY) |
-| G98-G99 | Unfold-graph implicit lemmas, rw-cascade adoption gap |
-| G100-G101 | Decide-failure mining (135 falsifiers), meta-scan synthesis |
-| G102-G106 | Full Expr callgraph, Raw-depth + Expr-shape, derivation 3 levels, recursor inventory, L1 Expr extraction |
-| **G107** | **Action items registry** (24 surfaced items + ranked execution + theory-doc candidates) |
+| File | Theme | Status |
+|---|---|---|
+| `G107_action_items_registry.md` | 24 actionable items (mechanical / mid-marathons / smaller / deferred) from G90-G106 scanner findings | **Active** — live tracker, ranked by mass × confidence / effort |
+
+Closed items (C1-C6, N5-N6) are still listed in G107 §1 for
+historical context; they were executed via the cross-branch
+handshake (G93→G94→G96→G97).
 
 ## Subdirectories
 
@@ -113,7 +115,7 @@ Cross-branch deliverables from `claude/analyze-lean4-ast-patterns-49Rh2`
   Superseded by G28/G29 conceptually; raw data retained.
 - **`archive/`** — closed historical material.  Sub-clusters by topic
   (`hodge/`, `algebra_tower/`, `universe_chain/`, `pattern_catalog/`,
-  `minimal_root/`, `audits/`, plus pre-G era + A1-F6 series at root).
+  `minimal_root/`, `metascan/`, `audits/`, plus pre-G era + A1-F6 series at root).
 - **`data/`** — raw evidence base.  `raw_fold_slash_context.tsv`
   (G94 §C3 deliverable) + `probes/` (G52 algebra-tower 10 probe txts).
 
@@ -134,11 +136,14 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `905c09a2` | Hodge → `theory/math/cohomology/hodge_conjecture.md` | 1 (multi-note absorption) |
 | `3f9d1942` | C3 chain → `theory/physics/symmetry/c3_chain.md` | 2 (narrative-from-scratch) |
 | `a3f2b585` | α_em → `theory/physics/alpha_em/precision_derivation.md` | 3 (mixed-status) |
-| (this commit) | C2 atomic constants → `theory/physics/foundations/atomic_constants.md` | 3 |
-| (this commit) | C6 cross-domain → `theory/math/cross_domain_unification.md` | 3 |
-| (this commit) | Algebra tower → `theory/math/cayley_dickson/algebra_tower.md` | 1 (G36, G51-G58) |
-| (this commit) | Pattern catalog → `theory/math/pattern_catalog/pattern_catalog.md` | 1 (G28, G30) |
-| (this commit) | Minimal root → `theory/math/analysis/minimal_root.md` | 1 (G31) |
-| (this commit) | Universe chain → `theory/math/universe_chain.md` | 1 (G65-G82) |
+| `b258a3f8` | C2 atomic constants → `theory/physics/foundations/atomic_constants.md` | 3 |
+| `b258a3f8` | C6 cross-domain → `theory/math/cross_domain_unification.md` | 3 |
+| `b258a3f8` | Algebra tower → `theory/math/cayley_dickson/algebra_tower.md` | 1 (G36, G51-G58) |
+| `b258a3f8` | Pattern catalog → `theory/math/pattern_catalog/pattern_catalog.md` | 1 (G28, G30) |
+| `b258a3f8` | Minimal root → `theory/math/analysis/minimal_root.md` | 1 (G31) |
+| `b258a3f8` | Universe chain → `theory/math/universe_chain.md` | 1 (G65-G82) |
+| (this commit) | Scanner suite → `theory/meta/scanner_suite.md` | 1 + Variant A (tools-mirror; G90-G103+G105+G106) |
+| (this commit) | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
-9 chapters total covering all promotable closed Lean sub-trees.
+11 chapters total covering all promotable closed work
+(9 Lean sub-trees + 2 meta-analysis chapters).

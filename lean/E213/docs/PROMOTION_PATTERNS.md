@@ -207,11 +207,48 @@ Is the Lean sub-tree closed (H1-H4 pass)?
     │       │       → Pattern 3 (mixed-status absorption)
 ```
 
+## Destination variants
+
+The three patterns assume the chapter destination is
+`theory/<math|physics>/<mirror-of-lean/E213/Lib/path>/<chapter>.md`.
+In rare cases, the closed work doesn't live in `lean/E213/Lib/`:
+
+### Variant A — `theory/meta/` for tools-mirror chapters
+
+When the closed work is a **Python tool suite** under `tools/`
+analyzing the Lean tree (rather than a Lean library), the chapter
+goes to `theory/meta/<topic>.md`.
+
+H1 / H2 adapt:
+- H1' (instead of `scan_axioms.py` on Lean module): scanners pass
+  `--help` / produce expected reports
+- H2' (instead of Lean module build): `lake build` still clean
+  (scanners can be re-run without regression)
+
+H3 / H4 + S1-S3 stay the same.
+
+**Example**: `theory/meta/scanner_suite.md` — 11 Python scanners +
+1 Lean meta file; ~1,800 LOC Python; mirrors
+`tools/{ast_*,syntax_*,falsifier_*}.py`.
+
+The pattern (1, 2, or 3) used within the variant is the same; only
+the destination directory changes.  Document the variant in the
+chapter's "Lean source" section (rename to "Source" or "Tools /
+Lean source").
+
+### Boundary case — `lean/E213/docs/` for operational meta-docs
+
+Documents like `CONSOLIDATION_PROTOCOL.md` and this file
+(`PROMOTION_PATTERNS.md`) are operational meta-references, not
+chapters.  They live in `lean/E213/docs/`, NOT `theory/`, because
+they describe how to **maintain** the tree, not what it **contains**.
+
 ## When none of the patterns fit
 
-If a case arises that doesn't match patterns 1-3, **stop and ask via
-`AskUserQuestion`**.  Do not invent a fourth pattern silently.
-Document the new case + outcome in this file (extend the table at
+If a case arises that doesn't match patterns 1-3 (any destination
+variant), **stop and ask via `AskUserQuestion`**.  Do not invent a
+fourth pattern silently.  Document the new case + outcome in this
+file (extend the table at
 top, add a new section) so future agents have the precedent.
 
 ## Cross-reference

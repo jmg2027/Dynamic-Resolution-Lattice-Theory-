@@ -23,9 +23,9 @@ sub-tree has **closed** per `PROMOTION_CRITERIA.md`.
 2. `math/INDEX.md` — math chapters (closed sub-trees only).
 3. `physics/INDEX.md` — physics chapters.
 
-## Current chapters (9)
+## Current chapters (11)
 
-### Math (5)
+### Math (6)
 
 | Chapter | Lean sub-tree | Promoted |
 |---|---|---|
@@ -43,6 +43,13 @@ sub-tree has **closed** per `PROMOTION_CRITERIA.md`.
 | `physics/symmetry/c3_chain.md` | `Lib/Physics/Symmetry/` | 2026-05-22 |
 | `physics/alpha_em/precision_derivation.md` | `Lib/Physics/AlphaEM/` | 2026-05-22 |
 | `physics/foundations/atomic_constants.md` | `Lib/Physics/Foundations/AtomicConstants*` | 2026-05-22 |
+
+### Meta (2)
+
+| Chapter | Source | Promoted |
+|---|---|---|
+| `meta/scanner_suite.md` | `tools/{ast_*,syntax_*,falsifier_*}.py` (11 scanners) | 2026-05-22 |
+| `meta/raw_derivation_levels.md` | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems | 2026-05-22 |
 
 ## Layout
 
@@ -65,14 +72,19 @@ theory/
 │   ├── cross_domain_unification.md  (G35 §C6 — graded ring across 9 domains)
 │   └── universe_chain.md            (G65-G82 — atomicity → Möbius → CRT)
 │
-└── physics/
+├── physics/
+│   ├── INDEX.md
+│   ├── alpha_em/
+│   │   └── precision_derivation.md   (G35 §C1+§C5 — 0.09 ppb α_em)
+│   ├── foundations/
+│   │   └── atomic_constants.md       (G35 §C2 — (NS,NT)=(3,2) uniqueness)
+│   └── symmetry/
+│       └── c3_chain.md               (18-phase gauge emergence)
+│
+└── meta/                              ← mirrors tools/ (not lean/E213/Lib/)
     ├── INDEX.md
-    ├── alpha_em/
-    │   └── precision_derivation.md   (G35 §C1+§C5 — 0.09 ppb α_em)
-    ├── foundations/
-    │   └── atomic_constants.md       (G35 §C2 — (NS,NT)=(3,2) uniqueness)
-    └── symmetry/
-        └── c3_chain.md               (18-phase gauge emergence)
+    ├── scanner_suite.md               (11-scanner meta-analysis suite, G90-G103+G105+G106)
+    └── raw_derivation_levels.md       (G104 — (α)/(β)/(γ) taxonomy)
 ```
 
 ## How promotion works
@@ -106,4 +118,4 @@ observations not tied to a single Lean sub-tree):
   (Cup-Leibniz general ∀(k,l))**
 - `G88+` (`2026-05-18_lens_emergence_path`) — lens emergence spec
   (12 citations from `lean/` + `seed/`)
-- `G90-G107` — meta-scan branch deliverables (entry: `G107`)
+- `G107_action_items_registry.md` — meta-scan action items (live tracker; G90-G106 promoted to `theory/meta/`)
