@@ -288,19 +288,43 @@ via `GenerationRule/TriangleIteration`:
   · *c is unconstrained by atomicity.*
   · Lean: `ChartAxisAnsatz.chartBase_K32_derived_from_triangle_iteration`.
 
-**Route B (cohomology-side, steps 5+7) — PARTIAL, scope-limited**
-via `Cohomology/Examples/TopologyCompare`:
-  · `b1_bipartite n m c = c*n*m - (n+m) + 1 = 8` has **10 (n,m,c)
-    solutions** across chartBase ∈ {5, 8, 9, 11}:
-      - chartBase=5: (3,2,2), (2,3,2), (4,1,3), (1,4,3)
-      - chartBase=8: (5,3,1), (3,5,1)
-      - chartBase=9: (8,1,2), (1,8,2)
-      - chartBase=11: (9,2,1), (2,9,1)
-  · `WhyDimFive` / `topology_uniqueness` claimed "doubly forced"
-    only because candidate set was restricted to NS+NT ≤ 5, c ≤ 3.
-    Step 7 extended the search and found 8 additional matches.
-  · Cohomology-α_3 alone does NOT force K_{3,2}^{(c=2)} uniquely.
+**Route B (cohomology-side, steps 5+7+9) — TWO LEVELS**:
+
+*B-naive (Euler-formula only, partial)*:
+  · `b1_bipartite n m c = c*n*m - (n+m) + 1 = 8` has **10
+    deployments** matched across chartBase ∈ {5, 8, 9, 11}.
+  · Naive cohomology-α_3 alone does NOT force K_{3,2}^{(c=2)}
+    uniquely.
   · Lean: `ChartAxisAnsatz.cohomology_route_not_unique`.
+
+*B-depth (representation-structure, step 9 — user-flagged)*:
+  · Step 7's "partial" diagnosis is itself scope-limited — it
+    uses only the *Euler integer*, discarding cohomology depth.
+  · `C3ChainCapstone.c3_chain_master` proves K_{3,2}^{(c=2)} has
+    deep features beyond `dim H¹ = 8`:
+      - `H¹ = 2·trivial ⊕ 3·standard` under Sym(3)
+      - Sym(3)-fixed subspace dim 2 (cardinality 4 in F_2)
+      - Aut(K) = Sym(3) × Sym(2) × C_2^6, cardinality 768
+  · Other b_1 = 8 deployments fail this depth (narrative):
+      - NS ≠ 3 AND NT ≠ 3 deployments (K_{1,8}, K_{4,1}, K_{9,2},
+        K_{2,9}, K_{8,1}, K_{1,4}): **no Sym(3) action** on a
+        3-element vertex side
+      - NS=3 OR NT=3 with different NT (K_{3,5}, K_{5,3}): Sym(2)
+        absent; T-side has Sym(5) instead
+  · K_{3,2}^{(c=2)} has the specific Sym(3) × Sym(2) × C_2^6
+    deep structure, **representation-level distinguishing**.
+  · Full Lean formalization of "K_{3,2}^{(c=2)} uniquely admits
+    this depth among b_1=8 deployments" is **open work** —
+    requires computing H¹ representation structure for each
+    counterexample.
+  · Lean: `ChartAxisAnsatz.K32_cohomology_depth_features` +
+    `K32_depth_via_c3_chain_master`.
+
+**The "cohomology-route partial" diagnosis of step 7 is correct
+at the Euler-integer level but incomplete at the
+representation-structure level.**  Deeper cohomology is plausibly
+strong enough — the partial-ness reflects current formalization
+depth, not cohomology's intrinsic strength.
 
 **Combined uniqueness — TWO formulations**:
 
@@ -696,19 +720,47 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      cohomology-verification together fully fix K_{3,2}^{(c=2)}.
      Routes A and C are now the *forcing* sources; Route B is
      consistency verification.
+ 15. User flags: "코호몰로지에서 어느 부분이 아직 덜 익어서 그런거일
+     가능성이 있으니 분석" — the step-7 "cohomology partial"
+     diagnosis may reflect *current formalization depth* (naive
+     Euler only), not cohomology's intrinsic strength.
+     **Cohomology-depth analysis** added (43 PURE total).
+
+     Discovered `C3ChainCapstone.c3_chain_master` already proves
+     K_{3,2}^{(c=2)} has deep representation features:
+       · H¹ = 2·trivial ⊕ 3·standard under Sym(3)
+       · Sym(3)-fixed subspace dim 2
+       · Aut(K) = Sym(3) × Sym(2) × C_2^6, |Aut| = 768
+     Other b_1 = 8 deployments fail this depth (narrative):
+       · K_{1,8}^{(c=2)}, K_{4,1}^{(c=3)} etc.: NS<3 ⟹ no
+         Sym(3) action on 3-element vertex side
+       · K_{3,5}^{(c=1)}, K_{5,3}^{(c=1)}: Sym(3) acts but
+         Sym(NT) ≠ Sym(2)
+       · K_{8,1}^{(c=2)}, K_{9,2}^{(c=1)} etc.: same — no Sym(3)
+
+     Step 7's "partial cohomology" diagnosis CORRECT at Euler-
+     integer level, INCOMPLETE at representation-structure level.
+     Cohomology-route deepening (computing H¹ representation
+     for each counterexample) is OPEN WORK that could potentially
+     close the strength gap with standard-math d=4 uniqueness.
+
+     New theorems: `K32_cohomology_depth_features`,
+     `K32_depth_via_c3_chain_master`.
 
 The narrative is preserved here so future sessions can resume the
 thread without context loss.
 
 ---
 
-**Next-session entry point** (geometrization-conjecture focused,
-not physics-interpretation focused — per user 2026-05-22):
-(1) extend dim-spectrum table to chartBase ∈ {8, 9, 10, ...} to
-confirm d_M=4 uniqueness scales — would require expanding
-`WhyDimFive` candidates; (2) 213-Lens reading of *8 model
-geometries* — does 3-dim Lie-group enumeration have a
-deployment-counting analogue in K-graph space?; (3) JSJ
+**Next-session entry point** (geometrization-conjecture focused):
+**(1) cohomology-route deepening** — compute H¹ representation
+structure for each b_1=8 counterexample deployment
+(K_{5,3}^{(c=1)}, K_{1,8}^{(c=2)}, K_{4,1}^{(c=3)}, K_{9,2}^{(c=1)})
+and prove K_{3,2}^{(c=2)} uniquely admits Sym(3) × Sym(2) ×
+C_2^6 decomposition.  Would close the strength gap with
+standard-math d=4 uniqueness.  **(2)** 213-Lens reading of
+*8 model geometries* — does 3-dim Lie-group enumeration have a
+deployment-counting analogue in K-graph space?  **(3)** JSJ
 decomposition / Ricci flow correspondences as new Lean
 formalization candidates.  M3 (NT-axis split) and M4 (KK
 firewall) are downstream — only relevant if/when physics
