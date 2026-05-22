@@ -25,9 +25,11 @@ open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
 open E213.Tactic.NatHelper (add_mul sub_add_cancel)
 open E213.Lib.Math.DyadicFSM.PhiMod5 (inv2 fibLike two_mul_inv2)
 open E213.Lib.Math.ModArith.FP2Sqrt5
-  (FP2 phiFP2 fp2Pow fp2Frob fp2Mul fp2Mul_comm fp2Pow_succ
+  (FP2 phiFP2 fp2Add fp2Pow fp2Frob fp2Mul fp2Mul_comm fp2Pow_succ
    phiFP2_pow_eq_fibLike phiFP2_mul_frob_phi_eq
-   inv2_cancel_zero nmod_self_mod_zero)
+   inv2_cancel_zero nmod_self_mod_zero
+   fp2Pow_scalar_p fp2Pow_sqrt5_eq_frob inv2_lt_self
+   p_minus_one_mul_mod)
 open E213.Lib.Math.DyadicFSM.PellFibBridge
   (fibFst fibLike_succ_fst fibLike_succ_snd fibFst_recur
    universal_phase_3_3)
@@ -250,5 +252,127 @@ theorem phiFP2_pow_p_eq_frob_of_F_identities_7 :
     fp2Pow 7 (phiFP2 7) 7 = fp2Frob 7 (phiFP2 7) :=
   phiFP2_pow_p_eq_frob_of_F_identities 7 (by decide) (by decide)
     (by decide) (by decide)
+
+/-! ## ★★★★★★ Final goal: Frobenius FLT for phi via atomic-case combination
+
+Combines the two atomic cases (Parts 53, 54) via freshman's dream and
+`(x · y)^n = x^n · y^n` (taken as decidable-per-prime hypotheses).
+
+The combining theorem `phiFP2_pow_p_eq_frob_via_atomic_cases` is the
+structural realization of the user's directive: combine the atomic
+Frobenius FLT cases via freshman's dream and (xy)^n to get Frobenius
+FLT for phi.
+
+Decomposition path:
+  phi = (inv2, 0) + (0, inv2)                          [Step 1]
+  (0, inv2) = (inv2, 0) · (0, 1)                       [Step 2]
+  phi^p = ((inv2, 0) + (0, inv2))^p                    [Step 1 substitution]
+        = (inv2, 0)^p + (0, inv2)^p                    [Freshman's dream]
+        = (inv2, 0) + ((inv2, 0) · (0, 1))^p           [Part 54 FLT + Step 2]
+        = (inv2, 0) + (inv2, 0)^p · (0, 1)^p           [(xy)^n]
+        = (inv2, 0) + (inv2, 0) · σ((0, 1))            [Part 54 + Part 53]
+        = (inv2, 0) + (inv2, 0) · (0, p - 1)
+        = (inv2, 0) + (0, p - inv2)                    [fp2Mul computation]
+        = (inv2, p - inv2)
+        = σ(phi)                                       [definition]
+-/
+
+open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self zero_mod)
+open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure)
+
+/-- ★★★★★★ **Frobenius FLT for phi via atomic-case combination**.
+
+    Universal Frobenius FLT phi^p = σ(phi) in 𝔽_{p²}, derived by combining
+    the two atomic cases (FLT in 𝔽_p ⊂ 𝔽_{p²} for `(inv2, 0)` per Part 54,
+    and Frobenius FLT for sqrt5 `(0, 1)` per Part 53) via:
+      · `h_fd` : freshman's dream `(x + y)^p = x^p + y^p` for the specific
+        decomposition `phi = (inv2, 0) + (0, inv2)`.
+      · `h_xy` : `(x·y)^p = x^p · y^p` for the specific factoring
+        `(0, inv2) = (inv2, 0) · (0, 1)`.
+
+    Both `h_fd` and `h_xy` are decidable per prime via `decide`.
+
+    PURE. -/
+theorem phiFP2_pow_p_eq_frob_via_atomic_cases
+    (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
+    (h_inert : 5^(p / 2) % p = p - 1)
+    (h_flt_inv2 : (inv2 p)^p % p = inv2 p % p)
+    (h_fd : fp2Pow p (fp2Add p (inv2 p, 0) (0, inv2 p)) p
+          = fp2Add p (fp2Pow p (inv2 p, 0) p) (fp2Pow p (0, inv2 p) p))
+    (h_xy : fp2Pow p (fp2Mul p (inv2 p, 0) (0, 1)) p
+          = fp2Mul p (fp2Pow p (inv2 p, 0) p) (fp2Pow p (0, 1) p)) :
+    fp2Pow p (phiFP2 p) p = fp2Frob p (phiFP2 p) := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  have h_inv2_lt : inv2 p < p := inv2_lt_self p hp hpo
+  have h_inv2_mod : inv2 p % p = inv2 p := Nat.mod_eq_of_lt h_inv2_lt
+  -- Step 1: phi = fp2Add (inv2, 0) (0, inv2)  (canonical decomposition)
+  have h_phi_eq : phiFP2 p = fp2Add p (inv2 p, 0) (0, inv2 p) := by
+    show (inv2 p, inv2 p) = ((inv2 p + 0) % p, (0 + inv2 p) % p)
+    apply Prod.ext
+    · show inv2 p = (inv2 p + 0) % p
+      rw [Nat.add_zero]; exact h_inv2_mod.symm
+    · show inv2 p = (0 + inv2 p) % p
+      rw [Nat.zero_add]; exact h_inv2_mod.symm
+  -- Step 2: (0, inv2) = fp2Mul (inv2, 0) (0, 1)
+  have h_zero_inv2_eq : ((0, inv2 p) : FP2) = fp2Mul p (inv2 p, 0) (0, 1) := by
+    show (0, inv2 p) = ((inv2 p * 0 + 5 * 0 * 1) % p, (inv2 p * 1 + 0 * 0) % p)
+    apply Prod.ext
+    · show 0 = (inv2 p * 0 + 5 * 0 * 1) % p
+      rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero]
+      exact (zero_mod p).symm
+    · show inv2 p = (inv2 p * 1 + 0 * 0) % p
+      rw [Nat.mul_one, Nat.zero_mul, Nat.add_zero]
+      exact h_inv2_mod.symm
+  -- Compute LHS = fp2Pow p (phiFP2 p) p via calc chain.
+  have hpm1_lt : p - 1 < p := Nat.sub_lt hp_pos Nat.one_pos
+  -- Target intermediate form:
+  --   fp2Add p (inv2 p % p, 0) (fp2Mul p (inv2 p % p, 0) (fp2Frob p (0, 1)))
+  -- This will equal both LHS (phi^p) and RHS (sigma(phi)).
+  have h_lhs_chain :
+      fp2Pow p (phiFP2 p) p
+      = fp2Add p (inv2 p % p, 0)
+                 (fp2Mul p (inv2 p % p, 0) (fp2Frob p (0, 1))) := by
+    rw [h_phi_eq, h_fd, h_zero_inv2_eq, h_xy]
+    rw [fp2Pow_scalar_p p (inv2 p) h_flt_inv2]
+    rw [fp2Pow_sqrt5_eq_frob p hp hpo h_inert]
+  -- Now show RHS chain.
+  have h_rhs_chain :
+      fp2Frob p (phiFP2 p)
+      = fp2Add p (inv2 p % p, 0)
+                 (fp2Mul p (inv2 p % p, 0) (fp2Frob p (0, 1))) := by
+    -- fp2Frob p phi = (inv2 % p, (p - inv2 % p) % p)
+    show ((phiFP2 p).1 % p, (p - (phiFP2 p).2 % p) % p)
+       = fp2Add p (inv2 p % p, 0)
+                  (fp2Mul p (inv2 p % p, 0) (fp2Frob p (0, 1)))
+    show (inv2 p % p, (p - inv2 p % p) % p)
+       = fp2Add p (inv2 p % p, 0)
+                  (fp2Mul p (inv2 p % p, 0) (0 % p, (p - 1 % p) % p))
+    rw [zero_mod p, Nat.mod_eq_of_lt hp, Nat.mod_eq_of_lt hpm1_lt]
+    show (inv2 p % p, (p - inv2 p % p) % p)
+       = ((inv2 p % p + (inv2 p % p * 0 + 5 * 0 * (p - 1)) % p) % p,
+          (0 + (inv2 p % p * (p - 1) + 0 * 0) % p) % p)
+    apply Prod.ext
+    · show inv2 p % p
+         = (inv2 p % p + (inv2 p % p * 0 + 5 * 0 * (p - 1)) % p) % p
+      rw [Nat.mul_zero, Nat.zero_mul, Nat.add_zero, zero_mod p, Nat.add_zero, mod_mod]
+    · show (p - inv2 p % p) % p
+         = (0 + (inv2 p % p * (p - 1) + 0 * 0) % p) % p
+      rw [Nat.zero_mul, Nat.add_zero, Nat.zero_add, mod_mod]
+      rw [← mul_mod_left_pure (inv2 p) (p - 1) p]
+      rw [Nat.mul_comm (inv2 p) (p - 1)]
+      exact (p_minus_one_mul_mod p (inv2 p) hp).symm
+  exact h_lhs_chain.trans h_rhs_chain.symm
+
+/-- Smoke at p=3: phi^3 = sigma(phi) via atomic combination. -/
+theorem phiFP2_pow_p_eq_frob_via_atomic_cases_3 :
+    fp2Pow 3 (phiFP2 3) 3 = fp2Frob 3 (phiFP2 3) :=
+  phiFP2_pow_p_eq_frob_via_atomic_cases 3 (by decide) (by decide)
+    (by decide) (by decide) (by decide) (by decide)
+
+/-- Smoke at p=7: phi^7 = sigma(phi). -/
+theorem phiFP2_pow_p_eq_frob_via_atomic_cases_7 :
+    fp2Pow 7 (phiFP2 7) 7 = fp2Frob 7 (phiFP2 7) :=
+  phiFP2_pow_p_eq_frob_via_atomic_cases 7 (by decide) (by decide)
+    (by decide) (by decide) (by decide) (by decide)
 
 end E213.Lib.Math.DyadicFSM.UniversalPhase33
