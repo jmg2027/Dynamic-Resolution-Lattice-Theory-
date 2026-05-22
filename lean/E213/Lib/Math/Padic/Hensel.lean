@@ -753,12 +753,77 @@ theorem Zp.sqr_sqrtSeq_zero_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     (Zp.mul p hp (Zp.sqrtSeq p hp x sb 0) (Zp.sqrtSeq p hp x sb 0)).trunc 1
       = (x.trunc 1) % p := by
   rw [Zp.mul_trunc p hp _ _ 1, Zp.sqrtSeq_zero_trunc_one p hp x sb]
-  -- Goal: (sb.d_0 * sb.d_0) % p^1 = x.trunc 1 % p
   rw [Nat.pow_one]
-  -- Goal: (sb.d_0 * sb.d_0) % p = x.trunc 1 % p
   show (sb.d_0 * sb.d_0) % p
       = ((0 : Nat) + (x.digits 0).val * p^0) % p
   rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
   exact sb.sq_eq
+
+/-! ### Structural lemmas for `sqrtSeq` (parallel to `invSeq`) -/
+
+/-- The new digit at level `n + 1` (definitional). -/
+theorem Zp.sqrtSeq_succ_new_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val
+      = Zp.negMod p
+          (((Zp.mul p hp (Zp.sqrtSeq p hp x sb n) (Zp.sqrtSeq p hp x sb n)).trunc (n + 2)
+                + (p^(n + 2) - x.trunc (n + 2))) % p^(n + 2)
+              / p^(n + 1)
+            * sb.two_d_0_inv) := by
+  show (if (n + 1 : Nat) = n + 1 then
+          (⟨Zp.negMod p _, Zp.negMod_lt hp _⟩ : Fin p)
+        else (Zp.sqrtSeq p hp x sb n).digits (n + 1)).val = _
+  rw [if_pos rfl]
+
+/-- Digits below `n + 1` are inherited from the previous level. -/
+theorem Zp.sqrtSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n j : Nat) (hj : j ≠ n + 1) :
+    ((Zp.sqrtSeq p hp x sb (n + 1)).digits j)
+      = (Zp.sqrtSeq p hp x sb n).digits j := by
+  show (if j = n + 1 then
+          (⟨Zp.negMod p _, Zp.negMod_lt hp _⟩ : Fin p)
+        else (Zp.sqrtSeq p hp x sb n).digits j) = _
+  rw [if_neg hj]
+
+/-- Above level `n`, digits of `sqrtSeq n` are zero. -/
+theorem Zp.sqrtSeq_digit_above (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) :
+    ∀ n k, n < k → ((Zp.sqrtSeq p hp x sb n).digits k).val = 0
+  | 0, k, hk => by
+    show (if k = 0 then (⟨sb.d_0, sb.d_0_lt⟩ : Fin p)
+          else (⟨0, hp⟩ : Fin p)).val = 0
+    rw [if_neg (Nat.ne_of_gt hk)]
+  | n + 1, k, hk => by
+    have hkne : k ≠ n + 1 := by
+      intro heq
+      rw [heq] at hk
+      exact Nat.lt_irrefl _ hk
+    rw [show (Zp.sqrtSeq p hp x sb (n + 1)).digits k
+              = (Zp.sqrtSeq p hp x sb n).digits k from
+          Zp.sqrtSeq_succ_digit_below p hp x sb n k hkne]
+    exact Zp.sqrtSeq_digit_above p hp x sb n k (Nat.lt_of_succ_lt hk)
+
+/-- Truncation at levels `k ≤ n + 1` is preserved when extending
+    `sqrtSeq n` to `sqrtSeq (n + 1)`. -/
+theorem Zp.sqrtSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (sb : Zp.SqrtBase p x) (n : Nat) :
+    ∀ k, k ≤ n + 1 →
+      (Zp.sqrtSeq p hp x sb (n + 1)).trunc k
+        = (Zp.sqrtSeq p hp x sb n).trunc k
+  | 0, _ => rfl
+  | k + 1, h => by
+    have hk : k ≤ n := Nat.le_of_succ_le_succ h
+    have hk_ne : k ≠ n + 1 := by
+      intro heq
+      rw [heq] at hk
+      exact Nat.not_succ_le_self n hk
+    have ih : (Zp.sqrtSeq p hp x sb (n + 1)).trunc k
+              = (Zp.sqrtSeq p hp x sb n).trunc k :=
+      Zp.sqrtSeq_succ_trunc_low p hp x sb n k (Nat.le_of_lt h)
+    show (Zp.sqrtSeq p hp x sb (n + 1)).trunc k
+          + ((Zp.sqrtSeq p hp x sb (n + 1)).digits k).val * p^k
+        = (Zp.sqrtSeq p hp x sb n).trunc k
+          + ((Zp.sqrtSeq p hp x sb n).digits k).val * p^k
+    rw [ih, Zp.sqrtSeq_succ_digit_below p hp x sb n k hk_ne]
 
 end E213.Lib.Math.Padic
