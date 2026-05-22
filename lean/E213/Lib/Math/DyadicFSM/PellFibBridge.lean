@@ -61,6 +61,10 @@ theorem fibFst_recur (k : Nat) :
   show (fibLike (k + 2)).1 = (fibLike (k + 1)).1 + (fibLike k).1
   rw [fibLike_succ_fst (k + 1), fibLike_succ_snd k]
 
+/-- Helper: `(a + 1) + b = a + b + 1` (Nat add_swap).  PURE. -/
+private theorem nat_add_swap (a b : Nat) : a + 1 + b = a + b + 1 := by
+  rw [Nat.add_assoc a 1 b, Nat.add_comm 1 b, ← Nat.add_assoc a b 1]
+
 /-- Smoke: first few Fibonacci values. -/
 theorem fibFst_table :
     fibFst 0 = 0 ∧ fibFst 1 = 1 ∧ fibFst 2 = 1 ∧ fibFst 3 = 2
@@ -470,5 +474,115 @@ theorem pellCoeff_17_18_eq_init_via_bridge :
     pellCoeff 17 (by decide) 18 = pellCoeff 17 (by decide) 0 :=
   phase_3_3_closure 17 (by decide)
     fib_phase_3_3_at_17.1 fib_phase_3_3_at_17.2
+
+/-! ## Fibonacci addition formula
+
+Universal building block for Pisano-period theorems and Frobenius-FLT
+applications.  PURE. -/
+
+/-- Nat-algebra helper for the fibLike_pair_add step:
+    `(A·B + C·D) + (C·B + E·D) = (C + E)·(B + D) + C·B` when restated
+    via `A = C + E`.  Pure additive rearrangement. -/
+private theorem fib_step_algebra (A B C D E : Nat) :
+    (A * B + C * D) + (C * B + E * D)
+      = A * B + ((C * D + E * D) + C * B) := by
+  rw [Nat.add_assoc (A * B) (C * D) (C * B + E * D)]
+  rw [show C * D + (C * B + E * D)
+         = (C * D + E * D) + C * B from by
+      rw [← Nat.add_assoc (C * D) (C * B) (E * D)]
+      rw [Nat.add_comm (C * D) (C * B)]
+      rw [Nat.add_assoc (C * B) (C * D) (E * D)]
+      rw [Nat.add_comm (C * B) (C * D + E * D)]]
+
+/-- ★ **Fibonacci addition formula** (pair-tracked):
+      `F_{m+n}     = F_{m+1}·F_n + F_m·F_{n-1}`
+      `F_{m+n-1}   = F_m·F_n     + F_{m-1}·F_{n-1}`
+
+    using fibLike convention `(F_k, F_{k-1})`, with `F_{-1} = 1`.
+    Proved by single-step induction on n, tracking both components.
+
+    PURE.  Mathlib-level Fibonacci identity. -/
+theorem fibLike_pair_add (m n : Nat) :
+    (fibLike (m + n)).1 = (fibLike (m + 1)).1 * (fibLike n).1
+                        + (fibLike m).1 * (fibLike n).2
+    ∧ (fibLike (m + n)).2 = (fibLike m).1 * (fibLike n).1
+                          + (fibLike m).2 * (fibLike n).2 := by
+  induction n with
+  | zero =>
+    -- fibLike 0 = (0, 1): (fL0).1 = 0, (fL0).2 = 1
+    refine ⟨?_, ?_⟩
+    · show (fibLike (m + 0)).1
+         = (fibLike (m + 1)).1 * (fibLike 0).1 + (fibLike m).1 * (fibLike 0).2
+      rw [show (fibLike 0).1 = 0 from rfl, show (fibLike 0).2 = 1 from rfl,
+          Nat.mul_zero, Nat.zero_add, Nat.mul_one, Nat.add_zero]
+    · show (fibLike (m + 0)).2
+         = (fibLike m).1 * (fibLike 0).1 + (fibLike m).2 * (fibLike 0).2
+      rw [show (fibLike 0).1 = 0 from rfl, show (fibLike 0).2 = 1 from rfl,
+          Nat.mul_zero, Nat.zero_add, Nat.mul_one, Nat.add_zero]
+  | succ n ih =>
+    have ⟨ih1, ih2⟩ := ih
+    refine ⟨?_, ?_⟩
+    · -- (fibLike (m + (n + 1))).1 = (fLm+1).1·(fLn+1).1 + Fm·(fLn+1).2
+      show (fibLike (m + (n + 1))).1
+         = (fibLike (m + 1)).1 * (fibLike (n + 1)).1
+         + (fibLike m).1 * (fibLike (n + 1)).2
+      -- Index manipulation: m + (n + 1) = (m + n) + 1
+      rw [show m + (n + 1) = (m + n) + 1 from (Nat.add_assoc m n 1).symm]
+      rw [fibLike_succ_fst (m + n)]
+      rw [ih1, ih2]
+      -- Unfold (fLn+1).1, (fLn+1).2
+      rw [fibLike_succ_fst n, fibLike_succ_snd n]
+      -- Now goal:
+      --   ((fLm+1).1·(fLn).1 + (fLm).1·(fLn).2) + ((fLm).1·(fLn).1 + (fLm).2·(fLn).2)
+      -- = (fLm+1).1·((fLn).1 + (fLn).2) + (fLm).1·(fLn).1
+      -- Apply fib_step_algebra with A := (fLm+1).1, B := (fLn).1, C := (fLm).1,
+      --                             D := (fLn).2, E := (fLm).2
+      rw [fib_step_algebra (fibLike (m + 1)).1 (fibLike n).1
+                            (fibLike m).1 (fibLike n).2 (fibLike m).2]
+      -- LHS: (fLm+1).1·(fLn).1 + (((fLm).1·(fLn).2 + (fLm).2·(fLn).2) + (fLm).1·(fLn).1)
+      -- RHS: (fLm+1).1·((fLn).1 + (fLn).2) + (fLm).1·(fLn).1
+      -- Use Nat.mul_add on (fLm+1).1·((fLn).1 + (fLn).2):
+      rw [Nat.mul_add (fibLike (m + 1)).1 (fibLike n).1 (fibLike n).2]
+      -- RHS: (fLm+1).1·(fLn).1 + (fLm+1).1·(fLn).2 + (fLm).1·(fLn).1
+      -- = (fLm+1).1·(fLn).1 + ((fLm+1).1·(fLn).2 + (fLm).1·(fLn).1)  [add_assoc]
+      rw [Nat.add_assoc ((fibLike (m + 1)).1 * (fibLike n).1)
+                          ((fibLike (m + 1)).1 * (fibLike n).2)
+                          ((fibLike m).1 * (fibLike n).1)]
+      -- congruence on the common (fLm+1).1·(fLn).1 prefix
+      congr 1
+      -- Goal: ((fLm).1·(fLn).2 + (fLm).2·(fLn).2) + (fLm).1·(fLn).1
+      --     = (fLm+1).1·(fLn).2 + (fLm).1·(fLn).1
+      -- (fLm+1).1·(fLn).2 = ((fLm).1 + (fLm).2)·(fLn).2 [fibLike_succ_fst m, add_mul]
+      rw [show (fibLike (m + 1)).1 * (fibLike n).2
+            = (fibLike m).1 * (fibLike n).2 + (fibLike m).2 * (fibLike n).2 from by
+          rw [fibLike_succ_fst m]
+          exact add_mul (fibLike m).1 (fibLike m).2 (fibLike n).2]
+    · -- (fibLike (m + (n + 1))).2 = (fLm).1·(fLn+1).1 + (fLm).2·(fLn+1).2
+      show (fibLike (m + (n + 1))).2
+         = (fibLike m).1 * (fibLike (n + 1)).1 + (fibLike m).2 * (fibLike (n + 1)).2
+      rw [show m + (n + 1) = (m + n) + 1 from (Nat.add_assoc m n 1).symm]
+      rw [fibLike_succ_snd (m + n)]
+      -- LHS becomes (fibLike (m + n)).1 = ih1 RHS
+      rw [ih1]
+      -- (fLm+1).1·(fLn).1 + (fLm).1·(fLn).2 = (fLm).1·(fLn+1).1 + (fLm).2·(fLn+1).2
+      rw [fibLike_succ_fst n, fibLike_succ_snd n]
+      -- (fLm+1).1·(fLn).1 + (fLm).1·(fLn).2 = (fLm).1·((fLn).1 + (fLn).2) + (fLm).2·(fLn).1
+      rw [Nat.mul_add (fibLike m).1 (fibLike n).1 (fibLike n).2]
+      -- RHS: (fLm).1·(fLn).1 + (fLm).1·(fLn).2 + (fLm).2·(fLn).1
+      -- (fLm+1).1·(fLn).1 = ((fLm).1 + (fLm).2)·(fLn).1
+      rw [fibLike_succ_fst m]
+      rw [add_mul (fibLike m).1 (fibLike m).2 (fibLike n).1]
+      -- LHS: ((fLm).1·(fLn).1 + (fLm).2·(fLn).1) + (fLm).1·(fLn).2
+      -- = (fLm).1·(fLn).1 + ((fLm).2·(fLn).1 + (fLm).1·(fLn).2)
+      -- RHS: (fLm).1·(fLn).1 + (fLm).1·(fLn).2 + (fLm).2·(fLn).1
+      -- = (fLm).1·(fLn).1 + ((fLm).1·(fLn).2 + (fLm).2·(fLn).1)
+      rw [Nat.add_assoc ((fibLike m).1 * (fibLike n).1)
+                          ((fibLike m).2 * (fibLike n).1)
+                          ((fibLike m).1 * (fibLike n).2)]
+      rw [Nat.add_assoc ((fibLike m).1 * (fibLike n).1)
+                          ((fibLike m).1 * (fibLike n).2)
+                          ((fibLike m).2 * (fibLike n).1)]
+      rw [Nat.add_comm ((fibLike m).2 * (fibLike n).1)
+                          ((fibLike m).1 * (fibLike n).2)]
 
 end E213.Lib.Math.DyadicFSM.PellFibBridge
