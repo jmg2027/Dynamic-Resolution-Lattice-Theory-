@@ -1,10 +1,31 @@
 # G126 — Akbulut cork as 213-native exotic-structure framework
 
 **Date**: 2026-05-22
-**Status**: research direction (pre-marathon), high-priority
-**Branch suggestion**: `claude/g126-akbulut-cork-*`
+**Status**: **6-PHASE PARTIAL CLOSE** (44 PURE across 4 files,
+single-session close)
+**Branch**: `claude/g121-open-followup-BCOp3`
 **Source**: user insight 2026-05-22, supersedes FW-1 (signed Donaldson)
 as the natural 213-native path to exotic-structure enumeration.
+
+## Partial close summary (2026-05-22)
+
+Sub-tree `lean/E213/Lib/Math/AkbulutCork/` created with 4 files,
+44 PURE total:
+
+  · `Foundation.lean` (14 PURE) — `Cork213` data type + canonical
+    instances + b_1 = 0 contractibility match
+  · `Twist.lean` (12 PURE) — `corkTwist` Z/2 endomorphism +
+    involution proofs + M_S01 matrix correspondence
+  · `SignedOrbits.lean` (13 PURE) — per-orbit-type M_S01 fix counts
+    (4, 28, 0) + ★★★★★★ `signedCorkTwistCount = +4`
+  · `CorkTheorem.lean` (5 PURE) — cork embedding + cork uniqueness
+    + ★★★★★★★★★★ `akbulut_cork_213_native` capstone (14-conjunct
+    bundle of all 6 phases)
+
+The signed cork-twist count `+4` is the 213-native exotic-count:
+`(twistEvenOrbits = 32) − (twistOddOrbits = 28) = +4`.  This
+supersedes FW-1's external-Donaldson-interface block with a
+fully-213-internal Z/2-graded count.
 
 ## Why this supersedes FW-1 (signed Donaldson)
 

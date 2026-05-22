@@ -1,9 +1,24 @@
 # G125 — BracketCauchy ↔ IsRicciModulus cross-category functor
 
 **Date**: 2026-05-22
-**Status**: research direction (pre-marathon, possibly ill-posed)
-**Branch suggestion**: `claude/g125-bracket-cauchy-ricci-*`
+**Status**: **OPTION A CLOSE** — typeclass-bridge framework
+established via `Topology/ModulusStructure.lean` (12 PURE, single
+session)
+**Branch**: `claude/g121-open-followup-BCOp3`
 **Source**: G123 §3 I-3 residual, `HANDOFF.md` §D
+
+## Close summary (2026-05-22) — Option A
+
+`lean/E213/Lib/Math/Topology/ModulusStructure.lean` (12 PURE):
+  · `IsModulusStructure` bare structure (`modulus : Nat → Nat`)
+  · `fromContinuous` / `fromRicci` / `fromBracketCauchy` projections
+  · Canonical instances: `identityModulus`, `K32RicciModulus`,
+    `bracketCauchyL3`
+  · `three_way_modulus_framework` capstone bundling all three
+    instantiations
+
+Option B (full category theory) deferred — not required for the
+3-way structural parallel.
 
 ## Why this is a distinct marathon
 
