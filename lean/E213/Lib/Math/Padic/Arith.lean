@@ -1118,6 +1118,92 @@ theorem Zp.offDiagRow_zero (p : Nat) (x y : ZpSeq p) (n i : Nat) :
 theorem Zp.offDiagSum_zero (p : Nat) (x y : ZpSeq p) (n : Nat) :
     Zp.offDiagSum p x y n 0 = 0 := rfl
 
+/-! ## colSum extension: telescoping over a starting offset
+
+`colSum p x y i (a + c)` decomposes as `colSum p x y i a + (terms
+from j = a to a + c - 1)`.  This lets us split `colSum p x y i n`
+into the "diagonal part" (j < n - i) and the "off-diagonal part"
+(j ∈ [n - i, n)).
+-/
+
+/-- Extension sum: `Σ_{m=0..c-1} x_i · y_{a+m} · p^(i+a+m)`.  The
+    "tail" of `colSum` from upper = a to upper = a + c. -/
+def Zp.extColSum (p : Nat) (x y : ZpSeq p) (i a : Nat) : Nat → Nat
+  | 0 => 0
+  | m + 1 => Zp.extColSum p x y i a m
+              + (x.digits i).val * (y.digits (a + m)).val * p^(i + a + m)
+
+/-- Telescoping: `colSum p x y i (a + c) = colSum p x y i a +
+    extColSum p x y i a c`. -/
+theorem Zp.colSum_extend (p : Nat) (x y : ZpSeq p) (i a : Nat) :
+    ∀ c, Zp.colSum p x y i (a + c)
+          = Zp.colSum p x y i a + Zp.extColSum p x y i a c
+  | 0 => by
+    show Zp.colSum p x y i (a + 0) = Zp.colSum p x y i a + 0
+    rw [Nat.add_zero, Nat.add_zero]
+  | c + 1 => by
+    have ih : Zp.colSum p x y i (a + c)
+              = Zp.colSum p x y i a + Zp.extColSum p x y i a c :=
+      Zp.colSum_extend p x y i a c
+    -- a + (c + 1) = (a + c) + 1, so colSum (a + (c+1)) unfolds via
+    -- the colSum recursion at b = a + c.
+    show Zp.colSum p x y i (a + c)
+          + (x.digits i).val * (y.digits (a + c)).val * p^(i + (a + c))
+        = Zp.colSum p x y i a
+            + (Zp.extColSum p x y i a c
+                + (x.digits i).val * (y.digits (a + c)).val
+                    * p^(i + a + c))
+    rw [ih, Nat.add_assoc (Zp.colSum p x y i a) (Zp.extColSum p x y i a c)]
+    -- Now the remaining mismatch is p^(i + (a + c)) vs p^(i + a + c).
+    -- Nat add is left-assoc, so i + a + c = (i + a) + c, and i + (a + c)
+    -- needs associativity to match.
+    rw [show i + (a + c) = i + a + c from (Nat.add_assoc i a c).symm]
+
+/-- When the start offset `a = n - i` (so `i + a = n`), the extension
+    sum factors as `p^n · offDiagRow p x y n i c`. -/
+theorem Zp.extColSum_eq_offDiagRow (p : Nat) (x y : ZpSeq p)
+    (i n : Nat) (h : i ≤ n) :
+    ∀ c, Zp.extColSum p x y i (n - i) c
+          = p^n * Zp.offDiagRow p x y n i c
+  | 0 => by show (0 : Nat) = p^n * 0; rw [Nat.mul_zero]
+  | c + 1 => by
+    have ih : Zp.extColSum p x y i (n - i) c
+              = p^n * Zp.offDiagRow p x y n i c :=
+      Zp.extColSum_eq_offDiagRow p x y i n h c
+    show Zp.extColSum p x y i (n - i) c
+          + (x.digits i).val * (y.digits ((n - i) + c)).val
+              * p^(i + (n - i) + c)
+        = p^n * (Zp.offDiagRow p x y n i c
+                  + (x.digits i).val * (y.digits (n - i + c)).val * p^c)
+    rw [ih, Nat.mul_add]
+    -- Goal: p^n * offDiagRow c + x_i * y_{(n-i)+c} * p^(i + (n-i) + c)
+    --     = p^n * offDiagRow c + p^n * (x_i * y_{n-i+c} * p^c)
+    -- Reduce i + (n - i) = n via sub_add_cancel.
+    rw [show i + (n - i) = n from by
+          rw [Nat.add_comm]
+          exact E213.Tactic.NatHelper.sub_add_cancel h]
+    -- Goal: ... + x_i * y * p^(n + c) = ... + p^n * (x_i * y * p^c)
+    rw [pow_add_pure]
+    -- Goal: ... + x_i * y * (p^n * p^c) = ... + p^n * (x_i * y * p^c)
+    -- Use mul_left_comm: a * (b * c) = b * (a * c) with
+    -- a = (x_i * y), b = p^n, c = p^c.
+    rw [E213.Tactic.NatHelper.mul_left_comm
+          ((x.digits i).val * (y.digits ((n - i) + c)).val) (p^n) (p^c)]
+
+/-- Splitting colSum at the diagonal: for `i ≤ n`,
+    `colSum p x y i n = colSum p x y i (n - i) + p^n · offDiagRow p x y n i i`. -/
+theorem Zp.colSum_split (p : Nat) (x y : ZpSeq p) (i n : Nat) (h : i ≤ n) :
+    Zp.colSum p x y i n
+      = Zp.colSum p x y i (n - i) + p^n * Zp.offDiagRow p x y n i i := by
+  -- Use colSum_extend with a = n - i, c = i (since (n - i) + i = n).
+  have hsum : (n - i) + i = n :=
+    E213.Tactic.NatHelper.sub_add_cancel h
+  have h1 : Zp.colSum p x y i ((n - i) + i)
+            = Zp.colSum p x y i (n - i) + Zp.extColSum p x y i (n - i) i :=
+    Zp.colSum_extend p x y i (n - i) i
+  rw [hsum] at h1
+  rw [h1, Zp.extColSum_eq_offDiagRow p x y i n h i]
+
 /-! ## Shift smokes -/
 
 /-- Smoke: shifting `one` by 1 puts `1` at position 1. -/
