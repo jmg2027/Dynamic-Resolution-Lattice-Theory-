@@ -226,6 +226,76 @@ theorem ZpSeq.eq_mod_pn_iff_trunc {p : Nat} (hp : 0 < p) {x y : ZpSeq p}
     (n : Nat) : ZpSeq.eq_mod_pn x y n ↔ x.trunc n = y.trunc n :=
   ⟨ZpSeq.trunc_eq_of_eq_mod_pn n, ZpSeq.eq_mod_pn_of_trunc_eq hp n⟩
 
+/-! ## Embedding ℕ ↪ ZpSeq via base-p expansion
+
+Every Nat `n` has a canonical p-adic representation: the k-th
+digit is `(n / p^k) % p ∈ {0, …, p-1}`.  For `k > log_p n` all
+digits are zero, so the sequence terminates (in value).
+
+This gives a faithful map ℕ → ZpSeq p ≅ ℤ_p; injectivity reduces
+to `Nat`'s base-p expansion uniqueness.
+-/
+
+/-- Embedding `Nat → ZpSeq p`: the k-th digit of `n` in base `p`. -/
+def ZpSeq.digits_of_nat (p : Nat) (hp : 0 < p) (n : Nat) : ZpSeq p where
+  digits := fun k => ⟨(n / p^k) % p, Nat.mod_lt _ hp⟩
+
+/-- Digit unfolding: by `rfl`, definitionally. -/
+theorem ZpSeq.digits_of_nat_val (p : Nat) (hp : 0 < p) (n k : Nat) :
+    ((ZpSeq.digits_of_nat p hp n).digits k).val = (n / p^k) % p := rfl
+
+/-- 0 ↦ all-zero (per-digit, PURE).  Stated digit-by-digit to
+    avoid the `funext`-on-structures that sequence-level equality
+    would require. -/
+theorem ZpSeq.digits_of_nat_zero (p : Nat) (hp : 0 < p) (k : Nat) :
+    ((ZpSeq.digits_of_nat p hp 0).digits k).val = 0 := by
+  show (0 / p^k) % p = 0
+  rw [Nat.zero_div]
+  exact E213.Tactic.NatHelper.zero_mod p
+
+/-! ## Per-prime smoke tests
+
+Verify canonical elements + the Nat embedding at concrete primes.
+All reduce by `rfl` (closed numeric expressions, propext-free).
+-/
+
+theorem ZpSeq.smoke_zero_2 : (ZpSeq.zero 2 (by decide)).trunc 3 = 0 :=
+  ZpSeq.trunc_zero 2 (by decide) 3
+theorem ZpSeq.smoke_zero_3 : (ZpSeq.zero 3 (by decide)).trunc 3 = 0 :=
+  ZpSeq.trunc_zero 3 (by decide) 3
+theorem ZpSeq.smoke_zero_5 : (ZpSeq.zero 5 (by decide)).trunc 3 = 0 :=
+  ZpSeq.trunc_zero 5 (by decide) 3
+theorem ZpSeq.smoke_zero_7 : (ZpSeq.zero 7 (by decide)).trunc 3 = 0 :=
+  ZpSeq.trunc_zero 7 (by decide) 3
+
+theorem ZpSeq.smoke_one_2 : (ZpSeq.one 2 (by decide)).trunc 1 = 1 := rfl
+theorem ZpSeq.smoke_one_3 : (ZpSeq.one 3 (by decide)).trunc 1 = 1 := rfl
+theorem ZpSeq.smoke_one_5 : (ZpSeq.one 5 (by decide)).trunc 1 = 1 := rfl
+theorem ZpSeq.smoke_one_7 : (ZpSeq.one 7 (by decide)).trunc 1 = 1 := rfl
+
+-- neg_one trunc 2 = (p-1) + (p-1)·p = p² - 1.
+theorem ZpSeq.smoke_neg_one_2_trunc_2 :
+    (ZpSeq.neg_one 2 (by decide)).trunc 2 = 3 := rfl
+theorem ZpSeq.smoke_neg_one_3_trunc_2 :
+    (ZpSeq.neg_one 3 (by decide)).trunc 2 = 8 := rfl
+theorem ZpSeq.smoke_neg_one_5_trunc_2 :
+    (ZpSeq.neg_one 5 (by decide)).trunc 2 = 24 := rfl
+theorem ZpSeq.smoke_neg_one_7_trunc_2 :
+    (ZpSeq.neg_one 7 (by decide)).trunc 2 = 48 := rfl
+
+-- digits_of_nat smokes: 7 in base 2 is 111₂; digit-by-digit.
+theorem ZpSeq.smoke_digits_2_7_d0 :
+    ((ZpSeq.digits_of_nat 2 (by decide) 7).digits 0).val = 1 := rfl
+theorem ZpSeq.smoke_digits_2_7_d1 :
+    ((ZpSeq.digits_of_nat 2 (by decide) 7).digits 1).val = 1 := rfl
+theorem ZpSeq.smoke_digits_2_7_d2 :
+    ((ZpSeq.digits_of_nat 2 (by decide) 7).digits 2).val = 1 := rfl
+-- 24 in base 5 is 44₅: (4, 4, 0, ...).
+theorem ZpSeq.smoke_digits_5_24_d0 :
+    ((ZpSeq.digits_of_nat 5 (by decide) 24).digits 0).val = 4 := rfl
+theorem ZpSeq.smoke_digits_5_24_d1 :
+    ((ZpSeq.digits_of_nat 5 (by decide) 24).digits 1).val = 4 := rfl
+
 /-! ## Phase 2 preview (next file: Arith.lean)
 
   · `Zp.add p x y : ZpSeq p` with carry propagation FSM
