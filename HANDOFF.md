@@ -38,9 +38,9 @@ Currently still open:
 | **L3** Pisano Predictor 14/17 consolidation | DONE — `obtain` destructure, both PURE |
 | **L4** `addLDD` / `mulLDD` | DONE — `ldd_branch_max_{left,right}` bilateral helpers |
 | **L5** `CDDouble.I_mul_J` / `J_mul_I` | DONE — `by decide` (via derived `DecidableEq Lipschitz`) |
-| **C** — CutSumOne 8-sibling 3-component template | Medium marathon |
+| **C** — CutSumOne 8-sibling 3-component template | DONE — `cutSum_constCut_at` template + 8 sibling reductions, all 13 PURE |
 | **E** — `sqrt{2,3,5}_no_rational_aux` × 4 | Needs `IsPerfectSquare N` infra prereq |
-| **F** — Σ-fold cross-domain | Adding `sigmaList` infra; small additive |
+| **F** — Σ-fold cross-domain | DONE — `sigmaList` in `Meta.Tactic.ListHelper` + 5 callsites unified (Vec.inner / routeSum / observable_sum / phase2 / focc_spectrum) |
 | **G110 FLUX-1** forward/backward parametric | ~30K nodes |
 | **G111 COH-1/2/3** Hodge Prop quartet + Universal Prop52/53 | ~90K |
 | **G108 REAL-1/2** Cut iff consolidation | ~210K nodes |
