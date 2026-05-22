@@ -48,7 +48,7 @@ Currently still open:
 | **G115 PHYS-1/2** | AlphaEM ζ-sequence + bracket containment |
 | **G117 Bishop comparison** | Doctrinal AsLensOutput capstone (3-5 sessions) |
 
-### B+. G123 N_U-family theory — ALL PHASES CLOSED
+### B+. G123 N_U-family theory — ALL PHASES CLOSED + PROMOTED
 
 Successor to G120.  G120 demoted `N_U` to `configCount 2` and
 opened the **level** `n` as a parametric axis; G123 promotes the
@@ -152,6 +152,17 @@ lens.
 
 **Repo-wide audit**: 598 PURE / 0 DIRTY (post-all-phases scan,
 including the modular-structure capstone).  `lake build` clean.
+
+**Promotion**: chapter `theory/math/cohomology/fractal.md`
+expanded from stub to full chapter following the
+`theory/PROMOTION_CRITERIA.md` template.  H1-H4 verified
+(79 PURE / 0 DIRTY across all 5 Fractal sub-modules; lake build
+clean; Cohomology/Fractal listed in `lean/E213/ARCHITECTURE.md`;
+catalogue entries in `catalogs/atomic-integers.md`).  S1-S3
+verified (categorical closure; downstream-ready with two
+physics-layer bridges already wired; research-note closure with
+`G120_n_u_rederivation_plan.md` and `G123_n_u_family_theory.md`
+moved to `research-notes/archive/`).
 
 **Anchor commit (Phase 1-4)**: `224f417f` —
 `Lib/Math/Cohomology/Fractal/ConfigCount: 2-parameter family +
