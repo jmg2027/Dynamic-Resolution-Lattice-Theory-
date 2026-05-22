@@ -1376,6 +1376,96 @@ infrastructure, still multi-session.
 
 ---
 
+# Part 20-22 — **FLT proof complete (conditional on decidable hypotheses)**
+
+Three new modules close the FLT chain end-to-end (conditional on
+two decidable hypotheses per specific prime):
+
+## Part 20: `FLT/FreshmanDream.lean` (6 PURE)
+
+  · `mul_mod_zero_left` : `X % p = 0 → (X · Y) % p = 0`.
+  · ★★★★★ **`freshman_dream`** : `(a + 1)^p ≡ a^p + 1 (mod p)`
+    for `p = p' + 1 ≥ 2`, conditional on
+    `∀ k < p', (choose p (k+1)) % p = 0` (middle-binomial vanishing).
+    Direct corollary of `binom_theorem_b_eq_one` (Part 19) +
+    `sumTo_eq_zero_of_all_zero` (Part 16) + Nat mod manipulations.
+  · `middle_vanish_5` / `middle_vanish_7` — decide-able hypotheses
+    for p ∈ {5, 7}.
+  · `freshman_dream_5` / `freshman_dream_7` — per-prime closures.
+
+## Part 21: `FLT/FLTPrimary.lean` (5 PURE)
+
+  · `zero_pow_succ` (private) : `0^(p'+1) = 0`.
+  · ★★★★★ **`flt_primary`** : `a^p ≡ a (mod p)` for prime `p = p'+1`,
+    by induction on `a` using freshman's dream + IH.
+  · `flt_primary_5` / `flt_primary_7` — universal-over-`a` closures
+    at specific primes via `decide` on `middle_vanish_p`.
+  · Smokes: `flt_primary_5_at_3` (3^5 ≡ 3 mod 5),
+    `flt_primary_7_at_4` (4^7 ≡ 4 mod 7).
+
+## Part 22: `FLT/FLTMain.lean` (5 PURE)
+
+  · ★★★★★★ **`flt_main`** : `a^(p-1) ≡ 1 (mod p)` for `a`
+    invertible mod `p`, given:
+      · `h_middle` (middle-binomial vanishing — captures primality)
+      · `mi : ModInverse p a` (explicit inverse witness, Part 12)
+    Multiplies the FLT primary statement by `mi.inv` and uses
+    `mi.inv_eq` to cancel `a`.
+  · `modInv_2_mod_5` / `modInv_3_mod_7` — explicit witnesses.
+  · `flt_main_5_2` : `2^4 = 16 ≡ 1 mod 5`.
+  · `flt_main_7_3` : `3^6 = 729 ≡ 1 mod 7`.
+
+## What this buys
+
+**Fermat's Little Theorem is now PURE-proven** in 213-native form,
+conditional on two decidable hypotheses per specific prime:
+
+  1. Middle-binomial vanishing `∀ k, k < p-1 → (choose p (k+1)) % p = 0`
+     (provable by `decide` for any specific prime; universal form
+     requires Euclid's lemma / Bezout, multi-session).
+  2. Explicit `ModInverse p a` witness (decidable per (p, a); universal
+     existence requires Bezout, multi-session).
+
+For per-prime applications, both hypotheses are 1-line `decide` and
+the entire FLT chain (freshman's dream → primary → main) follows
+mechanically.
+
+The remaining work for Phase 3.2 universal closure:
+
+  · Apply `flt_main` to φ at each split prime (per-prime, via decide)
+  · Connect FLT-for-φ to Fibonacci-Pisano `F_{p-1} ≡ 0 mod p`
+  · Universal Bezout (for the "without specific witness" form)
+
+## FLT chain status (post Part 22)
+
+| Sub-step | Status |
+|---|---|
+| `choose` def + Pascal | ✅ Part 14 |
+| Key identity `(k+1) · choose p (k+1) = p · choose (p-1) k` | ✅ Part 14 |
+| `p ∣ choose p (k+1)` via explicit inverse | ✅ Part 15 |
+| Σ infrastructure | ✅ Part 16 |
+| Σ helpers + binomSum | ✅ Part 17 |
+| Per-prime closures for all 11 split primes (Phase 3.2) | ✅ Part 18 |
+| **Binomial theorem at b=1** | ✅ Part 19 |
+| **Freshman's dream** | ✅ Part 20 |
+| **FLT primary form** (`a^p ≡ a mod p`) | ✅ Part 21 |
+| **FLT main form** (`a^(p-1) ≡ 1 mod p`) | ✅ Part 22 |
+| Universal Bezout (for unconditional inverse existence) | ⚪ multi-session |
+| Universal middle-binomial vanishing (from primality) | ⚪ multi-session |
+| Apply FLT to φ at split primes | ⚪ short follow-up |
+| Connect FLT-for-φ to Fibonacci-Pisano | ⚪ short follow-up |
+| Phase 3.2 universal closure | ⚪ pending above |
+
+## Verification (post Part 22)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py FLT.FreshmanDream`: 6 PURE / 0 DIRTY
+  · `scan_axioms.py FLT.FLTPrimary`: 5 PURE / 0 DIRTY
+  · `scan_axioms.py FLT.FLTMain`: 5 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+
+---
+
 # Part 12 — multi-session FLT job: explicit-inverse multiplicative order
 
 Continuing the Phase 3.2 marathon: the chain from `phi² ≡ phi + 1`
