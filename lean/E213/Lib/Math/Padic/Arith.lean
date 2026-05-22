@@ -351,6 +351,28 @@ theorem Zp.shiftLeft_zero_seq_digit (p : Nat) (hp : 0 < p) (k j : Nat) :
     rw [if_neg hjk']
     rfl
 
+/-- Below the shift threshold, the digit is zero. -/
+theorem Zp.shiftLeft_digit_low (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p)
+    (j : Nat) (h : j < k) :
+    ((Zp.shiftLeft p hp k x).digits j).val = 0 := by
+  show (if j < k then (⟨0, hp⟩ : Fin p) else x.digits (j - k)).val = 0
+  rw [if_pos h]
+
+/-- `(Zp.shiftLeft k x).trunc m = 0` for any `m ≤ k`.  The shifted
+    sequence's low `k` digits are all zero, so any truncation below
+    that threshold vanishes. -/
+theorem Zp.shiftLeft_trunc_below (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) :
+    ∀ m, m ≤ k → (Zp.shiftLeft p hp k x).trunc m = 0
+  | 0, _ => rfl
+  | m + 1, hm => by
+    have hmk : m < k := Nat.lt_of_succ_le hm
+    have hmle : m ≤ k := Nat.le_of_lt hmk
+    show (Zp.shiftLeft p hp k x).trunc m
+          + ((Zp.shiftLeft p hp k x).digits m).val * p^m = 0
+    rw [Zp.shiftLeft_trunc_below p hp k x m hmle,
+        Zp.shiftLeft_digit_low p hp k x m hmk,
+        Nat.zero_mul, Nat.zero_add]
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:
