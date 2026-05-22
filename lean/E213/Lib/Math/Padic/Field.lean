@@ -142,4 +142,27 @@ theorem QpSeq.add_ofZp (p : Nat) (hp : 0 < p) (x y : ZpSeq p) :
                         (Zp.shiftLeft p hp 0 x)
                         (Zp.shiftLeft p hp 0 y)) := rfl
 
+/-! ## Negation on ℚ_p
+
+Negation preserves the shift and negates the numerator (via `Zp.neg`).
+-/
+
+/-- Negation on `QpSeq`. -/
+def QpSeq.neg (p : Nat) (hp : 1 < p) (a : QpSeq p) : QpSeq p where
+  num := Zp.neg p hp a.num
+  shift := a.shift
+
+/-- The shift of `-a` matches `a`. -/
+theorem QpSeq.neg_shift (p : Nat) (hp : 1 < p) (a : QpSeq p) :
+    (QpSeq.neg p hp a).shift = a.shift := rfl
+
+/-- The numerator of `-a` is `Zp.neg` of `a`'s numerator. -/
+theorem QpSeq.neg_num (p : Nat) (hp : 1 < p) (a : QpSeq p) :
+    (QpSeq.neg p hp a).num = Zp.neg p hp a.num := rfl
+
+/-- Smoke: digit-0 of `-1` in 5-adic ℚ_p is `4` (= 5 - 1). -/
+theorem QpSeq.smoke_neg_one_5_d0 :
+    ((QpSeq.neg 5 (by decide) (QpSeq.one 5 (by decide))).num.digits 0).val
+      = 4 := rfl
+
 end E213.Lib.Math.Padic
