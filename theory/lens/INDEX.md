@@ -1,10 +1,14 @@
 # theory/lens/
 
-Lens-ring chapters.  Mirrors `lean/E213/Lens/`.
+Lens chapters.  Mirrors `lean/E213/Lens/`.
 
-The Lens ring is the second 213 layer (after Term/Theory): every
-Lens is a Raw-internal observation protocol.  Per CLAUDE.md
-"Three-tier discipline", each Lens sub-tree gets its own chapter.
+**Lens application is distinguishing.**  Every Lens is a
+Raw-internal residue-self-pointing event (per CLAUDE.md "Failure
+modes catalog" → Substrate metaphor entry; per
+`seed/AXIOM/07_self_reference.md` §8.1: no exterior).  The
+directory shape mirrors the Lean ring-build-order (Term → Theory
+→ Lens → Meta → Lib), which is compile-time dependency — not a
+conceptual ranking.
 
 ## Closed chapters (11)
 
@@ -23,5 +27,6 @@ Lens is a Raw-internal observation protocol.  Per CLAUDE.md
 | [`api.md`](api.md)                 | `Lens/API/` + `Lens/Internal/` | (API surface) |
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
-Pattern: all Pattern 2 (narrative-from-scratch — Lens infrastructure
-without dedicated G-notes; G1 + G12 reference but stay active).
+Pattern: all Pattern 2 (narrative-from-scratch — Lens narrative
+without dedicated G-notes; G1 universal-lens + G12 layered-API
+classification stay active as foundational notes).

@@ -23,8 +23,11 @@ This closes the layered-API classification arc (G12) at the
 
 ## Narrative
 
-G12 introduced the layered API classification: Kernel / Firmware /
-Hypervisor (now generalized to ring layers per ARCHITECTURE.md).
+G12 introduced a layered API classification, now generalized to
+the build-order ring partition (Term → Theory → Lens → Meta → Lib)
+in `lean/E213/ARCHITECTURE.md`.  The "layered" reading there is
+**compile-time dependency**, not foundation-vs-derivation.
+
 Tier 5 (the endgame) demonstrates that classical foundations
 themselves are Lens compositions:
 

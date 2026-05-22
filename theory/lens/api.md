@@ -5,14 +5,15 @@
 
 ## Overview
 
-The **Lens ring public API surface**: the `Lens` type + core
-combinators + entry point for downstream consumers.  Also documents
-the `Lens/Internal/` proof infrastructure (private to Lens layer).
+The **Lens public API surface**: the `Lens` type + core
+combinators + entry point for files that import Lens.  Also
+documents `Lens/Internal/` — proof helpers used by other Lens
+sub-clusters but not re-exported.
 
 ## Lean source
 
 - `lean/E213/Lens/API.lean` — public surface
-- `lean/E213/Lens/Internal/` (4 files) — internal proof infrastructure
+- `lean/E213/Lens/Internal/` (4 files) — internal proof helpers
 - Companion: `lean/E213/Lens.lean` umbrella (imports all sub-clusters)
 - ∅-axiom PURE
 
@@ -29,22 +30,31 @@ ring** of E213 after Term/Theory.  The API surface provides:
 consumers — most physics + math sub-trees that need Lens machinery
 just `import E213.Lens.API`.
 
-`Lens/Internal/` (4 files, no separate INDEX) contains the proof
-infrastructure shared across Lens sub-clusters but not exposed to
+`Lens/Internal/` (4 files, no separate INDEX) contains proof
+helpers shared across Lens sub-clusters but not exposed to
 downstream — kernel-equivalence transitive closure, technical
 lemmas, decision procedures.
 
-## Layered API classification
+## Build-time ring ordering
 
-Per G12 layered API classification (still active in
-`research-notes/G12_layered_api_classification.md`):
-- **L1 (Kernel)**: Term + Theory rings (Raw, base axiom)
-- **L2 (Firmware)**: Lens ring (this chapter's scope)
-- **L3 (Hypervisor)**: Meta ring (reflective primitives)
-- **L4 (Application)**: Lib + App rings (Math + Physics + executables)
+Per `lean/E213/ARCHITECTURE.md`, the Lean tree builds in ring order:
+Term → Theory → Lens → Meta → Lib → App.  This is **build
+dependency** — what `lake` compiles before what — not a conceptual
+ranking.  None of these rings is "below" or "above" another in any
+213-sense; the ordering is `import`-resolution only.
 
-The Lens ring is **the** structural intermediate layer: what makes
-Raw observable.
+The G12 layered-API note
+(`research-notes/G12_layered_api_classification.md`, still active)
+uses OS-stack analogy terms (Kernel / Firmware / Hypervisor /
+Application).  Those terms are **expedient names for the build
+order**, NOT a claim that Lens "supports" Math/Physics from below.
+Per `seed/AXIOM/07_self_reference.md §8.1`: there is no exterior;
+no ring sits beneath the others as foundation-for-derivation.
+
+The Lens ring is **what distinguishing is**.  Lens application IS
+a residue-self-pointing event (per CLAUDE.md "Failure modes
+catalog" → "Substrate metaphor" entry).  Not a tool used on Raw
+from outside.
 
 ## Connection
 
