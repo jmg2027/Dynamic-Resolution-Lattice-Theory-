@@ -809,4 +809,29 @@ private theorem fp2_pow_step_alg_lhs1 (Fk Fkm p : Nat) :
       rw [show (6 : Nat) = 1 + 5 from rfl]
       rw [add_mul 1 5 Fk, Nat.one_mul]]
 
+/-- Helper: `Fk · inv2 · inv2 + Fkm · inv2 + Fk · inv2 · inv2 = 2·Fk · (inv2·inv2) + Fkm·inv2`
+    Pure Nat algebra (combine inv2² terms). -/
+private theorem fp2_pow_step_alg_lhs2 (Fk Fkm p : Nat) :
+    Fk * inv2 p * inv2 p + Fkm * inv2 p + Fk * inv2 p * inv2 p
+      = 2 * Fk * (inv2 p * inv2 p) + Fkm * inv2 p := by
+  rw [Nat.add_right_comm (Fk * inv2 p * inv2 p) (Fkm * inv2 p)
+                          (Fk * inv2 p * inv2 p)]
+  rw [mul_assoc Fk (inv2 p) (inv2 p)]
+  rw [← Nat.two_mul (Fk * (inv2 p * inv2 p))]
+  rw [← mul_assoc 2 Fk (inv2 p * inv2 p)]
+
+/-- Helper: `6 * Fk * (inv2² mod) ≡ Fk * (inv2 + 1) (mod p)` via mul_assoc + F_mul_six_inv2_sq. -/
+private theorem six_Fk_inv2_sq_eq (Fk p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (6 * Fk * (inv2 p * inv2 p)) % p = (Fk * (inv2 p + 1)) % p := by
+  rw [Nat.mul_comm 6 Fk]
+  rw [mul_assoc Fk 6 (inv2 p * inv2 p)]
+  exact F_mul_six_inv2_sq Fk p hp hpo
+
+/-- Helper: `2 * Fk * (inv2² mod) ≡ Fk * inv2 (mod p)`. -/
+private theorem two_Fk_inv2_sq_eq (Fk p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (2 * Fk * (inv2 p * inv2 p)) % p = (Fk * inv2 p) % p := by
+  rw [Nat.mul_comm 2 Fk]
+  rw [mul_assoc Fk 2 (inv2 p * inv2 p)]
+  exact F_mul_two_inv2_sq Fk p hp hpo
+
 end E213.Lib.Math.ModArith.FP2Sqrt5
