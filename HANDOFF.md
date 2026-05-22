@@ -94,11 +94,35 @@ lens.
     - Corollary on the family:
       `configCountD_mod_pure d p h_flt n
         : configCountD d n % p = d^((d^n) % (p-1)) % p`.
-    - FLT-instantiated smoke at `(d, p) = (5, 7)`:
-      `configCountD_5_mod_7 n
-        : configCountD 5 n % 7 = 5^((5^n) % 6) % 7`,
-      composed via `UniversalFLT.universal_flt_main` +
-      `prime_gcd_7`.
+    - FLT smokes at `(d, p) ∈ {(5, 3), (5, 7), (5, 11), (5, 13)}`,
+      composed via `UniversalFLT.universal_flt_main` and
+      `prime_gcd_*` (with a new private `prime_gcd_13` and
+      `flt_5_3` discharged by `decide` because
+      `universal_flt_main` requires `a < p`, which fails for
+      `(a, p) = (5, 3)`).
+    - **Parametric per-prime reductions**:
+      - `configCountD_5_mod_3_param`, `configCountD_5_mod_7`,
+        `configCountD_5_mod_11`, `configCountD_5_mod_13` —
+        all of the form `configCountD 5 n % p =
+          5^((5^n) % (p-1)) % p`.
+    - **Period-2 capstones** at `(5, 7)` and `(5, 13)`:
+        `configCountD_5_mod_7_period_2`,
+        `configCountD_5_mod_13_period_2`.
+        General helper `pow_add_two_mod_pure` abstracts the
+        order-2 step (`a^2 % b = 1 → a^(n+2) % b = a^n % b`).
+    - **Closed-form parametric constants**:
+        `configCountD_5_mod_2 n : configCountD 5 n % 2 = 1`
+        `configCountD_5_mod_3 n : configCountD 5 n % 3 = 2`
+        `configCountD_5_mod_5 n : configCountD 5 n % 5 = 0`
+        (the last by induction on `n` via `configCountD_succ`).
+    - **Even/odd closed-form lookup**:
+        `configCountD_5_mod_7_table n :
+          configCountD 5 (2n) % 7 = 5
+          ∧ configCountD 5 (2n+1) % 7 = 3`.
+    - **★★★ Modular-structure capstone**:
+      `configCountD_5_modular_structure n` bundles the mod-2,
+      mod-3, mod-5 constants and the mod-7, mod-13 period-2
+      identities into a single statement at the physics base.
     - The previously-private `pow_add_pure` /
       `pow_mul_pure` helpers in
       `Lib/Math/Cohomology/Fractal/ConfigCount.lean` were
@@ -126,8 +150,8 @@ lens.
     available; the structural-period statement is a small
     additive marathon.
 
-**Repo-wide audit**: 585 PURE / 0 DIRTY (post-all-phases scan).
-`lake build` clean.
+**Repo-wide audit**: 598 PURE / 0 DIRTY (post-all-phases scan,
+including the modular-structure capstone).  `lake build` clean.
 
 **Anchor commit (Phase 1-4)**: `224f417f` —
 `Lib/Math/Cohomology/Fractal/ConfigCount: 2-parameter family +

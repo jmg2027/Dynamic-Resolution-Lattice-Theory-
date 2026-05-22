@@ -45,6 +45,33 @@ proved 213-natively via structural recursion + `Eq.subst`,
 avoiding the `propext` import that `rw [Nat.pow_succ,
 Nat.pow_mul]` brings.
 
+## Modular structure at the physics base
+
+The parametric reduction
+`configCountD_mod_pure d p (h_flt : d^(p-1) % p = 1 % p) n :
+configCountD d n % p = d^((d^n) % (p-1)) % p` (in
+`ConfigCountModular`) feeds the Fermat hypothesis from
+`Lib/Math/ModArith/UniversalFLT.universal_flt_main` into a clean
+exponent reduction.  At the physics base `d = 5`, this yields the
+following per-prime characterisation:
+
+  · `configCountD 5 n % 2 = 1` for all `n` (family is odd).
+  · `configCountD 5 n % 3 = 2` for all `n` (since `5^n` is odd
+    and `5^(odd) ≡ 2 mod 3`).
+  · `configCountD 5 n % 5 = 0` for all `n` (positive power of 5).
+  · `configCountD 5 n % 7` has period 2: alternates `5, 3, 5, 3, …`
+    (`configCountD 5 (2k) % 7 = 5`, `configCountD 5 (2k+1) % 7 = 3`).
+  · `configCountD 5 n % 11` has the parametric form
+    `5^((5^n) % 10) % 11`; eventually constant `= 1` from `n = 1`
+    (because `gcd(5, 10) = 5`).
+  · `configCountD 5 n % 13` has period 2 from `n = 0`
+    (`5^2 = 25 ≡ 1 mod 12`, same order-2 structure as `mod 7`).
+
+The unified capstone is
+`configCountD_5_modular_structure n` — a single statement
+bundling the mod-{2, 3, 5, 7, 13} fingerprint at the physics
+base.  All entries are ∅-axiom PURE.
+
 ## Bridge to physics
 
   · `Physics/Foundations/NResolutionFromFractal`
