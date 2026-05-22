@@ -34,7 +34,7 @@ theory/
 ├── math/
 │   ├── INDEX.md
 │   ├── cohomology/
-│   │   └── hodge_conjecture.md   ← promoted 2026-05-21 (first promotion)
+│   │   └── hodge_conjecture.md   ← promoted 2026-05-21
 │   ├── cayley_dickson/           ← (algebra tower — pending)
 │   ├── mobius/                   ← (Mobius213 — pending)
 │   ├── nat213/                   ← (Nat213 lens fractal — pending)
@@ -44,15 +44,17 @@ theory/
 └── physics/
     ├── INDEX.md
     ├── alpha_em/                 ← (α_em precision — pending)
-    ├── symmetry/                 ← (C3 chain / gauge emergence — pending)
+    ├── symmetry/
+    │   └── c3_chain.md           ← promoted 2026-05-22 (gauge emergence)
     └── couplings/                ← (TripleCoupling / Basel — pending)
 ```
 
-## Current chapters (1)
+## Current chapters (2)
 
 | Chapter | Lean sub-tree | Promoted |
 |---|---|---|
-| `math/cohomology/hodge_conjecture.md` | `lean/E213/Lib/Math/Cohomology/HodgeConjecture/` | 2026-05-21 |
+| `math/cohomology/hodge_conjecture.md` | `lean/E213/Lib/Math/HodgeConjecture/` | 2026-05-21 |
+| `physics/symmetry/c3_chain.md` | `lean/E213/Lib/Physics/Symmetry/` | 2026-05-22 |
 
 ## Adding a chapter
 
