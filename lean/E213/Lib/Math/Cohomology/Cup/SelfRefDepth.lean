@@ -437,4 +437,37 @@ theorem totalCupChannels_d4 : totalCupChannels 4 = 3 := by decide
 theorem totalCupChannels_d5 : totalCupChannels 5 = 6 := by decide
 theorem totalCupChannels_d6 : totalCupChannels 6 = 10 := by decide
 
+/-! ## §12.  Endpoint-pair uniqueness at (1, 2)
+
+At bidegree (1, 2) on Δ⁴, the indicator basis has `5 × 10 = 50`
+pairs.  The boundary-endpoint pair `(α_e 0, β_e2 3 4)` is the
+**unique** firing configuration: every other pair gives an
+all-false depth-4 signature.
+
+This uniqueness theorem is the catalog's **falsifiability
+contract**: any new indicator pair firing at any depth bit
+position would contradict the 6-channel total. -/
+
+/-- Sorted 2-element subsets of {0..4}, encoded as pairs. -/
+def all_2subsets : List (Nat × Nat) :=
+  [(0,1), (0,2), (0,3), (0,4),
+   (1,2), (1,3), (1,4),
+   (2,3), (2,4),
+   (3,4)]
+
+/-- ★★★★ **Uniqueness at bidegree (1, 2)**: across all 50 indicator
+    basis pairs `(α_e i, β_e2 j k)` with `i ∈ {0..4}` and
+    `(j, k)` ranging over sorted 2-subsets of `{0..4}`, the **only**
+    pair with a non-zero depth-4 signature is `(0; 3, 4)`.
+
+    Decide-verified over the full 5 × 10 = 50 enumeration.  PURE. -/
+theorem depth4Sig_1_2_unique_endpoint :
+    ∀ (i : Fin 5) (jk : Fin 10),
+      let p := all_2subsets[jk.val]?.getD (0, 0)
+      depth4Sig_1_2 (α_e i.val) (β_e2 p.1 p.2)
+      = if i.val = 0 ∧ p.1 = 3 ∧ p.2 = 4
+        then [false, false, true, false]
+        else [false, false, false, false] :=
+  by decide
+
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
