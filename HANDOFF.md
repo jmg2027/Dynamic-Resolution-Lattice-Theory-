@@ -253,14 +253,25 @@ LESSONS_LEARNED now lists Patterns #1-#20:
 
 Highest-value remaining items by impact / effort:
 
-  1. **L1 α-side completion** — 50% mass cut remaining (β-side done)
-  2. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
-  3. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
-  4. **G108 CutSumOne C** — universal closer + 3-component template
-  5. **G117 Bishop comparison** — doctrinal AsLensOutput formalisation
+  1. **G120 N_U re-derivation plan** — execute 5-phase plan in
+     `research-notes/G120_n_u_rederivation_plan.md`.  Closes N_U
+     muddle: 3 redundant defs → 1, 3 placeholder ResolutionInvariant
+     fields → 2 real + 2 deleted, numV name collision resolved.
+     Total mean ~5 hr (Phases 1-5).  Critic-flagged tail risk 4-8 hr.
+     Produced by 2-round 6-agent debate 2026-05-22.
+  2. **L1 α-side completion** — 50% mass cut remaining (β-side done)
+  3. **G110 FLUX-1** — forward/backward parametric in FluxMVT (~30K nodes)
+  4. **G111 COH-1+COH-2+COH-3** — Hodge Prop quartet + Universal Prop52/53 batch (~90K)
+  5. **G108 CutSumOne C** — universal closer + 3-component template
+  6. **G117 Bishop comparison** — doctrinal AsLensOutput formalisation
 
-If only one: **L1 α-side** completes the biggest single
-mass-reduction in the corpus.
+If only one: **G120 N_U re-derivation** is the highest-priority
+hygiene item — it closes a load-bearing constant whose semantics
+spans 30+ Lean files with 3 redundant definitions + 2 placeholder
+framings.  All other items build on N_U-using results, so closing
+N_U first reduces cascading rework if G120 surfaces structural
+issues.  See `research-notes/G120_n_u_rederivation_plan.md` §3 for
+phase-by-phase deliverables + §8 open questions.
 
 ## Branch state at this merge
 
