@@ -1118,4 +1118,22 @@ theorem Zp.offDiagRow_zero (p : Nat) (x y : ZpSeq p) (n i : Nat) :
 theorem Zp.offDiagSum_zero (p : Nat) (x y : ZpSeq p) (n : Nat) :
     Zp.offDiagSum p x y n 0 = 0 := rfl
 
+/-! ## Shift smokes -/
+
+/-- Smoke: shifting `one` by 1 puts `1` at position 1. -/
+theorem Zp.smoke_shiftLeft_one_5_d1 :
+    ((Zp.shiftLeft 5 (by decide) 1
+        (ZpSeq.one 5 (by decide))).digits 1).val = 1 := by
+  show (if (1 : Nat) < 1 then (⟨0, by decide⟩ : Fin 5)
+        else (ZpSeq.one 5 (by decide)).digits (1 - 1)).val = 1
+  rw [if_neg (by decide : ¬ ((1 : Nat) < 1))]
+  rfl
+
+/-- Smoke: shifting `one` by 1 puts `0` at position 0. -/
+theorem Zp.smoke_shiftLeft_one_5_d0 :
+    ((Zp.shiftLeft 5 (by decide) 1
+        (ZpSeq.one 5 (by decide))).digits 0).val = 0 := by
+  exact Zp.shiftLeft_digit_low 5 (by decide) 1 (ZpSeq.one 5 (by decide))
+          0 (by decide)
+
 end E213.Lib.Math.Padic
