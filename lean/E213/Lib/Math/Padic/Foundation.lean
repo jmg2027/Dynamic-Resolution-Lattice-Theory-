@@ -291,6 +291,84 @@ theorem ZpSeq.digits_of_nat_zero (p : Nat) (hp : 0 < p) (k : Nat) :
   rw [Nat.zero_div]
   exact E213.Tactic.NatHelper.zero_mod p
 
+/-! ## Truncation correctness for the `digits_of_nat` embedding
+
+Truncating the base-p expansion of `m` to `n` digits recovers
+`m % p^n`.  This makes `digits_of_nat p hp m` the right p-adic
+representation of the natural number `m`: at every truncation
+level, the value matches the standard reduction.
+-/
+
+/-- `(m / p^n) % p · p^n + m % p^n = m % p^(n+1)` — the recursive
+    formula for base-p truncation.  PURE. -/
+private theorem mod_pow_succ_pure (p : Nat) (hp : 0 < p) (m n : Nat) :
+    (m / p^n) % p * p^n + m % p^n = m % p^(n + 1) := by
+  have hpn1 : 0 < p^(n + 1) := Nat.pos_pow_of_pos _ hp
+  -- m = (m/p^n/p) · p^(n+1) + ((m/p^n) % p · p^n + m % p^n)
+  have hsubst : m = (m / p^n / p) * p^(n + 1)
+                  + ((m / p^n) % p * p^n + m % p^n) := by
+    have hA := E213.Meta.Nat.AddMod213.div_add_mod m (p^n)
+    have hB := E213.Meta.Nat.AddMod213.div_add_mod (m / p^n) p
+    -- Rewrite m using hA and hB.
+    calc m = p^n * (m / p^n) + m % p^n := hA.symm
+      _   = p^n * (p * (m / p^n / p) + (m / p^n) % p) + m % p^n := by rw [hB]
+      _   = p^n * (p * (m / p^n / p)) + p^n * ((m / p^n) % p) + m % p^n := by
+            rw [Nat.mul_add]
+      _   = (m / p^n / p) * (p^n * p) + (m / p^n) % p * p^n + m % p^n := by
+            rw [show p^n * (p * (m / p^n / p))
+                      = (m / p^n / p) * (p^n * p) from by
+                  rw [← E213.Tactic.NatHelper.mul_assoc]
+                  exact Nat.mul_comm (p^n * p) (m / p^n / p)]
+            rw [show p^n * ((m / p^n) % p)
+                      = (m / p^n) % p * p^n from
+                  Nat.mul_comm (p^n) ((m / p^n) % p)]
+      _   = (m / p^n / p) * p^(n + 1) + (m / p^n) % p * p^n + m % p^n := by
+            rw [show p^n * p = p^(n + 1) from (Nat.pow_succ p n).symm]
+      _   = (m / p^n / p) * p^(n + 1)
+              + ((m / p^n) % p * p^n + m % p^n) := by
+            rw [Nat.add_assoc]
+  -- Bound: A < p^(n+1).
+  have hbound : (m / p^n) % p * p^n + m % p^n < p^(n + 1) := by
+    have h1 : (m / p^n) % p < p := Nat.mod_lt _ hp
+    have h2 : m % p^n < p^n := Nat.mod_lt _ (Nat.pos_pow_of_pos _ hp)
+    have h3 : (m / p^n) % p + 1 ≤ p := Nat.succ_le_of_lt h1
+    calc (m / p^n) % p * p^n + m % p^n
+        < (m / p^n) % p * p^n + p^n :=
+              Nat.add_lt_add_left h2 _
+      _ = ((m / p^n) % p + 1) * p^n := by
+              rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul]
+      _ ≤ p * p^n :=
+              Nat.mul_le_mul_right (p^n) h3
+      _ = p^(n + 1) := by
+              rw [Nat.mul_comm]; exact (Nat.pow_succ p n).symm
+  -- Conclude via m = Q · p^(n+1) + A + add_mul_mod_self_pure + mod_eq_of_lt.
+  have hm_eq : m % p^(n + 1)
+                = ((m / p^n / p) * p^(n + 1)
+                    + ((m / p^n) % p * p^n + m % p^n)) % p^(n + 1) :=
+    congrArg (· % p^(n + 1)) hsubst
+  rw [hm_eq, Nat.add_comm ((m / p^n / p) * p^(n + 1))
+              ((m / p^n) % p * p^n + m % p^n),
+      E213.Tactic.NatHelper.add_mul_mod_self_pure,
+      Nat.mod_eq_of_lt hbound]
+
+/-- `(digits_of_nat p hp m).trunc n = m % p^n` — the canonical
+    embedding `ℕ ↪ ZpSeq p` is the standard base-p reduction at
+    every truncation level. -/
+theorem ZpSeq.digits_of_nat_trunc (p : Nat) (hp : 0 < p) (m : Nat) :
+    ∀ n, (ZpSeq.digits_of_nat p hp m).trunc n = m % p^n
+  | 0 => by
+    show (0 : Nat) = m % p^0
+    rw [Nat.pow_zero, Nat.mod_one]
+  | n + 1 => by
+    have ih := ZpSeq.digits_of_nat_trunc p hp m n
+    show (ZpSeq.digits_of_nat p hp m).trunc n
+          + ((ZpSeq.digits_of_nat p hp m).digits n).val * p^n
+        = m % p^(n + 1)
+    rw [ih]
+    show m % p^n + (m / p^n) % p * p^n = m % p^(n + 1)
+    rw [Nat.add_comm]
+    exact mod_pow_succ_pure p hp m n
+
 /-! ## Per-prime smoke tests
 
 Verify canonical elements + the Nat embedding at concrete primes.

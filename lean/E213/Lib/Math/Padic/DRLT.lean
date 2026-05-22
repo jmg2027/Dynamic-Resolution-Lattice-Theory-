@@ -87,14 +87,46 @@ theorem canonical_5adic_p_digit_1 :
 theorem canonical_5adic_p_digit_2 :
     (canonical_5adic_p.digits 2).val = 0 := by decide
 
-/-! ## ResolutionLimit bridge — first 25 digits
+/-! ## ResolutionLimit anchor — first 25 digits are zero
 
-The canonical 5-adic lift `canonical_5adic_NU` of `N_U = 5^25`
-has all digits below position 25 equal to zero — consistent with
-the `5^25` factor.  The full anchor theorem
-`∀ n ≤ 25, canonical_5adic_NU.trunc n = 0` would require either
-inductive verification across each level or a general `n / p^k`
-mod analysis.
+The canonical 5-adic lift `canonical_5adic_NU = digits_of_nat 5 (5^25)`
+satisfies `trunc n = 0` for all `n ≤ 25`, since `5^25 % 5^n = 0`
+whenever `5^n ∣ 5^25`.
+
+Combined with `digits_of_nat_trunc`, this is the **DRLT anchor**:
+the finite-resolution lattice (`N_U = 5^25`) maps faithfully into
+the first 25 levels of the 5-adic lift.
 -/
+
+/-- `5^a ∣ 5^b` for `a ≤ b` — PURE via induction on `b`. -/
+private theorem pow_dvd_pow_5 (a : Nat) :
+    ∀ b, a ≤ b → 5^a ∣ (5 : Nat)^b
+  | 0, h => by
+    have ha : a = 0 := Nat.le_zero.mp h
+    rw [ha]
+    exact ⟨1, by rw [Nat.pow_zero, Nat.one_mul]⟩
+  | b + 1, h => by
+    cases hcase : Nat.decEq a (b + 1) with
+    | isTrue heq =>
+      exact ⟨1, by rw [heq, Nat.mul_one]⟩
+    | isFalse hne =>
+      have hlt : a < b + 1 := Nat.lt_of_le_of_ne h hne
+      have hle : a ≤ b := Nat.le_of_lt_succ hlt
+      obtain ⟨q, hq⟩ := pow_dvd_pow_5 a b hle
+      refine ⟨q * 5, ?_⟩
+      rw [Nat.pow_succ, hq, E213.Tactic.NatHelper.mul_assoc]
+
+/-- **DRLT anchor**: for any `n ≤ 25`, the 5-adic lift of `N_U = 5^25`
+    truncates to zero at level `n`.  Equivalent to the assertion
+    that `5^n ∣ 5^25` makes the first `n` digits of the canonical
+    embedding all zero. -/
+theorem canonical_5adic_NU_trunc_le_25 (n : Nat) (h : n ≤ 25) :
+    canonical_5adic_NU.trunc n = 0 := by
+  rw [show canonical_5adic_NU.trunc n = (5 : Nat)^25 % 5^n from
+        ZpSeq.digits_of_nat_trunc 5 (by decide) (5^25) n]
+  -- 5^n ∣ 5^25 ⟹ 5^25 % 5^n = 0.
+  obtain ⟨q, hq⟩ : 5^n ∣ (5 : Nat)^25 := pow_dvd_pow_5 n 25 h
+  rw [hq]
+  exact E213.Tactic.NatHelper.mul_mod_right (5^n) q
 
 end E213.Lib.Math.Padic
