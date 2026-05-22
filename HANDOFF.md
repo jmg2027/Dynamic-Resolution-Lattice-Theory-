@@ -1,4 +1,4 @@
-# Session Handoff — 2026-05-22 (Part 3 marathon, final)
+# Session Handoff — 2026-05-22 (Part 9: existential Pisano closed)
 
 ## Branch
 `claude/handoff-part-3-marathon-0XWmn` — 17 commits ahead of
@@ -693,3 +693,84 @@ that the bridge theorem lifts to an FSM-period claim.
   · No new DIRTY axioms anywhere
   · 13 new commits on session branch, pushed
   · Working tree clean
+
+---
+
+# Part 9 — G119 Phase 2 close: existential Pisano period via pigeonhole
+
+After Part 8 supplied the **collision-to-period** engine
+(`pellCoeff_translation`), this session closes the **collision-
+existence** half via pigeonhole + pair encoding.  Result: the
+existential Pisano period now lands as a 1-line corollary, and
+lifts to two FSM-period claims via the action bridge.
+
+## What landed
+
+### `Lib/Math/DyadicFSM/PellMatrixPigeonhole.lean` (new file, 4 PURE)
+
+  · `pellEncode (p hp) : Fin (p²+1) → Fin (p²)` — pair-encode
+    `pellCoeff p hp i.val = (a, b)` as `a · p + b ∈ Fin (p²)`.
+    Bound via `a + 1 ≤ p` and `b < p` (i.e., `a·p + b < (a+1)·p ≤ p·p`).
+  · **`exists_pisano_period (p hp)`** :
+       `∃ N, 0 < N ≤ p² ∧ pellCoeff p hp N = pellCoeff p hp 0`
+       — applies `Forward.ForwardPeriodicity.pigeonhole_collision` to
+       `pellEncode`, recovers pair equality via `encode_inj`, then
+       feeds the coincidence into `pellCoeff_translation`.
+  · **`exists_pellFSMmod_period (p hp)`** :
+       `∃ N, 0 < N ≤ p² ∧ ∀ k, (pellFSMmod p hp).run (k+N) = .run k`
+       — 1-line bridge corollary via
+       `pellCoeff_period_implies_pellFSMmod_period`.
+  · **`exists_pellFSMmod_bits_period (p hp)`** :
+       same with `.bits` via
+       `pellCoeff_period_implies_pellFSMmod_bits_period`.
+
+### Reuse of existing constructive pigeonhole
+
+The pigeonhole core (`searchInner`/`searchOuter` Σ-witness search +
+`pigeonhole_collision` + `collTest_imp_val_eq` + `encode_inj`) was
+already PURE-built in
+`Lib/Math/DyadicFSM/Forward/ForwardPeriodicity.lean` for the
+signature-collision argument.  Per a documented prior session
+finding (file header comment), `Decidable.byContradiction` leaks
+`propext + Quot.sound` through instance synthesis; the constructive
+Σ-search avoids this.  This session simply specialises the same
+machinery to `pellEncode`.
+
+## Purity hiccup + fix
+
+First-pass `exists_pisano_period` was DIRTY (propext).  Bisected
+to `Nat.sub_pos_of_lt` (Lean-core proof brings propext).
+Replaced with `E213.Tactic.NatHelper.sub_pos_of_lt` (PURE
+replacement already present in the helper catalog) → clean.
+
+## What this buys (relative to the Phase 2 roadmap)
+
+`research-notes/G119_pisano_pell5_research_direction.md` listed:
+
+  · **Initial period witness** (FLT proper or via pigeonhole/Lagrange)
+    — **now CLOSED via pigeonhole** with bound `N ≤ p²`.
+  · QR refinement (`m | (p-1)/2` when 5 is QR mod p) — open.
+  · Frobenius case (`m | p+1` when 5 is NQR mod p) — open.
+
+The existential form `∃ N ≤ p²` is strictly weaker than the
+predictive form `N = pisano_predict p`, but it is the foundational
+**existence statement** that previously had to be assumed; it now
+holds unconditionally for every `p > 1` by pigeonhole alone.
+
+## What's still open
+
+  · **Pin the period value** — refining `N ≤ p²` down to the legendre
+    cases (5 QR ⇒ `m | (p-1)/2`, 5 NQR ⇒ `m | p+1`) still requires
+    FLT + Frobenius on `𝔽_p[√5]`.  Multi-session, Phase 3.2/3.3.
+  · **Pisano predictor identification** — `N = pisano_predict p` for
+    each of the 23 empirically-tight primes.  Phase 4, single session
+    once Phase 3 closes.
+
+## Verification (post Part 9)
+
+  · `lake build`: ✅ clean (49/49)
+  · `scan_axioms.py E213.Lib.Math.DyadicFSM.PellMatrixPigeonhole`:
+       4 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
+  · Branch tip ahead of `origin/main` by 1 fresh commit on top of the
+    merge-integrated Part 8 state
