@@ -71,22 +71,49 @@ admissible single-partition recipe exists.
 The catalog is finite (the count-Lens choices on a (k+l)-subset are
 enumerable — pick a partition rule for sorted lists).
 
-### B. Self-reference depth → α^(d-1) suppression (physics)
+### B. Self-reference depth → α^(d-1) suppression (physics) — **PROTOTYPE (2026-05-22)**
 
 If face-iteration depth `d-1` matches `α_GUT^(d-1) = α^4` suppression
 empirically observed (ThetaQCD, α_em higher-order), G86 self-ref
 correction would give a **zero-parameter physics prediction**.
 
-Prototype:
-  · `selfRefIter (α β τ) : List Bool` — start at τ (length k+l+1),
-    iterate: drop middle vertex of current face, record cup value.
-  · Path terminates at empty face (length 0).
-  · For τ of length k+l+1, max depth = k+l+1.  At d=5 this is ≤ 5.
-  · Compare depth-4 signature to α^4 coefficient in physical
-    constants.
+Prototype done — see `lean/E213/Lib/Math/Cohomology/Cup/SelfRefDepth.lean`:
 
-DRLT Validation Standard #1 (strict ∅-axiom precision theorem at
-ppb-ppm) candidate.
+  · `selfRefIter (k l α β) (depth : Nat) (τ : List Nat) : List Bool` —
+    iteratively drop the k-th vertex of the current face, recording
+    `cupList k l α β` at each step.  Output length = depth.  PURE.
+  · `depth4Sig α β := selfRefIter 1 1 α β 4 [0, 1, 2, 3, 4]` — the
+    DRLT-aligned depth-(d-1) signature on Δ⁴.
+  · `α_e i` = single-vertex indicator cochain.
+
+**Structural finding** (`basisDepth4Sig_unique_survivor`):
+Across all `5 × 5 = 25` indicator basis pairs `(α_e i, α_e j)`
+on Δ⁴ at split position 1, **exactly one pair** — `(0, 4)` —
+survives the depth-4 face-iteration with a non-zero signature
+bit (and that bit is the last, depth-3 entry):
+
+```
+basisDepth4Sig 0 4 = [false, false, false, true]
+basisDepth4Sig i j = [false, false, false, false]   for (i, j) ≠ (0, 4)
+```
+
+The unique survivor `(0, 4)` is the **boundary-endpoint pair**
+(minimum-vertex × maximum-vertex of Δ⁴).  The depth-4 saturation
+ratio is `1/25 = 0.04` — a count-Lens output.
+
+Interpretation: at d = 5, the cup self-reference depth-(d-1)
+iteration **uniquely selects the boundary-diameter channel** of
+the simplex.  This single surviving channel is a candidate for
+the **leading α^(d-1) = α^4 suppression contribution** in DRLT
+physical constants.
+
+Open: extend the survivor analysis to (a) non-indicator cochain
+bases (Hodge dual basis, affine basis), (b) other split positions
+(k = 0, 2), (c) other initial τ (proper sub-faces of Δ⁴).  The
+unique-survivor count per basis × split × τ is a finite,
+catalog-extracting computation.
+
+11 new strict-PURE theorems in `SelfRefDepth.lean`.
 
 ### C. Cup-channel κᵢ structural derivation (zero-parameter)
 
