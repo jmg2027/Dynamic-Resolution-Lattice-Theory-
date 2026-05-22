@@ -32,6 +32,7 @@ open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self zero_mod)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure mul_mod_pure)
 open E213.Tactic.NatHelper (mul_assoc sub_add_cancel add_sub_cancel_right add_mul)
 open E213.Lib.Math.DyadicFSM.FLT.ChoosePrime (mul_p_mod_eq_zero)
+open E213.Lib.Math.DyadicFSM.PhiMod5 (inv2 four_mul_inv2_sq)
 
 /-- 𝔽_{p²} element representation: `(a, b)` for `a + b·√5`. -/
 abbrev FP2 : Type := Nat × Nat
@@ -580,5 +581,85 @@ theorem fp2Mul_self_frob (p : Nat) (hp : 0 < p) (x : FP2) :
     Norm((2, 3)) at p=7: `2² - 5·3² = 4 - 45 ≡ 1 mod 7`.  So result = (1, 0). -/
 theorem fp2Mul_self_frob_smoke_7 :
     fp2Mul 7 (2, 3) (fp2Frob 7 (2, 3)) = (fp2Norm 7 (2, 3), 0) := by decide
+
+/-! ## Norm of φ = -1 (universal Phase 3.3 closure step) -/
+
+/-- Helper: `((X % p) + Y) % p = (X + Y) % p`.  Universal mod-p
+    identity.  PURE. -/
+theorem mod_add_eq_left (X Y p : Nat) : (X % p + Y) % p = (X + Y) % p := by
+  rw [add_mod_gen (X % p) Y p, mod_mod X p, ← add_mod_gen X Y p]
+
+/-- ★ **`5·inv2² ≡ 1 + inv2² (mod p)`** (universal, for odd `1 < p`):
+    expansion `5 = 4 + 1` plus `4·inv2² ≡ 1`.  PURE. -/
+theorem five_inv2_sq_eq (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    (5 * inv2 p * inv2 p) % p = (1 + (inv2 p * inv2 p) % p) % p := by
+  -- Expand 5 * inv2² = 4 * inv2² + inv2² via add_mul + mul_assoc.
+  have h_expand : 5 * inv2 p * inv2 p
+                = 4 * (inv2 p * inv2 p) + inv2 p * inv2 p := by
+    show (4 + 1) * inv2 p * inv2 p = 4 * (inv2 p * inv2 p) + inv2 p * inv2 p
+    rw [add_mul 4 1 (inv2 p)]
+    rw [Nat.one_mul]
+    rw [add_mul (4 * inv2 p) (inv2 p) (inv2 p)]
+    rw [mul_assoc 4 (inv2 p) (inv2 p)]
+  rw [h_expand]
+  rw [add_mod_gen (4 * (inv2 p * inv2 p)) (inv2 p * inv2 p) p]
+  rw [four_mul_inv2_sq p hp hpo]
+  rw [Nat.mod_eq_of_lt hp]
+
+/-- ★★ **Norm(φ) = p - 1** (universal Phase 3.3 closure key):
+    in 𝔽_{p²}, `Norm(phiFP2 p) = -1 ≡ p - 1 (mod p)` for odd `1 < p`.
+
+    The classical identity `N(φ) = φ · σ(φ) = (1+√5)/2 · (1-√5)/2
+    = (1 - 5)/4 = -1` in any extension containing √5.
+
+    Reduces via `five_inv2_sq_eq` + `mod_cancel_right` with `Z = 1`.
+    PURE. -/
+theorem fp2Norm_phi_eq_neg_one (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
+    fp2Norm p (phiFP2 p) = p - 1 := by
+  have hp_pos : 0 < p := Nat.lt_of_succ_lt hp
+  show ((inv2 p * inv2 p) % p
+        + (p - (5 * inv2 p * inv2 p) % p)) % p = p - 1
+  have hLHS_lt :
+      ((inv2 p * inv2 p) % p + (p - (5 * inv2 p * inv2 p) % p)) % p < p :=
+    Nat.mod_lt _ hp_pos
+  have hRHS_lt : p - 1 < p := Nat.sub_lt hp_pos Nat.one_pos
+  -- LHS + 1 ≡ 0 (mod p)
+  have h_LHS_succ :
+      (((inv2 p * inv2 p) % p + (p - (5 * inv2 p * inv2 p) % p)) % p + 1) % p
+        = 0 := by
+    rw [mod_add_eq_left
+          ((inv2 p * inv2 p) % p + (p - (5 * inv2 p * inv2 p) % p)) 1 p]
+    rw [five_inv2_sq_eq p hp hpo]
+    -- Goal: ((inv2 p * inv2 p) % p
+    --         + (p - (1 + (inv2 p * inv2 p) % p) % p) + 1) % p = 0
+    rw [show (inv2 p * inv2 p) % p
+              + (p - (1 + (inv2 p * inv2 p) % p) % p) + 1
+            = (p - (1 + (inv2 p * inv2 p) % p) % p)
+                + (1 + (inv2 p * inv2 p) % p) from by
+        rw [Nat.add_comm ((inv2 p * inv2 p) % p
+                            + (p - (1 + (inv2 p * inv2 p) % p) % p)) 1]
+        rw [← Nat.add_assoc 1 ((inv2 p * inv2 p) % p)
+                              (p - (1 + (inv2 p * inv2 p) % p) % p)]
+        rw [Nat.add_comm (1 + (inv2 p * inv2 p) % p)
+                         (p - (1 + (inv2 p * inv2 p) % p) % p)]]
+    rw [← mod_add_eq_left (p - (1 + (inv2 p * inv2 p) % p) % p)
+                          (1 + (inv2 p * inv2 p) % p) p]
+    exact nmod_add_self_zero p (1 + (inv2 p * inv2 p) % p) hp_pos
+  -- RHS + 1 ≡ 0 (mod p)
+  have h_RHS_succ : (p - 1 + 1) % p = 0 := by
+    rw [sub_add_cancel (Nat.le_of_lt hp)]
+    exact mod_self p
+  exact E213.Lib.Math.ModArith.ModBezoutInvariant.mod_cancel_right
+    p _ _ 1 hp_pos hLHS_lt hRHS_lt (h_LHS_succ.trans h_RHS_succ.symm)
+
+/-- Smoke at p=3: `Norm(phiFP2 3) = 3 - 1 = 2`.
+    phi = (2, 2), Norm = (2² + (3 - 5·2²)) % 3 = (4 + (3 - 20)) % 3
+                      = (4 + 0) % 3 = 1 % 3 = 1.  Hmm that's not 2.
+    Let me recompute: 5·2² = 20, 20 % 3 = 2. 3 - 2 = 1. 4 % 3 = 1.
+    (1 + 1) % 3 = 2. ✓  (The literal computation uses asq = 4 % 3, bsq5 = 20 % 3.) -/
+theorem fp2Norm_phi_eq_neg_one_3 : fp2Norm 3 (phiFP2 3) = 2 := by decide
+
+/-- Smoke at p=7: `Norm(phiFP2 7) = 7 - 1 = 6`. -/
+theorem fp2Norm_phi_eq_neg_one_7 : fp2Norm 7 (phiFP2 7) = 6 := by decide
 
 end E213.Lib.Math.ModArith.FP2Sqrt5
