@@ -15,7 +15,7 @@ resolution ceiling.
 namespace E213.Lib.Math.SignedCut.Hurwitz.HurwitzCeiling
 
 open E213.Lib.Math.SignedCut.CD.CDTowerLevel
-  (CDLevel levelDim levelDim_concrete levelDim_25 n_resolution_emergence)
+  (CDLevel levelDim levelDim_concrete levelDim_25)
 
 /-- ★ Tower dimensions through level 5. -/
 theorem dim_tower_through_5 :
@@ -40,7 +40,7 @@ theorem hurwitz_d5_ceiling :
     levelDim 25 = 33554432
     ∧ (5 : Nat) ^ 25 = (5 : Nat) ^ 25
     ∧ (5 : Nat) * 5 = 25 :=
-  ⟨levelDim_25, n_resolution_emergence, rfl⟩
+  ⟨levelDim_25, rfl, rfl⟩
 
 /-- ★ **N_resolution value**: `5^25 = 298023223876953125` (closed form). -/
 theorem n_resolution_value_closed : (5 : Nat) ^ 25 = 298023223876953125 := rfl
