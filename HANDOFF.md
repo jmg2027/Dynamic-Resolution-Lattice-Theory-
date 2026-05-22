@@ -1,4 +1,4 @@
-# Session Handoff — 2026-05-22 (Part 10: invertible-FSM template extracted)
+# Session Handoff — 2026-05-22 (Part 11: G119 Phase 3.2 algebraic kernel)
 
 ## Branch
 `claude/handoff-part-3-marathon-0XWmn` — 17 commits ahead of
@@ -856,3 +856,81 @@ sessions):
   · No new DIRTY axioms anywhere
   · Same 4 user-facing theorems available with same signatures —
     no API break for downstream consumers.
+
+---
+
+# Part 11 — G119 Phase 3.2 algebraic kernel: `4·φ² ≡ 4·(φ+1) mod p`
+
+Started Phase 3.2 (split case, 5 QR mod p ⇒ period | (p-1)/2).  The
+full theorem needs:
+  1. **Square-root existence** for 5 (witness `s` with `s² ≡ 5 mod p`)
+  2. **FLT for φ**: `φ^(p-1) ≡ 1 mod p` (multi-session, Phase 2.1)
+  3. **Eigenvector / matrix algebra** connecting `φ^(p-1) = 1` to
+     `M^((p-1)/2) = I`
+
+This Part 11 closes the **algebraic kernel** (φ's defining recurrence
+in `F_p`) — the piece that's independent of FLT/eigenvector machinery
+and depends only on `s² ≡ 5 mod p` + odd `p > 1`.
+
+## What landed: `Lib/Math/DyadicFSM/PhiMod5.lean` (new, 13 PURE)
+
+  · `inv2 p := p / 2 + 1` — multiplicative inverse of 2 mod p.
+  · `two_mul_inv2` : `2 * inv2 p ≡ 1 (mod p)` for odd `p > 1`.
+  · `phi p s := ((1 + s) * inv2 p) % p` — golden ratio mod p.
+  · `phi_lt` : `phi p s < p` for `p > 0` (by construction).
+  · `two_mul_phi_eq` (BRIDGE) : `2 * phi p s ≡ 1 + s (mod p)`.
+  · `four_phi_sq_eq` : `4 * phi² ≡ (1+s)·(1+s) (mod p)`.
+  · `one_plus_s_sq_eq` : `(1+s)·(1+s) ≡ 6 + 2s (mod p)`, given `s² ≡ 5`.
+  · `four_phi_plus_one_eq` : `4 * (phi + 1) ≡ 6 + 2s (mod p)`.
+  · **`four_phi_sq_eq_four_phi_plus_one`** (★★★ KERNEL) :
+       `4 * phi² ≡ 4 * (phi + 1) (mod p)`,
+       given `s² ≡ 5 (mod p)` and odd `p > 1`.
+  · Smoke tests at p ∈ {11, 19} (sqrt5 witness + scaled identity).
+
+## Why the *scaled* form
+
+The unscaled `phi² ≡ phi + 1 (mod p)` requires multiplicative
+cancellation of 4 mod p (i.e., existence of `4⁻¹ mod p`, equivalently
+gcd(4, p) = 1 which holds for odd p > 1).  That cancellation is
+itself non-trivial in Lean without xgcd/FLT infrastructure (G119
+Phase 2.1, multi-session).
+
+The 4-scaled form `4·phi² ≡ 4·(phi+1)` is *equivalent* in F_p (since
+4 is invertible for odd p), and captures the algebraic content
+completely.  Future cancellation work will collapse the factor of 4
+once `4⁻¹ mod p` is constructed.
+
+## Purity hiccups + fixes
+
+First-pass leaks (all from Lean-core `Nat.*` lemmas that internally
+use propext):
+  · `Nat.add_mod`     → replaced with `AddMod213.add_mod_gen`
+  · `Nat.mul_assoc`   → replaced with `NatHelper.mul_assoc`
+  · `Nat.add_mul`     → replaced with `NatHelper.add_mul`
+
+(Notably PURE in Lean core, no replacement needed: `Nat.mul_add`,
+`Nat.add_assoc`, `Nat.mul_comm`, `Nat.add_comm`, `Nat.mul_one`,
+`Nat.add_right_comm`, `Nat.two_mul`, `Nat.zero_add`, `Nat.div_add_mod`.)
+
+This continues the documented Lean-core-helper-replacement pattern
+(see G93 / G94 / G99 in research-notes/ and the
+`NatHelper`/`AddMod213`/`MulMod213` modules).
+
+## What this unlocks
+
+The kernel reduces the φ recurrence in F_p to a single algebraic
+equation:  `s² ≡ 5 (mod p)` ⟹ `4·phi² ≡ 4·(phi+1) (mod p)`.
+
+Future Phase 3.2 work can layer on:
+  · Sqrt5 existence + witness construction (per QR-prime,
+    decidable; universal needs Euler's criterion).
+  · Multiplicative cancellation of 4 mod p (or FLT for `4` mod p).
+  · Eigenvector connection: M acts as φ² on the (1, sqrt5)-direction.
+  · FLT for φ: `φ^(p-1) ≡ 1 mod p`.
+  · Final: `M^((p-1)/2) = I` for split primes.
+
+## Verification (post Part 11)
+
+  · `lake build`: ✅ clean
+  · `scan_axioms.py PhiMod5`: 13 PURE / 0 DIRTY
+  · No new DIRTY axioms anywhere
