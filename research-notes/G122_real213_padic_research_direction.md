@@ -295,13 +295,47 @@ Next session: implement Phase 1 (truncation + zero/one/neg_one).
     both sides: `mul_one_{left,right}_digit`.  Absorbing zero
     established both sides: `mul_zero_{left,right}_digit`.
     Base case for truncation correctness: `Zp.mul_trunc_one`.
-    REMAINING: the general truncation correctness theorem
-        `(Zp.mul x y).trunc n = (x.trunc n * y.trunc n) % p^n`
-    for all `n`.  Structurally analogous to `add_trunc` but with
-    convolution bookkeeping (k-th raw sum depends on a multi-term Σ
-    over i + j = k); the proof likely needs a "partial product"
-    rearrangement lemma to match `x.trunc n · y.trunc n`'s
-    expansion to the digit-by-digit FSM sum.
+
+  · `mul_trunc` decomposition status (this session):
+
+    - Step 1 (structural identity): DONE.
+        `Zp.mulSumRaw_eq_trunc`:
+            mulSumRaw x y n = (Zp.mul x y).trunc n + mulCarry n · p^n
+        `Zp.mulSumRaw_mod_eq_trunc`:
+            mulSumRaw x y n % p^n = (Zp.mul x y).trunc n
+
+    - Step 2 (bilinear decomposition): PARTIAL.
+        `Zp.colSum / bilinSum` + closed forms
+        `colSum i b = (x.digits i).val · p^i · y.trunc b`
+        `bilinSum b a = x.trunc a · y.trunc b`
+        give us `x.trunc n · y.trunc n` expressed as the 2D sum
+        Σ_{i<n, j<n} x_i · y_j · p^(i+j).
+
+    - Step 3 (bridge): PENDING.
+        Need `bilinSum n n % p^n = mulSumRaw n % p^n`.
+
+  · The bridge.  Conceptually `bilinSum n n` sums over the full
+    n × n square in (i, j) space, while `mulSumRaw n` sums over
+    the diagonal region `i + j < n`.  The difference (the
+    "off-diagonal" pairs with `i + j ≥ n`) contributes only terms
+    divisible by `p^n`, so they vanish mod `p^n`.
+
+  · The recurrence governing this bridge (computed analytically;
+    proof-in-Lean pending):
+        bilinDiff 0 = 0
+        bilinDiff (n+1) = (bilinDiff n
+                            + x.trunc n · y_n + y.trunc n · x_n
+                            + x_n · y_n · p^n
+                            - mulRaw n) / p
+    where `bilinDiff n := (bilinSum n n − mulSumRaw n) / p^n`.
+    The recurrence's divisibility by `p` relies on a non-trivial
+    congruence:
+        bilinDiff n ≡ Σ_{1 ≤ i ≤ n-1} x_i · y_{n-i}  (mod p)
+    — the "middle" of `mulRaw n` matches `bilinDiff n mod p`.
+    Verified for `n ∈ {0, 1, 2, 3}`; general proof in Lean
+    requires either a strong invariant on `bilinDiff` (mod-p
+    structural condition) or an alternate definition of
+    `bilinDiff` as an explicit sum over off-diagonal pairs.
   · `Zp.neg_add_self` — full algebraic statement
     `Zp.add x (Zp.neg x) = Zp.zero` (sequence equality, requires
     funext-by-design pattern OR per-truncation rephrasing).
@@ -329,15 +363,49 @@ numeric type.
 |---|---|
 | 1. Foundation | DONE (16 PURE) |
 | 2. Arith — add + neg | DONE (15 PURE with full truncation correctness; comm + identity at digit level) |
-| 2'. Arith — mul | LARGE PROGRESS (30 PURE: defs + identity-laws both sides + absorbing-zero both sides + `mul_trunc_one` foothold; general `mul_trunc` pending) |
+| 2'. Arith — mul | LARGE PROGRESS (37 PURE: defs + identity-laws both sides + absorbing-zero both sides + `mul_trunc_one` foothold + `mul_trunc` step 1 (structural identity) + step 2 partial (bilinear sum machinery); bridge step 3 pending) |
 | 3. Norm + valuation | STARTER (9 PURE; `valAtLeast` + `valEq` + uniqueness) |
 | 4. Hensel lifting | PENDING |
 | 5. ℚ_p localization | PENDING |
 | 6. DRLT integration (5-adic N_U lift) | PENDING |
 
-**This session's deliverables**: 86 PURE declarations across 3
+**This session's deliverables**: 93 PURE declarations across 3
 Padic modules (Foundation + Arith + Norm).  Branch
-`claude/g122-real213-p-adic-LwxL9` pushed across 14 commits.
+`claude/g122-real213-p-adic-LwxL9` pushed across multiple commits.
+
+## Bridge analysis (recorded for next session)
+
+For the `mul_trunc` theorem, we have steps 1 and 2-partial; the
+remaining piece is the **diagonal-vs-square bridge**:
+
+  `bilinSum p x y n n % p^n = mulSumRaw p x y n % p^n`
+
+Equivalent existence form:
+  `∃ q, bilinSum p x y n n = mulSumRaw p x y n + q · p^n`.
+
+The "right" q at level n is the **off-diagonal sum**:
+  `q_n = Σ over (i, j) with i < n, j < n, i+j ≥ n of x_i · y_j · p^{i+j-n}`.
+
+Reparametrize by `i` (rows) and `m = j - (n - i)`, so j = n-i+m and
+m ranges from 0 to i-1.  Then q_n = `Σ_{i<n} x_i · Σ_{m<i} y_{n-i+m} · p^m`.
+
+Verified by hand for n ∈ {0, 1, 2, 3}: matches q_0 = 0, q_1 = 0,
+q_2 = x_1·y_1, q_3 = x_1·y_2 + x_2·y_1 + x_2·y_2·p.
+
+**Induction complication**: q_{n+1} doesn't relate to q_n via a
+simple recurrence because the `n` index appears inside `y.digits`
+in q's formula.  Specifically, q_n references `y.digits (n - i + m)`,
+which shifts when `n → n+1`.
+
+**Strategy for next session**: prove the bridge identity by
+**partition-of-the-square** rather than by induction on n.
+Define a 2D recursive `offDiagSum p x y n (a, b)` parameterized by
+the row/col bounds, and decompose `bilinSum n n` directly as
+`mulSumRaw n + offDiagSum n (n, n) · p^n` via a sub-induction that
+moves the (a, b) bounds one step at a time within a fixed `n`.
+
+Alternatively, work via `Nat.ModEq` machinery if a PURE version
+exists (or build one from `add_mul_mod_self_pure`).
 
 ---
 
