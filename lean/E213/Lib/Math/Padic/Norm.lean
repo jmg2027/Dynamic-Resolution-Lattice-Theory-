@@ -75,4 +75,37 @@ theorem Zp.not_valAtLeast_one_5_at_1 :
   -- ((ZpSeq.one 5 _).digits 0).val = 1, but valAtLeast claims = 0
   exact absurd h0 (by decide)
 
+/-! ## Valuation-exact predicate
+
+`valEq x n` — the p-adic valuation of `x` is exactly `n`:
+all digits below `n` are zero AND the digit at `n` is nonzero.
+This is the constructive characterization of `v_p(x) = n`
+without forming an actual numeric valuation.
+-/
+
+/-- `valEq x n` — `v_p(x) = n`.  -/
+def Zp.valEq {p : Nat} (x : ZpSeq p) (n : Nat) : Prop :=
+  Zp.valAtLeast x n ∧ (x.digits n).val ≠ 0
+
+/-- If `valEq x n` holds, then `valAtLeast x n` also holds. -/
+theorem Zp.valAtLeast_of_valEq {p : Nat} {x : ZpSeq p} {n : Nat}
+    (h : Zp.valEq x n) : Zp.valAtLeast x n := h.1
+
+/-- `valEq x n` and `valEq x m` are incompatible for `n ≠ m`.
+    (Uniqueness of the valuation.) -/
+theorem Zp.valEq_unique {p : Nat} {x : ZpSeq p} {n m : Nat}
+    (hn : Zp.valEq x n) (hm : Zp.valEq x m) : n = m := by
+  -- WLOG n ≤ m.  If n < m, then valAtLeast x m ⟹ (x.digits n).val = 0,
+  -- contradicting hn.2.
+  match Nat.lt_or_ge n m with
+  | .inl hlt =>
+    have hnz := hm.1 n hlt
+    exact absurd hnz hn.2
+  | .inr hge =>
+    match Nat.lt_or_eq_of_le hge with
+    | .inl hgt =>
+      have hnz := hn.1 m hgt
+      exact absurd hnz hm.2
+    | .inr heq => exact heq.symm
+
 end E213.Lib.Math.Padic
