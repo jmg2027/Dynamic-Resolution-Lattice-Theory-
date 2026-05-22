@@ -100,7 +100,24 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 153 PURE / 0 DIRTY across 6 modules.**
+**Padic total: 194 PURE / 0 DIRTY across 6 modules.**
+
+**Headline result this session**: the general `Zp.mul_trunc` bridge —
+`(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
+`n, p, x, y` — proved via the off-diagonal decomposition:
+
+  · `Zp.colSum_extend` — telescope colSum at arbitrary offset.
+  · `Zp.extColSum_eq_offDiagRow` — extension at `a = n - i` factors
+    as `p^n · offDiagRow`.
+  · `Zp.colSum_split` — row-by-row diagonal + off-diagonal decomposition.
+  · `Zp.diagSum` + `Zp.bilinSum_decomp` — sum-over-rows form.
+  · `Zp.diagSum_succ_level` — level extension formula
+    `diagSum(N+1, upper) = diagSum(N, upper) + p^N · mulRawSum(N, upper)`.
+  · `Zp.diagSum_eq_mulSumRaw` — diagonal sum at top = mulSumRaw.
+  · `Zp.bilinSum_eq_mulSumRaw_plus_offDiag` — structural identity
+    `bilinSum n n = mulSumRaw n + p^n · offDiagSum n n`.
+  · `Zp.bilinSum_mod_eq_mulSumRaw_mod` — mod p^n form.
+  · `Zp.mul_trunc` — the headline.
 
   · `lean/E213/Lib/Math/Padic/Field.lean` — full arithmetic
     scaffold for ℚ_p: `QpSeq` type, embedding `ofZp`,
