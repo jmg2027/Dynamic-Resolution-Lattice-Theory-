@@ -413,24 +413,52 @@ what closed and what deferred.
 
 ---
 
-# Part 6 — FSM-1 (2) research direction: Phase 1 + empirical extension
+# Part 6 — FSM-1 (2) research direction: Phase 1 CLOSED + bridge theorem
 
-Promoted from "marathon-deferred" to active research direction (commits
-`03f91946`, `182cb321`, `5f53b973`).  Goal: prove the Pisano period
-theorem for the Pell matrix `M = [[2, 1], [1, 1]]` via
-algebraic number theory.
+Promoted from "marathon-deferred" to active research direction.  Goal:
+prove the Pisano period theorem for the Pell matrix M = [[2,1],[1,1]]
+via algebraic number theory.
 
-## Phase 1 (DONE)
+## ★ Major closure: bridge theorem (commits `2a23fb8e`, `b900bf54`)
 
+**`pellCoeff_period_implies_pellFSMmod_period`** + bits version:
+
+  `pellCoeff p hp N = (0, 1) → ∀ k, pellFSMmod.run (k + N) = pellFSMmod.run k`
+
+PURE.  Reduces the FSM-period question to a finite-group statement
+about the matrix order of M in GL_2(𝔽_p).
+
+This means the universal Pisano theorem now has a CLEAN target:
+
+  **Conjecture**: ∀ p (hp : 1 < p),
+    `pellCoeff p hp (pisano_predict p hp) = (0, 1)`.
+
+Phase 2-3 work attacks this directly, independent of FSM machinery.
+
+## Phase 1 CLOSED
+
+Three new modules (all PURE):
   · **`Lib/Math/DyadicFSM/PellMatrix.lean`** — Cayley-Hamilton
     coefficients `pellCoeff p hp k` for `M^k = a_k · M + b_k · I`.
-    Recurrence: `(a_{k+1}, b_{k+1}) = (3a_k + b_k mod p, -a_k mod p)`.
-  · `pellCoeffFSM p hp` — coefficient FSM with matrix-order period
-    detector output `(k=0 ∧ b=1)`.
-  · Bridge smoke tests: `bridge_smoke_{3, 11}` verify both
-    `pellCoeff p hp N = (0, 1)` AND `(pellFSMmod p hp).run N = init`.
-  · Smoke tests at p ∈ {3, 5, 11}: matrix order matches predict formula.
-  · All PURE.
+  · **`Meta/Nat/MulMod213.lean`** — PURE replacements for Lean-core
+    `Nat.mul_mod` family.
+  · **`Lib/Math/DyadicFSM/PellMatrixAction.lean`** — action formula
+    `pellFSMmod.run k = (3·a_k + b_k mod p, 2·a_k + b_k mod p)` +
+    **the bridge theorem** connecting matrix order to FSM period.
+
+## Phase 3.1 CLOSED (ramified case via bridge)
+
+`Lib/Math/DyadicFSM/PellMatrixCases.lean`:
+  · `pell5_ramified_period_via_bridge` — derives the p=5 bit-period 10
+    via the bridge from `pellCoeff 5 _ 10 = (0, 1)` (decide).
+
+## Phase 3.2/3.3 SMOKE TESTS
+
+Same file demonstrates the framework on 5 primes:
+  · `pell{3, 7, 13}_inert_period_via_bridge`
+  · `pell{11, 19}_split_period_via_bridge`
+
+Each is a 3-line bridge application + `decide` on pellCoeff.
 
 ## Empirical chain extension (17 → 23 primes)
 
