@@ -3,97 +3,103 @@
 ## Branch
 
 `claude/math-algebra-analysis-marathon-rj4UW` — multi-session
-marathon closing "Open frontier" extensions across the Math —
-Algebra / Analysis chapter family.
+marathon closing "Open frontier" extensions and rigor-establishing
+theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 373 PURE / 0 DIRTY across 28 closures
+## Marathon summary — 457 PURE / 0 DIRTY across 35 closures
 
-### Wave 1: user-listed 11 chapter frontiers
-
-| Chapter | Lean file | PURE |
-|---|---|---:|
-| `modular_arithmetic.md` | `Lib/Math/ModArith/FP2SqrtD.lean` | 32 |
-| `pattern_catalog/pattern_catalog.md` | `Lib/Math/PatternCatalog/ParadigmBridge.lean` | 15 |
-| `dyadic_fsm.md` | `Lib/Math/DyadicFSM/KBonacci.lean` | 48 |
-| `analysis/flux_m_v_t.md` | `Lib/Math/Analysis/FluxMVT/TelescopingConservation.lean` | 6 |
-| `analysis/minimal_root.md` | `Lib/Math/Analysis/DyadicSearch/MultiVarBisection.lean` | 10 |
-| `cross_domain_unification.md` | `Lib/Math/GradedRingNUBridge.lean` | 16 |
-| `signed_cut.md` | `Lib/Math/SignedCut/Hurwitz/HurwitzDichotomy.lean` | 26 |
-| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL7.lean` | 12 |
-| `real213.md` | `Lib/Math/Real213/OracleContinuity.lean` | 10 |
-| `universe_chain.md` | `Lib/Math/UniverseChain/PhysicsDeployment.lean` | 12 |
-| `modulus_structure.md` | `Lib/Math/Topology/ModulusStructureFunctor.lean` | 12 |
-
-### Wave 2: residual follow-ups (5)
+### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
 | Chapter | Lean file | PURE |
 |---|---|---:|
-| `signed_cut.md` | `Lib/Math/SignedCut/Octonion/NonAssocQuantification.lean` | 19 |
-| `dyadic_fsm.md` | `Lib/Math/DyadicFSM/ContinuedFraction.lean` | 17 |
-| `universe_chain.md` | `Lib/Math/UniverseChain/PhiThreeWayBridge.lean` | 6 |
-| `modulus_structure.md` | `Lib/Math/Topology/ModulusStructureAdjunction.lean` | 12 |
-| `analysis/flux_m_v_t.md` | `Lib/Math/Analysis/FluxMVT/QuintupleTelescope.lean` | 3 |
+| `modular_arithmetic` | `Lib/Math/ModArith/FP2SqrtD.lean` | 32 |
+| `pattern_catalog` | `Lib/Math/PatternCatalog/ParadigmBridge.lean` | 15 |
+| `dyadic_fsm` | `Lib/Math/DyadicFSM/KBonacci.lean` | 48 |
+| `analysis/flux_m_v_t` | `Lib/Math/Analysis/FluxMVT/TelescopingConservation.lean` | 6 |
+| `analysis/minimal_root` | `Lib/Math/Analysis/DyadicSearch/MultiVarBisection.lean` | 10 |
+| `cross_domain_unification` | `Lib/Math/GradedRingNUBridge.lean` | 16 |
+| `signed_cut` | `Lib/Math/SignedCut/Hurwitz/HurwitzDichotomy.lean` | 26 |
+| `cayley_dickson/algebra_tower` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL7.lean` | 12 |
+| `real213` | `Lib/Math/Real213/OracleContinuity.lean` | 10 |
+| `universe_chain` | `Lib/Math/UniverseChain/PhysicsDeployment.lean` | 12 |
+| `modulus_structure` | `Lib/Math/Topology/ModulusStructureFunctor.lean` | 12 |
 
-### Wave 3: heavier multi-session items (7)
-
-| Chapter | Lean file | PURE |
-|---|---|---:|
-| `real213.md` | `Lib/Math/Real213/DiffCutModulus.lean` | 12 |
-| `real213.md` | `Lib/Math/Real213/CutIntegral.lean` | 8 |
-| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL8.lean` | 11 |
-| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/HurwitzTowerL1.lean` | 15 |
-| `cross_domain_unification.md` | `Lib/Math/ParadigmDomainPhysics.lean` | 14 |
-| `analysis/minimal_root.md` | `Lib/Math/Analysis/DyadicSearch/RootCertificate.lean` | 9 |
-| `modular_arithmetic.md` | `Lib/Math/Padic/HenselBridge.lean` | 8 |
-
-### Wave 4: deeper incremental follow-ups (5)
+### Wave 2: residual follow-ups (57 PURE)
 
 | Chapter | Lean file | PURE |
 |---|---|---:|
-| `modular_arithmetic.md` | `Lib/Math/Padic/ZpSqrtD.lean` | 12 |
-| `real213.md` | `Lib/Math/Real213/CutIntegralLinearity.lean` | 6 |
-| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL9.lean` | 7 |
-| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/HurwitzTowerL2.lean` | 7 |
-| `modular_arithmetic.md` | `Lib/Math/Padic/ZpSqrtDFrob.lean` | 8 |
+| `signed_cut` | `Lib/Math/SignedCut/Octonion/NonAssocQuantification.lean` | 19 |
+| `dyadic_fsm` | `Lib/Math/DyadicFSM/ContinuedFraction.lean` | 17 |
+| `universe_chain` | `Lib/Math/UniverseChain/PhiThreeWayBridge.lean` | 6 |
+| `modulus_structure` | `Lib/Math/Topology/ModulusStructureAdjunction.lean` | 12 |
+| `analysis/flux_m_v_t` | `Lib/Math/Analysis/FluxMVT/QuintupleTelescope.lean` | 3 |
 
-All theorems pass `#print axioms` ∅-axiom (PURE).
+### Wave 3: heavier multi-session items (77 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `real213` | `Lib/Math/Real213/DiffCutModulus.lean` | 12 |
+| `real213` | `Lib/Math/Real213/CutIntegral.lean` | 8 |
+| `cayley_dickson/algebra_tower` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL8.lean` | 11 |
+| `cayley_dickson/algebra_tower` | `Lib/Math/CayleyDickson/Integer/HurwitzTowerL1.lean` | 15 |
+| `cross_domain_unification` | `Lib/Math/ParadigmDomainPhysics.lean` | 14 |
+| `analysis/minimal_root` | `Lib/Math/Analysis/DyadicSearch/RootCertificate.lean` | 9 |
+| `modular_arithmetic` | `Lib/Math/Padic/HenselBridge.lean` | 8 |
+
+### Wave 4: deeper incremental follow-ups (40 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtD.lean` | 12 |
+| `real213` | `Lib/Math/Real213/CutIntegralLinearity.lean` | 6 |
+| `cayley_dickson/algebra_tower` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL9.lean` | 7 |
+| `cayley_dickson/algebra_tower` | `Lib/Math/CayleyDickson/Integer/HurwitzTowerL2.lean` | 7 |
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtDFrob.lean` | 8 |
+
+### Wave 5: rigor-establishing theorems (84 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtDRigor.lean` | 8 |
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtDRing.lean` | 8 |
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtDFrobRigor.lean` | 6 |
+| `dyadic_fsm` | `Lib/Math/DyadicFSM/KBonacciRecurrence.lean` | 26 |
+| `analysis/minimal_root` | `Lib/Math/Analysis/DyadicSearch/MultiVarRigor.lean` | 7 |
+| `universe_chain` | `Lib/Math/UniverseChain/PhysicsRigor.lean` | 15 |
+| `signed_cut` | `Lib/Math/SignedCut/DichotomyLadder.lean` | 14 |
+
+All 35 files: `#print axioms` ∅-axiom (PURE).
 
 ## Key structural results
 
-  · **FP2SqrtD**: ring + Frobenius + Norm universal in D.
-  · **k-bonacci depth-5 cascade**: `(d, d-1, NT, 1) = (5, 4, 2, 1)`.
-  · **Telescoping = Gauss = Conservation**: d-depth-3, 4, 5 chains.
-  · **Multi-variate bisection** on `Cut^n`.
-  · **Graded ring ↔ N_U bridge**.
-  · **Hurwitz / Non-assoc dichotomy ladder**:
-    `commut (n ≤ 1) → assoc (n ≤ 2) → norm-mult (n ≤ 3)`.
-  · **Universe Chain → Physics**: Cabibbo, Möbius P, CKM δ.
-  · **3-way φ bridge**: shared `5 = NS + NT = d`.
-  · **Modulus Structure**: 3-way + Option B + full adjunction.
-  · **Continued fractions** as FSM streams.
-  · **Real213 DiffCut + integral + linearity**.
+  · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
+    Frobenius + Norm + ring-hom rigor at digit-0.
+  · **k-bonacci** with parametric definition + standard recurrence
+    proven at k = 2, 3, 4, 5.
+  · **Telescoping = Gauss = Conservation** at d-depth 3, 4, 5.
+  · **Multi-variate bisection** with coordinate-independence rigor.
+  · **Hurwitz / non-assoc dichotomy ladder** = strict refinement
+    chain `commut ⊊ assoc ⊊ Hurwitz`, characterising
+    ℝ, ℂ, ℍ, 𝕆 by where they enter.
+  · **Universe Chain → Physics**: Cabibbo 5/22 + falsifier bracket,
+    Möbius P signature, Cassini d·NT − NS² = 1, CKM δ ≈ 176/147.
+  · **3-way φ bridge** + **Continued fractions** + **Real213 DiffCut /
+    integral / linearity**.
   · **Algebra tower**: Type B L7-L9 (64→256 units), Type D L1-L2
     (48→96 units).
-  · **Physics-side paradigms**: 15 paradigms total uniformly at
-    `d = 5`.
-  · **RootCertificate**: typed bracket + sign-change witness.
-  · **Hensel bridge → ZpSqrtD → ZpSqrtDFrob**: `F_p ↪ ℤ_p`,
-    `F_p[√D] ↪ ℤ_p[√D]`, Frobenius + Norm in ℤ_p[√D].
+  · **15 paradigms** (9 math + 6 physics) uniformly at d = 5.
+  · **RootCertificate** + **Hensel bridge** + **ZpSqrtD ring rigor**.
+  · **Modulus Structure**: 3-way + Option B + full adjunction.
 
-## Open frontier (post-marathon)
+## Open frontier (post-marathon residual)
 
-Remaining open work resides inside individual chapter
-"Open frontier" sections:
-
-  · `algebra_tower.md` — L10+, Type D L3+.
+  · `algebra_tower.md` — L10+, Type D L3+ (uniform CD-doubling).
   · `real213.md` — full pointwise additivity of integral over
-    arbitrary `S ++ T` (currently `rfl`-level head identities only).
-  · `modular_arithmetic.md` — Frobenius multiplicativity / norm-
-    multiplicativity at ℤ_p[√D] (currently component / smoke level).
+    arbitrary `S ++ T` requires `cutSum_assoc` (deferred).
+  · `modular_arithmetic.md` — Frobenius multiplicativity at ℤ_p
+    requires Zp.neg ∘ Zp.neg = id on the digit sequence (funext-
+    related).
   · per-chapter narrative deepenings.
-
-These are all incremental extensions of existing infrastructure;
-no structurally-new frontiers identified.
 
 ## Anchor docs (next session)
 
@@ -105,18 +111,18 @@ no structurally-new frontiers identified.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
-| `theory/math/modular_arithmetic.md` | FP2SqrtD + Hensel + ZpSqrtD |
-| `theory/math/dyadic_fsm.md` | k-bonacci + continued fractions |
+| `theory/math/modular_arithmetic.md` | FP2SqrtD + Hensel + ZpSqrtD + Rigor |
+| `theory/math/dyadic_fsm.md` | k-bonacci + cont-frac + recurrence |
 | `theory/math/analysis/flux_m_v_t.md` | telescoping + d-depth-5 |
-| `theory/math/analysis/minimal_root.md` | IVT + multi-var + RootCert |
+| `theory/math/analysis/minimal_root.md` | IVT + multi-var + RootCert + coord rigor |
 | `theory/math/cross_domain_unification.md` | C6 + N_U + physics paradigm |
-| `theory/math/signed_cut.md` | Hurwitz + non-assoc dichotomies |
+| `theory/math/signed_cut.md` | Hurwitz + non-assoc + dichotomy ladder |
 | `theory/math/cayley_dickson/algebra_tower.md` | Type B L7-9 + Type D L1-2 |
 | `theory/math/real213.md` | Real213 + oracle + DiffCut + integral |
-| `theory/math/universe_chain.md` | atomicity → physics + 3-way φ |
+| `theory/math/universe_chain.md` | atomicity → physics + 3-way φ + numerical rigor |
 | `theory/math/modulus_structure.md` | 3-way + Option B + adjunction |
 
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 28 new files PURE.
+`tools/scan_axioms.py <module>` — all 35 new files PURE.
