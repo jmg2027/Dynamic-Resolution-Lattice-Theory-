@@ -2,15 +2,62 @@
 //! `Phi_{10m^2}(5) = L_m^2 - 5*M_m^2` in `Z[sqrt(5)]`.
 //!
 //! Used to populate `AurifeuilleanLUnbounded.lean` chain (m = 1, 3, 7
-//! already embedded; m = 11 in progress).
+//! embedded; m = 11 attempted, infeasible at this scale).
 //!
 //! Modes:
 //!   · `phi <n>`                     — evaluate Phi_n(5) and print
 //!   · `verify <N> <L> <M>`          — check L^2 - 5*M^2 == N
 //!   · `cornacchia <N>`              — try Cornacchia-style search
 //!                                     for (L, M) with L^2 - 5*M^2 = N
+//!   · `l7-check`                    — verify known L_7 round-trip
+//!   · `l11-attempt`                 — compute Phi_1210(5)
 //!
-//! Lean cite: `AurifeuilleanLUnbounded.Lval`, `AurifeuilleanLUnbounded.L_norm_*`
+//! ## Algorithm landscape for finding (L, M)
+//!
+//! Given Phi_n(5) (very large integer), find integers (L, M) with
+//! L^2 - 5*M^2 = Phi_n(5).  Equivalent to: find element of given
+//! norm in `Z[sqrt(5)]`.
+//!
+//! ### Feasible at this scale (m ≤ 7)
+//!
+//! 1. **PARI/GP `bnfisnorm`** — class group + norm equation.
+//!    For Q(sqrt(5)) class number is 1, so reduces to factoring
+//!    N over Z[sqrt(5)].  PARI factors N via Pollard rho / ECM.
+//!    Works for `n ≤ 490` (m ≤ 7) in seconds.
+//!
+//! 2. **sympy `factor(Phi_n, extension=sqrt(5))`** — polynomial
+//!    factorization over algebraic extension via Trager's
+//!    algorithm.  Yields the half-degree factor polynomial A(y);
+//!    evaluating at y=5 gives `(L + M*sqrt(5))/D` for some `D ∈ Z`.
+//!    Works for `n ≤ 490` in minutes.
+//!
+//! ### Intractable at this scale (m ≥ 11) without specialized tools
+//!
+//! 3. **Direct factorization of Phi_n(5)** — requires GNFS for
+//!    308-digit numbers (Phi_1210(5) has digits ≈ 308).  No
+//!    general-purpose tool in this container.  Trial division on
+//!    primes `≡ 1 (mod n)` finds small factors only (we found
+//!    389621 as one factor of Phi_1210(5), remaining 302 digits).
+//!
+//! 4. **LLL reduction** — construct lattice with shortest vector
+//!    encoding (L, M).  Requires sqrt(5) mod N, which needs the
+//!    factorization of N (back to step 3).
+//!
+//! ### Theoretical paths (require additional infrastructure)
+//!
+//! 5. **Stevens-Brent explicit polynomial formula** — there is a
+//!    closed-form polynomial L_m(x), M_m(x) for each m (built via
+//!    the cyclotomic Galois orbit over Q(sqrt(5))).  Constructing
+//!    L_m(x), M_m(x) explicitly for general m requires
+//!    polynomial-ring arithmetic over Q(sqrt(5))[x], same
+//!    complexity as sympy's factor approach.  No shortcut to
+//!    avoid the polynomial-factorization step.
+//!
+//! 6. **Brent's published Aurifeuillean tables** — Brent and
+//!    Cohen have published m-indexed (L_m, M_m) tables for
+//!    various bases.  Not accessible from this container.
+//!
+//! Lean cite: AurifeuilleanLUnbounded.Lval / L_norm_m{1,3,7}
 
 use num_bigint::BigUint;
 use num_traits::{One, Zero};
