@@ -100,33 +100,39 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: ~250 PURE / 0 DIRTY across 6 modules.**
+**Padic total: 270 PURE / 0 DIRTY across 6 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
   · `Zp.invFull` builds the inverse as a single `ZpSeq` via
     `digits k := (invSeq k).digits k` + `invSeq_digit_stable`.
 
-**Hensel sqrt construction (CLOSED this stretch)**:
-  · `Zp.SqrtBase p x` — packages digit-0 sqrt `d_0` with
-    `d_0² ≡ (x.digits 0) mod p` + modular inverse of `2·d_0`.
-  · `Zp.sqrtSeq` — recursive approximate sqrt, parallel to `invSeq`
-    with `negMod ((prev² - x).trunc / p^(n+1) · (2·d_0)⁻¹)`.
-  · Structural lemmas: `sqrtSeq_succ_new_digit`,
-    `sqrtSeq_succ_digit_below`, `sqrtSeq_digit_above`,
-    `sqrtSeq_succ_trunc_low`, `sqrtSeq_trunc_at_succ`,
-    `sqrtSeq_succ_trunc_extend`, `sqrtSeq_digit_zero`,
-    `sqrtSeq_trunc_one`, `sqrtSeq_digit_stable`.
-  · **`Zp.sqr_sqrtSeq_correct`** — full general induction
-    `(sqrtSeq n)² ≡ x (mod p^(n+1))`.  Proof via `sqrt_cancel_full`
-    (the abstract algebraic core) which chains `binomial_sq_mod_pure`
+**Hensel sqrt construction (CLOSED)**:
+  · `Zp.SqrtBase p x` + `Zp.sqrtSeq` + `Zp.sqr_sqrtSeq_correct`
+    (full general induction `(sqrtSeq n)² ≡ x (mod p^(n+1))`).
+  · `Zp.sqrtFull` + `Zp.sqr_sqrtFull_correct` (diagonal extraction).
+  · Algebraic core `sqrt_cancel_full` chains `binomial_sq_mod_pure`
     + `mod_eq_from_neg_eq` + `sqrt_cancel` + `mul_pow_succ_mod`.
-  · **`Zp.sqrtFull` + `Zp.sqr_sqrtFull_correct`** — diagonal
-    extraction giving the single-`ZpSeq` square root, parallel to
-    `invFull` / `mul_invFull_correct`.
 
-**ℚ_p inverse**: `QpSeq.inv` (CLOSED) — uses `Zp.invFull` on `a.num`
-then `Zp.shiftLeft` by `a.shift` to absorb the original p-adic shift.
+**Concrete sqrt instances (this stretch)**:
+  · `Zp.i_5 = √(-1) ∈ ℤ_5` (digits 2, 1, 2, 1, …).
+  · `Zp.i_13 = √(-1) ∈ ℤ_13` (digits 5, 5, 1, …).
+  · `Zp.sqrt_two_7 = √2 ∈ ℤ_7` (digits 3, 1, 2, …).
+  · All with `sqr_..._trunc_one/two` verifications.
+
+**ℚ_p arithmetic (CLOSED)**:
+  · `QpSeq.add/sub/mul/neg` plus `QpSeq.inv` (Hensel-based),
+    `QpSeq.div` (mul · inv), `QpSeq.sqrt` (sqrtFull on numerator,
+    shift / 2, even-shift hypothesis).
+  · `QpSeq.sqr_sqrt_num_correct`: ℚ_p sqrt correctness on the
+    numerator side (shift handled by `sqr_sqrt_shift`).
+
+**p-adic norm ultrametric (CLOSED this stretch)**:
+  · `valAtLeast_add` (equal-level additive ultrametric).
+  · `valAtLeast_mul` (full multiplicative `val(xy) = val(x) + val(y)`
+    in valAtLeast form).
+  · `valEq_add_of_lt`: when valuations differ, the smaller one
+    dominates (`val(x + y) = min(val(x), val(y))` for `val(x) ≠ val(y)`).
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
