@@ -226,14 +226,38 @@ the cut-off slice moves with the set.
      complexity assignment of catalogue atoms (most dramatically:
      `5` moves from depth 0 to depth 1 when `d` is dropped).
 
-## §9 Open frontier
+## §9 Direction A unrestricted — depth-2 outer-pow case CLOSED
 
-  · **Direction A continuation**: unrestricted depth-2 (outer pow)
-    via algebraic prime-factorisation.  `137` and `521` are prime;
-    if `a^b = 137` then `a = 137` (since `137` is prime), but
-    `137 ∉ depth1Universe`, so no depth-2 outer-pow Hunter
-    expression hits 137.  Requires Lean Nat.Prime infrastructure
-    or explicit case decide on the 16 × 16 depth-1 universe pairs.
+The previously-open outer-pow frontier of Direction A is closed
+via a kernel-feasible enumeration + monotonicity split.
+
+**Strategy** (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE):
+
+  · **Small range** `b ∈ {2, …, 10}` (9 values, all `< 256`
+    kernel exponentiation threshold): 16 × 9 = 144 pairs
+    `(a, b)`, each `a^b ≤ 3125^10 ≈ 10^35`, decide-checked.
+
+  · **Large range** `b ∈ {15, 25, 27, 32, 125, 243, 3125}`
+    (7 values): monotonicity argument
+    `a ≥ 2 ∧ b ≥ 15 → a^b ≥ 2^15 = 32768 > 521 > 137`, via
+    `Nat.pow_le_pow_{left,right}`.
+
+  · **Dispatch**: split on `j.val < 9` (small) or `j.val ≥ 9`
+    (large); the 16-element depth-1 universe partitions
+    cleanly into the two ranges with no overlap.
+
+**Combined verdict for catalogue primes `{137, 521}`**:
+
+  · restricted depth-2 (outer ∈ {+, *}): covered by
+    `HunterComplexity.complexity_{137,521}_at_least_3_restricted`.
+  · outer-pow case: covered by `AurifeuilleanDepth2PowCutoff.depth2_pow_ne_{137,521}`.
+
+Hence `hunterComplexity(137) = 3` and `hunterComplexity(521) = 3`
+**without** the "restricted to outer ∈ {+, *}" qualifier.  The
+upper bound (= 3) follows from the explicit depth-3 witnesses
+`2^(2+5) + 3^2` and `2^(3^2) + 3^2`.
+
+## §10 Remaining frontier
 
   · **Direction B continuation**: extend Aurifeuillean L_m chain
     to m = 11.  Φ_{1210}(5) is 308 digits; PARI/GP `bnfisnorm`
@@ -248,7 +272,12 @@ the cut-off slice moves with the set.
     function with bounded search; structural complexity-hierarchy
     theorem `{v : hunterComplexity(v) ≤ k}` properly chains in k.
 
-## §10 Cross-references
+  · **Other catalogue atoms at depth-2-pow**: same enumeration +
+    monotonicity strategy applies to `13`, `29`, `41` (already
+    handled at restricted depth-2); the outer-pow case for these
+    is a straightforward extension.
+
+## §11 Cross-references
 
   · `cardinality_cutoff_principle.md` — methodology chapter.
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
@@ -258,7 +287,9 @@ the cut-off slice moves with the set.
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterAtomicClosure.lean`
     — Direction D (54 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanDepth2Cutoff.lean`
-    — Direction A (12 PURE).
+    — Direction A restricted (12 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanDepth2PowCutoff.lean`
+    — Direction A unrestricted, outer-pow case (18 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/PellCutoff.lean`
     — Direction C (35 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
