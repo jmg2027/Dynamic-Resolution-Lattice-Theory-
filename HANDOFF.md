@@ -3,8 +3,10 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-9 closed;
-**27 closures totaling 330 PURE new** (1 closure deferred: CupAW (5,1,2)).
+open-frontier marathon (G139).  Phases 1-10 (part 1) closed;
+**32 closures totaling 354 PURE new** (2 closures deferred:
+CupAW (5,1,2) with full meta analysis, Pisano mod 11 for
+Padovan/Tribonacci).
 
 ## G139 phase-by-phase
 
@@ -19,6 +21,7 @@ open-frontier marathon (G139).  Phases 1-9 closed;
 | 7 | U, V | 15 | Nara/Trib mod-5 period 31 — grid complete across 6 × 3 = 18 parametric closures |
 | 8 | W | 12 | HC²¹³ variant automation — Δ³ + Δ⁵ + grid capstone (2^n atomic generators across Δⁿ) |
 | 9 | X, Y, Z, AA | 61 | HC²¹³ Δ⁶/Δ⁷ + Pisano mod-7 column + Sq² chain-level + multi-cell H⁵ ≠ 0 |
+| 10 (part 1) | CC, DD, EE, FF, GG | 24 | HC²¹³ Δ⁸ + Pisano mod-11 short periods (Fib/Lucas/Jac/Nara) |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -54,19 +57,20 @@ of the prior `Pad_24_eq_Pad_0_mod_5` decide-spot-check.
 `Fib_mod_5_period_20` parametric — classical Pisano period
 `π(5) = 20`.
 
-## Pisano-analogue closure GRID COMPLETE (six sisters × four primes)
+## Pisano-analogue closure GRID (extended to π(11) for 4 of 6 sisters)
 
-| Sequence  | Recurrence | π(2) | π(3) | π(5) | π(7) |
-|-----------|------------|------|------|------|------|
-| Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 | 16 |
-| Lucas     | same, init `(2, 1)` | 3 | 8 | 4 | 16 |
-| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 | 48 |
-| Tribonacci | sum of 3 prev | 4 | 13 | 31 | 48 |
-| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 | 57 |
-| Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 | 6 |
+| Sequence  | Recurrence | π(2) | π(3) | π(5) | π(7) | π(11) |
+|-----------|------------|------|------|------|------|-------|
+| Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 | 16 | 10 |
+| Lucas     | same, init `(2, 1)` | 3 | 8 | 4 | 16 | 10 |
+| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 | 48 | (120) |
+| Tribonacci | sum of 3 prev | 4 | 13 | 31 | 48 | (110) |
+| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 | 57 | 60 |
+| Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 | 6 | 10 |
 
-**23 parametric + 1 eventually-constant = 24 Pisano-analogue
-closures** — strict ∅-axiom.
+**Status: 27 parametric + 1 eventually-constant Pisano-analogue
+closures shipped; 2 deferred (Padovan / Tribonacci mod 11 with
+periods 120 / 110).**
 
 **Period-coincidence twin pairs**:
   · Fib ↔ Lucas: shared periods at all four primes (recurrence
@@ -147,19 +151,40 @@ DEFERRED: CupAW Leibniz (5, 1, 2) — pattern decide OOM at
 800M heartbeats (32 × 1024 × 10 = 327k evals).  Closure needs
 pattern-splitting strategy.
 
-## Phase 10 candidates (next session)
+## CupAW (5, 1, 2) — meta analysis of OOM (Phase 10 deferral)
 
-  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — explicit cobounding-chain
-    construction `b_1, b_2 : C¹` solving `ω ⌣ ω = δ b_i`, then
-    Massey-class computation modulo indeterminacy ideal.
-    Substrate is in place from Phase 9 (G139-AA).
-  · **CupAW Leibniz (5, 1, 2)** — retry with pattern splitting
-    or manual algebraic reduction.
-  · **HC²¹³ Δ⁸+ further automation** (decide complexity scales
-    rapidly).
-  · **Pisano-analogue mod-11 column** (longer periods).
+Four decide-based strategies failed:
+  1. Naive pattern decide @ 800M heartbeats: OOM
+  2. β-cases 5-bit cascade: OOM
+  3. β-cases 2-bit cascade @ 1.6B heartbeats: OOM
+  4. β-cases 10-bit cascade @ 8B heartbeats: 6 GB RSS killed
+     before completion.
 
-## Phase 10+ (deferred)
+Root cause: per-eval symbolic `cupAW 5 1 2` term is heavier
+than `cupAW 5 1 1` due to the doubling of the second-argument
+cochain dimension (Cochain 5 2 has 10 indices vs Cochain 5 1's
+5).  Even ~320 evals per leaf (10-bit cascade) blows up the
+kernel proof term.
+
+Phase 11+ closure path: **bilinearity decomposition** via
+`cupAW_add_left/cupAW_add_right` + `delta_add` + per-basis-pair
+small decides.  5 × 10 = 50 basis pairs, each trivially decided;
+algebraic chain combines into the universal (α, β) result.
+Requires a (5, 1, b)-side decomposition template (sister to
+existing `LeibnizAlgLiftBeta` for (5, 2, b)).
+
+## Phase 11 candidates (next session)
+
+  · **CupAW (5, 1, 2) via bilinearity decomposition** — see
+    meta analysis above.
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
+    (G139-AA from Phase 9); needs explicit cobounding-chain
+    construction.
+  · **Padovan / Tribonacci mod 11** — long periods (120 / 110)
+    but mechanical extension of Phase 10 template.
+  · **HC²¹³ Δ⁹+ further automation**.
+
+## Phase 12+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).

@@ -204,6 +204,7 @@ sister Δⁿ closures are now shipped:
 | 6 | Δ⁵      |        6 |    15 |  64 |
 | 7 | Δ⁶      |        7 |    21 | 128 |
 | 8 | Δ⁷      |        8 |    28 | 256 |
+| 9 | Δ⁸      |        9 |    36 | 512 |
 
 Each closure ships the same proof shape: `decide` over all
 `(i, j, τ)` triples in `Fin n × Fin n × Fin (binom n 2)`,

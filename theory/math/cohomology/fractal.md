@@ -386,19 +386,21 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     validation standard.  Out of scope for the cohomology
     layer; logged here as the principal downstream physics
     problem.
-  · **Pisano-analogue grid across sister sequences** — **CLOSED**.
-    Six Direction C sister sequences with parametric Pisano-analogue
-    closures across the small-prime tetrad `{2, 3, 5, 7}` —
-    24 closures total (23 parametric + 1 eventually-constant):
+  · **Pisano-analogue grid across sister sequences** — extends
+    to the small-prime pentad `{2, 3, 5, 7, 11}` for 4 of 6
+    sister sequences:
 
-    | Sequence  | π(2)       | π(3) | π(5) | π(7) |
-    |-----------|------------|------|------|------|
-    | Fibonacci |   3        |   8  |  20  |  16  |
-    | Lucas     |   3        |   8  |   4  |  16  |
-    | Padovan   |   7        |  13  |  24  |  48  |
-    | Tribonacci|   4        |  13  |  31  |  48  |
-    | Narayana  |   7        |   8  |  31  |  57  |
-    | Jacobsthal| constant 1 |   6  |   4  |   6  |
+    | Sequence  | π(2)       | π(3) | π(5) | π(7) | π(11) |
+    |-----------|------------|------|------|------|-------|
+    | Fibonacci |   3        |   8  |  20  |  16  |  10   |
+    | Lucas     |   3        |   8  |   4  |  16  |  10   |
+    | Padovan   |   7        |  13  |  24  |  48  | (120) |
+    | Tribonacci|   4        |  13  |  31  |  48  | (110) |
+    | Narayana  |   7        |   8  |  31  |  57  |  60   |
+    | Jacobsthal| constant 1 |   6  |   4  |   6  |  10   |
+
+    27 parametric + 1 eventually-constant closures shipped;
+    Padovan / Tribonacci mod 11 (periods 120 / 110) deferred.
 
     Common technique: nested induction over the recurrence
     order + `add_mod_gen` for sum reduction + `mul_mod_right_pure`

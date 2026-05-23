@@ -258,15 +258,53 @@ Automation observation: each Δⁿ instance is mechanical via
      at maxHeartbeats 800M.  Needs different strategy: pattern
      splitting, manual reduction, or algebraic lift.
 
-## Phase 10 (next session candidates)
+## Phase 10 — partial closure (5 closures, 24 PURE new)
 
-  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — explicit cobounding-chain
-    construction `b_1, b_2 : C¹` solving `ω ⌣ ω = δ b_i`, then
-    Massey-class computation modulo indeterminacy ideal.
-    Substrate is in place (G139-AA).
-  · CupAW Leibniz (5, 1, 2) — retry with pattern splitting.
-  · HC²¹³ Δ⁸+ further automation.
-  · Pisano-analogue mod-11 column (longer periods).
+ 28. **G139-CC HC²¹³ Δ⁸ automation extension** — CLOSED (5 PURE).
+     `Refinement/CupAtomicGenerationDelta8.lean`.  9 vertices →
+     36 edges, 2⁹ = 512 atomic generators.  Δⁿ pentad now n ∈
+     {4..9}.
+ 29. **G139-DD Fib mod-11 period 10** — CLOSED (+5 PURE).
+     Classical π(11) = 10.
+ 30. **G139-EE Lucas mod-11 period 10** — CLOSED (+5 PURE).
+     Shared with Fibonacci.
+ 31. **G139-FF Jac mod-11 period 10** — CLOSED (+5 PURE).
+     Shared period via different structural origin (mul-order of
+     2 mod 11 = 10).
+ 32. **G139-GG Nara mod-11 period 60** — CLOSED (+4 PURE).
+     3-step one-shift template; base values ~ 10¹⁰.
+
+Three-way period coincidence at mod 11: `Fib ↔ Lucas ↔ Jac`
+all π(11) = 10.
+
+  *  **G139-HH Pisano mod-11 long periods**: Padovan (π = 120)
+     and Tribonacci (π = 110) deferred (base verifications at
+     indices 120-122 / 110-112 + 3-step recurrence cost).
+  *  **G139-BB CupAW (5, 1, 2)** — DEFERRED.  Four meta
+     strategies tried, all OOM:
+       1. Naive pattern decide (maxHeartbeats 800M): OOM
+       2. β-cases 5-bit cascade + revert: OOM
+       3. β-cases 2-bit cascade (maxHeartbeats 1.6B): OOM
+       4. β-cases 10-bit cascade (maxHeartbeats 8B): consumed
+          6 GB RAM at the Lean process; killed before completion.
+     Root cause: per-eval symbolic `cupAW 5 1 2` term is heavier
+     than `cupAW 5 1 1` — the second-argument cochain dimension
+     doubles (10 vs 5) and the AW unfolding grows
+     multiplicatively.  Viable Phase 11+ closure: bilinearity
+     decomposition via `cupAW_add_left/cupAW_add_right` +
+     `delta_add` — 5 × 10 = 50 per-basis-pair Leibniz decides
+     (each trivial), then algebraic chain via bilinearity.
+
+## Phase 11 (next session candidates)
+
+  · **CupAW (5, 1, 2) via bilinearity decomposition** — write
+    a (5, 1, b)-side decomposition template (sister to
+    `LeibnizAlgLiftBeta`).
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
+    (G139-AA); needs explicit cobounding-chain construction.
+  · **Padovan / Tribonacci mod 11** (period 120 / 110;
+    long but mechanical).
+  · **HC²¹³ Δ⁹+ further automation**.
 
 ## Phase 10+ (deferred)
 
