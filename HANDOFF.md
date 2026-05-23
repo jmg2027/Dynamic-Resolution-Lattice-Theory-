@@ -282,6 +282,36 @@ The `(k+1)` graduation is now NUMERICALLY explicit at the concrete
 cases; the cohomology-theoretic reason `(k+1)` (vs cup-arity
 `k+l`) remains the open frontier.
 
+### G132 Phase 8 — Loop-vertex graduation DONE 2026-05-23
+
+`LoopVertexGraduation.lean` (14 PURE).  Formalises the
+cohomology-degree ↔ vacuum-polarization-loop-count correspondence
+as the structural interpretation of `(k+1)`:
+
+  · `loopCountAtH k := k` (cohomology degree = loop count)
+  · `vertexCountAtLoops loops := loops + 1`
+  · `alphaPowerAtH k := vertexCountAtLoops (loopCountAtH k) = k + 1`
+  · `gram_via_loop_vertex : gram_correction_e9 = (α/d)^(alphaPowerAtH 1)`
+  · `omega_weighted_via_loop_vertex : omega_weighted_trace_e9 = 9 · (α/d)^(alphaPowerAtH 2)`
+
+Explicit cup-axiom gap:
+  · `cupBilinearOutputDegree k l := k + l`
+  · `cup_bilinear_vs_loop_vertex_at_k1`: cup arity matches (k+1) at k = 1 (both = 2)
+  · `cup_bilinear_vs_loop_vertex_at_k2`: cup arity DIVERGES at k = 2 (cup = 4, loop-vertex = 3)
+
+Status of refined cup-ladder (post-Phase 8):
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | PROVED (Nat identity) |
+  | `(α/d)^(k+1)` at k = 1, 2 | PROVED (decide) |
+  | `(k+1) = loop count + 1` reading | POSIT (physics-motivated) |
+  | Cup-axiom derivation of (k+1) | OPEN (Phase 9+: higher cup / Steenrod) |
+
+The Phase 9+ frontier requires extending `Math/Cohomology/Cup/`
+with higher cup operations (cup_i, Steenrod squares), Massey
+products, or filtration spectral sequences.
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -480,6 +510,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/LoopVertexGraduation.lean` | **G132 Phase 8** — cohomology ↔ loop-vertex correspondence + cup-axiom gap |
 | `lean/E213/Lib/Physics/AlphaEM/PerLayerCoupling.lean` | **G132 Phase 7** — per-layer coupling (α/d)^(k+1) factorisation |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SelfPairingTrace.lean` | **G132 Phase 6** — L²-pairing rule proved as universal Nat identity |
 | `lean/E213/Lib/Physics/AlphaEM/RefinedCupLadderDerivation.lean` | **G132 Phase 5** — two-rule structural derivation (cup-graduation + L²-pairing) |

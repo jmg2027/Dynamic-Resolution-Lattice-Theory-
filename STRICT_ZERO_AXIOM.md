@@ -1367,3 +1367,37 @@ Full residual sum: `(α/d)² + NS²·(α/d)³ = 2157 × 10⁻⁹` = raw
   | `||c||² = (L¹-norm)²` | PROVED (Nat identity) |
   | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (this file) |
   | `(k+1) = filtration depth + 1` reading | POSIT (cohomology-theoretic) |
+
+## 2026-05-23 — LoopVertexGraduation (cohomology ↔ loop-vertex correspondence)
+
+Formalises the structural interpretation of the `(k+1)` α-power
+graduation as the cohomology-degree ↔ vacuum-polarization-
+loop-count correspondence + explicit cup-axiom gap documentation.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.LoopVertexGraduation` | 14 | `loopCountAtH k := k` (cohomology degree = loop count); `vertexCountAtLoops loops := loops + 1` (k-loop has k+1 vertices); `alphaPowerAtH k := vertexCountAtLoops (loopCountAtH k)`; ★★★ `alphaPower_eq_k_plus_1 : ∀ k, alphaPowerAtH k = k + 1`; ★★★★ `h1_gram_loop_vertex` (1-loop, 2 vertices, α²); ★★★★ `h2_omega_loop_vertex` (2-loop, 3 vertices, α³); ★★★★★ `gram_via_loop_vertex` + `omega_weighted_via_loop_vertex` (bridge to Phase 7 closures); `cupBilinearOutputDegree k l := k+l`; ★★★ `cup_bilinear_vs_loop_vertex_at_k1` (matches at k=1); ★★★ `cup_bilinear_vs_loop_vertex_at_k2` (DIVERGES at k=2: cup arity = 4, loop-vertex = 3); ★★★★★★★★ `loop_vertex_graduation_master` (11-conjunct capstone) |
+
+**Cohomology ↔ loop-vertex correspondence**:
+
+  · H¹ ↔ 1-loop ↔ 2 vertices ↔ α² (Gram self-energy)
+  · H² ↔ 2-loop ↔ 3 vertices ↔ α³ (ω contribution)
+  · H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1)
+
+**Cup-axiom gap (explicit)**:
+
+  · Bilinear cup arity at (k, l) = `k + l`.
+  · Self-pairing at degree k gives `2k`, matching `(k+1)` only at k = 1.
+  · At k ≥ 2 the bilinear cup arity DIVERGES from `(k+1)`.
+  · Derivation of `(k+1)` requires structure BEYOND bilinear cup:
+    higher cup operations (cup_i, Steenrod squares), Massey
+    products, or spectral-sequence differentials.
+
+**Refined formula status (post-Phase 8)**:
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | PROVED (Nat identity) |
+  | `(α/d)^(k+1)` at k = 1, 2 | PROVED (decide) |
+  | `(k+1) = loop count + 1` | POSIT (physics-motivated, this file) |
+  | Cup-axiom derivation of `(k+1)` | OPEN (higher cup / Steenrod) |
