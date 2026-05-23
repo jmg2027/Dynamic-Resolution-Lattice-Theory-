@@ -1452,4 +1452,45 @@ theorem Zp.add_mul_trunc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
       ← E213.Meta.Nat.AddMod213.add_mod (Nat.pos_pow_of_pos n hp)
             (x.trunc n * z.trunc n) (y.trunc n * z.trunc n)]
 
+/-- `(x + complement x).trunc n = (neg_one).trunc n` — at every level,
+    `x + complement x` truncates to the same value as `neg_one`. -/
+theorem Zp.add_complement_trunc_eq_neg_one (p : Nat) (hp : 0 < p) (x : ZpSeq p) :
+    ∀ n, (Zp.add p hp x (Zp.complement p hp x)).trunc n
+         = (ZpSeq.neg_one p hp).trunc n
+  | 0 => rfl
+  | n + 1 => by
+    show (Zp.add p hp x (Zp.complement p hp x)).trunc n
+          + ((Zp.add p hp x (Zp.complement p hp x)).digits n).val * p^n
+        = (ZpSeq.neg_one p hp).trunc n
+          + ((ZpSeq.neg_one p hp).digits n).val * p^n
+    rw [Zp.add_complement_trunc_eq_neg_one p hp x n]
+    rw [Zp.add_complement_digit p hp x n]
+    show (ZpSeq.neg_one p hp).trunc n + (p - 1) * p^n
+       = (ZpSeq.neg_one p hp).trunc n
+         + ((ZpSeq.neg_one p hp).digits n).val * p^n
+    rfl
+
+/-- **Additive inverse**: `(x + neg x).trunc (n + 1) = 0`.
+
+    Proof: by `Zp.neg = complement + 1`, then `x + (complement + 1)
+    = (x + complement) + 1` via `add_trunc_assoc`.  At trunc level
+    `(x + complement) = neg_one` (via `add_complement_trunc_eq_neg_one`),
+    and `(neg_one + 1).trunc (n+1) = 0` (via `add_neg_one_one_trunc_succ`). -/
+theorem Zp.add_neg_self_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat) :
+    (Zp.add p (Nat.lt_of_succ_lt hp) x (Zp.neg p hp x)).trunc (n + 1) = 0 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  -- neg x is definitionally add (complement x) (one).
+  show (Zp.add p hp' x
+          (Zp.add p hp' (Zp.complement p hp' x) (ZpSeq.one p hp))).trunc (n + 1) = 0
+  -- Regroup via add_trunc_assoc.
+  rw [Zp.add_trunc_assoc p hp' x (Zp.complement p hp' x) (ZpSeq.one p hp) (n + 1)]
+  -- Goal: (add (add x (complement x)) one).trunc (n+1) = 0
+  rw [Zp.add_trunc p hp' _ _ (n + 1)]
+  rw [ZpSeq.trunc_one_succ p hp n]
+  rw [Zp.add_complement_trunc_eq_neg_one p hp' x (n + 1)]
+  -- Goal: ((neg_one).trunc (n+1) + 1) % p^(n+1) = 0
+  rw [show (ZpSeq.neg_one p hp').trunc (n + 1) + 1 = p^(n + 1) from
+        ZpSeq.trunc_neg_one_succ p hp' (n + 1)]
+  exact E213.Meta.Nat.AddMod213.mod_self _
+
 end E213.Lib.Math.Padic
