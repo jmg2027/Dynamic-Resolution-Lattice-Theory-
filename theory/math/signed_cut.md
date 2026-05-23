@@ -172,6 +172,28 @@ ZFC characterisation of `ℝ, ℂ, ℍ, 𝕆`.
 - ~~**Non-associativity quantification**~~ — CLOSED via
   `NonAssocQuantification.lean` (19 PURE) above.
 
+## Rigor — dichotomy ladder strict ordering (14 PURE)
+
+`Lib/Math/SignedCut/DichotomyLadder.lean` consolidates the three
+dichotomies into a **strict refinement chain**:
+
+  `commut (n ≤ 1) → assoc (n ≤ 2) → norm-mult (n ≤ 3)`
+
+  · `commutAdmissible n := decide (n ≤ 1)` (new) admits ℝ, ℂ only.
+  · `commut_implies_assoc`, `assoc_implies_hurwitz`,
+    `commut_implies_hurwitz` — Bool-level implications.
+  · `assoc_strictly_extends_commut` — ℍ at n=2 witnesses strict.
+  · `hurwitz_strictly_extends_assoc` — 𝕆 at n=3 witnesses strict.
+  · `all_fail_at_sedenion` — 𝕊 at n=4 = total collapse.
+  · `ladder_population` — exact admitted-set sizes (2, 3, 4).
+  · ★★★★★ `dichotomy_ladder_capstone` packages implications +
+    strict refinements + sedenion total fail.
+
+Reading: the three CD-loss predicates form a faithful chain — each
+strictly stronger than the next; the four normed-division-algebras
+(ℝ, ℂ, ℍ, 𝕆) are characterised by exactly where they enter the
+ladder.
+
 ## How to verify
 
 ```bash
