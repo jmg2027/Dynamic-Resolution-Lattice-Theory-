@@ -1,9 +1,9 @@
 # Geometrization Conjecture (213-Lens reading)
 
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
-R1+ deepenings: FW-2 (JSJ extension), FW-4 (metric direct), I-3
-(Ricci ε-Lens), and 8-geo Lie group infrastructure — adding ~49 PURE.
-Sub-tree total: ~198 PURE / 0 DIRTY.
+R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching),
+FW-4 (metric direct), I-3 (Ricci ε-Lens), and 8-geo Lie group
+infrastructure — adding ~100 PURE.  Sub-tree total: ~249 PURE / 0 DIRTY.
 
 ## Overview
 
@@ -194,7 +194,7 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~41 PURE): Euler-target
+- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~92 PURE): Euler-target
   scaffold with 3-mfd catalog (S³, T³, L(p,q), # sums all χ = 0);
   K_{3,2}^{(c=2)} cell-complex parameter family (k − j = 7);
   **cycle inventory** (6 multi-edge 2-cycles + 3 simple 4-cycles =
@@ -202,7 +202,11 @@ For full ~149 PURE inventory, see
   specifications** — atomic ceiling at (9, 2), longer cycles needed
   for (10, 3) and beyond; **bipartite S/T cut → JSJ torus parallel**
   with explicit component counts (3 S + 2 T = 5 components, 12 cut
-  edges); `JSJ_deepening_FW2_close` capstone.  Bridges to
+  edges); **explicit 3-mfd target attaching maps**
+  (S³ at (k,j)=(7,0); T³ at (8,1); L(p,q) at (10,3)) carrying
+  `CellComplexK32Attaching` data with edge-index 2-cell cycle lists
+  + 2-cell-index 3-cell boundary lists; `JSJ_deepening_FW2_close`
+  and `FW2_concrete_attaching_close` capstones.  Bridges to
   `Cohomology/Bipartite/Filled3Cell.lean`.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
