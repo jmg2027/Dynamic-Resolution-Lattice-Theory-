@@ -209,4 +209,89 @@ theorem multi_cork_close :
           corkOfCork_signed_count,
           corkOfCork_group_order⟩
 
+/-! ## §7 — Universal multi-cork count formulas (∀ m by structure)
+
+The count formulas are PURE Nat statements determined by the list
+length alone — they do not depend on cork-data well-formedness.
+(Universal involution `corkTwistMulti² = id` requires twist-parity
+∈ {0, 1} on each component, a separate well-formedness condition.)
+-/
+
+/-- ★★★★★ **Universal signed-count formula**:
+    `signedCorkTwistCountMulti m = 4^m.length` for any multi-cork. -/
+theorem signedCorkTwistCountMulti_universal (m : MultiCork213) :
+    signedCorkTwistCountMulti m = powNat 4 m.length := rfl
+
+/-- ★★★★★ **Universal twist group order**:
+    `corkTwistGroupOrder m = 2^m.length` for any multi-cork. -/
+theorem corkTwistGroupOrder_universal (m : MultiCork213) :
+    corkTwistGroupOrder m = powNat 2 m.length := rfl
+
+/-- The signed count and twist group order both grow exponentially
+    in `m.length`, with bases `4` and `2` respectively.  At a fixed
+    `m`, the relation `4 = 2 * 2` lifts via `powNat`, so the signed
+    count equals `(twist group order)²` — verified concretely at
+    each length below. -/
+theorem signed_count_vs_group_order_at_length_two :
+    signedCorkTwistCountMulti pairCork
+      = corkTwistGroupOrder pairCork * corkTwistGroupOrder pairCork := by
+  decide
+
+theorem signed_count_vs_group_order_at_length_three :
+    signedCorkTwistCountMulti tripleCork
+      = corkTwistGroupOrder tripleCork * corkTwistGroupOrder tripleCork := by
+  decide
+
+/-- Specialisation: k = 4 yields signed count 256. -/
+def quadCork : MultiCork213 :=
+  [E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork]
+
+theorem signedCorkTwistCountMulti_quad :
+    signedCorkTwistCountMulti quadCork = 256 := by decide
+
+/-- Specialisation: k = 5 yields signed count 1024. -/
+def quintCork : MultiCork213 :=
+  [E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
+   E213.Lib.Math.AkbulutCork.Foundation.K14_cork]
+
+theorem signedCorkTwistCountMulti_quint :
+    signedCorkTwistCountMulti quintCork = 1024 := by decide
+
+/-- ★★★★★★★ **Universal multi-cork close (∀ m : MultiCork213)**
+
+  Universal formulas hold by `rfl` (the definitions encode the
+  list-length-indexed power directly).  The product-law `4^k =
+  (2^k)²` is verified concretely at each length via `decide`.
+
+  Universal involution `corkTwistMulti² = id` requires a
+  well-formedness assumption (`twist_parity ∈ {0, 1}` per
+  component) and is left to the canonical-instances theorems
+  in `MultiCork.corkTwistMulti_involution_*`. -/
+theorem multi_cork_universal_close :
+    -- Universal formulas (rfl-level)
+    (∀ m : MultiCork213,
+       signedCorkTwistCountMulti m = powNat 4 m.length)
+    ∧ (∀ m : MultiCork213,
+       corkTwistGroupOrder m = powNat 2 m.length)
+    -- Concrete checks at k = 2, 3 for product law
+    ∧ signedCorkTwistCountMulti pairCork
+        = corkTwistGroupOrder pairCork * corkTwistGroupOrder pairCork
+    ∧ signedCorkTwistCountMulti tripleCork
+        = corkTwistGroupOrder tripleCork * corkTwistGroupOrder tripleCork
+    -- Concrete checks at k = 4, 5
+    ∧ signedCorkTwistCountMulti quadCork = 256
+    ∧ signedCorkTwistCountMulti quintCork = 1024 := by
+  refine ⟨signedCorkTwistCountMulti_universal,
+          corkTwistGroupOrder_universal,
+          signed_count_vs_group_order_at_length_two,
+          signed_count_vs_group_order_at_length_three,
+          signedCorkTwistCountMulti_quad,
+          signedCorkTwistCountMulti_quint⟩
+
 end E213.Lib.Math.AkbulutCork.MultiCork
