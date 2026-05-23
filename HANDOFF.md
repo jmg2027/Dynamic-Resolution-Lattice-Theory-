@@ -379,6 +379,30 @@ All three readings give α-power = 2 at H¹, α-power = 3 at H².
 The cup-axiom-internal expression of the (k+1) rule is now
 formalised at the Steenrod-square level.
 
+### G132 Phase 15 — universal-k three-reading DONE 2026-05-23
+
+`CupLadderUniversalK.lean` (10 PURE).  Lifts the three-reading
+equivalence from k = 1, 2 specialisations to a universal Nat
+identity:
+
+  ∀ k ≥ 1, alphaPowerAtH k = loopCountAtH k + 1
+                          = steenrodLadderDepth k + 2 = k + 1.
+
+The Nat-arithmetic side is now universal.  Cohomological content
+(max Sq^i = k − 1 at H^k via explicit cup_(k-1) self-pairing)
+remains proved only at k = 1, 2.
+
+Final session status:
+
+  | Layer | Status |
+  |-------|--------|
+  | Nat-arithmetic ∀ k ≥ 1 | PROVED |
+  | Steenrod Sq^i at H¹, H² | PROVED |
+  | cup_1 = δ² bridge | PROVED |
+  | Adem Sq^1·Sq^1 = 0 at truncation | PROVED |
+  | Cohomological at k = 1, 2 | PROVED |
+  | Cohomological at k ≥ 3 | OPEN (multi-session) |
+
 Status of (k+1) derivation (post-Phases 10-13):
 
   | Component | Status |
@@ -589,6 +613,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/CupLadderUniversalK.lean` | **G132 Phase 15** — universal-k three-reading equivalence (∀ k ≥ 1) |
 | `lean/E213/Lib/Physics/AlphaEM/SteenrodLadderAlphaPower.lean` | **G132 Phase 14** — Steenrod ladder ↔ α-power bridge; three-reading equivalence |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` | **G132 Phases 12-13** — Sq^0, Sq^1 at H² ω + Adem Sq^1·Sq^1 = 0 |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` | **G132 Phase 11** — cup_1(ω, ω) = δ²(ω) bridge identity |
