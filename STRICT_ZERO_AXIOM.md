@@ -1452,3 +1452,78 @@ requires (a) general Steenrod cup_i with the full
 Alexander-Whitney face-pair formula, and (b) 3-skeleton extension
 of `K_{3,2}^{(c=2)}` so that cup_1(ω, ω) at degree 3 lands at top
 of a 3-skeleton, recovering the `(k+1) = 3` graduation.
+
+## 2026-05-23 — Phases 10-13: 3-skeleton extension + Steenrod squares at ω
+
+Marathon toward `(k+1)` derivation: 3-cell attaching, cup_1 = δ²
+bridge, Steenrod Sq^i, Adem Sq^1·Sq^1 = 0.  Three new files
+(32 PURE / 0 DIRTY).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.Filled3CellExtension` | 10 | `C3_dim := 1`; `delta2_full` (3-cell coboundary, boundary = all 3 faces); ★★★★ `omega_delta2_full_eq_true : δ²(ω) = (true)`; `omega_not_in_ker_delta2`; ★★★★★ `delta2_of_im_delta1_eq_zero : δ² ∘ δ¹ = 0` (cochain complex); `H2_dim_at_3_skeleton := 0`; `H2_dim_drops_at_3_skeleton`; ★★★★★★★★ `filled3cell_extension_master` |
+| `E213.Lib.Math.Cohomology.Bipartite.FaceCup1At3Cell` | 10 | `face_cup_1` (rotational interlocking face-pair sum); `face_cup_1_zero_left/right`; ★★★★ `omega_face_cup_1_self_eq_true`; ★★★★★ `omega_face_cup_1_eq_delta2 : face_cup_1 ω ω = δ²(ω)` (cup_1 = δ² bridge identity); `cupLadder_output_degree_at`; `cup_ladder_at_H2_eq_3 : = 3`; ★★★★★★★★ `face_cup_1_at_3cell_master` |
+| `E213.Lib.Math.Cohomology.Bipartite.SteenrodSquaresAtOmega` | 12 | `Sq_0 α := face_cup_2 α α`; `Sq_1 α := face_cup_1 α α`; ★★★★ `Sq_0_omega_eq_omega : Sq^0(ω) = ω`; ★★★★★ `Sq_1_omega_eq_delta2 : Sq^1(ω) = δ²(ω)`; ★★★★ `Sq_1_omega_value : Sq^1(ω) = (true)`; ★★★★★ `Sq_1_squared_eq_zero` (Adem Sq^1·Sq^1 = 0 vacuous at C⁴ truncation); `omega_steenrod_ladder`; ★★★★★★★★ `steenrod_squares_at_omega_master` |
+
+**Structural progress toward (k+1)**:
+
+The H² ω class supports the cup-ladder graduation `(k+1) = 3` via:
+
+  · Sq^0(ω) = ω (idempotent under face_cup_2, lands C²)
+  · Sq^1(ω) = δ²(ω) = (true) on C³ (cup_1 = coboundary, max
+    non-trivial Sq)
+  · Sq^1·Sq^1 = 0 at C⁴ truncation (Adem boundary)
+
+The maximum non-trivial Sq^i at the H² ω class is i = 1, giving
+output at C³ (degree k+1 = 3).  This is the Steenrod-square
+expression of the α^(k+1) = α³ coupling support.
+
+Bridge identities:
+
+  · cup_1(ω, ω) = δ²(ω)  (Steenrod-Whitehead signature)
+  · Sq^1 = cup_(p-1) at degree p (Steenrod's cohomology definition)
+  · Adem Sq^1·Sq^1 = 0 (vacuous at C⁴ truncation, structural)
+
+**Status of `(k+1)` derivation (post-Phases 10-13)**:
+
+  | Component | Status |
+  |-----------|--------|
+  | 3-skeleton extension + δ² | PROVED |
+  | Steenrod Sq^i at ω (i = 0, 1) | DEFINED + values proved |
+  | cup_1 = δ² bridge | PROVED at H² ω |
+  | Adem Sq^1·Sq^1 = 0 (truncation) | PROVED |
+  | Steenrod cup_2 idempotent at ω | PROVED |
+  | Max non-trivial Sq^i = (k-1) at H^k | PROVED at k = 2 |
+  | General Sq^i for arbitrary i | OPEN |
+  | General Adem relations | OPEN (Adem-Wu basis) |
+  | Cartan formula | OPEN |
+  | (k+1) derivation for general k | OPEN (multi-session) |
+
+The H² ω case is now fully formalised at the Steenrod-square
+level.  Extension to H^k for general k requires:
+  · (k+1)-skeleton extension at each k;
+  · General cup_i + Alexander-Whitney face-pair formula;
+  · Adem-Wu basis for arbitrary Sq^i compositions.
+
+## 2026-05-23 — Phase 14: Steenrod ladder depth ↔ α-power bridge
+
+Connects the Steenrod-square ladder depth at an H^k class to the
+α-power graduation `(k+1)` in the refined cup-ladder formula.
+10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.SteenrodLadderAlphaPower` | 10 | `steenrodLadderDepth k := k - 1`; ★★★ `steenrod_ladder_depth_at_H1 : = 0`, `_at_H2 : = 1`; ★★★★★ `alpha_power_at_H1_via_steenrod : alphaPowerAtH 1 = steenrodLadderDepth 1 + 2`; ★★★★★ `alpha_power_at_H2_via_steenrod`; ★★★★★★ `three_readings_at_H1` + `three_readings_at_H2` (physics ↔ cohomology ↔ Steenrod readings of (k+1)); ★★★★★★★★ `steenrod_ladder_alpha_power_master` (8-conjunct capstone) |
+
+**Three-reading equivalence of the (k+1) graduation**:
+
+  | Reading | Identity at H¹ | Identity at H² |
+  |---------|----------------|----------------|
+  | Physics (Phase 8): loop + 1 | 1 + 1 = 2 | 2 + 1 = 3 |
+  | Cohomology (Phase 7): filtration + 1 | 1 + 1 = 2 | 2 + 1 = 3 |
+  | Steenrod (Phase 14): Sq depth + 2 | 0 + 2 = 2 | 1 + 2 = 3 |
+
+All three readings agree at H¹ (α-power = 2, Gram) and H²
+(α-power = 3, ω contribution).  The Steenrod-square ladder gives
+the cohomology-algebra-internal expression: α-power =
+(max non-trivial Sq^i depth) + 2.

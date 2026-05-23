@@ -172,6 +172,10 @@ of independent gluon channels."*
 | `loop_vertex_graduation_master` | `LoopVertexGraduation` | Cohomology ↔ loop-vertex correspondence: H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1) (Step 6 interpretive) |
 | `steenrod_higher_frame_master` | `Cup/SteenrodHigherFrame` | Cup-i type framework + cup_0 = standard cup + cup_1 at base arities |
 | `face_cup_higher_master` | `Bipartite/FaceCupHigher` | face_cup_2 on K_{3,2}^{(c=2)}; ω idempotent under face_cup_2; trace = NS² |
+| `filled3cell_extension_master` | `Bipartite/Filled3CellExtension` | 3-skeleton extension; δ²(ω) = (true); ω trivialises at full 3-cell |
+| `face_cup_1_at_3cell_master` | `Bipartite/FaceCup1At3Cell` | cup_1(ω, ω) = δ²(ω) (Steenrod-Whitehead bridge identity) |
+| `steenrod_squares_at_omega_master` | `Bipartite/SteenrodSquaresAtOmega` | Sq^0(ω) = ω, Sq^1(ω) = δ²(ω), Adem Sq^1·Sq^1 = 0 |
+| `steenrod_ladder_alpha_power_master` | `AlphaEM/SteenrodLadderAlphaPower` | α-power = Sq ladder depth + 2 = (k-1) + 2 = k+1 (three-reading equivalence) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -313,7 +317,7 @@ Cup-product algebra extension to higher cup operations (cup_i,
 Steenrod squares), Massey products, or spectral-sequence
 differentials is the open frontier.
 
-#### Files (Step 6 closure, 10 files, 133 PURE total)
+#### Files (Step 6 closure, 14 files, 175 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -337,15 +341,30 @@ differentials is the open frontier.
   · `Math/Cohomology/Bipartite/FaceCupHigher.lean` (10 PURE)
     — face_cup_2 on K_{3,2}^{(c=2)} face cochains; ω idempotent
     under face_cup_2; trace matches Phase 6 bilinearSelfTrace = NS²
+  · `Math/Cohomology/Bipartite/Filled3CellExtension.lean` (10 PURE)
+    — 3-skeleton extension; δ² coboundary; ω trivialises at full
+    3-cell attaching (H² drops to 0); δ²∘δ¹ = 0
+  · `Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` (10 PURE)
+    — face_cup_1 (rotational interlocking); bridge identity
+    `cup_1(ω, ω) = δ²(ω)` (Steenrod-Whitehead signature)
+  · `Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` (12 PURE)
+    — Sq^0(ω) = ω; Sq^1(ω) = δ²(ω); Adem Sq^1·Sq^1 = 0 (vacuous
+    at C⁴ truncation); max non-trivial Sq^i = (k-1) at H^k
+  · `Physics/AlphaEM/SteenrodLadderAlphaPower.lean` (10 PURE)
+    — bridge α-power = Sq ladder depth + 2; three-reading
+    equivalence (physics ↔ cohomology ↔ Steenrod)
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
 
-Phase 9 (cup-i framework) is a first step toward deriving the
-`(k+1)` α-power graduation from cup-product axioms.  The framework
-is in place; full Steenrod algebra closure (general cup_i, Adem
-relations, Cartan formula) + 3-skeleton extension of K_{3,2}^{(c=2)}
-is the multi-session marathon scope.
+Phases 9-13 (cup-i framework + Steenrod squares + 3-skeleton
+extension + Adem at truncation) constitute the multi-phase
+marathon toward deriving the `(k+1)` α-power graduation from
+cup-product axioms.  At the H² ω class the Steenrod-square
+ladder is now fully established (max non-trivial Sq^i = 1,
+output at C³, matching `(k+1) = 3`).  Generalisation to H^k for
+arbitrary k requires (k+1)-skeleton extensions + general
+Steenrod cup_i + Adem-Wu basis — multi-session marathon scope.
 
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 
