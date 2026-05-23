@@ -377,6 +377,95 @@ For this audit, **record findings, don't execute splits/merges**
 unless they're trivially clarifying.  Significant restructuring
 deserves its own commit chain after the merge.
 
+## Phase 7.6: Cross-corpus synthesis pass
+
+The pre-merge audit so far has been *destructive-corrective*: find
+stale refs, delete duct-tape, verify consistency.  This phase is
+*creative-synthetic*: step back from the just-merged content, read
+the theory corpus laterally, and generate new ideas / insights /
+research notes that the closure has now made visible.
+
+The point is to capture patterns that recur across multiple
+chapters, methodology lessons that generalise, and "obvious next
+questions" that only become obvious once a closure clears the
+view.  Without this phase, these insights evaporate after the
+merge.
+
+### 7.6.a Sample the theory landscape
+
+Read laterally — not just the chapters touched by the current
+branch, but adjacent chapters too:
+
+```bash
+ls theory/math/ theory/physics/ theory/meta/ 2>/dev/null
+ls theory/math/cohomology/ theory/math/analysis/ 2>/dev/null
+```
+
+For each closed sub-tree relevant to the just-merged work, skim:
+  - The "Key results" table.
+  - The "Closing reflection" / "Open frontier" sections (if present).
+  - The "Methodology" / "Surprises" notes (if present).
+  - Adjacent chapters that import the same Lib/ infrastructure.
+
+Look for:
+  - **Pattern recurrence** — the same template solving multiple
+    problems (e.g., "diagonal extraction for limit objects" in
+    Padic — does it apply elsewhere?).
+  - **Methodology lessons that generalise** — was a proof
+    technique invented here that should be a first-class pattern?
+    (e.g., "binomial-free Frobenius via p-equal-terms-sum-is-zero".)
+  - **Unexpected cross-chapter resonances** — does chapter X's
+    structural insight echo chapter Y's open question?
+  - **Newly-obvious next questions** — does the just-closed
+    structure make a previously-vague question crisp?
+  - **Missing parallel constructions** — if X has a Theorem of
+    type T, does Y need one too?
+
+### 7.6.b Write findings as a research note
+
+Capture the synthesis as `research-notes/G###_<topic>_synthesis.md`
+(use the next free `G###` number).  Don't pad — write only what
+you actually noticed.  A useful synthesis note has:
+
+  - **Anchor** — one sentence stating what the merge closed.
+  - **Patterns** — 2-4 bullets each pointing to a recurring
+    structure, technique, or methodology insight, with examples
+    drawn from at least two chapters.
+  - **New questions** — 2-4 bullets, each a concrete next-campaign
+    seed.  Avoid speculation; list only questions where the
+    structural shape is now clear.
+  - **Cross-references** — explicit pointers to the chapters
+    that informed each pattern / question.
+
+If you can't honestly produce 2+ patterns and 2+ new questions
+after skimming, **write a one-paragraph note saying so** rather
+than padding.  A "no new synthesis" note is a valid output and
+documents that the chapter is currently isolated; it tells the
+next session there's no harvested-but-unwritten material.
+
+### 7.6.c Do not let synthesis become scope creep
+
+Discipline:
+  - Synthesis notes go in `research-notes/`, not `theory/`.
+    Promotion to a chapter requires the closure machinery
+    (`theory/PROMOTION_CRITERIA.md` H1-H4 + S1-S3), which is a
+    separate effort.
+  - Don't restructure the just-merged content based on the
+    synthesis pass.  Restructure is its own commit chain after
+    the merge lands.
+  - One commit per synthesis note.  Don't bundle multiple notes
+    into one commit — each topic deserves its own history slot.
+
+### Why this phase exists
+
+Mingu's directive: this repo is "doing the equivalent of
+re-founding several academic fields — optimise for readability,
+extensibility, modularity, well-formed classification."  Closure
+campaigns produce *artifacts*; this phase ensures they also
+produce *seeds* for the next round.  Without it, every merge is
+just adding mass; with it, every merge generates the next
+campaign's prep.
+
 ## Phase 8: Final commit hygiene
 
   - Commit messages of recent work explain WHY, not just WHAT
