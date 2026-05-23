@@ -100,7 +100,7 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 270 PURE / 0 DIRTY across 6 modules.**
+**Padic total: 287 PURE / 0 DIRTY across 7 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
@@ -127,12 +127,25 @@ Currently still open:
   · `QpSeq.sqr_sqrt_num_correct`: ℚ_p sqrt correctness on the
     numerator side (shift handled by `sqr_sqrt_shift`).
 
-**p-adic norm ultrametric (CLOSED this stretch)**:
+**p-adic norm ultrametric (CLOSED)**:
   · `valAtLeast_add` (equal-level additive ultrametric).
   · `valAtLeast_mul` (full multiplicative `val(xy) = val(x) + val(y)`
     in valAtLeast form).
   · `valEq_add_of_lt`: when valuations differ, the smaller one
     dominates (`val(x + y) = min(val(x), val(y))` for `val(x) ≠ val(y)`).
+
+**Power + Teichmüller (this stretch — new module `Pow.lean`)**:
+  · `Zp.pow x n` recursive definition via `Zp.mul`.
+  · `pow_trunc`: `(x^n).trunc m = (x.trunc m)^n % p^m` (homomorphism).
+  · `pow_add_trunc`, `pow_mul_trunc`: pow distributes over + in
+    exponent and · in base, all at trunc level.
+  · **Fermat at digit-0**: `pow_p_trunc_one` — `x^p ≡ x (mod p)`.
+  · **Fermat for units**: `pow_p_minus_one_trunc_one` —
+    `x^(p-1) ≡ 1 (mod p)` for `x` with nonzero digit 0, p prime.
+  · `Zp.teichmuller_iter` + `teichmuller_iter_trunc_one`:
+    iterating `x ↦ x^p` preserves digit 0 mod p — first step of
+    Teichmüller convergence.
+  · Smokes: `2^5 ≡ 2 mod 5`, `2^4 ≡ 1 mod 5`, 3-iterate-of-2.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary

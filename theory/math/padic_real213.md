@@ -232,8 +232,14 @@ extension only, is itself a research question.  See
 | `Zp.i_5` + `i_5_sq_trunc_one/two` | `Hensel` | `i₅ = √(-1) ∈ ℤ_5`, with explicit digits 2,1,2,1,... |
 | `Zp.valAtLeast_add` | `Norm` | additive ultrametric inequality |
 | `Zp.valAtLeast_mul` | `Norm` | multiplicative ultrametric `val(xy) = val(x) + val(y)` |
+| `Zp.valEq_add_of_lt` | `Norm` | strong additive: differing valuations → min dominates |
 | `QpSeq.inv` / `QpSeq.div` | `Field` | inverse and division on ℚ_p |
 | `QpSeq.sqrt` + `sqr_sqrt_num_correct` | `Field` | ℚ_p sqrt (even-shift only — `√p ∉ ℚ_p`) |
+| `Zp.pow` + `pow_trunc` | `Pow` | natural-number power with trunc compatibility |
+| `Zp.pow_add_trunc`, `Zp.pow_mul_trunc` | `Pow` | pow is a ring homomorphism at trunc |
+| `Zp.pow_p_trunc_one` | `Pow` | Fermat at digit-0: `x^p ≡ x (mod p)` |
+| `Zp.pow_p_minus_one_trunc_one` | `Pow` | Fermat: `x^(p-1) ≡ 1 (mod p)` for x unit |
+| `Zp.teichmuller_iter` + invariant | `Pow` | iterate `x ↦ x^p`; digit-0 preserved mod p |
 
 ## Hensel infrastructure
 
@@ -284,6 +290,25 @@ then `x.trunc (m+k) = p^m · A` for some `A`.  Pairing with the
 analogous y-side identity, the product is `p^(m+n) · (A·B)`,
 divisible by `p^(m+n)`.
 
+## Teichmüller iteration
+
+For p prime, the map `x ↦ x^p` preserves digit 0 mod p (Fermat's
+little theorem at the digit level).  Iterating gives
+`Zp.teichmuller_iter x n := x^(p^n)`, with digit-0 invariant:
+
+  `(teichmuller_iter x n).trunc 1 = x.trunc 1`  ∀n.
+
+In classical theory, the sequence `x, x^p, x^(p²), …` converges
+(p-adically) to the Teichmüller representative `ω(x)` — the
+unique `(p-1)`-th root of unity congruent to `x mod p`.  The
+full convergence at higher trunc levels uses the Frobenius lift
+`(a + p^n · b)^p ≡ a^p (mod p^(n+1))`, which would need binomial
+expansion mod `p^(n+1)`.  Currently captured: the digit-0 step.
+
+Companion: `Zp.pow_p_minus_one_trunc_one` says `x^(p-1) ≡ 1 (mod p)`
+for `x` a unit (digit-0 nonzero) — the multiplicative-order
+statement defining roots of unity.
+
 ## Open frontier
 
 - **Digit-level ring laws** (`mul_comm_digit`, `mul_assoc_digit`):
@@ -292,8 +317,9 @@ divisible by `p^(m+n)`.
 - **Hensel uniqueness**: if `y²  ≡ x mod p^n` and `z² ≡ x mod p^n`
   with `y_0 = z_0`, prove `y ≡ z mod p^n`.  Would give uniqueness
   of the Hensel-lifted square root.
-- **Teichmüller lifts**: for `d ∈ (ℤ/p)*`, build the unique
-  `(p-1)`-th root of unity in `ℤ_p` congruent to `d (mod p)`.
+- **Full Teichmüller convergence**: prove
+  `(teichmuller_iter x (n+1)).trunc (n+1) = (teichmuller_iter x n).trunc (n+1)`
+  for `n ≥ 1`.  Requires the Frobenius lift binomial-mod argument.
 - **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
   closes `n ≤ 25`.  Beyond, `5^25 % 5^n = 5^25 - q · 5^n` for the
   appropriate quotient.  Whether this regime is operationally
@@ -306,9 +332,10 @@ divisible by `p^(m+n)`.
 cd lean && lake build E213.Lib.Math.Padic
 python3 tools/scan_axioms.py E213.Lib.Math.Padic.Foundation \
                               E213.Lib.Math.Padic.Arith \
+                              E213.Lib.Math.Padic.Pow \
                               E213.Lib.Math.Padic.Norm \
                               E213.Lib.Math.Padic.Hensel \
                               E213.Lib.Math.Padic.Field \
                               E213.Lib.Math.Padic.DRLT
-# Expected: 250+ PURE / 0 DIRTY
+# Expected: 280+ PURE / 0 DIRTY
 ```
