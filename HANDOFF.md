@@ -403,6 +403,20 @@ Final session status:
   | Cohomological at k = 1, 2 | PROVED |
   | Cohomological at k ≥ 3 | OPEN (multi-session) |
 
+### G132 Phase 16 — Cartan formula at C⁵ truncation (vacuous) DONE 2026-05-23
+
+`CartanAtTruncation.lean` (10 PURE).  Both sides of the Cartan
+formula `Sq^1(α ⌣_0 β) = Σ Sq^i(α) ⌣_0 Sq^j(β)` vanish vacuously
+at the 3-skeleton C⁵ truncation.
+
+Truncation boundary picture complete:
+  · Adem `Sq^1·Sq^1 = 0` at C⁴ (Phase 13)
+  · Cartan vacuous at C⁵ (Phase 16)
+  · Steenrod ladder depth bridge (Phase 14)
+  · Universal-k three-reading (Phase 15)
+
+Total G132 campaign: **16 files / 195 PURE / 0 DIRTY**.
+
 Status of (k+1) derivation (post-Phases 10-13):
 
   | Component | Status |
@@ -613,6 +627,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/CartanAtTruncation.lean` | **G132 Phase 16** — Cartan formula at C⁵ truncation (vacuous) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderUniversalK.lean` | **G132 Phase 15** — universal-k three-reading equivalence (∀ k ≥ 1) |
 | `lean/E213/Lib/Physics/AlphaEM/SteenrodLadderAlphaPower.lean` | **G132 Phase 14** — Steenrod ladder ↔ α-power bridge; three-reading equivalence |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` | **G132 Phases 12-13** — Sq^0, Sq^1 at H² ω + Adem Sq^1·Sq^1 = 0 |

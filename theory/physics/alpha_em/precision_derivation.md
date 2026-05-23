@@ -177,6 +177,7 @@ of independent gluon channels."*
 | `steenrod_squares_at_omega_master` | `Bipartite/SteenrodSquaresAtOmega` | Sq^0(ω) = ω, Sq^1(ω) = δ²(ω), Adem Sq^1·Sq^1 = 0 |
 | `steenrod_ladder_alpha_power_master` | `AlphaEM/SteenrodLadderAlphaPower` | α-power = Sq ladder depth + 2 = (k-1) + 2 = k+1 (three-reading equivalence) |
 | `cup_ladder_universal_k_master` | `AlphaEM/CupLadderUniversalK` | Universal-k arithmetic: ∀ k ≥ 1, all three readings give k+1 |
+| `cartan_at_truncation_master` | `Bipartite/CartanAtTruncation` | Cartan formula at C⁵ truncation (both sides vacuously zero) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -318,7 +319,7 @@ Cup-product algebra extension to higher cup operations (cup_i,
 Steenrod squares), Massey products, or spectral-sequence
 differentials is the open frontier.
 
-#### Files (Step 6 closure, 15 files, 185 PURE total)
+#### Files (Step 6 closure, 16 files, 195 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -357,6 +358,9 @@ differentials is the open frontier.
   · `Physics/AlphaEM/CupLadderUniversalK.lean` (10 PURE)
     — universal-k three-reading equivalence (∀ k ≥ 1);
     arithmetic side of the cup-ladder graduation universal in k
+  · `Math/Cohomology/Bipartite/CartanAtTruncation.lean` (10 PURE)
+    — Cartan formula at C⁵ truncation (vacuous); completes the
+    Steenrod-algebra truncation picture at K_{3,2}^{(c=2)} 3-skeleton
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.

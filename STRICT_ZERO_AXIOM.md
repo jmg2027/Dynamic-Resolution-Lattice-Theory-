@@ -1564,3 +1564,33 @@ Total G132 K_{3,2}^{(c=2)} higher-cohomology campaign:
 **15 files / 185 PURE / 0 DIRTY**, α_em precision at 0.007 ppb
 tier with the cup-axiom-internal `(k+1)` derivation formalised
 at k = 1, 2 + universal Nat-arithmetic for k ≥ 1.
+
+## 2026-05-23 — Phase 16: Cartan formula at C⁵ truncation (vacuous)
+
+Formalises the Cartan formula at the K_{3,2}^{(c=2)} 3-skeleton
+truncation level.  Both sides vanish vacuously in C⁵ — the
+Steenrod-algebra truncation completes Phases 13 (Adem) and 14
+(ladder) at the boundary.  10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.CartanAtTruncation` | 10 | `C4_dim_boundary = 0`, `C5_dim_boundary = 0` (truncation dims); ★★★★★ `cartan_lhs_vacuous`, `cartan_rhs_vacuous` (both sides empty); ★★★★★★ `cartan_at_truncation_eq_pointwise` (LHS = RHS pointwise on empty C⁵); ★★★★★★★★ `cartan_at_truncation_master` (5-conjunct capstone) |
+
+**Truncation boundary picture (complete)**:
+
+  · Adem `Sq^1·Sq^1 = 0` at C⁴ (Phase 13)
+  · Cartan `Sq^1(α ⌣_0 β) = Σ Sq^i α ⌣_0 Sq^j β` vacuous at C⁵ (Phase 16)
+  · Steenrod ladder depth = k − 1 bridge (Phase 14)
+  · Universal-k three-reading (Phase 15)
+
+The Steenrod-algebra structure at the K_{3,2}^{(c=2)} 3-skeleton
+truncation is now fully formalised: Sq^i values, Adem, Cartan,
+ladder depth — all at the boundary level where non-trivial
+operations vanish.
+
+**Full G132 marathon status (post-Phase 16)**:
+
+Total campaign: **16 files / 195 PURE / 0 DIRTY**.
+α_em precision-theorem at 0.007 ppb tier with cup-axiom-internal
+`(k+1)` derivation formalised at k = 1, 2 + universal arithmetic
+for k ≥ 1 + complete Steenrod-algebra truncation structure.
