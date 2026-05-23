@@ -47,7 +47,6 @@ theorem idLens_symmetric :
     exact Raw.slash_comm u v h
 
 
-
 theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
   intro r
   induction r using Raw.rec with
@@ -62,7 +61,6 @@ theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
       show (if h' : x ≠ y then Raw.slash x y h' else Raw.a)
            = Raw.slash x y h
       rw [dif_pos h]
-
 
 
 /-- `idLens.view` is injective (in fact, the identity). -/

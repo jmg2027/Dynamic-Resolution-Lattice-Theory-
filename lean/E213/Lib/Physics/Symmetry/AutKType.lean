@@ -8,7 +8,7 @@ Promotes the previously-Nat-only `aut_order = 768` (from
 `AutKChiral.lean`) to a **proper Lean Type** via the explicit
 direct-product structure `Sym3 × Sym2 × C2_6`.
 
-This is Phase 1 of the **C3 chain** (G87 §4) — gauge group
+This is Phase 1 of the **C3 chain** — gauge group
 emergence from the Aut(K) representation on cohomology.
 
 The type-level cardinality is **structurally encoded** in the

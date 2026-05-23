@@ -45,7 +45,6 @@ def outerR : Raw :=
 def slashCharFn (r : Raw) : Bool := decide (r = slashAB)
 
 
-
 private theorem slashCharFn_a : slashCharFn Raw.a = false := by decide
 private theorem slashCharFn_b : slashCharFn Raw.b = false := by decide
 private theorem slashCharFn_slashAB : slashCharFn slashAB = true := by decide

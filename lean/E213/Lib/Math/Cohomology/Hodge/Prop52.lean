@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Hodge.Star
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# ⋆⋆ = id Prop-lift at (5, 2) — corollary of G111 COH-2 template
+# ⋆⋆ = id Prop-lift at (5, 2) — corollary COH-2 template
 
 Cochain 5 2 = Fin 10 → Bool, 1024 patterns × 10 indices = 10240
 hodge ⋆⋆ evaluations.  Together with HodgeProp (5,1), establishes

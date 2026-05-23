@@ -6,13 +6,13 @@ import E213.Lib.Math.CrossDomainUnification
 Step 3 of conjecture C6 per `research-notes/G35` §C6.
 
 Defines an abstract typeclass `ParadigmDomain` capturing the
-shared 213-native paradigm: each marathon domain instantiates
+shared 213-native paradigm: each paradigm domain instantiates
 this with a specific `truncation_grade`, `atom`, `decide_witness`.
 
 The typeclass formalizes the empirical observation (Step 1, 2)
 that all 11 domains share a common toolkit.
 
-## Paradigm shifts (per G35 §2.6)
+## Paradigm shifts
 
   · classical analysis residue → 213-native nilpotency
   · continuous limit → atomic discrete mass
@@ -85,7 +85,7 @@ def Cohomology_paradigm : ParadigmWitness :=
 
 /-! ## §2 — Master uniform-paradigm theorem -/
 
-/-- ★★★★★ All 9 marathon + cup-ring domains share the same
+/-- ★★★★★ All 9 paradigm + cup-ring domains share the same
     truncation_grade = 5, holds = true, decidable = true.
     This is the typeclass-level signature of unification. -/
 theorem uniform_paradigm_witnesses :

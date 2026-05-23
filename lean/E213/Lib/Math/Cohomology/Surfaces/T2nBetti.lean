@@ -28,7 +28,7 @@ proven by induction.
 
 The signature/numerator side (the actual eigenvalue count) is
 verified for n = 1, 2 in `T2nPattern.lean`; the inductive
-*signature* proof is the natural follow-up (G13 §A).
+*signature* proof is the natural follow-up.
 
 ## Why this matters
 
@@ -65,7 +65,6 @@ open E213.Lib.Physics.Simplex.Counts (binom)
     directly as `binom (2n) k`; the inductive (Künneth) recursion
     is then proven below. -/
 def T2n_betti (n k : Nat) : Nat := binom (2 * n) k
-
 
 
 /-! ## §1 — Pascal identity (rfl-direct from `binom`'s recursion) -/
@@ -121,7 +120,6 @@ theorem T2n_betti_kunneth_recursion (n m : Nat) :
         = binom (2 * n) m + binom (2 * n) (m + 1)
           + binom (2 * n) (m + 1) + binom (2 * n) (m + 2)
   rw [Nat.add_assoc, Nat.add_assoc, Nat.add_assoc]
-
 
 
 /-! ## §3 — Middle Betti = central binomial

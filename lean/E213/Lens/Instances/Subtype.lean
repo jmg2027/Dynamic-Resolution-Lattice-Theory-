@@ -3,7 +3,7 @@ import E213.Lens.SemanticAtom
 /-!
 # SubtypeInstance: sub-instance of a distinguishing-closed predicate
 
-User directive (2026-04-25): Internalize the distinguishing-closed assumption
+User directive: Internalize the distinguishing-closed assumption
 of Subtype inside the framework.
 
 HasDistinguishing instance for `{r : Raw // P r}`.
@@ -38,7 +38,6 @@ def subtypeHasDistinguishing (P : Raw → Prop)
     exact absurd hval (by decide)
   combine := fun _ _ => ⟨Raw.a, h_a⟩
   combine_sym := fun _ _ => rfl
-
 
 
 /-- Universal morphism Raw → {r : Raw // P r} via degenerate

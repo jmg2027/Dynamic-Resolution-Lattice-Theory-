@@ -605,7 +605,7 @@ theorem eight_geometries_final_scoreboard :
 
 /-! ## §Nil — Möbius P mod-5 nilpotent collapse (R1 step 22 — 2026-05-22)
 
-**User-derived insight (2026-05-22)**: the SAME Möbius P, read
+**User-derived insight**: the SAME Möbius P, read
 through F_5 (mod-5) Lens — 213's prime base d = 5 — produces a
 **nilpotent operator**, completing the 8-geometries
 correspondence with Nil (Heisenberg).

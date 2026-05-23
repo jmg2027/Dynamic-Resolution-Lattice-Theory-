@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.Hodge.InvolutionTemplate
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# ⋆⋆ = id Prop-lift at (5, 4) — corollary of G111 COH-2 template
+# ⋆⋆ = id Prop-lift at (5, 4) — corollary COH-2 template
 
 Cochain 5 4 = Fin (binom 5 4) → Bool = Fin 5 → Bool, 32 functions.
 By Hodge duality, the structure is identical to (5, 1):

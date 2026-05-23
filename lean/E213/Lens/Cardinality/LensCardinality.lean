@@ -69,7 +69,6 @@ theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
       rw [hzm, Nat.add_comm 1 m]
 
 
-
 -- ═══ depth surjective onto ℕ ═══
 
 theorem depth_surjective :
@@ -129,7 +128,6 @@ theorem maxLens_image_binary :
         rw [hx, hy] <;> decide
 
 
-
 /-- Signed-view of the tree tower: `view(treeTower n) = n - 1`
     as an Int.  tower_0 = Tree.b → -1; each slash adds `1`.
 
@@ -156,7 +154,6 @@ theorem treeTower_signed :
         show Int.ofNat (m + 1 - 1) = Int.ofNat m
         rw [E213.Tactic.NatHelper.add_sub_cancel_right m 1]
       exact lhs_eq.trans rhs_eq.symm
-
 
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
@@ -214,7 +211,6 @@ theorem signedLens_unbounded_above :
     rw [hzero]
     exact Int.NonNeg.mk 0
   exact ⟨r, Eq.subst (motive := fun x => (N : Int) ≤ x) hr.symm h_refl_N⟩
-
 
 
 -- ═══ Σ7 summary — cardinality spectrum ═══

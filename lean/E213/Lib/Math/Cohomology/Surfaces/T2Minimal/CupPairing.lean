@@ -41,7 +41,6 @@ def basis_b : C1 := fun
   | Cell1.b => 1
 
 
-
 /-! ## §2 — Matrix entries -/
 
 /-- Matrix entry: `(basis_a ⌣ basis_a)(f) = 0`. -/

@@ -27,7 +27,7 @@ Exact algebraic content of the framework's reach:
 
 ## Component of the complete semantic 213 proof
 
-User directive (2026-04-25): do not stop until the complete semantic
+User directive: do not stop until the complete semantic
 proof.  This result is a component of that proof:
 - The image of universalMorphism is *uniquely characterized* —
   minimum distinguishing-closed.

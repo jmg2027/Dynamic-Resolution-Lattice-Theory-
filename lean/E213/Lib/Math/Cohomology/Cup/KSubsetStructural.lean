@@ -29,28 +29,28 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 
 Nat helpers (`add_sub_cancel_right`, `sub_lt_sub_right`,
 `sub_pos_of_lt`) are sourced from the central
-`E213.Tactic.NatHelper` PURE-shield layer (G93 §C1).  We rename
+`E213.Tactic.NatHelper` PURE-shield layer.  We rename
 them locally so existing call sites remain unaffected. -/
 
 /-- Local alias for `NatHelper.add_sub_cancel_right`.
-    Centralised in `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+    Centralised in `Meta/Tactic/NatHelper.lean`. -/
 @[reducible] def nat_add_sub_cancel : ∀ (a c : Nat), (a + c) - c = a :=
   E213.Tactic.NatHelper.add_sub_cancel_right
 
 /-- Local alias for `NatHelper.sub_lt_sub_right`.
-    Centralised in `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+    Centralised in `Meta/Tactic/NatHelper.lean`. -/
 @[reducible] def nat_sub_lt_sub_right :
     ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c :=
   E213.Tactic.NatHelper.sub_lt_sub_right
 
 /-- Local alias for `ListHelper.length_append_singleton`.
-    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+    Centralised in `Meta/Tactic/ListHelper.lean`. -/
 @[reducible] def list_length_append_singleton :
     ∀ (l : List Nat) (x : Nat), (l ++ [x]).length = l.length + 1 :=
   E213.Tactic.ListHelper.length_append_singleton
 
 /-- Local alias for `ListHelper.mem_append_singleton`.
-    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+    Centralised in `Meta/Tactic/ListHelper.lean`. -/
 @[reducible] private def list_mem_append_singleton :
     ∀ (l : List Nat) (m x : Nat), x ∈ l ++ [m] → x ∈ l ∨ x = m :=
   E213.Tactic.ListHelper.mem_append_singleton
@@ -154,7 +154,7 @@ theorem kSubset_all_lt :
 
 /-- Local alias for `NatHelper.sub_pos_of_lt` with the b/a arg
     order convention used by downstream callers.  Centralised in
-    `Meta/Tactic/NatHelper.lean` (G93 §C1). -/
+    `Meta/Tactic/NatHelper.lean`. -/
 @[reducible] def nat_sub_pos_of_lt :
     ∀ {a b : Nat}, b < a → 0 < a - b :=
   fun h => E213.Tactic.NatHelper.sub_pos_of_lt h
@@ -181,13 +181,13 @@ private theorem nat_sub_inj_right :
         rw [ih h_k_le_a' h_k_le_b' h_eq']
 
 /-- Local alias for `ListHelper.append_singleton_inj`.
-    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+    Centralised in `Meta/Tactic/ListHelper.lean`. -/
 @[reducible] private def list_append_singleton_inj :
     ∀ (l₁ l₂ : List Nat) (x : Nat), l₁ ++ [x] = l₂ ++ [x] → l₁ = l₂ :=
   E213.Tactic.ListHelper.append_singleton_inj
 
 /-- Local alias for `ListHelper.mem_append_singleton_right`.
-    Centralised in `Meta/Tactic/ListHelper.lean` (G94 §1). -/
+    Centralised in `Meta/Tactic/ListHelper.lean`. -/
 @[reducible] private def mem_append_singleton_right :
     ∀ (l : List Nat) (m : Nat), m ∈ l ++ [m] :=
   E213.Tactic.ListHelper.mem_append_singleton_right

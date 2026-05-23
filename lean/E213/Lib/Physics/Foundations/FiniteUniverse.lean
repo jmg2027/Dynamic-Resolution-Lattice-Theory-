@@ -88,7 +88,7 @@ theorem no_pi_in_finite_alpha_em :
     π²/6 of size `36 / configCount 2`.  Currently this is open
     work parametric in `N_U : Nat`.
 
-    Per G120 Round 3: the binder `N_U : Nat` is the parametric
+    Note: the binder `N_U : Nat` is the parametric
     level reading; specific evaluations (e.g., at level 2) give
     specific numerical instances.  The "four-domain convergent
     invariant" framing was reduced to two-of-four real (per

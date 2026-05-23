@@ -3,7 +3,7 @@ import E213.Lib.Physics.AlphaEM.Bare
 /-!
 # Photon = K_{NS,NT}^{(c)} cycle space (0 axioms part)
 
-User insight (2026-04-27): defining the photon as the incidence matrix kernel.
+User insight: defining the photon as the incidence matrix kernel.
 Direct LA is difficult without Mathlib, but the **first Betti number** form
 (`b_1 = E - V + 1` for connected) carries the same information + is decidable.
 

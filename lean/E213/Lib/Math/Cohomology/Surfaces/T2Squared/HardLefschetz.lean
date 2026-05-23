@@ -49,7 +49,6 @@ def L_on_H1 (α : C1) : C3 := fun
   | Cell3.b1a2b2 => α Cell1.b1
 
 
-
 /-! ## §1 — `L²` is non-zero on H⁰ → H⁴ (iso over ℚ) -/
 
 /-- `L²(1) = 2 · vol`.  Non-zero, hence iso over ℚ

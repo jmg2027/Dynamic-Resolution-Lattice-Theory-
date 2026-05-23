@@ -113,7 +113,7 @@ theorem narrative_deepening_completion :
 
 /-! ## §R-upgrade — Ricci-flow modulus partial close (R1 step 17 — 2026-05-22)
 
-**User insight (2026-05-22)**: "ε-Lens는 아마 Real213이랑
+**User insight**: "ε-Lens는 아마 Real213이랑
 Analysis, Topology 등에 이미 있을 수 있어."
 
 VERIFIED: `Topology/Continuity.IsContinuousModulus` and

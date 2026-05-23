@@ -127,7 +127,7 @@ theorem adem_Sq3_Sq2_at_C7
     truncation, consistent with the cup-axiom-internal `(k+1)`
     derivation being bounded by the complex truncation level.
 
-    Toward the full marathon goal:
+    Toward the full goal:
 
       | Component | Status |
       |-----------|--------|
@@ -144,7 +144,7 @@ theorem adem_Sq3_Sq2_at_C7
 
     The Steenrod-algebra TRUNCATION picture is now complete.
     Extension to NON-VACUOUS Adem/Cartan at higher skeletons is
-    the continuing multi-session marathon scope. -/
+    the continuing multi-session scope. -/
 theorem adem_universal_master :
     -- Truncation dimensions at k = 4, 5, 6, 7
     Ck_truncated_dim 4 = 0

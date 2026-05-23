@@ -41,7 +41,7 @@ import E213.Lib.Math.Analysis.ResolutionShift
     * `ResolutionShift`          — concrete (Nat,+)-graded structure
                                    on cut transformers; falsifiability
                                    tests for the CollapseCondition
-                                   composition closure (G31 §6h)
+                                   composition closure
 
   ## Status
 

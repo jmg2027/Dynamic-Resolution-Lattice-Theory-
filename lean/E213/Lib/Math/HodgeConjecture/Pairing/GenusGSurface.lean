@@ -46,7 +46,6 @@ namespace E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 
 
-
 /-! ## §1 — Parametric Σ_g instance + topological invariants -/
 
 /-- ★ Σ_g as a `BalancedSignatureData`: g hyperbolic 2×2 blocks

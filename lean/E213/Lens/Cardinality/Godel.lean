@@ -46,7 +46,6 @@ protected theorem Tree.toNat_slash (x y : Tree) :
       = 2 + 2 * pair x.toNat y.toNat := rfl
 
 
-
 /-- **Σ2 (Tree level).**  Gödel numbering is injective on
     Tree. -/
 protected theorem Tree.toNat_injective :

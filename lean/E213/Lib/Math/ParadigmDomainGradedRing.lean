@@ -101,7 +101,7 @@ theorem paradigm_cup_sum_eq_two_pow_10 :
     `GeneratingFunction.convolution` (cup-product structure
     = Cauchy product), with row sum 2¹⁰ = 1024 = 32².  This
     is the SINGLE graded-ring algebraic object spanning all
-    9 paradigm domains, closing C6 §C6 of G35. -/
+    9 paradigm domains, closing C6 §C6. -/
 theorem paradigm_graded_ring_master :
     paradigm_coeffs 0 = 1
     ∧ paradigm_coeffs 5 = 1

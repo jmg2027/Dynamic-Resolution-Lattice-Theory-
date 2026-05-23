@@ -79,7 +79,6 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
         pellRaw_cut_below m k hk hbelow j]
 
 
-
 /-- **Pell HasModulus instance**: the explicit modulus is constructed
     from the combination of sqrt2_irrational and
     pellRaw_cut_above/below.  The Cauchy closure runs without LEM. -/

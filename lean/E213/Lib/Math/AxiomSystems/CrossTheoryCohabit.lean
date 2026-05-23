@@ -12,7 +12,7 @@ application on the same substrate.
 
 ## The cohabitation principle
 
-Per the session conversation:
+Spec note:
 
 > "ZFC와 Peano가 213 안에서 cohabit 가능 — 둘 다 derived view,
 >  conflict 없음.  같은 Raw 의 다른 lens projection 들."

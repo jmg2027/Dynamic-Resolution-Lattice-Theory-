@@ -16,7 +16,7 @@ import E213.Lib.Physics.AtomicBase.Falsifier
 # `E213.Lib.Physics.AtomicBase` — atomic-base genesis cluster
 
 Single-import entry point for the atomic-primitive readings.
-Renamed from "Substrate" (2026-05-20) — the previous naming
+Renamed from "Substrate" — the previous naming
 imported a substrate / superstructure framing inconsistent
 with §8.1's no-exterior principle.  This cluster records what
 Raw reads under the atomicity-Lens at the most primitive level

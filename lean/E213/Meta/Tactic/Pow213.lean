@@ -49,7 +49,6 @@ theorem pow_lt_pow_two : ∀ (a b : Nat), a < b → 2^a < 2^b
       · exact ha_eq_k ▸ pow_lt_succ a
 
 
-
 private theorem zero_lt_two' : 0 < 2 := Nat.zero_lt_succ 1
 
 /-! ### additive composition: 2^(n+k) = 2^n * 2^k -/

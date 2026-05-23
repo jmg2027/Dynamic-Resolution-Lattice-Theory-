@@ -10,7 +10,7 @@ import E213.Lib.Math.Extras.RealLogCapstone
 /-! Umbrella for math-track deferral cleanup (`Math/Extras`).
 
   All files ∅-axiom; close honest-scope deferrals from various
-  math-track marathon passes.  See `Extras/INDEX.md` for the
+  math-track domain passes.  See `Extras/INDEX.md` for the
   per-file deferral source map.
 
   ## Foundational witnesses (Pass 1)
@@ -29,7 +29,7 @@ import E213.Lib.Math.Extras.RealLogCapstone
 
   ## Marathon capstones
 
-    * `RealLogCapstone`     — `Real213.log` marathon closure
+    * `RealLogCapstone`     — `Real213.log` closure
 
   ## Removed 2026-05-18 (mis-researched: imported non-existent
   Multivariable.Stokes2D/3D/4D modules; never built clean):

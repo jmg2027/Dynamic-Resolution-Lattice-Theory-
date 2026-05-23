@@ -50,7 +50,6 @@ def IsAbPositiveB (xs : Nat → Raw) : Prop :=
   ∀ n, 1 ≤ (abLens.view (xs n)).2
 
 
-
 /-! ### Monotonic chain (transitive form) -/
 
 /-- Chain: ∀ p ≤ q, a_p * b_q ≤ a_q * b_p. -/
@@ -126,7 +125,6 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
         exact Nat.le_refl _
 
 
-
 /-! ### orderProj false propagates forward (monotonic) -/
 
 /-- If orderProj is false at some time N, then by monotonicity it is
@@ -175,7 +173,6 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
     rw [E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2 k, ← E213.Tactic.NatHelper.mul_assoc]
   rw [he3] at h3
   exact E213.Tactic.NatHelper.le_of_mul_le_mul_right hbi h3
-
 
 
 /-! ### Constructive Cauchy from a witness "false at N₀"

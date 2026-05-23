@@ -40,7 +40,6 @@ structure DistMorphism (α β : Type) [d_α : HasDistinguishing α]
                               = d_β.combine (toFun x) (toFun y)
 
 
-
 /-- Identity distinguishing morphism. -/
 def id (α : Type) [HasDistinguishing α] : DistMorphism α α where
   toFun := fun x => x

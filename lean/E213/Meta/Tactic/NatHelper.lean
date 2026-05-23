@@ -5,7 +5,7 @@ Replacements for Lean-core `Nat.*` lemmas that bring `propext` (or
 `Quot.sound`) into downstream theorems.  Every theorem here is
 verified `#print axioms` ∅.
 
-**Naming note (2026-05-14)**: 이전 이름은 `Tactic.Nat213` 이었으나
+**Naming note**: 이전 이름은 `Tactic.Nat213` 이었으나
 type `Nat213` 과 혼동 가능해 `NatHelper` 로 rename.  여기 모인
 lemma 들은 Lean 의 `Nat` 위에서 작동하는 헬퍼이고, 213-native
 positive nat 타입은 `Lens.Number.Nat213.{Raw, Peano}` 에 있음.

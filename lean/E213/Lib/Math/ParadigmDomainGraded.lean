@@ -8,7 +8,7 @@ Step 4 of conjecture C6.
 
 Step 3 (`ParadigmDomain`) gave a `ParadigmWitness` typeclass
 with Bool fields.  Step 4 instantiates this with the **explicit
-shared graded operator** across all 9 marathon domains:
+shared graded operator** across all 9 paradigm domains:
 
   `trunc_op (g : Nat) : Nat := if g ≤ 5 then binom 5 g else 0`
 
@@ -94,7 +94,7 @@ theorem domain_trunc_signature_value :
 
 /-- ★★★★★ Paradigm Domain Graded Operator Master (C6 Step 4).
     STRICT ∅-AXIOM.  Asserts the shared `trunc_op` is identical
-    across all 9 marathon + cup-ring domains, and its sum equals
+    across all 9 paradigm + cup-ring domains, and its sum equals
     `2⁵` (= total power-set count of Δ⁴).  This is C6's
     structural unification at the operator level. -/
 theorem paradigm_graded_master :

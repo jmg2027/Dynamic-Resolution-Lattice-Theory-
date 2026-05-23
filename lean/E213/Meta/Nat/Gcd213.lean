@@ -358,7 +358,6 @@ theorem gcd213_sub_left (m k : Nat) (h : k ≤ m) :
     · exact gcd213_dvd_right (m - k) k
 
 
-
 /-- `(k + 1) - k = 1` term-mode (∅-axiom).
     Lean-core `Nat.add_sub_cancel_left` brings `propext`. -/
 theorem succ_sub_self_213 : ∀ (k : Nat), k + 1 - k = 1

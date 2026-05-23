@@ -31,7 +31,6 @@ open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 
-
 /-! ## §1 — Σ_g × Σ_h product signature def -/
 
 /-- Σ_g × Σ_h product signature on H²: (2gh + 1, 2gh + 1).
@@ -39,7 +38,6 @@ open E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
     H⁰⊗H² ⊕ H²⊗H⁰ piece (hyperbolic (1, 1)). -/
 def product_signature_pair (g h : Nat) : SignaturePairData :=
   ⟨2 * g * h + 1, 2 * g * h + 1⟩
-
 
 
 /-! ## §3 — Master C4 Step 2 theorem -/

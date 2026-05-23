@@ -5,7 +5,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Family theorem at level `n = d * d`
 
-Per G120 Round 3 (2026-05-22): the earlier `def universe_level :=
+Note: the earlier `def universe_level :=
 d * d` was a wrapper for the constant `d * d` carrying the
 "self-referential level" framing.  The framing was a separate
 *conceptual reading*, not a separate Lean object.  Wrapper deleted;

@@ -39,7 +39,7 @@ This file establishes the cup-i type signature framework and
 defines `cup_0` (= existing `cup`) as the base case + provides
 the `cup_1` definition stub.  Full Steenrod algebra formalisation
 (cup_i for general i, Adem relations, Cartan formula) is the
-multi-session marathon scope.
+multi-session scope.
 
 STRICT ∅-AXIOM.
 -/

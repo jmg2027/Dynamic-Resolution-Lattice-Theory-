@@ -93,7 +93,6 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       decide
 
 
-
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
     ∅-axiom. -/
 theorem leavesModNat_kernel_neq (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)

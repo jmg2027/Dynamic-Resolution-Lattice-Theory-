@@ -52,7 +52,6 @@ namespace E213.Lib.Physics.Symmetry.AutKChiral
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 
-
 /-! ## §1 — Factorial (decide-friendly local def) -/
 
 /-- Factorial as a structurally-recursive Nat function. -/

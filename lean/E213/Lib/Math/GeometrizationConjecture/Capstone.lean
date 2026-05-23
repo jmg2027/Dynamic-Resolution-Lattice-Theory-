@@ -232,7 +232,7 @@ theorem R1_close_certificate :
 /-- ★★★★★ **G121 R1 master capstone (4-route convergence,
     scope-honest)**
 
-  Records the full state of R1 close after steps 1-7 (2026-05-22):
+  Records the full state of R1 close after steps 1-7:
 
   · **Step 1 — Definitional scaffold**: `chartVisibleAxes NS NT =
     NS + NT - 1`, parametric in deployment parameters.

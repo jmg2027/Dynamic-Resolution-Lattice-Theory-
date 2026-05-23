@@ -74,13 +74,13 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
   ## Status
 
-  All ~49 files build clean (2026-05-18 audit).  Post-2026-05-06
+  All ~49 files build clean.  Post-2026-05-06
   deferred-cluster repair: the 9 formerly-deferred files
   (`CDTower`, `CayleyHeavy`, `LipschitzHeavy`, `LipschitzLens`,
   `PathionHeavy`, `R5Vacuity`, `SedenionHeavy`,
   `TrigintaduoionionHeavy`, `ZSqrtProduct`) all build.
 
-  Recent compression (2026-05-18):
+  Recent compression:
 
     - 4 singleton `*Instance.lean` files → `ConjugationInstances.lean`
     - 3 `ZOmega{Double,Quad,Oct}` + `OrderDist` pairs merged

@@ -10,7 +10,7 @@ Re-proved axiom-free via direct induction — using Lean purely as a
 
 ## Significance
 
-User question (2026-04-26): modularize propext as well.  The *extreme
+User question: modularize propext as well.  The *extreme
 purity* of having no dependency even on the standard Nat library of
 Lean 4 core.
 -/
@@ -45,7 +45,6 @@ theorem mul_mul_mul_comm (a b c d : Nat) :
     (a * b) * (c * d) = (a * c) * (b * d) := by
   rw [mul_assoc, ← mul_assoc b c d, Nat.mul_comm b c,
       mul_assoc c b d, ← mul_assoc]
-
 
 
 /-- Custom even-detection, structural recursion (no well-founded). -/

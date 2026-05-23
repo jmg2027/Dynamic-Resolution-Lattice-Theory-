@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Proton g-factor — first DRLT atomic identification (2026-04-30)
+# Proton g-factor — first DRLT atomic identification
 
 Observed: g_p = 5.5856946893 (CODATA 2022, ~10⁻¹⁰ precision)
 
@@ -50,7 +50,7 @@ theorem g_p_atomic_skeleton :
     ∧ NS = 3 ∧ NT = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! ## Tighter form (2026-05-01) — pure-rational base + triple α (Class D)
+/-! ## Tighter form — pure-rational base + triple α (Class D)
 
 Found via atomic-hunter on rational-only bases (no ζ(2)):
 

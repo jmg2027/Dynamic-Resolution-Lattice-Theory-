@@ -6,7 +6,7 @@ import E213.Lib.Math.Topology.EulerChi
 /-!
 # Lib.Math.Geometry.Rotation — 213-native rotation/spiral
 
-User directive (2026-05-09) — verbatim Korean (per CLAUDE.md):
+User directive — verbatim Korean (per CLAUDE.md):
 "Raw의 Nat213렌즈의 네이티브로 된 토폴로지/그래프이론/코호몰로지/
 선대수로 이런 모양이다 + 회전이 뭐고 어케 꼬이는거고"
 
@@ -190,7 +190,7 @@ theorem p_packages_all_atomicity :
   refine ⟨rfl, by decide, by decide⟩
 
 -- ═══ ★★★★★★★★★ PENTAGONAL CLOSURE (mod 5) ═══
--- User insight (2026-05-09): "5 steps = 0 step (mod 5).  Pentagon
+-- User insight: "5 steps = 0 step (mod 5).  Pentagon
 -- closure.  10 steps = full closure (sign included)."
 
 /-- P^5 entry (1,1) = 89.  89 mod 5 = 4 = -1 (mod 5). -/

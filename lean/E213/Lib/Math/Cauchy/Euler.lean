@@ -58,7 +58,6 @@ theorem eulerNum_pos (_n : Nat) : 1 ≤ eulerNum _n := by
       exact Nat.le_add_left 1 _
 
 
-
 /-! ### Algebraic invariants -/
 
 /-- **Upper invariant**: 3 * d_n ≥ a_n + 1.  (i.e., S_n ≤ 3 - 1/d_n < 3.) -/
@@ -105,7 +104,6 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
         exact Nat.le_trans (Nat.add_le_add_left hk1 _) h1
 
 
-
 /-- **Lower invariant** (n ≥ 2): a_n ≥ 2 * d_n + 1.  (S_n > 2 from n=2.)
     a_2 = 5, d_2 = 2: 5 = 2*2 + 1 ✓.
     Inductive: a_{n+1} = (n+1) * a_n + 1 ≥ (n+1)*(2 d_n + 1) + 1
@@ -148,7 +146,6 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
         exact Nat.le_trans (Nat.le_trans step1 h1) (Nat.le_succ _)
 
 
-
 /-! ### Raw sequence + orderProj cuts -/
 
 /-- **Euler Raw sequence**: abLens.view (eulerRaw n) = (eulerNum n, eulerDen n). -/
@@ -176,7 +173,6 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
   have h3 : eulerDen n * (3 * k) ≤ eulerDen n * m :=
     Nat.mul_le_mul_left (eulerDen n) h3km
   exact decide_eq_true (Nat.le_trans h1 h3)
-
 
 
 /-- **Cut below 2**: m/k ≤ 2 (m ≤ 2k) → orderProj false (n ≥ 2).

@@ -35,7 +35,7 @@ import E213.Lib.Math.ModArith.FP2Sqrt5
     * `PureNatMod3`  — pure-Nat mod-3 arithmetic
     * `PureNatMod5`  — pure-Nat mod-5 arithmetic
 
-  ## G119 marathon additions (Bezout / FLT / F_{p²})
+  ## Companion identities (Bezout / FLT / F_{p²})
 
     * `ModBezout`           — Bezout coefficients via Nat xgcd
     * `ModBezoutInvariant`  — universal modular inverse via Bezout

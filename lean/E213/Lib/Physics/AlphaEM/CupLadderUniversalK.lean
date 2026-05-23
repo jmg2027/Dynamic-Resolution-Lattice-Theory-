@@ -29,7 +29,7 @@ Proved by Nat induction on k via the explicit definitions of
     K_{3,2}^{(c=2)} 2-skeleton.
   · Generalisation to H^k for k ≥ 3 requires (k+1)-skeleton
     extensions + general cup_i for arbitrary i + Adem-Wu basis —
-    the multi-session marathon continues.
+    the multi-session continues.
 
 This file closes the **arithmetic** side of the universal
 graduation: the three readings agree as Nat identities for every
@@ -142,7 +142,7 @@ theorem three_readings_at_k3 :
       · Per-layer coupling + loop-vertex interpretation (Phases 7-8).
 
     Generalisation to H^k for k ≥ 3 is the continuing
-    multi-session marathon work: each k ≥ 3 requires its own
+    multi-session work: each k ≥ 3 requires its own
     `(k+1)`-skeleton extension + Sq^(k-1) computation +
     cup_(k-1)(c, c) = δ^k(c) bridge identity. -/
 theorem cup_ladder_universal_k_master :

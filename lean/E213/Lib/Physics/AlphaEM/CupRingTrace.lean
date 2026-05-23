@@ -40,7 +40,6 @@ open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 
-
 /-! ## §1 — Unit cochain at each grade -/
 
 /-- All-true cochain at grade k: `1_k(τ) = true` for every τ. -/
@@ -74,7 +73,6 @@ def F1 : Nat := F1_at_grade 1 + F1_at_grade 2 + F1_at_grade 3 + F1_at_grade 4
 -- k=1..4) folded into `cup_ring_trace_master` below.
 
 
-
 /-! ## §3 — Cand-2: basis self-Hodge cup at top (all colex basis)
 
   For each grade k ∈ {1, 2, 3, 4} and each basis element α at
@@ -103,7 +101,6 @@ def F2 : Nat := F2_at_grade_1 + F2_at_grade_2 + F2_at_grade_3 + F2_at_grade_4
 
 -- F2_value (F2 = 4), F2_grade_breakdown, F1_eq_F2 folded into
 -- cup_ring_trace_master.
-
 
 
 /-! ## §4 — Total cup-channels (F₃, from Step A)

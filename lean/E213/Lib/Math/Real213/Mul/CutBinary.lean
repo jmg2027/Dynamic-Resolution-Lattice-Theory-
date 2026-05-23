@@ -5,7 +5,7 @@ import E213.Lib.Math.Real213.Core.Core
 /-!
 # CutBinary: generic 2D bounded-search cut operation
 
-User directive (2026-04-26): "Let's go generic in the 213 style."
+User directive: "Let's go generic in the 213 style."
 
 Extract the *common pattern* of cutSum and cutMul — 2D bounded search over
 rational witnesses.  Differences only in (1) precision factors (k1, k2),

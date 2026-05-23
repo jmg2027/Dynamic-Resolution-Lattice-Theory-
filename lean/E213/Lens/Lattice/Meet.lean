@@ -58,7 +58,6 @@ theorem prodLens_view {α β : Type} (L : Lens α) (M : Lens β)
       rfl
 
 
-
 /-- the product refines the left Lens. -/
 theorem prodLens_refines_fst {α β : Type} (L : Lens α) (M : Lens β)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)
@@ -84,7 +83,6 @@ theorem prodLens_refines_snd {α β : Type} (L : Lens α) (M : Lens β)
   have hp : (L.view x, M.view x) = (L.view y, M.view y) := by
     rw [← hx, ← hy]; exact hxy
   exact congrArg Prod.snd hp
-
 
 
 /-- **Meet universal property**: if N refines both L and M, then N

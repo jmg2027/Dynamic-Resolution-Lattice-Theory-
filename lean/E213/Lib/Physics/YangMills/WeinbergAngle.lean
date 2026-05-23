@@ -72,7 +72,7 @@ theorem weinberg_pattern_capstone :
     ∧ (12 * NT * 5 = 30 * 4)
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-/-! ## Closure of running gap — Class B α_GUT leak (2026-05-01)
+/-! ## Closure of running gap — Class B α_GUT leak
 
 The "running gap" identified above (observed 0.2312 below bare
 0.2331) is now closed via Hunter Methodology Lesson L3:

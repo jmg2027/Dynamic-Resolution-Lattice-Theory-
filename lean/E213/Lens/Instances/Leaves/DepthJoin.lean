@@ -169,7 +169,6 @@ theorem class_of_a_iff_small (r : Raw) :
     exact JoinEquiv.symm (small_joinEquiv_a r hs)
 
 
-
 /-- For non-small r: leaves r = 2 → depth r = 1 (all children of
     the slash are small). -/
 private theorem leaves_two_iff_depth_one (r : Raw) (hns : ¬ small r) :
@@ -376,7 +375,6 @@ private theorem tier_slash_from_inputs (x y x' y' : Raw)
   rw [tier_slash, tier_slash, htx, hty]
 
 
-
 /-- **Tier invariant**: tier is preserved under JoinEquiv leaves depth. -/
 theorem tier_invariant (r r' : Raw)
     (h : JoinEquiv Lens.leaves Lens.depth r r') : tier r = tier r' := by
@@ -427,7 +425,6 @@ theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
       show (if tier x = 0 ∧ tier y = 0 then 1 else 2)
            = (if tier x = 0 ∧ tier y = 0 then 1 else 2)
       rfl
-
 
 
 /-- Concrete Raws: representatives of tiers 0, 1, 2. -/
@@ -489,7 +486,6 @@ theorem three_classes_distinct :
     have := tier_invariant _ _ h
     rw [repr0_tier, repr2_tier] at this
     exact absurd this (by decide)
-
 
 
 /-- **leaves refines tierLens** (tierLens is an upper bound of leaves). -/

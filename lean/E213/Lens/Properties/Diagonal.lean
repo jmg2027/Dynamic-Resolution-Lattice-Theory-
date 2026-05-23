@@ -58,7 +58,6 @@ theorem boolOrLens_idempotent : Idempotent boolOrLens := by
   intro v; cases v <;> rfl
 
 
-
 /-! ## §3. Classification of Nat Lens — Escalate -/
 
 theorem leaves_escalate (v : Nat) :

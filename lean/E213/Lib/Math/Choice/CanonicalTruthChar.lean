@@ -42,7 +42,6 @@ theorem aCountParityLens_slash (x y : Raw) (h : x ≠ y) :
   cases u <;> cases v <;> rfl
 
 
-
 /-- Specific reduction of canonicalTruthMap at a. -/
 private theorem ctm_a : canonicalTruthMap Raw.a = True :=
   canonicalTruthMap_a
@@ -59,7 +58,6 @@ theorem propXor_iff_bool_xor (P Q : Prop) (b₁ b₂ : Bool)
   cases b₁ <;> cases b₂ <;> simp [xor, hP, hQ]
 
 
-
 /-- **Main characterization**: canonicalTruthMap r ↔ aCountParityLens.view r = true. -/
 theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
     canonicalTruthMap r ↔ aCountParityLens.view r = true := by
@@ -73,7 +71,6 @@ theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
   | slash x y h ihx ihy =>
       rw [canonicalTruthMap_slash x y h, aCountParityLens_slash x y h]
       exact propXor_iff_bool_xor _ _ _ _ ihx ihy
-
 
 
 /-! ### Characterization of the Iff alternative
@@ -97,7 +94,6 @@ theorem iffBoolLens_slash (x y : Raw) (h : x ≠ y) :
   intro u v
   show decide (u = v) = decide (v = u)
   cases u <;> cases v <;> rfl
-
 
 
 /-- **The morphisms of two Prop instances differ**: the results of
@@ -135,7 +131,6 @@ theorem canonicalTruthMap_ne_canonicalIffMap :
   exact canonicalTruthMap_ne_canonicalIffMap_witness (congrFun heq _)
 
 
-
 /-! ### Iff alternative characterization (b-count parity) -/
 
 /-- Iff (P ↔ Q) ↔ Bool equality on (b₁ = true), (b₂ = true). -/
@@ -159,7 +154,6 @@ theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
   | slash x y h ihx ihy =>
       rw [canonicalIffMap_slash x y h, iffBoolLens_slash x y h]
       exact iff_iff_bool_eq _ _ _ _ ihx ihy
-
 
 
 /-! ### And-based characterization: r = Raw.a iff canonicalAndMap
@@ -200,7 +194,6 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
           have h_a : Lens.depth.view Raw.a = 0 := rfl
           rw [h_a] at hview
           omega)
-
 
 
 /-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap

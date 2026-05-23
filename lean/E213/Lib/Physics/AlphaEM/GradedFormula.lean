@@ -41,7 +41,6 @@ namespace E213.Lib.Physics.AlphaEM.GradedFormula
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 
-
 /-! ## §1 — Layer 1 (k=0, 1): harmonic base 60·ζ(2) + 30
 
   At grades 0 and 1, the cup-ring on K_{3,2}^{(c=2)} contributes:
@@ -76,7 +75,6 @@ def L2_num : Nat := d * d
 
 /-- Layer 2 denominator: 3 = NS. -/
 def L2_den : Nat := NS
-
 
 
 /-! ## §3 — Layer 3 (k=3, 4): Hodge pairing 1/(NS·NT·π⁵)
@@ -131,7 +129,6 @@ def leading_integer_sum : Nat := L1a_coeff + L1b_coeff + L2_num + L3_num
     factors ζ(2) and π⁵ replaced by 213-finite Basel/Wallis at N_U. -/
 
 
-
 /-! ## §5 — Numerical bracket: integer-formula × 10⁷ at fixed precision
 
   Existing `PiFiveGap.lean` encodes π² × 10¹⁰ and π⁵ × 10¹⁰ at
@@ -181,7 +178,6 @@ theorem alphaInv_213_bracket :
     alphaInv_213_e7_at_pi9 ≤ E213.Lib.Physics.AlphaEM.PiFiveGap.observed_e7 + 30
     ∧ E213.Lib.Physics.AlphaEM.PiFiveGap.observed_e7 ≤ alphaInv_213_e7_at_pi9 + 30 := by
   refine ⟨?_, ?_⟩ <;> decide
-
 
 
 /-! ## §6 — Master GradedFormula theorem (C1 step 1) -/

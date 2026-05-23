@@ -5,7 +5,7 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # LensCauchy: reduction of Cauchy completeness for 213
 
-Proposed by Mingu (2026-04-25):
+Proposed by Mingu:
 - ε → "resolution of Lens L".
 - Cauchy → "for any fine Lens L, the sequence tail collapses to an
   L-class".
@@ -71,7 +71,6 @@ theorem eventually_class_unique {α : Type} (L : Lens α) (xs : Nat → Raw)
   rw [← hN M hMN, hN' M hMN']
 
 
-
 /-- **Cauchy witness structure**: explicit N + Cauchy property.
     Constructive (no Classical.choice). -/
 structure CauchyData {α : Type} (L : Lens α) (xs : Nat → Raw) where
@@ -100,7 +99,6 @@ theorem cauchy_data_of {α : Type} (L : Lens α) (xs : Nat → Raw)
     ∃ cd : CauchyData L xs, True := by
   obtain ⟨N, hN⟩ := h
   exact ⟨⟨N, hN⟩, trivial⟩
-
 
 
 /-- **Family-Cauchy**: Cauchy with respect to every (F i).2. -/

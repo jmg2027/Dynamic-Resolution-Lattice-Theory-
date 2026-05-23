@@ -35,7 +35,7 @@ For the atomicity decomposition `n = NT·a + NS·b = 2a + 3b`:
 The "both odd" alive predicate is therefore not a separate postulate
 but the **count-Lens readout of Clause 4 applied recursively**.
 
-## What this closes (G87 §2.2)
+## What this closes
 
 > "Alive (parity a = true ∧ parity b = true)는 cohomological-fermion
 >  parity의 postulate이며 Raw에서 derive되지 않음 — Raw → 5 chain의

@@ -1,7 +1,7 @@
 /-!
 # KernelFreeAudit: modularity audit of Lean kernel axioms
 
-User question (2026-04-26): `propext` and `Quot.sound` are also
+User question: `propext` and `Quot.sound` are also
 hard-coded into the Lean kernel — can even those be modularized?
 
 ## Audit results (M1-M22 milestones + 9 arc fronts)

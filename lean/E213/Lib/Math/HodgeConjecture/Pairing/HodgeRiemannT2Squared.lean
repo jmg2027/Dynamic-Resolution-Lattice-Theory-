@@ -44,7 +44,6 @@ open E213.Lib.Math.Cohomology.Surfaces.T2Squared
 open E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 
 
-
 /-! ## §1 — Kähler class and primitive (1,1) basis
 
   The Kähler class `ω = a₁b₁ + a₂b₂` (= `alpha1_plus`) has
@@ -83,7 +82,6 @@ theorem eta_2_primitive :
 /-- η₃ is primitive: `cup(η₃, ω) = 0`. -/
 theorem eta_3_primitive :
     cup primitive_eta_3 kahler_class Cell4.vol = 0 := by decide
-
 
 
 /-! ## §4 — HR negative-definite: `cup(η_i, η_i) = −2 < 0`
@@ -129,7 +127,6 @@ theorem eta_distinct :
   · exact fun h => absurd (congrFun h Cell2.a2b2) (by decide)
   · exact fun h => absurd (congrFun h Cell2.a1b1) (by decide)
   · exact fun h => absurd (congrFun h Cell2.a1b1) (by decide)
-
 
 
 /-! ## §7 — Master Hodge–Riemann (1,1) refinement theorem -/

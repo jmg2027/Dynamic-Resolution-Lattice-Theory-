@@ -37,7 +37,6 @@ theorem boolToProp_and (x y : Bool) :
   cases x <;> cases y <;> simp
 
 
-
 /-- **Functorial commutativity**: the images of Raw's universal morphism
     for Bool and for Prop (And) commute via boolToProp.
 
@@ -68,7 +67,6 @@ theorem universalMorphism_commute (r : Raw) :
                 = Bool.and (universalMorphism Bool x) (universalMorphism Bool y) :=
         universalMorphism_slash Bool x y h
       rw [h1, h2, boolToProp_and, ihx, ihy]
-
 
 
 /-! ### Commutativity of Bool with Xor + Prop with Xor
@@ -125,7 +123,6 @@ theorem universalMorphism_commute_xor (r : Raw) :
       rw [h1, h2, boolToProp_xor, ihx, ihy]
 
 
-
 /-! ### Functoriality of Or and Iff connective pairs -/
 
 /-- Bool with or combine instance. -/
@@ -169,7 +166,6 @@ theorem universalMorphism_commute_or (r : Raw) :
                           (@universalMorphism Bool boolOrHasDistinguishing y) :=
         @universalMorphism_slash Bool boolOrHasDistinguishing x y h
       rw [h1, h2, boolToProp_or, ihx, ihy]
-
 
 
 /-- Bool with beq (= equality on Bool) combine instance. -/

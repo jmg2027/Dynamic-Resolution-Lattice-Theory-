@@ -5,7 +5,7 @@ import E213.Lens.Number
 /-!
 # Lib.Math.Mobius213OneAsGlue — 1 as the rotation axis between NS and NT
 
-User insight (2026-05-09): "2와 3은 진짜 직교하면 서로 힘을 받을 수
+User insight: "2와 3은 진짜 직교하면 서로 힘을 받을 수
 없다.  1이 접착제이고 회전축.  2-3 spiral이 1의 rotation에서 나옴.
 2-1-3은 불가분 — 하나만으론 무력, 둘 있으면 셋째 자동 도출."
 
@@ -63,7 +63,7 @@ theorem ns_nt_product : NS * NT = 6 := by decide
 /-- ★★★ THE BIG REVEAL: `det(P) = NS - NT`.  The Möbius P
     determinant equals the glue itself = NS - NT = 1.
 
-    User insight (2026-05-09): "det가 나누기랑 역할이 똑같잖아.
+    User insight: "det가 나누기랑 역할이 똑같잖아.
     진짜 det가 1성분 맞네"
 
     Determinant computation `ad - bc` uses BOTH fold families:

@@ -68,7 +68,6 @@ theorem leaves_refines_parity : Lens.leaves.refines parityLens := by
   rw [parityLens_view_eq_leaves_odd x, parityLens_view_eq_leaves_odd y, hxy']
 
 
-
 /-- Witness Raw element with leaves=3, parity=true. -/
 def sample3 : Raw :=
   Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide)

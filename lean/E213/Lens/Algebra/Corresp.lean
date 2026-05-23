@@ -45,7 +45,6 @@ theorem lens_kernel_is_slash_cong {α : Type} (L : Lens α)
       x x' y y' h h' hxx hyy
 
 
-
 /-- **Direction 2**: any slash-congruence is the kernel of some Lens.
     `universalLens E` is the explicit witness (§5.1). -/
 theorem slash_cong_is_lens_kernel

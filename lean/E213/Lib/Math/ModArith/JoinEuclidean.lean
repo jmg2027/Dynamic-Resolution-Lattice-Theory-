@@ -69,7 +69,6 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
       exact step1.trans step2
 
 
-
 /-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
     L_m + L_k → L_{m-k}.  ∅-axiom (uses
     `Gcd213.mod_eq_exists_mul_add` to extract the quotient `q`

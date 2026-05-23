@@ -187,7 +187,6 @@ private theorem abLens_slash (x y : Raw) (h : x ≠ y) :
 -- direct PURE consequence, eliminating ~13 omega/simp uses.
 
 
-
 /-- Constructive Σ-version: abLens_witness is an explicit Raw function.
     Constructive version of abLens_surjective — no Classical. -/
 def abLens_witness (s : Nat) : ∀ (a b : Nat),
@@ -275,7 +274,6 @@ theorem abLens_surjective (s a b : Nat) (hsum : a + b = s) (ha : 1 ≤ a)
     (hb : 1 ≤ b) : ∃ r : Raw, abLens.view r = (a, b) :=
   let ⟨r, hr⟩ := abLens_witness s a b hsum ha hb
   ⟨r, hr⟩
-
 
 
 /-- Pell X positivity. -/

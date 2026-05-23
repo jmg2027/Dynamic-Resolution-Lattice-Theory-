@@ -41,7 +41,6 @@ namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
 open E213.Lib.Physics.Simplex.Counts
 
 
-
 /-! ## §1 — Edge counts (Δ⁴ vs K_{3,2}^{(c=2)}) -/
 
 /-- c = lattice multiplicity (= 2 for K_{3,2}^{(c=2)}). -/
@@ -66,7 +65,6 @@ def tt_edges : Nat := binom NT 2
 
 /-- Δ⁴ edges OUTSIDE K_{3,2}^{(c=2)} support (the "lost" edges). -/
 def kernel_edges : Nat := ss_edges + tt_edges
-
 
 
 /-! ## §3 — Projection ratios (the geometric content)
@@ -117,7 +115,6 @@ def kernel_edges : Nat := ss_edges + tt_edges
 
 -- §4 AlphaEM coefficient origins (60, 30, 25, 4, 45) folded
 -- into `projection_ratios_master` below.
-
 
 
 /-! ## §5 — Master projection-ratio theorem -/

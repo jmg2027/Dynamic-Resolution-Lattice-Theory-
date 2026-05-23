@@ -4,7 +4,7 @@ import E213.Lens.Compose
 /-!
 # Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
 
-User insight (2026-04-26): "Hyperreals or large axiom systems are
+User insight: "Hyperreals or large axiom systems are
 rather naturally absorbed into 213.  The real final boss is ℝ as
 defined in ZFC itself."
 

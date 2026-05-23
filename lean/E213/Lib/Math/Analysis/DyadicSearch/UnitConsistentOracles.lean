@@ -274,4 +274,3 @@ def numA_zero_alwaysTrue_ConsistentOracle (db : DyadicBracket)
       rw [h1, h2]
 
 
-

@@ -41,7 +41,6 @@ namespace E213.Lib.Physics.Foundations.AtomicConstantsUnique
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 
-
 /-! ## §1 — Three independent atomic constraints
 
   Each constraint is a Bool predicate over candidate (m, n, c).
@@ -172,7 +171,6 @@ theorem atomic_constants_unique_master :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 
-
 /-! ## §4.5 — Step 2: algebraic Diophantine analysis
 
   The C2b constraint `(m²-1)(n²-1) = (m+n)²-1` expanded:
@@ -216,7 +214,6 @@ theorem C2b_at_large_n_no_solution :
       else (List.range 11).all (fun n =>
         if n < 4 then true
         else constraint_C2b m n == false)) = true := by decide
-
 
 
 /-! ## §5 — Master C2 Step 2 theorem -/

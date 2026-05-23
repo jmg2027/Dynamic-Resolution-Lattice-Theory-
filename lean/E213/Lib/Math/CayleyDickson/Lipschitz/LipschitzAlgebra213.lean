@@ -61,7 +61,6 @@ private theorem conj_add' (u v : Lipschitz) :
       exact E213.Meta.Int213.neg_add _ _
 
 
-
 /-- ∅-axiom: `(u + v) * w = u * w + v * w` componentwise via ZI add_mul. -/
 private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
   apply ext
@@ -95,7 +94,6 @@ private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
     exact Ring213.add_4_swap_mid _ _ _ _
 
 
-
 /-- ∅-axiom Lipschitz `mul_add`: `u * (v + w) = u * v + u * w`. -/
 private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
   apply ext
@@ -124,7 +122,6 @@ private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
     -- Goal: v.im*u.re + w.im*u.re + (u.im*v.re.conj + u.im*w.re.conj)
     --     = (v.im*u.re + u.im*v.re.conj) + (w.im*u.re + u.im*w.re.conj)
     exact Ring213.add_4_swap_mid _ _ _ _
-
 
 
 /-- Helper: `ZI.conj 0 = 0`. -/
@@ -168,7 +165,6 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   exact h_int
 
 
-
 /-- ★ ∅-axiom Lipschitz `self_mul_conj`: `z * conj z = ofInt z.normSq`.
     Uses ZI's `IntegerNormed213.self_mul_conj` recursively + ZI mul_comm
     (since ZI is commutative).  No Int polynomial expansion. -/
@@ -206,7 +202,6 @@ private theorem self_mul_conj' (z : Lipschitz) :
     exact Ring213.add_left_neg _
 
 
-
 /-- ∅-axiom Lipschitz `ofInt_central`: ofInt z commutes with all a. -/
 private theorem ofInt_central' (z : Int) (a : Lipschitz) :
     ofInt z * a = a * ofInt z := by
@@ -232,7 +227,6 @@ private theorem ofInt_central' (z : Int) (a : Lipschitz) :
        = 0 * a.re + a.im * (ZI.ofInt z).conj
     rw [conj_ofInt_zi z, Ring213.zero_mul, Ring213.zero_mul,
         Ring213.add_zero, Ring213.zero_add]
-
 
 
 /-- Generic Ring213 4-term cycle helper: `A + B + C + D = A + C + D + B`. -/
@@ -277,7 +271,6 @@ private theorem mul_assoc_re' (u v w : Lipschitz) :
   exact add_4_cycle _ _ _ _
 
 
-
 /-- ★ ∅-axiom Lipschitz `mul_assoc.im`.  Same pattern as .re. -/
 private theorem mul_assoc_im' (u v w : Lipschitz) :
     ((u * v) * w).im = (u * (v * w)).im := by
@@ -318,7 +311,6 @@ private theorem mul_assoc' (u v w : Lipschitz) :
   apply ext
   · exact mul_assoc_re' u v w
   · exact mul_assoc_im' u v w
-
 
 
 /-- ★ Lipschitz `Ring213` instance — all axioms PURE via ZI projections. -/

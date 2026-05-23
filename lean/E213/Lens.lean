@@ -90,9 +90,9 @@ import E213.Lens.Universal
     * `Lens.lean`           — Lens type + view/equiv
     * `Lens/Initiality.lean`    — initiality of the Lens category
     * `Lens/SemanticAtom.lean`  — semantic-atom characterisation
-    * `Lens/Congruence.lean`    — `Eqv ↔ L.equiv` bridge (2026-05-18)
+    * `Lens/Congruence.lean`    — `Eqv ↔ L.equiv` bridge
     * `Lens/SyntacticInternalization.lean` — glyph-as-Raw L2 + L3
-                                              round-trip (2026-05-18)
+                                              round-trip
 
   ## Status
 

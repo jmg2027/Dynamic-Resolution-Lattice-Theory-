@@ -64,7 +64,6 @@ scoped syntax (name := deriveConjugationCodomain)
   "derive_conjugation_codomain " ident "with_bases" ident ident : command
 
 
-
 @[command_elab deriveConjugationCodomain]
 def elabDeriveConjugation : CommandElab := fun stx => do
   match stx with

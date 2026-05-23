@@ -15,7 +15,7 @@ The **family at level `n = d * d = 25`**: at this depth the vertex
 count `5^25` matches the Gram-matrix dimension of the two-axis
 (3, 2) decomposition (`d² = NS² + 2·NS·NT + NT²`).
 
-Per G120 Round 3: this is a *family property*, not a separate
+Note: this is a *family property*, not a separate
 "self-referential" framing.  The wrapper `def universe_level :=
 d * d` was deleted; the underlying observation lives as
 `NResolutionFractalDepth.numV_at_d_squared`.

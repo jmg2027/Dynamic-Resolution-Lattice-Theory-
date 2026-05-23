@@ -15,7 +15,7 @@ import E213.Lib.Physics.Simplex.Counts
 # Cohomology 213 — Marathon capstone
 
 Bundles the five into a single 0-axiom theorem.
-Closes the Cohomology 213 marathon as a self-contained branch of
+Closes the Cohomology 213 sub-tree as a self-contained branch of
 213-internal mathematics.
 
 ## What's inside (all decide-checked, 0 axiom)

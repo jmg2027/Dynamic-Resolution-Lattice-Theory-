@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Hodge.Star
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# ⋆⋆ = id Prop-lift at (5, 1) — corollary of G111 COH-2 template
+# ⋆⋆ = id Prop-lift at (5, 1) — corollary COH-2 template
 
 User: hard deferred items 될때까지 고고.  Same pattern technique as
 Universal δ²=0 lifts ⋆⋆ = id from concrete cochains to Prop-level ∀ σ.

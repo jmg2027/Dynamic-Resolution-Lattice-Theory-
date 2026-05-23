@@ -26,7 +26,7 @@ This file demonstrates 213 satisfies **BOTH** standards via:
   - All 4 observables evaluate at the same family point —
     `configCount` family level n = 2 (commit 58a550f)
 
-(Per G120 Round 3: the value `5^25` is the readout of the
+(Note: the value `5^25` is the readout of the
 parametric `configCount` family at level 2, not a privileged
 "single N_U".  Earlier "share single N_U" framing reworded
 to "evaluate at the same family point" per CLAUDE.md

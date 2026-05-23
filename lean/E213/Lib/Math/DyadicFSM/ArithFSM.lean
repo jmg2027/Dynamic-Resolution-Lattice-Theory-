@@ -26,7 +26,6 @@ namespace E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 
 
-
 /-- 2-state arithmetic FSM with state vector in Fin n × Fin n. -/
 structure ArithFSM2 (n : Nat) where
   init : Fin n × Fin n

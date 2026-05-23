@@ -7,7 +7,7 @@ import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 # Linalg213 — 6 Capstone
 
 **Paper 1 Chiral Compression Theorem** in 213-internal form.
-Bundles results from CA-CF Cohomology marathon + L1-L5 Linalg213
+Bundles results from CA-CF Cohomology sub-tree + L1-L5 Linalg213
 into a single 0-axiom theorem stating paper 1's main claims.
 
 ## What's bundled

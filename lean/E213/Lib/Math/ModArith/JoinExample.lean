@@ -44,7 +44,6 @@ theorem mod_4_6_chain_example {α : Type} (N : Lens α)
   exact step1.trans step2
 
 
-
 /-- +2 step via L_6 then L_4: chain of length 2. -/
 theorem mod_4_6_step_two {α : Type} (N : Lens α)
     (h4 : (leavesModNat 4).refines N)
@@ -123,7 +122,6 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
           rw [Nat.mul_succ, ← Nat.add_assoc]
         rw [hr', h_step, ← hr'']
       exact step1.trans step2
-
 
 
 /-- **L_4 + L_6 → L_2 complete**.  Least direction of

@@ -98,9 +98,6 @@ theorem quarticIsDifferentiable_derivative_modulus (k : Nat) :
   exact Nat.max_self (3 * k)
 
 
-
-
-
 /-- d/dx [x⁵] modulus = 4k. -/
 theorem quinticIsDifferentiable_derivative_modulus (k : Nat) :
     quinticIsDifferentiable.derivativeSmooth.linearityModulus k = 4 * k := by
@@ -155,9 +152,6 @@ theorem octicIsDifferentiable_derivative_modulus (k : Nat) :
   rw [quarticIsDifferentiable_derivative_modulus, quarticIsDifferentiable_modulus]
   rw [coef_add 3 4 k, coef_add 4 3 k]
   exact Nat.max_self (7 * k)
-
-
-
 
 
 /-- d/dx [x⁹] modulus = 8k. -/

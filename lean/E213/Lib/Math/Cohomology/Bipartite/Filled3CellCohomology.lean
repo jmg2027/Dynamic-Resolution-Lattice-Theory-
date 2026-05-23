@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 /-!
 # Filled3Cell cohomology functor — Phase 1 anchor
 
-Shared prereq unlocking three downstream marathons (JSJ-deepening,
+Shared prereq unlocking three downstream sub-trees (JSJ-deepening,
 cork higher cohomology, α_em sub-ppb).  Establishes:
 
   · Concrete attaching maps for the 3 simple 4-cycles of K_{3,2}^{(c=2)}

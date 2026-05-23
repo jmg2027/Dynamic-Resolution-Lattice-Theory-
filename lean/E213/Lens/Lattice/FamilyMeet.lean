@@ -56,7 +56,6 @@ theorem familyMeet_slash {I : Type} (E : I → Raw → Raw → Prop)
   fun hxx hyy i => hslash i x x' y y' h h' (hxx i) (hyy i)
 
 
-
 /-- **Family meet via universalLens**: the simultaneous slash-congruence
     intersection of an arbitrary family `⟨E_i⟩_{i ∈ I}` can be
     expressed as the kernel of a single Lens.

@@ -38,7 +38,6 @@ structure StrongModulus (xs : Nat → Raw) where
         + (abLens.view (xs i)).2 * (abLens.view (xs j)).2
 
 
-
 /-- **Diagonal sequence** (view (n+1, n+1)) is a StrongModulus instance.
     Constant ratio 1 → variation = 0 → trivial bound. -/
 def diagonalStrongModulus (xs : Nat → Raw)

@@ -40,7 +40,6 @@ inductive FamilyJoinEquiv {I : Type} (E : I → Raw → Raw → Prop) :
       FamilyJoinEquiv E (Raw.slash x y h) (Raw.slash x' y' h')
 
 
-
 /-- **Family join via universalLens**: the join of an arbitrary family
     is expressed as the kernel of a single Lens.  FamilyJoinEquiv
     inductively carries the 4 closure properties itself, so it satisfies

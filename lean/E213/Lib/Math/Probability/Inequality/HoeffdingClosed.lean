@@ -9,7 +9,7 @@ Closes the long-deferred "full Hoeffding `2·exp(−2nε²)` closed
 form needs `Real213.log`" item from PRs #38, #55:
 
 With `Real213.CutLogSeries.cutLog` now in hand
-(this branch's `claude/real213-log-marathon`), the optimal-`t`
+(this branch's `Real213/ExpLog/`), the optimal-`t`
 Chernoff argument can be expressed at the *formal-series* level:
 
   `P(X − E[X] ≥ ε) ≤ inf_{t > 0} E[e^{t(X − E[X])}] · e^{−tε}`

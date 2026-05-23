@@ -19,7 +19,7 @@ This file makes that ∅-axiom by:
        must be one of the 6 listed units (bounded-square Int algebra)
   · §4 `units_count_eq_NSNT` — `zo_units.length = NS * NT = 6`
 
-This is the algebraic foundation for the **6-theorem** (G87 §5): every
+This is the algebraic foundation for the **6-theorem**: every
 appearance of the integer 6 across DRLT-213 (χ-sum defect, α_GUT
 numerator, Pauli ε non-zero entries, Lorentz generators, K_{3,2} S-T
 cross pairs, SU(NS) roots, 3!, F_6-adjacency, d+1) factors through
@@ -243,7 +243,7 @@ private theorem re_sq_le_one (u : ZOmega) (h : u.normSq = 1) :
 
     Combined with §1-§2 (the 6 units exist), this proves
     **`|ZOmega^×| = 6` exactly** — closing the structural side of the
-    6-theorem (G87 §5).  PURE.  -/
+    6-theorem.  PURE.  -/
 theorem normSq_one_in_units6 (u : ZOmega) (h : u.normSq = 1) :
     units6.contains u = true := by
   have h_im := E213.Meta.Int213.int_sq_le_one u.im (im_sq_le_one u h)
@@ -284,7 +284,7 @@ theorem normSq_one_in_units6 (u : ZOmega) (h : u.normSq = 1) :
       (2) Every `u : ZOmega` with `normSq u = 1` is in `units6`  (§6: `normSq_one_in_units6`).
     Together with `units6_length = 6` and `units6_nodup`, this proves
     `|{u : ZOmega | normSq u = 1}| = 6` exactly — the structural side
-    of the 6-theorem (G87 §5) now fully closed.
+    of the 6-theorem now fully closed.
 
     PURE.  Bundle of two PURE directions. -/
 theorem ZOmega_units_exact_six :

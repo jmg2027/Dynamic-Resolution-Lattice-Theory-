@@ -10,7 +10,7 @@ namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
 /-! ## §HC — Hodge-K32 ↔ 8 geometries deeper hint (R1 step 21 — 2026-05-22)
 
-**User insight (2026-05-22)**: "HC_K32: 우리가 앞서 정교하게
+**User insight**: "HC_K32: 우리가 앞서 정교하게
 검증했던 K_{3,2}^{(c=2)}라는 유일한 기저 위에서 호지 성질이 8개의
 코호몰로지 클래스 전부에 대해 닫혀 있음을 확인했습니다. 를 보면
 8개 리군도 연결고리가 이미 있을수도?"
@@ -132,7 +132,7 @@ theorem geometries_classes_structural_hint :
 
 /-! ## §O — Algebraic-operation closure universal-8 thesis (R1 step 23 — 2026-05-22)
 
-**User unifying insight (2026-05-22)**: "코호몰로지도 호지 닫힘도
+**User unifying insight**: "코호몰로지도 호지 닫힘도
 리 군처럼 대수 연산이고 연산이 가능한 8개 폼만 있다는걸 얘기하는거
 같이 느껴졌거든."
 
@@ -247,7 +247,7 @@ theorem operation_closure_universal_eight_capstone :
 
 /-! ## §M — Structural mapping: 2·trivial → 3 isotropic, 3·standard → 5 anisotropic (R1 step 24 — 2026-05-22)
 
-**USER ULTIMATE INSIGHT (2026-05-22)**: the Sym(3) decomposition
+**USER ULTIMATE INSIGHT**: the Sym(3) decomposition
 `H¹(K_{3,2}^{(c=2)}) = 2·trivial ⊕ 3·standard` maps **DIRECTLY**
 to Thurston's 3 + 5 = 8 geometry split.  Direct structural
 identification, not narrative parallel.

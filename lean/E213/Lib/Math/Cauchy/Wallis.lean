@@ -105,7 +105,6 @@ theorem kk_lt_4_kp1_sq (k : Nat) :
         exact kkLhs_add_one_eq_kkRhs)
 
 
-
 /-! ### Algebraic invariants -/
 
 /-- **Lower invariant** (n ≥ 1): 3 * wallisNum n ≥ 4 * wallisDen n.
@@ -148,7 +147,6 @@ theorem wallis_lower_inv (n : Nat) (hn : n ≥ 1) :
         exact Nat.le_trans step1 step2
 
 
-
 /-! ### Monotonicity (partial Cauchy demonstration) -/
 
 /-- **Monotonicity**: W_n < W_{n+1}.
@@ -175,7 +173,6 @@ theorem wallis_monotonic (n : Nat) :
       _ ≤ wallisNum n * wallisDen n :=
           Nat.mul_le_mul (wallisNum_pos n) (wallisDen_pos n)
   exact Nat.mul_lt_mul_of_pos_left hkk_strict h_pos
-
 
 
 /-! ### Raw sequence + orderProj (below 1) cut -/
@@ -277,7 +274,6 @@ theorem wallis_poly_identity (k : Nat) :
       congrArg (fun p => eval p k) wallisLhsPoly_eq_wallisRhsPoly]
 
 
-
 /-- **Upper invariant**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
     (W_n ≤ 2 - 1/(2n+1) < 2.)
 
@@ -345,7 +341,6 @@ theorem wallis_upper_inv (n : Nat) :
       exact h7
 
 
-
 /-- **Cut above 2**: m/k ≥ 2 (2k ≤ m) → orderProj true (∀ n).
     Upper inv: a_n * (2n+1) ≤ (4n+1) * d_n.  (4n+1) ≤ 2(2n+1) so
     a_n * (2n+1) ≤ 2 * (2n+1) * d_n, cancel (2n+1): a_n ≤ 2 d_n.
@@ -392,7 +387,6 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
   have h7 : wallisDen n * (2 * k) ≤ wallisDen n * m :=
     Nat.mul_le_mul_left (wallisDen n) h2km
   exact Nat.le_trans h5 h7
-
 
 
 /-- **Order Cauchy** at thresholds m/k ≥ 2 ∨ m/k ≤ 1.

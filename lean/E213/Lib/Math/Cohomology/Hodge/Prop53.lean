@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Universal.Prop53
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# ⋆⋆ = id Prop-lift at (5, 3) — corollary of G111 COH-2 template
+# ⋆⋆ = id Prop-lift at (5, 3) — corollary COH-2 template
 
 Cochain 5 3 = Fin (binom 5 3) → Bool = Fin 10 → Bool, 1024
 patterns × 10 indices = 10240 evaluations.  Same scale as (5, 2).

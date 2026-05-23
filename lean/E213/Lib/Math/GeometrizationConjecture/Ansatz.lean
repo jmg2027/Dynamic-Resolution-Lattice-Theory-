@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 /-!
 # G121 — Chart-axis ansatz: core defs + axiom shadow + V32Betti deployment
 
-Steps 1-3 of G121 R1 (see `research-notes/G121_dim4_self_pointing_axis.md`):
+Steps 1-3 R1:
   · Step 1: definitional scaffold (chartBase, selfPointingAxes, chartVisibleAxes)
   · Step 2: axiom-level shadow via `Meta.LensInternality.toData`
   · Step 3: deployment-level derivation via `V32Betti.kerSizeDelta0_eq_2`
@@ -67,7 +67,7 @@ theorem chartBase_K32 : chartBase 3 2 = 5 := rfl
     critical exotic-residue dimension (Freedman + Donaldson). -/
 theorem chartVisibleAxes_K32 : chartVisibleAxes 3 2 = 4 := rfl
 
-/-- Spacetime 3+1 partition (G121 §4.2):
+/-- Spacetime 3+1 partition:
     chartVisibleAxes splits as N_S + (N_T - 1) — N_S axes for
     space readout, one N_T axis for time readout, the other
     N_T axis absorbed into self-pointing. -/

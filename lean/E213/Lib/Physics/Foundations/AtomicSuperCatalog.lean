@@ -72,7 +72,7 @@ def fact : Nat → Nat
 /-- ★ Super Catalog Capstone ★
     Selected atomic integers in multi-output form.
     Absorbs AtomicIdentities/{MultiReading, GaugeGroup,
-    ExceptionalLie} (2026-05-05). -/
+    ExceptionalLie}. -/
 theorem super_catalog :
     -- atomic basis
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)

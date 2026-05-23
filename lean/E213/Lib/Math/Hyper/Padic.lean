@@ -68,7 +68,6 @@ open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 
-
 /-! ### Power lemmas (based on Lean 4 core) -/
 
 private theorem pow_one_le (p : Nat) (hp : p ≥ 2) (k : Nat) :
@@ -93,7 +92,6 @@ private theorem pow_succ_dvd (p : Nat) (k : Nat) :
     p^(k+1) ∣ p^(k+2) := by
   show p^(k+1) ∣ p^(k+1) * p
   exact ⟨p, rfl⟩
-
 
 
 /-! ### p-adic Lens family -/
@@ -129,7 +127,6 @@ theorem padic_family_limit_zero (p : Nat) (hp : p ≥ 2)
 theorem padic_tower_refines (p : Nat) (k : Nat) :
     (padicFamily p (k+1)).refines (padicFamily p k) :=
   divides_refines (p^(k+2)) (p^(k+1)) (pow_succ_dvd p k)
-
 
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/

@@ -77,7 +77,6 @@ theorem lensCauchy_is_GFCauchy {α : Type} (L : Lens α)
   exact hN k l hk hl
 
 
-
 /-- **ArchimedeanCauchy is GFCauchy instance**: orderProj family +
     abLens is GFCauchy with ι = Nat × Nat, β = Bool. -/
 theorem orderCauchy_is_GFCauchy
@@ -110,7 +109,6 @@ theorem orderCauchy_is_GFCauchy
     rw [decide_eq_true (Nat.zero_le _), decide_eq_true (Nat.zero_le _)]
 
 
-
 /-- **Profinite (factorial) Cauchy is GFCauchy instance**:
     Lens.leaves + (· % (m+1)) family.  Index is ℕ with m+1 ensuring
     m+1 ≥ 1 automatically. -/
@@ -129,7 +127,6 @@ theorem profinite_factorial_is_GFCauchy
         (m+1) hmp k (Nat.le_succ_of_le hk),
       E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod
         (m+1) hmp l (Nat.le_succ_of_le hl)]
-
 
 
 /-- **ProjectionLens**: when F is fold-compatible, constructs a
@@ -172,7 +169,6 @@ theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → �
            = F i (L.view (Raw.slash x y h))
       rw [hfsL]
       exact (compat i (L.view x) (L.view y)).symm
-
 
 
 /-- **Mod family projectionLens**: leaves + mod are fold-compatible,

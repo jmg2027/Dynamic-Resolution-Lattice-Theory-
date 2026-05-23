@@ -68,7 +68,6 @@ private theorem same_leaves {α : Type} (N : Lens α)
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
 
-
 /-- +k step via iteration. -/
 theorem step_plus_k {α : Type} (N : Lens α)
     (h2 : (leavesModNat 2).refines N)
@@ -101,7 +100,6 @@ theorem step_plus_k {α : Type} (N : Lens α)
           (Nat.add_assoc _ k 1).symm
         rw [hr', hsucc, ← hr'']
       exact step1.trans step2
-
 
 
 /-- **Main**: L_2.refines N ∧ L_3.refines N → N is constant.

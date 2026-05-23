@@ -27,7 +27,7 @@ This file records the alignment as concrete Lean definitions
 (stub level: definitions + their basic interconnections; the
 full Gödel-encoding self-closure is deferred — predicates can in
 principle be encoded back to Raw via truth-table numerals, but
-that closure is a separate marathon).
+that closure is a separate continuation).
 -/
 
 namespace E213.Lens.FlatOntology
@@ -123,7 +123,7 @@ catamorphism specialisation.
 
 This file does NOT formalise the closure direction (a predicate
 encoded back as a Raw via Gödel numbering of its truth table).
-That is a separate marathon — see `Lens/Cardinality/Godel.lean`
+That is a separate continuation — see `Lens/Cardinality/Godel.lean`
 for the Raw → ℕ injection (one direction of the closure) and
 `research-notes/G29_residue.md` "자기-덮음" for the philosophical
 statement of the loop.

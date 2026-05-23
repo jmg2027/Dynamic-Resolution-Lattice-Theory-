@@ -57,7 +57,6 @@ def cup (α β : C2) : C4 := fun _ =>
   + α Cell2.a1b2 * β Cell2.b1a2 + α Cell2.b1a2 * β Cell2.a1b2
 
 
-
 /-! ## §1 — Standard basis of `C2` -/
 
 /-- Six standard basis vectors of `C2`, one per Cell2 generator. -/

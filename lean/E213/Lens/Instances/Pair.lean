@@ -37,7 +37,6 @@ def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
     rw [d_α.combine_sym, d_β.combine_sym]
 
 
-
 /-- **Universal property of binary product**: universalMorphism (α × β)
     is the pair of componentwise universalMorphisms. -/
 theorem universalMorphism_pair_commute (α β : Type)
@@ -76,7 +75,6 @@ theorem universalMorphism_pair_commute (α β : Type)
       rfl
 
 
-
 /-! ### Pair forget projections (categorical projection morphisms)
 
 `α × β → α` and `α × β → β` are *projections* in the
@@ -113,7 +111,6 @@ theorem pair_forget_second_combine (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (p q : α × β) :
     Prod.snd ((pairHasDistinguishing α β).combine p q)
       = d_β.combine (Prod.snd p) (Prod.snd q) := rfl
-
 
 
 /-! ### Combination of universal property and forget projections

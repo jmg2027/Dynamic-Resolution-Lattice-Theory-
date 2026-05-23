@@ -11,10 +11,10 @@ import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
 
 /-!
-# Cross-Domain Unification (G35-C6, step 1)
+# Cross-Domain Unification
 
-Empirical demonstration that the four marathon-completed paradigm
-domains (Probability, Information, Logic, Combinatorics) AND the
+Empirical demonstration that the four paradigm domains
+(Probability, Information, Logic, Combinatorics) AND the
 chiral cup-ring core (CupChannelInventory, ChannelCohomologyLoss,
 GradedDecomposition) all close ∅-axiom under the **same toolkit**:
 
@@ -28,9 +28,6 @@ witness from each of seven domains) itself closes ∅-axiom is the
 empirical signature of unification: a single Lean toolkit + a
 single ∅-axiom standard suffices for all seven, with no per-
 domain ad hoc machinery.
-
-This is **Step 1** of conjecture C6 per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C6.
 
 The deeper claim — that the seven domains share a SINGLE underlying
 algebraic structure (graded ring with grade truncation +
@@ -124,7 +121,7 @@ def sampleMS : E213.Lib.Math.Measure.MeasurableSet.DyadicMeasurableSet := []
     The fact that THIS conjunction itself closes ∅-axiom is the
     structural signature of unification.
 
-    Domains witnessed (all marathon Capstones + cup-ring core):
+    Domains witnessed (all domain Capstones + cup-ring core):
       (i)    Combinatorics 213
       (ii)   Probability 213
       (iii)  Information 213

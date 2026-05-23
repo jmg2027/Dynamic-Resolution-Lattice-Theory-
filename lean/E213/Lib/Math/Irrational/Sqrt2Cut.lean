@@ -47,7 +47,6 @@ private theorem nat_le_of_sq_le {a b : Nat} (hsq : a * a ≤ b * b) : a ≤ b :=
     exact absurd (Nat.lt_of_le_of_lt h2 h1) (Nat.not_lt_of_le hsq)
 
 
-
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
     captured as 2k² < m²)**.  Assumes y² ≥ k² (y sufficiently large). -/
 theorem pell_orderProj_above (x y m k : Nat)
@@ -91,7 +90,6 @@ theorem pell_orderProj_above (x y m k : Nat)
   -- Goal: 2*(y*y)*(k*k) + k*k ≤ (y*y)*(m*m)
   -- Chain: k*k ≤ y*y → 2*(y*y)*(k*k) + k*k ≤ 2*(y*y)*(k*k) + y*y ≤ (y*y)*(m*m)
   exact Nat.le_trans (Nat.add_le_add_left hy_large _) step1
-
 
 
 /-- **Pell solutions: orderProj false when m/k < √2** (rationally

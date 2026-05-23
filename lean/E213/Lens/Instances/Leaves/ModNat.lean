@@ -53,7 +53,6 @@ theorem leavesModNat_view_eq (m : Nat) :
       exact (E213.Meta.Nat.AddMod213.add_mod_gen _ _ m).symm
 
 
-
 /-- divisibility → refinement: k ∣ m ⟹ mod m refines mod k. -/
 theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
     (leavesModNat m).refines (leavesModNat k) := by
@@ -114,7 +113,6 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       rw [h_eq, E213.Meta.Nat.AddMod213.mod_self] at hk_eq
       exact absurd hk_eq (by decide)
   exact E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hm_zero
-
 
 
 /-- **General upper bound (∅-axiom).** For any common divisor `d`

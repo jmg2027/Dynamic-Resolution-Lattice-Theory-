@@ -2,7 +2,7 @@
 /-!
 # Fractal-simplex at L levels — K_{5^L} cohomology
 
-**Correction (2026-04-27):** the user's deeper insight: if the
+**Correction:** the user's deeper insight: if the
 block universe contains N lattice points, the fractal must recurse
 to a depth that includes all N points, NOT a fixed 2 levels.
 

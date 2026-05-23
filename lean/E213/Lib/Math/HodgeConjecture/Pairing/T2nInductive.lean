@@ -49,7 +49,6 @@ open E213.Meta.Nat.BinomSymm
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 
-
 /-! ## §0 — `2 * x / 2 = x` (213-native PURE)
 
   Companion to Lean-core `Nat.mul_div_cancel_left` (which carries

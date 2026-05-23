@@ -3,7 +3,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Hadron bigrading composite — 3-quark glued sub-cohomology on K_{25}
 
-Path (c) initial formalization (2026-04-30): hadron mass ratios
+Path (c) initial formalization: hadron mass ratios
 m_n/m_p, g_p, m_n − m_p as projections of joint K_{25} 3-quark
 cohomology onto specific glued sub-configurations.
 
@@ -145,7 +145,7 @@ theorem mn_minus_mp_over_me_atomic :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! ## L5 cascade — free closures via composition (2026-05-01)
+/-! ## L5 cascade — free closures via composition
 
   m_n / m_e = (m_n/m_p) · (m_p/m_e) = (1+δ) · 6π⁵·(1+α_GUT/1296)
             = 1838.683546 vs PDG 1838.683661 → 0.063 ppm  ★

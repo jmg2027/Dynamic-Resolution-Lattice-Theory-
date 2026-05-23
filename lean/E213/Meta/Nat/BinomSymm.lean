@@ -98,7 +98,6 @@ theorem binom_symm : ∀ {n k : Nat}, k ≤ n → binom n k = binom n (n - k)
       rfl
 
 
-
 /-! ## §4 — Central binomial is even for n ≥ 1 -/
 
 /-- ★★★★★ `C(2n+2, n+1) = 2 · C(2n+1, n+1)` for all `n`.

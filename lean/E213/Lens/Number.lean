@@ -4,7 +4,7 @@ import E213.Lens.Number.Int213
 /-! Spec-as-code entry point for `E213.Lens.Number`.
 
   Number — Raw-derived number systems realised as Lens-layer
-  catamorphism outputs.  Per ARCHITECTURE.md (2026-05-13): Raw +
+  catamorphism outputs.  Per ARCHITECTURE.md: Raw +
   a specific catamorphism choice = a Lens-layer artifact.
 
   ## Sub-clusters

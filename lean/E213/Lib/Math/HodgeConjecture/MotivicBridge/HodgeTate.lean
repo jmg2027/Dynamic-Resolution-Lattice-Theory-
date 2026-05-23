@@ -11,7 +11,7 @@ decomposition  H^n(X; ℂ_p) = ⊕_i ℂ_p(-i) ⊗ H^{n-i}(X, Ω^i).
 
 In 213: requires p-adic analogue of Real213 (Bishop-style p-adic
 analysis).  Currently deferred — the standard formulation depends
-on p-adic completions which are a parallel marathon to Real213.
+on p-adic completions which are a parallel sub-tree to Real213.
 
 In the strict ℤ/2 / cup-chain layer of 213 we have the *Hodge*
 decomposition (= ⋆-eigenspace) but not the *p-adic Hodge-Tate*

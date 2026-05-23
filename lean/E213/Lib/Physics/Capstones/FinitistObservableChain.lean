@@ -26,7 +26,7 @@ No external π / transcendentals.
 
 ## Family-point coincidence (not "universe constant")
 
-Per G120 Round 3: the four observables share the family
+Note: the four observables share the family
 *evaluation point* (level n = 2), not a privileged "universe
 resolution".  Earlier framing called this "the SAME lattice
 resolution N_U", which imported the CLAUDE.md "Universe-constant

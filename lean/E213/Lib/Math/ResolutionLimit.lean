@@ -8,13 +8,12 @@ import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 Formal Lean realisation of `seed/RESOLUTION_LIMIT_SPEC.md`.  All
 content is mechanical:
 
-  · `N_U` (historical name) is the value of the parametric
-    `configCount : Nat → Nat` family at level 2.  Per G120 Round 3:
-    no privileged "universe constant" — just one value of a Nat-
-    parametric Lens output.
+  · `N_U` is the value of the parametric `configCount : Nat → Nat`
+    family at level 2 — one value of a Nat-parametric Lens output;
+    no privileged "universe constant".
   · Cantor "inhabitant absence" + DyadicTrajectory "structural
     inequality" referenced as the two ∅-axiom-witnessed type
-    distinctions that block ZFC-style infinity collapse
+    distinctions that block ZFC-style infinity collapse.
 
 ∅-axiom + 213-native verified (PureGuardTest / NativeGuardTest).
 -/
@@ -30,11 +29,11 @@ def d : Nat := 5
 
 /-- Resolution limit value — `N_U = configCount 2 = 5^25`.
 
-    Per G120 Round 3: demoted from `def` to `abbrev` to remove the
-    "universe constant" framing (per CLAUDE.md "Universe-constant
-    framing" failure mode).  `N_U` is the value at level 2 of the
-    parametric `configCount` family; the level is parametric over
-    Nat, so no level (and no value) is privileged. -/
+    An `abbrev` rather than a `def`: the "universe constant"
+    framing imports a privileged status that does not hold —
+    `N_U` is one value at level 2 of the parametric `configCount`
+    family, which is parametric over Nat with no privileged
+    level (per CLAUDE.md "Universe-constant framing"). -/
 abbrev N_U : Nat := configCount 2
 
 /-- Numerical value of `N_U`. -/
@@ -80,14 +79,14 @@ abbrev cauchy_structural_inequality :=
 /-! ## §4 — Bridging lemmas to alternate framings
 
 The earlier `ResolutionInvariant` 4-way convergence record was
-deleted per G120 Round 3: the 4 framings (fractal lens cardinality,
+removed: the 4 framings (fractal lens cardinality,
 K_25 graph coloring, rank-2 tensor DOF, max injective projection
 space) were 4 verbal relabellings of a single family value, not 4
 independent derivations.  Of the 4, only 2 had real Lean
 derivations (`fractalLens`, `coloringK25`); the other 2 were
 placeholder or absent.
 
-Per the audit, the surviving 2 framings are retained here as
+Note: the surviving 2 framings are retained here as
 standalone bridging lemmas pointing at their external derivations.
 
 `tensorDOF` is just the structural form `d^(d*d) = N_U` (rfl

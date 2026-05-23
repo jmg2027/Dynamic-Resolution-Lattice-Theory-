@@ -59,7 +59,6 @@ open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
 
-
 /-! ## §1 — Per-pair cup-channel value (Bool)
 
   `cup_pair i j t` = output of `cupAW(basis_e_i, basis_e_j)` at
@@ -168,7 +167,6 @@ open E213.Lib.Physics.Simplex.Counts (binom)
   interpretation remains open — see end-of-file note. -/
 
 
-
 /-! ## §5 — Channels-per-output-grade closed form
 
   At grade k = a + b - 1 with a, b ≥ 1 and k ≤ 5, the number of
@@ -216,7 +214,6 @@ def total_cross_terms : Nat :=
   + cross_terms_ab 5 1
 
 -- total_cross_terms_eq_785 folded into master below.
-
 
 
 /-! ## §7 — Master inventory theorem -/

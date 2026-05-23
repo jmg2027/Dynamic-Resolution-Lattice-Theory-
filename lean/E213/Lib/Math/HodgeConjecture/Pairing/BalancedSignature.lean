@@ -101,7 +101,6 @@ theorem hirzebruch_zero (d : BalancedSignatureData) :
 end BalancedSignatureData
 
 
-
 /-! ## §3 — T²ⁿ instances at small n -/
 
 /-- T²ⁿ instance for `n ∈ {1, 2, 3, 4, 5}`.  Each provides explicit

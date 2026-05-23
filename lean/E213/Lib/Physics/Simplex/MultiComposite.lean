@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Multi-simplex composite — Class F structural placeholder (2026-04-30)
+# Multi-simplex composite — Class F structural placeholder
 
 Single-simplex observables (Classes A–E) close on one Δ⁴.
 Multi-simplex composites (proton uud, neutron udd, hadron family)
@@ -9,7 +9,7 @@ require a NEW class — Class F — capturing what happens when
 several Δ⁴'s are glued face-to-face into a simplicial complex.
 
 Per `rust-engine/docs/cohomology-classes.md` Class F section
-(2026-04-30), the gluing operation triggers δ²=0 internal-boundary
+, the gluing operation triggers δ²=0 internal-boundary
 collapse, producing emergent global cycles whose Betti contribution
 exceeds any single-simplex b_k.  The natural arena is the L=2
 fractal level (K_{25}, b_1 = 276) already formalized in

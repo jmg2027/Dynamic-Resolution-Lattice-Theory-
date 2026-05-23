@@ -6,7 +6,7 @@ import E213.Lib.Math.Probability.Inequality.HoeffdingClosed
 # Math Extras — Real213.log marathon Capstone (∅-axiom)
 
 3 cluster witnesses + total bundle for the
-`claude/real213-log-marathon` branch:
+`Real213/ExpLog/` branch:
 
   * `Real213.CutLog{Series, ODE, ExpInverse}` — long-deferred
     `Real213.log` transcendental layer.

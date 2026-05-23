@@ -30,7 +30,7 @@ with the move into `Term/Internal/Tree/`.)
 
 ## Enforcement (layer discipline)
 
-Per ARCHITECTURE.md (2026-05-12), Theory imports Term API only —
+Per ARCHITECTURE.md, Theory imports Term API only —
 `E213.Term.Internal.*` directly is a layer violation.  The hook
 `.claude/hooks/layer-import-guard.sh` (PreToolUse Edit/Write)
 catches such imports at write-time.

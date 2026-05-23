@@ -5,7 +5,7 @@ import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # CD Multiplication Rule (∅-axiom)
 
-Continuation of G36 (PR #62): parametrises the **multiplication
+Continuation (PR #62): parametrises the **multiplication
 rule** that distinguishes sign extension (ℝ), complex (ℂ),
 quaternion (ℍ), ...
 

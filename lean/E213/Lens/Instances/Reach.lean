@@ -66,7 +66,6 @@ theorem fin3_image_in_01 (r : Raw) :
     r
 
 
-
 /-- **Strict subset of the image**: element 2 of Fin 3 is outside
     the image of universalMorphism.  Explicit witness of the separation
     between the framework's reach and the carrier. -/
@@ -79,7 +78,6 @@ theorem fin3_image_strict :
     exact absurd (congrArg Fin.val hr) (by decide)
   · rw [h] at hr
     exact absurd (congrArg Fin.val hr) (by decide)
-
 
 
 /-! ### Dual: Bool instance is surjective
@@ -104,7 +102,6 @@ theorem bool_image_surjective :
   | false => exact ⟨Raw.b, universalMorphism_b Bool⟩
 
 
-
 /-! ### Minimality property of the image (closure under bases) -/
 
 /-- The image always contains d.a. -/
@@ -127,7 +124,6 @@ theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing �
   ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
 
 
-
 /-! ### Infinite surjective: Nat with addition
 
 Bool is finite surjective.  Fin 3 (constant combine) is finite
@@ -148,7 +144,6 @@ instance natHasDistinguishing : HasDistinguishing Nat where
   combine_sym := Nat.add_comm
 
 
-
 /-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
     {0, 1}, and slash generates larger elements. -/
 theorem nat_image_zero : ∃ r : Raw, universalMorphism Nat r = 0 :=
@@ -163,7 +158,6 @@ theorem nat_image_via_slash_ab :
   rw [universalMorphism_slash Nat Raw.a Raw.b (by decide)]
   rw [universalMorphism_a Nat, universalMorphism_b Nat]
   rfl
-
 
 
 /-! ### Nat surjective: complete proof
@@ -215,7 +209,6 @@ private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
   cases hview
 
 
-
 /-! ### natWitness construction note
 
 Explicit Raw witness for each Nat n:
@@ -246,7 +239,6 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
   cases hview
 
 
-
 /-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
 private theorem natWitness_ne_b_helper (r : Raw)
     (h : r = Raw.a ∨ ∃ x y h', r = Raw.slash x y h') :
@@ -254,7 +246,6 @@ private theorem natWitness_ne_b_helper (r : Raw)
   rcases h with hra | ⟨x, y, h', hsl⟩
   · subst hra; decide
   · subst hsl; exact slash_ne_b x y h'
-
 
 
 /-- **Nat surjective with form invariant**: for every n, simultaneously
@@ -282,7 +273,6 @@ theorem nat_image_surjective :
   intro n
   obtain ⟨r, hview, _⟩ := nat_surjective_with_form n
   exact ⟨r, hview⟩
-
 
 
 /-! ### Int with addition: infinite non-surjective

@@ -4,7 +4,7 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # ArchimedeanCauchy: ℝ-like Lens limit structure via Dedekind cut
 
-Mingu (C) direction (2026-04-25): abLens + order-projection family.
+Mingu (C) direction: abLens + order-projection family.
 
 ## Core
 
@@ -57,7 +57,6 @@ theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
     exact (decide_eq_false hnot).trans (decide_eq_false hkm).symm
 
 
-
 /-- **Order Cauchy data**: explicit witness structure (constructive). -/
 structure OrderCauchyData (xs : Nat → Raw) where
   N : Nat → Nat → Nat
@@ -76,7 +75,6 @@ theorem cut_eq_tail {xs : Nat → Raw} (cd : OrderCauchyData xs)
     orderProj m k (abLens.view (xs n)) = cd.cut m k := by
   unfold OrderCauchyData.cut
   exact cd.cauchy m k n (cd.N m k) hk hn (Nat.le_refl _)
-
 
 
 /-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
@@ -110,7 +108,6 @@ theorem diagonal_seq_cut (xs : Nat → Raw)
   unfold OrderCauchyData.cut diagonal_seq_data
   rw [h 0]
   exact diagonal_seq_orderProj_const m k 1 (Nat.le_refl 1)
-
 
 
 /-- orderProj of the (n+1, n+2) sequence is eventually constant
@@ -164,7 +161,6 @@ theorem ratio_one_below_orderProj_eventually
     exact (decide_eq_false hnotle).trans (decide_eq_false hkm).symm
 
 
-
 /-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
     from below. -/
 theorem ratio_one_below_orderCauchy (xs : Nat → Raw)
@@ -187,7 +183,6 @@ theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
     ∀ m k, cdx.cut m k = cdy.cut m k := by
   intro m k
   rw [hcdx, hcdy]
-
 
 
 /-- **General rational p/q sequence**: orderProj of (a, b) =
@@ -223,7 +218,6 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
   exact rational_seq_orderProj_const p q m k 1 (Nat.le_refl 1)
 
 
-
 /-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
 theorem half_seq_orderCauchy (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, 2 * (n + 1))) :
@@ -254,7 +248,6 @@ theorem half_seq_cut (xs : Nat → Raw)
   rw [h_eq, rational_seq_orderProj_const 1 2 m k 1 (Nat.le_refl 1)]
   show decide (1 * k ≤ 2 * m) = decide (k ≤ 2 * m)
   rw [Nat.one_mul]
-
 
 
 /-- **Cut equivalence**: two OrderCauchyData with the same Dedekind cut

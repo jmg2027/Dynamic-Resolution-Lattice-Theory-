@@ -26,7 +26,7 @@ from **triangle iteration starting at atomicity 2**, per
     = 5` is **derived from atomicity 2** (the only un-derived
     commitment — Raw axiom Clause 1).
 
-This closes M1 (G121 §6.1) at the deployment level for the
+This closes M1 at the deployment level for the
 K_{3,2}^{(c=2)} deployment.  The remaining un-derived commitment
 is `a₀ = 2` itself — i.e., that Raw's Clause 1 commits to *two*
 distinct atoms (not three, not one).  This is axiom-level and is
@@ -154,7 +154,7 @@ theorem general_euler_consistency (n m c : Nat) :
 The step-7 finding (cohomology-route partial) is now **complemented
 by an independent c=2 forcing** from `C2DoublingDerivation`.
 
-Per G80 (`research-notes/archive/universe_chain/G80_*`), the
+the
 Möbius generator P = [[2, 1], [1, 1]] over F_5 satisfies:
 
   · `P^5 ≡ -I (mod 5)` — pentagonal half-rotation (`half_period = 5`)

@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.Fractal.Level
 /-!
 # Fractal-simplex level 2 — K_{25} cohomology
 
-User insight (2026-04-27): the cosmos can be modelled as a fractal
+User insight: the cosmos can be modelled as a fractal
 where each vertex of a single 4-simplex Δ⁴ is itself a 4-simplex,
 yielding 5 × 5 = 25 leaf vertices.  All 25 leaves are connected
 as a finite complete graph K_{25}.
@@ -40,7 +40,7 @@ open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 
 /-- Number of leaf vertices at level 2: 5 × 5 = 25 = d².
 
-    Per G120 Round 3 Phase 5: this is now an `abbrev` to
+    Note: this is now an `abbrev` to
     `Level.numV 2` (the parametric vertex-count family
     `λ L => 5^L` evaluated at L = 2).  No name collision —
     `V25.numV` is the *level-2 instance*, `Level.numV` is the

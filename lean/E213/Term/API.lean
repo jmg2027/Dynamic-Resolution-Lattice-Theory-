@@ -11,7 +11,7 @@ import E213.Term.Tree
 # Term ring — public API (re-export shim)
 
 Single-import entry point for Term ring per ARCHITECTURE.md
-(2026-05-12).  Downstream code (`Theory`, …) imports this for the
+.  Downstream code (`Theory`, …) imports this for the
 Raw-implementation substrate.
 
 **K1 — Data API**:

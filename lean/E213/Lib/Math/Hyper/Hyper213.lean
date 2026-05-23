@@ -63,7 +63,6 @@ theorem cofinite_trans (xs ys zs : Hyper213) :
   exact (h1 n hN1).trans (h2 n hN2)
 
 
-
 /-- Constant hyperreal embedding: each Raw r → constant sequence. -/
 def constHyper (r : Raw) : Hyper213 := fun _ => r
 

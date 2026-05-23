@@ -5,7 +5,7 @@ import E213.Lens.Number.Nat213.Tower.NatPairToInt
 /-!
 # Lens.Number.Nat213.Tower.NatTripleToZ2 — 3-orthogonal-axis projection
 
-**Exploratory.**  3-axis analog of G62's NatPairToInt.
+**Exploratory.**  3-axis analog's NatPairToInt.
 
 Projection `ℕ³ → ℤ²` via `(a, b, c) ↦ (a - c, b - c)`:
 - diagonal-translation invariant

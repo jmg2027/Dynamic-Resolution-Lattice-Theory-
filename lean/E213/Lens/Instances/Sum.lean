@@ -4,7 +4,7 @@ import E213.Lens.Instances.Reach
 /-!
 # SumInstance: priority-based combine instance for Sum type
 
-User directive (2026-04-25): Direct attack on coproduct — Prism-like
+User directive: Direct attack on coproduct — Prism-like
 dual structure.
 
 HasDistinguishing instance for `Sum α β` — combine is defined as
@@ -64,7 +64,6 @@ theorem sumCombine_comm {α β : Type} [d_α : HasDistinguishing α]
     | inr b =>
         show Sum.inr (d_β.combine a b) = Sum.inr (d_β.combine b a)
         rw [d_β.combine_sym]
-
 
 
 /-- HasDistinguishing instance for Sum type. -/

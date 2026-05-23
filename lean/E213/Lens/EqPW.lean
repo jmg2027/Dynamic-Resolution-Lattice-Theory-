@@ -135,7 +135,6 @@ protected theorem fold_slash_eqPW {β : Type}
 end Lens
 
 
-
 namespace Lens
 
 /-! ### View-unique under eqPW symmetry (with combine congruence)

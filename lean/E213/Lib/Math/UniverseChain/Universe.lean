@@ -11,7 +11,7 @@ total configuration count is
 
     configCount 2 = 5^25 = 298 023 223 876 953 125.
 
-Per G120 Round 3: this value is `ResolutionLimit.N_U` (an `abbrev`
+Note: this value is `ResolutionLimit.N_U` (an `abbrev`
 for `configCount 2`), not a privileged "universe constant".  All
 facts in this step are ∅-axiom.
 
@@ -29,7 +29,7 @@ open E213.Lib.Physics.Foundations.NResolutionFromFractal
 open E213.Lib.Math.ResolutionLimit (N_U N_U_value)
 
 /-- Step-5 numerical sanity bundle: configCount 2 has the expected
-    structural readings.  Per G120 Round 3, there is no privileged
+    structural readings.  Note: there is no privileged
     `N_U` constant; this bundle just confirms the value agrees
     across the available framings. -/
 theorem universe_bundle :

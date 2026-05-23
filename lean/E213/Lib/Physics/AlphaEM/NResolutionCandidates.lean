@@ -12,7 +12,7 @@ This file enumerates ATOMIC candidates from {NS, NT, d, c}
 combinatorics and bounds the deviation `36/N_U` from the standard
 asymptotic value at each candidate.
 
-## User insight (2026-04-27 refinement)
+## User insight
 
 ζ(2) is NOT π²/6.  ζ(2) is S(N_U), a SPECIFIC finite rational at
 SPECIFIC N_U.  π is fake — it appears nowhere in DRLT primitives.

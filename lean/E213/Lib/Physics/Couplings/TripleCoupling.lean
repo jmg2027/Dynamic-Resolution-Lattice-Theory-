@@ -33,7 +33,7 @@ N=2000; Measurement-Lens via CODATA/PDG):
 
 Integer skeletons closed at 0 axiom via `decide`.
 
-Consolidation note (2026-05-05): formerly split into TripleCoupling
+Consolidation note: formerly split into TripleCoupling
 (v1) and TripleCouplingV2 (H³ + self-interaction); merged here per
 `lean/E213/docs/CONSOLIDATION_PROTOCOL.md` (Basel/BoundTight pattern).
 -/

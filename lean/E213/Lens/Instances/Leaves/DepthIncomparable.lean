@@ -52,7 +52,6 @@ theorem leaves_not_refines_depth : ¬ Lens.leaves.refines Lens.depth := by
   exact depth_distinguishes (h rDeep rBalanced leaves_equates)
 
 
-
 /-- Shallow narrow witness: `a / ((a/b) / b)`, leaves=4, depth=3. -/
 def rShallowNarrow : Raw :=
   Raw.slash Raw.a

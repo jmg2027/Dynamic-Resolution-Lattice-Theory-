@@ -17,7 +17,7 @@ depth` in dyadic Lens coordinates.
 For non-dyadic distributions (probability not a power of 1/2),
 the entropy is *not* a `Nat`; classical real-valued log is needed.
 This file handles the atomic dyadic cases; non-dyadic entropy is
-a continuation marathon.
+a continuation.
 -/
 
 namespace E213.Lib.Math.Information.Entropy

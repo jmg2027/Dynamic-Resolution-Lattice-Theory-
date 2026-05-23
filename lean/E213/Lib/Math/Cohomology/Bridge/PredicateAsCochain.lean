@@ -84,7 +84,7 @@ theorem cochain_5_1_predicate_cardinality :
        → Raw (PredicateSelfEncoding, finite-prefix encoding)
 
   The loop is closed for the finite-prefix case at every n; the
-  full Cantor-style closure remains a separate marathon as noted
+  full Cantor-style closure remains a separate continuation as noted
   in `PredicateSelfEncoding.lean`.
 -/
 

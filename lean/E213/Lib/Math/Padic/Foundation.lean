@@ -2,38 +2,22 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
 /-!
-# Real213-p-adic Foundation (G122 Phase 1 starter)
+# Real213-p-adic Foundation
 
-**Status**: STARTER — foundational types and roadmap.  Concrete proofs
-to be filled in subsequent sessions per the G122 plan.
+Foundational types for the 213-native, ∅-axiom construction of the
+p-adic integers `ℤ_p` and (later) p-adic numbers `ℚ_p`.  Built on
+top of the `F_p` arithmetic / Bezout / FLT / `F_{p²}` infrastructure
+in `Lib/Math/ModularArithmetic/` without introducing new axioms.
 
-See `theory/math/padic_real213.md` for the narrative chapter
-(campaign now CLOSED); archived source note at
-`research-notes/archive/G122_real213_padic_research_direction.md`.
+Chapter: `theory/math/padic_real213.md`.
 
-**Renumbering note**: this campaign was originally labelled G120 on the
-incoming branch.  Renumbered to G122 on merge: G120 was already used
-for the N_U re-derivation campaign, G121 for geometrization.
-
-## Goals
-
-Build a 213-native, ∅-axiom construction of the p-adic integers
-`ℤ_p` and (later) p-adic numbers `ℚ_p`.  Reuse the G119 Phase 3.3
-infrastructure (F_p arithmetic, Bezout, FLT, F_{p²}) without
-introducing any new axioms.
-
-## Phase 1 plan (this file)
+## Contents
 
   · `ZpDigit p` — single p-adic digit (= `Fin p`)
   · `ZpSeq p`   — p-adic integer as infinite digit sequence
   · `ZpSeq.trunc` — truncation to ℤ/p^n
   · `ZpSeq.zero`, `ZpSeq.one`, `ZpSeq.neg_one` — canonical elements
   · `ZpSeq.eq_mod_pn` — equality up to truncation
-
-All declarations must be PURE (#print axioms ... → "does not depend
-on any axioms").
-
-## Naming
 
 Module path: `E213.Lib.Math.Padic.Foundation`
 Namespace:   `E213.Lib.Math.Padic`

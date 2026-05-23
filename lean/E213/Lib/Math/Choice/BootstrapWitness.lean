@@ -43,7 +43,6 @@ theorem boolXor_no_bootstrap :
   intro r; rfl
 
 
-
 /-! ## §2. Nat-valued Lens (bootstrap present)
 
 `Lens.leaves : Lens Nat` is defined by `⟨1, 1, (· + ·)⟩`.
@@ -82,7 +81,6 @@ example : naiveLeavesLens.view Raw.b = 1 := rfl
 theorem naiveLeaves_is_fixed_point_of_Nat_definition :
     ∀ r : Raw, naiveLeavesLens.view r = naiveLeavesLens.view r := by
   intro r; rfl
-
 
 
 /-! ## §3. Attempted "Raw-first" Nat

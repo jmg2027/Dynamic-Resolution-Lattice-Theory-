@@ -58,7 +58,7 @@ import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
                       2026-05-18 consolidation): `EdgeSignature`
                       + `SubwordComplexity` sub-namespaces
 
-  All files build clean (2026-05-18 audit).  The 2026-05-06
+  All files build clean.  The 2026-05-06
   deferred-cluster repair (`lean/E213/docs/HIERARCHICAL_PLACEMENT.md` §6.3) is
   closed.
 -/

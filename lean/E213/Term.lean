@@ -35,7 +35,7 @@ import E213.Term.Term
 
   - `Tactic/` (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm)
     — moved to `Meta/Tactic/` per ARCHITECTURE.md spec update
-    (2026-05-12).  These are Lean-side helpers (PURE helpers
+.  These are Lean-side helpers (PURE helpers
     over Lean Nat / Mod / Fin) — ring-independent, so they
     belong in Meta (Lean 4 bridge).
 

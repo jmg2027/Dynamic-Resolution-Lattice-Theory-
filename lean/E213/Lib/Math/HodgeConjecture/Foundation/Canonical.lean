@@ -28,7 +28,7 @@ This file ships the **first canonical witnesses**:
     on every Δ⁴ stratum, this session).
 
 Filled K_{3,2} extension and the Lens-initiality uniform proof are
-deferred (G6 §7).
+deferred.
 -/
 
 namespace E213.Lib.Math.HodgeConjecture.Foundation.Canonical
@@ -78,7 +78,7 @@ theorem hodge_involution_5_0 :
 /-- ★★★ HC²¹³ canonical capstone — Hodge Conjecture in 213 form,
     witnessed on the two canonical complexes (Δ⁴ + K_{3,2}^{(c=2)}).
 
-    Dictionary (G6 §3):
+    Dictionary:
       standard variety X       ↔ 213 finite cell complex
       ℂ-valued cohomology      ↔ Bool / ℤ/2 cup-chain layer
       ℚ-rational subspace      ↔ trivial (every Bool coeff is rational)

@@ -3,7 +3,7 @@ import E213.Lens.LensCore
 /-!
 # Prism: categorical dual of Lens
 
-User directive (2026-04-25): "bring the Prism concept (dual of Lens)
+User directive: "bring the Prism concept (dual of Lens)
 into the 213 grammar and build the algebraic dual."
 
 The 213-form of the functional-programming Prism:
@@ -42,7 +42,6 @@ structure Prism (α : Type) where
   coherence : ∀ a, preview (review a) = some a
 
 
-
 /-- Specific case Prism from decidable equality on Raw. -/
 def caseElement (target : Raw) : Prism Unit where
   preview r := if r = target then some () else none
@@ -56,7 +55,6 @@ def aPrism : Prism Unit := caseElement Raw.a
 
 /-- Case Prism for Raw.b. -/
 def bPrism : Prism Unit := caseElement Raw.b
-
 
 
 /-! ### Generic preview truth table
@@ -93,7 +91,6 @@ theorem bPrism_a : bPrism.preview Raw.a = none :=
 
 theorem bPrism_b : bPrism.preview Raw.b = some () :=
   caseElement_preview_self Raw.b
-
 
 
 /-! ### Disjointness of Prisms (categorical universal property)

@@ -65,7 +65,6 @@ theorem leavesMod3Lens_view_eq :
       rw [ihx, ihy, f3add_mod]
 
 
-
 /-- Factor function: leaves count → Fin 3. -/
 private def mod3Factor (n : Nat) : Fin 3 :=
   ⟨n % 3, Nat.mod_lt _ (by decide)⟩

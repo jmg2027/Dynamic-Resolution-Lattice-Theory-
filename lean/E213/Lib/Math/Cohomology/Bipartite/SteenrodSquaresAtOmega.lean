@@ -165,7 +165,7 @@ theorem omega_steenrod_ladder :
       | General Sq^i for arbitrary i | OPEN (Steenrod algebra) |
       | General Adem relations | OPEN (Adem-Wu basis) |
       | Cartan formula | OPEN |
-      | Full (k+1) derivation | OPEN (multi-session marathon) |
+      | Full (k+1) derivation | OPEN (multi-session) |
 
     The cup-ladder graduation at H² is now established at the
     Steenrod-square level: max non-trivial Sq^i = 1, supporting

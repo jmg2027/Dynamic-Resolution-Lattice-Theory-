@@ -49,7 +49,6 @@ theorem nToRawBool_injective : Function.Injective nToRawBool := by
   exact rawTower_injective h3
 
 
-
 /-- **`Raw → Bool` has at least ℕ-many distinct elements.** -/
 theorem boolSpace_at_least_countable :
     ∃ f : Nat → (Raw → Bool), Function.Injective f :=

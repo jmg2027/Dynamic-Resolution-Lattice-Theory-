@@ -45,7 +45,6 @@ theorem abLens_refines_parityLens : abLens.refines parityLens := by
   rw [abLens_sum_eq_leaves]
 
 
-
 /-- Factor function: (a, b) ↦ parity of a. -/
 private def aParityFactor (p : Nat × Nat) : Bool :=
   decide (p.1 % 2 = 1)

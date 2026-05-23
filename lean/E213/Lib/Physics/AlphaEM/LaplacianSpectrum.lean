@@ -55,7 +55,6 @@ namespace E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 open E213.Lib.Physics.Simplex.Counts (binom NS NT d)
 
 
-
 /-! ## §1 — Δ⁴ Laplacian rank and trace
 
   213's `Cochain 5 k` for k ∈ {1, 2, 3, 4, 5} corresponds to
@@ -103,7 +102,6 @@ def delta4_zeta_2_num : Nat := delta4_lap_total_rank
 def delta4_zeta_2_den : Nat := delta4_eigenvalue * delta4_eigenvalue
 
 
-
 /-! ## §3 — K_{3,2}^{(c=2)} graph Laplacian spectrum
 
   Vertex Laplacian Δ_0 on K_{m,n}^{(c)} has eigenvalues:
@@ -149,7 +147,6 @@ def k32c2_lap_trace_1 : Nat := 6 + 4 + 4 + 10
 
 /-- Total trace of K_{3,2}^{(c=2)} Laplacian = 24 + 24 = 48. -/
 def k32c2_lap_total_trace : Nat := k32c2_lap_trace_0 + k32c2_lap_trace_1
-
 
 
 /-! ## §4 — K_{3,2}^{(c=2)} ζ-Laplacian function
@@ -200,7 +197,6 @@ def k32c2_zeta_2_den : Nat := 900
   natural: the s=1 trace-weighted sum on the bipartite multigraph
   Laplacian, where the multigraph IS the resolution-finite
   channel structure replacing continuum integration. -/
-
 
 
 /-! ## §6 — Master Test 2 theorem -/

@@ -63,7 +63,6 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
 
-
 /-- Same leaves → same N-view via arbitrary L_k. -/
 private theorem same_leaves_N {α : Type} (N : Lens α) (k : Nat) (hk : k ≥ 2)
     (hLk : (leavesModNat k).refines N) (r r' : Raw)
@@ -104,7 +103,6 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
         -- view r + (n + 1) = (view r + n) + 1
         rw [Nat.add_succ]
       exact step1.trans step2
-
 
 
 /-- **Consecutive coprime → Join = constLens**.

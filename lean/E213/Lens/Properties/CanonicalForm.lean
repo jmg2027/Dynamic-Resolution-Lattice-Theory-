@@ -41,7 +41,6 @@ theorem refinesEquiv_symm {α β} {L : Lens α} {M : Lens β} :
   | ⟨h1, h2⟩ => ⟨h2, h1⟩
 
 
-
 /-- **Self-stabilization**: any Lens M is refines-equivalent to
     `universalLens M.equiv`. -/
 theorem lens_canonical_universal {α : Type} (M : Lens α)

@@ -26,7 +26,7 @@ NumberingSystem) and for the `succ` definition of `Nat213.Raw`.
 
 ## History
 
-Originally `Theory/Raw/FoldRaw.lean` (2026-05-13) — Closed/
+Originally `Theory/Raw/FoldRaw.lean` — Closed/
 directory companion.  2026-05-14: `Closed/` removed, FoldRaw
 absorbed into `Theory/Raw/` as a sub-cluster (its catamorphism
 output Nat213/Bool213/RawCut/NumberingSystem all moved to

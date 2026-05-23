@@ -131,7 +131,6 @@ theorem universalLens_kernel_eq_E
     · intro hr's; exact htrans _ _ _ hrr' hr's
 
 
-
 /-- **Canonical form theorem**: for any Lens M, the kernel of
     universalLens M.equiv equals the kernel of M.  That is,
     universalLens is the canonical form of every Lens. -/

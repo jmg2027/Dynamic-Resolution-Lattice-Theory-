@@ -20,7 +20,7 @@ in this file is `does not depend on any axioms`.
                             structural recursion)
   * `omega`              → manual Nat arithmetic (unchanged)
 
-User question (2026-04-26): "can `propext` + `Quot.sound` in the
+User question: "can `propext` + `Quot.sound` in the
 Lean kernel be modularised?"  Answer: yes — `propext` too, when the
 content reduces to closed-term `rfl` chains plus structural
 recursion on Nat (no well-founded gcd / div termination).
@@ -68,7 +68,6 @@ private theorem add2_mod2 (m : Nat) : (m + 2) % 2 = m % 2 := by
   show (m % 2 + 0) % 2 = m % 2
   rw [Nat.add_zero]
   exact Nat.mod_eq_of_lt (Nat.mod_lt m (by decide))
-
 
 
 /-! ## Core square + modular-2 lemmas -/

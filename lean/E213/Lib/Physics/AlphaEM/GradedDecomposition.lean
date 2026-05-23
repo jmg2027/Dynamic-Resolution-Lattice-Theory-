@@ -49,7 +49,6 @@ namespace E213.Lib.Physics.AlphaEM.GradedDecomposition
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 
-
 /-! ## §1 — Output-grade counts (5-fold decomposition)
 
   Per user (standard convention: C^k for k = 0..4 with sizes
@@ -127,7 +126,6 @@ def edge_01 : Fin (binom 5 2) := ⟨0, by decide⟩
 -- and their inequality) are conjuncts of `graded_decomposition_master`.
 
 
-
 /-! ## §4 — Property 3: top hard wall (nilpotent termination)
 
   The basis size `binom 5 k = 0` for `k ≥ 6`, so any cup output at
@@ -138,7 +136,6 @@ def edge_01 : Fin (binom 5 2) := ⟨0, by decide⟩
 -- Hard-wall samples (binom 5 6..10 = 0) are conjuncts of
 -- `graded_decomposition_master`.  Pascal recursion + empty-domain
 -- rule extends this to all k ≥ 6 (infinite hard wall).
-
 
 
 /-! ## §5 — Master 5-fold grading theorem -/

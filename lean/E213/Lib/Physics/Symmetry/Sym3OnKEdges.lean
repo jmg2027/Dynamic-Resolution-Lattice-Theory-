@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32
 /-!
 # Sym(3) action on K_{3,2}^{(c=2)} edges
 
-Phase 3 of the **C3 chain** (G87 §4) — the external Sym(3) factor
+Phase 3 of the **C3 chain** — the external Sym(3) factor
 of Aut(K_{3,2}^{(c=2)}) acts on the 12 edges by permuting the 3
 S-vertices.  This file constructs the action explicitly via the
 two transposition generators σ_S01 and σ_S12.
