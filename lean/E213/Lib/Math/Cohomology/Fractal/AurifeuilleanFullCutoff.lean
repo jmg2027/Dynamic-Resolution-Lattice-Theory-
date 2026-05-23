@@ -272,7 +272,7 @@ theorem asymptotic_cutoff_at_depth_1 :
     enumeration (currently intractable for depth ≥ 3) or a
     structural argument bounding depth-`k` values — left as
     continuation. -/
-theorem cutoff_marathon_at_depth_1 :
+theorem asymptotic_cutoff_capstone_at_depth_1 :
     -- positive at m=1, depth 3
     (∃ t : HunterTerm, depth t = 3 ∧ eval t = 521)
     -- negative for all v > 3125 at depth 1 (covers L_m for m ≥ 3)

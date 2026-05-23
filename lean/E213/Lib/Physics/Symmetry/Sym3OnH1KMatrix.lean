@@ -216,7 +216,7 @@ theorem intTrace_M_S01 : intTrace M_S01 = 4 := by decide
     fewer irreducibles since 1 = sign.
 
     PURE. -/
-theorem Sym3OnH1KMatrix_phase5_capstone :
+theorem Sym3OnH1KMatrix_capstone :
     -- Matrix involution
     (∀ i j : Fin 8, M_mul_M M_S01 M_S01 i j = IdMatrix i j)
     -- Bool-trace = 0

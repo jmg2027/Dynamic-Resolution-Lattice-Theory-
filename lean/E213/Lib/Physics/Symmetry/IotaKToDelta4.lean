@@ -183,7 +183,7 @@ theorem gluon_octet_identification :
           gluon octet matching the SU(3) adjoint.
 
     PURE. -/
-theorem IotaKToDelta4_phase7_capstone :
+theorem IotaKToDelta4_capstone :
     -- Multiplicity-collapse pairing (6 pairs)
     (ι_edge ⟨0, by decide⟩ = ι_edge ⟨1, by decide⟩)
     ∧ (ι_edge ⟨2, by decide⟩ = ι_edge ⟨3, by decide⟩)

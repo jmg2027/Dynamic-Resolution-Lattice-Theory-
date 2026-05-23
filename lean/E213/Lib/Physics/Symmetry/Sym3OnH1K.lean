@@ -185,7 +185,7 @@ theorem σ_S01_fixes_S2 :
           correction in the basis decomposition).
 
     PURE. -/
-theorem Sym3OnH1K_phase4_capstone :
+theorem Sym3OnH1K_capstone :
     -- Vertex permutations are involutions
     (∀ v : Fin 5, φ_V_S01 (φ_V_S01 v) = v)
     ∧ (∀ v : Fin 5, φ_V_S12 (φ_V_S12 v) = v)

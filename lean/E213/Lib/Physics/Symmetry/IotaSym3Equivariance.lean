@@ -147,7 +147,7 @@ theorem Δ4_ρ_order_3 :
     full SU(3) adjoint structure on the QCD octet.
 
     PURE. -/
-theorem IotaSym3Equivariance_phase8_capstone :
+theorem IotaSym3Equivariance_capstone :
     -- Δ⁴ edge perm for second generator is involution
     (∀ e : Fin 10, σ_E_Δ4_swap_12 (σ_E_Δ4_swap_12 e) = e)
     -- Edge-level equivariance (both generators)

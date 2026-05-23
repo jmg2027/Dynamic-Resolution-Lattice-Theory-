@@ -12,7 +12,7 @@ End-to-end universal Phase 3.2 closure:
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.UniversalPhase32
+namespace E213.Lib.Math.DyadicFSM.UniversalSplit
 
 open E213.Lib.Math.DyadicFSM.PhiMod5 (phi phi_lt phi_pow_eq_fibLike fibLike)
 open E213.Lib.Math.DyadicFSM.PsiMod5 (psi psi_lt fibLike_pow)
@@ -43,7 +43,7 @@ open E213.Lib.Math.ModArith.UniversalFLT (universal_flt_main)
     Conclusion: `pellCoeff p hp (N' + 1) = pellCoeff p hp 0`.
 
     PURE. -/
-theorem universal_phase_3_2
+theorem universal_split_case
     (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
     (s : Nat) (hs_lt : s < p) (hs_pos : 0 < s)
     (h_sqrt5 : s * s % p = 5 % p)
@@ -127,7 +127,7 @@ open E213.Lib.Math.ModArith.UniversalFLT (prime_gcd_11)
     structural via Universal FLT + Bezout + Binet. -/
 theorem phase_3_2_at_11_universal :
     pellCoeff 11 (by decide) 5 = pellCoeff 11 (by decide) 0 :=
-  universal_phase_3_2 11 (by decide) (by decide)
+  universal_split_case 11 (by decide) (by decide)
     4 (by decide) (by decide) (by decide)
     4 (by decide) prime_gcd_11
     (by decide) (by decide) (by decide)
@@ -137,4 +137,4 @@ theorem phase_3_2_at_11_universal :
    with `prime_gcd_19` (enumeration over m ∈ [1, 18]).  Mechanical
    follow-up. -/
 
-end E213.Lib.Math.DyadicFSM.UniversalPhase32
+end E213.Lib.Math.DyadicFSM.UniversalSplit

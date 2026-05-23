@@ -204,7 +204,7 @@ theorem H1K_count_bridge :
     The Type-level structural content is sufficient for downstream
     representation-theory work (Aut_K action, Sym(3)-equivariance,
     ι*: H¹(Δ⁴) → H¹(K)).  PURE. -/
-theorem H1K_phase2_capstone :
+theorem H1K_capstone :
     -- Type-level definition
     (H1K = (Fin 8 → Bool))
     -- ℤ/2-module axioms (pointwise)

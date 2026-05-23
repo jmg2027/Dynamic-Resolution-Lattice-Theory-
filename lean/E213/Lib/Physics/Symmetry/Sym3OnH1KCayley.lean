@@ -158,7 +158,7 @@ theorem cayley_ρ_cubed :
 
     The 8-dim H1K rep is realised; the Sym(3)-irrep decomposition
     is a remaining task (Phase 7).  PURE. -/
-theorem Sym3OnH1KCayley_phase6_capstone :
+theorem Sym3OnH1KCayley_capstone :
     -- Generator relations
     (∀ i j : Fin 8, M_mul_M M_S01 M_S01 i j = IdMatrix i j)
     ∧ (∀ i j : Fin 8, M_mul_M M_S12 M_S12 i j = IdMatrix i j)

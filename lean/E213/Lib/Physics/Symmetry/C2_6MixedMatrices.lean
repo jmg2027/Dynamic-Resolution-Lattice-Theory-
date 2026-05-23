@@ -242,7 +242,7 @@ theorem M_bit_2_4_commute :
     realising the (ℤ/2)^6 module structure on the gluon octet.
 
     PURE. -/
-theorem C2_6MixedMatrices_phase16_capstone :
+theorem C2_6MixedMatrices_capstone :
     -- 4 mixed-bit involutions at matrix level
     (∀ i j : Fin 8, M_mul_M M_bit_0 M_bit_0 i j = IdMatrix i j)
     ∧ (∀ i j : Fin 8, M_mul_M M_bit_1 M_bit_1 i j = IdMatrix i j)

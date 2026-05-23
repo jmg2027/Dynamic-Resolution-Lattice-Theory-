@@ -136,7 +136,7 @@ theorem Aut_K.one_components :
 
     The Type-level structural content is sufficient for downstream
     group action / representation theory work (Phase 2+).  PURE. -/
-theorem AutK_phase1_capstone :
+theorem AutK_capstone :
     -- Type decomposition is concrete
     (Aut_K = (Sym3 × Sym2 × C2_6))
     -- Identity element exists

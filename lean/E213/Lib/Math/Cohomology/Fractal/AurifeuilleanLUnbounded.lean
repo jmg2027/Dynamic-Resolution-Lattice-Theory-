@@ -165,7 +165,7 @@ theorem L_exceeds_hunter_depth_1 : ∃ m : Nat, 3125 < Lval m :=
 
 /-- ★★★ **Capstone**: the depth-1 Hunter cut-off premise is closed at
     concrete `m = 3` via the bounded unboundedness chain.  Combined
-    with `AurifeuilleanFullCutoff.cutoff_marathon_at_depth_1`, this
+    with `AurifeuilleanFullCutoff.asymptotic_cutoff_capstone_at_depth_1`, this
     gives a fully formal statement of the depth-1 cardinality cut-off
     without the verbal "`L_m ≫ 3125`" premise.
 

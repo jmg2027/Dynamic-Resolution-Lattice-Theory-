@@ -230,7 +230,7 @@ theorem σ_bit_0_mixed_witness :
     Combined with Phases 3-6 (Sym(3) on H¹(K)), this provides the
     **internal-factor action** completing the full Aut(K) → GL(H¹(K))
     representation structure.  PURE. -/
-theorem C2_6OnH1K_phase13_capstone :
+theorem C2_6OnH1K_capstone :
     -- 6 involutions
     (∀ e : Fin 12, σ_bit_0 (σ_bit_0 e) = e)
     ∧ (∀ e : Fin 12, σ_bit_3 (σ_bit_3 e) = e)

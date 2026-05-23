@@ -131,6 +131,6 @@ open E213.Lib.Math.Cohomology.Cup.Leibniz
     closure is `Cup/Leibniz.lean`'s `phase_CD_leibniz_capstone`
     (4 concrete pairs); the universal form is **open** per the
     file docstring above.  PURE. -/
-theorem cup_leibniz_phase2_marker : True := trivial
+theorem cup_leibniz_marker : True := trivial
 
 end E213.Lib.Math.Cohomology.Cup.LeibnizUniversal

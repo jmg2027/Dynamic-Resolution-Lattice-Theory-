@@ -401,7 +401,7 @@ theorem mul_semi_assoc (g h k : Aut_K) :
     Combined with Phase 12 (direct product) and Phase 15 (twist
     sample), this gives the **complete Group-theoretic realization**
     of Aut(K_{3,2}^{(c=2)}) as a semidirect product.  PURE. -/
-theorem AutKSemidirectFull_phase18_capstone :
+theorem AutKSemidirectFull_capstone :
     -- sym3, sym2 act homomorphisms
     (∀ g h : Sym3, ∀ s : Fin 3,
        sym3_act (E213.Lib.Physics.Symmetry.Sym3Group.Sym3.mul g h) s

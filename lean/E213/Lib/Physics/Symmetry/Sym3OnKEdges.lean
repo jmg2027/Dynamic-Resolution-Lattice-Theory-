@@ -185,7 +185,7 @@ theorem σ_act_E_S12_involution
       · Phase 5: Sym(3)-irrep decomposition of H¹(K) → SU(3) adjoint.
 
     PURE. -/
-theorem Sym3OnKEdges_phase3_capstone :
+theorem Sym3OnKEdges_capstone :
     -- σ_S01 involution
     (∀ e : Fin 12, σ_S01 (σ_S01 e) = e)
     -- σ_S12 involution

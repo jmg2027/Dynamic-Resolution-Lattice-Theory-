@@ -207,7 +207,7 @@ theorem Aut_K.mul_assoc (g h k : Aut_K) :
     future refinement; at the cardinality level both are 768.
 
     PURE. -/
-theorem AutKGroup_phase12_capstone :
+theorem AutKGroup_capstone :
     -- Sym(2) group axioms
     (∀ i : Sym2, Sym2.mul Sym2.one i = i)
     ∧ (∀ i j : Sym2, Sym2.mul i j = Sym2.mul j i)

@@ -89,7 +89,7 @@ theorem ivt_four_axis_correspondence :
     Bundles the public-facing constructor + the four-axis
     correspondence into a single named theorem for cross-reference
     in `catalogs/math-theorems.md`.  PURE. -/
-theorem g31_phase4_closure :
+theorem minimal_root_g31_closure_capstone :
     True ∧ True := ⟨trivial, trivial⟩
 
 end E213.Lib.Math.Analysis.DyadicSearch.MinimalRootCapstone

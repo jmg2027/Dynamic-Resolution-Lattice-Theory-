@@ -187,7 +187,7 @@ theorem Sym3.non_abelian : Sym3.mul Sym3.a Sym3.b ≠ Sym3.mul Sym3.b Sym3.a := 
     GL(H¹(K), F_2).
 
     PURE. -/
-theorem Sym3Group_phase11_capstone :
+theorem Sym3Group_capstone :
     -- Identity axioms
     (∀ i : Sym3, Sym3.mul Sym3.one i = i)
     ∧ (∀ i : Sym3, Sym3.mul i Sym3.one = i)

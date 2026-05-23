@@ -124,29 +124,29 @@ Predictor23 chain. -/
 
 /-- Smoke at p=11 (split, predict (11-1)/2 = 5):
     F_10 ≡ 0 mod 11 AND F_8 ≡ -1 mod 11. -/
-theorem fib_phase_3_2_at_11 :
+theorem fib_split_at_11 :
     fibFst 10 % 11 = 0 ∧ fibFst 8 % 11 = 10 := by decide
 
 /-- Smoke at p=19 (split, predict 9):
     F_18 ≡ 0 mod 19 AND F_16 ≡ -1 mod 19. -/
-theorem fib_phase_3_2_at_19 :
+theorem fib_split_at_19 :
     fibFst 18 % 19 = 0 ∧ fibFst 16 % 19 = 18 := by decide
 
 /-- Smoke at p=29 (split, predict 14):
     F_28 ≡ 0 mod 29 AND F_26 ≡ -1 mod 29.
     Note: p=29 is sub-tight (actual period 7 < predict 14), but the
     predict upper-bound still holds. -/
-theorem fib_phase_3_2_at_29 :
+theorem fib_split_at_29 :
     fibFst 28 % 29 = 0 ∧ fibFst 26 % 29 = 28 := by decide
 
 /-- Smoke at p=31 (split, predict 15):
     F_30 ≡ 0 mod 31 AND F_28 ≡ -1 mod 31. -/
-theorem fib_phase_3_2_at_31 :
+theorem fib_split_at_31 :
     fibFst 30 % 31 = 0 ∧ fibFst 28 % 31 = 30 := by decide
 
 /-- Smoke at p=41 (split, predict 20):
     F_40 ≡ 0 mod 41 AND F_38 ≡ -1 mod 41. -/
-theorem fib_phase_3_2_at_41 :
+theorem fib_split_at_41 :
     fibFst 40 % 41 = 0 ∧ fibFst 38 % 41 = 40 := by decide
 
 /-! ## Mod-cancellation helper toward the Pell-Fib bridge proper
@@ -314,93 +314,93 @@ theorem phase_3_2_closure (p : Nat) (hp : 1 < p) (N' : Nat)
 
 /-- Phase 3.2 at p=11: `pellCoeff 11 _ 5 = pellCoeff 11 _ 0 = (0, 1)`.
     Derived from `phase_3_2_closure` + per-prime fibLike smokes
-    (`fib_phase_3_2_at_11`).  PURE.
+    (`fib_split_at_11`).  PURE.
 
     Note: N' = 4, so N' + 1 = 5 = (p-1)/2 for p=11. -/
 theorem pellCoeff_11_5_eq_init_via_bridge :
     pellCoeff 11 (by decide) 5 = pellCoeff 11 (by decide) 0 :=
   phase_3_2_closure 11 (by decide) 4
-    fib_phase_3_2_at_11.1 fib_phase_3_2_at_11.2
+    fib_split_at_11.1 fib_split_at_11.2
 
 /-- Phase 3.2 at p=19: `pellCoeff 19 _ 9 = pellCoeff 19 _ 0`. -/
 theorem pellCoeff_19_9_eq_init_via_bridge :
     pellCoeff 19 (by decide) 9 = pellCoeff 19 (by decide) 0 :=
   phase_3_2_closure 19 (by decide) 8
-    fib_phase_3_2_at_19.1 fib_phase_3_2_at_19.2
+    fib_split_at_19.1 fib_split_at_19.2
 
 /-- Phase 3.2 at p=29 (sub-tight, predict=14): `pellCoeff 29 _ 14 = (0, 1)`. -/
 theorem pellCoeff_29_14_eq_init_via_bridge :
     pellCoeff 29 (by decide) 14 = pellCoeff 29 (by decide) 0 :=
   phase_3_2_closure 29 (by decide) 13
-    fib_phase_3_2_at_29.1 fib_phase_3_2_at_29.2
+    fib_split_at_29.1 fib_split_at_29.2
 
 /-- Phase 3.2 at p=31 (split, predict=15). -/
 theorem pellCoeff_31_15_eq_init_via_bridge :
     pellCoeff 31 (by decide) 15 = pellCoeff 31 (by decide) 0 :=
   phase_3_2_closure 31 (by decide) 14
-    fib_phase_3_2_at_31.1 fib_phase_3_2_at_31.2
+    fib_split_at_31.1 fib_split_at_31.2
 
 /-- Phase 3.2 at p=41 (split, predict=20). -/
 theorem pellCoeff_41_20_eq_init_via_bridge :
     pellCoeff 41 (by decide) 20 = pellCoeff 41 (by decide) 0 :=
   phase_3_2_closure 41 (by decide) 19
-    fib_phase_3_2_at_41.1 fib_phase_3_2_at_41.2
+    fib_split_at_41.1 fib_split_at_41.2
 
 /-! ## Extended split primes: 59, 61, 71, 79, 89, 101 -/
 
 /-- Smoke at p=59 (split, predict 29). -/
-theorem fib_phase_3_2_at_59 :
+theorem fib_split_at_59 :
     fibFst 58 % 59 = 0 ∧ fibFst 56 % 59 = 58 := by decide
 
 theorem pellCoeff_59_29_eq_init_via_bridge :
     pellCoeff 59 (by decide) 29 = pellCoeff 59 (by decide) 0 :=
   phase_3_2_closure 59 (by decide) 28
-    fib_phase_3_2_at_59.1 fib_phase_3_2_at_59.2
+    fib_split_at_59.1 fib_split_at_59.2
 
 /-- Smoke at p=61 (split, predict 30). -/
-theorem fib_phase_3_2_at_61 :
+theorem fib_split_at_61 :
     fibFst 60 % 61 = 0 ∧ fibFst 58 % 61 = 60 := by decide
 
 theorem pellCoeff_61_30_eq_init_via_bridge :
     pellCoeff 61 (by decide) 30 = pellCoeff 61 (by decide) 0 :=
   phase_3_2_closure 61 (by decide) 29
-    fib_phase_3_2_at_61.1 fib_phase_3_2_at_61.2
+    fib_split_at_61.1 fib_split_at_61.2
 
 /-- Smoke at p=71 (split, predict 35). -/
-theorem fib_phase_3_2_at_71 :
+theorem fib_split_at_71 :
     fibFst 70 % 71 = 0 ∧ fibFst 68 % 71 = 70 := by decide
 
 theorem pellCoeff_71_35_eq_init_via_bridge :
     pellCoeff 71 (by decide) 35 = pellCoeff 71 (by decide) 0 :=
   phase_3_2_closure 71 (by decide) 34
-    fib_phase_3_2_at_71.1 fib_phase_3_2_at_71.2
+    fib_split_at_71.1 fib_split_at_71.2
 
 /-- Smoke at p=79 (split, predict 39). -/
-theorem fib_phase_3_2_at_79 :
+theorem fib_split_at_79 :
     fibFst 78 % 79 = 0 ∧ fibFst 76 % 79 = 78 := by decide
 
 theorem pellCoeff_79_39_eq_init_via_bridge :
     pellCoeff 79 (by decide) 39 = pellCoeff 79 (by decide) 0 :=
   phase_3_2_closure 79 (by decide) 38
-    fib_phase_3_2_at_79.1 fib_phase_3_2_at_79.2
+    fib_split_at_79.1 fib_split_at_79.2
 
 /-- Smoke at p=89 (split, sub-tight predict 44). -/
-theorem fib_phase_3_2_at_89 :
+theorem fib_split_at_89 :
     fibFst 88 % 89 = 0 ∧ fibFst 86 % 89 = 88 := by decide
 
 theorem pellCoeff_89_44_eq_init_via_bridge :
     pellCoeff 89 (by decide) 44 = pellCoeff 89 (by decide) 0 :=
   phase_3_2_closure 89 (by decide) 43
-    fib_phase_3_2_at_89.1 fib_phase_3_2_at_89.2
+    fib_split_at_89.1 fib_split_at_89.2
 
 /-- Smoke at p=101 (split, sub-tight predict 50). -/
-theorem fib_phase_3_2_at_101 :
+theorem fib_split_at_101 :
     fibFst 100 % 101 = 0 ∧ fibFst 98 % 101 = 100 := by decide
 
 theorem pellCoeff_101_50_eq_init_via_bridge :
     pellCoeff 101 (by decide) 50 = pellCoeff 101 (by decide) 0 :=
   phase_3_2_closure 101 (by decide) 49
-    fib_phase_3_2_at_101.1 fib_phase_3_2_at_101.2
+    fib_split_at_101.1 fib_split_at_101.2
 
 /-! ## Phase 3.3 closure (inert primes)
 
@@ -437,43 +437,43 @@ theorem phase_3_3_closure (p : Nat) (hp : 1 < p)
 
 /-- Smoke at p=3 (inert, predict period 2·4 = 8, half = 4 = p+1).
     F_8 = 21, 21 % 3 = 0. F_6 = 8, 8 % 3 = 2 = p - 1. ✓ -/
-theorem fib_phase_3_3_at_3 :
+theorem fib_inert_at_3 :
     fibFst 8 % 3 = 0 ∧ fibFst 6 % 3 = 2 := by decide
 
 theorem pellCoeff_3_4_eq_init_via_bridge :
     pellCoeff 3 (by decide) 4 = pellCoeff 3 (by decide) 0 :=
   phase_3_3_closure 3 (by decide)
-    fib_phase_3_3_at_3.1 fib_phase_3_3_at_3.2
+    fib_inert_at_3.1 fib_inert_at_3.2
 
 /-- Smoke at p=7 (inert): period 2·8 = 16, half = 8 = p+1.
     F_16 = 987, 987 % 7 = 0.  F_14 = 377, 377 % 7 = 6 = p - 1. ✓ -/
-theorem fib_phase_3_3_at_7 :
+theorem fib_inert_at_7 :
     fibFst 16 % 7 = 0 ∧ fibFst 14 % 7 = 6 := by decide
 
 theorem pellCoeff_7_8_eq_init_via_bridge :
     pellCoeff 7 (by decide) 8 = pellCoeff 7 (by decide) 0 :=
   phase_3_3_closure 7 (by decide)
-    fib_phase_3_3_at_7.1 fib_phase_3_3_at_7.2
+    fib_inert_at_7.1 fib_inert_at_7.2
 
 /-- Smoke at p=13 (inert): period 2·14 = 28, half = 14 = p+1.
     F_28 = 317811, 317811 % 13 = 0.
     F_26 = 121393, 121393 % 13 = 12 = p - 1. ✓ -/
-theorem fib_phase_3_3_at_13 :
+theorem fib_inert_at_13 :
     fibFst 28 % 13 = 0 ∧ fibFst 26 % 13 = 12 := by decide
 
 theorem pellCoeff_13_14_eq_init_via_bridge :
     pellCoeff 13 (by decide) 14 = pellCoeff 13 (by decide) 0 :=
   phase_3_3_closure 13 (by decide)
-    fib_phase_3_3_at_13.1 fib_phase_3_3_at_13.2
+    fib_inert_at_13.1 fib_inert_at_13.2
 
 /-- Smoke at p=17 (inert): predict half = 18 = p+1. -/
-theorem fib_phase_3_3_at_17 :
+theorem fib_inert_at_17 :
     fibFst 36 % 17 = 0 ∧ fibFst 34 % 17 = 16 := by decide
 
 theorem pellCoeff_17_18_eq_init_via_bridge :
     pellCoeff 17 (by decide) 18 = pellCoeff 17 (by decide) 0 :=
   phase_3_3_closure 17 (by decide)
-    fib_phase_3_3_at_17.1 fib_phase_3_3_at_17.2
+    fib_inert_at_17.1 fib_inert_at_17.2
 
 /-! ## Fibonacci addition formula
 
@@ -717,11 +717,11 @@ theorem fibFst_double_neg_one_smoke_7 :
     `phase_3_3_closure` to conclude
       `pellCoeff p hp (p + 1) = pellCoeff p hp 0`.
 
-    PURE.  This is the analog of `universal_phase_3_2` (Part 32) for
+    PURE.  This is the analog of `universal_split_case` (Part 32) for
     the inert case, modulo the inert F-identities being taken as
     decidable hypotheses (universal derivation via Binet-binomial /
     Frobenius FLT is the multi-session follow-up). -/
-theorem universal_phase_3_3
+theorem universal_inert_case
     (p : Nat) (hp : 1 < p)
     (h_F_p : fibFst p % p = p - 1)
     (h_F_pm1 : fibFst (p - 1) % p = 1) :
@@ -771,26 +771,26 @@ theorem universal_phase_3_3
   -- Step 4: Apply phase_3_3_closure
   exact phase_3_3_closure p hp h_F_top h_F_low
 
-/-! ## Per-prime instantiations of `universal_phase_3_3` -/
+/-! ## Per-prime instantiations of `universal_inert_case` -/
 
 /-- Universal Phase 3.3 at p = 3.  All hypotheses decided. -/
-theorem universal_phase_3_3_at_3 :
+theorem universal_inert_at_3 :
     pellCoeff 3 (by decide) 4 = pellCoeff 3 (by decide) 0 :=
-  universal_phase_3_3 3 (by decide) (by decide) (by decide)
+  universal_inert_case 3 (by decide) (by decide) (by decide)
 
 /-- Universal Phase 3.3 at p = 7. -/
-theorem universal_phase_3_3_at_7 :
+theorem universal_inert_at_7 :
     pellCoeff 7 (by decide) 8 = pellCoeff 7 (by decide) 0 :=
-  universal_phase_3_3 7 (by decide) (by decide) (by decide)
+  universal_inert_case 7 (by decide) (by decide) (by decide)
 
 /-- Universal Phase 3.3 at p = 13. -/
-theorem universal_phase_3_3_at_13 :
+theorem universal_inert_at_13 :
     pellCoeff 13 (by decide) 14 = pellCoeff 13 (by decide) 0 :=
-  universal_phase_3_3 13 (by decide) (by decide) (by decide)
+  universal_inert_case 13 (by decide) (by decide) (by decide)
 
 /-- Universal Phase 3.3 at p = 17. -/
-theorem universal_phase_3_3_at_17 :
+theorem universal_inert_at_17 :
     pellCoeff 17 (by decide) 18 = pellCoeff 17 (by decide) 0 :=
-  universal_phase_3_3 17 (by decide) (by decide) (by decide)
+  universal_inert_case 17 (by decide) (by decide) (by decide)
 
 end E213.Lib.Math.DyadicFSM.PellFibBridge

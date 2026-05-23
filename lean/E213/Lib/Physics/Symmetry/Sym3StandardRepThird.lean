@@ -141,7 +141,7 @@ theorem std3_rho_cubed_v1 :
     With Pairs 1, 2 (Phase 10) and the 2-dim trivial-fixed subspace
     (Phase 9), this gives the **explicit 8-dim basis** of H¹(K) as
     `2·trivial ⊕ 3·standard` over F_2.  PURE. -/
-theorem Sym3StandardRepThird_phase14_capstone :
+theorem Sym3StandardRepThird_capstone :
     -- Standard rep matrix relations
     (∀ j : Fin 8, M_mul_vec M_S01 std3_v1 j = std3_v1 j)
     ∧ (∀ j : Fin 8, M_mul_vec M_S01 std3_v2 j = H1K.add std3_v1 std3_v2 j)

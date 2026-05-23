@@ -226,7 +226,7 @@ theorem mul_semi_differs_from_direct_sample :
     differ in how external factors permute the internal bits.
 
     PURE. -/
-theorem AutKSemidirect_phase15_capstone :
+theorem AutKSemidirect_capstone :
     -- Bit-perm involutions
     (∀ i : Fin 6, bit_perm_S01 (bit_perm_S01 i) = i)
     ∧ (∀ i : Fin 6, bit_perm_S12 (bit_perm_S12 i) = i)

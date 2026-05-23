@@ -192,7 +192,7 @@ theorem bool_trace_consistency :
     the trivial-isotypic + standard-isotypic decomposition).
 
     PURE. -/
-theorem Sym3IrrepDecomp_phase9_capstone :
+theorem Sym3IrrepDecomp_capstone :
     -- Fixed-subspace dim 2
     fixedSize = 4
     ∧ 4 = 2^2

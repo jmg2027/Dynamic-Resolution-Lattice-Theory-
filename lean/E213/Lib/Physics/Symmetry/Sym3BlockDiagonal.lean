@@ -203,7 +203,7 @@ theorem block_isolation_std1_v1_S01 :
 
     PURE — composes Phases 9, 10, 14 per-basis-vector results
     into the global block-diagonal statement. -/
-theorem Sym3BlockDiagonal_phase17_capstone :
+theorem Sym3BlockDiagonal_capstone :
     -- σ_S01 trivial blocks (2)
     (∀ j : Fin 8, M_mul_vec M_S01
        E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_10 j

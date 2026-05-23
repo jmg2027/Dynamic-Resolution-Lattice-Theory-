@@ -64,7 +64,7 @@ open E213.Lib.Math.Cohomology.Examples.BettiKernel (kerSize_5_0 kerSize_5_1 kerS
 
     Single 0-axiom theorem closing CA-CE.  Each conjunct is a
     representative result from the corresponding phase. -/
-theorem cohomology_213_marathon :
+theorem cohomology_213_capstone :
     -- CA: cochain complex on Δ⁴, δ²=0 sample
     (∀ i : Fin (binom 5 3), delta (delta vertex0_n5) i = false)
     -- CB: ⋆⋆ = id sample

@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.Fractal.AurifeuilleanLUnbounded
 /-!
 # Restricted depth-2 cardinality cut-off (Aurifeuillean)
 
-Extends `cutoff_marathon_at_depth_1` from depth 1 to a **restricted**
+Extends `asymptotic_cutoff_capstone_at_depth_1` from depth 1 to a **restricted**
 depth 2: trees of the form `(a op_L b) op_out (c op_R d)` where the
 **outer operation `op_out` is `+` or `*` only** (no outer `^`).  Inner
 operations `op_L, op_R` can be `+`, `*`, or `^` freely.  Leaves come

@@ -160,7 +160,7 @@ theorem std1_rho_cubed_v1 :
     "doublet" of gluons; combined with the 2 trivial reps, the
     8-rep decomposition matches the SU(3) → Sym(3) Weyl-group
     restriction structure.  PURE. -/
-theorem Sym3StandardReps_phase10_capstone :
+theorem Sym3StandardReps_capstone :
     -- Pair 1 satisfies standard rep matrices
     (∀ j : Fin 8, M_mul_vec M_S01 std1_v1 j = std1_v1 j)
     ∧ (∀ j : Fin 8, M_mul_vec M_S01 std1_v2 j = H1K.add std1_v1 std1_v2 j)

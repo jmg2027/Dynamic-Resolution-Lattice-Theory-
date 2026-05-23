@@ -18,7 +18,7 @@ mod-p Fibonacci recurrence (PellFibBridge).
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.UniversalPhase33
+namespace E213.Lib.Math.DyadicFSM.UniversalInert
 
 open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod mod_self zero_mod)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
@@ -32,7 +32,7 @@ open E213.Lib.Math.ModArith.FP2Sqrt5
    p_minus_one_mul_mod)
 open E213.Lib.Math.DyadicFSM.PellFibBridge
   (fibFst fibLike_succ_fst fibLike_succ_snd fibFst_recur
-   universal_phase_3_3)
+   universal_inert_case)
 open E213.Lib.Math.DyadicFSM.BinetBridge (mod_eq_p_minus_one_of_succ_mod_zero)
 
 /-- ★★★ **Frobenius-FLT-for-phi ⟹ F_p ≡ -1 mod p**.
@@ -152,32 +152,32 @@ theorem fpm1_eq_one_of_frob_phi
     Internal chain:
       1. h_frob ⟹ F_p ≡ -1 mod p (`fp_eq_neg_one_of_frob_phi`)
       2. h_frob ⟹ F_{p-1} ≡ 1 mod p (`fpm1_eq_one_of_frob_phi`)
-      3. Apply `universal_phase_3_3` (Part 44).
+      3. Apply `universal_inert_case` (Part 44).
 
     PURE.  This compresses the inert F-identities (two hypotheses
-    in universal_phase_3_3) into a single Frobenius FLT hypothesis. -/
-theorem universal_phase_3_3_via_frob
+    in universal_inert_case) into a single Frobenius FLT hypothesis. -/
+theorem universal_inert_via_frob
     (p : Nat) (hp : 1 < p) (hpo : p % 2 = 1)
     (h_frob : fp2Pow p (phiFP2 p) p = fp2Frob p (phiFP2 p)) :
     E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff p hp (p + 1)
       = E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff p hp 0 :=
-  universal_phase_3_3 p hp
+  universal_inert_case p hp
     (fp_eq_neg_one_of_frob_phi p hp hpo h_frob)
     (fpm1_eq_one_of_frob_phi p hp hpo h_frob)
 
-/-! ## Per-prime smokes for `universal_phase_3_3_via_frob` -/
+/-! ## Per-prime smokes for `universal_inert_via_frob` -/
 
 /-- Smoke at p=3: phi^3 = sigma(phi) decided by `decide`. -/
-theorem universal_phase_3_3_via_frob_at_3 :
+theorem universal_inert_via_frob_at_3 :
     E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 3 (by decide) 4
       = E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 3 (by decide) 0 :=
-  universal_phase_3_3_via_frob 3 (by decide) (by decide) (by decide)
+  universal_inert_via_frob 3 (by decide) (by decide) (by decide)
 
 /-- Smoke at p=7: phi^7 = sigma(phi) decided by `decide`. -/
-theorem universal_phase_3_3_via_frob_at_7 :
+theorem universal_inert_via_frob_at_7 :
     E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 7 (by decide) 8
       = E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 7 (by decide) 0 :=
-  universal_phase_3_3_via_frob 7 (by decide) (by decide) (by decide)
+  universal_inert_via_frob 7 (by decide) (by decide) (by decide)
 
 /-! ## IF direction: Frobenius FLT for phi FROM inert F-identities
 
@@ -375,4 +375,4 @@ theorem phiFP2_pow_p_eq_frob_via_atomic_cases_7 :
   phiFP2_pow_p_eq_frob_via_atomic_cases 7 (by decide) (by decide)
     (by decide) (by decide) (by decide) (by decide)
 
-end E213.Lib.Math.DyadicFSM.UniversalPhase33
+end E213.Lib.Math.DyadicFSM.UniversalInert

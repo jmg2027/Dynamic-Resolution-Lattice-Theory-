@@ -1,5 +1,5 @@
-import E213.Lib.Math.DyadicFSM.UniversalPhase33
-import E213.Lib.Math.DyadicFSM.UniversalPhase32
+import E213.Lib.Math.DyadicFSM.UniversalInert
+import E213.Lib.Math.DyadicFSM.UniversalSplit
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.PellMatrixAction
 /-!
@@ -14,7 +14,7 @@ The Pisano predictor `pisano_predict p hp` returns:
   · `(p - 1) / 2` when `legendre213 5 p hp = 1` (split, 5 QR mod p)
   · `p + 1`       when `legendre213 5 p hp = 2` (inert, 5 NQR mod p)
 
-The dispatch theorem `universal_phase_4_pellCoeff` takes one
+The dispatch theorem `universal_dispatch_pellCoeff` takes one
 case-specific hypothesis per Legendre value (each decidable per
 prime via the corresponding `universal_phase_3_X` or `decide`),
 and produces:
@@ -31,7 +31,7 @@ Lifted to FSM bit-period via `pellCoeff_period_implies_pellFSMmod_bits_period`:
 This is **G119's terminal universal closure**.  All declarations PURE.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.UniversalPhase4
+namespace E213.Lib.Math.DyadicFSM.UniversalDispatch
 
 open E213.Lib.Math.DyadicFSM.PellMatrix (pellCoeff)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod)
@@ -59,7 +59,7 @@ private theorem fin3_cases (x : Fin 3) :
     i.e., `M_pell^(pisano_predict p) = I` in 𝔽_p.
 
     PURE. -/
-theorem universal_phase_4_pellCoeff
+theorem universal_dispatch_pellCoeff
     (p : Nat) (hp : 1 < p)
     (h_ramified : (legendre213 5 p hp).val = 0 →
                   pellCoeff p hp (2 * p) = pellCoeff p hp 0)
@@ -108,7 +108,7 @@ theorem universal_phase_4_pellCoeff
                  = (pellFSMmod p hp).bits k`.
 
     **This is the G119 campaign's terminal universal closure.**  PURE. -/
-theorem universal_phase_4_FSM
+theorem universal_dispatch_FSM
     (p : Nat) (hp : 1 < p)
     (h_ramified : (legendre213 5 p hp).val = 0 →
                   pellCoeff p hp (2 * p) = pellCoeff p hp 0)
@@ -120,44 +120,44 @@ theorem universal_phase_4_FSM
          = (pellFSMmod p hp).bits k :=
   pellCoeff_period_implies_pellFSMmod_bits_period p hp
     (pisano_predict p hp)
-    (universal_phase_4_pellCoeff p hp h_ramified h_split h_inert)
+    (universal_dispatch_pellCoeff p hp h_ramified h_split h_inert)
 
-/-! ## Per-prime instantiations of `universal_phase_4_FSM` -/
+/-! ## Per-prime instantiations of `universal_dispatch_FSM` -/
 
 /-- Phase 4 at p = 3 (inert): all three cases via `decide`. -/
-theorem universal_phase_4_at_3 :
+theorem universal_dispatch_at_3 :
     ∀ k, (pellFSMmod 3 (by decide)).bits (k + pisano_predict 3 (by decide))
          = (pellFSMmod 3 (by decide)).bits k :=
-  universal_phase_4_FSM 3 (by decide)
+  universal_dispatch_FSM 3 (by decide)
     (fun h => by exact absurd h (by decide))
     (fun h => by exact absurd h (by decide))
     (fun _ => by decide)
 
 /-- Phase 4 at p = 5 (ramified): legendre = 0. -/
-theorem universal_phase_4_at_5 :
+theorem universal_dispatch_at_5 :
     ∀ k, (pellFSMmod 5 (by decide)).bits (k + pisano_predict 5 (by decide))
          = (pellFSMmod 5 (by decide)).bits k :=
-  universal_phase_4_FSM 5 (by decide)
+  universal_dispatch_FSM 5 (by decide)
     (fun _ => by decide)
     (fun h => by exact absurd h (by decide))
     (fun h => by exact absurd h (by decide))
 
 /-- Phase 4 at p = 7 (inert). -/
-theorem universal_phase_4_at_7 :
+theorem universal_dispatch_at_7 :
     ∀ k, (pellFSMmod 7 (by decide)).bits (k + pisano_predict 7 (by decide))
          = (pellFSMmod 7 (by decide)).bits k :=
-  universal_phase_4_FSM 7 (by decide)
+  universal_dispatch_FSM 7 (by decide)
     (fun h => by exact absurd h (by decide))
     (fun h => by exact absurd h (by decide))
     (fun _ => by decide)
 
 /-- Phase 4 at p = 11 (split). -/
-theorem universal_phase_4_at_11 :
+theorem universal_dispatch_at_11 :
     ∀ k, (pellFSMmod 11 (by decide)).bits (k + pisano_predict 11 (by decide))
          = (pellFSMmod 11 (by decide)).bits k :=
-  universal_phase_4_FSM 11 (by decide)
+  universal_dispatch_FSM 11 (by decide)
     (fun h => by exact absurd h (by decide))
     (fun _ => by decide)
     (fun h => by exact absurd h (by decide))
 
-end E213.Lib.Math.DyadicFSM.UniversalPhase4
+end E213.Lib.Math.DyadicFSM.UniversalDispatch
