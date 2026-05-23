@@ -1523,4 +1523,206 @@ theorem Zp.i_5_sq_trunc_two :
   exact Zp.sqr_sqrtFull_correct 5 (by decide)
     (ZpSeq.neg_one 5 (by decide)) Zp.sqrtBase_neg_one_5 1
 
+/-! ## Hensel sqrt uniqueness
+
+If `y, z` both satisfy `y² ≡ z² ≡ x (mod p^(n+1))` and agree at digit
+0, then `y.trunc (n+1) = z.trunc (n+1)`.
+
+Proof structure (inductive on n):
+- Base n=0: both equal `sb.d_0`.
+- Step n → n+1: by IH `y.trunc(n+1) = z.trunc(n+1) = a`.  The binomial
+  expansion of `y²` and `z²` mod `p^(n+2)` forces the digit-(n+1)
+  values to agree, via the `2·a·d_0·two_d_0_inv ≡ 1` cancellation.
+-/
+
+/-- PURE: additive cancellation in modular arithmetic.
+    `(c + x) % M = (c + y) % M ∧ c ≤ M → x % M = y % M`. -/
+private theorem add_left_cancel_mod {M c x y : Nat} (hM : 0 < M)
+    (hcM : c ≤ M)
+    (h : (c + x) % M = (c + y) % M) :
+    x % M = y % M := by
+  -- Strategy: add (M - c) to both sides of h via mod_add_mod, then simplify.
+  have h1 : ((c + x) % M + (M - c)) % M = ((c + y) % M + (M - c)) % M := by
+    rw [h]
+  rw [E213.Meta.Nat.AddMod213.mod_add_mod hM (c + x) (M - c),
+      E213.Meta.Nat.AddMod213.mod_add_mod hM (c + y) (M - c)] at h1
+  -- h1 : ((c + x) + (M - c)) % M = ((c + y) + (M - c)) % M
+  -- Rearrange (c + x) + (M - c) = x + (c + (M - c)) = x + M.
+  have h_rw_x : (c + x) + (M - c) = M + x := by
+    rw [Nat.add_assoc c x (M - c), Nat.add_comm x (M - c), ← Nat.add_assoc,
+        E213.Tactic.NatHelper.add_sub_of_le hcM]
+  have h_rw_y : (c + y) + (M - c) = M + y := by
+    rw [Nat.add_assoc c y (M - c), Nat.add_comm y (M - c), ← Nat.add_assoc,
+        E213.Tactic.NatHelper.add_sub_of_le hcM]
+  rw [h_rw_x, h_rw_y] at h1
+  -- h1 : (M + x) % M = (M + y) % M
+  rw [E213.Meta.Nat.AddMod213.add_mod_left hM M x,
+      E213.Meta.Nat.AddMod213.add_mod_left hM M y,
+      E213.Meta.Nat.AddMod213.mod_self M, Nat.zero_add, Nat.zero_add] at h1
+  exact h1
+
+/-- PURE: the abstract sqrt uniqueness step.  From equality of squares
+    at trunc level (n+2), derive that the digits agree. -/
+private theorem sqrt_unique_digit_step (p : Nat) (hp : 1 < p) (n : Nat)
+    (a dy dz d_0 two_d_0_inv : Nat)
+    (h_a_lt : a < p^(n + 1))
+    (h_dy_lt : dy < p) (h_dz_lt : dz < p)
+    (h_a_mod : a % p = d_0 % p)
+    (h_inv_eq : (2 * d_0 * two_d_0_inv) % p = 1 % p)
+    (h_eq : (a + dy * p^(n + 1)) * (a + dy * p^(n + 1)) % p^(n + 2)
+          = (a + dz * p^(n + 1)) * (a + dz * p^(n + 1)) % p^(n + 2)) :
+    dy = dz := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have hM_pos : 0 < p^(n + 2) := Nat.pos_pow_of_pos _ hp'
+  have hK_pos : 0 < p^(n + 1) := Nat.pos_pow_of_pos _ hp'
+  -- Step 1: apply binomial_sq_mod_pure to both sides.
+  rw [binomial_sq_mod_pure a dy (p^(n + 1)) (p^(n + 2)) hM_pos
+        (K_sq_mod_M_zero p n)] at h_eq
+  rw [binomial_sq_mod_pure a dz (p^(n + 1)) (p^(n + 2)) hM_pos
+        (K_sq_mod_M_zero p n)] at h_eq
+  -- h_eq : (a*a + 2*(a*dy*K)) % M = (a*a + 2*(a*dz*K)) % M
+  -- Step 2: cancel a*a mod M.
+  have h_aa_le : a * a % p^(n + 2) ≤ p^(n + 2) :=
+    Nat.le_of_lt (Nat.mod_lt _ hM_pos)
+  -- Use add_mod_left to convert a*a to (a*a % M) on both sides.
+  rw [E213.Meta.Nat.AddMod213.add_mod_left hM_pos (a * a) (2 * (a * dy * p^(n + 1))),
+      E213.Meta.Nat.AddMod213.add_mod_left hM_pos (a * a) (2 * (a * dz * p^(n + 1)))] at h_eq
+  -- h_eq : ((a*a % M) + 2*(a*dy*K)) % M = ((a*a % M) + 2*(a*dz*K)) % M
+  -- Cancel (a*a % M).
+  have h_can : (2 * (a * dy * p^(n + 1))) % p^(n + 2)
+             = (2 * (a * dz * p^(n + 1))) % p^(n + 2) :=
+    add_left_cancel_mod hM_pos h_aa_le h_eq
+  -- Step 3: rewrite 2·(a·d·K) = (2·a·d)·K.
+  have h_reshape_y : 2 * (a * dy * p^(n + 1)) = (2 * a * dy) * p^(n + 1) := by
+    rw [← E213.Tactic.NatHelper.mul_assoc 2 (a * dy) (p^(n + 1)),
+        ← E213.Tactic.NatHelper.mul_assoc 2 a dy]
+  have h_reshape_z : 2 * (a * dz * p^(n + 1)) = (2 * a * dz) * p^(n + 1) := by
+    rw [← E213.Tactic.NatHelper.mul_assoc 2 (a * dz) (p^(n + 1)),
+        ← E213.Tactic.NatHelper.mul_assoc 2 a dz]
+  rw [h_reshape_y, h_reshape_z] at h_can
+  -- h_can : ((2·a·dy) * K) % M = ((2·a·dz) * K) % M
+  -- Step 4: apply mul_pow_succ_mod (with A = 2·a·dy and 2·a·dz).
+  rw [mul_pow_succ_mod (2 * a * dy) p n hp',
+      mul_pow_succ_mod (2 * a * dz) p n hp'] at h_can
+  -- h_can : ((2·a·dy) % p) * K = ((2·a·dz) % p) * K
+  -- Step 5: cancel K (right side).
+  have h_mod_eq : (2 * a * dy) % p = (2 * a * dz) % p :=
+    E213.Tactic.NatHelper.mul_left_cancel_pos hK_pos
+      (by rw [Nat.mul_comm ((2 * a * dy) % p) (p^(n + 1)),
+              Nat.mul_comm ((2 * a * dz) % p) (p^(n + 1))] at h_can
+          exact h_can)
+  -- Step 6: rewrite using h_a_mod (a % p = d_0 % p).
+  have h_2a_eq : (2 * a) % p = (2 * d_0) % p := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure 2 a p,
+        E213.Meta.Nat.MulMod213.mul_mod_right_pure 2 d_0 p, h_a_mod]
+  -- (2·a·dy) % p = ((2·a) % p · dy) % p ... need mod manipulation
+  have h_d0_eq : (2 * d_0 * dy) % p = (2 * d_0 * dz) % p := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * d_0) dy p,
+        E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * d_0) dz p]
+    rw [← h_2a_eq]
+    rw [← E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * a) dy p,
+        ← E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * a) dz p]
+    exact h_mod_eq
+  -- Step 7: cancel 2·d_0 using two_d_0_inv.
+  -- Multiply both sides by two_d_0_inv: (2·d_0·dy·two_d_0_inv) % p = (2·d_0·dz·two_d_0_inv) % p.
+  -- Then use (2·d_0·two_d_0_inv) % p = 1 mod p.
+  have h_dy_dz : dy % p = dz % p := by
+    -- (2·d_0·dy·inv) % p = (2·d_0·dz·inv) % p by scaling h_d0_eq.
+    have h_scale : (2 * d_0 * dy * two_d_0_inv) % p
+                 = (2 * d_0 * dz * two_d_0_inv) % p := by
+      rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * d_0 * dy) two_d_0_inv p,
+          E213.Meta.Nat.MulMod213.mul_mod_left_pure (2 * d_0 * dz) two_d_0_inv p,
+          h_d0_eq]
+    -- Reshape: 2·d_0·dy·inv = dy · (2·d_0·inv)
+    have h_reshape_dy : 2 * d_0 * dy * two_d_0_inv
+                      = dy * (2 * d_0 * two_d_0_inv) := by
+      rw [Nat.mul_comm (2 * d_0) dy]
+      exact E213.Tactic.NatHelper.mul_assoc dy (2 * d_0) two_d_0_inv
+    have h_reshape_dz : 2 * d_0 * dz * two_d_0_inv
+                      = dz * (2 * d_0 * two_d_0_inv) := by
+      rw [Nat.mul_comm (2 * d_0) dz]
+      exact E213.Tactic.NatHelper.mul_assoc dz (2 * d_0) two_d_0_inv
+    rw [h_reshape_dy, h_reshape_dz] at h_scale
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure dy (2 * d_0 * two_d_0_inv) p,
+        E213.Meta.Nat.MulMod213.mul_mod_right_pure dz (2 * d_0 * two_d_0_inv) p,
+        h_inv_eq, Nat.mod_eq_of_lt hp, Nat.mul_one, Nat.mul_one] at h_scale
+    exact h_scale
+  -- Step 8: dy < p, dz < p, dy % p = dz % p ⟹ dy = dz.
+  rw [Nat.mod_eq_of_lt h_dy_lt, Nat.mod_eq_of_lt h_dz_lt] at h_dy_dz
+  exact h_dy_dz
+
+/-- `(y · y).trunc (n+1) = x.trunc (n+1)` follows from
+    `(y · y).trunc (n+2) = x.trunc (n+2)` by `trunc_succ_mod_K`. -/
+private theorem sqr_trunc_lower (p : Nat) (hp : 0 < p) (y x : ZpSeq p) (n : Nat)
+    (h : (Zp.mul p hp y y).trunc (n + 2) = x.trunc (n + 2)) :
+    (Zp.mul p hp y y).trunc (n + 1) = x.trunc (n + 1) := by
+  have h1 : (Zp.mul p hp y y).trunc (n + 2) % p^(n + 1)
+          = (Zp.mul p hp y y).trunc (n + 1) := trunc_succ_mod_K p hp _ n
+  have h2 : x.trunc (n + 2) % p^(n + 1) = x.trunc (n + 1) :=
+    trunc_succ_mod_K p hp x n
+  rw [← h1, h, h2]
+
+/-- **Hensel sqrt uniqueness**: if `y, z` both square to `x` at trunc
+    level `n+1` and have the same digit 0 (matching `sb.d_0`), then
+    they agree at trunc level `n+1`.
+
+    Proof by induction on n:
+    - Base n=0: both trunc-1 values equal `sb.d_0`.
+    - Step n→n+1: lower to IH at level n+1, then apply
+      `sqrt_unique_digit_step` to compare digit (n+1) values. -/
+theorem Zp.sqr_unique_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
+    (sb : Zp.SqrtBase p x)
+    (hy_d0 : (y.digits 0).val = sb.d_0)
+    (hz_d0 : (z.digits 0).val = sb.d_0) :
+    ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) y y).trunc (n + 1) = x.trunc (n + 1)
+       → (Zp.mul p (Nat.lt_of_succ_lt hp) z z).trunc (n + 1) = x.trunc (n + 1)
+       → y.trunc (n + 1) = z.trunc (n + 1)
+  | 0 => fun _ _ => by
+    show 0 + (y.digits 0).val * p^0 = 0 + (z.digits 0).val * p^0
+    rw [hy_d0, hz_d0]
+  | n + 1 => fun hy hz => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    -- IH at level n+1.
+    have hy_lo : (Zp.mul p hp' y y).trunc (n + 1) = x.trunc (n + 1) :=
+      sqr_trunc_lower p hp' y x n hy
+    have hz_lo : (Zp.mul p hp' z z).trunc (n + 1) = x.trunc (n + 1) :=
+      sqr_trunc_lower p hp' z x n hz
+    have ih : y.trunc (n + 1) = z.trunc (n + 1) :=
+      Zp.sqr_unique_trunc p hp x y z sb hy_d0 hz_d0 n hy_lo hz_lo
+    -- y.trunc (n+2) = y.trunc (n+1) + (y.digits (n+1)).val · p^(n+1)
+    -- z.trunc (n+2) = z.trunc (n+1) + (z.digits (n+1)).val · p^(n+1)
+    -- IH gives the first parts equal; need digits to agree.
+    show y.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1)
+       = z.trunc (n + 1) + (z.digits (n + 1)).val * p^(n + 1)
+    rw [ih]
+    suffices h_dig : (y.digits (n + 1)).val = (z.digits (n + 1)).val by rw [h_dig]
+    -- Apply sqrt_unique_digit_step to extract digit equality.
+    -- a := z.trunc(n+1), dy := (y.digits (n+1)).val, dz := (z.digits (n+1)).val.
+    have h_eq : (z.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1))
+              * (z.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1)) % p^(n + 2)
+              = (z.trunc (n + 1) + (z.digits (n + 1)).val * p^(n + 1))
+              * (z.trunc (n + 1) + (z.digits (n + 1)).val * p^(n + 1)) % p^(n + 2) := by
+      -- LHS = y.trunc(n+2) · y.trunc(n+2) % p^(n+2) = (Zp.mul y y).trunc(n+2) = x.trunc(n+2)
+      -- RHS similarly = x.trunc(n+2)
+      rw [show z.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1)
+            = y.trunc (n + 2) by
+            show z.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1)
+               = y.trunc (n + 1) + (y.digits (n + 1)).val * p^(n + 1)
+            rw [ih]]
+      rw [show z.trunc (n + 1) + (z.digits (n + 1)).val * p^(n + 1)
+            = z.trunc (n + 2) from rfl]
+      rw [← Zp.mul_trunc p hp' y y (n + 2), ← Zp.mul_trunc p hp' z z (n + 2),
+          hy, hz]
+    -- Derive a < p^(n+1) from trunc bound.
+    have h_a_lt : z.trunc (n + 1) < p^(n + 1) := ZpSeq.trunc_lt_p_pow hp' z (n + 1)
+    have h_dy_lt : (y.digits (n + 1)).val < p := (y.digits (n + 1)).isLt
+    have h_dz_lt : (z.digits (n + 1)).val < p := (z.digits (n + 1)).isLt
+    -- a % p = sb.d_0 % p via trunc_succ_mod_p + sqrtSeq_digit_zero analog.
+    have h_a_mod : z.trunc (n + 1) % p = sb.d_0 % p := by
+      rw [trunc_succ_mod_p p hp' z n, hz_d0]
+    exact sqrt_unique_digit_step p hp n
+      (z.trunc (n + 1)) (y.digits (n + 1)).val (z.digits (n + 1)).val
+      sb.d_0 sb.two_d_0_inv h_a_lt h_dy_lt h_dz_lt
+      h_a_mod sb.two_d_0_inv_eq h_eq
+
 end E213.Lib.Math.Padic
