@@ -22,7 +22,7 @@ For the encoding-costs framing: `seed/AXIOM/10_encoding_costs.md`.
 
 This document structurally demonstrates that the Raw framework
 implemented in `lean/E213/Theory/` is a **faithful emulator** of
-the axiom in `02_statement.md`.  Specifically:
+the axiom in `02_axiom.md`.  Specifically:
 
 1. Each implementation device in Lean 4 core (inductive type,
    subtype, canonical form, smart constructor, custom eliminator)
@@ -42,13 +42,13 @@ the axiom in `02_statement.md`.  Specifically:
    artifacts can leak into Lens output, and the current mitigation
    state.
 
-Related documents: `02_statement.md`, `09_audit.md`.
+Related document: `seed/AXIOM/02_axiom.md`.
 
 ---
 
 ## §I.1 Problem statement
 
-The axiom (`02_statement.md` §3.2) consists of 4 clauses.  Since
+The axiom (`02_axiom.md` §3.2) consists of 4 clauses.  Since
 Lean 4 core has no primitive quotient, several implementation
 devices are introduced in the process of putting this axiom on a
 machine:
@@ -326,9 +326,8 @@ commitment**.
 ## §I.4 Corner cases: leak paths
 
 The actual corner cases **to be concerned about** from an
-axiom-compliance perspective are the 5 items in `09_audit.md`
-§5.2.  These are **absences of safeguards**, not states of the
-axiom.  Summary:
+axiom-compliance perspective are the 5 items below.  These are
+**absences of safeguards**, not states of the axiom.  Summary:
 
 | # | Path | Current state | Action |
 |---|------|---------------|--------|
@@ -501,8 +500,7 @@ same theorems.  Only the possibility of user misuse changes.
   **completed** (CmpIndependence.lean, 2026-04-25).
 - (future) Introduce ValidLens predicate (§I.4 E).
 - (short-term) Lens-layer bleed migration — move Raw.depth,
-  Raw.leaves, etc. to Lens (§I.4, `09_audit.md` §3
-  Recommendation 3).
+  Raw.leaves, etc. to Lens (§I.4 Recommendation 3).
 - (extension, completed) p-adic ℤ_p sub-tower formalization
   (`Lib/Math/Hyper/Padic.lean`): leavesModNat sub-family + factorial
   seq instance.  ZFC reduction scope extended to number-theoretic
@@ -517,7 +515,7 @@ changes.
 (formerly seed/AUDIT_Lean.md)
 
 **Audit target**: `lean/E213/Theory/`
-**Reference**: `02_statement.md` (the 4-clause axiom)
+**Reference**: `02_axiom.md` (the 4-clause axiom)
 **Audit date**: 2026-04-24
 **Overall verdict**: **Faithful**.  No structural revision required.
 Three minor sanding items recommended.
@@ -669,7 +667,7 @@ Location: `Theory/Raw/Slash.lean:52`,
 specific Lenses (Lens.depth, Lens.leaves).  Their exposure in
 Theory as `Raw.depth`, `Raw.leaves` is **Lens-layer bleed**.
 
-`02_statement.md` §3.3 excludes "size / cardinality" from the
+`02_axiom.md` §3.3 excludes "size / cardinality" from the
 axiom.  `Raw.leaves r` is **the observation result of a specific
 Lens on that Raw**, so it should not reside at the axiom level.
 The current location is strictly speaking incorrect.
@@ -729,7 +727,7 @@ axiom updates.
 
 - **Do not change the form of the axiom itself.**  The current
   `Raw.a`, `Raw.b`, `Raw.slash (h : x ≠ y)`, `Raw.slash_comm`
-  are a 1:1 translation of `02_statement.md` §3.2.  This form
+  are a 1:1 translation of `02_axiom.md` §3.2.  This form
   must not be "upgraded" to the 3-element·2-operation form from
   ch22 (ch22 is a separate fudge issue).
 

@@ -85,7 +85,7 @@ in Lean as decide-checked literal.
 | **G126 Akbulut cork** (cork-frame supersedes FW-1) | 6-PHASE PARTIAL CLOSE | `lean/E213/Lib/Math/AkbulutCork/` (44 PURE), signed cork-twist count = +4 |
 | **G129 V32Betti parametric** (was G124) | PARTIAL CLOSE | `Cohomology/Bipartite/Parametric/` (36 PURE) |
 | **G130 ModulusStructure** (was G125) | OPTION A CLOSE | `Topology/ModulusStructure.lean` (12 PURE) |
-| **G122 Real213-p-adic** (full campaign closed) | COMPLETE + PROMOTED | `lean/E213/Lib/Math/Padic/` (308 PURE / 8 modules); chapter `theory/math/padic_real213.md` |
+| **G122 Real213-p-adic** (full campaign closed) | COMPLETE + PROMOTED | `lean/E213/Lib/Math/Padic/` (308 PURE / 10 modules); chapter `theory/math/padic_real213.md` |
 | **G121 R1 Geometrization** | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **G120 N_U re-derivation** | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 + cascade |
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |

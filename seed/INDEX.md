@@ -139,19 +139,18 @@ seed/
 ├── META_SCAN_ARCHETYPES.md           ← 11 scanner archetypes + dual-
 │                                       branch process model
 └── AXIOM/                            ← the axiom corpus, 11 chapters
-    ├── INDEX.md               ← chapter TOC
-    ├── 00_nature.md           ← residue, distinction, 3-dir uniqueness
-    ├── 01_notation_recursion.md
-    ├── 02_statement.md        ← the 4-clause axiom (+ encoding-cost markers)
-    ├── 03_form.md             ← why this form
-    ├── 04_falsifiability.md   ← discard rule + measurement falsifiers
-    ├── 05_primacy.md
-    ├── 06_formalization.md    ← Lean correspondence
-    ├── 07_self_reference.md   ← §8.4 dichotomy guide (Claude refresh)
-    ├── 08_encoding_costs.md   ← Lean codomain costs (inductive / cmp / subtype / ≠)
-    ├── 09_chart_relativity.md ← chart-local labels, flat ontology,
-    │                            §9.4 syntactic internalisation
-    └── 99_history.md          ← change log
+    ├── INDEX.md                 ← chapter TOC
+    ├── 01_residue.md            ← residue of pointing, primitive distinction
+    ├── 02_axiom.md              ← the 4-clause axiom (+ encoding-cost markers)
+    ├── 03_form.md               ← why this form (austerity, forcing chain)
+    ├── 04_uniqueness.md         ← 3-direction uniqueness (below / sideways / above)
+    ├── 05_no_exterior.md        ← §5.4 dichotomy-avoidance guide (Claude refresh)
+    ├── 06_lens_readings.md      ← chart-local labels, flat ontology
+    ├── 07_primacy.md            ← every framework as Lens reading
+    ├── 08_falsifiability.md     ← ∅-axiom contract + measurement falsifiers
+    ├── 09_lean_correspondence.md ← faithful Lean emulator, doctrinal chapters
+    ├── 10_encoding_costs.md     ← Lean codomain costs (inductive / cmp / subtype / ≠)
+    └── 99_history.md            ← change log
 
 # Lean implementation audit: lean/E213/AUDIT.md.
 ```

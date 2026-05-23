@@ -228,20 +228,21 @@ Two bounded contexts:
 
 **Lib/Math/ — major sub-organized clusters** (2026-05-13 sub-org
 pass 후):
-  * `CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}` (5 sub-dirs, 57 files)
-  * `Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog,Cauchy}` (7 sub-dirs, 57 files)
+  * `CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}` (5 sub-dirs, 50 files)
+  * `Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog}` (6 sub-dirs, 60 files)
   * `SignedCut/{Core,CD,Hurwitz,Level,Bridge,Octonion}` (6 sub-dirs, 35 files)
   * `Probability/{Foundation,Distribution,Inequality,Limit,Bridge}` (5 sub-dirs, 25 files)
   * `Cohomology/{Examples,Bridge,Cochain,Cup,CupAW,Delta,Fractal,
                   Hodge,Bipartite,Surfaces,Universal}` (11 sub-dirs)
   * `DyadicFSM/{Product,Signature,Forward,Tier,ArithFSM,Pell,Fib,
-                Pisano,Trib,Legendre,BitFSM,Archive}` (12 sub-dirs)
+                Pisano,Trib,FLT,BitFSM}` (11 sub-dirs)
   * `HodgeConjecture/{Foundation,Structure,Pairing,Refinement,
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
-  * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,DRLT}`
-    (8 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full
+  * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
+            Valuation,DRLT,DRLTIntegration}`
+    (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full
     ring axioms at trunc + Hensel inverse + sqrt (existence +
     uniqueness via `mul_invFull_correct` / `sqr_sqrtFull_correct`
     + `inv_trunc_unique` / `sqr_unique_trunc`) + full ultrametric
