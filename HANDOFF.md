@@ -5,7 +5,7 @@
 `claude/4-manifolds-geometrization-IQXNb` — multi-session marathon
 on 4-manifolds & Geometrization.
 
-**Sessions 1-8 cumulative**: +313 PURE / 0 DIRTY.
+**Sessions 1-9 cumulative**: +316 PURE / 0 DIRTY.
 
 ## All items status
 
@@ -24,14 +24,24 @@ on 4-manifolds & Geometrization.
 | 3-cell explicit attaching | **CLOSED** (S³, T³, L(p,q)) |
 | Decidable Boolean host-aware product law | **CLOSED** |
 | L(p, q) parameter family | **CLOSED** |
-| **Connected sum M₁ # M₂** | **CLOSED** |
+| **Connected sum M₁ # M₂** | **CLOSED + UNIVERSAL PURE** |
 | **L(p, q) classification refinement (q·q'≡±1 mod p)** | **CLOSED** |
+| **Universal connected-sum k-j=7 preservation (PURE, no omega)** | **CLOSED** |
 
 ## Recent sessions
 
 ### Session 5 — Concrete 3-mfd attaching maps (+43 PURE)
 ### Session 6 — Decidable Boolean form (+15 PURE)
 ### Session 7 — L(p, q) parameter family (+32 PURE)
+
+### Session 9 — PURE universal connected-sum preservation (+3 PURE)
+
+`JsjDeep.lean` (145 → 148): PURE term-level proof of universal
+k - j = 7 preservation under connected sum.  Uses helpers
+`add_sub_self_left/right_pure` (term-level induction on Nat) and
+`connectedSum_total_rearrange` (PURE rewrites with Nat.add_assoc
++ Nat.add_comm).  Replaces the earlier omega-using version that
+pulled propext + Quot.sound.
 
 ### Session 8 — Connected sum + L(p,q) refinement (+21 PURE)
 
@@ -55,14 +65,14 @@ on 4-manifolds & Geometrization.
 ## Sub-tree totals
 
   · **Cork**: 190 PURE / 8 files / 0 DIRTY
-  · **Geometrization**: ~302 PURE / 13 files / 0 DIRTY
-  · **Marathon total**: ~492 PURE in cork + geometrization sub-trees
+  · **Geometrization**: ~305 PURE / 13 files / 0 DIRTY
+  · **Marathon total**: ~495 PURE in cork + geometrization sub-trees
 
 ## Marathon pace
 
 Target: ~320 PURE over 16-25 sessions.
-Achieved (sessions 1-8): **+313 PURE on branch** in 8 sessions.
-Combined sub-tree totals: 492 PURE (54% above target).
+Achieved (sessions 1-9): **+316 PURE on branch** in 9 sessions.
+Combined sub-tree totals: 495 PURE (55% above target).
 
 ## Future-session candidates
 
@@ -70,10 +80,8 @@ Combined sub-tree totals: 492 PURE (54% above target).
 
   · **Cup-ladder ↔ cork H¹ basis cross-link**: bridge cork +4 to
     α_em precision stack (Gram α²/d², ω-trace α³/d²).
-  · Universal connected-sum k-j=7 preservation theorem (currently
-    proven at concrete instances; requires Nat arithmetic without
-    propext).
   · Multi-fold connected sums M₁ # M₂ # ... # Mₙ as list operations.
+  · Heegaard splitting genus invariant for L(p, q).
 
 ## Anchor docs
 
