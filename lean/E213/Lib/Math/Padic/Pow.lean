@@ -275,4 +275,56 @@ theorem Zp.smoke_pow_4_eq_one_5 :
   exact Zp.pow_p_minus_one_trunc_one 5 (by decide) _ (by decide)
     E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5
 
+/-! ## Multiplicative homomorphism
+
+`(x · y)^n` and `x^n · y^n` agree at the trunc level.  This makes
+`Zp.pow x n` a multiplicative homomorphism `ZpSeq → ZpSeq` modulo
+truncation.
+-/
+
+/-- PURE: `(a * b)^n = a^n * b^n` by induction. -/
+private theorem mul_pow_pure (a b : Nat) :
+    ∀ n, (a * b)^n = a^n * b^n
+  | 0 => by rw [Nat.pow_zero, Nat.pow_zero, Nat.pow_zero, Nat.mul_one]
+  | n + 1 => by
+    rw [Nat.pow_succ, mul_pow_pure a b n, Nat.pow_succ a n, Nat.pow_succ b n]
+    show a^n * b^n * (a * b) = a^n * a * (b^n * b)
+    rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213 (a^n) (b^n) a b]
+
+/-- PURE: `(a % m)^n % m = a^n % m`.  Mod is invariant under
+    pre-reduction in the base. -/
+private theorem pow_mod_pure (a m : Nat) :
+    ∀ n, ((a % m)^n) % m = a^n % m
+  | 0 => by rw [Nat.pow_zero, Nat.pow_zero]
+  | n + 1 => by
+    rw [Nat.pow_succ, Nat.pow_succ]
+    -- ((a % m)^n * (a % m)) % m = (a^n * a) % m
+    rw [E213.Meta.Nat.MulMod213.mul_mod_pure ((a % m)^n) (a % m) m,
+        pow_mod_pure a m n,
+        E213.Tactic.NatHelper.mod_mod_pure,
+        ← E213.Meta.Nat.MulMod213.mul_mod_pure (a^n) a m]
+
+/-- **Multiplicative homomorphism on the factor side**: at the trunc
+    level, `(Zp.pow (x · y) n) = (Zp.pow x n · Zp.pow y n)`. -/
+theorem Zp.pow_mul_trunc (p : Nat) (hp : 1 < p) (x y : ZpSeq p) (k n : Nat) :
+    (Zp.pow p hp
+      (Zp.mul p (Nat.lt_of_succ_lt hp) x y) n).trunc k
+      = (Zp.mul p (Nat.lt_of_succ_lt hp)
+          (Zp.pow p hp x n) (Zp.pow p hp y n)).trunc k := by
+  -- LHS = ((x · y).trunc k)^n % p^k = ((x.trunc k · y.trunc k) % p^k)^n % p^k
+  -- RHS = ((x^n).trunc k · (y^n).trunc k) % p^k
+  --     = ((x.trunc k)^n % p^k · (y.trunc k)^n % p^k) % p^k
+  rw [Zp.pow_trunc p hp _ k n,
+      Zp.mul_trunc p (Nat.lt_of_succ_lt hp) x y k]
+  rw [Zp.mul_trunc p (Nat.lt_of_succ_lt hp) (Zp.pow p hp x n) (Zp.pow p hp y n) k,
+      Zp.pow_trunc p hp x k n, Zp.pow_trunc p hp y k n]
+  -- Goal: ((x.trunc k * y.trunc k) % p^k)^n % p^k
+  --     = ((x.trunc k)^n % p^k * ((y.trunc k)^n % p^k)) % p^k
+  -- Strip outer % p^k on LHS via pow + mod (need lemma `(a % m)^n % m = a^n % m`).
+  rw [pow_mod_pure (x.trunc k * y.trunc k) (p^k) n]
+  -- ((x.trunc k * y.trunc k)^n) % p^k = ...
+  rw [mul_pow_pure (x.trunc k) (y.trunc k) n]
+  -- ((x.trunc k)^n * (y.trunc k)^n) % p^k = ((x.trunc k)^n % p^k * ...) % p^k
+  exact E213.Meta.Nat.MulMod213.mul_mod_pure _ _ _
+
 end E213.Lib.Math.Padic
