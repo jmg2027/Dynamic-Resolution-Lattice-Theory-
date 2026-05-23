@@ -31,45 +31,15 @@ All declarations PURE.
 
 namespace E213.Lib.Math.Padic.NegInvolution
 
-open E213.Meta.Nat.AddMod213 (mod_self)
+open E213.Meta.Nat.AddMod213 (mod_self double_neg_mod_at)
+open E213.Tactic.NatHelper (add_right_cancel_pure)
 
-/-! ## §0 — PURE Nat helpers (re-proved locally)
+/-! ## §0–§1 — PURE Nat helpers
 
-`Nat.sub_add_cancel` and `Nat.add_right_cancel` from Lean core leak
-`propext`; we re-prove the needed forms by direct induction. -/
-
-/-- PURE additive right-cancellation: `a + c = b + c → a = b`. -/
-theorem add_right_cancel_pure : ∀ {a b c : Nat},
-    a + c = b + c → a = b
-  | a, b, 0, h => by
-    show a = b
-    have h1 : a + 0 = a := Nat.add_zero a
-    have h2 : b + 0 = b := Nat.add_zero b
-    rw [h1, h2] at h
-    exact h
-  | a, b, c + 1, h => by
-    have h_succ : a + c + 1 = b + c + 1 := by
-      show a + (c + 1) = b + (c + 1)
-      exact h
-    have hc : a + c = b + c := Nat.succ.inj h_succ
-    exact add_right_cancel_pure hc
-
-/-! ## §1 — Double-mod-negation helper (re-proved locally) -/
-
-/-- `(p - (p - r) % p) % p = r` when `r < p`.  PURE.  Local copy
-    of FP2Sqrt5's `double_neg_mod` (which is private). -/
-theorem double_neg_mod_at (p r : Nat) (hp : 0 < p) (hr : r < p) :
-    (p - (p - r) % p) % p = r := by
-  by_cases h0 : r = 0
-  · subst h0
-    show (p - (p - 0) % p) % p = 0
-    rw [Nat.sub_zero, mod_self, Nat.sub_zero, mod_self]
-  · have h0_pos : 0 < r := Nat.pos_of_ne_zero h0
-    have hpsub_lt : p - r < p := Nat.sub_lt hp h0_pos
-    have h_psub_le : r ≤ p := Nat.le_of_lt hr
-    rw [Nat.mod_eq_of_lt hpsub_lt]
-    rw [E213.Tactic.NatHelper.sub_sub_self h_psub_le]
-    rw [Nat.mod_eq_of_lt hr]
+The cancellation lemma `add_right_cancel_pure` (`Tactic/NatHelper`)
+and the double-mod-negation identity `double_neg_mod_at`
+(`Meta/Nat/AddMod213`) live at the Meta layer; this file re-exports
+them for downstream NegInvolution consumers. -/
 
 /-! ## §2 — Zp.neg digit-0 formula -/
 

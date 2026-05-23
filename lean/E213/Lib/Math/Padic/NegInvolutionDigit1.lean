@@ -30,7 +30,8 @@ All declarations PURE.
 
 namespace E213.Lib.Math.Padic.NegInvolutionDigit1
 
-open E213.Lib.Math.Padic.NegInvolution (double_neg_mod_at add_right_cancel_pure)
+open E213.Meta.Nat.AddMod213 (double_neg_mod_at)
+open E213.Tactic.NatHelper (add_right_cancel_pure)
 
 /-! ## §1 — Carry of `complement x + one` at digit-1 -/
 
@@ -69,11 +70,9 @@ theorem neg_carry_at_1 (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
 
 /-! ## §2 — Carry case-analysis -/
 
-/-- PURE `p / p = 1` for `0 < p`, avoiding Lean-core `Nat.div_self`
-    which leaks propext. -/
-theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 := by
-  rw [Nat.div_eq_sub_div hp (Nat.le_refl _)]
-  rw [Nat.sub_self, Nat.zero_div]
+/-- Re-export `div_self_pure` from the Meta layer. -/
+theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 :=
+  E213.Tactic.NatHelper.div_self_pure p hp
 
 /-- ★ When `x.digit_0 = 0`: `(p - 0) / p = 1`. -/
 theorem neg_carry_at_1_when_zero (p : Nat) (hp : 1 < p) (x : ZpSeq p)

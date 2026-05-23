@@ -616,4 +616,42 @@ theorem max_comm (a b : Nat) : max a b = max b a := by
     have h2 : b ≤ a := Nat.le_of_lt (Nat.lt_of_not_le h)
     rw [if_pos h2]
 
+/-! ### PURE cancellation + div helpers
+
+Lean-core `Nat.add_left_cancel`, `Nat.add_right_cancel`, and
+`Nat.div_self` all leak `propext`.  Direct successor induction
+produces PURE replacements. -/
+
+/-- ∅-axiom replacement for `Nat.add_right_cancel`:
+    `a + c = b + c → a = b`.  By induction on `c`. -/
+theorem add_right_cancel_pure : ∀ {a b c : Nat},
+    a + c = b + c → a = b
+  | a, b, 0, h => by
+    show a = b
+    rw [Nat.add_zero a, Nat.add_zero b] at h
+    exact h
+  | a, b, c + 1, h => by
+    have h_succ : a + c + 1 = b + c + 1 := by
+      show a + (c + 1) = b + (c + 1)
+      exact h
+    have hc : a + c = b + c := Nat.succ.inj h_succ
+    exact add_right_cancel_pure hc
+
+/-- ∅-axiom replacement for `Nat.add_left_cancel`:
+    `a + b = a + c → b = c`.  Reduces to `add_right_cancel_pure`
+    via `Nat.add_comm` (which is PURE). -/
+theorem add_left_cancel_pure {a b c : Nat}
+    (h : a + b = a + c) : b = c := by
+  have h' : b + a = c + a := by
+    rw [Nat.add_comm b a, Nat.add_comm c a]
+    exact h
+  exact add_right_cancel_pure h'
+
+/-- ∅-axiom replacement for `Nat.div_self`: `p / p = 1` when
+    `0 < p`.  Uses `Nat.div_eq_sub_div` (PURE) + `Nat.sub_self`
+    + `Nat.zero_div`. -/
+theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 := by
+  rw [Nat.div_eq_sub_div hp (Nat.le_refl _)]
+  rw [Nat.sub_self, Nat.zero_div]
+
 end E213.Tactic.NatHelper

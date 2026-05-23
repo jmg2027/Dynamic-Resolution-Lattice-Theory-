@@ -62,23 +62,10 @@ theorem add_assoc_trunc (p : Nat) (hp : 0 < p) (x y z : ZpSeq p) (n : Nat) :
     rw [← Nat.add_assoc]
   rw [rhs_eq]
 
-/-- PURE additive left-cancellation: `a + b = a + c → b = c`. -/
-private theorem add_left_cancel_pure : ∀ {a b c : Nat},
-    a + b = a + c → b = c
-  | 0, b, c, h => by
-    show b = c
-    rw [Nat.zero_add, Nat.zero_add] at h
-    exact h
-  | a + 1, b, c, h => by
-    -- h : (a + 1) + b = (a + 1) + c, i.e., a + 1 + b = a + 1 + c
-    -- Rewrite as: a + (1 + b) = a + (1 + c)
-    have h' : a + (1 + b) = a + (1 + c) := by
-      rw [show a + (1 + b) = a + 1 + b from by rw [← Nat.add_assoc]]
-      rw [show a + (1 + c) = a + 1 + c from by rw [← Nat.add_assoc]]
-      exact h
-    have hbc : 1 + b = 1 + c := add_left_cancel_pure h'
-    rw [Nat.add_comm 1 b, Nat.add_comm 1 c] at hbc
-    exact Nat.succ.inj hbc
+/-- Re-export `add_left_cancel_pure` from the Meta layer. -/
+private theorem add_left_cancel_pure {a b c : Nat}
+    (h : a + b = a + c) : b = c :=
+  E213.Tactic.NatHelper.add_left_cancel_pure h
 
 /-! ## §2 — Trunc-equality at consecutive levels implies digit-equality -/
 

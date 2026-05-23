@@ -40,9 +40,8 @@ All declarations PURE.
 
 namespace E213.Lib.Math.Padic.NegInvolutionFull
 
-open E213.Lib.Math.Padic.NegInvolution
-  (double_neg_mod_at add_right_cancel_pure)
-open E213.Lib.Math.Padic.NegInvolutionDigit1 (div_self_pure)
+open E213.Meta.Nat.AddMod213 (double_neg_mod_at)
+open E213.Tactic.NatHelper (add_right_cancel_pure div_self_pure)
 
 /-! ## §1 — State accumulator `all_zero_below` -/
 
