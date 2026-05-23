@@ -13,7 +13,7 @@ criteria H1-H4 adapt: H1 (purity) + H2 (build clean) → H1'
 scanners can be re-run).  Per `lean/E213/docs/PROMOTION_PATTERNS.md`,
 this is the **destination-variant** form of Pattern 1.
 
-## Chapters (4)
+## Chapters (5)
 
 | Chapter | Source |
 |---|---|
@@ -21,6 +21,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`raw_derivation_levels.md`](raw_derivation_levels.md) | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems |
 | [`cardinality_cutoff_principle.md`](cardinality_cutoff_principle.md) | `Cohomology/Fractal/AurifeuilleanFullCutoff.lean` (28 PURE) |
 | [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | 6 Lean files in `Cohomology/Fractal/` (191 PURE) |
+| [`methodology_patterns.md`](methodology_patterns.md) | Closure-work methodology: Patterns #1-#20 + Reduction patterns #1-#6 |
 
 ## Action-items registry
 
@@ -38,5 +39,6 @@ theory/meta/
 ├── scanner_suite.md                        ← 11-scanner suite + key findings + cross-branch protocol
 ├── raw_derivation_levels.md                ← (α) logical / (β) structural / (γ) operational taxonomy
 ├── cardinality_cutoff_principle.md         ← scale-matching cut-off methodology (Hunter ⇔ Aurifeuillean exemplar)
-└── cardinality_cutoff_applications.md      ← six-direction application family (B/D/A/C/E/F, 191 PURE)
+├── cardinality_cutoff_applications.md      ← six-direction application family (B/D/A/C/E/F, 191 PURE)
+└── methodology_patterns.md                 ← reusable proof / refactor patterns (#1-#20 + reduction patterns)
 ```
