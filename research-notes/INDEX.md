@@ -113,7 +113,7 @@ Active top-level registries after merge:
 | `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
 | `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
 | `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
-| `G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — open frontier from G131 Phase 4: derive the 27 × 10⁻⁹ post-Gram residual structurally.  Most 213-native candidate: Filled3Cell b_2 / b_3 contribution to cup-ring trace.  Depends on G123 FW-2 (Filled3Cell deepening) — shared prereq with G126 Phase 7+ cork-extension | open research direction |
+| `G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology.  **Phase 1 anchor CLOSED 2026-05-22** (`Filled3CellCohomology.lean`, 17 PURE) — shared prereq for G123 FW-2 JSJ-deepening + G126 Phase 7+ cork higher-cohomology + this campaign.  Structural finding: 3 simple 4-cycles linearly dependent (rank δ¹ = 2), giving non-trivial b_2 = 1 cohomological class at full simple-cycle filling | Phase 1 anchor done; Phases 2+ open |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN

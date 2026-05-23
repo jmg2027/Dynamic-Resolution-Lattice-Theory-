@@ -1,10 +1,57 @@
 # G132 — 1/α_em sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology
 
 **Date**: 2026-05-22
-**Status**: open research direction
+**Status**: **Phase 1 anchor CLOSED** — Filled3CellCohomology shared
+prereq established for three downstream marathons (this campaign,
+G123 FW-2 JSJ-deepening, G126 Phase 7+ cork higher-cohomology)
 **Branch suggestion**: post-G131 follow-up
 **Source**: G131 Phase 4 open question (post-Gram residual 27 × 10⁻⁹
 mathematical principle), per PROMOTION_CRITERIA discussion 2026-05-22.
+
+## Phase 1 anchor (2026-05-22) — three-marathon shared prereq
+
+`lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellCohomology.lean`
+(17 PURE).  Establishes the attaching-map cohomology infrastructure
+needed by all three downstream tracks.
+
+**Headline structural finding**: the 3 simple 4-cycles of
+K_{3,2}^{(c=2)} (Face 0 = {0,2,4,6}, Face 1 = {0,2,8,10}, Face 2 =
+{4,6,8,10}) are **linearly DEPENDENT**:
+
+  Face 0 ⊕ Face 1 ⊕ Face 2 = 0   (proven by case analysis)
+
+Hence `rank δ¹ = 2`, not 3 — refining the naive `b_1 = 8 − k`
+arithmetic of the existing `Filled.lean`:
+
+  | k | naive b_1 | actual b_1 | actual b_2 |
+  |---|-----------|------------|------------|
+  | 0 | 8         | 8          | 0          |
+  | 1 | 7         | 7          | 0          |
+  | 2 | 6         | 6          | 0          |
+  | 3 | **5**     | **6** ★    | **1** ★    |
+
+At full simple-cycle filling (k = 3), **b_2 = 1**: the formal sum
+Face 0 + Face 1 + Face 2 is a non-trivial 2-cocycle in F_2.  This
+class is exactly the cohomological seed for the higher-cohomology
+α_em residual candidate analyzed below.
+
+**Provided structures**:
+  · `face0_boundary, face1_boundary, face2_boundary` — boundary
+    XOR operators per face
+  · `face_dependence` (★★★★★) — algebraic identity
+    Face 0 ⊕ Face 1 ⊕ Face 2 = 0 for any σ
+  · `face2_redundant` (★★★★) — third constraint implied by first two
+  · `cohomology_dims_at_full_simple` (★★★★★) — dim H¹ = 6, dim H² = 1
+  · `Boundary3Cell j` stub — ready for j > 0 instances
+  · `phase1_cohomology_anchor` (★★★★★★) — 6-conjunct capstone
+
+Three downstream marathons can now build on this anchor:
+  · **G132 Phase 2+** (this campaign): match `b_2 = 1` class to the
+    27 × 10⁻⁹ post-Gram α_em residual via cup-ring trace
+  · **G123 FW-2 Phase 7+**: lift the 2-cocycle to a real 3-mfd
+    attaching-map structure (JSJ-deepening)
+  · **G126 Phase 7+**: extend Akbulut cork-twist Z/2 action from
+    H¹ to H² via the non-trivial 2-cocycle
 
 ## The residual
 

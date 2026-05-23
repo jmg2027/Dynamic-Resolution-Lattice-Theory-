@@ -1173,3 +1173,22 @@ theorem at 0.2 ppb tier**, DRLT Validation Standard satisfied.
 residual documented as the open sub-ppb-precision direction
 (higher cohomology candidate: `K_{3,2}^{(c=2)}` b_2 / b_3 via
 Filled3Cell extension).
+
+## 2026-05-22 — Filled3CellCohomology Phase 1 (three-marathon shared prereq)
+
+Cohomology functor anchor for the K_{3,2}^{(c=2)} 3 simple 4-cycles
++ 3-cell stub.  Shared prereq unlocking three downstream marathons:
+JSJ-deepening (G123 FW-2), cork higher-cohomology (G126 Phase 7+),
+and α_em sub-ppb (G132 Phase 2+).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.Filled3CellCohomology` | 17 | `face0_boundary` / `face1_boundary` / `face2_boundary` per-face XOR operators; ★★★★★ `face_dependence` (Face 0 ⊕ Face 1 ⊕ Face 2 = 0 for any σ); ★★★★ `face2_redundant` (third constraint implied); ★★★★★ `cohomology_dims_at_full_simple` (dim H¹ = 6, dim H² = 1 at k=3); `Boundary3Cell j` 3-cell stub; ★★★★★★ `phase1_cohomology_anchor` |
+
+**Structural finding**: the 3 simple 4-cycles are linearly dependent
+in F_2 (Face 0 ⊕ Face 1 = Face 2), giving `rank δ¹ = 2` not 3.
+Refines `Filled.lean`'s naive arithmetic `b_1 = 8 − k`: at k = 3
+the kernel does NOT reduce further (stays at dim 10), and a
+non-trivial 2-cocycle Face 0 + Face 1 + Face 2 contributes
+`b_2 = 1`.  This `b_2 = 1` class is the cohomological seed for
+the higher-cohomology candidate of the post-Gram α_em residual.
