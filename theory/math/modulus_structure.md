@@ -92,6 +92,36 @@ The functor-level bridge between sources is established;
 full adjunction (left / right adjoints between source categories
 themselves) requires additional machinery as a follow-up.
 
+## Full adjunction — closed (ModulusStructureAdjunction.lean, 12 PURE)
+
+`Lib/Math/Topology/ModulusStructureAdjunction.lean` extends the
+Option B functor to a full **adjunction** framework:
+
+  · `ModAdjunction L R` — structure carrying unit `η_m : m → R(L m)`
+    and counit `ε_m : L(R m) → m` natural transformations.
+  · `idAdjunction : ModAdjunction idF idF` — trivial identity
+    adjunction.
+  · `shiftBy c` endofunctor: modulus k ↦ m.modulus k + c.
+  · `shiftZero_id_adjunction : ModAdjunction (shiftBy 0) idF` —
+    shift-zero collapses to identity adjunction (Quot.sound-free
+    via pointwise statement).
+  · `shiftBy_unit` — for any `c`, unit `m → shiftBy c m` exists
+    (trivially: shift adds budget).
+  · `shiftBy_counit_bracketCauchy` — for any `c`, counit
+    `shiftBy c bracketCauchyL3 → bracketCauchyL3` via the
+    reindexing `map k = k + c` (uses `3·k + 3·c ≥ 3·k + c`, i.e.,
+    `c ≤ 3·c`).
+  · ★★★★★ `modulus_structure_full_adjunction_capstone` bundles
+    identity adjunction + shift-zero adjunction + shift-c units +
+    shift-c counits at `bracketCauchyL3`.
+
+Reading: the modulus-structure category supports a full adjunction
+framework — units / counits between endofunctors `idF` and
+`shiftBy c` live as `ModHom` natural transformations.  Non-trivial
+shift counits hold at module structures where the modulus growth
+dominates the shift (e.g., `bracketCauchyL3` with linear growth
+`3·k`).
+
 ## Self-reference
 
 The 3-way bridge IS the 213-native unification.  Classically,
