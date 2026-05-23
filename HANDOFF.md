@@ -66,7 +66,7 @@ Frobenius vacuousness (Phase 4a) + bounded depth-1 negatives
     or complexity-theoretic substrate needed).
 
 Theory chapter `aurifeuillean.md` updated with marathon results.
-Research note `research-notes/G133_cutoff_marathon.md`.
+Research note archived to `research-notes/archive/G133_cutoff_marathon.md`.
 (Numbered G133 to avoid collision with G129 V32Betti parametric.)
 
 ## G131 Gram self-energy structural derivation — PROMOTED to theory chapter
