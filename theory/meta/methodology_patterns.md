@@ -313,9 +313,9 @@ current theorem names.  Do NOT recreate the phantom file unless
 the original session-snapshot really intended it.
 
 **Detection heuristic**: in `ready-to-merge` audit, extract every
-`import E213.X.Y.Z` from catalog files and verify
-`lean/E213/X/Y/Z.lean` exists.  Mismatches = misclaims to
-correct.  Script:
+`import E213.<module>` from catalog files and verify the
+corresponding `lean/E213/<module>.lean` exists.  Mismatches =
+misclaims to correct.  Script:
 ```
 grep -rh "import E213\." catalogs/ books/ blueprints/ \
   | sed -E 's/.*import (E213\.[A-Za-z0-9_.]+).*/\1/' \
