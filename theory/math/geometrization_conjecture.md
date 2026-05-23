@@ -2,9 +2,9 @@
 
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
 R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching +
-L(p, q) parameter family), FW-4 (metric direct), I-3 (Ricci ε-Lens),
-and 8-geo Lie group infrastructure — adding ~132 PURE.
-Sub-tree total: ~281 PURE / 0 DIRTY.
+L(p, q) parameter family + classification refinement + connected
+sum), FW-4 (metric direct), I-3 (Ricci ε-Lens), and 8-geo Lie group
+infrastructure — adding ~153 PURE.  Sub-tree total: ~302 PURE / 0 DIRTY.
 
 ## Overview
 
@@ -195,26 +195,23 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~124 PURE): Euler-target
-  scaffold with 3-mfd catalog (S³, T³, L(p,q), # sums all χ = 0);
-  K_{3,2}^{(c=2)} cell-complex parameter family (k − j = 7);
-  **cycle inventory** (6 multi-edge 2-cycles + 3 simple 4-cycles =
-  9 atomic, rank 8 cycle space); **concrete (k, j) attaching map
-  specifications** — atomic ceiling at (9, 2), longer cycles needed
-  for (10, 3) and beyond; **bipartite S/T cut → JSJ torus parallel**
-  with explicit component counts (3 S + 2 T = 5 components, 12 cut
-  edges); **explicit 3-mfd target attaching maps**
-  (S³ at (k,j)=(7,0); T³ at (8,1); L(p,q) at (10,3)) carrying
-  `CellComplexK32Attaching` data with edge-index 2-cell cycle lists
-  + 2-cell-index 3-cell boundary lists;
-  **L(p, q) parameter family** — `Lpq_attaching_pq p q` parametric
-  with modular-q 3-cell boundaries; specific instances L(2,1)=ℝP³,
-  L(3,1), L(5,1), L(5,2), L(7,2), L(7,3) all χ = 0; `lensEquiv`
-  decidable Boolean equivalence (L(5,1) ≡ L(5,4) via negation,
-  L(5,1) ≢ L(5,2)); π₁ torsion order placeholder;
-  `JSJ_deepening_FW2_close`, `FW2_concrete_attaching_close`, and
-  `Lpq_parameter_family_close` capstones.  Bridges to
-  `Cohomology/Bipartite/Filled3Cell.lean`.
+- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~145 PURE): Euler-target
+  scaffold with 3-mfd catalog; cycle inventory (9 atomic / rank 8);
+  concrete (k, j) attaching specifications; bipartite S/T cut →
+  JSJ torus parallel; explicit 3-mfd target attaching maps
+  (S³, T³, L(p,q)) via `CellComplexK32Attaching`; **L(p, q) parameter
+  family** `Lpq_attaching_pq` parametric in (p, q) with modular-q
+  3-cell boundaries; **L(p, q) classification refinement**
+  `lensEquivFull` extending `lensEquiv` with the `q·q' ≡ ±1 (mod p)`
+  case (L(7, 2) ≅ L(7, 4) via 2·4 = 8 ≡ 1 mod 7; L(11, 3) ≅ L(11, 4)
+  via 3·4 = 12 ≡ 1 mod 11 — both refinement-only); **connected sum**
+  M₁ # M₂ via `connectedSumShape (k₁+k₂-7, j₁+j₂)` preserving
+  k - j = 7; cell-level `connectedSumAttaching` concatenation with
+  drop-7 on second component; concrete instances L(5,1)#L(7,2) at
+  (13, 6), T³#T³ at (9, 2) both χ = 0;
+  `JSJ_deepening_FW2_close`, `FW2_concrete_attaching_close`,
+  `Lpq_parameter_family_close`, and
+  `connectedSum_and_Lpq_refinement_close` capstones.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
   universal characterization** `sym3_c2_force_K32` (Sym(3) +
