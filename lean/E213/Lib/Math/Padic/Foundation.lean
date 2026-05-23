@@ -7,8 +7,9 @@ import E213.Meta.Tactic.NatHelper
 **Status**: STARTER — foundational types and roadmap.  Concrete proofs
 to be filled in subsequent sessions per the G122 plan.
 
-See `research-notes/G122_real213_padic_research_direction.md` for the
-full campaign structure.
+See `theory/math/padic_real213.md` for the narrative chapter
+(campaign now CLOSED); archived source note at
+`research-notes/archive/G122_real213_padic_research_direction.md`.
 
 **Renumbering note**: this campaign was originally labelled G120 on the
 incoming branch.  Renumbered to G122 on merge: G120 was already used

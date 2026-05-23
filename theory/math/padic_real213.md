@@ -1,6 +1,6 @@
 # Real213-p-adic — 213-native p-adic Numbers
 
-**Status**: Closed (6 files, 207 PURE).
+**Status**: Closed (8 files, 308 PURE).
 
 ## Overview
 
@@ -30,20 +30,22 @@ The library is ∅-axiom throughout: every theorem reports
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Padic/` (6 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Padic/` (8 files)
 - **Umbrella**: `Padic.lean`
-- **∅-axiom status**: 207 PURE / 0 DIRTY
+- **∅-axiom status**: 308 PURE / 0 DIRTY
 
 ### Sub-cluster organization
 
 | File | Topic |
 |---|---|
-| `Foundation.lean` | `ZpDigit`, `ZpSeq`, `trunc`, `zero`, `one`, `neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `eq_mod_pn_iff_trunc`, `digits_of_nat`, `trunc_neg_one_succ`, `trunc_one_succ` |
-| `Arith.lean` | `Zp.carry`, `Zp.add`, `Zp.add_trunc_eq`, `Zp.add_trunc`, `Zp.complement`, `Zp.neg`, `Zp.mul` + `mulRaw`/`mulCarry`, off-diagonal decomposition (`offDiagRow`, `offDiagSum`, `diagSum`), `Zp.mul_trunc` (general bridge), `Zp.shiftLeft` + trunc structure, identity/absorbing/commutativity laws at digit and trunc levels |
-| `Norm.lean` | `Zp.valAtLeast`, `Zp.valAtLeast_mono`, `Zp.valAtLeast_iff_trunc`, `Zp.valEq`, `Zp.valEq_unique`, `valEq_one`, `valEq_neg_one` |
-| `Hensel.lean` | `Zp.unit0`, `Zp.invDigit0` (Bezout), `Zp.invTemplate`, `Zp.invSeq` (Hensel-lifted full inverse), structural lemmas (`invSeq_succ_trunc_extend`, `invSeq_trunc_at_succ`, `invSeq_digit_above`, …), `Zp.negMod`, `Zp.mul_invSeq_correct` (general correctness) |
-| `Field.lean` | `QpSeq` (numerator + shift), `QpSeq.mul` (shift-additive), `QpSeq.add` (shift-aligning via `Zp.shiftLeft`), `QpSeq.neg`, `QpSeq.sub`, `QpSeq.ofNat` |
-| `DRLT.lean` | `canonical_5adic_NU` (= 5^25 in base 5), `canonical_5adic_p` (= 5), digit smokes at positions 0, 1, 2, 24, 25, 26 |
+| `Foundation.lean` | `ZpDigit`, `ZpSeq`, `trunc`, `zero`, `one`, `neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `eq_mod_pn_iff_trunc`, `digits_of_nat` (embedding ℕ ↪ ZpSeq), `trunc_neg_one_succ`, `trunc_one_succ` |
+| `Arith.lean` | `Zp.add` + carry FSM, `Zp.add_trunc`, `Zp.complement`, `Zp.neg`, `Zp.mul` + off-diagonal decomposition, `Zp.mul_trunc` (general bridge), `Zp.shiftLeft`, ring axioms at trunc (comm/assoc/distrib/add-inverse via `add_neg_self_trunc`), sub_eq_zero biconditional |
+| `Pow.lean` | `Zp.pow x n` recursive, `pow_trunc` (homomorphism), `pow_add_trunc` / `pow_mul_trunc`, `pow_p_trunc_one` / `pow_p_minus_one_trunc_one` (Fermat at digit 0 / for units, p prime), `teichmuller_iter` (`x ↦ x^p` iteration), `valAtLeast_pow` |
+| `Norm.lean` | `valAtLeast` / `valEq`, full ultrametric: `valAtLeast_add`, `valAtLeast_mul`, `valAtLeast_neg`, `valEq_add_of_lt` (strong: differing valuations), `valEq_mul` (precise mul ultrametric), `valEq_neg` |
+| `Hensel.lean` | Inverse: `invDigit0` (Bezout), `invSeq` / `invFull`, `mul_invSeq_correct` / `mul_invFull_correct`, `inv_trunc_unique`, `mul_left_cancel_trunc` / `mul_right_cancel_trunc`.  Sqrt: `SqrtBase`, `sqrtSeq` / `sqrtFull`, `sqr_sqrtSeq_correct` / `sqr_sqrtFull_correct`, `sqr_unique_trunc`, `sqrtFull_eq_of_sqr`.  Concrete: `i_5`, `i_13`, `sqrt_two_7` |
+| `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
+| `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`, `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
+| `DRLT.lean` | `canonical_5adic_NU` (5^25 in base 5), `canonical_5adic_p` (= 5), digit smokes, `canonical_5adic_NU_trunc_le_25` (DRLT anchor: first 25 levels zero) |
 
 ## Narrative
 

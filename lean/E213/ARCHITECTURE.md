@@ -240,11 +240,16 @@ pass 후):
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
-  * `Padic/{Foundation,Arith,Norm,Hensel,Field,DRLT}` (6 files,
-    207 PURE) — Real213-p-adic library: `ZpSeq` + ring-quotient
-    theorems `add_trunc` / `mul_trunc` + Hensel-lifted inverse
-    `invSeq` with general correctness `mul_invSeq_correct` +
-    ℚ_p localization (`QpSeq`) + 5-adic `N_U` integration.
+  * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,DRLT}`
+    (8 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full
+    ring axioms at trunc + Hensel inverse + sqrt (existence +
+    uniqueness via `mul_invFull_correct` / `sqr_sqrtFull_correct`
+    + `inv_trunc_unique` / `sqr_unique_trunc`) + full ultrametric
+    (additive + multiplicative `valEq_mul`) + `pow` with Fermat's
+    little theorem + Frobenius lift + Teichmüller iteration Cauchy
+    + ℚ_p (`QpSeq.{add,sub,mul,neg,inv,div,sqrt}`) + 5-adic `N_U`
+    DRLT anchor.  Concrete instances: `i_5 = √(-1) ∈ ℤ_5`, `i_13`,
+    `√2 ∈ ℤ_7`.  Chapter: `theory/math/padic_real213.md`.
 
 각 Lib sub-tree 는 cross-context citation 용 `Bridge.lean` 보유
 (anti-corruption layer pattern).
