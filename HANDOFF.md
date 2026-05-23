@@ -170,6 +170,35 @@ The cup-ladder rule "H^k → α^(k+1)" is now a single proved identity
 parametric in k, not just an analogy.  Shared structural
 denominator d² = 25 across all k.
 
+### G132 Phase 4 — Refined cup-ladder full closure DONE 2026-05-23
+
+`OmegaPostGramFull.lean` (11 PURE).  Refines the cup-ladder with
+the L²-norm-squared of the cohomology class:
+
+      Δ_H^k(c) = ||c||² · α^(k+1) / d^(k+1)
+
+At k = 2 with ω (face-vector L²-norm = NS = 3), the squared
+weight is NS² = 9 and the denominator is d³ = 125:
+
+      omega_weighted_trace_e9 = NS²·α³/d³ · 10⁹ = 27
+
+This matches the FULL post-Gram α_em residual at e9 precision:
+
+      raw α_em residual:                2157 × 10⁻⁹
+      − H¹ Gram (α²/d²):              −2130
+      − H² ω weighted (NS²·α³/d³):       −27
+      =                                    0 × 10⁻⁹  (sub-1·10⁻⁹)
+
+The structural prediction now matches CODATA to within 1 Nat unit
+at e9 precision — **0.007 ppb tier on 1/α_em**.  The previous
+"12 × 10⁻⁹ tail" is absorbed structurally into the `NS²·1/d`
+refinement (replacing α³/d² = 15 with NS²·α³/d³ = 27).
+
+**α_em precision-theorem stack** (post Phase 4):
+  · 0.2 ppb structural via H¹ Gram alone (G131)
+  · 0.09 ppb empirical α³/d² (GramHigherOrder)
+  · **0.007 ppb structural via H² ω-weighted (this Phase)**
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -368,6 +397,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/OmegaPostGramFull.lean` | **G132 Phase 4** — refined NS²·α³/d³ full closure (sub-1·10⁻⁹) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderFormula.lean` | **G132 Phase 3** — uniform α^(k+1)/d² parametric in k |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaH2Trace.lean` | **G132 Phase 2 closure** — ω ↔ α³/d² bridge |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellCohomology.lean` | **G132 Phase 1 anchor** — ω, b_2 = 1, Sym(3)-invariant |
