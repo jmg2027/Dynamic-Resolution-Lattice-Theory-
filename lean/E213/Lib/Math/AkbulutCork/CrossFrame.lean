@@ -228,4 +228,65 @@ theorem four_mfd_geometrization_marathon_capstone :
           ?_, ?_, ?_, ?_, ?_⟩
   all_goals first | rfl | decide | (unfold K32_ricci_modulus; decide)
 
+/-! ## §5 — Extended marathon capstone v2
+
+Adds the new (session 4) universal cork involution + host-aware
+multi-cork results into the marathon master capstone.
+-/
+
+open E213.Lib.Math.AkbulutCork.MultiCork
+  (twist_double_eq_id_if_lt_2 corkTwist_involution_wf
+   corkTwistMulti_involution_wf
+   signedHostCount signedHostMulti allK32 signedHostMulti_allK32
+   K32_host K14_host K31_host K11_host
+   IsWellFormed singleCork_wf pairCork_wf tripleCork_wf)
+
+/-- ★★★★★★★★★★★★ **Marathon master capstone v2 (extended)**
+
+  Bundles all v1 content + universal cork involution (well-formed)
+  + host-aware multi-cork product law.  The full closure of the
+  4-manifolds + Geometrization marathon at the Tier-2 level. -/
+theorem four_mfd_geometrization_marathon_capstone_v2 :
+    -- v1 content via underlying theorem
+    signedCorkTwistCount = 4
+    -- Universal cork involution under well-formedness
+    ∧ (∀ tp : Nat, tp < 2 → ((tp + 1) % 2 + 1) % 2 = tp)
+    ∧ (∀ c : E213.Lib.Math.AkbulutCork.Foundation.Cork213,
+         c.twist_parity < 2
+         → E213.Lib.Math.AkbulutCork.Twist.corkTwist
+             (E213.Lib.Math.AkbulutCork.Twist.corkTwist c) = c)
+    -- Multi-cork involution under list well-formedness
+    ∧ (∀ m : E213.Lib.Math.AkbulutCork.MultiCork.MultiCork213,
+         (∀ c : E213.Lib.Math.AkbulutCork.Foundation.Cork213,
+            c ∈ m → c.twist_parity < 2)
+         → E213.Lib.Math.AkbulutCork.MultiCork.corkTwistMulti
+             (E213.Lib.Math.AkbulutCork.MultiCork.corkTwistMulti m) = m)
+    -- Host-aware: K32 uniquely critical
+    ∧ signedHostCount K32_host = 4
+    ∧ signedHostCount K14_host = 0
+    ∧ signedHostCount K31_host = 0
+    ∧ signedHostCount K11_host = 0
+    -- Host-aware product law: all-K32 of length k → 4^k
+    ∧ (∀ k : Nat, signedHostMulti (allK32 k)
+                  = E213.Lib.Math.AkbulutCork.MultiCork.powNat 4 k)
+    -- Concrete examples
+    ∧ signedHostMulti (allK32 3) = 64
+    ∧ signedHostMulti [K32_host, K14_host, K32_host] = 0
+    -- Canonical multi-cork instances are well-formed
+    ∧ IsWellFormed E213.Lib.Math.AkbulutCork.MultiCork.singleCork
+    ∧ IsWellFormed E213.Lib.Math.AkbulutCork.MultiCork.pairCork
+    ∧ IsWellFormed E213.Lib.Math.AkbulutCork.MultiCork.tripleCork := by
+  refine ⟨signedCorkTwistCount_eq_4,
+          twist_double_eq_id_if_lt_2,
+          corkTwist_involution_wf,
+          corkTwistMulti_involution_wf,
+          rfl, rfl, rfl, rfl,
+          signedHostMulti_allK32,
+          ?_, ?_,
+          singleCork_wf, pairCork_wf, tripleCork_wf⟩
+  · show signedHostMulti (allK32 3) = 64
+    rw [signedHostMulti_allK32]; decide
+  · show signedHostMulti [K32_host, K14_host, K32_host] = 0
+    decide
+
 end E213.Lib.Math.AkbulutCork.CrossFrame
