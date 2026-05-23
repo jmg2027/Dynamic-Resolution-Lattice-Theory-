@@ -59,14 +59,18 @@ Chapter exists when the Lean sub-tree closed per
 [`PROMOTION_CRITERIA.md`](PROMOTION_CRITERIA.md).  Patterns:
 [`lean/E213/docs/PROMOTION_PATTERNS.md`](../lean/E213/docs/PROMOTION_PATTERNS.md).
 
-## Current chapters (91 total)
+## Current chapters (92 total)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 60 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 61 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  2 | [`meta/INDEX.md`](meta/INDEX.md) |
+
+New (2026-05-23): `math/cohomology/cup_ladder_graduation.md` — the
+`(k+1)` α-power graduation framework distilled from the G132
+marathon (19 files, 231 PURE).
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 
