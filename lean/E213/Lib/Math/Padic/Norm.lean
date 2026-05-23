@@ -278,4 +278,59 @@ theorem Zp.valAtLeast_mul (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (m n : Nat)
     exact E213.Tactic.NatHelper.mul_mod_right (p^(m + n)) _
   exact (Zp.valAtLeast_iff_trunc hp _ (m + n)).mpr h_muln
 
+/-- **Strong additive ultrametric**: when valuations differ, the
+    sum has the lower valuation.  Specifically: if `valEq x m`,
+    `valEq y n`, and `m < n`, then `valEq (x + y) m`. -/
+theorem Zp.valEq_add_of_lt (p : Nat) (hp : 0 < p) (x y : ZpSeq p)
+    {m n : Nat} (hmn : m < n)
+    (hx : Zp.valEq x m) (hy : Zp.valEq y n) :
+    Zp.valEq (Zp.add p hp x y) m := by
+  refine ⟨?_, ?_⟩
+  · -- valAtLeast (x + y) m: from valAtLeast x m + valAtLeast y m (since m ≤ n).
+    exact Zp.valAtLeast_add p hp x y m hx.1
+            (Zp.valAtLeast_mono (Nat.le_of_lt hmn) hy.1)
+  · -- ((x + y).digits m).val ≠ 0: equals (x.digits m).val.
+    have hx_trunc : x.trunc m = 0 := (Zp.valAtLeast_iff_trunc hp x m).mp hx.1
+    have hy_trunc_m : y.trunc m = 0 :=
+      (Zp.valAtLeast_iff_trunc hp y m).mp
+        (Zp.valAtLeast_mono (Nat.le_of_lt hmn) hy.1)
+    have hy_trunc_m1 : y.trunc (m + 1) = 0 :=
+      (Zp.valAtLeast_iff_trunc hp y (m + 1)).mp
+        (Zp.valAtLeast_mono hmn hy.1)
+    have hxy_trunc_m : (Zp.add p hp x y).trunc m = 0 :=
+      (Zp.valAtLeast_iff_trunc hp _ m).mp
+        (Zp.valAtLeast_add p hp x y m hx.1
+          (Zp.valAtLeast_mono (Nat.le_of_lt hmn) hy.1))
+    -- (x + y).trunc (m + 1) via add_trunc.
+    have h_addm1 : (Zp.add p hp x y).trunc (m + 1)
+                  = (x.digits m).val * p^m := by
+      rw [Zp.add_trunc p hp x y (m + 1)]
+      show (x.trunc (m + 1) + y.trunc (m + 1)) % p^(m + 1)
+           = (x.digits m).val * p^m
+      rw [show x.trunc (m + 1) = (x.digits m).val * p^m by
+            show x.trunc m + (x.digits m).val * p^m = _
+            rw [hx_trunc, Nat.zero_add]]
+      rw [hy_trunc_m1, Nat.add_zero]
+      -- ((x.digits m).val * p^m) % p^(m + 1) = (x.digits m).val * p^m
+      apply Nat.mod_eq_of_lt
+      show (x.digits m).val * p^m < p^(m + 1)
+      rw [show p^(m + 1) = p * p^m from by rw [Nat.pow_succ, Nat.mul_comm]]
+      exact Nat.mul_lt_mul_of_pos_right (x.digits m).isLt
+              (Nat.pos_pow_of_pos m hp)
+    -- (x + y).trunc (m + 1) = (x + y).trunc m + ((x + y).digits m).val * p^m
+    --                       = 0 + (digits.val) * p^m
+    -- So (digits.val) * p^m = (x.digits m).val * p^m, hence digits.val = x.digits m val.
+    have h_eq : ((Zp.add p hp x y).digits m).val * p^m
+              = (x.digits m).val * p^m := by
+      have h1 : (Zp.add p hp x y).trunc (m + 1)
+                = (Zp.add p hp x y).trunc m
+                  + ((Zp.add p hp x y).digits m).val * p^m := rfl
+      rw [h_addm1, hxy_trunc_m, Nat.zero_add] at h1
+      exact h1.symm
+    have h_pm_pos : 0 < p^m := Nat.pos_pow_of_pos m hp
+    have h_digits_eq : ((Zp.add p hp x y).digits m).val = (x.digits m).val :=
+      Nat.eq_of_mul_eq_mul_right h_pm_pos h_eq
+    rw [h_digits_eq]
+    exact hx.2
+
 end E213.Lib.Math.Padic
