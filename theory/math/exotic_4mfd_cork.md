@@ -1,12 +1,16 @@
 # Akbulut Cork (exotic 4-manifold structures)
 
-**Status**: Closed at H¹ + H² + H³ truncation + multi-cork levels.
-Total: 137 PURE / 7 files / 1 umbrella.
+**Status**: Closed at H¹ + H² + H³ truncation + multi-cork
+(universal + heterogeneous) + 5-way cross-frame.
+Total: 152 PURE / 8 files / 1 umbrella.
 
   · H¹: 44 PURE (4 files) — single-cork signed count `+4`
   · H²: 42 PURE (`HigherTwist.lean`) — composite H¹+H² = `+6`
   · H³ truncation: 23 PURE (`H3Twist.lean`) — stable at `+6` for k ≥ 0
-  · Multi-cork: 28 PURE (`MultiCork.lean`) — k-cork signed count `4^k`
+  · Multi-cork: 50 PURE (`MultiCork.lean`) — k-cork signed count `4^k`
+    (universal + heterogeneous + PURE product-law)
+  · Cross-frame: 6 PURE (`CrossFrame.lean`) — 5-way Sym(3) bridge
+    cork ↔ Sym(3)-fixed ↔ Geometrization 3+5
 
 ## Overview
 
@@ -60,13 +64,22 @@ discrete and `decide`-resolved.
     M_S01 acts as identity on C³ and C⁴ (single-cell extensions);
     `signedCorkTwistCount_H3 = 0`; composite
     `signedCorkTwistCount_H1_H2_H3 = +6` (truncation stabilizes)
-  - `MultiCork.lean` (28) — `MultiCork213 := List Cork213`;
+  - `MultiCork.lean` (50) — `MultiCork213 := List Cork213`;
     componentwise `corkTwistMulti` involution; multiplicative
     composition `signedCorkTwistCountMulti m = 4^m.length`
-    (1-cork: 4, 2-cork: 16, 3-cork: 64); twist group `(Z/2)^k`
-    (orders 2, 4, 8); cork-of-cork (2-level) = pair-cork product
-    with Z/2 × Z/2
-- ∅-axiom status: PURE (all 137 theorems)
+    (1-cork: 4, 2-cork: 16, 3-cork: 64, k=4: 256, k=5: 1024);
+    twist group `(Z/2)^k`; cork-of-cork (2-level) = pair-cork
+    product with Z/2 × Z/2; universal rfl-level formulas;
+    PURE term-level `mul_assoc_pure` + universal product-law
+    (signed = group²); heterogeneous multi-cork (mixed
+    `[K14, K31, K11]` canonical types) with type-mixing invariance
+  - `CrossFrame.lean` (6) — 5-way Sym(3) cross-frame capstone
+    bundling cork (`signedCorkTwistCount = +4
+    = Sym3IrrepDecomp.fixedSize`) with the 4 prior frames
+    (Geometrization 3+5, gluon octet H¹ rank 8, HC_K32 Hodge,
+    Möbius P mod-5 pentagonal); cork-isotropic +1 relation;
+    cork-anisotropic +1 relation (H¹+H²)
+- ∅-axiom status: PURE (all 152 theorems)
 
 ## Why K_{1,4} and K_{3,2}^{(c=2)} together
 

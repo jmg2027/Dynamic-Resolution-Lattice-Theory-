@@ -242,6 +242,42 @@ theorem signed_count_vs_group_order_at_length_three :
       = corkTwistGroupOrder tripleCork * corkTwistGroupOrder tripleCork := by
   decide
 
+/-- Nat associativity proven PURE (core `Nat.mul_assoc` uses propext).
+    Built term-level from `Nat.mul_add` + `Nat.mul_succ` (both PURE). -/
+theorem mul_assoc_pure : ∀ a b c : Nat, a * b * c = a * (b * c)
+  | _, _, 0 => rfl
+  | a, b, c + 1 =>
+    Eq.trans (congrArg (· + a * b) (mul_assoc_pure a b c))
+             (Eq.symm (Nat.mul_add a (b * c) b))
+
+/-- Nat identity `4 * (a * a) = (2 * a) * (2 * a)` via term-level
+    Eq construction using PURE `mul_assoc_pure` + `Nat.mul_comm`. -/
+theorem four_mul_sq_term (a : Nat) :
+    4 * (a * a) = (2 * a) * (2 * a) :=
+  Eq.symm (
+    Eq.trans (mul_assoc_pure 2 a (2 * a))
+    (Eq.trans (congrArg (fun x => 2 * x) (mul_assoc_pure a 2 a).symm)
+    (Eq.trans (congrArg (fun x => 2 * (x * a)) (Nat.mul_comm a 2))
+    (Eq.trans (congrArg (fun x => 2 * x) (mul_assoc_pure 2 a a))
+              (mul_assoc_pure 2 2 (a * a)).symm))))
+
+/-- `powNat 4 n = (powNat 2 n)²` via term-level induction. -/
+theorem powNat_four_eq_powNat_two_sq : ∀ n,
+    powNat 4 n = powNat 2 n * powNat 2 n
+  | 0 => rfl
+  | n + 1 =>
+    Eq.trans (congrArg (fun x => 4 * x) (powNat_four_eq_powNat_two_sq n))
+             (four_mul_sq_term (powNat 2 n))
+
+/-- ★★★★★★ **Universal product law (PURE)**: signed-count =
+    (group-order)² for any multi-cork.  Built from term-level
+    `four_mul_sq_term` and `powNat_four_eq_powNat_two_sq`, both
+    propext-free. -/
+theorem signed_count_eq_group_order_squared_universal (m : MultiCork213) :
+    signedCorkTwistCountMulti m
+      = corkTwistGroupOrder m * corkTwistGroupOrder m :=
+  powNat_four_eq_powNat_two_sq m.length
+
 /-- Specialisation: k = 4 yields signed count 256. -/
 def quadCork : MultiCork213 :=
   [E213.Lib.Math.AkbulutCork.Foundation.K14_cork,
@@ -293,5 +329,85 @@ theorem multi_cork_universal_close :
           signed_count_vs_group_order_at_length_three,
           signedCorkTwistCountMulti_quad,
           signedCorkTwistCountMulti_quint⟩
+
+/-! ## §8 — Heterogeneous multi-cork
+
+The signed-count formula `4^k` and group-order formula `2^k` depend
+only on `m.length`, not on cork type.  Hence heterogeneous lists
+(mixing `K14_cork`, `K31_cork`, `K11_cork`) carry the same universal
+totals.  Type-mixing is structurally invisible at this layer.
+-/
+
+open E213.Lib.Math.AkbulutCork.Foundation
+  (K11_cork K31_cork K14_cork)
+
+/-- 3-element heterogeneous multi-cork (one of each canonical type). -/
+def heteroTriple : MultiCork213 := [K14_cork, K31_cork, K11_cork]
+
+/-- 4-element heterogeneous list (two K14 + one K31 + one K11). -/
+def heteroQuad : MultiCork213 := [K14_cork, K14_cork, K31_cork, K11_cork]
+
+/-- 2-element mixed (K14 + K31). -/
+def heteroPair : MultiCork213 := [K14_cork, K31_cork]
+
+/-- Signed count for heterogeneous triple: 4³ = 64. -/
+theorem signed_count_heteroTriple :
+    signedCorkTwistCountMulti heteroTriple = 64 := by decide
+
+/-- Signed count for heterogeneous quad: 4⁴ = 256. -/
+theorem signed_count_heteroQuad :
+    signedCorkTwistCountMulti heteroQuad = 256 := by decide
+
+/-- Signed count for heterogeneous pair: 4² = 16. -/
+theorem signed_count_heteroPair :
+    signedCorkTwistCountMulti heteroPair = 16 := by decide
+
+/-- Twist group order for heteroTriple: 2³ = 8. -/
+theorem twist_order_heteroTriple :
+    corkTwistGroupOrder heteroTriple = 8 := by decide
+
+/-- ★★★★★ **Type-mixing structural invariance**
+
+  Heterogeneous multi-corks with same length give same signed count
+  as homogeneous ones.  Cork type is invisible at the count layer. -/
+theorem hetero_homogeneous_count_match :
+    signedCorkTwistCountMulti heteroTriple
+      = signedCorkTwistCountMulti tripleCork
+    ∧ signedCorkTwistCountMulti heteroQuad
+        = signedCorkTwistCountMulti quadCork
+    ∧ signedCorkTwistCountMulti heteroPair
+        = signedCorkTwistCountMulti pairCork := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★★★★ **Heterogeneous multi-cork structural close**
+
+  The signed-count and twist-group-order formulas extend
+  transparently to heterogeneous cork lists.  The K-deployment type
+  (K_{1,1}, K_{3,1}, K_{1,4}, etc.) is structurally invisible at
+  the multi-cork composition layer; only the list length matters.
+
+  This matches the standard-math reading: disjoint union of
+  4-manifolds, each with its own cork structure, gives a product
+  exotic-count regardless of which specific cork lives in each
+  component.
+
+  Open extension: per-component cork-type would matter when the
+  host's H¹ structure differs (e.g., a cork in a non-K_{3,2}
+  host would give a different per-component signed count).  The
+  current `Cork213` data abstracts host structure away. -/
+theorem hetero_multi_cork_close :
+    -- Counts at hetero configurations
+    signedCorkTwistCountMulti heteroPair = 16
+    ∧ signedCorkTwistCountMulti heteroTriple = 64
+    ∧ signedCorkTwistCountMulti heteroQuad = 256
+    -- Twist group orders
+    ∧ corkTwistGroupOrder heteroPair = 4
+    ∧ corkTwistGroupOrder heteroTriple = 8
+    -- Type-mixing invariance
+    ∧ signedCorkTwistCountMulti heteroTriple
+        = signedCorkTwistCountMulti tripleCork
+    -- Universal formula applies to hetero too
+    ∧ signedCorkTwistCountMulti heteroQuad = powNat 4 4 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.AkbulutCork.MultiCork

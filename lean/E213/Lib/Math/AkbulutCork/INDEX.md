@@ -4,7 +4,8 @@
 cork theorem for closed simply-connected 4-manifolds.
 
 **Status**: H¹ close at 44 PURE / 4 files + higher-cohomology +
-multi-cork extensions at 93 PURE / 3 files (7 files total, 137 PURE).
+multi-cork + cross-frame extensions at 108 PURE / 4 files
+(8 files total, 152 PURE).
 **Supersedes**: FW-1 signed Donaldson count (the FW-1 sign problem
 becomes a 213-internal cork-twist Z/2 grading).
 
@@ -18,7 +19,8 @@ becomes a 213-internal cork-twist Z/2 grading).
 | `CorkTheorem.lean` | 4-6 | 5 | Cork embedding at chartBase=5 + cork uniqueness (M_S01 involutive) + ★★★★★★★★★★ `akbulut_cork_213_native` capstone bundling all 6 phases |
 | `HigherTwist.lean` | H² | 42 | `Cork213_H2` (cork + b_2 field) + `corkTwistH2` involution + Burnside on C² under M_S01/M_S12/ρ + Sym(3) orbit count = 4 with sub-decomp (2,0,2,0) + `M_S01_acts_trivially_on_H2` + ★★★★ `signedCorkTwistCount_H2 = +2` + ★★★★★ `signedCorkTwistCount_H1_H2 = +6` |
 | `H3Twist.lean` | H³ | 23 | C³ Burnside under M_S01 (identity action, all 2 cochains fixed) + H³ trivialises at 3- and 4-skeleton + H⁴ trivialises at 4-skeleton + `signedCorkTwistCount_H3 = 0` + ★★★★★★★ **truncation stabilization**: composite count stabilises at +6 for all k ≥ 0 |
-| `MultiCork.lean` | Multi | 28 | `MultiCork213 := List Cork213` + componentwise twist + product composition: `signedCorkTwistCountMulti = 4^k` for k-cork (k=1: 4, k=2: 16, k=3: 64) + twist group `(Z/2)^k` (k=1: 2, k=2: 4, k=3: 8) + cork-of-cork (2-level) = pair-cork at 16 + ★★★★★★★ multi-cork close capstone |
+| `MultiCork.lean` | Multi | 50 | `MultiCork213 := List Cork213` + componentwise twist + product composition: `signedCorkTwistCountMulti = 4^k` for k-cork + twist group `(Z/2)^k` + cork-of-cork (2-level) + universal formulas (rfl-level ∀ m) + PURE `mul_assoc_pure` + universal product-law (signed = group²) + heterogeneous multi-cork (mixed canonical types) + ★★★★★★★ universal + hetero close capstones |
+| `CrossFrame.lean` | X-frame | 6 | 5-way Sym(3) cross-frame capstone (cork + 4 prior: Geometrization 3+5, gluon octet H¹ rank 8, HC_K32 Hodge closure, Möbius P mod-5 pentagonal); cork-isotropic and cork-anisotropic +1 relations; ★★★★★★★ `five_way_sym3_cross_frame_capstone` |
 
 ## Phases vs G126 plan
 
@@ -48,6 +50,7 @@ Foundation
                      └── HigherTwist (+ Cohomology.Bipartite.Filled3CellCohomology)
                            └── H3Twist (+ Filled3CellExtension + Filled4CellExtension)
                                  └── MultiCork
+                                       └── CrossFrame (+ GeometrizationConjecture.CrossFrame)
 ```
 
 All under namespace `E213.Lib.Math.AkbulutCork.*`.
@@ -67,8 +70,8 @@ research direction:
 
 ## Open work (beyond current close)
 
-  · Universal multi-cork formula: `signedCorkTwistCountMulti m = 4^m.length`
-    by structural induction on the list (current examples cover
-    k ∈ {0, 1, 2, 3})
-  · Non-K_{1,4} cork variants: multi-cork compositions with
-    distinct cork types (e.g., `[K14_cork, K31_cork]`)
+  · Universal cork involution (`corkTwistMulti² = id`) — requires
+    refactoring `Cork213` with `parity_wf : twist_parity < 2`
+  · Host-aware multi-cork: cork-type-dependent per-component
+    signed counts (current formula `4^k` assumes K_{3,2}^{(c=2)}
+    hosts for all components)
