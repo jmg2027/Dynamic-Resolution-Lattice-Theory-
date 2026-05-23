@@ -300,7 +300,7 @@ not yet derived from cup-product axioms.  Cup-product algebra
 extension to higher-cup operations, filtration depth, or
 spectral-sequence machinery is the Step 7+ frontier.
 
-#### Files (Step 6 closure, 8 files, 89 PURE total)
+#### Files (Step 6 closure, 7 files, 98 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
