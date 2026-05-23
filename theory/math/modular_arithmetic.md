@@ -126,12 +126,31 @@ Legendre dispatch `√D ↦ (D/p) · √D` are now uniform in D; the
 Pell-Fibonacci split / inert structure (Phase 3.3) reads as the
 D=5 specialisation of one general theorem.
 
+## Hensel bridge — closed (HenselBridge.lean, 8 PURE)
+
+`Lib/Math/Padic/HenselBridge.lean` makes the `F_p ↪ ℤ_p`
+embedding explicit:
+
+  · `fromFp p hp x` lifts a Nat element to a `ZpSeq p` with
+    digit-0 = `x mod p`, rest zero.
+  · `fromFp_digit_zero`, `fromFp_digit_above` — digit accessors.
+  · `invDigit0_of_fromFp` — bridge: the Hensel-lifted inverse's
+    digit-0 equals the Bezout modular inverse.
+  · `fromFp_inverse_mod` — modular identity `(x mod p) · inv ≡
+    1 (mod p)`.
+  · ★★★★★ `hensel_bridge_capstone` packages lift + Bezout-match
+    + inverse identity.
+
+Reading: the chain `F_p ↪ ℤ_p` is explicit at the Lean level;
+every modular structure (FLT, Bezout, F_p[√D]) composes with
+`fromFp` + the existing `Zp.invSeq` scaffold to lift into ℤ_p via
+Hensel.  `FP2SqrtD` extends to `ℤ_p[√D]` by the same lift.
+
 ## Open frontier
 
-- **Real213-p-adic**: extend Bezout / FLT / F_{p²}
-  infrastructure to `ℤ_p` via Hensel lifting.  STARTER at
-  `lean/E213/Lib/Math/Padic/Foundation.lean`; full plan at
-  `research-notes/G122_real213_padic_research_direction.md`.
+- ~~**Real213-p-adic**~~ — CLOSED via `HenselBridge.lean`
+  (8 PURE) above (skeleton; full F_{p²}-to-ℤ_p[√D] lift is open
+  follow-up).
 - ~~**Higher quadratic extensions** `F_p[√D]` for general `D`~~ —
   CLOSED via `FP2SqrtD.lean` (32 PURE) above.  Ring + Frobenius
   + Norm parametric in `D`.
