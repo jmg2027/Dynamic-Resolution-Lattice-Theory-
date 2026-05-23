@@ -150,16 +150,40 @@ F_{p²}) to Pisano-statements-on-the-FSM.
   asymptote rate uses Pisano periods
 - `theory/math/real213.md` — Real213 brackets use dyadic encodings
 
+## k-bonacci closure — `KBonacci.lean` (48 PURE)
+
+`Lib/Math/DyadicFSM/KBonacci.lean` realises the k-bonacci family
+parametric in `k : Nat`:
+
+  · Definition `kBonacci k n` via a list-window-state iterator:
+    initial seeds `[0, ..., 0, 1]` of length `k`; one step =
+    drop the oldest, append the sum of the current window;
+    return the head after `n` steps.
+  · Smoke tests at `k ∈ {2, 3, 4, 5}` and `n ∈ {0, 1, ..., 12}`:
+    Fibonacci, Tribonacci, Tetranacci, Pentanacci match standard
+    OEIS values via `decide`.
+  · ★★★ **Depth-5 cascade** (`depth_5_cascade`): reading at the
+    atomic-dimension index `n = d = 5` gives the cascade
+    `(kBonacci 2 5, kBonacci 3 5, kBonacci 4 5, kBonacci 5 5)
+     = (5, 4, 2, 1) = (d, d−1, NT, 1)` — the k-bonacci ladder
+    at index `d` reads out the atomic family.
+  · Catalogue hits: `Tetra(5) = 2 = NT`, `Penta(6) = 2 = NT`.
+
+The parametric definition makes Tribonacci's hand-rolled
+`Trib` (in `Cohomology/Fractal/TribonacciCutoff.lean`) one case
+of a single generic family.
+
 ## Open frontier
 
-- **Higher-order recursions** (Tribonacci, k-bonacci) — partially
-  done (Tribonacci has FSM); generalization to arbitrary k open
 - **Continued fractions** as FSM — sketched, not yet capstoned
 - **Real213-p-adic** — the modular-arithmetic substrate
   produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
   foundation for a 213-native p-adic construction.  STARTER at
   `lean/E213/Lib/Math/Padic/Foundation.lean`; campaign plan at
   `research-notes/G122_real213_padic_research_direction.md`.
+- ~~**Higher-order recursions** (Tribonacci, k-bonacci)~~ —
+  CLOSED via `KBonacci.lean` (48 PURE) above.  Parametric in `k`,
+  depth-5 cascade theorem.
 
 ## How to verify
 
