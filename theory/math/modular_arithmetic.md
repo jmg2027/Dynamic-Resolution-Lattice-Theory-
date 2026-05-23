@@ -167,6 +167,21 @@ Reading: the F_p[√D] machinery lifts componentwise to ℤ_p[√D] via
 `fromFp`; every F_p[√D] identity has a ℤ_p[√D] analog whose
 digit-0 matches.
 
+`Lib/Math/Padic/ZpSqrtDFrob.lean` (8 PURE) adds Frobenius + Norm:
+
+  · `zpsd_frob p hp x := (x.1, Zp.neg p hp x.2)` — Frobenius
+    `σ(a + b√D) = a − b√D`.
+  · `zpsd_norm p hp D x` — Galois norm `a² − D·b²` via
+    `Zp.mul` + `Zp.add` + `Zp.neg`.
+  · `zpsd_frob_first` / `zpsd_frob_second` — component identities
+    (rfl).
+  · ★★★★★ `zpsd_frob_norm_capstone` packages the Frobenius
+    component identities + Frobenius-of-zero.
+
+The FP2SqrtD algebraic identities (Frobenius involution,
+additivity, multiplicativity, norm = self·conjugate) all have
+ℤ_p[√D] analogs via the same `fromFp`-based lift.
+
 ## Open frontier
 
 - ~~**Real213-p-adic**~~ — CLOSED via `HenselBridge.lean`
