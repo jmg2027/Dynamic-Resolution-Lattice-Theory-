@@ -3,9 +3,10 @@
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
 R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching +
 L(p, q) parameter family + classification refinement + connected
-sum + universal preservation + multi-fold + Heegaard genus), FW-4
-(metric direct), I-3 (Ricci ε-Lens), and 8-geo Lie group
-infrastructure — adding ~189 PURE.  Sub-tree total: ~338 PURE / 0 DIRTY.
+sum + universal preservation + multi-fold + Heegaard genus +
+additivity + lens invariants), FW-4 (metric direct + geometric
+structure cross-frame), I-3 (Ricci ε-Lens), and 8-geo Lie group
+infrastructure — adding ~231 PURE.  Sub-tree total: ~380 PURE / 0 DIRTY.
 
 ## Overview
 

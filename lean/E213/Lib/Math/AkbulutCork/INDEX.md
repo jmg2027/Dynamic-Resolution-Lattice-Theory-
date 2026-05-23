@@ -6,7 +6,8 @@ cork theorem for closed simply-connected 4-manifolds.
 **Status**: H¹ close at 44 PURE / 4 files + higher-cohomology +
 multi-cork + cross-frame + universal involution + host-aware +
 decidable Boolean form + extended marathon capstone v2 + cup-ladder
-H¹ basis cross-link at 150 PURE / 4 files (8 files total, 194 PURE).
+H¹ basis cross-link + α_em precision citation at 153 PURE / 4 files
+(8 files total, 197 PURE).
 **Supersedes**: FW-1 signed Donaldson count (the FW-1 sign problem
 becomes a 213-internal cork-twist Z/2 grading).
 
@@ -21,7 +22,7 @@ becomes a 213-internal cork-twist Z/2 grading).
 | `HigherTwist.lean` | H² | 42 | `Cork213_H2` (cork + b_2 field) + `corkTwistH2` involution + Burnside on C² under M_S01/M_S12/ρ + Sym(3) orbit count = 4 with sub-decomp (2,0,2,0) + `M_S01_acts_trivially_on_H2` + ★★★★ `signedCorkTwistCount_H2 = +2` + ★★★★★ `signedCorkTwistCount_H1_H2 = +6` |
 | `H3Twist.lean` | H³ | 23 | C³ Burnside under M_S01 (identity action, all 2 cochains fixed) + H³ trivialises at 3- and 4-skeleton + H⁴ trivialises at 4-skeleton + `signedCorkTwistCount_H3 = 0` + ★★★★★★★ **truncation stabilization**: composite count stabilises at +6 for all k ≥ 0 |
 | `MultiCork.lean` | Multi | 87 | `MultiCork213 := List Cork213` + componentwise twist + product composition: `signedCorkTwistCountMulti = 4^k` + twist group `(Z/2)^k` + cork-of-cork + universal formulas (rfl-level) + PURE `mul_assoc_pure` + universal product-law (signed = group²) + heterogeneous multi-cork + **universal cork involution (well-formed)** via `twist_parity < 2` hypothesis + **host-aware multi-cork** (`CorkHost`, per-host signed count, K32 unique critical, all-K32 product-law `4^k`) + **decidable Boolean form** (`isK32HostB` + `isAllK32B` + bidirectional bridge to `signedHostMulti`) + ★★★★★★★ multi-cork + hetero + universal involution + host-aware + decidable close capstones |
-| `CrossFrame.lean` | X-frame | 12 | 5-way Sym(3) cross-frame capstone (cork + 4 prior); cork-isotropic and cork-anisotropic +1 relations; **cup-ladder ↔ cork H¹ basis cross-link** (cork +4 = 2² = Sym(3)-fixed cardinality = trivial-isotypic dim²); ★★★★★★★ `five_way_sym3_cross_frame_capstone`; ★★★★★★★★★★★ `four_mfd_geometrization_marathon_capstone` (master joint); ★★★★★★★★★★★★ `four_mfd_geometrization_marathon_capstone_v2` (extended); ★★★★★ `cork_cup_ladder_H1_correspondence` |
+| `CrossFrame.lean` | X-frame | 15 | 5-way Sym(3) cross-frame capstone (cork + 4 prior); cork-isotropic and cork-anisotropic +1 relations; **cup-ladder ↔ cork H¹ basis cross-link** (cork +4 = 2² = Sym(3)-fixed cardinality = trivial-isotypic dim²); **α_em precision-stack citation** (d² = 25 = chartBase 3 2², joint d²·cork = 100); ★★★★★★★ `five_way_sym3_cross_frame_capstone`; ★★★★★★★★★★★ `four_mfd_geometrization_marathon_capstone`; ★★★★★★★★★★★★ `four_mfd_geometrization_marathon_capstone_v2`; ★★★★★ `cork_cup_ladder_H1_correspondence`; ★★★★★★★★ `alpha_em_cork_precision_citation` |
 
 ## Phases vs G126 plan
 
