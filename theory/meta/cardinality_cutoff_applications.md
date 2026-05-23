@@ -229,10 +229,11 @@ Cut-off slices:
 catalogue atoms reached by some sequence in
 `{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}`.
 
-**Unreached atoms**: `{41, 137}`.  Both arise from physics-side
-constants (`41 = α_GUT integer`, `137 = 1/α_em`), suggesting they
-sit outside the "elementary recurrent" reach of small-base-case
-sequences.
+**Unreached atoms**: `{41, 137}`.  These appear in the catalogue
+via `configCountD` modular fingerprints
+(`ConfigCountModular` §H.1, §H.5) rather than direct generator
+arithmetic, and the elementary recurrent sequences here do not
+hit them.
 
 **Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
 + `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE).
@@ -324,11 +325,12 @@ the cut-off slice moves with the set.
      (constant ψ ≈ 1.839).
 
   4. **Catalogue coverage is incomplete**: combined hit set across
-     `{Pell, Lucas, Fibonacci, Aurifeuillean}` is `{2, 3, 5, 7, 13,
-     29, 521}` = 7/8 catalogue atoms.  Unreached: `{41, 137}`,
-     both physics-side constants (`α_GUT integer`, `1/α_em`).
-     Elementary recurrent sequences with small base cases do not
-     reach the physics-constant atoms.
+     `{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}` is
+     `{2, 3, 5, 7, 13, 29, 521}` = 7/8 catalogue atoms.  Unreached:
+     `{41, 137}`, which enter the catalogue via `configCountD`
+     modular fingerprints rather than direct generator arithmetic;
+     elementary recurrent sequences with small base cases do not
+     hit them.
 
   5. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.

@@ -38,8 +38,11 @@ namespace E213.Lib.Math.Cohomology.Fractal.HunterAtomicClosure
 /-! ## §1 The catalogue -/
 
 /-- Hunter atomic prime catalogue from `catalogs/atomic-integers.md`.
-    Each element is prime; each appears as a 213-atomic constant
-    (e.g., `41 = α_GUT`, `137 = 1/α_em`, `521 = Φ_10(5)`). -/
+    Each element is prime; `{2, 3, 5}` are the Hunter generators
+    `(NT, NS, d)`; `7, 13, 521` arise via arithmetic readings of
+    the generators (`NS² − NT`, `NS² + NT²`, `Φ_10(5)`); `41, 137`
+    appear via `configCountD` modular fingerprints
+    (`ConfigCountModular` §H). -/
 def cat : List Nat := [2, 3, 5, 7, 13, 41, 137, 521]
 
 /-- Catalogue membership predicate (kernel-decidable). -/
