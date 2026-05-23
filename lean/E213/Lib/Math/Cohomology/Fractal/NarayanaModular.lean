@@ -153,15 +153,69 @@ theorem Nara_mod_3_period_8 : ∀ n, Nara (n + 8) % 3 = Nara n % 3
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Narayana modular-fingerprint capstone**.  Two
-    parametric Pisano closures: period 7 mod 2 (twin to Padovan)
-    + period 8 mod 3 (one-shift recurrence diverges from
-    Padovan's mod-3 period 13). -/
+/-! ## §5 Mod-5 small table (decide-checked) -/
+
+theorem Nara_0_mod_5  : Nara 0  % 5 = 1 := by decide
+theorem Nara_1_mod_5  : Nara 1  % 5 = 1 := by decide
+theorem Nara_2_mod_5  : Nara 2  % 5 = 1 := by decide
+theorem Nara_31_mod_5 : Nara 31 % 5 = 1 := by decide
+theorem Nara_32_mod_5 : Nara 32 % 5 = 1 := by decide
+theorem Nara_33_mod_5 : Nara 33 % 5 = 1 := by decide
+
+/-! ## §6 Period 31 mod 5 — parametric
+
+3-step strong induction on `n`.  Base cases at `n ∈ {0, 1, 2}`
+verified by `decide` over Narayana values at indices `≤ 33`;
+inductive step at `n + 3` uses the one-shift recurrence
+`Nara ((n+31) + 3) = Nara (n + 34) = Nara (n + 33) + Nara (n + 31)`
+combined with `Nara (n + 3) = Nara (n + 2) + Nara n`.
+
+Sister to `Nara_mod_3_period_8`; same one-shift template scales
+to period 31 mod 5.  ★ STRUCTURAL TWIN with Tribonacci mod 5
+(both period 31) despite different recurrences — see
+`TribonacciModular`. -/
+
+/-- ★ **Period 31 mod 5 for Narayana**:
+    `Nara (n + 31) % 5 = Nara n % 5` for every `n : Nat`. -/
+theorem Nara_mod_5_period_31 : ∀ n, Nara (n + 31) % 5 = Nara n % 5
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Nara (n + 34) = Nara (n + 33) + Nara (n + 31) := by
+        show Nara ((n + 31) + 3) = Nara (n + 33) + Nara (n + 31)
+        rfl
+      have h_rhs : Nara (n + 3) = Nara (n + 2) + Nara n := rfl
+      have ih0 : Nara (n + 31) % 5 = Nara n % 5 := Nara_mod_5_period_31 n
+      have ih2 : Nara ((n + 2) + 31) % 5 = Nara (n + 2) % 5 :=
+        Nara_mod_5_period_31 (n + 2)
+      have ih2' : Nara (n + 33) % 5 = Nara (n + 2) % 5 := ih2
+      have h_lhs_mod : Nara (n + 34) % 5
+          = ((Nara (n + 33) % 5) + (Nara (n + 31) % 5)) % 5 := by
+        rw [h_lhs]; exact add_mod_gen (Nara (n + 33)) (Nara (n + 31)) 5
+      have h_rhs_mod : Nara (n + 3) % 5
+          = ((Nara (n + 2) % 5) + (Nara n % 5)) % 5 := by
+        rw [h_rhs]; exact add_mod_gen (Nara (n + 2)) (Nara n) 5
+      have h_swap : ((Nara (n + 33) % 5) + (Nara (n + 31) % 5)) % 5
+                  = ((Nara (n + 2) % 5) + (Nara n % 5)) % 5 := by
+        rw [ih0, ih2']
+      show Nara ((n + 3) + 31) % 5 = Nara (n + 3) % 5
+      have h_indices : (n + 3) + 31 = n + 34 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
+/-! ## §7 Capstone -/
+
+/-- ★★★ **Narayana modular-fingerprint capstone**.  Three
+    parametric Pisano closures: period 7 mod 2 (twin to Padovan),
+    period 8 mod 3 (one-shift recurrence diverges from Padovan's
+    13), period 31 mod 5 (TWIN to Tribonacci mod 5). -/
 theorem capstone :
     -- Parametric period 7 mod 2 (Pisano twin to Padovan)
     (∀ n, Nara (n + 7) % 2 = Nara n % 2)
     -- Parametric period 8 mod 3 (diverges from Padovan's 13)
-    ∧ (∀ n, Nara (n + 8) % 3 = Nara n % 3) :=
-  ⟨Nara_mod_2_period_7, Nara_mod_3_period_8⟩
+    ∧ (∀ n, Nara (n + 8) % 3 = Nara n % 3)
+    -- Parametric period 31 mod 5 (twin to Tribonacci)
+    ∧ (∀ n, Nara (n + 31) % 5 = Nara n % 5) :=
+  ⟨Nara_mod_2_period_7, Nara_mod_3_period_8, Nara_mod_5_period_31⟩
 
 end E213.Lib.Math.Cohomology.Fractal.NarayanaModular

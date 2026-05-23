@@ -173,12 +173,87 @@ theorem Trib_13_eq_Trib_0_mod_3 : Trib 13 % 3 = Trib 0 % 3 := by decide
 /-- ★★★ **Tribonacci modular-fingerprint capstone**.  Two
     parametric Pisano closures: period 4 mod 2 + period 13 mod 3.
     Sister to `PadovanModular.capstone` (period 7 mod 2 + period
-    13 mod 3 parametric, mod 5 spot-check). -/
-theorem capstone :
+    13 mod 3 + period 24 mod 5 parametric). -/
+theorem capstone_2_3 :
     -- Parametric period 4 mod 2
     (∀ n, Trib (n + 4) % 2 = Trib n % 2)
     -- Parametric period 13 mod 3
     ∧ (∀ n, Trib (n + 13) % 3 = Trib n % 3) :=
   ⟨Trib_mod_2_period_4, Trib_mod_3_period_13⟩
+
+/-! ## §5 Mod-5 period 31 — parametric (deferred-no-longer)
+
+Tribonacci mod 5 has period 31 — same as Narayana mod 5, despite
+different recurrences.  3-step nested induction with 3 IH terms
+(`n`, `n+1`, `n+2`); base cases at `n ∈ {0, 1, 2}` verified by
+`decide` over Tribonacci values at indices `≤ 33` (≈ 1.8 × 10⁸).
+Triple-`add_mod_gen` modular sum reduction. -/
+
+theorem Trib_0_mod_5  : Trib 0  % 5 = 0 := by decide
+theorem Trib_1_mod_5  : Trib 1  % 5 = 0 := by decide
+theorem Trib_2_mod_5  : Trib 2  % 5 = 1 := by decide
+theorem Trib_31_mod_5 : Trib 31 % 5 = 0 := by decide
+theorem Trib_32_mod_5 : Trib 32 % 5 = 0 := by decide
+theorem Trib_33_mod_5 : Trib 33 % 5 = 1 := by decide
+
+/-- ★ **Period 31 mod 5 for Tribonacci**:
+    `Trib (n + 31) % 5 = Trib n % 5` for every `n : Nat`.
+
+    Twin to `NarayanaModular.Nara_mod_5_period_31` (same period
+    31 despite different recurrences).  3-step nested induction
+    + triple `add_mod_gen` for the 3-term recurrence reduction. -/
+theorem Trib_mod_5_period_31 : ∀ n, Trib (n + 31) % 5 = Trib n % 5
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Trib (n + 34)
+                 = Trib (n + 33) + Trib (n + 32) + Trib (n + 31) := by
+        show Trib ((n + 31) + 3)
+           = Trib (n + 33) + Trib (n + 32) + Trib (n + 31)
+        rfl
+      have h_rhs : Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n := rfl
+      have ih0 : Trib (n + 31) % 5 = Trib n % 5 := Trib_mod_5_period_31 n
+      have ih1 : Trib ((n + 1) + 31) % 5 = Trib (n + 1) % 5 :=
+        Trib_mod_5_period_31 (n + 1)
+      have ih2 : Trib ((n + 2) + 31) % 5 = Trib (n + 2) % 5 :=
+        Trib_mod_5_period_31 (n + 2)
+      have ih1' : Trib (n + 32) % 5 = Trib (n + 1) % 5 := ih1
+      have ih2' : Trib (n + 33) % 5 = Trib (n + 2) % 5 := ih2
+      have h_lhs_mod : Trib (n + 34) % 5
+          = ((Trib (n + 33) + Trib (n + 32)) % 5 + (Trib (n + 31) % 5)) % 5 := by
+        rw [h_lhs]
+        exact add_mod_gen (Trib (n + 33) + Trib (n + 32)) (Trib (n + 31)) 5
+      have h_lhs_mod' : (Trib (n + 33) + Trib (n + 32)) % 5
+          = ((Trib (n + 33) % 5) + (Trib (n + 32) % 5)) % 5 :=
+        add_mod_gen (Trib (n + 33)) (Trib (n + 32)) 5
+      have h_rhs_mod : Trib (n + 3) % 5
+          = ((Trib (n + 2) + Trib (n + 1)) % 5 + (Trib n % 5)) % 5 := by
+        rw [h_rhs]
+        exact add_mod_gen (Trib (n + 2) + Trib (n + 1)) (Trib n) 5
+      have h_rhs_mod' : (Trib (n + 2) + Trib (n + 1)) % 5
+          = ((Trib (n + 2) % 5) + (Trib (n + 1) % 5)) % 5 :=
+        add_mod_gen (Trib (n + 2)) (Trib (n + 1)) 5
+      have h_swap : ((Trib (n + 33) % 5) + (Trib (n + 32) % 5)) % 5
+                  = ((Trib (n + 2) % 5) + (Trib (n + 1) % 5)) % 5 := by
+        rw [ih1', ih2']
+      show Trib ((n + 3) + 31) % 5 = Trib (n + 3) % 5
+      have h_indices : (n + 3) + 31 = n + 34 := by rfl
+      rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
+
+/-! ## §6 Capstone (full mod-{2, 3, 5} closure) -/
+
+/-- ★★★ **Tribonacci modular-fingerprint capstone (full triplet)**.
+    Three parametric Pisano closures across `{2, 3, 5}`:
+    period 4 mod 2, period 13 mod 3, period 31 mod 5.  The
+    mod-5 period coincides with Narayana mod 5 (both 31). -/
+theorem capstone :
+    -- Parametric period 4 mod 2
+    (∀ n, Trib (n + 4) % 2 = Trib n % 2)
+    -- Parametric period 13 mod 3
+    ∧ (∀ n, Trib (n + 13) % 3 = Trib n % 3)
+    -- Parametric period 31 mod 5
+    ∧ (∀ n, Trib (n + 31) % 5 = Trib n % 5) :=
+  ⟨Trib_mod_2_period_4, Trib_mod_3_period_13, Trib_mod_5_period_31⟩
 
 end E213.Lib.Math.Cohomology.Fractal.TribonacciModular
