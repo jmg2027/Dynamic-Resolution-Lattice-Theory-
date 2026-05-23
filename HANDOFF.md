@@ -1,10 +1,10 @@
-# Session Handoff — 2026-05-23 (cohomology marathon Phases 1-5)
+# Session Handoff — 2026-05-23 (cohomology marathon Phases 1-6)
 
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-5 closed;
-**16 closures totaling 213 PURE new**.
+open-frontier marathon (G139).  Phases 1-6 closed;
+**20 closures totaling 242 PURE new**.
 
 ## G139 phase-by-phase
 
@@ -15,103 +15,100 @@ open-frontier marathon (G139).  Phases 1-5 closed;
 | 3 | G, H, I, J | 40 | CupAW (4,2,1); Fib/Trib/Nara Pisano-analogues mod 2 |
 | 4 | K | 11 | ∀-coprime eventual periodicity universal form |
 | 5 | L, M, N, O, P | 35 | LucasModular new; mod-3 parametric across 5 sister sequences |
+| 6 | Q, R, S, T | 29 | JacobsthalModular new; mod-5 parametric across Fib/Lucas/Pad |
 
-## G139 Phase 5 — closures (5 closures, 35 PURE)
+## G139 Phase 6 — closures (4 closures, 29 PURE)
 
-### G139-L LucasModular (new file, 17 PURE)
+### G139-Q JacobsthalModular (new file, 14 PURE)
 
-`Lib/Math/Cohomology/Fractal/LucasModular.lean`.
-  · `Lucas_mod_2_period_3` (∀ n) — shared orbit with Fibonacci
-    via reduced initial pair `(0, 1) mod 2`.
-  · `Lucas_mod_3_period_8` (∀ n) — same period as Fibonacci, but
-    distinct mod-3 orbit (reduced initial pair `(2, 1) mod 3`
-    vs. Fibonacci's `(0, 1) mod 3`).
-  · Cross-sequence mod-2 cycle-sharing decide-check vs Fibonacci.
+`Lib/Math/Cohomology/Fractal/JacobsthalModular.lean`.
 
-### G139-M PadovanModular extension (+2 PURE)
+Three parametric closures:
+  · ★ `Jac_succ_mod_2` (∀ n, `Jac (n + 1) % 2 = 1`) —
+    structurally distinguished: eventually CONSTANT `1` from
+    `n = 1`, not periodic.  The `2 J_n` term in
+    `J_{n+2} = J_{n+1} + 2 J_n` vanishes mod 2 via
+    `mul_mod_right`, reducing `J_{k+2} % 2` to `J_{k+1} % 2`.
+  · ★ `Jac_mod_3_period_6` (∀ n) — period 6 with `mul_mod_right_pure`
+    handling the `2 J_n` term in the modular reduction.
+  · ★ `Jac_mod_5_period_4` (∀ n) — period 4 (shortest in the
+    Jacobsthal fingerprint).
 
-`Pad_mod_3_period_13` parametric.  3-step nested induction with
-2 IH terms (`n` and `n+1`) — upgrade of the prior
-`Pad_13_eq_Pad_0_mod_3` decide-spot-check.
+### G139-R LucasModular extension mod 5 (+5 PURE)
 
-### G139-N FibonacciModular extension (+4 PURE)
+`Lucas_mod_5_period_4` parametric — cycle `(2, 1, 3, 4)`, only
+4 distinct values.  Shortest period in the Lucas modular
+fingerprint.
 
-`Fib_mod_3_period_8` parametric.  Classical Pisano period 8 mod 3.
-2-step induction template identical to the mod-2 case.
+### G139-S PadovanModular extension mod 5 (+5 PURE)
 
-### G139-O TribonacciModular extension (+5 PURE)
+`Pad_mod_5_period_24` parametric — 3-step nested induction
+scaling from period 13 (mod 3) to period 24 (mod 5).  Upgrade
+of the prior `Pad_24_eq_Pad_0_mod_5` decide-spot-check.
 
-`Trib_mod_3_period_13` parametric.  3-step recurrence with 3 IH
-terms (`n`, `n+1`, `n+2`) and double-`add_mod_gen` modular sum
-reduction.
+### G139-T FibonacciModular extension mod 5 (+5 PURE)
 
-### G139-P NarayanaModular extension (+7 PURE)
+`Fib_mod_5_period_20` parametric — classical Pisano period
+`π(5) = 20`.
 
-`Nara_mod_3_period_8` parametric.  Narayana one-shift recurrence
-(`N_{n+3} = N_{n+2} + N_n`) diverges from Padovan's mod-3
-period 13.
+## Pisano-analogue closure grid (six sister sequences)
 
-## Pisano-analogue closure grid
+| Sequence  | Recurrence | π(2) | π(3) | π(5) |
+|-----------|------------|------|------|------|
+| Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 |
+| Lucas     | same, init `(2, 1)` | 3 | 8 | 4 |
+| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 |
+| Tribonacci | sum of 3 prev | 4 | 13 | (31, deferred) |
+| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | (long, deferred) |
+| Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 |
 
-Five Direction C sister sequences, parametric mod-2 AND mod-3
-Pisano-analogue closures:
+**Structural observations**:
+  · Jacobsthal mod 2 is structurally distinguished: collapses to
+    a constant rather than a nontrivial period (the `2 J_n` term
+    vanishes).
+  · Lucas and Jacobsthal share `π(5) = 4` via different
+    structural origins (Lucas: shared recurrence with Fibonacci;
+    Jacobsthal: closed-form collapse).
+  · Padovan ↔ Narayana share `π(2) = 7` but diverge at higher
+    moduli — the one-shift recurrence separates `π(3)` (13 vs 8).
+  · Fibonacci ↔ Lucas: shared recurrence yields equal periods at
+    every small prime; orbits differ at mod ≥ 3.
 
-| Sequence  | Recurrence | π(2) | π(3) |
-|-----------|------------|------|------|
-| Fibonacci | `F_{n+2} = F_{n+1} + F_n` | 3 | 8 |
-| Lucas     | same, init `(2, 1)`       | 3 | 8 |
-| Padovan   | `P_{n+3} = P_{n+1} + P_n` | 7 | 13 |
-| Tribonacci | `T_{n+3} = T_{n+2}+T_{n+1}+T_n` | 4 | 13 |
-| Narayana  | `N_{n+3} = N_{n+2} + N_n` | 7 | 8 |
-
-Structural observations:
-  · **Fibonacci ↔ Lucas**: share π(2) and π(3) by shared
-    recurrence.  Orbits differ at mod 3 (distinct reduced initial
-    pairs), coincide at mod 2.
-  · **Padovan ↔ Narayana**: share π(2) = 7 (mod-2 orbits on
-    `2³ = 8` triples are different lengths-7 orbits) but diverge
-    at mod 3 — Padovan π = 13, Narayana π = 8.  The one-shift
-    recurrence distinguishes them at the higher modulus.
-
-Common proof technique: nested induction over the recurrence
-order (2 IHs for 2-step / Fibonacci-Lucas, 3 IHs for 3-step /
-Padovan-Trib-Nara) + `add_mod_gen` for modular sum reduction.
-Strict ∅-axiom maintained across all five.
-
-## Phase 4 carry-over (universal eventual periodicity)
-
-★★★★★ `configCountD_eventually_periodic` from
-`EventualPeriodicity.lean` — universal `∃ T n₀, ∀ n ≥ n₀,
-configCountD d (n + T) % p = configCountD d n % p` via forward-
-only pigeonhole on the exponent layer.  No modular inverse
-needed, applies in both purely-periodic and eventually-constant
-regimes.
+Common technique: nested induction over recurrence order +
+`add_mod_gen` for sum reduction + `mul_mod_right_pure` for the
+multiplicative coefficient (Jacobsthal `2 J_n`).  Strict
+∅-axiom maintained.
 
 ## Direction C cut-off (7 sister sequences, unchanged from Phase 4)
 
 Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana, Jacobsthal.
 
-## CupAW Leibniz closed bidegrees (unchanged from Phase 3)
+## ∀-coprime eventual periodicity universal (Phase 4)
+
+★★★★★ `configCountD_eventually_periodic` —
+`∃ T n₀, ∀ n ≥ n₀, configCountD d (n + T) % p = configCountD d n % p`
+via forward-only pigeonhole on the exponent layer.  No modular
+inverse needed.
+
+## CupAW Leibniz closed bidegrees (Phase 3)
 
 `(n, k, l) ∈ {(3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
 (5,1,1), (5,2,1), (5,2,2)}`.
 
-## Phase 6 candidates (next session)
+## Phase 7 candidates (next session)
 
-  · **CupAW Leibniz** at (5, 1, 2) — pattern decide may be at the
-    `decide` heart-beat threshold; (3, 1, 2) likely vacuous.
+  · **Tribonacci mod 5 period 31** / Narayana mod 5 (longer
+    base verifications).
+  · **CupAW Leibniz** at (5, 1, 2) — pattern decide at heart-
+    beat threshold; (3, 1, 2) likely vacuous.
   · **K_{3,2} higher Steenrod**: `Sq^3`, `Sq^4` vacuous formal
-    extensions; `Sq^2` chain-level explicit at 4-skeleton.
-  · **6-skeleton with multi-cell attaching** to host non-vacuous
+    extensions; `Sq^2` chain-level at 4-skeleton.
+  · **6-skeleton with multi-cell attaching** for non-vacuous
     H⁵ (simple pyramid collapses).
-  · **Padovan / Trib / Nara mod 5 parametric** — period 24 for
-    Padovan; longer base verification for Trib / Nara.
-  · **JacobsthalModular** — closed form `J_n = (2^n − (−1)^n)/3`
-    enables direct period analysis.
-  · **HC²¹³ variant automation** — extend the 31-capstone Hodge
-    stack with mechanical bridges.
+  · **HC²¹³ variant automation** — extend the 31-capstone
+    Hodge stack.
 
-## Phase 7+ (deferred)
+## Phase 8+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).
@@ -124,12 +121,12 @@ Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana, Jacobsthal.
 
 | Doc | Purpose |
 |---|---|
-| `research-notes/G139_cohomology_marathon.md` | Marathon plan + Phases 1-5 log |
+| `research-notes/G139_cohomology_marathon.md` | Marathon plan + Phases 1-6 log |
 | `theory/math/cohomology/{bipartite, k32_higher_cohomology, fractal, cupaw, hodge_conjecture}.md` | Open-frontier chapters |
 | `theory/meta/cardinality_cutoff_applications.md` | Cut-off family (7 sister sequences) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/Filled{3,4,5}CellExtension.lean` | Pyramid tower σ³ → σ⁴ → σ⁵ |
 | `lean/E213/Lib/Math/Cohomology/Fractal/{Pell,Lucas,Fibonacci,Tribonacci,Padovan,Narayana,Jacobsthal}Cutoff.lean` | Direction C 7 sequences |
-| `lean/E213/Lib/Math/Cohomology/Fractal/{Lucas,Padovan,Tribonacci,Fibonacci,Narayana}Modular.lean` | Pisano-analogue parametric mod 2 + mod 3 |
+| `lean/E213/Lib/Math/Cohomology/Fractal/{Lucas,Padovan,Tribonacci,Fibonacci,Narayana,Jacobsthal}Modular.lean` | Pisano-analogue parametric mod 2/3/5 |
 | `lean/E213/Lib/Math/Cohomology/Fractal/EventualPeriodicity.lean` | Universal ∀-coprime eventual periodicity |
 | `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCountModular.lean §I` | (5, 11) eventually-constant sharper closure |
 | `lean/E213/Lib/Math/Cohomology/CupAW/Leibniz4Mixed.lean` | (4, 1, 2) + (4, 2, 1) + (4, 2, 2) bidegrees |
@@ -148,9 +145,10 @@ Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana, Jacobsthal.
     cup_i (i ≥ 2) + non-vacuous Adem / Cartan remain open.
   · `fractal.md` — ∀-coprime eventual periodicity CLOSED
     (Phase 4); Pisano-analogue parametric closures shipped for
-    five Direction C sister sequences at mod 2 + mod 3 (Phases
-    2-3-5).  Gram self-energy structural derivation and
-    truth-table Fintype-style witness remain open.
+    six Direction C sister sequences across the {2, 3, 5}
+    small-prime triplet (Phases 2-3-5-6).  Gram self-energy
+    structural derivation and truth-table Fintype-style witness
+    remain open.
   · `cupaw.md` — Phase 3 added (4, 2, 1) bidegree;
     self-referential lex-cup Leibniz ∀(k, l) remains open.
   · `hodge_conjecture.md` — HC²¹³ variant automation untouched

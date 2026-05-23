@@ -155,26 +155,56 @@ at BOTH mod 2 AND mod 3:
 | Tribonacci|   4  |  13  |
 | Narayana  |   7  |   8  |
 
-## Phase 6 (next session candidates)
+## Phase 6 — CLOSED (4 closures, 29 PURE new)
 
-  · CupAW Leibniz next-easiest bidegrees: (5, 1, 2), (3, 1, 2)
-    if non-vacuous.
-  · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at 4-skeleton)
-    and Sq^2 explicit chain-level formulation at 4-skeleton.
-  · 6-skeleton extension with multi-cell attaching map to host
-    non-vacuous H^5 (pyramid pattern collapses; need branching).
-  · Padovan / Trib / Nara mod 5 parametric (period 24 for Padovan;
-    longer for others).
-  · Jacobsthal modular fingerprint (closed form `(2^n − (−1)^n)/3`
-    enables direct period analysis).
+ 17. **G139-Q JacobsthalModular** — CLOSED (new file, 14 PURE).
+     Three parametric closures: `Jac_succ_mod_2` (eventually
+     constant `1` from `n = 1`; structurally distinguished),
+     `Jac_mod_3_period_6`, `Jac_mod_5_period_4`.  The `2 J_n`
+     term vanishes mod 2 (mul_mod_right) and reduces by
+     mul_mod_right_pure at higher moduli.
+ 18. **G139-R LucasModular extension mod 5** — CLOSED (+5 PURE).
+     `Lucas_mod_5_period_4` — cycle `(2, 1, 3, 4)`, shortest in
+     the Lucas modular fingerprint.
+ 19. **G139-S PadovanModular extension mod 5** — CLOSED (+5 PURE).
+     `Pad_mod_5_period_24` parametric — 3-step nested induction.
+ 20. **G139-T FibonacciModular extension mod 5** — CLOSED (+5 PURE).
+     `Fib_mod_5_period_20` parametric — classical π(5) = 20.
 
-## Phase 7+ (deferred)
+Pisano-analogue grid across six sister sequences:
+
+| Sequence  | π(2) | π(3) | π(5) |
+|-----------|------|------|------|
+| Fibonacci |   3  |   8  |  20  |
+| Lucas     |   3  |   8  |   4  |
+| Padovan   |   7  |  13  |  24  |
+| Tribonacci|   4  |  13  | 31 ⊘ |
+| Narayana  |   7  |   8  | ⊘    |
+| Jacobsthal| const|   6  |   4  |
+
+(⊘ = deferred — periods too long for clean parametric proofs in
+this phase.)
+
+## Phase 7 (next session candidates)
+
+  · Tribonacci mod 5 period 31 / Narayana mod 5 (longer base
+    verifications required).
+
+  · CupAW Leibniz (5, 1, 2) — pattern decide may be at the
+    heart-beat threshold; (3, 1, 2) likely vacuous.
+  · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at
+    4-skeleton) and Sq^2 explicit chain-level at 4-skeleton.
+  · 6-skeleton extension with multi-cell attaching for
+    non-vacuous H⁵.
+  · HC²¹³ variant automation — extending the 31-capstone Hodge
+    stack.
+
+## Phase 8+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
   · `GraphWalk/` infrastructure (multi-session).
   · Gram self-energy structural step (physics-layer).
-  · Hodge conjecture variant automation (extends 31-capstone tree).
   · Self-referential lex-cup Leibniz ∀(k, l) full parametric.
 
 ## Cross-references
