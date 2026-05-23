@@ -194,6 +194,30 @@ theorem Zp.valAtLeast_mul_of_left (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (m : Na
     exact E213.Tactic.NatHelper.zero_mod _
   exact (Zp.valAtLeast_iff_trunc hp _ m).mpr h_mulm
 
+/-- **Negation preserves valuation**: `val(-x) = val(x)`.
+    In `valAtLeast` form: `valAtLeast x n → valAtLeast (-x) n`. -/
+theorem Zp.valAtLeast_neg (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
+    ∀ n, Zp.valAtLeast x n → Zp.valAtLeast (Zp.neg p hp x) n
+  | 0, _ => Zp.valAtLeast_zero _
+  | n + 1, hx => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    have h_x_trunc : x.trunc (n + 1) = 0 :=
+      (Zp.valAtLeast_iff_trunc hp' x (n + 1)).mp hx
+    -- (x + (-x)).trunc (n+1) = 0 always; combined with x.trunc = 0
+    -- forces (-x).trunc = 0.
+    have h_self : (Zp.add p hp' x (Zp.neg p hp x)).trunc (n + 1) = 0 :=
+      Zp.add_neg_self_trunc p hp x n
+    have h_add : (x.trunc (n + 1) + (Zp.neg p hp x).trunc (n + 1)) % p^(n + 1) = 0 := by
+      rw [← Zp.add_trunc p hp' x (Zp.neg p hp x) (n + 1)]
+      exact h_self
+    rw [h_x_trunc, Nat.zero_add] at h_add
+    have h_neg_lt : (Zp.neg p hp x).trunc (n + 1) < p^(n + 1) :=
+      ZpSeq.trunc_lt_p_pow hp' _ (n + 1)
+    have h_neg_trunc : (Zp.neg p hp x).trunc (n + 1) = 0 := by
+      rw [Nat.mod_eq_of_lt h_neg_lt] at h_add
+      exact h_add
+    exact (Zp.valAtLeast_iff_trunc hp' _ (n + 1)).mpr h_neg_trunc
+
 /-- **Multiplicative absorbing** (right): if `y` has valuation ≥ n,
     then `x · y` has valuation ≥ n for any `x`. -/
 theorem Zp.valAtLeast_mul_of_right (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat)
