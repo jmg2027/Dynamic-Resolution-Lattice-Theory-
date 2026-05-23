@@ -292,16 +292,32 @@ all π(11) = 10.
      Each per-basis decide is 1024 × 10 = 10 240 evals at
      maxHeartbeats 200M — same scope as (5, 1, 1).
 
-## Phase 11 (next session candidates)
+## Phase 11 — CLOSED (1 closure, 1 PURE; Massey deferred)
 
-  · **CupAW (5, 1, 2) via bilinearity decomposition** — write
-    a (5, 1, b)-side decomposition template (sister to
-    `LeibnizAlgLiftBeta`).
+ 34. **G139-JJ CupAW (5, 1, 2) universal lift** — CLOSED
+     (`Lib/Math/Cohomology/CupAW/Leibniz5_1_2.lean`, 1 PURE
+     public).  Bilinearity chain over per-basis facts +
+     zero-collapse + pointwise-transport + α-decomp lens +
+     `combine_5`.  Sister to `Leibniz21Final` for (5, 2, 1) but
+     on the α-side at degree 1.  Closes the bidegree that
+     defeated four full-pattern decide strategies.
+
+CupAW Leibniz closed bidegrees now span 9 entries:
+  (3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
+  (5,1,1), (5,1,2) ★ NEW, (5,2,1), (5,2,2).
+
+## Phase 12 (next session candidates)
+
   · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
-    (G139-AA); needs explicit cobounding-chain construction.
+    (G139-AA H⁵ ≠ 0); needs cup product extension at the
+    K_{3,2}^{(c=2)} 5-skeleton (cup : C³ × C² → C⁵ and C² × C³
+    → C⁵) + explicit cobounding-chain construction.
+    Blocker: AW-style cup extension at the multi-cell complex.
   · **Padovan / Tribonacci mod 11** (period 120 / 110;
     long but mechanical).
   · **HC²¹³ Δ⁹+ further automation**.
+  · **CupAW Leibniz at higher α-degree** — (5, 3, _), (6, _, _)
+    via meta-strategy generalization.
 
 ## Phase 10+ (deferred)
 

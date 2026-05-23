@@ -3,10 +3,10 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-10 closed;
-**33 closures totaling 360 PURE new**.  CupAW (5,1,2) per-basis
-breakthrough via meta-insight; full universal lift deferred for
-bilinearity template.  Pisano mod 11 partial (4 of 6 sisters).
+open-frontier marathon (G139).  Phases 1-11 closed;
+**34 closures totaling 361 PURE new**.  CupAW (5,1,2) universal
+lift CLOSED via per-basis breakthrough + bilinearity chain.
+Pisano mod 11 partial (4 of 6 sisters).
 
 ## G139 phase-by-phase
 
@@ -23,6 +23,7 @@ bilinearity template.  Pisano mod 11 partial (4 of 6 sisters).
 | 9 | X, Y, Z, AA | 61 | HC²¹³ Δ⁶/Δ⁷ + Pisano mod-7 column + Sq² chain-level + multi-cell H⁵ ≠ 0 |
 | 10 (part 1) | CC, DD, EE, FF, GG | 24 | HC²¹³ Δ⁸ + Pisano mod-11 short periods (Fib/Lucas/Jac/Nara) |
 | 10 (part 2) | II | 6 | CupAW (5,1,2) per-basis BREAKTHROUGH via meta-insight (5 per-basis decides) |
+| 11 | JJ | 1 | CupAW (5,1,2) universal lift CLOSED via bilinearity chain (per-basis + α-decomp + combine_5) |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -174,21 +175,24 @@ Each per-basis decide fits at maxHeartbeats 200M.
 Shipped at `CupAW/Leibniz5_1_2_BasisDecomp.lean`: 5 per-basis
 Leibniz facts at α ∈ {e_0..e_4} + a 2-conjunct capstone (6 PURE).
 
-**Full universal lift** (Phase 11+ candidate): bilinearity
-chain via `cupAW_add_left` + `delta_cupAW_add_left` over the
-α-decomposition (`α = ⊕_k bz5_1 α k`).  Sister template to
-`LeibnizAlgLift21`.
+**Full universal lift CLOSED (Phase 11)** — `Leibniz5_1_2.leibniz_universal_5_1_2`.
+Three-step closure: per-basis facts (Phase 10) + per-component
+case-split (zero/basis-transport) + α-decomp lens combining via
+`cupAW_add_left` + `delta_cupAW_add_left` + `cupAW_delta_add_left`
+chain over `decomp_5_1 α = ⊕_k bz5_1 α k` + `combine_5`.
 
-## Phase 11 candidates (next session)
+## Phase 12 candidates (next session)
 
-  · **CupAW (5, 1, 2) via bilinearity decomposition** — see
-    meta analysis above.
   · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
-    (G139-AA from Phase 9); needs explicit cobounding-chain
-    construction.
+    (G139-AA H⁵ ≠ 0).  Blocker: cup product extension at the
+    K_{3,2}^{(c=2)} 5-skeleton (need cup : C³ × C² → C⁵ and
+    C² × C³ → C⁵) + explicit cobounding-chain construction.
   · **Padovan / Tribonacci mod 11** — long periods (120 / 110)
     but mechanical extension of Phase 10 template.
   · **HC²¹³ Δ⁹+ further automation**.
+  · **CupAW Leibniz at higher α-degree** — (5, 3, _), (6, _, _)
+    via meta-strategy generalization (per-basis decides at the
+    new α-degree).
 
 ## Phase 12+ (deferred)
 
@@ -234,8 +238,10 @@ chain via `cupAW_add_left` + `delta_cupAW_add_left` over the
     small-prime triplet (Phases 2-3-5-6).  Gram self-energy
     structural derivation and truth-table Fintype-style witness
     remain open.
-  · `cupaw.md` — Phase 3 added (4, 2, 1) bidegree;
-    self-referential lex-cup Leibniz ∀(k, l) remains open.
+  · `cupaw.md` — Phase 3 added (4, 2, 1) bidegree; Phase 11
+    closed (5, 1, 2) universal lift via per-basis breakthrough
+    + bilinearity chain.  Self-referential lex-cup Leibniz
+    ∀(k, l) remains open.
   · `hodge_conjecture.md` — HC²¹³ variant automation
     CLOSED in Phase 8 (Δ³ + Δ⁵ + grid capstone shipped under
     `Refinement/CupAtomicGeneration{Delta3, Delta5, Grid}.lean`).
