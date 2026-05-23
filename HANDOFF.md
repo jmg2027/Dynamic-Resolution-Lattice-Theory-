@@ -97,10 +97,44 @@ in Lean as decide-checked literal.
 
 ## Next session candidates
 
+### Computational infrastructure (this session)
+
+  · `rust-engine/crates/app/src/bin/aurifeuillean_lm.rs` — new
+    binary with modes `phi`, `verify`, `cornacchia`, `l7-check`,
+    `l11-attempt`.  Uses num-bigint for arbitrary-precision
+    Phi_n(5) computation via cyclotomic recursion.  L_7
+    round-trip verified against PARI-derived norm pair.
+
+### L_11 attempt — full path exploration exhausted
+
+  · **PARI** `bnfisnorm` over `K = Q(√5)`: ran for 1 hour
+    (timeout cap), still inside `bnfisnorm` step.  Class-group
+    computation for `Φ_{1210}(5)` (308 digits) is unreasonably
+    expensive vs. m=7 (which completed in seconds).
+  · **sympy** `factor(Φ_{1210}, extension=√5)`: ran for 2h+
+    (killed manually), still in `factor` step.  Memory usage
+    stable (~350 MB RSS), but factor over algebraic extension
+    for degree-440 polynomial scales worse than expected
+    (m=7 deg-168 took 228s; m=11 deg-440 ≫ 228s · (440/168)^3).
+  · **Trial division on primes `≡ 1 (mod 1210)`**: found one
+    factor `389621` of Phi_1210(5); remaining 302-digit cofactor
+    has all prime factors > 10^10 (trial-divided up to k=10M
+    without finding more).
+  · **Web fetches** (Brent's tables, OEIS, stdkmd cyclotomic
+    tables): all 404 / 403 / not-found.
+
+  Algorithm itself validated on m={1, 3, 7} but the m=11 instance
+  is intractable in this container.  All explored paths catalogued
+  in `aurifeuillean_lm.rs` "Algorithm landscape" docstring.
+
+  m=11 effectively requires GNFS (for factoring Phi_1210(5)) or
+  Brent's published Aurifeuillean tables (not accessible).  Marked
+  closed as "computationally out of reach within container".
+
 ### A. Cut-off-applications extensions
 
   · ~~Direction A unrestricted depth-2~~ — CLOSED
-    (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
+    (`AurifeuilleanDepth2PowCutoff.lean`, 16 PURE) via
     small-range decide + large-range monotonicity.
 
   · **Direction B chain extension** to m = 11 — ATTEMPTED, timed
@@ -702,11 +736,16 @@ queue, EXCLUDED THIS SESSION).
 Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
 S1 categorical closure.  Candidate continuations:
 
-  1. **G130** (was G125, Option A close; only S3 absorption needed) — 1 session
-  2. **G129** (was G124, universal Nat-theorem via graph-walk infra) — 5-8 sessions
-  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8 sessions
-  4. **G128** (was G123, FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
-  5. ~~G122 (Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions~~ — DONE (308 PURE)
+  1. ~~**G130** (Option A close)~~ — PROMOTED this session
+     (`theory/math/modulus_structure.md`; research note archived
+     to `research-notes/archive/`).
+  2. **G129** (universal Nat-theorem via graph-walk infra) — 5-8
+     sessions.
+  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8
+     sessions.
+  4. **G128** (was G123, FW-2/FW-4/I-3/8-geo deepenings) — 16-25
+     sessions.
+  5. ~~G122 (Real213-p-adic)~~ — DONE (308 PURE) on main.
 
 ### C. Doc work remaining
 
