@@ -40,5 +40,6 @@ table.
 theory/meta/
 ├── INDEX.md                     ← this file
 ├── scanner_suite.md             ← 11-scanner suite + key findings + cross-branch protocol
-└── raw_derivation_levels.md     ← (α) logical / (β) structural / (γ) operational taxonomy
+├── raw_derivation_levels.md     ← (α) logical / (β) structural / (γ) operational taxonomy
+└── cardinality_cutoff_principle.md  ← scale-matching cut-off methodology (Hunter ⇔ Aurifeuillean exemplar)
 ```

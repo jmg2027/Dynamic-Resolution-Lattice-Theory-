@@ -32,6 +32,45 @@ to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
+## G134 Cardinality cut-off principle — PROMOTED (methodology chapter)
+
+The cardinality cut-off pattern extracted from G125 → G133 chain is
+elevated to a standalone **213-native methodology** chapter:
+`theory/meta/cardinality_cutoff_principle.md`.
+
+**Principle** (§1): for any external sequence `f : ℕ → ℕ` with
+unbounded growth and DRLT-internal complexity class `H_k ⊆ ℕ` with
+explicit uniform bound `M_k`, for every fixed `k` there exists
+`m_0(k)` with `f(m) ∉ H_k` for all `m ≥ m_0(k)`.
+
+**Methodology** (§5, three-step pattern):
+  1. Locate the coincidence (positive witness at small depth).
+  2. Diagnose the literal-form failure (Frobenius / Chicken McNugget
+     vacuousness witness).
+  3. Prove the refined form at minimal depth (uniform bound + ∀ tail).
+
+Each step yields a concrete Lean deliverable.  Reusable for any
+external sequence vs DRLT-atomic complexity class.
+
+**Exemplar**: Hunter ⇔ Aurifeuillean at m=1 (already in
+`AurifeuilleanFullCutoff.lean`, 28 PURE).
+
+**Continuation roadmap**: `research-notes/G134_cutoff_principle_followups.md`
+catalogues six concrete next campaigns:
+  A. Depth-2 cardinality bound at Aurifeuillean (extends marathon)
+  B. Aurifeuillean L unboundedness theorem (closes ∀-tail premise)
+  C. Apply principle to Pell sequence (proves reusability)
+  D. Hunter atomic prime closure question (catalogue closure)
+  E. `hunterComplexity` as 213-native invariant
+  F. Generalise to alternate DRLT primitive sets
+
+Recommended next session start: Direction B (L unboundedness via
+finite chain, 1 session, closes principle §3 premise).
+
+`theory/meta/INDEX.md` updated with new chapter entry.
+`theory/math/cohomology/aurifeuillean.md` "Cut-off line" section
+cross-references the principle chapter.
+
 ## G133 Hunter ⇔ Aurifeuillean cut-off marathon — depth-1 asymptotic CLOSED
 
 Continuation of the G125 / PR #98 bounded cut-off result.  Attempts
