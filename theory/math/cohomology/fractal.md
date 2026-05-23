@@ -197,7 +197,7 @@ base `d = 5`:
 | 3 | constant `2` for all `n` (`5^n` is odd ⇒ `5^(5^n) ≡ 2 mod 3`) |
 | 5 | constant `0` for all `n` (positive power of 5) |
 | 7 | period 2 from `n = 0` (alternates `5, 3, 5, 3, …`) |
-| 11 | parametric; eventually constant `1` from `n = 1` |
+| 11 | ★ eventually constant `1` from `n = 1` (`configCountD_5_succ_mod_11`) |
 | 13 | period 2 from `n = 0` (`5^2 ≡ 1 mod 12`) |
 
 The unified `configCountD_5_modular_structure` bundles the
@@ -347,6 +347,7 @@ Both bridges are additive; consumer literals are unchanged.
 | `configCountD_5_succ_mod_41` | `Fractal.ConfigCountModular` §H.1 | ★ constant `9 = NS²` mod `41 = α_GUT` for all `n ≥ 1` |
 | `configCountD_5_period_2_mod_31` | `Fractal.ConfigCountModular` §H.3 | ★ period-2 `{25, 5}` mod 31 ∀m |
 | `configCountD_5_period_4_mod_17` | `Fractal.ConfigCountModular` §H.4 | ★ period-4 cycle `(14, 12, 3, 5)` mod 17 ∀m |
+| `configCountD_5_succ_mod_11` | `Fractal.ConfigCountModular` §I | ★ eventually constant `1` mod `11` ∀n ≥ 1 (fixed-point absorption of `5^n mod 10`) |
 | `configCountD_5_2_mod_137` | `Fractal.ConfigCountModular` §H.5 | ★ `N_U mod 1/α_em = 86 = Rn` (catalogue cross-readout) |
 | `configCountD_5_2_mod_table_extended` | `Fractal.ConfigCountModular` §H | physics-slice readouts mod `{17, 23, 31, 41}` |
 | `fractal_betti_spectrum` | `Fractal.Level` | `b₁(K_{5^L})` for `L = 1..4` |
@@ -388,8 +389,11 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
   · **General eventual-periodicity statement** at arbitrary
     coprime `(d, p)`.  The chapter ships the parametric
     reduction `configCountD_mod_pure` and concrete period-2
-    capstones at `(5, 7)` and `(5, 13)`; the universal
-    `∃ T n₀, ∀ n ≥ n₀, …` form is a small additive marathon.
+    capstones at `(5, 7)` and `(5, 13)`, eventually-constant
+    capstones at `(5, 41)` (★ NS² constant from `n = 1`) and
+    `(5, 11)` (★ constant `1` from `n = 1` via fixed-point
+    absorption); the universal `∃ T n₀, ∀ n ≥ n₀, …` form is a
+    small additive marathon (pigeonhole on `d^n % (p-1)`).
   · **Combinatorial-identity Lean witness**: the truth-table
     reading `configCountD d n = | [d]^n → [d] |` is currently
     a docstring identity.  A `Fintype.card`-style Lean theorem

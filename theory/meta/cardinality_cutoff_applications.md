@@ -105,15 +105,16 @@ by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 
 **Open frontier**: outer = ^ case for `521` closed in §9.
 
-## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci sequence cut-offs
+## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci, Padovan sequence cut-offs
 
-Applies the principle to **four non-Aurifeuillean** external
+Applies the principle to **five non-Aurifeuillean** external
 sequences:
 
   · Pell (`P_{n+2} = 2P_{n+1} + P_n`)
   · Lucas (`L_{n+2} = L_{n+1} + L_n`)
   · Fibonacci (`F_{n+2} = F_{n+1} + F_n`)
   · Tribonacci (`T_{n+3} = T_{n+2} + T_{n+1} + T_n`)
+  · Padovan (`P_{n+3} = P_{n+1} + P_n` — no `P_{n+2}` term)
 
 ### Pell
 
@@ -208,26 +209,55 @@ Cut-off slices:
   · Restricted depth 2: `n ≥ 30` (boundary `T_29 = 8 646 064,
     T_30 = 15 902 591`).
 
+### Padovan
+
+| n | P_n | catalogue role  |
+|---|----|----------------|
+| 3 | 2  | NT (generator)  |
+| 5 | 3  | NS (generator)  |
+| 7 | 5  | d (generator)   |
+| 8 | 7  | catalogue prime |
+
+★ **Three Hunter generators at odd indices in arithmetic
+progression**: `(P_3, P_5, P_7) = (NT, NS, d) = (2, 3, 5)`.
+Sister to Fibonacci's consecutive-index `(F_3, F_4, F_5)` window
+— Padovan threads the canonical Hunter primitive set on the
+odd-index sub-lattice (step 2).  The Hunter primitive set has a
+secondary natural embedding in an arithmetic-progression window
+of a slow-growing recurrence.
+
+Padovan's plastic constant `ρ ≈ 1.3247` (real root of
+`x³ = x + 1`) gives the slowest growth in the family, producing
+the latest depth-1 crossing (`n = 30`).
+
+Cut-off slices:
+  · Depth 1: `n ≥ 30` (boundary `P_29 = 2513, P_30 = 3329`).
+    Latest crossing in the applications family.
+  · Restricted depth 2: `n ≥ 59` (boundary `P_58 = 8 745 217,
+    P_59 = 11 584 946`).
+
 ### Catalogue coverage across sequences
 
-| atom | sources                                            |
-|------|----------------------------------------------------|
-| 2    | F_3, L_0, T_4                                      |
-| 3    | F_4, L_2                                           |
-| 5    | F_5, P_3                                           |
-| 7    | L_4, T_6                                           |
-| 13   | F_7, T_7                                           |
-| 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)    |
-| 521  | Aurifeuillean Φ_10(5), Lucas L_13                  |
+| atom | sources                                              |
+|------|------------------------------------------------------|
+| 2    | F_3, L_0, T_4, Pad_3                                 |
+| 3    | F_4, L_2, Pad_5                                      |
+| 5    | F_5, P_3, Pad_7                                      |
+| 7    | L_4, T_6, Pad_8                                      |
+| 13   | F_7, T_7                                             |
+| 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)      |
+| 521  | Aurifeuillean Φ_10(5), Lucas L_13                    |
 
 **Combined coverage**: the entire catalogue `{2, 3, 5, 7, 13, 29,
 521}` is reached by some sequence in
-`{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}`.  The atom
-`29` is sourced from three sequences (triple coincidence), `521`
-from two (Lucas and Aurifeuillean).
+`{Pell, Lucas, Fibonacci, Tribonacci, Padovan, Aurifeuillean}`.
+The atom `29` is sourced from three sequences (triple
+coincidence), `521` from two (Lucas and Aurifeuillean), each of
+the small generators `{2, 3, 5, 7}` from three or four sequences.
 
 **Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
-+ `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE).
++ `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE)
++ `PadovanCutoff.lean` (30 PURE).
 
 ## §6 Direction E — Hunter complexity measure
 
@@ -309,10 +339,13 @@ the cut-off slice moves with the set.
      (constant ψ ≈ 1.839).
 
   4. **Catalogue coverage is complete**: combined hit set across
-     `{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}` covers
-     the entire catalogue `{2, 3, 5, 7, 13, 29, 521}`.  The atom
-     `29` is sourced by three sequences (triple coincidence) and
-     `521` by two (Lucas and Aurifeuillean).
+     `{Pell, Lucas, Fibonacci, Tribonacci, Padovan, Aurifeuillean}`
+     covers the entire catalogue `{2, 3, 5, 7, 13, 29, 521}`.  The
+     atom `29` is sourced by three sequences (triple coincidence)
+     and `521` by two (Lucas and Aurifeuillean).  Padovan
+     contributes a secondary odd-index embedding of the Hunter
+     primitive set: `(P_3, P_5, P_7) = (NT, NS, d)` — sister to
+     the Fibonacci consecutive-index window.
 
   5. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.
@@ -401,6 +434,9 @@ the explicit depth-3 witness `2^(3^2) + 3^2`.
     — Direction C, Fibonacci sequence + Hunter-generator window (36 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/TribonacciCutoff.lean`
     — Direction C, Tribonacci + tight near-boundary (28 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/PadovanCutoff.lean`
+    — Direction C, Padovan + odd-index Hunter-generator window
+    (30 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (32 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
