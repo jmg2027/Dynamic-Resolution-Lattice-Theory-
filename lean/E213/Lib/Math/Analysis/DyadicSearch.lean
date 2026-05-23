@@ -5,6 +5,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.DyadicSearch.IVT
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
+import E213.Lib.Math.Analysis.DyadicSearch.MultiVarBisection
 import E213.Lib.Math.Analysis.DyadicSearch.SignedLeftCollapse
 import E213.Lib.Math.Analysis.DyadicSearch.UnitConsistentOracles
 
@@ -42,6 +43,11 @@ import E213.Lib.Math.Analysis.DyadicSearch.UnitConsistentOracles
                                     rightmost).  Demonstrates
                                     non-vacuous inhabitation of
                                     the typed protocol.
+    * `MultiVarBisection`         — multi-variate extension: n
+                                    independent ConsistentOracles
+                                    yield n CauchyCutSeqs.  The
+                                    n-tuple is the simultaneous-root
+                                    readout on `Cut^n`.
     * `SignedLeftCollapse`        — Layer 3c morphism collapse +
                                     §6h composition closure.
                                     `signedLeftOracle f` reduces

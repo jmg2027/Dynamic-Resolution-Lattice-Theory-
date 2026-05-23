@@ -114,6 +114,28 @@ machinery directly.
 | `signedLeftCollapse` | `SignedLeftCollapse` | Always-prefer-left collapse |
 | Base IVT | `IVT` | Classical statement in 213-native form |
 
+## Multi-variate bisection — closed (MultiVarBisection.lean)
+
+`Lib/Math/Analysis/DyadicSearch/MultiVarBisection.lean` (10 PURE)
+lifts the single-variate trajectory-witness IVT to **simultaneous
+root finding on n variables**:
+
+  · `MultiBracket n := Fin n → DyadicBracket` — n-tuple of brackets.
+  · `MultiConsistentOracle n mb` — per-coordinate consistent oracles.
+  · `MultiCauchyCutSeq n := Fin n → CauchyCutSeq` — the joint readout.
+  · `MultiConsistentOracle.toMultiCauchy` — n-tuple of Cauchy readouts.
+  · `unitMultiBracket n`, `unitMultiConsistentOracle n`,
+    `unitMultiCauchy n` — canonical unit n-bracket instance.
+  · Smoke at n = 2 (planar), n = 3 (spatial), n = 5 (atomic
+    dimension `d = 5`).
+  · ★★★★ `multi_var_capstone` — bundles existence, projection,
+    and per-coordinate equality.
+
+213-native reading: the multi-variate IVT is a **product** of
+single-variate IVTs.  No extra structural machinery needed — n
+independent `ConsistentOracle`s compose to a single product oracle,
+yielding n independent CauchyCutSeqs.
+
 ## Open frontier
 
 `MinimalRootLens` skeleton is closed.  Open extensions:
@@ -123,8 +145,8 @@ machinery directly.
    (lower bound, upper bound, witness of vanishing) awaits the
    **monotone-polynomial milestone** (next).
 
-2. **Generalization to multi-variate**: bisection on `Cut^n` for
-   simultaneous root-finding.  Currently single-variable only.
+2. ~~**Generalization to multi-variate**~~ — CLOSED via
+   `MultiVarBisection.lean` (10 PURE) above.
 
 3. **Continuity-without-ε** alternative: phrase the continuity
    assumption itself as a `ConsistentOracle` extension, eliminating
