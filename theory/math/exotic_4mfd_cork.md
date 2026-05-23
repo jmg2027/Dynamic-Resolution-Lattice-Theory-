@@ -1,7 +1,8 @@
 # Akbulut Cork (exotic 4-manifold structures)
 
-**Status**: Closed at H¹ level (44 PURE / 4 files / 1 umbrella);
-higher-cohomology cork-twist effect listed as Open Frontier.
+**Status**: Closed at H¹ level (44 PURE / 4 files) + H² extension
+(42 PURE / 1 file).  Total: 86 PURE / 5 files / 1 umbrella.
+H³ cork-twist effect listed as Open Frontier.
 
 ## Overview
 
@@ -31,7 +32,7 @@ discrete and `decide`-resolved.
 ## Lean source
 
 - Umbrella: `lean/E213/Lib/Math/AkbulutCork.lean`
-- Sub-tree (4 files, 44 PURE):
+- Sub-tree (5 files, 86 PURE):
   - `Foundation.lean` (14) — `Cork213` structure; canonical instances
     `K11_cork`, `K31_cork`, `K14_cork`; well-formedness witnesses;
     bridge to parametric Bipartite cohomology
@@ -43,7 +44,14 @@ discrete and `decide`-resolved.
   - `CorkTheorem.lean` (5) — `cork_embedding_capstone` +
     `cork_uniqueness_capstone` + the 14-conjunct master
     `akbulut_cork_213_native`
-- ∅-axiom status: PURE (all 44 theorems)
+  - `HigherTwist.lean` (42) — `Cork213_H2` extends `Cork213` with a
+    `host_b2` field; `corkTwistH2` involution; Burnside on C²
+    under M_S01 / M_S12 / ρ (fix counts 4 / 4 / 2; Sym(3) orbits = 4
+    with sub-decomp (2, 0, 2, 0)); `M_S01_acts_trivially_on_H2`
+    (every C² cochain has `M_S01(c) ⊕ c ∈ im δ¹`);
+    `signedCorkTwistCount_H2 = +2`; composite
+    `signedCorkTwistCount_H1_H2 = +6`
+- ∅-axiom status: PURE (all 86 theorems)
 
 ## Why K_{1,4} and K_{3,2}^{(c=2)} together
 
@@ -78,17 +86,37 @@ This is the 213-internal exotic-structure invariant: it does not
 require an external Donaldson polynomial, an external smooth
 4-manifold category, or any non-decidable input.
 
+## H² extension (closed)
+
+The cork-twist Z/2 action lifts from H¹ to H² at the 2-skeleton
+level via the face-permutation realization of M_S01 (faceSwap_S01:
+face 0 fixed, faces 1 ↔ 2).  Key facts (`HigherTwist.lean`):
+
+- C² = `Fin 3 → Bool` (8 cochains, 3 faces of K_{3,2}^{(c=2)})
+- Burnside on C² under Sym(3): 4 orbits with sub-decomp (2, 0, 2, 0)
+  — 2 singleton orbits = `(0,0,0)` and `(1,1,1) = ω`
+- M_S01 acts as identity on H² = C² / im δ¹: every C² difference
+  `M_S01(c) ⊕ c` has face-XOR sum 0, i.e., lies in `im δ¹`
+- H² has 2 cohomology classes (0, ω), both M_S01-fixed
+- `signedCorkTwistCount_H2 = +2`
+- Composite H¹+H² signed count: +4 + +2 = +6
+
+Structural reading: ω is the third trivial-irrep component
+(alongside ω_00, ω_10, ω_01, ω_11 at H¹), confirming
+`3·trivial ⊕ 3·standard` Sym(3) decomposition for H¹+H².  The
+cork-twist's H² contribution is fully trivial — at this level
+no new sign correction beyond H¹'s +4.
+
 ## Open frontier
 
-The current sub-tree closes the cork-twist effect at the H¹
-(b_1, M_S01) level.  Two extensions remain open:
+The cork-twist effect closes at the H¹+H² level.  Two extensions
+remain open:
 
-- **Higher cohomology cork-twist (b_2, b_3)**: the cork-twist
-  Z/2 action lifts via M_S01 on the H¹ basis, but its action on
-  H² classes (ω) and H³ classes (3-cell σ) at the 3- and
-  4-skeleton extensions (cf. `theory/math/cohomology/k32_higher_cohomology.md`)
-  is not yet computed.  Requires extending `Filled3Cell*` /
-  `Filled4CellExtension` to track the M_S01 action explicitly.
+- **H³ cork-twist (b_3)**: M_S01 action on H³ classes at the
+  3-skeleton extension (`Filled3CellExtension`, single 3-cell σ³)
+  and 4-skeleton extension (`Filled4CellExtension`, σ³ + σ⁴).
+  At single-3-cell attaching the action is trivial (M_S01 fixes
+  σ³ as a singleton); content emerges at multi-3-cell extensions.
 - **Multi-cork structures**: iterated cork-twists on the K-deployment
   family, with cork-of-cork Z/2 actions and higher-order signed
   counts beyond `+4`.

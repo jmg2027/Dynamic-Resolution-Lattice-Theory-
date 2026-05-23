@@ -3,7 +3,8 @@
 213-native realization of the Akbulut–Curtis–Freedman–Hsiang–Stong
 cork theorem for closed simply-connected 4-manifolds.
 
-**Status**: G126 6-phase partial close (2026-05-22) — 4 files, 44 PURE.
+**Status**: H¹ close at 44 PURE / 4 files + H² extension at 42 PURE
+(5 files total, 86 PURE).
 **Supersedes**: FW-1 signed Donaldson count (the FW-1 sign problem
 becomes a 213-internal cork-twist Z/2 grading).
 
@@ -15,6 +16,7 @@ becomes a 213-internal cork-twist Z/2 grading).
 | `Twist.lean` | 2 | 12 | `corkTwist : Cork213 → Cork213` Z/2 endomorphism + `corkTwist_involution_on_K{11,31,14}` + parity-alternation theorems + M_S01 correspondence at matrix level |
 | `SignedOrbits.lean` | 3 | 13 | Per-orbit-type M_S01 fix counts (singleton: 4, size-3: 28, size-6: 0) + Z/2 grading (twistEven = 32, twistOdd = 28) + ★★★★★★ `signedCorkTwistCount = +4` |
 | `CorkTheorem.lean` | 4-6 | 5 | Cork embedding at chartBase=5 + cork uniqueness (M_S01 involutive) + ★★★★★★★★★★ `akbulut_cork_213_native` capstone bundling all 6 phases |
+| `HigherTwist.lean` | H² | 42 | `Cork213_H2` (cork + b_2 field) + `corkTwistH2` involution + Burnside on C² under M_S01/M_S12/ρ + Sym(3) orbit count = 4 with sub-decomp (2,0,2,0) + `M_S01_acts_trivially_on_H2` + ★★★★ `signedCorkTwistCount_H2 = +2` + ★★★★★ `signedCorkTwistCount_H1_H2 = +6` |
 
 ## Phases vs G126 plan
 
@@ -41,6 +43,7 @@ Foundation
    └── Twist
          └── SignedOrbits (+ GeometrizationConjecture.Exotic4Mfd)
                └── CorkTheorem (+ GeometrizationConjecture.Capstone)
+                     └── HigherTwist (+ Cohomology.Bipartite.Filled3CellCohomology)
 ```
 
 All under namespace `E213.Lib.Math.AkbulutCork.*`.
@@ -60,7 +63,8 @@ research direction:
 
 ## Open work (full close beyond Phase 6)
 
-  · Cork-twist effect on higher cohomology (b_2, b_3 levels —
-    requires `Filled3Cell.lean` extension to 3-cell complexes)
+  · Cork-twist effect on H³ at 3-/4-skeleton extensions
+    (requires `Filled3CellExtension` / `Filled4CellExtension`
+    M_S01 action analysis)
   · Multi-cork structures (corks-of-corks): higher-order Z/2
     actions on the K-deployment
