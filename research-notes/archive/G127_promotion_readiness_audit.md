@@ -1,8 +1,26 @@
 # G127 — Promotion-readiness audit (Geometrization-family marathons)
 
 **Date**: 2026-05-22
-**Status**: audit / tracking document
-**Purpose**: Per `theory/PROMOTION_CRITERIA.md`, a sub-tree promotes
+**Status**: CLOSED — all five tracked marathons promoted.
+
+## Closure summary (post 2026-05-23)
+
+| Marathon | Promotion chapter |
+|---|---|
+| G122 (Real213-p-adic) | `theory/math/padic_real213.md` (308 PURE / 10 modules) |
+| G126 (Akbulut cork)   | `theory/math/exotic_4mfd_cork.md` (44 PURE) |
+| G128 (Geometrization follow-up) | `theory/math/geometrization_conjecture.md` — R1 + R1+ extensions (~149 PURE), Open Frontier section hosts FW-2/FW-4/I-3/8-geo deepenings |
+| G129 (V32Betti parametric) | `theory/math/cohomology/bipartite.md` "Parametric V32Betti" + Open frontier (universal Nat-theorem needs graph-walk infra) |
+| G130 (BracketCauchy ↔ Ricci modulus) | `theory/math/modulus_structure.md` (Option A close); `theory/math/topology.md` cross-reference |
+
+The promotion-blocker registry below is retained as the historical
+record of what *was* blocking; each blocker is now either closed in
+the corresponding chapter, captured in that chapter's Open Frontier
+section, or recorded as below-Validation-Standard side observation.
+
+## Original purpose
+
+Per `theory/PROMOTION_CRITERIA.md`, a sub-tree promotes
 from `research-notes/` to `theory/` chapter only when **all** Hard
 criteria (H1-H4) and Soft criteria (S1-S3) are met.  Partial closes
 fail S1 ("Categorical closure: core meanings all present").
@@ -79,7 +97,7 @@ chapter when blockers close.
 
 ## §3.  G130 (BracketCauchy ↔ IsRicciModulus) — promotion status
 
-**Current state**: `Topology/ModulusStructure.lean` (12 PURE).
+**Current state**: `Topology/ModulusStructure.lean` (16 PURE, 4-way after AlphaEM-zeta extension).
 
 **Target chapter**: probably *absorbed* into
 `theory/math/analysis/cauchy.md` or similar (small enough not to

@@ -11,7 +11,7 @@ import E213.Lib.Math.Topology.Capstone
 # Topology 213 — umbrella
 
 Dyadic-bracket open sets, trivial Heine-Borel, modulus-of-continuity
-(including the 3-way `IsModulusStructure` typeclass bridge across
-Continuity / Ricci / BracketCauchy), finite chain connectedness,
-atomic Euler χ.  See `Topology/INDEX.md`.
+(including the 4-way `IsModulusStructure` typeclass bridge across
+Continuity / Ricci / BracketCauchy / AlphaEM-zeta), finite chain
+connectedness, atomic Euler χ.  See `Topology/INDEX.md`.
 -/
