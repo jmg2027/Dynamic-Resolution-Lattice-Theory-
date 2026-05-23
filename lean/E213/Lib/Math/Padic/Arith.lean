@@ -1493,4 +1493,33 @@ theorem Zp.add_neg_self_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat) :
         ZpSeq.trunc_neg_one_succ p hp' (n + 1)]
   exact E213.Meta.Nat.AddMod213.mod_self _
 
+/-- **Sub-self gives zero**: `a.trunc = b.trunc → (a + (-b)).trunc = 0`. -/
+theorem Zp.sub_eq_zero_of_trunc_eq (p : Nat) (hp : 1 < p) (a b : ZpSeq p) (n : Nat)
+    (h : a.trunc (n + 1) = b.trunc (n + 1)) :
+    (Zp.add p (Nat.lt_of_succ_lt hp) a (Zp.neg p hp b)).trunc (n + 1) = 0 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  rw [Zp.add_trunc p hp' a (Zp.neg p hp b) (n + 1), h,
+      ← Zp.add_trunc p hp' b (Zp.neg p hp b) (n + 1)]
+  exact Zp.add_neg_self_trunc p hp b n
+
+/-- Converse: `(a + (-b)).trunc = 0 → a.trunc = b.trunc`. -/
+theorem Zp.trunc_eq_of_sub_eq_zero (p : Nat) (hp : 1 < p) (a b : ZpSeq p) (n : Nat)
+    (h : (Zp.add p (Nat.lt_of_succ_lt hp) a (Zp.neg p hp b)).trunc (n + 1) = 0) :
+    a.trunc (n + 1) = b.trunc (n + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have h_a_lt : a.trunc (n + 1) < p^(n + 1) := ZpSeq.trunc_lt_p_pow hp' a (n + 1)
+  have h_b_lt : b.trunc (n + 1) < p^(n + 1) := ZpSeq.trunc_lt_p_pow hp' b (n + 1)
+  have step1 : (Zp.add p hp' (Zp.add p hp' a (Zp.neg p hp b)) b).trunc (n + 1)
+              = b.trunc (n + 1) := by
+    rw [Zp.add_trunc p hp' (Zp.add p hp' a (Zp.neg p hp b)) b (n + 1), h, Nat.zero_add]
+    exact Nat.mod_eq_of_lt h_b_lt
+  have step2 : (Zp.add p hp' (Zp.add p hp' a (Zp.neg p hp b)) b).trunc (n + 1)
+              = a.trunc (n + 1) := by
+    rw [← Zp.add_trunc_assoc p hp' a (Zp.neg p hp b) b (n + 1)]
+    rw [Zp.add_trunc p hp' a (Zp.add p hp' (Zp.neg p hp b) b) (n + 1)]
+    rw [Zp.add_comm_trunc hp' (Zp.neg p hp b) b (n + 1)]
+    rw [Zp.add_neg_self_trunc p hp b n, Nat.add_zero]
+    exact Nat.mod_eq_of_lt h_a_lt
+  exact step2.symm.trans step1
+
 end E213.Lib.Math.Padic
