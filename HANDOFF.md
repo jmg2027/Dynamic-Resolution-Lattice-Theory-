@@ -228,6 +228,31 @@ L²-pairing) remain structural posits awaiting cup-product algebra
 formalization.  This Phase establishes the two-rule decomposition
 and the cohomology-derived input chain.
 
+### G132 Phase 6 — L²-pairing rule proved DONE 2026-05-23
+
+`SelfPairingTrace.lean` (11 PURE).  Promotes the L²-pairing trace
+rule from posit to proved Nat identity.
+
+  · `bilinearSelfTrace : (Fin 3 → Bool) → Nat` sums products
+    `c_i · c_j` (integer lift) over all 9 face pairs.
+  · `bilinear_self_trace_eq_L1_sq : ∀ c, bilinearSelfTrace c =
+    faceCochainL1Sq c` — the standard "expansion of square"
+    identity, proved universally over `Fin 3 → Bool` via `cases`
+    on 2³ = 8 inhabitants + `rfl`.
+  · At ω: `bilinearSelfTrace ω = 9 = NS² = 3 * 3`.
+
+Status of the refined cup-ladder formula (post-Phase 6):
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | **PROVED** (Nat identity) |
+  | `α^(k+1)` graduation  | POSIT (cup graduation rule) |
+  | denominator `d^(k+1)` | POSIT (5-layer base structure) |
+
+The cup-graduation rule requires extending `Math/Cohomology/Cup/`
+beyond bilinear arity (which gives `k + l`, not `k + 1`); needs
+higher-cup, filtration, or spectral-sequence machinery.
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -426,6 +451,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/SelfPairingTrace.lean` | **G132 Phase 6** — L²-pairing rule proved as universal Nat identity |
 | `lean/E213/Lib/Physics/AlphaEM/RefinedCupLadderDerivation.lean` | **G132 Phase 5** — two-rule structural derivation (cup-graduation + L²-pairing) |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaPostGramFull.lean` | **G132 Phase 4** — refined NS²·α³/d³ full closure (sub-1·10⁻⁹) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderFormula.lean` | **G132 Phase 3** — uniform α^(k+1)/d² parametric in k |

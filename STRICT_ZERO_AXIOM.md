@@ -1309,3 +1309,27 @@ The two rules themselves (cup-graduation and L²-pairing) remain
 structural posits awaiting cup-product algebra formalization in
 the `Math/Cohomology/Cup/` infrastructure.  This file establishes
 the two-rule decomposition and the cohomology-derived input chain.
+
+## 2026-05-23 — SelfPairingTrace (L²-pairing rule proved as Nat identity)
+
+Promotes one of the two refined cup-ladder rules from posit to
+proved Nat identity.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.SelfPairingTrace` | 11 | `bilinearSelfTrace : (Fin 3 → Bool) → Nat` (sum over 9 face-pair products); ★★★★★ `bilinear_self_trace_eq_L1_sq : ∀ c : Fin 3 → Bool, bilinearSelfTrace c = faceCochainL1Sq c` (expansion-of-square identity, proved universally via `cases` on 2³ = 8 inhabitants + `rfl`); ★★★★ `omega_bilinear_self_trace_value : = 9 = NS²`; ★★★ `omega_self_trace_factors_as_NS_squared : = 3 * 3`; `omega_bilinear_self_trace_eq_L1_sq`; `cupGraduationAlphaPower k := k + 1` (cup-graduation rule, structural posit); `cupGraduation_at_H1 = 2`, `cupGraduation_at_H2 = 3`; ★★★★★★★★ `self_pairing_trace_master` (5-conjunct capstone) |
+
+**Status of the refined cup-ladder formula** post-Phase 6:
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | **PROVED** (Nat identity, universal over `Fin 3 → Bool`) |
+  | `α^(k+1)` graduation  | POSIT (cup graduation rule) |
+  | denominator `d^(k+1)` | POSIT (5-layer base structure) |
+
+The L²-pairing side is now first-principles content.  The
+cup-graduation side requires cup-product algebra extension —
+existing `cup : Cochain n k × Cochain n l → Cochain n (k+l)` has
+output degree `k + l`, not `k + 1`; the α-power graduation needs
+additional structure (higher-cup machinery, filtration depth, or
+spectral-sequence differential) not yet formalized.

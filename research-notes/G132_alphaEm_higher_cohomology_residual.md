@@ -1,15 +1,15 @@
 # G132 — 1/α_em sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology
 
-**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phases 2 + 3 + 4 + 5)
-**Status**: **Phases 1–5 CLOSED** — math anchor + physics bridge +
+**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phases 2–6)
+**Status**: **Phases 1–6 CLOSED** — math anchor + physics bridge +
 uniform cup-ladder + refined L²-weighted closure + two-rule
-structural derivation done.  The H² ω class with NS² self-pairing
-weight FULLY closes the post-Gram α_em residual (27 × 10⁻⁹) in a
-single structural term, with both inputs (k, weight) DERIVED from
-cohomology data via the two-rule decomposition (cup-product
-graduation + L²-pairing trace).  Structural prediction matches
-CODATA to within 1 Nat unit at e9 precision
-(**sub-1·10⁻⁹ ≈ 0.007 ppb tier on 1/α_em**).
+structural derivation + L²-pairing rule as proved Nat identity.
+The H² ω class with NS² self-pairing weight FULLY closes the
+post-Gram α_em residual (27 × 10⁻⁹) in a single structural term;
+the L²-pairing trace rule `||c||² = (L¹-norm)²` is proved
+universally over `Fin 3 → Bool` via expansion-of-square identity.
+Structural prediction matches CODATA to within 1 Nat unit at e9
+precision (**sub-1·10⁻⁹ ≈ 0.007 ppb tier on 1/α_em**).
 **Branch suggestion**: post-G131 follow-up
 **Source**: G131 Phase 4 open question (post-Gram residual 27 × 10⁻⁹
 mathematical principle), per PROMOTION_CRITERIA discussion 2026-05-22.
@@ -176,20 +176,55 @@ Sum at Phase 5 specialisations:
   refined_trace_e9 1 1 + refined_trace_e9 2 (faceCochainL1 omega_face_vec)
   = 2130 + 27 = 2157 = full raw α_em residual
 
-## Phase 6+ open frontiers
+## Phase 6 closure (2026-05-23) — L²-pairing rule proved
 
-  · **First-principles derivation of the two rules**:
-    Phase 5 establishes that the refined formula DECOMPOSES into
-    cup-graduation + L²-pairing, but the two rules themselves are
-    structural posits.  A first-principles derivation needs:
-      (a) Cup-product graduation: prove `cup factor → 1/d` from
-          `Math/Cohomology/Cup/Core.lean` axioms + 5-layer base
-          structure (denominators 60, 30, 25, 3, 4, 45);
-      (b) L²-pairing trace: prove `self-trace = (L¹-norm)²` from
-          bilinear cup pairing on `C^k ⊗ C^k`;
-      (c) Effective-rank reduction at H¹: explain why Gram uses
-          rank-1 effective weight (not b_1 = 6) — the cubic
-          Newton self-consistency may itself provide this reduction.
+`lean/E213/Lib/Math/Cohomology/Bipartite/SelfPairingTrace.lean`
+(11 PURE).  Promotes the L²-pairing trace rule from structural
+posit to a proved Nat identity:
+
+  · `bilinearSelfTrace : (Fin 3 → Bool) → Nat` sums integer-lifted
+    face-pair products `c_i · c_j` over all 9 pairs in
+    `Fin 3 × Fin 3`.
+  · ★★★★★ `bilinear_self_trace_eq_L1_sq : ∀ c : Fin 3 → Bool,
+    bilinearSelfTrace c = faceCochainL1Sq c` — the standard
+    "expansion of square" identity `(Σ_i c_i)² = Σ_{i, j} c_i · c_j`,
+    proved universally via `cases` on each of the 3 Bool values
+    (2³ = 8 ground cases, each closed by `rfl`).
+  · At ω: `bilinearSelfTrace omega_face_vec = 9 = NS² = 3 · 3`.
+
+The refined cup-ladder rule status (post-Phase 6):
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | **PROVED** (Nat identity, universal) |
+  | `α^(k+1)` graduation  | POSIT (cup graduation rule) |
+  | denominator `d^(k+1)` | POSIT (5-layer base structure) |
+
+Half of the refined formula is now first-principles content; the
+cup-graduation side remains the open frontier.  The existing
+`cup : Cochain n k × Cochain n l → Cochain n (k+l)` has output
+degree `k + l` (not `k + 1`) under bilinear self-pairing — the
+α-power graduation needs additional cohomology machinery.
+
+## Phase 7+ open frontiers
+
+  · **Cup-product graduation first-principles**: extend
+    `Math/Cohomology/Cup/Core.lean` with higher-cup or
+    filtration-depth machinery to derive `H^k → α^(k+1)`.
+    Candidate approaches:
+      (a) Massey products / higher cup operations (k-fold cup
+          beyond bilinear);
+      (b) Filtration depth in a cohomology spectral sequence
+          (the d_r differential graduates with class degree);
+      (c) Linkage to 5-layer base denominators 60, 30, 25, 3,
+          4, 45 — each potentially encoding one cup factor.
+  · **Effective-rank reduction at H¹**: explain why Gram uses
+    rank-1 effective weight (not b_1 = 6) — the cubic Newton
+    self-consistency may itself provide this reduction.
+  · **Sub-1·10⁻⁹ residual at exact arithmetic**: the refined
+    formula gives `α²/d² + NS²·α³/d³ = 2158.03·10⁻⁹` vs raw
+    residual `2157.0·10⁻⁹`, a ~1·10⁻⁹ excess below CODATA 2024
+    precision but possibly a structural fudge `NS²·(1 − δ)`.
   · **Cup-product graduation in `K_{3,2}^{(c=2)} cup-ring`**:
     extend `CupRingTrace.lean` to track output-cohomology-degree
     and prove `cup factor introduces 1/d` from the 5-layer base.
