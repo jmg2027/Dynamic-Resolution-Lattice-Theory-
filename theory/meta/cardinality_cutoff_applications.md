@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 249 PURE / 0 DIRTY across nine Lean files in
+Aggregate: 285 PURE / 0 DIRTY across ten Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
@@ -108,11 +108,12 @@ by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 **Open frontier**: outer = ^ case via algebraic prime-factorisation
 argument (137, 521 prime + not in depth-1 → not in depth-2-pow).
 
-## §5 Direction C — Pell and Lucas sequence cut-offs
+## §5 Direction C — Pell, Lucas, Fibonacci sequence cut-offs
 
-Applies the principle to **two non-Aurifeuillean** external
-sequences: Pell numbers (`P_{n+2} = 2P_{n+1} + P_n`) and Lucas
-numbers (`L_{n+2} = L_{n+1} + L_n`).
+Applies the principle to **three non-Aurifeuillean** external
+sequences: Pell (`P_{n+2} = 2P_{n+1} + P_n`), Lucas
+(`L_{n+2} = L_{n+1} + L_n`), and Fibonacci
+(`F_{n+2} = F_{n+1} + F_n`).
 
 ### Pell
 
@@ -168,7 +169,51 @@ same catalogue atom.
 ★ **`Lucas L_13 = Φ_10(5) = 521`** (catalogue handle of
 `N_U + 1 = 5^(5^n) + 1`, n-uniform).
 
-**Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE).
+### Fibonacci
+
+| n | F_n | catalogue role                  |
+|---|----|---------------------------------|
+| 3 | 2  | NT (generator)                  |
+| 4 | 3  | NS (generator)                  |
+| 5 | 5  | d (generator)                   |
+| 7 | 13 | catalogue prime (`= NS² + NT²`) |
+
+★ **Three Hunter generators in a length-3 Fibonacci window**:
+`(F_3, F_4, F_5) = (NT, NS, d) = (2, 3, 5)`.  The entire canonical
+Hunter primitive set appears as three consecutive Fibonacci values.
+This is the structurally tightest catalogue coincidence in the
+applications family.
+
+Cut-off slices:
+  · Depth 1: `n ≥ 19` (boundary `F_18 = 2584, F_19 = 4181`).
+  · Restricted depth 2: `n ≥ 36` (boundary `F_35 = 9 227 465,
+    F_36 = 14 930 352`).
+
+### Catalogue coverage across sequences
+
+| atom | sources                                            |
+|------|----------------------------------------------------|
+| 2    | F_3, L_0                                           |
+| 3    | F_4, L_2                                           |
+| 5    | F_5, P_3                                           |
+| 7    | L_4                                                |
+| 13   | F_7                                                |
+| 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)    |
+| 41   | (none of these sequences)                          |
+| 137  | (none of these sequences)                          |
+| 521  | Aurifeuillean Φ_10(5), Lucas L_13                  |
+
+**Combined coverage**: `{2, 3, 5, 7, 13, 29, 521}` = **7 of 8**
+catalogue atoms reached by some sequence in
+`{Pell, Lucas, Fibonacci, Aurifeuillean}`.
+
+**Unreached atoms**: `{41, 137}`.  Both arise from physics-side
+constants (`41 = α_GUT integer`, `137 = 1/α_em`), suggesting they
+sit outside the "elementary recurrent" reach of small-base-case
+sequences.
+
+**Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
++ `FibonacciCutoff.lean` (36 PURE).
 
 ## §6 Direction E — Hunter complexity measure
 
@@ -242,23 +287,36 @@ the cut-off slice moves with the set.
      the principle's "locate" step instantiated simultaneously
      across three a-priori-unrelated external sequences.
 
-  2. **Lucas–Aurifeuillean coincidence at 521**: Lucas `L_13` hits
+  2. **Fibonacci embeds the entire Hunter primitive set**:
+     `(F_3, F_4, F_5) = (NT, NS, d) = (2, 3, 5)` — three
+     consecutive Fibonacci values are exactly the three Hunter
+     generators.  Tightest possible coincidence between an
+     external sequence and the 213 atomic generator set.
+
+  3. **Lucas–Aurifeuillean coincidence at 521**: Lucas `L_13` hits
      the Aurifeuillean cyclotomic value `Φ_10(5) = 521`, the
      catalogue handle of `N_U + 1`.  Lucas hits the catalogue at
-     5 indices, more than any other external sequence considered.
+     5 indices.
 
-  3. **Catalogue carries an FLT sub-closure**: under mod-p ops,
+  4. **Catalogue coverage is incomplete**: combined hit set across
+     `{Pell, Lucas, Fibonacci, Aurifeuillean}` is `{2, 3, 5, 7, 13,
+     29, 521}` = 7/8 catalogue atoms.  Unreached: `{41, 137}`,
+     both physics-side constants (`α_GUT integer`, `1/α_em`).
+     Elementary recurrent sequences with small base cases do not
+     reach the physics-constant atoms.
+
+  5. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.
      28 pairs.  No general closure beyond this.
 
-  4. **Hunter complexity is honest at 4 levels** for catalogue
+  6. **Hunter complexity is honest at 4 levels** for catalogue
      atoms, with concrete witnesses at each level.  Depth-1
      universe has exactly 16 distinct values.  The unrestricted
      depth-2 outer-pow case for `{137, 521}` is closed via
      small-range decide + large-range monotonicity, promoting
      the depth-3 lower bound from restricted to unrestricted.
 
-  5. **Principle parametric in primitive set**: changing the
+  7. **Principle parametric in primitive set**: changing the
      primitive generators preserves methodology but shifts the
      complexity assignment of catalogue atoms (most dramatically:
      `5` moves from depth 0 to depth 1 when `d` is dropped).
@@ -331,6 +389,8 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
     — Direction C, Pell sequence (35 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/LucasCutoff.lean`
     — Direction C, Lucas sequence + triple coincidence (40 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/FibonacciCutoff.lean`
+    — Direction C, Fibonacci sequence + Hunter-generator window (36 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (39 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
