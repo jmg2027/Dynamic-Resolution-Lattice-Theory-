@@ -708,6 +708,48 @@ theorem Zp.inv_trunc_unique (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
     rw [← h_step3, ← h_step2, h_step1]
   exact (h_target y hy).trans (h_target z hz).symm
 
+/-- **Multiplicative left-cancellation** at trunc level by a unit.
+
+    If `x` is a unit (digit-0 coprime to `p`) and
+    `(x · y).trunc (n+1) = (x · z).trunc (n+1)`, then
+    `y.trunc (n+1) = z.trunc (n+1)`.
+
+    Proof: multiply both sides by `invFull x` on the left.  The
+    chain `y.trunc = (inv·(x·y)).trunc = (inv·(x·z)).trunc = z.trunc`
+    holds by `mul_trunc_assoc` + `mul_trunc_comm` + `mul_invFull_correct`. -/
+theorem Zp.mul_left_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat)
+    (h : (Zp.mul p (Nat.lt_of_succ_lt hp) x y).trunc (n + 1)
+       = (Zp.mul p (Nat.lt_of_succ_lt hp) x z).trunc (n + 1)) :
+    y.trunc (n + 1) = z.trunc (n + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  let inv := Zp.invFull p hp' x h_gcd
+  have h_inv_x : (Zp.mul p hp' inv x).trunc (n + 1) = 1 := by
+    rw [Zp.mul_trunc_comm p hp' inv x (n + 1)]
+    exact Zp.mul_invFull_correct p hp x h_gcd n
+  -- w.trunc = ((inv · x) · w).trunc = (inv · (x · w)).trunc.
+  have h_chain : ∀ w, w.trunc (n + 1)
+                = (Zp.mul p hp' inv (Zp.mul p hp' x w)).trunc (n + 1) := by
+    intro w
+    have h_wlt : w.trunc (n + 1) < p^(n + 1) :=
+      ZpSeq.trunc_lt_p_pow hp' w (n + 1)
+    have h1 : (Zp.mul p hp' (Zp.mul p hp' inv x) w).trunc (n + 1)
+            = w.trunc (n + 1) := by
+      rw [Zp.mul_trunc p hp' (Zp.mul p hp' inv x) w (n + 1), h_inv_x, Nat.one_mul]
+      exact Nat.mod_eq_of_lt h_wlt
+    rw [← h1]
+    exact (Zp.mul_trunc_assoc p hp' inv x w (n + 1)).symm
+  -- Apply to y and z.
+  have h_y := h_chain y
+  have h_z := h_chain z
+  -- (inv · (x · y)).trunc = (inv · (x · z)).trunc using h.
+  have h_eq : (Zp.mul p hp' inv (Zp.mul p hp' x y)).trunc (n + 1)
+            = (Zp.mul p hp' inv (Zp.mul p hp' x z)).trunc (n + 1) := by
+    rw [Zp.mul_trunc p hp' inv (Zp.mul p hp' x y) (n + 1),
+        Zp.mul_trunc p hp' inv (Zp.mul p hp' x z) (n + 1), h]
+  rw [h_y, h_eq, ← h_z]
+
 /-! ## Hensel for square root — base data
 
 Square-root extraction in `ZpSeq` follows the same Hensel-lift
