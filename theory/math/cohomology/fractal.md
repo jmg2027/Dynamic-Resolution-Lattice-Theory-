@@ -394,6 +394,11 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     `(5, 11)` (★ constant `1` from `n = 1` via fixed-point
     absorption); the universal `∃ T n₀, ∀ n ≥ n₀, …` form is a
     small additive marathon (pigeonhole on `d^n % (p-1)`).
+    The sister Padovan Pisano-analogue closure is shipped:
+    `Pad_mod_2_period_7` (∀ n, Pad (n+7) % 2 = Pad n % 2) at
+    `PadovanModular.lean` — parametric period-7 by 3-step nested
+    induction, with decide-checked spot-checks at periods 13
+    (mod 3) and 24 (mod 5).
   · **Combinatorial-identity Lean witness**: the truth-table
     reading `configCountD d n = | [d]^n → [d] |` is currently
     a docstring identity.  A `Fintype.card`-style Lean theorem
