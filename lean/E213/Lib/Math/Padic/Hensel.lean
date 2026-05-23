@@ -750,6 +750,41 @@ theorem Zp.mul_left_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
         Zp.mul_trunc p hp' inv (Zp.mul p hp' x z) (n + 1), h]
   rw [h_y, h_eq, ← h_z]
 
+/-- **Multiplicative right-cancellation** at trunc level by a unit.
+    Symmetric to `mul_left_cancel_trunc` via `mul_trunc_comm`. -/
+theorem Zp.mul_right_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat)
+    (h : (Zp.mul p (Nat.lt_of_succ_lt hp) y x).trunc (n + 1)
+       = (Zp.mul p (Nat.lt_of_succ_lt hp) z x).trunc (n + 1)) :
+    y.trunc (n + 1) = z.trunc (n + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  apply Zp.mul_left_cancel_trunc p hp x y z h_gcd n
+  rw [Zp.mul_trunc_comm p hp' x y (n + 1),
+      Zp.mul_trunc_comm p hp' x z (n + 1)]
+  exact h
+
+/-- **Unit-mul-zero**: if `x` is a unit and `(x · v).trunc (n+1) = 0`,
+    then `v.trunc (n+1) = 0`.  Special case of left-cancel with z = 0. -/
+theorem Zp.mul_eq_zero_of_unit_left (p : Nat) (hp : 1 < p) (x v : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat)
+    (h : (Zp.mul p (Nat.lt_of_succ_lt hp) x v).trunc (n + 1) = 0) :
+    v.trunc (n + 1) = 0 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  -- Apply mul_left_cancel with z = ZpSeq.zero.
+  have h_xz : (Zp.mul p hp' x (ZpSeq.zero p hp')).trunc (n + 1) = 0 := by
+    rw [Zp.mul_trunc p hp' x (ZpSeq.zero p hp') (n + 1)]
+    rw [show (ZpSeq.zero p hp').trunc (n + 1) = 0 from ZpSeq.trunc_zero p hp' (n + 1)]
+    rw [Nat.mul_zero]
+    exact E213.Tactic.NatHelper.zero_mod _
+  have h_eq : (Zp.mul p hp' x v).trunc (n + 1)
+            = (Zp.mul p hp' x (ZpSeq.zero p hp')).trunc (n + 1) := by
+    rw [h, h_xz]
+  have := Zp.mul_left_cancel_trunc p hp x v (ZpSeq.zero p hp') h_gcd n h_eq
+  rw [this]
+  exact ZpSeq.trunc_zero p hp' (n + 1)
+
 /-! ## Hensel for square root — base data
 
 Square-root extraction in `ZpSeq` follows the same Hensel-lift
