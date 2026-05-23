@@ -434,6 +434,47 @@ Adem + Cartan + ladder + boundary identifications all proved.
 Total G132 campaign: **17 files / ~209 PURE / 0 DIRTY**.
 α_em precision-theorem at 0.007 ppb tier.
 
+### G132 Phase 18 — 4-skeleton extension DONE 2026-05-23
+
+`Filled4CellExtension.lean` (10 PURE).  Extends 3-skeleton to
+4-skeleton via single 4-cell σ⁴ with attaching boundary [σ³].
+Computes δ³; proves H³ = 0 at 4-skeleton.
+
+Truncation-collapse pattern continues:
+  · 2-skeleton: H² = 1 (ω), H³ = 0
+  · 3-skeleton: H² = 0, H³ = 1 (σ³)
+  · 4-skeleton: H² = 0, H³ = 0, H⁴ = 1 (σ⁴)
+
+Each (k+1)-skeleton extension trivialises the previous H^k
+contribution.  Physical α_em residual lives at 2-skeleton:
+H¹ (Gram) + H² ω (α³ contribution).
+
+Total G132 campaign: **18 files / ~219 PURE / 0 DIRTY**.
+
+### G132 Phase 19 — Max α-power bound = top dim + 1 DONE 2026-05-23
+
+`MaxAlphaPowerBound.lean` (12 PURE).  Structural ceiling for the
+cup-axiom-internal `(k+1)` derivation:
+
+  max α-power at K_{3,2}^{(c=2)} truncation = top dim + 1
+
+  · 2-skeleton (top 2): max = 3 ★ (physical, H² ω)
+  · 3-skeleton (top 3): max = 4 (sub-CODATA noise)
+  · 4-skeleton (top 4): max = 5 (sub-CODATA noise)
+
+`alpha_power_eq_max_at_top_dim : ∀ n, alphaPowerAtH n = maxAlphaPowerAtTopDim n`.
+
+PHYSICAL ceiling at 2-skeleton: max α-power = 3 = H² ω
+contribution NS²·α³/d³ = 27 × 10⁻⁹.  Higher α-powers
+structurally unsupported.
+
+The marathon at K_{3,2}^{(c=2)} 2-skeleton is now structurally
+complete with max α-power = 3.  Extension to higher α-powers
+requires DIFFERENT cohomology complexes — multi-session
+application-dependent work.
+
+Total G132 campaign: **19 files / ~231 PURE / 0 DIRTY**.
+
 Status of (k+1) derivation (post-Phases 10-13):
 
   | Component | Status |
@@ -650,6 +691,8 @@ Next-direction roadmap: `research-notes/G123_padic_next_directions.md`.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/MaxAlphaPowerBound.lean` | **G132 Phase 19** — max α-power = top dim + 1 (structural ceiling) |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/Filled4CellExtension.lean` | **G132 Phase 18** — 4-skeleton extension (H³ trivialises) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/AdemUniversal.lean` | **G132 Phase 17** — Universal Adem at truncation (all relations vacuous) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/CartanAtTruncation.lean` | **G132 Phase 16** — Cartan formula at C⁵ truncation (vacuous) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderUniversalK.lean` | **G132 Phase 15** — universal-k three-reading equivalence (∀ k ≥ 1) |

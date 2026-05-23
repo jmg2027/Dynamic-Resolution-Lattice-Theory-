@@ -179,6 +179,8 @@ of independent gluon channels."*
 | `cup_ladder_universal_k_master` | `AlphaEM/CupLadderUniversalK` | Universal-k arithmetic: ∀ k ≥ 1, all three readings give k+1 |
 | `cartan_at_truncation_master` | `Bipartite/CartanAtTruncation` | Cartan formula at C⁵ truncation (both sides vacuously zero) |
 | `adem_universal_master` | `Bipartite/AdemUniversal` | Universal Adem at truncation: ALL Sq^a·Sq^b relations vacuous beyond C³ |
+| `filled4cell_extension_master` | `Bipartite/Filled4CellExtension` | 4-skeleton extension via σ⁴; δ³; H³ = 0 at 4-skeleton (truncation collapse) |
+| `max_alpha_power_bound_master` | `AlphaEM/MaxAlphaPowerBound` | Max α-power = top dim + 1; physical 2-skeleton ceiling = 3 (matches H² ω) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -320,7 +322,7 @@ Cup-product algebra extension to higher cup operations (cup_i,
 Steenrod squares), Massey products, or spectral-sequence
 differentials is the open frontier.
 
-#### Files (Step 6 closure, 17 files, 209 PURE total)
+#### Files (Step 6 closure, 19 files, 231 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -366,6 +368,12 @@ differentials is the open frontier.
     — universal Adem at truncation; EVERY Adem relation Sq^a·Sq^b
     vacuous beyond C³ (Sq¹·Sq¹ at C⁴, Sq²·Sq² = Sq³·Sq¹ at C⁶,
     Sq³·Sq² = Sq⁴·Sq¹ + Sq⁵ at C⁷, universal ∀ k)
+  · `Math/Cohomology/Bipartite/Filled4CellExtension.lean` (10 PURE)
+    — 4-skeleton extension via single 4-cell σ⁴; δ³ coboundary;
+    H³ = 0 at 4-skeleton (truncation-collapse continues)
+  · `Physics/AlphaEM/MaxAlphaPowerBound.lean` (12 PURE)
+    — max α-power = top dim + 1 (structural ceiling); physical
+    2-skeleton ceiling = 3 (matches H² ω contribution)
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
