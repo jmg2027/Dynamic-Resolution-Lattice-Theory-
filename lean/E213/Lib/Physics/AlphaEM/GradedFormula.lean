@@ -8,7 +8,7 @@ import E213.Lib.Physics.AlphaEM.Bare
 Step 1 of conjecture C1 (Pure Cup-Ring α_em) per
 `research-notes/
 
-**Honest correction (this session)**: the 4-layer formula in
+**Honest correction **: the 4-layer formula in
 `` was numerically incomplete — it missed the `α_GUT/(NS+1)`
 Dyson tail layer (≈ 6 × 10⁻³ contribution).  The CORRECT graded
 decomposition has FIVE layers:

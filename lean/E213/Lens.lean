@@ -94,10 +94,6 @@ import E213.Lens.Universal
 
   ## Status
 
-  Post-M14 deferred-cluster repair complete: all formerly-deferred
-  10 files (CompoundBool, NegSq, ParityXorIncomparable,
-  ParityXorJoin, RawAChar, BoolSqClassification, SlashCharNotFold,
-  ABRefines, Leaf, ParityCollapseFalse) restored.  `Diagonal.lean`
-  added to host the Collapse/Idempotent classification predicates
-  (formerly in deleted `Math.Diagonal.Classification`).
+  All cluster files build clean.  `Diagonal.lean` hosts the
+  Collapse / Idempotent classification predicates.
 -/

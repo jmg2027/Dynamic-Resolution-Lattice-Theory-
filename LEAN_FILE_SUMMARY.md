@@ -1,38 +1,8 @@
 # Lean Directory File Summary
 
-생성일: 2026-05-14
-브랜치: `claude/summarize-lean-files-1Y45v`
-대상: `lean/` 디렉토리 아래 모든 파일 (1128 .lean + 109 .md + config 등 = 1241 파일)
+대상: `lean/` 디렉토리 아래 모든 파일 (1128 .lean + 109 .md + config 등 = 1241 파일).
 
 각 파일을 읽으면서, 그 내용을 왜곡 없이 요약적으로 기록한다.  코드를 복사하지 않고, 주요 선언(정의/정리/구조)과 의도, 의존 관계만 간결히 적는다.
-
-작업 단위: cluster 단위로 Explore sub-agent 가 파일 전체를 read 하고 detailed entry 를 반환, 메인이 append.
-
-**Post-snapshot deltas (2026-05-18, branch
-`claude/review-lens-emergence-path-ZtS3A`)**.  The following
-entries are updated below to reflect the Option C refactor;
-additionally new files are appended at the end (see
-"## Section ZZ — Post-Option-C additions"):
-
-  - `Theory/Raw/FoldRaw.lean` → renamed to `Endomorphic.lean`
-  - `Lens/Number/Nat213/Bridge.lean` — slimmed (Raw-arithmetic
-    homomorphism + `leavesCountRaw` machinery removed; value-level
-    homomorphism added)
-  - `Lens/Number/Nat213/Raw.lean` — slimmed (Raw-arithmetic +
-    `leavesCountRaw` deleted; `zero` renamed to `one`)
-  - `Lens/Number/Nat213/Peano.lean` — gained `toNat_add`, `toNat_mul`
-  - `Lens/Number/Nat213/NumberingSystem.lean` — `FoldRaw` →
-    `Endomorphic` import rename + English translation
-  - `Lens/Number/Nat213/RawCut.lean` — English translation
-  - `Lens/Bool213/Raw.lean` — comment refs to deleted Nat213
-    `leavesCountRaw` removed
-  - `Lib/Math/Real213/Cauchy/ChainToCut.lean` — migrated to
-    Peano-arithmetic homomorphism
-
-New files added in the same branch (listed at the end):
-`Lens/Number/Nat213/{Chain, ChartGeneral, Core}.lean`,
-`Theory/Raw/{Congruence, ParenthesizationDistinct}.lean`,
-`Lens/{Congruence, SyntacticInternalization}.lean`.
 
 ---
 

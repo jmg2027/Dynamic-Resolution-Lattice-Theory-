@@ -3,7 +3,7 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
 /-!
 # π⁵ structural-gap candidate: 1/(NS · NT · π⁵)
 
-User insight (this session): the structural gap of ~5.4×10⁻⁴ between
+User insight: the structural gap of ~5.4×10⁻⁴ between
 the 5-term baseline `60·ζ(2) + 30 + 25/3 + α_GUT/(NS+1)` ≈ 137.0354548
 and observed 1/α_em(0) = 137.0359991 may be filled by
 

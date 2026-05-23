@@ -112,6 +112,7 @@ Active top-level registries after merge:
 | `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog | tracking / audit document |
 | `G128_affine_plane_K25.md` | Finite-field affine-plane reading of `K_25` at the `(d, n) = (5, 2)` slice | open cross-field direction |
 | `G137_post_g134_merge_synthesis.md` | Cross-corpus patterns from G134 cardinality cut-off merge (3 patterns + 4 new questions) | synthesis note |
+| `G138_post_merge_corpus_synthesis.md` | Whole-corpus synthesis at 103 chapters (6 patterns: modulus functor, Sym(3) spine, cut-off meta-methodology, Clause-4 recursion, Int.NonNeg bypass, multiplicity doctrine) | synthesis note |
 | `archive/G126_akbulut_cork_213_native.md` | Akbulut cork — promoted to `theory/math/exotic_4mfd_cork.md` |
 | `archive/G128_geometrization_open_followups.md` | G121 post-R1 follow-ups — substantive deepenings absorbed into `theory/math/geometrization_conjecture.md` Open Frontier |
 | `archive/G129_v32betti_parametric_generalization.md` | V32Betti parametric — absorbed into `theory/math/cohomology/bipartite.md` "Parametric V32Betti" + Open Frontier |

@@ -42,7 +42,7 @@ representation.
 ## Total achievement
 
   · 12 new Lean files
-  · **172 new PURE theorems** (this session)
+  · **172 new PURE theorems** 
   · **0 DIRTY axioms introduced**
   · Full repo `lake build` clean
   · End-to-end **structural derivation** of the QCD gluon octet

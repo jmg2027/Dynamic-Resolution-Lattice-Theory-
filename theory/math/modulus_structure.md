@@ -1,9 +1,6 @@
 # Modulus Structure — 3-way framework
 
 **Status**: Option-A close (1 file, 12 PURE).
-**Promoted from research-notes**: 2026-05-23.
-
-Pattern 1 — typeclass-bridge framework → chapter + archive.
 
 ## Overview
 
@@ -61,8 +58,7 @@ the only computational content.
 
   · `theory/math/topology.md` — host area; modulus structure
     is one of the analysis-topology bridges.
-  · `theory/math/modulus.md` — ε-δ modulus combinators
-    (Pattern 1 sibling, also Tier-3 promoted).
+  · `theory/math/modulus.md` — ε-δ modulus combinators (sibling chapter).
   · `theory/math/cauchy.md` — Cauchy-sequence machinery
     (uses bracket-length L parametrisation).
   · `theory/math/geometrization_conjecture.md` — Ricci flow

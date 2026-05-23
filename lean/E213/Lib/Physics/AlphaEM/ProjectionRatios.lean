@@ -17,7 +17,7 @@ information not visible at either side alone:
   · 4 of Δ⁴'s edges (3 SS + 1 TT) have NO K pre-image
   · cohomology state-space contracts 2^12 → 2^6 = 64-fold
 
-User insight (this session): these projection ratios may be the
+User insight: these projection ratios may be the
 geometric origin of 1/α_em integer coefficients (60, 30, 25/3,
 …) that currently look like pattern-matched factors of NS, NT,
 c, d.

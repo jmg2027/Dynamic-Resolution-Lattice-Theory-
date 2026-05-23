@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
 /-!
 # Output-grade decomposition of 785 cross-terms on H*(Δ⁴)
 
-User insight (this session): the 785 ordered (basis_α, basis_β)
+User insight: the 785 ordered (basis_α, basis_β)
 cup cross-pairs over Δ⁴ partition into **5 grade-isolated layers**
 based on cup output grade `i+j`:
 

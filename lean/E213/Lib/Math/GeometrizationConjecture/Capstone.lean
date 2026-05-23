@@ -11,7 +11,7 @@ import E213.Lib.Math.GeometrizationConjecture.StructuralMapping
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §X — d=4 information richness + future-work registry (R1 step 25 — FINAL CLOSE)
+/-! ## §X — d=4 information richness + future-work registry (R1 close)
 
 **User insight **:
 
@@ -87,7 +87,7 @@ theorem dim4_information_richness :
 
 /-! ## §FW — Future-work registry for G122+ marathons (R1 step 25)
 
-R1 reaches CLOSE at 147 PURE.  The following items are
+R1 close at 147 PURE.  The following items are
 explicitly OUT OF SCOPE for R1 but recorded as launch
 candidates for future marathons:
 

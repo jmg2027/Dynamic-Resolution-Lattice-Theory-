@@ -93,33 +93,30 @@ def EscapeCandidate.fits : EscapeCandidate → Bool
     DepAggregate + ArityNCohabit additions, this list is empty. -/
 def underSpanCandidates : EscapeCandidate → Bool := fun _ => false
 
-/-! ## Final verdict (post-closure)
+/-! ## Final verdict
 
-After adding `DepAggregate` and `ArityNCohabit` to PatternCatalog,
-the escape categories that previously forced under-span are closed.
-Updated three-granularity reading:
+With `DepAggregate` and `ArityNCohabit` in the catalog, the escape
+categories are closed.  Three-granularity reading:
 
   · GAME LEVEL  : exactSpan — every named game has ≥1 instance.
   · CELL LEVEL  : overSpan  — many cross-cells still unpopulated.
-  · ESCAPE      : exactSpan — no remaining under-span categories.
+  · ESCAPE      : exactSpan — no under-span categories.
 
-The composite verdict can now upgrade to **exactSpan** modulo
-cell-level over-allocation.  Reading "exactSpan" honestly: every
-codebase shape we have considered fits in some catalog cell, AND
-every catalog game type has at least one concrete witness.  The
-unpopulated cross-cells are Cartesian artefacts — game × statement-
-shape combinations that the codebase simply doesn't use, NOT
-catalog gaps. -/
+Composite verdict: **exactSpan** modulo cell-level over-allocation.
+Reading "exactSpan" honestly: every codebase shape we have
+considered fits in some catalog cell, AND every catalog game type
+has at least one concrete witness.  The unpopulated cross-cells
+are Cartesian artefacts — game × statement-shape combinations the
+codebase simply doesn't use, not catalog gaps. -/
 
 def finalVerdict : SpanResult := .exactSpan
-  -- Reasoning: Game-level was already exact.  Escape categories
-  -- closed by DepAggregate + ArityNCohabit.  Cell-level over-span
-  -- is a Cartesian-product artefact, not a coverage failure.
+  -- Game-level exact; escape categories closed by DepAggregate +
+  -- ArityNCohabit; cell-level over-span is a Cartesian-product
+  -- artefact, not a coverage failure.
 
-/-- The under-span gap from prior verdict is now closed.  This list
-    used to contain depAggregate + nAryCohabit; both are now in the
-    catalog.  Future under-span candidates would surface from new
-    codebase patterns not yet examined. -/
+/-- Catalog extensions covering the escape categories.  New
+    catalog candidates may surface from codebase patterns not yet
+    examined. -/
 def closedExtensions : List String :=
   ["DepAggregate (W : Nat → Type) — heterogeneous-witness bundles ✓",
    "ArityNCohabit Base α — n-way base-shared Lens cohabitation ✓"]

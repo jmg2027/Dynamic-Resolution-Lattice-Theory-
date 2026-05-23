@@ -18,7 +18,7 @@ import E213.Meta.Tactic.VerifyConjugation
   Meta layer tactics — Lean 4 와의 bridge.  Ring-independent
   per `ARCHITECTURE.md`.  Two families coexist:
 
-  ## A. 213-native arithmetic tactics (formerly Term/Tactic/)
+  ## A. 213-native arithmetic tactics
 
   213-native replacements for Lean's `omega` / `simp` that bring
   zero hidden axioms.  Consumed by every ring above.
@@ -36,8 +36,9 @@ import E213.Meta.Tactic.VerifyConjugation
                      polynomial-identity goals
     * `Test/QuadNormTest` — `quad_norm` regression tests
 
-  Namespace is `E213.Tactic.*` (legacy bare-Tactic namespace —
-  path-namespace mismatch retained for compatibility).
+  Namespace is `E213.Tactic.*` — the short prefix is intentional
+  for downstream use-sites (`omega213`, `nat_helper`, etc.) so the
+  tactic names stay terse at proof-call sites.
 
   ## B. Codomain-typeclass meta-tactics
 

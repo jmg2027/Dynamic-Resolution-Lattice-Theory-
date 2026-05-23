@@ -94,7 +94,6 @@ Top-level Lean theorem index: `CAPSTONE_INDEX.md`.
 Strict-zero-axiom achievements: `STRICT_ZERO_AXIOM.md`.
 Current session state: `HANDOFF.md`.
 Agent guardrails: `LESSONS_LEARNED.md`.
-Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
 
 **Quantitative-architecture entry**:
   · `research-notes/G101_metascan_synthesis.md` — 6-scanner unified

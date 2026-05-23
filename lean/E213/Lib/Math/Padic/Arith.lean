@@ -778,7 +778,7 @@ is structurally direct: at level 1, every term reduces to the
 zeroth digit, and the carry is identically zero.  This is the
 foothold for the general `mul_trunc` theorem (analog of
 `Zp.add_trunc`), which requires more elaborate convolution
-bookkeeping and is left for the next session.
+bookkeeping and is deferred.
 -/
 
 /-- Multiplicative truncation correctness at `n = 1`:

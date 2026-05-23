@@ -41,8 +41,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
     Each is a `ConjugationCodomain` instance witnessing that the
     three-tier codomain spec (`CommBinaryCodomain` + `NonVanishing`
-    + `Conjugation`, formerly the "R1–R4" axiom set in the
-    deprecated R1–R5 frame) does NOT pin the codomain to ℂ.
+    + `Conjugation`) does NOT pin the codomain to ℂ.
 
   ## CD tower (structural drop ladder)
 
@@ -74,10 +73,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
   ## Status
 
-  All ~49 files build clean.  deferred-cluster repair: the 9 formerly-deferred files
-  (`CDTower`, `CayleyHeavy`, `LipschitzHeavy`, `LipschitzLens`,
-  `PathionHeavy`, `R5Vacuity`, `SedenionHeavy`,
-  `TrigintaduoionionHeavy`, `ZSqrtProduct`) all build.
+  All ~49 files build clean.
 
   Recent compression:
 

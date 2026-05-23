@@ -84,7 +84,7 @@ theorem sumTo_congr :
 /-! ## binomSum: Σ-form of (a + 1)^n
 
 The binomial theorem `(a+1)^n = binomSum a n` is the multi-step
-deliverable for the next session.  This Part 17 commits the
+deferred.  This file commits the
 infrastructure (helpers + def + zero case + smokes).
 -/
 

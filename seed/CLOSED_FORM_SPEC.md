@@ -15,7 +15,7 @@ See also:
     layout)
   - `lean/E213/Lib/Math/Real213/ChainToCut.lean` (bridge)
 
-## 3-domain meta-pattern (post-Option-C, 2026-05-18)
+## 3-domain meta-pattern
 
 Each domain carries a projection of the same shape:
 
@@ -36,10 +36,8 @@ Lean locations:
   - `lean/E213/Lens/Number/Nat213/RawCut.lean`
   - `lean/E213/Lib/Math/Analysis/CauchyProj.lean`
 
-**Note on the former Nat213 row** (`leavesCountRaw` / `IsChain`):
-The Option C refactor (commit `9efd8263`, 2026-05-18) removed the
-Raw-side projection `leavesCountRaw` together with all Raw-side
-arithmetic on `Nat213`.  ℕ₊ is now the *image* of
+**Note on the Nat213 row** (`leavesCountRaw` / `IsChain`):
+The Raw-side projection `leavesCountRaw` is absent.  ℕ₊ is the *image* of
 `Lens.leaves.view : Raw → Nat`, a *projection to Nat*, not a
 Raw-internal projection.  Conceptually this is the same
 `projection r ∈ image` shape, but the codomain has moved from Raw
@@ -136,7 +134,7 @@ refactor via `eqPW`.
     — a candidate 4th domain.
   - Cauchy sequence-level `cutSum` / `cutMul` bridge.
   - DRLT physics theorems → ∅-axiom (currently 19 sealed → 0).
-  - ~~L3 syntactic internalisation~~ — **closed 2026-05-18** in
+  - L3 syntactic internalisation lives in
     `Lens.SyntacticInternalization`.  Polish-prefix parser/printer
     with full bijection: forward (`parseTree_printTree`), reverse
     (`printTree_parseTree`), and injectivity (`printTree_injective`).
@@ -263,18 +261,3 @@ This is the formal realisation of 213's ∅-axiom thesis —
 composable, mechanically audited (`#print axioms` verified),
 reusable.
 
-## Change log
-
-  - **2026-05-18 (Option C refactor)**: Nat213 row removed from the
-    4-domain pattern table.  Path references updated from
-    `Theory/Closed/*` to `Lens/Number/Nat213/*` and `Lens/Bool213/*`
-    (post-2026-05-14 migration).  Document language uniformised
-    to English.  Trick set extended with #10–#11.
-  - **2026-05-18 (L3 + L4 syntactic internalisation closure)**:
-    `Lens.SyntacticInternalization` reached full bijection:
-    `parseTree_printTree` (forward, 21 PURE symbols) extended with
-    `parseHelper_sound` + `printTree_parseTree` + `printTree_injective`
-    + `printRaw_parseTree` (4 PURE symbols, +138 lines).
-    `chartChain_value_injective` + `chartChain_injective` added to
-    `ChartGeneral` (uses 213-native `add_left_cancel` +
-    `mul_left_cancel_pos` to dodge propext-tainted core).

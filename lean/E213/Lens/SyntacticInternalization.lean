@@ -13,7 +13,7 @@ Per `seed/AXIOM/06_lens_readings.md` §6.4 and
   - **L3**: Polish-prefix printer + fuel-bounded parser + the
     universal round-trip theorem
     `∀ t, parseTree (printTree t) = some t`.
-  - **L4 (this session,)**: reverse direction —
+  - **L4 **: reverse direction —
     `parseTree gs = some t → printTree t = gs` (lossless parser)
     + `printTree` injectivity.  Together with L3 these close the
     full bijection between `Tree` and `Range(printTree)`.

@@ -225,8 +225,6 @@ scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
 After batch 1-10 fixes (27 theorems converted): **2519 PURE / 137
 DIRTY / 0 sealed**.
 
-Marathon progress this session: **27/164 (16.5%)**.
-
 **2026-05-10 (continuation, Lens equality refactor / G83 marathon)**:
 Continuation of marathon under "Lens equality 재정의 strategy"
 directive.  Phase 1 + Phase 2 complete with eqPW infrastructure:
@@ -704,8 +702,6 @@ verified `#print axioms` returns "does not depend on any axioms".
 | `E213.Lib.Physics.Capstones.NSNTPi5Block` | 1 | `ns_nt_pi5_block_capstone` — 10-conjunct cross-observable bridge linking m_p/m_e and 1/α_em(IR) gap as two readings of the same NS·NT·π⁵ skeleton (atomic anchors + shared block + both precision brackets in one statement) |
 | `E213.Lib.Physics.AlphaEM.PiFiveGap` | +2 (17 → 19) | `pi5_residual_thirteen_bracket`, `pi5_ns_nt_block` — strict bracket forms of the precision claim |
 
-**Cumulative new PURE from this session, post-reduction: ~55** (raw count is lower since session-12 reductions collapsed enumerations into single bundles).  All audit-verified.
-
 ## 2026-05-22 — Cup-Leibniz general transfer + 6-theorem + alive closure
 
 ### ∀(n, k) kSubset bijection + ∀(n, k, l) Fin-bridge
@@ -742,8 +738,6 @@ verified `#print axioms` returns "does not depend on any axioms".
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Math.Mobius213ModFive` | 9 | `P5_11/12/22_mod_5`, **`P_pow_5_eq_neg_I_mod_5`**, **`P_pow_10_eq_I_mod_5`**, `pentagonal_closure_signature` — consolidates G78's headline matrix-level claims |
-
-**Cumulative new PURE this session: ~68** across 8 new files + 3 doc updates.  All audit-verified.
 
 ## 2026-05-22 — C3 chain Phase 1: Aut(K) as Type
 
@@ -811,8 +805,6 @@ the full Sym(3) Cayley structure at the H1K 8×8 matrix level.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3OnH1KCayley` | 14 | **`M_S12`** — pure permutation matrix on H1K: identity on {e_0, e_1}, three transpositions (e_2 e_5)(e_3 e_6)(e_4 e_7); `M_S12_squared_pointwise` involution at matrix level; `boolTrace M_S12 = false`, `intTrace M_S12 = 2`; **`M_ρ := M_S12 · M_S01`** 3-cycle representation matrix; **`M_ρ_cubed_pointwise`** — full 64-entry decide on `(M_ρ)³ = I`; `boolTrace M_ρ = true`, `intTrace M_ρ = 1`; **`M_S02 := M_S01 · M_S12 · M_S01`** derived transposition matrix; `M_S02_squared_pointwise` involution; **Cayley relations** `cayley_σ_S01_sq`, `cayley_σ_S12_sq`, `cayley_ρ_cubed` realising the standard Sym(3) presentation ⟨s, t \| s² = t² = (st)³ = e⟩; **`★ Sym3OnH1KCayley_phase6_capstone`** — 10-conjunct Phase-6 capstone with conjugate-trace-agreement diagnostic (bool-trace conjugacy invariant: σ_S01, σ_S12 transpositions both → 0; σ_ρ 3-cycle → 1) |
 
-**Cumulative new PURE this session: +100** (16 Phase 1 + 25 Phase 2 + 22 Phase 3 + 16 Phase 4 + 7 Phase 5 + 14 Phase 6 of C3 chain).
-
 ## 2026-05-22 — C3 chain Phase 7: ι: K → Δ⁴ + gluon octet identification
 
 Phase 7 of the **C3 chain** — the inclusion `ι: K_{3,2}^{(c=2)} → Δ⁴`,
@@ -823,8 +815,6 @@ descent `ι*: H¹(Δ⁴) → H¹(K)`, and the **gluon octet identification**
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.IotaKToDelta4` | 10 | **`ι_edge : Fin 12 → Fin 10`** collapsing both multiplicities of each S-T pair to the underlying colex-indexed Δ⁴ edge (6-way pairing 2k ↔ 2k+1); `ι_edge_collapses_multiplicities`; `ι_edge_image_complement` — image omits {0, 1, 2, 9} (3 S-S edges + 1 T-T edge); cochain pullback **`ι_pullback : Cochain 5 2 → CochE`**; `ι_pullback_all_true`, `ι_pullback_edge3` sanity; **`★ kerSize_delta_5_2 = 16`** — direct 1024-case decide enumeration of `Cochain 5 2` (with `maxRecDepth 2048`) establishing `H¹(Δ⁴) = 0` (16 cocycles = 16 coboundaries since `\|im δ⁰\| = 2^(5-1) = 16`); `H1_delta4_trivial_card` 4-conjunct cardinality bridge; `ι_star_zero_on_zero` — ι* of zero is zero; `cardH1K_eq_256` cross-link to V32Betti; **`★ gluon_octet_identification`** — 5-conjunct bridge `\|coker ι*\| = \|H¹(K)\| / \|im ι*\| = 256 / 1 = 2^8`; **`★ IotaKToDelta4_phase7_capstone`** — 12-conjunct Phase-7 capstone bundling embedding + image + H¹(Δ⁴) = 0 + ι* = 0 + gluon octet identification |
-
-**Cumulative new PURE this session: +110** (16 + 25 + 22 + 16 + 7 + 14 + 10 across 7 phases of C3 chain).
 
 ## 2026-05-22 — C3 chain Phase 8: Sym(3)-equivariance of ι
 
@@ -839,8 +829,6 @@ to the full SU(3) adjoint structure on the QCD octet.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.IotaSym3Equivariance` | 7 | **`σ_E_Δ4_swap_12`** — Δ⁴-edge permutation for the S1↔S2 (vertex 1↔2) generator with cycle structure (0 1)(4 5)(7 8) + fixed {2, 3, 6, 9}; `σ_E_Δ4_swap_12_involution`; **`★ ι_equivariance_S01`** — edge-level commutation `ι_edge ∘ σ_S01 = σ_E_swap_01 ∘ ι_edge`; **`★ ι_equivariance_S12`** — same for second generator; cochain pullback equivariance **`ι_pullback_equivariance_S01`**, **`ι_pullback_equivariance_S12`** (pointwise, no funext); **`Δ4_ρ_order_3`** — Δ⁴ 3-cycle Cayley check; **`★ IotaSym3Equivariance_phase8_capstone`** — 6-conjunct Phase-8 capstone |
 
-**Cumulative new PURE this session: +117** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 across 8 phases of C3 chain).
-
 ## 2026-05-22 — C3 chain Phase 9: Sym(3)-irrep decomposition over F_2
 
 Phase 9 of the **C3 chain** — decomposes the 8-dim H¹(K)
@@ -850,8 +838,6 @@ direct enumeration of the Sym(3)-fixed subspace.
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3IrrepDecomp` | 10 | `H1Kat` binary enumeration of H1K; `isSym3Fixed` predicate (M_S01·ω = ω ∧ M_S12·ω = ω); `fixedSize` count; **`★ fixedSize_eq_4`** — direct 256-case decide enumeration giving `\|H¹(K)^Sym(3)\| = 4 = 2²`; explicit basis **`ω_10 = e_0 + e_2 + e_5`** and **`ω_01 = e_1 + e_4 + e_7`** of the 2-dim fixed subspace; `ω_10_fixed_S01`, `ω_10_fixed_S12`, `ω_01_fixed_S01`, `ω_01_fixed_S12` — all four fixed-vector verifications; `ω_10_ω_01_distinct` linear independence; **`★ composition_multiplicities`** — `a = 2, b = 3` with `a + 2b = 8`; **`★ bool_trace_consistency`** — verifies `trace(transp) = 0`, `trace(3-cycle) = 1` match Phase-6 character data; **`★ Sym3IrrepDecomp_phase9_capstone`** — 10-conjunct capstone establishing `H¹(K) = 2 · trivial ⊕ 3 · standard` over F_2 |
-
-**Cumulative new PURE this session: +127** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 across 9 phases of C3 chain).
 
 The C3 chain through Phase 9 **completes the gauge-emergence narrative**:
 
@@ -881,8 +867,6 @@ H¹(K), realising the standard rep matrices over F_2.
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3StandardReps` | 13 | **Pair 1**: `std1_v1 := e_0 + e_2`, `std1_v2 := e_2 + e_5`; **Pair 2**: `std2_v1 := e_1 + e_4`, `std2_v2 := e_4 + e_7`; both satisfy the standard rep matrices `σ_S01 ↦ [[1, 1], [0, 1]]`, `σ_S12 ↦ [[1, 0], [1, 1]]` over F_2 with: `★ std1_S01_v1`, `★ std1_S01_v2`, `★ std1_S12_v1`, `★ std1_S12_v2`, plus the four for pair 2; `std_pairs_distinct` linear independence at distinguishing coordinates; `std1_rho_v1`, `std1_rho_sq_v1`, **`★ std1_rho_cubed_v1`** — order-3 verification of ρ_S = σ_S12·σ_S01 at v_1^(1); **`★ Sym3StandardReps_phase10_capstone`** — 11-conjunct Phase-10 capstone |
 
-**Cumulative new PURE this session: +140** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 across 10 phases of C3 chain).
-
 The C3 chain through Phase 10 provides **explicit basis vectors**
 for 2 of the 3 standard isotypic components.  Combined with the
 fixed-subspace basis {ω_10, ω_01} from Phase 9, this gives an
@@ -905,8 +889,6 @@ associativity".
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.Sym3Group` | 17 | `Sym3 := Fin 6` (abbrev for instance transfer); 6 named elements `e, a, b, c, x, y` encoding identity / 3 transpositions / 2 3-cycles; **`Sym3.mul`** — explicit 36-entry Cayley table via match on `(i.val, j.val)`; **`Sym3.inv`** with transpositions self-inverse and `x ↔ y`; group axioms **`★ one_mul`**, **`★ mul_one`**, **`★ inv_mul`**, **`★ mul_inv`** (decide on all 6 cases) and **`★ mul_assoc`** (216-case decide); Cayley relations `a² = b² = c² = e`, `x³ = y³ = e`, `(ba)³ = e` (standard S_3 presentation); definitional bridges `x = b·a`, `y = a·b`, `y = x²`; `★ non_abelian` proving `a·b ≠ b·a`; **`★ Sym3Group_phase11_capstone`** — 11-conjunct Phase-11 capstone |
-
-**Cumulative new PURE this session: +157** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 across 11 phases of C3 chain).
 
 The C3 chain through Phase 11 provides the complete Group-theoretic
 structure for the external factor of `Aut(K_{3,2}^{(c=2)})`:
@@ -935,8 +917,6 @@ Key design choice: **C_2^6 is represented as `Fin 6 → Bool`** (not
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.AutKGroup` | 15 | `Sym2 := Fin 2` with XOR-style multiplication; `Sym2.one_mul`, `Sym2.mul_one`, `Sym2.inv_mul`, `Sym2.mul_assoc`, `Sym2.mul_comm` (decide-verified); **`C2_6 := Fin 6 → Bool`** (pointwise representation for PURE-ness); `C2_6.mul := xor pointwise`, `C2_6.inv = id` (each element self-inverse); pointwise C2_6 axioms `one_mul`, `mul_one`, `inv_mul`, `mul_comm`, `mul_assoc` (via `cases f i <;> rfl`); **`Aut_K := Sym3 × Sym2 × C2_6`** abbrev (direct-product); `Aut_K.mul`, `Aut_K.inv`, `Aut_K.one` component-wise; **`★ Aut_K.one_mul`**, **`★ Aut_K.mul_one`**, **`★ Aut_K.inv_mul`**, **`★ Aut_K.mul_assoc`** — Aut(K) group axioms (Sym3+Sym2 components as full equalities, C2_6 component as pointwise `∀ i : Fin 6`); **`★ AutKGroup_phase12_capstone`** — 8-conjunct Phase-12 capstone with cardinality bridge `6·2·64 = 768` |
 
-**Cumulative new PURE this session: +172** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 + 15 across 12 phases of C3 chain).
-
 The C3 chain through Phase 12 establishes the **full Aut(K_{3,2}^{(c=2)})
 Group structure** as a direct product `Sym(3) × Sym(2) × C_2^6` with
 cardinality 768.  The semidirect twist `(Sym(3) × Sym(2)) ⋉ C_2^6`
@@ -963,8 +943,6 @@ results from all 12 phases into one 12-conjunct statement.  PURE.
 | Module | PURE | Highlights |
 |---|---|---|
 | `E213.Lib.Physics.Symmetry.C3ChainCapstone` | 1 | **`★★★★★ c3_chain_master`** — 12-conjunct end-to-end gauge-emergence master: Aut(K) cardinality 768, Aut(K) Group identity, Sym(3) non-abelian, H¹(K) rank 8, M_S01 matrix involution, ι embedding multiplicity-collapse, H¹(Δ⁴) = 0 (|ker δ¹| = 16), Sym(3)-equivariance of ι, fixed subspace dim 2, composition multiplicities a + 2b = 8 (a=2, b=3), explicit standard 2-rep verification, cardinality |H¹(K)| = 2⁸ = 256 |
-
-**Cumulative new PURE this session: +173** (16 + 25 + 22 + 16 + 7 + 14 + 10 + 7 + 10 + 13 + 17 + 15 + 1 across 12 phases + 1 capstone of C3 chain).
 
 The **single master theorem `c3_chain_master`** in
 `C3ChainCapstone.lean` serves as the downstream-ready reference
@@ -1180,7 +1158,6 @@ Cross-references:
 | `E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD` | 10 | ★★★★★★★★ **`cupClosedCount_param_eq`**: ∀d closed form `count = d · 2^(d+1)` proven by Nat induction + `step_identity` (NatHelper.mul_assoc + Nat.two_mul + Nat.add_comm + add_mul).  No decide enumeration — structural ∀d proof |
 | `E213.Lib.Math.Cohomology.Cup.K32Projection` | 11 | K_{NS,NT}^{(c)} bipartite cohomology bridge.  ★★★★★★★ **Quadruple structural identity at DRLT**: `b_1(K_{3,2}^{(c=2)}) = 8 = E-V+1 = cup-channels + NT = NT·(NS+1) = NS²-1`.  Lost cohomology = NT = 2 |
 | `E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp` | 12 | Full 1/α_em integer + denominator catalog: 60 = E·d, 30 = cup-channels · d, 25 = d², 4 = d-1, 45 = NS²·d.  Multiplicity factor c = 60/30 = 2 distinguishes 1/α_em from 1/α_2.  Numerical match 137.03 vs CODATA 137.036 (0.07 ppm) |
-
 
 ## 2026-05-22 — G131 1/α_em precision theorem via structural Gram (0.2 ppb tier)
 

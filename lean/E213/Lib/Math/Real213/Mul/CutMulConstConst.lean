@@ -32,7 +32,7 @@ disappears.
   cutMul_const_const_forward : ∀ (a b c d m k), cutMul ... → constCut ...
                               (forward direction always holds)
 
-  This is the previously-missing **safe direction**: whenever cutMul
+  This is the **safe direction**: whenever cutMul
   fires true, the corresponding rational inequality holds.  The
   precision artifact only appears in the OTHER direction (constCut
   true but cutMul false), which the F5/F6 docs already characterized.
