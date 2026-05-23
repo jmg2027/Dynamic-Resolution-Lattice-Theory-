@@ -169,6 +169,7 @@ of independent gluon channels."*
 | `bilinear_self_trace_eq_L1_sq` | `Math/Cohomology/Bipartite/SelfPairingTrace` | L²-pairing trace = (L¹-norm)² universally over `Fin 3 → Bool` |
 | `omega_post_gram_full_master` | `OmegaPostGramFull` | NS²·α³/d³ = 27 closes full post-Gram residual |
 | `per_layer_coupling_master` | `PerLayerCoupling` | Refined formula factors as `‖c‖²·(α/d)^(k+1)` (Step 6, 0.007 ppb) |
+| `loop_vertex_graduation_master` | `LoopVertexGraduation` | Cohomology ↔ loop-vertex correspondence: H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1) (Step 6 interpretive) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -291,16 +292,26 @@ The structural prediction matches CODATA observed value to within
   |-----------|--------|
   | `||c||² = (L¹-norm)²` (L²-pairing trace rule) | PROVED (Nat identity over `Fin 3 → Bool`) |
   | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (e9-level decide) |
-  | `(k+1) = filtration depth + 1` reading | POSIT (cohomology-theoretic, k = filtration + 1 for top eval) |
-  | Cup-graduation rule from cup axioms | OPEN (existing bilinear cup has arity `k + l`, not `k + 1`) |
+  | `(k+1) = loop count + 1` interpretation | POSIT (physics-motivated, formalised at `LoopVertexGraduation`) |
+  | Cup-axiom derivation of `(k+1)` | OPEN (bilinear cup arity `k + l` diverges from `(k+1)` at k ≥ 2) |
 
-Two of the three formula components are first-principles content;
-the (k+1) graduation reading remains structurally motivated but
-not yet derived from cup-product axioms.  Cup-product algebra
-extension to higher-cup operations, filtration depth, or
-spectral-sequence machinery is the Step 7+ frontier.
+The L²-pairing trace and per-layer coupling factorisation are
+first-principles content.  The `(k+1)` graduation is structurally
+interpreted via the cohomology-degree ↔ vacuum-polarization-loop-
+count correspondence:
 
-#### Files (Step 6 closure, 7 files, 98 PURE total)
+  · H¹ ↔ 1-loop ↔ 2 vertices ↔ α²
+  · H² ↔ 2-loop ↔ 3 vertices ↔ α³
+  · H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1)
+
+The cup-axiom derivation of `(k+1)` remains open: the existing
+bilinear `cup : Cochain n k × Cochain n l → Cochain n (k+l)` has
+output degree `k + l`, which matches `(k+1)` only at k = 1.
+Cup-product algebra extension to higher cup operations (cup_i,
+Steenrod squares), Massey products, or spectral-sequence
+differentials is the open frontier.
+
+#### Files (Step 6 closure, 8 files, 112 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -316,6 +327,8 @@ spectral-sequence machinery is the Step 7+ frontier.
     — two-rule structural derivation with cohomology-derived inputs
   · `Physics/AlphaEM/PerLayerCoupling.lean` (9 PURE)
     — per-layer coupling reformulation `||c||² · (α/d)^(k+1)`
+  · `Physics/AlphaEM/LoopVertexGraduation.lean` (14 PURE)
+    — cohomology ↔ loop-vertex correspondence + cup-axiom gap
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
