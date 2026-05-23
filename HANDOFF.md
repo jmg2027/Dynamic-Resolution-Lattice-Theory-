@@ -1,144 +1,117 @@
-# Session Handoff — 2026-05-23 (cohomology marathon Phases 1-4)
+# Session Handoff — 2026-05-23 (cohomology marathon Phases 1-5)
 
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1 + 2 + 3 + 4 closed;
-**11 closures totaling 178 PURE new**.
+open-frontier marathon (G139).  Phases 1-5 closed;
+**16 closures totaling 213 PURE new**.
 
-## G139 Phase 1 — CLOSED (3 closures, 46 PURE)
-
-  · **G139-A Padovan cut-off** (30 PURE) — Direction C 6th.
-  · **G139-B Filled5CellExtension** (13 PURE) — Massey-triple
-    landing-space audit at 5-skeleton.
-  · **G139-C (5, 11) eventually-constant 1** (`ConfigCountModular §I`).
-
-## G139 Phase 2 — CLOSED (3 closures, 81 PURE)
-
-  · **G139-D Narayana cow cut-off** (31 PURE) — Direction C 7th
-    with gapped `{5, 7}` coverage.
-  · **G139-E Jacobsthal cut-off** (26 PURE) — Direction C 8th.
-  · **G139-F PadovanModular** (24 PURE) — Pisano-analogue
-    period 7 mod 2 parametric.
-
-## G139 Phase 3 — CLOSED (4 closures, 40 PURE)
-
-  · **G139-G CupAW Leibniz (4, 2, 1)** (2 PURE) — sister to
-    (4, 1, 2) on Δ³.
-  · **G139-H TribonacciModular** (14 PURE) — π(2) = 4.
-  · **G139-I FibonacciModular** (12 PURE) — classical π(2) = 3.
-  · **G139-J NarayanaModular** (12 PURE) — π(2) = 7, Padovan twin.
-
-## G139 Phase 4 — CLOSED (1 closure, 11 PURE)
-
-### G139-K ∀-coprime eventual periodicity (universal form)
-
-`Lib/Math/Cohomology/Fractal/EventualPeriodicity.lean` (11 PURE).
-
-★★★★★ **The universal theorem**:
-
-```
-configCountD_eventually_periodic (d p' : Nat)
-  (h_flt : d ^ (p' + 2 - 1) % (p' + 2) = 1 % (p' + 2)) :
-  ∃ T n₀, 1 ≤ T ∧ n₀ ≤ p' + 2 - 1
-    ∧ ∀ n, n₀ ≤ n
-        → configCountD d (n + T) % (p' + 2)
-          = configCountD d n % (p' + 2)
-```
-
-Strategy (forward-only pigeonhole on the exponent layer):
-
-  · `expSeq d m n := d^n % m` is a Markov chain on `Fin m`;
-    `expSeq d m (n+1) = (expSeq d m n * d) % m` by
-    `mul_mod_left_pure` (Nat.pow definitional + mul_mod).
-  · **Pigeonhole** on `Fin p → Fin (p - 1)` (with `p = p' + 2`
-    so `p - 1 = p' + 1` kernel-direct) yields a collision
-    `expSeq i = expSeq j` with `0 ≤ i < j ≤ p - 1`.
-  · **Forward propagation** via Nat induction: collision at
-    `i, j` propagates to `state(n + T) = state(n)` for all
-    `n ≥ i`, where `T = j - i`.
-  · `configCountD_mod_pure` bridges exponent layer to the
-    configCount layer under FLT.
-
-**Distinct from `MulOrderPigeonhole.exists_modPow_period`**:
-no modular inverse needed.  Applies to:
-  · Purely periodic regime (`gcd(d, p - 1) = 1`).
-  · Eventually-constant regime `gcd(d, p - 1) > 1` — witnessed
-    at `(5, 11)` where `5^n mod 10 = 5` fixed point absorbs.
-
-**Strict ∅-axiom**: every `omega` replaced with explicit
-`NatHelper.*` lemmas + `Nat.succ_add` / `Nat.add_comm` +
-`congrArg` / `Eq.trans` chains.  Match-pattern `p = p' + 2`
-makes `p - 1 = p' + 1` kernel-direct.
-
-Three FLT-instantiated smoke tests:
-  · `configCountD_5_eventually_periodic_mod_7` (period 2)
-  · `configCountD_5_eventually_periodic_mod_11` (eventually
-    constant 1 — `gcd(d, p-1) ≠ 1` regime)
-  · `configCountD_5_eventually_periodic_mod_13` (period 2)
-
-## Cumulative across 4 phases (11 closures / 178 PURE)
+## G139 phase-by-phase
 
 | Phase | Closures | PURE | Focus |
 |---|---|---|---|
 | 1 | A, B, C | 46 | Padovan cut-off; Filled5Cell Massey landing; (5,11) eventually-constant |
-| 2 | D, E, F | 81 | Narayana + Jacobsthal cut-offs; Padovan Pisano-analogue |
-| 3 | G, H, I, J | 40 | CupAW (4,2,1); Fib/Trib/Nara Pisano-analogues |
+| 2 | D, E, F | 81 | Narayana + Jacobsthal cut-offs; Padovan Pisano π(2) = 7 |
+| 3 | G, H, I, J | 40 | CupAW (4,2,1); Fib/Trib/Nara Pisano-analogues mod 2 |
 | 4 | K | 11 | ∀-coprime eventual periodicity universal form |
+| 5 | L, M, N, O, P | 35 | LucasModular new; mod-3 parametric across 5 sister sequences |
 
-## Pisano-analogue trio coverage
+## G139 Phase 5 — closures (5 closures, 35 PURE)
 
-| Sequence | Recurrence step | π(2) | Cycle |
-|---|---|---|---|
-| Fibonacci | 2-step `F_{n+2} = F_{n+1} + F_n` | 3 | `0, 1, 1` |
-| Tribonacci | 3-step (sum of 3 prev) | 4 | `0, 0, 1, 1` |
-| Padovan | 3-step `P_{n+1} + P_n` | 7 | `1, 1, 1, 0, 0, 1, 0` |
-| Narayana | 3-step `N_{n+2} + N_n` | 7 | `1, 1, 1, 0, 1, 0, 0` (Padovan twin) |
+### G139-L LucasModular (new file, 17 PURE)
 
-## Direction C now covers 7 sister sequences (cut-off side)
+`Lib/Math/Cohomology/Fractal/LucasModular.lean`.
+  · `Lucas_mod_2_period_3` (∀ n) — shared orbit with Fibonacci
+    via reduced initial pair `(0, 1) mod 2`.
+  · `Lucas_mod_3_period_8` (∀ n) — same period as Fibonacci, but
+    distinct mod-3 orbit (reduced initial pair `(2, 1) mod 3`
+    vs. Fibonacci's `(0, 1) mod 3`).
+  · Cross-sequence mod-2 cycle-sharing decide-check vs Fibonacci.
 
-| Sequence | Recurrence | Catalogue fingerprint | Depth-1 cross |
-|---|---|---|---|
-| Pell | `P_{n+2} = 2P_{n+1} + P_n` | `P_3 = d`; dyadic-FSM bridge | `n ≥ 11` |
-| Lucas | `L_{n+2} = L_{n+1} + L_n` | 5 hits (most of any) | `n ≥ 17` |
-| Fibonacci | `F_{n+2} = F_{n+1} + F_n` | `(NT, NS, d)` consecutive | `n ≥ 19` |
-| Tribonacci | sum of 3 prev | tight `T_16 − M_1 = 11` | `n ≥ 16` |
-| Padovan | `P_{n+1} + P_n` | `(NT, NS, d)` odd-AP | `n ≥ 30` |
-| Narayana | `N_{n+2} + N_n` | gapped over `{5, 7}` | `n ≥ 23` |
-| Jacobsthal | `J_{n+1} + 2J_n` | `(NS, d)`; always odd | `n ≥ 14` |
+### G139-M PadovanModular extension (+2 PURE)
 
-## CupAW Leibniz closed bidegrees
+`Pad_mod_3_period_13` parametric.  3-step nested induction with
+2 IH terms (`n` and `n+1`) — upgrade of the prior
+`Pad_13_eq_Pad_0_mod_3` decide-spot-check.
 
-| (n, k, l) | File |
-|---|---|
-| (3, 1, 1) | `LeibnizSmall.leibniz_universal_3_1_1` |
-| (4, 1, 1) | `LeibnizMid.leibniz_universal_4_1_1` |
-| (4, 1, 2) | `Leibniz4Mixed.leibniz_universal_4_1_2` |
-| (4, 2, 1) | `Leibniz4Mixed.leibniz_universal_4_2_1` |
-| (4, 2, 2) | `Leibniz4Mixed.leibniz_universal_4_2_2` |
-| (5, 1, 1) | `Leibniz.leibniz_universal_5_1_1` |
-| (5, 2, 1) | `Leibniz21Final.leibniz_universal_5_2_1` |
-| (5, 2, 2) | `Leibniz22Final.leibniz_universal_5_2_2` |
+### G139-N FibonacciModular extension (+4 PURE)
 
-## Phase 5 candidates (next session)
+`Fib_mod_3_period_8` parametric.  Classical Pisano period 8 mod 3.
+2-step induction template identical to the mod-2 case.
 
-  · **Lucas modular period parametric** (π(2) = 3, shared with
-    Fibonacci by recurrence).
-  · **Padovan / Tribonacci / Narayana mod 3 parametric**
-    (decide-spot-checks ready to upgrade to ∀ n).
-  · **CupAW Leibniz next bidegrees**: (5, 1, 2) — pattern decide
-    32 × 1024 × 5 ≈ 165k evals at the limit; (3, 1, 2) likely
-    vacuous.
-  · **K_{3,2} higher Steenrod** `Sq^3`, `Sq^4` vacuous + `Sq^2`
-    chain-level explicit at 4-skeleton.
-  · **6-skeleton with multi-cell attaching** to host
-    non-vacuous H⁵ (simple pyramid collapses).
-  · **HC²¹³ variant automation** — extending the 31-capstone
-    Hodge stack with mechanical bridges.
-  · **Universal Lucas modular period 3 mod 2** sister to
-    Fibonacci.
+### G139-O TribonacciModular extension (+5 PURE)
 
-## Phase 6+ (deferred)
+`Trib_mod_3_period_13` parametric.  3-step recurrence with 3 IH
+terms (`n`, `n+1`, `n+2`) and double-`add_mod_gen` modular sum
+reduction.
+
+### G139-P NarayanaModular extension (+7 PURE)
+
+`Nara_mod_3_period_8` parametric.  Narayana one-shift recurrence
+(`N_{n+3} = N_{n+2} + N_n`) diverges from Padovan's mod-3
+period 13.
+
+## Pisano-analogue closure grid
+
+Five Direction C sister sequences, parametric mod-2 AND mod-3
+Pisano-analogue closures:
+
+| Sequence  | Recurrence | π(2) | π(3) |
+|-----------|------------|------|------|
+| Fibonacci | `F_{n+2} = F_{n+1} + F_n` | 3 | 8 |
+| Lucas     | same, init `(2, 1)`       | 3 | 8 |
+| Padovan   | `P_{n+3} = P_{n+1} + P_n` | 7 | 13 |
+| Tribonacci | `T_{n+3} = T_{n+2}+T_{n+1}+T_n` | 4 | 13 |
+| Narayana  | `N_{n+3} = N_{n+2} + N_n` | 7 | 8 |
+
+Structural observations:
+  · **Fibonacci ↔ Lucas**: share π(2) and π(3) by shared
+    recurrence.  Orbits differ at mod 3 (distinct reduced initial
+    pairs), coincide at mod 2.
+  · **Padovan ↔ Narayana**: share π(2) = 7 (mod-2 orbits on
+    `2³ = 8` triples are different lengths-7 orbits) but diverge
+    at mod 3 — Padovan π = 13, Narayana π = 8.  The one-shift
+    recurrence distinguishes them at the higher modulus.
+
+Common proof technique: nested induction over the recurrence
+order (2 IHs for 2-step / Fibonacci-Lucas, 3 IHs for 3-step /
+Padovan-Trib-Nara) + `add_mod_gen` for modular sum reduction.
+Strict ∅-axiom maintained across all five.
+
+## Phase 4 carry-over (universal eventual periodicity)
+
+★★★★★ `configCountD_eventually_periodic` from
+`EventualPeriodicity.lean` — universal `∃ T n₀, ∀ n ≥ n₀,
+configCountD d (n + T) % p = configCountD d n % p` via forward-
+only pigeonhole on the exponent layer.  No modular inverse
+needed, applies in both purely-periodic and eventually-constant
+regimes.
+
+## Direction C cut-off (7 sister sequences, unchanged from Phase 4)
+
+Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana, Jacobsthal.
+
+## CupAW Leibniz closed bidegrees (unchanged from Phase 3)
+
+`(n, k, l) ∈ {(3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
+(5,1,1), (5,2,1), (5,2,2)}`.
+
+## Phase 6 candidates (next session)
+
+  · **CupAW Leibniz** at (5, 1, 2) — pattern decide may be at the
+    `decide` heart-beat threshold; (3, 1, 2) likely vacuous.
+  · **K_{3,2} higher Steenrod**: `Sq^3`, `Sq^4` vacuous formal
+    extensions; `Sq^2` chain-level explicit at 4-skeleton.
+  · **6-skeleton with multi-cell attaching** to host non-vacuous
+    H⁵ (simple pyramid collapses).
+  · **Padovan / Trib / Nara mod 5 parametric** — period 24 for
+    Padovan; longer base verification for Trib / Nara.
+  · **JacobsthalModular** — closed form `J_n = (2^n − (−1)^n)/3`
+    enables direct period analysis.
+  · **HC²¹³ variant automation** — extend the 31-capstone Hodge
+    stack with mechanical bridges.
+
+## Phase 7+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).
@@ -151,13 +124,13 @@ Three FLT-instantiated smoke tests:
 
 | Doc | Purpose |
 |---|---|
-| `research-notes/G139_cohomology_marathon.md` | Marathon plan + Phases 1-4 log |
+| `research-notes/G139_cohomology_marathon.md` | Marathon plan + Phases 1-5 log |
 | `theory/math/cohomology/{bipartite, k32_higher_cohomology, fractal, cupaw, hodge_conjecture}.md` | Open-frontier chapters |
 | `theory/meta/cardinality_cutoff_applications.md` | Cut-off family (7 sister sequences) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/Filled{3,4,5}CellExtension.lean` | Pyramid tower σ³ → σ⁴ → σ⁵ |
 | `lean/E213/Lib/Math/Cohomology/Fractal/{Pell,Lucas,Fibonacci,Tribonacci,Padovan,Narayana,Jacobsthal}Cutoff.lean` | Direction C 7 sequences |
-| `lean/E213/Lib/Math/Cohomology/Fractal/{Padovan,Tribonacci,Fibonacci,Narayana}Modular.lean` | Pisano-analogue parametric mod 2 |
-| `lean/E213/Lib/Math/Cohomology/Fractal/EventualPeriodicity.lean` | **Universal ∀-coprime eventual periodicity** |
+| `lean/E213/Lib/Math/Cohomology/Fractal/{Lucas,Padovan,Tribonacci,Fibonacci,Narayana}Modular.lean` | Pisano-analogue parametric mod 2 + mod 3 |
+| `lean/E213/Lib/Math/Cohomology/Fractal/EventualPeriodicity.lean` | Universal ∀-coprime eventual periodicity |
 | `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCountModular.lean §I` | (5, 11) eventually-constant sharper closure |
 | `lean/E213/Lib/Math/Cohomology/CupAW/Leibniz4Mixed.lean` | (4, 1, 2) + (4, 2, 1) + (4, 2, 2) bidegrees |
 | `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence |
@@ -171,11 +144,12 @@ Three FLT-instantiated smoke tests:
   · `bipartite.md` — universal Nat-quantified
     `kerSizeDelta0Direct = 2`.  GraphWalk infra still needed.
   · `k32_higher_cohomology.md` — Massey landing-space audit
-    closed at 5-skeleton (Phase 1); non-vacuous Massey
-    + general Steenrod cup_i (i ≥ 2) + non-vacuous Adem /
-    Cartan remain open.
-  · `fractal.md` — ∀-coprime eventual periodicity **CLOSED**
-    (Phase 4).  Gram self-energy structural derivation and
+    closed at 5-skeleton; non-vacuous Massey + general Steenrod
+    cup_i (i ≥ 2) + non-vacuous Adem / Cartan remain open.
+  · `fractal.md` — ∀-coprime eventual periodicity CLOSED
+    (Phase 4); Pisano-analogue parametric closures shipped for
+    five Direction C sister sequences at mod 2 + mod 3 (Phases
+    2-3-5).  Gram self-energy structural derivation and
     truth-table Fintype-style witness remain open.
   · `cupaw.md` — Phase 3 added (4, 2, 1) bidegree;
     self-referential lex-cup Leibniz ∀(k, l) remains open.

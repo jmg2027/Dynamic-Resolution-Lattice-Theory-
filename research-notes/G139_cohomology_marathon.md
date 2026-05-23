@@ -125,19 +125,50 @@ Tribonacci (π=4, 3-step), Padovan (π=7, 3-step), Narayana (π=7,
      INVERSE-FREE — handles the `gcd(d, p-1) ≠ 1`
      eventually-constant regime, witnessed at `(5, 11)`.
 
-## Phase 5 (next session candidates)
-  · Lucas modular period parametric (period 3 mod 2, same orbit
-    as Fibonacci).
-  · Padovan / Tribonacci / Narayana period parametric mod 3
-    (decide-spot-checks ready to upgrade to parametric).
+## Phase 5 — CLOSED (5 closures, 35 PURE new)
+
+ 12. **G139-L LucasModular** — CLOSED (new file, 17 PURE).
+     `Lucas_mod_2_period_3` parametric — shared orbit with
+     Fibonacci.  `Lucas_mod_3_period_8` parametric — same period
+     as Fibonacci, distinct orbit.  Cross-sequence cycle-sharing
+     decide-check vs Fibonacci on the mod-2 cycle.
+ 13. **G139-M PadovanModular extension** — CLOSED (+2 PURE).
+     `Pad_mod_3_period_13` parametric — upgrade of prior
+     decide-spot-check.
+ 14. **G139-N FibonacciModular extension** — CLOSED (+4 PURE).
+     `Fib_mod_3_period_8` parametric — classical Pisano π(3) = 8.
+ 15. **G139-O TribonacciModular extension** — CLOSED (+5 PURE).
+     `Trib_mod_3_period_13` parametric — 3-step nested induction
+     with double `add_mod_gen` modular reduction.
+ 16. **G139-P NarayanaModular extension** — CLOSED (+7 PURE).
+     `Nara_mod_3_period_8` parametric — Narayana one-shift
+     recurrence diverges from Padovan's mod-3 period 13.
+
+Pisano-analogue trio now complete across five sister sequences
+at BOTH mod 2 AND mod 3:
+
+| Sequence  | π(2) | π(3) |
+|-----------|------|------|
+| Fibonacci |   3  |   8  |
+| Lucas     |   3  |   8  |
+| Padovan   |   7  |  13  |
+| Tribonacci|   4  |  13  |
+| Narayana  |   7  |   8  |
+
+## Phase 6 (next session candidates)
+
   · CupAW Leibniz next-easiest bidegrees: (5, 1, 2), (3, 1, 2)
     if non-vacuous.
   · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at 4-skeleton)
     and Sq^2 explicit chain-level formulation at 4-skeleton.
   · 6-skeleton extension with multi-cell attaching map to host
     non-vacuous H^5 (pyramid pattern collapses; need branching).
+  · Padovan / Trib / Nara mod 5 parametric (period 24 for Padovan;
+    longer for others).
+  · Jacobsthal modular fingerprint (closed form `(2^n − (−1)^n)/3`
+    enables direct period analysis).
 
-## Phase 6+ (deferred)
+## Phase 7+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
