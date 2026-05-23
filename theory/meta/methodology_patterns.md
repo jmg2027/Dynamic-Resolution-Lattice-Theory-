@@ -541,6 +541,45 @@ must be expanded manually via `Int213` axioms.  See Pattern #10
 candidate (4·normSq ring identity, ~50 manual rewrites, currently
 deferred).
 
+### Scope refinement (mechanical audit)
+
+A whole-Lib/ scan for `omega`-as-the-only-DIRTY-source surfaces a
+much smaller refactor candidate set than initially expected.  Two
+constraints narrow the field:
+
+  · **omega is rarely the *sole* propext source.**  In the densest
+    cluster found (`CayleyDickson/Integer/ZOmegaDomain.lean`, 8
+    omega usages across 4 DIRTY theorems), the [propext, Quot.sound]
+    tags also flow through `Int.mul_eq_zero`, `Int.sub_mul`,
+    `Int.mul_neg`, and other Int-core rewrites used by the `simp
+    only [...]` chains.  Replacing the trailing `omega` alone leaves
+    the theorem DIRTY.
+  · **Pattern #8 fixes ordering, not polynomial identity.**  Most
+    omega usages in Lib/ close *symbolic* identities ("after these
+    rewrites, the LHS equals the RHS"), not *ordering* claims.
+    Pattern #8 has no `Int.NonNeg`-style bypass for the former (see
+    "When NOT to apply" above).
+
+The realistic Pattern #8 yield in Lib/ is **single-digit**, not the
+~50 originally estimated.  The denser refactor strategy must combine
+Pattern #8 with a separate Int-rewrite-replacement (analogue of the
+`Int213` axiom set lifted to Lib/) — multi-session work, not a
+one-pass mechanical sweep.
+
+Open candidates (verified):
+
+  · `CayleyDickson/Integer/ZOmegaDomain.lean`: 4 DIRTY theorems
+    (`normSq_mul`, `conj_mul`, `normSq_nonneg`, `normSq_eq_zero_iff`)
+    blocked by Int-rewrite propext, not omega.
+  · `CayleyDickson/Levels/CayleyHeavy.lean`: similar shape on
+    `lip_normSq_nonneg` etc.
+  · `Choice/CanonicalTruthChar.lean`: 1 omega in helper
+    `slash_ne_b_via_depth`, but downstream DIRTY items derive from
+    iff/propext, not the helper.
+
+These remain Open Frontier for a dedicated session that pairs
+Pattern #8 with a Lib/-side Int-rewrite extension.
+
 ---
 
 ## Pattern #9 — Clause-4 recursive Lens application closes postulate gaps
