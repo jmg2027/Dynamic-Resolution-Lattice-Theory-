@@ -170,6 +170,8 @@ of independent gluon channels."*
 | `omega_post_gram_full_master` | `OmegaPostGramFull` | NS²·α³/d³ = 27 closes full post-Gram residual |
 | `per_layer_coupling_master` | `PerLayerCoupling` | Refined formula factors as `‖c‖²·(α/d)^(k+1)` (Step 6, 0.007 ppb) |
 | `loop_vertex_graduation_master` | `LoopVertexGraduation` | Cohomology ↔ loop-vertex correspondence: H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1) (Step 6 interpretive) |
+| `steenrod_higher_frame_master` | `Cup/SteenrodHigherFrame` | Cup-i type framework + cup_0 = standard cup + cup_1 at base arities |
+| `face_cup_higher_master` | `Bipartite/FaceCupHigher` | face_cup_2 on K_{3,2}^{(c=2)}; ω idempotent under face_cup_2; trace = NS² |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -311,7 +313,7 @@ Cup-product algebra extension to higher cup operations (cup_i,
 Steenrod squares), Massey products, or spectral-sequence
 differentials is the open frontier.
 
-#### Files (Step 6 closure, 8 files, 112 PURE total)
+#### Files (Step 6 closure, 10 files, 133 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -329,9 +331,21 @@ differentials is the open frontier.
     — per-layer coupling reformulation `||c||² · (α/d)^(k+1)`
   · `Physics/AlphaEM/LoopVertexGraduation.lean` (14 PURE)
     — cohomology ↔ loop-vertex correspondence + cup-axiom gap
+  · `Math/Cohomology/Cup/SteenrodHigherFrame.lean` (11 PURE)
+    — cup-i type signature framework; cup_0 = standard cup; cup_1
+    at base arities (toward Steenrod cup-i derivation of `(k+1)`)
+  · `Math/Cohomology/Bipartite/FaceCupHigher.lean` (10 PURE)
+    — face_cup_2 on K_{3,2}^{(c=2)} face cochains; ω idempotent
+    under face_cup_2; trace matches Phase 6 bilinearSelfTrace = NS²
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
+
+Phase 9 (cup-i framework) is a first step toward deriving the
+`(k+1)` α-power graduation from cup-product axioms.  The framework
+is in place; full Steenrod algebra closure (general cup_i, Adem
+relations, Cartan formula) + 3-skeleton extension of K_{3,2}^{(c=2)}
+is the multi-session marathon scope.
 
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 
