@@ -56,21 +56,55 @@ All three Phase 1 closures CLOSED + PROMOTED:
      `theory/math/cohomology/fractal.md` modular-fingerprint
      table.
 
-## Phase 2 (next session candidates)
+## Phase 2 — CLOSED (3 closures, 81 PURE new)
 
-  · ∀-coprime eventual periodicity via pigeonhole on `d^n % (p-1)`.
+  4. **G139-D Narayana cow cut-off** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/NarayanaCutoff.lean`, 31 PURE).
+     Direction C 7th sequence.  Recurrence
+     `N_{n+3} = N_{n+2} + N_n` (one-shift cousin of Padovan).
+     Opens with `(N_3, N_4) = (NT, NS)` mirroring Fibonacci, then
+     peels off at `N_5 = 4 ≠ d = 5`.  ★ GAPPED over `{5, 7}`:
+     sandwiches `4 < 5 < 6` and `6 < 7 < 9`.  Third hit at
+     `N_8 = 13`.  Distinct fingerprint among Direction C
+     sequences.
+  5. **G139-E Jacobsthal cut-off** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/JacobsthalCutoff.lean`, 26 PURE).
+     Direction C 8th sequence.  Recurrence
+     `J_{n+2} = J_{n+1} + 2 J_n`.  Closed form
+     `J_n = (2^n − (−1)^n) / 3`.  Consecutive `(NS, d)` window
+     at `(J_3, J_4) = (3, 5)`, multiplicative coincidence
+     `J_6 = 21 = NS · 7`.  Always odd for `n ≥ 1`.  Fastest
+     growth — earliest depth-1 crossing at `n ≥ 14`.
+  6. **G139-F Padovan modular fingerprint** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/PadovanModular.lean`, 24 PURE).
+     ★ Parametric `Pad_mod_2_period_7` (∀ n, Pad (n + 7) % 2
+     = Pad n % 2) via 3-step nested induction + add_mod_gen.
+     Pisano-period analogue for the Padovan sequence
+     (orbit on `2³ = 8` mod-2 triples visits 7 distinct states).
+     Decide-checked period-13 (mod 3) and period-24 (mod 5)
+     spot checks.
+
+## Phase 3 (next session candidates)
+
+  · ∀-coprime eventual periodicity via pigeonhole on `d^n % (p-1)`
+    (universal `∃ T n₀, ∀ n ≥ n₀, …` form).
   · CupAW Leibniz at a new bidegree (3, 1) or (1, 3) via the
     existing `LeibnizUniversalLift` + Decomp.
-  · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at 4-skeleton).
-  · Massey triple at 4-skeleton with explicit landing-space audit.
+  · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at 4-skeleton)
+    and Sq^2 explicit chain-level formulation at 4-skeleton.
+  · 6-skeleton extension with multi-cell attaching map to host
+    non-vacuous H^5 (pyramid pattern collapses; need branching).
+  · Padovan modular period parametric closure mod 3 + mod 5
+    (current decide-spot-checks ready to upgrade).
 
-## Phase 3+ (deferred)
+## Phase 4+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
   · `GraphWalk/` infrastructure (multi-session).
   · Gram self-energy structural step (physics-layer).
   · Hodge conjecture variant automation (extends 31-capstone tree).
+  · Self-referential lex-cup Leibniz ∀(k, l) full parametric.
 
 ## Cross-references
 
