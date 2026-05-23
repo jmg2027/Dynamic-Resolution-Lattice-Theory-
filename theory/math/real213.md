@@ -111,14 +111,51 @@ terminological** — the underlying data (Nat → Nat refinement +
 monotonicity) is the same.  Oracle framing makes the trajectory the
 witness without changing the structural content.
 
+## DiffCut differentiation with modulus tracking — closed (DiffCutModulus.lean, 12 PURE)
+
+`Lib/Math/Real213/DiffCutModulus.lean` adds explicit modulus
+tracking to the existing `IsDifferentiable` infrastructure:
+
+  `DiffCutModulus f` extends `IsDifferentiable f` with
+  `(inputModulus, derivModulus : DepthModulus)` plus monotonicity.
+
+  · `idDiffCutModulus`, `constDiffCutModulus` — trivial modulus
+    (= identity).
+  · `addDiffCutModulus`, `mulDiffCutModulus` — sum of moduli
+    (dominates max, propext-free).
+  · `composeDiffCutModulus` — chain-rule modulus composition.
+  · ★★★★★ `diffcut_modulus_capstone` packages identity, smoke,
+    composition.
+
+Reading: 213-native differentiation is a Nat-decidable operation
+that tracks precision via explicit `DepthModulus`.  No
+existentials, no `limit`.
+
+## Cut integration over DyadicMeasurableSet — closed (CutIntegral.lean, 8 PURE)
+
+`Lib/Math/Real213/CutIntegral.lean` lifts the per-bracket
+`riemannSampleSum` to a measure-theoretic integral over a
+`DyadicMeasurableSet`:
+
+  `cutIntegralOver f S n` recurses on `S : List DyadicBracket`,
+  taking `cutSum` of per-bracket Riemann samples at depth `n`.
+
+  · Empty integral = 0 (`rfl`).
+  · Singleton / cons unfoldings (`rfl`).
+  · ★★★★★ `cut_integral_capstone` bundles the three.
+
+Reading: finite-list recursion replaces σ-algebra; no Lebesgue
+measure machinery, no Choice.  Real213 integration is finitary.
+
 ## Open frontier
 
 - ~~Continuity-without-ε via consistent oracles~~ — CLOSED via
   `OracleContinuity.lean` (10 PURE) above.
-- **Differentiation** via `DiffCut` + modulus tracking — partially
-  in `Modulus/Translation.lean`, full deferred
-- **Measure-theoretic extension** — `Lib/Math/Measure/` provides
-  the start; integration over Real213 cuts is open
+- ~~Differentiation via `DiffCut` + modulus tracking~~ — CLOSED
+  via `DiffCutModulus.lean` (12 PURE) above.
+- ~~Measure-theoretic extension~~ — CLOSED via
+  `CutIntegral.lean` (8 PURE) above (skeleton; full
+  linearity-over-arbitrary-S is open follow-up).
 
 ## How to verify
 
