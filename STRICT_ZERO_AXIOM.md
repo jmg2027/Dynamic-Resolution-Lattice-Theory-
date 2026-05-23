@@ -1637,3 +1637,34 @@ precision-theorem at 0.007 ppb tier with:
 Generalisation to non-vacuous Adem/Cartan + cup_i for i ≥ 2 at
 higher-skeleton extensions remains the continuing multi-session
 marathon scope.
+
+## 2026-05-23 — Phase 18: 4-skeleton extension (H³ trivialises)
+
+Extends `Filled3CellExtension` (3-skeleton) to a 4-skeleton with
+a single 4-cell σ⁴ whose attaching boundary is σ³.  Computes δ³
+coboundary; proves H³ = 0 at the 4-skeleton (truncation-collapse
+pattern continues).  10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.Filled4CellExtension` | 10 | `C4_dim_ext := 1` (one 4-cell σ⁴); `delta3 c := fun _ => c ⟨0, _⟩` (pull-back to σ⁴); `delta3_of_delta2_eq_delta2_value`; ★★★★★ `delta3_of_delta2_im_delta1_eq_zero` (δ³∘δ² = 0 on im δ¹, via face_dependence); `H3_dim_at_4_skeleton = 0`; ★★★★ `ker_delta3_implies_c_at_zero_false`; `Sq_i_at_H3_vacuous`; ★★★★★★★★ `filled4cell_extension_master` |
+
+**Truncation-collapse pattern (now complete to k = 3)**:
+
+  | k | Skeleton level | H^k | α^(k+1) coupling support |
+  |---|----------------|-----|--------------------------|
+  | 1 | 2-skeleton     | 6 (b_1 = NS² - 1) | α²/d² (Gram) |
+  | 2 | 2-skeleton     | 1 (ω class) | NS²·α³/d³ (ω-weighted) |
+  | 2 | 3-skeleton (σ³) | 0 (ω trivialises) | vanishes |
+  | 3 | 3-skeleton (σ³) | 1 (σ³ itself as 3-cocycle) | bounded |
+  | 3 | 4-skeleton (σ³ + σ⁴) | 0 (σ³ trivialises) | vanishes |
+
+The cup-axiom-internal `(k+1)` derivation is BOUNDED by the maximum
+k such that H^k ≠ 0 at the chosen truncation.  For our 2-skeleton
+K_{3,2}^{(c=2)}, max non-trivial H^k is at k = 2 (the ω class),
+giving max α-power = `(k+1) = 3`.  This is exactly the H² ω
+contribution that closes the post-Gram residual at sub-1·10⁻⁹.
+
+Higher-skeleton extensions COLLAPSE the cohomology that would
+carry higher α-power contributions, consistent with the physical
+α_em model living at the 2-skeleton truncation level.

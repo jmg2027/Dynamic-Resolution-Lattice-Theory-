@@ -434,6 +434,23 @@ Adem + Cartan + ladder + boundary identifications all proved.
 Total G132 campaign: **17 files / ~209 PURE / 0 DIRTY**.
 α_em precision-theorem at 0.007 ppb tier.
 
+### G132 Phase 18 — 4-skeleton extension DONE 2026-05-23
+
+`Filled4CellExtension.lean` (10 PURE).  Extends 3-skeleton to
+4-skeleton via single 4-cell σ⁴ with attaching boundary [σ³].
+Computes δ³; proves H³ = 0 at 4-skeleton.
+
+Truncation-collapse pattern continues:
+  · 2-skeleton: H² = 1 (ω), H³ = 0
+  · 3-skeleton: H² = 0, H³ = 1 (σ³)
+  · 4-skeleton: H² = 0, H³ = 0, H⁴ = 1 (σ⁴)
+
+Each (k+1)-skeleton extension trivialises the previous H^k
+contribution.  Physical α_em residual lives at 2-skeleton:
+H¹ (Gram) + H² ω (α³ contribution).
+
+Total G132 campaign: **18 files / ~219 PURE / 0 DIRTY**.
+
 Status of (k+1) derivation (post-Phases 10-13):
 
   | Component | Status |
@@ -644,6 +661,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/Filled4CellExtension.lean` | **G132 Phase 18** — 4-skeleton extension (H³ trivialises) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/AdemUniversal.lean` | **G132 Phase 17** — Universal Adem at truncation (all relations vacuous) |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/CartanAtTruncation.lean` | **G132 Phase 16** — Cartan formula at C⁵ truncation (vacuous) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderUniversalK.lean` | **G132 Phase 15** — universal-k three-reading equivalence (∀ k ≥ 1) |
