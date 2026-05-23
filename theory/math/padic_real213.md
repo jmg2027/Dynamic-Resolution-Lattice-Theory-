@@ -249,6 +249,8 @@ extension only, is itself a research question.  See
 | `Zp.sqr_unique_trunc` | `Hensel` | Hensel sqrt uniqueness (matching digit 0) |
 | `Zp.sqrtFull_eq_of_sqr` | `Hensel` | sqrtFull is THE Hensel sqrt |
 | `Zp.valAtLeast_neg` | `Norm` | `val(-x) ≥ val(x)` — negation preserves valuation |
+| `Zp.valEq_neg` | `Norm` | `val(-x) = val(x)` (precise) |
+| `Zp.valEq_mul` | `Norm` | `val(xy) = val(x) + val(y)` (precise mul ultrametric) |
 
 ## Hensel infrastructure
 

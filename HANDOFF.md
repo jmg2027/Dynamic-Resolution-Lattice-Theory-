@@ -100,7 +100,7 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 299 PURE / 0 DIRTY across 7 modules.**
+**Padic total: 301 PURE / 0 DIRTY across 7 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
@@ -173,7 +173,17 @@ Currently still open:
   · `Zp.sqrtFull_eq_of_sqr`: `sqrtFull` is THE Hensel sqrt with
     matching digit 0.
 
-**Negation preserves valuation**: `Zp.valAtLeast_neg`.
+**Negation preserves valuation**: `Zp.valAtLeast_neg`, `Zp.valEq_neg`.
+
+**Precise multiplicative ultrametric (this stretch)**:
+  · `Zp.valEq_mul`: `val(x · y) = val(x) + val(y)`.  Requires
+    coprime hypothesis `((x.digits m).val · (y.digits n).val) % p ≠ 0`
+    (automatic for p prime).  Built via three helpers:
+    `mul_pow_succ_mod_gen` (any m), `trunc_div_pow_mod`,
+    `trunc_eq_pow_mul_div`.
+
+**Norm structure now complete**: strong ultrametric for +/-/·/pow,
+plus valEq versions for the precise statements.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
