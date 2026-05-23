@@ -22,6 +22,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`cardinality_cutoff_principle.md`](cardinality_cutoff_principle.md) | `Cohomology/Fractal/AurifeuilleanFullCutoff.lean` (28 PURE) |
 | [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | 6 Lean files in `Cohomology/Fractal/` (191 PURE) |
 | [`methodology_patterns.md`](methodology_patterns.md) | Closure-work methodology: Patterns #1-#20 + Reduction patterns #1-#6 |
+| [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
 
 ## Action-items registry
 
