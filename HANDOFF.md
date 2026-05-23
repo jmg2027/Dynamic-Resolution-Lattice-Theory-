@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 550 PURE / 0 DIRTY across 46 closures
+## Marathon summary — 569 PURE / 0 DIRTY across 48 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -160,6 +160,29 @@ proven for arbitrary triples via Nat.add_assoc + cutSum_int_int.
 This is the practical algebraic closure of blocker 2; beyond
 the integer class, general assoc requires search-index reorganization.
 
+### Wave 11: closing the two essay follow-ups (19 PURE)
+
+Original `pure_funext_avoidance.md` essay listed two follow-ups
+as "patterns complete, application range incremental".  Both
+closed:
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/SetoidAssoc.lean` | 8 |
+| `real213` | `Lib/Math/Real213/HalfValidCut.lean` | 11 |
+
+**Zp.add Setoid monoid** (`SetoidAssoc`): full additive-monoid
+structure (assoc + comm + zero) at the ZpSeqEquiv level via
+`Zp.add_trunc` (Residual Induction) + trunc-equality-implies-
+digit-equality extraction.  Closes the "LensMap composition law"
+abstraction follow-up.
+
+**Dyadic cutSum_assoc** (`HalfValidCut`): extends IntValidCut from
+b=1 to b=2 via cutSum_half_general; same bundled-subtype pattern.
+Closes the dyadic class (b ∈ {1, 2}); b ≥ 3 remains genuine open
+frontier (forward-only cutSum_same_denom_forward, requires
+search-index reorganization theorem).
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -215,4 +238,4 @@ the integer class, general assoc requires search-index reorganization.
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 46 new files PURE.
+`tools/scan_axioms.py <module>` — all 48 new files PURE.

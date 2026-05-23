@@ -30,11 +30,17 @@
 
 네 패턴 모두 *내부 일관성에서 동일성을 유추한다*는 같은 213-native 입장에서 파생된다.  Funext 부재는 *결함*이 아니라 213이 외부 관찰자에게 함수 동일성을 양도하지 않는다는 *입장*의 직접 결과.
 
-## Open frontier
+## Closed follow-ups
 
-`cutSum_assoc`은 integer-extended class 너머 일반 ValidCut에서는 search-index reorganization 정리가 필요 — 두 association의 search 공간을 구조적으로 일치시키는 trajectory-bridge가 미구축.  마찬가지로 Setoid Category가 LensMap을 가지지만, `Zp.add`의 결합법칙을 LensMap composition law로 추상화한 chain은 아직 미작성 (가능은 함, 작업량 issue).
+원래 essay 작성 시점의 두 follow-up은 모두 closed:
 
-이 두 잔여는 *블로커가 아니라 follow-up* — 패턴은 완비, 적용 범위가 incremental.
+- **Zp.add 결합법칙을 LensMap composition law로 추상화** — `Lib/Math/Padic/SetoidAssoc.lean` (8 PURE).  `Zp.add_trunc` (Residual Induction)으로 truncation 단위 결합법칙을 환원, `digits_eq_of_trunc_eq`로 digit-equality 추출, `zp_add_setoid_monoid_capstone`이 monoid 구조 (assoc + comm + zero) 전체를 Setoid 레벨에서 묶음.  핵심: trunc-level 결합법칙은 `Nat.add_assoc + add_mod_gen` chain.
+
+- **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/Real213/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
+
+## 진짜 open frontier
+
+b ≥ 3 에서의 general `cutSum_assoc`은 **여전히 미닫힘**: `cutSum_same_denom_forward`가 forward direction만 제공 (precision-doubling artifact가 backward에서 발생).  이 경우 진정한 search-index reorganization 정리 — 두 association의 search 공간을 trajectory-bridge로 구조적으로 일치시키는 메타정리 — 가 필요.  이건 *블로커가 아닌, 새로운 정리*가 필요한 frontier.
 
 ## Provenance
 
