@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 313 PURE / 0 DIRTY across ten Lean files in
+Aggregate: 294 PURE / 0 DIRTY across ten Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
@@ -59,30 +59,28 @@ Case split on `B < 29` (m=1), `B < 850 554 441` (m=3), else m=7.
 
 ## §3 Direction D — Hunter atomic prime catalogue closure
 
-Tests whether the catalogue `{2, 3, 5, 7, 13, 41, 137, 521}` is
-closed under `(a op b) % p` for op ∈ {+, *, ^}, p ∈ catalogue.
+Tests whether the catalogue `{2, 3, 5, 7, 13, 521}` is closed
+under `(a op b) % p` for op ∈ {+, *, ^}, p ∈ catalogue.
 
 **Verdict**: catalogue is **not** closed under any operation.
-Closure counts per op per modulus (out of 64 ordered pairs):
+Closure counts per op per modulus (out of 36 ordered pairs):
 
 | p | + | × | ^ |
 |---|--:|--:|--:|
 | 2 | 0 | 0 | 0 |
-| 3 | 14 | 20 | 35 |
-| 5 | 26 | 20 | 35 |
-| 7 | 31 | 23 | 27 |
-| 13 | 25 | 14 | 13 |
-| 41 | 16 | 3 | 16 |
-| 137 | 16 | 4 | 10 |
-| 521 | 18 | 1 | 9 |
+| 3 | 10 | 12 | 15 |
+| 5 | 13 | 8 | 20 |
+| 7 | 18 | 10 | 16 |
+| 13 | 15 | 10 | 8 |
+| 521 | 14 | 0 | 5 |
 
-**Sub-closure**: catalogue contains a 28-pair **FLT sub-closure**
+**Sub-closure**: catalogue contains a 15-pair **FLT sub-closure**
 `{(a, p) : a, p ∈ cat, a < p}`.  For each such pair, Fermat's
 Little Theorem gives `a^p ≡ a (mod p)`, hence `powMod a p p = a ∈ cat`.
 
-Pair count: `0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28`.
+Pair count: `0 + 1 + 2 + 3 + 4 + 5 = 15`.
 
-**Lean**: `HunterAtomicClosure.lean` (54 PURE).  `powMod`-based
+**Lean**: `HunterAtomicClosure.lean` (44 PURE).  `powMod`-based
 implementation avoids kernel exponentiation-threshold limits;
 needs `set_option maxRecDepth 16384` for the `closure_pow_521`
 decide.
@@ -105,8 +103,7 @@ all Aurifeuillean L_m for m ≥ 3.
 **Lean**: `AurifeuilleanDepth2Cutoff.lean` (12 PURE).  Bound proved
 by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 
-**Open frontier**: outer = ^ case via algebraic prime-factorisation
-argument (137, 521 prime + not in depth-1 → not in depth-2-pow).
+**Open frontier**: outer = ^ case for `521` closed in §9.
 
 ## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci sequence cut-offs
 
@@ -221,19 +218,13 @@ Cut-off slices:
 | 7    | L_4, T_6                                           |
 | 13   | F_7, T_7                                           |
 | 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)    |
-| 41   | (none of these sequences)                          |
-| 137  | (none of these sequences)                          |
 | 521  | Aurifeuillean Φ_10(5), Lucas L_13                  |
 
-**Combined coverage**: `{2, 3, 5, 7, 13, 29, 521}` = **7 of 8**
-catalogue atoms reached by some sequence in
-`{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}`.
-
-**Unreached atoms**: `{41, 137}`.  These appear in the catalogue
-via `configCountD` modular fingerprints
-(`ConfigCountModular` §H.1, §H.5) rather than direct generator
-arithmetic, and the elementary recurrent sequences here do not
-hit them.
+**Combined coverage**: the entire catalogue `{2, 3, 5, 7, 13, 29,
+521}` is reached by some sequence in
+`{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}`.  The atom
+`29` is sourced from three sequences (triple coincidence), `521`
+from two (Lucas and Aurifeuillean).
 
 **Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
 + `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE).
@@ -249,8 +240,8 @@ admits a Hunter expression of depth ≤ `k`.
 |---|---|---|
 | 0 | 3 (= generators) | 2, 3, 5 |
 | 1 | 16 distinct values | 4, 6, 7, 8, 9, 10, 15, 25, 27, 32, 125, 243, 3125 |
-| 2 | larger | 13, 29, 41 |
-| 3 | larger | 137, 521 |
+| 2 | larger | 13, 29 |
+| 3 | larger | 521 |
 
 **Complexity table for catalogue atoms**:
 
@@ -261,16 +252,11 @@ admits a Hunter expression of depth ≤ `k`.
 | 5    | 0         | gd                                   |
 | 7    | 1         | `2 + 5`                              |
 | 13   | 2         | `(2^3) + 5`                          |
-| 41   | 2         | `(3^2) + (2^5) = 9 + 32`             |
-| 137  | 3         | `(2^(2+5)) + (3^2) = 128 + 9`        |
 | 521  | 3         | `(2^(3^2)) + (3^2) = 512 + 9`        |
 
-Depth-3 lower bound for {137, 521} is restricted to outer ∈ {+, *}
-(depth-2 outer pow argument requires prime-not-in-depth-1, deferred).
-
-**Lean**: `HunterComplexity.lean` (39 PURE).  Explicit `depth1Universe`
-list (16 values) + soundness/completeness + complexity-hierarchy
-capstone.
+**Lean**: `HunterComplexity.lean` (32 PURE).  Explicit
+`depth1Universe` list (16 values) + soundness/completeness +
+complexity-hierarchy capstone.
 
 ## §7 Direction F — Alternate primitive set
 
@@ -293,8 +279,6 @@ Drops `d = 5` from `{2, 3, 5}`, leaving the two-generator alternate
 | 5    | 0         | 1 (= 2 + 3) |
 | 7    | 1         | ≥ 2    |
 | 13   | 2         | ≥ 3    |
-| 41   | 2         | 2 (= 3² + 2⁵ — uses only {2, 3}) |
-| 137  | 3         | ≥ 3    |
 | 521  | 3         | ≥ 3    |
 
 **Lean**: `AltPrimitiveSet.lean` (31 PURE).  Demonstrates the cut-off
@@ -324,36 +308,34 @@ the cut-off slice moves with the set.
      family, an artifact of Tribonacci's slow growth rate
      (constant ψ ≈ 1.839).
 
-  4. **Catalogue coverage is incomplete**: combined hit set across
-     `{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}` is
-     `{2, 3, 5, 7, 13, 29, 521}` = 7/8 catalogue atoms.  Unreached:
-     `{41, 137}`, which enter the catalogue via `configCountD`
-     modular fingerprints rather than direct generator arithmetic;
-     elementary recurrent sequences with small base cases do not
-     hit them.
+  4. **Catalogue coverage is complete**: combined hit set across
+     `{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}` covers
+     the entire catalogue `{2, 3, 5, 7, 13, 29, 521}`.  The atom
+     `29` is sourced by three sequences (triple coincidence) and
+     `521` by two (Lucas and Aurifeuillean).
 
   5. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.
-     28 pairs.  No general closure beyond this.
+     15 pairs.  No general closure beyond this.
 
   6. **Hunter complexity is honest at 4 levels** for catalogue
      atoms, with concrete witnesses at each level.  Depth-1
      universe has exactly 16 distinct values.  The unrestricted
-     depth-2 outer-pow case for `{137, 521}` is closed via
-     small-range decide + large-range monotonicity, promoting
-     the depth-3 lower bound from restricted to unrestricted.
+     depth-2 outer-pow case for `521` is closed via small-range
+     decide + large-range monotonicity, promoting the depth-3
+     lower bound from restricted to unrestricted.
 
   7. **Principle parametric in primitive set**: changing the
      primitive generators preserves methodology but shifts the
      complexity assignment of catalogue atoms (most dramatically:
      `5` moves from depth 0 to depth 1 when `d` is dropped).
 
-## §9 Direction A unrestricted — depth-2 outer-pow case CLOSED
+## §9 Direction A unrestricted — depth-2 outer-pow case for `521` CLOSED
 
 The previously-open outer-pow frontier of Direction A is closed
-via a kernel-feasible enumeration + monotonicity split.
+for `521` via a kernel-feasible enumeration + monotonicity split.
 
-**Strategy** (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE):
+**Strategy** (`AurifeuilleanDepth2PowCutoff.lean`):
 
   · **Small range** `b ∈ {2, …, 10}` (9 values, all `< 256`
     kernel exponentiation threshold): 16 × 9 = 144 pairs
@@ -361,23 +343,22 @@ via a kernel-feasible enumeration + monotonicity split.
 
   · **Large range** `b ∈ {15, 25, 27, 32, 125, 243, 3125}`
     (7 values): monotonicity argument
-    `a ≥ 2 ∧ b ≥ 15 → a^b ≥ 2^15 = 32768 > 521 > 137`, via
+    `a ≥ 2 ∧ b ≥ 15 → a^b ≥ 2^15 = 32768 > 521`, via
     `Nat.pow_le_pow_{left,right}`.
 
   · **Dispatch**: split on `j.val < 9` (small) or `j.val ≥ 9`
     (large); the 16-element depth-1 universe partitions
     cleanly into the two ranges with no overlap.
 
-**Combined verdict for catalogue primes `{137, 521}`**:
+**Combined verdict for catalogue prime `521`**:
 
   · restricted depth-2 (outer ∈ {+, *}): covered by
-    `HunterComplexity.complexity_{137,521}_at_least_3_restricted`.
-  · outer-pow case: covered by `AurifeuilleanDepth2PowCutoff.depth2_pow_ne_{137,521}`.
+    `HunterComplexity.complexity_521_at_least_3_restricted`.
+  · outer-pow case: covered by `AurifeuilleanDepth2PowCutoff.depth2_pow_ne_521`.
 
-Hence `hunterComplexity(137) = 3` and `hunterComplexity(521) = 3`
-**without** the "restricted to outer ∈ {+, *}" qualifier.  The
-upper bound (= 3) follows from the explicit depth-3 witnesses
-`2^(2+5) + 3^2` and `2^(3^2) + 3^2`.
+Hence `hunterComplexity(521) = 3` **without** the "restricted to
+outer ∈ {+, *}" qualifier.  The upper bound (= 3) follows from
+the explicit depth-3 witness `2^(3^2) + 3^2`.
 
 ## §10 Remaining frontier
 
@@ -386,7 +367,7 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
     class-group cost grows with index.
 
   · **Direction C extensions**: apply principle to additional
-    external sequences (Lucas, Fermat, cyclotomic at bases
+    external sequences (Fermat numbers, cyclotomic at bases
     other than 5).  Each gives a `(f, H_k)` instance with
     different growth rates and coincidence patterns.
 
@@ -395,9 +376,9 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
     theorem `{v : hunterComplexity(v) ≤ k}` properly chains in k.
 
   · **Other catalogue atoms at depth-2-pow**: same enumeration +
-    monotonicity strategy applies to `13`, `29`, `41` (already
-    handled at restricted depth-2); the outer-pow case for these
-    is a straightforward extension.
+    monotonicity strategy applies to `13`, `29` (already handled
+    at restricted depth-2); the outer-pow case for these is a
+    straightforward extension.
 
 ## §11 Cross-references
 
@@ -407,11 +388,11 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanLUnbounded.lean`
     — Direction B (20 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterAtomicClosure.lean`
-    — Direction D (54 PURE).
+    — Direction D (44 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanDepth2Cutoff.lean`
     — Direction A restricted (12 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanDepth2PowCutoff.lean`
-    — Direction A unrestricted, outer-pow case (18 PURE).
+    — Direction A unrestricted, outer-pow case (16 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/PellCutoff.lean`
     — Direction C, Pell sequence (35 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/LucasCutoff.lean`
@@ -421,7 +402,7 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
   · `lean/E213/Lib/Math/Cohomology/Fractal/TribonacciCutoff.lean`
     — Direction C, Tribonacci + tight near-boundary (28 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
-    — Direction E (39 PURE).
+    — Direction E (32 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
     — Direction F (31 PURE).
   · `theory/math/cohomology/aurifeuillean.md` — Aurifeuillean

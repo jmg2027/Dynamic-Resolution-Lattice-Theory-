@@ -6,21 +6,26 @@
 six-direction marathon for the cardinality cut-off principle AND
 promotes the result as a `theory/meta/` chapter family.
 
-## §7 marathon — COMPLETE + PROMOTED + EXTENDED (313 PURE / 0 DIRTY)
+## §7 marathon — COMPLETE + PROMOTED + EXTENDED (294 PURE / 0 DIRTY)
+
+Catalogue redefined: `{2, 3, 5, 7, 13, 521}` (dropped 41, 137 —
+their justification as catalogue atoms via physics constants
+`α_GUT` / `1/α_em` is a forced fit since both constants are
+non-integer).
 
 ### Lean source (ten files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
 
 | File | PURE | Direction |
 |---|---|---|
 | `AurifeuilleanLUnbounded.lean` | 20 | B — Aurifeuillean L unboundedness, chain m ∈ {1, 3, 7}, cap = L_7 ≈ 5.27×10⁵⁸ |
-| `HunterAtomicClosure.lean` | 54 | D — Hunter atomic prime mod-p closure analysis; 28 FLT sub-closure pairs |
+| `HunterAtomicClosure.lean` | 44 | D — Hunter atomic prime mod-p closure analysis; 15 FLT sub-closure pairs |
 | `AurifeuilleanDepth2Cutoff.lean` | 12 | A — restricted depth-2 cut-off (outer ∈ {+, *}, M_{2,r} = 9 765 625) |
-| `AurifeuilleanDepth2PowCutoff.lean` | 18 | A unrestricted — outer-pow case for {137, 521} via small-range decide + monotonicity |
+| `AurifeuilleanDepth2PowCutoff.lean` | 16 | A unrestricted — outer-pow case for 521 via small-range decide + monotonicity |
 | `PellCutoff.lean` | 35 | C — Pell-sequence cut-off; P_5 = 29 = L_1 coincidence |
 | `LucasCutoff.lean` | 40 | C extension — Lucas-sequence; 5 catalogue intersections; triple coincidence at 29 |
 | `FibonacciCutoff.lean` | 36 | C extension — Fibonacci-sequence; (F_3, F_4, F_5) = (NT, NS, d) Hunter-generator window |
 | `TribonacciCutoff.lean` | 28 | C extension — Tribonacci; T_16 − M_1 = 11 tightest near-boundary |
-| `HunterComplexity.lean` | 39 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
+| `HunterComplexity.lean` | 32 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
 | `AltPrimitiveSet.lean` | 31 | F — alternate primitive set {2, 3}; catalogue mobility |
 
 ### Theory chapter
