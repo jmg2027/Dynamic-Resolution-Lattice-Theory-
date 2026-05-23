@@ -230,6 +230,45 @@ A non-vacuous Massey ⟨ω, ω, ω⟩ requires:
 
 Both remain open frontiers.
 
+## Sq² at the 4-skeleton — chain-level explicit
+
+`Sq2At4Cell.lean` ships an explicit chain-level Sq² via a
+defensible outermost-faces AW lift of cup_0 at the 4-cell:
+
+      (α ⌣_0 β)(σ⁴) := α(face_0) ∧ β(face_2).
+
+For ω = (1, 1, 1): Sq²(ω) = (true) at the chain level —
+non-trivial as a cochain.  But Sq²(ω) = δ³(all-true 3-cochain),
+so [Sq²(ω)] = 0 in `H⁴ = 0` at the 4-skeleton.
+
+Steenrod ladder at ω now complete across i ∈ {0, 1, 2} at the
+4-skeleton with explicit chain-level values:
+
+  · Sq⁰(ω) = ω at C² (H² non-trivial)
+  · Sq¹(ω) = δ²(ω) at C³ (H³ trivial at 3-skeleton)
+  · Sq²(ω) = true at C⁴ via AW lift (H⁴ trivial at 4-skeleton)
+
+Max non-trivial Sq^i CLASS at ω at the 4-skeleton: `i = 0`.
+
+## Multi-cell 5-skeleton — non-vacuous H⁵ substrate
+
+`Filled5CellMultiExtension.lean` breaks the pyramid collapse
+from `Filled5CellExtension` with two 5-cells σ⁵_a, σ⁵_b both
+with boundary [σ⁴]:
+
+  · `C⁵ = Fin 2 → Bool`
+  · `δ⁴_multi(c)(σ⁵_a) = δ⁴_multi(c)(σ⁵_b) = c(σ⁴)` (both
+    cells receive the same value — image lies on the diagonal)
+  · The off-diagonal cochain `(false, true)` is NOT in
+    `im δ⁴_multi`: it has different values at the two 5-cells.
+  · `H⁵ ≅ ℤ/2` — non-trivial cohomology.
+
+This is the Massey-triple substrate: with `H⁵ ≠ 0`, Massey
+`⟨ω, ω, ω⟩` can host a non-vacuous class.  Remaining content
+for full Massey closure: explicit cobounding-chain construction
+solving `ω ⌣ ω = δ b_i`, then `[b_1 ⌣ ω + ω ⌣ b_2]` mod
+indeterminacy ideal `ω · H¹ + H¹ · ω`.
+
 ## Open frontier (pure cohomology)
 
   · **General Steenrod cup_i for arbitrary i ≥ 2** with the full
@@ -239,10 +278,10 @@ Both remain open frontiers.
     (extend complex so target degrees host non-trivial classes).
   · **Cartan formula non-vacuous** — same higher-skeleton
     requirement.
-  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — 5-skeleton landing-space
-    audit is closed (`Filled5CellExtension`, H⁵ = 0 vacuously);
-    non-vacuous Massey needs 6-skeleton extension + explicit
-    cobounding-chain construction.
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — `Filled5CellMultiExtension`
+    provides the non-vacuous H⁵ substrate.  Remaining content:
+    explicit cobounding-chain construction + Massey-class
+    computation modulo indeterminacy.
   · **General Steenrod algebra in 213-native Lean**: cup_i
     operations + Adem + Cartan + Steenrod squares as a unified
     typeclass framework.

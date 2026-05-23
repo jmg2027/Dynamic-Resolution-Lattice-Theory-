@@ -387,17 +387,18 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     layer; logged here as the principal downstream physics
     problem.
   · **Pisano-analogue grid across sister sequences** — **CLOSED**.
-    Six Direction C sister sequences with parametric mod-{2, 3, 5}
-    Pisano-analogue closures (18 parametric theorems):
+    Six Direction C sister sequences with parametric Pisano-analogue
+    closures across the small-prime tetrad `{2, 3, 5, 7}` —
+    24 closures total (23 parametric + 1 eventually-constant):
 
-    | Sequence  | π(2)       | π(3) | π(5) |
-    |-----------|------------|------|------|
-    | Fibonacci |   3        |   8  |  20  |
-    | Lucas     |   3        |   8  |   4  |
-    | Padovan   |   7        |  13  |  24  |
-    | Tribonacci|   4        |  13  |  31  |
-    | Narayana  |   7        |   8  |  31  |
-    | Jacobsthal| constant 1 |   6  |   4  |
+    | Sequence  | π(2)       | π(3) | π(5) | π(7) |
+    |-----------|------------|------|------|------|
+    | Fibonacci |   3        |   8  |  20  |  16  |
+    | Lucas     |   3        |   8  |   4  |  16  |
+    | Padovan   |   7        |  13  |  24  |  48  |
+    | Tribonacci|   4        |  13  |  31  |  48  |
+    | Narayana  |   7        |   8  |  31  |  57  |
+    | Jacobsthal| constant 1 |   6  |   4  |   6  |
 
     Common technique: nested induction over the recurrence
     order + `add_mod_gen` for sum reduction + `mul_mod_right_pure`

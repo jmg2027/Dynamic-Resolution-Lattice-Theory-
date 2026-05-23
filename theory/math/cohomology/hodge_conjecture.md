@@ -135,6 +135,8 @@ Beyond the core claim, six strengthenings are closed:
 | Cup-atomic generation | `Refinement/CupAtomicGeneration.lean` | Vertex ⌣ vertex generates all classes at Δ⁴ (strong form) |
 | Cup-atomic generation at Δ³ | `Refinement/CupAtomicGenerationDelta3.lean` | 4 vertices → 6 edges (sister to Δ⁴) |
 | Cup-atomic generation at Δ⁵ | `Refinement/CupAtomicGenerationDelta5.lean` | 6 vertices → 15 edges (sister to Δ⁴) |
+| Cup-atomic generation at Δ⁶ | `Refinement/CupAtomicGenerationDelta6.lean` | 7 vertices → 21 edges, 2⁷ = 128 atomic generators |
+| Cup-atomic generation at Δ⁷ | `Refinement/CupAtomicGenerationDelta7.lean` | 8 vertices → 28 edges, 2⁸ = 256 atomic generators |
 | Cup-atomic generation grid | `Refinement/CupAtomicGenerationGrid.lean` | Unified HC²¹³ automation across Δ³ + Δ⁴ + Δ⁵, with `2^n` atomic-generator total confirmed at each n |
 | Standard Conjectures | `Refinement/StandardConjectures.lean` | Grothendieck A/B/C/D |
 | Lefschetz hyperplane | `Refinement/LefschetzHyperplane.lean` | Δ⁴ → Δ³ restriction (Pascal-triangle witness) |
@@ -200,6 +202,8 @@ sister Δⁿ closures are now shipped:
 | 4 | Δ³      |        4 |     6 |  16 |
 | 5 | Δ⁴      |        5 |    10 |  32 |
 | 6 | Δ⁵      |        6 |    15 |  64 |
+| 7 | Δ⁶      |        7 |    21 | 128 |
+| 8 | Δ⁷      |        8 |    28 | 256 |
 
 Each closure ships the same proof shape: `decide` over all
 `(i, j, τ)` triples in `Fin n × Fin n × Fin (binom n 2)`,

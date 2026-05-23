@@ -3,8 +3,8 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-8 closed;
-**23 closures totaling 269 PURE new**.
+open-frontier marathon (G139).  Phases 1-9 closed;
+**27 closures totaling 330 PURE new** (1 closure deferred: CupAW (5,1,2)).
 
 ## G139 phase-by-phase
 
@@ -18,6 +18,7 @@ open-frontier marathon (G139).  Phases 1-8 closed;
 | 6 | Q, R, S, T | 29 | JacobsthalModular new; mod-5 parametric across Fib/Lucas/Pad |
 | 7 | U, V | 15 | Nara/Trib mod-5 period 31 — grid complete across 6 × 3 = 18 parametric closures |
 | 8 | W | 12 | HC²¹³ variant automation — Δ³ + Δ⁵ + grid capstone (2^n atomic generators across Δⁿ) |
+| 9 | X, Y, Z, AA | 61 | HC²¹³ Δ⁶/Δ⁷ + Pisano mod-7 column + Sq² chain-level + multi-cell H⁵ ≠ 0 |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -53,27 +54,34 @@ of the prior `Pad_24_eq_Pad_0_mod_5` decide-spot-check.
 `Fib_mod_5_period_20` parametric — classical Pisano period
 `π(5) = 20`.
 
-## Pisano-analogue closure GRID COMPLETE (six sisters × three primes)
+## Pisano-analogue closure GRID COMPLETE (six sisters × four primes)
 
-| Sequence  | Recurrence | π(2) | π(3) | π(5) |
-|-----------|------------|------|------|------|
-| Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 |
-| Lucas     | same, init `(2, 1)` | 3 | 8 | 4 |
-| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 |
-| Tribonacci | sum of 3 prev | 4 | 13 | 31 |
-| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 |
-| Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 |
+| Sequence  | Recurrence | π(2) | π(3) | π(5) | π(7) |
+|-----------|------------|------|------|------|------|
+| Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 | 16 |
+| Lucas     | same, init `(2, 1)` | 3 | 8 | 4 | 16 |
+| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 | 48 |
+| Tribonacci | sum of 3 prev | 4 | 13 | 31 | 48 |
+| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 | 57 |
+| Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 | 6 |
 
-**18 parametric Pisano-analogue closures** — strict ∅-axiom.
+**23 parametric + 1 eventually-constant = 24 Pisano-analogue
+closures** — strict ∅-axiom.
 
 **Period-coincidence twin pairs**:
-  · Fib ↔ Lucas: all three periods coincide (shared recurrence).
+  · Fib ↔ Lucas: shared periods at all four primes (recurrence
+    identical).
   · Padovan ↔ Narayana: π(2) = 7 coincide; diverge at higher
     moduli (one-shift recurrence separates).
   · Lucas ↔ Jacobsthal: π(5) = 4 coincide via different
     structural origins (Lucas inherits from Fib; Jacobsthal
     from closed-form `(2^n − (−1)^n)/3` collapse).
-  · Tribonacci ↔ Narayana: π(5) = 31 — new twin from Phase 7.
+  · Tribonacci ↔ Narayana: π(5) = 31 (Phase 7 twin).
+  · Padovan ↔ Tribonacci: π(7) = 48 (NEW Phase 9 twin —
+    cross-recurrence: Padovan one-shift vs. Tribonacci
+    full-sum-of-3).
+  · Jacobsthal π(3) = π(7) = 6 — same period at two distinct
+    primes.
   · Jacobsthal mod 2 uniquely structurally distinguished:
     eventually-constant (not periodic) due to the `2 J_n` term.
 
@@ -114,23 +122,42 @@ inverse needed.
 
 `Refinement/CupAtomicGeneration{Delta3, Delta5, Grid}.lean`:
 three Δⁿ sister closures + unified grid capstone.  Atomic
-generator total scales as `2^n` (16/32/64 at Δ³/Δ⁴/Δ⁵);
-mechanical via `decide`; sames proof shape across all three
-substrates.
+generator total scales as `2^n` (16/32/64 at Δ³/Δ⁴/Δ⁵).
 
-## Phase 9 candidates (next session)
+## Phase 9 — 4 of 5 fronts CLOSED (61 PURE; 1 DEFERRED)
 
-  · **CupAW Leibniz** at (5, 1, 2) — pattern decide at heart-
-    beat threshold; (3, 1, 2) likely vacuous.
-  · **K_{3,2} higher Steenrod**: `Sq^3`, `Sq^4` vacuous formal
-    extensions; `Sq^2` chain-level at 4-skeleton.
-  · **6-skeleton with multi-cell attaching** for non-vacuous
-    H⁵ (simple pyramid collapses).
-  · **HC²¹³ Δ⁶ / Δ⁷ further automation** (decide complexity
-    scales rapidly).
-  · **Pisano-analogue mod-7 column** — longer periods, larger
-    base verifications.  Would complete the {2, 3, 5, 7}
-    small-prime tetrad.
+`Refinement/CupAtomicGenerationDelta6.lean` + `Delta7.lean`
+extend HC²¹³ automation to Δ⁶ (2⁷ = 128) and Δ⁷ (2⁸ = 256).
+
+`{Fibonacci, Lucas, Padovan, Tribonacci, Narayana,
+Jacobsthal}Modular.lean` extended with parametric mod-7
+period closures across all six sister sequences.
+
+`Bipartite/Sq2At4Cell.lean` — Sq² at K_{3,2}^{(c=2)} 4-skeleton
+with explicit chain-level value via outermost-faces AW lift.
+Sq²(ω) = (true) non-trivial at chain level; class trivial in
+H⁴ = 0 (= δ³(all-true 3-cochain)).
+
+`Bipartite/Filled5CellMultiExtension.lean` — multi-cell
+5-skeleton breaking the pyramid collapse.  Two 5-cells with
+shared boundary; H⁵ ≅ ℤ/2 non-trivial.  Massey-triple substrate
+in place.
+
+DEFERRED: CupAW Leibniz (5, 1, 2) — pattern decide OOM at
+800M heartbeats (32 × 1024 × 10 = 327k evals).  Closure needs
+pattern-splitting strategy.
+
+## Phase 10 candidates (next session)
+
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — explicit cobounding-chain
+    construction `b_1, b_2 : C¹` solving `ω ⌣ ω = δ b_i`, then
+    Massey-class computation modulo indeterminacy ideal.
+    Substrate is in place from Phase 9 (G139-AA).
+  · **CupAW Leibniz (5, 1, 2)** — retry with pattern splitting
+    or manual algebraic reduction.
+  · **HC²¹³ Δ⁸+ further automation** (decide complexity scales
+    rapidly).
+  · **Pisano-analogue mod-11 column** (longer periods).
 
 ## Phase 10+ (deferred)
 
@@ -165,8 +192,11 @@ substrates.
   · `bipartite.md` — universal Nat-quantified
     `kerSizeDelta0Direct = 2`.  GraphWalk infra still needed.
   · `k32_higher_cohomology.md` — Massey landing-space audit
-    closed at 5-skeleton; non-vacuous Massey + general Steenrod
-    cup_i (i ≥ 2) + non-vacuous Adem / Cartan remain open.
+    closed at 5-skeleton (Phase 1); Sq² chain-level at 4-skeleton
+    closed (Phase 9); multi-cell H⁵ substrate closed (Phase 9).
+    Non-vacuous Massey requires cobounding-chain construction
+    (substrate ready).  General Steenrod cup_i (i ≥ 2) +
+    non-vacuous Adem / Cartan remain open.
   · `fractal.md` — ∀-coprime eventual periodicity CLOSED
     (Phase 4); Pisano-analogue parametric closures shipped for
     six Direction C sister sequences across the {2, 3, 5}

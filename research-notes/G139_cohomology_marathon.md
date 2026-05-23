@@ -233,17 +233,40 @@ Pisano-analogue grid COMPLETE — 18 parametric theorems
 Automation observation: each Δⁿ instance is mechanical via
 `decide`; identical proof shape across all three n.
 
-## Phase 9 (next session candidates)
+## Phase 9 — CLOSED (4 closures, 61 PURE new; 1 deferred)
 
-  · CupAW Leibniz (5, 1, 2) — pattern decide may be at the
-    heart-beat threshold; (3, 1, 2) likely vacuous.
-  · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at
-    4-skeleton) and Sq^2 explicit chain-level at 4-skeleton.
-  · 6-skeleton extension with multi-cell attaching for
-    non-vacuous H⁵.
-  · HC²¹³ Δ⁶ / Δ⁷ further automation (decide complexity scales
-    rapidly).
-  · Pisano-analogue mod-7 column (longer periods).
+ 24. **G139-X HC²¹³ Δ⁶/Δ⁷ automation extension** — CLOSED (10 PURE).
+     `CupAtomicGenerationDelta6.lean` (5 PURE), Delta7 (5 PURE).
+     Δⁿ tetrad now n ∈ {4,5,6,7,8}; atomic generators
+     2⁴/2⁵/2⁶/2⁷/2⁸ at Δ³/Δ⁴/Δ⁵/Δ⁶/Δ⁷.
+ 25. **G139-Y Pisano-analogue mod-7 column** — CLOSED (27 PURE).
+     Six sister sequences with parametric mod-7 closures:
+     Fib π=16, Lucas π=16 (twin), Pad π=48, Trib π=48 (NEW
+     cross-recurrence twin), Nara π=57, Jac π=6 (= π(3)).
+ 26. **G139-Z K_{3,2} Sq² chain-level at 4-skeleton** — CLOSED
+     (10 PURE).  Outermost-faces AW lift of cup_0 at C⁴;
+     Sq²(ω) = (true) at chain level, [Sq²(ω)] = 0 in H⁴ = 0
+     (coboundary of all-true 3-cochain).  Steenrod ladder at ω
+     complete across i ∈ {0, 1, 2}.
+ 27. **G139-AA Multi-5-cell extension for non-vacuous H⁵**
+     — CLOSED (14 PURE).  Two 5-cells σ⁵_a, σ⁵_b both with
+     boundary [σ⁴]; im δ⁴_multi is diagonal; off-diagonal
+     cochain represents non-zero class.  H⁵ ≅ ℤ/2.  Massey
+     ⟨ω, ω, ω⟩ substrate now non-trivial.
+  *  **G139-BB CupAW (5, 1, 2)** — DEFERRED.  Pattern decide
+     at 32 × 1024 × 10 = 327k evals; Lean kernel OOM (exit 137)
+     at maxHeartbeats 800M.  Needs different strategy: pattern
+     splitting, manual reduction, or algebraic lift.
+
+## Phase 10 (next session candidates)
+
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — explicit cobounding-chain
+    construction `b_1, b_2 : C¹` solving `ω ⌣ ω = δ b_i`, then
+    Massey-class computation modulo indeterminacy ideal.
+    Substrate is in place (G139-AA).
+  · CupAW Leibniz (5, 1, 2) — retry with pattern splitting.
+  · HC²¹³ Δ⁸+ further automation.
+  · Pisano-analogue mod-11 column (longer periods).
 
 ## Phase 10+ (deferred)
 
