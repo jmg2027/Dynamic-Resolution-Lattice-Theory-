@@ -173,9 +173,36 @@ The parametric definition makes Tribonacci's hand-rolled
 `Trib` (in `Cohomology/Fractal/TribonacciCutoff.lean`) one case
 of a single generic family.
 
+## Continued fractions as FSM — closed (ContinuedFraction.lean, 17 PURE)
+
+`Lib/Math/DyadicFSM/ContinuedFraction.lean` realises the
+continued-fraction expansion of a positive rational `p/q` as an
+explicit FSM:
+
+  · State `CFState := Nat × Nat`.
+  · Transition `cfStep (n, d) := (d, n mod d)` — Euclidean step.
+  · Output `cfDigit (n, d) := n / d` — current quotient.
+  · `cfCoeff p q k` — the k-th continued-fraction coefficient.
+  · Terminal state `(n, 0)` — fixed point with digit `0`.
+
+Smoke at 213-relevant rationals:
+  · Cabibbo `5/22 = [0; 4, 2, 2]`.
+  · Archimedean `22/7 = [3; 7]` (π approximation).
+  · CKM-δ `176/147 = [1; 5, ...]`.
+  · Fibonacci convergents `5/3 = [1; 1, 2]`, `8/5 = [1; 1, 1, 2]`,
+    `13/8 = [1; 1, 1, 1, 2]` (φ-convergent fingerprint: leading
+    1s with terminal 2).
+  · `21/8 = [2; 1, 1, 1, 2]` (Fibonacci-convergent φ² approximation).
+  · ★★★★ `continued_fraction_fsm_capstone` packages all four
+    classes + termination.
+
+Reading: every rational in the DRLT precision tables (Cabibbo,
+CKM δ, π approximations, Fibonacci convergents) has its
+continued-fraction expansion as a finite FSM output stream — the
+Euclidean algorithm IS the FSM transition.
+
 ## Open frontier
 
-- **Continued fractions** as FSM — sketched, not yet capstoned
 - **Real213-p-adic** — the modular-arithmetic substrate
   produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
   foundation for a 213-native p-adic construction.  STARTER at
@@ -184,6 +211,8 @@ of a single generic family.
 - ~~**Higher-order recursions** (Tribonacci, k-bonacci)~~ —
   CLOSED via `KBonacci.lean` (48 PURE) above.  Parametric in `k`,
   depth-5 cascade theorem.
+- ~~**Continued fractions** as FSM~~ — CLOSED via
+  `ContinuedFraction.lean` (17 PURE) above.
 
 ## How to verify
 
