@@ -32,33 +32,31 @@ import E213.Lens.Universal
     * `Lens.Instances`                   — concrete Lens instances
       (AB, Bool, Cauchy, Path, Prism, Reach, Subtype, Sum, Swap,
        ZMod6, …) + `Leaves/` sub-cluster (Mod3, ModNat, DepthJoin,
-      DepthIncomparable, RefinesParity) — 2026-05-13 폴드
+      DepthIncomparable, RefinesParity)
     * `Lens.Algebra`                     — algebraic kernel
       (Congruence, Corresp, FourDistinct, FreeAudit, IdLensEq,
        Space, SwapInvariant)
     * `Lens.Cardinality`                 — cardinality observables
       (Cantor, Tower, BoolSpace, Countable, Pair, Godel, Chain,
-       LensCardinality, CardinalityLB) — moved 2026-05-13 from
-      Lib/Math/Infinity + Lens/Algebra
+       LensCardinality, CardinalityLB) 
     * `Lens.Lattice`                     — refines preorder
       (Chain, Preorder) + lattice (Join, Meet, JoinEquiv,
-       IndexedJoin, FamilyJoin/Meet) — Refines 폴드 2026-05-13
+       IndexedJoin, FamilyJoin/Meet)
     * `Lens.Properties`                  — derived predicates +
       `Diagonal` (sq classification: Collapse/Idempotent/Escalate/
       Multiply) + `Characterisation/` (Catalog + Core) +
       `Morphism/` (8 files: FoldStructured, BoolProp, Dist,
       SlashSwap, NoDepthParity, DepthParityNotFold, SlashCharNotFold,
-      BoolSqClassification) — 2026-05-13 폴드
+      BoolSqClassification)
     * `Lens.Number`                      — Raw-derived number systems
       (Nat213 — Raw chain + Peano inductive + Bridge + Lenses +
-       NumberingSystem + RawCut + Tower).  Migrated 2026-05-14 from
-      `Theory.Closed.{Nat213, Nat213Bridge, RawCut, NumberingSystem}`
+       NumberingSystem + RawCut + Tower).
       + `Theory.Nat213.*` + `Theory.Tower.NatPairToQPos` — each one
       is a `Raw.fold`-catamorphism artifact, hence Lens-layer.
     * `Lens.Bool213`                     — Raw-encoded closed-universe
       Bool (Raw — Method A T=a, F=b, + System — (T,F) 메타 패턴).
       `booleanProj := Raw.fold T F and` 의 catamorphism output.
-      Migrated 2026-05-14 from `Theory.Closed.{Bool213, Bool213System}`
+
       (scope C, same Lens-layer principle as Nat213).
     * `Lens.Universal`                   — Universal flat / quot lens
                                             + `Witnesses/`
@@ -66,7 +64,7 @@ import E213.Lens.Universal
       (internal generic equivalence closure, see `Theory.Raw.
       Congruence`) and `Lens.equiv` (external view equality);
       `Eqv L.equiv ↔ L.equiv` biconditional for any lens.
-      Added 2026-05-18 (Option E of the lens-emergence roadmap).
+.
     * `Lens.SyntacticInternalization`    — §9.4 syntactic
       internalisation prototype: 7-glyph alphabet (`a, b, /, (, ),
       `,`, whitespace`) Raw-encoded; Polish-prefix printer + parser

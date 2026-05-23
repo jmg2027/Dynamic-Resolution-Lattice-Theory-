@@ -32,14 +32,14 @@ import E213.Meta.ThreeDirectionUniqueness
                          VerifyConjugation, NativeGuard, PureGuard
                          + Test/)
     * `Nat/`           — ring-independent Nat helper lemmas
-                         (formerly Lib/Math/NatHelpers, 2026-05-13)
+                        
     * `Int213/`,
       `Algebra213/`    — ring-independent integer / algebra
                          scaffolding
 
   The 11 UniversalLens files (Core, Nat2, Nat2Inj, Nat3, Nat4,
   Padding, PaddingCapstone, Q213, Q213Inj, Q213_3, TripleCapstone)
-  were relocated to `Lens/Universal/Witnesses/` on 2026-05-13 —
+  were relocated to `Lens/Universal/Witnesses/` —
   LENS_AUDIT §4 noted that the Lens content had been misshoused
   in Meta.
 -/

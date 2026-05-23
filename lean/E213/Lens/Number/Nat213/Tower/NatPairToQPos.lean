@@ -62,7 +62,7 @@ theorem natToQPair_one : natToQPair Nat213.one = qOne := rfl
 theorem qpair_is_nat_pair_shaped :
     QPair = (Nat213 × Nat213) := rfl
 
-/-! ### qpairEquiv: equivalence relation properties (added 2026-05-18, iteration #22)
+/-! ### qpairEquiv: equivalence relation properties (, iteration #22)
 
 `qpairEquiv` is reflexive and symmetric — using only `Nat213.mul_comm`
 from the new Peano semiring law set.  (Transitivity also holds but

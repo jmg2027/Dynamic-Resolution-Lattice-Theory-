@@ -43,7 +43,7 @@ classes (HV1 + HV2 + HV3):
   - `Universal.QuotLens.universalLens`
   - `Properties.CanonicalForm.universalLens_recovers`
   - `Universal.Witnesses.*` — concrete universal-Lens witnesses
-    at Nat2/3/4, Q213, Q213³ (moved from Meta 2026-05-13)
+    at Nat2/3/4, Q213, Q213³ (moved from Meta)
 
 ## Optional (NOT bundled — import individually)
 

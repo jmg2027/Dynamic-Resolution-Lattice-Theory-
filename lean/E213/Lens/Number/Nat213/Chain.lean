@@ -7,7 +7,7 @@ The Raw-subtype carrier `{ r : Raw // IsMethodAChain r }` for ℕ₊'s
 Method A chart.  Operations route through `Nat` arithmetic and use
 `Raw.numeral` to come back to a chain element: this realises Option
 C of the lens-emergence path
-(`research-notes/2026-05-18_lens_emergence_path.md` §5).  The
+.  The
 "closed-Raw arithmetic" framing of the earlier Option B iteration
 has been deliberately dropped — arithmetic on `Raw` is a category
 error (Raw is for *representing* numbers, `Nat` is for *being*

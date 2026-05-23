@@ -20,7 +20,7 @@ theorem with the following 6 conjuncts:
 6. Aperiodic bs ⇒ no ArithFSM2(n) generates it (Tier 2 hardness)
 
 All conjuncts PURE (`#print axioms pell_capstone` returns "does not
-depend on any axioms"; verified 2026-05-18).
+depend on any axioms"; verified).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Pell.Capstone

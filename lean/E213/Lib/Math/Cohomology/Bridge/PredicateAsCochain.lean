@@ -5,7 +5,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Cohomology.Bridge.PredicateAsCochain — §9.3 closure deepening
 
-Connects the 2026-05-20 `Lens/FlatOntology.lean` realisation
+Connects the `Lens/FlatOntology.lean` realisation
 (types ≡ predicates `Rawⁿ → Bool`) to the cohomology cluster's
 `Cochain n k` infrastructure.
 

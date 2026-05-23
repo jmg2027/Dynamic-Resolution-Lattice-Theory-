@@ -116,7 +116,7 @@ theorem no_universal_slash_assoc :
   exact parenthesisation_distinct
     (h x y z xy_ne xyz_ne yz_ne x_yz_ne)
 
-/-! ### Same leaves count, different Raws (added 2026-05-18)
+/-! ### Same leaves count, different Raws (
 
 The two parenthesisations have IDENTICAL leaves multisets — same
 atoms, same total count — yet are distinct Raws.  This is the
@@ -138,7 +138,7 @@ theorem same_leaves_distinct_parenthesisation :
 theorem leaves_view_collapses : Raw.leaves lhs = 5 ∧ Raw.leaves rhs = 5 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-/-! ### Internal-Eqv view of the collapse (added 2026-05-18)
+/-! ### Internal-Eqv view of the collapse (
 
 `lhs` and `rhs` are concretely `Eqv`-equivalent under the leaves-
 induced generator: the generator pair `Raw.leaves lhs = Raw.leaves rhs`

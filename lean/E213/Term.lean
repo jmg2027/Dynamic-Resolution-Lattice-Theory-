@@ -11,7 +11,7 @@ import E213.Term.Term
 /-! Spec-as-code entry point for `E213.Term`.
 
   Bare-metal type-theory layer — Term ring (ARCHITECTURE.md
-  2026-05-12).  Raw's implementation (Tree, etc.) and the
+ ).  Raw's implementation (Tree, etc.) and the
   API surface exposed to Theory.
 
   ## Core engine (Term ring substrate)

@@ -7,8 +7,7 @@ import E213.Lib.Physics.Couplings.RunningGap
 /-!
 # 1/α_em capstone — unified-sum + simplicial decomp + master + milestone
 
-Single-file consolidation (2026-05-05 merge of `UnifiedSum`,
-`SimplicialDecomp`, `MasterCapstone`, `MilestoneAt137`).
+Single-file consolidation .
 
 Sub-namespaces (preserved for `open` declarations across layers):
 

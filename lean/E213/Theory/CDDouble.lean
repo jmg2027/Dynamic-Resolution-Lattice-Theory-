@@ -25,7 +25,7 @@ inference to a *second* CD layer via the generic
 `[CommStarRing213 α] : StarRing213 (CDDouble α)` instance —
 no per-layer hand-written instance.
 
-Consolidated 2026-05-18 from `Theory/CDDouble/UniversalOrder4.lean`
+
 + `Theory/CDDouble/GenericLiftDemo.lean`.
 -/
 

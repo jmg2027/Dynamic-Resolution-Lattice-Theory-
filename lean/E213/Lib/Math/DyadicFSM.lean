@@ -55,10 +55,9 @@ import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
     * `Pisano/`     — Pisano-period predictor per base
     * `Trib/`       — Tribonacci variants + CRT4Capstone
     * `Archive`     — historical sub-cluster (single file post
-                      2026-05-18 consolidation): `EdgeSignature`
+                      consolidation): `EdgeSignature`
                       + `SubwordComplexity` sub-namespaces
 
-  All files build clean.  The 2026-05-06
-  deferred-cluster repair (`lean/E213/docs/HIERARCHICAL_PLACEMENT.md` §6.3) is
+  All files build clean.  The deferred-cluster repair (`lean/E213/docs/HIERARCHICAL_PLACEMENT.md` §6.3) is
   closed.
 -/

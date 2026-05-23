@@ -26,7 +26,7 @@ structural overhead, so the concrete instances are **strictly sharper**.
 | x¹²        | 12k              | 11k                |
 | x¹⁶        | 16k              | 15k                |
 
-(Consolidated 2026-05-05 from 4 ConcreteDerivativeModulus
+( from 4 ConcreteDerivativeModulus
 [degrees 2-4] + ConcreteDerivativeModulusHigh [5-8] +
 ConcreteDerivativeModulusFinal [9, 10, 12, 16] + ConcreteDerivativeMega.
 Per-stage capstone bundles dropped — only the 11 unique modulus

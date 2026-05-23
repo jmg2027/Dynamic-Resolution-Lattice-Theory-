@@ -12,7 +12,7 @@ import E213.Lib.Physics.Simplex.Counts
   (α ⌣ β)(τ) = α(τ first k) · β(τ last l)
 over a sorted (k+l)-subset τ.  In ℤ/2 (Bool) `·` is AND.
 
-## Identity disclosure (post-2026-05-21)
+## Identity disclosure 
 
 This is the **lex-projection cup** — for a sorted (k+l)-subset τ
 it picks the *single sorted partition* (front k vertices, back l

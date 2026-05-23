@@ -29,7 +29,7 @@ IsAntiderivative F sf f := { eq : sf.derivative = f }
   * `E213.Lib.Math.Analysis.AntiderivativeCombinators` — mid / add / mul combinators
   * `E213.Lib.Math.Analysis.AntiderivativeStructural`  — every IsDifferentiable yields one
 
-(Consolidated 2026-05-05 from 3 Antiderivative []
+( from 3 Antiderivative []
 + AntiderivativeCombinators [] + AntiderivativeStructural
 [].  Per-stage capstone bundles dropped.)
 -/

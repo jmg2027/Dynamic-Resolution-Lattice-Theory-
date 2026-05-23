@@ -28,7 +28,7 @@ Sub-namespaces preserved (cross-file `open` declarations stay valid):
   * `E213.Lib.Math.Analysis.FluxMVT.FluxMVTPropagate`         — `mid` propagation
   * `E213.Lib.Math.Analysis.FluxMVTPropagateCompose`  — `id ∘ f` propagation
 
-(Consolidated 2026-05-05 from 2 .  Per-stage capstone
+( from 2 .  Per-stage capstone
 bundles dropped.)
 -/
 

@@ -100,7 +100,7 @@ theorem Eqv_leaves_iff (x y : Raw) :
       ↔ Lens.leaves.view x = Lens.leaves.view y :=
   Eqv_equiv_iff Lens.leaves x y
 
-/-! ### `Lens.leaves` image characterisation (added 2026-05-18)
+/-! ### `Lens.leaves` image characterisation (
 
 `Lens.leaves : Lens Nat = ⟨1, 1, +⟩` has image exactly
 `{n : Nat | 1 ≤ n} = ℕ₊`.  Containment in ℕ₊ is `leaves_view_pos`
@@ -128,7 +128,7 @@ theorem leaves_view_surjective_on_ge_one (n : Nat) (hn : 1 ≤ n) :
     E213.Lens.Number.Nat213.Raw.value_surjective_on_ge_one n hn
   exact ⟨r, by rw [leaves_view_eq_value]; exact hr⟩
 
-/-! ### Strict-coarsening witness for `Lens.leaves` (added 2026-05-18)
+/-! ### Strict-coarsening witness for `Lens.leaves` (
 
 `Lens.leaves.equiv` is *strictly coarser* than `=` on `Raw` —
 the parenthesisations `(a/b)/z` and `a/(b/z)` from
@@ -153,7 +153,7 @@ theorem exists_distinct_leaves_view_eqv :
   rw [Raw.fold_eq_leaves, Raw.fold_eq_leaves]
   exact hab
 
-/-! ### Eqv monotonicity in the Lens (added 2026-05-18)
+/-! ### Eqv monotonicity in the Lens (
 
 If `M` refines `L` (every `M.view`-equality implies an `L.view`-
 equality), then `Eqv M.equiv` ⊆ `Eqv L.equiv` — finer lens

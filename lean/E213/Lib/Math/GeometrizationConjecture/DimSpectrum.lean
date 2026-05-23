@@ -7,7 +7,7 @@ import E213.Lib.Math.Cohomology.Examples.WhyDimFive
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## Geometrization spectrum analysis (R1 step 6 — 2026-05-22)
+/-! ## Geometrization spectrum analysis (R1 step 6)
 
 The 213-Lens reading of the Geometrization conjecture's
 dimension-regime split (confinement / critical / smearing) is
@@ -106,7 +106,7 @@ theorem dim_spectrum_dM6_no_match :
     ∧ chartVisibleAxes 4 3 = 6 := by decide
 
 
-/-! ## §S — Sym(3)-capable spectrum (R1 step 14 — 2026-05-22)
+/-! ## §S — Sym(3)-capable spectrum (R1 step 14)
 
 Refines the dim-spectrum analysis (step 6) with a Sym(3)-capability
 filter: which K_{NS, NT}^{(c)} deployments support natural Sym(3)

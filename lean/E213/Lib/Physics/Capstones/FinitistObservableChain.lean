@@ -16,9 +16,9 @@ historically called `N_U` and now `ResolutionLimit.N_U` as `abbrev`).
 
   - 1/α_em(IR) — `AlphaEMMasterCapstone`
   - m_μ/m_e — `Mass.MuOverE` (formerly via `MuOverEFinitist`,
-    absorbed back into MuOverE 2026-05-05)
+    absorbed back into MuOverE)
   - Ω_Λ — `Cosmology.DarkEnergy` (formerly via
-    `OmegaLambdaFinitist`, absorbed 2026-05-05)
+    `OmegaLambdaFinitist`, absorbed)
   - M_Pl/v_H = d^(d²)/(d+1) — `Mass.HierarchyTowers`
 
 All four evaluate at the same family point `configCount 2 = 5^25`.

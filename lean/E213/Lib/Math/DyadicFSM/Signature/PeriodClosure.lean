@@ -14,7 +14,7 @@ Two universal closure lemmas for signatures of bit-streams:
     period closure with pre-period N₀.
 
 Both depend only on `nextVertex` / `signature` from
-`DyadicFSM.Signature.Signature`.  Split out 2026-05-13 from
+`DyadicFSM.Signature.Signature`.  Split from
 `ConcretePellSig.lean` to break the ArithFSM ↔ ConcretePellSig
 build cycle (ConcretePellSig used to provide these utilities AND
 consume `ArithFSM.Mod*` which itself needed the utilities).

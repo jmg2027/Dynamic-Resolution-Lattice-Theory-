@@ -11,7 +11,7 @@ Lens meaning: **the `Raw.fold T F and` closed-Raw codomain
 catamorphism** (`booleanProj`) — a Raw-internal vertical projection
 onto the two-element canonical form `{T, F}`.
 
-**Note (Option C refactor, 2026-05-18)**: previously this header
+**Note (Option C refactor,)**: previously this header
 cited `Nat213.leavesCountRaw` as the parallel construction.  That
 projection has since been deleted (the Nat213 chart no longer
 carries a Raw-side projection — `Lens.leaves.view` projects to
@@ -245,7 +245,7 @@ theorem boolValue_booleanProj (r : Raw) :
       rw [boolValue_and_of_isBool _ _ (fold_T_F_and_isBool x) (fold_T_F_and_isBool y),
           ihx, ihy]
 
-/-! ### `or` operator + De Morgan (added 2026-05-18, iteration #8)
+/-! ### `or` operator + De Morgan (, iteration #8)
 
 Parallel to `and`: `or x y = T` iff at least one of `x, y` is `T`.
 Closure under `{T, F}` (the canonical form image) gives a Boolean
@@ -313,7 +313,7 @@ theorem demorgan_or (x y : Raw)
   · subst hxF; subst hyT; decide
   · subst hxF; subst hyF; decide
 
-/-! ### Boolean lattice laws (added 2026-05-18, iteration #11)
+/-! ### Boolean lattice laws (, iteration #11)
 
 Idempotence, distributivity, absorption — complete the Boolean
 lattice axioms on the Bool213 image.  Together with `and_comm`,

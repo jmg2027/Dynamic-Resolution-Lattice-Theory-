@@ -8,8 +8,7 @@ import E213.Lens.Instances.Leaves.RefinesParity
 
   Depth-leaf hierarchy: a specific Lens family at the bottom of
   the refines preorder.  Catalogued under `Instances/` since
-  these are concrete Lens witnesses (folded into Instances/
-  2026-05-13 per LENS_AUDIT §4).
+  these are concrete Lens witnesses .
 
   ## Files (5)
 

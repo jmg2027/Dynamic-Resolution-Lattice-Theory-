@@ -11,7 +11,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # AW Cup Leibniz — closed cases bundle
 
-## Closed Prop-level Universal Leibniz (PURE; verified 2026-05-18)
+## Closed Prop-level Universal Leibniz (PURE; verified)
 
   - (3, 1, 1) — `E213.Lib.Math.Cohomology.CupAW.LeibnizSmall.leibniz_universal_3_1_1`
   - (4, 1, 1) — `E213.Lib.Math.Cohomology.CupAW.LeibnizMid.leibniz_universal_4_1_1`
@@ -42,7 +42,7 @@ open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 
 /-- ★★★ AW Cup Leibniz universal Prop-lift — closed configurations
-    (3, 1, 1), (4, 1, 1), (5, 1, 1).  Each PURE (∅-axiom; verified 2026-05-18). -/
+    (3, 1, 1), (4, 1, 1), (5, 1, 1).  Each PURE (∅-axiom; verified). -/
 theorem leibniz_aw_universal_closed_cases :
     (∀ α β : Cochain 3 1, ∀ i : Fin (binom 3 2),
        delta (cupAW 3 1 1 α β) i

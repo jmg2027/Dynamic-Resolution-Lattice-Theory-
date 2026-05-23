@@ -7,7 +7,7 @@ import E213.Lib.Physics.Symmetry.C3ChainCapstone
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## Cohomology-route uniqueness scope (R1 step 7 — 2026-05-22)
+/-! ## Cohomology-route uniqueness scope (R1 step 7)
 
 **Honest finding**: the M1 cohomology-route close of step 5 is
 *scope-limited*.  Step 5 invoked `TopologyCompare.topology_uniqueness`
@@ -152,7 +152,7 @@ theorem geometrization_spectrum_capstone :
     ∧ chartVisibleAxes 4 3 = 6 := by decide
 
 
-/-! ## Cohomology-depth analysis (R1 step 9 — 2026-05-22)
+/-! ## Cohomology-depth analysis (R1 step 9)
 
 **User-flagged correction**: step 7's "cohomology-route partial"
 conclusion is itself **scope-limited** — it used only the naive
@@ -248,7 +248,7 @@ theorem K32_depth_via_c3_chain_master :
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
 
-/-! ## Cohomology-depth filter (R1 step 10 — 2026-05-22)
+/-! ## Cohomology-depth filter (R1 step 10)
 
 Continuing the user-flagged correction of step 9: formalize
 HOW deeper cohomology distinguishes K_{3,2}^{(c=2)} from the 9

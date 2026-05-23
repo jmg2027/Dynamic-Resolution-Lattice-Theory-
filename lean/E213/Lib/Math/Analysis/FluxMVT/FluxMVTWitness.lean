@@ -37,7 +37,7 @@ Sub-namespaces preserved (cross-file `open` declarations stay valid):
   * `E213.Lib.Math.Analysis.FluxMVTNested`   — mid(x, mid(x, x²))
   * `E213.Lib.Math.Analysis.FluxMVTNested2`  — mid(mid(x, x²), x²)
 
-(Consolidated 2026-05-05 from 5 FluxMVTWitness []
+( from 5 FluxMVTWitness []
 + FluxMVTMore [] + FluxMVTNested [] + FluxMVTNested2
 [] + FluxMVTPattern [capstone — DELETED, was pure
 bundle].  Per-stage capstone bundles dropped.)

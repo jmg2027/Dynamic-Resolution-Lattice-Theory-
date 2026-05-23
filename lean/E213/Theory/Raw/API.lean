@@ -46,7 +46,7 @@ it was promoted to `Lib/Math/Mobius213.lean` per `research-notes/archive/audits/
 §4 (now complete).  Möbius results are imported directly from
 `Lib/Math/Mobius213` as Lib-ring content.
 
-**Discipline** (per ARCHITECTURE.md 2026-05-12): outside the Raw
+**Discipline** (per ARCHITECTURE.md): outside the Raw
 sub-cluster (e.g., Lens, Lib, other Theory clusters), code should
 import **only this `API.lean`**.  Direct reach-in to specific
 sub-modules (`Theory.Raw.Slash`, `Theory.Raw.Fold`, …) is a

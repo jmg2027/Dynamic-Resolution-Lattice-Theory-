@@ -32,7 +32,7 @@ bracket for the polynomial chain.
 Sub-namespaces preserved so external `open … FluxMVTHigh` and
 `open … FluxMVTGeneric` declarations stay valid.
 
-(Consolidated 2026-05-05 from 3 FluxMVTPolynomial
+( from 3 FluxMVTPolynomial
 [, deg 2-3] + FluxMVTHigh [, deg 4] + FluxMVTGeneric
 [, deg n+1].  Per-stage capstones dropped.)
 -/

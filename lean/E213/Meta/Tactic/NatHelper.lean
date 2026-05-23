@@ -127,8 +127,7 @@ theorem sub_pos_of_lt {a b : Nat} (h : a < b) : 0 < b - a :=
 
 /-- `c ≤ a → a < b → a - c < b - c`.  ∅-axiom replacement for
     `Nat.sub_lt_sub_right` (Lean-core proof brings propext).
-    Added 2026-05-22 (G93 §C1 centralisation — promoted from
-    `Cohomology/Cup/KSubsetStructural.lean`). -/
+. -/
 theorem sub_lt_sub_right :
     ∀ {a b : Nat} (c : Nat), c ≤ a → a < b → a - c < b - c := by
   intro a b c
@@ -603,7 +602,7 @@ def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
     Signature uses `max` (the `Max` typeclass call) to match
     Lean-core's `Nat.max_comm` exactly — drop-in replacement.
 
-    Added 2026-05-22 per G95 §N5 / G96 §3 dep-purity cleanup.
+ per G95 §N5 / G96 §3 dep-purity cleanup.
     Proof: case-split on `a ≤ b` and `b ≤ a` via `by_cases`. -/
 theorem max_comm (a b : Nat) : max a b = max b a := by
   show (if a ≤ b then b else a) = (if b ≤ a then a else b)

@@ -30,7 +30,7 @@ the solution involves rational coefficients beyond constants.
   * `E213.Lib.Math.Analysis.ODECatalog`     — pointwise catalog (5 trivial RHS)
   * `E213.Lib.Math.Analysis.ODESecondOrder` — y'' = 0 (linear functions)
 
-(Consolidated 2026-05-05 from 3 ODELinear [] +
+( from 3 ODELinear [] +
 ODECatalog [] + ODESecondOrder [].  Per-stage
 capstone bundles dropped.)
 -/

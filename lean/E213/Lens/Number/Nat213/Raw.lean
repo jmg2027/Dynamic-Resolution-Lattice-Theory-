@@ -129,7 +129,7 @@ theorem numeral_injective {m n : Nat} (h : numeral m = numeral n) : m = n := by
   rw [value_numeral, value_numeral] at hv
   exact Nat.succ.inj hv
 
-/-! ### Surjectivity of `value` onto ℕ₊ (added 2026-05-18)
+/-! ### Surjectivity of `value` onto ℕ₊ (
 
 Together with `numeral_injective`, this establishes that
 `Range(value) = {n : Nat | 1 ≤ n} = ℕ₊` exactly.  The Method A
@@ -157,7 +157,7 @@ theorem value_numeral_pred (n : Nat) (hn : 1 ≤ n) :
   rw [value_numeral]
   exact Nat.succ_pred_eq_of_pos hn
 
-/-! ### Numeral algebra (added 2026-05-18, iteration #13)
+/-! ### Numeral algebra (, iteration #13)
 
 `numeral`-based equivalences and order — small but useful adjuncts
 to `numeral_injective` + `value_numeral`. -/

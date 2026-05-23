@@ -21,7 +21,7 @@ Sub-namespaces preserved (cross-layer `open` declarations):
   * `E213.Lib.Math.Analysis.DifferentiableHigherPow`  — degrees 5-8
   * `E213.Lib.Math.Analysis.DifferentiableHighOrder`  — degrees 9, 10, 12, 16
 
-(Consolidated 2026-05-05 from 3 DifferentiableInstances
+( from 3 DifferentiableInstances
 [-1, deg 1-4] + DifferentiableHigherPow [, deg 5-8] +
 DifferentiableHighOrder [, deg 9-16].  Per-stage capstone
 bundles dropped.  Sub-namespaces kept so existing `open … HigherPow`

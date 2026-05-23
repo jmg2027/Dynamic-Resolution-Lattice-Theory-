@@ -12,7 +12,7 @@ derive from SAME P = [[2,1],[1,1]] via ℝ/ℤ/F_5 Lens choice.
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §G — 8 model geometries narrative (R1 step 11 — 2026-05-22)
+/-! ## §G — 8 model geometries narrative (R1 step 11)
 
 **Standard mathematics**: every closed 3-manifold (after JSJ
 decomposition) carries one of **8 model geometries**:
@@ -86,7 +86,7 @@ theorem K32_H1_sym3_split_hint :
     ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-/-! ## §J — JSJ correspondence narrative (R1 step 11 — 2026-05-22)
+/-! ## §J — JSJ correspondence narrative (R1 step 11)
 
 **Standard mathematics**: every closed 3-manifold has a
 canonical decomposition along **incompressible tori** (the JSJ
@@ -181,7 +181,7 @@ for the present 11-step Lean state.
 -/
 
 
-/-! ## §G-upgrade — S³ direct 213-native realization (R1 step 18 — 2026-05-22)
+/-! ## §G-upgrade — S³ direct 213-native realization (R1 step 18)
 
 Continuing the user-pattern of discovering existing infrastructure
 rather than building new: `Topology/EulerChi.lean` already
@@ -333,7 +333,7 @@ theorem G_pillar_S3_partial_close :
   · exact E213.Lib.Math.Topology.EulerChi.chi_delta_4_eq_one
 
 
-/-! ## §G-extension — Additional geometry realizations (R1 step 19 — 2026-05-22)
+/-! ## §G-extension — Additional geometry realizations (R1 step 19)
 
 Continuing the existing-infrastructure pattern: among the 8
 Thurston model geometries, **3 more have 213-native partial
@@ -475,7 +475,7 @@ theorem eight_geometries_score :
   · decide
 
 
-/-! ## §G-extension-2 — H²/H³ and E³ narrative seeds (R1 step 20 — 2026-05-22)
+/-! ## §G-extension-2 — H²/H³ and E³ narrative seeds (R1 step 20)
 
 Continuing the existing-infrastructure pattern: **2 more
 8-geometries** have narrative-level realizations.
@@ -603,7 +603,7 @@ theorem eight_geometries_final_scoreboard :
   · decide
 
 
-/-! ## §Nil — Möbius P mod-5 nilpotent collapse (R1 step 22 — 2026-05-22)
+/-! ## §Nil — Möbius P mod-5 nilpotent collapse (R1 step 22)
 
 **User-derived insight**: the SAME Möbius P, read
 through F_5 (mod-5) Lens — 213's prime base d = 5 — produces a

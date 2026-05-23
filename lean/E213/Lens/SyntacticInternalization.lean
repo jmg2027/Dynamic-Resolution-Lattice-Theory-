@@ -13,7 +13,7 @@ Per `seed/AXIOM/06_lens_readings.md` §6.4 and
   - **L3**: Polish-prefix printer + fuel-bounded parser + the
     universal round-trip theorem
     `∀ t, parseTree (printTree t) = some t`.
-  - **L4 (this session, 2026-05-18)**: reverse direction —
+  - **L4 (this session,)**: reverse direction —
     `parseTree gs = some t → printTree t = gs` (lossless parser)
     + `printTree` injectivity.  Together with L3 these close the
     full bijection between `Tree` and `Range(printTree)`.
@@ -432,7 +432,7 @@ theorem printRaw_parseTree (gs : List Glyph) (r : E213.Theory.Raw)
     (h : parseTree gs = some r.val) : printRaw r = gs :=
   printTree_parseTree gs r.val h
 
-/-! ### Injectivity biconditionals (added 2026-05-18, iteration #14)
+/-! ### Injectivity biconditionals (, iteration #14)
 
 Companion biconditional forms of `printTree_injective` and the
 lifted `printRaw` version.  Both follow trivially from injectivity

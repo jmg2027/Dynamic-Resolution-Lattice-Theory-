@@ -9,7 +9,7 @@ import E213.Lib.Math.Extras.InnerCauchy
 4 cluster witnesses + total bundle.  All ∅-axiom.
 
 This Capstone closes the four "honest scope" deferrals from the
-2026-05-07 marathon block:
+Marathon block:
   * Measure / Functional Hölder atomic (Cauchy-Schwarz Nat-side)
   * Lp p=1 collapse (funext-free `∀ S` form)
   * Sₙ upgrade from `Nat → Nat` to `Fin n → Fin n`

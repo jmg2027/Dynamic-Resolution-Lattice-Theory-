@@ -27,10 +27,7 @@ NumberingSystem) and for the `succ` definition of `Nat213.Raw`.
 ## History
 
 Originally `Theory/Raw/FoldRaw.lean` — Closed/
-directory companion.  2026-05-14: `Closed/` removed, FoldRaw
-absorbed into `Theory/Raw/` as a sub-cluster (its catamorphism
-output Nat213/Bool213/RawCut/NumberingSystem all moved to
-Lens.Number).  2026-05-15: renamed `FoldRaw` → `Endomorphic` to
+directory companion.
 reflect actual role (endomorphic fold + numbering-system
 isomorphism machinery, no longer a closed-universe "vision demo").
 
@@ -134,7 +131,7 @@ theorem swapClosed_swapClosed (r : Raw) :
     swapClosed (swapClosed r) = r := by
   rw [swapClosed_eq_swap, swapClosed_eq_swap, Raw.swap_swap]
 
-/-! ### slashOrSelf collapse characterisation (added 2026-05-18, iteration #16)
+/-! ### slashOrSelf collapse characterisation (, iteration #16)
 
 When does `slashOrSelf x y = y`?  Only when `x = y` (the diagonal
 case).  Otherwise the result is `Raw.slash x y h`, which by

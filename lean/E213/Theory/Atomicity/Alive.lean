@@ -1,7 +1,7 @@
 /-!
 # Alive predicate: derived from Clause 4 recursive application
 
-**Status — 2026-05-22**: this file's previous "postulated, not
+**Status**: this file's previous "postulated, not
 derived" framing has been **superseded** by the structural
 derivation in `Theory/Atomicity/AliveDerivation.lean` (research
 note `G87_raw_native_emergence_audit.md` §11).
@@ -40,7 +40,7 @@ of recursive Clause 4**, not a separate postulate.
 
 This file retains the arithmetic surface-form of `Survives`/`Alive`
 for compatibility with `Five.lean`, but the postulate-status caveat
-is **lifted** as of 2026-05-22.
+is lifted.
 
 (Former versions also appealed to "Raw's rule `x ≠ y`" as a
 distinctness source.  That appeal is retired; the actual derivation

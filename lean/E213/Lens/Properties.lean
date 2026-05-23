@@ -23,7 +23,7 @@ import E213.Lens.Properties.Morphism.SlashSwap
 /-! Spec-as-code entry point for `E213.Lens.Properties`.
 
   Derived predicates over Lenses + characterisation + morphism shape
-  + diagonal classification.  Consolidated 2026-05-13 Session H by
+  + diagonal classification. Session H by
   absorbing `Characterisation/`, `Morphism/`, and root `Diagonal.lean`
   per LENS_AUDIT §4 — all are "properties of lenses" semantically.
 

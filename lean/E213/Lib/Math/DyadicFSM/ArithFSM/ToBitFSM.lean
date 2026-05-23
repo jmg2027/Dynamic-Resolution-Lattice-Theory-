@@ -112,7 +112,7 @@ theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)
   exact h1.symm.trans (h_sig.trans h2)
 
 -- `pellFSMmod5_signature_period_bound` (concrete instance) moved to
--- `ArithFSM/ModSmall.lean` 2026-05-13 to break the ToBitFSM ↔ ModSmall
+-- `ArithFSM/ModSmall.lean` — breaks the ToBitFSM ↔ ModSmall
 -- build cycle.  Namespace `E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM`
 -- preserved for consumer compatibility.
 

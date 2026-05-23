@@ -6,7 +6,7 @@ import E213.Lib.Math.GeometrizationConjecture.Poincare
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §R — Ricci-flow narrative seed (R1 step 16 — 2026-05-22)
+/-! ## §R — Ricci-flow narrative seed (R1 step 16)
 
 The Ricci-flow pillar of Geometrization (Perelman's proof
 technique) operates by *averaging curvature*: the flow
@@ -111,7 +111,7 @@ theorem narrative_deepening_completion :
   all_goals first | rfl | decide
 
 
-/-! ## §R-upgrade — Ricci-flow modulus partial close (R1 step 17 — 2026-05-22)
+/-! ## §R-upgrade — Ricci-flow modulus partial close (R1 step 17)
 
 **User insight**: "ε-Lens는 아마 Real213이랑
 Analysis, Topology 등에 이미 있을 수 있어."

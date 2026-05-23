@@ -11,7 +11,7 @@ for orders (1, 2, 3, 4, 6); Order-4 Monopoly persists past Moufang
 failure.  Cyclotomic preservation continues: 4 elements of order
 3 or 6.  Order-4 increment: 42 − 18 = 24 = base |zoq_units|.
 
-Consolidated 2026-05-18 from `ZOmegaOct.lean` + `ZOmegaOctOrderDist.lean`.
+ + `ZOmegaOctOrderDist.lean`.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Integer.ZOmegaOct

@@ -8,7 +8,7 @@ import E213.Lib.Math.HodgeConjecture.Foundation.Complete
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §HC — Hodge-K32 ↔ 8 geometries deeper hint (R1 step 21 — 2026-05-22)
+/-! ## §HC — Hodge-K32 ↔ 8 geometries deeper hint (R1 step 21)
 
 **User insight**: "HC_K32: 우리가 앞서 정교하게
 검증했던 K_{3,2}^{(c=2)}라는 유일한 기저 위에서 호지 성질이 8개의
@@ -130,7 +130,7 @@ theorem geometries_classes_structural_hint :
   refine ⟨?_, ?_, ?_, rfl, ?_, ?_, ?_, ?_⟩ <;> decide
 
 
-/-! ## §O — Algebraic-operation closure universal-8 thesis (R1 step 23 — 2026-05-22)
+/-! ## §O — Algebraic-operation closure universal-8 thesis (R1 step 23)
 
 **User unifying insight**: "코호몰로지도 호지 닫힘도
 리 군처럼 대수 연산이고 연산이 가능한 8개 폼만 있다는걸 얘기하는거
@@ -245,7 +245,7 @@ theorem operation_closure_universal_eight_capstone :
   all_goals first | rfl | decide
 
 
-/-! ## §M — Structural mapping: 2·trivial → 3 isotropic, 3·standard → 5 anisotropic (R1 step 24 — 2026-05-22)
+/-! ## §M — Structural mapping: 2·trivial → 3 isotropic, 3·standard → 5 anisotropic (R1 step 24)
 
 **USER ULTIMATE INSIGHT**: the Sym(3) decomposition
 `H¹(K_{3,2}^{(c=2)}) = 2·trivial ⊕ 3·standard` maps **DIRECTLY**

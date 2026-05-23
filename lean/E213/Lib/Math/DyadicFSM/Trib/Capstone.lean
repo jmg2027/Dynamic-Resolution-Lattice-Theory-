@@ -22,7 +22,7 @@ Bundles 6 conjuncts:
 6. Aperiodic bs ⇒ no ArithFSM3(n) generates it (Tier 2 hardness)
 
 All conjuncts PURE (`#print axioms tribonacci_capstone` returns
-"does not depend on any axioms"; verified 2026-05-18).
+"does not depend on any axioms"; verified).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Trib.Capstone

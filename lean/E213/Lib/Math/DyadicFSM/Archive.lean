@@ -5,8 +5,8 @@ import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # DyadicFSM.Archive — historical sub-cluster
 
-Preserved for reference (post-2026-05-06 deferred-cluster repair).
-Two themes consolidated 2026-05-18 into a single file:
+Preserved for reference .
+Two themes into a single file:
 
   * `Archive.SubwordComplexity` — `subwordCount` (length-L
     substring count) as a complexity measure on Fin 5 trajectories.

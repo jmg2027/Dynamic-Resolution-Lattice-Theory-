@@ -84,8 +84,7 @@ theorem class_F_hadron_skeleton :
 
 /-! ## m_n/m_p split — atomic count anchors
 
-  Empirical (1378 ppm above unity, found 2026-05-01 via hadron-mass-split
-  hunter on isospin-symmetric base w_u = w_d):
+  Empirical :
 
     m_n/m_p − 1  =  (NS² / (NT²·(NS²−1))) · α_em · (1 − NS²·d · α_em)
 

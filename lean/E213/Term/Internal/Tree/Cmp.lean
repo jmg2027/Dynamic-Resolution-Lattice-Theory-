@@ -9,9 +9,7 @@ Tree.cmp lex / swap / eq lemmas + supporting Bool / Nat helpers
 Used by `Theory.Raw.{Slash, Swap, Rec, Levels}` via the public
 `Term.Tree` re-export.  All theorems ∅-axiom.
 
-Namespace `E213.Term.Internal` — path-aligned (2026-05-15;
-previously the umbrella was `E213.Theory.Internal`, renamed when
-Tree machinery moved fully into `Term/Internal/Tree/`).
+Namespace `E213.Term.Internal` — path-aligned .
 -/
 
 namespace E213.Term.Internal

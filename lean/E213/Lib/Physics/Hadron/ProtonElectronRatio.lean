@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# m_p / m_e atomic identity — NS·NT·π⁵ closed form (added 2026-04-30)
+# m_p / m_e atomic identity — NS·NT·π⁵ closed form (
 
 Discovered by `atomic-hunter` binary auto-search:
 

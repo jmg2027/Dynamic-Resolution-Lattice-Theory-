@@ -9,7 +9,7 @@ The previously-postulated `IsAlive (a, b) := parity a ∧ parity b`
 the 213 axiom (`seed/AXIOM/02_axiom.md` §2.2 #4: no self-pair)
 applied *recursively* at the count-Lens group level.
 
-## Derivation (G87 §11 / user 2026-05-22 insights)
+## Derivation (G87 §11)
 
 The user's structural insights:
 

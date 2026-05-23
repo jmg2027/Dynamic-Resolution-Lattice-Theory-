@@ -32,6 +32,6 @@ import E213.Lens.Universal.Witnesses.TripleCapstone
     * `Witnesses/{Padding, PaddingCapstone}` — padding theorems
     * `Witnesses/TripleCapstone`   — triple-capstone integration
 
-  Witnesses moved 2026-05-13 from `Meta/UniversalLens/` — LENS_AUDIT
+  Witnesses — LENS_AUDIT
   §4: Lens-content (not ring-independent Meta).
 -/

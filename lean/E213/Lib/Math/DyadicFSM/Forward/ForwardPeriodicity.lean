@@ -9,7 +9,7 @@ import E213.Lib.Math.DyadicFSM.Signature.Signature
 Joint state (sig n, n mod p) ∈ Fin (5p); pigeonhole forces a
 collision among 5p+1 steps.  Decidable.byContradiction (no
 Classical) on Bool-valued `collisionTest` keeps everything at
-PURE (∅-axiom; verified 2026-05-18).
+PURE (∅-axiom; verified).
 -/
 
 namespace E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity

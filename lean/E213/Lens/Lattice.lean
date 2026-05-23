@@ -12,7 +12,7 @@ import E213.Lens.Lattice.Preorder
 
   Lens lattice + refines preorder.  Refines (preorder) is the
   underlying order; Lattice (join / meet) is the algebra on top.
-  Consolidated 2026-05-13 Session H from `Lens/Refines/` (preorder
+ Session H from `Lens/Refines/` (preorder
   is structurally a Lattice prerequisite — folded for clarity).
 
   ## Refines (preorder)

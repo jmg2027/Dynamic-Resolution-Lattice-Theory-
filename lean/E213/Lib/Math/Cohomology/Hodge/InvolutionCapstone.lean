@@ -39,7 +39,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
   involution on K_{3,2}^{(c=2)} cochain strata of the 5-simplex
   (Δ⁴), at every dimensional level k ∈ {0, 1, 2, 3, 4}.
 
-  All five Prop-level statements PURE (verified 2026-05-18). -/
+  All five Prop-level statements PURE (verified). -/
 theorem hodge_involution_5strata_capstone :
     -- (5, 0)
     (∀ σ : Cochain 5 0, ∀ i : Fin (binom 5 0),

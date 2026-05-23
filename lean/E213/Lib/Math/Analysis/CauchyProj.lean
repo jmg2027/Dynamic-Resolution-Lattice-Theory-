@@ -14,10 +14,6 @@ extends naturally to a third domain (Cauchy sequence + modulus).
 | RawCut | Raw → Raw → Raw | cutBooleanProj | Bool-valued cut |
 | **CauchyCutSeq** | **structure** | **cauchyProj** | **constant sequence at limit** |
 
-(The 2026-05-18 Option C refactor removed a former Nat213 row
-with `leavesCountRaw` — ℕ₊ now projects to `Nat` codomain rather
-than carrying a Raw-internal projection.  See
-`seed/CLOSED_FORM_SPEC.md` for the current 3-domain catalog.)
 
 ## 정의
 

@@ -3,7 +3,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2Tower
 /-!
 # Order-4 Monopoly law — first ∅-axiom witness instance
 
-Discovery (Rust probe, 2026-05-09): for every CD doubling tower in the
+Discovery (Rust probe,): for every CD doubling tower in the
 213 corpus, the unit set's order distribution satisfies:
 
   base's cyclotomic substructure (order ≠ 4 elements) is *exactly

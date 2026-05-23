@@ -69,13 +69,12 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
 
     * `ConjugationInstances` — `derive_conjugation_codomain` /
       `quad_extension D` macro outputs for ZI / Z2 / ZOmega /
-      ZSqrt {3, 5, 7}.  Consolidated 2026-05-18 from four
+      ZSqrt {3, 5, 7}. from four
       singleton files.
 
   ## Status
 
-  All ~49 files build clean.  Post-2026-05-06
-  deferred-cluster repair: the 9 formerly-deferred files
+  All ~49 files build clean.  deferred-cluster repair: the 9 formerly-deferred files
   (`CDTower`, `CayleyHeavy`, `LipschitzHeavy`, `LipschitzLens`,
   `PathionHeavy`, `R5Vacuity`, `SedenionHeavy`,
   `TrigintaduoionionHeavy`, `ZSqrtProduct`) all build.
@@ -86,5 +85,5 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtProduct
     - 3 `ZOmega{Double,Quad,Oct}` + `OrderDist` pairs merged
     - 3 ZSqrtMinus2-discovery files → `ZSqrtMinus2Findings.lean`
 
-  Net: -8 files since the 2026-05-06 baseline.
+  Net: -8 files.
 -/

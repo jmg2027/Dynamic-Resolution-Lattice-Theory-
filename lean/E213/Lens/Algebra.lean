@@ -11,12 +11,9 @@ import E213.Lens.Internal.Algebra.SwapInvariant
   Lens algebraic-kernel cluster — the equational layer of the
   Lens theory: equivalences, congruences.
 
-  Cardinality results (`LensCardinality`, `CardinalityLB`) moved
-  2026-05-13 to `Lens/Cardinality/` alongside the Cantor / Tower /
-  Countable / Gödel / BoolSpace / Pair / Chain files relocated from
-  `Lib/Math/Infinity/`.
-
-  ## Files
+  Cardinality results (`LensCardinality`, `CardinalityLB`) live
+  in `Lens/Cardinality/`.
+## Files
 
     * `Space`         — `KernelSpace` Σ-type over slash-congruences
     * `Corresp`       — Lens kernel ↔ slash-congruence bijection

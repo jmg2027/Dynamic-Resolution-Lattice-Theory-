@@ -1,7 +1,7 @@
 /-!
 # Type A residual closed form — pure dyadic recurrence
 
-Empirical discovery (Rust probe + recurrence search, 2026-05-09):
+Empirical discovery (Rust probe + recurrence search,):
 
 Type A (ZI base, rank 0) Moufang fail rate residuals from asymptote
 1/2, expressed as integer numerators a_n with denominator 2^(3n+7):

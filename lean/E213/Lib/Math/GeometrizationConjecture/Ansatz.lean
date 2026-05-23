@@ -102,7 +102,7 @@ theorem K32_ansatz_bundle :
     ∧ selfPointingAxes = 1 :=
   ⟨rfl, rfl, rfl, rfl⟩
 
-/-! ## Axiom-level shadow (R1 partial close — 2026-05-22)
+/-! ## Axiom-level shadow (R1 partial close)
 
 The deployment-level ansatz `selfPointingAxes := 1` matches an
 **axiom-level fact derivable from `Meta/LensInternality`**:
@@ -204,7 +204,7 @@ theorem lens_toData_split (α : Type) (L : Lens α) :
   ⟨rfl, rfl⟩
 
 /-! ## Deployment-level derivation via K_{3,2}^{(c=2)} cohomology
-    (R1 step 3 — 2026-05-22)
+    (R1 step 3)
 
 The deployment-level `selfPointingAxes := 1` is now **genuinely
 derived** from `V32Betti.kerSizeDelta0_eq_2`:

@@ -5,8 +5,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZI
 # CayleyDickson.Integer.ZSqrtMinus2Findings — Rust→Lean discovery loop
 
 Ad-hoc 213-discoveries about the ZSqrt[-2] CD tower, formalised
-∅-axiom from Rust-probe outputs (`algebra213-tower-probe`,
-2026-05-09):
+∅-axiom from Rust-probe outputs :
 
   - **SHIFT RULE (smallest instance)**: ZI units (D=1 L2, 4 units
     = Z_4) are unit-loop-isomorphic to L3T (D=2 L3, 4 units).
@@ -24,7 +23,7 @@ Ad-hoc 213-discoveries about the ZSqrt[-2] CD tower, formalised
     theorem `L6_has_zero_divisor` recovered mechanically via
     `decide` on the find result.
 
-Consolidated 2026-05-18 from `ShiftRule_ZI_L3.lean` +
+ +
 `ZSqrtMinus2L6Witnesses.lean` + `ZSqrtMinus2L6Search.lean`.
 -/
 

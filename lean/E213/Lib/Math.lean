@@ -83,7 +83,7 @@ The directory tree is the spec; this file is the top-level entry.
     Cardinality observables (Cantor, Tower, Countable, BoolSpace, Pair,
     Gödel, Chain, LensCardinality, CardinalityLB) live under
     `Lens.Cardinality` — they are Lens-ring observables of Raw, not
-    Lib-tier facts (move 2026-05-13, see `Lens/Cardinality/INDEX.md`).
+    Lib-tier facts.
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
@@ -113,7 +113,5 @@ The directory tree is the spec; this file is the top-level entry.
 ## Status
 
 ∅-axiom standard on the production critical path.  All formerly-
-deferred files now build clean (the §6 inventory in
-`lean/E213/docs/HIERARCHICAL_PLACEMENT.md` is closed as of
-2026-05-18 audit).
+deferred files now build clean .
 -/

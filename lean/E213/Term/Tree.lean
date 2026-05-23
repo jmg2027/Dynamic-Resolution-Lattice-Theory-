@@ -23,10 +23,7 @@ into `E213.Term.Internal.Tree*`.
 ## Namespace note
 
 Tree machinery lives under `namespace E213.Term.Internal` — path
-aligned with `Term/Internal/Tree*`.  (Pre-2026-05-15 the umbrella
-was `E213.Theory.Internal`, a holdover from when Tree.swap /
-Tree.fold etc. lived under `Theory/Raw/`; renamed in lockstep
-with the move into `Term/Internal/Tree/`.)
+aligned with `Term/Internal/Tree*`.  
 
 ## Enforcement (layer discipline)
 

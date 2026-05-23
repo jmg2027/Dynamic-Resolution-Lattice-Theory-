@@ -5,7 +5,7 @@ import E213.Meta.Algebra213.Core
 
 Ring-independent Int helpers (∅-axiom Int arithmetic) +
 `Ring213 Int` / `CommRing213 Int` instances.  Promoted from
-`Theory.Internal/` 2026-05-12 (Session A); namespace path-aligned
+`Theory.Internal/`; namespace path-aligned
 to `E213.Meta.Int213` Session G.
 
 The instance is registered here (not in `Core`) to break the

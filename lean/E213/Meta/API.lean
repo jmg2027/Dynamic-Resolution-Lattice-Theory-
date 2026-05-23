@@ -57,7 +57,7 @@ import E213.Meta.LensInternality
 
     * `Lens.Universal.Witnesses` — concrete universal-Lens instances
       at codomains {ℕ², ℕ³, ℕ⁴, Q213, Q213³} + padding + triple
-      capstone.  Moved out of Meta 2026-05-13 (LENS_AUDIT §4):
+      capstone.  Lives in 
       Lens-content, not ring-independent Meta.
 
   ## Adjacent (NOT in this Meta cluster)

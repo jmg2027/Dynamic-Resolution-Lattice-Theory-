@@ -23,9 +23,7 @@ no exception, no smoothing.
   (2) The dyadic accumulator is forced to give a specific cut.
   (3) The "0+" boundary is forced to be Boolean-distinct from 0.
 
-(Renamed 2026-05-05 from `PhaseACMinimumProposition.lean`; bundle
-theorem dropped — only the three iff statements remain, since the
-bundle was a trivial conjunction of them.)
+
 -/
 
 namespace E213.Lib.Math.Real213.Core.MinimumProposition

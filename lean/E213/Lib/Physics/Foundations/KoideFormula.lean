@@ -9,7 +9,7 @@ Koide's 1981 lepton mass relation:
 
 Empirical: Q = 2/3  (CODATA 2022, ~3 ppm)
 
-DRLT atomic identification (added 2026-04-30):
+DRLT atomic identification (:
 
   Q = NT / NS = 2/3
 
@@ -25,7 +25,7 @@ Geometric reading:
   ⇒ angle(v, diagonal) = 45°
 
 The "(Q + iQ)/|Q + iQ|" 1+i unit-vector Lens readout
-(recognised 2026-04-30) corresponds to this 45° geometric
+(recognised) corresponds to this 45° geometric
 relation within the atomic-Lens chart.
 
 The 3 generations themselves come from C(NS, NT) = C(3, 2) = 3

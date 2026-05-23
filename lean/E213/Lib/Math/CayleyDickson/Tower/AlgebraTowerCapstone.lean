@@ -25,7 +25,7 @@ import E213.Lib.Math.CayleyDickson.Tower.TowerFixedPoint
 # Algebra Tower Capstone
 
 Bundle of all ∅-axiom theorems established for the 213 algebra tower
-discovery (session 2026-05-09).  See `research-notes/G56_session
+discovery (session).  See `research-notes/G56_session
 _summary_algebra_tower.md` for narrative; this file collects the
 formal ∅-axiom witnesses across:
 

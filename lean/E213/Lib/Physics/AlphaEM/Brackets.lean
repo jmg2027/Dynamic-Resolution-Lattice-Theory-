@@ -3,8 +3,7 @@ import E213.Lib.Physics.AlphaEM.Bare
 /-!
 # 1/α_em rational brackets — pure DRLT bare + tight + 5-term
 
-Single-file consolidation of three bracket layers (2026-05-05 merge of
-`V137`, `V137Tight`, `BareTightBracket` — all `decide`-verified).
+Single-file consolidation of three bracket layers .
 
 Sub-namespaces (preserved for cross-layer `open`):
 

@@ -25,7 +25,6 @@ import E213.Meta.Tactic.VerifyConjugation
 
     * `NatHelper`  — `Nat`-arithmetic helpers (substitutes for
                      `omega` in many leaf-level proofs).
-                     2026-05-14: renamed from `Nat213` to avoid
                      confusion with the `Nat213` *type*
                      (`Lens.Number.Nat213`).  Namespace
                      `E213.Tactic.NatHelper`.

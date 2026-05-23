@@ -7,7 +7,7 @@ import E213.Lib.Math.Cohomology.Bipartite.Filled
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §P — Poincaré correspondence narrative (R1 step 12 — 2026-05-22)
+/-! ## §P — Poincaré correspondence narrative (R1 step 12)
 
 **Standard mathematics**: Poincaré conjecture (proven by Perelman):
 every closed, simply-connected 3-manifold is homeomorphic to S³.
@@ -155,7 +155,7 @@ theorem geometrization_regime_tree_correspondence :
   refine ⟨?_, ?_, ?_, ?_, rfl, rfl⟩ <;> decide
 
 
-/-! ## §P-helper — Corrected Euler formula (R1 step 13 — 2026-05-22)
+/-! ## §P-helper — Corrected Euler formula (R1 step 13)
 
 Step 12 discovered that `b1_bipartite` is incorrect on tree cases
 due to Nat truncation.  This section provides a **corrected Euler
@@ -344,7 +344,7 @@ theorem geometrization_correspondence_capstone :
   all_goals first | rfl | decide
 
 
-/-! ## §P-gen — Generalized Poincaré (R1 step 15 — 2026-05-22)
+/-! ## §P-gen — Generalized Poincaré (R1 step 15)
 
 The Poincaré pillar generalizes across **all** chartBase, not
 just chartBase = 4.  For every chartBase $\ge 2$, the K_{1,k}^{(c=1)}

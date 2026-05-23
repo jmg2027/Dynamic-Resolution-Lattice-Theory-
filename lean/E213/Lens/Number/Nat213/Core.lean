@@ -7,7 +7,7 @@ import E213.Lens.LensCore
 Encapsulate the image of `Lens.leaves = ⟨1, 1, +⟩ : Lens Nat` as
 a named type.  Originally the Phase 1 step of the lens-strict
 refactor (Option C of the lens-emergence roadmap, commit
-`ced56bef` 2026-05-18); the full refactor has since landed (Option
+`ced56bef`); the full refactor has since landed (Option
 C in `9efd8263`) — `Raw.lean` no longer carries arithmetic, and
 `Chain.lean` provides the dual Raw-subtype carrier with Nat-routed
 operations.

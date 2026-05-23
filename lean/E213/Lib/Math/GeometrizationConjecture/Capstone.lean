@@ -13,7 +13,7 @@ namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
 /-! ## §X — d=4 information richness + future-work registry (R1 step 25 — FINAL CLOSE)
 
-**User insight (2026-05-22, session-close)**:
+**User insight **:
 
   > "4차원을 좌절할 게 아니라 가장 투명하게 잘 보여주는 거였던건데…
   >  그 엑조틱 자체를 조사해봣으면 달랐을지두"
@@ -92,7 +92,7 @@ explicitly OUT OF SCOPE for G121 R1 but recorded as launch
 candidates for future marathons:
 
 **G122 candidate — 4-mfd exotic enumeration via Sym(3) gauge**:
-  · Inspired by user-insight 2026-05-22 ("4차원이 가장 투명").
+  · Inspired by user-insight ("4차원이 가장 투명").
   · Goal: 213-native form of Donaldson invariants on
     K_{3,2}^{(c=2)} via the C3 chain Sym(3) gauge structure.
   · Path: extend `c3_chain_master` to enumerate "exotic
@@ -127,7 +127,7 @@ candidates for future marathons:
 None of these are blocking for G121 R1 close.
 -/
 
-/-- ★★★★★★★★★★★ **G121 R1 CLOSE CERTIFICATE — 2026-05-22**
+/-- ★★★★★★★★★★★ **R1 close certificate**
 
   This certificate marks G121 R1 (ChartAxisAnsatz) as CLOSED at
   147 PURE / 0 DIRTY across 25 development steps in 1 branch

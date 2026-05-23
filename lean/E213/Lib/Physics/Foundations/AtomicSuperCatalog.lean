@@ -4,7 +4,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # AtomicSuperCatalog — single file for all atomic integer appearances
 
-★ Summary of 31 milestone discoveries (consolidated 2026-05-05) ★
+★ Summary of 31 milestone discoveries () ★
 
 Multi-reading magic integers (8, 12, 24, 27, 32, 120, 240, 248)
 all land here as a single capstone.  Physics-named numeric

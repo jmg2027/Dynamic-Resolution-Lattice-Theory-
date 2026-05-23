@@ -41,7 +41,7 @@ midpoint) makes this propositional rather than asymptotic.
   * `E213.Lib.Math.Analysis.FTCRiemannMid`      — mid(x, x²) ()
   * `E213.Lib.Math.Analysis.FTCRiemannGeneric`  — generic via HasDyadicMVTWitness_at ()
 
-(Consolidated 2026-05-05 from 4 .  FTCRiemannChain
+( from 4 .  FTCRiemannChain
 [] was an empty scaffold — DELETED.  Per-stage capstones
 dropped.)
 -/

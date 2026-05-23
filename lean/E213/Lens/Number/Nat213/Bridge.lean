@@ -114,7 +114,7 @@ theorem value_toRaw_mul (m n : E213.Lens.Number.Nat213.Peano.Nat213) :
       = m.toNat * n.toNat := by
   rw [value_toRaw, E213.Lens.Number.Nat213.Peano.Nat213.toNat_mul]
 
-/-! ### Bridge injectivity (added 2026-05-18, iteration #7)
+/-! ### Bridge injectivity (, iteration #7)
 
 `toRaw` is injective: distinct `Peano.Nat213` elements embed to
 distinct Raws.  Combines `value_toRaw` (bijection at the Nat level)

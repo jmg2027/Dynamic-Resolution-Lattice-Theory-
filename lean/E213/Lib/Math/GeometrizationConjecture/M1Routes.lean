@@ -9,7 +9,7 @@ import E213.Lib.Math.C2DoublingDerivation
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## M1 partial close via TriangleIteration (R1 step 4 — 2026-05-22)
+/-! ## M1 partial close via TriangleIteration (R1 step 4)
 
 The deployment-level value `chartBase 3 2 = 5` is now derivable
 from **triangle iteration starting at atomicity 2**, per
@@ -100,7 +100,7 @@ theorem deployment_M2_partial_capstone :
    rfl, rfl, rfl⟩
 
 
-/-! ## M1 cohomology-route close via TopologyCompare (R1 step 5 — 2026-05-22)
+/-! ## M1 cohomology-route close via TopologyCompare (R1 step 5)
 
 Independent cohomology-route forcing of `(NS, NT, c) = (3, 2, 2)`,
 complementing the atomicity-route of step 4.
@@ -149,7 +149,7 @@ theorem general_euler_consistency (n m c : Nat) :
   rfl
 
 
-/-! ## c=2 Möbius-route forcing (R1 step 8 — 2026-05-22)
+/-! ## c=2 Möbius-route forcing (R1 step 8)
 
 The step-7 finding (cohomology-route partial) is now **complemented
 by an independent c=2 forcing** from `C2DoublingDerivation`.

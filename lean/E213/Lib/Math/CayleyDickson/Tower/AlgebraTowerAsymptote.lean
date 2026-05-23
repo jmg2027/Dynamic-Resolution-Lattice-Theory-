@@ -6,7 +6,7 @@ import E213.Lib.Physics.Foundations.GoldenRatio
 The Moufang fail rate asymptote of each Type's CD doubling tower is
 expressed as `(a + b·√5)/4` over Z[√5], avoiding irrationals.
 
-Empirically discovered (Rust probe + level2_search, 2026-05-09):
+Empirically discovered (Rust probe + level2_search,):
 
   Type A (ZI, rank 0):       asymptote = (2, 0)/4 = 1/2
   Type B (ZSqrt[D≥2], rank 0): asymptote = (2, 0)/4 = 1/2 (= A)

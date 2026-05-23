@@ -98,7 +98,7 @@ theorem chartChain_value (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
       -- goal: Raw.value r₀ + k * Raw.value r' + Raw.value r' = Raw.value r₀ + (k * Raw.value r' + Raw.value r')
       rw [Nat.add_assoc]
 
-/-! ### Chart-chain injectivity in `n` (added 2026-05-18)
+/-! ### Chart-chain injectivity in `n` (
 
 `chartChain r₀ r' h n = chartChain r₀ r' h m → n = m`: each chain
 step adds `value r' ≥ 1` to the running `value`, so distinct `n`
@@ -140,7 +140,7 @@ theorem chartChain_injective (r₀ r' : Raw) (h : r₀ ≠ r')
     n = m :=
   chartChain_value_injective r₀ r' h (congrArg Raw.value heq)
 
-/-! ### Residue invariant along the chart-chain (added 2026-05-18)
+/-! ### Residue invariant along the chart-chain (
 
 `chartChain r₀ r' h n` has `value` congruent to `value r₀` modulo
 `value r'`.  In other words, the entire arithmetic progression

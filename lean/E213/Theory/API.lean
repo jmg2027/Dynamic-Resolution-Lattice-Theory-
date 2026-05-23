@@ -52,7 +52,7 @@ import E213.Theory.Atomicity
 
     * `Term.Internal.Tree.*` (Tree machinery — lives under
       `Term/Internal/Tree*.lean` with the `E213.Term.Internal`
-      namespace umbrella, path-aligned 2026-05-15)
+      namespace umbrella)
 
   Both halves of TH-A + TH-B are required for any Lens consumer.
 -/

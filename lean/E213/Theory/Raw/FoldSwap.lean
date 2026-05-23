@@ -18,7 +18,7 @@ transforms under `Raw.swap`:
     to `Raw.fold`.  Tree-level statement: `Tree.fold_swap_hom`
     (`Term/Internal/Tree/Hom.lean`).
 
-Consolidated 2026-05-18 from `Theory/Raw/Signed.lean` +
+ +
 `Theory/Raw/Hom.lean`.
 -/
 

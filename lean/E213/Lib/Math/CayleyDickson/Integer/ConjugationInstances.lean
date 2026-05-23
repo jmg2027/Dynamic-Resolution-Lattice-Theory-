@@ -30,7 +30,7 @@ non-isomorphic integer rings:
 The `derive_conjugation_codomain` elab discovers the required
 lemmas by naming convention and synthesises the 13-field instance.
 
-Consolidated 2026-05-18 from four singleton files
+ from four singleton files
 (`ZIInstance`, `Z2Instance`, `ZOmegaInstance`, `ZSqrtInstance`).
 -/
 

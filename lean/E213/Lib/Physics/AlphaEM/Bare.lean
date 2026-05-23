@@ -4,8 +4,7 @@ import E213.Lib.Physics.Couplings.AlphaGUT
 # 1/α_em — bare integer skeleton + lattice prefactors
 
 Single-file consolidation of four atomic-coefficient layers
-(2026-05-05 merge of `Bare`, `IntegerSkeleton`, `Prefactors`,
-`FiveTermDerivation` — all `by decide` Nat identities).
+.
 
 Sub-namespaces (preserved for cross-layer `open` declarations):
 

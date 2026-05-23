@@ -34,7 +34,7 @@ Sub-namespaces preserved (cross-file `open` declarations stay valid):
   * `E213.Lib.Math.Analysis.FluxMVTClosure`       — closure under combinators
   * `E213.Lib.Math.Analysis.FluxMVTApplications`  — corollaries for id / cutPow / x² / x³
 
-(Consolidated 2026-05-05 from 3 FluxMVTPassthrough
+( from 3 FluxMVTPassthrough
 [] + FluxMVTClosure [] + FluxMVTApplications [].
 Per-stage capstones dropped.)
 -/

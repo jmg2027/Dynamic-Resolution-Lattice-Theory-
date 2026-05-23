@@ -5,8 +5,7 @@ import E213.Lib.Physics.Couplings.AlphaGUT
 /-!
 # 1/α_em augmented brackets — Dyson tail + SO(10) + Gram self-energy
 
-Single-file consolidation (2026-05-05 merge of `BracketWithDysonTail`,
-`SO10`, `GramSelfEnergy`).
+Single-file consolidation .
 
 Sub-namespaces (preserved):
 

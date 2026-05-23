@@ -26,7 +26,7 @@ This prototype shows that even cut-style constructions are
 Lean-free.  The same pattern would carry Cauchy sequences and any
 cut-level theorem.
 
-**Note (Option C refactor, 2026-05-18)**: prior versions of this
+**Note (Option C refactor,)**: prior versions of this
 docstring cited `Nat213.leavesCountRaw` as a Raw-side parallel.
 That projection has been deleted as part of the Option C refactor
 (ℕ₊ is now a projection to `Nat`, not a Raw-internal projection).

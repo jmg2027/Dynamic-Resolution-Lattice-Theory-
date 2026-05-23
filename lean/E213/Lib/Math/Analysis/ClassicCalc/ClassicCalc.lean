@@ -47,7 +47,7 @@ ClassicCalc_at f := { diff : IsDifferentiable f, pass : Passthrough_at f }
 |     16 | `hexadecic_calc` | 15k                |
 |  n + 1 | `cutPow_calc_at` | `n·k`              |
 
-(Consolidated 2026-05-05 from 4 `ClassicCalc` [core +
+( from 4 `ClassicCalc` [core +
 deg 1-3] + `ClassicCalcHigher` [deg 4-8] + `ClassicCalcExtreme`
 [deg 9, 10, 12, 16] + `ClassicCalcGeneric` [deg n+1].  Per-stage
 capstone bundles dropped — instances + core methods remain.)

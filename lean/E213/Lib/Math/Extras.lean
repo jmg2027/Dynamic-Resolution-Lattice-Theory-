@@ -31,8 +31,3 @@ import E213.Lib.Math.Extras.RealLogCapstone
 
     * `RealLogCapstone`     — `Real213.log` closure
 
-  ## Removed 2026-05-18 (mis-researched: imported non-existent
-  Multivariable.Stokes2D/3D/4D modules; never built clean):
-    * `ResidualPass2Capstone`, `ResidualPass3Capstone`,
-      `SkeletonCleanup`.
--/
