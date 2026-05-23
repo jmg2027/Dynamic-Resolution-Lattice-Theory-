@@ -2,54 +2,56 @@
 
 ## Branch
 
-`claude/g134-section7-marathon-sadzK` — completes the G134 §7
-six-direction marathon for the cardinality cut-off principle.
+`claude/g134-section7-marathon-sadzK` — completes the §7
+six-direction marathon for the cardinality cut-off principle AND
+promotes the result as a `theory/meta/` chapter family.
 
-## G134 §7 marathon — COMPLETE (191 PURE / 0 DIRTY)
+## §7 marathon — COMPLETE + PROMOTED (191 PURE / 0 DIRTY)
 
-Six direction files added to `lean/E213/Lib/Math/Cohomology/Fractal/`:
+### Lean source (six files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
 
 | File | PURE | Direction |
 |---|---|---|
 | `AurifeuilleanLUnbounded.lean` | 20 | B — Aurifeuillean L unboundedness, chain m ∈ {1, 3, 7}, cap = L_7 ≈ 5.27×10⁵⁸ |
 | `HunterAtomicClosure.lean` | 54 | D — Hunter atomic prime mod-p closure analysis; 28 FLT sub-closure pairs |
-| `AurifeuilleanDepth2Cutoff.lean` | 12 | A — restricted depth-2 cut-off (outer ∈ {+, *}, M_{2,r} = 9_765_625) |
+| `AurifeuilleanDepth2Cutoff.lean` | 12 | A — restricted depth-2 cut-off (outer ∈ {+, *}, M_{2,r} = 9 765 625) |
 | `PellCutoff.lean` | 35 | C — Pell-sequence cut-off application; P_5 = 29 = L_1 coincidence |
 | `HunterComplexity.lean` | 39 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
 | `AltPrimitiveSet.lean` | 31 | F — alternate primitive set {2, 3}; catalogue mobility |
 
-External tool used: **PARI/GP `bnfisnorm`** (newly installed; apt
-package `pari-gp`) — produces Aurifeuillean factorisation of
-`Φ_{490}(5)` over `K = Q(√5)`, yielding the 59-digit `L_7` value.
+### Theory chapter
 
-### Key structural findings
+  · `theory/meta/cardinality_cutoff_applications.md` — six-direction
+    application family chapter (the §7 narrative).
+  · `theory/meta/cardinality_cutoff_principle.md` — methodology
+    chapter, §9/§10 cross-link the applications chapter.
+  · `theory/meta/INDEX.md` — registers 4 closed chapters.
+
+### External tool
+
+PARI/GP `bnfisnorm` (installed via `apt-get install pari-gp`) —
+produces Aurifeuillean factorisation of `Φ_{490}(5)` over
+`K = Q(√5)`, yielding the 59-digit `L_7` value.  Result embedded
+in Lean as decide-checked literal.
+
+### Key structural findings (5)
 
   1. **L_m unboundedness (bounded chain)**: m ∈ {1, 3, 7}, cap =
      5.27×10⁵⁸, absorbs any plausible Hunter depth-k bound for
      small k.
-
   2. **Catalogue closure is sparse**: under `(a op b) % p` for
      op ∈ {+, *, ^}, catalogue contains a 28-element FLT
-     sub-closure `{(a, p) : a, p ∈ cat, a < p, p^a = p}`; no
-     general closure.
+     sub-closure; no general closure.
+  3. **Pell ⇔ Aurifeuillean coincidence at index 5**: `P_5 = 29 = L_1`.
+  4. **Complexity hierarchy honest at 4 levels** with catalogue-
+     atom representatives.
+  5. **Principle parametric in primitives**: shifts complexity
+     assignment without changing methodology.
 
-  3. **Pell ⇔ Aurifeuillean coincidence at index 5**: `P_5 = 29 = L_1`,
-     two unrelated external sequences meet at the smallest
-     Aurifeuillean L-coefficient.
-
-  4. **Complexity hierarchy is honest at 4 levels**:
-     2,3,5 (depth 0), 7 (depth 1), 13/29/41 (depth 2),
-     137/521 (depth 3 — restricted).
-
-  5. **Principle parametric in primitives**: dropping `d = 5`
-     shifts catalogue (5: 0→1, 7: 1→≥2) without changing
-     methodology.
-
-## Recently closed (carry-over from 2026-05-22)
+## Recently closed (carry-over)
 
 | Campaign | Status | Promoted to |
 |---|---|---|
-| **G134 Cardinality cut-off principle** (methodology) | PROMOTED | `theory/meta/cardinality_cutoff_principle.md` |
 | **G123 N_U-family theory** | COMPLETE + PROMOTED | `theory/math/cohomology/fractal.md` |
 | **G125 Aurifeuillean handle** | COMPLETE + PROMOTED | `theory/math/cohomology/aurifeuillean.md` |
 | **G86 Cup-Leibniz ∀(n, k, l)** | CLOSED | `LeibnizFinGeneral` + `LeibnizFinPureForm` |
@@ -57,56 +59,48 @@ package `pari-gp`) — produces Aurifeuillean factorisation of
 | **G117 Bishop comparison** | NARRATIVE-COMPLETE | `theory/math/analysis/minimal_root.md` |
 | **G131 Gram self-energy** | PROMOTED | `theory/physics/alpha_em/precision_derivation.md` |
 | **G133 Hunter ⇔ Aurifeuillean cut-off** | CLOSED | `AurifeuilleanFullCutoff.lean` (28 PURE) |
+| **G134 §7 marathon + promotion** | COMPLETE + PROMOTED (this session) | `theory/meta/cardinality_cutoff_applications.md` |
 
 ## Next session candidates
 
-### A. Promote §7 marathon as theory chapter family
+### A. Cut-off-applications extensions (1-2 sessions each)
 
-The six §7 directions form a natural **application family** for
-the cardinality cut-off principle.  Promotion plan:
+  · **Direction A unrestricted depth-2** via algebraic
+    prime-factorisation: 137, 521 are prime + not in
+    `depth1Universe`, hence not `a^b` for any depth-1 `a, b`.
+    Combine with restricted-depth-2 enumeration to close the
+    full depth-2 cut-off for catalogue primes.  Estimated: 1
+    session, ~15-25 PURE.
 
-  · Single mirror chapter `theory/meta/cardinality_cutoff_applications.md`
-    with subsections per direction (B, D, A, C, E, F).
-  · Cross-links from `theory/meta/cardinality_cutoff_principle.md`
-    §7 candidate applications.
-  · Archive `research-notes/G134_cutoff_principle_followups.md`.
+  · **Direction B chain extension** to m = 11.  PARI bnfisnorm
+    on Φ_{1210}(5) (308 digits) — class-group cost may be
+    significant but feasible.  Adds one more decide-checked
+    norm identity to the chain; cap becomes ~10^200+.
+
+  · **Direction C generalisation** to other recurrent
+    sequences (Lucas, Fibonacci, Tribonacci).  Each gives a
+    cut-off slice; comparison reveals which slice each
+    sequence "sees".
 
 ### B. Promotion-readiness audit follow-ups
 
 Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
 S1 categorical closure.  Candidate continuations:
 
-  1. **G130** (Option A close; only S3 absorption needed) — 1 session
-  2. **G129** (universal Nat-theorem via graph-walk infra) — 5-8 sessions
-  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8 sessions
-  4. **G122** (Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions
+  1. **G130** (Option A close; only S3 absorption needed) — 1
+     session.  Closest to S1 completion.
+  2. **G129** (universal Nat-theorem via graph-walk infra) — 5-8
+     sessions.
+  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8
+     sessions.
+  4. **G122** (Phases 2-mul + 4 + 5 + substantive 6) — 11-16
+     sessions.
 
-### C. Cut-off principle extensions
+### C. Doc work remaining
 
-  · Direction A continuation: unrestricted depth-2 via prime
-    factorisation algebra (137, 521 are prime → not in depth-2-pow).
-  · Direction B continuation: extend chain to m = 11 via PARI;
-    cost grows with class-group size at higher m.
-  · Direction C extensions: apply principle to additional external
-    sequences (Lucas, Fermat, cyclotomic at other bases).
+  · **CLAUDE.md size** — 228 / 220 target.
 
-### D. Doc work remaining
-- **CLAUDE.md size** — 228 / 220 target.
-
-## G134 §7 prerequisite stack
-
-The §7 marathon files import:
-
-  · `AurifeuilleanFullCutoff.lean` (28 PURE, depth-1 cut-off, from G133)
-  · `AurifeuilleanLUnbounded.lean` (20 PURE, this session)
-  · `AurifeuilleanDepth2Cutoff.lean` (12 PURE, this session)
-  · `HunterComplexity.lean` (39 PURE, this session)
-  · `AltPrimitiveSet.lean` (31 PURE, this session)
-
-Plus `PellCutoff.lean` (35) and `HunterAtomicClosure.lean` (54) are
-standalone applications.
-
-## G122 Real213-p-adic — PARTIAL CLOSE (carry-over)
+## G122 Real213-p-adic — PARTIAL CLOSE (carry-over, separate branch)
 
 Branch `claude/g122-real213-p-adic-LwxL9` (not merged into main).
 
@@ -130,7 +124,7 @@ multiplication, substantive Phase 6 integration.
 | `research-notes/G29_residue.md` | Foundational text |
 | `theory/INDEX.md` | Book map (90+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
-| `theory/meta/cardinality_cutoff_principle.md` | §7 application family target |
-| `research-notes/G134_cutoff_principle_followups.md` | Marathon completion log |
+| `theory/meta/cardinality_cutoff_principle.md` | Methodology |
+| `theory/meta/cardinality_cutoff_applications.md` | §7 application family |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
