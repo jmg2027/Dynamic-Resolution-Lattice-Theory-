@@ -707,6 +707,31 @@ def Zp.sqrtBase_neg_one_5 : Zp.SqrtBase 5 (ZpSeq.neg_one 5 (by decide)) where
   two_d_0_inv_lt := by decide
   two_d_0_inv_eq := by decide
 
+/-- **√(-1) in ℤ_13 exists**.  `d_0 = 5` (since `5² = 25 ≡ -1 mod 13`).
+    `(2·5)⁻¹ = 10⁻¹ = 4` (since `10·4 = 40 ≡ 1 mod 13`). -/
+def Zp.sqrtBase_neg_one_13 : Zp.SqrtBase 13 (ZpSeq.neg_one 13 (by decide)) where
+  d_0 := 5
+  d_0_lt := by decide
+  sq_eq := by decide
+  two_d_0_inv := 4
+  two_d_0_inv_lt := by decide
+  two_d_0_inv_eq := by decide
+
+/-- **√2 in ℤ_7 exists**.  `d_0 = 3` (since `3² = 9 ≡ 2 mod 7`).
+    `(2·3)⁻¹ = 6⁻¹ = 6` (since `6·6 = 36 ≡ 1 mod 7`).
+
+    The 7-adic integer `√2`: contrasts with `ℝ` where √2 is
+    irrational; in ℤ_7 it's an honest p-adic integer with
+    digit 0 = 3. -/
+def Zp.sqrtBase_two_7 :
+    Zp.SqrtBase 7 ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ where
+  d_0 := 3
+  d_0_lt := by decide
+  sq_eq := by decide
+  two_d_0_inv := 6
+  two_d_0_inv_lt := by decide
+  two_d_0_inv_eq := by decide
+
 /-! ## Sqrt iteration
 
 `sqrtSeq n` is the Hensel-lifted square-root approximation, correct
@@ -1320,6 +1345,31 @@ theorem Zp.i_5_digit_one : (Zp.i_5.digits 1).val = 1 := by decide
 
 /-- Digit 2 of `i₅` is `2`. -/
 theorem Zp.i_5_digit_two : (Zp.i_5.digits 2).val = 2 := by decide
+
+/-- The 13-adic square root of -1.  Digit 0 = 5. -/
+def Zp.i_13 : ZpSeq 13 :=
+  Zp.sqrtFull 13 (by decide) (ZpSeq.neg_one 13 (by decide))
+    Zp.sqrtBase_neg_one_13
+
+/-- Digit 0 of `i₁₃` is `5`. -/
+theorem Zp.i_13_digit_zero : (Zp.i_13.digits 0).val = 5 := rfl
+
+/-- Digit 1 of `i₁₃` is `5`.  So `i₁₃ ≡ 5 + 5·13 = 70 (mod 169)`,
+    and `70² = 4900 ≡ -1 (mod 169)`. -/
+theorem Zp.i_13_digit_one : (Zp.i_13.digits 1).val = 5 := by decide
+
+/-- The 7-adic square root of 2.  Digit 0 = 3. -/
+def Zp.sqrt_two_7 : ZpSeq 7 :=
+  Zp.sqrtFull 7 (by decide)
+    ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩
+    Zp.sqrtBase_two_7
+
+/-- Digit 0 of `√2 ∈ ℤ_7` is `3`. -/
+theorem Zp.sqrt_two_7_digit_zero : (Zp.sqrt_two_7.digits 0).val = 3 := rfl
+
+/-- Digit 1 of `√2 ∈ ℤ_7` is `1`.  So `√2 ≡ 3 + 1·7 = 10 (mod 49)`,
+    and `10² = 100 ≡ 2 (mod 49)`. -/
+theorem Zp.sqrt_two_7_digit_one : (Zp.sqrt_two_7.digits 1).val = 1 := by decide
 
 /-- `i₅² ≡ -1 (mod 5)` — the defining property at trunc level 1. -/
 theorem Zp.i_5_sq_trunc_one :
