@@ -1696,6 +1696,141 @@ theorem heegaard_shape_joint_universal :
           shapeOf_eq_jForm,
           ?_, ?_⟩ <;> decide
 
+/-! ## §FW-2.DD'' — PURE List.length_append + connectedSumAttaching chi universal
+
+Core `List.length_append` uses propext.  PURE version proven
+term-level via `induction` tactic + `Nat.zero_add` + `Nat.succ_add`
+(both PURE).  Enables universal connectedSumAttaching χ preservation
+without relying on DIRTY List lemmas.
+-/
+
+/-- `(l₁ ++ l₂).length = l₁.length + l₂.length` PURE.
+    Term-level via `induction` tactic (which avoids the propext
+    that core `List.length_append` pulls). -/
+theorem list_length_append_pure {α : Type _} (l₁ l₂ : List α) :
+    (l₁ ++ l₂).length = l₁.length + l₂.length := by
+  induction l₁ with
+  | nil => exact (Nat.zero_add l₂.length).symm
+  | cons _ rest ih =>
+    show (rest ++ l₂).length + 1 = rest.length + 1 + l₂.length
+    exact Eq.trans
+      (congrArg (· + 1) ih)
+      (Nat.succ_add rest.length l₂.length).symm
+
+/-- `(l.drop n).length = l.length - n` (this is `Nat.sub_zero`-style
+    when n ≤ l.length, but the Nat-truncated version still holds
+    via `List.length_drop` which is PURE in core). -/
+theorem list_length_drop_pure {α : Type _} (n : Nat) (l : List α) :
+    (l.drop n).length = l.length - n := List.length_drop n l
+
+/-- `num2Cells (connectedSumAttaching a₁ a₂)
+      = a₁.cells2.length + a₂.cells2.length − 7` (when 7 ≤ a₂.cells2.length).
+    PURE via `list_length_append_pure` + `list_length_drop_pure`. -/
+theorem connectedSumAttaching_num2Cells_universal
+    (a₁ a₂ : CellComplexK32Attaching) :
+    num2Cells (connectedSumAttaching a₁ a₂)
+    = a₁.cells2.length + (a₂.cells2.length - 7) := by
+  show (a₁.cells2 ++ a₂.cells2.drop 7).length
+       = a₁.cells2.length + (a₂.cells2.length - 7)
+  rw [list_length_append_pure, list_length_drop_pure]
+
+/-- `num3Cells (connectedSumAttaching a₁ a₂)
+      = a₁.cells3.length + a₂.cells3.length`. -/
+theorem connectedSumAttaching_num3Cells_universal
+    (a₁ a₂ : CellComplexK32Attaching) :
+    num3Cells (connectedSumAttaching a₁ a₂)
+    = a₁.cells3.length + a₂.cells3.length := by
+  show (a₁.cells3 ++ a₂.cells3).length
+       = a₁.cells3.length + a₂.cells3.length
+  exact list_length_append_pure _ _
+
+/-- Universal connectedSumAttaching cell counts. -/
+theorem connectedSumAttaching_cells_universal :
+    (∀ a₁ a₂ : CellComplexK32Attaching,
+       num2Cells (connectedSumAttaching a₁ a₂)
+       = a₁.cells2.length + (a₂.cells2.length - 7))
+    ∧ (∀ a₁ a₂ : CellComplexK32Attaching,
+       num3Cells (connectedSumAttaching a₁ a₂)
+       = a₁.cells3.length + a₂.cells3.length) :=
+  ⟨connectedSumAttaching_num2Cells_universal,
+   connectedSumAttaching_num3Cells_universal⟩
+
+/-- Nat-level closed-3-mfd predicate: `num2Cells = num3Cells + 7`. -/
+abbrev isNatClosed3Mfd (a : CellComplexK32Attaching) : Prop :=
+  a.cells2.length = a.cells3.length + 7
+
+/-- ★★★★★★★★ **Universal Nat-level chi preservation under connected sum**
+
+  If both inputs satisfy `cells2.length = cells3.length + 7` (the
+  Nat-level closed-3-mfd predicate, equivalent to χ = 0 with χ ≥ 0
+  components), then so does the connected sum, with
+  `(a₂.cells2.length ≥ 7)` automatically true since `a₂.cells2.length
+  = a₂.cells3.length + 7 ≥ 7`.
+
+  PURE term-level via universal cell counts + `add_sub_self_right_pure`. -/
+theorem connectedSumAttaching_isNatClosed_universal
+    (a₁ a₂ : CellComplexK32Attaching)
+    (h₁ : isNatClosed3Mfd a₁) (h₂ : isNatClosed3Mfd a₂) :
+    isNatClosed3Mfd (connectedSumAttaching a₁ a₂) := by
+  show (connectedSumAttaching a₁ a₂).cells2.length
+       = (connectedSumAttaching a₁ a₂).cells3.length + 7
+  rw [show (connectedSumAttaching a₁ a₂).cells2.length
+        = num2Cells (connectedSumAttaching a₁ a₂) from rfl]
+  rw [show (connectedSumAttaching a₁ a₂).cells3.length
+        = num3Cells (connectedSumAttaching a₁ a₂) from rfl]
+  rw [connectedSumAttaching_num2Cells_universal,
+      connectedSumAttaching_num3Cells_universal]
+  -- Goal: a₁.cells2.length + (a₂.cells2.length - 7)
+  --     = a₁.cells3.length + a₂.cells3.length + 7
+  rw [h₁, h₂]
+  -- Goal: (a₁.cells3.length + 7) + ((a₂.cells3.length + 7) - 7)
+  --     = a₁.cells3.length + a₂.cells3.length + 7
+  rw [add_sub_self_right_pure a₂.cells3.length 7]
+  -- Goal: (a₁.cells3.length + 7) + a₂.cells3.length
+  --     = a₁.cells3.length + a₂.cells3.length + 7
+  -- This is a Nat add-rearrangement.
+  -- LHS = a₁.cells3.length + 7 + a₂.cells3.length
+  -- RHS = a₁.cells3.length + a₂.cells3.length + 7
+  -- Use: a + 7 + b = a + b + 7
+  rw [Nat.add_assoc a₁.cells3.length 7 a₂.cells3.length]
+  rw [Nat.add_comm 7 a₂.cells3.length]
+  rw [← Nat.add_assoc a₁.cells3.length a₂.cells3.length 7]
+
+/-- Concrete witness: each named target satisfies `isNatClosed3Mfd`. -/
+theorem S3_attaching_isNatClosed : isNatClosed3Mfd S3_attaching := by decide
+theorem T3_attaching_isNatClosed : isNatClosed3Mfd T3_attaching := by decide
+theorem Lpq_attaching_isNatClosed : isNatClosed3Mfd Lpq_attaching := by decide
+
+/-- ★★★★★★★★ **Universal connectedSumAttaching preservation close**
+
+  Bundles the universal cell counts + universal closed-3-mfd
+  preservation + canonical-target witnesses.
+
+  The closed-3-mfd predicate `isNatClosed3Mfd` (= Nat-level
+  `cells2.length = cells3.length + 7`) is preserved under
+  arbitrary connected sums, PURE via list_length_append_pure +
+  add_sub_self_right_pure (no DIRTY list / Int axioms). -/
+theorem connectedSumAttaching_universal_close :
+    -- Universal cell counts (concrete cell-list arithmetic)
+    (∀ a₁ a₂ : CellComplexK32Attaching,
+       num2Cells (connectedSumAttaching a₁ a₂)
+       = a₁.cells2.length + (a₂.cells2.length - 7))
+    ∧ (∀ a₁ a₂ : CellComplexK32Attaching,
+       num3Cells (connectedSumAttaching a₁ a₂)
+       = a₁.cells3.length + a₂.cells3.length)
+    -- Universal Nat-level closed-3-mfd preservation
+    ∧ (∀ a₁ a₂ : CellComplexK32Attaching,
+       isNatClosed3Mfd a₁ → isNatClosed3Mfd a₂
+       → isNatClosed3Mfd (connectedSumAttaching a₁ a₂))
+    -- Canonical targets are closed
+    ∧ isNatClosed3Mfd S3_attaching
+    ∧ isNatClosed3Mfd T3_attaching
+    ∧ isNatClosed3Mfd Lpq_attaching := by
+  refine ⟨connectedSumAttaching_num2Cells_universal,
+          connectedSumAttaching_num3Cells_universal,
+          connectedSumAttaching_isNatClosed_universal,
+          ?_, ?_, ?_⟩ <;> decide
+
 /-! ## §FW-2.EE — Lens space linking number invariant
 
 For L(p, q), the **linking number** of the two core circles in
