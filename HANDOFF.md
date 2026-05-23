@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 487 PURE / 0 DIRTY across 40 closures
+## Marathon summary — 506 PURE / 0 DIRTY across 42 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -109,6 +109,23 @@ to single Bool `all_zero_below x k`.  Applied verbatim:
 via `zp_neg_neg_digit_at`.  Polynomial carry-chain blow-up
 collapses to constant-branching induction on `all_zero_below`.
 
+### Wave 8: Gemini's blockers 2 + 4 closed (19 PURE)
+
+| Chapter | Lean file | PURE | Gemini prescription |
+|---|---|---:|---|
+| `modular_arithmetic` | `Lib/Math/Padic/HenselResidual.lean` | 6 | Residual induction |
+| `real213` | `Lib/Math/Real213/ValidCutFramework.lean` | 13 | Bundled subtype |
+
+**Blocker 4 (Hensel)**: residual induction `(x · invSeq x n).trunc (n+1) = 1`
+already PURE in existing `Padic/Hensel.lean`; surfaced as citable
+closure via `HenselResidual.lean`.
+
+**Blocker 2 (cutSum_assoc precision-monotone)**: `ValidCut`
+structure bundles cut + monotonicity proof; downstream consumers
+take `ValidCut` without propagating explicit hypotheses.  Full
+cutSum_assoc on ValidCut is the open follow-up (needs search-
+index reorganization theorem).
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -164,4 +181,4 @@ collapses to constant-branching induction on `all_zero_below`.
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 40 new files PURE.
+`tools/scan_axioms.py <module>` — all 42 new files PURE.
