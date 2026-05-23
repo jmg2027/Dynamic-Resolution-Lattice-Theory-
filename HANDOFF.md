@@ -125,6 +125,35 @@ Five candidate principles analyzed; most 213-native is
 b_2 / b_3 extension.  Shared Filled3Cell-with-attaching-maps prereq
 with G123 FW-2 and G126 Phase 7+.
 
+### G132 Phase 1+2 — DONE 2026-05-23
+
+**Phase 1** (math anchor): `Filled3CellCohomology.lean` (17 PURE) +
+Sym(3) Phase 2 (+18 = 35 total).  Establishes ω = (1, 1, 1) ∈ C²
+as the unique Sym(3)-invariant non-trivial 2-cocycle representing
+the b_2 = 1 class at full simple-cycle filling.
+
+**Phase 2** (physics bridge): `OmegaH2Trace.lean` (9 PURE).
+Cup-ladder rule H^k → α^(k+1) gives the structural source for the
+empirical α³/d² Gram-higher correction:
+
+  · Bridge identity: `omega_trace_e9 = gram_correction_alpha3_e9 = 15`
+  · Residual decomposition: 27 × 10⁻⁹ = 15 (ω H²) + 12 (sub-noise)
+  · 12 × 10⁻⁹ sits below CODATA 2024 ~1 ppb relative precision on
+    1/α_em.
+
+Sub-ppb target: structurally explained at the 12 × 10⁻⁹ tier
+(below CODATA precision).  The α_em precision-theorem stack is
+**0.2 ppb structural + 0.09 ppb empirically tight**.
+
+**Remaining open frontiers**:
+  · Phase 3+: lift the cup-ladder rule H^k → α^(k+1) from
+    structural analogy to a proven identity (requires extension
+    of `CupRingTrace.lean` to track cohomology degree).
+  · G126 Phase 7+: extend cork-twist Z/2 action from H¹ to H²
+    via M_S01 fixing ω.
+  · G123 FW-2 Phase 7+: lift the 2-cocycle to a real 3-mfd
+    attaching-map structure.
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -323,5 +352,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
-| `lean/E213/Lib/Physics/AlphaEM/Augmented.lean` | **Next target: Gram self-energy gap, lines 134-141** |
+| `lean/E213/Lib/Physics/AlphaEM/OmegaH2Trace.lean` | **G132 Phase 2 closure** — ω ↔ α³/d² bridge |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellCohomology.lean` | **G132 Phase 1 anchor** — ω, b_2 = 1, Sym(3)-invariant |
+| `research-notes/G132_alphaEm_higher_cohomology_residual.md` | Phase 3+ open frontiers |
 | `research-notes/G127_promotion_readiness_audit.md` | Promotion-blocker registry |

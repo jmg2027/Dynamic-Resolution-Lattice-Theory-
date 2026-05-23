@@ -1192,3 +1192,39 @@ the kernel does NOT reduce further (stays at dim 10), and a
 non-trivial 2-cocycle Face 0 + Face 1 + Face 2 contributes
 `b_2 = 1`.  This `b_2 = 1` class is the cohomological seed for
 the higher-cohomology candidate of the post-Gram α_em residual.
+
+## 2026-05-22 — Filled3CellCohomology Phase 2 (Sym(3) action on ω)
+
+Extends the math anchor to the Sym(3) representation-theoretic
+structure of the b_2 = 1 class.
+
+| Module | PURE (incremental) | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.Filled3CellCohomology` | +18 (35 total) | `omega_face_vec : Fin 3 → Bool` (all-ones 2-cocycle); ★★★★★ `omega_not_in_im_delta1` (ω represents non-trivial H² class via face_dependence contradiction); `faceSwap_S01/S12/S02` (three Sym(3) transpositions as `Fin 3 → Fin 3` permutations); involution proofs; Coxeter relation `S02 = S01 ∘ S12 ∘ S01`; per-transposition ω-invariance; ★★★★★★ `phase2_omega_invariant_2cocycle` (11-conjunct capstone) |
+
+**Structural finding**: at H¹+H² level, the Sym(3) irrep decomposition
+becomes `3·trivial ⊕ 3·standard` (extending the H¹-only
+`2·trivial ⊕ 3·standard`).  The **third trivial irrep is ω** — the
+b_2 = 1 class added by the face dependence at full simple-cycle
+filling.  ω is the unique non-trivial Sym(3)-invariant 2-cocycle.
+
+## 2026-05-22 — OmegaH2Trace (Filled3CellCohomology ↔ α_em bridge)
+
+Physics-layer bridge from the math anchor (ω, b_2 = 1 Sym(3)-
+invariant 2-cocycle) to the empirical α³/d² Gram-higher α_em
+correction `gram_correction_alpha3_e9 = 15` proved in
+`GramHigherOrder.lean`.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.OmegaH2Trace` | 9 | `omega_face_weight = 3` (= NS); `omega_cohomology_degree = 2`; `omega_alpha_power = omega_cohomology_degree + 1 = 3` (cup-ladder rule); `omega_denominator = 25` (d², shared with H¹ Gram); `omega_trace_e9` (α³/d² × 10⁹ contribution); ★★★ `omega_trace_eq_gram_alpha3` (definitional bridge identity); ★★★★★ `omega_h2_trace_master` (9-conjunct capstone) |
+
+**Cup ladder principle**: an H^k cohomology class contributes a
+(k+1)-fold cup product to the cup-ring trace, giving α^(k+1)
+coupling.  Hence H¹ → α² (Gram), H² → α³ (ω), H³ → α⁴ (sub-noise).
+The 5-layer denominator d² = 25 is shared across all orders.
+
+**Residual decomposition**: post-Gram 27 × 10⁻⁹ = 15 (ω H² class
+via α³/d²) + 12 (sub-noise below CODATA 2024 ~1 ppb precision on
+1/α_em).  The empirical α³/d² fit in `GramHigherOrder.lean` now
+has a structural source: ω.
