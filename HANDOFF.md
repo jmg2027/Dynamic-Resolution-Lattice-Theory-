@@ -6,16 +6,18 @@
 six-direction marathon for the cardinality cut-off principle AND
 promotes the result as a `theory/meta/` chapter family.
 
-## §7 marathon — COMPLETE + PROMOTED (191 PURE / 0 DIRTY)
+## §7 marathon — COMPLETE + PROMOTED + EXTENDED (249 PURE / 0 DIRTY)
 
-### Lean source (six files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
+### Lean source (nine files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
 
 | File | PURE | Direction |
 |---|---|---|
 | `AurifeuilleanLUnbounded.lean` | 20 | B — Aurifeuillean L unboundedness, chain m ∈ {1, 3, 7}, cap = L_7 ≈ 5.27×10⁵⁸ |
 | `HunterAtomicClosure.lean` | 54 | D — Hunter atomic prime mod-p closure analysis; 28 FLT sub-closure pairs |
 | `AurifeuilleanDepth2Cutoff.lean` | 12 | A — restricted depth-2 cut-off (outer ∈ {+, *}, M_{2,r} = 9 765 625) |
-| `PellCutoff.lean` | 35 | C — Pell-sequence cut-off application; P_5 = 29 = L_1 coincidence |
+| `AurifeuilleanDepth2PowCutoff.lean` | 18 | A unrestricted — outer-pow case for {137, 521} via small-range decide + monotonicity |
+| `PellCutoff.lean` | 35 | C — Pell-sequence cut-off; P_5 = 29 = L_1 coincidence |
+| `LucasCutoff.lean` | 40 | C extension — Lucas-sequence; 5 catalogue intersections; triple coincidence at 29 |
 | `HunterComplexity.lean` | 39 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
 | `AltPrimitiveSet.lean` | 31 | F — alternate primitive set {2, 3}; catalogue mobility |
 
@@ -34,7 +36,7 @@ produces Aurifeuillean factorisation of `Φ_{490}(5)` over
 `K = Q(√5)`, yielding the 59-digit `L_7` value.  Result embedded
 in Lean as decide-checked literal.
 
-### Key structural findings (5)
+### Key structural findings (6)
 
   1. **L_m unboundedness (bounded chain)**: m ∈ {1, 3, 7}, cap =
      5.27×10⁵⁸, absorbs any plausible Hunter depth-k bound for
@@ -42,10 +44,15 @@ in Lean as decide-checked literal.
   2. **Catalogue closure is sparse**: under `(a op b) % p` for
      op ∈ {+, *, ^}, catalogue contains a 28-element FLT
      sub-closure; no general closure.
-  3. **Pell ⇔ Aurifeuillean coincidence at index 5**: `P_5 = 29 = L_1`.
-  4. **Complexity hierarchy honest at 4 levels** with catalogue-
-     atom representatives.
-  5. **Principle parametric in primitives**: shifts complexity
+  3. **Triple-sequence coincidence at 29**:
+     `Pell P_5 = Lucas L_7 = Aurifeuillean L_1 = 29`.  29 has
+     three Hunter readings (catalogue atom).
+  4. **Lucas–Aurifeuillean coincidence at 521**: `L_13 = Φ_10(5)`.
+     Lucas hits the catalogue at 5 indices (most of any external
+     sequence).
+  5. **Complexity hierarchy honest at 4 levels** unrestricted
+     (depth-2-pow case for {137, 521} closed via decide + monotonicity).
+  6. **Principle parametric in primitives**: shifts complexity
      assignment without changing methodology.
 
 ## Recently closed (carry-over)
@@ -65,22 +72,23 @@ in Lean as decide-checked literal.
 
 ### A. Cut-off-applications extensions (1-2 sessions each)
 
-  · **Direction A unrestricted depth-2** via algebraic
-    prime-factorisation: 137, 521 are prime + not in
-    `depth1Universe`, hence not `a^b` for any depth-1 `a, b`.
-    Combine with restricted-depth-2 enumeration to close the
-    full depth-2 cut-off for catalogue primes.  Estimated: 1
-    session, ~15-25 PURE.
+  · ~~Direction A unrestricted depth-2~~ — CLOSED this session
+    (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
+    small-range decide + large-range monotonicity.
 
   · **Direction B chain extension** to m = 11.  PARI bnfisnorm
     on Φ_{1210}(5) (308 digits) — class-group cost may be
     significant but feasible.  Adds one more decide-checked
     norm identity to the chain; cap becomes ~10^200+.
 
-  · **Direction C generalisation** to other recurrent
-    sequences (Lucas, Fibonacci, Tribonacci).  Each gives a
-    cut-off slice; comparison reveals which slice each
-    sequence "sees".
+  · ~~Direction C Lucas extension~~ — CLOSED this session
+    (`LucasCutoff.lean`, 40 PURE).  Triple-coincidence at 29
+    + Lucas-Aurifeuillean coincidence at 521 are the headline
+    structural findings.
+
+  · **Direction C further extensions**: Fibonacci (F_7 = 13 =
+    catalogue), Tribonacci, Padovan.  Each adds a sequence
+    with its own catalogue intersections.
 
 ### B. Promotion-readiness audit follow-ups
 
