@@ -11,7 +11,7 @@ V32 / V32Betti cohomology infrastructure.
 |---|---|---|---|
 | `CochSpaces.lean` | 1 | 13 | Parametric `CochV NS NT` / `CochE NS NT c` types + `srcOf` / `tgtOf` / `multOf` endpoint extractors + `srcFin` / `tgtFin` packaged + `delta0` parametric coboundary + K_{3,2}^{(c=2)} numerical sanity checks |
 | `Delta0AndConnectedness.lean` | 2-3 | 16 | `cochVAt` binary-decoded cochains + `isInKerDelta0Direct` test + `kerSizeDelta0Direct` enumeration count + `b_0 = 1` (ker size = 2) verified across all G121-relevant deployments via `decide` (K_{1,1}, K_{1,2}, K_{1,3}, K_{2,2}, K_{1,4}, K_{3,2}^{(c=2)}, K_{3,3}^{(c=2)}, ...) + V32Betti compatibility |
-| `EulerAndCapstone.lean` | 4-6 | 7 | `eulerChar : Int` parametric formula + `b1Formula : Nat` for connected case + G121-deployment-family b_1 table + `chartVisibleAxes` bridge to KChartLens + ★★★★★★ `G124_parametric_close` capstone |
+| `EulerAndCapstone.lean` | 4-6 | 7 | `eulerChar : Int` parametric formula + `b1Formula : Nat` for connected case + chartBase-≤-5 deployment-family b_1 table + `chartVisibleAxes` bridge to KChartLens + ★★★★★★ `parametric_close_capstone` |
 
 ## Coverage
 
@@ -48,8 +48,10 @@ Linear chain.  All under namespace
 
 ## Cross-references
 
-  · `research-notes/G129_v32betti_parametric_generalization.md` —
-    pre-marathon research direction (6-phase plan)
+  · `theory/math/cohomology/bipartite.md` "Parametric V32Betti"
+    section — chapter narrative for this sub-tree
+  · `research-notes/archive/G129_v32betti_parametric_generalization.md`
+    — 6-phase plan + partial-close summary (deep-dive)
   · `research-notes/G128_geometrization_open_followups.md` §4.5 —
     V32Betti entry in spin-off marathon table
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V32Betti.lean` —

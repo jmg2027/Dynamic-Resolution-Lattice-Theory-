@@ -94,21 +94,21 @@ theorem chartVisibleAxes_chartBase5_witnesses :
 
 /-! ## Universal close capstone -/
 
-/-- ★★★★★★ **G124 partial close: parametric cohomology consolidation**
+/-- ★★★★★★ **Parametric cohomology consolidation capstone**
 
-  Bundles the parametric cohomology machinery developed in Phases 1-3:
+  Bundles the parametric cohomology machinery:
     · CochSpaces.CochV / CochE defined parametrically in (NS, NT, c)
     · srcOf / tgtOf / delta0 parametric
-    · b_0 = 1 verified across G121-relevant deployments
+    · b_0 = 1 verified across the K-deployment family
     · b_1 formula `c·NS·NT + 1 − (NS + NT)` for connected case
     · Euler characteristic eulerChar = (NS + NT) − c·NS·NT
     · V32Betti compatibility at (3, 2, 2)
 
   The fully universal `∀ (NS NT c : Nat), 1 ≤ NS → 1 ≤ NT → 1 ≤ c →
-  kerSizeDelta0 NS NT c = 2` parametric proof is still open
-  (requires graph-connectedness induction).  This close covers all
-  deployments enumerated in G121 / G123 narrative. -/
-theorem G124_parametric_close :
+  kerSizeDelta0 NS NT c = 2` parametric proof remains open frontier
+  (requires graph-connectedness induction infrastructure).  This
+  capstone covers all deployments in the chartBase-≤-5 family. -/
+theorem parametric_close_capstone :
     -- Parametric Euler at K_{3,2}^{(c=2)}
     eulerChar 3 2 2 = -7
     -- Parametric b_1 at K_{3,2}^{(c=2)} matches V32Betti
