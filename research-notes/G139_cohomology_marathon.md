@@ -24,23 +24,37 @@ cut-off applications follow the Pell / Lucas / Fibonacci /
 Tribonacci template from G134 §7.  Higher cup_i and Massey
 extend the K_{3,2}^{(c=2)} Steenrod-algebra stack from G132.
 
-## Phase 1 — this session
+## Phase 1 — CLOSED
 
-  1. **G139-A Padovan cut-off** — extend Direction C to a fifth
-     external sequence.  Triple Hunter-generator coincidence at
-     odd indices `(P_3, P_5, P_7) = (NT, NS, d)`, contrasting
-     Fibonacci's consecutive-index pattern.
-  2. **G139-B K_{3,2} cup_3 at 4-skeleton** — formalise the
-     `cup_3 : C² × C² → C¹` Alexander-Whitney instance and the
-     vacuous self-pairing `ω ⌣_3 ω` at the 4-skeleton truncation
-     (lands in `C¹` but `2 + 2 - 3 = 1` mapping is empty in the
-     simple AW restriction; document the structural ladder
-     extension).
-  3. **G139-C Eventual periodicity at (5, 11)** — explicit
-     instance using the existing `pow_mod_period_pure` /
-     `configCountD_mod_pure`.  Closes the depth-1 case at
-     `p = 11` parametrically (the existing `configCountD_5_mod_11`
-     deferred parametric form).
+All three Phase 1 closures CLOSED + PROMOTED:
+
+  1. **G139-A Padovan cut-off** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/PadovanCutoff.lean`, 30 PURE).
+     Triple Hunter-generator coincidence at odd indices
+     `(P_3, P_5, P_7) = (NT, NS, d) = (2, 3, 5)` in arithmetic
+     progression (step 2), sister to Fibonacci's consecutive-index
+     `(F_3, F_4, F_5)` window.  Fourth catalogue hit `P_8 = 7`.
+     Cut-off boundaries: depth-1 at `n ≥ 30` (latest in the
+     family), depth-2-restricted at `n ≥ 59`.
+     Promoted into `theory/meta/cardinality_cutoff_applications.md`.
+  2. **G139-B Filled5CellExtension** — CLOSED
+     (`Lib/Math/Cohomology/Bipartite/Filled5CellExtension.lean`,
+     13 PURE).  Single 5-cell σ⁵ extending the pyramid tower
+     σ³ → σ⁴ → σ⁵.  Establishes `H⁴ = 0`, `H⁵ = 0` at 5-skeleton.
+     Massey-triple landing-space audit: `⟨ω, ω, ω⟩ ∈ H⁵ = 0`
+     VACUOUSLY trivial at 5-skeleton; non-vacuous Massey needs
+     6-skeleton extension + cobounding-chain construction.
+     Promoted into
+     `theory/math/cohomology/k32_higher_cohomology.md`.
+  3. **G139-C Eventually-constant mod 11** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/ConfigCountModular.lean` §I).
+     `configCountD_5_succ_mod_11` (n : Nat) :
+       configCountD 5 (n + 1) % 11 = 1.
+     Via `5^(n+1) mod 10 = 5` fixed-point absorption (since
+     `gcd(5, 10) ≠ 1`).  Sister to the `(5, 41)` constant
+     `9 = NS²` closure.  Promoted into
+     `theory/math/cohomology/fractal.md` modular-fingerprint
+     table.
 
 ## Phase 2 (next session candidates)
 
