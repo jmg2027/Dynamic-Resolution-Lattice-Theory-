@@ -6,7 +6,7 @@
 six-direction marathon for the cardinality cut-off principle AND
 promotes the result as a `theory/meta/` chapter family.
 
-## §7 marathon — COMPLETE + PROMOTED + EXTENDED (249 PURE / 0 DIRTY)
+## §7 marathon — COMPLETE + PROMOTED + EXTENDED (285 PURE / 0 DIRTY)
 
 ### Lean source (nine files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
 
@@ -18,6 +18,7 @@ promotes the result as a `theory/meta/` chapter family.
 | `AurifeuilleanDepth2PowCutoff.lean` | 18 | A unrestricted — outer-pow case for {137, 521} via small-range decide + monotonicity |
 | `PellCutoff.lean` | 35 | C — Pell-sequence cut-off; P_5 = 29 = L_1 coincidence |
 | `LucasCutoff.lean` | 40 | C extension — Lucas-sequence; 5 catalogue intersections; triple coincidence at 29 |
+| `FibonacciCutoff.lean` | 36 | C extension — Fibonacci-sequence; (F_3, F_4, F_5) = (NT, NS, d) Hunter-generator window |
 | `HunterComplexity.lean` | 39 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
 | `AltPrimitiveSet.lean` | 31 | F — alternate primitive set {2, 3}; catalogue mobility |
 

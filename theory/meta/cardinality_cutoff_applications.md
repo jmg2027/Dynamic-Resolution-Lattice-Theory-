@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 285 PURE / 0 DIRTY across ten Lean files in
+Aggregate: 285 PURE / 0 DIRTY across nine Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
