@@ -14,8 +14,8 @@ from the Hunter generator set `{2, 3, 5}`.
 
 Unrestricted depth-2 includes `pow gd (pow gd gd) = 5^3125`
 (~2184-digit number) — kernel-intractable.  Strategy 1 of the
-cardinality cut-off principle's continuation (Direction A,
-`research-notes/G134_cutoff_principle_followups.md` §1) restricts
+cardinality cut-off principle's continuation (Direction A; see
+`theory/meta/cardinality_cutoff_applications.md` §1) restricts
 the outer op to avoid the astronomical case.
 
 ## Cardinality bound

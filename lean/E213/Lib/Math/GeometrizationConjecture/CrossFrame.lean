@@ -1,9 +1,10 @@
 import E213.Lib.Math.GeometrizationConjecture.MetricGeometries
 
 /-!
-# G121 R1+ — X-1 cross-frame Sym(3) capstone (4-way convergence)
+# X-1 cross-frame Sym(3) capstone (4-way convergence)
 
-Source: `research-notes/G123_geometrization_open_followups.md` §4.
+Chapter context: `theory/math/geometrization_conjecture.md`
+"Open frontier" section.
 
 X-1 records the Sym(3) decomposition of the 8-element substrate
 across four cross-frame sources, all already PURE elsewhere in E213.

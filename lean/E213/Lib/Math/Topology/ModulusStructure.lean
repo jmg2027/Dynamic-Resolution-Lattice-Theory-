@@ -24,7 +24,8 @@ This file provides the **unified framework**: a bare
 projection functions from each of the three sources.  Records the
 3-way structural parallel as a Lean-formal capstone.
 
-Per `research-notes/G125_bracket_cauchy_ricci_functor.md` Option A.
+Option A close (bare structure + projections from the three
+existing modulus families).
 -/
 
 namespace E213.Lib.Math.Topology.ModulusStructure

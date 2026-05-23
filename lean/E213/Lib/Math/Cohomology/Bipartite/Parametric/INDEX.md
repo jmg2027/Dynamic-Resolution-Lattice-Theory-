@@ -16,7 +16,7 @@ V32 / V32Betti cohomology infrastructure.
 ## Coverage
 
 All K-deployments enumerated in `research-notes/G121_dim4_self_pointing_axis.md`
-and `G123_geometrization_open_followups.md` are PURE-verified:
+and `research-notes/G128_geometrization_open_followups.md` are PURE-verified:
   · Trees: K_{1,1}, K_{1,2}, K_{2,1}, K_{1,3}, K_{3,1}, K_{1,4}, K_{4,1}
   · 4-cycle: K_{2,2}^{(c=1)}, K_{2,2}^{(c=2)}
   · Forced critical: K_{3,2}^{(c=2)}, K_{2,3}^{(c=2)} (S/T swap)
@@ -48,10 +48,10 @@ Linear chain.  All under namespace
 
 ## Cross-references
 
-  · `research-notes/G124_v32betti_parametric_generalization.md` —
+  · `research-notes/G129_v32betti_parametric_generalization.md` —
     pre-marathon research direction (6-phase plan)
-  · `research-notes/G123_geometrization_open_followups.md` §4.5 —
-    G124 entry in spin-off marathon table
+  · `research-notes/G128_geometrization_open_followups.md` §4.5 —
+    V32Betti entry in spin-off marathon table
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V32Betti.lean` —
     K_{3,2}^{(c=2)}-specific predecessor
   · `lean/E213/Lib/Math/GeometrizationConjecture/KChartLensAbstract.lean` —

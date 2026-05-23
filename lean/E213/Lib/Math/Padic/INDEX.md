@@ -28,7 +28,7 @@ All under namespace `E213.Lib.Math.Padic.*`.
 
 ## Phase plan vs reality
 
-Original G122 plan (per `research-notes/G122_real213_padic_research_direction.md`):
+Original G122 plan (per `research-notes/archive/G122_real213_padic_research_direction.md`; promoted chapter: `theory/math/padic_real213.md`):
   · Phase 1: ZpDigit + ZpSeq + truncation skeleton (1-2 sessions) — DONE
   · Phase 2: Arithmetic add/mul/neg (1-2 sessions) — DONE (add + neg; mul deferred)
   · Phase 3: p-adic norm + valuation (1 session) — DONE

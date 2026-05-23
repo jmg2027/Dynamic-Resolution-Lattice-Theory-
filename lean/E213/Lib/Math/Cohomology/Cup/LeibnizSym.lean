@@ -9,10 +9,11 @@ at `τ[k]` (from α⌣β) and one at `τ[l]` (from β⌣α).  In ℤ/2 (Bool),
 when `k = l` these collapse to a single XOR (both at the same
 position).
 
-Catalog row 6 of `research-notes/G123_lens_recipe_cup_catalog.md`.
+Catalog row 6; see `theory/math/cohomology/cup.md`
+self-reference section.
 
-PURE — all theorems direct corollaries of G86 +
-`list_level_leibniz_mirror`.
+PURE — all theorems direct corollaries of
+`LeibnizFinGeneral` + `list_level_leibniz_mirror`.
 -/
 
 namespace E213.Lib.Math.Cohomology.Cup.LeibnizSym

@@ -96,9 +96,10 @@ open E213.Lib.Math.Cohomology.Cup.LeibnizLexListLevel
                  (cupList l (k + 1) β (deltaListR k α) τ))
             (cupList l k β α (τ.eraseIdx l))
 
-    Catalog row 3 of `research-notes/G123_lens_recipe_cup_catalog.md`
-    (reverse-lex single-partition).  At the Fin level, transferring
-    via `cupRev_eq_cup_swapped` + Fin.cast over `k+l = l+k`. -/
+    Catalog row 3 (reverse-lex single-partition; see
+    `theory/math/cohomology/cup.md` self-reference section).  At
+    the Fin level, transferring via `cupRev_eq_cup_swapped` +
+    Fin.cast over `k+l = l+k`. -/
 theorem list_level_leibniz_mirror (k l : Nat)
     (α β : List Nat → Bool) (τ : List Nat) :
     xorRange (l + k + 1) (fun i => cupList l k β α (τ.eraseIdx i))

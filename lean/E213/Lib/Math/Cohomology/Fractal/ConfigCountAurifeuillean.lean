@@ -31,7 +31,7 @@ This file records:
 The parametric `∀ n ≥ 1` statement is deferred to a Phase-2 file
 (`ConfigCountAurifeuilleanParam.lean`).
 
-Source: `research-notes/G125_aurifeuillean_n_u.md` §1-§4.
+Chapter context: `theory/math/cohomology/aurifeuillean.md` §1-§4.
 -/
 
 namespace E213.Lib.Math.Cohomology.Fractal.ConfigCountAurifeuillean

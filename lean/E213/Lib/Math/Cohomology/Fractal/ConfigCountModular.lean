@@ -727,11 +727,10 @@ theorem configCountD_5_2_mod_137 : configCountD 5 2 % 137 = 86 := by decide
 
 /-- Cycle structure at `p = 137`: full orbit
     `5 → 111 → 86 → 70 → 29 → 57 → 113 → 90 → 117 → 46 → 53 → 116
-       → 6 → 104 → 27 → 75 → 5` (length 16).  Recorded as a small
-    table of the first 4 values; the full cycle is in the
-    research-note catalogue (`research-notes/G126_carmichael_chain_ext.md`).
-    Parametric ∀ n proof template applies but with 16 cycle seeds +
-    16 substeps — deferred for diminishing returns. -/
+       → 6 → 104 → 27 → 75 → 5` (length 16).  Recorded here as a
+    small table of the first 4 values; the parametric `∀ n` proof
+    template applies but with 16 cycle seeds + 16 substeps —
+    deferred for diminishing returns. -/
 theorem configCountD_5_mod_137_table :
     configCountD 5 0 % 137 = 5
     ∧ configCountD 5 1 % 137 = 111
