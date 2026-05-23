@@ -240,6 +240,11 @@ extension only, is itself a research question.  See
 | `Zp.pow_p_trunc_one` | `Pow` | Fermat at digit-0: `x^p ≡ x (mod p)` |
 | `Zp.pow_p_minus_one_trunc_one` | `Pow` | Fermat: `x^(p-1) ≡ 1 (mod p)` for x unit |
 | `Zp.teichmuller_iter` + invariant | `Pow` | iterate `x ↦ x^p`; digit-0 preserved mod p |
+| `Zp.add_neg_self_trunc` | `Arith` | `(x + (-x)).trunc (n+1) = 0` — additive inverse |
+| `Zp.sub_eq_zero_of_trunc_eq` / converse | `Arith` | `(a + (-b)).trunc = 0 ↔ a.trunc = b.trunc` |
+| `Zp.inv_trunc_unique` | `Hensel` | Hensel inverse uniqueness |
+| `Zp.mul_left_cancel_trunc` / right | `Hensel` | unit-mul cancellation at trunc |
+| `Zp.mul_eq_zero_of_unit_left` | `Hensel` | unit times zero gives zero |
 
 ## Hensel infrastructure
 
@@ -319,7 +324,13 @@ statement defining roots of unity.
   of the Hensel-lifted square root.
 - **Full Teichmüller convergence**: prove
   `(teichmuller_iter x (n+1)).trunc (n+1) = (teichmuller_iter x n).trunc (n+1)`
-  for `n ≥ 1`.  Requires the Frobenius lift binomial-mod argument.
+  for `n ≥ 1`.  Requires the Frobenius lift binomial-mod argument
+  `(a + p^k · b)^p ≡ a^p (mod p^(k+1))`.
+- **Hensel sqrt uniqueness**: if `y² ≡ z² ≡ x (mod p^(n+1))` and
+  `y.digits 0 = z.digits 0`, prove `y.trunc = z.trunc`.  Cancellation
+  via `(y+z)` is a unit (`2·sb.d_0` invertible from SqrtBase); the
+  algebraic factoring `(y² - z²) = (y+z)(y-z)` at trunc level needs
+  distributivity + commutativity + neg manipulation.
 - **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
   closes `n ≤ 25`.  Beyond, `5^25 % 5^n = 5^25 - q · 5^n` for the
   appropriate quotient.  Whether this regime is operationally
@@ -337,5 +348,5 @@ python3 tools/scan_axioms.py E213.Lib.Math.Padic.Foundation \
                               E213.Lib.Math.Padic.Hensel \
                               E213.Lib.Math.Padic.Field \
                               E213.Lib.Math.Padic.DRLT
-# Expected: 280+ PURE / 0 DIRTY
+# Expected: 295+ PURE / 0 DIRTY
 ```
