@@ -108,6 +108,7 @@ Active top-level registries after merge:
 | File | Scope | Status |
 |---|---|---|
 | `G124_n_u_family_cross_field_connections.md` | cross-field survey at `(d, n) = (5, 2)` — 10 directions catalogued | open survey (cross-field) |
+| `archive/G125_lens_recipe_cup_catalog.md` | Lens-recipe → δ-closure catalog (`LeibnizMirror` + `LeibnizSym` + `LeibnizCatalog`) | PROMOTED to `theory/math/cohomology/cup.md` "Lens-recipe catalog" section |
 | `G127_base_5_wieferich.md` | Base-5 Wieferich prime search | open survey |
 | `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog | tracking / audit document |
 | `G128_affine_plane_K25.md` | Finite-field affine-plane reading of `K_25` at the `(d, n) = (5, 2)` slice | open cross-field direction |
