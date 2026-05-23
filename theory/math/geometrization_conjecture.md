@@ -3,8 +3,9 @@
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
 R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching +
 L(p, q) parameter family + classification refinement + connected
-sum), FW-4 (metric direct), I-3 (Ricci ε-Lens), and 8-geo Lie group
-infrastructure — adding ~153 PURE.  Sub-tree total: ~302 PURE / 0 DIRTY.
+sum + universal preservation), FW-4 (metric direct), I-3 (Ricci
+ε-Lens), and 8-geo Lie group infrastructure — adding ~156 PURE.
+Sub-tree total: ~305 PURE / 0 DIRTY.
 
 ## Overview
 
@@ -195,23 +196,21 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~145 PURE): Euler-target
+- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~148 PURE): Euler-target
   scaffold with 3-mfd catalog; cycle inventory (9 atomic / rank 8);
-  concrete (k, j) attaching specifications; bipartite S/T cut →
-  JSJ torus parallel; explicit 3-mfd target attaching maps
-  (S³, T³, L(p,q)) via `CellComplexK32Attaching`; **L(p, q) parameter
-  family** `Lpq_attaching_pq` parametric in (p, q) with modular-q
-  3-cell boundaries; **L(p, q) classification refinement**
-  `lensEquivFull` extending `lensEquiv` with the `q·q' ≡ ±1 (mod p)`
-  case (L(7, 2) ≅ L(7, 4) via 2·4 = 8 ≡ 1 mod 7; L(11, 3) ≅ L(11, 4)
-  via 3·4 = 12 ≡ 1 mod 11 — both refinement-only); **connected sum**
-  M₁ # M₂ via `connectedSumShape (k₁+k₂-7, j₁+j₂)` preserving
-  k - j = 7; cell-level `connectedSumAttaching` concatenation with
-  drop-7 on second component; concrete instances L(5,1)#L(7,2) at
-  (13, 6), T³#T³ at (9, 2) both χ = 0;
-  `JSJ_deepening_FW2_close`, `FW2_concrete_attaching_close`,
-  `Lpq_parameter_family_close`, and
-  `connectedSum_and_Lpq_refinement_close` capstones.
+  concrete (k, j) attaching; bipartite S/T → JSJ torus parallel;
+  explicit 3-mfd target attaching maps (S³, T³, L(p,q));
+  **L(p, q) parameter family** (`Lpq_attaching_pq`, `lensEquiv`,
+  `lensTorsionOrder`); **L(p, q) classification refinement**
+  `lensEquivFull` extending with `q·q'≡±1 (mod p)` case
+  (L(7, 2) ≅ L(7, 4); L(11, 3) ≅ L(11, 4) refinement-only);
+  **connected sum** `connectedSumShape (k₁+k₂-7, j₁+j₂)` with
+  cell-level `connectedSumAttaching`; **PURE universal k - j = 7
+  preservation** (`connectedSum_preserves_k_minus_j_universal`):
+  term-level proof via `add_sub_self_left/right_pure` from PURE
+  Nat primitives, avoiding `omega` (which pulls propext + Quot.sound);
+  capstones `FW2_concrete_attaching_close`, `Lpq_parameter_family_close`,
+  `connectedSum_and_Lpq_refinement_close`, `connectedSum_universal_close`.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
   universal characterization** `sym3_c2_force_K32` (Sym(3) +

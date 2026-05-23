@@ -1160,6 +1160,85 @@ theorem connectedSum_preserves_k_minus_j_concrete :
         := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ## §FW-2.Z — Universal connected-sum k − j = 7 preservation (PURE)
+
+PURE term-level proof of universal connected-sum preservation
+without `omega` (which pulls propext + Quot.sound).  Uses only
+PURE Nat primitives: `Nat.add_succ`, `Nat.succ_add`,
+`Nat.succ_sub_succ_eq_sub`, `Nat.zero_add`, `Nat.add_assoc`,
+`Nat.add_comm`.
+-/
+
+/-- `(a + b) - b = a` via term-level induction.  PURE. -/
+private theorem add_sub_self_right_pure : ∀ (a b : Nat), (a + b) - b = a
+  | _, 0 => rfl
+  | a, b + 1 =>
+    Eq.trans (congrArg (fun x => x - (b + 1)) (Nat.add_succ a b))
+             (Eq.trans (Nat.succ_sub_succ_eq_sub (a + b) b)
+                       (add_sub_self_right_pure a b))
+
+/-- `(a + b) - a = b` via term-level induction.  PURE. -/
+private theorem add_sub_self_left_pure : ∀ (a b : Nat), (a + b) - a = b
+  | 0, b => Nat.zero_add b
+  | a + 1, b =>
+    Eq.trans (congrArg (fun x => x - (a + 1)) (Nat.succ_add a b))
+             (Eq.trans (Nat.succ_sub_succ_eq_sub (a + b) a)
+                       (add_sub_self_left_pure a b))
+
+/-- Auxiliary: `(j₁ + 7) + (j₂ + 7) = (j₁ + j₂) + 7 + 7` via
+    associativity + commutativity. -/
+private theorem connectedSum_total_rearrange (j₁ j₂ : Nat) :
+    (j₁ + 7) + (j₂ + 7) = ((j₁ + j₂) + 7) + 7 := by
+  rw [Nat.add_assoc j₁ 7 (j₂ + 7)]
+  rw [Nat.add_comm 7 (j₂ + 7)]
+  rw [Nat.add_assoc j₂ 7 7]
+  rw [← Nat.add_assoc j₁ j₂ (7 + 7)]
+
+/-- ★★★★★★★★ **Universal connected-sum k − j = 7 preservation (PURE)**
+
+  For any `j₁ j₂ : Nat`, the connected-sum of two closed-3-mfd
+  shapes (k₁, j₁) and (k₂, j₂) with `kᵢ = jᵢ + 7` (the χ = 0
+  constraint) yields a shape `(j₁ + j₂ + 7, j₁ + j₂)` with
+  `k - j = 7` preserved.
+
+  Proof avoids `omega` (which would pull propext + Quot.sound)
+  by using only PURE Nat primitives.
+
+  Concretely: `((j₁ + 7) + (j₂ + 7) - 7) - (j₁ + j₂) = 7`. -/
+theorem connectedSum_preserves_k_minus_j_universal (j₁ j₂ : Nat) :
+    ((j₁ + 7) + (j₂ + 7) - 7) - (j₁ + j₂) = 7 := by
+  rw [connectedSum_total_rearrange j₁ j₂]
+  rw [add_sub_self_right_pure ((j₁ + j₂) + 7) 7]
+  exact add_sub_self_left_pure (j₁ + j₂) 7
+
+/-- ★★★★★★★★ **Universal preservation via `connectedSumShape`**
+
+  Restated using the public `connectedSumShape` function. -/
+theorem connectedSumShape_preserves_k_minus_j (j₁ j₂ : Nat) :
+    (connectedSumShape (j₁ + 7) j₁ (j₂ + 7) j₂).fst
+      - (connectedSumShape (j₁ + 7) j₁ (j₂ + 7) j₂).snd = 7 :=
+  connectedSum_preserves_k_minus_j_universal j₁ j₂
+
+/-- ★★★★★★★★ **Universal Euler-target preservation**
+
+  Bundles the universal preservation result with concrete checks. -/
+theorem connectedSum_universal_close :
+    -- Universal preservation
+    (∀ j₁ j₂ : Nat,
+       ((j₁ + 7) + (j₂ + 7) - 7) - (j₁ + j₂) = 7)
+    -- Universal preservation via connectedSumShape
+    ∧ (∀ j₁ j₂ : Nat,
+       (connectedSumShape (j₁ + 7) j₁ (j₂ + 7) j₂).fst
+         - (connectedSumShape (j₁ + 7) j₁ (j₂ + 7) j₂).snd = 7)
+    -- Concrete checks
+    ∧ ((0 + 7) + (0 + 7) - 7) - (0 + 0) = 7
+    ∧ ((1 + 7) + (1 + 7) - 7) - (1 + 1) = 7
+    ∧ ((3 + 7) + (3 + 7) - 7) - (3 + 3) = 7
+    ∧ ((100 + 7) + (200 + 7) - 7) - (100 + 200) = 7 := by
+  refine ⟨connectedSum_preserves_k_minus_j_universal,
+          connectedSumShape_preserves_k_minus_j,
+          ?_, ?_, ?_, ?_⟩ <;> decide
+
 /-! ## §FW-2.X — Connected sum attaching on cell-complex data -/
 
 /-- Connected sum at the cell-complex level: concatenate 2-cells
