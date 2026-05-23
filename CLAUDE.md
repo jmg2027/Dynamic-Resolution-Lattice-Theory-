@@ -9,17 +9,15 @@ spec file overlap, **the spec file wins**.
 
 ## Boot sequence (read in this order)
 
-1. **`seed/AXIOM/05_no_exterior.md` §5** — *Self-reference and absence
-   of an exterior*.  §8.4 is the dichotomy-avoidance guide written
-   specifically for Claude.  **Re-read every session start.**  False
-   dichotomies (inside/outside 213, classical/213, foundation/derivation,
-   observer-added-to-axiom) are the most common slip.
-2. **`research-notes/G29_residue.md`** — clean foundational text.  What
-   213 *is*, in minimum-commitment language with no comparison frames.
+1. **`seed/AXIOM/05_no_exterior.md` §5 + §8.4** — self-reference,
+   absence of exterior, dichotomy-avoidance guide.  **Re-read every
+   session start.**  False dichotomies (inside/outside 213,
+   classical/213, foundation/derivation) are the most common slip.
+2. **`research-notes/G29_residue.md`** — what 213 *is*, in
+   minimum-commitment language with no comparison frames.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
-   three-tier discipline + promotion gates.  Read when adding /
-   promoting / archiving content.
+   three-tier discipline + promotion gates.
 5. **This file** — operating principles + hard rules.
 
 ## Naming: 213 / DRLT / E213
@@ -99,10 +97,8 @@ note, not validation.  **Prohibited**: timeline/ROI considerations.
 
 ## Resolution limit is structural (not "finitism")
 
-Canonical: `seed/RESOLUTION_LIMIT_SPEC.md`.  Cardinality / finite /
-infinite are Lens outputs, not Raw commitments.  Physics uses
-ℕ + ℚ + finite simplex + bound at `N_U = d^(d²) = 5²⁵` (count-Lens,
-fractal level 2).  Lean ref: `Lib/Math/ResolutionLimit.lean`.
+Canonical: `seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a Lens
+output; physics bound `N_U = d^(d²) = 5²⁵` at fractal level 2).
 
 ## Operating principles
 
@@ -174,18 +170,17 @@ volatile scratchpad).
 
 ## Workflow
 
-- Session start: read boot sequence (top of this file).
-- Commit after every meaningful change.  Never amend.
-- After edits, verify: `cd lean && lake build`.  If clean, audit with
-  `tools/scan_axioms.py`.
-- Math / Physics edits → `Lib/Math/` or `Lib/Physics/` (or `rust-engine/`).
-- Closed sub-tree (PURE + categorical) → `theory/PROMOTION_CRITERIA.md`; promote if eligible.
+- Session start: boot sequence (top).  Commit after every meaningful
+  change; never amend.
+- Verify: `cd lean && lake build`; if clean, audit with
+  `tools/scan_axioms.py`.  Math / Physics edits → `Lib/{Math,Physics}/`
+  (or `rust-engine/`).  Closed sub-tree (PURE + categorical) →
+  `theory/PROMOTION_CRITERIA.md`; promote if eligible.
 
 ## Active learning (course-correction loop)
 
-When user issues a correction: extract the underlying rule (not the
-surface fix), add to "Failure modes catalog" below or the relevant
-spec, don't treat as one-off.
+When user issues a correction: extract the underlying rule, add to
+"Failure modes catalog" below or the relevant spec.  Not one-off.
 
 ## Self-check before responding
 
@@ -216,13 +211,10 @@ spec, don't treat as one-off.
 | Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 
-When the user catches one, *don't apologize and repeat* — actually
-internalize per Active Learning loop.
+When the user catches one, *don't apologize and repeat* — internalize.
 
 ## Static-analysis tooling
 
-For "find all X that share property Y" or refactor-candidate
-audits, see `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner
-archetypes + dual-branch process model + anchor research notes
-(`G107` action items, `G101` capstone, `G108-G114` Tier-2 deep
-dives) + catalogs.  Re-use before writing new tooling.
+For refactor-candidate audits, see `seed/META_SCAN_ARCHETYPES.md`
+— 11 reusable scanner archetypes + catalogs.  Re-use before writing
+new tooling.
