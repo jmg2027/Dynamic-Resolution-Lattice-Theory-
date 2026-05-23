@@ -226,25 +226,79 @@ extension only, is itself a research question.  See
 | `QpSeq.add_shift` | `Field` | shift of `a + b` is `max a.shift b.shift` |
 | `ZpSeq.digits_of_nat_trunc` | `Foundation` | `(digits_of_nat p hp m).trunc n = m % p^n` |
 | `canonical_5adic_NU_trunc_le_25` | `DRLT` | `∀ n ≤ 25, canonical_5adic_NU.trunc n = 0` (DRLT anchor) |
+| `Zp.invFull` + `mul_invFull_correct` | `Hensel` | full single-`ZpSeq` inverse, `x · x⁻¹ ≡ 1 (mod p^(n+1))` |
+| `Zp.sqrtSeq` + `sqr_sqrtSeq_correct` | `Hensel` | Hensel sqrt iteration, `(sqrtSeq n)² ≡ x (mod p^(n+1))` |
+| `Zp.sqrtFull` + `sqr_sqrtFull_correct` | `Hensel` | full single-`ZpSeq` sqrt |
+| `Zp.i_5` + `i_5_sq_trunc_one/two` | `Hensel` | `i₅ = √(-1) ∈ ℤ_5`, with explicit digits 2,1,2,1,... |
+| `Zp.valAtLeast_add` | `Norm` | additive ultrametric inequality |
+| `Zp.valAtLeast_mul` | `Norm` | multiplicative ultrametric `val(xy) = val(x) + val(y)` |
+| `QpSeq.inv` / `QpSeq.div` | `Field` | inverse and division on ℚ_p |
+| `QpSeq.sqrt` + `sqr_sqrt_num_correct` | `Field` | ℚ_p sqrt (even-shift only — `√p ∉ ℚ_p`) |
+
+## Hensel infrastructure
+
+The Hensel inverse and square root share a common template:
+
+**Inverse**: given `x` with `(x.digits 0)` coprime to `p` (encoded
+via Bezout: `h_gcd : (modBezout x_0 p).1 = 1`), iteratively build
+`invSeq n` such that `x · invSeq n ≡ 1 (mod p^(n+1))`.  Diagonal
+extraction `invFull.digits k := (invSeq k).digits k` collects
+"settled" digits into the actual `ZpSeq` inverse.
+
+**Square root**: given `Zp.SqrtBase p x` (a witness package:
+`d_0` with `d_0² ≡ x.digits 0 mod p`, plus modular inverse of
+`2·d_0`), iteratively build `sqrtSeq n` such that
+`(sqrtSeq n)² ≡ x (mod p^(n+1))`.  Same diagonal trick yields
+`sqrtFull`.  The algebraic core `sqrt_cancel_full` handles the
+binomial-mod-`p^(n+2)` expansion and the `(err + 2·a·d) ≡ 0 mod p`
+cancellation via `sqrt_cancel`.
+
+**Algebraic engine** for the sqrt step:
+1. `binomial_sq_mod_pure`: `(a + d·K)² mod M = (a² + 2·a·d·K) mod M`
+   given `K² mod M = 0` (`K = p^(n+1)`, `M = p^(n+2)`).
+2. `mod_eq_from_neg_eq`: lift `(Z + (M - xt)) % M = 0` to `Z % M = xt`.
+3. `sqrt_cancel`: derive `(err + 2·a·d) % p = 0` from negMod_cancel +
+   `2·d_0·two_d_0_inv ≡ 1 mod p` + `a ≡ d_0 mod p`.
+4. `mul_pow_succ_mod`: lift mod-`p` cancellation to mod-`p^(n+2)`.
+
+**Concrete 5-adic √(-1)**: `Zp.i_5 := sqrtFull 5 neg_one
+sqrtBase_neg_one_5` with `sb.d_0 = 2`, `sb.two_d_0_inv = 4`.  The
+Hensel iteration produces digits `2, 1, 2, 1, ...`, encoding
+`i₅ = 2 + 5 + 2·25 + 125 + ... ∈ ℤ_5`.  Hard truth: -1 is a
+quadratic residue mod 5, so ℤ_5 contains an "imaginary unit"
+not present in ℝ.
+
+## Ultrametric structure
+
+The p-adic norm satisfies the non-Archimedean (ultrametric)
+inequality:
+
+- **Additive**: `val(x + y) ≥ min(val(x), val(y))` — in `valAtLeast`
+  form, `valAtLeast x n ∧ valAtLeast y n → valAtLeast (x + y) n`.
+- **Multiplicative**: `val(x · y) = val(x) + val(y)` — in `valAtLeast`
+  form, `valAtLeast x m ∧ valAtLeast y n → valAtLeast (x · y) (m + n)`.
+
+The multiplicative proof uses `trunc_extension_mod`: extending
+trunc beyond level `m` preserves `% p^m`, so if `x.trunc m = 0`
+then `x.trunc (m+k) = p^m · A` for some `A`.  Pairing with the
+analogous y-side identity, the product is `p^(m+n) · (A·B)`,
+divisible by `p^(m+n)`.
 
 ## Open frontier
 
 - **Digit-level ring laws** (`mul_comm_digit`, `mul_assoc_digit`):
-  trunc-level versions are closed (commutativity, associativity,
-  distributivity).  Digit-level would require a convolution
-  reindexing argument for `mulRaw x y k = mulRaw y x k`.
-- **Hensel for square root**: the inverse construction generalizes
-  to `Hensel_lift f f' a₀` for arbitrary polynomial `f`.  Not yet
-  written.
+  trunc-level versions are closed.  Digit-level would require a
+  convolution reindexing argument.
+- **Hensel uniqueness**: if `y²  ≡ x mod p^n` and `z² ≡ x mod p^n`
+  with `y_0 = z_0`, prove `y ≡ z mod p^n`.  Would give uniqueness
+  of the Hensel-lifted square root.
+- **Teichmüller lifts**: for `d ∈ (ℤ/p)*`, build the unique
+  `(p-1)`-th root of unity in `ℤ_p` congruent to `d (mod p)`.
 - **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
-  closes the n ≤ 25 case.  Beyond level 25, the truncation
-  recovers `5^25 % 5^n`, which is `5^25 - q · 5^n` for the
-  appropriate quotient — not zero in general; this regime
-  corresponds to "infinite precision beyond the resolution
-  limit" (see `seed/RESOLUTION_LIMIT_SPEC.md`).
-- **ℚ_p inverse / field structure**: `QpSeq` has add/mul/neg/sub
-  but no general inverse yet (would need a Hensel-lifted
-  `QpSeq.inv` using `Zp.invSeq` + shift bookkeeping).
+  closes `n ≤ 25`.  Beyond, `5^25 % 5^n = 5^25 - q · 5^n` for the
+  appropriate quotient.  Whether this regime is operationally
+  meaningful in DRLT is itself a research question (see
+  `seed/RESOLUTION_LIMIT_SPEC.md`).
 
 ## How to verify
 
@@ -256,5 +310,5 @@ python3 tools/scan_axioms.py E213.Lib.Math.Padic.Foundation \
                               E213.Lib.Math.Padic.Hensel \
                               E213.Lib.Math.Padic.Field \
                               E213.Lib.Math.Padic.DRLT
-# Expected: 207 PURE / 0 DIRTY
+# Expected: 250+ PURE / 0 DIRTY
 ```
