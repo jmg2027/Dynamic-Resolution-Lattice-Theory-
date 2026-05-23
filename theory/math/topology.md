@@ -10,15 +10,11 @@ Companion to Operation×Topology and LevelTopology chapters.
 continuity is **list-preservation** under the cover, compactness
 is automatic (every space is list-finite at resolution `N_U`).
 
-A **bare modulus-structure typeclass** unifies the three families
-of `Nat → Nat` modulus data living elsewhere in the corpus
-(continuity moduli in `Topology/Continuity`, Ricci moduli in
-`GeometrizationConjecture/Ricci`, BracketCauchy moduli in
-`Analysis/BracketCauchyModulus`) under a single Lean-citable
-shape.
-
-This is the topology side of the marathon-completed paradigm
-domains (C6 cross-domain unification).
+This is the topology side of the closed paradigm domains (C6
+cross-domain unification).  The `IsModulusStructure` typeclass
+bridge (Continuity / Ricci / BracketCauchy) lives here as a
+sibling module; its dedicated narrative is
+`theory/math/modulus_structure.md`.
 
 ## Lean source
 
@@ -51,47 +47,13 @@ working level: n = 2, where `configCount 2 = 5²⁵`.  Per N_U re-derivation
 Round 3: the level is parametric — not a privileged "resolution
 cap" — so compactness holds at every finite level.
 
-### Modulus structures: 3-way bridge
+### Modulus structures
 
-Three sub-trees independently arrived at `Nat → Nat` "modulus" data
-expressing the schema *target precision ↦ step count*:
-
-- `Topology/Continuity.lean` carries `IsContinuousModulus` with
-  `modulus_pos : ∀ k, modulus k ≥ k` (modulus grows monotone with
-  target precision).
-- `GeometrizationConjecture/Ricci.lean` carries `IsRicciModulus`
-  with `anti_monotone` (modulus decreases with target — sharper
-  precision needs fewer Ricci-flow steps to be representable).
-- `Analysis/BracketCauchyModulus.lean` carries
-  `dyadic_bracket_cauchy_modulus` of shape `modulus k = L · k` for
-  fixed bracket length `L` (linear with target depth).
-
-`Topology/ModulusStructure.lean` records the shared shape as a bare
-typeclass:
-
-```
-structure IsModulusStructure : Type where
-  modulus : Nat → Nat
-```
-
-with `fromContinuous`, `fromRicci`, `fromBracketCauchy` projections
-and three canonical instances (`identityModulus`,
-`K32RicciModulus`, `bracketCauchyL3`).  The
-`three_way_modulus_framework` capstone bundles the three values into
-a single Lean-citable identity.
-
-The directional difference (monotone vs anti-monotone vs linear)
-is *not* abstracted away — each source-typeclass keeps its own
-directional axiom.  The unifying object captures only the shared
-`Nat → Nat` data so downstream proofs can reference the common
-shape without committing to a directional convention.
-
-This is the 213-native form of the "cross-category functor" question
-the parallel raised: rather than constructing an adjunction between
-two type-distinct categories (cochain-functions vs Nat→Nat
-step-counts), all three instantiate a common bare-data framework.
-A full category-theoretic functor would require 213-native `Cat` /
-`Functor` infra and is a separate undertaking.
+`Topology/ModulusStructure.lean` adds a bare `IsModulusStructure`
+typeclass that unifies three sub-tree-local `Nat → Nat` modulus
+families (`IsContinuousModulus`, `IsRicciModulus`,
+`BracketCauchyModulus`) under one Lean-citable shape.  Full
+narrative + cross-frame discussion: `theory/math/modulus_structure.md`.
 
 ### Connection to other chapters
 

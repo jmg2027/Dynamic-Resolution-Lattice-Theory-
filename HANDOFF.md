@@ -97,10 +97,44 @@ in Lean as decide-checked literal.
 
 ## Next session candidates
 
+### Computational infrastructure (this session)
+
+  · `rust-engine/crates/app/src/bin/aurifeuillean_lm.rs` — new
+    binary with modes `phi`, `verify`, `cornacchia`, `l7-check`,
+    `l11-attempt`.  Uses num-bigint for arbitrary-precision
+    Phi_n(5) computation via cyclotomic recursion.  L_7
+    round-trip verified against PARI-derived norm pair.
+
+### L_11 attempt — full path exploration exhausted
+
+  · **PARI** `bnfisnorm` over `K = Q(√5)`: ran for 1 hour
+    (timeout cap), still inside `bnfisnorm` step.  Class-group
+    computation for `Φ_{1210}(5)` (308 digits) is unreasonably
+    expensive vs. m=7 (which completed in seconds).
+  · **sympy** `factor(Φ_{1210}, extension=√5)`: ran for 2h+
+    (killed manually), still in `factor` step.  Memory usage
+    stable (~350 MB RSS), but factor over algebraic extension
+    for degree-440 polynomial scales worse than expected
+    (m=7 deg-168 took 228s; m=11 deg-440 ≫ 228s · (440/168)^3).
+  · **Trial division on primes `≡ 1 (mod 1210)`**: found one
+    factor `389621` of Phi_1210(5); remaining 302-digit cofactor
+    has all prime factors > 10^10 (trial-divided up to k=10M
+    without finding more).
+  · **Web fetches** (Brent's tables, OEIS, stdkmd cyclotomic
+    tables): all 404 / 403 / not-found.
+
+  Algorithm itself validated on m={1, 3, 7} but the m=11 instance
+  is intractable in this container.  All explored paths catalogued
+  in `aurifeuillean_lm.rs` "Algorithm landscape" docstring.
+
+  m=11 effectively requires GNFS (for factoring Phi_1210(5)) or
+  Brent's published Aurifeuillean tables (not accessible).  Marked
+  closed as "computationally out of reach within container".
+
 ### A. Cut-off-applications extensions
 
   · ~~Direction A unrestricted depth-2~~ — CLOSED
-    (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
+    (`AurifeuilleanDepth2PowCutoff.lean`, 16 PURE) via
     small-range decide + large-range monotonicity.
 
   · **Direction B chain extension** to m = 11 — ATTEMPTED, timed
@@ -298,12 +332,19 @@ queue, EXCLUDED THIS SESSION).
 
 ### D'. Promotion-readiness audit (G127)
 
-All four candidates promoted in this branch (`ready-to-merge-audit-vOTsx`):
-G130, G129, G126, G128.  See "Recently closed" table above for chapter
-targets.  Open-frontier deepenings (graph-walk infra for G129
-universal Nat-theorem, b_2/b_3 cork-twist for G126, FW-2/FW-4/I-3/
-8-geo Lie group infra for G128) recorded inside each chapter's
-Open Frontier section with prereqs named.
+All five candidates (G130 / G129 / G126 / G128 / G122) closed in
+prior sessions; chapters live at the paths listed in "Recently
+closed" above.  Open-frontier deepenings (graph-walk infra for
+G129 universal Nat-theorem, b_2/b_3 cork-twist for G126,
+FW-2/FW-4/I-3/8-geo Lie group infra for G128) recorded inside each
+chapter's Open Frontier section with prereqs named.
+
+Two parallel G130 promotion artefacts exist post-merge:
+`theory/math/modulus_structure.md` (standalone chapter, written on
+main) and the "Modulus structures: 3-way bridge" section inside
+`theory/math/topology.md` (written on this audit branch).  The
+standalone chapter is canonical; the topology-chapter section will
+be trimmed to a one-line pointer.
 
 ## Anchor docs (next session)
 
