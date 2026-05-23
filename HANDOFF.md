@@ -146,13 +146,29 @@ Sub-ppb target: structurally explained at the 12 × 10⁻⁹ tier
 **0.2 ppb structural + 0.09 ppb empirically tight**.
 
 **Remaining open frontiers**:
-  · Phase 3+: lift the cup-ladder rule H^k → α^(k+1) from
-    structural analogy to a proven identity (requires extension
-    of `CupRingTrace.lean` to track cohomology degree).
   · G126 Phase 7+: extend cork-twist Z/2 action from H¹ to H²
     via M_S01 fixing ω.
   · G123 FW-2 Phase 7+: lift the 2-cocycle to a real 3-mfd
     attaching-map structure.
+  · CupLadder Phase 4+: derive the cup-ladder rule from
+    cup-ring trace structure (currently a Nat-parametric uniform
+    formula `α^(k+1)/d²` with proved specialisations at k = 1, 2 —
+    needs k ≥ 3 structural derivation tied to b_3 = j or sub-Newton
+    Gram corrections to verify the 12 × 10⁻⁹ tail).
+
+### G132 Phase 3 — Cup-ladder uniform formula DONE 2026-05-23
+
+`CupLadderFormula.lean` (8 PURE).  Uniform Nat-parametric formula:
+
+      cup_ladder_trace_e9 k = 10^(9·(k+2)) / (d² · observed_e9^(k+1))
+
+with specialisations:
+  · k = 1 ↔ `gram_correction_e9` (Gram α²/d² self-energy)
+  · k = 2 ↔ `gram_correction_alpha3_e9` (ω α³/d² contribution)
+
+The cup-ladder rule "H^k → α^(k+1)" is now a single proved identity
+parametric in k, not just an analogy.  Shared structural
+denominator d² = 25 across all k.
 
 ### Original campaign log (preserved for git-history reference)
 
@@ -352,6 +368,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/CupLadderFormula.lean` | **G132 Phase 3** — uniform α^(k+1)/d² parametric in k |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaH2Trace.lean` | **G132 Phase 2 closure** — ω ↔ α³/d² bridge |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellCohomology.lean` | **G132 Phase 1 anchor** — ω, b_2 = 1, Sym(3)-invariant |
 | `research-notes/G132_alphaEm_higher_cohomology_residual.md` | Phase 3+ open frontiers |

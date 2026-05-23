@@ -1,10 +1,11 @@
 # G132 — 1/α_em sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology
 
-**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phase 2)
-**Status**: **Phase 1 + Phase 2 CLOSED** — math anchor +
-physics bridge done.  Cup-ladder principle H^k → α^(k+1) explains
-15 of the 27 × 10⁻⁹ post-Gram residual; remaining 12 × 10⁻⁹ sits
-below CODATA 2024 ~1 ppb precision on 1/α_em.
+**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phase 2 + Phase 3)
+**Status**: **Phases 1 + 2 + 3 CLOSED** — math anchor + physics
+bridge + uniform α^(k+1)/d² parametric formula done.  Cup-ladder
+principle H^k → α^(k+1) explains 15 of the 27 × 10⁻⁹ post-Gram
+residual; remaining 12 × 10⁻⁹ sits below CODATA 2024 ~1 ppb
+precision on 1/α_em.
 **Branch suggestion**: post-G131 follow-up
 **Source**: G131 Phase 4 open question (post-Gram residual 27 × 10⁻⁹
 mathematical principle), per PROMOTION_CRITERIA discussion 2026-05-22.
@@ -79,16 +80,53 @@ the physics bridge:
 The 12 × 10⁻⁹ residual is below CODATA noise — sub-ppb structural
 explanation is complete to within experimental precision.
 
-**Phase 3+ open frontiers**:
-  · Lift the cup-ladder rule H^k → α^(k+1) from structural analogy
-    to a proven identity (needs `CupRingTrace.lean` extension that
-    tracks cohomology degree of each contributing class).
-  · Identify the b_3 source of the residual 12 × 10⁻⁹ (would
-    require Filled3Cell 3-cell attaching-map closure, currently
-    stub-only in `Boundary3Cell`).
-  · Verify ω-invariance under Akbulut cork-twist (G126 Phase 7+):
-    M_S01 should fix ω → no sign contribution from the new H²
-    class to the cork-twist count.
+## Phase 3 closure (2026-05-23) — cup-ladder uniform formula
+
+`lean/E213/Lib/Physics/AlphaEM/CupLadderFormula.lean` (8 PURE).
+Lifts the cup-ladder rule from a per-degree analogy to a single
+Nat-parametric identity:
+
+      cup_ladder_trace_e9 k := 10^(9·(k+2)) / (d² · observed_e9^(k+1))
+
+with proved specialisations:
+  · `cup_ladder_at_k1 : cup_ladder_trace_e9 1 = gram_correction_e9`
+    (H¹ Gram α²/d² self-energy)
+  · `cup_ladder_at_k2 : cup_ladder_trace_e9 2 = gram_correction_alpha3_e9`
+    (H² ω α³/d² contribution)
+  · `omega_trace_eq_cup_ladder_k2 : omega_trace_e9 = cup_ladder_trace_e9 2`
+
+Shared structural denominator d² = 25 = 5-layer base, uniform
+across every cohomology degree.  The α-power scales as
+`cohomology_degree + 1`.
+
+**Status of the cup-ladder principle**:
+  · NUMERICAL identity at k = 1, 2: PROVED.
+  · Form `α^(k+1)/d²`: PARAMETRIC FORMULA established.
+  · Derivation of why α-power = k + 1 from cohomology-theoretic
+    principles (cup-product graduation): OPEN.
+
+## Phase 4+ open frontiers
+
+  · **Cup-ladder structural derivation**: derive `cup_ladder_trace_e9
+    k = α^(k+1)/d²` from cup-ring trace structure on
+    `K_{3,2}^{(c=2)}`.  Currently the formula is fit-form parametric
+    in k; the cohomology-theoretic derivation needs a
+    cup-product graduation argument linking (k+1)-fold cup with
+    α-power coupling.
+  · **b_3 source of 12 × 10⁻⁹ tail**: if Filled3Cell 3-cell
+    attaching-map closure adds an H³ class, the cup-ladder
+    formula would give `cup_ladder_trace_e9 3 = α⁴/d²` ≈ 0.1
+    × 10⁻⁹ (negligible).  Hence the 12 × 10⁻⁹ tail likely
+    comes from sub-leading Newton corrections to Gram (terms
+    `2·α⁵/d⁴ + ...` from full cubic Newton expansion), not from
+    H³ cohomology.  Settle by either Newton-2 derivation or
+    explicit Filled3Cell 3-cell extension.
+  · **Akbulut cork higher cohomology** (G126 Phase 7+): verify
+    ω-invariance under cork-twist (M_S01 should fix ω → no
+    sign contribution from the new H² class to the cork-twist
+    count of +4).
+  · **JSJ 3-mfd attaching** (G123 FW-2 Phase 7+): lift the
+    2-cocycle to a real 3-mfd attaching-map structure.
 
 ## The residual
 

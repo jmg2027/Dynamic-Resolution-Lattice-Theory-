@@ -1228,3 +1228,25 @@ The 5-layer denominator d² = 25 is shared across all orders.
 via α³/d²) + 12 (sub-noise below CODATA 2024 ~1 ppb precision on
 1/α_em).  The empirical α³/d² fit in `GramHigherOrder.lean` now
 has a structural source: ω.
+
+## 2026-05-23 — CupLadderFormula (uniform α^(k+1)/d² parametric in k)
+
+Lifts the cup-ladder rule "H^k cohomology class → α^(k+1) coupling"
+from two separately-named corrections (one proved structural at H¹,
+one bridged at H²) to a single Nat-parametric uniform formula whose
+specialisations recover both:
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.CupLadderFormula` | 8 | `d_squared = 25` (uniform structural denominator); `cup_ladder_trace_e9 k := 10^(9·(k+2)) / (d² · observed_e9^(k+1))` (parametric formula); ★★★★ `cup_ladder_at_k1 : cup_ladder_trace_e9 1 = gram_correction_e9` (H¹ Gram specialisation); ★★★★ `cup_ladder_at_k2 : cup_ladder_trace_e9 2 = gram_correction_alpha3_e9` (H² ω specialisation); ★★★ `omega_trace_eq_cup_ladder_k2` (composes with `omega_trace_eq_gram_alpha3`); ★★★★★★ `cup_ladder_master` (9-conjunct capstone with residual decomposition) |
+
+**Structural reading**: the α^(k+1)/d² form is parametric in
+cohomology degree k.  Both the H¹ Gram self-energy (precision-
+theorem tier) and the H² ω class (this campaign) come from the
+same uniform structural pattern with shared denominator d² = 25
+(5-layer base).  The α-power scales as `cohomology_degree + 1`.
+
+Residual decomposition:
+  · k = 1 (H¹):  2130 × 10⁻⁹  Gram self-energy
+  · k = 2 (H²):    15 × 10⁻⁹  ω contribution
+  · k ≥ 3 tail:    12 × 10⁻⁹  below CODATA 2024 precision
