@@ -218,6 +218,40 @@ theorem Zp.valAtLeast_neg (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
       exact h_add
     exact (Zp.valAtLeast_iff_trunc hp' _ (n + 1)).mpr h_neg_trunc
 
+/-- **Precise negation valuation**: `valEq x n → valEq (-x) n`. -/
+theorem Zp.valEq_neg (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat)
+    (hx : Zp.valEq x n) :
+    Zp.valEq (Zp.neg p hp x) n := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have h_pn_pos : 0 < p^n := Nat.pos_pow_of_pos n hp'
+  refine ⟨Zp.valAtLeast_neg p hp x n hx.1, ?_⟩
+  intro h_neg_dig_zero
+  have h_x_n : x.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp' x n).mp hx.1
+  have h_nx_n : (Zp.neg p hp x).trunc n = 0 :=
+    (Zp.valAtLeast_iff_trunc hp' _ n).mp (Zp.valAtLeast_neg p hp x n hx.1)
+  have h_nx_n1 : (Zp.neg p hp x).trunc (n + 1) = 0 := by
+    show (Zp.neg p hp x).trunc n + ((Zp.neg p hp x).digits n).val * p^n = 0
+    rw [h_nx_n, h_neg_dig_zero, Nat.zero_mul]
+  have h_x_n1 : x.trunc (n + 1) = (x.digits n).val * p^n := by
+    show x.trunc n + (x.digits n).val * p^n = (x.digits n).val * p^n
+    rw [h_x_n, Nat.zero_add]
+  have h_sum : (Zp.add p hp' x (Zp.neg p hp x)).trunc (n + 1) = 0 :=
+    Zp.add_neg_self_trunc p hp x n
+  rw [Zp.add_trunc p hp' x _ (n + 1), h_x_n1, h_nx_n1, Nat.add_zero] at h_sum
+  have h_xn_lt : (x.digits n).val < p := (x.digits n).isLt
+  have h_lt : (x.digits n).val * p^n < p^(n + 1) := by
+    rw [show p^(n + 1) = p * p^n from by rw [Nat.pow_succ, Nat.mul_comm]]
+    exact Nat.mul_lt_mul_of_pos_right h_xn_lt h_pn_pos
+  rw [Nat.mod_eq_of_lt h_lt] at h_sum
+  have h_xn_eq_zero : (x.digits n).val = 0 := by
+    cases h_case : (x.digits n).val with
+    | zero => rfl
+    | succ k =>
+      rw [h_case] at h_sum
+      have hmul_pos : 0 < (k + 1) * p^n := Nat.mul_pos (Nat.succ_pos k) h_pn_pos
+      exact absurd h_sum (Nat.pos_iff_ne_zero.mp hmul_pos)
+  exact hx.2 h_xn_eq_zero
+
 /-- **Multiplicative absorbing** (right): if `y` has valuation ≥ n,
     then `x · y` has valuation ≥ n for any `x`. -/
 theorem Zp.valAtLeast_mul_of_right (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat)
