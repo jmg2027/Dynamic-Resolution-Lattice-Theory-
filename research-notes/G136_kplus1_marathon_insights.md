@@ -1,4 +1,4 @@
-# G135 — (k+1) marathon: structural insights and reflections
+# G136 — (k+1) marathon: structural insights and reflections
 
 *(Single-session marathon trajectory toward deriving the `(k+1)`
 α-power graduation from cup-product axioms.  Phases 10-19 across
