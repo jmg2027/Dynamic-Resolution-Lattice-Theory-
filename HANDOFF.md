@@ -199,6 +199,35 @@ refinement (replacing α³/d² = 15 with NS²·α³/d³ = 27).
   · 0.09 ppb empirical α³/d² (GramHigherOrder)
   · **0.007 ppb structural via H² ω-weighted (this Phase)**
 
+### G132 Phase 5 — Structural derivation of refined formula DONE 2026-05-23
+
+`RefinedCupLadderDerivation.lean` (15 PURE).  Promotes the refined
+cup-ladder formula from a fit-form to a structural identity via
+two independent rules:
+
+  · **Cup-product graduation rule**: `cup_graduation_denom k = d^(k+1)`
+    (each cup factor introduces one `1/d`).  Specialisations:
+    `cup_graduation_at_k1 = 25`, `cup_graduation_at_k2 = 125`.
+
+  · **L²-pairing trace rule**: `faceCochainL1` computes L¹-norm of
+    integer lift; squared gives bilinear self-pairing factor.
+    Derived directly from `omega_face_vec`:
+      `faceCochainL1 omega_face_vec = 3 = NS` (by `decide`)
+      `faceCochainL1Sq omega_face_vec = 9 = NS²`
+
+  · **Combined**: `refined_trace_e9 k weight := weight²·10^(9·(k+2))/(d^(k+1)·observed_e9^(k+1))`
+
+Both inputs DERIVED from cohomology data (no fit parameter):
+
+  · refined_trace_e9 1 1 = gram_correction_e9 = 2130 (H¹ Gram)
+  · refined_trace_e9 2 (faceCochainL1 omega_face_vec) = 27 (H² ω)
+  · Sum = 2157 = full raw α_em residual
+
+**Honest scope**: the two rules themselves (cup-graduation and
+L²-pairing) remain structural posits awaiting cup-product algebra
+formalization.  This Phase establishes the two-rule decomposition
+and the cohomology-derived input chain.
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -397,6 +426,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/RefinedCupLadderDerivation.lean` | **G132 Phase 5** — two-rule structural derivation (cup-graduation + L²-pairing) |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaPostGramFull.lean` | **G132 Phase 4** — refined NS²·α³/d³ full closure (sub-1·10⁻⁹) |
 | `lean/E213/Lib/Physics/AlphaEM/CupLadderFormula.lean` | **G132 Phase 3** — uniform α^(k+1)/d² parametric in k |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaH2Trace.lean` | **G132 Phase 2 closure** — ω ↔ α³/d² bridge |

@@ -1280,3 +1280,32 @@ cup factor).  The ω-weighted trace fully closes the post-Gram
 
 Structural prediction matches CODATA observed value to within
 1 Nat unit at e9 precision — strictly below the 0.007 ppb tier.
+
+## 2026-05-23 — RefinedCupLadderDerivation (two-rule structural derivation)
+
+Promotes the refined cup-ladder formula
+`Δ_H^k(c) = ||c||² · α^(k+1) / d^(k+1)` from a fit-form to a
+structural identity by decomposing it into two independent rules
+and DERIVING the class weight from cohomology data directly.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.RefinedCupLadderDerivation` | 15 | **Cup-product graduation rule**: `d_base = 5`; `cup_graduation_denom k := d_base^(k+1)`; ★★★ `cup_graduation_at_k1 : = 25`; ★★★ `cup_graduation_at_k2 : = 125`. **L²-pairing trace rule (derived)**: `boolToNat` (true → 1, false → 0); `faceCochainL1` (L¹-norm via integer lift); ★★★★ `omega_L1_derived : faceCochainL1 omega_face_vec = 3` (= NS, by `decide` from `omega_face_vec` definition); `faceCochainL1Sq`; ★★★★ `omega_L1Sq_derived : = 9` (= NS²). **Combined refined trace**: `refined_trace_e9 k weight := weight²·10^(9·(k+2))/(d^(k+1)·observed_e9^(k+1))`; ★★★★★ `refined_trace_at_k1_weight1 : refined_trace_e9 1 1 = gram_correction_e9`; ★★★★★ `refined_trace_at_k2_omega_derived : refined_trace_e9 2 (faceCochainL1 omega_face_vec) = omega_weighted_trace_e9`. ★★★★★★★★ `refined_cup_ladder_derivation_master` (9-conjunct capstone) |
+
+**Structural derivation content**:
+
+Both inputs to the refined formula are derived from cohomology
+data, NOT posited:
+
+  · `k` = cohomology degree (from `Filled3CellCohomology`:
+    ω lives at H², k = 2)
+  · `weight` = `faceCochainL1 omega_face_vec` (L¹-norm of integer
+    lift, computed directly from the all-true cochain definition)
+
+At ω: `faceCochainL1 omega_face_vec = 1 + 1 + 1 = 3 = NS` by
+`decide` from `omega_face_vec = fun _ => true`.  No fit parameter.
+
+The two rules themselves (cup-graduation and L²-pairing) remain
+structural posits awaiting cup-product algebra formalization in
+the `Math/Cohomology/Cup/` infrastructure.  This file establishes
+the two-rule decomposition and the cohomology-derived input chain.
