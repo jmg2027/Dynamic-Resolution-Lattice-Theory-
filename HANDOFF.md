@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 537 PURE / 0 DIRTY across 45 closures
+## Marathon summary — 550 PURE / 0 DIRTY across 46 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -147,6 +147,19 @@ LLM consultation.  Only blocker 5 (higher cohomology beyond
 K_{3,2}^{(c=2)} k = 2) remains — requires new chain complex
 infrastructure (truly multi-session).
 
+### Wave 10: full cutSum_assoc via bundled IntValidCut (13 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `real213` | `Lib/Math/Real213/IntValidCut.lean` | 13 |
+
+**Full cutSum_assoc closure**: precision-doubling artifact
+eliminated on the integer-extended class by bundling "represents
+an integer" invariant into `IntValidCut`.  `cutSum_assoc_intValidCut`
+proven for arbitrary triples via Nat.add_assoc + cutSum_int_int.
+This is the practical algebraic closure of blocker 2; beyond
+the integer class, general assoc requires search-index reorganization.
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -202,4 +215,4 @@ infrastructure (truly multi-session).
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 45 new files PURE.
+`tools/scan_axioms.py <module>` — all 46 new files PURE.
