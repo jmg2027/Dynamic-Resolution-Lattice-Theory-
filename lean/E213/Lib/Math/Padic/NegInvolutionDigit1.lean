@@ -71,7 +71,7 @@ theorem neg_carry_at_1 (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
 
 /-- PURE `p / p = 1` for `0 < p`, avoiding Lean-core `Nat.div_self`
     which leaks propext. -/
-private theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 := by
+theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 := by
   rw [Nat.div_eq_sub_div hp (Nat.le_refl _)]
   rw [Nat.sub_self, Nat.zero_div]
 
