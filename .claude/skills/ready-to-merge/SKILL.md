@@ -275,6 +275,108 @@ exceptions (Tactic short-form for omega213, etc.) are listed in
 
 ---
 
+## Phase 7.5: Narrative tightness pass
+
+Per Mingu's directive: documents should read as a coherent
+current-state narrative, not as duct-taped accumulation of
+session-by-session additions.  Four sub-checks:
+
+### 7.5.a Narrative coherence (body text)
+
+Read the body of each long-lived `.md` (`HANDOFF.md`,
+`theory/**/*.md`, `STRICT_ZERO_AXIOM.md`, `seed/*.md`, etc.) end
+to end.  Ask: does it read as a thesis being explained, or as a
+log of additions?
+
+Symptoms of duct-tape accumulation:
+  - Sections labelled "this stretch", "this session", "(added)",
+    "(originally proposed as ...)", "retained for reference"
+  - Sub-totals tied to a specific point in time ("17 PURE",
+    "Phase 1 partial") that no longer match current state
+  - Multiple parallel "status" paragraphs from different sessions
+  - Tables ordered by creation time instead of by topical structure
+  - Process-flow language ("we then derived...", "in the next phase
+    we...") that belongs in commit messages, not narrative
+
+Fix by rewriting affected sections to read as a current-state
+exposition.  The git history preserves the process; the document
+shouldn't try to.
+
+### 7.5.b Archive / change-history / old-tech residue
+
+Search for body-text references to deprecated structure that
+*should* live only in git history or archive directories:
+
+```bash
+grep -rln "this stretch\|this session\|in progress\|IN PROGRESS\|Phase [0-9]\+ partial\|retained for reference\|originally proposed" \
+  *.md theory/ seed/ guide/ catalogs/ blueprints/ books/ 2>/dev/null
+grep -rln "previously named\|formerly called\|was renamed\|used to live" \
+  *.md theory/ seed/ guide/ 2>/dev/null
+```
+
+Each hit: decide if it's
+  - a genuine historical pointer (e.g., "originally proposed as
+    G120, renumbered to G122") — OK to keep if the *current*
+    statement is clear and the history is one-line
+  - duct-tape residue — delete or rewrite
+
+### 7.5.c Completed-item deletion
+
+Per CLAUDE.md "delete deprecated with no active dependents":
+items that are done (closed campaigns, completed phase outlines,
+"next-session start" instructions for sessions that finished, etc.)
+should be **gone**, not preserved as comments.  In particular:
+
+  - HANDOFF.md's "Next-session start" sections from sessions that
+    already happened → delete
+  - "Phase outline" lists where every phase is done → delete the
+    outline, leave only the closure summary
+  - "Open frontier" / "TODO" / "Pending" items that have been
+    closed → remove from the document (the closure should be
+    visible elsewhere in the same document, e.g. in the Key
+    results table)
+  - Per-session "this stretch added X, Y, Z" notes once the items
+    are reflected in the main structure
+
+The git log is the change history; the document is the current
+state.
+
+### 7.5.d Split / merge structural review
+
+For each multi-file sub-tree and each large single file (>1000 lines):
+
+**Split candidate questions**:
+  - Does the file mix two conceptually distinct stories
+    (e.g., inverse story + sqrt story + concrete instances)?
+  - Would a reader looking for X have to scroll past unrelated Y?
+  - Are the two halves used by mostly disjoint downstream consumers?
+
+If yes to several: propose split (do not necessarily execute —
+record as a deferral if there's no downstream need yet).
+
+**Merge candidate questions**:
+  - Are two adjacent small files (< 200 lines each) doing the
+    same kind of work?
+  - Is one file effectively a single-purpose extension of another?
+  - Would merging reduce import lines without producing a
+    sprawling >1500-line monster?
+
+If yes: propose merge.  Default-no unless the case is strong;
+"sub-cluster early" (per CLAUDE.md) usually wins over "consolidate
+late."
+
+Symptoms of a directory needing reorganisation:
+  - Files with topically-overlapping names (`Foo.lean`, `FooExt.lean`,
+    `FooMore.lean`) → merge or sub-cluster
+  - One file is the "everything else" bucket → identify a sub-theme
+    to extract
+  - File count is large (≥ 15) and the natural sub-themes haven't
+    been split out yet → sub-cluster
+
+For this audit, **record findings, don't execute splits/merges**
+unless they're trivially clarifying.  Significant restructuring
+deserves its own commit chain after the merge.
+
 ## Phase 8: Final commit hygiene
 
   - Commit messages of recent work explain WHY, not just WHAT
