@@ -111,11 +111,26 @@ makes the multi-agent observation a citable Lean theorem:
 wall-cancellation in the FluxCochain.  No integral or measure
 machinery needed; the cancellation IS the conservation.
 
+## d-depth-5 quintuple chain — closed (QuintupleTelescope.lean, 3 PURE)
+
+`Lib/Math/Analysis/FluxMVT/QuintupleTelescope.lean` extends
+`TelescopingConservation` (triple + quadruple chains) to the
+**d-depth-5 chain**: a 5-bracket telescoping at the atomic
+resolution dimension `d = 5`.
+
+  · `QuintupleChain` predicate (4 adjacencies covering all
+    interior walls).
+  · `flux_quintuple_telescope` — all 4 interior walls cancel
+    pairwise.
+  · `flux_quintuple_boundary` — outer cuts `(db₀.leftCut,
+    db₄.rightCut)` survive.
+  · ★★★★★ `d_depth_5_capstone` packages both — the
+    Gauss/conservation telescoping at d=5.
+
 ## Open frontier
 
 - ~~Telescoping ↔ Gauss / conservation identification~~ — CLOSED
   via `TelescopingConservation.lean` (6 PURE) above.
-- **MVT chain at higher depth**: current chains close at 3-4
-  bracket levels; deeper chains (d-depth-5 per resolution limit)
-  pending.
+- ~~MVT chain at higher depth (d-depth-5)~~ — CLOSED via
+  `QuintupleTelescope.lean` (3 PURE) above.
 - Per marathon deferred-items log REAL-RES4 follow-ups in deeper FluxMVT analysis.
