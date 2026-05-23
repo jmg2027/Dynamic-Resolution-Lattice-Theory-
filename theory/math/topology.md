@@ -1,6 +1,6 @@
 # Topology 213
 
-**Status**: Closed (9 files).
+**Status**: Closed (8 modules + `Topology.lean` umbrella).
 
 Companion to Operation×Topology and LevelTopology chapters.
 
@@ -22,8 +22,8 @@ domains (C6 cross-domain unification).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Topology/` (9 files)
-- **Umbrella**: `Topology.lean`
+- **Sub-tree**: `lean/E213/Lib/Math/Topology/` (8 modules)
+- **Umbrella**: `lean/E213/Lib/Math/Topology.lean`
 - **∅-axiom status**: PURE
 
 ## Narrative

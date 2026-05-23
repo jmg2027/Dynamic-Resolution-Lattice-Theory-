@@ -107,13 +107,16 @@ Active top-level registries after merge:
 
 | File | Scope | Status |
 |---|---|---|
-| `G124_n_u_family_cross_field_connections.md` | (FROM N-U BRANCH) cross-field survey at `(d, n) = (5, 2)` — 10 directions catalogued; **OPEN frontier of the merged branch, EXCLUDED THIS SESSION** | merged-branch open survey |
-| `G126_akbulut_cork_213_native.md` | Akbulut cork theorem as 213-native exotic-structure framework — supersedes FW-1.  6-phase partial close (44 PURE), signed cork-twist count = +4 | partial close — needs b_2/b_3 extension for full promotion |
-| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog: G128/G129/G130/G126/G122 (all post-rename) | tracking / audit document |
-| `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
-| `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
-| `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
-| `archive/G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — Phases 1-7 CLOSED → `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 |
+| `G124_n_u_family_cross_field_connections.md` | cross-field survey at `(d, n) = (5, 2)` — 10 directions catalogued | open survey (cross-field) |
+| `G127_base_5_wieferich.md` | Base-5 Wieferich prime search | open survey |
+| `G127_promotion_readiness_audit.md` | Per-G-marathon promotion-blocker catalog | tracking / audit document |
+| `G128_affine_plane_K25.md` | Finite-field affine-plane reading of `K_25` at the `(d, n) = (5, 2)` slice | open cross-field direction |
+| `G137_post_g134_merge_synthesis.md` | Cross-corpus patterns from G134 cardinality cut-off merge (3 patterns + 4 new questions) | synthesis note |
+| `archive/G126_akbulut_cork_213_native.md` | Akbulut cork — promoted to `theory/math/exotic_4mfd_cork.md` |
+| `archive/G128_geometrization_open_followups.md` | G121 post-R1 follow-ups — substantive deepenings absorbed into `theory/math/geometrization_conjecture.md` Open Frontier |
+| `archive/G129_v32betti_parametric_generalization.md` | V32Betti parametric — absorbed into `theory/math/cohomology/bipartite.md` "Parametric V32Betti" + Open Frontier |
+| `archive/G130_bracket_cauchy_ricci_functor.md` | `IsModulusStructure` typeclass bridge — absorbed into `theory/math/topology.md` "Modulus structures: 3-way bridge" |
+| `archive/G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — promoted to `theory/physics/alpha_em/precision_derivation.md` |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN

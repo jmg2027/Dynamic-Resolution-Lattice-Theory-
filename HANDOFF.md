@@ -81,10 +81,10 @@ in Lean as decide-checked literal.
 | **G86 Cup-Leibniz ∀(n, k, l)** | CLOSED | `LeibnizFinGeneral` + `LeibnizFinPureForm` |
 | **G107 §4 action items** (24-entry registry) | CLOSED (archived) | `archive/metascan/INDEX.md` |
 | **G117 Bishop comparison** | NARRATIVE-COMPLETE / LEAN-INFEASIBLE | `seed/CLOSED_FORM_SPEC.md` + `theory/math/analysis/minimal_root.md` |
-| **G128 follow-up marathons** (X-1 / I-1 / I-3 / I-4 / FW-1 / FW-2 / FW-3 / FW-4 + M1 universal / M2 abstract; was G123) | COMPLETE / SUBSTANTIVE | `theory/math/geometrization_conjecture.md` "Open frontier" rewritten + GeometrizationConjecture/ extended |
-| **G126 Akbulut cork** (cork-frame supersedes FW-1) | 6-PHASE PARTIAL CLOSE | `lean/E213/Lib/Math/AkbulutCork/` (44 PURE), signed cork-twist count = +4 |
-| **G129 V32Betti parametric** (was G124) | PARTIAL CLOSE | `Cohomology/Bipartite/Parametric/` (36 PURE) |
-| **G130 ModulusStructure** (was G125) | OPTION A CLOSE | `Topology/ModulusStructure.lean` (12 PURE) |
+| **G128 follow-up marathons** (X-1 / I-1 / I-3 / I-4 / FW-1..4 + M1/M2) | PROMOTED | `theory/math/geometrization_conjecture.md` Open Frontier section + capstone renames (R1_close_certificate, R1_master_capstone, X1_sym3_cross_frame_capstone, geometrization_ultimate_capstone) |
+| **G126 Akbulut cork** | PROMOTED | `theory/math/exotic_4mfd_cork.md` (44 PURE / 4 files + umbrella; signed cork-twist count = +4) |
+| **G129 V32Betti parametric** | PROMOTED | `theory/math/cohomology/bipartite.md` "Parametric V32Betti" + "Open frontier" sections (universal Nat-theorem needs graph-walk infra) |
+| **G130 ModulusStructure** | PROMOTED | `theory/math/topology.md` "Modulus structures: 3-way bridge" section (Option A close) |
 | **G122 Real213-p-adic** (full campaign closed) | COMPLETE + PROMOTED | `lean/E213/Lib/Math/Padic/` (308 PURE / 10 modules); chapter `theory/math/padic_real213.md` |
 | **G121 R1 Geometrization** | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **G120 N_U re-derivation** | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 + cascade |
@@ -298,13 +298,12 @@ queue, EXCLUDED THIS SESSION).
 
 ### D'. Promotion-readiness audit (G127)
 
-Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
-S1 categorical closure.  Candidate continuations:
-
-  1. **G130** (Option A close; only S3 absorption needed) — 1 session
-  2. **G129** (universal Nat-theorem via graph-walk infra) — 5-8 sessions
-  3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8 sessions
-  4. **G128** (FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
+All four candidates promoted in this branch (`ready-to-merge-audit-vOTsx`):
+G130, G129, G126, G128.  See "Recently closed" table above for chapter
+targets.  Open-frontier deepenings (graph-walk infra for G129
+universal Nat-theorem, b_2/b_3 cork-twist for G126, FW-2/FW-4/I-3/
+8-geo Lie group infra for G128) recorded inside each chapter's
+Open Frontier section with prereqs named.
 
 ## Anchor docs (next session)
 
