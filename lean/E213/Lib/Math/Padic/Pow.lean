@@ -188,4 +188,54 @@ theorem Zp.smoke_pow_5_digit_two :
   -- (x.trunc 1) where x.digits 0 = 2.
   rfl
 
+/-! ## Teichmüller iteration
+
+The map `x ↦ x^p` iterated `n` times gives `x^(p^n)`.  In the
+classical Teichmüller theory, this sequence converges in ℤ_p
+(for d coprime to p) to the unique `(p-1)`-th root of unity ≡ d.
+
+We define the iteration and prove the digit-0 invariant.  The
+full convergence statement is deeper and deferred.
+-/
+
+/-- Teichmüller iteration: `iter x n = x^(p^n)` formally.
+    Each step raises to the p-th power. -/
+def Zp.teichmuller_iter (p : Nat) (hp : 1 < p) (x : ZpSeq p) : Nat → ZpSeq p
+  | 0 => x
+  | n + 1 => Zp.pow p hp (Zp.teichmuller_iter p hp x n) p
+
+/-- Level 0 is `x` itself. -/
+theorem Zp.teichmuller_iter_zero (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
+    Zp.teichmuller_iter p hp x 0 = x := rfl
+
+/-- Successor step: `iter x (n + 1) = (iter x n)^p`. -/
+theorem Zp.teichmuller_iter_succ (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat) :
+    Zp.teichmuller_iter p hp x (n + 1)
+      = Zp.pow p hp (Zp.teichmuller_iter p hp x n) p := rfl
+
+/-- **Digit-0 invariant**: for `p` prime, every Teichmüller iterate
+    has the same trunc-1 (i.e., the same digit 0 mod p).
+
+    `(teichmuller_iter x n).trunc 1 = x.trunc 1` for all `n`. -/
+theorem Zp.teichmuller_iter_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m
+                  → m < p
+                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+    ∀ n, (Zp.teichmuller_iter p hp x n).trunc 1 = x.trunc 1
+  | 0 => rfl
+  | n + 1 => by
+    rw [Zp.teichmuller_iter_succ]
+    rw [Zp.pow_p_trunc_one p hp (Zp.teichmuller_iter p hp x n) h_prime_gcd]
+    exact Zp.teichmuller_iter_trunc_one p hp x h_prime_gcd n
+
+/-- Smoke: 5-adic Teichmüller iteration starting from digit-0 = 2,
+    after 3 iterations the digit 0 is still 2. -/
+theorem Zp.smoke_teichmuller_5_iter_3 :
+    (Zp.teichmuller_iter 5 (by decide)
+      ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 3).trunc 1
+      = 2 := by
+  rw [Zp.teichmuller_iter_trunc_one 5 (by decide) _
+        E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5]
+  rfl
+
 end E213.Lib.Math.Padic
