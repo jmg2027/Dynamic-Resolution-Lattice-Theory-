@@ -158,6 +158,7 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 
 | (this session) | G131 1/α_em precision theorem (0.2 ppb) → `theory/physics/alpha_em/precision_derivation.md` (chapter expanded with C1 Step 5 closure: GramStructural/Bracket/Newton/Capstone files); G131 note archived | 3 (mixed-status: chapter expansion) |
 | (this session) | G132 K_{3,2}^{(c=2)} higher cohomology sub-ppb (Phases 1-7, 89 PURE across 7 files) → `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 (refined cup-ladder `‖c‖²·(α/d)^(k+1)`, sub-1·10⁻⁹ tier); G132 note archived | 3 (mixed-status: chapter expansion) |
+| (this session) | G132 marathon Phases 8-19 (cup-i framework + Steenrod algebra + truncation bound, ~142 PURE across 12 files) → `theory/math/cohomology/cup_ladder_graduation.md` (new chapter) + `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 expanded to 19 files / 231 PURE | 2 (narrative-from-scratch) |
 
 11+ chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
