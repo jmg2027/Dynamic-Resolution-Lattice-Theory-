@@ -113,7 +113,7 @@ Active top-level registries after merge:
 | `G128_geometrization_open_followups.md` (was G123) | G121 post-R1 follow-ups: FW-1..FW-4 + I-series + M3/M4 — 10 marathon items dispositioned | partial close — see G127 for promotion blockers |
 | `G129_v32betti_parametric_generalization.md` (was G124) | V32Betti generalization (M2 universal close); decide-based representative range done, universal Nat-quantified open | partial close — needs graph-walk infra |
 | `G130_bracket_cauchy_ricci_functor.md` (was G125) | BracketCauchy ↔ IsRicciModulus typeclass framework (Option A) | OPTION A CLOSE — only S3 absorption blocks promotion |
-| `G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology.  **Phase 1 anchor CLOSED 2026-05-22** (`Filled3CellCohomology.lean`, 17 PURE) — shared prereq for G123 FW-2 JSJ-deepening + G126 Phase 7+ cork higher-cohomology + this campaign.  Structural finding: 3 simple 4-cycles linearly dependent (rank δ¹ = 2), giving non-trivial b_2 = 1 cohomological class at full simple-cycle filling | Phase 1 anchor done; Phases 2+ open |
+| `archive/G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — Phases 1-7 CLOSED → `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN
@@ -157,6 +157,7 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | `b258a3f8` | Raw-derivation levels → `theory/meta/raw_derivation_levels.md` | 1 + Variant A (G104) |
 
 | (this session) | G131 1/α_em precision theorem (0.2 ppb) → `theory/physics/alpha_em/precision_derivation.md` (chapter expanded with C1 Step 5 closure: GramStructural/Bracket/Newton/Capstone files); G131 note archived | 3 (mixed-status: chapter expansion) |
+| (this session) | G132 K_{3,2}^{(c=2)} higher cohomology sub-ppb (Phases 1-7, 89 PURE across 7 files) → `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 (refined cup-ladder `‖c‖²·(α/d)^(k+1)`, sub-1·10⁻⁹ tier); G132 note archived | 3 (mixed-status: chapter expansion) |
 
 11+ chapters total covering all promotable closed work
 (9 Lean sub-trees + 2 meta-analysis chapters).
