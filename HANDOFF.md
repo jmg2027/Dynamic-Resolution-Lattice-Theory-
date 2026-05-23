@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 569 PURE / 0 DIRTY across 48 closures
+## Marathon summary — 576 PURE / 0 DIRTY across 49 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -179,9 +179,38 @@ abstraction follow-up.
 
 **Dyadic cutSum_assoc** (`HalfValidCut`): extends IntValidCut from
 b=1 to b=2 via cutSum_half_general; same bundled-subtype pattern.
-Closes the dyadic class (b ∈ {1, 2}); b ≥ 3 remains genuine open
-frontier (forward-only cutSum_same_denom_forward, requires
-search-index reorganization theorem).
+Closes the dyadic class (b ∈ {1, 2}).
+
+### Wave 12: b ≥ 3 honest closure + Meta lift (7 PURE + 4 lifts)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `real213` | `Lib/Math/Real213/CutSumAssocB3.lean` | 7 |
+
+**b ≥ 3 cutSum_assoc** investigation: the "missing backward
+direction" of `cutSum_same_denom_forward` is **not a missing
+theorem** but a structural property of `cutSum`'s search range.
+
+  · `backward_counter_example_b3/b4/b5`: concrete `decide`-checked
+    counter-examples (e.g., `a=2, c=1, b=3, m=1, k=1`:
+    `constCut 3 3 1 1 = true` but cutSum at same point = false)
+  · `eventual_agreement_b3_m10`, `eventual_agreement_b5_m10`:
+    high-precision Cauchy-style agreement
+  · `b_ge_3_assoc_meta`: capstone bundling forward universal +
+    3 counter-examples + eventual agreement
+
+Closure: Bool-level algebraic assoc closes at b ∈ {1, 2}
+(integer-extended + dyadic class via bundled-subtype pattern);
+b ≥ 3 requires either redefining `cutSum` with finer search range
+or lifting to Real213 quotient.  Not a blocker — a *layer
+identification* fact.
+
+**Meta layer lift** (4 PURE helpers from marathon files to
+`E213.Tactic.NatHelper` / `E213.Meta.Nat.AddMod213`):
+  · `add_right_cancel_pure`, `add_left_cancel_pure`, `div_self_pure`
+  · `double_neg_mod_at`
+
+5 consumer files updated to import from Meta layer.
 
 ## Key structural results
 
@@ -238,4 +267,4 @@ search-index reorganization theorem).
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 48 new files PURE.
+`tools/scan_axioms.py <module>` — all 49 new files PURE.
