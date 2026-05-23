@@ -1504,3 +1504,26 @@ level.  Extension to H^k for general k requires:
   · (k+1)-skeleton extension at each k;
   · General cup_i + Alexander-Whitney face-pair formula;
   · Adem-Wu basis for arbitrary Sq^i compositions.
+
+## 2026-05-23 — Phase 14: Steenrod ladder depth ↔ α-power bridge
+
+Connects the Steenrod-square ladder depth at an H^k class to the
+α-power graduation `(k+1)` in the refined cup-ladder formula.
+10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.SteenrodLadderAlphaPower` | 10 | `steenrodLadderDepth k := k - 1`; ★★★ `steenrod_ladder_depth_at_H1 : = 0`, `_at_H2 : = 1`; ★★★★★ `alpha_power_at_H1_via_steenrod : alphaPowerAtH 1 = steenrodLadderDepth 1 + 2`; ★★★★★ `alpha_power_at_H2_via_steenrod`; ★★★★★★ `three_readings_at_H1` + `three_readings_at_H2` (physics ↔ cohomology ↔ Steenrod readings of (k+1)); ★★★★★★★★ `steenrod_ladder_alpha_power_master` (8-conjunct capstone) |
+
+**Three-reading equivalence of the (k+1) graduation**:
+
+  | Reading | Identity at H¹ | Identity at H² |
+  |---------|----------------|----------------|
+  | Physics (Phase 8): loop + 1 | 1 + 1 = 2 | 2 + 1 = 3 |
+  | Cohomology (Phase 7): filtration + 1 | 1 + 1 = 2 | 2 + 1 = 3 |
+  | Steenrod (Phase 14): Sq depth + 2 | 0 + 2 = 2 | 1 + 2 = 3 |
+
+All three readings agree at H¹ (α-power = 2, Gram) and H²
+(α-power = 3, ω contribution).  The Steenrod-square ladder gives
+the cohomology-algebra-internal expression: α-power =
+(max non-trivial Sq^i depth) + 2.

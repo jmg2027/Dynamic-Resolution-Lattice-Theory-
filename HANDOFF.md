@@ -362,6 +362,23 @@ Structural progress at H² ω:
 Max non-trivial Sq^i at H² ω is i = 1, giving output at C³
 (degree k+1 = 3) — Steenrod-square expression of α³ coupling.
 
+### G132 Phase 14 — Steenrod ladder ↔ α-power bridge DONE 2026-05-23
+
+`SteenrodLadderAlphaPower.lean` (10 PURE).  Connects Steenrod
+ladder depth to the α-power graduation:
+
+  steenrodLadderDepth k := k - 1
+  alphaPowerAtH k = steenrodLadderDepth k + 2 = (k-1) + 2 = k + 1
+
+Three-reading equivalence at H¹ and H²:
+  · Physics (Phase 8): loop count + 1
+  · Cohomology (Phase 7): filtration depth + 1
+  · Steenrod (Phase 14): Sq ladder depth + 2
+
+All three readings give α-power = 2 at H¹, α-power = 3 at H².
+The cup-axiom-internal expression of the (k+1) rule is now
+formalised at the Steenrod-square level.
+
 Status of (k+1) derivation (post-Phases 10-13):
 
   | Component | Status |
@@ -572,6 +589,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/SteenrodLadderAlphaPower.lean` | **G132 Phase 14** — Steenrod ladder ↔ α-power bridge; three-reading equivalence |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` | **G132 Phases 12-13** — Sq^0, Sq^1 at H² ω + Adem Sq^1·Sq^1 = 0 |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` | **G132 Phase 11** — cup_1(ω, ω) = δ²(ω) bridge identity |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellExtension.lean` | **G132 Phase 10** — 3-skeleton extension + δ² coboundary |

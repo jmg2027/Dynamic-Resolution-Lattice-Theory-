@@ -175,6 +175,7 @@ of independent gluon channels."*
 | `filled3cell_extension_master` | `Bipartite/Filled3CellExtension` | 3-skeleton extension; δ²(ω) = (true); ω trivialises at full 3-cell |
 | `face_cup_1_at_3cell_master` | `Bipartite/FaceCup1At3Cell` | cup_1(ω, ω) = δ²(ω) (Steenrod-Whitehead bridge identity) |
 | `steenrod_squares_at_omega_master` | `Bipartite/SteenrodSquaresAtOmega` | Sq^0(ω) = ω, Sq^1(ω) = δ²(ω), Adem Sq^1·Sq^1 = 0 |
+| `steenrod_ladder_alpha_power_master` | `AlphaEM/SteenrodLadderAlphaPower` | α-power = Sq ladder depth + 2 = (k-1) + 2 = k+1 (three-reading equivalence) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -316,7 +317,7 @@ Cup-product algebra extension to higher cup operations (cup_i,
 Steenrod squares), Massey products, or spectral-sequence
 differentials is the open frontier.
 
-#### Files (Step 6 closure, 13 files, 165 PURE total)
+#### Files (Step 6 closure, 14 files, 175 PURE total)
 
   · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
     — face boundaries, face dependence, Sym(3) action on ω
@@ -349,6 +350,9 @@ differentials is the open frontier.
   · `Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` (12 PURE)
     — Sq^0(ω) = ω; Sq^1(ω) = δ²(ω); Adem Sq^1·Sq^1 = 0 (vacuous
     at C⁴ truncation); max non-trivial Sq^i = (k-1) at H^k
+  · `Physics/AlphaEM/SteenrodLadderAlphaPower.lean` (10 PURE)
+    — bridge α-power = Sq ladder depth + 2; three-reading
+    equivalence (physics ↔ cohomology ↔ Steenrod)
 
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
