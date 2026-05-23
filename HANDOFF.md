@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 506 PURE / 0 DIRTY across 42 closures
+## Marathon summary — 537 PURE / 0 DIRTY across 45 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -126,6 +126,27 @@ take `ValidCut` without propagating explicit hypotheses.  Full
 cutSum_assoc on ValidCut is the open follow-up (needs search-
 index reorganization theorem).
 
+### Wave 9: Gemini blocker 3 closed — Setoid Framework (31 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/SetoidFramework.lean` | 13 |
+| `modular_arithmetic` | `Lib/Math/Padic/SetoidAlgebra.lean` | 8 |
+| `modular_arithmetic` | `Lib/Math/Padic/ZpSqrtDSetoid.lean` | 10 |
+
+**Blocker 3 (funext-free function equality)**: realised via Setoid
++ LensMap bundled morphism.  `(ZpSeq p, ZpSeqEquiv)` is a Setoid;
+all Zp ring operations (add, neg, mul) respect the equivalence.
+Lifted to ZpSqrtD = ZpSeq × ZpSeq with pair-equivalence — F_p[√D]
+→ ℤ_p[√D] chain rigorous at function-level.  `Zp.neg ∘ Zp.neg ≈ id`,
+triple, quadruple negation all proven compositionally via
+`ZpSeqEquiv.trans`.
+
+**Result**: 4 of 5 original blockers closed via Gemini's external
+LLM consultation.  Only blocker 5 (higher cohomology beyond
+K_{3,2}^{(c=2)} k = 2) remains — requires new chain complex
+infrastructure (truly multi-session).
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -181,4 +202,4 @@ index reorganization theorem).
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 42 new files PURE.
+`tools/scan_axioms.py <module>` — all 45 new files PURE.
