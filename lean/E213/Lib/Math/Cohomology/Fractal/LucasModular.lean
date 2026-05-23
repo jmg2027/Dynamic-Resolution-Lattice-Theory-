@@ -152,6 +152,48 @@ theorem Lucas_mod_3_period_8 : ∀ n, Lucas (n + 8) % 3 = Lucas n % 3
 /-- Period 8 mod 3 spot check: `Lucas 8 % 3 = Lucas 0 % 3`. -/
 theorem Lucas_8_eq_Lucas_0_mod_3 : Lucas 8 % 3 = Lucas 0 % 3 := by decide
 
+/-! ## §3'' Mod-5 period 4 — parametric
+
+Lucas mod 5 cycles through `(2, 1, 3, 4)`, only 4 distinct
+values — shortest period in the family among the small primes.
+Same 2-step induction template; only 2 base cases needed. -/
+
+theorem Lucas_0_mod_5  : Lucas 0  % 5 = 2 := by decide
+theorem Lucas_1_mod_5  : Lucas 1  % 5 = 1 := by decide
+theorem Lucas_4_mod_5  : Lucas 4  % 5 = 2 := by decide
+theorem Lucas_5_mod_5  : Lucas 5  % 5 = 1 := by decide
+
+/-- ★ **Period 4 mod 5 for Lucas**:
+    `Lucas (n + 4) % 5 = Lucas n % 5` for every `n : Nat`.
+
+    Cycle `(2, 1, 3, 4)` — 4 distinct values, shortest among
+    Lucas Pisano periods at small primes (mod 2 has period 3,
+    mod 3 has period 8). -/
+theorem Lucas_mod_5_period_4 : ∀ n, Lucas (n + 4) % 5 = Lucas n % 5
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Lucas (n + 6) = Lucas (n + 5) + Lucas (n + 4) := by
+        show Lucas ((n + 4) + 2) = Lucas (n + 5) + Lucas (n + 4)
+        rfl
+      have h_rhs : Lucas (n + 2) = Lucas (n + 1) + Lucas n := rfl
+      have ih0 : Lucas (n + 4) % 5 = Lucas n % 5 := Lucas_mod_5_period_4 n
+      have ih1 : Lucas ((n + 1) + 4) % 5 = Lucas (n + 1) % 5 :=
+        Lucas_mod_5_period_4 (n + 1)
+      have ih1' : Lucas (n + 5) % 5 = Lucas (n + 1) % 5 := ih1
+      have h_lhs_mod : Lucas (n + 6) % 5
+          = ((Lucas (n + 5) % 5) + (Lucas (n + 4) % 5)) % 5 := by
+        rw [h_lhs]; exact add_mod_gen (Lucas (n + 5)) (Lucas (n + 4)) 5
+      have h_rhs_mod : Lucas (n + 2) % 5
+          = ((Lucas (n + 1) % 5) + (Lucas n % 5)) % 5 := by
+        rw [h_rhs]; exact add_mod_gen (Lucas (n + 1)) (Lucas n) 5
+      have h_swap : ((Lucas (n + 5) % 5) + (Lucas (n + 4) % 5)) % 5
+                  = ((Lucas (n + 1) % 5) + (Lucas n % 5)) % 5 := by
+        rw [ih0, ih1']
+      show Lucas ((n + 2) + 4) % 5 = Lucas (n + 2) % 5
+      have h_indices : (n + 2) + 4 = n + 6 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Cross-sequence sharing — Fibonacci ↔ Lucas mod-2
 
 Both `Fib` and `Lucas` satisfy `x_{n+2} = x_{n+1} + x_n` with
@@ -170,21 +212,23 @@ theorem Lucas_mod_2_eq_Fib_mod_2_first_cycle :
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Lucas modular-fingerprint capstone**.  Two parametric
-    Pisano closures: period 3 mod 2 (shared orbit with Fibonacci)
-    + period 8 mod 3 (shared period but different orbit
-    landings).  Decide-checked mod-2 cycle sharing with
-    Fibonacci on the first cycle. -/
+/-- ★★★ **Lucas modular-fingerprint capstone**.  Three parametric
+    Pisano closures: period 3 mod 2, period 8 mod 3, period 4
+    mod 5 — shortest period in the small-prime triplet.
+    Decide-checked mod-2 cycle sharing with Fibonacci on the
+    first cycle. -/
 theorem capstone :
     -- Parametric period 3 mod 2 (shared with Fibonacci)
     (∀ n, Lucas (n + 3) % 2 = Lucas n % 2)
     -- Parametric period 8 mod 3
     ∧ (∀ n, Lucas (n + 8) % 3 = Lucas n % 3)
+    -- Parametric period 4 mod 5
+    ∧ (∀ n, Lucas (n + 4) % 5 = Lucas n % 5)
     -- Cycle sharing with Fibonacci
     ∧ (Lucas 0 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 0 % 2
        ∧ Lucas 1 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 1 % 2
        ∧ Lucas 2 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 2 % 2) :=
-  ⟨Lucas_mod_2_period_3, Lucas_mod_3_period_8,
+  ⟨Lucas_mod_2_period_3, Lucas_mod_3_period_8, Lucas_mod_5_period_4,
    Lucas_mod_2_eq_Fib_mod_2_first_cycle⟩
 
 end E213.Lib.Math.Cohomology.Fractal.LucasModular

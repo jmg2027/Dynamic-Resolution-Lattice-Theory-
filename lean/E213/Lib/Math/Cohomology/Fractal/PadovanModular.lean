@@ -157,24 +157,69 @@ theorem Pad_13_eq_Pad_0_mod_3 : Pad 13 % 3 = Pad 0 % 3 := by decide
 /-! ## §4 Mod-5 small table (decide-checked) -/
 
 theorem Pad_0_mod_5  : Pad 0  % 5 = 1 := by decide
+theorem Pad_1_mod_5  : Pad 1  % 5 = 1 := by decide
+theorem Pad_2_mod_5  : Pad 2  % 5 = 1 := by decide
 theorem Pad_7_mod_5  : Pad 7  % 5 = 0 := by decide
 theorem Pad_24_mod_5 : Pad 24 % 5 = 1 := by decide
+theorem Pad_25_mod_5 : Pad 25 % 5 = 1 := by decide
+theorem Pad_26_mod_5 : Pad 26 % 5 = 1 := by decide
+
+/-! ## §4' Period 24 mod 5 — parametric
+
+3-step strong induction on `n`.  Base cases at `n ∈ {0, 1, 2}`
+verified by `decide` over Padovan values at indices `≤ 26`;
+inductive step at `n + 3` uses the recurrence
+`Pad ((n+3) + 24) = Pad (n + 27) = Pad (n + 25) + Pad (n + 24)`
+combined with `Pad (n + 3) = Pad (n + 1) + Pad n`.
+
+Same template as `Pad_mod_3_period_13`; same proof technique
+scales from period 13 to period 24 with no additional structural
+content beyond the larger base verification.  Period 24 is
+expected from the divisibility relation `π_P(5) = 24`. -/
+
+/-- ★ **Period 24 mod 5 for Padovan**:
+    `Pad (n + 24) % 5 = Pad n % 5` for every `n : Nat`. -/
+theorem Pad_mod_5_period_24 : ∀ n, Pad (n + 24) % 5 = Pad n % 5
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Pad (n + 27) = Pad (n + 25) + Pad (n + 24) := by
+        show Pad ((n + 24) + 3) = Pad (n + 25) + Pad (n + 24)
+        rfl
+      have h_rhs : Pad (n + 3) = Pad (n + 1) + Pad n := rfl
+      have ih0 : Pad (n + 24) % 5 = Pad n % 5 := Pad_mod_5_period_24 n
+      have ih1 : Pad ((n + 1) + 24) % 5 = Pad (n + 1) % 5 :=
+        Pad_mod_5_period_24 (n + 1)
+      have ih1' : Pad (n + 25) % 5 = Pad (n + 1) % 5 := ih1
+      have h_lhs_mod : Pad (n + 27) % 5
+          = ((Pad (n + 25) % 5) + (Pad (n + 24) % 5)) % 5 := by
+        rw [h_lhs]; exact add_mod_gen (Pad (n + 25)) (Pad (n + 24)) 5
+      have h_rhs_mod : Pad (n + 3) % 5
+          = ((Pad (n + 1) % 5) + (Pad n % 5)) % 5 := by
+        rw [h_rhs]; exact add_mod_gen (Pad (n + 1)) (Pad n) 5
+      have h_swap : ((Pad (n + 25) % 5) + (Pad (n + 24) % 5)) % 5
+                  = ((Pad (n + 1) % 5) + (Pad n % 5)) % 5 := by
+        rw [ih0, ih1']
+      show Pad ((n + 3) + 24) % 5 = Pad (n + 3) % 5
+      have h_indices : (n + 3) + 24 = n + 27 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
 /-- Period 24 mod 5 spot check: `Pad 24 % 5 = Pad 0 % 5`. -/
 theorem Pad_24_eq_Pad_0_mod_5 : Pad 24 % 5 = Pad 0 % 5 := by decide
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Padovan modular-fingerprint capstone**.  Two parametric
-    Pisano-analogue closures (period 7 mod 2 + period 13 mod 3)
-    alongside decide-checked period-24 mod 5 spot check. -/
+/-- ★★★ **Padovan modular-fingerprint capstone**.  Three
+    parametric Pisano-analogue closures across the small-prime
+    triplet: period 7 mod 2, period 13 mod 3, period 24 mod 5. -/
 theorem capstone :
     -- Parametric period 7 mod 2
     (∀ n, Pad (n + 7) % 2 = Pad n % 2)
     -- Parametric period 13 mod 3
     ∧ (∀ n, Pad (n + 13) % 3 = Pad n % 3)
-    -- Mod-5 period 24 spot check
-    ∧ Pad 24 % 5 = Pad 0 % 5 :=
-  ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_24_eq_Pad_0_mod_5⟩
+    -- Parametric period 24 mod 5
+    ∧ (∀ n, Pad (n + 24) % 5 = Pad n % 5) :=
+  ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_mod_5_period_24⟩
 
 end E213.Lib.Math.Cohomology.Fractal.PadovanModular
