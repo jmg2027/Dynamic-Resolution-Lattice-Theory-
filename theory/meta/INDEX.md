@@ -18,12 +18,14 @@ Per `lean/E213/docs/PROMOTION_PATTERNS.md`: this is Pattern 1 with a
 + H2 (build clean) → H1' (scanners pass `--help`) + H2' (`lake build`
 still clean, since scanners can be re-run).
 
-## Closed chapters (2)
+## Closed chapters (4)
 
-| Chapter | Tools / Lean sub-tree | Source notes | Promoted |
-|---|---|---|---|
-| [`scanner_suite.md`](scanner_suite.md) | `tools/{ast_*,syntax_*,falsifier_*}.py` (11 scanners) | G90-G103, G105, G106 (16 notes) | 2026-05-22 |
-| [`raw_derivation_levels.md`](raw_derivation_levels.md) | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems | G104 (1 note, foundational) | 2026-05-22 |
+| Chapter | Tools / Lean sub-tree | Date |
+|---|---|---|
+| [`scanner_suite.md`](scanner_suite.md) | `tools/{ast_*,syntax_*,falsifier_*}.py` (11 scanners) | 2026-05-22 |
+| [`raw_derivation_levels.md`](raw_derivation_levels.md) | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems | 2026-05-22 |
+| [`cardinality_cutoff_principle.md`](cardinality_cutoff_principle.md) | `Cohomology/Fractal/AurifeuilleanFullCutoff.lean` (28 PURE) | 2026-05-22 |
+| [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | 6 Lean files in `Cohomology/Fractal/` (191 PURE) | 2026-05-23 |
 
 ## Action-items registry — closed
 
@@ -38,8 +40,9 @@ table.
 
 ```
 theory/meta/
-├── INDEX.md                     ← this file
-├── scanner_suite.md             ← 11-scanner suite + key findings + cross-branch protocol
-├── raw_derivation_levels.md     ← (α) logical / (β) structural / (γ) operational taxonomy
-└── cardinality_cutoff_principle.md  ← scale-matching cut-off methodology (Hunter ⇔ Aurifeuillean exemplar)
+├── INDEX.md                                ← this file
+├── scanner_suite.md                        ← 11-scanner suite + key findings + cross-branch protocol
+├── raw_derivation_levels.md                ← (α) logical / (β) structural / (γ) operational taxonomy
+├── cardinality_cutoff_principle.md         ← scale-matching cut-off methodology (Hunter ⇔ Aurifeuillean exemplar)
+└── cardinality_cutoff_applications.md      ← six-direction application family (B/D/A/C/E/F, 191 PURE)
 ```

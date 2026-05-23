@@ -193,14 +193,16 @@ for the exemplar execution.
 
 ## §9 Cross-references
 
+  · `cardinality_cutoff_applications.md` — six concrete realisations
+    (Directions B/D/A/C/E/F, 191 PURE total) instantiating the
+    methodology across different external sequences, complexity
+    classes, and primitive sets.
   · `theory/math/cohomology/aurifeuillean.md` — exemplar
     application (Hunter ⇔ Aurifeuillean cut-off at m = 1).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
     — formal realisation (28 PURE / 0 DIRTY).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanCutoff.lean`
     — bounded-parameter precursor (9 PURE).
-  · `research-notes/G134_cutoff_principle_followups.md` —
-    follow-up research directions.
   · `catalogs/atomic-integers.md` — Hunter primitive catalogue.
 
 ## §10 Status
@@ -210,9 +212,13 @@ for the exemplar execution.
   · **Exemplar formalised**: §3 (`cutoff_marathon_at_depth_1`,
     28 PURE).
   · **Scope honestly documented**: §6 (depth-≥-2 open).
-  · **Generalisation directions**: §7 (continuation candidates).
+  · **Generalisation directions**: §7 — instantiated as the
+    six-direction application family
+    `cardinality_cutoff_applications.md` (191 PURE total across
+    six Lean files).
 
 The principle is a **promotion of methodology** — recording the
 recurring three-step pattern (locate, diagnose, prove-refined)
 as a 213-native research technique for asymptotic structural
-claims.
+claims.  Its concrete reach is documented in the applications
+chapter.
