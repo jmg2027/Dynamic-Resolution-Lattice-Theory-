@@ -413,8 +413,6 @@ theorem ZpSeq.smoke_digits_5_24_d0 :
 theorem ZpSeq.smoke_digits_5_24_d1 :
     ((ZpSeq.digits_of_nat 5 (by decide) 24).digits 1).val = 4 := rfl
 
-/-! ## Phase 2 preview (next file: Arith.lean)
-
 /-! ## Per-prime smoke tests -/
 
 /-- Smoke: at p = 2, `zero.trunc 5 = 0`. -/
