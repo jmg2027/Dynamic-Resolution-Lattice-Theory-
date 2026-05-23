@@ -33,8 +33,8 @@ Define orbit sign as +1 if orbit contains an M_S01-fixed cochain,
   · **Signed total: +4**
 
 This 213-native signed exotic-count is the cork-twist analog of
-Donaldson invariants, but **fully 213-internal** — no external
-standard-math interface required.
+Donaldson invariants, realised fully internally via the Z/2 grading
+on Sym(3)-orbits.
 -/
 
 namespace E213.Lib.Math.AkbulutCork.SignedOrbits
@@ -99,8 +99,8 @@ def signedCorkTwistCount : Int :=
   twist-odd orbits exactly.
 
   This is the 213-native analog of a Donaldson-style signed integer
-  invariant for K_{3,2}^{(c=2)} — fully 213-internal, no external
-  standard-math interface needed. -/
+  invariant for K_{3,2}^{(c=2)}, realised via the Z/2 cork-twist
+  grading on Sym(3)-orbits. -/
 theorem signedCorkTwistCount_eq_4 :
     signedCorkTwistCount = 4 := by decide
 

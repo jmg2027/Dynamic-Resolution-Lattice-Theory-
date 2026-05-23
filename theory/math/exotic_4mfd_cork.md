@@ -81,7 +81,7 @@ require an external Donaldson polynomial, an external smooth
 ## Open frontier
 
 The current sub-tree closes the cork-twist effect at the H¹
-(b_1, M_S01) level.  Three extensions remain open:
+(b_1, M_S01) level.  Two extensions remain open:
 
 - **Higher cohomology cork-twist (b_2, b_3)**: the cork-twist
   Z/2 action lifts via M_S01 on the H¹ basis, but its action on
@@ -92,11 +92,6 @@ The current sub-tree closes the cork-twist effect at the H¹
 - **Multi-cork structures**: iterated cork-twists on the K-deployment
   family, with cork-of-cork Z/2 actions and higher-order signed
   counts beyond `+4`.
-- **Specific 4-manifold Donaldson comparison**: external interface
-  between the 213-internal cork-theorem and standard-math
-  exotic-structure invariants on specific named 4-manifolds.
-  Open by design — this is the 213/standard-math boundary, not a
-  213-internal closure question.
 
 ## Connection
 

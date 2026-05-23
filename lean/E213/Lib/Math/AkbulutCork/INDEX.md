@@ -60,8 +60,6 @@ research direction:
 
 ## Open work (full close beyond Phase 6)
 
-  · Comparison to specific 4-manifold Donaldson invariants (would
-    need external bridge anyway; not 213-internal)
   · Cork-twist effect on higher cohomology (b_2, b_3 levels —
     requires `Filled3Cell.lean` extension to 3-cell complexes)
   · Multi-cork structures (corks-of-corks): higher-order Z/2
