@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 285 PURE / 0 DIRTY across nine Lean files in
+Aggregate: 313 PURE / 0 DIRTY across ten Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
@@ -108,12 +108,15 @@ by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 **Open frontier**: outer = ^ case via algebraic prime-factorisation
 argument (137, 521 prime + not in depth-1 → not in depth-2-pow).
 
-## §5 Direction C — Pell, Lucas, Fibonacci sequence cut-offs
+## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci sequence cut-offs
 
-Applies the principle to **three non-Aurifeuillean** external
-sequences: Pell (`P_{n+2} = 2P_{n+1} + P_n`), Lucas
-(`L_{n+2} = L_{n+1} + L_n`), and Fibonacci
-(`F_{n+2} = F_{n+1} + F_n`).
+Applies the principle to **four non-Aurifeuillean** external
+sequences:
+
+  · Pell (`P_{n+2} = 2P_{n+1} + P_n`)
+  · Lucas (`L_{n+2} = L_{n+1} + L_n`)
+  · Fibonacci (`F_{n+2} = F_{n+1} + F_n`)
+  · Tribonacci (`T_{n+3} = T_{n+2} + T_{n+1} + T_n`)
 
 ### Pell
 
@@ -189,15 +192,34 @@ Cut-off slices:
   · Restricted depth 2: `n ≥ 36` (boundary `F_35 = 9 227 465,
     F_36 = 14 930 352`).
 
+### Tribonacci
+
+| n | T_n | catalogue role  |
+|---|----|----------------|
+| 4 | 2  | NT             |
+| 6 | 7  | catalogue prime |
+| 7 | 13 | catalogue prime |
+
+★ **Tightest near-boundary in the family**: `T_16 = 3136` is
+exactly `11` above `M_1 = 3125`.  Tribonacci's slower growth rate
+(constant ψ ≈ 1.839 vs golden ratio ≈ 1.618 vs Pell-silver ≈ 2.414)
+produces this near-miss.
+
+Cut-off slices:
+  · Depth 1: `n ≥ 16` (boundary `T_15 = 1705, T_16 = 3136`).
+    Tightest in the family.
+  · Restricted depth 2: `n ≥ 30` (boundary `T_29 = 8 646 064,
+    T_30 = 15 902 591`).
+
 ### Catalogue coverage across sequences
 
 | atom | sources                                            |
 |------|----------------------------------------------------|
-| 2    | F_3, L_0                                           |
+| 2    | F_3, L_0, T_4                                      |
 | 3    | F_4, L_2                                           |
 | 5    | F_5, P_3                                           |
-| 7    | L_4                                                |
-| 13   | F_7                                                |
+| 7    | L_4, T_6                                           |
+| 13   | F_7, T_7                                           |
 | 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)    |
 | 41   | (none of these sequences)                          |
 | 137  | (none of these sequences)                          |
@@ -205,7 +227,7 @@ Cut-off slices:
 
 **Combined coverage**: `{2, 3, 5, 7, 13, 29, 521}` = **7 of 8**
 catalogue atoms reached by some sequence in
-`{Pell, Lucas, Fibonacci, Aurifeuillean}`.
+`{Pell, Lucas, Fibonacci, Tribonacci, Aurifeuillean}`.
 
 **Unreached atoms**: `{41, 137}`.  Both arise from physics-side
 constants (`41 = α_GUT integer`, `137 = 1/α_em`), suggesting they
@@ -213,7 +235,7 @@ sit outside the "elementary recurrent" reach of small-base-case
 sequences.
 
 **Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
-+ `FibonacciCutoff.lean` (36 PURE).
++ `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE).
 
 ## §6 Direction E — Hunter complexity measure
 
@@ -296,7 +318,10 @@ the cut-off slice moves with the set.
   3. **Lucas–Aurifeuillean coincidence at 521**: Lucas `L_13` hits
      the Aurifeuillean cyclotomic value `Φ_10(5) = 521`, the
      catalogue handle of `N_U + 1`.  Lucas hits the catalogue at
-     5 indices.
+     5 indices.  Tribonacci's `T_16 = 3136` lies exactly `11`
+     above `M_1 = 3125` — the tightest depth-1 boundary in the
+     family, an artifact of Tribonacci's slow growth rate
+     (constant ψ ≈ 1.839).
 
   4. **Catalogue coverage is incomplete**: combined hit set across
      `{Pell, Lucas, Fibonacci, Aurifeuillean}` is `{2, 3, 5, 7, 13,
@@ -391,6 +416,8 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
     — Direction C, Lucas sequence + triple coincidence (40 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/FibonacciCutoff.lean`
     — Direction C, Fibonacci sequence + Hunter-generator window (36 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/TribonacciCutoff.lean`
+    — Direction C, Tribonacci + tight near-boundary (28 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (39 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
