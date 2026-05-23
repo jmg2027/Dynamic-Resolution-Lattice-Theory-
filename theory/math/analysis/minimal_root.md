@@ -136,21 +136,45 @@ single-variate IVTs.  No extra structural machinery needed — n
 independent `ConsistentOracle`s compose to a single product oracle,
 yielding n independent CauchyCutSeqs.
 
+## Full RootCertificate packaging — closed (RootCertificate.lean, 9 PURE)
+
+`Lib/Math/Analysis/DyadicSearch/RootCertificate.lean` packages the
+trajectory-witness IVT readout into a single structure:
+
+  `RootCertificate f` bundles `bracket : DyadicBracket` plus the
+  `BracketSignChange f bracket` witness (sign change at unit
+  precision over the bracket endpoints).
+
+  · `RootCertificate.ofBracket` — promote any `BracketSignChange`
+    to a certificate.
+  · `RootCertificate.refine` — apply one `bisectStep` under
+    `signedLeftOracle f`, preserving the certificate via
+    `bisectStep_signed_left_preserves_sign_change`.
+  · `RootCertificate.refineN` — refine N steps.
+  · `lowerCut` / `upperCut` — endpoint accessors.
+  · `signLeft` / `signRight` — sign witnesses (`f.lowerCut 0 1 =
+    false`, `f.upperCut 0 1 = true`).
+  · ★★★★★ `root_certificate_capstone` packages existence,
+    bracket access, and both sign witnesses.
+
+Reading: the IVT root of `f` is a typed certificate carrying
+bracket endpoints + sign witnesses, refined under
+`signedLeftOracle`-bisection.  No `∃` existential, no `Decidable`
+on the root — just constructive Nat-decidable data.
+
 ## Open frontier
 
 `MinimalRootLens` skeleton is closed.  Open extensions:
 
-1. **Full root-certificate** (lower / upper / zero): the current
-   skeleton gives the cut; a full `RootCertificate` packaging
-   (lower bound, upper bound, witness of vanishing) awaits the
-   **monotone-polynomial milestone** (next).
+1. ~~**Full root-certificate**~~ — CLOSED via
+   `RootCertificate.lean` (9 PURE) above.  Bundles bracket + sign
+   change + refine combinators.
 
 2. ~~**Generalization to multi-variate**~~ — CLOSED via
-   `MultiVarBisection.lean` (10 PURE) above.
+   `MultiVarBisection.lean` (10 PURE).
 
-3. **Continuity-without-ε** alternative: phrase the continuity
-   assumption itself as a `ConsistentOracle` extension, eliminating
-   the implicit ε-δ residue in the current definition.
+3. ~~**Continuity-without-ε** alternative~~ — CLOSED via
+   `Real213/OracleContinuity.lean` (companion chapter).
 
 ## How to verify
 
