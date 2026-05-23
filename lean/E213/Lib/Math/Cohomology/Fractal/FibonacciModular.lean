@@ -178,18 +178,54 @@ theorem Fib_mod_5_period_20 : ∀ n, Fib (n + 20) % 5 = Fib n % 5
       have h_indices : (n + 2) + 20 = n + 22 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §3''' Mod-7 period 16 — parametric
+
+Classical Pisano π(7) = 16.  Same 2-step induction template;
+larger base verification (decide must reach `Fib 17 = 1597`). -/
+
+theorem Fib_0_mod_7  : Fib 0  % 7 = 0 := by decide
+theorem Fib_1_mod_7  : Fib 1  % 7 = 1 := by decide
+theorem Fib_16_mod_7 : Fib 16 % 7 = 0 := by decide
+theorem Fib_17_mod_7 : Fib 17 % 7 = 1 := by decide
+
+/-- ★ **Classical Pisano period 16 mod 7 for Fibonacci**:
+    `Fib (n + 16) % 7 = Fib n % 7` for every `n : Nat`. -/
+theorem Fib_mod_7_period_16 : ∀ n, Fib (n + 16) % 7 = Fib n % 7
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Fib (n + 18) = Fib (n + 17) + Fib (n + 16) := by
+        show Fib ((n + 16) + 2) = Fib (n + 17) + Fib (n + 16)
+        rfl
+      have h_rhs : Fib (n + 2) = Fib (n + 1) + Fib n := rfl
+      have ih0 : Fib (n + 16) % 7 = Fib n % 7 := Fib_mod_7_period_16 n
+      have ih1 : Fib ((n + 1) + 16) % 7 = Fib (n + 1) % 7 :=
+        Fib_mod_7_period_16 (n + 1)
+      have ih1' : Fib (n + 17) % 7 = Fib (n + 1) % 7 := ih1
+      have h_lhs_mod : Fib (n + 18) % 7
+          = ((Fib (n + 17) % 7) + (Fib (n + 16) % 7)) % 7 := by
+        rw [h_lhs]; exact add_mod_gen (Fib (n + 17)) (Fib (n + 16)) 7
+      have h_rhs_mod : Fib (n + 2) % 7
+          = ((Fib (n + 1) % 7) + (Fib n % 7)) % 7 := by
+        rw [h_rhs]; exact add_mod_gen (Fib (n + 1)) (Fib n) 7
+      have h_swap : ((Fib (n + 17) % 7) + (Fib (n + 16) % 7)) % 7
+                  = ((Fib (n + 1) % 7) + (Fib n % 7)) % 7 := by
+        rw [ih0, ih1']
+      show Fib ((n + 2) + 16) % 7 = Fib (n + 2) % 7
+      have h_indices : (n + 2) + 16 = n + 18 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Three
+/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Four
     parametric classical Pisano closures across the small-prime
-    triplet: π(2) = 3, π(3) = 8, π(5) = 20. -/
+    tetrad: π(2) = 3, π(3) = 8, π(5) = 20, π(7) = 16. -/
 theorem capstone :
-    -- Parametric period 3 mod 2 (classical Pisano π(2))
     (∀ n, Fib (n + 3) % 2 = Fib n % 2)
-    -- Parametric period 8 mod 3 (classical Pisano π(3))
     ∧ (∀ n, Fib (n + 8) % 3 = Fib n % 3)
-    -- Parametric period 20 mod 5 (classical Pisano π(5))
-    ∧ (∀ n, Fib (n + 20) % 5 = Fib n % 5) :=
-  ⟨Fib_mod_2_period_3, Fib_mod_3_period_8, Fib_mod_5_period_20⟩
+    ∧ (∀ n, Fib (n + 20) % 5 = Fib n % 5)
+    ∧ (∀ n, Fib (n + 16) % 7 = Fib n % 7) :=
+  ⟨Fib_mod_2_period_3, Fib_mod_3_period_8, Fib_mod_5_period_20,
+   Fib_mod_7_period_16⟩
 
 end E213.Lib.Math.Cohomology.Fractal.FibonacciModular

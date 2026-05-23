@@ -208,18 +208,61 @@ theorem Pad_mod_5_period_24 : ∀ n, Pad (n + 24) % 5 = Pad n % 5
 /-- Period 24 mod 5 spot check: `Pad 24 % 5 = Pad 0 % 5`. -/
 theorem Pad_24_eq_Pad_0_mod_5 : Pad 24 % 5 = Pad 0 % 5 := by decide
 
+/-! ## §4'' Period 48 mod 7 — parametric
+
+3-step nested induction; base cases at `n ∈ {0, 1, 2}` verified
+by `decide` over Padovan values at indices `≤ 50`
+(`Pad 50 = 922 111`).  Longest Padovan modular period among
+the small primes covered. -/
+
+theorem Pad_48_mod_7 : Pad 48 % 7 = 1 := by decide
+theorem Pad_49_mod_7 : Pad 49 % 7 = 1 := by decide
+theorem Pad_50_mod_7 : Pad 50 % 7 = 1 := by decide
+
+/-- ★ **Period 48 mod 7 for Padovan**:
+    `Pad (n + 48) % 7 = Pad n % 7` for every `n : Nat`.
+
+    ★ STRUCTURAL TWIN: same period (48) as Tribonacci mod 7,
+    despite different recurrences. -/
+theorem Pad_mod_7_period_48 : ∀ n, Pad (n + 48) % 7 = Pad n % 7
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Pad (n + 51) = Pad (n + 49) + Pad (n + 48) := by
+        show Pad ((n + 48) + 3) = Pad (n + 49) + Pad (n + 48)
+        rfl
+      have h_rhs : Pad (n + 3) = Pad (n + 1) + Pad n := rfl
+      have ih0 : Pad (n + 48) % 7 = Pad n % 7 := Pad_mod_7_period_48 n
+      have ih1 : Pad ((n + 1) + 48) % 7 = Pad (n + 1) % 7 :=
+        Pad_mod_7_period_48 (n + 1)
+      have ih1' : Pad (n + 49) % 7 = Pad (n + 1) % 7 := ih1
+      have h_lhs_mod : Pad (n + 51) % 7
+          = ((Pad (n + 49) % 7) + (Pad (n + 48) % 7)) % 7 := by
+        rw [h_lhs]; exact add_mod_gen (Pad (n + 49)) (Pad (n + 48)) 7
+      have h_rhs_mod : Pad (n + 3) % 7
+          = ((Pad (n + 1) % 7) + (Pad n % 7)) % 7 := by
+        rw [h_rhs]; exact add_mod_gen (Pad (n + 1)) (Pad n) 7
+      have h_swap : ((Pad (n + 49) % 7) + (Pad (n + 48) % 7)) % 7
+                  = ((Pad (n + 1) % 7) + (Pad n % 7)) % 7 := by
+        rw [ih0, ih1']
+      show Pad ((n + 3) + 48) % 7 = Pad (n + 3) % 7
+      have h_indices : (n + 3) + 48 = n + 51 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Padovan modular-fingerprint capstone**.  Three
+/-- ★★★ **Padovan modular-fingerprint capstone**.  Four
     parametric Pisano-analogue closures across the small-prime
-    triplet: period 7 mod 2, period 13 mod 3, period 24 mod 5. -/
+    tetrad: period 7 mod 2, period 13 mod 3, period 24 mod 5,
+    period 48 mod 7.  The mod-7 period coincides with
+    Tribonacci mod 7 (= 48). -/
 theorem capstone :
-    -- Parametric period 7 mod 2
     (∀ n, Pad (n + 7) % 2 = Pad n % 2)
-    -- Parametric period 13 mod 3
     ∧ (∀ n, Pad (n + 13) % 3 = Pad n % 3)
-    -- Parametric period 24 mod 5
-    ∧ (∀ n, Pad (n + 24) % 5 = Pad n % 5) :=
-  ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_mod_5_period_24⟩
+    ∧ (∀ n, Pad (n + 24) % 5 = Pad n % 5)
+    ∧ (∀ n, Pad (n + 48) % 7 = Pad n % 7) :=
+  ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_mod_5_period_24,
+   Pad_mod_7_period_48⟩
 
 end E213.Lib.Math.Cohomology.Fractal.PadovanModular

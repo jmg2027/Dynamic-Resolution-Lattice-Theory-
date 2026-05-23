@@ -177,21 +177,66 @@ theorem Jac_mod_5_period_4 : ∀ n, Jac (n + 4) % 5 = Jac n % 5
       have h_indices : (n + 2) + 4 = n + 6 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §3' Mod-7 period 6 — parametric
+
+Shortest Jacobsthal mod-7 period among small primes.  Same
+2-step induction template; `mul_mod_right_pure` handles `2 J_n`. -/
+
+theorem Jac_0_mod_7 : Jac 0 % 7 = 0 := by decide
+theorem Jac_1_mod_7 : Jac 1 % 7 = 1 := by decide
+theorem Jac_6_mod_7 : Jac 6 % 7 = 0 := by decide
+theorem Jac_7_mod_7 : Jac 7 % 7 = 1 := by decide
+
+/-- ★ **Period 6 mod 7 for Jacobsthal**:
+    `Jac (n + 6) % 7 = Jac n % 7` for every `n : Nat`. -/
+theorem Jac_mod_7_period_6 : ∀ n, Jac (n + 6) % 7 = Jac n % 7
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Jac (n + 8) = Jac (n + 7) + 2 * Jac (n + 6) := by
+        show Jac ((n + 6) + 2) = Jac (n + 7) + 2 * Jac (n + 6)
+        rfl
+      have h_rhs : Jac (n + 2) = Jac (n + 1) + 2 * Jac n := rfl
+      have ih0 : Jac (n + 6) % 7 = Jac n % 7 := Jac_mod_7_period_6 n
+      have ih1 : Jac ((n + 1) + 6) % 7 = Jac (n + 1) % 7 :=
+        Jac_mod_7_period_6 (n + 1)
+      have ih1' : Jac (n + 7) % 7 = Jac (n + 1) % 7 := ih1
+      have h_lhs_mod : Jac (n + 8) % 7
+          = ((Jac (n + 7) % 7) + (2 * Jac (n + 6)) % 7) % 7 := by
+        rw [h_lhs]; exact add_mod_gen (Jac (n + 7)) (2 * Jac (n + 6)) 7
+      have h_rhs_mod : Jac (n + 2) % 7
+          = ((Jac (n + 1) % 7) + (2 * Jac n) % 7) % 7 := by
+        rw [h_rhs]; exact add_mod_gen (Jac (n + 1)) (2 * Jac n) 7
+      have h_2_l : (2 * Jac (n + 6)) % 7 = (2 * (Jac (n + 6) % 7)) % 7 :=
+        two_jac_mod (n + 6) 7
+      have h_2_r : (2 * Jac n) % 7 = (2 * (Jac n % 7)) % 7 :=
+        two_jac_mod n 7
+      have h_2_eq : (2 * (Jac (n + 6) % 7)) % 7 = (2 * (Jac n % 7)) % 7 :=
+        congrArg (fun x => (2 * x) % 7) ih0
+      have h_2_lr : (2 * Jac (n + 6)) % 7 = (2 * Jac n) % 7 :=
+        (h_2_l.trans h_2_eq).trans h_2_r.symm
+      have h_swap : ((Jac (n + 7) % 7) + (2 * Jac (n + 6)) % 7) % 7
+                  = ((Jac (n + 1) % 7) + (2 * Jac n) % 7) % 7 := by
+        rw [ih1', h_2_lr]
+      show Jac ((n + 2) + 6) % 7 = Jac (n + 2) % 7
+      have h_indices : (n + 2) + 6 = n + 8 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Jacobsthal modular-fingerprint capstone**.  Three
+/-- ★★★ **Jacobsthal modular-fingerprint capstone**.  Four
     parametric closures: eventually-constant `1` mod 2 from
-    `n = 1`, period 6 mod 3, period 4 mod 5.  Jacobsthal joins
-    the Pisano-analogue grid with a structurally distinguished
-    mod-2 behaviour (collapses to a constant rather than a
-    nontrivial period) due to the `2 J_n` term in the recurrence. -/
+    `n = 1`, period 6 mod 3, period 4 mod 5, period 6 mod 7. -/
 theorem capstone :
     -- Mod-2 eventually constant 1 from n = 1
     (∀ n, Jac (n + 1) % 2 = 1)
     -- Parametric period 6 mod 3
     ∧ (∀ n, Jac (n + 6) % 3 = Jac n % 3)
     -- Parametric period 4 mod 5
-    ∧ (∀ n, Jac (n + 4) % 5 = Jac n % 5) :=
-  ⟨Jac_succ_mod_2, Jac_mod_3_period_6, Jac_mod_5_period_4⟩
+    ∧ (∀ n, Jac (n + 4) % 5 = Jac n % 5)
+    -- Parametric period 6 mod 7
+    ∧ (∀ n, Jac (n + 6) % 7 = Jac n % 7) :=
+  ⟨Jac_succ_mod_2, Jac_mod_3_period_6, Jac_mod_5_period_4,
+   Jac_mod_7_period_6⟩
 
 end E213.Lib.Math.Cohomology.Fractal.JacobsthalModular

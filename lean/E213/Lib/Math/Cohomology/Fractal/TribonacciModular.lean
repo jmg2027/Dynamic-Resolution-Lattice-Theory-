@@ -241,19 +241,72 @@ theorem Trib_mod_5_period_31 : ∀ n, Trib (n + 31) % 5 = Trib n % 5
       have h_indices : (n + 3) + 31 = n + 34 := by rfl
       rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
 
-/-! ## §6 Capstone (full mod-{2, 3, 5} closure) -/
+/-! ## §6 Period 48 mod 7 — parametric
 
-/-- ★★★ **Tribonacci modular-fingerprint capstone (full triplet)**.
-    Three parametric Pisano closures across `{2, 3, 5}`:
-    period 4 mod 2, period 13 mod 3, period 31 mod 5.  The
-    mod-5 period coincides with Narayana mod 5 (both 31). -/
+Same period (48) as Padovan mod 7 — structural twin via the
+mod-7 modular layer despite different recurrences.  3-step
+recurrence with 3 IH terms; base values at indices 48-50 are
+~10¹² (decide handles via Nat). -/
+
+theorem Trib_48_mod_7 : Trib 48 % 7 = 0 := by decide
+theorem Trib_49_mod_7 : Trib 49 % 7 = 0 := by decide
+theorem Trib_50_mod_7 : Trib 50 % 7 = 1 := by decide
+
+/-- ★ **Period 48 mod 7 for Tribonacci**:
+    `Trib (n + 48) % 7 = Trib n % 7` for every `n : Nat`.
+
+    ★ STRUCTURAL TWIN with Padovan mod 7 (both period 48). -/
+theorem Trib_mod_7_period_48 : ∀ n, Trib (n + 48) % 7 = Trib n % 7
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Trib (n + 51)
+                 = Trib (n + 50) + Trib (n + 49) + Trib (n + 48) := by
+        show Trib ((n + 48) + 3)
+           = Trib (n + 50) + Trib (n + 49) + Trib (n + 48)
+        rfl
+      have h_rhs : Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n := rfl
+      have ih0 : Trib (n + 48) % 7 = Trib n % 7 := Trib_mod_7_period_48 n
+      have ih1 : Trib ((n + 1) + 48) % 7 = Trib (n + 1) % 7 :=
+        Trib_mod_7_period_48 (n + 1)
+      have ih2 : Trib ((n + 2) + 48) % 7 = Trib (n + 2) % 7 :=
+        Trib_mod_7_period_48 (n + 2)
+      have ih1' : Trib (n + 49) % 7 = Trib (n + 1) % 7 := ih1
+      have ih2' : Trib (n + 50) % 7 = Trib (n + 2) % 7 := ih2
+      have h_lhs_mod : Trib (n + 51) % 7
+          = ((Trib (n + 50) + Trib (n + 49)) % 7 + (Trib (n + 48) % 7)) % 7 := by
+        rw [h_lhs]
+        exact add_mod_gen (Trib (n + 50) + Trib (n + 49)) (Trib (n + 48)) 7
+      have h_lhs_mod' : (Trib (n + 50) + Trib (n + 49)) % 7
+          = ((Trib (n + 50) % 7) + (Trib (n + 49) % 7)) % 7 :=
+        add_mod_gen (Trib (n + 50)) (Trib (n + 49)) 7
+      have h_rhs_mod : Trib (n + 3) % 7
+          = ((Trib (n + 2) + Trib (n + 1)) % 7 + (Trib n % 7)) % 7 := by
+        rw [h_rhs]
+        exact add_mod_gen (Trib (n + 2) + Trib (n + 1)) (Trib n) 7
+      have h_rhs_mod' : (Trib (n + 2) + Trib (n + 1)) % 7
+          = ((Trib (n + 2) % 7) + (Trib (n + 1) % 7)) % 7 :=
+        add_mod_gen (Trib (n + 2)) (Trib (n + 1)) 7
+      have h_swap : ((Trib (n + 50) % 7) + (Trib (n + 49) % 7)) % 7
+                  = ((Trib (n + 2) % 7) + (Trib (n + 1) % 7)) % 7 := by
+        rw [ih1', ih2']
+      show Trib ((n + 3) + 48) % 7 = Trib (n + 3) % 7
+      have h_indices : (n + 3) + 48 = n + 51 := by rfl
+      rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
+
+/-! ## §7 Capstone (mod-{2, 3, 5, 7} closure) -/
+
+/-- ★★★ **Tribonacci modular-fingerprint capstone (full tetrad)**.
+    Four parametric Pisano closures across `{2, 3, 5, 7}`:
+    π = 4, 13, 31, 48 respectively.  Period coincidences:
+    π(5) = 31 with Narayana; π(7) = 48 with Padovan. -/
 theorem capstone :
-    -- Parametric period 4 mod 2
     (∀ n, Trib (n + 4) % 2 = Trib n % 2)
-    -- Parametric period 13 mod 3
     ∧ (∀ n, Trib (n + 13) % 3 = Trib n % 3)
-    -- Parametric period 31 mod 5
-    ∧ (∀ n, Trib (n + 31) % 5 = Trib n % 5) :=
-  ⟨Trib_mod_2_period_4, Trib_mod_3_period_13, Trib_mod_5_period_31⟩
+    ∧ (∀ n, Trib (n + 31) % 5 = Trib n % 5)
+    ∧ (∀ n, Trib (n + 48) % 7 = Trib n % 7) :=
+  ⟨Trib_mod_2_period_4, Trib_mod_3_period_13, Trib_mod_5_period_31,
+   Trib_mod_7_period_48⟩
 
 end E213.Lib.Math.Cohomology.Fractal.TribonacciModular

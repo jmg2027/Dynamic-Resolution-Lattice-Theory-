@@ -203,19 +203,61 @@ theorem Nara_mod_5_period_31 : ∀ n, Nara (n + 31) % 5 = Nara n % 5
       have h_indices : (n + 3) + 31 = n + 34 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §6' Mod-7 period 57 — parametric
+
+Narayana mod 7 period diverges from Padovan/Tribonacci (both 48)
+at the mod-7 layer: Narayana has period 57.  3-step one-shift
+recurrence template; base values at indices 57-59 are ~10⁹. -/
+
+theorem Nara_57_mod_7 : Nara 57 % 7 = 1 := by decide
+theorem Nara_58_mod_7 : Nara 58 % 7 = 1 := by decide
+theorem Nara_59_mod_7 : Nara 59 % 7 = 1 := by decide
+
+/-- ★ **Period 57 mod 7 for Narayana**:
+    `Nara (n + 57) % 7 = Nara n % 7` for every `n : Nat`.
+
+    Diverges from Padovan/Tribonacci mod 7 (both 48) — the
+    one-shift recurrence separates higher-modulus periods. -/
+theorem Nara_mod_7_period_57 : ∀ n, Nara (n + 57) % 7 = Nara n % 7
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Nara (n + 60) = Nara (n + 59) + Nara (n + 57) := by
+        show Nara ((n + 57) + 3) = Nara (n + 59) + Nara (n + 57)
+        rfl
+      have h_rhs : Nara (n + 3) = Nara (n + 2) + Nara n := rfl
+      have ih0 : Nara (n + 57) % 7 = Nara n % 7 := Nara_mod_7_period_57 n
+      have ih2 : Nara ((n + 2) + 57) % 7 = Nara (n + 2) % 7 :=
+        Nara_mod_7_period_57 (n + 2)
+      have ih2' : Nara (n + 59) % 7 = Nara (n + 2) % 7 := ih2
+      have h_lhs_mod : Nara (n + 60) % 7
+          = ((Nara (n + 59) % 7) + (Nara (n + 57) % 7)) % 7 := by
+        rw [h_lhs]; exact add_mod_gen (Nara (n + 59)) (Nara (n + 57)) 7
+      have h_rhs_mod : Nara (n + 3) % 7
+          = ((Nara (n + 2) % 7) + (Nara n % 7)) % 7 := by
+        rw [h_rhs]; exact add_mod_gen (Nara (n + 2)) (Nara n) 7
+      have h_swap : ((Nara (n + 59) % 7) + (Nara (n + 57) % 7)) % 7
+                  = ((Nara (n + 2) % 7) + (Nara n % 7)) % 7 := by
+        rw [ih0, ih2']
+      show Nara ((n + 3) + 57) % 7 = Nara (n + 3) % 7
+      have h_indices : (n + 3) + 57 = n + 60 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §7 Capstone -/
 
-/-- ★★★ **Narayana modular-fingerprint capstone**.  Three
-    parametric Pisano closures: period 7 mod 2 (twin to Padovan),
-    period 8 mod 3 (one-shift recurrence diverges from Padovan's
-    13), period 31 mod 5 (TWIN to Tribonacci mod 5). -/
+/-- ★★★ **Narayana modular-fingerprint capstone**.  Four
+    parametric Pisano closures across the small-prime tetrad
+    `{2, 3, 5, 7}`: periods 7, 8, 31, 57.  Period
+    coincidences: π(2) = 7 with Padovan; π(5) = 31 with
+    Tribonacci.  π(7) = 57 is unique to Narayana (the one-shift
+    recurrence diverges from Padovan/Tribonacci at mod 7). -/
 theorem capstone :
-    -- Parametric period 7 mod 2 (Pisano twin to Padovan)
     (∀ n, Nara (n + 7) % 2 = Nara n % 2)
-    -- Parametric period 8 mod 3 (diverges from Padovan's 13)
     ∧ (∀ n, Nara (n + 8) % 3 = Nara n % 3)
-    -- Parametric period 31 mod 5 (twin to Tribonacci)
-    ∧ (∀ n, Nara (n + 31) % 5 = Nara n % 5) :=
-  ⟨Nara_mod_2_period_7, Nara_mod_3_period_8, Nara_mod_5_period_31⟩
+    ∧ (∀ n, Nara (n + 31) % 5 = Nara n % 5)
+    ∧ (∀ n, Nara (n + 57) % 7 = Nara n % 7) :=
+  ⟨Nara_mod_2_period_7, Nara_mod_3_period_8, Nara_mod_5_period_31,
+   Nara_mod_7_period_57⟩
 
 end E213.Lib.Math.Cohomology.Fractal.NarayanaModular
