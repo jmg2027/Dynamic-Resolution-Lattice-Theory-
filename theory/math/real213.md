@@ -154,6 +154,30 @@ structural additivity over `S ++ T`: `cutIntegralOver_nil_append`,
 witness that integration distributes over list concatenation
 pointwise — `rfl`-level identities, no σ-additivity machinery.
 
+## cutSum associativity for integer cuts (5 PURE)
+
+`Lib/Math/Real213/CutSumAssocInt.lean` closes a **special case**
+of the open `cutSum_assoc` frontier:
+
+  `cutSum (cutSum (constCut a 1) (constCut b 1)) (constCut c 1)`
+    cutEq
+  `cutSum (constCut a 1) (cutSum (constCut b 1) (constCut c 1))`
+
+General `cutSum_assoc` is blocked by the precision-doubling
+artifact (`cutSum (cutSum cx cy) cz` reads cx at precision 4k vs
+`cutSum cx (cutSum cy cz)` at 2k).  For the integer cut class
+(`constCut a 1`), both sides reduce to `constCut ((a + b) + c) 1
+= constCut (a + (b + c)) 1` via `cutSum_int_int` + `Nat.add_assoc`.
+
+  · `cutSum_assoc_int` — cutEq form for arbitrary `(a, b, c)`.
+  · `cutSum_assoc_int_at` — pointwise at fixed `(m, k)`.
+  · Smoke at `(1, 2, 3)` and `(0, 2, 3)`.
+  · ★★★★★ `cutSum_assoc_int_capstone` bundles all three.
+
+Reading: the trajectory-pw observation at the integer class —
+both grouping trajectories converge to the same constant cut, so
+endpoint distinguishing is invariant under parenthesization.
+
 ## Open frontier
 
 - ~~Continuity-without-ε via consistent oracles~~ — CLOSED via
