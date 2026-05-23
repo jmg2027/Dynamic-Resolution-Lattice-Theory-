@@ -182,6 +182,41 @@ The FP2SqrtD algebraic identities (Frobenius involution,
 additivity, multiplicativity, norm = self·conjugate) all have
 ℤ_p[√D] analogs via the same `fromFp`-based lift.
 
+## Rigor — ZpSqrtD ring + embedding (16 PURE)
+
+`Lib/Math/Padic/ZpSqrtDRigor.lean` (8 PURE) establishes the
+**embedding is a ring homomorphism at digit-0, modulo p**:
+
+  · `zpsd_add_digit_zero_first/second` — digit-0 of zpsd_add =
+    `(x.i.digit_0 + y.i.digit_0) mod p`.
+  · `zpmul_digit_zero` — digit-0 of `Zp.mul a b` =
+    `(a.digit_0 * b.digit_0) mod p`.
+  · `zpsd_mul_digit_zero_second` — second-component formula
+    `((x.1 · y.2) % p + (x.2 · y.1) % p) % p`.
+  · `fp2d_to_zpsd_preserves_add_first/second_mod` — ring-hom
+    preservation: `(fp2d_to_zpsd (fp2dAdd x y)).digit_0 % p`
+    matches the ℤ_p computation.
+  · ★★★★★ `zpsd_rigor_capstone` packages all four.
+
+`Lib/Math/Padic/ZpSqrtDRing.lean` (8 PURE) adds ring axioms:
+
+  · `zpsd_add_comm_digit_zero_first/second` — commutativity of
+    zpsd_add at digit-0 (both components).
+  · `zpmul_comm_digit_zero` — `Zp.mul` commutativity at digit-0.
+  · `zpsd_mul_comm_digit_zero_second` — `zpsd_mul` second-
+    component commutativity.
+  · `zpsd_zero_components_zero` / `zpsd_one_components_one_zero`
+    — zero / one digit-0 values.
+  · `zpsd_add_zero_left_first_mod` — zero left-identity (when
+    digit-0 < p).
+  · ★★★★★ `zpsd_ring_capstone` packages add comm + mul comm +
+    zero / one identities.
+
+Reading: ZpSqrtD inherits the FP2SqrtD ring structure at digit-0
+rigorously; commutativity / zero / one axioms are Nat-decidable
+facts following from the digit-formula machinery + `Nat.add_comm`
+/ `Nat.mul_comm`.
+
 ## Open frontier
 
 - ~~**Real213-p-adic**~~ — CLOSED via `HenselBridge.lean`
