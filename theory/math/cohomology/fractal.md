@@ -387,18 +387,27 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     layer; logged here as the principal downstream physics
     problem.
   · **General eventual-periodicity statement** at arbitrary
-    coprime `(d, p)`.  The chapter ships the parametric
-    reduction `configCountD_mod_pure` and concrete period-2
-    capstones at `(5, 7)` and `(5, 13)`, eventually-constant
-    capstones at `(5, 41)` (★ NS² constant from `n = 1`) and
-    `(5, 11)` (★ constant `1` from `n = 1` via fixed-point
-    absorption); the universal `∃ T n₀, ∀ n ≥ n₀, …` form is a
-    small additive marathon (pigeonhole on `d^n % (p-1)`).
-    The sister Padovan Pisano-analogue closure is shipped:
-    `Pad_mod_2_period_7` (∀ n, Pad (n+7) % 2 = Pad n % 2) at
-    `PadovanModular.lean` — parametric period-7 by 3-step nested
-    induction, with decide-checked spot-checks at periods 13
-    (mod 3) and 24 (mod 5).
+    coprime `(d, p)` — **CLOSED**.
+    `EventualPeriodicity.lean` ships the universal form
+    `configCountD_eventually_periodic (d p' : Nat)
+      (h_flt : d ^ (p' + 2 - 1) % (p' + 2) = 1 % (p' + 2)) :
+      ∃ T n₀, 1 ≤ T ∧ n₀ ≤ p' + 2 - 1
+        ∧ ∀ n, n₀ ≤ n
+            → configCountD d (n + T) % (p' + 2)
+              = configCountD d n % (p' + 2)`
+    via forward-only pigeonhole on the exponent layer
+    `n ↦ d^n % (p - 1)` (Markov chain on `Fin (p - 1)`) +
+    `configCountD_mod_pure` bridge.  Distinct from
+    `MulOrderPigeonhole.exists_modPow_period`: no modular inverse
+    needed, so applies to the eventually-constant regime
+    `gcd(d, p - 1) ≠ 1` (witnessed at `(5, 11)`) as well as the
+    purely periodic regime.  Concrete period-2 capstones at
+    `(5, 7)`, `(5, 13)` and eventually-constant capstones at
+    `(5, 11)`, `(5, 41)` remain available as sharper closures.
+    Padovan / Tribonacci / Fibonacci / Narayana Pisano-analogue
+    parametric closures at the exponent-free recurrence level
+    are shipped in `{Padovan, Tribonacci, Fibonacci,
+    Narayana}Modular.lean`.
   · **Combinatorial-identity Lean witness**: the truth-table
     reading `configCountD d n = | [d]^n → [d] |` is currently
     a docstring identity.  A `Fintype.card`-style Lean theorem
