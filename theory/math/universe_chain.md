@@ -243,11 +243,15 @@ Open extensions:
 2. ~~Physics deployment~~ — CLOSED via `PhysicsDeployment.lean`
    (12 PURE) above.  Cabibbo + Möbius P signature + Cassini-at-d +
    CKM δ rational all from chain `(NS, NT, d)`.
-3. **Cross-chain bridges**: Möbius P, algebra tower asymptote
-   (`theory/math/cayley_dickson/algebra_tower.md`), and Real213
-   Pell-Fib (`Theory/Raw/Mobius.lean`) all share φ.  An explicit
-   bridge theorem connecting these as facets of one structure
-   remains open.
+3. ~~**Cross-chain bridges**~~ — CLOSED via
+   `PhiThreeWayBridge.lean` (6 PURE).  The atomic discriminant
+   `5 = NS + NT = d` is the shared integer fingerprint across
+   (a) Möbius P (char poly `x² − 3x + 1` discriminant),
+   (b) algebra-tower asymptote at Type C (`(5, −1)` pair),
+   (c) Pell-Fib `P_denominator(2) = 5 = F₅`.  All three φ-
+   appearances inherit from this shared `5`; capstone
+   `phi_three_way_bridge_capstone` packages all three integer
+   readings.
 
 ## How to verify
 
