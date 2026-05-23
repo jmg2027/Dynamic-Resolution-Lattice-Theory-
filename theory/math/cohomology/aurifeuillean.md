@@ -178,6 +178,12 @@ faces of the same algebraic requirement.
 
 ### The cut-off line: scale matching of two independent frameworks
 
+*(This section's structural content is generalised in
+`theory/meta/cardinality_cutoff_principle.md` — the **cardinality
+cut-off principle** as a 213-native methodology.  The Aurifeuillean
+case here is the exemplar from which the principle was extracted.)*
+
+
 The Hunter ⇔ Aurifeuillean correspondence at `(29, 8) = (d² + NT², NT³)`
 is not merely "a clean numerical hit" — it is the location where two
 **independently-defined structural frameworks** match in scale.
