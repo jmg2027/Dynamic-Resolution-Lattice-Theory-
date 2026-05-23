@@ -391,4 +391,128 @@ theorem Zp.valEq_add_of_lt (p : Nat) (hp : 0 < p) (x y : ZpSeq p)
     rw [h_digits_eq]
     exact hx.2
 
+/-! ### Precise multiplicative ultrametric -/
+
+/-- PURE: `(A * p^m) % p^(m+1) = (A % p) * p^m` (any `m`, `0 < p`). -/
+private theorem mul_pow_succ_mod_gen (A p m : Nat) (hp : 0 < p) :
+    (A * p^m) % p^(m + 1) = (A % p) * p^m := by
+  cases m with
+  | zero =>
+    show (A * p^0) % p^1 = (A % p) * p^0
+    rw [Nat.pow_zero, Nat.pow_one, Nat.mul_one, Nat.mul_one]
+  | succ k =>
+    rw [Zp.split_mul_pow A p (p^(k + 1))]
+    rw [show p^(k + 1) * p = p^(k + 2) from (Nat.pow_succ p (k + 1)).symm]
+    rw [E213.Tactic.NatHelper.add_mul_mod_self_pure]
+    have hAp_lt : A % p < p := Nat.mod_lt _ hp
+    have hpk_pos : 0 < p^(k + 1) := Nat.pos_pow_of_pos _ hp
+    have h_lt : (A % p) * p^(k + 1) < p^(k + 2) := by
+      have : (A % p) * p^(k + 1) < p * p^(k + 1) :=
+        Nat.mul_lt_mul_of_pos_right hAp_lt hpk_pos
+      rw [show p * p^(k + 1) = p^(k + 2) from
+            (Nat.mul_comm p _).trans (Nat.pow_succ p (k + 1)).symm] at this
+      exact this
+    exact Nat.mod_eq_of_lt h_lt
+
+/-- PURE: when `x.trunc m = 0`, `(x.trunc(m+k+1) / p^m) % p = (x.digits m).val`. -/
+private theorem trunc_div_pow_mod (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (m k : Nat) (hxm : x.trunc m = 0) :
+    (x.trunc (m + k + 1) / p^m) % p = (x.digits m).val := by
+  have h_assoc : m + (k + 1) = m + k + 1 := (Nat.add_assoc m k 1).symm
+  have h_mod : x.trunc (m + k + 1) % p^m = 0 := by
+    have h : x.trunc (m + (k + 1)) % p^m = x.trunc m % p^m :=
+      trunc_extension_mod p hp x m (k + 1)
+    rw [h_assoc] at h
+    rw [h, hxm, E213.Tactic.NatHelper.zero_mod]
+  have h_dec := E213.Meta.Nat.AddMod213.div_add_mod (x.trunc (m + k + 1)) (p^m)
+  rw [h_mod, Nat.add_zero] at h_dec
+  have h_ext_m1 : x.trunc (m + 1 + k) % p^(m + 1) = x.trunc (m + 1) % p^(m + 1) :=
+    trunc_extension_mod p hp x (m + 1) k
+  have h_lt_m1 : x.trunc (m + 1) < p^(m + 1) := ZpSeq.trunc_lt_p_pow hp x (m + 1)
+  rw [Nat.mod_eq_of_lt h_lt_m1] at h_ext_m1
+  have h_trunc_m1 : x.trunc (m + 1) = (x.digits m).val * p^m := by
+    show x.trunc m + (x.digits m).val * p^m = (x.digits m).val * p^m
+    rw [hxm, Nat.zero_add]
+  have h_idx : m + 1 + k = m + k + 1 := Nat.add_right_comm m 1 k
+  rw [h_idx] at h_ext_m1
+  rw [h_trunc_m1] at h_ext_m1
+  rw [← h_dec] at h_ext_m1
+  rw [Nat.mul_comm (p^m) _] at h_ext_m1
+  rw [mul_pow_succ_mod_gen _ p m hp] at h_ext_m1
+  have hpm_pos : 0 < p^m := Nat.pos_pow_of_pos _ hp
+  exact E213.Tactic.NatHelper.mul_left_cancel_pos hpm_pos
+    (by rw [Nat.mul_comm (p^m) _, Nat.mul_comm (p^m) (x.digits m).val]
+        exact h_ext_m1)
+
+/-- PURE: `x.trunc m = 0 → x.trunc(m+k+1) = p^m · (x.trunc(m+k+1) / p^m)`. -/
+private theorem trunc_eq_pow_mul_div (p : Nat) (hp : 0 < p) (x : ZpSeq p)
+    (m k : Nat) (hxm : x.trunc m = 0) :
+    x.trunc (m + k + 1) = p^m * (x.trunc (m + k + 1) / p^m) := by
+  have h_assoc : m + (k + 1) = m + k + 1 := (Nat.add_assoc m k 1).symm
+  have h_mod : x.trunc (m + k + 1) % p^m = 0 := by
+    have h : x.trunc (m + (k + 1)) % p^m = x.trunc m % p^m :=
+      trunc_extension_mod p hp x m (k + 1)
+    rw [h_assoc] at h
+    rw [h, hxm, E213.Tactic.NatHelper.zero_mod]
+  have h_dec := E213.Meta.Nat.AddMod213.div_add_mod (x.trunc (m + k + 1)) (p^m)
+  rw [h_mod, Nat.add_zero] at h_dec
+  exact h_dec.symm
+
+/-- **Precise multiplicative ultrametric**: `valEq x m → valEq y n →
+    ((x.digits m).val · (y.digits n).val) % p ≠ 0 →
+    valEq (x · y) (m + n)`.
+
+    For p prime the third hypothesis is automatic (product of two
+    nonzero mod-p values is nonzero).  For composite p, supplying
+    `h_prod_nz` encodes the necessary coprimeness. -/
+theorem Zp.valEq_mul (p : Nat) (hp : 1 < p) (x y : ZpSeq p) (m n : Nat)
+    (hx : Zp.valEq x m) (hy : Zp.valEq y n)
+    (h_prod_nz : ((x.digits m).val * (y.digits n).val) % p ≠ 0) :
+    Zp.valEq (Zp.mul p (Nat.lt_of_succ_lt hp) x y) (m + n) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have hpmn_pos : 0 < p^(m + n) := Nat.pos_pow_of_pos _ hp'
+  refine ⟨Zp.valAtLeast_mul p hp' x y m n hx.1 hy.1, ?_⟩
+  have h_xy_mn : (Zp.mul p hp' x y).trunc (m + n) = 0 :=
+    (Zp.valAtLeast_iff_trunc hp' _ (m + n)).mp
+      (Zp.valAtLeast_mul p hp' x y m n hx.1 hy.1)
+  have h_xm : x.trunc m = 0 := (Zp.valAtLeast_iff_trunc hp' x m).mp hx.1
+  have h_yn : y.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp' y n).mp hy.1
+  have h_xy_n1_form : (Zp.mul p hp' x y).trunc (m + n + 1)
+                    = ((Zp.mul p hp' x y).digits (m + n)).val * p^(m + n) := by
+    show (Zp.mul p hp' x y).trunc (m + n)
+         + ((Zp.mul p hp' x y).digits (m + n)).val * p^(m + n)
+       = ((Zp.mul p hp' x y).digits (m + n)).val * p^(m + n)
+    rw [h_xy_mn, Nat.zero_add]
+  have h_xy_n1_mul : (Zp.mul p hp' x y).trunc (m + n + 1)
+                  = (x.trunc (m + n + 1) * y.trunc (m + n + 1)) % p^(m + n + 1) :=
+    Zp.mul_trunc p hp' x y (m + n + 1)
+  have h_x_div : x.trunc (m + n + 1) = p^m * (x.trunc (m + n + 1) / p^m) :=
+    trunc_eq_pow_mul_div p hp' x m n h_xm
+  have h_y_div : y.trunc (m + n + 1) = p^n * (y.trunc (m + n + 1) / p^n) := by
+    have := trunc_eq_pow_mul_div p hp' y n m h_yn
+    rw [Nat.add_comm n m] at this
+    exact this
+  have h_A_mod : (x.trunc (m + n + 1) / p^m) % p = (x.digits m).val :=
+    trunc_div_pow_mod p hp' x m n h_xm
+  have h_B_mod : (y.trunc (m + n + 1) / p^n) % p = (y.digits n).val := by
+    have := trunc_div_pow_mod p hp' y n m h_yn
+    rw [Nat.add_comm n m] at this
+    exact this
+  rw [h_x_div, h_y_div] at h_xy_n1_mul
+  rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213 (p^m) _ (p^n) _,
+      pow_add_pure_norm p m n] at h_xy_n1_mul
+  rw [Nat.mul_comm (p^(m + n)) _] at h_xy_n1_mul
+  rw [mul_pow_succ_mod_gen ((x.trunc (m + n + 1) / p^m) *
+                              (y.trunc (m + n + 1) / p^n)) p (m + n) hp'] at h_xy_n1_mul
+  rw [h_xy_n1_form] at h_xy_n1_mul
+  have h_digit : ((Zp.mul p hp' x y).digits (m + n)).val
+               = ((x.trunc (m + n + 1) / p^m) * (y.trunc (m + n + 1) / p^n)) % p :=
+    E213.Tactic.NatHelper.mul_left_cancel_pos hpmn_pos
+      (by rw [Nat.mul_comm (p^(m + n)) _,
+              Nat.mul_comm (p^(m + n)) _]
+          exact h_xy_n1_mul)
+  rw [h_digit]
+  rw [E213.Meta.Nat.MulMod213.mul_mod_pure _ _ p, h_A_mod, h_B_mod]
+  exact h_prod_nz
+
 end E213.Lib.Math.Padic
