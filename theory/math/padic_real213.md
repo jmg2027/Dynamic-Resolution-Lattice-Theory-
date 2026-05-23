@@ -6,22 +6,33 @@
 
 **Real213-p-adic** is a 213-native, ∅-axiom construction of the
 p-adic integers `ℤ_p` and p-adic numbers `ℚ_p`.  The library is
-built on three layers:
+organised in eight modules:
 
-1. **Foundation** — `ZpSeq p` as an infinite digit sequence
-   `ℕ → Fin p`, with truncation `trunc : ℕ → ℕ` faithfully
-   embedding into `ℤ/p^n`.
-2. **Arithmetic** — `add`, `mul`, `neg` defined digit-by-digit
-   via carry FSMs; the central ring-quotient theorems
-   `add_trunc` and `mul_trunc` state that truncation is a ring
-   homomorphism `ZpSeq → ℤ/p^n`.
-3. **Inversion** — Hensel-lifted multiplicative inverse `invSeq`
-   for units; correctness `mul_invSeq_correct` proves
-   `x · invSeq n ≡ 1 (mod p^(n+1))` for all `n`.
-
-Above this sit the propositional p-adic valuation (`Norm`), the
-ℚ_p localization (`Field`), and the DRLT integration (5-adic lift
-of `N_U = 5^25`).
+- **Foundation** — `ZpSeq p` as an infinite digit sequence
+  `ℕ → Fin p`, with truncation `trunc : ℕ → ℕ` faithfully
+  embedding into `ℤ/p^n`.
+- **Arith** — `add`, `mul`, `neg` defined digit-by-digit via carry
+  FSMs; the central ring-quotient theorems `add_trunc`, `mul_trunc`
+  state that truncation is a ring homomorphism; full ring axioms
+  at trunc (commutativity, associativity, distributivity, additive
+  inverse `add_neg_self_trunc`).
+- **Pow** — natural-number power `Zp.pow x n` with homomorphism
+  properties at trunc; Fermat's little theorem at digit 0
+  (`pow_p_trunc_one`, requires p prime); `teichmuller_iter`.
+- **Norm** — propositional valuation `valEq` with full strong
+  ultrametric: additive `valEq_add_of_lt`, multiplicative
+  `valEq_mul`, and negation `valEq_neg`.
+- **Hensel** — both inverse and square root, each with existence
+  (`invFull`, `sqrtFull`) and uniqueness (`inv_trunc_unique`,
+  `sqr_unique_trunc`) at every trunc level.  Concrete instances:
+  `i_5 = √(-1) ∈ ℤ_5`, `i_13 ∈ ℤ_13`, `√2 ∈ ℤ_7`.
+- **Teichmüller** — Frobenius lift `y ≡ z (mod p^k) → y^p ≡ z^p
+  (mod p^(k+1))` (any `p ≥ 1`) and Cauchy convergence of the
+  iteration `x ↦ x^p`.
+- **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt.
+- **DRLT** — 5-adic lift of `N_U = 5^25` and its first-25-levels-zero
+  attestation, the structural bridge from the finite resolution
+  lattice.
 
 The library is ∅-axiom throughout: every theorem reports
 `#print axioms … → "does not depend on any axioms"`.  Mathlib's
@@ -209,52 +220,71 @@ extension only, is itself a research question.  See
 
 ## Key results
 
-| Theorem | Lean module | Statement |
-|---|---|---|
-| `Zp.trunc_lt_p_pow` | `Foundation` | `x.trunc n < p^n` |
-| `Zp.eq_mod_pn_iff_trunc` | `Foundation` | digit-wise agreement ↔ trunc-value agreement |
-| `Zp.add_trunc` | `Arith` | `(x + y).trunc n = (x.trunc n + y.trunc n) % p^n` |
-| `Zp.add_complement_digit` | `Arith` | every digit of `x + complement x` is `p − 1` |
-| `Zp.mul_trunc` | `Arith` | `(x · y).trunc n = (x.trunc n · y.trunc n) % p^n` |
-| `Zp.bilinSum_eq_mulSumRaw_plus_offDiag` | `Arith` | structural off-diagonal decomposition |
-| `Zp.valEq_unique` | `Norm` | p-adic valuation is unique |
-| `Zp.mul_invSeq_correct` | `Hensel` | `(x · invSeq n).trunc (n+1) = 1` (Hensel correctness) |
-| `Zp.invDigit0_eq` | `Hensel` | `(x.digits 0).val · invDigit0 ≡ 1 (mod p)` (Bezout base) |
-| `Zp.add_trunc_comm` | `Arith` | additive commutativity at trunc |
-| `Zp.mul_trunc_comm` | `Arith` | multiplicative commutativity at trunc |
-| `Zp.add_trunc_assoc` | `Arith` | additive associativity at trunc |
-| `Zp.mul_trunc_assoc` | `Arith` | multiplicative associativity at trunc |
-| `Zp.mul_add_trunc` / `Zp.add_mul_trunc` | `Arith` | distributivity at trunc |
-| `QpSeq.add_shift` | `Field` | shift of `a + b` is `max a.shift b.shift` |
-| `ZpSeq.digits_of_nat_trunc` | `Foundation` | `(digits_of_nat p hp m).trunc n = m % p^n` |
-| `canonical_5adic_NU_trunc_le_25` | `DRLT` | `∀ n ≤ 25, canonical_5adic_NU.trunc n = 0` (DRLT anchor) |
-| `Zp.invFull` + `mul_invFull_correct` | `Hensel` | full single-`ZpSeq` inverse, `x · x⁻¹ ≡ 1 (mod p^(n+1))` |
-| `Zp.sqrtSeq` + `sqr_sqrtSeq_correct` | `Hensel` | Hensel sqrt iteration, `(sqrtSeq n)² ≡ x (mod p^(n+1))` |
-| `Zp.sqrtFull` + `sqr_sqrtFull_correct` | `Hensel` | full single-`ZpSeq` sqrt |
-| `Zp.i_5` + `i_5_sq_trunc_one/two` | `Hensel` | `i₅ = √(-1) ∈ ℤ_5`, with explicit digits 2,1,2,1,... |
-| `Zp.valAtLeast_add` | `Norm` | additive ultrametric inequality |
-| `Zp.valAtLeast_mul` | `Norm` | multiplicative ultrametric `val(xy) = val(x) + val(y)` |
-| `Zp.valEq_add_of_lt` | `Norm` | strong additive: differing valuations → min dominates |
-| `QpSeq.inv` / `QpSeq.div` | `Field` | inverse and division on ℚ_p |
-| `QpSeq.sqrt` + `sqr_sqrt_num_correct` | `Field` | ℚ_p sqrt (even-shift only — `√p ∉ ℚ_p`) |
-| `Zp.pow` + `pow_trunc` | `Pow` | natural-number power with trunc compatibility |
-| `Zp.pow_add_trunc`, `Zp.pow_mul_trunc` | `Pow` | pow is a ring homomorphism at trunc |
-| `Zp.pow_p_trunc_one` | `Pow` | Fermat at digit-0: `x^p ≡ x (mod p)` |
-| `Zp.pow_p_minus_one_trunc_one` | `Pow` | Fermat: `x^(p-1) ≡ 1 (mod p)` for x unit |
-| `Zp.teichmuller_iter` + invariant | `Pow` | iterate `x ↦ x^p`; digit-0 preserved mod p |
-| `Zp.valAtLeast_pow` | `Pow` | `val(x^k) ≥ k · val(x)` (pow scales valuation) |
-| `Zp.add_neg_self_trunc` | `Arith` | `(x + (-x)).trunc (n+1) = 0` — additive inverse |
-| `Zp.sub_eq_zero_of_trunc_eq` / converse | `Arith` | `(a + (-b)).trunc = 0 ↔ a.trunc = b.trunc` |
-| `Zp.inv_trunc_unique` | `Hensel` | Hensel inverse uniqueness |
-| `Zp.mul_left_cancel_trunc` / right | `Hensel` | unit-mul cancellation at trunc |
-| `Zp.mul_eq_zero_of_unit_left` | `Hensel` | unit times zero gives zero |
-| `Zp.sqr_unique_trunc` | `Hensel` | Hensel sqrt uniqueness (matching digit 0) |
-| `Zp.sqrtFull_eq_of_sqr` | `Hensel` | sqrtFull is THE Hensel sqrt |
-| `Zp.valAtLeast_neg` | `Norm` | `val(-x) ≥ val(x)` — negation preserves valuation |
-| `Zp.valEq_neg` | `Norm` | `val(-x) = val(x)` (precise) |
-| `Zp.valEq_mul` | `Norm` | `val(xy) = val(x) + val(y)` (precise mul ultrametric) |
-| `Zp.frobenius_lift` | `Teichmuller` | `y ≡ z mod p^k, k ≥ 1 → y^p ≡ z^p mod p^(k+1)` |
-| `Zp.teichmuller_iter_cauchy` | `Teichmuller` | iter is Cauchy: `iter x (n+1) ≡ iter x n mod p^(n+1)` |
+Grouped by module.
+
+**Foundation**
+| Theorem | Statement |
+|---|---|
+| `Zp.trunc_lt_p_pow` | `x.trunc n < p^n` |
+| `Zp.eq_mod_pn_iff_trunc` | digit-wise agreement ↔ trunc-value agreement |
+| `ZpSeq.digits_of_nat_trunc` | `(digits_of_nat p hp m).trunc n = m % p^n` |
+
+**Arith** (ring axioms at trunc level)
+| Theorem | Statement |
+|---|---|
+| `Zp.add_trunc`, `Zp.mul_trunc` | trunc is a ring homomorphism `ZpSeq → ℤ/p^n` |
+| `Zp.bilinSum_eq_mulSumRaw_plus_offDiag` | off-diagonal decomposition (`mul_trunc` engine) |
+| `Zp.add_trunc_comm` / `assoc`, `mul_trunc_comm` / `assoc` | commutative ring axioms at trunc |
+| `Zp.mul_add_trunc` / `add_mul_trunc` | distributivity |
+| `Zp.add_neg_self_trunc` | additive inverse axiom |
+| `Zp.sub_eq_zero_of_trunc_eq` / converse | biconditional difference-is-zero |
+
+**Pow**
+| Theorem | Statement |
+|---|---|
+| `Zp.pow_trunc` | `(x^n).trunc m = (x.trunc m)^n % p^m` |
+| `Zp.pow_add_trunc`, `Zp.pow_mul_trunc` | exponent + base homomorphism |
+| `Zp.pow_p_trunc_one` | Fermat: `x^p ≡ x (mod p)` (p prime) |
+| `Zp.pow_p_minus_one_trunc_one` | Fermat: `x^(p−1) ≡ 1 (mod p)` for x a unit |
+| `Zp.teichmuller_iter` + digit-0 invariant | iterate `x ↦ x^p` |
+| `Zp.valAtLeast_pow` | `val(x^k) ≥ k · val(x)` |
+
+**Norm**
+| Theorem | Statement |
+|---|---|
+| `Zp.valEq_unique` | p-adic valuation is unique |
+| `Zp.valAtLeast_add`, `valEq_add_of_lt` | additive ultrametric (≥ and strong forms) |
+| `Zp.valAtLeast_mul`, `valEq_mul` | multiplicative ultrametric `val(xy) = val(x) + val(y)` |
+| `Zp.valAtLeast_neg`, `valEq_neg` | negation preserves valuation |
+
+**Hensel** — inverse + sqrt with existence + uniqueness
+| Theorem | Statement |
+|---|---|
+| `Zp.invDigit0_eq` | digit-0 inverse via Bezout |
+| `Zp.mul_invFull_correct` | `x · invFull x ≡ 1 (mod p^(n+1))` (existence) |
+| `Zp.inv_trunc_unique` | inverse uniqueness at trunc |
+| `Zp.mul_left_cancel_trunc` / right, `mul_eq_zero_of_unit_left` | unit cancellation laws |
+| `Zp.sqr_sqrtFull_correct` | `(sqrtFull x sb)² ≡ x (mod p^(n+1))` (existence) |
+| `Zp.sqr_unique_trunc`, `sqrtFull_eq_of_sqr` | sqrt uniqueness, `sqrtFull` is THE sqrt |
+| `Zp.i_5`, `Zp.i_13`, `Zp.sqrt_two_7` | concrete p-adic algebraic numbers |
+
+**Teichmuller**
+| Theorem | Statement |
+|---|---|
+| `Zp.frobenius_lift` | `y ≡ z mod p^k, k ≥ 1 → y^p ≡ z^p mod p^(k+1)` (any `p ≥ 1`) |
+| `Zp.teichmuller_iter_cauchy` | `iter x (n+1) ≡ iter x n (mod p^(n+1))` |
+
+**Field** (ℚ_p)
+| Theorem | Statement |
+|---|---|
+| `QpSeq.{add,sub,mul,neg}` | basic arithmetic |
+| `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division |
+| `QpSeq.sqrt` + `sqr_sqrt_num_correct` | sqrt (even-shift only — `√p ∉ ℚ_p`) |
+
+**DRLT**
+| Theorem | Statement |
+|---|---|
+| `canonical_5adic_NU_trunc_le_25` | DRLT anchor: `5^25` lifts to ℤ_5 with first 25 levels zero |
 
 ## Hensel infrastructure
 
