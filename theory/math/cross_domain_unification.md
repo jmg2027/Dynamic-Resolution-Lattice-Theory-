@@ -146,7 +146,29 @@ remains open.
 
 C6 closure makes 213-Algebra "internally coherent" in the sense
 that all 9 domains use the same graded ring.  Beyond this:
-- Extending paradigm to **physics-side domains** (currently only math)
+
+### Physics-side paradigm closure — `ParadigmDomainPhysics.lean` (14 PURE)
+
+`Lib/Math/ParadigmDomainPhysics.lean` extends the 9-math-paradigm
+bundle to 6 physics-side instances:
+
+  · `AlphaEM_paradigm` — α_em precision-derivation
+  · `AtomicMass_paradigm` — m_μ/m_e, m_p, m_W, m_Z
+  · `CKMMixing_paradigm` — Cabibbo + CKM δ + Jarlskog
+  · `NeutrinoMixing_paradigm` — PMNS mixing
+  · `Couplings_paradigm` — α_s / running couplings
+  · `Geometrization_paradigm` — Ricci flow / Poincaré
+
+All 6 physics instances carry the same `(truncation_grade,
+truncation_holds, atom_decidable) = (5, true, true)` as the math
+side.  `physics_paradigm_closure_capstone` bundles cardinality +
+uniform grade + holds + decide.  `joint_math_physics_uniform`
+witnesses all 15 paradigms (9 math + 6 physics) agreeing at the
+`d = 5` atomic constant.
+
+Reading: the paradigm framework is uniform across the math-physics
+boundary; both sides instantiate the SAME `(d=5, atom, decide)`
+shape — no special physics-side typeclass needed.
 
 ### Graded ring ↔ N_U bridge — `GradedRingNUBridge.lean` (16 PURE)
 
