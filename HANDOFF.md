@@ -100,7 +100,7 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 296 PURE / 0 DIRTY across 7 modules.**
+**Padic total: 299 PURE / 0 DIRTY across 7 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
@@ -163,6 +163,17 @@ Currently still open:
     then `v.trunc = 0`.
   · `Zp.sub_eq_zero_of_trunc_eq` + `Zp.trunc_eq_of_sub_eq_zero`:
     biconditional `(a + (-b)).trunc = 0 ↔ a.trunc = b.trunc`.
+
+**Hensel sqrt uniqueness (this stretch)**:
+  · `Zp.sqr_unique_trunc`: parallel to inv uniqueness — if `y, z`
+    both square to `x` with matching digit 0, they agree at trunc.
+    Inductive proof: lower via `trunc_succ_mod_K`, then digit-by-digit
+    via `sqrt_unique_digit_step` (binomial expansion + `add_left_cancel_mod`
+    + `2·d_0·two_d_0_inv ≡ 1` cancellation).
+  · `Zp.sqrtFull_eq_of_sqr`: `sqrtFull` is THE Hensel sqrt with
+    matching digit 0.
+
+**Negation preserves valuation**: `Zp.valAtLeast_neg`.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary

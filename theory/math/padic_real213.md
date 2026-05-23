@@ -246,6 +246,9 @@ extension only, is itself a research question.  See
 | `Zp.inv_trunc_unique` | `Hensel` | Hensel inverse uniqueness |
 | `Zp.mul_left_cancel_trunc` / right | `Hensel` | unit-mul cancellation at trunc |
 | `Zp.mul_eq_zero_of_unit_left` | `Hensel` | unit times zero gives zero |
+| `Zp.sqr_unique_trunc` | `Hensel` | Hensel sqrt uniqueness (matching digit 0) |
+| `Zp.sqrtFull_eq_of_sqr` | `Hensel` | sqrtFull is THE Hensel sqrt |
+| `Zp.valAtLeast_neg` | `Norm` | `val(-x) ≥ val(x)` — negation preserves valuation |
 
 ## Hensel infrastructure
 
@@ -327,11 +330,11 @@ statement defining roots of unity.
   `(teichmuller_iter x (n+1)).trunc (n+1) = (teichmuller_iter x n).trunc (n+1)`
   for `n ≥ 1`.  Requires the Frobenius lift binomial-mod argument
   `(a + p^k · b)^p ≡ a^p (mod p^(k+1))`.
-- **Hensel sqrt uniqueness**: if `y² ≡ z² ≡ x (mod p^(n+1))` and
-  `y.digits 0 = z.digits 0`, prove `y.trunc = z.trunc`.  Cancellation
-  via `(y+z)` is a unit (`2·sb.d_0` invertible from SqrtBase); the
-  algebraic factoring `(y² - z²) = (y+z)(y-z)` at trunc level needs
-  distributivity + commutativity + neg manipulation.
+- **Hensel sqrt uniqueness** — CLOSED via `Zp.sqr_unique_trunc`.
+  Inductive proof using digit-by-digit comparison via the abstract
+  `sqrt_unique_digit_step`: binomial expansion of `y²` and `z²`
+  mod `p^(n+2)` reduces to `dy = dz` after cancelling `a²` and
+  applying the `2·d_0·two_d_0_inv ≡ 1` (mod p) identity.
 - **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
   closes `n ≤ 25`.  Beyond, `5^25 % 5^n = 5^25 - q · 5^n` for the
   appropriate quotient.  Whether this regime is operationally
