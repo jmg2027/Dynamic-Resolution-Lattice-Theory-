@@ -3,10 +3,10 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-10 (part 1) closed;
-**32 closures totaling 354 PURE new** (2 closures deferred:
-CupAW (5,1,2) with full meta analysis, Pisano mod 11 for
-Padovan/Tribonacci).
+open-frontier marathon (G139).  Phases 1-10 closed;
+**33 closures totaling 360 PURE new**.  CupAW (5,1,2) per-basis
+breakthrough via meta-insight; full universal lift deferred for
+bilinearity template.  Pisano mod 11 partial (4 of 6 sisters).
 
 ## G139 phase-by-phase
 
@@ -22,6 +22,7 @@ Padovan/Tribonacci).
 | 8 | W | 12 | HC²¹³ variant automation — Δ³ + Δ⁵ + grid capstone (2^n atomic generators across Δⁿ) |
 | 9 | X, Y, Z, AA | 61 | HC²¹³ Δ⁶/Δ⁷ + Pisano mod-7 column + Sq² chain-level + multi-cell H⁵ ≠ 0 |
 | 10 (part 1) | CC, DD, EE, FF, GG | 24 | HC²¹³ Δ⁸ + Pisano mod-11 short periods (Fib/Lucas/Jac/Nara) |
+| 10 (part 2) | II | 6 | CupAW (5,1,2) per-basis BREAKTHROUGH via meta-insight (5 per-basis decides) |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -151,9 +152,10 @@ DEFERRED: CupAW Leibniz (5, 1, 2) — pattern decide OOM at
 800M heartbeats (32 × 1024 × 10 = 327k evals).  Closure needs
 pattern-splitting strategy.
 
-## CupAW (5, 1, 2) — meta analysis of OOM (Phase 10 deferral)
+## CupAW (5, 1, 2) — meta analysis + breakthrough
 
-Four decide-based strategies failed:
+**Phase 10 OOM survey** (4 strategies all failed at full
+∀-pattern decide):
   1. Naive pattern decide @ 800M heartbeats: OOM
   2. β-cases 5-bit cascade: OOM
   3. β-cases 2-bit cascade @ 1.6B heartbeats: OOM
@@ -161,17 +163,21 @@ Four decide-based strategies failed:
      before completion.
 
 Root cause: per-eval symbolic `cupAW 5 1 2` term is heavier
-than `cupAW 5 1 1` due to the doubling of the second-argument
-cochain dimension (Cochain 5 2 has 10 indices vs Cochain 5 1's
-5).  Even ~320 evals per leaf (10-bit cascade) blows up the
-kernel proof term.
+than `cupAW 5 1 1` (second-argument cochain dim 10 vs 5).
+Even ~320 evals per leaf blow up the kernel proof term.
 
-Phase 11+ closure path: **bilinearity decomposition** via
-`cupAW_add_left/cupAW_add_right` + `delta_add` + per-basis-pair
-small decides.  5 × 10 = 50 basis pairs, each trivially decided;
-algebraic chain combines into the universal (α, β) result.
-Requires a (5, 1, b)-side decomposition template (sister to
-existing `LeibnizAlgLiftBeta` for (5, 2, b)).
+**★ META BREAKTHROUGH** (Phase 10 part 2): fix α to a basis
+indicator (Cochain 5 1 with one non-zero entry) — the cupAW
+expansion simplifies and per-eval cost drops to (5, 1, 1) scope.
+Each per-basis decide fits at maxHeartbeats 200M.
+
+Shipped at `CupAW/Leibniz5_1_2_BasisDecomp.lean`: 5 per-basis
+Leibniz facts at α ∈ {e_0..e_4} + a 2-conjunct capstone (6 PURE).
+
+**Full universal lift** (Phase 11+ candidate): bilinearity
+chain via `cupAW_add_left` + `delta_cupAW_add_left` over the
+α-decomposition (`α = ⊕_k bz5_1 α k`).  Sister template to
+`LeibnizAlgLift21`.
 
 ## Phase 11 candidates (next session)
 

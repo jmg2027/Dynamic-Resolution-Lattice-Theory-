@@ -280,20 +280,17 @@ all π(11) = 10.
   *  **G139-HH Pisano mod-11 long periods**: Padovan (π = 120)
      and Tribonacci (π = 110) deferred (base verifications at
      indices 120-122 / 110-112 + 3-step recurrence cost).
-  *  **G139-BB CupAW (5, 1, 2)** — DEFERRED.  Four meta
-     strategies tried, all OOM:
-       1. Naive pattern decide (maxHeartbeats 800M): OOM
-       2. β-cases 5-bit cascade + revert: OOM
-       3. β-cases 2-bit cascade (maxHeartbeats 1.6B): OOM
-       4. β-cases 10-bit cascade (maxHeartbeats 8B): consumed
-          6 GB RAM at the Lean process; killed before completion.
-     Root cause: per-eval symbolic `cupAW 5 1 2` term is heavier
-     than `cupAW 5 1 1` — the second-argument cochain dimension
-     doubles (10 vs 5) and the AW unfolding grows
-     multiplicatively.  Viable Phase 11+ closure: bilinearity
-     decomposition via `cupAW_add_left/cupAW_add_right` +
-     `delta_add` — 5 × 10 = 50 per-basis-pair Leibniz decides
-     (each trivial), then algebraic chain via bilinearity.
+  *  **G139-BB CupAW (5, 1, 2) full universal** — DEFERRED for
+     bilinearity-lift template (sister to LeibnizAlgLift21).
+     Four full-pattern decide strategies all OOM'd; see Phase
+     10 meta analysis below.
+ 33. **G139-II CupAW (5, 1, 2) per-basis breakthrough** — CLOSED
+     (`Lib/Math/Cohomology/CupAW/Leibniz5_1_2_BasisDecomp.lean`,
+     6 PURE).  ★ META INSIGHT: fixing α to a basis indicator
+     simplifies cupAW expansion enough to fit decide budget.
+     Five per-basis Leibniz facts at α ∈ {e_0..e_4} + capstone.
+     Each per-basis decide is 1024 × 10 = 10 240 evals at
+     maxHeartbeats 200M — same scope as (5, 1, 1).
 
 ## Phase 11 (next session candidates)
 
