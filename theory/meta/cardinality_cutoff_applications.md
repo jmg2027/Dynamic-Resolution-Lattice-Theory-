@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 191 PURE / 0 DIRTY across six Lean files in
+Aggregate: 249 PURE / 0 DIRTY across nine Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
@@ -108,10 +108,13 @@ by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 **Open frontier**: outer = ^ case via algebraic prime-factorisation
 argument (137, 521 prime + not in depth-1 → not in depth-2-pow).
 
-## §5 Direction C — Pell sequence cut-off
+## §5 Direction C — Pell and Lucas sequence cut-offs
 
-Applies the principle to a **non-Aurifeuillean** external sequence:
-Pell numbers `P_n` with `P_{n+2} = 2P_{n+1} + P_n`.
+Applies the principle to **two non-Aurifeuillean** external
+sequences: Pell numbers (`P_{n+2} = 2P_{n+1} + P_n`) and Lucas
+numbers (`L_{n+2} = L_{n+1} + L_n`).
+
+### Pell
 
 | n | P_n |
 |---|---:|
@@ -121,26 +124,51 @@ Pell numbers `P_n` with `P_{n+2} = 2P_{n+1} + P_n`.
 | 19 | 6 625 109 |
 | 20 | 15 994 428 |
 
-**Pell–Aurifeuillean coincidence**: `P_5 = 29 = L_1`.  Two
-a-priori-unrelated external sequences both meet the Aurifeuillean
-L-coefficient at small index.  29 has three Hunter readings
-(NT^d − NS, d² + NT², d² + d − 1) — a triple-encoded constant in
-the catalogue.
+Cut-off slices:
+  · Depth 1 (`M_1 = 3125`): `n ≥ 11` (boundary `P_10, P_11`).
+  · Restricted depth 2 (`M_{2,r} = 9 765 625`): `n ≥ 20`.
 
-**Cut-off slices**:
+213-internal motivation: Pell connects to the dyadic FSM /
+Pisano period analysis (`theory/math/dyadic_fsm.md`).
 
-  · Depth 1 (M_1 = 3125): P_n ∉ H_1 for n ≥ 11 (sharp boundary:
-    P_10 = 2378 < 3125 < 5741 = P_11).
-  · Restricted depth 2 (M_{2,r} = 9 765 625): P_n ∉ H_{2,r} for
-    n ≥ 20 (boundary: P_19 < M_{2,r} < P_20).
+### Lucas
 
-**213-internal motivation**: Pell connects to the dyadic FSM /
-Pisano period analysis (`theory/math/dyadic_fsm.md`), making this
-a natural 213-internal test case rather than an arbitrary external
-choice.
+| n  | L_n  | catalogue role             |
+|----|------|----------------------------|
+| 0  | 2    | NT (generator)             |
+| 2  | 3    | NS (generator)             |
+| 4  | 7    | catalogue prime            |
+| 7  | 29   | catalogue                  |
+| 13 | 521  | catalogue prime, `Φ_10(5)` |
 
-**Lean**: `PellCutoff.lean` (35 PURE).  Recurrence-defined `Pell : Nat → Nat`
-+ 21 explicit values + cut-off applications.
+Lucas hits the catalogue at **five** indices, more than any other
+external sequence considered.
+
+Cut-off slices:
+  · Depth 1: `n ≥ 17` (boundary `L_16 = 2207, L_17 = 3571`).
+  · Restricted depth 2: `n ≥ 34` (boundary `L_33 = 7 881 196,
+    L_34 = 12 752 043`).
+
+### Triple-sequence coincidence at 29
+
+★ **`Pell P_5 = Lucas L_7 = Aurifeuillean L_1 = 29`**.
+
+Three external sequences agree on the smallest depth-2 catalogue
+atom.  `29` has three Hunter readings:
+  · `NT^d − NS = 2^5 − 3 = 29`
+  · `d² + NT² = 25 + 4 = 29`
+  · `d² + d − 1 = 25 + 5 − 1 = 29`
+
+The triple-agreement is the principle's "locate" step
+instantiated simultaneously across all three sequences at the
+same catalogue atom.
+
+### Lucas–Aurifeuillean coincidence at 521
+
+★ **`Lucas L_13 = Φ_10(5) = 521`** (catalogue handle of
+`N_U + 1 = 5^(5^n) + 1`, n-uniform).
+
+**Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE).
 
 ## §6 Direction E — Hunter complexity measure
 
@@ -207,21 +235,30 @@ the cut-off slice moves with the set.
 
 ## §8 Cross-cutting structural findings
 
-  1. **Two external sequences coincide at the smallest index**:
-     `P_5 = L_1 = 29`.  29 is triple-encoded in the Hunter
-     catalogue (`d² + NT² = NT^d − NS = d² + d − 1`).  The
-     coincidence is the principle's "locate" step instantiated
-     across two unrelated sequences.
+  1. **Triple-sequence coincidence at the catalogue atom 29**:
+     `Pell P_5 = Lucas L_7 = Aurifeuillean L_1 = 29`.  29 is
+     triple-encoded in the Hunter catalogue
+     (`d² + NT² = NT^d − NS = d² + d − 1`).  The coincidence is
+     the principle's "locate" step instantiated simultaneously
+     across three a-priori-unrelated external sequences.
 
-  2. **Catalogue carries an FLT sub-closure**: under mod-p ops,
+  2. **Lucas–Aurifeuillean coincidence at 521**: Lucas `L_13` hits
+     the Aurifeuillean cyclotomic value `Φ_10(5) = 521`, the
+     catalogue handle of `N_U + 1`.  Lucas hits the catalogue at
+     5 indices, more than any other external sequence considered.
+
+  3. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.
      28 pairs.  No general closure beyond this.
 
-  3. **Hunter complexity is honest at 4 levels** for catalogue
+  4. **Hunter complexity is honest at 4 levels** for catalogue
      atoms, with concrete witnesses at each level.  Depth-1
-     universe has exactly 16 distinct values.
+     universe has exactly 16 distinct values.  The unrestricted
+     depth-2 outer-pow case for `{137, 521}` is closed via
+     small-range decide + large-range monotonicity, promoting
+     the depth-3 lower bound from restricted to unrestricted.
 
-  4. **Principle parametric in primitive set**: changing the
+  5. **Principle parametric in primitive set**: changing the
      primitive generators preserves methodology but shifts the
      complexity assignment of catalogue atoms (most dramatically:
      `5` moves from depth 0 to depth 1 when `d` is dropped).
@@ -291,7 +328,9 @@ upper bound (= 3) follows from the explicit depth-3 witnesses
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanDepth2PowCutoff.lean`
     — Direction A unrestricted, outer-pow case (18 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/PellCutoff.lean`
-    — Direction C (35 PURE).
+    — Direction C, Pell sequence (35 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/LucasCutoff.lean`
+    — Direction C, Lucas sequence + triple coincidence (40 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (39 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
