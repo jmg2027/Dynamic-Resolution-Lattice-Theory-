@@ -386,6 +386,29 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     validation standard.  Out of scope for the cohomology
     layer; logged here as the principal downstream physics
     problem.
+  · **Pisano-analogue grid across sister sequences** — **CLOSED**.
+    Six Direction C sister sequences with parametric mod-{2, 3, 5}
+    Pisano-analogue closures (18 parametric theorems):
+
+    | Sequence  | π(2)       | π(3) | π(5) |
+    |-----------|------------|------|------|
+    | Fibonacci |   3        |   8  |  20  |
+    | Lucas     |   3        |   8  |   4  |
+    | Padovan   |   7        |  13  |  24  |
+    | Tribonacci|   4        |  13  |  31  |
+    | Narayana  |   7        |   8  |  31  |
+    | Jacobsthal| constant 1 |   6  |   4  |
+
+    Common technique: nested induction over the recurrence
+    order + `add_mod_gen` for sum reduction + `mul_mod_right_pure`
+    for multiplicative coefficients (Jacobsthal `2 J_n`).
+    Period-coincidence twins: Fib ↔ Lucas (shared recurrence
+    matches all periods); Padovan ↔ Narayana share π(2) = 7;
+    Lucas ↔ Jacobsthal share π(5) = 4 via different structural
+    origins; Tribonacci ↔ Narayana share π(5) = 31.  Jacobsthal
+    mod 2 uniquely collapses to constant (rather than nontrivial
+    periodic) due to the `2 J_n` term.
+
   · **General eventual-periodicity statement** at arbitrary
     coprime `(d, p)` — **CLOSED**.
     `EventualPeriodicity.lean` ships the universal form

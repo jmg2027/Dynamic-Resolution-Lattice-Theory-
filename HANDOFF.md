@@ -3,8 +3,8 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-6 closed;
-**20 closures totaling 242 PURE new**.
+open-frontier marathon (G139).  Phases 1-7 closed;
+**22 closures totaling 257 PURE new**.
 
 ## G139 phase-by-phase
 
@@ -16,6 +16,7 @@ open-frontier marathon (G139).  Phases 1-6 closed;
 | 4 | K | 11 | ∀-coprime eventual periodicity universal form |
 | 5 | L, M, N, O, P | 35 | LucasModular new; mod-3 parametric across 5 sister sequences |
 | 6 | Q, R, S, T | 29 | JacobsthalModular new; mod-5 parametric across Fib/Lucas/Pad |
+| 7 | U, V | 15 | Nara/Trib mod-5 period 31 — grid complete across 6 × 3 = 18 parametric closures |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -51,16 +52,29 @@ of the prior `Pad_24_eq_Pad_0_mod_5` decide-spot-check.
 `Fib_mod_5_period_20` parametric — classical Pisano period
 `π(5) = 20`.
 
-## Pisano-analogue closure grid (six sister sequences)
+## Pisano-analogue closure GRID COMPLETE (six sisters × three primes)
 
 | Sequence  | Recurrence | π(2) | π(3) | π(5) |
 |-----------|------------|------|------|------|
 | Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 |
 | Lucas     | same, init `(2, 1)` | 3 | 8 | 4 |
 | Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 |
-| Tribonacci | sum of 3 prev | 4 | 13 | (31, deferred) |
-| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | (long, deferred) |
+| Tribonacci | sum of 3 prev | 4 | 13 | 31 |
+| Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 |
 | Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 |
+
+**18 parametric Pisano-analogue closures** — strict ∅-axiom.
+
+**Period-coincidence twin pairs**:
+  · Fib ↔ Lucas: all three periods coincide (shared recurrence).
+  · Padovan ↔ Narayana: π(2) = 7 coincide; diverge at higher
+    moduli (one-shift recurrence separates).
+  · Lucas ↔ Jacobsthal: π(5) = 4 coincide via different
+    structural origins (Lucas inherits from Fib; Jacobsthal
+    from closed-form `(2^n − (−1)^n)/3` collapse).
+  · Tribonacci ↔ Narayana: π(5) = 31 — new twin from Phase 7.
+  · Jacobsthal mod 2 uniquely structurally distinguished:
+    eventually-constant (not periodic) due to the `2 J_n` term.
 
 **Structural observations**:
   · Jacobsthal mod 2 is structurally distinguished: collapses to
@@ -95,10 +109,8 @@ inverse needed.
 `(n, k, l) ∈ {(3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
 (5,1,1), (5,2,1), (5,2,2)}`.
 
-## Phase 7 candidates (next session)
+## Phase 8 candidates (next session)
 
-  · **Tribonacci mod 5 period 31** / Narayana mod 5 (longer
-    base verifications).
   · **CupAW Leibniz** at (5, 1, 2) — pattern decide at heart-
     beat threshold; (3, 1, 2) likely vacuous.
   · **K_{3,2} higher Steenrod**: `Sq^3`, `Sq^4` vacuous formal
@@ -107,8 +119,11 @@ inverse needed.
     H⁵ (simple pyramid collapses).
   · **HC²¹³ variant automation** — extend the 31-capstone
     Hodge stack.
+  · **Pisano-analogue mod-7 column** — longer periods, larger
+    base verifications.  Would complete the {2, 3, 5, 7}
+    small-prime tetrad.
 
-## Phase 8+ (deferred)
+## Phase 9+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).

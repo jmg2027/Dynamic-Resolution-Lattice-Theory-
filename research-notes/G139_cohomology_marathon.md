@@ -185,10 +185,31 @@ Pisano-analogue grid across six sister sequences:
 (⊘ = deferred — periods too long for clean parametric proofs in
 this phase.)
 
-## Phase 7 (next session candidates)
+## Phase 7 — CLOSED (2 closures, 15 PURE new)
 
-  · Tribonacci mod 5 period 31 / Narayana mod 5 (longer base
-    verifications required).
+ 21. **G139-U NarayanaModular extension mod 5** — CLOSED (+7 PURE).
+     `Nara_mod_5_period_31` parametric.  3-step one-shift
+     recurrence template.
+ 22. **G139-V TribonacciModular extension mod 5** — CLOSED (+8 PURE).
+     `Trib_mod_5_period_31` parametric.  3-step full-sum
+     recurrence with triple-`add_mod_gen` modular reduction.
+
+★ **STRUCTURAL TWIN**: Narayana and Tribonacci share π(5) = 31
+despite having different recurrences.
+
+Pisano-analogue grid COMPLETE — 18 parametric theorems
+(3 primes × 6 sister sequences):
+
+| Sequence  | π(2)       | π(3) | π(5) |
+|-----------|------------|------|------|
+| Fibonacci |   3        |   8  |  20  |
+| Lucas     |   3        |   8  |   4  |
+| Padovan   |   7        |  13  |  24  |
+| Tribonacci|   4        |  13  |  31  |
+| Narayana  |   7        |   8  |  31  |
+| Jacobsthal| constant 1 |   6  |   4  |
+
+## Phase 8 (next session candidates)
 
   · CupAW Leibniz (5, 1, 2) — pattern decide may be at the
     heart-beat threshold; (3, 1, 2) likely vacuous.
@@ -198,8 +219,10 @@ this phase.)
     non-vacuous H⁵.
   · HC²¹³ variant automation — extending the 31-capstone Hodge
     stack.
+  · Pisano-analogue mod-7 column (longer periods; period × 6
+    sisters = ~60-200 parametric base verifications).
 
-## Phase 8+ (deferred)
+## Phase 9+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
