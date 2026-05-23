@@ -658,6 +658,56 @@ theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
   rw [Zp.mul_trunc, Zp.invFull_trunc_succ, ← Zp.mul_trunc]
   exact Zp.mul_invSeq_correct p hp x h_gcd n
 
+/-- **Hensel uniqueness**: any two trunc-level inverses of `x` agree.
+    If `(x · y).trunc (n+1) = 1` and `(x · z).trunc (n+1) = 1`, then
+    `y.trunc (n+1) = z.trunc (n+1)`.
+
+    Proof: both `y` and `z` truncate to `(invFull x).trunc (n+1)`
+    (using mul_trunc_comm/assoc + mul_invFull_correct + mul_one_left). -/
+theorem Zp.inv_trunc_unique (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (x.digits 0).val p).1 = 1) (n : Nat)
+    (hy : (Zp.mul p (Nat.lt_of_succ_lt hp) x y).trunc (n + 1) = 1)
+    (hz : (Zp.mul p (Nat.lt_of_succ_lt hp) x z).trunc (n + 1) = 1) :
+    y.trunc (n + 1) = z.trunc (n + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  let inv := Zp.invFull p hp' x h_gcd
+  -- Key: w.trunc (n+1) = (inv · (x · w)).trunc (n+1) via x · inv = 1.
+  -- (inv · (x · w)).trunc = (inv.trunc · (x · w).trunc) % p^(n+1)
+  --                      = (inv.trunc · 1) % p^(n+1)
+  --                      = inv.trunc (since inv.trunc < p^(n+1)).
+  have h_inv_lt : inv.trunc (n + 1) < p^(n + 1) := ZpSeq.trunc_lt_p_pow hp' _ (n + 1)
+  have h_target : ∀ w, (Zp.mul p hp' x w).trunc (n + 1) = 1
+                  → w.trunc (n + 1) = inv.trunc (n + 1) := by
+    intro w hw
+    -- w.trunc = ((inv · x) · w).trunc by mul_one_left
+    -- (inv · x).trunc = (x · inv).trunc = 1 by mul_trunc_comm + mul_invFull_correct
+    -- So ((inv · x) · w).trunc = (1 · w).trunc... no, we need to use trunc-level.
+    -- Cleaner: directly compute (Zp.mul inv (Zp.mul x w)).trunc.
+    have h_step1 : (Zp.mul p hp' inv (Zp.mul p hp' x w)).trunc (n + 1)
+                  = inv.trunc (n + 1) := by
+      rw [Zp.mul_trunc p hp' inv (Zp.mul p hp' x w) (n + 1)]
+      rw [hw, Nat.mul_one]
+      exact Nat.mod_eq_of_lt h_inv_lt
+    -- Also (Zp.mul inv (Zp.mul x w)).trunc = (Zp.mul (Zp.mul inv x) w).trunc
+    have h_step2 : (Zp.mul p hp' inv (Zp.mul p hp' x w)).trunc (n + 1)
+                  = (Zp.mul p hp' (Zp.mul p hp' inv x) w).trunc (n + 1) :=
+      Zp.mul_trunc_assoc p hp' inv x w (n + 1)
+    -- (Zp.mul (Zp.mul inv x) w).trunc = ((inv · x).trunc · w.trunc) % p^(n+1)
+    --                                 = (1 · w.trunc) % p^(n+1)  [since (inv · x).trunc = 1]
+    --                                 = w.trunc (since w.trunc < p^(n+1)).
+    have h_inv_x : (Zp.mul p hp' inv x).trunc (n + 1) = 1 := by
+      rw [Zp.mul_trunc_comm p hp' inv x (n + 1)]
+      exact Zp.mul_invFull_correct p hp x h_gcd n
+    have h_w_lt : w.trunc (n + 1) < p^(n + 1) := ZpSeq.trunc_lt_p_pow hp' _ (n + 1)
+    have h_step3 : (Zp.mul p hp' (Zp.mul p hp' inv x) w).trunc (n + 1)
+                  = w.trunc (n + 1) := by
+      rw [Zp.mul_trunc p hp' (Zp.mul p hp' inv x) w (n + 1), h_inv_x, Nat.one_mul]
+      exact Nat.mod_eq_of_lt h_w_lt
+    -- Combine.
+    rw [← h_step3, ← h_step2, h_step1]
+  exact (h_target y hy).trans (h_target z hz).symm
+
 /-! ## Hensel for square root — base data
 
 Square-root extraction in `ZpSeq` follows the same Hensel-lift
