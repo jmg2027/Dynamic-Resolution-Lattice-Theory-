@@ -32,6 +32,43 @@ to avoid collision.
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
 | **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
 
+## G133 Hunter ⇔ Aurifeuillean cut-off marathon — depth-1 asymptotic CLOSED
+
+Continuation of the G125 / PR #98 bounded cut-off result.  Attempts
+the full conjecture "∀ Aurifeuillean m ≥ 3, ∀ Hunter depth k,
+L_m ∉ HunterValues_k" and delivers its honest refined version.
+
+**Diagnosis** (Phase 4a): the literal ∀-depth cut-off is FALSE.
+Frobenius (Chicken McNugget) gives `850554441 = 2·425277219 + 3`,
+a Hunter expression at huge depth.  Hence every natural ≥ 2
+admits some Hunter representation in `{+, *, ^}` over `{2, 3, 5}`.
+
+**Refined version** (provable, depth-1 case closed):
+For each fixed Hunter depth `k`, eventually `L_m ∉ HunterValues_k`.
+At `k = 1`, "eventually" is sharp at `m = 3`:
+
+  · `depth_1_value_bound`: every depth-≤-1 Hunter value ≤ 3125
+  · `L_90_exceeds_depth_1_max`: 3125 < 850554441
+  · ★ `asymptotic_cutoff_at_depth_1`: ∀ v > 3125, v ∉ depth-1 Hunter
+  · ★★ `cutoff_marathon_at_depth_1` (capstone): positive m=1 at depth 3
+    ∧ negative ∀ v > 3125 at depth 1.  Captures the entire L_m tail
+    for m ≥ 3 (since L_m ≥ L_3 = 850554441 ≫ 3125).
+
+**Lean**: `Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
+— 28 PURE / 0 DIRTY.  HunterTerm inductive algebra (Phases 1-3) +
+Frobenius vacuousness (Phase 4a) + bounded depth-1 negatives
+(Phase 4b) + asymptotic cardinality cut-off (Phase 5).
+
+**Honest scope**:
+  · Literal "∀ depth": FALSIFIED.
+  · "∀ m ≥ 3 at depth 1": PROVED (cardinality argument).
+  · "∀ m ≥ 3 at depth ≥ 2": OPEN (kernel-intractable enumeration
+    or complexity-theoretic substrate needed).
+
+Theory chapter `aurifeuillean.md` updated with marathon results.
+Research note archived to `research-notes/archive/G133_cutoff_marathon.md`.
+(Numbered G133 to avoid collision with G129 V32Betti parametric.)
+
 ## G131 Gram self-energy structural derivation — PROMOTED to theory chapter
 
 `1/α_em` precision theorem at 0.2 ppb absorbed into
