@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 457 PURE / 0 DIRTY across 35 closures
+## Marathon summary — 478 PURE / 0 DIRTY across 38 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -70,6 +70,30 @@ theorems across the Math — Algebra / Analysis chapter family.
 
 All 35 files: `#print axioms` ∅-axiom (PURE).
 
+### Wave 6: trajectory-pw rigor on funext-blocked frontiers (21 PURE)
+
+User's observation: `cutSum_assoc` and `Zp.neg ∘ Zp.neg = id` are
+"two-trajectory pw equality" statements.  Following the
+trajectory-witness paradigm, each can be closed at the digit-0
+(and digit-1) level without funext.
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/NegInvolution.lean` | 6 |
+| `modular_arithmetic` | `Lib/Math/Padic/NegInvolutionDigit1.lean` | 10 |
+| `real213` | `Lib/Math/Real213/CutSumAssocInt.lean` | 5 |
+
+**Zp.neg involution** at digit-0 (`zp_neg_neg_digit_zero`) and
+digit-1 (`zp_neg_neg_digit_one_when_zero / nonzero`) — the
+trajectory-pw realisation via carry-chain case-split.  Local PURE
+re-proofs of `Nat.add_right_cancel` and `Nat.div_self` avoid
+Lean-core's propext leaks.
+
+**cutSum_assoc** for integer cut class (`cutSum_assoc_int`) — the
+precision-doubling artifact is avoided at the integer constant
+class where both grouping trajectories reduce to the same
+`constCut ((a+b)+c) 1 = constCut (a+(b+c)) 1`.
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -125,4 +149,4 @@ All 35 files: `#print axioms` ∅-axiom (PURE).
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 35 new files PURE.
+`tools/scan_axioms.py <module>` — all 38 new files PURE.
