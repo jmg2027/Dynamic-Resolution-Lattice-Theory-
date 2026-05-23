@@ -340,6 +340,40 @@ Status of (k+1) derivation (post-Phase 9):
   | Full Steenrod cup_i (general i) | OPEN |
   | (k+1) graduation from cup_i + 3-cell extension | OPEN (multi-session) |
 
+### G132 Phases 10-13 — 3-skeleton + Steenrod squares at ω DONE 2026-05-23
+
+Three new files, 32 PURE / 0 DIRTY:
+
+  · `Filled3CellExtension.lean` (10 PURE) — 3-cell σ with
+    boundary [face_0, face_1, face_2]; δ²(ω) = (true); H² drops
+    to 0 at 3-skeleton.
+  · `FaceCup1At3Cell.lean` (10 PURE) — face_cup_1 (rotational
+    interlocking); ω self cup_1 = (true); ★ cup_1(ω, ω) = δ²(ω)
+    bridge identity.
+  · `SteenrodSquaresAtOmega.lean` (12 PURE) — Sq^0, Sq^1 at H² ω;
+    Sq^1(ω) = δ²(ω); Adem Sq^1·Sq^1 = 0 at C⁴ truncation.
+
+Structural progress at H² ω:
+
+  · Sq^0(ω) = ω (cup_2 idempotent, lands C²)
+  · Sq^1(ω) = δ²(ω) = (true) on C³ (cup_1 = coboundary)
+  · Sq^1·Sq^1 = 0 (Adem, vacuous at C⁴ truncation)
+
+Max non-trivial Sq^i at H² ω is i = 1, giving output at C³
+(degree k+1 = 3) — Steenrod-square expression of α³ coupling.
+
+Status of (k+1) derivation (post-Phases 10-13):
+
+  | Component | Status |
+  |-----------|--------|
+  | 3-skeleton extension + δ² | PROVED |
+  | Steenrod Sq^i at ω (i = 0, 1) | DEFINED + values proved |
+  | cup_1 = δ² bridge | PROVED at H² ω |
+  | Adem Sq^1·Sq^1 = 0 (truncation) | PROVED |
+  | General Sq^i for arbitrary i | OPEN |
+  | General Adem / Cartan | OPEN |
+  | (k+1) for general k | OPEN (multi-session) |
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -538,6 +572,9 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` | **G132 Phases 12-13** — Sq^0, Sq^1 at H² ω + Adem Sq^1·Sq^1 = 0 |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` | **G132 Phase 11** — cup_1(ω, ω) = δ²(ω) bridge identity |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellExtension.lean` | **G132 Phase 10** — 3-skeleton extension + δ² coboundary |
 | `lean/E213/Lib/Math/Cohomology/Cup/SteenrodHigherFrame.lean` | **G132 Phase 9.1** — cup-i type framework + cup_0/cup_1 base instances |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCupHigher.lean` | **G132 Phase 9.2** — face_cup_2 on K_{3,2}^{(c=2)}; ω idempotent |
 | `lean/E213/Lib/Physics/AlphaEM/LoopVertexGraduation.lean` | **G132 Phase 8** — cohomology ↔ loop-vertex correspondence + cup-axiom gap |
