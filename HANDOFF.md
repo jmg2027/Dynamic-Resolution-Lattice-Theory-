@@ -72,25 +72,32 @@ in Lean as decide-checked literal.
 
 ## Next session candidates
 
-### A. Cut-off-applications extensions (1-2 sessions each)
+### A. Cut-off-applications extensions
 
-  · ~~Direction A unrestricted depth-2~~ — CLOSED this session
+  · ~~Direction A unrestricted depth-2~~ — CLOSED
     (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
     small-range decide + large-range monotonicity.
 
-  · **Direction B chain extension** to m = 11.  PARI bnfisnorm
-    on Φ_{1210}(5) (308 digits) — class-group cost may be
-    significant but feasible.  Adds one more decide-checked
-    norm identity to the chain; cap becomes ~10^200+.
+  · **Direction B chain extension** to m = 11 — ATTEMPTED, timed
+    out.  PARI bnfisnorm on Φ_{1210}(5) (308 digits) requires
+    expensive class-group computation that does not complete
+    within practical session time.  Could retry with multi-hour
+    background run, or seek alternate decomposition method.
 
-  · ~~Direction C Lucas extension~~ — CLOSED this session
+  · ~~Direction C Lucas extension~~ — CLOSED
     (`LucasCutoff.lean`, 40 PURE).  Triple-coincidence at 29
-    + Lucas-Aurifeuillean coincidence at 521 are the headline
-    structural findings.
+    + Lucas-Aurifeuillean coincidence at 521.
 
-  · **Direction C further extensions**: Fibonacci (F_7 = 13 =
-    catalogue), Tribonacci, Padovan.  Each adds a sequence
-    with its own catalogue intersections.
+  · ~~Direction C Fibonacci extension~~ — CLOSED
+    (`FibonacciCutoff.lean`, 36 PURE).
+    `(F_3, F_4, F_5) = (NT, NS, d)` Hunter-generator window.
+
+  · ~~Direction C Tribonacci extension~~ — CLOSED
+    (`TribonacciCutoff.lean`, 28 PURE).
+    `T_16 − M_1 = 11` tightest near-boundary.
+
+  · **Direction C Padovan / others**: additional slow-growth
+    recurrences may extend the family.
 
 ### B. Promotion-readiness audit follow-ups
 
