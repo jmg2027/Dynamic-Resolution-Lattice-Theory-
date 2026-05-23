@@ -5,7 +5,7 @@
 `claude/4-manifolds-geometrization-IQXNb` — multi-session marathon
 on 4-manifolds & Geometrization.
 
-**Sessions 1-12 cumulative**: +405 PURE / 0 DIRTY.
+**Sessions 1-13 cumulative**: +415 PURE / 0 DIRTY.
 
 ## All items status
 
@@ -64,14 +64,14 @@ on 4-manifolds & Geometrization.
 ## Sub-tree totals
 
   · **Cork**: 197 PURE / 8 files / 0 DIRTY
-  · **Geometrization**: ~387 PURE / 15 files / 0 DIRTY
-  · **Marathon total**: ~584 PURE in cork + geometrization sub-trees
+  · **Geometrization**: ~397 PURE / 15 files / 0 DIRTY
+  · **Marathon total**: ~594 PURE in cork + geometrization sub-trees
 
 ## Marathon pace
 
 Target: ~320 PURE over 16-25 sessions.
-Achieved (sessions 1-12): **+405 PURE on branch** in 12 sessions.
-Combined sub-tree totals: 584 PURE (83% above target).
+Achieved (sessions 1-13): **+415 PURE on branch** in 13 sessions.
+Combined sub-tree totals: 594 PURE (86% above target).
 
 ## Marathon status
 
