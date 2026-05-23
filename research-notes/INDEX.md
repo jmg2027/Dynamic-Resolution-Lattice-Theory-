@@ -30,16 +30,13 @@ research-notes/
 ├── 75, 76               ← semantic-atom thesis (active foundational)
 ├── G1–G5, G12, G29      ← foundational notes (boot-sequence + sustained reference)
 ├── G35                  ← 213-Algebra field catalog (17 domains, §0.5 tracks promotions)
-├── G37–G50              ← number systems + level-25 + topology (cross-cutting)
-├── G59–G64              ← orthogonal-axis (companions to universe_chain)
-├── G85–G87              ← cup-Δ Lens mismatch + **G86 open conjecture**
 ├── G88+ (2026-05-18_*)  ← lens emergence path spec
-├── G107                 ← meta-scan action items (live tracker)
 ├── audit/               ← G17 empirical audit + G18–G27 (closed)
 ├── archive/             ← closed historical
 │   ├── audits/          ← AUDIT_PASS_*, MATH/LENS/THEORY_AUDIT
 │   ├── hodge/           ← G6–G12 (→ theory/math/cohomology/hodge_conjecture.md)
 │   ├── algebra_tower/   ← G36, G51–G58 (→ theory/math/cayley_dickson/algebra_tower.md)
+│   ├── discrete_geometry/ ← G37–G50 (→ individual theory/math/ chapters per `discrete_geometry/INDEX.md`)
 │   ├── universe_chain/  ← G65–G84 (→ theory/math/universe_chain.md)
 │   ├── pattern_catalog/ ← G28, G30 (→ theory/math/pattern_catalog/pattern_catalog.md)
 │   ├── minimal_root/    ← G31 (→ theory/math/analysis/minimal_root.md)
@@ -71,28 +68,6 @@ research-notes/
 |---|---|
 | `G35_chiral_cup_ring_catalog.md` | **213-Algebra catalog** — 17 domains, 6 conjectures C1-C6 (status tracked in §0.5; C1+C2+C3+C5+C6 promoted to `theory/`; C4 absorbed in Hodge chapter) |
 
-### Number systems + topology (cross-cutting, not yet promoted)
-
-| Range | Theme |
-|---|---|
-| G37-G42 | Level-25 residual, 25-level algebra, octonion non-assoc, ε-δ depth modulus, 2D number grid, angle structure |
-| G43-G45 | Dialogue audit, bipartite 5=3+2, cartesian vs disjoint |
-| G46-G49 | Generation rule, triangular tower, operation × topology, concrete topology per floor |
-| G50 | Algebra213 meta-theorems |
-| G59-G64 | CDDouble lift, tower ascent fixed-point, tower candidates, ℕ→ℤ orthogonal, zero as emergent |
-
-These are foundational cross-cutting observations spanning multiple
-Lean sub-trees; no single Lean tree closes them.  Remain as active
-research notes pending either consolidation or a future cross-tree
-chapter.
-
-### Cup-Δ + Cup-Leibniz (mixed: G85/G87 closed, **G86 OPEN**)
-
-| File | Theme | Status |
-|---|---|---|
-| `G85_cup_delta_lens_mismatch.md` | Wedge-cup × simplicial-δ Lens incompatibility, twisted Leibniz (1,1) | Closed in `Cohomology/Cup/LeibnizUniversal.lean` |
-| `G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(k,l) | **Open conjecture** (HANDOFF Part 2 §A; needs deep 213-native structural insight) |
-| `G87_raw_native_emergence_audit.md` | Raw-native emergence audit; surfaces "6-theorem" candidate | Closed (audit document; gaps tracked for future work) |
 
 ### Active registries + recent G-notes (post-merge unified)
 
@@ -109,6 +84,15 @@ Active top-level registries after merge:
 |---|---|---|
 | `G137_post_g134_merge_synthesis.md` | Cross-corpus patterns from G134 cardinality cut-off merge (3 patterns + 4 new questions) | synthesis note |
 | `G138_post_merge_corpus_synthesis.md` | Whole-corpus synthesis at 103 chapters (6 patterns: modulus functor, Sym(3) spine, cut-off meta-methodology, Clause-4 recursion, Int.NonNeg bypass, multiplicity doctrine) | synthesis note |
+| `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
+| `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
+| `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |
+| `archive/G62_nat_to_int_orthogonal.md` | ℕ → ℤ as orthogonal-axis quotient + property losses — absorbed into `theory/math/universe_chain.md` "Orthogonal-axis tower" |
+| `archive/G63_orthogonal_axis_tower_synthesis.md` | k-axis tower `ℕᵏ → ℤᵏ⁻¹` + Eisenstein discovery at k = 3 — absorbed into `theory/math/universe_chain.md` "Orthogonal-axis tower" |
+| `archive/G64_zero_as_emergent_artifact.md` | `0` as emergent quotient artifact (not derivable from Raw) — absorbed into `theory/math/universe_chain.md` "Orthogonal-axis tower" |
+| `archive/G85_cup_delta_lens_mismatch.md` | Wedge-cup × simplicial-δ Lens mismatch + twisted Leibniz (1,1) — absorbed into `theory/math/cohomology/cup.md` |
+| `archive/G86_self_referential_lex_cup_leibniz.md` | Self-referential Leibniz of lex-projection cup, ∀(n, k, l) — `fin_level_leibniz_general` PURE, absorbed into `theory/math/cohomology/cup.md` |
+| `archive/G87_raw_native_emergence_audit.md` | Raw-native emergence audit + Clause-4 recursive atomicity → Alive derivation — absorbed into `theory/physics/foundations/atomic_constants.md` "Raw-side derivation" |
 | `archive/G124_n_u_family_cross_field_connections.md` | Cross-field survey at `(d, n) = (5, 2)` — absorbed into `theory/math/cohomology/fractal.md` Open frontier "Cross-field cross-imports" |
 | `archive/G125_lens_recipe_cup_catalog.md` | Lens-recipe → δ-closure catalog (`LeibnizMirror` + `LeibnizSym` + `LeibnizCatalog`) — PROMOTED to `theory/math/cohomology/cup.md` "Lens-recipe catalog" section |
 | `archive/G126_akbulut_cork_213_native.md` | Akbulut cork — promoted to `theory/math/exotic_4mfd_cork.md` |
