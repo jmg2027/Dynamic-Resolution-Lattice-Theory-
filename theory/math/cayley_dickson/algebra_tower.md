@@ -190,14 +190,39 @@ predicted by the L6T pattern + CD-doubling sign rule (`(0, u)² =
 exceeds practical heartbeat budget — the structural shell is the
 deliverable.
 
+## L8T (Type B deeper) — closed (ZSqrtMinus2TowerL8.lean, 11 PURE)
+
+`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL8.lean` extends
+the ZSqrt[-2] tower past L7T to **L8T**: 128 = 2 × 64 units, full
+CD-doubling pattern preserved.  `set_option maxRecDepth 1024` for
+the cardinality decide.
+
+## Type D tower L1 — closed (HurwitzTowerL1.lean, 15 PURE)
+
+`Lib/Math/CayleyDickson/Integer/HurwitzTowerL1.lean` shows the
+CD-doubling machinery applies to Type D (Hurwitz base):
+
+  · `HurwitzL2 := Hurwitz × Hurwitz` with mul / conj / normSq /
+    add / neg.
+  · Local `hurAdd, hurNeg, hurSub` (base `Hurwitz` lacks Add/Sub
+    instances).
+  · `HurwitzL2_units` enumerated, cardinality 48 = 2 × 24.
+  · ★★★★ `hurwitz_tower_L1_capstone` packages cardinality +
+    doubling relation.
+
+The 4-row matrix extends past base for all four types
+(A/B/C/D); the framework is uniform.
+
 ## Open frontier
 
 The 4-row matrix is **complete** at the first past-Moufang layer.
 Open extensions:
 
-1. ~~**Deeper layers** (L7+ for Type B/C)~~ — L7T CLOSED via
-   `ZSqrtMinus2TowerL7.lean` (12 PURE) above.  L8+ and
-   higher-Type extensions follow the same CD-doubling pattern.
+1. ~~**Deeper layers** (L7+ for Type B/C)~~ — L7T (12 PURE) and
+   L8T (11 PURE) above.  Pattern uniform; higher layers L9+
+   follow CD-doubling.
+2. ~~**Type D tower**~~ — L1 CLOSED via `HurwitzTowerL1.lean`
+   (15 PURE).  CD-doubling works uniformly across all four types.
 
 2. **Tower fixed-point at infinity**: `TowerFixedPoint.lean` gives
    the structural statement; the analytic fixed-point analysis at
