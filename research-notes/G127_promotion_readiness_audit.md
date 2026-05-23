@@ -79,7 +79,7 @@ chapter when blockers close.
 
 ## §3.  G130 (BracketCauchy ↔ IsRicciModulus) — promotion status
 
-**Current state**: `Topology/ModulusStructure.lean` (12 PURE).
+**Current state**: `Topology/ModulusStructure.lean` (16 PURE, 4-way after AlphaEM-zeta extension).
 
 **Target chapter**: probably *absorbed* into
 `theory/math/analysis/cauchy.md` or similar (small enough not to
