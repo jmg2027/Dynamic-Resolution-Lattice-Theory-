@@ -100,7 +100,7 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 290 PURE / 0 DIRTY across 7 modules.**
+**Padic total: 295 PURE / 0 DIRTY across 7 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
@@ -155,10 +155,14 @@ Currently still open:
   · `Zp.add_complement_trunc_eq_neg_one`: helper showing
     `(x + complement x).trunc n = (neg_one).trunc n`.
 
-**Hensel uniqueness (this stretch)**:
-  · `Zp.inv_trunc_unique`: any two trunc-level inverses of `x` agree.
-    Cancellation by left-multiplying with `invFull x` and using
-    `mul_trunc_assoc` + `mul_trunc_comm` + `mul_invFull_correct`.
+**Hensel uniqueness + cancellation infrastructure**:
+  · `Zp.inv_trunc_unique`: any two trunc-level inverses agree.
+  · `Zp.mul_left_cancel_trunc` / `mul_right_cancel_trunc`:
+    `(x · y).trunc = (x · z).trunc → y.trunc = z.trunc` for unit `x`.
+  · `Zp.mul_eq_zero_of_unit_left`: if `x` unit and `(x · v).trunc = 0`,
+    then `v.trunc = 0`.
+  · `Zp.sub_eq_zero_of_trunc_eq` + `Zp.trunc_eq_of_sub_eq_zero`:
+    biconditional `(a + (-b)).trunc = 0 ↔ a.trunc = b.trunc`.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
