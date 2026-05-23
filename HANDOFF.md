@@ -87,10 +87,23 @@ in Lean as decide-checked literal.
 
 ## Next session candidates
 
+### Computational infrastructure (this session)
+
+  · `rust-engine/crates/app/src/bin/aurifeuillean_lm.rs` — new
+    binary with modes `phi`, `verify`, `cornacchia`, `l7-check`,
+    `l11-attempt`.  Uses num-bigint for arbitrary-precision
+    Phi_n(5) computation via cyclotomic recursion.  L_7
+    round-trip verified against PARI-derived norm pair.
+  · Parallel L_11 attempts in flight:
+      - PARI `bnfisnorm` over Q(√5), 1-hour budget
+      - sympy `factor(Phi_1210, extension=√5)` (algorithm
+        validated on m=1, 3, 7; finds norm-correct (L, M) pairs
+        possibly unit-translated from canonical)
+
 ### A. Cut-off-applications extensions
 
   · ~~Direction A unrestricted depth-2~~ — CLOSED
-    (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
+    (`AurifeuilleanDepth2PowCutoff.lean`, 16 PURE) via
     small-range decide + large-range monotonicity.
 
   · **Direction B chain extension** to m = 11 — ATTEMPTED, timed
