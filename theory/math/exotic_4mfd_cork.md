@@ -1,8 +1,12 @@
 # Akbulut Cork (exotic 4-manifold structures)
 
-**Status**: Closed at H¹ level (44 PURE / 4 files) + H² extension
-(42 PURE / 1 file).  Total: 86 PURE / 5 files / 1 umbrella.
-H³ cork-twist effect listed as Open Frontier.
+**Status**: Closed at H¹ + H² + H³ truncation + multi-cork levels.
+Total: 137 PURE / 7 files / 1 umbrella.
+
+  · H¹: 44 PURE (4 files) — single-cork signed count `+4`
+  · H²: 42 PURE (`HigherTwist.lean`) — composite H¹+H² = `+6`
+  · H³ truncation: 23 PURE (`H3Twist.lean`) — stable at `+6` for k ≥ 0
+  · Multi-cork: 28 PURE (`MultiCork.lean`) — k-cork signed count `4^k`
 
 ## Overview
 
@@ -51,7 +55,18 @@ discrete and `decide`-resolved.
     (every C² cochain has `M_S01(c) ⊕ c ∈ im δ¹`);
     `signedCorkTwistCount_H2 = +2`; composite
     `signedCorkTwistCount_H1_H2 = +6`
-- ∅-axiom status: PURE (all 86 theorems)
+  - `H3Twist.lean` (23) — H³ trivialises at 3-skeleton (im δ² = C³)
+    and at 4-skeleton (with σ⁴); H⁴ trivialises at 4-skeleton;
+    M_S01 acts as identity on C³ and C⁴ (single-cell extensions);
+    `signedCorkTwistCount_H3 = 0`; composite
+    `signedCorkTwistCount_H1_H2_H3 = +6` (truncation stabilizes)
+  - `MultiCork.lean` (28) — `MultiCork213 := List Cork213`;
+    componentwise `corkTwistMulti` involution; multiplicative
+    composition `signedCorkTwistCountMulti m = 4^m.length`
+    (1-cork: 4, 2-cork: 16, 3-cork: 64); twist group `(Z/2)^k`
+    (orders 2, 4, 8); cork-of-cork (2-level) = pair-cork product
+    with Z/2 × Z/2
+- ∅-axiom status: PURE (all 137 theorems)
 
 ## Why K_{1,4} and K_{3,2}^{(c=2)} together
 
@@ -107,19 +122,42 @@ Structural reading: ω is the third trivial-irrep component
 cork-twist's H² contribution is fully trivial — at this level
 no new sign correction beyond H¹'s +4.
 
+## H³ truncation + multi-cork (closed)
+
+H³ at 3-skeleton (single σ³) and 4-skeleton (σ³ + σ⁴) is trivial:
+δ²: C² → C³ is surjective (im δ² = C³), and at the 4-skeleton the
+kernel of δ³ meets im δ² trivially.  Likewise H⁴ trivialises at
+4-skeleton (im δ³ = C⁴).  M_S01 acts as identity on C³ and C⁴
+(both are single-cell extensions, no non-trivial permutation).
+Consequence: `signedCorkTwistCount_H3 = 0`, and the composite
+`signedCorkTwistCount_H1_H2_H3 = +6` — **truncation stabilizes**.
+
+Multi-cork compositions on the K-deployment family compose
+**multiplicatively**:
+
+| k | components | signed count | twist group |
+|---|---|---|---|
+| 1 | `[K14_cork]` | +4 | Z/2 (order 2) |
+| 2 | `[K14_cork, K14_cork]` | +16 | (Z/2)² (order 4) |
+| 3 | three K14_cork | +64 | (Z/2)³ (order 8) |
+| k | k components | 4^k | (Z/2)^k |
+
+Cork-of-cork (2-level nesting) reduces to a 2-cork product with
+Z/2 × Z/2 acting on the joint H¹.
+
+The multiplicative composition matches disjoint-union cohomology
+behavior — Donaldson-type invariants of a disjoint union multiply
+in standard 4-mfd gauge theory; the 213-internal `4^k` formula
+reproduces this structurally.
+
 ## Open frontier
 
-The cork-twist effect closes at the H¹+H² level.  Two extensions
-remain open:
-
-- **H³ cork-twist (b_3)**: M_S01 action on H³ classes at the
-  3-skeleton extension (`Filled3CellExtension`, single 3-cell σ³)
-  and 4-skeleton extension (`Filled4CellExtension`, σ³ + σ⁴).
-  At single-3-cell attaching the action is trivial (M_S01 fixes
-  σ³ as a singleton); content emerges at multi-3-cell extensions.
-- **Multi-cork structures**: iterated cork-twists on the K-deployment
-  family, with cork-of-cork Z/2 actions and higher-order signed
-  counts beyond `+4`.
+- **Universal multi-cork formula** by structural induction:
+  `signedCorkTwistCountMulti m = 4^m.length` for arbitrary
+  `m : MultiCork213` (current closes cover k ∈ {0, 1, 2, 3}).
+- **Heterogeneous multi-cork**: compositions with distinct cork
+  types (e.g., `[K14_cork, K31_cork]`), tracking how cork-type
+  variation affects the signed contribution per component.
 
 ## Connection
 
