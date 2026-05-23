@@ -194,7 +194,7 @@ for the exemplar execution.
 ## §9 Cross-references
 
   · `cardinality_cutoff_applications.md` — six concrete realisations
-    (Directions B/D/A/C/E/F, 294 PURE total) instantiating the
+    (Directions B/D/A/C/E/F, 291 PURE total) instantiating the
     methodology across different external sequences, complexity
     classes, and primitive sets.
   · `theory/math/cohomology/aurifeuillean.md` — exemplar
@@ -214,7 +214,7 @@ for the exemplar execution.
   · **Scope honestly documented**: §6 (depth-≥-2 open).
   · **Generalisation directions**: §7 — instantiated as the
     six-direction application family
-    `cardinality_cutoff_applications.md` (294 PURE total across
+    `cardinality_cutoff_applications.md` (291 PURE total across
     six Lean files).
 
 The principle is a **promotion of methodology** — recording the

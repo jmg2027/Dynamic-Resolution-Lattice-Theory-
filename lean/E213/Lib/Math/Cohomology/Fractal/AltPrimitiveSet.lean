@@ -38,8 +38,6 @@ much information `d = 5` adds to the depth-1 universe.
 | 5    | 0                 | 1 (= 2 + 3)              |
 | 7    | 1 (= 2 + 5)       | 2 (e.g., (2+2) + 3)      |
 | 13   | 2                 | ≥ 3                      |
-| 41   | 2 (= 3² + 2⁵)     | 2 (= 9 + 32 still works) |
-| 137  | 3                 | ≥ 3                      |
 | 521  | 3                 | ≥ 3                      |
 
 ## Cross-references
@@ -160,18 +158,8 @@ theorem alt_complexity_7_geq_2 : inAltDepth1 7 = false := by decide
 /-- `13 ∉ altDepth1Universe`. -/
 theorem alt_complexity_13_geq_2 : inAltDepth1 13 = false := by decide
 
-/-- `41 ∉ altDepth1Universe`. -/
-theorem alt_complexity_41_geq_2 : inAltDepth1 41 = false := by decide
-
-/-- `137 ∉ altDepth1Universe`. -/
-theorem alt_complexity_137_geq_2 : inAltDepth1 137 = false := by decide
-
 /-- `521 ∉ altDepth1Universe`. -/
 theorem alt_complexity_521_geq_2 : inAltDepth1 521 = false := by decide
-
-/-- `41 = 3² + 2⁵` is still depth-2 in alt-set (uses only
-    `{2, 3}`).  So `complexity_alt(41) = 2`, same as canonical. -/
-theorem alt_witness_41_at_depth_2 : (3 ^ 2) + (2 ^ 5) = 41 := by decide
 
 /-! ## §8 Strict inclusion of universes -/
 
@@ -195,8 +183,8 @@ theorem alt_universe_strict_subset_witness :
       · Alt depth-1 universe = 8 distinct values (vs canonical 16).
       · Catalogue atom 7 has shifted complexity: 1 (canonical) → 2
         (alt).
-      · Atom 41 retains complexity 2 in both sets (witness
-        `3² + 2⁵` uses only `{2, 3}`).
+      · Catalogue atoms `{13, 521}` are excluded from alt-depth-1
+        (consistent with their being depth-2/3 in canonical).
 
     Demonstrates that the cut-off principle is genuinely parametric
     in the primitive choice; the principle's structural content
@@ -213,10 +201,10 @@ theorem capstone :
     ∧ inAltDepth1 7 = false
     -- but 7 ∈ canonical depth-1
     ∧ E213.Lib.Math.Cohomology.Fractal.HunterComplexity.inDepth1 7 = true
-    -- 41 still at depth 2 in alt set
-    ∧ (3 ^ 2) + (2 ^ 5) = 41 :=
+    -- 521 also outside alt-depth-1
+    ∧ inAltDepth1 521 = false :=
   ⟨altDepth1_uniform_bound, alt_complexity_7_geq_2,
    (E213.Lib.Math.Cohomology.Fractal.HunterComplexity.inDepth1_7),
-   alt_witness_41_at_depth_2⟩
+   alt_complexity_521_geq_2⟩
 
 end E213.Lib.Math.Cohomology.Fractal.AltPrimitiveSet

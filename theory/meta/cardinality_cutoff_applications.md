@@ -6,7 +6,7 @@ direction instantiates the three-step methodology (locate /
 diagnose / refined-prove, §5 of principle) for a different
 `(f, H_k)` pair or different DRLT primitive set.
 
-Aggregate: 294 PURE / 0 DIRTY across ten Lean files in
+Aggregate: 291 PURE / 0 DIRTY across ten Lean files in
 `lean/E213/Lib/Math/Cohomology/Fractal/`.
 
 ## §1 Overview
@@ -281,7 +281,7 @@ Drops `d = 5` from `{2, 3, 5}`, leaving the two-generator alternate
 | 13   | 2         | ≥ 3    |
 | 521  | 3         | ≥ 3    |
 
-**Lean**: `AltPrimitiveSet.lean` (31 PURE).  Demonstrates the cut-off
+**Lean**: `AltPrimitiveSet.lean` (28 PURE).  Demonstrates the cut-off
 principle's structural content is independent of primitive choice;
 the cut-off slice moves with the set.
 
@@ -404,7 +404,7 @@ the explicit depth-3 witness `2^(3^2) + 3^2`.
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (32 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
-    — Direction F (31 PURE).
+    — Direction F (28 PURE).
   · `theory/math/cohomology/aurifeuillean.md` — Aurifeuillean
     cyclotomic context.
   · `theory/math/dyadic_fsm.md` — Pell ↔ dyadic FSM connection.
