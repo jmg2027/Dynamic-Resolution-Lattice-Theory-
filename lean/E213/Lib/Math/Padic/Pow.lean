@@ -1,5 +1,6 @@
 import E213.Lib.Math.Padic.Foundation
 import E213.Lib.Math.Padic.Arith
+import E213.Lib.Math.Padic.Norm
 import E213.Lib.Math.ModArith.UniversalFLT
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
@@ -326,5 +327,28 @@ theorem Zp.pow_mul_trunc (p : Nat) (hp : 1 < p) (x y : ZpSeq p) (k n : Nat) :
   rw [mul_pow_pure (x.trunc k) (y.trunc k) n]
   -- ((x.trunc k)^n * (y.trunc k)^n) % p^k = ((x.trunc k)^n % p^k * ...) % p^k
   exact E213.Meta.Nat.MulMod213.mul_mod_pure _ _ _
+
+/-! ## Power and valuation
+
+`pow` scales the p-adic valuation: `val(x^k) = k · val(x)` (at trunc).
+The valAtLeast form: `valAtLeast x m → valAtLeast (x^k) (m·k)`.
+-/
+
+/-- **Power scales valuation**: if `x` has valuation ≥ m, then `x^k`
+    has valuation ≥ m·k. -/
+theorem Zp.valAtLeast_pow (p : Nat) (hp : 1 < p) (x : ZpSeq p) (m : Nat)
+    (hx : Zp.valAtLeast x m) :
+    ∀ k, Zp.valAtLeast (Zp.pow p hp x k) (m * k)
+  | 0 => by
+    rw [Nat.mul_zero]
+    exact Zp.valAtLeast_zero _
+  | k + 1 => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    have ih : Zp.valAtLeast (Zp.pow p hp x k) (m * k) :=
+      Zp.valAtLeast_pow p hp x m hx k
+    rw [Zp.pow_succ_def]
+    rw [show m * (k + 1) = m * k + m by
+          rw [Nat.mul_add, Nat.mul_one]]
+    exact Zp.valAtLeast_mul p hp' _ _ (m * k) m ih hx
 
 end E213.Lib.Math.Padic
