@@ -598,12 +598,15 @@ content to count-Lens groups, type objects, group objects, etc.
 ### Where applied (so far)
 
   · `AliveDerivation.lean` — `IsAlive` ↔ recursive Clause 4 on
-    NT-pairs and NS-triples.
+    NT-pairs and NS-triples (`alive_iff_clause4_alive`, 7 PURE).
+  · `Cohomology/NodupAsClause4.lean` — `List.Nodup` ↔ recursive
+    Clause 4 at the list-index level (`nodup_iff_clause4Nodup`,
+    12 PURE).  A list has no duplicates iff no two distinct
+    index positions are paired with the same element — the
+    no-self-pair axiom read at list granularity.
 
 ### Future candidates
 
-  · `Nodup` / distinctness postulates in cohomology — Clause 4
-    recursively applied at the list level.
   · "Sortedness" postulates in colex enumeration — Clause 1
     (distinguishing) applied recursively, giving canonical order.
 
