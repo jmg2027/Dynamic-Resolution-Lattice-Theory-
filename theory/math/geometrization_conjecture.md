@@ -55,7 +55,7 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/GeometrizationConjecture/` (13 files, linear dependency chain)
+- **Sub-tree**: `lean/E213/Lib/Math/GeometrizationConjecture/` (15 files, linear dependency chain)
 - **Master capstone**: `Capstone.R1_close_certificate` (20-conjunct)
 - **Master capstone alt**: `Capstone.R1_master_capstone` (4-route convergence)
 - **Tree INDEX**: `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`

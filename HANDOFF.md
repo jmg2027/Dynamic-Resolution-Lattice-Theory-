@@ -64,7 +64,7 @@ on 4-manifolds & Geometrization.
 ## Sub-tree totals
 
   · **Cork**: 197 PURE / 8 files / 0 DIRTY
-  · **Geometrization**: ~380 PURE / 13 files / 0 DIRTY
+  · **Geometrization**: ~380 PURE / 15 files / 0 DIRTY
   · **Marathon total**: ~577 PURE in cork + geometrization sub-trees
 
 ## Marathon pace
@@ -88,7 +88,7 @@ additivity/linking/Lie-consolidation).
 | `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence |
 | `theory/INDEX.md` | Book map |
 | `theory/math/exotic_4mfd_cork.md` | Cork chapter (197 PURE) |
-| `theory/math/geometrization_conjecture.md` | Geometrization chapter (380 PURE) |
+| `theory/math/geometrization_conjecture.md` | Geometrization chapter (15 files, 380 PURE) |
 | `AkbulutCork/MultiCork.lean` | Multi-cork all extensions |
 | `AkbulutCork/CrossFrame.lean` | Master capstones + cup-ladder + α_em |
 | `JsjDeep.lean` | FW-2 + L(p,q) + #sum + multi-fold + Heegaard + linking |

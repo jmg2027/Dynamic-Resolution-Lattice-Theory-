@@ -2,8 +2,9 @@
 
 **Status**: Closed at H¹ + H² + H³ truncation + multi-cork
 (universal + heterogeneous + well-formed involution + host-aware
-+ decidable Boolean form) + 5-way cross-frame.
-Total: 190 PURE / 8 files / 1 umbrella.
++ decidable Boolean form) + 5-way cross-frame + cup-ladder ↔ cork
+H¹ basis cross-link + α_em precision-stack citation.
+Total: 197 PURE / 8 files / 1 umbrella.
 
   · H¹: 44 PURE (4 files) — single-cork signed count `+4`
   · H²: 42 PURE (`HigherTwist.lean`) — composite H¹+H² = `+6`
@@ -12,7 +13,7 @@ Total: 190 PURE / 8 files / 1 umbrella.
     (universal + heterogeneous + PURE product-law + universal
     involution under well-formedness + host-aware product +
     decidable Boolean characterization)
-  · Cross-frame: 8 PURE (`CrossFrame.lean`) — 5-way Sym(3) bridge
+  · Cross-frame: 15 PURE (`CrossFrame.lean`) — 5-way Sym(3) bridge
     cork ↔ Sym(3)-fixed ↔ Geometrization 3+5; master 4-mfd +
     geometrization joint capstone (v1 + v2)
 
@@ -91,7 +92,7 @@ discrete and `decide`-resolved.
     (Geometrization 3+5, gluon octet H¹ rank 8, HC_K32 Hodge,
     Möbius P mod-5 pentagonal); cork-isotropic +1 relation;
     cork-anisotropic +1 relation (H¹+H²)
-- ∅-axiom status: PURE (all 190 theorems)
+- ∅-axiom status: PURE (all 197 theorems)
 
 ## Why K_{1,4} and K_{3,2}^{(c=2)} together
 
