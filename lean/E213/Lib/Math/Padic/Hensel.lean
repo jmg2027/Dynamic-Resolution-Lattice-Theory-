@@ -1725,4 +1725,26 @@ theorem Zp.sqr_unique_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
       sb.d_0 sb.two_d_0_inv h_a_lt h_dy_lt h_dz_lt
       h_a_mod sb.two_d_0_inv_eq h_eq
 
+/-- **sqrtFull is THE square root**: any `y` with `y² ≡ x (mod p^(n+1))`
+    and digit 0 matching `sb.d_0` agrees with `sqrtFull` at trunc `(n+1)`. -/
+theorem Zp.sqrtFull_eq_of_sqr (p : Nat) (hp : 1 < p) (x y : ZpSeq p)
+    (sb : Zp.SqrtBase p x)
+    (hy_d0 : (y.digits 0).val = sb.d_0)
+    (n : Nat)
+    (hy : (Zp.mul p (Nat.lt_of_succ_lt hp) y y).trunc (n + 1) = x.trunc (n + 1)) :
+    y.trunc (n + 1)
+      = (Zp.sqrtFull p (Nat.lt_of_succ_lt hp) x sb).trunc (n + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  -- sqrtFull.digits 0 = sb.d_0 (via sqrtFull = sqrtSeq 0 at digit 0).
+  have h_sqrt_d0 : ((Zp.sqrtFull p hp' x sb).digits 0).val = sb.d_0 := by
+    show ((Zp.sqrtSeq p hp' x sb 0).digits 0).val = sb.d_0
+    exact Zp.sqrtSeq_zero_digit_zero p hp' x sb
+  -- sqrtFull² ≡ x (mod p^(n+1)) by sqr_sqrtFull_correct.
+  have h_sqrt_sq : (Zp.mul p hp'
+                    (Zp.sqrtFull p hp' x sb)
+                    (Zp.sqrtFull p hp' x sb)).trunc (n + 1)
+                  = x.trunc (n + 1) :=
+    Zp.sqr_sqrtFull_correct p hp x sb n
+  exact Zp.sqr_unique_trunc p hp x y _ sb hy_d0 h_sqrt_d0 n hy h_sqrt_sq
+
 end E213.Lib.Math.Padic
