@@ -222,21 +222,72 @@ theorem Jac_mod_7_period_6 : ∀ n, Jac (n + 6) % 7 = Jac n % 7
       have h_indices : (n + 2) + 6 = n + 8 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §3'' Mod-11 period 10 — parametric
+
+Multiplicative order of `2` mod `11` is exactly 10, so by the
+closed form `J_n = (2^n − (−1)^n) / 3` Jacobsthal mod 11 has
+period 10 — same as Fibonacci.  Cross-sequence period
+coincidence via shared `mul_ord(2, 11) = 10`. -/
+
+theorem Jac_0_mod_11  : Jac 0  % 11 = 0 := by decide
+theorem Jac_1_mod_11  : Jac 1  % 11 = 1 := by decide
+theorem Jac_10_mod_11 : Jac 10 % 11 = 0 := by decide
+theorem Jac_11_mod_11 : Jac 11 % 11 = 1 := by decide
+
+/-- ★ **Period 10 mod 11 for Jacobsthal**:
+    `Jac (n + 10) % 11 = Jac n % 11` for every `n : Nat`.
+
+    Same period as Fibonacci mod 11 via different structural
+    origins.  Jacobsthal's closed form `(2^n − (−1)^n)/3` has
+    period determined by mul-order of `2` mod 11 (= 10);
+    Fibonacci's period comes from the Fibonacci recurrence
+    structure. -/
+theorem Jac_mod_11_period_10 : ∀ n, Jac (n + 10) % 11 = Jac n % 11
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Jac (n + 12) = Jac (n + 11) + 2 * Jac (n + 10) := by
+        show Jac ((n + 10) + 2) = Jac (n + 11) + 2 * Jac (n + 10)
+        rfl
+      have h_rhs : Jac (n + 2) = Jac (n + 1) + 2 * Jac n := rfl
+      have ih0 : Jac (n + 10) % 11 = Jac n % 11 := Jac_mod_11_period_10 n
+      have ih1 : Jac ((n + 1) + 10) % 11 = Jac (n + 1) % 11 :=
+        Jac_mod_11_period_10 (n + 1)
+      have ih1' : Jac (n + 11) % 11 = Jac (n + 1) % 11 := ih1
+      have h_lhs_mod : Jac (n + 12) % 11
+          = ((Jac (n + 11) % 11) + (2 * Jac (n + 10)) % 11) % 11 := by
+        rw [h_lhs]; exact add_mod_gen (Jac (n + 11)) (2 * Jac (n + 10)) 11
+      have h_rhs_mod : Jac (n + 2) % 11
+          = ((Jac (n + 1) % 11) + (2 * Jac n) % 11) % 11 := by
+        rw [h_rhs]; exact add_mod_gen (Jac (n + 1)) (2 * Jac n) 11
+      have h_2_l : (2 * Jac (n + 10)) % 11 = (2 * (Jac (n + 10) % 11)) % 11 :=
+        two_jac_mod (n + 10) 11
+      have h_2_r : (2 * Jac n) % 11 = (2 * (Jac n % 11)) % 11 :=
+        two_jac_mod n 11
+      have h_2_eq : (2 * (Jac (n + 10) % 11)) % 11 = (2 * (Jac n % 11)) % 11 :=
+        congrArg (fun x => (2 * x) % 11) ih0
+      have h_2_lr : (2 * Jac (n + 10)) % 11 = (2 * Jac n) % 11 :=
+        (h_2_l.trans h_2_eq).trans h_2_r.symm
+      have h_swap : ((Jac (n + 11) % 11) + (2 * Jac (n + 10)) % 11) % 11
+                  = ((Jac (n + 1) % 11) + (2 * Jac n) % 11) % 11 := by
+        rw [ih1', h_2_lr]
+      show Jac ((n + 2) + 10) % 11 = Jac (n + 2) % 11
+      have h_indices : (n + 2) + 10 = n + 12 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Jacobsthal modular-fingerprint capstone**.  Four
-    parametric closures: eventually-constant `1` mod 2 from
-    `n = 1`, period 6 mod 3, period 4 mod 5, period 6 mod 7. -/
+/-- ★★★ **Jacobsthal modular-fingerprint capstone**.  Five
+    parametric closures across the small-prime pentad:
+    eventually-constant `1` mod 2 from `n = 1`, period 6 mod 3,
+    period 4 mod 5, period 6 mod 7, period 10 mod 11. -/
 theorem capstone :
-    -- Mod-2 eventually constant 1 from n = 1
     (∀ n, Jac (n + 1) % 2 = 1)
-    -- Parametric period 6 mod 3
     ∧ (∀ n, Jac (n + 6) % 3 = Jac n % 3)
-    -- Parametric period 4 mod 5
     ∧ (∀ n, Jac (n + 4) % 5 = Jac n % 5)
-    -- Parametric period 6 mod 7
-    ∧ (∀ n, Jac (n + 6) % 7 = Jac n % 7) :=
+    ∧ (∀ n, Jac (n + 6) % 7 = Jac n % 7)
+    ∧ (∀ n, Jac (n + 10) % 11 = Jac n % 11) :=
   ⟨Jac_succ_mod_2, Jac_mod_3_period_6, Jac_mod_5_period_4,
-   Jac_mod_7_period_6⟩
+   Jac_mod_7_period_6, Jac_mod_11_period_10⟩
 
 end E213.Lib.Math.Cohomology.Fractal.JacobsthalModular

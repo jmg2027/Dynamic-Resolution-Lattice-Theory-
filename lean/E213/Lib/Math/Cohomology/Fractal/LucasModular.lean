@@ -235,6 +235,44 @@ theorem Lucas_mod_7_period_16 : ∀ n, Lucas (n + 16) % 7 = Lucas n % 7
       have h_indices : (n + 2) + 16 = n + 18 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §3'''' Mod-11 period 10 — parametric
+
+Shared period with Fibonacci mod 11 (same recurrence).  Base
+values `L_10 = 123, L_11 = 199`. -/
+
+theorem Lucas_0_mod_11  : Lucas 0  % 11 = 2 := by decide
+theorem Lucas_1_mod_11  : Lucas 1  % 11 = 1 := by decide
+theorem Lucas_10_mod_11 : Lucas 10 % 11 = 2 := by decide
+theorem Lucas_11_mod_11 : Lucas 11 % 11 = 1 := by decide
+
+/-- ★ **Period 10 mod 11 for Lucas**:
+    `Lucas (n + 10) % 11 = Lucas n % 11` for every `n : Nat`. -/
+theorem Lucas_mod_11_period_10 : ∀ n, Lucas (n + 10) % 11 = Lucas n % 11
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Lucas (n + 12) = Lucas (n + 11) + Lucas (n + 10) := by
+        show Lucas ((n + 10) + 2) = Lucas (n + 11) + Lucas (n + 10)
+        rfl
+      have h_rhs : Lucas (n + 2) = Lucas (n + 1) + Lucas n := rfl
+      have ih0 : Lucas (n + 10) % 11 = Lucas n % 11 :=
+        Lucas_mod_11_period_10 n
+      have ih1 : Lucas ((n + 1) + 10) % 11 = Lucas (n + 1) % 11 :=
+        Lucas_mod_11_period_10 (n + 1)
+      have ih1' : Lucas (n + 11) % 11 = Lucas (n + 1) % 11 := ih1
+      have h_lhs_mod : Lucas (n + 12) % 11
+          = ((Lucas (n + 11) % 11) + (Lucas (n + 10) % 11)) % 11 := by
+        rw [h_lhs]; exact add_mod_gen (Lucas (n + 11)) (Lucas (n + 10)) 11
+      have h_rhs_mod : Lucas (n + 2) % 11
+          = ((Lucas (n + 1) % 11) + (Lucas n % 11)) % 11 := by
+        rw [h_rhs]; exact add_mod_gen (Lucas (n + 1)) (Lucas n) 11
+      have h_swap : ((Lucas (n + 11) % 11) + (Lucas (n + 10) % 11)) % 11
+                  = ((Lucas (n + 1) % 11) + (Lucas n % 11)) % 11 := by
+        rw [ih0, ih1']
+      show Lucas ((n + 2) + 10) % 11 = Lucas (n + 2) % 11
+      have h_indices : (n + 2) + 10 = n + 12 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Cross-sequence sharing — Fibonacci ↔ Lucas mod-2
 
 Both `Fib` and `Lucas` satisfy `x_{n+2} = x_{n+1} + x_n` with
@@ -253,19 +291,21 @@ theorem Lucas_mod_2_eq_Fib_mod_2_first_cycle :
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Lucas modular-fingerprint capstone**.  Four parametric
-    Pisano closures across the small-prime tetrad: π(2) = 3,
-    π(3) = 8, π(5) = 4, π(7) = 16.  Shared periods with Fibonacci
-    at every prime (recurrence is identical). -/
+/-- ★★★ **Lucas modular-fingerprint capstone**.  Five parametric
+    Pisano closures across the small-prime pentad: π(2) = 3,
+    π(3) = 8, π(5) = 4, π(7) = 16, π(11) = 10.  Shared periods
+    with Fibonacci at every prime (recurrence is identical). -/
 theorem capstone :
     (∀ n, Lucas (n + 3) % 2 = Lucas n % 2)
     ∧ (∀ n, Lucas (n + 8) % 3 = Lucas n % 3)
     ∧ (∀ n, Lucas (n + 4) % 5 = Lucas n % 5)
     ∧ (∀ n, Lucas (n + 16) % 7 = Lucas n % 7)
+    ∧ (∀ n, Lucas (n + 10) % 11 = Lucas n % 11)
     ∧ (Lucas 0 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 0 % 2
        ∧ Lucas 1 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 1 % 2
        ∧ Lucas 2 % 2 = E213.Lib.Math.Cohomology.Fractal.FibonacciCutoff.Fib 2 % 2) :=
   ⟨Lucas_mod_2_period_3, Lucas_mod_3_period_8, Lucas_mod_5_period_4,
-   Lucas_mod_7_period_16, Lucas_mod_2_eq_Fib_mod_2_first_cycle⟩
+   Lucas_mod_7_period_16, Lucas_mod_11_period_10,
+   Lucas_mod_2_eq_Fib_mod_2_first_cycle⟩
 
 end E213.Lib.Math.Cohomology.Fractal.LucasModular

@@ -215,17 +215,55 @@ theorem Fib_mod_7_period_16 : ∀ n, Fib (n + 16) % 7 = Fib n % 7
       have h_indices : (n + 2) + 16 = n + 18 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
+/-! ## §3'''' Mod-11 period 10 — parametric
+
+Classical Pisano π(11) = 10.  Same 2-step induction template;
+base values `F_10 = 55, F_11 = 89`. -/
+
+theorem Fib_0_mod_11  : Fib 0  % 11 = 0 := by decide
+theorem Fib_1_mod_11  : Fib 1  % 11 = 1 := by decide
+theorem Fib_10_mod_11 : Fib 10 % 11 = 0 := by decide
+theorem Fib_11_mod_11 : Fib 11 % 11 = 1 := by decide
+
+/-- ★ **Classical Pisano period 10 mod 11 for Fibonacci**:
+    `Fib (n + 10) % 11 = Fib n % 11` for every `n : Nat`. -/
+theorem Fib_mod_11_period_10 : ∀ n, Fib (n + 10) % 11 = Fib n % 11
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Fib (n + 12) = Fib (n + 11) + Fib (n + 10) := by
+        show Fib ((n + 10) + 2) = Fib (n + 11) + Fib (n + 10)
+        rfl
+      have h_rhs : Fib (n + 2) = Fib (n + 1) + Fib n := rfl
+      have ih0 : Fib (n + 10) % 11 = Fib n % 11 := Fib_mod_11_period_10 n
+      have ih1 : Fib ((n + 1) + 10) % 11 = Fib (n + 1) % 11 :=
+        Fib_mod_11_period_10 (n + 1)
+      have ih1' : Fib (n + 11) % 11 = Fib (n + 1) % 11 := ih1
+      have h_lhs_mod : Fib (n + 12) % 11
+          = ((Fib (n + 11) % 11) + (Fib (n + 10) % 11)) % 11 := by
+        rw [h_lhs]; exact add_mod_gen (Fib (n + 11)) (Fib (n + 10)) 11
+      have h_rhs_mod : Fib (n + 2) % 11
+          = ((Fib (n + 1) % 11) + (Fib n % 11)) % 11 := by
+        rw [h_rhs]; exact add_mod_gen (Fib (n + 1)) (Fib n) 11
+      have h_swap : ((Fib (n + 11) % 11) + (Fib (n + 10) % 11)) % 11
+                  = ((Fib (n + 1) % 11) + (Fib n % 11)) % 11 := by
+        rw [ih0, ih1']
+      show Fib ((n + 2) + 10) % 11 = Fib (n + 2) % 11
+      have h_indices : (n + 2) + 10 = n + 12 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Four
+/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Five
     parametric classical Pisano closures across the small-prime
-    tetrad: π(2) = 3, π(3) = 8, π(5) = 20, π(7) = 16. -/
+    pentad: π(2) = 3, π(3) = 8, π(5) = 20, π(7) = 16, π(11) = 10. -/
 theorem capstone :
     (∀ n, Fib (n + 3) % 2 = Fib n % 2)
     ∧ (∀ n, Fib (n + 8) % 3 = Fib n % 3)
     ∧ (∀ n, Fib (n + 20) % 5 = Fib n % 5)
-    ∧ (∀ n, Fib (n + 16) % 7 = Fib n % 7) :=
+    ∧ (∀ n, Fib (n + 16) % 7 = Fib n % 7)
+    ∧ (∀ n, Fib (n + 10) % 11 = Fib n % 11) :=
   ⟨Fib_mod_2_period_3, Fib_mod_3_period_8, Fib_mod_5_period_20,
-   Fib_mod_7_period_16⟩
+   Fib_mod_7_period_16, Fib_mod_11_period_10⟩
 
 end E213.Lib.Math.Cohomology.Fractal.FibonacciModular
