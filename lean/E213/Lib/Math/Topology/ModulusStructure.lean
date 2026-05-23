@@ -1,11 +1,14 @@
 import E213.Lib.Math.Topology.Continuity
 import E213.Lib.Math.GeometrizationConjecture.Ricci
+import E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 
 /-!
 # Unified modulus-structure framework (Option A typeclass bridge)
 
-Both `Topology.Continuity.IsContinuousModulus` and
-`GeometrizationConjecture.ChartAxisAnsatz.IsRicciModulus` carry a
+`Topology.Continuity.IsContinuousModulus`,
+`GeometrizationConjecture.ChartAxisAnsatz.IsRicciModulus`, and the
+`Physics.AlphaEM.FractalLevelZetaModulus.zeta_modulus` (via
+`Math.Modulus.Translation.DepthModulus`) all carry a
 `modulus : Nat → Nat` field expressing "steps required to achieve
 target precision".  They differ in directional convention:
 
@@ -19,12 +22,17 @@ The `BracketCauchyModulus.dyadic_bracket_cauchy_modulus` theorem
 provides a third instance: modulus = `L · k` for fixed bracket
 length L.
 
+The `AlphaEM.zeta_modulus : DepthModulus` is a fourth instance:
+identity `N ↦ N` (1 bit per fractal step), used to discretise the
+ζ_K^(L) → ζ(2) convergence in the α_em precision-derivation stack
+(C5 Step 6).
+
 This file provides the **unified framework**: a bare
 `IsModulusStructure` carrying just `modulus : Nat → Nat`, with
-projection functions from each of the three sources.  Records the
-3-way structural parallel as a Lean-formal capstone.
+projection functions from each of the four sources.  Records the
+4-way structural parallel as a Lean-formal capstone.
 
-Option A close (bare structure + projections from the three
+Option A close (bare structure + projections from the four
 existing modulus families).
 -/
 
@@ -33,6 +41,8 @@ namespace E213.Lib.Math.Topology.ModulusStructure
 open E213.Lib.Math.Topology.Continuity (IsContinuousModulus)
 open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
   (IsRicciModulus K32_isRicciModulus K32_isRicciModulus_modulus_eq)
+open E213.Lib.Math.Modulus.Translation (DepthModulus)
+open E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus (zeta_modulus)
 
 /-! ## Bare modulus structure -/
 
@@ -62,6 +72,12 @@ def fromRicci (h : IsRicciModulus) : IsModulusStructure :=
 def fromBracketCauchy (L : Nat) : IsModulusStructure :=
   { modulus := fun k => L * k }
 
+/-- Project a `DepthModulus` to its bare modulus structure.  Used
+    for the `AlphaEM.zeta_modulus` α_em-precision instance and any
+    other `Nat → Nat` modulus expressed in the `DepthModulus` form. -/
+def fromDepthModulus (d : DepthModulus) : IsModulusStructure :=
+  { modulus := d }
+
 /-! ## Canonical instances from existing structures -/
 
 /-- Identity-continuous-modulus bare structure (modulus = identity). -/
@@ -76,6 +92,11 @@ def K32RicciModulus : IsModulusStructure :=
 def bracketCauchyL3 : IsModulusStructure :=
   fromBracketCauchy 3
 
+/-- α_em fractal-level ζ-convergence bare structure (modulus = identity
+    `N ↦ N`, 1 bit per fractal step). -/
+def zetaModulusStructure : IsModulusStructure :=
+  fromDepthModulus zeta_modulus
+
 /-! ## Projection sanity checks -/
 
 theorem identityModulus_value (k : Nat) :
@@ -89,6 +110,9 @@ theorem K32RicciModulus_value :
 
 theorem bracketCauchyL3_value :
     bracketCauchyL3.modulus 7 = 21 := by decide
+
+theorem zetaModulusStructure_value (N : Nat) :
+    zetaModulusStructure.modulus N = N := rfl
 
 /-! ## 3-way framework capstone -/
 
@@ -135,5 +159,53 @@ theorem three_way_modulus_framework :
   · decide
   · decide
   · exact ⟨identityModulus.modulus, rfl, rfl⟩
+
+/-! ## 4-way framework capstone (extended) -/
+
+/-- ★★★★★★ **4-way modulus-structure unification**
+
+  Extends `three_way_modulus_framework` with the α_em fractal-level
+  `zeta_modulus : DepthModulus` instance.  Four modulus-style
+  structures from disparate corners of E213 share the bare
+  `IsModulusStructure` framework:
+
+    · `Topology.Continuity.IsContinuousModulus` → identity instance
+    · `GeometrizationConjecture.Ricci.IsRicciModulus` → K_{3,2}^{(c=2)}
+      Ricci-flow cell-filling instance
+    · `Analysis.BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
+      → L·k instance for fixed bracket-length L
+    · `Physics.AlphaEM.FractalLevelZetaModulus.zeta_modulus` →
+      identity DepthModulus, α_em precision-derivation C5 Step 6
+
+  The fourth instance crosses the Math/Physics directory boundary:
+  the same bare framework subsumes a physics-side modulus without
+  any additional structure.  Together with `multiplicity_doctrine.md`
+  Instance 4, this records the modulus shape as a 4-way Lens-output
+  convergence on the same `Nat → Nat` substrate. -/
+theorem four_way_modulus_framework :
+    -- Identity instance (continuous)
+    identityModulus.modulus 5 = 5
+    -- Ricci instance (K_{3,2}^{(c=2)} cell-filling)
+    ∧ K32RicciModulus.modulus 5 = 3
+    ∧ K32RicciModulus.modulus 8 = 0
+    -- BracketCauchy instance (L = 3)
+    ∧ bracketCauchyL3.modulus 7 = 21
+    ∧ bracketCauchyL3.modulus 0 = 0
+    -- AlphaEM zeta instance (identity DepthModulus)
+    ∧ zetaModulusStructure.modulus 3 = 3
+    ∧ zetaModulusStructure.modulus 100 = 100
+    ∧ (∀ N : Nat, zetaModulusStructure.modulus N = N) := by
+  refine ⟨rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · show K32_isRicciModulus.modulus 5 = 3
+    rw [K32_isRicciModulus_modulus_eq]
+    decide
+  · show K32_isRicciModulus.modulus 8 = 0
+    rw [K32_isRicciModulus_modulus_eq]
+    decide
+  · decide
+  · decide
+  · rfl
+  · rfl
+  · intro _; rfl
 
 end E213.Lib.Math.Topology.ModulusStructure
