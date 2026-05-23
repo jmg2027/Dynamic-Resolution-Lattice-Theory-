@@ -13,6 +13,16 @@ their justification as catalogue atoms via physics constants
 `α_GUT` / `1/α_em` is a forced fit since both constants are
 non-integer).
 
+**Legacy files still carrying α_GUT/α_em narrative** (not touched
+this session, see open frontier §C):
+  · `lean/E213/Lib/Math/Cohomology/Fractal/AlphaGUT.lean` —
+    whole file frames d² · ζ(2) ≈ 41.123 as α_GUT.
+  · `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCountModular.lean`
+    — §H.1 (mod 41 = NS²) and §H.5 (mod 137 = 86 = Rn) sections
+    cite "α_GUT integer" / "1/α_em".  The modular congruences
+    themselves remain mathematically valid; only the
+    catalogue-atomicity framing is gone.
+
 ### Lean source (ten files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
 
 | File | PURE | Direction |
