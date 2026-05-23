@@ -53,7 +53,13 @@ but the proof must be done **per bidegree**, not uniformly.
 | (1, 1) | ✓ list-level + Fin-indexed (Δ⁴) | `LeibnizLexListLevel`, `LeibnizLexSelfRef` |
 | (2, 1) | ✓ list-level + Fin-indexed (Δ³) | `LeibnizLexStructural`, `LeibnizLex21` |
 | (2, 2) | ✓ partial | `Leibniz22Final` |
-| (mixed 4) | ✓ | `Leibniz4Mixed` |
+| (4, 1, 1) | ✓ universal | `LeibnizMid.leibniz_universal_4_1_1` |
+| (4, 1, 2) | ✓ universal | `Leibniz4Mixed.leibniz_universal_4_1_2` |
+| (4, 2, 1) | ✓ universal (sister to (4, 1, 2)) | `Leibniz4Mixed.leibniz_universal_4_2_1` |
+| (4, 2, 2) | ✓ universal | `Leibniz4Mixed.leibniz_universal_4_2_2` |
+| (5, 1, 1) | ✓ universal | `Leibniz.leibniz_universal_5_1_1` |
+| (5, 2, 1) | ✓ universal | `Leibniz21Final.leibniz_universal_5_2_1` |
+| (5, 2, 2) | ✓ universal | `Leibniz22Final.leibniz_universal_5_2_2` |
 | **(k, l) general** | **OPEN** | — |
 
 ### self-referential lex-cup Leibniz open conjecture — Phase decomposition
