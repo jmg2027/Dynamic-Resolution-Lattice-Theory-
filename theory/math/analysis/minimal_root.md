@@ -176,6 +176,24 @@ on the root — just constructive Nat-decidable data.
 3. ~~**Continuity-without-ε** alternative~~ — CLOSED via
    `Real213/OracleContinuity.lean` (companion chapter).
 
+## Rigor — multi-variate coordinate independence (7 PURE)
+
+`Lib/Math/Analysis/DyadicSearch/MultiVarRigor.lean` establishes
+that the canonical multi-CauchyCutSeq is **uniform in coordinate**:
+
+  · `unitMulti_coord_independence n i j` — projection at any two
+    indices agrees.
+  · `unitMulti_const_in_i` — projection is constant
+    (= single-variate canonical).
+  · `unitMultiBracket_const` / `unitMultiBracket_coord_eq` —
+    bracket-level coord-independence.
+  · `atomic_d_coord_0` / `atomic_d_all_coords_agree` — concrete
+    `n = d = 5` case with all five coords agreeing.
+  · ★★★★★ `multi_var_rigor_capstone` packages all three.
+
+Reading: the product structure is structurally diagonal at the
+canonical unit instance.
+
 ## How to verify
 
 ```bash

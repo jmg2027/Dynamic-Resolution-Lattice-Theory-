@@ -244,7 +244,31 @@ Open extensions:
    (12 PURE) above.  Cabibbo + Möbius P signature + Cassini-at-d +
    CKM δ rational all from chain `(NS, NT, d)`.
 3. ~~**Cross-chain bridges**~~ — CLOSED via
-   `PhiThreeWayBridge.lean` (6 PURE).  The atomic discriminant
+   `PhiThreeWayBridge.lean` (6 PURE).
+
+## Rigor — physics-deployment numerical bounds (15 PURE)
+
+`Lib/Math/UniverseChain/PhysicsRigor.lean` strengthens the
+`PhysicsDeployment` chapter with Nat-decidable numerical bounds:
+
+  · `cabibbo_numerator`, `cabibbo_denominator` — exact
+    `sin θ_C = 5/22`.
+  · `cabibbo_in_observed_bracket` — falsifier: `5/22 ∈ (0.224,
+    0.230)`.
+  · `mobiusP_trace_eq_NS`, `mobiusP_det_eq_one`,
+    `mobiusP_disc_eq_NSplusNT` — Möbius P signature in Int form.
+  · `cassini_at_d`, `cassini_fibonacci` — `d · NT − NS² = 1 =
+    F_5 · F_3 − F_4²`.
+  · `ckm_delta_rational`, `ckm_delta_in_bracket`, `ckm_delta_3sig`
+    — `δ_CKM ≈ 176/147 ≈ 1.197 rad` with 3-sig figure check.
+  · `atomic_constants_canonical` — `(NS, NT, d, C_lat) =
+    (3, 2, 5, 2)`.
+  · ★★★★★ `physics_rigor_capstone` packages 12 of these into
+    one citable theorem.
+
+Reading: every numerical identity in `PhysicsDeployment` is
+Nat-decidable with explicit bracket bounds — full rigor against
+classical / PDG values.  The atomic discriminant
    `5 = NS + NT = d` is the shared integer fingerprint across
    (a) Möbius P (char poly `x² − 3x + 1` discriminant),
    (b) algebra-tower asymptote at Type C (`(5, −1)` pair),
