@@ -1350,7 +1350,47 @@ theorem multi_triple_Lpq :
 theorem multi_mixed_three :
     multiConnectedSumShape [(10, 3), (10, 3), (8, 1)] = (14, 7) := by decide
 
-/-! ## §FW-2.BB — Multi-fold preservation: concrete instances -/
+/-! ## §FW-2.BB — Multi-fold preservation: concrete + universal
+
+The universal multi-fold preservation uses the `(j + 7, j)`
+parametric form: for any list of `j` values, the multi-fold
+connected sum of `[(j₁+7, j₁), (j₂+7, j₂), …]` has shape
+`(jsum + 7, jsum)` where `jsum = Σjᵢ`, so `fst − snd = 7` universally.
+-/
+
+/-- Multi-fold connected sum of `(j + 7, j)` shapes has form
+    `(jsum + 7, jsum)`.  PURE list induction. -/
+theorem multiConnectedSumShape_jForm : ∀ (l : List Nat),
+    multiConnectedSumShape (l.map (fun j => (j + 7, j)))
+    = (l.foldr (· + ·) 0 + 7, l.foldr (· + ·) 0)
+  | [] => rfl
+  | j :: rest => by
+    have ih := multiConnectedSumShape_jForm rest
+    show connectedSumShapePair (j + 7, j)
+           (multiConnectedSumShape (rest.map (fun j => (j + 7, j))))
+         = ((j + rest.foldr (· + ·) 0) + 7, j + rest.foldr (· + ·) 0)
+    rw [ih]
+    show ((j + 7) + (rest.foldr (· + ·) 0 + 7) - 7,
+          j + rest.foldr (· + ·) 0)
+       = ((j + rest.foldr (· + ·) 0) + 7, j + rest.foldr (· + ·) 0)
+    -- Fst equality: (j+7)+(jsum+7) - 7 = j+jsum+7
+    -- Use connectedSum_total_rearrange + add_sub_self_right_pure
+    have hfst : (j + 7) + (rest.foldr (· + ·) 0 + 7) - 7
+              = (j + rest.foldr (· + ·) 0) + 7 := by
+      rw [connectedSum_total_rearrange j (rest.foldr (· + ·) 0)]
+      exact add_sub_self_right_pure ((j + rest.foldr (· + ·) 0) + 7) 7
+    rw [hfst]
+
+/-- ★★★★★★★★ **Universal multi-fold preservation**: for any
+    list of parametrically-encoded shapes `(j + 7, j)`, the fold
+    preserves `fst − snd = 7`.  PURE via list induction +
+    `add_sub_self_left_pure`. -/
+theorem multi_fold_preserves_universal (l : List Nat) :
+    (multiConnectedSumShape (l.map (fun j => (j + 7, j)))).fst
+      - (multiConnectedSumShape (l.map (fun j => (j + 7, j)))).snd = 7 := by
+  rw [multiConnectedSumShape_jForm l]
+  show (l.foldr (· + ·) 0 + 7) - l.foldr (· + ·) 0 = 7
+  exact add_sub_self_left_pure (l.foldr (· + ·) 0) 7
 
 /-- Concrete instances of multi-fold preservation. -/
 theorem multi_preserves_concrete :
@@ -1577,6 +1617,84 @@ theorem heegaard_additivity_close :
          targetListGenus l = multiHeegaardGenus (l.map heegaardGenus)) := by
   refine ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl,
           targetListGenus_eq_multi⟩
+
+/-! ## §FW-2.DD' — Universal target → j-value bridge
+
+Every named 3-mfd target has shape `(j + 7, j)` for some `j`:
+S³ → j = 0, T³ → j = 1, L(p,q) → j = 3.  Extracting `j` per
+target lets us reuse the `multi_fold_preserves_universal` theorem
+for any list of named targets.
+-/
+
+/-- j-value extractor per `ThreeMfdTarget`: the snd of `shapeOf`. -/
+def targetJValue : ThreeMfdTarget → Nat
+  | .S3 => 0
+  | .T3 => 1
+  | .LpQ => 3
+
+theorem targetJValue_S3 : targetJValue .S3 = 0 := rfl
+theorem targetJValue_T3 : targetJValue .T3 = 1 := rfl
+theorem targetJValue_LpQ : targetJValue .LpQ = 3 := rfl
+
+/-- Every target's shape equals `(j + 7, j)` with `j = targetJValue t`. -/
+theorem shapeOf_eq_jForm (t : ThreeMfdTarget) :
+    shapeOf t = (targetJValue t + 7, targetJValue t) := by
+  cases t <;> rfl
+
+/-- ★★★★★★★★ **Universal target-list k − j = 7 preservation**
+
+  For any list of named 3-mfd targets, the multi-fold connected sum
+  shape preserves `fst − snd = 7`.  Combines `shapeOf_eq_jForm` with
+  `multi_fold_preserves_universal` via list-map. -/
+theorem targetList_multi_preserves_universal (l : List ThreeMfdTarget) :
+    (multiConnectedSumShape (l.map shapeOf)).fst
+      - (multiConnectedSumShape (l.map shapeOf)).snd = 7 := by
+  have h : l.map shapeOf
+         = (l.map targetJValue).map (fun j => (j + 7, j)) := by
+    induction l with
+    | nil => rfl
+    | cons t rest ih =>
+      show shapeOf t :: rest.map shapeOf
+         = (targetJValue t + 7, targetJValue t) ::
+           (rest.map targetJValue).map (fun j => (j + 7, j))
+      rw [shapeOf_eq_jForm t, ih]
+  rw [h]
+  exact multi_fold_preserves_universal (l.map targetJValue)
+
+/-- ★★★★★★★★ **Heegaard genus + shape joint universal theorem**
+
+  For any list of named 3-mfd targets, both invariants are
+  universally well-defined and consistent:
+
+    · `targetListGenus l` = total Heegaard genus of the connected sum
+    · `multiConnectedSumShape (l.map shapeOf)` shape preserves
+      `fst − snd = 7` (Euler-target χ = 0)
+    · `targetListGenus = multiHeegaardGenus ∘ map heegaardGenus`
+      (bridge to list-genus form)
+
+  The two invariants (genus + Euler-target) are jointly preserved
+  under multi-fold connected sum. -/
+theorem heegaard_shape_joint_universal :
+    -- Universal shape preservation
+    (∀ l : List ThreeMfdTarget,
+       (multiConnectedSumShape (l.map shapeOf)).fst
+         - (multiConnectedSumShape (l.map shapeOf)).snd = 7)
+    -- Universal genus-list bridge
+    ∧ (∀ l : List ThreeMfdTarget,
+       targetListGenus l = multiHeegaardGenus (l.map heegaardGenus))
+    -- Per-target j-value extraction
+    ∧ (∀ t : ThreeMfdTarget,
+       shapeOf t = (targetJValue t + 7, targetJValue t))
+    -- Concrete sanity: empty list = S³ shape (7, 0)
+    ∧ multiConnectedSumShape (([] : List ThreeMfdTarget).map shapeOf)
+        = (7, 0)
+    -- Concrete: 3-list T³ # T³ # T³ has shape (10, 3) ✓
+    ∧ multiConnectedSumShape [shapeOf .T3, shapeOf .T3, shapeOf .T3]
+        = (10, 3) := by
+  refine ⟨targetList_multi_preserves_universal,
+          targetListGenus_eq_multi,
+          shapeOf_eq_jForm,
+          ?_, ?_⟩ <;> decide
 
 /-! ## §FW-2.EE — Lens space linking number invariant
 
