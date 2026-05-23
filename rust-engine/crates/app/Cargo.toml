@@ -204,6 +204,7 @@ drlt-term     = { path = "../term" }
 drlt-theory   = { path = "../theory" }
 drlt-lens = { path = "../lens" }
 num-bigint      = { workspace = true }
+num-traits      = { workspace = true }
 
 [lints.rust]
 unsafe_code = "forbid"
@@ -282,3 +283,7 @@ path = "src/bin/algebra213_tower_probe.rs"
 [[bin]]
 name = "level2-search"
 path = "src/bin/level2_search.rs"
+
+[[bin]]
+name = "aurifeuillean-lm"
+path = "src/bin/aurifeuillean_lm.rs"

@@ -1,24 +1,83 @@
-# Session Handoff — 2026-05-22
+# Session Handoff — 2026-05-23
 
 ## Branch
 
-`claude/g121-open-followup-BCOp3` — post-merge of
-`claude/n-u-followup-campaign-3PnDm` (G86/G107/G117/G123-N_U/
-G124-cross-field/G125-Aurifeuillean closures + N_U family theory
-promoted), `claude/cup-atomic-subalgebra` (G125 Lens-recipe cup
-catalog + K32 projection + 1/α_em decomposition), and `origin/main`
-(PR #98 `claude/aurifeuillean-cutoff` — bounded cut-off Lean
-realisation for Hunter ⇔ Aurifeuillean correspondence at m=1 vs
-m=3).  My-side G123/G124/G125 (Geometrization follow-ups /
-V32Betti parametric / ModulusStructure) renumbered to G128/G129/G130
-to avoid collision.
+`claude/g134-section7-marathon-sadzK` — completes the §7
+six-direction marathon for the cardinality cut-off principle AND
+promotes the result as a `theory/meta/` chapter family.
 
-## Recently closed (post-merge unified)
+## §7 marathon — COMPLETE + PROMOTED + EXTENDED (291 PURE / 0 DIRTY)
+
+Catalogue redefined: `{2, 3, 5, 7, 13, 521}` (dropped 41, 137 —
+their justification as catalogue atoms via physics constants
+`α_GUT` / `1/α_em` is a forced fit since both constants are
+non-integer).
+
+**Legacy framing cleanup**:
+  · `ConfigCountModular.lean` §H.1 / §H.5: α_GUT / 1/α_em /
+    catalogue-atom language removed; modular congruence theorems
+    (mod 41 → 9 = NS², mod 137 → 86 = Hunter-expressible) preserved
+    intact (52 PURE / 0 DIRTY unchanged).
+  · `AlphaGUT.lean`: untouched.  File theorems are about 6, 25,
+    b_1, numV — 41 doesn't appear in any theorem.  Docstring still
+    notes "1/α_GUT = d²·ζ(2) ≈ 41.123" as a numerical observation,
+    but no catalogue-atom claim.
+
+### Lean source (ten files in `lean/E213/Lib/Math/Cohomology/Fractal/`)
+
+| File | PURE | Direction |
+|---|---|---|
+| `AurifeuilleanLUnbounded.lean` | 20 | B — Aurifeuillean L unboundedness, chain m ∈ {1, 3, 7}, cap = L_7 ≈ 5.27×10⁵⁸ |
+| `HunterAtomicClosure.lean` | 44 | D — Hunter atomic prime mod-p closure analysis; 15 FLT sub-closure pairs |
+| `AurifeuilleanDepth2Cutoff.lean` | 12 | A — restricted depth-2 cut-off (outer ∈ {+, *}, M_{2,r} = 9 765 625) |
+| `AurifeuilleanDepth2PowCutoff.lean` | 16 | A unrestricted — outer-pow case for 521 via small-range decide + monotonicity |
+| `PellCutoff.lean` | 35 | C — Pell-sequence cut-off; P_5 = 29 = L_1 coincidence |
+| `LucasCutoff.lean` | 40 | C extension — Lucas-sequence; 5 catalogue intersections; triple coincidence at 29 |
+| `FibonacciCutoff.lean` | 36 | C extension — Fibonacci-sequence; (F_3, F_4, F_5) = (NT, NS, d) Hunter-generator window |
+| `TribonacciCutoff.lean` | 28 | C extension — Tribonacci; T_16 − M_1 = 11 tightest near-boundary |
+| `HunterComplexity.lean` | 32 | E — complexity hierarchy {0, 1, 2, 3} for catalogue atoms |
+| `AltPrimitiveSet.lean` | 28 | F — alternate primitive set {2, 3}; catalogue mobility |
+
+### Theory chapter
+
+  · `theory/meta/cardinality_cutoff_applications.md` — six-direction
+    application family chapter (the §7 narrative).
+  · `theory/meta/cardinality_cutoff_principle.md` — methodology
+    chapter, §9/§10 cross-link the applications chapter.
+  · `theory/meta/INDEX.md` — registers 4 closed chapters.
+
+### External tool
+
+PARI/GP `bnfisnorm` (installed via `apt-get install pari-gp`) —
+produces Aurifeuillean factorisation of `Φ_{490}(5)` over
+`K = Q(√5)`, yielding the 59-digit `L_7` value.  Result embedded
+in Lean as decide-checked literal.
+
+### Key structural findings (6)
+
+  1. **L_m unboundedness (bounded chain)**: m ∈ {1, 3, 7}, cap =
+     5.27×10⁵⁸, absorbs any plausible Hunter depth-k bound for
+     small k.
+  2. **Catalogue closure is sparse**: under `(a op b) % p` for
+     op ∈ {+, *, ^}, catalogue contains a 28-element FLT
+     sub-closure; no general closure.
+  3. **Triple-sequence coincidence at 29**:
+     `Pell P_5 = Lucas L_7 = Aurifeuillean L_1 = 29`.  29 has
+     three Hunter readings (catalogue atom).
+  4. **Lucas–Aurifeuillean coincidence at 521**: `L_13 = Φ_10(5)`.
+     Lucas hits the catalogue at 5 indices (most of any external
+     sequence).
+  5. **Complexity hierarchy honest at 4 levels** unrestricted
+     (depth-2-pow case for {137, 521} closed via decide + monotonicity).
+  6. **Principle parametric in primitives**: shifts complexity
+     assignment without changing methodology.
+
+## Recently closed (carry-over)
 
 | Campaign | Status | Promoted to |
 |---|---|---|
-| **G123 N_U-family theory** (configCountD parametric + modular structure) | COMPLETE + PROMOTED | `theory/math/cohomology/fractal.md` |
-| **G125 Aurifeuillean handle** (521 = Φ_10(5), n-uniform across all n ≥ 1) | COMPLETE + PROMOTED | `theory/math/cohomology/aurifeuillean.md` |
+| **G123 N_U-family theory** | COMPLETE + PROMOTED | `theory/math/cohomology/fractal.md` |
+| **G125 Aurifeuillean handle** | COMPLETE + PROMOTED | `theory/math/cohomology/aurifeuillean.md` |
 | **G86 Cup-Leibniz ∀(n, k, l)** | CLOSED | `LeibnizFinGeneral` + `LeibnizFinPureForm` |
 | **G107 §4 action items** (24-entry registry) | CLOSED (archived) | `archive/metascan/INDEX.md` |
 | **G117 Bishop comparison** | NARRATIVE-COMPLETE / LEAN-INFEASIBLE | `seed/CLOSED_FORM_SPEC.md` + `theory/math/analysis/minimal_root.md` |
@@ -30,42 +89,40 @@ to avoid collision.
 | **G121 R1 Geometrization** | R1 CLOSED | `theory/math/geometrization_conjecture.md` |
 | **G120 N_U re-derivation** | COMPLETE | `seed/RESOLUTION_LIMIT_SPEC.md` §2 + cascade |
 | **G119 marathon** (Pisano-period for Pell, universal in `p`) | TERMINAL CLOSURE | `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md` |
-| **3-tier discipline + theory/ promotion** | COMPLETE (90+ chapters) | `theory/INDEX.md` |
+| **G131 Gram self-energy** | PROMOTED | `theory/physics/alpha_em/precision_derivation.md` |
+| **G132 K_{3,2}^{(c=2)} higher cohomology** (Phases 1-19) | COMPLETE + PROMOTED | `theory/math/cohomology/cup_ladder_graduation.md` + `theory/math/cohomology/k32_higher_cohomology.md` (19 files / 231 PURE) |
+| **G133 Hunter ⇔ Aurifeuillean cut-off** | CLOSED | `AurifeuilleanFullCutoff.lean` (28 PURE) |
+| **G134 §7 marathon + promotion** | COMPLETE + PROMOTED | `theory/meta/cardinality_cutoff_applications.md` |
+| **3-tier discipline + theory/ promotion** | COMPLETE (93+ chapters) | `theory/INDEX.md` |
 
-## G134 Cardinality cut-off principle — PROMOTED (methodology chapter)
+## Next session candidates
 
-The cardinality cut-off pattern extracted from G125 → G133 chain is
-elevated to a standalone **213-native methodology** chapter:
-`theory/meta/cardinality_cutoff_principle.md`.
+### A. Cut-off-applications extensions
 
-**Principle** (§1): for any external sequence `f : ℕ → ℕ` with
-unbounded growth and DRLT-internal complexity class `H_k ⊆ ℕ` with
-explicit uniform bound `M_k`, for every fixed `k` there exists
-`m_0(k)` with `f(m) ∉ H_k` for all `m ≥ m_0(k)`.
+  · ~~Direction A unrestricted depth-2~~ — CLOSED
+    (`AurifeuilleanDepth2PowCutoff.lean`, 18 PURE) via
+    small-range decide + large-range monotonicity.
 
-**Methodology** (§5, three-step pattern):
-  1. Locate the coincidence (positive witness at small depth).
-  2. Diagnose the literal-form failure (Frobenius / Chicken McNugget
-     vacuousness witness).
-  3. Prove the refined form at minimal depth (uniform bound + ∀ tail).
+  · **Direction B chain extension** to m = 11 — ATTEMPTED, timed
+    out.  PARI bnfisnorm on Φ_{1210}(5) (308 digits) requires
+    expensive class-group computation that does not complete
+    within practical session time.  Could retry with multi-hour
+    background run, or seek alternate decomposition method.
 
-Each step yields a concrete Lean deliverable.  Reusable for any
-external sequence vs DRLT-atomic complexity class.
+  · ~~Direction C Lucas extension~~ — CLOSED
+    (`LucasCutoff.lean`, 40 PURE).  Triple-coincidence at 29
+    + Lucas-Aurifeuillean coincidence at 521.
 
-**Exemplar**: Hunter ⇔ Aurifeuillean at m=1 (already in
-`AurifeuilleanFullCutoff.lean`, 28 PURE).
+  · ~~Direction C Fibonacci extension~~ — CLOSED
+    (`FibonacciCutoff.lean`, 36 PURE).
+    `(F_3, F_4, F_5) = (NT, NS, d)` Hunter-generator window.
 
-**Continuation roadmap**: `research-notes/G134_cutoff_principle_followups.md`
-catalogues six concrete next campaigns:
-  A. Depth-2 cardinality bound at Aurifeuillean (extends marathon)
-  B. Aurifeuillean L unboundedness theorem (closes ∀-tail premise)
-  C. Apply principle to Pell sequence (proves reusability)
-  D. Hunter atomic prime closure question (catalogue closure)
-  E. `hunterComplexity` as 213-native invariant
-  F. Generalise to alternate DRLT primitive sets
+  · ~~Direction C Tribonacci extension~~ — CLOSED
+    (`TribonacciCutoff.lean`, 28 PURE).
+    `T_16 − M_1 = 11` tightest near-boundary.
 
-Recommended next session start: Direction B (L unboundedness via
-finite chain, 1 session, closes principle §3 premise).
+  · **Direction C Padovan / others**: additional slow-growth
+    recurrences may extend the family.
 
 `theory/meta/INDEX.md` updated with new chapter entry.
 `theory/math/cohomology/aurifeuillean.md` "Cut-off line" section
@@ -643,8 +700,7 @@ queue, EXCLUDED THIS SESSION).
 ### D'. Promotion-readiness audit (G127, my side)
 
 Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
-S1 categorical closure and cannot promote.  G127 audit (still
-relevant after rename):
+S1 categorical closure.  Candidate continuations:
 
   1. **G130** (was G125, Option A close; only S3 absorption needed) — 1 session
   2. **G129** (was G124, universal Nat-theorem via graph-walk infra) — 5-8 sessions
@@ -652,16 +708,9 @@ relevant after rename):
   4. **G128** (was G123, FW-2/FW-4/I-3/8-geo deepenings) — 16-25 sessions
   5. ~~G122 (Phases 2-mul + 4 + 5 + substantive 6) — 11-16 sessions~~ — DONE (308 PURE)
 
-### D. G128 long-tail — spin-off marathons (formerly G123)
+### C. Doc work remaining
 
-| Item | Status | Note |
-|---|---|---|
-| **FW-2 topological 3-mfd attaching-map formalization** | Scaffold done (Filled3Cell.lean) | Full topological close needs attaching-map types |
-| **FW-4 real-metric-tensor formalization** | Signature classifier done (Geometry/MetricTypes.lean) | Real metrics by design absent from 213 |
-| **G129 M2 universal V32Betti-style derivation** | PARTIAL CLOSE (decide range) | `Cohomology/Bipartite/Parametric/` (36 PURE) |
-| **G130 BracketCauchy ↔ IsRicciModulus bridge** | OPTION A CLOSE | `Topology/ModulusStructure.lean` (12 PURE) |
-| **FW-1 signed Donaldson count** | SUPERSEDED by G126 | Cork-frame closes internally via Z/2-graded signed count +4 |
-| **G126 Akbulut cork as 213-native exotic-structure framework** | 6-PHASE PARTIAL CLOSE | `lean/E213/Lib/Math/AkbulutCork/` (4 files, 44 PURE) |
+  · **CLAUDE.md size** — 228 / 220 target.
 
 ## G122 Real213-p-adic — COMPLETE (308 PURE across 8 modules)
 
@@ -689,6 +738,8 @@ Next-direction roadmap: `research-notes/G123_padic_next_directions.md`.
 | `research-notes/G29_residue.md` | Foundational text |
 | `theory/INDEX.md` | Book map (90+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
+| `theory/meta/cardinality_cutoff_principle.md` | Methodology |
+| `theory/meta/cardinality_cutoff_applications.md` | §7 application family |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
 | `lean/E213/Lib/Physics/AlphaEM/MaxAlphaPowerBound.lean` | **G132 Phase 19** — max α-power = top dim + 1 (structural ceiling) |

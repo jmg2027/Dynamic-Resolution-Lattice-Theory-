@@ -471,9 +471,8 @@ layer.  Empirical periods:
 The period-2 dominance observed at `{7, 11, 13}` does *not* extend
 universally: `p = 41` produces a constant, `p = 17, 23` produce
 longer periods.  The constant readout at `p = 41` is structurally
-distinguished — `41` is the `α_GUT` integer (catalogue), and the
-fixed value `9 = NS²` is a count-Lens 2-power.  The modular
-fingerprint at `α_GUT` is invariant under fractal level iteration.
+distinguished — the fixed value `9 = NS²` is a count-Lens 2-power,
+and the constant persists across every fractal level `n ≥ 1`.
 -/
 
 /-- Power-mod-base reduction: `a^k % p = (a % p)^k % p`.  Used to
@@ -524,7 +523,7 @@ theorem configCountD_5_succ_mod_41 :
 theorem configCountD_5_1_mod_41 : configCountD 5 1 % 41 = 9 :=
   configCountD_5_succ_mod_41 0
 
-/-- `configCountD 5 2 % 41 = 9` — physics slice (`N_U mod α_GUT`). -/
+/-- `configCountD 5 2 % 41 = 9` — concrete `n = 2` instance. -/
 theorem configCountD_5_2_mod_41 : configCountD 5 2 % 41 = 9 :=
   configCountD_5_succ_mod_41 1
 
@@ -701,40 +700,29 @@ theorem configCountD_5_1_mod_17 : configCountD 5 1 % 17 = 14 :=
 theorem configCountD_5_2_mod_17 : configCountD 5 2 % 17 = 12 :=
   (configCountD_5_period_4_mod_17 0).2.1
 
-/-! ### §H.5 `p = 137` — α_em modular fingerprint
+/-! ### §H.5 `p = 137` — long-period modular cycle
 
-`137 = 1/α_em` (catalogue atom).  Cycle structure: `ord_137(5) = 136 = 2³·17`
-and `ord_136(5) = 16`, so the sequence `n ↦ 5^(5^n) mod 137` has period
-`16` from `n = 0`.  The cycle is too long for a clean parametric proof
-(diminishing returns vs. the `p = 41` constant), but the physics-slice
-readout has a clean catalogue-to-catalogue resonance:
-
-```
-configCountD 5 2 % 137 = 86 = Rn   (radon atomic number)
-```
-
-Both `137 = 1/α_em` and `86 = Rn` are catalogue atoms.  The count-Lens
-output at the physics slice projects one catalogue atom (`1/α_em`) to
-another (`Rn`) — an "α series" cross-readout parallel to the
-`(41, 9 = NS²)` constant.
-
-Hunter expressibility of `86`:
+Cycle structure: `ord_137(5) = 136 = 2³·17` and `ord_136(5) = 16`,
+so the sequence `n ↦ 5^(5^n) mod 137` has period `16` from `n = 0`.
+The cycle is too long for a clean parametric proof (diminishing
+returns vs. the `p = 41` constant), but the `n = 2` readout
+projects to a value that is itself Hunter-expressible:
 
 ```
-86 = NS² · NT² + d² · NT   = 9·4 + 25·2 = 36 + 50
+configCountD 5 2 % 137 = 86 = NS²·NT² + d²·NT = 9·4 + 25·2
 ```
 
-(uses only `NS, NT, d` Hunter primitives, additively).
+The mod-`137` readout at `n = 2` lands on a value reachable from
+the `{NS, NT, d}` Hunter primitives by depth-2 arithmetic.
 -/
 
 /-- Hunter form of `86`: `86 = NS²·NT² + d²·NT` in primitives
     `{NS = 3, NT = 2, d = 5}`.  Recast in `Nat`. -/
 theorem hunter_form_86 : 3^2 * 2^2 + 5^2 * 2 = 86 := by decide
 
-/-- Physics-slice readout at `p = 137 = 1/α_em`:
-    `configCountD 5 2 % 137 = 86 = Rn`.  Connects two catalogue
-    atoms (`1/α_em` and `Rn`) via the count-Lens at the physics
-    slice. -/
+/-- `configCountD 5 2 % 137 = 86`.  The `n = 2` readout mod `137`
+    coincides with a Hunter-expressible value
+    (`86 = NS²·NT² + d²·NT`, see `hunter_form_86`). -/
 theorem configCountD_5_2_mod_137 : configCountD 5 2 % 137 = 86 := by decide
 
 /-- Cycle structure at `p = 137`: full orbit
@@ -766,11 +754,10 @@ theorem configCountD_5_2_mod_table :
     ∧ configCountD 5 2 % 13 = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-- Extended capstone — modular table at the physics slice `n = 2`
-    across the prime set `{17, 23, 31, 41}`.  The `mod 41` entry is
-    structurally distinguished: `41 = α_GUT integer`, and the
-    constant `9` extends to every `n ≥ 1` (cf.
-    `configCountD_5_succ_mod_41`). -/
+/-- Extended capstone — modular table at the slice `n = 2` across
+    the prime set `{17, 23, 31, 41}`.  The `mod 41` entry is
+    structurally distinguished: the readout `9 = NS²` extends
+    constantly to every `n ≥ 1` (cf. `configCountD_5_succ_mod_41`). -/
 theorem configCountD_5_2_mod_table_extended :
     configCountD 5 2 % 17 = 12
     ∧ configCountD 5 2 % 23 = 10
