@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions across the Math —
 Algebra / Analysis chapter family.
 
-## Marathon summary — 333 PURE / 0 DIRTY across 23 closures
+## Marathon summary — 373 PURE / 0 DIRTY across 28 closures
 
 ### Wave 1: user-listed 11 chapter frontiers
 
@@ -46,6 +46,16 @@ Algebra / Analysis chapter family.
 | `analysis/minimal_root.md` | `Lib/Math/Analysis/DyadicSearch/RootCertificate.lean` | 9 |
 | `modular_arithmetic.md` | `Lib/Math/Padic/HenselBridge.lean` | 8 |
 
+### Wave 4: deeper incremental follow-ups (5)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic.md` | `Lib/Math/Padic/ZpSqrtD.lean` | 12 |
+| `real213.md` | `Lib/Math/Real213/CutIntegralLinearity.lean` | 6 |
+| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL9.lean` | 7 |
+| `cayley_dickson/algebra_tower.md` | `Lib/Math/CayleyDickson/Integer/HurwitzTowerL2.lean` | 7 |
+| `modular_arithmetic.md` | `Lib/Math/Padic/ZpSqrtDFrob.lean` | 8 |
+
 All theorems pass `#print axioms` ∅-axiom (PURE).
 
 ## Key structural results
@@ -54,36 +64,36 @@ All theorems pass `#print axioms` ∅-axiom (PURE).
   · **k-bonacci depth-5 cascade**: `(d, d-1, NT, 1) = (5, 4, 2, 1)`.
   · **Telescoping = Gauss = Conservation**: d-depth-3, 4, 5 chains.
   · **Multi-variate bisection** on `Cut^n`.
-  · **Graded ring ↔ N_U bridge**: cup-ring `2^d`, N_U = `d^(d^n)`.
+  · **Graded ring ↔ N_U bridge**.
   · **Hurwitz / Non-assoc dichotomy ladder**:
     `commut (n ≤ 1) → assoc (n ≤ 2) → norm-mult (n ≤ 3)`.
   · **Universe Chain → Physics**: Cabibbo, Möbius P, CKM δ.
   · **3-way φ bridge**: shared `5 = NS + NT = d`.
-  · **Modulus Structure**: 3-way framework + Option B functor +
-    full adjunction.
-  · **Continued fractions**: DRLT precision-table rationals as
-    FSM streams.
-  · **Real213 DiffCut + integral**: modulus tracking on
-    differentiation + finite-list integration.
-  · **Algebra tower**: L7T (64), L8T (128), Type D Hurwitz L1 (48).
-  · **Physics-side paradigms**: 6 new instances (α_em, atomic mass,
-    CKM, neutrino, couplings, geometrization) — 15 paradigms total.
+  · **Modulus Structure**: 3-way + Option B + full adjunction.
+  · **Continued fractions** as FSM streams.
+  · **Real213 DiffCut + integral + linearity**.
+  · **Algebra tower**: Type B L7-L9 (64→256 units), Type D L1-L2
+    (48→96 units).
+  · **Physics-side paradigms**: 15 paradigms total uniformly at
+    `d = 5`.
   · **RootCertificate**: typed bracket + sign-change witness.
-  · **Hensel bridge**: F_p ↪ ℤ_p with Bezout digit-0 + Hensel lift.
+  · **Hensel bridge → ZpSqrtD → ZpSqrtDFrob**: `F_p ↪ ℤ_p`,
+    `F_p[√D] ↪ ℤ_p[√D]`, Frobenius + Norm in ℤ_p[√D].
 
 ## Open frontier (post-marathon)
 
-The marathon closed all 16 originally-listed user frontiers and the
-7 heaviest follow-ups.  Remaining open work resides inside the
-"Open frontier" sections of individual chapters:
+Remaining open work resides inside individual chapter
+"Open frontier" sections:
 
-  · `algebra_tower.md` — L9+ deeper layers, Type D L2+.
-  · `real213.md` — full linearity-over-arbitrary-S for `cutIntegralOver`.
-  · `modular_arithmetic.md` — full `F_p[√D]`-to-`ℤ_p[√D]` lift.
+  · `algebra_tower.md` — L10+, Type D L3+.
+  · `real213.md` — full pointwise additivity of integral over
+    arbitrary `S ++ T` (currently `rfl`-level head identities only).
+  · `modular_arithmetic.md` — Frobenius multiplicativity / norm-
+    multiplicativity at ℤ_p[√D] (currently component / smoke level).
   · per-chapter narrative deepenings.
 
-These are all incremental extensions of the new files; no
-structurally-new frontiers identified.
+These are all incremental extensions of existing infrastructure;
+no structurally-new frontiers identified.
 
 ## Anchor docs (next session)
 
@@ -95,13 +105,13 @@ structurally-new frontiers identified.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
-| `theory/math/modular_arithmetic.md` | F_p[√D] + Hensel bridge |
+| `theory/math/modular_arithmetic.md` | FP2SqrtD + Hensel + ZpSqrtD |
 | `theory/math/dyadic_fsm.md` | k-bonacci + continued fractions |
 | `theory/math/analysis/flux_m_v_t.md` | telescoping + d-depth-5 |
 | `theory/math/analysis/minimal_root.md` | IVT + multi-var + RootCert |
 | `theory/math/cross_domain_unification.md` | C6 + N_U + physics paradigm |
 | `theory/math/signed_cut.md` | Hurwitz + non-assoc dichotomies |
-| `theory/math/cayley_dickson/algebra_tower.md` | 4-row matrix + L7/L8 + Type D |
+| `theory/math/cayley_dickson/algebra_tower.md` | Type B L7-9 + Type D L1-2 |
 | `theory/math/real213.md` | Real213 + oracle + DiffCut + integral |
 | `theory/math/universe_chain.md` | atomicity → physics + 3-way φ |
 | `theory/math/modulus_structure.md` | 3-way + Option B + adjunction |
@@ -109,4 +119,4 @@ structurally-new frontiers identified.
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 23 new files PURE.
+`tools/scan_axioms.py <module>` — all 28 new files PURE.
