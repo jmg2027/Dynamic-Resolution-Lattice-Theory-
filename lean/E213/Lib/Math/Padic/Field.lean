@@ -246,6 +246,33 @@ theorem QpSeq.inv_num (p : Nat) (hp : 1 < p) (a : QpSeq p)
       = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
             (Zp.invFull p (Nat.lt_of_succ_lt hp) a.num h_gcd) := rfl
 
+/-! ## Division on ℚ_p
+
+Division `a / b` defined as `a · b⁻¹`, requiring `b.num.digits 0`
+coprime to `p` (so `b⁻¹` exists).
+-/
+
+/-- Division on `QpSeq` (requires unit denominator). -/
+def QpSeq.div (p : Nat) (hp : 1 < p) (a b : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (b.num.digits 0).val p).1 = 1) : QpSeq p :=
+  QpSeq.mul p (Nat.lt_of_succ_lt hp) a (QpSeq.inv p hp b h_gcd)
+
+/-- The shift of `a / b` equals `a.shift` (since `inv` has shift 0). -/
+theorem QpSeq.div_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (b.num.digits 0).val p).1 = 1) :
+    (QpSeq.div p hp a b h_gcd).shift = a.shift := by
+  show a.shift + (QpSeq.inv p hp b h_gcd).shift = a.shift
+  rw [QpSeq.inv_shift, Nat.add_zero]
+
+/-- The numerator of `a / b` is `a.num · b.num⁻¹`. -/
+theorem QpSeq.div_num (p : Nat) (hp : 1 < p) (a b : QpSeq p)
+    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+              (b.num.digits 0).val p).1 = 1) :
+    (QpSeq.div p hp a b h_gcd).num
+      = Zp.mul p (Nat.lt_of_succ_lt hp) a.num (QpSeq.inv p hp b h_gcd).num := rfl
+
 /-! ## Square root on ℚ_p
 
 For `a = (num, shift)`, the square root satisfies
