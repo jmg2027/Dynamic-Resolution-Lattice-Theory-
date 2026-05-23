@@ -100,7 +100,21 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 301 PURE / 0 DIRTY across 7 modules.**
+**Padic total: 308 PURE / 0 DIRTY across 8 modules.**
+
+**FULL Teichmüller convergence (new module `Teichmuller.lean`)**:
+  · `Zp.sum_geo_pow` (ZpSeq-level geometric sum, for future telescoping).
+  · `frobenius_lift_nat` (private Nat-level lemma): for any `p ≥ 1`,
+    `b ≡ 0 (mod p^k), k ≥ 1 → (a + b)^p ≡ a^p (mod p^(k+1))`.
+    Proof: `(a+b)^p - a^p = b · S` where `S = geo_sum_nat a b p`; `S ≡ 0 (mod p)`
+    since the p-term sum has each term ≡ `a^(p-1) (mod p)`.
+  · `Zp.frobenius_lift`: ZpSeq-level Frobenius lift via `pow_trunc` +
+    digit decomposition + Nat-level lemma.
+  · `Zp.teichmuller_iter_cauchy`:
+    `(iter x (n+1)).trunc (n+1) = (iter x n).trunc (n+1)`.
+    Proof by induction: base via `pow_p_trunc_one` (Fermat); step via
+    Frobenius lift on IH.  Establishes the **Cauchy property** of the
+    Teichmüller iteration in the p-adic metric.
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.

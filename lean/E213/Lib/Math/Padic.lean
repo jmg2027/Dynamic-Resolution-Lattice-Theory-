@@ -3,6 +3,7 @@ import E213.Lib.Math.Padic.Arith
 import E213.Lib.Math.Padic.Pow
 import E213.Lib.Math.Padic.Norm
 import E213.Lib.Math.Padic.Hensel
+import E213.Lib.Math.Padic.Teichmuller
 import E213.Lib.Math.Padic.Field
 import E213.Lib.Math.Padic.DRLT
 /-!
