@@ -1527,3 +1527,40 @@ All three readings agree at H¹ (α-power = 2, Gram) and H²
 (α-power = 3, ω contribution).  The Steenrod-square ladder gives
 the cohomology-algebra-internal expression: α-power =
 (max non-trivial Sq^i depth) + 2.
+
+## 2026-05-23 — Phase 15: universal-k three-reading equivalence
+
+Extends the three-reading equivalence of `(k+1)` α-power graduation
+from k = 1, 2 to a universal-k Nat-quantified theorem.  10 PURE /
+0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.CupLadderUniversalK` | 10 | ★★★★★ `alpha_power_universal : ∀ k, alphaPowerAtH k = k + 1`; ★★★★★ `loop_reading_universal`; ★★★★★ `steenrod_reading_universal_pos : ∀ k ≥ 1, steenrodLadderDepth k + 2 = k + 1`; ★★★★★★ `three_readings_universal : ∀ k ≥ 1, (alphaPowerAtH k = k + 1 ∧ ... ∧ ...)`; ★★★★ specialisations at k = 1, 2, 3; ★★★★★★★★ `cup_ladder_universal_k_master` (4-conjunct capstone) |
+
+**Universal three-reading equivalence (∀ k ≥ 1)**:
+
+      alphaPowerAtH k = loopCountAtH k + 1 = steenrodLadderDepth k + 2 = k + 1.
+
+The Nat-arithmetic side is now universal in k.  The COHOMOLOGY-
+THEORETIC content (max non-trivial Sq^i = k − 1 at H^k via
+explicit cup_(k-1) self-pairing) remains proved only at k = 1, 2
+with K_{3,2}^{(c=2)} 2-skeleton + 3-cell extension.
+
+**Final session status of (k+1) derivation marathon**:
+
+  | Layer | Status |
+  |-------|--------|
+  | Nat-arithmetic three-reading ∀ k ≥ 1 | PROVED |
+  | Steenrod Sq^i at H¹ Gram, H² ω | PROVED |
+  | cup_1 = δ² bridge at H² ω | PROVED |
+  | Adem Sq^1·Sq^1 = 0 at truncation | PROVED |
+  | 3-skeleton extension via concrete attaching | PROVED |
+  | Cohomological (k+1) at k = 1, 2 | PROVED |
+  | Cohomological (k+1) at k ≥ 3 | OPEN (continuing marathon) |
+  | General cup_i / Adem-Wu / Cartan | OPEN |
+
+Total G132 K_{3,2}^{(c=2)} higher-cohomology campaign:
+**15 files / 185 PURE / 0 DIRTY**, α_em precision at 0.007 ppb
+tier with the cup-axiom-internal `(k+1)` derivation formalised
+at k = 1, 2 + universal Nat-arithmetic for k ≥ 1.
