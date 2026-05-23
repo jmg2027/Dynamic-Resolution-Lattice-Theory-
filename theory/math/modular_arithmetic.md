@@ -144,7 +144,28 @@ embedding explicit:
 Reading: the chain `F_p ↪ ℤ_p` is explicit at the Lean level;
 every modular structure (FLT, Bezout, F_p[√D]) composes with
 `fromFp` + the existing `Zp.invSeq` scaffold to lift into ℤ_p via
-Hensel.  `FP2SqrtD` extends to `ℤ_p[√D]` by the same lift.
+Hensel.
+
+## Full F_p[√D] → ℤ_p[√D] lift — closed (ZpSqrtD.lean, 12 PURE)
+
+`Lib/Math/Padic/ZpSqrtD.lean` realises `ℤ_p[√D]` parametric in D:
+
+  `ZpSqrtD p := ZpSeq p × ZpSeq p` represents `a + b·√D`.
+
+  · `zpsd_add p hp x y` — componentwise `Zp.add` (D-independent).
+  · `zpsd_mul p hp D x y` — `(ac + D·bd) + (ad + bc)√D` with D
+    lifted via `fromFp p hp D`.
+  · `zpsd_zero / zpsd_one / zpsd_sqrtD` — canonical constants.
+  · `fp2d_to_zpsd p hp x` — embedding `FP2 ↪ ZpSqrtD p` lifting
+    each component via `fromFp`.
+  · `fp2d_to_zpsd_digit_0_first/second` — digit-0 bridge:
+    embedding's digit-0 equals the F_p value mod p.
+  · ★★★★★ `zpsd_capstone` packages constants, embedding digit-0,
+    and `√D` generator's digit signature.
+
+Reading: the F_p[√D] machinery lifts componentwise to ℤ_p[√D] via
+`fromFp`; every F_p[√D] identity has a ℤ_p[√D] analog whose
+digit-0 matches.
 
 ## Open frontier
 

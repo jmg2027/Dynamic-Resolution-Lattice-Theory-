@@ -131,7 +131,7 @@ Reading: 213-native differentiation is a Nat-decidable operation
 that tracks precision via explicit `DepthModulus`.  No
 existentials, no `limit`.
 
-## Cut integration over DyadicMeasurableSet — closed (CutIntegral.lean, 8 PURE)
+## Cut integration over DyadicMeasurableSet — closed (CutIntegral + Linearity, 14 PURE)
 
 `Lib/Math/Real213/CutIntegral.lean` lifts the per-bracket
 `riemannSampleSum` to a measure-theoretic integral over a
@@ -146,6 +146,13 @@ existentials, no `limit`.
 
 Reading: finite-list recursion replaces σ-algebra; no Lebesgue
 measure machinery, no Choice.  Real213 integration is finitary.
+
+`Lib/Math/Real213/CutIntegralLinearity.lean` (6 PURE) adds
+structural additivity over `S ++ T`: `cutIntegralOver_nil_append`,
+`cutIntegralOver_cons_append`, `cutIntegralOver_singleton_append_at`,
+`cutIntegralOver_triple_at`, and `cut_integral_linearity_capstone`
+witness that integration distributes over list concatenation
+pointwise — `rfl`-level identities, no σ-additivity machinery.
 
 ## Open frontier
 

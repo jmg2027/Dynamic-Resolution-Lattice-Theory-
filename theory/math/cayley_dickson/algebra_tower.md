@@ -190,14 +190,15 @@ predicted by the L6T pattern + CD-doubling sign rule (`(0, u)² =
 exceeds practical heartbeat budget — the structural shell is the
 deliverable.
 
-## L8T (Type B deeper) — closed (ZSqrtMinus2TowerL8.lean, 11 PURE)
+## L8T / L9T (Type B deeper) — closed (TowerL8 + TowerL9, 18 PURE)
 
 `Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL8.lean` extends
-the ZSqrt[-2] tower past L7T to **L8T**: 128 = 2 × 64 units, full
-CD-doubling pattern preserved.  `set_option maxRecDepth 1024` for
-the cardinality decide.
+the ZSqrt[-2] tower past L7T to **L8T**: 128 = 2 × 64 units.
+`ZSqrtMinus2TowerL9.lean` continues to **L9T**: 256 = 2 × 128
+units.  `set_option maxRecDepth {1024, 2048}` for cardinality
+`decide`.  Full CD-doubling pattern preserved at every step.
 
-## Type D tower L1 — closed (HurwitzTowerL1.lean, 15 PURE)
+## Type D tower L1 + L2 — closed (HurwitzTowerL1 + L2, 22 PURE)
 
 `Lib/Math/CayleyDickson/Integer/HurwitzTowerL1.lean` shows the
 CD-doubling machinery applies to Type D (Hurwitz base):
@@ -207,7 +208,11 @@ CD-doubling machinery applies to Type D (Hurwitz base):
   · Local `hurAdd, hurNeg, hurSub` (base `Hurwitz` lacks Add/Sub
     instances).
   · `HurwitzL2_units` enumerated, cardinality 48 = 2 × 24.
-  · ★★★★ `hurwitz_tower_L1_capstone` packages cardinality +
+  · `hurwitz_tower_L1_capstone` packages cardinality + doubling.
+  · `HurwitzTowerL2.lean` (7 PURE) continues: `HurwitzL3 :=
+    HurwitzL2 × HurwitzL2` with `hl2Add / hl2Neg / hl2Sub`
+    componentwise; unit cardinality 96 = 2 × 48.
+  · ★★★★ `hurwitz_tower_L2_capstone` packages L2 cardinality +
     doubling relation.
 
 The 4-row matrix extends past base for all four types
