@@ -251,6 +251,8 @@ extension only, is itself a research question.  See
 | `Zp.valAtLeast_neg` | `Norm` | `val(-x) ≥ val(x)` — negation preserves valuation |
 | `Zp.valEq_neg` | `Norm` | `val(-x) = val(x)` (precise) |
 | `Zp.valEq_mul` | `Norm` | `val(xy) = val(x) + val(y)` (precise mul ultrametric) |
+| `Zp.frobenius_lift` | `Teichmuller` | `y ≡ z mod p^k, k ≥ 1 → y^p ≡ z^p mod p^(k+1)` |
+| `Zp.teichmuller_iter_cauchy` | `Teichmuller` | iter is Cauchy: `iter x (n+1) ≡ iter x n mod p^(n+1)` |
 
 ## Hensel infrastructure
 
@@ -301,47 +303,131 @@ then `x.trunc (m+k) = p^m · A` for some `A`.  Pairing with the
 analogous y-side identity, the product is `p^(m+n) · (A·B)`,
 divisible by `p^(m+n)`.
 
-## Teichmüller iteration
+## Teichmüller convergence
 
-For p prime, the map `x ↦ x^p` preserves digit 0 mod p (Fermat's
-little theorem at the digit level).  Iterating gives
-`Zp.teichmuller_iter x n := x^(p^n)`, with digit-0 invariant:
+The map `x ↦ x^p` defines `Zp.teichmuller_iter x n := x^(p^n)`.
 
+**Digit-0 invariant** (Fermat at digit level): for p prime,
   `(teichmuller_iter x n).trunc 1 = x.trunc 1`  ∀n.
 
-In classical theory, the sequence `x, x^p, x^(p²), …` converges
-(p-adically) to the Teichmüller representative `ω(x)` — the
-unique `(p-1)`-th root of unity congruent to `x mod p`.  The
-full convergence at higher trunc levels uses the Frobenius lift
-`(a + p^n · b)^p ≡ a^p (mod p^(n+1))`, which would need binomial
-expansion mod `p^(n+1)`.  Currently captured: the digit-0 step.
+**Cauchy property** (`Zp.teichmuller_iter_cauchy`):
+  `(iter x (n+1)).trunc (n+1) = (iter x n).trunc (n+1)`.
 
-Companion: `Zp.pow_p_minus_one_trunc_one` says `x^(p-1) ≡ 1 (mod p)`
-for `x` a unit (digit-0 nonzero) — the multiplicative-order
-statement defining roots of unity.
+So the sequence agrees with itself at progressively deeper trunc
+levels.  In the classical picture this says `x, x^p, x^(p²), …`
+converges p-adically to the Teichmüller representative `ω(x)` —
+the unique element with `ω(x) ≡ x (mod p)` satisfying `ω(x)^p =
+ω(x)`.
 
-## Open frontier
+### Frobenius lift (the engine)
 
-- **Digit-level ring laws** (`mul_comm_digit`, `mul_assoc_digit`):
-  trunc-level versions are closed.  Digit-level would require a
-  convolution reindexing argument.
-- **Hensel uniqueness**: if `y²  ≡ x mod p^n` and `z² ≡ x mod p^n`
-  with `y_0 = z_0`, prove `y ≡ z mod p^n`.  Would give uniqueness
-  of the Hensel-lifted square root.
-- **Full Teichmüller convergence**: prove
-  `(teichmuller_iter x (n+1)).trunc (n+1) = (teichmuller_iter x n).trunc (n+1)`
-  for `n ≥ 1`.  Requires the Frobenius lift binomial-mod argument
-  `(a + p^k · b)^p ≡ a^p (mod p^(k+1))`.
-- **Hensel sqrt uniqueness** — CLOSED via `Zp.sqr_unique_trunc`.
-  Inductive proof using digit-by-digit comparison via the abstract
-  `sqrt_unique_digit_step`: binomial expansion of `y²` and `z²`
-  mod `p^(n+2)` reduces to `dy = dz` after cancelling `a²` and
-  applying the `2·d_0·two_d_0_inv ≡ 1` (mod p) identity.
-- **DRLT anchor at higher levels**: `canonical_5adic_NU_trunc_le_25`
-  closes `n ≤ 25`.  Beyond, `5^25 % 5^n = 5^25 - q · 5^n` for the
-  appropriate quotient.  Whether this regime is operationally
-  meaningful in DRLT is itself a research question (see
-  `seed/RESOLUTION_LIMIT_SPEC.md`).
+`Zp.frobenius_lift`:
+  `y ≡ z (mod p^k), k ≥ 1 → y^p ≡ z^p (mod p^(k+1))`.
+
+Proved at trunc level via `pow_trunc` + digit decomposition +
+the Nat-level lemma `frobenius_lift_nat`:
+  `b ≡ 0 (mod p^k), k ≥ 1 → (a + b)^p ≡ a^p (mod p^(k+1))`.
+
+The Nat-level proof uses the **geometric sum factorization**
+  `(a + b)^p = a^p + b · S`  where  `S = ∑ᵢ₌₀ᵖ⁻¹ (a+b)ⁱ · aᵖ⁻¹⁻ⁱ`,
+then observes `S ≡ 0 (mod p)` whenever `b ≡ 0 (mod p)` (each of
+the p terms reduces to `aᵖ⁻¹ mod p`, total ≡ 0 by `p · k ≡ 0`).
+
+Notably **the proof avoids binomial coefficients entirely** and
+**does not require p to be prime**.  Frobenius lift holds for any
+`p ≥ 1`, with the standard "binomial coefficients are divisible
+by p" fact replaced by the "p terms each ≡ same value mod p"
+identity.  Primality enters only at the digit-0 step (Fermat) when
+we invoke `pow_p_trunc_one` for the base case of the Cauchy
+induction.
+
+## Closing reflection
+
+What the Real213-p-adic campaign produced:
+
+**Frontier results (all ∅-axiom)**:
+- Full ring structure on `ZpSeq` (trunc level): add/mul/neg with
+  comm, assoc, distrib, additive inverse axiom.
+- Hensel lift for inverse and square root: both existence
+  (`invFull`, `sqrtFull`) and uniqueness (`inv_trunc_unique`,
+  `sqr_unique_trunc`) at every trunc level.
+- p-adic norm with full strong ultrametric (additive + multiplicative,
+  precise `valEq` versions).
+- ℚ_p as the localization of `ℤ_p` at `p`: add, sub, mul, neg, inv,
+  div, sqrt (the latter with the even-shift restriction since
+  `√p ∉ ℚ_p`).
+- Frobenius lift and Teichmüller iteration's Cauchy property —
+  the deepest structural fact about iterated p-th powers.
+- Three concrete p-adic algebraic numbers: `i₅ = √(-1) ∈ ℤ_5`,
+  `i₁₃ = √(-1) ∈ ℤ_13`, `√2 ∈ ℤ_7`.  All built from `sqrtFull`
+  applied to explicit `SqrtBase` instances.
+- DRLT anchor: `canonical_5adic_NU` with full `trunc_le_25` zero
+  attestation, bridging the finite resolution lattice to the
+  5-adic envelope.
+
+**What was surprising along the way**:
+
+1. **Binomial-free Frobenius**.  The textbook proof of
+   `y ≡ z (mod p^k) → y^p ≡ z^p (mod p^(k+1))` uses
+   `p ∣ C(p, i)` for `0 < i < p` (p prime).  Our 213-native proof
+   replaces this with the elementary observation that the
+   geometric sum `∑ᵢ₌₀ᵖ⁻¹ (...)` has exactly `p` summands that
+   are pairwise equal mod p, so its total mod p is `0` by the
+   trivial identity `p · k ≡ 0 (mod p)`.  No primality, no
+   binomial coefficients.  Just `1 · X + 1 · X + ⋯ + 1 · X = p · X`.
+
+2. **Hensel-style uniqueness via cancellation**.  The Hensel
+   inverse uniqueness, sqrt uniqueness, and the auxiliary
+   cancellation laws (`mul_left_cancel_trunc`, `mul_right_cancel_trunc`,
+   `mul_eq_zero_of_unit_left`) all stem from one observation:
+   left-multiplying by `invFull x` is a bijection at trunc level
+   when `x` is a unit.  The same one-liner argument carries to
+   `(y + z) · (y − z) ≡ 0 ⟹ y ≡ z` (sqrt uniqueness via the
+   abstract `sqrt_unique_digit_step`).
+
+3. **Concrete vs. abstract**.  `i₅ = 2 + 5 + 2·25 + 125 + …` is a
+   genuine 5-adic integer with a digit expansion that you can
+   `#eval` and verify by hand.  Its construction goes through the
+   same `sqrtFull` machinery as the abstract uniqueness theorem;
+   no special-case code, no decide-based shortcut.  The library
+   uniformly handles "compute" and "prove".
+
+**What the campaign didn't do**:
+
+- Promote ring laws to the digit (sequence-level) layer.  All ring
+  axioms are at the `.trunc n` level only.  Lifting to the actual
+  `ZpSeq` would require either a quotient construction (and
+  propext / Quot.sound for `ZpSeq` equality up to trunc) or a
+  convolution-style reindexing argument for `mulRaw_comm`.  Either
+  would push us outside the strict-∅ guarantee.
+
+- Construct the Teichmüller representative `ω(x)` as a concrete
+  `ZpSeq`.  We have Cauchy convergence, but the limit object (the
+  fixed point of the iteration in the inverse limit) requires
+  either a completion construction or explicit digit extraction
+  via diagonal stabilization (analog of `sqrtFull` for the
+  iteration).  This is plausible follow-up work.
+
+- Bridge to representations of the multiplicative group `ℤ_p^×`.
+  We have the building blocks (unit predicate via `modBezout`,
+  Fermat at digit 0, Teichmüller Cauchy) but not the structural
+  isomorphism `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`.
+
+**Methodology note**.  Most proofs in `Teichmuller.lean` and
+`Hensel.lean` look like a sequence of `rw` over `mul_trunc`,
+`add_trunc`, `mul_pow_succ_mod`, `mul_mod_pure`, etc., with
+careful attention to *associativity choices* (`mul_assoc` vs.
+`mul_left_comm`) and *which subterm of a goal the rewrite
+matches*.  The `congrArg` workaround for `rw [b_eq]` mass-
+substituting `b` inside `geo_sum_nat a b p` is a good example —
+in a propext-permissive world you'd use `simp only [hb_eq]` with
+a position restriction; in 213-pure you write `congrArg (· * S) hb_eq`
+explicitly.
+
+This is what 213-native proof engineering looks like at the
+"medium-difficulty mathematical structure" scale: theorems that
+would be one-liners in Mathlib become 50–200 line proofs here,
+but they ship with a true ∅-axiom certificate.
 
 ## How to verify
 
@@ -352,7 +438,8 @@ python3 tools/scan_axioms.py E213.Lib.Math.Padic.Foundation \
                               E213.Lib.Math.Padic.Pow \
                               E213.Lib.Math.Padic.Norm \
                               E213.Lib.Math.Padic.Hensel \
+                              E213.Lib.Math.Padic.Teichmuller \
                               E213.Lib.Math.Padic.Field \
                               E213.Lib.Math.Padic.DRLT
-# Expected: 295+ PURE / 0 DIRTY
+# Expected: 308 PURE / 0 DIRTY
 ```

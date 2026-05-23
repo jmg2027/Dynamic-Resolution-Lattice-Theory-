@@ -12,7 +12,7 @@ Hub chapters:
 - [`dyadic_fsm.md`](dyadic_fsm.md) — DyadicFSM/ (101 files; G119 marathon merged 2026-05-22)
 - [`signed_cut.md`](signed_cut.md) — SignedCut/ (35 files; absorbs G37/G38/G39)
 - [`geometrization_conjecture.md`](geometrization_conjecture.md) — GeometrizationConjecture/ (13 files, R1 closed, R1+ partial)
-- [`padic_real213.md`](padic_real213.md) — Padic/ (6 files, 207 PURE; ZpSeq, ring-quotient mul_trunc, Hensel-lifted invSeq, ℚ_p)
+- [`padic_real213.md`](padic_real213.md) — Padic/ (8 files, 308 PURE; ring axioms, Hensel inv/sqrt with existence + uniqueness, full ultrametric, Frobenius lift, Teichmüller Cauchy, ℚ_p, DRLT 5-adic anchor)
 
 Cohomology sub-clusters (11 in `cohomology/`):
 - `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, hodge, surfaces, universal, examples, bridge}.md`

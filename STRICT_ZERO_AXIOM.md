@@ -182,18 +182,38 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
-### G122 closure addition (2026-05-22)
+### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
-`E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **207 PURE
-declarations** across 6 modules (`Foundation`, `Arith`, `Norm`,
-`Hensel`, `Field`, `DRLT`).  Headline closures:
+`E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE
+declarations** across 8 modules (`Foundation`, `Arith`, `Pow`,
+`Norm`, `Hensel`, `Teichmuller`, `Field`, `DRLT`).  Headline
+closures:
 
   · `Zp.add_trunc` / `Zp.mul_trunc` — ring-quotient theorems for
-    truncation `ZpSeq p → ℤ/p^n`.
-  · `Zp.mul_invSeq_correct` — Hensel-lifted multiplicative inverse
-    correct at every level `n`.
-  · `QpSeq` ℚ_p localization with add/mul/neg/sub/ofNat.
-  · `canonical_5adic_NU` — 5-adic lift of `N_U = 5^25`.
+    truncation `ZpSeq p → ℤ/p^n`; full ring axioms at trunc level
+    (comm, assoc, distrib, additive inverse via `add_neg_self_trunc`).
+  · `Zp.mul_invSeq_correct` / `Zp.mul_invFull_correct` /
+    `Zp.inv_trunc_unique` — Hensel-lifted multiplicative inverse
+    with existence + uniqueness at every level.
+  · `Zp.sqr_sqrtSeq_correct` / `Zp.sqr_sqrtFull_correct` /
+    `Zp.sqr_unique_trunc` — Hensel-lifted square root via
+    `SqrtBase`, with existence + uniqueness.  Concrete instances:
+    `i_5 = √(-1) ∈ ℤ_5`, `i_13 ∈ ℤ_13`, `sqrt_two_7 ∈ ℤ_7`.
+  · `Zp.valAtLeast_add` / `Zp.valAtLeast_mul` / `Zp.valEq_add_of_lt`
+    / `Zp.valEq_mul` / `Zp.valEq_neg` — full strong ultrametric
+    (additive + multiplicative + negation, precise valEq forms).
+  · `Zp.pow` / `Zp.pow_trunc` / `Zp.pow_add_trunc` /
+    `Zp.pow_mul_trunc` — natural-number power with ring-quotient
+    homomorphism properties.
+  · `Zp.pow_p_trunc_one` / `Zp.pow_p_minus_one_trunc_one` — Fermat's
+    little theorem at digit 0 (for p prime via `prime_gcd`).
+  · `Zp.frobenius_lift` / `Zp.teichmuller_iter_cauchy` — Frobenius
+    lift `y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)` and Cauchy
+    convergence of the iteration `x ↦ x^p`.  Notable: the proof
+    avoids binomial coefficients entirely and holds for any p ≥ 1.
+  · `QpSeq` ℚ_p localization with add/sub/mul/neg/inv/div/sqrt.
+  · `canonical_5adic_NU` — 5-adic lift of `N_U = 5^25` with
+    `trunc_le_25 = 0` attestation; DRLT bridge anchor.
 
 Chapter: `theory/math/padic_real213.md`.
 Source note: `research-notes/archive/G122_real213_padic_research_direction.md`.
