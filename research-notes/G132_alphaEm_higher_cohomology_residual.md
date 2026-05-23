@@ -1,15 +1,17 @@
 # G132 — 1/α_em sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology
 
-**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phases 2–6)
-**Status**: **Phases 1–6 CLOSED** — math anchor + physics bridge +
+**Date**: 2026-05-22 (Phase 1) / 2026-05-23 (Phases 2–7)
+**Status**: **Phases 1–7 CLOSED** — math anchor + physics bridge +
 uniform cup-ladder + refined L²-weighted closure + two-rule
-structural derivation + L²-pairing rule as proved Nat identity.
-The H² ω class with NS² self-pairing weight FULLY closes the
-post-Gram α_em residual (27 × 10⁻⁹) in a single structural term;
-the L²-pairing trace rule `||c||² = (L¹-norm)²` is proved
-universally over `Fin 3 → Bool` via expansion-of-square identity.
-Structural prediction matches CODATA to within 1 Nat unit at e9
-precision (**sub-1·10⁻⁹ ≈ 0.007 ppb tier on 1/α_em**).
+structural derivation + L²-pairing rule as proved Nat identity +
+per-layer coupling (α/d)^(k+1) reformulation.  The H² ω class
+with NS² self-pairing weight FULLY closes the post-Gram α_em
+residual (27 × 10⁻⁹) in a single structural term; the L²-pairing
+trace rule `||c||² = (L¹-norm)²` is proved universally over
+`Fin 3 → Bool`; the cup-ladder factors as `||c||² · (α/d)^(k+1)`
+with concrete (α/d)-power identifications at k = 1, 2.  Structural
+prediction matches CODATA to within 1 Nat unit at e9 precision
+(**sub-1·10⁻⁹ ≈ 0.007 ppb tier on 1/α_em**).
 **Branch suggestion**: post-G131 follow-up
 **Source**: G131 Phase 4 open question (post-Gram residual 27 × 10⁻⁹
 mathematical principle), per PROMOTION_CRITERIA discussion 2026-05-22.
@@ -206,18 +208,48 @@ cup-graduation side remains the open frontier.  The existing
 degree `k + l` (not `k + 1`) under bilinear self-pairing — the
 α-power graduation needs additional cohomology machinery.
 
-## Phase 7+ open frontiers
+## Phase 7 closure (2026-05-23) — per-layer coupling reformulation
 
-  · **Cup-product graduation first-principles**: extend
-    `Math/Cohomology/Cup/Core.lean` with higher-cup or
-    filtration-depth machinery to derive `H^k → α^(k+1)`.
+`lean/E213/Lib/Physics/AlphaEM/PerLayerCoupling.lean` (9 PURE).
+Reformulates the refined cup-ladder formula via the per-layer
+coupling ratio α/d:
+
+  · `alpha_over_d_pow_e9 j := 10^(9·(j+1)) / (d_base^j · observed_e9^j)`
+    (per-layer coupling (α/d)^j at e9 precision)
+  · ★★★★★ `refined_trace_factors_at_k1 : refined_trace_e9 1 1 = (α/d)²`
+  · ★★★★★ `refined_trace_factors_at_k2 : refined_trace_e9 2 (faceCochainL1 ω) = NS²·(α/d)³`
+  · ★★★★ `gram_eq_alpha_over_d_sq : gram_correction_e9 = (α/d)²`
+  · ★★★★ `omega_weighted_eq_NS_sq_alpha_over_d_cubed : omega_weighted_trace_e9 = NS²·(α/d)³`
+
+Per-layer coupling structural reading: α/d is the "fine-structure
+constant per layer" of the 5-layer base.  An H^k class spans
+(k+1) layers — k filtration depth + 1 top-cell evaluation — each
+contributing one factor of α/d.
+
+Specialisations at e9 precision:
+  · (α/d)² = 2130 (H¹ Gram, rank-1 effective weight)
+  · NS² · (α/d)³ = 9 · 3 = 27 (H² ω, derived weight)
+
+Status of refined cup-ladder (post-Phase 7):
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | PROVED (Nat identity, Phase 6) |
+  | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (this Phase) |
+  | `(k+1) = filtration depth + 1` reading | POSIT (cohomology-theoretic) |
+
+## Phase 8+ open frontiers
+
+  · **Why (k+1) graduation**: the per-layer factorisation makes
+    the (k+1) graduation NUMERICALLY explicit at k = 1, 2, but
+    the cohomology-theoretic reason `(k+1)` (vs cup-arity
+    `k + l = 2k` for self-pairing) remains an open posit.
     Candidate approaches:
-      (a) Massey products / higher cup operations (k-fold cup
-          beyond bilinear);
-      (b) Filtration depth in a cohomology spectral sequence
-          (the d_r differential graduates with class degree);
-      (c) Linkage to 5-layer base denominators 60, 30, 25, 3,
-          4, 45 — each potentially encoding one cup factor.
+      (a) Massey products / higher cup operations;
+      (b) Filtration depth in a spectral sequence;
+      (c) Linkage to the 5-layer base denominators
+          60, 30, 25, 3, 4, 45 — each potentially encoding one
+          cup factor in the per-layer chain.
   · **Effective-rank reduction at H¹**: explain why Gram uses
     rank-1 effective weight (not b_1 = 6) — the cubic Newton
     self-consistency may itself provide this reduction.

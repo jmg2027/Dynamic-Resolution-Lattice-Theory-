@@ -253,6 +253,35 @@ The cup-graduation rule requires extending `Math/Cohomology/Cup/`
 beyond bilinear arity (which gives `k + l`, not `k + 1`); needs
 higher-cup, filtration, or spectral-sequence machinery.
 
+### G132 Phase 7 — per-layer coupling reformulation DONE 2026-05-23
+
+`PerLayerCoupling.lean` (9 PURE).  Reformulates the refined
+formula as `||c||² · (α/d)^(k+1)`:
+
+  · `alpha_over_d_pow_e9 j := 10^(9·(j+1))/(d_base^j · observed_e9^j)`
+    — per-layer coupling (α/d)^j at e9 precision
+  · `refined_trace_factors_at_k1 : refined_trace_e9 1 1 = (α/d)²`
+  · `refined_trace_factors_at_k2 : refined_trace_e9 2 (faceCochainL1 ω)
+    = 3·3·(α/d)³`
+  · Identifications: `gram_correction_e9 = (α/d)²`,
+    `omega_weighted_trace_e9 = NS²·(α/d)³`
+
+Per-layer coupling reads: an H^k class spans (k+1) layers (k
+filtration depth + 1 top-cell evaluation), each contributing one
+factor of α/d.
+
+Status of refined cup-ladder (post-Phase 7):
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | PROVED (Nat identity) |
+  | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (this Phase) |
+  | `(k+1) = filtration depth + 1` reading | POSIT |
+
+The `(k+1)` graduation is now NUMERICALLY explicit at the concrete
+cases; the cohomology-theoretic reason `(k+1)` (vs cup-arity
+`k+l`) remains the open frontier.
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -451,6 +480,7 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Physics/AlphaEM/PerLayerCoupling.lean` | **G132 Phase 7** — per-layer coupling (α/d)^(k+1) factorisation |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SelfPairingTrace.lean` | **G132 Phase 6** — L²-pairing rule proved as universal Nat identity |
 | `lean/E213/Lib/Physics/AlphaEM/RefinedCupLadderDerivation.lean` | **G132 Phase 5** — two-rule structural derivation (cup-graduation + L²-pairing) |
 | `lean/E213/Lib/Physics/AlphaEM/OmegaPostGramFull.lean` | **G132 Phase 4** — refined NS²·α³/d³ full closure (sub-1·10⁻⁹) |

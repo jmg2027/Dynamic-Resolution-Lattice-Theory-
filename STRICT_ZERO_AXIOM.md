@@ -1333,3 +1333,37 @@ existing `cup : Cochain n k × Cochain n l → Cochain n (k+l)` has
 output degree `k + l`, not `k + 1`; the α-power graduation needs
 additional structure (higher-cup machinery, filtration depth, or
 spectral-sequence differential) not yet formalized.
+
+## 2026-05-23 — PerLayerCoupling (refined formula factored as (α/d)^(k+1))
+
+Reformulates the refined cup-ladder formula as
+`Δ_H^k(c) = ||c||² · (α/d)^(k+1)`, exposing the per-layer
+coupling ratio α/d as the natural structural building block.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Physics.AlphaEM.PerLayerCoupling` | 9 | `alpha_over_d_pow_e9 j := 10^(9·(j+1))/(d_base^j·observed_e9^j)` (per-layer coupling (α/d)^j at e9 precision); `alpha_over_d_pow_1` ratio; ★★★★★ `refined_trace_factors_at_k1 : refined_trace_e9 1 1 = 1·1·alpha_over_d_pow_e9 2` (H¹ Gram as bilinear per-layer); ★★★★★ `refined_trace_factors_at_k2 : refined_trace_e9 2 (faceCochainL1 ω) = 3·3·alpha_over_d_pow_e9 3` (H² ω as NS²·trilinear per-layer); ★★★★ `gram_eq_alpha_over_d_sq : gram_correction_e9 = alpha_over_d_pow_e9 2`; ★★★★ `omega_weighted_eq_NS_sq_alpha_over_d_cubed : omega_weighted_trace_e9 = 9·alpha_over_d_pow_e9 3`; ★★★★★★★★ `per_layer_coupling_master` (7-conjunct capstone) |
+
+**Per-layer coupling structural insight**:
+
+The 5-layer base structure has d = 5 layers.  The "per-layer
+fine-structure constant" is α/d — the coupling strength
+distributed across each base layer.  An H^k class contributes
+(k+1) factors of this per-layer coupling:
+  · k from the filtration depth (cohomology levels traversed);
+  · +1 from the top-cell evaluation.
+
+Specialisations at e9 precision:
+  · (α/d)² = 2130 (H¹ Gram, rank-1 effective weight)
+  · NS² · (α/d)³ = 9 · 3 = 27 (H² ω, derived weight from L¹-norm)
+
+Full residual sum: `(α/d)² + NS²·(α/d)³ = 2157 × 10⁻⁹` = raw
+α_em residual.
+
+**Status of the refined cup-ladder formula (post-Phase 7)**:
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` | PROVED (Nat identity) |
+  | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (this file) |
+  | `(k+1) = filtration depth + 1` reading | POSIT (cohomology-theoretic) |
