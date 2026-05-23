@@ -1,19 +1,20 @@
 # Akbulut Cork (exotic 4-manifold structures)
 
 **Status**: Closed at H¹ + H² + H³ truncation + multi-cork
-(universal + heterogeneous + well-formed involution + host-aware)
-+ 5-way cross-frame.
-Total: 174 PURE / 8 files / 1 umbrella.
+(universal + heterogeneous + well-formed involution + host-aware
++ decidable Boolean form) + 5-way cross-frame.
+Total: 190 PURE / 8 files / 1 umbrella.
 
   · H¹: 44 PURE (4 files) — single-cork signed count `+4`
   · H²: 42 PURE (`HigherTwist.lean`) — composite H¹+H² = `+6`
   · H³ truncation: 23 PURE (`H3Twist.lean`) — stable at `+6` for k ≥ 0
-  · Multi-cork: 72 PURE (`MultiCork.lean`) — k-cork signed count `4^k`
+  · Multi-cork: 87 PURE (`MultiCork.lean`) — k-cork signed count `4^k`
     (universal + heterogeneous + PURE product-law + universal
-    involution under well-formedness + host-aware product)
-  · Cross-frame: 7 PURE (`CrossFrame.lean`) — 5-way Sym(3) bridge
+    involution under well-formedness + host-aware product +
+    decidable Boolean characterization)
+  · Cross-frame: 8 PURE (`CrossFrame.lean`) — 5-way Sym(3) bridge
     cork ↔ Sym(3)-fixed ↔ Geometrization 3+5; master 4-mfd +
-    geometrization joint capstone
+    geometrization joint capstone (v1 + v2)
 
 ## Overview
 
@@ -67,7 +68,7 @@ discrete and `decide`-resolved.
     M_S01 acts as identity on C³ and C⁴ (single-cell extensions);
     `signedCorkTwistCount_H3 = 0`; composite
     `signedCorkTwistCount_H1_H2_H3 = +6` (truncation stabilizes)
-  - `MultiCork.lean` (72) — `MultiCork213 := List Cork213`;
+  - `MultiCork.lean` (87) — `MultiCork213 := List Cork213`;
     componentwise `corkTwistMulti` involution; multiplicative
     composition `signedCorkTwistCountMulti m = 4^m.length`
     (1-cork: 4, k=2: 16, k=3: 64, k=4: 256, k=5: 1024);
@@ -80,14 +81,17 @@ discrete and `decide`-resolved.
     via `Nat.not_lt_of_le`); **host-aware multi-cork** —
     `CorkHost` (NS, NT, c) data, per-host signed count
     (K_{3,2}^{(c=2)} → +4, all trees → 0), product law for
-    all-K32 lists and collapse-to-0 under host-mixing with trees
-  - `CrossFrame.lean` (6) — 5-way Sym(3) cross-frame capstone
+    all-K32 lists and collapse-to-0 under host-mixing with trees;
+    **decidable Boolean form** — `isK32HostB`, `isAllK32B` with
+    bidirectional bridge: `isAllK32B m = true ⇒ signedHostMulti m
+    = 4^m.length` and `isAllK32B m = false ⇒ signedHostMulti m = 0`
+  - `CrossFrame.lean` (8) — 5-way Sym(3) cross-frame capstone
     bundling cork (`signedCorkTwistCount = +4
     = Sym3IrrepDecomp.fixedSize`) with the 4 prior frames
     (Geometrization 3+5, gluon octet H¹ rank 8, HC_K32 Hodge,
     Möbius P mod-5 pentagonal); cork-isotropic +1 relation;
     cork-anisotropic +1 relation (H¹+H²)
-- ∅-axiom status: PURE (all 174 theorems)
+- ∅-axiom status: PURE (all 190 theorems)
 
 ## Why K_{1,4} and K_{3,2}^{(c=2)} together
 

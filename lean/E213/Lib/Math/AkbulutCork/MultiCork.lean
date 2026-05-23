@@ -651,4 +651,171 @@ theorem host_aware_multi_cork_close :
     rw [signedHostMulti_allK32]
     decide
 
+/-! ## §11 — Decidable Boolean form for host-aware product law
+
+The host-aware signed count is non-zero iff every component is a
+K_{3,2}^{(c=2)} critical host.  A decidable Boolean characterization
+makes this explicit and computable.
+-/
+
+/-- Decide whether a host is K_{3,2}^{(c=2)} critical. -/
+def isK32HostB : CorkHost → Bool
+  | { NS := 3, NT := 2, c := 2 } => true
+  | _ => false
+
+theorem isK32HostB_K32 : isK32HostB K32_host = true := rfl
+theorem isK32HostB_K14 : isK32HostB K14_host = false := rfl
+theorem isK32HostB_K31 : isK32HostB K31_host = false := rfl
+theorem isK32HostB_K11 : isK32HostB K11_host = false := rfl
+
+/-- `signedHostCount h = 4` when host is K32 critical (via Boolean). -/
+theorem signedHostCount_pos_iff_K32 (h : CorkHost) :
+    isK32HostB h = true → signedHostCount h = 4 := by
+  cases h with
+  | mk NS NT c =>
+    intro hb
+    match NS, NT, c, hb with
+    | 3, 2, 2, _ => rfl
+
+/-- `signedHostCount h = 0` when host is not K32 critical. -/
+theorem signedHostCount_zero_iff_not_K32 (h : CorkHost) :
+    isK32HostB h = false → signedHostCount h = 0 := by
+  cases h with
+  | mk NS NT c =>
+    intro _
+    match NS, NT, c with
+    | 0, _, _ => rfl
+    | 1, _, _ => rfl
+    | 2, _, _ => rfl
+    | 3, 0, _ => rfl
+    | 3, 1, _ => rfl
+    | 3, 2, 0 => rfl
+    | 3, 2, 1 => rfl
+    | 3, 2, n + 3 => rfl
+    | 3, n + 3, _ => rfl
+    | n + 4, _, _ => rfl
+
+/-- Decide whether a host-aware multi-cork is all-K32. -/
+def isAllK32B : HostAwareMultiCork → Bool
+  | [] => true
+  | h :: rest => isK32HostB h && isAllK32B rest
+
+theorem isAllK32B_empty : isAllK32B [] = true := rfl
+
+theorem isAllK32B_allK32 : ∀ k : Nat, isAllK32B (allK32 k) = true
+  | 0 => rfl
+  | n + 1 => by
+    show (isK32HostB K32_host && isAllK32B (allK32 n)) = true
+    rw [isK32HostB_K32, isAllK32B_allK32 n]; rfl
+
+/-- Hetero list with K14 has `isAllK32B = false`. -/
+theorem isAllK32B_with_K14 :
+    isAllK32B [K32_host, K14_host, K32_host] = false := rfl
+
+theorem isAllK32B_with_K31 :
+    isAllK32B [K32_host, K31_host] = false := rfl
+
+/-! ## §12 — Decidable bridge to signed count
+
+`signedHostMulti m > 0` iff `isAllK32B m = true`.  Equivalently
+`signedHostMulti m = 0` iff `isAllK32B m = false`.
+-/
+
+/-- If all-K32, `signedHostMulti m` equals `4^m.length`. -/
+theorem signedHostMulti_of_isAllK32B : ∀ (m : HostAwareMultiCork),
+    isAllK32B m = true → signedHostMulti m = powNat 4 m.length
+  | [], _ => rfl
+  | h :: rest, hwf => by
+    show signedHostCount h * signedHostMulti rest
+         = 4 * powNat 4 rest.length
+    -- Boolean case-split on `isK32HostB h` and `isAllK32B rest`
+    cases hh : isK32HostB h with
+    | false =>
+      -- Then `isAllK32B (h :: rest) = false`, contradicting `hwf`
+      exfalso
+      have : isAllK32B (h :: rest) = false := by
+        show (isK32HostB h && isAllK32B rest) = false
+        rw [hh]; rfl
+      rw [this] at hwf
+      exact Bool.false_ne_true hwf
+    | true =>
+      cases hrest_b : isAllK32B rest with
+      | false =>
+        exfalso
+        have : isAllK32B (h :: rest) = false := by
+          show (isK32HostB h && isAllK32B rest) = false
+          rw [hh, hrest_b]; rfl
+        rw [this] at hwf
+        exact Bool.false_ne_true hwf
+      | true =>
+        have hsig_h : signedHostCount h = 4 :=
+          signedHostCount_pos_iff_K32 h hh
+        have hrec : signedHostMulti rest = powNat 4 rest.length :=
+          signedHostMulti_of_isAllK32B rest hrest_b
+        rw [hsig_h, hrec]
+
+/-- If not all-K32, `signedHostMulti m = 0`. -/
+theorem signedHostMulti_of_notAllK32B : ∀ (m : HostAwareMultiCork),
+    isAllK32B m = false → signedHostMulti m = 0
+  | [], h => by
+    exfalso
+    exact Bool.false_ne_true h.symm
+  | host :: rest, hne => by
+    show signedHostCount host * signedHostMulti rest = 0
+    cases hh : isK32HostB host with
+    | false =>
+      have : signedHostCount host = 0 :=
+        signedHostCount_zero_iff_not_K32 host hh
+      rw [this]
+      exact Nat.zero_mul _
+    | true =>
+      -- isK32HostB host = true, so isAllK32B rest must be false
+      have hrest_false : isAllK32B rest = false := by
+        have : isAllK32B (host :: rest) = isAllK32B rest := by
+          show (isK32HostB host && isAllK32B rest) = isAllK32B rest
+          rw [hh]; rfl
+        rw [this] at hne
+        exact hne
+      have hrec : signedHostMulti rest = 0 :=
+        signedHostMulti_of_notAllK32B rest hrest_false
+      rw [hrec]
+      exact Nat.mul_zero _
+
+/-- ★★★★★★★ **Decidable Boolean form of host-aware product law**
+
+  The host-aware signed count is non-zero iff every component is
+  a K_{3,2}^{(c=2)} critical host:
+
+    `isAllK32B m = true ⇒ signedHostMulti m = 4^m.length`
+    `isAllK32B m = false ⇒ signedHostMulti m = 0`
+
+  Both implications are PURE.  Decidability is automatic since
+  `isAllK32B` is `Bool`-valued via `decide` on (NS, NT, c)
+  pattern match.
+
+  This gives a fully algorithmic predicate for the host-aware
+  product law — no `Prop`-level reasoning needed at the call site. -/
+theorem host_aware_decidable_close :
+    -- All-K32 ⇒ 4^k product
+    (∀ (m : HostAwareMultiCork), isAllK32B m = true
+       → signedHostMulti m = powNat 4 m.length)
+    -- Not-all-K32 ⇒ 0
+    ∧ (∀ (m : HostAwareMultiCork), isAllK32B m = false
+       → signedHostMulti m = 0)
+    -- Per-host Boolean witnesses
+    ∧ isK32HostB K32_host = true
+    ∧ isK32HostB K14_host = false
+    ∧ isK32HostB K31_host = false
+    ∧ isK32HostB K11_host = false
+    -- All-K32 list Boolean witnesses
+    ∧ (∀ k : Nat, isAllK32B (allK32 k) = true)
+    -- Mixed list Boolean witnesses
+    ∧ isAllK32B [K32_host, K14_host, K32_host] = false
+    ∧ isAllK32B [K32_host, K31_host] = false := by
+  refine ⟨signedHostMulti_of_isAllK32B,
+          signedHostMulti_of_notAllK32B,
+          rfl, rfl, rfl, rfl,
+          isAllK32B_allK32,
+          rfl, rfl⟩
+
 end E213.Lib.Math.AkbulutCork.MultiCork
