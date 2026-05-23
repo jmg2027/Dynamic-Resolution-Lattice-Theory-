@@ -16,6 +16,7 @@ import E213.Lib.Math.Cohomology.Fractal
 import E213.Lib.Math.Cohomology.Hodge
 import E213.Lib.Math.Cohomology.Examples.K5
 import E213.Lib.Math.Cohomology.Bridge.LeibnizFinding
+import E213.Lib.Math.Cohomology.NodupAsClause4
 import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 import E213.Lib.Math.Cohomology.Bridge.Real213Bridge
 import E213.Lib.Math.Cohomology.Surfaces

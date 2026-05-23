@@ -191,12 +191,56 @@ This protocol converts **poetic structural intuitions** into
 direction of insight.  See `research-notes/archive/G133_cutoff_marathon.md`
 for the exemplar execution.
 
+## §8.5 Other instantiations across the corpus
+
+The (locate / diagnose-literal-failure / prove-refined-per-case)
+recipe is documented here in its Aurifeuillean home, but the same
+three-step shape recurs in two cross-domain places that are not
+literally cardinality cut-offs.  Cataloguing them grounds the
+methodology as a research technique, not a one-off.
+
+  · **Physics — C2b monotonicity at the atomic constants.**
+    `theory/physics/foundations/atomic_constants.md` Step 4 closes
+    `∀ m, constraint_C2b m 2 ↔ m = 3` by the same three-step shape:
+    (a) **locate** the coincidence at `m = 3, n = 2`; (b) **diagnose**
+    that the literal constraint `2mn = m² + m + n − 2` is impossible
+    for `m ≥ 4` because `m²` outgrows `2m + 3`; (c) **prove the
+    refined form** as explicit small-case checks at `m ∈ {0,1,2,3}`
+    plus the monotonicity bound `msq_gt_2m_p3 : 2m + 3 < m²` for
+    `m ≥ 4`.  The literal failure is not vacuousness (as in the
+    Hunter case) but arithmetic impossibility past a threshold.
+
+  · **Cohomology — α-power truncation at the K_{3,2}^{(c=2)}
+    skeleton boundary.**  `theory/math/cohomology/cup_ladder_graduation.md`
+    "Higher truncations" closes the structural identity
+    `max α-power = (top skeleton dim) + 1` by the same shape:
+    (a) **locate** the truncation at the 2-skeleton boundary
+    (`α³ = H² ω contribution`); (b) **diagnose** that any literal
+    "Steenrod operations remain non-vacuous at higher dim" fails
+    because `Sq²(ω) = ω ⌣_0 ω` lands in `C⁴ = ∅`; (c) **prove the
+    refined form** as the per-operation vacuity ladder
+    (`SteenrodSquaresAtOmega`, `AdemUniversal`, `CartanAtTruncation`).
+    The literal failure is the disappearance of the cochain target
+    space at the skeleton extension.
+
+Both instances exhibit the same three steps without involving
+Aurifeuillean cyclotomic factors or Hunter algebra.  The first
+substitutes "explicit small-case checks + monotonicity bound" for
+"explicit finite class + uniform bound"; the second substitutes
+"target cochain space vanishes" for "Hunter value set sparse beyond
+a cardinality bound".  The methodology survives the substitution,
+which is what makes it a methodology rather than a single theorem.
+
 ## §9 Cross-references
 
   · `cardinality_cutoff_applications.md` — six concrete realisations
     (Directions B/D/A/C/E/F, 291 PURE total) instantiating the
     methodology across different external sequences, complexity
     classes, and primitive sets.
+  · `theory/physics/foundations/atomic_constants.md` Step 4 — C2b
+    monotonicity instance (§8.5).
+  · `theory/math/cohomology/cup_ladder_graduation.md` — α-power
+    truncation instance (§8.5).
   · `theory/math/cohomology/aurifeuillean.md` — exemplar
     application (Hunter ⇔ Aurifeuillean cut-off at m = 1).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
@@ -216,6 +260,11 @@ for the exemplar execution.
     six-direction application family
     `cardinality_cutoff_applications.md` (291 PURE total across
     six Lean files).
+  · **Cross-domain instantiations**: §8.5 — two further occurrences
+    of the (locate / diagnose / prove-refined) shape in physics
+    (`atomic_constants.md` C2b monotonicity) and cohomology
+    (`cup_ladder_graduation.md` α-power truncation), confirming
+    the recipe as research technique.
 
 The principle is a **promotion of methodology** — recording the
 recurring three-step pattern (locate, diagnose, prove-refined)
