@@ -5,7 +5,7 @@
 `claude/4-manifolds-geometrization-IQXNb` — multi-session marathon
 on 4-manifolds & Geometrization.
 
-**Sessions 1-10 cumulative**: +353 PURE / 0 DIRTY.
+**Sessions 1-11 cumulative**: +398 PURE / 0 DIRTY.
 
 ## All items status
 
@@ -13,72 +13,73 @@ on 4-manifolds & Geometrization.
 |---|---|
 | Donaldson external interface | **DELETED** |
 | b_2 / b_3 cork-twist | **CLOSED** |
-| Multi-cork structures | **CLOSED + ALL EXTENSIONS** (87 PURE) |
-| JSJ extension (FW-2) | **DEEPENED + UNBOUNDED + CONCRETE + L(p,q) + REFINEMENT + #SUM + UNIVERSAL + MULTI-FOLD + HEEGAARD** (181 PURE) |
-| Metric direct (FW-4) | **DEEPENED** (40 PURE) |
+| Multi-cork (universal + hetero + decidable + host-aware) | **CLOSED** (87 PURE) |
+| JSJ extension (FW-2) | **CLOSED + ALL EXTENSIONS** (205 PURE) |
+| Metric direct (FW-4 + cross-frame consolidation) | **CLOSED** (58 PURE) |
 | Ricci ε-Lens (I-3) | **DEEPENED** (21 PURE) |
 | 8-geo Lie group infra | **CLOSED** |
-| Cross-frame bridge | **CLOSED + CUP-LADDER ↔ CORK H¹** (12 PURE, v2 capstone) |
+| Cross-frame bridge + cup-ladder + α_em | **CLOSED** (15 PURE) |
 | Universal cork involution (well-formed) | **CLOSED** (PURE) |
-| Host-aware multi-cork | **CLOSED** |
 | 3-cell explicit attaching | **CLOSED** (S³, T³, L(p,q)) |
-| Decidable Boolean host-aware product law | **CLOSED** |
-| L(p, q) parameter family | **CLOSED** |
-| Connected sum M₁ # M₂ | **CLOSED + UNIVERSAL PURE** |
-| L(p, q) classification refinement (q·q'≡±1 mod p) | **CLOSED** |
-| Universal connected-sum k-j=7 preservation (PURE) | **CLOSED** |
-| **Cup-ladder ↔ cork H¹ basis cross-link** | **CLOSED** |
-| **Multi-fold connected sums as list ops** | **CLOSED** |
-| **Heegaard splitting genus** | **CLOSED** |
+| L(p, q) parameter family + refinement + linking | **CLOSED** |
+| Connected sum (incl. universal PURE) | **CLOSED** |
+| Multi-fold connected sums as list ops | **CLOSED** |
+| Heegaard splitting genus + additivity | **CLOSED** |
+| Cup-ladder ↔ cork H¹ basis cross-link | **CLOSED** |
+| **α_em precision derivation citation** | **CLOSED** |
+| **Geometric structure ↔ Lie group dim consolidation** | **CLOSED** |
+| **Lens space homotopy invariants (linking number, QR)** | **CLOSED** |
 
-## Session 10 — Cup-ladder + multi-fold + Heegaard (+37 PURE)
+## Session 11 — Remaining works (+45 PURE)
 
-### Cup-ladder ↔ cork H¹ bridge (`CrossFrame.lean`, 8 → 12)
+### Heegaard additivity (`JsjDeep.lean` §FW-2.DD, +9)
 
-  · `cork_count_eq_two_squared`: signedCorkTwistCount = 2²
-  · `cork_count_eq_sym3_fixed_cardinality`: cork +4 = Sym3IrrepDecomp.fixedSize
-  · `cork_count_eq_sym3_isotypic_dim_squared`: = 2 · 2
-  · `cork_cup_ladder_H1_correspondence` capstone: same 4 cochains
-    (ω_00, ω_10, ω_01, ω_11) form Sym(3)-fixed H¹ basis; cup-ladder
-    α²/d² Gram coefficient operates on this subspace
+  · `targetListGenus`: sum over `List ThreeMfdTarget`
+  · `targetListGenus_eq_multi`: bridge to `multiHeegaardGenus`
+  · Concrete: S³ # S³ # S³ = 0, T³ # T³ # T³ = 9, mixed = 5
+  · `heegaard_additivity_close` capstone
 
-### Multi-fold connected sums (`JsjDeep.lean` §FW-2.AA, +13)
+### Lens linking number (`JsjDeep.lean` §FW-2.EE, +15)
 
-  · `connectedSumShapePair`: pair-arg form
-  · `multiConnectedSumShape`: fold over List (Nat × Nat) with (7,0) identity
-  · Concrete: empty / single / pair / triple / mixed examples
-  · `multi_fold_connected_sum_close` capstone
+  · `lensLinkingNumber p q = q`
+  · `isSquareMod p n`: decidable QR check
+  · `lensHomotopyEquiv`: weaker than `lensEquivFull`
+  · L(7, 1) ≃ L(7, 2) homotopy but ≢ homeo (classical lens phenomenon)
+  · `lens_space_invariants_close` capstone
 
-### Heegaard splitting genus (`JsjDeep.lean` §FW-2.CC, +20)
+### Geometric structure ↔ Lie group consolidation (`MetricGeometries.lean` §FW-4.G, +18)
 
-  · `heegaardGenus : ThreeMfdTarget → Nat` (S³ → 0, T³ → 3, L(p,q) → 1)
-  · `heegaardGenusSum` additivity at concrete instances
-  · `heegaardGenus_Lpq_universal`: ∀ (p, q), genus = 1
-  · `multiHeegaardGenus`: list-version
-  · `isS3_byGenus`: decidable Poincaré-style S³ test
-  · `heegaard_genus_close` capstone
+  · `isLieGroupGeometry`: Boolean predicate
+  · 6 Lie + 2 product = 8 partition
+  · Lie isotropic (3) + Lie anisotropic (3) + product anisotropic (2) = 8
+  · `geometric_structure_lie_group_consolidation` capstone
+
+### α_em precision-stack citation (`AkbulutCork/CrossFrame.lean` §7, +3)
+
+  · Import `E213.Lib.Physics.AlphaEM.CupLadderFormula`
+  · `d_squared_eq_25`, `d_squared_eq_chartBase_squared`
+  · `alpha_em_cork_precision_citation` capstone: cork +4 +
+    cup-ladder d² = 25 + joint d²·cork = 100 precision invariant
 
 ## Sub-tree totals
 
-  · **Cork**: 194 PURE / 8 files / 0 DIRTY
-  · **Geometrization**: ~338 PURE / 13 files / 0 DIRTY
-  · **Marathon total**: ~532 PURE in cork + geometrization sub-trees
+  · **Cork**: 197 PURE / 8 files / 0 DIRTY
+  · **Geometrization**: ~380 PURE / 13 files / 0 DIRTY
+  · **Marathon total**: ~577 PURE in cork + geometrization sub-trees
 
 ## Marathon pace
 
 Target: ~320 PURE over 16-25 sessions.
-Achieved (sessions 1-10): **+353 PURE on branch** in 10 sessions.
-Combined sub-tree totals: 532 PURE (66% above target).
+Achieved (sessions 1-11): **+398 PURE on branch** in 11 sessions.
+Combined sub-tree totals: 577 PURE (80% above target).
 
-## Future-session candidates
+## Marathon status
 
-### Remaining open extensions
-
-  · Heegaard splitting in connected sum: explicit g(M₁ # M₂) = g(M₁) + g(M₂)
-    proof tied to multiConnectedSumShape
-  · Lens space homotopy invariants beyond genus (linking number, etc.)
-  · Geometric structure ↔ Lie group dim cross-frame consolidation
-  · α_em precision derivation citation of cork-cup-ladder bridge
+**All HANDOFF-listed items closed**.  Marathon scope fully addressed
+across cork chapter (H¹/H²/H³/multi-cork/cross-frame/universal/decidable/
+host-aware/cup-ladder/α_em) and geometrization chapter (FW-2/FW-4/I-3/
+8-geo/3-mfd-attaching/L(p,q)/refinement/#sum/multi-fold/Heegaard/
+additivity/linking/Lie-consolidation).
 
 ## Anchor docs
 
@@ -86,11 +87,12 @@ Combined sub-tree totals: 532 PURE (66% above target).
 |---|---|
 | `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence |
 | `theory/INDEX.md` | Book map |
-| `theory/math/exotic_4mfd_cork.md` | Cork chapter (194 PURE) |
-| `theory/math/geometrization_conjecture.md` | Geometrization chapter (338 PURE) |
-| `AkbulutCork/MultiCork.lean` | Multi-cork + universal + host-aware + decidable |
-| `AkbulutCork/CrossFrame.lean` | Master joint capstones + cup-ladder bridge |
-| `JsjDeep.lean` | FW-2 + L(p,q) + #sum + multi-fold + Heegaard |
+| `theory/math/exotic_4mfd_cork.md` | Cork chapter (197 PURE) |
+| `theory/math/geometrization_conjecture.md` | Geometrization chapter (380 PURE) |
+| `AkbulutCork/MultiCork.lean` | Multi-cork all extensions |
+| `AkbulutCork/CrossFrame.lean` | Master capstones + cup-ladder + α_em |
+| `JsjDeep.lean` | FW-2 + L(p,q) + #sum + multi-fold + Heegaard + linking |
+| `MetricGeometries.lean` | FW-4 + 8-geo + Lie group consolidation |
 
 ## Carry-over
 
