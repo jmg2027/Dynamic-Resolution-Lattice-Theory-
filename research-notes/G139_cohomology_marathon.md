@@ -84,20 +84,46 @@ All three Phase 1 closures CLOSED + PROMOTED:
      Decide-checked period-13 (mod 3) and period-24 (mod 5)
      spot checks.
 
-## Phase 3 (next session candidates)
+## Phase 3 — CLOSED (4 closures, 40 PURE new)
+
+  7. **G139-G CupAW Leibniz (4, 2, 1)** — CLOSED
+     (`Lib/Math/Cohomology/CupAW/Leibniz4Mixed.lean` +2 PURE).
+     Sister to (4, 1, 2) on Δ³; 1024 pattern pairs × 4 indices
+     decided.  Closes the (4, 2, 1) bidegree noted in the
+     Leibniz4Mixed docstring but previously unproven.
+  8. **G139-H TribonacciModular** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/TribonacciModular.lean`, 14 PURE).
+     `Trib_mod_2_period_4` parametric — 3-step nested induction
+     with 3 IH terms.
+  9. **G139-I FibonacciModular** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/FibonacciModular.lean`, 12 PURE).
+     `Fib_mod_2_period_3` parametric — classical Pisano period
+     π(2) = 3.  Cleanest 2-step Pisano-analogue.
+ 10. **G139-J NarayanaModular** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/NarayanaModular.lean`, 12 PURE).
+     `Nara_mod_2_period_7` parametric — Pisano-period TWIN to
+     Padovan: same period, different cycle.
+
+Pisano-analogue trio now covers Fibonacci (π=3, 2-step),
+Tribonacci (π=4, 3-step), Padovan (π=7, 3-step), Narayana (π=7,
+3-step twin to Padovan).
+
+## Phase 4 (next session candidates)
 
   · ∀-coprime eventual periodicity via pigeonhole on `d^n % (p-1)`
     (universal `∃ T n₀, ∀ n ≥ n₀, …` form).
-  · CupAW Leibniz at a new bidegree (3, 1) or (1, 3) via the
-    existing `LeibnizUniversalLift` + Decomp.
+  · Lucas modular period parametric (period 3 mod 2, same orbit
+    as Fibonacci).
+  · Padovan / Tribonacci / Narayana period parametric mod 3
+    (decide-spot-checks ready to upgrade to parametric).
+  · CupAW Leibniz next-easiest bidegrees: (5, 1, 2), (3, 1, 2)
+    if non-vacuous.
   · K_{3,2} higher Steenrod `Sq^3`, `Sq^4` (vacuous at 4-skeleton)
     and Sq^2 explicit chain-level formulation at 4-skeleton.
   · 6-skeleton extension with multi-cell attaching map to host
     non-vacuous H^5 (pyramid pattern collapses; need branching).
-  · Padovan modular period parametric closure mod 3 + mod 5
-    (current decide-spot-checks ready to upgrade).
 
-## Phase 4+ (deferred)
+## Phase 5+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
