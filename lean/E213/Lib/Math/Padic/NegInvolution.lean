@@ -39,7 +39,7 @@ open E213.Meta.Nat.AddMod213 (mod_self)
 `propext`; we re-prove the needed forms by direct induction. -/
 
 /-- PURE additive right-cancellation: `a + c = b + c → a = b`. -/
-private theorem add_right_cancel_pure : ∀ {a b c : Nat},
+theorem add_right_cancel_pure : ∀ {a b c : Nat},
     a + c = b + c → a = b
   | a, b, 0, h => by
     show a = b
