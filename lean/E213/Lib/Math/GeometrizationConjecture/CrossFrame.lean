@@ -41,7 +41,7 @@ namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
     Each conjunct cites an existing PURE theorem in E213; this
     file adds no new mathematics, only records the convergence
     as one downstream-citable statement.  PURE. -/
-theorem G121_X1_sym3_cross_frame_capstone :
+theorem X1_sym3_cross_frame_capstone :
     -- Source 1: Geometrization (StructuralMapping step 24)
     isotropic_geometry_count = 3
     ∧ anisotropic_geometry_count = 5
@@ -128,7 +128,7 @@ def anisotropicFromStandard : Nat := 2 * standardRepCount - 1
 
   with `trivialReps · 1 + standardReps · 2 = 8` and the iso/aniso
   partition `isotropic + anisotropic = 8` already in
-  `G121_ultimate_capstone`.  PURE. -/
+  `geometrization_ultimate_capstone`.  PURE. -/
 theorem sym3_basis_thurston_mapping :
     -- Trivial subspace: explicit basis ω_10, ω_01 (Sym(3)-fixed)
     trivialRepCount = 2

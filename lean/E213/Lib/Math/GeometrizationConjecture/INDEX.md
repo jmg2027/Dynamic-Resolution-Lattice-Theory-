@@ -23,7 +23,7 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 | `Ricci.lean` | 16, 17 | ~9 | Ricci modulus (BracketCauchy parallel) |
 | `EightGeometries.lean` | 11, 18-22 | ~30 | 8 model geometries via single Möbius P + 3 Lenses (ℝ/ℤ/F_5) |
 | `StructuralMapping.lean` | 21, 23, 24 | ~14 | HC_K32 + universal-8 + ★★★★★★★★★★ ultimate structural mapping |
-| `Capstone.lean` | 25 | ~5 | d=4 info richness + ★★★★★★★★★★★ `G121_R1_close_certificate` |
+| `Capstone.lean` | 25 | ~5 | d=4 info richness + ★★★★★★★★★★★ `R1_close_certificate` |
 
 ### R1+ Extensions (G123/G124/G125 partials)
 
@@ -32,7 +32,7 @@ Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
 | `Generalization.lean` | G124 (G123 FW-3) | ~14 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended + ★★★★★ universal Prop-level closure (`sym3_c2_force_K32`, `sym3_c2_iff_K32_or_K23`, `filter_passes_only_chartBase_5`) — supersedes per-chartBase enumeration |
 | `JsjDeep.lean` | G123 FW-2 | ~22 | JSJ 3-cell complex Euler-target scaffold + 3-mfd target catalog (S³/T³/L(p,q)/# sums) + bipartite S/T cut canonical decomposition + `JSJ_deeper_consolidation` + bridge to `Filled3Cell.Cell3ComplexK32` parametric structure |
 | `MetricGeometries.lean` | G123 FW-4 | ~17 | E³/H³/H²×ℝ via mod-k Möbius P Lens family (F_2/F_3/F_5/F_7/F_11/F_13) + ★★★★ `F5_unique_nil_collapse_small_primes` + ★★★★★ `mod_k_lens_family_F5_unique_close` + bridge to `Geometry.MetricTypes` signature classifier |
-| `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `G121_X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
+| `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
 | `Exotic4Mfd.lean` | G123 FW-1 substantive + sub-orbit | ~33 | `sym3GaugeInvariant` + ★★★★★★ `exotic_4mfd_scaffold` + per-element fix counts (`fixedSizeS01/S12/S02/Rho = 32, 32, 32, 4`) + Burnside `sym3OrbitCount = 60` + ★★★★★★ `fw1_suborbit_decomposition` `(4, 0, 28, 28)` |
 | `KChartLensAbstract.lean` | G123 M2 abstract + close certificate | ~11 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + ★★★★★★★★★★★ `geometrization_followup_close_certificate` (33-conjunct mega-capstone bundling all 10 follow-up items) |
 | `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |

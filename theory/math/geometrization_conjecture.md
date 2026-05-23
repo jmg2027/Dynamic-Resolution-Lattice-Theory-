@@ -30,7 +30,7 @@ priority": *213 sees discrete decomposition first*.  JSJ becomes
 *π₁-injectivity* (algebraic); Ricci flow becomes *chart-Lens
 coherentization flow*.
 
-The R1 close certificate (step 25, `Capstone.G121_R1_close_certificate`)
+The R1 close certificate (step 25, `Capstone.R1_close_certificate`)
 bundles 20 conjuncts across the 5 Geometrization pillars.
 
 ## d=4 anomaly reframing (Mingu's central insight)
@@ -57,8 +57,8 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/GeometrizationConjecture/` (13 files, linear dependency chain)
-- **Master capstone**: `Capstone.G121_R1_close_certificate` (20-conjunct)
-- **Master capstone alt**: `Capstone.G121_R1_master_capstone` (4-route convergence)
+- **Master capstone**: `Capstone.R1_close_certificate` (20-conjunct)
+- **Master capstone alt**: `Capstone.R1_master_capstone` (4-route convergence)
 - **Tree INDEX**: `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`
 - **∅-axiom status**: 149 PURE / 0 DIRTY (verified at step-25 close)
 
@@ -74,7 +74,7 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 | `Ricci.lean` | 16, 17 | ~9 | Ricci modulus (BracketCauchy parallel) |
 | `EightGeometries.lean` | 11, 18-22 | ~30 | 8 model geometries via single Möbius P + 3 Lenses (ℝ/ℤ/F_5) |
 | `StructuralMapping.lean` | 21, 23, 24 | ~14 | HC_K32 + universal-8 + ultimate structural mapping (Sym(3) decomp = 3 iso + 5 aniso) |
-| `Capstone.lean` | 25 | ~5 | d=4 info richness + `G121_R1_close_certificate` |
+| `Capstone.lean` | 25 | ~5 | d=4 info richness + `R1_close_certificate` |
 
 ### File map (R1+ extensions, partial)
 
@@ -167,7 +167,7 @@ self-pointing residue is fully visible.
 
 ### 5. Four-route convergence (master capstone)
 
-`G121_R1_master_capstone` bundles four independent routes to the
+`R1_master_capstone` bundles four independent routes to the
 same structural facts:
 1. **Atomicity route** (M1 via NS=3, NT=2, d=5 forcing)
 2. **Cohomology route** (M1 via K_{3,2}^{(c=2)} H¹ rank 8)
@@ -181,8 +181,8 @@ reading — significant cross-frame convergence.
 
 | Theorem | Module | Statement (informal) |
 |---|---|---|
-| `G121_R1_close_certificate` | `Capstone` | ★★★★★★★★★★★ 20-conjunct close certificate for R1 |
-| `G121_R1_master_capstone` | `Capstone` | ★★★★★ 4-route convergence master |
+| `R1_close_certificate` | `Capstone` | ★★★★★★★★★★★ 20-conjunct close certificate for R1 |
+| `R1_master_capstone` | `Capstone` | ★★★★★ 4-route convergence master |
 | `chartBase_5_tree_and_critical_coexist` | `Capstone` | d=4 info richness: both branches coexist |
 | `dim_spectrum_d_M_eq_4_unique` | `DimSpectrum` | d_M = d_213 − 1 = 4 forcing |
 | `eight_geometries_via_mobius_P` | `EightGeometries` | One Möbius P + 3 Lenses = 8 geometries |
@@ -225,7 +225,7 @@ For full ~149 PURE inventory, see
   providing the discrete-algebraic-signature replacement for
   real-valued metric tensors.
 - **Sym(3) cross-frame capstone** (`CrossFrame.lean`, ~5 PURE):
-  `G121_X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
+  `X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
   convergence (Geometrization + gluon octet + HC_K32 + Möbius P
   mod-5) + `sym3_basis_thurston_mapping` (explicit Sym(3)-irrep
   basis ↔ Thurston geometry assignment with the +1/−1 reshape
@@ -319,9 +319,9 @@ The single citable theorems from elsewhere:
 ```lean
 import E213.Lib.Math.GeometrizationConjecture
 open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
-#check @G121_R1_close_certificate          -- 20-conjunct R1 close
-#check @G121_R1_master_capstone            -- 4-route M1 convergence
-#check @G121_X1_sym3_cross_frame_capstone  -- 4-way Sym(3) cross-frame
+#check @R1_close_certificate          -- 20-conjunct R1 close
+#check @R1_master_capstone            -- 4-route M1 convergence
+#check @X1_sym3_cross_frame_capstone  -- 4-way Sym(3) cross-frame
 #check @sym3_basis_thurston_mapping        -- explicit basis ↔ geometry
 #check @sym3_c2_iff_K32_or_K23             -- universal filter closure
 #check @passes_filter_universal_bool       -- Boolean ↔ form
@@ -344,8 +344,8 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 `research-notes/G121_dim4_self_pointing_axis.md`
 
 -- specific theorems
-`Lib/Math/GeometrizationConjecture/Capstone.G121_R1_close_certificate`
-`Lib/Math/GeometrizationConjecture/Capstone.G121_R1_master_capstone`
+`Lib/Math/GeometrizationConjecture/Capstone.R1_close_certificate`
+`Lib/Math/GeometrizationConjecture/Capstone.R1_master_capstone`
 ```
 
 the chapter stays active per Pattern 3 (mixed-status): chapter handles R1

@@ -3,8 +3,8 @@ import E213.Lib.Math.GeometrizationConjecture.StructuralMapping
 /-!
 # G121 — R1 CLOSE CERTIFICATE + master (step 25)
 
-★★★★★★★★★★★ `G121_R1_close_certificate` (20-conjunct)
-★★★★★ `G121_R1_master_capstone` (4-route convergence)
+★★★★★★★★★★★ `R1_close_certificate` (20-conjunct)
+★★★★★ `R1_master_capstone` (4-route convergence)
 
 **G121 R1 — CLOSED at 149 PURE / 0 DIRTY across 25 steps.**
 -/
@@ -180,7 +180,7 @@ None of these are blocking for G121 R1 close.
   G121 R1 close is COMPLETE in scope, with explicit future-work
   registry for natural continuations.
 -/
-theorem G121_R1_close_certificate :
+theorem R1_close_certificate :
     -- (1) Definitional scaffold
     chartVisibleAxes 3 2 = 4
     -- (2) R1 M2 dual layers: axiom-level + deployment-level
@@ -271,7 +271,7 @@ theorem G121_R1_close_certificate :
 
   Remaining irreducible commitment: `a₀ = 2` (Raw Clause 1).
 -/
-theorem G121_R1_master_capstone :
+theorem R1_master_capstone :
     -- (Step 1) definitional scaffold consistency
     chartVisibleAxes 3 2 = chartBase 3 2 - selfPointingAxes
     -- (Step 2) axiom-level shadow

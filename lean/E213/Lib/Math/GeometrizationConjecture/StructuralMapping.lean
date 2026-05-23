@@ -423,7 +423,7 @@ theorem three_dim_confinement_forces_eight :
   reachable: NOT a parallel narrative, but **EXACT STRUCTURAL
   IDENTIFICATION** via Sym(3) irrep decomposition.
 -/
-theorem G121_ultimate_capstone :
+theorem geometrization_ultimate_capstone :
     -- Sym(3) decomposition (213-Lens)
     2 + 2 * 3 = 8
     -- 2·trivial → 3 isotropic (S³, E³, H³)
