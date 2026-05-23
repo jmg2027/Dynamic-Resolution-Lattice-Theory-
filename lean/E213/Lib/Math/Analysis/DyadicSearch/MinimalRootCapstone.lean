@@ -45,7 +45,7 @@ open E213.Lib.Math.Real213.Core.ValidCut (RatioCut)
 The chief Phase 4 deliverable: a single named constructor making the
 G31 IVT certificate explicit at the user-API layer. -/
 
-/-- ★★★ **G31 IVT certificate** — 4-typed-input root constructor.
+/-- ★★★ ** IVT certificate** — 4-typed-input root constructor.
 
   From the four typed witnesses `(lf, co, h_ratio, h_zero_unit)`, build
   the `IVTRoot` certificate.  This is a direct re-export of the
@@ -82,7 +82,7 @@ theorem ivt_four_axis_correspondence :
     True ∧ True ∧ True ∧ True := by
   exact ⟨trivial, trivial, trivial, trivial⟩
 
-/-- ★★ **Phase 4 closure capstone** — G31's design realised as an
+/-- ★★ **Phase 4 closure capstone** — 's design realised as an
     ∅-axiom IVT certificate, anchored to the existing
     `MinimalRootLens` + `MinimalRootLensMonotone` infrastructure.
 

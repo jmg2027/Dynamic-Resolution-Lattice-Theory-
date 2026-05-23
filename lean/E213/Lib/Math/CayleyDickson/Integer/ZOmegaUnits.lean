@@ -141,13 +141,13 @@ the positivity of squares.  PURE via `Int.NonNeg` constructor
 inversion (no `propext`-tainted Int ordering iff lemmas). -/
 
 /-- Local alias for `E213.Meta.Int213.ofNat_int_le_one`.
-    Centralised in `Meta/Int213/Bound.lean` per G93 §C1 / G94 §1. -/
+    Centralised in `Meta/Int213/Bound.lean` per  /  -/
 @[reducible] def ofNat_int_le_one :
     ∀ (n : Nat), (Int.ofNat n : Int) ≤ 1 → n = 0 ∨ n = 1 :=
   E213.Meta.Int213.ofNat_int_le_one
 
 /-- Local alias for `E213.Meta.Int213.int_sq_le_one`.
-    Centralised in `Meta/Int213/Bound.lean` per G93 §C1 / G94 §1. -/
+    Centralised in `Meta/Int213/Bound.lean` per  /  -/
 @[reducible] def int_sq_le_one :
     ∀ (x : Int), x * x ≤ (1 : Int) → x = -1 ∨ x = 0 ∨ x = 1 :=
   E213.Meta.Int213.int_sq_le_one

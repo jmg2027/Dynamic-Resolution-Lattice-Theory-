@@ -15,7 +15,7 @@ import E213.Lib.Math.Cohomology.Delta.Linear
 import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Parametric α-decomp Leibniz lift at (5, 2, b) — G107 §3 L1 α-side
+# Parametric α-decomp Leibniz lift at (5, 2, b) —  L1 α-side
 
 Mirror of `LeibnizAlgLiftBeta.leibniz_via_β_decomp_general`.  Consolidates
 the two α-decomp L1 siblings (`leibniz_via_α_decomp_21` at (5, 2, 1) and

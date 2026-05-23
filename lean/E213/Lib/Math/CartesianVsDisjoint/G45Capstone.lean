@@ -8,7 +8,7 @@ import E213.Lib.Math.CartesianVsDisjoint.DisjointVsProduct
 
 Mingu's revised "Cartesian product" hypothesis verified:
   * `2²⁵ × 3²⁵ = 6²⁵ ≠ 5²⁵` (off by ~95×)
-  * Closer than additive (G44) but still wrong.
+  * Closer than additive  but still wrong.
   * Correct interpretation: K_{3,2} = disjoint union (5 verts),
     NOT Cartesian product (6 verts).
 -/

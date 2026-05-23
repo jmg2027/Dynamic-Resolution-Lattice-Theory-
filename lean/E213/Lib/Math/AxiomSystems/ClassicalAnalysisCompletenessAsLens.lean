@@ -30,7 +30,7 @@ sequence/limit Raw substrate.
 
 213's Real213 marathon (-H) constructs ℝ-like objects
 *without* applying the completeness lens — keeping each Cauchy
-trajectory as an explicit object (per G2 trajectory principle).
+trajectory as an explicit object (trajectory principle).
 The InfinitesimalGap theorems (Real213.DyadicTrajectory.
 alwaysTrueUnit_limit_distinct_from_zero) literally show that the
 completeness lens IS doing work — without it, the limit and the

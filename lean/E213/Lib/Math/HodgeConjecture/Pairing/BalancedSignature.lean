@@ -138,7 +138,7 @@ theorem T2pe_total_rank_match : T2pe_blocks.total_rank = T2n_betti 5 5 := by dec
       (iv)  The signature is therefore `(½·C(2n, n), ½·C(2n, n))`
             for each verified `n`.
 
-    **Open (G14)**: extension to all `n ≥ 1` requires proving
+    **Open **: extension to all `n ≥ 1` requires proving
     `C(2n, n)` is even for `n ≥ 1`, which in turn needs the
     binom-symmetry lemma `C(n, k) = C(n, n − k)` — currently not
     formalised in 213.  The five small-n witnesses below confirm

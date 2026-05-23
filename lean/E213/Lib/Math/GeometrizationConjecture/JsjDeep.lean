@@ -2,7 +2,7 @@ import E213.Lib.Math.GeometrizationConjecture.Generalization
 import E213.Lib.Math.Cohomology.Bipartite.Filled3Cell
 
 /-!
-# G121 R1+ — JSJ deeper: 3-cell complex extension scaffold (G123 partial)
+# R1+ — JSJ deeper: 3-cell complex extension scaffold (partial)
 
 User-flagged at §J (step 11): JSJ pillar marked PARTIAL because
 `Cohomology/Bipartite/Filled.lean` only provides 2-cell filling
@@ -30,7 +30,7 @@ through S/T sides).
 Full 3-mfd-like structure on K_{3,2}^{(c=2)} would need
 *both* extended 2-cells (k > 3 via longer cycles) *and* 3-cells.
 
-**Status**: G123 PARTIAL — Euler-target encoding only.  Full
+**Status**:  PARTIAL — Euler-target encoding only.  Full
 3-cell complex with topological 3-mfd structure remains OPEN
 (requires `Cohomology/Bipartite/Filled3Cell.lean` infrastructure
 not yet present).
@@ -72,7 +72,7 @@ theorem minimal_filling_below_S3_target :
     - 4-cycles (simple): C(NS,2)·C(NT,2) = 3 (already in Filled.lean)
     - 6-cycles: NS·NT(NT-1)·(NS-1)·NT-perm ... (complex enumeration)
 
-    For G123 partial: only the count framework is encoded; actual
+    For  partial: only the count framework is encoded; actual
     cycle enumeration deferred. -/
 theorem long_cycle_inventory_framework :
     -- Simple 4-cycles: 3 (already known)
@@ -123,7 +123,7 @@ theorem bipartite_cut_canonical (NS NT : Nat) :
     := by
   exact ⟨rfl, rfl, rfl⟩
 
-/-- ★★★ **JSJ deeper partial close (G123 partial)**:
+/-- ★★★ **JSJ deeper partial close (partial)**:
 
   Encodes the 3-cell extension framework as Euler-target equations:
     · Generic closed 3-mfd Euler χ = 0

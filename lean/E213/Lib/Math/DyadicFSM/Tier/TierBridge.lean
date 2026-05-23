@@ -88,7 +88,7 @@ theorem one_third_signature_periodic :
    *unbounded* trajectory complexity |
 | Tier 3 (non-computable) | not extractable | undefined |
 
-**Key open conjecture** (G1 §5 follow-up):
+**Key open conjecture** ( follow-up):
 For Tier 1 vs Tier 2, the signature complexity (entropy / Kolmogorov)
 distinguishes them — Tier 1 has bounded complexity per bit
 (joint Pell-state × K_{3,2}^{(2)} state), Tier 2 has growing

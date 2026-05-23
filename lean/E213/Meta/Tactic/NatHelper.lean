@@ -602,7 +602,7 @@ def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
     Signature uses `max` (the `Max` typeclass call) to match
     Lean-core's `Nat.max_comm` exactly — drop-in replacement.
 
- per G95 §N5 / G96 §3 dep-purity cleanup.
+ per the dep-purity cleanup.
     Proof: case-split on `a ≤ b` and `b ≤ a` via `by_cases`. -/
 theorem max_comm (a b : Nat) : max a b = max b a := by
   show (if a ≤ b then b else a) = (if b ≤ a then a else b)

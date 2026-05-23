@@ -134,7 +134,7 @@ theorem six_theorem :
 The numerical 6-theorem master above unifies 10 readings on
 `units6.length = 6`.  The **structural side** — proving that
 `units6` is exactly the set of all Eisenstein units (no more, no
-fewer) — was the remaining piece flagged in G87 §5.
+fewer) — was the remaining piece
 
 This closure was completed via the diophantine bound chain:
   · `four_normSq_ring_identity` (`Meta/Int213/Bound.lean §3`):

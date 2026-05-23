@@ -78,7 +78,7 @@ theorem cork_embedding_capstone :
   The cork-twist Z/2 action is realized by `M_S01` at the matrix
   level.  Per `Sym3OnH1KMatrix.M_S01_squared_pointwise`,
   M_S01² = IdMatrix.  Combined with the c=2-binary cover structure
-  (G80 doubling), the M_S01 involution is the natural cork-twist
+  (doubling), the M_S01 involution is the natural cork-twist
   candidate.
 
   Uniqueness (up to S/T-swap): cork-data K_{1,4} and K_{4,1} are

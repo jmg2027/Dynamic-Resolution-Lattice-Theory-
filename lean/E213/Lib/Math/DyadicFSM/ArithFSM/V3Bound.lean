@@ -55,7 +55,7 @@ theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
   rw [hdec]
 
 /-- Lift an ArithFSM3 bits-period to the encoded BitFSM via
-    `toBitFSM3_bits_eq`.  G107 §4 Pell-FSM helper (ArithFSM3 analogue
+    `toBitFSM3_bits_eq`.   Pell-FSM helper (ArithFSM3 analogue
     of `toBitFSM_bits_period_lift`).  PURE. -/
 theorem toBitFSM3_bits_period_lift {n T : Nat} (hn : 0 < n) (m : ArithFSM3 n)
     (h : ∀ k, m.bits (k + T) = m.bits k) :

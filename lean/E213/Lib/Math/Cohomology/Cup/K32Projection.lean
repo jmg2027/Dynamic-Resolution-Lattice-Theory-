@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Cup.SelfRefDepth
 
 The cup-self-reference catalog at d = 5 has **6 channels**.  The
 K_{3,2}^{(c=2)} bipartite multigraph has **8 cohomology channels**
-(= b_1 = gluon DOF, per G35).
+(= b_1 = gluon DOF,).
 
 This file establishes the structural identity:
 

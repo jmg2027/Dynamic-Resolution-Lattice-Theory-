@@ -150,7 +150,7 @@ def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
       (constCut a b) cx (constCut a b) cy m k ((m+1)*(k+1))
       (fun _ _ => rfl) (fun m' hm' => h m' k hm' hk_le)
 
-/-- ★ Generic LDD branch helper (G107 §4 L4).  Extracts the recurring
+/-- ★ Generic LDD branch helper ( L4).  Extracts the recurring
     `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block
     from binary LDD proofs (addLDD, mulLDD).  PURE.
 

@@ -9,7 +9,7 @@ Step 6 of conjecture C5.
 Step 4 (`FractalLevelZetaConvergence`) gave gap |ζ_K^(L=1)(1) − ζ(2)|
 ≈ 0.112 ≈ 2⁻³ in 10⁻⁵ units.  Step 5 reframed via `CoeffSeq`.
 Step 6 (this file): formalize the convergence as a **discrete
-DepthModulus** (G40 translation, main #67):
+DepthModulus** (translation, main #67):
 
   zeta_modulus : DepthModulus  -- = Nat → Nat
   zeta_modulus N = L  s.t. gap(ζ_K^(L), ζ(2)) < 2⁻ᴺ
@@ -53,7 +53,7 @@ def zeta_modulus : DepthModulus := fun N => N
     STRICT ∅-AXIOM.
 
     Reformulates the ζ_K^(L) → ζ(2) convergence as a discrete
-    `DepthModulus : Nat → Nat` per G40 (main #67) — replacing
+    `DepthModulus : Nat → Nat` (main #67) — replacing
     the classical existential `∀ε > 0 ∃L, gap < ε` with the
     deterministic deterministic function `L = zeta_modulus N`.
     At L=1 we have 3-bit precision (gap < 2⁻³ in 10⁻⁵ units),

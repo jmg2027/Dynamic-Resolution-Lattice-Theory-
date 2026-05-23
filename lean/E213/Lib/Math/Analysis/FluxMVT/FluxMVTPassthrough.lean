@@ -100,7 +100,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_poin
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
 
-/-- Forward field — fully pointwise (PURE).  G110 FLUX-1 template. -/
+/-- Forward field — fully pointwise (PURE).   FLUX-1 template. -/
 theorem mvt_passthrough_unit_forward_at_pure
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (h_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) (m k : Nat) :
@@ -114,7 +114,7 @@ theorem mvt_passthrough_unit_forward_at_pure
         (fun _ _ => rfl) (fun m' _ => h_right m' k)]
   exact cutMul_one_one_at m k
 
-/-- Backward field — fully pointwise (PURE).  G110 FLUX-1 template. -/
+/-- Backward field — fully pointwise (PURE).   FLUX-1 template. -/
 theorem mvt_passthrough_unit_backward_at_pure
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (h_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k) (m k : Nat) :

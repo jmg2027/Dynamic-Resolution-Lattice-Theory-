@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32
 /-!
 # Dyadic-bit / K_{3,2}^{(2)} conjecture — formal scaffold
 
-Conjecture 2 (G1 memo): irrational dyadic cut patterns trace
+Conjecture 2 (memo): irrational dyadic cut patterns trace
 walks on K_{3,2}^{(2)} via the multiplicity-2 parallel-edge bit.
 This file lays the *language* — definitions + decidable tests —
 without yet proving the universal statement.

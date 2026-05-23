@@ -126,7 +126,7 @@ theorem gram_correction_value : gram_correction_e9 = 2130 := by decide
     and the CODATA-observed `1/α_em`.
 
   The remaining 27 × 10⁻⁹ residual is the **next-order target**:
-  either higher-order Dyson tail (G35 §C1 step 4) or refined d²/NS
+  either higher-order Dyson tail ( step 4) or refined d²/NS
   coefficient (per `StructuralGap.lean` candidate corrections).
 
   This bracket is the **structural anchor**: the Gram correction

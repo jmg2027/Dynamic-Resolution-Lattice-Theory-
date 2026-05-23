@@ -31,7 +31,7 @@ open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
 
 /-- ★ Bilinearity-driven Leibniz reduction at (5, 1, 2).  Now a
     1-line corollary of the parametric `leibniz_via_β_decomp_general`
-    at `a = 1` (G107 §3 L1). -/
+    at `a = 1` ( L1). -/
 theorem leibniz_via_β_decomp_lens
     (α : Cochain 5 1) (β : Cochain 5 2) (i : Fin (binom 5 3))
     (h_components : ∀ k : Fin 10,

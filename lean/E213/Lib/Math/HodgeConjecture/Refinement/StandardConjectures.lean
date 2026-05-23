@@ -16,7 +16,7 @@ Grothendieck's four "Standard Conjectures on Algebraic Cycles"
 (A) + (B) implies HC, the Lefschetz Standard Conjecture, and
 much of motivic cohomology.
 
-In 213 (G6 §8 corrected framing): each becomes a finite-decidable
+In 213 ( corrected framing): each becomes a finite-decidable
 statement on 213-canonical complexes, and each is automatic /
 trivially true:
   · ⋆ is given by `complementIdx`, a finite combinatorial operation

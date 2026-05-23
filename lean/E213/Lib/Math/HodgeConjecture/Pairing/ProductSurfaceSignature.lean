@@ -6,7 +6,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 # Σ_g × Σ_h Product Surface Signature (C4 Step 2)
 
 Step 2 of conjecture C4 (parametric signature meta-theorem) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C4.
+`research-notes/
 
 For closed orientable surfaces Σ_g × Σ_h (genus pair), the
 cup-pairing on H²(Σ_g × Σ_h; ℤ) decomposes via Künneth into:

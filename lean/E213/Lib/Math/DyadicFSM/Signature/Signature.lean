@@ -4,7 +4,7 @@ import E213.Lib.Math.DyadicFSM.Signature.Conjecture
 /-!
 # Dyadic signature — irrational classifier via K_{3,2}^{(2)} trajectory
 
-User's sharpened claim (G1 §5 follow-up): different irrationals
+User's sharpened claim ( follow-up): different irrationals
 have distinct K_{3,2}^{(2)} trajectories.  Rational vs irrational
 ↔ eventually periodic vs aperiodic trajectory; algebraic degree
 ↔ trajectory complexity; etc.

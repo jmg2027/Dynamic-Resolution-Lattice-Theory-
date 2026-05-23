@@ -17,7 +17,7 @@ So the (3, 2) atomicity isn't arbitrary — it FORCES the
 3-generation structure of Standard Model fermions via binomial.
 
 213-native paradigm: `N_S` and `N_T` are **bound by binomial
-relation**, not independent.  The `(2+3)^25` decomposition (G44)
+relation**, not independent.  The `(2+3)^25` decomposition 
 extends this binomial relation to all 25 CD levels.
 -/
 

@@ -8,7 +8,7 @@ import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 4 cluster witnesses + total bundle for the G36 marathon.
 
 Closes the two PR #61 honest-residual items + delivers the
-generalised CD tower skeleton (G36 formalisation):
+generalised CD tower skeleton (formalisation):
 
   * **Magnitude-sign cancellation**: `signedEq` equivalence
     relation captures `(a+c, b+c) ~ (a, b)` structurally

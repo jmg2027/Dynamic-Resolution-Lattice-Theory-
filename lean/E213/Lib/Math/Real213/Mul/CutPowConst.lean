@@ -33,7 +33,7 @@ theorem cutPow_one_const_at (a b m k : Nat) :
   cutMul_one_const_at a b m k
 
 /-- **0^(n+1) = 0** pointwise (∅-axiom).  Uses `cutMulOuter_reduce_at`
-    template (G110 FLUX-1, upstream variant) for the inductive step. -/
+    template (FLUX-1, upstream variant) for the inductive step. -/
 theorem cutPow_zero_succ_at :
     ∀ (n m k : Nat), cutPow (constCut 0 1) (n+1) m k = constCut 0 1 m k
   | 0, m, k => by
@@ -55,7 +55,7 @@ theorem cutPow_zero_succ_at :
 -- DELETED: function-eq cutPow_zero_succ. Use cutPow_zero_succ_at.
 
 /-- **1^n = 1** pointwise (∅-axiom).  Uses `cutMulOuter_reduce_at`
-    template (G110 FLUX-1, upstream variant). -/
+    template (FLUX-1, upstream variant). -/
 theorem cutPow_one_n_at :
     ∀ (n m k : Nat), cutPow (constCut 1 1) n m k = constCut 1 1 m k
   | 0, _, _ => rfl

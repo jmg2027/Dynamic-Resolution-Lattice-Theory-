@@ -51,7 +51,7 @@ theorem ArithFSM3.run_period_of_base
     rw [ih]
 
 /-- **bits-period from run-period** for ArithFSM3 (3-state analogue
-    of `ArithFSM2.bits_period_of_run_period`).  G107 §4 Pell-FSM
+    of `ArithFSM2.bits_period_of_run_period`).   Pell-FSM
     family helper.  PURE. -/
 theorem ArithFSM3.bits_period_of_run_period
     {n T : Nat} (m : ArithFSM3 n)

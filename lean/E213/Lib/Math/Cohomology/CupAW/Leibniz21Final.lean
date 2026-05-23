@@ -31,7 +31,7 @@ open E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
    leibniz_zero_collapse_right_5_2_1 leibniz_pointwise_transport_right_5_2_1)
 
 /-- Per-α-component Leibniz at (bz5_2 α p, basis 5 1 k).  PURE.
-    Reduced to LeibnizDecomp helpers (G107 §2 L2). -/
+    Reduced to LeibnizDecomp helpers ( L2). -/
 theorem h_components_α (α : Cochain 5 2) (k : Fin 5)
     (i : Fin (binom 5 3)) (p : Fin 10) :
     delta (cupAW 5 2 1 (bz5_2 α p) (basis 5 1 k)) i
@@ -54,7 +54,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (k : Fin 5)
     α (basis 5 1 k) i (h_components_α α k i)
 
 /-- Per-β-component Leibniz: cases on β k.  PURE.
-    Reduced to LeibnizDecomp helpers (G107 §2 L2). -/
+    Reduced to LeibnizDecomp helpers ( L2). -/
 theorem h_components_β (α : Cochain 5 2) (β : Cochain 5 1)
     (i : Fin (binom 5 3)) (k : Fin 5) :
     delta (cupAW 5 2 1 α (bz5_1 β k)) i

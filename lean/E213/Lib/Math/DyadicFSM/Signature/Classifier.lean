@@ -3,7 +3,7 @@ import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Dyadic classifier — signature periodic ⇒ bit stream periodic
 
-Key structural theorem (G1 Conjecture 2 sharpened):
+Key structural theorem (Conjecture 2 sharpened):
 
   signature periodic from step N with period p
   ⇒ bit stream periodic from step N with period p

@@ -6,7 +6,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 # Σ-Spectral Signature Meta-Theorem (C4 step 1)
 
 Step 1 of conjecture C4 (parametric signature meta-theorem) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C4.
+`research-notes/
 
 Bundles three independent ∅-axiom signature masters into a
 single meta-theorem covering closed orientable surfaces and
@@ -38,7 +38,7 @@ namespace E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 
 /-! ## §1 — Three component masters (re-export) -/
 
-/-- T²ⁿ inductive pattern theorem (G14, this branch).  Signature
+/-- T²ⁿ inductive pattern theorem (, this branch).  Signature
     on H^n(T²ⁿ; ℤ) is `(½·C(2n,n), ½·C(2n,n))` for all `n ≥ 1`. -/
 def T2n_inductive :=
   E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive.T2n_inductive_pattern_theorem

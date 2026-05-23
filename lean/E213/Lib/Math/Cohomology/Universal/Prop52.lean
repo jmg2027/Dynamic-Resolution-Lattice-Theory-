@@ -15,7 +15,7 @@ This is the **Δ⁴ edge cochain** Universal δ²=0 — relevant to
 α_em + Yang-Mills mass gap (1-cochain on K_{3,2}^{(2)} edges).
 
 **∅-axiom**: pattern via `Pattern10.pattern10`, `pattern_eq_at`
-via `Pattern10.pattern10_eq_at` (G111 COH-1 template), `dsq_zero_prop_5_2`
+via `Pattern10.pattern10_eq_at` (COH-1 template), `dsq_zero_prop_5_2`
 via `delta_pointwise_eq` chain.
 -/
 

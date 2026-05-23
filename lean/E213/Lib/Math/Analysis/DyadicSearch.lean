@@ -25,7 +25,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.UnitConsistentOracles
                             (constructive bisection IVT for
                             sign-change predicates on cuts)
 
-  ## Trajectory-as-witness IVT (G31 — `research-notes/`)
+  ## Trajectory-as-witness IVT (— `research-notes/`)
 
     * `MinimalRootLens`           — Layer 3a.  213-native form of
                                     the IVT: the bisection trajectory

@@ -32,7 +32,7 @@ private theorem c2_eq_i_5_2 :
       complementIdx 5 3 (complementIdx 5 2 i.val) = i.val := by decide
 
 /-- ★★★ Prop-level + Universal ⋆⋆=id capstone at (5, 2).  STRICT ∅-AXIOM
-    via `hodge_involution_pointwise_5` template (G111 COH-2). -/
+    via `hodge_involution_pointwise_5` template (COH-2). -/
 theorem hodge_sq_prop_5_2 (σ : Cochain 5 2) (i : Fin (binom 5 2)) :
     hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i :=
   hodge_involution_pointwise_5 2 3 σ i

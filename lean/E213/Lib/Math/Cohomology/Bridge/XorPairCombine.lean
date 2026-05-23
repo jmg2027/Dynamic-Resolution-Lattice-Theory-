@@ -67,7 +67,7 @@ theorem combine_5 (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 : Bool) :
   simp only [List.foldr, Bool.xor_false] at h
   exact h
 
-/-- ★ **General XOR-projection factorisation** (G93 §C2 absorption).
+/-- ★ **General XOR-projection factorisation** ( absorption).
 
     `foldr (xor (φ p) acc) false l = foldr xor false (l.map φ)`.
 

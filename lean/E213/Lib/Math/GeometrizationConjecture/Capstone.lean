@@ -1,12 +1,12 @@
 import E213.Lib.Math.GeometrizationConjecture.StructuralMapping
 
 /-!
-# G121 — R1 CLOSE CERTIFICATE + master (step 25)
+# R1 CLOSE CERTIFICATE + master (step 25)
 
 ★★★★★★★★★★★ `R1_close_certificate` (20-conjunct)
 ★★★★★ `R1_master_capstone` (4-route convergence)
 
-**G121 R1 — CLOSED at 149 PURE / 0 DIRTY across 25 steps.**
+**R1 — CLOSED at 149 PURE / 0 DIRTY across 25 steps.**
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -58,7 +58,7 @@ style invariants of 4-mfd) remains OPEN — would need a new G122
 marathon dedicated to *exotic-structure enumeration via Sym(3)
 gauge action on K_{3,2}^{(c=2)}*.
 
-This is registered as FUTURE-WORK below, not pursued in G121 R1.
+This is registered as FUTURE-WORK below, not pursued in R1.
 -/
 
 /-- d_M = 4 information richness: both tree (K_{1,4}^{(c=1)}) and
@@ -87,8 +87,8 @@ theorem dim4_information_richness :
 
 /-! ## §FW — Future-work registry for G122+ marathons (R1 step 25)
 
-G121 R1 reaches CLOSE at 147 PURE.  The following items are
-explicitly OUT OF SCOPE for G121 R1 but recorded as launch
+R1 reaches CLOSE at 147 PURE.  The following items are
+explicitly OUT OF SCOPE for R1 but recorded as launch
 candidates for future marathons:
 
 **G122 candidate — 4-mfd exotic enumeration via Sym(3) gauge**:
@@ -100,7 +100,7 @@ candidates for future marathons:
     distinguish smooth structures.
   · Status: OPEN (new infrastructure required).
 
-**G123 candidate — JSJ deeper close via 3-cell complex extension**:
+** candidate — JSJ deeper close via 3-cell complex extension**:
   · Continuation of §J narrative (steps 11, 15).
   · Goal: extend `Filled.lean` 2-cell filling to 3-cell complex
     to realize full 3-manifold JSJ-decomposable structure.
@@ -108,7 +108,7 @@ candidates for future marathons:
     additional cell-structure beyond 4-cycles.
   · Status: OPEN (new infrastructure required).
 
-**G124 candidate — K_{NS,NT}^{(c)} generalization track**:
+** candidate — K_{NS,NT}^{(c)} generalization track**:
   · User-deferred at step 17 ("3번은 나중에 일반화").
   · Goal: generalize cohomology-depth filter, V32Betti-style
     analysis, and Möbius-P + Lens readings to arbitrary
@@ -117,25 +117,25 @@ candidates for future marathons:
     chart-Lens type.
   · Status: OPEN (mechanical generalization, moderate effort).
 
-**G125 candidate — 4 remaining 8-geometries direct realization**:
+** candidate — 4 remaining 8-geometries direct realization**:
   · E³, H³, H²×ℝ: currently NARRATIVE via Möbius P trace + det
     (step 20).
   · Path: flat-metric / hyperbolic-metric formalization in
     `Lib/Math/Geometry/`.
   · Status: OPEN (significant infrastructure required).
 
-None of these are blocking for G121 R1 close.
+None of these are blocking for R1 close.
 -/
 
 /-- ★★★★★★★★★★★ **R1 close certificate**
 
-  This certificate marks G121 R1 (ChartAxisAnsatz) as CLOSED at
+  This certificate marks R1 (ChartAxisAnsatz) as CLOSED at
   147 PURE / 0 DIRTY across 25 development steps in 1 branch
   (`claude/geometrization-conjecture-9Vf6i`).
 
   **MAJOR RESULTS**:
 
-  1. **G121 §4.1 ansatz Lean-encoded** (step 1):
+  1. ** ansatz Lean-encoded** (step 1):
      `chartVisibleAxes NS NT = NS + NT - 1`, parametric.
 
   2. **R1 / M2 partial close** (steps 2-3):
@@ -171,13 +171,13 @@ None of these are blocking for G121 R1 close.
      is the unique window where BOTH tree and critical branches
      are visible.
 
-  **OPEN WORK** (G122-G125 marathon candidates registered above):
+  **OPEN WORK** (G122- marathon candidates registered above):
      · G122: 4-mfd exotic enumeration via Sym(3) gauge
-     · G123: JSJ deeper close via 3-cell complex
-     · G124: K_{NS,NT}^{(c)} generalization
-     · G125: 4 remaining 8-geometries direct realization
+     · : JSJ deeper close via 3-cell complex
+     · : K_{NS,NT}^{(c)} generalization
+     · : 4 remaining 8-geometries direct realization
 
-  G121 R1 close is COMPLETE in scope, with explicit future-work
+  R1 close is COMPLETE in scope, with explicit future-work
   registry for natural continuations.
 -/
 theorem R1_close_certificate :
@@ -212,7 +212,7 @@ theorem R1_close_certificate :
     ∧ b1_corrected 3 2 2 = 8
     -- (10) Nil via Möbius P mod 5 (step 22)
     ∧ (10 : Int) % 5 = 0
-    -- selfPointingAxes = 1 (G121 ansatz commitment)
+    -- selfPointingAxes = 1 (ansatz commitment)
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_, ?_, rfl⟩
   · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
@@ -229,7 +229,7 @@ theorem R1_close_certificate :
   · decide
   · decide
 
-/-- ★★★★★ **G121 R1 master capstone (4-route convergence,
+/-- ★★★★★ **R1 master capstone (4-route convergence,
     scope-honest)**
 
   Records the full state of R1 close after steps 1-7:

@@ -3,7 +3,7 @@ import E213.Lib.Math.HodgeConjecture.API
 import E213.Lib.Math.HodgeConjecture.Foundation.Complete
 
 /-!
-# G121 — Structural mapping: HC_K32 + universal-8 + ultimate (steps 21, 23, 24)
+# Structural mapping: HC_K32 + universal-8 + ultimate (steps 21, 23, 24)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -389,7 +389,7 @@ theorem three_dim_confinement_forces_eight :
     ∧ isotropic_geometry_count + anisotropic_geometry_count = 8 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_⟩ <;> decide
 
-/-- ★★★★★★★★★★ **G121 ULTIMATE CAPSTONE (structural origin
+/-- ★★★★★★★★★★ ** ULTIMATE CAPSTONE (structural origin
     of Geometrization in 213-Lens)**
 
   Records the user's ULTIMATE INSIGHT: Thurston's 8-geometries
@@ -440,7 +440,7 @@ theorem geometrization_ultimate_capstone :
     ∧ chartVisibleAxes 3 1 = 3
     -- 4-dim critical at K_{3,2}^{(c=2)} (forced deployment)
     ∧ chartVisibleAxes 3 2 = 4
-    -- selfPointingAxes = 1 (G121 ansatz)
+    -- selfPointingAxes = 1 (ansatz)
     ∧ selfPointingAxes = 1
     -- Nil via Möbius P mod 5 (user-derived step 22)
     ∧ (10 : Int) % 5 = 0

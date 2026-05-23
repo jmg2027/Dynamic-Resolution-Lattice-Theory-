@@ -4,7 +4,7 @@ import E213.Lib.Math.Geometry.Rotation
 import E213.Lib.Math.Mobius213
 
 /-!
-# G121 — 8 model geometries via Möbius P (steps 11, 18-22)
+# 8 model geometries via Möbius P (steps 11, 18-22)
 
 ★★★★★★ `all_eight_via_single_mobius_P`: ALL 8 Thurston geometries
 derive from SAME P = [[2,1],[1,1]] via ℝ/ℤ/F_5 Lens choice.
@@ -156,7 +156,7 @@ theorem K32_filling_lifts_partial :
 /-! ## §F — Open work registry (R1 step 11)
 
 This section explicitly enumerates open Geometrization-side
-work needed to fully formalize G121 §5 conjectural rows:
+work needed to fully formalize  conjectural rows:
 
   · **8 model geometries ↔ K_{3,2}^{(c=2)} H¹ classes**: needs
     a structural mapping between Lie-group classification and
@@ -636,7 +636,7 @@ object viewed through three structurally-canonical Lenses*.  The
 unification of 8 geometries into a *single P + 3-Lens reading* is
 genuine 213-Lens content, anchored by:
   · P's char-poly mod-5 collapse (mathematical fact)
-  · 213's commitment to d = 5 as prime base (G80)
+  · 213's commitment to d = 5 as prime base 
   · K_{3,2}^{(c=2)} structure forcing P as the Möbius generator
 
 The user's derivation closes the previously-open Nil pillar (§G
@@ -715,7 +715,7 @@ theorem char_poly_collapses_mod_5 :
   nilpotent operator — Heisenberg / Nil geometry analog.
 
   This is NOT stereotype matching: F_5 Lens is *intrinsic*
-  to 213 (the prime base d = 5 per G80, Möbius mod-5 period
+  to 213 (the prime base d = 5, Möbius mod-5 period
   structure).  Reading P through this Lens canonically.
 -/
 theorem Nil_via_mobius_mod_5_complete :
@@ -734,7 +734,7 @@ theorem Nil_via_mobius_mod_5_complete :
     ∧ ((-1 : Int) % 5 + 5) % 5 = 4 := by
   refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-- ★★★★★★ **G121 R1 ALL 8 GEOMETRIES via single Möbius P**
+/-- ★★★★★★ **R1 ALL 8 GEOMETRIES via single Möbius P**
 
   The strongest single-source unification: ALL 8 Thurston model
   geometries derive from the SAME Möbius matrix P = [[2,1],[1,1]]

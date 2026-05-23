@@ -38,7 +38,7 @@ theorem cartesian_product_eq :
 theorem six_pow_25 :
     (6 : Nat) ^ 25 = 28430288029929701376 := by decide
 
-/-- ★ **`5²⁵` closed form** (recall G36). -/
+/-- ★ **`5²⁵` closed form** (recall ). -/
 theorem five_pow_25 :
     (5 : Nat) ^ 25 = 298023223876953125 := rfl
 

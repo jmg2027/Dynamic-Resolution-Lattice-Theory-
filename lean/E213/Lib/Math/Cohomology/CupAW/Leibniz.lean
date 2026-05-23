@@ -48,7 +48,7 @@ theorem leibniz_pattern_5_1_1 :
 
 /-- ★★★ Universal Leibniz Prop-lift at (5, 1, 1) — AW cup.
     PURE corollary of `LeibnizUniversalLift.leibniz_pointwise_lift`
-    (G111 COH-3 template) + `Prop51.pattern_eq_at` chains. -/
+    (COH-3 template) + `Prop51.pattern_eq_at` chains. -/
 theorem leibniz_universal_5_1_1
     (α β : Cochain 5 1) (i : Fin (binom 5 2)) :
     delta (cupAW 5 1 1 α β) i

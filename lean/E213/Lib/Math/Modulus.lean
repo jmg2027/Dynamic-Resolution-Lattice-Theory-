@@ -35,13 +35,13 @@ import E213.Lib.Math.Modulus.G40Capstone
                                  diagonal value of `L.combine`
                                  has no view effect
 
-  ### G40 closure-chain capstone
+  ### closure-chain capstone
 
     * `Translation` →
       `InfoClosure` →
       `DepthCompleteness` →
       `G40Capstone`            — depth-modulus / information-
                                  closure / depth-completeness
-                                 chain (G40 capstone is the tip,
+                                 chain (capstone is the tip,
                                  transitively pulls in the rest).
 -/

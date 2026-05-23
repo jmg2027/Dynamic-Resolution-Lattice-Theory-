@@ -35,7 +35,7 @@ open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at cutSum_zero_zero_
 open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 
-/-- ★ d/dx [x²] at x = 0 = 0 pointwise (PURE).  G110 FLUX-1 sum template. -/
+/-- ★ d/dx [x²] at x = 0 = 0 pointwise (PURE).   FLUX-1 sum template. -/
 theorem squareDerivative_at_zero_at (m k : Nat) :
     squareIsDifferentiable.derivative (constCut 0 1) m k = constCut 0 1 m k := by
   show cutSum (cutMul (constCut 1 1) (constCut 0 1))

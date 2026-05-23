@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.GradedFormula
 # Graded Formula Precision (C1 Step 2)
 
 Step 2 of conjecture C1 (Pure Cup-Ring α_em) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1.
+`research-notes/
 
 Step 1 (`GradedFormula.lean`) gave the 5-layer formula at
 9-digit π precision matching measurement-Lens 137.0359991 to within

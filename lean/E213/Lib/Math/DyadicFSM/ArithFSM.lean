@@ -61,7 +61,7 @@ theorem ArithFSM2.run_period_of_base
     rw [ih]
 
 /-- **bits-period from run-period** — `bits = out ∘ run` by def, so any
-    period of `run` transfers to `bits`.  G107 §4 Pell-FSM helper —
+    period of `run` transfers to `bits`.   Pell-FSM helper —
     absorbs the duplicated `show m.out (m.run _) = m.out (m.run _); rw [...]`
     closer in every per-modulus instance.  PURE. -/
 theorem ArithFSM2.bits_period_of_run_period
@@ -73,7 +73,7 @@ theorem ArithFSM2.bits_period_of_run_period
 
 /-- **Period multiplication**: if `f` has period `T`, then `f` has
     period `n * T` for any `n`.  Generic — applies to any
-    `f : Nat → Bool`, not just ArithFSM2 bits.  G107 §4 Pell-FSM
+    `f : Nat → Bool`, not just ArithFSM2 bits.   Pell-FSM
     helper for `_period_2T` / `_period_3T` doubled and tripled variants.
     PURE. -/
 theorem bits_period_mul_of_period
@@ -184,7 +184,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 
-/-- ★ Generic Pell-style FSM mod p (parametric over modulus).  G107
+/-- ★ Generic Pell-style FSM mod p (parametric over modulus).  
     §4 FSM-1 part (1) — replaces the per-prime `pellFSMmod{3, 5, 7, ...}`
     family with a single polymorphic definition over `p : Nat` with
     `hp : 1 < p`.

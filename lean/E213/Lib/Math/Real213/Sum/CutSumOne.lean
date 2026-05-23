@@ -13,7 +13,7 @@ int_half, int_int, self) all share a bidirectional iff opener
 (constructor + obtain ⟨i, hi, hci, hcsi⟩) and a `decide_eq_true` closer.
 The differences are purely the per-instance arithmetic content.
 
-`cutSum_constCut_at` (G107 §3 C — Part 4 marathon) extracts that
+`cutSum_constCut_at` ( C — Part 4 marathon) extracts that
 opener + closer as a 3-component template: caller supplies a
 **forward** function (extract `X*k ≤ Y*m` from the witness `i ≤ 2*m`
 and the two inequalities) and a **backward** function (construct the
@@ -35,7 +35,7 @@ private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := 
   · exact (h.mp rfl).symm
   · rfl
 
-/-- ★ 3-component template (G107 §3 C).  Bidirectional iff opener +
+/-- ★ 3-component template ( C).  Bidirectional iff opener +
     `decide_eq_true` closer for `cutSum (constCut a₁ b₁) (constCut a₂ b₂)
     m k = constCut X Y m k`.  Caller supplies per-instance arithmetic
     forward/backward bodies. -/

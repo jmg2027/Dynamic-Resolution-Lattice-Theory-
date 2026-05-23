@@ -1,7 +1,7 @@
 import E213.Lib.Math.GeometrizationConjecture.Poincare
 
 /-!
-# G121 — Ricci flow pillar (steps 16, 17)
+# Ricci flow pillar (steps 16, 17)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz

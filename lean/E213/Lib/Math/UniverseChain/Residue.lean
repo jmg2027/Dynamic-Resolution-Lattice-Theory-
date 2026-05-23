@@ -39,10 +39,10 @@ namespace E213.Lib.Math.UniverseChain.Residue
 
 open E213.Theory
 
-/-- **G29 point 1**: two distinct primitives. -/
+/-- ** point 1**: two distinct primitives. -/
 theorem distinct_primitives : Raw.a ≠ Raw.b := by decide
 
-/-- **G29 point 4**: no self-distinction. -/
+/-- ** point 4**: no self-distinction. -/
 theorem no_self_distinction (x : Raw) : ¬ (x ≠ x) := fun h => h rfl
 
 /-- **Depth-1 residue**: pair of two atoms. -/

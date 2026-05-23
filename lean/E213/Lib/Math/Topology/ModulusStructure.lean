@@ -103,7 +103,7 @@ theorem bracketCauchyL3_value :
     · `Analysis.BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
       → L·k instance for fixed bracket-length L
 
-  This is the 213-native answer to G125's "cross-category functor"
+  This is the 213-native answer to 's "cross-category functor"
   question: instead of building a category-theoretic adjunction
   between IsContinuousModulus and IsRicciModulus (different
   underlying types), unify them under a bare-data framework that

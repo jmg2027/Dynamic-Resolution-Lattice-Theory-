@@ -45,7 +45,7 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
   ## Tower/
 
   ℕ-pair / ℕ-triple → 다른 number system via diagonal quotient
-  (G62 / G73 framing).  세 Tower 가 동일 syntactic container
+  (/ G73 framing).  세 Tower 가 동일 syntactic container
   `Nat × Nat` 또는 `Peano.Nat213 × Peano.Nat213` 에서 출발해
   다른 quotient relation 으로 분기:
 

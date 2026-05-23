@@ -31,7 +31,7 @@ private theorem c2_eq_i_5_1 :
       complementIdx 5 4 (complementIdx 5 1 i.val) = i.val := by decide
 
 /-- ★★★ Prop-level ∀ σ : Cochain 5 1, ⋆⋆σ = σ.  STRICT ∅-AXIOM via
-    `hodge_involution_pointwise_5` template (G111 COH-2). -/
+    `hodge_involution_pointwise_5` template (COH-2). -/
 theorem hodge_sq_prop_5_1 (σ : Cochain 5 1) (i : Fin (binom 5 1)) :
     hodgeStar 5 4 1 (hodgeStar 5 1 4 σ) i = σ i :=
   hodge_involution_pointwise_5 1 4 σ i

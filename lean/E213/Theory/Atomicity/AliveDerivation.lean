@@ -9,7 +9,7 @@ The previously-postulated `IsAlive (a, b) := parity a ∧ parity b`
 the 213 axiom (`seed/AXIOM/02_axiom.md` §2.2 #4: no self-pair)
 applied *recursively* at the count-Lens group level.
 
-## Derivation (G87 §11)
+## Derivation
 
 The user's structural insights:
 
@@ -113,7 +113,7 @@ theorem parity_iff_not_self_paired (n : Nat) :
     predicate of `Atomicity.Five.IsAlive` coincides with the
     `Clause-4-derived` predicate `IsClause4Alive`.
 
-    This **closes G87 §2.2** ("Alive is postulated, not derived"):
+    This **closes** ("Alive is postulated, not derived"):
     the alive condition is the count-Lens readout of Clause 4 of the
     213 axiom applied recursively to count-Lens groups, in line with
     the user's structural insight that "all Raw are simultaneously

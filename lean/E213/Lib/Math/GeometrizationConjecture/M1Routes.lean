@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 import E213.Lib.Math.C2DoublingDerivation
 
 /-!
-# G121 — M1 routes: atomicity + cohomology + Möbius (steps 4, 5, 8)
+# M1 routes: atomicity + cohomology + Möbius (steps 4, 5, 8)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -171,7 +171,7 @@ is **structurally forced**, not arbitrary.  Per
 Combined with atomicity-route step 4:
 
   · Atomicity (Raw Clause 1)       → (N_S, N_T) = (3, 2)
-  · Möbius mod-5 period (G80)      → c = 2
+  · Möbius mod-5 period       → c = 2
 
 **These two routes alone — independent of cohomology — force
 K_{3,2}^{(c=2)} uniquely.**  Cohomology serves as *consistency
@@ -184,7 +184,7 @@ combinations give the same conclusion; this one is *stronger*
 because it doesn't depend on cohomology being unique.
 -/
 
-/-- c = 2 derived from Möbius mod-5 period structure via G80
+/-- c = 2 derived from Möbius mod-5 period structure via 
     binary-cover ratio.  Independent of cohomology-route. -/
 theorem c2_derived_from_mobius_period :
     E213.Lib.Math.C2DoublingDerivation.half_period = 5

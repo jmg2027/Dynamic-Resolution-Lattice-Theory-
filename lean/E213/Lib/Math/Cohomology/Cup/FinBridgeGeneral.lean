@@ -47,7 +47,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 /-! ## §0.  PURE List take/drop helpers — aliases to ListHelper
 
 All take/drop append helpers centralised in
-`Meta/Tactic/ListHelper.lean` per G93 §C1 / G94 §1.  Local aliases
+`Meta/Tactic/ListHelper.lean` per  /   Local aliases
 preserve existing call sites. -/
 
 @[reducible] private def take_append_le :

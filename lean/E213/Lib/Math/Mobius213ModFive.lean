@@ -4,7 +4,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Lib.Math.Mobius213ModFive — pentagonal closure of P at matrix level
 
-Closes the G78/G80 headline claim `P^5 ≡ -I (mod 5)` and
+Closes the headline claim `P^5 ≡ -I (mod 5)` and
 `P^10 ≡ +I (mod 5)` at the **matrix entry level**.  The Möbius P
 = [[2, 1], [1, 1]] iterates as
 
@@ -21,7 +21,7 @@ Reduction mod 5:
   ⇒ P^10 = (P^5)² ≡ (-I)² = +I (mod 5)
 
 This is the **half-period / full-period pentagonal closure** that
-G80 identifies as forcing c = 2 = NT (binary cover doubling) in
+the pentagonal closure identifies as forcing c = 2 = NT (binary cover doubling) in
 K_{3,2}^{(c=2)}.
 
 PURE.  All decide.
@@ -65,9 +65,9 @@ verifying the pentagonal closure at the matrix level. -/
     Diagonal entries: 89, 34 both ≡ 4 ≡ -1 (mod 5)
     Off-diagonal:     55 ≡ 0 (mod 5)
 
-    Matches G78 §"P^5 mod 5 = -I" claim at matrix-entry level.
+    Matches §"P^5 mod 5 = -I" claim at matrix-entry level.
     The previously-claimed `Theory/Nat213/RotationGeometry.lean`
-    advertised in G78 is consolidated here.  PURE. -/
+    is consolidated here.  PURE. -/
 theorem P_pow_5_eq_neg_I_mod_5 :
     -- top-left ≡ -1
     (89 : Int) % 5 = 4
@@ -105,7 +105,7 @@ theorem P_pow_10_eq_I_mod_5 :
 
 /-! ## §4.  Capstone: the full pentagonal-closure signature -/
 
-/-- ★★★★★★★ **Pentagonal closure full signature** — bundles G78/G80
+/-- ★★★★★★★ **Pentagonal closure full signature** — bundles the pentagonal-closure
     headline claims at matrix-entry + period levels.  PURE. -/
 theorem pentagonal_closure_signature :
     -- §2: P^5 ≡ -I (mod 5) at matrix level
@@ -114,7 +114,7 @@ theorem pentagonal_closure_signature :
     ∧ ((-1 : Int)) * (-1) = 1
     -- Period: 5 = half (NT-fold), 10 = full
     ∧ (5 : Nat) * 2 = 10
-    -- c = NT = 2 (binary cover doubling per G80)
+    -- c = NT = 2 (binary cover doubling)
     ∧ (2 : Nat) = E213.Lib.Physics.Simplex.Counts.NT
     -- (5, 2) = (NS+NT, NT) atomicity pair
     ∧ (5 : Nat) = E213.Lib.Physics.Simplex.Counts.NS + E213.Lib.Physics.Simplex.Counts.NT := by

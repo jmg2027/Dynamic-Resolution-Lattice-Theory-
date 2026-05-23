@@ -9,7 +9,7 @@ import E213.Meta.Tactic.Pow213
 /-!
 # MinimalRootLensMonotone — sign-change invariance under bisection
 
-Layer 2 of the trajectory-as-witness IVT (G31).  Builds the
+Layer 2 of the trajectory-as-witness IVT .  Builds the
 sign-change preservation lemma for the `signedLeftOracle`-driven
 bisection, given a locally-determined cut function `f`.
 

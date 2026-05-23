@@ -47,7 +47,7 @@ theorem leibniz_pattern_4_1_2 :
 
 /-- ★★★ Universal Leibniz Prop-lift at (4, 1, 2).
     PURE corollary of `LeibnizUniversalLift.leibniz_pointwise_lift`
-    (G111 COH-3 template) + `Prop41/Prop42.pattern_eq_at`. -/
+    (COH-3 template) + `Prop41/Prop42.pattern_eq_at`. -/
 theorem leibniz_universal_4_1_2
     (α : Cochain 4 1) (β : Cochain 4 2) (i : Fin (binom 4 3)) :
     delta (cupAW 4 1 2 α β) i
@@ -85,7 +85,7 @@ theorem leibniz_pattern_4_2_2 :
 
 /-- ★★★ Universal Leibniz Prop-lift at (4, 2, 2).
     PURE corollary of `LeibnizUniversalLift.leibniz_pointwise_lift`
-    (G111 COH-3 template) + `Prop42.pattern_eq_at`. -/
+    (COH-3 template) + `Prop42.pattern_eq_at`. -/
 theorem leibniz_universal_4_2_2
     (α β : Cochain 4 2) (i : Fin (binom 4 4)) :
     delta (cupAW 4 2 2 α β) i

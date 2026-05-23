@@ -11,7 +11,7 @@ A 213-native ℕ that excludes 0.  Following the Raw axiom:
 This is distinct from Lean's `Nat` (which has 0) and matches the
 original Peano definition of natural numbers.
 
-**Why no 0**: per G64/G65, 0 is not derivable from Raw — it
+**Why no 0**:/G65, 0 is not derivable from Raw — it
 emerges only at the level of structural extensions (orthogonal-
 axis quotients, group completions, etc.).  Including 0 in the
 "primitive counting" type imports a non-Raw element.

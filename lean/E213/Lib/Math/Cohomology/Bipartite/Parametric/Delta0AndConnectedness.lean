@@ -103,7 +103,7 @@ theorem b0_K33_c2 : kerSizeDelta0Direct 3 3 2 = 2 := by decide
   = 1, i.e., the graph is connected.
 
   Full parametric proof for all (NS ≥ 1, NT ≥ 1, c ≥ 1) deferred —
-  the representative range here covers all G121-relevant deployments. -/
+  the representative range here covers all chartBase-≤-5 deployments. -/
 theorem b0_eq_1_representative_range :
     kerSizeDelta0Direct 1 1 1 = 2
     ∧ kerSizeDelta0Direct 1 2 1 = 2

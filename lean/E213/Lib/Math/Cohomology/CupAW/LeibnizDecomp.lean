@@ -8,7 +8,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Leibniz-via-decomposition — parametric helpers (Cochain 5 2 left factor)
 
-Consolidation per G107 §2 L2.
+Consolidation per  L2.
 
 A common pattern in the (5, 2, 1) and (5, 2, 2) Cup-AW Leibniz lifts:
 a basis-component family `bz5_X β k j` either collapses to

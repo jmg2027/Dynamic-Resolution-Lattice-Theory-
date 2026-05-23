@@ -166,7 +166,7 @@ theorem same_params_same_output
     L.apply r = Raw.fold ba bb c r := by
   rfl
 
--- ═══ Fractal property (G67): self-similarity via lens-resolution ═══
+-- ═══ Fractal property : self-similarity via lens-resolution ═══
 
 /-- ★ FRACTAL PROPERTY 1 — `slash`-recursive structure preserved.
     Every Nat213-lens with a SYMMETRIC combine applied to a `slash`
@@ -221,7 +221,7 @@ theorem fractal_duality (L1 L2 : Nat213Lens) (r : Raw) :
     (L2.apply r : Nat213) = L2.apply r := by
   exact ⟨rfl, rfl⟩
 
--- ═══ Atom of the lens fractal: Nat213.one (G68) ═══
+-- ═══ Atom of the lens fractal: Nat213.one  ═══
 
 /-- The constant-one lens: returns `Nat213.one` regardless of input
     Raw structure.  This is the structural "floor" of all
@@ -258,7 +258,7 @@ theorem lens_spans_Nat213 (n : Nat213) :
   ⟨{base_a := n, base_b := n, combine := Nat213.add},
    by show n = n; rfl⟩
 
--- ═══ Addition as slash-projection via atomCount lens (G69) ═══
+-- ═══ Addition as slash-projection via atomCount lens  ═══
 
 /-- ★★★ ADDITION = SLASH-PROJECTION VIA atomCount LENS:
     `lensLeafCount` maps Raw's `slash` to Nat213's `add`.  This is

@@ -58,7 +58,7 @@ theorem ns_is_succ_nt : NS = NT + 1 := by decide
     (related to Eisenstein-style 6-element unit group of ZOmega). -/
 theorem ns_nt_product : NS * NT = 6 := by decide
 
--- ═══ det = axis-generator fold output (G75) ═══
+-- ═══ det = axis-generator fold output  ═══
 
 /-- ★★★ THE BIG REVEAL: `det(P) = NS - NT`.  The Möbius P
     determinant equals the glue itself = NS - NT = 1.

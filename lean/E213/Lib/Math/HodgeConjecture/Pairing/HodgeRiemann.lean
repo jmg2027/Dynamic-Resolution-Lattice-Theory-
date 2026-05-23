@@ -32,7 +32,7 @@ theorem primitive_cohomology_213_vacuous : True := trivial
 /-- Hodge-Riemann positivity in 213/ℤ/2: vacuous (no order on Bool).
     The non-vacuous form requires ℚ²¹³ coefficient lifting, where
     Q(α, β) becomes a rational bilinear form whose signature is
-    decidable.  Deferred to Phase 3 (G10). -/
+    decidable.  Deferred to Phase 3 . -/
 theorem hodge_riemann_positivity_vacuous_Z2 : True := trivial
 
 /-- ★★★★★ Hodge-Riemann²¹³ capstone — vacuous on ℤ/2.

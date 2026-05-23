@@ -18,7 +18,7 @@ and `Meta/Tactic/ListHelper.lean`.  Helpers here were promoted from:
 
   · `Lib/Math/CayleyDickson/Integer/ZOmegaUnits §5` (diophantine)
 
-per G93 §C1 + G94 §1 centralisation.  Existing call sites remain
+per  +  centralisation.  Existing call sites remain
 compatible via `@[reducible]` aliases in the original locations.
 
 All theorems below are **PURE**.

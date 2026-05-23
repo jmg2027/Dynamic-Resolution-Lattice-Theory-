@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 # Fractal Level Lift K^(L) — vertex/edge counts (C5 Step 2)
 
 Step 2 of conjecture C5 (fractal-level ζ_K^(L) → ζ(2) convergence)
-per `research-notes/G35_chiral_cup_ring_catalog.md` §C5.
+per `research-notes/
 
 The L-iterate fractal lift K^(L) of K_{3,2}^{(c=2)} replaces each
 vertex by a sub-K_{3,2}^{(c=2)}, recursively L times.  At

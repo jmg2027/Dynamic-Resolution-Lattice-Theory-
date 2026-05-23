@@ -83,7 +83,7 @@ theorem no_pi_in_finite_alpha_em :
 /-- The resolution-depth parameter `N_U` evaluates to
     `configCount 2 = 5^25` for the canonical level-2 reading
     (`seed/RESOLUTION_LIMIT_SPEC.md` §2 — pending Phase 7 rewrite
-    per G120).  Once the specific level is plugged in, 1/α_em
+   ).  Once the specific level is plugged in, 1/α_em
     becomes a specific rational, with structural deviation from
     π²/6 of size `36 / configCount 2`.  Currently this is open
     work parametric in `N_U : Nat`.
@@ -92,7 +92,7 @@ theorem no_pi_in_finite_alpha_em :
     level reading; specific evaluations (e.g., at level 2) give
     specific numerical instances.  The "four-domain convergent
     invariant" framing was reduced to two-of-four real (per
-    G120 §1 audit). -/
+     audit). -/
 theorem N_resolution_open_problem :
     ∀ N_U : Nat, inv_alpha_em_finite N_U
                  = ((12 * NS) * (S N_U).1, (S N_U).2) := by

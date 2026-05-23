@@ -25,7 +25,7 @@ import E213.Lib.Math.Analysis.ResolutionShift
     * `Analysis/ClassicCalc`     — applied calculus structure (3 files)
     * `Analysis/Differentiation` — differential calculus, polynomial chain (14)
     * `Analysis/DyadicSearch`    — dyadic-search IVT (9 files,
-                                   includes G31 trajectory-as-witness
+                                   includes trajectory-as-witness
                                    `MinimalRootLens` + Layer 3c
                                    morphism-collapse closure)
     * `Analysis/FluxMVT`         — flux-form Mean Value Theorem (22)

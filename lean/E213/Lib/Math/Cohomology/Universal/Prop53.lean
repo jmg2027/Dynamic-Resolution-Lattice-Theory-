@@ -17,7 +17,7 @@ UniversalProp51 (5,1) and UniversalProp52 (5,2), this completes
 δ²=0 over all interior strata of Δ⁴.
 
 **∅-axiom**: pattern via `Pattern10.pattern10`, `pattern_eq_at`
-via `Pattern10.pattern10_eq_at` (G111 COH-1 template), `dsq_zero_prop_5_3`
+via `Pattern10.pattern10_eq_at` (COH-1 template), `dsq_zero_prop_5_3`
 via `delta_pointwise_eq` chain (no funext).
 -/
 

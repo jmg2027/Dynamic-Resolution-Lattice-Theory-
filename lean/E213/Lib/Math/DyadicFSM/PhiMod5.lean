@@ -165,7 +165,7 @@ theorem four_phi_plus_one_eq (p s : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
   -- 2 + 2 * s + 4 = 6 + 2 * s
   rw [Nat.add_right_comm 2 (2 * s) 4]
 
-/-- ★★★ **Scaled φ recurrence** (G119 Phase 3.2 algebraic kernel):
+/-- ★★★ **Scaled φ recurrence** (Phase 3.2 algebraic kernel):
     `4 * phi² ≡ 4 * (phi + 1)  (mod p)`,
     given `s² ≡ 5 (mod p)` and odd `p > 1`.
 
@@ -208,7 +208,7 @@ private theorem rearrange_inv2sq_four (p x : Nat) :
     inv2 p * inv2 p * (4 * x) = (4 * (inv2 p * inv2 p)) * x := by
   rw [← mul_assoc (inv2 p * inv2 p) 4 x, Nat.mul_comm (inv2 p * inv2 p) 4]
 
-/-- ★★★★ **Unscaled φ recurrence** (G119 Phase 3.2 full algebraic kernel):
+/-- ★★★★ **Unscaled φ recurrence** (Phase 3.2 full algebraic kernel):
     `phi² ≡ phi + 1 (mod p)`, given `s² ≡ 5 (mod p)` and odd `p > 1`.
 
     Derived from `four_phi_sq_eq_four_phi_plus_one` (scaled form) by

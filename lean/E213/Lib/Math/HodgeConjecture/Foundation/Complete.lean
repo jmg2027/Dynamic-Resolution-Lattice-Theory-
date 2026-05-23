@@ -31,7 +31,7 @@ Single citable theorem `hodge_conjecture_213_complete` bundling
   (x)    HC²¹³ filled — all 5 K_{3,2} filling levels
   (xi)   Cup-subring atomic generation (Lens-cata blueprint)
 
-Position (G6 §8 + G7 + G8 + G9): `hodge_conjecture_213_complete` IS
+Position ( + G7 + G8 + G9): `hodge_conjecture_213_complete` IS
 the Hodge conjecture written without redundant ZFC packaging.
 Standard HC's completed-infinity ingredients (ℂ-coefficients,
 ℚ-rational subspace, infinite cycle moduli) are notational
@@ -84,7 +84,7 @@ abbrev HC_Involution : Prop :=
     of HC²¹³:
       (i)   Universal HC²¹³ on every Δⁿ⁻¹ (`HC_Universal`,
             parametric in n, k, m): every Hodge class is algebraic.
-            Witness `⟨σ, fun _ => rfl⟩` — under G6 §8 framing this
+            Witness `⟨σ, fun _ => rfl⟩` — under  framing this
             *is* the content: Cochain n k = Fin (binom n k) → Bool
             *by definition* IS the free ℤ/2-module on the indicator
             basis, so "algebraic = Hodge" reduces to definitional
@@ -98,7 +98,7 @@ abbrev HC_Involution : Prop :=
             in 213-native form.
 
     Together (i)+(ii)+(iii) IS the Hodge conjecture, written in
-    213's non-redundant form (G6 §8 corrected framing):
+    213's non-redundant form ( corrected framing):
       ⋆-fixed cocycles = cup-subring of atomic indicators = full H*.
 
     Supporting capstones (each strict ∅-axiom in its source file,

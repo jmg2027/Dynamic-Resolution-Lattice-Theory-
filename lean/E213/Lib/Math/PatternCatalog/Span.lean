@@ -74,7 +74,7 @@ inductive EscapeCandidate where
       Currently inhabits `LensWitness (LensWitness α)` trivially
       — same shape, no genuine escape. -/
   | recursiveLens
-  /-- The 9 `Classical.*`-demoing theorems noted in G24 §6.
+  /-- The 9 `Classical.*`-demoing theorems noted in 
       These are deliberately Classical-axiom and are NOT supposed
       to fit a ∅-axiom catalog. -/
   | classicalDemo

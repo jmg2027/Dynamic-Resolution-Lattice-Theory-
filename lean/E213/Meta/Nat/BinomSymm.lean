@@ -2,7 +2,7 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Tactic.NatHelper
 
 /-!
-# G14 — Binom symmetry: `C(n, k) = C(n, n − k)` (213-native ∅-axiom)
+# Binom symmetry: `C(n, k) = C(n, n − k)` (213-native ∅-axiom)
 
 213's `binom` (defined in `Lib/Physics/Simplex/Counts.lean` via
 Pascal recursion) admits the standard symmetry
@@ -18,7 +18,7 @@ only:
     (213-native replacements for the propext-tainted Lean-core
     forms)
 
-## Why G14
+## Why this matters
 
 Closes the open prerequisite for the **inductive** form of the
 T²ⁿ pattern theorem `signature(H^n; T²ⁿ) = (½·C(2n, n), ½·C(2n, n))`

@@ -138,9 +138,9 @@ theorem pell_unit_constant_under_iteration :
 
 A single conjunction tying Q1 + Q5 (bracket) + L_∞ invariant.  The
 remaining questions Q2, Q3, Q4 are recorded in the docstring as
-follow-ups (G62 for Q4; Phase 1b for Q2, Q3 via PhiCut). -/
+follow-ups (for Q4; Phase 1b for Q2, Q3 via PhiCut). -/
 
-/-- ★★★ **G61 capstone (partial)** — three structural questions
+/-- ★★★ ** capstone (partial)** — three structural questions
     closed at the ∅-axiom level: trajectory uniqueness (Q1),
     growth-rate bracket φ² (Q5 partial, 7 layers), L_∞ symplectic
     invariant.  PURE. -/

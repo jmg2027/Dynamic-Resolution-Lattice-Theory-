@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 # Gram Self-Consistency (C1 Step 3)
 
 Step 3 of conjecture C1 (Pure Cup-Ring α_em) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1.
+`research-notes/
 
 Step 1 (`GradedFormula.lean`) established the 5-layer
 graded sum at 9-digit precision.

@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Cochain.Core
 # Aut(K) acting on Cochain n k (C3 Step 2)
 
 Step 2 of conjecture C3 (Aut(K) gauge group emergence) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C3.
+`research-notes/
 
 Encodes a sample group action of Aut(K_{3,2}^{(c=2)}) on
 `Cochain 5 1` (vertex cochains).  Specifically: a single

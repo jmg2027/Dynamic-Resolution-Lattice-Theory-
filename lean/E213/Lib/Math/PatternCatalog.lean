@@ -7,7 +7,7 @@ import E213.Lib.Math.PatternCatalog.Span
 /-! Spec-as-code entry point for `E213.Lib.Math.PatternCatalog`.
 
   Pattern-catalog formalization — the metaformalization arc
-  closure (G30 in research-notes/).  Catalogue of stateable
+  closure (in research-notes/).  Catalogue of stateable
   patterns and the closure of the catalog under operational
   primitives.
 

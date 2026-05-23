@@ -2,7 +2,7 @@ import E213.Lib.Math.GeometrizationConjecture.M1Routes
 import E213.Lib.Physics.Symmetry.C3ChainCapstone
 
 /-!
-# G121 — Cohomology scope + depth filter (steps 7, 9, 10)
+# Cohomology scope + depth filter (steps 7, 9, 10)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -43,7 +43,7 @@ from cohomology alone.  The atomicity-route (step 4: Raw Clause 1
 Then K_{3,2}^{(c=2)} is uniquely forced by atomicity + cohomology
 together.  Neither alone suffices.
 
-This sharpens the G121 §6.1 status: M1 close is **partial** in
+This sharpens the  status: M1 close is **partial** in
 the sense that *each individual route is partial* (atomicity
 fixes only (NS, NT); cohomology has 10 candidates), but their
 *intersection* fixes (NS, NT, c) = (3, 2, 2).
@@ -130,7 +130,7 @@ theorem combined_atomicity_cohomology_uniqueness :
   Both spectra single out d_M = 4 as critical, via different
   signatures (standard: smooth-structure cardinality; 213-Lens:
   cohomology-α_3 deployment uniqueness).  This convergence is the
-  empirical anchor for G121's ansatz §4.1.
+  empirical anchor for 's ansatz §4.1.
 -/
 theorem geometrization_spectrum_capstone :
     -- d_M = 3: no match
@@ -383,7 +383,7 @@ theorem depth_filter_strict :
 
   Three-route forcing remains the cleanest derivation:
     · Atomicity (Raw Clause 1)            → (N_S, N_T) = (3, 2)
-    · Möbius mod-5 (G80)                  → c = 2
+    · Möbius mod-5                   → c = 2
     · Cohomology depth (this step)        → K_{3,2}^{(c=2)} unique
                                              ↑ verifies above
 -/

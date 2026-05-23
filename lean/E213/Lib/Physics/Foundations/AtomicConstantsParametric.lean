@@ -6,7 +6,7 @@ import E213.Meta.Tactic.Omega213
 # Atomic Constants Parametric Uniqueness (C2 Step 4)
 
 Step 4 of conjecture C2 (Atomic constants uniqueness) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C2.
+`research-notes/
 
 ## Summary of progress
 

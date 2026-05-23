@@ -133,7 +133,7 @@ theorem configCount_one : configCount 1 = 3125 := by decide
 /-- `configCount 2 = 5^25 = 298_023_223_876_953_125`.
 
     This is the value historically called `N_U`.  Demoted to one
-    value of the `configCount` family per G120. -/
+    value of the `configCount` family. -/
 theorem configCount_two : configCount 2 = 298023223876953125 := by decide
 
 /-- `configCount 2 = 5^25` (structural form). -/

@@ -85,7 +85,7 @@ theorem list_level_leibniz_sym
     apply xorRange_congr
     intros; rfl
   rw [h_cong, xorRange_xor_split]
-  -- Apply G86 to each factor
+  -- Apply the list-level Leibniz to each factor
   rw [list_level_leibniz_general k l α β τ]
   -- For the second factor, use the mirror (k↔l swap).
   -- xorRange (k+l+1) of mirror cupList = xorRange (l+k+1) of mirror by Nat.add_comm

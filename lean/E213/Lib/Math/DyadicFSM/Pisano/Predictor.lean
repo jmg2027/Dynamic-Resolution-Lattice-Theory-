@@ -49,7 +49,7 @@ theorem pisano_predict_correct :
 
 /-- ★ Generic Pisano period lift: if `pisano_predict p pf = N` and
     `f` has period `N`, then `f` has period `pisano_predict p pf`.
-    G107 §4 L3 template — used to compose `pisano_predict_realises_pell_K`
+     L3 template — used to compose `pisano_predict_realises_pell_K`
     chains as `K → K+ΔK` extensions. -/
 theorem pisano_period_lift
     {p : Nat} {pf : 1 < p} {N : Nat} {f : Nat → Bool}

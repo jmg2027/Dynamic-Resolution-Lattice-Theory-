@@ -112,7 +112,7 @@ theorem Tree.canonical_slash_lt
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
 /-- Decompose `Tree.canonical (.slash x y) = true`: both sub-trees
-    are canonical and `Tree.cmp x y = .lt`.  G107 §2 Sub-2 helper —
+    are canonical and `Tree.cmp x y = .lt`.   Sub-2 helper —
     factors the shared 5-line prologue out of Tree-induction proofs. -/
 theorem Tree.canonical_slash_decompose
     {x y : Tree} (h : Tree.canonical (.slash x y) = true) :

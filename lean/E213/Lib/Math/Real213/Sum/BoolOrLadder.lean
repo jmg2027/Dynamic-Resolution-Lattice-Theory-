@@ -1,5 +1,5 @@
 /-!
-# Bool-OR ladder existence iff template — G107 §3 REAL-1+REAL-2
+# Bool-OR ladder existence iff template —  REAL-1+REAL-2
 
 The recurring bool-OR-ladder pattern:
 
@@ -15,7 +15,7 @@ was previously hand-rolled per call site (~50-70 lines each, 4+ sites
 in Real213).  This template extracts the inductive proof once.
 
 Lives in `Real213/Sum/` so it's upstream of FluxMVT and downstream of
-core Nat/Bool.  Companion to `Mul/CutMulOuterReduce.lean` (G110 FLUX-1
+core Nat/Bool.  Companion to `Mul/CutMulOuterReduce.lean` (FLUX-1
 upstream template, which extracts a different pattern).
 
 PURE — verified standalone (no propext, no Quot.sound).  Connecting to

@@ -12,7 +12,7 @@ Helpers here were promoted from:
   · `Lib/Math/Cohomology/Cup/KSubsetStructural §0` (length, mem)
   · `Lib/Math/Cohomology/Cup/FinBridgeGeneral §0` (take, drop)
 
-per G93 §C1 + G94 §1 centralisation.  Existing call sites remain
+per  +  centralisation.  Existing call sites remain
 compatible via `@[reducible]` aliases in the original locations.
 
 All theorems below are **PURE** (`#print axioms` reports

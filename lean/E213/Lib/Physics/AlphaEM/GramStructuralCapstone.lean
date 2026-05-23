@@ -100,7 +100,7 @@ theorem alphaInv_structural_residual_27 :
 
 /-! ## §4 — Precision-theorem capstone -/
 
-/-- ★★★★★★★★★★ **G131 Phase 5: 1/α_em PRECISION THEOREM**
+/-- ★★★★★★★★★★ ** Phase 5: 1/α_em PRECISION THEOREM**
 
   Closes the structural derivation of `1/α_em` at Newton-1 tier:
 

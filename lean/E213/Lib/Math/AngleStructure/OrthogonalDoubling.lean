@@ -3,7 +3,7 @@ import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 /-!
 # Orthogonal Axis Doubling — The Mechanical 90° Extension (∅-axiom)
 
-Mingu's elaboration (G42 part 3):
+Mingu's elaboration (part 3):
 
 > "Cayley-Dickson 타워를 한 층 올라갈 때마다 벌어지는 일은,
 >  기존의 공간 전체에 대해 새롭게 90도로 직교하는 축을 기계적으로

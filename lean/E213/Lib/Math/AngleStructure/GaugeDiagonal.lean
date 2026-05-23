@@ -4,14 +4,14 @@ import E213.Lib.Math.SignedCut.Core.Core
 /-!
 # 45° Gauge Diagonal — Why ZFC sees 180° instead of 90° (∅-axiom)
 
-Mingu's full elaboration (G42):
+Mingu's full elaboration :
 
 > "ZFC는 2D SignedCut 평면을 45도 대각선과 직교하는 1차원 선으로
 >  압착(Squashing)해버렸습니다.  직교하던 90도 축(Y축)이 압착
 >  과정에서 기하학적으로 접히면서, 졸지에 X축의 180도 반대
 >  방향인 것처럼 보이게 된 것입니다."
 
-The `(a + c, b + c) ~ (a, b)` cancellation equivalence (G37) IS
+The `(a + c, b + c) ~ (a, b)` cancellation equivalence  IS
 the **gauge freedom** along the 45° diagonal.  In 2D SignedCut
 plane:
 

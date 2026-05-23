@@ -153,7 +153,7 @@ theorem cork_foundation_close_capstone :
     ∧ K11_cork.twist_parity = 0
     ∧ K31_cork.twist_parity = 0
     ∧ K14_cork.twist_parity = 0
-    -- b_1 = 0 matches parametric Bipartite cohomology (G124)
+    -- b_1 = 0 matches parametric Bipartite cohomology 
     ∧ b1Formula 1 1 1 = 0
     ∧ b1Formula 3 1 1 = 0
     ∧ b1Formula 1 4 1 = 0

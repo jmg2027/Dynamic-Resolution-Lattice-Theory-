@@ -20,7 +20,7 @@ Three key connections:
     H^0 = ℤ, H^1 = ℤ^8.
 
 (3) Type D (Hurwitz, 24 units = 2T) is the ℤ-base level.
-    Icosian (2I, 120 units) extends to ℤ[φ] (G53 Type E).
+    Icosian (2I, 120 units) extends to ℤ[φ] (Type E).
     Our pentagonal mod-5 closure IS the ℤ-mod-5 reduction
     of the icosahedral structure.
 

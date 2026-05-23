@@ -15,7 +15,7 @@ import E213.Lib.Math.Cohomology.Delta.Linear
 import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Parametric β-decomp Leibniz lift at (5, a, 2) — G107 §3 L1
+# Parametric β-decomp Leibniz lift at (5, a, 2) —  L1
 
 Consolidates the two β-decomp L1 siblings (`leibniz_via_β_decomp_lens`
 at (5, 1, 2) and `leibniz_via_β_decomp_22` at (5, 2, 2)) into a single

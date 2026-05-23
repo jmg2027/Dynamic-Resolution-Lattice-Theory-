@@ -14,7 +14,7 @@ classify theorems by *codebase design pattern*.  These axes are
 
 ## Concrete cross-cell evidence
 
-G24 §2 F2c cites verbatim the same theorem `cohabit_peano_depth`
+ F2c cites verbatim the same theorem `cohabit_peano_depth`
 that powers `peanoDepthCohabit : CohabitationWitness Raw Nat Nat` in
 `PatternCatalogInstance.lean`.  That single theorem occupies cell
 **F2 (bundled checks) × Cohabitation**.  No contradiction — the two
@@ -25,7 +25,7 @@ namespace E213.Lib.Math.PatternCatalog.CrossAxis
 
 open E213.Lib.Math.PatternCatalog
 
-/-- **Statement-shape axis** (audit corpus G24 §2): the functional
+/-- **Statement-shape axis** (audit corpus : the functional
     family of a theorem's *statement*. -/
 inductive StatementShape where
   /-- F1 — atomic equality or inequality (≈ 52% of corpus). -/
@@ -84,7 +84,7 @@ structure CrossAxisSpecimen where
   witness : String
   deriving Repr
 
-/-! ## Specimens — one per occupied cell (audit anchors from G24 §8). -/
+/-! ## Specimens — one per occupied cell (audit anchors from . -/
 
 /-- F1 × Catamorphism — `K_squared` (quaternion fold = -1). -/
 def specimen_F1_catamorphism : CrossAxisSpecimen :=

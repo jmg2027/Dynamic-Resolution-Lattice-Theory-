@@ -10,7 +10,7 @@ of complex dim n with Kähler class ω, the operator
   L^k = ω^k ⌣ - : H^{n−k}(X) → H^{n+k}(X)
 is an isomorphism for every k ∈ {0, 1, …, n}.
 
-In 213 (G6 §8 corrected framing) on ℤ/2 cohomology: the Hodge
+In 213 ( corrected framing) on ℤ/2 cohomology: the Hodge
 structure has a single eigenspace (⋆² = id has only eigenvalue +1),
 so the standard Hard Lefschetz operator collapses to **Hodge ⋆
 itself** acting between dual strata C^k and C^{n−k}.  Hence:

@@ -3,7 +3,7 @@ import E213.Lib.Math.Topology.Continuity
 /-!
 # ε-δ ↔ Discrete Depth Modulus translation (∅-axiom)
 
-Mingu's insight (G40):
+Mingu's insight :
 
 > "ZFC의 ε-δ 논법을 213 프레임워크로 번역하면, 위상수학 모듈에서
 >  직접 정의했던 '이산적 깊이 모듈러스(Nat → Nat)'라는 명시적

@@ -15,7 +15,7 @@ import E213.Lib.Math.LevelTopology.TwoTowersDivergence
 | 2 | 1 | sign | K₂ | 2 / 1 |
 | 3 | 2 | i | Z/4 cycle | 4 / 4 |
 | 4 | 3 | j, k | K₃ oriented | 3 / 3 |
-| 5 | 4 | octonion | Fano (G39) | 7 / 7 |
+| 5 | 4 | octonion | Fano  | 7 / 7 |
 -/
 
 namespace E213.Lib.Math.LevelTopology.G49Capstone

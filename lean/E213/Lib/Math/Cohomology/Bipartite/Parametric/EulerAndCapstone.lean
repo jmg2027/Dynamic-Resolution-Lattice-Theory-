@@ -14,7 +14,7 @@ This file:
   · Defines the parametric Euler formula
   · Verifies it matches `V32Betti` at K_{3,2}^{(c=2)}
   · Provides a capstone bundling the full parametric cohomology
-    summary for all G121-relevant deployments
+    summary for all chartBase-≤-5 deployments
   · Connects to `KChartLensAbstract` axes-partition data
 -/
 
@@ -43,12 +43,12 @@ theorem eulerChar_K32 : eulerChar 3 2 2 = -7 := by decide
 /-- At (NS, NT, c) = (3, 2, 2), b_1 = 8 (= NS² − 1 per α_3 reading). -/
 theorem b1Formula_K32 : b1Formula 3 2 2 = 8 := by decide
 
-/-! ## Cohomology summary across G121-relevant deployments -/
+/-! ## Cohomology summary across chartBase-≤-5 deployments -/
 
-/-- ★★★★ **Parametric b_1 across the G121 deployment family**
+/-- ★★★★ **Parametric b_1 across the  deployment family**
 
   Evaluates `b1Formula` at every K_{NS,NT}^{(c)} that appears in
-  the G121 / G123 narrative:
+  the chartBase-≤-5 narrative:
 
   | Deployment           | b_1 | Role                          |
   |---|---|---|
@@ -78,7 +78,7 @@ theorem b1Formula_G121_family :
 
 `chartBase NS NT = NS + NT` matches the `KChartLens.axes_partition`
 witness (chartVisibleAxes + selfPointingAxes = NS + NT).  At
-selfPointingAxes = 1 (the G121 ansatz), chartVisibleAxes = (NS+NT) − 1.
+selfPointingAxes = 1 (the dim-4 self-pointing ansatz), chartVisibleAxes = (NS+NT) − 1.
 -/
 
 /-- For any (NS + NT) = 5 deployment, chartVisibleAxes (under

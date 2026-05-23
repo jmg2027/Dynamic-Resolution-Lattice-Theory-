@@ -212,7 +212,7 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
 /-- Decompose `canonicalBy cmp (.slash x y) = true`: both sub-trees
-    are canonicalBy-cmp and `cmp x y = .lt`.  G107 §2 Sub-2 helper
+    are canonicalBy-cmp and `cmp x y = .lt`.   Sub-2 helper
     (canonicalBy variant). -/
 theorem canonicalBy_slash_decompose {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :

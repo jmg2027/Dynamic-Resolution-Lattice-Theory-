@@ -3,7 +3,7 @@ import E213.Meta.LensInternality
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 
 /-!
-# G121 — Chart-axis ansatz: core defs + axiom shadow + V32Betti deployment
+# Chart-axis ansatz: core defs + axiom shadow + V32Betti deployment
 
 Steps 1-3 R1:
   · Step 1: definitional scaffold (chartBase, selfPointingAxes, chartVisibleAxes)
@@ -19,26 +19,26 @@ open E213.Lens (Lens)
 
 /-- Fractal base of the K_{NS, NT}^{(c)} deployment.
 
-    Defined as `NS + NT` per G44 substrate sum.  For K_{3,2}^{(c=2)}
+    Defined as `NS + NT` substrate sum.  For K_{3,2}^{(c=2)}
     this equals 5; parametric form here.  Not claimed as a universe
     constant.
 -/
 def chartBase (NS NT : Nat) : Nat := NS + NT
 
-/-- Count of chart-Lens-invisible axes under the G121 ansatz §4.1.
+/-- Count of chart-Lens-invisible axes under the  ansatz §4.1.
 
     Per `seed/AXIOM/05_no_exterior.md` §5.1 (no exterior), the
     self-pointing residue does not pass through chart-Lens readout.
     The ansatz commits to exactly **one** such axis.
 
-    Structural derivation: open (G121 §6.2, knot M2).  A future
+    Structural derivation: open (, knot M2).  A future
     Lens-level theorem in `lean/E213/Lens/` may derive this from
     chart-Lens + self-reference axioms; until then, the `1` is the
     ansatz committed to.
 -/
 def selfPointingAxes : Nat := 1
 
-/-- Chart-Lens visible axis count under G121 ansatz.
+/-- Chart-Lens visible axis count under  ansatz.
 
     External observer counts `chartBase - selfPointingAxes` axes.
     For K_{3,2}^{(c=2)} this is 4 (the conjectured spacetime
@@ -59,7 +59,7 @@ theorem chartVisibleAxes_unfold (NS NT : Nat) :
 
 /-! ## K_{3,2}^{(c=2)} specialisation — main empirical anchor -/
 
-/-- `chartBase 3 2 = 5` — agrees with G44 `substrate_sum`. -/
+/-- `chartBase 3 2 = 5` — agrees with  `substrate_sum`. -/
 theorem chartBase_K32 : chartBase 3 2 = 5 := rfl
 
 /-- `chartVisibleAxes 3 2 = 4` — the conjectured d_M for the
@@ -82,7 +82,7 @@ theorem chartVisibleAxes_K22 : chartVisibleAxes 2 2 = 3 := rfl
 /-- K_{4,2}: `chartVisibleAxes = 5`.  Would predict critical
     exotic-residue at d_M = 5; contradicts Kervaire-Milnor finite
     Θ_d at d ≥ 5.  Hence K_{4,2}-deployment of 213 (if any) would
-    falsify G121 §4.1 ansatz. -/
+    falsify  ansatz. -/
 theorem chartVisibleAxes_K42 : chartVisibleAxes 4 2 = 5 := rfl
 
 /-- K_{3,3}: `chartVisibleAxes = 5`. -/
@@ -91,7 +91,7 @@ theorem chartVisibleAxes_K33 : chartVisibleAxes 3 3 = 5 := rfl
 /-! ## Bundle -/
 
 /-- The K_{3,2}^{(c=2)} ansatz bundle — four arithmetic facts that
-    the G121 ansatz §4.1 commits to.  Future Lens-level work
+    the dim-4 self-pointing ansatz §4.1 commits to.  Future Lens-level work
     (R1, M2-close) must derive `selfPointingAxes = 1` from
     chart-Lens + self-reference axioms to upgrade this from
     definitional encoding to structural theorem. -/
@@ -124,7 +124,7 @@ which is the self-encoding of how Lens itself processes Raw).
 The axiom-level shadow does **not** structurally derive the
 deployment-level claim: the deployment-level chart-Lens (over
 K_{NS, NT}^{(c)} hinge) is not the same object as the Raw-level
-Lens type.  Linking them is the real M2 close (R1 in G121 §7).
+Lens type.  Linking them is the real M2 close (R1 in .
 This section records the *consistency check*: deployment-level
 `selfPointingAxes := 1` is consistent with the axiom-level
 self-pointing component count of `1` (the combine).
@@ -160,7 +160,7 @@ theorem axiom_shadow_consistency :
     axiomOperatorComponents = selfPointingAxes := rfl
 
 /-- Axiom-level shadow bundle: 3-component Lens data with 2-atom +
-    1-operator split, consistent with G121 ansatz §4.1. -/
+    1-operator split, consistent with dim-4 self-pointing ansatz §4.1. -/
 theorem axiom_level_shadow_bundle :
     axiomLensDataTotal = 3
     ∧ axiomLensDataTotal - axiomOperatorComponents = axiomAtomComponents

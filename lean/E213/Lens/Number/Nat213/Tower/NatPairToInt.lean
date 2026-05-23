@@ -18,7 +18,7 @@ This file provides:
 
 All theorems satisfy the ∅-axiom standard.
 
-## What this materializes (G62 framing)
+## What this materializes (framing)
 
 The "2-side extension" ℕ → ℤ is concretely:
 - Take TWO orthogonal copies of ℕ (the `a` axis and the `b` axis)
@@ -147,7 +147,7 @@ theorem npairToInt_translation_invariant (a b k : Nat) :
   rw [E213.Tactic.NatHelper.add_sub_add_right b k a,
       E213.Tactic.NatHelper.add_sub_add_right a k b]
 
--- ═══ "Lost properties" ℕ → ℤ (G62) — concrete witnesses ═══
+-- ═══ "Lost properties" ℕ → ℤ  — concrete witnesses ═══
 
 /-- ★ Loss 1 — Fiber multiplicity at 0.  In ℕ the integer `0` has
     a unique representation (just `0`).  Under the orthogonal-axis
@@ -192,7 +192,7 @@ theorem swap_realizes_negation :
   · exact npairToInt_natToNPairNeg 5
   · rfl
 
--- ═══ Emergence of 0 as algebraic center (G64) ═══
+-- ═══ Emergence of 0 as algebraic center  ═══
 
 /-- ★ Loss/Gain 4 — `0` acquires a NEW algebraic role in ℤ that
     has no analog in ℕ: it is the **unique fixed point of negation**.

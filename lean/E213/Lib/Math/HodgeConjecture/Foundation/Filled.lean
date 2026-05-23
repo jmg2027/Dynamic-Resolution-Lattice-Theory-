@@ -5,7 +5,7 @@ import E213.Lib.Math.HodgeConjecture.Toolkit.LensClassifier
 /-!
 # HC²¹³ §7.B — extension to filled K_{3,2}^{(c=2)}
 
-G6 §7.B follow-up.  Extends `hodge_conjecture_213_canonical` from
+ follow-up.  Extends `hodge_conjecture_213_canonical` from
 the unfilled K_{3,2}^{(c=2)} (b₁ = 8) to all 5 filling levels
 (k ∈ {0, 1, 2, 3, 4} simple 4-cycles filled).
 

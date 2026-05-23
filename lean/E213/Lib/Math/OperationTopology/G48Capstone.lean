@@ -56,7 +56,7 @@ theorem connection_witness :
     ∧ totalOperationLevels = 25 :=
   property_budget_connection
 
-/-- ★★★ **Total G48 synthesis witness** ★★★. -/
+/-- ★★★ **Total  synthesis witness** ★★★. -/
 theorem total_witness :
     totalOperationLevels = 25
     ∧ totalComplexity = 325

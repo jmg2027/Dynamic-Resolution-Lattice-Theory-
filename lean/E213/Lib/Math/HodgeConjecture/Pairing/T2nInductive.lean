@@ -3,7 +3,7 @@ import E213.Meta.Nat.BinomSymm
 import E213.Meta.Nat.AddMod213
 
 /-!
-# G14 — T²ⁿ Pattern Theorem (full inductive form)
+# T²ⁿ Pattern Theorem (full inductive form)
 
 The fully general inductive form of the T²ⁿ signature pattern,
 closing the open follow-up from `BalancedSignature.lean`:
@@ -116,7 +116,7 @@ theorem T2n_blocks_signature (n : Nat) (hn : 1 ≤ n) :
 
 /-! ## §3 — Master G14 theorem -/
 
-/-- ★★★★★ T²ⁿ Inductive Pattern Theorem (G14 — full inductive form).
+/-- ★★★★★ T²ⁿ Inductive Pattern Theorem (— full inductive form).
     STRICT ∅-AXIOM.
 
     Closes the open follow-up from `BalancedSignature.lean` /

@@ -9,7 +9,7 @@ smooth complex projective surface is algebraic (= Chern class of a
 line bundle).  Historically the first instance of what would later
 become the Hodge conjecture.
 
-In 213 (G6 §8 corrected framing): the (1,1)-stratum of a 213-canonical
+In 213 ( corrected framing): the (1,1)-stratum of a 213-canonical
 complex is `Cochain n 2` (degree-2 cocycles), and "algebraic" =
 indicator-basis XOR.  The statement is the k=2 specialisation of
 HC²¹³, and follows immediately from `hodge_conjecture_213`.
@@ -33,7 +33,7 @@ open E213.Lib.Math.HodgeConjecture.Foundation.Conjecture
 
     Specialises `hodge_conjecture_213` at k=2.  Witness: the cochain
     σ itself viewed as its own coefficient sequence in the
-    edge-indicator basis (under G6 §8 framing this *is* the content:
+    edge-indicator basis (under  framing this *is* the content:
     `Cochain n 2 = Fin (binom n 2) → Bool` is the free ℤ/2-module on
     the 2-simplex indicators by definitional equality). -/
 theorem lefschetz_one_one_213 {n m : Nat} (σ : Cochain n 2)

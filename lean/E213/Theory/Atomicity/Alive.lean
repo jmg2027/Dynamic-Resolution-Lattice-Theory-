@@ -4,7 +4,7 @@
 **Status**: this file's previous "postulated, not
 derived" framing has been **superseded** by the structural
 derivation in `Theory/Atomicity/AliveDerivation.lean` (research
-note `G87_raw_native_emergence_audit.md` §11).
+note ).
 
 ## Derivation summary
 

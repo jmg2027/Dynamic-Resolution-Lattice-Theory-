@@ -136,7 +136,7 @@ theorem mobius_p3_plus_inv_eq_seven_p :
 
     χ(K_{3,2}^{(2)}) = V - E = 5 - 12 = -7
 
-    This is exactly the bipartite multigraph realization (G76)
+    This is exactly the bipartite multigraph realization 
     with 5 vertices = d and 12 edges = NS · NT · 2.  Its Euler
     characteristic is the NEGATIVE 7 user was looking for. -/
 theorem minus_seven_is_k32_euler_char :
@@ -235,7 +235,7 @@ theorem p10_bot_right_mod_5 : (4181 : Nat) % 5 = 1 := by decide
     This IS the geometric meaning of d = 5: the atomicity 5 is
     the pentagonal closure of the Möbius P rotation modulo 5.
 
-    The "5 perspectives" (G74 conjecture) are the 5 vertices of
+    The "5 perspectives" (conjecture) are the 5 vertices of
     this pentagon.  The "dizzy spiral" (verbatim KO: "어질어질
     spiral") is the P-iteration that closes after 10 steps with
     sign included. -/

@@ -33,7 +33,7 @@ private theorem c2_eq_i_5_3 :
       complementIdx 5 2 (complementIdx 5 3 i.val) = i.val := by decide
 
 /-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 3).  STRICT ∅-AXIOM
-    via `hodge_involution_pointwise_5` template (G111 COH-2). -/
+    via `hodge_involution_pointwise_5` template (COH-2). -/
 theorem hodge_involution_capstone_5_3 :
     ∀ σ : Cochain 5 3, ∀ i : Fin (binom 5 3),
       hodgeStar 5 2 3 (hodgeStar 5 3 2 σ) i = σ i :=

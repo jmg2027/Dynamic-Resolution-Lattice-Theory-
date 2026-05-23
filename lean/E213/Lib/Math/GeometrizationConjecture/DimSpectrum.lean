@@ -2,7 +2,7 @@ import E213.Lib.Math.GeometrizationConjecture.ScopeAndDepth
 import E213.Lib.Math.Cohomology.Examples.WhyDimFive
 
 /-!
-# G121 — Geometrization dim spectrum + Sym(3)-capable (steps 6, 14)
+# Geometrization dim spectrum + Sym(3)-capable (steps 6, 14)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -44,7 +44,7 @@ projection of the same dimension-spectrum split, expressed via
 deployment-cohomology rather than smooth-structure cardinality.
 The convergence of standard-math d_M = 4 critical and 213-Lens
 chartBase-5 cohomology-α_3 uniqueness is the empirical anchor
-that motivates G121.
+that motivates .
 -/
 
 /-- d_M = 3 confinement layer (chartBase = 4): K_{2,2}^{(c)} and

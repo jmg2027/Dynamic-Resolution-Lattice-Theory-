@@ -5,4 +5,4 @@ import E213.Lib.Math.TriangularTower.PropertySurvival
 import E213.Lib.Math.TriangularTower.RealAsSquashed
 
 /-! Spec-as-code entry point for `E213.Lib.Math.TriangularTower`.
-  G47 triangular-tower programme — see `TriangularTower/INDEX.md`. -/
+  triangular-tower programme — see `TriangularTower/INDEX.md`. -/

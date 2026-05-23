@@ -60,7 +60,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_poin
 
 namespace FluxCut
 
-/-- LD x² at unit forward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x² at unit forward (pointwise).   FLUX-1 template. -/
 theorem mvt_square_unitBracket_forward_at (m k : Nat) :
     (localDivergence (fun x => cutMul x x) unitBracket).forward m k
       = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -71,7 +71,7 @@ theorem mvt_square_unitBracket_forward_at (m k : Nat) :
         (fun _ _ => rfl) (fun m' _ => cutMul_one_one_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- LD x² at unit backward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x² at unit backward (pointwise).   FLUX-1 template. -/
 theorem mvt_square_unitBracket_backward_at (m k : Nat) :
     (localDivergence (fun x => cutMul x x) unitBracket).backward m k
       = (ofCut (constCut 1 1) : FluxCut).backward m k := by
@@ -90,7 +90,7 @@ theorem mvt_square_unitBracket_pure :
     mvt_square_unitBracket_forward_at
     mvt_square_unitBracket_backward_at
 
-/-- Helper: fluxAlong x³ at unit forward at point.  G110 FLUX-1 template. -/
+/-- Helper: fluxAlong x³ at unit forward at point.   FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_forward_at (m k : Nat) :
     cutMul (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1)) m k
       = constCut 1 1 m k := by
@@ -101,7 +101,7 @@ theorem fluxAlong_cube_unitBracket_forward_at (m k : Nat) :
         (fun _ _ => rfl) (fun m' _ => cutMul_one_one_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- Helper: fluxAlong x³ at unit backward at point.  G110 FLUX-1 template. -/
+/-- Helper: fluxAlong x³ at unit backward at point.   FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_backward_at (m k : Nat) :
     cutMul (constCut 0 1) (cutMul (constCut 0 1) (constCut 0 1)) m k
       = constCut 0 1 m k := by
@@ -112,7 +112,7 @@ theorem fluxAlong_cube_unitBracket_backward_at (m k : Nat) :
         (fun _ _ => rfl) (fun m' _ => cutMul_zero_zero_at m' k)]
   exact cutMul_zero_zero_at m k
 
-/-- LD x³ at unit forward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x³ at unit forward (pointwise).   FLUX-1 template. -/
 theorem mvt_cube_unitBracket_forward_at (m k : Nat) :
     (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket).forward m k
       = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -126,7 +126,7 @@ theorem mvt_cube_unitBracket_forward_at (m k : Nat) :
         (fun m' _ => fluxAlong_cube_unitBracket_forward_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- LD x³ at unit backward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x³ at unit backward (pointwise).   FLUX-1 template. -/
 theorem mvt_cube_unitBracket_backward_at (m k : Nat) :
     (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket).backward m k
       = (ofCut (constCut 1 1) : FluxCut).backward m k := by
@@ -173,7 +173,7 @@ open E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 
 namespace FluxCut
 
-/-- fluxAlong x⁴ at unit forward (pointwise).  G110 FLUX-1 template. -/
+/-- fluxAlong x⁴ at unit forward (pointwise).   FLUX-1 template. -/
 theorem fluxAlong_quartic_unitBracket_forward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul (cutMul x x) (cutMul x x)) unitBracket
       ).forward m k = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -187,7 +187,7 @@ theorem fluxAlong_quartic_unitBracket_forward_at (m k : Nat) :
         (fun m' _ => cutMul_one_one_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- fluxAlong x⁴ at unit backward (pointwise).  G110 FLUX-1 template. -/
+/-- fluxAlong x⁴ at unit backward (pointwise).   FLUX-1 template. -/
 theorem fluxAlong_quartic_unitBracket_backward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul (cutMul x x) (cutMul x x)) unitBracket
       ).backward m k = (ofCut (constCut 1 1) : FluxCut).backward m k := by
@@ -209,7 +209,7 @@ theorem fluxAlong_quartic_unitBracket_pure :
     fluxAlong_quartic_unitBracket_forward_at
     fluxAlong_quartic_unitBracket_backward_at
 
-/-- LD x⁴ at unit forward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x⁴ at unit forward (pointwise).   FLUX-1 template. -/
 theorem mvt_quartic_unitBracket_forward_at (m k : Nat) :
     (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x)) unitBracket
       ).forward m k = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -225,7 +225,7 @@ theorem mvt_quartic_unitBracket_forward_at (m k : Nat) :
         (fun m' _ => fluxAlong_quartic_unitBracket_forward_at m' k)]
   exact cutMul_one_one_at m k
 
-/-- LD x⁴ at unit backward (pointwise).  G110 FLUX-1 template. -/
+/-- LD x⁴ at unit backward (pointwise).   FLUX-1 template. -/
 theorem mvt_quartic_unitBracket_backward_at (m k : Nat) :
     (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x)) unitBracket
       ).backward m k = (ofCut (constCut 1 1) : FluxCut).backward m k := by
@@ -285,7 +285,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_poin
 
 namespace FluxCut
 
-/-- Generic MVT for x^(n+1) at unit forward (pointwise).  G110 FLUX-1 template. -/
+/-- Generic MVT for x^(n+1) at unit forward (pointwise).   FLUX-1 template. -/
 theorem mvt_cutPow_unitBracket_forward_at (n m k : Nat) :
     (localDivergence (fun x => cutPow x (n+1)) unitBracket).forward m k
       = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -298,7 +298,7 @@ theorem mvt_cutPow_unitBracket_forward_at (n m k : Nat) :
         (fun _ _ => rfl) (fun m' _ => cutPow_one_n_at (n+1) m' k)]
   exact cutMul_one_one_at m k
 
-/-- Generic MVT for x^(n+1) at unit backward (pointwise).  G110 FLUX-1 template. -/
+/-- Generic MVT for x^(n+1) at unit backward (pointwise).   FLUX-1 template. -/
 theorem mvt_cutPow_unitBracket_backward_at (n m k : Nat) :
     (localDivergence (fun x => cutPow x (n+1)) unitBracket).backward m k
       = (ofCut (constCut 1 1) : FluxCut).backward m k := by

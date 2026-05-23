@@ -82,7 +82,7 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
   rw [hdec]
 
 /-- Lift an ArithFSM2 bits-period to the encoded BitFSM via
-    `toBitFSM_bits_eq`.  G107 §4 Pell-FSM helper (BitFSM analogue
+    `toBitFSM_bits_eq`.   Pell-FSM helper (BitFSM analogue
     of `ArithFSM2.bits_period_of_run_period`).  PURE. -/
 theorem toBitFSM_bits_period_lift {n T : Nat} (hn : 0 < n) (m : ArithFSM2 n)
     (h : ∀ k, m.bits (k + T) = m.bits k) :

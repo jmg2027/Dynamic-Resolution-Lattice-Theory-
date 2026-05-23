@@ -1,15 +1,15 @@
 import E213.Lib.Math.GeometrizationConjecture.Capstone
 
 /-!
-# G121 R1+ — K_{NS,NT}^{(c)} general-deployment enumeration (G124 partial)
+# R1+ — K_{NS,NT}^{(c)} general-deployment enumeration (partial)
 
-User-deferred at step 17 (G121 R1).  This file extends the existing
+User-deferred at step 17 (R1).  This file extends the existing
 parametric infrastructure (already in place via `chartBase`,
 `chartVisibleAxes`, `isTreeDeployment`, `b1_corrected`,
 `hasNaturalSym3`, `hasC2BinaryCoverMatch`, `passesCohomologyDepthFilter`)
-to enumerate G121 ansatz behavior across a wider (NS, NT, c) range.
+to enumerate dim-4 self-pointing ansatz behavior across a wider (NS, NT, c) range.
 
-## Existing parametric machinery (G121 R1)
+## Existing parametric machinery (R1)
 
   · `chartBase n m := n + m`
   · `chartVisibleAxes n m := n + m − 1`
@@ -24,7 +24,7 @@ This file ADDS:
   · b_1 = 8 deployment uniqueness verification at higher chartBase
   · Tree deployment enumeration across d_M ∈ {1..8}
 
-Status: G124 PARTIAL — full generalization (parametric proofs across
+Status:  PARTIAL — full generalization (parametric proofs across
 all (n, m, c)) requires graph-cohomology infrastructure beyond
 present scope.
 
@@ -92,7 +92,7 @@ theorem tree_enumeration_d1_to_d8 :
     ∧ isTreeDeployment 1 8 1 = true := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-! ## Higher-chartBase critical-uniqueness (G124 extension) -/
+/-! ## Higher-chartBase critical-uniqueness (extension) -/
 
 /-- At chartBase = 6, NO deployment passes cohomology-depth filter
     (no b_1 = 8 with required (Sym(3), c=2-binary) intersection). -/

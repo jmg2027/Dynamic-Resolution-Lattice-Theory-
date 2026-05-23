@@ -663,7 +663,7 @@ theorem mul_one (a : Int) : a * 1 = a := by
 /-- `Int.mul_sub` — PURE replacement for Lean-core
     `Int.mul_sub` (which brings propext via Iff-chain derivation).
 
- per G95 §N6 / G96 §3 dep-purity cleanup.
+ per the dep-purity cleanup.
     Composed from `mul_add` + `mul_neg`. -/
 theorem mul_sub (a b c : Int) : a * (b - c) = a * b - a * c := by
   show a * (b + -c) = a * b + -(a * c)

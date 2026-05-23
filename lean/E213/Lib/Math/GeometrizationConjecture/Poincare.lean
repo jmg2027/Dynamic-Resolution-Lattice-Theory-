@@ -2,7 +2,7 @@ import E213.Lib.Math.GeometrizationConjecture.DimSpectrum
 import E213.Lib.Math.Cohomology.Bipartite.Filled
 
 /-!
-# G121 — Poincaré pillar (steps 12, 13, 15)
+# Poincaré pillar (steps 12, 13, 15)
 -/
 
 namespace E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
@@ -289,7 +289,7 @@ theorem geometrization_spectrum_with_corrected_euler :
     ∧ chartVisibleAxes 3 2 = chartVisibleAxes 3 1 + 1 := by
   refine ⟨?_, rfl, ?_, rfl, ?_, ?_, rfl, ?_, rfl, ?_, ?_⟩ <;> decide
 
-/-- ★★★★★ **G121 Geometrization-correspondence capstone (R1 steps 11-13)**
+/-- ★★★★★ ** Geometrization-correspondence capstone (R1 steps 11-13)**
 
   Consolidates the Geometrization-narrative deepening across all
   three Thurston/Perelman framework pillars, with explicit

@@ -221,7 +221,7 @@ theorem first_step (p A B C : Nat) (hp : 0 < p)
       add_p_sub_mod p B hp]
   exact add_mul_mod_self_pure C p (B / p + 1)
 
-/-- ★★★★ **Pell-Fibonacci coupled bridge** (G119 Phase 3.2 reduction):
+/-- ★★★★ **Pell-Fibonacci coupled bridge** (Phase 3.2 reduction):
 
     For all `k ≥ 1`, `pellCoeff p hp k` is exactly the Pell-coefficient
     pair derived from even-indexed Fibonacci numbers mod p:

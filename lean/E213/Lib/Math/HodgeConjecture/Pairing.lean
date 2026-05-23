@@ -45,7 +45,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.TripleProductSurfaceParametric
                                   with `cup(ω, ω) > 0` on T²
     * `HodgeRiemannT2Squared`  — ★★★ **HR ℚ-positivity refinement
                                   on T²×T² (1,1) primitive part**:
-                                  closes G12 §6 by exhibiting 3
+                                  closes  by exhibiting 3
                                   primitive (1,1) classes η₁, η₂, η₃
                                   with `cup(η_i, η_i) = −2 < 0`
                                   and mutual orthogonality.
@@ -67,7 +67,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.TripleProductSurfaceParametric
                                   STRICT ∅-AXIOM.
     * `TensorSignature`        — ★★★ **Tensor / Künneth signature
                                   theorem on (pos, neg) pair**:
-                                  closes G12 §6 follow-up by
+                                  closes  follow-up by
                                   refining Hirzebruch multiplicativity
                                   from σ-only to the full pair-level
                                   Künneth rule `(p·p' + q·q',

@@ -12,7 +12,7 @@ import E213.Lib.Math.Cohomology.Surfaces.P1Squared
 
   213-native CW models for low-dim Kähler manifolds — used to lift
   the ℤ/2-vacuous Hodge Index / Hodge-Riemann / Hard Lefschetz
-  theorems to non-vacuous form (G10 Phase 2 follow-up).
+  theorems to non-vacuous form (Phase 2 follow-up).
 
   ## Sub-clusters
 

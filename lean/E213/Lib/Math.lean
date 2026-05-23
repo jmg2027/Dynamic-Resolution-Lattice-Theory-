@@ -93,13 +93,13 @@ The directory tree is the spec; this file is the top-level entry.
                           Cohomology/Dyadic in Phase C1)
     * `GeometrizationConjecture` — 213-Lens reading of
                           Thurston/Perelman Geometrization + d=4
-                          exotic-smoothness anomaly (G121 ansatz;
+                          exotic-smoothness anomaly (ansatz;
                           1 file, open conjecture)
     * `HodgeConjecture` — Hodge-conjecture programme (Foundation /
                           Structure / Pairing / Refinement / Toolkit /
                           Bridge / MotivicBridge — 47 files; promoted
                           from Cohomology/HodgeConjecture in Phase C2)
-    * `PatternCatalog`  — pattern catalog metaformalization (G30)
+    * `PatternCatalog`  — pattern catalog metaformalization 
     * `CascadeCalculus` — cascade-calculus locality / aggregation
 
   ### Tools + utility

@@ -56,7 +56,7 @@ open E213.Meta.Tactic.NativeGuard
 #guard_native E213.Lib.Math.PatternCatalog.Span.finalVerdict
 
 -- ResolutionLimit (canonical infinity/N_U spec)
--- Post-G120 Round 3: resolutionInvariantWitness deleted.
+-- resolutionInvariantWitness deleted.
 #guard_native E213.Lib.Math.ResolutionLimit.N_U
 #guard_native E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
 #guard_native E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount

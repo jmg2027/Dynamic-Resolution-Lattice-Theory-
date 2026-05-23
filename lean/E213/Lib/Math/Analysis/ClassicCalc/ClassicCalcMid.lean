@@ -48,7 +48,7 @@ open E213.Lib.Math.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
 open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- Midpoint of two passthrough_at's is passthrough_at (PURE).
-    Uses `cutSumAux_unitBracket_reduce_at` (G110 FLUX-1 sum template)
+    Uses `cutSumAux_unitBracket_reduce_at` (FLUX-1 sum template)
     to push pointwise pf/pg eq through cutMid (= cutHalf ∘ cutSum). -/
 def mid_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
     Passthrough_at (fun x => cutMid (f x) (g x)) :=

@@ -2,7 +2,7 @@ import E213.Lib.Math.GeometrizationConjecture.JsjDeep
 import E213.Lib.Math.Geometry.MetricTypes
 
 /-!
-# G121 R1+ — E³/H³/H²×ℝ direct realization scaffold (G125 partial)
+# R1+ — E³/H³/H²×ℝ direct realization scaffold (partial)
 
 User-flagged at step 20: E³, H³, H²×ℝ have only NARRATIVE
 realization via Möbius P trace/det.  Full direct realization
@@ -35,7 +35,7 @@ mod-k Lenses to enumerate additional geometric narratives.
 | F_3 | irreducible | candidate for H²×ℝ |
 | F_5 | (λ+1)² double | Nil (nilpotent) |
 
-**Status**: G125 PARTIAL — mod-k Lens framework encoded, but
+**Status**:  PARTIAL — mod-k Lens framework encoded, but
 specific structural identification (which mod → which geometry)
 is conjectural narrative.  Full direct realization with
 metric-tensor formalization remains OPEN.
@@ -157,7 +157,7 @@ theorem mobius_P_mod_k_geometric_table :
     ∧ ((4 * 4 : Int) % 11 = 5) := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-/-- ★★★ **Metric geometries partial close (G125 partial)**:
+/-- ★★★ **Metric geometries partial close (partial)**:
 
   Mod-k Lens family extends step 22's F_5 Nil insight to enumerate
   5+ Lens readings of Möbius P:
@@ -177,7 +177,7 @@ theorem mobius_P_mod_k_geometric_table :
   CONJECTURAL.  Full direct realization with explicit metric
   formalization remains OPEN.
 
-  G125 PARTIAL.  Full close requires:
+   PARTIAL.  Full close requires:
     · Flat-metric formalization for E³
     · Hyperbolic-metric formalization for H³ / H²×ℝ
     · Explicit mod-k → geometry structural mapping proof

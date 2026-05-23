@@ -21,8 +21,8 @@ P^10 = (P^5)² ≡ +I (mod 5)    ← FULL closure (sign restored)
 
 ## Structural identification chain
 
-  ① `half_period = 5 = d`           (G78 pentagonal P^5 = -I)
-  ② `full_period = 10 = 2 · d`      (G78 pentagonal P^10 = +I)
+  ① `half_period = 5 = d`           (pentagonal P^5 = -I)
+  ② `full_period = 10 = 2 · d`      (pentagonal P^10 = +I)
   ③ `c := full_period / half_period`
   ④ `c = 2`                          (binary cover ratio)
   ⑤ `c = NT`                         (matches bipartite T-axis)
@@ -37,7 +37,7 @@ from research-note prose to a single PURE Lean theorem.
 
 The integer 2 = NT = c serves multiple roles in DRLT:
 
-  · Pentagonal binary cover ratio (G80 — this file)
+  · Pentagonal binary cover ratio (— this file)
   · 2-to-1 cover SL(2, F₅) → A₅ (binary icosahedral → icosahedral)
   · NT = T-axis cardinality in (NS, NT) = (3, 2)
   · Sym(2) order
@@ -164,7 +164,7 @@ theorem two_atomic_readings :
 
 /-! ## §6.  Phase capstone -/
 
-/-- ★★ **G80 c=2 structural derivation capstone**.
+/-- ★★ ** c=2 structural derivation capstone**.
 
     Lifts the G80 §"Why c=2 in K_{3,2}^{(c=2)}" prose argument to
     a single PURE Lean theorem:

@@ -6,10 +6,10 @@ import E213.Lib.Physics.AlphaEM.Bare
 # 1/α_em(IR) — graded cup-ring formula (C1 step 1)
 
 Step 1 of conjecture C1 (Pure Cup-Ring α_em) per
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1.
+`research-notes/
 
 **Honest correction (this session)**: the 4-layer formula in
-`G35 §C1` was numerically incomplete — it missed the `α_GUT/(NS+1)`
+`` was numerically incomplete — it missed the `α_GUT/(NS+1)`
 Dyson tail layer (≈ 6 × 10⁻³ contribution).  The CORRECT graded
 decomposition has FIVE layers:
 
@@ -141,7 +141,7 @@ def leading_integer_sum : Nat := L1a_coeff + L1b_coeff + L2_num + L3_num
     9-digit π precision (Wallis/Basel truncations).
 
     Honest correction (per session re-eval): the 4-layer formula
-    in `G35 §C1` was incomplete — missed `α_GUT/(NS+1)` Dyson tail
+    in `` was incomplete — missed `α_GUT/(NS+1)` Dyson tail
     layer (≈ 6 × 10⁻³ contribution).  The 5-layer formula:
 
       l1a · ζ(2)          = 60·ζ(2)·10⁷ ≈ 986960440

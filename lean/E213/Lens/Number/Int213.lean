@@ -32,7 +32,7 @@ import E213.Lens.Number.Int213.Raw
   ## Parallel ℤ-constructions (이 codebase)
 
     * `Lens.Number.Nat213.Tower.NatPairToInt` — ℕ × ℕ diagonal
-      quotient (G62 framing).  Pair-and-quotient 구성.
+      quotient (framing).  Pair-and-quotient 구성.
     * `Lens.Number.Int213.Raw` (이 파일) — Raw 의 직접 lens-view.
       Atom-level sign 부여로 ℤ 가 자연 emergent.
 

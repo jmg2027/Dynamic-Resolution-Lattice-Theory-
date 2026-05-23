@@ -26,7 +26,7 @@ open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
 
 /-- ★ β-decomp lens at (5, 2, 2).  1-line corollary of
-    `leibniz_via_β_decomp_general` at `a = 2` (G107 §3 L1). -/
+    `leibniz_via_β_decomp_general` at `a = 2` ( L1). -/
 theorem leibniz_via_β_decomp_22
     (α β : Cochain 5 2) (i : Fin (binom 5 4))
     (h_components : ∀ q : Fin 10,

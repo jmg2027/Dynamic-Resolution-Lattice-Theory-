@@ -50,7 +50,7 @@ open E213.Meta.Tactic.PureGuard
 #guard_pure E213.Lib.Math.PatternCatalog.Span.finalVerdict
 
 -- ResolutionLimit (canonical infinity/N_U spec, formalised)
--- Post-G120 Round 3: N_U_tensor and resolutionInvariantWitness
+-- N_U_tensor and resolutionInvariantWitness
 -- deleted; N_U is now an abbrev to configCount 2.
 #guard_pure E213.Lib.Math.ResolutionLimit.N_U
 #guard_pure E213.Lib.Math.ResolutionLimit.N_U_value
