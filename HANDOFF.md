@@ -3,8 +3,8 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-7 closed;
-**22 closures totaling 257 PURE new**.
+open-frontier marathon (G139).  Phases 1-8 closed;
+**23 closures totaling 269 PURE new**.
 
 ## G139 phase-by-phase
 
@@ -17,6 +17,7 @@ open-frontier marathon (G139).  Phases 1-7 closed;
 | 5 | L, M, N, O, P | 35 | LucasModular new; mod-3 parametric across 5 sister sequences |
 | 6 | Q, R, S, T | 29 | JacobsthalModular new; mod-5 parametric across Fib/Lucas/Pad |
 | 7 | U, V | 15 | Nara/Trib mod-5 period 31 — grid complete across 6 × 3 = 18 parametric closures |
+| 8 | W | 12 | HC²¹³ variant automation — Δ³ + Δ⁵ + grid capstone (2^n atomic generators across Δⁿ) |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -109,7 +110,15 @@ inverse needed.
 `(n, k, l) ∈ {(3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
 (5,1,1), (5,2,1), (5,2,2)}`.
 
-## Phase 8 candidates (next session)
+## Phase 8 — HC²¹³ variant automation CLOSED
+
+`Refinement/CupAtomicGeneration{Delta3, Delta5, Grid}.lean`:
+three Δⁿ sister closures + unified grid capstone.  Atomic
+generator total scales as `2^n` (16/32/64 at Δ³/Δ⁴/Δ⁵);
+mechanical via `decide`; sames proof shape across all three
+substrates.
+
+## Phase 9 candidates (next session)
 
   · **CupAW Leibniz** at (5, 1, 2) — pattern decide at heart-
     beat threshold; (3, 1, 2) likely vacuous.
@@ -117,13 +126,13 @@ inverse needed.
     extensions; `Sq^2` chain-level at 4-skeleton.
   · **6-skeleton with multi-cell attaching** for non-vacuous
     H⁵ (simple pyramid collapses).
-  · **HC²¹³ variant automation** — extend the 31-capstone
-    Hodge stack.
+  · **HC²¹³ Δ⁶ / Δ⁷ further automation** (decide complexity
+    scales rapidly).
   · **Pisano-analogue mod-7 column** — longer periods, larger
     base verifications.  Would complete the {2, 3, 5, 7}
     small-prime tetrad.
 
-## Phase 9+ (deferred)
+## Phase 10+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).
@@ -166,5 +175,9 @@ inverse needed.
     remain open.
   · `cupaw.md` — Phase 3 added (4, 2, 1) bidegree;
     self-referential lex-cup Leibniz ∀(k, l) remains open.
-  · `hodge_conjecture.md` — HC²¹³ variant automation untouched
-    across all phases.
+  · `hodge_conjecture.md` — HC²¹³ variant automation
+    CLOSED in Phase 8 (Δ³ + Δ⁵ + grid capstone shipped under
+    `Refinement/CupAtomicGeneration{Delta3, Delta5, Grid}.lean`).
+    The conjecture itself was already closed; this phase
+    automates the cup-atomic refinement across the Δⁿ tetrad
+    {Δ³, Δ⁴, Δ⁵}.

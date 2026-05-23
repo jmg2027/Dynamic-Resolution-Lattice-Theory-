@@ -209,7 +209,31 @@ Pisano-analogue grid COMPLETE — 18 parametric theorems
 | Narayana  |   7        |   8  |  31  |
 | Jacobsthal| constant 1 |   6  |   4  |
 
-## Phase 8 (next session candidates)
+## Phase 8 — CLOSED (1 closure, 12 PURE new)
+
+ 23. **G139-W HC²¹³ Variant Automation** — CLOSED (3 new files,
+     12 PURE).
+     · `Refinement/CupAtomicGenerationDelta3.lean` (5 PURE):
+       sister closure at Δ³ (4 vertices → 6 edges).
+     · `Refinement/CupAtomicGenerationDelta5.lean` (5 PURE):
+       sister closure at Δ⁵ (6 vertices → 15 edges).
+     · `Refinement/CupAtomicGenerationGrid.lean` (2 PURE):
+       unified Δ³ + Δ⁴ + Δ⁵ HC²¹³ automation master with
+       `atomic_generator_count_is_pow_two` confirming
+       `2^n` scaling at each n ∈ {4, 5, 6}.
+
+Δⁿ cup-atomic generation:
+
+| n | Δ^(n−1) | Vertices | Edges | Atomic total `2^n` |
+|---|---------|---------:|------:|-------------------:|
+| 4 | Δ³      |        4 |     6 |  16 |
+| 5 | Δ⁴      |        5 |    10 |  32 |
+| 6 | Δ⁵      |        6 |    15 |  64 |
+
+Automation observation: each Δⁿ instance is mechanical via
+`decide`; identical proof shape across all three n.
+
+## Phase 9 (next session candidates)
 
   · CupAW Leibniz (5, 1, 2) — pattern decide may be at the
     heart-beat threshold; (3, 1, 2) likely vacuous.
@@ -217,12 +241,11 @@ Pisano-analogue grid COMPLETE — 18 parametric theorems
     4-skeleton) and Sq^2 explicit chain-level at 4-skeleton.
   · 6-skeleton extension with multi-cell attaching for
     non-vacuous H⁵.
-  · HC²¹³ variant automation — extending the 31-capstone Hodge
-    stack.
-  · Pisano-analogue mod-7 column (longer periods; period × 6
-    sisters = ~60-200 parametric base verifications).
+  · HC²¹³ Δ⁶ / Δ⁷ further automation (decide complexity scales
+    rapidly).
+  · Pisano-analogue mod-7 column (longer periods).
 
-## Phase 9+ (deferred)
+## Phase 10+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
