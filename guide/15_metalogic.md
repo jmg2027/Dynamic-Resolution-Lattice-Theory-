@@ -2,8 +2,9 @@
 
 **Tier:** T0
 **Status:** Closed; mechanically enforced via typeclasses + hooks.
-**Lean:** `Meta/SelfRecognising.lean`, `Meta/LensCatalog.lean`,
-`Tactic/VerifyR4.lean`, `Meta/AxiomMinimality.lean`.
+**Lean:** `Meta/SelfRecognising.lean`,
+`Meta/Tactic/{DeriveConjugationCodomain, VerifyConjugation}.lean`,
+`Meta/AxiomMinimality.lean`, `Meta/AxiomMinimalityCapstone.lean`.
 
 ## Best current statement
 
@@ -20,8 +21,9 @@ R4Codomain  : extends R3; swap involution distributes over combine
 ```
 
 Each level is a Lean typeclass; instance checking is decidable at
-compile time. The `#verify_r4 MyType` command synthesizes an instance
-or fails — making R1–R4 a **mechanical falsifier of candidates**.
+compile time. The `verify_conjugation` / `derive_conjugation_codomain`
+tactics in `Meta/Tactic/` synthesize an instance or fail — making
+R1–R4 a **mechanical falsifier of candidates**.
 
 ### Verified instances
 
@@ -70,8 +72,10 @@ forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
 
 ## Sources
 
-- `seed/AXIOM/`, `seed/AXIOM/01_residue.md`, `seed/AXIOM/08_falsifiability.md`.
-- `papers/paper14_213.tex` § Swap symmetry, decidability.
-- `lean/E213/Meta/SelfRecognising.lean`, `Meta/LensCatalog.lean`.
-- `lean/E213/Tactic/VerifyR4.lean`.
+- `seed/AXIOM/01_residue.md`, `seed/AXIOM/08_falsifiability.md`.
+- `lean/E213/Meta/SelfRecognising.lean`.
+- `lean/E213/Meta/Tactic/{DeriveConjugationCodomain,
+  VerifyConjugation}.lean`.
+- `lean/E213/Meta/AxiomMinimality.lean`,
+  `Meta/AxiomMinimalityCapstone.lean`.
 - `tools/FORBIDDEN.md`, `tools/kernel_regress.sh`.

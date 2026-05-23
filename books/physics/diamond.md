@@ -37,7 +37,7 @@ universe is finite block (rank=5), not infinite (rank=∞).
 
 ## 4. Formal foundation (all 0-axiom)
 
-`lean/E213/Lib/Math/Cohomology/DiamondShape.lean`:
+`lean/E213/Lib/Math/Cohomology/Examples/DiamondShape.lean`:
 
 | Claim | Theorem |
 |-------|---------|

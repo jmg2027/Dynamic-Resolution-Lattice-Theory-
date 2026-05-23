@@ -7,8 +7,8 @@
 ## Best current statement
 
 213's number-theoretic content lives in the f_occ spectrum (Ch. 03)
-and its connection to ζ(2) via the Basel sum (`BaselBound.lean`). The
-critical-line story extends this to ζ(s) for s in the strip.
+and its connection to ζ(2) via the Basel sum (`Basel/Bound.lean`).
+The critical-line story extends this to ζ(s) for s in the strip.
 
 ### Born-rule weighted Gram graphs (paper5)
 
@@ -57,4 +57,6 @@ P ≠ NP (paper11) at the meta-level via Abel-Ruffini analog.
 - `papers/paper10_hodge.tex`, `paper11_p_ne_np.tex`, `paper12_bsd.tex`,
   `paper13_poincare.tex`, `paper16_exponent_barrier.tex` —
   Millennium-class applications, all currently external-only.
-- `lean/E213/Lib/Physics/BaselBound.lean` (the only ζ-related Lean module).
+- `lean/E213/Lib/Physics/Basel.lean` umbrella +
+  `Basel/{Bound, WhyBasel}.lean` (ζ(2) closed-form bracket; the
+  only ζ-related Lean modules).

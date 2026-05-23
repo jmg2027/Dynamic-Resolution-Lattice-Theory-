@@ -66,8 +66,9 @@ five super-heavy candidates (Z = 119..168). Each row is closed by
 
 ## Sources
 
-- `papers/drlt-book/chapters/ch07_hbar.tex`
-- `papers/paper4_zeta_beta.tex` (related: coupling running)
-- `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`
-- `lean/E213/Lib/Physics/Atomic/IE/Period1.lean` … `Period7IE.lean`
+- `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`,
+  `Hydrogenic.lean`, `HeliumPPM.lean`, `Lithium.lean`, `Beryllium.lean`,
+  `Boron.lean`, `CNOFNe.lean`, `SecondRow.lean`, `Period3.lean`,
+  `Period4.lean`, `PeriodicTable.lean`, `PeriodClosures.lean` —
+  full IE stack across the periodic table (`IE/INDEX.md`).
 - `catalogs/atomic-integers.md`

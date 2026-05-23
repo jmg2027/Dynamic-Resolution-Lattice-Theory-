@@ -2,8 +2,9 @@
 
 **Tier:** T1/T3 hybrid (T1 for mass gap statement; T3 for full proof)
 **Status:** Mass gap *statement* formalized in Lean; full proof open.
-**Lean:** `Physics/YangMillsGap.lean`, `Physics/Couplings/PhotonKernel.lean`,
-`Physics/Couplings/AsymptoticFreedom.lean`.
+**Lean:** `Physics/YangMills/{Gap, Bridge, SU5Roots, WeinbergAngle,
+WZBosons}.lean`, `Physics/Couplings/{PhotonKernel,
+AsymptoticFreedom}.lean`.
 
 ## Best current statement
 
@@ -65,8 +66,8 @@ calculus of Ch. 14.
 
 ## Sources
 
-- `papers/paper8_yang_mills_lean.tex`
-- `papers/drlt-book/chapters/ch15_yang_mills.tex`
-- `lean/E213/Lib/Physics/YangMillsGap.lean`,
-  `PhotonKernel.lean`, `AsymptoticFreedom.lean`.
+- `lean/E213/Lib/Physics/YangMills.lean` umbrella +
+  `YangMills/{Gap, Bridge, SU5Roots, WeinbergAngle, WZBosons}.lean`
+- `lean/E213/Lib/Physics/Couplings/{PhotonKernel,
+  AsymptoticFreedom}.lean`
 - `lean/E213/Meta/SelfRecognising.lean` (R4 no-go for massless gauge).

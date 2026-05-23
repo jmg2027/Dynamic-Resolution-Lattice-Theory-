@@ -3,9 +3,10 @@
 **Tier:** T1
 **Status:** Passing — Z = 1..118 closed at ppb in Phase 4 Library;
 five super-heavy candidates (Z ≤ 168) extrapolated.
-**Lean:** `Physics/Atomic/IE/Period{3,4,5,6,7}.lean`,
-`Physics/Atomic/IE/Library/AtomicMassLibrary.lean`,
-`Physics/AtomicScreening.lean`, `Physics/BondAngles.lean`.
+**Lean:** `Physics/Atomic/IE/{Hydrogenic, HeliumPPM, Lithium,
+Beryllium, Boron, CNOFNe, SecondRow, Period3, Period4,
+PeriodClosures, PeriodicTable}.lean`,
+`Physics/Atomic/Screening.lean`, `Physics/Atomic/BondAngles.lean`.
 
 ## Best current statement
 
@@ -23,14 +24,15 @@ unsynthesized territory — falsifiable predictions for future labs.
 
 ### Screening σ as rational
 
-`AtomicScreening.lean` derives effective nuclear charge Z_eff = Z − σ
+`Atomic/Screening.lean` derives effective nuclear charge Z_eff = Z − σ
 where σ is a *rational* function of (Z, n, l) coming from the f_occ
 spectrum. No empirical Slater rules.
 
 ### Bond angles (closed exact)
 
-`BondAngles.lean` proves CH₄, H₂O, NH₃ tetrahedral and bent angles
-exactly from simplex geometry on 4-simplex hinges. Match observed.
+`Atomic/BondAngles.lean` proves CH₄, H₂O, NH₃ tetrahedral and bent
+angles exactly from simplex geometry on 4-simplex hinges. Match
+observed.
 
 ## 213 sharpening
 
@@ -41,7 +43,7 @@ exactly from simplex geometry on 4-simplex hinges. Match observed.
   shell saturation at d = 5 plus relativistic correction; predicts an
   island of stability and a hard wall, not a smooth extension.
 - Helium first ionization energy: 24.587 eV, −0.09% (observed 24.589
-  eV) — `Atomic/IE/Helium.lean`.
+  eV) — `Atomic/IE/HeliumPPM.lean`.
 
 ## Open / next
 
@@ -53,10 +55,8 @@ exactly from simplex geometry on 4-simplex hinges. Match observed.
 
 ## Sources
 
-- `papers/drlt-book/chapters/ch10_atoms.tex`
-- `papers/drlt-book/chapters/ch20_hydrogen.tex`
-- `lean/E213/Lib/Physics/Atomic/IE/Library/`
-- `lean/E213/Lib/Physics/AtomicScreening.lean`
-- `lean/E213/Lib/Physics/BondAngles.lean`
+- `lean/E213/Lib/Physics/Atomic/IE/` (full IE stack + `INDEX.md`)
+- `lean/E213/Lib/Physics/Atomic/Screening.lean`
+- `lean/E213/Lib/Physics/Atomic/BondAngles.lean`
 - `books/physics/periodic-table.md` (213-internal narration)
 - `catalogs/atomic-integers.md`

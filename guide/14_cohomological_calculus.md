@@ -19,8 +19,9 @@ Cut := Nat → Nat → Bool
 ```
 
 `c m k = true` ⟺ "this cut value ≤ m/k". Bishop-style superficially,
-dyadic-axiom in fact. 213-internal analysis uses `(Nat → Raw) × HasModulus` in
-`E213/Math/Foundation.lean`.
+dyadic-axiom in fact. 213-internal analysis uses `(Nat → Raw) × HasModulus`,
+implemented across `Lib/Math/Real213/` (Cut-Bool encoding) and
+`Lib/Math/Analysis/` (modulus calculus).
 
 ### Core findings (F1–F5 from `analysis213.md`)
 
@@ -72,7 +73,9 @@ witness + propagation), FTC (Riemann + antiderivative), ODE (linear,
 ## Sources
 
 - `books/math/analysis213.md` (canonical narrative)
-- `lean/E213/Research/Real213*.lean` (176 modules)
-- `lean/E213/Lib/Math/Foundation.lean`, `Analysis213.lean`,
-  `CutOps.lean`, `Series.lean`, `Continuity.lean`, `Cauchy.lean`.
+- `lean/E213/Lib/Math/Real213/` (Cut-Bool encoding, 60 modules across
+  `Core`, `Sum`, `Mul`, `Lattice`, `Bisection`, `ExpLog`)
+- `lean/E213/Lib/Math/Analysis.lean` umbrella + `Analysis/{Series,
+  CauchyComplete, Differentiation, FluxMVT, Integration, ODE,
+  DyadicSearch, …}.lean`
 - `research-notes/archive/E1_real213_analysis_roadmap.md`

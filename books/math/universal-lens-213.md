@@ -196,7 +196,7 @@ which equals `Raw.slash x' y' h'` by `Raw.slash_comm`.  ∎
 a universal Lens.
 
 All three at axiom load STRICT ∅-AXIOM, in
-`lean/E213/Meta/UniversalLensNat2Inj.lean`.
+`lean/E213/Lens/Universal/Witnesses/Nat2Inj.lean`.
 
 ---
 
@@ -260,7 +260,7 @@ injectivity from Corollary 3.2.  ∎
 universal Lens.
 
 All theorems at axiom load STRICT ∅-AXIOM, in
-`lean/E213/Meta/UniversalLensQ213Inj.lean`.
+`lean/E213/Lens/Universal/Witnesses/Q213Inj.lean`.
 
 ---
 
@@ -314,11 +314,12 @@ Gödel-immune.
 ## References
 
 1. Lean 4 core library, version 4.16.0.
-2. 213 repository: `lean/E213/Theory/Raw.lean`,
+2. 213 repository: `lean/E213/Theory/Raw/{Core, API}.lean`,
    `lean/E213/Lens.lean`,
    `lean/E213/Term/Rat.lean`,
-   `lean/E213/Meta/{BitPatternUniqueness,
-   UniversalLensNat2{,Inj}, UniversalLensQ213{,Inj}}.lean`.
+   `lean/E213/Meta/BitPatternUniqueness.lean`,
+   `lean/E213/Lens/Universal/Witnesses/{Nat2, Nat2Inj, Q213,
+   Q213Inj}.lean`.
 3. Companion exposition: `books/math/number-theory-213.md`,
    Part IV.
 
