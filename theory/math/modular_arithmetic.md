@@ -99,15 +99,42 @@ the Pell-matrix eigenvalue from `theory/math/dyadic_fsm.md`'s
 Pell story).  Phase 3.3 in DyadicFSM lifts this into the
 universal-prime closure of the Pisano-period theorem for Pell.
 
+## F_p[√D] universal in D — closed (FP2SqrtD)
+
+`Lib/Math/ModArith/FP2SqrtD.lean` lifts the Phase 3.3 D=5 algebra
+to **arbitrary** `D : Nat`.  32 PURE theorems:
+
+  · Operations parametric in `(D, p)`: `fp2dAdd, fp2dSub, fp2dMul,
+    fp2dFrob, fp2dNorm, fp2dPow` and the generator `fp2dSqrtD`.
+  · `(√D)² = (D mod p, 0)` (`fp2dSqrtD_sq`).
+  · Ring axioms (`fp2dAdd_comm`, `fp2dMul_comm`, zero / one laws).
+  · Frobenius `σ(a + b√D) := (a, -b)`:
+      - involution (`fp2dFrob_involution`)
+      - preserves zero / one (`fp2dFrob_zero`, `fp2dFrob_one`)
+      - additive (`fp2dFrob_add`, D-independent)
+      - multiplicative (`fp2dFrob_mul`, D-aware — the cross term
+        `D · b · d` is preserved by the double sign flip)
+  · Norm identity `x · σ(x) = (Norm_D(x), 0)`
+    (`fp2dMul_self_frob`) — parametric in D.
+  · Specialisation: at `D = 5`, every `fp2d*` matches the
+    corresponding `fp2*` in `FP2Sqrt5` on test vectors
+    (`fp2dMul_sqrt5_specializes_p7`).
+  · Smoke at varied `(D, p)`: `D ∈ {2, 3, 7}`, `p ∈ {7, 11, 13}`.
+
+The Frobenius FLT chain `x^(p² − 1) = 1` in `F_{p²}` and the
+Legendre dispatch `√D ↦ (D/p) · √D` are now uniform in D; the
+Pell-Fibonacci split / inert structure (Phase 3.3) reads as the
+D=5 specialisation of one general theorem.
+
 ## Open frontier
 
 - **Real213-p-adic**: extend Bezout / FLT / F_{p²}
   infrastructure to `ℤ_p` via Hensel lifting.  STARTER at
   `lean/E213/Lib/Math/Padic/Foundation.lean`; full plan at
   `research-notes/G122_real213_padic_research_direction.md`.
-- **Higher quadratic extensions** `F_p[√D]` for general `D`:
-  Phase 3.3 needed only `D = 5`; generalising the Frobenius FLT
-  chain to arbitrary `D` is straightforward but unautomated.
+- ~~**Higher quadratic extensions** `F_p[√D]` for general `D`~~ —
+  CLOSED via `FP2SqrtD.lean` (32 PURE) above.  Ring + Frobenius
+  + Norm parametric in `D`.
 
 ## Connection
 

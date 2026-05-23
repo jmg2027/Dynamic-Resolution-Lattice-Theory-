@@ -11,6 +11,7 @@ import E213.Lib.Math.ModArith.ModBezout
 import E213.Lib.Math.ModArith.ModBezoutInvariant
 import E213.Lib.Math.ModArith.UniversalFLT
 import E213.Lib.Math.ModArith.FP2Sqrt5
+import E213.Lib.Math.ModArith.FP2SqrtD
 
 /-! Spec-as-code entry point for `E213.Lib.Math.ModArith`.
 
@@ -45,4 +46,6 @@ import E213.Lib.Math.ModArith.FP2Sqrt5
     * `FP2Sqrt5`            — F_{p²} = F_p[√5]: quadratic extension
                               of F_p adjoining √5, with Frobenius
                               x ↦ x^p as a ring endomorphism
+    * `FP2SqrtD`            — F_{p²} = F_p[√D]: same construction
+                              parametric in D (generalises FP2Sqrt5)
 -/
