@@ -1,9 +1,6 @@
 # Probability 213 — Atomic Dyadic
 
-**Status**: Closed (25 files; marathon-completed; sub-organized 2026-05-13).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
+**Status**: Closed (25 files).
 
 ## Overview
 
@@ -17,7 +14,7 @@ Per the cross-domain unification (C6), probability is one of the
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/Probability/` (25 files,
-  sub-organized 2026-05-13)
+)
 - **Umbrella**: `Probability.lean`
 - **∅-axiom status**: PURE
 

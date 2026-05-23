@@ -3,11 +3,6 @@
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps); R1+
 extensions partial; Real213-p-adic research open (4-mfd exotic
 enumeration via Sym(3) gauge).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 3 (mixed-status absorption): R1 closure + R1+ partials +
-open Real213-p-adic research lines.  The source notes remain as the
-companion research directions.
 
 ## Overview
 

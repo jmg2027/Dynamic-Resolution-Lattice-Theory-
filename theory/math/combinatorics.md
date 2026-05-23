@@ -1,9 +1,6 @@
 # Combinatorics 213
 
 **Status**: Closed (7 files; marathon-completed; blueprint retired).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

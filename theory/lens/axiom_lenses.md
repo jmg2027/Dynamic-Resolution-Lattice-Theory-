@@ -1,7 +1,6 @@
 # Axiom Lenses — layered-API classification Tier 4 A2 Endgame
 
 **Status**: Closed (7 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

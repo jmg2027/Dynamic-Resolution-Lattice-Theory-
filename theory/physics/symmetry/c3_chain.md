@@ -2,7 +2,6 @@
 
 **Status**: Closed in `lean/E213/Lib/Physics/Symmetry/`
 (24 .lean files; 18 phase capstones + master, all strict ∅-axiom).
-**Promoted from research-notes**: 2026-05-22.
 
 This is a distinct shape of promotion vs. The Hodge chapter: there
 are **no source research-notes** to absorb.  The 12-phase chain (plus

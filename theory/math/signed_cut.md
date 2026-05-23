@@ -1,11 +1,6 @@
 # SignedCut — Sign Extension on Real213 Cuts
 
-**Status**: Closed (35 files in 6 sub-clusters, sub-organized 2026-05-13).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 (multi-note absorption from Level-25 residual-octonion non-assoc witness).  Absorbs
-Level-25 residual (Level25 residual), unified 25-level algebra (Unified 25-level algebra),
-octonion non-assoc witness (Octonion non-assoc witness).
+**Status**: Closed (35 files in 6 sub-clusters).
 
 ## Overview
 

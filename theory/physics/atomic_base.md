@@ -1,9 +1,6 @@
 # AtomicBase — DRLT Atomic Primitive Layer
 
 **Status**: Closed (13 files).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2 (narrative-from-scratch).
 
 ## Overview
 
@@ -13,7 +10,7 @@ the explicit **26-conjunct synthesis** bundling every atomic
 primitive into one citable theorem, plus the Phase-1 bridge to
 physics observables and the falsifier framework.
 
-Per the 2026-05-20 substrate-metaphor revision: this cluster is
+Per the substrate-metaphor framing: this cluster is
 **atomic-primitive readings** of Raw, not a foundation supporting
 something else.
 

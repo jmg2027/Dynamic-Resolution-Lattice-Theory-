@@ -1,7 +1,6 @@
 # Lens Algebra — Kernel Theory
 
 **Status**: Closed (3 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

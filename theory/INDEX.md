@@ -69,86 +69,47 @@ Chapter exists when the Lean sub-tree closed per
 | `meta/`    |  4 | [`meta/INDEX.md`](meta/INDEX.md) |
 | `essays/`  |  2 | [`essays/INDEX.md`](essays/INDEX.md) |
 
-New (2026-05-23):
-  · `math/cohomology/cup_ladder_graduation.md` — `(k+1)` α-power
-    graduation framework (G132 marathon, 19 files / 231 PURE)
-  · `math/cohomology/k32_higher_cohomology.md` — pure-math
-    K_{3,2}^{(c=2)} higher cohomology (Steenrod algebra, cup_i
-    ladder, Steenrod-Whitehead bridge); math-side companion
-    to the physics-side α_em chapter
-
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 
 ## Active research (not promoted)
 
-Foundational baseline (top-level `research-notes/`):
-- `G29_residue.md` — boot-sequence
-- `G1-G5, G12` — foundational thesis anchors (universal lens / trajectory / chiral / sublanguage / layered API)
-- `75, 76` — semantic atom + ouroboros
-- `G35` — 213-Algebra field catalog (§0.5 tracks promotions; all 6 conjectures C1-C6 promoted)
-- `G85, G87` — cup-Δ closed observations
-- **`G86` — Cup-Leibniz general ∀(k,l) (OPEN conjecture; HANDOFF Part 2 §A)**
-- `2026-05-18_lens_emergence_path.md` — lens emergence spec
-- `G107_action_items_registry.md` — meta-scan live tracker
-- **`G121_dim4_self_pointing_axis.md` — Geometrization conjecture
-  research direction (R1 closed; R1+ partial; G122 4-mfd exotic
-  enumeration OPEN).  R1 closure promoted to
-  `theory/math/geometrization_conjecture.md`; G121 stays active for
-  G122-G125 marathon candidates + M3/M4 knots.**
+Top-level `research-notes/` registries:
 
-2026-05-22 merge from `claude/lean4-ast-patterns-g1gWN` brought
-additional active research notes — Tier-2 deep dives + research
-directions, NOT promoted (deep dives are analytical scans, not
-closure narratives; per `essay` skill protocol).  All annotate
-already-promoted chapters:
+| Class | Notes | Purpose |
+|---|---|---|
+| Foundational anchors | `G29_residue.md`, `G1-G5`, `G12`, `75`, `76` | Boot-sequence, thesis anchors, semantic atom, ouroboros |
+| Methodology & catalogs | `G35` (algebra catalog), `G107` (action-items live tracker), `G127` (promotion-readiness) | Cross-session tooling references |
+| Open conjectures | `G85, G87` (cup-Δ observations), `G86` (Cup-Leibniz ∀(k,l)) | Conjecture catalog |
+| Open research directions | `G121` (Geometrization R1+), `G124` (N_U cross-field), `G128_affine_plane_K25` (algebraic geometry slice), `G127_base_5_wieferich` | Active scratch — chapter not yet eligible |
+| Synthesis / deep-dive | `G108-G116`, `G135-G137` | Tier-2 analytical scans annotating already-promoted chapters |
+| Lens emergence | `2026-05-18_lens_emergence_path.md` | Specification |
 
-- `G108_real213_analysis_deep_dive.md` — Tier-2 precise analysis (annotates `theory/math/real213.md`, `theory/math/analysis/*.md`)
-- `G109_cross_domain_identification_scan.md` — cross-domain identifications scan
-- `G110_fluxmvt_deep_dive.md` — annotates `theory/math/analysis/flux_m_v_t.md`
-- `G111_cohomology_deep_dive.md` — annotates `theory/math/cohomology/*.md`
-- `G112_hodge_conjecture_deep_dive.md` — annotates `theory/math/cohomology/hodge_conjecture.md`
-- `G113_dyadic_fsm_deep_dive.md` — annotates `theory/math/dyadic_fsm.md`
-- `G114_cayley_dickson_deep_dive.md` — annotates `theory/math/cayley_dickson/algebra_tower.md`
-- `G115_lib_physics_deep_dive.md` — annotates `theory/physics/*.md`
-- `G116_pattern_catalog_deep_dive.md` — annotates `theory/math/pattern_catalog/pattern_catalog.md`
-- `G118_marathon_deferred_items.md` — *archived* (closure log; absorbed
-  into `theory/math/dyadic_fsm.md` G119 marathon section + this INDEX)
-- `G119_pisano_pell5_research_direction.md` — *archived* (universal-prime
-  closure achieved; absorbed into `theory/math/dyadic_fsm.md` G119
-  marathon section + `theory/math/modular_arithmetic.md` G119 section)
+Deep-dive synthesis notes annotate already-promoted chapters per the
+`essay` skill protocol — they are analytical scans, not closure
+narratives, so do not become chapters themselves.
 
-`claude/lean4-ast-patterns-g1gWN` merge (2026-05-22 late) brought:
-- G119 marathon (Phase 3.2/3.3/4 universal Pisano closure) — promoted
-  to `theory/math/dyadic_fsm.md` + `theory/math/modular_arithmetic.md`
-- G122 (Real213-p-adic) research direction — STARTER + plan only,
-  not yet promotable
+## Companion specs
 
-## Companion seed/ specs (2026-05-22 merge)
+Foundational spec corpus alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
 
-Foundational specs added alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
+- `seed/THEOREM_METHODOLOGY_SUITE.md` — §TH-1 proof-shape fingerprinting (companions `theory/meta/scanner_suite.md` §1), §TH-2 Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`), §TH-3 falsifier-surface spec, §TH-4 L1 parametric methodology
+- `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner archetypes
+- `seed/CLOSED_FORM_SPEC.md` — 3-domain projection catalogue + Bishop subsumption + bridges
 
-- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — formal Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`)
-- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 — proof-shape fingerprinting (companions `theory/meta/scanner_suite.md`)
-- `seed/META_SCAN_ARCHETYPES.md` — meta-scan archetype catalog
-- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface spec (DRLT Validation Standard depth)
-- `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-4 — L1 parametric methodology (G106 / `theory/meta/scanner_suite.md` §1)
-- `seed/CLOSED_FORM_SPEC.md` §"Bishop subsumption" — Bishop comparison doctrinal subsumption
+Catalogs/:
 
-## Companion catalogs/ (2026-05-22 merge)
+- `catalogs/abstraction-candidates.md` — abstraction roster
+- `catalogs/cross-domain-identifications.md` — cross-domain identifications
+- `catalogs/falsifier-roster.md` — 135-falsifier catalog
+- `catalogs/internal-hubs.md` — internal hub catalog
+- `catalogs/recursor-inventory.md` — full recursor inventory
 
-- `catalogs/abstraction-candidates.md` — abstraction roster (G107 §2-§5 promoted)
-- `catalogs/cross-domain-identifications.md` — G109 deliverable
-- `catalogs/falsifier-roster.md` — 135-falsifier catalog (G100 deliverable)
-- `catalogs/internal-hubs.md` — internal hub catalog (G102 deliverable)
-- `catalogs/recursor-inventory.md` — full recursor inventory (G105 deliverable)
+## Layer-ordering vocabulary
 
-## Note on framing (2026-05-22 revision)
-
-Earlier draft used OS-stack analogy ("Firmware", "Hypervisor",
-"second 213 layer") in some `lens/` files.  Per
+`Term` / `Theory` / `Lens` / `Lib` / `Meta` are `import`-resolution
+rings, not infrastructure layers below Math / Physics.  Per
 `seed/AXIOM/05_no_exterior.md` §5.1 (no exterior) + CLAUDE.md
-"Substrate metaphor" failure mode, those framings have been
-replaced with build-time ring ordering language.  Lens / Theory
-/ Term are not infrastructure below Math / Physics — the ring
-ordering is `import`-resolution only.  See `theory/lens/api.md`
-for the canonical statement.
+"Substrate metaphor" failure mode, the rings express
+build-time dependency only — Lens application is itself a
+residue-internal event, not a substrate beneath Raw.  See
+`theory/lens/api.md` for the canonical statement.

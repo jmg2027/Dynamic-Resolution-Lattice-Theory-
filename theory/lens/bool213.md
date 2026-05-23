@@ -1,7 +1,6 @@
 # Bool 213 — Closed-Universe Boolean
 
 **Status**: Closed (2 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

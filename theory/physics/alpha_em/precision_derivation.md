@@ -4,7 +4,6 @@
 213-internal precision theorem at 0.2 ppb, DRLT Validation Standard
 satisfied)** + C5 Step 6.  Sub-ppb precision (Step 6+) open via
 higher cohomology.
-**Promoted from research-notes**: 2026-05-22.
 
 This is the **mixed-status** promotion shape: the chapter covers the
 closed portions of the α_em derivation (Steps 1-4 of C1, Steps 1-6
@@ -195,13 +194,13 @@ broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
 
 | Source | What it provides | Status |
 |---|---|---|
-| `research-notes/G35_*.md` §1-§3 | Field-level naming, scope, 17-domain catalog, established theorems by domain | **Active scratch** (broader than this chapter) |
-| `research-notes/G35_*.md` §C1 | Pure cup-ring α_em conjecture statement + step log | Absorbed (closed steps in this chapter; open Step 5+ in §Open frontier) |
-| `research-notes/G35_*.md` §C5 | Fractal ζ_K convergence conjecture + step log | Absorbed (closed Step 1-6 in this chapter; open Step 7+ below) |
-| `research-notes/G35_*.md` §C2 | Atomic constants uniqueness | Out of scope (see `Lib/Physics/Foundations/AtomicConstants*`) |
-| `research-notes/G35_*.md` §C3 | Aut(K) gauge group emergence | **Closed**: `theory/physics/symmetry/c3_chain.md` (2026-05-22) |
-| `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | Out of scope (see `lean/E213/Lib/Math/HodgeConjecture/Pairing/`) |
-| `research-notes/G35_*.md` §C6 | Cross-domain unification | Out of scope (see `Lib/Math/CrossDomainUnification.lean`) |
+| `research-notes/G35_*.md` §1-§3 | Field-level naming, scope, 17-domain catalog, established theorems by domain | active scratch (broader than this chapter) |
+| `research-notes/G35_*.md` §C1 | Pure cup-ring α_em conjecture statement | closed in this chapter (Step 1-4); Step 5+ in §Open frontier |
+| `research-notes/G35_*.md` §C5 | Fractal ζ_K convergence conjecture | closed in this chapter (Step 1-6); Step 7+ in §Open frontier |
+| `research-notes/G35_*.md` §C2 | Atomic constants uniqueness | covered by `Lib/Physics/Foundations/AtomicConstants*` |
+| `research-notes/G35_*.md` §C3 | Aut(K) gauge group emergence | covered by `theory/physics/symmetry/c3_chain.md` |
+| `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | covered by `lean/E213/Lib/Math/HodgeConjecture/Pairing/` |
+| `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/CrossDomainUnification.lean` |
 
 Hodge §C4 results live with the Hodge chapter
 (`theory/math/cohomology/hodge_conjecture.md`).  C3 §C3 results live

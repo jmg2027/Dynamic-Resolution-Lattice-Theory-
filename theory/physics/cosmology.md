@@ -1,9 +1,6 @@
 # Cosmology
 
 **Status**: Closed (8 files; F26 η_B falsifier).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

@@ -1,7 +1,6 @@
 # Lens Ring API
 
 **Status**: Closed (Lens API + Internal layer).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

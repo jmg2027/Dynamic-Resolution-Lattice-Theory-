@@ -1,7 +1,5 @@
 # 213 Master Guide — Status
 
-Snapshot date: 2026-04-27.
-
 ## Tier distribution
 
 ```

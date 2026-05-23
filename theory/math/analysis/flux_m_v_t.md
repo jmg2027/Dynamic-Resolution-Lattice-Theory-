@@ -3,9 +3,6 @@
 **Status**: Closed (22 files in `Analysis/FluxMVT/` + ~30 in
 adjacent sub-clusters; 182+ decls).  Largest single sub-cluster in
 Analysis.
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2 (narrative-from-scratch).
 
 ## Overview
 
@@ -17,7 +14,7 @@ FluxMVT is the operational MVT used downstream by `Lib/Physics/Couplings/`
 running-coupling derivations and `Lib/Physics/AlphaEM/` precision
 work (Gram-self-energy term).
 
-Per FluxMVT deep dive (Tier-2 deep dive, 2026-05-22): **0 direct Raw atom
+Per the FluxMVT Tier-2 deep dive: **0 direct Raw atom
 touches** in the 182-decl FluxMVT inventory — operates entirely on
 the FluxCut + DyadicBracket carrier types.  Per the (α/β/γ)
 Raw-derivation taxonomy (`theory/meta/raw_derivation_levels.md`),
@@ -41,12 +38,11 @@ references.
 | Pass-through | `FluxPassthroughClass`, `FluxPassthroughCatalog` | Class machinery for MVT-pass-through |
 | Equivalences | `FluxEquiv` | Equivalence of flux statements |
 | Propagation | `FluxMVTPropagate`, `MVTWitnessChain` | Chain of MVT instances propagating across coupling levels |
-| **Unit bracket** | `UnitBracketReduce`, `UnitBracketReduceSum` (new 2026-05-22) | Unit-bracket reduction lemma (Bishop comparison TH-1 / REAL-1+REAL-2 template) |
+| **Unit bracket** | `UnitBracketReduce`, `UnitBracketReduceSum` | Unit-bracket reduction lemma (Bishop comparison TH-1 / REAL-1+REAL-2 template) |
 
-The `UnitBracketReduce*` files (2026-05-22 marathon, REAL-1+REAL-2
-closure) provide the *generic template* for collapsing flux
-expressions with unit brackets — replaces 12 ad-hoc instances per
-HANDOFF Part 5.
+The `UnitBracketReduce*` files provide the *generic template* for
+collapsing flux expressions with unit brackets — one identity
+replaces ad-hoc instances at each use site.
 
 ## The narrative
 
@@ -89,7 +85,7 @@ observation, not yet capstoned in Lean.
 - `theory/math/modulus.md` — explicit moduli
 - `theory/math/real213.md` — Real213 carrier underlies FluxCut
 - `theory/physics/couplings.md` — primary downstream consumer
-- `research-notes/archive/metascan/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive (2026-05-22)
+- `research-notes/archive/metascan/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive
 - `research-notes/archive/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
 
 ## Open frontier

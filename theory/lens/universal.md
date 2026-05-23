@@ -1,7 +1,6 @@
 # Universal Lens (G1 anchor)
 
 **Status**: Closed (13 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

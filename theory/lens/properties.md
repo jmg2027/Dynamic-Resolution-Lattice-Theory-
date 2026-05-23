@@ -1,7 +1,6 @@
 # Lens Properties — Predicates About Lenses
 
 **Status**: Closed (21 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

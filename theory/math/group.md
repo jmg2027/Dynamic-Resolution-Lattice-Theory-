@@ -1,9 +1,6 @@
 # Group Theory 213
 
 **Status**: Closed (5 files; marathon-completed; blueprint retired).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

@@ -1,9 +1,6 @@
 # Cauchy / Euler / Wallis / Pell Sequences
 
 **Status**: Closed (7 files).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2 (narrative-from-scratch).
 
 ## Overview
 

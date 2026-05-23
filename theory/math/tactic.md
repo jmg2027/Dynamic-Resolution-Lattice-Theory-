@@ -1,10 +1,6 @@
 # Math Tactic Infrastructure
 
 **Status**: Closed (5 files: Ring213, HurwitzRing, QuadExtension, IntSquare, Test).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.  (algebra-213 meta-theorems algebra213_meta_theorems.md is the higher-level
-narrative; this chapter is the tactic infrastructure layer.)
 
 ## Overview
 

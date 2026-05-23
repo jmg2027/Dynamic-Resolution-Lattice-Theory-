@@ -9,7 +9,7 @@ Hub chapters:
 - [`cayley_dickson/algebra_tower.md`](cayley_dickson/algebra_tower.md) — CayleyDickson/ (50 files)
 - [`universe_chain.md`](universe_chain.md) — UniverseChain + Mobius213 + Nat213 (~32 files)
 - [`real213.md`](real213.md) — Real213/ (57 files, 7 sub-clusters)
-- [`dyadic_fsm.md`](dyadic_fsm.md) — DyadicFSM/ (101 files; G119 marathon merged 2026-05-22)
+- [`dyadic_fsm.md`](dyadic_fsm.md) — DyadicFSM/ (101 files)
 - [`signed_cut.md`](signed_cut.md) — SignedCut/ (35 files; absorbs G37/G38/G39)
 - [`geometrization_conjecture.md`](geometrization_conjecture.md) — GeometrizationConjecture/ (13 files, R1 closed, R1+ partial)
 - [`padic_real213.md`](padic_real213.md) — Padic/ (8 files, 308 PURE; ring axioms, Hensel inv/sqrt with existence + uniqueness, full ultrametric, Frobenius lift, Teichmüller Cauchy, ℚ_p, DRLT 5-adic anchor)

@@ -2,11 +2,6 @@
 
 **Status**: Closed (conceptual taxonomy from Raw-derivation three-level taxonomy;
 empirical evidence from Expr-level callgraph, Raw-depth BFS, namespace-shape + recursor inventory).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 (multi-note absorption) — single source Raw-derivation three-level taxonomy, but
-foundational enough to warrant its own chapter rather than
-folding into `scanner_suite.md`.
 
 ## Overview
 

@@ -2,12 +2,6 @@
 
 **Status**: Closed (11 scanners committed, ~1,800 LOC Python +
 1 Lean meta file; 18 research notes consolidated).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 (multi-note absorption) with a destination variant:
-the closed work is **Python tooling under `tools/`**, not a Lean
-library under `lean/E213/Lib/`.  The chapter mirrors `tools/` instead
-of `lean/E213/Lib/`.
 
 ## Overview
 

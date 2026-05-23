@@ -1,7 +1,6 @@
 # Lens Cardinality
 
 **Status**: Closed (9 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

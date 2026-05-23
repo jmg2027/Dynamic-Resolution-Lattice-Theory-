@@ -1,9 +1,6 @@
 # Geometry — Algebraic + Rotation
 
 **Status**: Closed (2 files).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

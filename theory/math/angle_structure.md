@@ -1,9 +1,6 @@
 # Angle Structure
 
 **Status**: Closed (5 files, capstone `G42Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — angle-structure → chapter + archive.
 
 ## Overview
 

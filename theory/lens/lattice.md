@@ -1,7 +1,6 @@
 # Lens Lattice — Refines Preorder
 
-**Status**: Closed (9 files; folded 2026-05-13 from `Lens/Refines/`).
-**Promoted from research-notes**: 2026-05-22.
+**Status**: Closed (9 files).
 
 ## Overview
 
@@ -13,7 +12,7 @@ Lens collapses".
 
 ## Lean source
 
-- `lean/E213/Lens/Lattice/` (9 files; was `Lens/Refines/` pre-2026-05-13)
+- `lean/E213/Lens/Lattice/` (9 files)
 - ∅-axiom PURE
 
 ## Narrative

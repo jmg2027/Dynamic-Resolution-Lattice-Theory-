@@ -23,7 +23,7 @@
 | A1 | Paper origins (reverse map) | — | — | — | — |
 | A2 | Lean module map | — | — | — | — |
 
-## Tier distribution snapshot (2026-04-27)
+## Tier distribution
 
 ```
 T0  : 4 chapters  (00, 02, 14, 15)

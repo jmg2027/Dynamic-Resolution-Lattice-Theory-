@@ -1,9 +1,6 @@
 # Generation Rule
 
 **Status**: Closed (4 files, capstone `G46Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — generation rule → chapter + archive.
 
 ## Overview
 

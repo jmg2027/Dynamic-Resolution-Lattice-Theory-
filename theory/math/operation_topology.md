@@ -1,9 +1,6 @@
 # Operation × Topology
 
 **Status**: Closed (4 files, capstone `G48Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — operation topology → chapter + archive.
 
 ## Overview
 

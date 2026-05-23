@@ -1,9 +1,6 @@
 # Algebra213 Meta-Theorems
 
 **Status**: Closed — `Math/Tactic/{Ring213, HurwitzRing, QuadExtension}` infrastructure + Hurwitz layer in SignedCut.
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — algebra-213 meta-theorems → chapter + archive.
 
 ## Overview
 

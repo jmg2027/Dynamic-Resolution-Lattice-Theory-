@@ -1,9 +1,6 @@
 # Bipartite Decomposition 5 = 3 + 2
 
 **Status**: Closed (4 files, capstone `G44Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — bipartite decomposition → chapter + archive.
 
 ## Overview
 

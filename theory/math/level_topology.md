@@ -1,9 +1,6 @@
 # Level Topology
 
 **Status**: Closed (6 files, capstone `G49Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — concrete topology per floor → chapter + archive.
 
 ## Overview
 

@@ -107,12 +107,3 @@ if any Hard criterion later breaks:
 
 Demotion preserves git history; rename the file with a deprecation
 header.  Avoid by maintaining build hygiene continuously.
-
-## First promotion (2026-05-21)
-
-`math/cohomology/hodge_conjecture.md` — Hodge program closure.
-- H1 ✅ (Math/Cohomology/HodgeConjecture/ all PURE)
-- H2 ✅ (`lake build E213.Math.Cohomology` clean)
-- H3 ✅ (Lib ring, Cohomology sub-tree in ARCHITECTURE.md)
-- H4 ✅ (results in STRICT_ZERO_AXIOM.md HC²¹³ section)
-- S1–S3 ✅ (research-notes/hodge/ 6 notes absorbed; archived)

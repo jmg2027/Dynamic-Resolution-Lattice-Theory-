@@ -1,9 +1,6 @@
 # Atomic Physics — Hydrogen / Helium / Screening
 
 **Status**: Closed (21 files, IE sub-cluster).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

@@ -1,10 +1,6 @@
 # Physics Foundations
 
 **Status**: Closed (22 files).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.  Complements `theory/physics/foundations/atomic_constants.md`
-(C2 uniqueness) — this chapter covers the rest of `Foundations/`.
 
 ## Overview
 

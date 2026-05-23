@@ -1,9 +1,6 @@
 # Real213 — Dedekind-Cut Real Numbers (213-native)
 
-**Status**: Closed (57 files in 7 sub-clusters, sub-organized 2026-05-13).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — archived F0-F6 series (already in archive) → chapter.
+**Status**: Closed (57 files in 7 sub-clusters).
 
 ## Overview
 
@@ -67,12 +64,12 @@ is `cutEq`: same lower set.
 
 ### Operations
 
-- **`cutSum`** (Sum/, 11 files + `BoolOrLadder.lean` new 2026-05-22):
+- **`cutSum`** (Sum/, 11 files):
   addition by elementwise sum on representative dyadic brackets.
   Closure-form: bracket(a + b, n) ⊂ bracket(a, n) + bracket(b, n)
   with explicit modulus.  BoolOrLadder is a generic ladder template
   for bool-or sums (REAL-2 per marathon deferred-items log).
-- **`cutMul`** (Mul/, + `CutMulOuterReduce.lean` new 2026-05-22):
+- **`cutMul`** (Mul/,):
   multiplication via 4-quadrant case decomposition (sign of a, sign
   of b).  CutMulOuterReduce is the outer-reduce refactor enabling
   FluxMVT-side reuse (FLUX-1 upstream per FluxMVT deep dive).

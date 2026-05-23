@@ -2,7 +2,6 @@
 
 **Status**: Closed in `lean/E213/Lib/Math/HodgeConjecture/`
 (67 .lean files, 31 master capstones, all strict ∅-axiom).
-**Promoted from research-notes**: 2026-05-21.
 
 ## Overview
 
@@ -13,7 +12,7 @@ What is "conjecture" in standard mathematics becomes "en-passant
 lemma" in 213.
 
 This is not a 213-shadow of Hodge.  It *is* Hodge, stripped of
-notational ZFC packaging.  Per the corrected 2026-05-05 framing
+notational ZFC packaging.  Per the corrected framing
 (`seed/RESOLUTION_LIMIT_SPEC.md` §3): 213 neither rejects nor adopts
 "infinity" — the infinite-vs-finite distinction itself was redundant
 notational packaging, and the same cohomological content is natively
@@ -225,7 +224,7 @@ When citing this chapter from Lean docstrings:
 -- ✅ preferred
 `theory/math/cohomology/hodge_conjecture.md`
 
--- ❌ deprecated (research-notes/hodge/ moved to archive 2026-05-21)
+-- ❌ deprecated (research-notes/hodge/ is archived)
 `research-notes/hodge/G6_hodge_213_translation.md`
 ```
 

@@ -1,11 +1,6 @@
 # Dialogue Audit — Provable vs Heuristic
 
 **Status**: Closed (4 files, capstone `G43Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — dialogue audit → chapter + archive.  Dialogue audit's session-bound name
-("dialogue audit") is preserved at the Lean side (`Math/DialogueAudit/`)
-but the chapter title clarifies the actual content.
 
 ## Overview
 

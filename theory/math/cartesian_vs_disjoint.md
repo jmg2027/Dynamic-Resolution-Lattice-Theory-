@@ -1,9 +1,6 @@
 # Cartesian vs Disjoint
 
 **Status**: Closed (3 files, capstone `G45Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — Cartesian-vs-disjoint → chapter + archive.
 
 ## Overview
 

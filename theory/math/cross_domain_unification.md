@@ -2,11 +2,6 @@
 
 **Status**: Closed Steps 1-5 (graded ring instantiation); per-domain
 cup-product refinement (Step 6+) open.
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 3 (mixed-status, sub-conjecture of chiral cup ring catalog).  Chiral cup ring catalog §C6 statement
-remains in the catalog; the closure narrative + open frontier are
-here.
 
 ## Overview
 

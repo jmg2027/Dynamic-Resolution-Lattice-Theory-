@@ -1,9 +1,6 @@
 # Information 213
 
 **Status**: Closed (8 files; marathon-completed).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

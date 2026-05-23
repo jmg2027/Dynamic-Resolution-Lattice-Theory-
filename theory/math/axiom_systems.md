@@ -1,10 +1,6 @@
 # AxiomSystems — layered-API classification Tier 5 Endgame
 
 **Status**: Closed (4 files).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2 (narrative-from-scratch; layered-API classification already promoted as a
-foundational note remaining at top-level).
 
 ## Overview
 

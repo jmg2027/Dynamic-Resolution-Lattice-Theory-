@@ -1,9 +1,6 @@
 # Hadron Physics
 
 **Status**: Closed (9 files; F25 m_t/m_c falsifier).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
 
 ## Overview
 

@@ -1,9 +1,6 @@
 # 2D Number Grid
 
 **Status**: Closed (4 files, capstone `G41Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — 2-D number grid → chapter + archive.
 
 ## Overview
 

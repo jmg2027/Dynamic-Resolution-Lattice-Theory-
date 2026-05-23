@@ -1,10 +1,7 @@
 # Cohomology — CupAW
 
-**Status**: Partially closed.  21+ files (Leibniz family expanded
-2026-05-22 with Decomp + UniversalLift + AlgLift{Alpha, Beta}).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 3 (mixed status — closed bidegrees + self-referential lex-cup Leibniz open ∀(k, l)).
+**Status**: Partially closed.  21+ files including the Leibniz
+family (Decomp + UniversalLift + AlgLift{Alpha, Beta}).
 
 ## Overview
 
@@ -28,12 +25,12 @@ The CupAW layer is where the **self-referential lex-cup Leibniz open conjecture*
 | `LeibnizLex*.lean` | Lex-projection cup variants |
 | `Leibniz21Final.lean`, `Leibniz22Final.lean`, `Leibniz4Mixed.lean` | Specific bidegree closures (2,1) (2,2) mixed-4 |
 | `LeibnizAlgLift.lean` + `21Alpha`, `22`, `22Alpha` | Algebraic-lift variants of Leibniz (self-referential lex-cup Leibniz Phase decomposition) |
-| `LeibnizAlgLiftAlpha.lean` (new 2026-05-22) | Alpha-side algebraic lift parametric in bidegree |
-| `LeibnizAlgLiftBeta.lean` (new 2026-05-22) | Beta-side algebraic lift parametric in bidegree |
-| `LeibnizDecomp.lean` (new 2026-05-22) | **Decomposition machinery** for splitting Leibniz proofs into α/β halves |
-| `LeibnizUniversalLift.lean` (new 2026-05-22) | Universal-lift infrastructure for arbitrary bidegree |
+| `LeibnizAlgLiftAlpha.lean` | Alpha-side algebraic lift parametric in bidegree |
+| `LeibnizAlgLiftBeta.lean` | Beta-side algebraic lift parametric in bidegree |
+| `LeibnizDecomp.lean` | **Decomposition machinery** for splitting Leibniz proofs into α/β halves |
+| `LeibnizUniversalLift.lean` | Universal-lift infrastructure for arbitrary bidegree |
 
-The 2026-05-22 batch (Decomp + UniversalLift + AlgLift{Alpha, Beta})
+The batch (Decomp + UniversalLift + AlgLift{Alpha, Beta})
 represents **structural progress toward self-referential lex-cup Leibniz closure**.  The strategy:
 decompose the ∀(k, l) Leibniz into α/β halves + universal lift across
 the bidegree parameter; each half is closeable parametrically (per
@@ -74,7 +71,7 @@ deltaList (k+l) (cupList k l α β) τ
 where `correction = (cupList k l α β)(τ \ {τ[mid]})` is the
 **self-referential face-removal**.
 
-The 2026-05-22 algebraic-lift batch (Alpha/Beta/Decomp/UniversalLift)
+The algebraic-lift batch (Alpha/Beta/Decomp/UniversalLift)
 sets up the *decomposition* machinery to attack this — split the
 proof into:
 - α-half: bidegree-parametric δα contribution
@@ -92,13 +89,14 @@ infrastructure is structural pre-work toward closure.
 - `theory/physics/alpha_em/precision_derivation.md` — α_em uses cup-channel inventory built on CupAW
 - `research-notes/G85_cup_delta_lens_mismatch.md` — Why strict cup fails Leibniz; CupAW is the resolution
 - `research-notes/G86_self_referential_lex_cup_leibniz.md` — **OPEN** ∀(k, l) conjecture
-- `research-notes/archive/metascan/G111_cohomology_deep_dive.md` — 2026-05-22 Tier-2 Cohomology deep dive
+- `research-notes/archive/metascan/G111_cohomology_deep_dive.md` — Tier-2 Cohomology deep dive
 
 ## Open frontier
 
-**self-referential lex-cup Leibniz ∀(k, l) Cup-Leibniz general** is the active frontier.  Phase
-decomposition machinery (Decomp + UniversalLift + AlgLift{Alpha,
-Beta}) landed 2026-05-22.  Full closure pending.
+**self-referential lex-cup Leibniz ∀(k, l) Cup-Leibniz general** is
+the active frontier.  Decomposition machinery (Decomp +
+UniversalLift + AlgLift{Alpha, Beta}) is in place; full closure
+pending.
 
 Per self-referential lex-cup Leibniz §3 (speculative): closure may unlock
 - α_em 5.4×10⁻⁴ residual via cup-product origin (chiral cup ring catalog §C1)

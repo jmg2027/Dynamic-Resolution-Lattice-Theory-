@@ -1,11 +1,6 @@
 # Atomic Constants Uniqueness (C2)
 
 **Status**: Closed via Steps 1-7 (full `∀(m, n)` iff with bounds 2 ≤ m, n).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 3 (mixed-status, sub-conjecture of chiral cup ring catalog).  Chiral cup ring catalog §C2 statement
-+ step log remains in the catalog; the closure proof + narrative are
-here.
 
 ## Overview
 

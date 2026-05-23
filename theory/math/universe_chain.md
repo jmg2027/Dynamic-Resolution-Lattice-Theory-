@@ -2,10 +2,6 @@
 
 **Status**: Closed at structural level (~115 ∅-axiom theorems
 across 4 sub-trees).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 (multi-note absorption).  17 source notes (Nat213 type synthesis-closed-form pattern unification,
-plus universe-chain navigation navigation index) → 1 chapter; archived.
 
 ## Overview
 

@@ -1,7 +1,6 @@
 # Lens Instances Catalog
 
 **Status**: Closed (35 files — largest Lens sub-tree).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

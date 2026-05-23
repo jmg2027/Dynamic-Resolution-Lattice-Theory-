@@ -1,9 +1,6 @@
 # Modular Arithmetic 213
 
-**Status**: Closed (13 files; universal-Pisano marathon merged 2026-05-22).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 2.
+**Status**: Closed (13 files.
 
 ## Overview
 

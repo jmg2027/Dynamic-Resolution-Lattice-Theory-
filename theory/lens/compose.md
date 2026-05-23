@@ -1,7 +1,6 @@
 # Lens Composition + Refines Preorder
 
 **Status**: Closed (7 files).
-**Promoted from research-notes**: 2026-05-22.
 
 ## Overview
 

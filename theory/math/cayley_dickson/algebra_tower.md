@@ -3,10 +3,6 @@
 **Status**: Closed at structural level — 4-row matrix (Types A/B/C/D)
 each formalized with ∅-axiom Lean theorems through the first
 past-Moufang layer.
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 (multi-note absorption).  9 source notes
- → 1 chapter; sources archived.
 
 ## Overview
 

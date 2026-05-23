@@ -1,9 +1,6 @@
 # Triangular Tower Architecture
 
 **Status**: Closed (5 files, capstone `G47Capstone`).
-**Promoted from research-notes**: 2026-05-22.
-
-Pattern 1 — triangular-tower architecture → chapter + archive.
 
 ## Overview
 
