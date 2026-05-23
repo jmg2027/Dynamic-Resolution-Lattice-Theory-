@@ -202,6 +202,34 @@ the top cochain dimension.  Higher H^k vanish identically.
 Formalised in `MaxAlphaPowerBound.max_alpha_power_at_*skeleton`
 and `Filled4CellExtension.H3_dim_at_4_skeleton`.
 
+## 5-skeleton extension (Massey landing-space audit)
+
+`Filled5CellExtension.lean` adds a single 5-cell σ⁵ with attaching
+boundary `[σ⁴]`, extending the pyramid tower σ³ → σ⁴ → σ⁵.
+Establishes:
+
+  · `δ⁴(c)(σ⁵) := c(σ⁴)` (pull-back of 4-cochain to σ⁵)
+  · `H⁴ = 0` at 5-skeleton (ker δ⁴ = {0}; im δ³ = C⁴)
+  · `H⁵ = 0` at 5-skeleton (no δ⁵; im δ⁴ = C⁵ since both
+    Bool-valued 5-cochains are δ⁴-images)
+
+★ **Massey-triple landing-space audit**: ⟨ω, ω, ω⟩ for ω ∈ H²
+would land in `H^(2 + 2 + 2 - 1) = H⁵`.  At the 5-skeleton
+extension, `H⁵ = 0` makes the Massey class VACUOUSLY trivial
+regardless of cobounding-chain choice.
+
+A non-vacuous Massey ⟨ω, ω, ω⟩ requires:
+
+  1. A 6-skeleton extension so `H⁵ ≠ 0` (Filled6Cell — small
+     additional step following the same template).
+  2. Explicit cobounding-chain construction solving the defining
+     system `ω ⌣ ω = δ b_1`, `ω ⌣ ω = δ b_2`.  This is the
+     harder content; the choice of `b_1`, `b_2` determines the
+     Massey class modulo the indeterminacy ideal
+     `ω · H¹ + H¹ · ω`.
+
+Both remain open frontiers.
+
 ## Open frontier (pure cohomology)
 
   · **General Steenrod cup_i for arbitrary i ≥ 2** with the full
@@ -211,8 +239,10 @@ and `Filled4CellExtension.H3_dim_at_4_skeleton`.
     (extend complex so target degrees host non-trivial classes).
   · **Cartan formula non-vacuous** — same higher-skeleton
     requirement.
-  · **Massey products**: triple Massey ⟨ω, ω, ω⟩ would land in
-    H^(2 + 2 + 2 - 1) = H⁵, requiring a 5-skeleton extension.
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — 5-skeleton landing-space
+    audit is closed (`Filled5CellExtension`, H⁵ = 0 vacuously);
+    non-vacuous Massey needs 6-skeleton extension + explicit
+    cobounding-chain construction.
   · **General Steenrod algebra in 213-native Lean**: cup_i
     operations + Adem + Cartan + Steenrod squares as a unified
     typeclass framework.
@@ -226,8 +256,9 @@ and `Filled4CellExtension.H3_dim_at_4_skeleton`.
     application bridge (α_em residual via cup-ladder graduation)
   · `lean/E213/Lib/Math/Cohomology/Bipartite/` — Lean source files
     (Filled3CellCohomology, Filled3CellExtension, Filled4CellExtension,
-    FaceCupHigher, FaceCup1At3Cell, SelfPairingTrace,
-    SteenrodSquaresAtOmega, CartanAtTruncation, AdemUniversal)
+    Filled5CellExtension, FaceCupHigher, FaceCup1At3Cell,
+    SelfPairingTrace, SteenrodSquaresAtOmega, CartanAtTruncation,
+    AdemUniversal)
 
 ## Status
 
