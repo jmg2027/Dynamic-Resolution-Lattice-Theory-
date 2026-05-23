@@ -238,4 +238,41 @@ theorem Zp.smoke_teichmuller_5_iter_3 :
         E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5]
   rfl
 
+/-- **Fermat at trunc-1**: for `p` prime and `x` with nonzero digit 0,
+    `(Zp.pow x (p - 1)).trunc 1 = 1`.
+
+    Classical Fermat's little theorem lifted to the digit level:
+    `x^(p-1) ≡ 1 (mod p)` whenever `x` is a unit mod p.  This is
+    the multiplicative order condition that gives ℤ_p contains the
+    `(p-1)`-th roots of unity (the Teichmüller representatives). -/
+theorem Zp.pow_p_minus_one_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_nz : 0 < (x.digits 0).val)
+    (h_prime_gcd : ∀ m, 0 < m
+                  → m < p
+                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+    (Zp.pow p hp x (p - 1)).trunc 1 = 1 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  rw [Zp.pow_trunc p hp x 1 (p - 1), Nat.pow_one]
+  -- Goal: (x.trunc 1)^(p-1) % p = 1
+  -- x.trunc 1 = (x.digits 0).val (by definition).
+  have h_trunc1 : x.trunc 1 = (x.digits 0).val := by
+    show 0 + (x.digits 0).val * p^0 = (x.digits 0).val
+    rw [Nat.pow_zero, Nat.mul_one, Nat.zero_add]
+  rw [h_trunc1]
+  -- Goal: ((x.digits 0).val)^(p-1) % p = 1
+  have h_lt : (x.digits 0).val < p := (x.digits 0).isLt
+  have := E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+            (x.digits 0).val p hp h_nz h_lt h_prime_gcd
+  -- this : (x.digits 0).val ^ (p - 1) % p = 1 % p
+  rw [this, Nat.mod_eq_of_lt hp]
+
+/-- Smoke: `2^4 ≡ 1 (mod 5)` lifted to `Zp.pow` on a 5-adic with
+    digit-0 = 2.  Confirms Fermat at the trunc level. -/
+theorem Zp.smoke_pow_4_eq_one_5 :
+    (Zp.pow 5 (by decide)
+      ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 4).trunc 1
+      = 1 := by
+  exact Zp.pow_p_minus_one_trunc_one 5 (by decide) _ (by decide)
+    E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5
+
 end E213.Lib.Math.Padic
