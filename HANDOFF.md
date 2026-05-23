@@ -153,8 +153,9 @@ in Lean as decide-checked literal.
 Per `theory/PROMOTION_CRITERIA.md`, partial-close marathons fail
 S1 categorical closure.  Candidate continuations:
 
-  1. **G130** (Option A close; only S3 absorption needed) — 1
-     session.  Closest to S1 completion.
+  1. ~~**G130** (Option A close)~~ — PROMOTED this session
+     (`theory/math/modulus_structure.md`; research note archived
+     to `research-notes/archive/`).
   2. **G129** (universal Nat-theorem via graph-walk infra) — 5-8
      sessions.
   3. **G126** (b_2/b_3 cork extension via Filled3Cell) — 5-8

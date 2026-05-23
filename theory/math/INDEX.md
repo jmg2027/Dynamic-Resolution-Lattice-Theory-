@@ -2,7 +2,7 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (51)
+## Closed chapters (52)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
@@ -26,7 +26,7 @@ Marathon-completed domains (6):
 - `combinatorics, information, logic, probability, group, modular_arithmetic` (modular_arithmetic extended by G119 to 13 files: +Bezout / FLT / F_{p²})
 
 Infrastructure (10):
-- `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus`
+- `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
 Patterns: `lean/E213/docs/PROMOTION_PATTERNS.md`.
