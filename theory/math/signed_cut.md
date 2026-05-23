@@ -128,6 +128,39 @@ correspond to ℝ (n=0), ℂ (n=1), ℍ (n=2), 𝕆 (n=3); level 4
   · ★★★★ `hurwitz_dichotomy_capstone` — bundles decision table +
     iff + component counts + sample bound + failure witness.
 
+## Non-associativity quantification — closed (NonAssocQuantification.lean, 19 PURE)
+
+`Lib/Math/SignedCut/Octonion/NonAssocQuantification.lean` quantifies
+the associativity break as a parametric dichotomy, parallel to
+`HurwitzDichotomy`:
+
+  `assocAdmissible n := decide (n ≤ 2)`
+
+CD level `n` is associativity-admissible iff `n ≤ 2`.  The three
+admissible levels are ℝ (n=0), ℂ (n=1), ℍ (n=2); level 3
+(octonions) is the first break.
+
+  · `assoc_admissible_iff`: `assocAdmissible n = true ↔ n ≤ 2`.
+  · Three non-associativity witnesses at L = 3: `(e₁, e₂, e₄)`,
+    `(e₂, e₃, e₄)`, `(e₁, e₃, e₄)` — independent basis triples.
+  · Three associativity controls at L = 2: `(e₁, e₂, e₃)`,
+    `(e₂, e₃, e₁)`, `(e₁, e₂, e₁)` — the (1, 2, 3) Fano sub-line
+    closes a quaternion sub-algebra.
+  · `isAssocAt a b c` — Bool-valued associator indicator.
+  · All six permutations on the (1, 2, 3) line are associative
+    (`isAssocAt_quaternion_line`).
+  · ★★★★ `non_associativity_quantification_capstone` packages
+    decision table + iff + three nonassoc witnesses + three
+    assoc controls.
+
+Pairing with `HurwitzDichotomy`: the Cayley-Dickson tower drops
+properties in the canonical ladder
+
+  commut (n ≤ 1) → assoc (n ≤ 2) → norm-mult (n ≤ 3)
+
+— three nested Nat-decidable predicates capturing the classical
+ZFC characterisation of `ℝ, ℂ, ℍ, 𝕆`.
+
 ## Open frontier
 
 - **CD level beyond L25**: not closed at the level-2 `configCount`
@@ -136,8 +169,8 @@ correspond to ℝ (n=0), ℂ (n=1), ℍ (n=2), 𝕆 (n=3); level 4
   layer (currently outside DRLT scope)
 - ~~**Hurwitz failure characterization**~~ — CLOSED via
   `HurwitzDichotomy.lean` (26 PURE) above.
-- **Non-associativity quantification**: octonion non-assoc witness gives one witness; a
-  characterization of the obstruction at each L ≥ 3 is open
+- ~~**Non-associativity quantification**~~ — CLOSED via
+  `NonAssocQuantification.lean` (19 PURE) above.
 
 ## How to verify
 
