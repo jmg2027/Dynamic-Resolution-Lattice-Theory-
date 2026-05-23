@@ -1,8 +1,9 @@
 # Geometrization Conjecture (213-Lens reading)
 
-**Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps); R1+
-extensions partial; Real213-p-adic research open (4-mfd exotic
-enumeration via Sym(3) gauge).
+**Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
+R1+ deepenings: FW-2 (JSJ extension), FW-4 (metric direct), I-3
+(Ricci ε-Lens), and 8-geo Lie group infrastructure — adding ~49 PURE.
+Sub-tree total: ~198 PURE / 0 DIRTY.
 
 ## Overview
 
@@ -193,43 +194,49 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension** (`JsjDeep.lean`, ~22 PURE): Euler-target
-  scaffold extended with 3-mfd target catalog (S³, T³, L(p,q),
-  connected sums all at χ = 0), K_{3,2}^{(c=2)} cell-complex
-  parameter family (k − j = 7), bipartite S/T cut as canonical
-  decomposition, `JSJ_deeper_consolidation` capstone.  Bridges to
-  the parametric `Cell3ComplexK32` structure in
-  `Cohomology/Bipartite/Filled3Cell.lean` (21 PURE) — provides
-  k 2-cells + j 3-cells data type, Euler-char computation,
-  closed-3-mfd realization predicate, naive Betti numbers.
+- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~41 PURE): Euler-target
+  scaffold with 3-mfd catalog (S³, T³, L(p,q), # sums all χ = 0);
+  K_{3,2}^{(c=2)} cell-complex parameter family (k − j = 7);
+  **cycle inventory** (6 multi-edge 2-cycles + 3 simple 4-cycles =
+  9 atomic, rank 8 cycle space); **concrete (k, j) attaching map
+  specifications** — atomic ceiling at (9, 2), longer cycles needed
+  for (10, 3) and beyond; **bipartite S/T cut → JSJ torus parallel**
+  with explicit component counts (3 S + 2 T = 5 components, 12 cut
+  edges); `JSJ_deepening_FW2_close` capstone.  Bridges to
+  `Cohomology/Bipartite/Filled3Cell.lean`.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
   universal characterization** `sym3_c2_force_K32` (Sym(3) +
   c=2-binary-cover ALONE force {n,m}={2,3} ∧ c=2 across all Nat,
   no chartBase bound) + Boolean ↔ form `passes_filter_universal_bool`
   + asymptotic `filter_passes_only_chartBase_5`.
-- **Metric geometries direct realization** (`MetricGeometries.lean`,
-  ~17 PURE): mod-k Möbius P Lens family across F_2/F_3/F_5/F_7/F_11/F_13
-  + **F_5 uniqueness** (`F5_unique_nil_collapse_small_primes`,
-  `mod_k_lens_family_F5_unique_close`): across primes 2..23, only
-  p = 5 collapses the discriminant — 213's d=5 fractal base
-  structurally aligns with the unique Nil-Lens.  Bridges to
-  `Geometry/MetricTypes.lean` (16 PURE) — 213-native
-  `MetricSignature` inductive type with 8 constructors + `LensChoice`
-  + `classify : LensChoice → MetricSignature` total function,
-  providing the discrete-algebraic-signature replacement for
-  real-valued metric tensors.
+- **Metric geometries direct realization (FW-4) + 8-geo Lie group
+  infra** (`MetricGeometries.lean`, ~40 PURE): mod-k Möbius P Lens
+  family across F_2/F_3/F_5/F_7/F_11/F_13 + **F_5 uniqueness**
+  (`mod_k_lens_family_F5_unique_close`); plus discrete metric data
+  per geometry — **curvature signs** (3 const-curv + Nil-flat
+  + 4 mixed), **isometry group dimensions** (6/6/6/4/4/4/4/3 =
+  total 37), **Lie group dimensions** (6 at dim 3, 2 at dim 0
+  = total 18); **6-class Lie partition** (semisimple S³ + ~SL₂,
+  abelian E³, nilpotent Nil, solvable Sol, hyperbolic H³,
+  product-mixed S²×ℝ + H²×ℝ); center-dim partition
+  (3 + 1 + 1 + 1 + 0·4 = 6); all 8 simply-connected; capstones
+  `FW4_direct_realization_close` + `eight_geo_lie_group_infra_close`.
+  Bridges to `Geometry/MetricTypes.lean` (16 PURE).
 - **Sym(3) cross-frame capstone** (`CrossFrame.lean`, ~5 PURE):
   `X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
   convergence (Geometrization + gluon octet + HC_K32 + Möbius P
   mod-5) + `sym3_basis_thurston_mapping` (explicit Sym(3)-irrep
   basis ↔ Thurston geometry assignment with the +1/−1 reshape
   arithmetic translating 2+6 → 3+5).
-- **Ricci pillar ε-Lens integration** (`Ricci.lean`, ~14 PURE):
-  `IsRicciModulus` structure parallel to `Topology.Continuity.
-  IsContinuousModulus`; `K32_isRicciModulus` instance; full Nat
-  anti-monotonicity (`K32_ricci_modulus_anti_monotone`);
-  `ricci_eps_lens_full_integration` capstone.
+- **Ricci pillar ε-Lens integration (I-3)** (`Ricci.lean`,
+  ~21 PURE): `IsRicciModulus` structure parallel to
+  `Topology.Continuity.IsContinuousModulus`; `K32_isRicciModulus`
+  instance; full Nat anti-monotonicity; plus
+  **fixed-point at b_1 max** (target = 8 ⇒ modulus = 0);
+  **saturation** (target ≤ 5 keeps modulus ≥ 3); **bijection** on
+  reachable range {5..8} ↔ {0..3}; strict monotonicity; composition
+  semantics; `I3_ricci_eps_lens_deepening_close` capstone.
 - **Poincaré two-layer reading** (`Poincare.lean`, +1):
   `poincare_two_layer_trivial_loop` via `V32Betti.b0_eq_1` —
   explicit b₀ (connectedness) + b₁ (cycle absence) decomposition
