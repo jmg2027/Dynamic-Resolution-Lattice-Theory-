@@ -217,6 +217,34 @@ rigorously; commutativity / zero / one axioms are Nat-decidable
 facts following from the digit-formula machinery + `Nat.add_comm`
 / `Nat.mul_comm`.
 
+## Zp.neg involution — trajectory-pw realisation (16 PURE)
+
+`Lib/Math/Padic/NegInvolution.lean` (6 PURE) closes
+`Zp.neg ∘ Zp.neg = id` **at digit-0**:
+
+  · `double_neg_mod_at` — `(p - (p - r) % p) % p = r` for `r < p`.
+  · `zp_neg_digit_zero` — `((Zp.neg x).digits 0).val =
+    (p - x.digit_0) % p`.
+  · `zp_neg_neg_digit_zero` — involution at digit-0.
+  · `add_right_cancel_pure` — PURE local re-proof of Lean-core's
+    propext-leaking `Nat.add_right_cancel`.
+
+`Lib/Math/Padic/NegInvolutionDigit1.lean` (10 PURE) extends to
+digit-1, tracking the **one-step carry chain**:
+
+  · `neg_carry_at_1` — general carry formula `(p - x.digit_0) / p`.
+  · `neg_carry_at_1_when_zero / nonzero` — case-split:
+    carry = 1 iff x.digit_0 = 0.
+  · `div_self_pure` — PURE local `p / p = 1`.
+  · `zp_neg_digit_one_when_zero / nonzero` — digit-1 formula by case.
+  · ★★★ `zp_neg_neg_digit_one_when_zero / nonzero` — involution at
+    digit-1 in both cases.
+
+The trajectory-pw pattern at digit-1 ties the inner carry
+(`x.digit_0 = 0`?) to the outer carry
+(`(Zp.neg x).digit_0 = 0`?); both flip together, cancelling.
+Higher digits follow the same pattern via recursion on carry depth.
+
 ## Open frontier
 
 - ~~**Real213-p-adic**~~ — CLOSED via `HenselBridge.lean`
