@@ -347,6 +347,51 @@ Numerical verification:
 
 matching `1/α_em ≈ 137.036` (CODATA, 0.07 ppm).
 
+## Lens-recipe catalog — finite enumeration of admissible cups
+
+The lex-projection cup is the **first** entry in a finite catalog
+of count-Lens-canonical cup recipes.  Each row pairs one
+sorted-single-partition recipe with one self-referential δ-closure
+law.
+
+| # | Recipe | Cup | δ-closure correction site |
+|---|---|---|---|
+| 1 | sorted-partition, split at `s = k` | `cup α β` (lex) | `τ.eraseIdx k` |
+| 3 | sorted-partition, split at `s = l` | `cupRev α β` (mirror) | `τ.eraseIdx l` |
+| 6 | XOR symmetrisation of (1) ⊕ (3) | `cupSymList α β` | XOR of corrections at `k` and `l` |
+
+Rows 2, 4, 5 are inadmissible: the standard ZFC wedge (row 2)
+sums over *all* partitions rather than a count-Lens-canonical
+single one; middle-split (row 4) has mismatched bidegree
+arithmetic; rank-2 Bool wedge (row 5) is degenerate.  The recipe
+space for sorted-single-partition cups is therefore exhausted by
+rows 1, 3, 6.
+
+### Lean source
+
+| File | Theorem | Content |
+|---|---|---|
+| `Cup/LeibnizMirror.lean` | `cupRev_eq_cup_swapped` | `cupRev α β` = `cup l k β α` after Fin re-typing |
+| `Cup/LeibnizMirror.lean` | `list_level_leibniz_mirror` | mirror twisted Leibniz at the list level |
+| `Cup/LeibnizSym.lean`    | `list_level_leibniz_sym`    | symmetric cup Leibniz = XOR of two corrections |
+| `Cup/LeibnizCatalog.lean` | `Recipe` inductive | `.lex / .mirror / .sym` constructors |
+| `Cup/LeibnizCatalog.lean` | `Recipe.splitPos`  | split position `s ∈ {k, l}` per recipe |
+| `Cup/LeibnizCatalog.lean` | ★★★★★ `catalog_dispatch` | universal dispatch — every admissible recipe carries a self-referential δ-closure at its `splitPos` face |
+
+`catalog_dispatch` is the single "every count-Lens-canonical cup
+recipe carries a self-referential Leibniz at its split position"
+theorem — the 213-native **no-exterior** principle made concrete
+at the cochain level (`seed/AXIOM/05_no_exterior.md` §5).
+
+### Catalog finiteness
+
+For sorted lists τ of length `k + l`, the split position `s` must
+satisfy `s = k` (α to front) or `s = l = (k+l) - k` (α to back).
+Row 6 is the only XOR-symmetrisation of rows 1 and 3.  Any further
+"recipe" outside this enumeration either fails the
+sorted-single-partition admissibility filter or coincides with one
+of the three under value equality.
+
 ## How to verify
 
 ```bash
@@ -355,9 +400,15 @@ cd lean && lake build E213.Lib.Math.Cohomology.Cup.SelfRefDepth
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.K32Projection
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
+cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizMirror
+cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizSym
+cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizCatalog
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.SelfRefDepth
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.K32Projection
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
+python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizMirror
+python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizSym
+python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizCatalog
 ```

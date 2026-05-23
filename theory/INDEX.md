@@ -78,9 +78,9 @@ Top-level `research-notes/` registries:
 | Class | Notes | Purpose |
 |---|---|---|
 | Foundational anchors | `G29_residue.md`, `G1-G5`, `G12`, `75`, `76` | Boot-sequence, thesis anchors, semantic atom, ouroboros |
-| Methodology & catalogs | `G35` (algebra catalog), `G107` (action-items live tracker), `G127` (promotion-readiness) | Cross-session tooling references |
+| Methodology & catalogs | `G35` (algebra catalog) | Cross-session tooling references |
 | Open conjectures | `G85, G87` (cup-Δ observations), `G86` (Cup-Leibniz ∀(k,l)) | Conjecture catalog |
-| Open research directions | `G121` (Geometrization R1+), `G124` (N_U cross-field), `G128_affine_plane_K25` (algebraic geometry slice), `G127_base_5_wieferich` | Active scratch — chapter not yet eligible |
+| Open research directions | `G121` (Geometrization R1+ — chapter active, side-observations open) | Active scratch — chapter handles R1; note hosts the open marathon front |
 | Synthesis / deep-dive | `G108-G116`, `G135-G137` | Tier-2 analytical scans annotating already-promoted chapters |
 | Lens emergence | `2026-05-18_lens_emergence_path.md` | Specification |
 

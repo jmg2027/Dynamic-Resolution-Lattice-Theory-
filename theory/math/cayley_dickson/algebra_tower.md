@@ -157,6 +157,90 @@ The same φ appears in:
 This isn't coincidence — it's the algebraic-tower's fingerprint on
 the rest of 213.
 
+## Three concurrent fates of the tower
+
+A natural question — does the tower stop, ascend forever, or have a
+meta-fixed point? — admits **three simultaneously true answers**
+at three distinct levels of structure.
+
+### 1. Algebraic property loss — bounded at L4 (Hurwitz tower)
+
+| Layer | Algebra      | Lost property            |
+|-------|--------------|--------------------------|
+| L0 = ℝ | comm, assoc, normed | total order        |
+| L1 = ℂ | comm, assoc, normed | none new            |
+| L2 = ℍ | non-comm, assoc, normed | commutativity   |
+| L3 = 𝕆 | non-assoc (alt), normed | full assoc → alt |
+| L4 = 𝕊 | non-alt (pow-assoc), zero divisors | alternativity, division |
+| L5+   | progressively degenerate | norm-multiplicativity, … |
+
+Property loss **terminates at L4**: beyond L4 every classical
+algebraic property that can break has broken; further CD-doubling
+adds new dimensions but no new losses.
+
+### 2. Order-4 monopoly — universal preservation (infinite ascent)
+
+The Order-4 mechanism `(0, u)² = (−conj(u)·u, 0)` survives at
+every layer (generic on `[StarRing213 α]`):
+
+  ∀ n.  every new im-axis generated at layer L_{n+1} has order 4.
+
+Concrete monopoly witnesses appear at L3 (Q_8 / `LipschitzOrder4Monopoly`),
+L4 (M_16 / `CayleyOrder4Monopoly`), L5 (Sedenion / `SedenionOrder4Monopoly`),
+and the Type B parallel `Order4Monopoly_L4T/L5T/L6T`.  The mechanism
+itself never runs out — **infinite ascent at the mechanism level**.
+
+### 3. {±1} pointwise meta-fixed point
+
+`Lib/Math/CayleyDickson/Tower/TowerFixedPoint.lean` measures the
+count of units **not** of order 4 across the tower:
+
+| Type | L3 | L4 | L5 | L6 | non-order-4 count |
+|---|---|---|---|---|---|
+| A | 8 units | 16 units | 32 units | —    | **2** (= ±1) |
+| B | —      | 4 units  | 8 units  | 16 units | **2** (= ±1) |
+
+The pair `{+1, −1}` is the **pointwise fixed set** of CD-doubling
+across measured layers — the universal scalar subring `ℤ ⊃ {±1}`
+preserved unchanged.  Asymptotically the order-4 fraction
+`rat₄(L_n) = 1 − 2/|units_n| → 1`, but `{±1}` always contributes
+its 2 to the non-order-4 count.
+
+Witnesses: `typeA_non_order4_fixed_at_2`, `typeB_non_order4_fixed_at_2`,
+`tower_fixed_point_summary` (all ∅-axiom).
+
+The three readings are not in tension — they describe different
+aspects (which properties survive / which mechanism keeps firing /
+which elements stay invariant).  The fixed set `{±1}` aligns with
+Raw's atom / anti-atom binary axis: the meta-fixed point of the
+algebra tower IS the integer scalar subring at every layer.
+
+## Generic-lift functor — type-level CD doubling
+
+The first CD-doubling step is mechanical at the typeclass level:
+
+```
+[CommStarRing213 α]  →  StarRing213 (CDDouble α)
+```
+
+so a layer-2 demo like `cdd_lift_squared_at_layer2 : Ring213
+(CDDouble (CDDouble α))` reduces to typeclass inference — no
+per-layer ring / star-ring boilerplate.
+
+Source: `Theory/Internal/Algebra213CDDoubleStar.lean` (generic
+instance, ∅-axiom).  Demo: `Theory/CDDouble/GenericLiftDemo.lean`
+(∅-axiom).
+
+The chain breaks at the second step because `CDDouble α` of a
+commutative base is non-commutative in general — `CDDouble (CDDouble α)`
+inhabits `StarRing213` but not `CommStarRing213`, so the instance
+cannot fire recursively.  This is intrinsic: a single typeclass
+covering arbitrary `n` is impossible because Cayley-Dickson
+strictly loses commutativity at each step.  What survives at every
+layer is the generic Order-4 mechanism above plus the
+concrete instances written for each named layer (Cayley, Sedenion,
+L4T, L5T, L6T).
+
 ## Key results
 
 | Theorem / Def | Module | Statement |

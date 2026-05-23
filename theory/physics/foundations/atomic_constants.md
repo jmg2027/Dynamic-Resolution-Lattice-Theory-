@@ -117,6 +117,82 @@ the canonical reading; (2, 3) is the same lattice with NS/NT swapped.
 | `c2a_213` | `AtomicConstantsUnique` | `C2a NS NT 2 = true` |
 | `c2b_213` | `AtomicConstantsUnique` | `C2b NS NT = true` |
 
+## Raw-side derivation — Clause 4 recursive atomicity
+
+C2b above is the **cohomology-side** uniqueness via `2mn = m² + m
++ n − 2`.  An independent **Raw-side** derivation reaches the same
+(NS, NT, d) = (3, 2, 5) from the Raw axiom (`seed/AXIOM/02_axiom.md`
+§2.2) by applying its Clause 4 recursively across granularities.
+
+### The principle
+
+Per Raw's axiom, an event is *simultaneously* operation and object —
+no a-priori distinction.  Clause 4 (`x / x` forbidden — every
+distinguishable carries a residue against itself) therefore does
+not apply only to atomic distinguishables; it applies *at every
+granularity*, including to **groups of Raw viewed as objects**.
+
+### Derivation
+
+For the atomicity decomposition `n = NT · a + NS · b = 2a + 3b`,
+the inputs `(a, b)` describe how many `NT`-pair and `NS`-triple
+atoms participate.  Clause 4 applied recursively forbids any
+group-level self-pairing:
+
+  · `a` copies of `NT` (= a binary-pair atoms).  If `a` is even,
+    the `a` pairs group into `a/2` pair-of-pairs — a self-pair
+    structure at the binary group level.  Clause 4 (recursive)
+    forbids this; so `a` must be **odd**.
+  · Symmetrically `b` must be **odd**.
+
+The "both odd" alive condition is therefore not a separate
+postulate but the **count-Lens readout of Clause 4 applied
+recursively to count-Lens groups**.
+
+### Lean closure (`Theory/Atomicity/AliveDerivation.lean`, 7 PURE)
+
+| Theorem | Statement |
+|---|---|
+| `IsSelfPaired n := ∃ k, n = 2 * k` | Clause-4 group-level self-pair structure |
+| `IsClause4Alive a b := ¬IsSelfPaired a ∧ ¬IsSelfPaired b` | Clause-4-derived alive predicate |
+| `parity_iff_not_self_paired` | bridge `parity n = true ↔ ¬IsSelfPaired n` |
+| ★★★★★ `alive_iff_clause4_alive` | `Atomicity.Five.IsAlive a b ↔ IsClause4Alive a b` |
+| `atomic_iff_five_via_clause4`     | the atomicity theorem holds with `IsClause4Alive` substituted |
+
+### Combined inevitability chain
+
+| Step | Witness | Status |
+|---|---|---|
+| Raw axiom 4 clauses              | `seed/AXIOM/02_axiom.md` §2.2 | doctrine |
+| Recursive Clause 4 → Alive       | `alive_iff_clause4_alive`     | ∅-axiom |
+| Alive + decomp `2a + 3b = n`     | `atomic_iff_five`             | ∅-axiom |
+| Atomic n → n = 5                 | `atomic_implies_five`         | ∅-axiom |
+| n = 5 = NS + NT                  | `partition_sum`               | ∅-axiom |
+
+Combined statement: Raw + the four clauses (including recursive
+Clause 4) force `(NS, NT, d) = (3, 2, 5)` uniquely from the Raw
+side, independently of the C2b cohomology-side iff above.  The
+two derivations are different Lens readings of the same forced
+quadruple.
+
+### Dual-emergence companion (Δ⁴ ⊥ K_{3,2}^{(c=2)})
+
+The same 5-vertex residue carries two distinct cohomological
+fillings whose Euler characteristics satisfy:
+
+  χ(Δ⁴) + χ(K_{3,2}^{(c=2)}) = (+1) + (−7) = **−6 = −(NS · NT)**
+
+with `Δ⁴` the maximal-non-commitment combinatorial filling
+(`+1`, contractible) and `K_{3,2}^{(c=2)}` the dynamic Möbius
+shadow (`−7`, b₁ = 8 cycles).  Witness:
+`Lib/Math/Geometry/AlgebraicGeometry.lean` and
+`Lib/Math/Topology/EulerChi.lean`.  The integer `6 = NS · NT`
+appears across multiple structural readings (ZOmega units, α_GUT
+numerator, Pauli-ε non-zero entries, Lorentz generator count, `3!`,
+S/T cross-pair count, SU(NS) root count, `d + 1`); a single
+Raw-native derivation `Raw → 6` whose multiple Lens projections
+recover all of these is the open structural target.
+
 ## Research-note provenance
 
 `research-notes/G35_chiral_cup_ring_catalog.md` **§C2** — conjecture

@@ -376,6 +376,53 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
 
 ## Open frontier
 
+  · **Base-5 Wieferich primes** (empirical, Lean-deferred).  A
+    prime `p` is Wieferich-base-5 iff `5^(p−1) ≡ 1 (mod p²)`.
+    Brute-force search at `p ∈ [7, 10⁵]` identifies exactly two:
+    `p = 20771` and `p = 40487` (matches OEIS A123693).  These
+    obstruct higher-precision base-5 modular cascade — at
+    non-Wieferich primes the lift `p → p²` adds no algebraic
+    complication; at Wieferich primes the FLT period `p − 1`
+    no longer suffices and a finer period analysis modulo `p²`
+    is required.  Lean closure is kernel-impractical (~14500-digit
+    intermediate values); recorded as falsifier-catalogue
+    candidate.  Pattern via `(p − 1)`: both share the factor
+    `31` (where `configCountD 5 n` exhibits the period-2 mod-31
+    readout) — structural or coincidental is open.
+
+  · **Affine-plane reading at `(d, n) = (5, 2)`** — algebraic-
+    geometric handle on `N_U`.  Identifying `[5]` with `F_5`,
+    `5^25 = |F_5[x, y] / (x^5 − x, y^5 − y)|` is the cardinality
+    of the polynomial function ring on the affine plane `A²_{F_5}`.
+    The internal question: does the `K_{3,2}^{(c=2)} → K_{25}`
+    closure functor correspond to a specific sub-ideal of this
+    function ring?  Candidate sub-spaces (degree-bounded `R_{≤k}`,
+    symmetric `R^{sym}`, multilinear `R^{lin}`, bipartite-supported)
+    are enumerable with cardinalities `5^k` for various `k ≤ 25`.
+    Closure requires `F_q` polynomial-ring infrastructure not yet
+    present in `lean/E213/` — substantive multi-session addition
+    on the scale of the Real213-p-adic infrastructure.
+
+  · **Cross-field cross-imports at `(d, n) = (5, 2)`** — the
+    integer `5^25` admits **seven independent readings**
+    (combinatorial / cohomological / Cartesian-closed / type-
+    theoretic / cellular-automata / algebraic-geometric / lattice-
+    internal).  All seven agree on the value, providing
+    independent witnesses that the physics slice is structural
+    rather than chosen.  Concrete cross-import directions:
+    Aurifeuillean factor reading of `N_U + 1` cofactors
+    (overlap with `aurifeuillean.md`); finite-field affine-plane
+    sub-ideal correspondence (above); Łukasiewicz `L_5`
+    functional-completeness reformulation of the Lens framework
+    (since 5 is prime, Rosser–Turquette applies); iterated
+    Carmichael chain beyond `{2, 3, 5, 7, 11, 13}`; tetration-
+    depth-3 categorical invariant `F(5, 5) = 5^3125`; Sheffer-
+    fraction of `F(5, 2)`; reversible-CA fraction `25! / 5^25`;
+    MCSP-mid-range connection; quantum-CA unitary lift on `ℂ^25`.
+    None of these is on the immediate critical path; each is a
+    cheap empirical extension of the closed N_U-family
+    infrastructure.
+
   · **Structural derivation of the Gram self-energy term**
     (`Lib/Physics/AlphaEM/Augmented.lean:134-141`).  The
     `213/10⁸` correction that brings `1/α_em` below the ppb
