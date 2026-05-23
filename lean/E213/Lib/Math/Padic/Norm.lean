@@ -1,4 +1,5 @@
 import E213.Lib.Math.Padic.Foundation
+import E213.Lib.Math.Padic.Arith
 import E213.Meta.Tactic.NatHelper
 /-!
 # Real213-p-adic Valuation
@@ -141,5 +142,140 @@ theorem Zp.valEq_neg_one (p : Nat) (hp : 1 < p) :
       rw [hp1, Nat.zero_add] at this
       exact this.symm ▸ Nat.le_refl 1
     exact absurd h_p_le_1 (Nat.not_le_of_gt hp)
+
+/-! ## Ultrametric inequalities
+
+The non-Archimedean nature of the p-adic norm: addition preserves
+or *increases* the valuation, and multiplication's valuation is
+the sum of valuations.
+
+In `valAtLeast` form:
+- `valAtLeast x n ∧ valAtLeast y n → valAtLeast (x + y) n`
+  (additive ultrametric, equal-level version).
+- `valAtLeast x m ∧ valAtLeast y n → valAtLeast (x · y) (m + n)`
+  (valuation additivity).
+
+The general unequal-level form for addition follows by composing
+with `valAtLeast_mono`.
+-/
+
+/-- **Additive ultrametric** (equal-level): if both `x` and `y`
+    have valuation ≥ n, so does `x + y`. -/
+theorem Zp.valAtLeast_add (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat)
+    (hx : Zp.valAtLeast x n) (hy : Zp.valAtLeast y n) :
+    Zp.valAtLeast (Zp.add p hp x y) n := by
+  have h_xn : x.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp x n).mp hx
+  have h_yn : y.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp y n).mp hy
+  have h_addn : (Zp.add p hp x y).trunc n = 0 := by
+    rw [Zp.add_trunc p hp x y n, h_xn, h_yn]
+    show (0 + 0) % p^n = 0
+    rw [Nat.zero_add]
+    exact E213.Tactic.NatHelper.zero_mod _
+  exact (Zp.valAtLeast_iff_trunc hp _ n).mpr h_addn
+
+/-- **Additive ultrametric** (asymmetric): if `x` has valuation
+    ≥ m, `y` has valuation ≥ n, and `m ≤ n`, then `x + y` has
+    valuation ≥ m. -/
+theorem Zp.valAtLeast_add_of_le (p : Nat) (hp : 0 < p) (x y : ZpSeq p)
+    {m n : Nat} (hmn : m ≤ n)
+    (hx : Zp.valAtLeast x m) (hy : Zp.valAtLeast y n) :
+    Zp.valAtLeast (Zp.add p hp x y) m :=
+  Zp.valAtLeast_add p hp x y m hx (Zp.valAtLeast_mono hmn hy)
+
+/-- **Multiplicative absorbing**: if `x` has valuation ≥ m,
+    then `x · y` has valuation ≥ m for any `y`.  This is the weak
+    one-sided version of the multiplicative ultrametric. -/
+theorem Zp.valAtLeast_mul_of_left (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (m : Nat)
+    (hx : Zp.valAtLeast x m) :
+    Zp.valAtLeast (Zp.mul p hp x y) m := by
+  have h_xm : x.trunc m = 0 := (Zp.valAtLeast_iff_trunc hp x m).mp hx
+  have h_mulm : (Zp.mul p hp x y).trunc m = 0 := by
+    rw [Zp.mul_trunc p hp x y m, h_xm, Nat.zero_mul]
+    exact E213.Tactic.NatHelper.zero_mod _
+  exact (Zp.valAtLeast_iff_trunc hp _ m).mpr h_mulm
+
+/-- **Multiplicative absorbing** (right): if `y` has valuation ≥ n,
+    then `x · y` has valuation ≥ n for any `x`. -/
+theorem Zp.valAtLeast_mul_of_right (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : Nat)
+    (hy : Zp.valAtLeast y n) :
+    Zp.valAtLeast (Zp.mul p hp x y) n := by
+  have h_yn : y.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp y n).mp hy
+  have h_muln : (Zp.mul p hp x y).trunc n = 0 := by
+    rw [Zp.mul_trunc p hp x y n, h_yn, Nat.mul_zero]
+    exact E213.Tactic.NatHelper.zero_mod _
+  exact (Zp.valAtLeast_iff_trunc hp _ n).mpr h_muln
+
+/-! ### Full multiplicative ultrametric
+
+`val(x · y) = val(x) + val(y)`.  In `valAtLeast` form:
+`valAtLeast x m ∧ valAtLeast y n → valAtLeast (x · y) (m + n)`.
+-/
+
+/-- PURE: `p^a · p^b = p^(a + b)` by induction. -/
+private theorem pow_add_pure_norm (p : Nat) :
+    ∀ m n, p^m * p^n = p^(m + n)
+  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | m, n + 1 => by
+    rw [Nat.pow_succ, ← E213.Tactic.NatHelper.mul_assoc,
+        pow_add_pure_norm p m n]
+    show p^(m + n) * p = p^(m + (n + 1))
+    rw [← Nat.add_assoc, ← Nat.pow_succ]
+
+/-- PURE: extending trunc beyond m preserves `% p^m`. -/
+private theorem trunc_extension_mod (p : Nat) (hp : 0 < p) (x : ZpSeq p) (m : Nat) :
+    ∀ k, x.trunc (m + k) % p^m = x.trunc m % p^m
+  | 0 => by rw [Nat.add_zero]
+  | k + 1 => by
+    have ih : x.trunc (m + k) % p^m = x.trunc m % p^m :=
+      trunc_extension_mod p hp x m k
+    show (x.trunc (m + k) + (x.digits (m + k)).val * p^(m + k)) % p^m
+         = x.trunc m % p^m
+    rw [E213.Meta.Nat.AddMod213.add_mod (Nat.pos_pow_of_pos _ hp), ih]
+    -- ((x.trunc m % p^m) + (digits.val * p^(m+k)) % p^m) % p^m = x.trunc m % p^m
+    -- Show (digits.val * p^(m+k)) % p^m = 0.
+    have h_zero : ((x.digits (m + k)).val * p^(m + k)) % p^m = 0 := by
+      rw [show p^(m + k) = p^m * p^k from (pow_add_pure_norm p m k).symm]
+      rw [show (x.digits (m + k)).val * (p^m * p^k)
+              = p^m * ((x.digits (m + k)).val * p^k) by
+            rw [Nat.mul_comm (p^m) (p^k),
+                ← E213.Tactic.NatHelper.mul_assoc (x.digits (m + k)).val (p^k) (p^m),
+                Nat.mul_comm ((x.digits (m + k)).val * p^k) (p^m)]]
+      exact E213.Tactic.NatHelper.mul_mod_right (p^m) _
+    rw [h_zero, Nat.add_zero, E213.Tactic.NatHelper.mod_mod_pure]
+
+/-- **Full multiplicative ultrametric**: `val(x · y) ≥ val(x) + val(y)`. -/
+theorem Zp.valAtLeast_mul (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (m n : Nat)
+    (hx : Zp.valAtLeast x m) (hy : Zp.valAtLeast y n) :
+    Zp.valAtLeast (Zp.mul p hp x y) (m + n) := by
+  have h_xm : x.trunc m = 0 := (Zp.valAtLeast_iff_trunc hp x m).mp hx
+  have h_yn : y.trunc n = 0 := (Zp.valAtLeast_iff_trunc hp y n).mp hy
+  -- x.trunc (m + n) % p^m = 0
+  have h_x_mod : x.trunc (m + n) % p^m = 0 := by
+    rw [trunc_extension_mod p hp x m n, h_xm]
+    exact E213.Tactic.NatHelper.zero_mod _
+  -- y.trunc (m + n) % p^n = 0
+  have h_y_mod : y.trunc (m + n) % p^n = 0 := by
+    rw [Nat.add_comm m n, trunc_extension_mod p hp y n m, h_yn]
+    exact E213.Tactic.NatHelper.zero_mod _
+  -- (Zp.mul x y).trunc (m + n) = (x.trunc(m+n) * y.trunc(m+n)) % p^(m+n) = 0
+  have h_muln : (Zp.mul p hp x y).trunc (m + n) = 0 := by
+    rw [Zp.mul_trunc p hp x y (m + n)]
+    -- (x.trunc(m+n) · y.trunc(m+n)) % p^(m+n) = 0
+    -- Write x.trunc(m+n) = p^m · A, y.trunc(m+n) = p^n · B; product = p^(m+n) · (A·B).
+    have hdmx := E213.Meta.Nat.AddMod213.div_add_mod (x.trunc (m + n)) (p^m)
+    have hdmy := E213.Meta.Nat.AddMod213.div_add_mod (y.trunc (m + n)) (p^n)
+    rw [h_x_mod, Nat.add_zero] at hdmx
+    rw [h_y_mod, Nat.add_zero] at hdmy
+    -- hdmx : p^m · (x.trunc(m+n) / p^m) = x.trunc(m+n)
+    -- hdmy : p^n · (y.trunc(m+n) / p^n) = y.trunc(m+n)
+    rw [← hdmx, ← hdmy]
+    -- (p^m · A · (p^n · B)) % p^(m+n) = 0
+    -- = (p^m · p^n · A · B) % p^(m+n) (by associativity/commutativity)
+    -- = (p^(m+n) · (A · B)) % p^(m+n) = 0
+    rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213
+          (p^m) (x.trunc (m + n) / p^m) (p^n) (y.trunc (m + n) / p^n),
+        pow_add_pure_norm p m n]
+    exact E213.Tactic.NatHelper.mul_mod_right (p^(m + n)) _
+  exact (Zp.valAtLeast_iff_trunc hp _ (m + n)).mpr h_muln
 
 end E213.Lib.Math.Padic
