@@ -243,7 +243,36 @@ digit-1, tracking the **one-step carry chain**:
 The trajectory-pw pattern at digit-1 ties the inner carry
 (`x.digit_0 = 0`?) to the outer carry
 (`(Zp.neg x).digit_0 = 0`?); both flip together, cancelling.
-Higher digits follow the same pattern via recursion on carry depth.
+
+## Full Zp.neg involution via State Accumulator Pattern (9 PURE)
+
+`Lib/Math/Padic/NegInvolutionFull.lean` (5 PURE) + `NegInvolutionPreserve.lean`
+(4 PURE) close the **full sequence-level involution** `Zp.neg ∘ Zp.neg = id`
+as a pointwise (∀ k) PURE theorem.  The polynomial carry-chain
+blow-up that blocked higher-digit involution collapses to
+**constant-branching** when carry state is compressed to a single
+Bool:
+
+  `all_zero_below x k : Bool := (x.digits 0..k-1 all zero)`
+
+  · `neg_carry_eq_state` — `Zp.carry (complement x) one (k+1) =
+    (if all_zero_below x (k+1) then 1 else 0)`.
+  · `zp_neg_digit_succ_with_state` — `Zp.neg` digit-k formula
+    parametric in the state.
+  · ★★★★ `neg_preserves_state` — **preservation invariant**:
+    `all_zero_below (Zp.neg x) k = all_zero_below x k` (constant-
+    branching induction on k).
+  · ★★★★★ `zp_neg_neg_digit_at` — full involution at every
+    digit-k.  Case-splits on `all_zero_below x k`; both cases
+    collapse to `x.digit_k` via `double_neg_mod_at` (state=true)
+    or `sub_sub_cancel` (state=false).
+  · `state_accumulator_carry_capstone` + `zp_neg_full_involution_capstone`
+    package the framework.
+
+This realises the **funext-blocked sequence-level identity** as
+PURE pointwise theorem.  All Lean-core helpers that leak propext
+(`Nat.add_right_cancel`, `Nat.div_self`, `Nat.sub_pos_of_lt`) are
+re-proved locally via direct induction.
 
 ## Open frontier
 

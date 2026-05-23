@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 478 PURE / 0 DIRTY across 38 closures
+## Marathon summary — 487 PURE / 0 DIRTY across 40 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -94,6 +94,21 @@ precision-doubling artifact is avoided at the integer constant
 class where both grouping trajectories reduce to the same
 `constCut ((a+b)+c) 1 = constCut (a+(b+c)) 1`.
 
+### Wave 7: full Zp.neg involution via Gemini's State Accumulator (9 PURE)
+
+External-LLM (Gemini Pro) advice on blocker 1: compress carry state
+to single Bool `all_zero_below x k`.  Applied verbatim:
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `modular_arithmetic` | `Lib/Math/Padic/NegInvolutionFull.lean` | 5 |
+| `modular_arithmetic` | `Lib/Math/Padic/NegInvolutionPreserve.lean` | 4 |
+
+**Result**: the funext-blocked sequence-level identity
+`Zp.neg ∘ Zp.neg = id` is closed as pointwise (∀ k) PURE theorem
+via `zp_neg_neg_digit_at`.  Polynomial carry-chain blow-up
+collapses to constant-branching induction on `all_zero_below`.
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -149,4 +164,4 @@ class where both grouping trajectories reduce to the same
 ## Build status
 
 `cd lean && lake build` — clean.
-`tools/scan_axioms.py <module>` — all 38 new files PURE.
+`tools/scan_axioms.py <module>` — all 40 new files PURE.
