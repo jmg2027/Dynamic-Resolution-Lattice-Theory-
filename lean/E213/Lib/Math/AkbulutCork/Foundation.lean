@@ -136,7 +136,7 @@ theorem K14_boundary_eq_chartBase : K14_cork.boundary_size = 1 + 4 := rfl
     · Phase 2: cork-twist operation (Z/2 action via M_S01)
     · Phase 3: signed orbit decomposition under twist
     · Phase 4: cork-embedding formalisation (tree ⊂ critical) -/
-theorem phase1_cork_foundation_close :
+theorem cork_foundation_close_capstone :
     -- All three corks are well-formed
     isWellFormed K11_cork = true
     ∧ isWellFormed K31_cork = true

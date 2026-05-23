@@ -138,7 +138,7 @@ theorem corkTwist_M_S01_correspondence :
   Open in Phase 3: action of corkTwist on H¹ cochains gives a
   Z/2 grading → signed orbit decomposition (Sym(3)-orbits split
   into +1/−1 classes). -/
-theorem phase2_corkTwist_close :
+theorem corkTwist_close_capstone :
     -- Involution on K_{1,4} principal cork
     corkTwist (corkTwist K14_cork) = K14_cork
     -- Involution on K_{1,1} trivial cork

@@ -124,7 +124,7 @@ theorem signedCorkTwistCount_eq_4 :
   (`chartBase_5_tree_and_critical_coexist` already provides
   the structural witness — Phase 4 promotes it to cork-embedding
   form). -/
-theorem phase3_signed_orbits_close :
+theorem signed_orbits_close_capstone :
     -- Per-orbit-type M_S01 fix counts
     singletonOrbitFixed = 4
     ∧ size3OrbitFixed = 28

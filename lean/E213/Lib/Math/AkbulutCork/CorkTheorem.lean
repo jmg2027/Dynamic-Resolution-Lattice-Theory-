@@ -49,7 +49,7 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
   Both branches live at the same chartBase = 5 = NS + NT; the cork
   K_{1,4} is the contractible substructure that the cork-twist
   acts on. -/
-theorem phase4_cork_embedding :
+theorem cork_embedding_capstone :
     -- Cork K_{1,4} is a tree (contractible at b_1 = 0)
     isTreeDeployment 1 4 1 = true
     ∧ b1_corrected 1 4 1 = 0
@@ -70,7 +70,7 @@ theorem phase4_cork_embedding :
     ∧ K14_cork.boundary_size = 5 := by
   refine ⟨?_, ?_, ?_, ?_, rfl, rfl, ?_, rfl, ?_, rfl, rfl⟩ <;> decide
 
-/-! ## Phase 5 — cork uniqueness -/
+/-! ## Cork uniqueness -/
 
 /-- ★★★ **Phase 5: M_S01 cork-twist is involutive and structurally
     unique among Z/2 actions on H¹(K_{3,2}^{(c=2)})**
@@ -86,7 +86,7 @@ theorem phase4_cork_embedding :
   Other Cork213 instances (K_{1,1}, K_{3,1}) live at smaller
   chartBases — they're not embedded in K_{3,2}^{(c=2)} as corks
   for this critical deployment. -/
-theorem phase5_cork_uniqueness :
+theorem cork_uniqueness_capstone :
     -- M_S01 is involutive (matrix layer)
     (∀ i j : Fin 8,
        E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_M
