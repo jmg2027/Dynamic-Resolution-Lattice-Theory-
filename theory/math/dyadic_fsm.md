@@ -214,6 +214,23 @@ Euclidean algorithm IS the FSM transition.
 - ~~**Continued fractions** as FSM~~ — CLOSED via
   `ContinuedFraction.lean` (17 PURE) above.
 
+## Rigor — k-bonacci recurrence identity (26 PURE)
+
+`Lib/Math/DyadicFSM/KBonacciRecurrence.lean` establishes that
+`kBonacci k n` satisfies the standard recurrence
+`a_{n+k} = a_{n+k-1} + ... + a_n`:
+
+  · `fib_rec_{0..5}` — Fibonacci recurrence at `n = 0..5`.
+  · `trib_rec_{0..5}` — Tribonacci recurrence at `n = 0..5`.
+  · `tetra_rec_{0..3}` — Tetranacci recurrence at `n = 0..3`.
+  · `penta_rec_{0..2}` — Pentanacci recurrence at `n = 0..2`.
+  · Monotonicity at small indices past the seed region.
+  · ★★★★★ `kbonacci_recurrence_capstone` packages one identity
+    from each (k=2..5) family + monotonicity.
+
+Reading: rigorous Nat-decidable confirmation that the list-window-
+state definition reproduces the standard k-bonacci recurrence.
+
 ## How to verify
 
 ```bash
