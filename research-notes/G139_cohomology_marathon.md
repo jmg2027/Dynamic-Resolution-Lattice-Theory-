@@ -108,10 +108,24 @@ Pisano-analogue trio now covers Fibonacci (π=3, 2-step),
 Tribonacci (π=4, 3-step), Padovan (π=7, 3-step), Narayana (π=7,
 3-step twin to Padovan).
 
-## Phase 4 (next session candidates)
+## Phase 4 — CLOSED (1 closure, 11 PURE new)
 
-  · ∀-coprime eventual periodicity via pigeonhole on `d^n % (p-1)`
-    (universal `∃ T n₀, ∀ n ≥ n₀, …` form).
+ 11. **G139-K ∀-coprime eventual periodicity** — CLOSED
+     (`Lib/Math/Cohomology/Fractal/EventualPeriodicity.lean`, 11 PURE).
+     ★★★★★ `configCountD_eventually_periodic` —  universal
+     `∃ T n₀, ∀ n ≥ n₀, configCountD d (n + T) % p
+     = configCountD d n % p` under FLT hypothesis.
+     Forward-only pigeonhole on the exponent-layer Markov chain
+     `expSeq d m n := d^n % m` (transition
+     `expSeq (n+1) = (expSeq n * d) % m` by mul_mod_left_pure)
+     + forward propagation via Nat induction +
+     `configCountD_mod_pure` bridge.  Strict ∅-axiom via
+     match-pattern `p = p' + 2`, `NatHelper.*` lemmas, no `omega`.
+     Sister to `MulOrderPigeonhole.exists_modPow_period` but
+     INVERSE-FREE — handles the `gcd(d, p-1) ≠ 1`
+     eventually-constant regime, witnessed at `(5, 11)`.
+
+## Phase 5 (next session candidates)
   · Lucas modular period parametric (period 3 mod 2, same orbit
     as Fibonacci).
   · Padovan / Tribonacci / Narayana period parametric mod 3
@@ -123,7 +137,7 @@ Tribonacci (π=4, 3-step), Padovan (π=7, 3-step), Narayana (π=7,
   · 6-skeleton extension with multi-cell attaching map to host
     non-vacuous H^5 (pyramid pattern collapses; need branching).
 
-## Phase 5+ (deferred)
+## Phase 6+ (deferred)
 
   · Truth-table `Fintype`-style witness (`Fintype.card`-equivalent
     in 213-native Lean).
