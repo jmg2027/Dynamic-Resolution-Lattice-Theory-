@@ -107,6 +107,49 @@ theorem Pad_5_mod_3  : Pad 5  % 3 = 0 := by decide
 theorem Pad_8_mod_3  : Pad 8  % 3 = 1 := by decide
 theorem Pad_13_mod_3 : Pad 13 % 3 = 1 := by decide
 theorem Pad_14_mod_3 : Pad 14 % 3 = 1 := by decide
+theorem Pad_15_mod_3 : Pad 15 % 3 = 1 := by decide
+
+/-! ## §3' Period 13 mod 3 — parametric
+
+3-step strong induction on `n`.  Base cases at `n ∈ {0, 1, 2}`
+verified by `decide` over Padovan values at indices `≤ 15`;
+inductive step at `n + 3` uses the recurrence
+`Pad ((n+3) + 13) = Pad (n + 16) = Pad (n + 14) + Pad (n + 13)`
+combined with the matching `Pad (n + 3) = Pad (n + 1) + Pad n`.
+
+Sister to `Pad_mod_2_period_7`; same nested-induction technique
+with the modulus changed from 2 to 3. -/
+
+/-- ★ **Period 13 mod 3 for Padovan**:
+    `Pad (n + 13) % 3 = Pad n % 3` for every `n : Nat`.
+
+    Pisano-period analogue: the mod-3 orbit on `3³ = 27` triples
+    cycles through 13 distinct states before returning. -/
+theorem Pad_mod_3_period_13 : ∀ n, Pad (n + 13) % 3 = Pad n % 3
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Pad (n + 16) = Pad (n + 14) + Pad (n + 13) := by
+        show Pad ((n + 13) + 3) = Pad (n + 14) + Pad (n + 13)
+        rfl
+      have h_rhs : Pad (n + 3) = Pad (n + 1) + Pad n := rfl
+      have ih0 : Pad (n + 13) % 3 = Pad n % 3 := Pad_mod_3_period_13 n
+      have ih1 : Pad ((n + 1) + 13) % 3 = Pad (n + 1) % 3 :=
+        Pad_mod_3_period_13 (n + 1)
+      have ih1' : Pad (n + 14) % 3 = Pad (n + 1) % 3 := ih1
+      have h_lhs_mod : Pad (n + 16) % 3
+          = ((Pad (n + 14) % 3) + (Pad (n + 13) % 3)) % 3 := by
+        rw [h_lhs]; exact add_mod_gen (Pad (n + 14)) (Pad (n + 13)) 3
+      have h_rhs_mod : Pad (n + 3) % 3
+          = ((Pad (n + 1) % 3) + (Pad n % 3)) % 3 := by
+        rw [h_rhs]; exact add_mod_gen (Pad (n + 1)) (Pad n) 3
+      have h_swap : ((Pad (n + 14) % 3) + (Pad (n + 13) % 3)) % 3
+                  = ((Pad (n + 1) % 3) + (Pad n % 3)) % 3 := by
+        rw [ih0, ih1']
+      show Pad ((n + 3) + 13) % 3 = Pad (n + 3) % 3
+      have h_indices : (n + 3) + 13 = n + 16 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
 /-- Period 13 mod 3 spot check: `Pad 13 % 3 = Pad 0 % 3`. -/
 theorem Pad_13_eq_Pad_0_mod_3 : Pad 13 % 3 = Pad 0 % 3 := by decide
@@ -122,17 +165,16 @@ theorem Pad_24_eq_Pad_0_mod_5 : Pad 24 % 5 = Pad 0 % 5 := by decide
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Padovan modular-fingerprint capstone**.  Records the
-    parametric period-7 closure mod 2 alongside decide-checked
-    spot checks for the mod-3 (π = 13) and mod-5 (π = 24)
-    Pisano-period analogues. -/
+/-- ★★★ **Padovan modular-fingerprint capstone**.  Two parametric
+    Pisano-analogue closures (period 7 mod 2 + period 13 mod 3)
+    alongside decide-checked period-24 mod 5 spot check. -/
 theorem capstone :
     -- Parametric period 7 mod 2
     (∀ n, Pad (n + 7) % 2 = Pad n % 2)
-    -- Mod-3 period 13 spot check
-    ∧ Pad 13 % 3 = Pad 0 % 3
+    -- Parametric period 13 mod 3
+    ∧ (∀ n, Pad (n + 13) % 3 = Pad n % 3)
     -- Mod-5 period 24 spot check
     ∧ Pad 24 % 5 = Pad 0 % 5 :=
-  ⟨Pad_mod_2_period_7, Pad_13_eq_Pad_0_mod_3, Pad_24_eq_Pad_0_mod_5⟩
+  ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_24_eq_Pad_0_mod_5⟩
 
 end E213.Lib.Math.Cohomology.Fractal.PadovanModular

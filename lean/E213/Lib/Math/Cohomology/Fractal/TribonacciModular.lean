@@ -105,25 +105,80 @@ theorem Trib_mod_2_period_4 : ∀ n, Trib (n + 4) % 2 = Trib n % 2
       have h_indices : (n + 3) + 4 = n + 7 := by rfl
       rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
 
-/-! ## §3 Mod-3 spot check (decide-checked) -/
+/-! ## §3 Mod-3 small table (decide-checked) -/
 
 theorem Trib_0_mod_3  : Trib 0  % 3 = 0 := by decide
+theorem Trib_1_mod_3  : Trib 1  % 3 = 0 := by decide
+theorem Trib_2_mod_3  : Trib 2  % 3 = 1 := by decide
 theorem Trib_13_mod_3 : Trib 13 % 3 = 0 := by decide
+theorem Trib_14_mod_3 : Trib 14 % 3 = 0 := by decide
+theorem Trib_15_mod_3 : Trib 15 % 3 = 1 := by decide
+
+/-! ## §3' Period 13 mod 3 — parametric
+
+3-step strong induction on `n`.  Base cases at `n ∈ {0, 1, 2}`
+verified by `decide`; inductive step at `n + 3` uses the
+recurrence `Trib ((n+3) + 13) = Trib (n+16) = Trib (n+15)
++ Trib (n+14) + Trib (n+13)` combined with
+`Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n`. -/
+
+/-- ★ **Period 13 mod 3 for Tribonacci**:
+    `Trib (n + 13) % 3 = Trib n % 3` for every `n : Nat`.
+
+    Sister to the mod-2 period 4 result; same 3-step induction
+    technique with the modulus changed from 2 to 3 and the
+    period from 4 to 13. -/
+theorem Trib_mod_3_period_13 : ∀ n, Trib (n + 13) % 3 = Trib n % 3
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Trib (n + 16) = Trib (n + 15) + Trib (n + 14) + Trib (n + 13) := by
+        show Trib ((n + 13) + 3) = Trib (n + 15) + Trib (n + 14) + Trib (n + 13)
+        rfl
+      have h_rhs : Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n := rfl
+      have ih0 : Trib (n + 13) % 3 = Trib n % 3 := Trib_mod_3_period_13 n
+      have ih1 : Trib ((n + 1) + 13) % 3 = Trib (n + 1) % 3 :=
+        Trib_mod_3_period_13 (n + 1)
+      have ih2 : Trib ((n + 2) + 13) % 3 = Trib (n + 2) % 3 :=
+        Trib_mod_3_period_13 (n + 2)
+      have ih1' : Trib (n + 14) % 3 = Trib (n + 1) % 3 := ih1
+      have ih2' : Trib (n + 15) % 3 = Trib (n + 2) % 3 := ih2
+      have h_lhs_mod : Trib (n + 16) % 3
+          = ((Trib (n + 15) + Trib (n + 14)) % 3 + (Trib (n + 13) % 3)) % 3 := by
+        rw [h_lhs]
+        exact add_mod_gen (Trib (n + 15) + Trib (n + 14)) (Trib (n + 13)) 3
+      have h_lhs_mod' : (Trib (n + 15) + Trib (n + 14)) % 3
+          = ((Trib (n + 15) % 3) + (Trib (n + 14) % 3)) % 3 :=
+        add_mod_gen (Trib (n + 15)) (Trib (n + 14)) 3
+      have h_rhs_mod : Trib (n + 3) % 3
+          = ((Trib (n + 2) + Trib (n + 1)) % 3 + (Trib n % 3)) % 3 := by
+        rw [h_rhs]
+        exact add_mod_gen (Trib (n + 2) + Trib (n + 1)) (Trib n) 3
+      have h_rhs_mod' : (Trib (n + 2) + Trib (n + 1)) % 3
+          = ((Trib (n + 2) % 3) + (Trib (n + 1) % 3)) % 3 :=
+        add_mod_gen (Trib (n + 2)) (Trib (n + 1)) 3
+      have h_swap : ((Trib (n + 15) % 3) + (Trib (n + 14) % 3)) % 3
+                  = ((Trib (n + 2) % 3) + (Trib (n + 1) % 3)) % 3 := by
+        rw [ih1', ih2']
+      show Trib ((n + 3) + 13) % 3 = Trib (n + 3) % 3
+      have h_indices : (n + 3) + 13 = n + 16 := by rfl
+      rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
 
 /-- Period 13 mod 3 spot check: `Trib 13 % 3 = Trib 0 % 3`. -/
 theorem Trib_13_eq_Trib_0_mod_3 : Trib 13 % 3 = Trib 0 % 3 := by decide
 
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Tribonacci modular-fingerprint capstone**.  Records the
-    parametric period-4 closure mod 2 alongside the decide-checked
-    period-13 mod 3 spot check.  Sister to `PadovanModular.capstone`
-    (Padovan: period 7 mod 2, period 13 mod 3, period 24 mod 5). -/
+/-- ★★★ **Tribonacci modular-fingerprint capstone**.  Two
+    parametric Pisano closures: period 4 mod 2 + period 13 mod 3.
+    Sister to `PadovanModular.capstone` (period 7 mod 2 + period
+    13 mod 3 parametric, mod 5 spot-check). -/
 theorem capstone :
     -- Parametric period 4 mod 2
     (∀ n, Trib (n + 4) % 2 = Trib n % 2)
-    -- Mod-3 period 13 spot check
-    ∧ Trib 13 % 3 = Trib 0 % 3 :=
-  ⟨Trib_mod_2_period_4, Trib_13_eq_Trib_0_mod_3⟩
+    -- Parametric period 13 mod 3
+    ∧ (∀ n, Trib (n + 13) % 3 = Trib n % 3) :=
+  ⟨Trib_mod_2_period_4, Trib_mod_3_period_13⟩
 
 end E213.Lib.Math.Cohomology.Fractal.TribonacciModular

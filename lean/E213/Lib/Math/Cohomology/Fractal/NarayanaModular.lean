@@ -102,15 +102,66 @@ theorem Nara_mod_2_period_7 : ∀ n, Nara (n + 7) % 2 = Nara n % 2
       have h_indices : (n + 3) + 7 = n + 10 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
-/-! ## §3 Capstone -/
+/-! ## §3 Mod-3 small table (decide-checked) -/
 
-/-- ★★★ **Narayana modular-fingerprint capstone**.  Parametric
-    period-7 mod 2 — Pisano-analogue TWIN to Padovan (same period,
-    different cycle).  Completes the 3-step Pisano-analogue trio:
-    Padovan (π = 7), Tribonacci (π = 4), Narayana (π = 7). -/
+theorem Nara_0_mod_3  : Nara 0  % 3 = 1 := by decide
+theorem Nara_1_mod_3  : Nara 1  % 3 = 1 := by decide
+theorem Nara_2_mod_3  : Nara 2  % 3 = 1 := by decide
+theorem Nara_8_mod_3  : Nara 8  % 3 = 1 := by decide
+theorem Nara_9_mod_3  : Nara 9  % 3 = 1 := by decide
+theorem Nara_10_mod_3 : Nara 10 % 3 = 1 := by decide
+
+/-! ## §4 Period 8 mod 3 — parametric
+
+3-step strong induction on `n`.  Base cases at `n ∈ {0, 1, 2}`
+verified by `decide`; inductive step at `n + 3` uses the
+Narayana recurrence `Nara ((n+8)+3) = Nara (n+11)
+= Nara (n+10) + Nara (n+8)` (one-shift: no middle term)
+combined with `Nara (n + 3) = Nara (n + 2) + Nara n`. -/
+
+/-- ★ **Period 8 mod 3 for Narayana**:
+    `Nara (n + 8) % 3 = Nara n % 3` for every `n : Nat`.
+
+    Mod-3 period for Narayana is 8 (vs. Padovan's 13) — the
+    one-shift recurrence on different-modulus orbits diverges
+    even when the mod-2 periods match. -/
+theorem Nara_mod_3_period_8 : ∀ n, Nara (n + 8) % 3 = Nara n % 3
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Nara (n + 11) = Nara (n + 10) + Nara (n + 8) := by
+        show Nara ((n + 8) + 3) = Nara (n + 10) + Nara (n + 8)
+        rfl
+      have h_rhs : Nara (n + 3) = Nara (n + 2) + Nara n := rfl
+      have ih0 : Nara (n + 8) % 3 = Nara n % 3 := Nara_mod_3_period_8 n
+      have ih2 : Nara ((n + 2) + 8) % 3 = Nara (n + 2) % 3 :=
+        Nara_mod_3_period_8 (n + 2)
+      have ih2' : Nara (n + 10) % 3 = Nara (n + 2) % 3 := ih2
+      have h_lhs_mod : Nara (n + 11) % 3
+          = ((Nara (n + 10) % 3) + (Nara (n + 8) % 3)) % 3 := by
+        rw [h_lhs]; exact add_mod_gen (Nara (n + 10)) (Nara (n + 8)) 3
+      have h_rhs_mod : Nara (n + 3) % 3
+          = ((Nara (n + 2) % 3) + (Nara n % 3)) % 3 := by
+        rw [h_rhs]; exact add_mod_gen (Nara (n + 2)) (Nara n) 3
+      have h_swap : ((Nara (n + 10) % 3) + (Nara (n + 8) % 3)) % 3
+                  = ((Nara (n + 2) % 3) + (Nara n % 3)) % 3 := by
+        rw [ih0, ih2']
+      show Nara ((n + 3) + 8) % 3 = Nara (n + 3) % 3
+      have h_indices : (n + 3) + 8 = n + 11 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
+/-! ## §5 Capstone -/
+
+/-- ★★★ **Narayana modular-fingerprint capstone**.  Two
+    parametric Pisano closures: period 7 mod 2 (twin to Padovan)
+    + period 8 mod 3 (one-shift recurrence diverges from
+    Padovan's mod-3 period 13). -/
 theorem capstone :
     -- Parametric period 7 mod 2 (Pisano twin to Padovan)
-    (∀ n, Nara (n + 7) % 2 = Nara n % 2) :=
-  Nara_mod_2_period_7
+    (∀ n, Nara (n + 7) % 2 = Nara n % 2)
+    -- Parametric period 8 mod 3 (diverges from Padovan's 13)
+    ∧ (∀ n, Nara (n + 8) % 3 = Nara n % 3) :=
+  ⟨Nara_mod_2_period_7, Nara_mod_3_period_8⟩
 
 end E213.Lib.Math.Cohomology.Fractal.NarayanaModular

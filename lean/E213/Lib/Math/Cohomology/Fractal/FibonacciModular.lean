@@ -93,26 +93,67 @@ theorem Fib_mod_2_period_3 : ∀ n, Fib (n + 3) % 2 = Fib n % 2
       have h_indices : (n + 2) + 3 = n + 5 := by rfl
       rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
-/-! ## §3 Mod-3 spot check (decide-checked) -/
+/-! ## §3 Mod-3 small table (decide-checked) -/
 
-theorem Fib_8_mod_3 : Fib 8 % 3 = 0 := by decide
-theorem Fib_0_mod_3 : Fib 0 % 3 = 0 := by decide
+theorem Fib_0_mod_3  : Fib 0  % 3 = 0 := by decide
+theorem Fib_1_mod_3  : Fib 1  % 3 = 1 := by decide
+theorem Fib_8_mod_3  : Fib 8  % 3 = 0 := by decide
+theorem Fib_9_mod_3  : Fib 9  % 3 = 1 := by decide
+theorem Fib_10_mod_3 : Fib 10 % 3 = 1 := by decide
+
+/-! ## §3' Period 8 mod 3 — parametric
+
+2-step strong induction on `n`.  Base cases at `n ∈ {0, 1}`
+verified by `decide`; inductive step at `n + 2` uses the
+recurrence `Fib ((n+2) + 8) = Fib (n+10) = Fib (n+9) + Fib (n+8)`
+combined with `Fib (n + 2) = Fib (n + 1) + Fib n`. -/
+
+/-- ★ **Classical Pisano period 8 mod 3 for Fibonacci**:
+    `Fib (n + 8) % 3 = Fib n % 3` for every `n : Nat`.
+
+    Sister to the mod-2 period 3 result; same 2-step induction
+    technique with modulus changed from 2 to 3. -/
+theorem Fib_mod_3_period_8 : ∀ n, Fib (n + 8) % 3 = Fib n % 3
+  | 0     => by decide
+  | 1     => by decide
+  | n + 2 => by
+      have h_lhs : Fib (n + 10) = Fib (n + 9) + Fib (n + 8) := by
+        show Fib ((n + 8) + 2) = Fib (n + 9) + Fib (n + 8)
+        rfl
+      have h_rhs : Fib (n + 2) = Fib (n + 1) + Fib n := rfl
+      have ih0 : Fib (n + 8) % 3 = Fib n % 3 := Fib_mod_3_period_8 n
+      have ih1 : Fib ((n + 1) + 8) % 3 = Fib (n + 1) % 3 :=
+        Fib_mod_3_period_8 (n + 1)
+      have ih1' : Fib (n + 9) % 3 = Fib (n + 1) % 3 := ih1
+      have h_lhs_mod : Fib (n + 10) % 3
+          = ((Fib (n + 9) % 3) + (Fib (n + 8) % 3)) % 3 := by
+        rw [h_lhs]; exact add_mod_gen (Fib (n + 9)) (Fib (n + 8)) 3
+      have h_rhs_mod : Fib (n + 2) % 3
+          = ((Fib (n + 1) % 3) + (Fib n % 3)) % 3 := by
+        rw [h_rhs]; exact add_mod_gen (Fib (n + 1)) (Fib n) 3
+      have h_swap : ((Fib (n + 9) % 3) + (Fib (n + 8) % 3)) % 3
+                  = ((Fib (n + 1) % 3) + (Fib n % 3)) % 3 := by
+        rw [ih0, ih1']
+      show Fib ((n + 2) + 8) % 3 = Fib (n + 2) % 3
+      have h_indices : (n + 2) + 8 = n + 10 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
 
 /-- Period 8 mod 3 spot check: `Fib 8 % 3 = Fib 0 % 3`. -/
 theorem Fib_8_eq_Fib_0_mod_3 : Fib 8 % 3 = Fib 0 % 3 := by decide
 
 /-! ## §4 Capstone -/
 
-/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Classical
-    Pisano period 3 mod 2 parametric closure + decide-checked
-    period-8 mod 3 spot check.  Sister to `PadovanModular.capstone`
-    (period 7 mod 2 / 13 mod 3 / 24 mod 5) and
-    `TribonacciModular.capstone` (period 4 mod 2 / 13 mod 3). -/
+/-- ★★★ **Fibonacci modular-fingerprint capstone**.  Two
+    parametric classical Pisano closures: period 3 mod 2 +
+    period 8 mod 3.  Sister to `PadovanModular.capstone`
+    (period 7 mod 2 + period 13 mod 3 parametric, mod 5
+    spot-check) and `TribonacciModular.capstone` (period 4
+    mod 2 parametric + mod 3 spot-check). -/
 theorem capstone :
     -- Parametric period 3 mod 2 (classical Pisano)
     (∀ n, Fib (n + 3) % 2 = Fib n % 2)
-    -- Mod-3 period 8 spot check
-    ∧ Fib 8 % 3 = Fib 0 % 3 :=
-  ⟨Fib_mod_2_period_3, Fib_8_eq_Fib_0_mod_3⟩
+    -- Parametric period 8 mod 3
+    ∧ (∀ n, Fib (n + 8) % 3 = Fib n % 3) :=
+  ⟨Fib_mod_2_period_3, Fib_mod_3_period_8⟩
 
 end E213.Lib.Math.Cohomology.Fractal.FibonacciModular
