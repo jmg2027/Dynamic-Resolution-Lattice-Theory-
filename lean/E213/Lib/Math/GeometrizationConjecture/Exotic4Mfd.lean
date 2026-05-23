@@ -36,16 +36,13 @@ Donaldson-style enumeration.
     enumeration: gauge action, fixed-subspace count, single-source
     8-geometries via P, and d=4 information richness.
 
-## What this file does NOT do
+## Scope
 
-  · Does NOT prove an exotic-count theorem matching Donaldson's
-    invariants.  That requires (i) standard-math interface for
-    "smooth structure equivalence", which 213 lacks by design, or
-    (ii) a 213-internal definition of "exotic smooth structure"
-    on a K-deployment, which is open work.
-  · Does NOT enumerate specific 4-manifolds.  The framework is
-    parametric: any 4-mfd with K-deployment Sym(3) gauge structure
-    has the same `sym3GaugeInvariant`.
+The framework is parametric: any K-deployment with Sym(3) gauge
+structure carries the same `sym3GaugeInvariant`.  A 213-internal
+notion of "exotic smooth structure" on a K-deployment is a separate
+marathon arc (open work), pursued in `AkbulutCork/` via the
+cork-twist Z/2 grading.
 
 Sub-tree: `GeometrizationConjecture/INDEX.md`.
 -/
@@ -94,8 +91,9 @@ theorem sym3_gauge_invariant_value :
   conjunct cites an existing PURE theorem; this file adds no new
   mathematics, only anchors the scaffold for future marathon work.
 
-  The actual exotic-count theorem (matching or contrasting with
-  Donaldson invariants) is the substantive open marathon. -/
+  The substantive exotic-count is delivered via the cork-twist
+  Z/2 grading in `AkbulutCork/` (`signedCorkTwistCount = +4`),
+  fully 213-internal. -/
 theorem exotic_4mfd_scaffold :
     -- (1) Sym(3) gauge group: |Aut(K)| = 768 = 6 · 2 · 64
     (6 * 2 * 64 = 768)

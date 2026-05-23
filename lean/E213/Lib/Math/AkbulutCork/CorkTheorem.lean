@@ -132,13 +132,11 @@ theorem cork_uniqueness_capstone :
     · **Embedding**: K_{1,4} tree coexists with K_{3,2}^{(c=2)}
       critical at chartBase = 5 (per `chartBase_5_tree_and_critical_coexist`)
     · **Signed exotic-count**: `signedCorkTwistCount = 4` —
-      213-native analog of Donaldson invariants, fully 213-internal
+      213-native analog of Donaldson invariants
 
-  This is the **complete supersession** of FW-1: where FW-1 was
-  blocked at the 213/standard-math boundary by signed-Donaldson's
-  external interface requirements, the cork-frame gives a
-  213-native signed exotic-count entirely from existing E213
-  infrastructure. -/
+  The cork-frame supersedes FW-1: the signed exotic-count is
+  delivered entirely from existing E213 infrastructure via the
+  Z/2 cork-twist grading on Sym(3)-orbits. -/
 theorem akbulut_cork_213_native :
     -- Phase 1: cork data type witnesses
     K14_cork.contractible_b1 = 0

@@ -21,3 +21,5 @@ derivation+citation+dual-function+cross-frame+self-check
 |-------|---------------------|-----------------|
 | `kplus1_alpha_power_graduation.md` | What is `(k+1)` in 213? Why does H^k → α^(k+1)? | `math/cohomology/cup_ladder_graduation.md` + `physics/alpha_em/precision_derivation.md` C1 Step 6 |
 | `steenrod_whitehead_bridge.md` | Why does `cup_1(ω, ω) = δ²(ω)` hold at K_{3,2}^{(c=2)}? | `math/cohomology/k32_higher_cohomology.md` + `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` |
+| `4mfd_geometrization_joint_reading.md` | How does 213 read 4-mfd geometrization (cork twist + JSJ + Heegaard jointly)? | `math/exotic_4mfd_cork.md` + `math/geometrization_conjecture.md` + `lean/E213/Lib/Math/AkbulutCork/CrossFrame.lean` |
+| `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and cork +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` + `math/exotic_4mfd_cork.md` + `lean/E213/Lib/Math/AkbulutCork/CrossFrame.lean` |

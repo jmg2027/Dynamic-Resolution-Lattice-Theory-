@@ -2,6 +2,10 @@ import E213.Lib.Math.AkbulutCork.Foundation
 import E213.Lib.Math.AkbulutCork.Twist
 import E213.Lib.Math.AkbulutCork.SignedOrbits
 import E213.Lib.Math.AkbulutCork.CorkTheorem
+import E213.Lib.Math.AkbulutCork.HigherTwist
+import E213.Lib.Math.AkbulutCork.H3Twist
+import E213.Lib.Math.AkbulutCork.MultiCork
+import E213.Lib.Math.AkbulutCork.CrossFrame
 
 /-!
 # AkbulutCork — umbrella
