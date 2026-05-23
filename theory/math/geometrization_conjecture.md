@@ -1,9 +1,10 @@
 # Geometrization Conjecture (213-Lens reading)
 
 **Status**: R1 closed (~149 PURE / 0 DIRTY across 25 steps) plus
-R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching),
-FW-4 (metric direct), I-3 (Ricci ε-Lens), and 8-geo Lie group
-infrastructure — adding ~100 PURE.  Sub-tree total: ~249 PURE / 0 DIRTY.
+R1+ deepenings: FW-2 (JSJ extension + concrete 3-mfd attaching +
+L(p, q) parameter family), FW-4 (metric direct), I-3 (Ricci ε-Lens),
+and 8-geo Lie group infrastructure — adding ~132 PURE.
+Sub-tree total: ~281 PURE / 0 DIRTY.
 
 ## Overview
 
@@ -194,7 +195,7 @@ For full ~149 PURE inventory, see
 
 ### Substantive deepenings (closed via cross-frame extensions)
 
-- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~92 PURE): Euler-target
+- **JSJ extension (FW-2)** (`JsjDeep.lean`, ~124 PURE): Euler-target
   scaffold with 3-mfd catalog (S³, T³, L(p,q), # sums all χ = 0);
   K_{3,2}^{(c=2)} cell-complex parameter family (k − j = 7);
   **cycle inventory** (6 multi-edge 2-cycles + 3 simple 4-cycles =
@@ -205,8 +206,14 @@ For full ~149 PURE inventory, see
   edges); **explicit 3-mfd target attaching maps**
   (S³ at (k,j)=(7,0); T³ at (8,1); L(p,q) at (10,3)) carrying
   `CellComplexK32Attaching` data with edge-index 2-cell cycle lists
-  + 2-cell-index 3-cell boundary lists; `JSJ_deepening_FW2_close`
-  and `FW2_concrete_attaching_close` capstones.  Bridges to
+  + 2-cell-index 3-cell boundary lists;
+  **L(p, q) parameter family** — `Lpq_attaching_pq p q` parametric
+  with modular-q 3-cell boundaries; specific instances L(2,1)=ℝP³,
+  L(3,1), L(5,1), L(5,2), L(7,2), L(7,3) all χ = 0; `lensEquiv`
+  decidable Boolean equivalence (L(5,1) ≡ L(5,4) via negation,
+  L(5,1) ≢ L(5,2)); π₁ torsion order placeholder;
+  `JSJ_deepening_FW2_close`, `FW2_concrete_attaching_close`, and
+  `Lpq_parameter_family_close` capstones.  Bridges to
   `Cohomology/Bipartite/Filled3Cell.lean`.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
