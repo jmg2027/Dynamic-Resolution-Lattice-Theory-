@@ -246,4 +246,60 @@ theorem QpSeq.inv_num (p : Nat) (hp : 1 < p) (a : QpSeq p)
       = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
             (Zp.invFull p (Nat.lt_of_succ_lt hp) a.num h_gcd) := rfl
 
+/-! ## Square root on ℚ_p
+
+For `a = (num, shift)`, the square root satisfies
+`sqrt(a) = (sqrtFull(num), shift / 2)`.  This requires the shift
+to be **even**: in p-adic terms, `√p` does not exist in `ℚ_p`,
+so we only define sqrt when `shift = 2 · k` for some `k`.
+
+The shift-even hypothesis is taken as `a.shift = 2 * (a.shift / 2)`
+— a clean PURE statement equivalent to `a.shift % 2 = 0`.
+-/
+
+/-- Square root on `QpSeq` (requires sqrt base for numerator
+    and even shift). -/
+def QpSeq.sqrt (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (sb : Zp.SqrtBase p a.num)
+    (_heven : a.shift = 2 * (a.shift / 2)) : QpSeq p where
+  num := Zp.sqrtFull p (Nat.lt_of_succ_lt hp) a.num sb
+  shift := a.shift / 2
+
+/-- Shift of `QpSeq.sqrt` is `a.shift / 2`. -/
+theorem QpSeq.sqrt_shift (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (sb : Zp.SqrtBase p a.num)
+    (heven : a.shift = 2 * (a.shift / 2)) :
+    (QpSeq.sqrt p hp a sb heven).shift = a.shift / 2 := rfl
+
+/-- Numerator of `QpSeq.sqrt` is `Zp.sqrtFull a.num`. -/
+theorem QpSeq.sqrt_num (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (sb : Zp.SqrtBase p a.num)
+    (heven : a.shift = 2 * (a.shift / 2)) :
+    (QpSeq.sqrt p hp a sb heven).num
+      = Zp.sqrtFull p (Nat.lt_of_succ_lt hp) a.num sb := rfl
+
+/-- The shift of `sqrt² = sqrt · sqrt` matches `a.shift` via the
+    even-shift hypothesis. -/
+theorem QpSeq.sqr_sqrt_shift (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (sb : Zp.SqrtBase p a.num)
+    (heven : a.shift = 2 * (a.shift / 2)) :
+    (QpSeq.mul p (Nat.lt_of_succ_lt hp)
+      (QpSeq.sqrt p hp a sb heven)
+      (QpSeq.sqrt p hp a sb heven)).shift = a.shift := by
+  show a.shift / 2 + a.shift / 2 = a.shift
+  rw [show a.shift / 2 + a.shift / 2 = 2 * (a.shift / 2) by
+        rw [Nat.two_mul]]
+  exact heven.symm
+
+/-- **ℚ_p sqrt correctness** (numerator part):
+    `(sqrt a)² .num ≡ a.num (mod p^(n+1))` for all `n`. -/
+theorem QpSeq.sqr_sqrt_num_correct (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (sb : Zp.SqrtBase p a.num)
+    (heven : a.shift = 2 * (a.shift / 2)) (n : Nat) :
+    ((QpSeq.mul p (Nat.lt_of_succ_lt hp)
+      (QpSeq.sqrt p hp a sb heven)
+      (QpSeq.sqrt p hp a sb heven)).num).trunc (n + 1)
+      = a.num.trunc (n + 1) :=
+  Zp.sqr_sqrtFull_correct p hp a.num sb n
+
 end E213.Lib.Math.Padic
