@@ -1401,3 +1401,54 @@ loop-count correspondence + explicit cup-axiom gap documentation.
   | `(α/d)^(k+1)` at k = 1, 2 | PROVED (decide) |
   | `(k+1) = loop count + 1` | POSIT (physics-motivated, this file) |
   | Cup-axiom derivation of `(k+1)` | OPEN (higher cup / Steenrod) |
+
+## 2026-05-23 — Phase 9 cup-i framework (SteenrodHigherFrame + FaceCupHigher)
+
+Establishes the cup-i operation framework (Steenrod's higher cup
+products) as the first step toward deriving `(k+1)` α-power
+graduation from cup-product axioms.  Two-file deliverable
+(21 PURE / 0 DIRTY).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Cup.SteenrodHigherFrame` | 11 | `CupIType n k l i := Cochain n k → Cochain n l → Cochain n (k+l-i)` (cup-i type signature framework); `cup_0 n k l := cup n k l` (base case = standard cup); ★ `cup_0_eq_cup_at_5_1_1`; `cup_1_5_1_1 α β i := α i && β i` (pointwise diagonal at base arity); ★★★ `cup_1_zero_left`, `cup_1_symmetric`, `cup_1_all_true_self`; `cup_1_5_1_2` (next arity, edge ⌣_1 face → edge); `cup_1_5_1_2_zero_alpha`; ★★★★★★★★ `steenrod_higher_frame_master` (5-conjunct capstone) |
+| `E213.Lib.Math.Cohomology.Bipartite.FaceCupHigher` | 10 | `face_cup_2 α β i := α i && β i` (cup-2 on K_{3,2}^{(c=2)} face cochains, landing back at degree 2); ★★★ `face_cup_2_symmetric`, `face_cup_2_zero_left`; ★★★★ `omega_cup_2_self : ω ⌣_2 ω = (true, true, true)`; ★★★★ `omega_cup_2_self_eq_omega : ω ⌣_2 ω = ω` (ω idempotent under face_cup_2); ★★★★ `omega_cup_2_self_trace_eq_NS_sq : bilinearSelfTrace (ω ⌣_2 ω) = 9 = NS²`; ★★★★★ `omega_cup_2_trace_matches_direct` (cup-i route gives same L²-pairing as direct bilinear); ★★★★★★★★ `face_cup_higher_master` (6-conjunct capstone) |
+
+**Cup-i framework structural content**:
+
+  · The cup-i family `cup_i : Cochain n k × Cochain n l → Cochain n (k+l-i)`
+    is parameterised by the degree reduction `i`.
+  · `cup_0` recovers the existing Alexander-Whitney lex-projection
+    cup product (`Cup/Core.lean`).
+  · At the K_{3,2}^{(c=2)} face level: `face_cup_2 (ω, ω) = ω`
+    (idempotent) with trace = NS² = 9 matching Phase 6's
+    bilinearSelfTrace.
+  · The cup-i ladder
+
+        ω ⌣_0 ω : C⁴ (off-complex, vanishes in 2-skeleton)
+        ω ⌣_1 ω : C³ (off-complex, vanishes in 2-skeleton)
+        ω ⌣_2 ω : C² (back to face cochain) ★
+
+    shows cup_2 is the natural self-pairing landing in the
+    existing complex at H².
+
+**Status of `(k+1)` derivation from cup_i ladder**:
+
+  | Component | Status |
+  |-----------|--------|
+  | cup-i type framework | DEFINED |
+  | cup_0 = standard cup (consistency) | PROVED |
+  | cup_1 at base arities | DEFINED + smoke-tested |
+  | face_cup_2 on K_{3,2}^{(c=2)} face cochains | DEFINED |
+  | ω idempotent under face_cup_2 | PROVED |
+  | cup_i ladder structural content | DEFINED |
+  | General cup_i for arbitrary i ≥ 2 | OPEN (Alexander-Whitney) |
+  | Adem / Cartan / Steenrod algebra | OPEN |
+  | `(k+1)` graduation from cup_i + 3-cell extension | OPEN |
+
+The cup-i framework provides the infrastructure within which the
+`(k+1)` derivation can be pursued in future phases.  Full closure
+requires (a) general Steenrod cup_i with the full
+Alexander-Whitney face-pair formula, and (b) 3-skeleton extension
+of `K_{3,2}^{(c=2)}` so that cup_1(ω, ω) at degree 3 lands at top
+of a 3-skeleton, recovering the `(k+1) = 3` graduation.

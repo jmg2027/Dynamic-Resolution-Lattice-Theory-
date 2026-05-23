@@ -312,6 +312,34 @@ The Phase 9+ frontier requires extending `Math/Cohomology/Cup/`
 with higher cup operations (cup_i, Steenrod squares), Massey
 products, or filtration spectral sequences.
 
+### G132 Phase 9 — cup-i framework DONE 2026-05-23
+
+Two new files, 21 PURE / 0 DIRTY:
+
+  · `Math/Cohomology/Cup/SteenrodHigherFrame.lean` (11 PURE)
+    — cup-i type signature framework `CupIType n k l i :=
+    Cochain n k → Cochain n l → Cochain n (k+l-i)`; cup_0 base
+    case (= standard cup); cup_1 at arities (5,1,1), (5,1,2)
+  · `Math/Cohomology/Bipartite/FaceCupHigher.lean` (10 PURE)
+    — face_cup_2 on K_{3,2}^{(c=2)} face cochains; ω idempotent
+    under face_cup_2; trace matches Phase 6 bilinearSelfTrace = NS²
+
+Cup-i ladder on ω at H²:
+
+      ω ⌣_0 ω : C⁴ (off-complex)
+      ω ⌣_1 ω : C³ (off-complex, 3-cell extension needed)
+      ω ⌣_2 ω : C² (back to face, idempotent: = ω) ★
+
+Status of (k+1) derivation (post-Phase 9):
+
+  | Component | Status |
+  |-----------|--------|
+  | cup-i type framework | DEFINED |
+  | cup_0 = standard cup | PROVED |
+  | face_cup_2 on K_{3,2}^{(c=2)} | DEFINED + ω-idempotent proved |
+  | Full Steenrod cup_i (general i) | OPEN |
+  | (k+1) graduation from cup_i + 3-cell extension | OPEN (multi-session) |
+
 ### Original campaign log (preserved for git-history reference)
 
 **Source**: n-u-followup HANDOFF flagged "Structural derivation of the
@@ -510,6 +538,8 @@ substantive Phase 6 integration.
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Cup/SteenrodHigherFrame.lean` | **G132 Phase 9.1** — cup-i type framework + cup_0/cup_1 base instances |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCupHigher.lean` | **G132 Phase 9.2** — face_cup_2 on K_{3,2}^{(c=2)}; ω idempotent |
 | `lean/E213/Lib/Physics/AlphaEM/LoopVertexGraduation.lean` | **G132 Phase 8** — cohomology ↔ loop-vertex correspondence + cup-axiom gap |
 | `lean/E213/Lib/Physics/AlphaEM/PerLayerCoupling.lean` | **G132 Phase 7** — per-layer coupling (α/d)^(k+1) factorisation |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/SelfPairingTrace.lean` | **G132 Phase 6** — L²-pairing rule proved as universal Nat identity |
