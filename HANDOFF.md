@@ -100,7 +100,7 @@ Currently still open:
     `Zp.valEq`, `Zp.valEq_unique`.  Propositional valuation
     framework avoiding `WithTop`.
 
-**Padic total: 287 PURE / 0 DIRTY across 7 modules.**
+**Padic total: 290 PURE / 0 DIRTY across 7 modules.**
 
 **Hensel inverse construction (CLOSED)**:
   · Full general `mul_invSeq_correct` and `mul_invFull_correct`.
@@ -134,7 +134,7 @@ Currently still open:
   · `valEq_add_of_lt`: when valuations differ, the smaller one
     dominates (`val(x + y) = min(val(x), val(y))` for `val(x) ≠ val(y)`).
 
-**Power + Teichmüller (this stretch — new module `Pow.lean`)**:
+**Power + Teichmüller (new module `Pow.lean`)**:
   · `Zp.pow x n` recursive definition via `Zp.mul`.
   · `pow_trunc`: `(x^n).trunc m = (x.trunc m)^n % p^m` (homomorphism).
   · `pow_add_trunc`, `pow_mul_trunc`: pow distributes over + in
@@ -146,6 +146,19 @@ Currently still open:
     iterating `x ↦ x^p` preserves digit 0 mod p — first step of
     Teichmüller convergence.
   · Smokes: `2^5 ≡ 2 mod 5`, `2^4 ≡ 1 mod 5`, 3-iterate-of-2.
+
+**Ring structure completion (this stretch)**:
+  · `Zp.add_neg_self_trunc`: `(x + (-x)).trunc (n+1) = 0`.  Closes
+    the additive-inverse axiom at trunc level.  Combined with the
+    existing add/mul/distrib trunc theorems, ZpSeq (mod p^n) is a
+    full commutative ring (mod p^n).
+  · `Zp.add_complement_trunc_eq_neg_one`: helper showing
+    `(x + complement x).trunc n = (neg_one).trunc n`.
+
+**Hensel uniqueness (this stretch)**:
+  · `Zp.inv_trunc_unique`: any two trunc-level inverses of `x` agree.
+    Cancellation by left-multiplying with `invFull x` and using
+    `mul_trunc_assoc` + `mul_trunc_comm` + `mul_invFull_correct`.
 
 **Headline result this session**: the general `Zp.mul_trunc` bridge —
 `(Zp.mul x y).trunc n = (x.trunc n · y.trunc n) % p^n` for arbitrary
