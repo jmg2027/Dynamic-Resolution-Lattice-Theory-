@@ -64,18 +64,33 @@ the only computational content.
   · `theory/math/geometrization_conjecture.md` — Ricci flow
     derivation (host of `IsRicciModulus`).
 
-## Open frontier — Option B
+## Option B (categorical functor) — closed (ModulusStructureFunctor.lean, 12 PURE)
 
-Option B would lift this to a full categorical formulation:
-define morphisms between the three source structures
-(`IsContinuousModulus`, `IsRicciModulus`, `bracketCauchy*`) and
-prove the 3-way bridge is a functor / adjunction.  The current
-Option-A close gives the *typeclass-level* parallel without
-committing to a specific morphism formalisation; lifting to
-Option B requires (a) defining the category of cochain-function
-moduli, (b) defining the category of Nat→Nat moduli, (c)
-constructing the functor.  Substantial formalisation effort,
-deferred until a downstream theorem requires the functor itself.
+`Lib/Math/Topology/ModulusStructureFunctor.lean` lifts the Option A
+typeclass parallel to a **category-with-functor** formulation:
+
+  · `ModHom m₁ m₂` — morphism in the category of modulus
+    structures.  Carries a Nat-to-Nat reindexing `map` and the
+    order-preservation `preserves : ∀ k, m₂(map k) ≥ m₁(k)`.
+  · `ModHom.id` / `ModHom.comp` — identity + composition.
+  · Category laws at the `map`-projection level: `id_comp`,
+    `comp_id`, `comp_assoc` — all `rfl`.
+  · Concrete cross-source morphisms:
+    - `bracketCauchy_to_ident` (Bracket-Cauchy L=3 → Identity,
+      via `map k = 3k`)
+    - `ident_to_bracketCauchy_L1` (Identity → Bracket-Cauchy L=1,
+      via `map = id`)
+  · ★★★★★ `modulus_structure_option_B_capstone` packages the
+    morphism existence + category laws + cross-source bridge +
+    functor witness.
+
+Reading: the three modulus-source structures from
+`Topology.Continuity`, `GeometrizationConjecture.Ricci`, and
+bracket-Cauchy moduli are objects in a Lean-formalised category
+with `ModHom` arrows, identity, and associative composition.
+The functor-level bridge between sources is established;
+full adjunction (left / right adjoints between source categories
+themselves) requires additional machinery as a follow-up.
 
 ## Self-reference
 
