@@ -1,5 +1,6 @@
 import E213.Lib.Math.Padic.Foundation
 import E213.Lib.Math.Padic.Arith
+import E213.Lib.Math.ModArith.UniversalFLT
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
@@ -114,5 +115,77 @@ theorem Zp.pow_add_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (k m n : Nat) :
   -- Goal: ((x.trunc k)^m * (x.trunc k)^n) % p^k
   --     = ((x.trunc k)^m % p^k * ((x.trunc k)^n % p^k)) % p^k
   exact E213.Meta.Nat.MulMod213.mul_mod_pure _ _ _
+
+/-- PURE: `a^p = a^(p - 1) * a` for `0 < p`. -/
+private theorem pow_pred_eq (a p : Nat) (hp : 0 < p) :
+    a^p = a^(p - 1) * a := by
+  cases p with
+  | zero => exact absurd hp (Nat.lt_irrefl 0)
+  | succ k =>
+    show a^(k + 1) = a^(k + 1 - 1) * a
+    rw [show k + 1 - 1 = k from rfl]
+    exact Nat.pow_succ a k
+
+/-! ## Fermat's little theorem on `ZpSeq`
+
+For p prime, `x^p ≡ x (mod p)` for any `x : ZpSeq p`.  This is the
+first-digit case of the Teichmüller convergence: iterating `x ↦ x^p`
+fixes the digit-0 mod p.
+-/
+
+/-- **Fermat's lift to digit-0**: for `p` prime (encoded as
+    `prime_gcd p`), `(Zp.pow x p).trunc 1 = x.trunc 1`.
+
+    Proof: `(x^p).trunc 1 = (x.trunc 1)^p % p`.  By Fermat
+    (`universal_flt_main`), `a^(p-1) ≡ 1 (mod p)`, so `a^p ≡ a (mod p)`.
+    Since `x.trunc 1 < p`, the mod is trivial. -/
+theorem Zp.pow_p_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m
+                  → m < p
+                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+    (Zp.pow p hp x p).trunc 1 = x.trunc 1 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  rw [Zp.pow_trunc p hp x 1 p, Nat.pow_one]
+  -- Goal: (x.trunc 1)^p % p = x.trunc 1
+  -- x.trunc 1 < p^1 = p.
+  have h_lt : x.trunc 1 < p := by
+    have h := ZpSeq.trunc_lt_p_pow hp' x 1
+    rw [Nat.pow_one] at h
+    exact h
+  -- Case on whether x.trunc 1 = 0.
+  cases h_case : Nat.decEq (x.trunc 1) 0 with
+  | isTrue h_zero =>
+    rw [h_zero]
+    -- 0^p % p = 0.  p > 0 so p ≥ 1, so 0^p = 0 when p ≥ 1.  For p = 1
+    -- (excluded by 1 < p), 0^0 = 1.  Here p > 1 so p ≥ 2, 0^p = 0.
+    have : (0 : Nat)^p = 0 := by
+      cases p with
+      | zero => exact absurd hp (Nat.not_lt_zero 1)
+      | succ q => show (0 : Nat)^(q + 1) = 0; rw [Nat.pow_succ, Nat.mul_zero]
+    rw [this, E213.Tactic.NatHelper.zero_mod]
+  | isFalse h_ne =>
+    have h_pos : 0 < x.trunc 1 := Nat.pos_of_ne_zero h_ne
+    rw [pow_pred_eq (x.trunc 1) p hp']
+    -- Goal: ((x.trunc 1)^(p-1) * x.trunc 1) % p = x.trunc 1
+    -- Apply mul_mod_left_pure to reduce the first factor mod p.
+    rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure
+          ((x.trunc 1)^(p - 1)) (x.trunc 1) p]
+    -- Goal: (((x.trunc 1)^(p-1) % p) * x.trunc 1) % p = x.trunc 1
+    rw [E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+          (x.trunc 1) p hp h_pos h_lt h_prime_gcd]
+    -- Goal: ((1 % p) * x.trunc 1) % p = x.trunc 1
+    rw [Nat.mod_eq_of_lt hp, Nat.one_mul]
+    exact Nat.mod_eq_of_lt h_lt
+
+/-- Smoke: `2^5 ≡ 2 (mod 5)` in `ℤ_5`.  Build an `x` with digit-0 = 2
+    and verify Fermat at the digit level. -/
+theorem Zp.smoke_pow_5_digit_two :
+    (Zp.pow 5 (by decide)
+      ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 5).trunc 1
+      = 2 := by
+  rw [Zp.pow_p_trunc_one 5 (by decide) _
+        E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5]
+  -- (x.trunc 1) where x.digits 0 = 2.
+  rfl
 
 end E213.Lib.Math.Padic
