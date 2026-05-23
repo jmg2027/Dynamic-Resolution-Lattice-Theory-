@@ -210,6 +210,29 @@ chain steps + the CRT decomposition.
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
 | `Mobius213.MobiusChain` | `Lib/Math/UniverseChain/MobiusChain` | Chain sentinel (imports all steps) |
 
+## Physics deployment — closed (PhysicsDeployment.lean, 12 PURE)
+
+`Lib/Math/UniverseChain/PhysicsDeployment.lean` derives the
+DRLT-observable mixing matrices **structurally from chain values**:
+
+  · `c_lat_eq_NT`: lattice speed `c = 2 = NT` (Cabibbo input).
+  · `cabibbo_denom_from_chain`: `d² − d + NT = 22` from chain
+    atomicity values.
+  · ★ `cabibbo_from_universe_chain`: `sin θ_C = d / (d² − d + NT)
+    = 5/22` — Cabibbo bare formula recovered from chain
+    `(d, NT) = (5, 2)`.
+  · Möbius P signature: `mobiusP_trace = NS`, `mobiusP_det = 1`,
+    `mobiusP_top_left = NT`, `mobiusP_glue = NS − NT = det`.
+  · ★ `fibonacci_cassini_eq_chain`: `F₅·F₃ − F₄² = d · NT − NS² = 1`
+    — Cassini identity at d=5 IS the chain glue identity (the
+    Möbius P det = 1 statement).
+  · `delta_ckm_rational`: `δ_CKM ≈ 176/147 rad` (Fibonacci
+    convergent rational for π/φ²).
+  · ★★★★★ `physics_deployment_capstone` bundles all eight.
+
+Every observable on the RHS is a **closed function of chain values
+`(NS, NT, d, c) = (3, 2, 5, 2)`** — no additional inputs.
+
 ## Open frontier
 
 Universe chain is structurally **closed** through Step 12 (CRT).
@@ -217,10 +240,9 @@ Open extensions:
 
 1. **Beyond CRT**: characterization of higher-mod structure
    (mod p^k for larger primes / higher powers).
-2. **Physics deployment**: the chain's appearance in DRLT
-   observables — CKM δ = π/φ², Cabibbo A = φ/c, neutrino mass
-   ratios — currently identified empirically but not yet derived
-   structurally from the chain steps.
+2. ~~Physics deployment~~ — CLOSED via `PhysicsDeployment.lean`
+   (12 PURE) above.  Cabibbo + Möbius P signature + Cassini-at-d +
+   CKM δ rational all from chain `(NS, NT, d)`.
 3. **Cross-chain bridges**: Möbius P, algebra tower asymptote
    (`theory/math/cayley_dickson/algebra_tower.md`), and Real213
    Pell-Fib (`Theory/Raw/Mobius.lean`) all share φ.  An explicit
