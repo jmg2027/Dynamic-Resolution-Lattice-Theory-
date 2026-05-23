@@ -233,12 +233,57 @@ proves the principle isn't Aurifeuillean-specific.
     closure (predecessor).
   · `catalogs/atomic-integers.md` — Hunter primitive catalogue.
 
-## §10 Status
+## §10 Status — MARATHON COMPLETE (2026-05-23)
 
-This roadmap is the **planning artifact** for the cut-off
-principle's continuation.  No Lean content yet; each direction
-is a candidate campaign waiting to be scheduled.
+All six directions delivered as Lean files; 191 PURE / 0 DIRTY total.
 
-Direction B (L unboundedness finite chain) is the recommended
-**next session start**.  All other directions are unscheduled
-candidates.
+| Direction | File | PURE | Status |
+|---|---|---|---|
+| B | `AurifeuilleanLUnbounded.lean` | 20 | CLOSED (chain m∈{1,3,7}, cap = L_7 ≈ 5.27×10⁵⁸) |
+| D | `HunterAtomicClosure.lean` | 54 | CLOSED (catalogue not closed under +/*/^; 28 FLT sub-closure pairs) |
+| A | `AurifeuilleanDepth2Cutoff.lean` | 12 | CLOSED (restricted: outer ∈ {+, *}, M_{2,r} = 9_765_625) |
+| C | `PellCutoff.lean` | 35 | CLOSED (Pell sequence in depth-1 cut-off at n≥11, depth-2-r at n≥20; P_5 = 29 = L_1 coincidence) |
+| E | `HunterComplexity.lean` | 39 | CLOSED (complexity hierarchy {0,1,2,3} for catalogue atoms; 16-element depth-1 universe) |
+| F | `AltPrimitiveSet.lean` | 31 | CLOSED ({2,3} alternate: M_1 = 27 vs canonical 3125; catalogue mobility) |
+
+### Tool log
+
+  · **PARI/GP `bnfisnorm`**: external Aurifeuillean factorisation
+    yielding `L_7` (59 digits) via norm-equation solver over
+    `Q(√5)`.  Result embedded in Lean as decide-checked literal.
+  · `decide` with `maxRecDepth 16384` for Hunter atomic prime
+    `powMod` enumeration (HunterAtomicClosure).
+  · `decide` with `maxRecDepth 8192` for depth-2 restricted
+    Hunter value enumeration (AurifeuilleanDepth2Cutoff).
+
+### Key structural findings
+
+  1. **L_m unboundedness (bounded chain)**: m ∈ {1, 3, 7} suffices
+     to push the cap to 5.27×10⁵⁸, vastly exceeding any kernel-
+     feasible Hunter depth-k bound.
+
+  2. **Hunter catalogue is NOT closed** under +, *, ^ mod p, but
+     contains a structural 28-element FLT sub-closure
+     `{(a, p) : a, p ∈ cat, a < p, p^a = p}` via Fermat's
+     Little Theorem.
+
+  3. **Pell-Aurifeuillean coincidence at index 5**: `P_5 = 29 = L_1`.
+     Two a-priori-unrelated external sequences both meet the
+     Aurifeuillean L-coefficient at small index.
+
+  4. **Hunter complexity hierarchy** is honest at four levels
+     `{0, 1, 2, 3}` with concrete catalogue-atom representatives;
+     depth-2 universe has 16 distinct values, max 3125.
+
+  5. **Principle is parametric**: dropping `d = 5` from `{2, 3, 5}`
+     shifts catalogue complexity (5: 0→1, 7: 1→≥2) but does not
+     change the methodology.
+
+### Open frontier (for future sessions)
+
+  · Direction A continuation: unrestricted depth-2 (outer = pow)
+    via algebraic prime-factorisation argument.
+  · Direction B continuation: extend chain to m=11 via PARI (308-
+    digit `Φ_{1210}(5)`; bnfisnorm class-group cost grows).
+  · Cut-off-principle promotion to `theory/meta/` with §7
+    application family (B/D/A/C/E/F as concrete chapters).
