@@ -692,6 +692,21 @@ example : Zp.SqrtBase 5 ⟨fun _ => ⟨4, by decide⟩⟩ where
   two_d_0_inv_lt := by decide
   two_d_0_inv_eq := by decide
 
+/-- **√(-1) in ℤ_5 exists**.  Concrete `SqrtBase` for `neg_one`
+    with `d_0 = 2` (since `2² = 4 ≡ -1 (mod 5)`).  Inverse of `2·2`
+    is `4` since `4·4 = 16 ≡ 1 (mod 5)`.
+
+    Mathematically: -1 is a quadratic residue mod 5, since the
+    quadratic residues mod 5 are `{1, 4}` and `4 ≡ -1`.  This makes
+    `ℤ_5` contain `i = √(-1)`, unlike `ℝ`. -/
+def Zp.sqrtBase_neg_one_5 : Zp.SqrtBase 5 (ZpSeq.neg_one 5 (by decide)) where
+  d_0 := 2
+  d_0_lt := by decide
+  sq_eq := by decide
+  two_d_0_inv := 4
+  two_d_0_inv_lt := by decide
+  two_d_0_inv_eq := by decide
+
 /-! ## Sqrt iteration
 
 `sqrtSeq n` is the Hensel-lifted square-root approximation, correct
@@ -1284,5 +1299,51 @@ theorem Zp.sqr_sqrtFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
       = x.trunc (n + 1) := by
   rw [Zp.mul_trunc, Zp.sqrtFull_trunc_succ, ← Zp.mul_trunc]
   exact Zp.sqr_sqrtSeq_correct p hp x sb n
+
+/-! ## The 5-adic imaginary unit `i₅ = √(-1) ∈ ℤ_5`
+
+Concrete 5-adic element with `i² = -1`.  Built from
+`sqrtBase_neg_one_5` (digit 0 = 2, since `2² = 4 ≡ -1 mod 5`).
+-/
+
+/-- The 5-adic square root of -1.  Digit 0 = 2; higher digits
+    computed by Hensel iteration. -/
+def Zp.i_5 : ZpSeq 5 :=
+  Zp.sqrtFull 5 (by decide) (ZpSeq.neg_one 5 (by decide)) Zp.sqrtBase_neg_one_5
+
+/-- Digit 0 of `i₅` is `2`. -/
+theorem Zp.i_5_digit_zero : (Zp.i_5.digits 0).val = 2 := rfl
+
+/-- Digit 1 of `i₅` is `1`.  So `i₅ ≡ 2 + 1·5 = 7 (mod 25)`,
+    and indeed `7² = 49 ≡ -1 (mod 25)`. -/
+theorem Zp.i_5_digit_one : (Zp.i_5.digits 1).val = 1 := by decide
+
+/-- Digit 2 of `i₅` is `2`. -/
+theorem Zp.i_5_digit_two : (Zp.i_5.digits 2).val = 2 := by decide
+
+/-- `i₅² ≡ -1 (mod 5)` — the defining property at trunc level 1. -/
+theorem Zp.i_5_sq_trunc_one :
+    (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5).trunc 1 = 4 := by
+  show (Zp.mul 5 (by decide)
+          (Zp.sqrtFull 5 (by decide) (ZpSeq.neg_one 5 (by decide))
+            Zp.sqrtBase_neg_one_5)
+          (Zp.sqrtFull 5 (by decide) (ZpSeq.neg_one 5 (by decide))
+            Zp.sqrtBase_neg_one_5)).trunc 1 = 4
+  rw [Zp.sqr_sqrtFull_correct 5 (by decide)
+        (ZpSeq.neg_one 5 (by decide)) Zp.sqrtBase_neg_one_5 0]
+  rfl
+
+/-- `i₅² ≡ -1 (mod 25)` — Hensel correctness lifts to level 2. -/
+theorem Zp.i_5_sq_trunc_two :
+    (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5).trunc 2
+      = (ZpSeq.neg_one 5 (by decide)).trunc 2 := by
+  show (Zp.mul 5 (by decide)
+          (Zp.sqrtFull 5 (by decide) (ZpSeq.neg_one 5 (by decide))
+            Zp.sqrtBase_neg_one_5)
+          (Zp.sqrtFull 5 (by decide) (ZpSeq.neg_one 5 (by decide))
+            Zp.sqrtBase_neg_one_5)).trunc 2
+      = (ZpSeq.neg_one 5 (by decide)).trunc 2
+  exact Zp.sqr_sqrtFull_correct 5 (by decide)
+    (ZpSeq.neg_one 5 (by decide)) Zp.sqrtBase_neg_one_5 1
 
 end E213.Lib.Math.Padic
