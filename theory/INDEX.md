@@ -59,15 +59,23 @@ Chapter exists when the Lean sub-tree closed per
 [`PROMOTION_CRITERIA.md`](PROMOTION_CRITERIA.md).  Patterns:
 [`lean/E213/docs/PROMOTION_PATTERNS.md`](../lean/E213/docs/PROMOTION_PATTERNS.md).
 
-## Current chapters (94 total)
+## Current chapters (97 total)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 60 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 63 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  4 | [`meta/INDEX.md`](meta/INDEX.md) |
 | `essays/`  |  1 | [`essays/cut_off_marathon.md`](essays/cut_off_marathon.md) |
+
+New (2026-05-23):
+  · `math/cohomology/cup_ladder_graduation.md` — `(k+1)` α-power
+    graduation framework (G132 marathon, 19 files / 231 PURE)
+  · `math/cohomology/k32_higher_cohomology.md` — pure-math
+    K_{3,2}^{(c=2)} higher cohomology (Steenrod algebra, cup_i
+    ladder, Steenrod-Whitehead bridge); math-side companion
+    to the physics-side α_em chapter
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 

@@ -243,5 +243,176 @@ Next session: implement Phase 1 (truncation + zero/one/neg_one).
 
 ---
 
-**Status**: PLANNED.  Foundational infrastructure (G119 Phase 3.3
-Bezout/FLT/F_{p²}) READY for reuse.  Ready to begin.
+## Phase 1 closure log (this session)
+
+**`lean/E213/Lib/Math/Padic/Foundation.lean`** (16 PURE):
+
+  · `ZpDigit`, `ZpSeq` types + `trunc` (LSB-first base-p sum).
+  · Canonical: `zero`, `one`, `neg_one` (= all-`(p-1)`).
+  · `eq_mod_pn` — digit-by-digit agreement predicate.
+  · `trunc_lt_p_pow` — `x.trunc n < p^n` (justifies ℤ/p^n
+    interpretation).
+  · `trunc_eq_of_eq_mod_pn` / `trunc_succ_inj` /
+    `eq_mod_pn_of_trunc_eq` — backward iff via mod-p^n
+    cancellation + per-digit `mul_left_cancel_pos`.
+  · `eq_mod_pn_iff_trunc` — the full iff.
+  · `digits_of_nat` — embedding `ℕ ↪ ZpSeq` (k-th digit
+    `(n / p^k) % p`).
+  · 16 per-prime smokes at p ∈ {2, 3, 5, 7}.
+
+## Phase 2 partial closure (this session)
+
+**`lean/E213/Lib/Math/Padic/Arith.lean`** (15 PURE):
+
+  · `Zp.carry` — recursive carry FSM (initial 0, step
+    `(d_x + d_y + carry) / p`).
+  · `Zp.add` — digit-by-digit + carry; total function.
+  · `Zp.add_trunc_eq` — structural identity
+        `x.trunc n + y.trunc n
+          = (Zp.add x y).trunc n + carry n · p^n`
+    proved by induction with calc + a `split_mul_pow` helper
+    routed through PURE `div_add_mod`.
+  · `Zp.add_trunc` — the ring-quotient theorem
+        `(Zp.add x y).trunc n = (x.trunc n + y.trunc n) % p^n`.
+    Truncation `ZpSeq p → ℤ/p^n` is an additive homomorphism.
+  · `Zp.complement` — digit-wise `p - 1 - d`.
+  · `Zp.neg` — `complement x + one`.
+  · `Zp.carry_x_complement` — when summing `x + complement x`,
+    every digit-pair sums to `p - 1 < p`, so carry stays at 0
+    for all positions.
+  · `Zp.add_complement_digit` — every digit of `x + complement x`
+    equals `p - 1`, i.e., the sum is the all-`(p-1)` sequence
+    (= `-1` in ℤ_p).  Structural reason `-x := complement x + 1`
+    works: `x + (-x) = neg_one + one = 0` in ℤ_p (carry cascades).
+  · Smokes for `add` / `neg`.
+
+**Padic total**: 47 PURE / 0 DIRTY.
+
+## Phase 2 remaining work
+
+  · `Zp.mul` — DEFINITIONS COMPLETE, identity laws proven, n = 1
+    truncation case proven.  Multiplicative identity established
+    both sides: `mul_one_{left,right}_digit`.  Absorbing zero
+    established both sides: `mul_zero_{left,right}_digit`.
+    Base case for truncation correctness: `Zp.mul_trunc_one`.
+
+  · `mul_trunc` decomposition status (this session):
+
+    - Step 1 (structural identity): DONE.
+        `Zp.mulSumRaw_eq_trunc`:
+            mulSumRaw x y n = (Zp.mul x y).trunc n + mulCarry n · p^n
+        `Zp.mulSumRaw_mod_eq_trunc`:
+            mulSumRaw x y n % p^n = (Zp.mul x y).trunc n
+
+    - Step 2 (bilinear decomposition): PARTIAL.
+        `Zp.colSum / bilinSum` + closed forms
+        `colSum i b = (x.digits i).val · p^i · y.trunc b`
+        `bilinSum b a = x.trunc a · y.trunc b`
+        give us `x.trunc n · y.trunc n` expressed as the 2D sum
+        Σ_{i<n, j<n} x_i · y_j · p^(i+j).
+
+    - Step 3 (bridge): PENDING.
+        Need `bilinSum n n % p^n = mulSumRaw n % p^n`.
+
+  · The bridge.  Conceptually `bilinSum n n` sums over the full
+    n × n square in (i, j) space, while `mulSumRaw n` sums over
+    the diagonal region `i + j < n`.  The difference (the
+    "off-diagonal" pairs with `i + j ≥ n`) contributes only terms
+    divisible by `p^n`, so they vanish mod `p^n`.
+
+  · The recurrence governing this bridge (computed analytically;
+    proof-in-Lean pending):
+        bilinDiff 0 = 0
+        bilinDiff (n+1) = (bilinDiff n
+                            + x.trunc n · y_n + y.trunc n · x_n
+                            + x_n · y_n · p^n
+                            - mulRaw n) / p
+    where `bilinDiff n := (bilinSum n n − mulSumRaw n) / p^n`.
+    The recurrence's divisibility by `p` relies on a non-trivial
+    congruence:
+        bilinDiff n ≡ Σ_{1 ≤ i ≤ n-1} x_i · y_{n-i}  (mod p)
+    — the "middle" of `mulRaw n` matches `bilinDiff n mod p`.
+    Verified for `n ∈ {0, 1, 2, 3}`; general proof in Lean
+    requires either a strong invariant on `bilinDiff` (mod-p
+    structural condition) or an alternate definition of
+    `bilinDiff` as an explicit sum over off-diagonal pairs.
+  · `Zp.neg_add_self` — full algebraic statement
+    `Zp.add x (Zp.neg x) = Zp.zero` (sequence equality, requires
+    funext-by-design pattern OR per-truncation rephrasing).
+    Cleanest version: `(Zp.add x (Zp.neg x)).trunc n = 0`.
+
+## Phase 3 starter (this session)
+
+**`lean/E213/Lib/Math/Padic/Norm.lean`** (9 PURE):
+
+  · `Zp.valAtLeast x n` — predicate "every digit < n is zero".
+    PURE alternative to `v_p(x) ≥ n` (avoiding `WithTop`).
+  · `Zp.valAtLeast_zero`, `valAtLeast_mono` (downward closed).
+  · `Zp.valAtLeast_iff_trunc` — `valAtLeast x n ↔ x.trunc n = 0`
+    (via Foundation `eq_mod_pn` ↔ `trunc` bridge).
+  · `Zp.valEq x n` — exact valuation: `valAtLeast x n ∧ x.digits n ≠ 0`.
+  · `Zp.valEq_unique` — uniqueness (Nat trichotomy + contradiction).
+
+This gives a propositional handle on the p-adic valuation suitable
+for Hensel-style induction without committing to an extended
+numeric type.
+
+## Updated phase outline
+
+| Phase | Status |
+|---|---|
+| 1. Foundation | DONE (17 PURE) — incl. `trunc_neg_one_succ` structural identity |
+| 2. Arith — add + neg | DONE (full truncation correctness; comm + identity at trunc level) |
+| 2'. Arith — mul | LARGE PROGRESS — defs + identity-laws + absorbing-zero (both sides, both at digit and trunc level) + `mul_trunc_one` + `mul_trunc_two` + bilinear sum infrastructure; general bridge pending |
+| 3. Norm + valuation | STARTER (9 PURE; `valAtLeast` + `valEq` + uniqueness) |
+| 4. Hensel lifting | STARTER (5 PURE; `unit0` predicate + `invDigit0` via Bezout) |
+| 5. ℚ_p localization | STARTER (5 PURE; `QpSeq` type + canonical elements + embedding) |
+| 6. DRLT integration (5-adic N_U lift) | STARTER (4 PURE; `canonical_5adic_NU` + digit-level smokes) |
+
+**Current**: 117 PURE declarations across 6 Padic modules.
+Branch `claude/g122-real213-p-adic-LwxL9` pushed across many
+commits.
+
+## Bridge analysis (recorded for next session)
+
+For the `mul_trunc` theorem, we have steps 1 and 2-partial; the
+remaining piece is the **diagonal-vs-square bridge**:
+
+  `bilinSum p x y n n % p^n = mulSumRaw p x y n % p^n`
+
+Equivalent existence form:
+  `∃ q, bilinSum p x y n n = mulSumRaw p x y n + q · p^n`.
+
+The "right" q at level n is the **off-diagonal sum**:
+  `q_n = Σ over (i, j) with i < n, j < n, i+j ≥ n of x_i · y_j · p^{i+j-n}`.
+
+Reparametrize by `i` (rows) and `m = j - (n - i)`, so j = n-i+m and
+m ranges from 0 to i-1.  Then q_n = `Σ_{i<n} x_i · Σ_{m<i} y_{n-i+m} · p^m`.
+
+Verified by hand for n ∈ {0, 1, 2, 3}: matches q_0 = 0, q_1 = 0,
+q_2 = x_1·y_1, q_3 = x_1·y_2 + x_2·y_1 + x_2·y_2·p.
+
+**Induction complication**: q_{n+1} doesn't relate to q_n via a
+simple recurrence because the `n` index appears inside `y.digits`
+in q's formula.  Specifically, q_n references `y.digits (n - i + m)`,
+which shifts when `n → n+1`.
+
+**Strategy for next session**: prove the bridge identity by
+**partition-of-the-square** rather than by induction on n.
+Define a 2D recursive `offDiagSum p x y n (a, b)` parameterized by
+the row/col bounds, and decompose `bilinSum n n` directly as
+`mulSumRaw n + offDiagSum n (n, n) · p^n` via a sub-induction that
+moves the (a, b) bounds one step at a time within a fixed `n`.
+
+Alternatively, work via `Nat.ModEq` machinery if a PURE version
+exists (or build one from `add_mul_mod_self_pure`).
+
+---
+
+**Status**: Phase 1 complete + Phase 2 add/neg with full truncation
+correctness + digit-level commutativity + Phase 2' multiplication
+substantially developed (defs PURE, identity / absorbing-zero
+laws both sides, n = 1 truncation foothold) + Phase 3 starter
+with valuation predicates.  Next session: prove the general
+`Zp.mul_trunc` ring-quotient theorem (analog of `add_trunc`),
+then extend toward Hensel lifting + ℚ_p localization.

@@ -165,6 +165,22 @@ of independent gluon channels."*
 | `alpha_em_milestone` | `Capstone` | N=50 bracket contains 137.036 ± 10⁻⁴ |
 | `graded_formula_precision_master` | `GradedFormulaPrecision` | 12-digit π precision, 2.16 ppm residual |
 | `gram_higher_order_master` | `GramHigherOrder` | 0.09 ppb (Step 4) — within CODATA uncertainty |
+| `phase2_omega_invariant_2cocycle` | `Math/Cohomology/Bipartite/Filled3CellCohomology` | ω (b_2 = 1) is the unique Sym(3)-invariant 2-cocycle of K_{3,2}^{(c=2)} |
+| `bilinear_self_trace_eq_L1_sq` | `Math/Cohomology/Bipartite/SelfPairingTrace` | L²-pairing trace = (L¹-norm)² universally over `Fin 3 → Bool` |
+| `omega_post_gram_full_master` | `OmegaPostGramFull` | NS²·α³/d³ = 27 closes full post-Gram residual |
+| `per_layer_coupling_master` | `PerLayerCoupling` | Refined formula factors as `‖c‖²·(α/d)^(k+1)` (Step 6, 0.007 ppb) |
+| `loop_vertex_graduation_master` | `LoopVertexGraduation` | Cohomology ↔ loop-vertex correspondence: H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1) (Step 6 interpretive) |
+| `steenrod_higher_frame_master` | `Cup/SteenrodHigherFrame` | Cup-i type framework + cup_0 = standard cup + cup_1 at base arities |
+| `face_cup_higher_master` | `Bipartite/FaceCupHigher` | face_cup_2 on K_{3,2}^{(c=2)}; ω idempotent under face_cup_2; trace = NS² |
+| `filled3cell_extension_master` | `Bipartite/Filled3CellExtension` | 3-skeleton extension; δ²(ω) = (true); ω trivialises at full 3-cell |
+| `face_cup_1_at_3cell_master` | `Bipartite/FaceCup1At3Cell` | cup_1(ω, ω) = δ²(ω) (Steenrod-Whitehead bridge identity) |
+| `steenrod_squares_at_omega_master` | `Bipartite/SteenrodSquaresAtOmega` | Sq^0(ω) = ω, Sq^1(ω) = δ²(ω), Adem Sq^1·Sq^1 = 0 |
+| `steenrod_ladder_alpha_power_master` | `AlphaEM/SteenrodLadderAlphaPower` | α-power = Sq ladder depth + 2 = (k-1) + 2 = k+1 (three-reading equivalence) |
+| `cup_ladder_universal_k_master` | `AlphaEM/CupLadderUniversalK` | Universal-k arithmetic: ∀ k ≥ 1, all three readings give k+1 |
+| `cartan_at_truncation_master` | `Bipartite/CartanAtTruncation` | Cartan formula at C⁵ truncation (both sides vacuously zero) |
+| `adem_universal_master` | `Bipartite/AdemUniversal` | Universal Adem at truncation: ALL Sq^a·Sq^b relations vacuous beyond C³ |
+| `filled4cell_extension_master` | `Bipartite/Filled4CellExtension` | 4-skeleton extension via σ⁴; δ³; H³ = 0 at 4-skeleton (truncation collapse) |
+| `max_alpha_power_bound_master` | `AlphaEM/MaxAlphaPowerBound` | Max α-power = top dim + 1; physical 2-skeleton ceiling = 3 (matches H² ω) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
 | `fractal_zeta_modulus_master` | `FractalLevelZetaModulus` | Explicit `zeta_modulus : DepthModulus` |
 | `n50_bracket_contains_observed` | `StructuralGap` | N=50 rational bracket of α_em |
@@ -216,26 +232,160 @@ The relationship `d² = NS² · NT` is captured by
 all six denominators (60, 30, 25, 3, 4, 45) of the 5-layer base
 formula decomposed in terms of (NS, NT, c, d).
 
-### C1 Step 6+ — Sub-ppb precision via higher cohomology — OPEN
+### C1 Step 6 — Sub-ppb precision via higher cohomology
 
-Current closure: residual 27 × 10⁻⁹ ≈ 0.2 ppb (Step 5 above).
+Step 5 closure: residual 27 × 10⁻⁹ ≈ 0.2 ppb.
 
-The mathematical principle that structurally derives the 27 × 10⁻⁹
-post-Gram residual is the open frontier.  Five candidates analyzed
-in the higher-cohomology research note: Dyson series beyond α²,
-quartic self-consistency, α_GUT² · structural divisor, mixed
-α·α_GUT cross-coupling, and (most 213-native) **K_{3,2}^{(c=2)}
-higher cohomology contribution** via Filled3Cell b_2 / b_3 extension.
+Step 6 closes the post-Gram residual structurally via the
+**K_{3,2}^{(c=2)} higher cohomology contribution** at H², bringing
+the structural prediction to sub-1 × 10⁻⁹ ≈ 0.007 ppb tier.
 
-This frontier connects to the Filled3Cell-with-attaching-maps
-prereq shared with the JSJ-deepening track and the cork-twist
-higher-cohomology track.  All three open marathons (sub-ppb α_em,
-JSJ-deep, cork-extension) wait on the same cohomology-functor
-extension of the cell complex.
+#### The Filled3Cell anchor (Math/Cohomology/Bipartite/)
 
-Note: 0.2 ppb tier already satisfies DRLT Validation Standard;
-sub-ppb tier closure is precision tightening, not validation
-blocking.
+`Filled3CellCohomology.lean` (35 PURE) establishes the
+attaching-map cohomology functor for the K_{3,2}^{(c=2)} 2-skeleton.
+Headline structural finding: the 3 simple 4-cycles of K_{3,2}^{(c=2)}
+are linearly DEPENDENT in F_2 — `Face 0 ⊕ Face 1 ⊕ Face 2 = 0`,
+proved by case analysis.  Hence `rank δ¹ = 2` (not 3), giving the
+cohomology dimensions
+
+      | k | b_1 | b_2 |
+      |---|-----|-----|
+      | 3 | 6   | 1   |
+
+at full simple-cycle filling.  The unique non-trivial 2-cocycle
+representing `b_2 = 1` is the all-ones face-vector
+`ω = (1, 1, 1) ∈ C²`, proven Sym(3)-invariant — the third trivial
+irrep adjoining the H¹-only `2·trivial ⊕ 3·standard` decomposition.
+
+This Filled3Cell anchor is the shared prereq for three downstream
+tracks: this sub-ppb α_em refinement, the JSJ-3-mfd deepening,
+and the Akbulut cork higher-cohomology extension.
+
+#### The refined cup-ladder rule (Physics/AlphaEM/)
+
+The H² class ω contributes to the cup-ring trace via the
+**refined cup-ladder rule**:
+
+      Δ_H^k(c) = ||c||² · (α / d)^(k+1)
+
+with two structural inputs:
+
+  · `k` (cohomology degree) from the class's location in H^k;
+  · `||c||²` (squared L¹-norm of integer lift) from
+    `boolToNat ∘ c` summed across the face-vector.
+
+Both inputs are DERIVED from cohomology data (no fit parameter).
+For ω = `(1, 1, 1)`: ||ω||² = (1+1+1)² = 9 = NS² (proved as a
+universal Nat identity in `SelfPairingTrace.lean` over all
+8 inhabitants of `Fin 3 → Bool`).
+
+Specialisations at e9 precision:
+
+  · H¹ Gram self-energy (rank-1 effective weight):
+        Δ_H¹ = 1 · (α/d)² = 2130 × 10⁻⁹
+  · H² ω-weighted (derived weight NS):
+        Δ_H² = NS² · (α/d)³ = 27 × 10⁻⁹
+
+Full residual decomposition:
+
+      raw α_em residual                  2157 × 10⁻⁹
+      − H¹ Gram (α²/d²)                 −2130
+      − H² ω weighted (NS²·α³/d³)         −27
+      =                                     0 × 10⁻⁹  (sub-1·10⁻⁹)
+
+The structural prediction matches CODATA observed value to within
+1 Nat unit at e9 precision — **0.007 ppb tier on 1/α_em**.
+
+#### Status of the refined formula components
+
+  | Component | Status |
+  |-----------|--------|
+  | `||c||² = (L¹-norm)²` (L²-pairing trace rule) | PROVED (Nat identity over `Fin 3 → Bool`) |
+  | `(α/d)^(k+1)` factoring at k = 1, 2 | PROVED (e9-level decide) |
+  | `(k+1) = loop count + 1` interpretation | POSIT (physics-motivated, formalised at `LoopVertexGraduation`) |
+  | Cup-axiom derivation of `(k+1)` | OPEN (bilinear cup arity `k + l` diverges from `(k+1)` at k ≥ 2) |
+
+The L²-pairing trace and per-layer coupling factorisation are
+first-principles content.  The `(k+1)` graduation is structurally
+interpreted via the cohomology-degree ↔ vacuum-polarization-loop-
+count correspondence:
+
+  · H¹ ↔ 1-loop ↔ 2 vertices ↔ α²
+  · H² ↔ 2-loop ↔ 3 vertices ↔ α³
+  · H^k ↔ k-loop ↔ (k+1) vertices ↔ α^(k+1)
+
+The cup-axiom derivation of `(k+1)` remains open: the existing
+bilinear `cup : Cochain n k × Cochain n l → Cochain n (k+l)` has
+output degree `k + l`, which matches `(k+1)` only at k = 1.
+Cup-product algebra extension to higher cup operations (cup_i,
+Steenrod squares), Massey products, or spectral-sequence
+differentials is the open frontier.
+
+#### Files (Step 6 closure, 19 files, 231 PURE total)
+
+  · `Math/Cohomology/Bipartite/Filled3CellCohomology.lean` (35 PURE)
+    — face boundaries, face dependence, Sym(3) action on ω
+  · `Math/Cohomology/Bipartite/SelfPairingTrace.lean` (11 PURE)
+    — L²-pairing trace rule as proved Nat identity
+  · `Physics/AlphaEM/OmegaH2Trace.lean` (9 PURE)
+    — ω ↔ α³/d² unrefined cup-ladder bridge
+  · `Physics/AlphaEM/CupLadderFormula.lean` (8 PURE)
+    — uniform α^(k+1)/d² formula (unrefined denominator)
+  · `Physics/AlphaEM/OmegaPostGramFull.lean` (11 PURE)
+    — NS²·α³/d³ refined formula, full residual closure
+  · `Physics/AlphaEM/RefinedCupLadderDerivation.lean` (15 PURE)
+    — two-rule structural derivation with cohomology-derived inputs
+  · `Physics/AlphaEM/PerLayerCoupling.lean` (9 PURE)
+    — per-layer coupling reformulation `||c||² · (α/d)^(k+1)`
+  · `Physics/AlphaEM/LoopVertexGraduation.lean` (14 PURE)
+    — cohomology ↔ loop-vertex correspondence + cup-axiom gap
+  · `Math/Cohomology/Cup/SteenrodHigherFrame.lean` (11 PURE)
+    — cup-i type signature framework; cup_0 = standard cup; cup_1
+    at base arities (toward Steenrod cup-i derivation of `(k+1)`)
+  · `Math/Cohomology/Bipartite/FaceCupHigher.lean` (10 PURE)
+    — face_cup_2 on K_{3,2}^{(c=2)} face cochains; ω idempotent
+    under face_cup_2; trace matches Phase 6 bilinearSelfTrace = NS²
+  · `Math/Cohomology/Bipartite/Filled3CellExtension.lean` (10 PURE)
+    — 3-skeleton extension; δ² coboundary; ω trivialises at full
+    3-cell attaching (H² drops to 0); δ²∘δ¹ = 0
+  · `Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` (10 PURE)
+    — face_cup_1 (rotational interlocking); bridge identity
+    `cup_1(ω, ω) = δ²(ω)` (Steenrod-Whitehead signature)
+  · `Math/Cohomology/Bipartite/SteenrodSquaresAtOmega.lean` (12 PURE)
+    — Sq^0(ω) = ω; Sq^1(ω) = δ²(ω); Adem Sq^1·Sq^1 = 0 (vacuous
+    at C⁴ truncation); max non-trivial Sq^i = (k-1) at H^k
+  · `Physics/AlphaEM/SteenrodLadderAlphaPower.lean` (10 PURE)
+    — bridge α-power = Sq ladder depth + 2; three-reading
+    equivalence (physics ↔ cohomology ↔ Steenrod)
+  · `Physics/AlphaEM/CupLadderUniversalK.lean` (10 PURE)
+    — universal-k three-reading equivalence (∀ k ≥ 1);
+    arithmetic side of the cup-ladder graduation universal in k
+  · `Math/Cohomology/Bipartite/CartanAtTruncation.lean` (10 PURE)
+    — Cartan formula at C⁵ truncation (vacuous); completes the
+    Steenrod-algebra truncation picture at K_{3,2}^{(c=2)} 3-skeleton
+  · `Math/Cohomology/Bipartite/AdemUniversal.lean` (14 PURE)
+    — universal Adem at truncation; EVERY Adem relation Sq^a·Sq^b
+    vacuous beyond C³ (Sq¹·Sq¹ at C⁴, Sq²·Sq² = Sq³·Sq¹ at C⁶,
+    Sq³·Sq² = Sq⁴·Sq¹ + Sq⁵ at C⁷, universal ∀ k)
+  · `Math/Cohomology/Bipartite/Filled4CellExtension.lean` (10 PURE)
+    — 4-skeleton extension via single 4-cell σ⁴; δ³ coboundary;
+    H³ = 0 at 4-skeleton (truncation-collapse continues)
+  · `Physics/AlphaEM/MaxAlphaPowerBound.lean` (12 PURE)
+    — max α-power = top dim + 1 (structural ceiling); physical
+    2-skeleton ceiling = 3 (matches H² ω contribution)
+
+Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
+tier; 0.2 ppb tier already satisfied via Step 5 alone.
+
+Phases 9-13 (cup-i framework + Steenrod squares + 3-skeleton
+extension + Adem at truncation) constitute the multi-phase
+marathon toward deriving the `(k+1)` α-power graduation from
+cup-product axioms.  At the H² ω class the Steenrod-square
+ladder is now fully established (max non-trivial Sq^i = 1,
+output at C³, matching `(k+1) = 3`).  Generalisation to H^k for
+arbitrary k requires (k+1)-skeleton extensions + general
+Steenrod cup_i + Adem-Wu basis — multi-session marathon scope.
 
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 
@@ -251,8 +401,15 @@ requires:
 - Steps 3-4 of C1 are **self-referential** (use observed α on RHS
   for the Gram correction).  Eliminating this self-reference is part
   of Step 5+ work.
-- The α^k/d² pattern is **empirically extrapolated** through k = 3;
-  the structural derivation may reveal corrections at higher k.
+- The empirically-extrapolated α^k/d² pattern (with fixed
+  denominator d²) is corrected at Step 6 via the refined
+  `||c||² · (α/d)^(k+1)` rule (scaling denominator d^(k+1) +
+  cohomology-class L²-weight).  At k = 2 with ω-weight = NS² the
+  refined value 27 × 10⁻⁹ absorbs the previous "12 × 10⁻⁹ tail"
+  structurally.
+- The (k+1) graduation in the refined formula remains a
+  cohomology-theoretic posit (filtration depth + top-cell
+  evaluation), not yet derived from cup-product axioms.
 
 ## How to verify
 

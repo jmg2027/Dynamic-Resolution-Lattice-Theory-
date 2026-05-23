@@ -275,6 +275,197 @@ exceptions (Tactic short-form for omega213, etc.) are listed in
 
 ---
 
+## Phase 7.5: Narrative tightness pass
+
+Per Mingu's directive: documents should read as a coherent
+current-state narrative, not as duct-taped accumulation of
+session-by-session additions.  Four sub-checks:
+
+### 7.5.a Narrative coherence (body text)
+
+Read the body of each long-lived `.md` (`HANDOFF.md`,
+`theory/**/*.md`, `STRICT_ZERO_AXIOM.md`, `seed/*.md`, etc.) end
+to end.  Ask: does it read as a thesis being explained, or as a
+log of additions?
+
+Symptoms of duct-tape accumulation:
+  - Sections labelled "this stretch", "this session", "(added)",
+    "(originally proposed as ...)", "retained for reference"
+  - Sub-totals tied to a specific point in time ("17 PURE",
+    "Phase 1 partial") that no longer match current state
+  - Multiple parallel "status" paragraphs from different sessions
+  - Tables ordered by creation time instead of by topical structure
+  - Process-flow language ("we then derived...", "in the next phase
+    we...") that belongs in commit messages, not narrative
+
+Fix by rewriting affected sections to read as a current-state
+exposition.  The git history preserves the process; the document
+shouldn't try to.
+
+### 7.5.b Archive / change-history / old-tech residue
+
+Search for body-text references to deprecated structure that
+*should* live only in git history or archive directories:
+
+```bash
+grep -rln "this stretch\|this session\|in progress\|IN PROGRESS\|Phase [0-9]\+ partial\|retained for reference\|originally proposed" \
+  *.md theory/ seed/ guide/ catalogs/ blueprints/ books/ 2>/dev/null
+grep -rln "previously named\|formerly called\|was renamed\|used to live" \
+  *.md theory/ seed/ guide/ 2>/dev/null
+```
+
+Each hit: decide if it's
+  - a genuine historical pointer (e.g., "originally proposed as
+    G120, renumbered to G122") — OK to keep if the *current*
+    statement is clear and the history is one-line
+  - duct-tape residue — delete or rewrite
+
+### 7.5.c Completed-item deletion
+
+Per CLAUDE.md "delete deprecated with no active dependents":
+items that are done (closed campaigns, completed phase outlines,
+"next-session start" instructions for sessions that finished, etc.)
+should be **gone**, not preserved as comments.  In particular:
+
+  - HANDOFF.md's "Next-session start" sections from sessions that
+    already happened → delete
+  - "Phase outline" lists where every phase is done → delete the
+    outline, leave only the closure summary
+  - "Open frontier" / "TODO" / "Pending" items that have been
+    closed → remove from the document (the closure should be
+    visible elsewhere in the same document, e.g. in the Key
+    results table)
+  - Per-session "this stretch added X, Y, Z" notes once the items
+    are reflected in the main structure
+
+The git log is the change history; the document is the current
+state.
+
+### 7.5.d Split / merge structural review
+
+For each multi-file sub-tree and each large single file (>1000 lines):
+
+**Split candidate questions**:
+  - Does the file mix two conceptually distinct stories
+    (e.g., inverse story + sqrt story + concrete instances)?
+  - Would a reader looking for X have to scroll past unrelated Y?
+  - Are the two halves used by mostly disjoint downstream consumers?
+
+If yes to several: propose split (do not necessarily execute —
+record as a deferral if there's no downstream need yet).
+
+**Merge candidate questions**:
+  - Are two adjacent small files (< 200 lines each) doing the
+    same kind of work?
+  - Is one file effectively a single-purpose extension of another?
+  - Would merging reduce import lines without producing a
+    sprawling >1500-line monster?
+
+If yes: propose merge.  Default-no unless the case is strong;
+"sub-cluster early" (per CLAUDE.md) usually wins over "consolidate
+late."
+
+Symptoms of a directory needing reorganisation:
+  - Files with topically-overlapping names (`Foo.lean`, `FooExt.lean`,
+    `FooMore.lean`) → merge or sub-cluster
+  - One file is the "everything else" bucket → identify a sub-theme
+    to extract
+  - File count is large (≥ 15) and the natural sub-themes haven't
+    been split out yet → sub-cluster
+
+For this audit, **record findings, don't execute splits/merges**
+unless they're trivially clarifying.  Significant restructuring
+deserves its own commit chain after the merge.
+
+## Phase 7.6: Cross-corpus synthesis pass
+
+The pre-merge audit so far has been *destructive-corrective*: find
+stale refs, delete duct-tape, verify consistency.  This phase is
+*creative-synthetic*: step back from the just-merged content, read
+the theory corpus laterally, and generate new ideas / insights /
+research notes that the closure has now made visible.
+
+The point is to capture patterns that recur across multiple
+chapters, methodology lessons that generalise, and "obvious next
+questions" that only become obvious once a closure clears the
+view.  Without this phase, these insights evaporate after the
+merge.
+
+### 7.6.a Sample the theory landscape
+
+Read laterally — not just the chapters touched by the current
+branch, but adjacent chapters too:
+
+```bash
+ls theory/math/ theory/physics/ theory/meta/ 2>/dev/null
+ls theory/math/cohomology/ theory/math/analysis/ 2>/dev/null
+```
+
+For each closed sub-tree relevant to the just-merged work, skim:
+  - The "Key results" table.
+  - The "Closing reflection" / "Open frontier" sections (if present).
+  - The "Methodology" / "Surprises" notes (if present).
+  - Adjacent chapters that import the same Lib/ infrastructure.
+
+Look for:
+  - **Pattern recurrence** — the same template solving multiple
+    problems (e.g., "diagonal extraction for limit objects" in
+    Padic — does it apply elsewhere?).
+  - **Methodology lessons that generalise** — was a proof
+    technique invented here that should be a first-class pattern?
+    (e.g., "binomial-free Frobenius via p-equal-terms-sum-is-zero".)
+  - **Unexpected cross-chapter resonances** — does chapter X's
+    structural insight echo chapter Y's open question?
+  - **Newly-obvious next questions** — does the just-closed
+    structure make a previously-vague question crisp?
+  - **Missing parallel constructions** — if X has a Theorem of
+    type T, does Y need one too?
+
+### 7.6.b Write findings as a research note
+
+Capture the synthesis as `research-notes/G###_<topic>_synthesis.md`
+(use the next free `G###` number).  Don't pad — write only what
+you actually noticed.  A useful synthesis note has:
+
+  - **Anchor** — one sentence stating what the merge closed.
+  - **Patterns** — 2-4 bullets each pointing to a recurring
+    structure, technique, or methodology insight, with examples
+    drawn from at least two chapters.
+  - **New questions** — 2-4 bullets, each a concrete next-campaign
+    seed.  Avoid speculation; list only questions where the
+    structural shape is now clear.
+  - **Cross-references** — explicit pointers to the chapters
+    that informed each pattern / question.
+
+If you can't honestly produce 2+ patterns and 2+ new questions
+after skimming, **write a one-paragraph note saying so** rather
+than padding.  A "no new synthesis" note is a valid output and
+documents that the chapter is currently isolated; it tells the
+next session there's no harvested-but-unwritten material.
+
+### 7.6.c Do not let synthesis become scope creep
+
+Discipline:
+  - Synthesis notes go in `research-notes/`, not `theory/`.
+    Promotion to a chapter requires the closure machinery
+    (`theory/PROMOTION_CRITERIA.md` H1-H4 + S1-S3), which is a
+    separate effort.
+  - Don't restructure the just-merged content based on the
+    synthesis pass.  Restructure is its own commit chain after
+    the merge lands.
+  - One commit per synthesis note.  Don't bundle multiple notes
+    into one commit — each topic deserves its own history slot.
+
+### Why this phase exists
+
+Mingu's directive: this repo is "doing the equivalent of
+re-founding several academic fields — optimise for readability,
+extensibility, modularity, well-formed classification."  Closure
+campaigns produce *artifacts*; this phase ensures they also
+produce *seeds* for the next round.  Without it, every merge is
+just adding mass; with it, every merge generates the next
+campaign's prep.
+
 ## Phase 8: Final commit hygiene
 
   - Commit messages of recent work explain WHY, not just WHAT
