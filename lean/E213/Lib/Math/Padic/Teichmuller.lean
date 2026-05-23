@@ -224,12 +224,149 @@ private theorem geo_sum_mod_eq (a b p : Nat) (hp : 0 < p) (hbp : b % p = 0) :
     at exponent `p` has `p` terms each ≡ `a^(p-1) (mod p)`, so total ≡ 0 mod p. -/
 private theorem geo_sum_mod_zero_at_p (a b p : Nat) (hp : 0 < p) (hbp : b % p = 0) :
     geo_sum_nat a b p % p = 0 := by
-  -- Case on p: for p = 0, geo_sum_nat a b 0 = 0; for p = q + 1, use geo_sum_mod_eq.
   cases p with
   | zero => exact absurd hp (Nat.lt_irrefl 0)
   | succ q =>
     rw [geo_sum_mod_eq a b (q + 1) hp hbp q]
-    -- Goal: ((q+1) * a^q) % (q+1) = 0
     exact E213.Tactic.NatHelper.mul_mod_right (q + 1) (a^q)
+
+/-- PURE Nat: `p^k % p = 0` for `k ≥ 1`. -/
+private theorem pow_mod_zero (p k : Nat) (hk : 1 ≤ k) : p^k % p = 0 := by
+  cases k with
+  | zero => exact absurd hk (Nat.not_succ_le_zero 0)
+  | succ q =>
+    rw [Nat.pow_succ, Nat.mul_comm (p^q) p]
+    exact E213.Tactic.NatHelper.mul_mod_right p (p^q)
+
+/-- **Nat-level Frobenius lift**: `b % p^k = 0, k ≥ 1 →
+    (a + b)^p % p^(k+1) = a^p % p^(k+1)` for any `p ≥ 1`.
+
+    Combines `pow_add_factor` (factorization) and `geo_sum_mod_zero_at_p`
+    (sum divisibility), giving `(a + b)^p - a^p = b · S` divisible by
+    `p^(k+1)`. -/
+private theorem frobenius_lift_nat (a b p k : Nat) (hp : 0 < p) (hk : 1 ≤ k)
+    (hbk : b % p^k = 0) :
+    (a + b)^p % p^(k + 1) = a^p % p^(k + 1) := by
+  -- b = p^k * c where c = b / p^k.
+  have hb_eq : b = p^k * (b / p^k) := by
+    have := E213.Meta.Nat.AddMod213.div_add_mod b (p^k)
+    rw [hbk, Nat.add_zero] at this
+    exact this.symm
+  -- b % p = 0 (since p | p^k | b).
+  have hb_p : b % p = 0 := by
+    rw [hb_eq]
+    -- (p^k * c) % p = ((p^k % p) * c) % p = (0 * c) % p = 0
+    rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure (p^k) (b / p^k) p,
+        pow_mod_zero p k hk, Nat.zero_mul, E213.Tactic.NatHelper.zero_mod]
+  -- S := geo_sum_nat a b p satisfies S % p = 0.
+  have hS_mod_p : geo_sum_nat a b p % p = 0 := geo_sum_mod_zero_at_p a b p hp hb_p
+  -- (a + b)^p = a^p + b * S.
+  rw [pow_add_factor a b p]
+  -- Want: (a^p + b * S) % p^(k+1) = a^p % p^(k+1).
+  -- b * S = (p^k * c) * S = p^k * (c * S).
+  -- (c * S) % p = 0 (since S % p = 0).
+  -- So c * S = p * m for some m, hence b * S = p^k * p * m = p^(k+1) * m.
+  have hcS_mod : ((b / p^k) * geo_sum_nat a b p) % p = 0 := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure (b / p^k) (geo_sum_nat a b p) p,
+        hS_mod_p, Nat.mul_zero, E213.Tactic.NatHelper.zero_mod]
+  -- b * S = p^k * ((b / p^k) * S).  Use congrArg to avoid mass-substituting b.
+  have hbS_eq : b * geo_sum_nat a b p
+              = p^k * ((b / p^k) * geo_sum_nat a b p) := by
+    have h1 : b * geo_sum_nat a b p
+            = (p^k * (b / p^k)) * geo_sum_nat a b p :=
+      congrArg (· * geo_sum_nat a b p) hb_eq
+    rw [h1, E213.Tactic.NatHelper.mul_assoc (p^k) (b / p^k) (geo_sum_nat a b p)]
+  -- Rewrite b * S in goal.
+  rw [hbS_eq]
+  -- Goal: (a^p + p^k * ((b/p^k) * S)) % p^(k+1) = a^p % p^(k+1)
+  -- Strategy: (p^k * X) % p^(k+1) = ((X % p) * p^k) by mul_pow_succ_mod style,
+  --           but we have X = (b/p^k) * S with X % p = 0, so this gives 0.
+  -- Compute (p^k * X) % p^(k+1):
+  -- (p^k * X) = p^k * (p * (X / p) + X % p) = p^k * p * (X / p) + p^k * (X % p)
+  --           = p^(k+1) * (X / p) + p^k * (X % p) = p^(k+1) * (X / p) (since X % p = 0).
+  -- So (p^k * X) % p^(k+1) = 0.
+  have hX_div : (b / p^k) * geo_sum_nat a b p
+              = p * ((b / p^k) * geo_sum_nat a b p / p) := by
+    have := E213.Meta.Nat.AddMod213.div_add_mod
+              ((b / p^k) * geo_sum_nat a b p) p
+    rw [hcS_mod, Nat.add_zero] at this
+    exact this.symm
+  rw [hX_div]
+  -- Goal: (a^p + p^k * (p * ((b/p^k) * S / p))) % p^(k+1) = a^p % p^(k+1)
+  -- p^k * (p * Y) = p^(k+1) * Y.
+  rw [← E213.Tactic.NatHelper.mul_assoc (p^k) p _]
+  rw [show p^k * p = p^(k + 1) from (Nat.pow_succ p k).symm]
+  -- Goal: (a^p + p^(k+1) * Y) % p^(k+1) = a^p % p^(k+1)
+  rw [Nat.mul_comm (p^(k+1)) _]
+  exact E213.Tactic.NatHelper.add_mul_mod_self_pure (a^p)
+    (p^(k+1)) (b / p^k * geo_sum_nat a b p / p)
+
+/-! ## Lift to ZpSeq + Teichmüller convergence -/
+
+/-- **ZpSeq-level Frobenius lift**: if `y.trunc k = z.trunc k` (i.e.,
+    `y ≡ z (mod p^k)`) and `k ≥ 1`, then `(y^p).trunc (k+1) = (z^p).trunc (k+1)`
+    (i.e., `y^p ≡ z^p (mod p^(k+1))`). -/
+theorem Zp.frobenius_lift (p : Nat) (hp : 1 < p) (y z : ZpSeq p) (k : Nat)
+    (hk : 1 ≤ k)
+    (h_yz : y.trunc k = z.trunc k) :
+    (Zp.pow p hp y p).trunc (k + 1) = (Zp.pow p hp z p).trunc (k + 1) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  -- (y^p).trunc (k+1) = (y.trunc (k+1))^p % p^(k+1) by pow_trunc.
+  rw [Zp.pow_trunc p hp y (k + 1) p, Zp.pow_trunc p hp z (k + 1) p]
+  -- Want: (y.trunc(k+1))^p % p^(k+1) = (z.trunc(k+1))^p % p^(k+1).
+  -- y.trunc(k+1) = y.trunc k + (y.digits k).val · p^k = a + dy · p^k where a := y.trunc k.
+  -- z.trunc(k+1) = z.trunc k + (z.digits k).val · p^k = a + dz · p^k (using h_yz).
+  -- Apply frobenius_lift_nat with `a` common, `b_y = dy · p^k`, `b_z = dz · p^k`.
+  -- Both b_y and b_z are divisible by p^k.
+  -- Let a := y.trunc k.  Then z.trunc k = a by h_yz.
+  -- y.trunc (k + 1) = a + (y.digits k).val * p^k.
+  have hy_form : y.trunc (k + 1) = y.trunc k + (y.digits k).val * p^k := rfl
+  have hz_form : z.trunc (k + 1) = y.trunc k + (z.digits k).val * p^k := by
+    show z.trunc k + (z.digits k).val * p^k = y.trunc k + (z.digits k).val * p^k
+    rw [h_yz]
+  rw [hy_form, hz_form]
+  -- Both LHS and RHS now have form `(a + d · p^k)^p % p^(k+1)`.
+  -- Apply frobenius_lift_nat to each: equals `a^p % p^(k+1)`.
+  have h_y : ((y.digits k).val * p^k) % p^k = 0 := by
+    rw [Nat.mul_comm (y.digits k).val (p^k)]
+    exact E213.Tactic.NatHelper.mul_mod_right (p^k) (y.digits k).val
+  have h_z : ((z.digits k).val * p^k) % p^k = 0 := by
+    rw [Nat.mul_comm (z.digits k).val (p^k)]
+    exact E213.Tactic.NatHelper.mul_mod_right (p^k) (z.digits k).val
+  rw [frobenius_lift_nat (y.trunc k) ((y.digits k).val * p^k) p k hp' hk h_y]
+  rw [frobenius_lift_nat (y.trunc k) ((z.digits k).val * p^k) p k hp' hk h_z]
+
+/-- **Teichmüller iteration is Cauchy**: for `p ≥ 1`,
+    `(teichmuller_iter x (n + 1)).trunc (n + 1) = (teichmuller_iter x n).trunc (n + 1)`.
+
+    Equivalent: `iter x (n + 1) ≡ iter x n (mod p^(n+1))`.
+
+    Proof by induction on n:
+    - Base n = 0: `(iter x 1).trunc 1 = (iter x 0).trunc 1` by Fermat at digit 0
+      (`pow_p_trunc_one`).
+    - Step n → n+1: by IH `iter x (n + 1) ≡ iter x n (mod p^(n+1))`.
+      Apply Frobenius lift (with k = n + 1 ≥ 1) to get
+      `(iter x (n + 1))^p ≡ (iter x n)^p (mod p^(n + 2))`, which is
+      `iter x (n + 2) ≡ iter x (n + 1) (mod p^(n + 2))`. -/
+theorem Zp.teichmuller_iter_cauchy (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m → m < p
+                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+    ∀ n, (Zp.teichmuller_iter p hp x (n + 1)).trunc (n + 1)
+       = (Zp.teichmuller_iter p hp x n).trunc (n + 1)
+  | 0 => by
+    -- iter x 1 = x^p, iter x 0 = x.  Goal: (x^p).trunc 1 = x.trunc 1.
+    show (Zp.pow p hp x p).trunc 1 = x.trunc 1
+    exact Zp.pow_p_trunc_one p hp x h_prime_gcd
+  | n + 1 => by
+    have hp' : 0 < p := Nat.lt_of_succ_lt hp
+    have ih := Zp.teichmuller_iter_cauchy p hp x h_prime_gcd n
+    -- ih : (iter x (n+1)).trunc (n+1) = (iter x n).trunc (n+1).
+    -- Goal: (iter x (n+2)).trunc (n+2) = (iter x (n+1)).trunc (n+2).
+    -- iter x (n+2) = (iter x (n+1))^p, iter x (n+1) = (iter x n)^p.
+    show (Zp.pow p hp (Zp.teichmuller_iter p hp x (n + 1)) p).trunc (n + 2)
+       = (Zp.pow p hp (Zp.teichmuller_iter p hp x n) p).trunc (n + 2)
+    exact Zp.frobenius_lift p hp
+      (Zp.teichmuller_iter p hp x (n + 1)) (Zp.teichmuller_iter p hp x n)
+      (n + 1) (Nat.succ_le_succ (Nat.zero_le n)) ih
 
 end E213.Lib.Math.Padic
