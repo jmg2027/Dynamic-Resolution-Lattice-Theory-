@@ -103,15 +103,39 @@ structures: Fano plane (7-point projective geometry of octonions),
 FanoK32 (Fano ↔ K_{3,2}^{(c=2)} structural bridge),
 GenericGeomBridge (abstract geometric bridge interface).
 
+## Hurwitz dichotomy — closed (HurwitzDichotomy.lean, 26 PURE)
+
+`Lib/Math/SignedCut/Hurwitz/HurwitzDichotomy.lean` quantifies the
+classical Hurwitz theorem as a parametric Nat-decidable predicate:
+
+  `hurwitzAdmissible n := decide (n ≤ 3)`
+
+Reading: CD level `n` is Hurwitz-admissible (carries
+`‖z·w‖² = ‖z‖² · ‖w‖²`) iff `n ≤ 3`.  The four admissible levels
+correspond to ℝ (n=0), ℂ (n=1), ℍ (n=2), 𝕆 (n=3); level 4
+(sedenions 𝕊) is the first failure.
+
+  · Decision table: `hurwitz_admissible_{0..3} = true`,
+    `hurwitz_fails_{4, 5, 25} = false`.
+  · Iff characterisation:
+    `hurwitz_admissible_iff : hurwitzAdmissible n = true ↔ n ≤ 3`.
+  · Component counts via `levelDim`: `1, 2, 4, 8, 16, ...`
+    matching ℝ, ℂ, ℍ, 𝕆, 𝕊.
+  · Brahmagupta-Fibonacci magnitude bound at level 1
+    (`hurwitz_sample_complex`, `hurwitz_sample_complex_general`).
+  · Level 4 non-triviality (`level_4_nontrivial`) from
+    `HurwitzFailure.sed_zero_neq_one`.
+  · ★★★★ `hurwitz_dichotomy_capstone` — bundles decision table +
+    iff + component counts + sample bound + failure witness.
+
 ## Open frontier
 
 - **CD level beyond L25**: not closed at the level-2 `configCount`
   evaluation — but
   reformulating "beyond" structurally requires the next-resolution
   layer (currently outside DRLT scope)
-- **Hurwitz failure characterization**: `Failure.lean` documents
-  specific failures; a parametric "when does Hurwitz fail at level
-  N" theorem is open
+- ~~**Hurwitz failure characterization**~~ — CLOSED via
+  `HurwitzDichotomy.lean` (26 PURE) above.
 - **Non-associativity quantification**: octonion non-assoc witness gives one witness; a
   characterization of the obstruction at each L ≥ 3 is open
 
