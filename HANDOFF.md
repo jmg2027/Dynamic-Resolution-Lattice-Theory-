@@ -94,11 +94,27 @@ in Lean as decide-checked literal.
     `l11-attempt`.  Uses num-bigint for arbitrary-precision
     Phi_n(5) computation via cyclotomic recursion.  L_7
     round-trip verified against PARI-derived norm pair.
-  · Parallel L_11 attempts in flight:
-      - PARI `bnfisnorm` over Q(√5), 1-hour budget
-      - sympy `factor(Phi_1210, extension=√5)` (algorithm
-        validated on m=1, 3, 7; finds norm-correct (L, M) pairs
-        possibly unit-translated from canonical)
+
+### L_11 attempt — both methods exhausted budget
+
+  · **PARI** `bnfisnorm` over `K = Q(√5)`: ran for 1 hour
+    (timeout cap), still inside `bnfisnorm` step.  Class-group
+    computation for `Φ_{1210}(5)` (308 digits) is unreasonably
+    expensive vs. m=7 (which completed in seconds).
+  · **sympy** `factor(Φ_{1210}, extension=√5)`: ran for 2h+
+    (killed manually), still in `factor` step.  Memory usage
+    stable (~350 MB RSS), but factor over algebraic extension
+    for degree-440 polynomial scales worse than expected
+    (m=7 deg-168 took 228s; m=11 deg-440 ≫ 228s · (440/168)^3).
+  · Algorithm validated on m={1, 3, 7} but the m=11 instance is
+    intractable with currently-available tooling.
+
+  Future paths:
+    · Brent's published Aurifeuillean tables (if accessible offline)
+    · Implement Aurifeuillean polynomial formula in rust (the
+      `aurifeuillean-lm` binary's stub mode)
+    · Use a faster computer-algebra system (Magma, SageMath with
+      precomputed class group data)
 
 ### A. Cut-off-applications extensions
 
