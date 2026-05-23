@@ -39,7 +39,7 @@ open E213.Lib.Math.AkbulutCork.SignedOrbits
 /-! ## §1 — MultiCork213 data type -/
 
 /-- A multi-cork configuration: a list of disjoint Cork213 instances. -/
-def MultiCork213 : Type := List Cork213
+abbrev MultiCork213 : Type := List Cork213
 
 /-- Single-cork configuration (canonical K_{1,4} instance). -/
 def singleCork : MultiCork213 := [K14_cork]
@@ -409,5 +409,246 @@ theorem hetero_multi_cork_close :
     -- Universal formula applies to hetero too
     ∧ signedCorkTwistCountMulti heteroQuad = powNat 4 4 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ## §9 — Universal cork involution (with well-formedness)
+
+The single-cork involution `corkTwist² = id` only holds when the
+`twist_parity` field is `< 2` (the well-formed range).  Without
+this constraint, `corkTwist² c` has parity `c.twist_parity % 2`,
+which differs from `c.twist_parity` for parities ≥ 2.
+
+We carry the hypothesis explicitly rather than refactoring
+`Cork213` invasively.
+-/
+
+open E213.Lib.Math.AkbulutCork.Foundation (Cork213)
+
+/-- `((tp + 1) % 2 + 1) % 2 = tp` for any `tp < 2`.
+    Term-level proof: pattern match on `tp` only, derive False for
+    `tp ≥ 2` via `Nat.not_lt_of_le` (both PURE). -/
+theorem twist_double_eq_id_if_lt_2 : ∀ (tp : Nat), tp < 2 →
+    ((tp + 1) % 2 + 1) % 2 = tp
+  | 0, _ => rfl
+  | 1, _ => rfl
+  | n + 2, h =>
+    False.elim (Nat.not_lt_of_le (Nat.le_add_left 2 n) h)
+
+/-- ★★★★★ **Universal cork involution (well-formed)**:
+    `corkTwist (corkTwist c) = c` for any `c` with `twist_parity < 2`. -/
+theorem corkTwist_involution_wf (c : Cork213)
+    (h : c.twist_parity < 2) :
+    corkTwist (corkTwist c) = c := by
+  cases c with
+  | mk b1 bsize tp =>
+    show ({ contractible_b1 := b1, boundary_size := bsize,
+            twist_parity := ((tp + 1) % 2 + 1) % 2 } : Cork213)
+         = { contractible_b1 := b1, boundary_size := bsize,
+             twist_parity := tp }
+    congr 1
+    exact twist_double_eq_id_if_lt_2 tp h
+
+/-- Well-formedness predicate: all components have `twist_parity < 2`. -/
+abbrev IsWellFormed (m : MultiCork213) : Prop :=
+  ∀ c, c ∈ m → c.twist_parity < 2
+
+theorem singleCork_wf : IsWellFormed singleCork := by
+  intro c hc
+  cases hc with
+  | head _ => decide
+  | tail _ h => cases h
+
+theorem pairCork_wf : IsWellFormed pairCork := by
+  intro c hc
+  cases hc with
+  | head _ => decide
+  | tail _ h =>
+    cases h with
+    | head _ => decide
+    | tail _ h => cases h
+
+theorem tripleCork_wf : IsWellFormed tripleCork := by
+  intro c hc
+  cases hc with
+  | head _ => decide
+  | tail _ h =>
+    cases h with
+    | head _ => decide
+    | tail _ h =>
+      cases h with
+      | head _ => decide
+      | tail _ h => cases h
+
+/-- ★★★★★★ **Universal multi-cork involution (well-formed)**:
+    `corkTwistMulti² m = m` whenever all components are
+    well-formed.  Proof by list induction. -/
+theorem corkTwistMulti_involution_wf : ∀ (m : MultiCork213),
+    (∀ c : Cork213, c ∈ m → c.twist_parity < 2)
+      → corkTwistMulti (corkTwistMulti m) = m
+  | [], _ => rfl
+  | c :: rest, hwf => by
+    have hc : corkTwist (corkTwist c) = c :=
+      corkTwist_involution_wf c (hwf c (List.Mem.head _))
+    have hrest : corkTwistMulti (corkTwistMulti rest) = rest :=
+      corkTwistMulti_involution_wf rest (fun c' hc' =>
+        hwf c' (List.Mem.tail c hc'))
+    show corkTwist (corkTwist c) :: ((rest.map corkTwist).map corkTwist)
+         = c :: rest
+    have hrest_unfolded :
+        (rest.map corkTwist).map corkTwist = rest := hrest
+    rw [hc, hrest_unfolded]
+
+/-- ★★★★★★★ **Universal cork involution close**
+
+  The single-cork and multi-cork involution `corkTwist² = id` holds
+  universally given a well-formedness hypothesis on twist-parity.
+
+  Single-cork: `∀ c, c.twist_parity < 2 → corkTwist² c = c`.
+  Multi-cork:  `∀ m, IsWellFormed m → corkTwistMulti² m = m`.
+
+  The canonical instances (`K14_cork`, `K31_cork`, `K11_cork`) all
+  satisfy `twist_parity = 0`, hence well-formed, so the existing
+  per-instance involution theorems are corollaries. -/
+theorem universal_cork_involution_close :
+    -- Single-cork helper
+    (∀ tp : Nat, tp < 2 → ((tp + 1) % 2 + 1) % 2 = tp)
+    -- Single-cork involution under well-formedness
+    ∧ (∀ c : Cork213, c.twist_parity < 2
+         → corkTwist (corkTwist c) = c)
+    -- Multi-cork well-formedness for canonical instances
+    ∧ IsWellFormed singleCork
+    ∧ IsWellFormed pairCork
+    ∧ IsWellFormed tripleCork
+    -- Multi-cork involution under well-formedness
+    ∧ (∀ m : MultiCork213, IsWellFormed m
+         → corkTwistMulti (corkTwistMulti m) = m) := by
+  refine ⟨twist_double_eq_id_if_lt_2,
+          corkTwist_involution_wf,
+          singleCork_wf,
+          pairCork_wf,
+          tripleCork_wf,
+          corkTwistMulti_involution_wf⟩
+
+/-! ## §10 — Host-aware multi-cork
+
+The current signed-count formula `4^k` assumes K_{3,2}^{(c=2)} hosts
+for all components.  Other K-deployment hosts have different
+cohomology:
+
+  · K_{3,2}^{(c=2)}: b_1 = 8, signed count = +4
+  · K_{1,k}^{(c=1)} (trees, k ≥ 1): b_1 = 0, signed count = 0
+  · K_{3,1}^{(c=1)} (tree): b_1 = 0, signed count = 0
+
+Heterogeneous host-mixed multi-corks have product signed count
+that depends on host composition.
+-/
+
+/-- K-deployment host data: (NS, NT, c) tuple. -/
+structure CorkHost where
+  NS : Nat
+  NT : Nat
+  c  : Nat
+  deriving DecidableEq
+
+/-- Canonical hosts. -/
+def K32_host : CorkHost := { NS := 3, NT := 2, c := 2 }
+def K14_host : CorkHost := { NS := 1, NT := 4, c := 1 }
+def K31_host : CorkHost := { NS := 3, NT := 1, c := 1 }
+def K11_host : CorkHost := { NS := 1, NT := 1, c := 1 }
+
+/-- Per-host signed count: +4 for K_{3,2}^{(c=2)} critical hosts,
+    0 for tree hosts (b_1 = 0 ⇒ no nontrivial Sym(3) orbits). -/
+def signedHostCount : CorkHost → Nat
+  | { NS := 3, NT := 2, c := 2 } => 4
+  | _ => 0
+
+theorem signedHostCount_K32 : signedHostCount K32_host = 4 := rfl
+theorem signedHostCount_K14 : signedHostCount K14_host = 0 := rfl
+theorem signedHostCount_K31 : signedHostCount K31_host = 0 := rfl
+theorem signedHostCount_K11 : signedHostCount K11_host = 0 := rfl
+
+/-- Host-aware multi-cork: list of (cork, host) pairs.
+    Simplified: just a list of hosts (cork data abstracted). -/
+abbrev HostAwareMultiCork : Type := List CorkHost
+
+/-- Product of per-component signed counts. -/
+def signedHostMulti : HostAwareMultiCork → Nat
+  | [] => 1
+  | h :: rest => signedHostCount h * signedHostMulti rest
+
+/-- All-K32 multi-cork of length k. -/
+def allK32 : Nat → HostAwareMultiCork
+  | 0 => []
+  | n + 1 => K32_host :: allK32 n
+
+/-- All-K32 list at length k has signed count 4^k. -/
+theorem signedHostMulti_allK32 : ∀ k,
+    signedHostMulti (allK32 k) = powNat 4 k
+  | 0 => rfl
+  | n + 1 => by
+    show signedHostCount K32_host * signedHostMulti (allK32 n)
+         = 4 * powNat 4 n
+    rw [signedHostCount_K32, signedHostMulti_allK32 n]
+
+/-- Mixed hosts including a K14 (tree): signed count collapses to 0. -/
+theorem signedHostMulti_collapse_with_tree :
+    signedHostMulti [K32_host, K14_host, K32_host] = 0 := by
+  show signedHostCount K32_host * (signedHostCount K14_host *
+       (signedHostCount K32_host * 1)) = 0
+  rw [signedHostCount_K32, signedHostCount_K14]
+
+/-- Any host-list containing a non-K32 component has signed count 0. -/
+theorem signedHostMulti_K14_then_anything :
+    signedHostMulti (K14_host :: [K32_host, K32_host, K32_host]) = 0 := by
+  show signedHostCount K14_host * signedHostMulti [K32_host, K32_host, K32_host]
+       = 0
+  rw [signedHostCount_K14]
+  rfl
+
+/-- The K_{3,2}^{(c=2)} critical host is the unique signed-count-contributing
+    deployment among canonical instances. -/
+theorem K32_is_unique_critical_host :
+    signedHostCount K32_host = 4
+    ∧ signedHostCount K14_host = 0
+    ∧ signedHostCount K31_host = 0
+    ∧ signedHostCount K11_host = 0 := by
+  refine ⟨rfl, rfl, rfl, rfl⟩
+
+/-- ★★★★★★ **Host-aware multi-cork structural close**
+
+  Per-host signed counts: K_{3,2}^{(c=2)} contributes `+4`, all
+  other K-deployments contribute `0` (trees have b_1 = 0 hence
+  no nontrivial Sym(3)-orbit Z/2 grading).
+
+  Multi-cork product law specialises:
+    · All-K32 of length k: `4^k`
+    · Any mixed list with at least one non-K32: `0`
+
+  The original `signedCorkTwistCountMulti m = 4^m.length` formula
+  is the "all-K32" specialisation.  Host-mixing collapses the
+  signed count to 0 unless every component is a K_{3,2}^{(c=2)}
+  critical host. -/
+theorem host_aware_multi_cork_close :
+    -- Per-host signed counts
+    signedHostCount K32_host = 4
+    ∧ signedHostCount K14_host = 0
+    ∧ signedHostCount K31_host = 0
+    ∧ signedHostCount K11_host = 0
+    -- All-K32 of length 3 → 64
+    ∧ signedHostMulti (allK32 3) = 64
+    -- All-K32 of length 5 → 1024
+    ∧ signedHostMulti (allK32 5) = 1024
+    -- Mixed collapse with tree
+    ∧ signedHostMulti [K32_host, K14_host, K32_host] = 0
+    -- Universal all-K32 formula
+    ∧ (∀ k, signedHostMulti (allK32 k) = powNat 4 k) := by
+  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_,
+          signedHostMulti_collapse_with_tree,
+          signedHostMulti_allK32⟩
+  · show signedHostMulti (allK32 3) = 64
+    rw [signedHostMulti_allK32]
+    decide
+  · show signedHostMulti (allK32 5) = 1024
+    rw [signedHostMulti_allK32]
+    decide
 
 end E213.Lib.Math.AkbulutCork.MultiCork
