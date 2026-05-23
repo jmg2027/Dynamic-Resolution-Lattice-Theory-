@@ -105,9 +105,9 @@ by decide over 1458 = 3⁴ × 3² × 2 parameter combinations.
 
 **Open frontier**: outer = ^ case for `521` closed in §9.
 
-## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci, Padovan sequence cut-offs
+## §5 Direction C — Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana, Jacobsthal sequence cut-offs
 
-Applies the principle to **five non-Aurifeuillean** external
+Applies the principle to **seven non-Aurifeuillean** external
 sequences:
 
   · Pell (`P_{n+2} = 2P_{n+1} + P_n`)
@@ -115,6 +115,8 @@ sequences:
   · Fibonacci (`F_{n+2} = F_{n+1} + F_n`)
   · Tribonacci (`T_{n+3} = T_{n+2} + T_{n+1} + T_n`)
   · Padovan (`P_{n+3} = P_{n+1} + P_n` — no `P_{n+2}` term)
+  · Narayana cow (`N_{n+3} = N_{n+2} + N_n` — one-shift cousin of Padovan)
+  · Jacobsthal (`J_{n+2} = J_{n+1} + 2 J_n` — multiplicative variant)
 
 ### Pell
 
@@ -236,28 +238,94 @@ Cut-off slices:
   · Restricted depth 2: `n ≥ 59` (boundary `P_58 = 8 745 217,
     P_59 = 11 584 946`).
 
+### Narayana cow
+
+| n | N_n | catalogue role          |
+|---|-----|-------------------------|
+| 3 | 2   | NT (atomic generator)   |
+| 4 | 3   | NS (atomic generator)   |
+| 8 | 13  | catalogue prime         |
+
+★ **Narayana opens with `(NT, NS)` then peels off**: `(N_3, N_4)
+= (2, 3) = (NT, NS)` mirrors Fibonacci's opening, but at the
+third atomic generator Narayana lands on `N_5 = 4` while
+Fibonacci nails `F_5 = 5`.  Direction C's first sequence with
+a "broken" Hunter triple at small indices.
+
+★ **Gap over `{5, 7}`**: Narayana jumps over both catalogue atoms
+`5` (sandwich `N_5 = 4 < 5 < 6 = N_6`) and `7` (sandwich
+`N_6 = 6 < 7 < 9 = N_7`).  Distinct fingerprint: only Narayana
+exhibits "gapped" Hunter coverage at the small atoms.
+
+Narayana's supergolden constant `ρ ≈ 1.4656` (real root of
+`x³ = x² + 1`) sits between Padovan and Tribonacci growth rates.
+
+Cut-off slices:
+  · Depth 1: `n ≥ 23` (boundary `N_22 = 2745, N_23 = 4023`).
+  · Restricted depth 2: `n ≥ 44` (boundary `N_43 = 8 407 925,
+    N_44 = 12 322 413`).
+
+### Jacobsthal
+
+| n | J_n | catalogue role          |
+|---|-----|-------------------------|
+| 3 | 3   | NS (atomic generator)   |
+| 4 | 5   | d (atomic generator)    |
+
+★ **Consecutive `(NS, d)` window**: `(J_3, J_4) = (3, 5)` —
+Jacobsthal threads the two LARGER Hunter generators at adjacent
+indices, skipping `NT = 2` (`J_2 = 1` is not catalogue).
+Distinct fingerprint from Fibonacci's `(NT, NS, d)` triple.
+
+★ **`J_6 = 21 = NS · 7`**: multiplicative coincidence between
+two catalogue atoms; only structural hit in the wider value
+range.
+
+Jacobsthal closed form `J_n = (2^n − (−1)^n) / 3` gives the
+fastest growth rate in the Direction C family.  Also the only
+sequence with `J_n` always odd for `n ≥ 1` — structural
+complement to the Hunter-atom parity spectrum.
+
+Cut-off slices:
+  · Depth 1: `n ≥ 14` (boundary `J_13 = 2731, J_14 = 5461`).
+    **Earliest crossing in the family** (exponential growth).
+  · Restricted depth 2: `n ≥ 25` (boundary `J_24 = 5 592 405,
+    J_25 = 11 184 811`).
+
 ### Catalogue coverage across sequences
 
 | atom | sources                                              |
 |------|------------------------------------------------------|
-| 2    | F_3, L_0, T_4, Pad_3                                 |
-| 3    | F_4, L_2, Pad_5                                      |
-| 5    | F_5, P_3, Pad_7                                      |
+| 2    | F_3, L_0, T_4, Pad_3, N_3                            |
+| 3    | F_4, L_2, Pad_5, N_4, J_3                            |
+| 5    | F_5, P_3, Pad_7, J_4                                 |
 | 7    | L_4, T_6, Pad_8                                      |
-| 13   | F_7, T_7                                             |
+| 13   | F_7, T_7, N_8                                        |
 | 29   | Aurifeuillean L_1, Pell P_5, Lucas L_7 (TRIPLE)      |
 | 521  | Aurifeuillean Φ_10(5), Lucas L_13                    |
 
 **Combined coverage**: the entire catalogue `{2, 3, 5, 7, 13, 29,
 521}` is reached by some sequence in
-`{Pell, Lucas, Fibonacci, Tribonacci, Padovan, Aurifeuillean}`.
-The atom `29` is sourced from three sequences (triple
-coincidence), `521` from two (Lucas and Aurifeuillean), each of
-the small generators `{2, 3, 5, 7}` from three or four sequences.
+`{Pell, Lucas, Fibonacci, Tribonacci, Padovan, Narayana,
+Jacobsthal, Aurifeuillean}`.  The atom `29` is sourced from
+three sequences (triple coincidence), `521` from two (Lucas and
+Aurifeuillean), each of the small generators `{2, 3}` from five
+sequences, `5` from four, `7` from three.
+
+**Structural distinguishers** (single-sequence properties):
+  · Narayana: gapped Hunter coverage — misses `{5, 7}` entirely.
+  · Jacobsthal: consecutive `(NS, d)` window; always odd for
+    `n ≥ 1`; earliest depth-1 crossing.
+  · Padovan: triple Hunter generators at odd-index AP step 2.
+  · Tribonacci: tightest near-boundary `T_16 − M_1 = 11`.
+  · Fibonacci: triple Hunter generators at consecutive indices.
+  · Lucas: 5 catalogue hits (most of any external sequence).
+  · Pell: dyadic-FSM / Pisano-period bridge.
 
 **Lean**: `PellCutoff.lean` (35 PURE) + `LucasCutoff.lean` (40 PURE)
 + `FibonacciCutoff.lean` (36 PURE) + `TribonacciCutoff.lean` (28 PURE)
-+ `PadovanCutoff.lean` (30 PURE).
++ `PadovanCutoff.lean` (30 PURE) + `NarayanaCutoff.lean` (31 PURE)
++ `JacobsthalCutoff.lean` (26 PURE).
 
 ## §6 Direction E — Hunter complexity measure
 
@@ -338,14 +406,18 @@ the cut-off slice moves with the set.
      family, an artifact of Tribonacci's slow growth rate
      (constant ψ ≈ 1.839).
 
-  4. **Catalogue coverage is complete**: combined hit set across
-     `{Pell, Lucas, Fibonacci, Tribonacci, Padovan, Aurifeuillean}`
-     covers the entire catalogue `{2, 3, 5, 7, 13, 29, 521}`.  The
-     atom `29` is sourced by three sequences (triple coincidence)
-     and `521` by two (Lucas and Aurifeuillean).  Padovan
-     contributes a secondary odd-index embedding of the Hunter
-     primitive set: `(P_3, P_5, P_7) = (NT, NS, d)` — sister to
-     the Fibonacci consecutive-index window.
+  4. **Catalogue coverage is complete + structurally diverse**:
+     combined hit set across `{Pell, Lucas, Fibonacci, Tribonacci,
+     Padovan, Narayana, Jacobsthal, Aurifeuillean}` covers the
+     entire catalogue `{2, 3, 5, 7, 13, 29, 521}`.  The atom `29`
+     is sourced by three sequences (triple coincidence) and `521`
+     by two (Lucas and Aurifeuillean).  The seven sister sequences
+     exhibit structurally distinct catalogue fingerprints:
+     consecutive-index `(NT, NS, d)` (Fibonacci), odd-index AP
+     `(NT, NS, d)` (Padovan), consecutive `(NS, d)` only
+     (Jacobsthal), gapped over `{5, 7}` (Narayana), tight
+     near-boundary (Tribonacci), maximum-hit count (Lucas, 5
+     atoms), and dyadic-FSM bridge (Pell).
 
   5. **Catalogue carries an FLT sub-closure**: under mod-p ops,
      `{(a, p) ∈ cat² : a < p}` is closed via `a^p ≡ a (mod p)`.
@@ -437,6 +509,12 @@ the explicit depth-3 witness `2^(3^2) + 3^2`.
   · `lean/E213/Lib/Math/Cohomology/Fractal/PadovanCutoff.lean`
     — Direction C, Padovan + odd-index Hunter-generator window
     (30 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/NarayanaCutoff.lean`
+    — Direction C, Narayana cow + gapped Hunter coverage
+    (31 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Fractal/JacobsthalCutoff.lean`
+    — Direction C, Jacobsthal + consecutive (NS, d) window
+    + always-odd parity (26 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterComplexity.lean`
     — Direction E (32 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AltPrimitiveSet.lean`
