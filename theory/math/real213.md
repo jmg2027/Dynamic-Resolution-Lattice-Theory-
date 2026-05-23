@@ -86,9 +86,35 @@ modulus is a computable function of the input's modulus.
 - `theory/math/cauchy.md` (separate chapter) — sequence machinery
 - `theory/math/signed_cut.md` (separate chapter) — sign extension
 
+## Oracle-based continuity — closed (OracleContinuity.lean, 10 PURE)
+
+`Lib/Math/Real213/OracleContinuity.lean` recasts the
+`IsContinuousModulus` framework into the **typed-protocol** style
+parallel to `ConsistentOracle`:
+
+  `IsOracleContinuous f` carries:
+    · `threshold : Nat → Nat` — input precision lower bound
+    · `threshold_pos : ∀ k, threshold k ≥ k` — monotonicity
+
+The data is identical to `IsContinuousModulus`'s `(modulus,
+modulus_pos)`; the renaming "modulus → threshold" aligns continuity
+with the trajectory-witness paradigm.
+
+Bridge functions `ofModulus` / `toModulus` witness bidirectional
+equivalence; round-trip equalities hold pointwise (`rfl`); identity,
+constant, and composition are oracle-continuous.  Capstone
+`oracle_continuity_capstone` packages forward + backward bridge +
+round-trip + composition.
+
+Reading: the "ε-δ residue" in `IsContinuousModulus` is **purely
+terminological** — the underlying data (Nat → Nat refinement +
+monotonicity) is the same.  Oracle framing makes the trajectory the
+witness without changing the structural content.
+
 ## Open frontier
 
-- **Continuity-without-ε** via consistent oracles (companion to trajectory-witness IVT)
+- ~~Continuity-without-ε via consistent oracles~~ — CLOSED via
+  `OracleContinuity.lean` (10 PURE) above.
 - **Differentiation** via `DiffCut` + modulus tracking — partially
   in `Modulus/Translation.lean`, full deferred
 - **Measure-theoretic extension** — `Lib/Math/Measure/` provides
