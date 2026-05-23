@@ -240,6 +240,7 @@ extension only, is itself a research question.  See
 | `Zp.pow_p_trunc_one` | `Pow` | Fermat at digit-0: `x^p ≡ x (mod p)` |
 | `Zp.pow_p_minus_one_trunc_one` | `Pow` | Fermat: `x^(p-1) ≡ 1 (mod p)` for x unit |
 | `Zp.teichmuller_iter` + invariant | `Pow` | iterate `x ↦ x^p`; digit-0 preserved mod p |
+| `Zp.valAtLeast_pow` | `Pow` | `val(x^k) ≥ k · val(x)` (pow scales valuation) |
 | `Zp.add_neg_self_trunc` | `Arith` | `(x + (-x)).trunc (n+1) = 0` — additive inverse |
 | `Zp.sub_eq_zero_of_trunc_eq` / converse | `Arith` | `(a + (-b)).trunc = 0 ↔ a.trunc = b.trunc` |
 | `Zp.inv_trunc_unique` | `Hensel` | Hensel inverse uniqueness |
