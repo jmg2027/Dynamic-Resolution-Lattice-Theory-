@@ -114,6 +114,12 @@ inductive SpeciesKind
   | fibonacci_recurrence
   | stern_brocot_mediant
   | padic_tower
+  -- Bucket 2 (geometric) — iteration-level extension
+  | reflection_through_center
+  -- Bucket 5 (invariants) — iteration-level extension
+  | det_iteration_invariant
+  | trace_lucas_recurrence
+  | cassini_iteration
   deriving DecidableEq
 
 /-! ## §2 — Species data table -/
@@ -173,6 +179,15 @@ def speciesData : SpeciesKind → FamilySpecies
       ⟨.arithmetic,             .binary_tree,       .formalized, 2⟩
   | .padic_tower            =>
       ⟨.arithmetic,             .inverse_system,    .formalized, 5⟩
+  -- Iteration-level extension (4 species)
+  | .reflection_through_center =>
+      ⟨.geometric_symmetry,     .z2_involution,     .formalized, 2⟩
+  | .det_iteration_invariant   =>
+      ⟨.invariants,             .trivial,           .formalized, 1⟩
+  | .trace_lucas_recurrence    =>
+      ⟨.invariants,             .linear_recurrence, .formalized, 3⟩
+  | .cassini_iteration         =>
+      ⟨.invariants,             .trivial,           .formalized, 1⟩
 
 /-- All distinct species, in bucket order. -/
 def allSpecies : List SpeciesKind := [
@@ -189,13 +204,18 @@ def allSpecies : List SpeciesKind := [
   .pell_unit,
   .bezout_decomposition,    .continued_fraction,
   .fibonacci_recurrence,    .stern_brocot_mediant,
-  .padic_tower]
+  .padic_tower,
+  -- Iteration-level extension
+  .reflection_through_center,
+  .det_iteration_invariant, .trace_lucas_recurrence,
+  .cassini_iteration]
 
 /-! ## §3 — Total count -/
 
-/-- ★★★★★ **Total species count**: 26 distinct symmetry
-    family species of P(x) at the current taxonomy depth. -/
-theorem allSpecies_length : allSpecies.length = 26 := rfl
+/-- ★★★★★ **Total species count**: 30 distinct symmetry
+    family species of P(x) at the current taxonomy depth
+    (26 base + 4 iteration-level extensions). -/
+theorem allSpecies_length : allSpecies.length = 30 := rfl
 
 /-! ## §4 — Atomic-invariant closure -/
 
@@ -213,41 +233,48 @@ theorem atomicInvariant_in_signature_set (k : SpeciesKind) :
 
 /-! ## §5 — Bucket + status partitions -/
 
-/-- ★★★★ **Bucket partition**: 4 + 4 + 4 + 4 + 5 + 5 = 26.
-    Algebraic preservation / geometric / dynamics /
-    representation theory each contribute 4 species; invariants
-    and arithmetic each contribute 5. -/
+/-- ★★★★ **Bucket partition**: 4 + 5 + 4 + 4 + 8 + 5 = 30
+    after the iteration-level extension.
+
+    · algebraic preservation: 4
+    · geometric symmetry: 5 (= 4 + reflection_through_center)
+    · dynamics: 4
+    · representation theory: 4
+    · invariants: 8 (= 5 + det_iteration_invariant +
+      trace_lucas_recurrence + cassini_iteration)
+    · arithmetic: 5 -/
 theorem bucket_partition_count :
-    4 + 4 + 4 + 4 + 5 + 5 = allSpecies.length := by decide
+    4 + 5 + 4 + 4 + 8 + 5 = allSpecies.length := by decide
 
 /-- ★★★★★★ **Status partition**: after the open-species
-    marathon closure, all 26 species are PURE-formalised. -/
+    marathon closure and the iteration-level extension,
+    all 30 species are PURE-formalised. -/
 theorem status_partition_count :
-    26 + 0 + 0 = allSpecies.length := by decide
+    30 + 0 + 0 = allSpecies.length := by decide
 
 /-! ## §6 — Master -/
 
 /-- ★★★★★★★★ **Meta-master**: P(x) admits a finite catalogue
-    of 26 distinct symmetry family species, partitioned into
-    6 structural buckets (4+4+4+4+5+5), with every species's
-    characteristic atomic invariant lying in `{det, NT, NS, d}
-    = {1, 2, 3, 5}`.
+    of 30 distinct symmetry family species (after iteration-
+    level extension), partitioned into 6 structural buckets
+    (4+5+4+4+8+5), with every species's characteristic atomic
+    invariant lying in `{det, NT, NS, d} = {1, 2, 3, 5}`.
 
     Formalises the meta-conjecture: every natural symmetry-
     revealing decomposition of P(x), expressed via its
     characteristic invariant integer, yields a value in the
     framework's atomic set. -/
 theorem symmetry_species_meta_master :
-    -- (a) Total count: 26 species
-    allSpecies.length = 26
+    -- (a) Total count: 30 species
+    allSpecies.length = 30
     -- (b) Atomic-value closure: every species ∈ {1, NT, NS, d}
     ∧ (∀ k : SpeciesKind,
         atomicInvariant k = 1 ∨ atomicInvariant k = NT
         ∨ atomicInvariant k = NS ∨ atomicInvariant k = d)
-    -- (c) Bucket partition: 4+4+4+4+5+5 = 26
-    ∧ 4 + 4 + 4 + 4 + 5 + 5 = allSpecies.length
-    -- (d) Status partition: 26 formalized + 0 partial + 0 open = 26
-    ∧ 26 + 0 + 0 = allSpecies.length :=
+    -- (c) Bucket partition: 4+5+4+4+8+5 = 30
+    ∧ 4 + 5 + 4 + 4 + 8 + 5 = allSpecies.length
+    -- (d) Status partition: 30 formalized + 0 partial + 0 open = 30
+    ∧ 30 + 0 + 0 = allSpecies.length :=
   ⟨allSpecies_length, atomicInvariant_in_signature_set,
    bucket_partition_count, status_partition_count⟩
 
