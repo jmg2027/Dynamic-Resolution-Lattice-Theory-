@@ -2056,3 +2056,41 @@ value `5` appears as `disc(P) = trace² − 4·det = 3² − 4·1`,
 (`Mobius213PellInvariant`) + 4
 (`Mobius213UnificationCapstone`) = **62 PURE / 0 DIRTY** for
 G139 Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone.
+
+## 2026-05-24 — G139 Phase 5: Atomicity ↔ Stern-Brocot anchor
+
+Connects the Stern-Brocot mediant reachability of the
+atomic-signature pair `(NS, NT) = (3, 2)` to
+`Theory.Atomicity.Five.atomic_iff_five` and the discriminant of
+the Möbius matrix.  Cross-frame anchor pulling together four
+*a priori* unrelated readings of the integer `5 = NS + NT = d`.
+6 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213AtomicityAnchor` | 6 | ★★★ `pseq_seedZero_realises_NS_NT` (P-orbit hits the atomic signature `(NS, NT)` at depth 2);  ★★★ `pseq_seedInf_realises_d_NS` (P-orbit hits the discriminant pair `(d, NS) = (5, 3)` at depth 2);  `NS_NT_reachable`, `d_NS_reachable` (both atomicity-related pairs are Stern-Brocot reachable);  ★★★★★★ `disc_atom_orbit_master` (six-conjunct: `NS + NT = 5 = d`, Möbius discriminant Nat-form, `Atomic 5`, P-orbit hits 5 at depth 2, both pairs SB-reachable);  `pseq_seedInf_2_eq_atomic` (`Pseq seedInf 2`'s first component IS the atomic Nat) |
+
+**Cross-frame readings of `5`** consolidated in this anchor:
+
+  (a) `5 = NS + NT = d` (`Theory.Atomicity.PairForcing`)
+  (b) `5 = trace²(P) − 4·det(P) = 3² − 4·1` (`Lib/Math/Mobius213.lean`)
+  (c) `5` is the unique atomic Nat (`atomic_iff_five`)
+  (d) `5 = (Pseq seedInf 2).1` (depth-2 image of `(1, 0)` under P)
+  (e) `5 = NS + NT` = sum of components of `Pseq seedZero 2 = (NS, NT)`
+  (f) `(NS, NT) = (3, 2)` is `SternBrocotReachable` (mediant of `(2, 1)`
+      and `(1, 1)` — depth-3 in the SB tree counting from seeds)
+
+The Möbius matrix `P = [[2,1],[1,1]]` therefore *writes the
+atomicity signature directly into its second-depth Stern-Brocot
+orbit*: the algebraic structure of P and the combinatorial
+content of `atomic_iff_five` share the same integer fingerprint,
+realised both as an orbit position and as the unique alive
+decomposition.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 11 (`Mobius213SternBrocotApps`) + 7
+(`SignedCut/Core/SternBrocotBridge`) + 2
+(`Mobius213PellInvariant`) + 4
+(`Mobius213UnificationCapstone`) + 6
+(`Mobius213AtomicityAnchor`) = **68 PURE / 0 DIRTY** for G139
+Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone + atomicity anchor.
