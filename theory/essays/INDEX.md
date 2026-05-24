@@ -32,3 +32,4 @@ derivation+citation+dual-function+cross-frame+self-check
 | `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |
 | `bipartite_tripartite_self_containment.md` | Why is the framework called 2-1-3 but the cohomology programme bipartite? | `math/mobius213_p_orbit_closure.md` + `TripartiteK213` + Lean-deferred Option I (V32LocalSignature) |
 | `p_orbit_naturalness_boundary.md` | Where does the "non-atomic" prime 7 come from in mod-13 period? | `math/mobius213_p_orbit_closure.md` + `POrbitClosure.framework_natural_via_p_orbit_closure` |
+| `vandermonde_mediant_counts.md` | How do K_{NS, NT}^{(c)} cell counts split under the Stern-Brocot mediant? | `math/cohomology/k_nm_c_classification.md` §"Mediant cohomology functor" + `MediantCohomologyFunctor.mediant_cohomology_functor_capstone` |

@@ -102,33 +102,66 @@ with the parametric c-counter
 it gives a 3D parameter space (Stern-Brocot path × scale × c)
 whose cohomology can be navigated systematically.
 
-## Mediant cohomology functor (open)
+## Mediant cohomology functor (count level closed)
 
-The mediant `(4, 3) = (1, 1) ⊕ (3, 2)` suggests a *mediant
-cohomology functor* — K_{4,3} cohomology derived from K_{1,1}
-and K_{3,2} via a yet-to-be-defined "mediant cohomology"
-operation.  If this exists, every K_{NS, NT}^{(c)} cohomology
-factors through the Stern-Brocot path:
+The mediant `(4, 3) = (1, 1) ⊕ (3, 2)` lifts to a
+**Vandermonde decomposition** of every cell count of
+`K_{NS, NT}^{(c)}` (`MediantCohomologyFunctor.lean`, 22 PURE):
 
-```
-H*(K_{4,3}) ?= H*(K_{1,1}) ⊕_mediant H*(K_{3,2})
-```
+  · `binom_add_2` (Vandermonde-2): `binom (a+b) 2 = binom a 2
+    + binom b 2 + a·b`.  S-pairs split into intra-a, intra-b,
+    and cross-ab.
+  · `vertexCount_mediant`:
+    `V(a+c, b+d) = V(a, b) + V(c, d)` (2-term additive).
+  · `edgeCount_mediant`:
+    `E^m(a+c, b+d) = E^m(a, b) + E^m(a, d) + E^m(c, b) +
+    E^m(c, d)` (4-term Vandermonde).
+  · `faceCount_mediant_factored`:
+    `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c) ·
+    (binom b 2 + binom d 2 + b·d)` (factored Vandermonde²;
+    9 terms total).
 
-This would close the long-frontier question "is bipartite
-cohomology classified by the Stern-Brocot tree position?".  The
-S-row dependence cross-graph result is one fragment of
-evidence: a structural identity that depends only on NT (not
-NS), which transports through the mediant rule because mediants
-preserve the NT-fibre when one summand has NT = 3.
+Concrete K_{4,3} = K_{1,1} ⊕ K_{3,2} at c = 2:
+`7 = 2 + 5`, `24 = 2 + 4 + 6 + 12`, `18 = 6 · 3` — all
+decide-verified, with the K_{4,3} face count matching
+`V43.K43_simple_face_count` via the mediant rather than direct
+combinatorial computation.
 
-`research-notes/archive/G145_c_counter_structural_theory.md`
-§Conjecture 4 and `theory/math/cohomology/k_nm_c_classification.md`
-Open Frontier host the conjecture.
+The functor assignment
+`(NS, NT) ↦ (vertexCount, edgeCount, faceCount)` factors
+through the Stern-Brocot mediant inductive structure: every
+Stern-Brocot-reachable `(NS, NT)` count is computable as a
+finite sum of products of `binom` values along the unique
+path from root to (NS, NT).
+
+The lift from **cell-count Vandermonde** to **cochain-space
+and cup-product algebra** is the next layer.  The S-row
+dependence cross-graph result
+(`CrossGraphPattern.cross_graph_S_row_dependence_pattern`)
+is one fragment: a structural identity depending only on
+NT = 3, transporting through the mediant rule because
+mediants preserve the NT-fibre when one summand has NT = 3.
+A full cochain-level mediant functor would identify the 4
+edge classes and 9 face classes as concrete sub-cochain
+sub-spaces and prove the cup-product algebra of
+`K_{a+c, b+d}` factors through the 4 × 9 = 36 mediant
+sub-cells.
+
+`theory/math/cohomology/k_nm_c_classification.md` §"Mediant
+cohomology functor (count level)" hosts the formal
+statements;
+`research-notes/archive/c_counter/G145_c_counter_structural_theory.md`
+§Conjecture 4 records the cohomology-level conjecture.
 
 ## Open frontier
 
-  · **Mediant cohomology functor**: define and prove the
-    `⊕_mediant` operation on bipartite cohomology.
+  · **Cochain-level mediant functor**: count level closed
+    (`MediantCohomologyFunctor.lean`); the lift to
+    cochain-space + cup-product algebra is open.  Requires
+    identifying the 4 edge classes and 9 face classes as
+    concrete sub-cochain sub-spaces of `K_{a+c, b+d}^{(c)}`
+    and proving the cup-product algebra factors through the
+    4 × 9 = 36 mediant sub-cells.
   · **Pell-orbit extension**: cover (8, 5), (5, 4), (7, 4),
     (13, 8) — the next layer of Möbius P lattice anchors.
     Each requires a Lean reachable witness plus cohomology
@@ -136,7 +169,9 @@ Open Frontier host the conjecture.
   · **Tree-interior extension**: K_{4,3} is one interior
     sample; what does cohomology look like at (5, 4) (mediant
     of (1, 1) and (4, 3)) and at (7, 5) (mediant of (3, 2) and
-    (4, 3))?  Pattern emergence is open.
+    (4, 3))?  Count-level Vandermonde is available from
+    `MediantCohomologyFunctor`; cohomology-level pattern
+    emergence is open.
   · **K_{NS, NT}^{(c)} parametric framework**: lifting
     `V33EnrichedParametric` from NS = NT = 3 to general
     (NS, NT) needs symbolic `Nat.choose 2`-indexing of S/T

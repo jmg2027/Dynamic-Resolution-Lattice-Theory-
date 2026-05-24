@@ -275,6 +275,58 @@ Stern-Brocot classification's "axis decoupling": cohomological
 proofs depending only on NT = 3 transport along every NT-fibre
 of the Stern-Brocot tree.
 
+## Mediant cohomology functor (count level)
+
+The Stern-Brocot mediant `(NS₁, NT₁) ⊕ (NS₂, NT₂) = (NS₁+NS₂,
+NT₁+NT₂)` lifts to a **Vandermonde decomposition** of every
+cell count.  `MediantCohomologyFunctor.lean` (22 PURE, ∅-axiom):
+
+  · **Vandermonde-2 core**: `binom (a + b) 2 = binom a 2 +
+    binom b 2 + a · b` (`binom_add_2`).  The combinatorial
+    heart — S-pairs of K_{a+b, *} split into intra-a, intra-b,
+    and cross-ab pairs.
+  · **Vertex 2-term additive**:
+    `V(a+c, b+d) = V(a, b) + V(c, d)` (`vertexCount_mediant`).
+  · **Edge 4-term Vandermonde**:
+    `E^m(a+c, b+d) = E^m(a, b) + E^m(a, d) + E^m(c, b) +
+    E^m(c, d)` (`edgeCount_mediant`).  Four edge classes:
+    inner-1, cross-12, cross-21, inner-2.
+  · **Face factored Vandermonde²**:
+    `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c) ·
+    (binom b 2 + binom d 2 + b·d)` (`faceCount_mediant_factored`).
+    9 terms total, each pairing one of three S-pair sources
+    (intra-a / intra-c / cross-ac) with one of three T-pair
+    sources (intra-b / intra-d / cross-bd).
+
+Concrete marquee instance, K_{4,3} = K_{1,1} ⊕ K_{3,2} at
+c = 2:
+
+  · `7 = 2 + 5` — vertex additivity
+  · `24 = 2 + 4 + 6 + 12` — edge 4-term
+  · `18 = (0 + 3 + 3) · (0 + 1 + 2) = 6 · 3 = 18`
+    — face factored Vandermonde² (4 of 9 terms non-zero;
+    `binom 1 2 = 0` zeros out the remaining 5)
+
+Anchors:
+`K43_{vertex,edge,face}_from_mediant`,
+`K43_face_9term_evaluation`,
+`countTriple_mediant_decomposition` (3-component algebra law),
+`mediant_cohomology_functor_capstone` (7-conjunct master).
+
+The functor structure: assigning
+`(NS, NT) ↦ (vertexCount, edgeCount, faceCount)` factors
+through the Stern-Brocot mediant inductive structure.
+Since every coprime `(NS, NT) ≥ (1, 0)` is Stern-Brocot
+reachable (`Mobius213SternBrocot.reachable_of_pos`), every
+`K_{NS, NT}^{(c)}` count is computable as a finite sum of
+products of `binom` values along the Stern-Brocot path from
+seeds to (NS, NT).
+
+`theory/essays/stern_brocot_as_universal_lattice.md` discusses
+the structural significance.  The lift from cell-count
+Vandermonde to actual cochain-space / Massey-class
+decomposition remains open.
+
 ## Lean source
 
   · Umbrella: `lean/E213/Lib/Math/Cohomology/Bipartite.lean`,
@@ -297,6 +349,7 @@ of the Stern-Brocot tree.
     - `Mobius213/Mobius213K33Bridge.lean`
   · Cross-graph: `Cohomology/CrossGraphPattern.lean`
   · Stern-Brocot: `Cohomology/BipartiteStermBrocotClassification.lean`
+  · Mediant functor (count level): `Cohomology/MediantCohomologyFunctor.lean`
   · Infrastructure: `Cohomology/Infrastructure/BoolXORFold.lean`
     (graph-agnostic `psiNatPos`, `xor_pair_swap`),
     `Infrastructure/NatBeqHelpers.lean` (Nat.beq cancellation)
@@ -317,6 +370,9 @@ of the Stern-Brocot tree.
 | `state_class_NSscaled_pell_capstone` | `Mobius213K33StateClass` | K_{3,3}'s (3,3) on NS-scaled diagonal |
 | `multCount_master` | `Mobius213K33c3StateClass` | (9, 9, 9) edge mult saturation at c = 3 |
 | `k33_unified_master` | `K33Unified` | 4-conjunct cross-frame capstone |
+| `binom_add_2` | `MediantCohomologyFunctor` | Vandermonde-2: `binom (a+b) 2 = binom a 2 + binom b 2 + a·b` |
+| `vertexCount_mediant` / `edgeCount_mediant` / `faceCount_mediant_factored` | same | V/E/F mediant decompositions (2 / 4 / 9 terms) |
+| `mediant_cohomology_functor_capstone` | same | 7-conjunct master (Vandermonde + K_{4,3} = K_{1,1} ⊕ K_{3,2}) |
 
 ## Research-note provenance
 
@@ -349,10 +405,13 @@ of the Stern-Brocot tree.
     (7, 4), (13, 8) — next layer of the Möbius P lattice.
     Each needs a reachable witness + cohomology structural
     theorems.
-  · **Mediant cohomology functor**: Stern-Brocot
-    `(4, 3) = (1, 1) ⊕ (3, 2)` suggests a "mediant cohomology"
-    operation deriving K_{4,3} cohomology from K_{1,1} and
-    K_{3,2}.  See `theory/essays/stern_brocot_as_universal_lattice.md`.
+  · **Mediant cohomology functor — count level CLOSED** (this
+    chapter §"Mediant cohomology functor"); cochain-space and
+    cup-product algebra lift to the 4 edge + 9 face mediant
+    sub-cells is the OPEN next layer.  See
+    `theory/essays/stern_brocot_as_universal_lattice.md` for
+    the structural significance and the count → cochain
+    extension question.
 
 ## How to verify
 
