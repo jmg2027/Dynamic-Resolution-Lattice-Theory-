@@ -2493,6 +2493,35 @@ X also contains the integer 5" (Phase 2's reading) — it's
 
 **Session grand total**: 210 + 8 = **218 PURE / 0 DIRTY**.
 
+## 2026-05-24 — Mobius213PxSyntacticCatalog: syntactic micro-decomposition
+
+Formalisation of Mingu's original verbatim syntactic analysis
+of P(x) = (2x+1)/(x+1).  Each local syntactic count of P(x) is
+captured as a Nat definition; each axis is a decidable theorem
+matching that count to one of `{NS, NT, det} = {3, 2, 1}`.
+26 PURE / 0 DIRTY (12 Nat defs + 12 axis theorems + 2 masters).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxSyntacticCatalog` | 26 | `numTokenCount = 3` (tokens in 2x+1);  `denomTokenCount = 2` (tokens in x+1);  `opCount = 1`;  `operandArity = 2`;  ★★★ `totalUnitCount = 3` (the operator-as-unit + two literal `+1`s — the "three 1s");  `literalOneCount = 2`;  `variableOccurrenceCount = 2`;  `coefficientCount = 1`;  `degreeOfNumerator = 1`, `degreeOfDenominator = 1`;  `numeratorCoefSum = 3`;  `denominatorCoefSum = 2`;  ★★★★★★★★ `syntactic_master` (12-conjunct);  ★★★★★ `syntactic_signature_set_closure` (every axis ∈ {1, 2, 3}) |
+
+The catalog realises Mingu's intuition that "각 축으로 봐도
+같은 P(x)로 보일 것" at the *strictly syntactic* level:
+counting tokens, operator components, unit-instances,
+variable occurrences, coefficients, degrees, and coefficient
+sums — 12 distinct local readings — all lands on
+`(NT, det, NS) = (2, 1, 3)`.
+
+**Three reading layers of P(x)** now formalised:
+  · **Phase 1 + 2 + PGL** — `(NS, NT, det)` data distributed
+    across 11 math/physics domains (60 axes).
+  · **PxDecomposition catalog** — 7 fields' counting traditions
+    each applied to P(x) (8 axes).
+  · **PxSyntactic catalog** (this file) — strict syntactic
+    counting of P(x)'s tokens / operator / units (26 axes).
+
+**Session grand total**: 218 + 26 = **244 PURE / 0 DIRTY**.
+
 Standard math hosting: the projective general linear group
 `PGL(2, ℝ)` representation theory.  The 213 atomic signature
 `(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the
