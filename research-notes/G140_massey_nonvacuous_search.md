@@ -121,6 +121,85 @@ Either:
     level becomes well-defined, and H³ may carry non-vacuous
     Massey classes.
 
+## Agent 2 — Alternative shape analysis: complete
+
+Five shapes analyzed (A: 4-fold Massey; B: H¹³ → H²;
+C: cup_i Massey; D: multi-4-cell asymmetric extension;
+E: different graph K_{3,3}^{(c=2)} etc.).
+
+### Verdict ranking (tractability for Lean closure)
+
+| Rank | Shape | Why |
+|---|---|---|
+| 1 | **B at ⟨r, x, r⟩** | Stays at 2-skeleton; uses existing H1K infrastructure; radical-element Massey kills indeterminacy. |
+| 2 | **D multi-4-cell** | Asymmetric AW lift breaks diagonal collapse; can make ⟨ω, ω, ω⟩ itself non-vacuous. |
+| 3 | **E at K_{3,3}^{(c=2)}** | New graph infrastructure; generalizes but does not simplify. |
+| 4 | **C cup_1 Massey** | Needs ≥ 6-skeleton + multi-cell — far from current ceiling. |
+| 5 | **A 4-fold Massey** | Indeterminacy collapses to all of H² — structurally vacuous. |
+
+### Shape B core insight (radical-element Massey)
+
+The cup pairing `H¹ × H¹ → H²` (over F_2) is a symmetric
+bilinear form.  By face_dependence (`Face_0 ⊕ Face_1 ⊕ Face_2
+= 0`), the form has a **radical element** `r ∈ H¹` such that
+`r ⌣ x = 0` for all `x ∈ H¹`.
+
+The Massey triple `⟨r, x, r⟩` is then ALWAYS admissible
+(`r ⌣ x = 0` and `x ⌣ r = 0` by symmetry).  Indeterminacy
+ideal `r · H⁰ + H⁰ · r = {0}` since `r` is in the radical.
+
+Predicted: `⟨r, x, r⟩ ≠ 0` in H² for some specific `x` —
+typically `x` being the "all-non-tree-edges generator"
+(the H¹ analog of ω).
+
+### Shape D core insight (multi-4-cell asymmetric AW)
+
+Current `δ⁴_multi` (Filled5CellMultiExtension) is diagonal
+because both 5-cells share boundary `[σ⁴]`.  Adding TWO
+4-cells `σ⁴_a, σ⁴_b` with the same boundary `[σ³]` creates a
+4-skeleton with `H⁴ = F_2`.  The cup extension `C² × C² →
+C⁴_multi` then has a 2-dim choice space — an asymmetric AW
+lift `(α ⌣ β)(σ⁴_a) := α(face_0) ⌣ β(face_2)` vs
+`(α ⌣ β)(σ⁴_b) := α(face_2) ⌣ β(face_0)` breaks bilinear
+symmetry.
+
+Then `ω ⌣ ω` value differs at σ⁴_a vs σ⁴_b (no longer
+diagonal), cobounding chains can be non-diagonal, and the
+Massey representative at C⁵_multi can land off-diagonal —
+representing the non-zero H⁵ class.
+
+### Recommended path (Agent 2)
+
+Pursue Shape B first: 3 new Lean files
+(`CupC1C1.lean`, `RadicalH1.lean`, `MasseyTripleH1.lean`),
+~250 lines PURE, decide-tractable throughout.  Stays in
+2-skeleton.  Shape D as follow-up.
+
+## Tension with Agent 1 finding
+
+Agent 1 proved the naïve "first-edge × opposite-edge" cup is
+**ill-defined on cohomology** (9 failure pairs).  Agent 2's
+Shape B closure requires a CUP THAT DESCENDS TO COHOMOLOGY.
+
+Agent 3 (still running) is designing the proper Alexander-
+Whitney symmetric cup — prerequisite for Shape B closure.
+
+## Synthesis (pending Agent 3)
+
+The closure path:
+
+  1. Agent 3 delivers proper AW cup `C¹ × C¹ → C²`
+     descending to cohomology + satisfying chain-Leibniz.
+  2. Apply Agent 2's Shape B: find radical element `r`,
+     compute Massey `⟨r, x, r⟩` for candidate `x`.
+  3. Formalize in Lean: 3 new files per Agent 2's plan,
+     using Agent 3's cup definition.
+  4. Verify non-vacuous Massey class in H².
+
+If Shape B fails (e.g., radical element doesn't exist for
+proper cup), fall back to Shape D (multi-4-cell asymmetric
+extension).
+
 ## Cross-references
 
   · `theory/math/cohomology/k32_higher_cohomology.md` — chapter
