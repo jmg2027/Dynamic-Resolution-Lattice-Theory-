@@ -6,7 +6,7 @@
 marathon closing "Open frontier" extensions and rigor-establishing
 theorems across the Math — Algebra / Analysis chapter family.
 
-## Marathon summary — 576 PURE / 0 DIRTY across 49 closures
+## Marathon summary — 626 PURE / 0 DIRTY across 53 closures
 
 ### Wave 1: user-listed 11 chapter frontiers (199 PURE)
 
@@ -212,6 +212,52 @@ identification* fact.
 
 5 consumer files updated to import from Meta layer.
 
+### Wave 13: b ≥ 3 reframed + parametric closure for all naturals (50 PURE)
+
+| Chapter | Lean file | PURE |
+|---|---|---:|
+| `real213` | `Lib/Math/Real213/Sum/CutSumN.lean` | 6 |
+| `real213` | `Lib/Math/Real213/Sum/CutSumNMixed.lean` | 3 |
+| `real213` | `Lib/Math/Real213/ThirdValidCut.lean` | 15 |
+| `real213` | `Lib/Math/Real213/NValidCut.lean` | 14 |
+| `real213` | `Lib/Math/Real213/FifthValidCut.lean` | 12 |
+
+**Reframing**: Wave 12's "b ≥ 3 layer-identification" was a
+false dichotomy (CLAUDE.md §5.1 violation).  The actual issue:
+`cutSum`'s factor-2 hardcode reads only the NT atom of
+(NS, NT) = (3, 2) and misses NS.
+
+**Resolution path** (no framework "outside"):
+
+  · `cutSumN N` (parametric in N): factor-N search granularity
+    replaces hardcoded factor-2.  `cutSumN_same_denom`:
+    `cutSumN N (a/N) (c/N) ≡ (a+c)/N` bidirectional for any N > 0.
+  · `cutSumN_mixed_denom`: cross-denominator closure when
+    b₁, b₂ both divide N (e.g., cutSumN 6 (1/2) (1/3) ≡ 5/6).
+  · `NValidCut N` parametric structure with `addN`, full
+    `cutSumN_assoc_valid`, `cutSumN_comm_valid`, and capstone
+    `nvalidcut_all_naturals_capstone` — every N ≥ 1 closes
+    uniformly, no per-N proof.
+  · `ThirdValidCut` (b = 3) and `FifthValidCut` (b = 5) as
+    concrete instances.  `cutSumN_3_2_1_at_1_1`: decide-witness
+    that CutSumAssocB3's b = 3 counterexample becomes true under
+    `cutSumN 3`.
+
+**Atomic backing**: 5, 7, 11, ... are NOT new atoms.
+`Theory/Atomicity/Five.lean atomic_iff_five` proves 5 = 2·1 + 3·1
+unique alive atomic from (3, 2).  Same Bezout pattern for 7, 11.
+`Physics/Foundations/AtomicConstantsParametricFullIff.lean c2b_full_iff`:
+(3, 2) uniqueness.  `ZpSqrtD p`: any prime p parametric.
+
+**Essay update**: `theory/essays/bool_assoc_failure_meaning.md` v3
+(replaces v1's poetry + v2's dyadic-only framing) with layered
+closure table.  `pure_funext_avoidance.md` §b≥3 reflects same.
+
+**Follow-up** (not in this wave): `cutMulN` parametric (similar
+treatment for multiplication — analytically much harder due to
+nested inner/outer search and m1*m2 bound); `is_native` wrapper
+for `b ∈ ⟨2, 3⟩^mult` membership game.
+
 ## Key structural results
 
   · **F_p[√D] → ℤ_p[√D]** full lift via `fromFp` embedding +
@@ -237,10 +283,13 @@ identification* fact.
 
   · `algebra_tower.md` — L10+, Type D L3+ (uniform CD-doubling).
   · `real213.md` — full pointwise additivity of integral over
-    arbitrary `S ++ T` requires `cutSum_assoc` (deferred).
-  · `modular_arithmetic.md` — Frobenius multiplicativity at ℤ_p
-    requires Zp.neg ∘ Zp.neg = id on the digit sequence (funext-
-    related).
+    arbitrary `S ++ T` via cutSumN (b ∈ ⟨2, 3⟩^mult class closed
+    Wave 13; integration step pending wiring).
+  · `cutMulN` parametric — analog of `cutSumN N` for multiplication;
+    nested inner/outer search + `m1*m2 ≤ m*N²*k` bound design.
+    Demonstrate `(a/3)(c/3) = ac/9` closure at all (m, k).
+  · `is_native` wrapper for `b ∈ ⟨2, 3⟩^mult` multiplicative
+    monoid membership (type-level closure game).
   · per-chapter narrative deepenings.
 
 ## Anchor docs (next session)
