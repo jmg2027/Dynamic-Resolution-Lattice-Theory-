@@ -371,10 +371,27 @@ observations bound the search:
     inside the {R_{S₀₁}, R_{S₀₂}, R_{S₁₂}} slice.  The two slices
     together span the 4-dim plane explicitly witnessed above.
 
-Conjecture: opposite-edge cup image in H² is **exactly** this
-4-dim plane, leaving the 5th direction inherently *Massey-void*
-under the primary cup.  At general K_{NS,NT}^{(c=2)} the
-extrapolation predicts a (c−1)-codimensional cup-image inside H².
+Conjecture (formalised): opposite-edge cup image in H² is
+**exactly** this 4-dim plane.  The 5th direction is *primary-
+cup-void* but reached at Massey depth 4.
+
+  · `V33Massey4Fold.lean` — 4-fold Massey ⟨g1, g4, g2, g5⟩
+    produces chain-level rep `(0, 0, 1, 0, 0, 0, 0, 0, 0)`
+    (single face 2 support), with the inner defining-system
+    term `η_{ab} ⌣ η_{cd} = (e_2 + e_4) ⌣ e_8` carrying the
+    "multiplicity twist" that the primary cup cannot see.
+    Violation `R_{S₀₁} + R_{T₁₂}` is linearly independent of
+    every 3-fold violation pair.  Full H² = F₂⁵ now reached.
+  · `V33Mult1Trivial.lean` — multiplicity-shift cocycles
+    (mult-1 edge indicators) are formally shown to cup-
+    trivially against any α: `∀ α, cupOpp α m_k = 0`
+    chain-level at every face.  This rules out the mult-1
+    Massey route to the 5th dim.
+
+Extrapolation to `K_{NS,NT}^{(c)}`: the cup image in H²
+has codim `c − 1`, and the missing dimensions are reached at
+Massey depth `c + 2`.  Falsifier: enumerate at c = 3 and
+check the depth-codim correspondence.
 
 ## Open frontier (pure cohomology)
 

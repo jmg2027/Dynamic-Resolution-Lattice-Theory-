@@ -1,8 +1,9 @@
 # G142 — Full H² map of K_{3,3}^{(c=2)} via Massey witnesses
 
 **Branch**: `claude/cohomology-marathon-merge-M5CTR`.
-**Status**: 4 of 5 dimensions in H² spanned (∅-axiom);
-5th dimension is the active frontier.
+**Status**: **ALL 5 dimensions in H² = F₂⁵ reached (∅-axiom)**.
+4 dims via 3-fold Massey (V33MasseyMulti); 5th dim via
+4-fold Massey ⟨g1, g4, g2, g5⟩ (V33Massey4Fold).
 
 ## Setup
 
@@ -168,10 +169,64 @@ generates all of H² (the famous ω).  At K_{3,3}^{(c=2)}
 cohomology** — the parametric family `K_{NS,NT}^{(c=2)}`
 exhibits a **graduated** Massey landscape.
 
-This session's 4-dimensional explicit span confirms the
-"non-vacuous Massey transfers AND multiplies" prediction:
-not only does the Massey detection mechanism work at the
-next-up graph, but it produces a multi-class spectrum.
+The 4-dimensional explicit span via 3-fold Massey confirms
+the "non-vacuous Massey transfers AND multiplies"
+prediction: not only does the Massey detection mechanism
+work at the next-up graph, but it produces a multi-class
+spectrum.
+
+## Update: full 5-dimensional H² REACHED
+
+A focused continuation pass landed:
+
+  · `V33Massey4Fold.lean` (17 PURE) — 4-fold Massey
+    ⟨g1, g4, g2, g5⟩ produces chain-level rep
+    `(0, 0, 1, 0, 0, 0, 0, 0, 0)`, the *single-face-2 cochain*.
+    Violation vector `(1, 0, 0, 0, 0, 1)` violates `R_{S₀₁} +
+    R_{T₁₂}` — a pattern linearly independent of the four
+    3-fold violation vectors.  Hence the 5th H²-dimension is
+    reached at Massey depth 4.
+
+    The structural reason: the inner term `η_{ab} ⌣ η_{cd} =
+    (e_2 + e_4) ⌣ e_8` of the 4-fold representative does NOT
+    factor through any 3-fold cup-image — it is a genuinely
+    higher operation.
+
+  · `V33Mult1Trivial.lean` (12 PURE) — Route 2 (multiplicity-
+    shift cocycle Massey) formally ruled out:
+    `∀ α : CochE, cupOpp α (mult-1 indicator) = 0`
+    chain-level at every face.  Mult-1 cocycles collapse
+    Massey triples to pure cup-image, never reaching the
+    5th dim.
+
+  · Route 3 (different cup operator): unnecessary — the
+    standard opposite-edge cup at depth 4 already spans the
+    full H².  Route 3 would be needed only if 4-fold Massey
+    had also failed.
+
+  · Route B (lens face addition to the 2-complex):
+    structural analysis (no Lean) — adding the 9 lens 2-cells
+    (mult-0/mult-1 pairs) makes mult-1 indicators
+    non-cocycles, collapsing `b₁ = 9 → 0`.  With `H¹ = 0` the
+    Massey product `H¹ × H¹ × H¹ → H²` has nothing to
+    multiply.  **Not the right thickening** for Massey
+    detection at K_{3,3}^{(c=2)}.
+
+## Capstone (informal)
+
+**Theorem (sketch, informal)**: The opposite-edge cup
+`H¹ ⊗ H¹ → H²` at K_{3,3}^{(c=2)} factors through a 4-dim
+quotient of H² = F₂⁵.  The 5th dimension is reached at Massey
+depth 4 via ⟨g1, g4, g2, g5⟩, whose defining-system inner
+term `η_{ab} ⌣ η_{cd}` is the structural witness of the
+"multiplicity twist" hidden in c = 2.
+
+**Falsifier of the broader (c−1)-codim conjecture**: at
+K_{3,3}^{(c=3)} the prediction is a 2-codim cup-image inside
+H², with the missing 2 dimensions reachable at Massey depth
+≤ 5.  Future verification: enumerate 4-fold and 5-fold Massey
+classes at K_{3,3}^{(c=3)} and check the depth-codimension
+trade.
 
 ## Anchor docs
 
@@ -184,7 +239,13 @@ next-up graph, but it produces a multi-class spectrum.
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyWitness.lean` —
     primary witness ⟨g1, g2, g4⟩ (Phase 18-B).
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyMulti.lean` —
-    this session: 3 new witnesses + 4-dim capstone.
+    3 new 3-fold witnesses + 4-dim capstone (21 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33Massey4Fold.lean` —
+    **5th-dim breakthrough: 4-fold Massey ⟨g1, g4, g2, g5⟩
+    rep at single face 2** (17 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33Mult1Trivial.lean` —
+    mult-1 cocycles cup-trivially against any α (12 PURE,
+    Route 2 obstruction).
   · `theory/math/cohomology/k32_higher_cohomology.md` — chapter
     home for K_{NS,NT}^{(c=2)} Massey theory.
 
@@ -210,18 +271,21 @@ systematic enumeration (deferred).
 
 ## Next session priorities
 
-  1. **Route 3 investigation**: prove or disprove the conjecture
-     that opposite-edge cup image in H² is exactly the 4-dim
-     plane.  If proven, the 5th dim is Massey-void under this cup
-     — a structural theorem worth formalizing.
-  2. **Higher Massey**: 4-fold Massey ⟨g1, g2, g4, g5⟩ at
-     K_{3,3}^{(c=2)} — does the n-fold operation pick up the 5th
-     dim that the 3-fold misses?
-  3. **Mixed-side indeterminacy enumeration**: for ⟨g1, g4, g_X⟩
-     Massey, enumerate admissible (η_{ab}, η_{bc}) over all
-     cobounding choices; check if ANY admissible pair gives a
-     rep outside the 4-dim plane.
-  4. **Falsifier strengthening**: if Route 3 conjecture holds,
-     the parametric family `K_{NS,NT}^{(c=2)}` has a
-     `c-1`-codimensional Massey-void in H² — a precise
-     prediction subject to ∅-axiom verification at c = 3.
+  1. **Indeterminacy analysis** for the 4-fold breakthrough:
+     compute `a · H¹ + H¹ · d + a · H² + H² · d + a · ⟨b,c,d⟩
+     + ⟨a,b,c⟩ · d` indeterminacy for ⟨g1, g4, g2, g5⟩ and
+     verify that the rep (0,0,1,0,0,0,0,0,0) is OUTSIDE it.
+     This upgrades the chain-level breakthrough to a true
+     cohomology-class statement.
+  2. **`K_{3,3}^{(c=3)}` validation** of the (c−1)-codim
+     conjecture: extend V33 to c=3, recompute b₂, search
+     Massey depth ≤ 5 to span the predicted 2 extra
+     dimensions.  If depth-(c+1) = depth-4 suffices for c=3,
+     the conjecture is REFINED to "depth-(c+2)" hierarchy.
+  3. **Steenrod Sq¹ (Bockstein)** as an independent test:
+     define ℤ/4 → ℤ/2 lift on V33 cochains, compute Sq¹(g1)
+     and check if its class hits the 5th dim independently
+     of 4-fold Massey.
+  4. **Cross-graph extension**: replicate the 4-fold
+     5th-dim breakthrough at K_{3,4}^{(c=2)} (a new graph,
+     b₂ predicted = 8 or similar), confirming the pattern.

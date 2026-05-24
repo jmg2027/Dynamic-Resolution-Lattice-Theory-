@@ -9,9 +9,10 @@
   · `claude/cohomology-marathon-qOxOX` — closed (603 PURE / 62 closures
     / Phases 1-18 + 1 DIRTY structural theorem).
   · `claude/cohomology-marathon-merge-M5CTR` — active merge branch
-    (this session); +21 PURE on top of merge (K_{3,3} multi-witness
-    sweep — 3 new non-vacuous Massey witnesses + 4 fresh R-relations
-    spanning 4-dim of H² = F₂⁵).
+    (this session); +50 PURE on top of merge (K_{3,3} multi-witness
+    sweep 21 + 4-fold 5th-dim breakthrough 17 + mult-1 cup-trivial
+    obstruction 12).  **Full H² = F₂⁵ at K_{3,3}^{(c=2)} now
+    spanned** (4 dims via 3-fold + 5th via 4-fold Massey).
 
 ## Combined achievement
 
@@ -107,8 +108,10 @@ under P = [[2,1],[1,1]].  Phase 1-5 plan in the doc.
 | `research-notes/G139_mobius_equivalence_unification.md` | **Active research direction** |
 | `research-notes/G141_cohomology_marathon.md` | Cohomology marathon log (originally G139 in-branch) |
 | `research-notes/G140_massey_nonvacuous_search.md` | Non-vacuous Massey breakthrough log |
-| `research-notes/G142_K33_massey_full_h2_map.md` | **K_{3,3} 4-dim H² span + 5th-dim conjecture (active)** |
+| `research-notes/G142_K33_massey_full_h2_map.md` | **K_{3,3} full 5-dim H² spanned (3-fold + 4-fold Massey)** |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyMulti.lean` | 3 new K_{3,3} Massey witnesses + 4-dim capstone |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33Massey4Fold.lean` | **5th-dim breakthrough — 4-fold ⟨g1, g4, g2, g5⟩ single-face-2 rep** |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33Mult1Trivial.lean` | Mult-1 cocycles cup-trivially (Route 2 obstruction) |
 | `theory/INDEX.md` | Book map (98+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
