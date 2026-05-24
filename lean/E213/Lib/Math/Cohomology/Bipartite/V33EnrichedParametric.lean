@@ -403,4 +403,72 @@ theorem parametric_bottom_layer_all_Tj_kill_capstone
    psi_layer_kills_cupOpp_T1incid_right_at_bottom c hc α,
    psi_layer_kills_cupOpp_T2incid_right_at_bottom c hc α⟩
 
+/-! ## §15 — Bottom-layer kill for arbitrary `S_i`-star left side -/
+
+set_option maxHeartbeats 3200000 in
+theorem psi_layer_kills_cupOpp_S1star_left_at_bottom
+    (c : Nat) (hc : 0 < c) (β : EnrichedEdgeCoch c) :
+    psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨1, by decide⟩ ⟨0, hc⟩) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param starS pair_lo pair_hi
+  cases β (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;> rfl
+
+set_option maxHeartbeats 3200000 in
+theorem psi_layer_kills_cupOpp_S2star_left_at_bottom
+    (c : Nat) (hc : 0 < c) (β : EnrichedEdgeCoch c) :
+    psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨2, by decide⟩ ⟨0, hc⟩) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param starS pair_lo pair_hi
+  cases β (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;> rfl
+
+/-- Bundle all three S_i left-kills at the bottom layer. -/
+theorem parametric_bottom_layer_all_Si_kill_capstone
+    (c : Nat) (hc : 0 < c) (β : EnrichedEdgeCoch c) :
+    psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false
+    ∧ psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨1, by decide⟩ ⟨0, hc⟩) β) = false
+    ∧ psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨2, by decide⟩ ⟨0, hc⟩) β) = false :=
+  ⟨psi_layer_kills_cupOpp_S0star_left_at_bottom c hc β,
+   psi_layer_kills_cupOpp_S1star_left_at_bottom c hc β,
+   psi_layer_kills_cupOpp_S2star_left_at_bottom c hc β⟩
+
+/-! ## §16 — Master capstone: full bilateral S_i / T_j kill at the bottom layer
+
+For every `c ≥ 1`, every `i ∈ Fin 3`, every `j ∈ Fin 3`, ψ_0 kills both
+`cupOpp_param (starS i ⟨0,hc⟩) β` and `cupOpp_param α (incidT j ⟨0,hc⟩)`
+for arbitrary edge cochains. -/
+
+theorem parametric_bottom_layer_full_kill_capstone
+    (c : Nat) (hc : 0 < c) :
+    -- All 3 left S_i kills
+    (∀ (β : EnrichedEdgeCoch c),
+      psi_layer c ⟨0, hc⟩ (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false
+      ∧ psi_layer c ⟨0, hc⟩ (cupOpp_param c (starS c ⟨1, by decide⟩ ⟨0, hc⟩) β) = false
+      ∧ psi_layer c ⟨0, hc⟩ (cupOpp_param c (starS c ⟨2, by decide⟩ ⟨0, hc⟩) β) = false)
+    -- All 3 right T_j kills
+    ∧ (∀ (α : EnrichedEdgeCoch c),
+      psi_layer c ⟨0, hc⟩ (cupOpp_param c α (incidT c ⟨0, by decide⟩ ⟨0, hc⟩)) = false
+      ∧ psi_layer c ⟨0, hc⟩ (cupOpp_param c α (incidT c ⟨1, by decide⟩ ⟨0, hc⟩)) = false
+      ∧ psi_layer c ⟨0, hc⟩ (cupOpp_param c α (incidT c ⟨2, by decide⟩ ⟨0, hc⟩)) = false) :=
+  ⟨parametric_bottom_layer_all_Si_kill_capstone c hc,
+   parametric_bottom_layer_all_Tj_kill_capstone c hc⟩
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
