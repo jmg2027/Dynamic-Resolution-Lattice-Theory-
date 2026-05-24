@@ -2415,6 +2415,31 @@ transformation system:
 
 **Session grand total**: 191 + 5 = **196 PURE / 0 DIRTY**.
 
+## 2026-05-24 — Mobius213CDTensor: the 5th architectural pattern
+
+Formalisation of the CD-Tensor Bundling pattern — the
+fiber-changing-operation analog of the four within-fiber
+patterns in `theory/essays/pure_funext_avoidance.md` (State
+Accumulator / Bundled Subtype / Setoid Category / Residual
+Induction).  10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213CDTensor` | 10 | `MobiusTensor N₁ N₂` (the tensor structure: factor_a / factor_b / product / product_eq);  `fromPair` (construct from same-fiber pair using bundled `mulN`);  4 field-projection theorems (3 `rfl` + 1 from `mulN_represents`);  `fromPair_product_cut`;  ★★★★ `fromPair_commutes_at_represents` (Nat.mul_comm at represents);  ★★★★ `fromPair_commutes_at_cut` (cut-level via constCut Nat.mul_comm);  `three_factor_represents_assoc` (Nat.mul_assoc-compatible chain);  ★★★★★★ `MobiusTensor_master` (8-conjunct pattern realization) |
+
+**Pattern significance**: the four existing patterns in
+`pure_funext_avoidance.md` handle *within-fiber* obstructions
+(funext-blocked equality, propext-blocked composition, carry
+chains, truncation lifts).  CD-Tensor Bundling addresses
+*fiber-changing* operations (multiplication's N → N² fiber
+growth, where bounded-search backward direction is
+structurally impossible).  The pattern: bundle the operation
+as a tensor structure retaining source-fiber factors alongside
+the canonical product.  "Missing backward direction" becomes
+a non-question — the operation IS the tensor construction.
+
+**Session grand total**: 196 + 10 = **206 PURE / 0 DIRTY**.
+
 Standard math hosting: the projective general linear group
 `PGL(2, ℝ)` representation theory.  The 213 atomic signature
 `(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the

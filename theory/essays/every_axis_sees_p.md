@@ -197,7 +197,11 @@ verified ∅-axiom.
     state that *every framework operation factors through
     P + decomposition pattern*.  The five architectural patterns
     in `theory/essays/pure_funext_avoidance.md` are the
-    operational content; a sixth pattern (CD-Tensor Bundling)
-    for fiber-changing operations is sketched in
-    `research-notes/G141_mobius_universal_reduction_synthesis.md`
-    but not yet fully formalised.
+    within-fiber operational content; a sixth pattern
+    (CD-Tensor Bundling) for fiber-changing operations is
+    formalised in
+    `lean/E213/Lib/Math/Real213/Mobius213CDTensor.lean`:
+    `MobiusTensor N₁ N₂` structure bundling factor pair +
+    canonical product, with `fromPair` constructor +
+    represents-level and cut-level commutativity +
+    `MobiusTensor_master` 8-conjunct pattern realization.
