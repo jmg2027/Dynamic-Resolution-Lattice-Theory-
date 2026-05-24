@@ -1802,3 +1802,34 @@ cy`.  Outline: every (m, k) ∈ ℕ × ℕ reduces to a coprime pair
 (m', k') = (m/gcd, k/gcd), which is Stern-Brocot reachable;
 scale-invariance lifts cx(m,k) = cy(m,k) from cx(m',k') =
 cy(m',k').  This is Phase 2 substantive content.
+
+## 2026-05-24 — G139 Phase 1c: Pseq inclusion bridge
+
+Closes the chain `cutEq ⇒ sternBrocotEq ⇒ mobiusEq` on the
+Lean side by showing both P-orbits embed into the Stern-Brocot
+tree via the mediant identities for `Pstep`.  3 new PURE
+theorems (+ 2 private Nat arithmetic helpers), bringing
+`Mobius213SternBrocot` to 17 PURE / 0 DIRTY total.
+
+| Theorem | Role |
+|---|---|
+| `Pseq_seedInf_components` | Cross-orbit relation `(Pseq seedInf n).1 = (Pseq seedZero n).1 + (Pseq seedZero n).2` and `(Pseq seedInf n).2 = (Pseq seedZero n).1` — the only Nat-arithmetic ingredient in the bridge.  Joint induction. |
+| `Pseq_reachable` | ★★★★★ Joint reachability: `SternBrocotReachable (Pseq seedZero n) ∧ SternBrocotReachable (Pseq seedInf n)` for every depth `n`.  Inductive step uses the mediant identities `Pseq seedZero (k+1) = mediant(Pseq seedZero k, Pseq seedInf k)` and `Pseq seedInf (k+1) = mediant(Pseq seedZero (k+1), Pseq seedInf k)`, both reducing via `Pseq_seedInf_components`. |
+| `mobiusEq_of_sternBrocotEq` | ★★★ Forward bridge: SB-agreement implies P-orbit agreement (since both P-orbits are SB-reachable). |
+
+The chain `cutEq → sternBrocotEq → mobiusEq` is now fully
+realised as Lean theorems:
+
+  · `sternBrocotEq_of_cutEq` (Phase 1b)
+  · `mobiusEq_of_cutEq` (Phase 1, via `Mobius213Equiv`)
+  · `mobiusEq_of_sternBrocotEq` (Phase 1c, via this module)
+
+The two Nat arithmetic helpers `add_swap_two_mul` and
+`two_mul_add_swap` are private (not in the public PURE count,
+but ∅-axiom verified within the file scope) and reusable for
+related P-orbit identities.
+
+**Session total**: 12 (`Mobius213Equiv`) + 17
+(`Mobius213SternBrocot`) = **29 PURE / 0 DIRTY** for G139
+Phase 1 + 1b + 1c.  Phase 2 (backward bridge under
+scale-invariance) remains the substantive open direction.

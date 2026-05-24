@@ -47,6 +47,7 @@ All declarations PURE (∅-axiom).
 namespace E213.Lib.Math.Real213.Mobius213SternBrocot
 
 open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Mobius213Equiv (Pstep Pseq seedZero seedInf mobiusEq)
 
 /-! ## §1 — SternBrocotReachable inductive predicate -/
 
@@ -137,5 +138,124 @@ theorem seedZero_reachable : SternBrocotReachable (0, 1) := .seedZero
 
 /-- See `seedZero_reachable`. -/
 theorem seedInf_reachable : SternBrocotReachable (1, 0) := .seedInf
+
+/-! ## §7 — Pell-convergent inclusion (Pseq → SternBrocotReachable)
+
+The two P-orbits trace diagonal paths in the Stern-Brocot tree
+via mediant identities for `Pstep`.  The cross-orbit relation
+
+  `(Pseq seedInf n).1 = (Pseq seedZero n).1 + (Pseq seedZero n).2`
+  `(Pseq seedInf n).2 = (Pseq seedZero n).1`
+
+is the only Nat-arithmetic ingredient — proved as
+`Pseq_seedInf_components` by joint induction.  Joint reachability
+of both P-orbits then follows by induction using the constructor
+`SternBrocotReachable.mediant` directly. -/
+
+/-- Helper: `(a + b) + a = 2·a + b`.  Used twice in the Pseq
+    inclusion arithmetic. -/
+private theorem add_swap_two_mul (a b : Nat) : (a + b) + a = 2 * a + b := by
+  rw [Nat.add_assoc, Nat.add_comm b a, ← Nat.add_assoc, ← Nat.two_mul]
+
+/-- Helper: `2·(a + b) + a = (2·a + b) + (a + b)`.  The
+    arithmetic certificate that `Pseq seedInf` advances by the
+    same Pstep-Mediant identity as `Pseq seedZero`. -/
+private theorem two_mul_add_swap (a b : Nat) :
+    2 * (a + b) + a = (2 * a + b) + (a + b) := by
+  rw [Nat.mul_add, Nat.add_assoc (2*a) (2*b) a, Nat.add_assoc (2*a) b (a+b)]
+  apply congrArg (2 * a + ·)
+  rw [Nat.two_mul b, Nat.add_assoc b b a, Nat.add_comm b a]
+
+/-- ★★ **Cross-orbit relation**: the seedInf P-orbit's components
+    are determined by the seedZero P-orbit's components at the
+    same depth.  Joint induction; only Nat-arithmetic step in the
+    whole Pseq → SternBrocotReachable bridge. -/
+theorem Pseq_seedInf_components (n : Nat) :
+    (Pseq seedInf n).1 = (Pseq seedZero n).1 + (Pseq seedZero n).2
+    ∧ (Pseq seedInf n).2 = (Pseq seedZero n).1 := by
+  induction n with
+  | zero => exact ⟨rfl, rfl⟩
+  | succ k ih =>
+    obtain ⟨ih1, ih2⟩ := ih
+    refine ⟨?_, ?_⟩
+    · show 2 * (Pseq seedInf k).1 + (Pseq seedInf k).2
+         = (2 * (Pseq seedZero k).1 + (Pseq seedZero k).2)
+           + ((Pseq seedZero k).1 + (Pseq seedZero k).2)
+      rw [ih1, ih2]
+      exact two_mul_add_swap _ _
+    · show (Pseq seedInf k).1 + (Pseq seedInf k).2
+         = 2 * (Pseq seedZero k).1 + (Pseq seedZero k).2
+      rw [ih1, ih2]
+      exact add_swap_two_mul _ _
+
+/-- ★★★★★ **Joint P-orbit reachability**: every element of
+    either P-orbit is Stern-Brocot reachable.  Joint induction:
+    the inductive step uses the mediant identities
+
+      `Pseq seedZero (k+1) = mediant(Pseq seedZero k, Pseq seedInf k)`
+      `Pseq seedInf  (k+1) = mediant(Pseq seedZero (k+1), Pseq seedInf k)`
+
+    whose component equalities reduce, via `Pseq_seedInf_components`,
+    to the two Nat-arithmetic helpers `add_swap_two_mul` and
+    `two_mul_add_swap`. -/
+theorem Pseq_reachable (n : Nat) :
+    SternBrocotReachable (Pseq seedZero n)
+    ∧ SternBrocotReachable (Pseq seedInf n) := by
+  induction n with
+  | zero => exact ⟨.seedZero, .seedInf⟩
+  | succ k ih =>
+    obtain ⟨hz, hi⟩ := ih
+    obtain ⟨hc1, hc2⟩ := Pseq_seedInf_components k
+    have hz' : SternBrocotReachable (Pseq seedZero (k+1)) := by
+      show SternBrocotReachable
+        (2 * (Pseq seedZero k).1 + (Pseq seedZero k).2,
+         (Pseq seedZero k).1 + (Pseq seedZero k).2)
+      have target_eq :
+          ((Pseq seedZero k).1 + (Pseq seedInf k).1,
+           (Pseq seedZero k).2 + (Pseq seedInf k).2)
+          = (2 * (Pseq seedZero k).1 + (Pseq seedZero k).2,
+             (Pseq seedZero k).1 + (Pseq seedZero k).2) := by
+        rw [hc1, hc2]
+        apply Prod.ext
+        · show (Pseq seedZero k).1 + ((Pseq seedZero k).1 + (Pseq seedZero k).2)
+             = 2 * (Pseq seedZero k).1 + (Pseq seedZero k).2
+          rw [← Nat.add_assoc, ← Nat.two_mul]
+        · exact Nat.add_comm _ _
+      rw [← target_eq]
+      exact .mediant hz hi
+    have hi' : SternBrocotReachable (Pseq seedInf (k+1)) := by
+      show SternBrocotReachable
+        (2 * (Pseq seedInf k).1 + (Pseq seedInf k).2,
+         (Pseq seedInf k).1 + (Pseq seedInf k).2)
+      have target_eq :
+          ((Pseq seedZero (k+1)).1 + (Pseq seedInf k).1,
+           (Pseq seedZero (k+1)).2 + (Pseq seedInf k).2)
+          = (2 * (Pseq seedInf k).1 + (Pseq seedInf k).2,
+             (Pseq seedInf k).1 + (Pseq seedInf k).2) := by
+        show ((2 * (Pseq seedZero k).1 + (Pseq seedZero k).2) + (Pseq seedInf k).1,
+              ((Pseq seedZero k).1 + (Pseq seedZero k).2) + (Pseq seedInf k).2)
+            = (2 * (Pseq seedInf k).1 + (Pseq seedInf k).2,
+               (Pseq seedInf k).1 + (Pseq seedInf k).2)
+        rw [hc1, hc2]
+        apply Prod.ext
+        · exact (two_mul_add_swap _ _).symm
+        · rfl
+      rw [← target_eq]
+      exact .mediant hz' hi
+    exact ⟨hz', hi'⟩
+
+/-! ## §8 — Bridge to the weaker P-orbit equivalence -/
+
+/-- ★★★ **Forward bridge sternBrocotEq → mobiusEq**: Stern-Brocot
+    agreement at every reachable pair implies P-orbit agreement,
+    since both P-orbits are sub-paths of the Stern-Brocot tree
+    (by `Pseq_reachable`).  Together with `sternBrocotEq_of_cutEq`
+    this realises the chain `cutEq ⇒ sternBrocotEq ⇒ mobiusEq`. -/
+theorem mobiusEq_of_sternBrocotEq (cx cy : Nat → Nat → Bool) :
+    sternBrocotEq cx cy → mobiusEq cx cy := by
+  intro h n
+  obtain ⟨hz, hi⟩ := Pseq_reachable n
+  exact ⟨h (Pseq seedZero n).1 (Pseq seedZero n).2 hz,
+         h (Pseq seedInf  n).1 (Pseq seedInf  n).2 hi⟩
 
 end E213.Lib.Math.Real213.Mobius213SternBrocot
