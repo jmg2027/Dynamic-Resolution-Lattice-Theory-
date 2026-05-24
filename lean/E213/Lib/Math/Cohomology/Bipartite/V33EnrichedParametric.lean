@@ -450,6 +450,7 @@ theorem parametric_bottom_layer_all_Si_kill_capstone
    psi_layer_kills_cupOpp_S1star_left_at_bottom c hc β,
    psi_layer_kills_cupOpp_S2star_left_at_bottom c hc β⟩
 
+
 /-! ## §16 — Master capstone: full bilateral S_i / T_j kill at the bottom layer
 
 For every `c ≥ 1`, every `i ∈ Fin 3`, every `j ∈ Fin 3`, ψ_0 kills both
