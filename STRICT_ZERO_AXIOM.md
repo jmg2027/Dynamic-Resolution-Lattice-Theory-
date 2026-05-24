@@ -2573,3 +2573,45 @@ Branch closure recorded in updated theory chapter
 `theory/essays/every_axis_sees_p.md`.  Research notes G139,
 G140, G141 archived to `research-notes/archive/`.  HANDOFF.md
 updated for the next session.
+
+## 2026-05-24 — Mobius213PxDenomInvariantFamily: denominator-preserving ℤ-family
+
+The denominator `(x + 1)` of `P(x) = (2x+1)/(x+1)` is preserved
+under a `ℤ`-parameterised family of decompositions
+
+  `P(x) = n + ((2 - n)·x + (1 - n)) / (x + 1)`
+
+with `ℤ`-additive shift structure.  Algebraic identity for all
+`(n, x : Int)` plus concrete witnesses at `n = 0, 1, …, 6` plus
+the `n = -1` shift producing the exact `(NS, NT) = (3, 2)`
+atomic-signature residue.  12 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxDenomInvariantFamily` | 12 | ★★★★★ `denom_invariant_residue` (general identity `(2x+1) − n(x+1) = (2−n)x + (1−n)`);  `family_n0..n6` (concrete witnesses for n = 0, 1, 2, 3, 4, 5, 6);  ★★★★★★ `family_nNS_NT` (n = −1 shift gives residue `(3, 2)` = `(NS, NT)`);  ★★★★ `family_nNT_det` (n = 0 shift gives residue `(2, 1)` = `(NT, det)`);  ★★★★★ `family_additive` (ℤ-torsor: shift by `n + m` factors as shift-`n` then shift-`m`);  ★★★★★★★★ `denom_invariant_family_master` (4-conjunct master bundling general identity + `(NS, NT)` shift + `(NT, det)` shift + ℤ-additivity) |
+
+**Reading**:
+  · The decompositions catalogued in `Mobius213PxAxisGroupCount`
+    count *kinds* of `(2, 1, 3)` extraction.  This module counts
+    a different symmetry: the `ℤ`-action on the additive
+    constant that *preserves the denominator*.
+  · Among the `ℤ`-shifts, exactly one (n = −1) places the
+    atomic `(NS, NT) = (3, 2)` signature into the residue
+    coefficients — distinguishing it from the `n = 0` identity
+    decomposition.
+  · The structure is a `ℤ`-torsor: ℤ acts on decompositions by
+    additive translation; no quotient, no fixed point.
+  · This complements the user's broader insight that P(x)
+    admits multiple *preservation-axis* symmetries: denominator-
+    preserving (this module), numerator-preserving (pending),
+    operator-preserving (pending).
+
+**Proof technique**: all 12 theorems use explicit `rw` chains
+with PURE Int213 helpers (`mul_add`, `mul_one`, `sub_mul`,
+`add_assoc`, `add_right_comm`, `neg_add`, `neg_mul`) plus the
+PURE Lean-core `Int.sub_eq_add_neg`.  The general
+identity proof flattens both sides to a canonical AC form
+`2x + (-(n·x)) + 1 + (-n)` and applies `add_right_comm` for the
+middle swap.  No `simp only`, no `omega`, no Mathlib.
+
+**Session grand total**: 253 + 12 = **265 PURE / 0 DIRTY**.
