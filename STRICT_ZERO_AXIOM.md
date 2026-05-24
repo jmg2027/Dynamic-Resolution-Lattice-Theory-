@@ -2808,3 +2808,30 @@ identity) frames.
     closure
 
 **Session grand total**: 310 + 20 = **330 PURE / 0 DIRTY**.
+
+## 2026-05-24 — Tripartite K_{2,1,3} cohomology + self-containment bridge
+
+Cohomology layer for the tripartite complete graph K_{NT, det, NS}
+= K_{2, 1, 3} (companion to `Bipartite/`), and cross-frame
+comparison with K_{3,2}^{(c=2)} cohomology.
+
+  · **K_{2,1,3} structure** (6 vertices, 11 edges, 6 triangle
+    2-cells): each direct edge `c_{ij}` (positions 5..10) appears
+    in **exactly one** triangle — giving δ¹ a constructive
+    pointwise surjective lift.
+  · **Betti capstone**: (b₀, b₁, b₂) = (1, 0, 0).  K_{2,1,3} is
+    cohomologically trivial above H⁰ — every 1-cycle equals a
+    sum of triangle boundaries.
+  · **Cross-frame bridge**: atomic-level duality holds (|E| = |△|
+    = 6) but cohomology-level duality fails (b₁ = 8 for K_{3,2}^{(c=2)}
+    vs b₁ = 0 for K_{2,1,3}).  External tripartite extension
+    cannot host the (2, 1, 3) cohomological "3" — vindicating
+    the self-containment reading of K_{3,2}^{(c=2)}.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Tripartite.V213` | 10 | Vertex/edge/face cochain types `CochV / CochE / CochF`, `srcOf` / `tgtOf` edge endpoints, `faceEdge1..3` triangle edges, coboundaries `delta0` / `delta1` |
+| `E213.Lib.Math.Cohomology.Tripartite.V213Betti` | 13 | `kerSizeDelta0_eq_2` (b₀ = 1 via 64-cochain enum); ★★★★ `delta1_pivot_lift_pointwise` (each triangle indicator is δ¹ of the unique direct-edge indicator → surjectivity); `betti_numerics` (rank-nullity arithmetic for b₁ = b₂ = 0); ★★★★★★★★ `K213_betti_capstone` (7-conjunct Betti capstone) |
+| `E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge` | 3 | `atomic_bridge` (|E|=|△|=6 preserved); `b1_mismatch` (8 ≠ 0 cohomology breach); ★★★★★★★★★★ `self_containment_cohomology_verdict` (6-conjunct cross-frame capstone) |
+
+**Session grand total**: 330 + 26 = **356 PURE / 0 DIRTY**.

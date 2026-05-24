@@ -207,3 +207,41 @@ cohomology extension is a separate large undertaking.
 Insight captured.  Lean formalization deferred to next session.
 User's refined intuition (Reading B / self-containment) is the
 recommended starting point.
+
+## 2026-05-24 — Option II verification outcome
+
+Cohomology of `K_{2, 1, 3}` (complete tripartite + triangle 2-cells)
+formalised at `lean/E213/Lib/Math/Cohomology/Tripartite/`:
+
+  · `V213.lean` — 6 vertices / 11 edges / 6 rainbow triangles;
+    coboundaries `delta0`, `delta1`.
+  · `V213Betti.lean` — **(b₀, b₁, b₂) = (1, 0, 0)** capstone.
+    Key structural lemma `delta1_pivot_lift_pointwise`: each
+    rainbow triangle's unique direct edge `c_{ij}` is a δ¹
+    preimage of the triangle's indicator → δ¹ surjective →
+    H² = 0 → (by Euler χ = 1) H¹ = 0.
+  · `V32V213CohomologyBridge.lean` — cross-frame verdict
+    `self_containment_cohomology_verdict`:
+      · (a) atomic-level duality holds: `|E(K_{3,2})| = NS·NT = 6
+        = NT·det·NS = |△(K_{2,1,3})|`
+      · (b) `b₁(K_{3,2}^{(c=2)}) = NS² − 1 = 8`
+      · (c) `b₁(K_{2,1,3}) = 0`
+      · (d) cohomology mismatch witnessed: `8 ≠ 0`
+
+26 new PURE theorems, all strict ∅-axiom.
+
+**Verdict** — Reading B (self-containment) is **structurally
+correct** at the cohomology level:
+
+The external tripartite `K_{2, 1, 3}` is cohomologically trivial
+above H⁰.  It cannot host the 8-dimensional H¹ richness of
+`K_{3, 2}^{(c=2)}`.  The atomic-count duality (edges ↔ triangles)
+is a numerical coincidence that does NOT lift to cohomology.
+
+Consequently, the "3" of the (2, 1, 3) atomic signature **cannot
+be re-located** to an external tripartite graph — it must live
+within `K_{3, 2}^{(c=2)}` itself as a local-signature structure.
+This is a structural negative for Option II (cohomology
+extension) and a positive for Option I (LocalSignature
+framework), making the local-signature reading the only viable
+formalisation path for the (2, 1, 3) cohomological recurrence.
