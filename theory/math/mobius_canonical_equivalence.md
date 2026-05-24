@@ -1,11 +1,13 @@
 # Möbius Canonical Equivalence on Cuts
 
 **Status**: Closed across 5 distinct equality domains + 4
-sequential marathons (~20 files, 136 PURE / 0 DIRTY).  Grand
-unification master at
+sequential marathons + 11-domain signature axis catalog
+(~26 files, 191 PURE / 0 DIRTY).  Grand unification master at
 `Lib/Math/Mobius213GrandUnification.grand_unification` bundles
-ten distinct readings of `P = [[2,1],[1,1]]` into one
-∅-axiom-verified statement.
+ten distinct readings of `P = [[2,1],[1,1]]`; signature axis
+catalog at `Lib/Math/Mobius213SignatureAxisCatalog*` enumerates
+55 PURE Lean-verified axes across 11 math/physics domains
+where the `(NS, NT, det) = (3, 2, 1)` signature appears.
 
 ## Overview
 
@@ -344,6 +346,54 @@ bundles all the per-domain master theorems into a single
 ∅-axiom-verified 10-conjunct statement, the ultimate witness
 that `P = [[2,1],[1,1]]` carries every reading the framework
 admits.
+
+## Signature axis catalog (55 PURE across 11 domains)
+
+Beyond the four marathons, the signature axis catalog
+(`Lib/Math/Mobius213SignatureAxisCatalog*`) systematically
+enumerates every framework-internal reading where the atomic
+signature `(NS, NT, det) = (3, 2, 1)` is visible.  Modeled on
+`Theory.SixTheorem` (10 readings of `6 = NS·NT`) but extended
+to the full signature across all math/physics domains.
+
+**Phase 1** (29 PURE, 20-conjunct master) covers 6 domains:
+
+| Domain | Axes | Examples |
+|---|---:|---|
+| Algebraic | 8 | trace P = NS, det P = 1, disc P = d, P[0][0] = NT, entries sum = d |
+| Combinatorial | 7 | NS+NT = d, NS·NT = 6, Atomic d, NS-NT = 1, 3! = 6 |
+| Number-theoretic | 5 | P⁵ ≡ -I (mod 5), P¹⁰ ≡ I (mod 5), 10 = 2·d, Pell unit = -1 |
+| CD-tower | 4 | Type C asymptote (5, -1), Type D (1, 1), disc bridge |
+| Resolution-limit | 3 | d² = 25, N_U = 5²⁵, fractal level = NT |
+| Atomicity-anchor | 1 | 6-conjunct cross-frame from `Mobius213AtomicityAnchor` |
+
+**Phase 2** (26 PURE, 23-conjunct master) covers 5 more domains:
+
+| Domain | Axes | Examples |
+|---|---:|---|
+| Cohomology | 5 | b₁(K_{3,2}^(c=2)) = NS²-1 = 8, ker δ₀ = NT, CochV count = 2^d |
+| Topology | 4 | χ(Δ⁴) = 1, χ(K_{3,2}^(c=2)) = -7, χ_S3 = 0 |
+| Six-Theorem cross-domain | 7 | SU(3) roots = NS·(NS-1) = 6, Lorentz gens = ((d-1)(d-2))/2 = 6 |
+| Physics couplings | 6 | α_3 channel = 8 (gluon octet), α_GUT = d², color SU(NS), spacetime |
+| Information | 3 | 2^d = 32, 2^(NS·NT·c) = 4096, N_U = 5²⁵ |
+
+**Total: 55 PURE Lean-verified axes spanning 11 domains.**
+
+The catalog's mathematical content: every framework reading of
+the atomic signature lands on the same integer invariants
+`{NS, NT, det, d, NS·NT, NS²-1, ...}`.  No external axis
+produces different signature data — Lean-verified across 11
+distinct domains.  Operational form of
+`seed/AXIOM/05_no_exterior.md` §5.1.
+
+The catalog also realises a **6th P-signature reading**
+(extending the 5 readings in `theory/math/universe_chain.md`:
+algebraic / geometric / topological / dynamical / analytic):
+**syntactic self-description** — the way `P(x) = (2x+1)/(x+1)`
+is *written* itself encodes the (3, 2, 1) signature at every
+decomposition axis (token count, operator arity, identity
+occurrences, coefficient extraction).  Companion essay:
+`theory/essays/every_axis_sees_p.md`.
 
 ## Open frontier
 

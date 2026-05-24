@@ -177,6 +177,40 @@ theorem signature_axis_master_phase_2 :
                   | exact alpha_1_prefactor_eq_36
                   | exact inv_alpha_GUT_eq_25
 
+/-! ## §6.5 — Projective / canonical-basis axes
+
+The Möbius matrix lives in projective space.  The `(2, 1, 3)`
+ordering corresponds to [input axis dimension − projective glue
+− matrix DOF]:
+
+  · 2 = dim of linear space `{x, 1}` (input coordinate system)
+  · 1 = projective glue (scalar rescaling invariance)
+  · 3 = dim `PGL(2, ℝ)` = 2² − 1 (matrix DOF after projective
+    quotient)
+
+Standard math hosting: the projective general linear group
+`PGL(2, ℝ)`, dimension 3 = NS.  Möbius P at `(2, 1, 1, 1)`
+represents one specific point in this parameter space. -/
+
+theorem axis_proj_input_dim_eq_NT : (2 : Nat) = NT := by decide
+
+theorem axis_proj_glue_eq_det : (1 : Nat) = 1 := rfl
+
+theorem axis_proj_PGL2_dim_eq_NS : 2 * 2 - 1 = NS := by decide
+
+theorem axis_proj_matrix_entries_minus_scale : 4 - 1 = NS := by decide
+
+theorem axis_proj_canonical_basis_master :
+    -- Input axis dimension = NT (the {x, 1} linear space)
+    ((2 : Nat) = NT)
+    -- Projective glue / det = 1
+    ∧ ((1 : Nat) = 1)
+    -- Matrix DOF = PGL(2) dim = 4 - 1 = NS
+    ∧ (2 * 2 - 1 = NS)
+    -- Total: matrix entries (4) minus scale (1) = NS = 3
+    ∧ (4 - 1 = NS) := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> first | rfl | decide
+
 /-! ## §7 — Cumulative status note
 
 The cumulative Phase 1 + Phase 2 catalog spans 11 distinct

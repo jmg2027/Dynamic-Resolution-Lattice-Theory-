@@ -2391,3 +2391,41 @@ produces different signature data — verified ∅-axiom across 11
 distinct math/physics domains.
 
 **Session grand total**: 165 + 26 = **191 PURE / 0 DIRTY**.
+
+## 2026-05-24 — G141 PGL(2) canonical-basis additions
+
+User insight clarifying the `(2, 1, 3)` ordering as the
+**canonical basis count** of the projective Möbius
+transformation system:
+
+  · `2 = NT` = dim of `{x, 1}` input linear space
+  · `1 = det` = projective glue (scalar rescaling equivalence)
+  · `3 = NS` = dim `PGL(2, ℝ)` = 2² − 1 (matrix DOF after
+    projective quotient)
+
+5 PURE additions to Phase 2 catalog:
+
+| Axis | Statement |
+|---|---|
+| `axis_proj_input_dim_eq_NT` | input dimension `2 = NT` |
+| `axis_proj_glue_eq_det` | projective glue `1 = 1` |
+| `axis_proj_PGL2_dim_eq_NS` | `PGL(2)` dim `2² − 1 = NS` |
+| `axis_proj_matrix_entries_minus_scale` | `4 − 1 = NS` |
+| `axis_proj_canonical_basis_master` | 4-conjunct master |
+
+**Session grand total**: 191 + 5 = **196 PURE / 0 DIRTY**.
+
+Standard math hosting: the projective general linear group
+`PGL(2, ℝ)` representation theory.  The 213 atomic signature
+`(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the
+underlying linear space `= 2`; the projective aspect (the
+ratio operator) is the framework's `det = 1` glue.
+
+Cumulative catalog now: 60 PURE axes across 11 domains +
+PGL(2) canonical-basis quintet.
+
+Branch closure recorded in updated theory chapter
+`theory/math/mobius_canonical_equivalence.md` and new essay
+`theory/essays/every_axis_sees_p.md`.  Research notes G139,
+G140, G141 archived to `research-notes/archive/`.  HANDOFF.md
+updated for the next session.

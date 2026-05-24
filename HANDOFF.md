@@ -1,126 +1,104 @@
-# Session Handoff — 2026-05-24 (Post-merge: two marathons merged to main)
+# Session Handoff — 2026-05-24 (G139 Möbius unification branch — fully closed)
 
 ## Branch state
 
-  · `main` — both 4-mfd geometrization marathon and
-    Math Algebra/Analysis marathon merged in.
-  · `claude/4-manifolds-geometrization-IQXNb` — closed (415 PURE / 13 sessions).
-  · `claude/math-algebra-analysis-marathon-rj4UW` — closed (626 PURE / 53 closures / Wave 1-13).
+  · `main` — pre-G139 closure state (both prior marathons
+    merged: 4-mfd geometrization + Math Algebra/Analysis).
+  · **`claude/g139-g2RAs`** — G139 Möbius equivalence
+    unification branch.  **196 PURE / 0 DIRTY** across 26 Lean
+    modules + 1 theory chapter + 2 essays.  Ready for main
+    merge.
 
-## Combined achievement
+## Branch closure summary
 
-Total PURE added across both marathons: **~1,041 PURE / 0 DIRTY**.
-
-### 4-mfd geometrization marathon (415 PURE / 13 sessions)
-
-Cork chapter (197 PURE) + Geometrization chapter (~397 PURE) + 2 essays.
-
-| Highlight | Source |
-|---|---|
-| Multi-cork (universal + hetero + decidable + host-aware) | `AkbulutCork/MultiCork.lean` (87 PURE) |
-| JSJ extension (FW-2 + all sub-cases) | `JsjDeep.lean` (224 PURE) |
-| Metric direct (FW-4 + Lie consolidation) | `MetricGeometries.lean` (58 PURE) |
-| 5-way Sym(3) cross-frame capstone | `AkbulutCork/CrossFrame.five_way_sym3_cross_frame_capstone` |
-| Master marathon capstones (v1, v2) | `AkbulutCork/CrossFrame.four_mfd_geometrization_marathon_capstone{,_v2}` |
-| Cup-ladder ↔ cork H¹ basis cross-link | `theory/essays/cup_ladder_cork_h1_bridge.md` |
-
-### Math Algebra/Analysis marathon (626 PURE / 53 closures / Wave 1-13)
-
-| Wave | PURE | Highlight |
+| Phase | PURE | Content |
 |---|---:|---|
-| 1 | 199 | 11 user-listed chapter frontiers (FP2SqrtD, KBonacci, FluxMVT, ZpSqrtD, ...) |
-| 2-5 | 258 | Heavy multi-session items + rigor theorems |
-| 6-9 | 80 | 4 architectural patterns (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) closing funext-blocked frontiers via Gemini consultation |
-| 10-11 | 32 | Full `cutSum_assoc` via `IntValidCut` + `HalfValidCut` (b ∈ {1, 2}) |
-| 12 | 7 | b ≥ 3 honest diagnosis + Meta layer lift (4 PURE Nat helpers) |
-| 13 | 50 | **Parametric `cutSumN N` for all naturals** — closes b ≥ 3 the right way |
+| G139 cross-domain unification | 90 | 5 equality domains (cutEq / ValidCutN / signedEq / ZpSeqEquiv / Adjacent) factor through `sternBrocotEq` mediant closure |
+| Marathon 1 (cutMulN N) | 14 | Cut-level forward closure + bundled `mulN` to N²-fiber |
+| Marathon 2 (K_{3,2} ↔ P) | 21 | Numerical signature bridge + categorical state-class projection |
+| Marathon 3 (CF ↔ Pseq) | 5 | Pell-Fibonacci recurrence `a(n+2) + a(n) = 3·a(n+1)` |
+| Marathon 4 (CD-doubling ↔ P) | 5 | Type C asymptote `(5, −1) = (disc P, Pell unit)` |
+| Grand unification capstone | 1 | 10-conjunct master `grand_unification` |
+| Signature axis catalog | 60 | 55 axes across 11 domains + PGL(2) canonical-basis additions |
 
-Wave 13 detail:
-  · `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE) — parametric cutSumN N
-  · `Lib/Math/Real213/Sum/CutSumNMixed.lean` (3 PURE) — cross-denom (b₁, b₂ | N)
-  · `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE) — b=3 bundled
-  · `Lib/Math/Real213/NValidCut.lean` (14 PURE) — parametric capstone for all N
-  · `Lib/Math/Real213/FifthValidCut.lean` (12 PURE) — b=5 explicit instance
+**Total: 196 PURE / 0 DIRTY**.
 
-## Active research direction (next session)
+## Key results
 
-**G139: Möbius P as canonical 213 equivalence**
-(`research-notes/G139_mobius_equivalence_unification.md`)
+  · `Mobius213SternBrocot.cutEq_iff_sternBrocotEq_and_zero` —
+    canonical cut equality ↔ Stern-Brocot mediant closure +
+    (0, 0) condition.
+  · `Mobius213CrossDomainMeta.cross_domain_meta_unification` —
+    5-domain equality conjunction.
+  · `Mobius213GrandUnification.grand_unification` — 10-conjunct
+    master bundling every Möbius-themed capstone.
+  · `Mobius213SignatureAxisCatalog.signature_axis_master_phase_1` —
+    20-conjunct master (algebraic / combinatorial /
+    number-theoretic / CD-tower / resolution / atomicity-anchor).
+  · `Mobius213SignatureAxisCatalogPhase2.signature_axis_master_phase_2` —
+    23-conjunct master (cohomology / topology / Six-Theorem
+    cross / physics / information) + PGL(2) canonical-basis
+    quintet.
 
-Conjecture emerging from Wave 13 reframing: ALL 213 equality
-definitions (cutEq, ZpSeqEquiv, signedEq, ValidCutN.is_at_denom,
-Adjacent, LensMap) factor through a single Möbius-orbit
-equivalence under P = [[2,1],[1,1]].  The Möbius matrix is
-already in the repo (`Lib/Math/Mobius213.lean`,
-`Mobius213OneAsGlue.lean`) and encodes (NS, NT) = (3, 2)
-directly:
+## Theory chapter + essays
 
-  · trace = 3 = NS
-  · det = 1 = NS − NT (glue)
-  · disc = 5 = NS + NT (= d)
-  · eigenvalues φ², 1/φ²
+  · `theory/math/mobius_canonical_equivalence.md` — main chapter,
+    expanded to cover 4 marathons + 55-axis signature catalog +
+    PGL(2) canonical-basis reading.
+  · `theory/essays/cut_equality_and_atomicity.md` — focused
+    essay on cut equality.
+  · `theory/essays/every_axis_sees_p.md` — broader essay on
+    the 55-axis catalog + PGL(2) canonical-basis interpretation
+    of `(2, 1, 3)` = [input dim − projective glue − matrix DOF].
 
-The lesson: four consecutive dichotomy-import failures (§5.4)
-during Wave 12-13 reframing collapsed once the framework's own
-Möbius commitment was honored.
+## Research notes archived
 
-Phase 1-5 deliverables in G139:
-  1. `Lib/Math/Real213/Mobius/Mobius213Equiv.lean` defining `mobiusEq` via P-orbit / Stern-Brocot
-  2. `cutEq ⇔ mobiusEq` bridge theorem
-  3. Factor all equivalence definitions through `mobiusEq`
-  4. Real213 canonical Setoid (mobiusEq quotient)
-  5. Cross-frame: K_{3,2}, continued fractions, atomic_iff_five, Cayley-Dickson
+  · `research-notes/archive/G139_mobius_equivalence_unification.md`
+    — original conjecture (closure done).
+  · `research-notes/archive/G140_cutmulN_bidirectional_external_consult.md`
+    — external-consultation prompt (self-resolved via Mingu's
+    weaving intuition).
+  · `research-notes/archive/G141_mobius_universal_reduction_synthesis.md`
+    — synthesis note (formalised in chapter + essay).
+
+## Genuinely open follow-ups (continuing work)
+
+  · **cutMulN N Phase 3** (backward direction at search level):
+    structurally impossible without input-bound hypothesis;
+    documented as feature, not bug.  Bundled `mulN` is the
+    canonical multiplication.
+  · **K_{3,2} edge cochain extension**: vertex side closed
+    (Marathon 2 Phase 2); edge side via state-class projection
+    on `CochE = Fin 12 → Bool` is natural next step.
+  · **Higher cohomology + Möbius P**: H², H³, Steenrod squares
+    on K_{3,2}^(c=2) under state-class projection.
+  · **CD-Tensor Bundling pattern**: full Lean realisation of
+    the 5th architectural pattern sketched in archived G141
+    note (extends `theory/essays/pure_funext_avoidance.md`).
+  · **Signature axis catalog extension**: 55 axes covers
+    ≈11 domains; could extend to ~70+ with deeper domain reach
+    (Padic, Hodge, additional physics constants).  Diminishing
+    returns.
 
 ## Anchor docs (next session)
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence; §5.4 dichotomy avoidance (this session lesson) |
-| `research-notes/G29_residue.md` | Foundational text |
-| `research-notes/G139_mobius_equivalence_unification.md` | **Active research direction** |
-| `theory/INDEX.md` | Book map (98+ chapters) |
-| `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
-| `lean/E213/ARCHITECTURE.md` | Layer spec |
-| `STRICT_ZERO_AXIOM.md` | PURE catalog |
-| `lean/E213/Lib/Math/Mobius213.lean` | P matrix + Pell invariant |
-| `lean/E213/Lib/Math/Mobius213OneAsGlue.lean` | det = glue = 1 |
-| `lean/E213/Lib/Math/Mobius213ModFive.lean` | P¹⁰ ≡ I (mod 5) |
-| `lean/E213/Lib/Math/UniverseChain/MobiusChain.lean` | Möbius chain G65-G81 |
-| `lean/E213/Lib/Math/Real213/Core/CutPoset.lean` | `cutEq` definition |
-| `lean/E213/Lib/Math/Real213/NValidCut.lean` | Wave 13 parametric capstone |
-| `theory/essays/bool_assoc_failure_meaning.md` v4 | b ≥ 3 진단 + (3, 2)-atom 분석 |
-| `theory/essays/pure_funext_avoidance.md` | 4 architectural patterns |
-| `theory/essays/4mfd_geometrization_joint_reading.md` | 4-mfd joint reading |
-| `theory/essays/cup_ladder_cork_h1_bridge.md` | Cup-ladder ↔ cork |
-| `catalogs/cross-domain-identifications.md` | CDI-9 Möbius det 3-way |
-
-## Open frontier (post-merge residual)
-
-  · **G139 Phase 1-5** — Möbius equivalence unification (active direction).
-  · `cutMulN N` parametric — multiplication analog of `cutSumN N`.  Nested
-    inner/outer search + `m1*m2 ≤ m*N²*k` bound design.  Demonstrate
-    `(a/N)(c/N) = ac/N²` closure at all (m, k).
-  · `is_native` wrapper for `b ∈ ⟨2, 3⟩^mult` (if G139 doesn't supersede).
-  · `algebra_tower.md` L10+, Type D L3+ uniform CD-doubling.
-  · Cork + geometrization residual extensions per Master capstone v2.
-
-## Failure modes catalog candidates (CLAUDE.md additions)
-
-Wave 12-13 surfaced TWO repeated patterns deserving catalog entries:
-
-| Failure | Symptom | Correction |
-|---|---|---|
-| Equivalence-pluralism | "여러 동치 정의가 따로 있음" | All can factor through single canonical equivalence (G139 conjecture) |
-| Repeated dichotomy reframing | "이번엔 진짜 boundary" 반복 | 4-iteration pattern in essay v1-v4; user-correction needed each round |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence; §5.4 dichotomy avoidance |
+| `theory/math/mobius_canonical_equivalence.md` | Main chapter for this branch |
+| `theory/essays/every_axis_sees_p.md` | The 55-axis catalog + PGL(2) reading |
+| `lean/E213/Lib/Math/Mobius213GrandUnification.lean` | Single 10-conjunct master |
+| `lean/E213/Lib/Math/Mobius213SignatureAxisCatalog.lean` | Phase 1 (29 PURE, 6 domains) |
+| `lean/E213/Lib/Math/Mobius213SignatureAxisCatalogPhase2.lean` | Phase 2 (31 PURE, 5 + PGL domains) |
+| `STRICT_ZERO_AXIOM.md` | PURE catalog with G139 + marathons + G141 entries |
 
 ## Build status
 
-`cd lean && lake build` — clean (full build, both marathons merged).
-`tools/scan_axioms.py` — 626 PURE for Algebra/Analysis marathon + 415
-PURE for 4-mfd geometrization, all 0 DIRTY.
+`cd lean && lake build` — clean across all 26 new modules.
+`tools/scan_axioms.py` — 196 PURE / 0 DIRTY total.
 
-## Marathon status
+## Next session ready for
 
-**Both marathons complete + merged to main**.  Next session ready
-for G139 Möbius equivalence unification work (Phase 1: define
-`mobiusEq`, prove `cutEq ⇔ mobiusEq`).
+  · Main merge of `claude/g139-g2RAs` (recommended; branch
+    closed at 196 PURE).
+  · Optional follow-ups per the "Open follow-ups" section above.
