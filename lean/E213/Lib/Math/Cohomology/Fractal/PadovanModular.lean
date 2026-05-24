@@ -252,17 +252,53 @@ theorem Pad_mod_7_period_48 : ∀ n, Pad (n + 48) % 7 = Pad n % 7
 
 /-! ## §5 Capstone -/
 
-/-- ★★★ **Padovan modular-fingerprint capstone**.  Four
+/-! ## §4''' Period 120 mod 11 — parametric
+
+Longest Padovan modular period in the small-prime pentad.  Base
+values at indices 120-122 are `~ 3 × 10¹⁴`. -/
+
+theorem Pad_120_mod_11 : Pad 120 % 11 = 1 := by decide
+theorem Pad_121_mod_11 : Pad 121 % 11 = 1 := by decide
+theorem Pad_122_mod_11 : Pad 122 % 11 = 1 := by decide
+
+/-- ★ **Period 120 mod 11 for Padovan**:
+    `Pad (n + 120) % 11 = Pad n % 11` for every `n : Nat`. -/
+theorem Pad_mod_11_period_120 : ∀ n, Pad (n + 120) % 11 = Pad n % 11
+  | 0     => by decide
+  | 1     => by decide
+  | 2     => by decide
+  | n + 3 => by
+      have h_lhs : Pad (n + 123) = Pad (n + 121) + Pad (n + 120) := by
+        show Pad ((n + 120) + 3) = Pad (n + 121) + Pad (n + 120)
+        rfl
+      have h_rhs : Pad (n + 3) = Pad (n + 1) + Pad n := rfl
+      have ih0 : Pad (n + 120) % 11 = Pad n % 11 := Pad_mod_11_period_120 n
+      have ih1 : Pad ((n + 1) + 120) % 11 = Pad (n + 1) % 11 :=
+        Pad_mod_11_period_120 (n + 1)
+      have ih1' : Pad (n + 121) % 11 = Pad (n + 1) % 11 := ih1
+      have h_lhs_mod : Pad (n + 123) % 11
+          = ((Pad (n + 121) % 11) + (Pad (n + 120) % 11)) % 11 := by
+        rw [h_lhs]; exact add_mod_gen (Pad (n + 121)) (Pad (n + 120)) 11
+      have h_rhs_mod : Pad (n + 3) % 11
+          = ((Pad (n + 1) % 11) + (Pad n % 11)) % 11 := by
+        rw [h_rhs]; exact add_mod_gen (Pad (n + 1)) (Pad n) 11
+      have h_swap : ((Pad (n + 121) % 11) + (Pad (n + 120) % 11)) % 11
+                  = ((Pad (n + 1) % 11) + (Pad n % 11)) % 11 := by
+        rw [ih0, ih1']
+      show Pad ((n + 3) + 120) % 11 = Pad (n + 3) % 11
+      have h_indices : (n + 3) + 120 = n + 123 := by rfl
+      rw [h_indices, h_lhs_mod, h_swap, ← h_rhs_mod]
+
+/-- ★★★ **Padovan modular-fingerprint capstone**.  Five
     parametric Pisano-analogue closures across the small-prime
-    tetrad: period 7 mod 2, period 13 mod 3, period 24 mod 5,
-    period 48 mod 7.  The mod-7 period coincides with
-    Tribonacci mod 7 (= 48). -/
+    pentad: periods 7, 13, 24, 48, 120 at primes 2, 3, 5, 7, 11. -/
 theorem capstone :
     (∀ n, Pad (n + 7) % 2 = Pad n % 2)
     ∧ (∀ n, Pad (n + 13) % 3 = Pad n % 3)
     ∧ (∀ n, Pad (n + 24) % 5 = Pad n % 5)
-    ∧ (∀ n, Pad (n + 48) % 7 = Pad n % 7) :=
+    ∧ (∀ n, Pad (n + 48) % 7 = Pad n % 7)
+    ∧ (∀ n, Pad (n + 120) % 11 = Pad n % 11) :=
   ⟨Pad_mod_2_period_7, Pad_mod_3_period_13, Pad_mod_5_period_24,
-   Pad_mod_7_period_48⟩
+   Pad_mod_7_period_48, Pad_mod_11_period_120⟩
 
 end E213.Lib.Math.Cohomology.Fractal.PadovanModular

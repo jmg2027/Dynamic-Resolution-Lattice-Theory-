@@ -297,16 +297,71 @@ theorem Trib_mod_7_period_48 : ∀ n, Trib (n + 48) % 7 = Trib n % 7
 
 /-! ## §7 Capstone (mod-{2, 3, 5, 7} closure) -/
 
-/-- ★★★ **Tribonacci modular-fingerprint capstone (full tetrad)**.
-    Four parametric Pisano closures across `{2, 3, 5, 7}`:
-    π = 4, 13, 31, 48 respectively.  Period coincidences:
-    π(5) = 31 with Narayana; π(7) = 48 with Padovan. -/
+/-! ## §7 Period 110 mod 11 — parametric
+
+Longest Tribonacci modular period in the small-prime pentad.
+Base values at indices 110-112 are `~ 10²⁸` (Nat decide-tractable). -/
+
+set_option maxRecDepth 2000 in
+theorem Trib_110_mod_11 : Trib 110 % 11 = 0 := by decide
+set_option maxRecDepth 2000 in
+theorem Trib_111_mod_11 : Trib 111 % 11 = 0 := by decide
+set_option maxRecDepth 2000 in
+theorem Trib_112_mod_11 : Trib 112 % 11 = 1 := by decide
+
+set_option maxRecDepth 2000 in
+/-- ★ **Period 110 mod 11 for Tribonacci**:
+    `Trib (n + 110) % 11 = Trib n % 11` for every `n : Nat`. -/
+theorem Trib_mod_11_period_110 : ∀ n, Trib (n + 110) % 11 = Trib n % 11
+  | 0     => Trib_110_mod_11
+  | 1     => Trib_111_mod_11
+  | 2     => Trib_112_mod_11
+  | n + 3 => by
+      have h_lhs : Trib (n + 113)
+                 = Trib (n + 112) + Trib (n + 111) + Trib (n + 110) := by
+        show Trib ((n + 110) + 3)
+           = Trib (n + 112) + Trib (n + 111) + Trib (n + 110)
+        rfl
+      have h_rhs : Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n := rfl
+      have ih0 : Trib (n + 110) % 11 = Trib n % 11 := Trib_mod_11_period_110 n
+      have ih1 : Trib ((n + 1) + 110) % 11 = Trib (n + 1) % 11 :=
+        Trib_mod_11_period_110 (n + 1)
+      have ih2 : Trib ((n + 2) + 110) % 11 = Trib (n + 2) % 11 :=
+        Trib_mod_11_period_110 (n + 2)
+      have ih1' : Trib (n + 111) % 11 = Trib (n + 1) % 11 := ih1
+      have ih2' : Trib (n + 112) % 11 = Trib (n + 2) % 11 := ih2
+      have h_lhs_mod : Trib (n + 113) % 11
+          = ((Trib (n + 112) + Trib (n + 111)) % 11
+             + (Trib (n + 110) % 11)) % 11 := by
+        rw [h_lhs]
+        exact add_mod_gen (Trib (n + 112) + Trib (n + 111)) (Trib (n + 110)) 11
+      have h_lhs_mod' : (Trib (n + 112) + Trib (n + 111)) % 11
+          = ((Trib (n + 112) % 11) + (Trib (n + 111) % 11)) % 11 :=
+        add_mod_gen (Trib (n + 112)) (Trib (n + 111)) 11
+      have h_rhs_mod : Trib (n + 3) % 11
+          = ((Trib (n + 2) + Trib (n + 1)) % 11 + (Trib n % 11)) % 11 := by
+        rw [h_rhs]
+        exact add_mod_gen (Trib (n + 2) + Trib (n + 1)) (Trib n) 11
+      have h_rhs_mod' : (Trib (n + 2) + Trib (n + 1)) % 11
+          = ((Trib (n + 2) % 11) + (Trib (n + 1) % 11)) % 11 :=
+        add_mod_gen (Trib (n + 2)) (Trib (n + 1)) 11
+      have h_swap : ((Trib (n + 112) % 11) + (Trib (n + 111) % 11)) % 11
+                  = ((Trib (n + 2) % 11) + (Trib (n + 1) % 11)) % 11 := by
+        rw [ih1', ih2']
+      show Trib ((n + 3) + 110) % 11 = Trib (n + 3) % 11
+      have h_indices : (n + 3) + 110 = n + 113 := by rfl
+      rw [h_indices, h_lhs_mod, h_lhs_mod', h_swap, ← h_rhs_mod', ih0, ← h_rhs_mod]
+
+/-- ★★★ **Tribonacci modular-fingerprint capstone (full pentad)**.
+    Five parametric Pisano closures across `{2, 3, 5, 7, 11}`:
+    π = 4, 13, 31, 48, 110 respectively. -/
 theorem capstone :
     (∀ n, Trib (n + 4) % 2 = Trib n % 2)
     ∧ (∀ n, Trib (n + 13) % 3 = Trib n % 3)
     ∧ (∀ n, Trib (n + 31) % 5 = Trib n % 5)
-    ∧ (∀ n, Trib (n + 48) % 7 = Trib n % 7) :=
+    ∧ (∀ n, Trib (n + 48) % 7 = Trib n % 7)
+    ∧ (∀ n, Trib (n + 110) % 11 = Trib n % 11) :=
   ⟨Trib_mod_2_period_4, Trib_mod_3_period_13, Trib_mod_5_period_31,
-   Trib_mod_7_period_48⟩
+   Trib_mod_7_period_48, Trib_mod_11_period_110⟩
 
 end E213.Lib.Math.Cohomology.Fractal.TribonacciModular
