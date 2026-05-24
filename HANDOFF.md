@@ -9,7 +9,9 @@
   · `claude/cohomology-marathon-qOxOX` — closed (603 PURE / 62 closures
     / Phases 1-18 + 1 DIRTY structural theorem).
   · `claude/cohomology-marathon-merge-M5CTR` — active merge branch
-    (this session).
+    (this session); +21 PURE on top of merge (K_{3,3} multi-witness
+    sweep — 3 new non-vacuous Massey witnesses + 4 fresh R-relations
+    spanning 4-dim of H² = F₂⁵).
 
 ## Combined achievement
 
@@ -75,7 +77,20 @@ universal-kernel structurally closed (DIRTY).
 
 ## Active research direction (next session)
 
-**G139: Möbius P as canonical 213 equivalence** —
+Two parallel threads ready to pick up:
+
+**(1) G142: Full H² map of K_{3,3}^{(c=2)}** —
+`research-notes/G142_K33_massey_full_h2_map.md`.
+
+This session landed 4 non-vacuous Massey witnesses spanning
+4 of 5 dimensions of H² = F₂⁵.  The 5th dimension is
+*possibly inherently Massey-void* under the opposite-edge cup
+(structural conjecture: cup image factors through a 4-dim
+quotient since mult-1 cocycles cup trivially).  Next:
+prove or disprove the Route 3 conjecture; investigate
+4-fold Massey or mixed-side indeterminacy enumeration.
+
+**(2) G139: Möbius P as canonical 213 equivalence** —
 `research-notes/G139_mobius_equivalence_unification.md`.
 
 Algebra/Analysis Wave 13 reframing surfaced the conjecture that ALL
@@ -92,6 +107,8 @@ under P = [[2,1],[1,1]].  Phase 1-5 plan in the doc.
 | `research-notes/G139_mobius_equivalence_unification.md` | **Active research direction** |
 | `research-notes/G141_cohomology_marathon.md` | Cohomology marathon log (originally G139 in-branch) |
 | `research-notes/G140_massey_nonvacuous_search.md` | Non-vacuous Massey breakthrough log |
+| `research-notes/G142_K33_massey_full_h2_map.md` | **K_{3,3} 4-dim H² span + 5th-dim conjecture (active)** |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyMulti.lean` | 3 new K_{3,3} Massey witnesses + 4-dim capstone |
 | `theory/INDEX.md` | Book map (98+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |

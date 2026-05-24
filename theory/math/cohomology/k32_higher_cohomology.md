@@ -334,6 +334,48 @@ for full Massey closure: explicit cobounding-chain construction
 solving `ω ⌣ ω = δ b_i`, then `[b_1 ⌣ ω + ω ⌣ b_2]` mod
 indeterminacy ideal `ω · H¹ + H¹ · ω`.
 
+## K_{3,3}^{(c=2)} — multi-dimensional secondary cohomology
+
+Above K_{3,2}^{(c=2)} (`b₂ = 1`, single Massey class `ω`), the
+next-up bipartite multigraph K_{3,3}^{(c=2)} has `b₂ = 5` — the
+Massey product now has up-to-5-dimensional output, a multi-class
+secondary cohomology regime.
+
+Infrastructure (∅-axiom Lean, `lean/E213/Lib/Math/Cohomology/Bipartite/`):
+
+  · `V33.lean` — H¹ = F₂⁹, H² = F₂⁵, six row/column R-relations
+    (`face_dep_S01`, `face_dep_T01`), single linear dependency
+    `R_{S₀₁}⊕R_{S₀₂}⊕R_{S₁₂} = R_{T₀₁}⊕R_{T₀₂}⊕R_{T₁₂}`.
+  · `V33MasseyMulti.lean` — 4 remaining canonical R-relations
+    (`face_dep_S02`, `face_dep_S12`, `face_dep_T02`, `face_dep_T12`).
+  · `V33MasseyWitness.lean` — primary ⟨g1, g2, g4⟩ rep
+    (1,1,0,0,0,0,0,0,0) violates R_{T₀₁} + R_{T₀₂}.
+  · `V33MasseyMulti.lean` — three further non-vacuous Massey
+    classes ⟨g1,g2,g5⟩, ⟨g4,g5,g1⟩, ⟨g4,g5,g2⟩, each violating
+    a fresh R-relation pair, spanning a **4-dimensional subspace
+    of H² = F₂⁵**.
+
+Capstone `four_witnesses_span_four_dim_H2` bundles all four
+witnesses + four fresh R-relations as ω-style "rep violates R,
+every coboundary satisfies R" pairs.
+
+The 5th H² dimension is a structural frontier.  Two structural
+observations bound the search:
+
+  · The opposite-edge cup at face F only sees the 4 mult-0 edges
+    of F's cyclic ordering; multiplicity-shift cocycles
+    (supported on odd-indexed edges) cup trivially against
+    anything under this convention.
+  · The ⟨S, S, T⟩ family produces violation patterns inside the
+    {R_{T₀₁}, R_{T₀₂}, R_{T₁₂}} 2-dim slice; the ⟨T, T, S⟩ family
+    inside the {R_{S₀₁}, R_{S₀₂}, R_{S₁₂}} slice.  The two slices
+    together span the 4-dim plane explicitly witnessed above.
+
+Conjecture: opposite-edge cup image in H² is **exactly** this
+4-dim plane, leaving the 5th direction inherently *Massey-void*
+under the primary cup.  At general K_{NS,NT}^{(c=2)} the
+extrapolation predicts a (c−1)-codimensional cup-image inside H².
+
 ## Open frontier (pure cohomology)
 
   · **General Steenrod cup_i for arbitrary i ≥ 2** with the full
