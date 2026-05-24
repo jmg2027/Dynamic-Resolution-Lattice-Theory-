@@ -388,10 +388,61 @@ cup-void* but reached at Massey depth 4.
     chain-level at every face.  This rules out the mult-1
     Massey route to the 5th dim.
 
-Extrapolation to `K_{NS,NT}^{(c)}`: the cup image in H²
-has codim `c − 1`, and the missing dimensions are reached at
-Massey depth `c + 2`.  Falsifier: enumerate at c = 3 and
-check the depth-codim correspondence.
+### c-counter location at K_{3,3}^{(c)}
+
+The literal extrapolation "cup-image codim = `c − 1` at Massey depth
+`c + 2`" is **falsified** under the simple-cycle face structure: at
+c = 2 the codim is 1 and depth 4 suffices; at c = 3 (via
+`V33c3.lean`) codim stays 1 and depth still 4.  Codim is c-independent
+in the simple complex.
+
+The c-counter materialises ONE LEVEL DEEPER, in the **enriched
+2-complex** that admits multi-multiplicity face cycles:
+
+  · `V33Indeterminacy.lean` — ψ = R_{S₀₁} + R_{S₀₂} + R_{S₁₂}
+    discriminator: `[rep₄] ∉ principal Massey indeterminacy` at
+    c = 2 (14 PURE, ∅-axiom).
+  · `V33c3Indeterminacy.lean` — same at c = 3 (11 PURE).
+    Cross-frame: ψ-discriminator survives at BOTH multiplicities,
+    so the c-counter is NOT in the principal indeterminacy.
+  · `V33Enriched.lean` (c=2, 23 PURE) + `V33c3Enriched.lean`
+    (c=3, 36 PURE): the enriched complex includes mult-m face
+    cycles for m ∈ {0, …, c−1}; edge sets are disjoint across
+    layers; ψ_m = XOR over m-layer faces gives c independent
+    2-cocycle functionals.  Each kills imδ¹_enr.  Single-face
+    indicators `e_face_(9m)` realise c independent non-coboundary
+    H²-classes.  **Codim ≥ c** at c ∈ {2, 3} in the enriched
+    complex.
+  · `V33EnrichedParametric.lean` (41 PURE) — generalises to
+    arbitrary `c : Nat`:
+    * `parametric_c_independent_h2_classes` — `c` indicators
+      with Kronecker-δ ψ-signatures at any `c`
+    * `parametric_bottom_layer_full_kill_capstone` — at the
+      bottom layer, ψ_0 kills all S_i / T_j primary cup-image
+      (for all `i, j ∈ Fin 3`, any `c ≥ 1`)
+    * `c_counter_manifest_at_bottom_c2/3/4/5` — combined Massey
+      witness + kill bundles at concrete c ∈ {2, 3, 4, 5}
+    * `eta_ab_layer`, `eta_cd_layer` — parametric 4-fold Massey
+      η-cochains realising ψ_0 = 1 at the bottom layer
+
+Möbius P bridge:
+
+  · `Mobius213K33StateClass.lean` (13 PURE) — K_{3,3}^(c=2)'s
+    all-true vertex cochain projects to state class `(3, 3) =
+    NS · Pseq seedZero 1`.  Unlike K_{3,2} (whose all-true state
+    `(3, 2) = Pseq seedZero 2` lies directly on the Möbius P
+    orbit), K_{3,3}'s state is on the DIAGONAL `(NS, NT) = (3, 3)`
+    — the `NS`-scaled depth-1 form.  Subsequent P-iterates:
+    `Pstep^n (3, 3) = NS · Pseq seedZero (n+1)`.
+
+Refined statement: **Cup-image codim in `H²_enr` ≥ c**, one
+independent Massey 5th-dim direction per multiplicity layer.  The
+`(c−1)`-codim form is off-by-one; the correct parametrisation
+is `codim ≥ c`.
+
+The Massey depth that reaches each layer's 5th dim stays at 4,
+not `c + 2` — the original depth conjecture also fails under
+this face structure.
 
 ## Open frontier (pure cohomology)
 
