@@ -705,6 +705,48 @@ theorem c_counter_manifest_at_bottom_c7 :
    psi_layer_kills_cupOpp_S0star_left_at_bottom 7 (by decide),
    psi_layer_kills_cupOpp_T0incid_right_at_bottom 7 (by decide)⟩
 
+theorem c_counter_manifest_at_bottom_c8 :
+    (psi_layer 8 ⟨0, by decide⟩
+      (cupOpp_param 8 (eta_ab_layer 8 ⟨0, by decide⟩)
+                       (eta_cd_layer 8 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 8,
+        psi_layer 8 ⟨0, by decide⟩
+          (cupOpp_param 8 (starS 8 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 8,
+        psi_layer 8 ⟨0, by decide⟩
+          (cupOpp_param 8 α (incidT 8 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c8,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 8 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 8 (by decide)⟩
+
+theorem c_counter_manifest_at_bottom_c9 :
+    (psi_layer 9 ⟨0, by decide⟩
+      (cupOpp_param 9 (eta_ab_layer 9 ⟨0, by decide⟩)
+                       (eta_cd_layer 9 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 9,
+        psi_layer 9 ⟨0, by decide⟩
+          (cupOpp_param 9 (starS 9 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 9,
+        psi_layer 9 ⟨0, by decide⟩
+          (cupOpp_param 9 α (incidT 9 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c9,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 9 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 9 (by decide)⟩
+
+theorem c_counter_manifest_at_bottom_c10 :
+    (psi_layer 10 ⟨0, by decide⟩
+      (cupOpp_param 10 (eta_ab_layer 10 ⟨0, by decide⟩)
+                       (eta_cd_layer 10 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 10,
+        psi_layer 10 ⟨0, by decide⟩
+          (cupOpp_param 10 (starS 10 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 10,
+        psi_layer 10 ⟨0, by decide⟩
+          (cupOpp_param 10 α (incidT 10 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c10,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 10 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 10 (by decide)⟩
+
 theorem c_counter_manifest_at_bottom_c5 :
     (psi_layer 5 ⟨0, by decide⟩
       (cupOpp_param 5 (eta_ab_layer 5 ⟨0, by decide⟩)
