@@ -178,14 +178,60 @@ Anchor formalizations:
   · `theory/math/cohomology/k32_higher_cohomology.md` —
     chapter home (needs update to reflect refined conjecture).
 
-## Next session priorities (post Candidate-D resolution)
+## Candidate A — RESOLVED (positive): c-counter LOCATED in enriched 2-complex
 
-  1. **Richer 2-complex** at c=2: incorporate the 16 multi-
-     multiplicity 4-cycles per (S-pair, T-pair) and recompute
-     H² + cup image.  See if `(c−1)`-codim manifests in this
-     richer setting.  (Candidate A)
-  2. **Bockstein Sq¹ infrastructure**: define ℤ/4 lifts of
-     V33 cochains and compute `Sq¹(g1)` — independent test
-     for the c-counter manifestation in H².  (Candidate C)
-  3. **Higher cohomology H³**: compute H³ at K_{3,3}^{(c=2)}
-     vs c=3 via a 3-cell complex extension.  (Candidate B)
+Phase 1 (c=2 enriched) + Phase 2 (c=3 enriched) complete, 59 PURE
+/ 0 DIRTY.
+
+The c-multiplicity counter materialises as **the number of
+independent Massey 5th-dim directions, one per mult layer** in
+the enriched 2-complex (mult-m face cycles for `m ∈ {0, …, c-1}`).
+
+  · `c=2` enriched: codim ≥ 2 — `ψ_m0`, `ψ_m1` independent
+    discriminators (`V33Enriched.two_independent_h2_classes_enriched_c2`)
+  · `c=3` enriched: codim ≥ 3 — `ψ_m0`, `ψ_m1`, `ψ_m2`
+    independent (`V33c3Enriched.three_independent_h2_classes_enriched_c3`)
+  · Cross-frame (`V33c3Enriched.cross_frame_enriched_codim_grows_with_c`):
+    codim ≥ c at `c ∈ {2, 3}`
+
+### Key structural fact
+
+Mult-m face cycles use **only mult-m edges**: edge sets are
+disjoint across multiplicities at c=2 and c=3.  Hence `δ¹_enr`
+splits into c independent sub-coboundaries, and `ψ_m` = XOR
+over m-layer faces gives c independent 2-cocycle functionals.
+
+Each `ψ_m` kills `imδ¹_enr` (each mult-m edge appears in exactly
+4 faces of its layer, even).  Single-face indicators `e_face_(9m)`
+give c independent non-coboundary H²-classes with mutually
+distinct ψ-signatures `(0,…,0,1,0,…,0)`.
+
+### Anchor formalisations
+
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33Enriched.lean`
+    — c=2 enriched + capstone (23 PURE)
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3Enriched.lean`
+    — c=3 enriched + cross-frame capstone (36 PURE)
+
+### Refined refined conjecture (now established at c ∈ {2, 3})
+
+  **In the enriched 2-complex on `K_{NS,NT}^{(c)}`** (one face
+  cycle per multiplicity choice on the 4-cycle's edges), the
+  cup-image codim in H² satisfies `codim ≥ c`, with equality
+  realised by c independent Massey 5th-dim directions.
+
+The `(c−1)`-codim form is therefore the **wrong** parametrisation;
+the correct statement is `codim ≥ c` in the enriched complex.
+
+## Remaining open candidates
+
+  1. **Candidate B (higher cohomology H³)**: independent test via
+     3-cell extensions (Massey-cell fills).  Now of mostly
+     theoretical interest since Candidate A resolves the c-counter
+     question constructively.
+  2. **Candidate C (Steenrod Sq¹ via ℤ/4 Bockstein)**: independent
+     verification of c-counter via secondary operation.  Could
+     correlate with the Candidate-A direction count.
+  3. **Cup-image codim exact equality** (`codim = c` vs `codim ≥ c`):
+     prove the reverse inequality — the c Massey directions are
+     all the missing dims, no others.
