@@ -1,35 +1,42 @@
 import E213.Lib.Math.Real213.Core.CutPoset
 
 /-!
-# Mobius213Equiv — Möbius-orbit equivalence on cuts
+# Mobius213Equiv — Möbius P-orbit equivalence on cuts
 
 The 213 Möbius matrix P = [[2,1],[1,1]] acts on (m, k) ↦
-(2m+k, m+k).  The two seeds `(0, 1)` and `(1, 0)` generate the
-Stern-Brocot tree under this action: every coprime pair appears
-(uniquely) on one of these P-orbits.
+(2m+k, m+k).  Iterating P from the two natural seeds yields
+two convergent chains:
 
   · seed (0, 1): orbit (0,1), (1,1), (3,2), (8,5), (21,13), ...
   · seed (1, 0): orbit (1,0), (2,1), (5,3), (13,8), (34,21), ...
 
 These coincide (shifted) with `P_numerator` / `P_denominator`
 from `Lib/Math/Mobius213.lean` — the same Fibonacci-even/odd
-convergents.  The matrix is internal to 213: trace = NS,
-det = 1, disc = NS+NT = d, eigenvalues φ², 1/φ².
+Pell convergents whose ratios approach φ² and 1/φ².  The matrix
+is internal to 213: trace = NS, det = 1, disc = NS+NT = d,
+eigenvalues φ², 1/φ².
 
 ## What this file delivers
 
   · `Pstep`, `Pseq` — P-iteration on Nat × Nat
-  · `seedZero`, `seedInf` — the two Stern-Brocot generators
-  · `mobiusEq cx cy` — agreement on both orbits, ∀ n
+  · `seedZero := (0, 1)`, `seedInf := (1, 0)` — the two
+    canonical seeds (the Pell convergents' boundary fractions
+    0/1 and 1/0)
+  · `mobiusEq cx cy` — agreement on both P-orbits, ∀ n
   · refl / symm / trans (mobiusEq is an equivalence relation)
-  · `mobiusEq_of_cutEq` — pointwise equality implies orbit
-    equality (the unconditional forward direction)
+  · `mobiusEq_of_cutEq` — pointwise equality implies P-orbit
+    equality (unconditional forward direction)
 
-The converse, `mobiusEq → cutEq`, is the substantive content:
-it requires Stern-Brocot coverage of ℕ × ℕ, recorded as a
-separate construction.  See `research-notes/` for the
-conjectural full reduction of every 213 equality definition
-through `mobiusEq`.
+## Relation to full Stern-Brocot coverage
+
+Pure P-iteration is `R · L` in the standard SL₂(ℤ) generators
+(L = [[1,0],[1,1]], R = [[1,1],[0,1]]); it walks one diagonal
+of the Stern-Brocot tree per seed.  The two P-orbits therefore
+cover only the Pell-convergent chains, NOT every coprime pair.
+Full Stern-Brocot coverage uses the *mediant* closure
+(a, b) ⊕ (c, d) = (a+c, b+d), giving a strictly stronger
+equivalence `sternBrocotEq` (see `Mobius213SternBrocot.lean`)
+with `mobiusEq` weaker than `sternBrocotEq` weaker than `cutEq`.
 
 All declarations PURE (∅-axiom).
 -/
@@ -95,10 +102,12 @@ theorem orbits_hit_atoms_at_depth_2 :
 /-! ## §3 — mobiusEq: agreement on both P-orbits -/
 
 /-- **mobiusEq**: two cuts agree on the (0,1)- and (1,0)-orbits
-    under P-iteration.  Together the two orbits enumerate the
-    Stern-Brocot tree, so this is conjecturally equivalent to
-    `cutEq`; this file records the unconditional forward
-    direction (`mobiusEq_of_cutEq`). -/
+    under P-iteration.  This is a *weak* equality: the two
+    P-orbits only sample the Pell-convergent chains, not the
+    full Stern-Brocot tree.  Strictly weaker than `cutEq`;
+    strictly weaker than `sternBrocotEq` (the mediant-closure
+    version in `Mobius213SternBrocot.lean`).  Forward bridge
+    `cutEq → mobiusEq` is unconditional (`mobiusEq_of_cutEq`). -/
 def mobiusEq (cx cy : Nat → Nat → Bool) : Prop :=
   ∀ n,
     cx (Pseq seedZero n).1 (Pseq seedZero n).2

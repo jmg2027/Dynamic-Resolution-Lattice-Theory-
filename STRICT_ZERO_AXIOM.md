@@ -1742,16 +1742,63 @@ bridge) is a follow-up.
 |---|---|---|
 | `E213.Lib.Math.Real213.Mobius213Equiv` | 12 | `Pstep`, `Pseq seed n` — P-iteration on Nat × Nat;  `seedZero := (0,1)`, `seedInf := (1,0)` — the two Stern-Brocot generators;  `Pseq_seedZero_values` (orbit through (1,1), (3,2), (8,5), (21,13), (55,34));  `Pseq_seedInf_values` (orbit through (2,1), (5,3), (13,8), (34,21), (89,55) — direct Pell convergents of `Lib/Math/Mobius213.lean`);  `orbits_hit_atoms_at_depth_2` ((NS,NT) = (3,2) and (NS+NT, NS) = (5,3) appear at depth 2);  `mobiusEq cx cy` — orbit-pointwise equality;  `mobiusEq_refl/symm/trans` — equivalence-relation laws;  ★★★ `mobiusEq_of_cutEq` — unconditional forward bridge |
 
-Structural significance: the two seeds (0, 1) and (1, 0)
-generate the Stern-Brocot tree under repeated P-action.  Their
-P-orbits coincide (shifted) with the `P_numerator` and
-`P_denominator` Pell sequences from `Lib/Math/Mobius213.lean`
-— Fibonacci-even/odd convergents.  Hence `mobiusEq` is a
-Möbius-orbit reading of cut equality that uses the same
-matrix that algebraically encodes (NS, NT, d) = (3, 2, 5)
-via (trace, det, disc) = (NS, NS−NT, NS+NT).
+Structural significance: the two seeds (0, 1) and (1, 0) are
+the boundary fractions 0/1 and 1/0 of the Stern-Brocot tree.
+Under pure P-iteration (= R·L in standard SL₂(ℤ) generators
+L = [[1,0],[1,1]], R = [[1,1],[0,1]]), each seed walks ONE
+diagonal of the tree — the Pell-convergent chain (Fibonacci
+even/odd indices, matching `P_numerator` / `P_denominator`).
+The two P-orbits do NOT cover every coprime (m, k); that
+coverage requires the *mediant* closure of the seeds, captured
+by the inductive `SternBrocotReachable` predicate in the
+sibling module below.
 
-Forward bridge `cutEq ⇒ mobiusEq` is trivial pointwise
-specialisation.  Backward bridge `mobiusEq ⇒ cutEq` requires
-the Stern-Brocot coverage lemma (every (m, k) lies on a P-orbit
-from one of the two seeds) and is deferred to Phase 2.
+Forward bridge `cutEq ⇒ mobiusEq` is trivial reachability-blind
+specialisation.  Backward bridge `mobiusEq ⇒ cutEq` is FALSE
+for arbitrary `Nat → Nat → Bool` (the P-orbits are measure-zero
+in ℕ × ℕ); it conjecturally holds only for *scale-invariant*
+cuts (those satisfying `cx (s·m) (s·k) = cx m k`), which is a
+property of `constCut`-shaped cuts.
+
+## 2026-05-24 — G139 Phase 1b: Stern-Brocot inductive predicate
+
+The full Stern-Brocot coverage of coprime pairs via mediant
+closure of the seeds.  Strictly stronger than the P-orbit
+`mobiusEq`; strictly weaker than `cutEq` (on arbitrary Bool
+functions; for ratio-only cuts they coincide).  14 PURE /
+0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213SternBrocot` | 14 | `inductive SternBrocotReachable` (closure of (0,1), (1,0) under mediant (a,b) ⊕ (c,d) = (a+c, b+d));  seven concrete L0–L2 witnesses: `reachable_1_1`, `reachable_1_2`, `reachable_2_1`, `reachable_1_3`, `reachable_2_3`, `reachable_3_2` ((NS,NT) atomicity at depth 3), `reachable_3_1`;  `sternBrocotEq cx cy` — agreement on every reachable (m, k);  `sternBrocotEq_refl/symm/trans`;  ★★★ `sternBrocotEq_of_cutEq` — forward bridge;  `seedZero_reachable`, `seedInf_reachable` — the P-seed cells are SB-reachable as constructors |
+
+**Chain of equivalences** (each strictly stronger than the next
+on arbitrary cuts):
+
+  · `cutEq cx cy` — pointwise on all (m, k) ∈ ℕ × ℕ
+  · `sternBrocotEq cx cy` — agreement on every coprime (m, k)
+    via mediant closure of {(0,1), (1,0)}
+  · `mobiusEq cx cy` — agreement on the two P-orbits only
+    (Pell convergent chains)
+
+Forward bridges `cutEq ⇒ sternBrocotEq ⇒ mobiusEq` all
+unconditional.  Backward bridges require either scale-invariance
+(for the `sternBrocotEq ⇒ cutEq` step) or a Pell-coverage
+hypothesis (for `mobiusEq ⇒ sternBrocotEq`), neither of which
+holds for arbitrary `Nat → Nat → Bool`.
+
+**G139 conjecture refinement**: the conjecture "every 213
+equality definition factors through a canonical Möbius-orbit
+equivalence" needs the *mediant*-closure reading
+(`sternBrocotEq`), not the P-iteration-only reading
+(`mobiusEq`).  The P matrix = R·L is one fixed composite; the
+Stern-Brocot tree uses L and R as separate operations, giving
+the full L+R monoid action whose orbit covers every coprime
+pair.
+
+The remaining open step for the G139 backward direction: prove
+that for scale-invariant cuts, `sternBrocotEq cx cy → cutEq cx
+cy`.  Outline: every (m, k) ∈ ℕ × ℕ reduces to a coprime pair
+(m', k') = (m/gcd, k/gcd), which is Stern-Brocot reachable;
+scale-invariance lifts cx(m,k) = cy(m,k) from cx(m',k') =
+cy(m',k').  This is Phase 2 substantive content.
