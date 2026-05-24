@@ -2835,3 +2835,26 @@ comparison with K_{3,2}^{(c=2)} cohomology.
 | `E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge` | 3 | `atomic_bridge` (|E|=|△|=6 preserved); `b1_mismatch` (8 ≠ 0 cohomology breach); ★★★★★★★★★★ `self_containment_cohomology_verdict` (6-conjunct cross-frame capstone) |
 
 **Session grand total**: 330 + 26 = **356 PURE / 0 DIRTY**.
+
+## 2026-05-24 — V32LocalSignature: (2, 1, 3) atomic multiset at every point
+
+Local-signature framework for K_{3,2}^{(c=2)}: every structural
+locus (vertex / edge / face) carries the (2, 1, 3) atomic
+multiset.  The "3" of the signature is reproduced locally at
+every datum without external partition — the positive companion
+to the tripartite cohomology bridge's structural negative.
+
+  · **Predicate**: `is_213_multiset a b c := (a+b+c == 6) && (a·b·c == 6)`.
+    For positive naturals this uniquely characterises {1, 2, 3}.
+  · **Vertex** (Fin 5): `(NT, det, NS) = (2, 1, 3)` at S-side;
+    `(NS, det, NT) = (3, 1, 2)` at T-side.  Same multiset, axes swapped.
+  · **Edge** (Fin 12) and **Face** (Fin 3): uniform `(NT, det, NS) = (2, 1, 3)`.
+  · **Master `local_213_at_every_point`**: 5-conjunct capstone
+    bundling vertex/edge/face 213-multiset + canonical/swapped
+    triple realisations.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature` | 15 | `is_213_multiset` predicate (sum=6, prod=6); `sig_213` triple lift; `canonical_213` / `canonical_213_swapped` triple instances; `vertex_local_signature` (side-split); `vertex_signature_is_213` decide-bridge over 5 vertices; `edge_local_signature` (uniform); `edge_signature_is_213`; `face_local_signature` (uniform); `face_signature_is_213`; structural component theorems `S_vertex_signature_components`, `T_vertex_signature_components`, `edge_signature_uniform`, `face_signature_uniform`; ★★★★★★★★★★ `local_213_at_every_point` (5-conjunct master capstone) |
+
+**Session grand total**: 356 + 15 = **371 PURE / 0 DIRTY**.

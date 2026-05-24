@@ -59,6 +59,22 @@ Anchor: `lean/E213/Lib/Math/Cohomology/Bipartite/V43.lean`.
   · `Mobius213K33c3StateClass` — edge multiplicity saturation (9, 9, 9) at c=3
   · `Mobius213K33Bridge` — numerical signature ↔ Möbius P invariants
 
+### K_{3,2}^{(c=2)} local (2, 1, 3) signature at every point
+
+Self-containment of the (2, 1, 3) atomic multiset across every
+structural locus of K_{3,2}^{(c=2)}.
+
+  · `is_213_multiset a b c := (a+b+c == 6) && (a·b·c == 6)`.  For
+    positive naturals this uniquely characterises {1, 2, 3}.
+  · Vertex signature: `(NT, 1, NS) = (2, 1, 3)` at S-side;
+    `(NS, 1, NT) = (3, 1, 2)` at T-side.  Same multiset.
+  · Edge / face signatures: uniform `(NT, 1, NS) = (2, 1, 3)`.
+  · Master `local_213_at_every_point`: 5-conjunct capstone — the
+    "3" is reproduced locally at every datum of K_{3,2}^{(c=2)},
+    without external partition.
+
+Anchor: `lean/E213/Lib/Math/Cohomology/Bipartite/V32LocalSignature.lean`.
+
 ### K_{2,1,3} tripartite cohomology + self-containment bridge
 
 Cohomology of the complete tripartite K_{NT, det, NS} = K_{2,1,3}
@@ -164,14 +180,18 @@ atomic signature simultaneously.
 **Option II VERIFIED (2026-05-24)**: cohomology of external
 tripartite `K_{2,1,3}` formalised; result (b₀, b₁, b₂) = (1, 0, 0)
 shows cohomology-level duality FAILS (b₁ = 0 vs K_{3,2}^{(c=2)}'s
-b₁ = 8).  Structural negative for external extension; the
-self-containment reading is the only viable cohomology-level
-path.  See `Cohomology/Tripartite/` anchors above.
+b₁ = 8).  Structural negative for external extension.
 
-**Option I (recommended, NEXT)**: build `V32LocalSignature.lean`
-to reveal the (2, 1, 3) local signature already present at every
-vertex / edge / face of K_{3,2}^{(c=2)}.  Master theorem
-`local_213_at_every_point`.
+**Option I VERIFIED (2026-05-24)**: `V32LocalSignature.lean` —
+master `local_213_at_every_point` (5-conjunct capstone), 15 PURE
+total.  The (2, 1, 3) atomic multiset is reproduced at every
+vertex, edge, and face of K_{3,2}^{(c=2)}; the "3" lives locally,
+not in an external partition.
+
+Together I + II close Direction T: the self-containment reading
+of K_{3,2}^{(c=2)} is structurally established (positive: local
+signature at every point) and the external extension reading is
+structurally refuted (negative: b₁ mismatch).
 
 Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
 

@@ -245,3 +245,73 @@ This is a structural negative for Option II (cohomology
 extension) and a positive for Option I (LocalSignature
 framework), making the local-signature reading the only viable
 formalisation path for the (2, 1, 3) cohomological recurrence.
+
+## 2026-05-24 — Option I verification outcome
+
+Local-signature framework formalised at
+`lean/E213/Lib/Math/Cohomology/Bipartite/V32LocalSignature.lean`
+(15 PURE).
+
+### Predicate
+
+`is_213_multiset a b c := (a + b + c == 6) && (a · b · c == 6)`.
+For positive naturals this uniquely characterises the multiset
+`{1, 2, 3}`: with sum = 6 and product = 6, the only positive-Nat
+solution is `{1, 2, 3}` (other candidates like `{2, 2, 2}` fail
+product, `{1, 1, 4}` fails sum-with-product, etc.).
+
+### Local signatures
+
+  · `vertex_local_signature v : Fin 5 → Nat × Nat × Nat`
+      - S-vertex (v.val < 3): `(NT, 1, NS) = (2, 1, 3)`
+      - T-vertex (v.val ≥ 3): `(NS, 1, NT) = (3, 1, 2)`
+      - Reading: `(opposite-side-count, det, own-side-count)`.
+  · `edge_local_signature e : Fin 12 → Nat × Nat × Nat`
+      Uniform `(NT, 1, NS) = (2, 1, 3)`.
+      Reading: `(T-endpoint choices, edge identity, S-endpoint choices)`.
+  · `face_local_signature f : Fin 3 → Nat × Nat × Nat`
+      Uniform `(NT, 1, NS) = (2, 1, 3)`.
+      Reading: `(T-vertices in face, face identity, total face count)`.
+      Note `(NS choose 2) = 3 = NS` at this signature, so face-count
+      equals NS.
+
+### Per-element 213-multiset verification
+
+  · `vertex_signature_is_213` — 5 vertices, decide-bridge
+  · `edge_signature_is_213` — 12 edges, decide-bridge
+  · `face_signature_is_213` — 3 faces, decide-bridge
+
+### Structural component readings
+
+  · `S_vertex_signature_components` — every S-vertex realises (2, 1, 3)
+  · `T_vertex_signature_components` — every T-vertex realises (3, 1, 2)
+  · `edge_signature_uniform` — all 12 edges share `(NT, 1, NS)`
+  · `face_signature_uniform` — all 3 faces share `(NT, 1, NS)`
+
+### Master capstone
+
+`local_213_at_every_point` — 5-conjunct bundle:
+
+  · (a) Every vertex's local signature has 213-multiset
+  · (b) Every edge's local signature has 213-multiset
+  · (c) Every face's local signature has 213-multiset
+  · (d) Canonical `(NT, 1, NS)` triple is 213-multiset
+  · (e) Axis-swapped `(NS, 1, NT)` triple is 213-multiset
+
+**Verdict** — Reading B (self-containment) is **structurally
+positive**: the (2, 1, 3) atomic multiset is reproduced at every
+locus of `K_{3, 2}^{(c=2)}` without invoking an external
+tripartite partition.
+
+### Direction T closure
+
+Options I + II together close Direction T:
+
+  · Option II (negative): external tripartite extension
+    cohomologically trivial → cannot host the (2, 1, 3) "3"
+  · Option I (positive): local (2, 1, 3) recurrence at every
+    vertex / edge / face → the "3" lives within the graph
+
+The self-containment reading is structurally established.
+`K_{3, 2}^{(c=2)}` is the locus where the (2, 1, 3) atomic
+signature manifests at every structural datum.
