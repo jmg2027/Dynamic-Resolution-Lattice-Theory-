@@ -2853,4 +2853,53 @@ Cross-link: matches `V43.K43_simple_face_count` (18 simple
 |---|---|---|
 | `E213.Lib.Math.Cohomology.MediantCohomologyFunctor` | 22 | `binom_n_1` (Pascal-recursion), `binom_succ_2` (Pascal step 2), ★★★★★ **`binom_add_2`** (Vandermonde-2 universal identity), `vertexCount`, `edgeCount`, `faceCount`, `mediant`, `vertexCount_mediant` (2-term), ★★★★ **`edgeCount_mediant`** (4-term Vandermonde, ∅-axiom via `add_mul_pure`), ★★★★★★★ **`faceCount_mediant_factored`** (Vandermonde²), `K11/K32/K43_counts`, `K43_vertex/edge/face_from_mediant` (concrete (1,1)⊕(3,2)=(4,3)), `K43_face_9term_evaluation`, `countTriple`, `countTriple_mediant_decomposition` (3-component algebra law), ★★★★★★★ **`mediant_cohomology_functor_capstone`** (7-conjunct master: Vandermonde-2 + V/E/F decompositions + K_{4,3} concrete + Stern-Brocot reachability) |
 
-**Session grand total**: 330 + 22 = **352 PURE / 0 DIRTY**.
+**Session running total after MediantCohomologyFunctor**: 330 + 22 = **352 PURE / 0 DIRTY**.
+## 2026-05-24 — Tripartite K_{2,1,3} cohomology + self-containment bridge
+
+Cohomology layer for the tripartite complete graph K_{NT, det, NS}
+= K_{2, 1, 3} (companion to `Bipartite/`), and cross-frame
+comparison with K_{3,2}^{(c=2)} cohomology.
+
+  · **K_{2,1,3} structure** (6 vertices, 11 edges, 6 triangle
+    2-cells): each direct edge `c_{ij}` (positions 5..10) appears
+    in **exactly one** triangle — giving δ¹ a constructive
+    pointwise surjective lift.
+  · **Betti capstone**: (b₀, b₁, b₂) = (1, 0, 0).  K_{2,1,3} is
+    cohomologically trivial above H⁰ — every 1-cycle equals a
+    sum of triangle boundaries.
+  · **Cross-frame bridge**: atomic-level duality holds (|E| = |△|
+    = 6) but cohomology-level duality fails (b₁ = 8 for K_{3,2}^{(c=2)}
+    vs b₁ = 0 for K_{2,1,3}).  External tripartite extension
+    cannot host the (2, 1, 3) cohomological "3" — vindicating
+    the self-containment reading of K_{3,2}^{(c=2)}.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Tripartite.V213` | 10 | Vertex/edge/face cochain types `CochV / CochE / CochF`, `srcOf` / `tgtOf` edge endpoints, `faceEdge1..3` triangle edges, coboundaries `delta0` / `delta1` |
+| `E213.Lib.Math.Cohomology.Tripartite.V213Betti` | 13 | `kerSizeDelta0_eq_2` (b₀ = 1 via 64-cochain enum); ★★★★ `delta1_pivot_lift_pointwise` (each triangle indicator is δ¹ of the unique direct-edge indicator → surjectivity); `betti_numerics` (rank-nullity arithmetic for b₁ = b₂ = 0); ★★★★★★★★ `K213_betti_capstone` (7-conjunct Betti capstone) |
+| `E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge` | 3 | `atomic_bridge` (|E|=|△|=6 preserved); `b1_mismatch` (8 ≠ 0 cohomology breach); ★★★★★★★★★★ `self_containment_cohomology_verdict` (6-conjunct cross-frame capstone) |
+
+**Session running total after Tripartite/**: 352 + 26 = **378 PURE / 0 DIRTY**.
+
+## 2026-05-24 — V32LocalSignature: (2, 1, 3) atomic multiset at every point
+
+Local-signature framework for K_{3,2}^{(c=2)}: every structural
+locus (vertex / edge / face) carries the (2, 1, 3) atomic
+multiset.  The "3" of the signature is reproduced locally at
+every datum without external partition — the positive companion
+to the tripartite cohomology bridge's structural negative.
+
+  · **Predicate**: `is_213_multiset a b c := (a+b+c == 6) && (a·b·c == 6)`.
+    For positive naturals this uniquely characterises {1, 2, 3}.
+  · **Vertex** (Fin 5): `(NT, det, NS) = (2, 1, 3)` at S-side;
+    `(NS, det, NT) = (3, 1, 2)` at T-side.  Same multiset, axes swapped.
+  · **Edge** (Fin 12) and **Face** (Fin 3): uniform `(NT, det, NS) = (2, 1, 3)`.
+  · **Master `local_213_at_every_point`**: 5-conjunct capstone
+    bundling vertex/edge/face 213-multiset + canonical/swapped
+    triple realisations.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature` | 15 | `is_213_multiset` predicate (sum=6, prod=6); `sig_213` triple lift; `canonical_213` / `canonical_213_swapped` triple instances; `vertex_local_signature` (side-split); `vertex_signature_is_213` decide-bridge over 5 vertices; `edge_local_signature` (uniform); `edge_signature_is_213`; `face_local_signature` (uniform); `face_signature_is_213`; structural component theorems `S_vertex_signature_components`, `T_vertex_signature_components`, `edge_signature_uniform`, `face_signature_uniform`; ★★★★★★★★★★ `local_213_at_every_point` (5-conjunct master capstone) |
+
+**Session grand total after V32LocalSignature**: 378 + 15 = **393 PURE / 0 DIRTY**.

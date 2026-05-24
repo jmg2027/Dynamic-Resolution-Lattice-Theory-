@@ -76,6 +76,48 @@ Anchor: `lean/E213/Lib/Math/Cohomology/Bipartite/V43.lean`.
   · `Mobius213K33c3StateClass` — edge multiplicity saturation (9, 9, 9) at c=3
   · `Mobius213K33Bridge` — numerical signature ↔ Möbius P invariants
 
+### K_{3,2}^{(c=2)} local (2, 1, 3) signature at every point
+
+Self-containment of the (2, 1, 3) atomic multiset across every
+structural locus of K_{3,2}^{(c=2)}.
+
+  · `is_213_multiset a b c := (a+b+c == 6) && (a·b·c == 6)`.  For
+    positive naturals this uniquely characterises {1, 2, 3}.
+  · Vertex signature: `(NT, 1, NS) = (2, 1, 3)` at S-side;
+    `(NS, 1, NT) = (3, 1, 2)` at T-side.  Same multiset.
+  · Edge / face signatures: uniform `(NT, 1, NS) = (2, 1, 3)`.
+  · Master `local_213_at_every_point`: 5-conjunct capstone — the
+    "3" is reproduced locally at every datum of K_{3,2}^{(c=2)},
+    without external partition.
+
+Anchor: `lean/E213/Lib/Math/Cohomology/Bipartite/V32LocalSignature.lean`.
+
+### K_{2,1,3} tripartite cohomology + self-containment bridge
+
+Cohomology of the complete tripartite K_{NT, det, NS} = K_{2,1,3}
+(with rainbow triangle 2-cells filled) and cross-frame comparison
+with K_{3,2}^{(c=2)}.
+
+  · **Betti**: (b₀, b₁, b₂) = (1, 0, 0).  Cohomologically trivial
+    above H⁰.  δ¹ surjective via direct-edge pivots (each rainbow
+    triangle has a unique direct edge `c_{ij}` whose indicator
+    is a δ¹-preimage of the triangle's indicator).
+  · **Atomic-level duality**: |E(K_{3,2})| = 6 = |△(K_{2,1,3})|
+    (preserved, cross-link `TripartiteK213.bipartite_edge_eq_tripartite_triangle`).
+  · **Cohomology-level non-bridge**: b₁ = 8 vs b₁ = 0.  External
+    tripartite extension cannot host the (2, 1, 3) "3" — the
+    self-containment reading of K_{3,2}^{(c=2)} is the only
+    viable cohomology-level path.
+
+Anchors:
+  · `lean/E213/Lib/Math/Cohomology/Tripartite/V213.lean` —
+    cochain types + coboundaries
+  · `lean/E213/Lib/Math/Cohomology/Tripartite/V213Betti.lean` —
+    Betti capstone (b₁ = b₂ = 0)
+  · `lean/E213/Lib/Math/Cohomology/Tripartite/V32V213CohomologyBridge.lean` —
+    self_containment_cohomology_verdict
+  · `lean/E213/Lib/Math/Cohomology/Tripartite.lean` — umbrella
+
 ### Möbius P symmetry species
 
 Catalog of 36 symmetry species (algebraic / geometric / dynamics /
@@ -171,15 +213,21 @@ Every structural element (vertex / edge / face / cycle space /
 Möbius P / Pell point) carries both '2' and '3' of the (2, 1, 3)
 atomic signature simultaneously.
 
-Two sub-options:
+**Option II VERIFIED (2026-05-24)**: cohomology of external
+tripartite `K_{2,1,3}` formalised; result (b₀, b₁, b₂) = (1, 0, 0)
+shows cohomology-level duality FAILS (b₁ = 0 vs K_{3,2}^{(c=2)}'s
+b₁ = 8).  Structural negative for external extension.
 
-  · **Option I (recommended)**: build `V32LocalSignature.lean` that
-    reveals the duality already present — `vertex_local_signature`,
-    `edge_local_signature`, `face_local_signature` definitions +
-    master theorem `local_213_at_every_point`.
-  · **Option II**: extend to `K_{2,1,3}` tripartite + prove duality
-    with `K_{3,2}^{(c=2)}` at the cohomology level (new graph,
-    broader reach).
+**Option I VERIFIED (2026-05-24)**: `V32LocalSignature.lean` —
+master `local_213_at_every_point` (5-conjunct capstone), 15 PURE
+total.  The (2, 1, 3) atomic multiset is reproduced at every
+vertex, edge, and face of K_{3,2}^{(c=2)}; the "3" lives locally,
+not in an external partition.
+
+Together I + II close Direction T: the self-containment reading
+of K_{3,2}^{(c=2)} is structurally established (positive: local
+signature at every point) and the external extension reading is
+structurally refuted (negative: b₁ mismatch).
 
 Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
 

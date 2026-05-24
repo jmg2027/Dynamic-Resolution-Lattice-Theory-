@@ -207,3 +207,111 @@ cohomology extension is a separate large undertaking.
 Insight captured.  Lean formalization deferred to next session.
 User's refined intuition (Reading B / self-containment) is the
 recommended starting point.
+
+## 2026-05-24 — Option II verification outcome
+
+Cohomology of `K_{2, 1, 3}` (complete tripartite + triangle 2-cells)
+formalised at `lean/E213/Lib/Math/Cohomology/Tripartite/`:
+
+  · `V213.lean` — 6 vertices / 11 edges / 6 rainbow triangles;
+    coboundaries `delta0`, `delta1`.
+  · `V213Betti.lean` — **(b₀, b₁, b₂) = (1, 0, 0)** capstone.
+    Key structural lemma `delta1_pivot_lift_pointwise`: each
+    rainbow triangle's unique direct edge `c_{ij}` is a δ¹
+    preimage of the triangle's indicator → δ¹ surjective →
+    H² = 0 → (by Euler χ = 1) H¹ = 0.
+  · `V32V213CohomologyBridge.lean` — cross-frame verdict
+    `self_containment_cohomology_verdict`:
+      · (a) atomic-level duality holds: `|E(K_{3,2})| = NS·NT = 6
+        = NT·det·NS = |△(K_{2,1,3})|`
+      · (b) `b₁(K_{3,2}^{(c=2)}) = NS² − 1 = 8`
+      · (c) `b₁(K_{2,1,3}) = 0`
+      · (d) cohomology mismatch witnessed: `8 ≠ 0`
+
+26 new PURE theorems, all strict ∅-axiom.
+
+**Verdict** — Reading B (self-containment) is **structurally
+correct** at the cohomology level:
+
+The external tripartite `K_{2, 1, 3}` is cohomologically trivial
+above H⁰.  It cannot host the 8-dimensional H¹ richness of
+`K_{3, 2}^{(c=2)}`.  The atomic-count duality (edges ↔ triangles)
+is a numerical coincidence that does NOT lift to cohomology.
+
+Consequently, the "3" of the (2, 1, 3) atomic signature **cannot
+be re-located** to an external tripartite graph — it must live
+within `K_{3, 2}^{(c=2)}` itself as a local-signature structure.
+This is a structural negative for Option II (cohomology
+extension) and a positive for Option I (LocalSignature
+framework), making the local-signature reading the only viable
+formalisation path for the (2, 1, 3) cohomological recurrence.
+
+## 2026-05-24 — Option I verification outcome
+
+Local-signature framework formalised at
+`lean/E213/Lib/Math/Cohomology/Bipartite/V32LocalSignature.lean`
+(15 PURE).
+
+### Predicate
+
+`is_213_multiset a b c := (a + b + c == 6) && (a · b · c == 6)`.
+For positive naturals this uniquely characterises the multiset
+`{1, 2, 3}`: with sum = 6 and product = 6, the only positive-Nat
+solution is `{1, 2, 3}` (other candidates like `{2, 2, 2}` fail
+product, `{1, 1, 4}` fails sum-with-product, etc.).
+
+### Local signatures
+
+  · `vertex_local_signature v : Fin 5 → Nat × Nat × Nat`
+      - S-vertex (v.val < 3): `(NT, 1, NS) = (2, 1, 3)`
+      - T-vertex (v.val ≥ 3): `(NS, 1, NT) = (3, 1, 2)`
+      - Reading: `(opposite-side-count, det, own-side-count)`.
+  · `edge_local_signature e : Fin 12 → Nat × Nat × Nat`
+      Uniform `(NT, 1, NS) = (2, 1, 3)`.
+      Reading: `(T-endpoint choices, edge identity, S-endpoint choices)`.
+  · `face_local_signature f : Fin 3 → Nat × Nat × Nat`
+      Uniform `(NT, 1, NS) = (2, 1, 3)`.
+      Reading: `(T-vertices in face, face identity, total face count)`.
+      Note `(NS choose 2) = 3 = NS` at this signature, so face-count
+      equals NS.
+
+### Per-element 213-multiset verification
+
+  · `vertex_signature_is_213` — 5 vertices, decide-bridge
+  · `edge_signature_is_213` — 12 edges, decide-bridge
+  · `face_signature_is_213` — 3 faces, decide-bridge
+
+### Structural component readings
+
+  · `S_vertex_signature_components` — every S-vertex realises (2, 1, 3)
+  · `T_vertex_signature_components` — every T-vertex realises (3, 1, 2)
+  · `edge_signature_uniform` — all 12 edges share `(NT, 1, NS)`
+  · `face_signature_uniform` — all 3 faces share `(NT, 1, NS)`
+
+### Master capstone
+
+`local_213_at_every_point` — 5-conjunct bundle:
+
+  · (a) Every vertex's local signature has 213-multiset
+  · (b) Every edge's local signature has 213-multiset
+  · (c) Every face's local signature has 213-multiset
+  · (d) Canonical `(NT, 1, NS)` triple is 213-multiset
+  · (e) Axis-swapped `(NS, 1, NT)` triple is 213-multiset
+
+**Verdict** — Reading B (self-containment) is **structurally
+positive**: the (2, 1, 3) atomic multiset is reproduced at every
+locus of `K_{3, 2}^{(c=2)}` without invoking an external
+tripartite partition.
+
+### Direction T closure
+
+Options I + II together close Direction T:
+
+  · Option II (negative): external tripartite extension
+    cohomologically trivial → cannot host the (2, 1, 3) "3"
+  · Option I (positive): local (2, 1, 3) recurrence at every
+    vertex / edge / face → the "3" lives within the graph
+
+The self-containment reading is structurally established.
+`K_{3, 2}^{(c=2)}` is the locus where the (2, 1, 3) atomic
+signature manifests at every structural datum.

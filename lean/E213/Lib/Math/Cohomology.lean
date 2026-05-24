@@ -23,6 +23,7 @@ import E213.Lib.Math.Cohomology.Surfaces
 import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 import E213.Lib.Math.Cohomology.Bridge.TrivialCases
+import E213.Lib.Math.Cohomology.Tripartite
 import E213.Lib.Math.Cohomology.Universal
 import E213.Lib.Math.Cohomology.Examples.WhyDimFive
 import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
@@ -37,6 +38,8 @@ import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 
     * `Bipartite/` — K_{NS,NT}^{(c)} bipartite graph cohomology
       (V32 / V32Betti / Filled — 2-cell-filling of 4-cycles).
+    * `Tripartite/` — K_{NT, det, NS} = K_{2,1,3} tripartite
+      cohomology (V213 / V213Betti / cross-frame bridge to V32Betti).
     * `Cochain/`   — Cochain core type + V5 / V5_1 / V5_2
       decomposition lemmas underpinning the cup-AW machinery.
     * `Cup/`       — Strict cup product (Core / Leibniz / Ring).
