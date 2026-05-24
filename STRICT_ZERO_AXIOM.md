@@ -1885,3 +1885,44 @@ conjecture is closed at the cut-Bool level; remaining work
 factors through other equality definitions (Phase 3: `ZpSeqEquiv`,
 `signedEq`, `Adjacent`, `LensMap` via `sternBrocotEq`
 instantiation).
+
+## 2026-05-24 — G139 Phase 3: Stern-Brocot view of the cut framework
+
+First Phase 3 deliverable: connect the abstract Stern-Brocot
+equivalence machinery to the existing 213 cut framework
+(`constCut`, `cutSumN N`, `ValidCutN N`).  The (0, 0) side
+condition from `cutEq_iff_sternBrocotEq_and_zero` drops out
+automatically on every canonical 213 cut, so `cutEq` and
+`sternBrocotEq` agree simpliciter on `ValidCutN N` instances.
+8 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213SternBrocotApps` | 8 | `constCut_zero_zero` (canonical cuts are `true` at (0, 0));  `validCutN_zero_zero` (transports through `is_at_denom`);  ★★★ `is_at_denom_iff_sternBrocotEq` (the `cutEq` inside `ValidCutN.is_at_denom` factors through `sternBrocotEq` plus the auto-true (0, 0) condition);  `cutSumN_sternBrocotEq_left/right` (★★ Stern-Brocot congruence of `cutSumN N` in both arguments);  `validCutN_cutEq_of_sternBrocotEq`, `validCutN_sternBrocotEq_of_cutEq`;  ★★★★★ `validCutN_cutEq_iff_sternBrocotEq` (full bidirectional bridge — equality of `ValidCutN N` cut fields IS Stern-Brocot equivalence) |
+
+**Realisation on the `ValidCutN N` framework**: every `cutEq`
+that appears as an `is_at_denom` witness, and every congruence
+property of `cutSumN N` over `cutEq`, lifts directly to
+`sternBrocotEq` form.  This means the entire Wave 13 closure
+of `cutSumN N` associativity / commutativity / `addN` on
+`ValidCutN N` can be re-read as Stern-Brocot-orbit theorems —
+the same algebraic content seen through the mediant-closure
+equivalence.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 8 (`Mobius213SternBrocotApps`) =
+**46 PURE / 0 DIRTY** for G139 Phase 1 + 1b + 1c + 2 + 3.
+
+**Remaining Phase 3 directions** (different domains; require
+their own Möbius-orbit definitions, not direct instantiation
+of `sternBrocotEq` on `Nat → Nat → Bool`):
+
+  · `ZpSeqEquiv` — Möbius on digit sequences mod p; `P¹⁰ ≡ I (mod 5)`
+    (`Mobius213ModFive.lean`) is the structural starting point.
+  · `signedEq (a,b)(c,d) := a + d = b + c` — det-form of mobiusEq
+    on integer pairs; relates to the cross-product invariant
+    `mobius_213_pell_unit_invariant_forall`.
+  · `Adjacent` (DyadicBracket) — `mobiusEq` one-step relation on
+    dyadic brackets.
+  · `LensMap` — sternBrocotEq-preserving morphisms; categorical
+    packaging.
