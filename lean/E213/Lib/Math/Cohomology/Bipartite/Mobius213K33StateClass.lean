@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33
 import E213.Lib.Math.Real213.Mobius213Equiv
+import E213.Lib.Math.Real213.Mobius213ContinuedFraction
 
 /-!
 # Mobius213K33StateClass — K_{3,3}^(c=2) vertex cochains under Möbius P
@@ -30,6 +31,8 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Mobius213K33StateClass
 
 open E213.Lib.Math.Cohomology.Bipartite.V33 (CochV)
 open E213.Lib.Math.Real213.Mobius213Equiv (Pseq seedZero seedInf Pstep)
+open E213.Lib.Math.Real213.Mobius213ContinuedFraction
+  (Pseq_seedZero_fst_recurrence Pseq_seedZero_snd_recurrence)
 
 /-! ## §1 — Special K_{3,3} vertex cochains -/
 
@@ -102,6 +105,40 @@ theorem Pstep_Pstep_vertexCount_allTrueV :
 K_{3,3} state class trajectory = `NS · Pseq seedZero (n+1)` for
 each depth n.  This is the K_{3,3} analog of K_{3,2}'s direct
 Pseq seedZero match. -/
+
+/-! ## §6 — NS-scaled Pell-Fibonacci recurrence on K_{3,3}'s state class
+
+The Pell-Fibonacci recurrence `a(n+2) + a(n) = 3·a(n+1)` on the
+canonical seedZero orbit lifts to K_{3,3}'s NS-scaled orbit by
+linearity of multiplication.  Concretely:
+
+  `NS · a(n+3) + NS · a(n+1) = NS · (a(n+3) + a(n+1)) = NS · (3 · a(n+2))
+                              = 3 · (NS · a(n+2))`
+
+So the same `a(n+2) + a(n) = 3·a(n+1)` shape holds on the K_{3,3}
+state class trajectory, with `a(n) = NS · (Pseq seedZero (n+1))`. -/
+
+theorem state_class_NSscaled_fst_recurrence (n : Nat) :
+    3 * (Pseq seedZero (n+3)).1 + 3 * (Pseq seedZero (n+1)).1
+      = 3 * (3 * (Pseq seedZero (n+2)).1) := by
+  rw [← Nat.mul_add]
+  exact congrArg (3 * ·) (Pseq_seedZero_fst_recurrence (n+1))
+
+theorem state_class_NSscaled_snd_recurrence (n : Nat) :
+    3 * (Pseq seedZero (n+3)).2 + 3 * (Pseq seedZero (n+1)).2
+      = 3 * (3 * (Pseq seedZero (n+2)).2) := by
+  rw [← Nat.mul_add]
+  exact congrArg (3 * ·) (Pseq_seedZero_snd_recurrence (n+1))
+
+/-- ★★★★ K_{3,3} state class Pell-Fibonacci capstone: both components
+    satisfy the recurrence shape on the NS-scaled orbit. -/
+theorem state_class_NSscaled_pell_capstone (n : Nat) :
+    3 * (Pseq seedZero (n+3)).1 + 3 * (Pseq seedZero (n+1)).1
+      = 3 * (3 * (Pseq seedZero (n+2)).1)
+    ∧ 3 * (Pseq seedZero (n+3)).2 + 3 * (Pseq seedZero (n+1)).2
+      = 3 * (3 * (Pseq seedZero (n+2)).2) :=
+  ⟨state_class_NSscaled_fst_recurrence n,
+   state_class_NSscaled_snd_recurrence n⟩
 
 theorem state_class_master :
     -- (a) S/T counts match (NS, NT) = (3, 3)
