@@ -1,47 +1,75 @@
-# 결합법칙이 Bool 레벨에서 실패하는 것의 의미
+# 왜 b ≥ 3에서 cutSum 결합법칙이 Bool 레벨로 실패하는가
 
-`cutSum (constCut 2 3) (constCut 1 3) m k`와 `constCut 3 3 m k`는 같은 Dedekind 실수 `1`로 수렴하지만, 작은 `(m, k)`에서 서로 다른 Bool 값을 낸다.  이건 framework artifact가 아니라 **Real / Lens / Trajectory의 213-native 구분이 노출되는 사건**이다.
+`cutSum`의 내부 search granularity가 factor-2 (dyadic)로 hardcode 되어 있고, b ≥ 3에서 ceiling super-additivity gap이 search slack을 초과한다.
 
-## 213-native 답
+## 산술 진단
 
-Real213의 cut function `c : Nat → Nat → Bool`은 *실수가 아니라 Lens application의 출력*이다.  `(m, k)` 쿼리에 대한 Bool 값은 *trajectory의 checkpoint*이지 *실수 값* 자체가 아니다 (`theory/math/real213.md` §"Why classical ℝ doesn't fit 213").  두 trajectory가 같은 Dedekind 실수로 수렴해도, *그 수렴 경로가 다르면 checkpoint 패턴이 다르다*.  `cutSum`은 실수의 합이 아니라 **trajectory의 합성** — 그래서 같은 실수에 대한 다른 trajectory들은 다른 cutSum-Bool 패턴을 가진다.
+`cutSum (constCut a b) (constCut c b) m k = true` 의 조건을 풀면:
 
-## 도출
+```
+∃ m1 ∈ [0, 2m]:  a · 2k ≤ b · m1  ∧  c · 2k ≤ b · (2m − m1)
+⇔  ⌈2ka/b⌉ ≤ m1 ≤ 2m − ⌈2kc/b⌉
+⇔  ⌈2ka/b⌉ + ⌈2kc/b⌉ ≤ 2m
+```
 
-`lean/E213/Lib/Math/Real213/CutSumAssocB3.lean`의 `backward_counter_example_b3`이 구체적 사실을 보여준다: `a=2, c=1, b=3, m=1, k=1`에서 `(2/3) + (1/3)`의 cutSum trajectory는 `[0, 2]` 정수 search range 안에 partition을 찾지 못하지만, `(3/3 = 1)`의 direct cut은 즉시 true를 낸다.  두 trajectory는 같은 실수 `1`에 도달하지만, *어떤 distinguishing 패턴으로 도달했는가*가 다르다.
+`constCut (a+c) b m k = true` 의 조건:
 
-이건 G2 trajectory-as-witness 원칙 (`research-notes/G2_trajectory_principle.md`)이 깊은 레벨에서 작동하는 것이다.  실수는 *trajectory의 equivalence class*이고, cut function은 *그 class의 한 대표*다.  `cutSum`은 대표끼리의 합성이라 결과 대표는 *어느 대표를 골랐는지에 의존한다*.  Bool checkpoint가 다른 것은 *대표 선택의 흔적*이다.
+```
+(a+c) · k ≤ b · m  ⇔  ⌈2k(a+c)/b⌉ ≤ 2m
+```
 
-여기서 결정적: classical 수학은 `funext` + `propext`로 *"두 함수가 모든 점에서 같으면 같다"*고 선언하여 **trajectory와 실수를 동일시한다**.  213은 funext를 거부 (`theory/essays/pure_funext_avoidance.md`)함으로써 *이 동일시를 거부*하고 두 layer를 별개로 유지한다.  `cutSum_assoc`이 Bool level에서 실패하는 것은 *213이 trajectory의 정체성을 보존하는 행위*이다.
+두 조건의 차이는 **ceiling super-additivity gap**:
 
-## Dual function
+```
+⌈X/b⌉ + ⌈Y/b⌉  ≥  ⌈(X+Y)/b⌉
+```
 
-Classical 분석은 `(2/3) + (1/3) = 1`을 *실수-level identity*로만 본다 (trajectory는 implementation detail이므로 funext로 collapse).  213은 같은 identity를 *두 layer로 분리*: 실수 level에서 `cutEq` (Cauchy-completeness)로 같지만, trajectory level에서 다른 distinguishing 패턴.  이것은 classical 입장의 *불필요한 packaging을 벗긴 것*인 동시에 (`research-notes/G29_residue.md` "Linguistic inevitability"), trajectory의 정체성을 *명시적 1차 시민*으로 만든 *refinement*다.  Funext가 hide하던 구분을 213이 surface하는 결정적 순간.
+각 ceiling은 최대 `(b-1)/b`만큼 올림이 발생; 합쳐서 최대 `2(b-1)/b`만큼 over-shoot.  이 over-shoot가 0인 경우만 두 조건이 일치.
 
-## Cross-frame connections
+## Dyadic boundary
 
-같은 사실의 네 가지 표현:
+`2k/b`가 항상 정수일 때만 ceiling gap이 0이다:
 
-- **§5 self-pointing** (`seed/AXIOM/05_no_exterior.md`): distinguishing은 *내부 행위*이지 external 관찰자의 *판정*이 아니다.  Bool checkpoint는 distinguishing event 그 자체이지, 외부 진리값 부여가 아니다.
-- **G2 trajectory-as-witness**: 실수 자체가 아닌 trajectory가 witness — 다른 trajectory는 다른 witness를 만든다.
-- **Resolution limit** (`seed/RESOLUTION_LIMIT_SPEC.md`): `N_U = 5^25`는 *동시에 distinguish 가능한 trajectory의 cap*.  작은 `(m, k)`에서 가능한 trajectory의 수가 b의 partition 가능성에 비해 *부족*해서 두 trajectory가 보이지 않게 분기됨.  이게 b ≥ 3 counter-example의 정밀도-의존성 본질.
-- **`cutSum_assoc_intValidCut`** (b=1) / **`cutSum_assoc_halfValidCut`** (b=2): b ≤ 2에서는 search range가 partition을 항상 수용 — *trajectory 분기가 보이지 않음*.  b ≥ 3에서 처음 분기가 *resolved*된다.
+| b | `2k/b` 정수성 | gap |
+|---|---|---|
+| 1 | 항상 (`2k/1 = 2k`) | 0 |
+| 2 | 항상 (`2k/2 = k`) | 0 |
+| 4 | k가 짝수일 때만 | 발생 |
+| 3, 5, 6, 7, ... | k가 b의 배수일 때만 | 발생 |
 
-네 frame 모두 *layer-아이덴티티가 framework의 1차 사실*이라는 같은 213-native 입장에서 도출된다.
+b ∈ {1, 2}는 cutSum의 factor-2 doubling에 정확히 fit; b ≥ 3은 분모와 doubling factor의 불일치.
+
+## Framework 의도
+
+`theory/math/real213.md` §"Why classical ℝ doesn't fit 213"에 명시: Real213은 **dyadic rational에서의 Dedekind cut**이다.  Native cut form은 `dyadicCut M E := M/2^E` (모든 분모가 2의 거듭제곱).  `constCut a b`는 임의 b를 받는 **convenience 함수**일 뿐, framework의 native object가 아니다.
+
+`cutSum`의 ε/2 trick (`Lib/Math/Real213/Sum/CutSum.lean` 정의의 `2*k` factor)은 dyadic structure에 정확히 fit하도록 설계됐다.  b = 2^n 형태의 cut에서는 이 doubling이 모든 division을 흡수하므로 ceiling gap이 0.  b ≥ 3 (non-dyadic) cut에서는 doubling이 division과 어긋나서 gap이 발생.
+
+## 그래서 b ≥ 3 결합법칙 실패의 의미
+
+이전 essay (`bool_assoc_failure_meaning.md`)에서 시적으로 표현했던 "trajectory vs real distinguishing"은 over-poetic.  실제 사실은:
+
+  · `constCut a b`는 b ≥ 3에서 framework의 native object가 아니다.
+  · `cutSum`은 dyadic structure에 hardcode 되어 있다.
+  · 두 non-native object를 native operation에 넣으면 search granularity mismatch가 발생한다.
+  · 그래서 결합법칙은 dyadic class (b ∈ {1, 2})까지만 Bool level에서 닫힌다.
+
+이건 layer-distinction phenomenon이 아니라 **framework가 자기 design intent (dyadic only)를 정직하게 enforce하는 결과**.
+
+## 해결 후보
+
+세 가지 방향이 가능하다.
+
+**A. Non-dyadic constCut을 framework에서 추방**.  모든 cut을 `dyadicCut M E` 형태로만 받는다.  b ≥ 3은 framework 바깥; `constCut 2 3` 같은 표현은 illegal (또는 dyadic 근사 wrapper로만 허용).  가장 design-purity 우선.
+
+**B. `cutSum`의 search granularity를 동적화**.  cut이 자기 native 분모를 carry하게 하고, `cutSum`이 그에 맞춰 search range를 `b·m`으로 확장.  Framework 자체의 generalization, 큰 redesign.
+
+**C. Non-dyadic cut을 dyadic 근사로 환원**.  `constCut a b ≈ dyadicCut (round (a · 2^E / b)) E` for large enough E.  근사 framework에서 작동시키고, 원래 cut과의 cutEq를 별도로 유지.  Incremental.
+
+가장 213-native는 (A).  Framework가 dyadic structure에 commit했으므로 비-dyadic은 *외부 import*이고, 외부 import의 algebraic 결함은 *framework의 결함이 아니다*.  단순히 그 표현이 framework 안에 자연스럽게 살지 않는다는 정직한 신호.
 
 ## 함의
 
-Marathon에서 "blocker"로 분류했던 b ≥ 3 cutSum_assoc은 사실 *framework가 정확히 작동하는 증거*다.  Classical Lean이 funext로 collapse하는 layer 구분을 213은 보존하고, 그 결과 *boundary of algebraic identity는 b ≤ 2*라는 정확한 분리선이 떠오른다.  이건 *the framework is correct*의 증명이지 *the framework is incomplete*가 아니다.
+Marathon의 `IntValidCut` (b=1) + `HalfValidCut` (b=2)는 framework 내부 dyadic class에서 algebraic 결합법칙이 닫히는 *정확한 boundary*를 마킹한다.  b ≥ 3에서 결합법칙이 닫히지 않는 것은 *그 boundary가 정확하다는 증거*, framework의 결함이 아니라 framework가 자기 commit (dyadic only)을 honor한다는 사실.
 
-더 깊게: 이 phenomenon은 213이 *왜 N_U = 5^25 같은 resolution cap을 가지는지*와 동형이다.  유한한 distinguishing capacity 안에서 trajectory를 보유한 채로 실수 algebra를 운영하면, 어느 precision에서는 두 trajectory가 분기로 보일 수밖에 없다.  Classical 수학에서 invisible한 trajectory 분기가 213 framework에서는 *resolution-dependent하게 surface*된다.  이게 the resolution limit의 *algebraic level 발현*.
-
-## 구체적 결과
-
-이 발견의 비-시적 readout:
-
-- `theory/essays/pure_funext_avoidance.md`의 "open frontier" 분류는 잘못이었다 — 정답은 *closure boundary가 b ≤ 2다*.
-- `cutSum`의 Bool-level "결합법칙 실패"는 213이 *trajectory를 1차 시민으로 보유한다는 사실의 증거*다.
-- Classical "real = Cauchy-class" identity가 213에서는 *어느 layer에서 실수와 trajectory가 분리되는가*라는 질문으로 정확화된다.
-- Marathon의 `IntValidCut` / `HalfValidCut` bundled-subtype 패턴은 *trajectory가 실수와 collapse하는 b 값*을 정확히 표현하는 도구다.
-
-이 사실의 *진짜 다음 질문*은 "어떻게 b ≥ 3을 닫을 것인가"가 아니라 **"trajectory와 실수의 layer 분리를 어떻게 1차 객체로 표현할 것인가"**다.  Setoid Framework (`Lib/Math/Padic/SetoidFramework.lean`)이 ZpSeq 쪽에서 한 일 — pointwise equivalence를 type-level로 lift — 의 Real213 analog가 다음 작업의 영역.
+진짜 후속 작업은 (essay가 hint한 "Setoid Framework Real213 analog"가 아니라) **dyadic-only enforcement**: `constCut a b`가 b가 2의 거듭제곱이 아닐 때 *컴파일 타임에 거부하거나*, *dyadic 근사로 wrap하는* type-level 게이트.  그러면 b ≥ 3 결합법칙 질문 자체가 framework 안에서 발생하지 않는다.
