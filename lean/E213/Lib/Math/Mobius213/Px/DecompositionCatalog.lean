@@ -3,11 +3,12 @@ import E213.Lib.Math.Mobius213OneAsGlue
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Mobius213PxDecompositionCatalog — parallel (2, 1, 3) extraction methods
+# Mobius213.Px.DecompositionCatalog — parallel (2, 1, 3) extraction methods
 
-The signature axis catalog (Phase 1 + Phase 2) enumerates
-*where* the framework's `(NS, NT, det)` signature appears across
-math/physics domains.  This file addresses a sharper question:
+The signature axis catalogs (`Mobius213SignatureAxisCatalog`
+and its Phase-2 sibling) enumerate *where* the framework's
+`(NS, NT, det)` signature appears across math/physics
+domains.  This file addresses a sharper question:
 
   **What are the parallel methods for extracting `(2, 1, 3)`
   from P(x) itself across math fields?**
@@ -28,7 +29,7 @@ counting lenses*.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxDecompositionCatalog
+namespace E213.Lib.Math.Mobius213.Px.DecompositionCatalog
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 open E213.Lib.Math.Mobius213OneAsGlue
@@ -209,4 +210,4 @@ theorem px_decomposition_master :
                   | exact mobius_det_eq_ns_minus_nt.symm
                   | exact ns_is_succ_nt
 
-end E213.Lib.Math.Mobius213PxDecompositionCatalog
+end E213.Lib.Math.Mobius213.Px.DecompositionCatalog

@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Mobius213PxAxisGroupCount — counting (2,1,3) decomposition axes of P(x)
+# Mobius213.Px.AxisGroupCount — counting (2,1,3) decomposition axes of P(x)
 
 Honest test of the conjecture: the number of structurally
 distinct `(2, 1, 3)`-shape syntactic decomposition methods of
@@ -10,8 +10,8 @@ natural group order interpretable across math frames.
 
 This file:
   · Enumerates the distinct decomposition KINDS catalogued so
-    far across `Mobius213PxSyntacticCatalog` +
-    `Mobius213PxDecompositionCatalog`.
+    far across `Mobius213.Px.SyntacticCatalog` +
+    `Mobius213.Px.DecompositionCatalog`.
   · Counts them via an inductive `PxAxisKind` type with `List`-
     based enumeration.
   · Tests the count against natural group-order candidates.
@@ -21,7 +21,7 @@ This file:
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxAxisGroupCount
+namespace E213.Lib.Math.Mobius213.Px.AxisGroupCount
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -34,7 +34,7 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
     characteristic-poly / combinatorial / information /
     syntactic catalogs. -/
 inductive PxAxisKind : Type
-  -- From `Mobius213PxDecompositionCatalog` (7 field methods)
+  -- From `Mobius213.Px.DecompositionCatalog` (7 field methods)
   | algebraic_matrix_entries
   | polynomial_coefficient_sums
   | pgl_dimension
@@ -42,7 +42,7 @@ inductive PxAxisKind : Type
   | char_polynomial_decomp
   | combinatorial_complementary
   | information_dimension
-  -- From `Mobius213PxSyntacticCatalog` (5 syntactic kinds,
+  -- From `Mobius213.Px.SyntacticCatalog` (5 syntactic kinds,
   -- deduplicated from 12 surface counts that pair up)
   | syntactic_token_split            -- num/denom token counts
   | syntactic_operator_arity         -- op count + operand arity
@@ -154,4 +154,4 @@ This file *experimentally tests* the conjecture and reports
 the result honestly, rather than pre-committing to a clean
 answer. -/
 
-end E213.Lib.Math.Mobius213PxAxisGroupCount
+end E213.Lib.Math.Mobius213.Px.AxisGroupCount

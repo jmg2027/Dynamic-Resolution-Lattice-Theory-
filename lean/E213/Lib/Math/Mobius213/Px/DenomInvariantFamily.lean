@@ -2,7 +2,7 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Int213.Core
 
 /-!
-# Mobius213PxDenomInvariantFamily — P(x)의 분모 유지 대칭 family
+# Mobius213.Px.DenomInvariantFamily — P(x)의 분모 유지 대칭 family
 
 For any integer `n`, P(x) = (2x+1)/(x+1) admits a rewriting
 
@@ -37,7 +37,7 @@ This file:
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxDenomInvariantFamily
+namespace E213.Lib.Math.Mobius213.Px.DenomInvariantFamily
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -207,4 +207,4 @@ theorem denom_invariant_family_master :
    family_nNT_det,
    family_additive⟩
 
-end E213.Lib.Math.Mobius213PxDenomInvariantFamily
+end E213.Lib.Math.Mobius213.Px.DenomInvariantFamily

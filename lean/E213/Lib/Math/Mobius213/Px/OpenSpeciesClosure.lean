@@ -1,17 +1,16 @@
-import E213.Lib.Math.Mobius213PxDenomInvariantFamily
+import E213.Lib.Math.Mobius213.Px.DenomInvariantFamily
 import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Int213.Core
 
 /-!
-# Mobius213PxOpenSpeciesClosure — marathon closure of the 12 open species
+# Mobius213.Px.OpenSpeciesClosure — concrete closures for 12 species of P(x)
 
-Companion to `Mobius213PxSymmetrySpecies` (meta-catalogue).
-Takes the 12 species tagged `.open_conj` and provides
-concrete Lean theorems realising each species's structural
-claim, using `Int213` arithmetic and the already-PURE
-`family_n2` from `Mobius213PxDenomInvariantFamily`.
+Companion to `Mobius213.Px.SymmetrySpecies` (meta-catalogue).
+Provides concrete Lean theorems realising each species's
+structural claim, using `Int213` arithmetic and `family_n2`
+from `Mobius213.Px.DenomInvariantFamily`.
 
-Closures provided (12 species):
+Species closed (12, by bucket):
 
   · Bucket 1 — Algebraic preservation (3):
       `numerator_preserving`, `operator_preserving`,
@@ -27,16 +26,16 @@ Closures provided (12 species):
   · Bucket 4 — Representation theory (2):
       `sym3_decomposition`, `inverse_pair`
 
-  · Bucket 5 — Invariants (1, partial → full):
-      `char_poly` Galois upgrade
+  · Bucket 5 — Invariants (1):
+      `char_poly` Galois action
 
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxOpenSpeciesClosure
+namespace E213.Lib.Math.Mobius213.Px.OpenSpeciesClosure
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
-open E213.Lib.Math.Mobius213PxDenomInvariantFamily (family_n2)
+open E213.Lib.Math.Mobius213.Px.DenomInvariantFamily (family_n2)
 
 /-! ## §1 — Bucket 2: Geometric symmetry (4 species) -/
 
@@ -194,12 +193,11 @@ theorem char_poly_galois_order : (2 : Nat) = NT := by decide
     Since d = 5 > 0, `ℚ(√d)` is a real quadratic field. -/
 theorem char_poly_real_quadratic : (0 : Int) < (d : Int) := by decide
 
-/-! ## §6 — Master: 12-species marathon closure -/
+/-! ## §6 — Master: 12-species bundled closure -/
 
-/-- ★★★★★★★★ **Marathon master**: 12 species closures bundled
-    into one theorem.  Realises each `.open_conj` species from
-    `Mobius213PxSymmetrySpecies` via a concrete Lean statement
-    over Int213 arithmetic.
+/-- ★★★★★★★★ **Closure master**: 12 species closures bundled
+    into one theorem.  Each conjunct is a concrete Lean
+    statement realising one species's atomic claim.
 
     Conjunct ordering follows the bucket map (algebraic /
     geometric / dynamics / representation / invariants). -/
@@ -242,4 +240,4 @@ theorem open_species_closure_master :
   · exact inverse_pair_atomic.1
   · exact inverse_pair_atomic.2.1
 
-end E213.Lib.Math.Mobius213PxOpenSpeciesClosure
+end E213.Lib.Math.Mobius213.Px.OpenSpeciesClosure

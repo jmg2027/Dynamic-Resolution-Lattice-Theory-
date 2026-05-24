@@ -17,11 +17,11 @@
    of the resulting symmetry family is mechanical.
 
 3. **Q3 (undecidable in general)**: Enumerating *all natural
-   preservation frames* — i.e. the 26-species level — has no
+   preservation frames* — i.e. the 36-species level — has no
    complete algorithm.  "Natural" has no formal definition.
 
 4. **Practical result**: A meta-algorithm combining standard
-   CAS routines reproduces ≈22/26 species of our catalog
+   CAS routines reproduces ≈32/36 species of our catalog
    mechanically.  The remaining 4 require *framing choice*
    (syntactic granularity, cohomology bundle structure).
 
@@ -41,7 +41,7 @@ interpretations of increasing difficulty:
 
 - **Q3**: Enumerate all *natural preservation axes* and all
   associated symmetry families — i.e. produce the species
-  catalog we built (26 species).
+  catalog we built (36 species).
 
 Q1 is fully algorithmic.  Q2 reduces to Q1 once the axis is
 fixed.  Q3 is *not* algorithmic — "natural" is informal.
@@ -178,7 +178,7 @@ ALGORITHM SymmetryClassify(R = N(x)/D(x)):
 ```
 
 **Coverage estimate**:
-- Phases 1-7 reproduce ≈22 of our 26 species mechanically
+- Phases 1-7 reproduce ≈32 of our 36 species mechanically
   (algebraic, geometric, dynamics, representation theory,
   invariants, most arithmetic).
 - Missing from algorithmic reproduction:
@@ -225,7 +225,7 @@ No category-free algorithm exists.
 
 The 213 framework asserts: every count is a Lens output.
 There is no Lens-invariant *total enumeration*.  The
-26-species catalog is one Lens-tower's reading.  Different
+36-species catalog is one Lens-tower's reading.  Different
 Lens choices (different syntactic granularity, different
 cohomology framing) yield different counts.
 
@@ -236,7 +236,7 @@ enumeration claim has implicit Lens commitments.
 ## §5 — Practical conclusion
 
 A **structured exploration algorithm** (the meta-algorithm
-above) reproduces ≈85% (22/26) of our catalog
+above) reproduces ≈85% (32/36) of our catalog
 automatically using existing CAS routines.  The remaining
 ≈15% needs framing choice (granularity / category).
 
@@ -244,13 +244,13 @@ automatically using existing CAS routines.  The remaining
 
 Implement `Mobius213Sage.sage` running phases 1-7 on P =
 `[[2,1],[1,1]]` and output candidate (kind, aut, atomic)
-table.  Cross-check against the 26-species catalog:
-- Validate algorithmically reproducible species (~22).
+table.  Cross-check against the 36-species catalog:
+- Validate algorithmically reproducible species (~32).
 - Flag any auto-discovered species not in the catalog.
 - Document the ≈4 species requiring framing choice.
 
 This would let us **automatically validate** the
-26-species claim and potentially extend it.
+36-species claim and potentially extend it.
 
 ### Why not a single Lean algorithm
 
@@ -261,16 +261,16 @@ symmetry species" would require:
 3. Proof of closure (no further species exists).
 
 Step 1 is essentially impossible — naturalness is informal.
-Step 3 follows from step 1.  So the 26-species claim is
+Step 3 follows from step 1.  So the 36-species claim is
 *structural*, not strictly Lean-provable as a closure
 theorem.  Our Lean modules instead prove (a) atomic-closure
 *within* the catalog and (b) PURE realisation of *each
 catalogued* species.  Both are tight, the closure-of-set
 itself isn't.
 
-## §6 — What the 26-species catalog represents (in light of §1-§5)
+## §6 — What the 36-species catalog represents (in light of §1-§5)
 
-- **Algorithmically reproducible (~22)**: standard invariants,
+- **Algorithmically reproducible (~32)**: standard invariants,
   conjugation orbit, Aut group, fixed points, eigenvalues,
   continued fractions, Stern-Brocot, Pell, p-adic tower,
   Bezout, char poly Galois.  All re-derivable from
@@ -280,7 +280,7 @@ itself isn't.
   depending on syntax tree depth), cohomology bundle
   granularity (vertex / edge / 2-cell cochains).
 - **Strict closure of "all natural"**: experimentally
-  supported by the 22+4 = 26 census, not algorithmically
+  supported by the 32+4 = 36 census, not algorithmically
   proven — no algorithm can guarantee no further species
   exists, per Limits 1-4.
 
@@ -308,7 +308,7 @@ itself isn't.
 
 Tier-1 research note (volatile scratchpad).  Promotion
 candidate: only if a Sage-implementation of the meta-
-algorithm is built and validated against the 26-species
+algorithm is built and validated against the 36-species
 catalog, the algorithmic-reproduction portion would deserve
 a `theory/essays/p_symmetry_algorithm.md` essay.
 
