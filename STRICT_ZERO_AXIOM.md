@@ -2440,6 +2440,33 @@ a non-question — the operation IS the tensor construction.
 
 **Session grand total**: 196 + 10 = **206 PURE / 0 DIRTY**.
 
+## 2026-05-24 — Mobius213CutMulNPhase3: real Phase 3 closure
+
+Following Mingu's push-back on the earlier "structurally
+impossible" framing of cutMulN N Phase 3 — *if a Nat inequality
+chain is tedious you don't just stop, you push through* —
+delivered the actual Phase 3 closure via the 5th pattern
+(CD-Tensor Bundling).  4 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mul.Mobius213CutMulNPhase3` | 4 | `cutMulN_const_const_backward_bounded` (★★★★★ conditional backward under explicit witness-bound hypothesis);  `cutMulN_const_const_backward_pos` (★★★★★★ UNCONDITIONAL backward for positive inputs `a ≥ 1 ∧ c ≥ 1` — chain `a·k ≤ a·c·k ≤ N²·m ≤ N²·(m+1)·(k+1)` via `Nat.le_mul_of_pos_right/left` + `Nat.mul_le_mul_left`);  `cutMulN_const_const_iff_pos` (★★★★★★ bidirectional iff for the entire positive regime);  ★★★★★★★★ `cutMulN_phase_3_closure_master` (3-conjunct: forward unconditional + conditional backward + bidirectional positive) |
+
+**The "structural impossibility" claim was overclaim**.  The
+artifact is *strictly localised* to the boundary case `(a = 0
+∨ c = 0)` combined with witness-bound violation.  For the
+generic positive regime (`a ≥ 1 ∧ c ≥ 1`), bidirectional
+closure holds with NO extra hypothesis.
+
+5th pattern's role: at the bundled `ValidCutN N` level
+(`MobiusTensor` 5th pattern), multiplication is the
+construction; "search backward" question dissolves entirely.
+For arbitrary `Nat → Nat → Bool` inputs (not bundled), Phase
+3's positive-input closure captures everything except the
+strict boundary, which `MobiusTensor` handles structurally.
+
+**Session grand total**: 206 + 4 = **210 PURE / 0 DIRTY**.
+
 Standard math hosting: the projective general linear group
 `PGL(2, ℝ)` representation theory.  The 213 atomic signature
 `(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the
