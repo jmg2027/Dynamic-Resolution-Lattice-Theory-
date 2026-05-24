@@ -2184,3 +2184,40 @@ corollary via `cutEq_of_sternBrocotEq` once Phase 2 lands).
 
 **Session total**: 90 + 9 (`CutMulN Wave 14 Phase 1`) =
 **99 PURE / 0 DIRTY** across all marathons in this session.
+
+## 2026-05-24 — Wave 14 Phase 2: bundled `mulN` to N²-fiber
+
+The bundled `ValidCutN N × ValidCutN N → ValidCutN (N · N)`
+multiplication.  Uses canonical `constCut(a·c)(N·N)` directly as
+the cut field (bypassing cutMulN N's search and its precision
+artifact); algebraic numerator is the product of inputs'
+represents.  5 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.NValidCutMul` | 5 | ★★★★★ `mulN` (the bundled product to N²-fiber);  `mulN_represents`, `mulN_cut`;  ★★ `mulN_comm` (bundled commutativity);  ★★★ `mulN_represents_assoc` (Nat-level associativity of numerators) |
+
+**Session total**: 99 + 5 = **104 PURE / 0 DIRTY** through
+Marathon 1 Phase 1 + Phase 2.
+
+## 2026-05-24 — Marathon 2 Phase 1: Möbius P ↔ K_{3,2}^(c=2) numerical bridge
+
+Records the exact correspondence between Möbius P's matrix
+entries / invariants and K_{3,2}^(c=2)'s vertex / edge / pair
+counts.  Numerical fingerprint capstone unifying the two
+readings of `(NS, NT, c, d) = (3, 2, 2, 5)`.  10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213.Mobius213K32Bridge` | 10 | `k32_total_vertices` (`NS + NT = 5`);  `k32_total_edges_at_c2` (`12 = NS · NT · 2`);  `k32_cross_pairs` (`6 = NS · NT`);  `trace_P_eq_NS`, `P_top_left_eq_NT`, `off_diagonal_eq_NT`, `entries_sum_eq_d`, `det_P_eq_NS_minus_NT`;  ★★★★★★★ `k32_mobius_bridge_master` (seven-conjunct: vertex count + trace + P[0][0] = NT + cross-pair count + edge count + entries sum + det) |
+
+**Phase 2+ continuing work**: the deeper "state class"
+categorical bridge — P-action as a functor on K_{3,2}'s cochain
+complex (`Cohomology/Bipartite/V32.lean`'s `CochV = Fin 5 →
+Bool`, `CochE = Fin 12 → Bool`).  This would interpret P's
+2D-space action as the 2-side / 3-side split of K_{3,2}^(c=2)
+vertices and require new categorical infrastructure on the
+cochain complexes.  Not yet recorded.
+
+**Session total**: 104 + 10 = **114 PURE / 0 DIRTY** through
+Marathon 1 + Marathon 2 Phase 1.
