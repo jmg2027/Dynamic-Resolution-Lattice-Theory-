@@ -93,6 +93,62 @@ theorem face_dep_S01_at_K43 :
     cases σ ⟨4, by decide⟩ <;> cases σ ⟨6, by decide⟩ <;>
     cases σ ⟨8, by decide⟩ <;> cases σ ⟨10, by decide⟩ <;> rfl
 
+/-! ## §3.5 — Additional S-row face cycles (S-pair indexing)
+
+S-pairs of Fin 4: (0,1), (0,2), (0,3), (1,2), (1,3), (2,3) — 6 pairs.
+Already defined: S01_T01, S01_T02, S01_T12.  Additional S-pair faces
+needed below. -/
+
+/-- Face (S={0,2}, T={0,1}, mult-0): edges (0,0,0), (0,1,0), (2,0,0), (2,1,0). -/
+def face_S02_T01 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨0, by decide⟩ ⟨2, by decide⟩
+                 ⟨12, by decide⟩ ⟨14, by decide⟩
+
+/-- Face (S={0,2}, T={0,2}, mult-0). -/
+def face_S02_T02 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨0, by decide⟩ ⟨4, by decide⟩
+                 ⟨12, by decide⟩ ⟨16, by decide⟩
+
+/-- Face (S={0,2}, T={1,2}, mult-0). -/
+def face_S02_T12 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨2, by decide⟩ ⟨4, by decide⟩
+                 ⟨14, by decide⟩ ⟨16, by decide⟩
+
+/-- S-row dependence at S={0,2}: 3 T-pair faces sum to 0. -/
+theorem face_dep_S02_at_K43 :
+    ∀ σ : CochE,
+      xor (xor (face_S02_T01 σ) (face_S02_T02 σ)) (face_S02_T12 σ) = false := by
+  intro σ
+  unfold face_S02_T01 face_S02_T02 face_S02_T12 faceBoundary
+  cases σ ⟨0, by decide⟩ <;> cases σ ⟨2, by decide⟩ <;>
+    cases σ ⟨4, by decide⟩ <;> cases σ ⟨12, by decide⟩ <;>
+    cases σ ⟨14, by decide⟩ <;> cases σ ⟨16, by decide⟩ <;> rfl
+
+/-- Face (S={2,3}, T={0,1}, mult-0): edges (2,0,0), (2,1,0), (3,0,0), (3,1,0). -/
+def face_S23_T01 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨12, by decide⟩ ⟨14, by decide⟩
+                 ⟨18, by decide⟩ ⟨20, by decide⟩
+
+/-- Face (S={2,3}, T={0,2}, mult-0). -/
+def face_S23_T02 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨12, by decide⟩ ⟨16, by decide⟩
+                 ⟨18, by decide⟩ ⟨22, by decide⟩
+
+/-- Face (S={2,3}, T={1,2}, mult-0). -/
+def face_S23_T12 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨14, by decide⟩ ⟨16, by decide⟩
+                 ⟨20, by decide⟩ ⟨22, by decide⟩
+
+/-- S-row dependence at S={2,3}. -/
+theorem face_dep_S23_at_K43 :
+    ∀ σ : CochE,
+      xor (xor (face_S23_T01 σ) (face_S23_T02 σ)) (face_S23_T12 σ) = false := by
+  intro σ
+  unfold face_S23_T01 face_S23_T02 face_S23_T12 faceBoundary
+  cases σ ⟨12, by decide⟩ <;> cases σ ⟨14, by decide⟩ <;>
+    cases σ ⟨16, by decide⟩ <;> cases σ ⟨18, by decide⟩ <;>
+    cases σ ⟨20, by decide⟩ <;> cases σ ⟨22, by decide⟩ <;> rfl
+
 /-! ## §4 — Edge / vertex counts -/
 
 theorem K43_edge_count : 4 * 3 * 2 = 24 := by decide
