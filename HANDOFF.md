@@ -26,6 +26,11 @@ Anchors:
     c=3 enriched, codim ≥ 3
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametric.lean` —
     ∀c parametric codim ≥ c + concrete Massey witnesses c=2..12
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean` —
+    full `(NS, NT, c)`-parametric framework: `PairEnum NS` +
+    `psi_layer_param` (double foldXor) + `KillsDelta1` hypothesis +
+    capstone `parametric_c_independent_h2_classes_param` + concrete
+    NS=NT=3 instance recovers V33EnrichedParametric (25 PURE)
 
 ### Mediant cohomology functor — Stern-Brocot Vandermonde decomposition
 
@@ -145,18 +150,35 @@ Build: `cd lean && lake build` — clean.
 
 ## Active research directions
 
-### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework
+### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework [FRAMEWORK CLOSED]
 
-V33EnrichedParametric proves codim ≥ c parametrically in `c` at
-NS = NT = 3.  The full `(NS, NT, c)` parametric framework requires:
+Generic `(NS, NT, c)`-parametric enriched-2-complex framework in
+`lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean`
+(25 PURE, 0 axiom).  All four required pieces present:
 
-  · Generic `Fin (NS.choose 2)` S-pair indexing
-  · Per-layer face boundaries depending on (NS, NT)
-  · Parametric `psi_layer` over arbitrary face spaces
-  · Combinatorial bound `each layer-m edge ∈ (NS-1)(NT-1) layer-m faces`
+  · Generic `Fin (chooseTwo NS)` S-pair indexing via `PairEnum NS`
+    structure
+  · Per-layer face boundaries `face_boundary_param NS NT c pS pT σ s t m`
+    on `{pS.lo s, pS.hi s} × {pT.lo t, pT.hi t}` 4-cycle at layer `m`
+  · Parametric `psi_layer_param` via double `foldXor` over
+    `Fin (chooseTwo NS) × Fin (chooseTwo NT)`
+  · Kill hypothesis `KillsDelta1 NS NT c pS pT` bundling the
+    `(NS−1)·(NT−1)` even-count combinatorial fact; concretely
+    discharged at `(NS, NT) = (3, 3)` for all `c` by 9-edge case-bash
+    (`kills_delta1_K33`)
 
-V43 (K_{4,3}) and the upcoming V44, V53, V54 give concrete
-instances; the abstract `K_{NS,NT}^{(c)}` framework would unify them.
+Capstone `parametric_c_independent_h2_classes_param`: under `Hkill`,
+`c` independent non-coboundary H²-classes — one per multiplicity
+layer, signature `decide (m = m')` (Kronecker δ).
+
+Concrete recovery: `K33_c_independent_h2_classes_via_framework`
+re-derives the V33EnrichedParametric capstone through the generic
+framework at `(NS, NT) = (3, 3)`.
+
+Next concrete instances (deferred to follow-up sessions):
+`(4, 3)` (NS-1)(NT-1) = 6 even ✓, `(5, 3)` = 8 even ✓, `(5, 4)` =
+12 even ✓.  Parity-failing cases `(4, 4)` = 9 odd, `(6, 4)` = 15
+odd require a different ψ functional (open).
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
