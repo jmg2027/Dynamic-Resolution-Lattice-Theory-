@@ -104,32 +104,50 @@ all using the SAME triple `(3, 2, 2)`.  The "tripartite" content
 is the FACT that all three readings agree on the same triple at
 the same anchor — not a need for a literal third partition.
 
-## Open frontier
+## Both readings now formalised — verdict
 
-Reading B is currently INSIGHT-level only; Lean formalisation
-deferred.  The proposed `V32LocalSignature.lean` would build:
+Reading B (self-containment, Option I) — **CLOSED positive**
+in `V32LocalSignature.lean` (15 PURE).  The predicate
+`is_213_multiset a b c := (a+b+c == 6) && (a·b·c == 6)`
+uniquely characterises the multiset `{1, 2, 3}` for positive
+naturals.  At every vertex, edge, face of K_{3,2}^{(c=2)}:
 
-```lean
-def vertex_local_signature (v : Fin 5) : Nat × Nat × Nat
-def edge_local_signature   (e : Fin 12) : Nat × Nat × Nat
-def face_local_signature   (f : Fin 3)  : Nat × Nat × Nat
+  · vertex (Fin 5): S-side `(NT, 1, NS) = (2, 1, 3)`;
+    T-side `(NS, 1, NT) = (3, 1, 2)` — same multiset
+  · edge (Fin 12): uniform `(NT, 1, NS) = (2, 1, 3)`
+  · face (Fin 3): uniform `(NT, 1, NS) = (2, 1, 3)`
 
-theorem local_213_at_every_point :
-  (∀ v, has_213_components (vertex_local_signature v))
-  ∧ (∀ e, has_213_components (edge_local_signature e))
-  ∧ (∀ f, has_213_components (face_local_signature f))
-```
+Master: `local_213_at_every_point` (5-conjunct decide-verified
+capstone).  The "3" of the signature is reproduced locally at
+every datum.
 
-where `has_213_components` checks that the local triple
-decomposes into the `(NS = 3, NT = 2, c = 2)` atomic parts.
+Reading A (external tripartite, Option II) — **CLOSED negative
+at the cohomology level**, in
+`Cohomology/Tripartite/V213Betti.lean` (13 PURE) +
+`V32V213CohomologyBridge.lean` (3 PURE).  K_{2, 1, 3} with
+the 6 rainbow triangles filled has Betti numbers
+`(b₀, b₁, b₂) = (1, 0, 0)`.  The δ¹ surjectivity is
+constructive: each triangle indicator is δ¹ of the unique
+direct-edge indicator (`delta1_pivot_lift_pointwise`).
 
-The cohomology-level bridge to K_{2,1,3} (Reading A extension
-— Massey on K_{3,2}^{(c=2)} as shadow projection of natural
-cohomology on K_{2,1,3}) is also open.  Both directions are
-recorded in
-`research-notes/archive/G146_K32_bipartite_tripartite_self_containment.md`
-as Option I (Reading B, recommended) and Option II (Reading A
-cohomology extension).
+Atomic-level duality preserved:
+`|E(K_{3,2})| = NS · NT = 6 = NT · det · NS = |△(K_{2,1,3})|`.
+
+Cohomology-level duality FAILS:
+`b₁(K_{3,2}^{(c=2)}) = 8 ≠ 0 = b₁(K_{2,1,3})`.
+
+The K_{2,1,3} triangle-filling kills all 1-cycles structurally
+(cycle space dim = triangle count, so every cycle bounds).
+K_{3,2}^{(c=2)} has cycle-space dim `NS² − 1 = 8` with no
+filled 2-cells in the bare graph reading, leaving all
+8 cycles unbounded.  The external tripartite reading cannot
+host the cohomological "3" of K_{3,2}^{(c=2)}.
+
+The verdict
+`self_containment_cohomology_verdict` (6-conjunct PURE)
+bundles the atomic preservation + cohomology breach + structural
+sources.  **Reading B is the cohomology-level path; Reading A
+is a count-level coincidence only.**
 
 ## Connection to P-orbit and Massey
 
@@ -141,28 +159,39 @@ K_{3,2}^{(c=2)} is the depth-2 anchor, then K_{3,2}^{(c=2)}
 should already host the full naturalness content — there is
 nowhere "outside" it for additional structure to live.
 
-The hypothesis that current main's depth-4 Massey constructions
-on K_{3, 2}^{(c=2)} are shadow projections of natural cohomology
-on K_{2,1,3} is the cohomology-level expression of this
-self-containment.  Verifying it would close the longest-running
-open question in the cohomology programme.
+The Massey-as-shadow-projection hypothesis (current main's
+depth-4 Massey constructions on K_{3, 2}^{(c=2)} as shadow
+projections of natural cohomology on K_{2,1,3}) is now
+**REFUTED**.  `K_{2, 1, 3}` is cohomologically trivial above
+H⁰ (`V213Betti.K213_betti_capstone`), so it can host no shadow
+projection of the b₁ = 8 + Massey structure of K_{3, 2}^{(c=2)}.
+The Massey content lives intrinsically in K_{3, 2}^{(c=2)}; no
+external tripartite extension reaches it.
+
+This is the structural negative that makes Reading B the only
+viable cohomology-level reading.  The "3" of the (2, 1, 3)
+signature must live within K_{3, 2}^{(c=2)} itself — and
+`V32LocalSignature.local_213_at_every_point` proves it does,
+constructively, at every datum.
 
 ## The thing you can point at
 
-`TripartiteK213.bipartite_edge_eq_tripartite_triangle`:
+Two Lean theorems, one positive and one negative, jointly
+locate the self-containment:
 
-```
-|E(K_{NS, NT})| = NS · NT = |△(K_{NT, det, NS})|
-```
+  · `V32LocalSignature.local_213_at_every_point` (PURE):
+    every vertex, edge, face of K_{3, 2}^{(c=2)} has 213-multiset
+    local signature — the "3" is internal.
+  · `V32V213CohomologyBridge.self_containment_cohomology_verdict`
+    (PURE): atomic-level duality `|E| = |△| = 6` preserved,
+    cohomology-level duality `b₁ = 8 ≠ 0` broken — the external
+    tripartite cannot host the cohomological "3".
 
-Atomic-level: each bipartite edge has a glue-mediated triangle
-counterpart.  Reading A confirms the EXTERNAL extension is
-consistent; Reading B observes the INTERNAL recurrence makes
-the extension structurally unnecessary.  The single equality
-`NS · NT = NS · NT` is the bridge — same number on both sides,
-read as "edge count" bipartitely and as "triangle count"
-tripartitely.  The number doesn't care which reading produced
-it; that's the self-containment.
+The positive theorem says the "3" lives inside K_{3, 2}^{(c=2)};
+the negative theorem says it does not live anywhere else.
+Together they make self-containment a Lean-checked fact, not
+just an insight: K_{3, 2}^{(c=2)} is the unique locus of the
+(2, 1, 3) atomic signature at the cohomology level.
 
 ## Cross-references
 

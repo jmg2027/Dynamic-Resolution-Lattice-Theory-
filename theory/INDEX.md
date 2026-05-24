@@ -59,11 +59,11 @@ Chapter exists when the Lean sub-tree closed per
 [`PROMOTION_CRITERIA.md`](PROMOTION_CRITERIA.md).  Patterns:
 [`lean/E213/docs/PROMOTION_PATTERNS.md`](../lean/E213/docs/PROMOTION_PATTERNS.md).
 
-## Current chapters (109 total, incl. 15 essays)
+## Current chapters (110 total, incl. 15 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 67 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 68 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  6 | [`meta/INDEX.md`](meta/INDEX.md) |

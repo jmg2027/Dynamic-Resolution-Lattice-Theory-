@@ -55,13 +55,25 @@ Atomic invariants of `K_{NT, det, NS} = K_{2, 1, 3}`:
 level duality witness: each bipartite edge of K_{NS, NT}
 corresponds to a glue-mediated triangle in K_{NT, det, NS}.
 
-The cohomology-level bridge (Massey on K_{3,2}^{(c=2)} as
-shadow projection of natural cohomology on K_{2,1,3}) is open
-— see `theory/essays/bipartite_tripartite_self_containment.md`
-for the dual reading (the self-containment thesis: every
-structural element of K_{3,2}^{(c=2)} already carries both
-"2" and "3" simultaneously without needing the K_{2,1,3}
-extension).
+The cohomology-level bridge has since been computed and
+resolved with a **NEGATIVE verdict**:
+`Cohomology/Tripartite/V213Betti.K213_betti_capstone` (PURE)
+shows K_{2,1,3} with triangle 2-cells filled has
+`(b₀, b₁, b₂) = (1, 0, 0)`, while K_{3,2}^{(c=2)} has
+`b₁ = NS² − 1 = 8`.
+`Cohomology/Tripartite/V32V213CohomologyBridge.self_containment_cohomology_verdict`
+bundles atomic-level preservation (|E| = |△| = 6) with
+cohomology-level breach (8 ≠ 0).  The external tripartite
+extension cannot host the cohomological "3" of
+K_{3,2}^{(c=2)}; the self-containment reading
+(`Cohomology/Bipartite/V32LocalSignature.local_213_at_every_point`,
+local (2, 1, 3) multiset at every vertex / edge / face) is
+the only cohomology-level path.
+
+See `theory/math/cohomology/tripartite_self_containment.md`
+for the full formal account, and
+`theory/essays/bipartite_tripartite_self_containment.md` for
+the cross-cutting reading.
 
 ## Mod-p period catalog
 
@@ -282,10 +294,15 @@ the P-orbit level, not the atomic level.
   · **Tripartite × P-orbit cross-product**: prove every
     framework-natural species lies in
     `(K_{NS, NT} ⊔ K_{NT, det, NS}) × P-orbit-depth`.
-  · **Cohomology Massey ↔ Tripartite natural cohomology**:
-    verify that depth-4 Massey constructions on K_{3, 2}^{(c=2)}
-    are shadow projections of natural cohomology on K_{2,1,3}
-    (linked to `essays/bipartite_tripartite_self_containment.md`).
+  · ~~Cohomology Massey ↔ Tripartite natural cohomology~~:
+    **CLOSED negative** (`Cohomology/Tripartite/`).  K_{2,1,3}
+    is cohomologically trivial above H⁰ (b₁ = 0), so it cannot
+    host shadow projections of K_{3, 2}^{(c=2)}'s b₁ = 8 + Massey
+    content.  The Massey lives intrinsically in K_{3, 2}^{(c=2)};
+    self-containment via local (2, 1, 3) signature
+    (`V32LocalSignature.local_213_at_every_point`) is the
+    correct cohomology-level reading.  See
+    `theory/math/cohomology/tripartite_self_containment.md`.
   · **n-prime extension**: for primes p not falling in P-orbit
     depth ≤ K, what is the minimum depth?  Is the depth bounded
     universally, or does it grow with p?
