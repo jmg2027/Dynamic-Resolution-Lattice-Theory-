@@ -132,7 +132,12 @@ Beyond the core claim, six strengthenings are closed:
 |---|---|---|
 | Lefschetz (1,1) (1924) | `Refinement/LefschetzOneOne.lean` | Every (1,1)-Hodge class is a divisor class |
 | Generalized Hodge | `Refinement/GeneralizedHodge.lean` | Codimension filtration on Chow groups |
-| Cup-atomic generation | `Refinement/CupAtomicGeneration.lean` | Vertex ⌣ vertex generates all classes (strong form) |
+| Cup-atomic generation | `Refinement/CupAtomicGeneration.lean` | Vertex ⌣ vertex generates all classes at Δ⁴ (strong form) |
+| Cup-atomic generation at Δ³ | `Refinement/CupAtomicGenerationDelta3.lean` | 4 vertices → 6 edges (sister to Δ⁴) |
+| Cup-atomic generation at Δ⁵ | `Refinement/CupAtomicGenerationDelta5.lean` | 6 vertices → 15 edges (sister to Δ⁴) |
+| Cup-atomic generation at Δ⁶ | `Refinement/CupAtomicGenerationDelta6.lean` | 7 vertices → 21 edges, 2⁷ = 128 atomic generators |
+| Cup-atomic generation at Δ⁷ | `Refinement/CupAtomicGenerationDelta7.lean` | 8 vertices → 28 edges, 2⁸ = 256 atomic generators |
+| Cup-atomic generation grid | `Refinement/CupAtomicGenerationGrid.lean` | Unified HC²¹³ automation across Δ³ + Δ⁴ + Δ⁵, with `2^n` atomic-generator total confirmed at each n |
 | Standard Conjectures | `Refinement/StandardConjectures.lean` | Grothendieck A/B/C/D |
 | Lefschetz hyperplane | `Refinement/LefschetzHyperplane.lean` | Δ⁴ → Δ³ restriction (Pascal-triangle witness) |
 | Voisin | `Refinement/Voisin.lean` | Finite-dim motive (automatic in 213) |
@@ -186,7 +191,36 @@ For the full 31-capstone list, see
 
 None at the HC²¹³ level — the conjecture is closed.
 
-Adjacent open work:
+### Variant automation (HC²¹³ at multiple Δⁿ substrates)
+
+The cup-atomic generation refinement was historically stated only
+at Δ⁴ (5 vertices → 10 edges → 32 atomic generators).  Three
+sister Δⁿ closures are now shipped:
+
+| n | Δ^(n−1) | Vertices | Edges | Atomic total `2^n` |
+|---|---------|---------:|------:|-------------------:|
+| 4 | Δ³      |        4 |     6 |  16 |
+| 5 | Δ⁴      |        5 |    10 |  32 |
+| 6 | Δ⁵      |        6 |    15 |  64 |
+| 7 | Δ⁶      |        7 |    21 | 128 |
+| 8 | Δ⁷      |        8 |    28 | 256 |
+| 9 | Δ⁸      |        9 |    36 | 512 |
+
+Each closure ships the same proof shape: `decide` over all
+`(i, j, τ)` triples in `Fin n × Fin n × Fin (binom n 2)`,
+verifying that `(v_i ⌣ v_j)(τ) = (τ[0] = i) ∧ (τ[1] = j)` and
+that the sorted pairs `(i < j)` exhaust the edge indicator basis.
+The unified `CupAtomicGenerationGrid` capstone bundles the three
+Δⁿ instances and verifies the atomic-generator total `2^n` at
+each level by `decide`.
+
+The automation is uniform across Δⁿ once `n` is fixed: every
+step reduces to `decide`.  Extending to Δ⁶, Δ⁷ requires only
+additional `decide` calls at higher `n` (no new structural
+content).
+
+### Other adjacent open work
+
 - **p-adic Hodge** (`MotivicBridge/HodgeTate.lean`): the `Real213-p`
   layer is deferred until Real213 has p-adic completion.  Currently
   the bridge file establishes the statement but defers the proof.

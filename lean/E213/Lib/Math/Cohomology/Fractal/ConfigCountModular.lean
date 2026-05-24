@@ -738,6 +738,59 @@ theorem configCountD_5_mod_137_table :
     ∧ configCountD 5 3 % 137 = 70 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ### §I `p = 11` — eventually constant `1` from `n = 1`
+
+For `p = 11`, `gcd(5, p - 1 = 10) = 5 ≠ 1`, so the exponent
+sequence `(5^n) mod 10` is NOT purely periodic — it is eventually
+constant at `5` (since `5 * 5 = 25 ≡ 5 (mod 10)` is a fixed point
+and the base case `5^1 mod 10 = 5` lands on it immediately).
+
+Combined with `configCountD_5_mod_11`, the family is therefore
+eventually constant `1` modulo `11` from `n = 1` onward:
+
+  · `5^(n+1) mod 10 = 5` for all `n ≥ 0` (fixed-point reasoning).
+  · `configCountD 5 (n+1) mod 11 = 5^5 mod 11 = 3125 mod 11 = 1`.
+
+This is the second eventually-constant readout in the catalogue
+(the first being `p = 41` at value `9 = NS²`).  Unlike `p = 41`
+where the constancy starts at `n = 1` via a degree-5 cycle seed,
+the `p = 11` constancy is structurally simpler: the exponent
+sequence collapses immediately via fixed-point absorption. -/
+
+private theorem five_pow_succ_mod_10 : ∀ n, 5 ^ (n + 1) % 10 = 5
+  | 0     => by decide
+  | k + 1 => by
+      -- `5^(k+2) = 5^(k+1) * 5` (by definitional unfolding of `Pow`).
+      have h_split :
+          (5 ^ (k + 1) * 5) % 10
+            = ((5 ^ (k + 1) % 10) * (5 % 10)) % 10 :=
+        mul_mod_pure (5 ^ (k + 1)) 5 10
+      have ih : 5 ^ (k + 1) % 10 = 5 := five_pow_succ_mod_10 k
+      have h_sub :
+          ((5 ^ (k + 1) % 10) * (5 % 10)) % 10 = (5 * 5) % 10 :=
+        congrArg (fun x => (x * (5 % 10)) % 10) ih
+      have h_final : (5 * 5 : Nat) % 10 = 5 := rfl
+      show 5 ^ (k + 1) * 5 % 10 = 5
+      exact h_split.trans (h_sub.trans h_final)
+
+/-- ★ **Eventually constant `1` from `n = 1`**:
+    `configCountD 5 (n+1) % 11 = 1` for every `n ≥ 0`.
+    Closes the parametric form of `configCountD_5_mod_11` via the
+    `5^(n+1) mod 10 = 5` fixed-point absorption above.  Sister
+    closure to `configCountD_5_succ_mod_41` (which is constant
+    `9 = NS²` from `n = 1`). -/
+theorem configCountD_5_succ_mod_11 (n : Nat) :
+    configCountD 5 (n + 1) % 11 = 1 := by
+  have h_param :
+      configCountD 5 (n + 1) % 11 = 5 ^ ((5 ^ (n + 1)) % 10) % 11 :=
+    configCountD_5_mod_11 (n + 1)
+  have h_exp : 5 ^ (n + 1) % 10 = 5 := five_pow_succ_mod_10 n
+  have h_step :
+      5 ^ ((5 ^ (n + 1)) % 10) % 11 = 5 ^ 5 % 11 :=
+    congrArg (fun x => 5 ^ x % 11) h_exp
+  have h_final : (5 ^ 5 : Nat) % 11 = 1 := by decide
+  exact h_param.trans (h_step.trans h_final)
+
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base
