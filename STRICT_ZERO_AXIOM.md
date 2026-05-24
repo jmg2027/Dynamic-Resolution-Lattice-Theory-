@@ -2615,3 +2615,58 @@ identity proof flattens both sides to a canonical AC form
 middle swap.  No `simp only`, no `omega`, no Mathlib.
 
 **Session grand total**: 253 + 12 = **265 PURE / 0 DIRTY**.
+
+## 2026-05-24 — Mobius213PxSymmetrySpecies: meta-catalog of P(x) symmetry family species
+
+Sequel to `Mobius213PxAxisGroupCount` (counts *axes* of
+`(2, 1, 3)` extraction) and `Mobius213PxDenomInvariantFamily`
+(formalises one preservation-axis family).  This module is the
+**meta-frame**: every natural symmetry-revealing decomposition
+of P(x) is a *species* = `(preservation axis, automorphism
+group)` pair.
+
+26 distinct species identified, partitioned into 6 buckets:
+
+| Bucket | Count | Species |
+|---|---|---|
+| Algebraic preservation | 4 | denominator (ℤ-torsor ★), numerator, operator, coefficient |
+| Geometric symmetry | 4 | hyperbolic center (ℤ/2), asymptote frame, fixed-point swap, eigenframe |
+| Dynamics | 4 | forward iteration (ℤ ★), mod-5 cycle (ℤ/10 ★), conjugacy class (SL(2,ℤ)), transpose involution |
+| Representation theory | 4 | PGL(2) embedding ★, Sym(3) decomposition, Möbius equivalence ★, inverse pair |
+| Invariants | 5 | trace ★, det ★, disc ★, char poly (partial), Pell unit ★ |
+| Arithmetic | 5 | Bezout ★, CF ★, Fibonacci ★, Stern-Brocot ★, p-adic tower ★ |
+
+★ = already PURE-formalised in earlier modules.  Total formalised: 13 / 26.  Partial: 1.  Open: 12.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxSymmetrySpecies` | 8 | `Bucket` / `AutGroup` / `Status` / `FamilySpecies` / `SpeciesKind` inductive taxonomy;  `speciesData` (26-case table tagging bucket + automorphism group + status + atomic invariant);  `allSpecies` (26-element list);  `allSpecies_length = 26`;  ★★★★★★ `atomicInvariant_in_signature_set` (every species's atomic invariant ∈ `{1, NT, NS, d}`);  `bucket_partition_count` (4+4+4+4+5+5 = 26);  `status_partition_count` (13 + 1 + 12 = 26);  ★★★★★★★★ `symmetry_species_meta_master` (4-conjunct: total + atomic-closure + bucket partition + status partition) |
+
+**Reading**:
+  · `Mobius213PxAxisGroupCount` answers "in how many *axes*
+    does (2, 1, 3) appear?" → 12.
+  · `Mobius213PxSymmetrySpecies` answers "in how many *symmetry
+    families* (each with its own automorphism group) does
+    P(x) decompose?" → 26.
+  · Different questions, complementary answers.  The 12 axes
+    are *value-instances*; the 26 species are
+    *symmetry-structures*.
+
+**Meta-conjecture supported**: every natural symmetry of P(x),
+when expressed via its characteristic invariant integer, lands
+in `{det, NT, NS, d} = {1, 2, 3, 5}`.  No exception in current
+26-species census.  Closure of natural-symmetries set is
+*experimentally supported*, not strictly proven (proof would
+require demonstrating no further species exists outside the
+catalogue).
+
+**Open frontier**: 12 species conjectured but not yet
+formalised — natural follow-up Lean modules:
+  · `hyperbolic_center` → `P(x) − NT = -det/(x − (-det))`
+  · `transpose_involution` → `Pᵀ = P` (degenerate involution
+    since P is symmetric)
+  · `inverse_pair` → `P · P⁻¹ = I`
+  · `coefficient_preserving` → Sym(3) on `{2, 1, 1}` multiset
+  · ... (and 8 more)
+
+**Session grand total**: 265 + 8 = **273 PURE / 0 DIRTY**.
