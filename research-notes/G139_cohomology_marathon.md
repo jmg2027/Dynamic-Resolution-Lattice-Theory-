@@ -306,18 +306,30 @@ CupAW Leibniz closed bidegrees now span 9 entries:
   (3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2),
   (5,1,1), (5,1,2) ★ NEW, (5,2,1), (5,2,2).
 
-## Phase 12 (next session candidates)
+## Phase 12 — CLOSED (2 closures, 14 PURE new)
 
-  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
-    (G139-AA H⁵ ≠ 0); needs cup product extension at the
-    K_{3,2}^{(c=2)} 5-skeleton (cup : C³ × C² → C⁵ and C² × C³
-    → C⁵) + explicit cobounding-chain construction.
-    Blocker: AW-style cup extension at the multi-cell complex.
-  · **Padovan / Tribonacci mod 11** (period 120 / 110;
-    long but mechanical).
+ 35. **G139-KK CupAW (5, 1, 3) universal lift** — CLOSED
+     (2 files, 7 PURE).  Meta-strategy from (5, 1, 2)
+     generalizes cleanly: 5 per-basis decides + bilinearity
+     chain.  CupAW Leibniz now closed at 10 bidegrees.
+ 36. **G139-LL Massey ⟨ω, ω, ω⟩ obstruction** — CLOSED
+     (1 file, 7 PURE).  Explicit Massey class computation at
+     the multi-5-cell substrate (H⁵ ≠ 0) finds the class is
+     ZERO due to ω being constant-true.  Upgrades the prior
+     "vacuously 0" Phase 9 result to "explicitly 0 despite
+     non-trivial landing space".
+
+## Phase 13 (next session candidates)
+
+  · **Non-vacuous Massey at a different triple shape**
+    (different cohomology class, asymmetric cup, or H¹-based
+    Massey ⟨a, b, c⟩ → H² with `a ⌣ b = b ⌣ c = 0`).
+  · **CupAW (5, 1, 4)** — needs Prop54 pattern infrastructure
+    (Cochain 5 4 = Fin 5 → Bool, sister to Prop51).
+  · **CupAW (5, 3, 1)** — Cochain 5 3 (10 bits) on the α-side
+    via meta-strategy: 10 per-basis decides + bilinearity.
+  · **Padovan / Tribonacci mod 11** (long periods).
   · **HC²¹³ Δ⁹+ further automation**.
-  · **CupAW Leibniz at higher α-degree** — (5, 3, _), (6, _, _)
-    via meta-strategy generalization.
 
 ## Phase 10+ (deferred)
 

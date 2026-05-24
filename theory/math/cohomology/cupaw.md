@@ -59,6 +59,7 @@ but the proof must be done **per bidegree**, not uniformly.
 | (4, 2, 2) | ✓ universal | `Leibniz4Mixed.leibniz_universal_4_2_2` |
 | (5, 1, 1) | ✓ universal | `Leibniz.leibniz_universal_5_1_1` |
 | (5, 1, 2) | ✓ universal (via bilinearity lift) | `Leibniz5_1_2.leibniz_universal_5_1_2` |
+| (5, 1, 3) | ✓ universal (meta-strategy generalized) | `Leibniz5_1_3.leibniz_universal_5_1_3` |
 | (5, 2, 1) | ✓ universal | `Leibniz21Final.leibniz_universal_5_2_1` |
 | (5, 2, 2) | ✓ universal | `Leibniz22Final.leibniz_universal_5_2_2` |
 | **(k, l) general** | **OPEN** | — |

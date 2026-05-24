@@ -218,17 +218,30 @@ would land in `H^(2 + 2 + 2 - 1) = H⁵`.  At the 5-skeleton
 extension, `H⁵ = 0` makes the Massey class VACUOUSLY trivial
 regardless of cobounding-chain choice.
 
-A non-vacuous Massey ⟨ω, ω, ω⟩ requires:
+`Filled5CellMultiExtension.lean` (Phase 9) shipped a multi-cell
+5-skeleton with `H⁵ ≅ ℤ/2 ≠ 0`, providing a non-vacuous landing
+substrate for Massey.
 
-  1. A 6-skeleton extension so `H⁵ ≠ 0` (Filled6Cell — small
-     additional step following the same template).
-  2. Explicit cobounding-chain construction solving the defining
-     system `ω ⌣ ω = δ b_1`, `ω ⌣ ω = δ b_2`.  This is the
-     harder content; the choice of `b_1`, `b_2` determines the
-     Massey class modulo the indeterminacy ideal
-     `ω · H¹ + H¹ · ω`.
+`MasseyTripleOmega.lean` (Phase 12) computes Massey ⟨ω, ω, ω⟩
+explicitly under the outermost-faces AW cup extension and finds
+the class is ZERO at the chain level — the Massey representative
+is the all-false 5-cochain = `δ⁴_multi(false-4cochain)`.
 
-Both remain open frontiers.
+**Structural obstruction**: ω = (1, 1, 1) is the constant-true
+face cochain.  Any face-pair evaluation gives `true`, so each
+summand of `b ⌣ ω + ω ⌣ b` produces `(true, true)`; the xor
+collapses to `(false, false)`.
+
+So even with the non-vacuous H⁵ substrate, ⟨ω, ω, ω⟩ is
+intrinsically trivial.  Non-vacuous Massey at K_{3,2}^{(c=2)}
+requires either:
+
+  · A different cohomology class than ω (but H² = ℤ/2 ⟨ω⟩ — ω
+    is the unique non-zero H² class).
+  · A different Massey triple shape (e.g., ⟨a, b, c⟩ at H¹
+    classes landing in H²).
+  · An asymmetric cup extension breaking the diagonal-image
+    structure of `δ⁴_multi`.
 
 ## Sq² at the 4-skeleton — chain-level explicit
 

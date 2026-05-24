@@ -3,10 +3,10 @@
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
-open-frontier marathon (G139).  Phases 1-11 closed;
-**34 closures totaling 361 PURE new**.  CupAW (5,1,2) universal
-lift CLOSED via per-basis breakthrough + bilinearity chain.
-Pisano mod 11 partial (4 of 6 sisters).
+open-frontier marathon (G139).  Phases 1-12 closed;
+**36 closures totaling 375 PURE new**.  CupAW Leibniz meta-
+strategy generalized to (5, 1, 3); Massey ⟨ω, ω, ω⟩
+obstruction proved at multi-cell substrate.
 
 ## G139 phase-by-phase
 
@@ -24,6 +24,7 @@ Pisano mod 11 partial (4 of 6 sisters).
 | 10 (part 1) | CC, DD, EE, FF, GG | 24 | HC²¹³ Δ⁸ + Pisano mod-11 short periods (Fib/Lucas/Jac/Nara) |
 | 10 (part 2) | II | 6 | CupAW (5,1,2) per-basis BREAKTHROUGH via meta-insight (5 per-basis decides) |
 | 11 | JJ | 1 | CupAW (5,1,2) universal lift CLOSED via bilinearity chain (per-basis + α-decomp + combine_5) |
+| 12 | KK, LL | 14 | CupAW (5,1,3) universal lift (meta-strategy generalized) + Massey ⟨ω,ω,ω⟩ obstruction at multi-cell substrate |
 
 ## G139 Phase 6 — closures (4 closures, 29 PURE)
 
@@ -181,20 +182,31 @@ case-split (zero/basis-transport) + α-decomp lens combining via
 `cupAW_add_left` + `delta_cupAW_add_left` + `cupAW_delta_add_left`
 chain over `decomp_5_1 α = ⊕_k bz5_1 α k` + `combine_5`.
 
-## Phase 12 candidates (next session)
+## Phase 12 — Massey obstruction + CupAW (5,1,3) generalized
 
-  · **Non-vacuous Massey ⟨ω, ω, ω⟩** — substrate in place
-    (G139-AA H⁵ ≠ 0).  Blocker: cup product extension at the
-    K_{3,2}^{(c=2)} 5-skeleton (need cup : C³ × C² → C⁵ and
-    C² × C³ → C⁵) + explicit cobounding-chain construction.
-  · **Padovan / Tribonacci mod 11** — long periods (120 / 110)
-    but mechanical extension of Phase 10 template.
+`Bipartite/MasseyTripleOmega.lean` — explicit Massey class
+computation at the multi-5-cell substrate.  Despite H⁵ ≅ ℤ/2
+non-vacuous, Massey ⟨ω, ω, ω⟩ = 0 by direct computation due to
+ω being constant-true.  Upgrades the Phase 9 "vacuously zero"
+to "explicitly zero despite non-trivial substrate".
+
+`CupAW/Leibniz5_1_3.lean` + `Leibniz5_1_3_BasisDecomp.lean` —
+meta-strategy from (5, 1, 2) generalized to (5, 1, 3).
+CupAW Leibniz now closed at 10 bidegrees.
+
+## Phase 13 candidates (next session)
+
+  · **Non-vacuous Massey** at a different triple shape
+    (different cohomology class, asymmetric cup, or H¹-based
+    triple landing in H²).
+  · **CupAW (5, 1, 4)** — needs Prop54 pattern infrastructure
+    (Cochain 5 4 = Fin 5 → Bool, sister to Prop51).
+  · **CupAW (5, 3, 1)** — α-side 10-basis decomposition
+    (Cochain 5 3 has 10 bits).
+  · **Padovan / Tribonacci mod 11** — long periods (120 / 110).
   · **HC²¹³ Δ⁹+ further automation**.
-  · **CupAW Leibniz at higher α-degree** — (5, 3, _), (6, _, _)
-    via meta-strategy generalization (per-basis decides at the
-    new α-degree).
 
-## Phase 12+ (deferred)
+## Phase 14+ (deferred)
 
   · `GraphWalk/` infrastructure for universal
     `∀ NS NT c, kerSizeDelta0Direct = 2` (5–8 sessions).
