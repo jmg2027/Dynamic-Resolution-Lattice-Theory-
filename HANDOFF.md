@@ -27,6 +27,23 @@ Anchors:
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametric.lean` —
     ∀c parametric codim ≥ c + concrete Massey witnesses c=2..12
 
+### Mediant cohomology functor — Stern-Brocot Vandermonde decomposition
+
+Every `K_{NS, NT}^{(c)}` cell-count factors through the Stern-Brocot
+path via Vandermonde decomposition of the mediant:
+
+  · `V(a+c, b+d) = V(a, b) + V(c, d)` — 2-term linear additivity
+  · `E^m(a+c, b+d) = E^m(a, b) + E^m(a, d) + E^m(c, b) + E^m(c, d)`
+    — 4-term Vandermonde
+  · `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c)
+                  · (binom b 2 + binom d 2 + b·d)`
+    — factored Vandermonde², expands to 9 products
+
+Concrete K_{4,3} = K_{1,1} ⊕ K_{3,2} marquee instance verified at
+`MediantCohomologyFunctor.K43_{vertex,edge,face}_from_mediant`.
+
+Anchor: `lean/E213/Lib/Math/Cohomology/MediantCohomologyFunctor.lean`.
+
 ### K_{NS, NT}^{(c)} unified classification (Stern-Brocot lattice)
 
 Every bipartite multigraph carries a unique 3-axis position in
@@ -120,13 +137,32 @@ Extending to (8, 5), (5, 4), (7, 4), (13, 8) gives the next layer
 of the Möbius P lattice.  Each requires a Lean reachable witness
 + cohomology structural theorems.
 
-### Direction E — Mediant cohomology functor
+### Direction E — Mediant cohomology functor [count level CLOSED]
 
-The Stern-Brocot result `(4, 3) = (1, 1) ⊕ (3, 2)` suggests a
-**mediant cohomology functor** — K_{4,3} cohomology derived from
-K_{1,1} and K_{3,2} via a yet-to-be-defined "mediant cohomology"
-operation.  If this works, every K_{NS,NT}^{(c)} cohomology
-factors through the Stern-Brocot path.
+The Stern-Brocot result `(4, 3) = (1, 1) ⊕ (3, 2)` lifted to a
+**Vandermonde decomposition** of every `K_{NS, NT}^{(c)}` cell-count
+quantity (V, E, F) via mediant.
+
+Closed at the count level (22 PURE) in
+`lean/E213/Lib/Math/Cohomology/MediantCohomologyFunctor.lean`:
+
+  · `binom_add_2` (combinatorial heart, Vandermonde-2 for `binom n 2`)
+  · `vertexCount_mediant` (2-term additive)
+  · `edgeCount_mediant` (4-term Vandermonde)
+  · `faceCount_mediant_factored` (Vandermonde²)
+  · `K43_{vertex,edge,face}_from_mediant` (concrete (1,1)⊕(3,2)=(4,3))
+  · `countTriple_mediant_decomposition` (3-component algebra law)
+  · `mediant_cohomology_functor_capstone` (7-conjunct master)
+
+Cross-link: K_{4,3} counts (7 vertices, 24 edges, 18 faces) recovered
+from `V43.K43_{vertex,edge,simple_face}_count` via the mediant.
+
+**Next layer** (open): lift from cell-count Vandermonde to actual
+cochain-space / Massey-class decomposition.  Requires identifying
+the 4 edge classes and 9 face classes as concrete sub-cochain
+sub-spaces of `K_{NS₁+NS₂, NT₁+NT₂}^{(c)}` and proving the cup-product
+algebra of `K_{a+c, b+d}` factors through the 4×9 = 36 mediant
+sub-cells.
 
 ### Direction T — Bipartite-tripartite self-containment at K_{3,2}^{(c=2)}
 
