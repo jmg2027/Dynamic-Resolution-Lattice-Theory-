@@ -1,146 +1,126 @@
-# Session Handoff — 2026-05-23
+# Session Handoff — 2026-05-24 (Post-merge: two marathons merged to main)
 
-## Branch
+## Branch state
 
-`claude/4-manifolds-geometrization-IQXNb` — multi-session marathon
-on 4-manifolds & Geometrization (cork + geometrization sub-trees),
-merged with main (which absorbed research-notes promotion wave
-14 notes → 5 chapters + G138 synthesis patterns).
+  · `main` — both 4-mfd geometrization marathon and
+    Math Algebra/Analysis marathon merged in.
+  · `claude/4-manifolds-geometrization-IQXNb` — closed (415 PURE / 13 sessions).
+  · `claude/math-algebra-analysis-marathon-rj4UW` — closed (626 PURE / 53 closures / Wave 1-13).
 
-**Sessions 1-13 cumulative**: +415 PURE / 0 DIRTY on this branch.
+## Combined achievement
 
-## All items status
+Total PURE added across both marathons: **~1,041 PURE / 0 DIRTY**.
 
-| Item | Status |
+### 4-mfd geometrization marathon (415 PURE / 13 sessions)
+
+Cork chapter (197 PURE) + Geometrization chapter (~397 PURE) + 2 essays.
+
+| Highlight | Source |
 |---|---|
-| Donaldson external interface | **DELETED** |
-| b_2 / b_3 cork-twist | **CLOSED** |
-| Multi-cork (universal + hetero + decidable + host-aware) | **CLOSED** (87 PURE) |
-| JSJ extension (FW-2) | **CLOSED + ALL EXTENSIONS** (224 PURE) |
-| Metric direct (FW-4 + cross-frame consolidation) | **CLOSED** (58 PURE) |
-| Ricci ε-Lens (I-3) | **DEEPENED** (21 PURE) |
-| 8-geo Lie group infra | **CLOSED** |
-| Cross-frame bridge + cup-ladder + α_em | **CLOSED** (15 PURE) |
-| Universal cork involution (well-formed) | **CLOSED** (PURE) |
-| 3-cell explicit attaching | **CLOSED** (S³, T³, L(p,q)) |
-| L(p, q) parameter family + refinement + linking | **CLOSED** |
-| Connected sum (incl. universal PURE) | **CLOSED** |
-| Multi-fold connected sums as list ops | **CLOSED** |
-| Heegaard splitting genus + additivity | **CLOSED** |
-| Cup-ladder ↔ cork H¹ basis cross-link | **CLOSED** |
-| α_em precision derivation citation | **CLOSED** |
-| Geometric structure ↔ Lie group dim consolidation | **CLOSED** |
-| Lens space homotopy invariants (linking number, QR) | **CLOSED** |
-| Universal multi-fold preservation (jForm + ∀ list) | **CLOSED** |
-| PURE List.length_append + universal chi preservation | **CLOSED** |
-| Theory essays (4-mfd joint + cup-ladder cork bridge) | **CLOSED** |
+| Multi-cork (universal + hetero + decidable + host-aware) | `AkbulutCork/MultiCork.lean` (87 PURE) |
+| JSJ extension (FW-2 + all sub-cases) | `JsjDeep.lean` (224 PURE) |
+| Metric direct (FW-4 + Lie consolidation) | `MetricGeometries.lean` (58 PURE) |
+| 5-way Sym(3) cross-frame capstone | `AkbulutCork/CrossFrame.five_way_sym3_cross_frame_capstone` |
+| Master marathon capstones (v1, v2) | `AkbulutCork/CrossFrame.four_mfd_geometrization_marathon_capstone{,_v2}` |
+| Cup-ladder ↔ cork H¹ basis cross-link | `theory/essays/cup_ladder_cork_h1_bridge.md` |
 
-## Marathon progression summary
+### Math Algebra/Analysis marathon (626 PURE / 53 closures / Wave 1-13)
 
-| Session | Delta | Highlight |
-|---|---|---|
-| 1 | +93 | Cork H¹+H²+H³ + multi-cork (initial); Donaldson interface deletion |
-| 2 | +58 | Geometrization FW-2 cycle inv; FW-4 + 8-geo Lie; Ricci I-3; multi-cork universal |
-| 3 | +28 | PURE `mul_assoc_pure`; heterogeneous multi-cork; CrossFrame 5-way Sym(3); FW-2 unbounded |
-| 4 | +23 | Universal cork involution PURE; host-aware multi-cork; marathon capstone v2 |
-| 5 | +43 | Concrete 3-mfd target attaching maps (S³, T³, L(p,q)) |
-| 6 | +15 | Decidable Boolean form for host-aware product law |
-| 7 | +32 | L(p, q) parameter family + lensEquiv |
-| 8 | +21 | Connected sum + L(p, q) refinement (q·q' ≡ ±1 mod p) |
-| 9 | +3 | PURE universal connected-sum k-j=7 preservation (no omega) |
-| 10 | +37 | Cup-ladder bridge + multi-fold #sums + Heegaard genus |
-| 11 | +45 | Heegaard additivity + lens linking + Lie consolidation + α_em citation |
-| 12 | +7 | Universal multi-fold preservation + joint Heegaard-shape universal |
-| 13 | +10 | PURE List.length_append + universal connectedSumAttaching chi preservation |
+| Wave | PURE | Highlight |
+|---|---:|---|
+| 1 | 199 | 11 user-listed chapter frontiers (FP2SqrtD, KBonacci, FluxMVT, ZpSqrtD, ...) |
+| 2-5 | 258 | Heavy multi-session items + rigor theorems |
+| 6-9 | 80 | 4 architectural patterns (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) closing funext-blocked frontiers via Gemini consultation |
+| 10-11 | 32 | Full `cutSum_assoc` via `IntValidCut` + `HalfValidCut` (b ∈ {1, 2}) |
+| 12 | 7 | b ≥ 3 honest diagnosis + Meta layer lift (4 PURE Nat helpers) |
+| 13 | 50 | **Parametric `cutSumN N` for all naturals** — closes b ≥ 3 the right way |
 
-## Sub-tree totals
+Wave 13 detail:
+  · `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE) — parametric cutSumN N
+  · `Lib/Math/Real213/Sum/CutSumNMixed.lean` (3 PURE) — cross-denom (b₁, b₂ | N)
+  · `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE) — b=3 bundled
+  · `Lib/Math/Real213/NValidCut.lean` (14 PURE) — parametric capstone for all N
+  · `Lib/Math/Real213/FifthValidCut.lean` (12 PURE) — b=5 explicit instance
 
-  · **Cork**: 197 PURE / 8 files / 0 DIRTY
-  · **Geometrization**: ~397 PURE / 15 files / 0 DIRTY
-  · **Marathon total**: ~594 PURE in cork + geometrization sub-trees
+## Active research direction (next session)
 
-## Marathon pace
+**G139: Möbius P as canonical 213 equivalence**
+(`research-notes/G139_mobius_equivalence_unification.md`)
 
-Target: ~320 PURE over 16-25 sessions.
-Achieved (sessions 1-13): **+415 PURE on branch** in 13 sessions.
-Combined sub-tree totals: 594 PURE (86% above target).
+Conjecture emerging from Wave 13 reframing: ALL 213 equality
+definitions (cutEq, ZpSeqEquiv, signedEq, ValidCutN.is_at_denom,
+Adjacent, LensMap) factor through a single Möbius-orbit
+equivalence under P = [[2,1],[1,1]].  The Möbius matrix is
+already in the repo (`Lib/Math/Mobius213.lean`,
+`Mobius213OneAsGlue.lean`) and encodes (NS, NT) = (3, 2)
+directly:
 
-## Theory essays added
+  · trace = 3 = NS
+  · det = 1 = NS − NT (glue)
+  · disc = 5 = NS + NT (= d)
+  · eigenvalues φ², 1/φ²
 
-  · `theory/essays/4mfd_geometrization_joint_reading.md` — cork
-    twist + JSJ + Heegaard genus jointly on K_{3,2}^{(c=2)}; d=4
-    self-pointing axis; 5-way Sym(3) convergence
-  · `theory/essays/cup_ladder_cork_h1_bridge.md` — same 4 fixed
-    cochains span H¹ Sym(3)-fixed subspace in both cup-ladder
-    α²/d² Gram and cork +4 singleton-orbit readings
+The lesson: four consecutive dichotomy-import failures (§5.4)
+during Wave 12-13 reframing collapsed once the framework's own
+Möbius commitment was honored.
 
-## Carry-over from main (absorbed via merge)
+Phase 1-5 deliverables in G139:
+  1. `Lib/Math/Real213/Mobius/Mobius213Equiv.lean` defining `mobiusEq` via P-orbit / Stern-Brocot
+  2. `cutEq ⇔ mobiusEq` bridge theorem
+  3. Factor all equivalence definitions through `mobiusEq`
+  4. Real213 canonical Setoid (mobiusEq quotient)
+  5. Cross-frame: K_{3,2}, continued fractions, atomic_iff_five, Cayley-Dickson
 
-Main absorbed research-notes promotion wave (14 notes → 5 chapters)
-and G138 synthesis patterns:
-
-  · **Pattern A** — 4-way ModulusStructure
-    (`Lib/Math/Topology/ModulusStructure.lean` 16 PURE)
-  · **Pattern B** — Sym(3) spine chapter (`theory/math/sym3_spine.md`)
-  · **Pattern C** — Cut-off cross-domain section
-    (`theory/meta/cardinality_cutoff_principle.md` §8.5)
-  · **Pattern D** — Nodup as Clause-4
-    (`Lib/Math/Cohomology/NodupAsClause4.lean` 12 PURE)
-  · **Pattern F** — Multiplicity doctrine chapter
-    (`theory/meta/multiplicity_doctrine.md`)
-  · Pattern E (Int.NonNeg sweep) — scope-refined for dedicated session
-
-## Anchor docs
+## Anchor docs (next session)
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence |
-| `theory/INDEX.md` | Book map |
-| `theory/math/exotic_4mfd_cork.md` | Cork chapter (197 PURE) |
-| `theory/math/geometrization_conjecture.md` | Geometrization chapter (15 files, ~397 PURE) |
-| `theory/essays/4mfd_geometrization_joint_reading.md` | Joint reading essay |
-| `theory/essays/cup_ladder_cork_h1_bridge.md` | Cup-ladder ↔ cork essay |
-| `AkbulutCork/MultiCork.lean` | Multi-cork all extensions |
-| `AkbulutCork/CrossFrame.lean` | Master capstones + cup-ladder + α_em |
-| `JsjDeep.lean` | FW-2 + L(p,q) + #sum + multi-fold + Heegaard + linking + chi preservation |
-| `MetricGeometries.lean` | FW-4 + 8-geo + Lie group consolidation |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence; §5.4 dichotomy avoidance (this session lesson) |
+| `research-notes/G29_residue.md` | Foundational text |
+| `research-notes/G139_mobius_equivalence_unification.md` | **Active research direction** |
+| `theory/INDEX.md` | Book map (98+ chapters) |
+| `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
+| `lean/E213/ARCHITECTURE.md` | Layer spec |
+| `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Mobius213.lean` | P matrix + Pell invariant |
+| `lean/E213/Lib/Math/Mobius213OneAsGlue.lean` | det = glue = 1 |
+| `lean/E213/Lib/Math/Mobius213ModFive.lean` | P¹⁰ ≡ I (mod 5) |
+| `lean/E213/Lib/Math/UniverseChain/MobiusChain.lean` | Möbius chain G65-G81 |
+| `lean/E213/Lib/Math/Real213/Core/CutPoset.lean` | `cutEq` definition |
+| `lean/E213/Lib/Math/Real213/NValidCut.lean` | Wave 13 parametric capstone |
+| `theory/essays/bool_assoc_failure_meaning.md` v4 | b ≥ 3 진단 + (3, 2)-atom 분석 |
+| `theory/essays/pure_funext_avoidance.md` | 4 architectural patterns |
+| `theory/essays/4mfd_geometrization_joint_reading.md` | 4-mfd joint reading |
+| `theory/essays/cup_ladder_cork_h1_bridge.md` | Cup-ladder ↔ cork |
+| `catalogs/cross-domain-identifications.md` | CDI-9 Möbius det 3-way |
 
-## Cross-cutting marathon results
+## Open frontier (post-merge residual)
 
-| Sym(3) cross-frame frame | Source |
-|---|---|
-| Cork signed count +4 = Sym3IrrepDecomp.fixedSize | `AkbulutCork/SignedOrbits.lean` |
-| Geometrization 3 isotropic + 5 anisotropic | `theory/math/geometrization_conjecture.md` |
-| Gluon octet H¹ rank 8 = 2·trivial ⊕ 3·standard | `theory/physics/symmetry/c3_chain.md` |
-| HC_K32 Hodge 256 cup-subring | `theory/math/cohomology/hodge_conjecture.md` |
-| Möbius P mod-5 pentagonal closure | `theory/math/cohomology/k32_higher_cohomology.md` |
-| **5-way capstone** | `AkbulutCork/CrossFrame.five_way_sym3_cross_frame_capstone` |
-| **Master marathon capstones (v1 + v2)** | `AkbulutCork/CrossFrame.four_mfd_geometrization_marathon_capstone{,_v2}` |
+  · **G139 Phase 1-5** — Möbius equivalence unification (active direction).
+  · `cutMulN N` parametric — multiplication analog of `cutSumN N`.  Nested
+    inner/outer search + `m1*m2 ≤ m*N²*k` bound design.  Demonstrate
+    `(a/N)(c/N) = ac/N²` closure at all (m, k).
+  · `is_native` wrapper for `b ∈ ⟨2, 3⟩^mult` (if G139 doesn't supersede).
+  · `algebra_tower.md` L10+, Type D L3+ uniform CD-doubling.
+  · Cork + geometrization residual extensions per Master capstone v2.
 
-## Recently closed (carry-over)
+## Failure modes catalog candidates (CLAUDE.md additions)
 
-| Campaign | Status | Promoted to |
+Wave 12-13 surfaced TWO repeated patterns deserving catalog entries:
+
+| Failure | Symptom | Correction |
 |---|---|---|
-| **4-mfd geometrization marathon (this branch)** | 13 SESSIONS / 415 PURE | `theory/math/exotic_4mfd_cork.md` + `theory/math/geometrization_conjecture.md` + 2 essays |
-| **Research-notes promotion wave 1+2** | 14 NOTES ABSORBED | cup.md, fractal.md, algebra_tower.md, universe_chain.md, atomic_constants.md |
-| **G138 corpus synthesis** | 5/6 PATTERNS EXECUTED | Patterns B/F/C/A/D in canonical homes |
-| **G134 §7 marathon** | COMPLETE + PROMOTED | `theory/meta/cardinality_cutoff_applications.md` |
-| **G133 Hunter ⇔ Aurifeuillean cut-off** | CLOSED | `AurifeuilleanFullCutoff.lean` (28 PURE) |
-| **G132 K_{3,2}^{(c=2)} higher cohomology** | COMPLETE + PROMOTED | `theory/math/cohomology/cup_ladder_graduation.md` + `k32_higher_cohomology.md` |
-| **G131 Gram self-energy** | PROMOTED | `theory/physics/alpha_em/precision_derivation.md` |
-| **G130 ModulusStructure** | PROMOTED + 4-WAY EXTENDED | `theory/math/modulus_structure.md` (4-way, 16 PURE) |
-| **G129 V32Betti parametric** | PROMOTED | `theory/math/cohomology/bipartite.md` |
-| **G128 follow-up marathons** | PROMOTED | `theory/math/geometrization_conjecture.md` Open Frontier |
-| **G126 Akbulut cork** | EXTENDED → 197 PURE | this branch |
-| **G125 Aurifeuillean handle** | PROMOTED | `theory/math/cohomology/aurifeuillean.md` |
-| **G123 N_U-family theory** | PROMOTED | `theory/math/cohomology/fractal.md` |
-| **G122 Real213-p-adic** | COMPLETE + PROMOTED | `lean/E213/Lib/Math/Padic/` (308 PURE) + `theory/math/padic_real213.md` |
-| **G121 R1 Geometrization** | R1 CLOSED + EXTENDED → ~397 PURE | this branch |
-| **G86 Cup-Leibniz ∀(n, k, l)** | CLOSED | `LeibnizFinGeneral` + `LeibnizFinPureForm` |
+| Equivalence-pluralism | "여러 동치 정의가 따로 있음" | All can factor through single canonical equivalence (G139 conjecture) |
+| Repeated dichotomy reframing | "이번엔 진짜 boundary" 반복 | 4-iteration pattern in essay v1-v4; user-correction needed each round |
+
+## Build status
+
+`cd lean && lake build` — clean (full build, both marathons merged).
+`tools/scan_axioms.py` — 626 PURE for Algebra/Analysis marathon + 415
+PURE for 4-mfd geometrization, all 0 DIRTY.
 
 ## Marathon status
 
-**All HANDOFF-listed items closed**.  Marathon scope fully
-addressed across cork chapter (197 PURE) and geometrization
-chapter (397 PURE), plus 2 cross-cutting theory essays.  Merge to
-main ready.
+**Both marathons complete + merged to main**.  Next session ready
+for G139 Möbius equivalence unification work (Phase 1: define
+`mobiusEq`, prove `cutEq ⇔ mobiusEq`).

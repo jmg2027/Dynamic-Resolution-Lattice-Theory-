@@ -80,19 +80,63 @@ the only computational content.
   · `theory/meta/multiplicity_doctrine.md` Instance 4 — the
     multiplicity-doctrine reading of the 4-way modulus family.
 
-## Open frontier — Option B
+## Option B (categorical functor) — closed (ModulusStructureFunctor.lean, 12 PURE)
 
-Option B would lift this to a full categorical formulation:
-define morphisms between the four source structures
-(`IsContinuousModulus`, `IsRicciModulus`, `bracketCauchy*`,
-`zeta_modulus`) and prove the 4-way bridge is a functor /
-adjunction.  The current Option-A close gives the *typeclass-level*
-parallel without committing to a specific morphism formalisation;
-lifting to Option B requires (a) defining the category of
-cochain-function moduli, (b) defining the category of Nat→Nat
-moduli, (c) constructing the functor.  Substantial formalisation
-effort, deferred until a downstream theorem requires the functor
-itself.
+`Lib/Math/Topology/ModulusStructureFunctor.lean` lifts the Option A
+typeclass parallel to a **category-with-functor** formulation:
+
+  · `ModHom m₁ m₂` — morphism in the category of modulus
+    structures.  Carries a Nat-to-Nat reindexing `map` and the
+    order-preservation `preserves : ∀ k, m₂(map k) ≥ m₁(k)`.
+  · `ModHom.id` / `ModHom.comp` — identity + composition.
+  · Category laws at the `map`-projection level: `id_comp`,
+    `comp_id`, `comp_assoc` — all `rfl`.
+  · Concrete cross-source morphisms:
+    - `bracketCauchy_to_ident` (Bracket-Cauchy L=3 → Identity,
+      via `map k = 3k`)
+    - `ident_to_bracketCauchy_L1` (Identity → Bracket-Cauchy L=1,
+      via `map = id`)
+  · ★★★★★ `modulus_structure_option_B_capstone` packages the
+    morphism existence + category laws + cross-source bridge +
+    functor witness.
+
+Reading: the three modulus-source structures from
+`Topology.Continuity`, `GeometrizationConjecture.Ricci`, and
+bracket-Cauchy moduli are objects in a Lean-formalised category
+with `ModHom` arrows, identity, and associative composition.
+The functor-level bridge between sources is established;
+full adjunction (left / right adjoints between source categories
+themselves) requires additional machinery as a follow-up.
+
+## Full adjunction — closed (ModulusStructureAdjunction.lean, 12 PURE)
+
+`Lib/Math/Topology/ModulusStructureAdjunction.lean` extends the
+Option B functor to a full **adjunction** framework:
+
+  · `ModAdjunction L R` — structure carrying unit `η_m : m → R(L m)`
+    and counit `ε_m : L(R m) → m` natural transformations.
+  · `idAdjunction : ModAdjunction idF idF` — trivial identity
+    adjunction.
+  · `shiftBy c` endofunctor: modulus k ↦ m.modulus k + c.
+  · `shiftZero_id_adjunction : ModAdjunction (shiftBy 0) idF` —
+    shift-zero collapses to identity adjunction (Quot.sound-free
+    via pointwise statement).
+  · `shiftBy_unit` — for any `c`, unit `m → shiftBy c m` exists
+    (trivially: shift adds budget).
+  · `shiftBy_counit_bracketCauchy` — for any `c`, counit
+    `shiftBy c bracketCauchyL3 → bracketCauchyL3` via the
+    reindexing `map k = k + c` (uses `3·k + 3·c ≥ 3·k + c`, i.e.,
+    `c ≤ 3·c`).
+  · ★★★★★ `modulus_structure_full_adjunction_capstone` bundles
+    identity adjunction + shift-zero adjunction + shift-c units +
+    shift-c counits at `bracketCauchyL3`.
+
+Reading: the modulus-structure category supports a full adjunction
+framework — units / counits between endofunctors `idF` and
+`shiftBy c` live as `ModHom` natural transformations.  Non-trivial
+shift counits hold at module structures where the modulus growth
+dominates the shift (e.g., `bracketCauchyL3` with linear growth
+`3·k`).
 
 ## Self-reference
 

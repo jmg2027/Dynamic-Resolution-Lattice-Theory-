@@ -84,15 +84,39 @@ Other sub-trees cite the catalog rather than reinventing patterns:
 content is in their *use* across other sub-trees, not in their
 own depth.)
 
+## ParadigmDomain bridge — closed (ParadigmBridge.lean)
+
+`Lib/Math/PatternCatalog/ParadigmBridge.lean` (15 PURE) makes the
+relationship between the abstract catalog and the applied
+ParadigmDomain explicit:
+
+**Bridge thesis**: `ParadigmDomain` ≅ `Aggregate ∘ Forced` applied
+to `ParadigmWitness`.  Reading: the 9 paradigm-domain instances
+are bundled into one `Aggregate ParadigmWitness` (arity 9, phase
+"BB" = Both-Bound); each entry's `truncation_grade` is Forced to 5,
+`truncation_holds` Forced to true, `atom_decidable` Forced to true.
+
+Operator-word reading: the catalog algebra (`OpWord`) expresses
+this as the 2-letter word `A · F` — Aggregate-of-Forced.  Length 2,
+`aggCount = 1`, `forCount = 1`.
+
+Capstone: `paradigm_pattern_bridge_capstone` packages (a) arity 9,
+(b) uniform grade / holds / decidability across all 9 entries, and
+(c) operator-word stats in a single ∅-axiom theorem.
+
+The bridge confirms C6 cross-domain unification is a *PatternCatalog
+instantiation*, not a parallel construction — the same Aggregate +
+Forced operator pair that classifies generic 213 patterns (per the
+`OpWord` algebra) captures the 9-domain unification at the typeclass
+level.
+
 ## Open frontier
 
 Pattern catalog is **closed** at the 5-entry level.  Open extensions:
 - Adding new patterns is incremental — each new pattern is a small
   `Core` extension.
-- The catalog's relationship to `Lib/Math/ParadigmDomain*` (C6
-  cross-domain unification) is implicit; an explicit bridge theorem
-  ("every paradigm domain instantiates a pattern catalog entry") is
-  conceivable but not yet written.
+- ~~Bridge to `ParadigmDomain`~~ — CLOSED via
+  `PatternCatalog/ParadigmBridge.lean` (15 PURE).
 
 ## How to verify
 

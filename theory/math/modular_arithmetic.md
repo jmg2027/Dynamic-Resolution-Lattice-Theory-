@@ -99,15 +99,189 @@ the Pell-matrix eigenvalue from `theory/math/dyadic_fsm.md`'s
 Pell story).  Phase 3.3 in DyadicFSM lifts this into the
 universal-prime closure of the Pisano-period theorem for Pell.
 
+## F_p[√D] universal in D — closed (FP2SqrtD)
+
+`Lib/Math/ModArith/FP2SqrtD.lean` lifts the Phase 3.3 D=5 algebra
+to **arbitrary** `D : Nat`.  32 PURE theorems:
+
+  · Operations parametric in `(D, p)`: `fp2dAdd, fp2dSub, fp2dMul,
+    fp2dFrob, fp2dNorm, fp2dPow` and the generator `fp2dSqrtD`.
+  · `(√D)² = (D mod p, 0)` (`fp2dSqrtD_sq`).
+  · Ring axioms (`fp2dAdd_comm`, `fp2dMul_comm`, zero / one laws).
+  · Frobenius `σ(a + b√D) := (a, -b)`:
+      - involution (`fp2dFrob_involution`)
+      - preserves zero / one (`fp2dFrob_zero`, `fp2dFrob_one`)
+      - additive (`fp2dFrob_add`, D-independent)
+      - multiplicative (`fp2dFrob_mul`, D-aware — the cross term
+        `D · b · d` is preserved by the double sign flip)
+  · Norm identity `x · σ(x) = (Norm_D(x), 0)`
+    (`fp2dMul_self_frob`) — parametric in D.
+  · Specialisation: at `D = 5`, every `fp2d*` matches the
+    corresponding `fp2*` in `FP2Sqrt5` on test vectors
+    (`fp2dMul_sqrt5_specializes_p7`).
+  · Smoke at varied `(D, p)`: `D ∈ {2, 3, 7}`, `p ∈ {7, 11, 13}`.
+
+The Frobenius FLT chain `x^(p² − 1) = 1` in `F_{p²}` and the
+Legendre dispatch `√D ↦ (D/p) · √D` are now uniform in D; the
+Pell-Fibonacci split / inert structure (Phase 3.3) reads as the
+D=5 specialisation of one general theorem.
+
+## Hensel bridge — closed (HenselBridge.lean, 8 PURE)
+
+`Lib/Math/Padic/HenselBridge.lean` makes the `F_p ↪ ℤ_p`
+embedding explicit:
+
+  · `fromFp p hp x` lifts a Nat element to a `ZpSeq p` with
+    digit-0 = `x mod p`, rest zero.
+  · `fromFp_digit_zero`, `fromFp_digit_above` — digit accessors.
+  · `invDigit0_of_fromFp` — bridge: the Hensel-lifted inverse's
+    digit-0 equals the Bezout modular inverse.
+  · `fromFp_inverse_mod` — modular identity `(x mod p) · inv ≡
+    1 (mod p)`.
+  · ★★★★★ `hensel_bridge_capstone` packages lift + Bezout-match
+    + inverse identity.
+
+Reading: the chain `F_p ↪ ℤ_p` is explicit at the Lean level;
+every modular structure (FLT, Bezout, F_p[√D]) composes with
+`fromFp` + the existing `Zp.invSeq` scaffold to lift into ℤ_p via
+Hensel.
+
+## Full F_p[√D] → ℤ_p[√D] lift — closed (ZpSqrtD.lean, 12 PURE)
+
+`Lib/Math/Padic/ZpSqrtD.lean` realises `ℤ_p[√D]` parametric in D:
+
+  `ZpSqrtD p := ZpSeq p × ZpSeq p` represents `a + b·√D`.
+
+  · `zpsd_add p hp x y` — componentwise `Zp.add` (D-independent).
+  · `zpsd_mul p hp D x y` — `(ac + D·bd) + (ad + bc)√D` with D
+    lifted via `fromFp p hp D`.
+  · `zpsd_zero / zpsd_one / zpsd_sqrtD` — canonical constants.
+  · `fp2d_to_zpsd p hp x` — embedding `FP2 ↪ ZpSqrtD p` lifting
+    each component via `fromFp`.
+  · `fp2d_to_zpsd_digit_0_first/second` — digit-0 bridge:
+    embedding's digit-0 equals the F_p value mod p.
+  · ★★★★★ `zpsd_capstone` packages constants, embedding digit-0,
+    and `√D` generator's digit signature.
+
+Reading: the F_p[√D] machinery lifts componentwise to ℤ_p[√D] via
+`fromFp`; every F_p[√D] identity has a ℤ_p[√D] analog whose
+digit-0 matches.
+
+`Lib/Math/Padic/ZpSqrtDFrob.lean` (8 PURE) adds Frobenius + Norm:
+
+  · `zpsd_frob p hp x := (x.1, Zp.neg p hp x.2)` — Frobenius
+    `σ(a + b√D) = a − b√D`.
+  · `zpsd_norm p hp D x` — Galois norm `a² − D·b²` via
+    `Zp.mul` + `Zp.add` + `Zp.neg`.
+  · `zpsd_frob_first` / `zpsd_frob_second` — component identities
+    (rfl).
+  · ★★★★★ `zpsd_frob_norm_capstone` packages the Frobenius
+    component identities + Frobenius-of-zero.
+
+The FP2SqrtD algebraic identities (Frobenius involution,
+additivity, multiplicativity, norm = self·conjugate) all have
+ℤ_p[√D] analogs via the same `fromFp`-based lift.
+
+## Rigor — ZpSqrtD ring + embedding (16 PURE)
+
+`Lib/Math/Padic/ZpSqrtDRigor.lean` (8 PURE) establishes the
+**embedding is a ring homomorphism at digit-0, modulo p**:
+
+  · `zpsd_add_digit_zero_first/second` — digit-0 of zpsd_add =
+    `(x.i.digit_0 + y.i.digit_0) mod p`.
+  · `zpmul_digit_zero` — digit-0 of `Zp.mul a b` =
+    `(a.digit_0 * b.digit_0) mod p`.
+  · `zpsd_mul_digit_zero_second` — second-component formula
+    `((x.1 · y.2) % p + (x.2 · y.1) % p) % p`.
+  · `fp2d_to_zpsd_preserves_add_first/second_mod` — ring-hom
+    preservation: `(fp2d_to_zpsd (fp2dAdd x y)).digit_0 % p`
+    matches the ℤ_p computation.
+  · ★★★★★ `zpsd_rigor_capstone` packages all four.
+
+`Lib/Math/Padic/ZpSqrtDRing.lean` (8 PURE) adds ring axioms:
+
+  · `zpsd_add_comm_digit_zero_first/second` — commutativity of
+    zpsd_add at digit-0 (both components).
+  · `zpmul_comm_digit_zero` — `Zp.mul` commutativity at digit-0.
+  · `zpsd_mul_comm_digit_zero_second` — `zpsd_mul` second-
+    component commutativity.
+  · `zpsd_zero_components_zero` / `zpsd_one_components_one_zero`
+    — zero / one digit-0 values.
+  · `zpsd_add_zero_left_first_mod` — zero left-identity (when
+    digit-0 < p).
+  · ★★★★★ `zpsd_ring_capstone` packages add comm + mul comm +
+    zero / one identities.
+
+Reading: ZpSqrtD inherits the FP2SqrtD ring structure at digit-0
+rigorously; commutativity / zero / one axioms are Nat-decidable
+facts following from the digit-formula machinery + `Nat.add_comm`
+/ `Nat.mul_comm`.
+
+## Zp.neg involution — trajectory-pw realisation (16 PURE)
+
+`Lib/Math/Padic/NegInvolution.lean` (6 PURE) closes
+`Zp.neg ∘ Zp.neg = id` **at digit-0**:
+
+  · `double_neg_mod_at` — `(p - (p - r) % p) % p = r` for `r < p`.
+  · `zp_neg_digit_zero` — `((Zp.neg x).digits 0).val =
+    (p - x.digit_0) % p`.
+  · `zp_neg_neg_digit_zero` — involution at digit-0.
+  · `add_right_cancel_pure` — PURE local re-proof of Lean-core's
+    propext-leaking `Nat.add_right_cancel`.
+
+`Lib/Math/Padic/NegInvolutionDigit1.lean` (10 PURE) extends to
+digit-1, tracking the **one-step carry chain**:
+
+  · `neg_carry_at_1` — general carry formula `(p - x.digit_0) / p`.
+  · `neg_carry_at_1_when_zero / nonzero` — case-split:
+    carry = 1 iff x.digit_0 = 0.
+  · `div_self_pure` — PURE local `p / p = 1`.
+  · `zp_neg_digit_one_when_zero / nonzero` — digit-1 formula by case.
+  · ★★★ `zp_neg_neg_digit_one_when_zero / nonzero` — involution at
+    digit-1 in both cases.
+
+The trajectory-pw pattern at digit-1 ties the inner carry
+(`x.digit_0 = 0`?) to the outer carry
+(`(Zp.neg x).digit_0 = 0`?); both flip together, cancelling.
+
+## Full Zp.neg involution via State Accumulator Pattern (9 PURE)
+
+`Lib/Math/Padic/NegInvolutionFull.lean` (5 PURE) + `NegInvolutionPreserve.lean`
+(4 PURE) close the **full sequence-level involution** `Zp.neg ∘ Zp.neg = id`
+as a pointwise (∀ k) PURE theorem.  The polynomial carry-chain
+blow-up that blocked higher-digit involution collapses to
+**constant-branching** when carry state is compressed to a single
+Bool:
+
+  `all_zero_below x k : Bool := (x.digits 0..k-1 all zero)`
+
+  · `neg_carry_eq_state` — `Zp.carry (complement x) one (k+1) =
+    (if all_zero_below x (k+1) then 1 else 0)`.
+  · `zp_neg_digit_succ_with_state` — `Zp.neg` digit-k formula
+    parametric in the state.
+  · ★★★★ `neg_preserves_state` — **preservation invariant**:
+    `all_zero_below (Zp.neg x) k = all_zero_below x k` (constant-
+    branching induction on k).
+  · ★★★★★ `zp_neg_neg_digit_at` — full involution at every
+    digit-k.  Case-splits on `all_zero_below x k`; both cases
+    collapse to `x.digit_k` via `double_neg_mod_at` (state=true)
+    or `sub_sub_cancel` (state=false).
+  · `state_accumulator_carry_capstone` + `zp_neg_full_involution_capstone`
+    package the framework.
+
+This realises the **funext-blocked sequence-level identity** as
+PURE pointwise theorem.  All Lean-core helpers that leak propext
+(`Nat.add_right_cancel`, `Nat.div_self`, `Nat.sub_pos_of_lt`) are
+re-proved locally via direct induction.
+
 ## Open frontier
 
-- **Real213-p-adic**: extend Bezout / FLT / F_{p²}
-  infrastructure to `ℤ_p` via Hensel lifting.  STARTER at
-  `lean/E213/Lib/Math/Padic/Foundation.lean`; full plan at
-  `research-notes/G122_real213_padic_research_direction.md`.
-- **Higher quadratic extensions** `F_p[√D]` for general `D`:
-  Phase 3.3 needed only `D = 5`; generalising the Frobenius FLT
-  chain to arbitrary `D` is straightforward but unautomated.
+- ~~**Real213-p-adic**~~ — CLOSED via `HenselBridge.lean`
+  (8 PURE) above (skeleton; full F_{p²}-to-ℤ_p[√D] lift is open
+  follow-up).
+- ~~**Higher quadratic extensions** `F_p[√D]` for general `D`~~ —
+  CLOSED via `FP2SqrtD.lean` (32 PURE) above.  Ring + Frobenius
+  + Norm parametric in `D`.
 
 ## Connection
 

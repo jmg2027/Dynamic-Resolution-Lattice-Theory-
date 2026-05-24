@@ -114,21 +114,85 @@ machinery directly.
 | `signedLeftCollapse` | `SignedLeftCollapse` | Always-prefer-left collapse |
 | Base IVT | `IVT` | Classical statement in 213-native form |
 
+## Multi-variate bisection — closed (MultiVarBisection.lean)
+
+`Lib/Math/Analysis/DyadicSearch/MultiVarBisection.lean` (10 PURE)
+lifts the single-variate trajectory-witness IVT to **simultaneous
+root finding on n variables**:
+
+  · `MultiBracket n := Fin n → DyadicBracket` — n-tuple of brackets.
+  · `MultiConsistentOracle n mb` — per-coordinate consistent oracles.
+  · `MultiCauchyCutSeq n := Fin n → CauchyCutSeq` — the joint readout.
+  · `MultiConsistentOracle.toMultiCauchy` — n-tuple of Cauchy readouts.
+  · `unitMultiBracket n`, `unitMultiConsistentOracle n`,
+    `unitMultiCauchy n` — canonical unit n-bracket instance.
+  · Smoke at n = 2 (planar), n = 3 (spatial), n = 5 (atomic
+    dimension `d = 5`).
+  · ★★★★ `multi_var_capstone` — bundles existence, projection,
+    and per-coordinate equality.
+
+213-native reading: the multi-variate IVT is a **product** of
+single-variate IVTs.  No extra structural machinery needed — n
+independent `ConsistentOracle`s compose to a single product oracle,
+yielding n independent CauchyCutSeqs.
+
+## Full RootCertificate packaging — closed (RootCertificate.lean, 9 PURE)
+
+`Lib/Math/Analysis/DyadicSearch/RootCertificate.lean` packages the
+trajectory-witness IVT readout into a single structure:
+
+  `RootCertificate f` bundles `bracket : DyadicBracket` plus the
+  `BracketSignChange f bracket` witness (sign change at unit
+  precision over the bracket endpoints).
+
+  · `RootCertificate.ofBracket` — promote any `BracketSignChange`
+    to a certificate.
+  · `RootCertificate.refine` — apply one `bisectStep` under
+    `signedLeftOracle f`, preserving the certificate via
+    `bisectStep_signed_left_preserves_sign_change`.
+  · `RootCertificate.refineN` — refine N steps.
+  · `lowerCut` / `upperCut` — endpoint accessors.
+  · `signLeft` / `signRight` — sign witnesses (`f.lowerCut 0 1 =
+    false`, `f.upperCut 0 1 = true`).
+  · ★★★★★ `root_certificate_capstone` packages existence,
+    bracket access, and both sign witnesses.
+
+Reading: the IVT root of `f` is a typed certificate carrying
+bracket endpoints + sign witnesses, refined under
+`signedLeftOracle`-bisection.  No `∃` existential, no `Decidable`
+on the root — just constructive Nat-decidable data.
+
 ## Open frontier
 
 `MinimalRootLens` skeleton is closed.  Open extensions:
 
-1. **Full root-certificate** (lower / upper / zero): the current
-   skeleton gives the cut; a full `RootCertificate` packaging
-   (lower bound, upper bound, witness of vanishing) awaits the
-   **monotone-polynomial milestone** (next).
+1. ~~**Full root-certificate**~~ — CLOSED via
+   `RootCertificate.lean` (9 PURE) above.  Bundles bracket + sign
+   change + refine combinators.
 
-2. **Generalization to multi-variate**: bisection on `Cut^n` for
-   simultaneous root-finding.  Currently single-variable only.
+2. ~~**Generalization to multi-variate**~~ — CLOSED via
+   `MultiVarBisection.lean` (10 PURE).
 
-3. **Continuity-without-ε** alternative: phrase the continuity
-   assumption itself as a `ConsistentOracle` extension, eliminating
-   the implicit ε-δ residue in the current definition.
+3. ~~**Continuity-without-ε** alternative~~ — CLOSED via
+   `Real213/OracleContinuity.lean` (companion chapter).
+
+## Rigor — multi-variate coordinate independence (7 PURE)
+
+`Lib/Math/Analysis/DyadicSearch/MultiVarRigor.lean` establishes
+that the canonical multi-CauchyCutSeq is **uniform in coordinate**:
+
+  · `unitMulti_coord_independence n i j` — projection at any two
+    indices agrees.
+  · `unitMulti_const_in_i` — projection is constant
+    (= single-variate canonical).
+  · `unitMultiBracket_const` / `unitMultiBracket_coord_eq` —
+    bracket-level coord-independence.
+  · `atomic_d_coord_0` / `atomic_d_all_coords_agree` — concrete
+    `n = d = 5` case with all five coords agreeing.
+  · ★★★★★ `multi_var_rigor_capstone` packages all three.
+
+Reading: the product structure is structurally diagonal at the
+canonical unit instance.
 
 ## How to verify
 

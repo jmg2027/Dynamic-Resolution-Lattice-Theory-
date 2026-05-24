@@ -20,6 +20,7 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxPolynomial
 import E213.Lib.Math.Analysis.FluxMVT.FluxSeries
 import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessCatalog
 import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessChain
+import E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis.FluxMVT`.
 
@@ -61,4 +62,10 @@ import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessChain
                             in flux form
     * `FTCRiemann`        — Riemann-form FTC
     * `FluxSeries`        — flux applied to series
+
+  ## Conservation / Gauss
+
+    * `TelescopingConservation` — telescoping = Gauss divergence
+                                   = conservation (cohomological
+                                   wall-cancellation in 213-native form)
 -/

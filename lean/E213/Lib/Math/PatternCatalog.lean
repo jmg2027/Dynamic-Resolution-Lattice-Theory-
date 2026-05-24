@@ -2,6 +2,7 @@ import E213.Lib.Math.PatternCatalog.Algebra
 import E213.Lib.Math.PatternCatalog.Core
 import E213.Lib.Math.PatternCatalog.CrossAxis
 import E213.Lib.Math.PatternCatalog.Instance
+import E213.Lib.Math.PatternCatalog.ParadigmBridge
 import E213.Lib.Math.PatternCatalog.Span
 
 /-! Spec-as-code entry point for `E213.Lib.Math.PatternCatalog`.
@@ -18,9 +19,12 @@ import E213.Lib.Math.PatternCatalog.Span
 
   ## Files
 
-    * `Core`       — pattern-catalog top-level type + ops
-    * `Algebra`    — algebraic operations on the catalog
-    * `CrossAxis`  — cross-axis pattern interaction
-    * `Instance`   — concrete instances of the catalog spec
-    * `Span`       — span / closure of the catalog
+    * `Core`            — pattern-catalog top-level type + ops
+    * `Algebra`         — algebraic operations on the catalog
+    * `CrossAxis`       — cross-axis pattern interaction
+    * `Instance`        — concrete instances of the catalog spec
+    * `Span`            — span / closure of the catalog
+    * `ParadigmBridge`  — ParadigmDomain ↔ PatternCatalog bridge:
+                          ParadigmDomain ≅ Aggregate ∘ Forced on
+                          ParadigmWitness (operator word AF)
 -/

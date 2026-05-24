@@ -150,16 +150,86 @@ F_{p²}) to Pisano-statements-on-the-FSM.
   asymptote rate uses Pisano periods
 - `theory/math/real213.md` — Real213 brackets use dyadic encodings
 
+## k-bonacci closure — `KBonacci.lean` (48 PURE)
+
+`Lib/Math/DyadicFSM/KBonacci.lean` realises the k-bonacci family
+parametric in `k : Nat`:
+
+  · Definition `kBonacci k n` via a list-window-state iterator:
+    initial seeds `[0, ..., 0, 1]` of length `k`; one step =
+    drop the oldest, append the sum of the current window;
+    return the head after `n` steps.
+  · Smoke tests at `k ∈ {2, 3, 4, 5}` and `n ∈ {0, 1, ..., 12}`:
+    Fibonacci, Tribonacci, Tetranacci, Pentanacci match standard
+    OEIS values via `decide`.
+  · ★★★ **Depth-5 cascade** (`depth_5_cascade`): reading at the
+    atomic-dimension index `n = d = 5` gives the cascade
+    `(kBonacci 2 5, kBonacci 3 5, kBonacci 4 5, kBonacci 5 5)
+     = (5, 4, 2, 1) = (d, d−1, NT, 1)` — the k-bonacci ladder
+    at index `d` reads out the atomic family.
+  · Catalogue hits: `Tetra(5) = 2 = NT`, `Penta(6) = 2 = NT`.
+
+The parametric definition makes Tribonacci's hand-rolled
+`Trib` (in `Cohomology/Fractal/TribonacciCutoff.lean`) one case
+of a single generic family.
+
+## Continued fractions as FSM — closed (ContinuedFraction.lean, 17 PURE)
+
+`Lib/Math/DyadicFSM/ContinuedFraction.lean` realises the
+continued-fraction expansion of a positive rational `p/q` as an
+explicit FSM:
+
+  · State `CFState := Nat × Nat`.
+  · Transition `cfStep (n, d) := (d, n mod d)` — Euclidean step.
+  · Output `cfDigit (n, d) := n / d` — current quotient.
+  · `cfCoeff p q k` — the k-th continued-fraction coefficient.
+  · Terminal state `(n, 0)` — fixed point with digit `0`.
+
+Smoke at 213-relevant rationals:
+  · Cabibbo `5/22 = [0; 4, 2, 2]`.
+  · Archimedean `22/7 = [3; 7]` (π approximation).
+  · CKM-δ `176/147 = [1; 5, ...]`.
+  · Fibonacci convergents `5/3 = [1; 1, 2]`, `8/5 = [1; 1, 1, 2]`,
+    `13/8 = [1; 1, 1, 1, 2]` (φ-convergent fingerprint: leading
+    1s with terminal 2).
+  · `21/8 = [2; 1, 1, 1, 2]` (Fibonacci-convergent φ² approximation).
+  · ★★★★ `continued_fraction_fsm_capstone` packages all four
+    classes + termination.
+
+Reading: every rational in the DRLT precision tables (Cabibbo,
+CKM δ, π approximations, Fibonacci convergents) has its
+continued-fraction expansion as a finite FSM output stream — the
+Euclidean algorithm IS the FSM transition.
+
 ## Open frontier
 
-- **Higher-order recursions** (Tribonacci, k-bonacci) — partially
-  done (Tribonacci has FSM); generalization to arbitrary k open
-- **Continued fractions** as FSM — sketched, not yet capstoned
 - **Real213-p-adic** — the modular-arithmetic substrate
   produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
   foundation for a 213-native p-adic construction.  STARTER at
   `lean/E213/Lib/Math/Padic/Foundation.lean`; campaign plan at
   `research-notes/G122_real213_padic_research_direction.md`.
+- ~~**Higher-order recursions** (Tribonacci, k-bonacci)~~ —
+  CLOSED via `KBonacci.lean` (48 PURE) above.  Parametric in `k`,
+  depth-5 cascade theorem.
+- ~~**Continued fractions** as FSM~~ — CLOSED via
+  `ContinuedFraction.lean` (17 PURE) above.
+
+## Rigor — k-bonacci recurrence identity (26 PURE)
+
+`Lib/Math/DyadicFSM/KBonacciRecurrence.lean` establishes that
+`kBonacci k n` satisfies the standard recurrence
+`a_{n+k} = a_{n+k-1} + ... + a_n`:
+
+  · `fib_rec_{0..5}` — Fibonacci recurrence at `n = 0..5`.
+  · `trib_rec_{0..5}` — Tribonacci recurrence at `n = 0..5`.
+  · `tetra_rec_{0..3}` — Tetranacci recurrence at `n = 0..3`.
+  · `penta_rec_{0..2}` — Pentanacci recurrence at `n = 0..2`.
+  · Monotonicity at small indices past the seed region.
+  · ★★★★★ `kbonacci_recurrence_capstone` packages one identity
+    from each (k=2..5) family + monotonicity.
+
+Reading: rigorous Nat-decidable confirmation that the list-window-
+state definition reproduces the standard k-bonacci recurrence.
 
 ## How to verify
 

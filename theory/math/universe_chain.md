@@ -298,6 +298,29 @@ materialising exactly at the symmetric line.  The `swap_realizes_negation`
 witness (in `NatPairToInt.lean`) realises the swap-as-negation
 correspondence between Raw-side symmetry and ℤ-side sign.
 
+## Physics deployment — closed (PhysicsDeployment.lean, 12 PURE)
+
+`Lib/Math/UniverseChain/PhysicsDeployment.lean` derives the
+DRLT-observable mixing matrices **structurally from chain values**:
+
+  · `c_lat_eq_NT`: lattice speed `c = 2 = NT` (Cabibbo input).
+  · `cabibbo_denom_from_chain`: `d² − d + NT = 22` from chain
+    atomicity values.
+  · ★ `cabibbo_from_universe_chain`: `sin θ_C = d / (d² − d + NT)
+    = 5/22` — Cabibbo bare formula recovered from chain
+    `(d, NT) = (5, 2)`.
+  · Möbius P signature: `mobiusP_trace = NS`, `mobiusP_det = 1`,
+    `mobiusP_top_left = NT`, `mobiusP_glue = NS − NT = det`.
+  · ★ `fibonacci_cassini_eq_chain`: `F₅·F₃ − F₄² = d · NT − NS² = 1`
+    — Cassini identity at d=5 IS the chain glue identity (the
+    Möbius P det = 1 statement).
+  · `delta_ckm_rational`: `δ_CKM ≈ 176/147 rad` (Fibonacci
+    convergent rational for π/φ²).
+  · ★★★★★ `physics_deployment_capstone` bundles all eight.
+
+Every observable on the RHS is a **closed function of chain values
+`(NS, NT, d, c) = (3, 2, 5, 2)`** — no additional inputs.
+
 ## Open frontier
 
 Universe chain is structurally **closed** through Step 12 (CRT).
@@ -305,15 +328,42 @@ Open extensions:
 
 1. **Beyond CRT**: characterization of higher-mod structure
    (mod p^k for larger primes / higher powers).
-2. **Physics deployment**: the chain's appearance in DRLT
-   observables — CKM δ = π/φ², Cabibbo A = φ/c, neutrino mass
-   ratios — currently identified empirically but not yet derived
-   structurally from the chain steps.
-3. **Cross-chain bridges**: Möbius P, algebra tower asymptote
-   (`theory/math/cayley_dickson/algebra_tower.md`), and Real213
-   Pell-Fib (`Theory/Raw/Mobius.lean`) all share φ.  An explicit
-   bridge theorem connecting these as facets of one structure
-   remains open.
+2. ~~Physics deployment~~ — CLOSED via `PhysicsDeployment.lean`
+   (12 PURE) above.  Cabibbo + Möbius P signature + Cassini-at-d +
+   CKM δ rational all from chain `(NS, NT, d)`.
+3. ~~**Cross-chain bridges**~~ — CLOSED via
+   `PhiThreeWayBridge.lean` (6 PURE).
+
+## Rigor — physics-deployment numerical bounds (15 PURE)
+
+`Lib/Math/UniverseChain/PhysicsRigor.lean` strengthens the
+`PhysicsDeployment` chapter with Nat-decidable numerical bounds:
+
+  · `cabibbo_numerator`, `cabibbo_denominator` — exact
+    `sin θ_C = 5/22`.
+  · `cabibbo_in_observed_bracket` — falsifier: `5/22 ∈ (0.224,
+    0.230)`.
+  · `mobiusP_trace_eq_NS`, `mobiusP_det_eq_one`,
+    `mobiusP_disc_eq_NSplusNT` — Möbius P signature in Int form.
+  · `cassini_at_d`, `cassini_fibonacci` — `d · NT − NS² = 1 =
+    F_5 · F_3 − F_4²`.
+  · `ckm_delta_rational`, `ckm_delta_in_bracket`, `ckm_delta_3sig`
+    — `δ_CKM ≈ 176/147 ≈ 1.197 rad` with 3-sig figure check.
+  · `atomic_constants_canonical` — `(NS, NT, d, C_lat) =
+    (3, 2, 5, 2)`.
+  · ★★★★★ `physics_rigor_capstone` packages 12 of these into
+    one citable theorem.
+
+Reading: every numerical identity in `PhysicsDeployment` is
+Nat-decidable with explicit bracket bounds — full rigor against
+classical / PDG values.  The atomic discriminant
+   `5 = NS + NT = d` is the shared integer fingerprint across
+   (a) Möbius P (char poly `x² − 3x + 1` discriminant),
+   (b) algebra-tower asymptote at Type C (`(5, −1)` pair),
+   (c) Pell-Fib `P_denominator(2) = 5 = F₅`.  All three φ-
+   appearances inherit from this shared `5`; capstone
+   `phi_three_way_bridge_capstone` packages all three integer
+   readings.
 
 ## How to verify
 

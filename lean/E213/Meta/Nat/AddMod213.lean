@@ -224,4 +224,29 @@ theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
     · rw [if_pos h]; exact Nat.le_antisymm hba h
     · rw [if_neg h]
 
+/-- ★ **Double mod-p negation**: `(p - (p - r) % p) % p = r` for
+    `r < p`.  PURE.
+
+    The "additive inverse is involutive in `F_p`" identity, in
+    canonical-form (r < p) form.  Used in:
+      · `Lib/Math/ModArith/FP2Sqrt5` (private double_neg_mod)
+      · `Lib/Math/ModArith/FP2SqrtD`
+      · `Lib/Math/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
+        Zp.neg involution at digit-0 and beyond)
+
+    Promoted to Meta layer 2026-05; previously local copies in
+    each consumer file. -/
+theorem double_neg_mod_at (p r : Nat) (hp : 0 < p) (hr : r < p) :
+    (p - (p - r) % p) % p = r := by
+  by_cases h0 : r = 0
+  · subst h0
+    show (p - (p - 0) % p) % p = 0
+    rw [Nat.sub_zero, mod_self, Nat.sub_zero, mod_self]
+  · have h0_pos : 0 < r := Nat.pos_of_ne_zero h0
+    have hpsub_lt : p - r < p := Nat.sub_lt hp h0_pos
+    have h_psub_le : r ≤ p := Nat.le_of_lt hr
+    rw [Nat.mod_eq_of_lt hpsub_lt]
+    rw [E213.Tactic.NatHelper.sub_sub_self h_psub_le]
+    rw [Nat.mod_eq_of_lt hr]
+
 end E213.Meta.Nat.AddMod213

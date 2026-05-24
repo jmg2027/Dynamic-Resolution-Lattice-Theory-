@@ -88,12 +88,49 @@ observation, not yet capstoned in Lean.
 - `research-notes/archive/metascan/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive
 - `research-notes/archive/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
 
+## Telescoping ↔ Gauss / Conservation — closed (TelescopingConservation.lean)
+
+`FluxMVT/TelescopingConservation.lean` (6 PURE + 2 structures)
+makes the multi-agent observation a citable Lean theorem:
+
+  · `Adjacent db₀ db₁` — same exponent + `db₀.numB = db₁.numA`
+    (i.e., the shared wall cut matches).
+  · `adjacent_walls_match` — adjacency ⇒ `db₀.rightCut = db₁.leftCut`.
+  · ★ `flux_edge_match` — local edge-matching identity:
+    `(fluxAlong f db₀).forward = (fluxAlong f db₁).backward`.
+  · `flux_triple_telescope` (n=3 chain) and `flux_quad_telescope`
+    (n=4 chain) — both interior walls cancel by the same pattern.
+  · ★★★★ `gauss_conservation_telescope` — capstone:
+      (a) interior walls cancel pairwise,
+      (b) only the outer boundary cuts (`db₀.leftCut`,
+          `db_{N-1}.rightCut`) survive.
+
+213-native reading: the classical Gauss divergence theorem
+`∫_Ω (∇·F) dV = ∮_∂Ω F · dA` and conservation `∂_μ J^μ = 0
+⇒ flux invariant` are both realised as cohomological
+wall-cancellation in the FluxCochain.  No integral or measure
+machinery needed; the cancellation IS the conservation.
+
+## d-depth-5 quintuple chain — closed (QuintupleTelescope.lean, 3 PURE)
+
+`Lib/Math/Analysis/FluxMVT/QuintupleTelescope.lean` extends
+`TelescopingConservation` (triple + quadruple chains) to the
+**d-depth-5 chain**: a 5-bracket telescoping at the atomic
+resolution dimension `d = 5`.
+
+  · `QuintupleChain` predicate (4 adjacencies covering all
+    interior walls).
+  · `flux_quintuple_telescope` — all 4 interior walls cancel
+    pairwise.
+  · `flux_quintuple_boundary` — outer cuts `(db₀.leftCut,
+    db₄.rightCut)` survive.
+  · ★★★★★ `d_depth_5_capstone` packages both — the
+    Gauss/conservation telescoping at d=5.
+
 ## Open frontier
 
-- **Telescoping ↔ Gauss / conservation identification**: still
-  observation-level, not yet a citable theorem in Lean.  Worth
-  formalizing as `FluxMVT/Telescoping_Conservation.lean`.
-- **MVT chain at higher depth**: current chains close at 3-4
-  bracket levels; deeper chains (d-depth-5 per resolution limit)
-  pending.
+- ~~Telescoping ↔ Gauss / conservation identification~~ — CLOSED
+  via `TelescopingConservation.lean` (6 PURE) above.
+- ~~MVT chain at higher depth (d-depth-5)~~ — CLOSED via
+  `QuintupleTelescope.lean` (3 PURE) above.
 - Per marathon deferred-items log REAL-RES4 follow-ups in deeper FluxMVT analysis.

@@ -13,6 +13,7 @@ import E213.Lib.Math.DyadicFSM.ConcretePellSig
 import E213.Lib.Math.DyadicFSM.Signature.Conjecture
 import E213.Lib.Math.DyadicFSM.Product.CrossClassLens
 import E213.Lib.Math.DyadicFSM.Fib
+import E213.Lib.Math.DyadicFSM.KBonacci
 import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
 import E213.Lib.Math.DyadicFSM.Forward.ForwardEventual
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
@@ -49,6 +50,9 @@ import E213.Lib.Math.DyadicFSM.Signature.WalkUniversal
     * `BitFSM/`     — Bool-pred bit-FSM family
     * `Fib/`        — Fibonacci-FSM mod-p variants + Pell relation
                       + Pisano-8 + Pisano capstone
+    * `KBonacci`    — k-bonacci sequences parametric in `k`
+                      (Fibonacci, Tribonacci, Tetranacci, Pentanacci,
+                      ...); depth-5 cascade `(d, d-1, NT, 1)`
     * `Legendre`    — Legendre-symbol Pisano variants (single
                       consolidated file)
     * `Pell/`       — Pell-equation cluster + per-mod variants

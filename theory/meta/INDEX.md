@@ -13,7 +13,7 @@ criteria H1-H4 adapt: H1 (purity) + H2 (build clean) → H1'
 scanners can be re-run).  Per `lean/E213/docs/PROMOTION_PATTERNS.md`,
 this is the **destination-variant** form of Pattern 1.
 
-## Chapters (6)
+## Chapters (7)
 
 | Chapter | Source |
 |---|---|
@@ -23,6 +23,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | 6 Lean files in `Cohomology/Fractal/` (191 PURE) |
 | [`methodology_patterns.md`](methodology_patterns.md) | Closure-work methodology: Patterns #1-#20 + Reduction patterns #1-#6 |
 | [`multiplicity_doctrine.md`](multiplicity_doctrine.md) | Patterns #17 + #20 + four canonical instances (Real213, Derivative, Cup, Modulus) |
+| [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
 
 ## Action-items registry
 
@@ -42,5 +43,6 @@ theory/meta/
 ├── cardinality_cutoff_principle.md         ← scale-matching cut-off methodology (Hunter ⇔ Aurifeuillean exemplar)
 ├── cardinality_cutoff_applications.md      ← six-direction application family (B/D/A/C/E/F, 191 PURE)
 ├── methodology_patterns.md                 ← reusable proof / refactor patterns (#1-#20 + reduction patterns)
-└── multiplicity_doctrine.md                ← framework-internal coexistence (4 instances: Real213, Derivative, Cup, Modulus)
+├── multiplicity_doctrine.md                ← framework-internal coexistence (4 instances: Real213, Derivative, Cup, Modulus)
+└── pure_lean_patterns.md                   ← PURE Lean funext-avoidance pattern catalog (4 architectural patterns)
 ```

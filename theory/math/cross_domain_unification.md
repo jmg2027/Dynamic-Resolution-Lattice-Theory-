@@ -146,9 +146,57 @@ remains open.
 
 C6 closure makes 213-Algebra "internally coherent" in the sense
 that all 9 domains use the same graded ring.  Beyond this:
-- Extending paradigm to **physics-side domains** (currently only math)
-- Deriving the resolution cutoff `N_U = 5²⁵` directly from the
-  graded ring structure (currently a separate spec).
+
+### Physics-side paradigm closure — `ParadigmDomainPhysics.lean` (14 PURE)
+
+`Lib/Math/ParadigmDomainPhysics.lean` extends the 9-math-paradigm
+bundle to 6 physics-side instances:
+
+  · `AlphaEM_paradigm` — α_em precision-derivation
+  · `AtomicMass_paradigm` — m_μ/m_e, m_p, m_W, m_Z
+  · `CKMMixing_paradigm` — Cabibbo + CKM δ + Jarlskog
+  · `NeutrinoMixing_paradigm` — PMNS mixing
+  · `Couplings_paradigm` — α_s / running couplings
+  · `Geometrization_paradigm` — Ricci flow / Poincaré
+
+All 6 physics instances carry the same `(truncation_grade,
+truncation_holds, atom_decidable) = (5, true, true)` as the math
+side.  `physics_paradigm_closure_capstone` bundles cardinality +
+uniform grade + holds + decide.  `joint_math_physics_uniform`
+witnesses all 15 paradigms (9 math + 6 physics) agreeing at the
+`d = 5` atomic constant.
+
+Reading: the paradigm framework is uniform across the math-physics
+boundary; both sides instantiate the SAME `(d=5, atom, decide)`
+shape — no special physics-side typeclass needed.
+
+### Graded ring ↔ N_U bridge — `GradedRingNUBridge.lean` (16 PURE)
+
+`Lib/Math/GradedRingNUBridge.lean` makes the cross-axis statement
+explicit: the **graded-ring** (cup-ring, `(1+x)^d` Pascal-row)
+counts and the **fractal configuration count** `d^(d^n)` family
+(the `N_U` hierarchy) are *both* downstream of the same atomic
+`d = 5`.
+
+Numerical witnesses at `d = 5`:
+
+| Quantity | Formula | Value |
+|---|---|---|
+| `paradigm_row_sum` | `2^d` | `32` |
+| `paradigm_self_cup_row_sum` | `2^(2d)` | `1024` |
+| `configCount 0` | `d` | `5` |
+| `configCount 1` | `d^d` | `3125` |
+| `configCount 2` (= `N_U`) | `d^(d²)` | `5^25 = 298 023 223 876 953 125` |
+
+★★★★★ `graded_ring_nu_bridge_capstone` bundles all five.
+
+**Honest reading**: the two are *not* identified — they count
+different things (subsets vs labellings).  They are
+**simultaneously decidable** functions of `d`, both arising from
+the atomic dimension `d = 5`.  The N_U = `d^(d²)` value is the
+level-2 tensor-power count, not a graded-ring sum; the graded ring
+fixes the cup-product algebra on Pascal-row 5, the configCount
+family fixes the resolution-hierarchy cardinality.
 
 ## How to verify
 
