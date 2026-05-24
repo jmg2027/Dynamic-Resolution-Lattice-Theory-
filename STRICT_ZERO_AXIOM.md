@@ -1833,3 +1833,55 @@ related P-orbit identities.
 (`Mobius213SternBrocot`) = **29 PURE / 0 DIRTY** for G139
 Phase 1 + 1b + 1c.  Phase 2 (backward bridge under
 scale-invariance) remains the substantive open direction.
+
+## 2026-05-24 — G139 Phase 2: Backward bridge closure
+
+The expected scale-invariance hypothesis turned out to be
+unnecessary: `SternBrocotReachable` covers every (m, k) with
+m + k ≥ 1 (via simple mediant extension with the two seeds), so
+the conjectured backward bridge `sternBrocotEq → cutEq` holds
+unconditionally except for a single (0, 0) side condition that
+no mediant closure of `{(0, 1), (1, 0)}` can satisfy.  9 new
+PURE theorems, bringing `Mobius213SternBrocot` to 26 PURE /
+0 DIRTY.
+
+| Theorem | Role |
+|---|---|
+| `reachable_succ_fst` / `reachable_succ_snd` | One-step extenders: `.mediant _ .seedInf` extends the first component by 1; `.mediant _ .seedZero` extends the second.  Both PURE one-liners. |
+| `reachable_zero_succ` / `reachable_succ_zero` | Boundary rows: every (0, k+1) and (m+1, 0) is reachable by repeated extension from the matching seed. |
+| `reachable_one_succ` | Top row: every (1, k+1) is reachable from `reachable_1_1` by repeated `reachable_succ_snd`. |
+| `reachable_succ_succ_aux` (private) | Single-Nat recursion on `m` extending `SR (1, k+1)` to `SR (m+1, k+1)`.  The split avoids `Nat × Nat` brec compilation that brought propext in earlier attempts. |
+| `reachable_succ_succ` | Interior cell `SR (m+1, k+1)` by composing the auxiliary with `reachable_one_succ`. |
+| `reachable_of_pos` | ★★★★★ **Full coverage**: every (m, k) with `1 ≤ m + k` is Stern-Brocot reachable.  Case-split dispatches to one of `reachable_zero_succ`, `reachable_succ_zero`, `reachable_succ_succ`. |
+| `cutEq_of_sternBrocotEq` | ★★★★★★ **Backward bridge**: `sternBrocotEq cx cy → cx 0 0 = cy 0 0 → cutEq cx cy`.  Term-mode pattern match on (m, k) routes (0, 0) to the side condition and all other cells to `reachable_of_pos`. |
+| `cutEq_iff_sternBrocotEq_and_zero` | ★★★★★ **Full equivalence**: `cutEq cx cy ↔ sternBrocotEq cx cy ∧ cx 0 0 = cy 0 0`. |
+
+**G139 conjecture closure (Lean level)**:
+
+The conjecture "every 213 equality definition factors through a
+single canonical Möbius-orbit equivalence" reduces — on the
+`Nat → Nat → Bool` cut representation — to the equivalence
+
+  `cutEq cx cy ↔ sternBrocotEq cx cy ∧ cx 0 0 = cy 0 0`.
+
+For cut-framework cuts (`constCut a N`, `cutSumN`, etc.) the
+side condition is automatic: `constCut a N 0 0 =
+decide (a * 0 ≤ N * 0) = decide (0 ≤ 0) = true`, identical for
+every (a, N).  Hence on the canonical cut representations,
+`cutEq` and `sternBrocotEq` agree simpliciter — the
+mediant-closure Stern-Brocot equivalence is the canonical form
+of cut equality.
+
+**The P-orbit `mobiusEq` reading** captures the *Pell-convergent
+diagonals* of the Stern-Brocot tree but does not give an
+equivalence-of-equivalence-definitions converse: agreement on
+the two thin P-orbits is genuinely weaker than full Stern-Brocot
+agreement.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) = **38 PURE / 0 DIRTY** for G139
+Phase 1 + 1b + 1c + 2.  The Möbius-equivalence unification
+conjecture is closed at the cut-Bool level; remaining work
+factors through other equality definitions (Phase 3: `ZpSeqEquiv`,
+`signedEq`, `Adjacent`, `LensMap` via `sternBrocotEq`
+instantiation).

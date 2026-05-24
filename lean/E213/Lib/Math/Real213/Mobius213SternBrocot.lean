@@ -258,4 +258,94 @@ theorem mobiusEq_of_sternBrocotEq (cx cy : Nat → Nat → Bool) :
   exact ⟨h (Pseq seedZero n).1 (Pseq seedZero n).2 hz,
          h (Pseq seedInf  n).1 (Pseq seedInf  n).2 hi⟩
 
+/-! ## §9 — Full coverage of ℕ × ℕ \ {(0, 0)}
+
+The mediant closure of {(0, 1), (1, 0)} reaches every non-trivial
+pair: applying `.mediant _ .seedInf` extends the first component
+by 1, and `.mediant _ .seedZero` extends the second.  Combined
+with the two seeds (m + k = 1), this gives `SternBrocotReachable`
+for every (m, k) with m + k ≥ 1.
+
+The boundary (0, 0) is excluded by construction — it is not in
+the mediant closure of `(0, 1)` and `(1, 0)`. -/
+
+/-- Extend the first component by 1 via mediant with `seedInf`. -/
+theorem reachable_succ_fst {m k : Nat} (h : SternBrocotReachable (m, k)) :
+    SternBrocotReachable (m + 1, k) :=
+  .mediant h .seedInf
+
+/-- Extend the second component by 1 via mediant with `seedZero`. -/
+theorem reachable_succ_snd {m k : Nat} (h : SternBrocotReachable (m, k)) :
+    SternBrocotReachable (m, k + 1) :=
+  .mediant h .seedZero
+
+/-- The (0, k+1) column is reachable for every `k`. -/
+theorem reachable_zero_succ : ∀ k, SternBrocotReachable (0, k + 1)
+  | 0     => .seedZero
+  | k + 1 => reachable_succ_snd (reachable_zero_succ k)
+
+/-- The (m+1, 0) row is reachable for every `m`. -/
+theorem reachable_succ_zero : ∀ m, SternBrocotReachable (m + 1, 0)
+  | 0     => .seedInf
+  | m + 1 => reachable_succ_fst (reachable_succ_zero m)
+
+/-- The (1, k+1) row is reachable for every `k`. -/
+theorem reachable_one_succ : ∀ k, SternBrocotReachable (1, k + 1)
+  | 0     => reachable_1_1
+  | k + 1 => reachable_succ_snd (reachable_one_succ k)
+
+/-- Auxiliary: from `SR (1, k+1)`, extend the first component
+    to any `m + 1`.  Single-Nat recursion on `m` keeps the proof
+    structurally pure (avoiding `Nat × Nat` brec compilation). -/
+private theorem reachable_succ_succ_aux :
+    ∀ (m : Nat) {k : Nat},
+    SternBrocotReachable (1, k + 1) → SternBrocotReachable (m + 1, k + 1)
+  | 0,     _, h => h
+  | m + 1, _, h => reachable_succ_fst (reachable_succ_succ_aux m h)
+
+/-- The interior (m+1, k+1) cell is reachable for every `m, k`. -/
+theorem reachable_succ_succ (m k : Nat) :
+    SternBrocotReachable (m + 1, k + 1) :=
+  reachable_succ_succ_aux m (reachable_one_succ k)
+
+/-- ★★★★★ **Full coverage**: every (m, k) ∈ ℕ × ℕ with
+    m + k ≥ 1 is Stern-Brocot reachable.  Case split: (0, k+1)
+    via `reachable_zero_succ`, (m+1, 0) via `reachable_succ_zero`,
+    (m+1, k+1) via `reachable_succ_succ`.  The boundary `(0, 0)`
+    is excluded — not in the mediant closure of the two seeds. -/
+theorem reachable_of_pos : ∀ (m k : Nat), 1 ≤ m + k → SternBrocotReachable (m, k)
+  | 0,     0,     h => absurd h (Nat.not_succ_le_zero 0)
+  | 0,     k + 1, _ => reachable_zero_succ k
+  | m + 1, 0,     _ => reachable_succ_zero m
+  | m + 1, k + 1, _ => reachable_succ_succ m k
+
+/-! ## §10 — Backward bridge: sternBrocotEq ⇒ cutEq (mod (0, 0)) -/
+
+/-- ★★★★★★ **Backward bridge**: Stern-Brocot agreement plus a
+    `(0, 0)`-side condition implies full pointwise cut equality.
+    The side condition at `(0, 0)` is unavoidable in general —
+    `SternBrocotReachable` is closed under mediant operations
+    starting from `(0, 1)` and `(1, 0)`, so it cannot reach
+    `(0, 0)`.  For cut-framework cuts such as `constCut a N`,
+    the value at `(0, 0)` is canonically `true` (since
+    `a * 0 ≤ N * 0` for all `a, N`), so the side condition is
+    automatic in practice. -/
+theorem cutEq_of_sternBrocotEq (cx cy : Nat → Nat → Bool)
+    (h : sternBrocotEq cx cy) (h00 : cx 0 0 = cy 0 0) :
+    cutEq cx cy :=
+  fun m k => match m, k with
+    | 0,     0     => h00
+    | 0,     k + 1 => h 0 (k + 1) (reachable_zero_succ k)
+    | m + 1, 0     => h (m + 1) 0 (reachable_succ_zero m)
+    | m + 1, k + 1 => h (m + 1) (k + 1) (reachable_succ_succ m k)
+
+/-- ★★★★★ **Equivalence**: `cutEq` is `sternBrocotEq` plus the
+    `(0, 0)` side condition.  Closes the canonical-equivalence
+    conjecture for cuts on `Nat → Nat → Bool` (modulo the single
+    boundary value at `(0, 0)`). -/
+theorem cutEq_iff_sternBrocotEq_and_zero (cx cy : Nat → Nat → Bool) :
+    cutEq cx cy ↔ sternBrocotEq cx cy ∧ cx 0 0 = cy 0 0 :=
+  ⟨fun h => ⟨sternBrocotEq_of_cutEq cx cy h, h 0 0⟩,
+   fun ⟨hSB, h00⟩ => cutEq_of_sternBrocotEq cx cy hSB h00⟩
+
 end E213.Lib.Math.Real213.Mobius213SternBrocot
