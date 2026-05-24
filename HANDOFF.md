@@ -7,7 +7,7 @@ open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
 all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 51 closures / 501 PURE new theorems.**
+**Cumulative: 55 closures / 520 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -56,6 +56,17 @@ Three-agent parallel research delivered the breakthrough.  See
 
 109 PURE new.  7 of 8 prioritized Phase 14+ candidates closed,
 plus the n-fold generalization atop the 4-fold.
+
+## Phase 15 — Universal generalizations
+
+| Closure | PURE | Focus |
+|---|---|---|
+| AA | 15 | **Universal alt n-fold Massey ∀ n : Nat** — no range cap (constCell + constRep + Nat-recursive accumulator); 1st truly universal across-depth result |
+| BB | 1 | HC²¹³ atomic-generation heptad capstone (n ∈ {4..10}, atomic = 2^n) |
+| CC | 1 | Pisano grid master capstone (6 × 5 = 30 cells bundled) |
+| DD | 1 | CupAW universal-Leibniz family closure (12 bidegrees bundled) |
+
+18 PURE new in Phase 15.
 
 Phase 14-YY established the 4-fold Massey witness data
 structure on K_{3,2}^{(c=2)} 2-skeleton (nine cobounding
