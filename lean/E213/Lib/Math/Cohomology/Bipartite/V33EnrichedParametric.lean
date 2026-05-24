@@ -552,4 +552,73 @@ theorem rep4_hits_psi_0_concrete_capstone :
   ⟨psi_layer_rep4_eq_true_c2, psi_layer_rep4_eq_true_c3,
    psi_layer_rep4_eq_true_c4, psi_layer_rep4_eq_true_c5⟩
 
+/-! ## §19 — c-counter manifest at bottom layer (concrete c ∈ {2, 3, 4, 5})
+
+Master synthesis: for each concrete `c ∈ {2, 3, 4, 5}`, the bottom-layer
+ψ_0 functional:
+
+  · separates the Massey rep₄ witness (ψ_0(rep₄) = true)
+  · kills all S_i / T_j primary cup-image (ψ_0 = false)
+
+Hence at each c, the Massey class `[rep₄]` is non-trivial in
+`H²_enr` modulo the principal indeterminacy at layer 0. -/
+
+theorem c_counter_manifest_at_bottom_c2 :
+    -- Massey rep₄ hits ψ_0
+    (psi_layer 2 ⟨0, by decide⟩
+      (cupOpp_param 2 (eta_ab_layer 2 ⟨0, by decide⟩)
+                       (eta_cd_layer 2 ⟨0, by decide⟩)) = true)
+    -- ψ_0 kills bilateral S_i / T_j cup
+    ∧ (∀ β : EnrichedEdgeCoch 2,
+        psi_layer 2 ⟨0, by decide⟩
+          (cupOpp_param 2 (starS 2 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 2,
+        psi_layer 2 ⟨0, by decide⟩
+          (cupOpp_param 2 α (incidT 2 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c2,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 2 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 2 (by decide)⟩
+
+theorem c_counter_manifest_at_bottom_c3 :
+    (psi_layer 3 ⟨0, by decide⟩
+      (cupOpp_param 3 (eta_ab_layer 3 ⟨0, by decide⟩)
+                       (eta_cd_layer 3 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 3,
+        psi_layer 3 ⟨0, by decide⟩
+          (cupOpp_param 3 (starS 3 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 3,
+        psi_layer 3 ⟨0, by decide⟩
+          (cupOpp_param 3 α (incidT 3 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c3,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 3 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 3 (by decide)⟩
+
+theorem c_counter_manifest_at_bottom_c4 :
+    (psi_layer 4 ⟨0, by decide⟩
+      (cupOpp_param 4 (eta_ab_layer 4 ⟨0, by decide⟩)
+                       (eta_cd_layer 4 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 4,
+        psi_layer 4 ⟨0, by decide⟩
+          (cupOpp_param 4 (starS 4 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 4,
+        psi_layer 4 ⟨0, by decide⟩
+          (cupOpp_param 4 α (incidT 4 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c4,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 4 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 4 (by decide)⟩
+
+theorem c_counter_manifest_at_bottom_c5 :
+    (psi_layer 5 ⟨0, by decide⟩
+      (cupOpp_param 5 (eta_ab_layer 5 ⟨0, by decide⟩)
+                       (eta_cd_layer 5 ⟨0, by decide⟩)) = true)
+    ∧ (∀ β : EnrichedEdgeCoch 5,
+        psi_layer 5 ⟨0, by decide⟩
+          (cupOpp_param 5 (starS 5 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch 5,
+        psi_layer 5 ⟨0, by decide⟩
+          (cupOpp_param 5 α (incidT 5 ⟨0, by decide⟩ ⟨0, by decide⟩)) = false) :=
+  ⟨psi_layer_rep4_eq_true_c5,
+   psi_layer_kills_cupOpp_S0star_left_at_bottom 5 (by decide),
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom 5 (by decide)⟩
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
