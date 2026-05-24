@@ -2094,3 +2094,41 @@ decomposition.
 (`Mobius213UnificationCapstone`) + 6
 (`Mobius213AtomicityAnchor`) = **68 PURE / 0 DIRTY** for G139
 Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone + atomicity anchor.
+
+## 2026-05-24 — G139 Phase 3 mop-up: Adjacent + LensMap-style CutSetoid
+
+Two cheap-win closures for the broader-conjecture remainders.
+12 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Analysis.FluxMVT.AdjacentSternBrocotBridge` | 2 | ★★ `adjacent_walls_sternBrocotEq` (`Adjacent db₀ db₁ → sternBrocotEq db₀.rightCut db₁.leftCut`, via `adjacent_walls_match` + reflexivity);  `adjacent_walls_pointwise_eq` |
+| `E213.Lib.Math.Real213.Mobius213CutSetoid` | 10 | `CutEquiv` (the canonical equivalence: `sternBrocotEq ∧ (0, 0)`);  `CutEquiv_iff_cutEq` (= `cutEq` via Phase 2 iff);  `CutEquiv_refl`, `CutEquiv_symm`, `CutEquiv_trans` (equivalence-relation laws);  `CutMorphism` (unary structure — function + respects-proof, LensMap-style);  `CutMorphism.idM`, `CutMorphism.comp`;  `CutBinaryMorphism` (bilinear structure);  ★★★ `cutSumN_morphism N : CutBinaryMorphism` (every `cutSumN N` is a binary morphism);  ★★ `cutMul_morphism : CutBinaryMorphism`;  ★★★★★ `canonical_setoid_law` (master 4-conjunct: identity + cutSumN N + cutMul + composition all preserve `CutEquiv`) |
+
+**Categorical packaging significance**:
+
+  · `CutEquiv` is *the* setoid relation for the cut framework's
+    algebra, equivalent to `cutEq` by Phase 2's iff.
+  · The `CutMorphism` / `CutBinaryMorphism` structures bundle
+    function-plus-respects-proof in the style of
+    `Padic/SetoidFramework.LensMap`, giving a 213-native
+    "category of cuts mod canonical equivalence" *without*
+    invoking `Quot.sound` (no actual quotient).
+  · `canonical_setoid_law` is the master statement that the
+    framework's two binary operations (`cutSumN N`, `cutMul`)
+    plus closure under composition are all setoid-respecting.
+    Wave 13's algebra IS the canonical setoid's algebra.
+
+**Session total**: 68 + 2 (`AdjacentSternBrocotBridge`) + 10
+(`Mobius213CutSetoid`) = **80 PURE / 0 DIRTY** for G139
+Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone + atomicity + Adjacent
++ CutSetoid.
+
+**Remaining open**: `ZpSeqEquiv` (different domain — mod-p
+Möbius orbit on `Nat → Fin p` digit sequences; substantial new
+design), `cutMulN N` parametric (multiplication analog of Wave
+13's `cutSumN N`; predates G139 per HANDOFF.md), and the Phase
+5 cross-frame extensions noted in
+`research-notes/archive/G139_…`: K_{3,2}^{(c=2)} bipartite ↔ P
+state classes, continued-fraction ↔ Pseq paths, Cayley-Dickson
+2-doubling ↔ P doubling.
