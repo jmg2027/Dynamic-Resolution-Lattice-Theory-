@@ -29,8 +29,9 @@ Marathon-completed domains (6):
 Infrastructure (10):
 - `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
-Cross-frame synthesis (1):
+Cross-frame synthesis (2):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`
+- [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
 Patterns: `lean/E213/docs/PROMOTION_PATTERNS.md`.
