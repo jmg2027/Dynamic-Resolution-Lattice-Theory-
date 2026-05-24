@@ -175,6 +175,75 @@ Pursue Shape B first: 3 new Lean files
 ~250 lines PURE, decide-tractable throughout.  Stays in
 2-skeleton.  Shape D as follow-up.
 
+## Independent verification (cup-descent + radical computation)
+
+Direct numerical experiment with three cup candidates on the
+K_{3,2}^{(c=2)} 2-skeleton:
+
+  · `cup_full_cyclic`: 14336 / 32768 descent failures (44%)
+  · `cup_sym_pairs`: 12288 / 32768 (37%)
+  · `cup_aw_consecutive`: 15360 / 32768 (47%)
+
+**None of the natural cup definitions descend to cohomology**.
+Cup product on the bipartite multigraph 2-skeleton with c=2
+multiplicity is FUNDAMENTALLY non-canonical — the structure
+admits only chain-homotopy classes of cups, not strict cups.
+
+Shape B Massey ⟨r, x, r⟩ computation with `cup_full_cyclic`
+(despite descent failure) finds 3-dim radical and computes
+all candidate Massey reps to 0 in H².  But these results are
+not meaningful since the cup doesn't well-define the Massey
+class.
+
+## STRUCTURAL ROOT-CAUSE ANALYSIS
+
+The K_{3,2}^{(c=2)} 2-skeleton is a CW complex with 4-cycle
+2-cells that are NOT canonical simplices.  Defining a strict
+cup product requires either:
+
+  1. A cellular diagonal approximation Δ: C → C ⊗ C
+     satisfying chain-map conditions — but for 4-cycle cells,
+     Δ is non-canonical (requires choice of triangulation).
+  2. Triangulating with virtual diagonal edges (e.g.,
+     S₀—S₁) that don't exist in the bipartite graph.
+  3. Extending to higher skeleton where Δ becomes
+     well-defined cellularly.
+
+Under F_2 (no halving), even the "averaged" cup constructions
+that work over ℚ or ℂ fail descent.
+
+## Path forward
+
+**Three viable closures** for non-vacuous Massey (in order of
+tractability):
+
+### Closure Path I — Document the obstruction (NEW Lean module)
+
+The CLEANEST mathematical contribution is to **formalize the
+non-existence**: prove there is NO strict cup C¹ × C¹ → C²
+over F_2 on the K_{3,2}^{(c=2)} 2-skeleton that satisfies
+both bilinearity AND descent to cohomology AND chain-level
+Leibniz.
+
+This is itself a structural theorem worth Lean-formalizing.
+
+### Closure Path II — Extend to 3-skeleton with cup machinery
+
+Build cup product `C^p × C^q → C^(p+q)` for p+q ≤ 3 on the
+Filled3CellExtension complex.  At this skeleton:
+  · H² becomes 0 (ω trivializes via δ²(ω) = (true))
+  · H³ may carry non-trivial classes from σ³
+  · Massey at H¹³ lands in trivial H² — vacuous at this layer
+  · But Massey at H¹² → H¹ + ... could be non-vacuous
+
+This is multi-session infrastructure work.
+
+### Closure Path III — Different graph (K_{3,3} or non-bipartite)
+
+Switch to a complex where standard simplicial AW cup works.
+E.g., triangulated K_{3,3}^{(c=2)} or a different graph
+entirely.  Trade tractability for substrate complexity.
+
 ## Tension with Agent 1 finding
 
 Agent 1 proved the naïve "first-edge × opposite-edge" cup is
