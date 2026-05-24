@@ -472,4 +472,48 @@ theorem parametric_bottom_layer_full_kill_capstone
   ⟨parametric_bottom_layer_all_Si_kill_capstone c hc,
    parametric_bottom_layer_all_Tj_kill_capstone c hc⟩
 
+/-! ## §17 — 4-fold Massey witness η-cochains at layer `m`
+
+Parallels `V33Massey4Fold.eta_ab` / `eta_cd` at any layer m:
+
+  · `eta_ab_layer m` = indicator on edges (0,1,m), (0,2,m) at layer m
+    (analogue of V33's `e_2 + e_4` = edges with S₀ to T_{≠ 0})
+  · `eta_cd_layer m` = indicator on edge (1,1,m) at layer m
+    (analogue of V33's `e_8` = S₁-to-T₁ edge)
+
+These cobound the cup product of the 4-fold Massey defining
+system at the bottom layer (for any c ≥ 1). -/
+
+def eta_ab_layer (c : Nat) (m : Fin c) : EnrichedEdgeCoch c :=
+  fun e => e.val == 9 * m.val + 1 || e.val == 9 * m.val + 2
+
+def eta_cd_layer (c : Nat) (m : Fin c) : EnrichedEdgeCoch c :=
+  fun e => e.val == 9 * m.val + 4
+
+/-! ## §18 — Massey rep₄ at bottom layer: ψ_0 hits the 5th direction
+
+`rep4_param := cupOpp_param (eta_ab_layer ⟨0, hc⟩) (eta_cd_layer ⟨0, hc⟩)`
+gives the 4-fold Massey representative.  Show `ψ_0(rep4_param) = true`,
+realising the ψ_0-direction explicitly via Massey at the bottom layer. -/
+
+-- Concrete c=2 instance of the Massey rep₄ witness.
+set_option maxHeartbeats 800000 in
+theorem psi_layer_rep4_eq_true_c2 :
+    psi_layer 2 ⟨0, by decide⟩
+      (cupOpp_param 2 (eta_ab_layer 2 ⟨0, by decide⟩)
+                       (eta_cd_layer 2 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+-- Concrete c=3 instance.
+set_option maxHeartbeats 800000 in
+theorem psi_layer_rep4_eq_true_c3 :
+    psi_layer 3 ⟨0, by decide⟩
+      (cupOpp_param 3 (eta_ab_layer 3 ⟨0, by decide⟩)
+                       (eta_cd_layer 3 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
