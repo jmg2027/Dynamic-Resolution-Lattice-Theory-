@@ -1983,3 +1983,35 @@ fully Stern-Brocot-internal.
 (`SignedCut/Core/SternBrocotBridge`) = **56 PURE / 0 DIRTY**
 for G139 Phase 1 + 1b + 1c + 2 + 3 (cutEq + ValidCutN +
 signedEq + ValidCutN-algebra).
+
+## 2026-05-24 — G139 Phase 5: Pell unit invariant on Pseq orbits
+
+Cross-frame connection between Stern-Brocot mediant orbits and
+the symplectic cross-product invariant of the 213 Möbius matrix
+`P = [[2,1],[1,1]]`.  Establishes the Pell unit identity in Nat
+form directly on the `Pseq` orbits, without coercion to Int.
+2 PURE / 0 DIRTY (plus one private Nat-arithmetic helper).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213PellInvariant` | 2 | `pell_step` (private; pure Nat arithmetic helper — `a*a + 1 = a*b + b*b → (2a+b)*(2a+b) + 1 = (2a+b)*(a+b) + (a+b)*(a+b)`, the inductive step content);  ★★★★★ `Pseq_seedZero_pell_invariant` (`(Pseq seedZero n).1² + 1 = (Pseq seedZero n).1 * .2 + .2²` for every depth);  ★★★★★★ `Pseq_cross_pell_invariant` (`(Pseq seedZero n).1 * (Pseq seedInf n).2 + 1 = (Pseq seedZero n).2 * (Pseq seedInf n).1` — the cross-orbit Pell unit, via the cross-orbit relation `Pseq_seedInf_components`) |
+
+**Cross-frame significance**:
+
+  · The Int-side Pell unit invariant `mobius_213_pell_unit_invariant_forall`
+    (`Lib/Math/Mobius213.lean`) is now matched by a Nat-side
+    identity on the Stern-Brocot reachable Pseq orbits.
+  · The cross-product `m·k' - m'·k = -1` of consecutive Pell
+    convergents is the "det = 1" reading of P applied to the
+    Stern-Brocot mediant chain.
+  · In 213 terms: the Pell unit value `-1` reads as `NT - NS =
+    2 - 3`; the discriminant `5 = NS + NT` is the algebraic
+    "size" of the quadratic ring `ℤ[φ²]` whose units this
+    invariant measures.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 11 (`Mobius213SternBrocotApps`) + 7
+(`SignedCut/Core/SternBrocotBridge`) + 2
+(`Mobius213PellInvariant`) = **58 PURE / 0 DIRTY** for G139
+Phase 1 + 1b + 1c + 2 + 3 + 5 (Möbius equivalence unification
++ Pell cross-frame).
