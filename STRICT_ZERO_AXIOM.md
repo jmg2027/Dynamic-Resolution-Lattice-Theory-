@@ -2330,3 +2330,36 @@ unit symplectic invariant), and the atomicity anchor
 (`atomic_iff_five`).
 
 **Session grand total**: 135 + 1 = **136 PURE / 0 DIRTY**.
+
+## 2026-05-24 — G141: Möbius signature axis catalog Phase 1
+
+Synthesis emerged from cutMulN N Phase 3 boundary exploration
+through a chain of insights: (1) cutMul artifact recognition as
+structural signal; (2) the weaving (3, 2, 1) intuition; (3) 5th
+architectural pattern (CD-Tensor Bundling); (4) P⁵ ≡ -I mod 5
+as "213's i"; (5) 213 algebra tower 4-Type shape; (6) syntactic
+self-description as 6th P-reading; (7) universal reduction
+conjecture; (8) multi-axis (2,1,3) catalog proposal.
+
+Full synthesis: `research-notes/G141_mobius_universal_reduction_synthesis.md`.
+
+Phase 1 Lean catalog (≈28 axes across algebraic, combinatorial,
+number-theoretic, CD-tower, resolution-limit, atomicity-anchor
+domains).  29 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213SignatureAxisCatalog` | 29 | 8 algebraic axes (trace = NS, det = 1, disc = d, P[0][0] = NT, off-diag = NT, entries sum = d, det = NS-NT, NS = NT+1);  7 combinatorial axes (partition sum, NS·NT = 6, atomic d, atomic_iff_five, 3! = 6, NS-NT = 1, glue);  5 number-theoretic axes (P⁵≡-I mod 5, P¹⁰≡I mod 5, 5 = NS+NT, period = 2·d, Pell unit = NT-NS);  4 CD-tower axes (master capstone, Type C first / second, Type D);  3 resolution-limit axes (d² = 25, N_U = 5²⁵, fractal level = NT);  1 atomicity 6-conjunct;  ★★★★★★★★★★★ `signature_axis_master_phase_1` (20-conjunct master bundle) |
+
+**Phase 2 (continuing work)**: cohomology / topology / Lie /
+physics axes (≈28 more) requiring cross-domain reaches.  Estimated
+final count: ≈56 axes across all math/physics domains.
+
+**Significance**: every Lean-verified axis pins down one
+viewpoint where (NS, NT, det) = (3, 2, 1) appears.  Phase 1's
+28 axes already span 6 domains; the framework signal is that
+this signature is *visible everywhere* and *no axis produces
+different data* — operational form of
+`seed/AXIOM/05_no_exterior.md` §5.1.
+
+**Session grand total**: 136 + 29 = **165 PURE / 0 DIRTY**.
