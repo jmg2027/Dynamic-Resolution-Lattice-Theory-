@@ -316,4 +316,38 @@ def incidT (c : Nat) (j : Fin 3) (m : Fin c) : EnrichedEdgeCoch c :=
     || e.val == 9 * m.val + 3 + j.val
     || e.val == 9 * m.val + 6 + j.val
 
+/-! ## §12 — Symmetric bottom-layer kill: `ψ_0` kills `α ∪ T₀-incidence`
+
+Needs cases on `α` at ALL 9 layer-`0` edges (not just the "non-zero"
+contribution positions) because `Bool.and` matches on the first argument
+only, so `α(...) && false` doesn't reduce without splitting `α(...)`. -/
+
+set_option maxHeartbeats 3200000 in
+theorem psi_layer_kills_cupOpp_T0incid_right_at_bottom
+    (c : Nat) (hc : 0 < c) (α : EnrichedEdgeCoch c) :
+    psi_layer c ⟨0, hc⟩
+      (cupOpp_param c α (incidT c ⟨0, by decide⟩ ⟨0, hc⟩)) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param incidT pair_lo pair_hi
+  cases α (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;> rfl
+
+/-- Capstone: bottom-layer kill in BOTH directions (left & right) at any `c`. -/
+theorem parametric_bottom_layer_bilateral_kill_capstone
+    (c : Nat) (hc : 0 < c) :
+    (∀ β : EnrichedEdgeCoch c,
+      psi_layer c ⟨0, hc⟩
+        (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false)
+    ∧ (∀ α : EnrichedEdgeCoch c,
+      psi_layer c ⟨0, hc⟩
+        (cupOpp_param c α (incidT c ⟨0, by decide⟩ ⟨0, hc⟩)) = false) :=
+  ⟨psi_layer_kills_cupOpp_S0star_left_at_bottom c hc,
+   psi_layer_kills_cupOpp_T0incid_right_at_bottom c hc⟩
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
