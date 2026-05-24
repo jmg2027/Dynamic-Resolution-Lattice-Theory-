@@ -7,7 +7,7 @@ open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
 all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 60 closures / 594 PURE new theorems.**
+**Cumulative: 62 closures / 603 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -89,6 +89,24 @@ frontier K_{3,3}^{(c=2)}.
 Confirms the 213 prediction: the parametric family
 `K_{NS,NT}^{(c)}` has structurally graduated cohomology, with
 K_{3,2}^{(c=2)} sitting at the **minimal non-vacuous** point.
+
+## Phase 18-B — K_{3,3}^{(c=2)} non-vacuous Massey
+
+★★★ **First Massey at the next-up graph above K_{3,2}^{(c=2)}**.
+
+| Closure | PURE | Focus |
+|---|---|---|
+| KK | 9 | **⟨g1, g2, g4⟩** non-vacuous Massey at K_{3,3}^{(c=2)} — Massey rep `(1,1,0,0,0,0,0,0,0)` violates R₁ dependence ⟹ non-zero class in H² = F₂⁵ |
+
+Witness: η_ab = zeroE (same-side stars cup-zero chain-level),
+η_bc = e_6 (single-edge chain cobounding g2 ⌣ g4), Massey rep
+= g1 ⌣ e_6.  Detection: rep at R₁ faces (0,3,6) = (1,0,0),
+violates `face0 + face3 + face6 = 0` ⟹ NOT in im δ¹.
+
+**Massey detection mechanism CONFIRMED to transfer**:
+K_{3,2}^{(c=2)} ⟨h1,h3,h4⟩ = ω  ⟶  K_{3,3}^{(c=2)}
+⟨g1,g2,g4⟩ non-vacuous.  First **multi-dimensional secondary
+cohomology** instance in the parametric K_{NS,NT}^{(c)} family.
 
 ## Phase 18 — GraphWalk universal kernel theorem (structural)
 
