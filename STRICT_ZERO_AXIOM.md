@@ -2015,3 +2015,44 @@ form directly on the `Pseq` orbits, without coercion to Int.
 (`Mobius213PellInvariant`) = **58 PURE / 0 DIRTY** for G139
 Phase 1 + 1b + 1c + 2 + 3 + 5 (Möbius equivalence unification
 + Pell cross-frame).
+
+## 2026-05-24 — G139 unification capstone
+
+Master theorem bundling every Stern-Brocot bridge established
+in the G139 closure work into a single statement, plus the
+`addN` algebra preservation capstone and the
+discriminant↔atomicity cross-reference.  4 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213UnificationCapstone` | 4 | ★★★★★★★★ `unification_capstone` (6-conjunct bundle: cutEq ↔ sternBrocotEq + (0,0), ValidCutN cutEq ↔ sternBrocotEq, signedEq ↔ sternBrocotEq on cross-sum + (0,0), reachable_of_pos full coverage, Pseq_seedZero_pell_invariant, Pseq_cross_pell_invariant);  ★★★★★ `algebra_preservation_capstone` (addN bilinear Stern-Brocot congruence);  `disc_P_eq_five` (Nat-side: 3² = 4·1 + 5);  `disc_P_eq_NS_plus_NT` (3² − 4·1 = 3 + 2 = d) |
+
+**Closure statement**:
+
+The unification capstone realises the G139 claim "every 213
+equality definition factors through a canonical Möbius-orbit
+equivalence" as a single Lean theorem.  Six conjuncts:
+
+  (a) `cutEq ↔ sternBrocotEq ∧ (0, 0)-cond` — general cut equality
+  (b) `cutEq ↔ sternBrocotEq` on `ValidCutN N` cut fields
+  (c) `signedEq ↔ sternBrocotEq ∧ (0, 0)-cond` on cross-sum cuts
+  (d) Full coverage: every `(m, k)` with `m + k ≥ 1` is SB-reachable
+  (e) Pell identity on the seedZero orbit: `a² + 1 = ab + b²`
+  (f) Pell cross-orbit identity: `a · k' + 1 = b · m'`
+
+Plus the algebra preservation: Wave 13's entire `cutSumN N`
+closure (`cutSumN_assoc_valid`, `cutSumN_comm_valid`,
+`nvalidcut_all_naturals_capstone`, all per-N instances) lifts to
+Stern-Brocot-orbit form via `addN_sternBrocotEq`.
+
+The discriminant cross-reference (`disc_P_eq_five`,
+`disc_P_eq_NS_plus_NT`) anchors the algebraic readings: the SAME
+value `5` appears as `disc(P) = trace² − 4·det = 3² − 4·1`,
+`unique Nat satisfying atomic_iff_five`, and `NS + NT = d`.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 11 (`Mobius213SternBrocotApps`) + 7
+(`SignedCut/Core/SternBrocotBridge`) + 2
+(`Mobius213PellInvariant`) + 4
+(`Mobius213UnificationCapstone`) = **62 PURE / 0 DIRTY** for
+G139 Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone.
