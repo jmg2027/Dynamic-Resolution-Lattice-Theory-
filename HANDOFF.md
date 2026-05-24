@@ -7,7 +7,7 @@ open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
 all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 55 closures / 520 PURE new theorems.**
+**Cumulative: 58 closures / 578 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -67,6 +67,28 @@ plus the n-fold generalization atop the 4-fold.
 | DD | 1 | CupAW universal-Leibniz family closure (12 bidegrees bundled) |
 
 18 PURE new in Phase 15.
+
+## Phase 16 — Other bipartite multigraphs (cross-graph exploration)
+
+Confirms the **structural minimality** of K_{3,2}^{(c=2)} via
+explicit computation on smaller graphs, then opens the next-up
+frontier K_{3,3}^{(c=2)}.
+
+| Closure | PURE | Focus |
+|---|---|---|
+| EE | 16 | **K_{2,2}^{(c=2)}** — 4V/8E/1 face, `H² = 0` (face boundary surjective), Massey vacuous |
+| FF | 14 | **K_{3,1}^{(c=2)}** — 4V/6E, underlying tree (0 simple 4-cycles), `C² = unit`, `H² = 0` |
+| GG | 28 | **K_{3,3}^{(c=2)}** — 6V/18E/9 faces, `face_dep_S01` + `face_dep_T01` + `H2_nonzero_witness` showing `H² ≠ 0` (richer than K_{3,2}^{(c=2)}, b₂ = 5) |
+
+58 PURE new in Phase 16.  Established cross-graph picture:
+
+  · `K_{NS,NT}^{(c=2)}` with NS + NT < 5 → `H² = 0` → Massey vacuous
+  · `K_{3,2}^{(c=2)}` (NS + NT = 5) → `H² = F₂`, `H¹ = F₂⁶` → MINIMAL non-vacuous Massey graph
+  · `K_{3,3}^{(c=2)}` (NS + NT = 6) → `H² = F₂⁵`, `H¹ = F₂⁹` → 5-dim secondary cohomology
+
+Confirms the 213 prediction: the parametric family
+`K_{NS,NT}^{(c)}` has structurally graduated cohomology, with
+K_{3,2}^{(c=2)} sitting at the **minimal non-vacuous** point.
 
 Phase 14-YY established the 4-fold Massey witness data
 structure on K_{3,2}^{(c=2)} 2-skeleton (nine cobounding
