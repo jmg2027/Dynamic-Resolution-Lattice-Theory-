@@ -581,6 +581,24 @@ theorem psi_layer_rep4_eq_true_c10 :
     pair_lo pair_hi edge_idx
   decide
 
+set_option maxHeartbeats 6400000 in
+theorem psi_layer_rep4_eq_true_c11 :
+    psi_layer 11 ⟨0, by decide⟩
+      (cupOpp_param 11 (eta_ab_layer 11 ⟨0, by decide⟩)
+                       (eta_cd_layer 11 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+set_option maxHeartbeats 6400000 in
+theorem psi_layer_rep4_eq_true_c12 :
+    psi_layer 12 ⟨0, by decide⟩
+      (cupOpp_param 12 (eta_ab_layer 12 ⟨0, by decide⟩)
+                       (eta_cd_layer 12 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
 /-- Comprehensive c-instance Massey witness capstone (c ∈ {2, …, 10}). -/
 theorem rep4_hits_psi_0_comprehensive :
     psi_layer_rep4_eq_true_c2.symm.symm = psi_layer_rep4_eq_true_c2
