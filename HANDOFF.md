@@ -1,12 +1,13 @@
-# Session Handoff — cohomology marathon final (G139 + G140)
+# Session Handoff — cohomology marathon (G139 + G140 + Phase 14)
 
 ## Branch
 
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
 open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
-non-vacuous Massey deep research) closed.
+non-vacuous Massey deep research) + Phase 14 (follow-through on
+all proposed candidates).
 
-**Cumulative: 37 closures / 392 PURE new theorems.**
+**Cumulative: 49 closures / 464 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -35,6 +36,27 @@ non-vacuous Massey deep research) closed.
 Three-agent parallel research delivered the breakthrough.  See
 `research-notes/G140_massey_nonvacuous_search.md`.
 
+## Phase 14 — Follow-through on proposed candidates
+
+| Closure | PURE | Focus |
+|---|---|---|
+| NN | 5 | HC²¹³ Δ⁹ automation (2^10 = 1024 atomic generators) |
+| OO | 4 | Padovan mod 11 period 120 (Pisano-analogue, Pad(120) ≈ 3.26·10¹⁴) |
+| PP | 4 | Tribonacci mod 11 period 110 (Trib(110) ≈ 10²⁸) |
+| QQ | 8 | CupAW (5, 1, 4) — maximal β-degree of (5, 1, b) family |
+| RR | 2 | Prop54 — Δ⁴ 4-cochain pattern infrastructure |
+| SS | 24 | Multi non-vacuous Massey witnesses (3 distinct triples) |
+| TT | 12 | V5_3Decomp — codim-3 α decomposition (10-basis) |
+| UU | 1 | Leibniz5_3_1Basis — basis-pair (250-case decide) |
+| VV | 2 | Leibniz5_3_1Bridge — bz5_3 case-split helpers |
+| WW | 10 | Leibniz5_3_1_BasisDecomp — per-basis pattern (10 cases) |
+| XX | 1 | **CupAW (5, 3, 1) universal — codim-3 α stratum CLOSED** |
+
+72 PURE new.  All 6 of the prioritized Phase 14+ candidates
+(items 1-6 from `Phase 14+ candidates` queue) now closed; items
+7-8 (4-fold Massey, K_{3,3}^{(c=2)}) deferred to multi-session
+infrastructure.
+
 ## Pisano-analogue closure GRID (six sisters × five primes)
 
 Largest single thematic closure: 27 parametric + 1 eventually-
@@ -45,22 +67,27 @@ sequences and small-prime pentad `{2, 3, 5, 7, 11}`:
 |-----------|------------|------|------|------|------|-------|
 | Fibonacci | 2-step `F_{n+1}+F_n` | 3 | 8 | 20 | 16 | 10 |
 | Lucas     | same, init `(2, 1)` | 3 | 8 | 4 | 16 | 10 |
-| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 | 48 | (120) |
-| Tribonacci | sum of 3 prev | 4 | 13 | 31 | 48 | (110) |
+| Padovan   | `P_{n+1}+P_n` (one-shift) | 7 | 13 | 24 | 48 | 120 |
+| Tribonacci | sum of 3 prev | 4 | 13 | 31 | 48 | 110 |
 | Narayana  | `N_{n+2}+N_n` (one-shift) | 7 | 8 | 31 | 57 | 60 |
 | Jacobsthal | `J_{n+1}+2 J_n` (mul) | const | 6 | 4 | 6 | 10 |
 
-(Periods in parentheses deferred.)
+Full 6 × 5 = 30 Pisano-analogue grid PURE.  Padovan + Tribonacci
+mod 11 (large-period cases) closed in Phase 14.
 
-## CupAW Leibniz closed bidegrees (10 entries)
+## CupAW Leibniz closed bidegrees (12 entries)
 
 `(3,1,1), (4,1,1), (4,1,2), (4,2,1), (4,2,2), (5,1,1),
-(5,1,2), (5,1,3), (5,2,1), (5,2,2)`.
+(5,1,2), (5,1,3), (5,1,4), (5,2,1), (5,2,2), (5,3,1)`.
 
 Phase 10-11 meta-strategy breakthrough: when full ∀-pattern
 decide OOMs, fix α to a basis indicator + bilinearity lift.
 
-## HC²¹³ Δⁿ automation tetrad → pentad
+Phase 14 added the full (5, 1, b) sequence (b = 1..4, maximal
+β-degree) plus the first codim-3 α stratum entry (5, 3, 1)
+via V5_3Decomp + combine_10.
+
+## HC²¹³ Δⁿ automation hexad
 
 | n | Δ^(n−1) | Atomic total `2^n` |
 |---|---------|-------------------:|
@@ -70,8 +97,10 @@ decide OOMs, fix α to a basis indicator + bilinearity lift.
 | 7 | Δ⁶ | 128 |
 | 8 | Δ⁷ | 256 |
 | 9 | Δ⁸ | 512 |
+| 10 | Δ⁹ | 1024 |
 
-Uniform `decide`-based automation once `n` is fixed.
+Uniform `decide`-based automation once `n` is fixed.  Δ⁹ added
+in Phase 14 (10 vertices → 45 edges).
 
 ## K_{3,2}^{(c=2)} cohomology stack
 
@@ -83,6 +112,8 @@ Uniform `decide`-based automation once `n` is fixed.
   · `Sq2At4Cell` (Steenrod ladder complete at i ∈ {0, 1, 2})
   · `MasseyTripleOmega` (⟨ω,ω,ω⟩ obstruction: explicitly 0)
   · `MasseyTripleH1Witness` (⟨h1,h3,h4⟩ = ω non-vacuous)
+  · `MasseyTripleH1Multi` (3 distinct triples → ω: ⟨h1,h3,h4⟩,
+    ⟨h1,h3,h5⟩, ⟨h3,h5,h4⟩ — robustness across triple choices)
 
 ## ∀-coprime eventual periodicity universal (Phase 4)
 
@@ -91,17 +122,19 @@ Uniform `decide`-based automation once `n` is fixed.
 via forward-only pigeonhole on the exponent layer.  No modular
 inverse needed.
 
-## Phase 14+ candidates (open queue)
+## Phase 15+ candidates (open queue)
 
-  · **Padovan / Tribonacci mod 11** long periods (120 / 110)
-    — mechanical extension of Phase 10 template.
-  · **HC²¹³ Δ⁹+** further automation.
-  · **CupAW (5, 1, 4)** — needs Prop54 pattern infrastructure.
-  · **CupAW (5, 3, 1)** — α-side 10-basis decomposition.
-  · **G140 follow-up**: 20 non-vacuous Massey triples
-    enumeration (only 1 of 20 currently formalized).
-  · **4-fold Massey** on K_{3,2}^{(c=2)}.
-  · **Massey at K_{3,3}^{(c=2)}** — sister-graph extension.
+  · **4-fold Massey** ⟨a, b, c, d⟩ on K_{3,2}^{(c=2)} — needs
+    indeterminacy formalism (η_{ab} ⌣ d + a ⌣ θ_{bcd} + ...).
+  · **Massey at K_{3,3}^{(c=2)}** — new V33 bipartite stack
+    (18 edges, 6 vertices); the V32 stack is ~3500 lines.
+  · **Full 20-witness enumeration** at K_{3,2}^{(c=2)} — 3 of
+    20 currently formalized; the remaining 17 follow the same
+    decide-template (mechanical extension).
+  · **CupAW (5, 3, 2)** + (5, 3, 3) — continuation of codim-3
+    α stratum to higher β-degrees.
+  · **CupAW (5, 4, 1)** — codim-4 α stratum (V5_4Decomp needed,
+    binom 5 4 = 5).
 
 ## Deferred (multi-session infrastructure)
 
@@ -120,10 +153,12 @@ inverse needed.
 | `research-notes/G140_massey_nonvacuous_search.md` | G140 non-vacuous Massey research |
 | `theory/math/cohomology/{bipartite, k32_higher_cohomology, fractal, cupaw, hodge_conjecture}.md` | Open-frontier chapters (all updated) |
 | `theory/meta/cardinality_cutoff_applications.md` | Cut-off family (7 sister sequences) |
-| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyTripleH1Witness.lean` | ★ Non-vacuous Massey closure |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyTripleH1Witness.lean` | ★ Non-vacuous Massey primary witness |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyTripleH1Multi.lean` | ★ Multi-witness robustness (3 triples) |
 | `lean/E213/Lib/Math/Cohomology/Fractal/{*Modular, *Cutoff}.lean` | Sister-sequence cohomology + Pisano periods |
-| `lean/E213/Lib/Math/Cohomology/CupAW/Leibniz5_1_{2,3}.lean` | Higher-bidegree CupAW via meta-strategy |
-| `lean/E213/Lib/Math/HodgeConjecture/Refinement/CupAtomicGenerationDelta{3,5,6,7,8}.lean` | HC²¹³ Δⁿ pentad |
+| `lean/E213/Lib/Math/Cohomology/CupAW/Leibniz5_1_{2,3,4}.lean` | (5, 1, b) universal-lift sequence |
+| `lean/E213/Lib/Math/Cohomology/CupAW/Leibniz5_3_1.lean` | First codim-3 α stratum entry |
+| `lean/E213/Lib/Math/HodgeConjecture/Refinement/CupAtomicGenerationDelta{3,5,6,7,8,9}.lean` | HC²¹³ Δⁿ hexad |
 
 ## Carry-over status (G138 / G139 chapter frontiers)
 
