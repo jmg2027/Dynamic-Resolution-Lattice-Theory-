@@ -7,7 +7,7 @@ open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
 all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 58 closures / 578 PURE new theorems.**
+**Cumulative: 60 closures / 594 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -89,6 +89,21 @@ frontier K_{3,3}^{(c=2)}.
 Confirms the 213 prediction: the parametric family
 `K_{NS,NT}^{(c)}` has structurally graduated cohomology, with
 K_{3,2}^{(c=2)} sitting at the **minimal non-vacuous** point.
+
+## Phase 17 — K_{3,3}^{(c=2)} cup-table entry
+
+Opens cup-product calculation at the next-up graph.
+
+| Closure | PURE | Focus |
+|---|---|---|
+| HH | 13 | **K_{3,3}^{(c=2)} opposite-edge cup** — `cupOpp` for all 9 faces + 6 star cocycles (g1..g6) + non-trivial cup `g1 ⌣ g4 = (1,1,0,1,1,0,0,0,0)` at chain level |
+| II | 3 | **Cup descent**: explicit `σ = e_2 + e_4` cobounds `g1 ⌣ g4` → `[g1 ⌣ g4] = 0 ∈ H²` |
+
+16 PURE new in Phase 17.  Confirms that the **cup-descent
+phenomenon transfers** from K_{3,2}^{(c=2)} to K_{3,3}^{(c=2)}:
+chain-level cup non-zero but cohomology cup vanishes (at least
+for star × T-incidence pairs).  Massey detection mechanism
+should transfer.
 
 Phase 14-YY established the 4-fold Massey witness data
 structure on K_{3,2}^{(c=2)} 2-skeleton (nine cobounding
