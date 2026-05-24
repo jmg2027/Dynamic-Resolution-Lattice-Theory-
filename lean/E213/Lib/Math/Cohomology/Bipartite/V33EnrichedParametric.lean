@@ -535,7 +535,26 @@ theorem psi_layer_rep4_eq_true_c5 :
     pair_lo pair_hi edge_idx
   decide
 
--- Combined witness capstone — concrete c-instances 2..5.
+-- Higher c instances continuing the pattern.
+set_option maxHeartbeats 3200000 in
+theorem psi_layer_rep4_eq_true_c6 :
+    psi_layer 6 ⟨0, by decide⟩
+      (cupOpp_param 6 (eta_ab_layer 6 ⟨0, by decide⟩)
+                       (eta_cd_layer 6 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+set_option maxHeartbeats 3200000 in
+theorem psi_layer_rep4_eq_true_c7 :
+    psi_layer 7 ⟨0, by decide⟩
+      (cupOpp_param 7 (eta_ab_layer 7 ⟨0, by decide⟩)
+                       (eta_cd_layer 7 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+-- Combined witness capstone — concrete c-instances 2..7.
 theorem rep4_hits_psi_0_concrete_capstone :
     (psi_layer 2 ⟨0, by decide⟩
       (cupOpp_param 2 (eta_ab_layer 2 ⟨0, by decide⟩)
