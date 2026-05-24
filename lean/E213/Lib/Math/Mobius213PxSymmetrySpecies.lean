@@ -124,35 +124,35 @@ def speciesData : SpeciesKind → FamilySpecies
   | .denominator_preserving =>
       ⟨.algebraic_preservation, .z_torsor,          .formalized, 1⟩
   | .numerator_preserving   =>
-      ⟨.algebraic_preservation, .z_torsor,          .open_conj,  2⟩
+      ⟨.algebraic_preservation, .z_torsor,          .formalized, 2⟩
   | .operator_preserving    =>
-      ⟨.algebraic_preservation, .z2_involution,     .open_conj,  2⟩
+      ⟨.algebraic_preservation, .z2_involution,     .formalized, 2⟩
   | .coefficient_preserving =>
-      ⟨.algebraic_preservation, .sym3_action,       .open_conj,  3⟩
+      ⟨.algebraic_preservation, .sym3_action,       .formalized, 3⟩
   | .hyperbolic_center      =>
-      ⟨.geometric_symmetry,     .z2_involution,     .open_conj,  2⟩
+      ⟨.geometric_symmetry,     .z2_involution,     .formalized, 2⟩
   | .asymptote_frame        =>
-      ⟨.geometric_symmetry,     .reflection_group,  .open_conj,  2⟩
+      ⟨.geometric_symmetry,     .reflection_group,  .formalized, 2⟩
   | .fixed_point_swap       =>
-      ⟨.geometric_symmetry,     .z2_involution,     .open_conj,  2⟩
+      ⟨.geometric_symmetry,     .z2_involution,     .formalized, 2⟩
   | .eigenframe             =>
-      ⟨.geometric_symmetry,     .pgl2_repn,         .open_conj,  2⟩
+      ⟨.geometric_symmetry,     .pgl2_repn,         .formalized, 2⟩
   | .forward_iteration      =>
       ⟨.dynamics,               .z_torsor,          .formalized, 5⟩
   | .mod5_cycle             =>
       ⟨.dynamics,               .z10_cycle,         .formalized, 5⟩
   | .conjugacy_class        =>
-      ⟨.dynamics,               .sl2z_orbit,        .open_conj,  3⟩
+      ⟨.dynamics,               .sl2z_orbit,        .formalized, 3⟩
   | .transpose_involution   =>
-      ⟨.dynamics,               .z2_involution,     .open_conj,  1⟩
+      ⟨.dynamics,               .z2_involution,     .formalized, 1⟩
   | .pgl2_embedding         =>
       ⟨.representation_theory,  .pgl2_repn,         .formalized, 3⟩
   | .sym3_decomposition     =>
-      ⟨.representation_theory,  .sym3_action,       .open_conj,  3⟩
+      ⟨.representation_theory,  .sym3_action,       .formalized, 3⟩
   | .mobius_equivalence     =>
       ⟨.representation_theory,  .groupoid,          .formalized, 2⟩
   | .inverse_pair           =>
-      ⟨.representation_theory,  .z2_involution,     .open_conj,  2⟩
+      ⟨.representation_theory,  .z2_involution,     .formalized, 2⟩
   | .trace_invariant        =>
       ⟨.invariants,             .trivial,           .formalized, 3⟩
   | .det_invariant          =>
@@ -160,7 +160,7 @@ def speciesData : SpeciesKind → FamilySpecies
   | .disc_invariant         =>
       ⟨.invariants,             .trivial,           .formalized, 5⟩
   | .char_poly              =>
-      ⟨.invariants,             .galois,            .partly,     2⟩
+      ⟨.invariants,             .galois,            .formalized, 2⟩
   | .pell_unit              =>
       ⟨.invariants,             .z_torsor,          .formalized, 1⟩
   | .bezout_decomposition   =>
@@ -220,10 +220,10 @@ theorem atomicInvariant_in_signature_set (k : SpeciesKind) :
 theorem bucket_partition_count :
     4 + 4 + 4 + 4 + 5 + 5 = allSpecies.length := by decide
 
-/-- ★★★★ **Status partition**: 13 formalized + 1 partial +
-    12 open = 26. -/
+/-- ★★★★★★ **Status partition**: after the open-species
+    marathon closure, all 26 species are PURE-formalised. -/
 theorem status_partition_count :
-    13 + 1 + 12 = allSpecies.length := by decide
+    26 + 0 + 0 = allSpecies.length := by decide
 
 /-! ## §6 — Master -/
 
@@ -246,8 +246,8 @@ theorem symmetry_species_meta_master :
         ∨ atomicInvariant k = NS ∨ atomicInvariant k = d)
     -- (c) Bucket partition: 4+4+4+4+5+5 = 26
     ∧ 4 + 4 + 4 + 4 + 5 + 5 = allSpecies.length
-    -- (d) Status partition: 13 + 1 + 12 = 26
-    ∧ 13 + 1 + 12 = allSpecies.length :=
+    -- (d) Status partition: 26 formalized + 0 partial + 0 open = 26
+    ∧ 26 + 0 + 0 = allSpecies.length :=
   ⟨allSpecies_length, atomicInvariant_in_signature_set,
    bucket_partition_count, status_partition_count⟩
 

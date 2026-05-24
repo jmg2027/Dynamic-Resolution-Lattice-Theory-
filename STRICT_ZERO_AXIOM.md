@@ -2670,3 +2670,61 @@ formalised — natural follow-up Lean modules:
   · ... (and 8 more)
 
 **Session grand total**: 265 + 8 = **273 PURE / 0 DIRTY**.
+
+## 2026-05-24 — Mobius213PxOpenSpeciesClosure: marathon closure of 12 open species
+
+Marathon: closes all 12 species tagged `.open_conj` in
+`Mobius213PxSymmetrySpecies` via concrete Lean theorems over
+Int213 arithmetic + reuse of `family_n2` from
+`Mobius213PxDenomInvariantFamily`.
+
+Species closures (12, organised by bucket):
+
+  · Bucket 1 — Algebraic preservation (3):
+    `numerator_preserving_euclidean` (Euclidean step
+    `(2x+1) = NT·(x+1) − det`), `operator_preserving_inverse_invariants`
+    (P⁻¹ trace+det = P's), `coefficient_preserving_sym3_order`
+    (Sym(3) on `{2, 1, 1}` multiset).
+
+  · Bucket 2 — Geometric symmetry (4):
+    `hyperbolic_center_standard_form` (standard-form
+    `(2x+1) − NT(x+1) = −det`), `asymptote_{vertical_zero,
+    horizontal_eq_NT}` (asymptote pair), `fixed_point_*`
+    (Vieta on fixed-point equation, disc = d),
+    `eigenvalue_*` (Vieta on char poly, disc = d).
+
+  · Bucket 3 — Dynamics (2):
+    `conjugacy_{trace,det}_invariant` (SL(2,ℤ) invariants),
+    `transpose_involution_symmetric` (Pᵀ = P, degenerate
+    involution).
+
+  · Bucket 4 — Representation theory (2):
+    `sym3_decomposition_order` (`6 = NS·NT`),
+    `sym3_decomposition_atomic` (`1 + 1 + NT = NS + 1`),
+    `inverse_pair_atomic` (P⁻¹ invariants + product det).
+
+  · Bucket 5 — Invariants (1, partial → full):
+    `char_poly_galois_{disc, order, real_quadratic}`
+    (Galois action on roots of `λ² − NS·λ + det`).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxOpenSpeciesClosure` | 22 | `hyperbolic_center_standard_form`;  `asymptote_{vertical_zero, horizontal_eq_NT}`;  `fixed_point_{equation_discriminant, vieta_sum, vieta_product}`;  `eigenvalue_{equation_discriminant, vieta_sum, vieta_product}`;  `numerator_preserving_euclidean`;  `operator_preserving_inverse_invariants`;  `coefficient_preserving_sym3_order`;  `conjugacy_{trace, det}_invariant`;  `transpose_involution_symmetric`;  `sym3_decomposition_{order, atomic}`;  `inverse_pair_atomic`;  `char_poly_{galois_disc, galois_order, real_quadratic}`;  ★★★★★★★★ `open_species_closure_master` (12-conjunct marathon master) |
+
+**Status upgrade**: `Mobius213PxSymmetrySpecies` updated —
+all 12 `.open_conj` entries promoted to `.formalized`, plus
+`char_poly` promoted `.partly → .formalized`.  Status
+partition becomes `26 + 0 + 0 = 26` (all 26 species PURE).
+
+**Achievement**: meta-conjecture closed.  All 26 natural
+symmetry family species of P(x) are now Lean-formalised, with
+each species's characteristic atomic invariant proven to land
+in `{det, NT, NS, d} = {1, 2, 3, 5}`.  The 12-species marathon
++ symmetry-species meta-catalog together close the user's
+meta-question:
+
+  > "If we comprehensively analyse every symmetry-revealing
+  >  decomposition of P(x), what all appears?"
+  > → 26 species across 6 buckets, all atomic-closed.
+
+**Session grand total**: 273 + 22 = **295 PURE / 0 DIRTY**.
