@@ -2363,3 +2363,31 @@ different data* — operational form of
 `seed/AXIOM/05_no_exterior.md` §5.1.
 
 **Session grand total**: 136 + 29 = **165 PURE / 0 DIRTY**.
+
+## 2026-05-24 — G141 Phase 2: cohomology / topology / Lie / physics axes
+
+Extends Phase 1's catalog with ≈25 more axes pulled from
+established cohomology, topology, Six-Theorem cross-domain,
+physics-coupling, and information infrastructure.  26 PURE /
+0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213SignatureAxisCatalogPhase2` | 26 | Cohomology (5): b₀ = 1, kerDelta0 = NT, b₁ = NS²-1 = 8, CochV count = 2^d = 32, CochE count = 2^12;  Topology (4): χ(Δ⁴) = 1, χ_reduced = 0, χ_S3 = 0, χ_K32 = -7;  Six-Theorem cross-domain (7): atomicity product, d+1 = 6, 3!, SU(3) roots, K_{3,2} cross-pairs, Lorentz generators, clause permutations;  Physics couplings (6): α_3 channel = 8 (gluon octet), α_2 prefactor = 24 = d²-1, α_1 prefactor = 36, inv α_GUT = 25 = d², color SU(NS), spacetime NS+NT;  Information (3): 2^d = 32, 2^(NS·NT·c) = 4096, N_U = 5²⁵;  ★★★★★★★★★★★ `signature_axis_master_phase_2` (23-conjunct master) |
+
+**Cumulative catalog status**:
+  · Phase 1: 29 PURE — 28 axes + 20-conjunct master across
+    algebraic / combinatorial / number-theoretic / CD-tower /
+    resolution / atomicity domains.
+  · Phase 2: 26 PURE — 25 axes + 23-conjunct master across
+    cohomology / topology / Six-Theorem cross / physics /
+    information domains.
+  · **Total: 55 PURE catalog axes spanning 11 domains.**
+
+**Operational form of `seed/AXIOM/05_no_exterior.md` §5.1**:
+every framework reading of the (NS, NT, det) signature lands
+on the same set of integer invariants.  No external axis
+produces different signature data — verified ∅-axiom across 11
+distinct math/physics domains.
+
+**Session grand total**: 165 + 26 = **191 PURE / 0 DIRTY**.
