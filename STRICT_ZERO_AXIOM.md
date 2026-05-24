@@ -2221,3 +2221,51 @@ cochain complexes.  Not yet recorded.
 
 **Session total**: 104 + 10 = **114 PURE / 0 DIRTY** through
 Marathon 1 + Marathon 2 Phase 1.
+
+## 2026-05-24 — Marathon 3: Pseq Pell-Fibonacci recurrence (CF ↔ Pseq)
+
+The continued-fraction expansion of `φ² = [2; 1, 1, 1, ...]`
+has convergents satisfying `a(n+2) = 3·a(n+1) − a(n)` in Int.
+This Marathon delivers the Nat-side form directly on Pseq
+orbits.  5 PURE / 0 DIRTY (plus 2 private arithmetic cores).
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213ContinuedFraction` | 5 | `rec_arith_fst`, `rec_arith_snd` (private; the two Nat-arithmetic cores);  ★★★★★ `Pseq_seedZero_fst_recurrence`, `Pseq_seedZero_snd_recurrence` (`a(n+2) + a(n) = 3·a(n+1)` Nat form);  `Pseq_seedInf_fst_recurrence`, `Pseq_seedInf_snd_recurrence`;  ★★★★★★ `pell_fibonacci_capstone` (4-conjunct bundle: both orbits, both components) |
+
+The CF [2; 1, 1, 1, ...] gives convergents `2/1, 3/1, 5/2, 8/3,
+13/5, 21/8, 34/13, 55/21, 89/34, ...`.  Every-other convergent
+matches `Pseq seedInf`'s `(2, 1), (5, 3), (13, 8), (34, 21),
+(89, 55)` (first/second components as fraction pairs).  Every-
+other convergent on the other branch matches `Pseq seedZero`.
+
+## 2026-05-24 — Marathon 4: Cayley-Dickson doubling ↔ Möbius P
+
+The CD-tower's Type C (rank 1) asymptote `(5, −1)` encodes both
+Möbius P invariants simultaneously: `5 = disc P` and `−1 =
+Pell unit`.  The Type D (rank 2) asymptote `(1, 1)` is two
+copies of `det P = 1`.  5 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge` | 5 | `type_C_first_eq_disc_P` (the `5` in Type C is `disc P`);  `type_C_second_eq_pell_unit` (the `−1` is the symplectic Pell unit invariant);  ★★★★★ `type_C_asymptote_eq_mobius_invariants` (`(5, −1) = (disc P, Pell unit)`);  `type_D_asymptote_eq_P_unit_pair`;  ★★★★★★★ `cd_mobius_bridge_master` (six-conjunct bundle: Type C + Type D + disc P + atomic + Pell + det) |
+
+**Session total** through all 4 marathons: 12 + 26 + 11 + 7 + 2
++ 4 + 6 + 2 + 10 + 9 + 1 (G139 cross-domain) + 9 (cutMulN P1)
++ 5 (NValidCutMul P2) + 10 (K_{3,2} numerical) + 5 (CF Marathon 3)
++ 5 (CD Marathon 4) = **124 PURE / 0 DIRTY**.
+
+### Marathon status summary
+
+| Marathon | Phase | PURE | Status |
+|---|---|---|---|
+| 1: cutMulN N | P1 (cut-level fwd + congruence) | 9 | ✓ |
+| 1: cutMulN N | P2 (bundled mulN) | 5 | ✓ |
+| 2: K_{3,2} ↔ P | P1 (numerical signature) | 10 | ✓ |
+| 2: K_{3,2} ↔ P | P2 (categorical state classes) | 0 | open |
+| 3: CF ↔ Pseq | (Pell-Fib recurrence) | 5 | ✓ |
+| 4: CD ↔ P | (Type C / D asymptote bridge) | 5 | ✓ |
+
+Three marathons fully closed (1, 3, 4); Marathon 2 Phase 1
+delivered, Phase 2 (categorical state-class infrastructure)
+remains open.
