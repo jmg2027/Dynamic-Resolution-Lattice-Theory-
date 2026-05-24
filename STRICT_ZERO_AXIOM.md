@@ -2269,3 +2269,42 @@ copies of `det P = 1`.  5 PURE / 0 DIRTY.
 Three marathons fully closed (1, 3, 4); Marathon 2 Phase 1
 delivered, Phase 2 (categorical state-class infrastructure)
 remains open.
+
+## 2026-05-24 — Marathon 2 Phase 2: K_{3,2}^(c=2) state-class structure
+
+Categorical state-class projection of the bipartite cochain
+space `CochV = Fin 5 → Bool` to `Nat × Nat` via side counts,
+witnessing the Möbius P action at the cohomology level.
+11 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass` | 11 | `countS`, `countT` (side-counting functions on cochains);  `vertexCount σ = (countS σ, countT σ)` (the state-class projection);  `countS_allTrueV = NS`, `countT_allTrueV = NT`;  `vertexCount_zeroV = (0, 0)`;  ★★★★ `vertexCount_allTrueV` (`(NS, NT) = Pseq seedZero 2` — the all-true cochain realises the atomic signature, equal to the depth-2 P-orbit image);  `Pstep_vertexCount_allTrueV` (next Pstep gives `Pseq seedZero 3 = (8, 5)`);  `Pstep_Pstep_vertexCount_allTrueV` (two Psteps give `(21, 13) = Pseq seedZero 4`);  `state_class_pell_recurrence` (re-export of Pell-Fib on the state-class trajectory);  ★★★★★★★ `state_class_master` (six-conjunct bundle) |
+
+**Categorical realisation of the Möbius P state-class
+conjecture**:
+
+The "two state classes" of `P = [[2,1],[1,1]]` correspond to
+the two sides (S, T) of K_{3,2}^(c=2)'s bipartite vertex
+partition.  Every cochain `σ : CochV` projects via `vertexCount`
+to a state-class pair in `Nat × Nat`.  The all-true cochain
+projects to `(NS, NT) = (3, 2)` — *exactly* `Pseq seedZero 2`,
+the depth-2 image of the Möbius P-orbit from the seedZero
+boundary.  Iterating P on this state class generates the Pell-
+Fibonacci convergents.
+
+**Session total**: 124 + 11 = **135 PURE / 0 DIRTY** with all
+four marathons now fully closed.
+
+### Final marathon status
+
+| Marathon | Phase 1 | Phase 2 | Status |
+|---|---:|---:|---|
+| 1: cutMulN N | 9 PURE | 5 PURE | ✓ Closed |
+| 2: K_{3,2} ↔ P | 10 PURE | 11 PURE | ✓ Closed |
+| 3: CF ↔ Pseq | 5 PURE | — | ✓ Closed |
+| 4: CD ↔ P | 5 PURE | — | ✓ Closed |
+
+All four sequential marathons completed: total +45 PURE
+attributable to marathons; +135 PURE for the full G139 +
+marathons branch work.
