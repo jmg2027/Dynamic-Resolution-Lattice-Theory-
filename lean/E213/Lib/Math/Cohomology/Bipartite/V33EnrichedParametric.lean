@@ -303,11 +303,17 @@ theorem psi_layer_kills_cupOpp_S0star_left_at_bottom
     cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
     cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;> rfl
 
-/-- Capstone: kill lemma holds at the bottom layer for ANY `c`. -/
-theorem parametric_bottom_layer_kill_capstone (c : Nat) (hc : 0 < c) :
-    ∀ β : EnrichedEdgeCoch c,
-      psi_layer c ⟨0, hc⟩
-        (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false :=
-  fun β => psi_layer_kills_cupOpp_S0star_left_at_bottom c hc β
+/-! ## §11 — Parametric layer-`m` `T_j`-incidence cocycle
+
+`incidT j m` = indicator on the 3 edges into vertex `T_j` at mult `m`:
+`(0, j, m)`, `(1, j, m)`, `(2, j, m)`.
+
+In edge_idx terms: indices `9m + j`, `9m + 3 + j`, `9m + 6 + j`. -/
+
+def incidT (c : Nat) (j : Fin 3) (m : Fin c) : EnrichedEdgeCoch c :=
+  fun e =>
+    e.val == 9 * m.val + j.val
+    || e.val == 9 * m.val + 3 + j.val
+    || e.val == 9 * m.val + 6 + j.val
 
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
