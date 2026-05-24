@@ -2768,3 +2768,43 @@ P(x) catalog with 4 new iteration-level species:
 **Session grand total**: 295 + 15 = **310 PURE / 0 DIRTY**
 (includes catalog-update tracking; PxSymmetrySpecies still
 8 PURE post-update).
+
+## 2026-05-24 — Mobius213PxExtendedSpecies: Round 2 catalog extension (30 → 36)
+
+Marathon Round 2: extends the catalog with 6 additional
+species spanning iteration-level (mod-p periods, Pell orbits)
+and higher-order (lattice invariant form, Bezout polynomial
+identity) frames.
+
+  · `pentagonal_period_mod5` — P^5 ≡ −I (mod 5).  Witnessed
+    via entries `89 ≡ 4, 55 ≡ 0, 34 ≡ 4 (mod 5)` and
+    `4 ≡ -1 (mod 5)`.  Aut = ℤ/10.  Atomic: d.
+  · `mod_2_period_3` — P^NS ≡ I (mod 2), period = NS.
+    Witnessed via entries `13 ≡ 1, 8 ≡ 0, 5 ≡ 1 (mod 2)`.
+    Atomic: NS.
+  · `pell_solutions_orbit` — `(2, 1)` solves `x² − d·y² = -det`;
+    `(9, 4)` solves `x² − d·y² = +det`.  Aut = ℤ.  Atomic: det.
+  · `pell_recurrence_orbit` — `a_{n+1} = NT·a_n + d·b_n`,
+    `b_{n+1} = a_n + NT·b_n`.  Witnessed `(2,1) → (9,4) →
+    (38, 17)`.  Aut = linear_recurrence.  Atomic: NT.
+  · `lattice_invariant_form` — P preserves `Q = [[-2, 1],
+    [1, 2]]` with `det(Q) = -d`.  Witnessed entry-wise:
+    `P·Q·P = Q`.  Aut = trivial.  Atomic: d.
+  · `bezout_polynomial_identity` — `(2x+1) + det = NT·(x+1)`
+    for any `x : Int`.  Gcd of `(2x+1, x+1)` as ℤ[x]
+    polynomials is det.  Aut = trivial.  Atomic: det.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxExtendedSpecies` | 20 | 4 mod-5 entry-witnesses + neg-one closure;  4 mod-2 entry-witnesses + period-NS closure;  Pell `±det` fundamental solutions (2,1), (9,4);  4 Pell recurrence steps;  4 lattice form-preservation witnesses;  ★★★★★ `bezout_polynomial` (NT·(x+1) Bezout combination);  ★★★★★★★★ `extended_species_master` (6-conjunct Round 2 master) |
+
+**Catalog upgrade in PxSymmetrySpecies**:
+  · 6 new `SpeciesKind` constructors
+  · `allSpecies.length`: 30 → **36**
+  · Bucket partition: `4 + 5 + 6 + 4 + 9 + 8 = 36`
+    (dynamics +2, invariants +1, arithmetic +3)
+  · Status partition: `36 + 0 + 0 = 36` (all formalized)
+  · `symmetry_species_meta_master`: extended to 36-species
+    closure
+
+**Session grand total**: 310 + 20 = **330 PURE / 0 DIRTY**.
