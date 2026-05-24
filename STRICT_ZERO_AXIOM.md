@@ -2728,3 +2728,83 @@ meta-question:
   > → 26 species across 6 buckets, all atomic-closed.
 
 **Session grand total**: 273 + 22 = **295 PURE / 0 DIRTY**.
+
+## 2026-05-24 — Mobius213PxIterationSpecies: iteration-level catalog extension
+
+Post-merge marathon continuation.  Extends the 26-species
+P(x) catalog with 4 new iteration-level species:
+
+  · `det_iteration_invariant` — `det(P^k) = 1` witnessed at
+    k = 1, 2, 3, 5 (via P, P², P³, P⁵ entries).  Aut =
+    trivial.  Atomic: det.
+  · `trace_lucas_recurrence` — `tr(P^k)` satisfies Lucas-
+    Pell recurrence `L(k+2) = NS·L(k+1) − det·L(k)` with
+    initial `L(0) = NT, L(1) = NS`.  Witnesses at k = 2, 3
+    (L(2) = 7, L(3) = 18).  Aut = linear_recurrence.
+    Atomic: NS.
+  · `cassini_iteration` — symmetric P^k entries `[[a,b],
+    [b,c]]` satisfy `a·c − b² = det = 1` (det invariant for
+    each power).  Witnesses at P, P², P³.  Aut = trivial.
+    Atomic: det.
+  · `reflection_through_center` — geometric point reflection
+    through hyperbolic centre `(-det, NT) = (-1, 2)`.
+    Numerator-sum form: `(2(−2−x) + 1) + (2x + 1) = −2`
+    + involution closure `−2 − (−2 − x) = x`.  Aut =
+    ℤ/2_involution.  Atomic: NT.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxIterationSpecies` | 15 | `det_P_eq_det`, `det_P2_eq_det`, `det_P3_eq_det`, `det_P5_eq_det` (det iteration);  `trace_P0_eq_NT`, `trace_P1_eq_NS`, `trace_P2_eq_seven`, `trace_lucas_at_k2`, `trace_lucas_at_k3` (Lucas recurrence);  `cassini_at_P`, `cassini_at_P2`, `cassini_at_P3` (Cassini iteration);  ★★★★★★ `reflection_numerator_sum` + `reflection_involution` (centre point-symmetry);  ★★★★★★★★ `iteration_species_master` (11-conjunct iteration master) |
+
+**Catalog upgrade in PxSymmetrySpecies**:
+  · 4 new `SpeciesKind` constructors
+  · `allSpecies.length`: 26 → **30**
+  · Bucket partition: `4 + 5 + 4 + 4 + 8 + 5 = 30`
+    (geometric +1, invariants +3)
+  · Status partition: `30 + 0 + 0 = 30` (all formalized)
+  · `symmetry_species_meta_master`: extended to 30-species
+    closure
+
+**Session grand total**: 295 + 15 = **310 PURE / 0 DIRTY**
+(includes catalog-update tracking; PxSymmetrySpecies still
+8 PURE post-update).
+
+## 2026-05-24 — Mobius213PxExtendedSpecies: Round 2 catalog extension (30 → 36)
+
+Marathon Round 2: extends the catalog with 6 additional
+species spanning iteration-level (mod-p periods, Pell orbits)
+and higher-order (lattice invariant form, Bezout polynomial
+identity) frames.
+
+  · `pentagonal_period_mod5` — P^5 ≡ −I (mod 5).  Witnessed
+    via entries `89 ≡ 4, 55 ≡ 0, 34 ≡ 4 (mod 5)` and
+    `4 ≡ -1 (mod 5)`.  Aut = ℤ/10.  Atomic: d.
+  · `mod_2_period_3` — P^NS ≡ I (mod 2), period = NS.
+    Witnessed via entries `13 ≡ 1, 8 ≡ 0, 5 ≡ 1 (mod 2)`.
+    Atomic: NS.
+  · `pell_solutions_orbit` — `(2, 1)` solves `x² − d·y² = -det`;
+    `(9, 4)` solves `x² − d·y² = +det`.  Aut = ℤ.  Atomic: det.
+  · `pell_recurrence_orbit` — `a_{n+1} = NT·a_n + d·b_n`,
+    `b_{n+1} = a_n + NT·b_n`.  Witnessed `(2,1) → (9,4) →
+    (38, 17)`.  Aut = linear_recurrence.  Atomic: NT.
+  · `lattice_invariant_form` — P preserves `Q = [[-2, 1],
+    [1, 2]]` with `det(Q) = -d`.  Witnessed entry-wise:
+    `P·Q·P = Q`.  Aut = trivial.  Atomic: d.
+  · `bezout_polynomial_identity` — `(2x+1) + det = NT·(x+1)`
+    for any `x : Int`.  Gcd of `(2x+1, x+1)` as ℤ[x]
+    polynomials is det.  Aut = trivial.  Atomic: det.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxExtendedSpecies` | 20 | 4 mod-5 entry-witnesses + neg-one closure;  4 mod-2 entry-witnesses + period-NS closure;  Pell `±det` fundamental solutions (2,1), (9,4);  4 Pell recurrence steps;  4 lattice form-preservation witnesses;  ★★★★★ `bezout_polynomial` (NT·(x+1) Bezout combination);  ★★★★★★★★ `extended_species_master` (6-conjunct Round 2 master) |
+
+**Catalog upgrade in PxSymmetrySpecies**:
+  · 6 new `SpeciesKind` constructors
+  · `allSpecies.length`: 30 → **36**
+  · Bucket partition: `4 + 5 + 6 + 4 + 9 + 8 = 36`
+    (dynamics +2, invariants +1, arithmetic +3)
+  · Status partition: `36 + 0 + 0 = 36` (all formalized)
+  · `symmetry_species_meta_master`: extended to 36-species
+    closure
+
+**Session grand total**: 310 + 20 = **330 PURE / 0 DIRTY**.
