@@ -283,4 +283,31 @@ theorem psi_layer_kills_cupOpp_S0star_left_c2 (β : EnrichedEdgeCoch 2) :
     cases β ⟨5, by decide⟩ <;> cases β ⟨6, by decide⟩ <;>
     cases β ⟨7, by decide⟩ <;> cases β ⟨8, by decide⟩ <;> rfl
 
+/-! ## §10 — Parametric bottom-layer kill at `m = ⟨0, hc⟩`
+
+Generalises the c=2 kill lemma to ANY `c ≥ 1` at the bottom multiplicity
+`m = ⟨0, hc⟩`.  At this layer `9·m.val = 0` so edge_idx values reduce
+to concrete `Fin (9·c)` indices (val < 9), and the unfolded `Nat.beq`
+evaluations all compute by `rfl`. -/
+
+set_option maxHeartbeats 1600000 in
+theorem psi_layer_kills_cupOpp_S0star_left_at_bottom
+    (c : Nat) (hc : 0 < c) (β : EnrichedEdgeCoch c) :
+    psi_layer c ⟨0, hc⟩
+      (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param starS pair_lo pair_hi
+  cases β (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ ⟨0, hc⟩) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ ⟨0, hc⟩) <;> rfl
+
+/-- Capstone: kill lemma holds at the bottom layer for ANY `c`. -/
+theorem parametric_bottom_layer_kill_capstone (c : Nat) (hc : 0 < c) :
+    ∀ β : EnrichedEdgeCoch c,
+      psi_layer c ⟨0, hc⟩
+        (cupOpp_param c (starS c ⟨0, by decide⟩ ⟨0, hc⟩) β) = false :=
+  fun β => psi_layer_kills_cupOpp_S0star_left_at_bottom c hc β
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
