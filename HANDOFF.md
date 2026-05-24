@@ -128,11 +128,31 @@ K_{1,1} and K_{3,2} via a yet-to-be-defined "mediant cohomology"
 operation.  If this works, every K_{NS,NT}^{(c)} cohomology
 factors through the Stern-Brocot path.
 
+### Direction T — Bipartite-tripartite self-containment at K_{3,2}^{(c=2)}
+
+`K_{3,2}^{(c=2)}` does NOT require a separate tripartite extension.
+Every structural element (vertex / edge / face / cycle space /
+Möbius P / Pell point) carries both '2' and '3' of the (2, 1, 3)
+atomic signature simultaneously.
+
+Two sub-options:
+
+  · **Option I (recommended)**: build `V32LocalSignature.lean` that
+    reveals the duality already present — `vertex_local_signature`,
+    `edge_local_signature`, `face_local_signature` definitions +
+    master theorem `local_213_at_every_point`.
+  · **Option II**: extend to `K_{2,1,3}` tripartite + prove duality
+    with `K_{3,2}^{(c=2)}` at the cohomology level (new graph,
+    broader reach).
+
+Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
+
 ## Anchor docs
 
   · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — boot
   · `research-notes/G143_c_multiplicity_hierarchy_refined.md` — c-counter problem
   · `research-notes/G145_c_counter_structural_theory.md` — high-level synthesis
+  · `research-notes/G146_K32_bipartite_tripartite_self_containment.md` — bipartite-tripartite duality at K_{3,2}^{(c=2)}
   · `lean/E213/ARCHITECTURE.md` — layer spec
   · `theory/INDEX.md` — book map
   · `STRICT_ZERO_AXIOM.md` — PURE catalog
