@@ -1722,3 +1722,36 @@ Extension to higher α-powers requires DIFFERENT cohomology
 complexes (not truncations of K_{3,2}^{(c=2)}, which trivialise).
 Such extensions are physics-application-dependent and constitute
 the continuing multi-session marathon scope beyond α_em residual.
+
+## 2026-05-24 — G139 Phase 1: Möbius-orbit equivalence on cuts
+
+Defines `mobiusEq` — agreement of two `cut : Nat → Nat → Bool`
+functions on the two Stern-Brocot orbits of P = [[2,1],[1,1]]
+acting on (m, k) ↦ (2m+k, m+k) — and proves the equivalence-
+relation laws plus the unconditional forward bridge from
+`cutEq` (pointwise eq) to `mobiusEq` (orbit eq).  12 PURE /
+0 DIRTY.  The G139 conjecture (`research-notes/G139_…`) is
+that the converse holds via Stern-Brocot coverage of ℕ × ℕ,
+unifying every 213 equality definition (cutEq, ZpSeqEquiv,
+signedEq, ValidCutN.is_at_denom, Adjacent, LensMap) as
+projections of a single Möbius-orbit equivalence.  This
+file delivers the structural Phase 1; Phase 2 (backward
+bridge) is a follow-up.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mobius213Equiv` | 12 | `Pstep`, `Pseq seed n` — P-iteration on Nat × Nat;  `seedZero := (0,1)`, `seedInf := (1,0)` — the two Stern-Brocot generators;  `Pseq_seedZero_values` (orbit through (1,1), (3,2), (8,5), (21,13), (55,34));  `Pseq_seedInf_values` (orbit through (2,1), (5,3), (13,8), (34,21), (89,55) — direct Pell convergents of `Lib/Math/Mobius213.lean`);  `orbits_hit_atoms_at_depth_2` ((NS,NT) = (3,2) and (NS+NT, NS) = (5,3) appear at depth 2);  `mobiusEq cx cy` — orbit-pointwise equality;  `mobiusEq_refl/symm/trans` — equivalence-relation laws;  ★★★ `mobiusEq_of_cutEq` — unconditional forward bridge |
+
+Structural significance: the two seeds (0, 1) and (1, 0)
+generate the Stern-Brocot tree under repeated P-action.  Their
+P-orbits coincide (shifted) with the `P_numerator` and
+`P_denominator` Pell sequences from `Lib/Math/Mobius213.lean`
+— Fibonacci-even/odd convergents.  Hence `mobiusEq` is a
+Möbius-orbit reading of cut equality that uses the same
+matrix that algebraically encodes (NS, NT, d) = (3, 2, 5)
+via (trace, det, disc) = (NS, NS−NT, NS+NT).
+
+Forward bridge `cutEq ⇒ mobiusEq` is trivial pointwise
+specialisation.  Backward bridge `mobiusEq ⇒ cutEq` requires
+the Stern-Brocot coverage lemma (every (m, k) lies on a P-orbit
+from one of the two seeds) and is deferred to Phase 2.
