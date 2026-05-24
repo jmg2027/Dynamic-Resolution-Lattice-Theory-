@@ -2467,6 +2467,32 @@ strict boundary, which `MobiusTensor` handles structurally.
 
 **Session grand total**: 206 + 4 = **210 PURE / 0 DIRTY**.
 
+## 2026-05-24 — Mobius213PxDecompositionCatalog: parallel (2,1,3) extraction methods
+
+User's clarification: catalog "Phase 3" was misread earlier as
+"more axes per domain".  Actual intent: *enumerate parallel
+methods for extracting `(2, 1, 3)` from P(x) itself across math
+fields* — each method is a different field's natural counting
+tradition applied to the SAME object `P(x) = (2x+1)/(x+1)`.
+
+7 field-specific decomposition methods + 1 master.  8 PURE /
+0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxDecompositionCatalog` | 8 | `px_alg_entries_decomp` (matrix entries decomposed as NT + 2·glue + unit, sum d);  `px_poly_coeff_decomp` (numerator 2-coef, denominator 2-coef, coef sums = NS, NT);  `px_pgl_dim_decomp` (PGL DOF = NS, input dim = NT, projective = 1);  `px_numeric_bezout` (NT, NS atoms + Pell unit + Bezout combination);  `px_char_poly_decomp` (degree NT, trace NS, det 1, disc d);  `px_combinatorial_factorial` (3! = NS·NT, NT+NS = d, Pascal middle pair);  `px_information_dim` (input bits + matrix DOF + projective unit);  ★★★★★★★★ `px_decomposition_master` (7-field master) |
+
+**The conjecture realised** (per Mingu's framing): across 7
+distinct counting traditions, P(x) decomposes into `(2, 1, 3)`-
+shaped data via parallel methods.  Each field has a natural way
+of "counting" that, when applied to P(x), yields the framework's
+atomic signature.  This is *structurally distinct* from "domain
+X also contains the integer 5" (Phase 2's reading) — it's
+"domain X's *counting machinery applied to P(x)* yields (2,1,3)"
+(Phase 3's reading).
+
+**Session grand total**: 210 + 8 = **218 PURE / 0 DIRTY**.
+
 Standard math hosting: the projective general linear group
 `PGL(2, ℝ)` representation theory.  The 213 atomic signature
 `(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the
