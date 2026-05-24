@@ -15,7 +15,7 @@ through a Lens that does not yet name Raw).  The Theory Raw
 axiom is then justified *because* it instantiates the unique
 structure these theorems force.
 
-## Files (7)
+## Files (8)
 
 | File | Proof |
 |---|---|
@@ -26,6 +26,7 @@ structure these theorems force.
 | `Alive.lean`             | "alive" predicate (both atom-multiplicities odd) |
 | `ArityForcing.lean`      | k = 2 is the unique non-degenerate, non-vacuous arity |
 | `PrimitiveSizes.lean`    | atom set {pairSize=2, closureSize=3} from the axiom |
+| `OrbitForcing.lean`      | Pell-Lucas coefficients `(NS, det) = (3, 1)` forced from atomic seeds + `L(2) = 7` (orbit dynamics layer) |
 
 ## Migration history
 
