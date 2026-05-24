@@ -9,10 +9,13 @@
   · `claude/cohomology-marathon-qOxOX` — closed (603 PURE / 62 closures
     / Phases 1-18 + 1 DIRTY structural theorem).
   · `claude/cohomology-marathon-merge-M5CTR` — active merge branch
-    (this session); +50 PURE on top of merge (K_{3,3} multi-witness
-    sweep 21 + 4-fold 5th-dim breakthrough 17 + mult-1 cup-trivial
-    obstruction 12).  **Full H² = F₂⁵ at K_{3,3}^{(c=2)} now
-    spanned** (4 dims via 3-fold + 5th via 4-fold Massey).
+    (this session); +79 PURE on top of merge: K_{3,3}^{(c=2)}
+    multi-witness sweep 21 + 4-fold 5th-dim breakthrough 17 +
+    mult-1 cup-trivial obstruction 12 + **c=3 falsification of
+    `(c−1)`-codim conjecture 29**.  Full H² = F₂⁵ at
+    K_{3,3}^{(c=2)} spanned via depth-4 Massey; same depth-4
+    suffices at c=3 (codim 1 independent of c under simple-cycle
+    face structure).
 
 ## Combined achievement
 
@@ -112,6 +115,8 @@ under P = [[2,1],[1,1]].  Phase 1-5 plan in the doc.
 | `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyMulti.lean` | 3 new K_{3,3} Massey witnesses + 4-dim capstone |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/V33Massey4Fold.lean` | **5th-dim breakthrough — 4-fold ⟨g1, g4, g2, g5⟩ single-face-2 rep** |
 | `lean/E213/Lib/Math/Cohomology/Bipartite/V33Mult1Trivial.lean` | Mult-1 cocycles cup-trivially (Route 2 obstruction) |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3.lean` | **c=3 minimal port — (c−1)-codim falsified**; codim 1 + depth 4 independent of c |
+| `research-notes/G143_c_multiplicity_hierarchy_refined.md` | **Refined c-multiplicity conjecture (active)** — indeterminacy / richer 2-complex / Bockstein candidates |
 | `theory/INDEX.md` | Book map (98+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
