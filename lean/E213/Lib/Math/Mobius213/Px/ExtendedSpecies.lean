@@ -2,14 +2,11 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Int213.Core
 
 /-!
-# Mobius213PxExtendedSpecies — modular / Pell / lattice / Bezout species
+# Mobius213.Px.ExtendedSpecies — modular / Pell / lattice / Bezout species
 
-Round 2 extension of the P(x) species catalog with 6 new
-species spanning iteration-level (mod-p periods, Pell orbits)
-and higher-order (lattice invariant form, Bezout polynomial
-identity) frames.
-
-Species closed (6):
+Six symmetry-revealing species of P(x) spanning iteration-
+level (mod-p periods, Pell orbits) and higher-order
+(lattice invariant form, Bezout polynomial identity) frames:
 
   · `pentagonal_period_mod5` — P^5 ≡ −I (mod 5), witnessed
     via entry-wise reduction `89 ≡ 4`, `55 ≡ 0`, `34 ≡ 4`
@@ -47,7 +44,7 @@ Species closed (6):
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxExtendedSpecies
+namespace E213.Lib.Math.Mobius213.Px.ExtendedSpecies
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -143,7 +140,7 @@ theorem lattice_form_bot_right :
     Witnesses gcd `((2x+1), (x+1)) = det = 1` in ℤ[x] via a
     single Bezout-style step.  Equivalent to the Euclidean
     step `numerator_preserving_euclidean` already in
-    `Mobius213PxOpenSpeciesClosure`, here re-cast as the
+    `Mobius213.Px.OpenSpeciesClosure`, here re-cast as the
     explicit Bezout combination. -/
 theorem bezout_polynomial (x : Int) :
     (2 * x + 1) + 1 = (NT : Int) * (x + 1) := by
@@ -153,11 +150,11 @@ theorem bezout_polynomial (x : Int) :
   rw [E213.Meta.Int213.add_assoc]
   rfl
 
-/-! ## §7 — Master: 6-species extension closure -/
+/-! ## §7 — Master: 6-species closure -/
 
-/-- ★★★★★★★★ **Round-2 extension master**: bundles the 6
-    new species into one theorem.  Catalog 30 → 36 with all
-    atomic invariants still in `{det, NT, NS, d}`. -/
+/-- ★★★★★★★★ **Modular/Pell/lattice/Bezout master**: bundles
+    the 6 species into one theorem.  Each conjunct is the
+    atomic-witness for one species. -/
 theorem extended_species_master :
     -- (a) pentagonal_period_mod5
     ((89 : Nat) % 5 = 4 ∧ (55 : Nat) % 5 = 0 ∧ (34 : Nat) % 5 = 4
@@ -190,4 +187,4 @@ theorem extended_species_master :
     lattice_form_off_diag, lattice_form_bot_right⟩,
    bezout_polynomial⟩
 
-end E213.Lib.Math.Mobius213PxExtendedSpecies
+end E213.Lib.Math.Mobius213.Px.ExtendedSpecies

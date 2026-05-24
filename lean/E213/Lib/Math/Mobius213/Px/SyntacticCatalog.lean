@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Mobius213PxSyntacticCatalog — syntactic micro-decomposition of P(x)
+# Mobius213.Px.SyntacticCatalog — syntactic micro-decomposition of P(x)
 
 This file formalises a fine-grained syntactic analysis of
 `P(x) = (2x+1)/(x+1)`.  Viewing the expression as
@@ -31,13 +31,13 @@ Counts captured:
 
 Every named count yields one of `{1, 2, 3}` — no other value
 appears.  The master theorem witnesses this completeness as a
-12-conjunct ∅-axiom proposition; the signature-set-closure
-lemma adds the explicit "value ∈ {NS, NT, 1}" form.
+12-conjunct ∅-axiom proposition; an accompanying signature-set
+closure asserts the explicit "value ∈ {NS, NT, 1}" form.
 
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxSyntacticCatalog
+namespace E213.Lib.Math.Mobius213.Px.SyntacticCatalog
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -181,4 +181,4 @@ theorem syntactic_signature_set_closure :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Lib.Math.Mobius213PxSyntacticCatalog
+end E213.Lib.Math.Mobius213.Px.SyntacticCatalog

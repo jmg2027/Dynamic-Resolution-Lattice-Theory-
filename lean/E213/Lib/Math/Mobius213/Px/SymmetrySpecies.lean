@@ -1,10 +1,10 @@
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
-# Mobius213PxSymmetrySpecies — meta-catalog of P(x) symmetry family species
+# Mobius213.Px.SymmetrySpecies — meta-catalog of P(x) symmetry family species
 
-Sequel to `Mobius213PxAxisGroupCount` (which counts *axes* of
-`(2, 1, 3)` extraction) and `Mobius213PxDenomInvariantFamily`
+Sequel to `Mobius213.Px.AxisGroupCount` (which counts *axes* of
+`(2, 1, 3)` extraction) and `Mobius213.Px.DenomInvariantFamily`
 (which formalises *one* preservation-axis family — the
 denominator-preserving ℤ-shift).
 
@@ -34,7 +34,7 @@ earlier Lean modules, 1 partial, 12 conjectured.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxSymmetrySpecies
+namespace E213.Lib.Math.Mobius213.Px.SymmetrySpecies
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -114,19 +114,21 @@ inductive SpeciesKind
   | fibonacci_recurrence
   | stern_brocot_mediant
   | padic_tower
-  -- Bucket 2 (geometric) — iteration-level extension
+  -- Bucket 2 (geometric) — iteration-level
   | reflection_through_center
-  -- Bucket 5 (invariants) — iteration-level extension
+  -- Bucket 5 (invariants) — iteration-level
   | det_iteration_invariant
   | trace_lucas_recurrence
   | cassini_iteration
-  -- Round 2 — modular / Pell / lattice / Bezout extension
+  -- Bucket 3 (dynamics) — modular periods
   | pentagonal_period_mod5
   | mod_2_period_3
+  -- Bucket 6 (arithmetic) — Pell + Bezout
   | pell_solutions_orbit
   | pell_recurrence_orbit
-  | lattice_invariant_form
   | bezout_polynomial_identity
+  -- Bucket 5 (invariants) — quadratic-form preservation
+  | lattice_invariant_form
   deriving DecidableEq
 
 /-! ## §2 — Species data table -/
@@ -195,19 +197,21 @@ def speciesData : SpeciesKind → FamilySpecies
       ⟨.invariants,             .linear_recurrence, .formalized, 3⟩
   | .cassini_iteration         =>
       ⟨.invariants,             .trivial,           .formalized, 1⟩
-  -- Round 2 — modular / Pell / lattice / Bezout extension (6 species)
+  -- Modular periods (mod-p reduction of P)
   | .pentagonal_period_mod5    =>
       ⟨.dynamics,               .z10_cycle,         .formalized, 5⟩
   | .mod_2_period_3            =>
       ⟨.dynamics,               .z_torsor,          .formalized, 3⟩
+  -- Pell + Bezout (arithmetic-frame symmetries)
   | .pell_solutions_orbit      =>
       ⟨.arithmetic,             .z_torsor,          .formalized, 1⟩
   | .pell_recurrence_orbit     =>
       ⟨.arithmetic,             .linear_recurrence, .formalized, 2⟩
-  | .lattice_invariant_form    =>
-      ⟨.invariants,             .trivial,           .formalized, 5⟩
   | .bezout_polynomial_identity =>
       ⟨.arithmetic,             .trivial,           .formalized, 1⟩
+  -- Quadratic-form preservation (lattice-level invariant)
+  | .lattice_invariant_form    =>
+      ⟨.invariants,             .trivial,           .formalized, 5⟩
 
 /-- All distinct species, in bucket order. -/
 def allSpecies : List SpeciesKind := [
@@ -225,20 +229,19 @@ def allSpecies : List SpeciesKind := [
   .bezout_decomposition,    .continued_fraction,
   .fibonacci_recurrence,    .stern_brocot_mediant,
   .padic_tower,
-  -- Iteration-level extension
+  -- Iteration-level (det / trace / Cassini / reflection)
   .reflection_through_center,
   .det_iteration_invariant, .trace_lucas_recurrence,
   .cassini_iteration,
-  -- Round 2 — modular / Pell / lattice / Bezout
+  -- Modular periods + Pell + Bezout + lattice form
   .pentagonal_period_mod5,  .mod_2_period_3,
   .pell_solutions_orbit,    .pell_recurrence_orbit,
-  .lattice_invariant_form,  .bezout_polynomial_identity]
+  .bezout_polynomial_identity, .lattice_invariant_form]
 
 /-! ## §3 — Total count -/
 
 /-- ★★★★★ **Total species count**: 36 distinct symmetry
-    family species of P(x) at the current taxonomy depth
-    (26 base + 4 iteration + 6 modular/Pell/lattice/Bezout). -/
+    family species of P(x) at the current taxonomy depth. -/
 theorem allSpecies_length : allSpecies.length = 36 := rfl
 
 /-! ## §4 — Atomic-invariant closure -/
@@ -257,33 +260,29 @@ theorem atomicInvariant_in_signature_set (k : SpeciesKind) :
 
 /-! ## §5 — Bucket + status partitions -/
 
-/-- ★★★★ **Bucket partition**: 4 + 5 + 6 + 4 + 9 + 8 = 36
-    after Round 2 modular/Pell/lattice/Bezout extension.
+/-- ★★★★ **Bucket partition**: `4 + 5 + 6 + 4 + 9 + 8 = 36`.
 
     · algebraic preservation: 4
     · geometric symmetry: 5
-    · dynamics: 6 (+ pentagonal_period_mod5, mod_2_period_3)
+    · dynamics: 6
     · representation theory: 4
-    · invariants: 9 (+ lattice_invariant_form)
-    · arithmetic: 8 (+ pell_solutions_orbit,
-      pell_recurrence_orbit, bezout_polynomial_identity) -/
+    · invariants: 9
+    · arithmetic: 8 -/
 theorem bucket_partition_count :
     4 + 5 + 6 + 4 + 9 + 8 = allSpecies.length := by decide
 
 /-- ★★★★★★ **Status partition**: all 36 species are
-    PURE-formalised after the marathon + iteration + Round 2
-    extensions. -/
+    PURE-formalised. -/
 theorem status_partition_count :
     36 + 0 + 0 = allSpecies.length := by decide
 
 /-! ## §6 — Master -/
 
 /-- ★★★★★★★★ **Meta-master**: P(x) admits a finite catalogue
-    of 36 distinct symmetry family species (after the Round 2
-    modular/Pell/lattice/Bezout extension), partitioned into
+    of 36 distinct symmetry family species, partitioned into
     6 structural buckets (4+5+6+4+9+8), with every species's
-    characteristic atomic invariant lying in `{det, NT, NS, d}
-    = {1, 2, 3, 5}`.
+    characteristic atomic invariant lying in
+    `{det, NT, NS, d} = {1, 2, 3, 5}`.
 
     Formalises the meta-conjecture: every natural symmetry-
     revealing decomposition of P(x), expressed via its
@@ -305,22 +304,11 @@ theorem symmetry_species_meta_master :
 
 /-! ## §7 — Honest caveats
 
-  · The 26 count is at the *current* depth of taxonomy.  Refining
-    each species (e.g. `denominator_preserving` splits by sign
-    of `n` into positive/negative half-torsors) gives more;
-    coarsening (e.g. unifying `*_preserving` into one) gives
-    fewer.  No claim of taxonomic uniqueness.
-
-  · The 12 "open" species have concrete proof obligations:
-      — `hyperbolic_center`: literal Lean theorem
-        `P(x) − NT = -det / (x − (-det))` (i.e. the standard-
-        form factoring of the hyperbola around `(-det, NT)`);
-      — `transpose_involution`: `Pᵀ = P` (P is symmetric — the
-        involution is in fact trivial, an unusual species);
-      — `inverse_pair`: `P · P⁻¹ = I` with `P⁻¹` as a Möbius
-        matrix expressed in atomic coefficients;
-      — `coefficient_preserving`: Sym(3) on the atomic
-        coefficient multiset `{2, 1, 1}` in P matrix entries.
+  · The 36 count is at the *current* depth of taxonomy.
+    Refining each species (e.g. `denominator_preserving` splits
+    by sign of `n` into positive/negative half-torsors) gives
+    more; coarsening (e.g. unifying `*_preserving` into one)
+    gives fewer.  No claim of taxonomic uniqueness.
 
   · The "atomic invariant" choice per species is the *natural*
     characteristic integer; alternatives (e.g. mod-5 cycle's
@@ -329,14 +317,11 @@ theorem symmetry_species_meta_master :
 
   · The conjecture's strict form ("every natural symmetry of
     P(x) lands on `{1, 2, 3, 5}`") is *experimentally
-    supported* by this 26-species census, not strictly proven
+    supported* by the 36-species census, not strictly proven
     — strict proof requires demonstrating no further species
     exists outside the catalogue, which presupposes a closed
-    taxonomy of "natural symmetry families".
+    taxonomy of "natural symmetry families".  See
+    `research-notes/G142_p_x_symmetry_classification_algorithm.md`
+    for the algorithmic-tractability analysis. -/
 
-  · The 12 open conjectures naturally factor into 12 follow-up
-    Lean modules; the 1 partial (char_poly) requires extending
-    `Mobius213PxDecompositionCatalog.px_char_poly_decomp` to
-    Galois-action structure. -/
-
-end E213.Lib.Math.Mobius213PxSymmetrySpecies
+end E213.Lib.Math.Mobius213.Px.SymmetrySpecies

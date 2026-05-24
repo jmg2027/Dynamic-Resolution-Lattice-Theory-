@@ -2,10 +2,9 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Int213.Core
 
 /-!
-# Mobius213PxIterationSpecies — iteration-level symmetry species of P(x)
+# Mobius213.Px.IterationSpecies — iteration-level symmetry species of P(x)
 
-Extends the 26-species P(x) catalog with 4 new species that
-emerge under iteration `P^k`:
+Four symmetry-revealing species arising under iteration `P^k`:
 
   · `det_iteration_invariant` — `det(P^k) = det^k = 1` for
     all k (det is iteration-stable).  Aut = trivial.
@@ -26,13 +25,14 @@ emerge under iteration `P^k`:
     `P(−2 − x) = 4 − P(x)`.  Cross-multiplied form is a
     pure Int identity.  Aut = ℤ/2.  Atomic: NT.
 
-Each species follows the catalog conventions:
-characteristic atomic invariant ∈ `{det, NT, NS, d}`.
+Each species's characteristic atomic invariant lies in
+`{det, NT, NS, d}`, consistent with the catalog closure
+proven in `Mobius213.Px.SymmetrySpecies`.
 
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213PxIterationSpecies
+namespace E213.Lib.Math.Mobius213.Px.IterationSpecies
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -131,9 +131,9 @@ theorem reflection_involution (x : Int) :
 
 /-! ## §5 — Master: 4 iteration-level species -/
 
-/-- ★★★★★★★★ **Iteration-level master**: bundles all 4 new
-    iteration-symmetry species into one theorem.  Extends the
-    26-species P(x) catalog to 30, all atomic-closed. -/
+/-- ★★★★★★★★ **Iteration-level master**: bundles all 4
+    iteration-symmetry species into one theorem.  Each conjunct
+    is a witness of one species's atomic claim. -/
 theorem iteration_species_master :
     -- (a) det iteration invariant: det(P^k) = 1 at k = 1, 2, 3, 5
     ((2 : Int) * 1 - 1 * 1 = (1 : Int))
@@ -164,4 +164,4 @@ theorem iteration_species_master :
   · exact reflection_numerator_sum
   · exact reflection_involution
 
-end E213.Lib.Math.Mobius213PxIterationSpecies
+end E213.Lib.Math.Mobius213.Px.IterationSpecies
