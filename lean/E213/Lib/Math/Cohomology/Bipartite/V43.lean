@@ -149,6 +149,83 @@ theorem face_dep_S23_at_K43 :
     cases σ ⟨16, by decide⟩ <;> cases σ ⟨18, by decide⟩ <;>
     cases σ ⟨20, by decide⟩ <;> cases σ ⟨22, by decide⟩ <;> rfl
 
+/-- Face (S={0,3}, T={0,1}, mult-0). -/
+def face_S03_T01 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨0, by decide⟩ ⟨2, by decide⟩
+                 ⟨18, by decide⟩ ⟨20, by decide⟩
+
+def face_S03_T02 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨0, by decide⟩ ⟨4, by decide⟩
+                 ⟨18, by decide⟩ ⟨22, by decide⟩
+
+def face_S03_T12 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨2, by decide⟩ ⟨4, by decide⟩
+                 ⟨20, by decide⟩ ⟨22, by decide⟩
+
+theorem face_dep_S03_at_K43 :
+    ∀ σ : CochE,
+      xor (xor (face_S03_T01 σ) (face_S03_T02 σ)) (face_S03_T12 σ) = false := by
+  intro σ
+  unfold face_S03_T01 face_S03_T02 face_S03_T12 faceBoundary
+  cases σ ⟨0, by decide⟩ <;> cases σ ⟨2, by decide⟩ <;>
+    cases σ ⟨4, by decide⟩ <;> cases σ ⟨18, by decide⟩ <;>
+    cases σ ⟨20, by decide⟩ <;> cases σ ⟨22, by decide⟩ <;> rfl
+
+def face_S12_T01 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨6, by decide⟩ ⟨8, by decide⟩
+                 ⟨12, by decide⟩ ⟨14, by decide⟩
+
+def face_S12_T02 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨6, by decide⟩ ⟨10, by decide⟩
+                 ⟨12, by decide⟩ ⟨16, by decide⟩
+
+def face_S12_T12 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨8, by decide⟩ ⟨10, by decide⟩
+                 ⟨14, by decide⟩ ⟨16, by decide⟩
+
+theorem face_dep_S12_at_K43 :
+    ∀ σ : CochE,
+      xor (xor (face_S12_T01 σ) (face_S12_T02 σ)) (face_S12_T12 σ) = false := by
+  intro σ
+  unfold face_S12_T01 face_S12_T02 face_S12_T12 faceBoundary
+  cases σ ⟨6, by decide⟩ <;> cases σ ⟨8, by decide⟩ <;>
+    cases σ ⟨10, by decide⟩ <;> cases σ ⟨12, by decide⟩ <;>
+    cases σ ⟨14, by decide⟩ <;> cases σ ⟨16, by decide⟩ <;> rfl
+
+def face_S13_T01 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨6, by decide⟩ ⟨8, by decide⟩
+                 ⟨18, by decide⟩ ⟨20, by decide⟩
+
+def face_S13_T02 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨6, by decide⟩ ⟨10, by decide⟩
+                 ⟨18, by decide⟩ ⟨22, by decide⟩
+
+def face_S13_T12 (σ : CochE) : Bool :=
+  faceBoundary σ ⟨8, by decide⟩ ⟨10, by decide⟩
+                 ⟨20, by decide⟩ ⟨22, by decide⟩
+
+theorem face_dep_S13_at_K43 :
+    ∀ σ : CochE,
+      xor (xor (face_S13_T01 σ) (face_S13_T02 σ)) (face_S13_T12 σ) = false := by
+  intro σ
+  unfold face_S13_T01 face_S13_T02 face_S13_T12 faceBoundary
+  cases σ ⟨6, by decide⟩ <;> cases σ ⟨8, by decide⟩ <;>
+    cases σ ⟨10, by decide⟩ <;> cases σ ⟨18, by decide⟩ <;>
+    cases σ ⟨20, by decide⟩ <;> cases σ ⟨22, by decide⟩ <;> rfl
+
+/-- ★★★★ All 6 S-row dependences at K_{4,3}^(c=2) bundled. -/
+theorem K43_all_S_row_deps_bundle :
+    ∀ σ : CochE,
+      xor (xor (face_S01_T01 σ) (face_S01_T02 σ)) (face_S01_T12 σ) = false
+      ∧ xor (xor (face_S02_T01 σ) (face_S02_T02 σ)) (face_S02_T12 σ) = false
+      ∧ xor (xor (face_S03_T01 σ) (face_S03_T02 σ)) (face_S03_T12 σ) = false
+      ∧ xor (xor (face_S12_T01 σ) (face_S12_T02 σ)) (face_S12_T12 σ) = false
+      ∧ xor (xor (face_S13_T01 σ) (face_S13_T02 σ)) (face_S13_T12 σ) = false
+      ∧ xor (xor (face_S23_T01 σ) (face_S23_T02 σ)) (face_S23_T12 σ) = false := by
+  intro σ
+  exact ⟨face_dep_S01_at_K43 σ, face_dep_S02_at_K43 σ, face_dep_S03_at_K43 σ,
+         face_dep_S12_at_K43 σ, face_dep_S13_at_K43 σ, face_dep_S23_at_K43 σ⟩
+
 /-! ## §4 — Edge / vertex counts -/
 
 theorem K43_edge_count : 4 * 3 * 2 = 24 := by decide
