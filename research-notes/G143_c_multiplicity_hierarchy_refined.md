@@ -193,6 +193,11 @@ the enriched 2-complex (mult-m face cycles for `m ∈ {0, …, c-1}`).
     independent (`V33c3Enriched.three_independent_h2_classes_enriched_c3`)
   · Cross-frame (`V33c3Enriched.cross_frame_enriched_codim_grows_with_c`):
     codim ≥ c at `c ∈ {2, 3}`
+  · **Parametric ∀c** (`V33EnrichedParametric.parametric_c_independent_h2_classes`):
+    codim ≥ c for ALL `c : Nat` — c indicators `e_face_layer c m` with
+    Kronecker-δ signatures, all non-coboundaries.  Uses an abstract 3D
+    face value space `Fin 3 → Fin 3 → Fin c → Bool` to keep the proof
+    `omega`/`simp`/`funext`/`dite`-free
 
 ### Key structural fact
 
@@ -212,6 +217,8 @@ distinct ψ-signatures `(0,…,0,1,0,…,0)`.
     — c=2 enriched + capstone (23 PURE)
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3Enriched.lean`
     — c=3 enriched + cross-frame capstone (36 PURE)
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametric.lean`
+    — parametric ∀c capstone (15 PURE)
 
 ### Refined refined conjecture (now established at c ∈ {2, 3})
 
