@@ -77,8 +77,24 @@ is_native : cutEq cut (constCut a b) ∧ b ∈ ⟨2, 3⟩  (multiplicative monoi
 
 ## 후속 작업의 closure
 
-1. **`cutSumN N` parametric 정의** — `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE).  factor-2 hardcode를 parametric N으로 lift.  `cutSumN_same_denom`: 임의 `N > 0`, `a, c`에서 `cutSumN N (constCut a N) (constCut c N) ≡ constCut (a+c) N` bidirectional.  `cutSumN_cutEq_left/right`: cutEq 존중.
-2. **`ThirdValidCut` (b = 3)** — `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE).  IntValidCut/HalfValidCut 패턴 연장; `cutSumN 3` 기반 add, full assoc, comm, capstone.  `cutSumN_3_2_1_at_1_1`이 CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 decide-검증.
-3. **`is_native` wrapper** — `b ∈ ⟨2, 3⟩` 멤버십 게이트는 아직 미작성; 위 두 파일이 b = 1, 2, 3 각각의 closure를 갖춤.
+1. **`cutSumN N` parametric 정의** — `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE).  factor-2 hardcode를 parametric N으로 lift.  `cutSumN_same_denom`: 임의 `N > 0`, `a, c`에서 `cutSumN N (constCut a N) (constCut c N) ≡ constCut (a+c) N` bidirectional.
 
-진짜 framework 결함은 cutSum의 hardcode이지 b ≥ 3 자체가 아니다.  213은 (3, 2) atomic commitment를 honor하고, 그 안에서 모든 real이 판정 가능하다.  `cutSumN 3` + `ThirdValidCut`이 NS atom의 algebraic closure를 framework 안에서 완전 실현.
+2. **`cutSumN_mixed_denom`** — `Sum/CutSumNMixed.lean` (3 PURE).  Cross-denominator closure: for `b₁·q₁ = N`, `b₂·q₂ = N`,
+   `cutSumN N (constCut a b₁) (constCut c b₂) ≡ constCut (a·q₁ + c·q₂) N`.  N의 약수 b 쌍이 모두 algebraically 닫힘.  예: `cutSumN 6 (1/2) (1/3) ≡ 5/6` (`cutSumN_six_half_third`).
+
+3. **`ThirdValidCut` (b = 3)** — `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE).  IntValidCut/HalfValidCut 패턴; `cutSumN 3` 기반.  `cutSumN_3_2_1_at_1_1`이 CutSumAssocB3 반례가 `cutSumN 3`에서는 true임을 decide-검증.
+
+4. **`NValidCut N` parametric — 모든 자연수 N의 통합 closure** — `Lib/Math/Real213/NValidCut.lean` (14 PURE).  `ValidCutN N` 구조 (cut + represents + is_at_denom), `addN N hN`, `cutSumN_assoc_valid N hN`, `cutSumN_comm_valid N hN`, `nvalidcut_all_naturals_capstone`.  Per-N 별 증명 불필요 — 임의 N ≥ 1에서 한 번에 닫힘.  Smoke: N = 5, 7, 11에서 결합법칙 검증 (`fifth_assoc_1_2_1`, `seventh_assoc_2_3_5`, `eleventh_assoc_1_4_6`).
+
+## 5와 모든 자연수: layered closure
+
+| Layer | Closure | Lean |
+|---|---|---|
+| Self-algebra (단일 N) | 임의 N ≥ 1 | `cutSumN_same_denom N` + `NValidCut N` |
+| Mixed (b₁, b₂ | N) | N이 b₁, b₂의 공배수 | `cutSumN_mixed_denom` |
+| 213-native composite | N ∈ ⟨2, 3⟩^mult | b = 2, 3, 4, 6, 8, 9, 12, ... 모든 cross-sum |
+| Pure b = 5, 7, 11, ... | Self-closure ✓; cross-closure는 N = b·b' 필요 | NValidCut N |
+
+**5의 자리**: `Theory/Atomicity/Five.lean atomic_iff_five`가 5 = 2·1 + 3·1 (alive atomic)임을 증명 — 5는 (3, 2)에서 *덧셈으로* 유일한 atomic.  cutSumN 5는 self-algebra 닫힘; cutSumN 10 = cutSumN (2·5)이 b ∈ {2, 5} 짝 cross-closure.  7 = 2+2+3, 11 = 2+3+3+3 등도 같은 패턴.
+
+진짜 framework 결함은 cutSum의 hardcode이지 b ≥ 3 자체가 아니다.  213은 (3, 2) atomic commitment를 honor하고, 그 안에서 모든 real이 판정 가능하다.  `cutSumN N` parametric framework가 NS·NT atom의 algebraic closure를 **모든 자연수에 대해** framework 안에서 완전 실현.
