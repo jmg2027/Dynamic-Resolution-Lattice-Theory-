@@ -38,18 +38,18 @@
 
 - **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/Real213/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
 
-## b ≥ 3 cutSum_assoc — 정직한 종결
+## b ≥ 3 cutSum_assoc — 진단의 진행
 
-원래 "새 정리 작성"으로 분류했던 `b ≥ 3` 의 backward direction은 *깊이 보니 missing theorem이 아닌 framework artifact*임이 드러남.  `Lib/Math/Real213/CutSumAssocB3.lean` (7 PURE)이 이를 문서화:
+원래 "새 정리 작성"으로 분류했던 `b ≥ 3` 의 backward direction은 *cutSum 구현의 hardcode artifact*.  `Lib/Math/Real213/CutSumAssocB3.lean` (7 PURE)이 현상을 문서화:
 
   · **Forward universal**: `cutSum_same_denom_forward`가 임의 `b ≥ 1`에서 성립.
-  · **Backward 반례** at `b ∈ {3, 4, 5}`: 예를 들어 `a = 2, c = 1, b = 3, m = 1, k = 1`에서 `constCut 3 3 1 1 = true`이지만 `cutSum (constCut 2 3) (constCut 1 3) 1 1 = false` — search range `[0, 2m] = [0, 2]`가 b = 3 의 정수-반올림 partition을 수용 못 함 (decide-검증).
-  · **Eventual agreement**: `m ≥ 10` 같은 충분한 정밀도에서는 양쪽이 일치 (Cauchy completeness witness).
+  · **Backward 반례** at `b ∈ {3, 4, 5}`: 예를 들어 `a = 2, c = 1, b = 3, m = 1, k = 1`에서 `constCut 3 3 1 1 = true`이지만 `cutSum (constCut 2 3) (constCut 1 3) 1 1 = false` (decide-검증).
+  · **Eventual agreement**: `m ≥ 10` 같은 충분한 정밀도에서는 양쪽이 일치.
   · **Meta capstone** `b_ge_3_assoc_meta`: 위 4개를 한 정리로 묶음.
 
-따라서 **bidirectional `cutSum_same_denom`은 b ≥ 3에서 Bool-level로 *구조적으로 거짓***이며, 213-native theory의 결함이 아니라 *어느 layer에서 algebraic identity가 사는가*에 대한 사실: `cutSum` framework는 Bool-level에서 정수-extended / dyadic (b ∈ {1, 2}) 까지가 algebraic closure boundary이고, b ≥ 3 의 결합법칙은 Real213 quotient 또는 finer `cutSum` redefinition을 요구.
+상세 분석은 `essays/bool_assoc_failure_meaning.md`.  핵심: `cutSum`의 factor-2 hardcode가 (NS, NT) = (3, 2) atom 중 NT만 반영하고 NS를 빠뜨림.  framework "바깥"의 문제가 아니라 *cutSum 구현이 213의 (3, 2) commitment를 under-realize* 한 것 — `Physics/Foundations/AtomicConstantsParametricFullIff.lean` `c2b_full_iff` + `Theory/Atomicity/Five.lean` `atomic_iff_five`가 (3, 2) → 모든 real 판정 chain을 이미 증명.
 
-이로써 essay 작성 시점에 "open frontier"로 표시했던 항목이 **closed**: 닫는 방식은 새 정리가 아닌, 정확한 *closure boundary* 식별이었음.
+따라서 후속은 **`cutSum`의 lcm-aware 재정의** + **`ThirdValidCut` (b = 3 bundled subtype)** + **`is_native` wrapper** (`b ∈ ⟨2, 3⟩` multiplicative monoid 게이트).  CutSumAssocB3.lean은 *현상의 정직한 진단*이지 closure가 아님.
 
 ## Provenance
 
