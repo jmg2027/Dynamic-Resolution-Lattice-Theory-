@@ -130,6 +130,43 @@ intuition.  The depth-4 chain-level breakthrough is now
 unambiguous; the c-dependence has moved to indeterminacy /
 higher invariants.
 
+## Candidate D — RESOLVED (negative): ψ-discriminator survives at c=3
+
+Phase 1 + Phase 2 complete, 25 PURE / 0 DIRTY.  The discriminating
+functional ψ = R_{S₀₁} + R_{S₀₂} + R_{S₁₂} = XOR of all 9 face
+values lifts rep₄ to a non-trivial H² cohomology class at BOTH
+c=2 and c=3 under the simple-cycle face structure.
+
+Key ψ identities (∅-axiom verified, both c):
+
+  · `ψ(cupOpp g1 ξ) = 0 ∀ ξ : CochE` — for ALL edge cochains
+    (no cocycle hypothesis), because g1's 3-edge support forces
+    every relevant ξ-edge to appear an even number of times in
+    the ψ-sum.
+  · `ψ(cupOpp ξ g5) = 0 ∀ ξ : CochE` — symmetric argument.
+  · `ψ(δ¹σ) = 0 ∀ σ : CochE` — each mult-0 face-cycle edge
+    appears in exactly 4 (= even) faces.
+  · `ψ(rep₄) = 1` — face 2 has the unique nonzero value.
+
+Conclusion: principal 4-fold Massey indeterminacy
+`g1 ∪ H¹ + H¹ ∪ g5` is killed by ψ at both multiplicities.
+The c-multiplicity counter is therefore NOT in the indeterminacy.
+
+**Refined Refined conjecture**: the c-counter must live in:
+
+  · Richer 2-complex (Candidate A) — incorporate the 16
+    multi-multiplicity 4-cycles per (S-pair, T-pair); recompute
+    H² + cup image to look for a `(c−1)`-codim manifestation.
+  · Higher cohomology H³ / H⁴ (Candidate B) — secondary level.
+  · Steenrod Sq¹ via ℤ/4 lifts (Candidate C) — primary Bockstein.
+
+Anchor formalizations:
+
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33Indeterminacy.lean`
+    — c=2 ψ-discriminator + rep₄_outside_indeterminacy (14 PURE).
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3Indeterminacy.lean`
+    — c=3 mirror + cross_frame_psi_discriminator (11 PURE).
+
 ## Anchor docs
 
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3.lean` —
@@ -141,19 +178,14 @@ higher invariants.
   · `theory/math/cohomology/k32_higher_cohomology.md` —
     chapter home (needs update to reflect refined conjecture).
 
-## Next session priorities
+## Next session priorities (post Candidate-D resolution)
 
-  1. **Indeterminacy computation** at c=2: explicitly compute
-     `a · H¹ + H¹ · d + a · H² + H² · d` for ⟨g1, g4, g2, g5⟩
-     and verify `(0,0,1,0,…,0)` is NOT in it.  Upgrades the
-     chain-level breakthrough to a true cohomology statement.
-  2. **Indeterminacy computation** at c=3: same calculation
-     with doubled H¹.  Check if it grows to absorb the rep.
-     This either confirms Candidate D or rules it out.
-  3. **Richer 2-complex** at c=2: incorporate the 16 multi-
+  1. **Richer 2-complex** at c=2: incorporate the 16 multi-
      multiplicity 4-cycles per (S-pair, T-pair) and recompute
      H² + cup image.  See if `(c−1)`-codim manifests in this
-     richer setting.
-  4. **Bockstein Sq¹ infrastructure**: define ℤ/4 lifts of
+     richer setting.  (Candidate A)
+  2. **Bockstein Sq¹ infrastructure**: define ℤ/4 lifts of
      V33 cochains and compute `Sq¹(g1)` — independent test
-     for the c-counter manifestation in H².
+     for the c-counter manifestation in H².  (Candidate C)
+  3. **Higher cohomology H³**: compute H³ at K_{3,3}^{(c=2)}
+     vs c=3 via a 3-cell complex extension.  (Candidate B)
