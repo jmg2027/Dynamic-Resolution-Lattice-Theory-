@@ -2903,3 +2903,40 @@ to the tripartite cohomology bridge's structural negative.
 | `E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature` | 15 | `is_213_multiset` predicate (sum=6, prod=6); `sig_213` triple lift; `canonical_213` / `canonical_213_swapped` triple instances; `vertex_local_signature` (side-split); `vertex_signature_is_213` decide-bridge over 5 vertices; `edge_local_signature` (uniform); `edge_signature_is_213`; `face_local_signature` (uniform); `face_signature_is_213`; structural component theorems `S_vertex_signature_components`, `T_vertex_signature_components`, `edge_signature_uniform`, `face_signature_uniform`; ★★★★★★★★★★ `local_213_at_every_point` (5-conjunct master capstone) |
 
 **Session grand total after V32LocalSignature**: 378 + 15 = **393 PURE / 0 DIRTY**.
+
+## 2026-05-24 — V33EnrichedParametricDualSpan: Direction C dual-span scaffolding
+
+Companion to `V33EnrichedParametric` for the upper-bound side of
+the c-counter at K_{3,3}^{(c)}.  Builds the F₂-linear dual-span
+structure that the SPAN claim — "c ψ-discriminators span the
+dual of H²_enr / cup-image" — requires.
+
+  · **ψ-linearity**: `psi_layer_linear` — each ψ_m distributes over
+    pointwise XOR, lifted from the abstract `psiNatPos` fold via
+    a `Nat → Bool` flat view of the 9 face values at layer m.
+  · **Surjectivity**: `weighted_e_sum c b` realises any target
+    `b : Fin c → Bool` as the joint ψ-vector of a face cochain
+    (`Σ_m (b m) · e_face_layer m`), giving
+    Ψ : EnrichedFaceVal c → (Fin c → Bool) surjective.
+  · **Canonical decomposition**: `psi_projection v` / `psi_residual v`
+    decompose v as `(weighted_e_sum (ψ-vector v)) ⊕ residual` with
+    `ψ_m(residual) = false` for all m (joint ψ-kernel).
+  · **`InCupSpanPlusBoundary`** inductive predicate: F₂-linear span
+    of cup-products `cupOpp_param α β` and coboundaries
+    `delta1_enr_param σ`.
+  · **Conditional upper bound**: if joint ψ-kernel ⊆
+    `InCupSpanPlusBoundary`, then every v reduces canonically modulo
+    `InCupSpanPlusBoundary` to its `weighted_e_sum` representative,
+    so the c ψ-discriminators SPAN the dual of
+    `EnrichedFaceVal c / InCupSpanPlusBoundary`.
+
+The unconditional `codim ≤ c` reduces to the per-layer K_{3,3}
+fact (each layer's 9-element face space has dim 1 modulo δ¹ +
+cup-image).  The conditional capstone isolates exactly that
+per-layer hypothesis as the remaining open piece.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpan` | 13 | `psi_layer_flat` (Nat → Bool view of 9 face values); ★★★★ `psi_layer_eq_psiNatPos` (rfl-bridge to abstract XOR fold); ★★★★ `psi_layer_linear` (F₂-linearity over pointwise XOR); `weighted_e_sum` (`Σ_m b m · e_face_layer m`); ★★★★ `psi_layer_weighted_e_sum` (ψ-vector hits any target); `psi_vector_surjective` (Ψ surjectivity); `psi_projection` / `psi_residual` (canonical splits); ★★★★ `psi_residual_kills_all_psi`; ★★★★★ `psi_canonical_decomposition`; `InCupSpanPlusBoundary` (F₂-span of cup-products + coboundaries); ★★★★★★ `codim_upper_bound_conditional` (conditional upper bound under joint-ψ-kernel hypothesis); ★★★★★★★★ `parametric_dual_span_capstone` (capstone: c ψ-discriminators span the dual of `EnrichedFaceVal c / InCupSpanPlusBoundary`) |
+
+**Session grand total after V33EnrichedParametricDualSpan**: 393 + 13 = **406 PURE / 0 DIRTY**.
