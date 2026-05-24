@@ -67,7 +67,7 @@ Chapter exists when the Lean sub-tree closed per
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  6 | [`meta/INDEX.md`](meta/INDEX.md) |
-| `essays/`  |  4 | [`essays/INDEX.md`](essays/INDEX.md) |
+| `essays/`  |  5 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 
