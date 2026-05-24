@@ -3,10 +3,10 @@ import E213.Lib.Math.Cohomology.Bipartite.V33
 /-!
 # Enriched 2-complex at K_{3,3}^{(c=2)} — mult-0 + mult-1 faces
 
-Adds 9 mult-1 4-cycle faces to the existing simple-cycle face
-complex (9 mult-0 faces), giving a 18-face 2-complex.  Probes
-whether cup-image codim in H² acquires `c`-dependent structure
-once multi-multiplicity face cycles are admitted.
+The 18-face 2-complex over `K_{3,3}^{(c=2)}` that admits both
+mult-0 and mult-1 4-cycle faces (9 of each).  In this richer
+2-complex the cup-image codim in H² acquires `c`-dependent
+structure: one independent direction per multiplicity layer.
 
 ## Mult-1 face indexing
 

@@ -7,8 +7,8 @@ import E213.Lib.Math.Cohomology.Bipartite.V33Indeterminacy
 ★★★★★★★★★★★★★★★ **The c-counter is NOT in principal indeterminacy:
 ψ discriminates rep₄ at BOTH c=2 and c=3** ★★★★★★★★★★★★★★★
 
-c=3 mirror of `V33Indeterminacy`, using the same simple-cycle
-face structure (9 mult-0 faces).
+`V33Indeterminacy`'s ψ-discriminator structure applied to the c=3
+simple-cycle face complex (9 mult-0 faces).
 
 ## Setup at c=3
 
@@ -152,7 +152,7 @@ def vToNat (v : Fin 9 → Bool) : Nat → Bool
   | _ => false
 
 theorem psi_eq_psiNatPos (v : Fin 9 → Bool) :
-    psi v = E213.Lib.Math.Cohomology.Bipartite.V33Indeterminacy.psiNatPos
+    psi v = E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold.psiNatPos
               8 (vToNat v) := rfl
 
 theorem vToNat_xor (v w : Fin 9 → Bool) (i : Nat) :
@@ -172,10 +172,10 @@ theorem vToNat_xor (v w : Fin 9 → Bool) (i : Nat) :
 theorem psi_linear (v w : Fin 9 → Bool) :
     psi (fun f => xor (v f) (w f)) = xor (psi v) (psi w) := by
   rw [psi_eq_psiNatPos, psi_eq_psiNatPos, psi_eq_psiNatPos]
-  rw [E213.Lib.Math.Cohomology.Bipartite.V33Indeterminacy.psiNatPos_congr_all
+  rw [E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold.psiNatPos_congr_all
        8 (vToNat (fun f => xor (v f) (w f)))
        (fun i => xor (vToNat v i) (vToNat w i)) (vToNat_xor v w)]
-  exact E213.Lib.Math.Cohomology.Bipartite.V33Indeterminacy.psiNatPos_linear
+  exact E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold.psiNatPos_linear
           8 (vToNat v) (vToNat w)
 
 /-! ## §6 — Capstone: `[rep₄] ∉ Indeterminacy` in H² at c=3

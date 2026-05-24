@@ -1,7 +1,7 @@
 /-!
 # Cohomology — K_{4,3}^{(c=2)} bipartite multigraph
 
-Asymmetric extension of `K_{3,3}^{(c=2)}`: NS = 4, NT = 3, c = 2.
+Asymmetric bipartite multigraph `K_{NS, NT}^{(c)}` at `(NS, NT, c) = (4, 3, 2)`.
 
   · 7 vertices (4 S + 3 T), `Fin 7`
   · 24 edges (4·3·2), `Fin 24`

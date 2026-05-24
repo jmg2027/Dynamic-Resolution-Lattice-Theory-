@@ -5,8 +5,7 @@
 codim of cup-image in H²_enr ≥ c, parametric in `c : Nat`.**
 ★★★★★★★★★★★★★★★
 
-Generalises the c=2 (`V33Enriched`) and c=3 (`V33c3Enriched`) results
-to arbitrary multiplicity `c`.  The enriched 2-complex has:
+The enriched 2-complex over `K_{3,3}^{(c)}`, parametric in `c : Nat`:
 
   · `9c` edges, indexed by (vertex-pair, mult) = `c · (3i + j) + m`
     with `i, j ∈ Fin 3`, `m ∈ Fin c`

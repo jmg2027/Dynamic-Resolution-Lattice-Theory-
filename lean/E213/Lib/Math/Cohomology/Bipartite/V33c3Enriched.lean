@@ -4,11 +4,10 @@ import E213.Lib.Math.Cohomology.Bipartite.V33Enriched
 /-!
 # Enriched 2-complex at K_{3,3}^{(c=3)} — three mult layers, codim ≥ 3
 
-c=3 mirror of `V33Enriched`.  The enriched complex includes
-9 mult-0 + 9 mult-1 + 9 mult-2 = 27 faces.  Three independent
-discriminating functionals `psi_m0`, `psi_m1`, `psi_m2`
-materialize as one Massey-reachable 5th-dim per mult layer,
-giving codim ≥ 3 = c.
+The enriched 2-complex on `K_{3,3}^{(c=3)}`: 9 mult-0 + 9 mult-1 +
+9 mult-2 = 27 face cycles.  Three independent ψ-discriminators
+(`psi_m0`, `psi_m1`, `psi_m2`) realise one Massey-reachable
+5th-dim per multiplicity layer, giving codim ≥ 3 = c.
 
 This establishes the **c-counter = number of mult layers** in
 the enriched 2-complex regime, with linear growth `codim ≥ c`.

@@ -13,7 +13,7 @@ layer-independent `Nat.beq` comparisons, unlocking the arbitrary-`m`
 parametric kill lemmas in `V33EnrichedParametric`.
 -/
 
-namespace E213.Lib.Math.Cohomology.NatBeqHelpers
+namespace E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
 
 /-- `Nat.beq n n = true` by structural recursion on `n`. -/
 theorem nat_beq_refl' : ∀ (n : Nat), Nat.beq n n = true
@@ -37,4 +37,4 @@ theorem nat_beq_add_left : ∀ (a b c : Nat),
     show Nat.beq (a + b) (a + c) = Nat.beq b c
     exact nat_beq_add_left a b c
 
-end E213.Lib.Math.Cohomology.NatBeqHelpers
+end E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers

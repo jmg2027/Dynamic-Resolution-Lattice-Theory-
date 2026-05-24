@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33Massey4Fold
+import E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
 
 /-!
 # 4-fold Massey indeterminacy at K_{3,3}^{(c=2)} — ⟨g1, g4, g2, g5⟩
@@ -164,37 +165,8 @@ The XOR-of-9 functional ψ distributes over pointwise XOR.  Proved
 via the abstract 18-variable Bool identity (`xor_18_distribute`)
 which is decidable. -/
 
-/-- Bool-XOR AC pair swap: `(a⊕b) ⊕ (c⊕d) = (a⊕c) ⊕ (b⊕d)`. -/
-theorem xor_pair_swap (a b c d : Bool) :
-    xor (xor a b) (xor c d) = xor (xor a c) (xor b d) := by
-  cases a <;> cases b <;> cases c <;> cases d <;> rfl
-
-/-- Recursive XOR over a `Nat → Bool`.  Size `n+1`, base case
-    `v 0` (no leading `false` — keeps definitional match with `psi`
-    for `n+1 = 9`). -/
-def psiNatPos : (n : Nat) → (Nat → Bool) → Bool
-  | 0, v => v 0
-  | k+1, v => xor (psiNatPos k v) (v (k+1))
-
-theorem psiNatPos_linear (n : Nat) (v w : Nat → Bool) :
-    psiNatPos n (fun i => xor (v i) (w i))
-      = xor (psiNatPos n v) (psiNatPos n w) := by
-  induction n with
-  | zero => rfl
-  | succ k ih =>
-    show xor (psiNatPos k _) (xor (v (k+1)) (w (k+1)))
-        = xor (xor (psiNatPos k v) (v (k+1)))
-              (xor (psiNatPos k w) (w (k+1)))
-    rw [ih]
-    exact xor_pair_swap _ _ _ _
-
-theorem psiNatPos_congr_all (n : Nat) (v w : Nat → Bool)
-    (h : ∀ i, v i = w i) : psiNatPos n v = psiNatPos n w := by
-  induction n with
-  | zero => exact h 0
-  | succ k ih =>
-    show xor (psiNatPos k v) (v (k+1)) = xor (psiNatPos k w) (w (k+1))
-    rw [ih, h (k+1)]
+open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+  (xor_pair_swap psiNatPos psiNatPos_linear psiNatPos_congr_all)
 
 /-- Pattern-match lift of `Fin 9 → Bool` to `Nat → Bool` —
     avoids `dite` (and the `propext` it would bring through
