@@ -114,13 +114,38 @@ theorem local_213_at_every_point :
 where `has_213_components` checks that the local triple decomposes
 into the `(NS=3, NT=2, c=2)` atomic parts.
 
+## Existing tripartite work — `Mobius213/Px/TripartiteK213.lean` (10 PURE)
+
+A foundation for Option II already exists on `main` (merged from g139):
+
+`lean/E213/Lib/Math/Mobius213/Px/TripartiteK213.lean`:
+
+  · `tripartite_vertex_count` — `|V(K_{2,1,3})| = NT + 1 + NS = 6 = NS · NT`
+  · `tripartite_glue_mediated_edges` — `NT · 1 + 1 · NS = d = 5`
+  · `tripartite_triangle_count` — `|△| = NT · det · NS = NS · NT = 6`
+  · `bipartite_edge_eq_tripartite_triangle` — atomic-level duality
+  · `tripartite_master` — 5-conjunct capstone bundling V/E/△ counts +
+    duality + `d = NT + NS`
+
+**Status of duality (atomic-numerical level)**: ✓ proven. Each
+bipartite edge of `K_{NS, NT}` corresponds to a glue-mediated
+triangle in `K_{NT, det, NS}`.
+
+**Missing**:
+
+  · Cohomology of K_{2,1,3} (face cycles = triangles, simplicial
+    H¹ / H² / cup product / Massey)
+  · Functor / map between K_{3,2}^{(c=2)} cohomology and K_{2,1,3}
+    cohomology realising the atomic duality at the COHOMOLOGY level
+  · Local-signature framework (Option I, still untouched)
+
 ## Two strategic options for next session
 
-### Option I (recommended) — Reveal duality at K_{3,2}^{(c=2)}
+### Option I (NEW) — Reveal duality at K_{3,2}^{(c=2)} (LocalSignature)
 
-Build the `LocalSignature.lean` file capturing the every-point
-recurrence.  No new graph; just reveal the structure ALREADY
-present in `V32` / existing files.
+Build `lean/E213/Lib/Math/Cohomology/Bipartite/V32LocalSignature.lean`
+capturing the every-point recurrence.  No new graph; just reveal
+the structure ALREADY present in `V32` / existing files.
 
   · `vertex_local_signature`, `edge_local_signature`,
     `face_local_signature` definitions
@@ -129,19 +154,18 @@ present in `V32` / existing files.
     atomic triple — no external partition needed
 
 This validates user's refined intuition: **K_{3,2}^{(c=2)} is
-self-contained 213**.
+self-contained 213** at every local datum.
 
-### Option II — Extend to K_{2,1,3} tripartite + prove duality
+### Option II (PARTIAL) — K_{2,1,3} cohomology + bridge
 
-Build a new `V213_tripartite.lean` for `K_{2,1,3}` and prove a
-duality / isomorphism with `K_{3,2}^{(c=2)}` at the cohomology level.
+Foundation: `TripartiteK213.lean` (atomic counts).
 
-  · New graph, new face structure (triangles, not 4-cycles)
-  · Map between K_{3,2}^{(c=2)} cohomology and K_{2,1,3} cohomology
-  · Show both compute the same "atomic" invariants
+  · NEW: cohomology of K_{2,1,3} — 2-skeleton via triangle faces
+  · NEW: cup product / Massey on K_{2,1,3} cochains
+  · NEW: cohomology-level duality bridge to K_{3,2}^{(c=2)}
 
-This is the LITERAL "213 → tripartite" reading.  More work but
-broader theoretical reach.
+This is the FULL "tripartite reading" — atomic counts are done,
+cohomology side is open.
 
 ## Connection to existing G-notes
 
@@ -156,7 +180,15 @@ The three notes form a triple:
   · G146: ASKS where "3" of 213 actually lives — answers within K_{3,2}
     itself (not requiring tripartite extension)
 
+The existing `TripartiteK213.lean` (g139) provides the atomic-level
+bridge.  Cohomology-level bridge + LocalSignature self-containment
+are the remaining frontier.
+
 ## Concrete first steps (next session)
+
+**Recommendation**: Option I (LocalSignature framework) is the
+**NEW** direction.  Option II foundation already exists; its
+cohomology extension is a separate large undertaking.
 
 1. Read existing `V32.lean` carefully to map every structural
    element to its `(NS, NT, c)` decomposition.
@@ -164,8 +196,11 @@ The three notes form a triple:
 3. Define `vertex_local_signature`, `edge_local_signature`,
    `face_local_signature`.
 4. Prove `local_213_at_every_point` capstone.
-5. Decide if Option II (tripartite extension) is worth pursuing
-   given Option I's self-containment.
+5. Cross-link with `Mobius213/Px/TripartiteK213.lean` — show that
+   the local-signature triple at K_{3,2}^{(c=2)} is the same triple
+   that TripartiteK213 realises as (NT, det, NS) on a separate graph.
+6. Optional Option II extension: cohomology of K_{2,1,3} (new
+   simplicial complex with triangle faces).
 
 ## Status
 
