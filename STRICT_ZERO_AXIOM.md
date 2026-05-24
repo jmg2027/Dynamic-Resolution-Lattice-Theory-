@@ -2522,6 +2522,43 @@ sums — 12 distinct local readings — all lands on
 
 **Session grand total**: 218 + 26 = **244 PURE / 0 DIRTY**.
 
+## 2026-05-24 — Mobius213PxAxisGroupCount: testing the (2,1,3)-axis count conjecture
+
+Honest experimental test of: "the number of structurally
+distinct `(2, 1, 3)`-shape syntactic decomposition methods of
+P(x) is finite, and the count matches a natural group order
+interpretable across math frames".  9 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213PxAxisGroupCount` | 9 | `PxAxisKind` inductive (12 distinct decomposition kinds enumerated);  `allKinds_length = 12`;  `axis_count_eq_2_NS_NT` (`12 = 2 · NS · NT`);  `axis_count_eq_A4_order` (`12 = |A_4|`);  `axis_count_eq_D6_order` (`12 = |D_6|`);  `axis_count_eq_NS_succ_NS` (`12 = NS · (NS+1)`);  `axis_count_eq_4_NS`;  `axis_count_eq_213_sum`;  ★★★★★★★★ `multi_frame_count_master` (5-conjunct: 12 matches 5 distinct frame interpretations) |
+
+**Experimental result**: at the current cataloguing depth,
+`N = 12` with the following frame interpretations all matching:
+
+  · `2 · NS · NT` (algebraic / cross-pair)
+  · `|A_4|` (alternating group on 4 elements)
+  · `|D_6|` (dihedral group of regular hexagon)
+  · `NS · (NS+1)` (triangular reading)
+  · `4 · NS` (4-fold NS reading)
+  · `d + NS + NT + 2` (atomic-sum)
+
+**Honest caveats**:
+  · The count is enumeration-dependent (more aggressive
+    deduplication → 6; more granular splitting → 15-20).
+  · The match to `|A_4|`, `|D_6|`, etc. is *numerical*, not yet
+    a structural group isomorphism.
+  · Multi-frame match holds for the 5 frames listed; extension
+    to strict cohomology / topology specifics may need
+    different value.
+
+**Verdict on the conjecture** ("|G| of `(2,1,3)`-decomposition
+group is frame-independent"): supported at value 12 with
+multiple natural interpretations, but not strictly proven as a
+group isomorphism.
+
+**Session grand total**: 244 + 9 = **253 PURE / 0 DIRTY**.
+
 Standard math hosting: the projective general linear group
 `PGL(2, ℝ)` representation theory.  The 213 atomic signature
 `(NS, NT) = (3, 2)` matches `dim PGL(2) = 3` and `dim` of the
