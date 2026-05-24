@@ -109,4 +109,44 @@ theorem leibniz_universal_4_2_2
         (β ⟨2, by decide⟩) (β ⟨3, by decide⟩)
         (β ⟨4, by decide⟩) (β ⟨5, by decide⟩) i)
 
+set_option maxHeartbeats 16000000 in
+/-- ★ Pattern-level Leibniz at (4, 2, 1).  Sister to (4, 1, 2);
+    swapped factor degree on Δ³. -/
+theorem leibniz_pattern_4_2_1 :
+    ∀ a0 a1 a2 a3 a4 a5 : Bool,
+      ∀ b0 b1 b2 b3 : Bool,
+      ∀ i : Fin (binom 4 3),
+        delta (cupAW 4 2 1 (patternE a0 a1 a2 a3 a4 a5)
+                            (pattern b0 b1 b2 b3)) i
+          = xor (cupAW 4 3 1 (delta (patternE a0 a1 a2 a3 a4 a5))
+                              (pattern b0 b1 b2 b3) i)
+                (cupAW 4 2 2 (patternE a0 a1 a2 a3 a4 a5)
+                              (delta (pattern b0 b1 b2 b3)) i) := by
+  decide
+
+/-- ★★★ Universal Leibniz Prop-lift at (4, 2, 1).  PURE corollary
+    of `LeibnizUniversalLift.leibniz_pointwise_lift` (COH-3
+    template) + `Prop42/Prop41.pattern_eq_at`.  Closes the (4, 2, 1)
+    sister to the (4, 1, 2) bidegree on Δ³. -/
+theorem leibniz_universal_4_2_1
+    (α : Cochain 4 2) (β : Cochain 4 1) (i : Fin (binom 4 3)) :
+    delta (cupAW 4 2 1 α β) i
+      = xor (cupAW 4 3 1 (delta α) β i)
+            (cupAW 4 2 2 α (delta β) i) :=
+  let pα := patternE (α ⟨0, by decide⟩) (α ⟨1, by decide⟩)
+                     (α ⟨2, by decide⟩) (α ⟨3, by decide⟩)
+                     (α ⟨4, by decide⟩) (α ⟨5, by decide⟩)
+  let pβ := pattern (β ⟨0, by decide⟩) (β ⟨1, by decide⟩)
+                    (β ⟨2, by decide⟩) (β ⟨3, by decide⟩)
+  E213.Lib.Math.Cohomology.CupAW.LeibnizUniversalLift.leibniz_pointwise_lift
+    4 2 1 α β pα pβ i i i
+    (E213.Lib.Math.Cohomology.Universal.Prop42.pattern_eq_at α)
+    (E213.Lib.Math.Cohomology.Universal.Prop41.pattern_eq_at β)
+    (leibniz_pattern_4_2_1
+        (α ⟨0, by decide⟩) (α ⟨1, by decide⟩)
+        (α ⟨2, by decide⟩) (α ⟨3, by decide⟩)
+        (α ⟨4, by decide⟩) (α ⟨5, by decide⟩)
+        (β ⟨0, by decide⟩) (β ⟨1, by decide⟩)
+        (β ⟨2, by decide⟩) (β ⟨3, by decide⟩) i)
+
 end E213.Lib.Math.Cohomology.CupAW.Leibniz4Mixed

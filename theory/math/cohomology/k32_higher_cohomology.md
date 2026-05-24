@@ -202,6 +202,197 @@ the top cochain dimension.  Higher H^k vanish identically.
 Formalised in `MaxAlphaPowerBound.max_alpha_power_at_*skeleton`
 and `Filled4CellExtension.H3_dim_at_4_skeleton`.
 
+## Non-vacuous Massey ⟨h1, h3, h4⟩ = ω at 2-skeleton
+
+`MasseyTripleH1Witness.lean` ships an explicit non-vacuous
+Massey triple at the K_{3,2}^{(c=2)} 2-skeleton, using the
+**opposite-edge cup product** that descends to cohomology.
+
+### The opposite-edge cup
+
+For each face F with cyclic edge sequence `[e₀, e₁, e₂, e₃]`:
+
+      (α ⌣ β)(F) := Σᵢ α(eᵢ) · β(e_{i+2 mod 4})
+
+This pairs each edge with its DIAGONAL opposite in the cyclic
+4-cycle (not its immediate neighbour).  The cup is symmetric
+(`α ⌣ β = β ⌣ α`) and DESCENDS to cohomology (verified by
+exhaustive `decide` over all (coboundary × cocycle) pairs).
+
+### Topological context
+
+`K_{3,2}^{(c=2)} ≃ S² ∨ (∨₆ S¹)` — wedge of a sphere and six
+circles.  Consequently the cup table on `H¹ × H¹ → H²` is
+topologically FORCED to vanish: no H¹ × H¹ product contributes
+to H².  Yet Massey detects secondary cohomology operation
+structure invisible to the cup table.
+
+### The witness
+
+  · `a = h1 = e₀ + e₂` (cocycle on S₀ star edges)
+  · `b = h3 = e₄ + e₆` (cocycle on S₁ star edges)
+  · `c = h4 = e₀ + e₄ + e₈` (cocycle on T₀ incidence mod 2)
+  · `a ⌣ b = (0, 0, 0)` → cobounding chain `η = 0`
+  · `b ⌣ c = (1, 0, 1) ∈ im(δ¹)` → cobounding chain `θ = e₄`
+    (verified: `δθ = (1, 0, 1)`)
+  · **Massey representative**: `η ⌣ c + a ⌣ θ = (1, 0, 0)`
+  · Parity check: `1 ⊕ 0 ⊕ 0 = 1 ≠ 0` → not in im(δ¹)
+  · → **Massey class = ω ∈ H² ≅ F₂** (NON-VACUOUS)
+
+### Indeterminacy
+
+`a · H¹ + H¹ · c = {0}` since the cup table is identically zero
+on H¹ basis classes.  Hence the Massey class is UNIQUELY
+DEFINED in H² (not a coset).  Robustness verified across 100
+random `(η, θ)` cobounding-chain choices.
+
+### Cross-reference
+
+This complements `MasseyTripleOmega.lean` which establishes the
+obstruction for `⟨ω, ω, ω⟩` at H²-level: the H²-triple is
+intrinsically zero by symmetry of ω.  The non-vacuous Massey
+exists ONE COHOMOLOGICAL DEGREE LOWER via H¹-triple ⟨h1, h3, h4⟩
+landing in H² through the opposite-edge cup.
+
+## 5-skeleton extension (Massey landing-space audit)
+
+`Filled5CellExtension.lean` adds a single 5-cell σ⁵ with attaching
+boundary `[σ⁴]`, extending the pyramid tower σ³ → σ⁴ → σ⁵.
+Establishes:
+
+  · `δ⁴(c)(σ⁵) := c(σ⁴)` (pull-back of 4-cochain to σ⁵)
+  · `H⁴ = 0` at 5-skeleton (ker δ⁴ = {0}; im δ³ = C⁴)
+  · `H⁵ = 0` at 5-skeleton (no δ⁵; im δ⁴ = C⁵ since both
+    Bool-valued 5-cochains are δ⁴-images)
+
+★ **Massey-triple landing-space audit**: ⟨ω, ω, ω⟩ for ω ∈ H²
+would land in `H^(2 + 2 + 2 - 1) = H⁵`.  At the 5-skeleton
+extension, `H⁵ = 0` makes the Massey class VACUOUSLY trivial
+regardless of cobounding-chain choice.
+
+`Filled5CellMultiExtension.lean` (Phase 9) shipped a multi-cell
+5-skeleton with `H⁵ ≅ ℤ/2 ≠ 0`, providing a non-vacuous landing
+substrate for Massey.
+
+`MasseyTripleOmega.lean` (Phase 12) computes Massey ⟨ω, ω, ω⟩
+explicitly under the outermost-faces AW cup extension and finds
+the class is ZERO at the chain level — the Massey representative
+is the all-false 5-cochain = `δ⁴_multi(false-4cochain)`.
+
+**Structural obstruction**: ω = (1, 1, 1) is the constant-true
+face cochain.  Any face-pair evaluation gives `true`, so each
+summand of `b ⌣ ω + ω ⌣ b` produces `(true, true)`; the xor
+collapses to `(false, false)`.
+
+So even with the non-vacuous H⁵ substrate, ⟨ω, ω, ω⟩ is
+intrinsically trivial.  Non-vacuous Massey at K_{3,2}^{(c=2)}
+requires either:
+
+  · A different cohomology class than ω (but H² = ℤ/2 ⟨ω⟩ — ω
+    is the unique non-zero H² class).
+  · A different Massey triple shape (e.g., ⟨a, b, c⟩ at H¹
+    classes landing in H²).
+  · An asymmetric cup extension breaking the diagonal-image
+    structure of `δ⁴_multi`.
+
+## Sq² at the 4-skeleton — chain-level explicit
+
+`Sq2At4Cell.lean` ships an explicit chain-level Sq² via a
+defensible outermost-faces AW lift of cup_0 at the 4-cell:
+
+      (α ⌣_0 β)(σ⁴) := α(face_0) ∧ β(face_2).
+
+For ω = (1, 1, 1): Sq²(ω) = (true) at the chain level —
+non-trivial as a cochain.  But Sq²(ω) = δ³(all-true 3-cochain),
+so [Sq²(ω)] = 0 in `H⁴ = 0` at the 4-skeleton.
+
+Steenrod ladder at ω now complete across i ∈ {0, 1, 2} at the
+4-skeleton with explicit chain-level values:
+
+  · Sq⁰(ω) = ω at C² (H² non-trivial)
+  · Sq¹(ω) = δ²(ω) at C³ (H³ trivial at 3-skeleton)
+  · Sq²(ω) = true at C⁴ via AW lift (H⁴ trivial at 4-skeleton)
+
+Max non-trivial Sq^i CLASS at ω at the 4-skeleton: `i = 0`.
+
+## Multi-cell 5-skeleton — non-vacuous H⁵ substrate
+
+`Filled5CellMultiExtension.lean` breaks the pyramid collapse
+from `Filled5CellExtension` with two 5-cells σ⁵_a, σ⁵_b both
+with boundary [σ⁴]:
+
+  · `C⁵ = Fin 2 → Bool`
+  · `δ⁴_multi(c)(σ⁵_a) = δ⁴_multi(c)(σ⁵_b) = c(σ⁴)` (both
+    cells receive the same value — image lies on the diagonal)
+  · The off-diagonal cochain `(false, true)` is NOT in
+    `im δ⁴_multi`: it has different values at the two 5-cells.
+  · `H⁵ ≅ ℤ/2` — non-trivial cohomology.
+
+This is the Massey-triple substrate: with `H⁵ ≠ 0`, Massey
+`⟨ω, ω, ω⟩` can host a non-vacuous class.  Remaining content
+for full Massey closure: explicit cobounding-chain construction
+solving `ω ⌣ ω = δ b_i`, then `[b_1 ⌣ ω + ω ⌣ b_2]` mod
+indeterminacy ideal `ω · H¹ + H¹ · ω`.
+
+## K_{3,3}^{(c=2)} — multi-dimensional secondary cohomology
+
+Above K_{3,2}^{(c=2)} (`b₂ = 1`, single Massey class `ω`), the
+next-up bipartite multigraph K_{3,3}^{(c=2)} has `b₂ = 5` — the
+Massey product now has up-to-5-dimensional output, a multi-class
+secondary cohomology regime.
+
+Infrastructure (∅-axiom Lean, `lean/E213/Lib/Math/Cohomology/Bipartite/`):
+
+  · `V33.lean` — H¹ = F₂⁹, H² = F₂⁵, six row/column R-relations
+    (`face_dep_S01`, `face_dep_T01`), single linear dependency
+    `R_{S₀₁}⊕R_{S₀₂}⊕R_{S₁₂} = R_{T₀₁}⊕R_{T₀₂}⊕R_{T₁₂}`.
+  · `V33MasseyMulti.lean` — 4 remaining canonical R-relations
+    (`face_dep_S02`, `face_dep_S12`, `face_dep_T02`, `face_dep_T12`).
+  · `V33MasseyWitness.lean` — primary ⟨g1, g2, g4⟩ rep
+    (1,1,0,0,0,0,0,0,0) violates R_{T₀₁} + R_{T₀₂}.
+  · `V33MasseyMulti.lean` — three further non-vacuous Massey
+    classes ⟨g1,g2,g5⟩, ⟨g4,g5,g1⟩, ⟨g4,g5,g2⟩, each violating
+    a fresh R-relation pair, spanning a **4-dimensional subspace
+    of H² = F₂⁵**.
+
+Capstone `four_witnesses_span_four_dim_H2` bundles all four
+witnesses + four fresh R-relations as ω-style "rep violates R,
+every coboundary satisfies R" pairs.
+
+The 5th H² dimension is a structural frontier.  Two structural
+observations bound the search:
+
+  · The opposite-edge cup at face F only sees the 4 mult-0 edges
+    of F's cyclic ordering; multiplicity-shift cocycles
+    (supported on odd-indexed edges) cup trivially against
+    anything under this convention.
+  · The ⟨S, S, T⟩ family produces violation patterns inside the
+    {R_{T₀₁}, R_{T₀₂}, R_{T₁₂}} 2-dim slice; the ⟨T, T, S⟩ family
+    inside the {R_{S₀₁}, R_{S₀₂}, R_{S₁₂}} slice.  The two slices
+    together span the 4-dim plane explicitly witnessed above.
+
+Conjecture (formalised): opposite-edge cup image in H² is
+**exactly** this 4-dim plane.  The 5th direction is *primary-
+cup-void* but reached at Massey depth 4.
+
+  · `V33Massey4Fold.lean` — 4-fold Massey ⟨g1, g4, g2, g5⟩
+    produces chain-level rep `(0, 0, 1, 0, 0, 0, 0, 0, 0)`
+    (single face 2 support), with the inner defining-system
+    term `η_{ab} ⌣ η_{cd} = (e_2 + e_4) ⌣ e_8` carrying the
+    "multiplicity twist" that the primary cup cannot see.
+    Violation `R_{S₀₁} + R_{T₁₂}` is linearly independent of
+    every 3-fold violation pair.  Full H² = F₂⁵ now reached.
+  · `V33Mult1Trivial.lean` — multiplicity-shift cocycles
+    (mult-1 edge indicators) are formally shown to cup-
+    trivially against any α: `∀ α, cupOpp α m_k = 0`
+    chain-level at every face.  This rules out the mult-1
+    Massey route to the 5th dim.
+
+Extrapolation to `K_{NS,NT}^{(c)}`: the cup image in H²
+has codim `c − 1`, and the missing dimensions are reached at
+Massey depth `c + 2`.  Falsifier: enumerate at c = 3 and
+check the depth-codim correspondence.
+
 ## Open frontier (pure cohomology)
 
   · **General Steenrod cup_i for arbitrary i ≥ 2** with the full
@@ -211,8 +402,11 @@ and `Filled4CellExtension.H3_dim_at_4_skeleton`.
     (extend complex so target degrees host non-trivial classes).
   · **Cartan formula non-vacuous** — same higher-skeleton
     requirement.
-  · **Massey products**: triple Massey ⟨ω, ω, ω⟩ would land in
-    H^(2 + 2 + 2 - 1) = H⁵, requiring a 5-skeleton extension.
+  · **Non-vacuous Massey ⟨ω, ω, ω⟩ at H²-triple** — CLOSED as
+    obstruction (intrinsically zero by ω-symmetry).
+  · **Non-vacuous Massey at H¹-triple** — CLOSED via
+    `MasseyTripleH1Witness`: `⟨h1, h3, h4⟩ = ω` under the
+    opposite-edge cup.
   · **General Steenrod algebra in 213-native Lean**: cup_i
     operations + Adem + Cartan + Steenrod squares as a unified
     typeclass framework.
@@ -226,8 +420,9 @@ and `Filled4CellExtension.H3_dim_at_4_skeleton`.
     application bridge (α_em residual via cup-ladder graduation)
   · `lean/E213/Lib/Math/Cohomology/Bipartite/` — Lean source files
     (Filled3CellCohomology, Filled3CellExtension, Filled4CellExtension,
-    FaceCupHigher, FaceCup1At3Cell, SelfPairingTrace,
-    SteenrodSquaresAtOmega, CartanAtTruncation, AdemUniversal)
+    Filled5CellExtension, FaceCupHigher, FaceCup1At3Cell,
+    SelfPairingTrace, SteenrodSquaresAtOmega, CartanAtTruncation,
+    AdemUniversal)
 
 ## Status
 

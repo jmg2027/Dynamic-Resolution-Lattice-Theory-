@@ -1,15 +1,26 @@
-# Session Handoff — 2026-05-24 (Post-merge: two marathons merged to main)
+# Session Handoff — 2026-05-24 (Post-merge: three marathons in main)
 
 ## Branch state
 
-  · `main` — both 4-mfd geometrization marathon and
-    Math Algebra/Analysis marathon merged in.
+  · `main` — 4-mfd geometrization + Math Algebra/Analysis +
+    Cohomology marathons all merged in.
   · `claude/4-manifolds-geometrization-IQXNb` — closed (415 PURE / 13 sessions).
   · `claude/math-algebra-analysis-marathon-rj4UW` — closed (626 PURE / 53 closures / Wave 1-13).
+  · `claude/cohomology-marathon-qOxOX` — closed (603 PURE / 62 closures
+    / Phases 1-18 + 1 DIRTY structural theorem).
+  · `claude/cohomology-marathon-merge-M5CTR` — active merge branch
+    (this session); +79 PURE on top of merge: K_{3,3}^{(c=2)}
+    multi-witness sweep 21 + 4-fold 5th-dim breakthrough 17 +
+    mult-1 cup-trivial obstruction 12 + **c=3 falsification of
+    `(c−1)`-codim conjecture 29**.  Full H² = F₂⁵ at
+    K_{3,3}^{(c=2)} spanned via depth-4 Massey; same depth-4
+    suffices at c=3 (codim 1 independent of c under simple-cycle
+    face structure).
 
 ## Combined achievement
 
-Total PURE added across both marathons: **~1,041 PURE / 0 DIRTY**.
+Total PURE added across the three marathons: **~1,644 PURE** + 1 DIRTY
+(GraphWalk universal kernel — structurally correct, propext leak).
 
 ### 4-mfd geometrization marathon (415 PURE / 13 sessions)
 
@@ -35,92 +46,119 @@ Cork chapter (197 PURE) + Geometrization chapter (~397 PURE) + 2 essays.
 | 12 | 7 | b ≥ 3 honest diagnosis + Meta layer lift (4 PURE Nat helpers) |
 | 13 | 50 | **Parametric `cutSumN N` for all naturals** — closes b ≥ 3 the right way |
 
-Wave 13 detail:
-  · `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE) — parametric cutSumN N
-  · `Lib/Math/Real213/Sum/CutSumNMixed.lean` (3 PURE) — cross-denom (b₁, b₂ | N)
-  · `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE) — b=3 bundled
-  · `Lib/Math/Real213/NValidCut.lean` (14 PURE) — parametric capstone for all N
-  · `Lib/Math/Real213/FifthValidCut.lean` (12 PURE) — b=5 explicit instance
+### Cohomology marathon (603 PURE / 62 closures / Phases 1-18)
+
+Internal phase labels `G139-A … LL`, `G140-MM … XX`, then sequential
+EE-KK across Phase 15-18.  The G139 in-branch label was renumbered
+G141 at merge to avoid collision with the Möbius G139 already on main.
+
+| Phase | PURE | Highlight |
+|---|---:|---|
+| 1-4 | 178 | Padovan/Narayana/Jacobsthal cut-offs; Filled5Cell Massey landing; ∀-coprime eventual periodicity universal |
+| 5-7 | 79 | Pisano-analogue grid across 5 sister sequences × mod {3, 5} |
+| 8-10 | 97 | HC²¹³ Δ⁶/Δ⁷/Δ⁸ + CupAW (5,1,2) breakthrough + multi-cell H⁵ ≠ 0 |
+| 11-12 | 15 | CupAW (5,1,3) universal + Massey ⟨ω,ω,ω⟩ obstruction (explicit zero) |
+| 13 (G140) | 17 | **Non-vacuous Massey ⟨h1,h3,h4⟩ = ω** at K_{3,2}^{(c=2)} — primary breakthrough |
+| 14 | 109 | n-fold Massey schema (n ∈ {3..6}) + 4-fold ⟨a,b,c,d⟩ + multi-witness robustness + CupAW (5,3,1) codim-3 + HC²¹³ Δ⁹ |
+| 15 | 18 | **Universal alt n-fold Massey ∀ n : Nat** + Pisano grid capstone + CupAW family capstone |
+| 16 | 58 | Cross-graph: K_{2,2}^{(c=2)}, K_{3,1}^{(c=2)}, **K_{3,3}^{(c=2)} cohomology** (H² = F_2⁵, H¹ = F_2⁹) |
+| 17 | 16 | K_{3,3}^{(c=2)} opposite-edge cup + descent (chain-level ≠ 0, H² = 0) |
+| 18-A | DIRTY | GraphWalk universal kernel ∀ (NS, NT, c) — structurally correct, propext leak from Nat.mul_lt_mul_left |
+| 18-B | 9 | **⟨g1, g2, g4⟩ non-vacuous Massey at K_{3,3}^{(c=2)}** — Massey transfers up the parametric family |
+
+Cohomology chapter status after merge:
+
+| Chapter | Frontier | Status |
+|---|---|---|
+| `bipartite.md` | universal `∀ NS NT c, kerSizeDelta0Direct = 2` | DIRTY-closed (Phase 18-A); ∅-axiom cleanup deferred |
+| `k32_higher_cohomology.md` | Non-vacuous Massey + general Steenrod | **CLOSED** non-vacuous Massey (G140-MM ⟨h1,h3,h4⟩, multi-witness, K_{3,3} ⟨g1,g2,g4⟩); general Steenrod open |
+| `fractal.md` | ∀-coprime eventual periodicity + Gram self-energy | **CLOSED** eventual periodicity (Phase 4); Gram open |
+| `cupaw.md` | self-referential lex-cup Leibniz ∀(k, l) | 12 bidegrees closed; full ∀(k,l) open |
+| `hodge_conjecture.md` | HC²¹³ variant automation | **CLOSED** at Δⁿ hexad (n ∈ {4..10}, 2ⁿ atomic) |
+
+4 of 5 cohomology chapter frontiers now closed (∅-axiom), bipartite
+universal-kernel structurally closed (DIRTY).
 
 ## Active research direction (next session)
 
-**G139: Möbius P as canonical 213 equivalence**
-(`research-notes/G139_mobius_equivalence_unification.md`)
+Two parallel threads ready to pick up:
 
-Conjecture emerging from Wave 13 reframing: ALL 213 equality
-definitions (cutEq, ZpSeqEquiv, signedEq, ValidCutN.is_at_denom,
-Adjacent, LensMap) factor through a single Möbius-orbit
-equivalence under P = [[2,1],[1,1]].  The Möbius matrix is
-already in the repo (`Lib/Math/Mobius213.lean`,
-`Mobius213OneAsGlue.lean`) and encodes (NS, NT) = (3, 2)
-directly:
+**(1) G142: Full H² map of K_{3,3}^{(c=2)}** —
+`research-notes/G142_K33_massey_full_h2_map.md`.
 
-  · trace = 3 = NS
-  · det = 1 = NS − NT (glue)
-  · disc = 5 = NS + NT (= d)
-  · eigenvalues φ², 1/φ²
+This session landed 4 non-vacuous Massey witnesses spanning
+4 of 5 dimensions of H² = F₂⁵.  The 5th dimension is
+*possibly inherently Massey-void* under the opposite-edge cup
+(structural conjecture: cup image factors through a 4-dim
+quotient since mult-1 cocycles cup trivially).  Next:
+prove or disprove the Route 3 conjecture; investigate
+4-fold Massey or mixed-side indeterminacy enumeration.
 
-The lesson: four consecutive dichotomy-import failures (§5.4)
-during Wave 12-13 reframing collapsed once the framework's own
-Möbius commitment was honored.
+**(2) G139: Möbius P as canonical 213 equivalence** —
+`research-notes/G139_mobius_equivalence_unification.md`.
 
-Phase 1-5 deliverables in G139:
-  1. `Lib/Math/Real213/Mobius/Mobius213Equiv.lean` defining `mobiusEq` via P-orbit / Stern-Brocot
-  2. `cutEq ⇔ mobiusEq` bridge theorem
-  3. Factor all equivalence definitions through `mobiusEq`
-  4. Real213 canonical Setoid (mobiusEq quotient)
-  5. Cross-frame: K_{3,2}, continued fractions, atomic_iff_five, Cayley-Dickson
+Algebra/Analysis Wave 13 reframing surfaced the conjecture that ALL
+213 equality definitions (cutEq, ZpSeqEquiv, signedEq, ValidCutN,
+Adjacent, LensMap) factor through a single Möbius-orbit equivalence
+under P = [[2,1],[1,1]].  Phase 1-5 plan in the doc.
 
 ## Anchor docs (next session)
 
 | Doc | Purpose |
 |---|---|
-| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence; §5.4 dichotomy avoidance (this session lesson) |
+| `seed/AXIOM/05_no_exterior.md` §5 | Boot sequence; §5.4 dichotomy avoidance |
 | `research-notes/G29_residue.md` | Foundational text |
 | `research-notes/G139_mobius_equivalence_unification.md` | **Active research direction** |
+| `research-notes/G141_cohomology_marathon.md` | Cohomology marathon log (originally G139 in-branch) |
+| `research-notes/G140_massey_nonvacuous_search.md` | Non-vacuous Massey breakthrough log |
+| `research-notes/G142_K33_massey_full_h2_map.md` | **K_{3,3} full 5-dim H² spanned (3-fold + 4-fold Massey)** |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyMulti.lean` | 3 new K_{3,3} Massey witnesses + 4-dim capstone |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33Massey4Fold.lean` | **5th-dim breakthrough — 4-fold ⟨g1, g4, g2, g5⟩ single-face-2 rep** |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33Mult1Trivial.lean` | Mult-1 cocycles cup-trivially (Route 2 obstruction) |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33c3.lean` | **c=3 minimal port — (c−1)-codim falsified**; codim 1 + depth 4 independent of c |
+| `research-notes/G143_c_multiplicity_hierarchy_refined.md` | **Refined c-multiplicity conjecture (active)** — indeterminacy / richer 2-complex / Bockstein candidates |
 | `theory/INDEX.md` | Book map (98+ chapters) |
 | `theory/PROMOTION_CRITERIA.md` | H1-H4 + S1-S3 gates |
 | `lean/E213/ARCHITECTURE.md` | Layer spec |
 | `STRICT_ZERO_AXIOM.md` | PURE catalog |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyTripleH1Witness.lean` | ★ Non-vacuous Massey primary witness |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyTripleH1Multi.lean` | Multi-witness robustness (3 triples) |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/MasseyNFoldSchema.lean` | n-fold Massey ∀ n : Nat |
+| `lean/E213/Lib/Math/Cohomology/Bipartite/V33MasseyWitness.lean` | K_{3,3} ⟨g1,g2,g4⟩ non-vacuous |
 | `lean/E213/Lib/Math/Mobius213.lean` | P matrix + Pell invariant |
-| `lean/E213/Lib/Math/Mobius213OneAsGlue.lean` | det = glue = 1 |
-| `lean/E213/Lib/Math/Mobius213ModFive.lean` | P¹⁰ ≡ I (mod 5) |
-| `lean/E213/Lib/Math/UniverseChain/MobiusChain.lean` | Möbius chain G65-G81 |
-| `lean/E213/Lib/Math/Real213/Core/CutPoset.lean` | `cutEq` definition |
 | `lean/E213/Lib/Math/Real213/NValidCut.lean` | Wave 13 parametric capstone |
-| `theory/essays/bool_assoc_failure_meaning.md` v4 | b ≥ 3 진단 + (3, 2)-atom 분석 |
-| `theory/essays/pure_funext_avoidance.md` | 4 architectural patterns |
 | `theory/essays/4mfd_geometrization_joint_reading.md` | 4-mfd joint reading |
 | `theory/essays/cup_ladder_cork_h1_bridge.md` | Cup-ladder ↔ cork |
 | `catalogs/cross-domain-identifications.md` | CDI-9 Möbius det 3-way |
 
 ## Open frontier (post-merge residual)
 
-  · **G139 Phase 1-5** — Möbius equivalence unification (active direction).
-  · `cutMulN N` parametric — multiplication analog of `cutSumN N`.  Nested
-    inner/outer search + `m1*m2 ≤ m*N²*k` bound design.  Demonstrate
-    `(a/N)(c/N) = ac/N²` closure at all (m, k).
-  · `is_native` wrapper for `b ∈ ⟨2, 3⟩^mult` (if G139 doesn't supersede).
+  · **G139 Phase 1-5** — Möbius equivalence unification (primary direction).
+  · **GraphWalk universal ∅-axiom cleanup** — Phase 18-A DIRTY → PURE
+    (custom NatHelper arithmetic + term-mode reformulation).
+  · **Non-vacuous 4-fold / general n-fold Massey witness** — schema
+    formalized (n ∈ {3..6}, ∀ n alt), strict non-vacuous witness at
+    n = 4 still open (pilot ⟨h2,h4,h4,h2⟩ = 0).
+  · **CupAW (5, 3, 2), (5, 3, 3), (5, 4, 1)** — codim-3+ α strata
+    continuation.
+  · **Full 20-witness enumeration at K_{3,2}^{(c=2)}** — 3 of 20
+    triples formalized (mechanical decide-template extension).
+  · **General Steenrod cup_i (i ≥ 2)** — `k32_higher_cohomology.md`
+    remaining frontier.
+  · **Gram self-energy structural derivation** — `fractal.md`
+    physics-layer frontier.
+  · `cutMulN N` parametric — multiplication analog of `cutSumN N`.
   · `algebra_tower.md` L10+, Type D L3+ uniform CD-doubling.
   · Cork + geometrization residual extensions per Master capstone v2.
 
-## Failure modes catalog candidates (CLAUDE.md additions)
-
-Wave 12-13 surfaced TWO repeated patterns deserving catalog entries:
-
-| Failure | Symptom | Correction |
-|---|---|---|
-| Equivalence-pluralism | "여러 동치 정의가 따로 있음" | All can factor through single canonical equivalence (G139 conjecture) |
-| Repeated dichotomy reframing | "이번엔 진짜 boundary" 반복 | 4-iteration pattern in essay v1-v4; user-correction needed each round |
-
 ## Build status
 
-`cd lean && lake build` — clean (full build, both marathons merged).
-`tools/scan_axioms.py` — 626 PURE for Algebra/Analysis marathon + 415
-PURE for 4-mfd geometrization, all 0 DIRTY.
+`cd lean && lake build` — verify post-merge (see below).
+`tools/scan_axioms.py` — PURE catalogs to refresh.
 
 ## Marathon status
 
-**Both marathons complete + merged to main**.  Next session ready
-for G139 Möbius equivalence unification work (Phase 1: define
-`mobiusEq`, prove `cutEq ⇔ mobiusEq`).
+**Three marathons complete + merged to main**.  Next session ready
+for G139 Möbius equivalence unification (Phase 1: define `mobiusEq`,
+prove `cutEq ⇔ mobiusEq`), or for ∅-axiom cleanup of Phase 18-A
+GraphWalk universal kernel.

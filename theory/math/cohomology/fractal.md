@@ -197,7 +197,7 @@ base `d = 5`:
 | 3 | constant `2` for all `n` (`5^n` is odd ⇒ `5^(5^n) ≡ 2 mod 3`) |
 | 5 | constant `0` for all `n` (positive power of 5) |
 | 7 | period 2 from `n = 0` (alternates `5, 3, 5, 3, …`) |
-| 11 | parametric; eventually constant `1` from `n = 1` |
+| 11 | ★ eventually constant `1` from `n = 1` (`configCountD_5_succ_mod_11`) |
 | 13 | period 2 from `n = 0` (`5^2 ≡ 1 mod 12`) |
 
 The unified `configCountD_5_modular_structure` bundles the
@@ -347,6 +347,7 @@ Both bridges are additive; consumer literals are unchanged.
 | `configCountD_5_succ_mod_41` | `Fractal.ConfigCountModular` §H.1 | ★ constant `9 = NS²` mod `41 = α_GUT` for all `n ≥ 1` |
 | `configCountD_5_period_2_mod_31` | `Fractal.ConfigCountModular` §H.3 | ★ period-2 `{25, 5}` mod 31 ∀m |
 | `configCountD_5_period_4_mod_17` | `Fractal.ConfigCountModular` §H.4 | ★ period-4 cycle `(14, 12, 3, 5)` mod 17 ∀m |
+| `configCountD_5_succ_mod_11` | `Fractal.ConfigCountModular` §I | ★ eventually constant `1` mod `11` ∀n ≥ 1 (fixed-point absorption of `5^n mod 10`) |
 | `configCountD_5_2_mod_137` | `Fractal.ConfigCountModular` §H.5 | ★ `N_U mod 1/α_em = 86 = Rn` (catalogue cross-readout) |
 | `configCountD_5_2_mod_table_extended` | `Fractal.ConfigCountModular` §H | physics-slice readouts mod `{17, 23, 31, 41}` |
 | `fractal_betti_spectrum` | `Fractal.Level` | `b₁(K_{5^L})` for `L = 1..4` |
@@ -432,11 +433,54 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     validation standard.  Out of scope for the cohomology
     layer; logged here as the principal downstream physics
     problem.
+  · **Pisano-analogue grid across sister sequences** — extends
+    to the small-prime pentad `{2, 3, 5, 7, 11}` for 4 of 6
+    sister sequences:
+
+    | Sequence  | π(2)       | π(3) | π(5) | π(7) | π(11) |
+    |-----------|------------|------|------|------|-------|
+    | Fibonacci |   3        |   8  |  20  |  16  |  10   |
+    | Lucas     |   3        |   8  |   4  |  16  |  10   |
+    | Padovan   |   7        |  13  |  24  |  48  | (120) |
+    | Tribonacci|   4        |  13  |  31  |  48  | (110) |
+    | Narayana  |   7        |   8  |  31  |  57  |  60   |
+    | Jacobsthal| constant 1 |   6  |   4  |   6  |  10   |
+
+    27 parametric + 1 eventually-constant closures shipped;
+    Padovan / Tribonacci mod 11 (periods 120 / 110) deferred.
+
+    Common technique: nested induction over the recurrence
+    order + `add_mod_gen` for sum reduction + `mul_mod_right_pure`
+    for multiplicative coefficients (Jacobsthal `2 J_n`).
+    Period-coincidence twins: Fib ↔ Lucas (shared recurrence
+    matches all periods); Padovan ↔ Narayana share π(2) = 7;
+    Lucas ↔ Jacobsthal share π(5) = 4 via different structural
+    origins; Tribonacci ↔ Narayana share π(5) = 31.  Jacobsthal
+    mod 2 uniquely collapses to constant (rather than nontrivial
+    periodic) due to the `2 J_n` term.
+
   · **General eventual-periodicity statement** at arbitrary
-    coprime `(d, p)`.  The chapter ships the parametric
-    reduction `configCountD_mod_pure` and concrete period-2
-    capstones at `(5, 7)` and `(5, 13)`; the universal
-    `∃ T n₀, ∀ n ≥ n₀, …` form is a small additive marathon.
+    coprime `(d, p)` — **CLOSED**.
+    `EventualPeriodicity.lean` ships the universal form
+    `configCountD_eventually_periodic (d p' : Nat)
+      (h_flt : d ^ (p' + 2 - 1) % (p' + 2) = 1 % (p' + 2)) :
+      ∃ T n₀, 1 ≤ T ∧ n₀ ≤ p' + 2 - 1
+        ∧ ∀ n, n₀ ≤ n
+            → configCountD d (n + T) % (p' + 2)
+              = configCountD d n % (p' + 2)`
+    via forward-only pigeonhole on the exponent layer
+    `n ↦ d^n % (p - 1)` (Markov chain on `Fin (p - 1)`) +
+    `configCountD_mod_pure` bridge.  Distinct from
+    `MulOrderPigeonhole.exists_modPow_period`: no modular inverse
+    needed, so applies to the eventually-constant regime
+    `gcd(d, p - 1) ≠ 1` (witnessed at `(5, 11)`) as well as the
+    purely periodic regime.  Concrete period-2 capstones at
+    `(5, 7)`, `(5, 13)` and eventually-constant capstones at
+    `(5, 11)`, `(5, 41)` remain available as sharper closures.
+    Padovan / Tribonacci / Fibonacci / Narayana Pisano-analogue
+    parametric closures at the exponent-free recurrence level
+    are shipped in `{Padovan, Tribonacci, Fibonacci,
+    Narayana}Modular.lean`.
   · **Combinatorial-identity Lean witness**: the truth-table
     reading `configCountD d n = | [d]^n → [d] |` is currently
     a docstring identity.  A `Fintype.card`-style Lean theorem
