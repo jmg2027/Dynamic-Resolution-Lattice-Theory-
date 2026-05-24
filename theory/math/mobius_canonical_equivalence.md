@@ -1,7 +1,11 @@
 # Möbius Canonical Equivalence on Cuts
 
-**Status**: Closed across 5 distinct equality domains (11 files,
-90 PURE / 0 DIRTY).
+**Status**: Closed across 5 distinct equality domains + 4
+sequential marathons (~20 files, 136 PURE / 0 DIRTY).  Grand
+unification master at
+`Lib/Math/Mobius213GrandUnification.grand_unification` bundles
+ten distinct readings of `P = [[2,1],[1,1]]` into one
+∅-axiom-verified statement.
 
 ## Overview
 
@@ -304,35 +308,64 @@ the canonical Möbius-orbit equivalence is determined by the
 Every framework-internal equality definition factors through the
 appropriate Möbius-orbit reading on its coordinate shape.
 
+## Marathon closures
+
+Four sequential marathons extend the canonical-equivalence work
+along axes that the original closure left open:
+
+  · **Marathon 1** (`cutMulN N` parametric, 14 PURE) —
+    cut-level forward closure `cutMulN N (constCut a N)
+    (constCut c N) m k = true → constCut (a · c) (N · N) m k =
+    true` (`Real213/Mul/CutMulN`), plus bundled
+    `mulN : ValidCutN N × ValidCutN N → ValidCutN (N · N)`
+    (`Real213/NValidCutMul`) bypassing the precision artifact
+    via direct algebraic numerator + commutativity at the
+    bundled level.
+  · **Marathon 2** (K_{3,2}^(c=2) ↔ P state classes, 21 PURE) —
+    numerical signature bridge (`Mobius213/Mobius213K32Bridge`)
+    identifying every K-graph count (5 vertices, 12 edges,
+    6 pairs) with a Möbius P invariant or entry, plus
+    categorical state-class structure
+    (`Cohomology/Bipartite/Mobius213K32StateClass`) with
+    `vertexCount allTrueV = (NS, NT) = Pseq seedZero 2`.
+  · **Marathon 3** (CF ↔ Pseq, 5 PURE) — the standard CF
+    [2; 1, 1, 1, ...] convergent recurrence
+    `a(n+2) + a(n) = 3 · a(n+1)` realised in Nat form on both
+    P-orbits, both components
+    (`Real213/Mobius213ContinuedFraction`).
+  · **Marathon 4** (CD-doubling ↔ P iteration, 5 PURE) —
+    `CayleyDickson/Tower/Mobius213CDBridge` recording that the
+    Type C asymptote `(5, −1)` IS `(disc P, Pell unit)` and the
+    Type D asymptote `(1, 1)` is two copies of `det P`.
+
+The grand unification capstone
+(`Lib/Math/Mobius213GrandUnification.grand_unification`)
+bundles all the per-domain master theorems into a single
+∅-axiom-verified 10-conjunct statement, the ultimate witness
+that `P = [[2,1],[1,1]]` carries every reading the framework
+admits.
+
 ## Open frontier
 
-  · **`cutMulN N`** parametric (multiplication analog of
-    `cutSumN N`).  Predates this chapter — noted in
-    `HANDOFF.md` as substantive multi-session work.  Stern-Brocot
-    congruence will follow once the cut-level closure exists, by
-    composition with `cutEq_iff_sternBrocotEq_and_zero`.
-  · **K_{3,2}^{(c=2)} bipartite ↔ P state classes**: the
-    3-side / 2-side split of the canonical Lattice as the two
-    eigenspaces of P read at the matrix level.  Not yet recorded.
-  · **Continued-fraction expansion of `φ²` ↔ Pseq paths**:
-    `Pseq seedInf` gives `(1, 0), (2, 1), (5, 3), (13, 8), ...`
-    — the Fibonacci-Pell convergents.  Their ratios approach
-    `φ²`; this is the standard CF expansion of `φ²` but the
-    formal CF type + bridge to `Pseq` is not yet built.
-  · **Cayley-Dickson 2-doubling ↔ P trace-recurrence**: the
-    CD-tower's level-`n` doubling matches P's iteration depth;
-    `Lib/Math/CayleyDickson/Tower/AlgebraTowerAsymptote.lean`'s
-    `(5, −1)` Type-C asymptote shares `5 = disc(P)` with
-    `disc_atom_orbit_master` but the chapter-level bridge is
-    documented at `theory/math/universe_chain.md` only as a
-    fingerprint, not as an action correspondence.
   · **Möbius-Fibonacci-index orbit on ZpSeq**: a strictly
     weaker reading (`ZpFibEq`) that fails to be bidirectional
     with `ZpSeqEquiv`; documented in `ZpSeqMobiusBridge.lean`
-    §2 as the structurally honest limit case.  Closing this
-    requires either a wider P-action on `Nat` indices (which
-    doesn't naturally exist) or accepting the pair-projection
-    reading as the canonical form.
+    §2 as the structurally honest limit case.  The pair-
+    projection reading (`ZpMobiusPairEq`) is the canonical
+    bidirectional form.
+  · **`cutMulN N` Phase 3**: bidirectional closure under the
+    divisibility hypothesis `N ∣ k` (the precision artifact
+    direction), Stern-Brocot congruence on bundled `mulN`,
+    and N⁴-fiber higher-order product structures.
+  · **K_{3,2}^(c=2) edge cochain side**: extending the state-
+    class projection to `CochE = Fin 12 → Bool` via edge-side
+    Möbius P action.  Vertex side is closed; edge side is
+    natural follow-up.
+  · **Higher cohomology + Möbius P**: H¹(K_{3,2}^(c=2)),
+    H²(K_{3,2}^(c=2)), and Steenrod operations under
+    state-class projection.  Existing infrastructure in
+    `Cohomology/Bipartite/H1K.lean`, `SteenrodSquaresAtOmega
+    .lean` could host the bridge.
 
 ## How to verify
 
