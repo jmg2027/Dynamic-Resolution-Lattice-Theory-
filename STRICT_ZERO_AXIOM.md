@@ -2808,3 +2808,49 @@ identity) frames.
     closure
 
 **Session grand total**: 310 + 20 = **330 PURE / 0 DIRTY**.
+
+## 2026-05-24 — MediantCohomologyFunctor: Stern-Brocot factorisation of K_{NS,NT}^{(c)} counts
+
+Direction E (HANDOFF.md) realised: the mediant cohomology
+functor takes the Stern-Brocot identity `(4, 3) = (1, 1) ⊕ (3, 2)`
+and lifts it to **Vandermonde decomposition** of every
+`K_{NS, NT}^{(c)}` cell-count quantity.
+
+  · **Vertex** (2-term linear additivity): `V(a+c, b+d) =
+    V(a, b) + V(c, d)`.
+  · **Edge** (4-term Vandermonde): `E^m(a+c, b+d) = E^m(a, b)
+    + E^m(a, d) + E^m(c, b) + E^m(c, d)`, decomposing edges
+    into inner-1 / cross-12 / cross-21 / inner-2 classes.
+  · **Face** (factored Vandermonde², mult-0 convention):
+    `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c) · (binom b 2
+    + binom d 2 + b·d)`.  Expands to 9 products, one per
+    (S-pair source × T-pair source) combination.
+
+Combinatorial heart: `binom_add_2 : binom (a + b) 2 = binom a 2
++ binom b 2 + a*b` (Vandermonde-2 identity for `binom n 2`).
+Proof by induction on `a` using Pascal recursion (`binom_succ_2`)
++ `binom_n_1` + `move_b_to_tail` (5-term Nat rearrangement).
+
+K_{4,3} marquee verification (via (1, 1) ⊕ (3, 2)):
+  · 7  = 2 + 5                       (vertex)
+  · 24 = 2 + 4 + 6 + 12               (edge 4-term)
+  · 18 = (0 + 3 + 3)·(0 + 1 + 2)
+       = 3 + 6 + 3 + 6                (face — 4 of 9 nonzero)
+
+Cross-link: matches `V43.K43_simple_face_count` (18 simple
+4-cycles), `V43.K43_edge_count` (24 edges), `V43.K43_vertex_count`
+(7 vertices).  The functor is **well-defined at K_{4,3}** since
+`(4, 3) = mediant((1, 1), (3, 2))` is anchored at
+`BipartiteStermBrocotClassification.k43_sternBrocot_position`.
+
+**∅-axiom replacements**:
+  · `Nat.right_distrib` carries `propext` → re-derived as
+    `add_mul_pure` by Nat induction + `Nat.add_right_comm`.
+  · `binom n 0` does not reduce defeq for free `n` →
+    `binom_n_0` case-split helper.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.MediantCohomologyFunctor` | 22 | `binom_n_1` (Pascal-recursion), `binom_succ_2` (Pascal step 2), ★★★★★ **`binom_add_2`** (Vandermonde-2 universal identity), `vertexCount`, `edgeCount`, `faceCount`, `mediant`, `vertexCount_mediant` (2-term), ★★★★ **`edgeCount_mediant`** (4-term Vandermonde, ∅-axiom via `add_mul_pure`), ★★★★★★★ **`faceCount_mediant_factored`** (Vandermonde²), `K11/K32/K43_counts`, `K43_vertex/edge/face_from_mediant` (concrete (1,1)⊕(3,2)=(4,3)), `K43_face_9term_evaluation`, `countTriple`, `countTriple_mediant_decomposition` (3-component algebra law), ★★★★★★★ **`mediant_cohomology_functor_capstone`** (7-conjunct master: Vandermonde-2 + V/E/F decompositions + K_{4,3} concrete + Stern-Brocot reachability) |
+
+**Session grand total**: 330 + 22 = **352 PURE / 0 DIRTY**.
