@@ -2156,12 +2156,31 @@ cross-domain unification work.
 
 **Remaining substantial open** (genuinely multi-session each):
 
-  · `cutMulN N` parametric (predates this work per HANDOFF.md);
-    Stern-Brocot congruence will follow trivially once the cut-
-    level closure exists.
+  · `cutMulN N` parametric — **Wave 14 Phase 1 below**.
   · K_{3,2}^{(c=2)} bipartite ↔ P state classes (categorical).
   · Continued-fraction expansion of `φ²` ↔ Pseq paths (define
     CF type + bridge).
   · Cayley-Dickson 2-doubling ↔ P iteration depth (the
     `(5, −1)` Type-C asymptote shares `5 = disc(P)`; action
     correspondence not yet recorded).
+
+## 2026-05-24 — Wave 14 Phase 1: cutMulN N parametric
+
+Multiplicative analog of Wave 13's `cutSumN N`.  An N-aware
+product cut: searches witnesses `(m1, m2)` with `cx m1 (N·k) ∧
+cy m2 (N·k) ∧ m1·m2 ≤ N²·m·k`.  Forward closure to `constCut
+(a · c) (N · N)` proves unconditionally; backward (the precision
+artifact direction) requires a divisibility hypothesis — same
+artifact as the standard `cutMul`.  9 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Real213.Mul.CutMulN` | 9 | `cutMulN_inner` (inner ladder over `m2`);  `cutMulN_outer` (outer ladder over `m1`);  `cutMulN` (entry point with bound `N²·(m+1)·(k+1)`);  `cutMulN_inner_eq_true_iff`, `cutMulN_outer_eq_true_iff` (via `BoolOrLadder.bool_or_ladder_iff_with_pack`);  ★★★★★ `cutMulN_const_const_forward` (`cutMulN N (constCut a N) (constCut c N) m k = true → constCut (a·c) (N·N) m k = true`);  ★★ `cutMulN_const_const_contrapositive`;  ★★ `cutMulN_cutEq_left`, `cutMulN_cutEq_right` (cutEq congruence both arguments) |
+
+**Phase 2 continuing work**: bidirectional closure under
+divisibility hypothesis (`N ∣ k`), `ValidCutN²`-style bundled
+structure for products, then Stern-Brocot congruence (trivial
+corollary via `cutEq_of_sternBrocotEq` once Phase 2 lands).
+
+**Session total**: 90 + 9 (`CutMulN Wave 14 Phase 1`) =
+**99 PURE / 0 DIRTY** across all marathons in this session.
