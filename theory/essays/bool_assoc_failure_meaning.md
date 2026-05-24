@@ -75,11 +75,10 @@ is_native : cutEq cut (constCut a b) ∧ b ∈ ⟨2, 3⟩  (multiplicative monoi
 
 이 wrapper에서 결합법칙은 cutSum의 (3, 2)-aware 구현과 함께 닫힌다.
 
-## 후속 작업
+## 후속 작업의 closure
 
-1. **`cutSum`의 lcm-aware 재정의** — search granularity가 입력 cut의 분모 lcm을 따르도록.  factor-2 hardcode 제거.
-2. **`ThirdValidCut` (b = 3)** — IntValidCut/HalfValidCut 패턴 연장.  bundled subtype + `Nat.add_assoc`으로 b = 3 결합법칙 닫기.
-3. **`is_native` wrapper** — `b ∈ ⟨2, 3⟩` 멤버십을 type-level 게이트로 묶고, 그 안에서 cutSum 결합법칙 일반 정리.
-4. **이전 essay (`pure_funext_avoidance.md`) §"b ≥ 3 cutSum_assoc" 갱신** — "framework boundary"가 아니라 "구현 mismatch"임을 반영.
+1. **`cutSumN N` parametric 정의** — `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE).  factor-2 hardcode를 parametric N으로 lift.  `cutSumN_same_denom`: 임의 `N > 0`, `a, c`에서 `cutSumN N (constCut a N) (constCut c N) ≡ constCut (a+c) N` bidirectional.  `cutSumN_cutEq_left/right`: cutEq 존중.
+2. **`ThirdValidCut` (b = 3)** — `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE).  IntValidCut/HalfValidCut 패턴 연장; `cutSumN 3` 기반 add, full assoc, comm, capstone.  `cutSumN_3_2_1_at_1_1`이 CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 decide-검증.
+3. **`is_native` wrapper** — `b ∈ ⟨2, 3⟩` 멤버십 게이트는 아직 미작성; 위 두 파일이 b = 1, 2, 3 각각의 closure를 갖춤.
 
-진짜 framework 결함은 cutSum의 hardcode이지 b ≥ 3 자체가 아니다.  213은 (3, 2) atomic commitment를 honor하고, 그 안에서 모든 real이 판정 가능하다.
+진짜 framework 결함은 cutSum의 hardcode이지 b ≥ 3 자체가 아니다.  213은 (3, 2) atomic commitment를 honor하고, 그 안에서 모든 real이 판정 가능하다.  `cutSumN 3` + `ThirdValidCut`이 NS atom의 algebraic closure를 framework 안에서 완전 실현.

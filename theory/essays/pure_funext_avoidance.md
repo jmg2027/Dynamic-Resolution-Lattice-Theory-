@@ -49,7 +49,9 @@
 
 상세 분석은 `essays/bool_assoc_failure_meaning.md`.  핵심: `cutSum`의 factor-2 hardcode가 (NS, NT) = (3, 2) atom 중 NT만 반영하고 NS를 빠뜨림.  framework "바깥"의 문제가 아니라 *cutSum 구현이 213의 (3, 2) commitment를 under-realize* 한 것 — `Physics/Foundations/AtomicConstantsParametricFullIff.lean` `c2b_full_iff` + `Theory/Atomicity/Five.lean` `atomic_iff_five`가 (3, 2) → 모든 real 판정 chain을 이미 증명.
 
-따라서 후속은 **`cutSum`의 lcm-aware 재정의** + **`ThirdValidCut` (b = 3 bundled subtype)** + **`is_native` wrapper** (`b ∈ ⟨2, 3⟩` multiplicative monoid 게이트).  CutSumAssocB3.lean은 *현상의 정직한 진단*이지 closure가 아님.
+**Closure 진척**: `Lib/Math/Real213/Sum/CutSumN.lean` (6 PURE)이 parametric `cutSumN N` (factor-N search granularity) 정의 + 임의 N > 0에서 `cutSumN_same_denom` bidirectional 증명.  `Lib/Math/Real213/ThirdValidCut.lean` (15 PURE)이 b = 3 결합법칙을 IntValidCut/HalfValidCut 패턴으로 닫음 — `cutSumN_assoc_thirdValidCut` (full assoc), `cutSumN_comm_thirdValidCut`, `thirdvalidcut_full_assoc_capstone`.  CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 `cutSumN_3_2_1_at_1_1`이 decide-검증.
+
+미완: `is_native` wrapper (`b ∈ ⟨2, 3⟩` multiplicative monoid 게이트) — b ∈ {1, 2, 3} 각각의 closure는 닫혔으나 일반 multiplicative composite (b = 6, 9, 12, ...)의 통합 wrapper는 follow-up.
 
 ## Provenance
 
