@@ -2124,11 +2124,44 @@ Two cheap-win closures for the broader-conjecture remainders.
 Phase 1 + 1b + 1c + 2 + 3 + 5 + capstone + atomicity + Adjacent
 + CutSetoid.
 
-**Remaining open**: `ZpSeqEquiv` (different domain — mod-p
-Möbius orbit on `Nat → Fin p` digit sequences; substantial new
-design), `cutMulN N` parametric (multiplication analog of Wave
-13's `cutSumN N`; predates G139 per HANDOFF.md), and the Phase
-5 cross-frame extensions noted in
-`research-notes/archive/G139_…`: K_{3,2}^{(c=2)} bipartite ↔ P
-state classes, continued-fraction ↔ Pseq paths, Cayley-Dickson
-2-doubling ↔ P doubling.
+## 2026-05-24 — ZpSeqEquiv bridge + cross-domain meta capstone
+
+Closes ZpSeqEquiv via the Stern-Brocot pair projection (every
+Nat index appears as a pair component, so pair-agreement IS
+pointwise agreement).  Adds a 5-domain meta capstone bundling
+every equality bridge.  10 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Padic.ZpSeqMobiusBridge` | 9 | `ZpMobiusPairEq` (digit agreement at every SB-reachable pair's components);  forward + backward bridges;  ★★★★★ `ZpSeqEquiv_iff_ZpMobiusPairEq` (tight bidirectional);  `fib` (Fibonacci);  `ZpFibEq` (strictly-weaker P-orbit reading);  `fib_values`, `index_4_not_in_fib_range` (concrete counterexample for the weaker reading) |
+| `E213.Lib.Math.Mobius213CrossDomainMeta` | 1 | ★★★★★★★★★ `cross_domain_meta_unification` — 5-domain meta capstone: (cut / ValidCutN / signedEq / ZpSeqEquiv / Adjacent) bundled as a single conjunction.  Re-exports the per-domain `iff`s and the `Adjacent → sternBrocotEq` projection |
+
+**Generalisation principle**: for each 213-internal equality
+definition, the canonical Möbius-orbit equivalence is determined
+by the **coordinate shape** of the underlying domain:
+
+  · `Nat × Nat` coords (cut, signed cut cross-sum, ValidCutN):
+    `sternBrocotEq` via mediant closure of `(0, 1)`, `(1, 0)`,
+    bidirectional with pointwise modulo `(0, 0)`.
+  · `Nat` coords (ZpSeq digit indices): `ZpMobiusPairEq` via
+    Stern-Brocot pair-coverage projection, bidirectional with
+    pointwise because every Nat is a pair component.
+  · Function-equality (Adjacent on dyadic brackets):
+    `sternBrocotEq` by reflexivity since function equality
+    implies pointwise.
+
+**Session total**: 80 + 9 (`ZpSeqMobiusBridge`) + 1
+(`Mobius213CrossDomainMeta`) = **90 PURE / 0 DIRTY** for the
+cross-domain unification work.
+
+**Remaining substantial open** (genuinely multi-session each):
+
+  · `cutMulN N` parametric (predates this work per HANDOFF.md);
+    Stern-Brocot congruence will follow trivially once the cut-
+    level closure exists.
+  · K_{3,2}^{(c=2)} bipartite ↔ P state classes (categorical).
+  · Continued-fraction expansion of `φ²` ↔ Pseq paths (define
+    CF type + bridge).
+  · Cayley-Dickson 2-doubling ↔ P iteration depth (the
+    `(5, −1)` Type-C asymptote shares `5 = disc(P)`; action
+    correspondence not yet recorded).

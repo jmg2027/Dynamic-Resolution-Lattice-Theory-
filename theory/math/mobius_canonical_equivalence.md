@@ -1,6 +1,7 @@
 # Möbius Canonical Equivalence on Cuts
 
-**Status**: Closed (7 files, 68 PURE / 0 DIRTY).
+**Status**: Closed across 5 distinct equality domains (11 files,
+90 PURE / 0 DIRTY).
 
 ## Overview
 
@@ -32,28 +33,42 @@ readings sharing one algebraic object.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Real213/` (six files) +
-  `lean/E213/Lib/Math/SignedCut/Core/` (one file)
+- **Sub-tree**: `lean/E213/Lib/Math/Real213/` (8 files) +
+  `lean/E213/Lib/Math/SignedCut/Core/` (1 file) +
+  `lean/E213/Lib/Math/Padic/` (1 file) +
+  `lean/E213/Lib/Math/Analysis/FluxMVT/` (1 file) +
+  top-level meta capstone
 - **Files**:
-  - `Mobius213Equiv.lean` (151 lines, 12 PURE) — P-orbit `Pseq`
+  - `Mobius213Equiv.lean` (12 PURE) — P-orbit `Pseq`
     + `mobiusEq` + Pell convergent values
-  - `Mobius213SternBrocot.lean` (351 lines, 26 PURE) — inductive
+  - `Mobius213SternBrocot.lean` (26 PURE) — inductive
     `SternBrocotReachable` predicate + full coverage of
     `ℕ × ℕ \ {(0, 0)}` + `Pseq_reachable` joint induction
     + `cutEq ↔ sternBrocotEq ∧ (0, 0)` master
-  - `Mobius213SternBrocotApps.lean` (199 lines, 11 PURE) —
+  - `Mobius213SternBrocotApps.lean` (11 PURE) —
     `is_at_denom_iff_sternBrocotEq`, `cutSumN` congruence,
     `validCutN_cutEq_iff_sternBrocotEq`, `addN_sternBrocotEq`
-  - `SignedCut/Core/SternBrocotBridge.lean` (115 lines, 7 PURE) —
+  - `SignedCut/Core/SternBrocotBridge.lean` (7 PURE) —
     `signedEq` factors through Stern-Brocot via cross-sum cuts
-  - `Mobius213PellInvariant.lean` (122 lines, 2 PURE) — Nat-side
+  - `Mobius213PellInvariant.lean` (2 PURE) — Nat-side
     Pell unit invariant on Pseq orbits
-  - `Mobius213UnificationCapstone.lean` (~120 lines, 4 PURE) —
+  - `Mobius213UnificationCapstone.lean` (4 PURE) —
     six-conjunct unification + algebra preservation + disc anchors
-  - `Mobius213AtomicityAnchor.lean` (~120 lines, 6 PURE) — atomic
+  - `Mobius213AtomicityAnchor.lean` (6 PURE) — atomic
     signature `(NS, NT)` realised at Pseq seedZero depth 2 +
     six-conjunct cross-frame anchor
-- **∅-axiom status**: 0 DIRTY, 68 PURE
+  - `Mobius213CutSetoid.lean` (10 PURE) — `CutEquiv` setoid +
+    `CutMorphism` / `CutBinaryMorphism` (LensMap-style) +
+    `canonical_setoid_law` (every cut-framework op respects)
+  - `Analysis/FluxMVT/AdjacentSternBrocotBridge.lean` (2 PURE) —
+    `Adjacent db₀ db₁ → sternBrocotEq` on shared walls
+  - `Padic/ZpSeqMobiusBridge.lean` (9 PURE) — `ZpSeqEquiv ↔
+    ZpMobiusPairEq` via Stern-Brocot pair projection; strictly
+    weaker Fibonacci-index reading recorded as honest limit
+  - `Mobius213CrossDomainMeta.lean` (1 PURE) — meta capstone:
+    5-domain conjunction (cut / ValidCutN / signedEq / ZpSeqEquiv /
+    Adjacent) bundling every bridged equality
+- **∅-axiom status**: 0 DIRTY, 90 PURE
 
 ## The narrative
 
@@ -248,6 +263,12 @@ object encodes:
 | `pseq_seedZero_realises_NS_NT` | `Mobius213AtomicityAnchor` | `Pseq seedZero 2 = (NS, NT)` |
 | `disc_atom_orbit_master` | `Mobius213AtomicityAnchor` | Six readings of `5 = NS + NT = disc(P) = atomic Nat` |
 | `unification_capstone` | `Mobius213UnificationCapstone` | Six-conjunct bundle of the closure |
+| `CutEquiv_iff_cutEq` | `Mobius213CutSetoid` | The canonical equivalence IS `cutEq` |
+| `canonical_setoid_law` | `Mobius213CutSetoid` | Every cut-framework op respects `CutEquiv` |
+| `cutSumN_morphism N` | `Mobius213CutSetoid` | `cutSumN N` is a CutBinaryMorphism |
+| `ZpSeqEquiv_iff_ZpMobiusPairEq` | `Padic/ZpSeqMobiusBridge` | ZpSeq pointwise ↔ Möbius pair projection |
+| `adjacent_walls_sternBrocotEq` | `Analysis/FluxMVT/AdjacentSternBrocotBridge` | Adjacency ⇒ SB-eq on walls |
+| `cross_domain_meta_unification` | `Mobius213CrossDomainMeta` | 5-domain meta capstone |
 
 ## Research-note provenance
 
@@ -264,29 +285,54 @@ object encodes:
 - `Theory.Atomicity.Five.atomic_iff_five` is the combinatorial
   side of the discriminant ↔ atomicity anchor.
 
+## Generalisation
+
+`Mobius213CrossDomainMeta.cross_domain_meta_unification` bundles
+the five domain-bridges into one master statement.  The
+structural principle: for each 213-internal equality definition,
+the canonical Möbius-orbit equivalence is determined by the
+*coordinate shape* of the underlying domain.
+
+| Coordinate shape | Domain | Möbius reading |
+|---|---|---|
+| `Nat × Nat` | `Nat → Nat → Bool` cuts | `sternBrocotEq` (mediant closure) + (0, 0) cond |
+| `Nat × Nat` | `ValidCutN N` cut fields | `sternBrocotEq` (auto (0, 0)) |
+| `Nat × Nat` (cross-sum) | `SignedCut` | `sternBrocotEq` on `cutSum (pos s) (neg t)` |
+| `Nat` (projected) | `ZpSeq p` | `ZpMobiusPairEq` via SB pair coverage |
+| Function-level | `DyadicBracket` walls | `sternBrocotEq` via `adjacent_walls_match` |
+
+Every framework-internal equality definition factors through the
+appropriate Möbius-orbit reading on its coordinate shape.
+
 ## Open frontier
 
-  · **`ZpSeqEquiv`** on `Padic` digit sequences — different
-    domain (`Nat → Fin p`), would need its own mod-p Möbius
-    orbit definition.  `Mobius213ModFive.lean` (`P¹⁰ ≡ I mod 5`)
-    is the structural starting point.
-  · **`Adjacent`** on dyadic brackets — already gives function
-    equality at the wall-cut level
-    (`adjacent_walls_match`); bridging to `sternBrocotEq` is a
-    one-liner corollary not yet recorded.
-  · **`LensMap`** — categorical packaging of `respects ≈`
-    morphisms; bridging means showing `cutSumN`-style operations
-    are LensMaps for the cutSetoid.  Not done; explicit Setoid
-    construction would need care to avoid `Quot.sound` (no
-    actual quotient is taken — bundled witnesses suffice).
   · **`cutMulN N`** parametric (multiplication analog of
-    `cutSumN N`).  Stern-Brocot congruence will follow once the
-    cut-level closure exists.
-  · **Cross-frame extensions** noted in
-    `research-notes/archive/G139_mobius_equivalence_unification.md`
-    Phase 5: K_{3,2}^{(c=2)} bipartite ↔ P state classes,
-    continued-fraction expansion of φ ↔ Pseq paths,
-    Cayley-Dickson 2-doubling ↔ P doubling.
+    `cutSumN N`).  Predates this chapter — noted in
+    `HANDOFF.md` as substantive multi-session work.  Stern-Brocot
+    congruence will follow once the cut-level closure exists, by
+    composition with `cutEq_iff_sternBrocotEq_and_zero`.
+  · **K_{3,2}^{(c=2)} bipartite ↔ P state classes**: the
+    3-side / 2-side split of the canonical Lattice as the two
+    eigenspaces of P read at the matrix level.  Not yet recorded.
+  · **Continued-fraction expansion of `φ²` ↔ Pseq paths**:
+    `Pseq seedInf` gives `(1, 0), (2, 1), (5, 3), (13, 8), ...`
+    — the Fibonacci-Pell convergents.  Their ratios approach
+    `φ²`; this is the standard CF expansion of `φ²` but the
+    formal CF type + bridge to `Pseq` is not yet built.
+  · **Cayley-Dickson 2-doubling ↔ P trace-recurrence**: the
+    CD-tower's level-`n` doubling matches P's iteration depth;
+    `Lib/Math/CayleyDickson/Tower/AlgebraTowerAsymptote.lean`'s
+    `(5, −1)` Type-C asymptote shares `5 = disc(P)` with
+    `disc_atom_orbit_master` but the chapter-level bridge is
+    documented at `theory/math/universe_chain.md` only as a
+    fingerprint, not as an action correspondence.
+  · **Möbius-Fibonacci-index orbit on ZpSeq**: a strictly
+    weaker reading (`ZpFibEq`) that fails to be bidirectional
+    with `ZpSeqEquiv`; documented in `ZpSeqMobiusBridge.lean`
+    §2 as the structurally honest limit case.  Closing this
+    requires either a wider P-action on `Nat` indices (which
+    doesn't naturally exist) or accepting the pair-projection
+    reading as the canonical form.
 
 ## How to verify
 
