@@ -7,7 +7,7 @@ open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
 all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 50 closures / 484 PURE new theorems.**
+**Cumulative: 51 closures / 501 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -52,8 +52,10 @@ Three-agent parallel research delivered the breakthrough.  See
 | WW | 10 | Leibniz5_3_1_BasisDecomp — per-basis pattern (10 cases) |
 | XX | 1 | **CupAW (5, 3, 1) universal — codim-3 α stratum CLOSED** |
 | YY | 20 | **4-fold Massey ⟨a, b, c, d⟩ formalism** + h2 zero cup-row + trivial witness ⟨h1,h3,h1,h3⟩ |
+| ZZ | 17 | **n-fold Massey schema** (n ∈ {3, 4, 5, 6}) — DefSysN structures + reps + capstone |
 
-92 PURE new.  7 of 8 prioritized Phase 14+ candidates closed.
+109 PURE new.  7 of 8 prioritized Phase 14+ candidates closed,
+plus the n-fold generalization atop the 4-fold.
 
 Phase 14-YY established the 4-fold Massey witness data
 structure on K_{3,2}^{(c=2)} 2-skeleton (nine cobounding
@@ -124,6 +126,10 @@ in Phase 14 (10 vertices → 45 edges).
   · `MasseyFourFoldH1` (4-fold Massey ⟨a,b,c,d⟩ witness data
     structure + trivial witness ⟨h1,h3,h1,h3⟩ + h2 zero
     cup-row in H²)
+  · `MasseyNFoldSchema` (n-fold Massey defining-system schema
+    for n ∈ {3, 4, 5, 6} — DefSysN structures, representative
+    formula, recovery of primary 3-fold ⟨h1,h3,h4⟩ = ω, and
+    trivial alternating n-fold witnesses)
 
 ## ∀-coprime eventual periodicity universal (Phase 4)
 
