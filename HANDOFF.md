@@ -12,6 +12,8 @@
   · **Bottom-layer bilateral kill**: ψ_0 kills `cupOpp_param (starS i) β`
     and `cupOpp_param α (incidT j)` for all i, j ∈ Fin 3 and any
     `c ≥ 1`.
+  · **Arbitrary-m bilateral kill**: ψ_m kills both for every layer
+    `m : Fin c` (Direction B closure 2026-05-24).
   · **Massey realisation**: parametric η-cochains `eta_ab_layer`,
     `eta_cd_layer` give `ψ_0(rep₄) = 1` at concrete c ∈ {2, …, 12}.
 
@@ -132,7 +134,10 @@ Anchor: `lean/E213/Lib/Math/Mobius213/Px/` (8 modules).
     `psiNatPos_congr_all` (graph-agnostic, funext-free)
   · `lean/E213/Lib/Math/Cohomology/Infrastructure/NatBeqHelpers.lean` —
     `nat_beq_refl'`, `nat_succ_add`, `nat_beq_add_left` (Nat.beq
-    left-cancellation)
+    left-cancellation); `nat_beq_add_left_assoc{1,2}` (Nat.beq reassoc
+    + cancel); `nat_add_left_cancel_pure` (propext-free Nat
+    cancellation); `nat_decide_add_left{,_assoc1,_assoc2}` (`==` /
+    `decide`-flavoured cancellation, matches `e.val == k` surface form)
 
 ## ∅-axiom standard
 
@@ -158,13 +163,27 @@ NS = NT = 3.  The full `(NS, NT, c)` parametric framework requires:
 V43 (K_{4,3}) and the upcoming V44, V53, V54 give concrete
 instances; the abstract `K_{NS,NT}^{(c)}` framework would unify them.
 
-### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
+### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation [CLOSED 2026-05-24]
 
-`V33EnrichedParametric.psi_layer_kills_cupOpp_S0star_left_at_bottom`
-holds at the bottom layer for any c.  Extending to arbitrary `m : Fin c`
-needs `Nat.beq (9·m + a) (9·m + b) = Nat.beq a b` cancellation
-(infrastructure exists in `NatBeqHelpers.nat_beq_add_left`); the
-challenge is targeted `rw` placement without `Nat.add_assoc` loops.
+Generalised the bottom-layer S_i / T_j cup-image kills to ANY layer
+`m : Fin c`.  ψ_m kills both `cupOpp_param (starS i m) β` and
+`cupOpp_param α (incidT j m)` for arbitrary `c`, `m`, `i`, `j ∈ Fin 3`
+and arbitrary edge cochain.
+
+Closure path: the bridge lemmas
+`starS_at_edge_idx_same_m` / `incidT_at_edge_idx_same_m` reduce
+same-layer evaluations to layer-free Nat.beq disjunctions via
+`nat_decide_add_left_assoc{1,2}` (cancels the `9·m.val` offset
+without `Nat.add_assoc` loops).  Rest is 6- or 9-edge β case-bash.
+
+Note on infrastructure: `e.val == k` on `Nat` desugars to
+`decide (e.val = k)` via the generic `[DecidableEq α] ⇒ BEq α`
+instance — *not* `Nat.beq`.  The cancellation lemmas therefore live
+in the `decide` form (`nat_decide_add_left_*`); the `Nat.beq` forms
+remain in `NatBeqHelpers` for callers that emit that surface form.
+
+Anchor: `V33EnrichedParametric.parametric_arbitrary_m_full_kill_capstone`
+(7 new PURE theorems in §20, all strict ∅-axiom).
 
 ### Direction C — Cup-image dim upper bound
 
