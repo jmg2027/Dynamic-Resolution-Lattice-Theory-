@@ -1919,10 +1919,40 @@ of `sternBrocotEq` on `Nat → Nat → Bool`):
 
   · `ZpSeqEquiv` — Möbius on digit sequences mod p; `P¹⁰ ≡ I (mod 5)`
     (`Mobius213ModFive.lean`) is the structural starting point.
-  · `signedEq (a,b)(c,d) := a + d = b + c` — det-form of mobiusEq
-    on integer pairs; relates to the cross-product invariant
-    `mobius_213_pell_unit_invariant_forall`.
+  · `signedEq` — actually on `Nat → Nat → Bool` via `cutSum`-shaped
+    cross-additive equality; closed below.
   · `Adjacent` (DyadicBracket) — `mobiusEq` one-step relation on
     dyadic brackets.
   · `LensMap` — sternBrocotEq-preserving morphisms; categorical
     packaging.
+
+## 2026-05-24 — G139 Phase 3 (signedEq): SignedCut Stern-Brocot bridge
+
+`signedEqAt` (`SignedCut/Core/Equivalence.lean`) is pointwise
+cross-additive equality of two `cutSum`-shaped cuts.  Its
+∀-quantified version, `signedEq`, is literally `cutEq` on the
+cross-sum cuts — so the canonical-equivalence bridge from
+Phase 2 transports directly.  When all four component cuts are
+`true` at `(0, 0)` (automatic for everything built from
+`constCut a N`), the (0, 0) side condition drops out and
+`signedEq` reduces to pure Stern-Brocot equivalence on the
+cross-sum cuts.  7 PURE / 0 DIRTY.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.SignedCut.Core.SternBrocotBridge` | 7 | `signedEq s t := ∀ m k, signedEqAt s t m k`;  `signedEq_iff_cutEq` (unfolds by definition);  `cutSum_zero_zero` (`cutSum cx cy 0 0 = cx 0 0 && cy 0 0`);  `cutSum_zero_zero_eq`;  ★★★★★ `signedEq_iff_sternBrocotEq_and_zero` (general bridge);  `cross_sum_zero_zero_of_components` (auto-zero from canonical inputs);  ★★★★★ `signedEq_iff_sternBrocotEq_of_canonical` (reduced bridge: when all four components are `true` at (0, 0), `signedEq` ↔ pure `sternBrocotEq` on cross-sum cuts) |
+
+**Concrete realisation**: every `SignedCut` equivalence
+appearing in the Cayley-Dickson tower (`SignedCut/CD/*`),
+algebra structure (`SignedCut/Core/Algebra.lean`), and inverse
+construction (`SignedCut/Core/Inv.lean`) lifts to a Stern-Brocot
+equivalence on the cross-sum cut representatives.  The
+ℤ-from-ℕ construction the signed cuts realise is therefore
+Stern-Brocot-internal: the mediant-closure of the two Möbius
+seeds `(0, 1)` and `(1, 0)` provides the canonical equivalence
+on signed integers in 213.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 8 (`Mobius213SternBrocotApps`) + 7
+(`SignedCut/Core/SternBrocotBridge`) = **53 PURE / 0 DIRTY**
+for G139 Phase 1 + 1b + 1c + 2 + 3 (cutEq + ValidCutN + signedEq).
