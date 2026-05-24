@@ -145,7 +145,15 @@ private theorem canonical_edge_bound (NS NT c s t : Nat) (hc : 1 ≤ c)
   rw [h_swap] at h_lhs
   exact h_lhs
 
-/-! ## §5 — Universal kernel ⟹ vertex-pair equality
+/-! ## §5 — Custom Fin equality helper (avoids Fin.ext propext leak) -/
+
+/-- ∅-axiom Fin equality via subst on values + proof irrelevance. -/
+private theorem fin_eq_of_val (n : Nat) (a b : Nat)
+    (ha : a < n) (hb : b < n) (h : a = b) :
+    (⟨a, ha⟩ : Fin n) = ⟨b, hb⟩ := by
+  subst h; rfl
+
+/-! ## §6 — Universal kernel ⟹ vertex-pair equality
 
 For every (s, t) ∈ Fin NS × Fin NT and every σ in the kernel of
 δ⁰, the canonical S-T edge enforces `σ(s) = σ(NS + t)`. -/
@@ -181,10 +189,10 @@ theorem ker_implies_pair_eq (NS NT c : Nat)
   -- Bridge to canonical Fin form via Fin.ext
   have h_src_eq : srcFin NS NT c hpos e_st
       = ⟨s, Nat.lt_of_lt_of_le hs (Nat.le_add_right NS NT)⟩ :=
-    Fin.ext h_src_val
+    fin_eq_of_val _ _ _ _ _ h_src_val
   have h_tgt_eq : tgtFin NS NT c hpos e_st
       = ⟨NS + t, Nat.add_lt_add_left ht NS⟩ :=
-    Fin.ext h_tgt_val
+    fin_eq_of_val _ _ _ _ _ h_tgt_val
   rw [← h_src_eq, ← h_tgt_eq]
   exact h_eq
 
@@ -252,7 +260,7 @@ theorem pair_eq_implies_constant (NS NT : Nat) (hS : 1 ≤ NS) (hT : 1 ≤ NT)
       -- h : σ ⟨NS + (v - NS), _⟩ = σ anchor
       have h_fin_eq : (⟨v, hv⟩ : Fin (NS + NT))
           = ⟨NS + (v - NS), Nat.add_lt_add_left h_t_lt NS⟩ :=
-        Fin.ext h_v_eq
+        fin_eq_of_val _ _ _ _ _ h_v_eq
       rw [h_fin_eq]; exact h
   -- Conclude
   intro i j
