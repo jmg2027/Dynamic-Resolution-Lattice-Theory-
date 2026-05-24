@@ -40,6 +40,7 @@ research-notes/
 │   ├── universe_chain/  ← G65–G84 (→ theory/math/universe_chain.md)
 │   ├── pattern_catalog/ ← G28, G30 (→ theory/math/pattern_catalog/pattern_catalog.md)
 │   ├── minimal_root/    ← G31 (→ theory/math/analysis/minimal_root.md)
+│   ├── c_counter/       ← G143, G145, G146 (→ theory/math/cohomology/k_nm_c_classification.md + 4 essays)
 │   └── metascan/        ← G90–G106 (→ theory/meta/{scanner_suite,raw_derivation_levels}.md)
 └── data/                ← raw evidence
     └── probes/          ← G52 algebra-tower probe txts
@@ -103,6 +104,10 @@ Active top-level registries after merge:
 | `archive/G129_v32betti_parametric_generalization.md` | V32Betti parametric — absorbed into `theory/math/cohomology/bipartite.md` "Parametric V32Betti" + Open Frontier |
 | `archive/G130_bracket_cauchy_ricci_functor.md` | `IsModulusStructure` typeclass bridge — absorbed into `theory/math/topology.md` "Modulus structures: 3-way bridge" |
 | `archive/G132_alphaEm_higher_cohomology_residual.md` | Sub-ppb precision via K_{3,2}^{(c=2)} higher cohomology — promoted to `theory/physics/alpha_em/precision_derivation.md` |
+| `archive/c_counter/G143_c_multiplicity_hierarchy_refined.md` | c-multiplicity refined: (c−1)-codim falsified; enriched complex codim ≥ c — promoted to `theory/math/cohomology/k_nm_c_classification.md` + essays `c_counter_as_layer_count.md`, `disjoint_layers_as_direct_sum.md` |
+| `archive/c_counter/G145_c_counter_structural_theory.md` | c-counter structural theory: multiplicity-layer interpretation + Stern-Brocot classification + K33Unified — promoted to `theory/math/cohomology/k_nm_c_classification.md` + essay `stern_brocot_as_universal_lattice.md` |
+| `archive/c_counter/G146_K32_bipartite_tripartite_self_containment.md` | K_{3,2}^{(c=2)} as self-contained bipartite-tripartite — Lean Option I deferred — promoted as essay `bipartite_tripartite_self_containment.md` (Reading B) |
+| `archive/G146_p_orbit_naturalness_boundary.md` | P-orbit naturalness boundary (tripartite K_{2,1,3} + ModPPeriods + POrbitClosure) — promoted to `theory/math/mobius213_p_orbit_closure.md` + essay `p_orbit_naturalness_boundary.md` |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN
@@ -121,7 +126,7 @@ to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G133**).  Once formalized:
+Use next available G prefix (currently **G147**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -149,8 +154,12 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | (this session) | G132 K_{3,2}^{(c=2)} higher cohomology sub-ppb (Phases 1-7, 89 PURE across 7 files) → `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 (refined cup-ladder `‖c‖²·(α/d)^(k+1)`, sub-1·10⁻⁹ tier); G132 note archived | 3 (mixed-status: chapter expansion) |
 | (this session) | G132 marathon Phases 8-19 (cup-i framework + Steenrod algebra + truncation bound, ~142 PURE across 12 files) → `theory/math/cohomology/cup_ladder_graduation.md` (new chapter) + `theory/physics/alpha_em/precision_derivation.md` C1 Step 6 expanded to 19 files / 231 PURE; insight note G136 (renumbered from G135 to avoid collision with padic_closure_synthesis G135) | 2 (narrative-from-scratch) |
 
-11+ chapters total covering all promotable closed work
-(9 Lean sub-trees + 2 meta-analysis chapters).
+| 2026-05-24 | G143 + G145 c-multiplicity + Stern-Brocot + K_{4,3} + K33Unified → `theory/math/cohomology/k_nm_c_classification.md` (new chapter, 382 lines) + 3 essays (`c_counter_as_layer_count.md`, `disjoint_layers_as_direct_sum.md`, `stern_brocot_as_universal_lattice.md`); G143/G145 archived to `research-notes/archive/c_counter/` | 2 (narrative-from-scratch) |
+| 2026-05-24 | G146 P-orbit naturalness boundary + Px catalog (13 Px modules / 206 PURE) → `theory/math/mobius213_p_orbit_closure.md` (new chapter, 316 lines) + essay `p_orbit_naturalness_boundary.md`; G146_p_orbit archived | 3 (mixed-status chapter expansion + catalog synthesis) |
+| 2026-05-24 | G146 K_{3,2} bipartite-tripartite self-containment (Lean Option I deferred) → essay-only `theory/essays/bipartite_tripartite_self_containment.md` (Reading B); G146_K32 archived to `research-notes/archive/c_counter/` | essay-promotion (insight without Lean) |
+
+13+ chapters total covering all promotable closed work
+(11 Lean sub-trees + 2 meta-analysis chapters).
 
 ### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)
 

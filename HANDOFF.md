@@ -150,9 +150,10 @@ Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
 ## Anchor docs
 
   · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — boot
-  · `research-notes/G143_c_multiplicity_hierarchy_refined.md` — c-counter problem
-  · `research-notes/G145_c_counter_structural_theory.md` — high-level synthesis
-  · `research-notes/G146_K32_bipartite_tripartite_self_containment.md` — bipartite-tripartite duality at K_{3,2}^{(c=2)}
+  · `theory/math/cohomology/k_nm_c_classification.md` — c-counter resolution + Stern-Brocot classification (promoted from G143 + G145)
+  · `theory/math/mobius213_p_orbit_closure.md` — P-orbit naturalness boundary (promoted from G146 P-orbit + Px catalog)
+  · `theory/essays/bipartite_tripartite_self_containment.md` — K_{3,2}^{(c=2)} self-containment (essay, Lean Option I deferred from G146)
+  · `theory/essays/{c_counter_as_layer_count,disjoint_layers_as_direct_sum,stern_brocot_as_universal_lattice,p_orbit_naturalness_boundary}.md` — cross-cutting essays
   · `lean/E213/ARCHITECTURE.md` — layer spec
   · `theory/INDEX.md` — book map
   · `STRICT_ZERO_AXIOM.md` — PURE catalog

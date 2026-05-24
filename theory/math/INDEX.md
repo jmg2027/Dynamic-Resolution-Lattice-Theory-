@@ -29,9 +29,13 @@ Marathon-completed domains (6):
 Infrastructure (10):
 - `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
-Cross-frame synthesis (2):
+Cross-frame synthesis (3):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`
 - [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
+- [`mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md) — P-orbit naturalness boundary (13 Px modules / 206 PURE); tripartite K_{2,1,3} additive complement; mod-p periods + Lucas-Pell trace orbit; refined naturalness hierarchy
+
+Cohomology classification extension (1):
+- [`cohomology/k_nm_c_classification.md`](cohomology/k_nm_c_classification.md) — K_{NS, NT}^{(c)} 3-axis classification (Stern-Brocot path × gcd-scale × c); parametric ∀c codim ≥ c at K_{3,3}; K_{4,3} base + cross-graph S-row dependence; K_{3,3} Möbius P bridges
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
 Patterns: `lean/E213/docs/PROMOTION_PATTERNS.md`.
