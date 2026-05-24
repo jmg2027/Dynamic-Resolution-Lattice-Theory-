@@ -5,9 +5,9 @@
 `claude/cohomology-marathon-qOxOX` — multi-session cohomology
 open-frontier marathon.  Phases 1-12 of G139 + Phase 13 (G140
 non-vacuous Massey deep research) + Phase 14 (follow-through on
-all proposed candidates).
+all proposed candidates including 4-fold Massey formalism).
 
-**Cumulative: 49 closures / 464 PURE new theorems.**
+**Cumulative: 50 closures / 484 PURE new theorems.**
 
 ## G139 phase-by-phase
 
@@ -51,11 +51,18 @@ Three-agent parallel research delivered the breakthrough.  See
 | VV | 2 | Leibniz5_3_1Bridge — bz5_3 case-split helpers |
 | WW | 10 | Leibniz5_3_1_BasisDecomp — per-basis pattern (10 cases) |
 | XX | 1 | **CupAW (5, 3, 1) universal — codim-3 α stratum CLOSED** |
+| YY | 20 | **4-fold Massey ⟨a, b, c, d⟩ formalism** + h2 zero cup-row + trivial witness ⟨h1,h3,h1,h3⟩ |
 
-72 PURE new.  All 6 of the prioritized Phase 14+ candidates
-(items 1-6 from `Phase 14+ candidates` queue) now closed; items
-7-8 (4-fold Massey, K_{3,3}^{(c=2)}) deferred to multi-session
-infrastructure.
+92 PURE new.  7 of 8 prioritized Phase 14+ candidates closed.
+
+Phase 14-YY established the 4-fold Massey witness data
+structure on K_{3,2}^{(c=2)} 2-skeleton (nine cobounding
+cochains + representative formula + indeterminacy bound
+`a · H¹ + H¹ · d`).  The trivial witness ⟨h1, h3, h1, h3⟩ is
+fully formalized (all five δ-equations + class = 0).  An
+auxiliary h2-cup-row analysis identifies the candidate
+trivial-indeterminacy 4-folds ⟨h2, b, c, h2⟩ where the class
+becomes a genuine H² element rather than a coset.
 
 ## Pisano-analogue closure GRID (six sisters × five primes)
 
@@ -114,6 +121,9 @@ in Phase 14 (10 vertices → 45 edges).
   · `MasseyTripleH1Witness` (⟨h1,h3,h4⟩ = ω non-vacuous)
   · `MasseyTripleH1Multi` (3 distinct triples → ω: ⟨h1,h3,h4⟩,
     ⟨h1,h3,h5⟩, ⟨h3,h5,h4⟩ — robustness across triple choices)
+  · `MasseyFourFoldH1` (4-fold Massey ⟨a,b,c,d⟩ witness data
+    structure + trivial witness ⟨h1,h3,h1,h3⟩ + h2 zero
+    cup-row in H²)
 
 ## ∀-coprime eventual periodicity universal (Phase 4)
 
@@ -124,8 +134,12 @@ inverse needed.
 
 ## Phase 15+ candidates (open queue)
 
-  · **4-fold Massey** ⟨a, b, c, d⟩ on K_{3,2}^{(c=2)} — needs
-    indeterminacy formalism (η_{ab} ⌣ d + a ⌣ θ_{bcd} + ...).
+  · **Non-vacuous 4-fold Massey witness** — formalism in
+    `MasseyFourFoldH1` ready; needs systematic enumeration of
+    admissible (η, θ) cobounding-chain choices over
+    indeterminacy cosets.  Pilot search ⟨h2, h4, h4, h2⟩
+    yielded class = 0 for all choices; existence of a strict
+    non-vacuous 4-fold at the 2-skeleton open.
   · **Massey at K_{3,3}^{(c=2)}** — new V33 bipartite stack
     (18 edges, 6 vertices); the V32 stack is ~3500 lines.
   · **Full 20-witness enumeration** at K_{3,2}^{(c=2)} — 3 of
