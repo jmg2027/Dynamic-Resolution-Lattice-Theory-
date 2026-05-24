@@ -134,4 +134,52 @@ theorem validCutN_cutEq_iff_sternBrocotEq
   ⟨validCutN_sternBrocotEq_of_cutEq vx vy,
    validCutN_cutEq_of_sternBrocotEq vx vy⟩
 
+/-! ## §5 — `addN` is Stern-Brocot congruent
+
+The bundled `ValidCutN N` addition `addN N hN` respects
+Stern-Brocot equivalence in both arguments: SB-equivalent
+inputs give SB-equivalent sums.  Routes through the cut-level
+congruences `cutSumN_cutEq_left` and `cutSumN_cutEq_right` via
+`validCutN_cutEq_iff_sternBrocotEq`.  Wave 13's `addN`-based
+algebra structure on `ValidCutN N` thus descends to Stern-Brocot
+equivalence. -/
+
+/-- ★★★★ **Stern-Brocot congruence of `addN`** in both
+    arguments simultaneously.  Internalises the chain
+      SB-eq (cut fields) ⇒ cut-eq (validCutN bridge)
+      cut-eq + cut-eq ⇒ cut-eq on sums (cutSumN congruences)
+      cut-eq on sums ⇒ SB-eq on sums (validCutN bridge). -/
+theorem addN_sternBrocotEq
+    {N : Nat} (hN : 0 < N) {vx vx' vy vy' : ValidCutN N}
+    (hx : sternBrocotEq vx.cut vx'.cut)
+    (hy : sternBrocotEq vy.cut vy'.cut) :
+    sternBrocotEq (addN N hN vx vy).cut (addN N hN vx' vy').cut := by
+  have hxc : cutEq vx.cut vx'.cut :=
+    validCutN_cutEq_of_sternBrocotEq vx vx' hx
+  have hyc : cutEq vy.cut vy'.cut :=
+    validCutN_cutEq_of_sternBrocotEq vy vy' hy
+  have hsumc : cutEq (addN N hN vx vy).cut (addN N hN vx' vy').cut := by
+    intro m k
+    show cutSumN N vx.cut vy.cut m k = cutSumN N vx'.cut vy'.cut m k
+    have h1 := cutSumN_cutEq_left N vx.cut vx'.cut vy.cut hxc m k
+    have h2 := cutSumN_cutEq_right N vx'.cut vy.cut vy'.cut hyc m k
+    exact h1.trans h2
+  exact validCutN_sternBrocotEq_of_cutEq _ _ hsumc
+
+/-- ★★ Stern-Brocot congruence of `addN` in the left argument only. -/
+theorem addN_sternBrocotEq_left
+    {N : Nat} (hN : 0 < N) {vx vx' : ValidCutN N} (vy : ValidCutN N)
+    (hx : sternBrocotEq vx.cut vx'.cut) :
+    sternBrocotEq (addN N hN vx vy).cut (addN N hN vx' vy).cut :=
+  addN_sternBrocotEq hN hx (sternBrocotEq_of_cutEq vy.cut vy.cut
+    (fun _ _ => rfl))
+
+/-- ★★ Stern-Brocot congruence of `addN` in the right argument only. -/
+theorem addN_sternBrocotEq_right
+    {N : Nat} (hN : 0 < N) (vx : ValidCutN N) {vy vy' : ValidCutN N}
+    (hy : sternBrocotEq vy.cut vy'.cut) :
+    sternBrocotEq (addN N hN vx vy).cut (addN N hN vx vy').cut :=
+  addN_sternBrocotEq hN (sternBrocotEq_of_cutEq vx.cut vx.cut
+    (fun _ _ => rfl)) hy
+
 end E213.Lib.Math.Real213.Mobius213SternBrocotApps

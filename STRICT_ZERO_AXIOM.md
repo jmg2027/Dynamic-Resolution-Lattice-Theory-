@@ -1956,3 +1956,30 @@ on signed integers in 213.
 (`Mobius213SternBrocot`) + 8 (`Mobius213SternBrocotApps`) + 7
 (`SignedCut/Core/SternBrocotBridge`) = **53 PURE / 0 DIRTY**
 for G139 Phase 1 + 1b + 1c + 2 + 3 (cutEq + ValidCutN + signedEq).
+
+## 2026-05-24 — G139 Phase 3 (ValidCutN.addN congruence)
+
+Extends `Mobius213SternBrocotApps` with the Stern-Brocot
+congruence of `ValidCutN N`'s bundled addition.  3 new PURE
+theorems, bringing `Mobius213SternBrocotApps` to 11 PURE /
+0 DIRTY.
+
+| Theorem | Role |
+|---|---|
+| `addN_sternBrocotEq` | ★★★★ Stern-Brocot congruence in BOTH arguments simultaneously.  Internalises the chain SB-eq (cut fields) ⇒ cut-eq (validCutN bridge) ⇒ cut-eq on sums (cutSumN congruences) ⇒ SB-eq on sums. |
+| `addN_sternBrocotEq_left` | ★★ Stern-Brocot congruence in the left argument only (derived from the bilinear version with `vy = vy'` and reflexivity). |
+| `addN_sternBrocotEq_right` | ★★ Stern-Brocot congruence in the right argument only. |
+
+**Realisation on Wave 13 algebra**: every theorem in Wave 13
+(`cutSumN_assoc_valid`, `cutSumN_comm_valid`,
+`nvalidcut_all_naturals_capstone`, `fifth_assoc_1_2_1`, etc.)
+that uses `addN`-with-`cutEq` lifts to the same statement with
+`sternBrocotEq` substituted everywhere, by composing with
+`addN_sternBrocotEq`.  The bundled `ValidCutN N` algebra is
+fully Stern-Brocot-internal.
+
+**Session total**: 12 (`Mobius213Equiv`) + 26
+(`Mobius213SternBrocot`) + 11 (`Mobius213SternBrocotApps`) + 7
+(`SignedCut/Core/SternBrocotBridge`) = **56 PURE / 0 DIRTY**
+for G139 Phase 1 + 1b + 1c + 2 + 3 (cutEq + ValidCutN +
+signedEq + ValidCutN-algebra).
