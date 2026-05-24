@@ -1,3 +1,5 @@
+import E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+
 /-!
 # Enriched 2-complex at K_{3,3}^{(c)} — parametric in c
 
@@ -36,6 +38,8 @@ direction per multiplicity layer.
 
 STRICT ∅-AXIOM.
 -/
+
+open E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
 
 namespace E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 
@@ -759,5 +763,177 @@ theorem c_counter_manifest_at_bottom_c5 :
   ⟨psi_layer_rep4_eq_true_c5,
    psi_layer_kills_cupOpp_S0star_left_at_bottom 5 (by decide),
    psi_layer_kills_cupOpp_T0incid_right_at_bottom 5 (by decide)⟩
+
+/-! ## §20 — Parametric kill at arbitrary `m : Fin c`
+
+Generalises the bottom-layer kills (§10, §12–§15) to ANY multiplicity
+layer `m : Fin c`, not just `m = ⟨0, hc⟩`.
+
+Strategy — reduce `starS c i m (edge_idx c i' j' m)` to a layer-free
+Nat.beq pattern via `nat_beq_add_left_assoc1/2` (cancels the `9·m.val`
+offset).  Same for `incidT`.  Then the 9-edge β case-bash proceeds
+identically to the bottom-layer proof.
+
+Closes Direction B (HANDOFF "임의 m parametric kill via Nat.beq
+cancellation").  -/
+
+/-- `starS` evaluated at an edge in the SAME multiplicity layer reduces
+    to a layer-independent triple Nat.beq disjunction.  Cancels `9·m.val`
+    via `nat_beq_add_left_assoc1/2`. -/
+theorem starS_at_edge_idx_same_m (c : Nat) (i i' j' : Fin 3) (m : Fin c) :
+    starS c i m (edge_idx c i' j' m) =
+      ((3 * i'.val + j'.val == 3 * i.val)
+       || (3 * i'.val + j'.val == 3 * i.val + 1)
+       || (3 * i'.val + j'.val == 3 * i.val + 2)) := by
+  show ((9 * m.val + 3 * i'.val + j'.val == 9 * m.val + 3 * i.val)
+        || (9 * m.val + 3 * i'.val + j'.val == 9 * m.val + 3 * i.val + 1)
+        || (9 * m.val + 3 * i'.val + j'.val == 9 * m.val + 3 * i.val + 2))
+      = _
+  rw [nat_decide_add_left_assoc1 (9 * m.val) (3 * i'.val) j'.val (3 * i.val),
+      nat_decide_add_left_assoc2 (9 * m.val) (3 * i'.val) j'.val (3 * i.val) 1,
+      nat_decide_add_left_assoc2 (9 * m.val) (3 * i'.val) j'.val (3 * i.val) 2]
+
+/-- `incidT` evaluated at an edge in the SAME multiplicity layer reduces
+    to a layer-independent triple Nat.beq disjunction. -/
+theorem incidT_at_edge_idx_same_m (c : Nat) (j i' j' : Fin 3) (m : Fin c) :
+    incidT c j m (edge_idx c i' j' m) =
+      ((3 * i'.val + j'.val == j.val)
+       || (3 * i'.val + j'.val == 3 + j.val)
+       || (3 * i'.val + j'.val == 6 + j.val)) := by
+  show ((9 * m.val + 3 * i'.val + j'.val == 9 * m.val + j.val)
+        || (9 * m.val + 3 * i'.val + j'.val == 9 * m.val + 3 + j.val)
+        || (9 * m.val + 3 * i'.val + j'.val == 9 * m.val + 6 + j.val))
+      = _
+  rw [nat_decide_add_left_assoc1 (9 * m.val) (3 * i'.val) j'.val j.val,
+      nat_decide_add_left_assoc2 (9 * m.val) (3 * i'.val) j'.val 3 j.val,
+      nat_decide_add_left_assoc2 (9 * m.val) (3 * i'.val) j'.val 6 j.val]
+
+/-! ### §20.1 — `ψ_m` kills `S_i ∪ β` cup at arbitrary layer `m` -/
+
+set_option maxHeartbeats 6400000 in
+theorem psi_layer_kills_cupOpp_S0star_left_at_arbitrary_m
+    (c : Nat) (m : Fin c) (β : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c (starS c ⟨0, by decide⟩ m) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [starS_at_edge_idx_same_m]
+  cases β (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+set_option maxHeartbeats 12800000 in
+theorem psi_layer_kills_cupOpp_S1star_left_at_arbitrary_m
+    (c : Nat) (m : Fin c) (β : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c (starS c ⟨1, by decide⟩ m) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [starS_at_edge_idx_same_m]
+  cases β (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+set_option maxHeartbeats 12800000 in
+theorem psi_layer_kills_cupOpp_S2star_left_at_arbitrary_m
+    (c : Nat) (m : Fin c) (β : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c (starS c ⟨2, by decide⟩ m) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [starS_at_edge_idx_same_m]
+  cases β (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases β (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+/-! ### §20.2 — `ψ_m` kills `α ∪ T_j` cup at arbitrary layer `m` -/
+
+set_option maxHeartbeats 6400000 in
+theorem psi_layer_kills_cupOpp_T0incid_right_at_arbitrary_m
+    (c : Nat) (m : Fin c) (α : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c α (incidT c ⟨0, by decide⟩ m)) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [incidT_at_edge_idx_same_m]
+  cases α (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+set_option maxHeartbeats 12800000 in
+theorem psi_layer_kills_cupOpp_T1incid_right_at_arbitrary_m
+    (c : Nat) (m : Fin c) (α : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c α (incidT c ⟨1, by decide⟩ m)) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [incidT_at_edge_idx_same_m]
+  cases α (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+set_option maxHeartbeats 12800000 in
+theorem psi_layer_kills_cupOpp_T2incid_right_at_arbitrary_m
+    (c : Nat) (m : Fin c) (α : EnrichedEdgeCoch c) :
+    psi_layer c m
+      (cupOpp_param c α (incidT c ⟨2, by decide⟩ m)) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param pair_lo pair_hi
+  simp only [incidT_at_edge_idx_same_m]
+  cases α (edge_idx c ⟨0, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨0, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨1, by decide⟩ ⟨2, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨0, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨1, by decide⟩ m) <;>
+    cases α (edge_idx c ⟨2, by decide⟩ ⟨2, by decide⟩ m) <;> rfl
+
+/-! ### §20.3 — Master capstone: bilateral kill at ARBITRARY layer `m`
+
+For every `c`, every `m : Fin c`, every `i ∈ Fin 3`, every `j ∈ Fin 3`,
+ψ_m kills both `cupOpp_param (starS i m) β` and `cupOpp_param α (incidT j m)`
+for arbitrary edge cochains.
+
+This generalises `parametric_bottom_layer_full_kill_capstone` (§16) from
+`m = ⟨0, hc⟩` to ANY multiplicity layer, closing Direction B (HANDOFF
+"임의 m parametric kill via Nat.beq cancellation"). -/
+
+theorem parametric_arbitrary_m_full_kill_capstone
+    (c : Nat) (m : Fin c) :
+    -- All 3 left S_i kills
+    (∀ (β : EnrichedEdgeCoch c),
+      psi_layer c m (cupOpp_param c (starS c ⟨0, by decide⟩ m) β) = false
+      ∧ psi_layer c m (cupOpp_param c (starS c ⟨1, by decide⟩ m) β) = false
+      ∧ psi_layer c m (cupOpp_param c (starS c ⟨2, by decide⟩ m) β) = false)
+    -- All 3 right T_j kills
+    ∧ (∀ (α : EnrichedEdgeCoch c),
+      psi_layer c m (cupOpp_param c α (incidT c ⟨0, by decide⟩ m)) = false
+      ∧ psi_layer c m (cupOpp_param c α (incidT c ⟨1, by decide⟩ m)) = false
+      ∧ psi_layer c m (cupOpp_param c α (incidT c ⟨2, by decide⟩ m)) = false) :=
+  ⟨fun β =>
+    ⟨psi_layer_kills_cupOpp_S0star_left_at_arbitrary_m c m β,
+     psi_layer_kills_cupOpp_S1star_left_at_arbitrary_m c m β,
+     psi_layer_kills_cupOpp_S2star_left_at_arbitrary_m c m β⟩,
+   fun α =>
+    ⟨psi_layer_kills_cupOpp_T0incid_right_at_arbitrary_m c m α,
+     psi_layer_kills_cupOpp_T1incid_right_at_arbitrary_m c m α,
+     psi_layer_kills_cupOpp_T2incid_right_at_arbitrary_m c m α⟩⟩
 
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
