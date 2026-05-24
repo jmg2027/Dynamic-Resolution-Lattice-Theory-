@@ -225,4 +225,62 @@ theorem parametric_c_independent_h2_classes (c : Nat) :
   intro m m'
   exact ⟨psi_layer_signature c m m', e_face_layer_not_coboundary c m⟩
 
+/-! ## §7 — Parametric opposite-edge cup product
+
+`cupOpp_param α β` at face `(s, t, m)` uses the same diagonal-pair
+formula as `V33OppositeCup.cupOpp`: two diagonal pairs of the 4
+cyclic edges, each contributing `α(a)·β(b) + α(b)·β(a)`.
+
+Cyclic edge ordering at face `(s, t, m)`:
+  `[(lo s, lo t, m), (hi s, lo t, m), (hi s, hi t, m), (lo s, hi t, m)]`
+Diagonals:
+  · `(lo s, lo t, m) ↔ (hi s, hi t, m)`
+  · `(hi s, lo t, m) ↔ (lo s, hi t, m)` -/
+
+def diag_pair_param (c : Nat) (α β : EnrichedEdgeCoch c)
+    (a b : Fin (9 * c)) : Bool :=
+  xor (α a && β b) (α b && β a)
+
+def cupOpp_param (c : Nat) (α β : EnrichedEdgeCoch c) : EnrichedFaceVal c :=
+  fun s t m =>
+    xor (diag_pair_param c α β
+          (edge_idx c (pair_lo s) (pair_lo t) m)
+          (edge_idx c (pair_hi s) (pair_hi t) m))
+        (diag_pair_param c α β
+          (edge_idx c (pair_hi s) (pair_lo t) m)
+          (edge_idx c (pair_lo s) (pair_hi t) m))
+
+/-! ## §8 — Parametric layer-`m` `S_i`-star cocycle
+
+`starS i m` = indicator on the 3 edges from vertex `S_i` at
+multiplicity `m`: `(i, 0, m)`, `(i, 1, m)`, `(i, 2, m)`.
+
+In edge_idx terms: indices `9m + 3i`, `9m + 3i + 1`, `9m + 3i + 2`. -/
+
+def starS (c : Nat) (i : Fin 3) (m : Fin c) : EnrichedEdgeCoch c :=
+  fun e =>
+    e.val == 9 * m.val + 3 * i.val
+    || e.val == 9 * m.val + 3 * i.val + 1
+    || e.val == 9 * m.val + 3 * i.val + 2
+
+/-! ## §9 — Concrete `c = 2` instantiation: `ψ_0` kills cup of `S₀-star`
+
+Validates `cupOpp_param` and `starS` at the lowest non-trivial
+multiplicity `c = 2`, layer `m = 0`.  Edge indices become concrete
+`Fin 18` values; `Nat.beq` evaluations all reduce.
+
+The parametric-`c` version of this kill lemma requires symbolic
+reasoning about `Nat.beq (9·m + …) (9·m + …)` which `rfl` does
+not perform on abstract `m`.  Leaving the parametric statement
+to a `Nat.beq_refl`-driven follow-up. -/
+
+set_option maxHeartbeats 1600000 in
+theorem psi_layer_kills_cupOpp_S0star_left_c2 (β : EnrichedEdgeCoch 2) :
+    psi_layer 2 ⟨0, by decide⟩
+      (cupOpp_param 2 (starS 2 ⟨0, by decide⟩ ⟨0, by decide⟩) β) = false := by
+  unfold psi_layer cupOpp_param diag_pair_param starS pair_lo pair_hi edge_idx
+  cases β ⟨3, by decide⟩ <;> cases β ⟨4, by decide⟩ <;>
+    cases β ⟨5, by decide⟩ <;> cases β ⟨6, by decide⟩ <;>
+    cases β ⟨7, by decide⟩ <;> cases β ⟨8, by decide⟩ <;> rfl
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
