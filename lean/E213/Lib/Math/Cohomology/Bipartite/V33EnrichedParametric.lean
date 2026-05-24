@@ -516,4 +516,40 @@ theorem psi_layer_rep4_eq_true_c3 :
     pair_lo pair_hi edge_idx
   decide
 
+-- Higher c instances showing the pattern is uniform.
+set_option maxHeartbeats 1600000 in
+theorem psi_layer_rep4_eq_true_c4 :
+    psi_layer 4 ⟨0, by decide⟩
+      (cupOpp_param 4 (eta_ab_layer 4 ⟨0, by decide⟩)
+                       (eta_cd_layer 4 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+set_option maxHeartbeats 1600000 in
+theorem psi_layer_rep4_eq_true_c5 :
+    psi_layer 5 ⟨0, by decide⟩
+      (cupOpp_param 5 (eta_ab_layer 5 ⟨0, by decide⟩)
+                       (eta_cd_layer 5 ⟨0, by decide⟩)) = true := by
+  unfold psi_layer cupOpp_param diag_pair_param eta_ab_layer eta_cd_layer
+    pair_lo pair_hi edge_idx
+  decide
+
+-- Combined witness capstone — concrete c-instances 2..5.
+theorem rep4_hits_psi_0_concrete_capstone :
+    (psi_layer 2 ⟨0, by decide⟩
+      (cupOpp_param 2 (eta_ab_layer 2 ⟨0, by decide⟩)
+                       (eta_cd_layer 2 ⟨0, by decide⟩)) = true)
+    ∧ (psi_layer 3 ⟨0, by decide⟩
+      (cupOpp_param 3 (eta_ab_layer 3 ⟨0, by decide⟩)
+                       (eta_cd_layer 3 ⟨0, by decide⟩)) = true)
+    ∧ (psi_layer 4 ⟨0, by decide⟩
+      (cupOpp_param 4 (eta_ab_layer 4 ⟨0, by decide⟩)
+                       (eta_cd_layer 4 ⟨0, by decide⟩)) = true)
+    ∧ (psi_layer 5 ⟨0, by decide⟩
+      (cupOpp_param 5 (eta_ab_layer 5 ⟨0, by decide⟩)
+                       (eta_cd_layer 5 ⟨0, by decide⟩)) = true) :=
+  ⟨psi_layer_rep4_eq_true_c2, psi_layer_rep4_eq_true_c3,
+   psi_layer_rep4_eq_true_c4, psi_layer_rep4_eq_true_c5⟩
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
