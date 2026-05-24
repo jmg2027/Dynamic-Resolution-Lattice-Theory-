@@ -90,6 +90,26 @@ Confirms the 213 prediction: the parametric family
 `K_{NS,NT}^{(c)}` has structurally graduated cohomology, with
 K_{3,2}^{(c=2)} sitting at the **minimal non-vacuous** point.
 
+## Phase 18 — GraphWalk universal kernel theorem (structural)
+
+Closes the long-deferred universal claim: ∀ (NS, NT, c) with
+NS, NT, c ≥ 1, the bipartite multigraph K_{NS,NT}^{(c)} has
+δ⁰-kernel consisting only of constant cochains.
+
+| Closure | Status | Focus |
+|---|---|---|
+| JJ | DIRTY | **ker_implies_constant_universal** + `ker_iff_constant` — structural ∀ (NS, NT, c). Built on `ker_implies_pair_eq` (canonical edge bridge) + `pair_eq_implies_constant` (transitivity through anchor vertex NS) |
+
+Status: theorem proven, but **propext + Classical.choice +
+Quot.sound** leak via `Nat.mul_lt_mul_left`-family core lemmas
+(Iff-form lemmas + Decidable resolutions).  Structural proof
+is correct; full ∅-axiom cleanup requires custom NatHelper
+arithmetic helpers + term-mode reformulation (deferred).
+
+The structural claim is the long-awaited "two original atoms"
+universality: bipartite multigraph K_{NS,NT}^{(c)} preserves
+the b₀ = 1 ground state across arbitrary parameter expansion.
+
 ## Phase 17 — K_{3,3}^{(c=2)} cup-table entry
 
 Opens cup-product calculation at the next-up graph.
