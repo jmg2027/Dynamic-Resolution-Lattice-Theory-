@@ -833,4 +833,64 @@ theorem K54_c_independent_h2_classes_via_framework (c : Nat) :
   parametric_c_independent_h2_classes_param 5 4 c
     (by decide) (by decide) pairEnum5 pairEnum4 (kills_delta1_K54 c)
 
+/-! ## §24 — Symmetric `qT = 0` at NT = 5 (any NS, c, i, m)
+
+Mirror of `qS_param_zero_NS5`: for `NT = 5` with `pairEnum5`, each
+T-vertex appears in `NT-1 = 4` (even) pairs across the 10 T-pair
+endpoints, so row-wise XOR cancels. -/
+
+set_option maxHeartbeats 800000 in
+theorem qT_param_zero_NT5 (NS c : Nat) (σ : EnrichedEdgeCoch NS 5 c)
+    (i : Fin NS) (m : Fin c) :
+    qT_param NS 5 c pairEnum5 σ i m = false := by
+  unfold qT_param pairEnum5 pair5_lo pair5_hi
+  rw [foldXor_10]
+  cases σ (edge_idx_param NS 5 c i ⟨0, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 5 c i ⟨1, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 5 c i ⟨2, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 5 c i ⟨3, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 5 c i ⟨4, by decide⟩ m) <;> rfl
+
+/-- `KillsDelta1` for every `(NS, 5)` instance via the abstract NT=5
+    kill (any S-side pair enumeration). -/
+theorem kills_delta1_KNS5 (NS c : Nat) (pS : PairEnum NS) :
+    KillsDelta1 NS 5 c pS pairEnum5 := by
+  intro σ m
+  exact psi_layer_kill_of_qT_zero NS 5 c pS pairEnum5 σ m
+    (fun i => qT_param_zero_NT5 NS c σ i m)
+
+/-- `KillsDelta1` at `(NS, NT) = (4, 5)` (parity OK: NT=5 odd). -/
+theorem kills_delta1_K45 (c : Nat) :
+    KillsDelta1 4 5 c pairEnum4 pairEnum5 :=
+  kills_delta1_KNS5 4 c pairEnum4
+
+/-- For K_{4,5}^{(c)}: every layer carries an independent
+    non-coboundary H²-class. -/
+theorem K45_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 4 5 c m'
+        (e_face_layer_param 4 5 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 4 5 c,
+           e_face_layer_param 4 5 c m
+             ≠ delta1_enr_param 4 5 c pairEnum4 pairEnum5 σ) :=
+  parametric_c_independent_h2_classes_param 4 5 c
+    (by decide) (by decide) pairEnum4 pairEnum5 (kills_delta1_K45 c)
+
+/-- `KillsDelta1` at `(NS, NT) = (5, 5)` — first K_{n,n} after K_{3,3}. -/
+theorem kills_delta1_K55 (c : Nat) :
+    KillsDelta1 5 5 c pairEnum5 pairEnum5 :=
+  kills_delta1_K5NT 5 c pairEnum5
+
+/-- For K_{5,5}^{(c)}: every layer carries an independent
+    non-coboundary H²-class. -/
+theorem K55_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 5 5 c m'
+        (e_face_layer_param 5 5 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 5 5 c,
+           e_face_layer_param 5 5 c m
+             ≠ delta1_enr_param 5 5 c pairEnum5 pairEnum5 σ) :=
+  parametric_c_independent_h2_classes_param 5 5 c
+    (by decide) (by decide) pairEnum5 pairEnum5 (kills_delta1_K55 c)
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc

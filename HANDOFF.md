@@ -192,10 +192,32 @@ Capstone `parametric_c_independent_h2_classes_param`: under `Hkill`,
 `c` independent non-coboundary H²-classes — one per multiplicity
 layer, signature `decide (m = m')` (Kronecker δ).
 
-**Open cases**: parity-failing `(4, 4)` (NS−1)(NT−1) = 9 odd, `(6, 4)`
-= 15 odd, etc.  These require a different ψ-functional (not the
-double foldXor over all (s, t) — the count-cancellation argument
-inherently fails when both NS, NT are even).
+**Parity-failing closures via vertex-excluding ψ** (new file
+`EnrichedKNSNTcEvenEven.lean`, 7 PURE):
+
+For both NS, NT even (where `(NS−1)(NT−1) = odd·odd` is odd, so the
+uniform `psi_layer_param` doesn't kill δ¹), fix `i₀ : Fin NS` and
+restrict the s-fold to S-pairs NOT containing `i₀`.  Then each
+remaining S-vertex appears `NS − 2` times (even when NS even), and
+the kill argument closes by structural XOR-cancellation.
+
+  · `ψ_excl_S0_K44 c m v := ⊕_{s ∈ {3,4,5}} ⊕_t v s t m`
+  · `psi_excl_S0_K44_kills_delta1` — via `foldXor_t_face_eq_qT_decomposition`
+    at each `s ∈ {3, 4, 5}` + 3-bool case-bash on `qT i`
+  · `e_face_layer_K44` (indicator at `(s=3, t=0)` — pair {1,2}
+    doesn't contain 0)
+  · `K44_c_independent_h2_classes` — closes the first parity-failing
+    K_{n,n}
+
+**Additionally** (parity-OK extensions, same session):
+  · `qT_param_zero_NT5` (mirror of `qS_param_zero_NS5`)
+  · `kills_delta1_KNS5` — any K_{NS, 5}
+  · `K_{4,5}` and `K_{5,5}` capstones — first K_{n,n} after K_{3,3}
+
+**Still open**: K_{6,4}, K_{4,6}, K_{6,6}, K_{8,4}, ... (other
+both-even cases).  Method generalises: each requires a `pairEnumN`
+and a bespoke `psi_excl_S0_KNN`-style closure following the K_{4,4}
+template.
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
