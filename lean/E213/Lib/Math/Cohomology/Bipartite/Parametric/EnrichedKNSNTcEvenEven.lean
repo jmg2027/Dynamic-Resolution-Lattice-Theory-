@@ -462,4 +462,132 @@ theorem K46_c_independent_h2_classes (c : Nat) :
              ≠ delta1_enr_param 4 6 c pairEnum4 pairEnum6 σ) :=
   K4NT_c_independent_h2_classes 6 c (by decide) pairEnum6
 
+/-! ## §11 — Parametric `psi_excl_S0_NS6`: family kill for K_{6, NT}
+
+Mirror of `psi_excl_S0_NS4`: NS=6 case.  10 excluded S-pairs (s ∈
+{5, …, 14}), 5 abstract qT values, 32 case-bash cases. -/
+
+/-- ψ-functional for K_{6, NT} excluding S-pairs containing vertex 0. -/
+def psi_excl_S0_NS6 (NT c : Nat) (m : Fin c) (v : EnrichedFaceVal 6 NT c) : Bool :=
+  xor (xor (xor (xor (xor (xor (xor (xor (xor
+    (foldXor (chooseTwo NT) (fun t => v ⟨5,  by decide⟩ t m))
+    (foldXor (chooseTwo NT) (fun t => v ⟨6,  by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨7,  by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨8,  by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨9,  by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨10, by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨11, by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨12, by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨13, by decide⟩ t m)))
+    (foldXor (chooseTwo NT) (fun t => v ⟨14, by decide⟩ t m))
+
+set_option maxHeartbeats 2000000 in
+/-- ψ_excl_S0_NS6 kills δ¹ for any T-side pair enumeration. -/
+theorem psi_excl_S0_NS6_kills_delta1
+    (NT c : Nat) (pT : PairEnum NT) (σ : EnrichedEdgeCoch 6 NT c) (m : Fin c) :
+    psi_excl_S0_NS6 NT c m
+      (delta1_enr_param 6 NT c pairEnum6 pT σ) = false := by
+  unfold psi_excl_S0_NS6 delta1_enr_param
+  rw [foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨5,  by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨6,  by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨7,  by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨8,  by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨9,  by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨10, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨11, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨12, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨13, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 6 NT c pairEnum6 pT σ ⟨14, by decide⟩ m]
+  unfold pairEnum6 pair6_lo pair6_hi
+  cases qT_param 6 NT c pT σ ⟨1, by decide⟩ m <;>
+    cases qT_param 6 NT c pT σ ⟨2, by decide⟩ m <;>
+    cases qT_param 6 NT c pT σ ⟨3, by decide⟩ m <;>
+    cases qT_param 6 NT c pT σ ⟨4, by decide⟩ m <;>
+    cases qT_param 6 NT c pT σ ⟨5, by decide⟩ m <;> rfl
+
+/-- Single-face indicator at `(s = 5, t = 0)` for K_{6, NT}. -/
+def e_face_layer_NS6 (NT c : Nat) (m : Fin c) : EnrichedFaceVal 6 NT c :=
+  fun s t m' =>
+    match s.val, t.val with
+    | 5, 0 => decide (m.val = m'.val)
+    | _, _ => false
+
+/-- ψ-signature: `ψ_excl_S0_NS6(e_face_layer_NS6 m) = decide(m = m')`. -/
+theorem psi_excl_S0_NS6_signature
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (m m' : Fin c) :
+    psi_excl_S0_NS6 NT c m' (e_face_layer_NS6 NT c m)
+      = decide (m.val = m'.val) := by
+  unfold psi_excl_S0_NS6
+  have hs5 :
+      foldXor (chooseTwo NT)
+        (fun t => e_face_layer_NS6 NT c m ⟨5, by decide⟩ t m')
+        = decide (m.val = m'.val) := by
+    apply foldXor_only_first_pos (chooseTwo NT) hNT (decide (m.val = m'.val))
+    · rfl
+    · intro t ht
+      unfold e_face_layer_NS6
+      match hv : t.val, ht with
+      | 0, hcontra => exact absurd rfl hcontra
+      | _+1, _ => rfl
+  have hsk : ∀ (k : Fin (chooseTwo 6)) (hne : k.val ≠ 5),
+      foldXor (chooseTwo NT)
+        (fun t => e_face_layer_NS6 NT c m k t m') = false := by
+    intro k hne
+    apply (foldXor_congr_all (chooseTwo NT) _ (fun _ => false) ?_).trans
+        (foldXor_const_false _)
+    intro t
+    unfold e_face_layer_NS6
+    rcases hkv : k.val with _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _ | _
+    all_goals (first | (cases t.val <;> rfl) | exact absurd hkv hne |
+      exact absurd k.isLt (by decide))
+  rw [hsk ⟨6,  by decide⟩ (by decide),
+      hsk ⟨7,  by decide⟩ (by decide),
+      hsk ⟨8,  by decide⟩ (by decide),
+      hsk ⟨9,  by decide⟩ (by decide),
+      hsk ⟨10, by decide⟩ (by decide),
+      hsk ⟨11, by decide⟩ (by decide),
+      hsk ⟨12, by decide⟩ (by decide),
+      hsk ⟨13, by decide⟩ (by decide),
+      hsk ⟨14, by decide⟩ (by decide),
+      hs5]
+  cases decide (m.val = m'.val) <;> rfl
+
+/-- `e_face_layer_NS6 NT m` is not in the image of `δ¹_enr` at K_{6, NT}. -/
+theorem e_face_layer_NS6_not_coboundary
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (pT : PairEnum NT) (m : Fin c) :
+    ∀ σ : EnrichedEdgeCoch 6 NT c,
+      e_face_layer_NS6 NT c m
+        ≠ delta1_enr_param 6 NT c pairEnum6 pT σ := by
+  intro σ heq
+  have h := congrArg (psi_excl_S0_NS6 NT c m) heq
+  rw [psi_excl_S0_NS6_signature NT c hNT m m,
+      psi_excl_S0_NS6_kills_delta1 NT c pT σ m] at h
+  rw [decide_self_true_K44] at h
+  exact Bool.noConfusion h
+
+/-- ★★★★★★ Family capstone: K_{6, NT} for every NT ≥ 2 carries `c`
+    independent non-coboundary H²-classes — covers K_{6,3}, K_{6,4},
+    K_{6,5}, K_{6,6}, K_{6,7}, … uniformly. -/
+theorem K6NT_c_independent_h2_classes
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (pT : PairEnum NT) :
+    ∀ (m m' : Fin c),
+      psi_excl_S0_NS6 NT c m' (e_face_layer_NS6 NT c m)
+        = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 6 NT c,
+           e_face_layer_NS6 NT c m
+             ≠ delta1_enr_param 6 NT c pairEnum6 pT σ) :=
+  fun m m' =>
+    ⟨psi_excl_S0_NS6_signature NT c hNT m m',
+     e_face_layer_NS6_not_coboundary NT c hNT pT m⟩
+
+/-- `K_{6,6}^{(c)}` c-independent H²-classes via the NS=6 family. -/
+theorem K66_c_independent_h2_classes (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_excl_S0_NS6 6 c m' (e_face_layer_NS6 6 c m)
+        = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 6 6 c,
+           e_face_layer_NS6 6 c m
+             ≠ delta1_enr_param 6 6 c pairEnum6 pairEnum6 σ) :=
+  K6NT_c_independent_h2_classes 6 c (by decide) pairEnum6
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven

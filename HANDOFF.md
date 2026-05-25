@@ -238,13 +238,31 @@ This single family closes K_{4, NT} for **every NT ≥ 2** uniformly
 and parity-OK (NT odd: K_{4,3}, K_{4,5}, K_{4,7}, ...).  Concrete
 instance K_{4,6} (`K46_c_independent_h2_classes`) included.
 
-**Still open**: K_{6,6}, K_{6,8}, K_{8,4}, K_{8,6}, ... (NS ≥ 6
-even, NT even).  Method generalises: a parametric family
-`psi_excl_S0_NS{6,8,...}` mirroring `psi_excl_S0_NS4` closes
-K_{NS, NT} for each fixed-NS NT-parametric family.  The NS=6
-analogue (10-term s-fold + 5-bool case-bash on qT) is in
-EnrichedKNSNTcEvenEven §7 (K_{6,4} only at this stage) — extending
-to K_{6, NT} family is a straightforward generalisation.
+**K_{6, NT} family** (any NT ≥ 2, 7 PURE):
+
+  · `psi_excl_S0_NS6 NT c m v` — 10-term s-sum (excluded-from-0
+    S-pairs of Fin 6), parametric in NT.
+  · `psi_excl_S0_NS6_kills_delta1` — qT-decomposition × 10 +
+    5-bool case-bash (2⁵ = 32 cases).  Each non-zero S-vertex
+    {1, 2, 3, 4, 5} appears NS-2 = 4 (even) times.
+  · `e_face_layer_NS6 NT c m` at `(s=5, t=0)`, parametric in NT.
+  · `K6NT_c_independent_h2_classes NT (hNT : 0 < chooseTwo NT) pT`
+    — capstone for K_{6, NT} for every NT ≥ 2.
+
+Concrete instance:
+  · K66_c_independent_h2_classes — K_{6,6}, second K_{n,n}
+    parity-failing case after K_{4,4}.
+
+**Cumulative parity-failing coverage** (via vertex-excluding ψ):
+  · K_{4, NT}: every NT ≥ 2 (K_{4,4}, K_{4,6}, K_{4,8}, ...)
+  · K_{6, NT}: every NT ≥ 2 (K_{6,4}, K_{6,6}, K_{6,8}, ...)
+
+**Still open**: K_{NS, NT} for NS ∈ {8, 10, 12, …} even.  Method
+generalises: each NS gets its own `psi_excl_S0_NS{NS}` family
+(chooseTwo NS − (NS−1) excluded S-pairs, (NS−1)-bool case-bash).
+The boilerplate scales as (NS−2 choose 2) for the s-fold length and
+2^(NS−1) for the case-bash.  At NS=8: 21 excluded s, 128 cases —
+still tractable.  At NS=10: 36 excluded s, 512 cases — borderline.
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
