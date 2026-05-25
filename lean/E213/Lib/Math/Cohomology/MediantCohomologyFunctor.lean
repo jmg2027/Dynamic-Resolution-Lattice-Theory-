@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.Mobius213SternBrocot
 import E213.Lib.Math.Cohomology.BipartiteStermBrocotClassification
+import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
@@ -67,79 +68,22 @@ STRICT ∅-AXIOM.
 namespace E213.Lib.Math.Cohomology.MediantCohomologyFunctor
 
 open E213.Lib.Physics.Simplex.Counts (binom)
+open E213.Lib.Math.Combinatorics.Binomial
+  (binom_n_0 binom_n_1 binom_succ_2 add_mul_pure binom_add_2)
 open E213.Lib.Math.Real213.Mobius213SternBrocot
   (SternBrocotReachable reachable_1_1 reachable_3_2 reachable_of_pos)
 
-/-! ## §1 — `binom n 1` and Pascal at level 2 -/
+/-! ## §1 — Cell-count functions for `K_{NS, NT}^{(c)}`
 
-/-- `binom n 0 = 1` for any `n`.  Even though the first pattern of
-    `binom` says `binom _ 0 = 1`, Lean does not eagerly reduce
-    `binom n 0` when `n` is a free variable — case-splitting forces
-    the reduction. -/
-private theorem binom_n_0 (n : Nat) : binom n 0 = 1 := by
-  cases n <;> rfl
+The Pascal-level identities (`binom_n_0`, `binom_n_1`,
+`binom_succ_2`) and the Vandermonde-2 split (`binom_add_2`,
+together with `add_mul_pure`) are graph-agnostic; they live in
+`Lib/Math/Combinatorics/Binomial.lean` and are imported here.
+What this file owns is the **deployment** of those identities
+to bipartite multigraph cell counts via the Stern-Brocot
+mediant.
 
-/-- **`binom n 1 = n`** by Nat-induction via Pascal recursion.
-    Used as the first ingredient in the Vandermonde-2 identity. -/
-theorem binom_n_1 : ∀ n : Nat, binom n 1 = n
-  | 0     => rfl
-  | n + 1 => by
-    show binom n 0 + binom n 1 = n + 1
-    rw [binom_n_0 n, binom_n_1 n]
-    exact Nat.add_comm 1 n
-
-/-- **Pascal step at level 2**: `binom (n+1) 2 = n + binom n 2`.
-    Combines the `binom` definition (`binom (n+1) (k+1) = binom n k +
-    binom n (k+1)`) with `binom n 1 = n`. -/
-theorem binom_succ_2 (n : Nat) : binom (n + 1) 2 = n + binom n 2 := by
-  show binom n 1 + binom n 2 = n + binom n 2
-  rw [binom_n_1]
-
-/-! ## §2 — Vandermonde-2 identity (core mediant lemma) -/
-
-/-- Helper: reposition `b` from the second slot to the last slot in a
-    5-term left-associated `Nat` sum.  Used in `binom_add_2` for the
-    inductive arithmetic. -/
-private theorem move_b_to_tail (a b X Y Z : Nat) :
-    a + b + X + Y + Z = a + X + Y + Z + b := by
-  rw [Nat.add_right_comm a b X,
-      Nat.add_right_comm (a + X) b Y,
-      Nat.add_right_comm (a + X + Y) b Z]
-
-/-- ★★★★★ **Vandermonde-2 identity**:
-        `binom (a + b) 2 = binom a 2 + binom b 2 + a * b`.
-
-    The combinatorial heart of the mediant cohomology functor.
-    The S-pair count for the merged graph `K_{a+b, *}` splits into
-    intra-K_{a, *} S-pairs, intra-K_{b, *} S-pairs, and cross S-pairs
-    (one S-vertex from each side).  Same identity governs T-pairs.
-
-    Proof: induction on `a`, using `binom_succ_2` and `move_b_to_tail`. -/
-theorem binom_add_2 : ∀ a b : Nat, binom (a + b) 2 = binom a 2 + binom b 2 + a * b
-  | 0,     b => by
-    show binom (0 + b) 2 = binom 0 2 + binom b 2 + 0 * b
-    rw [Nat.zero_add, Nat.zero_mul, Nat.add_zero]
-    show binom b 2 = 0 + binom b 2
-    rw [Nat.zero_add]
-  | a + 1, b => by
-    have ih := binom_add_2 a b
-    show binom (a + 1 + b) 2 = binom (a + 1) 2 + binom b 2 + (a + 1) * b
-    have h_assoc : a + 1 + b = (a + b) + 1 := Nat.add_right_comm a 1 b
-    rw [h_assoc, binom_succ_2, ih, binom_succ_2, Nat.succ_mul]
-    -- Goal: a + b + (binom a 2 + binom b 2 + a * b)
-    --     = a + binom a 2 + (binom b 2 + (a * b + b))
-    -- Strategy: flatten both sides to a left-assoc 5-term sum, then
-    -- apply `move_b_to_tail` to swap `b` from position 2 to position 5.
-    -- Flatten LHS via two ← Nat.add_assoc rewrites:
-    rw [← Nat.add_assoc (a + b) (binom a 2 + binom b 2) (a * b),
-        ← Nat.add_assoc (a + b) (binom a 2) (binom b 2)]
-    -- Flatten the only remaining RHS grouping `(a * b + b)`:
-    rw [← Nat.add_assoc (a + binom a 2 + binom b 2) (a * b) b]
-    -- LHS: a + b + binom a 2 + binom b 2 + a*b
-    -- RHS: a + binom a 2 + binom b 2 + a*b + b
-    exact move_b_to_tail a b (binom a 2) (binom b 2) (a * b)
-
-/-! ## §3 — Cell-count functions for `K_{NS, NT}^{(c)}`
+## Cell counts of `K_{NS, NT}^{(c)}`
 
 The three cell counts in a bipartite multigraph `K_{NS, NT}^{(c)}`:
 
@@ -193,26 +137,10 @@ theorem vertexCount_mediant (a b c d : Nat) :
 
 /-! ## §6 — Edge count 4-term Vandermonde mediant decomposition
 
-`Nat.left_distrib` (`a * (b + c) = a * b + a * c`) is ∅-axiom in core
-Lean, but `Nat.right_distrib` carries a `propext` dependency.  We
-re-prove the right-distribution as a private helper to keep the
-mediant edge theorem strictly ∅-axiom. -/
-
-/-- Pure ∅-axiom right distribution `(a + b) * c = a * c + b * c`.
-    Re-derived from `Nat.mul_succ`, `Nat.add_assoc`, and
-    `Nat.add_right_comm` to avoid the `propext` dependency in
-    `Nat.right_distrib`.  Used by `edgeCount_mediant`. -/
-private theorem add_mul_pure : ∀ (a b c : Nat),
-    (a + b) * c = a * c + b * c
-  | _, _, 0     => rfl
-  | a, b, c + 1 => by
-    show (a + b) * (c + 1) = a * (c + 1) + b * (c + 1)
-    rw [Nat.mul_succ (a + b) c, Nat.mul_succ a c, Nat.mul_succ b c,
-        add_mul_pure a b c]
-    -- Goal: a*c + b*c + (a + b) = a*c + a + (b*c + b)
-    rw [← Nat.add_assoc (a * c + b * c) a b,
-        ← Nat.add_assoc (a * c + a) (b * c) b,
-        Nat.add_right_comm (a * c) (b * c) a]
+`Nat.left_distrib` (`a * (b + c) = a * b + a * c`) is ∅-axiom in
+core Lean, but `Nat.right_distrib` carries a `propext`
+dependency.  The propext-free right distribution `add_mul_pure`
+lives in `Combinatorics/Binomial.lean` and is imported here. -/
 
 /-- **Edge 4-term Vandermonde**: edges of `K_{a+c, b+d}^{(m)}` split
     into 4 disjoint classes corresponding to `(a+c)·(b+d) = a·b + a·d +

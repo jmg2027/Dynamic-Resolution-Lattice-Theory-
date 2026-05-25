@@ -34,8 +34,9 @@ Cross-frame synthesis (3):
 - [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
 - [`mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md) — P-orbit naturalness boundary (13 Px modules / 206 PURE); tripartite K_{2,1,3} additive complement; mod-p periods + Lucas-Pell trace orbit; refined naturalness hierarchy
 
-Cohomology classification extension (2):
-- [`cohomology/k_nm_c_classification.md`](cohomology/k_nm_c_classification.md) — K_{NS, NT}^{(c)} 3-axis classification (Stern-Brocot path × gcd-scale × c); parametric ∀c codim ≥ c at K_{3,3}; K_{4,3} base + cross-graph S-row dependence; K_{3,3} Möbius P bridges; mediant cohomology functor (Vandermonde count level)
+Cohomology classification extension (3):
+- [`cohomology/k_nm_c_classification.md`](cohomology/k_nm_c_classification.md) — universal `(NS, NT, c)` cohomology framework (EnrichedKNSNTc): codim ≥ c parametric + codim ≤ c dual-span + arbitrary-m bilateral kill + K_{3, 3} ↔ Möbius bridges + K_{4, 3} asymmetric instance + cross-graph S-row pattern
+- [`cohomology/mediant_cohomology_functor.md`](cohomology/mediant_cohomology_functor.md) — Stern-Brocot mediant Vandermonde at the count level (V 2-term / E 4-term / F factored-Vandermonde²); K_{4, 3} = K_{1, 1} ⊕ K_{3, 2} marquee
 - [`cohomology/tripartite_self_containment.md`](cohomology/tripartite_self_containment.md) — K_{2, 1, 3} cohomology (Betti = (1, 0, 0)) + K_{3, 2}^{(c=2)} local (2, 1, 3) signature at every point; cross-frame verdict: atomic-level duality preserved (|E| = |△| = 6), cohomology-level duality broken (b₁ = 8 ≠ 0)
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.

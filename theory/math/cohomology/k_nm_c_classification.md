@@ -1,34 +1,23 @@
-# K_{NS,NT}^{(c)} classification: c-counter, Stern-Brocot path, K_{3,3} / K_{4,3} extensions
+# K_{NS, NT}^{(c)} classification and cohomology
 
-Math-side companion to `bipartite.md` and `k32_higher_cohomology.md`:
-the universal classification of bipartite multigraphs
-`K_{NS, NT}^{(c)}` along three orthogonal axes — Stern-Brocot
-position, gcd-scale, and multiplicity-layer count — and the
-parametric cohomology theorems that hold at every position.
+Bipartite multigraphs `K_{NS, NT}^{(c)}` occupy a 3-axis
+lattice (Stern-Brocot path, gcd-scale, multiplicity-layer
+count) and admit a universal cohomology framework over that
+lattice.  Every position carries the parametric pair
+`codim ≥ c` (lower bound via c independent ψ-discriminators)
+and `codim ≤ c` (matching dual-span upper bound), assembled
+from a categorical direct-sum decomposition of the enriched
+2-complex into c independent layers.
 
-The c-counter programme is closed in five directions:
-
-  · **Direction A** — generic `(NS, NT, c)`-parametric framework
-    (`Parametric/EnrichedKNSNTc.lean` + master capstone for
-    `K_{n,n}^{(c)}`, n ∈ {3, 4, 5, 6})
-  · **Direction B** — arbitrary-m bilateral kill at every layer
-    `m : Fin c` (`V33EnrichedParametric` §20 + propext-free Nat
-    cancellation in `Infrastructure/NatBeqHelpers`)
-  · **Direction C** — cup-image codim upper bound via dual span
-    (`V33EnrichedParametricDualSpan`, conditional + c = 1
-    unconditional + cross-layer vanishing unconditional)
-  · **Direction E** — mediant cohomology functor at the count
-    level (`MediantCohomologyFunctor`, Vandermonde
-    decomposition of V/E/F under Stern-Brocot mediant)
-  · **Direction T** — bipartite-tripartite self-containment
-    (V32LocalSignature positive + V32V213CohomologyBridge
-    negative; see `tripartite_self_containment.md`)
-
-K_{3,2}^{(c=2)}-local higher cohomology (Steenrod algebra, cup_i
-ladder, Steenrod-Whitehead bridge) is hosted in
-`k32_higher_cohomology.md`; this chapter generalises the
-multiplicity / graph-shape axes outward to the full
-`K_{NS, NT}^{(c)}` family.
+K_{3, 2}^{(c=2)}-local higher cohomology (Steenrod algebra,
+cup_i ladder, Steenrod-Whitehead bridge) is hosted in
+`k32_higher_cohomology.md`; the mediant-functor side of the
+Stern-Brocot structure (count-Vandermonde decomposition) is
+hosted in `mediant_cohomology_functor.md`; the bipartite-
+tripartite self-containment is in `tripartite_self_containment.md`.
+This chapter develops the universal `(NS, NT, c)` cohomology
+machinery and its concrete instantiations at K_{3, 3}, K_{4, 3},
+K_{5, 3}.
 
 ## Three orthogonal axes
 
@@ -487,65 +476,22 @@ verbatim through `K33_c_independent_h2_classes_via_framework`.
 
 ### Significance
 
-Direction A is now CLOSED: the c-counter is a parametric
-theorem `∀ (NS, NT, c), codim ≥ c` modulo the parity
-classification.  V33EnrichedParametric is recovered as the
-NS = NT = 3 slice.  V43 (K_{4,3}) is recovered as a
-parity-failing instance.  The Stern-Brocot path determines
-ONLY the choice of `PairEnum NS, NT` and the parity branch;
-the `codim ≥ c` proof skeleton is uniform.
+The c-counter is a parametric theorem
+`∀ (NS, NT, c), codim ≥ c` modulo the parity classification.
+V33EnrichedParametric is recovered as the NS = NT = 3 slice;
+V43 (K_{4, 3}) is recovered as a parity-failing instance.
+The Stern-Brocot path determines only the choice of
+`PairEnum NS, NT` and the parity branch; the proof skeleton
+is uniform.
 
-## Mediant cohomology functor (count level)
+## Stern-Brocot mediant (count level)
 
-The Stern-Brocot mediant `(NS₁, NT₁) ⊕ (NS₂, NT₂) = (NS₁+NS₂,
-NT₁+NT₂)` lifts to a **Vandermonde decomposition** of every
-cell count.  `MediantCohomologyFunctor.lean` (22 PURE, ∅-axiom):
-
-  · **Vandermonde-2 core**: `binom (a + b) 2 = binom a 2 +
-    binom b 2 + a · b` (`binom_add_2`).  The combinatorial
-    heart — S-pairs of K_{a+b, *} split into intra-a, intra-b,
-    and cross-ab pairs.
-  · **Vertex 2-term additive**:
-    `V(a+c, b+d) = V(a, b) + V(c, d)` (`vertexCount_mediant`).
-  · **Edge 4-term Vandermonde**:
-    `E^m(a+c, b+d) = E^m(a, b) + E^m(a, d) + E^m(c, b) +
-    E^m(c, d)` (`edgeCount_mediant`).  Four edge classes:
-    inner-1, cross-12, cross-21, inner-2.
-  · **Face factored Vandermonde²**:
-    `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c) ·
-    (binom b 2 + binom d 2 + b·d)` (`faceCount_mediant_factored`).
-    9 terms total, each pairing one of three S-pair sources
-    (intra-a / intra-c / cross-ac) with one of three T-pair
-    sources (intra-b / intra-d / cross-bd).
-
-Concrete marquee instance, K_{4,3} = K_{1,1} ⊕ K_{3,2} at
-c = 2:
-
-  · `7 = 2 + 5` — vertex additivity
-  · `24 = 2 + 4 + 6 + 12` — edge 4-term
-  · `18 = (0 + 3 + 3) · (0 + 1 + 2) = 6 · 3 = 18`
-    — face factored Vandermonde² (4 of 9 terms non-zero;
-    `binom 1 2 = 0` zeros out the remaining 5)
-
-Anchors:
-`K43_{vertex,edge,face}_from_mediant`,
-`K43_face_9term_evaluation`,
-`countTriple_mediant_decomposition` (3-component algebra law),
-`mediant_cohomology_functor_capstone` (7-conjunct master).
-
-The functor structure: assigning
-`(NS, NT) ↦ (vertexCount, edgeCount, faceCount)` factors
-through the Stern-Brocot mediant inductive structure.
-Since every coprime `(NS, NT) ≥ (1, 0)` is Stern-Brocot
-reachable (`Mobius213SternBrocot.reachable_of_pos`), every
-`K_{NS, NT}^{(c)}` count is computable as a finite sum of
-products of `binom` values along the Stern-Brocot path from
-seeds to (NS, NT).
-
-`theory/essays/stern_brocot_as_universal_lattice.md` discusses
-the structural significance.  The lift from cell-count
-Vandermonde to actual cochain-space / Massey-class
-decomposition remains open.
+The count-level mediant cohomology functor — Stern-Brocot
+Vandermonde decomposition of vertex / edge / face counts of
+`K_{NS, NT}^{(c)}` — is hosted in
+`mediant_cohomology_functor.md`.  K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}
+is the marquee instance; the count algebra factors through the
+Stern-Brocot path while cup-product / cochain lift remains open.
 
 ## Lean source
 
@@ -575,7 +521,6 @@ decomposition remains open.
     - `Mobius213/Mobius213K33Bridge.lean`
   · Cross-graph: `Cohomology/CrossGraphPattern.lean`
   · Stern-Brocot: `Cohomology/BipartiteStermBrocotClassification.lean`
-  · Mediant functor (count level): `Cohomology/MediantCohomologyFunctor.lean`
   · Universal `(NS, NT, c)` parametric framework:
     - `Bipartite/Parametric/EnrichedKNSNTc.lean` (generic
       framework + K_{3,3} recovery)
@@ -620,9 +565,6 @@ decomposition remains open.
 | `state_class_NSscaled_pell_capstone` | `Mobius213K33StateClass` | K_{3,3}'s (3,3) on NS-scaled diagonal |
 | `multCount_master` | `Mobius213K33c3StateClass` | (9, 9, 9) edge mult saturation at c = 3 |
 | `k33_unified_master` | `K33Unified` | 4-conjunct cross-frame capstone |
-| `binom_add_2` | `MediantCohomologyFunctor` | Vandermonde-2: `binom (a+b) 2 = binom a 2 + binom b 2 + a·b` |
-| `vertexCount_mediant` / `edgeCount_mediant` / `faceCount_mediant_factored` | same | V/E/F mediant decompositions (2 / 4 / 9 terms) |
-| `mediant_cohomology_functor_capstone` | same | 7-conjunct master (Vandermonde + K_{4,3} = K_{1,1} ⊕ K_{3,2}) |
 | `parametric_c_independent_h2_classes_param` | `Parametric/EnrichedKNSNTc` | universal `(NS, NT, c)` codim ≥ c (uniform ψ + KillsDelta1 hyp) |
 | `K33_c_independent_h2_classes_via_framework` | same | recovers V33EnrichedParametric verbatim as NS=NT=3 slice |
 | `qT_param_zero_universal` / `qS_param_zero_universal` | `Parametric/EnrichedKNSNTcUniversal` | row / column Q-functional vanishes universally (even-NS / even-NT) |
@@ -637,32 +579,6 @@ decomposition remains open.
   · `research-notes/archive/G145_c_counter_structural_theory.md` —
     multiplicity-layer interpretation; five structural insights;
     Stern-Brocot sampling thesis
-
-## Programme closure status
-
-The c-counter programme is structurally CLOSED:
-
-  · **Direction A** — universal `(NS, NT, c)`-parametric
-    framework (§"Universal `(NS, NT, c)` parametric framework"
-    above).  `master_Knn_c_counter_resolved`: codim ≥ c at
-    every `K_{n, n}^{(c)}` for `n ∈ {3, 4, 5, 6}`.
-    Asymmetric instances K_{4,3}, K_{5,3}, K_{5,4}, K_{3,4},
-    K_{3,5} close via the parity-failing dispatcher.
-  · **Direction B** — arbitrary-m bilateral kill at every
-    layer (§"Arbitrary-m bilateral kill").
-    `parametric_arbitrary_m_full_kill_capstone`: ψ_m kills all
-    S_i / T_j cup-images at any `m : Fin c`.  Closes
-    the on-layer-kill hypothesis of Direction C.
-  · **Direction C** — cup-image codim upper bound
-    (§"Cup-image dual span").  Cross-layer vanishing
-    UNCONDITIONALLY closed (`nine_block_disjoint`).  Conditional
-    `codim ≤ c` via `codim_upper_bound_conditional` /
-    `parametric_dual_span_capstone`.  c = 1 unconditional via
-    `primary_cup_span_soundness_c1`.
-  · **Direction E** — mediant cohomology functor at the
-    count level (§"Mediant cohomology functor (count level)").
-  · **Direction T** — bipartite-tripartite self-containment
-    (`tripartite_self_containment.md`).
 
 ## Open frontier (residual)
 

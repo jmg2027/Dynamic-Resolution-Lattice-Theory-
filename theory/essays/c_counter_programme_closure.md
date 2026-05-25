@@ -172,7 +172,7 @@ face of that single structural object.
     ⊆ `InPrimaryCupSpanPlusBoundary`.  The last piece for
     unconditional Direction C at every c.
   · **Cochain-level mediant functor**: count-level closed,
-    cup-product algebra lift open (Direction E next layer).
+    cup-product algebra lift open.
   · **Massey-class lift of the mediant**: do K_{4,3} Massey
     witnesses factor through K_{1,1} ⊕ K_{3,2}?
   · **Pell-orbit extensions**: (8, 5), (5, 4), (7, 4), (13, 8)
