@@ -73,11 +73,11 @@ in §3 below; the labels reflect "row pair-difference" (rows 0, 1, 2)
 and "column pair-difference" (col 0). -/
 
 /-- Layer-0 mult index at c=1. -/
-private def m0 : Fin 1 := ⟨0, by decide⟩
+def m0 : Fin 1 := ⟨0, by decide⟩
 
-private def i0 : Fin 3 := ⟨0, by decide⟩
-private def i1 : Fin 3 := ⟨1, by decide⟩
-private def i2 : Fin 3 := ⟨2, by decide⟩
+def i0 : Fin 3 := ⟨0, by decide⟩
+def i1 : Fin 3 := ⟨1, by decide⟩
+def i2 : Fin 3 := ⟨2, by decide⟩
 
 /-- g_1 = cupOpp(starS 0 0, e_{edge (1,0)})  =  e_{(0,0)} ⊕ e_{(0,1)}. -/
 def g1 : EnrichedFaceVal 1 :=
