@@ -413,13 +413,17 @@ The c-counter materialises ONE LEVEL DEEPER, in the **enriched
     indicators `e_face_(9m)` realise c independent non-coboundary
     H²-classes.  **Codim ≥ c** at c ∈ {2, 3} in the enriched
     complex.
-  · `V33EnrichedParametric.lean` (41 PURE) — generalises to
+  · `V33EnrichedParametric.lean` (63 PURE) — generalises to
     arbitrary `c : Nat`:
     * `parametric_c_independent_h2_classes` — `c` indicators
       with Kronecker-δ ψ-signatures at any `c`
     * `parametric_bottom_layer_full_kill_capstone` — at the
       bottom layer, ψ_0 kills all S_i / T_j primary cup-image
       (for all `i, j ∈ Fin 3`, any `c ≥ 1`)
+    * `parametric_arbitrary_m_full_kill_capstone` — same bilateral
+      kill at any layer `m : Fin c`, not just the bottom (§20,
+      closes Direction B via `9·m` cancellation; see
+      `theory/essays/multiplicity_layer_uniformity.md`)
     * `c_counter_manifest_at_bottom_c2/3/4/5` — combined Massey
       witness + kill bundles at concrete c ∈ {2, 3, 4, 5}
     * `eta_ab_layer`, `eta_cd_layer` — parametric 4-fold Massey

@@ -162,6 +162,59 @@ with a val-literal index, use `cases β (edge_idx c ⟨i, _⟩ ⟨j, _⟩
 the unfolded goal.  Fin proof terms are preserved exactly,
 enabling rfl-reductions to chain through.
 
+### Arbitrary-m bilateral kill
+
+The bottom-layer kill generalises to **every** multiplicity layer:
+
+```
+parametric_arbitrary_m_full_kill_capstone :
+  ∀ (c : Nat) (m : Fin c),
+    (∀ β, ∀ (i : Fin 3),
+       psi_layer c m (cupOpp_param c (starS c i m) β) = false)
+    ∧ (∀ α, ∀ (j : Fin 3),
+       psi_layer c m (cupOpp_param c α (incidT c j m)) = false)
+```
+
+(`V33EnrichedParametric.lean` §20, PURE.)  Closure mechanism:
+`starS c i m` and `incidT c j m` at a same-layer `edge_idx c i' j' m`
+reduce to layer-independent triple Bool disjunctions
+
+```
+starS_at_edge_idx_same_m :
+  starS c i m (edge_idx c i' j' m)
+  = (3·i' + j' == 3·i) || (3·i' + j' == 3·i + 1) || (3·i' + j' == 3·i + 2)
+```
+
+by cancelling the common `9·m.val` offset via `nat_decide_add_left_assoc{1,2}`
+(propext-free Nat cancellation in `Infrastructure/NatBeqHelpers.lean`).
+After the offset is gone, the 6/9-edge β case-bash that closed the
+bottom-layer kill closes every layer's kill identically — the same
+proof tactic runs for every `m`.
+
+The `9·m.val` cancellation is the **proof-level shadow** of the
+edge-disjointness direct-sum decomposition (`disjoint_layers_as_direct_sum.md`):
+every layer is a translate of layer 0 along the offset index, and
+the Nat.beq cancellation absorbs that translate.  See
+`theory/essays/multiplicity_layer_uniformity.md` for the
+structural reading.
+
+### Surface-form caveat for the cancellation
+
+`e.val == k` for `e : Fin n` (with `e.val : Nat`) desugars to
+`decide (e.val = k)` via the generic `[DecidableEq α] ⇒ BEq α`
+instance — **not** `Nat.beq e.val k`.  The infrastructure therefore
+carries **both** surface forms:
+
+  · `nat_beq_add_left_assoc{1,2}` (Nat.beq form) — for callers
+    using the function directly
+  · `nat_decide_add_left_assoc{1,2}` (decide / `==` form) — for
+    callers (like `starS`/`incidT`) whose unfolded goal emits `==`
+
+The pure cancellation core is `nat_add_left_cancel_pure`
+(propext-free Nat left-cancellation by structural recursion on `a`).
+This avoids `Nat.add_left_cancel` (which depends on `propext`) in
+the ∅-axiom chain.
+
 ### Massey witness at every multiplicity
 
 The ψ_m discriminator is realised by a concrete 4-fold Massey
@@ -352,7 +405,10 @@ decomposition remains open.
   · Mediant functor (count level): `Cohomology/MediantCohomologyFunctor.lean`
   · Infrastructure: `Cohomology/Infrastructure/BoolXORFold.lean`
     (graph-agnostic `psiNatPos`, `xor_pair_swap`),
-    `Infrastructure/NatBeqHelpers.lean` (Nat.beq cancellation)
+    `Infrastructure/NatBeqHelpers.lean` (Nat.beq + decide
+    cancellation — `nat_beq_add_left{,_assoc1,_assoc2}`,
+    `nat_add_left_cancel_pure`,
+    `nat_decide_add_left{,_assoc1,_assoc2}`)
   · ∅-axiom PURE on production critical path
 
 ## Key results
@@ -364,6 +420,8 @@ decomposition remains open.
 | `k43_sternBrocot_position` | same | (4, 3) mediant of (1, 1) and (3, 2) |
 | `parametric_c_independent_h2_classes` | `V33EnrichedParametric` | ∀c, c Kronecker-δ ψ-signatures non-coboundary |
 | `parametric_bottom_layer_full_kill_capstone` | same | ψ_0 kills all S_i / T_j cup-images, any c ≥ 1 |
+| `parametric_arbitrary_m_full_kill_capstone` | same §20 | ψ_m kills all S_i / T_j cup-images at any layer `m : Fin c` |
+| `starS_at_edge_idx_same_m` / `incidT_at_edge_idx_same_m` | same §20 | Same-layer evaluations reduce to layer-free triple disjunctions |
 | `psi_layer_rep4_eq_true_c{2..12}` | same | Massey witness at c = 2..12 (concrete) |
 | `K43_all_S_row_deps_bundle` | `V43` | 6 S-row dependence relations at K_{4,3} |
 | `cross_graph_S_row_dependence_pattern` | `CrossGraphPattern` | Same dependence pattern at K_{3,3} + K_{4,3} (NT = 3) |
@@ -388,13 +446,6 @@ decomposition remains open.
   · **Cup-image codim exact equality**: prove `codim ≤ c` —
     show the `c` ψ-discriminators SPAN the H²_enr / cup-image
     dual.  Current parametric result is `codim ≥ c`.
-  · **Arbitrary-m parametric kill**:
-    `psi_layer_kills_cupOpp_S0star_left_at_bottom` holds at the
-    bottom layer for any c.  Extending to arbitrary `m : Fin c`
-    needs `Nat.beq (9·m + a) (9·m + b) = Nat.beq a b`
-    cancellation (infrastructure exists in
-    `NatBeqHelpers.nat_beq_add_left`); challenge is targeted
-    `rw` placement.
   · **Full `(NS, NT, c)` parametric framework**: generic
     `Fin (NS.choose 2)` S-pair indexing, per-layer face
     boundaries depending on (NS, NT), parametric `psi_layer`
