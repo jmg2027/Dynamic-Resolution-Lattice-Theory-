@@ -451,4 +451,40 @@ theorem joint_psi_kernel_subset_primary (c : Nat) (v : EnrichedFaceVal c)
     rw [decide_eq_true m'.isLt, Bool.true_and]
   · exact xor_aggregate_in_primary c v hv c (Nat.le_refl c)
 
+/-! ## §7 — Unconditional capstones
+
+Now that both directions are closed at every `c` (EASY:
+`primary_cup_span_soundness_all_c`; HARD: `joint_psi_kernel_subset_primary`),
+the conditional `parametric_dual_span_capstone` becomes unconditional. -/
+
+/-- **Joint ψ-kernel = `InPrimaryCupSpanPlusBoundary c`** at every c.
+    Iff-version of the bidirectional containment. -/
+theorem joint_psi_kernel_iff_primary (c : Nat) (v : EnrichedFaceVal c) :
+    (∀ m, psi_layer c m v = false) ↔ InPrimaryCupSpanPlusBoundary c v :=
+  ⟨joint_psi_kernel_subset_primary c v,
+   fun h m => primary_cup_span_soundness_all_c c v h m⟩
+
+/-- **Unconditional parametric dual-span** at every c.  The c
+    ψ-discriminators `(ψ_0, …, ψ_{c-1})` span the dual of
+    `EnrichedFaceVal c / InPrimaryCupSpanPlusBoundary c`, matching
+    the parametric lower bound (`codim ≥ c`) and closing the
+    `codim = c` upper bound for the PRIMARY cup-image. -/
+theorem parametric_dual_span_unconditional (c : Nat) :
+    ∀ v : EnrichedFaceVal c, ∃ b : Fin c → Bool,
+      (∀ m, b m = psi_layer c m v)
+      ∧ InPrimaryCupSpanPlusBoundary c (psi_residual c v)
+      ∧ (∀ s t m', v s t m'
+            = xor (weighted_e_sum c b s t m') (psi_residual c v s t m')) :=
+  parametric_dual_span_capstone c (joint_psi_kernel_subset_primary c)
+
+/-- **Unconditional codim upper bound** at every c: every face cochain
+    `v` decomposes canonically modulo `InPrimaryCupSpanPlusBoundary c`
+    into its `weighted_e_sum c (ψ-vector v)` representative. -/
+theorem codim_upper_bound_unconditional (c : Nat) (v : EnrichedFaceVal c) :
+    InPrimaryCupSpanPlusBoundary c (psi_residual c v)
+    ∧ (∀ s t m', v s t m'
+          = xor (weighted_e_sum c (fun m => psi_layer c m v) s t m')
+                (psi_residual c v s t m')) :=
+  codim_upper_bound_conditional c (joint_psi_kernel_subset_primary c) v
+
 end E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpanHardLift
