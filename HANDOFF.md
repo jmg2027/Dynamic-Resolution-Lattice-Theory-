@@ -176,7 +176,7 @@ requires explicit cup-image dim calculation — show that the c
 ψ-discriminators SPAN the H²_enr / cup-image dual.
 
 **Dual-span scaffolding closed (2026-05-24, refactored 2026-05-25)**
-in `V33EnrichedParametricDualSpan.lean` (15 PURE):
+in `V33EnrichedParametricDualSpan.lean` (16 PURE):
   · ψ_m F₂-linearity over pointwise XOR (`psi_layer_linear`)
   · ψ-vector surjectivity onto `(Fin c → Bool)` via
     `weighted_e_sum`
@@ -194,6 +194,11 @@ in `V33EnrichedParametricDualSpan.lean` (15 PURE):
   · `primary_cup_span_soundness_conditional` — given Direction B's
     arbitrary-m kill hypotheses, every element of
     `InPrimaryCupSpanPlusBoundary` lies in joint ψ-kernel.
+  · `primary_cup_span_soundness_c1` — **UNCONDITIONAL** at c=1
+    (single layer): the conditional hypotheses are satisfied by
+    the existing bottom-layer kills (since `Fin 1` forces
+    `m = ⟨0, _⟩`).  Gives unconditional `InPrimary ⊆ ψ-kernel`
+    at single-layer K_{3,3}.
   · `codim_upper_bound_conditional` + `parametric_dual_span_capstone`:
     conditional on joint-ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`,
     the c ψ-discriminators SPAN the dual of

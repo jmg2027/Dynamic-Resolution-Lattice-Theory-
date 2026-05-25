@@ -260,6 +260,55 @@ theorem primary_cup_span_soundness_conditional (c : Nat)
       rw [ih1 m', ih2 m']
       rfl
 
+/-! ## §4.7 — Unconditional soundness at c = 1 (single layer)
+
+At `c = 1` the parametric index `m : Fin 1` is forced to
+`⟨0, _⟩`, so the conditional hypotheses `H_star` and `H_incid` of
+`primary_cup_span_soundness_conditional` reduce to the
+bottom-layer kills already proven in `V33EnrichedParametric`
+(`psi_layer_kills_cupOpp_S{0,1,2}star_left_at_bottom` and
+`psi_layer_kills_cupOpp_T{0,1,2}incid_right_at_bottom`).
+Hence the soundness is UNCONDITIONAL at single layer. -/
+
+private theorem fin1_eq_zero (m : Fin 1) : m = ⟨0, by decide⟩ := by
+  match m with
+  | ⟨0, _⟩ => rfl
+  | ⟨n+1, h⟩ =>
+      exfalso
+      exact absurd (Nat.le_add_left 1 n) (Nat.not_le_of_lt h)
+
+private theorem fin3_cases {P : Fin 3 → Prop}
+    (h0 : P ⟨0, by decide⟩) (h1 : P ⟨1, by decide⟩) (h2 : P ⟨2, by decide⟩)
+    (i : Fin 3) : P i := by
+  match i with
+  | ⟨0, _⟩ => exact h0
+  | ⟨1, _⟩ => exact h1
+  | ⟨2, _⟩ => exact h2
+  | ⟨n+3, h⟩ =>
+      exfalso
+      exact absurd (Nat.le_add_left 3 n) (Nat.not_le_of_lt h)
+
+theorem primary_cup_span_soundness_c1 :
+    ∀ v, InPrimaryCupSpanPlusBoundary 1 v →
+      ∀ (m' : Fin 1), psi_layer 1 m' v = false :=
+  primary_cup_span_soundness_conditional 1
+    (fun m' i m β => by
+      rw [fin1_eq_zero m, fin1_eq_zero m']
+      refine @fin3_cases
+        (fun k => psi_layer 1 ⟨0, by decide⟩
+                  (cupOpp_param 1 (starS 1 k ⟨0, by decide⟩) β) = false) ?_ ?_ ?_ i
+      · exact psi_layer_kills_cupOpp_S0star_left_at_bottom 1 (by decide) β
+      · exact psi_layer_kills_cupOpp_S1star_left_at_bottom 1 (by decide) β
+      · exact psi_layer_kills_cupOpp_S2star_left_at_bottom 1 (by decide) β)
+    (fun m' j m α => by
+      rw [fin1_eq_zero m, fin1_eq_zero m']
+      refine @fin3_cases
+        (fun k => psi_layer 1 ⟨0, by decide⟩
+                  (cupOpp_param 1 α (incidT 1 k ⟨0, by decide⟩)) = false) ?_ ?_ ?_ j
+      · exact psi_layer_kills_cupOpp_T0incid_right_at_bottom 1 (by decide) α
+      · exact psi_layer_kills_cupOpp_T1incid_right_at_bottom 1 (by decide) α
+      · exact psi_layer_kills_cupOpp_T2incid_right_at_bottom 1 (by decide) α)
+
 /-! ## §5 — Conditional `codim ≤ c` upper bound
 
 Given the joint-ψ-kernel hypothesis (`H_kernel_in_span`: every face
