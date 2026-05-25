@@ -29,3 +29,6 @@ kernel relation:
 
 - `theory/lens/universal.md` — universal Lens has minimal kernel
 - `theory/lens/lattice.md` — kernel-refinement = `refines` preorder
+- `theory/lens/unified_equivalence.md` — kernel theory as one
+  reading of the Lens-arrow (the single concept covering
+  equivalence / equivalence-class / isomorphism / homomorphism)

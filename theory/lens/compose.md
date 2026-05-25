@@ -33,3 +33,5 @@ morphisms = factor-through), with `refines` as the morphism preorder.
 
 - `theory/lens/lattice.md` — refines preorder + lattice
 - `theory/lens/universal.md` — initial object in the category
+- `theory/lens/unified_equivalence.md` — factor-through IS the
+  homomorphism reading of the Lens-arrow (single concept)
