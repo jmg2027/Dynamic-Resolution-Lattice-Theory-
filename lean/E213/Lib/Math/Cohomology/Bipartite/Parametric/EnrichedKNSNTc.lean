@@ -893,4 +893,38 @@ theorem K55_c_independent_h2_classes_via_framework (c : Nat) :
   parametric_c_independent_h2_classes_param 5 5 c
     (by decide) (by decide) pairEnum5 pairEnum5 (kills_delta1_K55 c)
 
+/-! ## §25 — Concrete pair enumeration on `Fin 6`
+
+The 15 unordered pairs of `Fin 6` in lex order: needed for K_{6, NT}
+parity-failing closures (e.g., K_{6,4}, K_{6,6}). -/
+
+/-- Low endpoint of the `s`-th pair of `Fin 6` (15 pairs in lex order). -/
+def pair6_lo : Fin (chooseTwo 6) → Fin 6
+  | ⟨0, _⟩  => ⟨0, by decide⟩ | ⟨1, _⟩  => ⟨0, by decide⟩
+  | ⟨2, _⟩  => ⟨0, by decide⟩ | ⟨3, _⟩  => ⟨0, by decide⟩
+  | ⟨4, _⟩  => ⟨0, by decide⟩
+  | ⟨5, _⟩  => ⟨1, by decide⟩ | ⟨6, _⟩  => ⟨1, by decide⟩
+  | ⟨7, _⟩  => ⟨1, by decide⟩ | ⟨8, _⟩  => ⟨1, by decide⟩
+  | ⟨9, _⟩  => ⟨2, by decide⟩ | ⟨10, _⟩ => ⟨2, by decide⟩
+  | ⟨11, _⟩ => ⟨2, by decide⟩
+  | ⟨12, _⟩ => ⟨3, by decide⟩ | ⟨13, _⟩ => ⟨3, by decide⟩
+  | ⟨_+14, _⟩ => ⟨4, by decide⟩
+
+/-- High endpoint of the `s`-th pair of `Fin 6`. -/
+def pair6_hi : Fin (chooseTwo 6) → Fin 6
+  | ⟨0, _⟩  => ⟨1, by decide⟩ | ⟨1, _⟩  => ⟨2, by decide⟩
+  | ⟨2, _⟩  => ⟨3, by decide⟩ | ⟨3, _⟩  => ⟨4, by decide⟩
+  | ⟨4, _⟩  => ⟨5, by decide⟩
+  | ⟨5, _⟩  => ⟨2, by decide⟩ | ⟨6, _⟩  => ⟨3, by decide⟩
+  | ⟨7, _⟩  => ⟨4, by decide⟩ | ⟨8, _⟩  => ⟨5, by decide⟩
+  | ⟨9, _⟩  => ⟨3, by decide⟩ | ⟨10, _⟩ => ⟨4, by decide⟩
+  | ⟨11, _⟩ => ⟨5, by decide⟩
+  | ⟨12, _⟩ => ⟨4, by decide⟩ | ⟨13, _⟩ => ⟨5, by decide⟩
+  | ⟨_+14, _⟩ => ⟨5, by decide⟩
+
+/-- Concrete `PairEnum 6` (15 pairs in lex order). -/
+def pairEnum6 : PairEnum 6 where
+  lo := pair6_lo
+  hi := pair6_hi
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc

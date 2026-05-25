@@ -214,10 +214,21 @@ the kill argument closes by structural XOR-cancellation.
   · `kills_delta1_KNS5` — any K_{NS, 5}
   · `K_{4,5}` and `K_{5,5}` capstones — first K_{n,n} after K_{3,3}
 
-**Still open**: K_{6,4}, K_{4,6}, K_{6,6}, K_{8,4}, ... (other
-both-even cases).  Method generalises: each requires a `pairEnumN`
-and a bespoke `psi_excl_S0_KNN`-style closure following the K_{4,4}
-template.
+**K_{6,4}** (next parity-failing case, 6 PURE):
+  · `pairEnum6` (15 pairs of Fin 6 in lex order, in main file)
+  · `psi_excl_S0_K64` — 10-term s-sum over pairs not containing 0
+  · `psi_excl_S0_K64_kills_delta1` — via `foldXor_t_face_eq_qT_decomposition`
+    at each of 10 excluded s + 5-bool case-bash (2^5 = 32 cases)
+  · `e_face_layer_K64` at `(s=5, t=0)` (pair {1,2})
+  · `K64_c_independent_h2_classes`
+
+**Still open**: K_{4,6}, K_{6,6}, K_{4,8}, K_{8,4}, ... (other
+both-even cases).  Method generalises: each needs `pairEnumN` (if
+not yet defined) and a bespoke `psi_excl_S0_K{NS}{NT}` following the
+K_{4,4} / K_{6,4} template.  Note K_{NS,4} for ALL even NS reuses
+the existing pairEnum4 and qT_param framework; K_{4,NT} for all
+even NT requires the dual `psi_excl_T0` (swap S↔T in the
+construction).
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
