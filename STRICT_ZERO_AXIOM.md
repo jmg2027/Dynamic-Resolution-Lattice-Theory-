@@ -3002,3 +3002,40 @@ deferred universal identities.
 **Closure subtotal**: 10 + 16 + 14 = **40 PURE / 0 DIRTY**.
 
 **Session grand total**: 593 + 40 = **633 PURE / 0 DIRTY**.
+## 2026-05-24 — V33EnrichedParametricDualSpan: Direction C dual-span scaffolding
+
+Companion to `V33EnrichedParametric` for the upper-bound side of
+the c-counter at K_{3,3}^{(c)}.  Builds the F₂-linear dual-span
+structure that the SPAN claim — "c ψ-discriminators span the
+dual of H²_enr / cup-image" — requires.
+
+  · **ψ-linearity**: `psi_layer_linear` — each ψ_m distributes over
+    pointwise XOR, lifted from the abstract `psiNatPos` fold via
+    a `Nat → Bool` flat view of the 9 face values at layer m.
+  · **Surjectivity**: `weighted_e_sum c b` realises any target
+    `b : Fin c → Bool` as the joint ψ-vector of a face cochain
+    (`Σ_m (b m) · e_face_layer m`), giving
+    Ψ : EnrichedFaceVal c → (Fin c → Bool) surjective.
+  · **Canonical decomposition**: `psi_projection v` / `psi_residual v`
+    decompose v as `(weighted_e_sum (ψ-vector v)) ⊕ residual` with
+    `ψ_m(residual) = false` for all m (joint ψ-kernel).
+  · **`InCupSpanPlusBoundary`** inductive predicate: F₂-linear span
+    of cup-products `cupOpp_param α β` and coboundaries
+    `delta1_enr_param σ`.
+  · **Conditional upper bound**: if joint ψ-kernel ⊆
+    `InCupSpanPlusBoundary`, then every v reduces canonically modulo
+    `InCupSpanPlusBoundary` to its `weighted_e_sum` representative,
+    so the c ψ-discriminators SPAN the dual of
+    `EnrichedFaceVal c / InCupSpanPlusBoundary`.
+
+The unconditional `codim ≤ c` reduces to the per-layer K_{3,3}
+fact (each layer's 9-element face space has dim 1 modulo δ¹ +
+cup-image).  The conditional capstone isolates exactly that
+per-layer hypothesis as the remaining open piece.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers` | +5 (7 total) | `nat_beq_eq_false_of_ne` (contrapositive of `Nat.eq_of_beq_eq_true`); `nat_beq_false_of_lt`; ★★★★★ `nine_block_disjoint` (`Nat.beq (9·a + r₁) (9·b + r₂) = false` when `a ≠ b`, `r₁, r₂ < 9`, by case-split on `a ⋚ b`); `nat_beq_op_eq_false_of_ne` (`==`-form via `decide_eq_false`); `nine_block_disjoint_op` (`==`-form variant) |
+| `E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpan` | 23 | `psi_layer_flat` (Nat → Bool view of 9 face values); ★★★★ `psi_layer_eq_psiNatPos` (rfl-bridge to abstract XOR fold); ★★★★ `psi_layer_linear` (F₂-linearity over pointwise XOR); `weighted_e_sum` (`Σ_m b m · e_face_layer m`); ★★★★ `psi_layer_weighted_e_sum` (ψ-vector hits any target); `psi_vector_surjective`; `psi_projection` / `psi_residual`; ★★★★ `psi_residual_kills_all_psi`; ★★★★★ `psi_canonical_decomposition`; `InPrimaryCupSpanPlusBoundary`; ★★★★★ `psi_layer_arbitrary_cup_not_kill` (counter-example justifying PRIMARY restriction); ★★★★★★ `primary_cup_span_soundness_conditional`; ★★★★★★★ `primary_cup_span_soundness_c1` (★ **UNCONDITIONAL** at c=1); ★★★★★ `starS_layer_disjoint` / `incidT_layer_disjoint` (cocycle vanishes at cross-layer edges, via `nine_block_disjoint_op`); ★★★★★ `cupOpp_{starS,incidT}_cross_layer_zero` (cup vanishes at cross-layer faces); ★★★★★★ `psi_layer_{starCup,incidCup}_cross_layer` (★ **UNCONDITIONAL** cross-layer ψ-kill — closes the structural half of Direction B); ★★★★★★★★ `primary_cup_span_soundness_on_layer` (★ strengthened soundness: only ON-LAYER kill required, cross-layer cases auto-dispatched); ★★★★★★ `codim_upper_bound_conditional`; ★★★★★★★★ `parametric_dual_span_capstone` |
+
+**Session grand total after V33EnrichedParametricDualSpan extension**: 393 + 23 + 5 = **421 PURE / 0 DIRTY**.

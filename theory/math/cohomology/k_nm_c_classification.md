@@ -231,6 +231,85 @@ via `psi_layer_rep4_eq_true_c{2..12}`.  Each layer has its own
 Massey witness; `c` independent Massey reps span the `c` "extra"
 H² directions.
 
+## Cup-image dual span (upper bound side)
+
+The lower bound `codim ≥ c` says the c ψ-discriminators witness
+c independent classes in `H²_enr / cup-image`.  The matching
+upper bound `codim ≤ c` requires showing these c functionals
+SPAN the dual of `H²_enr / cup-image`.  Captured parametrically
+in `V33EnrichedParametricDualSpan.lean`.
+
+### The dual-span scaffolding
+
+Three structural pieces (all PURE):
+
+  · **ψ-linearity** (`psi_layer_linear`) — ψ_m distributes over
+    pointwise XOR, lifted through the abstract `psiNatPos` fold.
+  · **Surjectivity** (`psi_layer_weighted_e_sum`) — the c-dim
+    subspace `weighted_e_sum c b := Σ_m (b m) · e_face_layer m`
+    hits any target ψ-vector `b : Fin c → Bool`.  So
+    `Ψ : EnrichedFaceVal c → (Fin c → Bool), v ↦ (m ↦ ψ_m v)` is
+    surjective.
+  · **Canonical decomposition** (`psi_canonical_decomposition`)
+    — every v = `weighted_e_sum c (m ↦ ψ_m v) ⊕ residual` with
+    `ψ_m(residual) = false` for all m.
+
+### Why PRIMARY (not FULL) cup-image
+
+The cup-image must be against `cupOpp_param (starS i m) β`
+(S-star × anything) plus `cupOpp_param α (incidT j m)` (anything
+× T-incidence), NOT against arbitrary `cupOpp_param α β`.
+The reason: by bilinearity, single-edge cups along face
+diagonals reproduce every face indicator, so the F₂-span of full
+cup-products = entire `EnrichedFaceVal c`.  Concrete witness
+`psi_layer_arbitrary_cup_not_kill`: `ψ_0(e_0 ∪ e_4) = true` (the
+diagonal pair (e_0, e_4) of face (0, 0, 0) cups to the single-face
+indicator at (0, 0, 0), which ψ_0 detects).
+
+Hence the inductive type `InPrimaryCupSpanPlusBoundary` admits
+constructors only for δ¹σ, starS-cup, incidT-cup, and XOR.
+
+### Conditional codim upper bound + capstone
+
+`codim_upper_bound_conditional`: IF the joint ψ-kernel is
+contained in `InPrimaryCupSpanPlusBoundary`, THEN every v
+decomposes canonically modulo `InPrimary` into its `weighted_e_sum`
+representative.
+
+`parametric_dual_span_capstone`: equivalently, the c
+ψ-discriminators SPAN the dual of
+`EnrichedFaceVal c / InPrimaryCupSpanPlusBoundary`.
+
+### Cross-layer vanishing (structural piece of Direction B)
+
+`starS_layer_disjoint` / `incidT_layer_disjoint`: at any layer
+m' ≠ m, the cocycle `starS i m` / `incidT j m` evaluates to
+false on every layer-m' edge.  Proof via 9-block disjointness
+(`nine_block_disjoint_op` in `NatBeqHelpers`): edge indices
+`9·a + r` for `a` the layer index and `r < 9` the in-layer offset
+form disjoint blocks, so distinct layers give distinct indices.
+
+Lifting: `cupOpp_{starS,incidT}_cross_layer_zero` (the cup
+vanishes at every layer-m' face — the incidT case uses
+`Bool.and_false` since the false factor sits on the right of
+`&&`), then `psi_layer_{starCup,incidCup}_cross_layer` (the
+XOR of 9 zeros).  All unconditional.
+
+`primary_cup_span_soundness_on_layer`: combines the cross-layer
+theorems with `primary_cup_span_soundness_conditional` to give
+soundness requiring ONLY the on-layer kill (`m = m'` case)
+as hypothesis.  All cross-layer cases are dispatched
+automatically.
+
+### Unconditional soundness at c = 1
+
+`primary_cup_span_soundness_c1`: at c = 1 the on-layer
+hypothesis collapses since `Fin 1` forces `m = ⟨0, _⟩`, and the
+existing bottom-layer kills suffice.  Gives unconditional
+`InPrimary ⊆ joint ψ-kernel` at single-layer K_{3,3}.  The
+remaining open piece for c = 1 unconditional `codim ≤ 1` is
+per-layer completeness.
+
 ## K_{3,3} ↔ Möbius P bridges
 
 K_{3,3}^{(c=2)} differs from K_{3,2}^{(c=2)} in landing OFF the
@@ -391,7 +470,13 @@ decomposition remains open.
       (Massey ψ-discriminator survives at c = 2, 3)
     - `Bipartite/V33Enriched.lean`, `V33c3Enriched.lean`
       (enriched 2-complex codim ≥ c at c = 2, 3)
-    - `Bipartite/V33EnrichedParametric.lean` (parametric ∀c)
+    - `Bipartite/V33EnrichedParametric.lean` (parametric ∀c
+      codim ≥ c)
+    - `Bipartite/V33EnrichedParametricDualSpan.lean` (parametric
+      codim ≤ c scaffolding: ψ-linearity, surjectivity, canonical
+      decomposition, PRIMARY cup-image inductive type, cross-layer
+      vanishing, conditional + c=1 unconditional soundness, dual
+      span capstone)
     - `Bipartite/V33Massey4Fold.lean`, `V33MasseyMulti.lean`,
       `V33CupDescent.lean`, `V33OppositeCup.lean`,
       `V33Mult1Trivial.lean`, `V33MasseyWitness.lean`
@@ -423,6 +508,16 @@ decomposition remains open.
 | `parametric_arbitrary_m_full_kill_capstone` | same §20 | ψ_m kills all S_i / T_j cup-images at any layer `m : Fin c` |
 | `starS_at_edge_idx_same_m` / `incidT_at_edge_idx_same_m` | same §20 | Same-layer evaluations reduce to layer-free triple disjunctions |
 | `psi_layer_rep4_eq_true_c{2..12}` | same | Massey witness at c = 2..12 (concrete) |
+| `psi_layer_linear` | `V33EnrichedParametricDualSpan` | ψ_m F₂-linear over pointwise XOR |
+| `psi_layer_weighted_e_sum` | same | Ψ : EnrichedFaceVal → (Fin c → Bool) surjective |
+| `psi_canonical_decomposition` | same | v = `weighted_e_sum (ψ-vec v)` ⊕ residual, residual ∈ joint ψ-kernel |
+| `psi_layer_arbitrary_cup_not_kill` | same | counter-example: ψ doesn't kill arbitrary cup, justifying PRIMARY restriction |
+| `psi_layer_{starCup,incidCup}_cross_layer` | same | ★ unconditional cross-layer ψ-kill (m ≠ m') via 9-block disjointness |
+| `primary_cup_span_soundness_on_layer` | same | ★ soundness `InPrimary ⊆ ψ-kernel` requires only on-layer kill |
+| `primary_cup_span_soundness_c1` | same | ★ unconditional soundness at c = 1 |
+| `codim_upper_bound_conditional` | same | conditional `codim ≤ c` under per-layer completeness hypothesis |
+| `parametric_dual_span_capstone` | same | ★★ capstone: c ψ-discriminators SPAN dual of `EnrichedFaceVal / InPrimary` |
+| `nine_block_disjoint` / `nine_block_disjoint_op` | `Infrastructure.NatBeqHelpers` | (9·a + r₁) ≠ (9·b + r₂) for a ≠ b, r₁, r₂ < 9 |
 | `K43_all_S_row_deps_bundle` | `V43` | 6 S-row dependence relations at K_{4,3} |
 | `cross_graph_S_row_dependence_pattern` | `CrossGraphPattern` | Same dependence pattern at K_{3,3} + K_{4,3} (NT = 3) |
 | `state_class_NSscaled_pell_capstone` | `Mobius213K33StateClass` | K_{3,3}'s (3,3) on NS-scaled diagonal |
@@ -446,6 +541,23 @@ decomposition remains open.
   · **Cup-image codim exact equality**: prove `codim ≤ c` —
     show the `c` ψ-discriminators SPAN the H²_enr / cup-image
     dual.  Current parametric result is `codim ≥ c`.
+  · **Cup-image codim exact equality (PARTIALLY CLOSED)** —
+    `parametric_dual_span_capstone` establishes the conditional
+    upper bound (c ψ-discriminators SPAN the dual of
+    `EnrichedFaceVal / InPrimary`).  Cross-layer vanishing is
+    UNCONDITIONALLY closed via `psi_layer_{starCup,incidCup}_cross_layer`.
+    Two open pieces remain:
+      - **Direction B on-layer kill**: extend bottom-layer
+        `psi_layer_kills_cupOpp_S{i}star_left_at_bottom` from
+        `m = ⟨0, _⟩` to arbitrary `m`.  Closes the soundness
+        hypothesis of `primary_cup_span_soundness_on_layer`.
+        Reduces to targeted `nat_beq_add_left` placement.
+      - **Per-layer completeness**: prove the joint ψ-kernel ⊆
+        `InPrimaryCupSpanPlusBoundary`.  Closes the completeness
+        hypothesis of `codim_upper_bound_conditional`.  At
+        single layer K_{3,3}: 9-element face space modulo
+        (im δ¹ + primary cup-image) has dim 1, generated by
+        `e_face_layer`.  Layer-disjointness lifts to ∀c.
   · **Full `(NS, NT, c)` parametric framework**: generic
     `Fin (NS.choose 2)` S-pair indexing, per-layer face
     boundaries depending on (NS, NT), parametric `psi_layer`
