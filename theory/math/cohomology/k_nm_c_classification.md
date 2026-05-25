@@ -388,7 +388,13 @@ case in `primary_cup_span_soundness_conditional`, discharged by
 the new `psi_layer_pw_congr` lemma (ψ_m respects pointwise
 equality on the 9 face inputs).  This is the 5th pattern in the
 `pure_funext_avoidance.md` family: closure under pointwise equality
-embedded directly in the inductive type.
+embedded directly in the inductive type — the inductive-predicate
+generalisation of Pattern P1 (`theory/lens/dirty_recovery_patterns.md`,
+"Lens-Eq → LensIso via eqPW"), which performs the same
+pointwise-equality bridging at Lens level.  Both manifest the
+Lens-arrow's pointwise-distinguishing-as-equivalence principle
+(`theory/lens/unified_equivalence.md`) at different levels of the
+type hierarchy.
 
 ### ∀c lift via layer-promotion
 

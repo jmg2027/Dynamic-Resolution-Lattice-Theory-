@@ -211,6 +211,17 @@ is generator choice, not structural.
     structural mirror at the inductive-type level.
   · `theory/essays/pure_funext_avoidance.md` — the cong
     constructor as 5th funext-bypass pattern.
+  · `theory/lens/unified_equivalence.md` — the single-concept
+    backbone.  The cong constructor is the manifestation at the
+    inductive-predicate level of the same Lens-arrow principle
+    (pointwise-distinguishing-as-equivalence); see the four
+    classical readings (i)-(iv) in unified_equivalence for the
+    Lens-level parallel.
+  · `theory/lens/dirty_recovery_patterns.md` — sister methodology
+    chapter.  Pattern P1 (Lens-Eq → LensIso via eqPW) is the
+    Lens-level instance of the cong-bridge principle.  The
+    inductive-cong constructor is its generalisation to arbitrary
+    inductive predicates on function-typed arguments.
 
 ## Lean source
 

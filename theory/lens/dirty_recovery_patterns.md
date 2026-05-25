@@ -207,10 +207,50 @@ downstream caller that uses the Lens via `view` / `equiv` /
 eqPW companion; LensIso extends the same template to Lenses
 of differing codomain α, β.
 
+## Inductive-predicate level generalisation
+
+P1 (Lens-Eq → LensIso via eqPW) is the **Lens-level** instance of
+a more general principle: pointwise equality as the bridge that
+replaces `funext`.  The same principle lifts to **arbitrary
+inductive predicates on function-typed arguments**.
+
+Concrete instance: `InPrimaryCupSpanPlusBoundary c`
+(`lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`)
+is an inductive Prop on `EnrichedFaceVal c = Fin 3 → Fin 3 → Fin
+c → Bool`.  Closing the HARD direction
+`joint ψ-kernel ⊆ InPrimary` requires bridging from a candidate
+function `⊕ᵢ bᵢ · gᵢ` (built from primary cup-products) to the
+target `v`, which are pointwise-equal but not function-literal
+equal.  Solution: extend the inductive with a `cong` constructor
+
+```
+| cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
+    InPrimaryCupSpanPlusBoundary c w → InPrimaryCupSpanPlusBoundary c v
+```
+
+— pointwise equality propagates the inductive witness *through the
+type itself*, not through an external axiom or external bridge
+lemma.
+
+This pattern is the **5th funext-avoidance pattern** documented in
+`theory/essays/pure_funext_avoidance.md` (which complements this
+chapter at the Padic / Real213 layer).  P1 and the cong
+constructor share a single principle (pointwise-equality bridge);
+they differ only in level — P1 brings two **Lens** values to
+LensIso level; the cong constructor brings two **face cochains**
+(or any function-typed inductive argument) to the same membership
+class.
+
 ## Connection
 
   · `theory/lens/unified_equivalence.md` — the single-concept
     backbone these patterns rely on
+  · `theory/essays/pure_funext_avoidance.md` — sister methodology
+    chapter at Padic / Real213 / Cohomology layer; the 5th pattern
+    (Inductive cong constructor) ↔ P1 at inductive-predicate level
+  · `theory/essays/per_layer_completeness_constructive_closure.md`
+    — concrete deployment of the cong-constructor pattern in the
+    HARD direction of `codim ≤ c`
   · `STRICT_ZERO_AXIOM.md` — DIRTY catalog + sealed-by-design
     categories (a, b)
   · `lean/E213/Lens/EqPW.lean` — the Cat-1 funext-avoidance
@@ -222,3 +262,6 @@ of differing codomain α, β.
     direction (PURE)
   · `lean/E213/Lens/Universal/QuotLens.lean` — P4 reverse
     direction (sealed-DIRTY, category (b))
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`
+    — cong constructor instance; see the `cong` case in
+    `primary_cup_span_soundness_conditional`

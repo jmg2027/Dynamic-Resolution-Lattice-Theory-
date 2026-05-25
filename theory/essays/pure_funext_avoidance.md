@@ -74,3 +74,14 @@
 | Inductive cong constructor | `V33EnrichedParametricDualSpan` (cong case) + `V33EnrichedParametricDualSpanHard` | HARD direction `joint ψ-kernel ⊆ InPrimary` candidate-to-target bridge |
 
 External LLM이 213의 입장을 명시적으로 알지 않더라도, *MLTT 내부에서 extensionality를 어떻게 다루는가*라는 동일 구조 문제에 대한 architectural 통찰이 곧장 213-native 실현으로 번역된 사례.
+
+## Lens-arrow 측의 자매 chapter — Pattern P1 ↔ Inductive cong constructor
+
+`theory/lens/dirty_recovery_patterns.md` 는 DIRTY (propext / Quot.sound)를 PURE Lens-arrow statement로 환원하는 4개 패턴 (P1-P4)을 제시한다.  본 essay의 다섯 패턴과 **layer가 다르지만 구조가 같다**:
+
+  · **P1 (Lens-Eq → LensIso via eqPW)** ↔ 본 essay의 **Inductive cong constructor**.  P1은 `L = M : Lens α` 라는 funext-요구 주장을 `LensIso L M` (= `∀ x y, L.equiv x y ↔ M.equiv x y`)로 환원하고, bridge `lensIso_of_eqPW`가 pointwise eq proof + symmetric-combine 가정만으로 닫는다.  Inductive cong constructor는 같은 *pointwise-equality-as-bridge* 원리를 임의 inductive predicate (predicate가 function-typed argument를 가질 때)으로 일반화한다 — `InPrimaryCupSpanPlusBoundary`가 그 예시.
+  · P2 (mutual morphism → LensIso): Setoid Category의 자매 — *동치를 외부 관계로 명시*하는 대신 *mutual morphism pair*가 자연스러운 곳에서 적용.
+  · P3 (Quot → LensImage): Bundled Subtype의 Lens-level 변종 — Σ-type representation이 `Quot.sound`를 회피.
+  · P4 (slash-cong 주장 → kernel 상속): structural DIRTY 영역 (universalLens 역방향)을 명시적으로 분리 — recovery 가능 vs sealed-by-design.
+
+두 방향 (Padic / Real213 vs Lens-algebra)이 같은 *pointwise-distinguishing-as-equivalence* 원리에서 파생된다.  Lens-arrow가 unified_equivalence.md의 single concept (동치 / 동치류 / 동형 / 준동형의 213-native 통합 object)이듯, **cong constructor도 같은 single concept이 inductive predicate level에서 manifest되는 형태** — 외부 axiom 없이 *내부 구조*가 동치류 closure를 표현.
