@@ -257,12 +257,49 @@ Concrete instance:
   · K_{4, NT}: every NT ≥ 2 (K_{4,4}, K_{4,6}, K_{4,8}, ...)
   · K_{6, NT}: every NT ≥ 2 (K_{6,4}, K_{6,6}, K_{6,8}, ...)
 
-**Still open**: K_{NS, NT} for NS ∈ {8, 10, 12, …} even.  Method
-generalises: each NS gets its own `psi_excl_S0_NS{NS}` family
-(chooseTwo NS − (NS−1) excluded S-pairs, (NS−1)-bool case-bash).
-The boilerplate scales as (NS−2 choose 2) for the s-fold length and
-2^(NS−1) for the case-bash.  At NS=8: 21 excluded s, 128 cases —
-still tractable.  At NS=10: 36 excluded s, 512 cases — borderline.
+**Symmetric dual: K_{NS, 4} / K_{NS, 6} families** (14 PURE):
+
+  · `psi_excl_T0_NT4 NS` / `psi_excl_T0_NT6 NS` — mirror of
+    `psi_excl_S0_NS{4,6}` under S ↔ T swap.  Uses
+    `foldXor_s_face_eq_qS_decomposition` + (NT−1)-bool case-bash
+    on `qS j` for j ∈ {1, …, NT−1}.
+  · `KNS4_c_independent_h2_classes` — K_{NS, 4} for every NS ≥ 2.
+  · `KNS6_c_independent_h2_classes` — K_{NS, 6} for every NS ≥ 2.
+
+### ★ MASTER CAPSTONE (`EnrichedKNSNTcMaster.lean`, 5 PURE)
+
+**Eight closure routes** documented in the §2 directory table.
+Every `K_{NS, NT}^{(c)}` with `min(NS, NT) ∈ {3, 4, 5, 6}` is
+closed:
+
+| Family | Coverage | Hypothesis |
+|---|---|---|
+| `kills_delta1_K3NT` | K_{3, NT} | always |
+| `kills_delta1_K5NT` | K_{5, NT} | always |
+| `kills_delta1_KNS3` | K_{NS, 3} | always |
+| `kills_delta1_KNS5` | K_{NS, 5} | always |
+| `K4NT_c_independent_h2_classes` | K_{4, NT} | `0 < chooseTwo NT` |
+| `K6NT_c_independent_h2_classes` | K_{6, NT} | `0 < chooseTwo NT` |
+| `KNS4_c_independent_h2_classes` | K_{NS, 4} | `0 < chooseTwo NS` |
+| `KNS6_c_independent_h2_classes` | K_{NS, 6} | `0 < chooseTwo NS` |
+
+`master_Knn_c_counter_resolved` — single closing theorem bundling
+K_{3,3}, K_{4,4}, K_{5,5}, K_{6,6} signatures uniformly.  Both
+parity regimes covered (n odd via uniform ψ, n even via excl-S).
+
+### Genuine open frontier: `min(NS, NT) ≥ 7`
+
+By symmetry the smallest open cases involve `min(NS, NT) ≥ 7`:
+  · `K_{7, 7}` and other (≥7, ≥7) odd-odd cases: closeable by adding
+    `qS_param_zero_NS7` / `qT_param_zero_NT7` (mechanical NS=5
+    template scaled to NS=7).
+  · `K_{8, 8}, K_{8, 10}, K_{10, 10}, …` (both NS, NT ≥ 8 even):
+    requires `psi_excl_S0_NS{8, 10, …}` families.  Boilerplate
+    scales: NS=8 → 21 excluded s + 2^7 = 128 case-bash; NS=10 →
+    36 excluded s + 2^9 = 512 cases.
+
+Direction A is now closed at the `min ≤ 6` boundary via the eight
+family + master capstone construction.
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
