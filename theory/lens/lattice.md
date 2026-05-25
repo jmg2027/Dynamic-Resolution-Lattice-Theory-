@@ -33,3 +33,5 @@ This is the algebraic structure of "available observations" in 213.
 - `theory/lens/universal.md` — bottom of the lattice
 - `theory/lens/compose.md` — compose vs refines
 - `theory/lens/algebra.md` — kernel theory underlies refines
+- `theory/lens/unified_equivalence.md` — `refines` IS the
+  Lens-arrow; the lattice is the order on this single concept

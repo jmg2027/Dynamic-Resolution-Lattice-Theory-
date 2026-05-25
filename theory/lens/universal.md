@@ -38,3 +38,6 @@ the universalLens is the initial Lens.
 - `theory/lens/algebra.md` — kernel theory
 - `theory/lens/lattice.md` — universal = bottom of lattice
 - `theory/lens/compose.md` — factor-through definition
+- `theory/lens/unified_equivalence.md` — universalLens realises
+  the slash-congruence → Lens-kernel direction of the single
+  concept (sealed-DIRTY by `STRICT_ZERO_AXIOM.md` category (b))

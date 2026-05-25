@@ -19,6 +19,7 @@ external parameters, all PURE in Lean.
 |---|---|
 | **Raw** | The residue of pointing.  Free magma on 2 generators.  Not "raw data below derivations" — Raw IS what 213 says. |
 | **Lens** | A `Raw → α` distinguishing.  Lens application = residue self-pointing event.  Not a tool above Raw. |
+| **Lens-arrow** | `Lens.refines L M` — the single 213-native concept underlying equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형).  See `theory/lens/unified_equivalence.md`. |
 | **Distinguishing** | The primitive act 213 names.  Per `seed/AXIOM/01_residue.md`. |
 | **(NS, NT, c, d)** | Atomic 4-tuple = (3, 2, 2, 5).  Uniquely forced (see `physics/foundations/atomic_constants.md`). |
 | **K_{m,n}^{(c)}** | Bipartite multigraph with m S-vertices, n T-vertices, c edges per (s, t) pair.  213's canonical Lattice. |
@@ -46,6 +47,7 @@ From there, branch:
 - **Physics observables** → `physics/symmetry/c3_chain.md` (gauge emergence) → `physics/alpha_em/precision_derivation.md` (the 0.09 ppb result)
 - **Algebra side** → `math/cayley_dickson/algebra_tower.md` → `math/universe_chain.md`
 - **Cohomology side** → `math/cohomology/hodge_conjecture.md`
+- **Equivalence concept side** → `lens/unified_equivalence.md` (single-concept synthesis: 동치 / 동치류 / 동형 / 준동형 as the Lens-arrow)
 
 ## Three-tier discipline
 
@@ -79,6 +81,11 @@ Chapter exists when the Lean sub-tree closed per
 | `essays/`  | 23 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
+**Synthesis chapters** — consolidating content distributed across
+multiple closed sub-trees into one concept — live alongside the
+mirror chapters; the per-sub-tree INDEX flags them.  See
+`theory/lens/INDEX.md` "Synthesis chapters" for the current list
+(currently: `lens/unified_equivalence.md`).
 
 ## Active research (not promoted)
 
