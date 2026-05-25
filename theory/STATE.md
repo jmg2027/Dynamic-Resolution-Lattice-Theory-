@@ -41,13 +41,16 @@ and P-orbit phases.
     everywhere, but no Lean theorem closes the "binary is the
     unique non-degenerate combine arity" claim.  Stub +
     statement at `lean/E213/Theory/Atomicity/CombinatorialArity.lean`.
-  · **Per-layer ψ-kernel completeness** for unconditional
-    `codim = c`: joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.
-    Reduces to a single-layer K_{3, 3} dim count (9-element
-    face space modulo (im δ¹ + primary cup-image) = dim 1);
-    layer-disjointness lifts to ∀c.  Mechanically tractable
-    (2⁹ exhaustive check; existing machinery in
-    `V33EnrichedParametricDualSpan`).
+  · **Per-layer ψ-kernel completeness (HARD direction only)**
+    for unconditional `codim = c`: joint ψ-kernel ⊆
+    `InPrimaryCupSpanPlusBoundary`.  EASY direction
+    (`InPrimary ⊆ ψ-kernel`) closed unconditionally at every c
+    by `primary_cup_span_soundness_all_c` (2026-05-25).  HARD
+    direction reduces to single-layer K_{3, 3} dim count
+    (9-element face space modulo (im δ¹ + primary cup-image)
+    = dim 1); requires constructing 8 explicit InPrimary
+    generators spanning the dim-8 ψ-kernel.  Layer-disjointness
+    lifts c=1 closure to ∀c.
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; cup-product algebra over the 4 × 9 = 36 mediant
     sub-cells is the next layer.  Massey-class factorisation
@@ -62,9 +65,13 @@ and P-orbit phases.
     below DRLT Validation Standard (no precision theorem, no
     falsifier).  Tracked in `research-notes/G121_*`.
   · **Math ↔ Physics bridge discipline**: the Lean import
-    graph currently violates the bounded-context spec
-    (`lean/E213/ARCHITECTURE.md` §2).  Refactor to explicit
-    `Lib/Bridge/*` modules is planned.
+    graph has 174 Math → Physics + 56 Physics → Math direct
+    imports under `Lib/`; the bounded-context spec
+    (`lean/E213/ARCHITECTURE.md` §1 "Lib/" + §3 "Bridge.lean
+    for cross-context") calls for routing such citations
+    through `*Bridge*.lean` shims.  40 such shims exist
+    already; coverage is uneven.  Audit + completion planned —
+    see `theory/RESEARCH_PLAN.md` §5.1.
 
 ## How to verify
 
