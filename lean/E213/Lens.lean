@@ -17,6 +17,7 @@ import E213.Lens.Number
 import E213.Lens.Properties
 import E213.Lens.SemanticAtom
 import E213.Lens.SyntacticInternalization
+import E213.Lens.Unified
 import E213.Lens.Universal
 
 /-! Spec-as-code entry point for `E213.Lens`.

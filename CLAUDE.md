@@ -120,8 +120,7 @@ every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c) · Π(1 + κ_i · α_i^{n_i}).
 
 ## Repository organization
 
-> "이 레포지토리는 학문 몇 개를 다시 세우는 수준의 일을 하고 있다."
-> — Mingu Jeong 2026-05-01
+> "이 레포지토리는 학문 몇 개를 다시 세우는 수준의 일을 하고 있다." — Mingu Jeong 2026-05-01
 
 Optimize for **readability, extensibility, modularity, well-formed
 classification** — NOT file count or merge density.
@@ -210,6 +209,7 @@ When user issues a correction: extract the underlying rule, add to
 | Legacy-deletion narration | "X was tolerated, now removed" / "previously Y, now Z" | Just remove the content; don't leave a record of the deletion |
 | Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
+| Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
 
 When the user catches one, *don't apologize and repeat* — internalize.
 
