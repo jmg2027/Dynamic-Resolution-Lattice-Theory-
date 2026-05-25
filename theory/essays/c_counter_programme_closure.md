@@ -72,11 +72,28 @@ is the XOR of 9 zeros.
 
 `parametric_dual_span_capstone`: c ψ-discriminators SPAN the
 dual of `EnrichedFaceVal c / InPrimaryCupSpanPlusBoundary`
-(conditional on per-layer kill + completeness).
+(conditional capstone — now discharged unconditionally).
 `primary_cup_span_soundness_c1`: at c = 1 the on-layer
 hypothesis collapses (Fin 1 forces `m = ⟨0, _⟩`) — gives
 unconditional `InPrimary ⊆ joint ψ-kernel` at single-layer
-K_{3,3}.
+K_{3,3}.  `primary_cup_span_soundness_all_c` extends EASY to
+every c by chaining with Direction B's
+`parametric_arbitrary_m_full_kill_capstone`.
+
+**Per-layer completeness closed (2026-05-25)** at every c via
+`V33EnrichedParametricDualSpanHard` + `…Lift`: 8 explicit
+primary cup-product generators (`g_1 … g_8`) span the dim-8
+ψ-kernel at single-layer K_{3,3}; `promote_face`/`promote_edge`
+lift each generator to layer m of `InPrimary c`, preserved
+constructor-by-constructor (including the new `cong` constructor
+that handles pointwise-equality bridging without `funext`);
+`xor_aggregate` over `Fin c` reconstructs v.
+`joint_psi_kernel_subset_primary` discharges the HARD direction
+at every c.  Unconditional capstones
+`parametric_dual_span_unconditional` +
+`codim_upper_bound_unconditional` close `codim = c` at every
+Stern-Brocot position against the PRIMARY cup-image.  See
+`theory/essays/per_layer_completeness_constructive_closure.md`.
 
 ### Direction E — mediant cohomology functor (count level)
 
@@ -168,9 +185,10 @@ face of that single structural object.
 
 ## Open frontier (residual)
 
-  · **Per-layer completeness for `codim = c`**: joint ψ-kernel
-    ⊆ `InPrimaryCupSpanPlusBoundary`.  The last piece for
-    unconditional Direction C at every c.
+Per-layer completeness — closed (2026-05-25): the last piece
+for unconditional Direction C is discharged at every c by
+`joint_psi_kernel_subset_primary`.  Remaining items:
+
   · **Cochain-level mediant functor**: count-level closed,
     cup-product algebra lift open.
   · **Massey-class lift of the mediant**: do K_{4,3} Massey

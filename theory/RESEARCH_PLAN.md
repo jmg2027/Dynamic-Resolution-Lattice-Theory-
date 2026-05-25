@@ -326,9 +326,12 @@ narrative.  Readers can verify but not understand.
 
 ## Priority ranking (one-shot session leverage)
 
-If choosing one tier-1 item: **1.1 per-layer completeness**.
-Mechanically tractable, removes the most-visible conditional
-in the c-counter programme.
+If choosing one tier-1 item: **1.3 Pell-orbit cohomology extension**.
+HIGH tractability (concrete verifications via `EnrichedKNSNTc`
+parity-failing dispatcher); empirically tests Direction A's
+generalisation beyond `K_{n, n}`.  (Previously 1.1 — closed
+2026-05-25 with 8 explicit primary cup generators + layer-
+promotion lift; see CLOSED entry above.)
 
 If choosing one tier-2 cross-reference: **2.1 Hodge ↔
 universe-chain self-pointing**.  Highest narrative coherence
@@ -340,11 +343,15 @@ sweep.
 
 ## Inter-item dependencies
 
-  · **1.1 closes ⇒** `codim = c` unconditional ⇒ remove the
-    "conditional" qualifier from
-    `theory/math/cohomology/k_nm_c_classification.md` and from
-    the c-counter row in `theory/STATE.md`.  Trigger essay
-    update in `theory/essays/c_counter_programme_closure.md`.
+  · **1.1 SATISFIED (closed 2026-05-25)**: `codim = c` is now
+    unconditional at every c via
+    `joint_psi_kernel_subset_primary` +
+    `parametric_dual_span_unconditional`.  Downstream updates
+    applied: `theory/math/cohomology/k_nm_c_classification.md`
+    overview + key-results + open frontier; STATE.md c-counter
+    row.  Follow-on essay update in
+    `theory/essays/c_counter_programme_closure.md` still
+    pending.
   · **1.2 closes ⇒** atomic forcing chain (NS, NT, d, c) is
     fully Lean-level; updates `physics/foundations/atomic_constants.md`
     "all four forced" claim and `theory/STATE.md` Closed table.
