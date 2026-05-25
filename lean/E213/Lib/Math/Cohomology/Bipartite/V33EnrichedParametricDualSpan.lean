@@ -212,6 +212,14 @@ inductive InPrimaryCupSpanPlusBoundary (c : Nat) : EnrichedFaceVal c → Prop wh
   | xor_add (v w : EnrichedFaceVal c) :
       InPrimaryCupSpanPlusBoundary c v → InPrimaryCupSpanPlusBoundary c w →
       InPrimaryCupSpanPlusBoundary c (fun s t m => xor (v s t m) (w s t m))
+  /-- Closure under pointwise equality.  Used in the HARD direction
+      (`joint ψ-kernel ⊆ InPrimary`) where we build a candidate
+      `xor_add`-chain that is pointwise — but not as a function-literal —
+      equal to the target.  Without `funext` (which uses `Quot.sound`,
+      forbidden by the ∅-axiom standard) we need this bridge.  See
+      `V33EnrichedParametricDualSpanHard` for the consumer site. -/
+  | cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
+      InPrimaryCupSpanPlusBoundary c w → InPrimaryCupSpanPlusBoundary c v
 
 /-! ## §4.5 — Why PRIMARY (not full) cup-image: counter-example
 
@@ -252,6 +260,18 @@ Both reduce to Direction B's open piece (arbitrary-m kill via
 Nat.beq cancellation).  Given those hypotheses the soundness
 follows by induction + ψ-linearity (`psi_layer_linear`). -/
 
+/-- `psi_layer` only reads the 9 values `v ⟨s,_⟩ ⟨t,_⟩ m`, so pointwise
+    equality of two face cochains implies equal ψ-evaluations. -/
+theorem psi_layer_pw_congr (c : Nat) (m : Fin c) (v w : EnrichedFaceVal c)
+    (h : ∀ s t m', v s t m' = w s t m') :
+    psi_layer c m v = psi_layer c m w := by
+  unfold psi_layer
+  rw [h ⟨0, by decide⟩ ⟨0, by decide⟩ m, h ⟨0, by decide⟩ ⟨1, by decide⟩ m,
+      h ⟨0, by decide⟩ ⟨2, by decide⟩ m, h ⟨1, by decide⟩ ⟨0, by decide⟩ m,
+      h ⟨1, by decide⟩ ⟨1, by decide⟩ m, h ⟨1, by decide⟩ ⟨2, by decide⟩ m,
+      h ⟨2, by decide⟩ ⟨0, by decide⟩ m, h ⟨2, by decide⟩ ⟨1, by decide⟩ m,
+      h ⟨2, by decide⟩ ⟨2, by decide⟩ m]
+
 theorem primary_cup_span_soundness_conditional (c : Nat)
     (H_star : ∀ (m' : Fin c) (i : Fin 3) (m : Fin c) (β : EnrichedEdgeCoch c),
         psi_layer c m' (cupOpp_param c (starS c i m) β) = false)
@@ -270,6 +290,10 @@ theorem primary_cup_span_soundness_conditional (c : Nat)
       rw [psi_layer_linear]
       rw [ih1 m', ih2 m']
       rfl
+  | cong v w h_eq _ ih =>
+      intro m'
+      rw [psi_layer_pw_congr c m' v w h_eq]
+      exact ih m'
 
 /-! ## §4.7 — Unconditional soundness at c = 1 (single layer)
 
