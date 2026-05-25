@@ -41,6 +41,26 @@ Synthesis: `theory/essays/p_orbit_closure_master.md`.
 Chapter: `theory/math/mobius213_p_orbit_closure.md` updated
 with all 11 phases under "Closure status".
 
+### NatRing toolkit + universal ∀n closures (+40 PURE)
+
+The marathon's deferred ∀n frontiers (universal Cassini, universal
+`det(P^n) = 1`) blocked because Lean 4 core's polynomial lemmas
+leak `propext` (Int.add_comm, Nat.mul_assoc, Nat.add_right_cancel,
+Nat.sub_add_cancel, Nat.le_of_add_le_add_right, ...).
+
+  · **NatRing toolkit** — `Lib/Math/NatRing.lean` (10 PURE):
+    PURE re-derivations of the entire Nat ring tactic primitive
+    set via structural recursion + `Nat.succ.inj`.
+  · **Universal Cassini** — `Px/CassiniUniversal.lean` (16 PURE):
+    `cassini_universal : ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5`
+    via Nat-additive reformulation + joint mono+add induction.
+  · **Universal det(P^n) = 1** — `Px/PnFibonacciUniversal.lean`
+    (14 PURE): `det_pn_universal : ∀ n, Q00·Q11 = Q01² + 1` via
+    1-step matrix recurrences + IH-driven polynomial helper.
+
+Total: **40 PURE / 0 DIRTY**.  Methodology essay:
+`theory/essays/pure_nat_ring_methodology.md`.
+
 ## Anchor results on `main`
 
 ### c-multiplicity counter for K_{NS,NT}^{(c)}

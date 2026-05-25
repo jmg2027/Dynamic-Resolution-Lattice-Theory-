@@ -2966,5 +2966,39 @@ structural Lean object.
 **Marathon total**: 11 + 22 + 13 + 21 + 17 + 8 + 19 + 11 + 34 +
 9 + 35 = **200 PURE / 0 DIRTY**.
 
-**Session grand total after P-orbit closure marathon**:
+**Marathon total**: 11 + 22 + 13 + 21 + 17 + 8 + 19 + 11 + 34 +
+9 + 35 = **200 PURE / 0 DIRTY**.
+
+**Session subtotal after P-orbit closure marathon**:
 393 + 200 = **593 PURE / 0 DIRTY**.
+
+## 2026-05-25 — NatRing: 213-PURE Nat ring toolkit + universal closures
+
+The marathon's deferred ∀n frontiers (universal Cassini,
+universal `det(P^n) = 1`) were blocked because Lean 4 core's
+polynomial lemmas leak `propext` — `Int.add_comm`, `Int.mul_comm`,
+`Int.sub_sub`, even `Nat.mul_assoc`, `Nat.add_mul`,
+`Nat.add_right_cancel`, `Nat.sub_add_cancel`,
+`Nat.le_of_add_le_add_right` are all DIRTY.
+
+`NatRing.lean` re-derives the entire Nat ring toolkit PURELY via
+structural recursion + `Nat.succ.inj`, providing a 213-native
+ring-tactic replacement.  Two applications close previously
+deferred universal identities.
+
+  · **Methodology**: Nat-additive reformulation of recurrences
+    (avoiding truncated subtraction) lets inductive proofs use
+    only `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`,
+    etc. — all PURE.
+  · **Bridges**: small concrete decide-verified bridges connect
+    Nat-form definitions to their Int-form counterparts.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.NatRing` | 10 | `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_add_left_cancel`, `nat_sub_add_cancel`, `nat_add_sub_self_right`, `nat_le_of_add_le_add_right`, `nat_swap_left_mul`, `three_mul_eq`, `two_mul_eq` — full Nat ring tactic primitives, ∅-axiom PURE |
+| `E213.Lib.Math.Mobius213.Px.CassiniUniversal` | 16 | `Lnat` (Nat-valued Pell-Lucas trace), `Lnat_mono_and_add` (joint induction), `Lnat_monotone`, `Lnat_add_recurrence`, ★★★★★★★★★★ `cassini_universal : ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5`, Int bridge `Lnat_eq_L_at_0..4`, `cassini_universal_master` (3-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal` | 14 | `Q00, Q01, Q11` (mutual 1-step matrix-product recurrences), `Q00_eq_Q01_add_Q11` (P^n symmetry), `Q00_sq_via_ih` (IH-driven polynomial helper), ★★★★★★★★★★ `det_pn_universal : ∀ n, Q00 n · Q11 n = Q01 n² + 1` (Fibonacci Cassini at even index) |
+
+**Closure subtotal**: 10 + 16 + 14 = **40 PURE / 0 DIRTY**.
+
+**Session grand total**: 593 + 40 = **633 PURE / 0 DIRTY**.

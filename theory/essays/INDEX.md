@@ -34,3 +34,4 @@ derivation+citation+dual-function+cross-frame+self-check
 | `p_orbit_naturalness_boundary.md` | Where does the "non-atomic" prime 7 come from in mod-13 period? | `math/mobius213_p_orbit_closure.md` + `POrbitClosure.framework_natural_via_p_orbit_closure` |
 | `vandermonde_mediant_counts.md` | How do K_{NS, NT}^{(c)} cell counts split under the Stern-Brocot mediant? | `math/cohomology/k_nm_c_classification.md` §"Mediant cohomology functor" + `MediantCohomologyFunctor.mediant_cohomology_functor_capstone` |
 | `p_orbit_closure_master.md` | Is the P-orbit closure structurally forced from atomic data? | `CharPolySelf` + `POrbitRing` + `Theory/Atomicity/OrbitForcing` + `PeriodDepthBounds` + `CrossProductAxes` + `Cohomology/Tripartite/V213ShadowProjection` |
+| `pure_nat_ring_methodology.md` | How does PURE Lean prove universal polynomial identities without `ring` / `omega`? | `Lib/Math/NatRing` + `Px/CassiniUniversal` + `Px/PnFibonacciUniversal` |

@@ -260,15 +260,18 @@ the P-orbit level, not the atomic level.
 
   · Umbrella: `lean/E213/Lib/Math/Mobius213/Px.lean`
     (auto-includes Px subdirectory)
-  · 20 Px modules + 1 Atomicity orbit-forcing module:
+  · 22 Px modules + 1 Atomicity orbit-forcing module + 1 NatRing
+    toolkit module:
     `SymmetrySpecies`, `OpenSpeciesClosure`, `DenomInvariantFamily`,
     `IterationSpecies`, `ExtendedSpecies`, `AxisGroupCount`,
     `DecompositionCatalog`, `SyntacticCatalog`, `FibonacciAtomicLock`,
     `NaturalnessClosure`, `TripartiteK213`, `ModPPeriods`,
     `POrbitClosure`, `CharPolySelf`, `POrbitRing`,
     `PeriodDepthBounds`, `CrossProductAxes`, `POrbitDepth`,
-    `CassiniInduction`, `PnFibonacci`, `LModP`, `PeriodReciprocity`
-    + `Theory/Atomicity/OrbitForcing`.
+    `CassiniInduction`, `PnFibonacci`, `LModP`, `PeriodReciprocity`,
+    `CassiniUniversal`, `PnFibonacciUniversal`
+    + `Theory/Atomicity/OrbitForcing`
+    + `Lib/Math/NatRing` (PURE ring toolkit).
   · ∅-axiom PURE across all modules
 
 ## Key results
@@ -293,6 +296,9 @@ the P-orbit level, not the atomic level.
 | `pn_fibonacci_master` | `PnFibonacci` | P^n entries = consecutive Fibonacci (n ≤ 5) |
 | `l_mod_p_cycle_closure_master` | `LModP` | L mod p cycle closes at period for 8 primes |
 | `period_reciprocity_master` | `PeriodReciprocity` | T_p \| p±1 via Legendre(5, p) for 23 primes |
+| `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_sub_add_cancel`, `nat_le_of_add_le_add_right` | `Lib/Math/NatRing` | PURE Nat ring toolkit (re-derived ∅-axiom) |
+| `cassini_universal` | `CassiniUniversal` | ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5 (PURE Nat-additive) |
+| `det_pn_universal` | `PnFibonacciUniversal` | ∀ n, Q00 n · Q11 n = Q01 n² + 1 (Fibonacci Cassini at even index) |
 
 ## Research-note provenance
 
@@ -345,17 +351,34 @@ the P-orbit level, not the atomic level.
   · **POrbitDepth inductive invariant (CLOSED)**:
     `POrbitDepth.lean` — `AtDepth K n` predicate with weakening;
     explicit depth witnesses 0, 2, 3, 4 for catalogued primes.
+  · **PURE Nat ring toolkit (CLOSED)**: `Lib/Math/NatRing.lean` —
+    re-derives the propext-leaking core Nat ring lemmas
+    (`nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`,
+    `nat_sub_add_cancel`, `nat_le_of_add_le_add_right`, etc.)
+    PURELY via structural recursion + `Nat.succ.inj`.
+  · **Universal Cassini (CLOSED)**: `CassiniUniversal.lean` —
+    `cassini_universal : ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5`
+    via Nat-additive reformulation using NatRing.  Joint induction
+    on monotonicity + additive recurrence
+    `Lnat(n+2) + Lnat n = 3 · Lnat(n+1)`.
+  · **Universal det(P^n) = 1 (CLOSED)**:
+    `PnFibonacciUniversal.lean` — `det_pn_universal` for all n,
+    using 1-step matrix-product recurrences for `Q00, Q01, Q11`
+    (avoiding Nat subtraction) and the IH-driven polynomial
+    helper `Q00² = Q00·Q01 + Q01² + 1`.
 
-See `theory/essays/p_orbit_closure_master.md` for the synthesis.
+See `theory/essays/p_orbit_closure_master.md` for the 11-phase
+synthesis and `theory/essays/pure_nat_ring_methodology.md` for the
+PURE ring discovery + closure pattern.
 
 ## Open frontier (after closure)
 
   · **D(p) = O(log p) universal bound**: empirically `D(p) ≤ 4`
     for `p ≤ 97`, conjecturally logarithmic.  Number-theoretic
     proof open.
-  · **Universal Cassini ∀n in PURE Lean**: requires Int polynomial
-    `ring`-tactic equivalent without Mathlib import.
-  · **Universal P^n ↔ Fibonacci ∀n in PURE Lean**: same blocker.
+  · **Universal P^n entry formula**: `Q00 n = fib(2n+1)`,
+    `Q01 n = fib(2n)`, `Q11 n = fib(2n-1)` ∀n in PURE Lean.
+    Tractable via the same NatRing pattern.
   · **Lens-functorial cross-product**: prove every Lens-PURE
     species factors through `CrossAddress` definitionally, not
     merely by exhibition.
