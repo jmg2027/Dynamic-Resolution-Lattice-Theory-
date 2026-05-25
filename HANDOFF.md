@@ -16,10 +16,19 @@ homomorphism (동치 / 동치류 / 동형 / 준동형) as the **Lens-arrow**
     decompositions, canonical-form ladder `cutEq ⇒ sternBrocotEq
     ⇒ mobiusEq` via Möbius P = [[2, 1], [1, 1]], Eqv ↔
     Lens.equiv collapse, axiom-cost table, what-this-is-not.
-  · `lean/E213/Lens/Unified.lean` (9 PURE) — `LensIso`,
+  · `theory/lens/dirty_recovery_patterns.md` — methodology
+    chapter built on top of the unification.  Four named
+    patterns (P1: Lens-Eq → LensIso, P2: mutual morphism →
+    LensIso, P3: classical quotient → LensImage, P4: slash-cong
+    assertion → kernel inheritance) for converting DIRTY claims
+    into PURE Lens-arrow statements.  Decision flow + when to
+    seal vs recover.
+  · `lean/E213/Lens/Unified.lean` (14 PURE) — `LensIso`,
     `LensFiber`, `lensIso_refl / symm / trans`,
     `lensIso_iff_kernel_eq`, `LensFiber.self`, `fibers_complete`,
-    `morphism_is_arrow`.
+    `morphism_is_arrow` (core unification, 9) + `lensIso_of_eqPW`,
+    `lensIso_of_morphism_pair`, `LensImage`, `LensImage.proj`,
+    `LensImage.proj_val_eq_iff` (recovery helpers, 5).
   · `theory/lens/INDEX.md` — synthesis-chapters section added;
     Unified.lean registered as Lean anchor.
   · `lean/E213/Lens.lean` — Unified import wired into the Lens
@@ -41,8 +50,9 @@ homomorphism (동치 / 동치류 / 동형 / 준동형) as the **Lens-arrow**
 Quick anchors for the next session that needs to read or extend
 the unification:
 
-  · Strict ∅-axiom backbone: `lean/E213/Lens/Unified.lean` (9
-    PURE) — the named theorems
+  · Strict ∅-axiom backbone + DIRTY-recovery helpers:
+    `lean/E213/Lens/Unified.lean` (14 PURE — 9 core unification
+    + 5 P1/P2/P3 recovery bridges)
   · Existing Lens-arrow infrastructure (PURE): `LensCore.lean`
     (Lens.equiv, Lens.refines), `Lens/Algebra/Congruence.lean`
     (slash-cong forward), `Lens/Compose/Morphism.lean`

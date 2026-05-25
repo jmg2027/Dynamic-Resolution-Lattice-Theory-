@@ -278,3 +278,6 @@ on `Raw → Prop`, both Lean-4-core kernel base, sealed in
     cmp-independence metatheorem
   · `research-notes/archive/G139_mobius_equivalence_unification.md`
     — the source conjecture for the canonical-form ladder
+  · `theory/lens/dirty_recovery_patterns.md` — methodology
+    chapter: four named patterns for converting DIRTY claims
+    into PURE Lens-arrow statements using the unification

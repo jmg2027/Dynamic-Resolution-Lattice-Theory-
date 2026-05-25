@@ -26,11 +26,12 @@ conceptual ranking.
 | [`universal.md`](universal.md)     | `Lens/Universal/`       | 13 (universal Lens anchor) |
 | [`api.md`](api.md)                 | `Lens/API/` + `Lens/Internal/` | (API surface) |
 
-## Synthesis chapters (1)
+## Synthesis chapters (2)
 
 | Chapter | Anchors | Purpose |
 |---|---|---|
-| [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (9 PURE). |
+| [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (14 PURE). |
+| [`dirty_recovery_patterns.md`](dirty_recovery_patterns.md) | `Lens/Unified.lean` + `Lens/EqPW.lean` + `STRICT_ZERO_AXIOM.md` | Methodology — four named patterns (P1–P4) for converting DIRTY (propext / Quot.sound) claims into PURE Lens-arrow statements; decision flow and seal-vs-recover criterion. |
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.  Closed
 chapters are narrative-from-scratch — Lens prose without per-file

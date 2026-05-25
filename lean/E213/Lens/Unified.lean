@@ -1,5 +1,6 @@
 import E213.Lens.LensCore
 import E213.Lens.Compose.Morphism
+import E213.Lens.EqPW
 
 /-!
 # Unified — single concept for 213-native equivalence
@@ -17,6 +18,10 @@ for the synthesis chapter.
   · `lensIso_iff_kernel_eq` — kernel-equality characterisation
   · `fibers_complete` — every Raw lies in some LensFiber
   · `morphism_is_arrow` — homomorphism → refinement arrow
+  · `lensIso_of_eqPW` — DIRTY-recovery P1 (eqPW bridge → LensIso)
+  · `lensIso_of_morphism_pair` — P2 (mutual morphism → LensIso)
+  · `LensImage`, `LensImage.proj`, `LensImage.proj_val_eq_iff` —
+    P3 (Σ-type substitute for `α / L.equiv`, no Quot.sound)
 
 All declarations PURE (∅-axiom).  The reverse `slash-cong →
 Lens-kernel` direction (sealed-DIRTY by `STRICT_ZERO_AXIOM.md`
@@ -95,5 +100,68 @@ theorem morphism_is_arrow {α β : Type} (L : Lens α) (M : Lens β)
     (hmor : E213.Lens.Compose.Morphism.IsLensMorphism h L M) :
     L.refines M :=
   E213.Lens.Compose.Morphism.refines_of_morphism L M h hLsym hMsym hmor
+
+/-! ## DIRTY-recovery helpers
+
+Patterns for replacing DIRTY claims (function-level `Eq` on
+Lens combine, classical quotient `Quot.sound`, ∃-quantified
+morphism existence) with PURE Lens-arrow statements.  See
+`theory/lens/dirty_recovery_patterns.md` for methodology +
+worked examples. -/
+
+/-- **P1** (Lens-Eq → LensIso): pointwise Lens equality
+    (`Lens.eqPW`, the funext-free PURE substitute for
+    `L = M : Lens α`) implies a Lens-isomorphism.  Replaces a
+    Cat-1 DIRTY result of the form `L = M : Lens α` by a PURE
+    LensIso claim. -/
+theorem lensIso_of_eqPW {α : Type} {L M : Lens α}
+    (h : L.eqPW M)
+    (hLsym : ∀ u v : α, L.combine u v = L.combine v u) :
+    LensIso L M := by
+  have hview : ∀ r : Raw, L.view r = M.view r :=
+    fun r => Lens.eqPW_view_of_sym h hLsym r
+  refine ⟨?_, ?_⟩
+  · intro x y hxy
+    show M.view x = M.view y
+    rw [← hview x, ← hview y]; exact hxy
+  · intro x y hxy
+    show L.view x = L.view y
+    rw [hview x, hview y]; exact hxy
+
+/-- **P2** (mutual morphism pair → LensIso): given forward and
+    backward Lens-morphisms (each with respect to its
+    source-symmetric combine), get LensIso PURE.  Replaces "L
+    and M are isomorphic as Lens-algebras" — usually proved via
+    function-equality with funext — by an arrow-level claim
+    using only the morphism predicate. -/
+theorem lensIso_of_morphism_pair {α β : Type}
+    (L : Lens α) (M : Lens β) (h : α → β) (k : β → α)
+    (hLsym : ∀ u v : α, L.combine u v = L.combine v u)
+    (hMsym : ∀ u v : β, M.combine u v = M.combine v u)
+    (hLM : E213.Lens.Compose.Morphism.IsLensMorphism h L M)
+    (hML : E213.Lens.Compose.Morphism.IsLensMorphism k M L) :
+    LensIso L M :=
+  ⟨E213.Lens.Compose.Morphism.refines_of_morphism L M h hLsym hMsym hLM,
+   E213.Lens.Compose.Morphism.refines_of_morphism M L k hMsym hLsym hML⟩
+
+/-- **P3** (classical quotient → LensImage): the "quotient"
+    `Raw / L.equiv` as a Σ-type — values reached by `L.view`
+    together with a witness Raw.  No `Quot.sound` required.
+    Use in place of `Quot L.equiv` when a quotient type is
+    wanted. -/
+def LensImage {α : Type} (L : Lens α) : Type :=
+  { a : α // ∃ r : Raw, L.view r = a }
+
+/-- Canonical projection `Raw → LensImage L`.  PURE substitute
+    for `Quot.mk L.equiv`. -/
+def LensImage.proj {α : Type} (L : Lens α) (r : Raw) :
+    LensImage L := ⟨L.view r, r, rfl⟩
+
+/-- **Projection-value characterisation**: `proj` values
+    coincide iff the Raws share a Lens-kernel.  PURE substitute
+    for the `Quot.sound`-based `Quot.mk` equality. -/
+theorem LensImage.proj_val_eq_iff {α : Type} (L : Lens α) (x y : Raw) :
+    (LensImage.proj L x).val = (LensImage.proj L y).val ↔
+      L.equiv x y := Iff.rfl
 
 end E213.Lens.Unified
