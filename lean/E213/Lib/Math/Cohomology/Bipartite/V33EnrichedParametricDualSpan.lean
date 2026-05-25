@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 import E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+import E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
 
 /-!
 # Parametric dual-span at K_{3,3}^{(c)} — Direction C scaffolding
@@ -61,6 +62,7 @@ namespace E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpan
 
 open E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+open E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
 
 /-! ## §1 — ψ_m is F₂-linear over pointwise XOR
 
@@ -308,6 +310,168 @@ theorem primary_cup_span_soundness_c1 :
       · exact psi_layer_kills_cupOpp_T0incid_right_at_bottom 1 (by decide) α
       · exact psi_layer_kills_cupOpp_T1incid_right_at_bottom 1 (by decide) α
       · exact psi_layer_kills_cupOpp_T2incid_right_at_bottom 1 (by decide) α)
+
+/-! ## §4.8 — Cross-layer vanishing (structural piece of Direction B)
+
+For `m ≠ m'`, the primary cup `cupOpp_param (starS i m) β` has no
+support at layer m' (since `starS i m` evaluates to false at every
+layer-m' edge by 9-block disjointness — `nine_block_disjoint_op`).
+Hence `ψ_{m'}` automatically kills these cross-layer primary cups.
+
+This closes the CROSS-LAYER half of the soundness hypothesis of
+`primary_cup_span_soundness_conditional` UNCONDITIONALLY (for any
+c, any layer pair m ≠ m').  The remaining open piece is the
+on-layer kill (`m = m'` case): extending the bottom-layer
+`psi_layer_kills_cupOpp_S{i}star_left_at_bottom` from `m = 0` to
+arbitrary `m`, which is Direction B's targeted-`rw` challenge over
+`9·m + …` offsets. -/
+
+theorem starS_layer_disjoint (c : Nat) (i : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (j k : Fin 3) :
+    starS c i m (edge_idx c j k m') = false := by
+  have h_mm' : m'.val ≠ m.val := Ne.symm h
+  have hj : j.val ≤ 2 := Nat.le_of_lt_succ j.isLt
+  have hk : k.val ≤ 2 := Nat.le_of_lt_succ k.isLt
+  have hi : i.val ≤ 2 := Nat.le_of_lt_succ i.isLt
+  have hjk_lt : 3 * j.val + k.val < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add (Nat.mul_le_mul_left 3 hj) hk) (by decide)
+  have hi_le_6 : 3 * i.val ≤ 6 := Nat.mul_le_mul_left 3 hi
+  have hi_lt_9 : 3 * i.val < 9 := Nat.lt_of_le_of_lt hi_le_6 (by decide)
+  have hi1_lt_9 : 3 * i.val + 1 < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add hi_le_6 (Nat.le_refl 1)) (by decide)
+  have hi2_lt_9 : 3 * i.val + 2 < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add hi_le_6 (Nat.le_refl 2)) (by decide)
+  show ((9 * m'.val + 3 * j.val + k.val == 9 * m.val + 3 * i.val)
+        || (9 * m'.val + 3 * j.val + k.val == 9 * m.val + 3 * i.val + 1)
+        || (9 * m'.val + 3 * j.val + k.val == 9 * m.val + 3 * i.val + 2)) = false
+  rw [Nat.add_assoc (9 * m'.val) (3 * j.val) k.val]
+  rw [Nat.add_assoc (9 * m.val) (3 * i.val) 1]
+  rw [Nat.add_assoc (9 * m.val) (3 * i.val) 2]
+  rw [nine_block_disjoint_op h_mm' hjk_lt hi_lt_9]
+  rw [nine_block_disjoint_op h_mm' hjk_lt hi1_lt_9]
+  rw [nine_block_disjoint_op h_mm' hjk_lt hi2_lt_9]
+  rfl
+
+theorem incidT_layer_disjoint (c : Nat) (j : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (s t : Fin 3) :
+    incidT c j m (edge_idx c s t m') = false := by
+  have h_mm' : m'.val ≠ m.val := Ne.symm h
+  have hs : s.val ≤ 2 := Nat.le_of_lt_succ s.isLt
+  have ht : t.val ≤ 2 := Nat.le_of_lt_succ t.isLt
+  have hj : j.val ≤ 2 := Nat.le_of_lt_succ j.isLt
+  have hst_lt : 3 * s.val + t.val < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add (Nat.mul_le_mul_left 3 hs) ht) (by decide)
+  have hj_lt : j.val < 9 := Nat.lt_of_le_of_lt hj (by decide)
+  have h3j_lt : 3 + j.val < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add (Nat.le_refl 3) hj) (by decide)
+  have h6j_lt : 6 + j.val < 9 :=
+    Nat.lt_of_le_of_lt (Nat.add_le_add (Nat.le_refl 6) hj) (by decide)
+  show ((9 * m'.val + 3 * s.val + t.val == 9 * m.val + j.val)
+        || (9 * m'.val + 3 * s.val + t.val == 9 * m.val + 3 + j.val)
+        || (9 * m'.val + 3 * s.val + t.val == 9 * m.val + 6 + j.val)) = false
+  rw [Nat.add_assoc (9 * m'.val) (3 * s.val) t.val]
+  rw [Nat.add_assoc (9 * m.val) 3 j.val]
+  rw [Nat.add_assoc (9 * m.val) 6 j.val]
+  rw [nine_block_disjoint_op h_mm' hst_lt hj_lt]
+  rw [nine_block_disjoint_op h_mm' hst_lt h3j_lt]
+  rw [nine_block_disjoint_op h_mm' hst_lt h6j_lt]
+  rfl
+
+theorem cupOpp_starS_cross_layer_zero (c : Nat) (i : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (β : EnrichedEdgeCoch c) (s t : Fin 3) :
+    cupOpp_param c (starS c i m) β s t m' = false := by
+  unfold cupOpp_param diag_pair_param
+  rw [starS_layer_disjoint c i m m' h (pair_lo s) (pair_lo t)]
+  rw [starS_layer_disjoint c i m m' h (pair_hi s) (pair_hi t)]
+  rw [starS_layer_disjoint c i m m' h (pair_hi s) (pair_lo t)]
+  rw [starS_layer_disjoint c i m m' h (pair_lo s) (pair_hi t)]
+  rfl
+
+theorem cupOpp_incidT_cross_layer_zero (c : Nat) (j : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (α : EnrichedEdgeCoch c) (s t : Fin 3) :
+    cupOpp_param c α (incidT c j m) s t m' = false := by
+  unfold cupOpp_param diag_pair_param
+  rw [incidT_layer_disjoint c j m m' h (pair_lo s) (pair_lo t)]
+  rw [incidT_layer_disjoint c j m m' h (pair_hi s) (pair_hi t)]
+  rw [incidT_layer_disjoint c j m m' h (pair_hi s) (pair_lo t)]
+  rw [incidT_layer_disjoint c j m m' h (pair_lo s) (pair_hi t)]
+  -- After rewrites the incidT-side factor is false; `_ && false`
+  -- doesn't reduce by `rfl` (Bool.and matches first arg), so use
+  -- explicit `Bool.and_false` rewrites.
+  rw [Bool.and_false, Bool.and_false, Bool.and_false, Bool.and_false]
+  rfl
+
+theorem psi_layer_starCup_cross_layer (c : Nat) (i : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (β : EnrichedEdgeCoch c) :
+    psi_layer c m' (cupOpp_param c (starS c i m) β) = false := by
+  unfold psi_layer
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨0, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨0, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨0, by decide⟩ ⟨2, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨1, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨1, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨1, by decide⟩ ⟨2, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨2, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨2, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_starS_cross_layer_zero c i m m' h β ⟨2, by decide⟩ ⟨2, by decide⟩]
+  rfl
+
+theorem psi_layer_incidCup_cross_layer (c : Nat) (j : Fin 3) (m m' : Fin c)
+    (h : m.val ≠ m'.val) (α : EnrichedEdgeCoch c) :
+    psi_layer c m' (cupOpp_param c α (incidT c j m)) = false := by
+  unfold psi_layer
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨0, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨0, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨0, by decide⟩ ⟨2, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨1, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨1, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨1, by decide⟩ ⟨2, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨2, by decide⟩ ⟨0, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨2, by decide⟩ ⟨1, by decide⟩]
+  rw [cupOpp_incidT_cross_layer_zero c j m m' h α ⟨2, by decide⟩ ⟨2, by decide⟩]
+  rfl
+
+/-! ## §4.9 — Strengthened soundness (only on-layer kill required)
+
+Combining `primary_cup_span_soundness_conditional` with the cross-layer
+vanishing theorems above: the soundness `InPrimary ⊆ joint ψ-kernel`
+now only requires the **on-layer** kill `ψ_m(starS i m ∪ β) = 0`
+(and the T-analogue) for each `m`.  Cross-layer cases are dispatched
+automatically by `psi_layer_starCup_cross_layer` /
+`psi_layer_incidCup_cross_layer`.
+
+This isolates Direction B's remaining work to a SINGLE conceptual
+target: extend the bottom-layer kill to arbitrary `m`.  All
+structural cross-layer reasoning is now closed. -/
+
+theorem primary_cup_span_soundness_on_layer (c : Nat)
+    (H_star_on : ∀ (i : Fin 3) (m : Fin c) (β : EnrichedEdgeCoch c),
+        psi_layer c m (cupOpp_param c (starS c i m) β) = false)
+    (H_incid_on : ∀ (j : Fin 3) (m : Fin c) (α : EnrichedEdgeCoch c),
+        psi_layer c m (cupOpp_param c α (incidT c j m)) = false) :
+    ∀ v, InPrimaryCupSpanPlusBoundary c v →
+      ∀ (m' : Fin c), psi_layer c m' v = false := by
+  apply primary_cup_span_soundness_conditional c
+  · intro m' i m β
+    cases hmm : decide (m.val = m'.val) with
+    | true =>
+        have hm_eq : m.val = m'.val := of_decide_eq_true hmm
+        have hm : m = m' := Fin.ext hm_eq
+        rw [hm]
+        exact H_star_on i m' β
+    | false =>
+        have hm_ne : m.val ≠ m'.val := of_decide_eq_false hmm
+        exact psi_layer_starCup_cross_layer c i m m' hm_ne β
+  · intro m' j m α
+    cases hmm : decide (m.val = m'.val) with
+    | true =>
+        have hm_eq : m.val = m'.val := of_decide_eq_true hmm
+        have hm : m = m' := Fin.ext hm_eq
+        rw [hm]
+        exact H_incid_on j m' α
+    | false =>
+        have hm_ne : m.val ≠ m'.val := of_decide_eq_false hmm
+        exact psi_layer_incidCup_cross_layer c j m m' hm_ne α
 
 /-! ## §5 — Conditional `codim ≤ c` upper bound
 
