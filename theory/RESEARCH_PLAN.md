@@ -22,7 +22,7 @@ removes a conditional or stated-but-unproved gap.
     (`nine_block_disjoint`) lifts to ∀c.
   · **Mechanics**: `decide` over 2⁹ = 512 face indicators.
   · **Tractability**: HIGH.
-  · **Anchor**: `Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`,
+  · **Anchor**: `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`,
     `theory/math/cohomology/k_nm_c_classification.md` Open Frontier.
   · **Closes**: `codim = c` unconditional at every Stern-Brocot
     position.
@@ -39,7 +39,10 @@ removes a conditional or stated-but-unproved gap.
   · **Tractability**: MED (requires defining n-ary combine
     operators and a non-degeneracy predicate at the Theory
     layer).
-  · **Anchor**: new file `lean/E213/Theory/Atomicity/CombinatorialArity.lean`.
+  · **Anchor**: new file at
+    `lean/E213/Theory/Atomicity/CombinatorialArity.lean` (sits
+    alongside existing `PairForcing`, `ArityForcing`,
+    `OrbitForcing`, `Five`).
   · **Closes**: atomic signature forcing fully formalised at
     Lean level (currently 3 of 4 dimensions).
 
@@ -52,7 +55,7 @@ removes a conditional or stated-but-unproved gap.
     the parity-failing dispatcher should handle every case.
   · **Tractability**: HIGH (concrete verifications, no new
     theory).
-  · **Anchor**: extend `Cohomology/Bipartite/Parametric/`.
+  · **Anchor**: extend `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/`.
   · **Closes**: empirical confidence that Direction A truly
     generalises beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}`.
 
@@ -66,7 +69,9 @@ removes a conditional or stated-but-unproved gap.
     to `X − y = α²/d²`; Newton-1 from X gives 0.2 ppb without
     observed α.  Audit the existing AlphaEM/ files.
   · **Tractability**: HIGH (verification of existing claim).
-  · **Anchor**: `Physics/AlphaEM/Gram*.lean`,
+  · **Anchor**: `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean`
+    (`invAlphaEm_precision_theorem` at line 133) +
+    sibling `Gram*.lean` files,
     `theory/physics/alpha_em/precision_derivation.md` C1 Step 5.
   · **Closes**: α_em precision result graduates from "fit-using
     observed α" to "structurally forced".
@@ -135,8 +140,10 @@ chapter section, not a missing theorem.
     Currently these are independent.
   · **Action**: investigate whether `N_gen` and per-layer
     c-counter share a deeper Stern-Brocot / Pell origin.  If
-    yes, write the bridge.  If no, document them as
-    structurally independent mechanisms.
+    yes, write the bridge.  If no, document the layer at which
+    each operates within the same residue (Δ⁴ sub-face count vs.
+    enriched cohomology block index) — not as a substrate/
+    superstructure split.
   · **Tractability**: LOW–MED (research question).
 
 ## Tier 3 — Narrative depth deficits (chapter-local)
@@ -168,23 +175,37 @@ narrative.  Readers can verify but not understand.
 
 ## Tier 4 — Physics deployment extensions
 
-### 4.1 Catalog orphans (HIGH priority — H4 promotion criterion)
+### 4.1 Catalog ↔ Lean parity audit (MED priority)
 
-  · **Gap**: `catalogs/physics-constants.md` claims
-    `m_p/m_e ≈ 6π⁵` and `M_Pl/v_H = d^(d²)/(d+1)` without any
-    Lean module.  Violates the H4 Catalog-presence promotion
-    criterion.
-  · **Action**: either commit `Hadron/ProtonMass.lean` +
-    `Physics/PlanckHiggs.lean` with the claims as theorems,
-    or remove the claims from catalogs.
+  · **Status**: `m_p/m_e ≈ 6π⁵` is closed at
+    `lean/E213/Lib/Physics/Hadron/ProtonElectronRatio.lean`
+    (precision + falsifier; cross-cited in
+    `Lib/Physics/Hadron/Bigrading.lean:149`).
+    `M_Pl/v_H = d^(d²) / (d+1) = 5²⁵ / 6` is closed at
+    `lean/E213/Lib/Physics/Mass/HierarchyTowers.lean` +
+    `lean/E213/Lib/Physics/Higgs/Vacuum.lean:78–86` (precision +
+    falsifier).
+  · **Real gap**: `catalogs/physics-constants.md` line 73 still
+    lists these two among "Remaining 6 ... precision side only;
+    falsifier side is the next extension target".  Catalog is
+    stale relative to Lean.
+  · **Action**: audit the "Remaining 6" line against current
+    falsifier coverage (`catalogs/falsifiers.md` F1–F20); update
+    catalog to reflect actual paired status; check the four
+    untouched (Koide 2/3, η_B, m_t/m_c, muon prefactor 192) for
+    falsifier presence and split accordingly.
+  · **Tractability**: HIGH (catalog grep + cross-check).
 
 ### 4.2 Hadron baryon spectrum
 
   · **Gap**: `theory/physics/hadron.md` has falsifier brackets
     (`m_t/m_c ∈ [130, 145]`) but no first-principles channel-sum
-    formula for baryon masses.
-  · **Action**: write `Hadron/BaryonMass.lean` with the
-    channel-sum analogue of the α_em five-layer decomposition.
+    formula for baryon masses.  `lean/E213/Lib/Physics/Hadron/`
+    currently houses `ProtonMass`, `ProtonElectronRatio`,
+    `Bigrading`, `Bridge` — no baryon channel-sum file.
+  · **Action**: add `lean/E213/Lib/Physics/Hadron/BaryonMass.lean`
+    with the channel-sum analogue of the α_em five-layer
+    decomposition.
   · **Tractability**: MED.
 
 ### 4.3 CKM full matrix
@@ -221,24 +242,42 @@ narrative.  Readers can verify but not understand.
 
 ### 5.1 Math ↔ Physics bridge discipline
 
-  · **Gap**: 115 Physics → Math + 19 Math → Physics imports
-    violate `lean/E213/ARCHITECTURE.md` §2 bounded-context spec.
-  · **Action**: refactor into explicit `lean/E213/Lib/Bridge/*`
-    modules.  ~7 bridge shims (Cohomology-AlphaEM,
-    Mobius-Symmetry, etc.).
-  · **Tractability**: MED (mostly mechanical move; requires
-    careful import audit).
+  · **Gap**: cross-context imports under `lean/E213/Lib/`
+    currently total **174 Math → Physics + 56 Physics → Math**
+    direct `import E213.Lib.{...}` lines.  Bounded-context spec
+    lives in `lean/E213/ARCHITECTURE.md` §1 "Lib/" subsection
+    (Math + Physics as two bounded contexts) and §3 "Bridge.lean
+    for cross-context".
+  · **Current state**: 40 `*Bridge*.lean` files already
+    instantiate the anti-corruption-layer pattern across both
+    contexts; the pattern is established but unevenly applied —
+    many Math files still import `E213.Lib.Physics.*` directly
+    without going through a Bridge shim.
+  · **Action**: audit each direct cross-context import; route
+    through (or create) the corresponding `Bridge.lean`.  Goal:
+    every cross-context citation grep-discoverable via
+    `*Bridge*.lean`.
+  · **Tractability**: MED (mechanical move per file; needs
+    coordinated import-graph audit; existing 40 Bridge files
+    give the naming template).
 
 ### 5.2 Methodology meta-files consolidation
 
-  · **Gap**: `theory/meta/{methodology_patterns,
-    pure_lean_patterns, multiplicity_doctrine,
-    raw_derivation_levels, scanner_suite}.md` overlap.
+  · **Gap**: `theory/meta/` currently holds 7 non-INDEX files —
+    `methodology_patterns`, `pure_lean_patterns`,
+    `multiplicity_doctrine`, `raw_derivation_levels`,
+    `scanner_suite`, `cardinality_cutoff_principle`,
+    `cardinality_cutoff_applications` — with topical overlap
+    across the first three and between the two
+    `cardinality_cutoff_*` files.
   · **Action**: merge `pure_lean_patterns` +
     `multiplicity_doctrine` into a new
-    `theory/meta/architectural_patterns.md`; move
-    `scanner_suite` to `tools/scanner_suite.md`; trim
-    `methodology_patterns.md` to ≤800 lines.
+    `theory/meta/architectural_patterns.md`; fold the two
+    `cardinality_cutoff_*` files into a single
+    `cardinality_cutoff.md` (principle + application examples in
+    one chapter); move `scanner_suite` to
+    `tools/scanner_suite.md`; trim `methodology_patterns.md` to
+    ≤800 lines.
 
 ### 5.3 PatternCatalog/Lib/Math/ promotion
 
@@ -275,8 +314,50 @@ If choosing one tier-2 cross-reference: **2.1 Hodge ↔
 universe-chain self-pointing**.  Highest narrative coherence
 gain for least effort.
 
-If choosing one tier-4 hygiene: **4.1 catalog orphans**.
-H4 promotion-criterion violation; should not be open.
+If choosing one tier-4 hygiene: **4.1 catalog ↔ Lean parity
+audit**.  Catalog text lags actual Lean coverage; cheap to
+sweep.
+
+## Inter-item dependencies
+
+  · **1.1 closes ⇒** `codim = c` unconditional ⇒ remove the
+    "conditional" qualifier from
+    `theory/math/cohomology/k_nm_c_classification.md` and from
+    the c-counter row in `theory/STATE.md`.  Trigger essay
+    update in `theory/essays/c_counter_programme_closure.md`.
+  · **1.2 closes ⇒** atomic forcing chain (NS, NT, d, c) is
+    fully Lean-level; updates `physics/foundations/atomic_constants.md`
+    "all four forced" claim and `theory/STATE.md` Closed table.
+  · **1.3 closes ⇒** empirical confidence for Direction A;
+    feeds 2.3 (p-adic Lens of mod-p periods) since extending
+    pairs exposes the period-vs-valuation correspondence
+    pattern.
+  · **2.4 (Sym(3)-spine unification) needs** a new bridge file
+    if the gluon-octet ↔ 8-geometries isomorphism is to live in
+    Lean rather than only narrative — likely under
+    `lean/E213/Lib/Physics/Symmetry/` cross-cited from
+    `lean/E213/Lib/Math/GeometrizationConjecture/`.
+  · **5.1 cleans ⇒** unlocks safe motion of 1.1's anchor file
+    if any Math/Physics import-graph entanglement surfaces
+    during the per-layer completeness work.
+
+## Anti-goals (what this plan is NOT)
+
+Per `CLAUDE.md` Failure modes catalog, these slips are out of
+scope and should not appear in any item's "Action":
+
+  · Comparison-frame import (e.g. "213 vs classical cohomology",
+    "Stern-Brocot vs Farey").  213-native operational primitives
+    only.
+  · Stereotype matching ("this corresponds to standard math
+    X") in chapter narrative.
+  · Substrate/superstructure framing (Tier 2.5 wording fix
+    applies repo-wide; same caution for 5.1 "Math context vs
+    Physics context" — they are bounded-context labels, not
+    layered ontologies).
+  · Forcible map onto existing physics in Tier 4 items —
+    numerical disagreement is a missing-physics signal, not a
+    target to fit.
 
 ## Cross-references
 

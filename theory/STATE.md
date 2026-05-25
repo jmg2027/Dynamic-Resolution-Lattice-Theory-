@@ -62,9 +62,13 @@ and P-orbit phases.
     below DRLT Validation Standard (no precision theorem, no
     falsifier).  Tracked in `research-notes/G121_*`.
   · **Math ↔ Physics bridge discipline**: the Lean import
-    graph currently violates the bounded-context spec
-    (`lean/E213/ARCHITECTURE.md` §2).  Refactor to explicit
-    `Lib/Bridge/*` modules is planned.
+    graph has 174 Math → Physics + 56 Physics → Math direct
+    imports under `Lib/`; the bounded-context spec
+    (`lean/E213/ARCHITECTURE.md` §1 "Lib/" + §3 "Bridge.lean
+    for cross-context") calls for routing such citations
+    through `*Bridge*.lean` shims.  40 such shims exist
+    already; coverage is uneven.  Audit + completion planned —
+    see `theory/RESEARCH_PLAN.md` §5.1.
 
 ## How to verify
 
