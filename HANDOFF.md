@@ -150,35 +150,52 @@ Build: `cd lean && lake build` — clean.
 
 ## Active research directions
 
-### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework [FRAMEWORK CLOSED]
+### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework [FRAMEWORK + FULL PARITY-OK CLASS CLOSED]
 
 Generic `(NS, NT, c)`-parametric enriched-2-complex framework in
 `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean`
-(25 PURE, 0 axiom).  All four required pieces present:
+(**56 PURE, 0 axiom**).  All four required pieces present:
 
   · Generic `Fin (chooseTwo NS)` S-pair indexing via `PairEnum NS`
-    structure
+    structure (+ concrete `pairEnum3` / `pairEnum4` / `pairEnum5`)
   · Per-layer face boundaries `face_boundary_param NS NT c pS pT σ s t m`
     on `{pS.lo s, pS.hi s} × {pT.lo t, pT.hi t}` 4-cycle at layer `m`
   · Parametric `psi_layer_param` via double `foldXor` over
     `Fin (chooseTwo NS) × Fin (chooseTwo NT)`
   · Kill hypothesis `KillsDelta1 NS NT c pS pT` bundling the
-    `(NS−1)·(NT−1)` even-count combinatorial fact; concretely
-    discharged at `(NS, NT) = (3, 3)` for all `c` by 9-edge case-bash
-    (`kills_delta1_K33`)
+    `(NS−1)·(NT−1)` even-count combinatorial fact
+
+**Abstract Q-decomposition kill**: instead of per-instance case-bash
+(infeasible for (4, 3): 2^12 cases, etc.), decompose the t-fold (resp.
+s-fold) of `face_boundary_param` via `qT_param` (resp. `qS_param`)
+using `foldXor_xor_distribute` (XOR linearity).  Master theorems
+`psi_layer_kill_of_qT_zero` / `psi_layer_kill_of_qS_zero` reduce the
+kill to showing the row/column Q-functional vanishes.
+
+**Concrete `Q ≡ 0` discharges** at small NT/NS where the pair
+enumeration covers each vertex an even number of times:
+  · `qT_param_zero_NT3` — NT = 3 ⇒ each T-vertex in 2 (even) pairs
+  · `qS_param_zero_NS3` — NS = 3 ⇒ each S-vertex in 2 (even) pairs
+  · `qS_param_zero_NS5` — NS = 5 ⇒ each S-vertex in 4 (even) pairs
+
+**Family kills covering arbitrary cofactor**:
+  · `kills_delta1_KNS3 NS pS` — any K_{NS, 3}
+  · `kills_delta1_K3NT NT pT` — any K_{3, NT}
+  · `kills_delta1_K5NT NT pT` — any K_{5, NT}
+
+**Specific (NS, NT) instances closed** (each gets a
+`KIJ_c_independent_h2_classes_via_framework`): (3,3), (4,3), (5,3),
+(5,4), (3,4), (3,5) — covering the full original followup list and
+then some.
 
 Capstone `parametric_c_independent_h2_classes_param`: under `Hkill`,
 `c` independent non-coboundary H²-classes — one per multiplicity
 layer, signature `decide (m = m')` (Kronecker δ).
 
-Concrete recovery: `K33_c_independent_h2_classes_via_framework`
-re-derives the V33EnrichedParametric capstone through the generic
-framework at `(NS, NT) = (3, 3)`.
-
-Next concrete instances (deferred to follow-up sessions):
-`(4, 3)` (NS-1)(NT-1) = 6 even ✓, `(5, 3)` = 8 even ✓, `(5, 4)` =
-12 even ✓.  Parity-failing cases `(4, 4)` = 9 odd, `(6, 4)` = 15
-odd require a different ψ functional (open).
+**Open cases**: parity-failing `(4, 4)` (NS−1)(NT−1) = 9 odd, `(6, 4)`
+= 15 odd, etc.  These require a different ψ-functional (not the
+double foldXor over all (s, t) — the count-cancellation argument
+inherently fails when both NS, NT are even).
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 

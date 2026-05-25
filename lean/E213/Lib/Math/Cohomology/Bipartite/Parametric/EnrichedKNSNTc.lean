@@ -120,6 +120,26 @@ theorem foldXor_3 (f : Fin 3 → Bool) :
   rw [h]
   cases f ⟨0, by decide⟩ <;> rfl
 
+/-- `foldXor 10 f` as a 10-fold left-associated XOR.  Used to expand
+    parametric ψ-functionals at NS=5 (10 S-pairs). -/
+theorem foldXor_10 (f : Fin 10 → Bool) :
+    foldXor 10 f
+      = xor (xor (xor (xor (xor (xor (xor (xor (xor
+          (f ⟨0, by decide⟩) (f ⟨1, by decide⟩))
+          (f ⟨2, by decide⟩)) (f ⟨3, by decide⟩))
+          (f ⟨4, by decide⟩)) (f ⟨5, by decide⟩))
+          (f ⟨6, by decide⟩)) (f ⟨7, by decide⟩))
+          (f ⟨8, by decide⟩)) (f ⟨9, by decide⟩) := by
+  have h : foldXor 10 f
+      = xor (xor (xor (xor (xor (xor (xor (xor (xor (xor false
+          (f ⟨0, by decide⟩)) (f ⟨1, by decide⟩))
+          (f ⟨2, by decide⟩)) (f ⟨3, by decide⟩))
+          (f ⟨4, by decide⟩)) (f ⟨5, by decide⟩))
+          (f ⟨6, by decide⟩)) (f ⟨7, by decide⟩))
+          (f ⟨8, by decide⟩)) (f ⟨9, by decide⟩) := rfl
+  rw [h]
+  cases f ⟨0, by decide⟩ <;> rfl
+
 /-! ## §2 — Pair enumeration structure
 
 A pair enumeration on `Fin n` exposes the two endpoints of each
@@ -402,5 +422,415 @@ theorem K33_c_independent_h2_classes_via_framework (c : Nat) :
              ≠ delta1_enr_param 3 3 c pairEnum3 pairEnum3 σ) :=
   parametric_c_independent_h2_classes_param 3 3 c
     (by decide) (by decide) pairEnum3 pairEnum3 (kills_delta1_K33 c)
+
+/-! ## §12 — `foldXor` linearity over pointwise XOR
+
+`foldXor n (k ↦ f k ⊕ g k) = foldXor n f ⊕ foldXor n g` — XOR sum
+distributes over pointwise XOR.  Proved by induction on `n` using
+the AC pair-swap `(a⊕b)⊕(c⊕d) = (a⊕c)⊕(b⊕d)`. -/
+
+/-- Bool-XOR AC pair swap.  Mirrors `BoolXORFold.xor_pair_swap`. -/
+private theorem xor_pair_swap (a b c d : Bool) :
+    xor (xor a b) (xor c d) = xor (xor a c) (xor b d) := by
+  cases a <;> cases b <;> cases c <;> cases d <;> rfl
+
+/-- `foldXor` linearity: distributes over pointwise XOR of the indexed
+    family. -/
+theorem foldXor_xor_distribute :
+    ∀ (n : Nat) (f g : Fin n → Bool),
+      foldXor n (fun k => xor (f k) (g k))
+        = xor (foldXor n f) (foldXor n g)
+  | 0, _, _ => rfl
+  | n+1, f, g => by
+    unfold foldXor
+    rw [foldXor_xor_distribute n
+          (fun k => f ⟨k.val, Nat.lt_succ_of_lt k.isLt⟩)
+          (fun k => g ⟨k.val, Nat.lt_succ_of_lt k.isLt⟩)]
+    exact xor_pair_swap _ _ _ _
+
+/-! ## §13 — Row-wise Q functional and t-fold decomposition
+
+`qT_param i m` = XOR over `t ∈ Fin (chooseTwo NT)` of the 2 row-`i`
+edges at the two T-pair endpoints:
+  ⊕_t [σ(i, lo_t, m) ⊕ σ(i, hi_t, m)]
+
+For fixed S-pair `s`, the t-fold sum of face boundaries factors:
+  ⊕_t face_boundary(s, t, m, σ)  =  qT(lo_s, m) ⊕ qT(hi_s, m). -/
+
+/-- Row-wise `Q`-functional at vertex `i ∈ Fin NS`, layer `m ∈ Fin c`.
+    XOR over all T-pairs of σ at the two T-pair endpoints. -/
+def qT_param (NS NT c : Nat) (pT : PairEnum NT)
+    (σ : EnrichedEdgeCoch NS NT c) (i : Fin NS) (m : Fin c) : Bool :=
+  foldXor (chooseTwo NT) (fun t =>
+    xor (σ (edge_idx_param NS NT c i (pT.lo t) m))
+        (σ (edge_idx_param NS NT c i (pT.hi t) m)))
+
+/-- t-fold decomposition: for fixed S-pair `s`, the XOR over T-pairs
+    of `face_boundary(s, t, m, σ)` factors as
+    `qT(lo_s, m) ⊕ qT(hi_s, m)`. -/
+theorem foldXor_t_face_eq_qT_decomposition
+    (NS NT c : Nat) (pS : PairEnum NS) (pT : PairEnum NT)
+    (σ : EnrichedEdgeCoch NS NT c) (s : Fin (chooseTwo NS)) (m : Fin c) :
+    foldXor (chooseTwo NT)
+        (fun t => face_boundary_param NS NT c pS pT σ s t m)
+      = xor (qT_param NS NT c pT σ (pS.lo s) m)
+            (qT_param NS NT c pT σ (pS.hi s) m) := by
+  unfold qT_param
+  rw [← foldXor_xor_distribute]
+  apply foldXor_congr_all
+  intro t
+  unfold face_boundary_param
+  cases σ (edge_idx_param NS NT c (pS.lo s) (pT.lo t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.lo s) (pT.hi t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.hi s) (pT.lo t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.hi s) (pT.hi t) m) <;> rfl
+
+/-! ## §14 — Master kill via Q-decomposition
+
+Under the hypothesis `Q_T ≡ 0` (XOR over T-pairs of row-`i` edges
+cancels — equivalent to NT odd given a covering pair enumeration),
+`psi_layer_param m (δ¹_enr σ) = false` for all `σ, m`.
+
+This packages the abstract structural argument: NT odd ⇒ each
+T-vertex appears in `NT − 1` (even) pairs ⇒ row-wise XOR cancels
+⇒ ψ-kill. -/
+
+/-- Master kill via Q-decomposition.  If `qT_param i m σ = false`
+    for all `i, m`, then `ψ_m(δ¹_enr σ) = false`. -/
+theorem psi_layer_kill_of_qT_zero
+    (NS NT c : Nat) (pS : PairEnum NS) (pT : PairEnum NT)
+    (σ : EnrichedEdgeCoch NS NT c) (m : Fin c)
+    (hQT : ∀ i : Fin NS, qT_param NS NT c pT σ i m = false) :
+    psi_layer_param NS NT c m
+      (delta1_enr_param NS NT c pS pT σ) = false := by
+  unfold psi_layer_param delta1_enr_param
+  -- Reduce outer fold via Q-decomposition at each s.
+  have hinner : ∀ s : Fin (chooseTwo NS),
+      foldXor (chooseTwo NT)
+          (fun t => face_boundary_param NS NT c pS pT σ s t m) = false := by
+    intro s
+    rw [foldXor_t_face_eq_qT_decomposition NS NT c pS pT σ s m,
+        hQT (pS.lo s), hQT (pS.hi s)]
+    rfl
+  -- Now outer foldXor is over all-false; equals false.
+  apply (foldXor_congr_all (chooseTwo NS) _ (fun _ => false) hinner).trans
+  exact foldXor_const_false _
+
+/-! ## §15 — Concrete `qT = 0` at NT = 3 (any NS, c, i, m)
+
+For `NT = 3` with `pairEnum3`, the row-wise Q-functional vanishes:
+each row-`i` edge `σ(i, j, m)` appears twice (once with `j = lo_t`,
+once with `j = hi_t`) across the 3 T-pairs, so XOR cancels. -/
+
+set_option maxHeartbeats 400000 in
+theorem qT_param_zero_NT3 (NS c : Nat) (σ : EnrichedEdgeCoch NS 3 c)
+    (i : Fin NS) (m : Fin c) :
+    qT_param NS 3 c pairEnum3 σ i m = false := by
+  unfold qT_param pairEnum3 pair3_lo pair3_hi
+  rw [foldXor_3]
+  cases σ (edge_idx_param NS 3 c i ⟨0, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 3 c i ⟨1, by decide⟩ m) <;>
+    cases σ (edge_idx_param NS 3 c i ⟨2, by decide⟩ m) <;> rfl
+
+/-- KillsDelta1 holds for every `(NS, 3)` instance: any NS-side pair
+    enumeration `pS`, with `pT = pairEnum3` on the NT=3 side.  This
+    is the parity-OK case `NT odd ⇒ (NS−1)·(NT−1) even`. -/
+theorem kills_delta1_KNS3 (NS c : Nat) (pS : PairEnum NS) :
+    KillsDelta1 NS 3 c pS pairEnum3 := by
+  intro σ m
+  exact psi_layer_kill_of_qT_zero NS 3 c pS pairEnum3 σ m
+    (fun i => qT_param_zero_NT3 NS c σ i m)
+
+/-! ## §16 — Concrete pair enumeration on `Fin 4`
+
+The 6 unordered pairs of `Fin 4` in lex order:
+`{0,1}, {0,2}, {0,3}, {1,2}, {1,3}, {2,3}`.  Matches the convention
+used in `V43`. -/
+
+/-- Low endpoint of the `s`-th pair of `Fin 4`. -/
+def pair4_lo : Fin (chooseTwo 4) → Fin 4
+  | ⟨0, _⟩ => ⟨0, by decide⟩
+  | ⟨1, _⟩ => ⟨0, by decide⟩
+  | ⟨2, _⟩ => ⟨0, by decide⟩
+  | ⟨3, _⟩ => ⟨1, by decide⟩
+  | ⟨4, _⟩ => ⟨1, by decide⟩
+  | ⟨_+5, _⟩ => ⟨2, by decide⟩
+
+/-- High endpoint of the `s`-th pair of `Fin 4`. -/
+def pair4_hi : Fin (chooseTwo 4) → Fin 4
+  | ⟨0, _⟩ => ⟨1, by decide⟩
+  | ⟨1, _⟩ => ⟨2, by decide⟩
+  | ⟨2, _⟩ => ⟨3, by decide⟩
+  | ⟨3, _⟩ => ⟨2, by decide⟩
+  | ⟨4, _⟩ => ⟨3, by decide⟩
+  | ⟨_+5, _⟩ => ⟨3, by decide⟩
+
+/-- Concrete `PairEnum 4` (6 pairs in lex order). -/
+def pairEnum4 : PairEnum 4 where
+  lo := pair4_lo
+  hi := pair4_hi
+
+/-! ## §17 — K_{4,3} kill via abstract Q-decomposition
+
+For `(NS, NT) = (4, 3)`: NT=3 is odd, so the `qT = 0` argument
+discharges `KillsDelta1` with no extra case-bash (12-edge brute
+force is infeasible; the abstract route via §14 + §15 closes it
+in O(8) σ-case-bashes per Q evaluation). -/
+
+/-- `KillsDelta1` at `(NS, NT) = (4, 3)` via the abstract NT=3 kill. -/
+theorem kills_delta1_K43 (c : Nat) :
+    KillsDelta1 4 3 c pairEnum4 pairEnum3 :=
+  kills_delta1_KNS3 4 c pairEnum4
+
+/-- For K_{4,3}^{(c)}: every layer carries an independent non-coboundary
+    H²-class.  Discharged via the abstract `(NS, NT=3)` framework
+    (avoiding the infeasible 12-edge case-bash). -/
+theorem K43_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 4 3 c m'
+        (e_face_layer_param 4 3 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 4 3 c,
+           e_face_layer_param 4 3 c m
+             ≠ delta1_enr_param 4 3 c pairEnum4 pairEnum3 σ) :=
+  parametric_c_independent_h2_classes_param 4 3 c
+    (by decide) (by decide) pairEnum4 pairEnum3 (kills_delta1_K43 c)
+
+/-! ## §18 — K_{5,3} kill via the same abstract route
+
+NS=5 (with `pairEnum5`) does not even need to be defined for the
+kill — the abstract `kills_delta1_KNS3` discharges ANY NS once we
+have a `PairEnum NS`.  We construct `pairEnum5` for completeness. -/
+
+/-- Low endpoint of the `s`-th pair of `Fin 5` (10 pairs in lex order). -/
+def pair5_lo : Fin (chooseTwo 5) → Fin 5
+  | ⟨0, _⟩ => ⟨0, by decide⟩ | ⟨1, _⟩ => ⟨0, by decide⟩
+  | ⟨2, _⟩ => ⟨0, by decide⟩ | ⟨3, _⟩ => ⟨0, by decide⟩
+  | ⟨4, _⟩ => ⟨1, by decide⟩ | ⟨5, _⟩ => ⟨1, by decide⟩
+  | ⟨6, _⟩ => ⟨1, by decide⟩ | ⟨7, _⟩ => ⟨2, by decide⟩
+  | ⟨8, _⟩ => ⟨2, by decide⟩ | ⟨_+9, _⟩ => ⟨3, by decide⟩
+
+/-- High endpoint of the `s`-th pair of `Fin 5`. -/
+def pair5_hi : Fin (chooseTwo 5) → Fin 5
+  | ⟨0, _⟩ => ⟨1, by decide⟩ | ⟨1, _⟩ => ⟨2, by decide⟩
+  | ⟨2, _⟩ => ⟨3, by decide⟩ | ⟨3, _⟩ => ⟨4, by decide⟩
+  | ⟨4, _⟩ => ⟨2, by decide⟩ | ⟨5, _⟩ => ⟨3, by decide⟩
+  | ⟨6, _⟩ => ⟨4, by decide⟩ | ⟨7, _⟩ => ⟨3, by decide⟩
+  | ⟨8, _⟩ => ⟨4, by decide⟩ | ⟨_+9, _⟩ => ⟨4, by decide⟩
+
+/-- Concrete `PairEnum 5` (10 pairs in lex order). -/
+def pairEnum5 : PairEnum 5 where
+  lo := pair5_lo
+  hi := pair5_hi
+
+/-- `KillsDelta1` at `(NS, NT) = (5, 3)` via the abstract NT=3 kill. -/
+theorem kills_delta1_K53 (c : Nat) :
+    KillsDelta1 5 3 c pairEnum5 pairEnum3 :=
+  kills_delta1_KNS3 5 c pairEnum5
+
+/-- For K_{5,3}^{(c)}: every layer carries an independent non-coboundary
+    H²-class. -/
+theorem K53_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 5 3 c m'
+        (e_face_layer_param 5 3 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 5 3 c,
+           e_face_layer_param 5 3 c m
+             ≠ delta1_enr_param 5 3 c pairEnum5 pairEnum3 σ) :=
+  parametric_c_independent_h2_classes_param 5 3 c
+    (by decide) (by decide) pairEnum5 pairEnum3 (kills_delta1_K53 c)
+
+/-! ## §19 — Symmetric column-wise `qS` decomposition (for NS odd)
+
+Mirror of §13: for fixed T-pair `t`, the s-fold sum of face boundaries
+factors via a column-wise Q-functional `qS j m` summing over S-pairs.
+Used when NS is odd (so each S-vertex appears in `NS-1` (even) pairs
+and the column XOR cancels). -/
+
+/-- Column-wise `Q`-functional at vertex `j ∈ Fin NT`, layer `m ∈ Fin c`. -/
+def qS_param (NS NT c : Nat) (pS : PairEnum NS)
+    (σ : EnrichedEdgeCoch NS NT c) (j : Fin NT) (m : Fin c) : Bool :=
+  foldXor (chooseTwo NS) (fun s =>
+    xor (σ (edge_idx_param NS NT c (pS.lo s) j m))
+        (σ (edge_idx_param NS NT c (pS.hi s) j m)))
+
+/-- s-fold decomposition: for fixed T-pair `t`, the XOR over S-pairs
+    of `face_boundary(s, t, m, σ)` factors as
+    `qS(lo_t, m) ⊕ qS(hi_t, m)`. -/
+theorem foldXor_s_face_eq_qS_decomposition
+    (NS NT c : Nat) (pS : PairEnum NS) (pT : PairEnum NT)
+    (σ : EnrichedEdgeCoch NS NT c) (t : Fin (chooseTwo NT)) (m : Fin c) :
+    foldXor (chooseTwo NS)
+        (fun s => face_boundary_param NS NT c pS pT σ s t m)
+      = xor (qS_param NS NT c pS σ (pT.lo t) m)
+            (qS_param NS NT c pS σ (pT.hi t) m) := by
+  unfold qS_param
+  rw [← foldXor_xor_distribute]
+  apply foldXor_congr_all
+  intro s
+  unfold face_boundary_param
+  cases σ (edge_idx_param NS NT c (pS.lo s) (pT.lo t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.lo s) (pT.hi t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.hi s) (pT.lo t) m) <;>
+    cases σ (edge_idx_param NS NT c (pS.hi s) (pT.hi t) m) <;> rfl
+
+/-! ## §20 — Master kill via `qS = 0` (NS-side)
+
+`psi_layer_param` can equally be reorganised as a double fold with
+s on the inside (after swapping fold order — which follows from
+`foldXor_xor_distribute` + congruence).  Master kill: if `qS j m σ
+= false` for all j, then ψ kills δ¹.
+
+We obtain the symmetric kill by FACTORING THROUGH the t-fold using
+the dual relation `psi_layer = ⊕_t ⊕_s face_boundary`.  Since
+foldXor is symmetric under fold-order swap when the body factors,
+the same argument applies. -/
+
+/-- foldXor symmetry: `⊕_s ⊕_t f s t = ⊕_t ⊕_s f s t` for any
+    `f : Fin n → Fin m → Bool`.  Two foldXor's commute because XOR
+    is commutative-associative. -/
+theorem foldXor_swap :
+    ∀ (n m : Nat) (f : Fin n → Fin m → Bool),
+      foldXor n (fun s => foldXor m (fun t => f s t))
+        = foldXor m (fun t => foldXor n (fun s => f s t))
+  | 0, m, _ => (foldXor_const_false m).symm
+  | n+1, m, f => by
+    show xor (foldXor n
+              (fun s => foldXor m (fun t =>
+                f ⟨s.val, Nat.lt_succ_of_lt s.isLt⟩ t)))
+             (foldXor m (fun t => f ⟨n, Nat.lt_succ_self n⟩ t))
+       = foldXor m (fun t => foldXor (n+1) (fun s => f s t))
+    rw [foldXor_swap n m
+          (fun s t => f ⟨s.val, Nat.lt_succ_of_lt s.isLt⟩ t)]
+    rw [← foldXor_xor_distribute]
+    apply foldXor_congr_all
+    intro t
+    rfl
+
+/-- Master kill via `qS`-decomposition.  If `qS_param j m σ = false`
+    for all `j, m`, then `ψ_m(δ¹_enr σ) = false`. -/
+theorem psi_layer_kill_of_qS_zero
+    (NS NT c : Nat) (pS : PairEnum NS) (pT : PairEnum NT)
+    (σ : EnrichedEdgeCoch NS NT c) (m : Fin c)
+    (hQS : ∀ j : Fin NT, qS_param NS NT c pS σ j m = false) :
+    psi_layer_param NS NT c m
+      (delta1_enr_param NS NT c pS pT σ) = false := by
+  unfold psi_layer_param delta1_enr_param
+  rw [foldXor_swap]
+  have hinner : ∀ t : Fin (chooseTwo NT),
+      foldXor (chooseTwo NS)
+          (fun s => face_boundary_param NS NT c pS pT σ s t m) = false := by
+    intro t
+    rw [foldXor_s_face_eq_qS_decomposition NS NT c pS pT σ t m,
+        hQS (pT.lo t), hQS (pT.hi t)]
+    rfl
+  apply (foldXor_congr_all (chooseTwo NT) _ (fun _ => false) hinner).trans
+  exact foldXor_const_false _
+
+/-! ## §21 — Concrete `qS = 0` at NS = 3 (any NT, c, j, m)
+
+Mirror of §15: for `NS = 3` with `pairEnum3`, the column-wise
+Q-functional vanishes. -/
+
+set_option maxHeartbeats 400000 in
+theorem qS_param_zero_NS3 (NT c : Nat) (σ : EnrichedEdgeCoch 3 NT c)
+    (j : Fin NT) (m : Fin c) :
+    qS_param 3 NT c pairEnum3 σ j m = false := by
+  unfold qS_param pairEnum3 pair3_lo pair3_hi
+  rw [foldXor_3]
+  cases σ (edge_idx_param 3 NT c ⟨0, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 3 NT c ⟨1, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 3 NT c ⟨2, by decide⟩ j m) <;> rfl
+
+/-- KillsDelta1 for every `(3, NT)` instance: NS=3 odd ⇒ qS = 0. -/
+theorem kills_delta1_K3NT (NT c : Nat) (pT : PairEnum NT) :
+    KillsDelta1 3 NT c pairEnum3 pT := by
+  intro σ m
+  exact psi_layer_kill_of_qS_zero 3 NT c pairEnum3 pT σ m
+    (fun j => qS_param_zero_NS3 NT c σ j m)
+
+/-! ## §22 — K_{3,4} and K_{3,5} kill via the dual abstract route
+
+`(3, 4)`: NS=3 odd ⇒ (NS−1)(NT−1) = 2·3 = 6 even.  Kill via qS=0.
+`(3, 5)`: NS=3 odd ⇒ (NS−1)(NT−1) = 2·4 = 8 even.  Kill via qS=0. -/
+
+/-- `KillsDelta1` at `(NS, NT) = (3, 4)` via the abstract NS=3 kill. -/
+theorem kills_delta1_K34 (c : Nat) :
+    KillsDelta1 3 4 c pairEnum3 pairEnum4 :=
+  kills_delta1_K3NT 4 c pairEnum4
+
+/-- For K_{3,4}^{(c)}: every layer carries an independent non-coboundary
+    H²-class. -/
+theorem K34_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 3 4 c m'
+        (e_face_layer_param 3 4 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 3 4 c,
+           e_face_layer_param 3 4 c m
+             ≠ delta1_enr_param 3 4 c pairEnum3 pairEnum4 σ) :=
+  parametric_c_independent_h2_classes_param 3 4 c
+    (by decide) (by decide) pairEnum3 pairEnum4 (kills_delta1_K34 c)
+
+/-- `KillsDelta1` at `(NS, NT) = (3, 5)` via the abstract NS=3 kill. -/
+theorem kills_delta1_K35 (c : Nat) :
+    KillsDelta1 3 5 c pairEnum3 pairEnum5 :=
+  kills_delta1_K3NT 5 c pairEnum5
+
+/-- For K_{3,5}^{(c)}: every layer carries an independent non-coboundary
+    H²-class. -/
+theorem K35_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 3 5 c m'
+        (e_face_layer_param 3 5 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 3 5 c,
+           e_face_layer_param 3 5 c m
+             ≠ delta1_enr_param 3 5 c pairEnum3 pairEnum5 σ) :=
+  parametric_c_independent_h2_classes_param 3 5 c
+    (by decide) (by decide) pairEnum3 pairEnum5 (kills_delta1_K35 c)
+
+/-! ## §23 — Concrete `qS = 0` at NS = 5 (every NT, c, j, m)
+
+For `NS = 5` with `pairEnum5`, each vertex appears in `NS-1 = 4`
+(even) pairs across the 10 S-pair endpoints, so column-wise XOR
+cancels.  20 σ values per `Q`, but the structural cancellation makes
+it `false` after case-bash. -/
+
+set_option maxHeartbeats 800000 in
+theorem qS_param_zero_NS5 (NT c : Nat) (σ : EnrichedEdgeCoch 5 NT c)
+    (j : Fin NT) (m : Fin c) :
+    qS_param 5 NT c pairEnum5 σ j m = false := by
+  unfold qS_param pairEnum5 pair5_lo pair5_hi
+  rw [foldXor_10]
+  -- 10-fold XOR with each Fin 5 endpoint appearing 4 times = even ⇒ cancels.
+  -- After expansion, case-bash on the 5 σ-edges (i, j, m) for i ∈ Fin 5.
+  cases σ (edge_idx_param 5 NT c ⟨0, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 5 NT c ⟨1, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 5 NT c ⟨2, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 5 NT c ⟨3, by decide⟩ j m) <;>
+    cases σ (edge_idx_param 5 NT c ⟨4, by decide⟩ j m) <;> rfl
+
+/-- KillsDelta1 for every `(5, NT)` instance: NS=5 odd ⇒ qS = 0. -/
+theorem kills_delta1_K5NT (NT c : Nat) (pT : PairEnum NT) :
+    KillsDelta1 5 NT c pairEnum5 pT := by
+  intro σ m
+  exact psi_layer_kill_of_qS_zero 5 NT c pairEnum5 pT σ m
+    (fun j => qS_param_zero_NS5 NT c σ j m)
+
+/-- `KillsDelta1` at `(NS, NT) = (5, 4)` — completes the original
+    followup list (3,3), (4,3), (5,3), (5,4). -/
+theorem kills_delta1_K54 (c : Nat) :
+    KillsDelta1 5 4 c pairEnum5 pairEnum4 :=
+  kills_delta1_K5NT 4 c pairEnum4
+
+/-- For K_{5,4}^{(c)}: every layer carries an independent non-coboundary
+    H²-class. -/
+theorem K54_c_independent_h2_classes_via_framework (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_layer_param 5 4 c m'
+        (e_face_layer_param 5 4 c m) = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 5 4 c,
+           e_face_layer_param 5 4 c m
+             ≠ delta1_enr_param 5 4 c pairEnum5 pairEnum4 σ) :=
+  parametric_c_independent_h2_classes_param 5 4 c
+    (by decide) (by decide) pairEnum5 pairEnum4 (kills_delta1_K54 c)
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
