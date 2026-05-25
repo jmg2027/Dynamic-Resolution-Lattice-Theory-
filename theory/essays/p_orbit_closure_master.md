@@ -184,12 +184,10 @@ DIRTY.  Build clean.
 
 ## Open frontier
 
-  · **D(p) bound proof**: empirically `D(p) ≤ 4` for `p ≤ 97`,
-    conjecturally `O(log p)`.  Number-theoretic proof open.
-  · **Multiplicative-monoid depth definition**: replace
-    "additive ring + atomic monomials" with a sharper invariant
-    counting only `L(k)` factors (not atomic), giving a tighter
-    depth.
-  · **Lens-functorial cross-product**: prove that every Lens-PURE
-    species factors through `CrossAddress` definitionally, not
-    merely by exhibition.
+The asymptotic P-orbit depth remains open: empirically
+`D(p) ≤ 4` for all `p ≤ 97`, conjecturally `O(log p)`.  A
+sharper depth invariant counting only `L(k)` factors (not
+atomic monomials) would tighten the bound; and the
+Lens-functorial cross-product (every PURE species factoring
+definitionally through `CrossAddress`) remains a candidate
+refinement.
