@@ -2903,3 +2903,102 @@ to the tripartite cohomology bridge's structural negative.
 | `E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature` | 15 | `is_213_multiset` predicate (sum=6, prod=6); `sig_213` triple lift; `canonical_213` / `canonical_213_swapped` triple instances; `vertex_local_signature` (side-split); `vertex_signature_is_213` decide-bridge over 5 vertices; `edge_local_signature` (uniform); `edge_signature_is_213`; `face_local_signature` (uniform); `face_signature_is_213`; structural component theorems `S_vertex_signature_components`, `T_vertex_signature_components`, `edge_signature_uniform`, `face_signature_uniform`; ★★★★★★★★★★ `local_213_at_every_point` (5-conjunct master capstone) |
 
 **Session grand total after V32LocalSignature**: 378 + 15 = **393 PURE / 0 DIRTY**.
+
+## 2026-05-25 — P-orbit closure marathon (11 phases)
+
+Branch `claude/p-orbit-closure-theorem-U8cEr`.  Complete closure
+programme for the Möbius-P trace orbit, lifting the
+naturalness-boundary chapter from per-prime witnesses to a
+structural Lean object.
+
+  · **CharPolySelf**: Cayley-Hamilton trace recurrence
+    `L(k+2) = NS · L(k+1) − det · L(k)` + Cassini at n = 1, 2, 3
+    reconstructing `d` from L-values; atomic primes seeded by L
+    (`NT = L(0)`, `NS = L(1)`).
+  · **POrbitRing**: inductive `InPOrbitRing : Int → Prop` with
+    constructors for atomic seeds, every L(k), and ring operations.
+    12-prime catalog (mod-{2..71}) ⊂ ring; ring = ℤ trivially
+    via Bezout `1 = NS − NT`.
+  · **OrbitForcing** (new 8th file in Atomicity cluster): the
+    Pell-Lucas recurrence coefficients `(NS, det) = (3, 1)`
+    forced from atomic seeds + target `L(2) = 7` (Bool exhaustion
+    `boundedUniqueBool` + 8 individual `non_canonical_fail_{i,j}`).
+  · **PeriodDepthBounds**: extends mod-p catalog with 10 new
+    primes (41–97); empirical depth ≤ 4 in this range, depth-4
+    reached only at p = 73.
+  · **CrossProductAxes**: `CrossAddress` triple-axis
+    `(bipartiteCount, tripartiteCount, pOrbitDepth)` with atomic
+    and mod-p species addresses.
+  · **V213ShadowProjection**: Massey shadow projection from H²(
+    K_{3,2}^{(c=2)}) into H²(K_{2,1,3}) = 0 vanishes — closes
+    Direction T at Massey level (alongside b₁-mismatch and
+    atomic-bridge layers).
+  · **POrbitDepth**: inductive `AtDepth K n` with weakening
+    (induction generalizing K'); explicit depth witnesses for
+    K = 0, 2, 3, 4 covering 10 catalogued primes.
+  · **CassiniInduction**: `L(n) · L(n+2) − L(n+1)² = d` at
+    n = 0..9 (finite catalog via decide; ∀n requires Int polynomial
+    ring tactic, deferred).
+  · **PnFibonacci**: P^n matrix entries are consecutive Fibonacci
+    at even indices for n = 0..5; `L(n) = fib(2n+1) + fib(2n−1)`;
+    `det(P^n) = 1` via Fibonacci Cassini.
+  · **LModP**: L mod p cycle closure for 8 primes confirms
+    modular periodicity = ord(P mod p).
+  · **PeriodReciprocity**: T_p · q = p + 1 (non-QR) or
+    p = T_p · q + 1 (QR) for 23 primes via quadratic-reciprocity
+    dichotomy `p mod 5`; multiplication-witness form avoids
+    propext leak from `Nat.dvd` decide.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.Mobius213.Px.CharPolySelf` | 11 | `L_cayley_hamilton`, `cassini_at_one/two/three`, `discriminant_via_L`, ★★★★★★★★★ `p_self_reference_master` (5-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.POrbitRing` | 22 | `inductive InPOrbitRing`, 12-prime catalog, `in_ring_one_via_bezout`, `in_ring_of_nat`, ★★★★★★★★★ `p_orbit_ring_catalog_master` |
+| `E213.Theory.Atomicity.OrbitForcing` | 13 | `pellLucasEq`, `boundedUniqueBool`, 8 `non_canonical_fail`, ★★★★★★★★★ `orbit_forcing_master` (10-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.PeriodDepthBounds` | 21 | 10 new primes (41–97) with explicit P-orbit expressions, ★★★★★★★★★ `period_depth_bound_master` |
+| `E213.Lib.Math.Mobius213.Px.CrossProductAxes` | 17 | `structure CrossAddress`, atomic addresses, `bipartite_tripartite_cross`, ★★★★★★★★★ `cross_product_axes_master` |
+| `E213.Lib.Math.Cohomology.Tripartite.V213ShadowProjection` | 8 | `shadowProj`, `massey_shadow_zero`, ★★★★★★★★★ `shadow_projection_master` (4-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.POrbitDepth` | 19 | `inductive AtDepth`, `atDepth_weaken` via induction generalizing, depth witnesses K = 0/2/3/4, ★★★★★★★★★ `p_orbit_depth_catalog_master` |
+| `E213.Lib.Math.Mobius213.Px.CassiniInduction` | 11 | `cassini_0..9` (10 indices), ★★★★★★★★★ `cassini_catalog_master` |
+| `E213.Lib.Math.Mobius213.Px.PnFibonacci` | 34 | P00/P01/P11 entry recurrences, fib-bridge per index, trace = L, det = 1, ★★★★★★★★★ `pn_fibonacci_master` (24-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.LModP` | 9 | Cycle-closure for 8 primes, ★★★★★★★★★ `l_mod_p_cycle_closure_master` |
+| `E213.Lib.Math.Mobius213.Px.PeriodReciprocity` | 35 | 23-prime catalog of T_p · q ↔ p±1 via Legendre(5,p), `dIsQRmodP`, ★★★★★★★★★ `period_reciprocity_master` |
+
+**Marathon total**: 11 + 22 + 13 + 21 + 17 + 8 + 19 + 11 + 34 +
+9 + 35 = **200 PURE / 0 DIRTY**.
+
+**Marathon total**: 11 + 22 + 13 + 21 + 17 + 8 + 19 + 11 + 34 +
+9 + 35 = **200 PURE / 0 DIRTY**.
+
+**Session subtotal after P-orbit closure marathon**:
+393 + 200 = **593 PURE / 0 DIRTY**.
+
+## 2026-05-25 — NatRing: 213-PURE Nat ring toolkit + universal closures
+
+The marathon's deferred ∀n frontiers (universal Cassini,
+universal `det(P^n) = 1`) were blocked because Lean 4 core's
+polynomial lemmas leak `propext` — `Int.add_comm`, `Int.mul_comm`,
+`Int.sub_sub`, even `Nat.mul_assoc`, `Nat.add_mul`,
+`Nat.add_right_cancel`, `Nat.sub_add_cancel`,
+`Nat.le_of_add_le_add_right` are all DIRTY.
+
+`NatRing.lean` re-derives the entire Nat ring toolkit PURELY via
+structural recursion + `Nat.succ.inj`, providing a 213-native
+ring-tactic replacement.  Two applications close previously
+deferred universal identities.
+
+  · **Methodology**: Nat-additive reformulation of recurrences
+    (avoiding truncated subtraction) lets inductive proofs use
+    only `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`,
+    etc. — all PURE.
+  · **Bridges**: small concrete decide-verified bridges connect
+    Nat-form definitions to their Int-form counterparts.
+
+| Module | PURE | Highlights |
+|---|---|---|
+| `E213.Lib.Math.NatRing` | 10 | `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_add_left_cancel`, `nat_sub_add_cancel`, `nat_add_sub_self_right`, `nat_le_of_add_le_add_right`, `nat_swap_left_mul`, `three_mul_eq`, `two_mul_eq` — full Nat ring tactic primitives, ∅-axiom PURE |
+| `E213.Lib.Math.Mobius213.Px.CassiniUniversal` | 16 | `Lnat` (Nat-valued Pell-Lucas trace), `Lnat_mono_and_add` (joint induction), `Lnat_monotone`, `Lnat_add_recurrence`, ★★★★★★★★★★ `cassini_universal : ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5`, Int bridge `Lnat_eq_L_at_0..4`, `cassini_universal_master` (3-conjunct) |
+| `E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal` | 14 | `Q00, Q01, Q11` (mutual 1-step matrix-product recurrences), `Q00_eq_Q01_add_Q11` (P^n symmetry), `Q00_sq_via_ih` (IH-driven polynomial helper), ★★★★★★★★★★ `det_pn_universal : ∀ n, Q00 n · Q11 n = Q01 n² + 1` (Fibonacci Cassini at even index) |
+
+**Closure subtotal**: 10 + 16 + 14 = **40 PURE / 0 DIRTY**.
+
+**Session grand total**: 593 + 40 = **633 PURE / 0 DIRTY**.

@@ -1,6 +1,7 @@
 import E213.Lib.Math.Cohomology.Tripartite.V213
 import E213.Lib.Math.Cohomology.Tripartite.V213Betti
 import E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge
+import E213.Lib.Math.Cohomology.Tripartite.V213ShadowProjection
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Tripartite`.
 
@@ -21,6 +22,11 @@ import E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge
                                    duality holds (|E| = |△| = 6),
                                    cohomology-level duality fails
                                    (b₁ = 8 vs b₁ = 0).
+    * `V213ShadowProjection`     — Massey shadow projection
+                                   vanishing.  Any projection from
+                                   `H²(K_{3,2}^{(c=2)})` into
+                                   `H²(K_{2,1,3}) = 0` is zero;
+                                   Massey content does not transfer.
 
   Cross-link: `Mobius213/Px/TripartiteK213.lean` for the atomic-count
   layer; this chapter adds the cohomology layer (δ¹ surjectivity,

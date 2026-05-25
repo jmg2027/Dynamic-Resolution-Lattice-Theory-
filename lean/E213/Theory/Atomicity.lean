@@ -5,6 +5,7 @@ import E213.Theory.Atomicity.NonDecomposable
 import E213.Theory.Atomicity.ArityForcing
 import E213.Theory.Atomicity.PrimitiveSizes
 import E213.Theory.Atomicity.Alive
+import E213.Theory.Atomicity.OrbitForcing
 
 /-!
 # Theory.Atomicity: forced shape-uniqueness API (re-export shim)
@@ -27,6 +28,10 @@ the **forced shape uniqueness** API in one line.
   - `Alive.alive_iff_*` — alive-cell positions (1, 1) forced
   - `FiveHelpers.{add_two_ne_self, bezout_left, bezout_right}` —
     supporting Nat lemmas
+  - `OrbitForcing.{canonical_solution, orbit_forcing_master}` —
+    Pell-Lucas recurrence coefficients `(NS, det) = (3, 1)` forced
+    by atomic seeds + target `L(2) = 7` (lifts static shape forcing
+    to dynamic orbit forcing)
 
 **Role**: the axiom's *spec compliance* layer.  Together with
 `Theory/Raw.lean` (axiom data: Raw type + slash + slash_comm),
