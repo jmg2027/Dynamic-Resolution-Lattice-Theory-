@@ -1,24 +1,38 @@
 # Session handoff
 
-Branch: `claude/research-plan-review-o7D41`.  Built clean
-(`cd lean && lake build`), 0 sorry, 0 external axioms on
-production critical path.
+Branch: `claude/tier-1-1-psi-kernel-wnpIS`.  Built clean
+(`cd lean && lake build`), 0 sorry, 0 external axioms.
 
 ## This session (2026-05-25)
 
-  · Reviewed + patched `theory/RESEARCH_PLAN.md` (4.1
-    rewrite — catalog orphan premise was false; 5.1 import
-    numbers + cite corrected; 5.2 enumeration completed; 2.5
-    dichotomy fix; anchor paths normalised).  Added
-    "Inter-item dependencies" + "Anti-goals" sections.
-  · Tier 1.1 partial — EASY direction
-    `InPrimary ⊆ joint ψ-kernel` now UNCONDITIONAL at every c
-    via new `primary_cup_span_soundness_all_c` in
-    `V33EnrichedParametricDualSpan` §4.10 (∅-axiom, 24/24
-    PURE).  HARD direction (joint ψ-kernel ⊆ InPrimary) still
-    open — reduces to constructing 8 explicit InPrimary
-    generators spanning the dim-8 ψ-kernel at c=1, then
-    layer-disjointness lift.
+Tier 1.1 — Per-layer ψ-kernel completeness — FULLY CLOSED
+at every c ≥ 1.
+
+  · HARD direction at c=1: 8 explicit primary cup-product
+    generators `g_1 … g_8` spanning the dim-8 ψ-kernel at
+    single-layer K_{3,3}.  Generators are cups of `starS`/
+    `incidT` cocycles with single-edge cochains
+    (`e_edge`).  Closed-form decomposition coefficients
+    `b_1 … b_8` extracted from v's 9 face values; the (1, 0)
+    position equation `v(1,0) = b_3 ⊕ b_4 ⊕ b_7 ⊕ b_8` is
+    exactly `ψ_0(v) = 0`.  9 per-position lemmas verify
+    pointwise equality; `cong` constructor (added to the
+    `InPrimary` inductive) bridges to v as a function
+    without `funext`.  `joint_psi_kernel_subset_primary_c1`
+    in `V33EnrichedParametricDualSpanHard` (51 PURE).
+  · ∀c lift via layer-promotion: `promote_face`/
+    `promote_edge` (9-fold `cond` cascade — propext-free)
+    transport each c=1 InPrimary witness to layer m of
+    `InPrimary c`.  Preserved across all 6 constructors
+    (zero, coboundary, starCup, incidCup, xor_add, cong)
+    inductively.  `xor_aggregate` composes layer-m promotes
+    into a full reconstruction of v.
+    `joint_psi_kernel_subset_primary` and unconditional
+    capstones (`parametric_dual_span_unconditional`,
+    `codim_upper_bound_unconditional`) in
+    `V33EnrichedParametricDualSpanHardLift` (21 PURE).
+  · `codim = c` upper bound is now UNCONDITIONAL at every
+    Stern-Brocot position against the PRIMARY cup-image.
 
 ## Boot order
 
@@ -33,9 +47,8 @@ production critical path.
   · `theory/math/cohomology/k_nm_c_classification.md` —
     universal `(NS, NT, c)` cohomology framework
     (EnrichedKNSNTc) + codim ≥ c parametric + codim ≤ c
-    dual-span (conditional + c = 1 unconditional + cross-layer
-    unconditional) + arbitrary-m bilateral kill
-    (`9·m` cancellation in `NatBeqHelpers`)
+    dual-span (NOW unconditional at every c) + arbitrary-m
+    bilateral kill (`9·m` cancellation in `NatBeqHelpers`)
   · `theory/math/cohomology/mediant_cohomology_functor.md` —
     Stern-Brocot mediant Vandermonde at the count level
     (V 2-term / E 4-term / F factored-Vandermonde²);
@@ -54,17 +67,9 @@ production critical path.
 
 ## What's open (residual)
 
-Genuinely open structural questions:
+Per-layer completeness is closed.  Genuinely open structural
+questions:
 
-  · **Per-layer completeness (HARD direction)** for unconditional
-    `codim = c`: joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.
-    EASY direction closed unconditional at every c
-    (`primary_cup_span_soundness_all_c`, 2026-05-25).  HARD
-    direction reduces to single-layer K_{3,3} dim count
-    (9-element face space modulo (im δ¹ + primary cup-image)
-    has dim 1); needs 8 explicit InPrimary generators spanning
-    the dim-8 ψ-kernel at c=1.  Layer-disjointness then lifts
-    to ∀c.
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; lifting to cup-product algebra (4 edge + 9 face
     sub-cells per mediant) is the next layer.
@@ -78,6 +83,8 @@ Genuinely open structural questions:
   · **Cup-product transport on V32LocalSignature**: does the
     (2, 1, 3) local signature persist under cup
     `H^k × H^l → H^(k+l)` at K_{3, 2}^{(c=2)}?
+  · **Tier 1.2 — Arity c=2 Lean theorem**: missing 4th piece
+    of atomic signature forcing.
 
 ## Companion specs
 
