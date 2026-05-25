@@ -294,7 +294,9 @@ Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
   · `theory/math/cohomology/k_nm_c_classification.md` — c-counter resolution + Stern-Brocot classification (promoted from G143 + G145)
   · `theory/math/mobius213_p_orbit_closure.md` — P-orbit naturalness boundary (promoted from G146 P-orbit + Px catalog)
   · `theory/essays/bipartite_tripartite_self_containment.md` — K_{3,2}^{(c=2)} self-containment (essay, Lean Option I deferred from G146)
-  · `theory/essays/{c_counter_as_layer_count,disjoint_layers_as_direct_sum,stern_brocot_as_universal_lattice,p_orbit_naturalness_boundary,vandermonde_mediant_counts}.md` — cross-cutting essays
+  · `theory/essays/{c_counter_as_layer_count,disjoint_layers_as_direct_sum,stern_brocot_as_universal_lattice,p_orbit_naturalness_boundary,vandermonde_mediant_counts,cup_image_dual_span}.md` — cross-cutting essays
+  · `theory/essays/cup_image_dual_span.md` — Direction C dual-span scaffolding essay (PRIMARY vs FULL cup-image, 9-block disjointness, conditional/unconditional separation)
+  · `theory/math/cohomology/k_nm_c_classification.md` §"Cup-image dual span (upper bound side)" — chapter promotion of V33EnrichedParametricDualSpan work
   · `theory/math/cohomology/k_nm_c_classification.md` §"Mediant cohomology functor (count level)" — Direction E count-level closure (Vandermonde of V/E/F)
   · `theory/math/cohomology/tripartite_self_containment.md` — Direction T closure: K_{2,1,3} Betti (1,0,0) + V32LocalSignature local-(2,1,3) framework + cross-frame verdict (atomic preserved, cohomology breach)
   · `lean/E213/ARCHITECTURE.md` — layer spec
