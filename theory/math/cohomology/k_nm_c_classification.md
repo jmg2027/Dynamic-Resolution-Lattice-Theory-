@@ -316,6 +316,21 @@ existing bottom-layer kills suffice.  Gives unconditional
 remaining open piece for c = 1 unconditional `codim ≤ 1` is
 per-layer completeness.
 
+### Unconditional soundness at every c
+
+`primary_cup_span_soundness_all_c`: chains
+`primary_cup_span_soundness_on_layer` with Direction B's closed
+`parametric_arbitrary_m_full_kill_capstone` (which dispatches
+on-layer kills at every `(c, m)`), giving the EASY direction
+`InPrimary ⊆ joint ψ-kernel` UNCONDITIONALLY for every
+multiplicity `c`.  Generalises `primary_cup_span_soundness_c1`
+beyond the single-layer slice.
+
+The matching HARD direction (joint ψ-kernel ⊆ InPrimary,
+i.e., per-layer completeness lifted to ∀c) remains open and
+is the sole remaining gap for the unconditional `codim ≤ c`
+upper bound.
+
 ## K_{3,3} ↔ Möbius P bridges
 
 K_{3,3}^{(c=2)} differs from K_{3,2}^{(c=2)} in landing OFF the
@@ -557,7 +572,8 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 | `psi_layer_{starCup,incidCup}_cross_layer` | same | ★ unconditional cross-layer ψ-kill (m ≠ m') via 9-block disjointness |
 | `primary_cup_span_soundness_on_layer` | same | ★ soundness `InPrimary ⊆ ψ-kernel` requires only on-layer kill |
 | `primary_cup_span_soundness_c1` | same | ★ unconditional soundness at c = 1 |
-| `codim_upper_bound_conditional` | same | conditional `codim ≤ c` under per-layer completeness hypothesis |
+| `primary_cup_span_soundness_all_c` | same | ★ unconditional soundness at every c (easy direction closed) |
+| `codim_upper_bound_conditional` | same | conditional `codim ≤ c` under per-layer completeness hypothesis (hard direction) |
 | `parametric_dual_span_capstone` | same | ★★ capstone: c ψ-discriminators SPAN dual of `EnrichedFaceVal / InPrimary` |
 | `nine_block_disjoint` / `nine_block_disjoint_op` | `Infrastructure.NatBeqHelpers` | (9·a + r₁) ≠ (9·b + r₂) for a ≠ b, r₁, r₂ < 9 |
 | `K43_all_S_row_deps_bundle` | `V43` | 6 S-row dependence relations at K_{4,3} |

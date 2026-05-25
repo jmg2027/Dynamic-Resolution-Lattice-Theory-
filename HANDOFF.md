@@ -1,8 +1,24 @@
 # Session handoff
 
-Branch: `claude/research-essay-audit-Fl1pZ`.  Built clean
+Branch: `claude/research-plan-review-o7D41`.  Built clean
 (`cd lean && lake build`), 0 sorry, 0 external axioms on
 production critical path.
+
+## This session (2026-05-25)
+
+  · Reviewed + patched `theory/RESEARCH_PLAN.md` (4.1
+    rewrite — catalog orphan premise was false; 5.1 import
+    numbers + cite corrected; 5.2 enumeration completed; 2.5
+    dichotomy fix; anchor paths normalised).  Added
+    "Inter-item dependencies" + "Anti-goals" sections.
+  · Tier 1.1 partial — EASY direction
+    `InPrimary ⊆ joint ψ-kernel` now UNCONDITIONAL at every c
+    via new `primary_cup_span_soundness_all_c` in
+    `V33EnrichedParametricDualSpan` §4.10 (∅-axiom, 24/24
+    PURE).  HARD direction (joint ψ-kernel ⊆ InPrimary) still
+    open — reduces to constructing 8 explicit InPrimary
+    generators spanning the dim-8 ψ-kernel at c=1, then
+    layer-disjointness lift.
 
 ## Boot order
 
@@ -40,11 +56,15 @@ production critical path.
 
 Genuinely open structural questions:
 
-  · **Per-layer completeness** for unconditional `codim = c`:
-    joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.  Reduces
-    to a single-layer K_{3,3} dimension count (9-element face
-    space modulo (im δ¹ + primary cup-image) has dim 1);
-    layer-disjointness lifts to ∀c.
+  · **Per-layer completeness (HARD direction)** for unconditional
+    `codim = c`: joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.
+    EASY direction closed unconditional at every c
+    (`primary_cup_span_soundness_all_c`, 2026-05-25).  HARD
+    direction reduces to single-layer K_{3,3} dim count
+    (9-element face space modulo (im δ¹ + primary cup-image)
+    has dim 1); needs 8 explicit InPrimary generators spanning
+    the dim-8 ψ-kernel at c=1.  Layer-disjointness then lifts
+    to ∀c.
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; lifting to cup-product algebra (4 edge + 9 face
     sub-cells per mediant) is the next layer.
