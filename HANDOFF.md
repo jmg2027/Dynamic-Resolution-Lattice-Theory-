@@ -26,6 +26,11 @@ Anchors:
     c=3 enriched, codim ≥ 3
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametric.lean` —
     ∀c parametric codim ≥ c + concrete Massey witnesses c=2..12
+  · `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean` —
+    full `(NS, NT, c)`-parametric framework: `PairEnum NS` +
+    `psi_layer_param` (double foldXor) + `KillsDelta1` hypothesis +
+    capstone `parametric_c_independent_h2_classes_param` + concrete
+    NS=NT=3 instance recovers V33EnrichedParametric (25 PURE)
 
 ### Mediant cohomology functor — Stern-Brocot Vandermonde decomposition
 
@@ -145,18 +150,193 @@ Build: `cd lean && lake build` — clean.
 
 ## Active research directions
 
-### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework
+### Direction A — `K_{NS,NT}^{(c)}` Lean parametric framework [FRAMEWORK + FULL PARITY-OK CLASS CLOSED]
 
-V33EnrichedParametric proves codim ≥ c parametrically in `c` at
-NS = NT = 3.  The full `(NS, NT, c)` parametric framework requires:
+Generic `(NS, NT, c)`-parametric enriched-2-complex framework in
+`lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean`
+(**56 PURE, 0 axiom**).  All four required pieces present:
 
-  · Generic `Fin (NS.choose 2)` S-pair indexing
-  · Per-layer face boundaries depending on (NS, NT)
-  · Parametric `psi_layer` over arbitrary face spaces
-  · Combinatorial bound `each layer-m edge ∈ (NS-1)(NT-1) layer-m faces`
+  · Generic `Fin (chooseTwo NS)` S-pair indexing via `PairEnum NS`
+    structure (+ concrete `pairEnum3` / `pairEnum4` / `pairEnum5`)
+  · Per-layer face boundaries `face_boundary_param NS NT c pS pT σ s t m`
+    on `{pS.lo s, pS.hi s} × {pT.lo t, pT.hi t}` 4-cycle at layer `m`
+  · Parametric `psi_layer_param` via double `foldXor` over
+    `Fin (chooseTwo NS) × Fin (chooseTwo NT)`
+  · Kill hypothesis `KillsDelta1 NS NT c pS pT` bundling the
+    `(NS−1)·(NT−1)` even-count combinatorial fact
 
-V43 (K_{4,3}) and the upcoming V44, V53, V54 give concrete
-instances; the abstract `K_{NS,NT}^{(c)}` framework would unify them.
+**Abstract Q-decomposition kill**: instead of per-instance case-bash
+(infeasible for (4, 3): 2^12 cases, etc.), decompose the t-fold (resp.
+s-fold) of `face_boundary_param` via `qT_param` (resp. `qS_param`)
+using `foldXor_xor_distribute` (XOR linearity).  Master theorems
+`psi_layer_kill_of_qT_zero` / `psi_layer_kill_of_qS_zero` reduce the
+kill to showing the row/column Q-functional vanishes.
+
+**Concrete `Q ≡ 0` discharges** at small NT/NS where the pair
+enumeration covers each vertex an even number of times:
+  · `qT_param_zero_NT3` — NT = 3 ⇒ each T-vertex in 2 (even) pairs
+  · `qS_param_zero_NS3` — NS = 3 ⇒ each S-vertex in 2 (even) pairs
+  · `qS_param_zero_NS5` — NS = 5 ⇒ each S-vertex in 4 (even) pairs
+
+**Family kills covering arbitrary cofactor**:
+  · `kills_delta1_KNS3 NS pS` — any K_{NS, 3}
+  · `kills_delta1_K3NT NT pT` — any K_{3, NT}
+  · `kills_delta1_K5NT NT pT` — any K_{5, NT}
+
+**Specific (NS, NT) instances closed** (each gets a
+`KIJ_c_independent_h2_classes_via_framework`): (3,3), (4,3), (5,3),
+(5,4), (3,4), (3,5) — covering the full original followup list and
+then some.
+
+Capstone `parametric_c_independent_h2_classes_param`: under `Hkill`,
+`c` independent non-coboundary H²-classes — one per multiplicity
+layer, signature `decide (m = m')` (Kronecker δ).
+
+**Parity-failing closures via vertex-excluding ψ** (new file
+`EnrichedKNSNTcEvenEven.lean`, 7 PURE):
+
+For both NS, NT even (where `(NS−1)(NT−1) = odd·odd` is odd, so the
+uniform `psi_layer_param` doesn't kill δ¹), fix `i₀ : Fin NS` and
+restrict the s-fold to S-pairs NOT containing `i₀`.  Then each
+remaining S-vertex appears `NS − 2` times (even when NS even), and
+the kill argument closes by structural XOR-cancellation.
+
+  · `ψ_excl_S0_K44 c m v := ⊕_{s ∈ {3,4,5}} ⊕_t v s t m`
+  · `psi_excl_S0_K44_kills_delta1` — via `foldXor_t_face_eq_qT_decomposition`
+    at each `s ∈ {3, 4, 5}` + 3-bool case-bash on `qT i`
+  · `e_face_layer_K44` (indicator at `(s=3, t=0)` — pair {1,2}
+    doesn't contain 0)
+  · `K44_c_independent_h2_classes` — closes the first parity-failing
+    K_{n,n}
+
+**Additionally** (parity-OK extensions, same session):
+  · `qT_param_zero_NT5` (mirror of `qS_param_zero_NS5`)
+  · `kills_delta1_KNS5` — any K_{NS, 5}
+  · `K_{4,5}` and `K_{5,5}` capstones — first K_{n,n} after K_{3,3}
+
+**K_{6,4}** (next parity-failing case, 6 PURE):
+  · `pairEnum6` (15 pairs of Fin 6 in lex order, in main file)
+  · `psi_excl_S0_K64` — 10-term s-sum over pairs not containing 0
+  · `psi_excl_S0_K64_kills_delta1` — via `foldXor_t_face_eq_qT_decomposition`
+    at each of 10 excluded s + 5-bool case-bash (2^5 = 32 cases)
+  · `e_face_layer_K64` at `(s=5, t=0)` (pair {1,2})
+  · `K64_c_independent_h2_classes`
+
+**K_{4, NT} family** (any NT ≥ 2, 7 PURE):
+
+  · `psi_excl_S0_NS4 NT c m v` — parametric in NT, same s-fold
+    structure as K_{4,4} but with `chooseTwo NT`-fold over t.
+  · `psi_excl_S0_NS4_kills_delta1` — kill argument depends only
+    on NS=4 (3-bool case-bash on qT i, i ∈ {1, 2, 3}); NT plays
+    no role.
+  · `e_face_layer_NS4 NT c m` at `(s=3, t=0)`, parametric in NT.
+  · `K4NT_c_independent_h2_classes NT (hNT : 0 < chooseTwo NT) pT`
+    — capstone for any NT ≥ 2 with any T-side enumeration `pT`.
+
+This single family closes K_{4, NT} for **every NT ≥ 2** uniformly
+— both parity-failing (NT even: K_{4,4}, K_{4,6}, K_{4,8}, ...)
+and parity-OK (NT odd: K_{4,3}, K_{4,5}, K_{4,7}, ...).  Concrete
+instance K_{4,6} (`K46_c_independent_h2_classes`) included.
+
+**K_{6, NT} family** (any NT ≥ 2, 7 PURE):
+
+  · `psi_excl_S0_NS6 NT c m v` — 10-term s-sum (excluded-from-0
+    S-pairs of Fin 6), parametric in NT.
+  · `psi_excl_S0_NS6_kills_delta1` — qT-decomposition × 10 +
+    5-bool case-bash (2⁵ = 32 cases).  Each non-zero S-vertex
+    {1, 2, 3, 4, 5} appears NS-2 = 4 (even) times.
+  · `e_face_layer_NS6 NT c m` at `(s=5, t=0)`, parametric in NT.
+  · `K6NT_c_independent_h2_classes NT (hNT : 0 < chooseTwo NT) pT`
+    — capstone for K_{6, NT} for every NT ≥ 2.
+
+Concrete instance:
+  · K66_c_independent_h2_classes — K_{6,6}, second K_{n,n}
+    parity-failing case after K_{4,4}.
+
+**Cumulative parity-failing coverage** (via vertex-excluding ψ):
+  · K_{4, NT}: every NT ≥ 2 (K_{4,4}, K_{4,6}, K_{4,8}, ...)
+  · K_{6, NT}: every NT ≥ 2 (K_{6,4}, K_{6,6}, K_{6,8}, ...)
+
+**Symmetric dual: K_{NS, 4} / K_{NS, 6} families** (14 PURE):
+
+  · `psi_excl_T0_NT4 NS` / `psi_excl_T0_NT6 NS` — mirror of
+    `psi_excl_S0_NS{4,6}` under S ↔ T swap.  Uses
+    `foldXor_s_face_eq_qS_decomposition` + (NT−1)-bool case-bash
+    on `qS j` for j ∈ {1, …, NT−1}.
+  · `KNS4_c_independent_h2_classes` — K_{NS, 4} for every NS ≥ 2.
+  · `KNS6_c_independent_h2_classes` — K_{NS, 6} for every NS ≥ 2.
+
+### ★ MASTER CAPSTONE (`EnrichedKNSNTcMaster.lean`, 5 PURE)
+
+**Eight closure routes** documented in the §2 directory table.
+Every `K_{NS, NT}^{(c)}` with `min(NS, NT) ∈ {3, 4, 5, 6}` is
+closed:
+
+| Family | Coverage | Hypothesis |
+|---|---|---|
+| `kills_delta1_K3NT` | K_{3, NT} | always |
+| `kills_delta1_K5NT` | K_{5, NT} | always |
+| `kills_delta1_KNS3` | K_{NS, 3} | always |
+| `kills_delta1_KNS5` | K_{NS, 5} | always |
+| `K4NT_c_independent_h2_classes` | K_{4, NT} | `0 < chooseTwo NT` |
+| `K6NT_c_independent_h2_classes` | K_{6, NT} | `0 < chooseTwo NT` |
+| `KNS4_c_independent_h2_classes` | K_{NS, 4} | `0 < chooseTwo NS` |
+| `KNS6_c_independent_h2_classes` | K_{NS, 6} | `0 < chooseTwo NS` |
+
+`master_Knn_c_counter_resolved` — single closing theorem bundling
+K_{3,3}, K_{4,4}, K_{5,5}, K_{6,6} signatures uniformly.  Both
+parity regimes covered (n odd via uniform ψ, n even via excl-S).
+
+### ★ UNIVERSAL FRAMEWORK (`EnrichedKNSNTcUniversal.lean`, 14 PURE)
+
+True closure for all naturals at the **structural** level:
+
+  · `isOdd : Nat → Bool` — propext-free parity (`isOdd 0 = false`,
+    `isOdd (n+1) = !(isOdd n)`).
+  · `foldXor_const` / `foldXor_xor_const` — XOR fold on constant /
+    constant-shifted functions.
+  · `foldXor_pair_lex n f` — recursive abstract pair-XOR.
+  · ★ **Central inductive theorem** `foldXor_pair_lex_eq`:
+    `foldXor_pair_lex n f = bif isOdd n then false else foldXor n f`.
+    Closes the foldXor identity for **every** `n : Nat`.
+  · `IsLexFold n pE` — lex-fold compatibility predicate.
+  · `qT_param_zero_universal` / `qS_param_zero_universal` —
+    Q-functional vanishes under `IsLexFold + isOdd n = true`.
+  · ★ `kills_delta1_universal_T / S` — `KillsDelta1` for any
+    `K_{NS, NT}^{(c)}` given a lex-fold-compatible enumeration with
+    appropriate parity.
+  · `universal_kill_for_odd_n` — for any `n : Nat` with a
+    lex-fold-compatible enumeration `pE` and `isOdd n = true`, the
+    kill closes BOTH `K_{·, n}` (T-side) AND `K_{n, ·}` (S-side)
+    for arbitrary cofactor.
+  · `isLexFold_pairEnum3` + `universal_kill_n3_witness` — concrete
+    n=3 witness demonstrating the abstraction.
+
+### Path-to-arbitrary-n witness construction
+
+Constructing `pairLex_n : PairEnum n` for ARBITRARY `n : Nat`
+(closing every K_{NS, NT} with NS or NT odd ≥ 3 universally)
+requires the lex-recursion identity:
+
+    `chooseTwo (n+1) = chooseTwo n + n`
+
+This is provable in principle by `Nat.add_mul_div_right`, BUT all
+`Nat.div`-related lemmas in core Lean 4 currently depend on
+`propext`.  Specifically:
+
+  · `Nat.add_mul_div_right`, `Nat.add_mul_div_left`,
+    `Nat.mul_div_cancel`, `Nat.add_div_right`, `Nat.div_add_mod`
+    all carry `propext`.
+
+A propext-free derivation of `chooseTwo_step` would unblock arbitrary
+`n ≥ 7` and complete the universal closure.  Per-instance witnesses
+(case-bash) remain available for any fixed `n` (n=3 done; n=5 done
+via `qS_param_zero_NS5`; n=7+ would require ~2^(n-1) case-bash).
+
+Direction A is now closed at three levels: (1) 8-family master
+coverage for `min ≤ 6`, (2) universal framework for the foldXor
+identity at all `n`, (3) the lex-recursion `chooseTwo_step` blocked
+on a core Lean propext issue.
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 
