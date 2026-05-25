@@ -32,25 +32,37 @@ rather than re-treading the components.
 
 ---
 
-## §0.5  Promotion status (2026-05-22)
+## §0.5  Promotion status (2026-05-25)
 
-G35 itself **remains active scratch** — it is the 17-domain
-field-level catalog spanning multiple sub-trees and is broader than
-any single `theory/` chapter.
+G35 remains active scratch — a 17-domain field-level catalog
+spanning multiple sub-trees, broader than any single `theory/`
+chapter.
 
-Per-conjecture promotion state:
+Per-conjecture status (refreshed against current closures):
 
-| Conjecture | Status | Promoted chapter |
+| Conjecture | Status | Lean anchor (capstone) | Promoted chapter / essay |
+|---|---|---|---|
+| C1 (pure cup-ring α_em) | Closed at 0.2 ppb structurally via Step 5 cubic; sub-ppb Step 6+ open (cup-axiom Steenrod ladder) | `Physics/AlphaEM/Capstone` + `GramStructural*` | `theory/physics/alpha_em/precision_derivation.md` |
+| C2 (atomic constants uniqueness) | Closed at the (NS, NT, d) = (3, 2, 5) triple via Theory/Atomicity; arity c = 2 narrative-only (open Lean theorem at `Theory/Atomicity/CombinatorialArity.lean`) | `Theory/Atomicity/{PairForcing, Five, ArityForcing}` + `OrbitForcing` | `theory/physics/foundations/atomic_constants.md` |
+| C3 (Aut(K) gauge group emergence) | Closed via the 12-phase C3 chain; b₁(K_{3, 2}^{(c=2)}) = NS² − 1 = 8 identified with SU(3) gluon octet | `Physics/Symmetry/C3*` | `theory/physics/symmetry/c3_chain.md` |
+| C4 (Σ-spectral signature theorem) | Closed parametric Σ_g × Σ_h × Σ_k | absorbed in Hodge | `theory/math/cohomology/hodge_conjecture.md` §Pairing |
+| C5 (fractal ζ_K^{(L)} → ζ(2)) | Closed through `zeta_modulus` at L = 1; general-L spectrum open | `Math/Cohomology/Fractal/*` | `theory/math/cohomology/fractal.md` |
+| C6 (cross-domain unification) | Closed for the graded-ring layer; per-domain extensions (CKM full matrix, baryon spectrum) open | `Math/CrossDomainUnification/*` | `theory/math/cross_domain_unification.md` |
+
+Closure rings now extending C1/C2/C3 jointly:
+
+| Programme | Coverage | Anchor |
 |---|---|---|
-| C1 (pure cup-ring α_em) | Closed through Step 4 (0.09 ppb); Step 5+ open | `theory/physics/alpha_em/precision_derivation.md` |
-| C2 (atomic constants uniqueness) | Closed Steps 1-7 (full ∀(m,n) iff) | `theory/physics/foundations/atomic_constants.md` |
-| C3 (Aut(K) gauge group emergence) | **Closed** via 18-phase C3 chain | `theory/physics/symmetry/c3_chain.md` |
-| C4 (Σ-spectral signature theorem) | Closed Steps 1-4 (parametric Σ_g × Σ_h × Σ_k) | Absorbed in `theory/math/cohomology/hodge_conjecture.md` §Pairing |
-| C5 (fractal ζ_K^{(L)} → ζ(2)) | Closed through Step 6 (`zeta_modulus`); Step 7+ open | `theory/physics/alpha_em/precision_derivation.md` |
-| C6 (cross-domain unification) | Closed Steps 1-5 (graded ring); per-domain Step 6+ open | `theory/math/cross_domain_unification.md` |
+| c-counter five-direction closure | universal `(NS, NT, c)` parametric codim ≥ c + arbitrary-m kill + cup-image dual span + mediant Vandermonde + bipartite-tripartite self-containment verdict | `Cohomology/Bipartite/Parametric/EnrichedKNSNTcMaster` + dual-span + mediant + Tripartite |
+| P-orbit naturalness boundary | Lucas-Pell trace ring exhausts framework-natural integers; recurrence forced from atomic seeds | `Mobius213/Px/POrbitClosure` + `Theory/Atomicity/OrbitForcing` |
+| Layer-multiplication shape | invariant + offset + cancellation lemma — shared proof shape across c-counter, P-orbit, mediant | catalogued in `theory/essays/layer_multiplication_pattern.md` |
 
-Citations to `G35` from Lean docstrings (specifically `§C##` for
-conjecture statements + step logs) **remain valid** — G35 is the
+These three closures interlock pairwise; see
+`theory/essays/synthesis_interlock_map.md` for the explicit
+correspondence table.
+
+Citations to G35 from Lean docstrings (specifically §C##
+labels for conjecture statements) remain valid — G35 is the
 catalog these conjectures live in, irrespective of where their
 closed derivations are written.
 

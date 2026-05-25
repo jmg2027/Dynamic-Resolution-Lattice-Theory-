@@ -59,7 +59,16 @@ Chapter exists when the Lean sub-tree closed per
 [`PROMOTION_CRITERIA.md`](PROMOTION_CRITERIA.md).  Patterns:
 [`lean/E213/docs/PROMOTION_PATTERNS.md`](../lean/E213/docs/PROMOTION_PATTERNS.md).
 
-## Current chapters (117 total, incl. 21 essays)
+## Top-level orientation
+
+  · [`STATE.md`](STATE.md) — current framework state (closed
+    programmes, open frontiers, entry points)
+  · [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md) — ranked roadmap
+    across five tiers (mechanical closures, cross-chapter
+    integration, narrative depth, physics deployment,
+    architecture)
+
+## Current chapters (118 total, incl. 22 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
@@ -67,7 +76,7 @@ Chapter exists when the Lean sub-tree closed per
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  6 | [`meta/INDEX.md`](meta/INDEX.md) |
-| `essays/`  | 21 | [`essays/INDEX.md`](essays/INDEX.md) |
+| `essays/`  | 22 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 
