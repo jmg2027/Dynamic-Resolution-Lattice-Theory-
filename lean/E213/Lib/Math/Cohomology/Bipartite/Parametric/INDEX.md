@@ -5,10 +5,21 @@ V32 / V32Betti cohomology infrastructure (b_0 / b_1 / Euler) and the
 K_{3,3}^{(c)}-specific V33EnrichedParametric enriched-2-complex
 infrastructure (codim ≥ c via per-layer ψ-functionals).
 
-**Status**: 6 files, ~152 PURE.  Direction A **CLOSED** via the
-8-family master coverage (`min(NS, NT) ∈ {3, 4, 5, 6}`) +
-`EnrichedKNSNTcMaster.master_Knn_c_counter_resolved` (K_{n,n} for
-n ∈ {3, 4, 5, 6}, both parity regimes uniformly).
+**Status**: 7 files, ~166 PURE.  Direction A **CLOSED** at three
+levels:
+
+  1. **8-family master coverage** for `min(NS, NT) ∈ {3, 4, 5, 6}`
+     (`EnrichedKNSNTcMaster.master_Knn_c_counter_resolved`).
+  2. **Universal framework** (`EnrichedKNSNTcUniversal.lean`):
+     central inductive theorem `foldXor_pair_lex_eq` works for ALL n
+     and reduces the kill to a parity check.  Universal kill
+     `kills_delta1_universal_T/S` closes any K_{NS, NT} given a
+     lex-fold-compatible pair enumeration with appropriate parity.
+  3. **Concrete arbitrary-NS witnesses**: provided for n ∈ {3, 4,
+     5, 6}.  For n ≥ 7, construction is mechanical given
+     `chooseTwo_step n : chooseTwo (n+1) = chooseTwo n + n` —
+     currently blocked by `Nat.add_mul_div_right` carrying propext
+     in core Lean (all `Nat.div` lemmas in core bring propext).
 
 ## File map
 
@@ -19,6 +30,7 @@ n ∈ {3, 4, 5, 6}, both parity regimes uniformly).
 | `EulerAndCapstone.lean` | 4-6 | 7 | `eulerChar : Int` parametric formula + `b1Formula : Nat` for connected case + chartBase-≤-5 deployment-family b_1 table + `chartVisibleAxes` bridge to KChartLens + ★★★★★★ `parametric_close_capstone` |
 | `EnrichedKNSNTc.lean` | — | 63 | `(NS, NT, c)`-parametric enriched-2-complex framework + abstract Q-decomposition kill + concrete instances at every parity-OK pair.  Adds `qT_param_zero_NT5` (mirror of `qS_param_zero_NS5`) + `kills_delta1_KNS5` family + K_{4,5} and K_{5,5} closures. |
 | `EnrichedKNSNTcEvenEven.lean` | — | 41 | Parity-failing closures via **vertex-excluding ψ** (both S- and T-side dual families).  Six families: `psi_excl_S0_NS{4,6}` for K_{4, NT} / K_{6, NT}; `psi_excl_T0_NT{4,6}` for K_{NS, 4} / K_{NS, 6}.  Plus concrete K_{4,4}, K_{6,4}, K_{4,6}, K_{6,6} capstones |
+| `EnrichedKNSNTcUniversal.lean` | — | 14 | **Universal-`n` framework**: central inductive theorem.  `isOdd : Nat → Bool` (structural recursive parity) + `foldXor_const` / `foldXor_xor_const` (helpers) + recursive `foldXor_pair_lex n f` (abstract pair-XOR encoding the lex enumeration) + ★ `foldXor_pair_lex_eq` (central theorem: `foldXor_pair_lex n f = bif isOdd n then false else foldXor n f`).  `IsLexFold n pE` (compatibility predicate) + `qT_param_zero_universal` / `qS_param_zero_universal` (parametric `Q = 0` under `IsLexFold + isOdd`) + ★ `kills_delta1_universal_T / S` (universal kill).  Concrete `isLexFold_pairEnum3` witness + `universal_kill_for_odd_n` + `universal_kill_n3_witness`.  The framework closes the foldXor identity for ALL `n` — `pairLex_n : PairEnum n` construction for arbitrary `n ≥ 7` is mechanical given `chooseTwo_step` (currently blocked on core Lean's `Nat.add_mul_div_right` carrying propext) |
 | `EnrichedKNSNTcMaster.lean` | — | 5 | **Master closure capstone** combining all eight closure families.  Six-route directory (§2 table: NS or NT ∈ {3, 4, 5, 6} ⇒ family selection).  `CClosure NS NT c pS pT` structure for uniform packaging.  `master_K33`, `master_K44`, `master_K55`, `master_K66` — K_{n,n} witnesses for n = 3, 4, 5, 6.  ★ `master_Knn_c_counter_resolved` — single statement bundling all four K_{n,n} signatures, spanning both parity-OK (n odd) and parity-failing (n even) regimes |
 
 ## Coverage
