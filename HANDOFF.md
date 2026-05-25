@@ -91,6 +91,36 @@ Only K_{13, 8} remains — both NS=13 odd ∉ {3, 5} and NT=8 even
 (universal-S route) OR fresh `psi_excl_T0_NT8` + 28-fold XOR
 cancellation (NT=8 excl-T family).  Mechanical, deferred.
 
+### Tier 1.2 — Arity c=2 Lean theorem, CLOSED
+
+The 4th atomic-signature dimension (k = 2 arity) is now
+Lean-formalised parametrically via
+`Theory/Atomicity/CombinatorialArity.lean` (5 PURE):
+
+  · `pigeonhole_fin_to_fin2 (k : Nat) (hk : 3 ≤ k) (f : Fin k → Fin 2)`
+    — ∀ f, ∃ i ≠ j, f i = f j.  Three-index in-line case-bash via
+    `cases_lt_two`, no `Classical.choice` (constructive `obtain`
+    on Exists at tactic level).
+  · Generic `Raw k` and `Reachable k` (k-arity `rel` with pairwise-
+    distinct args).
+  · `reachable_only_object`: ∀ k ≥ 3, every Reachable Raw term is
+    a base object — k-arity rel never fires.
+  · `arity_2_unique_via_k_ge_3_vacuous`: the structural capstone
+    bundling the ∀ k ≥ 3 vacuousness.
+
+Atomic signature `(NS, NT, c, d) = (3, 2, 2, 5)` now Lean-forced
+across all 4 dimensions.  `STATE.md` Closed row + chapter
+`physics/foundations/atomic_constants.md` Combined inevitability
+chain extended with the c=2 row.
+
+### Tier 1.4 — α_em Step 5 already PURE (audit only)
+
+`lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean` scans
+7 PURE / 0 DIRTY including `invAlphaEm_precision_theorem` which
+explicitly carries the 0.2 ppb structural derivation (cubic
+`25y³ + 1 = 25Xy²`, Newton-1 from y₀ = X, ONLY `alphaInv_213_e9`
+on RHS — no observed α).  Tier 1.4 retroactively closed.
+
 ## Boot order
 
   · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — re-read every

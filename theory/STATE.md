@@ -14,7 +14,7 @@ PURE in Lean.
 
 | Programme | Headline | Lean anchor | Chapter |
 |---|---|---|---|
-| Atomic forcing | (NS, NT, d) = (3, 2, 5) uniquely forced from atomicity + alive + Pell-Lucas recurrence | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing}` | `physics/foundations/atomic_constants.md` |
+| Atomic forcing | **(NS, NT, c, d) = (3, 2, 2, 5)** uniquely forced from atomicity + alive + Pell-Lucas recurrence + k=2 arity (pigeonhole over `Fin 2` base for k ≥ 3 vacuous) | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing, CombinatorialArity}` | `physics/foundations/atomic_constants.md` |
 | c-counter (5-direction) | `codim ≥ c` parametric ∀(NS, NT, c); `codim ≤ c` **unconditional at every c** (per-layer completeness closed 2026-05-25 via 8 explicit primary cup generators + layer-promotion).  Stern-Brocot mediant extension closed at K_{5, 4}, K_{7, 4}, K_{8, 5} (2026-05-25) | `Cohomology/Bipartite/Parametric/EnrichedKNSNTcMaster.master_Knn_c_counter_resolved` + `V33EnrichedParametricDualSpanHard{,Lift}.joint_psi_kernel_subset_primary` + `Parametric/PellOrbitInstances.pell_orbit_stern_brocot_extension_capstone` | `math/cohomology/k_nm_c_classification.md` |
 | Stern-Brocot mediant functor | V/E/F Vandermonde under mediant; K_{4,3} = K_{1,1} ⊕ K_{3,2} | `Cohomology/MediantCohomologyFunctor.mediant_cohomology_functor_capstone` | `math/cohomology/mediant_cohomology_functor.md` |
 | Bipartite-tripartite self-containment | local (2, 1, 3) at every K_{3, 2}^{(c=2)} point + K_{2, 1, 3} cohomology refutes external extension | `Cohomology/Tripartite/V32V213CohomologyBridge.self_containment_cohomology_verdict` | `math/cohomology/tripartite_self_containment.md` |
@@ -36,11 +36,6 @@ and P-orbit phases.
 
 ## Genuinely open
 
-  · **Arity `c = 2` Lean theorem**: narrative-justified in
-    `seed/AXIOM/03_form.md` §3.2 and operationally used
-    everywhere, but no Lean theorem closes the "binary is the
-    unique non-degenerate combine arity" claim.  Stub +
-    statement at `lean/E213/Theory/Atomicity/CombinatorialArity.lean`.
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; cup-product algebra over the 4 × 9 = 36 mediant
     sub-cells is the next layer.  Massey-class factorisation

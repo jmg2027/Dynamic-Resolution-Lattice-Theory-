@@ -47,24 +47,28 @@ removes a conditional or stated-but-unproved gap.
     `codim_upper_bound_unconditional` discharge the
     `H_kernel_in_span` hypothesis of the conditional capstones.
 
-### 1.2 Arity `c = 2` Lean theorem
+### 1.2 Arity `c = 2` Lean theorem — CLOSED
 
   · **What**: prove "binary is the unique non-degenerate combine
     arity" — the missing 4th piece of the atomic signature
     forcing chain.
-  · **Reduces to**: n-ary with `n ≥ 3` either vacuously ignores
-    inputs (if associative) or fails closure (if non-associative
-    and no commutativity assumed).  Narrative argument in
-    `seed/AXIOM/03_form.md` §3.2 needs Lean formalisation.
-  · **Tractability**: MED (requires defining n-ary combine
-    operators and a non-degeneracy predicate at the Theory
-    layer).
-  · **Anchor**: new file at
-    `lean/E213/Theory/Atomicity/CombinatorialArity.lean` (sits
-    alongside existing `PairForcing`, `ArityForcing`,
-    `OrbitForcing`, `Five`).
-  · **Closes**: atomic signature forcing fully formalised at
-    Lean level (currently 3 of 4 dimensions).
+  · **Status (2026-05-25, this session)**: CLOSED.
+    `lean/E213/Theory/Atomicity/CombinatorialArity.lean` (5 PURE)
+    proves the **uniform pigeonhole** `pigeonhole_fin_to_fin2`:
+    any function `f : Fin k → Fin 2` with `k ≥ 3` has a collision.
+    Generic parametric `Raw k` and `Reachable k` (with Fin-k arity
+    `rel` requiring pairwise-distinct args) define a uniform family;
+    `reachable_only_object` shows that for every `k ≥ 3`, the
+    `rel` step constructor never fires (no Reachable rel-term).
+    Capstone `arity_2_unique_via_k_ge_3_vacuous` packages the
+    "k = 2 is structurally unique" claim parametrically.
+    Companion to `ArityForcing.lean` (k = 3 explicit) — this file
+    is the ∀ k ≥ 3 generalization.
+  · **Anchor**: `lean/E213/Theory/Atomicity/CombinatorialArity.lean`
+    (5 PURE).
+  · **Closes**: atomic signature forcing fully formalised at Lean
+    level — 4 of 4 dimensions (NS = 3 + NT = 2 via PairForcing,
+    d = 5 via OrbitForcing + Five, c = 2 via this file).
 
 ### 1.3 Pell-orbit cohomology extension — PARTIALLY CLOSED
 
@@ -93,22 +97,29 @@ removes a conditional or stated-but-unproved gap.
     generalises beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}` — three
     Stern-Brocot mediant positions verified.
 
-### 1.4 α_em Step 5 capstone purity confirmation
+### 1.4 α_em Step 5 capstone purity confirmation — CLOSED (already)
 
   · **What**: confirm `GramStructuralCapstone` +
     `invAlphaEm_precision_theorem` build as PURE, removing the
     self-referential bootstrap in Steps 3–4 (which use
     observed α on RHS).
-  · **Mechanics**: cubic identity `25y³ + 1 = 25Xy²` rearranges
-    to `X − y = α²/d²`; Newton-1 from X gives 0.2 ppb without
-    observed α.  Audit the existing AlphaEM/ files.
-  · **Tractability**: HIGH (verification of existing claim).
+  · **Status (2026-05-25, audit this session)**: already CLOSED.
+    `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean`
+    scans **7 PURE / 0 DIRTY** including
+    `invAlphaEm_precision_theorem` at line 133.  The theorem
+    explicitly carries (a) the 5-layer base formula coefficients,
+    (b) `gram_correction_structural = 2130` derived via Newton-1
+    from `y₀ = X` on the cubic `25y³ + 1 = 25Xy²` using ONLY
+    `alphaInv_213_e9` on RHS (no observed α), and (c) the
+    numerical match `alphaInv_structural_e9 = 137035999111`
+    structural vs CODATA `137035999084` → 27 × 10⁻⁹ ≈ 0.2 ppb
+    residual.  All seven theorems certified PURE by
+    `scan_axioms.py`.
   · **Anchor**: `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean`
-    (`invAlphaEm_precision_theorem` at line 133) +
-    sibling `Gram*.lean` files,
-    `theory/physics/alpha_em/precision_derivation.md` C1 Step 5.
-  · **Closes**: α_em precision result graduates from "fit-using
-    observed α" to "structurally forced".
+    (7 PURE).
+  · **Closes**: α_em precision result HAD ALREADY graduated to
+    "structurally forced" status — this session's only action was
+    the verification audit.
 
 ## Tier 2 — Cross-chapter integration gaps (HIGH narrative leverage)
 
@@ -340,14 +351,16 @@ narrative.  Readers can verify but not understand.
 
 ## Priority ranking (one-shot session leverage)
 
-If choosing one tier-1 item: **1.2 Arity c=2 Lean theorem**
-(MED — the only remaining open tier-1 item after 1.1, 1.3, 1.4
-closures).  Completes the atomic signature forcing chain (4 of
-4 dimensions).  Alternatively, **1.4 α_em Step 5 audit** if a
-quick HIGH-tractability win is preferred.  (Previously 1.3 —
-three of four pairs closed 2026-05-25; only K_{13, 8} deferred.
-Previously 1.1 — closed 2026-05-25 with 8 explicit primary cup
-generators + layer-promotion lift.)
+All four Tier 1 items are now CLOSED (1.1, 1.2, 1.4 fully;
+1.3 partially — K_{13, 8} still mechanical-deferred).  The
+next-shot focus should be one of:
+
+  · **K_{13, 8}** (Tier 1.3 residue) — pairEnum13 + IsLexFold
+    OR psi_excl_T0_NT8 + 28-fold XOR.  Mechanical.
+  · **Tier 2.1 Hodge ↔ universe-chain** — HIGH narrative
+    leverage, no Lean needed.
+  · **Tier 4.1 Catalog ↔ Lean parity audit** — HIGH hygiene
+    sweep.
 
 If choosing one tier-2 cross-reference: **2.1 Hodge ↔
 universe-chain self-pointing**.  Highest narrative coherence
@@ -368,9 +381,13 @@ sweep.
     row.  Follow-on essay update in
     `theory/essays/c_counter_programme_closure.md` still
     pending.
-  · **1.2 closes ⇒** atomic forcing chain (NS, NT, d, c) is
-    fully Lean-level; updates `physics/foundations/atomic_constants.md`
-    "all four forced" claim and `theory/STATE.md` Closed table.
+  · **1.2 SATISFIED (closed 2026-05-25)**: atomic forcing chain
+    (NS, NT, d, c) = (3, 2, 5, 2) is now fully Lean-formalised
+    via `CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous`
+    (parametric ∀ k ≥ 3 pigeonhole over `Fin 2` base).  Downstream
+    update applied to `STATE.md` Closed table; chapter
+    `physics/foundations/atomic_constants.md` already noted "all
+    four forced" via the narrative chain.
   · **1.3 PARTIALLY SATISFIED (closed 2026-05-25)**: three of
     four pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5} via the
     KNS4 / KNS5 routes plus new pairEnum7 / pairEnum8.  Direction
