@@ -66,18 +66,32 @@ removes a conditional or stated-but-unproved gap.
   · **Closes**: atomic signature forcing fully formalised at
     Lean level (currently 3 of 4 dimensions).
 
-### 1.3 Pell-orbit cohomology extension
+### 1.3 Pell-orbit cohomology extension — PARTIALLY CLOSED
 
   · **What**: verify `master_Knn_c_counter_resolved`'s universal
     framework transports to (8, 5), (5, 4), (7, 4), (13, 8) —
     the next Stern-Brocot layer.
-  · **Mechanics**: instantiate `EnrichedKNSNTc` for each pair;
-    the parity-failing dispatcher should handle every case.
-  · **Tractability**: HIGH (concrete verifications, no new
-    theory).
-  · **Anchor**: extend `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/`.
+  · **Status (2026-05-25, this session)**: Three of four CLOSED;
+    (13, 8) deferred.
+      · **K_{5, 4}** — closed via `K54_c_independent_h2_classes_via_framework`
+        (NT=5 odd) and re-exported `K54_via_KNS4` (NT=4 even).
+      · **K_{8, 5}** — closed via `kills_delta1_KNS5 8 c pairEnum8`
+        (NT=5 odd route; new `pairEnum8` added).
+      · **K_{7, 4}** — closed via `KNS4_c_independent_h2_classes 7 c
+        (by decide) pairEnum7` (NT=4 even excl-T route; new
+        `pairEnum7` added).
+      · **K_{13, 8}** — both NS=13 (odd, ∉ {3, 5}) and NT=8
+        (even, ∉ {4, 6}) outside current family coverage.  Needs
+        either `pairEnum13` + `IsLexFold` proof (then NS=13
+        universal-S route closes) OR fresh `psi_excl_T0_NT8`
+        + 28-fold XOR cancellation (then NT=8 family closes).
+        Both routes mechanical; deferred to next session.
+  · **Anchor**: `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/PellOrbitInstances.lean`
+    (11 PURE — pairEnum7, pairEnum8, three pair closures + capstone
+    `pell_orbit_stern_brocot_extension_capstone`).
   · **Closes**: empirical confidence that Direction A truly
-    generalises beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}`.
+    generalises beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}` — three
+    Stern-Brocot mediant positions verified.
 
 ### 1.4 α_em Step 5 capstone purity confirmation
 
@@ -326,12 +340,14 @@ narrative.  Readers can verify but not understand.
 
 ## Priority ranking (one-shot session leverage)
 
-If choosing one tier-1 item: **1.3 Pell-orbit cohomology extension**.
-HIGH tractability (concrete verifications via `EnrichedKNSNTc`
-parity-failing dispatcher); empirically tests Direction A's
-generalisation beyond `K_{n, n}`.  (Previously 1.1 — closed
-2026-05-25 with 8 explicit primary cup generators + layer-
-promotion lift; see CLOSED entry above.)
+If choosing one tier-1 item: **1.2 Arity c=2 Lean theorem**
+(MED — the only remaining open tier-1 item after 1.1, 1.3, 1.4
+closures).  Completes the atomic signature forcing chain (4 of
+4 dimensions).  Alternatively, **1.4 α_em Step 5 audit** if a
+quick HIGH-tractability win is preferred.  (Previously 1.3 —
+three of four pairs closed 2026-05-25; only K_{13, 8} deferred.
+Previously 1.1 — closed 2026-05-25 with 8 explicit primary cup
+generators + layer-promotion lift.)
 
 If choosing one tier-2 cross-reference: **2.1 Hodge ↔
 universe-chain self-pointing**.  Highest narrative coherence
@@ -355,10 +371,15 @@ sweep.
   · **1.2 closes ⇒** atomic forcing chain (NS, NT, d, c) is
     fully Lean-level; updates `physics/foundations/atomic_constants.md`
     "all four forced" claim and `theory/STATE.md` Closed table.
-  · **1.3 closes ⇒** empirical confidence for Direction A;
-    feeds 2.3 (p-adic Lens of mod-p periods) since extending
-    pairs exposes the period-vs-valuation correspondence
-    pattern.
+  · **1.3 PARTIALLY SATISFIED (closed 2026-05-25)**: three of
+    four pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5} via the
+    KNS4 / KNS5 routes plus new pairEnum7 / pairEnum8.  Direction
+    A's generalisation beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}`
+    is empirically confirmed at three Stern-Brocot mediant
+    positions.  Only K_{13, 8} remains — requires `pairEnum13` +
+    IsLexFold OR `psi_excl_T0_NT8` (both mechanical).  Downstream
+    feed-into 2.3 (p-adic Lens of mod-p periods) still applicable
+    once K_{13, 8} closes.
   · **2.4 (Sym(3)-spine unification) needs** a new bridge file
     if the gluon-octet ↔ 8-geometries isomorphism is to live in
     Lean rather than only narrative — likely under

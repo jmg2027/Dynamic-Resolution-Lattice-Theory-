@@ -72,6 +72,25 @@ types**.  See `theory/essays/per_layer_completeness_constructive_closure.md`
 §"The `cong` constructor as funext-bypass" +
 `theory/essays/pure_funext_avoidance.md` 5th pattern.
 
+### Tier 1.3 — Pell-orbit Stern-Brocot mediant extension, 3/4 closed
+
+Three of the four next-Stern-Brocot-layer pairs from the
+research plan are now closed:
+
+  · K_{5, 4} via `K54_via_KNS4` (NT=4 excl-T route)
+  · K_{7, 4} via `K74_c_independent_h2_classes_via_framework`
+    (NT=4 excl-T route, new `pairEnum7`)
+  · K_{8, 5} via `K85_c_independent_h2_classes_via_framework`
+    (NT=5 odd qT-zero route, new `pairEnum8`)
+  · Capstone: `pell_orbit_stern_brocot_extension_capstone`
+
+11 PURE in `Parametric/PellOrbitInstances.lean` (new file).
+
+Only K_{13, 8} remains — both NS=13 odd ∉ {3, 5} and NT=8 even
+∉ {4, 6}.  Closes via either `pairEnum13` + IsLexFold proof
+(universal-S route) OR fresh `psi_excl_T0_NT8` + 28-fold XOR
+cancellation (NT=8 excl-T family).  Mechanical, deferred.
+
 ## Boot order
 
   · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — re-read every
@@ -116,17 +135,19 @@ Highlights — full list in `theory/INDEX.md`:
 
 ## What's open (residual)
 
-Per-layer completeness — closed (this session).  Genuinely open
-structural questions:
+Per-layer completeness — closed (this session).
+Pell-orbit extension — 3/4 closed (this session).
+Genuinely open structural questions:
 
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; lifting to cup-product algebra (4 edge + 9 face
     sub-cells per mediant) is the next layer.
   · **Massey-class mediant lift**: do K_{4, 3} 4-fold Massey
     witnesses factor through K_{1, 1} ⊕ K_{3, 2}?
-  · **Pell-orbit extensions**: (8, 5), (5, 4), (7, 4), (13, 8)
-    — next Stern-Brocot layer.  Concrete reachable witnesses;
-    structural cohomology transports via Direction A.
+  · **K_{13, 8} extension**: only remaining Pell-orbit pair.
+    Both NS=13 odd ∉ {3, 5} and NT=8 even ∉ {4, 6} outside
+    current family coverage — mechanical via either pairEnum13
+    + IsLexFold or psi_excl_T0_NT8 + 28-fold XOR.
   · **n-prime P-orbit depth bound**: empirically D(p) ≤ 4 for
     p ≤ 97; asymptotic growth (O(log p)?) is open.
   · **Cup-product transport on V32LocalSignature**: does the

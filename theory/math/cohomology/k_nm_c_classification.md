@@ -667,6 +667,9 @@ Stern-Brocot path while cup-product / cochain lift remains open.
       (parity-failing dispatcher + K_{3,NT}, K_{5,NT}, … closures)
     - `Bipartite/Parametric/EnrichedKNSNTcMaster.lean`
       (`master_Knn_c_counter_resolved`)
+    - `Bipartite/Parametric/PellOrbitInstances.lean` (pairEnum7,
+      pairEnum8, K_{5,4} / K_{7,4} / K_{8,5} closures,
+      `pell_orbit_stern_brocot_extension_capstone`)
   · Infrastructure: `Cohomology/Infrastructure/BoolXORFold.lean`
     (graph-agnostic `psiNatPos`, `xor_pair_swap`),
     `Infrastructure/NatBeqHelpers.lean` (Nat.beq + decide
@@ -715,6 +718,8 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 | `qT_param_zero_universal` / `qS_param_zero_universal` | `Parametric/EnrichedKNSNTcUniversal` | row / column Q-functional vanishes universally (even-NS / even-NT) |
 | `kills_delta1_K3NT_via_universal` | same | parity-failing dispatcher (excl-S ψ) for odd-NS, all NT, all c |
 | `master_Knn_c_counter_resolved` | `Parametric/EnrichedKNSNTcMaster` | ★ master: codim ≥ c at K_{n,n}^{(c)} for n ∈ {3, 4, 5, 6}, ∀c |
+| `K85_c_independent_h2_classes_via_framework`, `K74_c_independent_h2_classes_via_framework`, `K54_via_KNS4` | `Parametric/PellOrbitInstances` | Stern-Brocot mediant extension to K_{5,4}, K_{7,4}, K_{8,5} via existing KNS4 / KNS5 routes (NT=4 even / NT=5 odd) |
+| `pell_orbit_stern_brocot_extension_capstone` | same | ★ next Stern-Brocot layer beyond `n ∈ {3, 4, 5, 6}` diagonal — three instances closed |
 
 ## Research-note provenance
 
@@ -734,6 +739,18 @@ unconditional capstones `parametric_dual_span_unconditional` and
 `codim_upper_bound_unconditional` close the `codim = c` upper
 bound at every Stern-Brocot position.
 
+Pell-orbit Stern-Brocot mediant extension — three of four closed
+(2026-05-25): K_{5, 4}, K_{7, 4}, K_{8, 5} each carry `c`
+independent non-coboundary H²-classes via
+`Parametric/PellOrbitInstances.lean` (11 PURE — `pairEnum7`,
+`pairEnum8`, three pair closures, capstone
+`pell_orbit_stern_brocot_extension_capstone`).  All three use
+existing parametric routes: K_{5, 4} and K_{7, 4} via NT=4
+`KNS4_c_independent_h2_classes` (excl-T), K_{8, 5} via NT=5
+`kills_delta1_KNS5` (qT-zero).  Direction A's generalisation
+beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}` is empirically
+verified at three Stern-Brocot mediant positions.
+
 Remaining open structural questions:
 
   · **Cochain-level mediant functor**: count-level Vandermonde
@@ -741,10 +758,13 @@ Remaining open structural questions:
     (4 edge + 9 face sub-cells per mediant) is the next layer.
     See `theory/essays/stern_brocot_as_universal_lattice.md`
     and `theory/essays/vandermonde_mediant_counts.md`.
-  · **Pell-orbit and Stern-Brocot extensions**: (8, 5), (5, 4),
-    (7, 4), (13, 8), … — next layer of the Möbius P lattice.
-    Each is a concrete reachable witness; the structural
-    cohomology theorems transport via the universal framework.
+  · **K_{13, 8} extension**: NS = 13 odd ∉ {3, 5}, NT = 8 even
+    ∉ {4, 6} — both sides outside current family coverage.
+    Closes either via `pairEnum13` + `IsLexFold` proof
+    (universal-S route, NS=13 odd) OR via fresh
+    `psi_excl_T0_NT8` + 28-fold XOR cancellation
+    (NT=8 even excl-T family).  Both routes are mechanical
+    extensions of existing patterns.
   · **Massey-class lift of the mediant**: do the 4-fold Massey
     witnesses on K_{4,3} factor through K_{1,1} ⊕ K_{3,2}?
     Conjecturally yes via the count-Vandermonde + Massey-depth
