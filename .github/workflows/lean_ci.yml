@@ -20,11 +20,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: lean
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
         with:
+          lake-package-directory: lean
           build-args: ''
