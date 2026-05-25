@@ -260,8 +260,16 @@ the P-orbit level, not the atomic level.
 
   · Umbrella: `lean/E213/Lib/Math/Mobius213/Px.lean`
     (auto-includes Px subdirectory)
-  · 13 Px modules listed in the catalog table above
-  · ∅-axiom PURE across the 13 modules
+  · 20 Px modules + 1 Atomicity orbit-forcing module:
+    `SymmetrySpecies`, `OpenSpeciesClosure`, `DenomInvariantFamily`,
+    `IterationSpecies`, `ExtendedSpecies`, `AxisGroupCount`,
+    `DecompositionCatalog`, `SyntacticCatalog`, `FibonacciAtomicLock`,
+    `NaturalnessClosure`, `TripartiteK213`, `ModPPeriods`,
+    `POrbitClosure`, `CharPolySelf`, `POrbitRing`,
+    `PeriodDepthBounds`, `CrossProductAxes`, `POrbitDepth`,
+    `CassiniInduction`, `PnFibonacci`, `LModP`, `PeriodReciprocity`
+    + `Theory/Atomicity/OrbitForcing`.
+  · ∅-axiom PURE across all modules
 
 ## Key results
 
@@ -274,6 +282,17 @@ the P-orbit level, not the atomic level.
 | `period_mod_*_eq_*` (table) | `ModPPeriods` | per-mod-p period values verified ∅-axiom |
 | `naturalness_closure_master` | `NaturalnessClosure` | refined naturalness boundary (P-orbit closure) |
 | `p_orbit_closure_master` | `POrbitClosure` | mod-p periods catalog as P-orbit expressions |
+| `p_self_reference_master` | `CharPolySelf` | P's atomic data reconstructed from its trace orbit |
+| `p_orbit_ring_catalog_master` | `POrbitRing` | 12-prime catalog ⊂ inductive ring closure |
+| `orbit_forcing_master` | `Theory/Atomicity/OrbitForcing` | Pell-Lucas coefficients `(3, 1)` forced |
+| `period_depth_bound_master` | `PeriodDepthBounds` | 10 new primes through 97 with depth tags |
+| `cross_product_axes_master` | `CrossProductAxes` | triple-axis Bipartite × Tripartite × P-orbit |
+| `shadow_projection_master` | `Cohomology/Tripartite/V213ShadowProjection` | Massey shadow projection vanishes |
+| `p_orbit_depth_catalog_master` | `POrbitDepth` | depth-bounded inductive ring at K = 0,2,3,4 |
+| `cassini_catalog_master` | `CassiniInduction` | Cassini at n = 0..9 (D = d at every step) |
+| `pn_fibonacci_master` | `PnFibonacci` | P^n entries = consecutive Fibonacci (n ≤ 5) |
+| `l_mod_p_cycle_closure_master` | `LModP` | L mod p cycle closes at period for 8 primes |
+| `period_reciprocity_master` | `PeriodReciprocity` | T_p \| p±1 via Legendre(5, p) for 23 primes |
 
 ## Research-note provenance
 
@@ -283,29 +302,66 @@ the P-orbit level, not the atomic level.
     36-species programme + meta-patterns (atomic catalog as
     minimum-depth slice)
 
-## Open frontier
+## Closure status
 
-  · **P-orbit closure theorem**: prove that for every prime p,
-    `ord(P mod p) ∈ ⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ`.  Number-theoretic
-    claim about Pell-Lucas sequences mod p.
-  · **Theory.Atomicity.OrbitForcing**: extend Theory.Atomicity
-    with an `OrbitForcing` lemma — atomic signature plus the
-    Pell-Lucas recurrence (= P-iteration) is forced.
-  · **Tripartite × P-orbit cross-product**: prove every
-    framework-natural species lies in
-    `(K_{NS, NT} ⊔ K_{NT, det, NS}) × P-orbit-depth`.
+  · **P-orbit closure theorem (CLOSED, finite catalog)**:
+    `POrbitRing.lean` — inductive `InPOrbitRing : Int → Prop` and
+    `p_orbit_ring_catalog_master` (12 primes) +
+    `PeriodDepthBounds.lean` (10 further primes through 97) +
+    `LModP.lean` (cycle closure verification).  Every catalogued
+    period lies in the ring; ring = ℤ trivially via Bezout
+    `1 = NS − NT`.
+  · **Theory.Atomicity.OrbitForcing (CLOSED)**:
+    `Theory/Atomicity/OrbitForcing.lean` — Pell-Lucas recurrence
+    coefficients `(NS, det) = (3, 1)` forced from atomic seeds
+    and target `L(2) = 7`.  Static shape forcing (PairForcing +
+    Five) lifts to dynamic orbit forcing.  Now the 8th file in
+    the Atomicity cluster.
+  · **Tripartite × P-orbit cross-product (CLOSED, structure)**:
+    `CrossProductAxes.lean` — `CrossAddress :=
+    (bipartiteCount, tripartiteCount, pOrbitDepth)` formalised
+    with atomic and mod-p species addresses.
   · ~~Cohomology Massey ↔ Tripartite natural cohomology~~:
-    **CLOSED negative** (`Cohomology/Tripartite/`).  K_{2,1,3}
-    is cohomologically trivial above H⁰ (b₁ = 0), so it cannot
-    host shadow projections of K_{3, 2}^{(c=2)}'s b₁ = 8 + Massey
-    content.  The Massey lives intrinsically in K_{3, 2}^{(c=2)};
-    self-containment via local (2, 1, 3) signature
-    (`V32LocalSignature.local_213_at_every_point`) is the
-    correct cohomology-level reading.  See
-    `theory/math/cohomology/tripartite_self_containment.md`.
-  · **n-prime extension**: for primes p not falling in P-orbit
-    depth ≤ K, what is the minimum depth?  Is the depth bounded
-    universally, or does it grow with p?
+    **CLOSED negative** at three layers.
+    `V32V213CohomologyBridge` (atomic-bridge + b₁-mismatch) +
+    `V213ShadowProjection` (Massey-shadow vanishing).
+    `K_{2,1,3}` is cohomologically trivial above H⁰; no Massey
+    content transfers from K_{3, 2}^{(c=2)}.  Self-containment
+    via local (2, 1, 3) signature is the correct reading.
+  · **P self-reference (CLOSED)**: `CharPolySelf.lean` —
+    Cayley-Hamilton `L_cayley_hamilton` + Cassini at n=1,2,3
+    reconstructing `d` from L-values; atomic primes seeded by L
+    (`NT = L(0), NS = L(1)`).  `CassiniInduction.lean` extends
+    to n = 0..9.  P is reconstructible from its own trace orbit.
+  · **P^n ↔ Fibonacci bisection (CLOSED, n ≤ 5)**:
+    `PnFibonacci.lean` — `P^n = [[fib(2n+1), fib(2n)], [fib(2n),
+    fib(2n−1)]]` verified at n = 0..5; `L(n) = fib(2n+1) +
+    fib(2n−1)`; `det(P^n) = 1` via Fibonacci Cassini at even
+    indices.
+  · **Period reciprocity via Legendre(5, p) (CLOSED, catalog)**:
+    `PeriodReciprocity.lean` — for 23 primes, period `T_p` divides
+    `p ± 1` per quadratic-reciprocity dichotomy `p mod 5 ∈
+    {1,4}` (QR) vs `{2,3}` (non-QR).
+  · **POrbitDepth inductive invariant (CLOSED)**:
+    `POrbitDepth.lean` — `AtDepth K n` predicate with weakening;
+    explicit depth witnesses 0, 2, 3, 4 for catalogued primes.
+
+See `theory/essays/p_orbit_closure_master.md` for the synthesis.
+
+## Open frontier (after closure)
+
+  · **D(p) = O(log p) universal bound**: empirically `D(p) ≤ 4`
+    for `p ≤ 97`, conjecturally logarithmic.  Number-theoretic
+    proof open.
+  · **Universal Cassini ∀n in PURE Lean**: requires Int polynomial
+    `ring`-tactic equivalent without Mathlib import.
+  · **Universal P^n ↔ Fibonacci ∀n in PURE Lean**: same blocker.
+  · **Lens-functorial cross-product**: prove every Lens-PURE
+    species factors through `CrossAddress` definitionally, not
+    merely by exhibition.
+  · **Period reciprocity universal proof**: lift the per-prime
+    divisibility to ∀ odd prime p ≠ 5 via finite-cyclotomic
+    extension theory in PURE Lean.
 
 ## How to verify
 

@@ -1,5 +1,46 @@
 # Session Handoff
 
+## Branch: `claude/p-orbit-closure-theorem-U8cEr`
+
+### P-orbit closure marathon (11 phases, ~165 PURE / 0 DIRTY)
+
+A complete closure programme for the Möbius-P trace orbit:
+
+  · **Phase 1** — `Px/CharPolySelf` (11): Cayley-Hamilton trace
+    recurrence + Cassini at n=1,2,3 + atomic primes from L
+    (P self-defines via its orbit).
+  · **Phase 2** — `Px/POrbitRing` (22): inductive
+    `InPOrbitRing : Int → Prop` + 12-prime catalog + Bezout
+    `1 = NS − NT` (ring = ℤ).
+  · **Phase 3** — `Theory/Atomicity/OrbitForcing` (13): the
+    8th file in Atomicity cluster.  Pell-Lucas recurrence
+    coefficients `(NS, det) = (3, 1)` forced from atomic seeds
+    + `L(2) = 7` target.
+  · **Phase 4** — `Px/PeriodDepthBounds` (21): primes 41–97
+    with explicit depth tags; max depth = 4 at p = 73.
+  · **Phase 5** — `Px/CrossProductAxes` (17): `CrossAddress`
+    triple-axis structure (bipartite, tripartite, P-orbit).
+  · **Phase 6** — `Cohomology/Tripartite/V213ShadowProjection`
+    (8): Massey shadow projection vanishes; external tripartite
+    closure-negative confirmed at Massey level.
+  · **Phase 7** — `Px/POrbitDepth` (19): inductive `AtDepth K n`
+    with weakening; explicit depth witnesses at K = 0, 2, 3, 4.
+  · **Phase 8** — `Px/CassiniInduction` (11): Cassini identity
+    `L(n)·L(n+2) − L(n+1)² = d` at n = 0..9 (finite catalog).
+  · **Phase 9** — `Px/PnFibonacci` (34): P^n matrix entries are
+    consecutive Fibonacci at even indices (n ≤ 5);
+    `trace(P^n) = fib(2n+1) + fib(2n-1) = L(n)`;
+    `det(P^n) = 1` via Fibonacci Cassini.
+  · **Phase 10** — `Px/LModP` (9): L mod p cycle-closure for
+    8 primes confirms modular periodicity = ord(P mod p).
+  · **Phase 11** — `Px/PeriodReciprocity` (35): T_p ∣ p ± 1
+    for 23 primes via quadratic-reciprocity dichotomy
+    `p mod 5 ∈ {1,4}` (QR) vs `{2,3}` (non-QR).
+
+Synthesis: `theory/essays/p_orbit_closure_master.md`.
+Chapter: `theory/math/mobius213_p_orbit_closure.md` updated
+with all 11 phases under "Closure status".
+
 ## Anchor results on `main`
 
 ### c-multiplicity counter for K_{NS,NT}^{(c)}
