@@ -222,13 +222,29 @@ the kill argument closes by structural XOR-cancellation.
   · `e_face_layer_K64` at `(s=5, t=0)` (pair {1,2})
   · `K64_c_independent_h2_classes`
 
-**Still open**: K_{4,6}, K_{6,6}, K_{4,8}, K_{8,4}, ... (other
-both-even cases).  Method generalises: each needs `pairEnumN` (if
-not yet defined) and a bespoke `psi_excl_S0_K{NS}{NT}` following the
-K_{4,4} / K_{6,4} template.  Note K_{NS,4} for ALL even NS reuses
-the existing pairEnum4 and qT_param framework; K_{4,NT} for all
-even NT requires the dual `psi_excl_T0` (swap S↔T in the
-construction).
+**K_{4, NT} family** (any NT ≥ 2, 7 PURE):
+
+  · `psi_excl_S0_NS4 NT c m v` — parametric in NT, same s-fold
+    structure as K_{4,4} but with `chooseTwo NT`-fold over t.
+  · `psi_excl_S0_NS4_kills_delta1` — kill argument depends only
+    on NS=4 (3-bool case-bash on qT i, i ∈ {1, 2, 3}); NT plays
+    no role.
+  · `e_face_layer_NS4 NT c m` at `(s=3, t=0)`, parametric in NT.
+  · `K4NT_c_independent_h2_classes NT (hNT : 0 < chooseTwo NT) pT`
+    — capstone for any NT ≥ 2 with any T-side enumeration `pT`.
+
+This single family closes K_{4, NT} for **every NT ≥ 2** uniformly
+— both parity-failing (NT even: K_{4,4}, K_{4,6}, K_{4,8}, ...)
+and parity-OK (NT odd: K_{4,3}, K_{4,5}, K_{4,7}, ...).  Concrete
+instance K_{4,6} (`K46_c_independent_h2_classes`) included.
+
+**Still open**: K_{6,6}, K_{6,8}, K_{8,4}, K_{8,6}, ... (NS ≥ 6
+even, NT even).  Method generalises: a parametric family
+`psi_excl_S0_NS{6,8,...}` mirroring `psi_excl_S0_NS4` closes
+K_{NS, NT} for each fixed-NS NT-parametric family.  The NS=6
+analogue (10-term s-fold + 5-bool case-bash on qT) is in
+EnrichedKNSNTcEvenEven §7 (K_{6,4} only at this stage) — extending
+to K_{6, NT} family is a straightforward generalisation.
 
 ### Direction B — Arbitrary-m parametric kill via Nat.beq cancellation
 

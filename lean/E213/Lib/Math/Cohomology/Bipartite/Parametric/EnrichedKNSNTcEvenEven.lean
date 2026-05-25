@@ -343,4 +343,123 @@ theorem K64_c_independent_h2_classes (c : Nat) :
     ⟨psi_excl_S0_K64_signature c m m',
      e_face_layer_K64_not_coboundary c m⟩
 
+/-! ## §9 — Parametric `psi_excl_S0_NS4`: family kill for K_{4, NT}
+
+Generalises `psi_excl_S0_K44` over `NT : Nat`.  The kill argument
+only depends on NS=4 (3-bool case-bash on `qT 1, qT 2, qT 3`); NT
+factors through `foldXor_t_face_eq_qT_decomposition` parametrically.
+
+Closes K_{4, NT} for every NT ≥ 2 via the vertex-excluding ψ —
+both parity-failing (NT even) and (redundantly) parity-OK (NT odd)
+cases. -/
+
+/-- ψ-functional for K_{4, NT} excluding S-pairs containing vertex 0.
+    Sums layer-`m` face values over `s ∈ {3, 4, 5}` and all
+    T-pairs (chooseTwo NT). -/
+def psi_excl_S0_NS4 (NT c : Nat) (m : Fin c) (v : EnrichedFaceVal 4 NT c) : Bool :=
+  xor (xor (foldXor (chooseTwo NT) (fun t => v ⟨3, by decide⟩ t m))
+           (foldXor (chooseTwo NT) (fun t => v ⟨4, by decide⟩ t m)))
+      (foldXor (chooseTwo NT) (fun t => v ⟨5, by decide⟩ t m))
+
+set_option maxHeartbeats 800000 in
+/-- ψ_excl_S0_NS4 kills δ¹ for any T-side pair enumeration.  Proof
+    by qT-decomposition at each of s ∈ {3, 4, 5} + 3-bool case-bash
+    on `qT 1, qT 2, qT 3` (structural cancellation: each appears
+    twice). -/
+theorem psi_excl_S0_NS4_kills_delta1
+    (NT c : Nat) (pT : PairEnum NT) (σ : EnrichedEdgeCoch 4 NT c) (m : Fin c) :
+    psi_excl_S0_NS4 NT c m
+      (delta1_enr_param 4 NT c pairEnum4 pT σ) = false := by
+  unfold psi_excl_S0_NS4 delta1_enr_param
+  rw [foldXor_t_face_eq_qT_decomposition 4 NT c pairEnum4 pT σ ⟨3, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 4 NT c pairEnum4 pT σ ⟨4, by decide⟩ m,
+      foldXor_t_face_eq_qT_decomposition 4 NT c pairEnum4 pT σ ⟨5, by decide⟩ m]
+  unfold pairEnum4 pair4_lo pair4_hi
+  cases qT_param 4 NT c pT σ ⟨1, by decide⟩ m <;>
+    cases qT_param 4 NT c pT σ ⟨2, by decide⟩ m <;>
+    cases qT_param 4 NT c pT σ ⟨3, by decide⟩ m <;> rfl
+
+/-- Single-face indicator at `(s = 3, t = 0)` for K_{4, NT}. -/
+def e_face_layer_NS4 (NT c : Nat) (m : Fin c) : EnrichedFaceVal 4 NT c :=
+  fun s t m' =>
+    match s.val, t.val with
+    | 3, 0 => decide (m.val = m'.val)
+    | _, _ => false
+
+/-- ψ-signature: `ψ_excl_S0_NS4(e_face_layer_NS4 m) = decide(m = m')`.
+    Requires `chooseTwo NT ≥ 1` (i.e., NT ≥ 2). -/
+theorem psi_excl_S0_NS4_signature
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (m m' : Fin c) :
+    psi_excl_S0_NS4 NT c m' (e_face_layer_NS4 NT c m)
+      = decide (m.val = m'.val) := by
+  unfold psi_excl_S0_NS4
+  have hs3 :
+      foldXor (chooseTwo NT)
+        (fun t => e_face_layer_NS4 NT c m ⟨3, by decide⟩ t m')
+        = decide (m.val = m'.val) := by
+    apply foldXor_only_first_pos (chooseTwo NT) hNT (decide (m.val = m'.val))
+    · rfl
+    · intro t ht
+      unfold e_face_layer_NS4
+      match hv : t.val, ht with
+      | 0, hcontra => exact absurd rfl hcontra
+      | _+1, _ => rfl
+  have hsf : ∀ (sval : Nat) (hsv : sval = 4 ∨ sval = 5)
+        (hbnd : sval < chooseTwo 4),
+      foldXor (chooseTwo NT)
+        (fun t => e_face_layer_NS4 NT c m ⟨sval, hbnd⟩ t m') = false := by
+    intro sval hsv hbnd
+    apply (foldXor_congr_all (chooseTwo NT) _ (fun _ => false) ?_).trans
+        (foldXor_const_false _)
+    intro t
+    unfold e_face_layer_NS4
+    rcases hsv with rfl | rfl <;> cases t.val <;> rfl
+  rw [hs3,
+      hsf 4 (Or.inl rfl) (by decide),
+      hsf 5 (Or.inr rfl) (by decide)]
+  cases decide (m.val = m'.val) <;> rfl
+
+/-- `e_face_layer_NS4 NT m` is not in the image of `δ¹_enr` at K_{4, NT}. -/
+theorem e_face_layer_NS4_not_coboundary
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (pT : PairEnum NT) (m : Fin c) :
+    ∀ σ : EnrichedEdgeCoch 4 NT c,
+      e_face_layer_NS4 NT c m
+        ≠ delta1_enr_param 4 NT c pairEnum4 pT σ := by
+  intro σ heq
+  have h := congrArg (psi_excl_S0_NS4 NT c m) heq
+  rw [psi_excl_S0_NS4_signature NT c hNT m m,
+      psi_excl_S0_NS4_kills_delta1 NT c pT σ m] at h
+  rw [decide_self_true_K44] at h
+  exact Bool.noConfusion h
+
+/-- ★★★★★★ Family capstone: K_{4, NT} for every NT ≥ 2 carries `c`
+    independent non-coboundary H²-classes — both parity-failing (NT
+    even) and parity-OK (NT odd) cases covered uniformly. -/
+theorem K4NT_c_independent_h2_classes
+    (NT c : Nat) (hNT : 0 < chooseTwo NT) (pT : PairEnum NT) :
+    ∀ (m m' : Fin c),
+      psi_excl_S0_NS4 NT c m' (e_face_layer_NS4 NT c m)
+        = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 4 NT c,
+           e_face_layer_NS4 NT c m
+             ≠ delta1_enr_param 4 NT c pairEnum4 pT σ) :=
+  fun m m' =>
+    ⟨psi_excl_S0_NS4_signature NT c hNT m m',
+     e_face_layer_NS4_not_coboundary NT c hNT pT m⟩
+
+/-! ## §10 — K_{4,6} instance from the family
+
+K_{4,6}: NS=4, NT=6, (NS-1)(NT-1) = 3·5 = 15 odd (parity-failing).
+Closed via the vertex-excluding family `K4NT_c_independent_h2_classes`. -/
+
+/-- `K_{4,6}^{(c)}` c-independent H²-classes via `psi_excl_S0_NS4`. -/
+theorem K46_c_independent_h2_classes (c : Nat) :
+    ∀ (m m' : Fin c),
+      psi_excl_S0_NS4 6 c m' (e_face_layer_NS4 6 c m)
+        = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch 4 6 c,
+           e_face_layer_NS4 6 c m
+             ≠ delta1_enr_param 4 6 c pairEnum4 pairEnum6 σ) :=
+  K4NT_c_independent_h2_classes 6 c (by decide) pairEnum6
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven
