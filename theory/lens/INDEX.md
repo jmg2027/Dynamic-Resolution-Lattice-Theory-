@@ -15,7 +15,7 @@ conceptual ranking.
 | Chapter | Lean sub-tree | Files |
 |---|---|---|
 | [`algebra.md`](algebra.md)         | `Lens/Algebra/`         | 3 |
-| [`axiom_lenses.md`](axiom_lenses.md) | `Lens/AxiomLenses/`     | 7 (G12 Tier 4 A2 endgame) |
+| [`axiom_lenses.md`](axiom_lenses.md) | `Lens/AxiomLenses/`   | 7 |
 | [`bool213.md`](bool213.md)         | `Lens/Bool213/`         | 2 |
 | [`cardinality.md`](cardinality.md) | `Lens/Cardinality/`     | 9 |
 | [`compose.md`](compose.md)         | `Lens/Compose/`         | 7 |
@@ -23,10 +23,17 @@ conceptual ranking.
 | [`lattice.md`](lattice.md)         | `Lens/Lattice/`         | 9 |
 | [`number_systems.md`](number_systems.md) | `Lens/Number/`     | 17 (Nat213 covered in universe_chain) |
 | [`properties.md`](properties.md)   | `Lens/Properties/`      | 21 |
-| [`universal.md`](universal.md)     | `Lens/Universal/`       | 13 (G1 anchor) |
+| [`universal.md`](universal.md)     | `Lens/Universal/`       | 13 (universal Lens anchor) |
 | [`api.md`](api.md)                 | `Lens/API/` + `Lens/Internal/` | (API surface) |
 
-Promotion criteria: `theory/PROMOTION_CRITERIA.md`.
-Pattern: all Pattern 2 (narrative-from-scratch — Lens narrative
-without dedicated G-notes; G1 universal-lens + G12 layered-API
-classification stay active as foundational notes).
+## Synthesis chapters (1)
+
+| Chapter | Anchors | Purpose |
+|---|---|---|
+| [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (9 PURE). |
+
+Promotion criteria: `theory/PROMOTION_CRITERIA.md`.  Closed
+chapters are narrative-from-scratch — Lens prose without per-file
+research notes.  Synthesis chapters consolidate content
+distributed across multiple closed Lean sub-trees into one
+concept; they do not mirror a single sub-tree.
