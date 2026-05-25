@@ -108,6 +108,11 @@ Active top-level registries after merge:
 | `archive/c_counter/G145_c_counter_structural_theory.md` | c-counter structural theory: multiplicity-layer interpretation + Stern-Brocot classification + K33Unified — promoted to `theory/math/cohomology/k_nm_c_classification.md` + essay `stern_brocot_as_universal_lattice.md` |
 | `archive/c_counter/G146_K32_bipartite_tripartite_self_containment.md` | K_{3,2}^{(c=2)} as self-contained bipartite-tripartite — Lean Option I deferred — promoted as essay `bipartite_tripartite_self_containment.md` (Reading B) |
 | `archive/G146_p_orbit_naturalness_boundary.md` | P-orbit naturalness boundary (tripartite K_{2,1,3} + ModPPeriods + POrbitClosure) — promoted to `theory/math/mobius213_p_orbit_closure.md` + essay `p_orbit_naturalness_boundary.md` |
+| `archive/c_counter/G140_massey_nonvacuous_search.md` | Massey non-vacuous search at K_{3,2}^{(c=2)} (Phase 13 of G141 marathon) — closed at merge |
+| `archive/c_counter/G141_cohomology_marathon.md` | 14-phase cohomology marathon — 230 PURE closed at merge; absorbed into `theory/math/cohomology/{cup_ladder_graduation,fractal,k32_higher_cohomology}.md` |
+| `archive/c_counter/G142_K33_massey_full_h2_map.md` | Full H² map of K_{3,3}^{(c=2)} (all 5 dims, 4-fold Massey 5th) — absorbed into `theory/math/cohomology/k_nm_c_classification.md` |
+| `archive/c_counter/G142_p_x_symmetry_classification_algorithm.md` | Algorithmic classification of P(x) symmetries — absorbed into `theory/math/mobius213_p_orbit_closure.md` Px catalog |
+| `archive/c_counter/G144_p_symmetry_meta_patterns.md` | 12 meta-patterns + 4 deep insights from P(x) species programme — superseded by P-orbit closure (see `theory/math/mobius213_p_orbit_closure.md` and `theory/essays/p_orbit_closure_master.md`) |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN

@@ -160,7 +160,7 @@ theorem P_shifts_fibonacci_index_2_at_n1 :
     SL(2, ℤ) element*, with topological entropy
     `h_top = 2·ln(φ)`.
 
-    See `research-notes/G144_p_symmetry_meta_patterns.md`
+    See `research-notes/archive/c_counter/G144_p_symmetry_meta_patterns.md`
     §18 for the meta-claim and its predictive content. -/
 theorem fibonacci_atomic_lock_master :
     -- (a) P = Q² (entry-wise structural origin)
