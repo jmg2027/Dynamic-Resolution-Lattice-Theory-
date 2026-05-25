@@ -551,14 +551,11 @@ Anchor: `research-notes/G146_K32_bipartite_tripartite_self_containment.md`.
 ## Anchor docs
 
   · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — boot
-  · `theory/math/cohomology/k_nm_c_classification.md` — c-counter resolution + Stern-Brocot classification (promoted from G143 + G145)
-  · `theory/math/mobius213_p_orbit_closure.md` — P-orbit naturalness boundary (promoted from G146 P-orbit + Px catalog)
-  · `theory/essays/bipartite_tripartite_self_containment.md` — K_{3,2}^{(c=2)} self-containment (essay, Lean Option I deferred from G146)
-  · `theory/essays/{c_counter_as_layer_count,disjoint_layers_as_direct_sum,stern_brocot_as_universal_lattice,p_orbit_naturalness_boundary,vandermonde_mediant_counts,cup_image_dual_span}.md` — cross-cutting essays
-  · `theory/essays/cup_image_dual_span.md` — Direction C dual-span scaffolding essay (PRIMARY vs FULL cup-image, 9-block disjointness, conditional/unconditional separation)
-  · `theory/math/cohomology/k_nm_c_classification.md` §"Cup-image dual span (upper bound side)" — chapter promotion of V33EnrichedParametricDualSpan work
-  · `theory/math/cohomology/k_nm_c_classification.md` §"Mediant cohomology functor (count level)" — Direction E count-level closure (Vandermonde of V/E/F)
-  · `theory/math/cohomology/tripartite_self_containment.md` — Direction T closure: K_{2,1,3} Betti (1,0,0) + V32LocalSignature local-(2,1,3) framework + cross-frame verdict (atomic preserved, cohomology breach)
+  · `theory/math/cohomology/k_nm_c_classification.md` — central c-counter chapter (Directions A/B/C/E all closed; universal `(NS, NT, c)` parametric framework via EnrichedKNSNTc; arbitrary-m kill; dual span; mediant Vandermonde)
+  · `theory/math/cohomology/tripartite_self_containment.md` — Direction T closure (V32LocalSignature positive + V32V213CohomologyBridge negative)
+  · `theory/math/mobius213_p_orbit_closure.md` — P-orbit naturalness boundary + structural forcing via OrbitForcing + Lucas-Pell recurrence
+  · `theory/essays/c_counter_programme_closure.md` — synthesis of all five directions + same-shape parallel to P-orbit closure
+  · `theory/essays/{c_counter_as_layer_count,disjoint_layers_as_direct_sum,stern_brocot_as_universal_lattice,p_orbit_naturalness_boundary,vandermonde_mediant_counts,cup_image_dual_span,multiplicity_layer_uniformity,bipartite_tripartite_self_containment,p_orbit_closure_master,pure_nat_ring_methodology}.md` — cross-cutting essays
   · `lean/E213/ARCHITECTURE.md` — layer spec
   · `theory/INDEX.md` — book map
   · `STRICT_ZERO_AXIOM.md` — PURE catalog
