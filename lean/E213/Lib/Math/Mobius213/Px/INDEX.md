@@ -36,7 +36,7 @@ Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 | `LModP.lean` | closure | 9 | L mod p cycle closure verification |
 | `PeriodReciprocity.lean` | closure | 35 | T_p divides p±1 via Legendre(5,p) |
 | `ConvergentDet.lean` | universal | ~12 | Farey-neighbour property from det=1 |
-| `PGeneratesNat.lean` | universal | ~18 | P generates ALL of ℕ≥1 (Chicken McNugget) |
+| `PGeneratesNat.lean` | universal | ~40 | P generates ALL of ℕ≥1 (Chicken McNugget + exact characterization) |
 
 ## Organisation
 

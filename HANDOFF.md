@@ -4,20 +4,22 @@ Branch: `copilot/finish-current-task` (continuation of
 `claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
 axioms on production critical path.
 
-## This session — P generates ALL of ℕ
+## This session — P generates ALL of ℕ (REFINED)
 
-### PGeneratesNat theorem file (G140), CLOSED
+### PGeneratesNat theorem file (G140), CLOSED + REFINED
 
-  · New file: `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean`
-    (~18 declarations).
-  · New research note: `research-notes/G140_P_generates_all_nat.md`
-  · Key result: `pgen_all_pos` — ∀ n≥1, PGen n
+  · File: `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean`
+    (~40 declarations, 9 sections).
+  · Research note: `research-notes/G140_P_generates_all_nat.md`
+  · Key result: `pgen_iff_pos` — ★ PGen n ↔ n ≥ 1 (exact characterization)
   · Master: `p_generates_nat_master` — 5-conjunct capstone
   · Core proof: Chicken McNugget for (2,3) via strong induction
     (gcd(NT,NS) = gcd(2,3) = 1, Frobenius = 1)
   · Resolves "7 ∉ atomic closure" — additively, P covers all ℕ≥2
-  · Also proves: `chicken_mcnugget_23`, `coprime_NS_NT`,
-    `frobenius_NT_NS`, concrete witnesses 7..97
+  · NEW §8: `not_pgen_zero`, `pgen_pos`, `pgen_iff_pos`, `pgen_semiring_closure`
+  · NEW §5 refined: `minDepth_optimal` (greedy is optimal), bug fix (11→4 not 5)
+  · NEW §9: explicit prime witnesses catalog (≤ 47)
+  · ∅-axiom: 0 native_decide (was 5, all replaced with decide/unfold+omega)
   · Added to umbrella `Px.lean` and `Px/INDEX.md` (28 files)
 
 ### Previous session — G139 + ConvergentDet (already committed)
