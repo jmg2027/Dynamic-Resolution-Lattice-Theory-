@@ -411,12 +411,39 @@ python3 tools/scan_axioms.py \
   E213.Lib.Math.Mobius213.Px.ModPPeriods
 ```
 
+## Cross-reference — p-adic Lens family as mod-p arena
+
+The mod-p period computation `T_p = ord(P mod p)` presupposes a
+structured `mod p` universe.  The ∅-axiom p-adic library
+(`Lib/Math/Padic/`) supplies exactly this: `ZpSeq p` is the
+infinite digit sequence `ℕ → Fin p` with truncation
+`trunc n < p^n` and a full ring homomorphism at every level.
+
+  · **Generality**: `ZpSeq p` is defined for ALL `p ≥ 1`, not just
+    atomic primes.  This is what makes periods at `p = 13, 29, 37, …`
+    framework-natural — the Lens arena already extends there.
+  · **Bridge file**: `Lib/Math/Padic/ZpSeqMobiusBridge.lean` proves
+    that Möbius-pair agreement (digit matching at every Stern-Brocot
+    reachable index pair) is bidirectionally equivalent to pointwise
+    digit equality (`ZpSeqEquiv`).  The Möbius reading of p-adic
+    equality is tight.
+  · **Digit-zero seed**: `L(k) mod p` for `0 ≤ k < T_p` gives
+    `T_p` distinct Teichmüller-iteration starting points at the
+    first digit level.  The connection to Fermat's little theorem
+    at digit 0 (`pow_p_trunc_one`) closes the loop: `L(k)^(p-1) ≡ 1
+    (mod p)` for `gcd(L(k), p) = 1`.
+
+See [`theory/math/padic_real213.md`](padic_real213.md) for the full
+p-adic library narrative (308 PURE theorems).
+
 ## Cross-references
 
   · `theory/math/mobius_canonical_equivalence.md` — P as cut
     equivalence generator (mediant closure side)
   · `theory/math/cohomology/k_nm_c_classification.md` — the
     bipartite cohomology side (K_{NS,NT}^{(c)} classification)
+  · `theory/math/padic_real213.md` — ∅-axiom p-adic number
+    construction (the Lens-arena for mod-p reductions)
   · `theory/essays/p_orbit_naturalness_boundary.md` — synthesis
     essay on the dynamic = static coincidence at P
   · `theory/essays/bipartite_tripartite_self_containment.md` —
