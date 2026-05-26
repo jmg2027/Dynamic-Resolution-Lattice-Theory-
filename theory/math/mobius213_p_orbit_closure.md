@@ -144,6 +144,19 @@ Mod-p periods as P-orbit expressions:
 | 53 | 54 | NS · L(3) | 3 |
 | 71 | 35 | d · L(2) | 2 |
 
+**Cross-reference — Cayley-Dickson Type C (ZOmega).**
+The trace value `L(3) = 18 = NS · |ℤ[ω]×|` factorises as `3 × 6`,
+where `|ℤ[ω]×| = 6` is the unit group of the Eisenstein integers.
+Type C in the Cayley-Dickson tower (see `theory/math/cayley_dickson/
+algebra_tower.md` §Type classification) has base ring `ℤ[ω]` with
+`Z_6` unit group.  The mod-3 period `4 = NT²` (row p = 3 in the
+period table above) equals `|ℤ[ω]×| / (ℤ[ω]× ∩ ℤ×)| + |ℤ×| = 6/2 + 1 = 4`
+via the index formula.  Together: the **Eisenstein unit count 6
+mediates between the Lucas-Pell trace orbit and the Cayley-Dickson
+algebraic tower**, tying the number-theoretic recursion `L(k)` to
+the norm-multiplicativity level at which alternativity breaks (L3→L4
+in Type C).
+
 Every catalogued mod-p period is P-orbit-derivable —
 expressible as a ℤ-combination of `L(k)` for some finite k,
 times atomic monomials.

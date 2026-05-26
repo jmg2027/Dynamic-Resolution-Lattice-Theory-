@@ -122,29 +122,22 @@ These connect already-closed programmes that currently sit
 without explicit cross-reference.  Each fills a missing
 chapter section, not a missing theorem.
 
-### 2.1 Hodge involution ↔ universe-chain self-pointing
+### 2.1 Hodge involution ↔ universe-chain self-pointing — **CLOSED**
 
-  · **Gap**: `theory/math/cohomology/hodge_conjecture.md`
-    closes HC on K_{3, 2}^{(c=2)}; `theory/math/universe_chain.md`
-    Step 19 frames the same Hodge involution as
-    *complement-cochain self-pointing*.  Neither chapter cites
-    the other on this point.
-  · **Action**: add §"Hodge involution as self-pointing" to
-    `hodge_conjecture.md` Foundation; mutual cross-reference.
-  · **Tractability**: HIGH (narrative only).
+  · **Resolved 2026-05-26**: Cross-references added in both
+    `hodge_conjecture.md` (§(iii) HC_Involution) and
+    `universe_chain.md` (§Eisenstein discovery).  The duality
+    between `⋆⋆ = id` and `1 + ω + ω² = 0` is now explicitly
+    narrated as a shared self-cancelling complement structure
+    driven by NS = 3.
 
-### 2.2 Cayley-Dickson Type C ↔ Möbius P mod-3
+### 2.2 Cayley-Dickson Type C ↔ Möbius P mod-3 — **CLOSED**
 
-  · **Gap**: `theory/math/cayley_dickson/algebra_tower.md`
-    Type C uses `ZOmega = ℤ[ω]` (cube root of unity, intrinsically
-    3-adic).  `theory/math/mobius213_p_orbit_closure.md` mod-3
-    period is 4 = `NT²` and L(3) = 18.  The 3-adic structure
-    on both sides is the same generative phenomenon.
-  · **Action**: add §"Eisenstein discovery at k = 3" to
-    `mobius213_p_orbit_closure.md` linking L(3) = 18 to ZOmega
-    L3 Dickson group; converse cross-reference in
-    `algebra_tower.md` Type C.
-  · **Tractability**: HIGH (narrative only).
+  · **Resolved 2026-05-26**: Cross-references added in both
+    `mobius213_p_orbit_closure.md` (after P-orbit table) and
+    `algebra_tower.md` (after Type C row).  The factorisation
+    `L(3) = 18 = NS · |ℤ[ω]×|` and the mod-3 period `4 = NT²`
+    encoding `Z_6 / Z_2` index are now explicitly linked.
 
 ### 2.3 p-adic_real213 ↔ Möbius P mod-p periods
 
@@ -215,26 +208,13 @@ narrative.  Readers can verify but not understand.
 
 ## Tier 4 — Physics deployment extensions
 
-### 4.1 Catalog ↔ Lean parity audit (MED priority)
+### 4.1 Catalog ↔ Lean parity audit — **CLOSED**
 
-  · **Status**: `m_p/m_e ≈ 6π⁵` is closed at
-    `lean/E213/Lib/Physics/Hadron/ProtonElectronRatio.lean`
-    (precision + falsifier; cross-cited in
-    `Lib/Physics/Hadron/Bigrading.lean:149`).
-    `M_Pl/v_H = d^(d²) / (d+1) = 5²⁵ / 6` is closed at
-    `lean/E213/Lib/Physics/Mass/HierarchyTowers.lean` +
-    `lean/E213/Lib/Physics/Higgs/Vacuum.lean:78–86` (precision +
-    falsifier).
-  · **Real gap**: `catalogs/physics-constants.md` line 73 still
-    lists these two among "Remaining 6 ... precision side only;
-    falsifier side is the next extension target".  Catalog is
-    stale relative to Lean.
-  · **Action**: audit the "Remaining 6" line against current
-    falsifier coverage (`catalogs/falsifiers.md` F1–F20); update
-    catalog to reflect actual paired status; check the four
-    untouched (Koide 2/3, η_B, m_t/m_c, muon prefactor 192) for
-    falsifier presence and split accordingly.
-  · **Tractability**: HIGH (catalog grep + cross-check).
+  · **Resolved 2026-05-26**: All 6 "remaining" observables
+    (Koide, m_p/m_e, M_Pl/v_H, muon 192, m_t/m_c, η_B)
+    confirmed to have PURE falsifiers in Lean (F21–F26).
+    `catalogs/physics-constants.md` updated: Phase 5 → Phase 6,
+    23/23 paired = 100% coverage.
 
 ### 4.2 Hadron baryon spectrum
 
@@ -346,24 +326,17 @@ narrative.  Readers can verify but not understand.
 
 ## Priority ranking (one-shot session leverage)
 
-All four Tier 1 items are now CLOSED (1.1, 1.2, 1.4 fully;
-1.3 partially — K_{13, 8} still mechanical-deferred).  The
-next-shot focus should be one of:
+All Tier 1 items are CLOSED (1.1, 1.2, 1.3, 1.4).
+Tier 2.1, 2.2, and Tier 4.1 are CLOSED (2026-05-26).
+The next-shot focus should be one of:
 
-  · **K_{13, 8}** (Tier 1.3 residue) — pairEnum13 + IsLexFold
-    OR psi_excl_T0_NT8 + 28-fold XOR.  Mechanical.
-  · **Tier 2.1 Hodge ↔ universe-chain** — HIGH narrative
-    leverage, no Lean needed.
-  · **Tier 4.1 Catalog ↔ Lean parity audit** — HIGH hygiene
-    sweep.
-
-If choosing one tier-2 cross-reference: **2.1 Hodge ↔
-universe-chain self-pointing**.  Highest narrative coherence
-gain for least effort.
-
-If choosing one tier-4 hygiene: **4.1 catalog ↔ Lean parity
-audit**.  Catalog text lags actual Lean coverage; cheap to
-sweep.
+  · **Tier 2.3 p-adic_real213 ↔ Möbius P mod-p periods** — MED
+    narrative leverage, extends the mod-p ↔ p-adic Lens
+    correspondence.
+  · **Tier 3.1 depth-3 cohomology** — HIGH theorem leverage,
+    extends c-counter to c = 3.
+  · **Tier 5.1 propext unsealing** — MED hygiene, converts
+    ~20 DIRTY theorems to PURE.
 
 ## Inter-item dependencies
 
@@ -383,15 +356,14 @@ sweep.
     update applied to `STATE.md` Closed table; chapter
     `physics/foundations/atomic_constants.md` already noted "all
     four forced" via the narrative chain.
-  · **1.3 PARTIALLY SATISFIED (closed 2026-05-25)**: three of
-    four pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5} via the
-    KNS4 / KNS5 routes plus new pairEnum7 / pairEnum8.  Direction
-    A's generalisation beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}`
-    is empirically confirmed at three Stern-Brocot mediant
-    positions.  Only K_{13, 8} remains — requires `pairEnum13` +
-    IsLexFold OR `psi_excl_T0_NT8` (both mechanical).  Downstream
-    feed-into 2.3 (p-adic Lens of mod-p periods) still applicable
-    once K_{13, 8} closes.
+  · **1.3 SATISFIED (closed 2026-05-26)**: all four Pell-orbit
+    pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5}, K_{13, 8} via
+    KNS4 / KNS5 / KNS8 routes.  The NT=8 `psi_excl_T0_NT8`
+    family + `pairEnum13` completed the extension.  Capstone
+    `pell_orbit_stern_brocot_extension_capstone` bundles 4/4.
+  · **Tier 2.1 CLOSED (2026-05-26)**: Hodge ↔ universe-chain.
+  · **Tier 2.2 CLOSED (2026-05-26)**: Cayley-Dickson ↔ Möbius.
+  · **Tier 4.1 CLOSED (2026-05-26)**: catalog 23/23 paired.
   · **2.4 (Sym(3)-spine unification) needs** a new bridge file
     if the gluon-octet ↔ 8-geometries isomorphism is to live in
     Lean rather than only narrative — likely under
