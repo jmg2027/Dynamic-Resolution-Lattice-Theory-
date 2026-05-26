@@ -3,7 +3,7 @@
 Möbius matrix P = [[2,1],[1,1]] symmetry species catalog and
 P-orbit closure programme.
 
-**Status**: CLOSED — 25 files, ~424 PURE declarations.
+**Status**: CLOSED — 27 files, ~436 PURE declarations.
 Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 
 ## File map
@@ -35,6 +35,7 @@ Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 | `QFibIdentity.lean` | universal | 9 | `Q00 n = fib(2n+1)` ∀n (NEW) |
 | `LModP.lean` | closure | 9 | L mod p cycle closure verification |
 | `PeriodReciprocity.lean` | closure | 35 | T_p divides p±1 via Legendre(5,p) |
+| `ConvergentDet.lean` | universal | ~12 | Farey-neighbour property from det=1 |
 
 ## Organisation
 
@@ -50,6 +51,8 @@ Three layers:
   · `Q00_eq_fib` — Q00 n = fib(2n+1) for all n (P^n ↔ Fibonacci)
   · `pn_fibonacci_universal` — full P^n entry formula ∀n
   · `fib_cassini_master` — fib(2n+3)·fib(2n+1) = fib(2n+2)² + 1 ∀n
+  · `farey_neighbour_fib` — fib(2n+2)·fib(2n+1) = fib(2n)·fib(2n+3) + 1 ∀n
+  · `det_one_four_readings` — det=1 as matrix/Cassini/Farey triple
   · `period_depth_bound_master` — D(p) ≤ 4 for all primes ≤ 97
   · `period_reciprocity_master` — T_p | (p±1) for 23 primes
 
