@@ -3,7 +3,7 @@
 Möbius matrix P = [[2,1],[1,1]] symmetry species catalog and
 P-orbit closure programme.
 
-**Status**: CLOSED — 28 files, ~450+ PURE declarations.
+**Status**: CLOSED — 29 files, ~470+ PURE declarations.
 Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 
 ## File map
@@ -37,6 +37,7 @@ Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 | `PeriodReciprocity.lean` | closure | 35 | T_p divides p±1 via Legendre(5,p) |
 | `ConvergentDet.lean` | universal | ~12 | Farey-neighbour property from det=1 |
 | `PGeneratesNat.lean` | universal | ~40 | P generates ALL of ℕ≥1 (Chicken McNugget + exact characterization) |
+| `MobiusSelfForm.lean` | universal | ~18 | G139: Möbius self-form (iteration + uniqueness + self-reconstruction) |
 
 ## Organisation
 
@@ -58,6 +59,7 @@ Three layers:
   · `period_reciprocity_master` — T_p | (p±1) for 23 primes
   · `pgen_all_pos` — ∀ n≥1, PGen n (P generates ALL of ℕ)
   · `p_generates_nat_master` — 5-conjunct P-generates-ℕ capstone
+  · `self_reconstruction_master` — G139: P = fixed point of describe-reconstruct (4-conjunct)
 
 ## Cross-references
 

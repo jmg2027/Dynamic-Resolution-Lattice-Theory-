@@ -273,7 +273,7 @@ the P-orbit level, not the atomic level.
 
   · Umbrella: `lean/E213/Lib/Math/Mobius213/Px.lean`
     (auto-includes Px subdirectory)
-  · 22 Px modules + 1 Atomicity orbit-forcing module + 1 NatRing
+  · 23 Px modules + 1 Atomicity orbit-forcing module + 1 NatRing
     toolkit module:
     `SymmetrySpecies`, `OpenSpeciesClosure`, `DenomInvariantFamily`,
     `IterationSpecies`, `ExtendedSpecies`, `AxisGroupCount`,
@@ -282,7 +282,7 @@ the P-orbit level, not the atomic level.
     `POrbitClosure`, `CharPolySelf`, `POrbitRing`,
     `PeriodDepthBounds`, `CrossProductAxes`, `POrbitDepth`,
     `CassiniInduction`, `PnFibonacci`, `LModP`, `PeriodReciprocity`,
-    `CassiniUniversal`, `PnFibonacciUniversal`
+    `CassiniUniversal`, `PnFibonacciUniversal`, `MobiusSelfForm`
     + `Theory/Atomicity/OrbitForcing`
     + `Lib/Math/NatRing` (PURE ring toolkit).
   · ∅-axiom PURE across all modules
@@ -312,9 +312,14 @@ the P-orbit level, not the atomic level.
 | `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_sub_add_cancel`, `nat_le_of_add_le_add_right` | `Lib/Math/NatRing` | PURE Nat ring toolkit (re-derived ∅-axiom) |
 | `cassini_universal` | `CassiniUniversal` | ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5 (PURE Nat-additive) |
 | `det_pn_universal` | `PnFibonacciUniversal` | ∀ n, Q00 n · Q11 n = Q01 n² + 1 (Fibonacci Cassini at even index) |
+| `mobius_iteration_master` | `MobiusSelfForm` | T maps convergent n → n+1 (denom + numer step) |
+| `p_unique_sl2_trace3` | `MobiusSelfForm` | P is unique pos-entry SL(2,ℤ) with trace 3, a ≥ d |
+| `self_reconstruction_master` | `MobiusSelfForm` | 4-conjunct self-form fixed point (orbit + unique + iter + det) |
 
 ## Research-note provenance
 
+  · `research-notes/archive/G139_mobius_self_form.md`
+    — self-form fixed-point thesis + 3 levels of "form = P"
   · `research-notes/archive/G146_p_orbit_naturalness_boundary.md`
     — three sharpenings + crystallized master claim
   · `research-notes/archive/G144_p_symmetry_meta_patterns.md` —
@@ -384,6 +389,87 @@ See `theory/essays/p_orbit_closure_master.md` for the 11-phase
 synthesis and `theory/essays/pure_nat_ring_methodology.md` for the
 PURE ring discovery + closure pattern.
 
+## Self-form fixed-point (G139)
+
+The P-orbit closure establishes that P generates all
+framework-natural integers.  G139 sharpens this to a
+**fixed-point theorem**: P is the unique element of SL(2,ℤ)₊
+whose syntactic form, algebraic invariants, and dynamical orbit
+all reproduce the same triple `(NS, NT, det) = (3, 2, 1)`.
+
+### Three levels of "form = P"
+
+1. **Syntactic**: the Möbius expression `T(x) = (2x+1)/(x+1)`
+   decomposes as `(3 tokens, 2 tokens, 1 operator)` — reproducing
+   `(NS, NT, det)` at the notation level.
+
+2. **Orbital (dynamic = static)**: `CharPolySelf.p_self_reference_master`
+   proves that `L(0) = NT`, `L(1) = NS`, and the recurrence
+   `L(k+2) = NS·L(k+1) − det·L(k)` uses P's own char-poly
+   coefficients — the orbit generates its generator.
+
+3. **Iterated (Fibonacci embedding)**: `PnFibonacciUniversal.det_pn_universal`
+   proves `det(P^n) = 1` for all n — the form (det = 1) persists
+   through arbitrary iteration.
+
+### Description-functor fixed point
+
+Define `D(M) = (trace(M), det(M), disc(M), {trace(M^k) : k ∈ ℕ})`.
+From `D(P) = (3, 1, 5, {2, 3, 7, 18, ...})` alone, one can
+RECONSTRUCT P: the companion matrix of `x² − 3x + 1` with
+positive entries and det = 1 is unique (`[[2,1],[1,1]]`).
+
+Therefore `P = Reconstruct(D(P))` — **P is a fixed point of the
+describe-then-reconstruct cycle**.  Non-trivially, `D` uses only
+P's OWN ORBIT data (traces of P^k), not external structure.
+
+### Möbius iteration functional equation
+
+`MobiusSelfForm.mobius_iteration_master` (PURE) proves that the
+Möbius transformation `T(p,q) = (2p+q, p+q)` maps convergent
+index n to n+1:
+
+  · `Q01(n+1) + Q00(n) = Q00(n+1)` (denominator step)
+  · `2·Q01(n+1) + Q00(n) = Q01(n+2)` (numerator step)
+
+This means each convergent pair `(Q01(n+1), Q00(n))` is mapped to
+`(Q01(n+2), Q00(n+1))` by the matrix P itself — the iteration
+APPLIES P to convergents approaching P's fixed point `φ²`.  The
+form generates its own approximation.
+
+### P-uniqueness
+
+`MobiusSelfForm.p_unique_sl2_trace3` (PURE):
+
+> P is the unique matrix `M = [[a,b],[c,d]]` with:
+>   `a + d = 3`, `a·d − b·c = 1`, `a,b,c,d ≥ 1`, `a ≥ d`.
+
+This uniqueness means no other positive-entry SL(2,ℤ) matrix can
+produce the same description-functor output — the fixed point is
+isolated.
+
+### Self-reconstruction master (capstone)
+
+`MobiusSelfForm.self_reconstruction_master` (PURE) bundles 4
+conjuncts:
+
+  (a) orbit self-reference — `p_self_reference_master`
+  (b) P-uniqueness — isolated fixed point
+  (c) iteration — T maps convergent n → n+1
+  (d) det preservation — `det(P^n) = 1` for all n
+
+Together: P generates its orbit, the orbit reconstructs P, P is
+unique, and iteration preserves the form.  This closes G139's
+thesis: **모습 자체가 뫼비우스 행렬** (the form itself IS the
+Möbius matrix).
+
+### Lean source (G139)
+
+  · `lean/E213/Lib/Math/Mobius213/Px/MobiusSelfForm.lean`
+    (~18 declarations, ∅-axiom)
+  · Key theorems: `mobius_iteration_master`,
+    `p_unique_sl2_trace3`, `self_reconstruction_master`
+
 ## Open frontier (after closure)
 
   · **D(p) = O(log p) universal bound**: empirically `D(p) ≤ 4`
@@ -446,6 +532,8 @@ p-adic library narrative (308 PURE theorems).
     construction (the Lens-arena for mod-p reductions)
   · `theory/essays/p_orbit_naturalness_boundary.md` — synthesis
     essay on the dynamic = static coincidence at P
+  · `theory/essays/mobius_self_form_fixed_point.md` — G139 essay:
+    P as self-form fixed point (모습 자체가 뫼비우스 행렬)
   · `theory/essays/bipartite_tripartite_self_containment.md` —
     the self-containment thesis (K_{3,2}^{(c=2)} already carries
     both "2" and "3" without K_{2,1,3} extension)
