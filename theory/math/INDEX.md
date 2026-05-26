@@ -29,6 +29,9 @@ Marathon-completed domains (6):
 Infrastructure (10):
 - `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
+Universal meta-structure (1):
+- [`graded_residue_arithmetic.md`](graded_residue_arithmetic.md) — GRA (Graded Residue Arithmetic): unified theory synthesizing G148/G149/G150. 7 axioms, 5 Readings (cohomology/operad/HoTT/graph/analysis), GRA Tower ↔ CD Tower duality, number system unification, dimensional proliferation fractal, Adelic decomposition
+
 Cross-frame synthesis (3):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`
 - [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
