@@ -195,16 +195,15 @@ narrative.  Readers can verify but not understand.
     disjoint-layer translation symmetry.  The ψ-functional is
     now motivated structurally before technical lemmas.
 
-### 3.2 PRIMARY cup-image naturality
+### 3.2 PRIMARY cup-image naturality — **CLOSED**
 
-  · **Gap**: `k_nm_c_classification.md` §"Why PRIMARY (not
-    FULL) cup-image" states the technical reason (bilinearity
-    fills `EnrichedFaceVal` entire) but not the structural
-    one.  Is `InPrimaryCupSpanPlusBoundary` the **unique
-    maximal** kill-preserving cup-image restriction?
-  · **Action**: prove the maximality claim, or rewrite the
-    section to drop the naturality framing and present
-    PRIMARY as a specific design choice.
+  · **Resolved 2026-05-26**: `k_nm_c_classification.md`
+    §"Why PRIMARY (not FULL) cup-image" was rewritten to drop the
+    unsupported naturality/maximality framing and present PRIMARY as
+    an explicit design boundary for the ψ-kill/soundness pipeline.
+    The section now states clearly that FULL cup-image collapses the
+    quotient (`span = EnrichedFaceVal c`) and that no global
+    uniqueness/maximality claim is asserted in that chapter.
 
 ## Tier 4 — Physics deployment extensions
 
@@ -333,14 +332,14 @@ narrative.  Readers can verify but not understand.
 ## Priority ranking (one-shot session leverage)
 
 All Tier 1 items are CLOSED (1.1, 1.2, 1.3, 1.4).
-Tier 2.1, 2.2, and Tier 4.1 are CLOSED (2026-05-26).
+Tier 2.1, 2.2, Tier 3.1, Tier 3.2, and Tier 4.1 are CLOSED (2026-05-26).
 The next-shot focus should be one of:
 
   · **Tier 2.3 p-adic_real213 ↔ Möbius P mod-p periods** — MED
     narrative leverage, extends the mod-p ↔ p-adic Lens
     correspondence.
-  · **Tier 5.1 propext unsealing** — MED hygiene, converts
-    ~20 DIRTY theorems to PURE.
+  · **Tier 4.2 Hadron baryon spectrum** — MED deployment leverage,
+    first channel-sum extension under `Lib/Physics/Hadron/`.
 
 ## Inter-item dependencies
 
