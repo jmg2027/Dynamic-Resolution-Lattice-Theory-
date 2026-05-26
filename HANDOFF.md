@@ -48,17 +48,11 @@ axioms on production critical path.
 
 ## Genuinely open (next session targets)
 
-<<<<<<< HEAD
   · **G139 formalisation**: CLOSED — MobiusSelfForm.lean
     (iteration + uniqueness + self-reconstruction master)
   · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
-  · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
-=======
-  · **G139 formalisation**: Möbius transformation fixed-point
-    theorem — `T(φ²) = φ²` in rational approx terms.
   · **Tier 4.2**: Hadron baryon spectrum (channel-sum deployment)
-  · **Tier 5.\***: HOLD (per user instruction)
->>>>>>> origin/main
+  · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
   · **G138 Pattern A**: Modulus-functor 4-way extension
   · **G138 Pattern F**: Multiplicity doctrine chapter
   · **CrossAddress → Functor**: triple-axis schema elevation
