@@ -50,8 +50,9 @@ axioms on production critical path.
     theorem — `T(φ²) = φ²` in rational approx terms.
   · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
   · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
-  · **G138 Pattern B**: Sym(3) spine chapter
-  · **G138 Pattern D**: Nodup as recursive Clause-4
+  · **G138 Pattern A**: Modulus-functor 4-way extension
+  · **G138 Pattern F**: Multiplicity doctrine chapter
+  · **CrossAddress → Functor**: triple-axis schema elevation
   · **n-prime P-orbit depth bound**: D(p) ≤ 4 for p ≤ 97; O(log p)?
   · **Period reciprocity universal**: ∀ odd prime p ≠ 5
 
