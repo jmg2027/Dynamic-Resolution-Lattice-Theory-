@@ -4,27 +4,31 @@ Branch: `copilot/finish-current-task` (continuation of
 `claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
 axioms on production critical path.
 
-## This session — Universal P^n formula + Px INDEX + next-tier sweep
+## This session — FibCassini + INDEX refresh sweep
 
-### Universal P^n ↔ Fibonacci identity, CLOSED
+### Fibonacci Cassini identity from P^n det, CLOSED
 
-  · New file: `lean/E213/Lib/Math/Mobius213/Px/QFibIdentity.lean`
-    (9 declarations, all PURE).
-  · Proves `Q00 n = fib(2n+1)` and `Q01 n = fib(2n)` for ALL n
-    via mutual induction on double-step Fibonacci recurrences.
-  · Capstone `pn_fibonacci_universal` bundles all three entry formulas.
-  · Lifts `PnFibonacci`'s concrete n=0..5 checks to the universal
-    closed-form statement.
-  · Added to umbrella `Px.lean` (also added missing `PnFibonacciUniversal`
-    and `CassiniUniversal` imports).
-  · Recorded in `CAPSTONE_INDEX.md` §8.8.
+  · New file: `lean/E213/Lib/Math/Mobius213/Px/FibCassini.lean`
+    (~12 declarations, all PURE).
+  · Derives `fib(2n+3)·fib(2n+1) = fib(2n+2)² + 1` for all n
+    from `det_pn_universal` + QFibIdentity substitution.
+  · Bridges 213-native P-orbit algebra to classical Fibonacci
+    number theory (Cassini identity at even indices).
+  · Added to umbrella `Px.lean`, Px/INDEX.md, CAPSTONE_INDEX.md §8.8.
 
-### Px INDEX.md creation
+### Stale INDEX refresh
 
-  · Created `lean/E213/Lib/Math/Mobius213/Px/INDEX.md` — 25 files,
-    ~424 PURE declarations.  Three-layer organisation: catalog (8),
-    closure (11), universal (4).
+  · `Cohomology/INDEX.md`: rewrote header — 94 → 234 files,
+    14 sub-clusters with correct counts.
+  · `Analysis/INDEX.md`: updated sub-dir counts (FluxMVT 22→27,
+    DyadicSearch 9→13, total 86 files), added umbrella list.
 
+### Prior session work (already committed)
+
+  · Universal P^n ↔ Fibonacci (QFibIdentity.lean): Q00 n = fib(2n+1) ∀n
+  · Px/INDEX.md + Mobius213/INDEX.md creation
+  · Tier 2.3: p-adic ↔ Möbius cross-references
+  · Padic INDEX.md full refresh (4→26 files)
 ## Tier summary (cumulative)
 
 | Tier | Programme | Status |
@@ -38,6 +42,7 @@ axioms on production critical path.
 | 2.3 | p-adic ↔ Möbius P mod-p | CLOSED |
 | 4.1 | Catalog ↔ Lean parity | CLOSED |
 | 5.2 | Universal P^n entry formula | CLOSED |
+| 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 
 ## Genuinely open (next session targets)
 

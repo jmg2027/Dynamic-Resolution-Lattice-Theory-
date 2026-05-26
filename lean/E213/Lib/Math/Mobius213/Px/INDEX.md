@@ -49,6 +49,7 @@ Three layers:
   · `cassini_universal` — L(n)·L(n+2) = L(n+1)² + 5 for all n
   · `Q00_eq_fib` — Q00 n = fib(2n+1) for all n (P^n ↔ Fibonacci)
   · `pn_fibonacci_universal` — full P^n entry formula ∀n
+  · `fib_cassini_master` — fib(2n+3)·fib(2n+1) = fib(2n+2)² + 1 ∀n
   · `period_depth_bound_master` — D(p) ≤ 4 for all primes ≤ 97
   · `period_reciprocity_master` — T_p | (p±1) for 23 primes
 

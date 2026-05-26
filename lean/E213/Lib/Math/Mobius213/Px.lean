@@ -27,6 +27,7 @@ import E213.Lib.Math.Mobius213.Px.PnFibonacci
 import E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
 import E213.Lib.Math.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.Mobius213.Px.CassiniUniversal
+import E213.Lib.Math.Mobius213.Px.FibCassini
 import E213.Lib.Math.Mobius213.Px.LModP
 import E213.Lib.Math.Mobius213.Px.PeriodReciprocity
 
