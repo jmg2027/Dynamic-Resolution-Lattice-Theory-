@@ -63,6 +63,12 @@ illustrates the standard.
 |---|---|---|---|
 | 15 | **Cohomology 213** | `15_cohomology_213.md` + `15_cohomology_213_phases.md` | ★★★ Top priority (motivated by α_em 5.4×10⁻⁴ gap) |
 
+### Phase F — GRA Universality (added 2026-05-26)
+
+| # | Field | File | Priority |
+|---|---|---|---|
+| 16 | **GRA Universality** | `16_gra_universality.md` | ★★★ (213의 랭글랜즈 — 5 Reading 동형 증명 프로그램) |
+
 ---
 
 ## Completed (2026-04-27)
