@@ -48,7 +48,7 @@ axioms on production critical path.
 
   · **G139 formalisation**: Möbius transformation fixed-point
     theorem — `T(φ²) = φ²` in rational approx terms.
-  · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
+  · **Tier 3.2**: PRIMARY cup-image naturality / maximality framing
   · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
   · **G138 Pattern A**: Modulus-functor 4-way extension
   · **G138 Pattern F**: Multiplicity doctrine chapter

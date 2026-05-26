@@ -184,16 +184,16 @@ chapter section, not a missing theorem.
 Sections that are PROVABLE in Lean but UNEXPLAINED in chapter
 narrative.  Readers can verify but not understand.
 
-### 3.1 ψ-discriminator WHY (Cohomology)
+### 3.1 ψ-discriminator WHY (Cohomology) — **CLOSED**
 
-  · **Gap**: `k_nm_c_classification.md` §"ψ-discriminator
-    as universal block functional" defines the functional and
-    proves its properties, but does not motivate the `9·m`
-    offset structure as the algebraic shadow of disjoint-layer
-    direct-sum.  Reader can verify; cannot understand.
-  · **Action**: rewrite the section to lead with the direct-sum
-    decomposition `C¹_enr = ⊕_m C¹_simple_m` and present the
-    9-block index structure as its shadow.
+  · **Resolved 2026-05-26**: `k_nm_c_classification.md`
+    now leads the c-counter narrative with the enriched
+    direct-sum decomposition
+    `C¹_enr = ⊕_{m ∈ Fin c} C¹_simple_m`,
+    `C²_enr = ⊕_{m ∈ Fin c} C²_simple_m`, and then explains
+    `9·m` cancellation as the proof-level shadow of that
+    disjoint-layer translation symmetry.  The ψ-functional is
+    now motivated structurally before technical lemmas.
 
 ### 3.2 PRIMARY cup-image naturality
 
@@ -333,8 +333,6 @@ The next-shot focus should be one of:
   · **Tier 2.3 p-adic_real213 ↔ Möbius P mod-p periods** — MED
     narrative leverage, extends the mod-p ↔ p-adic Lens
     correspondence.
-  · **Tier 3.1 depth-3 cohomology** — HIGH theorem leverage,
-    extends c-counter to c = 3.
   · **Tier 5.1 propext unsealing** — MED hygiene, converts
     ~20 DIRTY theorems to PURE.
 
