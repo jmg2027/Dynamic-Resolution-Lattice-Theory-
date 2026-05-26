@@ -39,35 +39,14 @@ def ntDepth (n : Nat) : Nat := (n + 2) / 3
 
 theorem nt_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
 
-theorem nt_coprime : Nat.gcd 2 3 = 1 := by native_decide
+theorem nt_coprime : Nat.gcd 2 3 = 1 := by decide
 
 theorem nt_grade_oplus (a b : NTCarrier) :
     ntGrade (ntOplus a b) = ntGrade a + ntGrade b := by
   simp [ntGrade, ntOplus]
 
-theorem nt_grade_otimes (a b : NTCarrier) :
-    ntGrade (ntOtimes a b) ≤ ntGrade a + ntGrade b := by
-  simp [ntGrade, ntOtimes]
-  exact Nat.mul_le_add a b
-
--- Helper: a * b ≤ a + b for all Nat (when a ≥ 1 or b ≥ 1, this
--- is only true for small values — we need a weaker version)
--- Actually: for GRA A3 we need grade(a⊗b) ≤ grade(a) + grade(b)
--- With ⊗ = * and grade = id, this is a*b ≤ a+b which is FALSE in general.
--- 
--- CORRECTION: The GRA axiom A3 uses a **sub-multiplicative** bound,
--- not necessarily a + b.  For the NT instance, the natural interpretation
--- is that ⊗ represents "grade composition" which in the NT reading
--- means: the Frobenius representation depth of the product.
---
--- Let's use the correct interpretation: ⊗ on grades is also addition
--- (since grade(a*b) in log-space is log a + log b, but in the discrete
--- GRA the composition is: given two representations of depth d₁ and d₂,
--- their composed depth ≤ d₁ + d₂).
---
--- Simplest correct NT model: Carrier = Nat, grade = id, 
--- ⊕ = + (grade adds), ⊗ = + (grade also adds for composition).
--- This makes A3 trivially ≤ with equality.
+-- Note: The original ntOtimes = multiplication doesn't satisfy A3 in general
+-- (a*b ≤ a+b is false for a,b ≥ 2). The model uses ntOtimesCorrect = addition.
 
 /-- Corrected: ⊗ in the NT GRA model is also addition (composition
     of Frobenius representations adds depths). -/
@@ -82,20 +61,28 @@ theorem nt_reach (n : Nat) (hn : n ≥ 2) :
     ∃ a b : Nat, n = 2 * a + 3 * b := by
   -- By cases on n mod 2
   match n, hn with
-  | 2, _ => exact ⟨1, 0, by decide⟩
-  | 3, _ => exact ⟨0, 1, by decide⟩
-  | 4, _ => exact ⟨2, 0, by decide⟩
-  | 5, _ => exact ⟨1, 1, by decide⟩
+  | 2, _ => exact ⟨1, 0, by omega⟩
+  | 3, _ => exact ⟨0, 1, by omega⟩
+  | 4, _ => exact ⟨2, 0, by omega⟩
+  | 5, _ => exact ⟨1, 1, by omega⟩
   | n + 6, _ =>
-    have h6 : n + 6 ≥ 2 := Nat.le_add_left 2 (n + 4)
-    -- n + 6 = 2 * 3 + n, and by induction on n...
-    -- For simplicity, use: n+6 = 2*(n/2 + 3) if even, else = 3 + 2*((n+3)/2)
-    exact ⟨0, (n + 6) / 3, sorry⟩ -- placeholder for omega-style proof
+    -- n+6 ≥ 6; split on parity
+    if h : (n + 6) % 2 = 0 then
+      exact ⟨(n + 6) / 2, 0, by omega⟩
+    else
+      -- n+6 is odd, so n+6 ≥ 7; (n+6)-3 is even and ≥ 4
+      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Greedy depth: ⌈n/3⌉ = (n+2)/3 -/
 theorem nt_greedy (n : Nat) (hn : n ≥ 2) :
     ntDepth n = (n + 3 - 1) / 3 := by
   simp [ntDepth]
+
+/-- Depth formula: depth n = n/3 + (if n%3=0 then 0 else 1) = ⌈n/3⌉ -/
+theorem nt_depth_eq (n : Nat) (hn : n ≥ 2) :
+    ntDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
+  simp [ntDepth]
+  omega
 
 /-- The (2,3)-GRA model over ℕ (Number Theory reading). -/
 def GRA23_NT : GRAModel where
@@ -111,7 +98,7 @@ def GRA23_NT : GRAModel where
   ax_grade_oplus := nt_grade_oplus
   ax_grade_otimes := nt_grade_otimes_correct
   ax_reach := nt_reach
-  ax_depth_eq := sorry  -- needs alignment with the simplified formula
-  ax_greedy := sorry    -- needs omega
+  ax_depth_eq := nt_depth_eq
+  ax_greedy := nt_greedy
 
 end E213.Lib.Math.GRA.NumberTheory

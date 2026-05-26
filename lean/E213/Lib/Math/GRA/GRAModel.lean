@@ -114,13 +114,23 @@ def GRAIso.symm {M₁ M₂ : GRAModel} (iso : GRAIso M₁ M₂) : GRAIso M₂ M�
     rw [iso.right_inv] at h
     exact h.symm
   oplus_comm := fun x y => by
+    -- Goal: iso.invFun (M₂.oplus x y) = M₁.oplus (iso.invFun x) (iso.invFun y)
+    -- Strategy: apply iso.invFun to both sides of iso.oplus_comm
     have h := iso.oplus_comm (iso.invFun x) (iso.invFun y)
-    rw [iso.right_inv, iso.right_inv] at h
-    have hinv : iso.invFun (M₂.oplus x y) =
-      M₁.oplus (iso.invFun x) (iso.invFun y) := by
-      apply iso.left_inv ▸ congrArg iso.invFun h ▸ sorry -- placeholder
-    exact sorry -- to be filled
-  otimes_comm := fun _ _ => sorry -- to be filled
+    -- h : iso.toFun (M₁.oplus (iso.invFun x) (iso.invFun y))
+    --   = M₂.oplus (iso.toFun (iso.invFun x)) (iso.toFun (iso.invFun y))
+    rw [iso.right_inv x, iso.right_inv y] at h
+    -- h : iso.toFun (M₁.oplus (iso.invFun x) (iso.invFun y)) = M₂.oplus x y
+    have h2 := congrArg iso.invFun h.symm
+    -- h2 : iso.invFun (M₂.oplus x y) = iso.invFun (iso.toFun (M₁.oplus ...))
+    rw [iso.left_inv] at h2
+    exact h2
+  otimes_comm := fun x y => by
+    have h := iso.otimes_comm (iso.invFun x) (iso.invFun y)
+    rw [iso.right_inv x, iso.right_inv y] at h
+    have h2 := congrArg iso.invFun h.symm
+    rw [iso.left_inv] at h2
+    exact h2
 
 /-- GRA iso is transitive. -/
 def GRAIso.trans {M₁ M₂ M₃ : GRAModel}

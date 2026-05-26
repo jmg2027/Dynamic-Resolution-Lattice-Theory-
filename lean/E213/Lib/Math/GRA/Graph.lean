@@ -1,4 +1,5 @@
 import E213.Lib.Math.GRA.GRAModel
+import E213.Lib.Math.GRA.NumberTheory
 
 /-!
 # GRA Graph Theory Instance (Reading R₄)
@@ -17,7 +18,7 @@ Graph-theoretic interpretation of GRA:
 The key non-trivial content is showing that walk-length arithmetic
 on K_{3,2} satisfies the same GRA axioms as the number theory model.
 
-Standard: 0 sorry, ∅-axiom (target — currently has sorry placeholders).
+Standard: 0 sorry, ∅-axiom.
 -/
 
 namespace E213.Lib.Math.GRA.Graph
@@ -65,7 +66,7 @@ def graphDepth (n : Nat) : Nat := (n + 2) / 3
 
 theorem graph_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
 
-theorem graph_coprime : Nat.gcd 2 3 = 1 := by native_decide
+theorem graph_coprime : Nat.gcd 2 3 = 1 := by decide
 
 theorem graph_grade_oplus (a b : GraphCarrier) :
     graphGrade (graphOplus a b) = graphGrade a + graphGrade b := by
@@ -85,11 +86,26 @@ theorem graph_reach (n : Nat) (hn : n ≥ 2) :
   -- and gcd(2,3)=1 means all lengths ≥ 2 are achievable via
   -- combinations of 2-step and 3-step primitive walks.
   match n, hn with
-  | 2, _ => exact ⟨1, 0, by decide⟩
-  | 3, _ => exact ⟨0, 1, by decide⟩
-  | 4, _ => exact ⟨2, 0, by decide⟩
-  | 5, _ => exact ⟨1, 1, by decide⟩
-  | n + 6, _ => exact ⟨0, (n + 6) / 3, sorry⟩
+  | 2, _ => exact ⟨1, 0, by omega⟩
+  | 3, _ => exact ⟨0, 1, by omega⟩
+  | 4, _ => exact ⟨2, 0, by omega⟩
+  | 5, _ => exact ⟨1, 1, by omega⟩
+  | n + 6, _ =>
+    if h : (n + 6) % 2 = 0 then
+      exact ⟨(n + 6) / 2, 0, by omega⟩
+    else
+      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+
+/-- Depth formula: depth n = n/3 + (if n%3=0 then 0 else 1) = ⌈n/3⌉ -/
+theorem graph_depth_eq (n : Nat) (hn : n ≥ 2) :
+    graphDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
+  simp [graphDepth]
+  omega
+
+/-- Greedy: graphDepth n = (n + 3 - 1) / 3 -/
+theorem graph_greedy (n : Nat) (hn : n ≥ 2) :
+    graphDepth n = (n + 3 - 1) / 3 := by
+  simp [graphDepth]
 
 /-- The (2,3)-GRA model on Graph walks. -/
 def GRA23_Graph : GRAModel where
@@ -105,8 +121,8 @@ def GRA23_Graph : GRAModel where
   ax_grade_oplus := graph_grade_oplus
   ax_grade_otimes := graph_grade_otimes
   ax_reach := graph_reach
-  ax_depth_eq := sorry
-  ax_greedy := sorry
+  ax_depth_eq := graph_depth_eq
+  ax_greedy := graph_greedy
 
 -- ============================================================
 -- Isomorphism: Graph ≅ NumberTheory

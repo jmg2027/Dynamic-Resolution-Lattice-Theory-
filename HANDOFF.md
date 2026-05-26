@@ -1,32 +1,36 @@
 # Session handoff
 
-Branch: `copilot/finish-current-task` (continuation of
-`claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
-axioms on production critical path.
+Branch: `copilot/theorize-integrated-structure` (continuation of
+GRA Universality marathon).  0 sorry, 0 external axioms, 0 native_decide.
 
-## This session — P generates ALL of ℕ (REFINED)
+## This session — GRA Universality Phases 1–5 COMPLETE
 
-### PGeneratesNat theorem file (G140), CLOSED + REFINED
+### Phase 1e: Sorry elimination (ALL DONE)
 
-  · File: `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean`
-    (~40 declarations, 9 sections).
-  · Research note: `research-notes/G140_P_generates_all_nat.md`
-  · Key result: `pgen_iff_pos` — ★ PGen n ↔ n ≥ 1 (exact characterization)
-  · Master: `p_generates_nat_master` — 5-conjunct capstone
-  · Core proof: Chicken McNugget for (2,3) via strong induction
-    (gcd(NT,NS) = gcd(2,3) = 1, Frobenius = 1)
-  · Resolves "7 ∉ atomic closure" — additively, P covers all ℕ≥2
-  · NEW §8: `not_pgen_zero`, `pgen_pos`, `pgen_iff_pos`, `pgen_semiring_closure`
-  · NEW §5 refined: `minDepth_optimal` (greedy is optimal), bug fix (11→4 not 5)
-  · NEW §9: explicit prime witnesses catalog (≤ 47)
-  · ∅-axiom: 0 native_decide (was 5, all replaced with decide/unfold+omega)
-  · Added to umbrella `Px.lean` and `Px/INDEX.md` (28 files)
+  · `GRAModel.lean`: fixed `GRAIso.symm` oplus_comm/otimes_comm
+    (proper proof via bijection + congruence)
+  · `NumberTheory.lean`: fixed `nt_reach` (parity split + omega),
+    added `nt_depth_eq`, wired `ax_depth_eq`/`ax_greedy`
+  · `Graph.lean`: same pattern as NT
+  · Replaced all `native_decide` with `decide`
 
-### Previous session — G139 + ConvergentDet (already committed)
+### Phases 2–5: All 5 Reading instances + Capstone
 
-  · FibCassini (`fib_cassini_master`): fib(2n+3)·fib(2n+1) = fib(2n+2)²+1
-  · QFibIdentity: Q00 n = fib(2n+1) ∀n
-  · Stale INDEX refresh (Cohomology 234 files, Analysis 86 files)
+  · `Analysis.lean` (R₅): resolution exponent model + iso to NT
+  · `Cohomology.lean` (R₁): cochain degree model + iso to NT
+  · `HoTT.lean` (R₃): truncation level model + iso to NT
+  · `HigherAlgebra.lean` (R₂): operad level model + iso to NT
+  · **Universality Capstone**: `GRA_Universality` structure +
+    `gra_universality_witness` proves all 5 readings pairwise iso
+  · `transitivity` theorem: R_i ≅ NT ∧ R_j ≅ NT → R_i ≅ R_j
+  · Concrete examples: Graph≅Cohomology, Analysis≅HoTT
+
+### Architecture
+
+  Hub-and-spoke: NT is the hub, each Reading proves iso to NT,
+  transitivity gives all 10 pairwise isos automatically.
+  All carriers currently simplified to Nat (grade = id); enrichment
+  to richer carriers is Phase 6+ work.
 
 ## Tier summary (cumulative)
 
@@ -45,19 +49,19 @@ axioms on production critical path.
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
+| **16** | **GRA Universality (5 Readings)** | **CLOSED (Phases 1–5)** |
 
 ## Genuinely open (next session targets)
 
-  · **G139 formalisation**: CLOSED — MobiusSelfForm.lean
-    (iteration + uniqueness + self-reconstruction master)
+  · **GRA Phase 6**: Translation theorems (R₄→R₁ distance→cup-length,
+    R₅→R₃ modulus→cell-count, prediction theorems)
+  · **GRA carrier enrichment**: lift from Nat to Walk/Cochain/etc.
   · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
   · **Tier 4.2**: Hadron baryon spectrum (channel-sum deployment)
   · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
   · **G138 Pattern A**: Modulus-functor 4-way extension
   · **G138 Pattern F**: Multiplicity doctrine chapter
   · **CrossAddress → Functor**: triple-axis schema elevation
-  · **n-prime P-orbit depth bound**: D(p) ≤ 4 for p ≤ 97; O(log p)?
-  · **Period reciprocity universal**: ∀ odd prime p ≠ 5
 
 ## Boot order
 
