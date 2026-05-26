@@ -1,6 +1,6 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: ESTABLISHED (synthesized from G148, G149, G150)  
+**Status**: DRAFT (synthesis complete; formal Lean verification partial — see `gra_book.md` Ch.7 for formalizability assessment)  
 **Date**: 2026-05-26  
 **Source**: G148 (GRA framework), G149 (Analysis/Continuum Reading), G150 (Algebra213 integration)
 
@@ -62,12 +62,16 @@ GRA의 핵심 주장은 **공리 A7(Lens 보편성)**이다: 동일한 구조가
 | R₄ | Graph Theory | walk length | path concatenation | graph tensor product | distance |
 | R₅ | 해석학/연속체 | resolution exponent E | modulus 합성 | polynomial depth 곱 | linearityModulus |
 
-### 핵심 정리 (비형식적)
+### 핵심 정리 (비형식적 — 추측 단계)
 
-> **GRA 보편성 정리**: R₁ ≅ R₂ ≅ R₃ ≅ R₄ ≅ R₅ as GRA-instances.
+> **GRA 보편성 추측**: R₁ ≅ R₂ ≅ R₃ ≅ R₄ ≅ R₅ as (2,3)-GRA models.
 >
 > 즉, 다섯 Reading 각각에서의 (grade, +, ×, depth, generators) 구조가
 > GRA 공리 A1–A7을 만족하며, 그 만족 방식이 동형이다.
+>
+> **주의**: "동형"은 각 Reading의 native 범주에서의 동형이 아니라,
+> GRA-model 범주에서의 동형. 정밀한 정의: `gra_book.md` Definition 3.0.1–3.0.3.
+> 현재 형식화 상태: ~5% (개별 조각은 40% 존재하나 명시적 동형은 미증명).
 
 ---
 

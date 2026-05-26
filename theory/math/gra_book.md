@@ -98,14 +98,12 @@ minDepth(n) = min { a + b : 2a + 3b = n, a,b ≥ 0 }
 
 **Proposition 1.5** (Depth formula): `minDepth(n) = ⌈n/3⌉`
 
-*Proof sketch*: The greedy algorithm uses as many 3s as possible.
-For n = 3q + r:
-- r = 0: depth = q (use q copies of 3)
-- r = 1: depth = q (impossible with q-1 threes; use (q-1)·3 + 2·1 = 3q-1 ≠ n... 
-  Actually: n = 3(q-1) + 2·2? No. n = 3q+1 → 2·(q+1) + 3·? → a=2, b=q-1: 4+3(q-1)=3q+1 ✓, depth = q+1 = ⌈(3q+1)/3⌉)
-- r = 2: depth = q+1 (use q copies of 3 and 1 copy of 2, total q+1)
+*Proof sketch*: Write n = 3q + r with r ∈ {0, 1, 2}.
+- r = 0: use (a,b) = (0, q), depth = q = ⌈n/3⌉.
+- r = 1: use (a,b) = (2, q−1) since 4 + 3(q−1) = 3q+1 = n, depth = q+1 = ⌈n/3⌉.
+- r = 2: use (a,b) = (1, q) since 2 + 3q = 3q+2 = n, depth = q+1 = ⌈n/3⌉.
 
-So minDepth(n) = ⌈n/3⌉. □
+In all cases minDepth(n) = ⌈n/3⌉. Optimality follows from Theorem 2.2. □
 
 ### Definition 1.6 (Hom-set)
 
