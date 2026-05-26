@@ -4,30 +4,26 @@ Branch: `copilot/finish-current-task` (continuation of
 `claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
 axioms on production critical path.
 
-## This session — Tier 2.3 cross-reference + Padic INDEX refresh
+## This session — Universal P^n formula + Px INDEX + next-tier sweep
 
-### Tier 2.3 — p-adic_real213 ↔ Möbius P mod-p periods, CLOSED
+### Universal P^n ↔ Fibonacci identity, CLOSED
 
-  · Added §"Cross-reference — Möbius P-orbit mod-p periods" to
-    `theory/math/padic_real213.md` (before "How to verify").
-    Links: `ZpSeq p` generality as Lens-arena for ANY prime;
-    `ZpSeqMobiusBridge.lean` proving Möbius-pair agreement =
-    pointwise digit equality; Lucas-Pell trace as digit-zero
-    Teichmüller seed.
-  · Added §"Cross-reference — p-adic Lens family as mod-p arena"
-    to `theory/math/mobius213_p_orbit_closure.md` (before
-    "Cross-references").  Links: `ZpSeq p` truncation ring
-    homomorphism supplying the structured `mod p` universe that
-    period computation needs; `pow_p_trunc_one` (Fermat) closing
-    the loop.
-  · Updated `Cross-references` list in mobius chapter to include
-    p-adic entry.
+  · New file: `lean/E213/Lib/Math/Mobius213/Px/QFibIdentity.lean`
+    (9 declarations, all PURE).
+  · Proves `Q00 n = fib(2n+1)` and `Q01 n = fib(2n)` for ALL n
+    via mutual induction on double-step Fibonacci recurrences.
+  · Capstone `pn_fibonacci_universal` bundles all three entry formulas.
+  · Lifts `PnFibonacci`'s concrete n=0..5 checks to the universal
+    closed-form statement.
+  · Added to umbrella `Px.lean` (also added missing `PnFibonacciUniversal`
+    and `CassiniUniversal` imports).
+  · Recorded in `CAPSTONE_INDEX.md` §8.8.
 
-### Tier B — Padic INDEX.md refresh
+### Px INDEX.md creation
 
-  · `lean/E213/Lib/Math/Padic/INDEX.md` was severely stale (said
-    "4 files, 42 PURE" vs actual 26 files, ~462 declarations).
-    Rewritten with full file map, dependency graph, and cross-refs.
+  · Created `lean/E213/Lib/Math/Mobius213/Px/INDEX.md` — 25 files,
+    ~424 PURE declarations.  Three-layer organisation: catalog (8),
+    closure (11), universal (4).
 
 ## Tier summary (cumulative)
 
@@ -41,16 +37,18 @@ axioms on production critical path.
 | 2.2 | Cayley-Dickson ↔ Möbius | CLOSED |
 | 2.3 | p-adic ↔ Möbius P mod-p | CLOSED |
 | 4.1 | Catalog ↔ Lean parity | CLOSED |
+| 5.2 | Universal P^n entry formula | CLOSED |
 
 ## Genuinely open (next session targets)
 
-  · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
+  · **Tier 3.1**: depth-3 cohomology (c = 3 extension) — already
+    partially developed in `V33c3{,Enriched,Indeterminacy}.lean`
   · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
   · **Cochain-level mediant functor**: cup-product algebra lift
   · **Massey-class mediant lift**: K_{4, 3} 4-fold Massey witnesses
   · **n-prime P-orbit depth bound**: D(p) ≤ 4 for p ≤ 97; O(log p)?
-  · **Universal P^n entry formula**: closed-form `Q00 n = fib(2n+1)` ∀n
   · **Teichmüller concrete representative**: diagonal stabilization
+  · **Period reciprocity universal**: ∀ odd prime p ≠ 5
 
 ## Boot order
 

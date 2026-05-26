@@ -222,4 +222,15 @@ New capstones from the 14-agent audit + revision pass:
     positive complement to `raw_minimality_capstone`; records
     the 1 → 2 → 3 → 4 structural forcing.
 
+### §8.8 Universal P^n ↔ Fibonacci (Lib/Math/Mobius213/Px)
+
+  - `Px.PnFibonacciUniversal.det_pn_universal` — det(P^n) = 1 ∀n
+    (Fibonacci Cassini at even indices, PURE Nat ring).
+  - `Px.CassiniUniversal.cassini_universal` — L(n)·L(n+2) = L(n+1)²+5
+    ∀n (Nat-additive reformulation).
+  - `Px.QFibIdentity.Q00_eq_fib` — **NEW**: Q00 n = fib(2n+1) ∀n.
+  - `Px.QFibIdentity.Q01_eq_fib` — **NEW**: Q01 n = fib(2n) ∀n.
+  - `Px.QFibIdentity.pn_fibonacci_universal` — **NEW**: full P^n entry
+    formula ∀n: `P^n = [[fib(2n+1), fib(2n)], [fib(2n), fib(2n-1)]]`.
+
 All 29 new symbols verified PURE via `tools/scan_axioms.py`.
