@@ -38,6 +38,14 @@ The 4-row matrix indexes algebra types by their base ring:
 | **C (ZOmega)** | Z_6 | L3 Dic_3, L4 M_24, L5 ZOmegaOct |
 | **D (Hurwitz)** | 2T | base level (binary tetrahedral) |
 
+**Cross-reference — Type C unit count in Möbius P-orbit.**
+The `|Z_6| = 6` base of Type C reappears in the Lucas-Pell trace
+sequence as `L(3) = 18 = NS · 6`, linking the algebraic tower's
+Eisenstein unit group to the mod-p period structure of the Möbius
+213 matrix (see `theory/math/mobius213_p_orbit_closure.md`
+§"Cross-reference — Cayley-Dickson Type C").  The mod-3 period
+`4 = NT²` directly encodes the Z_6 / Z_2 index.
+
 The single citable Lean theorem is `algebra_tower_capstone` ∈
 `CayleyDickson/Tower/AlgebraTowerCapstone.lean`.
 

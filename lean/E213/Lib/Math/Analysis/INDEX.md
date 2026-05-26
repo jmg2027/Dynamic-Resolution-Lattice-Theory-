@@ -1,23 +1,22 @@
 # `Lib/Math/Analysis/` — 213-native calculus on Real213
 
 Calculus on top of `Math/Real213` (Cauchy / Series / Differentiation
-/ Integration / FluxMVT / ODE / DyadicSearch).  Cluster organises 7
-chapter sub-directories + 6 top-level Cauchy / bridge files.
+/ Integration / FluxMVT / ODE / DyadicSearch).  **86 files** total:
+7 chapter sub-directories (73 files) + 13 top-level files (6 content
++ 7 umbrella/aggregators).
 
 ## Sub-directories (7 chapters)
 
-  - `ClassicCalc/`     — applied calculus structure (3 files)
-  - `Differentiation/` — differential calculus + polynomial chain
-                          (14 files, see INDEX)
-  - `DyadicSearch/`    — dyadic-search IVT (9 files; includes G31
+  - `FluxMVT/`         — flux-form MVT (27 files)
+  - `Differentiation/` — differential calculus + polynomial chain (14 files)
+  - `DyadicSearch/`    — dyadic-search IVT (13 files; includes G31
                           trajectory-as-witness `MinimalRootLens`)
-  - `FluxMVT/`         — flux-form MVT (22 files, see INDEX)
-  - `Integration/`     — definite + indefinite integration
-                          (10 files, see INDEX)
-  - `ODE/`             — ordinary differential equations
-  - `Series/`          — power series + convergence
+  - `Integration/`     — definite + indefinite integration (10 files)
+  - `ClassicCalc/`     — applied calculus structure (3 files)
+  - `ODE/`             — ordinary differential equations (3 files)
+  - `Series/`          — power series + convergence (3 files)
 
-## Top-level files (6, all Cauchy / bridge)
+## Top-level files (6 content + 7 umbrellas)
 
   - `BracketCauchyModulus.lean`  — Cauchy-modulus bracket form
   - `CauchyComplete.lean`        — Cauchy completeness witness
@@ -25,6 +24,9 @@ chapter sub-directories + 6 top-level Cauchy / bridge files.
   - `ChainCauchy.lean`           — Cauchy-chain construction
   - `PhysicsBridgeNT2.lean`      — Physics NT=2 bridge
   - `ResolutionShift.lean`       — resolution-shift lemma
+  - `ClassicCalc.lean`, `Differentiation.lean`, `DyadicSearch.lean`,
+    `FluxMVT.lean`, `Integration.lean`, `ODE.lean`, `Series.lean`
+    — umbrella imports for each sub-directory
 
 ## Aggregator
 

@@ -1,6 +1,6 @@
 # Real213-p-adic — 213-native p-adic Numbers
 
-**Status**: Closed (8 files, 308 PURE).
+**Status**: Closed (26 files, ~462 PURE).
 
 ## Overview
 
@@ -460,6 +460,33 @@ This is what 213-native proof engineering looks like at the
 "medium-difficulty mathematical structure" scale: theorems that
 would be one-liners in Mathlib become 50–200 line proofs here,
 but they ship with a true ∅-axiom certificate.
+
+## Cross-reference — Möbius P-orbit mod-p periods
+
+The p-adic family `ZpSeq p` is parametrised by ANY prime `p`, making
+it the natural Lens-arena for mod-p reductions of the Möbius matrix
+`P = [[2,1],[1,1]]`.  This connection is formalised in two layers:
+
+  · **Lean bridge**: `Lib/Math/Padic/ZpSeqMobiusBridge.lean` defines
+    `ZpMobiusPairEq` (digit agreement at every Stern-Brocot reachable
+    pair) and proves bidirectional equivalence with `ZpSeqEquiv` —
+    the canonical p-adic setoid.  This shows the Möbius-pair reading
+    of p-adic equality is tight (neither weaker nor stronger).
+  · **Orbit-period link**: for each prime `p`, the Möbius period
+    `T_p = ord(P mod p)` is the minimal cycle length of `P` in
+    `GL(2, F_p)`.  The p-adic digit carry FSM and truncation
+    homomorphism (`add_trunc`, `mul_trunc`) operate at `mod p^n`
+    levels; the period `T_p` emerges at `n = 1` as the fundamental
+    residue cycle.  The Lucas-Pell trace `L(k) = trace(P^k)` at
+    any `k < T_p` gives a non-trivial digit-zero Teichmüller seed.
+  · **Framework significance**: the fact that `ZpSeq p` exists for
+    ANY `p` (not just atomic primes 2, 3, 5) is what makes mod-13
+    and mod-29 period computations (`T_13 = 14`, `T_29 = 7`)
+    framework-natural despite their non-atomic factors — the p-adic
+    Lens family is already general.
+
+See [`theory/math/mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md)
+for the full mod-p period catalog and the P-orbit closure ring.
 
 ## How to verify
 

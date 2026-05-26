@@ -1,52 +1,71 @@
 # Padic — sub-tree INDEX
 
-Real213-p-adic construction: ∅-axiom p-adic integers `ZpSeq p` and
-arithmetic via carry-propagation FSM.
+Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
+and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
-**Status**: G122 partial close (2026-05-22) — 4 files, 42 PURE.
-Phases 1, 2, 3, 6 closed; Phases 4 (Hensel) + 5 (ℚ_p) open.
+**Status**: CLOSED — 26 files, ~462 PURE declarations.
+All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ## File map
 
-| File | Phase | PURE | Content |
+| File | Phase | Decls | Content |
 |---|---|---|---|
-| `Foundation.lean` | 1 | 14 | `ZpDigit`, `ZpSeq`, `trunc` definitions + `zero` / `one` / `neg_one` canonical instances + `eq_mod_pn` + ★★★★ `trunc_lt_p_pow` (universal truncation bound) + `trunc_eq_of_eq_mod_pn` (forward direction) + per-prime smokes |
-| `Arith.lean` | 2 | 11 | `Zp.carry` carry-propagation function + `Zp.add` p-adic sum + `Zp.complement` digit complement + `Zp.neg` negation + `carry_add_zero` sanity + per-prime smokes |
-| `Valuation.lean` | 3 | 11 | `vAtAcc` accumulator-style search + `vAt` bounded p-adic valuation + `vAt_zero` / `vAt_one_pos` / `vAt_neg_one_pos` characterization + ★★★★★ `phase3_valuation_close` capstone |
-| `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ DRLT alignment: `trunc_25_lt_N_U` + `padic_DRLT_alignment` capstone bundling N_U = 5^25 with 5-adic truncation-level-25 bound |
+| `Foundation.lean` | 1 | 41 | `ZpDigit`, `ZpSeq`, `trunc`, `zero`/`one`/`neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `digits_of_nat` |
+| `Arith.lean` | 2 | 104 | `Zp.add`/`mul`/`neg` via carry FSM, ring axioms at trunc (comm/assoc/distrib/add-inverse), `shiftLeft` |
+| `Pow.lean` | 2+ | 18 | `Zp.pow`, `pow_trunc`, Fermat at digit 0, `teichmuller_iter` |
+| `Norm.lean` | 3 | 21 | `valAtLeast`/`valEq`, strong ultrametric (`valEq_add_of_lt`, `valEq_mul`, `valEq_neg`) |
+| `Valuation.lean` | 3 | 11 | `vAt` bounded valuation + characterization lemmas |
+| `Hensel.lean` | 4 | 71 | Inverse (`invFull`) + square root (`sqrtFull`) + uniqueness; concrete `i_5`, `i_13`, `√2 ∈ ℤ_7` |
+| `HenselBridge.lean` | 4 | 8 | Bridge lemmas connecting Hensel to ring arithmetic |
+| `HenselResidual.lean` | 4 | 6 | Residual digit-level Hensel refinements |
+| `NegInvolution.lean` | 4 | 5 | `neg (neg x) = x` at trunc level |
+| `NegInvolutionDigit1.lean` | 4 | 11 | Negation involution at digit 1 |
+| `NegInvolutionFull.lean` | 4 | 5 | Full negation involution |
+| `NegInvolutionPreserve.lean` | 4 | 4 | Negation preservation lemmas |
+| `SetoidFramework.lean` | 4 | 12 | `ZpSeqEquiv` setoid + reflexivity/symmetry/transitivity |
+| `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
+| `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
+| `Teichmuller.lean` | 4 | 7 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum |
+| `Field.lean` | 5 | 40 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt |
+| `DRLT.lean` | 6 | 13 | `canonical_5adic_NU` (5^25 in base 5), digit smokes |
+| `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ DRLT: `trunc_25_lt_N_U` + alignment capstone |
+| `ZpSqrtD.lean` | ext | 13 | `ℤ_p[√d]` quadratic extension |
+| `ZpSqrtDRing.lean` | ext | 8 | Ring structure on `ℤ_p[√d]` |
+| `ZpSqrtDSetoid.lean` | ext | 11 | Setoid on `ℤ_p[√d]` |
+| `ZpSqrtDFrob.lean` | ext | 8 | Frobenius on quadratic extension |
+| `ZpSqrtDFrobRigor.lean` | ext | 6 | Rigorous Frobenius bounds |
+| `ZpSqrtDRigor.lean` | ext | 8 | Rigorous quadratic extension lemmas |
+| `ZpSeqMobiusBridge.lean` | bridge | 9 | Möbius-pair ↔ pointwise equality (Stern-Brocot tight) |
 
-## Dependency chain
+## Dependency chain (core)
 
 ```
 Foundation
-   └── Arith
-         └── Valuation
-               └── DRLTIntegration (+ ResolutionLimit)
+   ├── Arith ─── Pow ─── Teichmuller
+   │     └── NegInvolution{,Digit1,Full,Preserve}
+   │     └── SetoidFramework ─── SetoidAssoc ─── SetoidAlgebra
+   ├── Norm ─── Valuation
+   ├── Hensel{,Bridge,Residual}
+   ├── Field (= ℚ_p)
+   ├── DRLT ─── DRLTIntegration
+   ├── ZpSqrtD{,Ring,Setoid,Frob,FrobRigor,Rigor}
+   └── ZpSeqMobiusBridge (+ SternBrocot)
 ```
 
 All under namespace `E213.Lib.Math.Padic.*`.
 
-## Phase plan vs reality
+## Cross-references
 
-Original G122 plan (per `research-notes/archive/G122_real213_padic_research_direction.md`; promoted chapter: `theory/math/padic_real213.md`):
-  · Phase 1: ZpDigit + ZpSeq + truncation skeleton (1-2 sessions) — DONE
-  · Phase 2: Arithmetic add/mul/neg (1-2 sessions) — DONE (add + neg; mul deferred)
-  · Phase 3: p-adic norm + valuation (1 session) — DONE
-  · Phase 4: Hensel lifting + inverses (2 sessions) — OPEN
-  · Phase 5: ℚ_p localisation (1 session) — OPEN
-  · Phase 6: DRLT integration (1-2 sessions) — DONE (anchor only)
+  · Theory chapter: `theory/math/padic_real213.md` (308 PURE as counted
+    for the chapter; 462 total including extensions and bridge)
+  · Möbius bridge: `theory/math/mobius213_p_orbit_closure.md` §"p-adic
+    Lens family as mod-p arena"
+  · Lean bridge file: `ZpSeqMobiusBridge.lean` — Möbius-pair agreement ↔
+    `ZpSeqEquiv` bidirectional
 
-Phase 6 anchor explicitly captures the 5-adic ↔ N_U bridge:
-truncation level 25 in 5-adic ↔ `configCount 2 = 5^25` resolution
-limit in DRLT.
+## Open frontier
 
-## Open work
-
-  · Phase 2 multiplication (`Zp.mul`) via digit convolution
-  · Phase 4 Hensel lifting: uses `modInverseFromBezout` from
-    G119 modular-arithmetic infrastructure
-  · Phase 5 ℚ_p localisation: ratio of two `ZpSeq` representatives
-  · Phase 6 substantive integration: lift DRLT precision-bounded
-    results (e.g., α_em, m_μ/m_e) to 5-adic analogues
-  · Reverse direction of `eq_mod_pn ↔ trunc-equality`: requires
-    unique base-p representation argument (open)
+  · Teichmüller representative as concrete `ZpSeq` (diagonal
+    stabilization, analog of `sqrtFull`)
+  · `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` structural isomorphism
+  · Lift DRLT precision-bounded results to 5-adic analogues
