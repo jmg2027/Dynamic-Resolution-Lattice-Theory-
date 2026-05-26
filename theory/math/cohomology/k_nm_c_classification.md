@@ -263,20 +263,24 @@ Three structural pieces (all PURE):
     — every v = `weighted_e_sum c (m ↦ ψ_m v) ⊕ residual` with
     `ψ_m(residual) = false` for all m.
 
-### Why PRIMARY (not FULL) cup-image
+### Why PRIMARY (not FULL) cup-image: explicit design boundary
 
-The cup-image must be against `cupOpp_param (starS i m) β`
-(S-star × anything) plus `cupOpp_param α (incidT j m)` (anything
-× T-incidence), NOT against arbitrary `cupOpp_param α β`.
-The reason: by bilinearity, single-edge cups along face
-diagonals reproduce every face indicator, so the F₂-span of full
-cup-products = entire `EnrichedFaceVal c`.  Concrete witness
+If the quotient were defined using arbitrary
+`cupOpp_param α β` (FULL cup-image), it would collapse: by
+bilinearity, single-edge cups along face diagonals reproduce every
+face indicator, so the F₂-span of full cup-products is the entire
+`EnrichedFaceVal c`.  Concrete witness
 `psi_layer_arbitrary_cup_not_kill`: `ψ_0(e_0 ∪ e_4) = true` (the
 diagonal pair (e_0, e_4) of face (0, 0, 0) cups to the single-face
 indicator at (0, 0, 0), which ψ_0 detects).
 
-Hence the inductive type `InPrimaryCupSpanPlusBoundary` admits
-constructors only for δ¹σ, starS-cup, incidT-cup, and XOR.
+So this chapter fixes PRIMARY as an explicit proof boundary:
+`InPrimaryCupSpanPlusBoundary` is generated only by δ¹σ,
+`cupOpp_param (starS i m) β`, `cupOpp_param α (incidT j m)`, and
+XOR-closure.  This is the smallest boundary needed for the
+ψ-kill/soundness pipeline developed here.  We do **not** claim a
+global uniqueness/maximality theorem for PRIMARY in this file; such
+a claim would require a separate comparative classification result.
 
 ### Conditional codim upper bound + capstone
 
