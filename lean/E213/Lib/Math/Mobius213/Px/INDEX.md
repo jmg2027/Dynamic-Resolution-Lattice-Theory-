@@ -3,7 +3,7 @@
 Möbius matrix P = [[2,1],[1,1]] symmetry species catalog and
 P-orbit closure programme.
 
-**Status**: CLOSED — 27 files, ~436 PURE declarations.
+**Status**: CLOSED — 28 files, ~450+ PURE declarations.
 Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 
 ## File map
@@ -36,6 +36,7 @@ Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
 | `LModP.lean` | closure | 9 | L mod p cycle closure verification |
 | `PeriodReciprocity.lean` | closure | 35 | T_p divides p±1 via Legendre(5,p) |
 | `ConvergentDet.lean` | universal | ~12 | Farey-neighbour property from det=1 |
+| `PGeneratesNat.lean` | universal | ~18 | P generates ALL of ℕ≥1 (Chicken McNugget) |
 
 ## Organisation
 
@@ -55,6 +56,8 @@ Three layers:
   · `det_one_four_readings` — det=1 as matrix/Cassini/Farey triple
   · `period_depth_bound_master` — D(p) ≤ 4 for all primes ≤ 97
   · `period_reciprocity_master` — T_p | (p±1) for 23 primes
+  · `pgen_all_pos` — ∀ n≥1, PGen n (P generates ALL of ℕ)
+  · `p_generates_nat_master` — 5-conjunct P-generates-ℕ capstone
 
 ## Cross-references
 

@@ -4,30 +4,23 @@ Branch: `copilot/finish-current-task` (continuation of
 `claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
 axioms on production critical path.
 
-## This session — "모습 자체가 뫼비우스 행렬" + ConvergentDet
+## This session — P generates ALL of ℕ
 
-### Möbius self-form research note (G139), OPEN-EXPLORATORY
+### PGeneratesNat theorem file (G140), CLOSED
 
-  · New file: `research-notes/G139_mobius_self_form.md`
-  · Develops the observation: "the form itself IS the Möbius matrix"
-    — P is a fixed point of its own description functor.
-  · Three levels of self-form: syntactic (token counts = (3,2,1)),
-    orbital (trace orbit reconstructs P), iterated (det=1 persists).
-  · Identifies new theorem target: Farey-neighbour property of
-    P-convergents as fourth reading of det=1.
+  · New file: `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean`
+    (~18 declarations).
+  · New research note: `research-notes/G140_P_generates_all_nat.md`
+  · Key result: `pgen_all_pos` — ∀ n≥1, PGen n
+  · Master: `p_generates_nat_master` — 5-conjunct capstone
+  · Core proof: Chicken McNugget for (2,3) via strong induction
+    (gcd(NT,NS) = gcd(2,3) = 1, Frobenius = 1)
+  · Resolves "7 ∉ atomic closure" — additively, P covers all ℕ≥2
+  · Also proves: `chicken_mcnugget_23`, `coprime_NS_NT`,
+    `frobenius_NT_NS`, concrete witnesses 7..97
+  · Added to umbrella `Px.lean` and `Px/INDEX.md` (28 files)
 
-### ConvergentDet theorem file, CLOSED
-
-  · New file: `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean`
-    (~12 declarations, all PURE).
-  · Proves `farey_neighbour_fib`: fib(2n+2)·fib(2n+1) = fib(2n)·fib(2n+3) + 1
-  · Proves `det_one_four_readings`: bundles matrix-det / Cassini / Farey
-    as three faces of the same identity.
-  · Proof strategy: reduce to `det_pn_universal` via column-sum symmetry
-    `Q00 = Q01 + Q11`.
-  · Added to umbrella `Px.lean` and `Px/INDEX.md`.
-
-### Prior session work (already committed)
+### Previous session — G139 + ConvergentDet (already committed)
 
   · FibCassini (`fib_cassini_master`): fib(2n+3)·fib(2n+1) = fib(2n+2)²+1
   · QFibIdentity: Q00 n = fib(2n+1) ∀n
