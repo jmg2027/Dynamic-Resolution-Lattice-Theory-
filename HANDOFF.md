@@ -1,135 +1,65 @@
 # Session handoff
 
-Branch: `claude/unified-math-foundation-1QJHR`.  Built clean
-(`cd lean && lake build`); `E213.Lens.Unified` scans **9 PURE / 0
-DIRTY**.
+Branch: `copilot/finish-current-task` (continuation of
+`claude/tier-1-1-psi-kernel-wnpIS` work).  0 sorry, 0 external
+axioms on production critical path.
 
-## This session
+## This session — P generates ALL of ℕ (REFINED)
 
-Unified-equivalence synthesis: defined the 213-native concept that
-subsumes equivalence, equivalence class, isomorphism, and
-homomorphism (동치 / 동치류 / 동형 / 준동형) as the **Lens-arrow**
-(= `Lens.refines L M`).
+### PGeneratesNat theorem file (G140), CLOSED + REFINED
 
-  · `theory/lens/unified_equivalence.md` — synthesis chapter.
-    Single-concept thesis, four classical readings as
-    decompositions, canonical-form ladder `cutEq ⇒ sternBrocotEq
-    ⇒ mobiusEq` via Möbius P = [[2, 1], [1, 1]], Eqv ↔
-    Lens.equiv collapse, axiom-cost table, what-this-is-not.
-  · `theory/lens/dirty_recovery_patterns.md` — methodology
-    chapter built on top of the unification.  Four named
-    patterns (P1: Lens-Eq → LensIso, P2: mutual morphism →
-    LensIso, P3: classical quotient → LensImage, P4: slash-cong
-    assertion → kernel inheritance) for converting DIRTY claims
-    into PURE Lens-arrow statements.  Decision flow + when to
-    seal vs recover.
-  · `lean/E213/Lens/Unified.lean` (14 PURE) — `LensIso`,
-    `LensFiber`, `lensIso_refl / symm / trans`,
-    `lensIso_iff_kernel_eq`, `LensFiber.self`, `fibers_complete`,
-    `morphism_is_arrow` (core unification, 9) + `lensIso_of_eqPW`,
-    `lensIso_of_morphism_pair`, `LensImage`, `LensImage.proj`,
-    `LensImage.proj_val_eq_iff` (recovery helpers, 5).
-  · `theory/lens/INDEX.md` — synthesis-chapters section added;
-    Unified.lean registered as Lean anchor.
-  · `lean/E213/Lens.lean` — Unified import wired into the Lens
-    spec-as-code umbrella.
+  · File: `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean`
+    (~40 declarations, 9 sections).
+  · Research note: `research-notes/G140_P_generates_all_nat.md`
+  · Key result: `pgen_iff_pos` — ★ PGen n ↔ n ≥ 1 (exact characterization)
+  · Master: `p_generates_nat_master` — 5-conjunct capstone
+  · Core proof: Chicken McNugget for (2,3) via strong induction
+    (gcd(NT,NS) = gcd(2,3) = 1, Frobenius = 1)
+  · Resolves "7 ∉ atomic closure" — additively, P covers all ℕ≥2
+  · NEW §8: `not_pgen_zero`, `pgen_pos`, `pgen_iff_pos`, `pgen_semiring_closure`
+  · NEW §5 refined: `minDepth_optimal` (greedy is optimal), bug fix (11→4 not 5)
+  · NEW §9: explicit prime witnesses catalog (≤ 47)
+  · ∅-axiom: 0 native_decide (was 5, all replaced with decide/unfold+omega)
+  · Added to umbrella `Px.lean` and `Px/INDEX.md` (28 files)
+
+### Previous session — G139 + ConvergentDet (already committed)
+
+  · FibCassini (`fib_cassini_master`): fib(2n+3)·fib(2n+1) = fib(2n+2)²+1
+  · QFibIdentity: Q00 n = fib(2n+1) ∀n
+  · Stale INDEX refresh (Cohomology 234 files, Analysis 86 files)
+
+## Tier summary (cumulative)
+
+| Tier | Programme | Status |
+|------|-----------|--------|
+| 1.1 | Per-layer ψ-kernel completeness | CLOSED |
+| 1.2 | Arity c=2 Lean theorem | CLOSED |
+| 1.3 | Pell-orbit Stern-Brocot extension | CLOSED (4/4) |
+| 1.4 | α_em Step 5 purity | CLOSED |
+| 2.1 | Hodge ↔ universe-chain | CLOSED |
+| 2.2 | Cayley-Dickson ↔ Möbius | CLOSED |
+| 2.3 | p-adic ↔ Möbius P mod-p | CLOSED |
+| 4.1 | Catalog ↔ Lean parity | CLOSED |
+| 5.2 | Universal P^n entry formula | CLOSED |
+| 5.3 | Fibonacci Cassini from P^n det | CLOSED |
+| 5.4 | Convergent det / Farey property | CLOSED |
+
+## Genuinely open (next session targets)
+
+  · **G139 formalisation**: Möbius transformation fixed-point
+    theorem — `T(φ²) = φ²` in rational approx terms.
+  · **Tier 3.1**: depth-3 cohomology (c = 3 extension)
+  · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
+  · **G138 Pattern A**: Modulus-functor 4-way extension
+  · **G138 Pattern F**: Multiplicity doctrine chapter
+  · **CrossAddress → Functor**: triple-axis schema elevation
+  · **n-prime P-orbit depth bound**: D(p) ≤ 4 for p ≤ 97; O(log p)?
+  · **Period reciprocity universal**: ∀ odd prime p ≠ 5
 
 ## Boot order
 
-  · `seed/AXIOM/05_no_exterior.md` §5, §8.4 — re-read every
-    session start
-  · `theory/lens/unified_equivalence.md` — the single-concept
-    statement (start here for any equivalence / iso / hom
-    question)
-  · `theory/INDEX.md` — book map
-  · `lean/E213/ARCHITECTURE.md` — layer ring spec
-  · `theory/PROMOTION_CRITERIA.md` — Hard / Soft gates
-
-## Where the unification lives
-
-Quick anchors for the next session that needs to read or extend
-the unification:
-
-  · Strict ∅-axiom backbone + DIRTY-recovery helpers:
-    `lean/E213/Lens/Unified.lean` (14 PURE — 9 core unification
-    + 5 P1/P2/P3 recovery bridges)
-  · Existing Lens-arrow infrastructure (PURE): `LensCore.lean`
-    (Lens.equiv, Lens.refines), `Lens/Algebra/Congruence.lean`
-    (slash-cong forward), `Lens/Compose/Morphism.lean`
-    (IsLensMorphism → refines), `Lens/EqPW.lean` (pointwise
-    Lens equality), `Lens/Congruence.lean` (Eqv ↔ Lens.equiv)
-  · Reverse direction (sealed-DIRTY by `STRICT_ZERO_AXIOM.md`
-    category (b)): `Lens/Algebra/Corresp.lean`
-    (`kernel_correspondence`) via `Lens/Universal/QuotLens.lean`
-    (`universalLens` + `universalLens_kernel_eq_E`)
-  · Canonical algebraic form (PURE): `Lib/Math/Real213/
-    Mobius213Equiv.lean` (P-orbit chains + mobiusEq +
-    `mobiusEq_of_cutEq`) and `Mobius213SternBrocot.lean`
-    (mediant closure + sternBrocotEq +
-    `sternBrocotEq_of_cutEq`)
-
-## What's closed (chapter level)
-
-Highlights — full list in `theory/INDEX.md`:
-
-  · `theory/lens/unified_equivalence.md` — 동치 / 동치류 / 동형 /
-    준동형 single-concept synthesis (this session)
-  · `theory/math/cohomology/k_nm_c_classification.md` —
-    universal `(NS, NT, c)` cohomology framework (EnrichedKNSNTc)
-    + codim ≥ c parametric + codim ≤ c dual-span (conditional +
-    c = 1 unconditional + cross-layer unconditional) + arbitrary
-    -m bilateral kill (`9·m` cancellation in `NatBeqHelpers`)
-  · `theory/math/cohomology/mediant_cohomology_functor.md` —
-    Stern-Brocot mediant Vandermonde at the count level (V
-    2-term / E 4-term / F factored-Vandermonde²); K_{4, 3} =
-    K_{1, 1} ⊕ K_{3, 2} marquee
-  · `theory/math/cohomology/tripartite_self_containment.md` —
-    K_{3, 2}^{(c=2)} local (2, 1, 3) signature at every point;
-    K_{2, 1, 3} Betti (1, 0, 0); cohomology-level
-    self-containment verdict (atomic preserved, b₁ breach)
-  · `theory/math/mobius213_p_orbit_closure.md` — P-orbit
-    naturalness boundary + structural forcing via
-    `Theory/Atomicity/OrbitForcing` + Lucas-Pell recurrence
-    + period reciprocity + n-Fibonacci + Cassini universal
-  · `theory/essays/c_counter_programme_closure.md` —
-    cross-cutting synthesis of the c-counter five-direction
-    closure + same-shape parallel to P-orbit
-
-## What's open (residual)
-
-Inherited from prior sessions; no new opens this session.
-
-  · **Per-layer completeness (HARD direction)** for unconditional
-    `codim = c`: joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.
-    EASY direction closed unconditional at every c
-    (`primary_cup_span_soundness_all_c`).  HARD reduces to
-    single-layer K_{3,3} dim count (9-element face space modulo
-    (im δ¹ + primary cup-image) has dim 1); needs 8 explicit
-    InPrimary generators spanning the dim-8 ψ-kernel at c=1.
-    Layer-disjointness then lifts to ∀c.
-  · **Cochain-level mediant functor**: count-level Vandermonde
-    closed; lifting to cup-product algebra (4 edge + 9 face
-    sub-cells per mediant) is the next layer.
-  · **Massey-class mediant lift**: do K_{4, 3} 4-fold Massey
-    witnesses factor through K_{1, 1} ⊕ K_{3, 2}?
-  · **Pell-orbit extensions**: (8, 5), (5, 4), (7, 4), (13, 8)
-    — next Stern-Brocot layer.  Concrete reachable witnesses;
-    structural cohomology transports via Direction A.
-  · **n-prime P-orbit depth bound**: empirically D(p) ≤ 4 for
-    p ≤ 97; asymptotic growth (O(log p)?) is open.
-  · **Cup-product transport on V32LocalSignature**: does the
-    (2, 1, 3) local signature persist under cup
-    `H^k × H^l → H^(k+l)` at K_{3, 2}^{(c=2)}?
-  · **Möbius reverse-direction coverage**: `mobiusEq → cutEq`
-    requires Stern-Brocot total coverage of ℕ × ℕ (standard CS
-    result on coprime pairs + scaling for non-coprime).  Lean
-    closure open; forward chain `cutEq ⇒ sternBrocotEq ⇒
-    mobiusEq` is unconditional PURE.
-
-## Companion specs
-
-`seed/RESOLUTION_LIMIT_SPEC.md`,
-`seed/THEOREM_METHODOLOGY_SUITE.md`,
-`seed/META_SCAN_ARCHETYPES.md`,
-`seed/CLOSED_FORM_SPEC.md`.  Per-conjecture catalogue at
-`research-notes/G35_chiral_cup_ring_catalog.md`.
+  · `seed/AXIOM/05_no_exterior.md` §5, §8.4
+  · `theory/lens/unified_equivalence.md`
+  · `theory/INDEX.md`
+  · `lean/E213/ARCHITECTURE.md`
+  · `theory/PROMOTION_CRITERIA.md`

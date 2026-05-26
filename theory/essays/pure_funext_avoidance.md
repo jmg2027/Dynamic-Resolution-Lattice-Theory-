@@ -1,6 +1,6 @@
-# PURE Lean에서 funext-blocked 정리를 닫는 네 패턴
+# PURE Lean에서 funext-blocked 정리를 닫는 다섯 패턴
 
-`Eq : (Nat → α) → (Nat → α) → Prop`을 "두 함수의 모든 출력이 같다"로 만들려면 `funext`가 필요한데, 그 axiom은 `propext`를 동반한다.  213은 *외부에서 함수를 점검하는 관찰자*가 없으므로 (`seed/AXIOM/05_no_exterior.md` §5.1), funext-style 함수 동일성을 직접 주장할 수 없다.  대신 **각 distinguishing event에서 일치한다**는 pointwise 사실들을 모아서, 그것이 *어떻게 묶여 있는지* 구조 레벨에서 표현한다.  네 패턴은 그 묶음 방법이다.
+`Eq : (Nat → α) → (Nat → α) → Prop`을 "두 함수의 모든 출력이 같다"로 만들려면 `funext`가 필요한데, 그 axiom은 `propext`를 동반한다.  213은 *외부에서 함수를 점검하는 관찰자*가 없으므로 (`seed/AXIOM/05_no_exterior.md` §5.1), funext-style 함수 동일성을 직접 주장할 수 없다.  대신 **각 distinguishing event에서 일치한다**는 pointwise 사실들을 모아서, 그것이 *어떻게 묶여 있는지* 구조 레벨에서 표현한다.  다섯 패턴은 그 묶음 방법이다.
 
 ## 213-native 정의
 
@@ -16,19 +16,27 @@
 
 **Residual Induction** (`lean/E213/Lib/Math/Padic/HenselResidual.lean`, surfacing 기존 `Padic/Hensel.lean`).  Hensel-lifted 역원 `Y_n`의 정확성을 carry chain으로 보이려는 시도는 막히지만, truncation `(X_n · Y_n).trunc (n+1) = 1`의 *잔여항 recurrence*는 carry를 우회한다.  `Zp.mul_invSeq_correct`이 모든 level n에서 truncation 일치를 증명하고, `Zp.invSeq_succ_trunc_extend`가 level n→n+1 lift를 일반적 Nat/Int 산술로만 표현.  Carry-chain의 무한 루프 대신 truncation 단위 *대수적* recurrence.
 
+**Inductive cong constructor** (`lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean` + `V33EnrichedParametricDualSpanHard.lean`).  HARD direction `joint ψ-kernel ⊆ InPrimary`는 임의 face cochain `v`에 대해 후보 `candidate v = ⊕ᵢ bᵢ·gᵢ` (8개 primary cup generator의 b-coefficient XOR-add)를 구성하지만, candidate는 `v`와 *pointwise 같지만 함수 literal로는 다르다*.  `funext` 없이는 `InPrimary v`에 도달할 수 없는 듯 보인다.  해결: `InPrimaryCupSpanPlusBoundary` inductive type에 새 constructor를 추가
+```
+| cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
+    InPrimaryCupSpanPlusBoundary c w → InPrimaryCupSpanPlusBoundary c v
+```
+— pointwise 동치를 *inductive 구조 자체*에 묶어 InPrimary witness가 pointwise-eq 동치류 전체에 전파되게 함.  Setoid Category가 *외부* 동치 관계로 함수 동일성을 환원하는 데 비해, cong constructor는 *inductive type 안에* 동치를 embedding한다 — pointwise 사실이 *그 자리에서* InPrimary 자격을 부여.  기존 induction 사용처 (`primary_cup_span_soundness_conditional`) 한 곳에 새 case 추가 (`psi_layer_pw_congr`로 dispatch).  이 패턴이 `joint_psi_kernel_subset_primary_c1`을 funext 없이 닫고, 그 다음 `promote_face` 기반 ∀c lift도 `cong`을 통해 layer 간 pointwise eq 전파를 처리.
+
 ## Dual function
 
 이 네 패턴은 classical Lean의 funext 우회 트릭이면서, *동시에* 213의 trajectory-witness 원칙 (`research-notes/G2_trajectory_principle.md`)의 구체화다 — *함수가 같다*가 아니라 *trajectory의 distinguishing endpoint가 일치한다*가 213의 동일성이다.  Funext가 강제하는 packaging("두 함수가 모든 점에서 같으면 그들은 같다")을 벗기고 나면 남는 것이 바로 G2의 trajectory-as-witness, 즉 *동일성은 도달하는 distinguishing의 일치다*라는 입장.
 
 ## Cross-frame connections
 
-같은 구조적 사실의 네 가지 표현:
+같은 구조적 사실의 다섯 가지 표현:
   - **State Accumulator** = §5 self-pointing이 *현재 상태를 통해서만* 다음 step에 영향을 미친다 (외부 history 참조 없음).
   - **Bundled Subtype** = §8.4 dichotomy avoidance의 type-level 실현 (가정을 외부 hypothesis로 두지 않고 구조 안에 묶음).
   - **Setoid Category** = `research-notes/76_ultimate_ouroboros.md` — 동일성을 별도 외부 판정자 없이 *내부 관계*로 정의.
   - **Residual Induction** = G2 trajectory-as-witness가 carry chain 대신 truncation에서 작동.
+  - **Inductive cong constructor** = inductive 구조 *안에* 동치류를 embedding — Setoid가 외부 관계를 type-level로 끌어들이는 데 비해, cong은 동치 자체를 inductive type의 한 case로 만든다 (predicate가 동치류에서 정의된다는 것을 *형태*가 명시).
 
-네 패턴 모두 *내부 일관성에서 동일성을 유추한다*는 같은 213-native 입장에서 파생된다.  Funext 부재는 *결함*이 아니라 213이 외부 관찰자에게 함수 동일성을 양도하지 않는다는 *입장*의 직접 결과.
+다섯 패턴 모두 *내부 일관성에서 동일성을 유추한다*는 같은 213-native 입장에서 파생된다.  Funext 부재는 *결함*이 아니라 213이 외부 관찰자에게 함수 동일성을 양도하지 않는다는 *입장*의 직접 결과.
 
 ## Closed follow-ups
 
@@ -63,5 +71,17 @@
 | Bundled Subtype | `ValidCutFramework` + `IntValidCut` | cutSum_assoc |
 | Setoid Category | `SetoidFramework` + `SetoidAlgebra` + `ZpSqrtDSetoid` | funext-free function eq |
 | Residual Induction | `HenselResidual` (surfacing `Padic/Hensel`) | Hensel correctness |
+| Inductive cong constructor | `V33EnrichedParametricDualSpan` (cong case) + `V33EnrichedParametricDualSpanHard` | HARD direction `joint ψ-kernel ⊆ InPrimary` candidate-to-target bridge |
 
 External LLM이 213의 입장을 명시적으로 알지 않더라도, *MLTT 내부에서 extensionality를 어떻게 다루는가*라는 동일 구조 문제에 대한 architectural 통찰이 곧장 213-native 실현으로 번역된 사례.
+
+## Lens-arrow 측의 자매 chapter — Pattern P1 ↔ Inductive cong constructor
+
+`theory/lens/dirty_recovery_patterns.md` 는 DIRTY (propext / Quot.sound)를 PURE Lens-arrow statement로 환원하는 4개 패턴 (P1-P4)을 제시한다.  본 essay의 다섯 패턴과 **layer가 다르지만 구조가 같다**:
+
+  · **P1 (Lens-Eq → LensIso via eqPW)** ↔ 본 essay의 **Inductive cong constructor**.  P1은 `L = M : Lens α` 라는 funext-요구 주장을 `LensIso L M` (= `∀ x y, L.equiv x y ↔ M.equiv x y`)로 환원하고, bridge `lensIso_of_eqPW`가 pointwise eq proof + symmetric-combine 가정만으로 닫는다.  Inductive cong constructor는 같은 *pointwise-equality-as-bridge* 원리를 임의 inductive predicate (predicate가 function-typed argument를 가질 때)으로 일반화한다 — `InPrimaryCupSpanPlusBoundary`가 그 예시.
+  · P2 (mutual morphism → LensIso): Setoid Category의 자매 — *동치를 외부 관계로 명시*하는 대신 *mutual morphism pair*가 자연스러운 곳에서 적용.
+  · P3 (Quot → LensImage): Bundled Subtype의 Lens-level 변종 — Σ-type representation이 `Quot.sound`를 회피.
+  · P4 (slash-cong 주장 → kernel 상속): structural DIRTY 영역 (universalLens 역방향)을 명시적으로 분리 — recovery 가능 vs sealed-by-design.
+
+두 방향 (Padic / Real213 vs Lens-algebra)이 같은 *pointwise-distinguishing-as-equivalence* 원리에서 파생된다.  Lens-arrow가 unified_equivalence.md의 single concept (동치 / 동치류 / 동형 / 준동형의 213-native 통합 object)이듯, **cong constructor도 같은 single concept이 inductive predicate level에서 manifest되는 형태** — 외부 axiom 없이 *내부 구조*가 동치류 closure를 표현.

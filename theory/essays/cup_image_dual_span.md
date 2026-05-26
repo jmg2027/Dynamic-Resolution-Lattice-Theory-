@@ -71,25 +71,39 @@ cross-layer hypotheses.  The incidT branch needs
 the right of `&&` (`Bool.and` matches first arg); a syntactic
 asymmetry of Lean's reduction, not a structural one.
 
-## Conditional / unconditional separation
+## Conditional / unconditional separation — both directions now closed
 
 `primary_cup_span_soundness_on_layer` combines unconditional
 cross-layer (closed above) with the on-layer hypothesis
-`ψ_m(starS i m ∪ β) = false` (and T-analogue) for each m.  The
-on-layer hypothesis is Direction B's remaining work — extend
-`psi_layer_kills_cupOpp_S{i}star_left_at_bottom` from
-`m = ⟨0, _⟩` to arbitrary m, via targeted `nat_beq_add_left`
-placement.
-
-At c = 1, `Fin 1` forces `m = ⟨0, _⟩`, the on-layer hypothesis
+`ψ_m(starS i m ∪ β) = false` (and T-analogue) for each m.  At
+c = 1, `Fin 1` forces `m = ⟨0, _⟩`, the on-layer hypothesis
 collapses to the proven bottom-layer kill, and
-`primary_cup_span_soundness_c1` is UNCONDITIONAL.
+`primary_cup_span_soundness_c1` is unconditional.  Direction B's
+`parametric_arbitrary_m_full_kill_capstone` extends the kill to
+every layer, giving `primary_cup_span_soundness_all_c` —
+**EASY direction closed unconditionally at every c**.
 
-The conditional capstone `parametric_dual_span_capstone` closes
-the SPAN side under the per-layer completeness hypothesis
-(joint ψ-kernel ⊆ `InPrimary`).  This is the second open piece
-— the substantive cup-image dim calculation at single-layer
-K_{3,3}.  Layer-disjointness then lifts to ∀c.
+The HARD direction (joint ψ-kernel ⊆ `InPrimary`) is closed too
+(2026-05-25).  At c = 1, `joint_psi_kernel_subset_primary_c1`
+exhibits 8 explicit primary cup-product generators
+`g_1, …, g_8` spanning the dim-8 ψ-kernel (6 row pair-differences
+from `cupOpp(starS i 0, e_edge ⋯)` + 2 column pair-differences
+from `cupOpp(e_edge ⋯, incidT 0 0)`).  Every face cochain v with
+`ψ_0(v) = 0` decomposes as `v = ⊕ᵢ b_i · g_i` with coefficients
+`b_1 … b_6` reading off v's six "free" face values and `b_7, b_8`
+being 3-term XORs that absorb the ψ-kernel constraint at position
+(1, 0).
+
+The lift to ∀c uses **layer-promotion**:
+`promote_face : EnrichedFaceVal 1 → EnrichedFaceVal c` (supported
+only at layer m) preserves the InPrimary structure constructor-by-
+constructor.  `xor_aggregate` composes the c layer-m promotes into
+a full reconstruction of v.  `joint_psi_kernel_subset_primary`
+discharges the HARD direction at arbitrary c.
+
+`parametric_dual_span_unconditional` and
+`codim_upper_bound_unconditional` are the resulting unconditional
+capstones.
 
 ## Dual function
 
@@ -115,23 +129,32 @@ syntactic projections of the disjoint-layer factorisation;
 nothing is added when moving between them, only the reading
 depth changes.
 
-## Open frontier
+## Closed (2026-05-25)
 
-Two pieces remain for unconditional `codim ≤ c`:
+Both pieces previously open are now closed:
 
   · **Direction B on-layer**: ψ_m kills `starS i m ∪ β` at
-    layer m for arbitrary m, via Nat.beq cancellation over
-    `9·m + …` offsets.  Cross-layer cases already closed.
-  · **Per-layer completeness**: joint ψ-kernel ⊆ `InPrimary` at
-    single-layer K_{3,3}.  Reduces to a finite F₂-rank
-    calculation; lifts to ∀c by layer-disjointness.
+    layer m for arbitrary m via `nat_decide_add_left_assoc{1,2}`
+    cancellation, packaged in
+    `parametric_arbitrary_m_full_kill_capstone`.
+  · **Per-layer completeness**: joint ψ-kernel ⊆ `InPrimary`
+    closed at c = 1 via 8 explicit primary cup-product
+    generators (`joint_psi_kernel_subset_primary_c1`); lifted
+    to ∀c via `promote_face`/`promote_edge` constructor-by-
+    constructor preservation (`promote_in_primary`) and
+    `xor_aggregate` aggregation
+    (`joint_psi_kernel_subset_primary`).
+
+The `codim ≤ c` upper bound at every Stern-Brocot position
+against the PRIMARY cup-image is UNCONDITIONAL via
+`parametric_dual_span_unconditional` and
+`codim_upper_bound_unconditional`.
 
 ## The thing to point at
 
 `psi_canonical_decomposition c v s t m'`.  For any face cochain
 v, this is the concrete identity
 `v(s,t,m') = weighted_e_sum(s,t,m') ⊕ residual(s,t,m')` —
-9c equations per v, each a single F₂-XOR.  The SPAN claim
-asserts the residual is reachable from cup-image + coboundary.
-Half closed (cross-layer + c = 1), half open (on-layer +
-completeness).
+9c equations per v, each a single F₂-XOR.  The SPAN claim now
+asserts unconditionally that the residual is reachable from
+cup-image + coboundary at every c.

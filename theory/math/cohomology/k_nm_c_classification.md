@@ -5,9 +5,12 @@ lattice (Stern-Brocot path, gcd-scale, multiplicity-layer
 count) and admit a universal cohomology framework over that
 lattice.  Every position carries the parametric pair
 `codim ≥ c` (lower bound via c independent ψ-discriminators)
-and `codim ≤ c` (matching dual-span upper bound), assembled
-from a categorical direct-sum decomposition of the enriched
-2-complex into c independent layers.
+and `codim ≤ c` (matching dual-span upper bound — now
+UNCONDITIONAL at every Stern-Brocot position via
+`joint_psi_kernel_subset_primary` and
+`parametric_dual_span_unconditional`), assembled from a
+categorical direct-sum decomposition of the enriched 2-complex
+into c independent layers.
 
 K_{3, 2}^{(c=2)}-local higher cohomology (Steenrod algebra,
 cup_i ladder, Steenrod-Whitehead bridge) is hosted in
@@ -326,10 +329,123 @@ on-layer kills at every `(c, m)`), giving the EASY direction
 multiplicity `c`.  Generalises `primary_cup_span_soundness_c1`
 beyond the single-layer slice.
 
-The matching HARD direction (joint ψ-kernel ⊆ InPrimary,
-i.e., per-layer completeness lifted to ∀c) remains open and
-is the sole remaining gap for the unconditional `codim ≤ c`
-upper bound.
+### Per-layer completeness at c = 1 (HARD direction base case)
+
+`joint_psi_kernel_subset_primary_c1`
+(`V33EnrichedParametricDualSpanHard`, 51 PURE) constructs **8
+explicit primary cup-product generators** spanning the dim-8
+ψ-kernel of `EnrichedFaceVal 1`:
+
+```
+g_1 = cupOpp(starS 0 0, e_edge (1, 0))   = e_{(0,0)} ⊕ e_{(0,1)}
+g_2 = cupOpp(starS 0 0, e_edge (1, 1))   = e_{(0,0)} ⊕ e_{(0,2)}
+g_3 = cupOpp(starS 0 0, e_edge (2, 0))   = e_{(1,0)} ⊕ e_{(1,1)}
+g_4 = cupOpp(starS 0 0, e_edge (2, 1))   = e_{(1,0)} ⊕ e_{(1,2)}
+g_5 = cupOpp(starS 1 0, e_edge (2, 0))   = e_{(2,0)} ⊕ e_{(2,1)}
+g_6 = cupOpp(starS 1 0, e_edge (2, 1))   = e_{(2,0)} ⊕ e_{(2,2)}
+g_7 = cupOpp(e_edge (0, 1), incidT 0 0)  = e_{(0,0)} ⊕ e_{(1,0)}
+g_8 = cupOpp(e_edge (2, 1), incidT 0 0)  = e_{(1,0)} ⊕ e_{(2,0)}
+```
+
+Six are **row pair-differences** (rows 0, 1, 2 each contribute 2),
+two are **column pair-differences** with linearly-independent
+row-sum signatures.  Any face cochain `v` with `ψ_0(v) = false`
+admits the closed-form decomposition
+
+```
+v = b₁·g_1 ⊕ b₂·g_2 ⊕ ⋯ ⊕ b₈·g_8
+```
+
+with coefficients
+
+```
+b₁ = v(0,1)    b₂ = v(0,2)    b₃ = v(1,1)    b₄ = v(1,2)
+b₅ = v(2,1)    b₆ = v(2,2)
+b₇ = v(0,0) ⊕ v(0,1) ⊕ v(0,2)
+b₈ = v(2,0) ⊕ v(2,1) ⊕ v(2,2)
+```
+
+The position-(1,0) equation `v(1,0) = b₃ ⊕ b₄ ⊕ b₇ ⊕ b₈` is the
+ψ-kernel constraint `ψ_0(v) = 0` (XOR-sum of all 9 face values
+vanishes).  Verified pointwise via 9 per-position lemmas
+(`candidate_at_00`, …, `candidate_at_22`).
+
+### The `cong` constructor (closure under pointwise equality)
+
+The decomposition produces a candidate function `candidate v` that
+agrees with `v` pointwise but is NOT a function-literal equal to
+`v`.  Without `funext` (which uses `Quot.sound`, forbidden by the
+∅-axiom standard) the gap can't be bridged externally.  Solution:
+extend `InPrimaryCupSpanPlusBoundary` with a `cong` constructor
+
+```
+| cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
+    InPrimaryCupSpanPlusBoundary c w → InPrimaryCupSpanPlusBoundary c v
+```
+
+— pointwise equality propagates the InPrimary witness.  Single new
+case in `primary_cup_span_soundness_conditional`, discharged by
+the new `psi_layer_pw_congr` lemma (ψ_m respects pointwise
+equality on the 9 face inputs).  This is the 5th pattern in the
+`pure_funext_avoidance.md` family: closure under pointwise equality
+embedded directly in the inductive type — the inductive-predicate
+generalisation of Pattern P1 (`theory/lens/dirty_recovery_patterns.md`,
+"Lens-Eq → LensIso via eqPW"), which performs the same
+pointwise-equality bridging at Lens level.  Both manifest the
+Lens-arrow's pointwise-distinguishing-as-equivalence principle
+(`theory/lens/unified_equivalence.md`) at different levels of the
+type hierarchy.
+
+### ∀c lift via layer-promotion
+
+`V33EnrichedParametricDualSpanHardLift` (21 PURE) lifts the c=1
+HARD direction to every c ≥ 1.  Two promotion maps:
+
+```
+promote_face : EnrichedFaceVal 1 → (m : Fin c) → EnrichedFaceVal c
+promote_edge : EnrichedEdgeCoch 1 → (m : Fin c) → EnrichedEdgeCoch c
+```
+
+`promote_face c m w` returns `w` at layer m and zero elsewhere.
+`promote_edge` is defined as a **9-fold `cond` cascade** over
+offsets `0..8` (chosen specifically to be `propext`-free —
+`Nat.div`/`Nat.mod` would pull `propext` via `Nat.div_eq_of_lt`;
+a trailing `|| false` would block `rfl`-reduction).
+
+The promotion preserves each of the 6 `InPrimary` constructors
+pointwise:
+
+| Constructor | Promoted form | Lemma |
+|---|---|---|
+| `zero` | `fun _ _ _ => false` | `promote_zero` |
+| `coboundary σ` | `δ¹(promote_edge σ)` | `promote_coboundary` |
+| `starCup i ⟨0,_⟩ β` | `cupOpp(starS c i m, promote_edge β)` | `promote_starCup` |
+| `incidCup j ⟨0,_⟩ α` | `cupOpp(promote_edge α, incidT c j m)` | `promote_incidCup` |
+| `xor_add v w` | pointwise XOR distributes | `promote_xor_add` |
+| `cong v w h` | pointwise equality transports | (`cong` again) |
+
+Hence `promote_in_primary : InPrimary 1 w → InPrimary c (promote c m w)`
+by induction on the inductive structure.
+
+`xor_aggregate c v k` composes the layer-m promotes into a full
+reconstruction of `v` (by recursion on `k`); at `k = c` it equals
+`v` pointwise.  `joint_psi_kernel_subset_primary` discharges the
+HARD direction at arbitrary `c`.
+
+### Unconditional capstones (all c)
+
+With both directions closed unconditionally:
+
+  · `joint_psi_kernel_iff_primary` — bidirectional containment
+    `(∀m, ψ_m(v) = 0) ↔ InPrimary v` at every `c`
+  · `parametric_dual_span_unconditional` — c ψ-discriminators
+    SPAN the dual of `EnrichedFaceVal c / InPrimary`, no hypothesis
+  · `codim_upper_bound_unconditional` — every face cochain `v`
+    decomposes canonically modulo `InPrimary c` into its
+    `weighted_e_sum c (ψ-vector v)` representative
+
+The `codim = c` upper bound at every Stern-Brocot position
+against the PRIMARY cup-image is now UNCONDITIONAL.
 
 ## K_{3,3} ↔ Möbius P bridges
 
@@ -523,9 +639,15 @@ Stern-Brocot path while cup-product / cochain lift remains open.
       codim ≥ c)
     - `Bipartite/V33EnrichedParametricDualSpan.lean` (parametric
       codim ≤ c scaffolding: ψ-linearity, surjectivity, canonical
-      decomposition, PRIMARY cup-image inductive type, cross-layer
-      vanishing, conditional + c=1 unconditional soundness, dual
-      span capstone)
+      decomposition, PRIMARY cup-image inductive type with `cong`
+      constructor, cross-layer vanishing, conditional + all-c
+      unconditional soundness EASY direction, dual span capstone)
+    - `Bipartite/V33EnrichedParametricDualSpanHard.lean` (HARD
+      direction at c=1: 8 explicit primary cup-product generators,
+      candidate decomposition, 9 per-position lemmas, c=1 capstone)
+    - `Bipartite/V33EnrichedParametricDualSpanHardLift.lean` (∀c
+      lift: layer-promotion maps, 6-constructor inductive
+      preservation, xor-aggregate, unconditional capstones)
     - `Bipartite/V33Massey4Fold.lean`, `V33MasseyMulti.lean`,
       `V33CupDescent.lean`, `V33OppositeCup.lean`,
       `V33Mult1Trivial.lean`, `V33MasseyWitness.lean`
@@ -545,6 +667,9 @@ Stern-Brocot path while cup-product / cochain lift remains open.
       (parity-failing dispatcher + K_{3,NT}, K_{5,NT}, … closures)
     - `Bipartite/Parametric/EnrichedKNSNTcMaster.lean`
       (`master_Knn_c_counter_resolved`)
+    - `Bipartite/Parametric/PellOrbitInstances.lean` (pairEnum7,
+      pairEnum8, K_{5,4} / K_{7,4} / K_{8,5} closures,
+      `pell_orbit_stern_brocot_extension_capstone`)
   · Infrastructure: `Cohomology/Infrastructure/BoolXORFold.lean`
     (graph-agnostic `psiNatPos`, `xor_pair_swap`),
     `Infrastructure/NatBeqHelpers.lean` (Nat.beq + decide
@@ -573,8 +698,15 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 | `primary_cup_span_soundness_on_layer` | same | ★ soundness `InPrimary ⊆ ψ-kernel` requires only on-layer kill |
 | `primary_cup_span_soundness_c1` | same | ★ unconditional soundness at c = 1 |
 | `primary_cup_span_soundness_all_c` | same | ★ unconditional soundness at every c (easy direction closed) |
-| `codim_upper_bound_conditional` | same | conditional `codim ≤ c` under per-layer completeness hypothesis (hard direction) |
-| `parametric_dual_span_capstone` | same | ★★ capstone: c ψ-discriminators SPAN dual of `EnrichedFaceVal / InPrimary` |
+| `codim_upper_bound_conditional` | same | conditional `codim ≤ c` under per-layer completeness hypothesis |
+| `parametric_dual_span_capstone` | same | conditional capstone: c ψ-discriminators SPAN under hypothesis |
+| `g_1 … g_8`, `candidate_at_*` | `V33EnrichedParametricDualSpanHard` | 8 explicit primary cup generators + 9 per-position equations at c=1 |
+| `joint_psi_kernel_subset_primary_c1` | same | ★ HARD direction at c=1: joint ψ-kernel ⊆ InPrimary unconditional |
+| `promote_face`, `promote_edge`, `promote_in_primary` | `V33EnrichedParametricDualSpanHardLift` | layer-promotion lift preserves all 6 inductive constructors |
+| `joint_psi_kernel_subset_primary` | same | ★★ HARD direction at all c, via aggregating layer-m promotes |
+| `joint_psi_kernel_iff_primary` | same | bidirectional containment: joint ψ-kernel = InPrimary at every c |
+| `parametric_dual_span_unconditional` | same | ★★★ UNCONDITIONAL capstone: c ψ-discriminators SPAN dual at every c |
+| `codim_upper_bound_unconditional` | same | ★★★ UNCONDITIONAL `codim ≤ c` at every Stern-Brocot position |
 | `nine_block_disjoint` / `nine_block_disjoint_op` | `Infrastructure.NatBeqHelpers` | (9·a + r₁) ≠ (9·b + r₂) for a ≠ b, r₁, r₂ < 9 |
 | `K43_all_S_row_deps_bundle` | `V43` | 6 S-row dependence relations at K_{4,3} |
 | `cross_graph_S_row_dependence_pattern` | `CrossGraphPattern` | Same dependence pattern at K_{3,3} + K_{4,3} (NT = 3) |
@@ -586,6 +718,8 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 | `qT_param_zero_universal` / `qS_param_zero_universal` | `Parametric/EnrichedKNSNTcUniversal` | row / column Q-functional vanishes universally (even-NS / even-NT) |
 | `kills_delta1_K3NT_via_universal` | same | parity-failing dispatcher (excl-S ψ) for odd-NS, all NT, all c |
 | `master_Knn_c_counter_resolved` | `Parametric/EnrichedKNSNTcMaster` | ★ master: codim ≥ c at K_{n,n}^{(c)} for n ∈ {3, 4, 5, 6}, ∀c |
+| `K85_c_independent_h2_classes_via_framework`, `K74_c_independent_h2_classes_via_framework`, `K54_via_KNS4` | `Parametric/PellOrbitInstances` | Stern-Brocot mediant extension to K_{5,4}, K_{7,4}, K_{8,5} via existing KNS4 / KNS5 routes (NT=4 even / NT=5 odd) |
+| `pell_orbit_stern_brocot_extension_capstone` | same | ★ next Stern-Brocot layer beyond `n ∈ {3, 4, 5, 6}` diagonal — three instances closed |
 
 ## Research-note provenance
 
@@ -598,24 +732,39 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 
 ## Open frontier (residual)
 
-The closures above leave a small residual:
+Per-layer completeness — closed (2026-05-25, this session):
+`joint_psi_kernel_subset_primary` discharges the hypothesis of
+`codim_upper_bound_conditional` unconditionally at every c.  The
+unconditional capstones `parametric_dual_span_unconditional` and
+`codim_upper_bound_unconditional` close the `codim = c` upper
+bound at every Stern-Brocot position.
 
-  · **Per-layer completeness for `codim = c`**: prove the joint
-    ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`.  Closes the
-    completeness hypothesis of `codim_upper_bound_conditional`.
-    At single layer K_{3,3}: 9-element face space modulo
-    (im δ¹ + primary cup-image) has dim 1, generated by
-    `e_face_layer`.  Layer-disjointness lifts to ∀c by the
-    Direction A direct-sum decomposition.
+Pell-orbit Stern-Brocot mediant extension — three of four closed
+(2026-05-25): K_{5, 4}, K_{7, 4}, K_{8, 5} each carry `c`
+independent non-coboundary H²-classes via
+`Parametric/PellOrbitInstances.lean` (11 PURE — `pairEnum7`,
+`pairEnum8`, three pair closures, capstone
+`pell_orbit_stern_brocot_extension_capstone`).  All three use
+existing parametric routes: K_{5, 4} and K_{7, 4} via NT=4
+`KNS4_c_independent_h2_classes` (excl-T), K_{8, 5} via NT=5
+`kills_delta1_KNS5` (qT-zero).  Direction A's generalisation
+beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}` is empirically
+verified at three Stern-Brocot mediant positions.
+
+Remaining open structural questions:
+
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; lifting to cochain-space + cup-product algebra
     (4 edge + 9 face sub-cells per mediant) is the next layer.
     See `theory/essays/stern_brocot_as_universal_lattice.md`
     and `theory/essays/vandermonde_mediant_counts.md`.
-  · **Pell-orbit and Stern-Brocot extensions**: (8, 5), (5, 4),
-    (7, 4), (13, 8), … — next layer of the Möbius P lattice.
-    Each is a concrete reachable witness; the structural
-    cohomology theorems transport via the universal framework.
+  · **K_{13, 8} extension**: NS = 13 odd ∉ {3, 5}, NT = 8 even
+    ∉ {4, 6} — both sides outside current family coverage.
+    Closes either via `pairEnum13` + `IsLexFold` proof
+    (universal-S route, NS=13 odd) OR via fresh
+    `psi_excl_T0_NT8` + 28-fold XOR cancellation
+    (NT=8 even excl-T family).  Both routes are mechanical
+    extensions of existing patterns.
   · **Massey-class lift of the mediant**: do the 4-fold Massey
     witnesses on K_{4,3} factor through K_{1,1} ⊕ K_{3,2}?
     Conjecturally yes via the count-Vandermonde + Massey-depth

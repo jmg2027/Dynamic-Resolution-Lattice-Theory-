@@ -24,8 +24,14 @@ import E213.Lib.Math.Mobius213.Px.CrossProductAxes
 import E213.Lib.Math.Mobius213.Px.POrbitDepth
 import E213.Lib.Math.Mobius213.Px.CassiniInduction
 import E213.Lib.Math.Mobius213.Px.PnFibonacci
+import E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
+import E213.Lib.Math.Mobius213.Px.QFibIdentity
+import E213.Lib.Math.Mobius213.Px.CassiniUniversal
+import E213.Lib.Math.Mobius213.Px.FibCassini
 import E213.Lib.Math.Mobius213.Px.LModP
 import E213.Lib.Math.Mobius213.Px.PeriodReciprocity
+import E213.Lib.Math.Mobius213.Px.ConvergentDet
+import E213.Lib.Math.Mobius213.Px.PGeneratesNat
 
 /-!
 # `E213.Lib.Math.Mobius213.Px` — umbrella

@@ -14,8 +14,8 @@ PURE in Lean.
 
 | Programme | Headline | Lean anchor | Chapter |
 |---|---|---|---|
-| Atomic forcing | (NS, NT, d) = (3, 2, 5) uniquely forced from atomicity + alive + Pell-Lucas recurrence | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing}` | `physics/foundations/atomic_constants.md` |
-| c-counter (5-direction) | `codim ≥ c` parametric ∀(NS, NT, c); `codim ≤ c` conditional + c=1 unconditional | `Cohomology/Bipartite/Parametric/EnrichedKNSNTcMaster.master_Knn_c_counter_resolved` | `math/cohomology/k_nm_c_classification.md` |
+| Atomic forcing | **(NS, NT, c, d) = (3, 2, 2, 5)** uniquely forced from atomicity + alive + Pell-Lucas recurrence + k=2 arity (pigeonhole over `Fin 2` base for k ≥ 3 vacuous) | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing, CombinatorialArity}` | `physics/foundations/atomic_constants.md` |
+| c-counter (5-direction) | `codim ≥ c` parametric ∀(NS, NT, c); `codim ≤ c` **unconditional at every c** (per-layer completeness closed 2026-05-25 via 8 explicit primary cup generators + layer-promotion).  Stern-Brocot mediant extension **fully closed** at K_{5, 4}, K_{7, 4}, K_{8, 5}, K_{13, 8} (2026-05-26) | `Cohomology/Bipartite/Parametric/EnrichedKNSNTcMaster.master_Knn_c_counter_resolved` + `V33EnrichedParametricDualSpanHard{,Lift}.joint_psi_kernel_subset_primary` + `Parametric/PellOrbitInstances.pell_orbit_stern_brocot_extension_capstone` | `math/cohomology/k_nm_c_classification.md` |
 | Stern-Brocot mediant functor | V/E/F Vandermonde under mediant; K_{4,3} = K_{1,1} ⊕ K_{3,2} | `Cohomology/MediantCohomologyFunctor.mediant_cohomology_functor_capstone` | `math/cohomology/mediant_cohomology_functor.md` |
 | Bipartite-tripartite self-containment | local (2, 1, 3) at every K_{3, 2}^{(c=2)} point + K_{2, 1, 3} cohomology refutes external extension | `Cohomology/Tripartite/V32V213CohomologyBridge.self_containment_cohomology_verdict` | `math/cohomology/tripartite_self_containment.md` |
 | P-orbit naturalness | Lucas-Pell trace ring `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ` exhausts framework-natural integers | `Mobius213/Px/POrbitClosure.framework_natural_via_p_orbit_closure` + `Theory/Atomicity/OrbitForcing` | `math/mobius213_p_orbit_closure.md` |
@@ -36,21 +36,6 @@ and P-orbit phases.
 
 ## Genuinely open
 
-  · **Arity `c = 2` Lean theorem**: narrative-justified in
-    `seed/AXIOM/03_form.md` §3.2 and operationally used
-    everywhere, but no Lean theorem closes the "binary is the
-    unique non-degenerate combine arity" claim.  Stub +
-    statement at `lean/E213/Theory/Atomicity/CombinatorialArity.lean`.
-  · **Per-layer ψ-kernel completeness (HARD direction only)**
-    for unconditional `codim = c`: joint ψ-kernel ⊆
-    `InPrimaryCupSpanPlusBoundary`.  EASY direction
-    (`InPrimary ⊆ ψ-kernel`) closed unconditionally at every c
-    by `primary_cup_span_soundness_all_c` (2026-05-25).  HARD
-    direction reduces to single-layer K_{3, 3} dim count
-    (9-element face space modulo (im δ¹ + primary cup-image)
-    = dim 1); requires constructing 8 explicit InPrimary
-    generators spanning the dim-8 ψ-kernel.  Layer-disjointness
-    lifts c=1 closure to ∀c.
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; cup-product algebra over the 4 × 9 = 36 mediant
     sub-cells is the next layer.  Massey-class factorisation

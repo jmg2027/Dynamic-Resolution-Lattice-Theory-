@@ -798,4 +798,217 @@ theorem KNS6_c_independent_h2_classes
     ⟨psi_excl_T0_NT6_signature NS c hNS m m',
      e_face_layer_NT6_not_coboundary NS c hNS pS m⟩
 
+/-! ## §13.5 — Concrete pair enumeration on `Fin 8`
+
+`chooseTwo 8 = 28` pairs in lex order.  Needed for the NT=8 excl-T family. -/
+
+/-- Low endpoint of the `s`-th pair of `Fin 8` (28 pairs lex). -/
+def pair8_lo : Fin (chooseTwo 8) → Fin 8
+  | ⟨0,  _⟩ => ⟨0, by decide⟩ | ⟨1,  _⟩ => ⟨0, by decide⟩
+  | ⟨2,  _⟩ => ⟨0, by decide⟩ | ⟨3,  _⟩ => ⟨0, by decide⟩
+  | ⟨4,  _⟩ => ⟨0, by decide⟩ | ⟨5,  _⟩ => ⟨0, by decide⟩
+  | ⟨6,  _⟩ => ⟨0, by decide⟩
+  | ⟨7,  _⟩ => ⟨1, by decide⟩ | ⟨8,  _⟩ => ⟨1, by decide⟩
+  | ⟨9,  _⟩ => ⟨1, by decide⟩ | ⟨10, _⟩ => ⟨1, by decide⟩
+  | ⟨11, _⟩ => ⟨1, by decide⟩ | ⟨12, _⟩ => ⟨1, by decide⟩
+  | ⟨13, _⟩ => ⟨2, by decide⟩ | ⟨14, _⟩ => ⟨2, by decide⟩
+  | ⟨15, _⟩ => ⟨2, by decide⟩ | ⟨16, _⟩ => ⟨2, by decide⟩
+  | ⟨17, _⟩ => ⟨2, by decide⟩
+  | ⟨18, _⟩ => ⟨3, by decide⟩ | ⟨19, _⟩ => ⟨3, by decide⟩
+  | ⟨20, _⟩ => ⟨3, by decide⟩ | ⟨21, _⟩ => ⟨3, by decide⟩
+  | ⟨22, _⟩ => ⟨4, by decide⟩ | ⟨23, _⟩ => ⟨4, by decide⟩
+  | ⟨24, _⟩ => ⟨4, by decide⟩
+  | ⟨25, _⟩ => ⟨5, by decide⟩ | ⟨26, _⟩ => ⟨5, by decide⟩
+  | ⟨_+27, _⟩ => ⟨6, by decide⟩
+
+/-- High endpoint of the `s`-th pair of `Fin 8`. -/
+def pair8_hi : Fin (chooseTwo 8) → Fin 8
+  | ⟨0,  _⟩ => ⟨1, by decide⟩ | ⟨1,  _⟩ => ⟨2, by decide⟩
+  | ⟨2,  _⟩ => ⟨3, by decide⟩ | ⟨3,  _⟩ => ⟨4, by decide⟩
+  | ⟨4,  _⟩ => ⟨5, by decide⟩ | ⟨5,  _⟩ => ⟨6, by decide⟩
+  | ⟨6,  _⟩ => ⟨7, by decide⟩
+  | ⟨7,  _⟩ => ⟨2, by decide⟩ | ⟨8,  _⟩ => ⟨3, by decide⟩
+  | ⟨9,  _⟩ => ⟨4, by decide⟩ | ⟨10, _⟩ => ⟨5, by decide⟩
+  | ⟨11, _⟩ => ⟨6, by decide⟩ | ⟨12, _⟩ => ⟨7, by decide⟩
+  | ⟨13, _⟩ => ⟨3, by decide⟩ | ⟨14, _⟩ => ⟨4, by decide⟩
+  | ⟨15, _⟩ => ⟨5, by decide⟩ | ⟨16, _⟩ => ⟨6, by decide⟩
+  | ⟨17, _⟩ => ⟨7, by decide⟩
+  | ⟨18, _⟩ => ⟨4, by decide⟩ | ⟨19, _⟩ => ⟨5, by decide⟩
+  | ⟨20, _⟩ => ⟨6, by decide⟩ | ⟨21, _⟩ => ⟨7, by decide⟩
+  | ⟨22, _⟩ => ⟨5, by decide⟩ | ⟨23, _⟩ => ⟨6, by decide⟩
+  | ⟨24, _⟩ => ⟨7, by decide⟩
+  | ⟨25, _⟩ => ⟨6, by decide⟩ | ⟨26, _⟩ => ⟨7, by decide⟩
+  | ⟨_+27, _⟩ => ⟨7, by decide⟩
+
+/-- Concrete `PairEnum 8` (28 pairs in lex order). -/
+def pairEnum8 : PairEnum 8 where
+  lo := pair8_lo
+  hi := pair8_hi
+
+/-! ## §14 — K_{NS, 8} family via `psi_excl_T0_NT8`
+
+`chooseTwo 8 = 28`.  Vertex 0 appears in T-pairs at indices 0..6 (pairs
+(0,1),(0,2),…,(0,7)).  Non-vertex-0 pairs are at indices 7..27 (21 pairs).
+The vertex-excluding ψ sums over those 21 T-pair indices.
+
+Kill via `foldXor_s_face_eq_qS_decomposition` + 7-bool case-bash on
+`qS` for T-vertices 1..7. -/
+
+/-- ψ-functional for K_{NS, 8} excluding T-pairs containing vertex 0.
+    XORs over all S-pairs for T-pair indices 7..27 (21 non-vertex-0 pairs). -/
+def psi_excl_T0_NT8 (NS c : Nat) (m : Fin c) (v : EnrichedFaceVal NS 8 c) : Bool :=
+  xor (xor (xor (xor (xor (xor (xor (xor (xor (xor
+  (xor (xor (xor (xor (xor (xor (xor (xor (xor (xor
+    (foldXor (chooseTwo NS) (fun s => v s ⟨7,  by decide⟩ m))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨8,  by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨9,  by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨10, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨11, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨12, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨13, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨14, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨15, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨16, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨17, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨18, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨19, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨20, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨21, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨22, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨23, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨24, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨25, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨26, by decide⟩ m)))
+    (foldXor (chooseTwo NS) (fun s => v s ⟨27, by decide⟩ m))
+
+set_option maxHeartbeats 8000000 in
+/-- ψ_excl_T0_NT8 kills δ¹ for any S-side pair enumeration. -/
+theorem psi_excl_T0_NT8_kills_delta1
+    (NS c : Nat) (pS : PairEnum NS) (σ : EnrichedEdgeCoch NS 8 c) (m : Fin c) :
+    psi_excl_T0_NT8 NS c m
+      (delta1_enr_param NS 8 c pS pairEnum8 σ) = false := by
+  unfold psi_excl_T0_NT8 delta1_enr_param
+  rw [foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨7,  by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨8,  by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨9,  by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨10, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨11, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨12, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨13, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨14, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨15, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨16, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨17, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨18, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨19, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨20, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨21, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨22, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨23, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨24, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨25, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨26, by decide⟩ m,
+      foldXor_s_face_eq_qS_decomposition NS 8 c pS pairEnum8 σ ⟨27, by decide⟩ m]
+  unfold pairEnum8 pair8_lo pair8_hi
+  cases qS_param NS 8 c pS σ ⟨1, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨2, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨3, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨4, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨5, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨6, by decide⟩ m <;>
+    cases qS_param NS 8 c pS σ ⟨7, by decide⟩ m <;> rfl
+
+/-- Single-face indicator at `(s = 0, t = 7)` for K_{NS, 8}.  T-pair
+    t=7 is `{1, 2}` of `Fin 8` (doesn't contain T-vertex 0). -/
+def e_face_layer_NT8 (NS c : Nat) (m : Fin c) : EnrichedFaceVal NS 8 c :=
+  fun s t m' =>
+    match s.val, t.val with
+    | 0, 7 => decide (m.val = m'.val)
+    | _, _ => false
+
+/-- ψ-signature for the NT=8 dual family. -/
+theorem psi_excl_T0_NT8_signature
+    (NS c : Nat) (hNS : 0 < chooseTwo NS) (m m' : Fin c) :
+    psi_excl_T0_NT8 NS c m' (e_face_layer_NT8 NS c m)
+      = decide (m.val = m'.val) := by
+  unfold psi_excl_T0_NT8
+  have ht7 :
+      foldXor (chooseTwo NS)
+        (fun s => e_face_layer_NT8 NS c m s ⟨7, by decide⟩ m')
+        = decide (m.val = m'.val) := by
+    apply foldXor_only_first_pos (chooseTwo NS) hNS (decide (m.val = m'.val))
+    · rfl
+    · intro s hs
+      unfold e_face_layer_NT8
+      match hv : s.val, hs with
+      | 0, hcontra => exact absurd rfl hcontra
+      | _+1, _ => rfl
+  have htk : ∀ (k : Fin (chooseTwo 8)) (hne : k.val ≠ 7),
+      foldXor (chooseTwo NS)
+        (fun s => e_face_layer_NT8 NS c m s k m') = false := by
+    intro k hne
+    apply (foldXor_congr_all (chooseTwo NS) _ (fun _ => false) ?_).trans
+        (foldXor_const_false _)
+    intro s
+    unfold e_face_layer_NT8
+    rcases hkv : k.val with
+      | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+      | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27
+      | _+28 =>
+    all_goals (first | (cases s.val <;> rfl) | exact absurd hkv hne |
+      exact absurd k.isLt (by decide))
+  rw [htk ⟨8,  by decide⟩ (by decide),
+      htk ⟨9,  by decide⟩ (by decide),
+      htk ⟨10, by decide⟩ (by decide),
+      htk ⟨11, by decide⟩ (by decide),
+      htk ⟨12, by decide⟩ (by decide),
+      htk ⟨13, by decide⟩ (by decide),
+      htk ⟨14, by decide⟩ (by decide),
+      htk ⟨15, by decide⟩ (by decide),
+      htk ⟨16, by decide⟩ (by decide),
+      htk ⟨17, by decide⟩ (by decide),
+      htk ⟨18, by decide⟩ (by decide),
+      htk ⟨19, by decide⟩ (by decide),
+      htk ⟨20, by decide⟩ (by decide),
+      htk ⟨21, by decide⟩ (by decide),
+      htk ⟨22, by decide⟩ (by decide),
+      htk ⟨23, by decide⟩ (by decide),
+      htk ⟨24, by decide⟩ (by decide),
+      htk ⟨25, by decide⟩ (by decide),
+      htk ⟨26, by decide⟩ (by decide),
+      htk ⟨27, by decide⟩ (by decide),
+      ht7]
+  cases decide (m.val = m'.val) <;> rfl
+
+private theorem decide_self_true_NT8 (n : Nat) : decide (n = n) = true := by
+  simp [Nat.decEq]
+
+/-- `e_face_layer_NT8` is not a coboundary at K_{NS, 8}. -/
+theorem e_face_layer_NT8_not_coboundary
+    (NS c : Nat) (hNS : 0 < chooseTwo NS) (pS : PairEnum NS) (m : Fin c) :
+    ∀ σ : EnrichedEdgeCoch NS 8 c,
+      e_face_layer_NT8 NS c m
+        ≠ delta1_enr_param NS 8 c pS pairEnum8 σ := by
+  intro σ heq
+  have h := congrArg (psi_excl_T0_NT8 NS c m) heq
+  rw [psi_excl_T0_NT8_signature NS c hNS m m,
+      psi_excl_T0_NT8_kills_delta1 NS c pS σ m] at h
+  rw [decide_self_true_NT8] at h
+  exact Bool.noConfusion h
+
+/-- ★★★★★★ Family capstone: K_{NS, 8} for every NS ≥ 2 carries `c`
+    independent non-coboundary H²-classes.  Closes K_{NS, 8} via
+    T-vertex excl regardless of NS parity. -/
+theorem KNS8_c_independent_h2_classes
+    (NS c : Nat) (hNS : 0 < chooseTwo NS) (pS : PairEnum NS) :
+    ∀ (m m' : Fin c),
+      psi_excl_T0_NT8 NS c m' (e_face_layer_NT8 NS c m)
+        = decide (m.val = m'.val)
+      ∧ (∀ σ : EnrichedEdgeCoch NS 8 c,
+           e_face_layer_NT8 NS c m
+             ≠ delta1_enr_param NS 8 c pS pairEnum8 σ) :=
+  fun m m' =>
+    ⟨psi_excl_T0_NT8_signature NS c hNS m m',
+     e_face_layer_NT8_not_coboundary NS c hNS pS m⟩
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven

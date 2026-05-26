@@ -85,6 +85,8 @@ Active top-level registries after merge:
 |---|---|---|
 | `G137_post_g134_merge_synthesis.md` | Cross-corpus patterns from G134 cardinality cut-off merge (3 patterns + 4 new questions) | synthesis note |
 | `G138_post_merge_corpus_synthesis.md` | Whole-corpus synthesis at 103 chapters (6 patterns: modulus functor, Sym(3) spine, cut-off meta-methodology, Clause-4 recursion, Int.NonNeg bypass, multiplicity doctrine) | synthesis note |
+| `G140_P_generates_all_nat.md` | P generates all of ℕ (PGen n ↔ n ≥ 1) — CLOSED + promoted | promoted to essay `k32_cohomology_simplex_higher_insight.md` |
+| `G147_promotion_G140_G138BD.md` | Promotion note: G140 + G138 Pattern B/D higher-insight linkage | promotion record |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
 | `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |
