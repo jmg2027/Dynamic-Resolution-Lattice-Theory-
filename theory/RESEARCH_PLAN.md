@@ -70,32 +70,27 @@ removes a conditional or stated-but-unproved gap.
     level — 4 of 4 dimensions (NS = 3 + NT = 2 via PairForcing,
     d = 5 via OrbitForcing + Five, c = 2 via this file).
 
-### 1.3 Pell-orbit cohomology extension — PARTIALLY CLOSED
+### 1.3 Pell-orbit cohomology extension — CLOSED
 
   · **What**: verify `master_Knn_c_counter_resolved`'s universal
     framework transports to (8, 5), (5, 4), (7, 4), (13, 8) —
     the next Stern-Brocot layer.
-  · **Status (2026-05-25, this session)**: Three of four CLOSED;
-    (13, 8) deferred.
+  · **Status (2026-05-26)**: ALL FOUR CLOSED.
       · **K_{5, 4}** — closed via `K54_c_independent_h2_classes_via_framework`
         (NT=5 odd) and re-exported `K54_via_KNS4` (NT=4 even).
       · **K_{8, 5}** — closed via `kills_delta1_KNS5 8 c pairEnum8`
-        (NT=5 odd route; new `pairEnum8` added).
+        (NT=5 odd route; `pairEnum8`).
       · **K_{7, 4}** — closed via `KNS4_c_independent_h2_classes 7 c
-        (by decide) pairEnum7` (NT=4 even excl-T route; new
-        `pairEnum7` added).
-      · **K_{13, 8}** — both NS=13 (odd, ∉ {3, 5}) and NT=8
-        (even, ∉ {4, 6}) outside current family coverage.  Needs
-        either `pairEnum13` + `IsLexFold` proof (then NS=13
-        universal-S route closes) OR fresh `psi_excl_T0_NT8`
-        + 28-fold XOR cancellation (then NT=8 family closes).
-        Both routes mechanical; deferred to next session.
+        (by decide) pairEnum7` (NT=4 even excl-T route; `pairEnum7`).
+      · **K_{13, 8}** — closed via `KNS8_c_independent_h2_classes 13 c
+        (by decide) pairEnum13` (NT=8 even excl-T route; new
+        `psi_excl_T0_NT8` family with 21-fold XOR + 7-bool
+        case-bash; new `pairEnum13` for NS=13).
   · **Anchor**: `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/PellOrbitInstances.lean`
-    (11 PURE — pairEnum7, pairEnum8, three pair closures + capstone
-    `pell_orbit_stern_brocot_extension_capstone`).
-  · **Closes**: empirical confidence that Direction A truly
-    generalises beyond `K_{n, n}` for `n ∈ {3, 4, 5, 6}` — three
-    Stern-Brocot mediant positions verified.
+    + `EnrichedKNSNTcEvenEven.lean` §13.5–§14 (NT=8 family).
+  · **Closes**: Direction A generalises beyond `K_{n, n}` for
+    `n ∈ {3, 4, 5, 6}` — all four Stern-Brocot mediant positions
+    of the next layer verified.
 
 ### 1.4 α_em Step 5 capstone purity confirmation — CLOSED (already)
 
