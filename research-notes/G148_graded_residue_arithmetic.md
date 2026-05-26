@@ -601,12 +601,239 @@ M(GRA) ∈ SH(Spec ℤ)
 
 ---
 
+## XIX. 해석학·연속체·공간: GRA의 연속적 실현 (Analysis/Continuum Reading)
+
+### 핵심 관찰: 213의 연속체는 이진 트리 위의 GRA이다
+
+213의 실수(`Real213`)는 `dyadicCut M E` — 분모가 `2^E`인 유리수 `M/2^E`의
+cut representation이다. 여기서:
+
+- **2** = dyadic base = **해상도의 기본 단위** (cutHalf : grade 1)
+- **E** (exponent) = **해상도 등급** = GRA grade
+- **cutHalf^n** = grade-n 연산 = "n번 이분"
+
+이것은 GRA의 NT=2가 연속체에서 **해상도 축**으로 실현된 것이다.
+
+### GRA 원소의 해석학적 의미
+
+| P-생성 원소 | 해석학/연속체 의미 |
+|---|---|
+| **2** (NT) | **dyadic resolution base** — `cutHalf`의 단위. 한 번의 이분(bisection)이 해상도를 1 등급 올림. 모든 해상도는 2의 거듭제곱. |
+| **3** (NS) | **다항식 차수(polynomial degree)의 첫 비자명값** — `x³`의 resolution depth = `3n`. NS는 "공간적 복잡도"의 최소 단위. (ResolutionDepth.lean 증거: `cubeIsSmooth_modulus n = 3 * n`) |
+| **+** (덧셈) | **해상도 합산(resolution composition)** — `IsResolutionShift_compose`: 등급 E₁ + 등급 E₂ = 등급 (E₁+E₂). Modulus의 합성 = 깊이의 합산. |
+| **×** (곱셈) | **다항식 곱** — `x^a × x^b = x^{a+b}` at resolution depth level: `mulIsSmooth`의 modulus = `max + max`. 곱이 등급을 **상호작용적으로** 합성. |
+| **깊이** (minDepth) | **linearityModulus** — 함수의 "비선형도"를 측정하는 유일한 불변량. 깊이 d의 함수 = degree-d 다항식 = `d·n` resolution depth. |
+
+### 구체적 Lean 증거
+
+```
+ResolutionShift.lean:
+  IsResolutionShift cutHalf 1           — 단일 생성자, grade 1
+  IsResolutionShift (cutHalf^n) n       — 반복이 grade를 축적 (+)
+  IsResolutionShift_compose: E₁+E₂     — 합성이 grade를 합산
+
+ResolutionDepth.lean:
+  idIsSmooth_modulus n = n              — 1차: depth 1 (= NT - 1)
+  squareIsSmooth_modulus n = 2 * n      — 2차: depth 2 (= NT)
+  cubeIsSmooth_modulus n = 3 * n        — 3차: depth 3 (= NS)
+  cutPowFnIsDifferentiable_modulus n k = n * k  — 일반: depth = degree
+
+Continuity.lean:
+  composeContinuous: modulus(g∘f) = f.modulus(g.modulus k)  — 합성 = 깊이의 합
+```
+
+### GRA grade = Resolution Exponent: 통합 원리
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│         GRA in Analysis/Continuum                                    │
+│                                                                      │
+│  원리: 연속체의 모든 구조는 "이진 해상도 등급의 축적"이며,          │
+│  이 등급은 (NT, NS) = (2, 3) 생성자의 가법적 합으로 분해된다.       │
+│                                                                      │
+│  Grade 1 = cutHalf (기본 이분)                                       │
+│  Grade 2 = cutHalf² (x² resolution depth)                           │
+│  Grade 3 = cutHalf³ (x³ resolution depth)                           │
+│  Grade n = cutHalf^n (x^n resolution depth) = 2a + 3b 분해          │
+│                                                                      │
+│  연속성 = "modulus가 존재함" = grade 축적의 유한 bound 존재          │
+│  미분   = "linearityModulus가 존재함" = grade의 선형 bound            │
+│  적분   = "bracket 유한 합" = grade의 유한 절단                      │
+│  완비성 = "Cauchy sequence가 수렴함" = grade의 일관된 극한            │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 비가역 화살(One-Way Arrow)의 GRA 의미
+
+`cutDouble_no_grade`: cutDouble(역이분)은 ℕ-grade를 가질 수 없다.
+
+이것은 GRA에서:
+- **grade는 오직 축적(+)만 가능** — 감소 불가
+- 연속체에서: "정밀도를 올릴 수는 있지만 내릴 수는 없다"
+- P-생성에서: **n = 2a + 3b는 양수만 생성** (0 미포함 = `not_pgen_zero`)
+- 물리에서: "엔트로피는 증가만 한다" (시간의 화살)
+
+**해석학적 의미**: 미분이 등급을 보존하는 이유 — `d/dx[x^n]`의 modulus = n*k로
+원래 x^n의 modulus와 **같다**. 미분은 grade-0 연산자 (cutMid_diag처럼).
+반면 적분은 grade를 올려야 하는 연산 → 구성적 증인이 더 어렵다.
+
+### Modulus = GRA의 사상(Morphism)
+
+`ModulusStructureFunctor.lean`에서 정의된 `ModHom`:
+
+```
+ModHom m₁ m₂ := { map : Nat → Nat, preserves : m₂(map k) ≥ m₁(k) }
+```
+
+이것은 GRA에서:
+- **ModHom = 등급 간 전이 함수** — 한 해석학적 구조의 grade를 다른 구조의 grade로 번역
+- `ModHom.comp`: 전이의 합성 = GRA의 곱(×)
+- `ModAdjunction L ⊣ R`: 좌-우 수반 = **GRA 등급의 Galois 연결**
+
+### 4-Source 통합: 연속·Ricci·Bracket·Zeta 모두 하나의 GRA
+
+| 소스 | modulus | GRA 해석 |
+|---|---|---|
+| 연속(Continuous) | id (k → k) | grade 보존 — 정밀도 요구 = 정밀도 제공 |
+| Ricci flow | 8 - target | **grade 반전** — 높은 target = 낮은 step = antigrading |
+| Bracket Cauchy | L · k | **grade 증폭** (L배) — bracket 길이 = "한 단계에 L등급씩 소모" |
+| Zeta (α_em) | id (N → N) | grade 보존 (1 bit per fractal step) |
+
+이 4가지 모두 `IsModulusStructure`로 통합됨 = **연속체/Ricci/Cauchy/물리가
+모두 같은 GRA 등급 체계의 서로 다른 instantiation**.
+
+### Profinite Limit = GRA의 역극한
+
+`ProfiniteSeq.lean`에서: factorial(n+1) mod m = 0 (for m ≤ n+1)
+
+이것은 GRA에서:
+- **profinite 극한 = 모든 유한 등급에서의 0**: "모든 grade에서 잔여물이 사라진다"
+- `Ẑ`(프로파이나이트 정수) = **GRA 전체의 대각선 zero section**
+- 연속체 ℝ = "dyadic grade-tower의 consistent section" (ValidCut의 의미)
+- 연속체의 점 하나 = "모든 resolution grade에서의 결정들이 호환적"
+
+### Weierstrass Generic / Smooth Special의 GRA 해석
+
+> "Most lattice trajectories carry LDD but cannot exhibit linearity modulus"
+> — Smooth.lean
+
+GRA에서의 의미:
+- **LDD (LocallyDetermined) = 유한 등급 의존성**: 모든 cut transformer가 만족
+- **IsSmooth = 선형 등급 bound**: `linearityModulus n = d·n` 형태의 특별한 class
+
+즉:
+- **Generic 함수** = "grade 의존성이 존재하지만 규칙적이지 않은" = **GRA에서
+  minDepth가 정의되지만 greedy 최적 경로가 없는** 원소
+- **Smooth 함수** = "grade 의존성이 선형" = **GRA에서 greedy가 최적인** 원소
+- **Weierstrass 함수** = "grade 의존성이 무한히 비규칙적" = **GRA에서 도달 가능하지만
+  깊이가 급격히 증가**하는 수열
+
+이것은 §V의 GRA 원리와 완전히 합치:
+> 도달 여부가 자명할 때, 남는 구조적 정보는 깊이(= 최소 합 횟수)뿐.
+
+연속 함수: 도달 가능 (LDD). 미분 함수: 깊이가 선형 bound. 비미분 함수: 깊이가
+비경계적(unbounded).
+
+### Grade Uniqueness = 연속체의 Hausdorff 성질
+
+`IsResolutionShift_grade_unique`: 함수의 grade는 유일하다.
+
+해석학적 번역:
+- 한 cut transformer에 두 개의 서로 다른 resolution shift를 부여하면 모순
+- 이것은 **연속체의 점이 유일한 depth sequence를 갖는다** = Hausdorff 분리
+
+GRA 번역:
+- 한 수를 2a+3b로 표현하는 방법은 여럿이지만, **grade(= shift 값)는 유일**
+- 이것이 GRA의 "깊이는 유일한 불변량"의 연속체 버전
+
+### 미분 방정식과 GRA: Picard Iteration = Grade Doubling
+
+`PicardIterate.lean`에서:
+```
+picardIterate y0 expRHS n = y0 * 2^n    (exponential growth)
+picardIterate y0 (constRHS c) n = y0 + n*c  (linear growth)
+```
+
+GRA 해석:
+- **y' = y (지수)**: 매 step에서 grade가 **2배** = NT-배. 이것은 "NT축 자기참조"
+- **y' = c (상수)**: 매 step에서 grade가 **+c** = 등급 축적. 이것은 "NS 경로"
+- **일반 Picard**: 매 step에서 grade 변화 = **GRA 사상(ModHom)의 반복 적용**
+
+따라서:
+- **ODE = GRA에서의 discrete flow** — iterate가 grade를 축적하는 궤적
+- **해의 성장률** = GRA 등급의 성장률 = **Kolmogorov 복잡도의 성장**(§XVII)
+- **폭발(blow-up)** = grade가 유한 시간에 ∞에 도달 = "cutHalf^∞는 정의 불가"
+
+### MVT와 Flux: 코호몰로지와 해석학의 교차점
+
+`FluxMVT.lean`에서: `localDivergence f db` = flux cochain (forward, backward).
+
+이것은 §I의 코호몰로지 해석과 §XIX의 해석학 해석이 **만나는 지점**:
+- **Flux cochain** = C⁰ → C¹의 coboundary = grade-2 이동 (edge를 따른 변화)
+- **localDivergence = 0** (balanced) = **cocycle 조건** = 보존 법칙
+- **MVT for constants**: `∂c = 0` = 상수의 flux가 balanced = grade-0은 닫혀있음
+
+GRA에서:
+- MVT = "등급 n에서 등급 n+2로의 전이가 boundary를 통해 측정된다"
+- `fluxBalance` = "두 등급의 차이가 coboundary이다" = GRA grade 차이의 정수론적 구조
+
+### 한 줄 해석학 요약
+
+> **연속체에서 "2"는 이분(bisection)의 해상도 단위이고, "3"은 비선형도(polynomial
+> degree)의 첫 비자명 값이며, "+"는 해상도의 합성이고, "깊이"는 linearityModulus이다.
+> 모든 해석학적 구조 — 연속·미분·적분·완비·콤팩트 — 는 `Nat → Nat` modulus가
+> GRA 등급으로 축적되는 방식의 서로 다른 bound 조건이다.**
+
+---
+
+## XX. 연속체 해석의 GRA 조감도: Reading₅
+
+기존 Reading₁~₄에 추가:
+
+| Reading | 분야 | Grade | + | × | 깊이 |
+|---|---|---|---|---|---|
+| ₁ | 코호몰로지 | cochain degree | cup-grade 합 | cup product | cup-length |
+| ₂ | Higher Algebra | E_n operad level | ⊗-Day convolution | nested integration | chromatic height |
+| ₃ | HoTT | truncation level | suspension | smash product | cell count |
+| ₄ | Graph Theory | walk length | path concatenation | graph product | distance |
+| **₅** | **해석학/연속체** | **resolution exponent E** | **modulus 합성** | **polynomial depth 곱** | **linearityModulus** |
+
+Reading₅의 핵심 공식:
+```
+IsResolutionShift g E_g := ∀ M E m k, g(dyadicCut M E) = dyadicCut M (E + E_g)
+```
+
+이것은 "grade E_g만큼 해상도를 올린다"는 **유일한 연속체 내 등급 이동 법칙**이며,
+그 구조가 `(ℕ, +)` — free on one generator `cutHalf` — 인 것은
+GRA의 보편 생성 정리의 **가장 순수한 인스턴스**이다.
+
+(다만 Reading₅에서는 생성자가 하나(cutHalf, grade 1)뿐이므로 gcd 조건이 자명.
+NT=2와 NS=3 구분은 **다항식 depth**에서 나타난다: 선형=2n, 입방=3n.)
+
+---
+
+## 열린 연구 방향 (보강 — 해석학/연속체)
+
+12. **Resolution grade의 2-D 확장**: `IsResolutionShift`는 E-축만 이동.
+    `cutSquare`가 M까지 변경하므로, (M, E) 2차원 grading이 필요.
+    이것은 GRA의 (NT, NS) = (2, 3) 2차원 생성자와 어떤 관계인가?
+13. **Modulus 범주의 Galois 이론**: `ModAdjunction`의 triangle identity가
+    GRA의 det=1 조건과 어떻게 대응하는가?
+14. **Weierstrass 함수의 GRA depth 수열**: 연속-비미분 함수의 modulus 성장률이
+    GRA에서 어떤 수열 클래스에 속하는가? (sub-exponential but super-linear?)
+15. **Profinite × Dyadic의 Adelic 구조**: Real213(dyadic) + p-adic(mod-p)가
+    GRA의 Adelic reading(§XV)과 어떻게 합류하는가?
+16. **Picard iteration의 grade orbit**: y' = f(y)의 해 궤적이 GRA에서
+    어떤 등급 수열을 생성하는가? f의 degree가 GRA grade를 결정하는가?
+
+---
+
 ## 한 문장 요약
 
-> P-생성에서 "2"는 edge/fiber/truncation 차원이고, "3"은
-> face/space/universe 차원이며, "+"는 등급 축적이고, "×"는 등급 합성이다.
-> gcd(2,3)=1이라는 단일 사실이 코호몰로지·operad·HoTT·그래프 이론 모두에서
-> "보편 생성"을 강제하며, 이 통합적 구조를 **Graded Residue Arithmetic**
-> 이라 부른다. 이 구조는 10방향 차원-증식 프랙탈이며, det=1이
-> 부피를 보존하여 발산을 방지하고, Twisted Leibniz가 재귀의 미분 방정식이며,
-> Steenrod 사다리가 깊이의 미세 구조를 코딩한다.
+> P-생성에서 "2"는 edge/fiber/truncation/bisection 차원이고, "3"은
+> face/space/universe/polynomial-degree 차원이며, "+"는 등급 축적이고, "×"는
+> 등급 합성이다. gcd(2,3)=1이라는 단일 사실이 코호몰로지·operad·HoTT·그래프
+> 이론·**해석학/연속체** 모두에서 "보편 생성"을 강제하며, 이 통합적 구조를
+> **Graded Residue Arithmetic**이라 부른다. 연속체에서 GRA는 resolution
+> exponent `E`의 축적으로 나타나며, 연속·미분·적분·완비·콤팩트 모두가
+> `Nat → Nat` modulus가 GRA 등급으로 bound되는 방식의 서로 다른 조건이다.
