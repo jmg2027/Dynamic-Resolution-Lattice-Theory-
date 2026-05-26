@@ -1,7 +1,7 @@
 # GRA (Graded Residue Arithmetic) — Lean Formalization
 
 **Marathon**: 16_gra_universality  
-**Status**: Phase 5 complete — Universality Capstone proved  
+**Status**: ★ Phase 6 complete — Full marathon DONE ★  
 **Blueprint**: `blueprints/math/16_gra_universality.md`
 
 ---
@@ -17,6 +17,7 @@
 | `Cohomology.lean` | R₁ cochain-degree model + iso to NT | ✅ 0 sorry |
 | `HoTT.lean` | R₃ truncation-level model + iso to NT | ✅ 0 sorry |
 | `HigherAlgebra.lean` | R₂ operad-level model + iso to NT + Capstone | ✅ 0 sorry |
+| `Translation.lean` | Phase 6: Translation theorems + Prediction | ✅ 0 sorry |
 
 ## Phase Plan
 
@@ -29,7 +30,7 @@
 - [x] Phase 3: Cohomology instance (R₁)
 - [x] Phase 4: HoTT instance (R₃)
 - [x] Phase 5: Higher Algebra instance (R₂) + Capstone
-- [ ] Phase 6: Applications (translation theorems)
+- [x] Phase 6: Applications (translation theorems)
 
 ## Capstone
 
@@ -39,6 +40,21 @@ are pairwise isomorphic as (2,3)-GRA models.
 
 `transitivity` + `any_two_readings_iso` derive arbitrary R_i ≅ R_j
 from the hub-and-spoke pattern (each R_i ≅ NT).
+
+## Phase 6: Translation Theorems
+
+`Translation.lean` contains:
+
+| Theorem | Direction | Content |
+|---------|-----------|---------|
+| `graph_distance_implies_cup_length` | R₄→R₁ | Walk depth = cup-length |
+| `resolution_depth_implies_cell_count` | R₅→R₃ | Modulus depth = cell-count |
+| `cup_grade_is_resolution_compose` | R₁→R₅ | Cup-grade = resolution compose |
+| `universal_depth_comparison` | Prediction | ⌈n/3⌉ ≤ (n+1)/2 (all Readings) |
+| `master_translation` | Meta | Any depth property transfers to all 5 |
+| `master_translation_from_any` | Meta | Symmetric version |
+| `reach_translation` | Structural | Decomposition valid in all 5 |
+| `GRA_TranslationProgramme` | Capstone | All translations in one structure |
 
 ## Notes
 
