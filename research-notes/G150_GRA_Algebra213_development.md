@@ -244,6 +244,7 @@ GRA tower에서 올라갈수록 서로 다른 Reading들이 "같아진다".
 
 ```
 Layer 0: Int213        — ∅-axiom 정수 (case-split on ofNat/negSucc)
+Layer 0': Q213         — ∅-axiom 유리수 (Nat213 × Nat213, multiplicative quotient)
 Layer 1: Real213/Cut   — Dedekind cut on dyadic rationals (M/2^E)
 Layer 2: SignedCut     — Cut × Cut (부호 확장, CD L1)
 Layer 3: ComplexCut    — SignedCut × SignedCut (복소, CD L2)
@@ -260,6 +261,7 @@ Layer N: CD^N(Cut)     — N-th Cayley-Dickson doubling
 | 213 수 체계 | GRA 구조 | 핵심 연결 |
 |---|---|---|
 | **Int213** | Grade-0 고정점 | `ofInt`의 grade = 0. Ring213 Int는 GRA의 "scalar subring". {±1} = CD tower의 고정점과 동일. |
+| **Q213 (ℚ)** | Grade의 비율 구조 | `(Nat213 × Nat213)` with 곱셈동치. ℤ과 동일 syntax, fold axis만 다름 (`/` vs `−`). GRA에서 "등급 간의 비"를 포착. |
 | **Real213 (Cut)** | Grade 축 자체 | `dyadicCut M E`에서 E = resolution exponent = GRA grade. `cutHalf`는 grade-1 생성자. 모든 해상도가 2^E. |
 | **Modulus** | GRA 사상(Morphism) | `HasModulus s := { f : Nat → Nat // ... }`. 이 f가 GRA에서의 grade-to-grade 전이 함수. 연속성 = grade bound 존재. |
 | **SignedCut** | CD L1 = GRA의 "방향 부여" | (pos, neg) 쌍 = "한 등급 내에서의 이진 방향". NT=2의 fiber 구조. |
@@ -304,27 +306,74 @@ DyadicFSM은 GRA의 "유한화(finitization)":
 - Pisano period = **mod-p에서의 GRA 주기** = G148 §XII의 `P^10 ≡ I (mod 5)` 실현
 - `BinetBridge`: `FLT(φ) + FLT(ψ) → F_{p−1} ≡ 0 (mod p)` = GRA의 Adelic 구조(§XV)
 
+### Q213 (ℚ): Grade의 비율 구조 — axis-generator fold
+
+213의 유리수는 두 가지 형태로 존재한다:
+
+**1. Lens layer — `NatPairToQPos.lean`** (ℚ₊):
+```lean
+abbrev QPair := Nat213 × Nat213
+def qpairEquiv (p q : QPair) : Prop :=
+  Nat213.mul p.1 q.2 = Nat213.mul p.2 q.1
+```
+
+**2. Universal Witnesses — `Q213.lean`**:
+```lean
+abbrev Q213 := Term × Term   -- (numerator, denominator)
+```
+
+핵심 구조: **ℤ과 ℚ는 동일한 syntax `(Nat213 × Nat213)`에서 나온다**:
+
+| 수 체계 | Pair 형태 | Quotient 관계 | Axis-generator (G72) |
+|---|---|---|---|
+| **ℤ** | `(a, b) ∈ Nat213 × Nat213` | `a + d = b + c` (덧셈적) | `−` (뺄셈) |
+| **ℚ₊** | `(a, b) ∈ Nat213 × Nat213` | `a · d = b · c` (곱셈적) | `/` (나눗셈) |
+
+**GRA 해석**:
+- **ℤ = grade의 방향(±)** — 덧셈 동치 = "두 grade의 차이가 같으면 같은 부호"
+- **ℚ = grade의 비율(ratio)** — 곱셈 동치 = "두 grade의 비가 같으면 같은 비율"
+- 둘 다 `Nat213 × Nat213`라는 **동일한 GRA 생성자 쌍**에서 나오되,
+  fold axis(접는 축)만 다름:
+  - `−` fold → 등급의 **차이** 포착 (additive residue)
+  - `/` fold → 등급의 **비** 포착 (multiplicative residue)
+
+이것이 GRA의 "+"와 "×"가 **같은 원천에서 나오는 두 얼굴**이라는 G148의 원리와
+정확히 합치한다: 덧셈 구조(+)와 곱셈 구조(×)는 같은 pair에 대한
+서로 다른 quotient 관계일 뿐.
+
+`qpairEquiv`의 equivalence relation (reflexive, symmetric, transitive)이
+모두 ∅-axiom으로 닫힌다는 사실은 det=1(정보 보존)의 또 다른 증거:
+quotient 관계 자체가 propext 없이 결정 가능.
+
 ### 큰 그림: 213의 전체 수 체계가 하나의 GRA
 
 ```
        GRA (보편 등급 구조)
           │
-    ┌─────┼─────┐
-    │     │     │
+    ┌─────┼─────────┐
+    │     │         │
  Grade-0  Grade축  Grade-Hom
  (Int213) (Real213) (Modulus)
-    │     │     │
-    └──┬──┘     │
-       │        │
-   SignedCut    FSM
-   (방향+등급)  (유한 등급)
+    │     │         │
+    ├─ ─ ─┤         │
+    │     │         │
+  Q213  SignedCut   FSM
+ (비율) (방향+등급) (유한 등급)
+    │     │
+    └──┬──┘
        │
     CD Tower
    (등급의 대수적 확장)
 ```
 
+ℤ과 ℚ의 위치에 주목: 둘 다 Grade-0(Int213)에서 파생하되,
+- ℤ = Grade-0의 **additive quotient** (차이)
+- ℚ = Grade-0의 **multiplicative quotient** (비율)
+둘은 "fold axis"만 다른 쌍둥이.
+
 모든 것이 GRA의 서로 다른 aspect:
 - **Int213** = grade의 **대수적 기반** (Ring213 Int)
+- **Q213** = grade의 **비율 구조** (multiplicative quotient)
 - **Real213** = grade의 **해석적 실현** (resolution exponent)
 - **Modulus** = grade 간 **관계 구조** (사상 범주)
 - **DyadicFSM** = grade의 **정수론적 역학** (φ 궤도)
