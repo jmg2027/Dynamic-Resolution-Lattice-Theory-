@@ -85,6 +85,7 @@ Active top-level registries after merge:
 |---|---|---|
 | `G137_post_g134_merge_synthesis.md` | Cross-corpus patterns from G134 cardinality cut-off merge (3 patterns + 4 new questions) | synthesis note |
 | `G138_post_merge_corpus_synthesis.md` | Whole-corpus synthesis at 103 chapters (6 patterns: modulus functor, Sym(3) spine, cut-off meta-methodology, Clause-4 recursion, Int.NonNeg bypass, multiplicity doctrine) | synthesis note |
+| `archive/G139_mobius_self_form.md` | 모습 자체가 뫼비우스 행렬 — P self-form fixed point (CLOSED + PROMOTED) | promoted to `theory/math/mobius213_p_orbit_closure.md` §"Self-form fixed-point" + essay `mobius_self_form_fixed_point.md` |
 | `G140_P_generates_all_nat.md` | P generates all of ℕ (PGen n ↔ n ≥ 1) — CLOSED + promoted | promoted to essay `k32_cohomology_simplex_higher_insight.md` |
 | `G147_promotion_G140_G138BD.md` | Promotion note: G140 + G138 Pattern B/D higher-insight linkage | promotion record |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
@@ -133,7 +134,7 @@ to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G147**).  Once formalized:
+Use next available G prefix (currently **G148**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -164,9 +165,10 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | 2026-05-24 | G143 + G145 c-multiplicity + Stern-Brocot + K_{4,3} + K33Unified → `theory/math/cohomology/k_nm_c_classification.md` (new chapter, 382 lines) + 3 essays (`c_counter_as_layer_count.md`, `disjoint_layers_as_direct_sum.md`, `stern_brocot_as_universal_lattice.md`); G143/G145 archived to `research-notes/archive/c_counter/` | 2 (narrative-from-scratch) |
 | 2026-05-24 | G146 P-orbit naturalness boundary + Px catalog (13 Px modules / 206 PURE) → `theory/math/mobius213_p_orbit_closure.md` (new chapter, 316 lines) + essay `p_orbit_naturalness_boundary.md`; G146_p_orbit archived | 3 (mixed-status chapter expansion + catalog synthesis) |
 | 2026-05-24 | G146 K_{3,2} bipartite-tripartite self-containment (Lean Option I deferred) → essay-only `theory/essays/bipartite_tripartite_self_containment.md` (Reading B); G146_K32 archived to `research-notes/archive/c_counter/` | essay-promotion (insight without Lean) |
+| 2026-05-26 | G139 모습 자체가 뫼비우스 행렬 (MobiusSelfForm.lean ~18 PURE) → `theory/math/mobius213_p_orbit_closure.md` §"Self-form fixed-point" (chapter expansion) + essay `theory/essays/mobius_self_form_fixed_point.md`; G139 archived | 3 (mixed-status: chapter expansion + essay) |
 
-13+ chapters total covering all promotable closed work
-(11 Lean sub-trees + 2 meta-analysis chapters).
+14+ chapters total covering all promotable closed work
+(12 Lean sub-trees + 2 meta-analysis chapters).
 
 ### Action-items archival pass (2026-05-22, branch `claude/task-organization-Vbi8u`)
 
