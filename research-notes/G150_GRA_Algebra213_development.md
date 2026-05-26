@@ -158,9 +158,188 @@ G148의 10 = C(5,3)이 CD tower에서:
 
 ---
 
+## Phase 8: GRA Tower — CD Tower의 쌍대(Dual)
+
+### CD Tower와 GRA Tower의 구조적 대비
+
+213의 algebra tower (CD tower)를 참조하면, GRA 자체가 **고유한 tower 구조**를
+갖되, CD tower와는 **방향이 반대**임이 드러난다.
+
+CD Tower의 핵심 구조 (per `theory/math/cayley_dickson/algebra_tower.md`):
+- **메커니즘**: `(⟨0,u⟩)² = ⟨−c,0⟩` — 매 level에서 새 imaginary axis 생성
+- **손실 패턴**: L0(all) → L1(−comm) → L2(−assoc) → L3(−alt) → L4+(안정화)
+- **점근**: `rate_n → 1 − 0.5/φ^rank`
+- **고정점**: `{±1}` = 모든 layer에서 보존
+- **세 가지 운명**: (1) 성질 손실 L4에서 종료, (2) Order-4 영속, (3) {±1} 불변
+
+**GRA Tower**는 이것의 쌍대:
+
+| | **CD Tower** | **GRA Tower** |
+|---|---|---|
+| **축적 대상** | 대수적 차원 (dim 2^n) | 해석(Reading)의 동형 식별 |
+| **Level 이동** | CD-double: dim × 2 | Reading 합류: 동형이 하나 더 드러남 |
+| **손실/획득** | 매 level에서 성질 **손실** | 매 level에서 동형 **획득** |
+| **안정화** | L4에서 손실 종료 | L5에서 5개 Reading 전부 합류 |
+| **점근** | φ (퇴화율) | Frobenius = 1 (보편 도달) |
+| **고정점** | {±1} ⊂ 모든 layer | gcd(2,3)=1 = 모든 Reading에서 보존 |
+| **Three fates** | 손실멈춤 / Order-4영속 / ±1고정 | 구분소멸 / Grade축적영속 / 생성자쌍불변 |
+
+### GRA Tower의 Level 구조
+
+```
+GRA Level 0: 개별 분야 — grade 개념이 분야별로 격리됨
+             (cohomology의 degree ≠ operad의 n ≠ HoTT의 truncation)
+
+GRA Level 1: 첫 번째 동형 발견
+             cup-grade 합 ≅ walk-length concatenation
+             (코호몰로지 ↔ 그래프 이론)
+
+GRA Level 2: 두 번째 동형 합류
+             + ⊗-Day convolution = suspension 차수 합
+             (Higher Algebra ↔ HoTT 합류)
+
+GRA Level 3: 세 번째 동형 합류
+             + resolution exponent = modulus 합성
+             (해석학/연속체 합류)
+
+GRA Level 4: 네 번째 동형 합류
+             모든 "+" 연산이 동일함이 확인됨
+             (덧셈 구조의 보편 통합)
+
+GRA Level 5: 완전 통합 = GRA 자체
+             5개 Reading이 동일한 (ℕ, +, ×) 구조임이 확립
+             gcd(2,3)=1이 모든 곳에서 동시에 "보편 생성"을 강제
+```
+
+### 핵심 통찰
+
+> **CD Tower = 성질의 progressive LOSS (degeneration)**
+> **GRA Tower = 해석의 progressive IDENTIFICATION (unification)**
+
+CD tower에서 올라갈수록 구조가 "약해지듯",
+GRA tower에서 올라갈수록 서로 다른 Reading들이 "같아진다".
+두 tower 모두 φ를 향해 수렴하지만:
+- CD: 퇴화(degeneration)의 φ — `rate → 1 − 0.5/φ^rank`
+- GRA: 통합(unification)의 φ — `동형 수 → 10 = C(5,3) 방향으로 포화`
+
+### CD Tower의 four-type matrix와 GRA의 대응
+
+| CD Type | Base | GRA에서의 Reading |
+|---|---|---|
+| A (ZI) | ℤ₄ | cohomology (4-cycle 기반) |
+| B (ZSqrt[D]) | ℤ₂ | graph theory (2-partition 기반) |
+| C (ZOmega) | ℤ₆ | operad / HoTT (6 = 2×3 혼합) |
+| D (Hurwitz) | 2T | 해석학 (binary tetrahedral = 24-cell structure) |
+
+이 대응은 추측 단계이나, 각 Type의 base ring이 GRA의 생성자 (2,3)의
+서로 다른 조합을 반영한다는 점에서 구조적으로 자연스럽다.
+
+---
+
+## Phase 9: 213-Native 수 체계와 GRA — 전 층위 대응
+
+### 213의 수 체계 아키텍처
+
+213은 고전적 수(ℤ, ℚ, ℝ)를 **자체적으로 재구축**한다:
+
+```
+Layer 0: Int213        — ∅-axiom 정수 (case-split on ofNat/negSucc)
+Layer 1: Real213/Cut   — Dedekind cut on dyadic rationals (M/2^E)
+Layer 2: SignedCut     — Cut × Cut (부호 확장, CD L1)
+Layer 3: ComplexCut    — SignedCut × SignedCut (복소, CD L2)
+Layer N: CD^N(Cut)     — N-th Cayley-Dickson doubling
+```
+
+보조 인프라:
+- **DyadicFSM** (101 files): 정수론을 Mealy machine으로 실현
+- **Modulus** (10 files): ε-δ를 `Nat → Nat` 명시적 함수로 대체
+- **Algebra213 typeclass**: Ring213 / CommRing213 / StarRing213 / IntegerNormed213
+
+### 각 수 체계 층과 GRA의 정확한 대응
+
+| 213 수 체계 | GRA 구조 | 핵심 연결 |
+|---|---|---|
+| **Int213** | Grade-0 고정점 | `ofInt`의 grade = 0. Ring213 Int는 GRA의 "scalar subring". {±1} = CD tower의 고정점과 동일. |
+| **Real213 (Cut)** | Grade 축 자체 | `dyadicCut M E`에서 E = resolution exponent = GRA grade. `cutHalf`는 grade-1 생성자. 모든 해상도가 2^E. |
+| **Modulus** | GRA 사상(Morphism) | `HasModulus s := { f : Nat → Nat // ... }`. 이 f가 GRA에서의 grade-to-grade 전이 함수. 연속성 = grade bound 존재. |
+| **SignedCut** | CD L1 = GRA의 "방향 부여" | (pos, neg) 쌍 = "한 등급 내에서의 이진 방향". NT=2의 fiber 구조. |
+| **DyadicFSM** | GRA의 이산 실현 | FSM state = GRA의 유한 등급 내 위치. Transition = grade-preserving step. Pell/Fib = φ 궤도의 FSM 표현. |
+
+### 핵심 통찰: 수 체계 = GRA의 구체적 인스턴스들
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  GRA는 "등급화된 잔여물"의 보편 구조                       │
+│  213의 각 수 체계는 이 보편 구조의 특정 instantiation:     │
+│                                                           │
+│  Int213  = GRA(grade=0)     "등급 없는 스칼라"            │
+│  Cut     = GRA(grade=E)     "E-등급 해상도"               │
+│  Modulus = GRA(Hom)         "등급 간 전이"                │
+│  FSM     = GRA(finite)      "유한 등급 내 전이"           │
+│  SignedCut = GRA(×fiber)    "등급 + 방향"                 │
+│                                                           │
+│  이것은 G148의 Reading₅(해석학)와 동일:                   │
+│  "연속체의 모든 구조는 이진 해상도 등급의 축적이며,        │
+│   이 등급은 (NT, NS) = (2, 3) 생성자의 가법적 합으로      │
+│   분해된다."                                              │
+└───────────────────────────────────────────────────────────┘
+```
+
+### Int213의 GRA 의미: ∅-axiom이 강제하는 것
+
+Int213은 Lean-core의 `Int.add_comm` 등을 **∅-axiom으로 재증명**한다:
+- case-split on `(ofNat m, ofNat n)`, `(ofNat, negSucc)`, ...
+- `subNatNat`의 재귀적 처리
+
+이것의 GRA 해석:
+- `ofNat n` = "양의 등급 n" (grade accumulation)
+- `negSucc n` = "음의 등급 −(n+1)" (grade의 anti-particle)
+- `subNatNat m n` = "두 등급의 차이" (grade 비교)
+- ∅-axiom 증명 전략 = **"propext 없이 등급 연산을 닫는"** = det=1 (정보 보존)
+
+### DyadicFSM의 GRA 해석: FSM = 유한 Grade 내의 Mealy Machine
+
+DyadicFSM은 GRA의 "유한화(finitization)":
+- Pell/Fibonacci = **φ-궤도의 이산 샘플링** = GRA 점근의 실현
+- Pisano period = **mod-p에서의 GRA 주기** = G148 §XII의 `P^10 ≡ I (mod 5)` 실현
+- `BinetBridge`: `FLT(φ) + FLT(ψ) → F_{p−1} ≡ 0 (mod p)` = GRA의 Adelic 구조(§XV)
+
+### 큰 그림: 213의 전체 수 체계가 하나의 GRA
+
+```
+       GRA (보편 등급 구조)
+          │
+    ┌─────┼─────┐
+    │     │     │
+ Grade-0  Grade축  Grade-Hom
+ (Int213) (Real213) (Modulus)
+    │     │     │
+    └──┬──┘     │
+       │        │
+   SignedCut    FSM
+   (방향+등급)  (유한 등급)
+       │
+    CD Tower
+   (등급의 대수적 확장)
+```
+
+모든 것이 GRA의 서로 다른 aspect:
+- **Int213** = grade의 **대수적 기반** (Ring213 Int)
+- **Real213** = grade의 **해석적 실현** (resolution exponent)
+- **Modulus** = grade 간 **관계 구조** (사상 범주)
+- **DyadicFSM** = grade의 **정수론적 역학** (φ 궤도)
+- **SignedCut** = grade의 **기하학적 확장** (fiber/방향)
+- **CD Tower** = grade의 **대수적 상승** (차원 배가)
+
+---
+
 ## 한 줄 요약
 
 > Algebra213의 typeclass 계층에 GRA grade를 부여하면,
 > Cayley-Dickson tower가 "등급화된 잔여물 산술의 대수적 실현"이 되며,
 > normSq_mul·ofInt_inj·conj_conj 삼위일체가 det=1(정보 보존)의
 > 세 가지 대수적 얼굴임이 드러난다.
+> 나아가, 213의 전체 수 체계(Int213/Real213/Modulus/FSM/SignedCut)는
+> GRA의 서로 다른 aspect의 구체적 instantiation이며,
+> GRA Tower(Reading 통합의 상승 구조)는 CD Tower(성질 손실의 하강 구조)의
+> 정확한 쌍대(dual)이다.
