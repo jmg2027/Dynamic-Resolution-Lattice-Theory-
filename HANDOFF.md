@@ -50,6 +50,8 @@ axioms on production critical path.
     theorem — `T(φ²) = φ²` in rational approx terms.
   · **Tier 3.2**: PRIMARY cup-image naturality / maximality framing
   · **Tier 5.1**: propext unsealing (~20 DIRTY → PURE)
+    (in parallel, bridge-discipline slice started: SimplexCountsBridge
+    applied to 3 Math files)
   · **G138 Pattern A**: Modulus-functor 4-way extension
   · **G138 Pattern F**: Multiplicity doctrine chapter
   · **CrossAddress → Functor**: triple-axis schema elevation

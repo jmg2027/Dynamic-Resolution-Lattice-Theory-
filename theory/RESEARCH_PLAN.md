@@ -273,6 +273,12 @@ narrative.  Readers can verify but not understand.
     contexts; the pattern is established but unevenly applied —
     many Math files still import `E213.Lib.Physics.*` directly
     without going through a Bridge shim.
+  · **Progress (2026-05-26)**: added
+    `lean/E213/Lib/Math/SimplexCountsBridge.lean` and migrated
+    three Math files (`ParadigmDomainGraded`,
+    `Mobius213/Px/IterationSpecies`,
+    `Mobius213/Px/DecompositionCatalog`) to import the Math-side
+    bridge instead of `E213.Lib.Physics.Simplex.Counts` directly.
   · **Action**: audit each direct cross-context import; route
     through (or create) the corresponding `Bridge.lean`.  Goal:
     every cross-context citation grep-discoverable via

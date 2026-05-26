@@ -1,6 +1,6 @@
 import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Mobius213OneAsGlue
-import E213.Lib.Physics.Simplex.Counts
+import E213.Lib.Math.SimplexCountsBridge
 
 /-!
 # Mobius213.Px.DecompositionCatalog — parallel (2, 1, 3) extraction methods
@@ -31,7 +31,7 @@ All declarations PURE (∅-axiom).
 
 namespace E213.Lib.Math.Mobius213.Px.DecompositionCatalog
 
-open E213.Lib.Physics.Simplex.Counts (NS NT d)
+open E213.Lib.Math.SimplexCountsBridge (NS NT d)
 open E213.Lib.Math.Mobius213OneAsGlue
   (mobius_entries_sum_to_d ns_is_succ_nt mobius_det_eq_ns_minus_nt
    off_diagonal_is_two_ones one_is_det)

@@ -1,5 +1,5 @@
 import E213.Lib.Math.ParadigmDomain
-import E213.Lib.Physics.Simplex.Counts
+import E213.Lib.Math.SimplexCountsBridge
 
 /-!
 # Paradigm Domain Graded Operator (C6 Step 4)
@@ -35,7 +35,7 @@ STRICT ∅-AXIOM (decide on Nat).
 namespace E213.Lib.Math.ParadigmDomainGraded
 
 open E213.Lib.Math.ParadigmDomain
-open E213.Lib.Physics.Simplex.Counts (binom)
+open E213.Lib.Math.SimplexCountsBridge (binom)
 
 /-! ## §1 — The shared truncation operator -/
 
