@@ -501,7 +501,7 @@ the exact axiom dependency listed.
 
 ## GRA Universality (STRICT 0-AXIOM, 2026-05-27)
 
-Marathon 16 — 8 files, 0 sorry, 0 native_decide, 0 external axioms.
+Marathon 16 — 9 files, 0 sorry, 0 native_decide, 0 external axioms.
 
 | theorem | file | content |
 |---|---|---|
@@ -512,7 +512,8 @@ Marathon 16 — 8 files, 0 sorry, 0 native_decide, 0 external axioms.
 | `cohomologyModel` | `GRA/Cohomology.lean` | R₁ cochain-degree model |
 | `hottModel` | `GRA/HoTT.lean` | R₃ truncation-level model |
 | `higherAlgModel` | `GRA/HigherAlgebra.lean` | R₂ operad-level model |
-| `gra_universality_witness` | `GRA/HigherAlgebra.lean` | All 5 Readings pairwise iso |
+| `GRA23_CategoryTheory` | `GRA/CategoryTheory.lean` | R₆ (∞,n)-category level model |
+| `gra_universality_witness` | `GRA/HigherAlgebra.lean` | All 6 Readings pairwise iso |
 | `any_two_readings_iso` | `GRA/HigherAlgebra.lean` | ∀ R_i R_j, R_i ≅ R_j |
 | `master_translation` | `GRA/Translation.lean` | Depth property transfers across all Readings |
 | `GRA_TranslationProgramme` | `GRA/Translation.lean` | Full translation capstone |

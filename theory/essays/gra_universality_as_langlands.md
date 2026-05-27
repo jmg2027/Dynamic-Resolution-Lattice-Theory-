@@ -1,11 +1,11 @@
 # GRA Universality as a Langlands-style programme
 
-Why does the *same* arithmetic appear in five unrelated mathematical
+Why does the *same* arithmetic appear in six unrelated mathematical
 domains?  The GRA Universality theorem (`gra_universality_witness`)
 shows that Number Theory, Graph Theory, Analysis, Cohomology, HoTT,
-and Higher Algebra each admit an identical (2,3)-GRA model — and
-these models are pairwise isomorphic.  This essay derives *why*
-that universality is structurally forced, and what it means that
+Higher Algebra, and Category Theory each admit an identical (2,3)-GRA
+model — and these models are pairwise isomorphic.  This essay derives
+*why* that universality is structurally forced, and what it means that
 translation theorems follow.
 
 ## 213-native answer
@@ -40,6 +40,7 @@ iso itself but in the proof that each domain *does* satisfy A1–A7.
 | R₃ (HoTT) | Truncation level | cell attachment | cell count |
 | R₄ (Graph) | Walk length in R₄ | edge concatenation | graph distance |
 | R₅ (Analysis) | Resolution exponent | composition | modulus depth |
+| R₆ (Category Theory) | (∞,n)-category level | functor category | coherence steps |
 
 Each satisfies the same 7 axioms because each inherits its grading
 from P's two eigenvalue directions.  The hub-and-spoke pattern
