@@ -113,10 +113,14 @@ Reading(그래프론)에서 인스턴스를 구성.
 
 ## 8. Open Problems
 
-1. **A6 비자명성**: Greedy 최적성이 코호몰로지에서 정확히 무엇에 대응하는가?
-2. **R₂ 실현 가능성**: Higher Algebra를 ∅-axiom으로 형식화할 수 있는가?
-3. **번역 예측력**: GRA를 통해 실제로 새로운 수학적 결과를 유도할 수 있는가?
-4. **독립성**: A1–A7 중 진정으로 독립인 공리는 몇 개인가? (최소 공리 집합)
+1. **A6 비자명성**: ✅ RESOLVED — `Prediction.lean` §6 proves greedy is the
+   UNIQUE optimal strategy; `Independence.lean` shows A6 is irreducible.
+2. **R₂ 실현 가능성**: ✅ RESOLVED — `HigherAlgebra.lean` (Phase 5)
+3. **번역 예측력**: ✅ RESOLVED — `Prediction.lean` derives 6 novel results
+   (Lipschitz-1, 3-periodicity, gen2 advantage, Fibonacci sub-additivity,
+   depth waste bound, greedy uniqueness)
+4. **독립성**: ✅ RESOLVED — `Independence.lean` proves minimal set = 4 axioms
+   {A1, A2, A4, A6}; A3 and A5 are derivable.
 
 ---
 
