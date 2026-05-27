@@ -5,6 +5,7 @@ import E213.Lib.Math.GRA.Analysis
 import E213.Lib.Math.GRA.Cohomology
 import E213.Lib.Math.GRA.HoTT
 import E213.Lib.Math.GRA.HigherAlgebra
+import E213.Lib.Math.GRA.CategoryTheory
 
 /-!
 # GRA Phase 6 — Translation Theorems (Applications)
@@ -183,8 +184,9 @@ theorem cup_grade_is_resolution_compose (a b : Nat) :
     - HoTT: truncation composition efficiency
     - Analysis: resolution shift minimality
     - Higher Algebra: chromatic height bound
+    - Category Theory: (∞,n)-categorical coherence step bound
     
-    Proved once, valid in all 5 Readings — the power of GRA. -/
+    Proved once, valid in all 6 Readings — the power of GRA. -/
 theorem universal_depth_comparison (n : Nat) (hn : n ≥ 2) :
     (n + 2) / 3 ≤ (n + 1) / 2 := by
   omega
@@ -209,6 +211,10 @@ theorem hott_depth_le_naive (n : Nat) (hn : n ≥ 2) :
 theorem ha_depth_le_naive (n : Nat) (hn : n ≥ 2) :
     HigherAlgebra.haDepth n ≤ (n + 1) / 2 := by
   simp [HigherAlgebra.haDepth]; omega
+
+theorem cat_depth_le_naive (n : Nat) (hn : n ≥ 2) :
+    CategoryTheory.catDepth n ≤ (n + 1) / 2 := by
+  simp [CategoryTheory.catDepth]; omega
 
 -- ============================================================
 -- §6. Stronger Prediction: Exact depth characterization
@@ -266,11 +272,12 @@ theorem master_translation (P : Nat → Prop) (n : Nat) (hn : n ≥ 2)
     P (Cohomology.cohomDepth n) ∧
     P (Analysis.analysisDepth n) ∧
     P (HoTT.hottDepth n) ∧
-    P (HigherAlgebra.haDepth n) := by
+    P (HigherAlgebra.haDepth n) ∧
+    P (CategoryTheory.catDepth n) := by
   simp [Graph.graphDepth, Cohomology.cohomDepth,
         Analysis.analysisDepth, HoTT.hottDepth,
-        HigherAlgebra.haDepth] at *
-  exact ⟨h_graph, h_graph, h_graph, h_graph⟩
+        HigherAlgebra.haDepth, CategoryTheory.catDepth] at *
+  exact ⟨h_graph, h_graph, h_graph, h_graph, h_graph⟩
 
 /-- Symmetric version: any Reading can serve as source. -/
 theorem master_translation_from_any
@@ -280,11 +287,12 @@ theorem master_translation_from_any
     P (Cohomology.cohomDepth n) ∧
     P (Analysis.analysisDepth n) ∧
     P (HoTT.hottDepth n) ∧
-    P (HigherAlgebra.haDepth n) := by
+    P (HigherAlgebra.haDepth n) ∧
+    P (CategoryTheory.catDepth n) := by
   simp [Graph.graphDepth, Cohomology.cohomDepth,
         Analysis.analysisDepth, HoTT.hottDepth,
-        HigherAlgebra.haDepth]
-  exact ⟨h_any, h_any, h_any, h_any, h_any⟩
+        HigherAlgebra.haDepth, CategoryTheory.catDepth]
+  exact ⟨h_any, h_any, h_any, h_any, h_any, h_any⟩
 
 -- ============================================================
 -- §8. Reachability translation
@@ -303,11 +311,14 @@ theorem reach_translation (n a b : Nat) (hdecomp : n = 2 * a + 3 * b) :
     n = Analysis.GRA23_Analysis.gen1 * a + Analysis.GRA23_Analysis.gen2 * b ∧
     n = HoTT.GRA23_HoTT.gen1 * a + HoTT.GRA23_HoTT.gen2 * b ∧
     n = HigherAlgebra.GRA23_HigherAlgebra.gen1 * a +
-        HigherAlgebra.GRA23_HigherAlgebra.gen2 * b := by
+        HigherAlgebra.GRA23_HigherAlgebra.gen2 * b ∧
+    n = CategoryTheory.GRA23_CategoryTheory.gen1 * a +
+        CategoryTheory.GRA23_CategoryTheory.gen2 * b := by
   simp [Graph.GRA23_Graph, Cohomology.GRA23_Cohomology,
         Analysis.GRA23_Analysis, HoTT.GRA23_HoTT,
-        HigherAlgebra.GRA23_HigherAlgebra]
-  exact ⟨hdecomp, hdecomp, hdecomp, hdecomp, hdecomp⟩
+        HigherAlgebra.GRA23_HigherAlgebra,
+        CategoryTheory.GRA23_CategoryTheory]
+  exact ⟨hdecomp, hdecomp, hdecomp, hdecomp, hdecomp, hdecomp⟩
 
 -- ============================================================
 -- §9. Summary: Phase 6 capstone
@@ -331,7 +342,7 @@ structure GRA_TranslationProgramme where
     P ((n + 2) / 3) →
     P (Graph.graphDepth n) ∧ P (Cohomology.cohomDepth n) ∧
     P (Analysis.analysisDepth n) ∧ P (HoTT.hottDepth n) ∧
-    P (HigherAlgebra.haDepth n)
+    P (HigherAlgebra.haDepth n) ∧ P (CategoryTheory.catDepth n)
 
 /-- The translation programme is inhabited: all theorems proved. -/
 def gra_translation_witness : GRA_TranslationProgramme where

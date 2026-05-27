@@ -1,7 +1,7 @@
 # GRA (Graded Residue Arithmetic) — Lean Formalization
 
 **Marathon**: 16_gra_universality  
-**Status**: ★ Phase 6 complete — Full marathon DONE ★  
+**Status**: ★ Phase 6 complete + R₆ extension — Full marathon DONE ★  
 **Blueprint**: `blueprints/math/16_gra_universality.md`
 
 ---
@@ -17,6 +17,7 @@
 | `Cohomology.lean` | R₁ cochain-degree model + iso to NT | ✅ 0 sorry |
 | `HoTT.lean` | R₃ truncation-level model + iso to NT | ✅ 0 sorry |
 | `HigherAlgebra.lean` | R₂ operad-level model + iso to NT + Capstone | ✅ 0 sorry |
+| `CategoryTheory.lean` | R₆ (∞,n)-category level model + iso to NT | ✅ 0 sorry |
 | `Translation.lean` | Phase 6: Translation theorems + Prediction | ✅ 0 sorry |
 
 ## Phase Plan
@@ -35,8 +36,8 @@
 ## Capstone
 
 `GRA_Universality` structure + `gra_universality_witness` proves:
-all 5 Readings (NT, Graph, Analysis, Cohomology, HoTT, Higher Algebra)
-are pairwise isomorphic as (2,3)-GRA models.
+all 6 Readings (NT, Graph, Analysis, Cohomology, HoTT, Higher Algebra,
+Category Theory) are pairwise isomorphic as (2,3)-GRA models.
 
 `transitivity` + `any_two_readings_iso` derive arbitrary R_i ≅ R_j
 from the hub-and-spoke pattern (each R_i ≅ NT).
@@ -51,7 +52,7 @@ from the hub-and-spoke pattern (each R_i ≅ NT).
 | `resolution_depth_implies_cell_count` | R₅→R₃ | Modulus depth = cell-count |
 | `cup_grade_is_resolution_compose` | R₁→R₅ | Cup-grade = resolution compose |
 | `universal_depth_comparison` | Prediction | ⌈n/3⌉ ≤ (n+1)/2 (all Readings) |
-| `master_translation` | Meta | Any depth property transfers to all 5 |
+| `master_translation` | Meta | Any depth property transfers to all 6 |
 | `master_translation_from_any` | Meta | Symmetric version |
 | `reach_translation` | Structural | Decomposition valid in all 5 |
 | `GRA_TranslationProgramme` | Capstone | All translations in one structure |
@@ -66,11 +67,11 @@ content is:
    (the reachability theorem is the non-trivial part — Chicken McNugget
    for gcd(2,3)=1)
 2. **Eventually lifting to richer carriers** (actual Walk structures,
-   Cochain complexes, operad objects, etc.) where the iso requires
-   non-trivial functors.
+   Cochain complexes, operad objects, (∞,n)-category objects, etc.)
+   where the iso requires non-trivial functors.
 
 This staged approach matches the marathon philosophy: get the full
-5-Reading skeleton compiling first, then enrich incrementally.
+6-Reading skeleton compiling first, then enrich incrementally.
 
 ## Purity
 
