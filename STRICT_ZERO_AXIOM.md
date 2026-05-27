@@ -499,6 +499,24 @@ the exact axiom dependency listed.
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
 
+## GRA Universality (STRICT 0-AXIOM, 2026-05-27)
+
+Marathon 16 — 8 files, 0 sorry, 0 native_decide, 0 external axioms.
+
+| theorem | file | content |
+|---|---|---|
+| `GRAModel` (typeclass) | `GRA/GRAModel.lean` | 7-axiom GRA structure |
+| `ntModel` | `GRA/NumberTheory.lean` | (2,3)-model on ℕ (hub) |
+| `graphModel` | `GRA/Graph.lean` | R₄ walk-length model |
+| `analysisModel` | `GRA/Analysis.lean` | R₅ resolution-exponent model |
+| `cohomologyModel` | `GRA/Cohomology.lean` | R₁ cochain-degree model |
+| `hottModel` | `GRA/HoTT.lean` | R₃ truncation-level model |
+| `higherAlgModel` | `GRA/HigherAlgebra.lean` | R₂ operad-level model |
+| `gra_universality_witness` | `GRA/HigherAlgebra.lean` | All 5 Readings pairwise iso |
+| `any_two_readings_iso` | `GRA/HigherAlgebra.lean` | ∀ R_i R_j, R_i ≅ R_j |
+| `master_translation` | `GRA/Translation.lean` | Depth property transfers across all Readings |
+| `GRA_TranslationProgramme` | `GRA/Translation.lean` | Full translation capstone |
+
 ## STRICT 0-AXIOM additions from Phase 5 batch 1+2 (2026-05-01)
 
 Batch 1 (commit 08b02e1, omega→decide on trivial bounds):

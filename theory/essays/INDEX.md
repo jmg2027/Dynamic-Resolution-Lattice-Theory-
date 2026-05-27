@@ -43,3 +43,4 @@ derivation+citation+dual-function+cross-frame+self-check
 | `synthesis_interlock_map.md` | How do the three synthesis essays (c-counter, P-orbit, layer-multiplication) explicitly correspond row by row? | `theory/essays/c_counter_programme_closure.md` + `theory/essays/p_orbit_closure_master.md` + `theory/essays/layer_multiplication_pattern.md` |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
+| `gra_universality_as_langlands.md` | GRA Universality는 왜 Langlands-style programme인가? | `GRA/Translation.lean` + `GRA/HigherAlgebra.lean` + `math/graded_residue_arithmetic.md` |

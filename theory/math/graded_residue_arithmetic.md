@@ -1,8 +1,47 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: DRAFT (synthesis complete; formal Lean verification partial — see `gra_book.md` Ch.7 for formalizability assessment)  
-**Date**: 2026-05-26  
+**Status**: PROMOTED (Lean sub-tree closed; ∅-axiom verified)  
+**Date**: 2026-05-27 (promoted from DRAFT 2026-05-26)  
 **Source**: G148 (GRA framework), G149 (Analysis/Continuum Reading), G150 (Algebra213 integration)
+
+## Lean source
+
+- Umbrella: `lean/E213/Lib/Math/GRA/`
+- Files (8):
+  - `GRAModel.lean` — 7-axiom typeclass + GRAIso (refl/symm/trans)
+  - `NumberTheory.lean` — (2,3)-model on ℕ (hub instance)
+  - `Graph.lean` — R₄ walk-length model + iso to NT
+  - `Analysis.lean` — R₅ resolution-exponent model + iso to NT
+  - `Cohomology.lean` — R₁ cochain-degree model + iso to NT
+  - `HoTT.lean` — R₃ truncation-level model + iso to NT
+  - `HigherAlgebra.lean` — R₂ operad-level model + iso to NT + Capstone
+  - `Translation.lean` — Phase 6: translation theorems + prediction
+- ∅-axiom status: 0 DIRTY, 0 sorry, 0 native_decide, 0 external axioms
+
+## Key results
+
+| Theorem | Lean module | Statement (informal) |
+|---|---|---|
+| `gra_universality_witness` | `HigherAlgebra` | All 5 Readings are pairwise iso as (2,3)-GRA models |
+| `any_two_readings_iso` | `HigherAlgebra` | ∀ R_i R_j, R_i ≅ R_j (via hub-and-spoke transitivity) |
+| `master_translation` | `Translation` | Any depth property proved in one Reading transfers to all 5 |
+| `transport_depth_bound` | `Translation` | depth(n) ≤ k in M₁ ⟹ depth(n) ≤ k in M₂ |
+| `universal_depth_comparison` | `Translation` | ⌈n/3⌉ ≤ (n+1)/2 (all Readings simultaneously) |
+| `GRA_TranslationProgramme` | `Translation` | Full translation capstone structure |
+
+## Research-note provenance
+
+- `G148_graded_residue_arithmetic.md` — original framework (archived)
+- `G149_analysis_continuum_space_insights.md` — Analysis/Continuum Reading (archived)
+- `G150_GRA_Algebra213_development.md` — Algebra213 integration (archived)
+- `G151_GRA_gap_analysis.md` — gap analysis / open frontier (archived)
+
+## How to verify
+
+```bash
+cd lean && lake build E213.Lib.Math.GRA.Translation
+python3 tools/scan_axioms.py Lib/Math/GRA
+```
 
 ---
 
