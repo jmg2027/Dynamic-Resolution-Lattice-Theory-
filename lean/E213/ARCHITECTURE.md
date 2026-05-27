@@ -240,6 +240,13 @@ pass 후):
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
+  * `GRA/{GRAModel,NumberTheory,Graph,Analysis,Cohomology,HoTT,
+          HigherAlgebra,CategoryTheory,Translation}` (9 files, 0 sorry)
+    — Graded Residue Arithmetic universality: 7-axiom typeclass +
+    6 Reading instances (NT, Graph, Analysis, Cohomology, HoTT,
+    Higher Algebra, Category Theory) + pairwise iso capstone +
+    Phase 6 translation theorems.
+    Chapter: `theory/math/graded_residue_arithmetic.md`.
   * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
             Valuation,DRLT,DRLTIntegration}`
     (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full

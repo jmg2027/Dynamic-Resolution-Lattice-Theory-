@@ -5,10 +5,10 @@ A `GRAModel` encodes the 7 axioms of Graded Residue Arithmetic (GRA)
 as a Lean typeclass.  Any structure satisfying these axioms is a
 "(g₁,g₂)-GRA model."
 
-The GRA Universality Conjecture states that 5 different mathematical
+The GRA Universality Conjecture states that 6 different mathematical
 domains (Number Theory, Graph Theory, Cohomology, HoTT, Higher Algebra,
-Analysis) each admit a (2,3)-GRA model, and these models are pairwise
-isomorphic in the GRA-model category.
+Analysis, Category Theory) each admit a (2,3)-GRA model, and these
+models are pairwise isomorphic in the GRA-model category.
 
 This file defines:
   * `GRAModel` — the 7-axiom typeclass

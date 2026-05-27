@@ -4,6 +4,7 @@ import E213.Lib.Math.GRA.Graph
 import E213.Lib.Math.GRA.Analysis
 import E213.Lib.Math.GRA.Cohomology
 import E213.Lib.Math.GRA.HoTT
+import E213.Lib.Math.GRA.CategoryTheory
 
 /-!
 # GRA Higher Algebra Instance (Reading R₂) + Universality Capstone
@@ -145,7 +146,7 @@ def transitivity (M₁ M₂ : GRAModel)
     GRAIso M₁ M₂ :=
   GRAIso.trans iso₁ iso₂.symm
 
-/-- The full GRA Universality theorem: all 5 Readings are pairwise
+/-- The full GRA Universality theorem: all 6 Readings are pairwise
     isomorphic as GRA models.
     
     Structure: each Reading has an iso to NT (the hub), and by
@@ -161,14 +162,17 @@ structure GRA_Universality where
   iso_graph : GRAIso Graph.GRA23_Graph NumberTheory.GRA23_NT
   /-- R₅ Analysis ≅ NT -/
   iso_analysis : GRAIso Analysis.GRA23_Analysis NumberTheory.GRA23_NT
+  /-- R₆ Category Theory ≅ NT -/
+  iso_cat : GRAIso CategoryTheory.GRA23_CategoryTheory NumberTheory.GRA23_NT
 
-/-- The GRA Universality theorem is inhabited: all 5 isos are proved. -/
+/-- The GRA Universality theorem is inhabited: all 6 isos are proved. -/
 def gra_universality_witness : GRA_Universality where
   iso_cohom := Cohomology.GRAIso_Cohomology_NT
   iso_ha := HigherAlgebra.GRAIso_HigherAlgebra_NT
   iso_hott := HoTT.GRAIso_HoTT_NT
   iso_graph := Graph.GRAIso_Graph_NT
   iso_analysis := Analysis.GRAIso_Analysis_NT
+  iso_cat := CategoryTheory.GRAIso_CategoryTheory_NT
 
 /-- Corollary: any two Readings are isomorphic (10 pairwise isos). -/
 def any_two_readings_iso (M₁ M₂ : GRAModel)
