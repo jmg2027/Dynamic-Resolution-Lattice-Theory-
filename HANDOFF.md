@@ -40,11 +40,37 @@ sub-cleanups (#5a–#5e), each independently committed:
     `Combinatorics/CatalanExtended.lean` (recursion witnesses
     for n = 5, 6, 7) merged into `Catalan.lean` (which had
     n = 3, 4).  Net: −22 lines.
+  · **#5f ZSqrt[-2] deeper tower** (3 → 1 file).
+    `ZSqrtMinus2TowerL{7,8,9}.lean` (each a sequential
+    CD-doubling: 64/128/256 units) merged into
+    `ZSqrtMinus2TowerDeep.lean` — leaf chain not imported by
+    the CayleyDickson umbrella.  Net: −84 lines.
+  · **#5g Hurwitz Type D tower** (2 → 1 file).
+    `HurwitzTowerL{1,2}.lean` (48/96 units in Type D Hurwitz
+    CD-doubling) merged into `HurwitzTower.lean`.  Same
+    pattern as #5f.  Net: −37 lines.
 
-Cumulative across #5a–#5e: 20 files deleted, 5 new files
-created, net **−886 lines**.  All cleanups full `lake build`
+Cumulative across #5a–#5g: **25 files deleted, 7 new files
+created, net −1007 lines**.  All cleanups full `lake build`
 clean, all touched modules verified PURE by
 `scan_axioms.py`.
+
+Remaining inspected-but-not-consolidated candidates:
+  · `Cohomology/Universal/Prop{31,41,42,51,52,53,54}.lean` —
+    layer-enumeration but heavily consumed by `CupAW/Leibniz*`
+    via per-arity `pattern_eq_at`; namespace move would
+    require many find/replace operations.
+  · `Real213/{Int,Half,Third,Fifth}ValidCut.lean` — research
+    progression milestones, each a different proof phase.
+  · `Cohomology/Bipartite/Filled{3,4,5}CellExtension.lean` —
+    sequential dimension extensions with unique math per layer.
+  · `Lib/Physics/AlphaEM/FractalLevelZeta*.lean` — C5
+    research-step chain, sequentially numbered.
+
+Each was assessed: the file naming smells of layer-enumeration
+but the content per file is either genuinely unique math or
+the consumer impact of consolidation outweighs the file-count
+saving.
 
 ## Previous session — Cleanup pass #4: 5 enrichments → 1 unified bipartite carrier
 
