@@ -630,9 +630,10 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 28 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–22),
-~4900 lines, **401 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 26 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–18 + 1
+unified `HasDistinguishing213` for Phases 19–21 + Phase 22),
+~4700 lines, **≈386 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -782,48 +783,46 @@ all PURE):
     on rfl by definition.  This is the 1-categorical proxy for
     the "GRACat-as-Cat is a Reading" frontier.
 
-Phase 19 (universe-1 HasDistinguishing — strict 2-cat universe
-lifting, all PURE):
+Phases 19–21 (unified `HasDistinguishing213` — universe-polymorphic
+typeclass, all PURE):
 
-  · `Universe1.lean` (15 PURE): defines `HasDistinguishingU.{u}`
-    as the universe-polymorphic parallel of
-    `E213.Lens.SemanticAtom.HasDistinguishing`.  Exhibits
-    `readingHasDistinguishingU : HasDistinguishingU.{0} Reading`
-    at the original `Type 0` level (atoms `NT`, `Graph`,
-    combine `readingCombine r s := if r = s then r else .NT`
-    strictly commutative by case-split on `r = s`), then lifts
-    via `ULift.{1, 0}` to
-    `liftedReadingHasDistinguishingU : HasDistinguishingU.{1}
-    (ULift.{1, 0} Reading)` — the strict 2-categorical
-    universe-lifting Phase 18 named as open.  `Reading` is
-    enriched with `deriving DecidableEq` so the strict-equality
-    test in `readingCombine` is well-defined PURE.
-    `reading_atomic_agreement` shows the lifted carrier
-    preserves the `(2, 3)`-grade profile at atoms (NT ↦ 2,
-    Graph ↦ 3) matching the `canonicalGradeMap` of Phase 16.
-
-Phase 20 (HasDistinguishingW — iso-symmetric natural combine_sym,
-all PURE):
-
-  · `HasDistinguishingW.lean` (5 PURE): weakens
-    `combine_sym` from strict equality (Phase 19) to a chosen
-    `Sort`-valued equivalence relation, accommodating
-    `GRAIso`-style data witnesses.  Headline `productSwapIso`
-    constructs the swap iso between `Monoidal.product M₁ M₂`
-    and `Monoidal.product M₂ M₁` for any pair of (2, 3)-GRA
-    models — `toFun (a, b) := (b, a)` with `grade_comm`
-    discharged by `Nat.add_comm`.
-
-Phase 21 (Full HasDistinguishingWFull instance on `GRA23`,
-all PURE):
-
-  · `HasDistinguishingWFull.lean` (12 PURE): closes the
-    categorical-distinctness leg via cardinality argument on
-    `TrivialCarrier` (subsingleton) vs `Nat` (`0 ≠ 1`).
-    `gra23HasDistinguishingWFull` is the full `Type 1` instance
-    on `GRA23` with `combine = Monoidal.product`, `Equiv = GRAIso`,
-    swap iso for `combine_sym`, and `trivial23_not_iso_NT` for
-    `distinct_equiv`.
+  · `HasDistinguishing213.lean` (23 PURE): consolidation of
+    Phases 19–21's three exploratory variants
+    (`HasDistinguishingU`, `HasDistinguishingW`,
+    `HasDistinguishingWFull`) into a single universe-polymorphic
+    typeclass `HasDistinguishing213.{u, v} α` — fields `a, b : α`,
+    `combine : α → α → α`, `Equiv : α → α → Sort v` (with
+    refl/symm/trans), `combine_sym` up to `Equiv`, and
+    `distinct_equiv : Equiv a b → False`.  Strict case
+    instantiates `Equiv := Eq` (`v = 0`); categorical case
+    instantiates `Equiv := GRAIso` (`v ≥ 1`).  Two closed
+    instances:
+      · `liftedReadingHasDistinguishing213 :
+        HasDistinguishing213.{1, 0} (ULift.{1, 0} Reading)` —
+        strict case on a `Type 1` carrier via `ULift`, with
+        `readingCombine r s := if r = s then r else .NT` strictly
+        commutative by case-split on `r = s` (`Reading` is
+        enriched with `deriving DecidableEq`).  Atoms `NT`,
+        `Graph` distinguishable by `decide`.  Realises the
+        strict 2-categorical universe-lifting Phase 18 named
+        as open.
+      · `gra23HasDistinguishing213 :
+        HasDistinguishing213.{1, 1} GRA23` — categorical case
+        on the (2, 3)-packaged GRA-model type, with
+        `combine := gra23Combine` (monoidal product),
+        `Equiv := gra23Equiv` (`GRAIso` between underlying
+        models), `combine_sym := gra23Combine_sym` (the
+        swap iso `(a, b) ↦ (b, a)`, grade-comm via
+        `Nat.add_comm`), `distinct_equiv :=
+        trivial23_gra23_not_iso_ntGRA23` (cardinality argument
+        on `TrivialCarrier` subsingleton vs `Nat`'s `0 ≠ 1`,
+        applied through `iso.right_inv`).
+    Headline lemmas: `productSwapIso`,
+    `productSwapIso_involutive`, `product_grade_sym`,
+    `product_combine_sym_witness`, `trivial23_not_iso_NT`,
+    plus the two instances above and existence witnesses
+    (`hasDistinguishing213_GRA23_witness`,
+    `hasDistinguishing213_ULiftReading_witness`).
 
 Phase 22 (Lens.Unified × GRA capstone — Raw 연결, all PURE):
 

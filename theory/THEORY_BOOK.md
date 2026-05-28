@@ -324,19 +324,33 @@ joins for indexed Lens families).  The `LensIso` equivalence
 class (Part VI.9, Phase 22) sits as a single point in this
 lattice.
 
-### II.5 Universe-polymorphic version (Phase 19+)
+### II.5 Universe-polymorphic version (Phases 19–21, unified)
 
-`lean/E213/Lib/Math/GRA/Universe1.lean` —
-`HasDistinguishingU.{u}` is the universe-polymorphic parallel,
-necessary because `Cat.{0, 0} : Type 1`.  Phase 19 exhibits
-`HasDistinguishingU.{1} (ULift.{1, 0} Reading)`.
+`lean/E213/Lib/Math/GRA/HasDistinguishing213.lean` —
+`HasDistinguishing213.{u, v} α` is the unified universe-
+polymorphic typeclass: two atoms `a, b : α`, a binary
+`combine : α → α → α`, a `Sort v`-valued equivalence
+`Equiv : α → α → Sort v` with refl/symm/trans, a combine_sym
+witness up to `Equiv`, and a categorical distinctness field
+`distinct_equiv : Equiv a b → False`.  Universe-polymorphic in
+both the carrier universe (`u`) and the equivalence universe
+(`v`) — `v = 0` recovers the strict (Prop-valued) form, `v ≥ 1`
+admits iso-data-carrying equivalences.
 
-`HasDistinguishingW.{u, v}` (Phase 20) weakens combine_sym to
-hold up to a chosen `Equiv` relation.  Phase 21
-(`HasDistinguishingWFull`) adds categorical distinctness.
-Together: a `Type 1` carrier (`GRA23`) admits the natural
-categorical structure, with monoidal product as combine and
-`GRAIso` as equivalence.
+Two instances close the chapter:
+
+  · `liftedReadingHasDistinguishing213 :
+    HasDistinguishing213.{1, 0} (ULift.{1, 0} Reading)` —
+    strict case (`Equiv := Eq`) on a `Type 1` carrier.
+  · `gra23HasDistinguishing213 :
+    HasDistinguishing213.{1, 1} GRA23` — categorical case
+    (`Equiv := GRAIso`) with monoidal product as combine,
+    `productSwapIso` as combine_sym, and `trivial23_not_iso_NT`
+    (cardinality argument) as `distinct_equiv`.
+
+This single typeclass subsumes the three exploratory variants
+(`HasDistinguishingU`, `HasDistinguishingW`, `HasDistinguishingWFull`)
+that the marathon used to find the right shape.
 
 ### II.6 Raw topology bookends + Bool213
 
@@ -846,15 +860,18 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
   · `Universality23.lean` — `canonicalGradeMap_universal`:
     any (2, 3)-profile function = `canonicalGradeMap` pointwise
 
-### VI.8 Universe lifting + iso-symmetric combine — Phases 19–21
+### VI.8 Universe lifting + iso-symmetric combine — Phases 19–21 (unified)
 
-  · `Universe1.lean` — `HasDistinguishingU.{u}` polymorphic;
-    `Type 1` instance via `ULift Reading`
-  · `HasDistinguishingW.lean` — weakened `combine_sym` up to
-    `Equiv` relation; `productSwapIso` braiding
-  · `HasDistinguishingWFull.lean` — full instance on `GRA23 :
-    Type 1` with categorical distinctness via cardinality
-    (`trivial23_not_iso_NT`)
+  · `HasDistinguishing213.lean` — unified universe-polymorphic
+    typeclass `HasDistinguishing213.{u, v} α`.  Two closed
+    instances: `liftedReadingHasDistinguishing213` (strict case,
+    `Equiv := Eq`, `Type 1` via ULift) and
+    `gra23HasDistinguishing213` (categorical case,
+    `Equiv := GRAIso`, monoidal product as combine,
+    `productSwapIso` as combine_sym, `trivial23_not_iso_NT` as
+    categorical distinctness).  Subsumes the former
+    `HasDistinguishingU`, `HasDistinguishingW`,
+    `HasDistinguishingWFull` variants from the marathon.
 
 ### VI.9 Lens.Unified × GRA capstone — Phase 22
 
@@ -870,7 +887,8 @@ The (2, 3)-arithmetic forced by atomic distinguishing IS a
 single `LensIso`-equivalence class — Cat, HoTT, Cochain, Walk,
 Resolution, Operad all name the same Lens-kernel on Raw.
 
-**Status**: 28 files, ~4900 lines, **401 PURE / 0 DIRTY**.
+**Status**: 26 files, ~4700 lines, **≈386 PURE / 0 DIRTY** (post-
+consolidation: 3 exploratory variants merged into `HasDistinguishing213.lean`).
 
 ---
 

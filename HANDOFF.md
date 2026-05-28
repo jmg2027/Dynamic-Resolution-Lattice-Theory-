@@ -1,10 +1,63 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
-(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.2 +
-duplication-cleanup pass.
+(≈386 PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
+v1.2 + duplication-cleanup passes.
 
-## This session — Cleanup pass #2: legacy doc archives (guide/ + books/math/)
+## This session — Cleanup pass #3: `HasDistinguishing` consolidation
+
+Three exploratory Phase-19/20/21 typeclasses (`HasDistinguishingU`,
+`HasDistinguishingW`, `HasDistinguishingWFull`) consolidated into a
+single universe-polymorphic typeclass `HasDistinguishing213.{u, v} α`.
+
+Per user directive: *"제네럴라이즈 할수있음 하는게 좋다구 생각행 /
+지금까지는 정확히 어떤 모양으로 만들어야하는지 몰라서 탐색하기 위해
+이렇게 엄청 많이 정리들을 만들어온거지만, gra라는 모양으로 기술할 수
+있어졌으니깐?"* — the exploration phase is over; now that we can
+describe the structure in GRA-shape, generalise where possible.
+
+The unified typeclass:
+
+```lean
+structure HasDistinguishing213.{u, v} (α : Type u) where
+  a, b : α
+  combine : α → α → α
+  Equiv : α → α → Sort v
+  refl/symm/trans
+  combine_sym : ∀ x y, Equiv (combine x y) (combine y x)
+  distinct_equiv : Equiv a b → False
+```
+
+Setting `Equiv := Eq` recovers the strict form (Phase 19); setting
+`Equiv := GRAIso` recovers the categorical form (Phase 20–21).
+Two closed instances exhibit both:
+
+  · `liftedReadingHasDistinguishing213 : HasDistinguishing213.{1, 0}
+    (ULift.{1, 0} Reading)` — strict case at `Type 1` via ULift.
+  · `gra23HasDistinguishing213 : HasDistinguishing213.{1, 1} GRA23` —
+    categorical case with `productSwapIso` + `trivial23_not_iso_NT`.
+
+Deleted (full history preserved in `git log`):
+  · `lean/E213/Lib/Math/GRA/Universe1.lean`
+  · `lean/E213/Lib/Math/GRA/HasDistinguishingW.lean`
+  · `lean/E213/Lib/Math/GRA/HasDistinguishingWFull.lean`
+
+New: `lean/E213/Lib/Math/GRA/HasDistinguishing213.lean` (23 PURE).
+
+Build verified: `lake build E213.Lib.Math.GRA` clean;
+`scan_axioms.py E213.Lib.Math.GRA.HasDistinguishing213` reports
+**23/23 PURE**.
+
+Docs updated:
+  · `lean/E213/Lib/Math/GRA.lean` umbrella docstring (Phases 19–21
+    section merged + PURE count updated)
+  · `theory/THEORY_BOOK.md` Part II.5 + Part VI.8
+  · `theory/math/gra_book.md` summary preamble
+  · `theory/essays/gra_as_substrate_of_cat_hott.md` Phases 19–21
+    paragraph rewritten
+  · `STRICT_ZERO_AXIOM.md` Tier 5.1 Phases 19–21 entry
+
+## Previous step — Cleanup pass #2: legacy doc archives (guide/ + books/math/)
 
 INDEX-audit pass revealed two **fully stale narrative
 directories** referencing dead Lean paths:

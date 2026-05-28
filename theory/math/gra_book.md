@@ -41,25 +41,26 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > included) whose grade map satisfies the (2, 3)-profile is
 > *forced* to read the canonical arithmetic.  Phase 19 then
 > meets the strict 2-categorical universe-lifting requirement
-> with `HasDistinguishingU.{1} (ULift.{1, 0} Reading)` — a
-> `Type 1` carrier with the distinguishing structure and the
-> (2, 3)-grade profile at atoms preserved.  Phase 20
-> (`HasDistinguishingW`) handles the iso-symmetric natural
-> combine: `productSwapIso` proves monoidal product is
-> commutative up to `GRAIso` via the pair-swap, completing
-> `GRACat` as a *symmetric monoidal category*.  Phase 21
-> (`HasDistinguishingWFull`) closes the categorical-distinctness
-> leg: `trivial23_not_iso_NT` proves no `GRAIso` exists between
-> the one-element carrier and the Nat carrier by a subsingleton
-> argument, yielding the full `HasDistinguishingWFull` instance
-> on `GRA23 : Type 1`.  Phase 22 (`LensIsoCapstone`) connects the
+> with a single unified typeclass `HasDistinguishing213.{u, v}`
+> (`HasDistinguishing213.lean`, consolidating the exploratory
+> `HasDistinguishingU`/`W`/`WFull` triple).  Two closed
+> instances: `liftedReadingHasDistinguishing213` (strict case,
+> `Equiv := Eq`, `Type 1` via `ULift Reading`) and
+> `gra23HasDistinguishing213` (categorical case,
+> `Equiv := GRAIso`, monoidal product as combine,
+> `productSwapIso` as combine_sym, `trivial23_not_iso_NT` as
+> categorical distinctness via cardinality).  Together these
+> close the 2-categorical reading and complete `GRACat` as a
+> symmetric monoidal category.  Phase 22 (`LensIsoCapstone`) connects the
 > whole chain back to Raw: `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩`
 > has view `= canonicalGradeMap` by `rfl`, and any (2, 3)-profile
 > Lens on Nat is proven `Lens.Unified.LensIso` to `gradeLens`.
 > The (2, 3)-arithmetic forced by atomic distinguishing IS the
 > `LensIso` equivalence class of `gradeLens` — the deepest
-> connection from GRA back to Raw.  **Strict ∅-axiom: 401 PURE / 0 DIRTY**
-> across the entire sub-tree — `ax_coprime` uses `gcd213` (which
+> connection from GRA back to Raw.  **Strict ∅-axiom: ≈386 PURE / 0 DIRTY**
+> across the entire sub-tree (post-consolidation; the three
+> exploratory `HasDistinguishing` variants are unified into
+> `HasDistinguishing213.lean`) — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree
 > uses `rfl`, kernel-`decide`, or explicit Nat helpers

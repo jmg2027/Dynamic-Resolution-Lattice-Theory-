@@ -192,55 +192,45 @@ generators) has this profile — and the universal property does
 the rest.  `canonical_arithmetic_forced` is the parameterless
 capstone.
 
-Phase 19 (`Universe1.lean`) addresses the strict 2-categorical
-universe-lifting requirement.  A universe-polymorphic parallel
-`HasDistinguishingU.{u}` is defined, and an instance
-`HasDistinguishingU.{1} (ULift.{1, 0} Reading)` is exhibited via
-the `Type 1`-lifted `Reading` enum, with `readingCombine := if r
-= s then r else .NT` providing strict commutativity (the
-condition `r = s` is symmetric).  Atoms `NT` and `Graph` retain
-their (2, 3)-grade profile under the lifted structure.  The
-strict universe-lifting requirement Phase 18 named is therefore
-*met*: a `Type 1` carrier admits the distinguishing structure
-with the same atomic grades as the `Raw`-level arithmetic.
+Phases 19–21 (`HasDistinguishing213.lean`, unified) address the
+strict 2-categorical universe-lifting + iso-symmetric combine +
+categorical-distinctness picture in a single typeclass.
+`HasDistinguishing213.{u, v} α` is the universe-polymorphic
+distinguishing structure with carrier universe `u`, equivalence
+universe `v`, fields `a, b : α`, `combine : α → α → α`,
+`Equiv : α → α → Sort v` (with refl/symm/trans),
+`combine_sym` up to `Equiv`, and `distinct_equiv : Equiv a b →
+False`.  Setting `Equiv := Eq` recovers the strict form; setting
+`Equiv := GRAIso` recovers the categorical form.  Two instances
+close the chapter:
 
-This does not give a *natural* combine on the category-of-
-categories — `readingCombine` collapses non-equal Readings to
-the hub `.NT`.
+`liftedReadingHasDistinguishing213 : HasDistinguishing213.{1, 0}
+(ULift.{1, 0} Reading)` — the strict case on a `Type 1`
+carrier, with `readingCombine := if r = s then r else .NT` (the
+condition `r = s` is symmetric, so combine is strictly
+commutative).  Atoms `NT` and `Graph` retain their (2, 3)-grade
+profile.  Strict universe-lifting met.
 
-Phase 20 (`HasDistinguishingW.lean`) addresses the natural-
-combine question: it weakens `combine_sym` from strict equality
-to a chosen equivalence relation, taking `Equiv := GRAIso` for
-the natural categorical content.  `productSwapIso` exhibits the
-required combine_sym: monoidal product on (2, 3)-GRA models is
-commutative up to `GRAIso` via the pair-swap `(a, b) ↦ (b, a)`,
-which is grade-preserving by `Nat.add_comm` and ⊕/⊗-equivariant
-by `rfl` on the swap.
+`gra23HasDistinguishing213 : HasDistinguishing213.{1, 1} GRA23`
+— the categorical case on the (2, 3)-packaged GRA-model type,
+with `Equiv := GRAIso`.  `combine` is monoidal product;
+`combine_sym` is `productSwapIso` (pair-swap `(a, b) ↦ (b, a)`,
+grade-preserving by `Nat.add_comm`, ⊕/⊗-equivariant by `rfl`).
+`distinct_equiv` is `trivial23_not_iso_NT` — a cardinality
+argument: any would-be `GRAIso trivial23 GRA23_NT` has
+`invFun : Nat → TrivialCarrier`, but `TrivialCarrier` is a
+subsingleton so `invFun 0 = invFun 1`, then `right_inv` forces
+`0 = iso.toFun (iso.invFun 0) = iso.toFun (iso.invFun 1) = 1`,
+contradicting `decide 0 ≠ 1`.
 
-This completes the categorical-symmetry picture: combined with
-Phase 7's `GRACat` and Phase 15's `Monoidal.product`, the
-swap-iso construction makes `GRACat` a *symmetric monoidal
-category* (the swap is the braiding).  Strict combine_sym
-(Phase 19) handles universe lifting; weak combine_sym (Phase
-20) handles natural combinations.
-
-Phase 21 (`HasDistinguishingWFull.lean`) closes the
-distinctness leg: the *full* categorical instance on
-`GRA23 : Type 1` with all six fields (atoms, combine, Equiv,
-refl/symm/trans, combine_sym, distinct_equiv).  The
-distinctness witness is `trivial23_not_iso_NT` — a cardinality
-argument showing no `GRAIso` can exist between `trivial23`
-(one-element carrier) and `GRA23_NT` (Nat carrier).  Proof
-sketch: any iso has `invFun : Nat → TrivialCarrier`, but
-`TrivialCarrier` is a subsingleton, so `invFun 0 = invFun 1`;
-then `right_inv` forces `0 = iso.toFun (iso.invFun 0) = iso.toFun
-(iso.invFun 1) = 1`, contradicting `decide 0 ≠ 1`.
-
+Together: `GRACat` is a *symmetric monoidal category* with the
+swap as braiding, equipped with categorically-distinct atoms.
 The atomic step `cases x; cases y; rfl` for the subsingleton
-property, combined with the iso's `right_inv` axiom, makes the
-proof PURE — no propext, no Classical, no Mathlib.  The
-"natural Cat-level Reading of GRA" — including the categorical
-distinctness — is now a Lean theorem at `Type 1`.
+property, combined with `right_inv`, makes both instances PURE
+— no propext, no Classical, no Mathlib.  The "natural Cat-level
+Reading of GRA" — strict universe lifting, natural iso-
+symmetric combine, and categorical distinctness — is one Lean
+theorem at `Type 1`.
 
 Phase 22 (`LensIsoCapstone.lean`) closes the loop back to Raw.
 `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩` is the canonical 213

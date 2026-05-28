@@ -22,9 +22,7 @@ import E213.Lib.Math.GRA.Monoidal
 import E213.Lib.Math.GRA.LensBridge
 import E213.Lib.Math.GRA.CarrierRealization
 import E213.Lib.Math.GRA.Universality23
-import E213.Lib.Math.GRA.Universe1
-import E213.Lib.Math.GRA.HasDistinguishingW
-import E213.Lib.Math.GRA.HasDistinguishingWFull
+import E213.Lib.Math.GRA.HasDistinguishing213
 import E213.Lib.Math.GRA.LensIsoCapstone
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
@@ -121,48 +119,39 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     capstones the parameterless
                                     forcing statement.
 
-  ## Phase 19 — Universe-1 HasDistinguishing (strict 2-cat universe-lifting)
+  ## Phases 19–21 — HasDistinguishing213 (unified universe-polymorphic typeclass)
 
-  * `Universe1`                   — `HasDistinguishingU.{u}` is the
-                                    universe-polymorphic parallel of
-                                    `Lens.SemanticAtom.HasDistinguishing`.
-                                    `liftedReadingHasDistinguishingU :
-                                    HasDistinguishingU.{1}
-                                    (ULift.{1, 0} Reading)` exhibits a
-                                    `Type 1` carrier with the
-                                    distinguishing structure,
-                                    satisfying the universe-lifting
-                                    requirement Phase 18 named.
-                                    `Reading` itself is enriched with
-                                    `deriving DecidableEq` so the
-                                    strict-commutative
-                                    `readingCombine := if r = s then r
-                                    else .NT` is well-defined PURE.
-
-  ## Phase 20 — HasDistinguishingW (iso-symmetric combine_sym)
-
-  * `HasDistinguishingW`          — weakens `combine_sym` from strict
-                                    equality to a chosen equivalence
-                                    relation (Type-valued, so
-                                    `GRAIso`-style data fits).
-                                    `productSwapIso` is the natural
-                                    categorical witness: monoidal
-                                    product on (2, 3)-GRA models is
-                                    commutative up to `GRAIso` via the
-                                    pair-swap `(a, b) ↦ (b, a)`.
-
-  ## Phase 21 — Full HasDistinguishingWFull instance on `GRA23`
-
-  * `HasDistinguishingWFull`      — extends `HasDistinguishingW` with
-                                    `distinct_equiv : Equiv a b → False`
-                                    (categorical distinctness).  The
-                                    headline `trivial23_not_iso_NT`
-                                    proves *no* `GRAIso` exists between
-                                    `trivial23` (1-element carrier) and
-                                    `NumberTheory.GRA23_NT` (Nat carrier)
-                                    by a cardinality argument.
-                                    `gra23HasDistinguishingWFull` is the
-                                    full instance on `GRA23 : Type 1`.
+  * `HasDistinguishing213`        — single universe-polymorphic
+                                    distinguishing structure
+                                    `HasDistinguishing213.{u, v} α`,
+                                    consolidating Phases 19–21's three
+                                    exploratory variants
+                                    (`HasDistinguishingU`,
+                                    `HasDistinguishingW`,
+                                    `HasDistinguishingWFull`).  Fields:
+                                    `a, b : α`, `combine : α → α → α`,
+                                    `Equiv : α → α → Sort v` (with
+                                    refl/symm/trans), `combine_sym`
+                                    (up to `Equiv`), and
+                                    `distinct_equiv : Equiv a b → False`.
+                                    Setting `Equiv := Eq` recovers the
+                                    strict form; setting
+                                    `Equiv := GRAIso` recovers the
+                                    categorical form.  Two instances:
+                                    `liftedReadingHasDistinguishing213 :
+                                    HasDistinguishing213.{1, 0}
+                                    (ULift.{1, 0} Reading)` (strict
+                                    case, `Equiv := Eq`) and
+                                    `gra23HasDistinguishing213 :
+                                    HasDistinguishing213.{1, 1} GRA23`
+                                    (categorical case,
+                                    `Equiv := GRAIso`).
+                                    `productSwapIso` is the swap-iso
+                                    witness of monoidal-product
+                                    iso-commutativity;
+                                    `trivial23_not_iso_NT` is the
+                                    cardinality-based categorical
+                                    distinctness lemma.
 
   ## Phase 22 — Lens.Unified × GRA capstone
 
@@ -187,10 +176,10 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
 
 Narrative: `theory/math/gra_book.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 401 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: ≈386 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
-from Phase 17 + 13 from Phase 18 + 15 from Phase 19 + 5 from
-Phase 20 + 12 from Phase 21 + 27 from Phase 22).  `ax_coprime` uses `gcd213`
+from Phase 17 + 13 from Phase 18 + ≈17 from Phases 19–21 unified
+HasDistinguishing213 + 27 from Phase 22).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.
