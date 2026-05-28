@@ -1,4 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Pell.Proper
+import E213.Lib.Math.DyadicFSM.ArithFSM
 
 /-!
 # Pell.ProperMod — Pell-equation per-prime instances (p ∈ {11,13,17,19,23})
@@ -13,6 +14,7 @@ Per-p namespaces preserved (`Pell.ProperMod{p}`).
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperMod11
 
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod)
+open E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 set_option maxRecDepth 1024 in
@@ -31,6 +33,7 @@ end E213.Lib.Math.DyadicFSM.Pell.ProperMod11
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperMod13
 
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod)
+open E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 set_option maxRecDepth 1024 in
@@ -49,6 +52,7 @@ end E213.Lib.Math.DyadicFSM.Pell.ProperMod13
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperMod17
 
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod)
+open E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 theorem pellProper17_run_period_16 :
@@ -66,6 +70,7 @@ end E213.Lib.Math.DyadicFSM.Pell.ProperMod17
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperMod19
 
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod)
+open E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 set_option maxRecDepth 2048 in
@@ -84,6 +89,7 @@ end E213.Lib.Math.DyadicFSM.Pell.ProperMod19
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperMod23
 
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod)
+open E213.Lib.Math.DyadicFSM.ArithFSM
 open E213.Lib.Math.DyadicFSM.ArithFSM.ArithFSM2 (bits_period_of_run_period)
 
 set_option maxRecDepth 1024 in

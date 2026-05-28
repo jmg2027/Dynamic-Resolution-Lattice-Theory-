@@ -30,4 +30,4 @@ import E213.Lib.Math.Extras.RealLogCapstone
   ## Marathon capstones
 
     * `RealLogCapstone`     — `Real213.log` closure
-
+-/

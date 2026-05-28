@@ -31,7 +31,7 @@ namespace E213.Lib.Math.ParadigmDomainGradedRing
 
 open E213.Lib.Math.ParadigmDomainGraded (trunc_op)
 open E213.Lib.Math.Combinatorics.GeneratingFunction (CoeffSeq convolution)
-open E213.Lib.Math.Combinatorics.Binomial (binom_5_row_sum binom_5_6_zero)
+open E213.Lib.Math.Combinatorics.Binomial (binom_5_row)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — `trunc_op` is a `CoeffSeq` (= graded ring element) -/
