@@ -767,8 +767,9 @@ filling.
 GRA — Graded Residue Arithmetic — is the *universal meta-
 structure* of 213: the (2, 3)-graded arithmetic forced by
 `gcd(NT, NS) = gcd(2, 3) = 1`.  See `theory/math/gra_book.md`
-for the textbook treatment, `theory/math/graded_residue_arithmetic.md`
-for the synthesis.
+for the textbook treatment, including (post-consolidation)
+the master statement, the algebraic-tower / dimensional-
+proliferation / Adelic frontiers (Ch. 8–9).
 
 ### VI.1 The 7 axioms — Phase 1
 

@@ -259,7 +259,7 @@ pass 후):
     translation; retract-pair structure (`section`/`forget`
     identities); monoidal product `product : GRAModel → GRAModel
     → GRAModel` with `trivial23` as unit.  Chapter:
-    `theory/math/gra_book.md` + `theory/math/graded_residue_arithmetic.md`.
+    `theory/math/gra_book.md`.
     **Strict ∅-axiom: 259 PURE / 0 DIRTY**; `ax_coprime` via
     `gcd213` (PURE) rather than Lean-core `Nat.gcd`; every proof
     is `rfl` or kernel-level Nat helper — no omega, no simp, no

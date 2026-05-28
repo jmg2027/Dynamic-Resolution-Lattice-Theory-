@@ -632,6 +632,123 @@ Entanglement as GRA grade:
 - General n-qubit: grade n = 2a + 3b decomposition
 - LOCC classification ↔ depth classification?
 
+### 8.5 GRA × Algebra213 — graded ring formalism
+
+A concrete `GradedRing213` typeclass would extend the existing
+`Ring213` hierarchy with a grade function:
+
+```lean
+class GradedRing213 (α : Type) extends Ring213 α where
+  grade     : α → Nat
+  grade_add : ∀ a b, grade (a + b) ≤ max (grade a) (grade b)
+  grade_mul : ∀ a b, grade (a * b) ≤ grade a + grade b
+```
+
+- `grade_add` — GRA's "addition preserves the grade upper
+  bound"
+- `grade_mul` — GRA's "multiplication adds grades" (the cup-
+  product structure)
+
+The CD Tower carries this naturally:
+
+| Algebra213 Layer | GRA Grade | Operad Level |
+|---|---|---|
+| Int213 (ℤ) | 0 | E₀ (discrete) |
+| ZI (ℤ[i]) | 1 | E₁ (loop space) |
+| ZOmega (ℤ[ω]) | 1 | E₁ (variant) |
+| CDDouble (quaternion-like) | 2 | E₂ (double loop) |
+| CDDoubleStar (octonion-like) | 3 | E₃ (triple loop) |
+
+The det = 1 trinity in algebraic vocabulary:
+
+| Theorem | Algebraic content | det = 1 meaning |
+|---|---|---|
+| `normSq_mul` | normSq(uv) = normSq(u)·normSq(v) | norm is multiplicative ⇒ information lossless |
+| `ofInt_inj` | embedding is injective | scalar information preserved |
+| `conj_conj` | involution is self-inverse | transformation is reversible |
+
+The three are three algebraic faces of "det = 1 ⇒ information
+preservation" — same fact, three Readings.
+
+### 8.6 Dimensional proliferation fractal
+
+GRA is **self-similar in the 10 = C(5, 3) direction** as a
+*dimension-adding* fractal.  Unlike classical fractals (which
+self-replicate at the same dimension), GRA's fractal generates
+a new orthogonal axis at each recursive step:
+
+```
+Depth 0:  K_{3,2}^{(c=2)} — 5 vertices, 12 edges, 3 faces
+Depth 1:  C(5, 3) = 10 bipartite splittings → 10 independent
+          GRA instances
+Depth d:  10^d directions, det = 1 preserves volume
+```
+
+The det = 1 condition prevents divergence:
+1. P ∈ SL(2, ℤ) ⇒ area-preserving
+2. φ² expansion ↔ 1/φ² contraction — exact cancellation
+3. A Lens corresponds to *fixing one expansion direction*
+   in the 10-dimensional fractal
+
+Categorical statement (informal):
+
+```
+GRA_0 = GRA              (base category)
+GRA_1 = GRA^{10}         (10-fold product)
+GRA_d = GRA^{10^d}       (d-th iterated product)
+Φ : GRA_d → GRA_{d+1}    (volume-preserving functor)
+```
+
+### 8.7 Periodic structure: mod-p and Adelic decomposition
+
+Mod-5 period: `P⁵ ≡ −I (mod 5)`, so `P¹⁰ ≡ I (mod 5)`.
+The geometric `C(5, 3) = 10` and the arithmetic mod-5 period
+of P **coincide** — same integer, two Lens-readings.
+Related: |SL(2, F₅)| = 120 = 10 × 12 = bipartite splittings ×
+edges = one full cycle.
+
+**Adelic GRA** (open):
+
+```
+GRA_global = ∏'_p GRA_p   (restricted product)
+```
+
+with axis assignments:
+- p = 2 → NT-axis (fibre parity)
+- p = 3 → NS-axis (face residue)
+- p = 5 → d-axis (pentagonal periodicity)
+
+By CRT, `(mod 2) × (mod 3) ≅ (mod 6)`; `gcd(2, 3) = 1` forces
+the lossless decomposition.  The Adelic GRA structure is the
+conjectural completion across all primes.
+
+---
+
+## Chapter 9 — One-paragraph master statement
+
+GRA is the single principle "additive grade accumulation
+from two coprime generators with `gcd(2, 3) = 1`," and this
+principle appears isomorphically across cohomology (cup-
+grade), operad theory (E_n level), HoTT (truncation), graph
+theory (walk length), analysis (resolution exponent),
+algebra (CD-tower grade), and the number system tower
+(`Int / Real / ℚ / Modulus / FSM`) — the universal meta-
+structure of the 213 framework.
+
+The trinity `det(P) = 1, gcd(NT, NS) = 1, Frobenius(2, 3) = 1`
+expresses one structural fact in three vocabularies:
+
+  · `det = 1` → information preservation (transformation is
+    reversible)
+  · `gcd = 1` → universal generation (every positive grade is
+    reachable)
+  · `Frobenius = 1` → minimal exception (the only
+    unreachable positive grade is `1`)
+
+The GRA Tower (Reading-unification ascent) and the CD Tower
+(property-loss descent) are exact duals: every step up one is
+a step down the other.
+
 ---
 
 ## Appendix A — Notation Summary

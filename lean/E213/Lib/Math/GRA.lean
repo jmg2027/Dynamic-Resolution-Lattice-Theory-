@@ -185,7 +185,7 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     the universal property + 5 Reading
                                     `LensIso`s in one bundle.
 
-Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
+Narrative: `theory/math/gra_book.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
 **Strict ∅-axiom: 401 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33

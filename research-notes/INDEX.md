@@ -92,7 +92,7 @@ Active top-level registries after merge:
 | `G123_padic_next_directions.md` | Post-padic-library-closure direction note; companion to `theory/math/padic_real213.md` | active scratch (next-direction memo) |
 | `G135_padic_closure_synthesis.md` | Synthesis note from post-G122 padic library closure | post-closure synthesis (could be archived) |
 | `G136_kplus1_marathon_insights.md` | Insight note from G132 cup-ladder marathon; companion to `theory/math/cohomology/cup_ladder_graduation.md` | post-closure synthesis |
-| `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/graded_residue_arithmetic.md | post-closure synthesis |
+| `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/gra_book.md Ch.6 | post-closure synthesis |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
 | `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |

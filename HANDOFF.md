@@ -1,10 +1,45 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
-(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.2
-(math-only, 1216 lines).
+(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.2 +
+duplication-cleanup pass.
 
-## This session — Theory Book v1.2 expansion + structure cleanup
+## This session — Cleanup pass #1: GRA narrative consolidation
+
+`theory/math/graded_residue_arithmetic.md` (Korean synthesis,
+430 lines) consolidated into `theory/math/gra_book.md`
+(English textbook) — the two files covered the same content in
+two languages, violating CLAUDE.md "repo artifacts English
+only" discipline.
+
+Unique content absorbed into `gra_book.md`:
+  · Ch.8.5 — GRA × Algebra213 (`GradedRing213` typeclass
+    sketch + CD tower grade table + det=1 trinity in algebraic
+    vocabulary)
+  · Ch.8.6 — Dimensional proliferation fractal
+    (`C(5,3) = 10` direction self-similarity + det=1 volume
+    preservation)
+  · Ch.8.7 — Periodic structure: mod-p and Adelic decomposition
+    (`P⁵ ≡ −I (mod 5)` + Adelic GRA conjecture)
+  · Ch.9 — One-paragraph master statement (the `det=1 /
+    gcd=1 / Frobenius=1` trinity + GRA Tower ↔ CD Tower duality)
+
+Source file `graded_residue_arithmetic.md` archived to
+`research-notes/archive/G148_graded_residue_arithmetic_synthesis.md`
+via `git mv` (history preserved).
+
+References updated (6 sites):
+  · `theory/THEORY_BOOK.md` Part VI intro
+  · `theory/math/INDEX.md` Universal-meta-structure
+    section: "(2)" → "(1)" + single chapter
+  · `theory/essays/INDEX.md` gra_universality essay row
+  · `lean/E213/Lib/Math/GRA.lean` umbrella docstring
+  · `lean/E213/ARCHITECTURE.md` Lib/Math/GRA description
+  · `research-notes/INDEX.md` G149 lifecycle note
+
+No Lean code touched (doc-only consolidation; build unchanged).
+
+## Previous step — Theory Book v1.2 expansion + structure cleanup
 
 `theory/THEORY_BOOK.md` v1.2 — physics removed (will be written
 once mathematical derivation closes completely), book expanded
