@@ -47,13 +47,24 @@ theorem basis_leibniz_5_2_2 :
               (cupAW 5 2 3 (basis 5 2 i) (delta (basis 5 2 j)) k) := by
   decide
 
-/-- ★★★ Basis-pair Leibniz at (5, 2, 1) — 10 × 5 × 10 = 500-case decide.
+/-- Basis-pair Leibniz at (5, 2, 1) — 10 × 5 × 10 = 500-case decide.
     α : basis 5 2 p (p ∈ Fin 10), β : basis 5 1 k (k ∈ Fin 5). -/
 theorem basis_leibniz_5_2_1 :
     ∀ p : Fin 10, ∀ k : Fin 5, ∀ i : Fin (binom 5 3),
       delta (cupAW 5 2 1 (basis 5 2 p) (basis 5 1 k)) i
         = xor (cupAW 5 3 1 (delta (basis 5 2 p)) (basis 5 1 k) i)
               (cupAW 5 2 2 (basis 5 2 p) (delta (basis 5 1 k)) i) := by
+  decide
+
+/-- Basis-pair Leibniz at (5, 3, 1) — 10 × 5 × 5 = 250-case decide.
+    α : basis 5 3 p (p ∈ Fin 10), β : basis 5 1 k (k ∈ Fin 5),
+    output index : Fin (binom 5 4) = Fin 5.  Sister of
+    `basis_leibniz_5_2_1` at the codim-3 α stratum. -/
+theorem basis_leibniz_5_3_1 :
+    ∀ p : Fin 10, ∀ k : Fin 5, ∀ i : Fin (binom 5 4),
+      delta (cupAW 5 3 1 (basis 5 3 p) (basis 5 1 k)) i
+        = xor (cupAW 5 4 1 (delta (basis 5 3 p)) (basis 5 1 k) i)
+              (cupAW 5 3 2 (basis 5 3 p) (delta (basis 5 1 k)) i) := by
   decide
 
 end E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
