@@ -28,18 +28,21 @@ lines of narrative + ~50k lines of `lean/E213/` source are
 
 ### 0.1 What this book contains
 
-213 — also called **DRLT** when deployed to physics — is the
-4-clause Raw axiom and *everything it forces*:
+213 is the 4-clause Raw axiom and *everything it forces*:
 
   · the atomic data `(NS, NT, c, d) = (3, 2, 2, 5)`
   · the Möbius matrix `P = [[2, 1], [1, 1]]` (det 1, trace 3)
   · the (2, 3)-graded arithmetic of GRA
   · the universe of Reading vocabularies (Cat, HoTT, Cohomology,
     Walk, Resolution, Operad, Cochain, Truncation, …)
-  · the precision physics — α_em at 0.09 ppb, gluon octet,
-    proton mass — as canonical numbers, not fits
+  · the cohomological / algebraic structure on `K_{3, 2}^{(c=2)}`
+    that subsequent physics deployment uses
 
-This book walks the forcing chain.
+This book walks the forcing chain *up to the mathematical
+content*.  Physics deployment (DRLT side: α_em precision,
+gauge content, hadron spectrum, …) waits for the mathematical
+derivation programme to close completely; that part will be
+written then.
 
 ### 0.2 What this book is **not**
 
@@ -117,7 +120,7 @@ Lean realisation: `lean/E213/Theory/Raw/Core.lean` —
     forced (`lean/E213/Theory/Atomicity/{PairForcing,Five,
     ArityForcing,OrbitForcing,CombinatorialArity}`)
 
-### I.4 No exterior
+### I.4 No exterior, self-completion
 
 `seed/AXIOM/05_no_exterior.md` §5.1 — **no exterior**.  The
 framework has no "outside" from which to derive its content.
@@ -127,6 +130,14 @@ Self-completion is structural closure, not a deficiency.
 session (per CLAUDE.md boot sequence).  Common slips:
 "foundation vs derivation," "inside vs outside 213," "classical
 vs 213" — all import an exterior the framework rejects.
+
+**Full self-completion thesis** — §5.5 + `lean/E213/Lens/
+SelfCompletion.lean`'s `full_self_completion_bundle`.  Every
+Raw application uses *all four clauses at once*, not
+sequentially: atom-pair (Clause 1) + slash + symmetry +
+anti-reflexive (Clauses 2–4) are simultaneously visible at
+every Lens reading.  The clauses are not a recipe applied in
+order; they are a single event with four simultaneous facets.
 
 ### I.5 Lens readings
 
@@ -152,12 +163,47 @@ others Raw.
 (Classical, propext beyond structural use, sorry, native_decide
 …) falsifies the framework.  The contract is mechanical.
 
-### I.7 Lean correspondence
+### I.7 Lean correspondence + encoding costs
 
 `seed/AXIOM/09_lean_correspondence.md` formalises the Raw
 inductive in Lean 4 and proves three-direction uniqueness as a
 faithful emulator.  `lean/E213/AUDIT.md` is the implementation
 audit.
+
+**Encoding costs** — `seed/AXIOM/10_encoding_costs.md` catalogues
+four artefacts of putting 213 on Lean 4 (inductive presentation
+/ `cmp` choice / canonical-subtype quotienting /
+`≠`-precondition on `Raw.slash`).  Each is classified α
+(re-expression) / β (cost) / γ (derivation) / δ (additional
+commitment — none).  The **cmp-independence meta-theorem**
+(`lean/E213/Theory/RawCmpIndependence.lean`, `RawBy cmp ↔ RawBy
+Tree.cmp` for any well-behaved cmp) is the bookkeeping proof
+that `cmp` choice is (β) not axiom material — all Theory
+theorems transport across cmp choices.
+
+### I.8 Six-theorem — the integer 6 as one event
+
+`lean/E213/Theory/SixTheorem.lean` is a capstone independent
+of any single sub-tree.  The integer 6 appears in ten distinct
+Lens readings of the same Raw event:
+
+  · Eisenstein unit count
+  · atomicity product `NS · NT = 3 · 2 = 6`
+  · `d + 1 = 5 + 1 = 6` (Δ⁴ vertex count plus one)
+  · Sym(3) order
+  · SU(3) simple roots
+  · K_{NS, NT} cross-pairs
+  · SO(3, 1) generator count
+  · `Δ⁴ + K_{3, 2}^{(c=2)}` cohomology sum
+  · α_GUT denominator combinatorics
+  · 3-clause permutations
+
+The master theorem consolidates the ten as Lens projections of
+one Raw-level event (the Eisenstein unit count).  This is one
+of several capstones (others: `Mobius213GrandUnification`
+Part IV.2, `gra_lens_iso_class_capstone` Part VI.9) that
+exhibit *Raw → many readings* as a single fact under multiple
+Lens charts.
 
 ---
 
@@ -176,6 +222,27 @@ Key API (`E213.Theory.Raw.API`):
     reduction rules (the last needs `combine_sym` hypothesis,
     reflecting `slash_comm`)
   · `Raw.leaves`, `Raw.depth` — canonical Nat-valued readings
+  · `Raw.swap`, `Raw.swap_slash` — the swap automorphism
+    (`lean/E213/Theory/Raw/Swap*.lean`)
+  · `Raw.foldRaw` — endomorphic catamorphism (Raw → Raw
+    codomain, `Theory/Raw/Endomorphic.lean`)
+
+**Eqv — Raw-internal congruence**.
+`lean/E213/Theory/Raw/Congruence.lean` defines the equivalence
+closure on Raw under generator relations *independent of any
+Lens*.  `Eqv.induction'` is the generic induction principle;
+`Eqv.weaken` is monotonicity.  Eqv is the Raw-side substrate
+that Lens.equiv reads — important when stating results that
+should be Raw-internal (Level L1, per Part VIII.4).
+
+**Parenthesization distinctness**.
+`lean/E213/Theory/Raw/ParenthesizationDistinct.lean` proves the
+**positive** result that different binary-tree structures are
+structurally distinct Raws — `(a / b) / c ≠ a / (b / c)`.
+This is NOT a defect: parenthesisation = tree shape = Raw
+structure.  Refutes the "ℕ₊ = Raw / associativity" quotient
+proposal — associativity is a Lens-level property, not a Raw-
+level identity.
 
 ### II.2 Lens-as-codomain-shape
 
@@ -223,12 +290,39 @@ imposes:
 
 `universalMorphism α : Raw → α := Raw.fold d.a d.b d.combine`
 is the *unique* morphism Raw → α (Raw is the initial object
-in the meaning-framework category).
+in the meaning-framework category).  Uniqueness is
+`lean/E213/Lens/Initiality.lean` — Raw is initial in the Raw-
+algebra category; the symmetric-combine hypothesis is needed
+for the uniqueness half.
 
 **75 thesis** (`research-notes/75_semantic_atom.md`): "Nothing
 with meaning escapes 213."  Lean form: every meaning-framework
 α has a `HasDistinguishing` instance, and Raw embeds into it
 canonically.
+
+**Universal Lens — canonical normalization form**.
+`lean/E213/Lens/Universal/QuotLens.lean` constructs
+`universalLens : Lens (Raw → Prop)` whose view is *injective*
+modulo Lens-equivalence — every Lens M satisfies
+`universalLens (M.equiv).view r = universalLens (M.equiv).view
+r' ↔ M.equiv r r'` (theorem `universalLens_recovers`).
+`universalLens` is therefore the canonical normalised form of
+any Lens; `universalLens_idempotent` confirms applying twice
+yields the same kernel.
+
+**Lens composition suite**.
+`lean/E213/Lens/Compose/{Morphism, OnLens, OnLensImage,
+Factoring}.lean` — α-side morphisms `α → β` lift to Lens-level
+arrows; `refines_of_morphism` is the canonical witness.  These
+turn Lens-on-α into a *category* (not just a preorder).
+Phase 7's `GRACat` is one instance.
+
+**Lens.Algebra + Lens.Lattice** —
+`lean/E213/Lens/Algebra.lean` + `Lattice/IndexedJoin.lean`
+give the lattice structure on Lens-kernels (refinement order;
+joins for indexed Lens families).  The `LensIso` equivalence
+class (Part VI.9, Phase 22) sits as a single point in this
+lattice.
 
 ### II.5 Universe-polymorphic version (Phase 19+)
 
@@ -243,6 +337,59 @@ hold up to a chosen `Equiv` relation.  Phase 21
 Together: a `Type 1` carrier (`GRA23`) admits the natural
 categorical structure, with monoidal product as combine and
 `GRAIso` as equivalence.
+
+### II.6 Raw topology bookends + Bool213
+
+`lean/E213/Lens/RawTopology.lean` — the `constLens` (collapse
+all of Raw to a single value) and the identity-Lens are the
+**lattice top and bottom** of the Lens-kernel preorder.  Every
+Lens kernel sits between them.  This is the
+`K_∞ ≡ point ≡ trivial-topology` collapse at the raw level
+(per `seed/AXIOM/06_lens_readings.md` §6).
+
+`lean/E213/Lens/Bool213.lean` — Raw-encoded closed-universe
+Boolean: `booleanProj := Raw.fold T F and` produces a strict
+{T, F} codomain from Raw.  The meta-(T, F) pattern is
+isomorphism-stable: any distinct Raw pair gives an equivalent
+Lens.  `Bool` is therefore not assumed; it is *forced* as the
+2-atom closed-codomain Lens of Raw.
+
+### II.7 Flat ontology + syntactic internalisation
+
+`seed/AXIOM/06_lens_readings.md` §9.3 names the **flat
+ontology**: objects, types, relations, functions, Lenses, and
+proofs are all predicates on Raw^n.  No layering, no exterior
+hierarchy.
+
+`lean/E213/Lens/FlatOntology.lean` formalises this as
+decidable predicates `Raw^n → Bool` with the algebraic
+operations (and, or, not, xor, implication).
+`Lens/SyntacticInternalization.lean` (§9.4) closes the
+self-reference loop: a 7-glyph Polish-prefix encoding /
+parser pair satisfies `parseTree (printTree t) = some t` —
+lossless round-trip.  `Lens/PredicateSelfEncoding.lean`
+encodes finite-prefix predicates back to Raw via positional
+Gödel numbering — *predicates themselves are Raw*.
+
+This is the L3-L4 closure: Raw not only carries meaning, it
+carries its own meta-language.
+
+### II.8 Cardinality as Lens-observable family
+
+`lean/E213/Lens/Cardinality/` (9 modules: Cantor / Tower /
+BoolSpace / Countable / Pair / Godel / Chain /
+LensCardinality / CardinalityLB).  These are **Lens
+observables**, not Raw-level facts.  Finiteness,
+countability, cardinality lower bounds, Cantor's diagonal —
+each becomes a predicate that holds *of a given Lens* on Raw,
+not of Raw itself.  Per `seed/RESOLUTION_LIMIT_SPEC.md`: no
+quantity is a universe constant; `N_U = 5^25` is the count-
+Lens output at fractal level 2.
+
+This relocates classical cardinality discussions (`ℵ_0`,
+continuum, Cantor's diagonal) from foundation to Lens-output.
+The diagonal still proves what it proves — but what it proves
+is a property of the Lens, not of Raw.
 
 ---
 
@@ -304,6 +451,29 @@ natural integers are exactly the Lucas-Pell trace ring
 `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ`.  P-orbit period `D(p) ≤ 4` for
 `p ≤ 97` (empirical).  Conjecture: `O(log p)` (open).
 
+### III.6 Atomicity correspondence — d = 5 at the inductive level
+
+`lean/E213/Lens/Number/Nat213/AtomicityCorrespondence.lean`
+`total_lens_framework` — the atomic decomposition
+`d = NS + NT = 3 + 2 = 5` is **realised at the inductive-type-
+signature level**: Raw has 3 constructors (`Raw.a`, `Raw.b`,
+`Raw.slash`), Nat213 has 2 (`one`, `succ`).  Their sum is 5.
+The "atomic count" is not chosen separately for each derived
+type; it lives at the constructor-count level of the Raw / Nat
+pair as a single forced datum.
+
+### III.7 Bit-pattern uniqueness
+
+`lean/E213/Meta/BitPatternUniqueness.lean` — the fundamental
+lemma `2^m + 2^n = 2^p + 2^q ∧ m < n ∧ p < q → m = p ∧ n = q`.
+Proved via 213-native `parity` (the step-2 cohomological
+residue) + `Pow213` / `Nat213` helpers.  All ∅-axiom.
+
+This is a small-but-critical 213-native atom: binary
+representations have unique low/high bit assignment.  Used
+throughout the cohomology programme when decomposing
+characteristic functions of cup-image subsets.
+
 ---
 
 ## Part IV — Number systems forced from Raw + P
@@ -322,11 +492,35 @@ representations:
 Bridge: `Nat213.Bridge` — `toRaw : Peano.Nat213 → Raw` is
 the chart embedding; `value_toRaw` is a bijection; the
 value-level homomorphism preserves `+` and `*`.
+`Nat213/Chain.lean` defines the Raw-subtype representation;
+`ChainCoreBridge.lean` formalises the `Chain ↔ Peano.Nat213`
+bijection.
 
 The point: **`Nat` is not assumed.  `Nat` is forced** —
 from Raw + P (the "successor" operation is `slashOrSelf
 n Raw.b`, the simplest Raw-level move that produces a
 non-trivial new element).
+
+**Three mediant Tower lifts** — `Nat213.Tower/`:
+
+  · `NatPairToInt` — `(a, b) ↦ a - b` with diagonal-quotient
+    equivalence; gives `ℤ` from `ℕ²` via orthogonal-axis
+    projection
+  · `NatPairToQPos` — multiplicative diagonal
+    `(a, b) ~ (c, d) ⟺ a · d = b · c`; gives `ℚ₊` from the
+    *same* syntactic container as `ℤ`, differing only in the
+    quotient relation
+  · `NatTripleToZ2` — `(a, b, c) ↦ (a - c, b - c)`; gives
+    `ℤ²` from `ℕ³`.  The headline:
+    `three_axes_sum_to_zero` proves the three unit axes
+    `{(1, 0), (0, 1), (-1, -1)}` sum to `0` — *realising the
+    Eisenstein cube-root-of-unity identity*
+    `1 + ω + ω² = 0` at the number-theory level
+
+`ℤ` and `ℚ₊` are not separate constructions; they are *two
+quotient choices on the same `ℕ²` container*.  This is the
+multiplication–addition duality the framework reads off
+without external choice.
 
 ### IV.2 Möbius P and Stern-Brocot
 
@@ -338,8 +532,46 @@ PellInvariant}.lean` close the chapter:
   · P generates the Stern-Brocot tree
   · Pell unit invariant
 
+The `SternBrocotReachable` inductive predicate (3
+constructors: `seedZero`, `seedInf`, `mediant`) covers every
+coprime `(m, k) ∈ ℕ²` with `m + k ≥ 1`.  The master theorem
+`cutEq_iff_sternBrocotEq_and_zero` (`Mobius213SternBrocot.lean`)
+formally closes the equivalence.
+
 P is therefore both the *atomic algebraic anchor* (Part III)
 and the *equivalence-class structure on cuts* (here).
+
+**Möbius P Grand Unification — 10-conjunct master**.
+`lean/E213/Lib/Math/Mobius213GrandUnification.lean` —
+`grand_unification` is a single bundled theorem with ten
+distinct readings of P as one event:
+
+  · (A–B) Cross-domain meta — 5-domain equality unification
+    via Stern-Brocot
+  · (C) Cut-level multiplication forward closure in
+    `N²`-fibers
+  · (D) Pell-Fibonacci recurrence `a(n+2) + a(n) = 3 · a(n+1)`
+    on both P-orbits
+  · (E–F) `K_{3, 2}^{(c=2)}` state-class signature recovered
+    from P entries
+  · (G–H) Continued-fraction recurrence + Cayley-Dickson
+    2-doubling asymptote bridge
+  · (I–J) Atomicity ↔ discriminant ↔ orbit anchor + Pell unit
+    symplectic invariant
+
+This is one of three named "X read as one event" capstones
+in the book (Part I.8 Six-theorem, Part IV.2 here, Part VI.9
+LensIso class).
+
+**Atomicity anchor**.
+`Mobius213AtomicityAnchor.lean` — `NS_NT_reachable` proves the
+atomic pair (3, 2) is Stern-Brocot reachable;
+`pseq_seedInf_realises_d_NS` proves the P-orbit reaches
+`(d, NS) = (5, 3)` at depth 2.  Master theorem: `5 = NS + NT =
+d` appears simultaneously as (i) the unique atomic Nat,
+(ii) the discriminant of P, (iii) the first component of
+`Pseq seedInf` at depth 2.  Same Nat, three independent
+Lens-frames.
 
 ### IV.3 Cayley-Dickson tower
 
@@ -349,8 +581,10 @@ Cayley (integer octonions) → Sedenion → Pathion →
 Trigintaduoionion.  Layers indexed by the CD doubling.
 
 `theory/math/sym3_spine.md` — Sym(3) 8-fold decomposition
-appears across CD layers, Thurston geometries (Part V), and
-gluon octets (Part VII).
+appears across CD layers and Thurston geometries (Part V).
+The same decomposition reaches into the eventual physics
+deployment (gauge sector) but that side is out of scope
+here.
 
 ### IV.4 Real213
 
@@ -388,22 +622,47 @@ uniqueness), Teichmüller iteration, ℚ_p, full ultrametric.
 
 ## Part V — Algebraic and cohomological structure
 
-### V.1 K_{NS, NT}^{(c)} classification
+### V.1 K_{NS, NT}^{(c)} classification — the five-direction c-counter
 
 `theory/math/cohomology/k_nm_c_classification.md` is the
-central chapter (this and the next two close the c-counter
-programme).
+central chapter.  The c-counter programme decomposes into five
+independent closure routes, each ∅-axiom:
 
-Five directions:
-
-  · A — codim ≥ c (parametric, ∀(NS, NT, c))
-  · B — codim ≤ c (per-layer completeness, unconditional via
-    8 primary cup generators + `cong` constructor)
-  · C — ψ-discriminator joint kernel ⊆ InPrimary
-  · D — mediant cohomology functor (Vandermonde under
-    Stern-Brocot)
-  · E — c-counter master:
+  · **A — `codim ≥ c` parametric**.  `V33EnrichedParametric`
+    proves the lower bound for every `(NS, NT, c)`.  The
+    `9 · m` offset cancellation in `NatBeqHelpers` absorbs
+    280+ proof sites across 12 templates (L1 parametric
+    consolidation, per Part VIII.4).
+  · **B — `codim ≤ c` unconditional**.  Closed via 8 explicit
+    primary cup generators at `c = 1` plus layer-promotion
+    (`promote_face` / `promote_edge`) lifting to ∀c.  The
+    `cong` constructor (closure under pointwise equality)
+    bridges function-vs-pointwise without `funext`.  See
+    `essays/per_layer_completeness_constructive_closure.md`.
+  · **C — ψ-discriminator joint kernel ⊆ InPrimary**.
+    `V33EnrichedParametricDualSpan*` — the c-many
+    ψ-discriminators *span* the dual of H²_enr; PRIMARY
+    cup-image rather than FULL is the maximal kill-preserving
+    restriction.
+  · **D — mediant cohomology functor**.  V/E/F Vandermonde
+    counts under Stern-Brocot; `K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}`
+    as the marquee identity.  `MediantCohomologyFunctor.
+    mediant_cohomology_functor_capstone`.
+  · **E — c-counter master**.
     `EnrichedKNSNTcMaster.master_Knn_c_counter_resolved`
+    consolidates A–D.
+
+Companion essays:
+`essays/c_counter_programme_closure.md` (5-direction synthesis),
+`essays/synthesis_interlock_map.md` (parallel with P-orbit's
+6-phase closure), `essays/layer_multiplication_pattern.md`
+(the shared proof-shape: invariant + offset + cancellation).
+
+**Cross-graph universality**.
+`Cohomology/CrossGraphPattern.lean` + `K33Unified.lean` — the
+"face-sum-to-zero" identity on 4-cycles at `NT = 3` is
+universal across `K_{3, 3}` and `K_{4, 3}`, independent of
+`NS`.
 
 ### V.2 Stern-Brocot mediant cohomology functor
 
@@ -436,8 +695,10 @@ bridge}.md` — 12 sub-clusters under cohomology.
 
 `theory/math/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
 Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹, in
-Thurston's 8 geometries, in the gluon octet, in the Akbulut
-cork.  Same decomposition, 4 frames.  Capstone:
+Thurston's 8 geometries, in the Akbulut cork.  Same
+decomposition, three independent math frames.  (A fourth
+frame — gauge content — surfaces in the eventual physics
+side; out of scope here.)  Capstone:
 `X1_sym3_cross_frame_capstone`.
 
 ### V.7 Universe chain
@@ -445,6 +706,59 @@ cork.  Same decomposition, 4 frames.  Capstone:
 `theory/math/universe_chain.md` — UniverseChain + Mobius213 +
 Nat213 (~32 files).  The chain of universes is forced by P-orbit
 iteration.
+
+### V.8 ParadigmDomain — 9-domain unification
+
+`lean/E213/Lib/Math/ParadigmDomain*.lean` — typeclass
+formalising that all 9 classical domains (Combinatorics,
+Probability, Information, Logic, Topology, Multivariable
+Calculus, Complex Analysis, Measure Theory, Cohomology) share
+**`truncation_grade = 5 = d`** and decidable Bool atoms.
+`uniform_paradigm_witnesses` consolidates them.
+
+The 9 domains are not chosen by historical convention — they
+are exactly the natural sub-categories under the
+`(NS, NT, d) = (3, 2, 5)` atomic data, each reading the same
+truncation through its discipline-specific vocabulary.
+
+`ParadigmDomainGradedRing.lean` lifts the unified typeclass
+to a graded-ring structure; `paradigm_coeffs` is the binomial
+row of P (Pascal's row 5: `(1, 5, 10, 10, 5, 1)`).
+
+### V.9 Algebra213 / Ring213 / HurwitzRing
+
+`lean/E213/Lib/Math/Tactic/{HurwitzRing, IntSquare,
+QuadExtension}.lean` — 213-native polynomial identities for
+Cayley-Dickson layers without `propext`.  Hurwitz norm
+identity, associativity at each CD level, quadratic-extension
+algebra.
+
+`theory/math/algebra213_meta_theorems.md` — the meta-theorems
+for the Ring213 / StarRing213 / CDDouble functor tower.  This
+is the algebraic substrate that makes the CD construction
+PURE through every layer.
+
+### V.10 Aurifeuillean fractal — `N_U + 1`
+
+`theory/math/cohomology/aurifeuillean.md` +
+`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCountAurifeuillean*.lean`
+— the `N_U + 1` family `d^(d^n) + 1` admits a uniform
+Aurifeuillean factorisation through `Φ_10(5) = 521` via the
+`ℤ[√5]`-norm identity.  16 PURE theorems close the
+cyclotomic-cohomology bridge.
+
+The fractal `N_U = 5^25` (count-Lens output at level 2) is
+not isolated — `N_U + 1` carries the Aurifeuillean cyclotomic
+structure, providing algebraic-geometric anchoring at every
+fractal turn.
+
+### V.11 H³, H⁴ stable at +6
+
+`theory/math/exotic_4mfd_cork.md` + `H3Twist.lean` — the
+3-skeleton and 4-skeleton truncations stabilise the signed
+cork-twist count at `+6` (H¹ = +4, H² = +2, H³ = 0, H⁴ = 0).
+The 4-simplex closure of the `K_{3, 2}^{(c=2)} ↪ Δ⁴` dual
+filling.
 
 ---
 
@@ -559,100 +873,46 @@ Resolution, Operad all name the same Lens-kernel on Raw.
 
 ---
 
-## Part VII — Physics deployment
-
-### VII.1 Atomic constants
-
-`theory/physics/foundations/atomic_constants.md` — the
-canonical chapter.  `(NS, NT, c, d) = (3, 2, 2, 5)` derived
-from atomicity + alive + Pell-Lucas + k = 2 arity.
-
-### VII.2 C3 chain and gauge content
-
-`theory/physics/symmetry/c3_chain.md` — Sym(3)-action on
-K_{3, 2} forces the gauge content.  `b₁(K_{3, 2}^{(c=2)}) = 8`
-matches the gluon octet exactly.
-
-### VII.3 α_em precision
-
-`theory/physics/alpha_em/precision_derivation.md` — α_em at
-**0.09 ppb** from the 5-layer Gram structural + cup-ladder +
-SO(10) tail decomposition.  Lean: `Physics/AlphaEM/Capstone`.
-
-  · Step 1: Gram structural (`GramStructural`)
-  · Step 2: cup-ladder (`KPlus1AlphaPowerGraduation`)
-  · Step 3: Newton corrections (`GramStructuralNewton`)
-  · Step 4: capstone (`GramStructuralCapstone`)
-  · Step 5: SO(10) tail
-  · Step 6: K_{3,2}^{(c=2)} higher cohomology (sub-ppb)
-
-Validation Standard #1 met.  Falsifier in `catalogs/falsifier-roster.md`.
-
-### VII.4 Other observables
-
-  · `theory/physics/foundations/proton_electron_ratio.md`
-  · `theory/physics/hadron.md` — falsifier brackets; baryon
-    spectrum open (Tier 4.2)
-  · `theory/physics/cosmology/gravity_shadow.md`
-  · …
-
-`theory/physics/INDEX.md` enumerates 18 chapters.
-
-### VII.5 Validation Standard
-
-From `CLAUDE.md`:
-
-> From zero knowledge of existing physics/math, DRLT must
-> satisfy at least one of:
->
-> 1. Strict ∅-axiom precision theorem at ppb-ppm
-> 2. Strict ∅-axiom falsifier — measurable
-
-Below this = below standard.  α_em at 0.09 ppb (Step 6:
-sub-ppb) meets #1; `N_gen = 3` and `θ_QCD < J·α⁴` meet #2.
-
----
-
-## Part VIII — Foundational frameworks as Readings
+## Part VII — Foundational frameworks as Readings
 
 This part is the conceptual capstone.  Per `seed/AXIOM/07_primacy.md`,
 every framework is a Lens reading of Raw.  Lean exhibits this
 concretely.
 
-### VIII.1 Peano as Lens composition
+### VII.1 Peano as Lens composition
 
 `lean/E213/Lib/Math/AxiomSystems/PeanoAsLensComposition.lean`
 — Peano arithmetic *is* a Lens composition over Raw.  The
 "successor" axiom is `Raw.slash`-with-`Raw.b` structurally.
 No external Peano postulate needed.
 
-### VIII.2 ZFC extensionality as Lens
+### VII.2 ZFC extensionality as Lens
 
 `lean/E213/Lib/Math/AxiomSystems/ZFCExtensionalityAsLens.lean`
 — ZFC's extensionality reads as a particular Lens kernel on
 Raw.
 
-### VIII.3 Classical analysis completeness as Lens
+### VII.3 Classical analysis completeness as Lens
 
 `lean/E213/Lib/Math/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
 — LUB property is a Lens kernel; the modulus replaces ε-δ
 (per `theory/math/modulus.md`).
 
-### VIII.4 Cross-theory cohabit
+### VII.4 Cross-theory cohabit
 
 `lean/E213/Lib/Math/AxiomSystems/CrossTheoryCohabit.lean` —
 multiple frameworks cohabit a single Raw via different Lenses.
 No framework is privileged; each reads off the same residue
 through its chart.
 
-### VIII.5 HoTT as a Reading (Phase 12.2 / 22)
+### VII.5 HoTT as a Reading (Phase 12.2 / 22)
 
 `lean/E213/Lib/Math/GRA/HoTTEnrichment.lean` + `LensIsoCapstone`
 make this explicit.  HoTT's truncation hierarchy is the R₃
 Reading of GRA; combined with Phase 22, HoTT's grade structure
 on Raw is `LensIso` to `gradeLens`.
 
-### VIII.6 Category theory as a Reading (Phase 7 + 22)
+### VII.6 Category theory as a Reading (Phase 7 + 22)
 
 Phase 7's `GRACat` is itself a `Cat`; Phase 22 puts the GRA
 grade structure on Raw in the LensIso class with `gradeLens`.
@@ -660,7 +920,7 @@ Combined with Phase 20's symmetric monoidal structure
 (`productSwapIso`), Cat at the (2, 3)-graded level is a
 Reading.
 
-### VIII.7 The capstone framing
+### VII.7 The capstone framing
 
 Per the essay `theory/essays/gra_as_substrate_of_cat_hott.md`:
 
@@ -679,9 +939,9 @@ full categorical instance, LensIso class).
 
 ---
 
-## Part IX — Methodology and discipline
+## Part VIII — Methodology and discipline
 
-### IX.1 Three-tier discipline
+### VIII.1 Three-tier discipline
 
 `theory/PROMOTION_CRITERIA.md` is canonical.
 
@@ -693,7 +953,7 @@ Promotion is on closure: a Lean sub-tree closes (H1–H4 hard
 criteria + S1–S3 soft) → narrative chapter at
 `theory/<mirror-path>` → source notes archived.
 
-### IX.2 Strict ∅-axiom standard
+### VIII.2 Strict ∅-axiom standard
 
 `STRICT_ZERO_AXIOM.md` is the live PURE / DIRTY catalog.
 
@@ -710,7 +970,7 @@ Sealed-by-design exceptions:
 Tier 5.1 (omega → kernel-lemma migration) closed for `Lib/Math/GRA/`
 in this session; 401 PURE / 0 DIRTY.
 
-### IX.3 Scanner suite
+### VIII.3 Scanner suite
 
 `theory/meta/scanner_suite.md` — `seed/THEOREM_METHODOLOGY_SUITE.md`
 TH-1 proof-shape fingerprint + the scanner archetypes
@@ -721,7 +981,7 @@ Tools:
   · `tools/scan_all_axioms.py` — bulk audit
   · `tools/scan_*.py` — pattern-specific scanners
 
-### IX.4 Raw-derivation levels
+### VIII.4 Raw-derivation levels
 
 `theory/meta/raw_derivation_levels.md` —
 `seed/THEOREM_METHODOLOGY_SUITE.md` TH-2 reading.  Three Levels:
@@ -732,7 +992,7 @@ Tools:
 
 Each result has a canonical level placement.
 
-### IX.5 Closed-form spec
+### VIII.5 Closed-form spec
 
 `seed/CLOSED_FORM_SPEC.md` — DRLT Closure Form:
 > Every K_{3,2}^{(c=2)} observable factors as
@@ -742,7 +1002,86 @@ Each result has a canonical level placement.
 Bishop subsumption + 3-domain projection catalogue + cross-domain
 bridges.
 
-### IX.6 Failure modes (CLAUDE.md catalog)
+**Propext-avoidance pattern set** (12 patterns).  When a
+session hits a `propext` leak during theorem development,
+consult the trick set in order:
+
+  1. `rw` via `Iff.trans` instead of `simp` on Iff
+  2. term-mode `▸` (Eq.rec) instead of `rw` at goal
+  3. `Bool.and_eq_true` direct helpers instead of `decide_eq_true_iff`
+  4. Nat-core PURE lemmas (`Nat.add_comm`, `Nat.mul_succ`,
+     `Nat.add_assoc`) instead of `omega`
+  5. `decide_eq_true_iff` two-direction split
+  6. Nat-subtraction PURE alternative
+     (`Nat.add_sub_cancel`-style)
+  7. `max` / `min` PURE (project's own `max_comm_pure`)
+  8. List operations PURE (custom recursion not `simp`)
+  9. `by_cases` + explicit case `rfl` instead of `simp [h]`
+  10. `obtain` + `.proj` instead of `simp` on conjunctions
+  11. structural induction on enumerated finite types
+      (`cases r <;> rfl` for `Reading`-style enums)
+  12. Tier 5.1 omega → kernel-Nat-lemma migration
+      (the Tier 5.1 backlog migration pattern from GRA Phase 1)
+
+### VIII.6 Pattern Catalog — atomic games
+
+`lean/E213/Lib/Math/PatternCatalog/*.lean` formalises four
+atomic abstraction games:
+
+  · **Locality** — proof-shape locality (atomic moves)
+  · **Typeclass** — typeclass extraction (abstraction via
+    interface)
+  · **Catamorphism** — `Raw.fold` / `Raw.rec` pattern
+  · **Dynamical** — orbit / iteration patterns
+
+Plus the composite games:
+  · `Lens = Typeclass × Cata` with compatibility witness
+  · `CataForcedForm` for forced catamorphic instances
+  · 4 + 6 = 10 distinct patterns total
+
+This is the *methodology counterpart* of GRA Phase 12's five
+Readings — at the proof level rather than the data level.
+
+### VIII.7 Proof-shape fingerprinting + parametric extraction
+
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-1 + §TH-4 — the
+proof-fingerprint suite at four levels:
+
+  · tactic token sequence (most surface)
+  · `Expr`-node shape (medium)
+  · recursor invocation set (deeper)
+  · citation graph (deepest)
+
+When N proofs share byte-identical fingerprint across
+independent scanners, **extract the shared implicit lemma**
+(L1 parametric consolidation).  Example:
+`9 · m` offset cancellation in `NatBeqHelpers` absorbs 280+
+sites across 12 templates.
+
+### VIII.8 Falsifiability operationalised
+
+`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — 135 auto-
+discovered structural falsifier theorems (negation-shape,
+`decide`-verified).  Distribution:
+
+  · 78% are `≠` (e.g., `Raw.a ≠ Raw.b`)
+  · 15% general `¬ P`
+  · 6% `¬ ∃`
+  · 1% `¬ ∀`
+
+Plus 26 physical falsifiers in
+`catalogs/falsifier-roster.md`.  Together they form the
+measurable validation surface — the *witnesses that 213
+forbids certain constructions*.
+
+### VIII.9 Scanner suite (continued)
+
+`seed/META_SCAN_ARCHETYPES.md` enumerates 11 reusable scanner
+archetypes (Tier-2 AST motif scanners, Tier-1 syntax-skeleton
+scanners, citation-graph analysis, structural-classifier
+template, etc.).  Re-use before writing new tooling.
+
+### VIII.6 Failure modes (CLAUDE.md catalog)
 
 12 recurring slips (see CLAUDE.md "Failure modes catalog"):
 
@@ -789,7 +1128,6 @@ Architectural canonical: `lean/E213/ARCHITECTURE.md`.
   · `Δⁿ` — n-simplex on (n + 1) vertices; `Δ⁴` paired with
     `K_{3, 2}^{(c=2)}`
   · `Raw` (213's substrate, lowercase r in narrative)
-  · `α_em` (electromagnetic fine-structure constant)
   · `gcd(NT, NS) = 1` and `Frobenius(2, 3) = 1` — the
     coprimality fact that forces (2, 3)-GRA reachability
 
@@ -848,11 +1186,8 @@ proofs)
 Part VI in full + `theory/essays/gra_as_substrate_of_cat_hott.md`
 + `theory/essays/gra_universality_one_principle.md`
 
-**For physics deployment**:
-Part III → Part VII
-
 **For audit / verification**:
-Part IX → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`
+Part VIII → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`
 
 ---
 
@@ -860,13 +1195,16 @@ Part IX → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`
 
   · **v1** (2026-05-28) — initial linearisation of theory/
     catalog + Lean docstring sweep.  Phases 1–22 of GRA
-    consolidated.  Status: stable v1.
+    consolidated.  Mathematics-only scope.  Status: stable v1.
 
-Future versions:
+A *physics-deployment* part will be added once the
+mathematical derivation programme closes completely.  Until
+then this book stops at Part VIII (Methodology).
+
+Future versions of the mathematics-only book:
   · Pull additional content from Lean docstrings not yet
     surfaced in theory/
-  · Expand Part VII as physics deployment progresses
-  · Expand Part VIII as more Foundational-as-Reading
+  · Expand Part VII as more Foundational-as-Reading
     formalisations close
   · Annotate Tier 5.1 propext-unsealing migrations as they
     land

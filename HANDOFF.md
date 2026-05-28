@@ -1,9 +1,83 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
-(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.
+(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.2
+(math-only, 1216 lines).
 
-## This session — Theory Book v1 (878 lines)
+## This session — Theory Book v1.2 expansion + structure cleanup
+
+`theory/THEORY_BOOK.md` v1.2 — physics removed (will be written
+once mathematical derivation closes completely), book expanded
+to **1216 lines** (was 878) via 5-agent comprehensive sweep of
+`seed/`, `theory/`, `lean/E213/` finding ~60 substantive
+missing items.  High-impact additions integrated:
+
+  · Part I.4 — full self-completion thesis (4-clause
+    simultaneous visibility)
+  · Part I.7 — encoding costs + cmp-independence meta-theorem
+  · Part I.8 (new) — **Six-theorem: 10 readings of 6** as
+    one Raw event
+  · Part II.1 — Eqv (Raw-internal congruence) +
+    parenthesization distinctness
+  · Part II.4 — Lens.Initiality + Lens.Universal.QuotLens +
+    Lens.Compose suite + Lens.Algebra/Lattice
+  · Part II.6 (new) — RawTopology bookends + Bool213
+  · Part II.7 (new) — Flat ontology + syntactic
+    internalisation + predicate self-encoding
+  · Part II.8 (new) — Cardinality as Lens-observable family
+    (Cantor / Tower / Godel / Pair / etc.)
+  · Part III.6 (new) — Atomicity correspondence (d = 5 at
+    inductive-type level)
+  · Part III.7 (new) — Bit-pattern uniqueness
+  · Part IV.1 — Three mediant Tower lifts
+    (NatPair→Int/QPos, NatTriple→Z2 with Eisenstein
+    `1 + ω + ω² = 0`)
+  · Part IV.2 — **Mobius213GrandUnification 10-conjunct
+    master** + AtomicityAnchor + SternBrocotReachable
+  · Part V.1 — Five-direction c-counter (A/B/C/D/E) detail
+    + cross-graph universality
+  · Part V.8 (new) — ParadigmDomain 9-domain unification
+  · Part V.9 (new) — Algebra213 / Ring213 / HurwitzRing
+  · Part V.10 (new) — Aurifeuillean fractal `N_U + 1`
+  · Part V.11 (new) — H³ / H⁴ stable at +6
+  · Part VIII.5 — Propext-avoidance pattern set (12
+    patterns)
+  · Part VIII.6 (new) — PatternCatalog atomic games
+  · Part VIII.7 (new) — Proof-shape fingerprinting + L1
+    parametric extraction
+  · Part VIII.8 (new) — Falsifiability operationalised
+    (135 + 26 falsifiers)
+  · Part VIII.9 (new) — Scanner archetypes
+
+### Structure cleanup applied (from audit agent)
+
+  · `theory/essays/INDEX.md` — added missing
+    `every_axis_sees_p.md` entry
+  · `theory/INDEX.md` — chapter count updated from
+    "120 total, incl. 24 essays" to "~138 total, incl. 27
+    essays"
+  · `research-notes/INDEX.md` — added 5 active Tier-1 notes
+    (G121, G123, G135, G136, G149) to registry with
+    lifecycle status
+
+### Sweep methodology
+
+5 parallel `Explore`-agents:
+  1. Foundations/Lens (seed/AXIOM + lean/E213/{Theory/Raw,
+     Lens})
+  2. Number systems (Nat213, Real213, Padic, Mobius213,
+     CayleyDickson)
+  3. Algebra & cohomology (Cohomology, HodgeConjecture,
+     DyadicFSM, ParadigmDomain)
+  4. Methodology + essays + meta-infrastructure
+  5. Structure cleanup audit (background async)
+
+Each agent read assigned files deeply; total findings
+catalogued for selective integration.  High-impact items
+integrated; lower-impact items remain in agent transcripts
+for future expansion.
+
+## Previous step — Theory Book v1 (878 lines)
 
 `theory/THEORY_BOOK.md` v1 — single linearised reading path
 from `seed/AXIOM/` to GRA Phase 22's `Lens.Unified` capstone.

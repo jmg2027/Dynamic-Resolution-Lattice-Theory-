@@ -88,6 +88,11 @@ Active top-level registries after merge:
 | `archive/G139_mobius_self_form.md` | 모습 자체가 뫼비우스 행렬 — P self-form fixed point (CLOSED + PROMOTED) | promoted to `theory/math/mobius213_p_orbit_closure.md` §"Self-form fixed-point" + essay `mobius_self_form_fixed_point.md` |
 | `G140_P_generates_all_nat.md` | P generates all of ℕ (PGen n ↔ n ≥ 1) — CLOSED + promoted | promoted to essay `k32_cohomology_simplex_higher_insight.md` |
 | `G147_promotion_G140_G138BD.md` | Promotion note: G140 + G138 Pattern B/D higher-insight linkage | promotion record |
+| `G121_dim4_self_pointing_axis.md` | dim-4 self-pointing-axis open conjecture (below Validation Standard); side-observations to `theory/math/geometrization_conjecture.md` | active scratch (chapter handles R1; note hosts open marathon front) |
+| `G123_padic_next_directions.md` | Post-padic-library-closure direction note; companion to `theory/math/padic_real213.md` | active scratch (next-direction memo) |
+| `G135_padic_closure_synthesis.md` | Synthesis note from post-G122 padic library closure | post-closure synthesis (could be archived) |
+| `G136_kplus1_marathon_insights.md` | Insight note from G132 cup-ladder marathon; companion to `theory/math/cohomology/cup_ladder_graduation.md` | post-closure synthesis |
+| `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/graded_residue_arithmetic.md | post-closure synthesis |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
 | `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |
