@@ -1,9 +1,39 @@
 # Session handoff
 
-Branch: `copilot/theorize-integrated-structure` (continuation of
-GRA Universality marathon).  0 sorry, 0 external axioms, 0 native_decide.
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA promotion + essay
+session, follows the GRA Universality marathon merge.
 
-## This session — GRA Universality Phase 6 COMPLETE (MARATHON DONE)
+## This session — GRA promotion + essay (2026-05-28)
+
+  · **Promotion**:
+      · Created umbrella `lean/E213/Lib/Math/GRA.lean` and wired it
+        into `lean/E213/Lib/Math.lean`.
+      · Fixed pre-existing build failures in Marathon 16 code
+        (omega could not bridge `(n+2)/3` vs `n/3 + (if n%3=0 then
+        0 else 1)` without case-splitting on `n % 3 = 0`; affected
+        6 files: `NumberTheory`, `Graph`, `Analysis`, `Cohomology`,
+        `HoTT`, `HigherAlgebra`, `Translation`).
+      · Added `hgen1`/`hgen2` hypotheses to
+        `Translation.transport_depth_bound` (lemma was under-
+        determined without gen2 equality).
+      · Fixed simp-collapse on `master_translation*` (P((n+2)/3)
+        repeated collapses to single P-application via and_self).
+      · Marked `theory/math/gra_book.md` + `theory/math/graded_
+        residue_arithmetic.md` as **CLOSED** (Marathon 16).
+      · Added GRA entry to `lean/E213/ARCHITECTURE.md` Lib/Math/.
+      · Added Tier 5.1 backlog entry to `STRICT_ZERO_AXIOM.md`
+        for `Lib/Math/GRA/`'s ~67 `[propext, Quot.sound]`
+        DIRTY theorems (mechanical omega→decide upgrade path).
+      · Archived G148 / G150 / G151 to `research-notes/archive/`.
+  · **Essay**: `theory/essays/gra_universality_one_principle.md`
+    — "Walk-length, cup-length, truncation, chromatic height,
+    resolution exponent — why are these the same?"  Derives
+    answer via the `GRA23_*` instances + the master translation
+    + the universal depth comparison; cross-frame with det(P)=1
+    + Frobenius=1 + K_{3,2}^{(c=2)} closure form; honest open
+    frontier (carrier-enrichment Phase 7).
+
+## Previous session — GRA Universality Phase 6 COMPLETE (MARATHON DONE)
 
 ### Phase 6: Translation Theorems (ALL DONE)
 
@@ -59,7 +89,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (ALL Phases)** | **★ CLOSED ★** |
+| **16** | **GRA Universality (ALL Phases)** | **★ CLOSED + PROMOTED ★** |
 
 ## Genuinely open (next session targets)
 

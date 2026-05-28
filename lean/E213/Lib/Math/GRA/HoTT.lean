@@ -83,13 +83,15 @@ theorem hott_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
-theorem hott_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem hott_depth_eq (n : Nat) (_hn : n ≥ 2) :
     hottDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [hottDepth]
-  omega
+  simp only [hottDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- Greedy: using 3-truncation maximally minimizes cell count. -/
-theorem hott_greedy (n : Nat) (hn : n ≥ 2) :
+theorem hott_greedy (n : Nat) (_hn : n ≥ 2) :
     hottDepth n = (n + 3 - 1) / 3 := by
   simp [hottDepth]
 

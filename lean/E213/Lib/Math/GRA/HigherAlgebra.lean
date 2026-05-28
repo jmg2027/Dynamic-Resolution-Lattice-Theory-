@@ -82,13 +82,15 @@ theorem ha_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
-theorem ha_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem ha_depth_eq (n : Nat) (_hn : n ≥ 2) :
     haDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [haDepth]
-  omega
+  simp only [haDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- Greedy: using E₃ maximally minimizes chromatic height. -/
-theorem ha_greedy (n : Nat) (hn : n ≥ 2) :
+theorem ha_greedy (n : Nat) (_hn : n ≥ 2) :
     haDepth n = (n + 3 - 1) / 3 := by
   simp [haDepth]
 

@@ -2,9 +2,20 @@
 
 **A Textbook Treatment of the Universal Meta-Structure of 213**
 
-Status: DRAFT  
-Date: 2026-05-26  
+Status: CLOSED (Marathon 16 — GRA Universality, all 6 phases)
+Lean source: `lean/E213/Lib/Math/GRA/` (8 files, ~1400 lines, 0 sorry)
 Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and resolution lattice.
+
+> **Closure note.** The marathon establishes a Lean-verified
+> typeclass `GRAModel` with five instances (NumberTheory, Graph,
+> Analysis, Cohomology, HoTT, HigherAlgebra), pairwise isos via the
+> NT hub, and a translation programme including the universal
+> depth-comparison theorem `⌈n/3⌉ ≤ (n+1)/2` valid in all five
+> Readings simultaneously.  Purity: 0 `sorry`, 0 `Classical`, 0
+> Mathlib; `propext`/`Quot.sound` are present (Tier 5.1
+> propext-unsealing backlog).  Carriers are currently simplified
+> (Nat = grade directly); enrichment to actual Walk / Cochain /
+> operad objects is the optional Phase 7.
 
 ---
 
@@ -592,15 +603,27 @@ Entanglement as GRA grade:
 
 ## Appendix B — Lean File Cross-Reference
 
+### B.1 GRA sub-tree (post-Marathon 16, primary)
+
+| Book Section | Lean Module | Content |
+|---|---|---|
+| Ch.1 (P-matrix, generators 2,3, PGen, depth) | `GRA/GRAModel.lean` | 7-axiom typeclass `GRAModel` + `GRAIso` refl/symm/trans |
+| Ch.2 (universal reachability, greedy optimality) | `GRA/NumberTheory.lean` | hub instance `GRA23_NT` on ℕ; `nt_reach`, `nt_greedy`, `nt_depth_eq` |
+| Ch.3 R₁ (Cohomology Reading) | `GRA/Cohomology.lean` | `GRA23_Cohomology` + iso to NT |
+| Ch.3 R₂ (Higher Algebra Reading) | `GRA/HigherAlgebra.lean` | `GRA23_HigherAlgebra` + universality capstone `gra_universality_witness` |
+| Ch.3 R₃ (HoTT Reading) | `GRA/HoTT.lean` | `GRA23_HoTT` + iso to NT |
+| Ch.3 R₄ (Graph Reading) | `GRA/Graph.lean` | `GRA23_Graph` + iso to NT |
+| Ch.3 R₅ (Analysis Reading) | `GRA/Analysis.lean` | `GRA23_Analysis` + iso to NT |
+| Ch.8 (translation programme) | `GRA/Translation.lean` | `graph_distance_implies_cup_length`, `cup_grade_is_resolution_compose`, `master_translation_from_any`, `universal_depth_comparison`, `gra_translation_witness` |
+
+### B.2 Supporting sub-trees (citation back-pointers)
+
 | Book Section | Primary Lean File |
 |---|---|
-| Ch.1 (Generators, PGen) | `Mobius213/Px/` |
-| Ch.2 (Composition additivity) | `Analysis/ResolutionShift.lean` |
-| Ch.2 (One-way arrow) | `Analysis/ResolutionShift.lean` |
-| Ch.2 (Grade uniqueness) | `Analysis/ResolutionShift.lean` |
-| Ch.3 R₁ (Cohomology) | `Cohomology/Cup/`, `Cohomology/Bipartite/` |
-| Ch.3 R₄ (Graph) | `BipartiteDecomp/` |
-| Ch.3 R₅ (Analysis) | `Analysis/ResolutionShift.lean`, `Topology/ModulusStructure.lean` |
-| Ch.4 (det=1 in Algebra) | `Algebra213/` (CayleyDickson/) |
-| Ch.6 (ℤ/ℚ twins) | `NatPairToQPos.lean`, Int213 |
+| Ch.1 (PGen, P-orbits) | `Mobius213/Px/` |
+| Ch.2 (Composition additivity, resolution shift) | `Analysis/ResolutionShift.lean` |
+| Ch.3 R₁ (Cup ring source) | `Cohomology/Cup/`, `Cohomology/Bipartite/` |
+| Ch.3 R₄ (BipartiteDecomp source) | `BipartiteDecomp/` |
+| Ch.4 (det=1 in Algebra Tower) | `CayleyDickson/` |
+| Ch.6 (ℤ/ℚ twins, Adelic) | `NatPairToQPos.lean`, `Padic/` |
 | Ch.7 (GradedRing) | `ParadigmDomainGradedRing.lean` |

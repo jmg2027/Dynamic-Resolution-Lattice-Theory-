@@ -83,13 +83,15 @@ theorem analysis_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Depth formula: ⌈n/3⌉ = n/3 + (if n%3=0 then 0 else 1) -/
-theorem analysis_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem analysis_depth_eq (n : Nat) (_hn : n ≥ 2) :
     analysisDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [analysisDepth]
-  omega
+  simp only [analysisDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- Greedy optimality: depth = (n + 2) / 3 -/
-theorem analysis_greedy (n : Nat) (hn : n ≥ 2) :
+theorem analysis_greedy (n : Nat) (_hn : n ≥ 2) :
     analysisDepth n = (n + 3 - 1) / 3 := by
   simp [analysisDepth]
 

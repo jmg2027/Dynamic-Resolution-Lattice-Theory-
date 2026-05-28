@@ -97,13 +97,15 @@ theorem graph_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Depth formula: depth n = n/3 + (if n%3=0 then 0 else 1) = ⌈n/3⌉ -/
-theorem graph_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem graph_depth_eq (n : Nat) (_hn : n ≥ 2) :
     graphDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [graphDepth]
-  omega
+  simp only [graphDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- Greedy: graphDepth n = (n + 3 - 1) / 3 -/
-theorem graph_greedy (n : Nat) (hn : n ≥ 2) :
+theorem graph_greedy (n : Nat) (_hn : n ≥ 2) :
     graphDepth n = (n + 3 - 1) / 3 := by
   simp [graphDepth]
 

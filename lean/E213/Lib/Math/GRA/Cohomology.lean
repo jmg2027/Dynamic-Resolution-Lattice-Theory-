@@ -83,14 +83,16 @@ theorem cohom_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
-theorem cohom_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem cohom_depth_eq (n : Nat) (_hn : n ≥ 2) :
     cohomDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [cohomDepth]
-  omega
+  simp only [cohomDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- Greedy optimality: using degree-3 cochains maximally minimizes
     cup-length.  Equivalent to: depth = (n+2)/3. -/
-theorem cohom_greedy (n : Nat) (hn : n ≥ 2) :
+theorem cohom_greedy (n : Nat) (_hn : n ≥ 2) :
     cohomDepth n = (n + 3 - 1) / 3 := by
   simp [cohomDepth]
 

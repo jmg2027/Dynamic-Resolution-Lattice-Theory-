@@ -628,6 +628,18 @@ Many theorems at ≤ {propext, Quot.sound} could be upgraded by:
 
 Estimated upgrades: ~50-100 theorems possible.
 
+### Tier 5.1 backlog — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
+
+`E213.Lib.Math.GRA.*` — 8 files, ~1400 lines, ~67 DIRTY at
+`[propext]` or `[propext, Quot.sound]` from omega in `nt_reach` /
+`*_depth_eq` / `*_greedy` patterns + simp-induced collapse in
+`master_translation*`.  No `Classical`, no `Lean.ofReduceBool`,
+no `sorryAx`, no Mathlib.  Upgrade path is mechanical (same
+omega→decide / omega→Nat-lemma pattern as Batch 1+2 above) but
+not blocking promotion: chapter `theory/math/gra_book.md` is
+narrative-closed and the Lean isos / translation programme are
+fully constructed at the typeclass level.
+
 ## Cross-reference
 
   - `CAPSTONE_INDEX.md` — all capstones (mixed axiom levels)

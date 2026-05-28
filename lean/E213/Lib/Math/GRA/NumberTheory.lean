@@ -74,15 +74,17 @@ theorem nt_reach (n : Nat) (hn : n ≥ 2) :
       exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
 
 /-- Greedy depth: ⌈n/3⌉ = (n+2)/3 -/
-theorem nt_greedy (n : Nat) (hn : n ≥ 2) :
+theorem nt_greedy (n : Nat) (_hn : n ≥ 2) :
     ntDepth n = (n + 3 - 1) / 3 := by
   simp [ntDepth]
 
 /-- Depth formula: depth n = n/3 + (if n%3=0 then 0 else 1) = ⌈n/3⌉ -/
-theorem nt_depth_eq (n : Nat) (hn : n ≥ 2) :
+theorem nt_depth_eq (n : Nat) (_hn : n ≥ 2) :
     ntDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [ntDepth]
-  omega
+  simp only [ntDepth]
+  by_cases h : n % 3 = 0
+  · simp [h]; omega
+  · simp [h]; omega
 
 /-- The (2,3)-GRA model over ℕ (Number Theory reading). -/
 def GRA23_NT : GRAModel where

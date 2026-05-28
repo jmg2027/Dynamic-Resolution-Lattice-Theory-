@@ -1,8 +1,9 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: DRAFT (synthesis complete; formal Lean verification partial — see `gra_book.md` Ch.7 for formalizability assessment)  
-**Date**: 2026-05-26  
-**Source**: G148 (GRA framework), G149 (Analysis/Continuum Reading), G150 (Algebra213 integration)
+**Status**: CLOSED (Marathon 16 — GRA Universality)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 8 files, 0 sorry)
+**Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
+**Purity**: 0 sorry, 0 Classical, 0 Mathlib, kernel-decide only; `propext`/`Quot.sound` present via omega (Tier 5.1 backlog per `STRICT_ZERO_AXIOM.md`).
 
 ---
 
@@ -367,10 +368,20 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 
 ## 관련 파일
 
-- `research-notes/G148_graded_residue_arithmetic.md` (원본 GRA 프레임워크)
-- `research-notes/G149_analysis_continuum_space_insights.md` (해석학 Reading 상세)
-- `research-notes/G150_GRA_Algebra213_development.md` (대수적 실현 계획)
-- `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` (grade shift 형식화)
-- `lean/E213/Lib/Math/Topology/ModulusStructure.lean` (4-source 통합)
-- `lean/E213/Lib/Math/Real213/Core/ValidCut.lean` (연속체 기반)
-- `lean/E213/Lib/Math/Algebra213/` (Ring213 hierarchy)
+### Primary (GRA umbrella)
+- `lean/E213/Lib/Math/GRA.lean` — umbrella
+- `lean/E213/Lib/Math/GRA/GRAModel.lean` — 7-axiom typeclass + `GRAIso` refl/symm/trans
+- `lean/E213/Lib/Math/GRA/NumberTheory.lean` — hub instance on ℕ
+- `lean/E213/Lib/Math/GRA/Graph.lean` — R₄ walk-length Reading
+- `lean/E213/Lib/Math/GRA/Analysis.lean` — R₅ resolution-exponent Reading
+- `lean/E213/Lib/Math/GRA/Cohomology.lean` — R₁ cochain-degree Reading
+- `lean/E213/Lib/Math/GRA/HoTT.lean` — R₃ truncation-level Reading
+- `lean/E213/Lib/Math/GRA/HigherAlgebra.lean` — R₂ operad-level Reading + universality capstone
+- `lean/E213/Lib/Math/GRA/Translation.lean` — Phase 6 master translation + universal depth comparison
+
+### Supporting sub-trees (Reading-specific source material)
+- `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)
+- `lean/E213/Lib/Math/Topology/ModulusStructure.lean` — 4-source modulus unification
+- `lean/E213/Lib/Math/Real213/Core/ValidCut.lean` — continuum substrate
+- `lean/E213/Lib/Math/ParadigmDomainGradedRing.lean` — Ring213 graded hierarchy
+- `lean/E213/Lib/Math/CayleyDickson/` — CD Tower (det-loss dual to GRA Tower)
