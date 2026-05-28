@@ -65,9 +65,14 @@ sub-cleanups (#5a–#5e), each independently committed:
     `LeibnizAlgLift{21,22}` imports to
     `Leibniz{21,22}Final.lean` (previously transitive via the
     deleted Bridge chain).  Net: −44 lines.
+  · **#5j orphan `basis_leibniz_5_3_1`** (1 file → 0).
+    `Leibniz5_3_1Basis.lean` was a 36-line single-theorem
+    orphan with zero consumers, sister of
+    `basis_leibniz_5_2_1` which lives in `BasisLeibniz.lean`.
+    Theorem moved into `BasisLeibniz.lean`.  Net: −26 lines.
 
-Cumulative across #5a–#5i: **30 files deleted, 8 new files
-created, net −1092 lines**.  All cleanups full `lake build`
+Cumulative across #5a–#5j: **31 files deleted, 8 new files
+created, net −1118 lines**.  All cleanups full `lake build`
 clean (cleaned-cache rebuild verified for #5h+#5i, which had
 been masked by stale `.olean` cache during the original
 single-module audit).  All touched modules verified PURE by
