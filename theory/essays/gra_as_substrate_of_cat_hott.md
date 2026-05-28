@@ -206,13 +206,25 @@ with the same atomic grades as the `Raw`-level arithmetic.
 
 This does not give a *natural* combine on the category-of-
 categories — `readingCombine` collapses non-equal Readings to
-the hub `.NT`.  A natural combine on categorical objects (e.g.,
-Cartesian product) is iso-symmetric, not strictly symmetric, so
-requires a separate weakening of `HasDistinguishingU` to take
-combine_sym up to a chosen equivalence relation.  That
-weakening is the open question beyond Phase 19 — but Phase 19
-demonstrates that the universe-lifting itself does not break
-the parameterless discipline.
+the hub `.NT`.
+
+Phase 20 (`HasDistinguishingW.lean`) addresses the natural-
+combine question: it weakens `combine_sym` from strict equality
+to a chosen equivalence relation, taking `Equiv := GRAIso` for
+the natural categorical content.  `productSwapIso` exhibits the
+required combine_sym: monoidal product on (2, 3)-GRA models is
+commutative up to `GRAIso` via the pair-swap `(a, b) ↦ (b, a)`,
+which is grade-preserving by `Nat.add_comm` and ⊕/⊗-equivariant
+by `rfl` on the swap.
+
+This completes the categorical-symmetry picture: combined with
+Phase 7's `GRACat` and Phase 15's `Monoidal.product`, the
+swap-iso construction makes `GRACat` a *symmetric monoidal
+category* (the swap is the braiding).  Strict combine_sym
+(Phase 19) handles universe lifting; weak combine_sym (Phase
+20) handles natural combinations.  Together they cover both
+the existence demonstration (Phase 19) and the content question
+(Phase 20).
 
 ## Self-check
 

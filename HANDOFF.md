@@ -1,9 +1,45 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–19 closed
-(357 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–20 closed
+(362 PURE / 0 DIRTY).
 
-## This session — Phase 19: strict 2-cat universe-lifting (357 PURE)
+## This session — Phase 20: iso-symmetric natural combine_sym (362 PURE)
+
+One new file extending GRA from 25 → 26 files, 357 → 362 PURE.
+
+  · **Phase 20 `HasDistinguishingW.lean`** (5 PURE) — the natural
+    iso-symmetric combine question that Phase 19's strict
+    combine could not capture.
+      · `HasDistinguishingW.{u, v}` typeclass — like Phase 19's
+        `HasDistinguishingU` but with `combine_sym` taking values
+        in a `Sort v`-valued `Equiv` relation instead of strict
+        `=`.  Refl/symm/trans of `Equiv` are required.
+      · `productSwapIso` — the headline construction.  For any
+        two (2, 3)-GRA models `M₁`, `M₂` (with the parameter
+        hypotheses), gives a `GRAIso` between
+        `Monoidal.product M₁ M₂` and `Monoidal.product M₂ M₁`.
+        Underlying map is pair-swap `(a, b) ↦ (b, a)`.
+        `grade_comm` discharges by `Nat.add_comm`;
+        `oplus_comm`/`otimes_comm` by `cases p; cases q; rfl`.
+      · `product_combine_sym_witness` — packages the swap iso
+        as the witness "monoidal product is iso-symmetric".
+      · `productSwapIso_involutive` — swap is self-inverse at
+        the function level.
+      · `product_grade_sym` — additive grade symmetry.
+      · `product_combine_sym_at` — the swap iso restated as
+        the combine_sym component of a `HasDistinguishingW`
+        instance.
+  · Combined with Phase 7's `GRACat` and Phase 15's
+    `Monoidal.product`, this completes `GRACat` as a *symmetric
+    monoidal category* with `productSwapIso` as the braiding.
+
+Essay updated: Phase 20 closes the natural-combine question
+("natural combine on Cat-objects is iso-symmetric, not strict").
+The two-phase pair (Phase 19 strict + Phase 20 weak) covers
+both the universe-lifting existence demonstration and the
+natural-combine content question.
+
+## Previous step — Phase 19: strict 2-cat universe-lifting (357 PURE)
 
 One new file extending GRA from 24 → 25 files, 342 → 357 PURE.
 
@@ -338,7 +374,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–19)** | **★ CLOSED + PROMOTED + 357 PURE ★** |
+| **16** | **GRA Universality (Phases 1–20)** | **★ CLOSED + PROMOTED + 362 PURE ★** |
 
 ## Genuinely open (next session targets)
 

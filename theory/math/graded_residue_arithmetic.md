@@ -1,12 +1,12 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–19)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 25 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–20)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 26 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phase 17 closes the carrier-level open frontier, Phase 18 the universal-property 1-cat proxy, Phase 19 the strict 2-cat universe-lifting)
-**Purity**: **357 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phase 17 closes the carrier-level open frontier, Phase 18 the universal-property 1-cat proxy, Phase 19 the strict 2-cat universe-lifting, Phase 20 the iso-symmetric natural combine)
+**Purity**: **362 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
-**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE); 17 `CarrierRealization` (33 PURE); 18 `Universality23` (13 PURE); 19 `Universe1` (15 PURE).
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE); 17 `CarrierRealization` (33 PURE); 18 `Universality23` (13 PURE); 19 `Universe1` (15 PURE); 20 `HasDistinguishingW` (5 PURE).
 
 ---
 
@@ -412,6 +412,9 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 
 **Phase 19 (universe-1 HasDistinguishing — strict 2-cat universe-lifting)**
 - `lean/E213/Lib/Math/GRA/Universe1.lean` — `HasDistinguishingU.{u}` (universe-polymorphic parallel of `Lens.SemanticAtom.HasDistinguishing`); `readingHasDistinguishingU : HasDistinguishingU.{0} Reading` at `Type 0`; `liftedReadingHasDistinguishingU : HasDistinguishingU.{1} (ULift.{1, 0} Reading)` at `Type 1`.  `readingCombine := if r = s then r else .NT` is strictly commutative; the lifted instance satisfies the strict 2-categorical universe-lifting requirement.  Atomic agreement `readingGradeMap Raw.a = canonicalGradeMap Raw.a` (and analogously for `Raw.b`) demonstrates that the (2, 3)-profile is preserved at the `Type 1` level.
+
+**Phase 20 (HasDistinguishingW — iso-symmetric natural combine_sym)**
+- `lean/E213/Lib/Math/GRA/HasDistinguishingW.lean` — weakens `combine_sym` from strict equality to a chosen `Sort`-valued equivalence (allowing `GRAIso`-style data).  `productSwapIso` is the natural categorical witness: monoidal product on (2, 3)-GRA models is commutative up to `GRAIso` via the pair-swap `(a, b) ↦ (b, a)`.  Grade preservation by `Nat.add_comm`; ⊕/⊗-equivariance by `rfl`.  Combined with Phase 7's `GRACat` + Phase 15's `Monoidal.product`, this completes `GRACat` as a *symmetric monoidal category* with `productSwapIso` as the braiding.
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)

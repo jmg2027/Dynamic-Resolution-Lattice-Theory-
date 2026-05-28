@@ -23,6 +23,7 @@ import E213.Lib.Math.GRA.LensBridge
 import E213.Lib.Math.GRA.CarrierRealization
 import E213.Lib.Math.GRA.Universality23
 import E213.Lib.Math.GRA.Universe1
+import E213.Lib.Math.GRA.HasDistinguishingW
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -136,11 +137,31 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     `readingCombine := if r = s then r
                                     else .NT` is well-defined PURE.
 
+  ## Phase 20 — HasDistinguishingW (iso-symmetric combine_sym)
+
+  * `HasDistinguishingW`          — weakens `combine_sym` from strict
+                                    equality to a chosen equivalence
+                                    relation (Type-valued, so
+                                    `GRAIso`-style data fits).
+                                    `productSwapIso` is the natural
+                                    categorical witness: monoidal
+                                    product on (2, 3)-GRA models is
+                                    commutative up to `GRAIso` via the
+                                    pair-swap `(a, b) ↦ (b, a)`.
+                                    `product_combine_sym_witness`
+                                    capstones the existence statement.
+                                    With Phase 7's `GRACat` + Phase 15's
+                                    `Monoidal.product`, this completes
+                                    `GRACat` as a *symmetric monoidal
+                                    category* with `productSwapIso` as
+                                    the braiding.
+
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 357 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: 362 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
-from Phase 17 + 13 from Phase 18 + 15 from Phase 19).  `ax_coprime` uses `gcd213`
+from Phase 17 + 13 from Phase 18 + 15 from Phase 19 + 5 from
+Phase 20).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

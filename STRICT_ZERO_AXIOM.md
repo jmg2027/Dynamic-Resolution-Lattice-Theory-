@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 25 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16 + 1 Phase 17 + 1 Phase
-18 + 1 Phase 19), ~4400 lines, **357 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 26 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–20),
+~4500 lines, **362 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -801,6 +801,27 @@ lifting, all PURE):
     `reading_atomic_agreement` shows the lifted carrier
     preserves the `(2, 3)`-grade profile at atoms (NT ↦ 2,
     Graph ↦ 3) matching the `canonicalGradeMap` of Phase 16.
+
+Phase 20 (HasDistinguishingW — iso-symmetric natural combine_sym,
+all PURE):
+
+  · `HasDistinguishingW.lean` (5 PURE): weakens
+    `combine_sym` from strict equality (Phase 19) to a chosen
+    `Sort`-valued equivalence relation, accommodating
+    `GRAIso`-style data witnesses.  Headline
+    `productSwapIso` constructs the swap iso between
+    `Monoidal.product M₁ M₂` and `Monoidal.product M₂ M₁` for
+    any pair of (2, 3)-GRA models — `toFun (a, b) := (b, a)`
+    with `grade_comm` discharged by `Nat.add_comm` and
+    `oplus_comm` / `otimes_comm` by `cases p; cases q; rfl`.
+    Capstones: `product_combine_sym_witness` packages the
+    swap iso as a `Nonempty` existence statement;
+    `productSwapIso_involutive` shows the swap is self-inverse;
+    `product_grade_sym` displays the underlying additive
+    symmetry.  Combined with Phase 7's `GRACat` and Phase 15's
+    `Monoidal.product`, this completes the categorical picture:
+    `GRACat` is a *symmetric monoidal category* with
+    `productSwapIso` as the braiding.
 
 ## Cross-reference
 

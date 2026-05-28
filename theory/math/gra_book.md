@@ -43,8 +43,12 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > meets the strict 2-categorical universe-lifting requirement
 > with `HasDistinguishingU.{1} (ULift.{1, 0} Reading)` — a
 > `Type 1` carrier with the distinguishing structure and the
-> (2, 3)-grade profile at atoms preserved.  **Strict ∅-axiom:
-> 357 PURE / 0 DIRTY**
+> (2, 3)-grade profile at atoms preserved.  Phase 20
+> (`HasDistinguishingW`) handles the iso-symmetric natural
+> combine: `productSwapIso` proves monoidal product is
+> commutative up to `GRAIso` via the pair-swap, completing
+> `GRACat` as a *symmetric monoidal category*.  **Strict
+> ∅-axiom: 362 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree
