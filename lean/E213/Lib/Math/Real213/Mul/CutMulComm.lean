@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.Mul.CutMul
 import E213.Lib.Math.Real213.Sum.BoolOrLadder
+import E213.Meta.Tactic.BoolHelper
 
 /-!
 # CutMulComm: cutMul commutativity (real proof)
@@ -55,18 +56,12 @@ theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulInner cutMulOuter)
 
-private theorem bool_eq_of_iff_true' (a b : Bool)
-    (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **cutMul commutativity**: via iff existential + (m1, m2) bijection. -/
 theorem cutMul_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutMul cx cy m k = cutMul cy cx m k := by
-  apply bool_eq_of_iff_true'
+  apply bool_eq_iff
   refine Iff.trans (cutMulOuter_eq_true_iff cx cy k m _ _)
     (Iff.trans ?_ (cutMulOuter_eq_true_iff cy cx k m _ _).symm)
   constructor

@@ -2,6 +2,7 @@ import E213.Lens.Number
 import E213.Lib.Math.Real213.Core.CutPoset
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulComm
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -93,14 +94,7 @@ open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff)
 private theorem mul_two_mul (x k : Nat) : x * (2*k) = 2 * x * k := by
   rw [← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm x 2]
 
-/-- Helper: two Bools agreeing on `(· = true)` are equal. -/
-private theorem bool_eq_of_iff_true (a b : Bool) (h : a = true ↔ b = true) :
-    a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **★ cutSum iff ★**: the cutSum on two chain images is true iff
     `(a + b) * k ≤ m`. -/
@@ -160,7 +154,7 @@ theorem cutSum_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213)
     cutSum (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k
       = chainToCut (toRaw (E213.Lens.Number.Nat213.Peano.Nat213.add a b)) m k := by
   rw [chainToCut_addPeano]
-  apply bool_eq_of_iff_true
+  apply bool_eq_iff
   constructor
   · intro h
     exact decide_eq_true ((cutSum_chainToCut_iff a b m k).mp h)
@@ -239,7 +233,7 @@ theorem cutMul_chainToCut (a b : E213.Lens.Number.Nat213.Peano.Nat213)
     cutMul (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k
       = chainToCut (toRaw (E213.Lens.Number.Nat213.Peano.Nat213.mul a b)) m k := by
   rw [chainToCut_mulPeano]
-  apply bool_eq_of_iff_true
+  apply bool_eq_iff
   constructor
   · intro h
     exact decide_eq_true ((cutMul_chainToCut_iff a b m k).mp h)

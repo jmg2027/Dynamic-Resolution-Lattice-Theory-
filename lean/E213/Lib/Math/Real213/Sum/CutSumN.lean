@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.BoolOrLadder
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -60,13 +61,7 @@ theorem cutSumNAux_eq_true_iff (N : Nat) (cx cy : Nat → Nat → Bool)
     (fun _ => rfl)
     n
 
-private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) :
-    a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- ★★★★★ **Key closure: b = N case is bidirectional**.
 

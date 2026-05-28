@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.BoolOrLadder
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -191,13 +192,7 @@ theorem cutMulN_const_const_contrapositive (N a c m k : Nat) (hN : 0 < N)
 
 /-! ## §4 — cutEq congruences (cutMulN respects pointwise equality) -/
 
-private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) :
-    a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- ★★ cutMulN respects cutEq in the left argument. -/
 theorem cutMulN_cutEq_left (N : Nat) (cx cx' cy : Nat → Nat → Bool)
