@@ -4,7 +4,7 @@ Pell equation `x² - D·y² = 1` and its dyadic-FSM encoding.  Lens
 classification (single / pair / triple) + Proper-Pell norm-form
 variant.
 
-## Files (11)
+## Files (9)
 
 ### Core
   - `Family.lean`        — Pell solution family
@@ -12,9 +12,11 @@ variant.
   - `Capstone.lean`      — top-level Pell capstone
 
 ### Lens encodings
-  - `Lens.lean`          — single-Lens encoding
-  - `LensPairs.lean`     — Lens-pair classifier
-  - `LensTriple.lean`    — Lens-triple classifier
+  - `LensCompositions.lean` — `Pell mod a × Pell mod b` CRT
+                               closures at pair and triple
+                               compositions (3×5, 3×7, 5×7,
+                               3×5×7), plus BitFSM-form period
+                               lifts for the base mods
 
 ### Proper-Pell (norm-form variant)
   - `Proper.lean`        — proper-Pell core
@@ -33,7 +35,7 @@ variant.
   - New per-mod variant  → consolidate into `ProperMod.lean`
                             (CLAUDE.md rule 7)
   - New D value          → `Proper<D>.lean` (small specific D)
-  - Lens classifier      → `Lens` / `LensPairs` / `LensTriple`
+  - Lens classifier      → `LensCompositions`
   - Bound / family       → `Bounds` / `Family`
 
 ## Companion clusters

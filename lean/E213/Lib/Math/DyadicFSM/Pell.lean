@@ -1,9 +1,7 @@
 import E213.Lib.Math.DyadicFSM.Pell.Bounds
 import E213.Lib.Math.DyadicFSM.Pell.Capstone
 import E213.Lib.Math.DyadicFSM.Pell.Family
-import E213.Lib.Math.DyadicFSM.Pell.Lens
-import E213.Lib.Math.DyadicFSM.Pell.LensPairs
-import E213.Lib.Math.DyadicFSM.Pell.LensTriple
+import E213.Lib.Math.DyadicFSM.Pell.LensCompositions
 import E213.Lib.Math.DyadicFSM.Pell.Proper
 import E213.Lib.Math.DyadicFSM.Pell.Proper8
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
@@ -23,9 +21,10 @@ import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
 
   ## Lens encodings
 
-    * `Lens`          — single-Lens encoding
-    * `LensPairs`     — Lens-pair classifier
-    * `LensTriple`    — Lens-triple classifier
+    * `LensCompositions` — `Pell mod a × Pell mod b` CRT closures
+                            at pair (3×5, 3×7, 5×7) and triple
+                            (3×5×7) compositions, plus BitFSM-form
+                            period lifts for the base mods.
 
   ## Proper-Pell (norm-form variant)
 
