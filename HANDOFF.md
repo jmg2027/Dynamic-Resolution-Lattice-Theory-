@@ -49,10 +49,28 @@ sub-cleanups (#5a–#5e), each independently committed:
     `HurwitzTowerL{1,2}.lean` (48/96 units in Type D Hurwitz
     CD-doubling) merged into `HurwitzTower.lean`.  Same
     pattern as #5f.  Net: −37 lines.
+  · **#5h CupAW bz5_<n> bridges** (3 → 1 file).
+    `Leibniz21Bridge.lean (bz5_1)`, `Leibniz22Bridge.lean
+    (bz5_2)`, `Leibniz5_3_1Bridge.lean (bz5_3)` each provided
+    the identical 2-theorem `_false_at` / `_true_at` pattern
+    at strata `n ∈ {1, 2, 3}`.  Merged into `LeibnizBzBridge.lean`
+    with all 6 theorems; downstream consumers' imports +
+    opens updated via sed.  Net: −41 lines.
+  · **#5i LeibnizAlgLift Alpha corollaries** (2 → 0 files).
+    `LeibnizAlgLift21Alpha.lean` and `LeibnizAlgLift22Alpha.lean`
+    were 41-line single-theorem corollary files specialising
+    `LeibnizAlgLiftAlpha.leibniz_via_α_decomp_general` at
+    `b = 1, 2`.  Both moved as named theorems into
+    `LeibnizAlgLiftAlpha.lean`.  Also added explicit
+    `LeibnizAlgLift{21,22}` imports to
+    `Leibniz{21,22}Final.lean` (previously transitive via the
+    deleted Bridge chain).  Net: −44 lines.
 
-Cumulative across #5a–#5g: **25 files deleted, 7 new files
-created, net −1007 lines**.  All cleanups full `lake build`
-clean, all touched modules verified PURE by
+Cumulative across #5a–#5i: **30 files deleted, 8 new files
+created, net −1092 lines**.  All cleanups full `lake build`
+clean (cleaned-cache rebuild verified for #5h+#5i, which had
+been masked by stale `.olean` cache during the original
+single-module audit).  All touched modules verified PURE by
 `scan_axioms.py`.
 
 Remaining inspected-but-not-consolidated candidates:
