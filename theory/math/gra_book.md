@@ -47,8 +47,12 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > (`HasDistinguishingW`) handles the iso-symmetric natural
 > combine: `productSwapIso` proves monoidal product is
 > commutative up to `GRAIso` via the pair-swap, completing
-> `GRACat` as a *symmetric monoidal category*.  **Strict
-> ∅-axiom: 362 PURE / 0 DIRTY**
+> `GRACat` as a *symmetric monoidal category*.  Phase 21
+> (`HasDistinguishingWFull`) closes the categorical-distinctness
+> leg: `trivial23_not_iso_NT` proves no `GRAIso` exists between
+> the one-element carrier and the Nat carrier by a subsingleton
+> argument, yielding the full `HasDistinguishingWFull` instance
+> on `GRA23 : Type 1`.  **Strict ∅-axiom: 374 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree

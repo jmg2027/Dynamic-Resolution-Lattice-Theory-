@@ -222,9 +222,25 @@ Phase 7's `GRACat` and Phase 15's `Monoidal.product`, the
 swap-iso construction makes `GRACat` a *symmetric monoidal
 category* (the swap is the braiding).  Strict combine_sym
 (Phase 19) handles universe lifting; weak combine_sym (Phase
-20) handles natural combinations.  Together they cover both
-the existence demonstration (Phase 19) and the content question
-(Phase 20).
+20) handles natural combinations.
+
+Phase 21 (`HasDistinguishingWFull.lean`) closes the
+distinctness leg: the *full* categorical instance on
+`GRA23 : Type 1` with all six fields (atoms, combine, Equiv,
+refl/symm/trans, combine_sym, distinct_equiv).  The
+distinctness witness is `trivial23_not_iso_NT` — a cardinality
+argument showing no `GRAIso` can exist between `trivial23`
+(one-element carrier) and `GRA23_NT` (Nat carrier).  Proof
+sketch: any iso has `invFun : Nat → TrivialCarrier`, but
+`TrivialCarrier` is a subsingleton, so `invFun 0 = invFun 1`;
+then `right_inv` forces `0 = iso.toFun (iso.invFun 0) = iso.toFun
+(iso.invFun 1) = 1`, contradicting `decide 0 ≠ 1`.
+
+The atomic step `cases x; cases y; rfl` for the subsingleton
+property, combined with the iso's `right_inv` axiom, makes the
+proof PURE — no propext, no Classical, no Mathlib.  The
+"natural Cat-level Reading of GRA" — including the categorical
+distinctness — is now a Lean theorem at `Type 1`.
 
 ## Self-check
 

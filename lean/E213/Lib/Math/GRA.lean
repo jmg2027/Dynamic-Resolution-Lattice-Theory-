@@ -24,6 +24,7 @@ import E213.Lib.Math.GRA.CarrierRealization
 import E213.Lib.Math.GRA.Universality23
 import E213.Lib.Math.GRA.Universe1
 import E213.Lib.Math.GRA.HasDistinguishingW
+import E213.Lib.Math.GRA.HasDistinguishingWFull
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -148,20 +149,32 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     product on (2, 3)-GRA models is
                                     commutative up to `GRAIso` via the
                                     pair-swap `(a, b) ↦ (b, a)`.
-                                    `product_combine_sym_witness`
-                                    capstones the existence statement.
-                                    With Phase 7's `GRACat` + Phase 15's
-                                    `Monoidal.product`, this completes
-                                    `GRACat` as a *symmetric monoidal
-                                    category* with `productSwapIso` as
-                                    the braiding.
+
+  ## Phase 21 — Full HasDistinguishingWFull instance on `GRA23`
+
+  * `HasDistinguishingWFull`      — extends `HasDistinguishingW` with
+                                    `distinct_equiv : Equiv a b → False`
+                                    (categorical distinctness).  The
+                                    headline `trivial23_not_iso_NT`
+                                    proves *no* `GRAIso` exists between
+                                    `trivial23` (1-element carrier) and
+                                    `NumberTheory.GRA23_NT` (Nat carrier)
+                                    by a cardinality argument:
+                                    `TrivialCarrier` is a subsingleton
+                                    while Nat has `0 ≠ 1`.
+                                    `gra23HasDistinguishingWFull` is the
+                                    full instance on `GRA23 : Type 1`
+                                    with atoms `trivial23` and `GRA23_NT`,
+                                    `combine := Monoidal.product`,
+                                    `Equiv := GRAIso`, and the swap iso
+                                    from Phase 20 as `combine_sym`.
 
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 362 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: 374 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
 from Phase 17 + 13 from Phase 18 + 15 from Phase 19 + 5 from
-Phase 20).  `ax_coprime` uses `gcd213`
+Phase 20 + 12 from Phase 21).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

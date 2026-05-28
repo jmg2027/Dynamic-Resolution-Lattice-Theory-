@@ -1,9 +1,48 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–20 closed
-(362 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–21 closed
+(374 PURE / 0 DIRTY).
 
-## This session — Phase 20: iso-symmetric natural combine_sym (362 PURE)
+## This session — Phase 21: full HasDistinguishingWFull on GRA23 (374 PURE)
+
+One new file extending GRA from 26 → 27 files, 362 → 374 PURE.
+
+  · **Phase 21 `HasDistinguishingWFull.lean`** (12 PURE) — closes
+    the categorical-distinctness leg of the Cat-as-Reading
+    frontier.
+      · `HasDistinguishingWFull.{u, v}` — extends Phase 20's
+        `HasDistinguishingW` with `distinct_equiv : Equiv a b →
+        False`.  Type-valued because `Equiv` is Type-valued.
+      · `trivial23_not_iso_NT` — **the headline cardinality
+        proof**.  Any would-be `GRAIso trivial23 GRA23_NT` gives
+        `iso.invFun : Nat → TrivialCarrier`, but `TrivialCarrier`
+        is a subsingleton (proved by `cases x; cases y; rfl`),
+        so `iso.invFun 0 = iso.invFun 1`.  `right_inv` then
+        forces `0 = iso.toFun (iso.invFun 1) = 1`, contradicting
+        `decide 0 ≠ 1`.
+      · `gra23HasDistinguishingWFull : HasDistinguishingWFull.{1, 1}
+        GRA23` — the full instance.  Atoms `trivial23` (1-element
+        carrier) and `GRA23_NT` (Nat carrier); combine =
+        `Monoidal.product`; Equiv = `GRAIso` on underlying
+        models; refl/symm/trans from Phase 7; combine_sym from
+        Phase 20's `productSwapIso`; distinct_equiv from the
+        cardinality proof.
+      · `hasDistinguishingWFull_witness` — `Nonempty` existence
+        statement.
+
+The categorical "Cat-as-Reading of GRA" content is now a full
+Lean theorem at `Type 1`: there exists a categorically-distinct
+HasDistinguishingW structure on a `Type 1` carrier with natural
+combine, iso-symmetric combine_sym, and categorical
+distinctness.  The Phase 17/18/19/20/21 chain closes every leg
+of the essay's frontier.
+
+PURE: uses only `cases` on TrivialCarrier (the structural
+subsingleton fact), iso's `right_inv` axiom (definitional),
+and `decide` on Nat literal inequality.  No propext, no
+Classical, no Mathlib.
+
+## Previous step — Phase 20: iso-symmetric natural combine_sym (362 PURE)
 
 One new file extending GRA from 25 → 26 files, 357 → 362 PURE.
 
@@ -374,7 +413,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–20)** | **★ CLOSED + PROMOTED + 362 PURE ★** |
+| **16** | **GRA Universality (Phases 1–21)** | **★ CLOSED + PROMOTED + 374 PURE ★** |
 
 ## Genuinely open (next session targets)
 

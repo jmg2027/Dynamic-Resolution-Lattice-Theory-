@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 26 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–20),
-~4500 lines, **362 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 27 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–21),
+~4700 lines, **374 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -808,20 +808,31 @@ all PURE):
   · `HasDistinguishingW.lean` (5 PURE): weakens
     `combine_sym` from strict equality (Phase 19) to a chosen
     `Sort`-valued equivalence relation, accommodating
-    `GRAIso`-style data witnesses.  Headline
-    `productSwapIso` constructs the swap iso between
-    `Monoidal.product M₁ M₂` and `Monoidal.product M₂ M₁` for
-    any pair of (2, 3)-GRA models — `toFun (a, b) := (b, a)`
-    with `grade_comm` discharged by `Nat.add_comm` and
-    `oplus_comm` / `otimes_comm` by `cases p; cases q; rfl`.
-    Capstones: `product_combine_sym_witness` packages the
-    swap iso as a `Nonempty` existence statement;
-    `productSwapIso_involutive` shows the swap is self-inverse;
-    `product_grade_sym` displays the underlying additive
-    symmetry.  Combined with Phase 7's `GRACat` and Phase 15's
-    `Monoidal.product`, this completes the categorical picture:
-    `GRACat` is a *symmetric monoidal category* with
-    `productSwapIso` as the braiding.
+    `GRAIso`-style data witnesses.  Headline `productSwapIso`
+    constructs the swap iso between `Monoidal.product M₁ M₂`
+    and `Monoidal.product M₂ M₁` for any pair of (2, 3)-GRA
+    models — `toFun (a, b) := (b, a)` with `grade_comm`
+    discharged by `Nat.add_comm`.
+
+Phase 21 (Full HasDistinguishingWFull instance on `GRA23`,
+all PURE):
+
+  · `HasDistinguishingWFull.lean` (12 PURE): closes the
+    categorical-distinctness leg.  `HasDistinguishingWFull`
+    extends `HasDistinguishingW` with the additional field
+    `distinct_equiv : Equiv a b → False` (Type-valued because
+    `Equiv` is Type-valued).  Headline `trivial23_not_iso_NT`
+    proves *no* `GRAIso trivial23 NumberTheory.GRA23_NT` exists
+    via a cardinality argument: `TrivialCarrier` is a
+    subsingleton (one-element type), so `iso.invFun 0 =
+    iso.invFun 1`, but `right_inv` then forces
+    `0 = iso.toFun (iso.invFun 0) = iso.toFun (iso.invFun 1) = 1`
+    — contradiction.  `gra23HasDistinguishingWFull` is the full
+    `Type 1` instance on `GRA23` with `combine = Monoidal.product`,
+    `Equiv = GRAIso`, refl/symm/trans from `GRAIso.refl/symm/trans`,
+    swap iso for `combine_sym`, and `trivial23_not_iso_NT` for
+    `distinct_equiv`.  PURE via `cases` on `TrivialCarrier` +
+    iso's `right_inv` axiom + `decide` on Nat literals.
 
 ## Cross-reference
 
