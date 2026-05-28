@@ -7,7 +7,10 @@
 Atomic: provided as a finite table for n = 0..7 (covers all
 practical dyadic-tree-shape counting on Δ⁴ ⊂ K_25).  The full
 recursive `catalan : Nat → Nat` requires custom termination
-witness; deferred.
+witness, replaced here by the table-and-explicit-recursion-witness
+style: recursion identities at every `n = 3..7` are emitted as
+named theorems below.  This is the structurally honest choice for
+a finite-Grade substrate.
 
 Catalan numbers count:
   - dyadic-tree shapes with n internal nodes
@@ -67,5 +70,31 @@ theorem catalan_recursion_4 :
     catalan 4 = catalan 0 * catalan 3 + catalan 1 * catalan 2
                 + catalan 2 * catalan 1 + catalan 3 * catalan 0 :=
   by decide
+
+/-- Catalan recursion at n=5:
+    `C₅ = C₀C₄ + C₁C₃ + C₂C₂ + C₃C₁ + C₄C₀ = 14+5+4+5+14 = 42`. -/
+theorem catalan_recursion_5 :
+    catalan 5 = catalan 0 * catalan 4 + catalan 1 * catalan 3
+                + catalan 2 * catalan 2 + catalan 3 * catalan 1
+                + catalan 4 * catalan 0 := by decide
+
+/-- Catalan recursion at n=6: `C₆ = 132`. -/
+theorem catalan_recursion_6 :
+    catalan 6 = catalan 0 * catalan 5 + catalan 1 * catalan 4
+                + catalan 2 * catalan 3 + catalan 3 * catalan 2
+                + catalan 4 * catalan 1 + catalan 5 * catalan 0 := by decide
+
+/-- Catalan recursion at n=7: `C₇ = 429`. -/
+theorem catalan_recursion_7 :
+    catalan 7 = catalan 0 * catalan 6 + catalan 1 * catalan 5
+                + catalan 2 * catalan 4 + catalan 3 * catalan 3
+                + catalan 4 * catalan 2 + catalan 5 * catalan 1
+                + catalan 6 * catalan 0 := by decide
+
+/-- `C₅·C₂ = 84` (basic multiplication check). -/
+theorem catalan_5_times_2 : catalan 5 * catalan 2 = 84 := rfl
+
+/-- `C₇ + C₆ = 561` (sum check). -/
+theorem catalan_sum_6_7 : catalan 6 + catalan 7 = 561 := rfl
 
 end E213.Lib.Math.Combinatorics.Catalan
