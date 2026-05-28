@@ -1,3 +1,4 @@
+import E213.Lens.Congruence
 import E213.Lens.Instances
 
 /-!
@@ -76,17 +77,7 @@ private theorem same_leaves_same_N {α : Type} (N : Lens α)
   show (leavesModNat 4).view r = (leavesModNat 4).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx _ =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+open E213.Lens renaming leaves_view_pos → leaves_ge_one
 
 /-- General chain: +2k step. -/
 theorem mod_4_6_step_2k {α : Type} (N : Lens α)

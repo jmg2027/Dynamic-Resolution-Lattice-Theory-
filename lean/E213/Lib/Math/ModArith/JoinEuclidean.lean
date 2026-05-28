@@ -1,3 +1,4 @@
+import E213.Lens.Congruence
 import E213.Lib.Math.ModArith.JoinBezout
 import E213.Meta.Nat.Gcd213
 
@@ -17,17 +18,7 @@ namespace E213.Lib.Math.ModArith.JoinEuclidean
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
-private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx _ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+open E213.Lens renaming leaves_view_pos → leaves_ge_one_local
 
 private theorem same_leaves_N_local {α : Type} (N : Lens α) (k : Nat)
     (hLk : (leavesModNat k).refines N) (r r' : Raw)

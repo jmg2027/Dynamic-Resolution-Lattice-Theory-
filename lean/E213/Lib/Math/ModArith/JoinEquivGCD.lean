@@ -1,3 +1,4 @@
+import E213.Lens.Congruence
 import E213.Lib.Math.ModArith.JoinGCD
 import E213.Meta.Nat.NatDiv213
 
@@ -23,17 +24,7 @@ open E213.Meta.Nat.Gcd213
    succ_sub_self_213)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
-private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx _ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+open E213.Lens renaming leaves_view_pos → leaves_ge_one_local
 
 /-- **Chain step** at JE level: m > k ≥ 2,
     `leaves r' = leaves r + (m - k) → JoinEquiv L_m L_k r r'`.  ∅-axiom. -/

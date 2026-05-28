@@ -1,3 +1,4 @@
+import E213.Lens.Congruence
 import E213.Lens.Instances
 
 /-!
@@ -22,17 +23,7 @@ namespace E213.Lib.Math.ModArith.JoinCoprime
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat
 
-private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+open E213.Lens renaming leaves_view_pos → leaves_ge_one
 
 /-- +1 step via L_3 then L_2: chain length 2. -/
 private theorem step_plus_one {α : Type} (N : Lens α)
