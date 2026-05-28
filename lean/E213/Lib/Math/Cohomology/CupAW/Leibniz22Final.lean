@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
 
 import E213.Lib.Math.Cohomology.Cochain.Core
@@ -27,7 +27,7 @@ open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_2)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
-open E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge (bz5_2_false_at bz5_2_true_at)
+open E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge (bz5_2_false_at bz5_2_true_at)
 open E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
   (leibniz_zero_collapse_left_5_2_2 leibniz_pointwise_transport_left_5_2_2
    leibniz_zero_collapse_right_5_2_2 leibniz_pointwise_transport_right_5_2_2)
