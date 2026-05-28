@@ -10,9 +10,8 @@ import E213.Lib.Math.Cohomology.CupAW.LeibnizScaling
 import E213.Lib.Math.Cohomology.CupAW.LeibnizSmall
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
-import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22
-import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizMid
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
@@ -50,10 +49,12 @@ import E213.Lib.Math.Cohomology.CupAW.Zero
 
     * `LeibnizAlgLift`,
       `LeibnizAlgLift21`,
-      `LeibnizAlgLift21Alpha`,
       `LeibnizAlgLift22`,
-      `LeibnizAlgLift22Alpha` — algebraic-lift forms used by
-      `Universal/Prop*`.
+      `LeibnizAlgLiftAlpha` — algebraic-lift forms used by
+      `Universal/Prop*`.  `LeibnizAlgLiftAlpha` contains the
+      parametric `leibniz_via_α_decomp_general` and both
+      concrete corollaries `leibniz_via_α_decomp_{21, 22}`
+      at `b ∈ {1, 2}`.
 
   ## Status
 

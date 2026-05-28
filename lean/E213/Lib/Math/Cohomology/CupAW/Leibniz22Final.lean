@@ -1,3 +1,5 @@
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
 
@@ -52,7 +54,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (q : Fin 10)
     delta (cupAW 5 2 2 α (basis 5 2 q)) i
       = xor (cupAW 5 3 2 (delta α) (basis 5 2 q) i)
             (cupAW 5 2 3 α (delta (basis 5 2 q)) i) :=
-  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha.leibniz_via_α_decomp_22
+  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha.leibniz_via_α_decomp_22
     α (basis 5 2 q) i (h_components_α α q i)
 
 /-- Per-β-component Leibniz: cases on β q.  PURE.
