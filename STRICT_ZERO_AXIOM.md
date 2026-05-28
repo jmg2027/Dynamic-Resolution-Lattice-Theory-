@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 27 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–21),
-~4700 lines, **374 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 28 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–22),
+~4900 lines, **401 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -818,21 +818,31 @@ Phase 21 (Full HasDistinguishingWFull instance on `GRA23`,
 all PURE):
 
   · `HasDistinguishingWFull.lean` (12 PURE): closes the
-    categorical-distinctness leg.  `HasDistinguishingWFull`
-    extends `HasDistinguishingW` with the additional field
-    `distinct_equiv : Equiv a b → False` (Type-valued because
-    `Equiv` is Type-valued).  Headline `trivial23_not_iso_NT`
-    proves *no* `GRAIso trivial23 NumberTheory.GRA23_NT` exists
-    via a cardinality argument: `TrivialCarrier` is a
-    subsingleton (one-element type), so `iso.invFun 0 =
-    iso.invFun 1`, but `right_inv` then forces
-    `0 = iso.toFun (iso.invFun 0) = iso.toFun (iso.invFun 1) = 1`
-    — contradiction.  `gra23HasDistinguishingWFull` is the full
-    `Type 1` instance on `GRA23` with `combine = Monoidal.product`,
-    `Equiv = GRAIso`, refl/symm/trans from `GRAIso.refl/symm/trans`,
+    categorical-distinctness leg via cardinality argument on
+    `TrivialCarrier` (subsingleton) vs `Nat` (`0 ≠ 1`).
+    `gra23HasDistinguishingWFull` is the full `Type 1` instance
+    on `GRA23` with `combine = Monoidal.product`, `Equiv = GRAIso`,
     swap iso for `combine_sym`, and `trivial23_not_iso_NT` for
-    `distinct_equiv`.  PURE via `cases` on `TrivialCarrier` +
-    iso's `right_inv` axiom + `decide` on Nat literals.
+    `distinct_equiv`.
+
+Phase 22 (Lens.Unified × GRA capstone — Raw 연결, all PURE):
+
+  · `LensIsoCapstone.lean` (27 PURE): the deepest 213-native
+    statement of GRA's content.  `gradeLens : Lens Nat :=
+    ⟨2, 3, (· + ·)⟩` is the canonical (2, 3) Lens whose
+    `Lens.view r = Raw.fold 2 3 (· + ·) r = canonicalGradeMap r`
+    by definitional unfolding.  `profile_view_eq_canonical`
+    re-expresses Phase 18's universal property in Lens
+    vocabulary: any Lens whose view obeys the (2, 3) atomic
+    profile coincides pointwise with `gradeLens.view`.  By
+    `Lens.Unified.lensIso_iff_kernel_eq`,
+    `profile_lens_LensIso_gradeLens` proves every (2, 3)-profile
+    Lens on Nat is `Lens.Unified.LensIso` to `gradeLens`.  Five
+    `*Lens` defs (`walkLens` etc.) are explicit equivalence-class
+    members; five `*Realize_grade_eq_lens` theorems show that
+    Phase 17 realizations project to `gradeLens.view` by `rfl`.
+    Master capstone `gra_lens_iso_class_capstone_holds` packages
+    the universal property + 5 Reading `LensIso`s.
 
 ## Cross-reference
 

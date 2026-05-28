@@ -52,7 +52,13 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > leg: `trivial23_not_iso_NT` proves no `GRAIso` exists between
 > the one-element carrier and the Nat carrier by a subsingleton
 > argument, yielding the full `HasDistinguishingWFull` instance
-> on `GRA23 : Type 1`.  **Strict ∅-axiom: 374 PURE / 0 DIRTY**
+> on `GRA23 : Type 1`.  Phase 22 (`LensIsoCapstone`) connects the
+> whole chain back to Raw: `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩`
+> has view `= canonicalGradeMap` by `rfl`, and any (2, 3)-profile
+> Lens on Nat is proven `Lens.Unified.LensIso` to `gradeLens`.
+> The (2, 3)-arithmetic forced by atomic distinguishing IS the
+> `LensIso` equivalence class of `gradeLens` — the deepest
+> connection from GRA back to Raw.  **Strict ∅-axiom: 401 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree

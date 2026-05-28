@@ -25,6 +25,7 @@ import E213.Lib.Math.GRA.Universality23
 import E213.Lib.Math.GRA.Universe1
 import E213.Lib.Math.GRA.HasDistinguishingW
 import E213.Lib.Math.GRA.HasDistinguishingWFull
+import E213.Lib.Math.GRA.LensIsoCapstone
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -159,22 +160,37 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     proves *no* `GRAIso` exists between
                                     `trivial23` (1-element carrier) and
                                     `NumberTheory.GRA23_NT` (Nat carrier)
-                                    by a cardinality argument:
-                                    `TrivialCarrier` is a subsingleton
-                                    while Nat has `0 ≠ 1`.
+                                    by a cardinality argument.
                                     `gra23HasDistinguishingWFull` is the
-                                    full instance on `GRA23 : Type 1`
-                                    with atoms `trivial23` and `GRA23_NT`,
-                                    `combine := Monoidal.product`,
-                                    `Equiv := GRAIso`, and the swap iso
-                                    from Phase 20 as `combine_sym`.
+                                    full instance on `GRA23 : Type 1`.
+
+  ## Phase 22 — Lens.Unified × GRA capstone
+
+  * `LensIsoCapstone`             — defines `gradeLens : Lens Nat` with
+                                    `(2, 3, (· + ·))`, whose view IS
+                                    `canonicalGradeMap` by `rfl`.  Phase
+                                    18's universal property re-expressed
+                                    in Lens vocabulary
+                                    (`profile_view_eq_canonical`); from
+                                    there `profile_lens_LensIso_gradeLens`
+                                    proves every (2, 3)-profile Lens on
+                                    Nat is `Lens.Unified.LensIso` to
+                                    `gradeLens`.  The five Reading
+                                    Lenses (`walkLens` ... `resolutionLens`)
+                                    are explicit members; the five Phase
+                                    17 realizations project to
+                                    `gradeLens.view` by `rfl`.  The
+                                    master capstone
+                                    `gra_lens_iso_class_capstone` packages
+                                    the universal property + 5 Reading
+                                    `LensIso`s in one bundle.
 
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 374 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: 401 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
 from Phase 17 + 13 from Phase 18 + 15 from Phase 19 + 5 from
-Phase 20 + 12 from Phase 21).  `ax_coprime` uses `gcd213`
+Phase 20 + 12 from Phase 21 + 27 from Phase 22).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

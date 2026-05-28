@@ -1,9 +1,42 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–21 closed
-(374 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
+(401 PURE / 0 DIRTY).
 
-## This session — Phase 21: full HasDistinguishingWFull on GRA23 (374 PURE)
+## This session — Phase 22: Lens.Unified × GRA capstone (401 PURE)
+
+One new file extending GRA from 27 → 28 files, 374 → 401 PURE.
+
+  · **Phase 22 `LensIsoCapstone.lean`** (27 PURE) — the deepest
+    213-native statement of GRA's content.  Connects GRA's
+    canonicalGradeMap (Phase 16) and its universal property
+    (Phase 18) to `Lens.Unified.LensIso` (the 213-native
+    equivalence concept on Lenses).
+      · `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩` is the
+        canonical 213 Lens.  `gradeLens.view r = Raw.fold 2 3
+        (· + ·) r = canonicalGradeMap r` by definitional
+        unfolding.
+      · `profile_view_eq_canonical` lifts Phase 18 to Lens
+        vocabulary.
+      · `profile_lens_LensIso_gradeLens` — **the headline**:
+        every (2, 3)-profile Lens on Nat is `LensIso` to
+        `gradeLens`.  Proof via `Lens.Unified.lensIso_iff_kernel_eq`.
+      · `walkLens` / `cochainLens` / `truncationLens` /
+        `operadLens` / `resolutionLens` — five Reading Lens
+        defs (definitionally `gradeLens`); each `*Lens_LensIso`
+        theorem confirms membership.
+      · `*Realize_grade_eq_lens` (five) — Phase 17 realizations
+        project to `gradeLens.view` by `rfl`.
+      · `gra_lens_iso_class_capstone_holds` — the bundle of
+        universal property + 5 Reading `LensIso`s.
+
+The (2, 3)-arithmetic forced by atomic distinguishing IS the
+`LensIso` equivalence class of `gradeLens` — the strongest
+formal statement of GRA's relation to Raw.  All five Readings
+are explicit class members; the universal property forces any
+future (2, 3)-Reading into the same class.
+
+## Previous step — Phase 21: full HasDistinguishingWFull on GRA23 (374 PURE)
 
 One new file extending GRA from 26 → 27 files, 362 → 374 PURE.
 
@@ -413,7 +446,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–21)** | **★ CLOSED + PROMOTED + 374 PURE ★** |
+| **16** | **GRA Universality (Phases 1–22)** | **★ CLOSED + PROMOTED + 401 PURE ★** |
 
 ## Genuinely open (next session targets)
 

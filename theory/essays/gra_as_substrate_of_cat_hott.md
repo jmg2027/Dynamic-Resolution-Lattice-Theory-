@@ -242,6 +242,29 @@ proof PURE — no propext, no Classical, no Mathlib.  The
 "natural Cat-level Reading of GRA" — including the categorical
 distinctness — is now a Lean theorem at `Type 1`.
 
+Phase 22 (`LensIsoCapstone.lean`) closes the loop back to Raw.
+`gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩` is the canonical 213
+Lens; by definition `gradeLens.view r = Raw.fold 2 3 (· + ·) r =
+canonicalGradeMap r`.  Phase 18's universal property lifts to
+Lens vocabulary as `profile_view_eq_canonical`: any Lens whose
+view obeys the (2, 3)-profile coincides pointwise with
+`gradeLens.view`.  Hence by `Lens.Unified.lensIso_iff_kernel_eq`,
+**every (2, 3)-profile Lens is `LensIso` to `gradeLens`** —
+`profile_lens_LensIso_gradeLens`.  The five Reading Lenses are
+explicit class members (definitionally `gradeLens`); the five
+Phase 17 realizations project to `gradeLens.view` by `rfl`.
+
+This is the deepest 213-native statement of GRA's content: the
+(2, 3) arithmetic forced by atomic distinguishing IS a single
+equivalence class under `Lens.Unified.LensIso`, with `gradeLens`
+as the canonical member.  All five Readings are explicit class
+members, and the universal property forces any future Reading
+that respects the (2, 3) atomic profile into the same class.
+The Cat / HoTT / Cohomology / Walk / Resolution / Operad
+vocabularies all *name the same Lens-kernel on Raw* — exactly
+the strict-∅-axiom version of "GRA is what Cat and HoTT are
+Readings of."
+
 ## Self-check
 
 The first draft phrased this as "GRA is more fundamental than

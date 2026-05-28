@@ -1,12 +1,12 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–21)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 27 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–22)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 28 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phases 17–21 close the carrier-level / universal-property / universe-lifting / iso-symmetric / categorical-distinctness frontiers in sequence)
-**Purity**: **374 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phases 17–22 close the carrier-level / universal-property / universe-lifting / iso-symmetric / categorical-distinctness / Lens-equivalence-class frontiers in sequence)
+**Purity**: **401 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
-**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE); 17 `CarrierRealization` (33 PURE); 18 `Universality23` (13 PURE); 19 `Universe1` (15 PURE); 20 `HasDistinguishingW` (5 PURE); 21 `HasDistinguishingWFull` (12 PURE).
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE); 17 `CarrierRealization` (33 PURE); 18 `Universality23` (13 PURE); 19 `Universe1` (15 PURE); 20 `HasDistinguishingW` (5 PURE); 21 `HasDistinguishingWFull` (12 PURE); 22 `LensIsoCapstone` (27 PURE).
 
 ---
 
@@ -418,6 +418,9 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 
 **Phase 21 (Full HasDistinguishingWFull instance on `GRA23`)**
 - `lean/E213/Lib/Math/GRA/HasDistinguishingWFull.lean` — closes the categorical-distinctness leg.  `HasDistinguishingWFull` extends `HasDistinguishingW` with `distinct_equiv : Equiv a b → False`.  `trivial23_not_iso_NT` proves the cardinality argument: no `GRAIso` exists between `trivial23` (one-element carrier) and `NumberTheory.GRA23_NT` (Nat carrier), since `TrivialCarrier` is a subsingleton but `Nat` has `0 ≠ 1`.  `gra23HasDistinguishingWFull` is the full instance on `GRA23 : Type 1` with `combine = Monoidal.product`, `Equiv = GRAIso`, swap iso for `combine_sym`, and the distinctness witness above.  PURE via `cases` on `TrivialCarrier` + iso's `right_inv` axiom — no propext, no Classical.
+
+**Phase 22 (Lens.Unified × GRA capstone — Raw 연결)**
+- `lean/E213/Lib/Math/GRA/LensIsoCapstone.lean` — the deepest 213-native statement of GRA's content.  Defines `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩` whose `view` IS `canonicalGradeMap` by definitional unfolding (`Lens.view = Raw.fold`).  `profile_view_eq_canonical` lifts Phase 18's universal property to Lens vocabulary; `profile_lens_LensIso_gradeLens` proves every (2, 3)-profile Lens on Nat is `Lens.Unified.LensIso` to `gradeLens` — via `lensIso_iff_kernel_eq` from `Lens/Unified.lean`.  The five Reading Lenses (`walkLens` ... `resolutionLens`) are explicit class members; the five Phase 17 realizations project to `gradeLens.view` by `rfl`.  `gra_lens_iso_class_capstone` packages the universal property + 5 Reading `LensIso`s as a single bundle.  The **(2, 3)-arithmetic forced by atomic distinguishing IS the `LensIso` class of `gradeLens`** — the strongest formal statement of GRA's relation to Raw.
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)
