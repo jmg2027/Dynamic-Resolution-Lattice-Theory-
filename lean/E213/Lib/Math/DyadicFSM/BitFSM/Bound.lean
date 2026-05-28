@@ -64,13 +64,7 @@ theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
   exact ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij,
          Fin.ext h_sig_eq, Fin.ext h_run_eq⟩
 
-/-- ∅-axiom replacement for `Nat.sub_pos_of_lt` (which leaks propext). -/
-private theorem sub_pos_of_lt_213 : ∀ {a b : Nat}, a < b → 0 < b - a
-  | 0, _, h => by rw [Nat.sub_zero]; exact h
-  | k+1, 0, h => absurd h (Nat.not_succ_le_zero _)
-  | k+1, m+1, h => by
-    rw [Nat.succ_sub_succ_eq_sub]
-    exact sub_pos_of_lt_213 (Nat.lt_of_succ_lt_succ h)
+open E213.Tactic.NatHelper renaming sub_pos_of_lt → sub_pos_of_lt_213
 
 /-- ★★★★★ Tight bound: BitFSM(n) signature has pre-period + period ≤ 5n.
     STRICT ∅-AXIOM via 213-native helpers (no omega / no Nat.add_sub_cancel'). -/
