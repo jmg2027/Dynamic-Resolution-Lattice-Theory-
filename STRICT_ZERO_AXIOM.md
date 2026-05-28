@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 24 files (umbrella + Common + 7 Phases 1–6 +
+`E213.Lib.Math.GRA.*` — 25 files (umbrella + Common + 7 Phases 1–6 +
 5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16 + 1 Phase 17 + 1 Phase
-18), ~4200 lines, **342 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+18 + 1 Phase 19), ~4400 lines, **357 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -780,9 +780,27 @@ all PURE):
     as instances of the universal property — making the
     *forced-by-arithmetic* nature explicit rather than relying
     on rfl by definition.  This is the 1-categorical proxy for
-    the "GRACat-as-Cat is a Reading" frontier; the 2-categorical
-    statement requires universe lifting and remains open beyond
-    Phase 18.
+    the "GRACat-as-Cat is a Reading" frontier.
+
+Phase 19 (universe-1 HasDistinguishing — strict 2-cat universe
+lifting, all PURE):
+
+  · `Universe1.lean` (15 PURE): defines `HasDistinguishingU.{u}`
+    as the universe-polymorphic parallel of
+    `E213.Lens.SemanticAtom.HasDistinguishing`.  Exhibits
+    `readingHasDistinguishingU : HasDistinguishingU.{0} Reading`
+    at the original `Type 0` level (atoms `NT`, `Graph`,
+    combine `readingCombine r s := if r = s then r else .NT`
+    strictly commutative by case-split on `r = s`), then lifts
+    via `ULift.{1, 0}` to
+    `liftedReadingHasDistinguishingU : HasDistinguishingU.{1}
+    (ULift.{1, 0} Reading)` — the strict 2-categorical
+    universe-lifting Phase 18 named as open.  `Reading` is
+    enriched with `deriving DecidableEq` so the strict-equality
+    test in `readingCombine` is well-defined PURE.
+    `reading_atomic_agreement` shows the lifted carrier
+    preserves the `(2, 3)`-grade profile at atoms (NT ↦ 2,
+    Graph ↦ 3) matching the `canonicalGradeMap` of Phase 16.
 
 ## Cross-reference
 

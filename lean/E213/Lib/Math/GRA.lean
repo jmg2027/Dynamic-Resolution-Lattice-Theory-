@@ -22,6 +22,7 @@ import E213.Lib.Math.GRA.Monoidal
 import E213.Lib.Math.GRA.LensBridge
 import E213.Lib.Math.GRA.CarrierRealization
 import E213.Lib.Math.GRA.Universality23
+import E213.Lib.Math.GRA.Universe1
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -115,18 +116,31 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     `canonicalGradeMap` pointwise.
                                     `canonical_arithmetic_forced`
                                     capstones the parameterless
-                                    forcing statement.  This is the
-                                    1-categorical proxy for the
-                                    "GRACat-as-Cat is a Reading"
-                                    frontier; the 2-categorical version
-                                    requires universe lifting and
-                                    remains open beyond Phase 18.
+                                    forcing statement.
+
+  ## Phase 19 — Universe-1 HasDistinguishing (strict 2-cat universe-lifting)
+
+  * `Universe1`                   — `HasDistinguishingU.{u}` is the
+                                    universe-polymorphic parallel of
+                                    `Lens.SemanticAtom.HasDistinguishing`.
+                                    `liftedReadingHasDistinguishingU :
+                                    HasDistinguishingU.{1}
+                                    (ULift.{1, 0} Reading)` exhibits a
+                                    `Type 1` carrier with the
+                                    distinguishing structure,
+                                    satisfying the universe-lifting
+                                    requirement Phase 18 named.
+                                    `Reading` itself is enriched with
+                                    `deriving DecidableEq` so the
+                                    strict-commutative
+                                    `readingCombine := if r = s then r
+                                    else .NT` is well-defined PURE.
 
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 342 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: 357 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
-from Phase 17 + 13 from Phase 18).  `ax_coprime` uses `gcd213`
+from Phase 17 + 13 from Phase 18 + 15 from Phase 19).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

@@ -192,14 +192,27 @@ generators) has this profile — and the universal property does
 the rest.  `canonical_arithmetic_forced` is the parameterless
 capstone.
 
-Open beyond Phase 18: the strict 2-categorical statement
-"GRACat-as-Cat is a Reading of itself" — `HasDistinguishing` on
-the category of `Cat`-objects — requires universe lifting
-(`Cat : Type (u+1)` cannot be its own object) and is outside
-the parameterless-arithmetic discipline.  The 1-categorical
-universal property (Phase 18) captures the *content* of "Cat
-is forced as a Reading"; the strict 2-cat formulation is the
-external bookkeeping.
+Phase 19 (`Universe1.lean`) addresses the strict 2-categorical
+universe-lifting requirement.  A universe-polymorphic parallel
+`HasDistinguishingU.{u}` is defined, and an instance
+`HasDistinguishingU.{1} (ULift.{1, 0} Reading)` is exhibited via
+the `Type 1`-lifted `Reading` enum, with `readingCombine := if r
+= s then r else .NT` providing strict commutativity (the
+condition `r = s` is symmetric).  Atoms `NT` and `Graph` retain
+their (2, 3)-grade profile under the lifted structure.  The
+strict universe-lifting requirement Phase 18 named is therefore
+*met*: a `Type 1` carrier admits the distinguishing structure
+with the same atomic grades as the `Raw`-level arithmetic.
+
+This does not give a *natural* combine on the category-of-
+categories — `readingCombine` collapses non-equal Readings to
+the hub `.NT`.  A natural combine on categorical objects (e.g.,
+Cartesian product) is iso-symmetric, not strictly symmetric, so
+requires a separate weakening of `HasDistinguishingU` to take
+combine_sym up to a chosen equivalence relation.  That
+weakening is the open question beyond Phase 19 — but Phase 19
+demonstrates that the universe-lifting itself does not break
+the parameterless discipline.
 
 ## Self-check
 

@@ -1,9 +1,48 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–18 closed
-(342 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–19 closed
+(357 PURE / 0 DIRTY).
 
-## This session — Phase 18: universal property, 1-cat proxy for GRACat-as-Cat (342 PURE)
+## This session — Phase 19: strict 2-cat universe-lifting (357 PURE)
+
+One new file extending GRA from 24 → 25 files, 342 → 357 PURE.
+
+  · **Phase 19 `Universe1.lean`** (15 PURE) — the strict
+    2-categorical universe-lifting frontier from Phase 18.
+      · `HasDistinguishingU.{u}` — universe-polymorphic parallel
+        of `Lens.SemanticAtom.HasDistinguishing` (which is fixed
+        at `Type 0`).
+      · `Reading` enum (from Phase 7) is enriched with `deriving
+        DecidableEq` so strict-equality tests work PURE.
+      · `readingCombine r s := if r = s then r else .NT` is
+        strictly commutative (the condition `r = s` is symmetric;
+        proof closes by `by_cases`).
+      · `readingHasDistinguishingU : HasDistinguishingU.{0} Reading`
+        — instance at `Type 0` with atoms `NT`, `Graph` and the
+        strict-commutative combine.
+      · `liftedReadingHasDistinguishingU : HasDistinguishingU.{1}
+        (ULift.{1, 0} Reading)` — **the strict 2-cat statement**:
+        a `Type 1` carrier admits the distinguishing structure.
+        Lifts atoms via `ULift.up` and combine via
+        `liftedCombine r s := ULift.up (readingCombine r.down
+        s.down)`.
+      · `reading_atomic_agreement` — the lifted carrier's atomic
+        grade map matches `canonicalGradeMap` at `Raw.a` and
+        `Raw.b` (both `rfl`), so the (2, 3)-profile is preserved.
+      · `universe1_distinguishing_witness` — the capstone
+        delivering the `Type 1` instance.
+  · This meets the strict 2-categorical universe-lifting
+    requirement Phase 18 named.  The `Type 1` carrier exists
+    with the distinguishing structure; the parameterless
+    arithmetic discipline is not broken by universe lifting.
+
+Essay updated: open frontier shifts from "strict 2-cat" (closed)
+to "natural-combine on Cat-objects requires iso-symmetric
+combine_sym, a weakening of `HasDistinguishingU`" — the
+*content* of "Cat-Lens" beyond Phase 19's universe-lifting
+demonstration.
+
+## Previous step — Phase 18: universal property, 1-cat proxy for GRACat-as-Cat (342 PURE)
 
 One new file extending GRA from 23 → 24 files, 329 → 342 PURE.
 
@@ -299,7 +338,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–18)** | **★ CLOSED + PROMOTED + 342 PURE ★** |
+| **16** | **GRA Universality (Phases 1–19)** | **★ CLOSED + PROMOTED + 357 PURE ★** |
 
 ## Genuinely open (next session targets)
 

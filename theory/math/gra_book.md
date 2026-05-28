@@ -39,8 +39,12 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > `f Raw.a = 2`, `f Raw.b = 3`, and slash-additive equals
 > `canonicalGradeMap` pointwise.  ANY structure (`Cat`-object
 > included) whose grade map satisfies the (2, 3)-profile is
-> *forced* to read the canonical arithmetic.  **Strict ∅-axiom:
-> 342 PURE / 0 DIRTY**
+> *forced* to read the canonical arithmetic.  Phase 19 then
+> meets the strict 2-categorical universe-lifting requirement
+> with `HasDistinguishingU.{1} (ULift.{1, 0} Reading)` — a
+> `Type 1` carrier with the distinguishing structure and the
+> (2, 3)-grade profile at atoms preserved.  **Strict ∅-axiom:
+> 357 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree

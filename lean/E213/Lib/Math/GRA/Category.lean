@@ -110,6 +110,7 @@ inductive Reading where
   | Cohomology
   | HoTT
   | HigherAlgebra
+deriving DecidableEq
 
 /-- The GRA model attached to each Reading tag. -/
 def Reading.toModel : Reading → GRAModel
