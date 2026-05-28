@@ -19,6 +19,7 @@ import E213.Lib.Math.GRA.AnalysisEnrichment
 import E213.Lib.Math.GRA.Naturality
 import E213.Lib.Math.GRA.SectionRetraction
 import E213.Lib.Math.GRA.Monoidal
+import E213.Lib.Math.GRA.LensBridge
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -72,9 +73,22 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     `trivial23` as the unit; `leftUnitHom`
                                     and `rightUnitHom` as the unit isos
 
-Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`.
-**Strict ∅-axiom: 259 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
-from Phases 7–11 + 92 from Phases 12–15).  `ax_coprime` uses `gcd213`
+  ## Phase 16 — Lens bridge (Cat / HoTT as Readings)
+
+  * `LensBridge`                  — `Raw.fold 2 3 (· + ·)` as the
+                                    canonical Raw → Nat grade map;
+                                    all five enrichment grade maps are
+                                    definitionally equal to it.
+                                    `truncation_operad_grade_agree` is
+                                    the HoTT ↔ Higher Algebra Lens-level
+                                    equation: HoTT's truncation hierarchy
+                                    and the `E_n` ladder project to the
+                                    same Raw-level kernel.
+
+Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
+`theory/essays/gra_as_substrate_of_cat_hott.md`.
+**Strict ∅-axiom: 296 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

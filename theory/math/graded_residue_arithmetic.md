@@ -1,11 +1,12 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–15)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 21 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–16)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 22 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Purity**: **259 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings)
+**Purity**: **296 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
-**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE).
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE).
 
 ---
 
@@ -399,6 +400,9 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 - `lean/E213/Lib/Math/GRA/Naturality.lean` — translation between enrichments is natural with respect to forgetfuls; `DepthNaturality` capstone bundles depth-preservation for all 5 enrichments
 - `lean/E213/Lib/Math/GRA/SectionRetraction.lean` — each forgetful has a section on its valid image (`n = 0 ∨ n ≥ 2`); `WalkRetract` structures the data
 - `lean/E213/Lib/Math/GRA/Monoidal.lean` — `product : GRAModel → GRAModel → GRAModel`, the (2, 3)-monoidal product; `trivial23` as unit; `leftUnitHom`/`rightUnitHom` as unit isos
+
+**Phase 16 (Lens bridge — Cat / HoTT as Readings)**
+- `lean/E213/Lib/Math/GRA/LensBridge.lean` — `canonicalGradeMap := Raw.fold 2 3 (· + ·)` as the Raw-level (2,3)-arithmetic; all five enrichment grade maps reduce to it; `truncation_operad_grade_agree` proves the HoTT ↔ Higher Algebra Lens-level equation (same Raw-projection, same Lens kernel — they are *one* Reading under different vocabularies)
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)

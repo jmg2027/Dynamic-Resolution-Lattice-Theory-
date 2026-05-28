@@ -630,8 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 21 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15), ~3700 lines, **259 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 22 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16), ~3900 lines,
+**296 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -726,6 +727,23 @@ Phases 12–15 (full enrichment + monoidal, all PURE):
     (one-element carrier, grade ≡ 0).  `leftUnitHom` and
     `rightUnitHom` are the unit `GRAHom`s for `trivial23 ⊗ M`
     and `M ⊗ trivial23`.
+
+Phase 16 (Lens bridge — Cat / HoTT as Readings, all PURE):
+
+  · `LensBridge.lean` (37 PURE): the canonical Raw-level grade
+    map `canonicalGradeMap := Raw.fold 2 3 (· + ·)`.
+    `canonicalGradeMap_slash` uses `Nat.add_comm` PURE.  Each
+    of the five enrichment grade maps (`walkGradeMap`,
+    `cochainGradeMap`, `truncationGradeMap`, `operadGradeMap`,
+    `resolutionGradeMap`) is *definitionally* `canonicalGradeMap`,
+    so pairwise agreement theorems including the headline
+    `truncation_operad_grade_agree` (HoTT ↔ Higher Algebra
+    Lens-level equation) follow by `rfl`.  Carrier-level
+    realization theorems (`walk_realize_a` etc.) show that the
+    enriched Raw.fold projects to the canonical value on atoms.
+    Avoids `HasDistinguishing`-typeclass plumbing (which would
+    bring `propext`); uses `Raw.fold` with literal `Nat`-arithmetic
+    directly.
 
 ## Cross-reference
 
