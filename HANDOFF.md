@@ -70,9 +70,34 @@ sub-cleanups (#5a–#5e), each independently committed:
     orphan with zero consumers, sister of
     `basis_leibniz_5_2_1` which lives in `BasisLeibniz.lean`.
     Theorem moved into `BasisLeibniz.lean`.  Net: −26 lines.
+  · **#5k CupAtomic 3-file chain** (3 → 1).
+    `CupAtomic.lean` (d = 5 case), `CupAtomicExtended.lean`
+    (d ∈ {3, 4}), `CupAtomicGeneralD.lean` (∀d closed form
+    `count(d) = d · 2^(d+1)`).  Three leaf files with no
+    external consumers.  Merged into `CupAtomic.lean` as §1–6.
+    Net: −107 lines, 38 PURE theorems consolidated.
+  · **#5l `EncodingBijection52` → `EncodingBijection`** (2 → 1).
+    Two sibling files for (5, 1) and (5, 2) cochain ↔ Fin
+    encoding bijections.  Merged with both sub-namespaces
+    preserved so consumer fully-qualified names
+    (`EncodingBijection.encode_5_1` /
+    `EncodingBijection52.encode_5_2`) keep resolving.
+    Net: −10 lines.
+  · **#5m orphan `CutExpODE`** (1 → 0).  47-line zero-consumer
+    file with 2 theorems that were pure renames of
+    `CutExpSeries`'s `expPartialSum_zero` / `_succ`.  Deleted.
+    Net: −47 lines.
+  · **#5n `LeibnizLex21` → `LeibnizLexSelfRef`** (1 → 0).
+    97-line orphan extending the self-referential twisted
+    Leibniz from bidegree (1, 1) to (2, 1).  Merged as §3.
+    Net: −27 lines.
+  · **#5o orphan `SelfRefDepthExtended`** (1 → 0).  92-line
+    zero-consumer file with d ∈ {6, 7, 8} validation data.
+    Merged as a new section in `SelfRefDepth.lean`.  Net: −19
+    lines.
 
-Cumulative across #5a–#5j: **31 files deleted, 8 new files
-created, net −1118 lines**.  All cleanups full `lake build`
+Cumulative across #5a–#5o: **36 files deleted, 8 new files
+created, net −1328 lines**.  All cleanups full `lake build`
 clean (cleaned-cache rebuild verified for #5h+#5i, which had
 been masked by stale `.olean` cache during the original
 single-module audit).  All touched modules verified PURE by
