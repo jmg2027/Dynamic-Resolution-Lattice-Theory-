@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Cup.LeibnizCatalog
+import E213.Lib.Math.Cohomology.Cup.LeibnizLexListLevel
 
 /-!
 # Cohomology.Cup.SelfRefDepth — face-iteration depth signature
@@ -652,11 +653,80 @@ theorem cupChannels_d5_length :
 theorem cupChannels_d5_count :
     cupChannels_d5.length = totalCupChannels 5 := by decide
 
-/-- ★ **Codim stratum membership**: each channel's codim equals
+/-- **Codim stratum membership**: each channel's codim equals
     `5 - k - l` (the firing depth bit position).  Decide-verified
     across the catalog.  PURE. -/
 theorem cupChannels_d5_codim_correspondence :
     ∀ (c : Nat × Nat × Nat), c ∈ cupChannels_d5 →
       c.2.2 = 5 - c.1 - c.2.1 := by decide
+
+/-! ### §N — `d ≥ 6` catalog validation
+
+The universal closed form `totalCupChannels d = binom (d-1) 2`
+captures the channel count for all `d`.  Concrete validations at
+`d ∈ {6, 7, 8}` follow, plus a sampling of `d = 6` endpoint-pair
+firings to demonstrate the codim correspondence extends.
+
+| d | Channels = binom (d-1) 2 |
+|---|---|
+| 3 |  1 |
+| 4 |  3 |
+| 5 |  6 ← DRLT |
+| 6 | 10 |
+| 7 | 15 |
+| 8 | 21 |
+
+The d-dependent firing positions generalise: at `d = 6` the
+boundary-endpoint pair `(α_e 0, α_e (d-1))` of bidegree `(1, 1)`
+fires at depth bit `d - k - l = 4`.  The codim correspondence is
+structurally fixed across `d`: each bidegree `(k, l)` has a
+unique endpoint pair firing at codim `d - k - l`.
+-/
+
+open E213.Lib.Math.Cohomology.Cup.LeibnizLexListLevel (cupList)
+
+/-! #### `d = 6` endpoint-pair firings -/
+
+/-- `(1, 1)` endpoint at `d = 6` fires at depth 4. -/
+theorem d6_endpoint_1_1 :
+    selfRefIter 1 1 (α_e 0) (α_e 5) 5 [0, 1, 2, 3, 4, 5]
+    = [false, false, false, false, true] := by decide
+
+/-- `(1, 4)` endpoint at `d = 6` fires at depth 1. -/
+theorem d6_endpoint_1_4 :
+    selfRefIter 1 4
+      (α_e 0)
+      (fun s => decide (s = [2, 3, 4, 5]))
+      5 [0, 1, 2, 3, 4, 5]
+    = [false, true, false, false, false] := by decide
+
+/-- `(4, 1)` endpoint at `d = 6` fires at depth 1. -/
+theorem d6_endpoint_4_1 :
+    selfRefIter 4 1
+      (fun s => decide (s = [0, 1, 2, 3]))
+      (α_e 5)
+      5 [0, 1, 2, 3, 4, 5]
+    = [false, true, false, false, false] := by decide
+
+/-- `(2, 2)` endpoint at `d = 6` fires at depth 2. -/
+theorem d6_endpoint_2_2 :
+    selfRefIter 2 2 (α_e2 0 1) (β_e2' 4 5) 5 [0, 1, 2, 3, 4, 5]
+    = [false, false, true, false, false] := by decide
+
+/-- `(3, 1)` endpoint at `d = 6` fires at depth 2. -/
+theorem d6_endpoint_3_1 :
+    selfRefIter 3 1 (α_e3' 0 1 2) (α_e 5) 5 [0, 1, 2, 3, 4, 5]
+    = [false, false, true, false, false] := by decide
+
+/-! #### Channel-count validation at `d ∈ {6, 7, 8}` -/
+
+/-- `d = 6`: 10 channels = `binom 5 2`. -/
+theorem totalCupChannels_d6_eq_10 : totalCupChannels 6 = 10 := by decide
+
+/-- `d = 7`: 15 channels = `binom 6 2`. -/
+theorem totalCupChannels_d7_eq_15 : totalCupChannels 7 = 15 := by decide
+
+/-- `d = 8`: 21 channels = `binom 7 2`. -/
+theorem totalCupChannels_d8_eq_21 : totalCupChannels 8 = 21 := by decide
 
 end E213.Lib.Math.Cohomology.Cup.SelfRefDepth
