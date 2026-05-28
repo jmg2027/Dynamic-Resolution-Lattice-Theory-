@@ -11,11 +11,7 @@ import E213.Lib.Math.GRA.Category
 import E213.Lib.Math.GRA.Groupoid
 import E213.Lib.Math.GRA.Hom
 import E213.Lib.Math.GRA.DepthFunctor
-import E213.Lib.Math.GRA.WalkEnrichment
-import E213.Lib.Math.GRA.CochainEnrichment
-import E213.Lib.Math.GRA.HoTTEnrichment
-import E213.Lib.Math.GRA.HigherAlgebraEnrichment
-import E213.Lib.Math.GRA.AnalysisEnrichment
+import E213.Lib.Math.GRA.Enrichment
 import E213.Lib.Math.GRA.Naturality
 import E213.Lib.Math.GRA.SectionRetraction
 import E213.Lib.Math.GRA.Monoidal
@@ -55,23 +51,30 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
   * `DepthFunctor`    — `(2,3)`-depth is a **constant functor** on
                         `ReadingCat`; `Reading_depth_const` proves
                         all 6 Readings agree on `⌈n/3⌉`
-  * `WalkEnrichment`  — concrete carrier enrichment for R₄:
-                        `EdgeWalk` with bipartite length constraint
-                        + `forgetHom : EdgeWalk → Nat`
+  * `Enrichment`      — unified bipartite-constrained carrier
+                        for all five Readings.  `BipartiteCarrier`
+                        is a `Nat` tagged with the (2, 3)-
+                        bipartite constraint `n = 0 ∨ n ≥ 2`.
+                        `GRA23_Bipartite` is the enriched GRA
+                        model; `forgetHom : BipartiteCarrier →
+                        Nat` is the canonical projection to NT.
+                        Carries identical content for what the
+                        five domain Readings (Walk / Cochain /
+                        Truncation / Operad / Resolution)
+                        encode — the domain flavour was
+                        commentary, not structure.
 
-  ## Phases 12–15 — Full enrichment + naturality + retraction + monoidal
+  ## Phases 12–15 — Naturality + retraction + monoidal
 
-  * `CochainEnrichment`           — R₁ (degree) enrichment
-  * `HoTTEnrichment`              — R₃ (truncation) enrichment
-  * `HigherAlgebraEnrichment`     — R₂ (operad level) enrichment
-  * `AnalysisEnrichment`          — R₅ (resolution exponent) enrichment
-  * `Naturality`                  — translation between enrichments is
-                                    natural with respect to the forgetful;
-                                    `DepthNaturality` capstone bundles
-                                    depth-preservation for all 5 enrichments
-  * `SectionRetraction`           — each forgetful has a section on its
+  * `Naturality`                  — translation between the enriched
+                                    bipartite carrier and `NT` is natural
+                                    with respect to the forgetful;
+                                    `DepthNaturality` captures the
+                                    depth-preservation statement
+  * `SectionRetraction`           — the forgetful has a section on its
                                     valid image (`n = 0 ∨ n ≥ 2`);
-                                    `WalkRetract` structures up the data
+                                    `BipartiteRetract` structures up the
+                                    data
   * `Monoidal`                    — `product : GRAModel → GRAModel →
                                     GRAModel`, the (2, 3)-monoidal product;
                                     `trivial23` as the unit; `leftUnitHom`
@@ -81,31 +84,24 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
 
   * `LensBridge`                  — `Raw.fold 2 3 (· + ·)` as the
                                     canonical Raw → Nat grade map;
-                                    all five enrichment grade maps are
-                                    definitionally equal to it.
-                                    `truncation_operad_grade_agree` is
-                                    the HoTT ↔ Higher Algebra Lens-level
-                                    equation: HoTT's truncation hierarchy
-                                    and the `E_n` ladder project to the
-                                    same Raw-level kernel.
+                                    `bipartiteGradeMap` is definitionally
+                                    equal to it.  All five domain
+                                    Readings (Walk / Cochain / Truncation
+                                    / Operad / Resolution) factor through
+                                    `BipartiteCarrier.n` to the same Raw-
+                                    level kernel.
 
   ## Phase 17 — Carrier realization (closes the Phase 16 open frontier)
 
   * `CarrierRealization`          — `canonical_ge_2 : ∀ r,
                                     canonicalGradeMap r ≥ 2` enables
                                     direct construction of
-                                    `walkRealize` / `cochainRealize` /
-                                    `truncationRealize` / `operadRealize`
-                                    / `resolutionRealize : Raw →
-                                    EnrichedCarrier`, bypassing
+                                    `bipartiteRealize : Raw →
+                                    BipartiteCarrier`, bypassing
                                     `Raw.fold_slash`'s `combine_sym`
-                                    requirement.  Each realization's
+                                    requirement.  The realization's
                                     grade projection equals
-                                    `canonicalGradeMap` by `rfl`; the
-                                    HoTT ↔ Higher Algebra equation
-                                    holds *at the carrier level*
-                                    (`truncation_operad_realize_agree`),
-                                    not just at the Nat projection.
+                                    `canonicalGradeMap` by `rfl`.
 
   ## Phase 18 — Universal property (1-cat proxy for GRACat-as-Cat)
 
@@ -176,10 +172,12 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
 
 Narrative: `theory/math/gra_book.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: ≈386 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
-from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
-from Phase 17 + 13 from Phase 18 + ≈17 from Phases 19–21 unified
-HasDistinguishing213 + 27 from Phase 22).  `ax_coprime` uses `gcd213`
+**Strict ∅-axiom: all PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+from Phases 7–11 + ≈20 from Phases 12–15 unified Enrichment +
+Naturality + SectionRetraction + Monoidal + ≈11 from Phase 16
+Lens bridge + 7 from Phase 17 carrier realization + 13 from
+Phase 18 universal property + 23 from Phases 19–21 unified
+HasDistinguishing213 + 23 from Phase 22).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

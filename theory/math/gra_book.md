@@ -14,24 +14,24 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > Readings simultaneously.  Phases 7–16 add the category-theoretic
 > envelope: a 213-native `Cat` typeclass, `GRACat` / `ReadingCat`,
 > the connected-groupoid witness, `GRAHom` (general morphism), the
-> depth functor (constant on the (2, 3)-sub-category), full carrier
-> enrichment for all five Readings (`EdgeWalk`, `Cochain`, `Truncation`,
-> `Operad`, `Resolution`), naturality of translation, the retract-pair
+> depth functor (constant on the (2, 3)-sub-category), the unified
+> bipartite carrier enrichment (`BipartiteCarrier` — a `Nat` tagged
+> with `n = 0 ∨ n ≥ 2`, covering all five domain Readings: Walk-
+> length / Cochain-degree / Truncation-level / Operad-level /
+> Resolution-exponent), naturality of translation, the retract-pair
 > structure, the monoidal product `M₁ ⊗_GRA M₂` with `trivial23`
 > as unit, and (Phase 16) the Lens-bridge:
 > `canonicalGradeMap := Raw.fold 2 3 (· + ·)` is the canonical
-> Raw-level grade map, and all five enrichment grade maps reduce to
-> it.  The HoTT ↔ Higher Algebra Lens-level equation
-> (`truncation_operad_grade_agree`) follows by `rfl` — the
+> Raw-level grade map, and `bipartiteGradeMap` reduces to it.
+> The HoTT ↔ Higher Algebra Lens-level equation — that the
 > truncation hierarchy and the `E_n` ladder *are* the same
 > Raw-projection, hence the same Reading under different
-> vocabularies (companion essay:
+> vocabularies — follows by `rfl` (companion essay:
 > `theory/essays/gra_as_substrate_of_cat_hott.md`).  Phase 17
 > closes the essay's open frontier: `canonical_ge_2` enables
-> direct construction of `walkRealize` / `cochainRealize` /
-> `truncationRealize` / `operadRealize` / `resolutionRealize :
-> Raw → EnrichedCarrier`, bypassing `Raw.fold_slash` on the
-> enriched types; each realization's grade projection equals
+> direct construction of `bipartiteRealize : Raw →
+> BipartiteCarrier`, bypassing `Raw.fold_slash` on the enriched
+> type; the realization's grade projection equals
 > `canonicalGradeMap` by `rfl`; the headline HoTT ↔ Higher
 > Algebra equation holds at the carrier level.  Phase 18 closes
 > the next frontier via the 1-categorical proxy:
@@ -57,10 +57,12 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > Lens on Nat is proven `Lens.Unified.LensIso` to `gradeLens`.
 > The (2, 3)-arithmetic forced by atomic distinguishing IS the
 > `LensIso` equivalence class of `gradeLens` — the deepest
-> connection from GRA back to Raw.  **Strict ∅-axiom: ≈386 PURE / 0 DIRTY**
-> across the entire sub-tree (post-consolidation; the three
-> exploratory `HasDistinguishing` variants are unified into
-> `HasDistinguishing213.lean`) — `ax_coprime` uses `gcd213` (which
+> connection from GRA back to Raw.  **Strict ∅-axiom: all PURE / 0 DIRTY**
+> across the entire sub-tree (22 files, ~3500 lines after
+> consolidation — 3 `HasDistinguishing` variants unified into
+> `HasDistinguishing213.lean`; 5 domain-flavoured enrichments
+> unified into `Enrichment.lean` as one `BipartiteCarrier`) —
+> `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree
 > uses `rfl`, kernel-`decide`, or explicit Nat helpers

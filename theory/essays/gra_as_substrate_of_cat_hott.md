@@ -39,41 +39,49 @@ None of this admits a tunable parameter.
 
 ### §2 Cat as Reading R₂
 
-`GRA/HigherAlgebraEnrichment.lean` already names R₂ as "operad
-level"; the data is:
+The R₂ reading interprets the unified `BipartiteCarrier` as
+"operad level":
 
-  · objects with `level : Nat` (constrained to `0 ∨ ≥ 2`)
-  · `day : Operad → Operad → Operad` — Day convolution,
+  · objects with `n : Nat` (constrained to `0 ∨ ≥ 2`), read as
+    the operad level
+  · `BipartiteCarrier.combine` read as Day convolution —
     grade-additive (`A2`)
-  · `nest : Operad → Operad → Operad` — nested integration,
+  · the same `combine` read as nested integration —
     grade-subadditive (`A3`)
   · associativity / unit laws automatic via `Nat.add_assoc`,
     `Nat.add_comm`, `Nat.add_zero`
 
 This is *exactly* the data of a *symmetric monoidal category*
-of `E_n`-algebras: composition (`day`) associative + unital,
-tensor (`nest`) sub-grade, two distinguished objects
-(`E_2`, `E_3`).  Phase 15 `Monoidal.product` gives the
-categorical product `⊗_GRA` on these objects.  What category
-theory calls "the category of `E_n`-algebras with coherence
-isos" is the R₂ Reading of the (2, 3)-arithmetic, with the
-coherence isos being instances of `GRAIso.refl` / `GRAIso.trans`
-laws (Phase 7 `Category.GRAIso_id_comp` / `_comp_id` /
-`_comp_assoc`).
+of `E_n`-algebras: composition associative + unital, tensor
+sub-grade, two distinguished objects (read as `E_2`, `E_3`).
+Phase 15 `Monoidal.product` gives the categorical product
+`⊗_GRA` on these objects.  What category theory calls "the
+category of `E_n`-algebras with coherence isos" is the R₂
+Reading of the (2, 3)-arithmetic, with the coherence isos
+being instances of `GRAIso.refl` / `GRAIso.trans` laws (Phase 7
+`Category.GRAIso_id_comp` / `_comp_id` / `_comp_assoc`).
 
 ### §3 HoTT as Reading R₃ — and the Lens-isomorphism formulation
 
-`GRA/HoTTEnrichment.lean` names R₃ as "truncation level":
+The R₃ reading interprets the same `BipartiteCarrier` as
+"truncation level":
 
-  · `Truncation.level : Nat` with `level = 0 ∨ level ≥ 2`
-  · `suspend (Σⁿ)` : level-additive
-  · `smash (∧)` : level-sub-additive
+  · the underlying `n : Nat` (constrained to `n = 0 ∨ n ≥ 2`)
+    read as a homotopy n-type's truncation level
+  · `BipartiteCarrier.combine` read as suspension `Σⁿ` —
+    level-additive
+  · the same `combine` read as smash product `∧` —
+    level-sub-additive
 
 This IS the data of *truncated homotopy types* — a contractible
 (level 0) type, a 2-type, a 3-type, with suspension building
 higher types from lower and smash giving the tensor.  The
 truncation hierarchy `0\!-\!type ⊂ 1\!-\!type ⊂ 2\!-\!type ⊂ \ldots`
-is depth-monotonicity (`Common.depth_formula`).
+is depth-monotonicity (`Common.depth_formula`).  That R₂ and R₃
+share the same Lean carrier (`BipartiteCarrier`) is not a
+linguistic coincidence — it is the formal statement of "operad
+level and truncation level are the same Reading under different
+vocabularies".
 
 The *precise* statement of "HoTT is a Reading of GRA" uses
 `Lens.Unified.LensIso`.  A Lens has a `view : Raw → α` and a
@@ -154,30 +162,31 @@ Same fact, four resolutions.
 ## Open frontier — closed in Phase 17
 
 The originally-queued open frontier was the carrier-level
-equation: prove that the enriched `Raw → C → Nat` composite
-equals `canonicalGradeMap` PURE, where `C ∈ {Walk, Cochain,
-Truncation, Operad, Resolution}`.  Going through `Raw.fold_slash`
-on `C` requires a PURE `combine_sym` for the enriched type,
-which would force reasoning about the `Prop` constraint field
-(`length = 0 ∨ length ≥ 2`) and the usual route brings
+equation: prove that the enriched `Raw → BipartiteCarrier → Nat`
+composite equals `canonicalGradeMap` PURE.  Going through
+`Raw.fold_slash` on the enriched type requires a PURE
+`combine_sym`, which would force reasoning about the `Prop`
+constraint field (`n = 0 ∨ n ≥ 2`) and the usual route brings
 `propext`.
 
 Phase 17 (`CarrierRealization.lean`) closes this frontier by
 *bypassing* the `Raw.fold` route.  Key observation:
 `canonicalGradeMap r ≥ 2` for every `r : Raw` (Raw.a → 2, Raw.b
-→ 3, slash → sum of two ≥-2 values).  So we can build each
+→ 3, slash → sum of two ≥-2 values).  So we can build the
 realization directly as
 
 ```
-walkRealize r := ⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩
+bipartiteRealize r := ⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩
 ```
 
 — no enriched `Raw.fold`, no `combine_sym`, no `propext`.  The
-grade projection `(walkRealize r).length = canonicalGradeMap r`
-follows by `rfl`, and the headline HoTT ↔ Higher Algebra
-equation `(truncationRealize r).level = (operadRealize r).level`
-holds *at the carrier level*, also by `rfl`.  Total: 33 PURE
-theorems in Phase 17, all kernel-decidable.
+grade projection `(bipartiteRealize r).n = canonicalGradeMap r`
+follows by `rfl`.  Because the five domain Readings (Walk /
+Cochain / Truncation / Operad / Resolution) all read the same
+`BipartiteCarrier`, the headline HoTT ↔ Higher Algebra equation
+holds at the carrier level by definition, with no further
+proof obligation.  All Phase 17 theorems are kernel-decidable
+PURE.
 
 Phase 18 (`Universality23.lean`) addresses the next frontier
 via the 1-categorical proxy.  The `canonicalGradeMap_universal`

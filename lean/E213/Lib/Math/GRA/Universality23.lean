@@ -60,63 +60,30 @@ theorem canonicalGradeMap_universal (f : Raw → Nat)
   | slash x y h ihx ihy =>
     rw [hslash x y h, canonicalGradeMap_slash x y h, ihx, ihy]
 
-/-! ### §2 — Specialised universal property: enrichment grade maps
+/-! ### §2 — Specialised universal property: the enrichment grade map
 
-Each enrichment's grade map satisfies the (2, 3)-profile, so by
-the universal property it equals `canonicalGradeMap`.  These
-were already true `rfl` in Phase 16 (by definition); here we
-re-derive them as instances of the universal property to make
-the *forced-by-arithmetic* nature explicit.
+The bipartite enrichment's grade map `bipartiteGradeMap`
+satisfies the (2, 3)-profile, so by the universal property it
+equals `canonicalGradeMap`.  This is already true `rfl` by
+definition; the universal-property derivation makes the
+*forced-by-arithmetic* nature explicit.
 -/
 
-theorem walkGradeMap_forced (r : Raw) :
-    walkGradeMap r = canonicalGradeMap r :=
-  canonicalGradeMap_universal walkGradeMap
-    walkGradeMap_a walkGradeMap_b walkGradeMap_slash r
+theorem bipartiteGradeMap_forced (r : Raw) :
+    bipartiteGradeMap r = canonicalGradeMap r :=
+  canonicalGradeMap_universal bipartiteGradeMap
+    bipartiteGradeMap_a bipartiteGradeMap_b bipartiteGradeMap_slash r
 
-theorem cochainGradeMap_forced (r : Raw) :
-    cochainGradeMap r = canonicalGradeMap r :=
-  canonicalGradeMap_universal cochainGradeMap
-    cochainGradeMap_a cochainGradeMap_b cochainGradeMap_slash r
+/-! ### §3 — Carrier-level forcing via the realization
 
-theorem truncationGradeMap_forced (r : Raw) :
-    truncationGradeMap r = canonicalGradeMap r :=
-  canonicalGradeMap_universal truncationGradeMap
-    truncationGradeMap_a truncationGradeMap_b truncationGradeMap_slash r
-
-theorem operadGradeMap_forced (r : Raw) :
-    operadGradeMap r = canonicalGradeMap r :=
-  canonicalGradeMap_universal operadGradeMap
-    operadGradeMap_a operadGradeMap_b operadGradeMap_slash r
-
-theorem resolutionGradeMap_forced (r : Raw) :
-    resolutionGradeMap r = canonicalGradeMap r :=
-  canonicalGradeMap_universal resolutionGradeMap
-    resolutionGradeMap_a resolutionGradeMap_b resolutionGradeMap_slash r
-
-/-! ### §3 — Carrier-level forcing via realizations
-
-The `walkRealize` / `cochainRealize` / … construction of Phase 17
-gives, for each Raw, an enriched element with `canonicalGradeMap`
-grade.  Combined with the universal property, this says: ANY
-enriched (2, 3)-realization equals the Phase 17 canonical one
-at the grade level.
+`bipartiteRealize` of Phase 17 gives, for each Raw, an enriched
+`BipartiteCarrier` element with `canonicalGradeMap` grade.
+Combined with the universal property, this says: any enriched
+(2, 3)-realization equals the canonical one at the grade level.
 -/
 
-theorem walkRealize_grade_forced (r : Raw) :
-    (walkRealize r).length = canonicalGradeMap r := rfl
-
-theorem cochainRealize_grade_forced (r : Raw) :
-    (cochainRealize r).degree = canonicalGradeMap r := rfl
-
-theorem truncationRealize_grade_forced (r : Raw) :
-    (truncationRealize r).level = canonicalGradeMap r := rfl
-
-theorem operadRealize_grade_forced (r : Raw) :
-    (operadRealize r).level = canonicalGradeMap r := rfl
-
-theorem resolutionRealize_grade_forced (r : Raw) :
-    (resolutionRealize r).exponent = canonicalGradeMap r := rfl
+theorem bipartiteRealize_grade_forced (r : Raw) :
+    (bipartiteRealize r).n = canonicalGradeMap r := rfl
 
 /-! ### §4 — The two-function uniqueness theorem
 

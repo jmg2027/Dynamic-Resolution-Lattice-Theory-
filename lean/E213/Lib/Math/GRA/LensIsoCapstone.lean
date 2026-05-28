@@ -187,31 +187,24 @@ theorem all_reading_lenses_LensIso :
    ⟨fun _ _ => id, fun _ _ => id⟩,
    ⟨fun _ _ => id, fun _ _ => id⟩⟩
 
-/-! ### §6 — Carrier-level forcing back into Raw via realizations
+/-! ### §6 — Carrier-level forcing back into Raw via realization
 
-Each Phase 17 realization (e.g., `walkRealize : Raw → EdgeWalk`)
+The Phase 17 realization `bipartiteRealize : Raw → BipartiteCarrier`
 projects back to `canonicalGradeMap` at the Nat level.  Composed
 with the grade projection, the resulting Raw → Nat is exactly
 `gradeLens.view`.  This is the carrier-level confirmation of
 the LensIso equivalence — at the *enriched* carrier, the same
 arithmetic is being read.
+
+(After the Enrichment consolidation, the former five
+realizations `walkRealize` / `cochainRealize` / ... collapse to
+one `bipartiteRealize`.)
 -/
 
-/-- Walk realization's grade-projection equals `gradeLens.view`. -/
-theorem walkRealize_grade_eq_lens (r : Raw) :
-    (walkRealize r).length = gradeLens.view r := rfl
-
-theorem cochainRealize_grade_eq_lens (r : Raw) :
-    (cochainRealize r).degree = gradeLens.view r := rfl
-
-theorem truncationRealize_grade_eq_lens (r : Raw) :
-    (truncationRealize r).level = gradeLens.view r := rfl
-
-theorem operadRealize_grade_eq_lens (r : Raw) :
-    (operadRealize r).level = gradeLens.view r := rfl
-
-theorem resolutionRealize_grade_eq_lens (r : Raw) :
-    (resolutionRealize r).exponent = gradeLens.view r := rfl
+/-- Bipartite realization's grade-projection equals
+    `gradeLens.view`. -/
+theorem bipartiteRealize_grade_eq_lens (r : Raw) :
+    (bipartiteRealize r).n = gradeLens.view r := rfl
 
 /-! ### §7 — Master capstone
 

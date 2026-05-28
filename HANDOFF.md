@@ -1,10 +1,77 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
-(≈386 PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
+(all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## This session — Cleanup pass #3: `HasDistinguishing` consolidation
+## This session — Cleanup pass #4: 5 enrichments → 1 unified bipartite carrier
+
+Five domain-flavoured enrichments (`WalkEnrichment`,
+`CochainEnrichment`, `HoTTEnrichment`, `HigherAlgebraEnrichment`,
+`AnalysisEnrichment`) were line-for-line identical modulo
+cosmetic renaming (field name `length` / `degree` / `level` /
+`exponent`; constructor labels; operation labels `concat` /
+`cup` / `suspend` / `day` / `compose`).  All consolidated to a
+single parametric file.
+
+The unified core:
+
+```lean
+namespace E213.Lib.Math.GRA.Enrichment
+
+structure BipartiteCarrier where
+  n : Nat
+  constraint : n = 0 ∨ n ≥ 2
+
+def BipartiteCarrier.{zero, two, three} : BipartiteCarrier := ...
+def BipartiteCarrier.combine : BipartiteCarrier → BipartiteCarrier → BipartiteCarrier
+def GRA23_Bipartite : GRAModel := ...
+def forgetHom : GRAHom GRA23_Bipartite GRA23_NT := ...
+```
+
+The domain naming (Walk-length / Cochain-degree / Truncation-
+level / Operad-level / Resolution-exponent) was commentary on
+what `n` *interprets as*, not mathematical content.  The
+arithmetic is one structure.
+
+Consumers also collapsed their 5-fold sections to one:
+
+  · `LensBridge.lean` — 5 `*GradeMap` definitions → 1
+    `bipartiteGradeMap`; 5 atom-realize lemmas → 1 pair
+  · `CarrierRealization.lean` — 5 `*Realize` defs → 1
+    `bipartiteRealize`; 5 atom theorems → 1 pair; 5 slash
+    theorems → 1
+  · `Naturality.lean` — 5 `*_depth_natural` theorems → 1
+    `bipartite_depth_natural`; 5 `*ToNT` homs → 1
+    `bipartiteToNT`; `DepthNaturality` record from 5 fields → 1
+  · `SectionRetraction.lean` — 5 `*.section` definitions → 1
+    `Bipartite.section`; 5 retraction lemmas → 1 pair;
+    `WalkRetract` → `BipartiteRetract`
+  · `Universality23.lean` — 5 `*GradeMap_forced` → 1
+    `bipartiteGradeMap_forced`; 5 `*Realize_grade_forced` → 1
+  · `LensIsoCapstone.lean` — 5 `*Realize_grade_eq_lens` → 1
+
+Deleted (full history preserved in `git log`):
+  · `lean/E213/Lib/Math/GRA/WalkEnrichment.lean` (165 lines)
+  · `lean/E213/Lib/Math/GRA/CochainEnrichment.lean` (133)
+  · `lean/E213/Lib/Math/GRA/HoTTEnrichment.lean` (128)
+  · `lean/E213/Lib/Math/GRA/HigherAlgebraEnrichment.lean` (116)
+  · `lean/E213/Lib/Math/GRA/AnalysisEnrichment.lean` (117)
+
+New: `lean/E213/Lib/Math/GRA/Enrichment.lean` (~145 lines, 11 PURE).
+
+Net effect: GRA sub-tree went from 26 → 22 files; ~4700 → ~3500
+lines; PURE-theorem count dropped (5-fold dup theorems collapsed
+to 1 each) but coverage is unchanged.
+
+Build verified: `lake build` clean (1004/1004); per-module
+`scan_axioms.py` reports all 7 touched modules **all PURE**.
+
+Docs updated: GRA.lean umbrella, THEORY_BOOK Part VI.6 + VI.7,
+gra_book.md preamble, gra_as_substrate essay §2 + §3 + Phase 17
+paragraph, STRICT_ZERO_AXIOM Tier 5.1 Phases 11–18 entries.
+
+## Previous step — Cleanup pass #3: `HasDistinguishing` consolidation
 
 Three exploratory Phase-19/20/21 typeclasses (`HasDistinguishingU`,
 `HasDistinguishingW`, `HasDistinguishingWFull`) consolidated into a

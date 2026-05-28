@@ -836,27 +836,33 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
     `isoToHom` forgetful
   · `DepthFunctor.lean` — depth as constant functor on
     `ReadingCat`
-  · `WalkEnrichment.lean` — first carrier enrichment (R₄)
 
-### VI.6 Enrichments and natural structure — Phases 12–15
+### VI.6 Bipartite enrichment + naturality + monoidal — Phases 11–15
 
-  · `CochainEnrichment` + `HoTTEnrichment` +
-    `HigherAlgebraEnrichment` + `AnalysisEnrichment` — full
-    enrichment for the remaining 4 Readings
-  · `Naturality.lean` — translation as natural transformation;
-    `DepthNaturality` capstone
-  · `SectionRetraction.lean` — forgetful has a section on the
-    valid image (`0 ∨ ≥ 2`)
+  · `Enrichment.lean` — the unified `BipartiteCarrier` enrichment
+    (a `Nat` tagged with `n = 0 ∨ n ≥ 2`).  `GRA23_Bipartite` is
+    the enriched (2, 3)-GRA model; the canonical `forgetHom :
+    GRA23_Bipartite → GRA23_NT` projects to the simplified
+    Reading.  The five domain flavours (Walk-length / Cochain-
+    degree / Truncation-level / Operad-level / Resolution-
+    exponent) are commentary — the math is one structure.
+  · `Naturality.lean` — translation between enriched and
+    simplified as natural transformation; `DepthNaturality`
+    captures depth-preservation.
+  · `SectionRetraction.lean` — the forgetful has a section on
+    its valid image (`0 ∨ ≥ 2`); `BipartiteRetract` packages
+    the retract data.
   · `Monoidal.lean` — `product M₁ M₂` is the monoidal product;
-    `trivial23` is unit; unit isos `leftUnitHom` / `rightUnitHom`
+    `trivial23` is unit; unit isos `leftUnitHom` / `rightUnitHom`.
 
 ### VI.7 Lens bridge + universal property — Phases 16–18
 
   · `LensBridge.lean` — `canonicalGradeMap := Raw.fold 2 3 (· + ·)`;
-    all 5 enrichment grade maps reduce to it by `rfl`
+    `bipartiteGradeMap` is `rfl`-equal to it.
   · `CarrierRealization.lean` — `canonical_ge_2` enables direct
-    `walkRealize`/etc. construction at the carrier level,
-    bypassing `Raw.fold_slash`'s `combine_sym` requirement
+    `bipartiteRealize : Raw → BipartiteCarrier` construction at
+    the carrier level, bypassing `Raw.fold_slash`'s `combine_sym`
+    requirement.
   · `Universality23.lean` — `canonicalGradeMap_universal`:
     any (2, 3)-profile function = `canonicalGradeMap` pointwise
 
@@ -887,8 +893,11 @@ The (2, 3)-arithmetic forced by atomic distinguishing IS a
 single `LensIso`-equivalence class — Cat, HoTT, Cochain, Walk,
 Resolution, Operad all name the same Lens-kernel on Raw.
 
-**Status**: 26 files, ~4700 lines, **≈386 PURE / 0 DIRTY** (post-
-consolidation: 3 exploratory variants merged into `HasDistinguishing213.lean`).
+**Status**: 22 files, ~3500 lines, **all PURE / 0 DIRTY** —
+3 exploratory `HasDistinguishing` variants unified into
+`HasDistinguishing213.lean`; 5 domain-flavoured enrichments
+(Walk / Cochain / HoTT / HigherAlgebra / Analysis) unified into
+one `Enrichment.lean` (`BipartiteCarrier`).
 
 ---
 

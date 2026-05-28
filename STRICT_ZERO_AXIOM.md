@@ -630,10 +630,12 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 26 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 each from Phases 16–18 + 1
-unified `HasDistinguishing213` for Phases 19–21 + Phase 22),
-~4700 lines, **≈386 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 22 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 1 unified `Enrichment` + 3 Phases 12–15
+support (Naturality + SectionRetraction + Monoidal) + 1 each
+from Phases 16–18 + 1 unified `HasDistinguishing213` for
+Phases 19–21 + Phase 22),
+~3500 lines, **all PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -686,42 +688,33 @@ Phases 7–11 (category theory + enrichment, all PURE):
   · `DepthFunctor.lean` (9 PURE): depth as constant functor on
     the (2, 3)-sub-category; `Reading_depth_const` shows all 6
     Readings agree on `⌈n/3⌉` for `n ≥ 2`.
-  · `WalkEnrichment.lean` (12 PURE): `EdgeWalk` with
-    "length = 0 ∨ length ≥ 2" bipartite constraint; `concat` /
-    `tensor` operations; `GRA23_EdgeWalk` instance; `forgetHom`
-    exhibiting the simplified `GRA23_Graph` as the image of
-    `EdgeWalk` under "forget the walk-structure-witnesses".
+Phases 11–15 (unified bipartite enrichment + naturality +
+retraction + monoidal, all PURE):
 
-Phases 12–15 (full enrichment + monoidal, all PURE):
-
-  · `CochainEnrichment.lean` (12 PURE): R₁ enrichment via
-    `Cochain` carrying cohomological degree with the
-    "degree = 0 ∨ degree ≥ 2" constraint.  Cup-product `cup`
-    and grade-additive tensor `tensor`.  `GRA23_CochainEnriched`
-    + `forgetHom` to NT.
-  · `HoTTEnrichment.lean` (12 PURE): R₃ enrichment via
-    `Truncation` (homotopy n-types).  Suspension `Σⁿ` (`suspend`)
-    and smash product `∧` (`smash`).
-    `GRA23_TruncationEnriched` + `forgetHom`.
-  · `HigherAlgebraEnrichment.lean` (12 PURE): R₂ enrichment via
-    `Operad` (`E_n` levels).  Day convolution (`day`) and nested
-    integration (`nest`).  `GRA23_OperadEnriched` + `forgetHom`.
-  · `AnalysisEnrichment.lean` (12 PURE): R₅ enrichment via
-    `Resolution` (analytic exponents).  Modulus composition
-    (`compose`) and polynomial-depth product (`poly`).
-    `GRA23_ResolutionEnriched` + `forgetHom`.
-  · `Naturality.lean` (13 PURE): translation between Readings
-    is natural with respect to the forgetfuls.  Per-Reading
-    `*_depth_natural` theorems + `DepthNaturality` capstone
-    + `depth_naturality_witness` aggregating all 5.
-    `walk_cochain_grade_match` and `walk_cochain_depth_match`
-    show cross-Reading translation via the hub.
-  · `SectionRetraction.lean` (17 PURE): each forgetful has a
+  · `Enrichment.lean` (11 PURE): one parametric enrichment for
+    all five Readings.  `BipartiteCarrier` is a `Nat` tagged with
+    the bipartite constraint `n = 0 ∨ n ≥ 2` (excluding `n = 1`,
+    which `gcd(2, 3) = 1` excludes from `{2a + 3b}`).
+    `BipartiteCarrier.{zero, two, three}` carrier values;
+    `BipartiteCarrier.combine` (additive on `n`, serving as both
+    `⊕` and `⊗`).  `GRA23_Bipartite` is the enriched (2, 3)-GRA
+    model; `forgetHom : GRA23_Bipartite → GRA23_NT` is the
+    canonical projection.  The five domain flavours (Walk-length,
+    Cochain-degree, Truncation-level, Operad-level, Resolution-
+    exponent) are decompositions of one structure — the domain
+    names were commentary, not mathematical content.
+  · `Naturality.lean` (5 PURE): translation between enriched and
+    simplified is natural with respect to the forgetful.
+    `bipartite_depth_natural` + `DepthNaturality` capstone +
+    `depth_naturality_witness`.  `bipartite_grade_match` and
+    `bipartite_depth_match` give cross-reading translation via
+    the hub.
+  · `SectionRetraction.lean` (3 PURE): the forgetful has a
     section on its valid image (`n = 0 ∨ n ≥ 2`).
-    `Walk.section`, `Cochain.section`, `Truncation.section`,
-    `Operad.section`, `Resolution.section` with retraction
-    identities `forget ∘ section = id` and section identities
-    `section ∘ forget = id`.  `WalkRetract` structures the data.
+    `Bipartite.section` with retraction identity
+    `forget ∘ section = id` and section identity
+    `section ∘ forget = id`.  `BipartiteRetract` structures the
+    data.
   · `Monoidal.lean` (14 PURE): `product : GRAModel → GRAModel →
     GRAModel` is the (2, 3)-monoidal product with component-wise
     `⊕` and `⊗` and additive grade.  `trivial23` is the unit
@@ -731,57 +724,52 @@ Phases 12–15 (full enrichment + monoidal, all PURE):
 
 Phase 16 (Lens bridge — Cat / HoTT as Readings, all PURE):
 
-  · `LensBridge.lean` (37 PURE): the canonical Raw-level grade
+  · `LensBridge.lean` (11 PURE): the canonical Raw-level grade
     map `canonicalGradeMap := Raw.fold 2 3 (· + ·)`.
-    `canonicalGradeMap_slash` uses `Nat.add_comm` PURE.  Each
-    of the five enrichment grade maps (`walkGradeMap`,
-    `cochainGradeMap`, `truncationGradeMap`, `operadGradeMap`,
-    `resolutionGradeMap`) is *definitionally* `canonicalGradeMap`,
-    so pairwise agreement theorems including the headline
-    `truncation_operad_grade_agree` (HoTT ↔ Higher Algebra
-    Lens-level equation) follow by `rfl`.  Carrier-level
-    realization theorems (`walk_realize_a` etc.) show that the
-    enriched Raw.fold projects to the canonical value on atoms.
-    Avoids `HasDistinguishing`-typeclass plumbing (which would
-    bring `propext`); uses `Raw.fold` with literal `Nat`-arithmetic
+    `canonicalGradeMap_slash` uses `Nat.add_comm` PURE.  The
+    bipartite enrichment grade map (`bipartiteGradeMap`) is
+    *definitionally* `canonicalGradeMap`; pairwise agreement
+    theorems across the five domain Readings reduce to
+    `bipartite_canonical_agree` and follow by `rfl`.  Carrier-
+    level realization theorems (`bipartite_realize_a`,
+    `bipartite_realize_b`) show that the enriched Raw.fold
+    projects to the canonical value on atoms.  Avoids
+    `HasDistinguishing`-typeclass plumbing (which would bring
+    `propext`); uses `Raw.fold` with literal `Nat`-arithmetic
     directly.
 
 Phase 17 (carrier realization — closes Phase 16 open frontier,
 all PURE):
 
-  · `CarrierRealization.lean` (33 PURE): proves
+  · `CarrierRealization.lean` (7 PURE): proves
     `canonical_ge_2 : ∀ r : Raw, canonicalGradeMap r ≥ 2` by
     Raw induction (atoms map to 2 or 3; slash adds two ≥-2
     values, hence ≥ 4).  This enables *direct* construction of
-    `walkRealize` / `cochainRealize` / `truncationRealize` /
-    `operadRealize` / `resolutionRealize : Raw → EnrichedCarrier`,
-    bypassing `Raw.fold` on the enriched types entirely.  Each
-    realization is `⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩`,
-    so the grade-projection equals `canonicalGradeMap` by `rfl`,
-    and all pairwise carrier-level agreement theorems (notably
-    `truncation_operad_realize_agree`, the HoTT ↔ Higher Algebra
-    equation at the carrier level) follow by `rfl`.  Avoids the
-    PURE `combine_sym` problem on `Prop`-field-carrying enrichments
-    (which would force structural equality reasoning that brings
-    `propext`).
+    `bipartiteRealize : Raw → BipartiteCarrier`, bypassing
+    `Raw.fold` on the enriched type entirely.  The realization
+    is `⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩`, so
+    the grade-projection equals `canonicalGradeMap` by `rfl`.
+    Avoids the PURE `combine_sym` problem on the `Prop`-field-
+    carrying enrichment (which would force structural equality
+    reasoning that brings `propext`).
 
 Phase 18 (universal property — 1-cat proxy for GRACat-as-Cat,
 all PURE):
 
-  · `Universality23.lean` (13 PURE): `canonicalGradeMap_universal`
+  · `Universality23.lean` (5 PURE): `canonicalGradeMap_universal`
     proves any `f : Raw → Nat` with `f Raw.a = 2`, `f Raw.b = 3`,
     and slash-additive (`f (Raw.slash x y h) = f x + f y`) equals
     `canonicalGradeMap` pointwise.  Proof is direct Raw induction,
     closes by `rfl` at atoms.  Capstones with
     `canonical_arithmetic_forced` (the parameterless forcing
     statement) and `two_atoms_slash_agree` (uniqueness of the
-    (2, 3)-profile function).  The five enrichment grade maps
-    (`walkGradeMap`, `cochainGradeMap`, ...) and realization
-    grade projections (`(walkRealize r).length`, ...) are derived
-    as instances of the universal property — making the
-    *forced-by-arithmetic* nature explicit rather than relying
-    on rfl by definition.  This is the 1-categorical proxy for
-    the "GRACat-as-Cat is a Reading" frontier.
+    (2, 3)-profile function).  `bipartiteGradeMap_forced` and
+    `bipartiteRealize_grade_forced` derive the enrichment-level
+    grade equations as instances of the universal property —
+    making the *forced-by-arithmetic* nature explicit rather
+    than relying on `rfl` by definition.  This is the
+    1-categorical proxy for the "GRACat-as-Cat is a Reading"
+    frontier.
 
 Phases 19–21 (unified `HasDistinguishing213` — universe-polymorphic
 typeclass, all PURE):

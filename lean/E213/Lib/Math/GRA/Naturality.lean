@@ -4,36 +4,34 @@ import E213.Lib.Math.GRA.NumberTheory
 import E213.Lib.Math.GRA.Hom
 import E213.Lib.Math.GRA.Category
 import E213.Lib.Math.GRA.DepthFunctor
-import E213.Lib.Math.GRA.WalkEnrichment
-import E213.Lib.Math.GRA.CochainEnrichment
-import E213.Lib.Math.GRA.HoTTEnrichment
-import E213.Lib.Math.GRA.HigherAlgebraEnrichment
-import E213.Lib.Math.GRA.AnalysisEnrichment
+import E213.Lib.Math.GRA.Enrichment
 
 /-!
-# GRA Naturality — Phase 13
+# GRA Naturality — Phase 13 (post-consolidation)
 
-Each of the five Readings now has both a *simplified* instance
-(carrier = Nat) and an *enriched* instance (carrier = the
-domain-specific tagged type — Walk / Cochain / Truncation /
-Operad / Resolution).  The forgetful `enriched → simplified`
-is a `GRAHom` (proved in each enrichment file).
+The (now single) bipartite enrichment has both a *simplified*
+instance (carrier = Nat, via `GRA23_NT`) and an *enriched*
+instance (`GRA23_Bipartite` on `BipartiteCarrier`).  The
+forgetful from enriched to simplified is a `GRAHom`
+(`Enrichment.forgetHom`).
 
-This file shows that translation between Readings is **natural**
-with respect to the forgetful: the diagram
+This file shows that translation between the enriched and
+simplified Readings is **natural** with respect to the
+forgetful: the diagram
 
-    Walk ───→ EdgeWalk's depth = ⌈n/3⌉
-     │              │
-   forget        depth_formula
-     ↓              ↓
-    Nat  ───→  ⌈n/3⌉
+    BipartiteCarrier ───→ bipartiteDepth = ⌈n/3⌉
+       │                        │
+     forget                 depth_formula
+       ↓                        ↓
+      Nat       ───→        ⌈n/3⌉
 
-commutes, and the same holds for every other Reading.
+commutes — and after consolidation this is one statement
+covering what used to be five (Walk, Cochain, Truncation,
+Operad, Resolution).
 
-Furthermore, *cross-Reading translation* is the unique map that
-makes all such squares commute — this is the precise statement of
-"depth is the unique structural invariant of the (2, 3)
-arithmetic", expressed at the natural-transformation level.
+This is the precise statement of "depth is the unique structural
+invariant of the (2, 3) arithmetic", at the natural-transformation
+level.
 
 Standard: 0 sorry, ∅-axiom (PURE).
 -/
@@ -43,133 +41,62 @@ namespace E213.Lib.Math.GRA.Naturality
 open E213.Lib.Math.GRA
 open E213.Lib.Math.GRA.Hom
 open E213.Lib.Math.GRA.Common (depth_formula)
+open E213.Lib.Math.GRA.Enrichment
+  (BipartiteCarrier GRA23_Bipartite bipartiteDepth forgetHom)
 
-/-! ### §1 — Per-Reading forgetful + depth-commute
+/-! ### §1 — Forgetful + depth-commute -/
 
-For each enriched Reading, the forgetful preserves grade
-(`grade_comm` axiom of `GRAHom`).  Combined with the universal
-depth formula `depth = ⌈n/3⌉`, the forgetful also preserves
-depth pointwise.
--/
-
-/-- For Walk (R₄): forgetting respects depth. -/
-theorem walk_depth_natural (w : WalkEnrichment.EdgeWalk) (hw : w.length ≥ 2) :
-    WalkEnrichment.edgeWalkDepth (WalkEnrichment.GRA23_EdgeWalk.grade w) =
-    NumberTheory.GRA23_NT.depth (WalkEnrichment.forgetHom.toFun w) := by
-  show WalkEnrichment.edgeWalkDepth w.length =
-       NumberTheory.GRA23_NT.depth w.length
-  show (w.length + 2) / 3 = NumberTheory.ntDepth w.length
+/-- Forgetting respects depth: the enriched depth equals the
+    NT depth of the forgetful image. -/
+theorem bipartite_depth_natural (b : BipartiteCarrier) (_hb : b.n ≥ 2) :
+    bipartiteDepth (GRA23_Bipartite.grade b) =
+    NumberTheory.GRA23_NT.depth (forgetHom.toFun b) := by
+  show bipartiteDepth b.n = NumberTheory.GRA23_NT.depth b.n
+  show (b.n + 2) / 3 = NumberTheory.ntDepth b.n
   rfl
 
-/-- For Cochain (R₁): forgetting respects depth. -/
-theorem cochain_depth_natural (c : CochainEnrichment.Cochain) (hc : c.degree ≥ 2) :
-    CochainEnrichment.cochainDepth (CochainEnrichment.GRA23_CochainEnriched.grade c) =
-    NumberTheory.GRA23_NT.depth (CochainEnrichment.forgetHom.toFun c) := rfl
+/-! ### §2 — Composite hom: enriched → NT (the hub) -/
 
-/-- For Truncation (R₃): forgetting respects depth. -/
-theorem truncation_depth_natural (t : HoTTEnrichment.Truncation) (ht : t.level ≥ 2) :
-    HoTTEnrichment.truncationDepth (HoTTEnrichment.GRA23_TruncationEnriched.grade t) =
-    NumberTheory.GRA23_NT.depth (HoTTEnrichment.forgetHom.toFun t) := rfl
+/-- The hub forgetful: `BipartiteCarrier`-enriched → NT.  Replaces
+    the former `walkToNT`, `cochainToNT`, `truncationToNT`,
+    `operadToNT`, `resolutionToNT` — all five were the same
+    forgetful. -/
+def bipartiteToNT : GRAHom GRA23_Bipartite NumberTheory.GRA23_NT :=
+  forgetHom
 
-/-- For Operad (R₂): forgetting respects depth. -/
-theorem operad_depth_natural (o : HigherAlgebraEnrichment.Operad) (ho : o.level ≥ 2) :
-    HigherAlgebraEnrichment.operadDepth
-      (HigherAlgebraEnrichment.GRA23_OperadEnriched.grade o) =
-    NumberTheory.GRA23_NT.depth (HigherAlgebraEnrichment.forgetHom.toFun o) := rfl
+/-! ### §3 — Master naturality theorem -/
 
-/-- For Resolution (R₅): forgetting respects depth. -/
-theorem resolution_depth_natural (r : AnalysisEnrichment.Resolution)
-    (hr : r.exponent ≥ 2) :
-    AnalysisEnrichment.resolutionDepth
-      (AnalysisEnrichment.GRA23_ResolutionEnriched.grade r) =
-    NumberTheory.GRA23_NT.depth (AnalysisEnrichment.forgetHom.toFun r) := rfl
-
-/-! ### §2 — Cross-Reading translation via the simplified hub
-
-If you have a `Walk` and want a `Cochain` of the same grade, you
-go `Walk → Nat → Cochain` through the hub.  The composite is
-natural in the source Reading.
--/
-
-/-- Composite hom: Walk-enriched → NT (the hub). -/
-def walkToNT : GRAHom WalkEnrichment.GRA23_EdgeWalk
-    NumberTheory.GRA23_NT := WalkEnrichment.forgetHom
-
-/-- Composite hom: Cochain-enriched → NT (the hub). -/
-def cochainToNT : GRAHom CochainEnrichment.GRA23_CochainEnriched
-    NumberTheory.GRA23_NT := CochainEnrichment.forgetHom
-
-/-- Composite hom: Truncation-enriched → NT (the hub). -/
-def truncationToNT : GRAHom HoTTEnrichment.GRA23_TruncationEnriched
-    NumberTheory.GRA23_NT := HoTTEnrichment.forgetHom
-
-/-- Composite hom: Operad-enriched → NT (the hub). -/
-def operadToNT : GRAHom HigherAlgebraEnrichment.GRA23_OperadEnriched
-    NumberTheory.GRA23_NT := HigherAlgebraEnrichment.forgetHom
-
-/-- Composite hom: Resolution-enriched → NT (the hub). -/
-def resolutionToNT : GRAHom AnalysisEnrichment.GRA23_ResolutionEnriched
-    NumberTheory.GRA23_NT := AnalysisEnrichment.forgetHom
-
-/-! ### §3 — Master naturality theorem
-
-For every Reading, the depth on the enriched carrier equals the
-depth on `Nat` of the forgetful's image.  This is the *natural
-transformation* statement: the depth functor commutes with the
-forgetful from enriched to simplified Readings, uniformly across
-all five Readings.
--/
-
-/-- Master naturality witness: every enrichment's depth is the
+/-- Master naturality witness: the enrichment's depth is the
     universal `⌈n/3⌉` evaluated on the forgetful's image. -/
 structure DepthNaturality where
-  /-- Walk: depth respects forget. -/
-  walk : ∀ w : WalkEnrichment.EdgeWalk, w.length ≥ 2 →
-    WalkEnrichment.edgeWalkDepth w.length = (w.length + 2) / 3
-  /-- Cochain: depth respects forget. -/
-  cochain : ∀ c : CochainEnrichment.Cochain, c.degree ≥ 2 →
-    CochainEnrichment.cochainDepth c.degree = (c.degree + 2) / 3
-  /-- Truncation: depth respects forget. -/
-  truncation : ∀ t : HoTTEnrichment.Truncation, t.level ≥ 2 →
-    HoTTEnrichment.truncationDepth t.level = (t.level + 2) / 3
-  /-- Operad: depth respects forget. -/
-  operad : ∀ o : HigherAlgebraEnrichment.Operad, o.level ≥ 2 →
-    HigherAlgebraEnrichment.operadDepth o.level = (o.level + 2) / 3
-  /-- Resolution: depth respects forget. -/
-  resolution : ∀ r : AnalysisEnrichment.Resolution, r.exponent ≥ 2 →
-    AnalysisEnrichment.resolutionDepth r.exponent = (r.exponent + 2) / 3
+  /-- Bipartite enrichment: depth respects forget. -/
+  bipartite : ∀ b : BipartiteCarrier, b.n ≥ 2 →
+    bipartiteDepth b.n = (b.n + 2) / 3
 
 /-- The naturality programme is inhabited. -/
 def depth_naturality_witness : DepthNaturality where
-  walk := fun w _hw => WalkEnrichment.walk_depth_eq w _hw
-  cochain := fun c _hc => CochainEnrichment.cochain_depth_eq c _hc
-  truncation := fun t _ht => HoTTEnrichment.truncation_depth_eq t _ht
-  operad := fun o _ho => HigherAlgebraEnrichment.operad_depth_eq o _ho
-  resolution := fun r _hr => AnalysisEnrichment.resolution_depth_eq r _hr
+  bipartite := fun b hb => Enrichment.bipartite_depth_eq b hb
 
-/-! ### §4 — Cross-enriched translation via the hub
+/-! ### §4 — Cross-instance translation via the hub
 
-For any two enriched carriers, a "translation" exists by going
-through Nat.  Since all five forget to the same Nat-arithmetic,
-translation is *unique* up to grade — equivalence of enriched
-Readings at the grade level.
+Any two `BipartiteCarrier` values whose forgetful images agree
+have the same enriched grade and depth.  Since all five domain
+Readings collapse to `BipartiteCarrier`, this single statement
+covers the former five pairwise translation lemmas.
 -/
 
-/-- Walk-grade equals Cochain-grade under matching forgetfuls. -/
-theorem walk_cochain_grade_match (w : WalkEnrichment.EdgeWalk)
-    (c : CochainEnrichment.Cochain)
-    (h : WalkEnrichment.forgetHom.toFun w = CochainEnrichment.forgetHom.toFun c) :
-    WalkEnrichment.GRA23_EdgeWalk.grade w =
-    CochainEnrichment.GRA23_CochainEnriched.grade c := h
+/-- Grade-match: if two carriers forget to the same Nat, their
+    enriched grades agree. -/
+theorem bipartite_grade_match (b₁ b₂ : BipartiteCarrier)
+    (h : forgetHom.toFun b₁ = forgetHom.toFun b₂) :
+    GRA23_Bipartite.grade b₁ = GRA23_Bipartite.grade b₂ := h
 
-/-- Walk-depth equals Cochain-depth when their forget-images agree. -/
-theorem walk_cochain_depth_match (w : WalkEnrichment.EdgeWalk)
-    (c : CochainEnrichment.Cochain)
-    (h : WalkEnrichment.forgetHom.toFun w = CochainEnrichment.forgetHom.toFun c) :
-    WalkEnrichment.edgeWalkDepth w.length =
-    CochainEnrichment.cochainDepth c.degree := by
-  show (w.length + 2) / 3 = (c.degree + 2) / 3
-  have : w.length = c.degree := h
+/-- Depth-match: forget-equal carriers have equal enriched depths. -/
+theorem bipartite_depth_match (b₁ b₂ : BipartiteCarrier)
+    (h : forgetHom.toFun b₁ = forgetHom.toFun b₂) :
+    bipartiteDepth b₁.n = bipartiteDepth b₂.n := by
+  show (b₁.n + 2) / 3 = (b₂.n + 2) / 3
+  have : b₁.n = b₂.n := h
   rw [this]
 
 end E213.Lib.Math.GRA.Naturality
