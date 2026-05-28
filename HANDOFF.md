@@ -1,9 +1,44 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
-(401 PURE / 0 DIRTY).
+(401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.
 
-## This session — Phase 22: Lens.Unified × GRA capstone (401 PURE)
+## This session — Theory Book v1 (878 lines)
+
+`theory/THEORY_BOOK.md` v1 — single linearised reading path
+from `seed/AXIOM/` to GRA Phase 22's `Lens.Unified` capstone.
+Synthesises the 148-chapter `theory/` catalog + Lean docstrings
+into nine parts:
+
+  · Part 0 — Preface (what the book is + reading conventions)
+  · Part I — Axiom + substrate (`seed/AXIOM/` 9 chapters)
+  · Part II — Raw, Lens, HasDistinguishing
+  · Part III — Atomic forcing `(NS, NT, c, d) = (3, 2, 2, 5)`
+  · Part IV — Number systems forced from Raw + P (Nat213,
+    Möbius P, CD tower, Real213, Padic)
+  · Part V — Algebraic + cohomological structure
+    (K_{NS, NT}^{(c)}, Stern-Brocot, Hodge, Sym(3), universe
+    chain)
+  · Part VI — GRA universality (Phases 1–22 condensed)
+  · Part VII — Physics deployment (α_em, gluon octet,
+    Validation Standard)
+  · Part VIII — **Foundational frameworks as Readings**
+    (Peano / ZFC / classical-analysis / HoTT / Cat all as Lens
+    compositions over Raw; `lean/E213/Lib/Math/AxiomSystems/`
+    + Phase 22 capstone)
+  · Part IX — Methodology + discipline (three-tier,
+    strict ∅-axiom, scanner suite, failure modes)
+  · Appendices — Lean source map, notation, glossary,
+    companion documents, reading paths
+
+The book is a **navigational + synthesis document**, not
+content-replicated.  Each section cites theory/ chapters and
+Lean modules; the synthesis paragraphs at part boundaries pull
+cross-frame insights.
+
+Linked from `theory/INDEX.md` "Top-level orientation".
+
+## Previous step — Phase 22: Lens.Unified × GRA capstone (401 PURE)
 
 One new file extending GRA from 27 → 28 files, 374 → 401 PURE.
 

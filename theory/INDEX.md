@@ -63,6 +63,11 @@ Chapter exists when the Lean sub-tree closed per
 
 ## Top-level orientation
 
+  · [`THEORY_BOOK.md`](THEORY_BOOK.md) — **single linearised
+    reading path** from `seed/AXIOM/` through atomic forcing,
+    number systems, cohomology, GRA universality, physics
+    deployment, and foundational-frameworks-as-Readings.
+    Recommended starting point for new readers.
   · [`STATE.md`](STATE.md) — current framework state (closed
     programmes, open frontiers, entry points)
   · [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md) — ranked roadmap
