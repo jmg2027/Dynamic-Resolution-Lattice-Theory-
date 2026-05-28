@@ -630,8 +630,8 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 9 files (umbrella + Common + 7), ~1600
-lines, **118 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 14 files (umbrella + Common + 7 Phases 1–6
+files + 5 Phases 7–11 files), ~2400 lines, **167 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -667,6 +667,28 @@ Shared helpers added in `lean/E213/Lib/Math/GRA/Common.lean`
 (7 public PURE theorems): `coprime_2_3`, `two_lt_three`,
 `reach_offset`, `reach_23`, `depth_formula`, `greedy_form`,
 `ceil3_le_ceil2`.
+
+Phases 7–11 (category theory + enrichment, all PURE):
+
+  · `Category.lean` (9 PURE): 213-native `Cat` typeclass
+    (universe-polymorphic), `GRACat`, `ReadingCat`,
+    connectedness witness.
+  · `Groupoid.lean` (10 PURE): `Groupoid` typeclass on top of
+    `Cat`; pointwise `HEq`-form of identity (carrier types are
+    syntactically distinct but defeq Nat, so `HEq` is the natural
+    form); `ConnectedHub` structure; `Reading.hubAtNT` witness.
+  · `Hom.lean` (10 PURE): `GRAHom` (data-preserving, not
+    necessarily invertible); `id`/`comp` category laws; forgetful
+    `GRAIso → GRAHom`; grade-agreement and grade-oplus-via-hom
+    theorems.
+  · `DepthFunctor.lean` (9 PURE): depth as constant functor on
+    the (2, 3)-sub-category; `Reading_depth_const` shows all 6
+    Readings agree on `⌈n/3⌉` for `n ≥ 2`.
+  · `WalkEnrichment.lean` (12 PURE): `EdgeWalk` with
+    "length = 0 ∨ length ≥ 2" bipartite constraint; `concat` /
+    `tensor` operations; `GRA23_EdgeWalk` instance; `forgetHom`
+    exhibiting the simplified `GRA23_Graph` as the image of
+    `EdgeWalk` under "forget the walk-structure-witnesses".
 
 ## Cross-reference
 

@@ -11,15 +11,18 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > Analysis, Cohomology, HoTT, HigherAlgebra), pairwise isos via the
 > NT hub, and a translation programme including the universal
 > depth-comparison theorem `⌈n/3⌉ ≤ (n+1)/2` valid in all five
-> Readings simultaneously.  **Strict ∅-axiom: 118 PURE / 0 DIRTY**
+> Readings simultaneously.  Phases 7–11 add the category-theoretic
+> envelope: a 213-native `Cat` typeclass, `GRACat` / `ReadingCat`,
+> the connected-groupoid witness, `GRAHom` (general morphism), the
+> depth functor (constant on the (2, 3)-sub-category), and a concrete
+> carrier enrichment for R₄ (`EdgeWalk` with `forgetHom` to the
+> simplified Reading).  **Strict ∅-axiom: 167 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree
 > uses `rfl`, kernel-`decide`, or explicit Nat helpers
 > (`Meta.Nat.NatDiv213`, `Meta.Nat.AddMod213`, `Meta.Tactic.NatHelper`).
 > No `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.
-> Carriers are currently simplified (Nat = grade directly); enrichment
-> to actual Walk / Cochain / operad objects is the optional Phase 7.
 
 ---
 

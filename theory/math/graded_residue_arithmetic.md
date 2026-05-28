@@ -1,9 +1,11 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 9 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–11)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 14 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Purity**: **118 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Purity**: **167 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE).
 
 ---
 
@@ -369,6 +371,8 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 ## 관련 파일
 
 ### Primary (GRA umbrella)
+
+**Phases 1–6 (universality + translation)**
 - `lean/E213/Lib/Math/GRA.lean` — umbrella
 - `lean/E213/Lib/Math/GRA/GRAModel.lean` — 7-axiom typeclass + `GRAIso` refl/symm/trans
 - `lean/E213/Lib/Math/GRA/Common.lean` — shared PURE Nat helpers (`coprime_2_3`, `reach_23`, `depth_formula`, `ceil3_le_ceil2`)
@@ -378,7 +382,14 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 - `lean/E213/Lib/Math/GRA/Cohomology.lean` — R₁ cochain-degree Reading
 - `lean/E213/Lib/Math/GRA/HoTT.lean` — R₃ truncation-level Reading
 - `lean/E213/Lib/Math/GRA/HigherAlgebra.lean` — R₂ operad-level Reading + universality capstone
-- `lean/E213/Lib/Math/GRA/Translation.lean` — Phase 6 master translation + universal depth comparison
+- `lean/E213/Lib/Math/GRA/Translation.lean` — master translation + universal depth comparison
+
+**Phases 7–11 (category theory + enrichment)**
+- `lean/E213/Lib/Math/GRA/Category.lean` — 213-native `Cat`-typeclass; `GRACat` (all GRA models); `ReadingCat` (6 closed (2,3)-models); connectedness witness
+- `lean/E213/Lib/Math/GRA/Groupoid.lean` — `Groupoid` typeclass on top of `Cat`; every `GRAIso` is invertible; `ConnectedHub` structure; `Reading.hubAtNT` witnesses hub-and-spoke
+- `lean/E213/Lib/Math/GRA/Hom.lean` — `GRAHom` (general morphism, not necessarily iso); category laws; forgetful `GRAIso ↪ GRAHom`
+- `lean/E213/Lib/Math/GRA/DepthFunctor.lean` — depth as **constant functor** on `ReadingCat`; `Reading_depth_const` proves all 6 Readings agree on `⌈n/3⌉`
+- `lean/E213/Lib/Math/GRA/WalkEnrichment.lean` — concrete carrier enrichment for R₄: `EdgeWalk` with bipartite length constraint + `forgetHom : EdgeWalk → Nat` exhibiting the simplified Reading as the image of the enriched one
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)

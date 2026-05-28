@@ -1,9 +1,47 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA promotion + essay
-+ Tier 5.1 purity clear + Math umbrella fixes.
++ Tier 5.1 purity clear + Math umbrella fixes + Phases 7–11
+(category theory + enrichment).
 
-## This session — GRA full clear (Marathon 16 → 118 PURE / 0 DIRTY)
+## This session — Phases 7–11: category + enrichment (167 PURE / 0 DIRTY)
+
+5 new files extending GRA beyond the original Marathon 16 closure:
+
+  · **Phase 7 `Category.lean`** (9 PURE) — 213-native
+    universe-polymorphic `Cat` typeclass; `GRACat` for all GRA
+    models; `Reading` enumeration of the 6 closed (2,3)-models;
+    `ReadingCat` sub-category; `ReadingCat_connected` witness
+    that every pair of Readings is related by a hub-and-spoke iso.
+  · **Phase 8 `Groupoid.lean`** (10 PURE) — `Groupoid` typeclass
+    sitting on top of `Cat`; pointwise `HEq`-form of "every
+    `Reading.iso r s` is the identity at the carrier level" (the
+    `HEq` form is forced because abstract `r.toModel.Carrier` and
+    `s.toModel.Carrier` are syntactically distinct even though
+    both reduce to `Nat`); `ConnectedHub` structure with
+    `Reading.hubAtNT` as the concrete hub-and-spoke witness.
+  · **Phase 9 `Hom.lean`** (10 PURE) — `GRAHom` (general
+    structure-preserving map, not necessarily invertible);
+    `id`/`comp` category laws; forgetful `GRAIso → GRAHom`
+    (`isoToHom`) functoriality (refl/trans preservation);
+    grade-agreement (`GRAHom.grade_agree`) and
+    grade-oplus-via-hom (`GRAHom.grade_oplus_via`).
+  · **Phase 10 `DepthFunctor.lean`** (9 PURE) — `GRA23` structure
+    packaging the (2, 3)-parameter constraint; `GRA23.depth_const`
+    showing all (2, 3)-models agree on depth; `readingToGRA23`
+    upgrading each `Reading` enum to `GRA23`;
+    `Reading_depth_const` as the capstone "depth is the unique
+    structural invariant" claim.
+  · **Phase 11 `WalkEnrichment.lean`** (12 PURE) — concrete
+    carrier enrichment for R₄: `EdgeWalk` with
+    `length = 0 ∨ length ≥ 2` bipartite constraint;
+    `concat`/`tensor` operations; `GRA23_EdgeWalk` instance;
+    `forgetHom` exhibiting the simplified `GRA23_Graph` as the
+    image of `EdgeWalk` under the forgetful functor.
+
+Total **167 PURE / 0 DIRTY** across all 14 files of `Lib/Math/GRA/`.
+
+## Previous step — GRA full clear (Marathon 16 → 118 PURE / 0 DIRTY)
 
   · **Tier 5.1 cleared**: all `Lib/Math/GRA/` theorems are now
     STRICT ∅-axiom PURE.  Pattern:
@@ -122,7 +160,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (ALL Phases)** | **★ CLOSED + PROMOTED + 118 PURE ★** |
+| **16** | **GRA Universality (Phases 1–11)** | **★ CLOSED + PROMOTED + 167 PURE ★** |
 
 ## Genuinely open (next session targets)
 
