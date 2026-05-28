@@ -160,7 +160,7 @@ seed/
 - **NOT the source of truth.**  `lean/E213/` is.  When seed/
   and Lean disagree, Lean wins.
 - **NOT a reading order for the mathematics.**  See
-  `guide/INDEX.md` (deductively-ordered narrative).
+  `theory/THEORY_BOOK.md` (deductively-ordered narrative).
 - **NOT a paper draft.**  `papers/` was deleted (commit
   a02b751); only `papers/README.md` retained as historical
   marker.

@@ -4,7 +4,50 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (401 PURE / 0 DIRTY).  Plus: `theory/THEORY_BOOK.md` v1.2 +
 duplication-cleanup pass.
 
-## This session — Cleanup pass #1: GRA narrative consolidation
+## This session — Cleanup pass #2: legacy doc archives (guide/ + books/math/)
+
+INDEX-audit pass revealed two **fully stale narrative
+directories** referencing dead Lean paths:
+
+  · `guide/` (~1100 lines, 16 chapters) — self-described as
+    "transitional bridge" before reorganisation; referenced
+    `lean/E213/Research/` (non-existent) and `framework/E213/`
+    (non-existent).  Functionally superseded by
+    `theory/THEORY_BOOK.md`.
+  · `books/math/` (6 narrative volumes, ~2700 lines):
+    `analysis213.md`, `cohomology-213.md`, `linalg-213.md`,
+    `number-theory-213.md`, `probability-213.md`,
+    `universal-lens-213.md`.  All reference dead path
+    `lean/E213/Research/Real213/*.lean` (current path is
+    `lean/E213/Lib/Math/Real213/`).
+
+Both archived to `research-notes/archive/legacy_docs/{guide,
+books_math}/` via `git mv` (full history preserved).  Git can
+recover any unique content if needed.
+
+6 active external references updated:
+  · `seed/INDEX.md` line 163 — `guide/INDEX.md` →
+    `theory/THEORY_BOOK.md`
+  · `seed/ORIGIN.md` line 110 — same
+  · `seed/AXIOM/09_lean_correspondence.md` line 125 —
+    `guide/` + `books/` → `theory/THEORY_BOOK.md` + theory/*
+  · `README.md` line 184–198 — `books/math/` block replaced
+    with `theory/THEORY_BOOK.md` + per-area pointer
+  · `lean/E213/INDEX.md` line 3 — entry-point list updated
+  · `LESSONS_LEARNED.md` lines 271–272 — guide chapter
+    references rewritten to THEORY_BOOK Part I/II/VIII
+
+Remaining references (in `research-notes/G35_*`, archive/
+audits) left as historical context — they live in scratchpad
+/ archive and don't need active maintenance.
+
+Net effect:
+  · ~3800 lines of stale narrative removed from active tree
+  · 3 doc sources (THEORY_BOOK + books/ + guide/) → 1
+    (THEORY_BOOK)
+  · No Lean code touched
+
+## Previous step — Cleanup pass #1: GRA narrative consolidation
 
 `theory/math/graded_residue_arithmetic.md` (Korean synthesis,
 430 lines) consolidated into `theory/math/gra_book.md`

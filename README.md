@@ -181,21 +181,22 @@ lake build E213.Lib.Math E213.Lib.Physics
 # Anything with a non-empty `#print axioms` output = sorry-equivalent.
 ```
 
-## Math books
+## Theory book
 
 ```
-books/math/
-├── analysis213.md        Undergraduate year-1 calculus (100%)
-├── number-theory-213.md  Pell, Pisano CRT, Legendre lens,
-│                          Universal Lens metatheory
-├── cohomology-213.md     K_{3,2}^{(c=2)}, Δ⁴ Leibniz,
-│                          Hodge ⋆⋆, fractal α_GUT
-├── linalg-213.md         Paper 1 Chiral Compression (rank ≤ 5)
-├── probability-213.md    measure-on-cuts blueprint
-└── universal-lens-213.md G1 universal-lens paper-style exposition
+theory/THEORY_BOOK.md     Single linearised reading path from
+                          seed/AXIOM/ to GRA Phase 22's
+                          Lens.Unified capstone (math-only,
+                          ~1200 lines, 8 parts + appendices).
+theory/math/gra_book.md   GRA textbook (Ch.0–9 + appendices),
+                          the universal meta-structure of 213.
+theory/<area>/*.md        Per-area narrative chapters (math /
+                          physics / lens / meta / essays).
 ```
 
-See `books/math/INDEX.md` for reading order.
+See `theory/INDEX.md` for the chapter catalog and
+`theory/THEORY_BOOK.md` "Reading paths" appendix for ordered
+entry points.
 
 ## Authors
 
