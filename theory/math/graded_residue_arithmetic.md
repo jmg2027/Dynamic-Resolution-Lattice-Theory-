@@ -1,11 +1,11 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–11)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 14 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–15)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 21 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Purity**: **167 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Purity**: **259 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
-**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE).
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE).
 
 ---
 
@@ -384,12 +384,21 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 - `lean/E213/Lib/Math/GRA/HigherAlgebra.lean` — R₂ operad-level Reading + universality capstone
 - `lean/E213/Lib/Math/GRA/Translation.lean` — master translation + universal depth comparison
 
-**Phases 7–11 (category theory + enrichment)**
+**Phases 7–11 (category theory + first enrichment)**
 - `lean/E213/Lib/Math/GRA/Category.lean` — 213-native `Cat`-typeclass; `GRACat` (all GRA models); `ReadingCat` (6 closed (2,3)-models); connectedness witness
 - `lean/E213/Lib/Math/GRA/Groupoid.lean` — `Groupoid` typeclass on top of `Cat`; every `GRAIso` is invertible; `ConnectedHub` structure; `Reading.hubAtNT` witnesses hub-and-spoke
 - `lean/E213/Lib/Math/GRA/Hom.lean` — `GRAHom` (general morphism, not necessarily iso); category laws; forgetful `GRAIso ↪ GRAHom`
 - `lean/E213/Lib/Math/GRA/DepthFunctor.lean` — depth as **constant functor** on `ReadingCat`; `Reading_depth_const` proves all 6 Readings agree on `⌈n/3⌉`
 - `lean/E213/Lib/Math/GRA/WalkEnrichment.lean` — concrete carrier enrichment for R₄: `EdgeWalk` with bipartite length constraint + `forgetHom : EdgeWalk → Nat` exhibiting the simplified Reading as the image of the enriched one
+
+**Phases 12–15 (full enrichment + naturality + retraction + monoidal)**
+- `lean/E213/Lib/Math/GRA/CochainEnrichment.lean` — R₁ enrichment via `Cochain` (cohomological degree)
+- `lean/E213/Lib/Math/GRA/HoTTEnrichment.lean` — R₃ enrichment via `Truncation` (homotopy level)
+- `lean/E213/Lib/Math/GRA/HigherAlgebraEnrichment.lean` — R₂ enrichment via `Operad` (`E_n` level)
+- `lean/E213/Lib/Math/GRA/AnalysisEnrichment.lean` — R₅ enrichment via `Resolution` (analytic exponent)
+- `lean/E213/Lib/Math/GRA/Naturality.lean` — translation between enrichments is natural with respect to forgetfuls; `DepthNaturality` capstone bundles depth-preservation for all 5 enrichments
+- `lean/E213/Lib/Math/GRA/SectionRetraction.lean` — each forgetful has a section on its valid image (`n = 0 ∨ n ≥ 2`); `WalkRetract` structures the data
+- `lean/E213/Lib/Math/GRA/Monoidal.lean` — `product : GRAModel → GRAModel → GRAModel`, the (2, 3)-monoidal product; `trivial23` as unit; `leftUnitHom`/`rightUnitHom` as unit isos
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)

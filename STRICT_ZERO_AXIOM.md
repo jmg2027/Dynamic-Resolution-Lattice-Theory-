@@ -630,8 +630,8 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 14 files (umbrella + Common + 7 Phases 1–6
-files + 5 Phases 7–11 files), ~2400 lines, **167 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 21 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15), ~3700 lines, **259 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -689,6 +689,43 @@ Phases 7–11 (category theory + enrichment, all PURE):
     `tensor` operations; `GRA23_EdgeWalk` instance; `forgetHom`
     exhibiting the simplified `GRA23_Graph` as the image of
     `EdgeWalk` under "forget the walk-structure-witnesses".
+
+Phases 12–15 (full enrichment + monoidal, all PURE):
+
+  · `CochainEnrichment.lean` (12 PURE): R₁ enrichment via
+    `Cochain` carrying cohomological degree with the
+    "degree = 0 ∨ degree ≥ 2" constraint.  Cup-product `cup`
+    and grade-additive tensor `tensor`.  `GRA23_CochainEnriched`
+    + `forgetHom` to NT.
+  · `HoTTEnrichment.lean` (12 PURE): R₃ enrichment via
+    `Truncation` (homotopy n-types).  Suspension `Σⁿ` (`suspend`)
+    and smash product `∧` (`smash`).
+    `GRA23_TruncationEnriched` + `forgetHom`.
+  · `HigherAlgebraEnrichment.lean` (12 PURE): R₂ enrichment via
+    `Operad` (`E_n` levels).  Day convolution (`day`) and nested
+    integration (`nest`).  `GRA23_OperadEnriched` + `forgetHom`.
+  · `AnalysisEnrichment.lean` (12 PURE): R₅ enrichment via
+    `Resolution` (analytic exponents).  Modulus composition
+    (`compose`) and polynomial-depth product (`poly`).
+    `GRA23_ResolutionEnriched` + `forgetHom`.
+  · `Naturality.lean` (13 PURE): translation between Readings
+    is natural with respect to the forgetfuls.  Per-Reading
+    `*_depth_natural` theorems + `DepthNaturality` capstone
+    + `depth_naturality_witness` aggregating all 5.
+    `walk_cochain_grade_match` and `walk_cochain_depth_match`
+    show cross-Reading translation via the hub.
+  · `SectionRetraction.lean` (17 PURE): each forgetful has a
+    section on its valid image (`n = 0 ∨ n ≥ 2`).
+    `Walk.section`, `Cochain.section`, `Truncation.section`,
+    `Operad.section`, `Resolution.section` with retraction
+    identities `forget ∘ section = id` and section identities
+    `section ∘ forget = id`.  `WalkRetract` structures the data.
+  · `Monoidal.lean` (14 PURE): `product : GRAModel → GRAModel →
+    GRAModel` is the (2, 3)-monoidal product with component-wise
+    `⊕` and `⊗` and additive grade.  `trivial23` is the unit
+    (one-element carrier, grade ≡ 0).  `leftUnitHom` and
+    `rightUnitHom` are the unit `GRAHom`s for `trivial23 ⊗ M`
+    and `M ⊗ trivial23`.
 
 ## Cross-reference
 

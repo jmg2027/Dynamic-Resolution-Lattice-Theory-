@@ -12,6 +12,13 @@ import E213.Lib.Math.GRA.Groupoid
 import E213.Lib.Math.GRA.Hom
 import E213.Lib.Math.GRA.DepthFunctor
 import E213.Lib.Math.GRA.WalkEnrichment
+import E213.Lib.Math.GRA.CochainEnrichment
+import E213.Lib.Math.GRA.HoTTEnrichment
+import E213.Lib.Math.GRA.HigherAlgebraEnrichment
+import E213.Lib.Math.GRA.AnalysisEnrichment
+import E213.Lib.Math.GRA.Naturality
+import E213.Lib.Math.GRA.SectionRetraction
+import E213.Lib.Math.GRA.Monoidal
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -45,14 +52,30 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                         all 6 Readings agree on `⌈n/3⌉`
   * `WalkEnrichment`  — concrete carrier enrichment for R₄:
                         `EdgeWalk` with bipartite length constraint
-                        + `forgetHom : EdgeWalk → Nat` showing
-                        the simplified Reading is the image of the
-                        enriched one
+                        + `forgetHom : EdgeWalk → Nat`
+
+  ## Phases 12–15 — Full enrichment + naturality + retraction + monoidal
+
+  * `CochainEnrichment`           — R₁ (degree) enrichment
+  * `HoTTEnrichment`              — R₃ (truncation) enrichment
+  * `HigherAlgebraEnrichment`     — R₂ (operad level) enrichment
+  * `AnalysisEnrichment`          — R₅ (resolution exponent) enrichment
+  * `Naturality`                  — translation between enrichments is
+                                    natural with respect to the forgetful;
+                                    `DepthNaturality` capstone bundles
+                                    depth-preservation for all 5 enrichments
+  * `SectionRetraction`           — each forgetful has a section on its
+                                    valid image (`n = 0 ∨ n ≥ 2`);
+                                    `WalkRetract` structures up the data
+  * `Monoidal`                    — `product : GRAModel → GRAModel →
+                                    GRAModel`, the (2, 3)-monoidal product;
+                                    `trivial23` as the unit; `leftUnitHom`
+                                    and `rightUnitHom` as the unit isos
 
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`.
-**Strict ∅-axiom: 167 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
-from Phases 7–11).  `ax_coprime` uses `gcd213` (PURE) rather than
-Lean-core `Nat.gcd`.  Every proof uses kernel-decide, `rfl`, or
-explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213` lemmas
-— no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.
+**Strict ∅-axiom: 259 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+from Phases 7–11 + 92 from Phases 12–15).  `ax_coprime` uses `gcd213`
+(PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
+`rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
+lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.
 -/
