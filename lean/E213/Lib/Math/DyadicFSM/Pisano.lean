@@ -1,12 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor11
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor14
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor17
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor20
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor22
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor6
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor8
+import E213.Lib.Math.DyadicFSM.Pisano.PredictorChain
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Pisano`.
 
@@ -15,14 +8,14 @@ import E213.Lib.Math.DyadicFSM.Pisano.Predictor8
 
   ## Files
 
-    * `Predictor`    — generic predictor scaffold
-    * `Predictor6`,
-      `Predictor7`,
-      `Predictor8`,
-      `Predictor11`,
-      `Predictor14`,
-      `Predictor17`,
-      `Predictor20`,
-      `Predictor22`  — per-base specialised predictors
-                       (small bases verified by `decide`).
+    * `Predictor`      — predictor scaffold: `pisano_predict :
+                         Nat → Nat` (Legendre-driven), the
+                         `pisano_period_lift` utility, and the
+                         4-prime correctness theorem.
+    * `PredictorChain` — per-prime verifications for 23 primes
+                         (3, 5, 7, 11, 13, 17, 19, 23, 29, 31,
+                         37, 41, 43, 47, 53, 59, 61, 67, 71,
+                         73, 79, 89, 101).  Headline conjunctions
+                         `pisano_predict_realises_pell_7` and
+                         `pisano_predict_realises_pell_23`.
 -/

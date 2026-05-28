@@ -2,7 +2,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
+import E213.Lib.Math.DyadicFSM.Pisano.PredictorChain
 import E213.Lib.Math.DyadicFSM.Tier.AlgebraicDegree
 import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
 
@@ -45,7 +45,7 @@ open E213.Lib.Math.DyadicFSM.Pell.ProperBridge
   (legendre_8_mod_3 legendre_8_mod_5 legendre_8_mod_7 pisano_predict_proper_correct)
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pisano_predict_proper)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict pisano_predict_realises_pell)
-open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
+open E213.Lib.Math.DyadicFSM.Pisano.PredictorChain (pisano_predict_realises_pell_7)
 
 
 /-- ★★★★★★★★ v1: 213-native number theory edifice (4-prime). -/
