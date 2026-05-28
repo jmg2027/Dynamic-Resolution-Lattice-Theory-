@@ -4,7 +4,49 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## This session — Cleanup pass #4: 5 enrichments → 1 unified bipartite carrier
+## Autonomous cleanup marathon (current session)
+
+Continuing the duplication-removal pass from #3/#4.  Five
+sub-cleanups (#5a–#5e), each independently committed:
+
+  · **#5a Pisano predictor chain** (9 → 1 file).
+    `Pisano/Predictor{6,7,8,11,14,17,20,22,23}.lean` formed a
+    layered enumeration where each Predictor_N re-packaged the
+    prior milestone + one new `pisano_period_lift` call.  Final
+    proof in `Predictor23.lean` chained `H.2.2.2...` 22 levels
+    deep.  Consolidated to `PredictorChain.lean` with 23
+    per-prime lemmas (each a 3-line `pisano_period_lift` call)
+    plus two convenience conjunctions (`_7` for downstream
+    consumers, `_23` headline).  Net: −725 lines.
+  · **#5b Hodge Δ⁴ prop-lifts** (5 → 1 file).
+    `Hodge/Prop, Prop50, Prop52, Prop53, Prop54.lean` each
+    lifted "⋆⋆ = id" to Prop-level at one (5, k) stratum.  Four
+    of them used the identical COH-2 template (3 private
+    `decide`-lemmas + 5-line capstone).  Consolidated to
+    `InvolutionLifts.lean` covering all five strata plus the
+    all-strata bundle; `InvolutionCapstone.lean` retained as
+    backward-compat shim.  Net: −81 lines.
+  · **#5c Pell Lens compositions** (3 → 1 file).
+    `Pell/Lens.lean (3x5)`, `LensPairs.lean (3x7 + 5x7)`,
+    `LensTriple.lean (3x5x7)` collapsed to
+    `LensCompositions.lean` with all CRT closures + the BitFSM-
+    form period lifts in one place.  Net: −33 lines.
+  · **#5d Trib CRT capstones** (2 → 1 file).
+    `Trib/CRTCapstone.lean (3-mod)` and `CRT4Capstone.lean
+    (4-mod)` merged into a single `CRTCapstone.lean` with both
+    `trib_crt_capstone` and `trib_crt_4_capstone`.  Net: −25
+    lines.
+  · **#5e Catalan extension** (2 → 1 file).
+    `Combinatorics/CatalanExtended.lean` (recursion witnesses
+    for n = 5, 6, 7) merged into `Catalan.lean` (which had
+    n = 3, 4).  Net: −22 lines.
+
+Cumulative across #5a–#5e: 20 files deleted, 5 new files
+created, net **−886 lines**.  All cleanups full `lake build`
+clean, all touched modules verified PURE by
+`scan_axioms.py`.
+
+## Previous session — Cleanup pass #4: 5 enrichments → 1 unified bipartite carrier
 
 Five domain-flavoured enrichments (`WalkEnrichment`,
 `CochainEnrichment`, `HoTTEnrichment`, `HigherAlgebraEnrichment`,
