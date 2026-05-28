@@ -151,19 +151,35 @@ Four resolutions of the same self-forcing pattern:
 
 Same fact, four resolutions.
 
-## Open frontier
+## Open frontier — closed in Phase 17
 
-Phase 16 (queued, this session): the `LensIso` bridge.  For each
-enriched carrier `C ∈ {Walk, Cochain, Truncation, Operad,
-Resolution}`, give a `HasDistinguishing C` instance and an
-explicit grade-Lens.  Prove that the grade-Lens partitions Raw
-the same way `Lens.leaves` does (modulo the `0 ∨ ≥ 2` constraint
-at the atomic boundary).  By `lensIso_iff_kernel_eq` this is a
-single `LensIso` per Reading; the five Reading-Lenses are then
-all pairwise `LensIso`, and the Cat / HoTT-as-Reading claim
-becomes a Lean theorem rather than philosophy.
+The originally-queued open frontier was the carrier-level
+equation: prove that the enriched `Raw → C → Nat` composite
+equals `canonicalGradeMap` PURE, where `C ∈ {Walk, Cochain,
+Truncation, Operad, Resolution}`.  Going through `Raw.fold_slash`
+on `C` requires a PURE `combine_sym` for the enriched type,
+which would force reasoning about the `Prop` constraint field
+(`length = 0 ∨ length ≥ 2`) and the usual route brings
+`propext`.
 
-Open beyond Phase 16: lifting `GRACat`-as-a-`Cat` to a Lens-of-
+Phase 17 (`CarrierRealization.lean`) closes this frontier by
+*bypassing* the `Raw.fold` route.  Key observation:
+`canonicalGradeMap r ≥ 2` for every `r : Raw` (Raw.a → 2, Raw.b
+→ 3, slash → sum of two ≥-2 values).  So we can build each
+realization directly as
+
+```
+walkRealize r := ⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩
+```
+
+— no enriched `Raw.fold`, no `combine_sym`, no `propext`.  The
+grade projection `(walkRealize r).length = canonicalGradeMap r`
+follows by `rfl`, and the headline HoTT ↔ Higher Algebra
+equation `(truncationRealize r).level = (operadRealize r).level`
+holds *at the carrier level*, also by `rfl`.  Total: 33 PURE
+theorems in Phase 17, all kernel-decidable.
+
+Open beyond Phase 17: lifting `GRACat`-as-a-`Cat` to a Lens-of-
 categories statement.  This requires a `HasDistinguishing` on
 the category of `Cat`-objects themselves — a strictly
 2-categorical move that exposes the universe issues that GRA's

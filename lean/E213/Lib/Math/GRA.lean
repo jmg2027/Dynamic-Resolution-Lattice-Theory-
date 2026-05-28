@@ -20,6 +20,7 @@ import E213.Lib.Math.GRA.Naturality
 import E213.Lib.Math.GRA.SectionRetraction
 import E213.Lib.Math.GRA.Monoidal
 import E213.Lib.Math.GRA.LensBridge
+import E213.Lib.Math.GRA.CarrierRealization
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -85,10 +86,29 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     and the `E_n` ladder project to the
                                     same Raw-level kernel.
 
+  ## Phase 17 — Carrier realization (closes the Phase 16 open frontier)
+
+  * `CarrierRealization`          — `canonical_ge_2 : ∀ r,
+                                    canonicalGradeMap r ≥ 2` enables
+                                    direct construction of
+                                    `walkRealize` / `cochainRealize` /
+                                    `truncationRealize` / `operadRealize`
+                                    / `resolutionRealize : Raw →
+                                    EnrichedCarrier`, bypassing
+                                    `Raw.fold_slash`'s `combine_sym`
+                                    requirement.  Each realization's
+                                    grade projection equals
+                                    `canonicalGradeMap` by `rfl`; the
+                                    HoTT ↔ Higher Algebra equation
+                                    holds *at the carrier level*
+                                    (`truncation_operad_realize_agree`),
+                                    not just at the Nat projection.
+
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 296 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
-from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16).  `ax_coprime` uses `gcd213`
+**Strict ∅-axiom: 329 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
+from Phase 17).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

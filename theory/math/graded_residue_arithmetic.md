@@ -1,12 +1,12 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
-**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–16)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 22 files, 0 sorry)
+**Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–17)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 23 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings)
-**Purity**: **296 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
+**Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phase 17 closes the carrier-level open frontier)
+**Purity**: **329 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
-**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE).
+**Phases**: 1–6 universality + translation (122 PURE); 7 `Category` (9 PURE); 8 `Groupoid` (10 PURE); 9 `Hom` (10 PURE); 10 `DepthFunctor` (9 PURE); 11 `WalkEnrichment` (12 PURE); 12 `{Cochain,HoTT,HigherAlgebra,Analysis}Enrichment` (4 × 12 = 48 PURE); 13 `Naturality` (13 PURE); 14 `SectionRetraction` (17 PURE); 15 `Monoidal` (14 PURE); 16 `LensBridge` (37 PURE); 17 `CarrierRealization` (33 PURE).
 
 ---
 
@@ -403,6 +403,9 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 
 **Phase 16 (Lens bridge — Cat / HoTT as Readings)**
 - `lean/E213/Lib/Math/GRA/LensBridge.lean` — `canonicalGradeMap := Raw.fold 2 3 (· + ·)` as the Raw-level (2,3)-arithmetic; all five enrichment grade maps reduce to it; `truncation_operad_grade_agree` proves the HoTT ↔ Higher Algebra Lens-level equation (same Raw-projection, same Lens kernel — they are *one* Reading under different vocabularies)
+
+**Phase 17 (carrier realization — closes Phase 16 open frontier)**
+- `lean/E213/Lib/Math/GRA/CarrierRealization.lean` — `canonical_ge_2 : ∀ r, canonicalGradeMap r ≥ 2` enables direct construction `walkRealize / cochainRealize / truncationRealize / operadRealize / resolutionRealize : Raw → EnrichedCarrier`, bypassing `Raw.fold_slash` on the enriched types.  Each realization's grade projection equals `canonicalGradeMap` by `rfl`; the HoTT ↔ Higher Algebra equation `truncation_operad_realize_agree` holds at the *carrier level* (not just Nat projection)
 
 ### Supporting sub-trees (Reading-specific source material)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)

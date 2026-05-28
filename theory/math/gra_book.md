@@ -26,8 +26,15 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > truncation hierarchy and the `E_n` ladder *are* the same
 > Raw-projection, hence the same Reading under different
 > vocabularies (companion essay:
-> `theory/essays/gra_as_substrate_of_cat_hott.md`).
-> **Strict ∅-axiom: 296 PURE / 0 DIRTY**
+> `theory/essays/gra_as_substrate_of_cat_hott.md`).  Phase 17
+> closes the essay's open frontier: `canonical_ge_2` enables
+> direct construction of `walkRealize` / `cochainRealize` /
+> `truncationRealize` / `operadRealize` / `resolutionRealize :
+> Raw → EnrichedCarrier`, bypassing `Raw.fold_slash` on the
+> enriched types; each realization's grade projection equals
+> `canonicalGradeMap` by `rfl`; the headline HoTT ↔ Higher
+> Algebra equation holds at the carrier level.  **Strict
+> ∅-axiom: 329 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree

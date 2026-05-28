@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 22 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16), ~3900 lines,
-**296 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 23 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16 + 1 Phase 17), ~4100
+lines, **329 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -744,6 +744,25 @@ Phase 16 (Lens bridge — Cat / HoTT as Readings, all PURE):
     Avoids `HasDistinguishing`-typeclass plumbing (which would
     bring `propext`); uses `Raw.fold` with literal `Nat`-arithmetic
     directly.
+
+Phase 17 (carrier realization — closes Phase 16 open frontier,
+all PURE):
+
+  · `CarrierRealization.lean` (33 PURE): proves
+    `canonical_ge_2 : ∀ r : Raw, canonicalGradeMap r ≥ 2` by
+    Raw induction (atoms map to 2 or 3; slash adds two ≥-2
+    values, hence ≥ 4).  This enables *direct* construction of
+    `walkRealize` / `cochainRealize` / `truncationRealize` /
+    `operadRealize` / `resolutionRealize : Raw → EnrichedCarrier`,
+    bypassing `Raw.fold` on the enriched types entirely.  Each
+    realization is `⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩`,
+    so the grade-projection equals `canonicalGradeMap` by `rfl`,
+    and all pairwise carrier-level agreement theorems (notably
+    `truncation_operad_realize_agree`, the HoTT ↔ Higher Algebra
+    equation at the carrier level) follow by `rfl`.  Avoids the
+    PURE `combine_sym` problem on `Prop`-field-carrying enrichments
+    (which would force structural equality reasoning that brings
+    `propext`).
 
 ## Cross-reference
 

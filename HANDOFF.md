@@ -1,9 +1,37 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–16 closed
-(296 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–17 closed
+(329 PURE / 0 DIRTY).
 
-## This session — Phase 16: Lens bridge + Cat/HoTT-as-Readings essay (296 PURE)
+## This session — Phase 17: carrier realization, closes the Phase 16 open frontier (329 PURE)
+
+One new file extending GRA from 22 → 23 files, 296 → 329 PURE.
+
+  · **Phase 17 `CarrierRealization.lean`** (33 PURE) — closes the
+    open frontier named in
+    `theory/essays/gra_as_substrate_of_cat_hott.md` (the carrier-
+    level Lens equation between enrichments).  Key lemma
+    `canonical_ge_2 : ∀ r : Raw, canonicalGradeMap r ≥ 2` (Raw
+    induction: atoms → 2 or 3, slash → sum of ≥-2 values ≥ 4)
+    enables direct construction
+    `walkRealize r := ⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩`
+    (and the same shape for cochainRealize / truncationRealize /
+    operadRealize / resolutionRealize).  This *bypasses* the
+    enriched `Raw.fold` route — no `combine_sym` proof needed
+    for the Prop-field-carrying carriers (which would force
+    structural equality with `propext`).
+  · Each realization's grade-projection equals `canonicalGradeMap`
+    by `rfl`; all pairwise carrier-level agreement theorems
+    (including the headline `truncation_operad_realize_agree`,
+    the HoTT ↔ Higher Algebra equation at the carrier level)
+    follow by `rfl`.
+  · Atom and slash behavior at the carrier level: `*_realize_a`,
+    `*_realize_b`, `*_realize_slash` for all five realizations.
+
+The essay's open frontier section was rewritten to mark this
+closure, with a brief explanation of the bypass strategy.
+
+## Previous step — Phase 16: Lens bridge + essay (296 PURE)
 
 One new file + one new essay extending GRA from 21 → 22 files,
 259 → 296 PURE:
@@ -241,7 +269,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–16)** | **★ CLOSED + PROMOTED + 296 PURE ★** |
+| **16** | **GRA Universality (Phases 1–17)** | **★ CLOSED + PROMOTED + 329 PURE ★** |
 
 ## Genuinely open (next session targets)
 
