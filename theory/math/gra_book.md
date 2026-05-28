@@ -33,8 +33,14 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > Raw → EnrichedCarrier`, bypassing `Raw.fold_slash` on the
 > enriched types; each realization's grade projection equals
 > `canonicalGradeMap` by `rfl`; the headline HoTT ↔ Higher
-> Algebra equation holds at the carrier level.  **Strict
-> ∅-axiom: 329 PURE / 0 DIRTY**
+> Algebra equation holds at the carrier level.  Phase 18 closes
+> the next frontier via the 1-categorical proxy:
+> `canonicalGradeMap_universal` proves any `f : Raw → Nat` with
+> `f Raw.a = 2`, `f Raw.b = 3`, and slash-additive equals
+> `canonicalGradeMap` pointwise.  ANY structure (`Cat`-object
+> included) whose grade map satisfies the (2, 3)-profile is
+> *forced* to read the canonical arithmetic.  **Strict ∅-axiom:
+> 342 PURE / 0 DIRTY**
 > across the entire sub-tree — `ax_coprime` uses `gcd213` (which
 > kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
 > `propext` via well-founded recursion); every proof in the sub-tree

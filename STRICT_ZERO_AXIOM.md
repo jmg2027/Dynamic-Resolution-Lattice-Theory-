@@ -630,9 +630,9 @@ Estimated upgrades: ~50-100 theorems possible.
 
 ### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 23 files (umbrella + Common + 7 Phases 1–6 +
-5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16 + 1 Phase 17), ~4100
-lines, **329 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+`E213.Lib.Math.GRA.*` — 24 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 7 Phases 12–15 + 1 Phase 16 + 1 Phase 17 + 1 Phase
+18), ~4200 lines, **342 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
 plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
 that the scanner's last-namespace heuristic mis-attributes).
 
@@ -763,6 +763,26 @@ all PURE):
     PURE `combine_sym` problem on `Prop`-field-carrying enrichments
     (which would force structural equality reasoning that brings
     `propext`).
+
+Phase 18 (universal property — 1-cat proxy for GRACat-as-Cat,
+all PURE):
+
+  · `Universality23.lean` (13 PURE): `canonicalGradeMap_universal`
+    proves any `f : Raw → Nat` with `f Raw.a = 2`, `f Raw.b = 3`,
+    and slash-additive (`f (Raw.slash x y h) = f x + f y`) equals
+    `canonicalGradeMap` pointwise.  Proof is direct Raw induction,
+    closes by `rfl` at atoms.  Capstones with
+    `canonical_arithmetic_forced` (the parameterless forcing
+    statement) and `two_atoms_slash_agree` (uniqueness of the
+    (2, 3)-profile function).  The five enrichment grade maps
+    (`walkGradeMap`, `cochainGradeMap`, ...) and realization
+    grade projections (`(walkRealize r).length`, ...) are derived
+    as instances of the universal property — making the
+    *forced-by-arithmetic* nature explicit rather than relying
+    on rfl by definition.  This is the 1-categorical proxy for
+    the "GRACat-as-Cat is a Reading" frontier; the 2-categorical
+    statement requires universe lifting and remains open beyond
+    Phase 18.
 
 ## Cross-reference
 

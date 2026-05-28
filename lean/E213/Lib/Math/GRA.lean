@@ -21,6 +21,7 @@ import E213.Lib.Math.GRA.SectionRetraction
 import E213.Lib.Math.GRA.Monoidal
 import E213.Lib.Math.GRA.LensBridge
 import E213.Lib.Math.GRA.CarrierRealization
+import E213.Lib.Math.GRA.Universality23
 
 /-! # GRA (Graded Residue Arithmetic) — umbrella
 
@@ -104,11 +105,28 @@ Marathon 16 (closed): the universal (2,3)-graded meta-structure of 213.
                                     (`truncation_operad_realize_agree`),
                                     not just at the Nat projection.
 
+  ## Phase 18 — Universal property (1-cat proxy for GRACat-as-Cat)
+
+  * `Universality23`              — `canonicalGradeMap_universal`:
+                                    any function `f : Raw → Nat` with
+                                    `f Raw.a = 2`, `f Raw.b = 3`, and
+                                    slash-additive (`f (slash x y h) =
+                                    f x + f y`) equals
+                                    `canonicalGradeMap` pointwise.
+                                    `canonical_arithmetic_forced`
+                                    capstones the parameterless
+                                    forcing statement.  This is the
+                                    1-categorical proxy for the
+                                    "GRACat-as-Cat is a Reading"
+                                    frontier; the 2-categorical version
+                                    requires universe lifting and
+                                    remains open beyond Phase 18.
+
 Narrative: `theory/math/gra_book.md`, `theory/math/graded_residue_arithmetic.md`,
 `theory/essays/gra_as_substrate_of_cat_hott.md`.
-**Strict ∅-axiom: 329 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
+**Strict ∅-axiom: 342 PURE / 0 DIRTY** (118 from Phases 1–6 + 49
 from Phases 7–11 + 92 from Phases 12–15 + 37 from Phase 16 + 33
-from Phase 17).  `ax_coprime` uses `gcd213`
+from Phase 17 + 13 from Phase 18).  `ax_coprime` uses `gcd213`
 (PURE) rather than Lean-core `Nat.gcd`.  Every proof uses kernel-decide,
 `rfl`, or explicit Nat / `Meta.Nat.NatDiv213` / `Meta.Nat.AddMod213`
 lemmas — no `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.

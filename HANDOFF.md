@@ -1,9 +1,39 @@
 # Session handoff
 
-Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–17 closed
-(329 PURE / 0 DIRTY).
+Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–18 closed
+(342 PURE / 0 DIRTY).
 
-## This session — Phase 17: carrier realization, closes the Phase 16 open frontier (329 PURE)
+## This session — Phase 18: universal property, 1-cat proxy for GRACat-as-Cat (342 PURE)
+
+One new file extending GRA from 23 → 24 files, 329 → 342 PURE.
+
+  · **Phase 18 `Universality23.lean`** (13 PURE) — the parameterless
+    forcing statement at the Raw level.
+      · `canonicalGradeMap_universal` — any `f : Raw → Nat` with
+        `f Raw.a = 2`, `f Raw.b = 3`, slash-additive equals
+        `canonicalGradeMap` pointwise.  Proof: Raw induction.
+      · Specialised: each enrichment's grade map (`walkGradeMap`,
+        `cochainGradeMap`, `truncationGradeMap`, `operadGradeMap`,
+        `resolutionGradeMap`) is derived as an instance of the
+        universal property — `*_forced` theorems.
+      · Realization-level forcing: `walkRealize_grade_forced` etc.
+      · `two_atoms_slash_agree` — two such functions agree pointwise.
+      · Capstone `canonical_arithmetic_forced` — the parameterless
+        forcing statement.
+  · This is the 1-categorical proxy for the essay's "GRACat-as-Cat
+    is a Reading" frontier.  The strict 2-categorical statement
+    requires `HasDistinguishing` on `Cat`-objects, which needs
+    universe lifting — outside the parameterless-arithmetic
+    discipline.  The universal property captures the conceptual
+    content: ANY structure (Cat-object included) whose grade map
+    satisfies the (2, 3)-profile is forced to read the canonical
+    arithmetic.
+
+Essay updated: "Open beyond Phase 18" section names the strict
+2-categorical statement as the remaining open question, with the
+explanation that the 1-categorical content has been captured.
+
+## Previous step — Phase 17: carrier realization, closes Phase 16 frontier (329 PURE)
 
 One new file extending GRA from 22 → 23 files, 296 → 329 PURE.
 
@@ -269,7 +299,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (Phases 1–17)** | **★ CLOSED + PROMOTED + 329 PURE ★** |
+| **16** | **GRA Universality (Phases 1–18)** | **★ CLOSED + PROMOTED + 342 PURE ★** |
 
 ## Genuinely open (next session targets)
 

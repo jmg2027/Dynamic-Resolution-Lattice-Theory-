@@ -179,11 +179,27 @@ equation `(truncationRealize r).level = (operadRealize r).level`
 holds *at the carrier level*, also by `rfl`.  Total: 33 PURE
 theorems in Phase 17, all kernel-decidable.
 
-Open beyond Phase 17: lifting `GRACat`-as-a-`Cat` to a Lens-of-
-categories statement.  This requires a `HasDistinguishing` on
-the category of `Cat`-objects themselves — a strictly
-2-categorical move that exposes the universe issues that GRA's
-parameterless arithmetic avoids.
+Phase 18 (`Universality23.lean`) addresses the next frontier
+via the 1-categorical proxy.  The `canonicalGradeMap_universal`
+theorem proves: any `f : Raw → Nat` satisfying `f Raw.a = 2`,
+`f Raw.b = 3`, and `f (slash x y h) = f x + f y` equals
+`canonicalGradeMap` pointwise.  Combined with Phase 16/17, this
+says: ANY structure (`Cat`-object included) whose grade map
+satisfies the (2, 3)-profile *is forced* to read the canonical
+arithmetic.  "Cat is a Reading of GRA" becomes the assertion
+that Cat's natural grade map (from its monoidal-structure
+generators) has this profile — and the universal property does
+the rest.  `canonical_arithmetic_forced` is the parameterless
+capstone.
+
+Open beyond Phase 18: the strict 2-categorical statement
+"GRACat-as-Cat is a Reading of itself" — `HasDistinguishing` on
+the category of `Cat`-objects — requires universe lifting
+(`Cat : Type (u+1)` cannot be its own object) and is outside
+the parameterless-arithmetic discipline.  The 1-categorical
+universal property (Phase 18) captures the *content* of "Cat
+is forced as a Reading"; the strict 2-cat formulation is the
+external bookkeeping.
 
 ## Self-check
 
