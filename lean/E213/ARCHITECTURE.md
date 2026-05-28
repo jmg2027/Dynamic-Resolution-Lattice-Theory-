@@ -240,15 +240,16 @@ pass 후):
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
-  * `GRA/{GRAModel,NumberTheory,Graph,Analysis,Cohomology,HoTT,
-           HigherAlgebra,Translation}` (8 files, ~1400 lines)
+  * `GRA/{GRAModel,Common,NumberTheory,Graph,Analysis,Cohomology,
+           HoTT,HigherAlgebra,Translation}` (9 files, ~1600 lines)
     — Graded Residue Arithmetic: 7-axiom typeclass + 5 Reading
     instances + iso capstone + Phase 6 translation programme.
     Universal depth comparison `⌈n/3⌉ ≤ (n+1)/2` valid in all
     five Readings simultaneously.  Chapter: `theory/math/gra_book.md`
-    + `theory/math/graded_residue_arithmetic.md`.  Purity: 0 sorry,
-    0 Classical, 0 Mathlib; `propext`/`Quot.sound` via omega (Tier
-    5.1 backlog).
+    + `theory/math/graded_residue_arithmetic.md`.  **Strict
+    ∅-axiom: 118 PURE / 0 DIRTY**; `ax_coprime` via `gcd213`
+    (PURE) rather than Lean-core `Nat.gcd`; every proof is `rfl`
+    or kernel-level Nat helper — no omega, no simp, no Mathlib.
   * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
             Valuation,DRLT,DRLTIntegration}`
     (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full

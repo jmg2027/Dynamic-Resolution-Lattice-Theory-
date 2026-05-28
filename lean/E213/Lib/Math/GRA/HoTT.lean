@@ -1,5 +1,6 @@
 import E213.Lib.Math.GRA.GRAModel
 import E213.Lib.Math.GRA.NumberTheory
+import E213.Lib.Math.GRA.Common
 
 /-!
 # GRA HoTT Instance (Reading R₃)
@@ -27,6 +28,8 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.HoTT
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common
+  (coprime_2_3 two_lt_three reach_23 depth_formula greedy_form)
 
 -- ============================================================
 -- HoTT carrier and operations
@@ -55,45 +58,28 @@ def hottDepth (n : Nat) : Nat := (n + 2) / 3
 -- Axiom verification
 -- ============================================================
 
-theorem hott_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
+theorem hott_gen1_lt_gen2 : (2 : Nat) < 3 := two_lt_three
 
-theorem hott_coprime : Nat.gcd 2 3 = 1 := by decide
+theorem hott_coprime : E213.Tactic.NatHelper.gcd213 2 3 = 1 := coprime_2_3
 
 theorem hott_grade_oplus (a b : HoTTCarrier) :
-    hottGrade (hottOplus a b) = hottGrade a + hottGrade b := by
-  simp [hottGrade, hottOplus]
+    hottGrade (hottOplus a b) = hottGrade a + hottGrade b := rfl
 
 theorem hott_grade_otimes (a b : HoTTCarrier) :
-    hottGrade (hottOtimes a b) ≤ hottGrade a + hottGrade b := by
-  simp [hottGrade, hottOtimes]
+    hottGrade (hottOtimes a b) ≤ hottGrade a + hottGrade b := Nat.le.refl
 
 /-- Reachability: every truncation level ≥ 2 is achievable via
     compositions of 2-truncations and 3-truncations. -/
 theorem hott_reach (n : Nat) (hn : n ≥ 2) :
-    ∃ a b : Nat, n = 2 * a + 3 * b := by
-  match n, hn with
-  | 2, _ => exact ⟨1, 0, by omega⟩
-  | 3, _ => exact ⟨0, 1, by omega⟩
-  | 4, _ => exact ⟨2, 0, by omega⟩
-  | 5, _ => exact ⟨1, 1, by omega⟩
-  | n + 6, _ =>
-    if h : (n + 6) % 2 = 0 then
-      exact ⟨(n + 6) / 2, 0, by omega⟩
-    else
-      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+    ∃ a b : Nat, n = 2 * a + 3 * b := reach_23 n hn
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
 theorem hott_depth_eq (n : Nat) (_hn : n ≥ 2) :
-    hottDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp only [hottDepth]
-  by_cases h : n % 3 = 0
-  · simp [h]; omega
-  · simp [h]; omega
+    hottDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := depth_formula n
 
 /-- Greedy: using 3-truncation maximally minimizes cell count. -/
 theorem hott_greedy (n : Nat) (_hn : n ≥ 2) :
-    hottDepth n = (n + 3 - 1) / 3 := by
-  simp [hottDepth]
+    hottDepth n = (n + 3 - 1) / 3 := greedy_form n
 
 -- ============================================================
 -- The (2,3)-GRA model for HoTT

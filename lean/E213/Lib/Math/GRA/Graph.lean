@@ -1,5 +1,6 @@
 import E213.Lib.Math.GRA.GRAModel
 import E213.Lib.Math.GRA.NumberTheory
+import E213.Lib.Math.GRA.Common
 
 /-!
 # GRA Graph Theory Instance (Reading R₄)
@@ -24,6 +25,8 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.Graph
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common
+  (coprime_2_3 two_lt_three reach_23 depth_formula greedy_form)
 
 -- ============================================================
 -- K_{3,2} graph structure
@@ -64,50 +67,29 @@ def graphDepth (n : Nat) : Nat := (n + 2) / 3
 -- Axiom verification
 -- ============================================================
 
-theorem graph_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
+theorem graph_gen1_lt_gen2 : (2 : Nat) < 3 := two_lt_three
 
-theorem graph_coprime : Nat.gcd 2 3 = 1 := by decide
+theorem graph_coprime : E213.Tactic.NatHelper.gcd213 2 3 = 1 := coprime_2_3
 
 theorem graph_grade_oplus (a b : GraphCarrier) :
-    graphGrade (graphOplus a b) = graphGrade a + graphGrade b := by
-  simp [graphGrade, graphOplus]
+    graphGrade (graphOplus a b) = graphGrade a + graphGrade b := rfl
 
 theorem graph_grade_otimes (a b : GraphCarrier) :
-    graphGrade (graphOtimes a b) ≤ graphGrade a + graphGrade b := by
-  simp [graphGrade, graphOtimes]
+    graphGrade (graphOtimes a b) ≤ graphGrade a + graphGrade b := Nat.le.refl
 
 /-- Key graph-theoretic fact: on K_{3,2}, every walk length ≥ 2
     is achievable (because gcd of cycle lengths = gcd(4,6) divides
     gcd(2,3)=1 at the step level). -/
 theorem graph_reach (n : Nat) (hn : n ≥ 2) :
-    ∃ a b : Nat, n = 2 * a + 3 * b := by
-  -- Same arithmetic as NT — the graph structure guarantees this
-  -- because K_{3,2} has cycles of length 4 (=2*2) and 6 (=2*3),
-  -- and gcd(2,3)=1 means all lengths ≥ 2 are achievable via
-  -- combinations of 2-step and 3-step primitive walks.
-  match n, hn with
-  | 2, _ => exact ⟨1, 0, by omega⟩
-  | 3, _ => exact ⟨0, 1, by omega⟩
-  | 4, _ => exact ⟨2, 0, by omega⟩
-  | 5, _ => exact ⟨1, 1, by omega⟩
-  | n + 6, _ =>
-    if h : (n + 6) % 2 = 0 then
-      exact ⟨(n + 6) / 2, 0, by omega⟩
-    else
-      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+    ∃ a b : Nat, n = 2 * a + 3 * b := reach_23 n hn
 
 /-- Depth formula: depth n = n/3 + (if n%3=0 then 0 else 1) = ⌈n/3⌉ -/
 theorem graph_depth_eq (n : Nat) (_hn : n ≥ 2) :
-    graphDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp only [graphDepth]
-  by_cases h : n % 3 = 0
-  · simp [h]; omega
-  · simp [h]; omega
+    graphDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := depth_formula n
 
 /-- Greedy: graphDepth n = (n + 3 - 1) / 3 -/
 theorem graph_greedy (n : Nat) (_hn : n ≥ 2) :
-    graphDepth n = (n + 3 - 1) / 3 := by
-  simp [graphDepth]
+    graphDepth n = (n + 3 - 1) / 3 := greedy_form n
 
 /-- The (2,3)-GRA model on Graph walks. -/
 def GRA23_Graph : GRAModel where

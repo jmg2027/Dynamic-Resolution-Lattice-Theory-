@@ -1,9 +1,9 @@
 # Graded Residue Arithmetic (GRA) — 통합 이론
 
 **Status**: CLOSED (Marathon 16 — GRA Universality)
-**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 8 files, 0 sorry)
+**Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 9 files, 0 sorry)
 **Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
-**Purity**: 0 sorry, 0 Classical, 0 Mathlib, kernel-decide only; `propext`/`Quot.sound` present via omega (Tier 5.1 backlog per `STRICT_ZERO_AXIOM.md`).
+**Purity**: **118 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 
 ---
 
@@ -371,6 +371,7 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 ### Primary (GRA umbrella)
 - `lean/E213/Lib/Math/GRA.lean` — umbrella
 - `lean/E213/Lib/Math/GRA/GRAModel.lean` — 7-axiom typeclass + `GRAIso` refl/symm/trans
+- `lean/E213/Lib/Math/GRA/Common.lean` — shared PURE Nat helpers (`coprime_2_3`, `reach_23`, `depth_formula`, `ceil3_le_ceil2`)
 - `lean/E213/Lib/Math/GRA/NumberTheory.lean` — hub instance on ℕ
 - `lean/E213/Lib/Math/GRA/Graph.lean` — R₄ walk-length Reading
 - `lean/E213/Lib/Math/GRA/Analysis.lean` — R₅ resolution-exponent Reading

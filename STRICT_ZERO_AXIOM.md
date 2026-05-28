@@ -628,17 +628,45 @@ Many theorems at ≤ {propext, Quot.sound} could be upgraded by:
 
 Estimated upgrades: ~50-100 theorems possible.
 
-### Tier 5.1 backlog — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
+### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
 
-`E213.Lib.Math.GRA.*` — 8 files, ~1400 lines, ~67 DIRTY at
-`[propext]` or `[propext, Quot.sound]` from omega in `nt_reach` /
-`*_depth_eq` / `*_greedy` patterns + simp-induced collapse in
-`master_translation*`.  No `Classical`, no `Lean.ofReduceBool`,
-no `sorryAx`, no Mathlib.  Upgrade path is mechanical (same
-omega→decide / omega→Nat-lemma pattern as Batch 1+2 above) but
-not blocking promotion: chapter `theory/math/gra_book.md` is
-narrative-closed and the Lean isos / translation programme are
-fully constructed at the typeclass level.
+`E213.Lib.Math.GRA.*` — 9 files (umbrella + Common + 7), ~1600
+lines, **118 PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
+that the scanner's last-namespace heuristic mis-attributes).
+
+Upgrade pattern applied throughout:
+  · `Nat.gcd 2 3 = 1` (DIRTY [propext] via well-founded
+    recursion) → switch `GRAModel.ax_coprime` to
+    `E213.Tactic.NatHelper.gcd213 gen1 gen2 = 1`, which kernel-
+    reduces to `rfl` for the (2, 3) instance.
+  · `*_grade_oplus` / `*_grade_otimes` / `*_greedy` `by simp [...]`
+    → `rfl` or `Nat.le.refl` (the definitions are kernel-equal
+    to the goals).
+  · `nt_reach` and the 5 Reading variants `by omega` per literal
+    case → shared PURE `Common.reach_23`, which uses strong
+    recursion + a 2-step lemma `reach_step` proving
+    `(k+2 = 2a + 3b) → ((k+2)+2 = 2(a+1) + 3b)` via explicit
+    `Nat.mul_succ` / `Nat.add_assoc` / `Nat.add_comm`.
+  · `*_depth_eq` `by_cases ... omega` → shared PURE
+    `Common.depth_formula`, which splits on `n % 3 ∈ {0,1,2}`
+    via `cases_lt_three` and the helper lemmas
+    `div3_3k_{1,2,3,4}` (inductive PURE divisor identities)
+    plus `Meta.Nat.AddMod213.div_add_mod`.
+  · `universal_depth_comparison` `by omega` → shared PURE
+    `Common.ceil3_le_ceil2`, proved by 6-step strong induction
+    over the LCM(2,3) cycle with `Meta.Nat.NatDiv213.add_div_right_pos`.
+  · `transport_depth_bound` / `master_translation*` /
+    `reach_translation` `simp [...]` → explicit `exact` with
+    typed witnesses.
+  · `depth_times_3_lower` `by omega` → explicit cancellation
+    via `Meta.Nat.AddMod213.div_add_mod` +
+    `NatHelper.le_of_add_le_add_left`.
+
+Shared helpers added in `lean/E213/Lib/Math/GRA/Common.lean`
+(7 public PURE theorems): `coprime_2_3`, `two_lt_three`,
+`reach_offset`, `reach_23`, `depth_formula`, `greedy_form`,
+`ceil3_le_ceil2`.
 
 ## Cross-reference
 

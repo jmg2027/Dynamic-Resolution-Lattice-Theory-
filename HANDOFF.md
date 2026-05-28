@@ -1,9 +1,42 @@
 # Session handoff
 
 Branch: `claude/gra-promotion-essay-LwwoA` — GRA promotion + essay
-session, follows the GRA Universality marathon merge.
++ Tier 5.1 purity clear + Math umbrella fixes.
 
-## This session — GRA promotion + essay (2026-05-28)
+## This session — GRA full clear (Marathon 16 → 118 PURE / 0 DIRTY)
+
+  · **Tier 5.1 cleared**: all `Lib/Math/GRA/` theorems are now
+    STRICT ∅-axiom PURE.  Pattern:
+      · switch `GRAModel.ax_coprime` from `Nat.gcd` (DIRTY via
+        well-founded recursion) to `gcd213` (kernel-reducible)
+      · introduce `GRA/Common.lean` with shared PURE Nat lemmas
+        (`coprime_2_3`, `reach_23`, `depth_formula`, `ceil3_le_ceil2`,
+        + `div3_3k_{1,2,3,4}` building blocks)
+      · per-Reading proofs collapse to `rfl` / `Nat.le.refl` /
+        delegation to Common
+      · Translation theorems use Common helpers + explicit
+        `Nat.add_le_add_left` / `Meta.Nat.NatDiv213.div_mul_le_self`
+        / `Meta.Nat.AddMod213.div_add_mod` chains
+      · No `omega`, no `simp [...]`, no Mathlib, no `Classical`.
+  · Updated `STRICT_ZERO_AXIOM.md` Tier 5.1 from "backlog" to
+    "CLEARED" with the upgrade pattern catalog.
+  · Updated `theory/math/gra_book.md` + `graded_residue_arithmetic.md`
+    + GRA umbrella docstring + `theory/math/graded_residue_arithmetic.md`
+    file listing to reflect PURE status and add `Common.lean`.
+
+### Math umbrella fixes (separate, prior commit)
+
+7 pre-existing build failures in `Lib/Math` fixed:
+`Extras` (unterminated docstring), `DyadicFSM/Pell/ProperMod`
+(missing `ArithFSM` open), `ParadigmDomainGradedRing`
+(`binom_5_row_sum` → `binom_5_row` rename), `ModArith/JoinEquivGCD`
+(orphan `(gcd213_self ...)` fragments + missing `succ_sub_self_213`
+in open), `AngleStructure/RotationOrder` (re-added
+`angle_level{0,1,2}` projections), `CayleyDickson/Levels/Cayley`
+(misplaced `open Cayley`), `Cauchy/Wallis` (orphan partial open).
+Full `lake build` now 985/985 clean.
+
+## Previous step — GRA promotion + essay (same session)
 
   · **Promotion**:
       · Created umbrella `lean/E213/Lib/Math/GRA.lean` and wired it
@@ -89,7 +122,7 @@ All 6 phases of the GRA Universality marathon (Blueprint 16) are done:
 | 5.3 | Fibonacci Cassini from P^n det | CLOSED |
 | 5.4 | Convergent det / Farey property | CLOSED |
 | 5.5 | G139 self-form (iteration + uniqueness) | CLOSED |
-| **16** | **GRA Universality (ALL Phases)** | **★ CLOSED + PROMOTED ★** |
+| **16** | **GRA Universality (ALL Phases)** | **★ CLOSED + PROMOTED + 118 PURE ★** |
 
 ## Genuinely open (next session targets)
 
