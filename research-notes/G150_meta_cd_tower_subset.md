@@ -152,6 +152,33 @@ toCDDouble {_mul, _conj, _add, _neg, _zero}.  Phase 4 foundation.
 
 ### ⏳ Phase 4 — ZOmegaQuad MoufangIntegerNormed213
 
+**Deep analysis insight (this session)**:
+
+Computing both sides of `(uv)(v*u*) = u(vv*)u*` for `CDDouble α`
+with `[IntegerNormed213 α]` base yields:
+
+```
+LHS.re - RHS.re = (cb*da - acb*d) + (a*d*bc* - d*bc*a*)
+```
+
+where a := u.re, b := u.im, c := v.re, d := v.im (all in α).
+
+These 4-fold associative products are **not generally zero** for
+arbitrary `[Ring213] [StarRing213]` non-commutative α.  The classical
+Hurwitz result (octonion norms are multiplicative) relies on the
+quaternion base's specific composition-algebra structure.
+
+**Implication**: The Moufang norm-collapse identity is NOT an
+abstract consequence of `IntegerNormed213` axioms alone.  It requires
+additional structure on the base (composition-algebra / Hurwitz
+property at the lower level).
+
+For ZOmegaDouble specifically (= CDDouble ZOmega over commutative
+Eisenstein integers), Hurwitz's theorem applies — so Moufang DOES
+hold for ZOmegaQuad — but the proof requires polynomial expansion
+using ZOmegaDouble's specific Hamilton-like (quaternion-analog)
+identities.
+
 **Phase 4 foundation closed** (commit `7d5dafa`):
   · `ZOmegaDouble.normSq_conj : normSq (conj u) = normSq u` —
     via typeclass: CommRing213.mul_comm bridges
