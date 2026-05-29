@@ -249,4 +249,62 @@ private theorem ofInt_central' (z : Int) (a : L3T) :
         Ring213.add_zero, Ring213.zero_add,
         zsqrt_ofInt_conj_self z]
 
+/-- ZSqrt 2's `conj(-a) = -conj a`. -/
+private theorem zsqrt_conj_neg (a : Z2) : ZSqrt.conj (-a) = -ZSqrt.conj a := by
+  apply ZSqrt.ext
+  · show -a.re = -a.re; rfl
+  · show -(-a.im) = -(-a.im); rfl
+
+/-- `u * L3T.conj u = ofInt (L3T.normSq u)`. -/
+private theorem self_mul_conj' (u : L3T) :
+    u * L3T.conj u = ofInt u.normSq := by
+  apply L3T_ext
+  · change (u.mul (L3T.conj u)).re = (ofInt u.normSq).re
+    show u.re * ZSqrt.conj u.re - ZSqrt.conj (-u.im) * u.im
+       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.normSq
+    have h_self_re : u.re * ZSqrt.conj u.re
+                   = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.re.normSq :=
+      @IntegerNormed213.self_mul_conj Z2 _ u.re
+    have h_self_im : u.im * ZSqrt.conj u.im
+                   = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.im.normSq :=
+      @IntegerNormed213.self_mul_conj Z2 _ u.im
+    have h_comm_im : ZSqrt.conj u.im * u.im = u.im * ZSqrt.conj u.im :=
+      @CommRing213.mul_comm Z2 _ (ZSqrt.conj u.im) u.im
+    rw [zsqrt_conj_neg u.im, Ring213.neg_mul]
+    -- Goal: u.re * conj u.re - -(conj u.im * u.im) = ofInt(N u.re + N u.im)
+    show u.re * ZSqrt.conj u.re + -(-(ZSqrt.conj u.im * u.im))
+       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.normSq
+    rw [Ring213.neg_neg, h_self_re, h_comm_im, h_self_im]
+    show E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.re.normSq
+       + E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.im.normSq
+       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 (u.re.normSq + u.im.normSq)
+    exact @IntegerNormed213.ofInt_add Z2 _ _ _
+  · change (u.mul (L3T.conj u)).im = (ofInt u.normSq).im
+    show (-u.im) * u.re + u.im * ZSqrt.conj (ZSqrt.conj u.re) = 0
+    rw [show ZSqrt.conj (ZSqrt.conj u.re) = u.re from
+          @StarRing213.conj_conj Z2 _ u.re,
+        Ring213.neg_mul,
+        @CommRing213.mul_comm Z2 _ u.im u.re]
+    -- Goal: -(u.re * u.im) + u.re * u.im = 0
+    exact Ring213.add_left_neg _
+
+/-- ★ L3T `IntegerNormed213` instance.  Completes Type B downstream
+    Phase 3 equivalent.  Generic `IntegerNormed213.normSq_mul` then
+    derives L3T's norm-multiplicativity via typeclass projection. -/
+instance : IntegerNormed213 L3T where
+  ofInt         := ofInt
+  normSq        := L3T.normSq
+  self_mul_conj := self_mul_conj'
+  ofInt_mul     := ofInt_mul'
+  ofInt_add     := ofInt_add'
+  ofInt_central := ofInt_central'
+  ofInt_inj     := ofInt_inj'
+
+/-- ★ Concrete witness: L3T's `normSq_mul` derived via the generic
+    `IntegerNormed213.normSq_mul` typeclass projection — no
+    polynomial expansion at Int level. -/
+theorem normSq_mul (u v : L3T) :
+    L3T.normSq (u * v) = L3T.normSq u * L3T.normSq v :=
+  IntegerNormed213.normSq_mul u v
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
