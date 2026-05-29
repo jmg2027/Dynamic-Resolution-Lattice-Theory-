@@ -114,6 +114,31 @@ three towers.
       · Effort: ~cd_alt_left scale ×(both components) + base sub-lemmas +
         typeclass + Cayley/Sedenion instance bridges.  Sizeable; warrants
         its own session.
+
+    **Foundation built (`Meta/Algebra213/CDDoubleFlexible.lean`, all PURE):**
+      · class `FlexAlt213` (= `MoufangIntegerNormed213` + `trace`/
+        `self_add_conj` + `conj_mul_self` + scalar nuclearity
+        `ofInt_nuc_{l,m,r}` + `alt_left`/`alt_right`/`flexible`).  [Note:
+        the file uses the *alternative* base form — `alt_left`/`alt_right`
+        are included; flexibility-only would drop them but then `L4=R3`
+        needs a different reduction.  Cayley satisfies alt, so this
+        covers Sedenion; Trigintaduonion (base Sedenion, non-alt) would
+        need the flexibility-only variant.]
+      · DONE lemmas: `conj_eq`; `left_assoc_conj` (`[conj b,b,X]=0`);
+        `right_assoc_conj` (`[X,conj b,b]=0`); `conj_sandwich` (gives
+        `L4=R3`); `moufang_mid`.
+      · **Remaining crux = the cross-pair**
+        `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
+        Verified to hold (numerically) but not yet reduced.  Lead:
+        derive `flex_polar` (linearized flexibility,
+        `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)` — same expand+cancel
+        shape as `cd_flexible`'s linearization) and combine with
+        `moufang_mid` + scalar nuclearity + `self_add_conj` (both `b`
+        and `d` traces).  Then `cd_flexible.re` = `flexible`(L1=R1) +
+        `conj_sandwich`(L4=R3) + cross-pair; `.im` analogous; then
+        register `Cayley`/`Sedenion : FlexAlt213` (Cayley needs trace +
+        conj_mul_self + scalar-nuclearity proofs — real-scalar nuclearity
+        is the fiddly one) and bridge `Sedenion.flexible`.
   - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
     from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
     the polynomial brute force.
