@@ -95,6 +95,39 @@ non-separation**: P is at once the carrier, the recurrence, and the
 matrix that writes them (`MobiusSelfForm`) — the same collapse that makes
 "is the tower frozen or dynamic?" (§5.7) malformed.
 
+## Boundary — what is *not* this tower
+
+Not every object the repo names "tower" is this orbit.  Naming three
+constructions "tower" by their iteration motif and then reading them as
+the same object would be exactly the meaning-by-resemblance the framework
+refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
+
+  - **Resolution/cardinality axis** — the Cantor tower of iterated
+    function spaces `Raw → (Raw→Bool) → ((Raw→Bool)→Bool) → …`, each rung
+    with no surjection from the previous (`Lens/Cardinality/Tower`,
+    Σ6), the `Lensⁿ α` image-collapse tower
+    (`Lens/Properties/TowerLevel3`), and the hyperreal/ZFC-ℝ absorption
+    tower (`Hyper/Hyper213Tower`).  These ascend by the **Lens diagonal**,
+    not by P-iteration; their quantitative shadow is the universe-chain
+    `5^L` reading above (which *is* in the orbit) reaching the resolution
+    limit `N_U = 5^25`.  The diagonal and the orbit meet only at that
+    shared scale, not as one object.
+  - **ℝ-encoding tower** — `TriangularTower/` encodes reals as
+    finite-level squashed paths under `NS = 3` absorption
+    (`theory/math/triangular_tower.md`).  It borrows the signature `NS`,
+    but it is a *representation* construction, not the doubling-arrow
+    orbit.
+  - **Physics hierarchy towers** — `Physics/Mass/HierarchyTowers` stacks
+    DRLT mass ratios (`m_μ/m_e`, `m_τ/m_μ`) from `(NS,NT)`; these are the
+    signature's *observable fingerprint* (DRLT deployment), one layer
+    downstream of the 213-math orbit.
+
+A fourth construction makes the boundary explicit in Lean:
+`Lib/Math/LevelTopology/TwoTowersDivergence` proves the 213 tower
+**diverges** from the classical Cayley-Dickson tower — 213 carries sign
+as an orthogonal floor where classical CD keeps it internal — so even the
+CD reading is the orbit's, not the textbook construction's.
+
 ## Open frontier
 
 The GRA-tower ↔ CD-tower *duality* (level `n` of property loss ↔ level
@@ -103,5 +136,5 @@ Conjecture 5.3.1).  The "every axis sees P" catalog stands at 55 axes
 (`theory/essays/every_axis_sees_p.md`); whether it is exhaustive is open.
 And within the CD column, the flexibility rung past Cayley is not yet
 closed (`Meta/Algebra213/CDDoubleFlexible.lean`; see
-`math/cayley_dickson/algebra_tower.md` §"Open frontier" #4 and
+`math/cayley_dickson/algebra_tower.md` §"Open frontier" #2 and
 `theory/essays/cd_tower_polarization.md`).
