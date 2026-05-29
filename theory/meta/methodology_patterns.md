@@ -1150,3 +1150,54 @@ subsuming external constructions.
 
 ---
 
+## Pattern #21 — Polarization: cancel a non-commutative residue with the trace form
+
+### Problem
+
+A degree-4 ring-polynomial identity (e.g. the Cayley-Dickson Hurwitz
+norm `|u·v|² = |u|²·|v|²` over a **non-commutative** associative base)
+resists the `IntegerNormed213.normSq_mul` re-association trick because
+`mul_assoc` no longer collapses it.  The brute-force route
+(`hurwitz_ring`, 32 Int variables, `maxHeartbeats 4000000`) is DIRTY
+(`[propext, Quot.sound]`) and does not scale.
+
+### DRLT reframe
+
+Split the identity by what each term *is*, not by expanding blindly.
+Pair the **quadratic** norm form `self_mul_conj : a·conj a =
+ofInt(normSq a)` with its **linear polarization companion**, the trace
+form `self_add_conj : a + conj a = ofInt(trace a)` (class
+`TraceNormed213`).  The two are the coefficients of the Hurwitz minimal
+polynomial `x² − trace·x + normSq`.
+
+### Concrete idiom
+
+In the degree-4 expansion:
+
+- **diagonal terms** → central `ofInt` scalars via `self_mul_conj`
+  (`diag_collapse`);
+- **cross terms** (the non-commutative residue) → cancel pairwise
+  because `a + conj a` is *central*:
+  `conj a·conj w − conj w·conj a = a·w − w·a` (`cross_zero`).
+
+The residue cancellation is the *only* place the new (linear) axiom is
+used; everything else is the existing quadratic axiom + ring algebra.
+
+### Where applied
+
+`Meta/Algebra213/CDDoubleMoufang.lean`: `cross_zero`, `hurwitz_norm_re`,
+`cd_normSq_mul`, `cd_moufang_norm`, `instMoufangIntegerNormed213CDDouble`
+— then `CayleyHeavy.normSq_mul`, `{Cayley,ZOmegaQuad,L4T}.normSq_mul`
+bridge to it.  Replaces the `hurwitz_ring` brute force, all strict
+∅-axiom.
+
+### Generalisation
+
+When a quadratic-form identity stalls on non-commutativity, look for
+the **bilinear/linear polarization** of that form and add it as a
+sibling axiom.  The cross-terms of any "square of a sum" are governed
+by the polarization; centrality of the polarized value is the typical
+cancellation lever.  (Linear companion of a quadratic invariant — the
+same move as recovering a bilinear form `B(x,y)` from `Q(x+y)`.)
+
+---

@@ -249,10 +249,70 @@ layer is the generic Order-4 mechanism above plus the
 concrete instances written for each named layer (Cayley, Sedenion,
 L4T, L5T, L6T).
 
+## Norm composition at the octonion-analog layer — the polarization condition
+
+The generic-lift functor above carries the *ring/star* structure but
+not the **norm**.  Norm multiplicativity `|u·v|² = |u|²·|v|²` (the
+Hurwitz composition law) is the deeper content, and it is exactly here
+that the towers reach their boundary: composition survives precisely up
+to the octonion-analog layer (Cayley = A·L3, ZOmegaQuad = C·L4,
+L4T = B·L4) and fails beyond.
+
+For the *associative* layers (Lipschitz, ZOmegaDouble, L3T) the generic
+`IntegerNormed213.normSq_mul` discharges composition by one
+re-association.  The octonion-analog layer doubles a **non-commutative**
+associative base, so `mul_assoc` no longer collapses the identity; the
+degree-4 Hurwitz polynomial must be confronted directly.
+
+The 213-native resolution is a **polarization condition**, dual to the
+norm.  Where `self_mul_conj` (`a·conj a = ofInt(normSq a)`) is the
+quadratic form, the class `TraceNormed213` adds its linear companion
+
+```
+self_add_conj : a + conj a = ofInt (trace a)      -- the trace form
+```
+
+— together the two coefficients of a Hurwitz integer's minimal
+polynomial `x² − trace(a)·x + normSq(a)`.  In the degree-4 expansion
+of `|u·v|²` over the doubled algebra:
+
+- the **four diagonal terms** collapse to central `ofInt` scalars via
+  `self_mul_conj` (`diag_collapse`);
+- the **four cross-terms** — the genuine non-commutative residue — sum
+  to zero because `a + conj a` is central (`cross_zero`):
+  `conj a·conj w − conj w·conj a = a·w − w·a`, killed by trace
+  centrality.
+
+This is proved once, abstractly, over any `[TraceNormed213 α]`
+(`Meta/Algebra213/CDDoubleMoufang.lean`): `hurwitz_norm_re` (the full
+identity), `cd_normSq_mul` (composition, derived *without* assuming
+Moufang, so non-circular), `cd_moufang_norm`, and the instance
+`MoufangIntegerNormed213 (CDDouble α)`.  Each concrete layer registers
+via the `toCDDouble` bridge with the trace witness:
+
+| Layer | base trace | bridge |
+|---|---|---|
+| Cayley (A·L3) | Lipschitz, `2·re` | `Levels/CayleyMoufang.lean` |
+| ZOmegaQuad (C·L4) | ZOmegaDouble, Eisenstein `2re−im` | `Integer/ZOmegaQuadAlgebra213 §4` |
+| L4T (B·L4) | L3T, `2·re` | `Integer/ZSqrtMinus2Algebra213 §7` |
+
+This **replaces** the 32-Int-variable `hurwitz_ring` brute force
+(`maxHeartbeats 4000000` in `CayleyHeavy.normSq_mul`, now bridged to
+`cd_normSq_mul`) with one structural lemma reused across all three
+towers, all strict ∅-axiom.
+
+Beyond this layer (Sedenion, ZOmegaOct, L5T+) the base is itself
+non-associative; `TraceNormed213` does not lift, and composition
+genuinely fails (zero divisors) — consistent with the classical fact
+that the octonions are the last composition algebra.
+
 ## Key results
 
 | Theorem / Def | Module | Statement |
 |---|---|---|
+| `cross_zero` / `hurwitz_norm_re` | `Meta/Algebra213/CDDoubleMoufang` | Polarization cancels the degree-4 Hurwitz residue |
+| `cd_normSq_mul` / `cd_moufang_norm` | `Meta/Algebra213/CDDoubleMoufang` | Composition + Moufang for `CDDouble` of non-comm base |
+| `{Cayley,ZOmegaQuad,L4T}.normSq_mul` | per-layer bridge | Octonion-analog Hurwitz composition, ∅-axiom |
 | `algebra_tower_capstone` | `Tower/AlgebraTowerCapstone` | Master: imports all type-specific layers |
 | `cdd_lift_squared` | `Theory/CDDouble/UniversalOrder4` | (⟨0,u⟩)² = ⟨−c,0⟩ generic |
 | `Z[√5]` integer pair recurrence | `Tower/AlgebraTowerAsymptote` | Char poly (x−2)(x−4)(x−8) |
