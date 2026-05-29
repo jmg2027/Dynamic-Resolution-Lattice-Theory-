@@ -44,14 +44,6 @@ open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
-private theorem bool_eq_iff_v2 (a b : Bool)
-    (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
-
 /-- ★★★★★ Same-denominator forward (always holds, any b ≥ 1).
 
   cutSum (constCut a b) (constCut c b) m k = true

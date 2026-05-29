@@ -24,14 +24,6 @@ namespace E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
 
--- Add/Neg for ZOmega (componentwise on Int)
-namespace _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
-
-instance : Add ZOmega := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
-instance : Neg ZOmega := ⟨fun u => ⟨-u.re, -u.im⟩⟩
-instance : Sub ZOmega := ⟨fun u v => u + (-v)⟩
-
-end _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
 
 structure ZOmegaDouble where
   re : ZOmega
@@ -41,6 +33,11 @@ structure ZOmegaDouble where
 namespace ZOmegaDouble
 
 instance : Zero ZOmegaDouble := ⟨⟨0, 0⟩⟩
+instance : Add ZOmegaDouble :=
+  ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg ZOmegaDouble :=
+  ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub ZOmegaDouble := ⟨fun u v => u + (-v)⟩
 
 theorem ext {u v : ZOmegaDouble} (hr : u.re = v.re) (hi : u.im = v.im) :
     u = v := by cases u; cases v; congr

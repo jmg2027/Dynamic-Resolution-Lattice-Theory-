@@ -79,13 +79,7 @@ theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
   rw [Nat.mul_comm] at h2
   exact h2.symm
 
-/-- ∅-axiom replacement for `Nat.sub_pos_of_lt`. -/
-private theorem sub_pos_of_lt_213_local : ∀ {a b : Nat}, a < b → 0 < b - a
-  | 0, _, h => by rw [Nat.sub_zero]; exact h
-  | _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
-  | _+1, _+1, h => by
-    rw [Nat.succ_sub_succ_eq_sub]
-    exact sub_pos_of_lt_213_local (Nat.lt_of_succ_lt_succ h)
+open E213.Tactic.NatHelper renaming sub_pos_of_lt → sub_pos_of_lt_213_local
 
 /-- ★★★ Forward direction: bits periodic ⇒ signature eventually periodic.
     STRICT ∅-AXIOM. -/

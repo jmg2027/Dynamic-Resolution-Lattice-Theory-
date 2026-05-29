@@ -107,7 +107,7 @@ This §8 prompt is effectively **the command that produced the repo's first comm
 
 > *Original 2026-04-24 snapshot.  Several target paths
 > (`book/chapters/`, `PAPER.md`, `quantum-gravity/`) have since been
-> reorganized; see `lean/E213/ARCHITECTURE.md` and `guide/INDEX.md`
+> reorganized; see `lean/E213/ARCHITECTURE.md` and `theory/THEORY_BOOK.md`
 > for current landing locations.  The DRLT "Dynamic Resolution" name
 > (Zeno → pixels) and the lattice-information core remain anchored.*
 

@@ -3,7 +3,7 @@ import E213.Lib.Math.DyadicFSM.Signature.SignaturePredict
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
+import E213.Lib.Math.DyadicFSM.Pisano.PredictorChain
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Two-layer predictor capstone
@@ -31,7 +31,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_peri
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9)
 open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict)
-open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
+open E213.Lib.Math.DyadicFSM.Pisano.PredictorChain (pisano_predict_realises_pell_7)
 open E213.Lib.Math.DyadicFSM.Signature.SignaturePredict (signature_predict_realises_pell_7 signature_predict)
 
 open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)

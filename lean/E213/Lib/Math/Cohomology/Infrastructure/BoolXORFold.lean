@@ -57,4 +57,48 @@ theorem psiNatPos_congr_all (n : Nat) (v w : Nat → Bool)
     show xor (psiNatPos k v) (v (k+1)) = xor (psiNatPos k w) (w (k+1))
     rw [ih, h (k+1)]
 
+/-! ## `Fin 9 → Bool` lift bridge
+
+Pattern-match lift from `Fin 9 → Bool` to `Nat → Bool`.  Used to
+feed `Fin 9`-cochains into the `psiNatPos 8` fold without invoking
+`dite` (which would route through `propext`).  Out-of-range Nat
+indices default to `false`.
+
+This is the canonical `vToNat`-style bridge: both
+`V33Indeterminacy` (NS = NT = 3, c = 1) and `V33c3Indeterminacy`
+(c = 3) opened identical inline copies via local `def vToNat`
+before extraction; they now `open`-renaming `fin9LiftToNat` back
+to `vToNat` to preserve call sites. -/
+
+/-- Lift `Fin 9 → Bool` to `Nat → Bool` by direct pattern match.
+    Out-of-range Nat indices return `false`. -/
+def fin9LiftToNat (v : Fin 9 → Bool) : Nat → Bool
+  | 0 => v ⟨0, by decide⟩
+  | 1 => v ⟨1, by decide⟩
+  | 2 => v ⟨2, by decide⟩
+  | 3 => v ⟨3, by decide⟩
+  | 4 => v ⟨4, by decide⟩
+  | 5 => v ⟨5, by decide⟩
+  | 6 => v ⟨6, by decide⟩
+  | 7 => v ⟨7, by decide⟩
+  | 8 => v ⟨8, by decide⟩
+  | _ => false
+
+/-- `fin9LiftToNat` distributes over pointwise XOR at every Nat index.
+    Proved by exhaustive case match (9 in-range + 1 out-of-range). -/
+theorem fin9LiftToNat_xor (v w : Fin 9 → Bool) (i : Nat) :
+    fin9LiftToNat (fun f => xor (v f) (w f)) i
+      = xor (fin9LiftToNat v i) (fin9LiftToNat w i) := by
+  match i with
+  | 0 => rfl
+  | 1 => rfl
+  | 2 => rfl
+  | 3 => rfl
+  | 4 => rfl
+  | 5 => rfl
+  | 6 => rfl
+  | 7 => rfl
+  | 8 => rfl
+  | _+9 => rfl
+
 end E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold

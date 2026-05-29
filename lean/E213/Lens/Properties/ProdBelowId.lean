@@ -1,5 +1,6 @@
 import E213.Lens.Instances.Identity
 import E213.Lens.Lattice.Meet
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # ProdBelowId: witness for Q39.2
@@ -40,20 +41,7 @@ theorem depth_equal : Lens.depth.view rA = Lens.depth.view rB := by decide
 
 private theorem leaves_sym : ∀ u v : Nat, u + v = v + u := Nat.add_comm
 
-/-- Inline 213-native max_comm (Lean-core Nat.max_comm leaks propext
-    via Nat.max_eq_left).  Direct case-split via Nat.le_total. -/
-private theorem nat_max_comm_pure (a b : Nat) : Nat.max a b = Nat.max b a := by
-  rcases Nat.le_total a b with hab | hba
-  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
-    rw [if_pos hab]
-    by_cases h : b ≤ a
-    · rw [if_pos h]; exact Nat.le_antisymm h hab
-    · rw [if_neg h]
-  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
-    rw [if_pos hba]
-    by_cases h : a ≤ b
-    · rw [if_pos h]; exact Nat.le_antisymm hba h
-    · rw [if_neg h]
+open E213.Tactic.NatHelper renaming max_comm_pure → nat_max_comm_pure
 
 private theorem depth_sym :
     ∀ u v : Nat, 1 + max u v = 1 + max v u := by

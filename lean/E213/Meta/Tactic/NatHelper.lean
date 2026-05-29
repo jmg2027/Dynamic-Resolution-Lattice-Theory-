@@ -92,6 +92,12 @@ theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c :=
     (Nat.mul_comm c a) ▸ (Nat.mul_comm c b) ▸ rfl
   h1.trans (h2.trans h3)
 
+/-- `(a + b) + a = 2·a + b`.  Mediant / Pseq-recurrence arithmetic
+    helper used by `Real213/Mobius213*` files when rewriting the
+    `(a, b) ↦ (a + b, a)` half-step into a `2·a + b` form.  PURE. -/
+theorem add_swap_two_mul (a b : Nat) : (a + b) + a = 2 * a + b := by
+  rw [Nat.add_assoc, Nat.add_comm b a, ← Nat.add_assoc, ← Nat.two_mul]
+
 /-- `c ≤ b → a + b - c = a + (b - c)`.  ∅-axiom replacement for
     `Nat.add_sub_assoc` (Lean-core proof brings propext). -/
 theorem add_sub_assoc :
@@ -112,6 +118,13 @@ theorem add_sub_assoc :
     let rhs : a + ((b + 1) - (c + 1)) = a + (b - c) := step3 ▸ rfl
     lhs.trans (ih.trans rhs.symm)
   | _, 0, _+1, h => absurd h (Nat.not_succ_le_zero _)
+
+/-- `k ≠ 0 → 1 ≤ k`.  Direct case-split.  Used widely in irrationality
+    arguments and dimension-positivity reasoning. -/
+theorem one_le_of_ne_zero (k : Nat) (h : k ≠ 0) : 1 ≤ k :=
+  match k with
+  | 0 => absurd rfl h
+  | n + 1 => Nat.succ_le_succ (Nat.zero_le n)
 
 /-- `0 < b - a` from `a < b`.  ∅-axiom replacement for
     `Nat.sub_pos_of_lt` (Lean-core proof brings propext). -/

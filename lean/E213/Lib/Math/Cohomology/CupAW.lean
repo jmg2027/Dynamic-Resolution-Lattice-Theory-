@@ -2,18 +2,16 @@ import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Lib.Math.Cohomology.CupAW.Bilinear
 import E213.Lib.Math.Cohomology.CupAW.Core
 import E213.Lib.Math.Cohomology.CupAW.Leibniz
-import E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.Leibniz21Final
-import E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge
 import E213.Lib.Math.Cohomology.CupAW.Leibniz22Final
 import E213.Lib.Math.Cohomology.CupAW.Leibniz4Mixed
 import E213.Lib.Math.Cohomology.CupAW.LeibnizScaling
 import E213.Lib.Math.Cohomology.CupAW.LeibnizSmall
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
-import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22
-import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha
 import E213.Lib.Math.Cohomology.CupAW.LeibnizMid
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
@@ -41,19 +39,22 @@ import E213.Lib.Math.Cohomology.CupAW.Zero
     * `BasisLeibniz`   — Leibniz on basis elements
     * `LeibnizMid`     — middle-degree variant
     * `Leibniz4Mixed`  — 4-mixed-degree case
-    * `Leibniz21Bridge`,
-      `Leibniz21Final` — (2, 1)-bridge + final form
-    * `Leibniz22Bridge`,
-      `Leibniz22Final` — (2, 2)-bridge + final form
+    * `LeibnizBzBridge`  — pointwise `bz5_<n>` ↔ `basis 5 <n>` /
+                            `Cochain.zero 5 <n>` rewrites at
+                            strata `n ∈ {1, 2, 3}`
+    * `Leibniz21Final`   — (2, 1)-final form
+    * `Leibniz22Final`   — (2, 2)-final form
 
   ## Algebraic-lift bridges
 
     * `LeibnizAlgLift`,
       `LeibnizAlgLift21`,
-      `LeibnizAlgLift21Alpha`,
       `LeibnizAlgLift22`,
-      `LeibnizAlgLift22Alpha` — algebraic-lift forms used by
-      `Universal/Prop*`.
+      `LeibnizAlgLiftAlpha` — algebraic-lift forms used by
+      `Universal/Prop*`.  `LeibnizAlgLiftAlpha` contains the
+      parametric `leibniz_via_α_decomp_general` and both
+      concrete corollaries `leibniz_via_α_decomp_{21, 22}`
+      at `b ∈ {1, 2}`.
 
   ## Status
 

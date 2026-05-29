@@ -1,6 +1,7 @@
 import E213.Theory.Raw.API
 import E213.Lens.LensCore
 import E213.Lens.Properties.Characterisation.Catalog
+import E213.Meta.Tactic.BoolHelper
 import E213.Prelude
 
 /-!
@@ -40,8 +41,7 @@ def parityLens : Lens Bool where
   base_b  := true
   combine := xor
 
-private theorem xor_comm_bool : ∀ u v : Bool, xor u v = xor v u := by
-  intro u v; cases u <;> cases v <;> rfl
+open E213.Tactic.BoolHelper renaming xor_comm → xor_comm_bool
 
 /-- **Swap-blindness.**  `base_a = base_b = true` and
     `conj = id` satisfies `fold_swap_hom`, so `view` is

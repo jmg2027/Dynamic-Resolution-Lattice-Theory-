@@ -29,9 +29,8 @@ Marathon-completed domains (6):
 Infrastructure (10):
 - `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
-Universal meta-structure (2):
-- [`graded_residue_arithmetic.md`](graded_residue_arithmetic.md) — GRA (Graded Residue Arithmetic): unified theory synthesizing G148/G149/G150. 7 axioms, 5 Readings (cohomology/operad/HoTT/graph/analysis), GRA Tower ↔ CD Tower duality, number system unification, dimensional proliferation fractal, Adelic decomposition
-- [`gra_book.md`](gra_book.md) — **GRA Book** (textbook treatment): Ch.0–8 + appendices. Formal Definition→Theorem→Proof flow. Gap 1–6 resolutions. Formalizability assessment with proposed Lean directory `GRA/`. Entry criteria for Tower levels.
+Universal meta-structure (1):
+- [`gra_book.md`](gra_book.md) — **GRA Book** (textbook treatment): Ch.0–9 + appendices. Formal Definition→Theorem→Proof flow. 7 axioms, 5 Readings (cohomology/operad/HoTT/graph/analysis), GRA Tower ↔ CD Tower duality, number system unification, dimensional proliferation fractal, Adelic decomposition, one-paragraph master statement. **CLOSED** (Marathon 16 — `lean/E213/Lib/Math/GRA/` umbrella, 28 files / 0 sorry). Lean cross-reference table in Appendix B.1.
 
 Cross-frame synthesis (3):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`

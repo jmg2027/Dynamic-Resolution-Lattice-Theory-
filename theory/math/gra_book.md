@@ -2,9 +2,72 @@
 
 **A Textbook Treatment of the Universal Meta-Structure of 213**
 
-Status: DRAFT  
-Date: 2026-05-26  
+Status: CLOSED (Marathon 16 — GRA Universality, all 6 phases)
+Lean source: `lean/E213/Lib/Math/GRA/` (8 files, ~1400 lines, 0 sorry)
 Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and resolution lattice.
+
+> **Closure note.** The marathon establishes a Lean-verified
+> typeclass `GRAModel` with five instances (NumberTheory, Graph,
+> Analysis, Cohomology, HoTT, HigherAlgebra), pairwise isos via the
+> NT hub, and a translation programme including the universal
+> depth-comparison theorem `⌈n/3⌉ ≤ (n+1)/2` valid in all five
+> Readings simultaneously.  Phases 7–16 add the category-theoretic
+> envelope: a 213-native `Cat` typeclass, `GRACat` / `ReadingCat`,
+> the connected-groupoid witness, `GRAHom` (general morphism), the
+> depth functor (constant on the (2, 3)-sub-category), the unified
+> bipartite carrier enrichment (`BipartiteCarrier` — a `Nat` tagged
+> with `n = 0 ∨ n ≥ 2`, covering all five domain Readings: Walk-
+> length / Cochain-degree / Truncation-level / Operad-level /
+> Resolution-exponent), naturality of translation, the retract-pair
+> structure, the monoidal product `M₁ ⊗_GRA M₂` with `trivial23`
+> as unit, and (Phase 16) the Lens-bridge:
+> `canonicalGradeMap := Raw.fold 2 3 (· + ·)` is the canonical
+> Raw-level grade map, and `bipartiteGradeMap` reduces to it.
+> The HoTT ↔ Higher Algebra Lens-level equation — that the
+> truncation hierarchy and the `E_n` ladder *are* the same
+> Raw-projection, hence the same Reading under different
+> vocabularies — follows by `rfl` (companion essay:
+> `theory/essays/gra_as_substrate_of_cat_hott.md`).  Phase 17
+> closes the essay's open frontier: `canonical_ge_2` enables
+> direct construction of `bipartiteRealize : Raw →
+> BipartiteCarrier`, bypassing `Raw.fold_slash` on the enriched
+> type; the realization's grade projection equals
+> `canonicalGradeMap` by `rfl`; the headline HoTT ↔ Higher
+> Algebra equation holds at the carrier level.  Phase 18 closes
+> the next frontier via the 1-categorical proxy:
+> `canonicalGradeMap_universal` proves any `f : Raw → Nat` with
+> `f Raw.a = 2`, `f Raw.b = 3`, and slash-additive equals
+> `canonicalGradeMap` pointwise.  ANY structure (`Cat`-object
+> included) whose grade map satisfies the (2, 3)-profile is
+> *forced* to read the canonical arithmetic.  Phase 19 then
+> meets the strict 2-categorical universe-lifting requirement
+> with a single unified typeclass `HasDistinguishing213.{u, v}`
+> (`HasDistinguishing213.lean`, consolidating the exploratory
+> `HasDistinguishingU`/`W`/`WFull` triple).  Two closed
+> instances: `liftedReadingHasDistinguishing213` (strict case,
+> `Equiv := Eq`, `Type 1` via `ULift Reading`) and
+> `gra23HasDistinguishing213` (categorical case,
+> `Equiv := GRAIso`, monoidal product as combine,
+> `productSwapIso` as combine_sym, `trivial23_not_iso_NT` as
+> categorical distinctness via cardinality).  Together these
+> close the 2-categorical reading and complete `GRACat` as a
+> symmetric monoidal category.  Phase 22 (`LensIsoCapstone`) connects the
+> whole chain back to Raw: `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩`
+> has view `= canonicalGradeMap` by `rfl`, and any (2, 3)-profile
+> Lens on Nat is proven `Lens.Unified.LensIso` to `gradeLens`.
+> The (2, 3)-arithmetic forced by atomic distinguishing IS the
+> `LensIso` equivalence class of `gradeLens` — the deepest
+> connection from GRA back to Raw.  **Strict ∅-axiom: all PURE / 0 DIRTY**
+> across the entire sub-tree (22 files, ~3500 lines after
+> consolidation — 3 `HasDistinguishing` variants unified into
+> `HasDistinguishing213.lean`; 5 domain-flavoured enrichments
+> unified into `Enrichment.lean` as one `BipartiteCarrier`) —
+> `ax_coprime` uses `gcd213` (which
+> kernel-reduces) rather than Lean-core `Nat.gcd` (which carries
+> `propext` via well-founded recursion); every proof in the sub-tree
+> uses `rfl`, kernel-`decide`, or explicit Nat helpers
+> (`Meta.Nat.NatDiv213`, `Meta.Nat.AddMod213`, `Meta.Tactic.NatHelper`).
+> No `omega`, no `simp`-driven rewrites, no Mathlib, no `Classical`.
 
 ---
 
@@ -572,6 +635,123 @@ Entanglement as GRA grade:
 - General n-qubit: grade n = 2a + 3b decomposition
 - LOCC classification ↔ depth classification?
 
+### 8.5 GRA × Algebra213 — graded ring formalism
+
+A concrete `GradedRing213` typeclass would extend the existing
+`Ring213` hierarchy with a grade function:
+
+```lean
+class GradedRing213 (α : Type) extends Ring213 α where
+  grade     : α → Nat
+  grade_add : ∀ a b, grade (a + b) ≤ max (grade a) (grade b)
+  grade_mul : ∀ a b, grade (a * b) ≤ grade a + grade b
+```
+
+- `grade_add` — GRA's "addition preserves the grade upper
+  bound"
+- `grade_mul` — GRA's "multiplication adds grades" (the cup-
+  product structure)
+
+The CD Tower carries this naturally:
+
+| Algebra213 Layer | GRA Grade | Operad Level |
+|---|---|---|
+| Int213 (ℤ) | 0 | E₀ (discrete) |
+| ZI (ℤ[i]) | 1 | E₁ (loop space) |
+| ZOmega (ℤ[ω]) | 1 | E₁ (variant) |
+| CDDouble (quaternion-like) | 2 | E₂ (double loop) |
+| CDDoubleStar (octonion-like) | 3 | E₃ (triple loop) |
+
+The det = 1 trinity in algebraic vocabulary:
+
+| Theorem | Algebraic content | det = 1 meaning |
+|---|---|---|
+| `normSq_mul` | normSq(uv) = normSq(u)·normSq(v) | norm is multiplicative ⇒ information lossless |
+| `ofInt_inj` | embedding is injective | scalar information preserved |
+| `conj_conj` | involution is self-inverse | transformation is reversible |
+
+The three are three algebraic faces of "det = 1 ⇒ information
+preservation" — same fact, three Readings.
+
+### 8.6 Dimensional proliferation fractal
+
+GRA is **self-similar in the 10 = C(5, 3) direction** as a
+*dimension-adding* fractal.  Unlike classical fractals (which
+self-replicate at the same dimension), GRA's fractal generates
+a new orthogonal axis at each recursive step:
+
+```
+Depth 0:  K_{3,2}^{(c=2)} — 5 vertices, 12 edges, 3 faces
+Depth 1:  C(5, 3) = 10 bipartite splittings → 10 independent
+          GRA instances
+Depth d:  10^d directions, det = 1 preserves volume
+```
+
+The det = 1 condition prevents divergence:
+1. P ∈ SL(2, ℤ) ⇒ area-preserving
+2. φ² expansion ↔ 1/φ² contraction — exact cancellation
+3. A Lens corresponds to *fixing one expansion direction*
+   in the 10-dimensional fractal
+
+Categorical statement (informal):
+
+```
+GRA_0 = GRA              (base category)
+GRA_1 = GRA^{10}         (10-fold product)
+GRA_d = GRA^{10^d}       (d-th iterated product)
+Φ : GRA_d → GRA_{d+1}    (volume-preserving functor)
+```
+
+### 8.7 Periodic structure: mod-p and Adelic decomposition
+
+Mod-5 period: `P⁵ ≡ −I (mod 5)`, so `P¹⁰ ≡ I (mod 5)`.
+The geometric `C(5, 3) = 10` and the arithmetic mod-5 period
+of P **coincide** — same integer, two Lens-readings.
+Related: |SL(2, F₅)| = 120 = 10 × 12 = bipartite splittings ×
+edges = one full cycle.
+
+**Adelic GRA** (open):
+
+```
+GRA_global = ∏'_p GRA_p   (restricted product)
+```
+
+with axis assignments:
+- p = 2 → NT-axis (fibre parity)
+- p = 3 → NS-axis (face residue)
+- p = 5 → d-axis (pentagonal periodicity)
+
+By CRT, `(mod 2) × (mod 3) ≅ (mod 6)`; `gcd(2, 3) = 1` forces
+the lossless decomposition.  The Adelic GRA structure is the
+conjectural completion across all primes.
+
+---
+
+## Chapter 9 — One-paragraph master statement
+
+GRA is the single principle "additive grade accumulation
+from two coprime generators with `gcd(2, 3) = 1`," and this
+principle appears isomorphically across cohomology (cup-
+grade), operad theory (E_n level), HoTT (truncation), graph
+theory (walk length), analysis (resolution exponent),
+algebra (CD-tower grade), and the number system tower
+(`Int / Real / ℚ / Modulus / FSM`) — the universal meta-
+structure of the 213 framework.
+
+The trinity `det(P) = 1, gcd(NT, NS) = 1, Frobenius(2, 3) = 1`
+expresses one structural fact in three vocabularies:
+
+  · `det = 1` → information preservation (transformation is
+    reversible)
+  · `gcd = 1` → universal generation (every positive grade is
+    reachable)
+  · `Frobenius = 1` → minimal exception (the only
+    unreachable positive grade is `1`)
+
+The GRA Tower (Reading-unification ascent) and the CD Tower
+(property-loss descent) are exact duals: every step up one is
+a step down the other.
+
 ---
 
 ## Appendix A — Notation Summary
@@ -592,15 +772,27 @@ Entanglement as GRA grade:
 
 ## Appendix B — Lean File Cross-Reference
 
+### B.1 GRA sub-tree (post-Marathon 16, primary)
+
+| Book Section | Lean Module | Content |
+|---|---|---|
+| Ch.1 (P-matrix, generators 2,3, PGen, depth) | `GRA/GRAModel.lean` | 7-axiom typeclass `GRAModel` + `GRAIso` refl/symm/trans |
+| Ch.2 (universal reachability, greedy optimality) | `GRA/NumberTheory.lean` | hub instance `GRA23_NT` on ℕ; `nt_reach`, `nt_greedy`, `nt_depth_eq` |
+| Ch.3 R₁ (Cohomology Reading) | `GRA/Cohomology.lean` | `GRA23_Cohomology` + iso to NT |
+| Ch.3 R₂ (Higher Algebra Reading) | `GRA/HigherAlgebra.lean` | `GRA23_HigherAlgebra` + universality capstone `gra_universality_witness` |
+| Ch.3 R₃ (HoTT Reading) | `GRA/HoTT.lean` | `GRA23_HoTT` + iso to NT |
+| Ch.3 R₄ (Graph Reading) | `GRA/Graph.lean` | `GRA23_Graph` + iso to NT |
+| Ch.3 R₅ (Analysis Reading) | `GRA/Analysis.lean` | `GRA23_Analysis` + iso to NT |
+| Ch.8 (translation programme) | `GRA/Translation.lean` | `graph_distance_implies_cup_length`, `cup_grade_is_resolution_compose`, `master_translation_from_any`, `universal_depth_comparison`, `gra_translation_witness` |
+
+### B.2 Supporting sub-trees (citation back-pointers)
+
 | Book Section | Primary Lean File |
 |---|---|
-| Ch.1 (Generators, PGen) | `Mobius213/Px/` |
-| Ch.2 (Composition additivity) | `Analysis/ResolutionShift.lean` |
-| Ch.2 (One-way arrow) | `Analysis/ResolutionShift.lean` |
-| Ch.2 (Grade uniqueness) | `Analysis/ResolutionShift.lean` |
-| Ch.3 R₁ (Cohomology) | `Cohomology/Cup/`, `Cohomology/Bipartite/` |
-| Ch.3 R₄ (Graph) | `BipartiteDecomp/` |
-| Ch.3 R₅ (Analysis) | `Analysis/ResolutionShift.lean`, `Topology/ModulusStructure.lean` |
-| Ch.4 (det=1 in Algebra) | `Algebra213/` (CayleyDickson/) |
-| Ch.6 (ℤ/ℚ twins) | `NatPairToQPos.lean`, Int213 |
+| Ch.1 (PGen, P-orbits) | `Mobius213/Px/` |
+| Ch.2 (Composition additivity, resolution shift) | `Analysis/ResolutionShift.lean` |
+| Ch.3 R₁ (Cup ring source) | `Cohomology/Cup/`, `Cohomology/Bipartite/` |
+| Ch.3 R₄ (BipartiteDecomp source) | `BipartiteDecomp/` |
+| Ch.4 (det=1 in Algebra Tower) | `CayleyDickson/` |
+| Ch.6 (ℤ/ℚ twins, Adelic) | `NatPairToQPos.lean`, `Padic/` |
 | Ch.7 (GradedRing) | `ParadigmDomainGradedRing.lean` |

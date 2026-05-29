@@ -46,13 +46,6 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMulOuter_eq_true_iff)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
-private theorem bool_eq_of_iff_true_v3 (a b : Bool)
-    (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
 
 /-- Helper: nat product reassociation. -/
 private theorem mul_4_reassoc (x y z w : Nat) :

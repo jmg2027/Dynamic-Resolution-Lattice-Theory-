@@ -1,3 +1,5 @@
+import E213.Meta.Nat.Gcd213
+
 /-!
 # GRA Model — Typeclass for Graded Residue Arithmetic instances
 
@@ -15,10 +17,14 @@ This file defines:
   * `GRAIso` — isomorphism between two GRA models
   * Basic derived lemmas
 
-Standard: 0 sorry, ∅-axiom.
+Standard: 0 sorry, ∅-axiom (PURE).  Uses `E213.Tactic.NatHelper.gcd213`
+rather than Lean-core `Nat.gcd` to avoid the well-founded-recursion
+`propext` inheritance.
 -/
 
 namespace E213.Lib.Math.GRA
+
+open E213.Tactic.NatHelper (gcd213)
 
 /-- A GRA model: a graded structure with two coprime generators
     satisfying the 7 GRA axioms. -/
@@ -40,7 +46,7 @@ structure GRAModel where
 
   -- A1: Generator axiom — exactly two primitive grades, coprime
   ax_gen1_lt_gen2 : gen1 < gen2
-  ax_coprime : Nat.gcd gen1 gen2 = 1
+  ax_coprime : gcd213 gen1 gen2 = 1
 
   -- A2: Grade addition — ⊕ is exactly grade-additive
   ax_grade_oplus : ∀ a b : Carrier, grade (oplus a b) = grade a + grade b

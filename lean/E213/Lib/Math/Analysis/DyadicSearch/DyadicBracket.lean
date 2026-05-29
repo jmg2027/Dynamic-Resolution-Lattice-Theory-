@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.Core.Dyadic
 import E213.Lib.Math.Real213.Core.CutPoset
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Pow213
 
@@ -414,14 +415,7 @@ theorem DyadicBracket.bisectN_collapsed_numA (oracle : DyadicOracle) :
     rw [DyadicBracket.bisectStep_collapsed_numA db oracle h]
     rw [Nat.pow_succ, E213.Tactic.NatHelper.mul_assoc]
 
-/-- Local Bool extensionality: bypasses `propext` for `Bool = Bool`
-    proofs derivable from `(a = true ↔ b = true)`. -/
-private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **Collapsed bracket midCut form**: for collapsed db, the midCut
     value at (m, k) at step n = decide(numA * k ≤ 2^expE * m),

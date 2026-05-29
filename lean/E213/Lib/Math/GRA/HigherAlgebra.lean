@@ -1,5 +1,6 @@
 import E213.Lib.Math.GRA.GRAModel
 import E213.Lib.Math.GRA.NumberTheory
+import E213.Lib.Math.GRA.Common
 import E213.Lib.Math.GRA.Graph
 import E213.Lib.Math.GRA.Analysis
 import E213.Lib.Math.GRA.Cohomology
@@ -27,6 +28,8 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.HigherAlgebra
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common
+  (coprime_2_3 two_lt_three reach_23 depth_formula greedy_form)
 
 -- ============================================================
 -- Higher Algebra carrier and operations
@@ -54,43 +57,28 @@ def haDepth (n : Nat) : Nat := (n + 2) / 3
 -- Axiom verification
 -- ============================================================
 
-theorem ha_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
+theorem ha_gen1_lt_gen2 : (2 : Nat) < 3 := two_lt_three
 
-theorem ha_coprime : Nat.gcd 2 3 = 1 := by decide
+theorem ha_coprime : E213.Tactic.NatHelper.gcd213 2 3 = 1 := coprime_2_3
 
 theorem ha_grade_oplus (a b : HACarrier) :
-    haGrade (haOplus a b) = haGrade a + haGrade b := by
-  simp [haGrade, haOplus]
+    haGrade (haOplus a b) = haGrade a + haGrade b := rfl
 
 theorem ha_grade_otimes (a b : HACarrier) :
-    haGrade (haOtimes a b) ≤ haGrade a + haGrade b := by
-  simp [haGrade, haOtimes]
+    haGrade (haOtimes a b) ≤ haGrade a + haGrade b := Nat.le.refl
 
 /-- Reachability: every operad level ≥ 2 decomposes as
     a combination of E₂ and E₃ compositions. -/
 theorem ha_reach (n : Nat) (hn : n ≥ 2) :
-    ∃ a b : Nat, n = 2 * a + 3 * b := by
-  match n, hn with
-  | 2, _ => exact ⟨1, 0, by omega⟩
-  | 3, _ => exact ⟨0, 1, by omega⟩
-  | 4, _ => exact ⟨2, 0, by omega⟩
-  | 5, _ => exact ⟨1, 1, by omega⟩
-  | n + 6, _ =>
-    if h : (n + 6) % 2 = 0 then
-      exact ⟨(n + 6) / 2, 0, by omega⟩
-    else
-      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+    ∃ a b : Nat, n = 2 * a + 3 * b := reach_23 n hn
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
-theorem ha_depth_eq (n : Nat) (hn : n ≥ 2) :
-    haDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [haDepth]
-  omega
+theorem ha_depth_eq (n : Nat) (_hn : n ≥ 2) :
+    haDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := depth_formula n
 
 /-- Greedy: using E₃ maximally minimizes chromatic height. -/
-theorem ha_greedy (n : Nat) (hn : n ≥ 2) :
-    haDepth n = (n + 3 - 1) / 3 := by
-  simp [haDepth]
+theorem ha_greedy (n : Nat) (_hn : n ≥ 2) :
+    haDepth n = (n + 3 - 1) / 3 := greedy_form n
 
 -- ============================================================
 -- The (2,3)-GRA model for Higher Algebra

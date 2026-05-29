@@ -51,6 +51,31 @@ theorem pow_lt_pow_two : ∀ (a b : Nat), a < b → 2^a < 2^b
 
 private theorem zero_lt_two' : 0 < 2 := Nat.zero_lt_succ 1
 
+/-! ### lower bounds: `1 ≤ 2^n` and `n + 1 ≤ 2^n` -/
+
+/-- `1 ≤ 2^n` for every `n`.  Direct induction. -/
+theorem one_le_two_pow : ∀ n : Nat, 1 ≤ 2^n
+  | 0 => Nat.le_refl 1
+  | n + 1 =>
+      let ih : 1 ≤ 2^n := one_le_two_pow n
+      let h2n : 2^n ≤ 2 * 2^n :=
+        Nat.le_mul_of_pos_left _ zero_lt_two
+      Nat.le_trans ih (Nat.le_trans h2n
+        (Nat.le_of_eq (Nat.mul_comm 2 (2^n))))
+
+/-- `n + 1 ≤ 2^n` for every `n`.  Standard power-of-two lower
+    bound used in dyadic-search / bracket-Cauchy bounds. -/
+theorem succ_le_two_pow : ∀ n : Nat, n + 1 ≤ 2^n
+  | 0 => Nat.le_refl 1
+  | k + 1 => by
+      have ih : k + 1 ≤ 2^k := succ_le_two_pow k
+      have h2k : 1 ≤ 2^k := one_le_two_pow k
+      calc k + 1 + 1
+          ≤ 2^k + 1 := Nat.add_le_add_right ih 1
+        _ ≤ 2^k + 2^k := Nat.add_le_add_left h2k _
+        _ = 2^k * 2 := by rw [Nat.mul_two]
+        _ = 2^(k+1) := rfl
+
 /-! ### additive composition: 2^(n+k) = 2^n * 2^k -/
 
 /-- `2^(n+k) = 2^n * 2^k`.  Used in Frobenius-style cohomological

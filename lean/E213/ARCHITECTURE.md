@@ -240,6 +240,30 @@ pass 후):
                        Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
   * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
                 Integration,ODE,Series}` (7 sub-dirs)
+  * `GRA/{GRAModel,Common,NumberTheory,Graph,Analysis,Cohomology,
+           HoTT,HigherAlgebra,Translation,Category,Groupoid,Hom,
+           DepthFunctor,WalkEnrichment,CochainEnrichment,
+           HoTTEnrichment,HigherAlgebraEnrichment,AnalysisEnrichment,
+           Naturality,SectionRetraction,Monoidal}` (21 files,
+    ~3700 lines) — Graded Residue Arithmetic.  Phases 1–6:
+    7-axiom typeclass + 5 Reading instances + iso capstone +
+    translation programme with universal depth comparison
+    `⌈n/3⌉ ≤ (n+1)/2` valid in all five Readings simultaneously.
+    Phases 7–11: 213-native `Cat` typeclass; `GRACat` /
+    `ReadingCat` with connectedness witness; `Groupoid` typeclass
+    with `ConnectedHub`; `GRAHom` (general morphism, category
+    laws + forgetful from `GRAIso`); depth as constant functor
+    on the (2, 3)-sub-category; `EdgeWalk` enrichment for R₄.
+    Phases 12–15: full enrichment for R₁/R₂/R₃/R₅
+    (Cochain/Operad/Truncation/Resolution); naturality of
+    translation; retract-pair structure (`section`/`forget`
+    identities); monoidal product `product : GRAModel → GRAModel
+    → GRAModel` with `trivial23` as unit.  Chapter:
+    `theory/math/gra_book.md`.
+    **Strict ∅-axiom: 259 PURE / 0 DIRTY**; `ax_coprime` via
+    `gcd213` (PURE) rather than Lean-core `Nat.gcd`; every proof
+    is `rfl` or kernel-level Nat helper — no omega, no simp, no
+    Mathlib.
   * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
             Valuation,DRLT,DRLTIntegration}`
     (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full

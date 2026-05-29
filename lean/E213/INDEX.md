@@ -1,8 +1,11 @@
 # lean/E213/ — formal source of truth
 
-The authoritative state of 213.  All other documents (guide/, books/,
-papers/, research-notes/, blueprints/) are entry points INTO this
-body of work or derived artifacts.
+The authoritative state of 213.  All other documents (theory/,
+research-notes/, blueprints/, seed/) are entry points INTO this
+body of work or derived artifacts.  Legacy narrative archives
+(former `guide/`, `books/math/`, `papers/`) now live under
+`research-notes/archive/legacy_docs/` and
+`papers/README.md`.
 
 > **Theoretical architecture** is canonically documented in
 > `ARCHITECTURE.md` (this directory).  That file defines what each

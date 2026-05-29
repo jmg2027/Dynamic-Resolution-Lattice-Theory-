@@ -70,6 +70,22 @@ example : Lens.leaves.view Raw.b = 1 := rfl
 example : Lens.depth.view Raw.a = 0 := rfl
 example : Lens.depth.view Raw.b = 0 := rfl
 
+/-- Every `Raw` has `Lens.leaves.view ≥ 1`.  The canonical leaves
+    count is bounded below by 1 because both atoms count as 1
+    and `slash` adds positive leaves. -/
+protected theorem Lens.leaves_view_ge_one (r : Raw) :
+    1 ≤ Lens.leaves.view r := by
+  induction r using Raw.rec with
+  | a => decide
+  | b => decide
+  | slash x y h ihx _ =>
+      have hfs : Lens.leaves.view (Raw.slash x y h)
+                   = Lens.leaves.view x + Lens.leaves.view y := by
+        apply Raw.fold_slash
+        intro u v; exact Nat.add_comm u v
+      rw [hfs]
+      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+
 -- Refines: L refines M iff L's kernel is finer than M's.
 protected def Lens.refines {α β : Type} (L : Lens α) (M : Lens β) : Prop :=
   ∀ x y : Raw, L.equiv x y → M.equiv x y

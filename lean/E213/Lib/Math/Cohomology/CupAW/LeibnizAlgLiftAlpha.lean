@@ -128,4 +128,37 @@ theorem leibniz_via_α_decomp_general {b : Nat}
       h_components ⟨8, by decide⟩, h_components ⟨9, by decide⟩]
   exact combine_10 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
+/-! ### Concrete corollaries at `b ∈ {1, 2}`
+
+At each concrete `b` the `castA`/`castB` casts reduce to
+identity, so `h_components` can be passed without explicit
+casts.
+-/
+
+/-- α-decomp lens at `(5, 2, 1)`.  Corollary of
+    `leibniz_via_α_decomp_general` at `b = 1`. -/
+theorem leibniz_via_α_decomp_21
+    (α : Cochain 5 2) (β : Cochain 5 1) (i : Fin (binom 5 3))
+    (h_components : ∀ p : Fin 10,
+      delta (cupAW 5 2 1 (bz5_2 α p) β) i
+        = xor (cupAW 5 3 1 (delta (bz5_2 α p)) β i)
+              (cupAW 5 2 2 (bz5_2 α p) (delta β) i)) :
+    delta (cupAW 5 2 1 α β) i
+      = xor (cupAW 5 3 1 (delta α) β i)
+            (cupAW 5 2 2 α (delta β) i) :=
+  leibniz_via_α_decomp_general α β i h_components
+
+/-- α-decomp lens at `(5, 2, 2)`.  Corollary of
+    `leibniz_via_α_decomp_general` at `b = 2`. -/
+theorem leibniz_via_α_decomp_22
+    (α β : Cochain 5 2) (i : Fin (binom 5 4))
+    (h_components : ∀ p : Fin 10,
+      delta (cupAW 5 2 2 (bz5_2 α p) β) i
+        = xor (cupAW 5 3 2 (delta (bz5_2 α p)) β i)
+              (cupAW 5 2 3 (bz5_2 α p) (delta β) i)) :
+    delta (cupAW 5 2 2 α β) i
+      = xor (cupAW 5 3 2 (delta α) β i)
+            (cupAW 5 2 3 α (delta β) i) :=
+  leibniz_via_α_decomp_general α β i h_components
+
 end E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha

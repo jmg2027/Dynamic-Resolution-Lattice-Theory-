@@ -1,5 +1,6 @@
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
+import E213.Meta.Tactic.Pow213
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Core.Dyadic
@@ -41,27 +42,8 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core.Core (Real213)
 open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 
-/-- PURE replacement of Nat.one_le_two_pow (propext-laden in core). -/
-private theorem one_le_two_pow_pure : ∀ k, 1 ≤ 2^k
-  | 0 => Nat.le_refl _
-  | k+1 =>
-      let ih : 1 ≤ 2^k := one_le_two_pow_pure k
-      let h_pow : 2^(k+1) = 2^k * 2 := Nat.pow_succ 2 k
-      let h_le : (1 : Nat) ≤ 2^k * 2 :=
-        Nat.le_trans ih (Nat.le_mul_of_pos_right (2^k) (by decide : 0 < 2))
-      h_pow.symm ▸ h_le
-
-/-- Lemma: n + 1 ≤ 2^n for all n.  (Tight at n=1: 2 ≤ 2.) -/
-private theorem succ_le_two_pow : ∀ n, n + 1 ≤ 2^n
-  | 0 => by decide
-  | k + 1 => by
-    have ih := succ_le_two_pow k
-    have h2k : 1 ≤ 2^k := one_le_two_pow_pure k
-    calc k + 1 + 1 = (k + 1) + 1 := rfl
-      _ ≤ 2^k + 1 := Nat.add_le_add_right ih 1
-      _ ≤ 2^k + 2^k := Nat.add_le_add_left h2k _
-      _ = 2 * 2^k := (Nat.two_mul _).symm
-      _ = 2^(k+1) := by rw [Nat.pow_succ, Nat.mul_comm]
+open E213.Tactic.Pow213 renaming one_le_two_pow → one_le_two_pow_pure
+open E213.Tactic.Pow213 (succ_le_two_pow)
 
 /-- Lemma: n ≤ 2^n for all n. -/
 private theorem le_two_pow (n : Nat) : n ≤ 2^n :=

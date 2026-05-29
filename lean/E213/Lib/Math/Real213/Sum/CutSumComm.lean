@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -33,18 +34,12 @@ theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Na
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum cutSumAux)
 
-private theorem bool_eq_of_iff_true (a b : Bool)
-    (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **cutSum commutativity** — via iff existential + bijection.  PURE. -/
 theorem cutSum_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutSum cx cy m k = cutSum cy cx m k := by
-  apply bool_eq_of_iff_true
+  apply bool_eq_iff
   refine Iff.trans (cutSumAux_eq_true_iff cx cy k (2*m) (2*m))
     (Iff.trans ?_ (cutSumAux_eq_true_iff cy cx k (2*m) (2*m)).symm)
   constructor

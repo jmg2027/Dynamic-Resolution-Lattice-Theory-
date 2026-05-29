@@ -229,9 +229,6 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
     E213.Tactic.NatHelper.le_of_add_le_add_left h_chain
   exact absurd (Nat.le_trans hdk h_dk_zero) (by decide)
 
-
-                          eval_add eval_mul eval_scale eval_C eval_X)
-
 /-! ### Upper invariant via Polynomial213 reflection -/
 
 private def wallisLhsPoly : Poly :=

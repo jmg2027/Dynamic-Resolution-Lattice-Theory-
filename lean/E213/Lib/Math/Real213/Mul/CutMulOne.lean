@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.Mul.CutMulComm
 import E213.Lib.Math.Real213.Sum.CutSumComm
+import E213.Meta.Tactic.BoolHelper
 
 import E213.Lib.Math.Real213.Mul.CutMul
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -16,19 +17,13 @@ open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulInner cutMulOuter)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Mul.CutMulComm (cutMulOuter_eq_true_iff cutMul_comm)
 
-private theorem bool_eq_of_iff_true_v3 (a b : Bool)
-    (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **cutMul (1)(1) = constCut 1 1** pointwise (∅-axiom).  Avoids
     `funext` and `rw [iff]` (both propext-laden). -/
 theorem cutMul_one_one_at (m k : Nat) :
     cutMul (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k := by
-  apply bool_eq_of_iff_true_v3
+  apply bool_eq_iff
   refine Iff.trans (cutMulOuter_eq_true_iff _ _ k m _ _) ?_
   constructor
   · rintro ⟨m1, _, m2, _, hcx, hcy, hmul⟩
@@ -66,7 +61,7 @@ theorem cutMul_one_one_at (m k : Nat) :
 /-- **cutMul (1) (constCut a b) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_one_const_at (a b m k : Nat) :
     cutMul (constCut 1 1) (constCut a b) m k = constCut a b m k := by
-  apply bool_eq_of_iff_true_v3
+  apply bool_eq_iff
   refine Iff.trans (cutMulOuter_eq_true_iff _ _ k m _ _) ?_
   constructor
   · rintro ⟨m1, _, m2, _, hcx, hcy, hmul⟩

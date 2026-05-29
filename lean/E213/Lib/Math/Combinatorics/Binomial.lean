@@ -30,6 +30,18 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 theorem binom_n_0 (n : Nat) : binom n 0 = 1 := by
   cases n <;> rfl
 
+/-- `binom p m ≤ binom (p+1) m` — Pascal monotonicity in the
+    first argument.  For `m = 0` both sides are `1` (via
+    `binom_n_0`); for `m = succ k` the Pascal recursion gives
+    `binom (p+1) (k+1) = binom p k + binom p (k+1)`, so
+    `binom p (k+1) ≤ binom p k + binom p (k+1)` by
+    `Nat.le_add_left`. -/
+theorem binom_le_binom_succ (p m : Nat) :
+    binom p m ≤ binom (p+1) m := by
+  cases m with
+  | zero => rw [binom_n_0 p, binom_n_0 (p+1)]; exact Nat.le_refl 1
+  | succ k => exact Nat.le_add_left _ _
+
 /-- `binom n 1 = n` by Nat-induction via Pascal recursion.  Used
     as the first ingredient in the Vandermonde-2 identity. -/
 theorem binom_n_1 : ∀ n : Nat, binom n 1 = n

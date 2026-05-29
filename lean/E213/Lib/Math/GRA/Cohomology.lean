@@ -1,5 +1,6 @@
 import E213.Lib.Math.GRA.GRAModel
 import E213.Lib.Math.GRA.NumberTheory
+import E213.Lib.Math.GRA.Common
 
 /-!
 # GRA Cohomology Instance (Reading R₁)
@@ -27,6 +28,8 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.Cohomology
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common
+  (coprime_2_3 two_lt_three reach_23 depth_formula greedy_form)
 
 -- ============================================================
 -- Cohomology carrier and operations
@@ -54,45 +57,30 @@ def cohomDepth (n : Nat) : Nat := (n + 2) / 3
 -- Axiom verification
 -- ============================================================
 
-theorem cohom_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
+theorem cohom_gen1_lt_gen2 : (2 : Nat) < 3 := two_lt_three
 
-theorem cohom_coprime : Nat.gcd 2 3 = 1 := by decide
+theorem cohom_coprime : E213.Tactic.NatHelper.gcd213 2 3 = 1 := coprime_2_3
 
 theorem cohom_grade_oplus (a b : CohomCarrier) :
-    cohomGrade (cohomOplus a b) = cohomGrade a + cohomGrade b := by
-  simp [cohomGrade, cohomOplus]
+    cohomGrade (cohomOplus a b) = cohomGrade a + cohomGrade b := rfl
 
 theorem cohom_grade_otimes (a b : CohomCarrier) :
-    cohomGrade (cohomOtimes a b) ≤ cohomGrade a + cohomGrade b := by
-  simp [cohomGrade, cohomOtimes]
+    cohomGrade (cohomOtimes a b) ≤ cohomGrade a + cohomGrade b := Nat.le.refl
 
 /-- Reachability: every cochain degree ≥ 2 is achievable as a
     cup product of degree-2 (edge) and degree-3 (face) cochains.
     This is the Chicken McNugget theorem for gcd(2,3)=1. -/
 theorem cohom_reach (n : Nat) (hn : n ≥ 2) :
-    ∃ a b : Nat, n = 2 * a + 3 * b := by
-  match n, hn with
-  | 2, _ => exact ⟨1, 0, by omega⟩
-  | 3, _ => exact ⟨0, 1, by omega⟩
-  | 4, _ => exact ⟨2, 0, by omega⟩
-  | 5, _ => exact ⟨1, 1, by omega⟩
-  | n + 6, _ =>
-    if h : (n + 6) % 2 = 0 then
-      exact ⟨(n + 6) / 2, 0, by omega⟩
-    else
-      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+    ∃ a b : Nat, n = 2 * a + 3 * b := reach_23 n hn
 
 /-- Depth = ⌈n/3⌉ in explicit form. -/
-theorem cohom_depth_eq (n : Nat) (hn : n ≥ 2) :
-    cohomDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [cohomDepth]
-  omega
+theorem cohom_depth_eq (n : Nat) (_hn : n ≥ 2) :
+    cohomDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := depth_formula n
 
 /-- Greedy optimality: using degree-3 cochains maximally minimizes
     cup-length.  Equivalent to: depth = (n+2)/3. -/
-theorem cohom_greedy (n : Nat) (hn : n ≥ 2) :
-    cohomDepth n = (n + 3 - 1) / 3 := by
-  simp [cohomDepth]
+theorem cohom_greedy (n : Nat) (_hn : n ≥ 2) :
+    cohomDepth n = (n + 3 - 1) / 3 := greedy_form n
 
 -- ============================================================
 -- The (2,3)-GRA model for Cohomology

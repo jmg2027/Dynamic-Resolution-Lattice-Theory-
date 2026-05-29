@@ -88,6 +88,11 @@ Active top-level registries after merge:
 | `archive/G139_mobius_self_form.md` | 모습 자체가 뫼비우스 행렬 — P self-form fixed point (CLOSED + PROMOTED) | promoted to `theory/math/mobius213_p_orbit_closure.md` §"Self-form fixed-point" + essay `mobius_self_form_fixed_point.md` |
 | `G140_P_generates_all_nat.md` | P generates all of ℕ (PGen n ↔ n ≥ 1) — CLOSED + promoted | promoted to essay `k32_cohomology_simplex_higher_insight.md` |
 | `G147_promotion_G140_G138BD.md` | Promotion note: G140 + G138 Pattern B/D higher-insight linkage | promotion record |
+| `G121_dim4_self_pointing_axis.md` | dim-4 self-pointing-axis open conjecture (below Validation Standard); side-observations to `theory/math/geometrization_conjecture.md` | active scratch (chapter handles R1; note hosts open marathon front) |
+| `G123_padic_next_directions.md` | Post-padic-library-closure direction note; companion to `theory/math/padic_real213.md` | active scratch (next-direction memo) |
+| `G135_padic_closure_synthesis.md` | Synthesis note from post-G122 padic library closure | post-closure synthesis (could be archived) |
+| `G136_kplus1_marathon_insights.md` | Insight note from G132 cup-ladder marathon; companion to `theory/math/cohomology/cup_ladder_graduation.md` | post-closure synthesis |
+| `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/gra_book.md Ch.6 | post-closure synthesis |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
 | `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |
@@ -134,7 +139,7 @@ to G128/G129/G130 to preserve the n-u promoted chapters' G-tags.
 
 ## Adding a new note
 
-Use next available G prefix (currently **G148**).  Once formalized:
+Use next available G prefix (currently **G152**).  Once formalized:
 - Leave a `→ closed in <Lean module>` marker on the note
 - **When a topical cluster fully closes**, promote it per
   `theory/PROMOTION_CRITERIA.md` + `lean/E213/docs/PROMOTION_PATTERNS.md`
@@ -166,6 +171,7 @@ Branch `claude/research-notes-organization-Gr3Tp`:
 | 2026-05-24 | G146 P-orbit naturalness boundary + Px catalog (13 Px modules / 206 PURE) → `theory/math/mobius213_p_orbit_closure.md` (new chapter, 316 lines) + essay `p_orbit_naturalness_boundary.md`; G146_p_orbit archived | 3 (mixed-status chapter expansion + catalog synthesis) |
 | 2026-05-24 | G146 K_{3,2} bipartite-tripartite self-containment (Lean Option I deferred) → essay-only `theory/essays/bipartite_tripartite_self_containment.md` (Reading B); G146_K32 archived to `research-notes/archive/c_counter/` | essay-promotion (insight without Lean) |
 | 2026-05-26 | G139 모습 자체가 뫼비우스 행렬 (MobiusSelfForm.lean ~18 PURE) → `theory/math/mobius213_p_orbit_closure.md` §"Self-form fixed-point" (chapter expansion) + essay `theory/essays/mobius_self_form_fixed_point.md`; G139 archived | 3 (mixed-status: chapter expansion + essay) |
+| 2026-05-28 | Marathon 16 GRA Universality (`lean/E213/Lib/Math/GRA/` umbrella, 8 files, 0 sorry — typeclass + 5 Readings + iso capstone + Phase 6 translation programme with universal depth comparison) → `theory/math/gra_book.md` + `theory/math/graded_residue_arithmetic.md` (closure status flipped from DRAFT) + essay `theory/essays/gra_universality_one_principle.md`; G148/G150/G151 archived | 3 (mixed-status: existing draft chapter + Lean-closure + essay) |
 
 14+ chapters total covering all promotable closed work
 (12 Lean sub-trees + 2 meta-analysis chapters).

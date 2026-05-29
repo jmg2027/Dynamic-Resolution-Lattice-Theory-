@@ -1,4 +1,5 @@
 import E213.Lib.Math.GRA.GRAModel
+import E213.Lib.Math.GRA.Common
 import E213.Lib.Math.GRA.NumberTheory
 import E213.Lib.Math.GRA.Graph
 import E213.Lib.Math.GRA.Analysis
@@ -29,32 +30,29 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.Translation
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common (ceil3_le_ceil2 depth_formula)
 
 -- ============================================================
 -- §1. Generic GRA transport infrastructure
 -- ============================================================
 
-/-- A "GRA statement" is a predicate on grades/depths that can be
-    transported across isomorphic models. We encode this as:
-    any property P on Nat that holds for depth values in M₁ also
-    holds in M₂ (since their depth functions are identical for
-    same-grade inputs). -/
+-- A "GRA statement" is a predicate on grades/depths that can be
+-- transported across isomorphic models. We encode this as:
+-- any property P on Nat that holds for depth values in M₁ also
+-- holds in M₂ (since their depth functions are identical for
+-- same-grade inputs).
 
 /-- Transport a depth bound across GRA isomorphism.
-    If depth(n) ≤ k holds in M₁, it holds in M₂ (since gen1=gen2
-    implies identical depth formulas). -/
+    If depth(n) ≤ k holds in M₁, it holds in M₂ (since both ax_greedy
+    formulas reduce to ⌈n/gen2⌉ and the iso preserves gen2). -/
 theorem transport_depth_bound (M₁ M₂ : GRAModel)
-    (iso : GRAIso M₁ M₂) (n : Nat) (hn : n ≥ M₁.gen1)
+    (_iso : GRAIso M₁ M₂) (n : Nat) (hn : n ≥ M₁.gen1)
+    (hgen1 : M₁.gen1 = M₂.gen1) (hgen2 : M₁.gen2 = M₂.gen2)
     (hbound : M₁.depth n ≤ k) :
     M₂.depth n ≤ k := by
-  -- Both models satisfy ax_greedy with same gen2, so depth formulas match
-  -- When gen1 = gen2 for both models (as in all (2,3) models):
-  -- M₁.depth n = (n + M₁.gen2 - 1) / M₁.gen2 by ax_greedy
-  -- M₂.depth n = (n + M₂.gen2 - 1) / M₂.gen2 by ax_greedy
-  -- For (2,3) models these are identical: (n+2)/3
-  rw [M₂.ax_greedy n (by omega : n ≥ M₂.gen1)]
+  rw [M₂.ax_greedy n (by rw [← hgen1]; exact hn)]
   rw [M₁.ax_greedy n hn] at hbound
-  -- Now both are (n + gen2 - 1) / gen2 which for same gen2 are equal
+  rw [← hgen2]
   exact hbound
 
 /-- Transport a reachability witness across GRA isomorphism.
@@ -87,24 +85,48 @@ theorem transport_grade_add {M₁ M₂ : GRAModel}
     
     This is the "Langlands-style" translation: a graph distance
     bound automatically gives a cup-length bound. -/
-theorem graph_distance_implies_cup_length (n : Nat) (hn : n ≥ 2) :
-    Graph.graphDepth n = Cohomology.cohomDepth n := by
-  simp [Graph.graphDepth, Cohomology.cohomDepth]
+theorem graph_distance_implies_cup_length (n : Nat) (_hn : n ≥ 2) :
+    Graph.graphDepth n = Cohomology.cohomDepth n := rfl
+
+/-- For all `n ≥ 2`, `(n + 1) / 2 ≤ n`.  Strong recursion by 2. -/
+private theorem ceil2_le_self : ∀ n, n ≥ 2 → (n + 1) / 2 ≤ n := fun n =>
+  Nat.strongRecOn n
+    (motive := fun n => n ≥ 2 → (n + 1) / 2 ≤ n)
+    (fun n ih hn =>
+      match n, hn with
+      | 2, _ => by decide
+      | 3, _ => by decide
+      | n + 4, _ => by
+        have hn2 : n + 2 ≥ 2 :=
+          Nat.add_le_add_right (Nat.zero_le n) 2
+        have hlt : n + 2 < n + 4 :=
+          Nat.lt_of_lt_of_le (Nat.lt_succ_of_le Nat.le.refl)
+            (Nat.add_le_add_left (by decide : (3:Nat) ≤ 4) n)
+        have ih_n2 : (n + 2 + 1) / 2 ≤ n + 2 := ih (n + 2) hlt hn2
+        show (n + 4 + 1) / 2 ≤ n + 4
+        have heq : n + 4 + 1 = (n + 2 + 1) + 2 := by
+          show n + 5 = n + 3 + 2
+          rfl
+        rw [heq, E213.Meta.Nat.NatDiv213.add_div_right_pos (by decide)]
+        have step : (n + 2 + 1) / 2 + 1 ≤ (n + 2) + 1 :=
+          Nat.add_le_add_right ih_n2 1
+        exact Nat.le_trans step (Nat.add_le_add_left (by decide : (1:Nat) ≤ 2) (n + 2)))
+
+/-- For all `n ≥ 2`, `(n + 2) / 3 ≤ n`. -/
+private theorem ceil3_le_self (n : Nat) (hn : n ≥ 2) : (n + 2) / 3 ≤ n :=
+  Nat.le_trans (ceil3_le_ceil2 n hn) (ceil2_le_self n hn)
 
 /-- Stronger version: the GRA depth bound transfers.
     In Graph: depth(n) ≤ n (trivial upper bound).
     Transferred to Cohomology: cup-length(n) ≤ n. -/
 theorem graph_to_cohom_depth_bound (n : Nat) (hn : n ≥ 2) :
-    Cohomology.cohomDepth n ≤ n := by
-  simp [Cohomology.cohomDepth]
-  omega
+    Cohomology.cohomDepth n ≤ n := ceil3_le_self n hn
 
 /-- The graph diameter bound: any grade-n element has depth ≤ ⌈n/3⌉.
     In cup-length terms: a degree-n cochain needs at most ⌈n/3⌉
     cup factors from primitive (degree-2, degree-3) generators. -/
-theorem cup_length_optimal_bound (n : Nat) (hn : n ≥ 2) :
-    Cohomology.cohomDepth n = (n + 2) / 3 := by
-  simp [Cohomology.cohomDepth]
+theorem cup_length_optimal_bound (n : Nat) (_hn : n ≥ 2) :
+    Cohomology.cohomDepth n = (n + 2) / 3 := rfl
 
 -- ============================================================
 -- §3. Translation Theorem 2: Analysis → HoTT
@@ -119,16 +141,15 @@ theorem cup_length_optimal_bound (n : Nat) (hn : n ≥ 2) :
     3-truncations requires at least ⌈n/3⌉ truncation steps.
     
     This gives a *lower bound* on homotopy complexity from analysis. -/
-theorem resolution_depth_implies_cell_count (n : Nat) (hn : n ≥ 2) :
-    Analysis.analysisDepth n = HoTT.hottDepth n := by
-  simp [Analysis.analysisDepth, HoTT.hottDepth]
+theorem resolution_depth_implies_cell_count (n : Nat) (_hn : n ≥ 2) :
+    Analysis.analysisDepth n = HoTT.hottDepth n := rfl
 
 /-- Composition depth monotonicity: if you need k resolution shifts
     to reach grade n, you also need k truncation compositions.
     
     Formally: for all n ≥ 2, the modulus composition depth equals
     the homotopy cell count. -/
-theorem modulus_composition_is_cell_count (n : Nat) (hn : n ≥ 2)
+theorem modulus_composition_is_cell_count (n : Nat) (_hn : n ≥ 2)
     (k : Nat) (hk : Analysis.analysisDepth n = k) :
     HoTT.hottDepth n = k := by
   simp [Analysis.analysisDepth, HoTT.hottDepth] at *
@@ -151,17 +172,14 @@ theorem modulus_composition_is_cell_count (n : Nat) (hn : n ≥ 2)
     yields an analytic composition bound. -/
 theorem leibniz_implies_resolution_bound (a b : Nat) :
     Analysis.analysisGrade (Analysis.analysisOtimes a b) ≤
-    Analysis.analysisGrade a + Analysis.analysisGrade b := by
-  simp [Analysis.analysisGrade, Analysis.analysisOtimes]
+    Analysis.analysisGrade a + Analysis.analysisGrade b := Nat.le.refl
 
 /-- The cup-product grade formula translates to modulus composition.
     In Cohomology: grade(α ∪ β) = deg(α) + deg(β).
     In Analysis: grade(f ∘ g) = E(f) + E(g). -/
 theorem cup_grade_is_resolution_compose (a b : Nat) :
     Cohomology.cohomGrade (Cohomology.cohomOplus a b) =
-    Analysis.analysisGrade (Analysis.analysisOplus a b) := by
-  simp [Cohomology.cohomGrade, Cohomology.cohomOplus,
-        Analysis.analysisGrade, Analysis.analysisOplus]
+    Analysis.analysisGrade (Analysis.analysisOplus a b) := rfl
 
 -- ============================================================
 -- §5. Prediction Theorem: Novel GRA-derived result
@@ -186,29 +204,23 @@ theorem cup_grade_is_resolution_compose (a b : Nat) :
     
     Proved once, valid in all 5 Readings — the power of GRA. -/
 theorem universal_depth_comparison (n : Nat) (hn : n ≥ 2) :
-    (n + 2) / 3 ≤ (n + 1) / 2 := by
-  omega
+    (n + 2) / 3 ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 /-- The prediction theorem applied to each Reading. -/
 theorem graph_depth_le_naive (n : Nat) (hn : n ≥ 2) :
-    Graph.graphDepth n ≤ (n + 1) / 2 := by
-  simp [Graph.graphDepth]; omega
+    Graph.graphDepth n ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 theorem cohom_depth_le_naive (n : Nat) (hn : n ≥ 2) :
-    Cohomology.cohomDepth n ≤ (n + 1) / 2 := by
-  simp [Cohomology.cohomDepth]; omega
+    Cohomology.cohomDepth n ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 theorem analysis_depth_le_naive (n : Nat) (hn : n ≥ 2) :
-    Analysis.analysisDepth n ≤ (n + 1) / 2 := by
-  simp [Analysis.analysisDepth]; omega
+    Analysis.analysisDepth n ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 theorem hott_depth_le_naive (n : Nat) (hn : n ≥ 2) :
-    HoTT.hottDepth n ≤ (n + 1) / 2 := by
-  simp [HoTT.hottDepth]; omega
+    HoTT.hottDepth n ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 theorem ha_depth_le_naive (n : Nat) (hn : n ≥ 2) :
-    HigherAlgebra.haDepth n ≤ (n + 1) / 2 := by
-  simp [HigherAlgebra.haDepth]; omega
+    HigherAlgebra.haDepth n ≤ (n + 1) / 2 := ceil3_le_ceil2 n hn
 
 -- ============================================================
 -- §6. Stronger Prediction: Exact depth characterization
@@ -224,10 +236,14 @@ theorem ha_depth_le_naive (n : Nat) (hn : n ≥ 2) :
     - If n ≡ 1 (mod 3): n = 2*2 + 3*((n-4)/3), impossible for n<4,
       but for n≥4: depth = (n+2)/3
     - If n ≡ 2 (mod 3): n = 2*1 + 3*((n-2)/3), depth = (n+2)/3 -/
-theorem depth_exact_formula (n : Nat) (hn : n ≥ 2) :
+theorem depth_exact_formula (n : Nat) (_hn : n ≥ 2) :
     (n + 2) / 3 = if n % 3 = 0 then n / 3
                   else n / 3 + 1 := by
-  omega
+  rw [depth_formula n]
+  -- Goal: n / 3 + (if n%3=0 then 0 else 1) = if n%3=0 then n/3 else n/3+1
+  by_cases h : n % 3 = 0
+  · rw [if_pos h, if_pos h, Nat.add_zero]
+  · rw [if_neg h, if_neg h]
 
 /-- **Novel prediction**: The ratio depth(n)/n converges to 1/3 from
     above, with maximum deviation 2/3 at n=2.
@@ -239,14 +255,29 @@ theorem depth_exact_formula (n : Nat) (hn : n ≥ 2) :
     - Cohomology: cup-length → at most 2/3 overhead per step
     - HoTT: cell economy → truncation waste bounded
     - Analysis: resolution precision → shift rounding bounded -/
-theorem depth_times_3_bound (n : Nat) (hn : n ≥ 2) :
-    ((n + 2) / 3) * 3 ≤ n + 2 := by
-  omega
+theorem depth_times_3_bound (n : Nat) (_hn : n ≥ 2) :
+    ((n + 2) / 3) * 3 ≤ n + 2 :=
+  E213.Meta.Nat.NatDiv213.div_mul_le_self (n + 2) 3
 
 /-- Converse: depth * 3 ≥ n (depth never underestimates). -/
-theorem depth_times_3_lower (n : Nat) (hn : n ≥ 2) :
+theorem depth_times_3_lower (n : Nat) (_hn : n ≥ 2) :
     ((n + 2) / 3) * 3 ≥ n := by
-  omega
+  -- 3 * ((n+2)/3) + (n+2)%3 = n+2 by div_add_mod
+  -- (n+2)%3 ≤ 2, so n + (n+2)%3 ≤ n + 2 = 3 * ((n+2)/3) + (n+2)%3
+  -- → n ≤ 3 * ((n+2)/3) by add_le_add_right cancellation.
+  have hmod_lt : (n + 2) % 3 < 3 := Nat.mod_lt (n + 2) (by decide)
+  have hmod_le : (n + 2) % 3 ≤ 2 := Nat.lt_succ_iff.mp hmod_lt
+  have hdam : 3 * ((n + 2) / 3) + (n + 2) % 3 = n + 2 :=
+    E213.Meta.Nat.AddMod213.div_add_mod (n + 2) 3
+  show n ≤ (n + 2) / 3 * 3
+  rw [Nat.mul_comm ((n + 2) / 3) 3]
+  -- Goal: n ≤ 3 * ((n+2)/3)
+  -- Strategy: add (n+2)%3 to both sides, apply hdam, use hmod_le,
+  -- then cancel via add_comm + le_of_add_le_add_left.
+  have hadd : (n + 2) % 3 + n ≤ (n + 2) % 3 + 3 * ((n + 2) / 3) := by
+    rw [Nat.add_comm ((n + 2) % 3) n, Nat.add_comm ((n + 2) % 3) (3 * _), hdam]
+    exact Nat.add_le_add_left hmod_le n
+  exact E213.Tactic.NatHelper.le_of_add_le_add_left hadd
 
 -- ============================================================
 -- §7. Cross-Reading translation master theorem
@@ -261,27 +292,27 @@ theorem depth_times_3_lower (n : Nat) (hn : n ≥ 2) :
     
     This is the core "Langlands transfer" of GRA: ANY depth-related
     result proved in one domain automatically transfers to all others. -/
-theorem master_translation (P : Nat → Prop) (n : Nat) (hn : n ≥ 2)
+theorem master_translation (P : Nat → Prop) (n : Nat) (_hn : n ≥ 2)
     (h_graph : P (Graph.graphDepth n))  :
     P (Cohomology.cohomDepth n) ∧
     P (Analysis.analysisDepth n) ∧
     P (HoTT.hottDepth n) ∧
     P (HigherAlgebra.haDepth n) := by
-  simp [Graph.graphDepth, Cohomology.cohomDepth,
+  simp only [Graph.graphDepth, Cohomology.cohomDepth,
         Analysis.analysisDepth, HoTT.hottDepth,
         HigherAlgebra.haDepth] at *
   exact ⟨h_graph, h_graph, h_graph, h_graph⟩
 
 /-- Symmetric version: any Reading can serve as source. -/
 theorem master_translation_from_any
-    (P : Nat → Prop) (n : Nat) (hn : n ≥ 2)
+    (P : Nat → Prop) (n : Nat) (_hn : n ≥ 2)
     (h_any : P ((n + 2) / 3)) :
     P (Graph.graphDepth n) ∧
     P (Cohomology.cohomDepth n) ∧
     P (Analysis.analysisDepth n) ∧
     P (HoTT.hottDepth n) ∧
     P (HigherAlgebra.haDepth n) := by
-  simp [Graph.graphDepth, Cohomology.cohomDepth,
+  simp only [Graph.graphDepth, Cohomology.cohomDepth,
         Analysis.analysisDepth, HoTT.hottDepth,
         HigherAlgebra.haDepth]
   exact ⟨h_any, h_any, h_any, h_any, h_any⟩
@@ -304,9 +335,6 @@ theorem reach_translation (n a b : Nat) (hdecomp : n = 2 * a + 3 * b) :
     n = HoTT.GRA23_HoTT.gen1 * a + HoTT.GRA23_HoTT.gen2 * b ∧
     n = HigherAlgebra.GRA23_HigherAlgebra.gen1 * a +
         HigherAlgebra.GRA23_HigherAlgebra.gen2 * b := by
-  simp [Graph.GRA23_Graph, Cohomology.GRA23_Cohomology,
-        Analysis.GRA23_Analysis, HoTT.GRA23_HoTT,
-        HigherAlgebra.GRA23_HigherAlgebra]
   exact ⟨hdecomp, hdecomp, hdecomp, hdecomp, hdecomp⟩
 
 -- ============================================================

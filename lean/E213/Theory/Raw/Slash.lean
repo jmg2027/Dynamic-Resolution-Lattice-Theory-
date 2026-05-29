@@ -102,4 +102,35 @@ protected theorem Raw.slash_ne_both (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ x ∧ Raw.slash x y h ≠ y :=
   ⟨Raw.slash_ne_left x y h, Raw.slash_ne_right x y h⟩
 
+/-- A canonical `Raw.slash x y h` is never equal to `Raw.b`.  Both
+    branches of `Raw.slash` produce a `Tree.slash` node at the
+    Tree level, and `Tree.slash ≠ Tree.b` by `Tree.noConfusion`.
+    The `Tree.cmp_eq_to_eq` branch is vacuous (would contradict
+    the `x ≠ y` hypothesis). -/
+protected theorem Raw.slash_ne_b (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ Raw.b := by
+  intro heq
+  have hval : (Raw.slash x y h).val = (Raw.b).val :=
+    congrArg Subtype.val heq
+  unfold Raw.slash at hval
+  split at hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
+  · rename_i hcmp
+    exact h (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+
+/-- A canonical `Raw.slash x y h` is never equal to `Raw.a`.  Same
+    pattern as `Raw.slash_ne_b`. -/
+protected theorem Raw.slash_ne_a (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ Raw.a := by
+  intro heq
+  have hval : (Raw.slash x y h).val = (Raw.a).val :=
+    congrArg Subtype.val heq
+  unfold Raw.slash at hval
+  split at hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
+  · exact E213.Term.Internal.Tree.noConfusion hval
+  · rename_i hcmp
+    exact h (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+
 end E213.Theory

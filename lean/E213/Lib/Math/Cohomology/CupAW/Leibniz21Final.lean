@@ -1,4 +1,6 @@
-import E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
 
 import E213.Lib.Math.Cohomology.Cochain.Core
@@ -6,7 +8,7 @@ import E213.Lib.Math.Cohomology.Cochain.V5_1DecompR
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Lib.Math.Cohomology.CupAW.Core
-import E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Physics.Simplex.Counts
@@ -24,8 +26,8 @@ open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_1)
 open E213.Lib.Math.Cohomology.Cochain.V5_1DecompR (bz5_1)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
-open E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge (bz5_2_false_at bz5_2_true_at)
-open E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge (bz5_1_false_at bz5_1_true_at)
+open E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge (bz5_2_false_at bz5_2_true_at)
+open E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge (bz5_1_false_at bz5_1_true_at)
 open E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
   (leibniz_zero_collapse_left_5_2_1 leibniz_pointwise_transport_left_5_2_1
    leibniz_zero_collapse_right_5_2_1 leibniz_pointwise_transport_right_5_2_1)
@@ -50,7 +52,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (k : Fin 5)
     delta (cupAW 5 2 1 α (basis 5 1 k)) i
       = xor (cupAW 5 3 1 (delta α) (basis 5 1 k) i)
             (cupAW 5 2 2 α (delta (basis 5 1 k)) i) :=
-  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha.leibniz_via_α_decomp_21
+  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha.leibniz_via_α_decomp_21
     α (basis 5 1 k) i (h_components_α α k i)
 
 /-- Per-β-component Leibniz: cases on β k.  PURE.

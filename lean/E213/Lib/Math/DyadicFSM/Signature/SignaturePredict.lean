@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
+import E213.Lib.Math.DyadicFSM.Pisano.PredictorChain
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig

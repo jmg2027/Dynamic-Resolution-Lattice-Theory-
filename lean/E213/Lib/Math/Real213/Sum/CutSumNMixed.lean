@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSumN
 
@@ -44,13 +45,7 @@ open E213.Lib.Math.Real213.Sum.CutSumN
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 
-private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) :
-    a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- ★★★★★ **Mixed-denominator closure for cutSumN**.
 

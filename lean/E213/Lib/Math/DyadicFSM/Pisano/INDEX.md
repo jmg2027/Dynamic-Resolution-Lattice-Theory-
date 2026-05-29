@@ -1,40 +1,35 @@
 # `DyadicFSM/Pisano/` — Pisano-period predictors
 
 Predictor for the Pisano period (Fibonacci sequence mod N) at
-selected moduli.  Each `Predictor<N>` provides a per-modulus
-witness; `Predictor` is the generic base.
+selected moduli.
 
-## Files (9)
+## Files (2)
 
-### Generic
-  - `Predictor.lean`     — generic Pisano predictor base
+  - `Predictor.lean`      — `pisano_predict : Nat → Nat`
+                             (Legendre-driven), the
+                             `pisano_period_lift` utility, and
+                             the 4-prime correctness theorem.
+  - `PredictorChain.lean` — per-prime verifications for 23 primes
+                             (3, 5, 7, 11, 13, 17, 19, 23, 29,
+                             31, 37, 41, 43, 47, 53, 59, 61,
+                             67, 71, 73, 79, 89, 101).  Each
+                             prime gets a `pisano_at_<p>` lemma;
+                             two headline conjunctions
+                             `pisano_predict_realises_pell_7`
+                             (downstream-consumed) and
+                             `pisano_predict_realises_pell_23`
+                             (full headline).
 
-### Per-modulus predictors (8 chain — semantic-chain retained
-                            per HANDOFF backlog decision)
-  - `Predictor6.lean`    — N = 6
-  - `Predictor7.lean`    — N = 7
-  - `Predictor8.lean`    — N = 8
-  - `Predictor11.lean`   — N = 11
-  - `Predictor14.lean`   — N = 14
-  - `Predictor17.lean`   — N = 17
-  - `Predictor20.lean`   — N = 20
-  - `Predictor22.lean`   — N = 22
+## Where to add new evidence
 
-## Note (CLAUDE.md rule 7 deviation)
-
-Per-modulus predictor files are normally consolidation candidates
-(CLAUDE.md rule 7: same-topic instance sets in one file).  Decision
-recorded in HANDOFF.md: keep semantic chain (each predictor depends
-on the prior one) — not a pure instance set.
-
-## Where to add new files
-
-  - New modulus N        → `Predictor<N>.lean`  (semantic chain
-                            from prior step — see existing
-                            `Predictor<N-1>` import)
-  - Generic refinement   → `Predictor.lean`
+  - New prime `p` with verified period `X`:
+      add `pisano_at_p` lemma in `PredictorChain.lean`
+      (3-line proof via `pisano_period_lift` + the
+      `pellFSMmod<p>_bits_period_<X>` lemma)
+  - Refinement of `pisano_predict` itself:
+      edit `Predictor.lean`
 
 ## Companion clusters
 
-  - `DyadicFSM/Fib/`     — Fibonacci sequence (consolidated to 1)
+  - `DyadicFSM/Fib/`     — Fibonacci sequence
   - `DyadicFSM/Pell/`    — Pell sequence + dyadic FSM

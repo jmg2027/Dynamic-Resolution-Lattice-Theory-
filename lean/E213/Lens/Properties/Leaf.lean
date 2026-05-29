@@ -27,20 +27,8 @@ def leafLens : Lens Bool where
   base_b := false
   combine _ _ := true
 
-/-- leaves r ≥ 1 for all r : Raw.  ∅-axiom: replaced `omega` with
-    `Nat.le_trans` + `Nat.le_add_right`. -/
-private theorem leaves_ge_one : ∀ r : Raw, 1 ≤ Lens.leaves.view r := by
-  intro r
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+private theorem leaves_ge_one : ∀ r : Raw, 1 ≤ Lens.leaves.view r :=
+  Lens.leaves_view_ge_one
 
 /-- leafLens.view r = decide (leaves r ≥ 2).  ∅-axiom: avoids
     `omega` + `simp [this]` propext leak by manual Nat ≥ proof

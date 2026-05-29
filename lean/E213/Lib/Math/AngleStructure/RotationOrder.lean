@@ -21,6 +21,15 @@ def levelRotationOrder : Nat → Nat
 /-- Angle in degrees: 360 / rotation order. -/
 def angleAtLevel (n : Nat) : Nat := 360 / levelRotationOrder n
 
+/-- Level-0 angle: 360°. -/
+theorem angle_level0 : angleAtLevel 0 = 360 := rfl
+
+/-- Level-1 angle: 180° (sign). -/
+theorem angle_level1 : angleAtLevel 1 = 180 := rfl
+
+/-- Level-2 angle: 90° (complex). -/
+theorem angle_level2 : angleAtLevel 2 = 90 := rfl
+
 /-- ★ Rotation-order master — per-level orders and angles.
 
   level 0: trivial (no orthogonal slot), order = 1, angle = 360°

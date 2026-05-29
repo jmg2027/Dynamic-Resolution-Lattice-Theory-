@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSumComm
 import E213.Lib.Math.Real213.Mul.CutMulOne
@@ -28,12 +29,7 @@ open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSumComm (cutSumAux_eq_true_iff cutSum_comm)
 open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 
-private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- ★ 3-component template ( C).  Bidirectional iff opener +
     `decide_eq_true` closer for `cutSum (constCut a₁ b₁) (constCut a₂ b₂)

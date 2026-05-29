@@ -1,3 +1,4 @@
+import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Real213.Sum.CutSumOne
 import E213.Lib.Math.Real213.Mul.ConstCutScale
@@ -33,12 +34,7 @@ open E213.Lib.Math.Real213.Sum.CutSumOne
 open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_const_at cutMul_const_one_at cutMul_one_one_at)
 open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
 
-private theorem bool_eq_iff_local (a b : Bool) (h : a = true ↔ b = true) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact h.mpr rfl
-  · exact (h.mp rfl).symm
-  · rfl
+open E213.Tactic.BoolHelper (bool_eq_iff)
 
 /-- **midpoint(c, c) = c** for c = a/b — pointwise (∅-axiom). -/
 theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
@@ -48,7 +44,7 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
   rw [cutSum_self_at]
   -- Goal: constCut (2*a) b (2*m) k = constCut a b m k
   -- = decide ((2*a)*k ≤ b*(2*m)) = decide (a*k ≤ b*m)
-  apply bool_eq_iff_local
+  apply bool_eq_iff
   constructor
   · intro h
     have h1 : (2*a)*k ≤ b*(2*m) := of_decide_eq_true h

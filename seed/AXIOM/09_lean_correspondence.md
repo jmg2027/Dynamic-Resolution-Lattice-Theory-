@@ -122,9 +122,9 @@ For §5:
 The directory `seed/AXIOM/` is the **sole** axiom corpus.
 Derivation work belongs in `research-notes/` (active scratch)
 and in the Lean metatheory layer (`Meta/UniversalLens/`).
-Active narratives live in `guide/` (deductively-ordered, with
-T0 / T1 / T2 / T3 tags) and in `books/{math, physics}/`
-(213-internal exposition).
+Active narratives live in `theory/THEORY_BOOK.md` (single
+linearised reading path) and in per-area chapters at
+`theory/<math, physics, lens, meta>/`.
 
 ---
 

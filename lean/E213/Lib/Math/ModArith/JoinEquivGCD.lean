@@ -1,3 +1,4 @@
+import E213.Lens.LensCore
 import E213.Lib.Math.ModArith.JoinGCD
 import E213.Meta.Nat.NatDiv213
 
@@ -19,20 +20,11 @@ open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 open E213.Meta.Nat.Gcd213
-  (gcd213_self gcd213_comm gcd213_sub_left mod_eq_exists_mul_add)
+  (gcd213_self gcd213_comm gcd213_sub_left mod_eq_exists_mul_add
+   succ_sub_self_213)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
-private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx _ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]
-      exact Nat.le_trans ihx (Nat.le_add_right _ _)
+open E213.Lens renaming leaves_view_ge_one → leaves_ge_one_local
 
 /-- **Chain step** at JE level: m > k ≥ 2,
     `leaves r' = leaves r + (m - k) → JoinEquiv L_m L_k r r'`.  ∅-axiom. -/
@@ -117,9 +109,6 @@ theorem euclidean_step_JE (m k : Nat)
       (Lens.leaves.view r) (Lens.leaves.view r') (m - k) hd_pos hle h_mod
     exact JoinEquiv.symm (step_plus_nd_JE m k hk hmk r' q r hq)
 
-
-  (gcd213_self gcd213_comm gcd213_sub_left succ_sub_self_213)
-
 /-- **Consecutive** at JE level. ∅-axiom. -/
 theorem consecutive_refines_all_JE (m k : Nat) (hk : k ≥ 2) (hms : m = k + 1) :
     ∀ r r' : Raw, JoinEquiv (leavesModNat m) (leavesModNat k) r r' := by
@@ -163,9 +152,6 @@ theorem swap_JE (m k : Nat) (r r' : Raw)
   | trans _ _ ih1 ih2 => exact JoinEquiv.trans ih1 ih2
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact JoinEquiv.slash_cong hxy hx'y' ih1 ih2
-
-
-  (gcd213_self gcd213_comm gcd213_sub_left)
 
 /-- **Main theorem (sorted)**: strong induction on m + k, m ≥ k assumed.
     L_{gcd213 m k}.equiv → JoinEquiv L_m L_k.  ∅-axiom. -/

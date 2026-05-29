@@ -51,7 +51,10 @@ class StarRing213 (α : Type) extends Ring213 α where
     `ofInt_central` says integer scalars commute with everything,
     `ofInt_inj` lifts equalities back to Int.
     `ofInt_add` is the additive ring-hom property — needed for
-    norm-additivity at higher CD layers. -/
+    norm-additivity at higher CD layers.
+    `normSq_conj` says the norm is conj-invariant — needed for
+    the reverse self_mul_conj `conj a · a = ofInt (normSq a)`, used
+    by the CDDouble Hurwitz extension at non-comm bases. -/
 class IntegerNormed213 (α : Type) extends StarRing213 α where
   ofInt         : Int → α
   normSq        : α → Int
@@ -60,6 +63,12 @@ class IntegerNormed213 (α : Type) extends StarRing213 α where
   ofInt_add     : ∀ a b : Int, ofInt a + ofInt b = ofInt (a + b)
   ofInt_central : ∀ (z : Int) (a : α), ofInt z * a = a * ofInt z
   ofInt_inj     : ∀ {a b : Int}, ofInt a = ofInt b → a = b
+  normSq_conj   : ∀ a   : α, normSq (conj a) = normSq a
+  /-- Integer embeds are self-conjugate.  In CD towers `ofInt z = ⟨z, 0⟩`
+      and conjugation only affects the imaginary component, so this
+      holds trivially for all instances.  Needed for the Cayley-Dickson
+      Hurwitz extension at the CDDouble level. -/
+  ofInt_conj    : ∀ z   : Int, conj (ofInt z) = ofInt z
 
 namespace IntegerNormed213
 
@@ -97,6 +106,18 @@ theorem normSq_mul {α : Type} [inst : IntegerNormed213 α] (u v : α) :
         rw [IntegerNormed213.self_mul_conj]
     _ = IntegerNormed213.ofInt (inst.normSq u * inst.normSq v) :=
         IntegerNormed213.ofInt_mul _ _
+
+/-- ★ Generic reverse self_mul_conj: `conj a · a = ofInt (normSq a)`.
+    Derived from the forward `self_mul_conj` applied to `conj a`
+    plus `conj_conj` and `normSq_conj`.  Mirrors the per-instance
+    derivation in `ZOmegaDoubleAlgebra213.conj_mul_self`. -/
+theorem conj_mul_self {α : Type} [inst : IntegerNormed213 α] (a : α) :
+    StarRing213.conj a * a = IntegerNormed213.ofInt (inst.normSq a) := by
+  have h_forward : StarRing213.conj a * StarRing213.conj (StarRing213.conj a)
+                 = IntegerNormed213.ofInt (inst.normSq (StarRing213.conj a)) :=
+    IntegerNormed213.self_mul_conj (StarRing213.conj a)
+  rw [StarRing213.conj_conj, IntegerNormed213.normSq_conj] at h_forward
+  exact h_forward
 
 end IntegerNormed213
 

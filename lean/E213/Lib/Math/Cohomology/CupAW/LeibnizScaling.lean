@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cohomology.CupAW.Leibniz
 import E213.Lib.Math.Cohomology.CupAW.LeibnizSmall
 import E213.Lib.Math.Cohomology.CupAW.LeibnizMid
-import E213.Lib.Math.Cohomology.Examples.EncodingBijection52
+import E213.Lib.Math.Cohomology.Examples.EncodingBijection
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.CupAW.Core

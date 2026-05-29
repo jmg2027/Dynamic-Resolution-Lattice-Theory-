@@ -20,9 +20,6 @@ layer 1 via the `Cayley.I'`/`Cayley.J'` lifts) but verbose; deferred.
 
 namespace E213.Lib.Math.CayleyDickson.Levels.Cayley
 
-open Cayley
-
-
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble
@@ -62,6 +59,7 @@ def conj (u : Cayley) : Cayley := ⟨u.re.conj, -u.im⟩
 
 end Cayley
 
+open Cayley
 
 /-- `Cayley.conj` is involutive. -/
 theorem conj_conj (u : Cayley) : conj (conj u) = u := by

@@ -1,5 +1,6 @@
 import E213.Lib.Math.GRA.GRAModel
 import E213.Lib.Math.GRA.NumberTheory
+import E213.Lib.Math.GRA.Common
 
 /-!
 # GRA Analysis Instance (Reading R₅)
@@ -26,6 +27,8 @@ Standard: 0 sorry, ∅-axiom.
 namespace E213.Lib.Math.GRA.Analysis
 
 open E213.Lib.Math.GRA
+open E213.Lib.Math.GRA.Common
+  (coprime_2_3 two_lt_three reach_23 depth_formula greedy_form)
 
 -- ============================================================
 -- Analysis carrier and operations
@@ -54,44 +57,30 @@ def analysisDepth (n : Nat) : Nat := (n + 2) / 3
 -- Axiom verification
 -- ============================================================
 
-theorem analysis_gen1_lt_gen2 : (2 : Nat) < 3 := by decide
+theorem analysis_gen1_lt_gen2 : (2 : Nat) < 3 := two_lt_three
 
-theorem analysis_coprime : Nat.gcd 2 3 = 1 := by decide
+theorem analysis_coprime : E213.Tactic.NatHelper.gcd213 2 3 = 1 := coprime_2_3
 
 theorem analysis_grade_oplus (a b : AnalysisCarrier) :
-    analysisGrade (analysisOplus a b) = analysisGrade a + analysisGrade b := by
-  simp [analysisGrade, analysisOplus]
+    analysisGrade (analysisOplus a b) = analysisGrade a + analysisGrade b := rfl
 
 theorem analysis_grade_otimes (a b : AnalysisCarrier) :
-    analysisGrade (analysisOtimes a b) ≤ analysisGrade a + analysisGrade b := by
-  simp [analysisGrade, analysisOtimes]
+    analysisGrade (analysisOtimes a b) ≤ analysisGrade a + analysisGrade b :=
+  Nat.le.refl
 
 /-- Reachability: ∀ n ≥ 2, ∃ a b, n = 2*a + 3*b.
     In analysis terms: every resolution exponent ≥ 2 can be decomposed
     as a combination of binary (2-step) and ternary (3-step) shifts. -/
 theorem analysis_reach (n : Nat) (hn : n ≥ 2) :
-    ∃ a b : Nat, n = 2 * a + 3 * b := by
-  match n, hn with
-  | 2, _ => exact ⟨1, 0, by omega⟩
-  | 3, _ => exact ⟨0, 1, by omega⟩
-  | 4, _ => exact ⟨2, 0, by omega⟩
-  | 5, _ => exact ⟨1, 1, by omega⟩
-  | n + 6, _ =>
-    if h : (n + 6) % 2 = 0 then
-      exact ⟨(n + 6) / 2, 0, by omega⟩
-    else
-      exact ⟨((n + 6) - 3) / 2, 1, by omega⟩
+    ∃ a b : Nat, n = 2 * a + 3 * b := reach_23 n hn
 
 /-- Depth formula: ⌈n/3⌉ = n/3 + (if n%3=0 then 0 else 1) -/
-theorem analysis_depth_eq (n : Nat) (hn : n ≥ 2) :
-    analysisDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := by
-  simp [analysisDepth]
-  omega
+theorem analysis_depth_eq (n : Nat) (_hn : n ≥ 2) :
+    analysisDepth n = n / 3 + (if n % 3 = 0 then 0 else 1) := depth_formula n
 
 /-- Greedy optimality: depth = (n + 2) / 3 -/
-theorem analysis_greedy (n : Nat) (hn : n ≥ 2) :
-    analysisDepth n = (n + 3 - 1) / 3 := by
-  simp [analysisDepth]
+theorem analysis_greedy (n : Nat) (_hn : n ≥ 2) :
+    analysisDepth n = (n + 3 - 1) / 3 := greedy_form n
 
 -- ============================================================
 -- The (2,3)-GRA model for Analysis

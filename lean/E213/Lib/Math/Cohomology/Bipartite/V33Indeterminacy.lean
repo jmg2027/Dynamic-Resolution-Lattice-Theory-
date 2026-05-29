@@ -167,40 +167,12 @@ which is decidable. -/
 
 open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
   (xor_pair_swap psiNatPos psiNatPos_linear psiNatPos_congr_all)
-
-/-- Pattern-match lift of `Fin 9 → Bool` to `Nat → Bool` —
-    avoids `dite` (and the `propext` it would bring through
-    `dite_true`).  Out-of-range values default to false. -/
-def vToNat (v : Fin 9 → Bool) : Nat → Bool
-  | 0 => v ⟨0, by decide⟩
-  | 1 => v ⟨1, by decide⟩
-  | 2 => v ⟨2, by decide⟩
-  | 3 => v ⟨3, by decide⟩
-  | 4 => v ⟨4, by decide⟩
-  | 5 => v ⟨5, by decide⟩
-  | 6 => v ⟨6, by decide⟩
-  | 7 => v ⟨7, by decide⟩
-  | 8 => v ⟨8, by decide⟩
-  | _ => false
+open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+  renaming fin9LiftToNat → vToNat, fin9LiftToNat_xor → vToNat_xor
 
 /-- `psi v = psiNatPos 8 (vToNat v)` definitionally. -/
 theorem psi_eq_psiNatPos (v : Fin 9 → Bool) :
     psi v = psiNatPos 8 (vToNat v) := rfl
-
-/-- `vToNat` distributes over pointwise XOR at every Nat index. -/
-theorem vToNat_xor (v w : Fin 9 → Bool) (i : Nat) :
-    vToNat (fun f => xor (v f) (w f)) i = xor (vToNat v i) (vToNat w i) := by
-  match i with
-  | 0 => rfl
-  | 1 => rfl
-  | 2 => rfl
-  | 3 => rfl
-  | 4 => rfl
-  | 5 => rfl
-  | 6 => rfl
-  | 7 => rfl
-  | 8 => rfl
-  | _+9 => rfl
 
 /-- ψ-linearity, lifted from `psiNatPos`.  No `funext` needed —
     pointwise agreement is handled by `psiNatPos_congr_all`. -/

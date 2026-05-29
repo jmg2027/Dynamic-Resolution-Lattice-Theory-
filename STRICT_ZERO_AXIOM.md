@@ -628,6 +628,209 @@ Many theorems at ≤ {propext, Quot.sound} could be upgraded by:
 
 Estimated upgrades: ~50-100 theorems possible.
 
+### Tier 5.1 CLEARED — `Lib/Math/GRA/` (Marathon 16, 2026-05-28)
+
+`E213.Lib.Math.GRA.*` — 22 files (umbrella + Common + 7 Phases 1–6 +
+5 Phases 7–11 + 1 unified `Enrichment` + 3 Phases 12–15
+support (Naturality + SectionRetraction + Monoidal) + 1 each
+from Phases 16–18 + 1 unified `HasDistinguishing213` for
+Phases 19–21 + Phase 22),
+~3500 lines, **all PURE / 0 DIRTY** (verified by `tools/scan_axioms.py`
+plus direct `#print axioms` for the multi-namespace `HigherAlgebra.lean`
+that the scanner's last-namespace heuristic mis-attributes).
+
+Upgrade pattern applied throughout:
+  · `Nat.gcd 2 3 = 1` (DIRTY [propext] via well-founded
+    recursion) → switch `GRAModel.ax_coprime` to
+    `E213.Tactic.NatHelper.gcd213 gen1 gen2 = 1`, which kernel-
+    reduces to `rfl` for the (2, 3) instance.
+  · `*_grade_oplus` / `*_grade_otimes` / `*_greedy` `by simp [...]`
+    → `rfl` or `Nat.le.refl` (the definitions are kernel-equal
+    to the goals).
+  · `nt_reach` and the 5 Reading variants `by omega` per literal
+    case → shared PURE `Common.reach_23`, which uses strong
+    recursion + a 2-step lemma `reach_step` proving
+    `(k+2 = 2a + 3b) → ((k+2)+2 = 2(a+1) + 3b)` via explicit
+    `Nat.mul_succ` / `Nat.add_assoc` / `Nat.add_comm`.
+  · `*_depth_eq` `by_cases ... omega` → shared PURE
+    `Common.depth_formula`, which splits on `n % 3 ∈ {0,1,2}`
+    via `cases_lt_three` and the helper lemmas
+    `div3_3k_{1,2,3,4}` (inductive PURE divisor identities)
+    plus `Meta.Nat.AddMod213.div_add_mod`.
+  · `universal_depth_comparison` `by omega` → shared PURE
+    `Common.ceil3_le_ceil2`, proved by 6-step strong induction
+    over the LCM(2,3) cycle with `Meta.Nat.NatDiv213.add_div_right_pos`.
+  · `transport_depth_bound` / `master_translation*` /
+    `reach_translation` `simp [...]` → explicit `exact` with
+    typed witnesses.
+  · `depth_times_3_lower` `by omega` → explicit cancellation
+    via `Meta.Nat.AddMod213.div_add_mod` +
+    `NatHelper.le_of_add_le_add_left`.
+
+Shared helpers added in `lean/E213/Lib/Math/GRA/Common.lean`
+(7 public PURE theorems): `coprime_2_3`, `two_lt_three`,
+`reach_offset`, `reach_23`, `depth_formula`, `greedy_form`,
+`ceil3_le_ceil2`.
+
+Phases 7–11 (category theory + enrichment, all PURE):
+
+  · `Category.lean` (9 PURE): 213-native `Cat` typeclass
+    (universe-polymorphic), `GRACat`, `ReadingCat`,
+    connectedness witness.
+  · `Groupoid.lean` (10 PURE): `Groupoid` typeclass on top of
+    `Cat`; pointwise `HEq`-form of identity (carrier types are
+    syntactically distinct but defeq Nat, so `HEq` is the natural
+    form); `ConnectedHub` structure; `Reading.hubAtNT` witness.
+  · `Hom.lean` (10 PURE): `GRAHom` (data-preserving, not
+    necessarily invertible); `id`/`comp` category laws; forgetful
+    `GRAIso → GRAHom`; grade-agreement and grade-oplus-via-hom
+    theorems.
+  · `DepthFunctor.lean` (9 PURE): depth as constant functor on
+    the (2, 3)-sub-category; `Reading_depth_const` shows all 6
+    Readings agree on `⌈n/3⌉` for `n ≥ 2`.
+Phases 11–15 (unified bipartite enrichment + naturality +
+retraction + monoidal, all PURE):
+
+  · `Enrichment.lean` (11 PURE): one parametric enrichment for
+    all five Readings.  `BipartiteCarrier` is a `Nat` tagged with
+    the bipartite constraint `n = 0 ∨ n ≥ 2` (excluding `n = 1`,
+    which `gcd(2, 3) = 1` excludes from `{2a + 3b}`).
+    `BipartiteCarrier.{zero, two, three}` carrier values;
+    `BipartiteCarrier.combine` (additive on `n`, serving as both
+    `⊕` and `⊗`).  `GRA23_Bipartite` is the enriched (2, 3)-GRA
+    model; `forgetHom : GRA23_Bipartite → GRA23_NT` is the
+    canonical projection.  The five domain flavours (Walk-length,
+    Cochain-degree, Truncation-level, Operad-level, Resolution-
+    exponent) are decompositions of one structure — the domain
+    names were commentary, not mathematical content.
+  · `Naturality.lean` (5 PURE): translation between enriched and
+    simplified is natural with respect to the forgetful.
+    `bipartite_depth_natural` + `DepthNaturality` capstone +
+    `depth_naturality_witness`.  `bipartite_grade_match` and
+    `bipartite_depth_match` give cross-reading translation via
+    the hub.
+  · `SectionRetraction.lean` (3 PURE): the forgetful has a
+    section on its valid image (`n = 0 ∨ n ≥ 2`).
+    `Bipartite.section` with retraction identity
+    `forget ∘ section = id` and section identity
+    `section ∘ forget = id`.  `BipartiteRetract` structures the
+    data.
+  · `Monoidal.lean` (14 PURE): `product : GRAModel → GRAModel →
+    GRAModel` is the (2, 3)-monoidal product with component-wise
+    `⊕` and `⊗` and additive grade.  `trivial23` is the unit
+    (one-element carrier, grade ≡ 0).  `leftUnitHom` and
+    `rightUnitHom` are the unit `GRAHom`s for `trivial23 ⊗ M`
+    and `M ⊗ trivial23`.
+
+Phase 16 (Lens bridge — Cat / HoTT as Readings, all PURE):
+
+  · `LensBridge.lean` (11 PURE): the canonical Raw-level grade
+    map `canonicalGradeMap := Raw.fold 2 3 (· + ·)`.
+    `canonicalGradeMap_slash` uses `Nat.add_comm` PURE.  The
+    bipartite enrichment grade map (`bipartiteGradeMap`) is
+    *definitionally* `canonicalGradeMap`; pairwise agreement
+    theorems across the five domain Readings reduce to
+    `bipartite_canonical_agree` and follow by `rfl`.  Carrier-
+    level realization theorems (`bipartite_realize_a`,
+    `bipartite_realize_b`) show that the enriched Raw.fold
+    projects to the canonical value on atoms.  Avoids
+    `HasDistinguishing`-typeclass plumbing (which would bring
+    `propext`); uses `Raw.fold` with literal `Nat`-arithmetic
+    directly.
+
+Phase 17 (carrier realization — closes Phase 16 open frontier,
+all PURE):
+
+  · `CarrierRealization.lean` (7 PURE): proves
+    `canonical_ge_2 : ∀ r : Raw, canonicalGradeMap r ≥ 2` by
+    Raw induction (atoms map to 2 or 3; slash adds two ≥-2
+    values, hence ≥ 4).  This enables *direct* construction of
+    `bipartiteRealize : Raw → BipartiteCarrier`, bypassing
+    `Raw.fold` on the enriched type entirely.  The realization
+    is `⟨canonicalGradeMap r, Or.inr (canonical_ge_2 r)⟩`, so
+    the grade-projection equals `canonicalGradeMap` by `rfl`.
+    Avoids the PURE `combine_sym` problem on the `Prop`-field-
+    carrying enrichment (which would force structural equality
+    reasoning that brings `propext`).
+
+Phase 18 (universal property — 1-cat proxy for GRACat-as-Cat,
+all PURE):
+
+  · `Universality23.lean` (5 PURE): `canonicalGradeMap_universal`
+    proves any `f : Raw → Nat` with `f Raw.a = 2`, `f Raw.b = 3`,
+    and slash-additive (`f (Raw.slash x y h) = f x + f y`) equals
+    `canonicalGradeMap` pointwise.  Proof is direct Raw induction,
+    closes by `rfl` at atoms.  Capstones with
+    `canonical_arithmetic_forced` (the parameterless forcing
+    statement) and `two_atoms_slash_agree` (uniqueness of the
+    (2, 3)-profile function).  `bipartiteGradeMap_forced` and
+    `bipartiteRealize_grade_forced` derive the enrichment-level
+    grade equations as instances of the universal property —
+    making the *forced-by-arithmetic* nature explicit rather
+    than relying on `rfl` by definition.  This is the
+    1-categorical proxy for the "GRACat-as-Cat is a Reading"
+    frontier.
+
+Phases 19–21 (unified `HasDistinguishing213` — universe-polymorphic
+typeclass, all PURE):
+
+  · `HasDistinguishing213.lean` (23 PURE): consolidation of
+    Phases 19–21's three exploratory variants
+    (`HasDistinguishingU`, `HasDistinguishingW`,
+    `HasDistinguishingWFull`) into a single universe-polymorphic
+    typeclass `HasDistinguishing213.{u, v} α` — fields `a, b : α`,
+    `combine : α → α → α`, `Equiv : α → α → Sort v` (with
+    refl/symm/trans), `combine_sym` up to `Equiv`, and
+    `distinct_equiv : Equiv a b → False`.  Strict case
+    instantiates `Equiv := Eq` (`v = 0`); categorical case
+    instantiates `Equiv := GRAIso` (`v ≥ 1`).  Two closed
+    instances:
+      · `liftedReadingHasDistinguishing213 :
+        HasDistinguishing213.{1, 0} (ULift.{1, 0} Reading)` —
+        strict case on a `Type 1` carrier via `ULift`, with
+        `readingCombine r s := if r = s then r else .NT` strictly
+        commutative by case-split on `r = s` (`Reading` is
+        enriched with `deriving DecidableEq`).  Atoms `NT`,
+        `Graph` distinguishable by `decide`.  Realises the
+        strict 2-categorical universe-lifting Phase 18 named
+        as open.
+      · `gra23HasDistinguishing213 :
+        HasDistinguishing213.{1, 1} GRA23` — categorical case
+        on the (2, 3)-packaged GRA-model type, with
+        `combine := gra23Combine` (monoidal product),
+        `Equiv := gra23Equiv` (`GRAIso` between underlying
+        models), `combine_sym := gra23Combine_sym` (the
+        swap iso `(a, b) ↦ (b, a)`, grade-comm via
+        `Nat.add_comm`), `distinct_equiv :=
+        trivial23_gra23_not_iso_ntGRA23` (cardinality argument
+        on `TrivialCarrier` subsingleton vs `Nat`'s `0 ≠ 1`,
+        applied through `iso.right_inv`).
+    Headline lemmas: `productSwapIso`,
+    `productSwapIso_involutive`, `product_grade_sym`,
+    `product_combine_sym_witness`, `trivial23_not_iso_NT`,
+    plus the two instances above and existence witnesses
+    (`hasDistinguishing213_GRA23_witness`,
+    `hasDistinguishing213_ULiftReading_witness`).
+
+Phase 22 (Lens.Unified × GRA capstone — Raw 연결, all PURE):
+
+  · `LensIsoCapstone.lean` (27 PURE): the deepest 213-native
+    statement of GRA's content.  `gradeLens : Lens Nat :=
+    ⟨2, 3, (· + ·)⟩` is the canonical (2, 3) Lens whose
+    `Lens.view r = Raw.fold 2 3 (· + ·) r = canonicalGradeMap r`
+    by definitional unfolding.  `profile_view_eq_canonical`
+    re-expresses Phase 18's universal property in Lens
+    vocabulary: any Lens whose view obeys the (2, 3) atomic
+    profile coincides pointwise with `gradeLens.view`.  By
+    `Lens.Unified.lensIso_iff_kernel_eq`,
+    `profile_lens_LensIso_gradeLens` proves every (2, 3)-profile
+    Lens on Nat is `Lens.Unified.LensIso` to `gradeLens`.  Five
+    `*Lens` defs (`walkLens` etc.) are explicit equivalence-class
+    members; five `*Realize_grade_eq_lens` theorems show that
+    Phase 17 realizations project to `gradeLens.view` by `rfl`.
+    Master capstone `gra_lens_iso_class_capstone_holds` packages
+    the universal property + 5 Reading `LensIso`s.
+
 ## Cross-reference
 
   - `CAPSTONE_INDEX.md` — all capstones (mixed axiom levels)

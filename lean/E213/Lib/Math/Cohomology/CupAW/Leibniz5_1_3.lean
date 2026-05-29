@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.CupAW.Leibniz5_1_3_BasisDecomp
 import E213.Lib.Math.Cohomology.CupAW.LeibnizUniversalLift
-import E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.Bilinear
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
@@ -49,7 +49,7 @@ open E213.Lib.Math.Cohomology.Cochain.V5_1DecompR
    decomp_step_at_3 decomp_step_at_4)
 open E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
   (delta_cupAW_add_left cupAW_delta_add_left)
-open E213.Lib.Math.Cohomology.CupAW.Leibniz21Bridge
+open E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
   (bz5_1_false_at bz5_1_true_at)
 open E213.Lib.Math.Cohomology.CupAW.Leibniz5_1_3_BasisDecomp
   (leibniz_basis_5_1_3_at_0 leibniz_basis_5_1_3_at_1

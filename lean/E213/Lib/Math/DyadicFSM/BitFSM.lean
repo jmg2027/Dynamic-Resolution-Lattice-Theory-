@@ -48,13 +48,7 @@ theorem fsm_run_collision {n : Nat} (m : BitFSM n) :
   refine ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij, ?_⟩
   exact Fin.ext (collTest_imp_val_eq g i j hi hj hcoll)
 
-/-- ∅-axiom replacement for `Nat.sub_pos_of_lt` (which leaks propext). -/
-private theorem sub_pos_of_lt_213 : ∀ {a b : Nat}, a < b → 0 < b - a
-  | 0, _, h => by rw [Nat.sub_zero]; exact h
-  | _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
-  | _+1, _+1, h => by
-    rw [Nat.succ_sub_succ_eq_sub]
-    exact sub_pos_of_lt_213 (Nat.lt_of_succ_lt_succ h)
+open E213.Tactic.NatHelper renaming sub_pos_of_lt → sub_pos_of_lt_213
 
 /-- ★★★ BitFSM run is eventually periodic.  STRICT ∅-AXIOM. -/
 theorem fsm_run_eventually_periodic {n : Nat} (m : BitFSM n) :

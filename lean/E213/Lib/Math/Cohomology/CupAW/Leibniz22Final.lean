@@ -1,4 +1,6 @@
-import E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22
+import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha
+import E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge
 import E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
 
 import E213.Lib.Math.Cohomology.Cochain.Core
@@ -27,7 +29,7 @@ open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_2)
 open E213.Lib.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
-open E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge (bz5_2_false_at bz5_2_true_at)
+open E213.Lib.Math.Cohomology.CupAW.LeibnizBzBridge (bz5_2_false_at bz5_2_true_at)
 open E213.Lib.Math.Cohomology.CupAW.LeibnizDecomp
   (leibniz_zero_collapse_left_5_2_2 leibniz_pointwise_transport_left_5_2_2
    leibniz_zero_collapse_right_5_2_2 leibniz_pointwise_transport_right_5_2_2)
@@ -52,7 +54,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (q : Fin 10)
     delta (cupAW 5 2 2 α (basis 5 2 q)) i
       = xor (cupAW 5 3 2 (delta α) (basis 5 2 q) i)
             (cupAW 5 2 3 α (delta (basis 5 2 q)) i) :=
-  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha.leibniz_via_α_decomp_22
+  E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLiftAlpha.leibniz_via_α_decomp_22
     α (basis 5 2 q) i (h_components_α α q i)
 
 /-- Per-β-component Leibniz: cases on β q.  PURE.

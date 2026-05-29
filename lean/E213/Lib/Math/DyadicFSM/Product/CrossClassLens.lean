@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
-import E213.Lib.Math.DyadicFSM.Pell.LensPairs
+import E213.Lib.Math.DyadicFSM.Pell.LensCompositions
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 
@@ -28,7 +28,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound (toBitFSM3_bits_eq)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
-open E213.Lib.Math.DyadicFSM.Pell.LensPairs
+open E213.Lib.Math.DyadicFSM.Pell.LensCompositions
   (pellMod3_BitFSM_bits_period_4 pellMod5_BitFSM_bits_period_10)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 open E213.Lib.Math.DyadicFSM.Product.ProductFSM

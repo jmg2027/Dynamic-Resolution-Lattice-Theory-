@@ -62,15 +62,7 @@ open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self_at)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
-/-- Local helper: 1 ≤ 2^n.  Pure structural induction; ∅-axiom. -/
-private theorem one_le_two_pow_local : ∀ n, (1:Nat) ≤ 2^n
-  | 0 => Nat.le_refl 1
-  | k+1 => by
-    have ih := one_le_two_pow_local k
-    show 1 ≤ 2^k * 2
-    calc 1 ≤ 2^k := ih
-      _ = 2^k * 1 := (Nat.mul_one _).symm
-      _ ≤ 2^k * 2 := Nat.mul_le_mul_left _ (by decide)
+open E213.Tactic.Pow213 renaming one_le_two_pow → one_le_two_pow_local
 
 /-- **`IsResolutionShift g E_g`**: g sends `dyadicCut M E` to a cut
     pointwise-equal to `dyadicCut M (E + E_g)`.

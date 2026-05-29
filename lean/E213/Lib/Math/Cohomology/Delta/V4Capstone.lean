@@ -1,8 +1,7 @@
 import E213.Lib.Math.Cohomology.Universal.Prop51
 import E213.Lib.Math.Cohomology.Universal.Prop52
 import E213.Lib.Math.Cohomology.Universal.Prop53
-import E213.Lib.Math.Cohomology.Hodge.Prop
-import E213.Lib.Math.Cohomology.Hodge.Prop52
+import E213.Lib.Math.Cohomology.Hodge.InvolutionLifts
 import E213.Lib.Math.Cohomology.CupAW.Leibniz
 import E213.Lib.Math.Cohomology.Examples.EncodingBijection
 
@@ -56,8 +55,8 @@ theorem hodge_involution_universal_delta4 :
        hodgeStar 5 4 1 (hodgeStar 5 1 4 σ) i = σ i)
     ∧ (∀ σ : Cochain 5 2, ∀ i : Fin (binom 5 2),
          hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i) :=
-  ⟨E213.Lib.Math.Cohomology.Hodge.Prop.hodge_sq_prop_5_1,
-   E213.Lib.Math.Cohomology.Hodge.Prop52.hodge_sq_prop_5_2⟩
+  ⟨E213.Lib.Math.Cohomology.Hodge.InvolutionLifts.hodge_sq_prop_5_1,
+   E213.Lib.Math.Cohomology.Hodge.InvolutionLifts.hodge_sq_prop_5_2⟩
 
 /-- ★★★ Cup Leibniz universal (AW cup). -/
 theorem leibniz_universal_delta4 :
@@ -91,8 +90,8 @@ theorem delta4_cohomology_capstone :
   ⟨E213.Lib.Math.Cohomology.Universal.Prop51.dsq_zero_prop_5_1,
    E213.Lib.Math.Cohomology.Universal.Prop52.dsq_zero_prop_5_2,
    E213.Lib.Math.Cohomology.Universal.Prop53.dsq_zero_prop_5_3,
-   E213.Lib.Math.Cohomology.Hodge.Prop.hodge_sq_prop_5_1,
-   E213.Lib.Math.Cohomology.Hodge.Prop52.hodge_sq_prop_5_2,
+   E213.Lib.Math.Cohomology.Hodge.InvolutionLifts.hodge_sq_prop_5_1,
+   E213.Lib.Math.Cohomology.Hodge.InvolutionLifts.hodge_sq_prop_5_2,
    E213.Lib.Math.Cohomology.CupAW.Leibniz.leibniz_universal_5_1_1⟩
 
 end E213.Lib.Math.Cohomology.Delta.V4Capstone

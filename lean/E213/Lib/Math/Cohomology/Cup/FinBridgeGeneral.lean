@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Cup.Core
 import E213.Lib.Math.Cohomology.Cup.SubsetIdxRoundtripGeneral
+import E213.Lib.Math.Combinatorics.Binomial
 import E213.Meta.Tactic.ListHelper
 
 /-!
@@ -80,21 +81,7 @@ open E213.Lib.Math.Cohomology.Cup.KSubsetStructural
   (nat_add_sub_cancel nat_sub_lt_sub_right list_length_append_singleton
    nat_sub_pos_of_lt)
 
-/-- `binom n 0 = 1` for all `n`.  PURE (via `cases n`).
-    Replicated locally to avoid a transitive import.  -/
-private theorem binom_n_0 (n : Nat) : binom n 0 = 1 := by
-  cases n <;> rfl
-
-/-- `binom p m ≤ binom (p+1) m` — Pascal monotonicity in first arg.  PURE. -/
-private theorem binom_le_binom_succ (p m : Nat) :
-    binom p m ≤ binom (p+1) m := by
-  cases m with
-  | zero =>
-    rw [binom_n_0 p, binom_n_0 (p+1)]
-    exact Nat.le_refl 1
-  | succ k =>
-    show binom p (k+1) ≤ binom p k + binom p (k+1)
-    exact Nat.le_add_left _ _
+open E213.Lib.Math.Combinatorics.Binomial (binom_n_0 binom_le_binom_succ)
 
 /-! ## §1.  Structural take-equation for `kSubset` -/
 

@@ -201,21 +201,7 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
 Or is the dual of And.  T ∨ F = T, F ∨ F = F.  Hypothesis:
 `canonicalOrMap r ↔ r ≠ Raw.b` (= ∃ a leaf in r). -/
 
-/-- Helper: the result of Raw.slash differs from Raw.b — depth-based. -/
-private theorem slash_ne_b_via_depth (x y : Raw) (h : x ≠ y) :
-    Raw.slash x y h ≠ Raw.b := by
-  intro heq
-  have hview := congrArg Lens.depth.view heq
-  have hslash : Lens.depth.view (Raw.slash x y h)
-                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
-    apply Raw.fold_slash
-    intro u v
-    show 1 + max u v = 1 + max v u
-    rw [E213.Tactic.NatHelper.max_comm]
-  rw [hslash] at hview
-  have h_b : Lens.depth.view Raw.b = 0 := rfl
-  rw [h_b] at hview
-  omega
+open E213.Theory renaming Raw.slash_ne_b → slash_ne_b_via_depth
 
 theorem canonicalOrMap_iff_ne_b (r : Raw) :
     canonicalOrMap r ↔ r ≠ Raw.b := by

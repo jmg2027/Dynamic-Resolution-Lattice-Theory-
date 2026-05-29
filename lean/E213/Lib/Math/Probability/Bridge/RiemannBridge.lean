@@ -2,6 +2,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.Analysis.BracketCauchyModulus
 import E213.Lib.Math.Probability.Foundation.Cut
 import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Probability — Riemann bridge for dyadic integration
@@ -48,30 +49,7 @@ theorem riemannScaled_const_unit (c depth : Nat) :
   show 2 ^ depth * c * 1 = 2 ^ depth * c
   exact Nat.mul_one _
 
-/-- Helper: `1 ≤ 2^n`, fully term-mode (Lean-core
-    `Nat.one_le_two_pow` leaks `propext`). -/
-theorem one_le_two_pow : ∀ n, 1 ≤ 2 ^ n
-  | 0 => Nat.le_refl 1
-  | n + 1 =>
-    let ih : 1 ≤ 2 ^ n := one_le_two_pow n
-    let h2n : 2 ^ n ≤ 2 * 2 ^ n :=
-      Nat.le_mul_of_pos_left (2 ^ n) (by decide : 0 < 2)
-    let eq : 2 * 2 ^ n = 2 ^ (n + 1) :=
-      (Nat.mul_comm 2 (2 ^ n)).trans (Nat.pow_succ 2 n).symm
-    Nat.le_trans (Nat.le_trans ih h2n) (Nat.le_of_eq eq)
-
-/-- Helper: `n + 1 ≤ 2^n`, propext-clean term-mode. -/
-theorem succ_le_two_pow : ∀ n, n + 1 ≤ 2 ^ n
-  | 0 => Nat.le_refl 1
-  | n + 1 =>
-    let ih : n + 1 ≤ 2 ^ n := succ_le_two_pow n
-    let hpos : 1 ≤ 2 ^ n := one_le_two_pow n
-    let sum_le : (n + 1) + 1 ≤ 2 ^ n + 2 ^ n :=
-      Nat.add_le_add ih hpos
-    let eq1 : 2 ^ n + 2 ^ n = 2 * 2 ^ n := (Nat.two_mul (2 ^ n)).symm
-    let eq2 : 2 * 2 ^ n = 2 ^ (n + 1) :=
-      (Nat.mul_comm 2 (2 ^ n)).trans (Nat.pow_succ 2 n).symm
-    Nat.le_trans sum_le (Nat.le_of_eq (eq1.trans eq2))
+open E213.Tactic.Pow213 (one_le_two_pow succ_le_two_pow)
 
 /-- Helper: `n ≤ 2^n`. -/
 theorem le_two_pow (n : Nat) : n ≤ 2 ^ n :=

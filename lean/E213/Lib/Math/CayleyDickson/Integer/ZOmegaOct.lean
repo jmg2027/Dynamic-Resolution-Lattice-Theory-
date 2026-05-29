@@ -22,16 +22,6 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble.ZOmegaDouble
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad.ZOmegaQuad
 
-namespace _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad.ZOmegaQuad
-
-instance : Add ZOmegaQuad :=
-  ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
-instance : Neg ZOmegaQuad :=
-  ⟨fun u => ⟨-u.re, -u.im⟩⟩
-instance : Sub ZOmegaQuad := ⟨fun u v => u + (-v)⟩
-
-end _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad.ZOmegaQuad
-
 structure ZOmegaOct where
   re : ZOmegaQuad
   im : ZOmegaQuad
