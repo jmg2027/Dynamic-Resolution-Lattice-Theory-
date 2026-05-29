@@ -1,6 +1,7 @@
 import E213.Lib.Math.Cohomology.Fractal.ConfigCountAurifeuillean
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.ModPow213
 
 /-!
 # Parametric Aurifeuillean handle: `∀ n ≥ 1, 521 ∣ 5^(5^n) + 1`
@@ -38,23 +39,13 @@ open E213.Lib.Math.Cohomology.Fractal.ConfigCount
   (configCount configCountD pow_mul_pure)
 open E213.Meta.Nat.MulMod213 (mul_mod_pure mul_mod_left_pure)
 open E213.Meta.Nat.AddMod213 (add_mod_gen)
+open E213.Meta.Nat.ModPow213 (pow_mod_base)
 
 /-! ## §1 Auxiliary: `(a^k) % p = ((a % p)^k) % p`
 
-Reduces a power `mod p` by first reducing the base.  Plain
-induction on `k`, with the inductive step assembled from
-`mul_mod_pure` and `mul_mod_left_pure`. -/
-
-private theorem pow_mod_base (a p : Nat) : ∀ k, a^k % p = (a % p)^k % p
-  | 0     => rfl
-  | k + 1 => by
-      show (a^k * a) % p = ((a % p)^k * (a % p)) % p
-      have ih : a^k % p = (a % p)^k % p := pow_mod_base a p k
-      calc (a^k * a) % p
-          = (a^k % p * (a % p)) % p := mul_mod_pure (a^k) a p
-        _ = ((a % p)^k % p * (a % p)) % p := by rw [ih]
-        _ = ((a % p)^k * (a % p)) % p :=
-              (mul_mod_left_pure ((a % p)^k) (a % p) p).symm
+Sourced from `Meta.Nat.ModPow213.pow_mod_base`.  Reduces a power
+`mod p` by first reducing the base.  Used in the step case to
+swap `5^(5^(m+1))` for `520` inside the outer `^5`. -/
 
 /-! ## §2 Decidable seeds
 

@@ -2,6 +2,7 @@ import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 import E213.Lib.Math.ModArith.UniversalFLT
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.ModPow213
 
 /-!
 # `configCountD` modular reductions
@@ -34,6 +35,7 @@ namespace E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD pow_add_pure pow_mul_pure)
 open E213.Meta.Nat.MulMod213 (mul_mod_pure mul_mod_left_pure)
 open E213.Meta.Nat.AddMod213 (div_add_mod mod_mod)
+open E213.Meta.Nat.ModPow213 (pow_mod_base)
 
 /-! ## Parametric modular helper
 
@@ -474,21 +476,6 @@ longer periods.  The constant readout at `p = 41` is structurally
 distinguished — the fixed value `9 = NS²` is a count-Lens 2-power,
 and the constant persists across every fractal level `n ≥ 1`.
 -/
-
-/-- Power-mod-base reduction: `a^k % p = (a % p)^k % p`.  Used to
-    swap inside the outer power when the inductive hypothesis
-    fixes the base mod p.  Standalone induction on the exponent. -/
-private theorem pow_mod_base (a p : Nat) :
-    ∀ k, a^k % p = (a % p)^k % p
-  | 0     => rfl
-  | k + 1 => by
-      show (a^k * a) % p = ((a % p)^k * (a % p)) % p
-      have ih : a^k % p = (a % p)^k % p := pow_mod_base a p k
-      calc (a^k * a) % p
-          = (a^k % p * (a % p)) % p := mul_mod_pure (a^k) a p
-        _ = ((a % p)^k % p * (a % p)) % p := by rw [ih]
-        _ = ((a % p)^k * (a % p)) % p :=
-              (mul_mod_left_pure ((a % p)^k) (a % p) p).symm
 
 /-! ### §H.1 `p = 41` — constant readout `9` -/
 

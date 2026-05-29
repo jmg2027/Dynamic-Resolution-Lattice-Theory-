@@ -17,6 +17,25 @@ open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure mul_mod_pure)
 open E213.Meta.Nat.AddMod213 (mod_mod)
 open E213.Tactic.NatHelper (mul_assoc)
 
+/-- **Power-mod-base reduction (Nat-pow framing)**:
+    `a^k % p = (a % p)^k % p`.  The `Nat.pow`-flavored sibling of
+    `modPow_mod_left`: the latter is the same identity stated for the
+    `modPow` definition, while this is the raw `Nat.pow` form used by
+    consumers that don't go through `modPow`.  Standalone induction on
+    the exponent, with the inductive step assembled from `mul_mod_pure`
+    and `mul_mod_left_pure`.  PURE. -/
+theorem pow_mod_base (a p : Nat) :
+    ∀ k, a^k % p = (a % p)^k % p
+  | 0     => rfl
+  | k + 1 => by
+      show (a^k * a) % p = ((a % p)^k * (a % p)) % p
+      have ih : a^k % p = (a % p)^k % p := pow_mod_base a p k
+      calc (a^k * a) % p
+          = (a^k % p * (a % p)) % p := mul_mod_pure (a^k) a p
+        _ = ((a % p)^k % p * (a % p)) % p := by rw [ih]
+        _ = ((a % p)^k * (a % p)) % p :=
+              (mul_mod_left_pure ((a % p)^k) (a % p) p).symm
+
 /-- `a^k mod p`.  Recursively defined. -/
 def modPow (p a : Nat) : Nat → Nat
   | 0 => 1 % p
