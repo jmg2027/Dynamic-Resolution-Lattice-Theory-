@@ -405,4 +405,72 @@ instance instNonAssocStarRing213CDDoubleStar [StarRing213 α] :
   conj_add  := conj_add'
   conj_mul  := conj_mul'
 
+/-! ## §7 — Abstract `IntegerNormed213 (CDDouble α)` for comm base
+
+Cayley-Dickson Hurwitz extension at the level of a CD doubling over
+a commutative integer-normed *-ring base.  Provides the
+`IntegerNormed213 (CDDouble α)` instance parametrically — once
+registered, the generic `IntegerNormed213.normSq_mul` derives
+`N(uv) = N(u)·N(v)` at the CDDouble carrier for free.
+
+Concrete L2/L3 quaternion-analog instances (Lipschitz=CDDouble ZI,
+ZOmegaDouble=CDDouble ZOmega, L3T=CDDouble Z2) all satisfy
+`[CommStarRing213 α]` and `[IntegerNormed213 α]` at base. -/
+
+variable [IntegerNormed213 α]
+
+/-- CDDouble lifted ofInt: real-axis embed. -/
+def cd_ofInt (z : Int) : CDDouble α :=
+  ⟨IntegerNormed213.ofInt z, 0⟩
+
+/-- CDDouble lifted normSq: sum of base norms (CD recurrence). -/
+def cd_normSq (u : CDDouble α) : Int :=
+  IntegerNormed213.normSq u.re + IntegerNormed213.normSq u.im
+
+/-- Abstract `self_mul_conj` at CDDouble α level (`[IntegerNormed213 α]`
+    base, no extra commutativity needed).  For u = ⟨a, b⟩,
+    conj u = ⟨ā, -b⟩.  u · conj u expands to:
+      .re: a·ā - (-b)̄·b = a·ā + b̄·b = ofInt(N a) + ofInt(N b)
+           = ofInt(N a + N b)
+      .im: (-b)·a + b·(ā)̄ = -(b·a) + b·a = 0 -/
+private theorem cd_self_mul_conj' (u : CDDouble α) :
+    u * CDDouble.conj u = cd_ofInt (cd_normSq u) := by
+  apply ext
+  · show u.re * StarRing213.conj u.re
+         + -(StarRing213.conj (-u.im) * u.im)
+       = IntegerNormed213.ofInt
+           (IntegerNormed213.normSq u.re + IntegerNormed213.normSq u.im)
+    rw [conj_neg u.im,
+        Ring213.neg_mul (StarRing213.conj u.im) u.im, Ring213.neg_neg,
+        IntegerNormed213.self_mul_conj u.re,
+        IntegerNormed213.conj_mul_self u.im,
+        ← IntegerNormed213.ofInt_add (IntegerNormed213.normSq u.re)
+                                      (IntegerNormed213.normSq u.im)]
+  · show (-u.im) * u.re + u.im * StarRing213.conj (StarRing213.conj u.re)
+       = (0 : α)
+    rw [StarRing213.conj_conj,
+        Ring213.neg_mul u.im u.re,
+        Ring213.add_left_neg (u.im * u.re)]
+
+/-- Helper: `-(0 : α) = 0` in any `Ring213 α`. -/
+private theorem ring_neg_zero {α : Type} [Ring213 α] : -(0 : α) = 0 := by
+  have h1 : -(0 : α) + 0 = 0 := Ring213.add_left_neg 0
+  have h2 : -(0 : α) + 0 = -0 := Ring213.add_zero (-0)
+  exact h2.symm.trans h1
+
+/-- Abstract `ofInt_mul` at CDDouble α level.  ⟨ofInt a, 0⟩ · ⟨ofInt b, 0⟩
+    = ⟨ofInt a · ofInt b - 0̄·0, 0·ofInt a + 0·0̄⟩
+    = ⟨ofInt(a*b), 0⟩. -/
+private theorem cd_ofInt_mul' (a b : Int) :
+    cd_ofInt a * (cd_ofInt b : CDDouble α) = cd_ofInt (a * b) := by
+  apply ext
+  · show IntegerNormed213.ofInt a * IntegerNormed213.ofInt b
+         + -(StarRing213.conj 0 * 0)
+       = IntegerNormed213.ofInt (a * b)
+    rw [conj_zero_base, Ring213.zero_mul, ring_neg_zero,
+        Ring213.add_zero, IntegerNormed213.ofInt_mul]
+  · show (0 : α) * IntegerNormed213.ofInt a + 0 * StarRing213.conj (IntegerNormed213.ofInt b)
+       = 0
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+
 end E213.Meta.Algebra213.CDDouble
