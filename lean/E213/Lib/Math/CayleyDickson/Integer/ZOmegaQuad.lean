@@ -28,6 +28,11 @@ structure ZOmegaQuad where
 namespace ZOmegaQuad
 
 instance : Zero ZOmegaQuad := ⟨⟨0, 0⟩⟩
+instance : Add ZOmegaQuad :=
+  ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg ZOmegaQuad :=
+  ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub ZOmegaQuad := ⟨fun u v => u + (-v)⟩
 
 theorem ext {u v : ZOmegaQuad} (hr : u.re = v.re) (hi : u.im = v.im) :
     u = v := by cases u; cases v; congr

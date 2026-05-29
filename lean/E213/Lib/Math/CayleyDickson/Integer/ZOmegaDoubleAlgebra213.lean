@@ -180,4 +180,161 @@ instance : StarRing213 ZOmegaDouble where
   conj_add  := conj_add'
   conj_mul  := conj_mul'
 
+/-! ## §6 — `IntegerNormed213 ZOmegaDouble` (Phase 3 completion)
+
+The actual completion of Type C base layer migration: the generic
+`IntegerNormed213.normSq_mul` will derive ZOmegaDouble's norm
+multiplicativity via typeclass projection, replacing any future
+hand-written `quad_norm`/`hurwitz_ring` proof at this layer. -/
+
+/-- `ofInt n = ⟨ofInt n, 0⟩` — embed Int along the real axis
+    (re-component = ZOmega real axis = Int axis). -/
+def ofInt (n : Int) : ZOmegaDouble := ⟨ZOmega.ZOmega.ofInt n, 0⟩
+
+private theorem ofInt_re (n : Int) : (ofInt n).re = ZOmega.ZOmega.ofInt n :=
+  rfl
+
+private theorem ofInt_im (n : Int) : (ofInt n).im = 0 := rfl
+
+private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
+  have h_re : (ofInt a).re = (ofInt b).re := congrArg ZOmegaDouble.re h
+  exact @IntegerNormed213.ofInt_inj ZOmega.ZOmega _ a b h_re
+
+/-- ZOmega ofInt's conjugate equals itself — real-axis embed is conj-fixed. -/
+private theorem zomega_ofInt_conj_self (n : Int) :
+    ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt n) = ZOmega.ZOmega.ofInt n := by
+  apply ZOmega.ZOmega.ext
+  · show n - 0 = n; exact Int.sub_zero _
+  · show -(0 : Int) = 0; rfl
+
+/-- `x - 0 = x` at the Ring213 level. -/
+private theorem ring_sub_zero {α : Type} [Ring213 α] [Sub α]
+    (h_sub : ∀ x y : α, x - y = x + -y) (x : α) : x - 0 = x := by
+  have h_neg_zero : -(0 : α) = 0 :=
+    ((Ring213.add_left_neg (0 : α)).symm.trans (Ring213.add_zero _)).symm
+  rw [h_sub, h_neg_zero, Ring213.add_zero]
+
+private theorem zomega_sub_def (x y : ZOmega.ZOmega) :
+    x - y = x + -y := rfl
+
+private theorem zomega_sub_zero (x : ZOmega.ZOmega) : x - 0 = x :=
+  ring_sub_zero zomega_sub_def x
+
+private theorem ofInt_add' (a b : Int) :
+    ofInt a + ofInt b = ofInt (a + b) := by
+  apply ZOmegaDouble.ext
+  · show ZOmega.ZOmega.ofInt a + ZOmega.ZOmega.ofInt b
+       = ZOmega.ZOmega.ofInt (a + b)
+    exact @IntegerNormed213.ofInt_add ZOmega.ZOmega _ a b
+  · show (0 : ZOmega.ZOmega) + 0 = 0
+    apply ZOmega.ZOmega.ext
+    · show (0 : Int) + 0 = 0; rfl
+    · show (0 : Int) + 0 = 0; rfl
+
+private theorem ofInt_mul' (a b : Int) :
+    ofInt a * ofInt b = ofInt (a * b) := by
+  apply ZOmegaDouble.ext
+  · show ZOmega.ZOmega.ofInt a * ZOmega.ZOmega.ofInt b
+         - ZOmega.ZOmega.conj 0 * 0
+       = ZOmega.ZOmega.ofInt (a * b)
+    have h_conj_zero : ZOmega.ZOmega.conj (0 : ZOmega.ZOmega) = 0 := by
+      apply ZOmega.ZOmega.ext
+      · show (0 : Int) - 0 = 0; rfl
+      · show -(0 : Int) = 0; rfl
+    rw [h_conj_zero, Ring213.zero_mul, zomega_sub_zero]
+    exact @IntegerNormed213.ofInt_mul ZOmega.ZOmega _ a b
+  · show (0 : ZOmega.ZOmega) * ZOmega.ZOmega.ofInt a
+         + 0 * ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt b)
+       = 0
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+
+private theorem ofInt_central' (z : Int) (a : ZOmegaDouble) :
+    ofInt z * a = a * ofInt z := by
+  apply ZOmegaDouble.ext
+  · show ZOmega.ZOmega.ofInt z * a.re - ZOmega.ZOmega.conj a.im * 0
+       = a.re * ZOmega.ZOmega.ofInt z - ZOmega.ZOmega.conj 0 * a.im
+    have h_conj_zero : ZOmega.ZOmega.conj (0 : ZOmega.ZOmega) = 0 := by
+      apply ZOmega.ZOmega.ext
+      · show (0 : Int) - 0 = 0; rfl
+      · show -(0 : Int) = 0; rfl
+    rw [Ring213.mul_zero, h_conj_zero, Ring213.zero_mul,
+        zomega_sub_zero, zomega_sub_zero]
+    exact @IntegerNormed213.ofInt_central ZOmega.ZOmega _ z a.re
+  · show a.im * ZOmega.ZOmega.ofInt z + 0 * ZOmega.ZOmega.conj a.re
+       = 0 * a.re + a.im * ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt z)
+    rw [Ring213.zero_mul, Ring213.zero_mul,
+        Ring213.add_zero, Ring213.zero_add,
+        zomega_ofInt_conj_self]
+
+/-- ZOmega `conj` is additive-negation-compatible: `conj(-a) = -conj a`.
+    Direct computation on the (re, im) representation. -/
+private theorem zomega_conj_neg (a : ZOmega.ZOmega) :
+    ZOmega.ZOmega.conj (-a) = -(ZOmega.ZOmega.conj a) := by
+  apply ZOmega.ZOmega.ext
+  · show (-a).re - (-a).im = -(a.re - a.im)
+    show -a.re - -a.im = -(a.re - a.im)
+    rw [show (a.re - a.im) = a.re + -a.im from rfl,
+        E213.Meta.Int213.neg_add,
+        show -a.re - -a.im = -a.re + -(-a.im) from rfl,
+        Int.neg_neg]
+  · show -(-a).im = -(-a.im); rfl
+
+/-- The actual core: `u * conj u = ofInt (normSq u)` for ZOmegaDouble.
+    Componentwise via ZOmega `self_mul_conj` + commutativity + ofInt_add. -/
+private theorem self_mul_conj' (u : ZOmegaDouble) :
+    u * ZOmegaDouble.conj u = ofInt u.normSq := by
+  apply ZOmegaDouble.ext
+  · show u.re * ZOmega.ZOmega.conj u.re
+         - ZOmega.ZOmega.conj (-u.im) * u.im
+       = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re
+                              + ZOmega.ZOmega.normSq u.im)
+    rw [zomega_conj_neg u.im,
+        show ((-ZOmega.ZOmega.conj u.im) * u.im : ZOmega.ZOmega)
+           = -(ZOmega.ZOmega.conj u.im * u.im) from Ring213.neg_mul _ _]
+    -- Goal: u.re * conj u.re - -(conj u.im * u.im) = ofInt (normSq u.re + normSq u.im)
+    show u.re * ZOmega.ZOmega.conj u.re
+         + -(-(ZOmega.ZOmega.conj u.im * u.im))
+       = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re
+                              + ZOmega.ZOmega.normSq u.im)
+    rw [Ring213.neg_neg (ZOmega.ZOmega.conj u.im * u.im)]
+    -- Goal: u.re * conj u.re + conj u.im * u.im = ofInt (...)
+    have h1 : u.re * ZOmega.ZOmega.conj u.re
+            = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re) :=
+      @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ u.re
+    have h2 : u.im * ZOmega.ZOmega.conj u.im
+            = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.im) :=
+      @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ u.im
+    have h3 : ZOmega.ZOmega.conj u.im * u.im = u.im * ZOmega.ZOmega.conj u.im :=
+      @CommRing213.mul_comm ZOmega.ZOmega _ _ _
+    rw [h1, h3, h2]
+    exact @IntegerNormed213.ofInt_add ZOmega.ZOmega _ _ _
+  · show -u.im * u.re + u.im * ZOmega.ZOmega.conj (ZOmega.ZOmega.conj u.re)
+       = 0
+    have h_cc : ZOmega.ZOmega.conj (ZOmega.ZOmega.conj u.re) = u.re :=
+      @StarRing213.conj_conj ZOmega.ZOmega _ u.re
+    rw [h_cc, Ring213.neg_mul,
+        @CommRing213.mul_comm ZOmega.ZOmega _ u.im u.re,
+        Ring213.add_left_neg]
+
+/-- ★ ZOmegaDouble `IntegerNormed213` instance.  Generic
+    `IntegerNormed213.normSq_mul` then derives ZOmegaDouble's norm
+    multiplicativity via typeclass projection — no `quad_norm`,
+    no polynomial expansion. -/
+instance : IntegerNormed213 ZOmegaDouble where
+  ofInt         := ofInt
+  normSq        := ZOmegaDouble.normSq
+  self_mul_conj := self_mul_conj'
+  ofInt_mul     := ofInt_mul'
+  ofInt_add     := ofInt_add'
+  ofInt_central := ofInt_central'
+  ofInt_inj     := ofInt_inj'
+
+/-- ★ Concrete witness: generic `normSq_mul` derives ZOmegaDouble's
+    norm multiplicativity via typeclass — no `quad_norm` or
+    polynomial expansion at Int level. -/
+theorem normSq_mul (u v : ZOmegaDouble) :
+    ZOmegaDouble.normSq (u * v)
+      = ZOmegaDouble.normSq u * ZOmegaDouble.normSq v :=
+  IntegerNormed213.normSq_mul u v
+
 end E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
