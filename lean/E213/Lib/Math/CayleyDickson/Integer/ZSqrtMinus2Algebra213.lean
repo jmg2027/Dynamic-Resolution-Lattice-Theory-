@@ -154,4 +154,99 @@ instance : StarRing213 L3T where
   conj_add  := conj_add'
   conj_mul  := conj_mul'
 
+/-! ## §4 — IntegerNormed213 (Type B downstream completion) -/
+
+/-- Componentwise extensionality for L3T (not auto-generated). -/
+theorem L3T_ext {u v : L3T} (hr : u.re = v.re) (hi : u.im = v.im) :
+    u = v := by cases u; cases v; congr
+
+/-- `ofInt n = ⟨(ZSqrt 2).ofInt n, 0⟩` along the real axis. -/
+def ofInt (n : Int) : L3T :=
+  ⟨E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 n, 0⟩
+
+private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
+  have h_re : (ofInt a).re = (ofInt b).re := congrArg L3T.re h
+  -- (ofInt a).re = ZSqrt.ofInt 2 a definitionally; need typeclass form
+  exact @IntegerNormed213.ofInt_inj (ZSqrt 2) _ a b
+    (by unfold ofInt at h_re; exact h_re)
+
+/-- ZSqrt 2's ofInt is conj-fixed (real-axis is fixed by ZSqrt.conj). -/
+private theorem zsqrt_ofInt_conj_self (n : Int) :
+    ZSqrt.conj (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 n) = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 n := by
+  apply ZSqrt.ext
+  · show n = n; rfl
+  · show -(0 : Int) = 0; rfl
+
+private theorem ofInt_add' (a b : Int) :
+    ofInt a + ofInt b = ofInt (a + b) := by
+  apply L3T_ext
+  · unfold ofInt
+    change (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 a
+          + E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 b
+          = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 (a + b))
+    exact @IntegerNormed213.ofInt_add (ZSqrt 2) _ a b
+  · unfold ofInt
+    show (0 : Z2) + 0 = 0
+    apply ZSqrt.ext
+    · show (0 : Int) + 0 = 0; rfl
+    · show (0 : Int) + 0 = 0; rfl
+
+private theorem ofInt_mul' (a b : Int) :
+    ofInt a * ofInt b = ofInt (a * b) := by
+  apply L3T_ext
+  · -- .re of ofInt a * ofInt b
+    unfold ofInt
+    change (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 a
+            * E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 b
+            - (0 : Z2).conj * 0
+          = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 (a * b))
+    have h_conj_zero : ZSqrt.conj (0 : Z2) = 0 := by
+      apply ZSqrt.ext
+      · show (0 : Int) = 0; rfl
+      · show -(0 : Int) = 0; rfl
+    have h_neg_zero : -(0 : Z2) = 0 := by
+      apply ZSqrt.ext
+      · show -(0 : Int) = 0; rfl
+      · show -(0 : Int) = 0; rfl
+    rw [show ((0 : Z2).conj : Z2) = 0 from h_conj_zero,
+        Ring213.zero_mul,
+        show ∀ x : Z2, x - 0 = x from fun x => by
+          show x + -0 = x
+          rw [h_neg_zero, Ring213.add_zero]]
+    exact @IntegerNormed213.ofInt_mul Z2 _ a b
+  · -- .im: 0 * (ofInt a).re + 0 * (ofInt b).re.conj = 0
+    change ((ofInt a).mul (ofInt b)).im = 0
+    show (0 : Z2) * (ofInt a).re + 0 * (ofInt b).re.conj = 0
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+
+private theorem ofInt_central' (z : Int) (a : L3T) :
+    ofInt z * a = a * ofInt z := by
+  apply L3T_ext
+  · change ((ofInt z).mul a).re = (a.mul (ofInt z)).re
+    show (ofInt z).re * a.re - a.im.conj * (ofInt z).im
+       = a.re * (ofInt z).re - (ofInt z).im.conj * a.im
+    have h_im_zero : (ofInt z).im = 0 := rfl
+    have h_re_eq : (ofInt z).re
+                = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z := rfl
+    have h_conj_zero : ZSqrt.conj (0 : Z2) = 0 := by
+      apply ZSqrt.ext
+      · show (0 : Int) = 0; rfl
+      · show -(0 : Int) = 0; rfl
+    rw [h_im_zero, h_re_eq, Ring213.mul_zero, h_conj_zero,
+        Ring213.zero_mul]
+    -- Goal: ofInt 2 z * a.re - 0 = a.re * ofInt 2 z - 0
+    congr 1
+    exact @CommRing213.mul_comm Z2 _
+      (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z) a.re
+  · change ((ofInt z).mul a).im = (a.mul (ofInt z)).im
+    show a.im * (ofInt z).re + (ofInt z).im * a.re.conj
+       = (ofInt z).im * a.re + a.im * (ofInt z).re.conj
+    have h_im_zero : (ofInt z).im = 0 := rfl
+    have h_re_eq : (ofInt z).re
+                = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z := rfl
+    rw [h_im_zero, h_re_eq,
+        Ring213.zero_mul, Ring213.zero_mul,
+        Ring213.add_zero, Ring213.zero_add,
+        zsqrt_ofInt_conj_self z]
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
