@@ -327,4 +327,72 @@ theorem cd_normSq_mul (u v : CDDouble α) :
       self_mul_conj v.re, conj_mul_self v.im,
       ofInt_add, ofInt_add, ofInt_mul]
 
+/-- Parenthesised-central commute on `CDDouble α`:
+    `(u · ofInt z) · conj u = ofInt z · (u · conj u)`.  Both components
+    reduce, via `ofInt_central` + base associativity, to
+    `ofInt z · (u.re·conj u.re)  +  ofInt z · (conj u.im·u.im)` resp. `0`. -/
+theorem cd_ofInt_paren_central (z : Int) (u : CDDouble α) :
+    (u * cdm_ofInt z) * CDDouble.conj u
+      = cdm_ofInt z * (u * CDDouble.conj u) := by
+  apply CDDouble.ext
+  · show (u.re * ofInt z + -(conj 0 * u.im)) * conj u.re
+         + -(conj (-u.im) * (0 * u.re + u.im * conj (ofInt z)))
+       = ofInt z * (u.re * conj u.re + -(conj (-u.im) * u.im))
+         + -(conj ((-u.im) * u.re + u.im * conj (conj u.re)) * 0)
+    rw [base_conj_zero, Ring213.zero_mul u.im, base_neg_zero, Ring213.add_zero,
+        Ring213.zero_mul u.re, Ring213.zero_add, ofInt_conj,
+        base_conj_neg u.im, Ring213.neg_mul (conj u.im) (u.im * ofInt z),
+        Ring213.neg_neg, Ring213.mul_zero, base_neg_zero, Ring213.add_zero,
+        Ring213.neg_mul (conj u.im) u.im, Ring213.neg_neg,
+        Ring213.mul_add (ofInt z) (u.re * conj u.re) (conj u.im * u.im),
+        ← ofInt_central z u.re, Ring213.mul_assoc (ofInt z) u.re (conj u.re),
+        show u.im * ofInt z = ofInt z * u.im from (ofInt_central z u.im).symm,
+        ← Ring213.mul_assoc (conj u.im) (ofInt z) u.im,
+        ← ofInt_central z (conj u.im),
+        Ring213.mul_assoc (ofInt z) (conj u.im) u.im]
+  · show (-u.im) * (u.re * ofInt z + -(conj 0 * u.im))
+         + (0 * u.re + u.im * conj (ofInt z)) * conj (conj u.re)
+       = ((-u.im) * u.re + u.im * conj (conj u.re)) * ofInt z
+         + 0 * conj (u.re * conj u.re + -(conj (-u.im) * u.im))
+    rw [base_conj_zero, Ring213.zero_mul u.im, base_neg_zero, Ring213.add_zero,
+        Ring213.zero_mul u.re, Ring213.zero_add, ofInt_conj,
+        StarRing213.conj_conj u.re, Ring213.zero_mul, Ring213.add_zero,
+        Ring213.neg_mul u.im (u.re * ofInt z),
+        Ring213.mul_assoc u.im (ofInt z) u.re, ofInt_central z u.re,
+        Ring213.add_mul ((-u.im) * u.re) (u.im * u.re) (ofInt z),
+        Ring213.neg_mul u.im u.re, Ring213.neg_mul (u.im * u.re) (ofInt z),
+        Ring213.mul_assoc u.im u.re (ofInt z),
+        Ring213.add_left_neg (u.im * (u.re * ofInt z))]
+
+/-- **Moufang norm-collapse for `CDDouble α` over a non-commutative
+    base.**  `(u·v)·(conj v·conj u) = u·(v·conj v)·conj u`.  Both sides
+    collapse to the central scalar `ofInt (|u|²·|v|²)`; the LHS via
+    `cd_normSq_mul` (the polarization Hurwitz identity), the RHS via
+    `cd_ofInt_paren_central`.  Not circular: `cd_normSq_mul` does not
+    use Moufang. -/
+theorem cd_moufang_norm (u v : CDDouble α) :
+    (u * v) * (CDDouble.conj v * CDDouble.conj u)
+      = u * (v * CDDouble.conj v) * CDDouble.conj u := by
+  rw [← cd_conj_mul u v, cd_self_mul_conj (u * v), cd_normSq_mul u v,
+      cd_self_mul_conj v, cd_ofInt_paren_central (cdm_normSq v) u,
+      cd_self_mul_conj u, cd_ofInt_mul,
+      E213.Meta.Int213.mul_comm (cdm_normSq v) (cdm_normSq u)]
+
+/-! ## §4 — Abstract `MoufangIntegerNormed213 (CDDouble α)` instance -/
+
+/-- ★ The Cayley-layer Hurwitz norm via typeclass, for `CDDouble` of any
+    non-commutative trace-normed base.  Once registered, the generic
+    `MoufangIntegerNormed213.normSq_mul` gives `|u·v|² = |u|²·|v|²` on the
+    CDDouble carrier with no per-instance polynomial expansion. -/
+instance instMoufangIntegerNormed213CDDouble :
+    MoufangIntegerNormed213 (CDDouble α) where
+  ofInt               := cdm_ofInt
+  normSq              := cdm_normSq
+  self_mul_conj       := cd_self_mul_conj
+  ofInt_mul           := cd_ofInt_mul
+  ofInt_central       := cd_ofInt_central
+  ofInt_inj           := cd_ofInt_inj
+  moufang_norm        := cd_moufang_norm
+  ofInt_paren_central := cd_ofInt_paren_central
+
 end E213.Meta.Algebra213
