@@ -337,4 +337,76 @@ theorem normSq_mul (u v : ZOmegaDouble) :
       = ZOmegaDouble.normSq u * ZOmegaDouble.normSq v :=
   IntegerNormed213.normSq_mul u v
 
+/-! ## §7 — Phase 4 foundation: `normSq_conj` + reverse self_mul_conj
+
+For the Moufang norm-collapse identity at the CDDouble layer
+(ZOmegaQuad / Cayley analog), we need the "reverse-order" form
+`conj a * a = ofInt (normSq a)`.  This follows from `self_mul_conj`
+applied to `conj a` plus `normSq (conj a) = normSq a` (norm is
+conj-invariant). -/
+
+/-- ZOmega-level `normSq (conj a) = normSq a`.  Pure typeclass proof:
+    use commutativity (ZOmega is CommRing213) to bridge between
+    `a · conj a = ofInt (normSq a)` and `conj a · a = ofInt (normSq (conj a))`,
+    then apply `ofInt_inj`.  Avoids any polynomial expansion of the
+    `(a.re - a.im)² - …` form, and avoids the propext-leaking
+    `simp only [neg_add, …]` path. -/
+private theorem zomega_normSq_conj (a : ZOmega.ZOmega) :
+    ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj a)
+      = ZOmega.ZOmega.normSq a := by
+  have h1 : a * ZOmega.ZOmega.conj a
+          = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq a) :=
+    @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ a
+  have h_self_cc : ZOmega.ZOmega.conj a * ZOmega.ZOmega.conj (ZOmega.ZOmega.conj a)
+                 = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj a)) :=
+    @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ (ZOmega.ZOmega.conj a)
+  have h_cc : ZOmega.ZOmega.conj (ZOmega.ZOmega.conj a) = a :=
+    @StarRing213.conj_conj ZOmega.ZOmega _ a
+  rw [h_cc] at h_self_cc
+  -- h_self_cc : conj a * a = ofInt (normSq (conj a))
+  have h_comm : a * ZOmega.ZOmega.conj a = ZOmega.ZOmega.conj a * a :=
+    @CommRing213.mul_comm ZOmega.ZOmega _ a (ZOmega.ZOmega.conj a)
+  -- Combine: ofInt (normSq a) = a * conj a = conj a * a = ofInt (normSq (conj a))
+  have h_combined : ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq a)
+                  = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj a)) :=
+    h1.symm.trans (h_comm.trans h_self_cc)
+  exact (@IntegerNormed213.ofInt_inj ZOmega.ZOmega _ _ _ h_combined).symm
+
+/-- ZOmega-level `normSq (-a) = normSq a` — direct via `(-x)² = x²`. -/
+private theorem zomega_normSq_neg (a : ZOmega.ZOmega) :
+    ZOmega.ZOmega.normSq (-a) = ZOmega.ZOmega.normSq a := by
+  show (-a.re) * (-a.re) - (-a.re) * (-a.im) + (-a.im) * (-a.im)
+     = a.re * a.re - a.re * a.im + a.im * a.im
+  rw [show ∀ x y : Int, (-x) * (-y) = x * y from fun x y => by
+        rw [E213.Meta.Int213.neg_mul, E213.Meta.Int213.mul_neg,
+            Int.neg_neg],
+      show ∀ x y : Int, (-x) * (-y) = x * y from fun x y => by
+        rw [E213.Meta.Int213.neg_mul, E213.Meta.Int213.mul_neg,
+            Int.neg_neg],
+      show ∀ x y : Int, (-x) * (-y) = x * y from fun x y => by
+        rw [E213.Meta.Int213.neg_mul, E213.Meta.Int213.mul_neg,
+            Int.neg_neg]]
+
+/-- ★ ZOmegaDouble-level `normSq (conj u) = normSq u`.  Componentwise
+    via the two ZOmega-level facts above. -/
+theorem normSq_conj (u : ZOmegaDouble) :
+    ZOmegaDouble.normSq (ZOmegaDouble.conj u) = ZOmegaDouble.normSq u := by
+  show ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj u.re)
+         + ZOmega.ZOmega.normSq (-u.im)
+     = ZOmega.ZOmega.normSq u.re + ZOmega.ZOmega.normSq u.im
+  rw [zomega_normSq_conj u.re, zomega_normSq_neg u.im]
+
+/-- ★ Reverse-order self_mul_conj for ZOmegaDouble:
+    `conj a * a = ofInt (normSq a)`.  Derived from forward
+    `self_mul_conj` applied to `conj a` + `normSq_conj`. -/
+theorem conj_mul_self (u : ZOmegaDouble) :
+    ZOmegaDouble.conj u * u = ofInt (ZOmegaDouble.normSq u) := by
+  have h_forward : ZOmegaDouble.conj u * ZOmegaDouble.conj (ZOmegaDouble.conj u)
+                 = ofInt (ZOmegaDouble.normSq (ZOmegaDouble.conj u)) :=
+    @IntegerNormed213.self_mul_conj ZOmegaDouble _ (ZOmegaDouble.conj u)
+  rw [show ZOmegaDouble.conj (ZOmegaDouble.conj u) = u from
+        @StarRing213.conj_conj ZOmegaDouble _ u,
+      normSq_conj u] at h_forward
+  exact h_forward
+
 end E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
