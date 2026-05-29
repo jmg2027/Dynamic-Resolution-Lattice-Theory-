@@ -106,14 +106,35 @@ quaternion-analog layers in both base towers.
     derives Hurwitz norm-multiplicativity at all six.  ZSqrt[D]
     auto-derives for any D specialization (ZSqrt 2, ZSqrt -2,
     ZSqrt 3, ...).
+  · **Phase 4+ non-assoc parametric instances on CDDouble** (commit
+    `97d04d9`): weaken `conj_mul'` in `CDDoubleStar.lean` from
+    `[CommStarRing213 α]` to `[StarRing213 α]` (proof needs only
+    additive comm + neg_add/neg_mul + base anti-distrib conj_mul; no
+    multiplicative comm).  Add parametric instances:
+      · `instNonAssocRing213CDDoubleStar    [StarRing213 α]`
+      · `instNonAssocStarRing213CDDoubleStar [StarRing213 α]`
+    These fire on any non-commutative associative *-ring base,
+    unlocking the Cayley-analog layer typeclass status throughout.
+  · **Phase 4+ ZOmegaQuad NonAssocStarRing213** (commit `97d04d9`):
+    Type C L4 (24 units, M_24 Chein loop) registers as
+    NonAssocRing213 + NonAssocStarRing213 via toCDDouble bridge.
+    [propext]-only purity.
+  · **Phase 4+ L4T + Cayley NonAssocStarRing213** (commit `75333f2`):
+    completes the alt-layer cross-tower coverage:
+      - Type A L3 Cayley = CDDouble Lipschitz  (strict ∅-axiom!)
+      - Type B L4 L4T    = CDDouble L3T        ([propext])
+    All 3 alternative non-associative carriers now sit in the
+    typeclass hierarchy.  `CayleyAlgebra213.lean` (NEW, ~170 lines)
+    is the Type A L3 file mirroring ZOmegaQuad/L4T bridge.
 
-**Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
-identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad
-(both sides reduce to `ofInt(N u · N v)`).  The proof requires
-Hurwitz-Diophantus polynomial expansion at the ZOmegaDouble →
-Int level — the residue `(cb*da - acb*d) + (a*d*bc* - d*bc*a*)`
-factors as `X + X*` and vanishes via composition-algebra
-structure on ZOmegaDouble.  Estimated 100-200 lines focused work.
+**Phase 4 capstone (deferred deep work — `moufang_norm` at alt layer)**:
+the Moufang norm-collapse identity `(uv)(v*u*) = u(vv*)u*` at the
+Cayley/ZOmegaQuad/L4T layer reduces to `N(uv) = N(u)·N(v)` (Hurwitz
+norm-multiplicativity) since `vv* = ofInt(N(v))` is central.  The
+proof requires Hurwitz-Diophantus polynomial expansion at the base
+Int level — same structural obstruction across all 3 towers.
+Estimated 100-200 lines focused work per concrete instance, or one
+abstract polynomial-identity lemma usable parametrically.
 
 Then Phases 5-6 (SHIFT RULE abstract functor + base-parametric
 tower constructor).  Full plan in
