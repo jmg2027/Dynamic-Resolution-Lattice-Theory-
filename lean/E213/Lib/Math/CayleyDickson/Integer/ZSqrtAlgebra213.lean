@@ -4,6 +4,7 @@ import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.CDDouble
 import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
+import E213.Meta.Int213
 
 /-!
 # `ZSqrt[D]` as a `CommStarRing213` / `IntegerNormed213` instance
@@ -99,8 +100,9 @@ private theorem conj_mul' (u v : ZSqrt D) :
 
 /-! ## §3 — Ring axioms via Int213 polynomial AC normalization -/
 
-/-- mul_assoc.re polynomial identity for ZSqrt[D].  AC `simp only`
-    over PURE Int213 ring set. -/
+/-- ★ ∅-axiom mul_assoc.re polynomial identity for ZSqrt[D].
+    Safe-simp (no comm rewrites) + explicit `mul_left_comm` +
+    `Ring213.add_4_swap_mid` + `add_comm` on inner parens. -/
 private theorem int_zsqrt_mul_assoc_re (D a b c d e f : Int) :
     (a*c - D*(b*d))*e - D*((a*d + b*c)*f)
   = a*(c*e - D*(d*f)) - D*(b*(c*f + d*e)) := by
@@ -108,13 +110,13 @@ private theorem int_zsqrt_mul_assoc_re (D a b c d e f : Int) :
              E213.Meta.Int213.mul_neg, Int.neg_neg,
              E213.Meta.Int213.neg_add,
              E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add,
-             E213.Meta.Int213.mul_assoc, E213.Meta.Int213.mul_comm,
-             E213.Meta.Int213.mul_left_comm,
-             E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-             E213.Meta.Int213.add_left_comm,
-             Int.add_zero, Int.zero_add]
+             E213.Meta.Int213.mul_assoc]
+  rw [E213.Meta.Int213.mul_left_comm D a (d*f)]
+  rw [Ring213.add_4_swap_mid (a*(c*e)) (-(D*(b*(d*e))))
+        (-(a*(D*(d*f)))) (-(D*(b*(c*f))))]
+  rw [E213.Meta.Int213.add_comm (-(D*(b*(d*e)))) (-(D*(b*(c*f))))]
 
-/-- mul_assoc.im polynomial identity for ZSqrt[D]. -/
+/-- ★ ∅-axiom mul_assoc.im polynomial identity for ZSqrt[D]. -/
 private theorem int_zsqrt_mul_assoc_im (D a b c d e f : Int) :
     (a*c - D*(b*d))*f + (a*d + b*c)*e
   = a*(c*f + d*e) + b*(c*e - D*(d*f)) := by
@@ -122,11 +124,11 @@ private theorem int_zsqrt_mul_assoc_im (D a b c d e f : Int) :
              E213.Meta.Int213.mul_neg, Int.neg_neg,
              E213.Meta.Int213.neg_add,
              E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add,
-             E213.Meta.Int213.mul_assoc, E213.Meta.Int213.mul_comm,
-             E213.Meta.Int213.mul_left_comm,
-             E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-             E213.Meta.Int213.add_left_comm,
-             Int.add_zero, Int.zero_add]
+             E213.Meta.Int213.mul_assoc]
+  rw [E213.Meta.Int213.mul_left_comm D b (d*f)]
+  rw [Ring213.add_4_swap_mid (a*(c*f)) (-(b*(D*(d*f))))
+        (a*(d*e)) (b*(c*e))]
+  rw [E213.Meta.Int213.add_comm (-(b*(D*(d*f)))) (b*(c*e))]
 
 private theorem mul_assoc' (u v w : ZSqrt D) :
     (u * v) * w = u * (v * w) := by
@@ -142,7 +144,7 @@ private theorem mul_assoc' (u v w : ZSqrt D) :
          + u.im*(v.re*w.re - D*(v.im*w.im))
     exact int_zsqrt_mul_assoc_im D u.re u.im v.re v.im w.re w.im
 
-/-- Right distributivity. -/
+/-- ★ ∅-axiom right distributivity.  Safe-simp + `add_4_swap_mid`. -/
 private theorem add_mul' (u v w : ZSqrt D) :
     (u + v) * w = u * w + v * w := by
   apply ZSqrt.ext
@@ -150,16 +152,17 @@ private theorem add_mul' (u v w : ZSqrt D) :
        = (u.re*w.re - D*(u.im*w.im)) + (v.re*w.re - D*(v.im*w.im))
     simp only [Int.sub_eq_add_neg, E213.Meta.Int213.neg_mul,
                E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_add,
-               E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add,
-               E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-               E213.Meta.Int213.add_left_comm]
+               E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add]
+    exact Ring213.add_4_swap_mid (u.re*w.re) (v.re*w.re)
+            (-(D*(u.im*w.im))) (-(D*(v.im*w.im)))
   · show (u.re + v.re)*w.im + (u.im + v.im)*w.re
        = (u.re*w.im + u.im*w.re) + (v.re*w.im + v.im*w.re)
-    simp only [E213.Meta.Int213.add_mul,
-               E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-               E213.Meta.Int213.add_left_comm]
+    rw [E213.Meta.Int213.add_mul u.re v.re w.im,
+        E213.Meta.Int213.add_mul u.im v.im w.re]
+    exact Ring213.add_4_swap_mid (u.re*w.im) (v.re*w.im)
+            (u.im*w.re) (v.im*w.re)
 
-/-- Left distributivity (= add_mul via mul_comm, but proven directly). -/
+/-- ★ ∅-axiom left distributivity.  Safe-simp + `add_4_swap_mid`. -/
 private theorem mul_add' (u v w : ZSqrt D) :
     u * (v + w) = u * v + u * w := by
   apply ZSqrt.ext
@@ -167,14 +170,15 @@ private theorem mul_add' (u v w : ZSqrt D) :
        = (u.re*v.re - D*(u.im*v.im)) + (u.re*w.re - D*(u.im*w.im))
     simp only [Int.sub_eq_add_neg, E213.Meta.Int213.neg_mul,
                E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_add,
-               E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add,
-               E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-               E213.Meta.Int213.add_left_comm]
+               E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_add]
+    exact Ring213.add_4_swap_mid (u.re*v.re) (u.re*w.re)
+            (-(D*(u.im*v.im))) (-(D*(u.im*w.im)))
   · show u.re*(v.im + w.im) + u.im*(v.re + w.re)
        = (u.re*v.im + u.im*v.re) + (u.re*w.im + u.im*w.re)
-    simp only [E213.Meta.Int213.mul_add,
-               E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_comm,
-               E213.Meta.Int213.add_left_comm]
+    rw [E213.Meta.Int213.mul_add u.re v.im w.im,
+        E213.Meta.Int213.mul_add u.im v.re w.re]
+    exact Ring213.add_4_swap_mid (u.re*v.im) (u.re*w.im)
+            (u.im*v.re) (u.im*w.re)
 
 /-! ## §4 — ofInt + self_mul_conj -/
 
@@ -188,21 +192,21 @@ private theorem ofInt_mul' (a b : Int) :
     ofInt D a * ofInt D b = ofInt D (a * b) := by
   apply ZSqrt.ext
   · show a * b - D * (0 * 0) = a * b
-    rw [Int.zero_mul, Int.mul_zero]
-    exact Int.sub_zero _
+    rw [E213.Meta.Int213.zero_mul, Int.mul_zero,
+        Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
   · show a * 0 + 0 * b = 0
-    rw [Int.mul_zero, Int.zero_mul]
+    rw [Int.mul_zero, E213.Meta.Int213.zero_mul]
     rfl
 
 private theorem ofInt_central' (z : Int) (a : ZSqrt D) :
     ofInt D z * a = a * ofInt D z := by
   apply ZSqrt.ext
   · show z*a.re - D*(0*a.im) = a.re*z - D*(a.im*0)
-    rw [Int.zero_mul a.im, Int.mul_zero a.im, Int.mul_zero D,
+    rw [E213.Meta.Int213.zero_mul a.im, Int.mul_zero a.im, Int.mul_zero D,
         E213.Meta.Int213.mul_comm z a.re]
   · show z*a.im + 0*a.re = a.re*0 + a.im*z
-    rw [Int.zero_mul, Int.mul_zero,
-        Int.add_zero, Int.zero_add]
+    rw [E213.Meta.Int213.zero_mul, Int.mul_zero,
+        Int.add_zero, E213.Meta.Int213.zero_add]
     exact E213.Meta.Int213.mul_comm z a.im
 
 private theorem ofInt_inj' {a b : Int} (h : ofInt D a = ofInt D b) : a = b := by
