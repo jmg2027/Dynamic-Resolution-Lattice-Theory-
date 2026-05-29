@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2Tower
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtAlgebra213
 import E213.Meta.Algebra213.CDDoubleStar
+import E213.Meta.Algebra213.AlternativeNormed
 
 /-!
 # `L3T` (= CDDouble ZSqrt[-2]) Algebra213 bridge
@@ -306,5 +307,38 @@ instance : IntegerNormed213 L3T where
 theorem normSq_mul (u v : L3T) :
     L3T.normSq (u * v) = L3T.normSq u * L3T.normSq v :=
   IntegerNormed213.normSq_mul u v
+
+/-! ## §5 — MoufangIntegerNormed213 (associative quaternion-analog) -/
+
+private theorem l3t_moufang_norm (u v : L3T) :
+    (u * v) * (L3T.conj v * L3T.conj u)
+      = u * (v * L3T.conj v) * L3T.conj u := by
+  rw [← Ring213.mul_assoc (u * v) (L3T.conj v) (L3T.conj u),
+      Ring213.mul_assoc u v (L3T.conj v)]
+
+private theorem l3t_ofInt_paren_central (z : Int) (u : L3T) :
+    u * ofInt z * L3T.conj u = ofInt z * (u * L3T.conj u) := by
+  rw [show u * ofInt z = ofInt z * u from
+        (@IntegerNormed213.ofInt_central L3T _ z u).symm,
+      Ring213.mul_assoc (ofInt z) u (L3T.conj u)]
+
+/-- ★ MoufangIntegerNormed213 L3T — Type B L3 associative
+    quaternion-analog (parallel to Lipschitz Type A L2 + ZOmegaDouble
+    Type C L3).  Moufang trivial via mul_assoc. -/
+instance : MoufangIntegerNormed213 L3T where
+  ofInt               := ofInt
+  normSq              := L3T.normSq
+  self_mul_conj       := self_mul_conj'
+  ofInt_mul           := ofInt_mul'
+  ofInt_central       := ofInt_central'
+  ofInt_inj           := ofInt_inj'
+  moufang_norm        := l3t_moufang_norm
+  ofInt_paren_central := l3t_ofInt_paren_central
+
+/-- ★ Generic `MoufangIntegerNormed213.normSq_mul` on L3T —
+    alternative path to the IntegerNormed213-based derivation. -/
+theorem moufang_normSq_mul (u v : L3T) :
+    L3T.normSq (u * v) = L3T.normSq u * L3T.normSq v :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
