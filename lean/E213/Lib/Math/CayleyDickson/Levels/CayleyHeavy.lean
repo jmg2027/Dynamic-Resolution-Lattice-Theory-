@@ -1,9 +1,9 @@
 import E213.Lib.Math.CayleyDickson.Levels.Cayley
 import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
-import E213.Lib.Math.Tactic.HurwitzRing
 import E213.Lib.Math.CayleyDickson.Levels.CayleyAlgebra213
 import E213.Meta.Algebra213.CDDoubleMoufang
+import E213.Meta.Algebra213.CDDoubleAlternative
 
 namespace E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 
@@ -13,25 +13,30 @@ open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-open E213.Tactic
 
-set_option maxHeartbeats 1000000
+-- Octonion alternativity / flexibility: bridged to the abstract
+-- `CDDoubleAlternative` (associative Lipschitz base) — strict ∅-axiom,
+-- replacing the `hurwitz_ring` brute force.
 
 /-- **Left alternativity** (universal): `(a·a)·b = a·(a·b)`. -/
 theorem alt_left (a b : Cayley) : (a * a) * b = a * (a * b) := by
-  hurwitz_ring
-
-open E213.Tactic
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_alt_left (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
 /-- **Right alternativity** (universal): `a·(b·b) = (a·b)·b`. -/
 theorem alt_right (a b : Cayley) : a * (b * b) = (a * b) * b := by
-  hurwitz_ring
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_alt_right (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
 /-- **Flexibility** (universal): `(a·b)·a = a·(b·a)`. -/
 theorem flexible (a b : Cayley) : (a * b) * a = a * (b * a) := by
-  hurwitz_ring
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_flexible (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
-open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- Cayley (octonion) norm-squared:
     `re.normSq + im.normSq` at Lipschitz level. -/
@@ -51,7 +56,7 @@ theorem normSq_mul (u v : Cayley) :
   rw [← E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble_mul] at h
   exact h
 
-open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- `Lipschitz.normSq ≥ 0` (sum of integer squares). -/
 private theorem lip_normSq_nonneg (u : Lipschitz) :
