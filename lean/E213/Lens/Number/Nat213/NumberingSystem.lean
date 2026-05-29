@@ -89,20 +89,7 @@ theorem isoFromMethodA_a (S : NumberingSystem) :
 theorem isoFromMethodA_b (S : NumberingSystem) :
     isoFromMethodA S Raw.b = S.C := rfl
 
-/-- Helper: the result of `Raw.slash` is never `Raw.b`.  `Raw.slash`
-    produces a canonical `Tree.slash` node, and `Tree.slash ≠
-    Tree.b`. -/
-private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
-    Raw.slash x y h ≠ Raw.b := by
-  intro heq
-  have hval : (Raw.slash x y h).val = (Raw.b).val :=
-    congrArg Subtype.val heq
-  unfold Raw.slash at hval
-  split at hval
-  · exact E213.Term.Internal.Tree.noConfusion hval
-  · exact E213.Term.Internal.Tree.noConfusion hval
-  · rename_i hcmp
-    exact h (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
+open E213.Theory renaming Raw.slash_ne_b → slash_ne_b
 
 /-- Helper: every Method A numeral differs from `Raw.b`. -/
 theorem numeral_methodA_ne_b (n : Nat) : numeral methodA n ≠ Raw.b := by

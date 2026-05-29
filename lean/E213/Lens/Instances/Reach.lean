@@ -175,27 +175,7 @@ Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
 + universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
 -/
 
-open E213.Tactic.NatHelper renaming max_comm_pure → nat_max_comm_pure
-
-/-- Helper: result of Raw.slash differs from Raw.a (depth-based proof). -/
-private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
-    Raw.slash x y h ≠ Raw.a := by
-  intro heq
-  have hview := congrArg Lens.depth.view heq
-  have hslash : Lens.depth.view (Raw.slash x y h)
-                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
-    apply Raw.fold_slash
-    intro u v
-    show 1 + max u v = 1 + max v u
-    exact congrArg (1 + ·) (nat_max_comm_pure u v)
-  rw [hslash] at hview
-  show False
-  have h_a : Lens.depth.view Raw.a = 0 := rfl
-  rw [h_a] at hview
-  -- hview : 1 + max ... = 0.  Use Nat.add_comm to get succ form.
-  rw [Nat.add_comm 1 (max _ _)] at hview
-  -- hview : Nat.succ (max ...) = 0 — impossible
-  cases hview
+open E213.Theory renaming Raw.slash_ne_a → slash_ne_a
 
 
 /-! ### natWitness construction note
@@ -209,23 +189,7 @@ Need: ∀ n, r n ≠ Raw.b.  By induction:
 - r (n+1) = slash _ _ _ ≠ Raw.b (proved via slash_ne_b).
 -/
 
-/-- Helper: result of Raw.slash differs from Raw.b. -/
-private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
-    Raw.slash x y h ≠ Raw.b := by
-  intro heq
-  have hview := congrArg Lens.depth.view heq
-  have hslash : Lens.depth.view (Raw.slash x y h)
-                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
-    apply Raw.fold_slash
-    intro u v
-    show 1 + max u v = 1 + max v u
-    exact congrArg (1 + ·) (nat_max_comm_pure u v)
-  rw [hslash] at hview
-  show False
-  have h_b : Lens.depth.view Raw.b = 0 := rfl
-  rw [h_b] at hview
-  rw [Nat.add_comm 1 (max _ _)] at hview
-  cases hview
+open E213.Theory renaming Raw.slash_ne_b → slash_ne_b
 
 
 /-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
