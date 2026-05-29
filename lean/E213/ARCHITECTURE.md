@@ -242,10 +242,10 @@ pass 후):
                 Integration,ODE,Series}` (7 sub-dirs)
   * `GRA/{GRAModel,Common,NumberTheory,Graph,Analysis,Cohomology,
            HoTT,HigherAlgebra,Translation,Category,Groupoid,Hom,
-           DepthFunctor,WalkEnrichment,CochainEnrichment,
-           HoTTEnrichment,HigherAlgebraEnrichment,AnalysisEnrichment,
-           Naturality,SectionRetraction,Monoidal}` (21 files,
-    ~3700 lines) — Graded Residue Arithmetic.  Phases 1–6:
+           DepthFunctor,Enrichment,CarrierRealization,
+           HasDistinguishing213,LensBridge,LensIsoCapstone,
+           Universality23,Naturality,SectionRetraction,Monoidal}`
+    (22 files) — Graded Residue Arithmetic.  Phases 1–6:
     7-axiom typeclass + 5 Reading instances + iso capstone +
     translation programme with universal depth comparison
     `⌈n/3⌉ ≤ (n+1)/2` valid in all five Readings simultaneously.

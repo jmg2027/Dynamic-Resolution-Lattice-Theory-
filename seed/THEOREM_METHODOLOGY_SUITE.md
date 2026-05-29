@@ -550,11 +550,11 @@ retired.
   · `lean/E213/Lib/Math/Cohomology/Cochain/Core.lean` — example
     of generic-substrate carrier type (`Cochain n k := Fin _ →
     Bool`).
-  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizAlgLiftBeta.lean` —
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLiftBeta.lean` —
     β-side generic helper.
-  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizAlgLiftAlpha.lean` —
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLiftAlpha.lean` —
     α-side generic helper with `castA / castB` plumbing.
-  · `lean/E213/Lib/Math/Cohomology/Cup/LeibnizAlgLift{21,22,21Alpha,22Alpha}.lean`
+  · `lean/E213/Lib/Math/Cohomology/CupAW/LeibnizAlgLift{21,22,21Alpha,22Alpha}.lean`
     — 4 corollaries.
 
 ### Companions

@@ -263,8 +263,8 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `LESSONS_LEARNED.md` — 이 파일
 - `seed/AXIOM/` — axiom seed doc
 - `seed/AXIOM/01_residue.md` — 213 철학
-- `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
-- `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
+- `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean` — finitist 입장
+- `lean/E213/Lib/Physics/AlphaEM/Capstone.lean` — α_em 닫힘
 - `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
 - `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
@@ -320,7 +320,7 @@ chain으로 노출.
 
 **근거 — 출처**:
 - `research-notes/G2_trajectory_principle.md` (이 통찰의 종합)
-- `lean/E213/Meta/Tactic/Nat213.lean` (trajectory 어휘 형식화)
+- `lean/E213/Lens/Number/Nat213.lean` (trajectory 어휘 형식화)
 - `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
 
 **가드레일**: 마이그레이션을 단순 "axiom 줄이기 chore"로 보지 말 것.

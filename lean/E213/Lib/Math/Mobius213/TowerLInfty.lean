@@ -3,7 +3,7 @@ import E213.Lib.Math.Mobius213
 /-!
 # Mobius213.TowerLInfty — G61 structural questions formalised
 
-`research-notes/G61_213_tower_research_candidates.md` poses five
+`research-notes/archive/G61_213_tower_research_candidates.md` poses five
 structural questions about the 213-tower (the lattice built by
 P-iteration of `[[2, 1], [1, 1]]`).  This module closes three of
 them as ∅-axiom theorems and records the bookkeeping for the
