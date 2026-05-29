@@ -56,6 +56,20 @@ for n,s in enumerate(L):
     print(f"  S_{n}: |S|={len(s):5d}  distinct 1D positions={dpos:5d}  "
           f"(Lens loses {len(s)-dpos})")
 
+# ---- FAITHFULNESS: set-equal to Lean's explicit enumeration ----
+# (RawDepth3.lean defines depthLe3List = depthLe2List ++ [t1..t7] with
+#  s_ab=a/b, s_a_ab=a/(a/b), s_b_ab=b/(a/b); t1..t7 the 7 depth-3 pairs.)
+def _fs(*xs): return frozenset(xs)
+_s_ab = _fs(A, B); _saab = _fs(A, _s_ab); _sbab = _fs(B, _s_ab)
+_lean_d2 = {A, B, _s_ab, _saab, _sbab}
+_lean_d3 = _lean_d2 | {_fs(_saab, _sbab), _fs(A, _saab), _fs(B, _saab),
+                       _fs(_s_ab, _saab), _fs(A, _sbab), _fs(B, _sbab),
+                       _fs(_s_ab, _sbab)}
+assert L[2] == _lean_d2, "S_2 != RawDepthCount.depthLe2List"
+assert L[3] == _lean_d3, "S_3 != RawDepth3.depthLe3List"
+print("FAITHFULNESS: S_2, S_3 SET-EQUAL to Lean depthLe{2,3}List "
+      "(RawDepth3.lean, structure not count): PASS")
+
 fig = plt.figure(figsize=(15, 11))
 
 # Panel A: counts + completeness
