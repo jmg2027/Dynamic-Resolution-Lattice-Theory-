@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Tower.CDDouble
 import E213.Lib.Math.CayleyDickson.Integer.ZIAlgebra213
 import E213.Meta.Algebra213.Core
+import E213.Meta.Algebra213.CDDoubleStar
 import E213.Meta.Int213.Core
 
 /-!
@@ -18,6 +19,41 @@ open E213.Meta.Algebra213
 
 /-- `ofInt n = ⟨ZI.ofInt n, 0⟩`. -/
 def ofInt (n : Int) : Lipschitz := ⟨ZI.ofInt n, 0⟩
+
+/-! ## Bridge to abstract `CDDouble ZI` (enables abstract Hurwitz extension). -/
+
+/-- Lipschitz → abstract CDDouble ZI. -/
+def toCDDouble (u : Lipschitz) : CDDouble ZI := ⟨u.re, u.im⟩
+
+/-- Abstract CDDouble ZI → Lipschitz. -/
+def fromCDDouble (u : CDDouble ZI) : Lipschitz := ⟨u.re, u.im⟩
+
+theorem to_from (u : CDDouble ZI) : toCDDouble (fromCDDouble u) = u := by
+  cases u; rfl
+
+theorem from_to (u : Lipschitz) : fromCDDouble (toCDDouble u) = u := by
+  cases u; rfl
+
+theorem toCDDouble_inj {u v : Lipschitz}
+    (h : toCDDouble u = toCDDouble v) : u = v := by
+  have := congrArg fromCDDouble h
+  rwa [from_to, from_to] at this
+
+theorem toCDDouble_mul (u v : Lipschitz) :
+    toCDDouble (u * v) = toCDDouble u * toCDDouble v := by
+  apply CDDouble.ext
+  · show (u * v).re = u.re * v.re + -(StarRing213.conj v.im * u.im)
+    show u.re * v.re - ZI.conj v.im * u.im
+       = u.re * v.re + -(StarRing213.conj v.im * u.im)
+    rfl
+  · show (u * v).im = v.im * u.re + u.im * StarRing213.conj v.re
+    rfl
+
+theorem toCDDouble_conj (u : Lipschitz) :
+    toCDDouble (Lipschitz.conj u) = CDDouble.conj (toCDDouble u) := by
+  apply CDDouble.ext
+  · show ZI.conj u.re = StarRing213.conj u.re; rfl
+  · show -u.im = -u.im; rfl
 
 private theorem add_assoc' (u v w : Lipschitz) : u + v + w = u + (v + w) := by
   apply ext
@@ -138,25 +174,15 @@ private theorem conj_ofInt_zi (z : Int) :
   · show z = z; rfl
   · show -(0 : Int) = 0; exact Int.neg_zero
 
-/-- ∅-axiom: `ofInt a * ofInt b = ofInt (a * b)` for Lipschitz. -/
+/-- ★ Bridge-based `ofInt_mul`: derive from abstract
+    `IntegerNormed213 (CDDouble ZI)` via `toCDDouble`.  Replaces a
+    ~18-line proof with a 5-line bridge projection. -/
 private theorem ofInt_mul' (a b : Int) :
     ofInt a * ofInt b = ofInt (a * b) := by
-  apply ext
-  · show ZI.ofInt a * ZI.ofInt b - ZI.conj 0 * 0 = ZI.ofInt (a * b)
-    rw [conj_zero_zi, Ring213.zero_mul]
-    -- Goal: ZI.ofInt a * ZI.ofInt b - 0 = ZI.ofInt (a * b)
-    rw [show ((ZI.ofInt a * ZI.ofInt b - 0 : ZI))
-            = ZI.ofInt a * ZI.ofInt b
-        from by
-          show ZI.ofInt a * ZI.ofInt b + (-0 : ZI) = _
-          rw [show (-0 : ZI) = 0 from by
-                apply ZI.ext
-                · show -(0 : Int) = 0; exact Int.neg_zero
-                · show -(0 : Int) = 0; exact Int.neg_zero]
-          exact Ring213.add_zero _]
-    exact IntegerNormed213.ofInt_mul a b
-  · show 0 * ZI.ofInt a + 0 * (ZI.ofInt b).conj = 0
-    rw [conj_ofInt_zi b, Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul]
+  show toCDDouble (ofInt a) * toCDDouble (ofInt b) = toCDDouble (ofInt (a * b))
+  exact @IntegerNormed213.ofInt_mul (CDDouble ZI) _ a b
 
 /-- ∅-axiom: `ofInt_inj`. -/
 private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
@@ -165,68 +191,27 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   exact h_int
 
 
-/-- ★ ∅-axiom Lipschitz `self_mul_conj`: `z * conj z = ofInt z.normSq`.
-    Uses ZI's `IntegerNormed213.self_mul_conj` recursively + ZI mul_comm
-    (since ZI is commutative).  No Int polynomial expansion. -/
+/-- ★ Bridge-based Lipschitz `self_mul_conj`: derive from abstract
+    `IntegerNormed213 (CDDouble ZI)` via `toCDDouble`.  Replaces a
+    ~35-line hand-written proof with a 5-line bridge projection. -/
 private theorem self_mul_conj' (z : Lipschitz) :
     z * conj z = ofInt (Lipschitz.normSq z) := by
-  apply ext
-  · -- re: z.re * z.re.conj - (-z.im).conj * z.im
-    show z.re * z.re.conj - (-z.im).conj * z.im
-       = ZI.ofInt (z.re.normSq + z.im.normSq)
-    -- conj_neg: (-z.im).conj = -(z.im.conj)
-    rw [ZI.conj_neg z.im]
-    -- (-z.im.conj) * z.im = -(z.im.conj * z.im)  [Ring213.neg_mul at ZI level]
-    rw [Ring213.neg_mul z.im.conj z.im]
-    -- a - (-b) = a + b via sub_eq_add_neg + neg_neg
-    show z.re * z.re.conj + (-(-(z.im.conj * z.im)))
-       = ZI.ofInt (z.re.normSq + z.im.normSq)
-    rw [Ring213.neg_neg (z.im.conj * z.im)]
-    -- Goal: z.re * z.re.conj + z.im.conj * z.im = ofInt (...)
-    -- ZI.conj is the concrete .conj here, but typeclass uses StarRing213.conj.
-    -- They coincide via the instance.  Convert via `have`:
-    have hre : z.re * z.re.conj = ZI.ofInt z.re.normSq :=
-      @IntegerNormed213.self_mul_conj ZI _ z.re
-    have him : z.im * z.im.conj = ZI.ofInt z.im.normSq :=
-      @IntegerNormed213.self_mul_conj ZI _ z.im
-    have hmc : z.im.conj * z.im = z.im * z.im.conj :=
-      @CommRing213.mul_comm ZI _ z.im.conj z.im
-    rw [hre, hmc, him]
-    exact @IntegerNormed213.ofInt_add ZI _ z.re.normSq z.im.normSq
-  · -- im: -z.im * z.re + z.im * z.re.conj.conj
-    show -z.im * z.re + z.im * z.re.conj.conj = 0
-    rw [ZI.conj_conj z.re]
-    -- Goal: -z.im * z.re + z.im * z.re = 0
-    rw [Ring213.neg_mul z.im z.re]
-    -- Goal: -(z.im * z.re) + z.im * z.re = 0
-    exact Ring213.add_left_neg _
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_conj]
+  show toCDDouble z * CDDouble.conj (toCDDouble z)
+     = toCDDouble (ofInt (Lipschitz.normSq z))
+  exact @IntegerNormed213.self_mul_conj (CDDouble ZI) _ (toCDDouble z)
 
 
-/-- ∅-axiom Lipschitz `ofInt_central`: ofInt z commutes with all a. -/
+/-- ★ Bridge-based `ofInt_central`: derive from abstract
+    `IntegerNormed213 (CDDouble ZI)` via `toCDDouble`.  Replaces a
+    ~22-line proof with a 5-line bridge projection. -/
 private theorem ofInt_central' (z : Int) (a : Lipschitz) :
     ofInt z * a = a * ofInt z := by
-  apply ext
-  · -- LHS .re: (ZI.ofInt z) * a.re - a.im.conj * 0
-    -- RHS .re: a.re * (ZI.ofInt z) - (ZI.conj 0) * a.im
-    show ZI.ofInt z * a.re - a.im.conj * 0
-       = a.re * ZI.ofInt z - ZI.conj 0 * a.im
-    rw [conj_zero_zi]
-    rw [Ring213.mul_zero (a.im.conj : ZI), Ring213.zero_mul (a.im : ZI)]
-    -- Goal: ZI.ofInt z * a.re - 0 = a.re * ZI.ofInt z - 0
-    show ZI.ofInt z * a.re + (-(0 : ZI))
-       = a.re * ZI.ofInt z + (-(0 : ZI))
-    rw [show (-(0 : ZI)) = 0 from by
-          apply ZI.ext
-          · show -(0 : Int) = 0; exact Int.neg_zero
-          · show -(0 : Int) = 0; exact Int.neg_zero,
-        Ring213.add_zero, Ring213.add_zero]
-    exact @CommRing213.mul_comm ZI _ _ _
-  · -- LHS .im: a.im * (ZI.ofInt z) + 0 * a.re.conj
-    -- RHS .im: 0 * a.re + a.im * (ZI.ofInt z).conj
-    show a.im * ZI.ofInt z + 0 * a.re.conj
-       = 0 * a.re + a.im * (ZI.ofInt z).conj
-    rw [conj_ofInt_zi z, Ring213.zero_mul, Ring213.zero_mul,
-        Ring213.add_zero, Ring213.zero_add]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_mul]
+  show toCDDouble (ofInt z) * toCDDouble a = toCDDouble a * toCDDouble (ofInt z)
+  exact @IntegerNormed213.ofInt_central (CDDouble ZI) _ z (toCDDouble a)
 
 
 /-- Generic Ring213 4-term cycle helper: `A + B + C + D = A + C + D + B`. -/
