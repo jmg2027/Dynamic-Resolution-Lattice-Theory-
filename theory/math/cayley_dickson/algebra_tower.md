@@ -6,6 +6,14 @@ past-Moufang layer.
 
 ## Overview
 
+> **This tower is one column of a larger one.**  The Cayley-Dickson
+> tower is the *grade/algebra-axis reading* of the single self-pointing
+> orbit whose algebraic shadow is the Möbius matrix `P = [[2,1],[1,1]]`;
+> its φ-asymptote is P's eigenvalue and its Type C asymptote is conjunct
+> **H** of `Mobius213GrandUnification.grand_unification`.  For the full
+> map (Raw / Möbius / GRA / universe-chain / fractal-cohomology towers
+> as readings of the same object), see `theory/essays/tower_atlas.md`.
+
 ℝ, ℂ, ℍ, 𝕆, ... Are **not** different mathematical worlds.  They
 are *the same structural pair extension* on a common `Cut` substrate,
 layered as a **Cayley-Dickson tower**:
