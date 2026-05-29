@@ -49,29 +49,8 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle (ConsistentOracle)
 open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 
-/-- `1 ≤ 2^n`.  Local clean proof; `Nat.one_le_two_pow` would
-    pull `propext` via Lean-core inequality machinery. -/
-private theorem one_le_two_pow_local : ∀ n, (1:Nat) ≤ 2^n
-  | 0 => Nat.le_refl 1
-  | k+1 => by
-    have ih := one_le_two_pow_local k
-    show 1 ≤ 2^k * 2
-    calc 1 ≤ 2^k := ih
-      _ = 2^k * 1 := (Nat.mul_one _).symm
-      _ ≤ 2^k * 2 := Nat.mul_le_mul_left _ (by decide)
-
-/-- `n + 1 ≤ 2^n`.  Pure structural Nat induction; ∅-axiom via
-    `one_le_two_pow_local` (replacing `Nat.one_le_two_pow` which
-    drags `propext`). -/
-private theorem succ_le_two_pow : ∀ n, n + 1 ≤ 2^n
-  | 0 => by decide
-  | k + 1 => by
-    have ih := succ_le_two_pow k
-    have h2k : 1 ≤ 2^k := one_le_two_pow_local k
-    calc k + 1 + 1 ≤ 2^k + 1 := Nat.add_le_add_right ih 1
-      _ ≤ 2^k + 2^k := Nat.add_le_add_left h2k _
-      _ = 2 * 2^k := (Nat.two_mul _).symm
-      _ = 2^(k+1) := by rw [Nat.pow_succ, Nat.mul_comm]
+open E213.Tactic.Pow213 renaming one_le_two_pow → one_le_two_pow_local
+open E213.Tactic.Pow213 (succ_le_two_pow)
 
 /-- For `n ≥ k` and `m ≥ 1`, `k ≤ 2^(n+1) * m`.
 
