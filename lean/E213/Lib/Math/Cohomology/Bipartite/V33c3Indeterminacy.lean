@@ -137,37 +137,15 @@ theorem psi_kills_imd1 : ∀ σ : CochE, psi (delta1 σ) = false := by
 
 The c=3 ψ is the same XOR-of-9-faces functional, so the
 `psiNatPos` machinery from `V33Indeterminacy` applies verbatim.
-We define `vToNat` here for c=3 face cochains (same `Fin 9` codomain). -/
+`vToNat` and `vToNat_xor` come from `Infrastructure.BoolXORFold`
+(`fin9LiftToNat` / `fin9LiftToNat_xor`, renamed). -/
 
-def vToNat (v : Fin 9 → Bool) : Nat → Bool
-  | 0 => v ⟨0, by decide⟩
-  | 1 => v ⟨1, by decide⟩
-  | 2 => v ⟨2, by decide⟩
-  | 3 => v ⟨3, by decide⟩
-  | 4 => v ⟨4, by decide⟩
-  | 5 => v ⟨5, by decide⟩
-  | 6 => v ⟨6, by decide⟩
-  | 7 => v ⟨7, by decide⟩
-  | 8 => v ⟨8, by decide⟩
-  | _ => false
+open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+  renaming fin9LiftToNat → vToNat, fin9LiftToNat_xor → vToNat_xor
 
 theorem psi_eq_psiNatPos (v : Fin 9 → Bool) :
     psi v = E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold.psiNatPos
               8 (vToNat v) := rfl
-
-theorem vToNat_xor (v w : Fin 9 → Bool) (i : Nat) :
-    vToNat (fun f => xor (v f) (w f)) i = xor (vToNat v i) (vToNat w i) := by
-  match i with
-  | 0 => rfl
-  | 1 => rfl
-  | 2 => rfl
-  | 3 => rfl
-  | 4 => rfl
-  | 5 => rfl
-  | 6 => rfl
-  | 7 => rfl
-  | 8 => rfl
-  | _+9 => rfl
 
 theorem psi_linear (v w : Fin 9 → Bool) :
     psi (fun f => xor (v f) (w f)) = xor (psi v) (psi w) := by
