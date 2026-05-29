@@ -94,10 +94,11 @@ Below this = below standard.  Python + numerical agreement = research
 note, not validation.  **Prohibited**: timeline/ROI considerations.
 **Real target**: precision theorem AND falsifier for the same observable.
 
-## Resolution limit is structural (not "finitism")
+## Fractal-level configuration count (under re-research)
 
-Canonical: `seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a Lens
-output; physics bound `N_U = d^(d²) = 5²⁵` at fractal level 2).
+`configCountD d n = d^(d^n)` is a parametric count-Lens output
+(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); no level privileged.
+`N_U` (`5²⁵` "universe constant") is **removed**; dependents 재연구 필요: `research-notes/RERESEARCH_n_u_removal.md`.
 
 ## Operating principles
 

@@ -55,9 +55,7 @@ open E213.Meta.Tactic.NativeGuard
 -- Span verdict
 #guard_native E213.Lib.Math.PatternCatalog.Span.finalVerdict
 
--- ResolutionLimit (canonical infinity/N_U spec)
--- resolutionInvariantWitness deleted.
-#guard_native E213.Lib.Math.ResolutionLimit.N_U
+-- Cantor anchor + parametric configuration count
 #guard_native E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
 #guard_native E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount
 

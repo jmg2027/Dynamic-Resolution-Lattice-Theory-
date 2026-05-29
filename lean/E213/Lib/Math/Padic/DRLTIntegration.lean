@@ -1,5 +1,5 @@
 import E213.Lib.Math.Padic.Valuation
-import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
 # Real213-p-adic ↔ DRLT integration (Phase 6 anchor)
@@ -7,8 +7,8 @@ import E213.Lib.Math.ResolutionLimit
 The Real213-p-adic framework provides the natural infinite-precision
 limit for the finite-resolution DRLT lattice.  Specifically:
 
-  · DRLT uses `N_U = configCount 2 = 5^25` finite-resolution
-    (per `seed/RESOLUTION_LIMIT_SPEC.md` and `ResolutionLimit.lean`)
+  · DRLT uses the level-2 configuration count `configCount 2 = 5^25`
+    as its finite-resolution slice (`Fractal/ConfigCount.lean`)
   · The 5-adic Real213 (`ZpSeq 5`) gives infinite-precision
     expansions in base 5
   · Truncation at level 25 connects the two: `(x : ZpSeq 5).trunc 25
@@ -38,13 +38,13 @@ open E213.Lib.Math.Padic.Valuation (vAt vAt_zero vAt_one_pos)
   Real213-p-adic ↔ DRLT-lattice alignment: 5-adic integers at
   truncation level 25 fit exactly within DRLT's configCount-2
   resolution. -/
-theorem trunc_25_lt_N_U (x : ZpSeq 5) :
+theorem trunc_25_lt_config2 (x : ZpSeq 5) :
     x.trunc 25 < 5^25 :=
   ZpSeq.trunc_lt_p_pow (by decide) x 25
 
 /-! ## Canonical 5-adic instances at level 25 -/
 
-/-- The 5-adic zero truncated at level 25 = 0 < N_U. -/
+/-- The 5-adic zero truncated at level 25 = 0 < 5^25. -/
 theorem zero_trunc_25 :
     (ZpSeq.zero 5 (by decide)).trunc 25 = 0 :=
   ZpSeq.trunc_zero 5 (by decide) 25
@@ -87,9 +87,9 @@ theorem vAt_one_5adic_level_25 :
   Full DRLT integration (lifting precision-bounded DRLT theorems
   to 5-adic analogues) is the substantive open continuation. -/
 theorem padic_DRLT_alignment :
-    -- N_U bridge
-    E213.Lib.Math.ResolutionLimit.N_U = 5^25
-    -- 5-adic truncation lives in [0, N_U) for any sequence
+    -- level-2 configuration count bridge
+    E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount 2 = 5^25
+    -- 5-adic truncation lives in [0, 5^25) for any sequence
     ∧ (∀ x : ZpSeq 5, x.trunc 25 < 5^25)
     -- Canonical 5-adic instances
     ∧ (ZpSeq.zero 5 (by decide)).trunc 25 = 0
@@ -98,8 +98,8 @@ theorem padic_DRLT_alignment :
     ∧ vAt (ZpSeq.zero 5 (by decide)) 25 = 25
     ∧ vAt (ZpSeq.one 5 (by decide)) 25 = 0 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  · rfl
-  · intro x; exact trunc_25_lt_N_U x
+  · exact E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount_two_pow
+  · intro x; exact trunc_25_lt_config2 x
   · exact zero_trunc_25
   · exact one_trunc_1
   · exact vAt_zero_5adic_level_25
