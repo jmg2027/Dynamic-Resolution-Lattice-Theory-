@@ -221,4 +221,110 @@ theorem hurwitz_norm_re (a b c d : α) :
         (ofInt (normSq a * normSq d)) (ofInt (normSq b * normSq c)),
       Ring213.add_comm (ofInt (normSq b * normSq d)) (ofInt (normSq b * normSq c))]
 
+/-! ## §2 — Base `StarRing213` helpers (conj of `0` / `-`) -/
+
+private theorem base_neg_zero : -(0 : α) = 0 :=
+  ((Ring213.add_left_neg (0 : α)).symm.trans (Ring213.add_zero _)).symm
+
+private theorem base_conj_zero : conj (0 : α) = 0 := by
+  have h : conj (0 : α) = conj 0 + conj 0 := by
+    rw [← StarRing213.conj_add, Ring213.add_zero]
+  have h2 : -conj (0 : α) + conj 0 = 0 := Ring213.add_left_neg _
+  calc conj (0 : α)
+      = 0 + conj 0 := (Ring213.zero_add _).symm
+    _ = (-conj 0 + conj 0) + conj 0 := by rw [h2]
+    _ = -conj 0 + (conj 0 + conj 0) := Ring213.add_assoc _ _ _
+    _ = -conj 0 + conj 0 := by rw [← h]
+    _ = 0 := h2
+
+private theorem base_conj_neg (a : α) : conj (-a) = -(conj a) := by
+  have h0 : conj (-a) + conj a = 0 := by
+    rw [← StarRing213.conj_add, Ring213.add_left_neg, base_conj_zero]
+  calc conj (-a)
+      = conj (-a) + 0 := (Ring213.add_zero _).symm
+    _ = conj (-a) + (conj a + -conj a) := by
+          rw [Ring213.add_comm (conj a) (-conj a), Ring213.add_left_neg]
+    _ = (conj (-a) + conj a) + -conj a := (Ring213.add_assoc _ _ _).symm
+    _ = 0 + -conj a := by rw [h0]
+    _ = -conj a := Ring213.zero_add _
+
+/-! ## §3 — `CDDouble α` integer-normed data (non-comm base) -/
+
+/-- Real-axis integer embed. -/
+def cdm_ofInt (z : Int) : CDDouble α := ⟨ofInt z, 0⟩
+
+/-- Cayley-Dickson norm: sum of component norms. -/
+def cdm_normSq (u : CDDouble α) : Int := normSq u.re + normSq u.im
+
+/-- Anti-distributive conj on `CDDouble α` (re-exported from the
+    parametric `NonAssocStarRing213 (CDDouble α)` instance). -/
+theorem cd_conj_mul (u v : CDDouble α) :
+    CDDouble.conj (u * v) = CDDouble.conj v * CDDouble.conj u :=
+  NonAssocStarRing213.conj_mul u v
+
+/-- `self_mul_conj` for `CDDouble α`: `u · conj u = ofInt (|u|²)`. -/
+theorem cd_self_mul_conj (u : CDDouble α) :
+    u * CDDouble.conj u = cdm_ofInt (cdm_normSq u) := by
+  apply CDDouble.ext
+  · show u.re * conj u.re + -(conj (-u.im) * u.im)
+       = ofInt (normSq u.re + normSq u.im)
+    rw [base_conj_neg u.im, Ring213.neg_mul (conj u.im) u.im, Ring213.neg_neg,
+        self_mul_conj u.re, conj_mul_self u.im, ofInt_add]
+  · show (-u.im) * u.re + u.im * conj (conj u.re) = (0 : α)
+    rw [StarRing213.conj_conj, Ring213.neg_mul u.im u.re, Ring213.add_left_neg]
+
+/-- `ofInt` is multiplicative on `CDDouble α`. -/
+theorem cd_ofInt_mul (a b : Int) :
+    cdm_ofInt a * (cdm_ofInt b : CDDouble α) = cdm_ofInt (a * b) := by
+  apply CDDouble.ext
+  · show ofInt a * ofInt b + -(conj 0 * 0) = ofInt (a * b)
+    rw [base_conj_zero, Ring213.zero_mul, base_neg_zero, Ring213.add_zero,
+        ofInt_mul]
+  · show (0 : α) * ofInt a + 0 * conj (ofInt b) = 0
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+
+/-- `ofInt` is central on `CDDouble α`. -/
+theorem cd_ofInt_central (z : Int) (w : CDDouble α) :
+    cdm_ofInt z * w = w * cdm_ofInt z := by
+  apply CDDouble.ext
+  · show ofInt z * w.re + -(conj w.im * 0) = w.re * ofInt z + -(conj 0 * w.im)
+    rw [Ring213.mul_zero, base_conj_zero, Ring213.zero_mul, ofInt_central z w.re]
+  · show w.im * ofInt z + 0 * conj w.re = 0 * w.re + w.im * conj (ofInt z)
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero, Ring213.zero_add,
+        ofInt_conj]
+
+/-- `ofInt` is injective on `CDDouble α`. -/
+theorem cd_ofInt_inj {a b : Int}
+    (h : (cdm_ofInt a : CDDouble α) = cdm_ofInt b) : a = b :=
+  ofInt_inj (congrArg CDDouble.re h)
+
+/-- **Hurwitz norm composition for `CDDouble α` over a non-commutative
+    base.**  `|u·v|² = |u|²·|v|²`, derived directly from the polarization
+    identity `hurwitz_norm_re` — no Moufang assumption (so the later
+    `cd_moufang_norm` derivation is not circular). -/
+theorem cd_normSq_mul (u v : CDDouble α) :
+    cdm_normSq (u * v) = cdm_normSq u * cdm_normSq v := by
+  apply @IntegerNormed213.ofInt_inj α _
+  show ofInt (normSq (u * v).re + normSq (u * v).im)
+     = ofInt (cdm_normSq u * cdm_normSq v)
+  rw [← ofInt_add, ← self_mul_conj (u * v).re, ← conj_mul_self (u * v).im]
+  show (u.re * v.re + -(conj v.im * u.im))
+         * conj (u.re * v.re + -(conj v.im * u.im))
+        + conj (v.im * u.re + u.im * conj v.re)
+         * (v.im * u.re + u.im * conj v.re)
+     = ofInt ((normSq u.re + normSq u.im) * (normSq v.re + normSq v.im))
+  rw [StarRing213.conj_add (u.re * v.re) (-(conj v.im * u.im)),
+      StarRing213.conj_mul u.re v.re,
+      base_conj_neg (conj v.im * u.im),
+      StarRing213.conj_mul (conj v.im) u.im,
+      StarRing213.conj_conj v.im,
+      StarRing213.conj_add (v.im * u.re) (u.im * conj v.re),
+      StarRing213.conj_mul v.im u.re,
+      StarRing213.conj_mul u.im (conj v.re),
+      StarRing213.conj_conj v.re,
+      hurwitz_norm_re u.re u.im v.re v.im,
+      self_mul_conj u.re, conj_mul_self u.im,
+      self_mul_conj v.re, conj_mul_self v.im,
+      ofInt_add, ofInt_add, ofInt_mul]
+
 end E213.Meta.Algebra213
