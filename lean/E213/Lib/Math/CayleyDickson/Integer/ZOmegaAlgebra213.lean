@@ -3,6 +3,7 @@ import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.CDDouble
 import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
+import E213.Meta.Int213
 
 /-!
 # `ZOmega` as a `CommStarRing213` / `IntegerNormed213` instance
@@ -69,33 +70,51 @@ modulo AC.  Closed by `simp only` with the PURE Int213 ring set
 
 open E213.Meta.Int213
 
-/-- ★ ZOmega mul_assoc.re polynomial identity.  6 Int vars.
-
-    **Purity note**: `simp only [neg_add, ...]` leaks `propext` (Lean
-    simp internal — `neg_add` rewrite goes through `Eq.mp`).  This is
-    a STRICT improvement over `ZOmegaDomain.normSq_mul` which uses
-    `quad_norm` (leaks `[propext, Quot.sound]` — Quot from omega).
-    Future PURE-port: replace `simp only` with hand-written
-    `add_5_cycle`-style reorder helpers per `Misc/QuadIdentities`
-    pattern. -/
+/-- ★ ∅-axiom ZOmega mul_assoc.re polynomial identity (6 Int vars).
+    Closed by safe-simp (no comm rewrites) + single `Ring213.add_5_perm`.
+    Reorders `ace + (-bde) + (-adf + -bcf + bdf)` to
+    `ace + (-adf) + (-bcf + -bde + bdf)` — the Eisenstein -ab shift. -/
 private theorem int_zomega_mul_assoc_re (a b c d e f : Int) :
     (a*c - b*d)*e - (a*d + b*c - b*d)*f
   = a*(c*e - d*f) - b*(c*f + d*e - d*f) := by
   simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
-             neg_add, add_mul, mul_add, mul_assoc,
-             mul_comm, mul_left_comm,
-             add_assoc, add_comm, add_left_comm,
-             Int.add_zero, zero_add]
+             neg_add, add_mul, mul_add, mul_assoc]
+  exact Ring213.add_5_perm (a*(c*e)) (-(b*(d*e))) (-(a*(d*f)))
+                            (-(b*(c*f))) (b*(d*f))
 
-/-- ★ ZOmega mul_assoc.im polynomial identity.  6 Int vars. -/
+/-- ★ ∅-axiom ZOmega mul_assoc.im polynomial identity (6 Int vars).
+    Closed by safe-simp (no comm rewrites, `← add_assoc` flatten) +
+    sequence of 6 `Int213.add_right_comm` swaps.  Permutes 8 terms
+    `[T1=a(cf), T2=-b(df), T3=a(de), T4=b(ce), T5=-b(de), T6=-a(df),
+      T7=-b(cf), T8=b(df)]` (LHS) into RHS order
+    `[T1, T3, T6, T4, T2, T7, T5, T8]`. -/
 private theorem int_zomega_mul_assoc_im (a b c d e f : Int) :
     (a*c - b*d)*f + (a*d + b*c - b*d)*e - (a*d + b*c - b*d)*f
   = a*(c*f + d*e - d*f) + b*(c*e - d*f) - b*(c*f + d*e - d*f) := by
   simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
-             neg_add, add_mul, mul_add, mul_assoc,
-             mul_comm, mul_left_comm,
-             add_assoc, add_comm, add_left_comm,
-             Int.add_zero, zero_add]
+             neg_add, add_mul, mul_add, mul_assoc, ← add_assoc]
+  -- Swap 1 (pos 2↔3): T1 T3 T2 T4 T5 T6 T7 T8
+  rw [E213.Meta.Int213.add_right_comm (a*(c*f)) (-(b*(d*f))) (a*(d*e))]
+  -- Swap 2 (pos 5↔6): T1 T3 T2 T4 T6 T5 T7 T8
+  rw [E213.Meta.Int213.add_right_comm
+        (a*(c*f) + a*(d*e) + -(b*(d*f)) + b*(c*e))
+        (-(b*(d*e))) (-(a*(d*f)))]
+  -- Swap 3 (pos 4↔5): T1 T3 T2 T6 T4 T5 T7 T8
+  rw [E213.Meta.Int213.add_right_comm
+        (a*(c*f) + a*(d*e) + -(b*(d*f)))
+        (b*(c*e)) (-(a*(d*f)))]
+  -- Swap 4 (pos 3↔4): T1 T3 T6 T2 T4 T5 T7 T8
+  rw [E213.Meta.Int213.add_right_comm
+        (a*(c*f) + a*(d*e))
+        (-(b*(d*f))) (-(a*(d*f)))]
+  -- Swap 5 (pos 4↔5): T1 T3 T6 T4 T2 T5 T7 T8
+  rw [E213.Meta.Int213.add_right_comm
+        (a*(c*f) + a*(d*e) + -(a*(d*f)))
+        (-(b*(d*f))) (b*(c*e))]
+  -- Swap 6 (pos 6↔7): T1 T3 T6 T4 T2 T7 T5 T8 ✓
+  rw [E213.Meta.Int213.add_right_comm
+        (a*(c*f) + a*(d*e) + -(a*(d*f)) + b*(c*e) + -(b*(d*f)))
+        (-(b*(d*e))) (-(b*(c*f)))]
 
 /-- ★ ZOmega multiplication is associative.  6 Int var polynomial
     identity; closed via `int_zomega_mul_assoc_{re,im}`. -/
@@ -117,38 +136,67 @@ private theorem mul_assoc' (u v w : ZOmega) :
 
 /-! ## §3 — distributivity (add_mul, mul_add) + conj_add -/
 
+/-! ### ∅-axiom 6-term interleave helper (replaces `simp only [add_comm]`).
+    `(a₁ + a₂) + (b₁ + b₂) + (c₁ + c₂) = (a₁ + b₁ + c₁) + (a₂ + b₂ + c₂)` —
+    two applications of `Ring213.add_4_swap_mid` (Int specialisation,
+    strict ∅-axiom). -/
+private theorem add_6_interleave (a₁ a₂ b₁ b₂ c₁ c₂ : Int) :
+    a₁ + a₂ + (b₁ + b₂) + (c₁ + c₂)
+  = a₁ + b₁ + c₁ + (a₂ + b₂ + c₂) := by
+  rw [Ring213.add_4_swap_mid a₁ a₂ b₁ b₂]
+  exact Ring213.add_4_swap_mid (a₁ + b₁) (a₂ + b₂) c₁ c₂
+
 private theorem add_mul' (u v w : ZOmega) :
     (u + v) * w = u * w + v * w := by
   apply ext
   · show (u.re + v.re)*w.re - (u.im + v.im)*w.im
        = (u.re*w.re - u.im*w.im) + (v.re*w.re - v.im*w.im)
-    simp only [Int.sub_eq_add_neg, add_mul, neg_add, mul_add,
-               add_assoc, add_comm, add_left_comm]
+    rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
+        E213.Meta.Int213.add_mul u.re v.re w.re,
+        E213.Meta.Int213.add_mul u.im v.im w.im,
+        E213.Meta.Int213.neg_add (u.im*w.im) (v.im*w.im)]
+    exact Ring213.add_4_swap_mid (u.re*w.re) (v.re*w.re) (-(u.im*w.im))
+                                  (-(v.im*w.im))
   · show (u.re + v.re)*w.im + (u.im + v.im)*w.re - (u.im + v.im)*w.im
        = (u.re*w.im + u.im*w.re - u.im*w.im)
          + (v.re*w.im + v.im*w.re - v.im*w.im)
-    simp only [Int.sub_eq_add_neg, add_mul, neg_add, mul_add,
-               add_assoc, add_comm, add_left_comm]
+    rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
+        E213.Meta.Int213.add_mul u.re v.re w.im,
+        E213.Meta.Int213.add_mul u.im v.im w.re,
+        E213.Meta.Int213.add_mul u.im v.im w.im,
+        E213.Meta.Int213.neg_add (u.im*w.im) (v.im*w.im)]
+    exact add_6_interleave (u.re*w.im) (v.re*w.im) (u.im*w.re) (v.im*w.re)
+                            (-(u.im*w.im)) (-(v.im*w.im))
 
 private theorem mul_add' (u v w : ZOmega) :
     u * (v + w) = u * v + u * w := by
   apply ext
   · show u.re*(v.re + w.re) - u.im*(v.im + w.im)
        = (u.re*v.re - u.im*v.im) + (u.re*w.re - u.im*w.im)
-    simp only [Int.sub_eq_add_neg, mul_add, neg_add, add_mul,
-               add_assoc, add_comm, add_left_comm]
+    rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
+        E213.Meta.Int213.mul_add u.re v.re w.re,
+        E213.Meta.Int213.mul_add u.im v.im w.im,
+        E213.Meta.Int213.neg_add (u.im*v.im) (u.im*w.im)]
+    exact Ring213.add_4_swap_mid (u.re*v.re) (u.re*w.re) (-(u.im*v.im))
+                                  (-(u.im*w.im))
   · show u.re*(v.im + w.im) + u.im*(v.re + w.re) - u.im*(v.im + w.im)
        = (u.re*v.im + u.im*v.re - u.im*v.im)
          + (u.re*w.im + u.im*w.re - u.im*w.im)
-    simp only [Int.sub_eq_add_neg, mul_add, neg_add, add_mul,
-               add_assoc, add_comm, add_left_comm]
+    rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
+        E213.Meta.Int213.mul_add u.re v.im w.im,
+        E213.Meta.Int213.mul_add u.im v.re w.re,
+        E213.Meta.Int213.mul_add u.im v.im w.im,
+        E213.Meta.Int213.neg_add (u.im*v.im) (u.im*w.im)]
+    exact add_6_interleave (u.re*v.im) (u.re*w.im) (u.im*v.re) (u.im*w.re)
+                            (-(u.im*v.im)) (-(u.im*w.im))
 
 private theorem conj_add' (u v : ZOmega) :
     conj (u + v) = conj u + conj v := by
   apply ext
   · show (u.re + v.re) - (u.im + v.im) = (u.re - u.im) + (v.re - v.im)
-    simp only [Int.sub_eq_add_neg, neg_add,
-               add_assoc, add_comm, add_left_comm]
+    rw [Int.sub_eq_add_neg, Int.sub_eq_add_neg, Int.sub_eq_add_neg,
+        E213.Meta.Int213.neg_add u.im v.im]
+    exact Ring213.add_4_swap_mid u.re v.re (-u.im) (-v.im)
   · show -(u.im + v.im) = -u.im + -v.im
     exact neg_add u.im v.im
 
@@ -158,11 +206,11 @@ private theorem ofInt_mul' (a b : Int) :
     ofInt a * ofInt b = ofInt (a * b) := by
   apply ext
   · show a*b - 0*0 = a*b
-    rw [Int.zero_mul]; exact Int.sub_zero _
+    rw [E213.Meta.Int213.zero_mul, Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
   · show a*0 + 0*b - 0*0 = 0
-    rw [E213.Meta.Int213.mul_comm a 0, Int.zero_mul,
-        Int.zero_mul, Int.zero_mul,
-        Int.add_zero, Int.sub_zero]
+    rw [E213.Meta.Int213.mul_comm a 0, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.zero_mul, E213.Meta.Int213.zero_mul,
+        Int.add_zero, Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
 
 private theorem ofInt_add' (a b : Int) :
     ofInt a + ofInt b = ofInt (a + b) := by
@@ -174,14 +222,14 @@ private theorem ofInt_central' (z : Int) (a : ZOmega) :
     ofInt z * a = a * ofInt z := by
   apply ext
   · show z*a.re - 0*a.im = a.re*z - a.im*0
-    rw [Int.zero_mul, E213.Meta.Int213.mul_comm z a.re,
-        E213.Meta.Int213.mul_comm a.im 0, Int.zero_mul]
+    rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.mul_comm z a.re,
+        E213.Meta.Int213.mul_comm a.im 0, E213.Meta.Int213.zero_mul]
   · show z*a.im + 0*a.re - 0*a.im = a.re*0 + a.im*z - a.im*0
-    rw [Int.zero_mul, Int.zero_mul,
-        E213.Meta.Int213.mul_comm a.re 0, Int.zero_mul,
-        E213.Meta.Int213.mul_comm a.im 0, Int.zero_mul,
+    rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.mul_comm a.re 0, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.mul_comm a.im 0, E213.Meta.Int213.zero_mul,
         E213.Meta.Int213.mul_comm z a.im,
-        Int.add_zero, Int.zero_add]
+        Int.add_zero, E213.Meta.Int213.zero_add]
 
 private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   have : (ofInt a).re = (ofInt b).re := congrArg ZOmega.re h
@@ -197,18 +245,19 @@ private theorem self_mul_conj' (u : ZOmega) : u * conj u = ofInt u.normSq := by
   · show u.re*(u.re - u.im) - u.im*(-u.im)
        = u.re*u.re - u.re*u.im + u.im*u.im
     rw [E213.Meta.Int213.mul_sub u.re u.re u.im,
-        E213.Meta.Int213.mul_neg u.im u.im, Int.sub_neg]
+        E213.Meta.Int213.mul_neg u.im u.im,
+        Int.sub_eq_add_neg, Int.neg_neg]
   · show u.re*(-u.im) + u.im*(u.re - u.im) - u.im*(-u.im) = 0
     rw [E213.Meta.Int213.mul_neg u.re u.im,
         E213.Meta.Int213.mul_sub u.im u.re u.im,
-        E213.Meta.Int213.mul_neg u.im u.im, Int.sub_neg]
+        E213.Meta.Int213.mul_neg u.im u.im,
+        Int.sub_eq_add_neg, Int.neg_neg]
     -- goal: -(u.re*u.im) + (u.im*u.re - u.im*u.im) + u.im*u.im = 0
     rw [E213.Meta.Int213.mul_comm u.im u.re]
-    -- -(u.re*u.im) + (u.re*u.im - u.im*u.im) + u.im*u.im = 0
     show -(u.re*u.im) + (u.re*u.im - u.im*u.im) + u.im*u.im = 0
     rw [Int.sub_eq_add_neg, ← E213.Meta.Int213.add_assoc,
         E213.Meta.Int213.add_left_neg (u.re*u.im),
-        Int.zero_add, E213.Meta.Int213.add_left_neg]
+        E213.Meta.Int213.zero_add, E213.Meta.Int213.add_left_neg]
 
 /-- `mul_comm` for ZOmega — re-export under the local `mul_comm'` name
     used by instance fields below.  The actual proof lives foundationally
@@ -216,36 +265,43 @@ private theorem self_mul_conj' (u : ZOmega) : u * conj u = ofInt u.normSq := by
 private theorem mul_comm' (u v : ZOmega) : u * v = v * u :=
   ZOmega.mul_comm u v
 
-/-- Same-order `conj` distributivity for commutative ZOmega.
-    PURE via direct expansion + 213-native Int213 ring rewrites. -/
+/-- ★ ∅-axiom same-order `conj` distributivity for commutative ZOmega.
+    Both branches: safe-simp (no comm rewrites) + flatten + a sequence
+    of `Int213.add_right_comm` swaps and one `add_neg_cancel` cleanup.
+    No `simp only [add_comm]` leak. -/
 private theorem conj_mul_comm (u v : ZOmega) :
     conj (u * v) = conj u * conj v := by
   apply ext
   · show (u.re*v.re - u.im*v.im) - (u.re*v.im + u.im*v.re - u.im*v.im)
        = (u.re - u.im)*(v.re - v.im) - (-u.im)*(-v.im)
     simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
-               neg_add, add_mul, mul_add,
-               add_assoc, add_left_comm, add_comm,
-               Int.add_zero, zero_add]
+               neg_add, add_mul, mul_add, ← add_assoc]
+    -- LHS: T1+T2+T3+T4+T5 = ac + -(bd) + -(ad) + -(bc) + bd
+    -- RHS: T1+T4+T3+T5+T2 = ac + -(bc) + -(ad) + bd + -(bd)
+    -- 4 swaps to permute.
+    rw [E213.Meta.Int213.add_right_comm (u.re*v.re + -(u.im*v.im))
+          (-(u.re*v.im)) (-(u.im*v.re))]
+    rw [E213.Meta.Int213.add_right_comm (u.re*v.re)
+          (-(u.im*v.im)) (-(u.im*v.re))]
+    rw [E213.Meta.Int213.add_right_comm (u.re*v.re + -(u.im*v.re))
+          (-(u.im*v.im)) (-(u.re*v.im))]
+    rw [E213.Meta.Int213.add_right_comm
+          (u.re*v.re + -(u.im*v.re) + -(u.re*v.im))
+          (-(u.im*v.im)) (u.im*v.im)]
   · show -(u.re*v.im + u.im*v.re - u.im*v.im)
        = (u.re - u.im)*(-v.im) + (-u.im)*(v.re - v.im)
          - (-u.im)*(-v.im)
-    -- Both sides reduce to `-(u.re*v.im) + -(u.im*v.re) + u.im*v.im`
-    -- after expansion + cancellation of (u.im*v.im, -(u.im*v.im)) pair.
-    -- First normalise to add+neg form, then apply cancel helper.
     simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
-               neg_add, add_mul, mul_add,
-               add_assoc, add_left_comm, add_comm,
-               Int.add_zero, zero_add]
-    -- Goal: -A + -B = C + (-A + (-B + -C))
-    -- where A = u.re*v.im, B = u.im*v.re, C = u.im*v.im.
-    -- Reassoc to (C + -C) + (-A + -B), then cancel.
-    rw [E213.Meta.Int213.add_comm (-(u.im*v.re)) (-(u.im*v.im)),
-        E213.Meta.Int213.add_left_comm (-(u.re*v.im))
-          (-(u.im*v.im)) (-(u.im*v.re)),
-        ← E213.Meta.Int213.add_assoc (u.im*v.im) (-(u.im*v.im))
-          (-(u.re*v.im) + -(u.im*v.re)),
-        E213.Meta.Int213.add_neg_cancel, Int.zero_add]
+               neg_add, add_mul, mul_add, ← add_assoc]
+    -- LHS: -(re*im) + -(im*re) + im*im
+    -- RHS: -(re*im) + im*im + -(im*re) + im*im + -(im*im)
+    -- Pair `+ im*im + -(im*im)` cancels; remaining permutation 1 swap.
+    rw [E213.Meta.Int213.add_right_comm (-(u.re*v.im))
+          (-(u.im*v.re)) (u.im*v.im)]
+    rw [E213.Meta.Int213.add_assoc
+          (-(u.re*v.im) + u.im*v.im + -(u.im*v.re))
+          (u.im*v.im) (-(u.im*v.im))]
+    rw [E213.Meta.Int213.add_neg_cancel (u.im*v.im), Int.add_zero]
 
 /-- Anti-distributive form (matches StarRing213.conj_mul signature).
     For commutative ZOmega, same-order + mul_comm. -/

@@ -205,7 +205,8 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
 private theorem zomega_ofInt_conj_self (n : Int) :
     ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt n) = ZOmega.ZOmega.ofInt n := by
   apply ZOmega.ZOmega.ext
-  · show n - 0 = n; exact Int.sub_zero _
+  · show n - 0 = n
+    rw [Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
   · show -(0 : Int) = 0; rfl
 
 /-- `x - 0 = x` at the Ring213 level. -/
