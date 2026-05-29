@@ -64,6 +64,11 @@ class IntegerNormed213 (α : Type) extends StarRing213 α where
   ofInt_central : ∀ (z : Int) (a : α), ofInt z * a = a * ofInt z
   ofInt_inj     : ∀ {a b : Int}, ofInt a = ofInt b → a = b
   normSq_conj   : ∀ a   : α, normSq (conj a) = normSq a
+  /-- Integer embeds are self-conjugate.  In CD towers `ofInt z = ⟨z, 0⟩`
+      and conjugation only affects the imaginary component, so this
+      holds trivially for all instances.  Needed for the Cayley-Dickson
+      Hurwitz extension at the CDDouble level. -/
+  ofInt_conj    : ∀ z   : Int, conj (ofInt z) = ofInt z
 
 namespace IntegerNormed213
 

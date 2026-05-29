@@ -356,6 +356,18 @@ private theorem normSq_conj' (u : ZOmegaDouble) :
      = ZOmega.ZOmega.normSq u.re + ZOmega.ZOmega.normSq u.im
   rw [zomega_normSq_conj_pre u.re, zomega_normSq_neg_pre u.im]
 
+/-- `conj (ofInt z) = ofInt z` for ZOmegaDouble.  conj ⟨ZOmega.ofInt z, 0⟩
+    = ⟨ZOmega.conj (ZOmega.ofInt z), -0⟩ = ⟨ZOmega.ofInt z, 0⟩. -/
+private theorem ofInt_conj' (z : Int) :
+    ZOmegaDouble.conj (ofInt z) = ofInt z := by
+  apply ext
+  · show ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt z) = ZOmega.ZOmega.ofInt z
+    exact @IntegerNormed213.ofInt_conj ZOmega.ZOmega _ z
+  · show -(0 : ZOmega.ZOmega) = 0
+    apply ZOmega.ZOmega.ext
+    · show -(0 : Int) = 0; exact Int.neg_zero
+    · show -(0 : Int) = 0; exact Int.neg_zero
+
 /-- ★ ZOmegaDouble `IntegerNormed213` instance.  Generic
     `IntegerNormed213.normSq_mul` then derives ZOmegaDouble's norm
     multiplicativity via typeclass projection — no `quad_norm`,
@@ -369,6 +381,7 @@ instance : IntegerNormed213 ZOmegaDouble where
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
   normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
 
 /-- ★ Concrete witness: generic `normSq_mul` derives ZOmegaDouble's
     norm multiplicativity via typeclass — no `quad_norm` or

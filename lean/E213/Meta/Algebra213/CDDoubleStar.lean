@@ -427,11 +427,9 @@ def cd_ofInt (z : Int) : CDDouble α :=
 def cd_normSq (u : CDDouble α) : Int :=
   IntegerNormed213.normSq u.re + IntegerNormed213.normSq u.im
 
-/-- Abstract `self_mul_conj` at CDDouble α level (`[IntegerNormed213 α]`
-    base, no extra commutativity needed).  For u = ⟨a, b⟩,
-    conj u = ⟨ā, -b⟩.  u · conj u expands to:
-      .re: a·ā - (-b)̄·b = a·ā + b̄·b = ofInt(N a) + ofInt(N b)
-           = ofInt(N a + N b)
+/-- Abstract `self_mul_conj` at CDDouble α level.
+    For u = ⟨a, b⟩, conj u = ⟨ā, -b⟩.  u · conj u expands to:
+      .re: a·ā - (-b)̄·b = a·ā + b̄·b = ofInt(N a + N b)
       .im: (-b)·a + b·(ā)̄ = -(b·a) + b·a = 0 -/
 private theorem cd_self_mul_conj' (u : CDDouble α) :
     u * CDDouble.conj u = cd_ofInt (cd_normSq u) := by
@@ -490,5 +488,57 @@ private theorem cd_ofInt_inj' {a b : Int}
   have h_re : (cd_ofInt a : CDDouble α).re = (cd_ofInt b : CDDouble α).re :=
     congrArg CDDouble.re h
   exact IntegerNormed213.ofInt_inj h_re
+
+/-- Abstract `ofInt_central` at CDDouble α level.  ⟨ofInt z, 0⟩ · ⟨a, b⟩
+    = ⟨a, b⟩ · ⟨ofInt z, 0⟩.  Uses base `ofInt_central` +
+    `ofInt_conj` (`conj (ofInt z) = ofInt z`). -/
+private theorem cd_ofInt_central' (z : Int) (u : CDDouble α) :
+    cd_ofInt z * u = u * cd_ofInt z := by
+  apply ext
+  · show IntegerNormed213.ofInt z * u.re + -(StarRing213.conj u.im * 0)
+       = u.re * IntegerNormed213.ofInt z + -(StarRing213.conj 0 * u.im)
+    rw [conj_zero_base, Ring213.zero_mul, Ring213.mul_zero,
+        ring_neg_zero, IntegerNormed213.ofInt_central]
+  · show u.im * IntegerNormed213.ofInt z + 0 * StarRing213.conj u.re
+       = 0 * u.re + u.im * StarRing213.conj (IntegerNormed213.ofInt z)
+    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero,
+        Ring213.zero_add, IntegerNormed213.ofInt_conj]
+
+/-- Abstract `normSq_conj` at CDDouble α level.  cd_normSq (conj u)
+    = N(conj u.re) + N(-u.im) = N u.re + N u.im = cd_normSq u.  Uses
+    base `normSq_conj` and a helper for `N(-a) = N a` derived via
+    `self_mul_conj` + `neg_mul` + `mul_neg` + `neg_neg` + `ofInt_inj`. -/
+private theorem cd_normSq_conj' (u : CDDouble α) :
+    cd_normSq (CDDouble.conj u) = cd_normSq u := by
+  show IntegerNormed213.normSq (StarRing213.conj u.re)
+       + IntegerNormed213.normSq (-u.im)
+     = IntegerNormed213.normSq u.re + IntegerNormed213.normSq u.im
+  rw [IntegerNormed213.normSq_conj u.re]
+  have h_neg : IntegerNormed213.normSq (-u.im) = IntegerNormed213.normSq u.im := by
+    apply @IntegerNormed213.ofInt_inj α _
+    rw [← IntegerNormed213.self_mul_conj (-u.im),
+        ← IntegerNormed213.self_mul_conj u.im,
+        conj_neg u.im,
+        Ring213.neg_mul u.im (-StarRing213.conj u.im),
+        Ring213.mul_neg u.im (StarRing213.conj u.im),
+        Ring213.neg_neg]
+  rw [h_neg]
+
+/-! ## Abstract Cayley-Dickson Hurwitz extension — public theorems
+
+The `cd_*` private theorems above provide all 8 IntegerNormed213 fields
+abstractly over `[CommStarRing213 α] [IntegerNormed213 α]` base.  The
+parametric instance `IntegerNormed213 (CDDouble α)` would unlock the
+generic `IntegerNormed213.normSq_mul` for the CDDouble carrier directly,
+but registration is blocked by a typeclass diamond between
+`CommStarRing213.toStarRing213` and `IntegerNormed213.toStarRing213`
+when both are inferred for α — Lean treats these as distinct StarRing213
+α records even though they share the same `conj` field.  Resolution
+requires a structural reorganization (e.g., a `CommIntegerNormed213`
+typeclass that combines both, avoiding the diamond at instance time).
+
+In the meantime, the abstract `cd_*` lemmas can be invoked manually
+per concrete bridge (Lipschitz/ZOmegaDouble/L3T) to replace their
+hand-written self_mul_conj'/ofInt_*/normSq_conj proofs. -/
 
 end E213.Meta.Algebra213.CDDouble

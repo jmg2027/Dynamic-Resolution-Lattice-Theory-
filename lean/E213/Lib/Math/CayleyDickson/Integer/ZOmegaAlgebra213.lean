@@ -355,6 +355,14 @@ private theorem normSq_conj' (u : ZOmega) : normSq (conj u) = normSq u := by
     `IntegerNormed213` then derives ZOmega's norm multiplicativity
     via typeclass projection (replaces the `quad_norm`-based DIRTY
     proof in `ZOmegaDomain`). -/
+/-- `conj (ofInt z) = ofInt z` for ZOmega.  conj ⟨z, 0⟩ = ⟨z - 0, -0⟩
+    = ⟨z, 0⟩. -/
+private theorem ofInt_conj' (z : Int) : conj (ofInt z) = ofInt z := by
+  apply ext
+  · show z - 0 = z
+    rw [Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
+  · show -(0 : Int) = 0; exact Int.neg_zero
+
 instance : IntegerNormed213 ZOmega where
   ofInt         := ofInt
   normSq        := normSq
@@ -364,6 +372,7 @@ instance : IntegerNormed213 ZOmega where
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
   normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
 
 /-- ★ ZOmega `CommStarRing213` bundle — used as the base argument for
     `instRing213CDDouble` / `instStarRing213CDDouble` (CDDouble.Star),

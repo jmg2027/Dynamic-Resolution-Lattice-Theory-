@@ -137,6 +137,13 @@ private theorem normSq_conj' (u : ZI) : normSq (conj u) = normSq u := by
   rw [E213.Meta.Int213.neg_mul u.im (-u.im),
       E213.Meta.Int213.mul_neg u.im u.im, Int.neg_neg]
 
+/-- `conj (ofInt z) = ofInt z` — integer embeds are self-conj.
+    `conj ⟨z, 0⟩ = ⟨z, -0⟩ = ⟨z, 0⟩` via `Int.neg_zero`. -/
+private theorem ofInt_conj' (z : Int) : conj (ofInt z) = ofInt z := by
+  apply ext
+  · show z = z; rfl
+  · show -(0 : Int) = 0; exact Int.neg_zero
+
 instance : IntegerNormed213 ZI where
   ofInt         := ofInt
   normSq        := normSq
@@ -146,6 +153,7 @@ instance : IntegerNormed213 ZI where
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
   normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
 
 /-! ## MoufangIntegerNormed213 (trivial at commutative ZI base) -/
 

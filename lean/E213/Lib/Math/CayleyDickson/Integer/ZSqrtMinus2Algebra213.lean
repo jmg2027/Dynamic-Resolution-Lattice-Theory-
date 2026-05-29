@@ -318,6 +318,17 @@ private theorem normSq_conj' (u : L3T) : L3T.normSq (L3T.conj u) = L3T.normSq u 
 /-- ★ L3T `IntegerNormed213` instance.  Completes Type B downstream
     Phase 3 equivalent.  Generic `IntegerNormed213.normSq_mul` then
     derives L3T's norm-multiplicativity via typeclass projection. -/
+/-- `conj (ofInt z) = ofInt z` for L3T.  conj ⟨ZSqrt.ofInt 2 z, 0⟩
+    = ⟨ZSqrt.conj (ZSqrt.ofInt 2 z), -0⟩ = ⟨ZSqrt.ofInt 2 z, 0⟩. -/
+private theorem ofInt_conj' (z : Int) : L3T.conj (ofInt z) = ofInt z := by
+  apply L3T_ext
+  · show ZSqrt.conj (ZSqrt.ofInt 2 z) = ZSqrt.ofInt 2 z
+    exact @IntegerNormed213.ofInt_conj Z2 _ z
+  · show -(0 : Z2) = 0
+    apply ZSqrt.ext
+    · show -(0 : Int) = 0; exact Int.neg_zero
+    · show -(0 : Int) = 0; exact Int.neg_zero
+
 instance : IntegerNormed213 L3T where
   ofInt         := ofInt
   normSq        := L3T.normSq
@@ -327,6 +338,7 @@ instance : IntegerNormed213 L3T where
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
   normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
 
 /-- ★ Concrete witness: L3T's `normSq_mul` derived via the generic
     `IntegerNormed213.normSq_mul` typeclass projection — no

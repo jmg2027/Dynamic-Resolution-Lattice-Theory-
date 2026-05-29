@@ -374,5 +374,14 @@ instance : IntegerNormed213 Lipschitz where
       · show (0 : Int) + 0 = 0; rfl
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+  ofInt_conj    := by
+    intro z
+    apply ext
+    · show ZI.conj (ZI.ofInt z) = ZI.ofInt z
+      exact @IntegerNormed213.ofInt_conj ZI _ z
+    · show -(0 : ZI) = 0
+      apply ZI.ext
+      · show -(0 : Int) = 0; exact Int.neg_zero
+      · show -(0 : Int) = 0; exact Int.neg_zero
 
 end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz

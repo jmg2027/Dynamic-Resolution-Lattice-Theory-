@@ -264,6 +264,14 @@ private theorem normSq_conj' (u : ZSqrt D) :
   rw [E213.Meta.Int213.neg_mul u.im (-u.im),
       E213.Meta.Int213.mul_neg u.im u.im, Int.neg_neg]
 
+/-- `conj (ofInt z) = ofInt z` for ZSqrt[D].  conj ⟨z, 0⟩ = ⟨z, -0⟩
+    = ⟨z, 0⟩. -/
+private theorem ofInt_conj' (z : Int) :
+    ZSqrt.conj (ofInt D z) = ofInt D z := by
+  apply ZSqrt.ext
+  · show z = z; rfl
+  · show -(0 : Int) = 0; exact Int.neg_zero
+
 /-- ZSqrt[D] `IntegerNormed213`.  norm `N(a + b√D) = a² + D·b²`
     (sign convention follows the ZSqrt struct's `normSq`). -/
 instance : IntegerNormed213 (ZSqrt D) where
@@ -275,6 +283,7 @@ instance : IntegerNormed213 (ZSqrt D) where
   ofInt_central := ofInt_central' D
   ofInt_inj     := ofInt_inj' D
   normSq_conj   := normSq_conj' D
+  ofInt_conj    := ofInt_conj' D
 
 /-- ZSqrt[D] `CommStarRing213` bundle. -/
 instance : CommStarRing213 (ZSqrt D) where
