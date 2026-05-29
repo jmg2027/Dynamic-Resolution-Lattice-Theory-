@@ -1,7 +1,8 @@
 # G150 — 메타-CD-타워: 4-Type Base × CD doubling = CD가 부분집합
 
 **Date**: 2026-05-29
-**Status**: OPEN (insight 정리, 일부 형식화 가능성 조사)
+**Status**: OPEN — Phase 1 & 2 closed (commits `e0da617`, `38e17ad`),
+Phases 3-5 next session
 **Lean (existing)**:
   - `E213.Lib.Math.CayleyDickson.Integer.{ZI,ZOmega,ZSqrt,Hurwitz213}` (4 base)
   - `E213.Lib.Math.CayleyDickson.Levels.{Cayley,Sedenion,...}` (Type A)
@@ -96,31 +97,55 @@ op이 commutative + associative한 부분):
 | `TowerFixedPoint.lean` (3 fates) | base-parametric tower constructor |
 | `MoufangIntegerNormed213` (이번 추가) | tower 구성을 typeclass argument로 받는 인터페이스 |
 
-## 자연스러운 다음 행보
+## G150 Marathon — Phase 진행
 
-1. **Type C 기반: ZOmega PURE typeclass 인스턴스** (이 세션에서 시도 →
-   blocker 발견, 차회 target).  ZOmega를 `CommStarRing213` 인스턴스로
-   등록하려면 ZOmega의 ring axiom들이 ∅-axiom 으로 필요한데,
-   현재 `ZOmegaDomain.normSq_mul`은 `quad_norm` 태틱으로 증명돼 있고
-   `quad_norm`은 DIRTY (`propext, Quot.sound`).  `mul_assoc` 도 같은
-   상황 예상.  → **ZIAlgebra213가 ZI를 PURE 화한 패턴 (componentwise
-   Int213 projection) 그대로 ZOmega 에 복제 필요**.  ZOmega 곱셈이
-   ZI 보다 cross-term 1 개 더 (ω² = −1−ω 보정), 분량 ~120-150줄
-   예상.
-2. **이후 ZOmegaDouble Ring213 + IntegerNormed213**: ZOmega가 PURE
-   commutative star ring 이 되면, `instRing213CDDouble` (CommStarRing213
-   base → Ring213 (CDDouble α)) 으로 ZOmegaDouble 자동 Ring213.
-   단 ZOmegaDouble 구조가 `structure { re : ZOmega, im : ZOmega }` 라
-   `CDDouble ZOmega` 와 isomorphic 한 bridge instance 필요.
-3. **ZOmegaQuad MoufangIntegerNormed213**: ZOmegaDouble (associative
-   non-comm) → ZOmegaQuad (alternative non-assoc) 단계.  이번
-   세션 추가한 `MoufangIntegerNormed213` 의 generic `normSq_mul` 적용
-   first test point.
-4. **SHIFT RULE 추상 functor**: `shift_iso_L3` (구체 case-bash decide)
-   을 `[CommStarRing213 α] [CommStarRing213 β] → ...` parametric 정리로.
-5. **Base-parametric tower constructor**:
-   `def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
-   정의 → ∀-typed tower 추상.  Type A/B/C 가 자동으로 인스턴스.
+### ✅ Phase 1 — ZOmega CommStarRing213 + IntegerNormed213 (commit `e0da617`)
+
+`lean/E213/Lib/Math/CayleyDickson/Integer/ZOmegaAlgebra213.lean` (305줄)
+신규.  ZOmega를 Algebra213 typeclass hierarchy 풀 스택 (Ring213 →
+CommRing213 → StarRing213 → IntegerNormed213 → CommStarRing213
+bundle) 인스턴스로 등록.  Generic `IntegerNormed213.normSq_mul`이
+ZOmega의 Eisenstein 노름 multiplicativity를 typeclass 7-step calc로
+자동 유도, `ZOmegaDomain`의 `quad_norm` 기반 proof 대체.
+
+**Purity 개선**: `[propext, Quot.sound]` (quad_norm) → `[propext]` only.
+Quot.sound (quotient extensionality, 무거운 axiom) 제거.
+
+**Pattern**: ZIAlgebra213의 mirror, ω² = −1 − ω 추가 cross-term이
+distributivity + mul_assoc 거쳐 propagate.  Add/Neg/Sub 인스턴스는
+ZOmega.lean으로 foundational relocation.
+
+### ✅ Phase 2 — ZOmegaDouble Ring213 via abstract bridge (commit `38e17ad`)
+
+`lean/E213/Lib/Math/CayleyDickson/Integer/ZOmegaDoubleAlgebra213.lean`
+(91줄) 신규.  ZOmegaDouble (concrete struct)과 CDDouble ZOmega
+(abstract functor)가 구조 동일 + 연산 동일 (CD 공식 same).  Bridge
+`toCDDouble` + `fromCDDouble` + `toCDDouble_mul` (rfl) +
+`toCDDouble_conj` (rfl) 만으로 typeclass 인스턴스 transfer.
+
+검증: `ZOmegaDouble.mul_assoc`을 3줄로 — `toCDDouble_inj` +
+`Ring213.mul_assoc (toCDDouble u) ...` — hand-proven polynomial 증명
+**전혀 없이** 유도.  Type A Cayley `hurwitz_ring` (32-Int-var,
+maxHeartbeats 4M)에 대응하는 ZOmegaDouble mul_assoc이 typeclass
+bridge로 자동 도출.
+
+### ⏳ Phase 3 — ZOmegaQuad MoufangIntegerNormed213 (다음 세션)
+
+ZOmegaDouble (associative non-comm) → ZOmegaQuad (alternative
+non-assoc) 한 단계 위.  이 세션 추가된 `MoufangIntegerNormed213`
+(commit `ff76af2`)의 generic `normSq_mul` first test point.
+ZOmegaDouble Bridge pattern (Phase 2) 그대로 ZOmegaQuad에 복제 +
+Moufang identity 인스턴스 fill-in.
+
+### ⏳ Phase 4 — SHIFT RULE 추상 functor
+
+`shift_iso_L3` (구체 case-bash decide) 을
+`[CommStarRing213 α] [CommStarRing213 β] → ...` parametric 정리로.
+
+### ⏳ Phase 5 — Base-parametric tower constructor
+
+`def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
+정의 → ∀-typed tower 추상.  Type A/B/C/D 자동으로 인스턴스.
 
 ## 메타 원칙 (CLAUDE.md 보완)
 

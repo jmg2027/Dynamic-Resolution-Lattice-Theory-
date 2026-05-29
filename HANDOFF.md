@@ -4,6 +4,43 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
+## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-2 closed)
+
+Architecture path: classical CD tower (Type A: Lipschitz → Cayley →
+Sedenion → ...) is one *column* of a 4-row matrix (Types A/B/C/D ×
+CD doubling layer) already partially formalised in the repo
+(`theory/math/cayley_dickson/algebra_tower.md` §"4-row matrix",
+`Integer/{ZI,ZOmega,ZSqrt,Hurwitz213}`, SHIFT RULE in
+`ZSqrtMinus2Findings`).  Migration goal: lift `hurwitz_ring`-based
+DIRTY proofs to PURE typeclass projections via `MoufangIntegerNormed213`
+(commit `ff76af2`).
+
+  · **Phase 1** (commit `e0da617`): ZOmega CommStarRing213 +
+    IntegerNormed213 — Type C base instance.  Generic `normSq_mul`
+    via typeclass replaces `ZOmegaDomain` `quad_norm` proof.  Purity
+    `[propext, Quot.sound]` → `[propext]` only (Quot.sound removed).
+    New file `ZOmegaAlgebra213.lean` (305 lines), mirror of
+    `ZIAlgebra213` with ω² = -1 - ω cross-term.  Add/Neg/Sub
+    relocated to ZOmega.lean (foundational).
+  · **Phase 2** (commit `38e17ad`): ZOmegaDouble Ring213 via
+    abstract `CDDouble ZOmega` bridge.  Concrete struct iso to
+    abstract type (rfl on mul + conj).  `mul_assoc` derived in 3
+    lines via bridge — NO 32-Int-var polynomial proof.  Same recipe
+    extends to every higher layer (ZOmegaQuad, ZOmegaOct, …).  New
+    file `ZOmegaDoubleAlgebra213.lean` (91 lines).
+
+Validates the parametric Algebra213 path concretely: ZOmega →
+CommStarRing213 → abstract CDDouble ZOmega → Ring213 + StarRing213
+(auto-synthesis via `instRing213CDDouble`) → ZOmegaDouble via bridge.
+Removes `hurwitz_ring` polynomial expansion from Type C migration.
+
+Next session: Phase 3 (ZOmegaQuad MoufangIntegerNormed213) validates
+the new typeclass at alternative non-assoc layer (Cayley-analog at
+Type C).  Then Phases 4-5 (SHIFT RULE abstract functor +
+base-parametric tower constructor).  Full plan in
+`research-notes/G150_meta_cd_tower_subset.md` §"G150 Marathon —
+Phase 진행".
+
 ## Intra-Lib/Math helper consolidation (#8a–#8f)
 
 After the cross-ring extraction series (#6, #7) finished promoting
