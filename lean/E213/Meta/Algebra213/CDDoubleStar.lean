@@ -1,4 +1,5 @@
 import E213.Meta.Algebra213.CDDouble
+import E213.Meta.Algebra213.AlternativeNormed
 
 /-!
 # Generic `StarRing213 (CDDouble α)` instance
@@ -162,9 +163,11 @@ private theorem add_4_cycle {β : Type} [Ring213 β] (A B C D : β) :
     A + B + C + D = A + C + D + B := by
   rw [Ring213.add_right_comm A B C, Ring213.add_right_comm (A + C) B D]
 
--- ═══ Anti-distributive conj_mul (requires CommStarRing213 base) ═══
+-- ═══ Anti-distributive conj_mul ([StarRing213 α] suffices) ═══
+-- Proof uses only Ring213 add_comm + neg_add + neg_mul + StarRing213's
+-- anti-distributive conj_mul at the base.  No multiplicative commutativity.
 
-private theorem conj_mul' [CommStarRing213 α] (u v : CDDouble α) :
+private theorem conj_mul' [StarRing213 α] (u v : CDDouble α) :
     conj (u * v) = conj v * conj u := by
   apply ext
   · -- LHS: conj((u*v).re) = conj(u.re * v.re + -(conj v.im * u.im))
@@ -358,6 +361,45 @@ instance instRing213CDDouble [CommStarRing213 α] : Ring213 (CDDouble α) where
 open E213.Meta.Algebra213.CDDouble in
 instance instStarRing213CDDouble [CommStarRing213 α] :
     StarRing213 (CDDouble α) where
+  conj      := conj
+  conj_conj := conj_conj'
+  conj_add  := conj_add'
+  conj_mul  := conj_mul'
+
+/-! ## §6 — Non-associative parametric instances on `CDDouble α`
+
+`CDDouble α` is non-associative when α is non-commutative (Cayley
+layer onward).  This section provides `NonAssocRing213` and
+`NonAssocStarRing213` instances on `CDDouble α` requiring only
+`[StarRing213 α]` (no commutativity, no mul_assoc).
+
+These instances unlock the Cayley-layer algebraic structure for
+concrete CD layers built on non-commutative associative bases —
+specifically `CDDouble ZOmegaDouble` (Type C L4 = ZOmegaQuad),
+`CDDouble L3T` (Type B L4 = L4T), and `CDDouble Lipschitz`
+(Type A L3 = Cayley).  Each concrete type then bridges through
+the abstract instance via `toCDDouble`.
+-/
+
+open E213.Meta.Algebra213.CDDouble in
+/-- `NonAssocRing213 (CDDouble α)` from `[StarRing213 α]`.  Drops the
+    `mul_assoc` field present in `Ring213`.  All other axioms reduce
+    to base-ring projections componentwise. -/
+instance instNonAssocRing213CDDoubleStar [StarRing213 α] :
+    NonAssocRing213 (CDDouble α) where
+  add_assoc    := add_assoc'
+  add_comm     := add_comm'
+  add_zero     := add_zero'
+  add_left_neg := add_left_neg'
+  add_mul      := add_mul'
+  mul_add      := mul_add'
+
+open E213.Meta.Algebra213.CDDouble in
+/-- `NonAssocStarRing213 (CDDouble α)` from `[StarRing213 α]`.  Extends
+    the parametric `NonAssocRing213` with the anti-distributive
+    `conj_mul` proved at `[StarRing213 α]` level (no commutativity). -/
+instance instNonAssocStarRing213CDDoubleStar [StarRing213 α] :
+    NonAssocStarRing213 (CDDouble α) where
   conj      := conj
   conj_conj := conj_conj'
   conj_add  := conj_add'
