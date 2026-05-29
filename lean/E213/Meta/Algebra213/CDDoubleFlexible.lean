@@ -107,6 +107,39 @@ theorem moufang_mid (b y : α) : (conj b * y) * b = conj b * (y * b) := by
       NonAssocRing213.add_mul (ofInt (trace b)) (-b) (y * b),
       NonAssocRing213.neg_mul b (y * b)]
 
+/-- Additive left-cancellation on the base. -/
+private theorem add_lc (x p q : α) (h : x + p = x + q) : p = q := by
+  have h2 : -x + (x + p) = -x + (x + q) := by rw [h]
+  rwa [← NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+       NonAssocRing213.zero_add, ← NonAssocRing213.add_assoc,
+       NonAssocRing213.add_left_neg, NonAssocRing213.zero_add] at h2
+
+/-- Pure additive reshuffle `(P+A)+(B+Q) = (P+Q)+(A+B)`. -/
+private theorem reshuffle (P A B Q : α) :
+    (P + A) + (B + Q) = (P + Q) + (A + B) := by
+  rw [NonAssocRing213.add_assoc P A (B + Q),
+      ← NonAssocRing213.add_assoc A B Q,
+      NonAssocRing213.add_comm (A + B) Q,
+      ← NonAssocRing213.add_assoc P Q (A + B)]
+
+/-- **Linearized flexibility**: `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)`.
+    Polarize `flexible` at `x ↦ x + z`. -/
+theorem flex_polar (x y z : α) :
+    (x * y) * z + (z * y) * x = x * (y * z) + z * (y * x) := by
+  have h := FlexAlt213.flexible (x + z) y
+  rw [NonAssocRing213.add_mul x z y,
+      NonAssocRing213.add_mul (x * y) (z * y) (x + z),
+      NonAssocRing213.mul_add (x * y) x z,
+      NonAssocRing213.mul_add (z * y) x z,
+      NonAssocRing213.mul_add y x z,
+      NonAssocRing213.add_mul x z (y * x + y * z),
+      NonAssocRing213.mul_add x (y * x) (y * z),
+      NonAssocRing213.mul_add z (y * x) (y * z),
+      FlexAlt213.flexible x y, FlexAlt213.flexible z y,
+      reshuffle (x * (y * x)) ((x * y) * z) ((z * y) * x) (z * (y * z)),
+      reshuffle (x * (y * x)) (x * (y * z)) (z * (y * x)) (z * (y * z))] at h
+  exact add_lc _ _ _ h
+
 end FlexAlt213
 
 end E213.Meta.Algebra213
