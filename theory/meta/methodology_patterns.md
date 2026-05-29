@@ -1185,6 +1185,12 @@ used; everything else is the existing quadratic axiom + ring algebra.
 
 ### Where applied
 
+The same norm-central + trace-polarization reductions also discharge
+octonion **alternativity** in `Meta/Algebra213/CDDoubleAlternative.lean`
+(`cd_alt_left`, then `cd_alt_right` by the `conj` anti-automorphism and
+`cd_flexible` by linearization), bridged to
+`CayleyHeavy.{alt_left,alt_right,flexible}`.
+
 `Meta/Algebra213/CDDoubleMoufang.lean`: `cross_zero`, `hurwitz_norm_re`,
 `cd_normSq_mul`, `cd_moufang_norm`, `instMoufangIntegerNormed213CDDouble`
 — then `CayleyHeavy.normSq_mul`, `{Cayley,ZOmegaQuad,L4T}.normSq_mul`

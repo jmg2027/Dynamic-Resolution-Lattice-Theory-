@@ -31,6 +31,15 @@
   `Integer/ZSqrtMinus2Algebra213.lean §7`).  `CayleyHeavy.normSq_mul`
   now bridges to this (PURE; the `maxHeartbeats 4000000` `hurwitz_ring`
   proof is gone).
+- **Octonion alternativity** (`alt_left`/`alt_right`/`flexible`) uses
+  the same polarization machinery: `Meta/Algebra213/CDDoubleAlternative.lean`
+  proves `cd_alt_left` (hard component identity), `cd_alt_right` (via the
+  `conj` anti-automorphism), `cd_flexible` (linearization).
+  `CayleyHeavy.{alt_left,alt_right,flexible}` bridge to it — CayleyHeavy
+  is now entirely `hurwitz_ring`-free.  (Beyond the octonion layer,
+  `Sedenion`/`Trigintaduonion` flexibility still uses `hurwitz_ring`:
+  flexibility over a *non-associative* base needs a distinct cubic
+  proof, not the associative `cd_flexible`.)
 - Beyond the octonion-analog layer (Sedenion, ZOmegaOct, L5T+) norm
   composition genuinely fails (zero divisors): `TraceNormed213` does
   not lift to a non-associative base, so no Moufang norm instance.

@@ -75,15 +75,24 @@ three towers.
   - **#3 done** — `Levels/SedenionZeroDivisor.lean`: explicit zero
     divisor `(e₁+e₁₀)(e₄−e₁₅)=0` + `normSq` non-multiplicativity,
     marking the composition boundary (decide, ∅-axiom).
+  - **octonion alternativity done** — `Meta/Algebra213/CDDoubleAlternative.lean`:
+    `cd_alt_left` (hard component identity via the same norm-central +
+    trace-polarization + assoc reductions), `cd_alt_right` (conj
+    anti-automorphism of alt_left), `cd_flexible` (linearization).
+    `CayleyHeavy.{alt_left,alt_right,flexible}` bridge to it — **CayleyHeavy
+    is now entirely `hurwitz_ring`-free** (and its `HurwitzRing` import +
+    `maxHeartbeats` are gone).
 
 ## Open / next
 
-  - `SedenionHeavy.flexible` and `CayleyHeavy.{alt_left,alt_right,
-    flexible}` are still `hurwitz_ring` — these are the **alternativity**
-    laws (a separate structural identity from norm composition).  PURE-
-    ifying them needs an alternative-law derivation over `CDDouble`
-    (a bigger project than the norm polarization); the new
-    `NonAssocRing213` layer is the groundwork.
+  - `SedenionHeavy.flexible` + `TrigintaduoionionHeavy` are the last
+    `hurwitz_ring` users.  These are **flexibility over a non-associative
+    base** (Sedenion = CDDouble Cayley); the associative `cd_flexible`
+    does not apply (its reassociations need an associative base).  Needs
+    a fresh `cd_flexible_nonassoc` (cubic component proof using the base's
+    own flexible/alternative laws + norm/trace centrality) — a distinct
+    derivation, scoped but sizeable.  `Sedenion` `alt_left`/`alt_right`
+    genuinely *fail* (zero divisors), so only flexibility is in play.
   - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
     from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
     the polynomial brute force.
