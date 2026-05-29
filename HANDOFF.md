@@ -86,6 +86,14 @@ quaternion-analog layers in both base towers.
     (Type A ZI/Lipschitz, Type B ZSqrt[D], Type C ZOmega/
     ZOmegaDouble).  Concrete ZSqrt2, ZSqrtMinus2 inherit via D
     specialization.  `[propext]`-only.
+  · **Phase 4+ Type B downstream** (commits `8669bf3`, `6820e60`,
+    `8df00cc`): L3T (= CDDouble ZSqrt 2, Type B L3 carrier from
+    ZSqrtMinus2Tower) registered as Ring213 + StarRing213 via
+    abstract bridge (toCDDouble), then IntegerNormed213 via direct
+    field proofs.  Generic `IntegerNormed213.normSq_mul` derives
+    L3T's norm-multiplicativity via typeclass projection.
+    `[propext]`-only.  Same recipe extends to L4T, L5T, L6T (next
+    CD doubling layers in Type B tower).
 
 **Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
 identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad
