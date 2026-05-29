@@ -108,11 +108,11 @@ missing physics.  0-parameter = structural absence (no exterior dialer
 per `seed/AXIOM/05_no_exterior.md` §5.1), not methodological rule.
 See `seed/AXIOM/08_falsifiability.md` §8.4.
 
-### Algebraic priority
+### Algebraic priority + repo-first
 DRLT results come from **counting** (combinatorics, number theory,
-algebra), not continuous variation.  Calculus verifies, doesn't
-discover.  When stuck, check discrete structure first.
-Lesson: ATM_026-028 (variation fail) → ATM_029 (counting works).
+algebra), not continuous variation.  When stuck, check discrete
+structure first (ATM_026-028 fail → ATM_029 works).  Most "what if X?"
+intuitions are already partially formalised — grep + `INDEX.md` first (log: `research-notes/G150_meta_cd_tower_subset.md`).
 
 ### Hunter methodology
 `rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form:
