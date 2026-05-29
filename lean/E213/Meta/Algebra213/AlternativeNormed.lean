@@ -68,6 +68,125 @@ instance instNonAssocStarRing213OfStarRing213 (α : Type) [StarRing213 α] :
   conj_add  := StarRing213.conj_add
   conj_mul  := StarRing213.conj_mul
 
+namespace NonAssocRing213
+
+variable {α : Type} [inst : NonAssocRing213 α]
+
+/-- Generic `zero_add` (non-assoc). -/
+theorem zero_add (a : α) : 0 + a = a := by
+  rw [NonAssocRing213.add_comm, NonAssocRing213.add_zero]
+
+/-- Generic `add_left_comm` (non-assoc). -/
+theorem add_left_comm (a b c : α) : a + (b + c) = b + (a + c) := by
+  rw [← NonAssocRing213.add_assoc, NonAssocRing213.add_comm a b,
+      NonAssocRing213.add_assoc]
+
+/-- Generic `add_right_comm` (non-assoc). -/
+theorem add_right_comm (a b c : α) : a + b + c = a + c + b := by
+  rw [NonAssocRing213.add_assoc, NonAssocRing213.add_comm b c,
+      ← NonAssocRing213.add_assoc]
+
+/-- Generic `add_4_swap_mid` (non-assoc). -/
+theorem add_4_swap_mid (A X Y Z : α) : A + X + (Y + Z) = A + Y + (X + Z) := by
+  rw [NonAssocRing213.add_assoc A X (Y + Z), add_left_comm X Y Z,
+      ← NonAssocRing213.add_assoc A Y (X + Z)]
+
+/-- Generic `zero_mul` (non-assoc — uses only distributivity). -/
+theorem zero_mul (a : α) : (0 : α) * a = 0 := by
+  have h1 : (0 : α) * a = (0 + 0) * a :=
+    congrArg (· * a) (NonAssocRing213.add_zero 0).symm
+  rw [NonAssocRing213.add_mul] at h1
+  have h2 : -(0 * a) + (0 * a) = -(0 * a) + (0 * a + 0 * a) :=
+    congrArg ((-(0*a)) + ·) h1
+  rw [NonAssocRing213.add_left_neg, ← NonAssocRing213.add_assoc,
+      NonAssocRing213.add_left_neg, zero_add] at h2
+  exact h2.symm
+
+/-- Generic `mul_zero` (non-assoc). -/
+theorem mul_zero (a : α) : a * (0 : α) = 0 := by
+  have h1 : a * (0 : α) = a * (0 + 0) :=
+    congrArg (a * ·) (NonAssocRing213.add_zero 0).symm
+  rw [NonAssocRing213.mul_add] at h1
+  have h2 : -(a * 0) + (a * 0) = -(a * 0) + (a * 0 + a * 0) :=
+    congrArg ((-(a*0)) + ·) h1
+  rw [NonAssocRing213.add_left_neg, ← NonAssocRing213.add_assoc,
+      NonAssocRing213.add_left_neg, zero_add] at h2
+  exact h2.symm
+
+/-- Generic `neg_mul` (non-assoc). -/
+theorem neg_mul (a b : α) : (-a) * b = -(a * b) := by
+  have h1 : (-a + a) * b = (0 : α) * b := by rw [NonAssocRing213.add_left_neg]
+  rw [NonAssocRing213.add_mul, zero_mul] at h1
+  have h2 : -(a * b) + ((-a) * b + a * b) = -(a * b) + 0 := by rw [h1]
+  rw [← NonAssocRing213.add_assoc, NonAssocRing213.add_comm (-(a*b)) (-a*b),
+      NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+      NonAssocRing213.add_zero, NonAssocRing213.add_zero] at h2
+  exact h2
+
+/-- Generic `mul_neg` (non-assoc). -/
+theorem mul_neg (a b : α) : a * (-b) = -(a * b) := by
+  have h1 : a * (-b + b) = a * (0 : α) := by rw [NonAssocRing213.add_left_neg]
+  rw [NonAssocRing213.mul_add, mul_zero] at h1
+  have h2 : -(a * b) + (a * (-b) + a * b) = -(a * b) + 0 := by rw [h1]
+  rw [← NonAssocRing213.add_assoc, NonAssocRing213.add_comm (-(a*b)) (a*(-b)),
+      NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+      NonAssocRing213.add_zero, NonAssocRing213.add_zero] at h2
+  exact h2
+
+/-- Generic `neg_neg` (non-assoc). -/
+theorem neg_neg (a : α) : -(-a) = a := by
+  have h1 : -(-a) + (-a) = 0 := NonAssocRing213.add_left_neg (-a)
+  have h2 : -(-a) + (-a) + a = 0 + a := by rw [h1]
+  rw [NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+      NonAssocRing213.add_zero, zero_add] at h2
+  exact h2
+
+/-- Generic `neg_add` (non-assoc). -/
+theorem neg_add (a b : α) : -(a + b) = -a + -b := by
+  have h_inv : (a + b) + (-b + -a) = 0 := by
+    rw [NonAssocRing213.add_assoc a b (-b + -a),
+        ← NonAssocRing213.add_assoc b (-b) (-a),
+        NonAssocRing213.add_comm b (-b), NonAssocRing213.add_left_neg b,
+        zero_add, NonAssocRing213.add_comm a (-a),
+        NonAssocRing213.add_left_neg a]
+  have h2 : -(a + b) + ((a + b) + (-b + -a)) = -(a + b) + 0 := by rw [h_inv]
+  rw [← NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+      zero_add, NonAssocRing213.add_zero] at h2
+  rw [← h2, NonAssocRing213.add_comm (-b) (-a)]
+
+end NonAssocRing213
+
+namespace NonAssocStarRing213
+
+variable {α : Type} [inst : NonAssocStarRing213 α]
+
+/-- `conj 0 = 0` (non-assoc *-ring). -/
+theorem conj_zero : conj (0 : α) = 0 := by
+  have h : conj (0 : α) = conj 0 + conj 0 := by
+    rw [← NonAssocStarRing213.conj_add, NonAssocRing213.add_zero]
+  have h2 : -conj (0 : α) + conj 0 = 0 := NonAssocRing213.add_left_neg _
+  calc conj (0 : α)
+      = 0 + conj 0 := (NonAssocRing213.zero_add _).symm
+    _ = (-conj 0 + conj 0) + conj 0 := by rw [h2]
+    _ = -conj 0 + (conj 0 + conj 0) := NonAssocRing213.add_assoc _ _ _
+    _ = -conj 0 + conj 0 := by rw [← h]
+    _ = 0 := h2
+
+/-- `conj (-a) = -conj a` (non-assoc *-ring). -/
+theorem conj_neg (a : α) : conj (-a) = -(conj a) := by
+  have h0 : conj (-a) + conj a = 0 := by
+    rw [← NonAssocStarRing213.conj_add, NonAssocRing213.add_left_neg, conj_zero]
+  calc conj (-a)
+      = conj (-a) + 0 := (NonAssocRing213.add_zero _).symm
+    _ = conj (-a) + (conj a + -conj a) := by
+          rw [NonAssocRing213.add_comm (conj a) (-conj a),
+              NonAssocRing213.add_left_neg]
+    _ = (conj (-a) + conj a) + -conj a := (NonAssocRing213.add_assoc _ _ _).symm
+    _ = 0 + -conj a := by rw [h0]
+    _ = -conj a := NonAssocRing213.zero_add _
+
+end NonAssocStarRing213
+
 /-- Integer-normed non-associative *-ring with Moufang norm-collapse.
     The single non-associative ingredient required for the generic
     Hurwitz proof is the **Moufang at the norm-collapse triple**:
