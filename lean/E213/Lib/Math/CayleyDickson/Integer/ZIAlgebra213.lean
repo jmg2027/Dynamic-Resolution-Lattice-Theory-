@@ -3,6 +3,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Integer.ZIDomain
 import E213.Lib.Math.CayleyDickson.Integer.ZIHom
 import E213.Meta.Algebra213.Core
+import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
 
 /-!
@@ -137,5 +138,36 @@ instance : IntegerNormed213 ZI where
   ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+
+/-! ## MoufangIntegerNormed213 (trivial at commutative ZI base) -/
+
+private theorem zi_moufang_norm (u v : ZI) :
+    (u * v) * (conj v * conj u) = u * (v * conj v) * conj u := by
+  rw [← Ring213.mul_assoc (u * v) (conj v) (conj u),
+      Ring213.mul_assoc u v (conj v)]
+
+private theorem zi_ofInt_paren_central (z : Int) (u : ZI) :
+    u * ofInt z * conj u = ofInt z * (u * conj u) := by
+  rw [show u * ofInt z = ofInt z * u from
+        (@IntegerNormed213.ofInt_central ZI _ z u).symm,
+      Ring213.mul_assoc (ofInt z) u (conj u)]
+
+/-- ★ MoufangIntegerNormed213 ZI — base commutative case.  Trivial
+    Moufang via mul_assoc.  Same recipe as ZSqrt[D] / ZOmega
+    base layers. -/
+instance : MoufangIntegerNormed213 ZI where
+  ofInt               := ofInt
+  normSq              := normSq
+  self_mul_conj       := self_mul_conj'
+  ofInt_mul           := ofInt_mul'
+  ofInt_central       := ofInt_central'
+  ofInt_inj           := ofInt_inj'
+  moufang_norm        := zi_moufang_norm
+  ofInt_paren_central := zi_ofInt_paren_central
+
+/-- ★ ZI normSq_mul via MoufangIntegerNormed213 generic. -/
+theorem moufang_normSq_mul (u v : ZI) :
+    (u * v).normSq = u.normSq * v.normSq :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZI.ZI

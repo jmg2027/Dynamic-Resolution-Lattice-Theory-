@@ -2,6 +2,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.CayleyDickson.Misc.QuadIdentities
 import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.CDDouble
+import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
 
 /-!
@@ -267,5 +268,37 @@ instance : CommStarRing213 (ZSqrt D) where
   conj_conj := ZSqrt.conj_conj
   conj_add  := conj_add' D
   conj_mul  := conj_mul' D
+
+/-! ## §6 — MoufangIntegerNormed213 (trivial at commutative base) -/
+
+private theorem zsqrt_moufang_norm (u v : ZSqrt D) :
+    (u * v) * (ZSqrt.conj v * ZSqrt.conj u)
+      = u * (v * ZSqrt.conj v) * ZSqrt.conj u := by
+  rw [← Ring213.mul_assoc (u * v) (ZSqrt.conj v) (ZSqrt.conj u),
+      Ring213.mul_assoc u v (ZSqrt.conj v)]
+
+private theorem zsqrt_ofInt_paren_central (z : Int) (u : ZSqrt D) :
+    u * ofInt D z * ZSqrt.conj u
+      = ofInt D z * (u * ZSqrt.conj u) := by
+  rw [show u * ofInt D z = ofInt D z * u from
+        (@IntegerNormed213.ofInt_central (ZSqrt D) _ z u).symm,
+      Ring213.mul_assoc (ofInt D z) u (ZSqrt.conj u)]
+
+/-- ★ ZSqrt[D] MoufangIntegerNormed213.  Trivial Moufang via
+    mul_assoc (commutative base is associative). -/
+instance : MoufangIntegerNormed213 (ZSqrt D) where
+  ofInt               := ofInt D
+  normSq              := ZSqrt.normSq
+  self_mul_conj       := self_mul_conj' D
+  ofInt_mul           := ofInt_mul' D
+  ofInt_central       := ofInt_central' D
+  ofInt_inj           := ofInt_inj' D
+  moufang_norm        := zsqrt_moufang_norm D
+  ofInt_paren_central := zsqrt_ofInt_paren_central D
+
+/-- ★ ZSqrt[D] normSq_mul via MoufangIntegerNormed213 generic. -/
+theorem moufang_normSq_mul (u v : ZSqrt D) :
+    (u * v).normSq = u.normSq * v.normSq :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZSqrt

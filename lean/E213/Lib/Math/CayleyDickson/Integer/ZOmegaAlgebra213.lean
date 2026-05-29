@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.CDDouble
+import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
 
 /-!
@@ -301,5 +302,35 @@ instance : CommStarRing213 ZOmega where
   conj_conj := conj_conj
   conj_add  := conj_add'
   conj_mul  := conj_mul_anti
+
+/-! ## MoufangIntegerNormed213 (trivial at commutative ZOmega base) -/
+
+private theorem zomega_moufang_norm (u v : ZOmega) :
+    (u * v) * (conj v * conj u) = u * (v * conj v) * conj u := by
+  rw [← Ring213.mul_assoc (u * v) (conj v) (conj u),
+      Ring213.mul_assoc u v (conj v)]
+
+private theorem zomega_ofInt_paren_central (z : Int) (u : ZOmega) :
+    u * ofInt z * conj u = ofInt z * (u * conj u) := by
+  rw [show u * ofInt z = ofInt z * u from
+        (@IntegerNormed213.ofInt_central ZOmega _ z u).symm,
+      Ring213.mul_assoc (ofInt z) u (conj u)]
+
+/-- ★ MoufangIntegerNormed213 ZOmega — Eisenstein base.  Trivial
+    Moufang via mul_assoc. -/
+instance : MoufangIntegerNormed213 ZOmega where
+  ofInt               := ofInt
+  normSq              := normSq
+  self_mul_conj       := self_mul_conj'
+  ofInt_mul           := ofInt_mul'
+  ofInt_central       := ofInt_central'
+  ofInt_inj           := ofInt_inj'
+  moufang_norm        := zomega_moufang_norm
+  ofInt_paren_central := zomega_ofInt_paren_central
+
+/-- ★ ZOmega normSq_mul via MoufangIntegerNormed213 generic. -/
+theorem moufang_normSq_mul (u v : ZOmega) :
+    (u * v).normSq = u.normSq * v.normSq :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
