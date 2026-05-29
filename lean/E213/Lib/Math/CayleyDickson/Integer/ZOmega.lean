@@ -25,6 +25,9 @@ structure ZOmega where
 namespace ZOmega
 
 instance : Zero ZOmega := ⟨⟨0, 0⟩⟩
+instance : Add ZOmega := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg ZOmega := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub ZOmega := ⟨fun u v => u + (-v)⟩
 
 def Omega  : ZOmega := ⟨0, 1⟩
 def Omega2 : ZOmega := ⟨-1, -1⟩
