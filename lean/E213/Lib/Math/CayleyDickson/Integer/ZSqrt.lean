@@ -28,6 +28,9 @@ namespace ZSqrt
 variable {D : Int}
 
 instance : Zero (ZSqrt D) := ⟨⟨0, 0⟩⟩
+instance : Add (ZSqrt D) := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg (ZSqrt D) := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub (ZSqrt D) := ⟨fun u v => u + (-v)⟩
 
 def I    : ZSqrt D := ⟨0, 1⟩
 def negI : ZSqrt D := ⟨0, -1⟩
