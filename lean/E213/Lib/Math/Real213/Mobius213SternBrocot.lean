@@ -1,4 +1,5 @@
 import E213.Lib.Math.Real213.Mobius213Equiv
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Mobius213SternBrocot — Stern-Brocot reachable equivalence on cuts
@@ -48,6 +49,7 @@ namespace E213.Lib.Math.Real213.Mobius213SternBrocot
 
 open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Mobius213Equiv (Pstep Pseq seedZero seedInf mobiusEq)
+open E213.Tactic.NatHelper (add_swap_two_mul)
 
 /-! ## §1 — SternBrocotReachable inductive predicate -/
 
@@ -151,11 +153,6 @@ is the only Nat-arithmetic ingredient — proved as
 `Pseq_seedInf_components` by joint induction.  Joint reachability
 of both P-orbits then follows by induction using the constructor
 `SternBrocotReachable.mediant` directly. -/
-
-/-- Helper: `(a + b) + a = 2·a + b`.  Used twice in the Pseq
-    inclusion arithmetic. -/
-private theorem add_swap_two_mul (a b : Nat) : (a + b) + a = 2 * a + b := by
-  rw [Nat.add_assoc, Nat.add_comm b a, ← Nat.add_assoc, ← Nat.two_mul]
 
 /-- Helper: `2·(a + b) + a = (2·a + b) + (a + b)`.  The
     arithmetic certificate that `Pseq seedInf` advances by the

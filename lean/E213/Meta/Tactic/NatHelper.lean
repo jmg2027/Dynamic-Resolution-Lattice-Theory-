@@ -92,6 +92,12 @@ theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c :=
     (Nat.mul_comm c a) ▸ (Nat.mul_comm c b) ▸ rfl
   h1.trans (h2.trans h3)
 
+/-- `(a + b) + a = 2·a + b`.  Mediant / Pseq-recurrence arithmetic
+    helper used by `Real213/Mobius213*` files when rewriting the
+    `(a, b) ↦ (a + b, a)` half-step into a `2·a + b` form.  PURE. -/
+theorem add_swap_two_mul (a b : Nat) : (a + b) + a = 2 * a + b := by
+  rw [Nat.add_assoc, Nat.add_comm b a, ← Nat.add_assoc, ← Nat.two_mul]
+
 /-- `c ≤ b → a + b - c = a + (b - c)`.  ∅-axiom replacement for
     `Nat.add_sub_assoc` (Lean-core proof brings propext). -/
 theorem add_sub_assoc :

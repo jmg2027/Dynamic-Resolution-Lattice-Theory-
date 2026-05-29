@@ -28,11 +28,7 @@ All declarations PURE (∅-axiom).
 namespace E213.Lib.Math.Real213.Mobius213ContinuedFraction
 
 open E213.Lib.Math.Real213.Mobius213Equiv (Pseq seedZero seedInf Pstep)
-
-/-! ## §1 — Nat arithmetic helper -/
-
-private theorem add_swap_two_mul (a b : Nat) : (a + b) + a = 2 * a + b := by
-  rw [Nat.add_assoc, Nat.add_comm b a, ← Nat.add_assoc, ← Nat.two_mul]
+open E213.Tactic.NatHelper (add_swap_two_mul)
 
 /-- The arithmetic core of the Pell-Fibonacci recurrence:
     `2·(2a+b) + (a+b) + a = 3·(2a+b)`.
