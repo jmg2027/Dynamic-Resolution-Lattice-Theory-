@@ -473,4 +473,22 @@ private theorem cd_ofInt_mul' (a b : Int) :
        = 0
     rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
 
+/-- Abstract `ofInt_add` at CDDouble α level. -/
+private theorem cd_ofInt_add' (a b : Int) :
+    cd_ofInt a + (cd_ofInt b : CDDouble α) = cd_ofInt (a + b) := by
+  apply ext
+  · show IntegerNormed213.ofInt a + IntegerNormed213.ofInt b
+       = IntegerNormed213.ofInt (a + b)
+    exact IntegerNormed213.ofInt_add a b
+  · show (0 : α) + 0 = 0
+    exact Ring213.add_zero 0
+
+/-- Abstract `ofInt_inj` at CDDouble α level.  Follows from base
+    `ofInt_inj` applied to the `re` component. -/
+private theorem cd_ofInt_inj' {a b : Int}
+    (h : (cd_ofInt a : CDDouble α) = cd_ofInt b) : a = b := by
+  have h_re : (cd_ofInt a : CDDouble α).re = (cd_ofInt b : CDDouble α).re :=
+    congrArg CDDouble.re h
+  exact IntegerNormed213.ofInt_inj h_re
+
 end E213.Meta.Algebra213.CDDouble
