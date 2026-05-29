@@ -92,8 +92,20 @@ quaternion-analog layers in both base towers.
     abstract bridge (toCDDouble), then IntegerNormed213 via direct
     field proofs.  Generic `IntegerNormed213.normSq_mul` derives
     L3T's norm-multiplicativity via typeclass projection.
-    `[propext]`-only.  Same recipe extends to L4T, L5T, L6T (next
-    CD doubling layers in Type B tower).
+    `[propext]`-only.  L4T = CDDouble L3T is the alternative
+    non-assoc layer (Cayley analog), requires Phase 4 capstone work.
+  · **Phase 4+ cross-tower Moufang at all 6 framework instances**
+    (commits `e4c43fe`, `f077ab0`): MoufangIntegerNormed213 instance
+    registrations.  Trivial Moufang via mul_assoc at every
+    associative layer:
+      - 3 commutative bases: ZI (strict ∅-axiom), ZSqrt[D]
+        ([propext], parametric), ZOmega ([propext])
+      - 3 L2/L3 quaternion-analogs: Lipschitz (strict ∅-axiom),
+        ZOmegaDouble ([propext]), L3T ([propext])
+    Generic MoufangIntegerNormed213.normSq_mul (7-step calc-chain)
+    derives Hurwitz norm-multiplicativity at all six.  ZSqrt[D]
+    auto-derives for any D specialization (ZSqrt 2, ZSqrt -2,
+    ZSqrt 3, ...).
 
 **Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
 identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad
