@@ -1,4 +1,4 @@
-import E213.Lens.Congruence
+import E213.Lens.LensCore
 import E213.Lib.Math.ModArith.JoinBezout
 import E213.Meta.Nat.Gcd213
 
@@ -18,7 +18,7 @@ namespace E213.Lib.Math.ModArith.JoinEuclidean
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
-open E213.Lens renaming leaves_view_pos → leaves_ge_one_local
+open E213.Lens renaming leaves_view_ge_one → leaves_ge_one_local
 
 private theorem same_leaves_N_local {α : Type} (N : Lens α) (k : Nat)
     (hLk : (leavesModNat k).refines N) (r r' : Raw)

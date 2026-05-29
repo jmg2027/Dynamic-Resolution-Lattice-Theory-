@@ -39,17 +39,8 @@ private theorem small_of_leaves_one {r : Raw} (h : Lens.leaves.view r = 1) : sma
 
 private theorem leaves_of_small {r : Raw} (h : small r) : Lens.leaves.view r = 1 := h
 
-/-- Leaves view is always ≥ 1. -/
-private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
-  induction r using Raw.rec with
-  | a => decide
-  | b => decide
-  | slash x y h ihx ihy =>
-      have hfs : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := by
-        apply Raw.fold_slash
-        intro u v; exact Nat.add_comm u v
-      rw [hfs]; omega
+private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r :=
+  Lens.leaves_view_ge_one r
 
 /-- Raw.slash x y h has leaves ≥ 2, so ¬ small. -/
 private theorem not_small_slash (x y : Raw) (h : x ≠ y) :

@@ -1,4 +1,4 @@
-import E213.Lens.Congruence
+import E213.Lens.LensCore
 import E213.Lens.Instances
 
 /-!
@@ -23,7 +23,7 @@ namespace E213.Lib.Math.ModArith.JoinCoprime
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat
 
-open E213.Lens renaming leaves_view_pos → leaves_ge_one
+open E213.Lens renaming leaves_view_ge_one → leaves_ge_one
 
 /-- +1 step via L_3 then L_2: chain length 2. -/
 private theorem step_plus_one {α : Type} (N : Lens α)
