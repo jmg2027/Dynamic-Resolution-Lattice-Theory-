@@ -318,6 +318,44 @@ private theorem self_mul_conj' (u : ZOmegaDouble) :
         @CommRing213.mul_comm ZOmega.ZOmega _ u.im u.re,
         Ring213.add_left_neg]
 
+/-- `ZOmega.normSq (-a) = ZOmega.normSq a` (inline copy of the
+    public `zomega_normSq_neg` below — placed here so the IntegerNormed213
+    instance can reference it). -/
+private theorem zomega_normSq_neg_pre (a : ZOmega.ZOmega) :
+    ZOmega.ZOmega.normSq (-a) = ZOmega.ZOmega.normSq a := by
+  show (-a.re) * (-a.re) - (-a.re) * (-a.im) + (-a.im) * (-a.im)
+     = a.re * a.re - a.re * a.im + a.im * a.im
+  rw [E213.Meta.Int213.neg_mul a.re (-a.re),
+      E213.Meta.Int213.mul_neg a.re a.re, Int.neg_neg,
+      E213.Meta.Int213.neg_mul a.re (-a.im),
+      E213.Meta.Int213.mul_neg a.re a.im, Int.neg_neg,
+      E213.Meta.Int213.neg_mul a.im (-a.im),
+      E213.Meta.Int213.mul_neg a.im a.im, Int.neg_neg]
+
+/-- `ZOmega.normSq (conj a) = ZOmega.normSq a` (inline pre-version,
+    via `self_mul_conj` + `mul_comm` over commutative ZOmega). -/
+private theorem zomega_normSq_conj_pre (a : ZOmega.ZOmega) :
+    ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj a) = ZOmega.ZOmega.normSq a := by
+  have h1 : a * ZOmega.ZOmega.conj a
+          = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq a) :=
+    @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ a
+  have h2 : ZOmega.ZOmega.conj a * ZOmega.ZOmega.conj (ZOmega.ZOmega.conj a)
+          = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj a)) :=
+    @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ (ZOmega.ZOmega.conj a)
+  rw [ZOmega.ZOmega.conj_conj a] at h2
+  have h_comm : a * ZOmega.ZOmega.conj a = ZOmega.ZOmega.conj a * a :=
+    @CommRing213.mul_comm ZOmega.ZOmega _ a (ZOmega.ZOmega.conj a)
+  exact (@IntegerNormed213.ofInt_inj ZOmega.ZOmega _ _ _
+          (h1.symm.trans (h_comm.trans h2))).symm
+
+/-- `normSq (conj u) = normSq u` for ZOmegaDouble — componentwise. -/
+private theorem normSq_conj' (u : ZOmegaDouble) :
+    ZOmegaDouble.normSq (ZOmegaDouble.conj u) = ZOmegaDouble.normSq u := by
+  show ZOmega.ZOmega.normSq (ZOmega.ZOmega.conj u.re)
+         + ZOmega.ZOmega.normSq (-u.im)
+     = ZOmega.ZOmega.normSq u.re + ZOmega.ZOmega.normSq u.im
+  rw [zomega_normSq_conj_pre u.re, zomega_normSq_neg_pre u.im]
+
 /-- ★ ZOmegaDouble `IntegerNormed213` instance.  Generic
     `IntegerNormed213.normSq_mul` then derives ZOmegaDouble's norm
     multiplicativity via typeclass projection — no `quad_norm`,
@@ -330,6 +368,7 @@ instance : IntegerNormed213 ZOmegaDouble where
   ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
 
 /-- ★ Concrete witness: generic `normSq_mul` derives ZOmegaDouble's
     norm multiplicativity via typeclass — no `quad_norm` or

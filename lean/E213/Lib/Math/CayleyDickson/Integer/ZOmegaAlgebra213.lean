@@ -334,6 +334,22 @@ instance : StarRing213 ZOmega where
   conj_add  := conj_add'
   conj_mul  := conj_mul_anti
 
+/-- `normSq (conj u) = normSq u` for ZOmega — Eisenstein norm is
+    conj-invariant.  Proof: via `self_mul_conj` (forward + reverse
+    after `conj_conj`) and `mul_comm` (commutative base) + `ofInt_inj`.
+    Mirrors `ZOmegaDoubleAlgebra213.zomega_normSq_conj`. -/
+private theorem normSq_conj' (u : ZOmega) : normSq (conj u) = normSq u := by
+  have h1 : u * conj u = ofInt (normSq u) := self_mul_conj' u
+  have h2 : conj u * conj (conj u) = ofInt (normSq (conj u)) :=
+    self_mul_conj' (conj u)
+  rw [conj_conj] at h2
+  -- h2 : conj u * u = ofInt (normSq (conj u))
+  have h_comm : u * conj u = conj u * u := mul_comm u (conj u)
+  -- ofInt (normSq u) = u * conj u = conj u * u = ofInt (normSq (conj u))
+  have h_eq : ofInt (normSq u) = ofInt (normSq (conj u)) :=
+    h1.symm.trans (h_comm.trans h2)
+  exact (ofInt_inj' h_eq).symm
+
 /-- ★ ZOmega `IntegerNormed213` instance — Eisenstein norm
     `a² − ab + b²` lifted into Algebra213.  Generic `normSq_mul` from
     `IntegerNormed213` then derives ZOmega's norm multiplicativity
@@ -347,6 +363,7 @@ instance : IntegerNormed213 ZOmega where
   ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
 
 /-- ★ ZOmega `CommStarRing213` bundle — used as the base argument for
     `instRing213CDDouble` / `instStarRing213CDDouble` (CDDouble.Star),

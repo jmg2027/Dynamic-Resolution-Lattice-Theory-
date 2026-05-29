@@ -289,6 +289,32 @@ private theorem self_mul_conj' (u : L3T) :
     -- Goal: -(u.re * u.im) + u.re * u.im = 0
     exact Ring213.add_left_neg _
 
+/-- `ZSqrt.normSq (-x) = ZSqrt.normSq x` for any D — direct via
+    `(-y)·(-y) = y·y` componentwise. -/
+private theorem zsqrt_normSq_neg (x : Z2) : ZSqrt.normSq (-x) = ZSqrt.normSq x := by
+  show (-x.re) * (-x.re) + 2 * ((-x.im) * (-x.im))
+     = x.re * x.re + 2 * (x.im * x.im)
+  rw [E213.Meta.Int213.neg_mul x.re (-x.re),
+      E213.Meta.Int213.mul_neg x.re x.re, Int.neg_neg,
+      E213.Meta.Int213.neg_mul x.im (-x.im),
+      E213.Meta.Int213.mul_neg x.im x.im, Int.neg_neg]
+
+/-- `ZSqrt.normSq (conj x) = ZSqrt.normSq x` for Z2 — direct via
+    `(-y)·(-y) = y·y` componentwise (mirrors `zsqrt_normSq_neg`). -/
+private theorem zsqrt_normSq_conj (x : Z2) :
+    ZSqrt.normSq (ZSqrt.conj x) = ZSqrt.normSq x := by
+  show x.re * x.re + 2 * ((-x.im) * (-x.im))
+     = x.re * x.re + 2 * (x.im * x.im)
+  rw [E213.Meta.Int213.neg_mul x.im (-x.im),
+      E213.Meta.Int213.mul_neg x.im x.im, Int.neg_neg]
+
+/-- `normSq (conj u) = normSq u` for L3T.  Componentwise via Z2's
+    `zsqrt_normSq_conj` + `zsqrt_normSq_neg`. -/
+private theorem normSq_conj' (u : L3T) : L3T.normSq (L3T.conj u) = L3T.normSq u := by
+  show ZSqrt.normSq (ZSqrt.conj u.re) + ZSqrt.normSq (-u.im)
+     = ZSqrt.normSq u.re + ZSqrt.normSq u.im
+  rw [zsqrt_normSq_conj u.re, zsqrt_normSq_neg u.im]
+
 /-- ★ L3T `IntegerNormed213` instance.  Completes Type B downstream
     Phase 3 equivalent.  Generic `IntegerNormed213.normSq_mul` then
     derives L3T's norm-multiplicativity via typeclass projection. -/
@@ -300,6 +326,7 @@ instance : IntegerNormed213 L3T where
   ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
 
 /-- ★ Concrete witness: L3T's `normSq_mul` derived via the generic
     `IntegerNormed213.normSq_mul` typeclass projection — no

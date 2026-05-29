@@ -130,6 +130,13 @@ instance : StarRing213 ZI where
   conj_add  := conj_add
   conj_mul  := conj_mul_anti
 
+/-- `normSq (conj u) = normSq u` — ZI norm is conj-invariant.
+    `(-u.im)·(-u.im) = u.im·u.im` via `neg_mul + mul_neg + neg_neg`. -/
+private theorem normSq_conj' (u : ZI) : normSq (conj u) = normSq u := by
+  show u.re * u.re + (-u.im) * (-u.im) = u.re * u.re + u.im * u.im
+  rw [E213.Meta.Int213.neg_mul u.im (-u.im),
+      E213.Meta.Int213.mul_neg u.im u.im, Int.neg_neg]
+
 instance : IntegerNormed213 ZI where
   ofInt         := ofInt
   normSq        := normSq
@@ -138,6 +145,7 @@ instance : IntegerNormed213 ZI where
   ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
 
 /-! ## MoufangIntegerNormed213 (trivial at commutative ZI base) -/
 

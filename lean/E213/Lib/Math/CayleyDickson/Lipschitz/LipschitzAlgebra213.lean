@@ -331,6 +331,30 @@ instance : StarRing213 Lipschitz where
   conj_add  := conj_add'
   conj_mul  := conj_mul_anti
 
+/-- `ZI.normSq (-x) = ZI.normSq x` — ZI norm is neg-invariant.
+    Direct via `(-y)·(-y) = y·y` componentwise. -/
+private theorem zi_normSq_neg (x : ZI) : ZI.normSq (-x) = ZI.normSq x := by
+  show (-x.re) * (-x.re) + (-x.im) * (-x.im) = x.re * x.re + x.im * x.im
+  rw [E213.Meta.Int213.neg_mul x.re (-x.re),
+      E213.Meta.Int213.mul_neg x.re x.re, Int.neg_neg,
+      E213.Meta.Int213.neg_mul x.im (-x.im),
+      E213.Meta.Int213.mul_neg x.im x.im, Int.neg_neg]
+
+/-- `ZI.normSq (conj x) = ZI.normSq x` — same pattern as
+    `zi_normSq_neg`.  Componentwise direct expansion. -/
+private theorem zi_normSq_conj (x : ZI) : ZI.normSq (ZI.conj x) = ZI.normSq x := by
+  show x.re * x.re + (-x.im) * (-x.im) = x.re * x.re + x.im * x.im
+  rw [E213.Meta.Int213.neg_mul x.im (-x.im),
+      E213.Meta.Int213.mul_neg x.im x.im, Int.neg_neg]
+
+/-- `normSq (conj u) = normSq u` for Lipschitz.  Componentwise via
+    ZI's `zi_normSq_conj` (the underlying re component) + `zi_normSq_neg`
+    (the underlying im is negated). -/
+private theorem normSq_conj' (u : Lipschitz) :
+    normSq (Lipschitz.conj u) = normSq u := by
+  show (u.re.conj).normSq + (-u.im).normSq = u.re.normSq + u.im.normSq
+  rw [zi_normSq_conj u.re, zi_normSq_neg u.im]
+
 /-- ★ Lipschitz `IntegerNormed213` instance.  All fields PURE via
     ZI ring axioms — no Int polynomial expansion at this layer. -/
 instance : IntegerNormed213 Lipschitz where
@@ -338,6 +362,7 @@ instance : IntegerNormed213 Lipschitz where
   normSq        := normSq
   self_mul_conj := self_mul_conj'
   ofInt_mul     := ofInt_mul'
+  normSq_conj   := normSq_conj'
   ofInt_add     := by
     intro a b
     apply ext

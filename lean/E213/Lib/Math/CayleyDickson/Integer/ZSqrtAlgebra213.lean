@@ -255,6 +255,15 @@ instance : StarRing213 (ZSqrt D) where
   conj_add  := conj_add' D
   conj_mul  := conj_mul' D
 
+/-- `normSq (conj u) = normSq u` for ZSqrt[D] — conj only negates
+    `u.im`, and `(-im)·(-im) = im·im` (via `neg_mul + mul_neg + neg_neg`).
+    The `D·` scaling factor is unchanged. -/
+private theorem normSq_conj' (u : ZSqrt D) :
+    ZSqrt.normSq (ZSqrt.conj u) = ZSqrt.normSq u := by
+  show u.re * u.re + D * ((-u.im) * (-u.im)) = u.re * u.re + D * (u.im * u.im)
+  rw [E213.Meta.Int213.neg_mul u.im (-u.im),
+      E213.Meta.Int213.mul_neg u.im u.im, Int.neg_neg]
+
 /-- ZSqrt[D] `IntegerNormed213`.  norm `N(a + b√D) = a² + D·b²`
     (sign convention follows the ZSqrt struct's `normSq`). -/
 instance : IntegerNormed213 (ZSqrt D) where
@@ -265,6 +274,7 @@ instance : IntegerNormed213 (ZSqrt D) where
   ofInt_add     := ofInt_add' D
   ofInt_central := ofInt_central' D
   ofInt_inj     := ofInt_inj' D
+  normSq_conj   := normSq_conj' D
 
 /-- ZSqrt[D] `CommStarRing213` bundle. -/
 instance : CommStarRing213 (ZSqrt D) where
