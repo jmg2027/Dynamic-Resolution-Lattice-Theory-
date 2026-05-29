@@ -4,7 +4,7 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 Type A & C bases closed)
+## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 Type A/B/C bases closed)
 
 Architecture path: classical CD tower (Type A: Lipschitz → Cayley →
 Sedenion → ...) is one *column* of a 4-row matrix (Types A/B/C/D ×
@@ -77,6 +77,15 @@ expansion from Type C base layer entirely.
 Validates MoufangIntegerNormed213 at both Type A L2 (Lipschitz,
 PURE) and Type C L3 (ZOmegaDouble, [propext]) — the associative
 quaternion-analog layers in both base towers.
+
+  · **Phase 4+ Type B base** (commits `8f8138c`, `65b7244`):
+    ZSqrt[D] parametric in D registered as CommStarRing213 +
+    IntegerNormed213.  Full hierarchy Ring213 → CommRing213 →
+    StarRing213 → IntegerNormed213 → CommStarRing213.
+    Cross-tower framework now active at all 3 base towers
+    (Type A ZI/Lipschitz, Type B ZSqrt[D], Type C ZOmega/
+    ZOmegaDouble).  Concrete ZSqrt2, ZSqrtMinus2 inherit via D
+    specialization.  `[propext]`-only.
 
 **Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
 identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad
