@@ -4,7 +4,7 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 foundation closed)
+## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 ZOmegaDouble closed)
 
 Architecture path: classical CD tower (Type A: Lipschitz → Cayley →
 Sedenion → ...) is one *column* of a 4-row matrix (Types A/B/C/D ×
@@ -47,23 +47,26 @@ expansion from Type C base layer entirely.
     `normSq_conj` (via CommRing213.mul_comm + ofInt_inj — no
     polynomial expansion) + `conj_mul_self` (reverse self_mul_conj).
     Both `[propext]`-only.
+  · **Phase 4 ZOmegaDouble Moufang** (commit `0274ab3`):
+    AlternativeNormed parametric bridges
+    (`[Ring213 α] → NonAssocRing213 α` +
+    `[StarRing213 α] → NonAssocStarRing213 α`) +
+    `instance : MoufangIntegerNormed213 ZOmegaDouble` registered.
+    Moufang norm-collapse trivially from `mul_assoc` (associative
+    quaternion-analog layer).  Witness `moufang_normSq_mul` via
+    generic typeclass.
 
-**Phase 4 main work (next session)**: the Moufang norm-collapse
-identity `(uv)(v*u*) = u(vv*)u*` at ZOmegaQuad.  Analysis shows
-this is **equivalent to** `normSq_mul` at ZOmegaQuad (both sides
-reduce to `ofInt(N u · N v)`), so the proof cannot be derived
-abstractly from IntegerNormed213 axioms — it requires independent
-polynomial computation (Hurwitz-theorem-style expansion).
+Validates the new typeclass at the associative layer of Type C.
+ZOmegaQuad (genuine non-associative Moufang case) is the
+remaining Phase 4 work.
 
-Two paths:
-  (a) Parametric: prove Moufang for `CDDouble α` with `[Ring213 α]
-      [StarRing213 α]` in `AlternativeNormed.lean`.  ~100-200
-      lines.  Reusable for Cayley/Sedenion/ZOmegaQuad/etc.
-  (b) Concrete: hand-prove ZOmegaQuad-specific (~150 lines).
-      Less reusable.
-
-Recommended: path (a) — one-time cost pays off across all
-CD-tower types.
+**Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
+identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad
+(both sides reduce to `ofInt(N u · N v)`).  The proof requires
+Hurwitz-Diophantus polynomial expansion at the ZOmegaDouble →
+Int level — the residue `(cb*da - acb*d) + (a*d*bc* - d*bc*a*)`
+factors as `X + X*` and vanishes via composition-algebra
+structure on ZOmegaDouble.  Estimated 100-200 lines focused work.
 
 Then Phases 5-6 (SHIFT RULE abstract functor + base-parametric
 tower constructor).  Full plan in

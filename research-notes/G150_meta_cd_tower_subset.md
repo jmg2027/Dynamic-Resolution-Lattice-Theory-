@@ -1,9 +1,10 @@
 # G150 — 메타-CD-타워: 4-Type Base × CD doubling = CD가 부분집합
 
 **Date**: 2026-05-29
-**Status**: OPEN — Phases 1-3 closed (commits `e0da617`, `38e17ad`,
-`620ab3c`, `0d6d9e8`); Phases 4-6 (Moufang, SHIFT functor, base
-parametric tower) next session
+**Status**: OPEN — Phases 1-3 closed + Phase 4 ZOmegaDouble case
+closed (commits `e0da617`, `38e17ad`, `620ab3c`, `0d6d9e8`,
+`7d5dafa`, `0274ab3`); Phase 4 ZOmegaQuad (Hurwitz-Diophantus
+polynomial) + Phases 5-6 next session(s)
 **Lean (existing)**:
   - `E213.Lib.Math.CayleyDickson.Integer.{ZI,ZOmega,ZSqrt,Hurwitz213}` (4 base)
   - `E213.Lib.Math.CayleyDickson.Levels.{Cayley,Sedenion,...}` (Type A)
@@ -187,6 +188,22 @@ identities.
   · `ZOmegaDouble.conj_mul_self : conj u · u = ofInt(normSq u)` —
     reverse-order self_mul_conj.  Derived from forward self_mul_conj
     applied to `conj u` + `conj_conj` + `normSq_conj`.
+
+**Phase 4 ZOmegaDouble case closed** (commit `0274ab3`):
+  · AlternativeNormed.lean: parametric bridges
+    `[Ring213 α] → NonAssocRing213 α` +
+    `[StarRing213 α] → NonAssocStarRing213 α`.
+  · `instance : MoufangIntegerNormed213 ZOmegaDouble` registered.
+    Moufang norm-collapse on ZOmegaDouble follows trivially from
+    `Ring213.mul_assoc` (one re-association); `ofInt_paren_central`
+    via mul_assoc + ofInt_central.
+  · `theorem moufang_normSq_mul` witnesses generic
+    `MoufangIntegerNormed213.normSq_mul` applied to ZOmegaDouble.
+    `[propext]`-only.
+
+The above validates the new typeclass at the **associative**
+quaternion-like layer of Type C tower.  Same recipe applies
+to Type A Lipschitz (any Ring213 + IntegerNormed213 layer).
 
 **Remaining Phase 4 work**:
 
