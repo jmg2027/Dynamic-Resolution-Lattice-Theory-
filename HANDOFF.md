@@ -124,17 +124,31 @@ three towers.
         needs a different reduction.  Cayley satisfies alt, so this
         covers Sedenion; Trigintaduonion (base Sedenion, non-alt) would
         need the flexibility-only variant.]
-      · DONE lemmas: `conj_eq`; `left_assoc_conj` (`[conj b,b,X]=0`);
-        `right_assoc_conj` (`[X,conj b,b]=0`); `conj_sandwich` (gives
-        `L4=R3`); `moufang_mid`.
+      · DONE lemmas (all PURE): `conj_eq`; `left_assoc_conj`
+        (`[conj b,b,X]=0`); `right_assoc_conj` (`[X,conj b,b]=0`);
+        `conj_sandwich` (gives `L4=R3`); `moufang_mid`; **`flex_polar`**
+        (linearized flexibility `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)`).
       · **Remaining crux = the cross-pair**
         `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
-        Verified to hold (numerically) but not yet reduced.  Lead:
-        derive `flex_polar` (linearized flexibility,
-        `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)` — same expand+cancel
-        shape as `cd_flexible`'s linearization) and combine with
-        `moufang_mid` + scalar nuclearity + `self_add_conj` (both `b`
-        and `d` traces).  Then `cd_flexible.re` = `flexible`(L1=R1) +
+        Verified to hold; partially reduced.  Findings (this session):
+          – via scalar nuclearity + `conj = ofInt(trace ·) − ·`, the
+            cross-pair ⟺ `(★)  D·(ba−ab) + B·(da−ad) =
+            (db)a + b(da) − a(bd) − (ad)b`  (`D=ofInt(trace d)`,
+            `B=ofInt(trace b)`, both central+nuclear);
+          – two `flex_polar` rewrites collapse `(★)`'s RHS to
+            `d(ba) − (ab)d + (bd)a − a(db)` (verified `= (★)`-LHS too);
+          – BUT closing `(★)` needs `D = d + conj d`, `B = b + conj b`,
+            and the resulting `conj d·(ba−ab) + conj b·(da−ad)` is
+            **`flex_polar`-self-similar and conj-self-similar** —
+            re-applying linearized flexibility regenerates cross-pair-
+            shaped terms instead of reducing.  So `flex_polar` + trace
+            alone do NOT close it; an essential use of conj-anti
+            (`conj_mul`) + norm (`self_mul_conj`) in a specific
+            combination is required.  This is the core computation of the
+            literature theorem "Cayley-Dickson doubling preserves
+            flexibility" (cf. Schafer); recommend transcribing that
+            identity sequence rather than re-deriving from scratch.
+      · After the cross-pair: `cd_flexible.re` = `flexible`(L1=R1) +
         `conj_sandwich`(L4=R3) + cross-pair; `.im` analogous; then
         register `Cayley`/`Sedenion : FlexAlt213` (Cayley needs trace +
         conj_mul_self + scalar-nuclearity proofs — real-scalar nuclearity
