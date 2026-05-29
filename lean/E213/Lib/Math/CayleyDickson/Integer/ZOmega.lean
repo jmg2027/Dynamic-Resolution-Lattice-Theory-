@@ -49,6 +49,21 @@ def normSq (u : ZOmega) : Int :=
 theorem ext {u v : ZOmega} (hr : u.re = v.re) (hi : u.im = v.im) :
     u = v := by cases u; cases v; congr
 
+/-- ZOmega multiplication is commutative.  Foundational property of
+    Eisenstein integers, kept here so downstream `ZOmegaAlgebra213`
+    can depend on it without a cycle through `ZOmegaDomain`. -/
+theorem mul_comm (u v : ZOmega) : u * v = v * u := by
+  apply ext
+  · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
+    rw [E213.Meta.Int213.mul_comm u.re v.re,
+        E213.Meta.Int213.mul_comm u.im v.im]
+  · show u.re * v.im + u.im * v.re - u.im * v.im
+       = v.re * u.im + v.im * u.re - v.im * u.im
+    rw [E213.Meta.Int213.mul_comm u.re v.im,
+        E213.Meta.Int213.mul_comm u.im v.re,
+        E213.Meta.Int213.mul_comm u.im v.im,
+        E213.Meta.Int213.add_comm (v.im * u.re)]
+
 theorem conj_conj (u : ZOmega) : u.conj.conj = u := by
   apply ext
   · show (u.re - u.im) - (-u.im) = u.re

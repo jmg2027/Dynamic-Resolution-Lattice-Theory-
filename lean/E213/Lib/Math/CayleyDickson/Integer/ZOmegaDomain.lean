@@ -1,4 +1,5 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaAlgebra213
 import E213.Meta.Nat.IntHelpers
 import E213.Meta.Tactic.QuadNorm
 
@@ -16,29 +17,13 @@ open E213.Tactic
 namespace E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
 
 
-theorem mul_comm (u v : ZOmega) : u * v = v * u := by
-  apply ext
-  · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
-    rw [E213.Meta.Int213.mul_comm u.re v.re,
-        E213.Meta.Int213.mul_comm u.im v.im]
-  · show u.re * v.im + u.im * v.re - u.im * v.im
-       = v.re * u.im + v.im * u.re - v.im * u.im
-    rw [E213.Meta.Int213.mul_comm u.re v.im,
-        E213.Meta.Int213.mul_comm u.im v.re,
-        E213.Meta.Int213.mul_comm u.im v.im,
-        E213.Meta.Int213.add_comm (v.im * u.re)]
-
-/-- `|uv|² = |u|²·|v|²` for the Eisenstein norm. -/
+/-- `|uv|² = |u|²·|v|²` for the Eisenstein norm.  Typeclass projection
+    through `IntegerNormed213.normSq_mul` — `[propext]`-only purity
+    (the previous `quad_norm`-based proof leaked `[propext, Quot.sound]`
+    via simp + omega). -/
 theorem normSq_mul (u v : ZOmega) :
-    (u * v).normSq = u.normSq * v.normSq := by
-  show (u.re*v.re - u.im*v.im)*(u.re*v.re - u.im*v.im)
-     - (u.re*v.re - u.im*v.im)
-       * (u.re*v.im + u.im*v.re - u.im*v.im)
-     + (u.re*v.im + u.im*v.re - u.im*v.im)
-       *(u.re*v.im + u.im*v.re - u.im*v.im)
-     = (u.re*u.re - u.re*u.im + u.im*u.im)
-     * (v.re*v.re - v.re*v.im + v.im*v.im)
-  quad_norm
+    (u * v).normSq = u.normSq * v.normSq :=
+  E213.Meta.Algebra213.IntegerNormed213.normSq_mul u v
 
 /-- `conj` distributes over multiplication. -/
 theorem conj_mul (u v : ZOmega) :

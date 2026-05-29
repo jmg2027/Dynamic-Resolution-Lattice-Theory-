@@ -1,5 +1,4 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
 import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.CDDouble
 import E213.Meta.Int213.Core
@@ -210,10 +209,11 @@ private theorem self_mul_conj' (u : ZOmega) : u * conj u = ofInt u.normSq := by
         E213.Meta.Int213.add_left_neg (u.re*u.im),
         Int.zero_add, E213.Meta.Int213.add_left_neg]
 
-/-- `mul_comm` for ZOmega — PURE version (existing ZOmegaDomain.mul_comm
-    is already PURE, just relocated here for instance registration). -/
+/-- `mul_comm` for ZOmega — re-export under the local `mul_comm'` name
+    used by instance fields below.  The actual proof lives foundationally
+    in `ZOmega.lean`. -/
 private theorem mul_comm' (u v : ZOmega) : u * v = v * u :=
-  E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega.mul_comm u v
+  ZOmega.mul_comm u v
 
 /-- Same-order `conj` distributivity for commutative ZOmega.
     PURE via direct expansion + 213-native Int213 ring rewrites. -/
@@ -301,14 +301,5 @@ instance : CommStarRing213 ZOmega where
   conj_conj := conj_conj
   conj_add  := conj_add'
   conj_mul  := conj_mul_anti
-
-/-- ★ Typeclass-projection alternative to `ZOmegaDomain.normSq_mul`.
-    Same signature, different proof path: generic
-    `IntegerNormed213.normSq_mul` via the instance above.  Purity
-    `[propext]`-only (the `ZOmegaDomain` original uses `quad_norm`
-    which leaks `[propext, Quot.sound]`). -/
-theorem normSq_mul_pure (u v : ZOmega) :
-    (u * v).normSq = u.normSq * v.normSq :=
-  IntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
