@@ -63,6 +63,16 @@ expansion from Type C base layer entirely.
     depend on any axioms) — stronger than ZOmegaDouble path
     because ZI uses simpler ring-axiom proofs (no neg_add in
     simp set).
+  · **Phase 4 ZOmega normSq_mul DIRTY removal** (commit `edbcb53`):
+    architectural cycle break (mul_comm relocated to ZOmega.lean
+    foundationally) enables ZOmegaDomain.normSq_mul to use
+    `IntegerNormed213.normSq_mul` typeclass projection directly.
+    Replaces `quad_norm` body in production:
+      was: `[propext, Quot.sound]` (simp + omega)
+      now: `[propext]` only           (typeclass)
+    Quot.sound eliminated from the call-site theorem.  Real
+    architectural win — typeclass framework REPLACES DIRTY tactic
+    in production code, not just provides an alternative.
 
 Validates MoufangIntegerNormed213 at both Type A L2 (Lipschitz,
 PURE) and Type C L3 (ZOmegaDouble, [propext]) — the associative
