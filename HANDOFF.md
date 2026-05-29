@@ -149,17 +149,49 @@ quaternion-analog layers in both base towers.
     The DRLT Validation Standard at the algebra layer holds at the
     strictest tier across the closed 4-row matrix.
 
-**Phase 4 capstone (deferred deep work — `moufang_norm` at alt layer)**:
-the Moufang norm-collapse identity `(uv)(v*u*) = u(vv*)u*` at the
-Cayley/ZOmegaQuad/L4T layer reduces to `N(uv) = N(u)·N(v)` (Hurwitz
-norm-multiplicativity) since `vv* = ofInt(N(v))` is central.  The
-proof requires either polynomial expansion at the base Int level
-(8-var Hurwitz identity for octonions) or an abstract
-`cddouble_normSq_mul` theorem at the framework level requiring base
-α to be a composition algebra with associativity.  The Cayley-Dickson
-construction preserves composition exactly when the base is
-associative, so the abstract path is feasible but requires careful
-residue-cancellation algebra.  Estimated 200-400 lines.
+**Phase 4 marathon — abstract Hurwitz extension foundations** (commits
+`f22c741`, `d3b7132`, `e4a644a`, `54d8bce`): substantive progress on
+the Cayley-Dickson Hurwitz extension at the framework level.
+  · Two new axioms added to `IntegerNormed213`:
+    - `normSq_conj : ∀ a, normSq (conj a) = normSq a` (norm is
+      conj-invariant)
+    - `ofInt_conj : ∀ z, conj (ofInt z) = ofInt z` (integer embeds
+      are self-conj)
+  · Generic `conj_mul_self : conj a · a = ofInt (normSq a)` derived
+    from `self_mul_conj` + `conj_conj` + `normSq_conj`.
+  · All 6 existing IntegerNormed213 instances (ZI / ZSqrt[D] / ZOmega
+    / Lipschitz / ZOmegaDouble / L3T) extended with both new fields,
+    verified STRICT ∅-axiom.
+  · Eight abstract `cd_*` Hurwitz extension theorems proven at
+    `[IntegerNormed213 α]` base in `CDDoubleStar.lean §7`:
+      - `cd_ofInt`, `cd_normSq` (definitions)
+      - `cd_self_mul_conj'`, `cd_ofInt_mul'`, `cd_ofInt_add'`,
+        `cd_ofInt_inj'`, `cd_ofInt_central'`, `cd_normSq_conj'`
+  · The cd_self_mul_conj' proof uses the generic `conj_mul_self`
+    — establishing that the reverse self_mul_conj is the key
+    missing piece for the abstract Hurwitz extension at non-comm
+    associative bases.
+
+**Phase 4 capstone (one architectural step remaining)**: direct
+registration of `IntegerNormed213 (CDDouble α)` parametrically is
+blocked by a typeclass diamond between
+`CommStarRing213.toStarRing213` and `IntegerNormed213.toStarRing213`
+when both are inferred for α (the parent `StarRing213 (CDDouble α)`
+needs `CommStarRing213 α`, but `IntegerNormed213 α` also provides a
+StarRing213 path).  Resolution requires a structural reorganization
+(e.g., a `CommIntegerNormed213` combined typeclass that avoids the
+diamond at instance time, or explicit instance disambiguation via
+`@instStarRing213` qualifications).  The 8 abstract `cd_*` theorems
+can already be invoked manually per concrete bridge to consolidate
+Lipschitz/ZOmegaDouble/L3T's hand-written proofs (~100 lines each
+→ 1-line projections).
+
+Once the diamond is resolved, the generic `IntegerNormed213.normSq_mul`
+derives Hurwitz at CDDouble α directly — fully replacing
+`hurwitz_ring`-style polynomial expansion for the L2/L3 quaternion-
+analog layer.  The L3/L4 alt layer (Cayley/ZOmegaQuad/L4T) requires
+an additional step: the Moufang/alternative algebra version that
+handles non-associativity.
 
 Then Phases 5-6 (SHIFT RULE abstract functor + base-parametric
 tower constructor).  Full plan in
