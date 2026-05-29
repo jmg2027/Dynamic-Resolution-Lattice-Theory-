@@ -150,23 +150,44 @@ ZOmegaDouble 추가:
 `ZOmegaQuadAlgebra213.lean` (87줄) 신규: bridge skeleton +
 toCDDouble {_mul, _conj, _add, _neg, _zero}.  Phase 4 foundation.
 
-### ⏳ Phase 4 — ZOmegaQuad MoufangIntegerNormed213 (다음 세션)
+### ⏳ Phase 4 — ZOmegaQuad MoufangIntegerNormed213
 
-ZOmegaQuad는 alternative non-assoc layer (Cayley analog at Type C).
-Moufang norm-collapse identity `(u·v)·(conj v · conj u) = u · (v · conj v) · conj u`
-가 핵심 ingredient.
+**Phase 4 foundation closed** (commit `7d5dafa`):
+  · `ZOmegaDouble.normSq_conj : normSq (conj u) = normSq u` —
+    via typeclass: CommRing213.mul_comm bridges
+    `a·conj a = ofInt(N a)` and `conj a·a = ofInt(N(conj a))`,
+    then ofInt_inj.  No polynomial expansion.
+  · `ZOmegaDouble.conj_mul_self : conj u · u = ofInt(normSq u)` —
+    reverse-order self_mul_conj.  Derived from forward self_mul_conj
+    applied to `conj u` + `conj_conj` + `normSq_conj`.
 
-**Required additional**:
-  · `normSq_conj : normSq (conj a) = normSq a` for ZOmegaDouble
-    (componentwise via ZOmega-level fact)
-  · derived `conj a · a = ofInt (normSq a)` (reverse-order
-    self_mul_conj) via self_mul_conj on conj(a) + normSq_conj
-  · Moufang norm-collapse polynomial chain on ZOmegaQuad using
-    ZOmegaDouble Ring213 axioms (associative) + above two
+**Remaining Phase 4 work**:
 
-Estimated ~100-150 lines for the Moufang proof.  Mechanical given
-the foundation but tedious.  Validates new typeclass at non-assoc
-layer.
+The Moufang norm-collapse identity at ZOmegaQuad —
+`(u·v) · (conj v · conj u) = u · (v · conj v) · conj u` — is **not
+derivable from IntegerNormed213 axioms alone**.  Both sides expand
+to `ofInt(normSq(uv))` and `ofInt(normSq u · normSq v)` respectively,
+so the identity is *equivalent to* `normSq_mul (uv) = normSq u ·
+normSq v` at ZOmegaQuad — the very fact the typeclass machinery
+aims to derive from Moufang.  Hence the proof must be **independent
+polynomial computation** (Hurwitz-theorem-style).
+
+Two paths:
+
+(a) **Abstract**: prove `CDDouble α` Moufang norm-collapse for
+    `[Ring213 α] [StarRing213 α]` parametrically in
+    `AlternativeNormed.lean`.  ~100-200 lines polynomial expansion
+    using base Ring213 axioms.  One-time cost, pays off across all
+    CD-tower types (Cayley, Sedenion, ZOmegaQuad, ZOmegaOct,
+    Hurwitz-double, …).
+(b) **Concrete**: hand-prove ZOmegaQuad-specific Moufang via
+    expansion in 4 ZOmegaDouble variables.  ~150 lines.  Less
+    reusable.
+
+Recommended: path (a).
+
+Status: foundation complete, Moufang proof itself is genuine
+multi-hour focused work for next session.
 
 ### ⏳ Phase 5 — SHIFT RULE 추상 functor
 
