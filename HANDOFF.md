@@ -58,11 +58,32 @@ Each yields `normSq_mul` (Hurwitz composition) via the generic
 `CayleyHeavy.normSq_mul`) with one structural lemma reused across all
 three towers.
 
+## Follow-up marathon (this session, after the core layer)
+
+  - **#1 done** — `CayleyHeavy.normSq_mul` now bridges to
+    `cd_normSq_mul` (PURE); the `hurwitz_ring` + `maxHeartbeats 4000000`
+    proof is gone.  `TraceNormed213 Lipschitz` relocated to
+    `LipschitzAlgebra213` (cycle-free).
+  - **#5 done** — `CayleyDickson/INDEX.md`, theory chapter
+    `theory/math/cayley_dickson/algebra_tower.md` (new norm-composition
+    section), methodology Pattern #21 (polarization), falsifier-roster
+    composition-boundary entry.
+  - **#2 done (partial)** — new reusable `NonAssocRing213` /
+    `NonAssocStarRing213` generic-lemma layer (Ring213 proofs port
+    verbatim, no `mul_assoc`).  `SedenionHeavy.conj_mul_anti` now PURE
+    (was 8M-heartbeat `hurwitz_ring`).
+  - **#3 done** — `Levels/SedenionZeroDivisor.lean`: explicit zero
+    divisor `(e₁+e₁₀)(e₄−e₁₅)=0` + `normSq` non-multiplicativity,
+    marking the composition boundary (decide, ∅-axiom).
+
 ## Open / next
 
-  - `CayleyHeavy.normSq_mul` (the old `hurwitz_ring` proof) is now
-    superseded by `Cayley.moufang_normSq_mul`; consider migrating
-    call-sites and deleting the DIRTY proof.
-  - Higher layers (Sedenion / ZOmegaOct / L5T) double a *non-
-    associative* base — norm composition genuinely fails there, so
-    `TraceNormed213` does not lift; no Moufang instance expected.
+  - `SedenionHeavy.flexible` and `CayleyHeavy.{alt_left,alt_right,
+    flexible}` are still `hurwitz_ring` — these are the **alternativity**
+    laws (a separate structural identity from norm composition).  PURE-
+    ifying them needs an alternative-law derivation over `CDDouble`
+    (a bigger project than the norm polarization); the new
+    `NonAssocRing213` layer is the groundwork.
+  - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
+    from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
+    the polynomial brute force.

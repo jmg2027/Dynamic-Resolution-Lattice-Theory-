@@ -86,6 +86,24 @@ level** → each loss is a decide-witnessed falsifier.  Strongly
 methodological: the **CD tower IS a negation generator**, not
 an incidental source of falsifiers.
 
+### Composition boundary — the norm-multiplicativity falsifier
+
+`Levels/SedenionZeroDivisor.lean` makes the composition boundary
+explicit (the negative companion of the polarization Moufang
+theorems in `Meta/Algebra213/CDDoubleMoufang`, which close norm
+multiplicativity up to the octonion-analog layer):
+
+| Theorem | Claim |
+|---|---|
+| `sedenion_has_zero_divisors` | `∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u·v = 0` (witness `(e₁+e₁₀)(e₄−e₁₅)=0`) |
+| `sedenion_normSq_not_multiplicative` | `∃ u v, normSq(u·v) ≠ normSq u · normSq v` (`0 ≠ 4`) |
+
+These pin down exactly where `MoufangIntegerNormed213` /
+composition **cannot** extend: one Cayley-Dickson step past the
+octonion-analog layer the base is non-associative, `TraceNormed213`
+does not lift, and the norm form stops being multiplicative.  Both
+`decide`-proven, strict ∅-axiom.
+
 ---
 
 ## Sample `ne` (distinguishability) falsifiers
