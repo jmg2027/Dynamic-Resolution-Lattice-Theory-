@@ -4,6 +4,105 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
+## Intra-Lib/Math helper consolidation (#8a–#8f)
+
+After the cross-ring extraction series (#6, #7) finished promoting
+helpers *down* the ring stack (Lib/Math/Physics → Theory / Lens /
+Meta), this series targets the same pattern **within Lib/Math
+itself** — duplicates that have an existing canonical home one
+helper-file away, not one ring away.
+
+User directive: "lib/math 와 다른 링 뿐 아니라, lib/math 자체
+내부에서도 이런 경우들이 있는지 조사해서 묶어보고 그 패턴을
+조사해줘"  ("Investigate within Lib/Math itself for duplicates,
+group them, and study the pattern.")
+
+Constraint signalled mid-series: CD-tower modules (Cayley /
+Sedenion / Trigintaduonion / Pathion `*Heavy.lean` + algebra
+instance files) build slowly, so explicitly **deferred** from this
+pass — focus on lighter sub-trees.
+
+  · **#8a `binom_le_binom_succ`** — 2 files in
+    `Lib/Math/Cohomology/Cup/` (KSubsetEraseIdx +
+    FinBridgeGeneral) carried private inline copies of a
+    1-cases-and-Nat.le_add_left Pascal-monotonicity lemma; the
+    helper file `Combinatorics/Binomial.lean` already hosted
+    `binom_n_0`, `binom_succ_2`, etc.  Promoted as a new public
+    theorem and opened in both consumers.  Net: −28 lines.
+  · **#8b `pow_mod_base`** — 2 files in
+    `Lib/Math/Cohomology/Fractal/` (ConfigCountModular +
+    ConfigCountAurifeuilleanParam) carried verbatim copies of
+    `a^k % p = (a % p)^k % p`.  Promoted to
+    `Meta/Nat/ModPow213.lean` as a Nat.pow-flavored sibling of
+    the existing `modPow_mod_left` (no new dep — ModPow213
+    already imports MulMod213).  Both consumers `open` it; no
+    call-site changes.  Net: −29 lines / +26 lines.
+  · **#8c `add_swap_two_mul`** — 2 files in `Lib/Math/Real213/`
+    (Mobius213SternBrocot + Mobius213ContinuedFraction) carried
+    verbatim 1-line `(a + b) + a = 2·a + b` Pseq-recurrence
+    helper.  Promoted to `Meta/Tactic/NatHelper.lean` next to
+    `add_mul` / `mul_assoc`.
+  · **#8d `xor_pair_swap`** —
+    `Cohomology/Bipartite/Parametric/EnrichedKNSNTc.lean` carried
+    a private `xor_pair_swap` whose docstring literally read
+    "Mirrors BoolXORFold.xor_pair_swap" — an explicitly-tagged
+    duplicate of an already-public theorem.  Replaced with import
+    + open.
+  · **#8e `fin9LiftToNat` + `fin9LiftToNat_xor`** —
+    V33Indeterminacy + V33c3Indeterminacy carried byte-identical
+    `def vToNat (Fin 9 → Bool) : Nat → Bool` (~10 lines each) and
+    `theorem vToNat_xor` (~11 lines each).  Promoted to
+    `Infrastructure/BoolXORFold.lean` as `fin9LiftToNat` /
+    `fin9LiftToNat_xor`; consumers use
+    `open ... renaming fin9LiftToNat → vToNat, ...` to keep call
+    sites verbatim.
+  · **#8f delete unused `xor_false_right`** —
+    `LeibnizLexListLevel.lean` carried a verbatim duplicate of
+    `Cochain.Core.xor_false_right` that was *never used* — no
+    internal call, no external open.  Deleted the dead leaf.
+
+### Pattern findings (intra-Lib/Math)
+
+1. **Helper-file under-utilisation**.  In #8a and #8b the
+   canonical home (`Combinatorics/Binomial`, `Meta/Nat/ModPow213`)
+   already existed and was already imported transitively by the
+   consumer — but the consumers had local inline copies anyway.
+   The bottleneck is **discoverability**, not API gaps.  Authors
+   reaching for a helper writes it inline rather than searching
+   for it.  Mitigation: when adding helpers, drop them in the
+   existing topical home (Combinatorics/, Cohomology/Infrastructure/,
+   Meta/Nat/) rather than the consumer file.
+2. **Docstring-tagged duplication is the easiest fix**.  #8d's
+   duplicate was self-flagged in the docstring as "Mirrors
+   BoolXORFold.xor_pair_swap".  Pattern: `grep -rn "Mirrors\|same
+   as\|copy of"` reliably surfaces author-acknowledged duplicates.
+3. **Sibling-file duplicates dominate**.  Most pairs in #8 are
+   between two files in the *same sub-tree* (Fractal/, Real213/,
+   Bipartite/) doing similar things on different parameter slices.
+   The pattern is "I'm writing a new instance file, let me copy
+   the helper from the neighbour" rather than "let me promote it".
+4. **Dead duplicates exist**.  #8f's `xor_false_right` was
+   duplicated AND never used.  Local helpers tend to outlive their
+   call sites because there's no usage-pressure to delete them.
+   Worth a periodic `grep`-pass.
+5. **Per-naming-style refactors are pervasive but heavy**.
+   CD-tower files (`*Heavy.lean`, algebra instance files) have ~10
+   duplicate primed helpers (`add_mul'`, `add_assoc'`, …) per
+   ring level (ZI / Lipschitz / Cayley / Sedenion / …), but
+   consolidating them requires moving them into a Ring213 typeclass
+   utility module + heavy CD-tower builds.  Deferred per
+   build-cost trade-off; structurally the cleanest fix is to define
+   them once at the Ring213 typeclass level so every CD layer
+   inherits.
+
+Cumulative #8a–#8f: **2 new public theorems in
+`Meta/Nat/ModPow213`, 1 new in `Meta/Tactic/NatHelper`, 1 new
+public theorem + 1 new def in `Cohomology/Infrastructure/
+BoolXORFold`, 1 new in `Lib/Math/Combinatorics/Binomial`**;
+~120 lines of duplicated proof body removed across 9 consumer
+files.  All `lake build` clean, all touched theorems
+`#print axioms`-verified PURE.
+
 ## Cross-ring helper extraction in non-Physics rings (#7a–#7d)
 
 Continued the helper-extraction work, applied to the
