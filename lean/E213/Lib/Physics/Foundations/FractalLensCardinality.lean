@@ -53,8 +53,8 @@ theorem K25_coloring_count : coloring_count numV d = d ^ (d * d) := by
   show d ^ 25 = d ^ (d * d)
   decide
 
-/-- ★ K_{25} d-coloring count = N_resolution. -/
-theorem K25_coloring_count_eq_N_U :
+/-- ★ K_{25} d-coloring count value (= 5^25 = configCount 2). -/
+theorem K25_coloring_count_value :
     coloring_count numV d = 298023223876953125 := by
   show d ^ numV = 298023223876953125
   decide
