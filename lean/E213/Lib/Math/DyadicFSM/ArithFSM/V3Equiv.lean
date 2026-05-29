@@ -1,6 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.EncodePair213
+import E213.Meta.Tactic.Fin213
 import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
@@ -40,16 +41,7 @@ theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
   exact E213.Meta.Nat.EncodePair213.encode_mod hn (a.val * n + b.val) c.val c.isLt
 
 /-- Helper: b * n + c < n * n when b, c < n.  ∅-axiom. -/
-private theorem bn_plus_c_lt_nn {n : Nat} (b c : Fin n) :
-    b.val * n + c.val < n * n := by
-  have hb : b.val + 1 ≤ n := b.isLt
-  have hc : c.val < n := c.isLt
-  have hsucc : (b.val + 1) * n = b.val * n + n := Nat.succ_mul _ _
-  have hbound : (b.val + 1) * n ≤ n * n := Nat.mul_le_mul_right n hb
-  calc b.val * n + c.val
-      < b.val * n + n := Nat.add_lt_add_left hc _
-    _ = (b.val + 1) * n := hsucc.symm
-    _ ≤ n * n := hbound
+open E213.Tactic.Fin213 renaming pair_encoded_lt → bn_plus_c_lt_nn
 
 /-- Encoded value's mod-n² block recovers b*n + c.  STRICT ∅-AXIOM. -/
 theorem encode3_mod_nn_pub {n : Nat} (a b c : Fin n) :

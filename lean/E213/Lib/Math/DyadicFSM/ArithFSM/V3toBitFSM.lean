@@ -2,6 +2,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.EncodePair213
+import E213.Meta.Tactic.Fin213
 import E213.Meta.Tactic.NatHelper
 
 import E213.Lib.Math.DyadicFSM.BitFSM
@@ -54,16 +55,7 @@ private theorem encode3_bound {n : Nat} (a b c : Fin n) :
               = a.val * (n * n) + (b.val * n + c.val) := Nat.add_assoc _ _ _
   exact step4 ▸ Nat.lt_of_lt_of_le step1 (step2 ▸ step3)
 
-private theorem bn_plus_c_lt_nn {n : Nat} (b c : Fin n) :
-    b.val * n + c.val < n * n := by
-  have hb : b.val + 1 ≤ n := b.isLt
-  have hc : c.val < n := c.isLt
-  have hsucc : (b.val + 1) * n = b.val * n + n := Nat.succ_mul _ _
-  have hbound : (b.val + 1) * n ≤ n * n := Nat.mul_le_mul_right n hb
-  calc b.val * n + c.val
-      < b.val * n + n := Nat.add_lt_add_left hc _
-    _ = (b.val + 1) * n := hsucc.symm
-    _ ≤ n * n := hbound
+open E213.Tactic.Fin213 renaming pair_encoded_lt → bn_plus_c_lt_nn
 
 private theorem encode3_div_nn {n : Nat} (hn : 0 < n) (a b c : Fin n) :
     (a.val * (n * n) + b.val * n + c.val) / (n * n) = a.val := by
