@@ -350,11 +350,6 @@ private theorem normSq_conj' (u : ZOmega) : normSq (conj u) = normSq u := by
     h1.symm.trans (h_comm.trans h2)
   exact (ofInt_inj' h_eq).symm
 
-/-- ★ ZOmega `IntegerNormed213` instance — Eisenstein norm
-    `a² − ab + b²` lifted into Algebra213.  Generic `normSq_mul` from
-    `IntegerNormed213` then derives ZOmega's norm multiplicativity
-    via typeclass projection (replaces the `quad_norm`-based DIRTY
-    proof in `ZOmegaDomain`). -/
 /-- `conj (ofInt z) = ofInt z` for ZOmega.  conj ⟨z, 0⟩ = ⟨z - 0, -0⟩
     = ⟨z, 0⟩. -/
 private theorem ofInt_conj' (z : Int) : conj (ofInt z) = ofInt z := by
@@ -384,6 +379,19 @@ instance : CommStarRing213 ZOmega where
   conj_conj := conj_conj
   conj_add  := conj_add'
   conj_mul  := conj_mul_anti
+
+/-- ZOmega `CommIntegerNormed213` — enables abstract CDDouble Hurwitz
+    extension at Type C tower. -/
+instance : CommIntegerNormed213 ZOmega where
+  ofInt         := ofInt
+  normSq        := normSq
+  self_mul_conj := self_mul_conj'
+  ofInt_mul     := ofInt_mul'
+  ofInt_add     := ofInt_add'
+  ofInt_central := ofInt_central'
+  ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
 
 /-! ## MoufangIntegerNormed213 (trivial at commutative ZOmega base) -/
 

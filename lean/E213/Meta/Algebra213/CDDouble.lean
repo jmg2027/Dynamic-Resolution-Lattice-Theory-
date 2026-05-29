@@ -31,6 +31,15 @@ namespace E213.Meta.Algebra213
 /-- Combined commutative *-ring class for clean CD-double base. -/
 class CommStarRing213 (α : Type) extends CommRing213 α, StarRing213 α
 
+/-- Combined commutative integer-normed *-ring class.  Used as the
+    base precondition for the abstract Cayley-Dickson Hurwitz
+    extension `IntegerNormed213 (CDDouble α)` — avoids the typeclass
+    diamond that arises when `[CommStarRing213 α]` and
+    `[IntegerNormed213 α]` are inferred independently (the two
+    `.toStarRing213` projections are syntactically distinct).
+    All commutative base rings (ZI, ZOmega, ZSqrt[D]) satisfy this. -/
+class CommIntegerNormed213 (α : Type) extends CommStarRing213 α, IntegerNormed213 α
+
 /-- `CDDouble α` — pair structure. -/
 structure CDDouble (α : Type) where
   re : α

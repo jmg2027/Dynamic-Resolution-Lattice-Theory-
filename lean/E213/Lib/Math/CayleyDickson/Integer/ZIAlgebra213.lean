@@ -3,6 +3,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Integer.ZIDomain
 import E213.Lib.Math.CayleyDickson.Integer.ZIHom
 import E213.Meta.Algebra213.Core
+import E213.Meta.Algebra213.CDDouble
 import E213.Meta.Algebra213.AlternativeNormed
 import E213.Meta.Int213.Core
 
@@ -145,6 +146,27 @@ private theorem ofInt_conj' (z : Int) : conj (ofInt z) = ofInt z := by
   · show -(0 : Int) = 0; exact Int.neg_zero
 
 instance : IntegerNormed213 ZI where
+  ofInt         := ofInt
+  normSq        := normSq
+  self_mul_conj := self_mul_conj'
+  ofInt_mul     := ofInt_mul'
+  ofInt_add     := ofInt_add'
+  ofInt_central := ofInt_central'
+  ofInt_inj     := ofInt_inj'
+  normSq_conj   := normSq_conj'
+  ofInt_conj    := ofInt_conj'
+
+/-- ZI `CommStarRing213` — required as parent of CommIntegerNormed213. -/
+instance : CommStarRing213 ZI where
+  conj      := conj
+  conj_conj := conj_conj
+  conj_add  := conj_add
+  conj_mul  := conj_mul_anti
+  mul_comm  := mul_comm
+
+/-- ZI `CommIntegerNormed213` — combines `CommStarRing213` + `IntegerNormed213`
+    into a single instance to enable abstract `CDDouble` Hurwitz extension. -/
+instance : CommIntegerNormed213 ZI where
   ofInt         := ofInt
   normSq        := normSq
   self_mul_conj := self_mul_conj'

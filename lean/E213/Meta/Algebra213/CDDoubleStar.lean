@@ -417,7 +417,7 @@ Concrete L2/L3 quaternion-analog instances (Lipschitz=CDDouble ZI,
 ZOmegaDouble=CDDouble ZOmega, L3T=CDDouble Z2) all satisfy
 `[CommStarRing213 α]` and `[IntegerNormed213 α]` at base. -/
 
-variable [IntegerNormed213 α]
+variable [CommIntegerNormed213 α]
 
 /-- CDDouble lifted ofInt: real-axis embed. -/
 def cd_ofInt (z : Int) : CDDouble α :=
@@ -524,21 +524,48 @@ private theorem cd_normSq_conj' (u : CDDouble α) :
         Ring213.neg_neg]
   rw [h_neg]
 
-/-! ## Abstract Cayley-Dickson Hurwitz extension — public theorems
+/-- ★ Abstract Cayley-Dickson Hurwitz extension:
+    `IntegerNormed213 (CDDouble α)` parametrically over the combined
+    `[CommIntegerNormed213 α]` typeclass.  The combined class avoids
+    the diamond between `CommStarRing213.toStarRing213` and
+    `IntegerNormed213.toStarRing213` by providing a single shared
+    StarRing213 α parent.
 
-The `cd_*` private theorems above provide all 8 IntegerNormed213 fields
-abstractly over `[CommStarRing213 α] [IntegerNormed213 α]` base.  The
-parametric instance `IntegerNormed213 (CDDouble α)` would unlock the
-generic `IntegerNormed213.normSq_mul` for the CDDouble carrier directly,
-but registration is blocked by a typeclass diamond between
-`CommStarRing213.toStarRing213` and `IntegerNormed213.toStarRing213`
-when both are inferred for α — Lean treats these as distinct StarRing213
-α records even though they share the same `conj` field.  Resolution
-requires a structural reorganization (e.g., a `CommIntegerNormed213`
-typeclass that combines both, avoiding the diamond at instance time).
-
-In the meantime, the abstract `cd_*` lemmas can be invoked manually
-per concrete bridge (Lipschitz/ZOmegaDouble/L3T) to replace their
-hand-written self_mul_conj'/ofInt_*/normSq_conj proofs. -/
+    Once registered, the generic `IntegerNormed213.normSq_mul` derives
+    `N(uv) = N(u)·N(v)` at the CDDouble carrier abstractly — no
+    per-instance polynomial proof, no `hurwitz_ring` DIRTY tactic. -/
+instance instIntegerNormed213CDDouble [CommIntegerNormed213 α] :
+    IntegerNormed213 (CDDouble α) where
+  ofInt         := cd_ofInt
+  normSq        := cd_normSq
+  self_mul_conj := by
+    intro u
+    show u * CDDouble.conj u = cd_ofInt (cd_normSq u)
+    exact cd_self_mul_conj' u
+  ofInt_mul     := by
+    intro a b
+    show cd_ofInt a * cd_ofInt b = cd_ofInt (a * b)
+    exact cd_ofInt_mul' a b
+  ofInt_add     := by
+    intro a b
+    show cd_ofInt a + cd_ofInt b = cd_ofInt (a + b)
+    exact cd_ofInt_add' a b
+  ofInt_central := by
+    intro z u
+    show cd_ofInt z * u = u * cd_ofInt z
+    exact cd_ofInt_central' z u
+  ofInt_inj     := cd_ofInt_inj'
+  normSq_conj   := by
+    intro u
+    show cd_normSq (CDDouble.conj u) = cd_normSq u
+    exact cd_normSq_conj' u
+  ofInt_conj    := by
+    intro z
+    apply ext
+    · show StarRing213.conj (IntegerNormed213.ofInt z)
+         = IntegerNormed213.ofInt z
+      exact IntegerNormed213.ofInt_conj z
+    · show -(0 : α) = 0
+      exact ring_neg_zero
 
 end E213.Meta.Algebra213.CDDouble

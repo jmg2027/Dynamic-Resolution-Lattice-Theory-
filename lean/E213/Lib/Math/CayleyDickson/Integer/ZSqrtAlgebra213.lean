@@ -292,6 +292,18 @@ instance : CommStarRing213 (ZSqrt D) where
   conj_add  := conj_add' D
   conj_mul  := conj_mul' D
 
+/-- ZSqrt[D] `CommIntegerNormed213` — enables abstract CDDouble Hurwitz. -/
+instance : CommIntegerNormed213 (ZSqrt D) where
+  ofInt         := ofInt D
+  normSq        := ZSqrt.normSq
+  self_mul_conj := self_mul_conj' D
+  ofInt_mul     := ofInt_mul' D
+  ofInt_add     := ofInt_add' D
+  ofInt_central := ofInt_central' D
+  ofInt_inj     := ofInt_inj' D
+  normSq_conj   := normSq_conj' D
+  ofInt_conj    := ofInt_conj' D
+
 /-! ## §6 — MoufangIntegerNormed213 (trivial at commutative base) -/
 
 private theorem zsqrt_moufang_norm (u v : ZSqrt D) :
