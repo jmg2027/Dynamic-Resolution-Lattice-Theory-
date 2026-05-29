@@ -2,6 +2,8 @@ import E213.Lib.Math.CayleyDickson.Levels.Cayley
 import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.Tactic.HurwitzRing
+import E213.Lib.Math.CayleyDickson.Levels.CayleyAlgebra213
+import E213.Meta.Algebra213.CDDoubleMoufang
 
 namespace E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 
@@ -36,19 +38,18 @@ open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.M
 def normSq (u : Cayley) : Int :=
   Lipschitz.normSq u.re + Lipschitz.normSq u.im
 
-set_option maxHeartbeats 4000000 in
 /-- **Cayley (octonion) Hurwitz identity**: `|u·v|² = |u|² · |v|²`.
-    Classical theorem that octonions form a composition
-    algebra.  32-var polynomial identity; closed by
-    `hurwitz_ring` after extended heartbeat budget. -/
+    Octonions form a composition algebra.  Proved **strict ∅-axiom**
+    by bridging to the abstract `cd_normSq_mul` (the polarization
+    Hurwitz identity over the non-commutative Lipschitz base) — no
+    `hurwitz_ring` brute force, no `maxHeartbeats` bump. -/
 theorem normSq_mul (u v : Cayley) :
     normSq (u * v) = normSq u * normSq v := by
-  show Lipschitz.normSq (u * v).re + Lipschitz.normSq (u * v).im
-     = (Lipschitz.normSq u.re + Lipschitz.normSq u.im) *
-       (Lipschitz.normSq v.re + Lipschitz.normSq v.im)
-  unfold Lipschitz.normSq
-  unfold ZI.normSq
-  hurwitz_ring
+  have h := E213.Meta.Algebra213.cd_normSq_mul
+              (E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble u)
+              (E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble v)
+  rw [← E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble_mul] at h
+  exact h
 
 open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
 

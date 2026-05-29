@@ -369,4 +369,20 @@ instance : IntegerNormed213 Lipschitz where
       · show -(0 : Int) = 0; exact Int.neg_zero
       · show -(0 : Int) = 0; exact Int.neg_zero
 
+/-- Quaternion-trace polarization on Lipschitz: `a + conj a` lands in
+    the central `ofInt` image (`2·re` on the inner ZI real axis).  This
+    is the `TraceNormed213` companion of `self_mul_conj`, supplying the
+    polarization condition the Cayley (octonion) Moufang norm-collapse
+    needs — see `Meta/Algebra213/CDDoubleMoufang.lean`. -/
+instance : TraceNormed213 Lipschitz where
+  trace a := a.re.re + a.re.re
+  self_add_conj a := by
+    apply ext
+    · apply ZI.ext
+      · rfl
+      · exact E213.Meta.Int213.add_neg_cancel a.re.im
+    · apply ZI.ext
+      · exact E213.Meta.Int213.add_neg_cancel a.im.re
+      · exact E213.Meta.Int213.add_neg_cancel a.im.im
+
 end E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz

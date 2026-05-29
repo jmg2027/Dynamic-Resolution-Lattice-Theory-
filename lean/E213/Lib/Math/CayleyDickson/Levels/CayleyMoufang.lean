@@ -25,18 +25,8 @@ open E213.Lib.Math.CayleyDickson.Tower.CDDouble
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 open E213.Lib.Math.CayleyDickson.Integer.ZI
 
-/-- Quaternion-trace polarization on Lipschitz: `a + conj a` lands in
-    the central `ofInt` image (`2·re` on the inner ZI real axis). -/
-instance : TraceNormed213 Lipschitz where
-  trace a := a.re.re + a.re.re
-  self_add_conj a := by
-    apply Lipschitz.ext
-    · apply ZI.ext
-      · rfl
-      · exact E213.Meta.Int213.add_neg_cancel a.re.im
-    · apply ZI.ext
-      · exact E213.Meta.Int213.add_neg_cancel a.im.re
-      · exact E213.Meta.Int213.add_neg_cancel a.im.im
+-- `TraceNormed213 Lipschitz` (the polarization condition) now lives in
+-- `LipschitzAlgebra213` so `CayleyHeavy` can reuse it without a cycle.
 
 /-- Real-axis integer embed for Cayley. -/
 def ofInt (n : Int) : Cayley := ⟨Lipschitz.ofInt n, 0⟩
