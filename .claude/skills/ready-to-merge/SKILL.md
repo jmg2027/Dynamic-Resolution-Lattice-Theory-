@@ -27,15 +27,16 @@ gets a commit.  No silent changes.
 Before running any check, internalize these from `CLAUDE.md` +
 `lean/E213/ARCHITECTURE.md` + prior-session memory:
 
-  1. **One vertical axis** — Kernel/Firmware/Hypervisor/Meta/App.
-     Every `.lean` file lives at one layer mechanically determined by
-     its import closure.  Run `tools/layer_audit.py` for the truth.
+  1. **4 ring + Meta** — Term → Theory → Lens → Lib, with Meta
+     ring-independent (per `lean/E213/ARCHITECTURE.md`).  Every `.lean`
+     file lives at one ring; each file imports only its own ring + the
+     ring exactly one step below.  Run `tools/layer_audit.py` for truth.
   2. **Math/ and Physics/ only** as topical roots.  No Research/,
      Infinity/, Tactic/, Tools/ at top level — those were dissolved.
      If they reappear, demote them.
   3. **Path = namespace, ideally.**  `tools/sync_namespaces.py`
      enforces.  Intentional exceptions (e.g., `namespace E213.Tactic`
-     short-form for the omega213 macro at `Kernel/Tactic/Omega213.lean`)
+     short-form for the omega213 macro at `Meta/Tactic/Omega213.lean`)
      must be documented.
   4. **Sub-cluster early** (≥3 thematically-related files), not late.
      Don't merge files just to reduce count.
@@ -151,7 +152,7 @@ Result must be `Build completed successfully.`  If build fails:
 After build clean:
 
 ```bash
-bash tools/kernel_regress.sh           # Kernel/ stays 0-axiom
+bash tools/kernel_regress.sh           # Term/ ring stays 0-axiom
 python3 tools/audit_axioms.py          # tree-wide axiom survey
 ```
 
@@ -180,9 +181,9 @@ Then check seed/ ↔ Lean alignment:
   - `lean/E213/AUDIT.md` cross-refs are at current paths
   - `lean/E213/AUDIT.md` recommendation status reflects whether each
     has been done / superseded / deferred
-  - `seed/INDEX.md` table rows match `ls seed/`
-  - `seed/PAPER1.md` archival header (if present) is honest about
-    what's been re-built post-deletion vs. still archival
+  - `seed/INDEX.md` table rows match `ls seed/` (e.g. a tree entry or
+    "canonical" citation for a spec file that no longer exists is a
+    stale-reference ERROR — repoint or recreate)
 
 If a seed/ doc claims something is "deleted" or "moved", verify with
 `find` / `git log -- <path>`.  Self-correction over self-confidence.
@@ -256,8 +257,6 @@ discover history of deletions), check:
 
 Common keep-anyway exceptions:
 
-  - `seed/PAPER1.md` — cited from ~25 Lean files via `PAPER1 §X.Y`
-    markers; never delete
   - `papers/README.md` — historical marker for deleted archive
 
 ---
@@ -543,9 +542,6 @@ Recommended next action: <concrete step>
     deleted" when it's actually `research-notes/` renamed), fix the
     claim immediately — that's a self-correction commit, not a
     structural change.
-  - **80-line hook**.  This repo enforces a 80-line limit on Write.
-    For larger files use Write (≤80) + Edit append pattern in
-    smaller chunks (~30 lines per Edit).
 
 ---
 
