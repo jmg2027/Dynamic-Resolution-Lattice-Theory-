@@ -1,3 +1,5 @@
+import E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
+
 /-!
 # Enriched 2-complex parametric framework for K_{NS,NT}^{(c)}
 
@@ -25,6 +27,8 @@ STRICT ∅-AXIOM.
 -/
 
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
+
+open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold (xor_pair_swap)
 
 /-! ## §1 — `foldXor`: Fin-indexed XOR fold -/
 
@@ -427,12 +431,8 @@ theorem K33_c_independent_h2_classes_via_framework (c : Nat) :
 
 `foldXor n (k ↦ f k ⊕ g k) = foldXor n f ⊕ foldXor n g` — XOR sum
 distributes over pointwise XOR.  Proved by induction on `n` using
-the AC pair-swap `(a⊕b)⊕(c⊕d) = (a⊕c)⊕(b⊕d)`. -/
-
-/-- Bool-XOR AC pair swap.  Mirrors `BoolXORFold.xor_pair_swap`. -/
-private theorem xor_pair_swap (a b c d : Bool) :
-    xor (xor a b) (xor c d) = xor (xor a c) (xor b d) := by
-  cases a <;> cases b <;> cases c <;> cases d <;> rfl
+the AC pair-swap `(a⊕b)⊕(c⊕d) = (a⊕c)⊕(b⊕d)` from
+`Infrastructure.BoolXORFold`. -/
 
 /-- `foldXor` linearity: distributes over pointwise XOR of the indexed
     family. -/
