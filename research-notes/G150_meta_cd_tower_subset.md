@@ -98,15 +98,29 @@ op이 commutative + associative한 부분):
 
 ## 자연스러운 다음 행보
 
-1. **Type C에 `MoufangIntegerNormed213` 인스턴스 등록**: ZOmegaDouble을
-   이 typeclass 인스턴스로 만들면, 오늘 추가한 generic `normSq_mul`이
-   Type C에도 자동 적용. Type A (Cayley) + Type C (ZOmegaDouble)
-   양쪽에 한 typeclass 정리로 커버 → "타워 통합" 첫 실증.
-2. **SHIFT RULE을 추상 functor로**: `shift_iso_L3` (구체 case-bash decide)을
-   `[CommStarRing213 α] [CommStarRing213 β] → ...` parametric 정리로.
-3. **Base-parametric tower constructor**:
+1. **Type C 기반: ZOmega PURE typeclass 인스턴스** (이 세션에서 시도 →
+   blocker 발견, 차회 target).  ZOmega를 `CommStarRing213` 인스턴스로
+   등록하려면 ZOmega의 ring axiom들이 ∅-axiom 으로 필요한데,
+   현재 `ZOmegaDomain.normSq_mul`은 `quad_norm` 태틱으로 증명돼 있고
+   `quad_norm`은 DIRTY (`propext, Quot.sound`).  `mul_assoc` 도 같은
+   상황 예상.  → **ZIAlgebra213가 ZI를 PURE 화한 패턴 (componentwise
+   Int213 projection) 그대로 ZOmega 에 복제 필요**.  ZOmega 곱셈이
+   ZI 보다 cross-term 1 개 더 (ω² = −1−ω 보정), 분량 ~120-150줄
+   예상.
+2. **이후 ZOmegaDouble Ring213 + IntegerNormed213**: ZOmega가 PURE
+   commutative star ring 이 되면, `instRing213CDDouble` (CommStarRing213
+   base → Ring213 (CDDouble α)) 으로 ZOmegaDouble 자동 Ring213.
+   단 ZOmegaDouble 구조가 `structure { re : ZOmega, im : ZOmega }` 라
+   `CDDouble ZOmega` 와 isomorphic 한 bridge instance 필요.
+3. **ZOmegaQuad MoufangIntegerNormed213**: ZOmegaDouble (associative
+   non-comm) → ZOmegaQuad (alternative non-assoc) 단계.  이번
+   세션 추가한 `MoufangIntegerNormed213` 의 generic `normSq_mul` 적용
+   first test point.
+4. **SHIFT RULE 추상 functor**: `shift_iso_L3` (구체 case-bash decide)
+   을 `[CommStarRing213 α] [CommStarRing213 β] → ...` parametric 정리로.
+5. **Base-parametric tower constructor**:
    `def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
-   정의 → ∀-typed tower 추상. Type A/B/C가 자동으로 인스턴스.
+   정의 → ∀-typed tower 추상.  Type A/B/C 가 자동으로 인스턴스.
 
 ## 메타 원칙 (CLAUDE.md 보완)
 
