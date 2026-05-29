@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaAlgebra213
 import E213.Meta.Algebra213.CDDoubleStar
+import E213.Meta.Algebra213.AlternativeNormed
 
 /-!
 # `ZOmegaDouble` as a `Ring213` + `IntegerNormed213` instance
@@ -408,5 +409,55 @@ theorem conj_mul_self (u : ZOmegaDouble) :
         @StarRing213.conj_conj ZOmegaDouble _ u,
       normSq_conj u] at h_forward
   exact h_forward
+
+/-! ## §8 — MoufangIntegerNormed213 ZOmegaDouble (associative layer, trivial Moufang)
+
+ZOmegaDouble is associative (Ring213, Phase 2.5), so the Moufang
+norm-collapse identity follows trivially from `mul_assoc` — one
+re-association.  The same `ofInt_paren_central` follows from
+`mul_assoc` + `ofInt_central`.
+
+This validates `MoufangIntegerNormed213` at the associative
+quaternion-like layer of Type C (analog: Type A Lipschitz).  The
+truly-non-trivial Moufang case is one CD layer higher
+(ZOmegaQuad / Cayley) where associativity is lost. -/
+
+private theorem zod_moufang_norm (u v : ZOmegaDouble) :
+    (u * v) * (ZOmegaDouble.conj v * ZOmegaDouble.conj u)
+      = u * (v * ZOmegaDouble.conj v) * ZOmegaDouble.conj u := by
+  -- LHS: ((uv)·v*)·u* = (u·(v·v*))·u* = (u·(vv*))·u* via mul_assoc twice
+  -- RHS (Lean parses as): (u · (v·v*)) · u* — same.
+  rw [← Ring213.mul_assoc (u * v) (ZOmegaDouble.conj v)
+                          (ZOmegaDouble.conj u),
+      Ring213.mul_assoc u v (ZOmegaDouble.conj v)]
+
+private theorem zod_ofInt_paren_central (z : Int) (u : ZOmegaDouble) :
+    u * ofInt z * ZOmegaDouble.conj u
+      = ofInt z * (u * ZOmegaDouble.conj u) := by
+  rw [show u * ofInt z = ofInt z * u from
+        (@IntegerNormed213.ofInt_central ZOmegaDouble _ z u).symm,
+      Ring213.mul_assoc (ofInt z) u (ZOmegaDouble.conj u)]
+
+/-- ★ MoufangIntegerNormed213 ZOmegaDouble — associative Type C
+    base layer.  Moufang trivially via mul_assoc.  Validates the
+    new typeclass at the easy layer; ZOmegaQuad (next layer) is
+    where Moufang becomes the genuine non-trivial ingredient. -/
+instance : MoufangIntegerNormed213 ZOmegaDouble where
+  ofInt               := ofInt
+  normSq              := ZOmegaDouble.normSq
+  self_mul_conj       := self_mul_conj'
+  ofInt_mul           := ofInt_mul'
+  ofInt_central       := ofInt_central'
+  ofInt_inj           := ofInt_inj'
+  moufang_norm        := zod_moufang_norm
+  ofInt_paren_central := zod_ofInt_paren_central
+
+/-- ★ Witness: ZOmegaDouble's `normSq_mul` derived via the
+    generic `MoufangIntegerNormed213.normSq_mul` (alternative path
+    to the `IntegerNormed213.normSq_mul` Phase 3 derivation). -/
+theorem moufang_normSq_mul (u v : ZOmegaDouble) :
+    ZOmegaDouble.normSq (u * v)
+      = ZOmegaDouble.normSq u * ZOmegaDouble.normSq v :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble

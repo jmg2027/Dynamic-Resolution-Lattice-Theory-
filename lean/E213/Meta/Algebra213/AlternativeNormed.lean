@@ -48,6 +48,26 @@ class NonAssocStarRing213 (α : Type) extends NonAssocRing213 α where
   conj_add  : ∀ a b : α, conj (a + b) = conj a + conj b
   conj_mul  : ∀ a b : α, conj (a * b) = conj b * conj a
 
+/-- Any `Ring213` is trivially a `NonAssocRing213` (just drop the
+    `mul_assoc` axiom).  Parametric bridge. -/
+instance instNonAssocRing213OfRing213 (α : Type) [Ring213 α] :
+    NonAssocRing213 α where
+  add_assoc    := Ring213.add_assoc
+  add_comm     := Ring213.add_comm
+  add_zero     := Ring213.add_zero
+  add_left_neg := Ring213.add_left_neg
+  add_mul      := Ring213.add_mul
+  mul_add      := Ring213.mul_add
+
+/-- Any `StarRing213` is trivially a `NonAssocStarRing213` (drop
+    `mul_assoc`).  Parametric bridge. -/
+instance instNonAssocStarRing213OfStarRing213 (α : Type) [StarRing213 α] :
+    NonAssocStarRing213 α where
+  conj      := StarRing213.conj
+  conj_conj := StarRing213.conj_conj
+  conj_add  := StarRing213.conj_add
+  conj_mul  := StarRing213.conj_mul
+
 /-- Integer-normed non-associative *-ring with Moufang norm-collapse.
     The single non-associative ingredient required for the generic
     Hurwitz proof is the **Moufang at the norm-collapse triple**:
