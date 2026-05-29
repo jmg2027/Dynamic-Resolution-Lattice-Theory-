@@ -33,6 +33,11 @@ structure ZOmegaDouble where
 namespace ZOmegaDouble
 
 instance : Zero ZOmegaDouble := ⟨⟨0, 0⟩⟩
+instance : Add ZOmegaDouble :=
+  ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg ZOmegaDouble :=
+  ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub ZOmegaDouble := ⟨fun u v => u + (-v)⟩
 
 theorem ext {u v : ZOmegaDouble} (hr : u.re = v.re) (hi : u.im = v.im) :
     u = v := by cases u; cases v; congr

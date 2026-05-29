@@ -20,17 +20,6 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble.ZOmegaDouble
 
--- Need Add/Neg/Sub on ZOmegaDouble
-namespace _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble.ZOmegaDouble
-
-instance : Add ZOmegaDouble :=
-  ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
-instance : Neg ZOmegaDouble :=
-  ⟨fun u => ⟨-u.re, -u.im⟩⟩
-instance : Sub ZOmegaDouble := ⟨fun u v => u + (-v)⟩
-
-end _root_.E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble.ZOmegaDouble
-
 structure ZOmegaQuad where
   re : ZOmegaDouble
   im : ZOmegaDouble

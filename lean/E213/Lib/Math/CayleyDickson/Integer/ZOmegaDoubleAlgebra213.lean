@@ -88,4 +88,96 @@ theorem mul_assoc (u v w : ZOmegaDouble) :
   rw [toCDDouble_mul, toCDDouble_mul, toCDDouble_mul, toCDDouble_mul]
   exact Ring213.mul_assoc (toCDDouble u) (toCDDouble v) (toCDDouble w)
 
+/-! ## §4 — Add/Neg/Zero bridge (rfl) -/
+
+theorem toCDDouble_add (u v : ZOmegaDouble) :
+    toCDDouble (u + v) = toCDDouble u + toCDDouble v := by
+  apply CDDouble.ext
+  · show (u + v).re = u.re + v.re; rfl
+  · show (u + v).im = u.im + v.im; rfl
+
+theorem toCDDouble_neg (u : ZOmegaDouble) :
+    toCDDouble (-u) = -(toCDDouble u) := by
+  apply CDDouble.ext
+  · show (-u).re = -u.re; rfl
+  · show (-u).im = -u.im; rfl
+
+theorem toCDDouble_zero : toCDDouble 0 = 0 := rfl
+
+/-! ## §5 — Full Ring213 + StarRing213 instances on ZOmegaDouble
+
+Every axiom is a 3-line bridge through `toCDDouble`: push the equality
+to abstract side via `toCDDouble_inj` + per-operation bridges, then
+apply the abstract `Ring213` / `StarRing213` field. -/
+
+private theorem add_assoc' (u v w : ZOmegaDouble) :
+    u + v + w = u + (v + w) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_add, toCDDouble_add, toCDDouble_add]
+  exact Ring213.add_assoc _ _ _
+
+private theorem add_comm' (u v : ZOmegaDouble) : u + v = v + u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_add]
+  exact Ring213.add_comm _ _
+
+private theorem add_zero' (u : ZOmegaDouble) : u + 0 = u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_zero]
+  exact Ring213.add_zero _
+
+private theorem add_left_neg' (u : ZOmegaDouble) : -u + u = 0 := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_neg, toCDDouble_zero]
+  exact Ring213.add_left_neg _
+
+private theorem add_mul' (u v w : ZOmegaDouble) :
+    (u + v) * w = u * w + v * w := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_add, toCDDouble_add,
+      toCDDouble_mul, toCDDouble_mul]
+  exact Ring213.add_mul _ _ _
+
+private theorem mul_add' (u v w : ZOmegaDouble) :
+    u * (v + w) = u * v + u * w := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_add, toCDDouble_add,
+      toCDDouble_mul, toCDDouble_mul]
+  exact Ring213.mul_add _ _ _
+
+private theorem conj_add' (u v : ZOmegaDouble) :
+    ZOmegaDouble.conj (u + v) = ZOmegaDouble.conj u + ZOmegaDouble.conj v := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_add,
+      toCDDouble_add, toCDDouble_conj, toCDDouble_conj]
+  exact StarRing213.conj_add _ _
+
+private theorem conj_mul' (u v : ZOmegaDouble) :
+    ZOmegaDouble.conj (u * v) = ZOmegaDouble.conj v * ZOmegaDouble.conj u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_mul, toCDDouble_mul,
+      toCDDouble_conj, toCDDouble_conj]
+  exact StarRing213.conj_mul _ _
+
+private theorem conj_conj' (u : ZOmegaDouble) :
+    ZOmegaDouble.conj (ZOmegaDouble.conj u) = u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_conj]
+  exact StarRing213.conj_conj _
+
+instance : Ring213 ZOmegaDouble where
+  add_assoc    := add_assoc'
+  add_comm     := add_comm'
+  add_zero     := add_zero'
+  add_left_neg := add_left_neg'
+  mul_assoc    := mul_assoc
+  add_mul      := add_mul'
+  mul_add      := mul_add'
+
+instance : StarRing213 ZOmegaDouble where
+  conj      := ZOmegaDouble.conj
+  conj_conj := conj_conj'
+  conj_add  := conj_add'
+  conj_mul  := conj_mul'
+
 end E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
