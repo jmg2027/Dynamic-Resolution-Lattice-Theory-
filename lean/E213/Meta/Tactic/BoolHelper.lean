@@ -23,4 +23,11 @@ theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) :
   · exact (h.mp rfl).symm
   · rfl
 
+/-- `xor` is commutative on `Bool`.  213-native case-split proof
+    (avoids `Bool.xor_comm`'s `simp`-based core proof, which can
+    leak `propext`).  Used by `Lens.Instances.Parity` and other
+    fold-swap-symmetric Lens constructions. -/
+theorem xor_comm : ∀ u v : Bool, xor u v = xor v u := by
+  intro u v; cases u <;> cases v <;> rfl
+
 end E213.Tactic.BoolHelper
