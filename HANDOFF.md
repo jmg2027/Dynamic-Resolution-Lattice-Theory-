@@ -4,7 +4,7 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 ZOmegaDouble closed)
+## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 + Phase 4 Type A & C bases closed)
 
 Architecture path: classical CD tower (Type A: Lipschitz → Cayley →
 Sedenion → ...) is one *column* of a 4-row matrix (Types A/B/C/D ×
@@ -53,12 +53,20 @@ expansion from Type C base layer entirely.
     `[StarRing213 α] → NonAssocStarRing213 α`) +
     `instance : MoufangIntegerNormed213 ZOmegaDouble` registered.
     Moufang norm-collapse trivially from `mul_assoc` (associative
-    quaternion-analog layer).  Witness `moufang_normSq_mul` via
-    generic typeclass.
+    quaternion-analog layer).  Witness `moufang_normSq_mul`
+    `[propext]`-only.
+  · **Phase 4 Lipschitz Moufang** (commit `8cfa7aa`): Type A
+    counterpart.  `LipschitzMoufang.lean` (61 lines) registers
+    `instance : MoufangIntegerNormed213 Lipschitz` with same
+    recipe (mul_assoc trivializes Moufang at associative layer).
+    `moufang_normSq_mul` verified **strict ∅-axiom** (does not
+    depend on any axioms) — stronger than ZOmegaDouble path
+    because ZI uses simpler ring-axiom proofs (no neg_add in
+    simp set).
 
-Validates the new typeclass at the associative layer of Type C.
-ZOmegaQuad (genuine non-associative Moufang case) is the
-remaining Phase 4 work.
+Validates MoufangIntegerNormed213 at both Type A L2 (Lipschitz,
+PURE) and Type C L3 (ZOmegaDouble, [propext]) — the associative
+quaternion-analog layers in both base towers.
 
 **Phase 4 ZOmegaQuad (deferred deep work)**: the Moufang norm-collapse
 identity at ZOmegaQuad is *equivalent to* normSq_mul at ZOmegaQuad

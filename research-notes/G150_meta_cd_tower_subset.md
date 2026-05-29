@@ -201,9 +201,19 @@ identities.
     `MoufangIntegerNormed213.normSq_mul` applied to ZOmegaDouble.
     `[propext]`-only.
 
-The above validates the new typeclass at the **associative**
-quaternion-like layer of Type C tower.  Same recipe applies
-to Type A Lipschitz (any Ring213 + IntegerNormed213 layer).
+**Phase 4 Lipschitz Type A counterpart closed** (commit `8cfa7aa`):
+  · `LipschitzMoufang.lean` (61 lines) — exact mirror of
+    ZOmegaDouble's Phase 4 instance.
+  · `instance : MoufangIntegerNormed213 Lipschitz` via
+    `Ring213.mul_assoc` (trivial).
+  · `Lipschitz.moufang_normSq_mul` **strict ∅-axiom** —
+    does NOT depend on propext (ZI ring axiom proofs cleaner
+    than ZOmega's).
+
+Validates MoufangIntegerNormed213 at both Type A L2 (Lipschitz)
+and Type C L3 (ZOmegaDouble) associative quaternion-analog layers.
+Same recipe applies at any associative `IntegerNormed213` instance
+(future: Hurwitz quaternions, ZSqrt2-double, etc.).
 
 **Remaining Phase 4 work**:
 
