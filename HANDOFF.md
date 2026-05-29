@@ -4,7 +4,7 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-2 closed)
+## G150 Marathon — meta-CD-tower typeclass migration (Phases 1-3 closed)
 
 Architecture path: classical CD tower (Type A: Lipschitz → Cayley →
 Sedenion → ...) is one *column* of a 4-row matrix (Types A/B/C/D ×
@@ -22,21 +22,32 @@ DIRTY proofs to PURE typeclass projections via `MoufangIntegerNormed213`
     New file `ZOmegaAlgebra213.lean` (305 lines), mirror of
     `ZIAlgebra213` with ω² = -1 - ω cross-term.  Add/Neg/Sub
     relocated to ZOmega.lean (foundational).
-  · **Phase 2** (commit `38e17ad`): ZOmegaDouble Ring213 via
-    abstract `CDDouble ZOmega` bridge.  Concrete struct iso to
-    abstract type (rfl on mul + conj).  `mul_assoc` derived in 3
-    lines via bridge — NO 32-Int-var polynomial proof.  Same recipe
-    extends to every higher layer (ZOmegaQuad, ZOmegaOct, …).  New
-    file `ZOmegaDoubleAlgebra213.lean` (91 lines).
+  · **Phase 2** (commits `38e17ad`, `620ab3c`): ZOmegaDouble
+    Ring213 + StarRing213 via abstract `CDDouble ZOmega` bridge.
+    Concrete struct iso to abstract type (rfl on mul/conj/add/neg/
+    zero).  All 7 Ring213 + 4 StarRing213 axioms via 3-line bridge
+    proofs.  NO 32-Int-var polynomial proof at this layer.
+  · **Phase 3** (commit `0d6d9e8`): ZOmegaDouble IntegerNormed213
+    + ZOmegaQuad bridge skeleton.  The actual completion of Type C
+    base layer migration.  Generic `IntegerNormed213.normSq_mul`
+    derives ZOmegaDouble's norm multiplicativity via typeclass
+    projection — replaces `quad_norm`-based DIRTY proof.  All 5
+    IntegerNormed213 fields hand-proven (ofInt_inj', ofInt_add',
+    ofInt_mul', ofInt_central', self_mul_conj').  ZOmegaQuad
+    Add/Neg/Sub relocated foundationally.
 
-Validates the parametric Algebra213 path concretely: ZOmega →
-CommStarRing213 → abstract CDDouble ZOmega → Ring213 + StarRing213
-(auto-synthesis via `instRing213CDDouble`) → ZOmegaDouble via bridge.
-Removes `hurwitz_ring` polynomial expansion from Type C migration.
+Validates the parametric Algebra213 path completely at Type C base
+layer: ZOmega → CommStarRing213 → abstract CDDouble ZOmega →
+Ring213 + StarRing213 (auto-synthesis) → ZOmegaDouble via bridge →
+IntegerNormed213 ZOmegaDouble → generic normSq_mul = typeclass
+projection.  Removes `hurwitz_ring` / `quad_norm` polynomial
+expansion from Type C base layer entirely.
 
-Next session: Phase 3 (ZOmegaQuad MoufangIntegerNormed213) validates
-the new typeclass at alternative non-assoc layer (Cayley-analog at
-Type C).  Then Phases 4-5 (SHIFT RULE abstract functor +
+Next session: Phase 4 — ZOmegaQuad MoufangIntegerNormed213
+(Cayley-analog at Type C, alternative non-assoc layer).  Needs
+`normSq_conj` lemma + reverse-order self_mul_conj + Moufang
+norm-collapse polynomial chain (~100-150 lines, mechanical given
+foundation).  Then Phases 5-6 (SHIFT RULE abstract functor +
 base-parametric tower constructor).  Full plan in
 `research-notes/G150_meta_cd_tower_subset.md` §"G150 Marathon —
 Phase 진행".

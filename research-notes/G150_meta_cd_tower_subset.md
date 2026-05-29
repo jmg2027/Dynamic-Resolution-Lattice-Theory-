@@ -1,8 +1,9 @@
 # G150 — 메타-CD-타워: 4-Type Base × CD doubling = CD가 부분집합
 
 **Date**: 2026-05-29
-**Status**: OPEN — Phase 1 & 2 closed (commits `e0da617`, `38e17ad`),
-Phases 3-5 next session
+**Status**: OPEN — Phases 1-3 closed (commits `e0da617`, `38e17ad`,
+`620ab3c`, `0d6d9e8`); Phases 4-6 (Moufang, SHIFT functor, base
+parametric tower) next session
 **Lean (existing)**:
   - `E213.Lib.Math.CayleyDickson.Integer.{ZI,ZOmega,ZSqrt,Hurwitz213}` (4 base)
   - `E213.Lib.Math.CayleyDickson.Levels.{Cayley,Sedenion,...}` (Type A)
@@ -115,34 +116,64 @@ Quot.sound (quotient extensionality, 무거운 axiom) 제거.
 distributivity + mul_assoc 거쳐 propagate.  Add/Neg/Sub 인스턴스는
 ZOmega.lean으로 foundational relocation.
 
-### ✅ Phase 2 — ZOmegaDouble Ring213 via abstract bridge (commit `38e17ad`)
+### ✅ Phase 2 — ZOmegaDouble Ring213 via abstract bridge (commits `38e17ad`, `620ab3c`)
 
-`lean/E213/Lib/Math/CayleyDickson/Integer/ZOmegaDoubleAlgebra213.lean`
-(91줄) 신규.  ZOmegaDouble (concrete struct)과 CDDouble ZOmega
-(abstract functor)가 구조 동일 + 연산 동일 (CD 공식 same).  Bridge
-`toCDDouble` + `fromCDDouble` + `toCDDouble_mul` (rfl) +
-`toCDDouble_conj` (rfl) 만으로 typeclass 인스턴스 transfer.
+`ZOmegaDoubleAlgebra213.lean` (183줄) 신규.  ZOmegaDouble (concrete
+struct)과 CDDouble ZOmega (abstract functor)가 구조 동일 + 연산
+동일 (CD 공식 same).  Bridge `toCDDouble` + 역방향 + 5개 연산
+bridge (mul, conj, add, neg, zero — 모두 rfl) 만으로 typeclass
+instance transfer.
 
-검증: `ZOmegaDouble.mul_assoc`을 3줄로 — `toCDDouble_inj` +
-`Ring213.mul_assoc (toCDDouble u) ...` — hand-proven polynomial 증명
-**전혀 없이** 유도.  Type A Cayley `hurwitz_ring` (32-Int-var,
-maxHeartbeats 4M)에 대응하는 ZOmegaDouble mul_assoc이 typeclass
-bridge로 자동 도출.
+Phase 2 (`38e17ad`): `mul_assoc` 검증.
+Phase 2.5 (`620ab3c`): 8개 private bridge proofs + full
+`Ring213 ZOmegaDouble` + `StarRing213 ZOmegaDouble` instances.
+모든 axiom이 3-line `toCDDouble_inj + rw bridges + Abstract.method`
+패턴.
 
-### ⏳ Phase 3 — ZOmegaQuad MoufangIntegerNormed213 (다음 세션)
+### ✅ Phase 3 — ZOmegaDouble IntegerNormed213 (commit `0d6d9e8`)
 
-ZOmegaDouble (associative non-comm) → ZOmegaQuad (alternative
-non-assoc) 한 단계 위.  이 세션 추가된 `MoufangIntegerNormed213`
-(commit `ff76af2`)의 generic `normSq_mul` first test point.
-ZOmegaDouble Bridge pattern (Phase 2) 그대로 ZOmegaQuad에 복제 +
-Moufang identity 인스턴스 fill-in.
+Type C base layer migration의 **실제 완성**.  generic
+`IntegerNormed213.normSq_mul`이 ZOmegaDouble의 norm
+multiplicativity를 typeclass projection으로 derive — `quad_norm`/
+`hurwitz_ring` 없이.  Type A Lipschitz의 `IntegerNormed213` instance와
+구조 동일 (`LipschitzHeavy.normSq_mul = IntegerNormed213.normSq_mul`)
+하지만 Type C는 ZOmega base의 ω² = −1 − ω cross-term 추가 처리.
 
-### ⏳ Phase 4 — SHIFT RULE 추상 functor
+ZOmegaDouble 추가:
+  · `ofInt : Int → ZOmegaDouble` + helper theorems
+  · `ring_sub_zero` / `zomega_sub_zero` + `zomega_conj_neg`
+  · 5개 private IntegerNormed213 field proofs (ofInt_inj',
+    ofInt_add', ofInt_mul', ofInt_central', self_mul_conj')
+  · `instance : IntegerNormed213 ZOmegaDouble`
+  · `theorem normSq_mul` = typeclass projection (1 줄)
+
+`ZOmegaQuadAlgebra213.lean` (87줄) 신규: bridge skeleton +
+toCDDouble {_mul, _conj, _add, _neg, _zero}.  Phase 4 foundation.
+
+### ⏳ Phase 4 — ZOmegaQuad MoufangIntegerNormed213 (다음 세션)
+
+ZOmegaQuad는 alternative non-assoc layer (Cayley analog at Type C).
+Moufang norm-collapse identity `(u·v)·(conj v · conj u) = u · (v · conj v) · conj u`
+가 핵심 ingredient.
+
+**Required additional**:
+  · `normSq_conj : normSq (conj a) = normSq a` for ZOmegaDouble
+    (componentwise via ZOmega-level fact)
+  · derived `conj a · a = ofInt (normSq a)` (reverse-order
+    self_mul_conj) via self_mul_conj on conj(a) + normSq_conj
+  · Moufang norm-collapse polynomial chain on ZOmegaQuad using
+    ZOmegaDouble Ring213 axioms (associative) + above two
+
+Estimated ~100-150 lines for the Moufang proof.  Mechanical given
+the foundation but tedious.  Validates new typeclass at non-assoc
+layer.
+
+### ⏳ Phase 5 — SHIFT RULE 추상 functor
 
 `shift_iso_L3` (구체 case-bash decide) 을
 `[CommStarRing213 α] [CommStarRing213 β] → ...` parametric 정리로.
 
-### ⏳ Phase 5 — Base-parametric tower constructor
+### ⏳ Phase 6 — Base-parametric tower constructor
 
 `def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
 정의 → ∀-typed tower 추상.  Type A/B/C/D 자동으로 인스턴스.
