@@ -18,9 +18,31 @@
 
 ## Architecture notes
 
-- All Heavy files use generic `Algebra213.IntegerNormed213.normSq_mul`
-  (Meta/Algebra213) — replaces brute-force `hurwitz_ring` polynomial
-  expansion.
+- **Associative layers** (ZI, Lipschitz, ZOmega(Double), ZSqrt/L3T)
+  use generic `Algebra213.IntegerNormed213.normSq_mul` (Meta/Algebra213)
+  — replaces brute-force `hurwitz_ring` polynomial expansion.
+- **Non-associative composition layers** (Cayley = A·L3, ZOmegaQuad =
+  C·L4, L4T = B·L4) use `MoufangIntegerNormed213` + the polarization
+  framework `Meta/Algebra213/CDDoubleMoufang.lean`: the degree-4
+  Hurwitz norm identity is cancelled by the trace condition
+  `TraceNormed213` (`a + conj a` central), `cd_normSq_mul` /
+  `cd_moufang_norm` bridged per type (`Levels/CayleyMoufang.lean`,
+  `Integer/ZOmegaQuadAlgebra213.lean §4`,
+  `Integer/ZSqrtMinus2Algebra213.lean §7`).  `CayleyHeavy.normSq_mul`
+  now bridges to this (PURE; the `maxHeartbeats 4000000` `hurwitz_ring`
+  proof is gone).
+- **Octonion alternativity** (`alt_left`/`alt_right`/`flexible`) uses
+  the same polarization machinery: `Meta/Algebra213/CDDoubleAlternative.lean`
+  proves `cd_alt_left` (hard component identity), `cd_alt_right` (via the
+  `conj` anti-automorphism), `cd_flexible` (linearization).
+  `CayleyHeavy.{alt_left,alt_right,flexible}` bridge to it — CayleyHeavy
+  is now entirely `hurwitz_ring`-free.  (Beyond the octonion layer,
+  `Sedenion`/`Trigintaduonion` flexibility still uses `hurwitz_ring`:
+  flexibility over a *non-associative* base needs a distinct cubic
+  proof, not the associative `cd_flexible`.)
+- Beyond the octonion-analog layer (Sedenion, ZOmegaOct, L5T+) norm
+  composition genuinely fails (zero divisors): `TraceNormed213` does
+  not lift to a non-associative base, so no Moufang norm instance.
 - ZI / Lipschitz / Cayley / Sedenion chain progressively drops
   commutativity / associativity per CD-doubling step (CDTower
   documents).

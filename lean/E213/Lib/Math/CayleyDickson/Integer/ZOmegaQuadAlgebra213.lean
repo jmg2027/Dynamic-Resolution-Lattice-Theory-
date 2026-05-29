@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDoubleAlgebra213
 import E213.Meta.Algebra213.AlternativeNormed
+import E213.Meta.Algebra213.CDDoubleMoufang
 
 /-!
 # `ZOmegaQuad` as a `MoufangIntegerNormed213` instance
@@ -165,5 +166,98 @@ instance : NonAssocStarRing213 ZOmegaQuad where
   conj_conj := conj_conj'
   conj_add  := conj_add'
   conj_mul  := conj_mul'
+
+/-! ## §4 — `MoufangIntegerNormed213 ZOmegaQuad` via the polarization bridge
+
+ZOmegaQuad = CDDouble ZOmegaDouble doubles the **non-commutative**
+associative base ZOmegaDouble, so the Moufang norm-collapse is the
+genuine degree-4 Hurwitz identity (no `mul_assoc` shortcut).  We supply
+the polarization condition `TraceNormed213 ZOmegaDouble` (the Eisenstein
+trace `2·re − im` on the inner ZOmega real-axis), which makes the
+abstract `instMoufangIntegerNormed213CDDouble` fire on
+`CDDouble ZOmegaDouble`.  The concrete instance then bridges through
+`toCDDouble`, exactly as the Phase-3 IntegerNormed213 bridge did. -/
+
+/-- Eisenstein-trace polarization on ZOmegaDouble: `a + conj a` lands in
+    the central `ofInt` image. -/
+instance : TraceNormed213 ZOmegaDouble where
+  trace a := a.re.re + (a.re.re - a.re.im)
+  self_add_conj a := by
+    apply ZOmegaDouble.ext
+    · apply ZOmega.ZOmega.ext
+      · rfl
+      · exact E213.Meta.Int213.add_neg_cancel a.re.im
+    · apply ZOmega.ZOmega.ext
+      · exact E213.Meta.Int213.add_neg_cancel a.im.re
+      · exact E213.Meta.Int213.add_neg_cancel a.im.im
+
+/-- Real-axis integer embed for ZOmegaQuad. -/
+def ofInt (n : Int) : ZOmegaQuad := ⟨ZOmegaDouble.ofInt n, 0⟩
+
+theorem toCDDouble_ofInt (n : Int) :
+    toCDDouble (ofInt n) = cdm_ofInt n := by
+  apply CDDouble.ext
+  · show ZOmegaDouble.ofInt n = IntegerNormed213.ofInt n; rfl
+  · show (0 : ZOmegaDouble) = 0; rfl
+
+private theorem zoq_self_mul_conj (u : ZOmegaQuad) :
+    u * ZOmegaQuad.conj u = ofInt (ZOmegaQuad.normSq u) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_conj, toCDDouble_ofInt]
+  exact cd_self_mul_conj (toCDDouble u)
+
+private theorem zoq_ofInt_mul (a b : Int) :
+    ofInt a * ofInt b = ofInt (a * b) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_ofInt, toCDDouble_ofInt, toCDDouble_ofInt]
+  exact cd_ofInt_mul a b
+
+private theorem zoq_ofInt_central (z : Int) (u : ZOmegaQuad) :
+    ofInt z * u = u * ofInt z := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_mul, toCDDouble_ofInt]
+  exact cd_ofInt_central z (toCDDouble u)
+
+private theorem zoq_ofInt_inj {a b : Int}
+    (h : (ofInt a : ZOmegaQuad) = ofInt b) : a = b := by
+  apply @cd_ofInt_inj ZOmegaDouble _ a b
+  rw [← toCDDouble_ofInt, ← toCDDouble_ofInt, h]
+
+private theorem zoq_moufang_norm (u v : ZOmegaQuad) :
+    (u * v) * (ZOmegaQuad.conj v * ZOmegaQuad.conj u)
+      = u * (v * ZOmegaQuad.conj v) * ZOmegaQuad.conj u := by
+  apply toCDDouble_inj
+  repeat rw [toCDDouble_mul]
+  repeat rw [toCDDouble_conj]
+  exact cd_moufang_norm (toCDDouble u) (toCDDouble v)
+
+private theorem zoq_ofInt_paren_central (z : Int) (u : ZOmegaQuad) :
+    u * ofInt z * ZOmegaQuad.conj u = ofInt z * (u * ZOmegaQuad.conj u) := by
+  apply toCDDouble_inj
+  repeat rw [toCDDouble_mul]
+  repeat rw [toCDDouble_conj]
+  repeat rw [toCDDouble_ofInt]
+  exact cd_ofInt_paren_central z (toCDDouble u)
+
+/-- ★ MoufangIntegerNormed213 ZOmegaQuad — Type C L4 (24 units, M_24
+    Chein loop).  The first genuinely non-associative Type C layer; the
+    Moufang norm-collapse is the polarization-cancelled Hurwitz identity
+    bridged from `cd_moufang_norm`. -/
+instance : MoufangIntegerNormed213 ZOmegaQuad where
+  ofInt               := ofInt
+  normSq              := ZOmegaQuad.normSq
+  self_mul_conj       := zoq_self_mul_conj
+  ofInt_mul           := zoq_ofInt_mul
+  ofInt_central       := zoq_ofInt_central
+  ofInt_inj           := zoq_ofInt_inj
+  moufang_norm        := zoq_moufang_norm
+  ofInt_paren_central := zoq_ofInt_paren_central
+
+/-- ★ Witness: ZOmegaQuad's norm multiplicativity via the generic
+    `MoufangIntegerNormed213.normSq_mul` — the non-associative Type C
+    Hurwitz composition, polarization-derived, strict ∅-axiom. -/
+theorem normSq_mul (u v : ZOmegaQuad) :
+    ZOmegaQuad.normSq (u * v) = ZOmegaQuad.normSq u * ZOmegaQuad.normSq v :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad

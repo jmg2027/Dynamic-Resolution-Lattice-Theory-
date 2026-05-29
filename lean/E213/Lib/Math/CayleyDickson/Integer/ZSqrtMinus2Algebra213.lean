@@ -2,6 +2,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2Tower
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrtAlgebra213
 import E213.Meta.Algebra213.CDDoubleStar
 import E213.Meta.Algebra213.AlternativeNormed
+import E213.Meta.Algebra213.CDDoubleMoufang
 
 /-!
 # `L3T` (= CDDouble ZSqrt[-2]) Algebra213 bridge
@@ -449,6 +450,95 @@ instance : NonAssocStarRing213 L4T where
   conj_conj := conj_conj'
   conj_add  := conj_add'
   conj_mul  := conj_mul'
+
+/-! ## §7 — `MoufangIntegerNormed213 L4T` (Type B L4) via polarization
+
+L4T = CDDouble L3T doubles the **non-commutative** associative base
+L3T, so the Moufang norm-collapse is the genuine degree-4 Hurwitz
+identity.  Supply `TraceNormed213 L3T` (the trace `2·re` on the inner
+`ℤ[√-2]` real axis); the abstract `instMoufangIntegerNormed213CDDouble`
+then fires on `CDDouble L3T`, and L4T bridges through `toCDDouble`. -/
+
+/-- Trace polarization on L3T: `a + conj a` lands in the central
+    `ofInt` image. -/
+instance : TraceNormed213 L3T where
+  trace a := a.re.re + a.re.re
+  self_add_conj a := by
+    apply L3T_ext
+    · apply ZSqrt.ext
+      · rfl
+      · exact E213.Meta.Int213.add_neg_cancel a.re.im
+    · apply ZSqrt.ext
+      · exact E213.Meta.Int213.add_neg_cancel a.im.re
+      · exact E213.Meta.Int213.add_neg_cancel a.im.im
+
+/-- Real-axis integer embed for L4T. -/
+def ofInt (n : Int) : L4T := ⟨IntegerNormed213.ofInt n, 0⟩
+
+theorem toCDDouble_ofInt (n : Int) :
+    toCDDouble (ofInt n) = cdm_ofInt n := by
+  apply CDDouble.ext
+  · show IntegerNormed213.ofInt n = IntegerNormed213.ofInt n; rfl
+  · show (0 : L3T) = 0; rfl
+
+private theorem l4t_self_mul_conj (u : L4T) :
+    u * L4T.conj u = ofInt (L4T.normSq u) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_conj, toCDDouble_ofInt]
+  exact cd_self_mul_conj (toCDDouble u)
+
+private theorem l4t_ofInt_mul (a b : Int) :
+    ofInt a * ofInt b = ofInt (a * b) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_ofInt, toCDDouble_ofInt, toCDDouble_ofInt]
+  exact cd_ofInt_mul a b
+
+private theorem l4t_ofInt_central (z : Int) (u : L4T) :
+    ofInt z * u = u * ofInt z := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_mul, toCDDouble_ofInt]
+  exact cd_ofInt_central z (toCDDouble u)
+
+private theorem l4t_ofInt_inj {a b : Int}
+    (h : (ofInt a : L4T) = ofInt b) : a = b := by
+  apply @cd_ofInt_inj L3T _ a b
+  rw [← toCDDouble_ofInt, ← toCDDouble_ofInt, h]
+
+private theorem l4t_moufang_norm (u v : L4T) :
+    (u * v) * (L4T.conj v * L4T.conj u)
+      = u * (v * L4T.conj v) * L4T.conj u := by
+  apply toCDDouble_inj
+  repeat rw [toCDDouble_mul]
+  repeat rw [toCDDouble_conj]
+  exact cd_moufang_norm (toCDDouble u) (toCDDouble v)
+
+private theorem l4t_ofInt_paren_central (z : Int) (u : L4T) :
+    u * ofInt z * L4T.conj u = ofInt z * (u * L4T.conj u) := by
+  apply toCDDouble_inj
+  repeat rw [toCDDouble_mul]
+  repeat rw [toCDDouble_conj]
+  repeat rw [toCDDouble_ofInt]
+  exact cd_ofInt_paren_central z (toCDDouble u)
+
+/-- ★ MoufangIntegerNormed213 L4T — Type B L4.  The Moufang
+    norm-collapse is the polarization-cancelled Hurwitz identity
+    bridged from `cd_moufang_norm`. -/
+instance : MoufangIntegerNormed213 L4T where
+  ofInt               := ofInt
+  normSq              := L4T.normSq
+  self_mul_conj       := l4t_self_mul_conj
+  ofInt_mul           := l4t_ofInt_mul
+  ofInt_central       := l4t_ofInt_central
+  ofInt_inj           := l4t_ofInt_inj
+  moufang_norm        := l4t_moufang_norm
+  ofInt_paren_central := l4t_ofInt_paren_central
+
+/-- ★ Witness: L4T norm multiplicativity via the generic
+    `MoufangIntegerNormed213.normSq_mul` — Type B non-associative
+    Hurwitz composition, polarization-derived, strict ∅-axiom. -/
+theorem normSq_mul (u v : L4T) :
+    L4T.normSq (u * v) = L4T.normSq u * L4T.normSq v :=
+  MoufangIntegerNormed213.normSq_mul u v
 
 end L4T
 

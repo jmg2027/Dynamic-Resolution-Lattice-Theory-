@@ -6,6 +6,14 @@ past-Moufang layer.
 
 ## Overview
 
+> **This tower is one column of a larger one.**  The Cayley-Dickson
+> tower is the *grade/algebra-axis reading* of the single self-pointing
+> orbit whose algebraic shadow is the Möbius matrix `P = [[2,1],[1,1]]`;
+> its φ-asymptote is P's eigenvalue and its Type C asymptote is conjunct
+> **H** of `Mobius213GrandUnification.grand_unification`.  For the full
+> map (Raw / Möbius / GRA / universe-chain / fractal-cohomology towers
+> as readings of the same object), see `theory/essays/tower_atlas.md`.
+
 ℝ, ℂ, ℍ, 𝕆, ... Are **not** different mathematical worlds.  They
 are *the same structural pair extension* on a common `Cut` substrate,
 layered as a **Cayley-Dickson tower**:
@@ -249,10 +257,98 @@ layer is the generic Order-4 mechanism above plus the
 concrete instances written for each named layer (Cayley, Sedenion,
 L4T, L5T, L6T).
 
+## Norm composition at the octonion-analog layer — the polarization condition
+
+The generic-lift functor above carries the *ring/star* structure but
+not the **norm**.  Norm multiplicativity `|u·v|² = |u|²·|v|²` (the
+Hurwitz composition law) is the deeper content, and it is exactly here
+that the towers reach their boundary: composition survives precisely up
+to the octonion-analog layer (Cayley = A·L3, ZOmegaQuad = C·L4,
+L4T = B·L4) and fails beyond.
+
+For the *associative* layers (Lipschitz, ZOmegaDouble, L3T) the generic
+`IntegerNormed213.normSq_mul` discharges composition by one
+re-association.  The octonion-analog layer doubles a **non-commutative**
+associative base, so `mul_assoc` no longer collapses the identity; the
+degree-4 Hurwitz polynomial must be confronted directly.
+
+The 213-native resolution is a **polarization condition**, dual to the
+norm.  Where `self_mul_conj` (`a·conj a = ofInt(normSq a)`) is the
+quadratic form, the class `TraceNormed213` adds its linear companion
+
+```
+self_add_conj : a + conj a = ofInt (trace a)      -- the trace form
+```
+
+— together the two coefficients of a Hurwitz integer's minimal
+polynomial `x² − trace(a)·x + normSq(a)`.  In the degree-4 expansion
+of `|u·v|²` over the doubled algebra:
+
+- the **four diagonal terms** collapse to central `ofInt` scalars via
+  `self_mul_conj` (`diag_collapse`);
+- the **four cross-terms** — the genuine non-commutative residue — sum
+  to zero because `a + conj a` is central (`cross_zero`):
+  `conj a·conj w − conj w·conj a = a·w − w·a`, killed by trace
+  centrality.
+
+This is proved once, abstractly, over any `[TraceNormed213 α]`
+(`Meta/Algebra213/CDDoubleMoufang.lean`): `hurwitz_norm_re` (the full
+identity), `cd_normSq_mul` (composition, derived *without* assuming
+Moufang, so non-circular), `cd_moufang_norm`, and the instance
+`MoufangIntegerNormed213 (CDDouble α)`.  Each concrete layer registers
+via the `toCDDouble` bridge with the trace witness:
+
+| Layer | base trace | bridge |
+|---|---|---|
+| Cayley (A·L3) | Lipschitz, `2·re` | `Levels/CayleyMoufang.lean` |
+| ZOmegaQuad (C·L4) | ZOmegaDouble, Eisenstein `2re−im` | `Integer/ZOmegaQuadAlgebra213 §4` |
+| L4T (B·L4) | L3T, `2·re` | `Integer/ZSqrtMinus2Algebra213 §7` |
+
+This **replaces** the 32-Int-variable `hurwitz_ring` brute force
+(`maxHeartbeats 4000000` in `CayleyHeavy.normSq_mul`, now bridged to
+`cd_normSq_mul`) with one structural lemma reused across all three
+towers, all strict ∅-axiom.
+
+Beyond this layer (Sedenion, ZOmegaOct, L5T+) the base is itself
+non-associative; `TraceNormed213` does not lift, and composition
+genuinely fails (zero divisors) — consistent with the classical fact
+that the octonions are the last composition algebra.
+
+### Octonion alternativity — same polarization machinery
+
+`Meta/Algebra213/CDDoubleAlternative.lean` discharges the alternative
+laws for `CDDouble` of an associative base by the *same* norm-central +
+trace-polarization reductions: `cd_alt_left` (the hard component
+identity), `cd_alt_right` (by the `conj` anti-automorphism of
+`cd_alt_left`), and `cd_flexible` (by linearizing alt).  Bridged through
+`toCDDouble`, these give `CayleyHeavy.{alt_left,alt_right,flexible}` —
+so `CayleyHeavy` is now entirely free of the `hurwitz_ring` brute force.
+
+### The composition boundary, exhibited
+
+`Lib/Math/CayleyDickson/Levels/SedenionZeroDivisor.lean` makes the
+boundary concrete (the negative companion of the composition theorems):
+`(e₁+e₁₀)·(e₄−e₁₅) = 0` with both factors non-zero, so
+`normSq(u·v) = 0 ≠ 4 = normSq u · normSq v`
+(`sedenion_has_zero_divisors`, `sedenion_normSq_not_multiplicative`,
+both `decide`-proven ∅-axiom).  This pins down exactly where
+`MoufangIntegerNormed213` / composition *cannot* extend.
+
+Flexibility, by contrast, survives every rung (Sedenion is flexible).
+Its ∅-axiom proof over a non-associative base is foundationed in
+`Meta/Algebra213/CDDoubleFlexible.lean` (`FlexAlt213` + `flex_polar` +
+trace/sandwich lemmas) but not yet closed — see the `## Open frontier`
+section.  Essay: `theory/essays/cd_tower_polarization.md`.
+
 ## Key results
 
 | Theorem / Def | Module | Statement |
 |---|---|---|
+| `cross_zero` / `hurwitz_norm_re` | `Meta/Algebra213/CDDoubleMoufang` | Polarization cancels the degree-4 Hurwitz residue |
+| `cd_normSq_mul` / `cd_moufang_norm` | `Meta/Algebra213/CDDoubleMoufang` | Composition + Moufang for `CDDouble` of non-comm base |
+| `{Cayley,ZOmegaQuad,L4T}.normSq_mul` | per-layer bridge | Octonion-analog Hurwitz composition, ∅-axiom |
+| `cd_alt_left` / `cd_alt_right` / `cd_flexible` | `Meta/Algebra213/CDDoubleAlternative` | Octonion alternativity via the same polarization machinery |
+| `sedenion_has_zero_divisors` / `…_normSq_not_multiplicative` | `Levels/SedenionZeroDivisor` | Composition boundary, `decide`-witnessed |
 | `algebra_tower_capstone` | `Tower/AlgebraTowerCapstone` | Master: imports all type-specific layers |
 | `cdd_lift_squared` | `Theory/CDDouble/UniversalOrder4` | (⟨0,u⟩)² = ⟨−c,0⟩ generic |
 | `Z[√5]` integer pair recurrence | `Tower/AlgebraTowerAsymptote` | Char poly (x−2)(x−4)(x−8) |
@@ -331,6 +427,18 @@ Open extensions:
    Types A/B/C is open.  Type-E rejection rejection covered Type E
    (`ℤ`-base square matrices); a parallel Type D analysis is
    pending.
+
+4. **Flexibility over a non-associative base** (Sedenion /
+   Trigintaduonion `flexible`): flexibility survives *every* rung,
+   unlike composition, but its ∅-axiom proof past Cayley is not closed.
+   `Meta/Algebra213/CDDoubleFlexible.lean` has the foundation
+   (`FlexAlt213` + `flex_polar` + `conj_eq` / `left_assoc_conj` /
+   `right_assoc_conj` / `conj_sandwich` / `moufang_mid`, all PURE); the
+   remaining crux is the cross-pair identity
+   `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`, which is
+   `flex_polar`- and conj-self-similar and resists the trace-centrality
+   reduction that closed composition.  `SedenionHeavy.flexible` and
+   `TrigintaduoionionHeavy` remain on `hurwitz_ring` until this lands.
 
 ## How to verify
 

@@ -20,10 +20,12 @@ Cayley bridges through `toCDDouble : Cayley → CDDouble Lipschitz` —
 same recipe as ZOmegaQuad's bridge in `ZOmegaQuadAlgebra213` (Phase 4+)
 and L4T's bridge in `ZSqrtMinus2Algebra213` §6.
 
-`mul_assoc` fails here (Cayley is alternative, not associative); full
-`MoufangIntegerNormed213 Cayley` requires moufang_norm input (Hurwitz
-polynomial identity at Lipschitz Int level — deferred capstone work,
-same polynomial obstruction as ZOmegaQuad and L4T).
+`mul_assoc` fails here (Cayley is alternative, not associative).  The
+full `MoufangIntegerNormed213 Cayley` instance is registered in
+`CayleyMoufang.lean`: the moufang_norm input is the degree-4 Hurwitz
+identity, proved structurally (not by `hurwitz_ring` brute force) via
+the polarization condition `TraceNormed213 Lipschitz` and the abstract
+`CDDoubleMoufang` framework — same recipe as ZOmegaQuad and L4T.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Levels.Cayley

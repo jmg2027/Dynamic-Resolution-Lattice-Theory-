@@ -121,6 +121,24 @@ theorem conj_mul_self {α : Type} [inst : IntegerNormed213 α] (a : α) :
 
 end IntegerNormed213
 
+/-- Trace-normed *-ring: `IntegerNormed213` with the **polarization
+    companion** of `self_mul_conj`.  Where `self_mul_conj` gives the
+    quadratic form `a · conj a = ofInt (normSq a)` (the norm), this
+    class adds the linear form `a + conj a = ofInt (trace a)` (the
+    trace).  Together they are the two coefficients of the minimal
+    polynomial `x² − trace(a)·x + normSq(a)` of a Hurwitz integer.
+
+    The trace condition makes `a + conj a` land in the central
+    `ofInt` image, hence commute with everything.  This single fact
+    is precisely what cancels the cross-terms in the Cayley-Dickson
+    Hurwitz identity when doubling a **non-commutative** associative
+    base (Cayley/ZOmegaQuad/L4T) — see `CDDoubleMoufang.lean`.  For a
+    commutative base the cross-terms vanish without it, which is why
+    `IntegerNormed213` alone suffices through the associative layers. -/
+class TraceNormed213 (α : Type) extends IntegerNormed213 α where
+  trace         : α → Int
+  self_add_conj : ∀ a : α, a + conj a = ofInt (trace a)
+
 namespace Ring213
 
 variable {α : Type} [inst : Ring213 α]

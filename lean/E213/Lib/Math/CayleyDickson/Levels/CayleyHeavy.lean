@@ -1,7 +1,9 @@
 import E213.Lib.Math.CayleyDickson.Levels.Cayley
 import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
-import E213.Lib.Math.Tactic.HurwitzRing
+import E213.Lib.Math.CayleyDickson.Levels.CayleyAlgebra213
+import E213.Meta.Algebra213.CDDoubleMoufang
+import E213.Meta.Algebra213.CDDoubleAlternative
 
 namespace E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 
@@ -11,46 +13,50 @@ open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
 open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble
 open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
-open E213.Tactic
 
-set_option maxHeartbeats 1000000
+-- Octonion alternativity / flexibility: bridged to the abstract
+-- `CDDoubleAlternative` (associative Lipschitz base) — strict ∅-axiom,
+-- replacing the `hurwitz_ring` brute force.
 
 /-- **Left alternativity** (universal): `(a·a)·b = a·(a·b)`. -/
 theorem alt_left (a b : Cayley) : (a * a) * b = a * (a * b) := by
-  hurwitz_ring
-
-open E213.Tactic
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_alt_left (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
 /-- **Right alternativity** (universal): `a·(b·b) = (a·b)·b`. -/
 theorem alt_right (a b : Cayley) : a * (b * b) = (a * b) * b := by
-  hurwitz_ring
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_alt_right (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
 /-- **Flexibility** (universal): `(a·b)·a = a·(b·a)`. -/
 theorem flexible (a b : Cayley) : (a * b) * a = a * (b * a) := by
-  hurwitz_ring
+  apply Cayley.toCDDouble_inj
+  repeat rw [Cayley.toCDDouble_mul]
+  exact E213.Meta.Algebra213.cd_flexible (Cayley.toCDDouble a) (Cayley.toCDDouble b)
 
-open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- Cayley (octonion) norm-squared:
     `re.normSq + im.normSq` at Lipschitz level. -/
 def normSq (u : Cayley) : Int :=
   Lipschitz.normSq u.re + Lipschitz.normSq u.im
 
-set_option maxHeartbeats 4000000 in
 /-- **Cayley (octonion) Hurwitz identity**: `|u·v|² = |u|² · |v|²`.
-    Classical theorem that octonions form a composition
-    algebra.  32-var polynomial identity; closed by
-    `hurwitz_ring` after extended heartbeat budget. -/
+    Octonions form a composition algebra.  Proved **strict ∅-axiom**
+    by bridging to the abstract `cd_normSq_mul` (the polarization
+    Hurwitz identity over the non-commutative Lipschitz base) — no
+    `hurwitz_ring` brute force, no `maxHeartbeats` bump. -/
 theorem normSq_mul (u v : Cayley) :
     normSq (u * v) = normSq u * normSq v := by
-  show Lipschitz.normSq (u * v).re + Lipschitz.normSq (u * v).im
-     = (Lipschitz.normSq u.re + Lipschitz.normSq u.im) *
-       (Lipschitz.normSq v.re + Lipschitz.normSq v.im)
-  unfold Lipschitz.normSq
-  unfold ZI.normSq
-  hurwitz_ring
+  have h := E213.Meta.Algebra213.cd_normSq_mul
+              (E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble u)
+              (E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble v)
+  rw [← E213.Lib.Math.CayleyDickson.Levels.Cayley.toCDDouble_mul] at h
+  exact h
 
-open E213.Tactic E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- `Lipschitz.normSq ≥ 0` (sum of integer squares). -/
 private theorem lip_normSq_nonneg (u : Lipschitz) :
