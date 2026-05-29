@@ -233,40 +233,25 @@ private theorem ofInt_add' (a b : Int) :
     · show (0 : Int) + 0 = 0; rfl
     · show (0 : Int) + 0 = 0; rfl
 
+/-- ★ Bridge-based `ofInt_mul`: derive from abstract
+    `IntegerNormed213 (CDDouble ZOmega)` via `toCDDouble`.  Replaces a
+    ~17-line proof with a 5-line bridge projection. -/
 private theorem ofInt_mul' (a b : Int) :
     ofInt a * ofInt b = ofInt (a * b) := by
-  apply ZOmegaDouble.ext
-  · show ZOmega.ZOmega.ofInt a * ZOmega.ZOmega.ofInt b
-         - ZOmega.ZOmega.conj 0 * 0
-       = ZOmega.ZOmega.ofInt (a * b)
-    have h_conj_zero : ZOmega.ZOmega.conj (0 : ZOmega.ZOmega) = 0 := by
-      apply ZOmega.ZOmega.ext
-      · show (0 : Int) - 0 = 0; rfl
-      · show -(0 : Int) = 0; rfl
-    rw [h_conj_zero, Ring213.zero_mul, zomega_sub_zero]
-    exact @IntegerNormed213.ofInt_mul ZOmega.ZOmega _ a b
-  · show (0 : ZOmega.ZOmega) * ZOmega.ZOmega.ofInt a
-         + 0 * ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt b)
-       = 0
-    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul]
+  show toCDDouble (ofInt a) * toCDDouble (ofInt b) = toCDDouble (ofInt (a * b))
+  exact @IntegerNormed213.ofInt_mul (CDDouble ZOmega.ZOmega) _ a b
 
+/-- ★ Bridge-based `ofInt_central`: derive from abstract
+    `IntegerNormed213 (CDDouble ZOmega)` via `toCDDouble`.  Replaces a
+    ~17-line proof with a 5-line bridge projection. -/
 private theorem ofInt_central' (z : Int) (a : ZOmegaDouble) :
     ofInt z * a = a * ofInt z := by
-  apply ZOmegaDouble.ext
-  · show ZOmega.ZOmega.ofInt z * a.re - ZOmega.ZOmega.conj a.im * 0
-       = a.re * ZOmega.ZOmega.ofInt z - ZOmega.ZOmega.conj 0 * a.im
-    have h_conj_zero : ZOmega.ZOmega.conj (0 : ZOmega.ZOmega) = 0 := by
-      apply ZOmega.ZOmega.ext
-      · show (0 : Int) - 0 = 0; rfl
-      · show -(0 : Int) = 0; rfl
-    rw [Ring213.mul_zero, h_conj_zero, Ring213.zero_mul,
-        zomega_sub_zero, zomega_sub_zero]
-    exact @IntegerNormed213.ofInt_central ZOmega.ZOmega _ z a.re
-  · show a.im * ZOmega.ZOmega.ofInt z + 0 * ZOmega.ZOmega.conj a.re
-       = 0 * a.re + a.im * ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt z)
-    rw [Ring213.zero_mul, Ring213.zero_mul,
-        Ring213.add_zero, Ring213.zero_add,
-        zomega_ofInt_conj_self]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_mul]
+  show toCDDouble (ofInt z) * toCDDouble a = toCDDouble a * toCDDouble (ofInt z)
+  exact @IntegerNormed213.ofInt_central (CDDouble ZOmega.ZOmega) _ z (toCDDouble a)
 
 /-- ZOmega `conj` is additive-negation-compatible: `conj(-a) = -conj a`.
     Direct computation on the (re, im) representation. -/
@@ -281,42 +266,16 @@ private theorem zomega_conj_neg (a : ZOmega.ZOmega) :
         Int.neg_neg]
   · show -(-a).im = -(-a.im); rfl
 
-/-- The actual core: `u * conj u = ofInt (normSq u)` for ZOmegaDouble.
-    Componentwise via ZOmega `self_mul_conj` + commutativity + ofInt_add. -/
+/-- ★ Bridge-based `self_mul_conj`: derive from abstract
+    `IntegerNormed213 (CDDouble ZOmega)` via `toCDDouble`.  Replaces a
+    ~35-line hand-written proof with a 5-line bridge projection. -/
 private theorem self_mul_conj' (u : ZOmegaDouble) :
     u * ZOmegaDouble.conj u = ofInt u.normSq := by
-  apply ZOmegaDouble.ext
-  · show u.re * ZOmega.ZOmega.conj u.re
-         - ZOmega.ZOmega.conj (-u.im) * u.im
-       = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re
-                              + ZOmega.ZOmega.normSq u.im)
-    rw [zomega_conj_neg u.im,
-        show ((-ZOmega.ZOmega.conj u.im) * u.im : ZOmega.ZOmega)
-           = -(ZOmega.ZOmega.conj u.im * u.im) from Ring213.neg_mul _ _]
-    -- Goal: u.re * conj u.re - -(conj u.im * u.im) = ofInt (normSq u.re + normSq u.im)
-    show u.re * ZOmega.ZOmega.conj u.re
-         + -(-(ZOmega.ZOmega.conj u.im * u.im))
-       = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re
-                              + ZOmega.ZOmega.normSq u.im)
-    rw [Ring213.neg_neg (ZOmega.ZOmega.conj u.im * u.im)]
-    -- Goal: u.re * conj u.re + conj u.im * u.im = ofInt (...)
-    have h1 : u.re * ZOmega.ZOmega.conj u.re
-            = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.re) :=
-      @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ u.re
-    have h2 : u.im * ZOmega.ZOmega.conj u.im
-            = ZOmega.ZOmega.ofInt (ZOmega.ZOmega.normSq u.im) :=
-      @IntegerNormed213.self_mul_conj ZOmega.ZOmega _ u.im
-    have h3 : ZOmega.ZOmega.conj u.im * u.im = u.im * ZOmega.ZOmega.conj u.im :=
-      @CommRing213.mul_comm ZOmega.ZOmega _ _ _
-    rw [h1, h3, h2]
-    exact @IntegerNormed213.ofInt_add ZOmega.ZOmega _ _ _
-  · show -u.im * u.re + u.im * ZOmega.ZOmega.conj (ZOmega.ZOmega.conj u.re)
-       = 0
-    have h_cc : ZOmega.ZOmega.conj (ZOmega.ZOmega.conj u.re) = u.re :=
-      @StarRing213.conj_conj ZOmega.ZOmega _ u.re
-    rw [h_cc, Ring213.neg_mul,
-        @CommRing213.mul_comm ZOmega.ZOmega _ u.im u.re,
-        Ring213.add_left_neg]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_conj]
+  show toCDDouble u * CDDouble.conj (toCDDouble u)
+     = toCDDouble (ofInt u.normSq)
+  exact @IntegerNormed213.self_mul_conj (CDDouble ZOmega.ZOmega) _ (toCDDouble u)
 
 /-- `ZOmega.normSq (-a) = ZOmega.normSq a` (inline copy of the
     public `zomega_normSq_neg` below — placed here so the IntegerNormed213
@@ -360,9 +319,8 @@ private theorem normSq_conj' (u : ZOmegaDouble) :
     = ⟨ZOmega.conj (ZOmega.ofInt z), -0⟩ = ⟨ZOmega.ofInt z, 0⟩. -/
 private theorem ofInt_conj' (z : Int) :
     ZOmegaDouble.conj (ofInt z) = ofInt z := by
-  apply ext
-  · show ZOmega.ZOmega.conj (ZOmega.ZOmega.ofInt z) = ZOmega.ZOmega.ofInt z
-    exact @IntegerNormed213.ofInt_conj ZOmega.ZOmega _ z
+  apply ZOmegaDouble.ext
+  · exact @IntegerNormed213.ofInt_conj ZOmega.ZOmega _ z
   · show -(0 : ZOmega.ZOmega) = 0
     apply ZOmega.ZOmega.ext
     · show -(0 : Int) = 0; exact Int.neg_zero

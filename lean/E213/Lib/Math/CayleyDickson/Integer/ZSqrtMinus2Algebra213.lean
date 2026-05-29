@@ -192,63 +192,25 @@ private theorem ofInt_add' (a b : Int) :
     · show (0 : Int) + 0 = 0; rfl
     · show (0 : Int) + 0 = 0; rfl
 
+/-- ★ Bridge-based `ofInt_mul`: derive from abstract
+    `IntegerNormed213 (CDDouble Z2)` via `toCDDouble`.  Replaces a
+    ~25-line proof with a 5-line bridge projection. -/
 private theorem ofInt_mul' (a b : Int) :
     ofInt a * ofInt b = ofInt (a * b) := by
-  apply L3T_ext
-  · -- .re of ofInt a * ofInt b
-    unfold ofInt
-    change (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 a
-            * E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 b
-            - (0 : Z2).conj * 0
-          = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 (a * b))
-    have h_conj_zero : ZSqrt.conj (0 : Z2) = 0 := by
-      apply ZSqrt.ext
-      · show (0 : Int) = 0; rfl
-      · show -(0 : Int) = 0; rfl
-    have h_neg_zero : -(0 : Z2) = 0 := by
-      apply ZSqrt.ext
-      · show -(0 : Int) = 0; rfl
-      · show -(0 : Int) = 0; rfl
-    rw [show ((0 : Z2).conj : Z2) = 0 from h_conj_zero,
-        Ring213.zero_mul,
-        show ∀ x : Z2, x - 0 = x from fun x => by
-          show x + -0 = x
-          rw [h_neg_zero, Ring213.add_zero]]
-    exact @IntegerNormed213.ofInt_mul Z2 _ a b
-  · -- .im: 0 * (ofInt a).re + 0 * (ofInt b).re.conj = 0
-    change ((ofInt a).mul (ofInt b)).im = 0
-    show (0 : Z2) * (ofInt a).re + 0 * (ofInt b).re.conj = 0
-    rw [Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul]
+  show toCDDouble (ofInt a) * toCDDouble (ofInt b) = toCDDouble (ofInt (a * b))
+  exact @IntegerNormed213.ofInt_mul (CDDouble Z2) _ a b
 
+/-- ★ Bridge-based `ofInt_central`: derive from abstract
+    `IntegerNormed213 (CDDouble Z2)` via `toCDDouble`.  Replaces a
+    ~28-line proof with a 5-line bridge projection. -/
 private theorem ofInt_central' (z : Int) (a : L3T) :
     ofInt z * a = a * ofInt z := by
-  apply L3T_ext
-  · change ((ofInt z).mul a).re = (a.mul (ofInt z)).re
-    show (ofInt z).re * a.re - a.im.conj * (ofInt z).im
-       = a.re * (ofInt z).re - (ofInt z).im.conj * a.im
-    have h_im_zero : (ofInt z).im = 0 := rfl
-    have h_re_eq : (ofInt z).re
-                = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z := rfl
-    have h_conj_zero : ZSqrt.conj (0 : Z2) = 0 := by
-      apply ZSqrt.ext
-      · show (0 : Int) = 0; rfl
-      · show -(0 : Int) = 0; rfl
-    rw [h_im_zero, h_re_eq, Ring213.mul_zero, h_conj_zero,
-        Ring213.zero_mul]
-    -- Goal: ofInt 2 z * a.re - 0 = a.re * ofInt 2 z - 0
-    congr 1
-    exact @CommRing213.mul_comm Z2 _
-      (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z) a.re
-  · change ((ofInt z).mul a).im = (a.mul (ofInt z)).im
-    show a.im * (ofInt z).re + (ofInt z).im * a.re.conj
-       = (ofInt z).im * a.re + a.im * (ofInt z).re.conj
-    have h_im_zero : (ofInt z).im = 0 := rfl
-    have h_re_eq : (ofInt z).re
-                = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 z := rfl
-    rw [h_im_zero, h_re_eq,
-        Ring213.zero_mul, Ring213.zero_mul,
-        Ring213.add_zero, Ring213.zero_add,
-        zsqrt_ofInt_conj_self z]
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_mul]
+  show toCDDouble (ofInt z) * toCDDouble a = toCDDouble a * toCDDouble (ofInt z)
+  exact @IntegerNormed213.ofInt_central (CDDouble Z2) _ z (toCDDouble a)
 
 /-- ZSqrt 2's `conj(-a) = -conj a`. -/
 private theorem zsqrt_conj_neg (a : Z2) : ZSqrt.conj (-a) = -ZSqrt.conj a := by
@@ -256,38 +218,16 @@ private theorem zsqrt_conj_neg (a : Z2) : ZSqrt.conj (-a) = -ZSqrt.conj a := by
   · show -a.re = -a.re; rfl
   · show -(-a.im) = -(-a.im); rfl
 
-/-- `u * L3T.conj u = ofInt (L3T.normSq u)`. -/
+/-- ★ Bridge-based `self_mul_conj`: derive from abstract
+    `IntegerNormed213 (CDDouble Z2)` via `toCDDouble`.  Replaces a
+    ~30-line hand-written proof with a 5-line bridge projection. -/
 private theorem self_mul_conj' (u : L3T) :
     u * L3T.conj u = ofInt u.normSq := by
-  apply L3T_ext
-  · change (u.mul (L3T.conj u)).re = (ofInt u.normSq).re
-    show u.re * ZSqrt.conj u.re - ZSqrt.conj (-u.im) * u.im
-       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.normSq
-    have h_self_re : u.re * ZSqrt.conj u.re
-                   = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.re.normSq :=
-      @IntegerNormed213.self_mul_conj Z2 _ u.re
-    have h_self_im : u.im * ZSqrt.conj u.im
-                   = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.im.normSq :=
-      @IntegerNormed213.self_mul_conj Z2 _ u.im
-    have h_comm_im : ZSqrt.conj u.im * u.im = u.im * ZSqrt.conj u.im :=
-      @CommRing213.mul_comm Z2 _ (ZSqrt.conj u.im) u.im
-    rw [zsqrt_conj_neg u.im, Ring213.neg_mul]
-    -- Goal: u.re * conj u.re - -(conj u.im * u.im) = ofInt(N u.re + N u.im)
-    show u.re * ZSqrt.conj u.re + -(-(ZSqrt.conj u.im * u.im))
-       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.normSq
-    rw [Ring213.neg_neg, h_self_re, h_comm_im, h_self_im]
-    show E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.re.normSq
-       + E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 u.im.normSq
-       = E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ofInt 2 (u.re.normSq + u.im.normSq)
-    exact @IntegerNormed213.ofInt_add Z2 _ _ _
-  · change (u.mul (L3T.conj u)).im = (ofInt u.normSq).im
-    show (-u.im) * u.re + u.im * ZSqrt.conj (ZSqrt.conj u.re) = 0
-    rw [show ZSqrt.conj (ZSqrt.conj u.re) = u.re from
-          @StarRing213.conj_conj Z2 _ u.re,
-        Ring213.neg_mul,
-        @CommRing213.mul_comm Z2 _ u.im u.re]
-    -- Goal: -(u.re * u.im) + u.re * u.im = 0
-    exact Ring213.add_left_neg _
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_conj]
+  show toCDDouble u * CDDouble.conj (toCDDouble u)
+     = toCDDouble (ofInt u.normSq)
+  exact @IntegerNormed213.self_mul_conj (CDDouble Z2) _ (toCDDouble u)
 
 /-- `ZSqrt.normSq (-x) = ZSqrt.normSq x` for any D — direct via
     `(-y)·(-y) = y·y` componentwise. -/
@@ -315,15 +255,11 @@ private theorem normSq_conj' (u : L3T) : L3T.normSq (L3T.conj u) = L3T.normSq u 
      = ZSqrt.normSq u.re + ZSqrt.normSq u.im
   rw [zsqrt_normSq_conj u.re, zsqrt_normSq_neg u.im]
 
-/-- ★ L3T `IntegerNormed213` instance.  Completes Type B downstream
-    Phase 3 equivalent.  Generic `IntegerNormed213.normSq_mul` then
-    derives L3T's norm-multiplicativity via typeclass projection. -/
 /-- `conj (ofInt z) = ofInt z` for L3T.  conj ⟨ZSqrt.ofInt 2 z, 0⟩
     = ⟨ZSqrt.conj (ZSqrt.ofInt 2 z), -0⟩ = ⟨ZSqrt.ofInt 2 z, 0⟩. -/
 private theorem ofInt_conj' (z : Int) : L3T.conj (ofInt z) = ofInt z := by
   apply L3T_ext
-  · show ZSqrt.conj (ZSqrt.ofInt 2 z) = ZSqrt.ofInt 2 z
-    exact @IntegerNormed213.ofInt_conj Z2 _ z
+  · exact @IntegerNormed213.ofInt_conj Z2 _ z
   · show -(0 : Z2) = 0
     apply ZSqrt.ext
     · show -(0 : Int) = 0; exact Int.neg_zero
