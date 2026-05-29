@@ -172,26 +172,43 @@ the Cayley-Dickson Hurwitz extension at the framework level.
     missing piece for the abstract Hurwitz extension at non-comm
     associative bases.
 
-**Phase 4 capstone (one architectural step remaining)**: direct
-registration of `IntegerNormed213 (CDDouble α)` parametrically is
-blocked by a typeclass diamond between
+**Phase 4 capstone — typeclass diamond resolved** (commit `06dfeea`):
+The `CommIntegerNormed213` combined class avoids the diamond between
 `CommStarRing213.toStarRing213` and `IntegerNormed213.toStarRing213`
-when both are inferred for α (the parent `StarRing213 (CDDouble α)`
-needs `CommStarRing213 α`, but `IntegerNormed213 α` also provides a
-StarRing213 path).  Resolution requires a structural reorganization
-(e.g., a `CommIntegerNormed213` combined typeclass that avoids the
-diamond at instance time, or explicit instance disambiguation via
-`@instStarRing213` qualifications).  The 8 abstract `cd_*` theorems
-can already be invoked manually per concrete bridge to consolidate
-Lipschitz/ZOmegaDouble/L3T's hand-written proofs (~100 lines each
-→ 1-line projections).
+by storing one shared `toCommStarRing213` parent record (verified via
+`#check @CommIntegerNormed213.mk` — all StarRing213 references use
+`CommStarRing213.conj` uniformly).
 
-Once the diamond is resolved, the generic `IntegerNormed213.normSq_mul`
-derives Hurwitz at CDDouble α directly — fully replacing
-`hurwitz_ring`-style polynomial expansion for the L2/L3 quaternion-
-analog layer.  The L3/L4 alt layer (Cayley/ZOmegaQuad/L4T) requires
-an additional step: the Moufang/alternative algebra version that
-handles non-associativity.
+§ New class:
+  `class CommIntegerNormed213 (α : Type) extends CommStarRing213 α,
+   IntegerNormed213 α` (in `Meta/Algebra213/CDDouble.lean`).
+
+§ Instances registered (3 comm bases):
+  ZI / ZOmega / ZSqrt[D] — all strict ∅-axiom.
+
+§ Abstract instance `[CommIntegerNormed213 α] → IntegerNormed213
+  (CDDouble α)` registered in `CDDoubleStar.lean §7`.
+
+§ Verification (`#print axioms`):
+  · `IntegerNormed213.normSq_mul` for `CDDouble ZI`        — strict ∅-axiom
+  · `IntegerNormed213.normSq_mul` for `CDDouble ZOmega`    — strict ∅-axiom
+  · `IntegerNormed213.normSq_mul` for `CDDouble (ZSqrt 2)` — strict ∅-axiom
+
+The Cayley-Dickson Hurwitz extension at L2/L3 layer is now an
+ABSTRACT theorem at the framework level, parametric over comm
+integer-normed *-ring bases.  No `hurwitz_ring`, no polynomial
+expansion at Int level — pure typeclass projection.
+
+**Phase 4 remaining work**:
+1. *Consolidation pass*: concrete L2/L3 quaternion-analog types
+   (Lipschitz, ZOmegaDouble, L3T) can replace their ~100-line
+   hand-written `self_mul_conj' / ofInt_*' / normSq_conj'` proofs
+   with 1-line projections through the abstract instance via their
+   `toCDDouble` bridges.
+2. *L3/L4 alt layer* (Cayley/ZOmegaQuad/L4T): the Moufang version
+   `MoufangIntegerNormed213 (CDDouble α)` requires non-associative
+   extension — needs the polarization-style structural condition on
+   α (trace, or similar) to ensure residue cancellation.
 
 Then Phases 5-6 (SHIFT RULE abstract functor + base-parametric
 tower constructor).  Full plan in
