@@ -711,9 +711,6 @@ via xorRange (k+1)/(l+1) unfolds + correction cancellation. -/
 /-- Auxiliary: `xor a a = false`.  -/
 theorem xor_self' (a : Bool) : xor a a = false := by cases a <;> rfl
 
-/-- Auxiliary: `xor a false = a`.  -/
-theorem xor_false_right (a : Bool) : xor a false = a := by cases a <;> rfl
-
 /-- (τ.drop k).eraseIdx 0 = τ.drop (k+1) (boundary). -/
 theorem drop_eraseIdx_zero {α} (l : List α) (k : Nat) :
     (l.drop k).eraseIdx 0 = l.drop (k + 1) := by
