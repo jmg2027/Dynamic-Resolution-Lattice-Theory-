@@ -113,6 +113,13 @@ theorem add_sub_assoc :
     lhs.trans (ih.trans rhs.symm)
   | _, 0, _+1, h => absurd h (Nat.not_succ_le_zero _)
 
+/-- `k ≠ 0 → 1 ≤ k`.  Direct case-split.  Used widely in irrationality
+    arguments and dimension-positivity reasoning. -/
+theorem one_le_of_ne_zero (k : Nat) (h : k ≠ 0) : 1 ≤ k :=
+  match k with
+  | 0 => absurd rfl h
+  | n + 1 => Nat.succ_le_succ (Nat.zero_le n)
+
 /-- `0 < b - a` from `a < b`.  ∅-axiom replacement for
     `Nat.sub_pos_of_lt` (Lean-core proof brings propext). -/
 theorem sub_pos_of_lt {a b : Nat} (h : a < b) : 0 < b - a :=

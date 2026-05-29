@@ -1,6 +1,7 @@
 import E213.Lib.Math.ModArith.PureNatMod3
 import E213.Lib.Math.ModArith.PureNatMod5
 import E213.Meta.Nat.PureNat
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Irrational.SqrtPure — √N irrationality, truly axiom-free
@@ -58,11 +59,7 @@ theorem descent_step (D : DescentBase N)
 
 end DescentBase
 
-/-- `k ≠ 0 → 1 ≤ k`.  Shared utility (was duplicated per-prime). -/
-private theorem ne_zero_imp_ge_one (k : Nat) (h : k ≠ 0) : 1 ≤ k := by
-  match k with
-  | 0 => exact absurd rfl h
-  | n + 1 => exact Nat.succ_le_succ (Nat.zero_le n)
+open E213.Tactic.NatHelper renaming one_le_of_ne_zero → ne_zero_imp_ge_one
 
 /-- ★ Parametric bounded descent.  Given a `DescentBase N`, the
     equation `m² = N · k²` forces `k = 0` (bounded by induction on

@@ -1,4 +1,5 @@
 import E213.Meta.Nat.AddMod213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Sqrt2IrrationalKernelFree: ∅-axiom √2 irrationality
@@ -142,11 +143,7 @@ private theorem even_split : ∀ (m : Nat), m % 2 = 0 → ∃ m', m = 2 * m'
     obtain ⟨k, hk⟩ := even_split m h
     exact ⟨k+1, by rw [hk, Nat.mul_succ]⟩
 
-/-- `k ≠ 0 → k ≥ 1`. -/
-private theorem ne_zero_imp_ge_one (k : Nat) (h : k ≠ 0) : k ≥ 1 := by
-  match k with
-  | 0 => exact absurd rfl h
-  | n + 1 => exact Nat.succ_le_succ (Nat.zero_le n)
+open E213.Tactic.NatHelper renaming one_le_of_ne_zero → ne_zero_imp_ge_one
 
 /-- `2 * k' ≤ n + 1 ∧ k' ≥ 1 → k' ≤ n`. -/
 private theorem half_lt_succ (k' n : Nat) (hbnd : 2 * k' ≤ n + 1)
