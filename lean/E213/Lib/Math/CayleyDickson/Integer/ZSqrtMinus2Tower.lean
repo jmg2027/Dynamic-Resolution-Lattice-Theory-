@@ -13,13 +13,6 @@ open E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ZSqrt
 
 abbrev Z2 := ZSqrt 2  -- ℤ[√-2]
 
-namespace _root_.E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ZSqrt
-  variable {D : Int}
-  instance : Add (ZSqrt D) := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
-  instance : Neg (ZSqrt D) := ⟨fun u => ⟨-u.re, -u.im⟩⟩
-  instance : Sub (ZSqrt D) := ⟨fun u v => u + (-v)⟩
-end _root_.E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ZSqrt
-
 -- L3
 structure L3T where
   re : Z2
