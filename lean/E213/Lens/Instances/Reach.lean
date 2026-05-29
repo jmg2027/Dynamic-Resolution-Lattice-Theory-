@@ -1,5 +1,6 @@
 import E213.Lens.SemanticAtom
 import E213.Meta.Nat.IntHelpers
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # InstanceReach: boundary of the image of universalMorphism
@@ -174,19 +175,7 @@ Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
 + universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
 -/
 
-/-- Inline 213-native max_comm helper (avoiding Nat.max_comm propext leak). -/
-private theorem nat_max_comm_pure (a b : Nat) : Nat.max a b = Nat.max b a := by
-  rcases Nat.le_total a b with hab | hba
-  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
-    rw [if_pos hab]
-    by_cases h : b ≤ a
-    · rw [if_pos h]; exact Nat.le_antisymm h hab
-    · rw [if_neg h]
-  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
-    rw [if_pos hba]
-    by_cases h : a ≤ b
-    · rw [if_pos h]; exact Nat.le_antisymm hba h
-    · rw [if_neg h]
+open E213.Tactic.NatHelper renaming max_comm_pure → nat_max_comm_pure
 
 /-- Helper: result of Raw.slash differs from Raw.a (depth-based proof). -/
 private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
