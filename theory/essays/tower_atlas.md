@@ -21,7 +21,13 @@ notation (`Mobius213/Px/MobiusSelfForm`; `math/mobius213_p_orbit_closure.md`).
 **Raw self-iteration** is the orbit before any Lens: `slash` raises depth
 by one, the inhabitant count follows `|Sₙ| = 2 + C(|Sₙ₋₁|, 2)`, and every
 tree obeys `depth < leaves` (`Theory/Raw/Levels.Raw.depth_lt_leaves`;
-`Lib/Math/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).
+`Lib/Math/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).  Its
+most primitive single thread is named directly — `rawTower n = a/(a/…/b)`,
+the one `slash` arrow iterated from the first distinguishing, with
+`depth = level` and `depth < leaves` at every rung
+(`Theory/Raw/PrimitiveTower.{rawTower, primitive_tower_summary}`, ∅-axiom).
+Every named tower below is this spine with `slash` replaced by a chosen
+step — a Lens reading sitting above this object.
 
 **The Möbius reading** sends `(p,q) ↦ (2p+q, p+q)`; its convergents
 approach φ, bracketed by φ² (`Mobius213/TowerLInfty.tower_growth_phi_squared_bracket`),

@@ -8,6 +8,7 @@ import E213.Theory.Raw.Levels
 import E213.Theory.Raw.FoldSwap
 import E213.Theory.Raw.Rec
 import E213.Theory.Raw.Endomorphic
+import E213.Theory.Raw.PrimitiveTower
 import E213.Theory.Raw.Congruence
 import E213.Theory.Raw.ParenthesizationDistinct
 
@@ -35,6 +36,10 @@ get the full public surface in one line.
 - `Theory.Raw.Endomorphic.{slashOrSelf, foldRaw, swapClosed}` —
   endomorphic catamorphism + total slash combinator (used by
   Lens.Number.Nat213 numbering-system isomorphism)
+- `Theory.Raw.PrimitiveTower.{rawTower, rawTower_depth,
+  primitive_tower_summary}` — the most primitive 213 tower: the
+  single `slash` arrow iterated from the first distinguishing
+  (`depth = level`, `depth < leaves` at every rung; ∅-axiom)
 
 **Excluded from API** (intentional):
 - `Theory.Raw.Demo` — bare-metal example chains for documentation
