@@ -4,7 +4,47 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
-## Autonomous cleanup marathon (current session)
+## Cross-ring helper extraction (#6a–#6f)
+
+Per-user request to find Lib/Math files repeatedly proving the
+same private helper and promote it to a lower ring (Meta/Lens)
+where it can be shared.  Six sub-cleanups, each independently
+committed:
+
+  · **#6a `bool_eq_iff`** — 12 Lib/Math files each defined the
+    same 8-line `Bool` extensionality lemma under variant names
+    (`bool_eq_iff{|_v2|_local}`, `bool_eq_of_iff_true{|_v3|'}`).
+    Created `Meta/Tactic/BoolHelper.lean` as the canonical
+    source.  Each consumer reduces to `import ... + open`.
+    Net: −80 lines.
+  · **#6b `leaves_ge_one`** — 5 `Lib/Math/ModArith/Join*.lean`
+    files duplicated `1 ≤ Lens.leaves.view r` (~12 lines).
+    Replaced with `open E213.Lens renaming leaves_view_pos →
+    leaves_ge_one(_local)` — `Lens.Congruence.leaves_view_pos`
+    already existed as the canonical public theorem in the
+    Lens ring.  Net: −55 lines.
+  · **#6c `sub_pos_of_lt_213`** — 4 DyadicFSM files duplicated
+    `a < b → 0 < b - a` under `_213`/`_local` suffixes (~7 lines
+    each).  Replaced with `open E213.Tactic.NatHelper renaming
+    sub_pos_of_lt → ...` — already canonical in `Meta/Tactic/NatHelper`.
+    Net: −24 lines.
+  · **#6d `one_le_two_pow` + `succ_le_two_pow`** — 4 Lib/Math
+    files duplicated the standard power-of-2 lower bounds
+    (15–22 lines each).  Added both as canonical theorems in
+    `Meta/Tactic/Pow213.lean`.  Net: −60 lines (+25 in
+    `Pow213`).
+  · **#6e `one_le_of_ne_zero`** — 2 `Lib/Math/Irrational/*` files
+    duplicated `k ≠ 0 → 1 ≤ k` (5 lines).  Added to
+    `Meta/Tactic/NatHelper`.  Net: −10 lines.
+  · **#6f `pair_encoded_lt`** — 2 `Lib/Math/DyadicFSM/ArithFSM/`
+    files duplicated `b · n + c < n²` for `Fin n` pairs (11 lines).
+    Added to `Meta/Tactic/Fin213`.  Net: −20 lines.
+
+Cumulative #6a–#6f: **3 new Meta/Tactic theorems +
+1 new Meta/Tactic/BoolHelper.lean**, **29 private duplicates
+removed** across Lib/Math.  All cleanups full `lake build` clean.
+
+## Autonomous cleanup marathon
 
 Continuing the duplication-removal pass from #3/#4.  Five
 sub-cleanups (#5a–#5e), each independently committed:
