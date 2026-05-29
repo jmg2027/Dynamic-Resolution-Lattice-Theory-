@@ -126,15 +126,40 @@ quaternion-analog layers in both base towers.
     All 3 alternative non-associative carriers now sit in the
     typeclass hierarchy.  `CayleyAlgebra213.lean` (NEW, ~170 lines)
     is the Type A L3 file mirroring ZOmegaQuad/L4T bridge.
+  · **Phase 4+ propext elimination across Types B + C** (commits
+    `77f6daa`, `bd11810`): ZOmega tower and ZSqrt[D] tower elevated
+    to strict ∅-axiom by:
+      - replacing propext-leaking `simp only [add_comm, mul_comm,
+        add_left_comm, mul_left_comm]` (Lean simp's congr machinery
+        uses `Iff.mp` via propext) with safe-simp + explicit
+        `Ring213.add_4_swap_mid` / new `add_6_interleave` / existing
+        `Ring213.add_5_perm` reorder helpers + targeted
+        `Int213.add_right_comm` swap sequences.
+      - replacing propext-dirty stdlib lemmas `Int.sub_neg`,
+        `Int.sub_zero`, `Int.zero_mul`, `Int.zero_add` with PURE
+        `Int213.*` equivalents or `Int.sub_eq_add_neg + Int.neg_zero
+        + Int.add_zero` decomposition.
+    Cross-tower validation now COMPLETE — all three base towers
+    strict ∅-axiom at every typeclass instance (Ring213, StarRing213,
+    IntegerNormed213, MoufangIntegerNormed213, NonAssocRing213,
+    NonAssocStarRing213):
+      - Type A: ZI / Lipschitz / Cayley           [strict ∅-axiom]
+      - Type B: ZSqrt[D] / L3T / L4T              [strict ∅-axiom]
+      - Type C: ZOmega / ZOmegaDouble / ZOmegaQuad [strict ∅-axiom]
+    The DRLT Validation Standard at the algebra layer holds at the
+    strictest tier across the closed 4-row matrix.
 
 **Phase 4 capstone (deferred deep work — `moufang_norm` at alt layer)**:
 the Moufang norm-collapse identity `(uv)(v*u*) = u(vv*)u*` at the
 Cayley/ZOmegaQuad/L4T layer reduces to `N(uv) = N(u)·N(v)` (Hurwitz
 norm-multiplicativity) since `vv* = ofInt(N(v))` is central.  The
-proof requires Hurwitz-Diophantus polynomial expansion at the base
-Int level — same structural obstruction across all 3 towers.
-Estimated 100-200 lines focused work per concrete instance, or one
-abstract polynomial-identity lemma usable parametrically.
+proof requires either polynomial expansion at the base Int level
+(8-var Hurwitz identity for octonions) or an abstract
+`cddouble_normSq_mul` theorem at the framework level requiring base
+α to be a composition algebra with associativity.  The Cayley-Dickson
+construction preserves composition exactly when the base is
+associative, so the abstract path is feasible but requires careful
+residue-cancellation algebra.  Estimated 200-400 lines.
 
 Then Phases 5-6 (SHIFT RULE abstract functor + base-parametric
 tower constructor).  Full plan in
