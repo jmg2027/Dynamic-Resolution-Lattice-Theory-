@@ -88,11 +88,32 @@ three towers.
   - `SedenionHeavy.flexible` + `TrigintaduoionionHeavy` are the last
     `hurwitz_ring` users.  These are **flexibility over a non-associative
     base** (Sedenion = CDDouble Cayley); the associative `cd_flexible`
-    does not apply (its reassociations need an associative base).  Needs
-    a fresh `cd_flexible_nonassoc` (cubic component proof using the base's
-    own flexible/alternative laws + norm/trace centrality) — a distinct
-    derivation, scoped but sizeable.  `Sedenion` `alt_left`/`alt_right`
-    genuinely *fail* (zero divisors), so only flexibility is in play.
+    does not apply.  `Sedenion` `alt_left`/`alt_right` genuinely *fail*
+    (zero divisors), so only flexibility is in play.
+
+    **Precisely scoped** (verified numerically, `/tmp` Python during the
+    session — re-derive before coding):
+      · flexibility of `CDDouble α` needs only **base-flexible** (NOT
+        base-alternative): trigintaduonion = CDDouble of the
+        flexible-but-non-alternative sedenion is itself flexible.
+      · So the target is `cd_flexible_nonassoc` over a base class bundling
+        `NonAssocStarRing213` + `flexible` + `self_mul_conj`/`conj_mul_self`
+        (norm central) + `self_add_conj` (trace central).  Cayley and
+        Sedenion are instances (Cayley flexible = `CayleyHeavy.flexible`).
+      · `.re` term grouping (a=u.re,b=u.im,c=v.re,d=v.im, conj=base):
+        `(a*c)*a = a*(c*a)` (base flexible);
+        `conj b*(b*conj c) = (conj c*conj b)*b` (call it `L4=R3`);
+        `-(conj d*b)*a - conj b*(d*a) = -a*(conj b*d) - (a*conj d)*b`
+        (trace pair `L2+L3=R2+R4`).  `.im` is analogous.
+      · Key reusable base lemma: `(conj b*y)*b = conj b*(y*b)`
+        (`moufang_mid`) holds from **flexible + trace**: substitute
+        `conj b = ofInt(trace b) - b`, the trace term is central, the
+        remainder is `[b,y,b] = 0` (base flexible).  This is the lever for
+        the cross-terms; `L4=R3` reduces similarly via flexible + norm
+        (`conj b*b = ofInt(normSq b)` central) + trace.
+      · Effort: ~cd_alt_left scale ×(both components) + base sub-lemmas +
+        typeclass + Cayley/Sedenion instance bridges.  Sizeable; warrants
+        its own session.
   - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
     from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
     the polynomial brute force.
