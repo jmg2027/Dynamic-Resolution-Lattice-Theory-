@@ -117,4 +117,39 @@ theorem cd_alt_right (x y : CDDouble α) : x * (y * y) = (x * y) * y := by
   rw [ccx, ccy] at h
   exact h
 
+/-- Additive left-cancellation on `CDDouble α` (a NonAssoc ring is an
+    additive group). -/
+private theorem cd_add_cancel (x p q : CDDouble α) (h : x + p = x + q) : p = q := by
+  have h2 : -x + (x + p) = -x + (x + q) := by rw [h]
+  rwa [← NonAssocRing213.add_assoc, NonAssocRing213.add_left_neg,
+       NonAssocRing213.zero_add, ← NonAssocRing213.add_assoc,
+       NonAssocRing213.add_left_neg, NonAssocRing213.zero_add] at h2
+
+/-- **Flexibility** for `CDDouble α`: `(a·b)·a = a·(b·a)`.  Derived by
+    linearizing `cd_alt_right` at `y = b + a` (associator antisymmetric
+    in the last two args) and cancelling with `cd_alt_left`. -/
+theorem cd_flexible (a b : CDDouble α) : (a * b) * a = a * (b * a) := by
+  have hII := cd_alt_right a (b + a)
+  rw [NonAssocRing213.add_mul b a (b + a),
+      NonAssocRing213.mul_add a (b * (b + a)) (a * (b + a)),
+      NonAssocRing213.mul_add b b a, NonAssocRing213.mul_add a b a,
+      NonAssocRing213.mul_add a (b * b) (b * a),
+      NonAssocRing213.mul_add a (a * b) (a * a),
+      NonAssocRing213.add_mul (a * b) (a * a) (b + a),
+      NonAssocRing213.mul_add (a * b) b a, NonAssocRing213.mul_add (a * a) b a,
+      cd_alt_right a b, cd_alt_right a a, cd_alt_left a b] at hII
+  -- hII : ((a*b)*b + a*(b*a)) + (a*(a*b) + (a*a)*a)
+  --     = ((a*b)*b + (a*b)*a) + (a*(a*b) + (a*a)*a)
+  rw [NonAssocRing213.add_assoc ((a * b) * b) (a * (b * a))
+        (a * (a * b) + (a * a) * a),
+      NonAssocRing213.add_comm (a * (b * a)) (a * (a * b) + (a * a) * a),
+      ← NonAssocRing213.add_assoc ((a * b) * b) (a * (a * b) + (a * a) * a)
+        (a * (b * a)),
+      NonAssocRing213.add_assoc ((a * b) * b) ((a * b) * a)
+        (a * (a * b) + (a * a) * a),
+      NonAssocRing213.add_comm ((a * b) * a) (a * (a * b) + (a * a) * a),
+      ← NonAssocRing213.add_assoc ((a * b) * b) (a * (a * b) + (a * a) * a)
+        ((a * b) * a)] at hII
+  exact (cd_add_cancel _ _ _ hII).symm
+
 end E213.Meta.Algebra213
