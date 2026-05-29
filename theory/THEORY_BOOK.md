@@ -939,7 +939,7 @@ through its chart.
 
 ### VII.5 HoTT as a Reading (Phase 12.2 / 22)
 
-`lean/E213/Lib/Math/GRA/HoTTEnrichment.lean` + `LensIsoCapstone`
+`lean/E213/Lib/Math/GRA/HoTT.lean` + `LensIsoCapstone`
 make this explicit.  HoTT's truncation hierarchy is the R₃
 Reading of GRA; combined with Phase 22, HoTT's grade structure
 on Raw is `LensIso` to `gradeLens`.

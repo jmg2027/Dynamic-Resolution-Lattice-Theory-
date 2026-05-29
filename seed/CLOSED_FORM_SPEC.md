@@ -62,7 +62,7 @@ deleted).
 | `cutMax` (LUB) | `cutLe_cutMax_chainToCut_iff` |
 | `cutMin` (GLB) | `cutLe_cutMin_chainToCut_iff` |
 
-Lean: `lean/E213/Lib/Math/Real213/Cauchy/ChainToCut.lean`.
+Lean: `lean/E213/Lib/Math/Real213/ChainToCut.lean`.
 
 ## Bridge composition
 

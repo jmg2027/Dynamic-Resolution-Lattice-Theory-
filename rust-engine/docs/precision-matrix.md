@@ -124,8 +124,8 @@ Lean theorem chain forcing K_{3,2}^{(2)}:
 - `lean/E213/Theory/Atomicity/Five.lean` — `atomic_iff_five`
 - `lean/E213/Theory/Atomicity/PrimitiveSizes.lean` — pairSize=2, closureSize=3
 - `lean/E213/Lib/Math/Combinatorics/Simplex5.lean` — Fin 5, (3,2) split
-- `lean/E213/Lib/Math/Cohomology/TopologyCompare.lean` — c=2 unique
-- `lean/E213/Math/Linalg213/Capstone.lean` — paper1 capstone
+- `lean/E213/Lib/Math/Cohomology/Examples/TopologyCompare.lean` — c=2 unique
+- `lean/E213/Lib/Math/Linalg213/Capstone.lean` — paper1 capstone
 
 Coupling structure:
 - `Physics/{TripleCoupling,TripleCouplingV2}.lean`
