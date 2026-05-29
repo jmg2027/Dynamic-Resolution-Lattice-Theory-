@@ -4,6 +4,48 @@ Branch: `claude/gra-promotion-essay-LwwoA` — GRA Phases 1–22 closed
 (all PURE / 0 DIRTY post-consolidation).  Plus: `theory/THEORY_BOOK.md`
 v1.2 + duplication-cleanup passes.
 
+## Cross-ring helper extraction in non-Physics rings (#7a–#7d)
+
+Continued the helper-extraction work, applied to the
+**Term / Theory / Lens** rings (per-user "Physics 제외한
+다른 링들" request).
+
+  · **#7a `nat_max_comm_pure`** — 2 files in the Lens ring
+    (`Lens/Properties/ProdBelowId.lean` +
+    `Lens/Instances/Reach.lean`) duplicated the same 14-line
+    `Nat.max` commutativity proof.  Replaced with
+    `open E213.Tactic.NatHelper renaming max_comm_pure → ...`
+    (canonical version already in `Meta/Tactic/NatHelper`).
+    Net: −28 lines.
+  · **#7b `Raw.slash_ne_a` + `Raw.slash_ne_b`** — 3 files
+    (`Lens/Number/Nat213/NumberingSystem`, `Lens/Instances/Reach`,
+    `Lib/Math/Choice/CanonicalTruthChar`) duplicated
+    `Raw.slash x y h ≠ Raw.b` under variant names using two
+    different proof techniques (Tree.noConfusion vs Lens.depth).
+    Promoted to `Theory.Raw.slash_ne_a` + `Theory.Raw.slash_ne_b`
+    as protected public theorems in `Theory/Raw/Slash.lean`
+    (alongside existing `slash_ne_{right,left,both}`).  Used the
+    lightweight Tree.noConfusion proof (no Lens.depth import
+    needed).  Net: −43 lines.
+  · **#7c `Lens.leaves_view_ge_one`** — 2 files in the Lens
+    ring duplicated `1 ≤ Lens.leaves.view r` proofs.
+    `Lens.Congruence.leaves_view_pos` already proved the same
+    but pulled in heavy `Number.Nat213.ChartGeneral`.  Added a
+    lightweight protected `Lens.leaves_view_ge_one` directly
+    in `Lens/LensCore.lean` (next to the `Lens.leaves`
+    definition).  Bonus: the 5 ModArith files from #6b switched
+    to the lighter version, dropping Number/Nat213 deps.
+    Net: −23 lines + lighter import graph downstream.
+  · **#7d `xor_comm`** — added `xor_comm` to `BoolHelper.lean`
+    (alongside `bool_eq_iff` from #6a).
+    `Lens/Instances/Parity` consumed it.  Net: −2 lines + a
+    repo-wide `Bool.xor_comm` replacement now available.
+
+Cumulative #7a–#7d: **2 new public theorems in
+`Theory/Raw/Slash`, 1 in `Lens/LensCore`, 1 in
+`BoolHelper`**; ~96 lines removed across non-Physics rings.
+All `lake build` clean.
+
 ## Cross-ring helper extraction (#6a–#6f)
 
 Per-user request to find Lib/Math files repeatedly proving the
