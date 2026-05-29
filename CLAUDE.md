@@ -59,7 +59,6 @@ translation.  Reason: grep + readers + prompt-token economy.
 
 | Rule | Reason |
 |---|---|
-| 80-line edit limit (chunk-guard hook) | Avoid context-window flooding.  Use `Bash(cat <<'EOF'…')` for larger files. |
 | 0 sorry, 0 external axioms | Falsifiability contract.  See `seed/AXIOM/08_falsifiability.md`. |
 | Zero Mathlib imports | Mathlib brings hidden axiom dependencies. |
 | Never add `Classical.*`, `native_decide`, or weaken the axiom set | Adding axiom = theory falsified per §8.2. |
