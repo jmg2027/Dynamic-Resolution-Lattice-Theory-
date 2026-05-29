@@ -341,4 +341,140 @@ theorem moufang_normSq_mul (u v : L3T) :
     L3T.normSq (u * v) = L3T.normSq u * L3T.normSq v :=
   MoufangIntegerNormed213.normSq_mul u v
 
+/-! ## §6 — L4T NonAssocRing213 + NonAssocStarRing213 via bridge
+
+L4T = CDDouble L3T is the Type B L4 carrier (alternative non-associative
+layer of the Type B tower).  Since L3T has `Ring213` + `StarRing213`
+(non-comm associative) from §3, the parametric
+`instNonAssocStarRing213CDDoubleStar [StarRing213 L3T]` from
+`CDDoubleStar` fires, giving `NonAssocRing213 (CDDouble L3T)` and
+`NonAssocStarRing213 (CDDouble L3T)`.  L4T then bridges through
+`toCDDouble : L4T → CDDouble L3T` — same recipe as ZOmegaQuad.
+
+`mul_assoc` fails at this layer (Cayley analog); only alternativity
+holds.  Full `MoufangIntegerNormed213` requires moufang_norm input
+(deferred — same Hurwitz polynomial obstruction as Cayley/ZOmegaQuad). -/
+
+namespace L4T
+
+/-- L4T → abstract CDDouble L3T. -/
+def toCDDouble (u : L4T) : CDDouble L3T := ⟨u.re, u.im⟩
+
+/-- Abstract CDDouble L3T → L4T. -/
+def fromCDDouble (u : CDDouble L3T) : L4T := ⟨u.re, u.im⟩
+
+theorem to_from (u : CDDouble L3T) :
+    toCDDouble (fromCDDouble u) = u := by cases u; rfl
+
+theorem from_to (u : L4T) :
+    fromCDDouble (toCDDouble u) = u := by cases u; rfl
+
+theorem toCDDouble_inj {u v : L4T}
+    (h : toCDDouble u = toCDDouble v) : u = v := by
+  have := congrArg fromCDDouble h
+  rwa [from_to, from_to] at this
+
+theorem toCDDouble_mul (u v : L4T) :
+    toCDDouble (u * v) = toCDDouble u * toCDDouble v := by
+  apply CDDouble.ext
+  · show (u * v).re
+       = u.re * v.re + -(StarRing213.conj v.im * u.im)
+    show u.re * v.re - (L3T.conj v.im) * u.im
+       = u.re * v.re + -(StarRing213.conj v.im * u.im)
+    rfl
+  · show (u * v).im
+       = v.im * u.re + u.im * StarRing213.conj v.re
+    rfl
+
+theorem toCDDouble_conj (u : L4T) :
+    toCDDouble (L4T.conj u) = CDDouble.conj (toCDDouble u) := by
+  apply CDDouble.ext
+  · show L3T.conj u.re = StarRing213.conj u.re; rfl
+  · show -u.im = -u.im; rfl
+
+theorem toCDDouble_add (u v : L4T) :
+    toCDDouble (u + v) = toCDDouble u + toCDDouble v := by
+  apply CDDouble.ext
+  · show (u + v).re = u.re + v.re; rfl
+  · show (u + v).im = u.im + v.im; rfl
+
+theorem toCDDouble_neg (u : L4T) :
+    toCDDouble (-u) = -(toCDDouble u) := by
+  apply CDDouble.ext
+  · show (-u).re = -u.re; rfl
+  · show (-u).im = -u.im; rfl
+
+theorem toCDDouble_zero : toCDDouble 0 = 0 := rfl
+
+private theorem add_assoc' (u v w : L4T) :
+    u + v + w = u + (v + w) := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_add, toCDDouble_add, toCDDouble_add]
+  exact NonAssocRing213.add_assoc _ _ _
+
+private theorem add_comm' (u v : L4T) : u + v = v + u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_add]
+  exact NonAssocRing213.add_comm _ _
+
+private theorem add_zero' (u : L4T) : u + 0 = u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_zero]
+  exact NonAssocRing213.add_zero _
+
+private theorem add_left_neg' (u : L4T) : -u + u = 0 := by
+  apply toCDDouble_inj
+  rw [toCDDouble_add, toCDDouble_neg, toCDDouble_zero]
+  exact NonAssocRing213.add_left_neg _
+
+private theorem add_mul' (u v w : L4T) :
+    (u + v) * w = u * w + v * w := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_add, toCDDouble_add,
+      toCDDouble_mul, toCDDouble_mul]
+  exact NonAssocRing213.add_mul _ _ _
+
+private theorem mul_add' (u v w : L4T) :
+    u * (v + w) = u * v + u * w := by
+  apply toCDDouble_inj
+  rw [toCDDouble_mul, toCDDouble_add, toCDDouble_add,
+      toCDDouble_mul, toCDDouble_mul]
+  exact NonAssocRing213.mul_add _ _ _
+
+instance : NonAssocRing213 L4T where
+  add_assoc    := add_assoc'
+  add_comm     := add_comm'
+  add_zero     := add_zero'
+  add_left_neg := add_left_neg'
+  add_mul      := add_mul'
+  mul_add      := mul_add'
+
+private theorem conj_conj' (u : L4T) :
+    L4T.conj (L4T.conj u) = u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_conj]
+  exact NonAssocStarRing213.conj_conj _
+
+private theorem conj_add' (u v : L4T) :
+    L4T.conj (u + v) = L4T.conj u + L4T.conj v := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_add, toCDDouble_add,
+      toCDDouble_conj, toCDDouble_conj]
+  exact NonAssocStarRing213.conj_add _ _
+
+private theorem conj_mul' (u v : L4T) :
+    L4T.conj (u * v) = L4T.conj v * L4T.conj u := by
+  apply toCDDouble_inj
+  rw [toCDDouble_conj, toCDDouble_mul, toCDDouble_mul,
+      toCDDouble_conj, toCDDouble_conj]
+  exact NonAssocStarRing213.conj_mul _ _
+
+instance : NonAssocStarRing213 L4T where
+  conj      := L4T.conj
+  conj_conj := conj_conj'
+  conj_add  := conj_add'
+  conj_mul  := conj_mul'
+
+end L4T
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
