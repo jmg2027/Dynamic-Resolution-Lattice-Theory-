@@ -164,18 +164,27 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
       design.  So the Nat goal `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n
       cannot be lifted from the PURE Int `phi_norm_eq_neg_one`, and a Nat
       `pellNum n = fib(2n+1)` bridge is equally blocked (same cast).
-    · **RE-FRAME, don't lift.**  Prove a *new, independent, all-Nat* theorem
-      `phiCut (fib (2n+1)) (fib (2n)) = false` ∀n (NOT mentioning `pellNum`):
-      - `fib` (Nat) + PURE recurrences are in `Mobius213/Px/QFibIdentity`
-        (`fib_succ_succ`, `fib_even_step`, `fib_odd_double_step` — the last fixed
-        this round; the `Q00/Q01 = fib` bridges there are DIRTY via Int, skip
-        them).
-      - Nat norm identity (checked by hand): `fib(2n+1)² + 1 = fib(2n+1)·fib(2n)
-        + fib(2n)²` ∀n — a Cassini variant, provable by induction with the PURE
-        `fib_*` recurrences + `NatHelper` (all Nat, no Int, no cast).  Rearranges
-        to `(2·fib(2n+1) − fib(2n))² + 4 = 5·fib(2n)²` (needs `fib(2n) ≤
-        2·fib(2n+1)`, from `fib` monotonicity — Nat).
-      - then `PhiAsCut.phiCut_false_of_norm` closes it.
+    · **RE-FRAME, don't lift — path fully scouted this round.**  Prove a *new,
+      independent, all-Nat* theorem `phiCut (fib (2n+2)) (fib (2n+1)) = false` ∀n
+      (NOT mentioning `pellNum`).  **Correct indexing (verified):**
+      `pellNum n = fib(2n+2)`, `pellDen n = fib(2n+1)` (consecutive Fibonacci;
+      `fib 0..9 = 0,1,1,2,3,5,8,13,21,34`; pellNum 1,3,8,21 = fib 2,4,6,8;
+      pellDen 1,2,5,13 = fib 1,3,5,7).  Set `a := fib(2n+2)`, `b := fib(2n+1)`.
+      - **fib couplings (verified PURE this round)**: `a_{n+1} = fib(2n+4) =
+        2·a_n + b_n` and `b_{n+1} = fib(2n+3) = a_n + b_n`, both from
+        `fib_succ_succ` (rfl-unfold + a small calc with `← Nat.two_mul`).
+      - **Nat norm (verified numerically — base+step values 5,29,194,1325)**:
+        `a² + 1 = a·b + b²` ∀n.  Induction step reduces to the IH via the
+        **hyp-free Nat ring identity** `(2a+b)² + 1 + (a·b + b²) = (2a+b)(a+b) +
+        (a+b)² + (a²+1)` (both sides `= 5a²+5ab+2b²+1`).  ⚠ This is the ONLY
+        remaining gap: there is **no `ring` and no Nat poly-normalizer in the
+        repo**, so this identity needs ~40 lines of manual `Nat.{mul_add,
+        add_mul, mul_comm, mul_assoc}` — best done by first proving a reusable
+        **Nat `sq_add` FOIL lemma** `(x+y)*(x+y) = x*x + 2*(x*y) + y*y` (mirror
+        of the PURE Int `Meta/Int213/Bound.sq_add_int`), then assembling.
+      - rearrange to `(2a − b)² + 4 = 5·b²` (needs `b ≤ 2a`, i.e. `fib(2n+1) ≤
+        2·fib(2n+2)` — from `fib` monotonicity, Nat), then
+        `PhiAsCut.phiCut_false_of_norm` closes it.
       This is the φ-convergent-below-φ fact in its native Nat form; relating it
       back to `pellNum`/`PhiCutConvergents` is optional (and blocked by the same
       cast, so leave `convergents_below_phi` at its layers-0..8 `decide`).
