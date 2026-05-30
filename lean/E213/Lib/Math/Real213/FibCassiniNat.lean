@@ -200,4 +200,41 @@ theorem fib_convergent_below_phi (n : Nat) :
   exact E213.Lib.Math.Real213.PhiAsCut.phiCut_false_of_norm
     (fib (2 * n + 2)) (fib (2 * n + 1)) hform
 
+/-! ## Toward the Cauchy-complete limit — consecutive-convergent cross-product
+
+For the `CauchyCutSeq` limit construction (`Analysis/CauchyComplete`), the key
+fact is that consecutive convergents differ by exactly `1` in cross-product
+(equivalently `1/(den_n·den_{n+1})` in value), so they nest and the brackets
+shrink.  Combined with `fib_convergent_below_phi` (all convergents below φ) and
+monotone increase, this gives a constructible modulus for each rational target. -/
+
+/-- Generic cross-product step: from the Cassini norm `A²+1 = A·B+B²`,
+    `(2A+B)·B = A·(A+B) + 1` — i.e. the two consecutive convergents
+    `A/B` and `(2A+B)/(A+B)` have cross-product difference exactly `1`. -/
+theorem cross_gen (A B : Nat) (norm : A * A + 1 = A * B + B * B) :
+    (2 * A + B) * B = A * (A + B) + 1 := by
+  rw [add_mul, Nat.mul_add, show 2 * A * B = A * B + A * B from by rw [Nat.two_mul, add_mul]]
+  rw [Nat.add_assoc (A * B) (A * B) (B * B), ← norm]
+  rw [Nat.add_comm (A * B) (A * A + 1), Nat.add_assoc, Nat.add_comm 1 (A * B),
+      ← Nat.add_assoc]
+
+/-- **Consecutive-convergent cross-product = +1, ∀ n**:
+    `fib(2n+4)·fib(2n+1) = fib(2n+2)·fib(2n+3) + 1`.  The Fibonacci form of
+    "adjacent convergents differ by one unit" — the nesting/shrinking witness for
+    the Cauchy limit.  From `fib_cassini_norm` via `cross_gen`. -/
+theorem convergent_cross (n : Nat) :
+    fib (2 * n + 4) * fib (2 * n + 1) = fib (2 * n + 2) * fib (2 * n + 3) + 1 := by
+  have hA : fib (2 * n + 4) = 2 * fib (2 * n + 2) + fib (2 * n + 1) := by
+    have e1 : fib (2 * n + 4) = fib (2 * n + 3) + fib (2 * n + 2) := rfl
+    have e2 : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+    rw [e1, e2]
+    calc fib (2 * n + 2) + fib (2 * n + 1) + fib (2 * n + 2)
+        = fib (2 * n + 2) + fib (2 * n + 2) + fib (2 * n + 1) := by
+          rw [Nat.add_assoc, Nat.add_comm (fib (2 * n + 1)) (fib (2 * n + 2)),
+              ← Nat.add_assoc]
+      _ = 2 * fib (2 * n + 2) + fib (2 * n + 1) := by rw [← Nat.two_mul]
+  have hB : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+  rw [hA, hB]
+  exact cross_gen (fib (2 * n + 2)) (fib (2 * n + 1)) (fib_cassini_norm n)
+
 end E213.Lib.Math.Real213.FibCassiniNat

@@ -146,68 +146,32 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
 
 ## OPEN (next targets — pick up here)
 
-  - **`phiCut (pellNum n) (pellDen n) = false` for all n** — partially built:
-    · **mechanism DONE**: `PhiAsCut.phiCut_false_of_norm (m k)
-      (hid : (2m−k)²+4 = 5k²) : phiCut m k = false` (PURE) — the single-layer
-      reason a convergent reads below φ.
-    · **coupling exposed**: `PhiNormInvariant.{seq_coupling_num, seq_coupling_den}`
-      restate the `P`-action on `P_{num,den}.seq` directly (the abbrev-stated
-      `coupling` pulls `propext` when cast — use these to `rw` cleanly).
-    · **positivity + den-bound DONE**: `PhiNormInvariant.{seq_nonneg, gap_nonneg,
-      seq_den_le}` (all PURE) — `0 ≤ num/den`, `0 ≤ 2·num − den`, and
-      `den_n ≤ 2·num_n` ∀n, via the repo's `Int213.{add_nonneg, mul_nonneg,
-      le_of_add_eq_of_nonneg}` + the `gapeq` step `2·(2N+D) − (N+D) = 3N + D`.
-    · **⚠ TOOLING NOTE**: Lean-CORE `Int` `≤` lemmas (`Int.le_refl`,
-      `Int.add_le_add[_left/right]`, even `(0:Int) ≤ 1 := by decide`) pull
-      `propext` — do NOT use.  Use the repo's PURE `Meta/Int213/Bound.lean`:
-      `add_nonneg`, `mul_nonneg`, `int_sq_nonneg`,
-      `le_of_add_eq_of_nonneg : x + y = c → 0 ≤ x → y ≤ c`,
-      `four_normSq_ring_identity : (2a−b)² + 3b² = 4(a²−ab+b²)`.  `omega`
-      forbidden.  **Search `~213` / `Int213` / `NatHelper` before Lean-core.**
-    · **⚠ STRUCTURAL BARRIER (verified this round) — `convergents_below_phi` ∀n
-      cannot be reached as currently stated.**  `pellNum n := (P_numerator.seq
-      n).toNat` is Int-seq-then-`toNat`.  Every Int↔Nat cast lemma pulls
-      `propext` (`Int.toNat_add`, `Int.toNat_of_nonneg`, `Int.ofNat_le`,
-      `Int.ofNat_sub`, `push_cast`, `exact_mod_cast` — all DIRTY; an earlier note
-      claiming some PURE was WRONG).  The repo has **no** PURE Int→Nat bridge by
-      design.  So the Nat goal `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n
-      cannot be lifted from the PURE Int `phi_norm_eq_neg_one`, and a Nat
-      `pellNum n = fib(2n+1)` bridge is equally blocked (same cast).
-    · **RE-FRAME, don't lift — path fully scouted this round.**  Prove a *new,
-      independent, all-Nat* theorem `phiCut (fib (2n+2)) (fib (2n+1)) = false` ∀n
-      (NOT mentioning `pellNum`).  **Correct indexing (verified):**
-      `pellNum n = fib(2n+2)`, `pellDen n = fib(2n+1)` (consecutive Fibonacci;
-      `fib 0..9 = 0,1,1,2,3,5,8,13,21,34`; pellNum 1,3,8,21 = fib 2,4,6,8;
-      pellDen 1,2,5,13 = fib 1,3,5,7).  Set `a := fib(2n+2)`, `b := fib(2n+1)`.
-      - **fib couplings (verified PURE this round)**: `a_{n+1} = fib(2n+4) =
-        2·a_n + b_n` and `b_{n+1} = fib(2n+3) = a_n + b_n`, both from
-        `fib_succ_succ` (rfl-unfold + a small calc with `← Nat.two_mul`).
-      - **Nat norm (verified numerically — base+step values 5,29,194,1325)**:
-        `a² + 1 = a·b + b²` ∀n.  Induction step reduces to the IH via the
-        hyp-free Nat ring identity `(2a+b)² + 1 + (a·b + b²) = (2a+b)(a+b) +
-        (a+b)² + (a²+1)` (both sides `= 5a²+5ab+2b²+1`).
-      - **⚠ PURE Nat-poly TOOLS FOUND (this round) — the gap is now mechanical.**
-        Lean-core `Nat.add_mul` and `Nat.mul_assoc` pull `propext` (verified),
-        but the repo has PURE replacements built exactly for this:
-        `Lib/Math/NatRing.{nat_mul_assoc, nat_add_mul, nat_swap_left_mul,
-        nat_add_right_cancel, nat_add_left_cancel}` and
-        `Meta/Nat/PureNat.{add_mul, mul_assoc, even_sq (= (2k)² = 2(2(k·k))),
-        mul_mul_mul_comm, reassoc4}`.  PURE core lemmas usable directly:
-        `Nat.{mul_add, mul_comm, add_assoc, two_mul}`.
-        A reusable **`nat_sq_add : (x+y)*(x+y) = x*x + 2*(x*y) + y*y`** is proved
-        PURE (recipe: `rw [PureNat.add_mul, Nat.mul_add, Nat.mul_add,
-        Nat.mul_comm y x, ← Nat.add_assoc, Nat.add_assoc (x*x) (x*y) (x*y),
-        ← Nat.two_mul (x*y)]`).  Partial expansion `e1 : (2a+b)² = 4·(a·a) +
-        (4·(a·b) + b·b)` was started via `even_sq` + `mul_assoc` (works to the
-        last reassoc).  **Next session: finish `e1` + the analogous `(2a+b)(a+b)`
-        and `(a+b)²` expansions to a common monomial normal form, assemble the
-        step identity, then `nat_add_left_cancel` against the IH.**
-      - rearrange to `(2a − b)² + 4 = 5·b²` (needs `b ≤ 2a`, i.e. `fib(2n+1) ≤
-        2·fib(2n+2)` — from `fib` monotonicity, Nat), then
-        `PhiAsCut.phiCut_false_of_norm` closes it.
-      This is the φ-convergent-below-φ fact in its native Nat form; relating it
-      back to `pellNum`/`PhiCutConvergents` is optional (and blocked by the same
-      cast, so leave `convergents_below_phi` at its layers-0..8 `decide`).
+  - **φ as a Cauchy-complete `ValidCut` limit object (chosen target).**  The
+    repo already has the machinery: `Analysis/CauchyComplete.CauchyCutSeq`
+    (`cs : Nat→Nat→Nat→Bool`, modulus `N`, `cauchy`) with `.limit` extraction and
+    `limit_eq_at`.  Plan to build `phiCut := (pellCauchy).limit` and prove it
+    equals/cut-equiv `PhiAsCut.phiCut`:
+    · **convergents are monotone-below-φ** — `fib_convergent_below_phi` (all
+      below φ, ∀n, DONE) + monotone increase (next).  Because OUR convergents
+      `fib(2n+2)/fib(2n+1)` rise to φ from one side, the Cauchy modulus is
+      *constructible*: for target `m/k ≥ φ` every convergent is `<` it → cut
+      stably `true`, `N=0`; for `m/k < φ` the convergents eventually exceed it →
+      stably `false`, `N =` first crossing layer.
+    · **nesting/shrinking witness DONE**: `FibCassiniNat.convergent_cross`
+      (`fib(2n+4)·fib(2n+1) = fib(2n+2)·fib(2n+3) + 1`, ∀n PURE) — adjacent
+      convergents differ by exactly one unit.  With `cross_gen` (generic form).
+    · **remaining**: (1) convergent monotone increase ∀n (cross_gen gives the
+      cross-product; turn into `pellNum n · pellDen(n+1) < pellNum(n+1) · pellDen n`);
+      (2) the per-target crossing modulus `N m k` (convergents grow ~φ-fast, so a
+      crossing exists once `pellDen n` exceeds a bound in `m,k`); (3) assemble
+      `CauchyCutSeq` from `pellConvergentCut` + `N`; (4) prove `.limit = phiCut`
+      (or `CutEquiv`).  All Nat / `Int213` PURE tools; NO Int↔Nat cast, NO omega.
+  - **NOTE (repo-first catch this round)**: `Real213/Mobius213PellInvariant.
+    Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
+    `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`
+    = our `normstep`).  `FibCassiniNat` is the `fib`-indexed twin; consider
+    unifying or cross-citing rather than duplicating in future work.
+  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
