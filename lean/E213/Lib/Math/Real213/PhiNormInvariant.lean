@@ -153,4 +153,38 @@ theorem seq_nonneg : ∀ n, 0 ≤ P_numerator.seq n ∧ 0 ≤ P_denominator.seq 
     · rw [seq_coupling_den n]
       exact E213.Meta.Int213.add_nonneg hN hD
 
+/-- Step equation for the `2·num − den` gap: `2·(2N + D) − (N + D) = 3N + D`.
+    Pure `Int213` rewrites. -/
+private theorem gapeq (N D : Int) : 2 * (2 * N + D) - (N + D) = 3 * N + D := by
+  rw [mul_add, ← mul_assoc, show (2 : Int) * 2 = 4 from rfl, Int.sub_eq_add_neg,
+      neg_add]
+  rw [add_assoc (4 * N) (2 * D) (-N + -D), add_left_comm (2 * D) (-N) (-D),
+      ← add_assoc (4 * N) (-N) (2 * D + -D)]
+  rw [show (4 : Int) * N + -N = 3 * N from by
+        rw [show (4 : Int) = 3 + 1 from rfl, add_mul, Int.one_mul, add_assoc,
+            add_neg_cancel, Int.add_zero]]
+  rw [show (2 : Int) * D + -D = D from by
+        rw [show (2 : Int) = 1 + 1 from rfl, add_mul, Int.one_mul, add_assoc,
+            add_neg_cancel, Int.add_zero]]
+
+/-- The gap `2·num − den` is nonnegative for all n (so the Nat subtraction
+    `2·pellNum − pellDen` is faithful).  Via `Int213.{add_nonneg, mul_nonneg}`
+    and the `gapeq` step. -/
+theorem gap_nonneg : ∀ n, 0 ≤ 2 * P_numerator.seq n - P_denominator.seq n
+  | 0 => by decide
+  | n + 1 => by
+    obtain ⟨hN, hD⟩ := seq_nonneg n
+    rw [seq_coupling_num n, seq_coupling_den n, gapeq]
+    exact E213.Meta.Int213.add_nonneg
+      (E213.Meta.Int213.mul_nonneg (by decide) hN) hD
+
+/-- `den_n ≤ 2·num_n` for all n — the Nat-subtraction faithfulness bound.
+    From `gap_nonneg` via the repo's PURE `Int213.le_of_add_eq_of_nonneg`
+    (`x + y = c → 0 ≤ x → y ≤ c`), NOT Lean-core `Int.add_le_add`. -/
+theorem seq_den_le (n : Nat) : P_denominator.seq n ≤ 2 * P_numerator.seq n := by
+  have hsum : (2 * P_numerator.seq n - P_denominator.seq n) + P_denominator.seq n
+            = 2 * P_numerator.seq n := by
+    rw [Int.sub_eq_add_neg, add_assoc, add_left_neg, Int.add_zero]
+  exact E213.Meta.Int213.le_of_add_eq_of_nonneg hsum (gap_nonneg n)
+
 end E213.Lib.Math.Real213.PhiNormInvariant

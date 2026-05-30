@@ -144,30 +144,33 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
     · **coupling exposed**: `PhiNormInvariant.{seq_coupling_num, seq_coupling_den}`
       restate the `P`-action on `P_{num,den}.seq` directly (the abbrev-stated
       `coupling` pulls `propext` when cast — use these to `rw` cleanly).
-    · **positivity DONE**: `PhiNormInvariant.seq_nonneg` (`0 ≤ num`, `0 ≤ den`
-      ∀n, PURE) via the repo's `Int213.{add_nonneg, mul_nonneg}`.
-    · **⚠ TOOLING NOTE (corrected this round)**: Lean-CORE `Int` `≤` lemmas
-      (`Int.le_refl`, `Int.add_le_add`, `Int.add_le_add_left/right`, and even
-      `(0:Int) ≤ 1 := by decide`) pull `propext` — do NOT use them.  But Int `≤`
-      itself is fine: the repo's `Meta/Int213/Bound.lean` has **PURE**
-      `add_nonneg`, `mul_nonneg`, `int_sq_nonneg`, and
-      `le_of_add_eq_of_nonneg : a = c + b → 0 ≤ b → c ≤ a` (produces a PURE `≤`
-      from an equation + a nonneg).  So: keep facts in `0 ≤ _` form
-      (`add_nonneg`/`mul_nonneg`), and manufacture any `c ≤ a` via
-      `le_of_add_eq_of_nonneg` (the equation by manual `Int213` rewrites, the
-      `0 ≤ b` by `add_nonneg`/`mul_nonneg`).  `omega` still forbidden
-      (propext+Quot.sound).  **Search `~213` / `Int213` / `NatHelper` for PURE
-      lemmas before reaching for Lean-core.**
-    · **remaining**: (a) `den_le : den_n ≤ 2·num_n` ∀n — via
-      `le_of_add_eq_of_nonneg` with `2·num = den + (2·num − den)` and a
-      `0 ≤ 2·num − den` lemma (`gap_nonneg`, by induction: the step equation
-      `2·(2N+D) − (N+D) = 3N + D` by manual `Int213` rw, then `add_nonneg`).
-      (b) the Nat norm identity `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n:
-      cast the Int `phi_norm_eq_neg_one` to Nat using `seq_nonneg`
-      (`Int.toNat_of_nonneg`, confirmed PURE), `Int.ofNat_sub den_le`, and
-      `Int.ofNat.inj` (confirmed PURE — NOT `exact_mod_cast`).  Then
-      `phiCut_false_of_norm` closes it, upgrading
-      `PhiCutConvergents.convergents_below_phi` from layers-0..8 to ∀n.
+    · **positivity + den-bound DONE**: `PhiNormInvariant.{seq_nonneg, gap_nonneg,
+      seq_den_le}` (all PURE) — `0 ≤ num/den`, `0 ≤ 2·num − den`, and
+      `den_n ≤ 2·num_n` ∀n, via the repo's `Int213.{add_nonneg, mul_nonneg,
+      le_of_add_eq_of_nonneg}` + the `gapeq` step `2·(2N+D) − (N+D) = 3N + D`.
+    · **⚠ TOOLING NOTE**: Lean-CORE `Int` `≤` lemmas (`Int.le_refl`,
+      `Int.add_le_add[_left/right]`, even `(0:Int) ≤ 1 := by decide`) pull
+      `propext` — do NOT use.  Use the repo's PURE `Meta/Int213/Bound.lean`:
+      `add_nonneg`, `mul_nonneg`, `int_sq_nonneg`,
+      `le_of_add_eq_of_nonneg : x + y = c → 0 ≤ x → y ≤ c`,
+      `four_normSq_ring_identity : (2a−b)² + 3b² = 4(a²−ab+b²)`.  `omega`
+      forbidden.  **Search `~213` / `Int213` / `NatHelper` before Lean-core.**
+    · **remaining — the ONE hard part: Int → Nat without propext.**  All
+      Int↔Nat cast lemmas pull `propext`: `Int.toNat_add`, `Int.toNat_of_nonneg`,
+      `Int.ofNat_le`, `Int.ofNat_sub`, `push_cast`, `exact_mod_cast` — *all
+      DIRTY* (verified this round; my earlier note claiming `toNat_of_nonneg` /
+      `ofNat.inj` PURE was WRONG).  The repo has **no** PURE Int→Nat bridge —
+      it deliberately stays on one side.  So `(2·pellNum − pellDen)² + 4 =
+      5·pellDen²` ∀n (the Nat shadow of `phi_norm_eq_neg_one`) cannot be lifted
+      by casting.  **Path: stay in Nat from the start.**  `DyadicFSM/Fib.lean`
+      has a Nat-valued `fib` with PURE `fib_succ_succ`, and
+      `Mobius213/Px/QFibIdentity.lean` proves the P-orbit matrix entries equal
+      Nat Fibonacci (`Q00 n = fib(2n+1)`, `Q01 n = fib(2n)`,
+      `pn_fibonacci_universal`).  Next: establish `pellNum n = fib(2n+1)` and
+      `pellDen n = fib(2n)` (or the right indexing) as Nat identities via that
+      bridge, re-prove the Nat coupling + norm identity on `fib` (all Nat, PURE),
+      then `phiCut_false_of_norm` closes
+      `PhiCutConvergents.convergents_below_phi` ∀n.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
