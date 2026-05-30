@@ -136,6 +136,34 @@ pointable (`Object1 r`, finest); 미분화 = the lead inhabitant of the unpointa
 residue (`fun _ => true`, coarsest).  `residue_witnessed` bundles
 injective + the named witness.
 
+## Follow-up — the open problem answered: TWO closures
+
+`Theory/Raw/Lambek.lean` (6 PURE) separates the two closures the residue/"1"
+carries, settling the open question below:
+
+  - `decompose` (Lambek forward `Raw → F(Raw)`): every Raw is `a`, `b`, or
+    `slash x y h` — the pointing **act** is a fixed point of its own
+    constructor shape `F(X) = {a} ⊎ {b} ⊎ {x/y : x≠y}`.  `rebuild` is the
+    round-trip (act applied to its own readout = identity).  **Holds for any
+    fixed point of F, finite or not** (μF and νF alike).
+  - `depth_drops` + `atoms_are_floor`: each `slash` is strictly deeper than its
+    parts and atoms have depth 0 — the **well-founded** measure, no infinite
+    descent.  This is the *independent* fact selecting the least fixed point.
+  - `two_closures`: bundles both.  **Answer: two, mutually supporting.** Lambek
+    (act self-coincidence) gives the rotation-shape; well-foundedness (finite
+    pointing) gives the floor; neither implies the other, and `Raw = μF` is
+    exactly their conjunction.  So the "1" is not a single fixed point but an
+    interlocked pair — the self-fixed-point of the act and the finiteness of
+    what it points at.
+
+This matches the originator's two gut-principles that *forced* Raw earlier in
+the session: "no before/after → fixed point" (Lambek) and "pointing is finite,
+must leave a residue → bottoms out" (well-founded).  They are distinct levers;
+Raw is where they coincide.
+
+(Methodology guard added this session: CLAUDE.md failure mode "View promoted to
+identity" — a reading is a facet, never the residue itself.)
+
 ## File map
 
 - glue/axis: `Lib/Math/Mobius213OneAsGlue.lean`, `…/Mobius213/Px/{MobiusSelfForm,
