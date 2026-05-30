@@ -106,7 +106,11 @@ converges toward without any row being it.
      `phi_bracket_via_pell` brackets φ as a Cut).  Three readings of one
      self-similarity from the (NS,NT)=(3,2) signature: form (shape invariant),
      count (rational factor `5 = disc P`), limit-ratio (irrational `φ` = P's
-     fixed point).  Fully closes G153 #1.
+     fixed point).  Fully closes G153 #1.  **Limit-ratio further PINNED** —
+     `Real213/PhiConvergence.phi_is_unique_nested_limit` +
+     `SelfSimilarityBridge.self_similar_ratio_pins_phi`: the convergents nest
+     (cross-products ±1) and shrink (denominators grow), so φ is the unique
+     nested-bracket limit, not merely bracketed.
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at

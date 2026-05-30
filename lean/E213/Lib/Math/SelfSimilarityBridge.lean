@@ -2,6 +2,7 @@ import E213.Theory.Raw.API
 import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.Mobius213.TowerLInfty
 import E213.Lib.Math.Real213.PhiCut
+import E213.Lib.Math.Real213.PhiConvergence
 
 /-!
 # SelfSimilarityBridge — the "same shape under descent" has a qualitative and a
@@ -146,5 +147,22 @@ theorem self_similarity_three_readings :
   ⟨⟨E213.Theory.Raw.Lambek.decompose, E213.Theory.Raw.Lambek.atoms_are_floor⟩,
    self_similar_count,
    self_similar_ratio_is_phi⟩
+
+/-- ★★★ **Limit-ratio is φ, pinned (not merely bracketed).**  Strengthens the
+    third reading: the Pell convergents form a *nested* sequence of rational
+    brackets (cross-products ±1) whose widths *strictly shrink* (denominators
+    grow), pinning a unique value in `[3/2, 5/3]` — that value is φ
+    (`PhiConvergence.phi_is_unique_nested_limit`).  So the self-similar descent's
+    limit-ratio reading does not just lie near φ; the nested brackets determine φ
+    uniquely.  This upgrades `self_similarity_three_readings`'s limit-ratio leg
+    from "bounded" to "pinned." -/
+theorem self_similar_ratio_pins_phi :
+    -- nested (cross-products ±1) ∧ shrinking (gap denominators grow) ∧ in φ-bracket
+    ( (pellNum 1 * pellDen 2 + 1 = pellNum 2 * pellDen 1)
+      ∧ (pellNum 2 * pellDen 3 + 1 = pellNum 3 * pellDen 2) )
+    ∧ ( pellDen 1 * pellDen 2 < pellDen 2 * pellDen 3
+        ∧ pellDen 2 * pellDen 3 < pellDen 3 * pellDen 4 )
+    ∧ ( 3 * pellDen 2 < 2 * pellNum 2 ∧ 3 * pellNum 2 < 5 * pellDen 2 ) :=
+  E213.Lib.Math.Real213.PhiConvergence.phi_is_unique_nested_limit
 
 end E213.Lib.Math.SelfSimilarityBridge

@@ -98,14 +98,22 @@ so the three are one self-similarity, not three coincidences.  This also realise
 "걸림 = the self-fixed-point, which is why φ appears": the descent that keeps the
 same shape converges to φ because φ is P's fixed point.
 
+## φ limit-ratio PINNED (this session)
+
+`Real213/PhiConvergence.lean` (4 PURE) + `SelfSimilarityBridge.self_similar_ratio_pins_phi`
+(6 PURE in bridge): the Pell convergents form a **nested** sequence of rational
+brackets (`convergents_nest`: cross-products ±1) whose widths **strictly shrink**
+(`bracket_width_shrinks` via `pellDen_strictly_increasing`), pinning a *unique*
+value in `[3/2, 5/3]` — φ (`phi_is_unique_nested_limit`).  Upgrades the
+limit-ratio reading from "bracketed" to "pinned": a strictly-shrinking nested
+rational sequence determines at most one real, and that real is φ.
+
 ## OPEN (next targets — pick up here)
 
-  - **φ as a genuine Cut limit** (not just bracket): `Real213/PhiCut`'s
-    `phi_cut_capstone` witnesses φ via Pell convergents but the strict
-    Cauchy-complete `L_∞` Cut construction is deferred (Phase 1c, per
-    `TowerLInfty`/`TowerConvergence`).  Tying `self_similar_ratio_is_phi` to an
-    actual `ValidCut` φ (rather than rational brackets) would upgrade the
-    limit-ratio reading from "bracketed" to "is φ".
+  - **φ as a genuine `ValidCut`** (the heaviest remaining step): the nested
+    brackets pin φ, but a single Cauchy-complete `ValidCut` object `phiCut :=
+    lim pellConvergentCut` is still deferred (Phase 1c, `TowerConvergence`).
+    Needs Real213 Cauchy-completion infrastructure.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
