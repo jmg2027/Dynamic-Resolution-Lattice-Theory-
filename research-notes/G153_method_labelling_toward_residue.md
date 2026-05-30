@@ -115,7 +115,7 @@ converges toward without any row being it.
      `decide (k ≤ 2m ∧ 5k² ≤ (2m−k)²)` (from `x²=x+1`), a `ValidCut` with no
      Cauchy completion.  The residue's irrational limit-ratio signature is one
      concrete 213-native object.  **Cut ↔ convergents tied** —
-     `Real213/PhiCutConvergents` (5 PURE): every Pell convergent is below φ
+     `Real213/PhiCutConvergents` (4 PURE): every Pell convergent is below φ
      under `phiCut` (`convergents_below_phi`, layers 0..8), rising to it, with
      the single-convergent φ-norm `num²−num·den−den² = −1` — so `phiCut` is the
      boundary the convergents climb to.  (General `∀ n` quadratic-invariant
