@@ -144,22 +144,30 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
     · **coupling exposed**: `PhiNormInvariant.{seq_coupling_num, seq_coupling_den}`
       restate the `P`-action on `P_{num,den}.seq` directly (the abbrev-stated
       `coupling` pulls `propext` when cast — use these to `rw` cleanly).
-    · **⚠ CRITICAL CONSTRAINT (discovered, verified)**: in this Lean/Int setup,
-      **`Int` `≤` pulls `propext`** — even `(0:Int) ≤ 1 := by decide`, and
-      `Int.add_le_add`, `Int.add_le_add_left/right` all do.  So **any positivity
-      done in `Int` is DIRTY** (a whole Int-positivity attempt was written, hit
-      the purity gate, and was reverted).  By contrast **`Nat` `≤` is PURE**
-      (`(0:Nat) ≤ 1 := by decide`, `Nat.add_le_add`, `Nat.mul_le_mul_right` all
-      clean).  Also `omega` pulls propext+Quot.sound — do not use.
-    · **remaining (must be done in Nat)**: prove a **Nat coupling**
-      `pellNum (n+1) = 2·pellNum n + pellDen n`, `pellDen (n+1) = pellNum n +
-      pellDen n` (from the Int `seq_coupling_*` via `toNat`, or by re-deriving the
-      Nat recurrence directly — watch `toNat_add`/`toNat_mul` for propext).  From
-      that, in Nat: positivity (`1 ≤ pellNum/pellDen`), `pellDen ≤ 2·pellNum`,
-      and the Nat norm identity `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n
-      (the Nat shadow of `phi_norm_eq_neg_one`).  Then `phiCut_false_of_norm`
-      closes it, upgrading `PhiCutConvergents.convergents_below_phi` from
-      layers-0..8 to ∀n.  Everything Nat-side, no Int `≤`, no `omega`.
+    · **positivity DONE**: `PhiNormInvariant.seq_nonneg` (`0 ≤ num`, `0 ≤ den`
+      ∀n, PURE) via the repo's `Int213.{add_nonneg, mul_nonneg}`.
+    · **⚠ TOOLING NOTE (corrected this round)**: Lean-CORE `Int` `≤` lemmas
+      (`Int.le_refl`, `Int.add_le_add`, `Int.add_le_add_left/right`, and even
+      `(0:Int) ≤ 1 := by decide`) pull `propext` — do NOT use them.  But Int `≤`
+      itself is fine: the repo's `Meta/Int213/Bound.lean` has **PURE**
+      `add_nonneg`, `mul_nonneg`, `int_sq_nonneg`, and
+      `le_of_add_eq_of_nonneg : a = c + b → 0 ≤ b → c ≤ a` (produces a PURE `≤`
+      from an equation + a nonneg).  So: keep facts in `0 ≤ _` form
+      (`add_nonneg`/`mul_nonneg`), and manufacture any `c ≤ a` via
+      `le_of_add_eq_of_nonneg` (the equation by manual `Int213` rewrites, the
+      `0 ≤ b` by `add_nonneg`/`mul_nonneg`).  `omega` still forbidden
+      (propext+Quot.sound).  **Search `~213` / `Int213` / `NatHelper` for PURE
+      lemmas before reaching for Lean-core.**
+    · **remaining**: (a) `den_le : den_n ≤ 2·num_n` ∀n — via
+      `le_of_add_eq_of_nonneg` with `2·num = den + (2·num − den)` and a
+      `0 ≤ 2·num − den` lemma (`gap_nonneg`, by induction: the step equation
+      `2·(2N+D) − (N+D) = 3N + D` by manual `Int213` rw, then `add_nonneg`).
+      (b) the Nat norm identity `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n:
+      cast the Int `phi_norm_eq_neg_one` to Nat using `seq_nonneg`
+      (`Int.toNat_of_nonneg`, confirmed PURE), `Int.ofNat_sub den_le`, and
+      `Int.ofNat.inj` (confirmed PURE — NOT `exact_mod_cast`).  Then
+      `phiCut_false_of_norm` closes it, upgrading
+      `PhiCutConvergents.convergents_below_phi` from layers-0..8 to ∀n.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`

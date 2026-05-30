@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.PhiCutConvergents
 import E213.Meta.Int213.Core
+import E213.Meta.Int213.Bound
 
 /-!
 # PhiNormInvariant — the convergent φ-norm form is `−1` for all n
@@ -138,5 +139,18 @@ theorem seq_coupling_num (n : Nat) :
 theorem seq_coupling_den (n : Nat) :
     P_denominator.seq (n + 1) = P_numerator.seq n + P_denominator.seq n :=
   (coupling n).2
+
+/-- Both Pell sequences are nonnegative, ∀ n.  Proved with the repo's ∅-axiom
+    `Int213.{add_nonneg, mul_nonneg}` (NOT Lean-core `Int` `≤` lemmas like
+    `Int.le_refl`/`Int.add_le_add`, which pull `propext`). -/
+theorem seq_nonneg : ∀ n, 0 ≤ P_numerator.seq n ∧ 0 ≤ P_denominator.seq n
+  | 0 => ⟨by decide, by decide⟩
+  | n + 1 => by
+    obtain ⟨hN, hD⟩ := seq_nonneg n
+    refine ⟨?_, ?_⟩
+    · rw [seq_coupling_num n]
+      exact E213.Meta.Int213.add_nonneg (E213.Meta.Int213.mul_nonneg (by decide) hN) hD
+    · rw [seq_coupling_den n]
+      exact E213.Meta.Int213.add_nonneg hN hD
 
 end E213.Lib.Math.Real213.PhiNormInvariant
