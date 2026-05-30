@@ -50,16 +50,15 @@ theorem fib_even_step (n : Nat) :
                       `= 2·fib(2n+1) + fib(2n)`.     — rearrange -/
 theorem fib_odd_double_step (n : Nat) :
     fib (2 * n + 3) = 2 * fib (2 * n + 1) + fib (2 * n) := by
-  show fib (2 * n + 3) = 2 * fib (2 * n + 1) + fib (2 * n)
-  -- fib(2n+3) = fib(2n+2) + fib(2n+1) by definition
   have h1 : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
-  -- fib(2n+2) = fib(2n+1) + fib(2n) by definition
   have h2 : fib (2 * n + 2) = fib (2 * n + 1) + fib (2 * n) := rfl
   rw [h1, h2]
-  -- Goal: fib(2n+1) + fib(2n) + fib(2n+1) = 2 * fib(2n+1) + fib(2n)
-  rw [Nat.add_comm (fib (2 * n + 1) + fib (2 * n)) (fib (2 * n + 1))]
-  rw [← Nat.add_assoc]
-  rfl
+  -- (a + b) + a = 2a + b  where a = fib(2n+1), b = fib(2n)
+  calc fib (2 * n + 1) + fib (2 * n) + fib (2 * n + 1)
+      = fib (2 * n + 1) + fib (2 * n + 1) + fib (2 * n) := by
+        rw [Nat.add_assoc, Nat.add_comm (fib (2 * n)) (fib (2 * n + 1)),
+            ← Nat.add_assoc]
+    _ = 2 * fib (2 * n + 1) + fib (2 * n) := by rw [← Nat.two_mul]
 
 /-! ## §2 — Universal identity: Q00 n = fib(2n+1), Q01 n = fib(2n) -/
 
