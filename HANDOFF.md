@@ -144,13 +144,22 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
     · **coupling exposed**: `PhiNormInvariant.{seq_coupling_num, seq_coupling_den}`
       restate the `P`-action on `P_{num,den}.seq` directly (the abbrev-stated
       `coupling` pulls `propext` when cast — use these to `rw` cleanly).
-    · **remaining**: chain them ∀n.  Needs, all from `seq_coupling_*` + the φ-norm
-      ∀n (`phi_norm_eq_neg_one`), with NO `omega` (it pulls propext+Quot.sound):
-      (1) `nonneg`/positivity ∀n (`0 ≤ seq`, then `1 ≤`); (2) `den ≤ 2·num` ∀n
-      (Nat-sub faithfulness); (3) the Nat norm identity `(2·num − den)² + 4 =
-      5·den²` ∀n (lift the Int `phi_norm_eq_neg_one` through `toNat` using
-      positivity).  Then `phiCut_false_of_norm` closes it, upgrading
-      `PhiCutConvergents.convergents_below_phi` from layers-0..8 to ∀n.
+    · **⚠ CRITICAL CONSTRAINT (discovered, verified)**: in this Lean/Int setup,
+      **`Int` `≤` pulls `propext`** — even `(0:Int) ≤ 1 := by decide`, and
+      `Int.add_le_add`, `Int.add_le_add_left/right` all do.  So **any positivity
+      done in `Int` is DIRTY** (a whole Int-positivity attempt was written, hit
+      the purity gate, and was reverted).  By contrast **`Nat` `≤` is PURE**
+      (`(0:Nat) ≤ 1 := by decide`, `Nat.add_le_add`, `Nat.mul_le_mul_right` all
+      clean).  Also `omega` pulls propext+Quot.sound — do not use.
+    · **remaining (must be done in Nat)**: prove a **Nat coupling**
+      `pellNum (n+1) = 2·pellNum n + pellDen n`, `pellDen (n+1) = pellNum n +
+      pellDen n` (from the Int `seq_coupling_*` via `toNat`, or by re-deriving the
+      Nat recurrence directly — watch `toNat_add`/`toNat_mul` for propext).  From
+      that, in Nat: positivity (`1 ≤ pellNum/pellDen`), `pellDen ≤ 2·pellNum`,
+      and the Nat norm identity `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n
+      (the Nat shadow of `phi_norm_eq_neg_one`).  Then `phiCut_false_of_norm`
+      closes it, upgrading `PhiCutConvergents.convergents_below_phi` from
+      layers-0..8 to ∀n.  Everything Nat-side, no Int `≤`, no `omega`.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
