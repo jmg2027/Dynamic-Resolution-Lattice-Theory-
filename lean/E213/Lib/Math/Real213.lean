@@ -46,6 +46,7 @@ import E213.Lib.Math.Real213.Core.ValidCutOps
 import E213.Lib.Math.Real213.ChainToCut
 import E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant
 import E213.Lib.Math.Real213.PhiConvergence
+import E213.Lib.Math.Real213.PhiAsCut
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

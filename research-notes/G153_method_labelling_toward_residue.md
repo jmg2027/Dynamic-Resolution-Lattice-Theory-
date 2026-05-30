@@ -110,7 +110,11 @@ converges toward without any row being it.
      `Real213/PhiConvergence.phi_is_unique_nested_limit` +
      `SelfSimilarityBridge.self_similar_ratio_pins_phi`: the convergents nest
      (cross-products ±1) and shrink (denominators grow), so φ is the unique
-     nested-bracket limit, not merely bracketed.
+     nested-bracket limit, not merely bracketed.  **φ as a single Cut DONE** —
+     `Real213/PhiAsCut.phiCut_valid` (5 PURE): φ has a closed-form decidable cut
+     `decide (k ≤ 2m ∧ 5k² ≤ (2m−k)²)` (from `x²=x+1`), a `ValidCut` with no
+     Cauchy completion.  The residue's irrational limit-ratio signature is one
+     concrete 213-native object.
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at

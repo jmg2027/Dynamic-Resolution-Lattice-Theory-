@@ -108,12 +108,31 @@ value in `[3/2, 5/3]` — φ (`phi_is_unique_nested_limit`).  Upgrades the
 limit-ratio reading from "bracketed" to "pinned": a strictly-shrinking nested
 rational sequence determines at most one real, and that real is φ.
 
+## φ as a single ValidCut — DONE (this session)
+
+`Real213/PhiAsCut.lean` (5 PURE): φ has a **closed-form decidable cut** — no
+Cauchy-completion needed.  `phiCut m k := decide (k ≤ 2m ∧ 5k² ≤ (2m−k)²)` (from
+`x² = x+1`: `m/k ≥ φ ⟺ (2m−k)² ≥ 5k²` with sign guard), and `phiCut_valid :
+ValidCut phiCut` (both monotonicities, direct Nat arithmetic).  So the
+residue's irrational limit-ratio signature is one 213-native Cut object, built
+with no completion machinery.  `phiCut_brackets` cross-checks it against the
+Pell convergents (8/5 < φ, 5/3 > φ, 13/8 > φ, 21/13 < φ).
+
+The full self-similarity arc is now closed: form (`self_similar_floor`) / count
+(`self_similar_count`, factor `5 = disc P`) / limit-ratio (φ, pinned by
+`PhiConvergence` and realised as a Cut by `PhiAsCut`) — one self-similarity,
+three readings, irrational signature a concrete object.
+
 ## OPEN (next targets — pick up here)
 
-  - **φ as a genuine `ValidCut`** (the heaviest remaining step): the nested
-    brackets pin φ, but a single Cauchy-complete `ValidCut` object `phiCut :=
-    lim pellConvergentCut` is still deferred (Phase 1c, `TowerConvergence`).
-    Needs Real213 Cauchy-completion infrastructure.
+  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
+    frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
+  - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
+    cross-pair crux) — the long-standing Cayley-Dickson open item.
+  - **φ Cut ↔ Pell convergents**: prove `phiCut` and the `pellConvergentCut`
+    sequence are cut-equivalent (the convergents' limit IS `phiCut`), tying
+    `PhiAsCut` to `PhiConvergence` beyond the numeric `phiCut_brackets` spot
+    checks.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
