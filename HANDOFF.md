@@ -172,12 +172,17 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
       `i+d`).  So the `false`-side tail is eventually constant.  The `true`-side
       (target `≥ φ`) is constant from layer 0 (`fib_convergent_below_phi`).
     · **⚠ TWO real obstacles found this round (no `Nat.find` in core):**
-      (a) **case A DONE** (`FibCassiniNat.cs_true_of_phiCut`, PURE): `phiCut m k
-      = true ⟹ fib(2i+2)·k ≤ fib(2i+1)·m ∀i`.  Via `cut_trans` (cut-order
-      transitivity through φ in squared-norm Nat form: `p² < 5b²`, `5k² ≤ q²`,
-      `p+b = 2a`, `q+k = 2m` ⟹ `a·k ≤ b·m`), built on `pk_le_qb` / `mul_sq` /
-      `sq_le_imp` (all PURE, no Int↔Nat cast, no propext).  So BOTH Cauchy tails
-      are closed: true-side (`cs_true_of_phiCut`) + false-side
+      (a) **case A DONE** (`FibCassiniNat.cs_true_of_ineqs`, PURE): given the
+      two φ-cut inequalities `k ≤ 2m` and `5·k² ≤ (2m−k)²` (i.e. target `m/k ≥ φ`),
+      every convergent cut is `true` (`fib(2i+2)·k ≤ fib(2i+1)·m ∀i`).  Via
+      `cut_trans` (squared-norm cut-order transitivity through φ) on
+      `pk_le_qb`/`mul_sq`/`sq_le_imp` (the last uses a PURE `mul_lt_mul_r` —
+      Lean-core `Nat.mul_lt_mul_right` is an iff that pulls Classical).  ⚠ The
+      bool→Prop step `phiCut m k = true ⟹ (k≤2m ∧ 5k²≤(2m−k)²)` is the ONE
+      remaining non-PURE point (`of_decide_eq_true` on the `And` imports
+      propext/Classical); for the CauchyCutSeq assembly, thread the cut Bool
+      directly (case-split on it) rather than extracting the conjunction.  Both
+      Cauchy tails closed: true-side (`cs_true_of_ineqs`) + false-side
       (`cs_false_forward`).
       (b) **explicit modulus `N m k`** (the flip layer for `m/k < φ`): needs a
       closed-form bound from `fib_lb` (denominators grow ≥ linearly), since
