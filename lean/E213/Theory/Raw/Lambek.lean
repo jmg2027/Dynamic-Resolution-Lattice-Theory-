@@ -113,4 +113,42 @@ theorem two_closures :
     ∧ (Raw.a.depth = 0 ∧ Raw.b.depth = 0) :=
   ⟨decompose, depth_drops, atoms_are_floor⟩
 
+/-! ## 4. Self-similar floor — same shape under refinement, descent terminating
+
+The floor is not where the regress stops (it does not stop "by fiat") but what
+**keeps the same shape under label-refinement**: peeling one layer off a
+non-atom yields two parts that *each again satisfy `decompose`* (same shape),
+while their depth strictly drops (the refinement makes progress).  Iterating,
+the shape is invariant and the descent terminates only at the atoms.  This is
+the formal reading of "what stays the same shape as you descend is the floor." -/
+
+/-- **Self-similar peel.**  A non-atom Raw refines into two parts; each part
+    again satisfies `decompose` (the same atom-or-slash shape — *self-similar*),
+    and each part is strictly shallower (refinement descends).  "Same shape,
+    smaller depth." -/
+theorem self_similar_peel (x y : Raw) (h : x ≠ y) :
+    -- each part has the same decompose-shape (self-similar)
+    ( (x = Raw.a ∨ x = Raw.b ∨ ∃ (u v : Raw) (hu : u ≠ v), x = Raw.slash u v hu)
+      ∧ (y = Raw.a ∨ y = Raw.b ∨ ∃ (u v : Raw) (hv : u ≠ v), y = Raw.slash u v hv) )
+    ∧ -- and the refinement strictly descends in depth
+    ( x.depth < (Raw.slash x y h).depth ∧ y.depth < (Raw.slash x y h).depth ) :=
+  ⟨⟨decompose x, decompose y⟩, depth_drops x y h⟩
+
+/-- ★★ **Self-similar floor.**  Bundles the shape-invariance and the terminating
+    descent: the decompose-shape `atom ∨ slash` recurs at *every* depth
+    (`decompose` holds for all Raw, including the peeled parts), the depth
+    strictly drops at each peel (`depth_drops`), and the descent bottoms out at
+    the atoms (`atoms_are_floor`).  The "floor" is exactly this fixed shape under
+    refinement — invariant form, terminating descent — not a stipulated stop. -/
+theorem self_similar_floor :
+    -- the decompose-shape is invariant: it holds at every Raw (every depth)
+    (∀ r : Raw, r = Raw.a ∨ r = Raw.b ∨
+        ∃ (u v : Raw) (h : u ≠ v), r = Raw.slash u v h)
+    ∧ -- refinement strictly descends
+    (∀ (x y : Raw) (h : x ≠ y),
+        x.depth < (Raw.slash x y h).depth ∧ y.depth < (Raw.slash x y h).depth)
+    ∧ -- and bottoms out at the atoms (the shape's fixed points: depth 0)
+    (Raw.a.depth = 0 ∧ Raw.b.depth = 0) :=
+  ⟨decompose, depth_drops, atoms_are_floor⟩
+
 end E213.Theory.Raw.Lambek

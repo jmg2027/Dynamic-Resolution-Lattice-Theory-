@@ -88,7 +88,14 @@ converges toward without any row being it.
   1. **Self-similar floor**: formalise "what keeps the same shape under
      label-refinement" — a self-similarity / fixed-point statement of the
      residue under descent (ties `Lambek.two_closures` to the `5^L` /
-     fractal-level self-similarity, and to φ as `P(φ)=φ`).
+     fractal-level self-similarity, and to φ as `P(φ)=φ`).  **DONE** —
+     `Raw/Lambek.{self_similar_peel, self_similar_floor}` (8 PURE total):
+     peeling a non-atom yields two parts that each again satisfy `decompose`
+     (same atom-or-slash shape — self-similar) while depth strictly drops
+     (refinement descends), bottoming out at the atoms.  The floor is the fixed
+     shape under refinement (invariant form + terminating descent), not a
+     stipulated stop.  (Connecting this to the `5^L` fractal self-similarity and
+     to φ remains open.)
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at
