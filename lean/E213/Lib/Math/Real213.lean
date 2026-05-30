@@ -44,6 +44,7 @@ import E213.Lib.Math.Real213.Sum.SignedSum
 import E213.Lib.Math.Real213.Core.ValidCut
 import E213.Lib.Math.Real213.Core.ValidCutOps
 import E213.Lib.Math.Real213.ChainToCut
+import E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

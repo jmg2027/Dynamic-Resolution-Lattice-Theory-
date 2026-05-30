@@ -92,7 +92,13 @@ converges toward without any row being it.
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at
-     both scales.
+     both scales.  **DONE** —
+     `Lib/Math/Real213/ObjectIsReadingScaleInvariant.lean` (4 PURE):
+     `object_is_reading_scale_invariant` — at both scales the object is a reading
+     `Index → Bool` (`Object1 : Raw → (Raw→Bool)` at the atom scale;
+     `RealAsLensOutput = Nat → (Nat→Bool)` at the limit scale); only the index
+     differs.  "Object = reading" is one shape `ObjectAsReading ι` read at two
+     indices, not a coincidence repeating.
   3. **Dual-collapse as a uniform statement**: the catalog rows above are
      currently separate files; a single "every framework-internal dual is
      self-dual under the pointing view" statement would be the column made
