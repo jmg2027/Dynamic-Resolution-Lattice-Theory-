@@ -21,7 +21,7 @@ namespace E213.Lib.Math.Real213.FibCassiniNat
 
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
-open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq)
+open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel)
 
 /-! ## Nat polynomial helpers (all PURE) -/
 
@@ -132,5 +132,72 @@ theorem fib_cassini_norm (n : Nat) :
       rw [show 2 * (k + 1) + 1 = 2 * k + 3 from by rw [Nat.mul_succ]]; exact bR k
     rw [ha, hb]
     exact normstep (fib (2 * k + 2)) (fib (2 * k + 1)) ih
+
+/-! ## Below φ — the convergents read `false` under `phiCut` -/
+
+/-- Convert the Cassini norm `a²+1 = a·b+b²` (with `b ≤ 2a`, so `p := 2a−b`
+    satisfies `p+b = 2a`) into the `phiCut` norm form `p² + 4 = 5·b²`.  All
+    additive (eliminating `a` via `2a = p+b`); PURE. -/
+private theorem phiform (m k p : Nat) (hpk : p + k = 2 * m)
+    (h : m * m + 1 = m * k + k * k) : p * p + 4 = 5 * (k * k) := by
+  have e4mm : (2 * m) * (2 * m) = p * p + 2 * (p * k) + k * k := by
+    rw [← hpk, add_mul, Nat.mul_add, Nat.mul_add, Nat.mul_comm k p, ← Nat.add_assoc,
+        Nat.add_assoc (p * p) (p * k) (p * k), ← Nat.two_mul (p * k)]
+  have h22 : (2 * m) * (2 * m) = 4 * (m * m) := by rw [even_sq, ← mul_assoc]
+  have e4mk : (2 * m) * k = p * k + k * k := by rw [← hpk, add_mul]
+  have h4mk : 4 * (m * k) = 2 * ((2 * m) * k) := by
+    rw [show (2 * m) * k = 2 * (m * k) from mul_assoc 2 m k, ← mul_assoc 2 2 (m * k)]
+  have h4 : p * p + 2 * (p * k) + k * k + 4 = 2 * (p * k + k * k) + 4 * (k * k) := by
+    rw [← e4mm, ← e4mk, h22,
+        show (4 : Nat) * (m * m) + 4 = 4 * (m * m + 1) from by rw [Nat.mul_add, Nat.mul_one],
+        h, Nat.mul_add, ← h4mk]
+  rw [Nat.mul_add 2 (p * k) (k * k)] at h4
+  have hL : p * p + 2 * (p * k) + k * k + 4 = 2 * (p * k) + (p * p + (k * k + 4)) := by
+    rw [Nat.add_assoc (p * p) (2 * (p * k)) (k * k), Nat.add_assoc (p * p) (2 * (p * k) + k * k) 4,
+        Nat.add_assoc (2 * (p * k)) (k * k) 4, Nat.add_comm (p * p) (2 * (p * k) + (k * k + 4)),
+        Nat.add_assoc (2 * (p * k)) (k * k + 4) (p * p), Nat.add_comm (k * k + 4) (p * p),
+        ← Nat.add_assoc (2 * (p * k)) (p * p) (k * k + 4)]
+  have hR : 2 * (p * k) + 2 * (k * k) + 4 * (k * k) = 2 * (p * k) + (2 * (k * k) + 4 * (k * k)) :=
+    Nat.add_assoc (2 * (p * k)) (2 * (k * k)) (4 * (k * k))
+  rw [hL, hR] at h4
+  have h5 : p * p + (k * k + 4) = 2 * (k * k) + 4 * (k * k) := nat_add_left_cancel h4
+  rw [show 2 * (k * k) + 4 * (k * k) = (k * k) + 5 * (k * k) from by
+        rw [show (2 : Nat) * (k * k) + 4 * (k * k) = 6 * (k * k) from by rw [← add_mul],
+            show (k * k) + 5 * (k * k) = 6 * (k * k) from by
+              rw [show (6 : Nat) = 1 + 5 from rfl, add_mul, Nat.one_mul]],
+      show p * p + (k * k + 4) = (k * k) + (p * p + 4) from by
+        rw [← Nat.add_assoc, Nat.add_comm (p * p) (k * k), Nat.add_assoc]] at h5
+  exact nat_add_left_cancel h5
+
+/-- `fib(2n+1) ≤ 2·fib(2n+2)` — Nat-subtraction faithfulness for the convergent
+    (the denominator never exceeds twice the numerator). -/
+private theorem den_le (n : Nat) : fib (2 * n + 1) ≤ 2 * fib (2 * n + 2) := by
+  have hle : fib (2 * n + 1) ≤ fib (2 * n + 2) := by
+    show fib (2 * n + 1) ≤ fib (2 * n + 1) + fib (2 * n)
+    exact Nat.le_add_right _ _
+  have h2 : fib (2 * n + 2) ≤ 2 * fib (2 * n + 2) := by
+    have e : 2 * fib (2 * n + 2) = fib (2 * n + 2) + fib (2 * n + 2) := Nat.two_mul _
+    rw [e]; exact Nat.le_add_right _ _
+  exact Nat.le_trans hle h2
+
+/-- ★★★ **Fibonacci convergents lie below φ, ∀ n** — `phiCut (fib(2n+2))
+    (fib(2n+1)) = false` for every n.  The native-Nat form of "every Pell
+    convergent is below φ" (`PhiCutConvergents.convergents_below_phi` had it only
+    at layers 0..8 by `decide`).  Route: `fib_cassini_norm` (the Cassini norm
+    ∀n) → `phiform` (norm → `(2a−b)²+4 = 5·b²`, with `den_le` giving the faithful
+    Nat subtraction `p+b = 2a`) → `PhiAsCut.phiCut_false_of_norm`.  All ∅-axiom. -/
+theorem fib_convergent_below_phi (n : Nat) :
+    E213.Lib.Math.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false := by
+  have hpk : (2 * fib (2 * n + 2) - fib (2 * n + 1)) + fib (2 * n + 1)
+           = 2 * fib (2 * n + 2) :=
+    E213.Lib.Math.NatRing.nat_sub_add_cancel (den_le n)
+  have hform : (2 * fib (2 * n + 2) - fib (2 * n + 1)) * (2 * fib (2 * n + 2) - fib (2 * n + 1)) + 4
+             = 5 * (fib (2 * n + 1) * fib (2 * n + 1)) :=
+    phiform (fib (2 * n + 2)) (fib (2 * n + 1)) (2 * fib (2 * n + 2) - fib (2 * n + 1))
+      hpk (fib_cassini_norm n)
+  -- `phiCut_false_of_norm` wants `5 * k * k` (= `(5*k)*k`); `hform` has `5 * (k*k)`.
+  rw [← mul_assoc 5 (fib (2 * n + 1)) (fib (2 * n + 1))] at hform
+  exact E213.Lib.Math.Real213.PhiAsCut.phiCut_false_of_norm
+    (fib (2 * n + 2)) (fib (2 * n + 1)) hform
 
 end E213.Lib.Math.Real213.FibCassiniNat
