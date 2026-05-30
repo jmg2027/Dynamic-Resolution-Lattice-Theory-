@@ -21,7 +21,7 @@ namespace E213.Lib.Math.Real213.FibCassiniNat
 
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
-open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel)
+open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc)
 
 /-! ## Nat polynomial helpers (all PURE) -/
 
@@ -236,5 +236,72 @@ theorem convergent_cross (n : Nat) :
   have hB : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
   rw [hA, hB]
   exact cross_gen (fib (2 * n + 2)) (fib (2 * n + 1)) (fib_cassini_norm n)
+
+/-! ## Monotonicity, positivity, and the Cauchy (antitone) property
+
+Toward `phiCut` as a `CauchyCutSeq` limit (`Analysis/CauchyComplete`): the cut
+sequence `i ↦ pellConvergentCut i` is **antitone at every rational target**
+(`cs_antitone`) — its Bool value flips `true → false` at most once as `i` grows,
+because the convergents strictly increase (`conv_mono`).  An antitone Bool
+sequence is automatically Cauchy, so the modulus exists; `fib_odd_pos` /
+`fib_lb` (the Archimedean lower bound `n+1 ≤ fib(2n+1)`) give the positivity and
+unboundedness the explicit modulus needs. -/
+
+/-- Convergents strictly increase: `conv_n < conv_{n+1}` as cross-products.
+    From `convergent_cross` (the difference is exactly `1`). -/
+theorem conv_mono (n : Nat) :
+    fib (2 * n + 2) * fib (2 * n + 3) < fib (2 * n + 4) * fib (2 * n + 1) := by
+  rw [convergent_cross n]; exact Nat.lt_succ_self _
+
+/-- `1 ≤ fib(2i+1)` — the denominators are positive (Nat-faithful cross-mult). -/
+theorem fib_odd_pos (i : Nat) : 1 ≤ fib (2 * i + 1) := by
+  induction i with
+  | zero => decide
+  | succ k ih =>
+    show 1 ≤ fib (2 * k + 3)
+    have h : fib (2 * k + 3) = fib (2 * k + 2) + fib (2 * k + 1) := rfl
+    rw [h]; exact Nat.le_trans ih (Nat.le_add_left _ _)
+
+/-- **Archimedean lower bound**: `n + 1 ≤ fib(2n+1)`.  The denominators grow at
+    least linearly, so they exceed any bound — the convergents reach any rational
+    target below φ in finitely many steps (constructible Cauchy modulus). -/
+theorem fib_lb (n : Nat) : n + 1 ≤ fib (2 * n + 1) := by
+  induction n with
+  | zero => decide
+  | succ k ih =>
+    have e : fib (2 * (k + 1) + 1) = fib (2 * k + 1) + fib (2 * k + 2) := by
+      show fib (2 * k + 3) = fib (2 * k + 1) + fib (2 * k + 2)
+      have h : fib (2 * k + 3) = fib (2 * k + 2) + fib (2 * k + 1) := rfl
+      rw [h, Nat.add_comm]
+    rw [e]
+    have h1 : 1 ≤ fib (2 * k + 2) :=
+      Nat.le_trans (fib_odd_pos k) (Nat.le_add_right _ _)
+    calc k + 1 + 1 ≤ fib (2 * k + 1) + 1 := Nat.add_le_add_right ih 1
+      _ ≤ fib (2 * k + 1) + fib (2 * k + 2) := Nat.add_le_add_left h1 _
+
+/-- ★★ **Cauchy (antitone) property**: at every rational target `(m, k)`, the
+    convergent cut value is antitone in the layer — `pellConvergentCut (i+1)`
+    true implies `pellConvergentCut i` true (so the Bool flips at most once,
+    `true → false`).  Stated on `fib`: `fib(2i+4)·k ≤ fib(2i+3)·m` (the layer
+    `i+1` cut) implies `fib(2i+2)·k ≤ fib(2i+1)·m` (the layer `i` cut).  By
+    `conv_mono` + positive cross-multiplication cancellation (`fib_odd_pos`). -/
+theorem cs_antitone (i m k : Nat)
+    (H : fib (2 * i + 4) * k ≤ fib (2 * i + 3) * m) :
+    fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m := by
+  have hmono : fib (2 * i + 2) * fib (2 * i + 3) ≤ fib (2 * i + 4) * fib (2 * i + 1) :=
+    Nat.le_of_lt (conv_mono i)
+  have hpos : 0 < fib (2 * i + 3) := fib_odd_pos (i + 1)
+  have key : fib (2 * i + 3) * (fib (2 * i + 2) * k)
+           ≤ fib (2 * i + 3) * (fib (2 * i + 1) * m) := by
+    calc fib (2 * i + 3) * (fib (2 * i + 2) * k)
+        = (fib (2 * i + 2) * fib (2 * i + 3)) * k := by
+          rw [← nat_mul_assoc, Nat.mul_comm (fib (2 * i + 3)) (fib (2 * i + 2))]
+      _ ≤ (fib (2 * i + 4) * fib (2 * i + 1)) * k := Nat.mul_le_mul_right k hmono
+      _ = fib (2 * i + 1) * (fib (2 * i + 4) * k) := by
+          rw [Nat.mul_comm (fib (2 * i + 4)) (fib (2 * i + 1)), nat_mul_assoc]
+      _ ≤ fib (2 * i + 1) * (fib (2 * i + 3) * m) := Nat.mul_le_mul_left _ H
+      _ = fib (2 * i + 3) * (fib (2 * i + 1) * m) := by
+          rw [← nat_mul_assoc, Nat.mul_comm (fib (2 * i + 1)) (fib (2 * i + 3)), nat_mul_assoc]
+  exact Nat.le_of_mul_le_mul_left key hpos
 
 end E213.Lib.Math.Real213.FibCassiniNat

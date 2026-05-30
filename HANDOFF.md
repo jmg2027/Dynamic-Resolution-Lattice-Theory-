@@ -160,12 +160,22 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
     · **nesting/shrinking witness DONE**: `FibCassiniNat.convergent_cross`
       (`fib(2n+4)·fib(2n+1) = fib(2n+2)·fib(2n+3) + 1`, ∀n PURE) — adjacent
       convergents differ by exactly one unit.  With `cross_gen` (generic form).
-    · **remaining**: (1) convergent monotone increase ∀n (cross_gen gives the
-      cross-product; turn into `pellNum n · pellDen(n+1) < pellNum(n+1) · pellDen n`);
-      (2) the per-target crossing modulus `N m k` (convergents grow ~φ-fast, so a
-      crossing exists once `pellDen n` exceeds a bound in `m,k`); (3) assemble
-      `CauchyCutSeq` from `pellConvergentCut` + `N`; (4) prove `.limit = phiCut`
-      (or `CutEquiv`).  All Nat / `Int213` PURE tools; NO Int↔Nat cast, NO omega.
+    · **monotone + antitone DONE** (`FibCassiniNat`, all PURE):
+      `conv_mono` (convergents strictly increase: `fib(2n+2)·fib(2n+3) <
+      fib(2n+4)·fib(2n+1)`); `fib_odd_pos` (`1 ≤ fib(2i+1)`); `fib_lb`
+      (Archimedean `n+1 ≤ fib(2n+1)`); ★ `cs_antitone` — at every target `(m,k)`
+      the convergent-cut Bool is antitone in the layer (`fib(2i+4)·k ≤
+      fib(2i+3)·m ⟹ fib(2i+2)·k ≤ fib(2i+1)·m`), so it flips `true→false` at most
+      once.  An antitone Bool sequence is automatically Cauchy.
+    · **remaining**: (1) the explicit per-target modulus `N m k` — the first
+      layer where the cut is `false` (for `m/k < φ`) or `0` (for `m/k ≥ φ`,
+      always `true` by `fib_convergent_below_phi`); `fib_lb` guarantees it
+      exists.  Likely cleanest: a `Nat.find`-style or strong-induction witness
+      using `cs_antitone` (once false, stays false) + the Archimedean bound.
+      (2) assemble `CauchyCutSeq` (cs := `fun i ↦ pellConvergentCut i`, N := the
+      modulus, cauchy := via `cs_antitone` both directions); (3) prove
+      `.limit = phiCut` (or `CutEquiv`).  All Nat/`Int213` PURE; NO Int↔Nat cast,
+      NO omega.
   - **NOTE (repo-first catch this round)**: `Real213/Mobius213PellInvariant.
     Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
     `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`
