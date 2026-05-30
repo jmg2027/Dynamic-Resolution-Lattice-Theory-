@@ -99,21 +99,29 @@ Raw via Gödel numbering of its truth table." Status:
 
 - Raw → predicate: trivial (`Object1`). Raw → ℕ: done
   (`Cardinality/Godel.Raw.toNat`, injective).
+- **Positive direction ALREADY CLOSED** (repo-first catch — was on `main`):
+  `Lens/PredicateSelfEncoding.lean` (7 PURE, commit `10500a4`) encodes every
+  *finite-prefix / definable* predicate back to a Raw —
+  `predicateToRaw n P = numeral(truthTableNat n …)`,
+  `predicate_self_encoding_closure`, `predicateToRaw_kernel`,
+  `predicateToRaw_injective_on_prefix`. "predicates are themselves Raw" has a
+  constructive witness for the describable case.
 - **Honest limit**: a *total* `(Raw→Bool) → Raw` is impossible by Cantor
   (`Cardinality/Cantor.cantor_raw_bool`: no surjection `Raw → (Raw→Bool)`).
 - **213-native closure**: Raw embeds *faithfully* as predicates (`Object1`
-  injective), and the surplus (predicates not of the form `Object1 r`) is exactly
-  the Cantor-unpointable = **the residue**. "The self-covering closes exactly up
-  to the residue" — itself the whole-session thesis (finite pointing; completed
-  infinity = a finite name; the unpointable surplus IS the residue).
+  injective); definable predicates round-trip (`PredicateSelfEncoding`); but the
+  full predicate space does not — the surplus (predicates not definable / not of
+  the form `Object1 r`) is exactly the Cantor-unpointable = **the residue**.
+  "The self-covering closes exactly up to the residue" — itself the whole-session
+  thesis (finite pointing; completed infinity = a finite name; the unpointable
+  surplus IS the residue).
 
-**Brick (this session)** — `Lens/FlatOntologyClosure.lean` (∅-axiom):
-`Object1` injective (faithful self-cover) ∧ ¬ surjective (the residue surplus,
-via `cantor_raw_bool`).
-
-**Remaining target**: encode *definable / finite-description* predicates back to
-Raw (the achievable positive direction — a description is a finite tree = a Raw;
-round-trip via `Raw.toNat` / a description-evaluator). The nonempty cell.
+**Brick (this session)** — `Lens/FlatOntologyClosure.lean` (3 PURE):
+`object1_injective` (faithful self-cover) ∧ `object1_not_surjective` (the residue
+surplus, via `cantor_raw_bool`); `self_covering_closure` bundles both.  This is
+the *limit* half; `PredicateSelfEncoding` is the *positive* half — together they
+frame the residue as the definable/total gap.  (Injective proof uses
+`of_decide_eq_true`, NOT `decide_eq_true_eq`, to stay propext-free.)
 
 ## File map
 

@@ -9,7 +9,7 @@ as one primitive: a decidable predicate on `Raw^n`.  It defers the *closure*
 direction — encoding a predicate back as a Raw (`seed/AXIOM/06_lens_readings.md`
 §6.3; `research-notes/G29_residue.md` "자기-덮음").
 
-This file records the 213-native shape of that closure:
+This file records the *limit* shape of that closure:
 
   * **Faithful**: `Object1 : Raw → (Raw → Bool)` (each Raw as its own indicator
     `· = r`) is **injective** — Raw self-covers as predicates with nothing lost.
@@ -18,10 +18,16 @@ This file records the 213-native shape of that closure:
     (`Cardinality.cantor_raw_bool`).  That surplus is the **residue**: the part
     of the predicate algebra the substrate cannot point at as a single Raw.
 
-So the self-covering "closes exactly up to the residue": faithful on what can be
-pointed at, with the unpointable surplus being the residue itself.  This is the
-∅-axiom statement of the session thesis (`research-notes/G152_...`): pointing is
-finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
+The complementary *positive* direction is already closed in
+`Lens/PredicateSelfEncoding.lean`: every **finite-prefix / definable** predicate
+DOES encode back to a Raw (`predicateToRaw`, `predicate_self_encoding_closure`,
+all ∅-axiom).  Together: definable predicates round-trip (positive closure), the
+full predicate space does not (this file) — and the gap between "definable" and
+"all" is exactly the residue.  So the self-covering "closes exactly up to the
+residue": faithful and round-tripping on what can be pointed at / described, with
+the unpointable surplus being the residue itself.  This is the ∅-axiom statement
+of the session thesis (`research-notes/G152_residue_self_covering.md`): pointing
+is finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
 -/
 
 namespace E213.Lens.FlatOntologyClosure
@@ -39,7 +45,9 @@ theorem object1_injective : Function.Injective Object1 := by
   -- `Object1 r r = true`, so `Object1 s r = true`, i.e. `decide (r = s) = true`.
   rw [E213.Lens.FlatOntology.Object1_self] at hr
   -- `Object1 s r = decide (r = s)`; from `true = decide (r = s)` get `r = s`.
-  exact decide_eq_true_eq.mp hr.symm
+  -- `of_decide_eq_true` (not `decide_eq_true_eq`, which pulls propext).
+  unfold E213.Lens.FlatOntology.Object1 at hr
+  exact of_decide_eq_true hr.symm
 
 /-- The self-cover `Object1` is **not surjective**: there is no surjection
     `Raw → (Raw → Bool)` at all (Cantor).  The predicates outside the image of
