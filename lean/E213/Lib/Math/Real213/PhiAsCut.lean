@@ -82,4 +82,19 @@ theorem phiCut_valid : ValidCut phiCut where
   upM := phiCut_upM
   dnK := phiCut_dnK
 
+/-- **`phiCut m k = false` from the φ-norm gap.**  If `(2m − k)² + 4 = 5k²`
+    (the φ-norm form, `(2m−k)² = 5k² − 4 < 5k²`), then `m/k` is *below* φ, so the
+    upper-set cut reads `false`.  The single-layer mechanism behind
+    `PhiCutConvergents.convergents_below_phi`: every Pell convergent satisfies
+    this identity (its φ-norm is `−1`, `PhiNormInvariant.phi_norm_eq_neg_one`),
+    hence sits below φ.  PURE. -/
+theorem phiCut_false_of_norm (m k : Nat)
+    (hid : (2 * m - k) * (2 * m - k) + 4 = 5 * k * k) : phiCut m k = false := by
+  unfold phiCut
+  apply decide_eq_false
+  rintro ⟨_, hle⟩
+  have hlt : (2 * m - k) * (2 * m - k) < 5 * k * k := by
+    rw [← hid]; exact Nat.lt_add_of_pos_right (by decide)
+  exact Nat.not_lt.mpr hle hlt
+
 end E213.Lib.Math.Real213.PhiAsCut

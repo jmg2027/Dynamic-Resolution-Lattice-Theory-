@@ -122,4 +122,21 @@ theorem phi_norm_eq_neg_one (n : Nat) :
   rw [norm_eq_pell_unit n]
   exact E213.Lib.Math.Mobius213.mobius_213_pell_unit_invariant_forall n
 
+/-! ## Coupling, stated on `seq` directly (for downstream Nat bridges)
+
+`coupling` is stated with the file-local abbreviations `N`/`D`; casting through
+them pulls `propext`.  These re-expose the same facts on `P_numerator.seq` /
+`P_denominator.seq` so a downstream Nat-level reduction (e.g. `phiCut … = false`
+∀n via `PhiAsCut.phiCut_false_of_norm`) can `rw` without the abbreviation cast. -/
+
+/-- Numerator coupling on `seq` directly. -/
+theorem seq_coupling_num (n : Nat) :
+    P_numerator.seq (n + 1) = 2 * P_numerator.seq n + P_denominator.seq n :=
+  (coupling n).1
+
+/-- Denominator coupling on `seq` directly. -/
+theorem seq_coupling_den (n : Nat) :
+    P_denominator.seq (n + 1) = P_numerator.seq n + P_denominator.seq n :=
+  (coupling n).2
+
 end E213.Lib.Math.Real213.PhiNormInvariant

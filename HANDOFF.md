@@ -123,7 +123,7 @@ The full self-similarity arc is now closed: form (`self_similar_floor`) / count
 `PhiConvergence` and realised as a Cut by `PhiAsCut`) — one self-similarity,
 three readings, irrational signature a concrete object.
 
-## φ-norm ∀n DONE (this session)
+## φ-norm ∀n DONE; phiCut=false ∀n mechanism in place (this session)
 
 `Real213/PhiNormInvariant.lean` (3 PURE): the φ-norm `num_n² − num_n·den_n −
 den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
@@ -137,12 +137,20 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
 
 ## OPEN (next targets — pick up here)
 
-  - **`phiCut (pellNum n) (pellDen n) = false` for all n**: the φ-norm ∀n result
-    gives `(2·num − den)² − 5·den² = 4·(−1) < 0` (the algebraic reason), but the
-    Nat-level `phiCut` reduction needs positivity (`num_n > 0`, `den_n > 0` ∀n,
-    by induction from `coupling`) + Nat-subtraction faithfulness (`2·num ≥ den`).
-    That upgrades `convergents_below_phi` (`PhiCutConvergents`, 4 PURE) from
-    layers-0..8 to ∀n.
+  - **`phiCut (pellNum n) (pellDen n) = false` for all n** — partially built:
+    · **mechanism DONE**: `PhiAsCut.phiCut_false_of_norm (m k)
+      (hid : (2m−k)²+4 = 5k²) : phiCut m k = false` (PURE) — the single-layer
+      reason a convergent reads below φ.
+    · **coupling exposed**: `PhiNormInvariant.{seq_coupling_num, seq_coupling_den}`
+      restate the `P`-action on `P_{num,den}.seq` directly (the abbrev-stated
+      `coupling` pulls `propext` when cast — use these to `rw` cleanly).
+    · **remaining**: chain them ∀n.  Needs, all from `seq_coupling_*` + the φ-norm
+      ∀n (`phi_norm_eq_neg_one`), with NO `omega` (it pulls propext+Quot.sound):
+      (1) `nonneg`/positivity ∀n (`0 ≤ seq`, then `1 ≤`); (2) `den ≤ 2·num` ∀n
+      (Nat-sub faithfulness); (3) the Nat norm identity `(2·num − den)² + 4 =
+      5·den²` ∀n (lift the Int `phi_norm_eq_neg_one` through `toNat` using
+      positivity).  Then `phiCut_false_of_norm` closes it, upgrading
+      `PhiCutConvergents.convergents_below_phi` from layers-0..8 to ∀n.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
