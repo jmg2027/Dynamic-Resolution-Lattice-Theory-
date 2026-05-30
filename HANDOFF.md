@@ -123,24 +123,26 @@ The full self-similarity arc is now closed: form (`self_similar_floor`) / count
 `PhiConvergence` and realised as a Cut by `PhiAsCut`) — one self-similarity,
 three readings, irrational signature a concrete object.
 
+## φ-norm ∀n DONE (this session)
+
+`Real213/PhiNormInvariant.lean` (3 PURE): the φ-norm `num_n² − num_n·den_n −
+den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
+`PhiCutConvergents.convergent_norm_form`'s layers-0..8 `decide`.  Route:
+`coupling` (the `P = [[2,1],[1,1]]` matrix action `num_{n+1} = 2·num_n + den_n`,
+`den_{n+1} = num_n + den_n`, by induction on the shared recurrence) →
+`norm_eq_pell_unit` (single-layer φ-norm = consecutive cross-product
+`pell_unit_at n`, the Int identity `qid`) → `pell_unit = −1`
+(`mobius_213_pell_unit_invariant_forall`).  All manual `Int213` rewrites, no
+`ring`/`omega`/Mathlib.
+
 ## OPEN (next targets — pick up here)
 
-  - **φ Cut ↔ Pell convergents, general `∀ n`**: `Real213/PhiCutConvergents.lean`
-    (5 PURE) ties `phiCut` to the convergents — all convergents below φ
-    (`convergents_below_phi`), rising (`convergents_rise`), brackets shrinking
-    (`convergents_approach_phiCut`), with the single-convergent quadratic φ-norm
-    `num² − num·den − den² = −1` (`convergent_norm_form`) — all witnessed at
-    layers 0..8 by `decide`.  The remaining piece is the **general `∀ n`** form:
-    prove the quadratic invariant `num_n² − num_n·den_n − den_n² = −1` for all n
-    by induction on the shared `seq(n+2) = 3·seq(n+1) − seq(n)` recurrence
-    (needs the couplings `num_n = den_n + num_{n-1}`, `den_n = num_{n-1} +
-    den_{n-1}`, also by induction).  That upgrades `convergents_below_phi` from
-    layers-0..8 to `∀ n`.  (A `ring`-based conserved-quantity step compiles but
-    its purity is unverified — check with `scan_axioms` before relying on it.)
-  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
-    frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
-  - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
-    cross-pair crux) — the long-standing Cayley-Dickson open item.
+  - **`phiCut (pellNum n) (pellDen n) = false` for all n**: the φ-norm ∀n result
+    gives `(2·num − den)² − 5·den² = 4·(−1) < 0` (the algebraic reason), but the
+    Nat-level `phiCut` reduction needs positivity (`num_n > 0`, `den_n > 0` ∀n,
+    by induction from `coupling`) + Nat-subtraction faithfulness (`2·num ≥ den`).
+    That upgrades `convergents_below_phi` (`PhiCutConvergents`, 4 PURE) from
+    layers-0..8 to ∀n.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
