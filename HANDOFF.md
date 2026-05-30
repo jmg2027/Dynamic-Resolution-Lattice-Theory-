@@ -172,12 +172,13 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
       `i+d`).  So the `false`-side tail is eventually constant.  The `true`-side
       (target `≥ φ`) is constant from layer 0 (`fib_convergent_below_phi`).
     · **⚠ TWO real obstacles found this round (no `Nat.find` in core):**
-      (a) **case A (`m/k ≥ φ` ⟹ cut `true` ∀i)** needs cut-order *transitivity
-      through φ*: from `conv_i < φ` (`fib_convergent_below_phi`) and `φ ≤ m/k`
-      (`phiCut m k = true`) conclude `conv_i ≤ m/k` (i.e. `fib(2i+2)·k ≤
-      fib(2i+1)·m`).  This is a `phiCut`/`constCut` cross-mult transitivity lemma
-      — provable from the `(2m−k)²` forms but nontrivial; the natural home is a
-      `RatioCut`/`phiCut` order lemma in `PhiAsCut`.
+      (a) **case A DONE** (`FibCassiniNat.cs_true_of_phiCut`, PURE): `phiCut m k
+      = true ⟹ fib(2i+2)·k ≤ fib(2i+1)·m ∀i`.  Via `cut_trans` (cut-order
+      transitivity through φ in squared-norm Nat form: `p² < 5b²`, `5k² ≤ q²`,
+      `p+b = 2a`, `q+k = 2m` ⟹ `a·k ≤ b·m`), built on `pk_le_qb` / `mul_sq` /
+      `sq_le_imp` (all PURE, no Int↔Nat cast, no propext).  So BOTH Cauchy tails
+      are closed: true-side (`cs_true_of_phiCut`) + false-side
+      (`cs_false_forward`).
       (b) **explicit modulus `N m k`** (the flip layer for `m/k < φ`): needs a
       closed-form bound from `fib_lb` (denominators grow ≥ linearly), since
       `Nat.find` is unavailable.  `cs_false_forward` means any valid upper bound

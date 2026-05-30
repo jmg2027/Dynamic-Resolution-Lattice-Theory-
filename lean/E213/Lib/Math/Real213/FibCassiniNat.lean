@@ -330,4 +330,78 @@ theorem cs_false_forward (i m k : Nat)
       rw [show i + (e + 1) = (i + e) + 1 from rfl, Nat.mul_succ]
     rw [e1, e2]; exact cs_false_stays (i + e) m k ih
 
+/-! ## Case A — a target `≥ φ` keeps every convergent cut `true`
+
+If `phiCut m k = true` (target `m/k ≥ φ`) then every convergent is `≤ m/k`
+(since `conv_i < φ ≤ m/k`), so the cut is `true` at every layer.  Proof routes
+through φ as a mediator in squared-norm Nat form (`cut_trans`); no Int↔Nat cast. -/
+
+/-- `(x·y)² = x²·y²`. -/
+private theorem mul_sq (x y : Nat) : (x * y) * (x * y) = (x * x) * (y * y) := by
+  rw [nat_mul_assoc, ← nat_mul_assoc y x y, Nat.mul_comm y x, nat_mul_assoc x y y,
+      ← nat_mul_assoc x x (y * y)]
+
+/-- `x² ≤ y² → x ≤ y` on Nat (propext-free; rules out `y < x` via strict
+    square monotonicity). -/
+private theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
+  rcases Nat.lt_or_ge y x with hgt | hle
+  · have hx0 : 0 < x := Nat.lt_of_le_of_lt (Nat.zero_le y) hgt
+    have h1 : y * y ≤ y * x := Nat.mul_le_mul_left y (Nat.le_of_lt hgt)
+    have h2 : y * x < x * x := (Nat.mul_lt_mul_right hx0).mpr hgt
+    exact absurd h (Nat.not_le.mpr (Nat.lt_of_le_of_lt h1 h2))
+  · exact hle
+
+private theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
+  Nat.le_of_mul_le_mul_left h (by decide)
+
+/-- Core cross-multiplication: `p² < 5·b²` and `5·k² ≤ q²` give `p·k ≤ q·b`. -/
+private theorem pk_le_qb (b k p q : Nat)
+    (hlow : p * p < 5 * (b * b)) (hhigh : 5 * (k * k) ≤ q * q) : p * k ≤ q * b := by
+  apply sq_le_imp
+  rw [mul_sq, mul_sq]
+  calc (p * p) * (k * k) ≤ (5 * (b * b)) * (k * k) :=
+        Nat.mul_le_mul_right (k * k) (Nat.le_of_lt hlow)
+    _ = (5 * (k * k)) * (b * b) := by
+        rw [nat_mul_assoc, Nat.mul_comm (b * b) (k * k), ← nat_mul_assoc]
+    _ ≤ (q * q) * (b * b) := Nat.mul_le_mul_right (b * b) hhigh
+
+/-- **Cut-order transitivity through φ** (squared-norm form): with `p = 2a−b`
+    (`< φ`: `p² < 5·b²`) and `q = 2m−k` (`≥ φ`: `5·k² ≤ q²`), `p+b = 2a`,
+    `q+k = 2m`, conclude the lower `≤` the upper: `a·k ≤ b·m`. -/
+private theorem cut_trans (a b m k p q : Nat)
+    (hp : p + b = 2 * a) (hq : q + k = 2 * m)
+    (hlow : p * p < 5 * (b * b)) (hhigh : 5 * (k * k) ≤ q * q) :
+    a * k ≤ b * m := by
+  have hpk : p * k ≤ q * b := pk_le_qb b k p q hlow hhigh
+  apply two_cancel
+  have l1 : 2 * (a * k) = p * k + b * k := by rw [← nat_mul_assoc, ← hp, add_mul]
+  have l2 : 2 * (b * m) = q * b + k * b := by
+    calc 2 * (b * m) = (2 * m) * b := by
+          rw [Nat.mul_comm 2 (b * m), nat_mul_assoc b m 2, Nat.mul_comm m 2,
+              Nat.mul_comm b (2 * m)]
+      _ = (q + k) * b := by rw [hq]
+      _ = q * b + k * b := add_mul q k b
+  rw [l1, l2, Nat.mul_comm b k]
+  exact Nat.add_le_add_right hpk (k * b)
+
+/-- ★★ **Case A**: `phiCut m k = true` (target `m/k ≥ φ`) ⟹ the layer-`i`
+    convergent cut is `true` (`fib(2i+2)·k ≤ fib(2i+1)·m`) for every i.  The
+    `true`-side constant tail of the Cauchy sequence. -/
+theorem cs_true_of_phiCut (i m k : Nat)
+    (hmk : E213.Lib.Math.Real213.PhiAsCut.phiCut m k = true) :
+    fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m := by
+  obtain ⟨hk2m, hhigh⟩ := of_decide_eq_true hmk
+  have hconv : (2 * fib (2 * i + 2) - fib (2 * i + 1)) * (2 * fib (2 * i + 2) - fib (2 * i + 1)) + 4
+             = 5 * (fib (2 * i + 1) * fib (2 * i + 1)) :=
+    phiform (fib (2 * i + 2)) (fib (2 * i + 1)) (2 * fib (2 * i + 2) - fib (2 * i + 1))
+      (nat_sub_add_cancel (den_le i)) (fib_cassini_norm i)
+  have hlow : (2 * fib (2 * i + 2) - fib (2 * i + 1)) * (2 * fib (2 * i + 2) - fib (2 * i + 1))
+            < 5 * (fib (2 * i + 1) * fib (2 * i + 1)) := by
+    rw [← hconv]; exact Nat.lt_add_of_pos_right (by decide)
+  have hhigh' : 5 * (k * k) ≤ (2 * m - k) * (2 * m - k) := by
+    rw [← mul_assoc 5 k k]; exact hhigh
+  exact cut_trans (fib (2 * i + 2)) (fib (2 * i + 1)) m k
+    (2 * fib (2 * i + 2) - fib (2 * i + 1)) (2 * m - k)
+    (nat_sub_add_cancel (den_le i)) (nat_sub_add_cancel hk2m) hlow hhigh'
+
 end E213.Lib.Math.Real213.FibCassiniNat
