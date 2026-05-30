@@ -1,158 +1,87 @@
 # Session handoff
 
-Branch: `claude/moufang-polarization-conditions-X9f2p`
+Branch: `claude/tower-research-analysis-3uWqd`
 
-## Non-associative Moufang layer via polarization — COMPLETE
+## This session — tower analysis → Raw branching → the residue → self-covering
 
-Closed the L3/L4 **non-associative** alt layer of the Cayley-Dickson
-towers: `MoufangIntegerNormed213` instances for **Cayley** (Type A L3,
-integer octonions), **ZOmegaQuad** (Type C L4, M_24 Chein loop), and
-**L4T** (Type B L4) — the CDDouble of a *non-commutative* associative
-base, where the Moufang norm-collapse is the genuine degree-4 Hurwitz
-identity (no `mul_assoc` shortcut).
+Started as a "tower" research audit; became a foundational thread on what the
+residue (the "1" in 2-1-3) is.  All commits ∅-axiom where Lean; pushed.
 
-### The polarization condition (the session's core idea)
+### Constructive deliverables (all PURE)
 
-Task question: *what cancels the residue when doubling a
-non-commutative associative base?*  Answer: the **trace form**, the
-linear/polarization companion of the quadratic norm form.
+  - **`Theory/Raw/PrimitiveTower.lean`** (8 PURE) — the most primitive tower:
+    `rawTower n = a/(a/(…/b))`, the single `slash` (self-pointing) arrow
+    iterated; `depth = level`, `depth < leaves` every rung.
+  - **`Lens/FlatOntologyClosure.lean`** (6 PURE) — the self-covering closure
+    *limit* half: `object1_injective` (Raw self-covers as predicates,
+    faithful) ∧ `object1_not_surjective` (Cantor: the predicate space is not
+    in the image = the residue surplus).  `residue_witnessed` names a concrete
+    inhabitant of the gap: `undifferentiated := fun _ => true` (the `Raw→Bool`
+    shadow of `constLens`) — no Raw's indicator equals it.  Complements the
+    pre-existing *positive* half `Lens/PredicateSelfEncoding.lean` (7 PURE,
+    definable/finite-prefix predicate → Raw round-trip).
+  - **`research-notes/G152_residue_self_covering.md`** — synthesis note (the
+    full intellectual thread; file map; this open problem).
+  - **`research-notes/data/probes/raw_branching_shape.py`** (+png) — Raw
+    branching simulation, self-checks SET-EQUAL to Lean `RawDepth3.depthLe3List`.
+    Findings: residue ratio → 1 (structure recedes from the complete-graph
+    "void" in proportion); 1D Lens collapses |S_n| onto 2^n+1 dyadic positions;
+    growth exponent = 2 = NT.
+  - **`theory/essays/tower_atlas.md`** — boundary section (which repo "towers"
+    are P-orbit readings vs distinct constructions); dropped deprecated N_U.
+  - **`algebra_tower.md`** frontier fixed; **`G150`** trimmed.
 
-New class `TraceNormed213` (in `Meta/Algebra213/Core.lean`):
-```
-class TraceNormed213 α extends IntegerNormed213 α where
-  trace         : α → Int
-  self_add_conj : ∀ a, a + conj a = ofInt (trace a)
-```
-Where `self_mul_conj` (`a·conj a = ofInt(normSq a)`) is the quadratic
-coefficient, `self_add_conj` is the linear one — together the two
-coefficients of a Hurwitz integer's minimal polynomial.
+### Where the discussion landed (for the next session)
 
-### Where the residue cancels
+The driving question "is the residue a GAP between 2 and 3 or the UNDIVIDED
+thing both are?" dissolved, not answered:
 
-`Meta/Algebra213/CDDoubleMoufang.lean` (all strict ∅-axiom):
-  - `diag_collapse` — the four *diagonal* terms of the Hurwitz
-    expansion collapse to central `ofInt` scalars via `self_mul_conj`.
-  - `cross_zero` — the four *cross* terms cancel pairwise: the
-    non-commutative residue `conj a·conj w − conj w·conj a = a·w − w·a`
-    is killed because `a + conj a` is central (`self_add_conj`).
-  - `hurwitz_norm_re` — the full degree-4 identity assembled.
-  - `cd_normSq_mul` — Hurwitz norm composition `|u·v|² = |u|²·|v|²`
-    for `CDDouble α` over a non-comm base, derived from
-    `hurwitz_norm_re` (NOT from Moufang → no circularity).
-  - `cd_moufang_norm` + `instMoufangIntegerNormed213CDDouble` — the
-    abstract `MoufangIntegerNormed213 (CDDouble α)` instance for any
-    `[TraceNormed213 α]`.
+  - "gap" is the *separation-view* reading; "undifferentiated" is the
+    *non-separation-view* reading; **the residue is neither — it is what both
+    views read.**  Raw has no "separation/non-separation" predicate either;
+    both are Lens readings (per `seed/AXIOM/05_no_exterior.md` §5.4, §6.5).
+  - Formally, only `object1_not_surjective` touches the residue *itself*: it is
+    the surplus outside *every* pointing-view's image.  `object1_injective` /
+    `distinct_equiv` / `residue_witnessed` are each one **view's survey**, not
+    the residue.
+  - The "1" (`Mobius213OneAsGlue`): `det(P) = NS − NT` proves gap = glue = the
+    same 1 — the **rotation axis** 2 and 3 interconvert around, not an interval.
+    0 = collapse (swap-fixed diagonal); 1 = the undivided unit.  Originator's
+    own words: "1이 회전축, 2-1-3 불가분."
+  - Method (Mingu): to investigate the "몰루" (the indeterminate — what cannot
+    be seen as any single state) you must survey **all** sides — separation and
+    non-separation views both.  Every view is a variation of the most primitive
+    act = **pointing (지칭)**; "Raw = the residue of pointing" is itself the
+    *most primitive view*, not a final description.
 
-### Concrete layers (each bridges via `toCDDouble`)
+## OPEN PROBLEM (the next mathematical target)
 
-| Layer | File | base TraceNormed213 |
-|---|---|---|
-| Cayley (A L3) | `Levels/CayleyMoufang.lean` | Lipschitz (trace `2·re`) |
-| ZOmegaQuad (C L4) | `Integer/ZOmegaQuadAlgebra213.lean` §4 | ZOmegaDouble (Eisenstein `2re−im`) |
-| L4T (B L4) | `Integer/ZSqrtMinus2Algebra213.lean` §7 | L3T (trace `2·re`) |
+**Are the two closures one or two?**
 
-Each yields `normSq_mul` (Hurwitz composition) via the generic
-`MoufangIntegerNormed213.normSq_mul`, verified `#print axioms` →
-"does not depend on any axioms".  This **replaces** the
-`hurwitz_ring` 32-Int-var brute force (`maxHeartbeats 4000000` in
-`CayleyHeavy.normSq_mul`) with one structural lemma reused across all
-three towers.
+  1. **well-founded (μF)** — the *pointed-AT* things: `a/b/…` bottoming out at
+     `a, b`.  Given by "pointing is a finite act."  (`Raw.depth_lt_leaves`,
+     `Theory/Raw/`.)
+  2. **self-fixed-point (Lambek `Raw ≅ F(Raw)`)** — the *pointing ACT*: the act
+     and its readout coincide (the regress "pointing → pointing-view →
+     pointing → …" closes by meeting itself, not by bottoming out).
 
-## Follow-up marathon (this session, after the core layer)
+Conjecture (Mingu's gut, untested): the "걸림" (the felt snag — "is pointing the
+floor, or itself a view?") IS the experience of this self-fixed-point, and it is
+*why* φ appears (`P(φ)=φ`).  Whether (1) and (2) are **the same closure** or a
+**mutually-supporting pair** (cf. `05_no_exterior.md` §5.2 Bool-oscillation vs
+Nat-convergence) decides whether the "1" is a single fixed point or an
+interlocked pair.  This is the open math question to formalise next — likely
+in `Lens/SelfCompletion.lean` / `Meta/LensInternality.lean` territory, tying
+`object1_not_surjective` (residue = outside every view) to a fixed-point
+statement of the pointing act.
 
-  - **#1 done** — `CayleyHeavy.normSq_mul` now bridges to
-    `cd_normSq_mul` (PURE); the `hurwitz_ring` + `maxHeartbeats 4000000`
-    proof is gone.  `TraceNormed213 Lipschitz` relocated to
-    `LipschitzAlgebra213` (cycle-free).
-  - **#5 done** — `CayleyDickson/INDEX.md`, theory chapter
-    `theory/math/cayley_dickson/algebra_tower.md` (new norm-composition
-    section), methodology Pattern #21 (polarization), falsifier-roster
-    composition-boundary entry.
-  - **#2 done (partial)** — new reusable `NonAssocRing213` /
-    `NonAssocStarRing213` generic-lemma layer (Ring213 proofs port
-    verbatim, no `mul_assoc`).  `SedenionHeavy.conj_mul_anti` now PURE
-    (was 8M-heartbeat `hurwitz_ring`).
-  - **#3 done** — `Levels/SedenionZeroDivisor.lean`: explicit zero
-    divisor `(e₁+e₁₀)(e₄−e₁₅)=0` + `normSq` non-multiplicativity,
-    marking the composition boundary (decide, ∅-axiom).
-  - **octonion alternativity done** — `Meta/Algebra213/CDDoubleAlternative.lean`:
-    `cd_alt_left` (hard component identity via the same norm-central +
-    trace-polarization + assoc reductions), `cd_alt_right` (conj
-    anti-automorphism of alt_left), `cd_flexible` (linearization).
-    `CayleyHeavy.{alt_left,alt_right,flexible}` bridge to it — **CayleyHeavy
-    is now entirely `hurwitz_ring`-free** (and its `HurwitzRing` import +
-    `maxHeartbeats` are gone).
+## Notes / hygiene
 
-## Open / next
-
-  - `SedenionHeavy.flexible` + `TrigintaduoionionHeavy` are the last
-    `hurwitz_ring` users.  These are **flexibility over a non-associative
-    base** (Sedenion = CDDouble Cayley); the associative `cd_flexible`
-    does not apply.  `Sedenion` `alt_left`/`alt_right` genuinely *fail*
-    (zero divisors), so only flexibility is in play.
-
-    **Precisely scoped** (verified numerically, `/tmp` Python during the
-    session — re-derive before coding):
-      · flexibility of `CDDouble α` needs only **base-flexible** (NOT
-        base-alternative): trigintaduonion = CDDouble of the
-        flexible-but-non-alternative sedenion is itself flexible.
-      · So the target is `cd_flexible_nonassoc` over a base class bundling
-        `NonAssocStarRing213` + `flexible` + `self_mul_conj`/`conj_mul_self`
-        (norm central) + `self_add_conj` (trace central).  Cayley and
-        Sedenion are instances (Cayley flexible = `CayleyHeavy.flexible`).
-      · `.re` term grouping (a=u.re,b=u.im,c=v.re,d=v.im, conj=base):
-        `(a*c)*a = a*(c*a)` (base flexible);
-        `conj b*(b*conj c) = (conj c*conj b)*b` (call it `L4=R3`);
-        `-(conj d*b)*a - conj b*(d*a) = -a*(conj b*d) - (a*conj d)*b`
-        (trace pair `L2+L3=R2+R4`).  `.im` is analogous.
-      · Key reusable base lemma: `(conj b*y)*b = conj b*(y*b)`
-        (`moufang_mid`) holds from **flexible + trace**: substitute
-        `conj b = ofInt(trace b) - b`, the trace term is central, the
-        remainder is `[b,y,b] = 0` (base flexible).  This is the lever for
-        the cross-terms; `L4=R3` reduces similarly via flexible + norm
-        (`conj b*b = ofInt(normSq b)` central) + trace.
-      · Effort: ~cd_alt_left scale ×(both components) + base sub-lemmas +
-        typeclass + Cayley/Sedenion instance bridges.  Sizeable; warrants
-        its own session.
-
-    **Foundation built (`Meta/Algebra213/CDDoubleFlexible.lean`, all PURE):**
-      · class `FlexAlt213` (= `MoufangIntegerNormed213` + `trace`/
-        `self_add_conj` + `conj_mul_self` + scalar nuclearity
-        `ofInt_nuc_{l,m,r}` + `alt_left`/`alt_right`/`flexible`).  [Note:
-        the file uses the *alternative* base form — `alt_left`/`alt_right`
-        are included; flexibility-only would drop them but then `L4=R3`
-        needs a different reduction.  Cayley satisfies alt, so this
-        covers Sedenion; Trigintaduonion (base Sedenion, non-alt) would
-        need the flexibility-only variant.]
-      · DONE lemmas (all PURE): `conj_eq`; `left_assoc_conj`
-        (`[conj b,b,X]=0`); `right_assoc_conj` (`[X,conj b,b]=0`);
-        `conj_sandwich` (gives `L4=R3`); `moufang_mid`; **`flex_polar`**
-        (linearized flexibility `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)`).
-      · **Remaining crux = the cross-pair**
-        `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
-        Verified to hold; partially reduced.  Findings (this session):
-          – via scalar nuclearity + `conj = ofInt(trace ·) − ·`, the
-            cross-pair ⟺ `(★)  D·(ba−ab) + B·(da−ad) =
-            (db)a + b(da) − a(bd) − (ad)b`  (`D=ofInt(trace d)`,
-            `B=ofInt(trace b)`, both central+nuclear);
-          – two `flex_polar` rewrites collapse `(★)`'s RHS to
-            `d(ba) − (ab)d + (bd)a − a(db)` (verified `= (★)`-LHS too);
-          – BUT closing `(★)` needs `D = d + conj d`, `B = b + conj b`,
-            and the resulting `conj d·(ba−ab) + conj b·(da−ad)` is
-            **`flex_polar`-self-similar and conj-self-similar** —
-            re-applying linearized flexibility regenerates cross-pair-
-            shaped terms instead of reducing.  So `flex_polar` + trace
-            alone do NOT close it; an essential use of conj-anti
-            (`conj_mul`) + norm (`self_mul_conj`) in a specific
-            combination is required.  This is the core computation of the
-            literature theorem "Cayley-Dickson doubling preserves
-            flexibility" (cf. Schafer); recommend transcribing that
-            identity sequence rather than re-deriving from scratch.
-      · After the cross-pair: `cd_flexible.re` = `flexible`(L1=R1) +
-        `conj_sandwich`(L4=R3) + cross-pair; `.im` analogous; then
-        register `Cayley`/`Sedenion : FlexAlt213` (Cayley needs trace +
-        conj_mul_self + scalar-nuclearity proofs — real-scalar nuclearity
-        is the fiddly one) and bridge `Sedenion.flexible`.
-  - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
-    from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
-    the polynomial brute force.
+  - N_U = d^(d²) is **deprecated** (audit branch `claude/full-file-audit-ChymR`
+    `bbd07b5`); `seed/RESOLUTION_LIMIT_SPEC.md` does not exist (stale ref).
+    Don't cite N_U as a constant; don't use "ℝ = final boss" framing (AI-introduced).
+  - `decide` on `Subtype`/`Raw` equality pulls `propext` via `DecidableEq Raw`;
+    use `Tree.noConfusion` (for `a≠b`) and `of_decide_eq_true` (NOT
+    `decide_eq_true_eq`) to stay strict ∅-axiom.  Bit me twice this session.
+  - Repo-first: `PredicateSelfEncoding` already existed; I nearly rebuilt it.
+    Grep + INDEX before coding a "missing" cell.
