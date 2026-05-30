@@ -114,7 +114,12 @@ converges toward without any row being it.
      `Real213/PhiAsCut.phiCut_valid` (5 PURE): φ has a closed-form decidable cut
      `decide (k ≤ 2m ∧ 5k² ≤ (2m−k)²)` (from `x²=x+1`), a `ValidCut` with no
      Cauchy completion.  The residue's irrational limit-ratio signature is one
-     concrete 213-native object.
+     concrete 213-native object.  **Cut ↔ convergents tied** —
+     `Real213/PhiCutConvergents` (5 PURE): every Pell convergent is below φ
+     under `phiCut` (`convergents_below_phi`, layers 0..8), rising to it, with
+     the single-convergent φ-norm `num²−num·den−den² = −1` — so `phiCut` is the
+     boundary the convergents climb to.  (General `∀ n` quadratic-invariant
+     induction left open, `HANDOFF.md`.)
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at

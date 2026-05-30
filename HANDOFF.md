@@ -125,14 +125,22 @@ three readings, irrational signature a concrete object.
 
 ## OPEN (next targets — pick up here)
 
+  - **φ Cut ↔ Pell convergents, general `∀ n`**: `Real213/PhiCutConvergents.lean`
+    (5 PURE) ties `phiCut` to the convergents — all convergents below φ
+    (`convergents_below_phi`), rising (`convergents_rise`), brackets shrinking
+    (`convergents_approach_phiCut`), with the single-convergent quadratic φ-norm
+    `num² − num·den − den² = −1` (`convergent_norm_form`) — all witnessed at
+    layers 0..8 by `decide`.  The remaining piece is the **general `∀ n`** form:
+    prove the quadratic invariant `num_n² − num_n·den_n − den_n² = −1` for all n
+    by induction on the shared `seq(n+2) = 3·seq(n+1) − seq(n)` recurrence
+    (needs the couplings `num_n = den_n + num_{n-1}`, `den_n = num_{n-1} +
+    den_{n-1}`, also by induction).  That upgrades `convergents_below_phi` from
+    layers-0..8 to `∀ n`.  (A `ring`-based conserved-quantity step compiles but
+    its purity is unverified — check with `scan_axioms` before relying on it.)
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
     cross-pair crux) — the long-standing Cayley-Dickson open item.
-  - **φ Cut ↔ Pell convergents**: prove `phiCut` and the `pellConvergentCut`
-    sequence are cut-equivalent (the convergents' limit IS `phiCut`), tying
-    `PhiAsCut` to `PhiConvergence` beyond the numeric `phiCut_brackets` spot
-    checks.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
