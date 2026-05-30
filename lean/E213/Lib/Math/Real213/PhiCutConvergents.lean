@@ -1,5 +1,4 @@
 import E213.Lib.Math.Real213.PhiAsCut
-import E213.Lib.Math.Real213.PhiConvergence
 
 /-!
 # PhiCutConvergents — the Pell convergents approach `phiCut` from below
@@ -74,9 +73,7 @@ theorem convergents_rise :
 theorem convergents_approach_phiCut :
     (phiCut (pellNum 4) (pellDen 4) = false ∧ phiCut (pellNum 8) (pellDen 8) = false)
     ∧ (pellNum 2 * pellDen 3 < pellNum 3 * pellDen 2)
-    ∧ (pellDen 1 * pellDen 2 < pellDen 2 * pellDen 3) :=
-  ⟨⟨convergents_below_phi.2.2.2.2, convergents_below_phi.2.2.2.2.2.2.2.2⟩,
-   convergents_rise.2.1,
-   E213.Lib.Math.Real213.PhiConvergence.bracket_width_shrinks.1⟩
+    ∧ (pellDen 1 * pellDen 2 < pellDen 2 * pellDen 3) := by
+  refine ⟨⟨?_, ?_⟩, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Real213.PhiCutConvergents
