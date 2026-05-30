@@ -45,9 +45,9 @@ HigherAlgebra) are pairwise isomorphic through the NT hub
 single `LensIso` class (`GRA/LensIsoCapstone`; `THEORY_BOOK.md` Part VI).
 
 **The universe-chain reading** scales by `numV(L) = 5^L`
-(`replicate_image_card : numV 2 = numV 1 · numV 1`), reaching the
-resolution limit `N_U = 5^25` at fractal level 2
-(`Lib/Math/UniverseChain/`, `seed/RESOLUTION_LIMIT_SPEC.md`).  Its
+(`replicate_image_card : numV 2 = numV 1 · numV 1`); the count at
+fractal level 2 is a bounded Lens output, not a universe constant
+(`Lib/Math/UniverseChain/`).  Its
 topological shadow is the Betti spectrum of `K_{5^L}`
 (`Cohomology/Fractal/Level.fractal_betti_spectrum`).
 
@@ -112,12 +112,12 @@ refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
     function spaces `Raw → (Raw→Bool) → ((Raw→Bool)→Bool) → …`, each rung
     with no surjection from the previous (`Lens/Cardinality/Tower`,
     Σ6), the `Lensⁿ α` image-collapse tower
-    (`Lens/Properties/TowerLevel3`), and the hyperreal/ZFC-ℝ absorption
-    tower (`Hyper/Hyper213Tower`).  These ascend by the **Lens diagonal**,
-    not by P-iteration; their quantitative shadow is the universe-chain
-    `5^L` reading above (which *is* in the orbit) reaching the resolution
-    limit `N_U = 5^25`.  The diagonal and the orbit meet only at that
-    shared scale, not as one object.
+    (`Lens/Properties/TowerLevel3`), and the hyperreal
+    `Hyper/Hyper213Tower` construction.  These ascend by the **Lens
+    diagonal**, not by P-iteration; their quantitative shadow is the
+    universe-chain `5^L` reading above (which *is* in the orbit).  The
+    diagonal and the orbit are distinct constructions that coincide only
+    on that shared bounded scale, not as one object.
   - **ℝ-encoding tower** — `TriangularTower/` encodes reals as
     finite-level squashed paths under `NS = 3` absorption
     (`theory/math/triangular_tower.md`).  It borrows the signature `NS`,
