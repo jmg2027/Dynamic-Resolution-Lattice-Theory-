@@ -94,8 +94,14 @@ converges toward without any row being it.
      (same atom-or-slash shape — self-similar) while depth strictly drops
      (refinement descends), bottoming out at the atoms.  The floor is the fixed
      shape under refinement (invariant form + terminating descent), not a
-     stipulated stop.  (Connecting this to the `5^L` fractal self-similarity and
-     to φ remains open.)
+     stipulated stop.  **Quantitative link DONE** —
+     `Lib/Math/SelfSimilarityBridge.lean` (3 PURE):
+     `self_similarity_two_readings` joins the form reading (Raw
+     `self_similar_floor`) and the count reading (`self_similar_count :
+     numV (m+n) = numV m · numV n`, the `5^L` level-replication law).  One
+     self-similarity, two Lenses (form / count).  (The φ-side — that this
+     self-similar descent has fixed point φ via `P(φ)=φ` — remains open;
+     `Real213/PhiCut`, `Mobius213/TowerLInfty`.)
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at
