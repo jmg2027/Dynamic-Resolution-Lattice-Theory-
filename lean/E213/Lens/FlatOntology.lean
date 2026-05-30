@@ -127,7 +127,8 @@ The closure direction (a predicate encoded back as a Raw) has two halves:
   * `Lens/FlatOntologyClosure.lean` — *limit*: the self-cover
     `Object1 : Raw → (Raw → Bool)` is faithful (injective) but not total
     (not surjective, by Cantor) — it "closes exactly up to the residue,"
-    the Cantor-unpointable surplus.
+    the Cantor-unpointable surplus, whose named lead member is the
+    undifferentiated predicate `fun _ => true`.
 See also `Lens/Cardinality/Godel.lean` for the Raw → ℕ injection and
 `research-notes/G29_residue.md` "자기-덮음" for the loop,
 `research-notes/G152_residue_self_covering.md` for the synthesis.
