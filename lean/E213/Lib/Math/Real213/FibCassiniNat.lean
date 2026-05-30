@@ -21,7 +21,7 @@ namespace E213.Lib.Math.Real213.FibCassiniNat
 
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
-open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc)
+open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul)
 
 /-! ## Nat polynomial helpers (all PURE) -/
 
@@ -341,15 +341,34 @@ private theorem mul_sq (x y : Nat) : (x * y) * (x * y) = (x * x) * (y * y) := by
   rw [nat_mul_assoc, ← nat_mul_assoc y x y, Nat.mul_comm y x, nat_mul_assoc x y y,
       ← nat_mul_assoc x x (y * y)]
 
+/-- `a < b → b ≤ c → a < c`, PURE (`Nat.lt_of_lt_of_le` pulls propext; `a < b`
+    is `a+1 ≤ b`, so `Nat.le_trans` suffices). -/
+private theorem lt_of_lt_le {a b c : Nat} (h1 : a < b) (h2 : b ≤ c) : a < c :=
+  Nat.le_trans h1 h2
+
+/-- `a ≤ b → b < c → a < c`, PURE. -/
+private theorem lt_of_le_lt {a b c : Nat} (h1 : a ≤ b) (h2 : b < c) : a < c :=
+  Nat.le_trans (Nat.succ_le_succ h1) h2
+
+/-- `b·a < c·a` for `0 < a`, `b < c` — PURE (Lean-core `Nat.mul_lt_mul_right`
+    is an `iff` that pulls `propext`/`Classical`; this uses `exists_eq_add`). -/
+private theorem mul_lt_mul_r {b c a : Nat} (ha : 0 < a) (h : b < c) :
+    b * a < c * a := by
+  obtain ⟨d, hd⟩ := Nat.exists_eq_add_of_lt h
+  rw [hd, nat_add_mul, nat_add_mul, Nat.one_mul]
+  exact lt_of_lt_le (Nat.lt_add_of_pos_right ha)
+    (Nat.add_le_add_right (Nat.le_add_right (b * a) (d * a)) a)
+
 /-- `x² ≤ y² → x ≤ y` on Nat (propext-free; rules out `y < x` via strict
-    square monotonicity). -/
+    square monotonicity, using the PURE `mul_lt_mul_r`). -/
 private theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
-  rcases Nat.lt_or_ge y x with hgt | hle
-  · have hx0 : 0 < x := Nat.lt_of_le_of_lt (Nat.zero_le y) hgt
+  cases Nat.lt_or_ge y x with
+  | inr hle => exact hle
+  | inl hgt =>
+    have hx0 : 0 < x := lt_of_le_lt (Nat.zero_le y) hgt
     have h1 : y * y ≤ y * x := Nat.mul_le_mul_left y (Nat.le_of_lt hgt)
-    have h2 : y * x < x * x := (Nat.mul_lt_mul_right hx0).mpr hgt
-    exact absurd h (Nat.not_le.mpr (Nat.lt_of_le_of_lt h1 h2))
-  · exact hle
+    have h2 : y * x < x * x := mul_lt_mul_r hx0 hgt
+    exact (Nat.not_le.mpr (lt_of_le_lt h1 h2) h).elim
 
 private theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
   Nat.le_of_mul_le_mul_left h (by decide)
@@ -384,13 +403,17 @@ private theorem cut_trans (a b m k p q : Nat)
   rw [l1, l2, Nat.mul_comm b k]
   exact Nat.add_le_add_right hpk (k * b)
 
-/-- ★★ **Case A**: `phiCut m k = true` (target `m/k ≥ φ`) ⟹ the layer-`i`
-    convergent cut is `true` (`fib(2i+2)·k ≤ fib(2i+1)·m`) for every i.  The
-    `true`-side constant tail of the Cauchy sequence. -/
-theorem cs_true_of_phiCut (i m k : Nat)
-    (hmk : E213.Lib.Math.Real213.PhiAsCut.phiCut m k = true) :
+/-- ★★ **Case A** (inequality form, PURE): if the target `(m, k)` satisfies the
+    φ-cut inequalities `k ≤ 2m` and `5·k² ≤ (2m−k)²` (i.e. `m/k ≥ φ`), then the
+    layer-`i` convergent cut is `true` (`fib(2i+2)·k ≤ fib(2i+1)·m`) for every i —
+    every convergent is `≤ m/k`.  The `true`-side constant tail of the Cauchy
+    sequence.  Stated with the inequalities as Prop hypotheses (extracting them
+    from `phiCut m k = true` via `of_decide_eq_true` would import propext/Classical
+    through the `And`-decidability; the bool→Prop extraction is the one remaining
+    non-PURE step, recorded in HANDOFF). -/
+theorem cs_true_of_ineqs (i m k : Nat)
+    (hk2m : k ≤ 2 * m) (hhigh : 5 * (k * k) ≤ (2 * m - k) * (2 * m - k)) :
     fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m := by
-  obtain ⟨hk2m, hhigh⟩ := of_decide_eq_true hmk
   have hconv : (2 * fib (2 * i + 2) - fib (2 * i + 1)) * (2 * fib (2 * i + 2) - fib (2 * i + 1)) + 4
              = 5 * (fib (2 * i + 1) * fib (2 * i + 1)) :=
     phiform (fib (2 * i + 2)) (fib (2 * i + 1)) (2 * fib (2 * i + 2) - fib (2 * i + 1))
@@ -398,10 +421,8 @@ theorem cs_true_of_phiCut (i m k : Nat)
   have hlow : (2 * fib (2 * i + 2) - fib (2 * i + 1)) * (2 * fib (2 * i + 2) - fib (2 * i + 1))
             < 5 * (fib (2 * i + 1) * fib (2 * i + 1)) := by
     rw [← hconv]; exact Nat.lt_add_of_pos_right (by decide)
-  have hhigh' : 5 * (k * k) ≤ (2 * m - k) * (2 * m - k) := by
-    rw [← mul_assoc 5 k k]; exact hhigh
   exact cut_trans (fib (2 * i + 2)) (fib (2 * i + 1)) m k
     (2 * fib (2 * i + 2) - fib (2 * i + 1)) (2 * m - k)
-    (nat_sub_add_cancel (den_le i)) (nat_sub_add_cancel hk2m) hlow hhigh'
+    (nat_sub_add_cancel (den_le i)) (nat_sub_add_cancel hk2m) hlow hhigh
 
 end E213.Lib.Math.Real213.FibCassiniNat
