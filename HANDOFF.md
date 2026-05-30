@@ -155,22 +155,30 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
       `le_of_add_eq_of_nonneg : x + y = c → 0 ≤ x → y ≤ c`,
       `four_normSq_ring_identity : (2a−b)² + 3b² = 4(a²−ab+b²)`.  `omega`
       forbidden.  **Search `~213` / `Int213` / `NatHelper` before Lean-core.**
-    · **remaining — the ONE hard part: Int → Nat without propext.**  All
-      Int↔Nat cast lemmas pull `propext`: `Int.toNat_add`, `Int.toNat_of_nonneg`,
-      `Int.ofNat_le`, `Int.ofNat_sub`, `push_cast`, `exact_mod_cast` — *all
-      DIRTY* (verified this round; my earlier note claiming `toNat_of_nonneg` /
-      `ofNat.inj` PURE was WRONG).  The repo has **no** PURE Int→Nat bridge —
-      it deliberately stays on one side.  So `(2·pellNum − pellDen)² + 4 =
-      5·pellDen²` ∀n (the Nat shadow of `phi_norm_eq_neg_one`) cannot be lifted
-      by casting.  **Path: stay in Nat from the start.**  `DyadicFSM/Fib.lean`
-      has a Nat-valued `fib` with PURE `fib_succ_succ`, and
-      `Mobius213/Px/QFibIdentity.lean` proves the P-orbit matrix entries equal
-      Nat Fibonacci (`Q00 n = fib(2n+1)`, `Q01 n = fib(2n)`,
-      `pn_fibonacci_universal`).  Next: establish `pellNum n = fib(2n+1)` and
-      `pellDen n = fib(2n)` (or the right indexing) as Nat identities via that
-      bridge, re-prove the Nat coupling + norm identity on `fib` (all Nat, PURE),
-      then `phiCut_false_of_norm` closes
-      `PhiCutConvergents.convergents_below_phi` ∀n.
+    · **⚠ STRUCTURAL BARRIER (verified this round) — `convergents_below_phi` ∀n
+      cannot be reached as currently stated.**  `pellNum n := (P_numerator.seq
+      n).toNat` is Int-seq-then-`toNat`.  Every Int↔Nat cast lemma pulls
+      `propext` (`Int.toNat_add`, `Int.toNat_of_nonneg`, `Int.ofNat_le`,
+      `Int.ofNat_sub`, `push_cast`, `exact_mod_cast` — all DIRTY; an earlier note
+      claiming some PURE was WRONG).  The repo has **no** PURE Int→Nat bridge by
+      design.  So the Nat goal `(2·pellNum − pellDen)² + 4 = 5·pellDen²` ∀n
+      cannot be lifted from the PURE Int `phi_norm_eq_neg_one`, and a Nat
+      `pellNum n = fib(2n+1)` bridge is equally blocked (same cast).
+    · **RE-FRAME, don't lift.**  Prove a *new, independent, all-Nat* theorem
+      `phiCut (fib (2n+1)) (fib (2n)) = false` ∀n (NOT mentioning `pellNum`):
+      - `fib` (Nat) + PURE recurrences are in `Mobius213/Px/QFibIdentity`
+        (`fib_succ_succ`, `fib_even_step`, `fib_odd_double_step` — the last fixed
+        this round; the `Q00/Q01 = fib` bridges there are DIRTY via Int, skip
+        them).
+      - Nat norm identity (checked by hand): `fib(2n+1)² + 1 = fib(2n+1)·fib(2n)
+        + fib(2n)²` ∀n — a Cassini variant, provable by induction with the PURE
+        `fib_*` recurrences + `NatHelper` (all Nat, no Int, no cast).  Rearranges
+        to `(2·fib(2n+1) − fib(2n))² + 4 = 5·fib(2n)²` (needs `fib(2n) ≤
+        2·fib(2n+1)`, from `fib` monotonicity — Nat).
+      - then `PhiAsCut.phiCut_false_of_norm` closes it.
+      This is the φ-convergent-below-φ fact in its native Nat form; relating it
+      back to `pellNum`/`PhiCutConvergents` is optional (and blocked by the same
+      cast, so leave `convergents_below_phi` at its layers-0..8 `decide`).
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
