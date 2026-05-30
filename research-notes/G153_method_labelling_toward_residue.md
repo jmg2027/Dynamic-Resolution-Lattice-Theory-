@@ -118,8 +118,11 @@ converges toward without any row being it.
      `Real213/PhiCutConvergents` (4 PURE): every Pell convergent is below φ
      under `phiCut` (`convergents_below_phi`, layers 0..8), rising to it, with
      the single-convergent φ-norm `num²−num·den−den² = −1` — so `phiCut` is the
-     boundary the convergents climb to.  (General `∀ n` quadratic-invariant
-     induction left open, `HANDOFF.md`.)
+     boundary the convergents climb to.  **φ-norm ∀n DONE** —
+     `Real213/PhiNormInvariant.phi_norm_eq_neg_one` (3 PURE): `num_n² −
+     num_n·den_n − den_n² = −1` for all n, via the `P = [[2,1],[1,1]]` coupling
+     + the φ-norm = `pell_unit_at n = −1` identity (manual Int213, no ring).
+     The layers-0..8 `decide` is now the general theorem.
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at

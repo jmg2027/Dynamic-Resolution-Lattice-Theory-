@@ -48,6 +48,7 @@ import E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant
 import E213.Lib.Math.Real213.PhiConvergence
 import E213.Lib.Math.Real213.PhiAsCut
 import E213.Lib.Math.Real213.PhiCutConvergents
+import E213.Lib.Math.Real213.PhiNormInvariant
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 
