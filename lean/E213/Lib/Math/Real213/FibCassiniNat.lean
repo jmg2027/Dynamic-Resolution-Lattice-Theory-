@@ -351,16 +351,19 @@ private theorem lt_of_le_lt {a b c : Nat} (h1 : a ≤ b) (h2 : b < c) : a < c :=
   Nat.le_trans (Nat.succ_le_succ h1) h2
 
 /-- `b·a < c·a` for `0 < a`, `b < c` — PURE (Lean-core `Nat.mul_lt_mul_right`
-    is an `iff` that pulls `propext`/`Classical`; this uses `exists_eq_add`). -/
+    is an `iff` that pulls `propext`/`Classical`; `Nat.exists_eq_add_of_lt` also
+    pulls `Classical`, so this routes through `(b+1)·a ≤ c·a` instead). -/
 private theorem mul_lt_mul_r {b c a : Nat} (ha : 0 < a) (h : b < c) :
     b * a < c * a := by
-  obtain ⟨d, hd⟩ := Nat.exists_eq_add_of_lt h
-  rw [hd, nat_add_mul, nat_add_mul, Nat.one_mul]
-  exact lt_of_lt_le (Nat.lt_add_of_pos_right ha)
-    (Nat.add_le_add_right (Nat.le_add_right (b * a) (d * a)) a)
+  have hstep : (b + 1) * a ≤ c * a := Nat.mul_le_mul_right a h
+  have heq : (b + 1) * a = b * a + a := by rw [add_mul, Nat.one_mul]
+  rw [heq] at hstep
+  exact lt_of_lt_le (Nat.lt_add_of_pos_right ha) hstep
 
 /-- `x² ≤ y² → x ≤ y` on Nat (propext-free; rules out `y < x` via strict
-    square monotonicity, using the PURE `mul_lt_mul_r`). -/
+    square monotonicity, using the PURE `mul_lt_mul_r`).  `Nat.lt_or_ge` /
+    `Nat.not_le` are themselves PURE — the earlier `[propext]` came only through
+    the now-fixed `mul_lt_mul_r`. -/
 private theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
   cases Nat.lt_or_ge y x with
   | inr hle => exact hle
