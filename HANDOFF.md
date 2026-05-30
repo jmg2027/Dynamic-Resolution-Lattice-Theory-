@@ -172,7 +172,6 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
     = our `normstep`).  `FibCassiniNat` is the `fib`-indexed twin; consider
     unifying or cross-citing rather than duplicating in future work.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
-  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
     cross-pair crux) — the long-standing Cayley-Dickson open item.
