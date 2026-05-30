@@ -82,6 +82,15 @@ thing both are?" dissolved, not answered:
       object/reading, difference/identity) each one shape under the pointing
       view; the shared column made explicit (convergence evidence, not capture).
 
+## φ self-similarity arc CLOSED + written up as a chapter
+
+`fib_convergent_below_phi` ∀n (`Lib/Math/Real213/FibCassiniNat.lean`, PURE)
+completes the arc: every Fibonacci/Pell convergent is below φ, native-Nat ∀n.
+Primary narrative now at **`theory/math/phi_self_similarity.md`** (registered in
+`theory/math/INDEX.md`, linked from `THEORY_BOOK.md §IV` self-form section) —
+the paper-grade write-up of the three-readings result.  Larger frame stays in
+`tower_atlas.md` / `THEORY_BOOK`; follow-on directions are the OPEN items below.
+
 ## φ-side CLOSED — self-similarity now has all three readings
 
 `Lib/Math/SelfSimilarityBridge.lean` (5 PURE) — `self_similarity_three_readings`:
