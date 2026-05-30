@@ -109,4 +109,14 @@ converges toward without any row being it.
   3. **Dual-collapse as a uniform statement**: the catalog rows above are
      currently separate files; a single "every framework-internal dual is
      self-dual under the pointing view" statement would be the column made
-     explicit.
+     explicit.  **DONE** — `Lib/Math/DualCollapseCapstone.lean` (1 PURE):
+     `every_dual_is_one_shape` bundles the four proven instances
+     (Lambek `two_closures`; FlatOntologyClosure `self_covering_closure`;
+     Real213 `object_is_reading_scale_invariant`; OneAsGlue
+     `mobius_det_eq_ns_minus_nt`) to exhibit the shared column — each dual is
+     one shape under the pointing view.  It is convergence evidence, not a
+     capture of the residue (the non-surjectivity conjunct keeps the residue
+     outside every single view).
+
+All three continuations now have ∅-axiom bricks; the residue stays the unbounded
+outline the labels narrow, never a captured object.
