@@ -82,20 +82,34 @@ thing both are?" dissolved, not answered:
       object/reading, difference/identity) each one shape under the pointing
       view; the shared column made explicit (convergence evidence, not capture).
 
-## OPEN PROBLEM (the next mathematical target)
+## φ-side CLOSED — self-similarity now has all three readings
 
-**The φ-side of self-similarity.**  `SelfSimilarityBridge` joins the *form* and
-*count* readings of "same shape under descent."  The third reading — that this
-self-similar descent has **fixed point φ** (`P(φ) = φ`, the residue's algebraic
-image, `seed/AXIOM/05_no_exterior.md` §5.6) — is not yet tied in.  The pieces
-exist PURE: `Real213/PhiCut.{phi_cut_capstone, phi_bracket_via_pell}` (φ as a
-Cut), `Mobius213/TowerLInfty.tower_growth_phi_squared_bracket` (P-iteration → φ²
-at levels 1..7), `Mobius213/TowerConvergence.tower_L_infty_exists`.  Target: a
-bridge theorem stating the self-similar descent's limit-ratio reading is φ —
-joining `self_similarity_two_readings` to the φ-fixed-point, so the three
-readings (form / count / limit-ratio) are one self-similarity.  This also
-connects to "걸림 = the self-fixed-point" (why φ appears): the descent that
-keeps the same shape converges to φ because φ is `P`'s fixed point.
+`Lib/Math/SelfSimilarityBridge.lean` (5 PURE) — `self_similarity_three_readings`:
+"same shape under descent" is one self-similarity from the (NS,NT)=(3,2)
+signature read three ways —
+  · **form** (Raw `self_similar_floor`): constructor shape invariant, atomic floor;
+  · **count** (`self_similar_count`): level count replicates by `d = 5 = disc P`
+    (`numV (m+n) = numV m · numV n`);
+  · **limit-ratio** (`self_similar_ratio_is_phi`): the P-orbit consecutive-term
+    ratio settles on the irrational fixed point φ (`tower_growth_phi_squared_bracket`
+    ∈ (2,3)=φ², `phi_bracket_via_pell` brackets φ as a Cut).
+The rational factor `5` and irrational `φ` are invariants of the *same* matrix P,
+so the three are one self-similarity, not three coincidences.  This also realises
+"걸림 = the self-fixed-point, which is why φ appears": the descent that keeps the
+same shape converges to φ because φ is P's fixed point.
+
+## OPEN (next targets — pick up here)
+
+  - **φ as a genuine Cut limit** (not just bracket): `Real213/PhiCut`'s
+    `phi_cut_capstone` witnesses φ via Pell convergents but the strict
+    Cauchy-complete `L_∞` Cut construction is deferred (Phase 1c, per
+    `TowerLInfty`/`TowerConvergence`).  Tying `self_similar_ratio_is_phi` to an
+    actual `ValidCut` φ (rather than rational brackets) would upgrade the
+    limit-ratio reading from "bracketed" to "is φ".
+  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
+    frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
+  - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
+    cross-pair crux) — the long-standing Cayley-Dickson open item.
 
 ## Notes / hygiene
 

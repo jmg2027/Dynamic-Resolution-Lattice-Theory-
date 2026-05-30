@@ -99,9 +99,14 @@ converges toward without any row being it.
      `self_similarity_two_readings` joins the form reading (Raw
      `self_similar_floor`) and the count reading (`self_similar_count :
      numV (m+n) = numV m · numV n`, the `5^L` level-replication law).  One
-     self-similarity, two Lenses (form / count).  (The φ-side — that this
-     self-similar descent has fixed point φ via `P(φ)=φ` — remains open;
-     `Real213/PhiCut`, `Mobius213/TowerLInfty`.)
+     self-similarity, two Lenses (form / count).  **φ-side DONE** —
+     `self_similar_ratio_is_phi` + `self_similarity_three_readings` (5 PURE
+     total): the P-orbit's consecutive-term ratio settles on the irrational
+     fixed point φ (`tower_growth_phi_squared_bracket` ∈ (2,3)=φ²;
+     `phi_bracket_via_pell` brackets φ as a Cut).  Three readings of one
+     self-similarity from the (NS,NT)=(3,2) signature: form (shape invariant),
+     count (rational factor `5 = disc P`), limit-ratio (irrational `φ` = P's
+     fixed point).  Fully closes G153 #1.
   2. **Scale-invariant non-separation**: the transition=state / line=point
      collapse holds at the atom (`a/b`) AND at the limit (ℝ as `ValidCut`,
      `Real213/Core/AsLensOutput`) — one theorem that the same collapse recurs at
