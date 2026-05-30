@@ -54,26 +54,48 @@ thing both are?" dissolved, not answered:
     act = **pointing (지칭)**; "Raw = the residue of pointing" is itself the
     *most primitive view*, not a final description.
 
+## Follow-up bricks this session (open problem RESOLVED + marathon)
+
+  - **"One closure or two?" — answered: TWO, mutually supporting.**
+    `Theory/Raw/Lambek.lean` (8 PURE): `decompose` (Lambek forward, the pointing
+    act is a fixed point of its constructor shape — holds for μF and νF alike)
+    + `depth_drops`/`atoms_are_floor` (well-founded, selects the LEAST fixed
+    point); `two_closures` bundles them — neither implies the other, Raw = μF is
+    their conjunction.  Also `self_similar_peel`/`self_similar_floor` (the floor
+    = fixed shape under refinement, not a stipulated stop).
+  - **Method note** `research-notes/G153_method_labelling_toward_residue.md` —
+    why one slips (distributional gravity toward a fixed standpoint; 213 has
+    none) + the positive method (labelling is the limit and the only method;
+    many labels' common shadow narrows the residue's outline; never promote a
+    shadow to identity).  CLAUDE.md gained the "View promoted to identity"
+    failure mode.
+  - **Marathon (3 continuations of G153, all closed):**
+    · #2 `Lib/Math/Real213/ObjectIsReadingScaleInvariant.lean` (4 PURE) —
+      object = reading is scale-invariant (atom `Object1 : Raw→(Raw→Bool)`;
+      limit `RealAsLensOutput = Nat→(Nat→Bool)`); one shape `Index→Bool`.
+    · #1 `Lib/Math/SelfSimilarityBridge.lean` (3 PURE) —
+      `self_similarity_two_readings`: the form reading (Raw `self_similar_floor`)
+      and the count reading (`numV(m+n) = numV m · numV n`, the `5^L`
+      level-replication) are one self-similarity, two Lenses.
+    · #3 `Lib/Math/DualCollapseCapstone.lean` (1 PURE) —
+      `every_dual_is_one_shape`: four duals (decompose/build, object/morphism,
+      object/reading, difference/identity) each one shape under the pointing
+      view; the shared column made explicit (convergence evidence, not capture).
+
 ## OPEN PROBLEM (the next mathematical target)
 
-**Are the two closures one or two?**
-
-  1. **well-founded (μF)** — the *pointed-AT* things: `a/b/…` bottoming out at
-     `a, b`.  Given by "pointing is a finite act."  (`Raw.depth_lt_leaves`,
-     `Theory/Raw/`.)
-  2. **self-fixed-point (Lambek `Raw ≅ F(Raw)`)** — the *pointing ACT*: the act
-     and its readout coincide (the regress "pointing → pointing-view →
-     pointing → …" closes by meeting itself, not by bottoming out).
-
-Conjecture (Mingu's gut, untested): the "걸림" (the felt snag — "is pointing the
-floor, or itself a view?") IS the experience of this self-fixed-point, and it is
-*why* φ appears (`P(φ)=φ`).  Whether (1) and (2) are **the same closure** or a
-**mutually-supporting pair** (cf. `05_no_exterior.md` §5.2 Bool-oscillation vs
-Nat-convergence) decides whether the "1" is a single fixed point or an
-interlocked pair.  This is the open math question to formalise next — likely
-in `Lens/SelfCompletion.lean` / `Meta/LensInternality.lean` territory, tying
-`object1_not_surjective` (residue = outside every view) to a fixed-point
-statement of the pointing act.
+**The φ-side of self-similarity.**  `SelfSimilarityBridge` joins the *form* and
+*count* readings of "same shape under descent."  The third reading — that this
+self-similar descent has **fixed point φ** (`P(φ) = φ`, the residue's algebraic
+image, `seed/AXIOM/05_no_exterior.md` §5.6) — is not yet tied in.  The pieces
+exist PURE: `Real213/PhiCut.{phi_cut_capstone, phi_bracket_via_pell}` (φ as a
+Cut), `Mobius213/TowerLInfty.tower_growth_phi_squared_bracket` (P-iteration → φ²
+at levels 1..7), `Mobius213/TowerConvergence.tower_L_infty_exists`.  Target: a
+bridge theorem stating the self-similar descent's limit-ratio reading is φ —
+joining `self_similarity_two_readings` to the φ-fixed-point, so the three
+readings (form / count / limit-ratio) are one self-similarity.  This also
+connects to "걸림 = the self-fixed-point" (why φ appears): the descent that
+keeps the same shape converges to φ because φ is `P`'s fixed point.
 
 ## Notes / hygiene
 
