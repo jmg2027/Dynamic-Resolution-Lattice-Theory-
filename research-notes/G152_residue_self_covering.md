@@ -116,12 +116,25 @@ Raw via Gödel numbering of its truth table." Status:
   thesis (finite pointing; completed infinity = a finite name; the unpointable
   surplus IS the residue).
 
-**Brick (this session)** — `Lens/FlatOntologyClosure.lean` (3 PURE):
+**Brick (this session)** — `Lens/FlatOntologyClosure.lean` (6 PURE):
 `object1_injective` (faithful self-cover) ∧ `object1_not_surjective` (the residue
 surplus, via `cantor_raw_bool`); `self_covering_closure` bundles both.  This is
 the *limit* half; `PredicateSelfEncoding` is the *positive* half — together they
 frame the residue as the definable/total gap.  (Injective proof uses
 `of_decide_eq_true`, NOT `decide_eq_true_eq`, to stay propext-free.)
+
+**The link — residue named** (`undifferentiated`, `undifferentiated_not_object1`,
+`residue_witnessed`): the abstract Cantor gap gets a *concrete inhabitant* —
+`undifferentiated := fun _ => true`, the predicate that draws no distinction (the
+`Raw → Bool` shadow of `constLens`).  Each `Object1 r` is true at exactly one
+Raw, so it never equals a predicate true everywhere (≥ 2 Raws, `a ≠ b`).  Thus
+the residue is not a bare cardinality surplus: its cleanest member is the
+**미분화 / undifferentiated** reading itself — *the one predicate that points at
+nothing-in-particular cannot be pointed at as any single Raw.*  This ties the
+limit (Cantor) directly to the session's distinct-vs-미분화 axis: distinct = the
+pointable (`Object1 r`, finest); 미분화 = the lead inhabitant of the unpointable
+residue (`fun _ => true`, coarsest).  `residue_witnessed` bundles
+injective + the named witness.
 
 ## File map
 

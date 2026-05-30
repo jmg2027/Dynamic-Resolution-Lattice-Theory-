@@ -34,6 +34,12 @@ namespace E213.Lens.FlatOntologyClosure
 
 open E213.Theory (Raw)
 open E213.Lens.FlatOntology (Object1)
+open E213.Term.Internal (Tree)
+
+/-- The two atoms differ — propext-free (`Tree.noConfusion`, not `decide`
+    which pulls `propext` through `DecidableEq Raw`). -/
+private theorem a_ne_b : Raw.a ≠ Raw.b :=
+  fun h => Tree.noConfusion (congrArg Subtype.val h)
 
 /-- The self-cover `Object1` is **injective**: distinct Raws give distinct
     indicator predicates.  Faithful self-covering — applying both sides at `r`
@@ -63,5 +69,54 @@ theorem object1_not_surjective : ¬ Function.Surjective Object1 :=
 theorem self_covering_closure :
     Function.Injective Object1 ∧ ¬ Function.Surjective Object1 :=
   ⟨object1_injective, object1_not_surjective⟩
+
+/-! ## A concrete residue witness — the undifferentiated predicate
+
+`object1_not_surjective` is the abstract gap (Cantor).  Here is a *named*
+inhabitant of it, tying the gap to the session's "미분화 / undifferentiated"
+notion: the **constant-true predicate** `fun _ => true` — the predicate that
+draws no distinction at all (the `Raw → Bool` shadow of `constLens`) — is not in
+the image of `Object1`.  Each `Object1 r` is true at exactly one Raw, so it can
+never equal a predicate true everywhere (there are ≥ 2 Raws, `a ≠ b`).
+
+So the residue is not merely a cardinality surplus: its cleanest concrete member
+is the *undifferentiated* reading itself — the one predicate that points at
+nothing-in-particular cannot be pointed at as any single Raw. -/
+
+/-- The constant-true (undifferentiated) predicate on Raw. -/
+def undifferentiated : Raw → Bool := fun _ => true
+
+/-- No Raw's indicator equals the undifferentiated predicate: pick a Raw `≠ r`
+    (the other atom), where the indicator is `false` but `undifferentiated` is
+    `true`. -/
+theorem undifferentiated_not_object1 (r : Raw) :
+    Object1 r ≠ undifferentiated := by
+  intro h
+  -- Choose a witness `s ≠ r`: the atom on the other side of `r`.
+  -- If `r = a` use `b`; otherwise use `a`.  Either way `s ≠ r`.
+  by_cases hra : r = Raw.a
+  · -- r = a; take s = b, and b ≠ a = r
+    have hbr : Raw.b ≠ r := by rw [hra]; exact (Ne.symm a_ne_b)
+    have hval : Object1 r Raw.b = undifferentiated Raw.b := congrFun h Raw.b
+    -- Object1 r b = decide (b = r) = false (since b ≠ r); undifferentiated b = true
+    unfold Object1 undifferentiated at hval
+    rw [decide_eq_false hbr] at hval
+    exact Bool.noConfusion hval
+  · -- r ≠ a; take s = a, and a ≠ r
+    have har : Raw.a ≠ r := fun e => hra e.symm
+    have hval : Object1 r Raw.a = undifferentiated Raw.a := congrFun h Raw.a
+    unfold Object1 undifferentiated at hval
+    rw [decide_eq_false har] at hval
+    exact Bool.noConfusion hval
+
+/-- ★★ **The residue, named.**  The undifferentiated predicate inhabits the
+    Cantor gap of `object1_not_surjective`: it is a `Raw → Bool` with no Raw
+    preimage under `Object1`.  The faithful self-cover closes *exactly* up to
+    this — the part the substrate cannot point at as a single Raw is led by the
+    reading that draws no distinction. -/
+theorem residue_witnessed :
+    Function.Injective Object1
+    ∧ (∃ P : Raw → Bool, ∀ r : Raw, Object1 r ≠ P) :=
+  ⟨object1_injective, undifferentiated, undifferentiated_not_object1⟩
 
 end E213.Lens.FlatOntologyClosure
