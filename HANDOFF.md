@@ -175,13 +175,24 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
         `fib_succ_succ` (rfl-unfold + a small calc with `← Nat.two_mul`).
       - **Nat norm (verified numerically — base+step values 5,29,194,1325)**:
         `a² + 1 = a·b + b²` ∀n.  Induction step reduces to the IH via the
-        **hyp-free Nat ring identity** `(2a+b)² + 1 + (a·b + b²) = (2a+b)(a+b) +
-        (a+b)² + (a²+1)` (both sides `= 5a²+5ab+2b²+1`).  ⚠ This is the ONLY
-        remaining gap: there is **no `ring` and no Nat poly-normalizer in the
-        repo**, so this identity needs ~40 lines of manual `Nat.{mul_add,
-        add_mul, mul_comm, mul_assoc}` — best done by first proving a reusable
-        **Nat `sq_add` FOIL lemma** `(x+y)*(x+y) = x*x + 2*(x*y) + y*y` (mirror
-        of the PURE Int `Meta/Int213/Bound.sq_add_int`), then assembling.
+        hyp-free Nat ring identity `(2a+b)² + 1 + (a·b + b²) = (2a+b)(a+b) +
+        (a+b)² + (a²+1)` (both sides `= 5a²+5ab+2b²+1`).
+      - **⚠ PURE Nat-poly TOOLS FOUND (this round) — the gap is now mechanical.**
+        Lean-core `Nat.add_mul` and `Nat.mul_assoc` pull `propext` (verified),
+        but the repo has PURE replacements built exactly for this:
+        `Lib/Math/NatRing.{nat_mul_assoc, nat_add_mul, nat_swap_left_mul,
+        nat_add_right_cancel, nat_add_left_cancel}` and
+        `Meta/Nat/PureNat.{add_mul, mul_assoc, even_sq (= (2k)² = 2(2(k·k))),
+        mul_mul_mul_comm, reassoc4}`.  PURE core lemmas usable directly:
+        `Nat.{mul_add, mul_comm, add_assoc, two_mul}`.
+        A reusable **`nat_sq_add : (x+y)*(x+y) = x*x + 2*(x*y) + y*y`** is proved
+        PURE (recipe: `rw [PureNat.add_mul, Nat.mul_add, Nat.mul_add,
+        Nat.mul_comm y x, ← Nat.add_assoc, Nat.add_assoc (x*x) (x*y) (x*y),
+        ← Nat.two_mul (x*y)]`).  Partial expansion `e1 : (2a+b)² = 4·(a·a) +
+        (4·(a·b) + b·b)` was started via `even_sq` + `mul_assoc` (works to the
+        last reassoc).  **Next session: finish `e1` + the analogous `(2a+b)(a+b)`
+        and `(a+b)²` expansions to a common monomial normal form, assemble the
+        step identity, then `nat_add_left_cancel` against the IH.**
       - rearrange to `(2a − b)² + 4 = 5·b²` (needs `b ≤ 2a`, i.e. `fib(2n+1) ≤
         2·fib(2n+2)` — from `fib` monotonicity, Nat), then
         `PhiAsCut.phiCut_false_of_norm` closes it.
