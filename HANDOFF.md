@@ -167,15 +167,25 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
       the convergent-cut Bool is antitone in the layer (`fib(2i+4)·k ≤
       fib(2i+3)·m ⟹ fib(2i+2)·k ≤ fib(2i+1)·m`), so it flips `true→false` at most
       once.  An antitone Bool sequence is automatically Cauchy.
-    · **remaining**: (1) the explicit per-target modulus `N m k` — the first
-      layer where the cut is `false` (for `m/k < φ`) or `0` (for `m/k ≥ φ`,
-      always `true` by `fib_convergent_below_phi`); `fib_lb` guarantees it
-      exists.  Likely cleanest: a `Nat.find`-style or strong-induction witness
-      using `cs_antitone` (once false, stays false) + the Archimedean bound.
-      (2) assemble `CauchyCutSeq` (cs := `fun i ↦ pellConvergentCut i`, N := the
-      modulus, cauchy := via `cs_antitone` both directions); (3) prove
-      `.limit = phiCut` (or `CutEquiv`).  All Nat/`Int213` PURE; NO Int↔Nat cast,
-      NO omega.
+    · **false-tail DONE** (`FibCassiniNat`, PURE): `cs_false_stays` (false at `i`
+      ⟹ false at `i+1`) and `cs_false_forward` (false at `i` ⟹ false at every
+      `i+d`).  So the `false`-side tail is eventually constant.  The `true`-side
+      (target `≥ φ`) is constant from layer 0 (`fib_convergent_below_phi`).
+    · **⚠ TWO real obstacles found this round (no `Nat.find` in core):**
+      (a) **case A (`m/k ≥ φ` ⟹ cut `true` ∀i)** needs cut-order *transitivity
+      through φ*: from `conv_i < φ` (`fib_convergent_below_phi`) and `φ ≤ m/k`
+      (`phiCut m k = true`) conclude `conv_i ≤ m/k` (i.e. `fib(2i+2)·k ≤
+      fib(2i+1)·m`).  This is a `phiCut`/`constCut` cross-mult transitivity lemma
+      — provable from the `(2m−k)²` forms but nontrivial; the natural home is a
+      `RatioCut`/`phiCut` order lemma in `PhiAsCut`.
+      (b) **explicit modulus `N m k`** (the flip layer for `m/k < φ`): needs a
+      closed-form bound from `fib_lb` (denominators grow ≥ linearly), since
+      `Nat.find` is unavailable.  `cs_false_forward` means any valid upper bound
+      on the flip works.
+    · **then**: assemble `CauchyCutSeq` (cs := `pellConvergentCut`, N := the
+      modulus, cauchy := case-split on `phiCut m k` using the true-tail / false-
+      tail) and prove `.limit = phiCut`.  All Nat/`Int213` PURE; NO Int↔Nat cast,
+      NO omega, NO Nat.find.
   - **NOTE (repo-first catch this round)**: `Real213/Mobius213PellInvariant.
     Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
     `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`

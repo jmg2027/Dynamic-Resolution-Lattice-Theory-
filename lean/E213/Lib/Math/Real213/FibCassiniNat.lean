@@ -304,4 +304,30 @@ theorem cs_antitone (i m k : Nat)
           rw [← nat_mul_assoc, Nat.mul_comm (fib (2 * i + 1)) (fib (2 * i + 3)), nat_mul_assoc]
   exact Nat.le_of_mul_le_mul_left key hpos
 
+/-- Once the convergent cut fails at layer `i` (numerator exceeds), it fails at
+    `i+1` — the `true → false` flip is one-directional (`cs_antitone` contrapositive). -/
+theorem cs_false_stays (i m k : Nat)
+    (h : ¬ (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m)) :
+    ¬ (fib (2 * i + 4) * k ≤ fib (2 * i + 3) * m) :=
+  fun H => h (cs_antitone i m k H)
+
+/-- **False propagates forward**: if the convergent cut is `false` at layer `i`,
+    it is `false` at every later layer `i + d`.  This is the eventually-constant
+    (Cauchy) tail on the `false` side — the convergents, once past a rational
+    target below φ, stay above it.  The `true` side (a target `≥ φ`) is constant
+    from layer 0 by `fib_convergent_below_phi`; together they give the Cauchy
+    modulus for `phiCut := (pellConvergent).limit` (`Analysis/CauchyComplete`). -/
+theorem cs_false_forward (i m k : Nat)
+    (h : ¬ (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m)) :
+    ∀ d, ¬ (fib (2 * (i + d) + 2) * k ≤ fib (2 * (i + d) + 1) * m) := by
+  intro d
+  induction d with
+  | zero => exact h
+  | succ e ih =>
+    have e1 : 2 * (i + (e + 1)) + 2 = 2 * (i + e) + 4 := by
+      rw [show i + (e + 1) = (i + e) + 1 from rfl, Nat.mul_succ]
+    have e2 : 2 * (i + (e + 1)) + 1 = 2 * (i + e) + 3 := by
+      rw [show i + (e + 1) = (i + e) + 1 from rfl, Nat.mul_succ]
+    rw [e1, e2]; exact cs_false_stays (i + e) m k ih
+
 end E213.Lib.Math.Real213.FibCassiniNat
