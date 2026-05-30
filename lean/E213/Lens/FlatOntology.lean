@@ -121,12 +121,14 @@ All six rows of the table are realised by the single primitive
 "decidable predicate on Raw^n".  Lens is then the labelled
 catamorphism specialisation.
 
-This file does NOT formalise the closure direction (a predicate
-encoded back as a Raw via Gödel numbering of its truth table).
-That is a separate continuation — see `Lens/Cardinality/Godel.lean`
-for the Raw → ℕ injection (one direction of the closure) and
-`research-notes/G29_residue.md` "자기-덮음" for the philosophical
-statement of the loop.
+The closure direction (a predicate encoded back as a Raw) is treated
+in `Lens/FlatOntologyClosure.lean`: the self-cover
+`Object1 : Raw → (Raw → Bool)` is faithful (injective) but not total
+(not surjective, by Cantor) — it "closes exactly up to the residue,"
+the Cantor-unpointable surplus.  See also `Lens/Cardinality/Godel.lean`
+for the Raw → ℕ injection and `research-notes/G29_residue.md` "자기-덮음"
+for the loop, `research-notes/G152_residue_self_covering.md` for the
+synthesis.
 -/
 
 end E213.Lens.FlatOntology
