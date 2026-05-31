@@ -146,10 +146,19 @@ is now closed, and lands on the *same* object.
   - ★ `PhiCauchyLimit.phiCauchy_limit_eq_phiCut` — `phiConvergentSeq.limit m k =
     phiCut m k`.  The limit object built by completion **is** the closed-form
     cut, pointwise.
+  - ★ `PellFibCutBridge.pellConvergentCut_eq_phiCut` — the **canonical**
+    `Int`-seq-defined Pell convergent cut (`PhiCut.pellConvergentCut`, the object
+    `PhiCut`/`PhiConvergence` work with) stabilizes to `phiCut` for every target
+    at every layer `i ≥ 2k`.  Transported from `cs_eq_phiCut` through the PURE
+    bridge `pellNum_eq_fib`/`pellDen_eq_fib` (`pellNum n = fib(2n+2)`,
+    `pellDen n = fib(2n+1)` ∀n) — proved by 2-step induction over the shared Pell
+    recurrence, the `toNat` read-out collapsing by `rfl` once the `Int` seq is
+    pinned to a `natCast`.
 
 So φ is now constructed two ways that agree on the nose: directly as one
 decidable `ValidCut` (§3.3), and as the Cauchy-complete limit of the rational
-Pell convergents (§3.5).  The residue's irrational limit-ratio signature is one
+Pell convergents (§3.5) — on **both** the native-`fib` sequence and the canonical
+`pellConvergentCut`.  The residue's irrational limit-ratio signature is one
 213-native Cut, however it is approached.
 
 ## The single statement
@@ -163,13 +172,15 @@ refinement" is the experience of that single self-fixed-point, now a theorem.
 ## Boundary — what this is not
 
   - φ is built **both** closed-form (§3.3) and by Cauchy completion (§3.5), and
-    the two coincide pointwise (`phiCauchy_limit_eq_phiCut`).  The completion is
-    carried out on the native-Nat convergent sequence `fib(2i+2)/fib(2i+1)` (=
-    `constCut` of the Fibonacci pair), not on the `pellNum`-stated
-    `pellConvergentCut`, because `pellNum n := (P_numerator.seq n).toNat` is an
-    Int→Nat cast and the repo has no PURE such bridge — the two are the same
-    rational sequence, witnessed numerically (`pell_nat_values`) but not yet by a
-    PURE `∀n` equation.
+    the two coincide pointwise (`phiCauchy_limit_eq_phiCut`).  The completion runs
+    on the native-Nat convergent sequence `fib(2i+2)/fib(2i+1)`; the **canonical**
+    `Int`-seq-defined `PhiCut.pellConvergentCut` inherits the same stabilization
+    through the PURE bridge `PellFibCutBridge.pellNum_eq_fib`/`pellDen_eq_fib`
+    (`pellNum n = fib(2n+2)`, `pellDen n = fib(2n+1)` ∀n) — see
+    `pellConvergentCut_eq_phiCut`.  The earlier "no PURE Int→Nat bridge" caveat is
+    cleared: `(↑n).toNat = n` is `rfl`, so the `toNat` read-out is harmless once
+    `P_numerator.seq n` is pinned to a `natCast` by 2-step induction over the
+    shared Pell recurrence.
   - The `pellNum`-stated `PhiCutConvergents.convergents_below_phi` stays at
     layers 0..8 (`decide`); its ∀n upgrade lives in the native-Nat
     `fib_convergent_below_phi`, because `pellNum n := (P_numerator.seq n).toNat`
@@ -182,6 +193,7 @@ cd lean
 lake build E213.Lib.Math.Real213 E213.Lib.Math.SelfSimilarityBridge E213.Theory.Raw.Lambek
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.FibCassiniNat
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.PhiCauchyLimit
+python3 tools/scan_axioms.py E213.Lib.Math.Real213.PellFibCutBridge
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 

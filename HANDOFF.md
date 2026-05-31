@@ -171,15 +171,28 @@ Cauchy-complete limit of the rational Pell convergents
     (2) The lone `[propext]` in case A came **only** through
     `Nat.exists_eq_add_of_lt` inside `mul_lt_mul_r` (re-routed via `(b+1)·a ≤
     c·a`); `Nat.lt_or_ge`/`Nat.not_le` are PURE and were never the problem.
-  - Built natively on `fib` (not `pellConvergentCut`) because `pellNum n :=
-    (P_numerator.seq n).toNat` is an Int→Nat cast with no PURE `∀n` bridge; the
-    two are the same rational sequence (`pell_nat_values` numerically).
+  - Built natively on `fib`; the canonical `Int`-seq `pellConvergentCut` then
+    inherits it through the bridge below.
+
+## Pell↔Fibonacci bridge — DONE (this session), Int→Nat wall cleared
+
+The old "no PURE Int→Nat bridge" caveat is **removed**.
+`PellFibCutBridge.pellNum_eq_fib` / `pellDen_eq_fib` (PURE, ∀n):
+`pellNum n = fib(2n+2)`, `pellDen n = fib(2n+1)`.
+
+  - **Key insight**: `((n : Nat) : Int).toNat = n` is `rfl` — the `toNat`
+    read-out is harmless once `P_numerator.seq n` is pinned to a `natCast`.  So
+    prove the `Int`-level `seq n = (fib · : Int)` by 2-step paired induction over
+    the shared Pell recurrence `a(n+2) = 3a(n+1) − a(n)`, matched on the `fib`
+    side by the additive `fib(2n+6) + fib(2n+2) = 3·fib(2n+4)` (`fib_even_3step`).
+  - **All additive** — no `Int` subtraction (`Int.add_right_neg` pulls propext;
+    routed via PURE `Int213.{add_comm, add_left_neg, neg_mul, add_assoc}`), no
+    `omega`, no cast lemmas (`Int.toNat_natCast`/`exact_mod_cast` pull propext).
+  - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
+    stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
 ## OPEN (next targets — pick up here)
 
-  - **PURE `pellNum n = fib(2n+2)` / `pellDen n = fib(2n+1)` bridge** — would let
-    `pellConvergentCut` inherit `cs_eq_phiCut` directly and retire the native-Nat
-    `convergentCS` twin.  Blocked on a PURE `Int.toNat`-of-positive-seq lemma.
   - **NOTE (repo-first catch)**: `Real213/Mobius213PellInvariant.
     Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
     `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`
