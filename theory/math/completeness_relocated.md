@@ -185,6 +185,49 @@ theorem whose `#print axioms` reveals a dependence on `CauchyComplete`,
 or a PURE total order-Cauchy modulus for e (which would mean the §180 LEM
 barrier was illusory).  Neither exists in the current tree.
 
+## 5. Grouping the groupings: the tower closes (no regress)
+
+Completion groups an infinite family of threshold decisions into one cut.
+A natural worry pushes the other way: if a real *is* the grouping of
+infinitely many thresholds, then is the grouping itself just one more
+threshold to be grouped — a sequence of groupings, then a grouping of
+*those*, without end?  Does the construction only ever defer, never land?
+
+`lean/E213/Lib/Math/Analysis/CompletionTower.lean` shows it lands, by
+`rfl`.  The grouping operation is a **fixed point**, not a regress, for
+three reasons that are each a one-line Lean fact.
+
+  - **Type closure.**  `limit : CauchyCutSeq → (ℕ → ℕ → Bool)`.  A cut is
+    `ℕ → ℕ → Bool`; a cut-*sequence* is `ℕ → ℕ → ℕ → Bool`.  Completion
+    consumes the sequence and returns a cut — *the same type a single
+    threshold-family already inhabits*.  The tower never escalates to
+    ever-higher types; every level lands back on `ℕ → ℕ → Bool`
+    (`tower_stays_in_cut`).
+  - **Collapse.**  A level-2 tower — an outer cut-sequence whose `i`-th
+    term is itself a completed limit — completes to *one* inner
+    completion read at the outer modulus (`tower_is_single_inner`, `rfl`).
+    No second object is built; the two levels flatten.  Completing a cut
+    that is already a limit is the identity (`completion_idempotent`).
+  - **Only the modulus moves.**  What accumulates up the tower is not
+    objects but the **modulus** — level 2 reads at `inner ∘ Nₒ`.  This is
+    exactly the `(ℕ,+)`-graded composition of `Analysis/ResolutionShift`
+    (`IsResolutionShift_compose`): grouping-of-groupings stacks grades,
+    never objects.  And `tower_value_stable` makes the consequence sharp:
+    once one completion pins the value at a probe, further grouping only
+    re-indexes *which* layer answers — never the answer.
+
+So the "threshold of thresholds of thresholds …" sequence is the
+**self-similar floor** (`Theory/Raw/Lambek.self_similar_floor`) read at
+the cut scale, under the scale-invariance of
+`ObjectIsReadingScaleInvariant`: one fixed shape — *group an indexed
+family into one object of the same kind* — recurring at every level, the
+descent of moduli the only thing in motion.  This is the same structural
+signature as the residue itself (peel and you find the same shape, the
+descent terminates), now at the level of real numbers.  Tangibility
+survives the iteration precisely because each grouping returns an object
+you can query, of the kind you started with — the tower is a finite-depth
+read at every probe, never an appeal to a completed infinity of levels.
+
 ## Anchors
 
   - `lean/E213/Lib/Math/Real213/AbCutSeq.lean` — the shared carrier
@@ -194,6 +237,12 @@ barrier was illusory).  Neither exists in the current tree.
   - `lean/E213/Lib/Math/Real213/PhiAsCut.lean` — φ closed-form cut
   - `lean/E213/Lib/Math/Analysis/CauchyComplete{,Valid}.lean` — the
     completeness operation and its closure under valid cuts
+  - `lean/E213/Lib/Math/Analysis/CompletionTower.lean` — grouping the
+    groupings closes (type closure, collapse, modulus composition)
+  - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — the `(ℕ,+)`-graded
+    monoid the tower's moduli compose in
+  - `lean/E213/Theory/Raw/Lambek.lean` — `self_similar_floor` (the same
+    shape at the Raw scale)
   - `lean/E213/Lib/Math/Cauchy/MonotonicBounded.lean` §180–194 — the
     deliberate LEM refusal
 
