@@ -18,18 +18,21 @@ terminates**: there is no infinitely-deferring real of finite coordinate
 (`no_infinite_descent`).  The coordinate is a constructive-complexity *ordinal
 rank*:
 
-  | real | coordinate | ordinal `ω·h + d` |
+  | real / cross-det | coordinate `(h,d)` | ordinal `ω·h + d` |
   |---|---|---|
-  | algebraic (φ, √2) | `(0, 0)` | `0` |
-  | e | `(0, 3)` | `3` |
-  | π | `(0, 6)` | `6` |
-  | Liouville `c^{k!}` | `(1, finite)` | `ω + d` |
-  | tower `c^{c^{k!}}` | `(2, finite)` | `ω·2 + d` |
+  | algebraic (φ, √2): const cross-det | `(0, 0)` | `0` |
+  | `cⁿ` (exponent degree 1) | `(1, 0)` | `ω` |
+  | `c^{n²}` (exponent degree 2) | `(2, 0)` | `ω·2` |
 
-The reals with a *finite* coordinate (rank `< ω²`) are exactly those reachable by
-finitely many lifts of two kinds; genuinely non-elementary growth (unbounded
-log-height) is rank `≥ ω²`, the true limit of the tower — the next ordinal where a
-*third* axis (super-logarithm) would be needed, and so on toward `ε₀`.
+Here `h` is the *exponent's polynomial degree* (`ratioLift = diff-on-exponent`,
+`DepthTower`), not an iterated-log height.  The reals with a finite `(h, d)` are
+exactly those whose cross-determinant is `c^{polynomial}`.  e (cross-det `n!`), π,
+Liouville `c^{k!}` and the iterated exponentials are **beyond** this finite-`(h,d)`
+reach (super-polynomial exponents); resolving them needs a genuinely new operation —
+a *ratio on the exponent* (the `(ratio,diff)` ladder applied to the exponent
+sequence), a self-similar recursion that is the frontier toward `ε₀`, not captured
+by finitely many `ratioLift`s.  This file proves the well-order for the finite
+`(h,d)` reals.
 
 This file proves the ordinal structure (`lexLt` is irreflexive, transitive, total,
 well-founded) ∅-axiom; the coordinate assignment itself is

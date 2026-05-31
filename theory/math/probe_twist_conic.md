@@ -257,23 +257,38 @@ So depth is not just an invariant — it sorts the transcendentals into
 **Riccati-solvable (arithmetic CF, finite depth)** versus **irregular**, matching
 the exp-family / non-exp-family split.
 
-## 9. The higher axis — logarithms resolve the infinite depth **(L)**
+## 9. The second axis — the ratio-lift, and the honest extension rule **(L)**
 
-Liouville's depth ∞ (§7) is ∞ *only on the difference axis*.  `DepthTower` adds the
-axis above — the **ratio-lift** `ratioLift s n = s(n+1)/s n` — and the infinity
-becomes finite one logarithm up:
+The difference axis (`diff`) tames polynomial growth.  `DepthTower` adds the second
+axis — the **ratio-lift** `ratioLift s n = s(n+1)/s n`, the multiplicative analogue
+of `diff` — and the key bridge fixes *exactly* what it does:
 
-  - **(L)** `geom_ratio_const` : `ratioLift (cⁿ) = c`, constant — exponential
-    growth floors at *ratio*-level 1, exactly as linear floors at *diff*-level 1.
-    The ratio-lift is to exponential what `diff` is to linear.
-  - **(L)** ★ `ratio_is_diff_on_exponent` : `ratioLift (c^{e_n}) = c^{diff e_n}` —
-    **the higher axis is the lower axis conjugated by the discrete logarithm.**  A
-    Liouville cross-det `c^{k!}` is depth-∞ on the difference axis, but its
-    *exponent* `k!` is finite-depth, and `ratioLift` reaches exactly that — **one
-    logarithm drops Liouville from ∞ to finite.**
-  - **(L)** `atTowerCoord h d` — the lexicographic coordinate: `h` ratio-lifts
-    (logs) to reach polynomial class, then `d` diff-depth.  `geom_at_1_0` (`cⁿ` at
-    `(1,0)`), `const_at_0_0`.
+  - **(L)** `geom_ratio_const` : `ratioLift (cⁿ) = c`, constant — a single
+    exponential floors at *ratio*-level 1, as a linear sequence floors at
+    *diff*-level 1.
+  - **(L)** ★ `ratio_is_diff_on_exponent` : `ratioLift (c^{eₙ}) = c^{diff eₙ}` —
+    **the ratio-lift is a `diff` on the exponent.**  Hence `ratioLift^h` floors
+    exactly `c^{polynomial of degree h}`: the coordinate `h` is the **exponent's
+    polynomial degree**, *not* an iterated-logarithm height (the earlier draft's
+    "log-height" reading was wrong).
+  - **(L)** `atTowerCoord h d` — the coordinate: `h` ratio-lifts then `d` diffs.
+    `geom_at_1_0` (`cⁿ`, exponent degree 1, at `(1,0)`), `const_at_0_0`.
+
+**The honest reach, and where the rule actually extends.**  Because `ratioLift` only
+*differences* the exponent, the `(ratioN, diffN)` system captures precisely the
+reals whose cross-determinant is `c^{poly}` (single exponential, polynomial
+exponent): e (cross-det `n!`) and π are *not* in this class — `n!` and the Wallis
+product are super-polynomial, so on the *value* axis they are difference-depth ∞ and
+`ratioLift` does not floor them either (`ratioLift` sends `c^{k!} ↦ c^{k!·k}`, the
+exponent still growing).  So **Liouville `c^{k!}` has no finite `(h,d)`** — it sits
+at the boundary of this two-operator system.  The genuine extension is *not* "one
+more `ratioLift`"; it is a **new operation one level down: a ratio on the exponent**.
+The exponent `k!` floors under *ratio* (`k! ↦ k+1 ↦` diff `↦` const), so resolving
+Liouville means applying the whole `(ratio, diff)` ladder *to the exponent
+sequence* — a self-similar recursion.  That recursion, applied to the exponent of
+the exponent and so on, is the genuine tower; its height is the third (and `h`-th)
+axis.  §10 records what is proven (the `(h,d)` well-order) and marks this recursion
+as the frontier.
 
 **CORRECTION (this is the honest reach of `(ratioN, diffN)`).**  `ratioLift` does a
 *difference on the exponent* (`ratioLift (c^{eₙ}) = c^{diff eₙ}`), so `ratioLift^h`

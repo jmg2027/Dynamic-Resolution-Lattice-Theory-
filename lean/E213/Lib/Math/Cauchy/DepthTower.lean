@@ -19,28 +19,32 @@ one logarithm up.  The full invariant is then a pair `(log-height, poly-depth)`.
     constant ratio-lift (`geom_ratio_const`), the multiplicative analogue of a
     linear sequence having constant difference.
 
-## The bridge — ratio is diff one logarithm down
+## The bridge — ratio is a difference *on the exponent*
 
-The two axes are the same operator viewed through `log`:
+The second axis is the first one applied to the exponent:
 
     ratioLift (c^{e n}) = c^{diff e n}            (`ratio_is_diff_on_exponent`)
 
-— the ratio of the values `c^{e n}` is `c` raised to the difference of the
-exponents.  So `ratioLift` is `diff` conjugated by the discrete logarithm.  This is
-why the higher axis resolves the infinity: a Liouville cross-determinant grows like
-`c^{k!}`, super-polynomial (depth infinite) on the value/difference axis, but its
-exponent `k!` is factorial-class of finite difference-depth, and `ratioLift`
-reaches exactly that exponent's difference structure — one logarithm drops
-Liouville from infinite depth into the finite-depth world.
+— the ratio of the values `c^{e n}` is `c` raised to the *difference of the
+exponents*.  So `ratioLift^h` floors exactly `c^{polynomial of degree h}`: the
+coordinate `h` is the **exponent's polynomial degree**.
 
-## The emerging coordinate `(h, d)`
+Scope (honest).  Because `ratioLift` only *differences* the exponent, this captures
+exactly the `c^{poly}` reals — single exponentials with polynomial exponent.  A
+Liouville cross-determinant `c^{k!}` is *not* in reach: `k!` is super-polynomial, so
+`ratioLift` sends `c^{k!} ↦ c^{diff k!} = c^{k!·k}` (exponent still growing) and
+never floors.  The genuine extension is **not** another `ratioLift`; it is a *ratio
+on the exponent* — apply the whole `(ratio, diff)` ladder to the exponent sequence
+itself (the exponent `k!` floors under ratio: `k! ↦ k+1`).  That self-similar
+recursion (ladder-on-the-exponent, then on its exponent, …) is the third and higher
+axes; this file proves only the first two and the `(h,d)` coordinate.
 
-Every real sits at a lexicographic pair: `h` = how many ratio-lifts (logarithms)
-until the sequence is of polynomial (finite difference-depth) class, then `d` =
-that difference-depth.  algebraic `(0,0)` · e `(0,3)` · π `(0,6)` · Liouville
-`(1, finite)` · tower `c^{c^{k!}}` `(2, finite)`.  The difference-axis infinity is
-not a wall — it is the signal to climb one axis; the log-height `h` is a new
-coordinate above the depth `d`.  The true infinity is unbounded log-height.
+## The coordinate `(h, d)`
+
+`h` = ratio-lifts (= exponent polynomial degree) until `c^{poly}` class, then `d` =
+difference-depth.  algebraic `(0,0)` · `cⁿ` (exponent degree 1) `(1,0)` · `c^{n²}`
+`(2,0)`.  e and π and the Liouville/iterated-exponential reals lie *beyond* finite
+`(h,d)` and need the exponent-recursion above.
 
 Purity note: every Lean-core division-cancel (`Nat.mul_div_cancel{,_left}`,
 `mul_div_right/left`, `mul_div_assoc`, `div_self`) pulls `propext`.  The PURE
