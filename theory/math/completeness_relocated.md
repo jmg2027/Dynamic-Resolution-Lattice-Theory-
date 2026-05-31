@@ -249,6 +249,37 @@ survives the iteration precisely because each grouping returns an object
 you can query, of the kind you started with — the tower is a finite-depth
 read at every probe, never an appeal to a completed infinity of levels.
 
+## 6. The grade is a measurable amount of resolution
+
+One more step closes the loop.  Up to here the grade has been an abstract
+tag in `(ℕ, +)`: it composes additively, it embeds, it stacks — but
+additively *over what*?  `Analysis/ResolutionQuantitative.lean` gives the
+tag its number.
+
+A `dyadicCut M E` is `constCut M (2^E)` — it represents the dyadic
+rational `M / 2^E`.  The grade-`n` shifter `cutHalfIter n` (n-fold
+`cutHalf`) sends it to `dyadicCut M (E+n) = constCut M (2^(E+n))`: the
+denominator goes `2^E ↦ 2^(E+n)`, the value `M/2^E ↦ (M/2^E)/2ⁿ`.  So:
+
+  - `grade_scales_denominator` — **grade `n` is exactly "`2ⁿ` finer"**:
+    it multiplies the denominator by `2ⁿ`, divides the value by `2ⁿ`.
+  - `grade_add_multiplies` — composing grades `a, b` multiplies the
+    resolutions: `2^(a+b) = 2^a · 2^b`.  The additive grade monoid
+    `(ℕ, +)` maps onto the multiplicative **resolution monoid (powers of
+    2, ×)**.  Additive grade ↔ multiplicative resolution.
+  - `resolution_is_measurable` — a transformer carries *at most one*
+    grade (grade uniqueness, distinguished at a single test probe), so
+    the amount of resolution is a well-defined number, not a choice; the
+    reading is faithful.
+
+This is the quantitative form of the whole thesis.  The modulus is not
+abstract bookkeeping: each grade *is* a measurable amount of resolution,
+the monoid law `a + b` *is* the composition of resolutions `2^a · 2^b`,
+and it is tangible because the amount is read at one query.  Completeness,
+relocated to a graded action, turns out to be **literally the act of
+sharpening resolution by measurable, composable steps** — which is what
+the framework was named for.
+
 ## Anchors
 
   - `lean/E213/Lib/Math/Real213/AbCutSeq.lean` — the shared carrier
@@ -263,6 +294,9 @@ read at every probe, never an appeal to a completed infinity of levels.
   - `lean/E213/Lib/Math/Analysis/ModulusMonoid.lean` — the modulus monoid
     `(ℕ→ℕ→ℕ, +, 0)`, the tower as its action, ResolutionShift grades
     embedded as the constant sub-monoid
+  - `lean/E213/Lib/Math/Analysis/ResolutionQuantitative.lean` — grade `n`
+    = `2ⁿ`-finer resolution; additive grade ↔ multiplicative `2^(a+b) =
+    2^a·2^b`; resolution measurable and unique
   - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — the `(ℕ,+)`-graded
     monoid the tower's moduli compose in
   - `lean/E213/Theory/Raw/Lambek.lean` — `self_similar_floor` (the same

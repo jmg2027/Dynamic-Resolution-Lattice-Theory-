@@ -217,6 +217,13 @@ Then the "group the thresholds, then group the groupings, …" question — answ
     constant sub-monoid via the monoid hom `gradeToModulus`
     (`gradeToModulus_add`, `shift_grade_embeds`) — grouping-of-groupings and
     resolution-shifting are one `(ℕ,+)`.
+  - `Analysis/ResolutionQuantitative.lean` (6 PURE) — the grade's *quantitative*
+    meaning.  `grade_scales_denominator` (grade n = `2ⁿ` finer: `dyadicCut M E ↦
+    constCut M (2^(E+n))`), `grade_add_multiplies` (`2^(a+b)=2^a·2^b`, additive
+    grade ↔ multiplicative resolution; `two_pow_add` PURE), `resolution_is_measurable`
+    (grade unique → faithful), `resolution_realised`.  Closes the thesis loop:
+    the modulus is a measurable, composable amount of resolution, not abstract
+    bookkeeping.
 
 ## e, π, φ as Real213 cuts via `AbCutSeq` — DONE (this session)
 
