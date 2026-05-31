@@ -144,55 +144,43 @@ den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
 (`mobius_213_pell_unit_invariant_forall`).  All manual `Int213` rewrites, no
 `ring`/`omega`/Mathlib.
 
+## φ as a Cauchy-complete limit object — DONE (this session)
+
+The chosen target is **closed**.  φ is now built two ways that agree on the nose:
+directly as one closed-form `ValidCut` (`PhiAsCut.phiCut`) and as the
+Cauchy-complete limit of the rational Pell convergents
+(`PhiCauchyLimit.phiConvergentSeq.limit`).
+
+  - ★ `FibCassiniNat.cs_eq_phiCut` (12/12 PURE) — for every target `(m,k)` and
+    every layer `i ≥ 2k`: `decide (fib(2i+2)·k ≤ fib(2i+1)·m) = phiCut m k`.
+    **Stronger than Cauchy** — the cut sequence is eventually *constant* and
+    equals the closed-form cut.  Honest pure-Nat modulus `N(m,k) = 2k`: squaring
+    the cross-inequality collapses the whole √5 comparison to `fib(2i+1) > 2k`,
+    reached by `fib_lb` (`i+1 ≤ fib(2i+1)`).  Case A (≥ φ) `true` ∀ layer
+    (`cs_true_of_ineqs`); case B (< φ) `false` past modulus
+    (`cs_false_of_below`/`cs_false_of_small`, strict mirror `gt_cross`/`qb_lt_pk`).
+  - ★ `PhiCauchyLimit.phiCauchy_limit_eq_phiCut` (3/3 PURE) — assembles
+    `CauchyCutSeq` (cs := native-Nat `convergentCS`, N := `2k`, cauchy from
+    `cs_eq_phiCut`) and proves `phiConvergentSeq.limit m k = phiCut m k` pointwise
+    (function `=` would pull `Quot.sound` via `funext`; pointwise is the 0-axiom
+    form).
+  - Written up: `theory/math/phi_self_similarity.md` §3.5 + Boundary update.
+  - **Two old-note corrections (both probed, not assumed)**: (1)
+    `of_decide_eq_true` on the φ-cut `And` is **PURE** — the feared "bool→Prop
+    extraction" was a non-issue; the `cs_eq_phiCut` case-split uses it freely.
+    (2) The lone `[propext]` in case A came **only** through
+    `Nat.exists_eq_add_of_lt` inside `mul_lt_mul_r` (re-routed via `(b+1)·a ≤
+    c·a`); `Nat.lt_or_ge`/`Nat.not_le` are PURE and were never the problem.
+  - Built natively on `fib` (not `pellConvergentCut`) because `pellNum n :=
+    (P_numerator.seq n).toNat` is an Int→Nat cast with no PURE `∀n` bridge; the
+    two are the same rational sequence (`pell_nat_values` numerically).
+
 ## OPEN (next targets — pick up here)
 
-  - **φ as a Cauchy-complete `ValidCut` limit object (chosen target).**  The
-    repo already has the machinery: `Analysis/CauchyComplete.CauchyCutSeq`
-    (`cs : Nat→Nat→Nat→Bool`, modulus `N`, `cauchy`) with `.limit` extraction and
-    `limit_eq_at`.  Plan to build `phiCut := (pellCauchy).limit` and prove it
-    equals/cut-equiv `PhiAsCut.phiCut`:
-    · **convergents are monotone-below-φ** — `fib_convergent_below_phi` (all
-      below φ, ∀n, DONE) + monotone increase (next).  Because OUR convergents
-      `fib(2n+2)/fib(2n+1)` rise to φ from one side, the Cauchy modulus is
-      *constructible*: for target `m/k ≥ φ` every convergent is `<` it → cut
-      stably `true`, `N=0`; for `m/k < φ` the convergents eventually exceed it →
-      stably `false`, `N =` first crossing layer.
-    · **nesting/shrinking witness DONE**: `FibCassiniNat.convergent_cross`
-      (`fib(2n+4)·fib(2n+1) = fib(2n+2)·fib(2n+3) + 1`, ∀n PURE) — adjacent
-      convergents differ by exactly one unit.  With `cross_gen` (generic form).
-    · **monotone + antitone DONE** (`FibCassiniNat`, all PURE):
-      `conv_mono` (convergents strictly increase: `fib(2n+2)·fib(2n+3) <
-      fib(2n+4)·fib(2n+1)`); `fib_odd_pos` (`1 ≤ fib(2i+1)`); `fib_lb`
-      (Archimedean `n+1 ≤ fib(2n+1)`); ★ `cs_antitone` — at every target `(m,k)`
-      the convergent-cut Bool is antitone in the layer (`fib(2i+4)·k ≤
-      fib(2i+3)·m ⟹ fib(2i+2)·k ≤ fib(2i+1)·m`), so it flips `true→false` at most
-      once.  An antitone Bool sequence is automatically Cauchy.
-    · **false-tail DONE** (`FibCassiniNat`, PURE): `cs_false_stays` (false at `i`
-      ⟹ false at `i+1`) and `cs_false_forward` (false at `i` ⟹ false at every
-      `i+d`).  So the `false`-side tail is eventually constant.  The `true`-side
-      (target `≥ φ`) is constant from layer 0 (`fib_convergent_below_phi`).
-    · **⚠ TWO real obstacles found this round (no `Nat.find` in core):**
-      (a) **case A DONE** (`FibCassiniNat.cs_true_of_ineqs`, PURE): given the
-      two φ-cut inequalities `k ≤ 2m` and `5·k² ≤ (2m−k)²` (i.e. target `m/k ≥ φ`),
-      every convergent cut is `true` (`fib(2i+2)·k ≤ fib(2i+1)·m ∀i`).  Via
-      `cut_trans` (squared-norm cut-order transitivity through φ) on
-      `pk_le_qb`/`mul_sq`/`sq_le_imp` (the last uses a PURE `mul_lt_mul_r` —
-      Lean-core `Nat.mul_lt_mul_right` is an iff that pulls Classical).  ⚠ The
-      bool→Prop step `phiCut m k = true ⟹ (k≤2m ∧ 5k²≤(2m−k)²)` is the ONE
-      remaining non-PURE point (`of_decide_eq_true` on the `And` imports
-      propext/Classical); for the CauchyCutSeq assembly, thread the cut Bool
-      directly (case-split on it) rather than extracting the conjunction.  Both
-      Cauchy tails closed: true-side (`cs_true_of_ineqs`) + false-side
-      (`cs_false_forward`).
-      (b) **explicit modulus `N m k`** (the flip layer for `m/k < φ`): needs a
-      closed-form bound from `fib_lb` (denominators grow ≥ linearly), since
-      `Nat.find` is unavailable.  `cs_false_forward` means any valid upper bound
-      on the flip works.
-    · **then**: assemble `CauchyCutSeq` (cs := `pellConvergentCut`, N := the
-      modulus, cauchy := case-split on `phiCut m k` using the true-tail / false-
-      tail) and prove `.limit = phiCut`.  All Nat/`Int213` PURE; NO Int↔Nat cast,
-      NO omega, NO Nat.find.
-  - **NOTE (repo-first catch this round)**: `Real213/Mobius213PellInvariant.
+  - **PURE `pellNum n = fib(2n+2)` / `pellDen n = fib(2n+1)` bridge** — would let
+    `pellConvergentCut` inherit `cs_eq_phiCut` directly and retire the native-Nat
+    `convergentCS` twin.  Blocked on a PURE `Int.toNat`-of-positive-seq lemma.
+  - **NOTE (repo-first catch)**: `Real213/Mobius213PellInvariant.
     Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
     `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`
     = our `normstep`).  `FibCassiniNat` is the `fib`-indexed twin; consider
