@@ -123,6 +123,35 @@ repo's PURE Nat-polynomial tools (`Meta/Nat/PureNat`, `Lib/Math/NatRing`):
     φ" (`PhiCutConvergents.convergents_below_phi` had only layers 0..8 by
     `decide`).
 
+### 3.5 φ as the Cauchy-complete limit object (`Lib/Math/Real213/PhiCauchyLimit.lean`)
+
+§3.3 pins φ as one closed-form cut; §3.4 shows every convergent sits below it.
+The remaining direction — φ built **as** the limit of the convergent sequence —
+is now closed, and lands on the *same* object.
+
+  - ★ `FibCassiniNat.cs_eq_phiCut` — for every target `(m, k)` and every layer
+    `i ≥ 2k`, the convergent cut value equals the closed-form cut:
+    `decide (fib(2i+2)·k ≤ fib(2i+1)·m) = phiCut m k`.  This is **stronger than
+    Cauchy**: the sequence is eventually *constant* and equal to `phiCut`.  The
+    modulus is honest and pure-Nat — squaring the cross-comparison collapses the
+    entire √5 analysis to the single condition `fib(2i+1) > 2k`, reached at
+    `i = 2k` by the Archimedean bound `fib_lb` (`i + 1 ≤ fib(2i+1)`).  Case A
+    (target `≥ φ`) is `true` at every layer (`cs_true_of_ineqs`, cut-order
+    transitivity through φ in squared-norm form); case B (target `< φ`) is
+    `false` past the modulus (`cs_false_of_below`/`cs_false_of_small`, the strict
+    mirror).
+  - `PhiCauchyLimit.phiConvergentSeq` — the convergent cut sequence assembled as
+    a `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit modulus
+    `N(m, k) = 2k`; the `cauchy` field is immediate from `cs_eq_phiCut`.
+  - ★ `PhiCauchyLimit.phiCauchy_limit_eq_phiCut` — `phiConvergentSeq.limit m k =
+    phiCut m k`.  The limit object built by completion **is** the closed-form
+    cut, pointwise.
+
+So φ is now constructed two ways that agree on the nose: directly as one
+decidable `ValidCut` (§3.3), and as the Cauchy-complete limit of the rational
+Pell convergents (§3.5).  The residue's irrational limit-ratio signature is one
+213-native Cut, however it is approached.
+
 ## The single statement
 
 `SelfSimilarityBridge.self_similarity_three_readings` bundles form + count +
@@ -133,10 +162,14 @@ refinement" is the experience of that single self-fixed-point, now a theorem.
 
 ## Boundary — what this is not
 
-  - Not an analytic / Cauchy-completion construction of φ: `phiCut` is a
-    closed-form decidable cut; the nested brackets are rational
-    (`PhiConvergence`).  A full Cauchy-complete `ValidCut` limit object
-    `lim pellConvergentCut` remains a separate (heavier) construction.
+  - φ is built **both** closed-form (§3.3) and by Cauchy completion (§3.5), and
+    the two coincide pointwise (`phiCauchy_limit_eq_phiCut`).  The completion is
+    carried out on the native-Nat convergent sequence `fib(2i+2)/fib(2i+1)` (=
+    `constCut` of the Fibonacci pair), not on the `pellNum`-stated
+    `pellConvergentCut`, because `pellNum n := (P_numerator.seq n).toNat` is an
+    Int→Nat cast and the repo has no PURE such bridge — the two are the same
+    rational sequence, witnessed numerically (`pell_nat_values`) but not yet by a
+    PURE `∀n` equation.
   - The `pellNum`-stated `PhiCutConvergents.convergents_below_phi` stays at
     layers 0..8 (`decide`); its ∀n upgrade lives in the native-Nat
     `fib_convergent_below_phi`, because `pellNum n := (P_numerator.seq n).toNat`
@@ -148,6 +181,7 @@ refinement" is the experience of that single self-fixed-point, now a theorem.
 cd lean
 lake build E213.Lib.Math.Real213 E213.Lib.Math.SelfSimilarityBridge E213.Theory.Raw.Lambek
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.FibCassiniNat
+python3 tools/scan_axioms.py E213.Lib.Math.Real213.PhiCauchyLimit
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 
