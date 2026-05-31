@@ -191,6 +191,33 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
   - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
     stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
+## Completeness as a relocated operation + the completion tower — DONE (this session)
+
+Foundational thread (originator: defining reals via completeness is a workaround;
+213 makes them tangible without it).  Narrative chapter
+`theory/math/completeness_relocated.md` (no Lean touched — promotion of PURE
+results); four claims each an existing Lean fact (A `PhiAsCut.phiCut` / B import
+graph / C `PhiAbCut.phiCompletion_limit_eq_phiCut` / D `EulerCut`+`PiCut`
+hypothesis-modulus + `MonotonicBounded` §180–194 LEM refusal).  Tangibility =
+queryability, NOT finiteness (`N_U` named as the discarded failure mode).
+
+Then the "group the thresholds, then group the groupings, …" question — answered
+**closed, not regress**:
+
+  - `Analysis/CompletionTower.lean` (7 PURE) — completion is a fixed point.  Type
+    closure (`limit : CauchyCutSeq → cut`, same type; `tower_stays_in_cut`),
+    collapse (`tower_is_single_inner`, level-2 = one inner completion by `rfl`;
+    `completion_idempotent`), value-stable (`tower_value_stable`).  = Lambek
+    `self_similar_floor` at the cut scale.
+  - `Analysis/ModulusMonoid.lean` (13 PURE) — "only the modulus moves" as a
+    theorem.  Moduli form pointwise `(ℕ→ℕ→ℕ, madd, mzero)` = `(ℕ,+,0)`
+    (`madd_assoc`/`comm`/`zero_{l,r}`); tower is its action
+    (`tower_resolves_at_madd` — stacking levels adds moduli;
+    `identity_level_is_mzero`).  ResolutionShift scalar grades embed as the
+    constant sub-monoid via the monoid hom `gradeToModulus`
+    (`gradeToModulus_add`, `shift_grade_embeds`) — grouping-of-groupings and
+    resolution-shifting are one `(ℕ,+)`.
+
 ## e, π, φ as Real213 cuts via `AbCutSeq` — DONE (this session)
 
 Transcendentals (and φ) lifted from the Raw/`orderProj` level (`Cauchy/Euler`,

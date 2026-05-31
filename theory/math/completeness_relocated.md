@@ -209,12 +209,33 @@ three reasons that are each a one-line Lean fact.
     No second object is built; the two levels flatten.  Completing a cut
     that is already a limit is the identity (`completion_idempotent`).
   - **Only the modulus moves.**  What accumulates up the tower is not
-    objects but the **modulus** — level 2 reads at `inner ∘ Nₒ`.  This is
-    exactly the `(ℕ,+)`-graded composition of `Analysis/ResolutionShift`
-    (`IsResolutionShift_compose`): grouping-of-groupings stacks grades,
-    never objects.  And `tower_value_stable` makes the consequence sharp:
-    once one completion pins the value at a probe, further grouping only
-    re-indexes *which* layer answers — never the answer.
+    objects but the **modulus** — level 2 reads at the composite of the
+    inner and outer moduli.  And `tower_value_stable` makes the consequence
+    sharp: once one completion pins the value at a probe, further grouping
+    only re-indexes *which* layer answers — never the answer.
+
+`Analysis/ModulusMonoid.lean` names the bookkeeping exactly.  The moduli
+form a commutative monoid — pointwise `(ℕ, +, 0)`:
+
+    Modulus := ℕ → ℕ → ℕ,   madd N₁ N₂ := (m,k) ↦ N₁ m k + N₂ m k,
+    mzero := (m,k) ↦ 0,
+
+with the laws `madd_zero_{l,r}`, `madd_assoc`, `madd_comm` (pointwise, so
+∅-axiom), and the tower is an **action** of it: `tower_resolves_at_madd`
+— the level-2 tower resolves at the composite `madd No Ni`, stacking
+levels *adds* moduli; `identity_level_is_mzero` — the trivial grouping
+adds the identity `mzero`.
+
+This is the *same* `(ℕ, +)` bookkeeping as the `(ℕ,+)`-graded cut
+transformers of `Analysis/ResolutionShift`, carried pointwise.  The link
+is honest — a scalar grade `E : ℕ` is not literally a modulus function,
+but it **embeds**: `gradeToModulus E := (m,k) ↦ E` is a *monoid
+homomorphism* (`gradeToModulus_zero`, `gradeToModulus_add`), so the
+ResolutionShift grade monoid sits inside the tower's modulus monoid as
+the constant sub-monoid, and grade addition `E₂ + E₁`
+(`IsResolutionShift_compose`) is `madd` of the embedded moduli
+(`shift_grade_embeds`).  Grouping-of-groupings and resolution-shifting
+are one `(ℕ,+)` — one scalar, one pointwise.
 
 So the "threshold of thresholds of thresholds …" sequence is the
 **self-similar floor** (`Theory/Raw/Lambek.self_similar_floor`) read at
@@ -239,6 +260,9 @@ read at every probe, never an appeal to a completed infinity of levels.
     completeness operation and its closure under valid cuts
   - `lean/E213/Lib/Math/Analysis/CompletionTower.lean` — grouping the
     groupings closes (type closure, collapse, modulus composition)
+  - `lean/E213/Lib/Math/Analysis/ModulusMonoid.lean` — the modulus monoid
+    `(ℕ→ℕ→ℕ, +, 0)`, the tower as its action, ResolutionShift grades
+    embedded as the constant sub-monoid
   - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — the `(ℕ,+)`-graded
     monoid the tower's moduli compose in
   - `lean/E213/Theory/Raw/Lambek.lean` — `self_similar_floor` (the same
