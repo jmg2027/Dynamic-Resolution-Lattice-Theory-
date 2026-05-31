@@ -26,6 +26,11 @@
   - `PhiAbCut.lean` — φ as an `AbCutSeq`; the algebraic/transcendental split as a
     theorem (φ completes with closed-form modulus `N=2k`, e/π take it as a
     hypothesis — algebraicity *is* the closed-form modulus).
+  - `MobiusProbeTwist.lean` — the cut-probe lattice `(m,k)` is twisted by the
+    Möbius `P = [[2,1],[1,1]]` (`Pstep (m,k) = (2m+k, m+k)`); P preserves rational
+    order (det `= NS−NT = 1`), so the twist sends cuts to cuts
+    (`cutThroughP_ratio`).  The two probe axes are braided by the `(NS,NT)=(3,2)`
+    matrix.
 
 ## Architecture notes
 
