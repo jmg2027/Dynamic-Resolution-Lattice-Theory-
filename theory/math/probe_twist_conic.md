@@ -108,6 +108,45 @@ This is the cut-level shadow of a genuine arithmetic difference, but the
       element of that same `SL₂(ℤ)`.  That is a common stage, **not** a derivation
       of one from the other.
 
+## 5. The *form of the divergence* — the cross-determinant **(L)**
+
+If a transcendental's convergents escape every conic, the escape itself has a
+shape.  It is the **cross-determinant** (discrete Wronskian, the symplectic area
+between consecutive convergents):
+
+    W_n := aₙ·d_{n+1} − a_{n+1}·dₙ.
+
+This one quantity *is* the form of the spreading, and it is a closed function of
+`n` for each real — the infinite divergence captured by a finite pointer (its
+recurrence), then that captured again (the closed form):
+
+| real | `W_n` | meaning |
+|---|---|---|
+| **φ** (algebraic) | `±1` constant | `det P = 1`, area preserved → one conic (Cassini, `ConvergentDet`) |
+| **e** | `−n!` | step-transfer `(a,d)↦((n+1)a+1,(n+1)d)`, step-det `(n+1)²` → factorial area |
+| **π/2** | `−wallisNumₙ·wallisDenₙ` | Wallis-product area (key: `(2n+1)(2n+3) = 4(n+1)²−1`) |
+
+  - **(L)** `EulerDivergenceForm.euler_cross_det` proves `W_n = −dₙ` (sign-free:
+    `a_{n+1}dₙ = aₙd_{n+1} + dₙ`); `eulerDen_eq_fact` gives `dₙ = n!`; so
+    `euler_cross_det_is_factorial` is `|W_n| = n!`.  **e's divergence form is the
+    factorial.**
+  - **(L, repo)** φ's `W_n = 1` is the Fibonacci–Cassini identity
+    (`Mobius213/Px/ConvergentDet`): the algebraic case is *area-preserving*, which
+    is exactly why it stays on a conic.
+  - **(L, verified; π proof not formalised here)** π/2's `W_n =
+    −wallisNumₙ·wallisDenₙ` follows from the scalar identity `4(n+1)² =
+    (2n+1)(2n+3) + 1`.
+
+So **"what is the form?"** has a uniform answer — *the cross-determinant `W_n`* —
+and three different closed values: **constant 1** (algebraic, area-preserved),
+**`n!`** (e), **Wallis product** (π).  Same question, three forms; that *is* how e,
+π, and the algebraic irrationals differ at this level.  The transcendence of e is
+not formlessness — it is the form `W_n = −n!`: an algebraic *function of n*, not an
+algebraic *number*.  This is the user's framing made literal: the infinite (the
+divergent sequence) is handled by a finite reference (the recurrence of `W_n`), and
+the divergence of *that* by another finite reference (the factorial / Wallis closed
+form).
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
@@ -126,5 +165,8 @@ transcendentals is a separate, higher theory this construction does not reach.
   - `lean/E213/Lib/Math/Real213/ProbeTwistFixedPoint.lean` — e not fixed
   - `lean/E213/Lib/Math/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
   - `lean/E213/Lib/Math/Cauchy/PellSeq.lean` — `pell_invariant` (√2 keeps `x²=2y²+1`)
+  - `lean/E213/Lib/Math/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
+    (e's divergence form `|W_n| = n!`)
+  - `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — φ's `W_n = 1` (Cassini)
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).
