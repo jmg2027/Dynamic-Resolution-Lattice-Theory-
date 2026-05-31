@@ -2,6 +2,32 @@
 
 Branch: `claude/tower-research-analysis-3uWqd`
 
+## LATEST ARC — real numbers as cuts → φ-twist conic → divergence depth
+
+A long foundational thread (originator-driven Q&A).  Chapter
+`theory/math/probe_twist_conic.md` (7 tiers) + `completeness_relocated.md`.  All
+∅-axiom; pushed.  The chain, each link a theorem:
+
+  1. **Completeness is relocated, not constitutive** — a real is a decision
+     procedure vs ℚ; arithmetic/order import no `CauchyComplete`; completion is a
+     leaf, unconditional for algebraic (φ closed-form modulus) / modulus-gated for
+     transcendental (`AbCutSeq`, `PhiAbCut`, `EulerCut`, `PiCut`,
+     `CompletionTower`, `ModulusMonoid`, `ResolutionQuantitative`, `ModulusForm`).
+  2. **The probe lattice is P-twisted** — `MobiusProbeTwist`: cut probe `(m,k)`
+     braided by `P=[[2,1],[1,1]] ∈ SL₂(ℤ)`, order-preserving (det = NS−NT = 1).
+  3. **φ is the twist's fixed cut** (`PhiProbeFixed.phi_is_probe_twist_fixed`);
+     e is not (`ProbeTwistFixedPoint.e_not_fixed`).
+  4. **The wobble = `f⁻¹` (backward Pell step)** — `ProbeTwistDynamics.twist_undoes_step`.
+  5. **The wobble's shape = the conic `Q=m²−mk−k²`** — `ProbeTwistConic.Q_preserved`
+     (every orbit on its hyperbola `Q=N`, φ the asymptote, disc 5 = NS+NT).
+  6. **The divergence has a form** — `EulerDivergenceForm`: cross-det `W_n` is the
+     Wronskian; φ `W=±1`, e `W=−n!`, π `W=−wallisNum·wallisDen`.
+  7. **Divergence DEPTH** — `DivergenceDepth`/`DivergenceLadder`: lift the form
+     repeatedly until constant; algebraic depth 1 < e depth 3 < π depth 6 <
+     Liouville ∞.  **Depth ≠ irrationality measure μ** (μ collapses alg=e=π=2;
+     depth separates) — depth = the P-recursive/holonomic rank, verified against
+     Roth + Liouville before claiming.
+
 ## This session — tower analysis → Raw branching → the residue → self-covering
 
 Started as a "tower" research audit; became a foundational thread on what the

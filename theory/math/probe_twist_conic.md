@@ -248,5 +248,9 @@ transcendentals is a separate, higher theory this construction does not reach.
   - `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — φ's `W_n = 1` (Cassini)
   - `lean/E213/Lib/Math/Cauchy/DivergenceDepth.lean` — the divergence ladder;
     `depth_three` (e bottoms out at depth 3); algebraic depth 1, π depth 6
+  - `lean/E213/Lib/Math/Cauchy/DivergenceLadder.lean` — abstract depth
+    (`diff`/`liftK`/`reachesFloor`); `e_ratio_floor` (finite), `infinite_depth`
+    (Liouville ∞), `const_reaches_floor` (algebraic floor); depth = P-recursive
+    rank, **not** the irrationality measure
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).
