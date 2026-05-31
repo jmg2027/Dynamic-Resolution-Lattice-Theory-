@@ -1,158 +1,399 @@
 # Session handoff
 
-Branch: `claude/moufang-polarization-conditions-X9f2p`
+Branch: `claude/tower-research-analysis-3uWqd`
 
-## Non-associative Moufang layer via polarization — COMPLETE
+## LATEST ARC — real numbers as cuts → φ-twist conic → divergence depth
 
-Closed the L3/L4 **non-associative** alt layer of the Cayley-Dickson
-towers: `MoufangIntegerNormed213` instances for **Cayley** (Type A L3,
-integer octonions), **ZOmegaQuad** (Type C L4, M_24 Chein loop), and
-**L4T** (Type B L4) — the CDDouble of a *non-commutative* associative
-base, where the Moufang norm-collapse is the genuine degree-4 Hurwitz
-identity (no `mul_assoc` shortcut).
+A long foundational thread (originator-driven Q&A).  Chapter
+`theory/math/probe_twist_conic.md` (7 tiers) + `completeness_relocated.md`.  All
+∅-axiom; pushed.  The chain, each link a theorem:
 
-### The polarization condition (the session's core idea)
+  1. **Completeness is relocated, not constitutive** — a real is a decision
+     procedure vs ℚ; arithmetic/order import no `CauchyComplete`; completion is a
+     leaf, unconditional for algebraic (φ closed-form modulus) / modulus-gated for
+     transcendental (`AbCutSeq`, `PhiAbCut`, `EulerCut`, `PiCut`,
+     `CompletionTower`, `ModulusMonoid`, `ResolutionQuantitative`, `ModulusForm`).
+  2. **The probe lattice is P-twisted** — `MobiusProbeTwist`: cut probe `(m,k)`
+     braided by `P=[[2,1],[1,1]] ∈ SL₂(ℤ)`, order-preserving (det = NS−NT = 1).
+  3. **φ is the twist's fixed cut** (`PhiProbeFixed.phi_is_probe_twist_fixed`);
+     e is not (`ProbeTwistFixedPoint.e_not_fixed`).
+  4. **The wobble = `f⁻¹` (backward Pell step)** — `ProbeTwistDynamics.twist_undoes_step`.
+  5. **The wobble's shape = the conic `Q=m²−mk−k²`** — `ProbeTwistConic.Q_preserved`
+     (every orbit on its hyperbola `Q=N`, φ the asymptote, disc 5 = NS+NT).
+  6. **The divergence has a form** — `EulerDivergenceForm`: cross-det `W_n` is the
+     Wronskian; φ `W=±1`, e `W=−n!`, π `W=−wallisNum·wallisDen`.
+  7. **Divergence DEPTH** — `DivergenceDepth`/`DivergenceLadder`: lift the form
+     repeatedly until constant; algebraic depth 1 < e depth 3 < π depth 6 <
+     Liouville ∞.  **Depth ≠ irrationality measure μ** (μ collapses alg=e=π=2;
+     depth separates) — depth = the P-recursive/holonomic rank, verified against
+     Roth + Liouville before claiming.
+  8. **Finite depth ⟺ P-recursive** — `DepthPRecursive`: `polyDepth d s` (d-th
+     diff constant); `polyDepth_succ_iff` (diff lowers degree by 1, via
+     `liftK_diff_comm`).  Classical CF data: exp/tan family (e, tanh1=[0;1,3,5,7,…]
+     arithmetic CF) = finite depth = Riccati/E-function class; π/arctan1/ln2
+     irregular.
+  9. **The higher axis (log) resolves ∞** — `DepthTower`: `ratioLift` (mult lift);
+     `ratio_is_diff_on_exponent` (ratio on values = diff on exponents = the
+     discrete log) → one logarithm drops Liouville from depth-∞ to finite.  The
+     `(h,d)` coordinate: `h` ratio-lifts then `d` diffs.  **CORRECTION (see below)**:
+     `h` is the *exponent's polynomial degree*, not iterated-log height — `ratioLift^h`
+     floors `c^{poly deg h}` (since `ratioLift = diff-on-exponent`).  Verified finite:
+     algebraic (0,0); e cross-det `n!` at (1,1); π similar.  **Liouville `c^{k!}` has
+     NO finite (h,d)** — its exponent `k!` is super-polynomial, and `ratioLift` only
+     *diffs* the exponent (never floors `k!`).  The earlier "Liouville (1,finite) /
+     tower (2,finite)" claims were WRONG.  The genuine third axis = *ratio on the
+     exponent* (not another `ratioLift`); Liouville sits exactly at the boundary of
+     the `(ratioN, diffN)` system's reach.
+  10. **The coordinate is an ordinal `< ω²`** — `DepthOrdinal` (9 PURE): `(h,d)` as
+     `ω·h+d`, lex order on ℕ×ℕ is a well-founded strict linear order (`lex_wf`,
+     nested `Acc.rec` on `Nat.lt_wfRel.wf`).  `no_infinite_descent` = resolution
+     always terminates.  Ranks (finite cases, corrected): algebraic 0 · e (cross-det
+     `n!`) at (1,1) · π similar — all `< ω²`.  Liouville is NOT `ω+d`; it has no
+     finite `(h,d)` (needs the genuine third axis = ratio-on-exponent).  The
+     `DepthOrdinal` well-order theorem stands for the `(h,d)` reals that DO have a
+     finite coordinate; the ε₀ story requires the recursive/exponent axis (frontier).
+  11. **Third axis formalised = recursion into the exponent** — `DepthExponentRecursion`
+     (6 PURE).  `expSeq c e n := c^{eₙ}`; `ratioN_expSeq`: `d` ratio-lifts of the value
+     = `d` diffs of the exponent; `value_floors_iff_exponent_floors`: value resolves at
+     ratio-depth `d` IFF exponent resolves at diff-depth `d`.  So `value-height =
+     1 + exponent-height` — the axis tower is a *self-similar recursion* (same
+     `(diff/ratio)` ladder one exponent layer deeper).  Liouville `c^{k!}`: exponent
+     `k!` floors only under ratio.
+  12. **"Is ε₀ the end of the axes?" — NO** — `DepthDoubleExp` (6 PURE).  PROVEN
+     step: `2^{2ⁿ}` is a fixed point of every `ratioN h` (`ratioN_dexp` via
+     `diff_twoPow`: `Δ(2ⁿ)=2ⁿ`), so `dexp_not_const` — `ratioN` reaches EXACTLY
+     `c^{poly}` (`< ω²`); the 2nd exponential layer needs the §11 recursion, not a
+     longer `ratioN`.  Ordinal reading (classical): each exp layer ×ω the rank →
+     `c^{poly}` `ω·d`, `c^{c^poly}` `ω²·d`, depth-r tower `ω^r·d`, finite-r sup
+     `ω^ω`; `ε₀` = closure of diagonalising the tower height, NOT a top (`ε₀+1`,
+     `ε₁`, Veblen above).  No ceiling — every named bound is where one iteration
+     closes.  (Corrects the earlier "tower (2,finite)" reading.)
+  13. **"Turn the ceiling-raising itself into a reference" → the residue** —
+     `DepthCeilingResidue` (6 PURE).  Naming the whole tower at once is a
+     diagonalisation: `diag f n = f n n + 1` escapes every level (`diag_not_in_seq`),
+     so referencing the tower makes a fresh ceiling outside it — no termination, no
+     escape, just the next gap.  Same structure as the foundational residue:
+     `ceiling_reference_leaves_residue` = `cantor_general` (engine behind
+     `object1_not_surjective`); `ceiling_residue_is_pointing_residue` =
+     `self_covering_closure`.  Ordinal tower (`ε₀`, Veblen) and pointing-residue =
+     ONE self-covering closure at two scales.  Hierarchy has no top because pointing
+     has no exterior (`05_no_exterior`) — **arc closes back onto its origin**
+     (completeness-as-relocated-finite-op → … → residue).  Chapter §13.
+  - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
+     continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
+     **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
+     have **no** known CF pattern (irregular, deeper).
+  - **Process lesson (after ~5 broken DepthTower commits)**: every Lean-core
+     division-cancel pulls `propext`; the PURE chain is `Nat.div_eq_sub_div` →
+     `add_div_right_succ` → `mul_div_self_pure` → `mul_div_cancel_left_pure`
+     (file-local).  **build-green ≠ purity-green**: verify each new Lean file
+     SEQUENTIALLY (`rm olean` → `lake env lean` → `scan_axioms`) before commit;
+     never trust cached "Build completed", never parallelise build with scan.
+     Final depth-arc: 6+4+7+6+12+6 = 41 PURE / 0 dirty.
 
-Task question: *what cancels the residue when doubling a
-non-commutative associative base?*  Answer: the **trace form**, the
-linear/polarization companion of the quadratic norm form.
+## This session — tower analysis → Raw branching → the residue → self-covering
 
-New class `TraceNormed213` (in `Meta/Algebra213/Core.lean`):
-```
-class TraceNormed213 α extends IntegerNormed213 α where
-  trace         : α → Int
-  self_add_conj : ∀ a, a + conj a = ofInt (trace a)
-```
-Where `self_mul_conj` (`a·conj a = ofInt(normSq a)`) is the quadratic
-coefficient, `self_add_conj` is the linear one — together the two
-coefficients of a Hurwitz integer's minimal polynomial.
+Started as a "tower" research audit; became a foundational thread on what the
+residue (the "1" in 2-1-3) is.  All commits ∅-axiom where Lean; pushed.
 
-### Where the residue cancels
+### Constructive deliverables (all PURE)
 
-`Meta/Algebra213/CDDoubleMoufang.lean` (all strict ∅-axiom):
-  - `diag_collapse` — the four *diagonal* terms of the Hurwitz
-    expansion collapse to central `ofInt` scalars via `self_mul_conj`.
-  - `cross_zero` — the four *cross* terms cancel pairwise: the
-    non-commutative residue `conj a·conj w − conj w·conj a = a·w − w·a`
-    is killed because `a + conj a` is central (`self_add_conj`).
-  - `hurwitz_norm_re` — the full degree-4 identity assembled.
-  - `cd_normSq_mul` — Hurwitz norm composition `|u·v|² = |u|²·|v|²`
-    for `CDDouble α` over a non-comm base, derived from
-    `hurwitz_norm_re` (NOT from Moufang → no circularity).
-  - `cd_moufang_norm` + `instMoufangIntegerNormed213CDDouble` — the
-    abstract `MoufangIntegerNormed213 (CDDouble α)` instance for any
-    `[TraceNormed213 α]`.
+  - **`Theory/Raw/PrimitiveTower.lean`** (8 PURE) — the most primitive tower:
+    `rawTower n = a/(a/(…/b))`, the single `slash` (self-pointing) arrow
+    iterated; `depth = level`, `depth < leaves` every rung.
+  - **`Lens/FlatOntologyClosure.lean`** (6 PURE) — the self-covering closure
+    *limit* half: `object1_injective` (Raw self-covers as predicates,
+    faithful) ∧ `object1_not_surjective` (Cantor: the predicate space is not
+    in the image = the residue surplus).  `residue_witnessed` names a concrete
+    inhabitant of the gap: `undifferentiated := fun _ => true` (the `Raw→Bool`
+    shadow of `constLens`) — no Raw's indicator equals it.  Complements the
+    pre-existing *positive* half `Lens/PredicateSelfEncoding.lean` (7 PURE,
+    definable/finite-prefix predicate → Raw round-trip).
+  - **`research-notes/G152_residue_self_covering.md`** — synthesis note (the
+    full intellectual thread; file map; this open problem).
+  - **`research-notes/data/probes/raw_branching_shape.py`** (+png) — Raw
+    branching simulation, self-checks SET-EQUAL to Lean `RawDepth3.depthLe3List`.
+    Findings: residue ratio → 1 (structure recedes from the complete-graph
+    "void" in proportion); 1D Lens collapses |S_n| onto 2^n+1 dyadic positions;
+    growth exponent = 2 = NT.
+  - **`theory/essays/tower_atlas.md`** — boundary section (which repo "towers"
+    are P-orbit readings vs distinct constructions); dropped deprecated N_U.
+  - **`algebra_tower.md`** frontier fixed; **`G150`** trimmed.
 
-### Concrete layers (each bridges via `toCDDouble`)
+### Where the discussion landed (for the next session)
 
-| Layer | File | base TraceNormed213 |
-|---|---|---|
-| Cayley (A L3) | `Levels/CayleyMoufang.lean` | Lipschitz (trace `2·re`) |
-| ZOmegaQuad (C L4) | `Integer/ZOmegaQuadAlgebra213.lean` §4 | ZOmegaDouble (Eisenstein `2re−im`) |
-| L4T (B L4) | `Integer/ZSqrtMinus2Algebra213.lean` §7 | L3T (trace `2·re`) |
+The driving question "is the residue a GAP between 2 and 3 or the UNDIVIDED
+thing both are?" dissolved, not answered:
 
-Each yields `normSq_mul` (Hurwitz composition) via the generic
-`MoufangIntegerNormed213.normSq_mul`, verified `#print axioms` →
-"does not depend on any axioms".  This **replaces** the
-`hurwitz_ring` 32-Int-var brute force (`maxHeartbeats 4000000` in
-`CayleyHeavy.normSq_mul`) with one structural lemma reused across all
-three towers.
+  - "gap" is the *separation-view* reading; "undifferentiated" is the
+    *non-separation-view* reading; **the residue is neither — it is what both
+    views read.**  Raw has no "separation/non-separation" predicate either;
+    both are Lens readings (per `seed/AXIOM/05_no_exterior.md` §5.4, §6.5).
+  - Formally, only `object1_not_surjective` touches the residue *itself*: it is
+    the surplus outside *every* pointing-view's image.  `object1_injective` /
+    `distinct_equiv` / `residue_witnessed` are each one **view's survey**, not
+    the residue.
+  - The "1" (`Mobius213OneAsGlue`): `det(P) = NS − NT` proves gap = glue = the
+    same 1 — the **rotation axis** 2 and 3 interconvert around, not an interval.
+    0 = collapse (swap-fixed diagonal); 1 = the undivided unit.  Originator's
+    own words: "1이 회전축, 2-1-3 불가분."
+  - Method (Mingu): to investigate the "몰루" (the indeterminate — what cannot
+    be seen as any single state) you must survey **all** sides — separation and
+    non-separation views both.  Every view is a variation of the most primitive
+    act = **pointing (지칭)**; "Raw = the residue of pointing" is itself the
+    *most primitive view*, not a final description.
 
-## Follow-up marathon (this session, after the core layer)
+## Follow-up bricks this session (open problem RESOLVED + marathon)
 
-  - **#1 done** — `CayleyHeavy.normSq_mul` now bridges to
-    `cd_normSq_mul` (PURE); the `hurwitz_ring` + `maxHeartbeats 4000000`
-    proof is gone.  `TraceNormed213 Lipschitz` relocated to
-    `LipschitzAlgebra213` (cycle-free).
-  - **#5 done** — `CayleyDickson/INDEX.md`, theory chapter
-    `theory/math/cayley_dickson/algebra_tower.md` (new norm-composition
-    section), methodology Pattern #21 (polarization), falsifier-roster
-    composition-boundary entry.
-  - **#2 done (partial)** — new reusable `NonAssocRing213` /
-    `NonAssocStarRing213` generic-lemma layer (Ring213 proofs port
-    verbatim, no `mul_assoc`).  `SedenionHeavy.conj_mul_anti` now PURE
-    (was 8M-heartbeat `hurwitz_ring`).
-  - **#3 done** — `Levels/SedenionZeroDivisor.lean`: explicit zero
-    divisor `(e₁+e₁₀)(e₄−e₁₅)=0` + `normSq` non-multiplicativity,
-    marking the composition boundary (decide, ∅-axiom).
-  - **octonion alternativity done** — `Meta/Algebra213/CDDoubleAlternative.lean`:
-    `cd_alt_left` (hard component identity via the same norm-central +
-    trace-polarization + assoc reductions), `cd_alt_right` (conj
-    anti-automorphism of alt_left), `cd_flexible` (linearization).
-    `CayleyHeavy.{alt_left,alt_right,flexible}` bridge to it — **CayleyHeavy
-    is now entirely `hurwitz_ring`-free** (and its `HurwitzRing` import +
-    `maxHeartbeats` are gone).
+  - **"One closure or two?" — answered: TWO, mutually supporting.**
+    `Theory/Raw/Lambek.lean` (8 PURE): `decompose` (Lambek forward, the pointing
+    act is a fixed point of its constructor shape — holds for μF and νF alike)
+    + `depth_drops`/`atoms_are_floor` (well-founded, selects the LEAST fixed
+    point); `two_closures` bundles them — neither implies the other, Raw = μF is
+    their conjunction.  Also `self_similar_peel`/`self_similar_floor` (the floor
+    = fixed shape under refinement, not a stipulated stop).
+  - **Method note** `research-notes/G153_method_labelling_toward_residue.md` —
+    why one slips (distributional gravity toward a fixed standpoint; 213 has
+    none) + the positive method (labelling is the limit and the only method;
+    many labels' common shadow narrows the residue's outline; never promote a
+    shadow to identity).  CLAUDE.md gained the "View promoted to identity"
+    failure mode.
+  - **Marathon (3 continuations of G153, all closed):**
+    · #2 `Lib/Math/Real213/ObjectIsReadingScaleInvariant.lean` (4 PURE) —
+      object = reading is scale-invariant (atom `Object1 : Raw→(Raw→Bool)`;
+      limit `RealAsLensOutput = Nat→(Nat→Bool)`); one shape `Index→Bool`.
+    · #1 `Lib/Math/SelfSimilarityBridge.lean` (3 PURE) —
+      `self_similarity_two_readings`: the form reading (Raw `self_similar_floor`)
+      and the count reading (`numV(m+n) = numV m · numV n`, the `5^L`
+      level-replication) are one self-similarity, two Lenses.
+    · #3 `Lib/Math/DualCollapseCapstone.lean` (1 PURE) —
+      `every_dual_is_one_shape`: four duals (decompose/build, object/morphism,
+      object/reading, difference/identity) each one shape under the pointing
+      view; the shared column made explicit (convergence evidence, not capture).
 
-## Open / next
+## φ self-similarity arc CLOSED + written up as a chapter
 
-  - `SedenionHeavy.flexible` + `TrigintaduoionionHeavy` are the last
-    `hurwitz_ring` users.  These are **flexibility over a non-associative
-    base** (Sedenion = CDDouble Cayley); the associative `cd_flexible`
-    does not apply.  `Sedenion` `alt_left`/`alt_right` genuinely *fail*
-    (zero divisors), so only flexibility is in play.
+`fib_convergent_below_phi` ∀n (`Lib/Math/Real213/FibCassiniNat.lean`, PURE)
+completes the arc: every Fibonacci/Pell convergent is below φ, native-Nat ∀n.
+Primary narrative now at **`theory/math/phi_self_similarity.md`** (registered in
+`theory/math/INDEX.md`, linked from `THEORY_BOOK.md §IV` self-form section) —
+the paper-grade write-up of the three-readings result.  Larger frame stays in
+`tower_atlas.md` / `THEORY_BOOK`; follow-on directions are the OPEN items below.
 
-    **Precisely scoped** (verified numerically, `/tmp` Python during the
-    session — re-derive before coding):
-      · flexibility of `CDDouble α` needs only **base-flexible** (NOT
-        base-alternative): trigintaduonion = CDDouble of the
-        flexible-but-non-alternative sedenion is itself flexible.
-      · So the target is `cd_flexible_nonassoc` over a base class bundling
-        `NonAssocStarRing213` + `flexible` + `self_mul_conj`/`conj_mul_self`
-        (norm central) + `self_add_conj` (trace central).  Cayley and
-        Sedenion are instances (Cayley flexible = `CayleyHeavy.flexible`).
-      · `.re` term grouping (a=u.re,b=u.im,c=v.re,d=v.im, conj=base):
-        `(a*c)*a = a*(c*a)` (base flexible);
-        `conj b*(b*conj c) = (conj c*conj b)*b` (call it `L4=R3`);
-        `-(conj d*b)*a - conj b*(d*a) = -a*(conj b*d) - (a*conj d)*b`
-        (trace pair `L2+L3=R2+R4`).  `.im` is analogous.
-      · Key reusable base lemma: `(conj b*y)*b = conj b*(y*b)`
-        (`moufang_mid`) holds from **flexible + trace**: substitute
-        `conj b = ofInt(trace b) - b`, the trace term is central, the
-        remainder is `[b,y,b] = 0` (base flexible).  This is the lever for
-        the cross-terms; `L4=R3` reduces similarly via flexible + norm
-        (`conj b*b = ofInt(normSq b)` central) + trace.
-      · Effort: ~cd_alt_left scale ×(both components) + base sub-lemmas +
-        typeclass + Cayley/Sedenion instance bridges.  Sizeable; warrants
-        its own session.
+## φ-side CLOSED — self-similarity now has all three readings
 
-    **Foundation built (`Meta/Algebra213/CDDoubleFlexible.lean`, all PURE):**
-      · class `FlexAlt213` (= `MoufangIntegerNormed213` + `trace`/
-        `self_add_conj` + `conj_mul_self` + scalar nuclearity
-        `ofInt_nuc_{l,m,r}` + `alt_left`/`alt_right`/`flexible`).  [Note:
-        the file uses the *alternative* base form — `alt_left`/`alt_right`
-        are included; flexibility-only would drop them but then `L4=R3`
-        needs a different reduction.  Cayley satisfies alt, so this
-        covers Sedenion; Trigintaduonion (base Sedenion, non-alt) would
-        need the flexibility-only variant.]
-      · DONE lemmas (all PURE): `conj_eq`; `left_assoc_conj`
-        (`[conj b,b,X]=0`); `right_assoc_conj` (`[X,conj b,b]=0`);
-        `conj_sandwich` (gives `L4=R3`); `moufang_mid`; **`flex_polar`**
-        (linearized flexibility `(x·y)·z + (z·y)·x = x·(y·z) + z·(y·x)`).
-      · **Remaining crux = the cross-pair**
-        `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
-        Verified to hold; partially reduced.  Findings (this session):
-          – via scalar nuclearity + `conj = ofInt(trace ·) − ·`, the
-            cross-pair ⟺ `(★)  D·(ba−ab) + B·(da−ad) =
-            (db)a + b(da) − a(bd) − (ad)b`  (`D=ofInt(trace d)`,
-            `B=ofInt(trace b)`, both central+nuclear);
-          – two `flex_polar` rewrites collapse `(★)`'s RHS to
-            `d(ba) − (ab)d + (bd)a − a(db)` (verified `= (★)`-LHS too);
-          – BUT closing `(★)` needs `D = d + conj d`, `B = b + conj b`,
-            and the resulting `conj d·(ba−ab) + conj b·(da−ad)` is
-            **`flex_polar`-self-similar and conj-self-similar** —
-            re-applying linearized flexibility regenerates cross-pair-
-            shaped terms instead of reducing.  So `flex_polar` + trace
-            alone do NOT close it; an essential use of conj-anti
-            (`conj_mul`) + norm (`self_mul_conj`) in a specific
-            combination is required.  This is the core computation of the
-            literature theorem "Cayley-Dickson doubling preserves
-            flexibility" (cf. Schafer); recommend transcribing that
-            identity sequence rather than re-deriving from scratch.
-      · After the cross-pair: `cd_flexible.re` = `flexible`(L1=R1) +
-        `conj_sandwich`(L4=R3) + cross-pair; `.im` analogous; then
-        register `Cayley`/`Sedenion : FlexAlt213` (Cayley needs trace +
-        conj_mul_self + scalar-nuclearity proofs — real-scalar nuclearity
-        is the fiddly one) and bridge `Sedenion.flexible`.
-  - `CayleyHeavy.no_zero_div`'s residual `[propext, Quot.sound]` comes
-    from `normSq_eq_zero_iff`'s `↔`/decidability machinery (Int), not
-    the polynomial brute force.
+`Lib/Math/SelfSimilarityBridge.lean` (5 PURE) — `self_similarity_three_readings`:
+"same shape under descent" is one self-similarity from the (NS,NT)=(3,2)
+signature read three ways —
+  · **form** (Raw `self_similar_floor`): constructor shape invariant, atomic floor;
+  · **count** (`self_similar_count`): level count replicates by `d = 5 = disc P`
+    (`numV (m+n) = numV m · numV n`);
+  · **limit-ratio** (`self_similar_ratio_is_phi`): the P-orbit consecutive-term
+    ratio settles on the irrational fixed point φ (`tower_growth_phi_squared_bracket`
+    ∈ (2,3)=φ², `phi_bracket_via_pell` brackets φ as a Cut).
+The rational factor `5` and irrational `φ` are invariants of the *same* matrix P,
+so the three are one self-similarity, not three coincidences.  This also realises
+"걸림 = the self-fixed-point, which is why φ appears": the descent that keeps the
+same shape converges to φ because φ is P's fixed point.
+
+## φ limit-ratio PINNED (this session)
+
+`Real213/PhiConvergence.lean` (4 PURE) + `SelfSimilarityBridge.self_similar_ratio_pins_phi`
+(6 PURE in bridge): the Pell convergents form a **nested** sequence of rational
+brackets (`convergents_nest`: cross-products ±1) whose widths **strictly shrink**
+(`bracket_width_shrinks` via `pellDen_strictly_increasing`), pinning a *unique*
+value in `[3/2, 5/3]` — φ (`phi_is_unique_nested_limit`).  Upgrades the
+limit-ratio reading from "bracketed" to "pinned": a strictly-shrinking nested
+rational sequence determines at most one real, and that real is φ.
+
+## φ as a single ValidCut — DONE (this session)
+
+`Real213/PhiAsCut.lean` (5 PURE): φ has a **closed-form decidable cut** — no
+Cauchy-completion needed.  `phiCut m k := decide (k ≤ 2m ∧ 5k² ≤ (2m−k)²)` (from
+`x² = x+1`: `m/k ≥ φ ⟺ (2m−k)² ≥ 5k²` with sign guard), and `phiCut_valid :
+ValidCut phiCut` (both monotonicities, direct Nat arithmetic).  So the
+residue's irrational limit-ratio signature is one 213-native Cut object, built
+with no completion machinery.  `phiCut_brackets` cross-checks it against the
+Pell convergents (8/5 < φ, 5/3 > φ, 13/8 > φ, 21/13 < φ).
+
+The full self-similarity arc is now closed: form (`self_similar_floor`) / count
+(`self_similar_count`, factor `5 = disc P`) / limit-ratio (φ, pinned by
+`PhiConvergence` and realised as a Cut by `PhiAsCut`) — one self-similarity,
+three readings, irrational signature a concrete object.
+
+## φ-norm ∀n DONE; phiCut=false ∀n mechanism in place (this session)
+
+`Real213/PhiNormInvariant.lean` (3 PURE): the φ-norm `num_n² − num_n·den_n −
+den_n² = −1` for **all n** (`phi_norm_eq_neg_one`), generalising
+`PhiCutConvergents.convergent_norm_form`'s layers-0..8 `decide`.  Route:
+`coupling` (the `P = [[2,1],[1,1]]` matrix action `num_{n+1} = 2·num_n + den_n`,
+`den_{n+1} = num_n + den_n`, by induction on the shared recurrence) →
+`norm_eq_pell_unit` (single-layer φ-norm = consecutive cross-product
+`pell_unit_at n`, the Int identity `qid`) → `pell_unit = −1`
+(`mobius_213_pell_unit_invariant_forall`).  All manual `Int213` rewrites, no
+`ring`/`omega`/Mathlib.
+
+## φ as a Cauchy-complete limit object — DONE (this session)
+
+The chosen target is **closed**.  φ is now built two ways that agree on the nose:
+directly as one closed-form `ValidCut` (`PhiAsCut.phiCut`) and as the
+Cauchy-complete limit of the rational Pell convergents
+(`PhiCauchyLimit.phiConvergentSeq.limit`).
+
+  - ★ `FibCassiniNat.cs_eq_phiCut` (12/12 PURE) — for every target `(m,k)` and
+    every layer `i ≥ 2k`: `decide (fib(2i+2)·k ≤ fib(2i+1)·m) = phiCut m k`.
+    **Stronger than Cauchy** — the cut sequence is eventually *constant* and
+    equals the closed-form cut.  Honest pure-Nat modulus `N(m,k) = 2k`: squaring
+    the cross-inequality collapses the whole √5 comparison to `fib(2i+1) > 2k`,
+    reached by `fib_lb` (`i+1 ≤ fib(2i+1)`).  Case A (≥ φ) `true` ∀ layer
+    (`cs_true_of_ineqs`); case B (< φ) `false` past modulus
+    (`cs_false_of_below`/`cs_false_of_small`, strict mirror `gt_cross`/`qb_lt_pk`).
+  - ★ `PhiCauchyLimit.phiCauchy_limit_eq_phiCut` (3/3 PURE) — assembles
+    `CauchyCutSeq` (cs := native-Nat `convergentCS`, N := `2k`, cauchy from
+    `cs_eq_phiCut`) and proves `phiConvergentSeq.limit m k = phiCut m k` pointwise
+    (function `=` would pull `Quot.sound` via `funext`; pointwise is the 0-axiom
+    form).
+  - Written up: `theory/math/phi_self_similarity.md` §3.5 + Boundary update.
+  - **Two old-note corrections (both probed, not assumed)**: (1)
+    `of_decide_eq_true` on the φ-cut `And` is **PURE** — the feared "bool→Prop
+    extraction" was a non-issue; the `cs_eq_phiCut` case-split uses it freely.
+    (2) The lone `[propext]` in case A came **only** through
+    `Nat.exists_eq_add_of_lt` inside `mul_lt_mul_r` (re-routed via `(b+1)·a ≤
+    c·a`); `Nat.lt_or_ge`/`Nat.not_le` are PURE and were never the problem.
+  - Built natively on `fib`; the canonical `Int`-seq `pellConvergentCut` then
+    inherits it through the bridge below.
+
+## Pell↔Fibonacci bridge — DONE (this session), Int→Nat wall cleared
+
+The old "no PURE Int→Nat bridge" caveat is **removed**.
+`PellFibCutBridge.pellNum_eq_fib` / `pellDen_eq_fib` (PURE, ∀n):
+`pellNum n = fib(2n+2)`, `pellDen n = fib(2n+1)`.
+
+  - **Key insight**: `((n : Nat) : Int).toNat = n` is `rfl` — the `toNat`
+    read-out is harmless once `P_numerator.seq n` is pinned to a `natCast`.  So
+    prove the `Int`-level `seq n = (fib · : Int)` by 2-step paired induction over
+    the shared Pell recurrence `a(n+2) = 3a(n+1) − a(n)`, matched on the `fib`
+    side by the additive `fib(2n+6) + fib(2n+2) = 3·fib(2n+4)` (`fib_even_3step`).
+  - **All additive** — no `Int` subtraction (`Int.add_right_neg` pulls propext;
+    routed via PURE `Int213.{add_comm, add_left_neg, neg_mul, add_assoc}`), no
+    `omega`, no cast lemmas (`Int.toNat_natCast`/`exact_mod_cast` pull propext).
+  - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
+    stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
+
+## Completeness as a relocated operation + the completion tower — DONE (this session)
+
+Foundational thread (originator: defining reals via completeness is a workaround;
+213 makes them tangible without it).  Narrative chapter
+`theory/math/completeness_relocated.md` (no Lean touched — promotion of PURE
+results); four claims each an existing Lean fact (A `PhiAsCut.phiCut` / B import
+graph / C `PhiAbCut.phiCompletion_limit_eq_phiCut` / D `EulerCut`+`PiCut`
+hypothesis-modulus + `MonotonicBounded` §180–194 LEM refusal).  Tangibility =
+queryability, NOT finiteness (`N_U` named as the discarded failure mode).
+
+Then the "group the thresholds, then group the groupings, …" question — answered
+**closed, not regress**:
+
+  - `Analysis/CompletionTower.lean` (7 PURE) — completion is a fixed point.  Type
+    closure (`limit : CauchyCutSeq → cut`, same type; `tower_stays_in_cut`),
+    collapse (`tower_is_single_inner`, level-2 = one inner completion by `rfl`;
+    `completion_idempotent`), value-stable (`tower_value_stable`).  = Lambek
+    `self_similar_floor` at the cut scale.
+  - `Analysis/ModulusMonoid.lean` (13 PURE) — "only the modulus moves" as a
+    theorem.  Moduli form pointwise `(ℕ→ℕ→ℕ, madd, mzero)` = `(ℕ,+,0)`
+    (`madd_assoc`/`comm`/`zero_{l,r}`); tower is its action
+    (`tower_resolves_at_madd` — stacking levels adds moduli;
+    `identity_level_is_mzero`).  ResolutionShift scalar grades embed as the
+    constant sub-monoid via the monoid hom `gradeToModulus`
+    (`gradeToModulus_add`, `shift_grade_embeds`) — grouping-of-groupings and
+    resolution-shifting are one `(ℕ,+)`.
+  - `Analysis/ResolutionQuantitative.lean` (6 PURE) — the grade's *quantitative*
+    meaning.  `grade_scales_denominator` (grade n = `2ⁿ` finer: `dyadicCut M E ↦
+    constCut M (2^(E+n))`), `grade_add_multiplies` (`2^(a+b)=2^a·2^b`, additive
+    grade ↔ multiplicative resolution; `two_pow_add` PURE), `resolution_is_measurable`
+    (grade unique → faithful), `resolution_realised`.  Closes the thesis loop:
+    the modulus is a measurable, composable amount of resolution, not abstract
+    bookkeeping.  **Scoped to the dyadic slice** — see ModulusForm.
+  - `Analysis/ModulusForm.lean` (6 PURE) — answers "is 2^n enough to decide every
+    real?": NO, and corrects the ResolutionQuantitative reading.  The probe space
+    is every rational m/k; the resolving modulus is a function of the probe (ℕ→ℕ→ℕ),
+    constant 2^n grades a razor-thin slice.  Per-real forms: dyadic = constant
+    grade, φ = `2*k` (linear, `phi_modulus_exceeds_every_grade`), e = n!-paced.
+    `grade_class_is_proper`: φ's modulus resolves φ yet lies outside the
+    constant-grade image — the grade monoid is a PROPER sub-structure.  The modulus
+    form is a per-real invariant (originator's intuition, confirmed).
+
+## e, π, φ as Real213 cuts via `AbCutSeq` — DONE (this session)
+
+Transcendentals (and φ) lifted from the Raw/`orderProj` level (`Cauchy/Euler`,
+`Cauchy/Wallis`, Fibonacci convergents) to the `Real213` `ValidCut` level,
+unified under one structure:
+
+  - `Real213/AbCutSeq.lean` (8 PURE) — ★ **every monotone-bounded ab-sequence is a
+    `Real213` cut**.  `structure AbCutSeq := (xs : Nat→Raw) (mono : IsAbMonotonic)
+    (pos : IsAbPositiveB)`; `cut`/`cut_valid`/`cut_ratio`/`cut_false_fwd`
+    (nesting)/`cut_eventually_const`/`toCauchy`/`toCauchy_limit_valid`/
+    `limit_brackets` (generic localization transport) all live once here.
+  - `Real213/ExpLog/EulerCut.lean` (10 PURE) — e as `eAb : AbCutSeq` + localization
+    in (8/3, 3) (`eulerCut_in_8_3_to_3`).  Thin instance.
+  - `Real213/ExpLog/PiCut.lean` (16 PURE) — π/2 as `piHalfAb`, π/2 ∈ (7/5, 2);
+    `piCut n m k := halfPiCut n m (2k)`, π ∈ (14/5, 4).  Sharp lower bound from
+    `W₂ = 64/45 > 7/5` by `decide` at n=2 + nesting (avoids `omega`-dirty
+    `wallis_sharper_lower`).
+  - `Real213/PhiAbCut.lean` (11 PURE) — ★ **φ as `phiAb : AbCutSeq`**; convergent
+    monotonicity IS the Cassini norm (`cassini_mono_step`, +1 gap).
+
+  - **Structural finding — the algebraic/transcendental split, now a THEOREM**:
+    all three share the `AbCutSeq` carrier; the *only* difference is the
+    completion modulus.  φ's is **closed-form** `N=2k` with no hypothesis
+    (`phi_cut_eventually_const` via `cs_eq_phiCut`), so `phiCompletion :
+    CauchyCutSeq` is a closed term and `phiCompletion_limit_eq_phiCut` recovers
+    `PhiAsCut.phiCut`.  e/π have **no** closed-form total modulus (it would be the
+    global order-Cauchy closure `Cauchy/MonotonicBounded` §180–194 refuses as
+    smuggled LEM), so their `toCauchy` takes the modulus as a **hypothesis**.
+    Algebraicity *is* exactly the closed-form modulus.
+
+## General Cauchy completeness — DONE (this session)
+
+`Analysis/CauchyCompleteValid.lean` — the cut space is *closed* under Cauchy
+limits, beyond per-instance constructions (3 theorems, all PURE):
+
+  - `CauchyCutSeq.limit_valid` : `(∀ i, ValidCut (cs i)) → ValidCut limit`
+  - `CauchyCutSeq.limit_ratio` : `(∀ i, RatioCut (cs i)) → RatioCut limit`
+  - `CauchyCutSeq.limit_unique`: `(∀ i m k, c1.cs … = c2.cs …) → c1.limit m k =
+    c2.limit m k` — limit depends only on `cs`, not the modulus (pointwise).
+
+  - **Uniform proof**: two points `limit · ·` sample at different moduli `N`;
+    pull both to one common index `N₁ + N₂` past both via `limit_eq_at`, then
+    apply the single term's own monotonicity.
+  - **Purity note**: common index is `N₁ + N₂` (not `Nat.max`, whose lemmas pull
+    `propext`), and `limit_unique` is pointwise (not function-eq, which pulls
+    `funext`/`Quot.sound`).  The first commit (`aac014f`) used `max`/`funext` and
+    was axiom-dirty — caught by `scan_axioms` and fixed in `e8a1d02`.  Sibling
+    file keeps `CauchyComplete` free of the `Real213.Core.ValidCut` dependency;
+    aggregator `Analysis.lean` imports it.
+
+## Pell/Cassini norm step — CONSOLIDATED (this session)
+
+`FibCassiniNat.normstep` and `Mobius213PellInvariant.pell_step` were the SAME
+statement (the Möbius P-step `(a,b)↦(2a+b,a+b)` preserves `a²+1 = a·b+b²`),
+proved twice.  Now **one** public engine `Mobius213PellInvariant.pellNormStep`;
+`FibCassiniNat`'s ~70-line private duplicate cluster (`tt…eR, hR, normstep`)
+deleted, `fib_cassini_norm` cites the shared lemma.  Net −62 lines, 0 dup.
+
+## OPEN (next targets — pick up here)
+
+  - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
+    frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
+  - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
+    cross-pair crux) — the long-standing Cayley-Dickson open item.
+
+## Notes / hygiene
+
+  - N_U = d^(d²) is **deprecated** (audit branch `claude/full-file-audit-ChymR`
+    `bbd07b5`); `seed/RESOLUTION_LIMIT_SPEC.md` does not exist (stale ref).
+    Don't cite N_U as a constant; don't use "ℝ = final boss" framing (AI-introduced).
+  - `decide` on `Subtype`/`Raw` equality pulls `propext` via `DecidableEq Raw`;
+    use `Tree.noConfusion` (for `a≠b`) and `of_decide_eq_true` (NOT
+    `decide_eq_true_eq`) to stay strict ∅-axiom.  Bit me twice this session.
+  - Repo-first: `PredicateSelfEncoding` already existed; I nearly rebuilt it.
+    Grep + INDEX before coding a "missing" cell.

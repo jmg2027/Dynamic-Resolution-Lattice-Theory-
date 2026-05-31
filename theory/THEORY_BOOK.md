@@ -453,6 +453,10 @@ chapter.  Lean: `lean/E213/Lib/Math/Mobius213/`.
   · self-form fixed point — `essays/mobius_self_form_fixed_point.md`
     proves P is its own description (3 levels: syntactic,
     orbital, iterated)
+  · φ self-similarity — `math/phi_self_similarity.md` reads φ off P
+    three ways (form / count `5^L` / limit-ratio φ), all ∀n ∅-axiom;
+    `fib_convergent_below_phi` closes "every convergent below φ" for
+    all n.  φ = P's irrational fixed point, `d = 5` = disc P
 
 P is the algebraic crystallisation of the atomic data:
 det(P) = 1, trace(P) = NS = 3, row 1 = (NS, det), row 2 =

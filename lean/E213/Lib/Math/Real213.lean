@@ -44,6 +44,12 @@ import E213.Lib.Math.Real213.Sum.SignedSum
 import E213.Lib.Math.Real213.Core.ValidCut
 import E213.Lib.Math.Real213.Core.ValidCutOps
 import E213.Lib.Math.Real213.ChainToCut
+import E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant
+import E213.Lib.Math.Real213.PhiConvergence
+import E213.Lib.Math.Real213.PhiAsCut
+import E213.Lib.Math.Real213.PhiCutConvergents
+import E213.Lib.Math.Real213.PhiNormInvariant
+import E213.Lib.Math.Real213.FibCassiniNat
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

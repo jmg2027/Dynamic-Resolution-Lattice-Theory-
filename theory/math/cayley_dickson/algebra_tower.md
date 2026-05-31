@@ -406,29 +406,25 @@ CD-doubling machinery applies to Type D (Hurwitz base):
 The 4-row matrix extends past base for all four types
 (A/B/C/D); the framework is uniform.
 
+## Recently closed
+
+  - **Deeper Type B layers** — L7T (12 PURE) and L8T/L9T (18 PURE)
+    above; pattern uniform, higher layers L9+ follow CD-doubling.
+  - **Type D tower** — L1+L2 closed (`HurwitzTowerL1/L2.lean`,
+    22 PURE); CD-doubling works uniformly across all four types, so
+    the 4-row matrix extends past base for every type.
+
 ## Open frontier
 
 The 4-row matrix is **complete** at the first past-Moufang layer.
-Open extensions:
+Remaining open extensions:
 
-1. ~~**Deeper layers** (L7+ for Type B/C)~~ — L7T (12 PURE) and
-   L8T (11 PURE) above.  Pattern uniform; higher layers L9+
-   follow CD-doubling.
-2. ~~**Type D tower**~~ — L1 CLOSED via `HurwitzTowerL1.lean`
-   (15 PURE).  CD-doubling works uniformly across all four types.
-
-2. **Tower fixed-point at infinity**: `TowerFixedPoint.lean` gives
+1. **Tower fixed-point at infinity**: `TowerFixedPoint.lean` gives
    the structural statement; the analytic fixed-point analysis at
    `L → 25 = d²` (the resolution-limit depth) ties into C5
    (fractal ζ_K convergence) but is structurally separate.
 
-3. **Type D Hurwitz extension**: 2T binary tetrahedral is base
-   level; whether a "Type D tower" exists in the same sense as
-   Types A/B/C is open.  Type-E rejection rejection covered Type E
-   (`ℤ`-base square matrices); a parallel Type D analysis is
-   pending.
-
-4. **Flexibility over a non-associative base** (Sedenion /
+2. **Flexibility over a non-associative base** (Sedenion /
    Trigintaduonion `flexible`): flexibility survives *every* rung,
    unlike composition, but its ∅-axiom proof past Cayley is not closed.
    `Meta/Algebra213/CDDoubleFlexible.lean` has the foundation

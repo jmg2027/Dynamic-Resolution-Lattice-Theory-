@@ -45,12 +45,17 @@ open E213.Lib.Math.Real213.Mobius213SternBrocot
 
 /-! ## §1 — Inductive step (pure Nat arithmetic) -/
 
-/-- Inductive step for the Pell unit invariant: if the identity
-    holds at depth k (with `(a, b)` the depth-k components), then
-    it holds at depth k+1 (with `(2a+b, a+b)` the depth-(k+1)
-    components).  Pure Nat arithmetic with no IH-dependent
-    polynomial expansion. -/
-private theorem pell_step (a b : Nat) (h : a*a + 1 = a*b + b*b) :
+/-- ★ **The Pell/Cassini norm step** — the one shared atom.  The Möbius P-step
+    `(a, b) ↦ (2a+b, a+b)` preserves the Cassini-variant unit norm
+    `a² + 1 = a·b + b²`.  Pure Nat arithmetic, no IH-dependent polynomial
+    expansion, ∅-axiom.
+
+    This is the single inductive engine behind **both** Pell/Fibonacci invariants:
+    the `Pseq seedZero` orbit (§2 below, `Pseq_seedZero_pell_invariant`) and the
+    `fib`-indexed convergents `(fib(2n+2), fib(2n+1))`
+    (`FibCassiniNat.fib_cassini_norm`) run the same recurrence, so each is just
+    "induct + apply this step" over its own couplings. -/
+theorem pellNormStep (a b : Nat) (h : a*a + 1 = a*b + b*b) :
     (2*a+b)*(2*a+b) + 1 = (2*a+b)*(a+b) + (a+b)*(a+b) := by
   have e : 2*a + b = a + (a+b) := by rw [Nat.two_mul, Nat.add_assoc]
   rw [e]
@@ -89,7 +94,7 @@ theorem Pseq_seedZero_pell_invariant (n : Nat) :
   induction n with
   | zero => decide
   | succ k ih =>
-    exact pell_step _ _ ih
+    exact pellNormStep _ _ ih
 
 /-! ## §3 — Cross-orbit form (the symplectic cross-product) -/
 

@@ -85,6 +85,9 @@ modulus is a computable function of the input's modulus.
 - `theory/math/modulus.md` — modulus combinators used here
 - `theory/math/cauchy.md` (separate chapter) — sequence machinery
 - `theory/math/signed_cut.md` (separate chapter) — sign extension
+- `theory/math/completeness_relocated.md` — completeness is a leaf of the
+  import graph, not a root; the algebraic/transcendental split (φ vs e/π)
+  as a theorem via `AbCutSeq`
 
 ## Oracle-based continuity — closed (OracleContinuity.lean, 10 PURE)
 

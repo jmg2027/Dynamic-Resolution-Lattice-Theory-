@@ -38,6 +38,8 @@ import E213.Lib.Math.Information
 import E213.Lib.Math.Logic
 import E213.Lib.Math.Combinatorics
 import E213.Lib.Math.CrossDomainUnification
+import E213.Lib.Math.DualCollapseCapstone
+import E213.Lib.Math.SelfSimilarityBridge
 import E213.Lib.Math.ParadigmDomain
 import E213.Lib.Math.ParadigmDomainGraded
 import E213.Lib.Math.ParadigmDomainGradedRing

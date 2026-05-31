@@ -2,7 +2,7 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (53)
+## Closed chapters (56)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
@@ -36,6 +36,10 @@ Cross-frame synthesis (3):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`
 - [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
 - [`mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md) — P-orbit naturalness boundary (13 Px modules / 206 PURE); tripartite K_{2,1,3} additive complement; mod-p periods + Lucas-Pell trace orbit; refined naturalness hierarchy
+- [`phi_self_similarity.md`](phi_self_similarity.md) — φ as the single invariant of `P = [[2,1],[1,1]]`, read three ways (form / count `5^L` / limit-ratio φ), all ∀n ∅-axiom; Cassini norm `fib(2n+2)²+1 = fib(2n+2)·fib(2n+1)+fib(2n+1)²` ∀n; φ as a closed-form `ValidCut`; `fib_convergent_below_phi` ∀n.  Capstone `self_similarity_three_readings`
+- [`completeness_relocated.md`](completeness_relocated.md) — completeness is **not** constitutive of a Real213 real (it is a leaf of the import graph, not a root); a real is a decision procedure against ℚ; completeness re-enters only as a limit operation on sequences (`AbCutSeq`), **unconditional** for algebraic reals (φ: closed-form modulus `N=2k`, `phiCompletion_limit_eq_phiCut`) and **modulus-gated** for transcendentals (e ∈ (8/3,3), π ∈ (14/5,4): modulus is a hypothesis, the total one being the LEM `MonotonicBounded` §180–194 refuses).  The algebraic/transcendental split as a theorem
+- [`probe_twist_conic.md`](probe_twist_conic.md) — the probe-twist (Möbius `P=[[2,1],[1,1]] ∈ SL₂(ℤ)`, hyperbolic) conserves the φ-norm `Q=m²−mk−k²`, so every cut wobbles along its own hyperbola `Q=N` (`ProbeTwistConic.Q_preserved`); the wobble step is `f⁻¹` (`ProbeTwistDynamics`).  What sorts the reals: quadratic irrationals ride **one** conic (φ/√2 formalised, general case = Lagrange's thm) — transcendentals **escape every** conic (e vs π differ only in escape-regularity).  Marks three tiers: Lean theorem / classical fact / out-of-scope (the elliptic-modular *production* of transcendentals is a separate higher theory this does not reach)
+- [`completeness_without_completeness.md`](completeness_without_completeness.md) — **capstone paper**: the whole arc as one thesis ("completeness is a relocated finite operation"). Five parts — cut/modulus → probe-twist conic → cross-determinant divergence depth (1/3/6/∞, = P-recursive rank, ⊥ irrationality measure) → ordinal axis tower (`ratioLift`, `(h,d)<ω²`, exponent recursion, ε₀-is-not-the-end) → naming-the-ceiling-raising = the foundational residue (`diag_not_in_seq`, `cantor_general`, `self_covering_closure`). 15 sections, every `(L)` claim indexed to its ∅-axiom Lean file; self-contained, book-style. **Start here** for the narrative, then drill into `completeness_relocated.md` / `probe_twist_conic.md`
 
 Cohomology classification extension (3):
 - [`cohomology/k_nm_c_classification.md`](cohomology/k_nm_c_classification.md) — universal `(NS, NT, c)` cohomology framework (EnrichedKNSNTc): codim ≥ c parametric + codim ≤ c dual-span + arbitrary-m bilateral kill + K_{3, 3} ↔ Möbius bridges + K_{4, 3} asymmetric instance + cross-graph S-row pattern

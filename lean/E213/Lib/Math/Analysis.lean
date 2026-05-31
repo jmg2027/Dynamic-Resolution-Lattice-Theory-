@@ -10,6 +10,11 @@ import E213.Lib.Math.Analysis.BracketCauchyModulus
 import E213.Lib.Math.Analysis.CauchyProj
 import E213.Lib.Math.Analysis.ChainCauchy
 import E213.Lib.Math.Analysis.CauchyComplete
+import E213.Lib.Math.Analysis.CauchyCompleteValid
+import E213.Lib.Math.Analysis.CompletionTower
+import E213.Lib.Math.Analysis.ModulusMonoid
+import E213.Lib.Math.Analysis.ResolutionQuantitative
+import E213.Lib.Math.Analysis.ModulusForm
 import E213.Lib.Math.Analysis.PhysicsBridgeNT2
 import E213.Lib.Math.Analysis.ResolutionShift
 

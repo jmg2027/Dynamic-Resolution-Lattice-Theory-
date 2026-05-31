@@ -21,7 +21,13 @@ notation (`Mobius213/Px/MobiusSelfForm`; `math/mobius213_p_orbit_closure.md`).
 **Raw self-iteration** is the orbit before any Lens: `slash` raises depth
 by one, the inhabitant count follows `|Sₙ| = 2 + C(|Sₙ₋₁|, 2)`, and every
 tree obeys `depth < leaves` (`Theory/Raw/Levels.Raw.depth_lt_leaves`;
-`Lib/Math/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).
+`Lib/Math/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).  Its
+most primitive single thread is named directly — `rawTower n = a/(a/…/b)`,
+the one `slash` arrow iterated from the first distinguishing, with
+`depth = level` and `depth < leaves` at every rung
+(`Theory/Raw/PrimitiveTower.{rawTower, primitive_tower_summary}`, ∅-axiom).
+Every named tower below is this spine with `slash` replaced by a chosen
+step — a Lens reading sitting above this object.
 
 **The Möbius reading** sends `(p,q) ↦ (2p+q, p+q)`; its convergents
 approach φ, bracketed by φ² (`Mobius213/TowerLInfty.tower_growth_phi_squared_bracket`),
@@ -39,9 +45,9 @@ HigherAlgebra) are pairwise isomorphic through the NT hub
 single `LensIso` class (`GRA/LensIsoCapstone`; `THEORY_BOOK.md` Part VI).
 
 **The universe-chain reading** scales by `numV(L) = 5^L`
-(`replicate_image_card : numV 2 = numV 1 · numV 1`), reaching the
-resolution limit `N_U = 5^25` at fractal level 2
-(`Lib/Math/UniverseChain/`, `seed/RESOLUTION_LIMIT_SPEC.md`).  Its
+(`replicate_image_card : numV 2 = numV 1 · numV 1`); the count at
+fractal level 2 is a bounded Lens output, not a universe constant
+(`Lib/Math/UniverseChain/`).  Its
 topological shadow is the Betti spectrum of `K_{5^L}`
 (`Cohomology/Fractal/Level.fractal_betti_spectrum`).
 
@@ -95,6 +101,39 @@ non-separation**: P is at once the carrier, the recurrence, and the
 matrix that writes them (`MobiusSelfForm`) — the same collapse that makes
 "is the tower frozen or dynamic?" (§5.7) malformed.
 
+## Boundary — what is *not* this tower
+
+Not every object the repo names "tower" is this orbit.  Naming three
+constructions "tower" by their iteration motif and then reading them as
+the same object would be exactly the meaning-by-resemblance the framework
+refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
+
+  - **Resolution/cardinality axis** — the Cantor tower of iterated
+    function spaces `Raw → (Raw→Bool) → ((Raw→Bool)→Bool) → …`, each rung
+    with no surjection from the previous (`Lens/Cardinality/Tower`,
+    Σ6), the `Lensⁿ α` image-collapse tower
+    (`Lens/Properties/TowerLevel3`), and the hyperreal
+    `Hyper/Hyper213Tower` construction.  These ascend by the **Lens
+    diagonal**, not by P-iteration; their quantitative shadow is the
+    universe-chain `5^L` reading above (which *is* in the orbit).  The
+    diagonal and the orbit are distinct constructions that coincide only
+    on that shared bounded scale, not as one object.
+  - **ℝ-encoding tower** — `TriangularTower/` encodes reals as
+    finite-level squashed paths under `NS = 3` absorption
+    (`theory/math/triangular_tower.md`).  It borrows the signature `NS`,
+    but it is a *representation* construction, not the doubling-arrow
+    orbit.
+  - **Physics hierarchy towers** — `Physics/Mass/HierarchyTowers` stacks
+    DRLT mass ratios (`m_μ/m_e`, `m_τ/m_μ`) from `(NS,NT)`; these are the
+    signature's *observable fingerprint* (DRLT deployment), one layer
+    downstream of the 213-math orbit.
+
+A fourth construction makes the boundary explicit in Lean:
+`Lib/Math/LevelTopology/TwoTowersDivergence` proves the 213 tower
+**diverges** from the classical Cayley-Dickson tower — 213 carries sign
+as an orthogonal floor where classical CD keeps it internal — so even the
+CD reading is the orbit's, not the textbook construction's.
+
 ## Open frontier
 
 The GRA-tower ↔ CD-tower *duality* (level `n` of property loss ↔ level
@@ -103,5 +142,5 @@ Conjecture 5.3.1).  The "every axis sees P" catalog stands at 55 axes
 (`theory/essays/every_axis_sees_p.md`); whether it is exhaustive is open.
 And within the CD column, the flexibility rung past Cayley is not yet
 closed (`Meta/Algebra213/CDDoubleFlexible.lean`; see
-`math/cayley_dickson/algebra_tower.md` §"Open frontier" #4 and
+`math/cayley_dickson/algebra_tower.md` §"Open frontier" #2 and
 `theory/essays/cd_tower_polarization.md`).
