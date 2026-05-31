@@ -194,17 +194,22 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
 ## General Cauchy completeness — DONE (this session)
 
 `Analysis/CauchyCompleteValid.lean` — the cut space is *closed* under Cauchy
-limits, beyond per-instance constructions:
+limits, beyond per-instance constructions (3 theorems, all PURE):
 
   - `CauchyCutSeq.limit_valid` : `(∀ i, ValidCut (cs i)) → ValidCut limit`
   - `CauchyCutSeq.limit_ratio` : `(∀ i, RatioCut (cs i)) → RatioCut limit`
-  - `CauchyCutSeq.limit_unique`: `limit` depends only on `cs`, not the modulus.
+  - `CauchyCutSeq.limit_unique`: `(∀ i m k, c1.cs … = c2.cs …) → c1.limit m k =
+    c2.limit m k` — limit depends only on `cs`, not the modulus (pointwise).
 
   - **Uniform proof**: two points `limit · ·` sample at different moduli `N`;
-    pull both to one common index `max(N₁,N₂)` past both via `limit_eq_at`, then
-    apply the single term's own monotonicity.  4/4 PURE.  Sibling file keeps
-    `CauchyComplete` free of the `Real213.Core.ValidCut` dependency; aggregator
-    `Analysis.lean` imports it.
+    pull both to one common index `N₁ + N₂` past both via `limit_eq_at`, then
+    apply the single term's own monotonicity.
+  - **Purity note**: common index is `N₁ + N₂` (not `Nat.max`, whose lemmas pull
+    `propext`), and `limit_unique` is pointwise (not function-eq, which pulls
+    `funext`/`Quot.sound`).  The first commit (`aac014f`) used `max`/`funext` and
+    was axiom-dirty — caught by `scan_axioms` and fixed in `e8a1d02`.  Sibling
+    file keeps `CauchyComplete` free of the `Real213.Core.ValidCut` dependency;
+    aggregator `Analysis.lean` imports it.
 
 ## Pell/Cassini norm step — CONSOLIDATED (this session)
 
