@@ -3,12 +3,18 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (11)
+## Files (12)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
   - `CutExpODE.lean`            — `exp` ODE characterisation
   - `CutFactorial.lean`         — factorial coefficient
+  - `EulerCut.lean`             — e (= exp 1, Σ1/k!) at the `ValidCut` level:
+                                  nested rational cuts, localized in (8/3, 3),
+                                  irrational; per-threshold completion via
+                                  `CauchyCompleteValid.limit_valid`.  The
+                                  transcendental's modulus is a *hypothesis*
+                                  (no LEM-free total cut), unlike algebraic φ.
 
 ### Log
   - `CutLogSeries.lean`         — `log` Taylor series
