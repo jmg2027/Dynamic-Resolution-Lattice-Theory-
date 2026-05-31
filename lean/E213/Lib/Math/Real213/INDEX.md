@@ -39,6 +39,11 @@
     transcendental's is not (`e_not_fixed`: `cutThroughP (eulerCut 4) 3 1 ≠
     eulerCut 4 3 1`, witnessed by the probe `3/1 ↦ 7/4`).  φ is the twist's
     eigen-direction; e/π are moved by the two-axis braid.
+  - `ProbeTwistDynamics.lean` — ★ *how* a non-φ cut wobbles: `twist_undoes_step`
+    proves `cutThroughP (constCut (2p+q)(p+q)) = constCut p q`, i.e. the probe-twist
+    runs the Pell recurrence **backwards** on the value (`f⁻¹`, expanding away from
+    φ), the exact inverse of advancing the convergents (`f`, contracting toward φ).
+    φ is the lone common fixed point `f(φ)=f⁻¹(φ)=φ`.
 
 ## Architecture notes
 
