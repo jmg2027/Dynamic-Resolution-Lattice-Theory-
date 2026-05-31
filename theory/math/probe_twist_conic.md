@@ -363,6 +363,43 @@ recursing through exponent after exponent is the climb toward `ε₀`.  The user
 this recursion: each axis is the same ladder applied one exponent layer deeper, and
 the number of layers is the ordinal.
 
+## 12. Is `ε₀` the end of the axes?  No — and the first step is proven **(L + C)**
+
+A natural question: do the axes stop at `ε₀`?  Two things must be separated — what
+is a `∅`-axiom **theorem** here, and what is the classical **ordinal reading**.
+
+**(L) The proven structural step** (`DepthDoubleExp`): each exponential layer is a
+*genuinely new* axis — iterating the previous one does **not** cross it.  Precisely,
+the double exponential `2^{2ⁿ}` is a **fixed point of every `ratioN h`**
+(`ratioN_dexp`: `ratioN h (2^{2ⁿ}) = 2^{2ⁿ}`), because `2ⁿ` is a fixed point of
+`diff` (`diff_twoPow`, `diffN_twoPow`) and the ratio axis is a difference *on the
+exponent*.  Hence `2^{2ⁿ}` never reaches a constant floor under `ratioN`
+(`dexp_not_const`).  So the two-operator system `(ratioN, diffN)` reaches **exactly**
+`c^{poly}` (coordinate `(h,d)`, `< ω²`); the second exponential layer `c^{c^{poly}}`
+is strictly beyond it and needs the *recursion* of §11, not a longer `ratioN`.
+
+**(C) The ordinal reading** (classical interpretation of these sequence facts):
+under the recursion, each exponential layer **multiplies the rank by `ω`** (a value's
+resolution depth is its exponent's depth lifted one full axis).  So:
+
+  | object | rank |
+  |---|---|
+  | polynomial | `d` `(< ω)` |
+  | `c^{poly}` | `ω·d` `(< ω²)` |
+  | `c^{c^{poly}}` | `ω²·d` `(< ω³)` |
+  | depth-`r` exponential tower | `ω^r·d` `(< ω^{r+1})` |
+  | all finite `r` | sup `= ω^ω` |
+
+`ε₀` is then the closure of diagonalising the tower **height** `r` itself — a
+further meta-recursion (`ω^ω`, `ω^{ω^ω}`, … with limit `ε₀`).  **So `ε₀` is not "the
+end".**  It is one fixed point (`ω^{ε₀} = ε₀`), the closure of *this* diagonalisation;
+`ε₀ + 1`, `ε₁`, the Veblen hierarchy, … all lie above, each reached by yet another
+meta-axis.  The picture has no top: "handle the infinite by a finite reference,
+iterate" generates an open-ended hierarchy of axes, and every named ceiling (`ω²`,
+`ω^ω`, `ε₀`, …) is just where one particular iteration closes.  This file proves the
+first rung of that ladder (one exponential layer is uncrossable by the axis below);
+the heights themselves are the classical ordinal hierarchy.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
@@ -396,5 +433,8 @@ transcendentals is a separate, higher theory this construction does not reach.
     (`lex_wf`, `no_infinite_descent`)
   - `lean/E213/Lib/Math/Cauchy/DepthExponentRecursion.lean` — the third axis:
     recursion into the exponent (`ratioN_expSeq`, `value_floors_iff_exponent_floors`)
+  - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN` cannot cross one
+    exponential layer (`ratioN_dexp`, `dexp_not_const`); each layer a new axis; the
+    rank-`×ω` / `ω^ω` / `ε₀`-is-not-the-end reading
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).

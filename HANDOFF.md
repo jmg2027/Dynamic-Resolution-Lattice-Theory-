@@ -58,8 +58,16 @@ A long foundational thread (originator-driven Q&A).  Chapter
      ratio-depth `d` IFF exponent resolves at diff-depth `d`.  So `value-height =
      1 + exponent-height` — the axis tower is a *self-similar recursion* (same
      `(diff/ratio)` ladder one exponent layer deeper).  Liouville `c^{k!}`: exponent
-     `k!` floors only under ratio, so exponent-after-exponent recursion is the ε₀
-     frontier.
+     `k!` floors only under ratio.
+  12. **"Is ε₀ the end of the axes?" — NO** — `DepthDoubleExp` (6 PURE).  PROVEN
+     step: `2^{2ⁿ}` is a fixed point of every `ratioN h` (`ratioN_dexp` via
+     `diff_twoPow`: `Δ(2ⁿ)=2ⁿ`), so `dexp_not_const` — `ratioN` reaches EXACTLY
+     `c^{poly}` (`< ω²`); the 2nd exponential layer needs the §11 recursion, not a
+     longer `ratioN`.  Ordinal reading (classical): each exp layer ×ω the rank →
+     `c^{poly}` `ω·d`, `c^{c^poly}` `ω²·d`, depth-r tower `ω^r·d`, finite-r sup
+     `ω^ω`; `ε₀` = closure of diagonalising the tower height, NOT a top (`ε₀+1`,
+     `ε₁`, Veblen above).  No ceiling — every named bound is where one iteration
+     closes.  (Corrects the earlier "tower (2,finite)" reading.)
   - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
      continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
      **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
