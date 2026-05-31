@@ -337,6 +337,32 @@ recursion's frontier — **not** captured by finitely many `ratioLift`s.  Within
 honest reach, a constructive real's place is a single ordinal `< ω²`: how deep its
 `(ratio, diff)` tower runs.
 
+## 11. The third axis, formalised — recursion into the exponent **(L)**
+
+`DepthExponentRecursion` builds the genuine extension.  Writing `expSeq c e n :=
+c^{eₙ}`, the axis above is *not* another `ratioLift` but a **recursion into the
+exponent**:
+
+  - **(L)** `ratioLift_expSeq` — one ratio-lift peels one difference off the
+    exponent: `ratioLift (expSeq c e) = expSeq c (diff e)`.
+  - **(L)** ★ `ratioN_expSeq` — `d` ratio-lifts of the value = `d` differences of
+    the exponent: `ratioN d (expSeq c e) = expSeq c (diffN d e)` (pointwise, no
+    `funext`, for a totally-monotone exponent).
+  - **(L)** ★★★ `value_floors_iff_exponent_floors` — the value reaches its
+    ratio-floor at depth `d` **iff** the exponent reaches its diff-floor at depth
+    `d`.  The value sits **exactly one axis above its exponent**, resolved by the
+    *same* `(diff/ratio)` ladder one layer down.
+
+So the axis tower is a **self-similar recursion**, not a stack of new primitives:
+`value-height = 1 + exponent-height`, bottoming out at a polynomial
+(diff-resolvable) exponent.  Liouville `c^{k!}` is exactly the case where the
+exponent `k!` is itself *not* diff-resolvable (factorial outgrows every polynomial)
+— it floors only under *ratio* (`k! ↦ k+1`), so `k!` is itself `expSeq`-like, and
+recursing through exponent after exponent is the climb toward `ε₀`.  The user's
+"infinite handled by a finite reference, iterated" frame, in its final form, *is*
+this recursion: each axis is the same ladder applied one exponent layer deeper, and
+the number of layers is the ordinal.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
@@ -364,5 +390,11 @@ transcendentals is a separate, higher theory this construction does not reach.
     (`diff`/`liftK`/`reachesFloor`); `e_ratio_floor` (finite), `infinite_depth`
     (Liouville ∞), `const_reaches_floor` (algebraic floor); depth = P-recursive
     rank, **not** the irrationality measure
+  - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — the ratio axis (= diff on the
+    exponent); `(h,d)` coordinate
+  - `lean/E213/Lib/Math/Cauchy/DepthOrdinal.lean` — `(h,d)` is an ordinal `< ω²`
+    (`lex_wf`, `no_infinite_descent`)
+  - `lean/E213/Lib/Math/Cauchy/DepthExponentRecursion.lean` — the third axis:
+    recursion into the exponent (`ratioN_expSeq`, `value_floors_iff_exponent_floors`)
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).

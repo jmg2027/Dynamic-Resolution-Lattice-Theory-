@@ -52,6 +52,14 @@ A long foundational thread (originator-driven Q&A).  Chapter
      finite `(h,d)` (needs the genuine third axis = ratio-on-exponent).  The
      `DepthOrdinal` well-order theorem stands for the `(h,d)` reals that DO have a
      finite coordinate; the ε₀ story requires the recursive/exponent axis (frontier).
+  11. **Third axis formalised = recursion into the exponent** — `DepthExponentRecursion`
+     (6 PURE).  `expSeq c e n := c^{eₙ}`; `ratioN_expSeq`: `d` ratio-lifts of the value
+     = `d` diffs of the exponent; `value_floors_iff_exponent_floors`: value resolves at
+     ratio-depth `d` IFF exponent resolves at diff-depth `d`.  So `value-height =
+     1 + exponent-height` — the axis tower is a *self-similar recursion* (same
+     `(diff/ratio)` ladder one exponent layer deeper).  Liouville `c^{k!}`: exponent
+     `k!` floors only under ratio, so exponent-after-exponent recursion is the ε₀
+     frontier.
   - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
      continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
      **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
