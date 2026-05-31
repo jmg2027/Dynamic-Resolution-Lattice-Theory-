@@ -55,7 +55,8 @@ def ratioLift (s : Nat → Nat) : Nat → Nat := fun n => s (n+1) / s n
 
 /-- `c^(n+1) / c^n = c` for `c ≥ 1`. -/
 private theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c^(n+1) / c^n = c := by
-  rw [Nat.pow_succ]; exact Nat.mul_div_cancel c (Nat.pos_pow_of_pos n hc)
+  rw [Nat.pow_succ, Nat.mul_comm (c^n) c]
+  exact Nat.mul_div_cancel c (Nat.pos_pow_of_pos n hc)
 
 /-- A geometric sequence has constant ratio-lift: `ratioLift (cⁿ) = c` (for
     `c ≥ 1`).  Exponential growth is floored at level 1 on the ratio axis, exactly
