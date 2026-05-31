@@ -36,6 +36,14 @@ question for a future session:
 Until resolved, `configCountD` stays as bare math; do **not** reintroduce
 a "the universe number" reading.
 
+**Partial answer (G156)**: on the *level* axis the answer is now a
+theorem — purely parametric.  `configCountD_injective` /
+`configCountD_strictMono` (for `d ≥ 2`) make `n ↦ configCountD d n` a
+strict order-embedding: no two levels share a count, no fixed point, no
+plateau.  So any future "proper concept" cannot be a *selected level* —
+the count direction offers no handle to crown one.  Only the base `d = 5`
+is selected (atomicity).  See `research-notes/G156_configcount_level_injectivity.md`.
+
 ## Dead spec
 
 `seed/RESOLUTION_LIMIT_SPEC.md` is cited as canonical by ~20 files but was
