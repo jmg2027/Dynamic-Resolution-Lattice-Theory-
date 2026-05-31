@@ -147,6 +147,46 @@ divergent sequence) is handled by a finite reference (the recurrence of `W_n`), 
 the divergence of *that* by another finite reference (the factorial / Wallis closed
 form).
 
+## 6. The divergence **ladder** — and divergence *depth* **(L)**
+
+The form `W_n` is itself a sequence, and `n!` itself diverges.  So the question
+recurs: *what is the form of that divergence?*  Lift again — take the invariant of
+`W_n`, then of that, until it stops moving.  It does stop, in **finitely many
+steps**, at a constant.  The number of lifts to the floor is a new invariant: the
+**divergence depth** (`DivergenceDepth`).
+
+e's ladder is exact and short (formalised, ∅-axiom):
+
+| level | object | value | status |
+|---|---|---|---|
+| L0 | convergents `aₙ/dₙ` | → e | diverges |
+| L1 | cross-det `|W_n| = dₙ` | `n!` | diverges (`EulerDivergenceForm`) |
+| L2 | ratio `rₙ = d_{n+1}/dₙ` | `n+1` | diverges (`L1_to_L2`) |
+| L3 | increment `r_{n+1} − rₙ` | `1` | **constant — floor** (`depth_three`) |
+
+So **e has divergence depth 3**.  The depth orders the reals by *how far their
+divergence is from trivial*:
+
+  - **(L)** algebraic (φ, √2): **depth 1** — the cross-determinant is *already*
+    constant (`±1`, Cassini / `pell_invariant`), the floor of an area-preserving
+    (`det = 1`) orbit.  Nothing to lift.
+  - **(L)** **e: depth 3** — `DivergenceDepth.depth_three`.
+  - **(L, verified)** **π/2: depth 6** — its cross-det *ratio* is the degree-4
+    polynomial `4(n+1)²(2n+1)(2n+3)`, which a degree-4 polynomial's four finite
+    differences reduce to a constant (`1 cross-det + 1 ratio + 4 differences`).
+
+`algebraic 1  <  e 3  <  π 6`.  This is the precise, ∅-axiom sense in which **e is
+a shallower transcendental than π** — the quantification of e's *regular*
+continued fraction `[2;1,2,1,1,4,…]` versus π's *irregular* `[3;7,15,1,292,…]`,
+now a finite number attached to each real.
+
+This is the user's framing reaching its floor: the infinite (a divergent sequence)
+is handled by a finite reference (its level-`k` invariant); the divergence of
+*that* by the next; and the tower **terminates** — every real here has a finite
+divergence depth, after which the form is a bare constant (the same `±1`/`1` floor
+the algebraic reals reach immediately).  The transcendentals are not "beyond form";
+they are *finitely deep* in form, and the depth is what tells them apart.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
@@ -168,5 +208,7 @@ transcendentals is a separate, higher theory this construction does not reach.
   - `lean/E213/Lib/Math/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
     (e's divergence form `|W_n| = n!`)
   - `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — φ's `W_n = 1` (Cassini)
+  - `lean/E213/Lib/Math/Cauchy/DivergenceDepth.lean` — the divergence ladder;
+    `depth_three` (e bottoms out at depth 3); algebraic depth 1, π depth 6
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).
