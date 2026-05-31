@@ -38,6 +38,12 @@ A long foundational thread (originator-driven Q&A).  Chapter
      `(h,d)` coordinate: log-height `h` above poly-depth `d`.  algebraic (0,0) ·
      e (0,3) · π (0,6) · Liouville (1,finite) · tower (2,finite); true ∞ =
      unbounded log-height.
+  10. **The coordinate is an ordinal `< ω²`** — `DepthOrdinal` (9 PURE): `(h,d)` as
+     `ω·h+d`, lex order on ℕ×ℕ is a well-founded strict linear order (`lex_wf`,
+     nested `Acc.rec` on `Nat.lt_wfRel.wf`).  `no_infinite_descent` = resolution
+     always terminates.  Ranks: algebraic 0 · e 3 · π 6 · Liouville ω+d · tower
+     ω·2+d; unbounded log-height ≥ ω² → ε₀.  A constructive real's place = a single
+     ordinal (depth of its finite-reference tower).
   - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
      continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
      **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
