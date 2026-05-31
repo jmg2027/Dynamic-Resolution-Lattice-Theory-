@@ -38,6 +38,17 @@ A long foundational thread (originator-driven Q&A).  Chapter
      `(h,d)` coordinate: log-height `h` above poly-depth `d`.  algebraic (0,0) ·
      e (0,3) · π (0,6) · Liouville (1,finite) · tower (2,finite); true ∞ =
      unbounded log-height.
+  - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
+     continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
+     **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
+     have **no** known CF pattern (irregular, deeper).
+  - **Process lesson (after ~5 broken DepthTower commits)**: every Lean-core
+     division-cancel pulls `propext`; the PURE chain is `Nat.div_eq_sub_div` →
+     `add_div_right_succ` → `mul_div_self_pure` → `mul_div_cancel_left_pure`
+     (file-local).  **build-green ≠ purity-green**: verify each new Lean file
+     SEQUENTIALLY (`rm olean` → `lake env lean` → `scan_axioms`) before commit;
+     never trust cached "Build completed", never parallelise build with scan.
+     Final depth-arc: 6+4+7+6+12 = 35 PURE / 0 dirty.
 
 ## This session — tower analysis → Raw branching → the residue → self-covering
 
