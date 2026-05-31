@@ -5,6 +5,15 @@ import E213.Lib.Math.Cauchy.GenericFamily
 import E213.Lib.Math.Cauchy.MonotonicBounded
 import E213.Lib.Math.Cauchy.PellSeq
 import E213.Lib.Math.Cauchy.ProfiniteSeq
+import E213.Lib.Math.Cauchy.EulerDivergenceForm
+import E213.Lib.Math.Cauchy.DivergenceLadder
+import E213.Lib.Math.Cauchy.DivergenceDepth
+import E213.Lib.Math.Cauchy.DepthPRecursive
+import E213.Lib.Math.Cauchy.DepthTower
+import E213.Lib.Math.Cauchy.DepthOrdinal
+import E213.Lib.Math.Cauchy.DepthExponentRecursion
+import E213.Lib.Math.Cauchy.DepthDoubleExp
+import E213.Lib.Math.Cauchy.DepthCeilingResidue
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
@@ -39,8 +48,30 @@ import E213.Lib.Math.Cauchy.ProfiniteSeq
 
     * `PellSeq`            — Pell sequence Raw construction.
 
+  ## Divergence form, depth, and the resolution-axis tower
+
+  The arc from "a real is a cut" to the foundational residue, each
+  link ∅-axiom (narrative: `theory/math/completeness_without_completeness.md`).
+
+    * `EulerDivergenceForm` — cross-determinant `W_n` (discrete
+                             Wronskian): φ `±1`, e `−n!`, π Wallis.
+    * `DivergenceLadder`,
+      `DivergenceDepth`     — finite-difference depth (φ 1, e 3,
+                             π 6, Liouville ∞); = P-recursive rank.
+    * `DepthPRecursive`     — finite depth ⟺ P-recursive.
+    * `DepthTower`          — the ratio-lift axis (= diff on the
+                             exponent); `(h,d)` coordinate.
+    * `DepthOrdinal`        — `(h,d)` is an ordinal `< ω²` (`lex_wf`).
+    * `DepthExponentRecursion`,
+      `DepthDoubleExp`      — third axis = recursion into the
+                             exponent; `ratioN` cannot cross one
+                             exponential layer (`ε₀` is not the end).
+    * `DepthCeilingResidue` — naming the ceiling-raising is a
+                             diagonalisation = the residue
+                             (`cantor_general`, `self_covering_closure`).
+
   ## Status
 
-  14/14 files included.  All ∅-axiom on the production critical
+  23/23 files included.  All ∅-axiom on the production critical
   path (`tools/scan_axioms.py` — see per-file status notes).
 -/

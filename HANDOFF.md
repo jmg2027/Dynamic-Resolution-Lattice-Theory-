@@ -4,9 +4,11 @@ Branch: `claude/tower-research-analysis-3uWqd`
 
 ## LATEST ARC — real numbers as cuts → φ-twist conic → divergence depth
 
-A long foundational thread (originator-driven Q&A).  Chapter
-`theory/math/probe_twist_conic.md` (7 tiers) + `completeness_relocated.md`.  All
-∅-axiom; pushed.  The chain, each link a theorem:
+A long foundational thread (originator-driven Q&A).  Chapters
+`theory/math/probe_twist_conic.md` (§0–13) + `completeness_relocated.md`, with the
+whole arc synthesised in the capstone `theory/math/completeness_without_completeness.md`
+(+ essay `theory/essays/real_without_completeness.md`).  All ∅-axiom; pushed.  The
+chain, each link a theorem:
 
   1. **Completeness is relocated, not constitutive** — a real is a decision
      procedure vs ℚ; arithmetic/order import no `CauchyComplete`; completion is a
@@ -90,6 +92,23 @@ A long foundational thread (originator-driven Q&A).  Chapter
      SEQUENTIALLY (`rm olean` → `lake env lean` → `scan_axioms`) before commit;
      never trust cached "Build completed", never parallelise build with scan.
      Final depth-arc: 6+4+7+6+12+6 = 41 PURE / 0 dirty.
+  - **Write-up layer (this session)**: the whole arc (links 1–13) written up as
+    one self-contained book-style paper `theory/math/completeness_without_completeness.md`
+    (5 parts, 15 §, every (L) cited to its ∅-axiom file, (C)/(✗) tiers, theorem-index
+    appendix; author Mingu Jeong, Claude in acknowledgments) + its on-demand essay
+    form `theory/essays/real_without_completeness.md` (essay protocol: 213-native
+    first, multi-chapter derivation, dual-function, cross-frame fold onto the residue,
+    open frontier).  Both indexed (`theory/math/INDEX.md`, `theory/essays/INDEX.md`).
+  - **Promotion verdict (this session)**: arc Lean lives in `Lib/Math/Cauchy/` +
+    `Lib/Math/Real213/` (ARCHITECTURE.md Lib ring, H3 ✓); H1 ✓ (9 modules audited,
+    all PURE / 0 dirty: Depth{CeilingResidue,DoubleExp,ExponentRecursion,Ordinal,
+    PRecursive,Tower}, Divergence{Depth,Ladder}, EulerDivergenceForm); H2 ✓ (full
+    `lake build` clean); narrative already at tier-3 (`theory/math/*`).  S3 ✓ — the
+    arc generated NO scratch G-notes (went straight Lean→theory); G149/G152/G153 are
+    separate residue/method notes, not arc provenance.  **Note**: the `Cauchy/Depth*`
+    + `Divergence*` chain is NOT imported by the `Cauchy.lean` umbrella (lake globs
+    it; siblings aren't either) — H2-by-umbrella is satisfied via root build, but a
+    future tidy could add an explicit `Cauchy.lean` import block for the depth chain.
 
 ## This session — tower analysis → Raw branching → the residue → self-covering
 
