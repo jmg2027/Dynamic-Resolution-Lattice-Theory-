@@ -35,6 +35,10 @@
     `cutThroughP phiCut = phiCut` (∀, PURE).  The cut-level shadow of "φ is the
     eigenvector of P".  Both sides reduce to the subtraction-free master invariant
     `masterCut m k = decide(k ≤ 2m ∧ mk+k² ≤ m²)` (the φ-norm `m² ≥ mk+k²`).
+  - `ProbeTwistFixedPoint.lean` — the dichotomy: φ's cut is twist-fixed, a
+    transcendental's is not (`e_not_fixed`: `cutThroughP (eulerCut 4) 3 1 ≠
+    eulerCut 4 3 1`, witnessed by the probe `3/1 ↦ 7/4`).  φ is the twist's
+    eigen-direction; e/π are moved by the two-axis braid.
 
 ## Architecture notes
 
