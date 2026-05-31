@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cauchy.DivergenceLadder
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # DepthTower — the higher axis: ratio-lifts (logarithms) resolve the infinite depth
@@ -53,10 +54,26 @@ open E213.Lib.Math.Cauchy.DivergenceLadder (diff isConst)
     multiplicative analogue of `diff`; the next axis up. -/
 def ratioLift (s : Nat → Nat) : Nat → Nat := fun n => s (n+1) / s n
 
+/-- PURE `(x + b)/b = x/b + 1` (`b > 0`), from `Nat.div_eq_sub_div`. -/
+private theorem add_div_right_succ (x b : Nat) (h : 0 < b) : (x+b)/b = x/b + 1 := by
+  rw [Nat.div_eq_sub_div h (Nat.le_add_left b x),
+      E213.Tactic.NatHelper.add_sub_cancel_right, Nat.add_comm]
+
+/-- PURE `k*b/b = k` (`b > 0`), by induction on `k` (every Lean-core
+    division-cancel pulls `propext`). -/
+private theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k*b/b = k := by
+  induction k with
+  | zero => exact Nat.zero_div b
+  | succ j ih => rw [Nat.succ_mul, add_div_right_succ (j*b) b h, ih]
+
+/-- PURE left-cancel `a*b/a = b` (`a > 0`), via `mul_div_self_pure` + commute. -/
+private theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a*b/a = b := by
+  rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
+
 /-- `c^(n+1) / c^n = c` for `c ≥ 1`. -/
 private theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c^(n+1) / c^n = c := by
-  rw [Nat.pow_succ, Nat.mul_comm (c^n) c]
-  exact Nat.mul_div_cancel c (Nat.pos_pow_of_pos n hc)
+  rw [Nat.pow_succ]
+  exact mul_div_cancel_left_pure (c^n) c (Nat.pos_pow_of_pos n hc)
 
 /-- A geometric sequence has constant ratio-lift: `ratioLift (cⁿ) = c` (for
     `c ≥ 1`).  Exponential growth is floored at level 1 on the ratio axis, exactly
@@ -80,7 +97,9 @@ theorem ratio_is_diff_on_exponent (c : Nat) (hc : 1 ≤ c) (e : Nat → Nat)
   show c^(e (n+1)) / c^(e n) = c^(e (n+1) - e n)
   have hpow : c^(e (n+1)) = c^(e n) * c^(e (n+1) - e n) := by
     rw [← Nat.pow_add, Nat.add_sub_cancel' (hmono n)]
-  rw [hpow, Nat.mul_div_cancel_left _ (Nat.pos_pow_of_pos (e n) hc)]
+  rw [hpow]
+  exact E213.Tactic.NatHelper.mul_div_cancel_left_pure (c^(e n)) (c^(e (n+1) - e n))
+    (Nat.pos_pow_of_pos (e n) hc)
 
 /-! ## §3 — the tower coordinate -/
 
