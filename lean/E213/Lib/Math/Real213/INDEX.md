@@ -31,6 +31,10 @@
     order (det `= NS−NT = 1`), so the twist sends cuts to cuts
     (`cutThroughP_ratio`).  The two probe axes are braided by the `(NS,NT)=(3,2)`
     matrix.
+  - `PhiProbeFixed.lean` — ★ **φ is the fixed cut of the probe-twist**:
+    `cutThroughP phiCut = phiCut` (∀, PURE).  The cut-level shadow of "φ is the
+    eigenvector of P".  Both sides reduce to the subtraction-free master invariant
+    `masterCut m k = decide(k ≤ 2m ∧ mk+k² ≤ m²)` (the φ-norm `m² ≥ mk+k²`).
 
 ## Architecture notes
 
