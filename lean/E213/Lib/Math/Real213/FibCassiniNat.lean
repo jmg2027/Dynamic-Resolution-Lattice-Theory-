@@ -376,6 +376,31 @@ private theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
 private theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
   Nat.le_of_mul_le_mul_left h (by decide)
 
+/-- `2x < 2y → x < y`, PURE (Lean-core `Nat.lt_of_mul_lt_mul_left` pulls
+    `Classical`; rule out `y ≤ x` via `Nat.mul_le_mul_left`). -/
+private theorem two_cancel_lt (x y : Nat) (h : 2 * x < 2 * y) : x < y := by
+  cases Nat.lt_or_ge x y with
+  | inl hlt => exact hlt
+  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 hge) h).elim
+
+/-- `a < b → c·a < c·b` for `0 < c`, PURE (commute to the right-strict
+    `mul_lt_mul_r`). -/
+private theorem mul_lt_mul_l {a b c : Nat} (hc : 0 < c) (h : a < b) :
+    c * a < c * b := by
+  rw [Nat.mul_comm c a, Nat.mul_comm c b]; exact mul_lt_mul_r hc h
+
+/-- `x² < y² → x < y` on Nat, PURE (rule out `y ≤ x` via `Nat.mul_le_mul`). -/
+private theorem sq_lt_imp (x y : Nat) (h : x * x < y * y) : x < y := by
+  cases Nat.lt_or_ge x y with
+  | inl hlt => exact hlt
+  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul hge hge) h).elim
+
+/-- `fib(2i+1) ≤ fib(2i+2)` — the convergent numerator dominates its denominator
+    (so every convergent ratio is `≥ 1`). -/
+private theorem num_ge_den (i : Nat) : fib (2 * i + 1) ≤ fib (2 * i + 2) := by
+  show fib (2 * i + 1) ≤ fib (2 * i + 1) + fib (2 * i)
+  exact Nat.le_add_right _ _
+
 /-- Core cross-multiplication: `p² < 5·b²` and `5·k² ≤ q²` give `p·k ≤ q·b`. -/
 private theorem pk_le_qb (b k p q : Nat)
     (hlow : p * p < 5 * (b * b)) (hhigh : 5 * (k * k) ≤ q * q) : p * k ≤ q * b := by
@@ -427,5 +452,135 @@ theorem cs_true_of_ineqs (i m k : Nat)
   exact cut_trans (fib (2 * i + 2)) (fib (2 * i + 1)) m k
     (2 * fib (2 * i + 2) - fib (2 * i + 1)) (2 * m - k)
     (nat_sub_add_cancel (den_le i)) (nat_sub_add_cancel hk2m) hlow hhigh
+
+/-! ## Case B — a target `< φ` makes the convergent cut `false` past a modulus
+
+If `phiCut m k = false` (target `m/k < φ`) then, since the convergents climb to
+φ from below, every convergent eventually exceeds `m/k`, so the cut is `false`.
+The honest pure-Nat modulus: squaring the cross-inequality collapses the whole
+√5 comparison to the single condition `fib(2i+1) > 2k`, reached at `i = 2k` by
+the Archimedean bound `fib_lb`.  The `gt_cross`/`qb_lt_pk` pair is the strict
+mirror of `cut_trans`/`pk_le_qb`. -/
+
+/-- `x < y → 0 < y → x² < y²` (strict square monotonicity), PURE. -/
+private theorem sq_strict (x y : Nat) (hy : 0 < y) (h : x < y) : x * x < y * y :=
+  lt_of_le_lt (Nat.mul_le_mul_left x (Nat.le_of_lt h)) (mul_lt_mul_r hy h)
+
+/-- **Strict cut-order through φ** (mirror of `cut_trans`): from `q·b < p·k`
+    with `p+b = 2a`, `q+k = 2m`, conclude the strict `b·m < a·k`. -/
+private theorem gt_cross (a b m k p q : Nat)
+    (hp : p + b = 2 * a) (hq : q + k = 2 * m)
+    (hqb_lt : q * b < p * k) : b * m < a * k := by
+  apply two_cancel_lt
+  have l1 : 2 * (a * k) = p * k + b * k := by rw [← nat_mul_assoc, ← hp, add_mul]
+  have l2 : 2 * (b * m) = q * b + k * b := by
+    calc 2 * (b * m) = (2 * m) * b := by
+          rw [Nat.mul_comm 2 (b * m), nat_mul_assoc b m 2, Nat.mul_comm m 2,
+              Nat.mul_comm b (2 * m)]
+      _ = (q + k) * b := by rw [hq]
+      _ = q * b + k * b := add_mul q k b
+  rw [l1, l2, Nat.mul_comm k b]
+  exact Nat.add_lt_add_right hqb_lt (b * k)
+
+/-- Core strict cross-multiplication (mirror of `pk_le_qb`): with `p² + 4 = 5·b²`
+    (convergent norm), `q² < 5·k²` (target below φ), and `2k < b`, derive the
+    strict `q·b < p·k`.  Squaring reduces the √5 comparison to `4·k² < b²`. -/
+private theorem qb_lt_pk (b k p q : Nat)
+    (hpnorm : p * p + 4 = 5 * (b * b))
+    (hqlt : q * q < 5 * (k * k)) (hbig : 2 * k < b) : q * b < p * k := by
+  apply sq_lt_imp
+  rw [mul_sq, mul_sq]
+  have hbb : 0 < b := lt_of_le_lt (Nat.zero_le (2 * k)) hbig
+  have h4 : 4 * (k * k) < b * b := by
+    have hkk : (2 * k) * (2 * k) = 4 * (k * k) := by rw [even_sq, ← mul_assoc]
+    rw [← hkk]; exact sq_strict (2 * k) b hbb hbig
+  have hstep1 : (q * q) * (b * b) + (b * b) ≤ 5 * (k * k) * (b * b) := by
+    calc (q * q) * (b * b) + (b * b)
+        = (q * q + 1) * (b * b) := by rw [add_mul, Nat.one_mul]
+      _ ≤ (5 * (k * k)) * (b * b) := Nat.mul_le_mul_right (b * b) hqlt
+  have hstep2 : 5 * (k * k) * (b * b) = (p * p) * (k * k) + 4 * (k * k) := by
+    calc 5 * (k * k) * (b * b)
+        = (5 * (b * b)) * (k * k) := by
+          rw [nat_mul_assoc 5 (k * k) (b * b), Nat.mul_comm (k * k) (b * b),
+              ← nat_mul_assoc 5 (b * b) (k * k)]
+      _ = (p * p + 4) * (k * k) := by rw [hpnorm]
+      _ = (p * p) * (k * k) + 4 * (k * k) := add_mul (p * p) 4 (k * k)
+  rw [hstep2] at hstep1
+  exact Nat.lt_of_add_lt_add_right
+    (lt_of_le_lt hstep1 (Nat.add_lt_add_left h4 ((p * p) * (k * k))))
+
+/-- **Archimedean modulus**: at layer `i ≥ 2k`, the convergent denominator
+    exceeds `2k` — `2k < fib(2i+1)`.  By `fib_lb` (`i+1 ≤ fib(2i+1)`); the
+    explicit point where the squared cross-comparison `4k² < den²` turns on. -/
+private theorem fib_gt_2k (i k : Nat) (hik : 2 * k ≤ i) : 2 * k < fib (2 * i + 1) :=
+  lt_of_lt_le (Nat.lt_succ_of_le hik) (fib_lb i)
+
+/-- Case B, sub-case `2m < k` (target below `1/2`): every convergent — being
+    `≥ 1` — exceeds it, so the cut is `false` at **every** layer. -/
+private theorem cs_false_of_small (i m k : Nat) (hsmall : 2 * m < k) :
+    ¬ (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m) := by
+  intro hle
+  have hden_pos : 0 < fib (2 * i + 1) := fib_odd_pos i
+  -- den·m ≤ num·m ≤ num·k, and den·(2m) < den·k ≤ num·k, so 2·(den·m) < num·k while num·k ≤ ... contra
+  have h1 : fib (2 * i + 1) * (2 * m) < fib (2 * i + 1) * k := mul_lt_mul_l hden_pos hsmall
+  have h2 : fib (2 * i + 1) * k ≤ fib (2 * i + 2) * k :=
+    Nat.mul_le_mul_right k (num_ge_den i)
+  have h3 : fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m := hle
+  have hchain : fib (2 * i + 1) * (2 * m) < fib (2 * i + 1) * m :=
+    lt_of_lt_le (lt_of_lt_le h1 h2) h3
+  have hge : fib (2 * i + 1) * m ≤ fib (2 * i + 1) * (2 * m) := by
+    rw [show (2 : Nat) * m = m + m from Nat.two_mul m, Nat.mul_add]
+    exact Nat.le_add_right _ _
+  exact (Nat.not_lt.mpr hge hchain).elim
+
+/-- Case B, sub-case `k ≤ 2m ∧ (2m−k)² < 5k²` (genuine below-φ): past the
+    modulus `i ≥ 2k`, the convergent exceeds `m/k`, so the cut is `false`.
+    Routes through `qb_lt_pk` (strict cross-mult, `2k < den`) + `gt_cross`. -/
+private theorem cs_false_of_below (i m k : Nat) (hik : 2 * k ≤ i)
+    (hk2m : k ≤ 2 * m) (hbelow : (2 * m - k) * (2 * m - k) < 5 * (k * k)) :
+    ¬ (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m) := by
+  have hpnorm : (2 * fib (2 * i + 2) - fib (2 * i + 1)) * (2 * fib (2 * i + 2) - fib (2 * i + 1)) + 4
+             = 5 * (fib (2 * i + 1) * fib (2 * i + 1)) :=
+    phiform (fib (2 * i + 2)) (fib (2 * i + 1)) (2 * fib (2 * i + 2) - fib (2 * i + 1))
+      (nat_sub_add_cancel (den_le i)) (fib_cassini_norm i)
+  have hqb : (2 * m - k) * fib (2 * i + 1) < (2 * fib (2 * i + 2) - fib (2 * i + 1)) * k :=
+    qb_lt_pk (fib (2 * i + 1)) k (2 * fib (2 * i + 2) - fib (2 * i + 1)) (2 * m - k)
+      hpnorm hbelow (fib_gt_2k i k hik)
+  have hcross : fib (2 * i + 1) * m < fib (2 * i + 2) * k :=
+    gt_cross (fib (2 * i + 2)) (fib (2 * i + 1)) m k
+      (2 * fib (2 * i + 2) - fib (2 * i + 1)) (2 * m - k)
+      (nat_sub_add_cancel (den_le i)) (nat_sub_add_cancel hk2m) hqb
+  exact fun hle => (Nat.not_lt.mpr hle hcross).elim
+
+/-- ★★★ **Convergent cut stabilizes to `phiCut`, ∀ target, past the modulus.**
+    For every `(m, k)` and every layer `i ≥ 2k`, the convergent cut value equals
+    the closed-form φ-cut: `decide (fib(2i+2)·k ≤ fib(2i+1)·m) = phiCut m k`.
+    This is **stronger than Cauchy** — the sequence is eventually *constant* and
+    equal to `phiCut`.  Case A (`phiCut = true`, target `≥ φ`) holds at every
+    layer (`cs_true_of_ineqs`); case B (`false`, target `< φ`) holds past `i = 2k`
+    (`cs_false_of_small`/`cs_false_of_below` via the Archimedean modulus).  All
+    ∅-axiom.  The bridge from the rational convergent sequence to φ-as-one-Cut. -/
+theorem cs_eq_phiCut (i m k : Nat) (hik : 2 * k ≤ i) :
+    decide (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m)
+    = E213.Lib.Math.Real213.PhiAsCut.phiCut m k := by
+  unfold E213.Lib.Math.Real213.PhiAsCut.phiCut
+  by_cases hcut : k ≤ 2 * m ∧ 5 * k * k ≤ (2 * m - k) * (2 * m - k)
+  · -- target ≥ φ: cut true at every layer
+    obtain ⟨hk2m, hhigh⟩ := hcut
+    have hhigh' : 5 * (k * k) ≤ (2 * m - k) * (2 * m - k) := by
+      rw [mul_assoc 5 k k] at hhigh; exact hhigh
+    rw [decide_eq_true (cs_true_of_ineqs i m k hk2m hhigh'), decide_eq_true ⟨hk2m, hhigh⟩]
+  · -- target < φ: cut false past the modulus
+    rw [decide_eq_false hcut]
+    apply decide_eq_false
+    by_cases hk2m : k ≤ 2 * m
+    · -- genuine below-φ: ¬(5k² ≤ (2m−k)²) ⟹ (2m−k)² < 5k²
+      have hbelow0 : ¬ (5 * k * k ≤ (2 * m - k) * (2 * m - k)) :=
+        fun h => hcut ⟨hk2m, h⟩
+      have hbelow : (2 * m - k) * (2 * m - k) < 5 * (k * k) := by
+        rw [← mul_assoc 5 k k]; exact Nat.lt_of_not_le hbelow0
+      exact cs_false_of_below i m k hik hk2m hbelow
+    · -- target < 1/2: false at every layer
+      exact cs_false_of_small i m k (Nat.lt_of_not_le hk2m)
 
 end E213.Lib.Math.Real213.FibCassiniNat
