@@ -65,4 +65,10 @@ def constCauchyCutSeq (c : Nat → Nat → Bool) : CauchyCutSeq where
 theorem constCauchyCutSeq_limit (c : Nat → Nat → Bool) :
     (constCauchyCutSeq c).limit = c := rfl
 
+/-! Completeness proper — that the limit of a Cauchy sequence of *valid* cuts is
+    itself a valid cut (the cut space is closed under Cauchy limits) — is in the
+    sibling `Analysis/CauchyCompleteValid.lean` (`CauchyCutSeq.limit_valid` /
+    `limit_ratio` / `limit_unique`), kept separate so this file stays free of the
+    `Real213.Core.ValidCut` dependency. -/
+
 end E213.Lib.Math.Analysis.CauchyComplete
