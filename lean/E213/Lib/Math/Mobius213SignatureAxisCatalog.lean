@@ -4,7 +4,6 @@ import E213.Lib.Math.Mobius213ModFive
 import E213.Lib.Math.Mobius213.Mobius213K32Bridge
 import E213.Lib.Math.Real213.Mobius213AtomicityAnchor
 import E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
-import E213.Lib.Math.ResolutionLimit
 import E213.Theory.Atomicity
 import E213.Lib.Physics.Simplex.Counts
 
@@ -144,7 +143,7 @@ theorem axis_cd_type_D_eq_one_one :
 
 theorem axis_res_d_sq : d * d = 25 := by decide
 
-theorem axis_res_N_U_at_level_2 : d ^ (d * d) = 5 ^ 25 := by decide
+theorem axis_res_count_at_level_2 : d ^ (d * d) = 5 ^ 25 := by decide
 
 theorem axis_res_fractal_level_two : (2 : Nat) = NT := by decide
 

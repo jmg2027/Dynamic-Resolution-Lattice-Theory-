@@ -116,7 +116,7 @@ theorem axis_info_cochain_V_two_pow_d : 2 ^ d = 32 := by decide
 theorem axis_info_cochain_E_two_pow_twelve : 2 ^ (NS * NT * 2) = 4096 := by
   decide
 
-theorem axis_info_N_U_level_2 : d ^ (d * d) = 5 ^ 25 := by decide
+theorem axis_info_count_level_2 : d ^ (d * d) = 5 ^ 25 := by decide
 
 /-! ## §6 — Phase 2 master + final cumulative master -/
 

@@ -59,7 +59,6 @@ translation.  Reason: grep + readers + prompt-token economy.
 
 | Rule | Reason |
 |---|---|
-| 80-line edit limit (chunk-guard hook) | Avoid context-window flooding.  Use `Bash(cat <<'EOF'…')` for larger files. |
 | 0 sorry, 0 external axioms | Falsifiability contract.  See `seed/AXIOM/08_falsifiability.md`. |
 | Zero Mathlib imports | Mathlib brings hidden axiom dependencies. |
 | Never add `Classical.*`, `native_decide`, or weaken the axiom set | Adding axiom = theory falsified per §8.2. |
@@ -95,10 +94,11 @@ Below this = below standard.  Python + numerical agreement = research
 note, not validation.  **Prohibited**: timeline/ROI considerations.
 **Real target**: precision theorem AND falsifier for the same observable.
 
-## Resolution limit is structural (not "finitism")
+## Fractal-level configuration count (under re-research)
 
-Canonical: `seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a Lens
-output; physics bound `N_U = d^(d²) = 5²⁵` at fractal level 2).
+`configCountD d n = d^(d^n)` is a parametric count-Lens output
+(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); no level privileged.
+`N_U` (`5²⁵` "universe constant") is **removed**; dependents 재연구 필요: `research-notes/RERESEARCH_n_u_removal.md`.
 
 ## Operating principles
 

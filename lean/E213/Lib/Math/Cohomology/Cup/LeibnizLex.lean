@@ -8,7 +8,7 @@ import E213.Lib.Physics.Simplex.Counts
 
 The **honest** Leibniz rule of the lex-projection cup
 (`Cup.Core.cup`) — derived 213-native from §8.4 dichotomy-avoidance
-in `research-notes/G85_cup_delta_lens_mismatch.md`.
+in `research-notes/archive/G85_cup_delta_lens_mismatch.md`.
 
 ## The rule (bidegree (1, 1) on Δ⁴)
 

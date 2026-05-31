@@ -19,20 +19,16 @@ Collect ALL of the following. Do NOT skip any.
 1. git branch --show-current          → current branch name
 2. git log --oneline -20              → recent work summary
 3. git status                         → any uncommitted changes
-4. CLAUDE.md "Open Problems" section  → what's unsolved
-5. CLAUDE.md "Key Precision Results"  → current precision table
-6. CLAUDE.md "Experiment Catalog"     → latest experiment numbers
+4. cd lean && lake build              → build clean? (the contract)
+5. catalogs/physics-constants.md      → current precision table
+6. STRICT_ZERO_AXIOM.md               → PURE/DIRTY status of new theorems
 7. git diff --stat HEAD~5..HEAD       → files changed recently
 ```
 
-For each experiment created/modified this session:
+For each Lean file / research note created or modified this session:
 ```
-results/EXP_NNN_*.txt  → read last 15 lines (summary)
-```
-
-For any research notes created/modified:
-```
-research-notes/*.md    → read first 30 lines (key findings)
+lean/E213/.../<file>.lean  → key theorems + #print axioms status
+research-notes/*.md        → read first 30 lines (key findings)
 ```
 
 ### Step 2: Write HANDOFF.md
@@ -46,7 +42,7 @@ Write to the repo root. Use EXACTLY this structure:
 `branch-name` (pushed/not pushed, ahead by N commits)
 
 ## What Was Done This Session
-### 1. [Major achievement] (EXP_NNN, X/Y ✓)
+### 1. [Major achievement] (theorem / module, PURE ✓)
 - Key finding 1
 - Key finding 2
 
@@ -58,21 +54,23 @@ Write to the repo root. Use EXACTLY this structure:
 ## Current Precision Results (0 free parameters)
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
-(Copy from CLAUDE.md, include any NEW results added this session)
+(Copy from `catalogs/physics-constants.md`; include any NEW result added
+this session and its PURE/DIRTY status per `STRICT_ZERO_AXIOM.md`)
 
 ## Open Problems (Priority Order)
 ### 1. [Highest priority problem]
 Description. Current status. Suggested approach.
 
 ### 2. ...
-(Copy from CLAUDE.md, update status based on this session's work)
+(Carry forward unsolved items + this session's new gaps)
 
 ## Unresolved from This Session
 (Anything attempted but not completed. Dead ends discovered.
  Hypotheses that were tested and failed.)
 
-## Next Experiment
-EXP_NNN (available).
+## Next
+Next theorem / marathon phase / promotion to tackle (be specific:
+target lemma, file, or `blueprints/` phase).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: theory/<path> ← research-notes/<source>
@@ -101,13 +99,10 @@ git push
 
 ### Step 4: Verify the loop
 
-Confirm that CLAUDE.md contains the "Session Start" section:
-```markdown
-## Session Start
-- **If HANDOFF.md exists, read it FIRST** before doing anything else.
-```
-
-If missing, add it at the top of CLAUDE.md (after `# CLAUDE.md`).
+The session-start hook (`.claude/hooks/session-start.sh`) auto-detects
+`HANDOFF.md` and prints a banner telling the next session to read it.
+CLAUDE.md's "Boot sequence" lists `HANDOFF.md` as step 3.  Confirm both
+still reference the file; no manual loop wiring needed.
 
 ## Rules
 

@@ -1,265 +1,202 @@
 ---
 name: verify-consistency
-description: Deep self-consistency audit of the entire repo. Checks theory, notation, numbers, cross-references, file organization, and documentation. Fixes all inconsistencies found. Triggered by "verify" / "verify", "consistency" / "consistency", "consistency check", "verify", "clean", "theorem verify" / "theorem verify", "audit".
+description: Deep self-consistency audit of the entire repo. Checks build + ∅-axiom purity, cross-references, three-tier discipline, numbers, file organization, and documentation. Fixes all inconsistencies found. Triggered by "verify" / "verify", "consistency" / "consistency", "consistency check", "verify", "clean", "theorem verify" / "theorem verify", "audit".
 ---
 
 # Self-Consistency Verification & Correction
 
-Rigorous audit of the entire repository. Every claim must be
-internally consistent. Every number must match everywhere it appears.
-Every file must be in the right place. Fix everything found.
+Rigorous self-consistency audit of the DRLT 213 repo.  This is a
+**Lean + narrative** repo: the source of truth is `lean/E213/`, mirrored
+by `theory/` (narrative) and `catalogs/` (constants / results); `seed/`
+holds the axiom + spec corpus; `research-notes/` is volatile scratch.
+There is **no** `book/chapters/*.tex`, `lib/*.py`, or `experiments/`
+tree — when narrative and Lean disagree, **Lean wins** (CLAUDE.md).
+
+Every claim must be internally consistent, every cross-reference must
+resolve, every number must match everywhere it appears, every file must
+be in the right tier.  Fix everything found.
 
 ## Severity Levels
 
 | Level | Meaning | Action |
 |-------|---------|--------|
-| **CRITICAL** | Wrong physics, wrong number, contradicts axiom | Fix immediately |
-| **ERROR** | Inconsistency between files, broken reference | Fix in this pass |
-| **WARNING** | Style inconsistency, suboptimal organization | Fix if easy |
-| **INFO** | Minor suggestion, future improvement | Log only |
+| **CRITICAL** | Axiom-dirty theorem, broken build, contradicts an axiom | Fix immediately |
+| **ERROR** | Broken cross-reference, number mismatch, wrong file path | Fix in this pass |
+| **WARNING** | Stale doc count, suboptimal organization, tier drift | Fix if easy |
+| **INFO** | Minor suggestion, promotion candidate, future work | Log only |
 
 ---
 
-## Phase 1: Axiom & Convention Consistency
+## Phase 1: Build & ∅-axiom purity (the falsifiability contract)
 
-Check every `.tex` chapter for violations of core conventions:
-
-### 1.1 The Axiom
-- [ ] G_ij = ⟨ψ_i|ψ_j⟩ is fundamental. W = |G|²/d is derived.
-- [ ] No chapter treats W as fundamental or axiom.
-- [ ] d=5 is derived (Frobenius → ℂ, atomic → d=5), NOT input.
-- [ ] Simplices are emergent from high-W cliques, NOT postulated.
-- [ ] 1 hinge = 1 bit is derived (Holevo), NOT postulated.
-
-### 1.2 Vertex Labels
-The book uses TWO naming conventions. They must NOT be mixed within
-a single chapter:
-- **A/B convention:** A = spatial (ℂ³), B = temporal (ℂ²)
-- **S/T convention:** S = spatial, T = temporal
-- `n_S = n_A = 3`, `n_T = n_B = 2` — if both appear, state equivalence.
-
-### 1.3 Key Constants
-Every occurrence must use the SAME value:
-```
-α_GUT = 6/(25π²) = 0.024317...   (use \agut macro)
-d = 5
-n_S = n_A = 3
-n_T = n_B = 2
-c = 2 = n_T                       (lattice speed of light)
-ε = α^{2/3}(1+α) = 0.08597...    (confinement parameter; book rounds to 0.0860)
-φ = golden ratio = (1+√5)/2 = 1.618...
-```
-
-### 1.4 Macro Usage
-Grep all chapters for raw forms that should use macros:
 ```bash
-grep -rn '\\mathbb{C}' book/chapters/   # should be \CC
-grep -rn '\\mathbb{R}' book/chapters/   # should be \RR
-grep -rn '\\mathbb{C}P' book/chapters/  # should be \CP
-grep -rn 'alpha_.*GUT' book/chapters/   # should be \agut
-grep -rn 'operatorname{Tr}' book/chapters/  # should be \tr
-grep -rn 'operatorname{rank}' book/chapters/ # should be \rank
+cd lean && lake build 2>&1 | tail -20    # must end "Build completed successfully"
 ```
+
+The ∅-axiom standard (CLAUDE.md "∅-axiom standard") is THE standard.
+In `lean/E213/`:
+
+```bash
+# Source-level forbidden patterns (hooks block these on write; re-verify)
+grep -rIn --include='*.lean' -wE 'sorry|admit'  lean/   # comments only OK
+grep -rIn --include='*.lean' 'native_decide'    lean/   # comments only OK
+grep -rIn --include='*.lean' 'open Classical|Classical\.' lean/
+grep -rIn --include='*.lean' 'import Mathlib'    lean/   # must be 0
+```
+
+Any real (non-comment) hit = CRITICAL.  Then the canonical audits:
+
+```bash
+python3 tools/scan_axioms.py <module>     # single module #print axioms
+python3 tools/scan_all_axioms.py          # tree-wide PURE/DIRTY survey
+bash    tools/kernel_regress.sh           # Term/ kernel ring stays 0-axiom
+```
+
+- `STRICT_ZERO_AXIOM.md` is the canonical PURE/DIRTY catalog.  Re-sync
+  with `tools/sync_strict_zero_axiom.py` and confirm no theorem silently
+  dropped from PURE → DIRTY.
+- "Strict ∅-axiom" = `#print axioms` → *"does not depend on any axioms"*
+  (not even `propext` / `Quot.sound`).  Anything non-empty is
+  `sorry`-equivalent for the DRLT Validation Standard.
 
 ---
 
-## Phase 2: Numerical Consistency
+## Phase 2: Cross-reference integrity (the most common rot)
 
-### 2.1 Cross-file Number Matching
-Every precision result appears in multiple locations. ALL must match:
+Files move and rename; docstrings and specs lag.  Scan every permanent
+tier for path references that no longer resolve.
+
+```bash
+# (a) Lean / docs → lean/E213/*.lean paths that don't exist
+grep -rhoE "lean/E213/[A-Za-z0-9/_]+\.lean" --include='*.md' --include='*.lean' . \
+  | sort -u | while read p; do [ ! -f "$p" ] && echo "STALE lean: $p"; done
+
+# (b) docs → research-notes/*.md and theory/*.md that don't exist
+grep -rhoE "research-notes/[A-Za-z0-9/_]+\.md" --include='*.md' --include='*.lean' . \
+  | sort -u | while read p; do [ ! -f "$p" ] && echo "STALE rn: $p"; done
+grep -rhoE "theory/[A-Za-z0-9/_]+\.md" --include='*.md' --include='*.lean' . \
+  | sort -u | while read p; do [ ! -f "$p" ] && echo "STALE theory: $p"; done
+
+# (c) seed/ spec references (CLAUDE.md, STRICT_ZERO_AXIOM.md, theory/ cite these)
+grep -rhoE "seed/[A-Za-z0-9/_]+\.md" --include='*.md' --include='*.lean' . \
+  | sort -u | while read p; do [ ! -f "$p" ] && echo "STALE seed: $p"; done
+```
+
+**Triage by where the reference LIVES**, not just the target:
+
+- **Permanent tiers** (`lean/` docstrings, `theory/`, `seed/`, `catalogs/`,
+  top-level `*.md`, `rust-engine/docs/`) → **fix**.  Resolve the real
+  current location (`find lean -ipath '*Name*'`), then repoint.
+- **Tier-1 volatile** (`research-notes/` incl. `archive/`) → frozen
+  records; do **not** edit historical cross-refs (CLAUDE.md three-tier).
+- **Planned-TODO / roadmap / instructional** targets (e.g. an "Action:
+  add X.lean", a milestone deliverable, a create-then-delete probe file)
+  → not stale; leave.
+
+For closed topics, Lean docstrings should cite `theory/<mirror>`; only
+active scratch cites bare `research-notes/G##`.  Archived notes →
+`research-notes/archive/...` (fix the path, don't delete the citation).
+
+---
+
+## Phase 3: Three-tier discipline (CLAUDE.md "Three-tier discipline")
+
+| Tier | Where | Lifetime |
+|---|---|---|
+| 1 | `research-notes/` | Volatile scratch |
+| 2 | `lean/E213/` | Permanent source of truth |
+| 3 | `theory/` | Permanent narrative, mirrors `lean/E213/Lib/` |
+
+- Long-form narrative parked under `research-notes/G##_...md` for a topic
+  already **closed** in Lean = tier mismatch (WARNING).  Promotion gate:
+  `theory/PROMOTION_CRITERIA.md` (H1–H4 + S1–S3) → write
+  `theory/<mirror>`, `git mv` source to `research-notes/archive/`.
+- `theory/INDEX.md` is canonical for the narrative book.
+- Closed Lean sub-trees lacking a `theory/` chapter → INFO (promotion
+  candidate), don't block.
+
+---
+
+## Phase 4: Numerical & constant consistency
+
+Every headline number appears in multiple permanent locations.  ALL must
+agree (or be explicitly labelled observed-vs-DRLT):
+
 ```
 Sources to cross-check:
-  book/chapters/*.tex     (primary — the standard)
-  book/drlt_book_single.tex
-  CLAUDE.md               (precision table)
-  README.md               (key results table)
-  papers/*.tex            (standalone copies)
-  results/EXP_*.txt       (experimental outputs)
+  catalogs/physics-constants.md   (primary constants table)
+  catalogs/math-theorems.md       (math results)
+  README.md                       (key results table)
+  CLAUDE.md                       (DRLT Validation Standard / boot)
+  STRICT_ZERO_AXIOM.md            (per-theorem precision)
+  theory/physics/...              (narrative)
 ```
 
-Key values to verify (grep each):
+Key values to grep and reconcile:
+
 ```
-137.064    (1/α_em)
-938.27     (m_p in MeV)
-206.80     (m_μ/m_e)
-16.816     (m_τ/m_μ)
-6.10e-10   (η_B)
-0.6850     (Ω_Λ)
-104.52     (H₂O angle)
-68.75      (δ_CKM)
-0.022      (sin²θ₁₃)
-245.6      (v_H in GeV)
+1/α_em ≈ 137.036   (DRLT 137.0359895 vs observed 137.0359991 = 0.07 ppm)
+N_U   = 5²⁵ = d^(d²)   (d = 5, fractal level 2 — resolution-limit spec)
+d = 5,  n_S = 3,  n_T = 2,  c = 2 = n_T
+α_GUT = 6/(25π²) = 0.024317...
+m_μ/m_e, m_p/m_e, η_B, Ω_Λ, Koide, Cabibbo λ = 5/22 = d/(d²−n_S)
 ```
 
-### 2.2 Formula Verification
-For each boxed formula in the book, verify:
-- Input values are consistent with stated constants
-- Arithmetic produces the claimed output
-- Error percentage matches (DRLT value vs observed)
-
-### 2.3 Mass Table Consistency
-The complete mass table in ch06_masses.tex must match:
-- Individual mass derivations in the same chapter
-- Values cited in other chapters (ch07_mixing, ch08_ghosts, etc.)
-- CLAUDE.md precision table
-- README.md results table
+For each: confirm the same value everywhere; confirm DRLT-vs-observed
+columns yield the stated error/ppb; if a number differs across files,
+that's an ERROR (fix to match the catalog, the primary source).  Per
+CLAUDE.md: a Python/numerical-only agreement is a research note, **not**
+validation — the standard is a strict ∅-axiom precision theorem or
+falsifier in Lean.
 
 ---
 
-## Phase 3: Structural Integrity
+## Phase 5: Documentation accuracy
 
-### 3.1 LaTeX Compilation Readiness
-```bash
-# Check for unmatched environments
-grep -c '\\begin{' book/chapters/*.tex
-grep -c '\\end{' book/chapters/*.tex
-# Counts should match per file
-
-# Check for undefined labels
-grep -rn '\\label{' book/chapters/ | sed 's/.*\\label{//' | sed 's/}.*//' | sort > /tmp/labels.txt
-grep -rn '\\ref{' book/chapters/ | sed 's/.*\\ref{//' | sed 's/}.*//' | sort > /tmp/refs.txt
-comm -13 /tmp/labels.txt /tmp/refs.txt  # refs without labels
-```
-
-### 3.2 main.tex ↔ chapters/ Sync
-- [ ] Every file in `book/chapters/` is `\input{}` in `main.tex`
-- [ ] Every `\input{}` in `main.tex` has a corresponding file
-- [ ] Part/chapter ordering is logical (Foundation → Simplex → Forces → Matter → Completeness → Applications)
-
-### 3.3 drlt_book_single.tex Sync
-- [ ] Contains ALL chapters from main.tex in correct order
-- [ ] Preamble matches main.tex exactly
-- [ ] Bibliography matches main.tex exactly
-- [ ] No stale content from old chapters
-
-### 3.4 File Organization
-```bash
-# Theory files must not be in root
-ls *.tex *.md 2>/dev/null | grep -v CLAUDE | grep -v README | grep -v .gitignore
-# Should return nothing (except CLAUDE.md, README.md)
-
-# papers/ must contain only standalone .tex
-ls papers/ | grep -v '.tex$'
-# Should return nothing
-
-# research-notes/ must not contain .tex book chapters
-ls research-notes/*.tex 2>/dev/null
-# Should return nothing
-```
-
-### 3.5 Three-tier alignment (per `CLAUDE.md` "Three-tier discipline")
-
-```bash
-# Lean citations to research-notes/ paths that no longer exist:
-for ref in $(grep -rhoE "research-notes/G[0-9]+_[A-Za-z0-9_]+\.md" lean/ 2>/dev/null | sort -u); do
-  [ ! -f "$ref" ] && echo "STALE Lean → research-notes citation: $ref"
-done
-
-# theory/ → Lean refs that no longer resolve:
-grep -rhoE "lean/E213/[A-Za-z0-9/_]+\.lean" theory/ 2>/dev/null | sort -u | while read p; do
-  [ ! -f "$p" ] && echo "STALE theory → lean ref: $p"
-done
-
-# Closed sub-trees lacking theory/ chapters (promotion candidates):
-# (informational; not an error — flag, don't block)
-```
-
-For each STALE result: fix the citation per `theory/PROMOTION_CRITERIA.md`
-(closed topic → `theory/<mirror>`; archived G## → `research-notes/archive/`).
-
----
-
-## Phase 4: Documentation Accuracy
-
-### 4.1 CLAUDE.md
-- [ ] Experiment catalog matches actual `experiments/EXP_*.py` files
-- [ ] "Next: EXP_NNN" matches the actual next available number
-- [ ] Resolved problems are genuinely resolved (check referenced EXP)
-- [ ] Open problems are still open (not resolved in latest commits)
-- [ ] Precision table values match book
-- [ ] Repo structure section matches actual directory layout
-- [ ] API section matches actual `lib/drlt.py` public methods
-
-### 4.2 README.md
-- [ ] Key results table matches CLAUDE.md and book
-- [ ] Repo structure matches actual layout
-- [ ] Run instructions work (`cd experiments && python EXP_001_pipeline.py`)
-- [ ] Book structure table matches actual main.tex
-
-### 4.3 Author Attribution
-```bash
-grep -rn 'Mingoo\|Min-goo\|Jeong, M\b' book/ papers/
-# Should return nothing. Author is always "Mingu Jeong"
-
-grep -l 'Joint research' book/chapters/*.tex papers/*.tex
-# Every .tex should have this attribution
-```
-
----
-
-## Phase 5: Theoretical Completeness
-
-### 5.1 Research Notes → Book Coverage
-For each file in `research-notes/simplex-geometry/`:
-- Is the key result in the book? (theorems, formulas, predictions)
-- If superseded, is the book version correct?
-- If not yet integrated, flag for integration.
-
-### 5.2 Experiment Results → Book Coverage
-For each `results/EXP_*.txt`:
-- Are key numerical results referenced in the book?
-- Are they in `appendix_verification.tex`?
-
-### 5.3 Three Readings Completeness
-From 18_three_readings.md, verify the book covers all three:
-1. **det(G_h) reading:** masses, IE, couplings (ch06, ch06b, ch05)
-2. **Channel count reading:** PMNS mixing (ch07)
-3. **Deficit angle reading:** confinement, Λ (ch11, ch05)
+- **`lean/E213/ARCHITECTURE.md`** — the "4 ring + Meta" spec
+  (Term → Theory → Lens → Lib + Meta) and every per-directory file list /
+  count matches actual `ls` (consolidated or deleted files removed; new
+  files added).
+- **INDEX.md per sub-tree** (≥5 files) — file tables current.
+- **CLAUDE.md** — every path in boot sequence + "Entry points" + hard
+  rules resolves; the hard-rules table matches the actually-wired hooks
+  in `.claude/settings.json` (and `tools/FORBIDDEN.md`).
+- **HANDOFF.md** — reflects the current branch / open problems (volatile;
+  regenerate via the `handoff` skill if stale).
+- **Author attribution** — "Mingu Jeong" only; never `Mingoo` / `Min-goo`;
+  `\author{...Claude...}` forbidden in any paper artifact.
+- **Repo artifacts English-only** (Lean, `.md`, commits); Korean quotes OK
+  with translation.
 
 ---
 
 ## Phase 6: Fix & Report
 
-### Fix Protocol
-1. Fix CRITICAL and ERROR items immediately
-2. For each fix, use Edit tool (small, incremental changes)
-3. After all fixes:
-   - Regenerate `drlt_book_single.tex`
-   - Run `git diff` to review all changes
-   - Commit with message: `"Consistency audit: N fixes (K critical, M error)"`
+### Fix protocol
+1. Fix CRITICAL + ERROR immediately, via `Edit` (small, exact replacements).
+2. Doc/docstring path fixes are comment-only → build stays clean; no
+   rebuild needed.  Lean *code* edits → `lake build` + `scan_axioms`.
+3. Commit each coherent batch (never amend); push to the session branch.
 
-### Report Format
-After all phases, produce a summary:
+### Report format
 ```
 ## Consistency Audit Report
-
-### Statistics
-- Files scanned: N
-- Checks performed: M
-- CRITICAL: X (all fixed)
-- ERROR: Y (all fixed)
-- WARNING: Z (W fixed, V deferred)
-- INFO: I
-
+### Statistics — files scanned N · CRITICAL X (fixed) · ERROR Y (fixed) · WARNING Z · INFO I
 ### Fixes Applied
-1. [CRITICAL] ch06_masses.tex:142 — m_p value 937.5→938.27
-2. [ERROR] README.md — Ω_Λ 0.682→0.6850 to match book
-3. ...
-
-### Remaining Items
-1. [WARNING] papers/water_angle.tex — old value, update on submission
+1. [ERROR] theory/THEORY_BOOK.md — GRA/HoTTEnrichment.lean → GRA/HoTT.lean
 2. ...
+### Remaining / Surfaced (needs user decision)
+1. [ERROR] seed/RESOLUTION_LIMIT_SPEC.md cited by ~20 files but never committed
 ```
 
 ---
 
 ## Quick Mode vs Full Mode
 
-**Quick mode** (default for "verify" / "verify", "verify"):
-- Phase 2.1 (number matching) + Phase 3.3 (single.tex sync) + Phase 4.1 (CLAUDE.md)
-- ~5 minutes
+**Quick mode** (default for "verify" / "verify" / "audit"):
+- Phase 1 (build + purity spot-check) + Phase 2 (cross-ref scan) +
+  Phase 4 (number reconcile).  ~5 minutes.
 
-**Full mode** ("full verify" / "full verify", "full audit", "deep verify"):
-- All 6 phases
-- ~20 minutes
-- Use Agent tool for parallel scanning
+**Full mode** ("full verify" / "deep audit" / "전체 감사"):
+- All 6 phases.  Use the `Explore` / `Agent` tool to fan-out scan large
+  trees in parallel.  ~20 minutes.

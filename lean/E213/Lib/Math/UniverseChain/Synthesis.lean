@@ -3,10 +3,10 @@ import E213.Lib.Math.UniverseChain.Decomposition
 import E213.Lib.Math.UniverseChain.PairAxes
 import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.UniverseChain.Universe
-import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
-# Synthesis — Atomicity to N_U, the full deductive chain (∅-axiom)
+# Synthesis — Atomicity to the level-2 configuration count (∅-axiom)
 
 Five steps, each ∅-axiom, composed in order:
 
@@ -16,7 +16,7 @@ Five steps, each ∅-axiom, composed in order:
 | 2    | 5 = 2·1 + 3·1, alive decomp unique with `(a, b) = (1, 1)`  |
 | 3    | Two axes: NS = 3, NT = 2, with `NS + NT = d = 5`            |
 | 4    | Each vertex itself a Δ⁴ (recursion); self-ref level `L = d²`|
-| 5    | Each leaf carries d states ⇒ total = `d^(d²) = 5²⁵ = N_U`   |
+| 5    | Each leaf carries d states ⇒ total = `d^(d²) = 5²⁵ = configCount 2` |
 
 Every step's witness is `rfl` or `decide`; no axiom dependency.
 -/
@@ -29,7 +29,7 @@ open E213.Lib.Math.UniverseChain.Decomposition
 open E213.Lib.Math.UniverseChain.PairAxes (axes_sum_eq_total)
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
 open E213.Lib.Math.UniverseChain.Recursion (numV_at_d_squared)
-open E213.Lib.Math.ResolutionLimit (N_U N_U_value)
+open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCount configCount_two)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
 /-- ★★ Step 1 ⇒ Step 2: atomicity → unique (1, 1) shape. -/
@@ -51,20 +51,20 @@ theorem step3_to_step4 :
   show 5 ^ (d * d) = d ^ (d * d)
   rfl
 
-/-- ★★ Step 4 ⇒ Step 5: each vertex d-stated → `N_U = configCount 2`. -/
+/-- ★★ Step 4 ⇒ Step 5: each vertex d-stated → `configCount 2 = d^(d²)`. -/
 theorem step4_to_step5 :
-    N_U = d ^ (d * d) ∧ N_U = 298023223876953125 := by
-  refine ⟨?_, N_U_value⟩
+    configCount 2 = d ^ (d * d) ∧ configCount 2 = 298023223876953125 := by
+  refine ⟨?_, configCount_two⟩
   decide
 
-/-- ★★★ **Full chain**: atomicity ⇒ `N_U = 5²⁵`. -/
+/-- ★★★ **Full chain**: atomicity ⇒ `configCount 2 = 5²⁵`. -/
 theorem universe_chain :
     (∀ n, Atomic n ↔ n = 5)
     ∧ (NS = 3 ∧ NT = 2 ∧ NS + NT = d)
     ∧ (d * d : Nat) = 25
-    ∧ N_U = d ^ (d * d)
-    ∧ N_U = 298023223876953125 := by
-  refine ⟨atomic_iff_five, ?_, rfl, ?_, N_U_value⟩
+    ∧ configCount 2 = d ^ (d * d)
+    ∧ configCount 2 = 298023223876953125 := by
+  refine ⟨atomic_iff_five, ?_, rfl, ?_, configCount_two⟩
   · exact ⟨rfl, rfl, axes_sum_eq_total⟩
   · decide
 

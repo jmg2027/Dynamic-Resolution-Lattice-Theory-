@@ -9,8 +9,7 @@ import E213.Lib.Physics.Mass.HierarchyTowers
 
 All observables that use ζ(2) or π in their formula evaluate at the
 same family point: the parametric Lens-output family
-`configCount : Nat → Nat` at level n = 2 (where `configCount 2 = 5^25`,
-historically called `N_U` and now `ResolutionLimit.N_U` as `abbrev`).
+`configCount : Nat → Nat` at level n = 2 (where `configCount 2 = 5^25`).
 
 ## Observables verified (all 213-internal finitist)
 
