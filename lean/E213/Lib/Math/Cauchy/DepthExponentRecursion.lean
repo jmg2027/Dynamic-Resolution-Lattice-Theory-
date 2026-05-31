@@ -39,8 +39,9 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Cauchy.DepthExponentRecursion
 
+open E213.Lib.Math.Cauchy.DivergenceLadder (diff isConst)
 open E213.Lib.Math.Cauchy.DepthTower
-  (ratioLift ratioN diff diffN isConst ratio_is_diff_on_exponent)
+  (ratioLift ratioN diffN ratio_is_diff_on_exponent)
 
 /-- The value sequence `n ↦ c^{eₙ}` with exponent sequence `e`. -/
 def expSeq (c : Nat) (e : Nat → Nat) : Nat → Nat := fun n => c ^ (e n)
