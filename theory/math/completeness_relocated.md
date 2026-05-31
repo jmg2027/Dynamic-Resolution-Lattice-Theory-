@@ -249,36 +249,71 @@ survives the iteration precisely because each grouping returns an object
 you can query, of the kind you started with — the tower is a finite-depth
 read at every probe, never an appeal to a completed infinity of levels.
 
-## 6. The grade is a measurable amount of resolution
+## 6. The grade is a measurable amount of resolution — on the dyadic slice
 
-One more step closes the loop.  Up to here the grade has been an abstract
-tag in `(ℕ, +)`: it composes additively, it embeds, it stacks — but
-additively *over what*?  `Analysis/ResolutionQuantitative.lean` gives the
-tag its number.
+Up to here the grade has been an abstract tag in `(ℕ, +)`: it composes
+additively, embeds, stacks — but additively *over what*?
+`Analysis/ResolutionQuantitative.lean` gives the tag its number, **in the
+dyadic world**.
 
-A `dyadicCut M E` is `constCut M (2^E)` — it represents the dyadic
-rational `M / 2^E`.  The grade-`n` shifter `cutHalfIter n` (n-fold
-`cutHalf`) sends it to `dyadicCut M (E+n) = constCut M (2^(E+n))`: the
-denominator goes `2^E ↦ 2^(E+n)`, the value `M/2^E ↦ (M/2^E)/2ⁿ`.  So:
+A `dyadicCut M E` is `constCut M (2^E)` — the dyadic rational `M / 2^E`.
+The grade-`n` shifter `cutHalfIter n` sends it to `dyadicCut M (E+n) =
+constCut M (2^(E+n))`: denominator `2^E ↦ 2^(E+n)`, value `M/2^E ↦
+(M/2^E)/2ⁿ`.  So:
 
-  - `grade_scales_denominator` — **grade `n` is exactly "`2ⁿ` finer"**:
-    it multiplies the denominator by `2ⁿ`, divides the value by `2ⁿ`.
+  - `grade_scales_denominator` — **grade `n` is exactly "`2ⁿ` finer"** on
+    a dyadic cut: it multiplies the denominator by `2ⁿ`.
   - `grade_add_multiplies` — composing grades `a, b` multiplies the
     resolutions: `2^(a+b) = 2^a · 2^b`.  The additive grade monoid
     `(ℕ, +)` maps onto the multiplicative **resolution monoid (powers of
-    2, ×)**.  Additive grade ↔ multiplicative resolution.
-  - `resolution_is_measurable` — a transformer carries *at most one*
-    grade (grade uniqueness, distinguished at a single test probe), so
-    the amount of resolution is a well-defined number, not a choice; the
-    reading is faithful.
+    2, ×)**.
+  - `resolution_is_measurable` — a transformer carries *at most one* grade
+    (grade uniqueness), so the amount is a well-defined number, read at
+    one probe.
 
-This is the quantitative form of the whole thesis.  The modulus is not
-abstract bookkeeping: each grade *is* a measurable amount of resolution,
-the monoid law `a + b` *is* the composition of resolutions `2^a · 2^b`,
-and it is tangible because the amount is read at one query.  Completeness,
-relocated to a graded action, turns out to be **literally the act of
-sharpening resolution by measurable, composable steps** — which is what
-the framework was named for.
+This is the quantitative form of the thesis *on the dyadic slice*.  But
+it would overclaim to read "`2ⁿ` resolves every real" off it — and §7 is
+the correction.
+
+## 7. The resolving modulus is per-real; `2ⁿ` grades are the thinnest class
+
+The grade picture of §6 is *constant in the probe*: a dyadic cut, the
+same dyadic resolution `2ⁿ` everywhere.  But the probe space of a cut is
+**every rational `m/k`**, not just dyadics, and the modulus that resolves
+a real at probe `(m,k)` is in general a *function of the probe* — an
+element of the full space `ℕ → ℕ → ℕ`, of which the constant grades are a
+razor-thin slice.  `Analysis/ModulusForm.lean` makes this exact.
+
+Each real carries its **own** modulus form, set by how fast its rational
+approximants converge:
+
+  - **dyadic** `M/2^E` — constant grade (the `ResolutionShift` slice of
+    §6);
+  - **φ** (algebraic) — its convergents are the Fibonacci pairs (`~ φⁿ`),
+    and its resolving modulus is `phiModulus(m,k) = 2·k`
+    (`PhiAbCut.phiCompletion`): **linear in the probe denominator**, not
+    constant, not `2ⁿ`;
+  - **e** (transcendental) — convergent denominators `n!`
+    (`Cauchy/Euler.eulerDen`), a faster growth, hence a different
+    per-threshold form again.
+
+The separation is proved, not asserted: `phi_modulus_exceeds_every_grade`
+— for *any* constant grade `E`, there is a probe (`k = E+1`) where φ's
+modulus `2k` strictly exceeds it.  So no amount of uniform dyadic
+resolution captures φ; `phiModulus_not_constant` and `grade_class_is_proper`
+package this as: φ's resolving modulus is a genuine resolving modulus
+(`phiModulus_resolves`) lying *outside* the constant-grade image — the
+grade monoid of `ModulusMonoid` is a **proper** sub-structure.
+
+So the honest quantitative picture is two-tiered.  Completeness relocated
+to a graded action is, on dyadics, literally "sharpen by `2ⁿ`, composably"
+— but the general real's modulus is a **richer probe-dependent form**, and
+*the form itself is an invariant of the real*: φ's linear `2k`, e's
+factorial-paced rate, a dyadic's constant grade are three distinct
+signatures.  The modulus is not one universal ruler (`2ⁿ`); it is a
+per-real law saying how much resolution each probe demands — which is what
+"each real has its own modulus form, the grades being only the simplest"
+means, now a theorem.
 
 ## Anchors
 
@@ -295,8 +330,11 @@ the framework was named for.
     `(ℕ→ℕ→ℕ, +, 0)`, the tower as its action, ResolutionShift grades
     embedded as the constant sub-monoid
   - `lean/E213/Lib/Math/Analysis/ResolutionQuantitative.lean` — grade `n`
-    = `2ⁿ`-finer resolution; additive grade ↔ multiplicative `2^(a+b) =
-    2^a·2^b`; resolution measurable and unique
+    = `2ⁿ`-finer resolution (dyadic slice); additive grade ↔ multiplicative
+    `2^(a+b) = 2^a·2^b`; resolution measurable and unique
+  - `lean/E213/Lib/Math/Analysis/ModulusForm.lean` — the resolving modulus
+    is per-real (φ's `2k` ≠ any constant grade); the grade monoid is a
+    proper sub-structure (`grade_class_is_proper`)
   - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — the `(ℕ,+)`-graded
     monoid the tower's moduli compose in
   - `lean/E213/Theory/Raw/Lambek.lean` — `self_similar_floor` (the same

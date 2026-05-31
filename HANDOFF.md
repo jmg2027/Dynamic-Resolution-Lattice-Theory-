@@ -223,7 +223,15 @@ Then the "group the thresholds, then group the groupings, …" question — answ
     grade ↔ multiplicative resolution; `two_pow_add` PURE), `resolution_is_measurable`
     (grade unique → faithful), `resolution_realised`.  Closes the thesis loop:
     the modulus is a measurable, composable amount of resolution, not abstract
-    bookkeeping.
+    bookkeeping.  **Scoped to the dyadic slice** — see ModulusForm.
+  - `Analysis/ModulusForm.lean` (6 PURE) — answers "is 2^n enough to decide every
+    real?": NO, and corrects the ResolutionQuantitative reading.  The probe space
+    is every rational m/k; the resolving modulus is a function of the probe (ℕ→ℕ→ℕ),
+    constant 2^n grades a razor-thin slice.  Per-real forms: dyadic = constant
+    grade, φ = `2*k` (linear, `phi_modulus_exceeds_every_grade`), e = n!-paced.
+    `grade_class_is_proper`: φ's modulus resolves φ yet lies outside the
+    constant-grade image — the grade monoid is a PROPER sub-structure.  The modulus
+    form is a per-real invariant (originator's intuition, confirmed).
 
 ## e, π, φ as Real213 cuts via `AbCutSeq` — DONE (this session)
 
