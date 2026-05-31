@@ -191,28 +191,35 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
   - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
     stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
-## e and π as Real213 cuts — DONE (this session)
+## e, π, φ as Real213 cuts via `AbCutSeq` — DONE (this session)
 
-Transcendentals lifted from the Raw/`orderProj` level (`Cauchy/Euler`,
-`Cauchy/Wallis`) to the `Real213` `ValidCut` level, wired to general completeness:
+Transcendentals (and φ) lifted from the Raw/`orderProj` level (`Cauchy/Euler`,
+`Cauchy/Wallis`, Fibonacci convergents) to the `Real213` `ValidCut` level,
+unified under one structure:
 
-  - `Real213/ExpLog/EulerCut.lean` (13 PURE) — `eulerCut n := constCut(eulerNum n,
-    eulerDen n)`, each `ValidCut`+`RatioCut`, **nested** (`eulerCut_false_fwd`),
-    **localized in (8/3, 3)** (`eulerCut_in_8_3_to_3`); `eulerCutSeq` +
-    `eulerCutSeq_limit_valid` (per-supplied-modulus completion via `limit_valid`).
-  - `Real213/ExpLog/PiCut.lean` (18 PURE) — `halfPiCut` (Wallis), π/2 ∈ (7/5, 2),
-    and `piCut n m k := halfPiCut n m (2k)`, π ∈ (14/5, 4).  Sharp strict lower
-    bound from `W₂ = 64/45 > 7/5` by `decide` at n=2 + nesting (avoids the
-    `omega`-dirty `wallis_sharper_lower`).
+  - `Real213/AbCutSeq.lean` (8 PURE) — ★ **every monotone-bounded ab-sequence is a
+    `Real213` cut**.  `structure AbCutSeq := (xs : Nat→Raw) (mono : IsAbMonotonic)
+    (pos : IsAbPositiveB)`; `cut`/`cut_valid`/`cut_ratio`/`cut_false_fwd`
+    (nesting)/`cut_eventually_const`/`toCauchy`/`toCauchy_limit_valid`/
+    `limit_brackets` (generic localization transport) all live once here.
+  - `Real213/ExpLog/EulerCut.lean` (10 PURE) — e as `eAb : AbCutSeq` + localization
+    in (8/3, 3) (`eulerCut_in_8_3_to_3`).  Thin instance.
+  - `Real213/ExpLog/PiCut.lean` (16 PURE) — π/2 as `piHalfAb`, π/2 ∈ (7/5, 2);
+    `piCut n m k := halfPiCut n m (2k)`, π ∈ (14/5, 4).  Sharp lower bound from
+    `W₂ = 64/45 > 7/5` by `decide` at n=2 + nesting (avoids `omega`-dirty
+    `wallis_sharper_lower`).
+  - `Real213/PhiAbCut.lean` (11 PURE) — ★ **φ as `phiAb : AbCutSeq`**; convergent
+    monotonicity IS the Cassini norm (`cassini_mono_step`, +1 gap).
 
-  - **Structural finding — the algebraic/transcendental split**: φ (algebraic)
-    assembles into a `CauchyCutSeq` **unconditionally** (closed-form modulus
-    `N=2k`, exact stabilization `cs_eq_phiCut`).  e and π have **no closed-form
-    total cut**: a total modulus ∀(m,k) is the global order-Cauchy closure that
-    `Cauchy/MonotonicBounded` (§180–194) deliberately refuses as smuggled LEM.  So
-    `eulerCutSeq`/`halfPiCutSeq` take the modulus as a **hypothesis** — the
-    barrier is exactly that modulus, not the cut construction.  This is the honest
-    213 shape for a transcendental.
+  - **Structural finding — the algebraic/transcendental split, now a THEOREM**:
+    all three share the `AbCutSeq` carrier; the *only* difference is the
+    completion modulus.  φ's is **closed-form** `N=2k` with no hypothesis
+    (`phi_cut_eventually_const` via `cs_eq_phiCut`), so `phiCompletion :
+    CauchyCutSeq` is a closed term and `phiCompletion_limit_eq_phiCut` recovers
+    `PhiAsCut.phiCut`.  e/π have **no** closed-form total modulus (it would be the
+    global order-Cauchy closure `Cauchy/MonotonicBounded` §180–194 refuses as
+    smuggled LEM), so their `toCauchy` takes the modulus as a **hypothesis**.
+    Algebraicity *is* exactly the closed-form modulus.
 
 ## General Cauchy completeness — DONE (this session)
 

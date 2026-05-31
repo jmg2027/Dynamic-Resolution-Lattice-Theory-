@@ -11,12 +11,21 @@
 | `Mul/` | 15 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 11 | CutExp/Log series + ODE + Geom* (Cauchy convergence) |
+| `ExpLog/` | 13 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) |
 | `Cauchy/` | 1 | ChainToCut (Method A Nat213 chain → cut bridge, via `Lens.Number.Nat213.Bridge.value_toRaw*`) |
 
 ## Top-level
 
 `Real213.lean` — umbrella aggregator.
+
+**Named-constant cuts via `AbCutSeq`**:
+  - `AbCutSeq.lean` — ★ every monotone-bounded ab-sequence is a `Real213` cut
+    (the shared carrier: valid/ratio/nesting/eventual-const/completion/
+    `limit_brackets`).  Instances: `ExpLog/EulerCut` (e), `ExpLog/PiCut` (π),
+    `PhiAbCut` (φ).
+  - `PhiAbCut.lean` — φ as an `AbCutSeq`; the algebraic/transcendental split as a
+    theorem (φ completes with closed-form modulus `N=2k`, e/π take it as a
+    hypothesis — algebraicity *is* the closed-form modulus).
 
 ## Architecture notes
 
