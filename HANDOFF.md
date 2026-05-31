@@ -191,6 +191,29 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
   - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
     stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
+## e and π as Real213 cuts — DONE (this session)
+
+Transcendentals lifted from the Raw/`orderProj` level (`Cauchy/Euler`,
+`Cauchy/Wallis`) to the `Real213` `ValidCut` level, wired to general completeness:
+
+  - `Real213/ExpLog/EulerCut.lean` (13 PURE) — `eulerCut n := constCut(eulerNum n,
+    eulerDen n)`, each `ValidCut`+`RatioCut`, **nested** (`eulerCut_false_fwd`),
+    **localized in (8/3, 3)** (`eulerCut_in_8_3_to_3`); `eulerCutSeq` +
+    `eulerCutSeq_limit_valid` (per-supplied-modulus completion via `limit_valid`).
+  - `Real213/ExpLog/PiCut.lean` (18 PURE) — `halfPiCut` (Wallis), π/2 ∈ (7/5, 2),
+    and `piCut n m k := halfPiCut n m (2k)`, π ∈ (14/5, 4).  Sharp strict lower
+    bound from `W₂ = 64/45 > 7/5` by `decide` at n=2 + nesting (avoids the
+    `omega`-dirty `wallis_sharper_lower`).
+
+  - **Structural finding — the algebraic/transcendental split**: φ (algebraic)
+    assembles into a `CauchyCutSeq` **unconditionally** (closed-form modulus
+    `N=2k`, exact stabilization `cs_eq_phiCut`).  e and π have **no closed-form
+    total cut**: a total modulus ∀(m,k) is the global order-Cauchy closure that
+    `Cauchy/MonotonicBounded` (§180–194) deliberately refuses as smuggled LEM.  So
+    `eulerCutSeq`/`halfPiCutSeq` take the modulus as a **hypothesis** — the
+    barrier is exactly that modulus, not the cut construction.  This is the honest
+    213 shape for a transcendental.
+
 ## General Cauchy completeness — DONE (this session)
 
 `Analysis/CauchyCompleteValid.lean` — the cut space is *closed* under Cauchy
