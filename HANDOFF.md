@@ -1,6 +1,25 @@
 # Session handoff
 
-Branch: `claude/tower-research-analysis-3uWqd`
+Branch: `claude/research-notes-9Nc74`
+
+## Latest autonomous iteration (2026-05-31)
+
+  1. **Build fix (Tier A).**  The N_U-removal commit (`9c993c0`) added
+     `configCount` `#guard_pure` / `#guard_native` lines to `PureGuardTest`
+     and `NativeGuardTest` without importing `Cohomology.Fractal.ConfigCount`
+     → build broke ("unknown declaration"; the "build green" claim rested on
+     a stale olean cache).  Fixed: added the import to both, pointed guards at
+     real decls (`configCountD`, `configCountD_succ`, `configCount_two`),
+     dropped a duplicate guard line.  `lake build E213` clean.
+  2. **New ∅-axiom theorems** in `Lib/Math/Cohomology/Fractal/ConfigCount.lean`:
+     `configCountD_strictMono_succ`, `configCountD_strictMono`,
+     `configCountD_injective` (for `d ≥ 2`) — the level tower is a strict
+     order-embedding ℕ ↪ ℕ.  Scan: `23 pure / 0 dirty`.
+  3. **G156** (`research-notes/G156_configcount_level_injectivity.md`):
+     injectivity turns "no level privileged" into a theorem on the level axis
+     (faithful, fixed-point-free count coordinate → no selected level).
+     Partial answer to the RERESEARCH open question; cross-linked from
+     `RERESEARCH_n_u_removal.md`.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
