@@ -225,6 +225,65 @@ recurrence-tower its approximants need*, and depth counts the rungs.  This is th
 user's "finite reference for the infinite, iterated until it bottoms out" given a
 number: the depth, agreeing with classical `μ` only at the pathological `∞`.
 
+## 8. Finite depth ⟺ P-recursive — and the exp/log family **(L + C)**
+
+`DepthPRecursive` makes the depth-classification a characterization.  Define
+`polyDepth d s` := *the `d`-th finite difference of `s` is constant* (`s` is a
+discrete polynomial of degree `≤ d`).  The engine is that `diff` commutes through
+the iterate (`liftK_diff_comm`), giving:
+
+  - **(L)** `polyDepth_succ_iff` : `polyDepth (d+1) s ↔ polyDepth d (diff s)` —
+    differencing lowers degree by exactly one; **depth = number of differences to a
+    constant**.
+  - **(L)** `polyDepth_reachesFloor` / `reachesFloor_lift` — finite `polyDepth` ⟺
+    the ladder terminates; constants are degree 0.
+
+So the **finite-depth reals are exactly the discrete polynomials of the
+cross-determinant ladder — the P-recursive class**.  Where this lands the classical
+constants **(C, by their known continued fractions)**:
+
+  - the **exp/tan family** — e (`[2;1,2,1,1,4,…]`), e², e^{1/n}, tan 1
+    (`[1;1,1,3,1,5,…]`), **tanh 1 = `[0;1,3,5,7,…]`** (`aₖ = 2k−1`, the cleanest) —
+    all have **arithmetic** (linear-in-`k`) partial quotients ⟹ P-recursive ⟹
+    **finite depth**.  These are exactly the values of `exp`/`tan` at rationals,
+    the Riccati/linear-ODE-solvable (E-function / Hermite–Padé) class — *that* is
+    what "structured transcendental" means here.
+  - **π, arctan 1 = π/4, ln 2** have **no known arithmetic CF pattern** — not known
+    to be P-recursive at the CF level, conjecturally deeper.  (π is forced into a
+    finite ladder depth only through the *Wallis* product, depth 6, a different
+    presentation.)
+
+So depth is not just an invariant — it sorts the transcendentals into
+**Riccati-solvable (arithmetic CF, finite depth)** versus **irregular**, matching
+the exp-family / non-exp-family split.
+
+## 9. The higher axis — logarithms resolve the infinite depth **(L)**
+
+Liouville's depth ∞ (§7) is ∞ *only on the difference axis*.  `DepthTower` adds the
+axis above — the **ratio-lift** `ratioLift s n = s(n+1)/s n` — and the infinity
+becomes finite one logarithm up:
+
+  - **(L)** `geom_ratio_const` : `ratioLift (cⁿ) = c`, constant — exponential
+    growth floors at *ratio*-level 1, exactly as linear floors at *diff*-level 1.
+    The ratio-lift is to exponential what `diff` is to linear.
+  - **(L)** ★ `ratio_is_diff_on_exponent` : `ratioLift (c^{e_n}) = c^{diff e_n}` —
+    **the higher axis is the lower axis conjugated by the discrete logarithm.**  A
+    Liouville cross-det `c^{k!}` is depth-∞ on the difference axis, but its
+    *exponent* `k!` is finite-depth, and `ratioLift` reaches exactly that — **one
+    logarithm drops Liouville from ∞ to finite.**
+  - **(L)** `atTowerCoord h d` — the lexicographic coordinate: `h` ratio-lifts
+    (logs) to reach polynomial class, then `d` diff-depth.  `geom_at_1_0` (`cⁿ` at
+    `(1,0)`), `const_at_0_0`.
+
+The emerging rule: **algebraic `(0, finite)` · e `(0,3)` · π `(0,6)` · Liouville
+`(1, finite)` · tower `c^{c^{k!}}` `(2, finite)`**.  The difference-axis ∞ is not a
+wall — it is the signal to climb one axis; the **log-height `h` is a new coordinate
+above the depth `d`**.  The true ∞ is *unbounded log-height* — a sequence not
+elementary at any finite tower level.  This is the user's frame reaching its general
+form: the infinite is handled by a finite reference; when that reference itself is
+infinite, a finite reference *one axis higher* (a logarithm) captures it; and the
+number of axes is itself the invariant.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
