@@ -76,9 +76,6 @@ def reachesFloor (s : Nat → Nat) : Prop := ∃ k, isConst (liftK k s)
 
 /-! ## §2 — finite depth: e's ratio floors at one lift -/
 
-private theorem succ_sub (n : Nat) : (n+1) - n = 1 := by
-  rw [Nat.add_comm n 1, E213.Tactic.NatHelper.add_sub_cancel_right]
-
 /-- ★★ **e's ratio sequence reaches its floor at level 1.**  e's cross-determinant
     ratio is `rₙ = n+1`; one lift gives `diff r = 1`, constant.  So the `e` ladder
     bottoms out — e has *finite* depth (3 from L0, counting cross-det and ratio;
@@ -87,7 +84,7 @@ theorem e_ratio_floor : reachesFloor (fun n => n+1) := by
   refine ⟨1, fun n => ?_⟩
   show diff (fun n => n+1) n = diff (fun n => n+1) 0
   show (n+1+1) - (n+1) = (0+1+1) - (0+1)
-  rw [succ_sub (n+1), succ_sub (0+1)]
+  rw [E213.Tactic.NatHelper.succ_sub (n+1), E213.Tactic.NatHelper.succ_sub (0+1)]
 
 /-! ## §3 — infinite depth: super-polynomial growth never floors -/
 

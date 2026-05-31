@@ -55,6 +55,10 @@ theorem add_sub_cancel_right : ∀ (a b : Nat), a + b - b = a
     let ih : (a + b) - b = a := add_sub_cancel_right a b
     step.trans ih
 
+/-- `(n + 1) - n = 1`.  ∅-axiom via `add_comm` + `add_sub_cancel_right`. -/
+theorem succ_sub (n : Nat) : (n + 1) - n = 1 := by
+  rw [Nat.add_comm n 1, add_sub_cancel_right]
+
 /-- `(k + n) - (k + m) = n - m`.  ∅-axiom replacement for
     `Nat.add_sub_add_left` (Lean-core proof brings propext).
     Term-mode via Nat.zero_add + Nat.succ_add + Nat.succ_sub_succ. -/

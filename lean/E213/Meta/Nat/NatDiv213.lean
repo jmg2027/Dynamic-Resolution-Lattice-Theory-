@@ -58,4 +58,20 @@ theorem div_lt_of_lt_mul {b m a : Nat} (h : a < b * m) : a / b < m := by
     exact Nat.lt_irrefl a
       (Nat.lt_of_lt_of_le h (Nat.le_trans (hcomm ▸ hmul) hself))
 
+/-- `k * b / b = k` (`0 < b`), by induction on `k`.  ∅-axiom
+    (Lean-core `Nat.mul_div_cancel` pulls `propext`). -/
+theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k * b / b = k := by
+  induction k with
+  | zero => rw [Nat.zero_mul]; exact Nat.zero_div b
+  | succ j ih => rw [Nat.succ_mul, add_div_right_pos h (j * b), ih]
+
+/-- Left-cancel `a * b / a = b` (`0 < a`), via `mul_div_self_pure`.  ∅-axiom. -/
+theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a * b / a = b := by
+  rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
+
+/-- `c^(n+1) / c^n = c` for `c ≥ 1`.  ∅-axiom. -/
+theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c ^ (n + 1) / c ^ n = c := by
+  rw [Nat.pow_succ]
+  exact mul_div_cancel_left_pure (c ^ n) c (Nat.pos_pow_of_pos n hc)
+
 end E213.Meta.Nat.NatDiv213
