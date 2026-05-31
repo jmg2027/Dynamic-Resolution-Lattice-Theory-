@@ -44,6 +44,11 @@
     runs the Pell recurrence **backwards** on the value (`f⁻¹`, expanding away from
     φ), the exact inverse of advancing the convergents (`f`, contracting toward φ).
     φ is the lone common fixed point `f(φ)=f⁻¹(φ)=φ`.
+  - `ProbeTwistConic.lean` — ★ the *shape* the wobble traces: `Q_preserved` proves
+    `Pstep` conserves the φ-norm `Q(m,k) = m²−mk−k²` (sign-free Nat form), so each
+    orbit stays on its hyperbola `Q = N` (φ-convergents on `Q=−1`, the `(2,1)`-orbit
+    on `Q=+1`, e's `(65,24)` on `Q=2089`).  `N` is the conserved orbit-label;
+    φ the common asymptote (discriminant `5 = NS+NT`).
 
 ## Architecture notes
 
