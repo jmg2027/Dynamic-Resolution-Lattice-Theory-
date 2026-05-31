@@ -41,6 +41,11 @@ that difference-depth.  algebraic `(0,0)` · e `(0,3)` · π `(0,6)` · Liouvill
 not a wall — it is the signal to climb one axis; the log-height `h` is a new
 coordinate above the depth `d`.  The true infinity is unbounded log-height.
 
+Purity note: every Lean-core division-cancel (`Nat.mul_div_cancel{,_left}`,
+`mul_div_right/left`, `mul_div_assoc`, `div_self`) pulls `propext`.  The PURE
+division-cancel here is built from `Nat.div_eq_sub_div` (the one PURE division
+primitive): `add_div_right_succ` → `mul_div_self_pure` → `mul_div_cancel_left_pure`.
+
 All zero-axiom.
 -/
 
@@ -48,27 +53,28 @@ namespace E213.Lib.Math.Cauchy.DepthTower
 
 open E213.Lib.Math.Cauchy.DivergenceLadder (diff isConst)
 
-/-! ## §1 — the ratio-lift (the higher axis) -/
-
-/-- The ratio-lift: `ratioLift s n = s(n+1) / s n` (Nat division).  The
-    multiplicative analogue of `diff`; the next axis up. -/
-def ratioLift (s : Nat → Nat) : Nat → Nat := fun n => s (n+1) / s n
+/-! ## §0 — PURE division-cancel (Lean-core div-cancel pulls propext) -/
 
 /-- PURE `(x + b)/b = x/b + 1` (`b > 0`), from `Nat.div_eq_sub_div`. -/
 private theorem add_div_right_succ (x b : Nat) (h : 0 < b) : (x+b)/b = x/b + 1 := by
   rw [Nat.div_eq_sub_div h (Nat.le_add_left b x),
       E213.Tactic.NatHelper.add_sub_cancel_right, Nat.add_comm]
 
-/-- PURE `k*b/b = k` (`b > 0`), by induction on `k` (every Lean-core
-    division-cancel pulls `propext`). -/
+/-- PURE `k*b/b = k` (`b > 0`), by induction on `k`. -/
 private theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k*b/b = k := by
   induction k with
-  | zero => exact Nat.zero_div b
+  | zero => rw [Nat.zero_mul]; exact Nat.zero_div b
   | succ j ih => rw [Nat.succ_mul, add_div_right_succ (j*b) b h, ih]
 
 /-- PURE left-cancel `a*b/a = b` (`a > 0`), via `mul_div_self_pure` + commute. -/
 private theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a*b/a = b := by
   rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
+
+/-! ## §1 — the ratio-lift (the higher axis) -/
+
+/-- The ratio-lift: `ratioLift s n = s(n+1) / s n` (Nat division).  The
+    multiplicative analogue of `diff`; the next axis up. -/
+def ratioLift (s : Nat → Nat) : Nat → Nat := fun n => s (n+1) / s n
 
 /-- `c^(n+1) / c^n = c` for `c ≥ 1`. -/
 private theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c^(n+1) / c^n = c := by
@@ -98,8 +104,7 @@ theorem ratio_is_diff_on_exponent (c : Nat) (hc : 1 ≤ c) (e : Nat → Nat)
   have hpow : c^(e (n+1)) = c^(e n) * c^(e (n+1) - e n) := by
     rw [← Nat.pow_add, Nat.add_sub_cancel' (hmono n)]
   rw [hpow]
-  exact E213.Tactic.NatHelper.mul_div_cancel_left_pure (c^(e n)) (c^(e (n+1) - e n))
-    (Nat.pos_pow_of_pos (e n) hc)
+  exact mul_div_cancel_left_pure (c^(e n)) (c^(e (n+1) - e n)) (Nat.pos_pow_of_pos (e n) hc)
 
 /-! ## §3 — the tower coordinate -/
 
