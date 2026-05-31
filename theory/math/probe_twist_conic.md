@@ -284,6 +284,30 @@ form: the infinite is handled by a finite reference; when that reference itself 
 infinite, a finite reference *one axis higher* (a logarithm) captures it; and the
 number of axes is itself the invariant.
 
+## 10. The coordinate is an ordinal below ω² **(L)**
+
+The `(h, d)` coordinate is not just a label — it is an **ordinal rank**.  Reading
+`(h, d)` as `ω·h + d`, `DepthOrdinal` proves the lexicographic order on `ℕ × ℕ` is
+a **well-founded strict linear order** — an honest model of the ordinals below `ω²`:
+
+  - **(L)** `lex_irrefl` / `lex_trans` / `lex_total` — a strict *linear* order.
+  - **(L)** ★ `lex_wf` — **well-founded** (nested `Acc.rec` on `Nat.lt_wfRel.wf`):
+    the defining ordinal property.  Hence `no_infinite_descent` — no coordinate
+    chain descends forever, i.e. **the resolution always terminates**.  This is the
+    constructive content of the whole frame: "finite reference for the infinite,
+    iterated" is a descending walk in a well-order, and termination *is*
+    well-foundedness.
+  - **(L)** `log_axis_dominates` — `(h,d) < (h+1,d')`: one logarithm of growth
+    outweighs unboundedly many differences (`ω·h + d < ω·(h+1) + d'`).
+    `floor_minimal` — `(0,0)` is the bottom (algebraic base, rank `0`).
+
+Ranks: algebraic `0` · e `3` · π `6` · Liouville `ω + d` · tower `ω·2 + d`.  Reals
+of *finite* coordinate (rank `< ω²`) are exactly those reachable by finitely many
+lifts of the two kinds; genuinely non-elementary growth (unbounded log-height) is
+rank `≥ ω²`, where a *third* axis (super-logarithm) begins — the tower climbing
+toward `ε₀`.  A constructive real's place in this whole development is, in the end,
+**a single ordinal**: how deep a finite-reference tower its approximants demand.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
