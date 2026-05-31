@@ -191,6 +191,21 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
   - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
     stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
+## General Cauchy completeness — DONE (this session)
+
+`Analysis/CauchyCompleteValid.lean` — the cut space is *closed* under Cauchy
+limits, beyond per-instance constructions:
+
+  - `CauchyCutSeq.limit_valid` : `(∀ i, ValidCut (cs i)) → ValidCut limit`
+  - `CauchyCutSeq.limit_ratio` : `(∀ i, RatioCut (cs i)) → RatioCut limit`
+  - `CauchyCutSeq.limit_unique`: `limit` depends only on `cs`, not the modulus.
+
+  - **Uniform proof**: two points `limit · ·` sample at different moduli `N`;
+    pull both to one common index `max(N₁,N₂)` past both via `limit_eq_at`, then
+    apply the single term's own monotonicity.  4/4 PURE.  Sibling file keeps
+    `CauchyComplete` free of the `Real213.Core.ValidCut` dependency; aggregator
+    `Analysis.lean` imports it.
+
 ## Pell/Cassini norm step — CONSOLIDATED (this session)
 
 `FibCassiniNat.normstep` and `Mobius213PellInvariant.pell_step` were the SAME
