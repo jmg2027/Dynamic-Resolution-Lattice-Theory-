@@ -9,16 +9,17 @@ Plus geometric series identity and Cauchy convergence proofs.
   - `CutExpSeries.lean`         — `exp` Taylor series
   - `CutExpODE.lean`            — `exp` ODE characterisation
   - `CutFactorial.lean`         — factorial coefficient
-  - `EulerCut.lean`             — e (= exp 1, Σ1/k!) at the `ValidCut` level:
-                                  nested rational cuts, localized in (8/3, 3),
-                                  irrational; per-threshold completion via
-                                  `CauchyCompleteValid.limit_valid`.  The
-                                  transcendental's modulus is a *hypothesis*
-                                  (no LEM-free total cut), unlike algebraic φ.
-  - `PiCut.lean`                — π/2 (Wallis product) and π at the `ValidCut`
-                                  level: nested rational cuts, π/2 ∈ (7/5, 2),
-                                  π ∈ (14/5, 4); same per-threshold completion +
-                                  transcendental-modulus-as-hypothesis shape.
+  - `EulerCut.lean`             — e (= exp 1, Σ1/k!) at the `ValidCut` level: an
+                                  `Real213/AbCutSeq` instance + e's localization
+                                  in (8/3, 3).  Generic cut interface inherited;
+                                  this file adds only the bracket.
+  - `PiCut.lean`                — π/2 (Wallis product) and π: an `AbCutSeq`
+                                  instance, π/2 ∈ (7/5, 2), π ∈ (14/5, 4).
+
+Both are thin instances of the shared `Real213/AbCutSeq.lean` (every
+monotone-bounded ab-sequence is a `Real213` cut): valid/ratio/nesting/eventual-
+constancy/completion/`limit_brackets` live once there.  The transcendental's
+completion modulus is a *hypothesis* (no LEM-free total cut), unlike algebraic φ.
 
 ### Log
   - `CutLogSeries.lean`         — `log` Taylor series
