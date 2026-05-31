@@ -275,11 +275,21 @@ becomes finite one logarithm up:
     (logs) to reach polynomial class, then `d` diff-depth.  `geom_at_1_0` (`cⁿ` at
     `(1,0)`), `const_at_0_0`.
 
-The emerging rule: **algebraic `(0, finite)` · e `(0,3)` · π `(0,6)` · Liouville
-`(1, finite)` · tower `c^{c^{k!}}` `(2, finite)`**.  The difference-axis ∞ is not a
-wall — it is the signal to climb one axis; the **log-height `h` is a new coordinate
-above the depth `d`**.  The true ∞ is *unbounded log-height* — a sequence not
-elementary at any finite tower level.  This is the user's frame reaching its general
+**CORRECTION (this is the honest reach of `(ratioN, diffN)`).**  `ratioLift` does a
+*difference on the exponent* (`ratioLift (c^{eₙ}) = c^{diff eₙ}`), so `ratioLift^h`
+floors exactly `c^{polynomial of degree h}` — `h` is the *exponent's polynomial
+degree*, **not** an iterated-logarithm height.  The genuinely captured
+finite-coordinate reals are those whose cross-determinant is a *factorial / single
+exponential with polynomial exponent*: e (cross-det `n!`) sits at `(1,1)`, π
+similarly; algebraic at `(0,0)`.  **Liouville `c^{k!}` has NO finite `(h,d)`**: its
+exponent `k!` is super-polynomial, and `ratioLift` only *differences* the exponent
+(`k! ↦ k!·k`), never reducing it to a constant.  So the difference-axis ∞ is *not*
+resolved by `ratioN` for Liouville — that needed a **genuinely different third
+operation: a ratio on the exponent** (the exponent `k!` floors under *ratio*, `k! ↦
+k+1`, not under diff).  Liouville sits exactly at the boundary of the
+`(ratioN, diffN)` system's reach; the third axis is where the next operation
+(ratio-on-exponent, the self-similar recursion) begins.  (The earlier draft's
+"Liouville `(1,finite)` / tower `(2,finite)`" was wrong and is retracted here.)  This is the user's frame reaching its general
 form: the infinite is handled by a finite reference; when that reference itself is
 infinite, a finite reference *one axis higher* (a logarithm) captures it; and the
 number of axes is itself the invariant.
@@ -301,12 +311,16 @@ a **well-founded strict linear order** — an honest model of the ordinals below
     outweighs unboundedly many differences (`ω·h + d < ω·(h+1) + d'`).
     `floor_minimal` — `(0,0)` is the bottom (algebraic base, rank `0`).
 
-Ranks: algebraic `0` · e `3` · π `6` · Liouville `ω + d` · tower `ω·2 + d`.  Reals
-of *finite* coordinate (rank `< ω²`) are exactly those reachable by finitely many
-lifts of the two kinds; genuinely non-elementary growth (unbounded log-height) is
-rank `≥ ω²`, where a *third* axis (super-logarithm) begins — the tower climbing
-toward `ε₀`.  A constructive real's place in this whole development is, in the end,
-**a single ordinal**: how deep a finite-reference tower its approximants demand.
+Ranks (corrected): algebraic `(0,0)=0` · e (cross-det `n!`) `(1,1)` · π similar —
+all `< ω²` and well-ordered by `DepthOrdinal`.  **Liouville is not `ω+d`**: it has
+no finite `(h,d)` under `(ratioN, diffN)` (its exponent `k!` is super-polynomial,
+floored only by a *ratio on the exponent*, not by `ratioLift`).  The well-order
+theorem `lex_wf` stands for the reals that *do* have a finite `(h,d)`; reaching
+Liouville and the iterated-exponential tower needs the genuine third axis
+(ratio-on-exponent, a self-similar recursion), and the climb toward `ε₀` is that
+recursion's frontier — **not** captured by finitely many `ratioLift`s.  Within its
+honest reach, a constructive real's place is a single ordinal `< ω²`: how deep its
+`(ratio, diff)` tower runs.
 
 ## Summary
 

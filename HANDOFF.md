@@ -35,15 +35,23 @@ A long foundational thread (originator-driven Q&A).  Chapter
   9. **The higher axis (log) resolves ∞** — `DepthTower`: `ratioLift` (mult lift);
      `ratio_is_diff_on_exponent` (ratio on values = diff on exponents = the
      discrete log) → one logarithm drops Liouville from depth-∞ to finite.  The
-     `(h,d)` coordinate: log-height `h` above poly-depth `d`.  algebraic (0,0) ·
-     e (0,3) · π (0,6) · Liouville (1,finite) · tower (2,finite); true ∞ =
-     unbounded log-height.
+     `(h,d)` coordinate: `h` ratio-lifts then `d` diffs.  **CORRECTION (see below)**:
+     `h` is the *exponent's polynomial degree*, not iterated-log height — `ratioLift^h`
+     floors `c^{poly deg h}` (since `ratioLift = diff-on-exponent`).  Verified finite:
+     algebraic (0,0); e cross-det `n!` at (1,1); π similar.  **Liouville `c^{k!}` has
+     NO finite (h,d)** — its exponent `k!` is super-polynomial, and `ratioLift` only
+     *diffs* the exponent (never floors `k!`).  The earlier "Liouville (1,finite) /
+     tower (2,finite)" claims were WRONG.  The genuine third axis = *ratio on the
+     exponent* (not another `ratioLift`); Liouville sits exactly at the boundary of
+     the `(ratioN, diffN)` system's reach.
   10. **The coordinate is an ordinal `< ω²`** — `DepthOrdinal` (9 PURE): `(h,d)` as
      `ω·h+d`, lex order on ℕ×ℕ is a well-founded strict linear order (`lex_wf`,
      nested `Acc.rec` on `Nat.lt_wfRel.wf`).  `no_infinite_descent` = resolution
-     always terminates.  Ranks: algebraic 0 · e 3 · π 6 · Liouville ω+d · tower
-     ω·2+d; unbounded log-height ≥ ω² → ε₀.  A constructive real's place = a single
-     ordinal (depth of its finite-reference tower).
+     always terminates.  Ranks (finite cases, corrected): algebraic 0 · e (cross-det
+     `n!`) at (1,1) · π similar — all `< ω²`.  Liouville is NOT `ω+d`; it has no
+     finite `(h,d)` (needs the genuine third axis = ratio-on-exponent).  The
+     `DepthOrdinal` well-order theorem stands for the `(h,d)` reals that DO have a
+     finite coordinate; the ε₀ story requires the recursive/exponent axis (frontier).
   - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
      continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
      **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
