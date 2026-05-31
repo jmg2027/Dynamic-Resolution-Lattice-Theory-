@@ -191,13 +191,16 @@ The old "no PURE Int→Nat bridge" caveat is **removed**.
   - Capstone `pellConvergentCut_eq_phiCut`: the canonical Pell convergent cut
     stabilizes to `phiCut` ∀ target, every layer `i ≥ 2k`.  4/4 PURE.
 
+## Pell/Cassini norm step — CONSOLIDATED (this session)
+
+`FibCassiniNat.normstep` and `Mobius213PellInvariant.pell_step` were the SAME
+statement (the Möbius P-step `(a,b)↦(2a+b,a+b)` preserves `a²+1 = a·b+b²`),
+proved twice.  Now **one** public engine `Mobius213PellInvariant.pellNormStep`;
+`FibCassiniNat`'s ~70-line private duplicate cluster (`tt…eR, hR, normstep`)
+deleted, `fib_cassini_norm` cites the shared lemma.  Net −62 lines, 0 dup.
+
 ## OPEN (next targets — pick up here)
 
-  - **NOTE (repo-first catch)**: `Real213/Mobius213PellInvariant.
-    Pseq_seedZero_pell_invariant` already proves the SAME Cassini norm
-    `a²+1 = a·b+b²` ∀n on the `Mobius213Equiv.Pseq` Nat-orbit (its `pell_step`
-    = our `normstep`).  `FibCassiniNat` is the `fib`-indexed twin; consider
-    unifying or cross-citing rather than duplicating in future work.
   - **GRA-tower ↔ CD-tower duality** (conceptual only, `tower_atlas.md` open
     frontier): level `n` of property-loss ↔ level `5−n` of Reading-iso gain.
   - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean`
