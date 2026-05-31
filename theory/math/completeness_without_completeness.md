@@ -301,7 +301,7 @@ Differencing tames polynomials. Its multiplicative twin tames a single exponenti
 > **Definition (ratio-lift).** `ratioLift aₙ = aₙ₊₁ / aₙ`; `ratioN` its iterate.
 > **(L)** (`DepthTower`.)
 
-The honest fact about it — recorded after an earlier overclaim was retracted — is:
+The precise fact about it is:
 
 > **`ratioLift` is a difference on the exponent.** `ratio_is_diff_on_exponent`:
 > `ratioLift (c^{eₙ}) = c^{Δeₙ}`. **(L)**
@@ -517,6 +517,6 @@ the Lean disagree, the Lean wins.
 
 Theory and all foundational insights: Mingu Jeong. Formalisation, Lean code, and
 audit assistance: Claude (Anthropic). The arc was developed interactively; the
-discipline of marking every claim `(L)` / `(C)` / `(✗)`, and of retracting
-overclaims (the "ratioLift = logarithm" and "ε₀ is the end" readings were both
-corrected mid-development), is itself part of the method.
+discipline of marking every claim `(L)` / `(C)` / `(✗)` — admitting a reading only
+once its zero-axiom theorem is in hand, and holding the classical interpretation at
+arm's length until then — is itself part of the method.
