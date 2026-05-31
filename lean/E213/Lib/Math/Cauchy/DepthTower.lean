@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cauchy.DivergenceLadder
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PureNat
 
 /-!
 # DepthTower — the higher axis: ratio-lifts (logarithms) resolve the infinite depth
@@ -70,6 +71,14 @@ private theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k*b/b = k := by
 private theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a*b/a = b := by
   rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
 
+/-- PURE `c^(a+b) = c^a * c^b` (Lean-core `Nat.pow_add` pulls `propext`). -/
+private theorem pow_add_pure (c a b : Nat) : c^(a+b) = c^a * c^b := by
+  induction b with
+  | zero => rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | succ j ih =>
+    rw [show a+(j+1) = (a+j)+1 from rfl, Nat.pow_succ, ih, Nat.pow_succ]
+    exact E213.Meta.Nat.PureNat.mul_assoc (c^a) (c^j) c
+
 /-! ## §1 — the ratio-lift (the higher axis) -/
 
 /-- The ratio-lift: `ratioLift s n = s(n+1) / s n` (Nat division).  The
@@ -102,7 +111,7 @@ theorem ratio_is_diff_on_exponent (c : Nat) (hc : 1 ≤ c) (e : Nat → Nat)
     ratioLift (fun n => c^(e n)) n = c^(diff e n) := by
   show c^(e (n+1)) / c^(e n) = c^(e (n+1) - e n)
   have hpow : c^(e (n+1)) = c^(e n) * c^(e (n+1) - e n) := by
-    rw [← Nat.pow_add, Nat.add_sub_cancel' (hmono n)]
+    rw [← pow_add_pure, E213.Tactic.NatHelper.add_sub_of_le (hmono n)]
   rw [hpow]
   exact mul_div_cancel_left_pure (c^(e n)) (c^(e (n+1) - e n)) (Nat.pos_pow_of_pos (e n) hc)
 
