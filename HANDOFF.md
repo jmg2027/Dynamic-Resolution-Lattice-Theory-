@@ -27,6 +27,17 @@ A long foundational thread (originator-driven Q&A).  Chapter
      Liouville ∞.  **Depth ≠ irrationality measure μ** (μ collapses alg=e=π=2;
      depth separates) — depth = the P-recursive/holonomic rank, verified against
      Roth + Liouville before claiming.
+  8. **Finite depth ⟺ P-recursive** — `DepthPRecursive`: `polyDepth d s` (d-th
+     diff constant); `polyDepth_succ_iff` (diff lowers degree by 1, via
+     `liftK_diff_comm`).  Classical CF data: exp/tan family (e, tanh1=[0;1,3,5,7,…]
+     arithmetic CF) = finite depth = Riccati/E-function class; π/arctan1/ln2
+     irregular.
+  9. **The higher axis (log) resolves ∞** — `DepthTower`: `ratioLift` (mult lift);
+     `ratio_is_diff_on_exponent` (ratio on values = diff on exponents = the
+     discrete log) → one logarithm drops Liouville from depth-∞ to finite.  The
+     `(h,d)` coordinate: log-height `h` above poly-depth `d`.  algebraic (0,0) ·
+     e (0,3) · π (0,6) · Liouville (1,finite) · tower (2,finite); true ∞ =
+     unbounded log-height.
 
 ## This session — tower analysis → Raw branching → the residue → self-covering
 
