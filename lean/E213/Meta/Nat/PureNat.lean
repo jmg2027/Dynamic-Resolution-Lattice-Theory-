@@ -46,6 +46,15 @@ theorem mul_mul_mul_comm (a b c d : Nat) :
   rw [mul_assoc, ← mul_assoc b c d, Nat.mul_comm b c,
       mul_assoc c b d, ← mul_assoc]
 
+/-- `c^(a+b) = c^a * c^b`, axiom-free by induction on `b`
+    (Lean-core `Nat.pow_add` pulls `propext`). -/
+theorem pow_add (c a b : Nat) : c ^ (a + b) = c ^ a * c ^ b := by
+  induction b with
+  | zero => rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | succ j ih =>
+      rw [show a + (j + 1) = (a + j) + 1 from rfl, Nat.pow_succ, ih, Nat.pow_succ]
+      exact mul_assoc (c ^ a) (c ^ j) c
+
 
 /-- Custom even-detection, structural recursion (no well-founded). -/
 def isEven : Nat → Bool

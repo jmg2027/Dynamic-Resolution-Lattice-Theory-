@@ -269,8 +269,7 @@ of `diff` — and the key bridge fixes *exactly* what it does:
   - **(L)** ★ `ratio_is_diff_on_exponent` : `ratioLift (c^{eₙ}) = c^{diff eₙ}` —
     **the ratio-lift is a `diff` on the exponent.**  Hence `ratioLift^h` floors
     exactly `c^{polynomial of degree h}`: the coordinate `h` is the **exponent's
-    polynomial degree**, *not* an iterated-logarithm height (the earlier draft's
-    "log-height" reading was wrong).
+    polynomial degree** (not an iterated-logarithm height).
   - **(L)** `atTowerCoord h d` — the coordinate: `h` ratio-lifts then `d` diffs.
     `geom_at_1_0` (`cⁿ`, exponent degree 1, at `(1,0)`), `const_at_0_0`.
 
@@ -290,24 +289,9 @@ the exponent and so on, is the genuine tower; its height is the third (and `h`-t
 axis.  §10 records what is proven (the `(h,d)` well-order) and marks this recursion
 as the frontier.
 
-**CORRECTION (this is the honest reach of `(ratioN, diffN)`).**  `ratioLift` does a
-*difference on the exponent* (`ratioLift (c^{eₙ}) = c^{diff eₙ}`), so `ratioLift^h`
-floors exactly `c^{polynomial of degree h}` — `h` is the *exponent's polynomial
-degree*, **not** an iterated-logarithm height.  The genuinely captured
-finite-coordinate reals are those whose cross-determinant is a *factorial / single
-exponential with polynomial exponent*: e (cross-det `n!`) sits at `(1,1)`, π
-similarly; algebraic at `(0,0)`.  **Liouville `c^{k!}` has NO finite `(h,d)`**: its
-exponent `k!` is super-polynomial, and `ratioLift` only *differences* the exponent
-(`k! ↦ k!·k`), never reducing it to a constant.  So the difference-axis ∞ is *not*
-resolved by `ratioN` for Liouville — that needed a **genuinely different third
-operation: a ratio on the exponent** (the exponent `k!` floors under *ratio*, `k! ↦
-k+1`, not under diff).  Liouville sits exactly at the boundary of the
-`(ratioN, diffN)` system's reach; the third axis is where the next operation
-(ratio-on-exponent, the self-similar recursion) begins.  (The earlier draft's
-"Liouville `(1,finite)` / tower `(2,finite)`" was wrong and is retracted here.)  This is the user's frame reaching its general
-form: the infinite is handled by a finite reference; when that reference itself is
-infinite, a finite reference *one axis higher* (a logarithm) captures it; and the
-number of axes is itself the invariant.
+This is the originating frame reaching its general form: the infinite is handled by
+a finite reference; when that reference is itself infinite, a finite reference *one
+axis higher* captures it; and the number of axes is itself the invariant.
 
 ## 10. The coordinate is an ordinal below ω² **(L)**
 
