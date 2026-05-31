@@ -93,7 +93,10 @@ Currently "finite depth ⟺ P-recursive" is `DepthPRecursive` at the difference-
 level plus a classical (C) bridge to holonomic rank.  Open: make the bridge a
 theorem for the e and π cases — exhibit the explicit polynomial-coefficient recurrence
 their convergent data satisfies (e: coeff `n+1`, degree 1; π: degree 4) and prove
-`polyDepth d` matches.  This closes the (C) gap in chapter §III/§9–10.
+`polyDepth d` matches.  This closes the (C) gap in chapter §III/§9–10.  **Architecture
+for A+B**: `research-notes/G155` (HolonomicReal type — bundle the recurrence data with
+a derived `CertifiedModulus` so the API is unconditional within the holonomic class;
+the unproven `Holonomic.toCertifiedModulus` is exactly this target).
 
 ### C. The genuine third-axis closure (ratio-on-exponent reaches `c^{c^{poly}}`)
 
