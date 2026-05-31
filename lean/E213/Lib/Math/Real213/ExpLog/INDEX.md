@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (12)
+## Files (13)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -15,6 +15,10 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   `CauchyCompleteValid.limit_valid`.  The
                                   transcendental's modulus is a *hypothesis*
                                   (no LEM-free total cut), unlike algebraic φ.
+  - `PiCut.lean`                — π/2 (Wallis product) and π at the `ValidCut`
+                                  level: nested rational cuts, π/2 ∈ (7/5, 2),
+                                  π ∈ (14/5, 4); same per-threshold completion +
+                                  transcendental-modulus-as-hypothesis shape.
 
 ### Log
   - `CutLogSeries.lean`         — `log` Taylor series
