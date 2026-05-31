@@ -187,6 +187,44 @@ divergence depth, after which the form is a bare constant (the same `±1`/`1` fl
 the algebraic reals reach immediately).  The transcendentals are not "beyond form";
 they are *finitely deep* in form, and the depth is what tells them apart.
 
+## 7. Depth is **not** the irrationality measure — it is the P-recursive rank **(L + C)**
+
+It is tempting to read divergence depth as a 213-native **irrationality measure**
+`μ`.  That is **false**, and the data refutes it before any theorem:
+
+| real | classical `μ` (Liouville–Roth) | ladder depth |
+|---|---|---|
+| algebraic (deg ≥ 2) | `2` (Roth) | **1** |
+| e | `2` | **3** |
+| π | `2` (conj.; `≤ 7.1` proved) | **6** |
+| Liouville | `∞` | **∞** |
+
+`μ` sends algebraic, e, π all to the *same* value `2` — it cannot separate them.
+Depth separates them `1 < 3 < 6`.  So depth is a **finer, orthogonal** invariant:
+`μ` measures *how well* the number is approximated by rationals; depth measures
+*how complex the recurrence generating its approximants is*.
+
+The honest classification (`DivergenceLadder`):
+
+  - **(L)** **depth 1** ⟺ cross-determinant constant ⟺ *constant-coefficient*
+    (autonomous, `det = 1`) recurrence ⟺ quadratic algebraic (φ, √2 — Pell/Cassini;
+    `const_reaches_floor`).
+  - **(L + C)** **finite depth `d`** ⟺ cross-det ratio is a degree-`(d−2)`
+    polynomial ⟺ the convergents are **P-recursive** (polynomial-coefficient
+    recurrence): e (coeff `n+1`, degree 1 → depth 3, `e_ratio_floor`), π (coeff
+    degree 4 → depth 6).  The *structured* transcendentals.
+  - **(L + C)** **depth ∞** ⟺ no polynomial-coefficient recurrence ⟺
+    super-polynomial growth ⟺ Liouville-type (`infinite_depth`: if every lift stays
+    strictly increasing, the ladder never terminates) — the **only** place depth
+    and `μ` agree (both `∞`).
+
+So depth aligns with the **holonomic / P-recursive** hierarchy — the *algorithmic*
+complexity of the approximation — not with Diophantine approximability.  It is the
+constructive, 213-native reading: a real's place is set by *how deep a finite
+recurrence-tower its approximants need*, and depth counts the rungs.  This is the
+user's "finite reference for the infinite, iterated until it bottoms out" given a
+number: the depth, agreeing with classical `μ` only at the pathological `∞`.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
