@@ -400,6 +400,35 @@ iterate" generates an open-ended hierarchy of axes, and every named ceiling (`ω
 first rung of that ladder (one exponential layer is uncrossable by the axis below);
 the heights themselves are the classical ordinal hierarchy.
 
+## 13. Naming the ceiling-raising is a diagonalisation — the residue, one scale up **(L)**
+
+§12 left the hierarchy open: every named ceiling is where one iteration of "resolve
+the infinite by a finite reference" closes, and the *next* axis raises it.  The
+remaining move is to make **the act of raising the ceiling** itself a single
+reference — to point not at a level but at the whole sequence of levels at once.
+
+That reference is a **diagonalisation**.  Read `f i` as "the `i`-th ceiling / growth
+level"; the object that names them all is `diag f n = f n n + 1`.  The diagonal
+argument shows it is *outside the sequence it summarises* — `diag f ≠ f i` for every
+`i` (`diag_not_in_seq`, ∅-axiom): referencing the whole tower produces a fresh
+ceiling outside the tower, which can again be named, and again.  So "make the
+ceiling-raising a reference" neither terminates the hierarchy nor escapes it — it
+**reproduces the gap that forces the next step**.
+
+This is not a fact about ordinals; it is the *same* structure as the foundational
+residue.  `cantor_general` — the engine behind
+`FlatOntologyClosure.object1_not_surjective` — says any map `X → (X → Bool)` fails to
+be surjective: pointing at "everything pointable" always leaves an un-pointed
+surplus.  The depth-ceiling diagonal is one instance of exactly that map in temporal
+guise.  `ceiling_residue_is_pointing_residue` (∅-axiom) ties them: the pointing
+self-cover `Object1 : Raw → (Raw → Bool)` is faithful but never total
+(`self_covering_closure`), and the *same* non-surjectivity is what makes every named
+ceiling incomplete.  The unbounded ordinal tower (`ε₀`, Veblen, …) and the residue
+are **one self-covering closure read at two scales**.  The hierarchy has no top
+because *pointing has no exterior* (`seed/AXIOM/05_no_exterior.md`) — and so the arc
+that began with "completeness is a relocated finite operation" closes back onto the
+residue it set out from.
+
 ## Summary
 
 The wobble's *shape* (hyperbola `Q = N`, `ProbeTwistConic`) and *step* (`f⁻¹`,
@@ -436,5 +465,9 @@ transcendentals is a separate, higher theory this construction does not reach.
   - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN` cannot cross one
     exponential layer (`ratioN_dexp`, `dexp_not_const`); each layer a new axis; the
     rank-`×ω` / `ω^ω` / `ε₀`-is-not-the-end reading
+  - `lean/E213/Lib/Math/Cauchy/DepthCeilingResidue.lean` — naming the ceiling-raising
+    is a diagonalisation (`diag_not_in_seq`); it reproduces the foundational residue
+    (`ceiling_reference_leaves_residue` = `cantor_general`,
+    `ceiling_residue_is_pointing_residue` = `self_covering_closure`); the arc closes
   - Companion: `theory/math/completeness_relocated.md` (modulus forms),
     `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).

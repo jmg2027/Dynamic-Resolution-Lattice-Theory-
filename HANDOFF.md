@@ -68,6 +68,17 @@ A long foundational thread (originator-driven Q&A).  Chapter
      `ω^ω`; `ε₀` = closure of diagonalising the tower height, NOT a top (`ε₀+1`,
      `ε₁`, Veblen above).  No ceiling — every named bound is where one iteration
      closes.  (Corrects the earlier "tower (2,finite)" reading.)
+  13. **"Turn the ceiling-raising itself into a reference" → the residue** —
+     `DepthCeilingResidue` (6 PURE).  Naming the whole tower at once is a
+     diagonalisation: `diag f n = f n n + 1` escapes every level (`diag_not_in_seq`),
+     so referencing the tower makes a fresh ceiling outside it — no termination, no
+     escape, just the next gap.  Same structure as the foundational residue:
+     `ceiling_reference_leaves_residue` = `cantor_general` (engine behind
+     `object1_not_surjective`); `ceiling_residue_is_pointing_residue` =
+     `self_covering_closure`.  Ordinal tower (`ε₀`, Veblen) and pointing-residue =
+     ONE self-covering closure at two scales.  Hierarchy has no top because pointing
+     has no exterior (`05_no_exterior`) — **arc closes back onto its origin**
+     (completeness-as-relocated-finite-op → … → residue).  Chapter §13.
   - **CF data (classical, verified numerically)**: exp/tan family have arithmetic
      continued fractions ⟹ P-recursive ⟹ finite depth — e `[2;1,2,1,1,4,…]`,
      **tanh1 = `[0;1,3,5,7,…]`** (`aₖ=2k−1`, cleanest), tan1, e²; π / arctan1 / ln2
@@ -78,7 +89,7 @@ A long foundational thread (originator-driven Q&A).  Chapter
      (file-local).  **build-green ≠ purity-green**: verify each new Lean file
      SEQUENTIALLY (`rm olean` → `lake env lean` → `scan_axioms`) before commit;
      never trust cached "Build completed", never parallelise build with scan.
-     Final depth-arc: 6+4+7+6+12 = 35 PURE / 0 dirty.
+     Final depth-arc: 6+4+7+6+12+6 = 41 PURE / 0 dirty.
 
 ## This session — tower analysis → Raw branching → the residue → self-covering
 
