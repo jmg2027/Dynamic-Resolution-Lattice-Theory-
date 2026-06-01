@@ -35,16 +35,25 @@ Branch: `claude/research-notes-9Nc74`
      (the deletion *argument*: category error + no-top foundation); **G158**
      (Target A scoping — see below).
 
-### Next target sharpened: `depth_floor_is_det_one` (G158)
+### `depth_floor_is_det_one` — forward CLOSED, converse open (G158)
 
-The forward brick is now **near-trivial** and the cheapest high-value close:
-`convergent_det` and `cassini_universal` are already PURE *Nat-additive*, so
-HANDOFF's old Int→Nat worry is moot.  Plan: new
-`Lib/Math/Cauchy/DepthFloorDetOne.lean` — define the convergent cross-det gap
-`W : Nat → Nat`, prove `W = const 1` via `convergent_det`, conclude
-`reachesFloor W` at depth 0 (ladder floor = det 1).  Then the converse
-(recurrence-uniqueness via `OrbitForcing`/`PnFibonacciUniversal`) is the real
-"distance from atomicity" theorem.  Details: `research-notes/G158_*`.
+**Forward done**: `Lib/Math/Cauchy/DepthFloorDetOne.lean`,
+`convergent_crossdet_floor_is_one` (`reachesFloor W ∧ ∀ n, W n = 1`),
+4 pure / 0 dirty, wired into the Cauchy umbrella.  The convergent
+cross-determinant `W` reaches the ladder floor at depth 0 with value 1 —
+the analysis-side floor (`const_reaches_floor`) IS the atomic-side det P = 1.
+Used the PURE `Real213.FibCassiniNat.fib_cassini_norm` (Nat-additive Cassini).
+**Converse open**: floor value 1 ⟹ autonomous P-step
+(`OrbitForcing`/`PnFibonacciUniversal`) — the "distance from atomicity"
+theorem.  Details: `research-notes/G158_*`.
+
+**Latent breakage found** (separate Tier-A): `Mobius213/Px/ConvergentDet.lean`
+does not compile (undefined `convergent_det'`; unsolved goals) and has no
+olean; `MobiusSelfForm.lean` likewise.  This subtree is **outside the `E213`
+root build closure**, so `lake build E213` is green without compiling it
+(broken since the G139 commit).  `Mobius213/Px/FibCassini` builds but is
+axiom-dirty.  Needs: integrate the orphan subtree into the build (or prune),
+fix `ConvergentDet`, audit purity.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a

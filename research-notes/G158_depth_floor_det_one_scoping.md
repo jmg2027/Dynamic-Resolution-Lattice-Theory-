@@ -1,5 +1,14 @@
 # G158 — `depth_floor_is_det_one`: scoping (read-only)
 
+> **STATUS update**: the **forward direction is CLOSED** —
+> `Lib/Math/Cauchy/DepthFloorDetOne.lean`,
+> `convergent_crossdet_floor_is_one` (`reachesFloor W ∧ ∀ n, W n = 1`),
+> 4 pure / 0 dirty.  The PURE Cassini used is
+> `Real213.FibCassiniNat.fib_cassini_norm` (NOT `ConvergentDet.convergent_det`,
+> which is axiom-dirty and lives in an orphaned-from-build subtree — see
+> note below).  The **converse** (floor value 1 ⟹ autonomous P-step) is the
+> remaining open work.
+
 **Tier-1 scratch.**  Pre-implementation scoping of HANDOFF Target A
 (`depth_floor_is_det_one`), produced read-only.  Conclusion up front: the
 forward brick is **much closer than HANDOFF estimated** — the Int→Nat
@@ -79,6 +88,20 @@ The deeper half ("depth measures distance from atomicity"):
 2. Then attack the converse via `OrbitForcing` / `PnFibonacciUniversal`
    recurrence-uniqueness; that is the genuine "distance from atomicity"
    theorem and the hinge between the analysis ladder and atomic forcing.
+
+## Latent breakage found (separate issue)
+
+`Lib/Math/Mobius213/Px/ConvergentDet.lean` does **not compile** and has
+**no olean** — `farey_neighbour_fib` calls an undefined `convergent_det'`
+(stray prime) and `convergent_det`'s own proof leaves goals unsolved.
+`MobiusSelfForm.lean` likewise has no olean.  These sit in a subtree that
+is **outside the `E213` root build closure**, so `lake build E213` reports
+green without ever compiling them (broken since the G139 commit, unrelated
+to this session).  Also: even the sibling `Mobius213/Px/FibCassini.lean`
+that *does* build is **axiom-dirty** (`fib_cassini_norm` in `Real213` is
+the PURE alternative used here).  Worth a dedicated Tier-A pass: integrate
+the orphan subtree into the build (or prune it), fix `ConvergentDet`, audit
+its purity.
 
 ## Pointers
 
