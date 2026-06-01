@@ -19,9 +19,13 @@ order).  The four formalised bases realise the classification:
 Two readings, both decidable shadows of standard facts:
 
   * **Density** is `|μ|/2 = |μ/{±1}|` — per-level unit count `= (|μ|/2)·dim`
-    (densities 1, 2, 3 for the rank-1 seeds).  The only imaginary
-    quadratic fields with `μ ≠ {±1}` are `ℚ(i)` (`μ₄`) and `ℚ(ω)` (`μ₆`)
-    — so `ℤ[i]`, `ℤ[ω]` are the two exceptional dense columns.
+    (densities 1, 2, 3 for the rank-1 seeds).  This is a *corollary of the
+    doubled-basis construction* — the basis loop doubles with `dim`, so
+    its size is the seed count read back out — not independent evidence;
+    the contentful invariant is the branch.  That `ℤ[i]` (`μ₄`) and `ℤ[ω]`
+    (`μ₆`) are the *only* imaginary quadratic orders with `μ ≠ {±1}` is the
+    classical Dirichlet trichotomy, **cited not formalized** — here it
+    appears only as the three finite seed counts `2, 4, 6`.
 
   * **Branch** is the *odd torsion* of `μ`: dyadic when `3 ∤ |μ|` (the
     `μ₂`, `μ₄` columns carry only 2-power torsion); Eisenstein when
@@ -45,6 +49,7 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmegaOct
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
 open E213.Lib.Math.CayleyDickson.Levels.Sedenion
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 open E213.Lib.Physics.Simplex.Counts
 
 /-- ★ **Seed unit-group sizes `|μ| ∈ {2, 4, 6}` (+ 24 for the rank-2
@@ -71,37 +76,59 @@ theorem seed_density_two_scales :
   refine ⟨⟨?_, ?_, ?_⟩, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★ **The densest rank-1 seed has `|μ| = NS · NT`.**  The Eisenstein
-    seed `ℤ[ω]` — the exceptional `μ₆` column — has unit-group order equal
-    to the product of the two atomic counts. -/
+    seed `ℤ[ω]` has unit-group order `6 = NS · NT = 3 · 2`.  This is a
+    *length equality* (the same `6` is also `3!`, `d+1`, …); the
+    *structural* reading — that `μ₆ ≅ μ₂ × μ₃` (CRT) matches `μ_NT × μ_NS`
+    as the `K_{3,2}` ST-phase group — is suggestive but **not formalized
+    here**.  Treat as a numerical identity until that map is built. -/
 theorem eisenstein_seed_unit_count_eq_NS_NT : units6.length = NS * NT :=
   units_count_eq_NSNT
 
-/-- ★ **Branch is the odd torsion of `μ`.**  The dyadic columns (Type A
-    `Cayley`, Type B `L5T`) carry no order-3 units; the Eisenstein column
-    (`ZOmegaDouble`) carries 2; the Hurwitz seed carries 8.  So a column
-    is Eisenstein-type exactly when its loops carry 3-torsion. -/
+set_option maxHeartbeats 4000000 in
+/-- ★ **Branch is the odd torsion of `μ`.**  Across *every* measured
+    dyadic cell — Type A `Lipschitz, Cayley, Sedenion` and Type B `L4T,
+    L5T` — the order-3 count is `0`; the Eisenstein column
+    (`ZOmegaDouble`) carries `2`, the Hurwitz seed `8`.  So a column is
+    Eisenstein/Hurwitz-type exactly when its loops carry 3-torsion.
+
+    The load-bearing direction — CD doubling never *creates* odd torsion
+    on the dyadic side — is verified pointwise on these cells (no uniform
+    "all levels" theorem); the Eisenstein side has the matching
+    preservation `typeC_cyclotomic_3_preserved`. -/
 theorem branch_by_odd_torsion :
-    cay_units.countP (fun u => cay_orderOf u = 3) = 0
-    ∧ L5T_units.countP (fun u => L5T_orderOf u = 3) = 0
+    (lip_units.countP (fun u => lip_orderOf u = 3) = 0
+     ∧ cay_units.countP (fun u => cay_orderOf u = 3) = 0
+     ∧ sed_units.countP (fun u => sed_orderOf u = 3) = 0
+     ∧ L4T_units.countP (fun u => L4T_orderOf u = 3) = 0
+     ∧ L5T_units.countP (fun u => L5T_orderOf u = 3) = 0)
     ∧ zod_units.countP (fun u => zod_orderOf u = 3) = 2
     ∧ hur_units.countP (fun u => hur_orderOf u = 3) = 8 :=
-  ⟨by decide, by decide, by decide, hur_order_distribution.2.2.1⟩
+  ⟨⟨by decide, by decide, by decide, by decide, by decide⟩,
+   by decide, hur_order_distribution.2.2.1⟩
 
-/-- ★ **The Hurwitz seed `2T` contains the Eisenstein torsion menu.**  `2T`
-    carries both order-3 (8) and order-6 (8) units — the cyclotomic menu
-    `{3,6}` of `μ₆ = ⟨ζ₆⟩ ⊂ 2T` — making the abelian Eisenstein structure
-    the core of the non-abelian Hurwitz branch (rank-2 lift). -/
-theorem hurwitz_contains_eisenstein_core :
+/-- ★ **The Hurwitz seed `2T` carries the Eisenstein cyclotomic torsion.**
+    `2T` has both order-3 (8) and order-6 (8) units — the cyclotomic
+    orders `{3,6}` of the Eisenstein menu.  This is the *order-count*
+    statement only: it shows `2T`'s torsion menu includes `{3,6}`, hence
+    overlaps the Eisenstein branch.  It does **not** witness a subgroup
+    `μ₆ ⊂ 2T` (that needs a generator + closure, not a count), and in fact
+    `2T`'s 3-torsion (8 elements) is far richer than a single `μ₆` (which
+    has 2 order-3 elements) — `2T ≅ SL(2,𝔽₃)` is non-abelian of order 24,
+    with `μ₆` only a cyclic subgroup. -/
+theorem hurwitz_carries_cyclotomic_torsion :
     hur_units.countP (fun u => hur_orderOf u = 3) = 8
     ∧ hur_units.countP (fun u => hur_orderOf u = 6) = 8 :=
   ⟨hur_order_distribution.2.2.1, hur_order_distribution.2.2.2.2.1⟩
 
-/-- ★★ **Seed governs tower — master statement.**  The seed unit group
-    `μ` governs the meta-CD-tower: its size `|μ| ∈ {2,4,6}` (rank-1 trio,
-    plus 24 for Hurwitz) sets the column density `|μ|/2`, its odd torsion
-    sets the branch, and the densest rank-1 seed has `|μ| = NS·NT`.  `ℤ[i]`
-    and `ℤ[ω]` are the two exceptional dense rank-1 columns; Hurwitz is the
-    rank-2 lift whose seed contains the Eisenstein menu. -/
+/-- ★★ **Seed governs tower — master statement.**  The decidable shadows
+    of seed-`μ` governance, bundled: the unit-count trichotomy
+    `|μ| ∈ {2,4,6}` (+ 24 for Hurwitz), the Eisenstein length `= NS·NT`,
+    the branch separator (order-3 count `0` dyadic vs `2`/`8`
+    Eisenstein/Hurwitz), and the Hurwitz cyclotomic counts.  The density
+    `|μ|/2` and the loop-class names live in the per-theorem docstrings;
+    the *number-theoretic* labels (the `{±1}/μ₄/μ₆` trichotomy is the full
+    list of imaginary-quadratic unit groups; `μ₆ ⊂ 2T`) are classical
+    facts cited, not formalized here. -/
 theorem seed_governs_tower :
     (z2_base_units.length = 2 ∧ ZIUnits.length = 4
        ∧ units6.length = 6 ∧ hur_units.length = 24)
@@ -112,7 +139,7 @@ theorem seed_governs_tower :
     ∧ (hur_units.countP (fun u => hur_orderOf u = 3) = 8
        ∧ hur_units.countP (fun u => hur_orderOf u = 6) = 8) :=
   ⟨seed_unit_trichotomy, eisenstein_seed_unit_count_eq_NS_NT,
-   ⟨branch_by_odd_torsion.1, branch_by_odd_torsion.2.2.1, branch_by_odd_torsion.2.2.2⟩,
-   hurwitz_contains_eisenstein_core⟩
+   ⟨branch_by_odd_torsion.1.2.1, branch_by_odd_torsion.2.1, branch_by_odd_torsion.2.2⟩,
+   hurwitz_carries_cyclotomic_torsion⟩
 
 end E213.Lib.Math.CayleyDickson.Tower.SeedUnitGovernance
