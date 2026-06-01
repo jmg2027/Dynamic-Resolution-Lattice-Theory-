@@ -76,11 +76,11 @@ theorem seed_density_two_scales :
   refine ⟨⟨?_, ?_, ?_⟩, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★ **The densest rank-1 seed has `|μ| = NS · NT`.**  The Eisenstein
-    seed `ℤ[ω]` has unit-group order `6 = NS · NT = 3 · 2`.  This is a
-    *length equality* (the same `6` is also `3!`, `d+1`, …); the
-    *structural* reading — that `μ₆ ≅ μ₂ × μ₃` (CRT) matches `μ_NT × μ_NS`
-    as the `K_{3,2}` ST-phase group — is suggestive but **not formalized
-    here**.  Treat as a numerical identity until that map is built. -/
+    seed `ℤ[ω]` has unit-group order `6 = NS · NT = 3 · 2`.  The
+    *structural* reading is proved in `eisenstein_units_crt`: `μ₆ ≅
+    μ_NT × μ_NS` (CRT), an order-`NT` factor `{±1}` times an order-`NS`
+    factor `{1,ω,ω²}`, so `6` is the genuine `μ_NS × μ_NT` decomposition,
+    not a numerical collision. -/
 theorem eisenstein_seed_unit_count_eq_NS_NT : units6.length = NS * NT :=
   units_count_eq_NSNT
 
@@ -109,12 +109,12 @@ theorem branch_by_odd_torsion :
 /-- ★ **The Hurwitz seed `2T` carries the Eisenstein cyclotomic torsion.**
     `2T` has both order-3 (8) and order-6 (8) units — the cyclotomic
     orders `{3,6}` of the Eisenstein menu.  This is the *order-count*
-    statement only: it shows `2T`'s torsion menu includes `{3,6}`, hence
-    overlaps the Eisenstein branch.  It does **not** witness a subgroup
-    `μ₆ ⊂ 2T` (that needs a generator + closure, not a count), and in fact
-    `2T`'s 3-torsion (8 elements) is far richer than a single `μ₆` (which
-    has 2 order-3 elements) — `2T ≅ SL(2,𝔽₃)` is non-abelian of order 24,
-    with `μ₆` only a cyclic subgroup. -/
+    statement: `2T`'s torsion menu includes `{3,6}`, hence overlaps the
+    Eisenstein branch.  The actual subgroup `μ₆ ⊂ 2T` is witnessed
+    separately in `mu6_subgroup_of_2T` (a cyclic order-6 generator + its
+    powers).  Note `2T`'s 3-torsion (8 elements) is far richer than a
+    single `μ₆` (2 order-3 elements): `2T ≅ SL(2,𝔽₃)` is non-abelian of
+    order 24, with `μ₆` only one cyclic subgroup. -/
 theorem hurwitz_carries_cyclotomic_torsion :
     hur_units.countP (fun u => hur_orderOf u = 3) = 8
     ∧ hur_units.countP (fun u => hur_orderOf u = 6) = 8 :=
@@ -141,5 +141,58 @@ theorem seed_governs_tower :
   ⟨seed_unit_trichotomy, eisenstein_seed_unit_count_eq_NS_NT,
    ⟨branch_by_odd_torsion.1.2.1, branch_by_odd_torsion.2.1, branch_by_odd_torsion.2.2⟩,
    hurwitz_carries_cyclotomic_torsion⟩
+
+/-! ### Hardening the cited claims into proofs -/
+
+/-- A primitive 6th root in the Hurwitz units `2T`:
+    `g = (1+i+j+k)/2` (scaled `⟨1,1,1,1⟩`).  `g³ = -1`, `g⁶ = 1`. -/
+def hur_zeta6 : Hurwitz := ⟨1, 1, 1, 1⟩
+
+/-- The cyclic subgroup `⟨g⟩ = {1, g, g², g³, g⁴, g⁵}` inside `2T`. -/
+def mu6_in_hurwitz : List Hurwitz :=
+  [hur_one, hur_zeta6, hur_zeta6 * hur_zeta6,
+   hur_zeta6 * hur_zeta6 * hur_zeta6,
+   hur_zeta6 * hur_zeta6 * hur_zeta6 * hur_zeta6,
+   hur_zeta6 * hur_zeta6 * hur_zeta6 * hur_zeta6 * hur_zeta6]
+
+/-- ★ **`μ₆ ⊂ 2T` — an actual cyclic-6 subgroup witness.**  `g = ⟨1,1,1,1⟩`
+    is a primitive 6th root (`hur_orderOf g = 6`); its 6 powers are
+    distinct and all lie in `hur_units`.  So `⟨g⟩ ≅ μ₆` is a genuine
+    cyclic subgroup of the Hurwitz unit group `2T` — the subgroup
+    containment the order counts alone could not witness. -/
+theorem mu6_subgroup_of_2T :
+    hur_orderOf hur_zeta6 = 6
+    ∧ mu6_in_hurwitz.length = 6
+    ∧ mu6_in_hurwitz.Nodup
+    ∧ (∀ x ∈ mu6_in_hurwitz, hur_units.contains x = true) := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- The order-`NT` (= 2) factor `{±1}` of the Eisenstein unit group. -/
+def eis_mu_NT : List ZOmega := [⟨1, 0⟩, ⟨-1, 0⟩]
+
+/-- The order-`NS` (= 3) factor `{1, ω, ω²}` (cube roots of unity). -/
+def eis_mu_NS : List ZOmega := [⟨1, 0⟩, ⟨0, 1⟩, ⟨-1, -1⟩]
+
+/-- The CRT product list `{s · t : s ∈ μ_NT, t ∈ μ_NS}`. -/
+def eis_crt_products : List ZOmega :=
+  [(⟨1, 0⟩ : ZOmega) * ⟨1, 0⟩, (⟨1, 0⟩ : ZOmega) * ⟨0, 1⟩,
+   (⟨1, 0⟩ : ZOmega) * ⟨-1, -1⟩,
+   (⟨-1, 0⟩ : ZOmega) * ⟨1, 0⟩, (⟨-1, 0⟩ : ZOmega) * ⟨0, 1⟩,
+   (⟨-1, 0⟩ : ZOmega) * ⟨-1, -1⟩]
+
+/-- ★ **`μ₆ ≅ μ_NT × μ_NS`, wiring `6 = NS·NT` to structure.**  The
+    Eisenstein unit group splits by CRT as `{±1} × {1,ω,ω²}` — an
+    order-`NT` factor times an order-`NS` factor.  The product map
+    `μ_NT × μ_NS → μ₆`, `(s,t) ↦ s·t`, is a bijection onto `units6`
+    (`Nodup`, both inclusions).  So `|μ₆| = NS · NT` is the *structural*
+    `μ_NS × μ_NT` decomposition, not a numerical collision. -/
+theorem eisenstein_units_crt :
+    eis_mu_NT.length = NT
+    ∧ eis_mu_NS.length = NS
+    ∧ eis_crt_products.length = NS * NT
+    ∧ eis_crt_products.Nodup
+    ∧ (∀ x ∈ eis_crt_products, units6.contains x = true)
+    ∧ (∀ x ∈ units6, eis_crt_products.contains x = true) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.CayleyDickson.Tower.SeedUnitGovernance
