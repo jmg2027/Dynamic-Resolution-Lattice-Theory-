@@ -150,6 +150,15 @@ A–D + B are now **all closed ∅-axiom this arc**:
     + φ as named instance (`phi_total_modulus_via_const`) — φ's even-Fibonacci convergents
     `fib(2i+2)/fib(2i+1)` have constant cross-det `1` (Cassini unit) and φ²-step denominator
     growth beating `i(i+1)` for all i≥1, so φ completes through the same bridge as e/Liouville.
+    **W=d line = reciprocal-series reference family** (`Real213/ReciprocalSeries`, 12/0):
+    `W=d` cross-divides to `a_{i+1}/d_{i+1} − a_i/d_i = 1/d_{i+1}`, so the rung is exactly
+    `Σ 1/d_j`, a one-parameter family indexed by the ratio `g_i = d_{i+1}/d_i` (`den`/`num`
+    from `g`, `recip_cross_det` = W=d by construction); `recip_total_modulus` — free iff
+    `i+1 ≤ g_i`.  e = linear-ratio point `g_i=i+1` (`den_linear_is_factorial`: denominators
+    = `j!`); Liouville = fast-ratio points.  Originator's reading: the diagonal `y=x` of the
+    (W,d) plane is a growth-graded reference family of self-completing reals, each named by
+    its ratio sequence.  Open: universal reciprocal-series chart (every real has such a
+    representation — Engel/Sylvester).
     **Presentation-dependence** (`Real213/PresentationDependence`, 6/0):
     `crossDetSmall_is_presentation_dependent` — `rcut` is rescaling-invariant
     (`rcut_rescale`, the cut cancels a common factor `c`) while `CrossDetSmall` is not
@@ -268,7 +277,7 @@ is one coherent 13-link arc, `holonomic_modulus` the constructed-modulus mechani
 | Equivalence unification — 213's sameness is reading-equivalence (`ReadingEq.same`); `HasDistinguishing` stated over `same`; composite instances thread `same` (`Pair`/`Sum`); Lens tree 0 real DIRTY | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Lens/EqPW` (`sameLens` + laws), `Lens/SemanticAtom` (`combine_sym`/universal morphism over `same`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`), `Theory/Raw/Fold` (`fold_slash_rel`, `fold_slash_iff`) | `theory/lens/{unified_equivalence,dirty_recovery_patterns}`, `research-notes/RFC_reading_equivalence_primitive.md` (+ `G164`), `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `omega`/`simp` purifications — `Instances.Leaves.DepthJoin` (tier classification), `CayleyDickson.{CayleyHeavy,CDTower}`, `Cauchy.GenericFamily` (pointwise-at-index) all PURE | the modules above; general Nat/`max` helpers in `Meta/Tactic/NatHelper`, Int helpers in `Meta/Int213` | `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `5²⁵`-as-resolution chain — DELETED (originator); 0.2 ppb α_em result survives on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,CrossDetOvertake,LiouvilleModulus,CrossDetEqDenom,CrossDetConstDenom,GeometricThreshold,PresentationDependence,TowerNativeCompleteness,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Cauchy/{DepthClosure,DepthCoordGenerator}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `analysis/tower_native_completeness`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,CrossDetOvertake,LiouvilleModulus,CrossDetEqDenom,ReciprocalSeries,CrossDetConstDenom,GeometricThreshold,PresentationDependence,TowerNativeCompleteness,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Cauchy/{DepthClosure,DepthCoordGenerator}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `analysis/tower_native_completeness`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

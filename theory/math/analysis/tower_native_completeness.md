@@ -29,6 +29,7 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/CrossDetOvertake.lean` | 11 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
+| `Real213/ReciprocalSeries.lean` | 12 / 0 | the `W = d` line as a ratio-parametrized reciprocal-series reference family (`Σ 1/d`); e = linear-ratio point |
 | `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
 | `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
 | `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
@@ -122,7 +123,18 @@ all read through the one bridge `CrossDetSmall ⟹ free`:
     `crossdet_eq_denom_total_modulus` covers both, with `CrossDetSmall d d` collapsing
     (`i(i+1)+i = i(i+2)`) to a denominator-growth condition, and
     `euler_total_modulus_via_eq_denom` / `liouville_total_modulus_via_eq_denom` the
-    one-line instances;
+    one-line instances.  The `W = d` relation cross-divides to
+    `a_{i+1}/d_{i+1} − a_i/d_i = 1/d_{i+1}`, so this rung is exactly the
+    **reciprocal-denominator series** `Σ 1/d_j` (`ReciprocalSeries.recip_unit_increment`):
+    a *one-parameter reference family* indexed by the ratio `g_i = d_{i+1}/d_i`, built
+    canonically from `g` (`den`/`num`, `recip_cross_det` gives `W = d` by construction)
+    and completing exactly when the ratio grows at least linearly, `i+1 ≤ g_i`
+    (`recip_total_modulus`).  e is the linear-ratio point `g_i = i+1`
+    (`den_linear_is_factorial`: denominators `= j!`), the Liouville constants the
+    fast-ratio points `g_i = c^{i·i!}` — the diagonal is a growth-graded family of
+    self-completing reals, each named by its ratio sequence.  (Whether *every* real
+    admits a reciprocal-series representation — a universal chart — is a deeper open
+    question.)
   - **`W ≫ d`** — the overtake (`dexp_overtakes_denom`), where `CrossDetSmall` fails.
 
 So "constant cross-determinant" (algebraic) and "cross-determinant equal to the

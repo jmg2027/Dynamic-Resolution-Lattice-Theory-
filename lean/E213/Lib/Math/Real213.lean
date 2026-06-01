@@ -57,6 +57,7 @@ import E213.Lib.Math.Real213.RateStratification
 import E213.Lib.Math.Real213.CrossDetOvertake
 import E213.Lib.Math.Real213.LiouvilleModulus
 import E213.Lib.Math.Real213.CrossDetEqDenom
+import E213.Lib.Math.Real213.ReciprocalSeries
 import E213.Lib.Math.Real213.CrossDetConstDenom
 import E213.Lib.Math.Real213.GeometricThreshold
 import E213.Lib.Math.Real213.PresentationDependence
