@@ -61,7 +61,23 @@ class HasDistinguishing (α : Type) where
   b : α
   distinct : a ≠ b
   combine : α → α → α
-  combine_sym : ∀ x y, combine x y = combine y x
+  /-- Reading-sameness on the codomain (default: Lean `=`).  For codomains
+      whose `=` is funext-bearing (`Lens β`, function spaces) an instance
+      overrides this with the pointwise sameness (e.g. `Lens.eqPW`), so
+      `combine_sym` records distinguishing-content symmetry, not Lean `=`.
+      The three laws default (via `autoParam`) to the `Eq` proofs, so an
+      `Eq`-codomain instance needs no extra fields. -/
+  same : α → α → Prop := Eq
+  same_refl : ∀ x, same x x := by intro x; rfl
+  same_symm : ∀ {x y}, same x y → same y x := by intro x y h; exact h.symm
+  same_trans : ∀ {x y z}, same x y → same y z → same x z := by
+    intro x y z h₁ h₂; exact h₁.trans h₂
+  combine_sym : ∀ x y, same (combine x y) (combine y x)
+  /-- `combine` respects `same` in both arguments.  Defaults (via `autoParam`)
+      to the `Eq` congruence, so an `Eq`-codomain instance needs no extra field. -/
+  combine_cong : ∀ a a' b b', same a a' → same b b' →
+      same (combine a b) (combine a' b') := by
+    intro a a' b b' ha hb; rw [show a = a' from ha, show b = b' from hb]
 
 
 /-! ### Raw as HasDistinguishing instance
@@ -101,13 +117,16 @@ theorem universalMorphism_a (α : Type) [d : HasDistinguishing α] :
 theorem universalMorphism_b (α : Type) [d : HasDistinguishing α] :
     universalMorphism α Raw.b = d.b := rfl
 
-/-- Universal morphism preserves slash via fold_slash. -/
+/-- Universal morphism preserves slash, up to the codomain's reading-sameness
+    `same` (via `fold_slash_rel`).  At the default instance (`same = Eq`) this is
+    the literal `=` homomorphism (definitionally); at a `same`-overriding
+    codomain (e.g. `Lens β` with `eqPW`) it is the ∅-axiom pointwise form. -/
 theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
     (x y : Raw) (h : x ≠ y) :
-    universalMorphism α (Raw.slash x y h)
-      = d.combine (universalMorphism α x) (universalMorphism α y) := by
+    d.same (universalMorphism α (Raw.slash x y h))
+      (d.combine (universalMorphism α x) (universalMorphism α y)) := by
   unfold universalMorphism
-  apply Raw.fold_slash _ _ _ d.combine_sym
+  exact Raw.fold_slash_rel d.same d.same_refl d.a d.b d.combine d.combine_sym x y h
 
 
 /-! ### Lens as a specific instance of HasDistinguishing
@@ -365,17 +384,25 @@ distinguishing-framework category. -/
 
 /-- **Universal morphism uniqueness**: for an instance of HasDistinguishing α,
     the distinguishing-preserving function Raw → α is exactly
-    `universalMorphism α`. -/
+    `universalMorphism α` — stated up to the codomain's reading-sameness `same`
+    (at `same = Eq` this is the literal uniqueness, definitionally).  Proven by
+    `Raw.rec`: the slash step chains `hslash`, `combine_cong` on the IHs, and
+    `universalMorphism_slash` (all via `same`), no `funext`/`propext`. -/
 theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
     (f : Raw → α)
-    (ha : f Raw.a = d.a)
-    (hb : f Raw.b = d.b)
+    (ha : d.same (f Raw.a) d.a)
+    (hb : d.same (f Raw.b) d.b)
     (hslash : ∀ (x y : Raw) (h : x ≠ y),
-              f (Raw.slash x y h) = d.combine (f x) (f y)) :
-    ∀ r : Raw, f r = universalMorphism α r := by
+              d.same (f (Raw.slash x y h)) (d.combine (f x) (f y))) :
+    ∀ r : Raw, d.same (f r) (universalMorphism α r) := by
   intro r
-  exact Lens.view_unique
-    (⟨d.a, d.b, d.combine⟩ : Lens α) d.combine_sym f ha hb hslash r
+  induction r using Raw.rec with
+  | a => exact ha
+  | b => exact hb
+  | slash x y h ihx ihy =>
+      exact d.same_trans (hslash x y h)
+        (d.same_trans (d.combine_cong _ _ _ _ ihx ihy)
+          (d.same_symm (universalMorphism_slash α x y h)))
 
 /-- **Raw as initial object of HasDistinguishing-category**:
     for any instance α, the distinguishing-preserving function
@@ -387,19 +414,19 @@ theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
     as explicit existence + uniqueness conjunction.) -/
 theorem raw_initial (α : Type) [d : HasDistinguishing α] :
     ∃ f : Raw → α,
-      (f Raw.a = d.a) ∧
-      (f Raw.b = d.b) ∧
+      (d.same (f Raw.a) d.a) ∧
+      (d.same (f Raw.b) d.b) ∧
       (∀ (x y : Raw) (h : x ≠ y),
-        f (Raw.slash x y h) = d.combine (f x) (f y)) ∧
+        d.same (f (Raw.slash x y h)) (d.combine (f x) (f y))) ∧
       (∀ g : Raw → α,
-        g Raw.a = d.a →
-        g Raw.b = d.b →
+        d.same (g Raw.a) d.a →
+        d.same (g Raw.b) d.b →
         (∀ (x y : Raw) (h : x ≠ y),
-          g (Raw.slash x y h) = d.combine (g x) (g y)) →
-        ∀ r : Raw, g r = f r) := by
+          d.same (g (Raw.slash x y h)) (d.combine (g x) (g y))) →
+        ∀ r : Raw, d.same (g r) (f r)) := by
   refine ⟨universalMorphism α, ?_, ?_, ?_, ?_⟩
-  · exact universalMorphism_a α
-  · exact universalMorphism_b α
+  · exact d.same_refl _
+  · exact d.same_refl _
   · intro x y h; exact universalMorphism_slash α x y h
   · intro g hga hgb hgslash r
     exact universalMorphism_unique α g hga hgb hgslash r
