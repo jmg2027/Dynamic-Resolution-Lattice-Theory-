@@ -57,7 +57,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     (`floor_one_is_P_invariant` = `pellNormStep`).  The floor IS the P-orbit
     invariant.  Hinge between analysis-ladder and atomic forcing.
   - **B. finite-depth recurrence formal** — DONE FULLY (general theorem + e + π) this
-    arc.  **General theorem** (`Cauchy/DepthPRecursiveInstances`, 25/0):
+    arc.  **General theorem** (`Cauchy/DepthPRecursiveInstances`, 23/0):
     `newton_polyDepth` — *every* degree-`d` discrete polynomial `Σ_{i≤d} cᵢ·binom(·,i)`
     (Newton form, 213-native `binom`, Pascal) has `polyDepth d`; exact Newton-basis
     difference (`diff_newton` lowers degree by one, iterated `d`× via `liftK_congr` +
@@ -68,8 +68,11 @@ A–D + B are now **all closed ∅-axiom this arc**:
     confirming π depth 6 ∅-axiom.  The nonlinear-Nat expansion is discharged by the
     new reflection prover **`Meta/Nat/PolyNat`** (`poly_id`, 11/0): the ∅-axiom `ring`
     replacement — reify to a polynomial tree, normalise to Horner coeffs, equal lists
-    ⟹ equal by `rfl`.  Reusable Nat helpers: `add_sub_add_of_le`, `liftK_congr`,
-    `binom_mono`, `poly_id`.
+    ⟹ equal by `rfl`.  Reusable helpers live in their fundamental homes:
+    `add_sub_add_of_le` in `Meta/Tactic/NatHelper`, `liftK_congr` in
+    `Cauchy/DepthPRecursive` (pointwise-equality lift, no `funext`), `poly_id` in
+    `Meta/Nat/PolyNat`; `binom_mono` stays with the Newton-basis machinery in
+    `DepthPRecursiveInstances`.
   - **HolonomicReal type architecture** — AUTONOMOUS CASE DONE this arc
     (`Real213/HolonomicReal`, 8/0): `HolonomicReal` bundles a holonomic recurrence
     spec + the convergent `CauchyCutSeq` (modulus `seq.N` as a *constructed field*,
@@ -78,7 +81,8 @@ A–D + B are now **all closed ∅-axiom this arc**:
     constant-coeff (det 1), modulus `N(m,k)=2k` (proven, `phiConvergentSeq`), cut =
     closed-form `phiCut`.
   - **e — TOTAL constructive modulus, complete `HolonomicReal`** this arc
-    (`ExpLog/EulerModulus`, 5/0): `euler_total_modulus` / `euler_cut_const` — `eulerCut`
+    (`ExpLog/EulerModulus`, 11/0, deriving from `RateModulus` — no bespoke engine):
+    `euler_total_modulus` / `euler_cut_const` — `eulerCut`
     is constant past `k+2` for every `(m,k)`, `k≥1`; `N(m,k)=k+2` explicit.  `eHolonomicReal`
     bundles it (modulus a constructed field, like φ).  Mechanism: margin invariant
     `e_i + 1/(i·i!) ≤ m/k`, forward step `i(i+2)≤(i+1)²` (0≤1, via `PolyNat`); the
@@ -94,7 +98,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `1/(k·i!)`: ratio `k/i<1`); **π-via-Wallis does NOT** (tail `~1/n` vs fast
     `wallisDen` → needs π's irrationality measure `μ(π)≤7.1`, genuinely hard — a fast
     π series is the real route).
-  - **General generator — DONE** this arc (`Real213/RateModulus`, 3 PURE + engine):
+  - **General generator — DONE** this arc (`Real213/RateModulus`, 4 PURE):
     `rate_total_modulus` — *any* monotone convergent cut-sequence `a_i/d_i` with a
     non-increasing margin `e_i + 1/(i·d_i)` (the rate certificate `Htel`) has a total
     ∅-axiom modulus `N(m,k)=k+2`; the step is pure transitivity once `Htel` is
@@ -145,10 +149,11 @@ A–D + B are now **all closed ∅-axiom this arc**:
 
 ### Scoped doc follow-ups (judgment / generative)
 
-Merges (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
-`properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`); splits
-(`cohomology/k_nm_c_classification`, `completeness_without_completeness` — verify
-first); narrative-patchwork intros (`RESEARCH_PLAN`, `meta/methodology_patterns`).
+Candidate merges (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
+`properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`).  The
+real-number chapters are well-classified as they stand: `completeness_without_completeness`
+is one coherent 13-link arc, `holonomic_modulus` the constructed-modulus mechanism,
+`real_without_completeness` the on-demand essay — no split improves them.
 
 ## Closed (durable homes — do not re-derive)
 
