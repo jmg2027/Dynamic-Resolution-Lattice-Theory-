@@ -1,3 +1,5 @@
+import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
+
 /-!
 # Type E seed — the icosian order over `ℤ[φ]`, and its order-5 unit
 
@@ -87,17 +89,21 @@ end Icosian
     `(φ-1)/2 = cos 72°`, norm `1`. -/
 def g5 : Icosian := ⟨⟨-1, 1⟩, ⟨0, 1⟩, ⟨1, 0⟩, ⟨0, 0⟩⟩
 
-/-- ★ **An explicit order-5 unit of the icosian order (`2I`).**  `g`
-    is a unit (`normSq g = 4`, i.e. `|g| = 1` in the scaled rep), `g⁵ = 1`,
-    and `g ≠ 1` — so (since 5 is prime) `g` has order exactly 5.  This is
-    the order-5 torsion that the binary-icosahedral seed `2I` carries and
-    no lower seed (`μ₂,μ₄,μ₆,2T`, menus `⊆ {1,2,3,4,6}`) does — the golden
-    / pentagonal McKay branch, here over `ℤ[φ]`. -/
+/-- ★ **An explicit order-5 unit of the icosian quaternion order.**  `g`
+    is a unit (`normSq g = 4`, a halving-free witness that `|g| = 1` in the
+    scaled rep), `g⁵ = 1`, `g ≠ 1`, and `g² ≠ 1` — so its order divides 5,
+    is not 1, hence is exactly 5.  `g` is one of the 120 unit icosians
+    (the binary icosahedral group `2I`, a cited classical fact); this is an
+    order-5 torsion element of that order — a pentagonal order the lower
+    seeds `μ₂,μ₄,μ₆,2T` lack (`two_T_torsion_bounded_at_6`).  The "McKay
+    rung past `2T`" reading is conjectural narrative; what is *proved* here
+    is this explicit element, not the full `2I` group. -/
 theorem icosian_order5_unit :
     Icosian.normSq g5 = ⟨4, 0⟩
     ∧ g5 * g5 * g5 * g5 * g5 = Icosian.one
-    ∧ g5 ≠ Icosian.one := by
-  refine ⟨?_, ?_, ?_⟩ <;> decide
+    ∧ g5 ≠ Icosian.one
+    ∧ g5 * g5 ≠ Icosian.one := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- An order-10 icosian unit: `g₁₀ = (φ + i + (φ-1)·j)/2`, scaled
     `⟨φ, 1, φ-1, 0⟩`.  Real part `φ/2 = cos 36°`, norm `1`. -/
@@ -116,5 +122,18 @@ theorem icosian_order10_unit :
     ∧ g10 * g10 * g10 * g10 * g10 ≠ Icosian.one
     ∧ g10 * g10 ≠ Icosian.one := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+open E213.Lib.Math.CayleyDickson.Integer.Hurwitz213 in
+/-- ★ **The lower seed `2T` has no order-5 or order-10 element.**  Every
+    Hurwitz unit has order in `{1,2,3,4,6}`: `hur_orderOf` returns `0`
+    exactly when an element's order lies *outside* that menu (in
+    particular for orders 5 or 10), and `hur_order_distribution` proves
+    that `0`-count is itself `0`.  So `2T`'s torsion is genuinely bounded
+    at 6 — the order-5 and order-10 icosian units `g5`, `g10` are a real
+    new torsion type, not an artifact of an `orderOf` that fails to test
+    the 5th power. -/
+theorem two_T_torsion_bounded_at_6 :
+    hur_units.countP (fun u => hur_orderOf u = 0) = 0 :=
+  hur_order_distribution.2.2.2.2.2
 
 end E213.Lib.Math.CayleyDickson.Tower.TypeEIcosian
