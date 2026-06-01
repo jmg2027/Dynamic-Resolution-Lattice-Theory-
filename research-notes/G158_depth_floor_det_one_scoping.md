@@ -66,28 +66,58 @@ atomic-side forcing (`convergent_det` = det P = 1) shown to be the *same*
 floor.  Estimated: a short PURE proof, well under one session — the pieces
 are all present and pure.
 
-### Converse direction — the real remaining content
+### Converse direction — sharpened: it is mostly assembly
 
-The deeper half ("depth measures distance from atomicity"):
+The deeper half ("floor value 1 ⟹ the pair lies on the autonomous P-orbit")
+turns out to need **no new machinery** — the key fact is already present:
 
-  - **`depth_floor_is_det_one`** (HANDOFF brick): `reachesFloor` of the
-    convergent cross-det *with floor value 1* ⟹ the convergents satisfy the
-    autonomous Pell/Cassini step (lie on a P-orbit).
-  - Obstacle here is **not** Int/Nat; it is a *recurrence-uniqueness*
-    statement: "a depth-0 (constant) cross-det of value 1 forces the
-    `Q00, Q01` to obey the P-step `Q(n+1) = P·Q(n)`."  That needs the
-    autonomous-recurrence characterization (cf. `OrbitForcing`,
-    `PnFibonacciUniversal`), not additive routing.
+  - `Real213.Mobius213PellInvariant.pellNormStep (a b : Nat)
+    (h : a*a + 1 = a*b + b*b) : …` — the autonomous Pell/Cassini step.  Its
+    **hypothesis `a*a + 1 = a*b + b*b` IS "floor value 1"** (the cross-det = 1
+    Cassini relation, in the squared/normed form).
+  - `Real213.FibCassiniNat.fib_cassini_norm n` has exactly that shape with
+    `a = fib(2n+2)`, `b = fib(2n+1)` — and it is **PURE**.  So
+    `pellNormStep (fib(2n+2)) (fib(2n+1)) (fib_cassini_norm n)` already feeds
+    the floor-1 invariant into the autonomous step (FibCassiniNat line ~97
+    does this inside its induction).
+
+So the converse brick is: **floor value 1 (the Cassini relation) is precisely
+`pellNormStep`'s premise; invoking it shows the pair advances by the P-orbit
+recurrence, preserving the invariant.**  The theorem to state:
+
+  - **`depth_floor_is_det_one_converse`**: `∀ n, W n = 1` (equivalently the
+    Cassini relation `a*a + 1 = a*b + b*b` holds at each step) ⟹ the
+    convergent pair obeys `pellNormStep` (the autonomous P-step), i.e. lies on
+    a single P-orbit.  Proof: rewrite `W n = 1` back to the squared Cassini
+    form (the inverse of the forward `succ_sub` step), then `exact
+    pellNormStep _ _`.
+
+The only real work is the **form bridge**: the forward brick used the *linear*
+cross-det `a·b + b² − a²`-style gap (`fib_cassini_norm` rearranged); the
+`pellNormStep` premise is the *squared* form `a² + 1 = a·b + b²`.  These are
+the same identity; a one-step Nat-additive `rw` connects them (no Int, no
+omega — same PURE toolbox as the forward brick).  Estimated: comparable to the
+forward brick, well under a session.
+
+(`OrbitForcing` then supplies the *uniqueness* layer — that `(NS,NT)=(3,2)`
+forces this orbit specifically, via `pellLucasEq 3 1` canonical + the bounded
+non-canonical-fail enumeration — if one wants the full "distance from
+atomicity" statement rather than just "lies on *a* P-orbit".)
 
 ## Recommendation for the next active session
 
-1. Land `depth_floor_is_det_one_forward` first (cheap, PURE, closes the
-   "ladder floor = det 1" identification one direction).  Put it in a new
-   `Lib/Math/Cauchy/DepthFloorDetOne.lean` importing `DivergenceLadder` +
-   `Mobius213/Px/ConvergentDet`.
-2. Then attack the converse via `OrbitForcing` / `PnFibonacciUniversal`
-   recurrence-uniqueness; that is the genuine "distance from atomicity"
-   theorem and the hinge between the analysis ladder and atomic forcing.
+1. **DONE** — `convergent_crossdet_floor_is_one` in
+   `Lib/Math/Cauchy/DepthFloorDetOne.lean` (4 pure / 0 dirty), via the PURE
+   `Real213.FibCassiniNat.fib_cassini_norm` (the ungated `Mobius213/Px`
+   Cassini was axiom-dirty, so routed around it).
+2. **Converse — next**: add `depth_floor_is_det_one_converse` in the same
+   file.  Bridge `W n = 1` back to the squared Cassini `a²+1 = a·b+b²` (one
+   PURE Nat `rw`, inverse of the forward `succ_sub`), then `exact
+   pellNormStep _ _ (fib_cassini_norm n)`.  Comparable cost to the forward
+   brick — mostly assembly, no new machinery.
+3. **Optional uniqueness layer**: wire `OrbitForcing` (`pellLucasEq 3 1`
+   canonical + bounded non-canonical fails) to upgrade "lies on *a* P-orbit"
+   to "lies on *the* (3,2)-forced orbit" — the full "distance from atomicity".
 
 ## Latent breakage found (separate issue)
 
