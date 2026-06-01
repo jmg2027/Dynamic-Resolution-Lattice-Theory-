@@ -76,24 +76,32 @@ to green, keeping `fold_slash_rel`).  Concrete findings:
     args with `(R := d.same)` pinned — higher-order implicit inference of `R`
     through `∀ {x y z}, R x y → …` fails otherwise.
 
-### THE REAL BLOCKER — the image tower needs `same`-closure hypotheses
+### The cascade — `same`-relativize + thread a `same`-closure hypothesis
 
-`universalMorphism_slash` now yields `same (uM slash)(combine …)`, not `=`.
-Consumers that did `rw [universalMorphism_slash]` break — and not just
-syntactically (`rw` won't unfold the `HasDistinguishing.same` projection to see
-`Eq`).  Worse, the statements are **genuinely `=`-only**: e.g.
-`ImageMinimum.image_minimum_property` ("image ⊆ every distinguishing-closed S")
-proves `S (uM slash)` from `S (combine …)`, which needs `uM slash = combine …`.
-For a non-`Eq` `same` (the Lens tower) that step is **false unless `S` respects
-`same`**.  So the image tower (`Reach.image_closed_under_distinct_combine`,
-`ImageMinimum.image_minimum_property`, `OnLensImage*`, `TowerLevel3`) must each
-gain a `∀ x y, same x y → (S x ↔ S y)` (or `f`-respects-`same`) hypothesis to
-stay true generically — a **semantic generalization, not a mechanical
-`= → same` swap**.  This is where the cascade expands and why it needs a
-dedicated session (estimate: SemanticAtom + EqPW + OnLens are ~mechanical given
-the above; Reach + ImageMinimum + the 3 `OnLensImage*` + TowerLevel3 + verifying
-Hyper213Tower each need a same-closure hypothesis threaded through their
-statements and every downstream consumer).
+`universalMorphism_slash` now yields `same (uM slash)(combine …)`, not `=`, so
+consumers that did `rw [universalMorphism_slash]` break (`rw` won't even unfold
+the `HasDistinguishing.same` projection to see `Eq`).  Two shapes of fix:
+
+  * **Pure-existence / pure-homomorphism statements** (e.g.
+    `Reach.image_closed_under_distinct_combine : ∃ r, uM r = combine …`) — just
+    relativize the `=` in the statement to `same`; witness is
+    `universalMorphism_slash` directly.  Mechanical.
+  * **"image ⊆ every distinguishing-closed `S`"** (`ImageMinimum.
+    image_minimum_property`, and the `OnLensImage*` reach/image theorems) — the
+    `slash` step proves `S (uM slash)` from `S (combine …)`, which under a
+    non-`Eq` `same` needs **`S` to respect `same`**.  This is NOT a dead-end:
+    add a hypothesis `hSsame : ∀ x y, d.same x y → S x → S y` to the statement.
+    Eq-codomain consumers discharge it trivially with `fun _ _ h hx => h ▸ hx`
+    (since `same = Eq` there); Lens-tower consumers pass the `eqPW`/`sameLens`
+    closure.  So the cascade is **mechanical hypothesis-threading**, not a
+    semantic redesign — each image-tower theorem gains one `hSsame`-style arg,
+    and every downstream call passes the trivial (Eq) or eqPW proof.
+
+Estimate: SemanticAtom + EqPW + OnLens (instances) are mechanical given the
+materialized `fold_slash_rel` + `sameLens` foundation; Reach + ImageMinimum +
+`OnLensImage{,Generic,Level2}` + `TowerLevel3` + `Hyper213Tower` each take a
+`same`-relativization (+ a threaded `hSsame` for the closure ones).  Sizeable
+but mechanical — a focused session.
 
 ### Concrete green-per-commit sequence (next session)
 
