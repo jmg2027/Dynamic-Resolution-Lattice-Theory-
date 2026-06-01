@@ -47,14 +47,4 @@ theorem truncation_at_minimum (extra : Nat) (h : 0 < extra) :
   show 4 + extra > 4
   exact Nat.lt_add_of_pos_right h
 
-/-- The 213 substrate cardinality `N_U = 5^25`.  Description length
-    of any element in this configuration space ≤ `25 · log₂(5)`
-    bits — but each is described by a single `Fin (5^25)` index,
-    atomic. -/
-def nU_log_form : Nat := 25
-
-/-- Universal bound: `N_U` substrate has 25-vertex × 5-state
-    description, depth-25 dyadic encoding suffices. -/
-theorem nU_dyadic_bound : nU_log_form = 25 := rfl
-
 end E213.Lib.Math.Information.Kolmogorov

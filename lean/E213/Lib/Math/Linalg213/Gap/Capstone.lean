@@ -22,12 +22,12 @@ open E213.Lib.Math.Linalg213.Gap.Determinant
   (det2_pos det2_neg det2_mag det2_pos_identity det2_neg_identity
    det2_mag_identity det2_pos_zero)
 open E213.Lib.Math.Linalg213.Gap.TensorProduct
-  (tensorDim d5_tensor tensor_one_left tensor_comm n_resolution_link)
+  (tensorDim d5_tensor tensor_one_left tensor_comm)
 open E213.Lib.Math.Linalg213.Gap.Eigen
   (scalar_eigen_e0 identity_eigen_one)
 
 /-- ★★★ **Total witness** ★★★ — full bundle covering matrix
-    multiplication, determinant, tensor, eigenvalue, GUT link.
+    multiplication, determinant, tensor, eigenvalue.
 
     Folds in the four earlier per-cluster witnesses (matrixMul,
     determinant, tensor, eigen) plus the original headline facts. -/
@@ -44,7 +44,6 @@ theorem total_witness (lam v0 m n : Nat) (A B : Mat) (i j : Nat) :
     ∧ tensorDim 5 5 = 25
     ∧ tensorDim 1 n = n
     ∧ tensorDim m n = tensorDim n m
-    ∧ (5 : Nat) ^ tensorDim 5 5 = (5 : Nat) ^ 25
     -- Eigenvalue
     ∧ E213.Lib.Math.Linalg213.Gap.MatrixMul.matrixMulNum 1
         (E213.Lib.Math.Linalg213.Gap.Eigen.scalarMat lam)
@@ -53,7 +52,7 @@ theorem total_witness (lam v0 m n : Nat) (A B : Mat) (i j : Nat) :
         identityMat (fun _ _ => v0) 0 0 = v0 :=
   ⟨ matMul_zero_dim A B i j, zero_mul_any 3 B i j
   , det2_pos_identity, det2_neg_identity, det2_mag_identity, det2_pos_zero
-  , d5_tensor, tensor_one_left n, tensor_comm m n, n_resolution_link
+  , d5_tensor, tensor_one_left n, tensor_comm m n
   , scalar_eigen_e0 lam, identity_eigen_one v0 ⟩
 
 end E213.Lib.Math.Linalg213.Gap.Capstone

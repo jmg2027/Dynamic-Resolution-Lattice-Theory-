@@ -87,7 +87,7 @@ theorem five_pow_five_pow_succ_mod_521 :
 
 /-! ## §4 Aurifeuillean handle (n-uniform) -/
 
-/-- ★ **N_U-family Aurifeuillean handle, parametric in `n ≥ 1`**:
+/-- ★ **configCount-family Aurifeuillean handle, parametric in `n ≥ 1`**:
 
     For every `m`, `521 ∣ 5^(5^(m+1)) + 1`,
     i.e. `521 ∣ configCount (m+1) + 1`.
@@ -115,7 +115,7 @@ theorem aurifeuillean_at_n_eq_1 :
     (configCount 1 + 1) % 521 = 0 :=
   aurifeuillean_universal 0
 
-/-- `n = 2` specialisation (the physics slice, `N_U + 1`):
+/-- `n = 2` specialisation (the physics slice, `configCount 2 + 1`):
     `521 ∣ 5^25 + 1`.  Instantiates the parametric statement
     at `m = 1`. -/
 theorem aurifeuillean_at_n_eq_2 :

@@ -59,7 +59,7 @@ def alphaInv_doubly_refined_e9 : Nat :=
 
     The remaining 12 × 10⁻⁹ is below CODATA 2024 relative precision
     (~1 ppb on 1/α_em), validating the cup-ring framework to within
-    measurement uncertainty.  Higher-order terms (α⁴/d², N_U
+    measurement uncertainty.  Higher-order terms (α⁴/d²
     corrections) are below the noise floor. -/
 theorem gram_higher_order_master :
     -- observed^3 explicit value

@@ -44,9 +44,8 @@ theorem four_way_uniform : shannonEntropyUniformBits 2 = 2 := rfl
 /-- Byte (256 outcomes) = entropy 8 bits. -/
 theorem byte_uniform_entropy : shannonEntropyUniformBits 8 = 8 := rfl
 
-/-- Uniform over 2^25 outcomes = entropy 25 bits.  Connects
-    to the count-Lens readout `N_U = 5^25` via dyadic encoding. -/
-theorem nU_dyadic_entropy : shannonEntropyUniformBits 25 = 25 := rfl
+/-- Uniform over 2^25 outcomes = entropy 25 bits. -/
+theorem uniform_25_entropy : shannonEntropyUniformBits 25 = 25 := rfl
 
 /-- Atomic dyadic Bernoulli skew: probability `1/2^k`.  Surprise
     value (= entropy of the rare event) is `k` bits — exact. -/

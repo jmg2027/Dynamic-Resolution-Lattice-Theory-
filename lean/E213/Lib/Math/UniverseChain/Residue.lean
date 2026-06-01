@@ -31,8 +31,8 @@ The four G29 points map to Raw's constructor + its hypotheses:
 | 4. 자기 자신과는 짝지을 수 없다        | `(h : x ≠ y)` precondition     |
 
 Step 0 of the deductive chain — *prior to* Atomicity.  All
-subsequent steps (atomicity → 5, recursion to d², N_U) ride on
-this structural recursion.
+subsequent steps (atomicity → 5, recursion to d², configCount)
+ride on this structural recursion.
 -/
 
 namespace E213.Lib.Math.UniverseChain.Residue

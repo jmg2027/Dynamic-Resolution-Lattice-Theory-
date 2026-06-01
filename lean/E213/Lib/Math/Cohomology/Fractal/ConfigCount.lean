@@ -150,8 +150,7 @@ theorem configCount_one : configCount 1 = 3125 := by decide
 
 /-- `configCount 2 = 5^25 = 298_023_223_876_953_125`.
 
-    This is the value historically called `N_U`.  Demoted to one
-    value of the `configCount` family. -/
+    One value of the `configCount` family; no level privileged. -/
 theorem configCount_two : configCount 2 = 298023223876953125 := by decide
 
 /-- `configCount 2 = 5^25` (structural form). -/
@@ -285,8 +284,7 @@ theorem configCountD_2_2 : configCountD 2 2 = 16 := by decide
 /-- `configCountD 3 2 = 3^9 = 19683`. -/
 theorem configCountD_3_2 : configCountD 3 2 = 19683 := by decide
 
-/-- `configCountD 5 2 = 5^25 = 298_023_223_876_953_125`
-    (the value display-aliased `N_U`). -/
+/-- `configCountD 5 2 = 5^25 = 298_023_223_876_953_125`. -/
 theorem configCountD_5_2 : configCountD 5 2 = 298023223876953125 := by decide
 
 /-- `configCountD 7 2 = 7^49` (structural — the decimal expansion

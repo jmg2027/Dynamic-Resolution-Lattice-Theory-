@@ -12,7 +12,7 @@ Each binomial term encodes a partition of 25 doublings:
 
 213-native: the 25-level CD tower is **bipartite** at each level
 — S-doubling or T-doubling.  Total branches = `(N_S + N_T)^25
-= 5^25 = N_U`.
+= 5^25`.
 
 Atomic content:
   * `(3+2)^25 = 5^25` rfl identity.

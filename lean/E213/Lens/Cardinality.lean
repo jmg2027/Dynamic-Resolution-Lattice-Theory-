@@ -17,9 +17,7 @@ import E213.Lens.Cardinality.Tower
   `seed/AXIOM/02_axiom.md` §2.5).  Each Lens view of Raw into
   a codomain α defines a cardinality observable (finiteness,
   countability, etc.) on that view; the observable is the Lens
-  reading, not a property of an underlying substrate.  Cf.
-  `seed/RESOLUTION_LIMIT_SPEC.md`: `N_resolution = d^(d²) = 5²⁵`
-  is the count-Lens readout at fractal level 2.
+  reading, not a property of an underlying substrate.
 
   ## Files
 

@@ -27,7 +27,8 @@ indices, more than any other external sequence considered:
 The `L_7 = 29` coincidence aligns with `Pell P_5 = 29 = Aurifeuillean L_1`
 (three external sequences agreeing on the smallest depth-2 catalogue
 atom).  The `L_13 = 521` coincidence aligns with the Aurifeuillean
-cyclotomic value `Φ_10(5) = 521` (catalogue handle of `N_U + 1`).
+cyclotomic value `Φ_10(5) = 521` (catalogue handle of
+`configCount 2 + 1`).
 
 ## Cut-off slices
 
@@ -106,7 +107,7 @@ theorem Lucas_7_eq_Pell_5 : Lucas 7 = Pell 5 := by decide
 
 /-- ★ `L_13 = 521` — catalogue prime, equals the Aurifeuillean
     cyclotomic value `Φ_10(5)`.  Lucas hits the Aurifeuillean
-    handle of `N_U + 1`. -/
+    handle of `configCount 2 + 1`. -/
 theorem Lucas_13_eq_521 : Lucas 13 = 521 := Lucas_13
 
 /-! ## §4 Depth-1 cut-off application
@@ -164,7 +165,7 @@ theorem Lucas_chain_33_34 : Lucas 33 < Lucas 34 := by decide
         the catalogue atom `29 = d² + NT² = NT^d − NS`).
       · `L_13 = Φ_10(5) = 521` (Lucas-Aurifeuillean agreement on
         the catalogue prime `521`, the Aurifeuillean handle of
-        `N_U + 1`).
+        `configCount 2 + 1`).
 
     These coincidences are the principle's "locate" step
     instantiated across multiple sequences; the agreement points

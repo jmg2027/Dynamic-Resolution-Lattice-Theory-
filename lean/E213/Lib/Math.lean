@@ -8,7 +8,6 @@ import E213.Lib.Math.CartesianVsDisjoint
 import E213.Lib.Math.Choice
 import E213.Lib.Math.Cohomology
 import E213.Lib.Math.Complex
-import E213.Lib.Math.DialogueAudit
 import E213.Lib.Math.DyadicFSM
 import E213.Lib.Math.Extras
 import E213.Lib.Math.Functional

@@ -26,8 +26,7 @@ three results are provable by the SAME `BalancedSignatureData` /
 all (n, g) and tensor decomposition handled uniformly.
 
 Open content of C4 in full: extend to ALL closed orientable
-surfaces (not just T²ⁿ and Σ_g) and their arbitrary products,
-with bracketing precision controlled by N_U = 5²⁵.
+surfaces (not just T²ⁿ and Σ_g) and their arbitrary products.
 
 STRICT ∅-AXIOM (each component theorem is ∅-axiom; the
 conjunction proven by `refine` + `exact`).
@@ -73,8 +72,8 @@ def Tensor_master :=
     closure.
 
     Open content of C4 in full: extend to ALL closed orientable
-    surfaces beyond T²ⁿ / Σ_g, and bracketing precision controlled
-    by N_U.  This bundling is Step 1; full closure is Step 2+. -/
+    surfaces beyond T²ⁿ / Σ_g.  This bundling is Step 1; full
+    closure is Step 2+. -/
 theorem signature_meta_master : True := by
   -- Each `have` forces Lean to type-check the corresponding
   -- master theorem.  All three close ∅-axiom under the SAME

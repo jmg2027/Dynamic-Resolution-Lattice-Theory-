@@ -39,7 +39,7 @@ namespace E213.Lib.Math.Cohomology.Fractal.HunterAtomicClosure
     Each element is prime; `{2, 3, 5}` are the Hunter generators
     `(NT, NS, d)`; `7, 13` arise via arithmetic readings of the
     generators (`NS² − NT`, `NS² + NT²`); `521 = Φ_10(5)` is the
-    Aurifeuillean cyclotomic handle of `N_U + 1`. -/
+    Aurifeuillean cyclotomic handle of `configCount 2 + 1`. -/
 def cat : List Nat := [2, 3, 5, 7, 13, 521]
 
 /-- Catalogue membership predicate (kernel-decidable). -/

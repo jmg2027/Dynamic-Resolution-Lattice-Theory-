@@ -8,8 +8,8 @@ per `research-notes/
 
 The L-iterate fractal lift K^(L) of K_{3,2}^{(c=2)} replaces each
 vertex by a sub-K_{3,2}^{(c=2)}, recursively L times.  At
-L = N_U_level = d² = 25, the recursion's vertex count reaches the
-count-Lens readout N_U = d^(d²) = 5²⁵.
+L = 24 the recursion's vertex count is `d^(d²) = 5²⁵` (one value
+of the count family, no level privileged).
 
 This file encodes the **vertex-count and edge-count formulas** at
 each level L.  Spectrum / ζ_K^(L) computation is deferred to
@@ -25,8 +25,8 @@ Step 3 (substantial — requires explicit Laplacian construction).
   L = k: vertices = 5^(k+1)
          edges    = 12 · (1 + 5 + ... + 5^k) = 12 · (5^(k+1) − 1)/4
 
-  L = 24: vertices = 5²⁵ = N_U  ★ (count-Lens readout)
-         edges    = 12 · (5²⁵ − 1)/4 = 3·(N_U − 1)
+  L = 24: vertices = 5²⁵
+         edges    = 12 · (5²⁵ − 1)/4 = 3·(5²⁵ − 1)
 
 STRICT ∅-AXIOM (decide on Nat formulas).
 -/
@@ -35,8 +35,8 @@ namespace E213.Lib.Physics.AlphaEM.FractalLevelLift
 
 /-! ## §1 — Vertex / edge / H¹ definitions
 
-  Vertices at fractal level L: 5^(L+1).  At L = d² = 25 base levels,
-  this reaches N_U = 5²⁵.
+  Vertices at fractal level L: 5^(L+1).  At L = 24 this is `5²⁵`
+  (one value of the count family, no level privileged).
 
   Edges: closed form E_L = 12·(V_0 + ... + V_L) = 3·(5^(L+1) − 1).
   H¹: E_L − V_L + 1 (assuming K^(L) connected). -/
@@ -52,8 +52,8 @@ def lift_H1 (L : Nat) : Nat := lift_E L - lift_V L + 1
 /-- ★★★★★ Fractal Level Lift Master (C5 Step 2).
     STRICT ∅-AXIOM.
 
-    Encodes V/E/H¹ counts of K^(L) for L = 0..5 and the ceiling
-    level L = 24 (vertex count = N_U = 5²⁵).  Bundles the
+    Encodes V/E/H¹ counts of K^(L) for L = 0..5 and
+    level L = 24 (vertex count = 5²⁵).  Bundles the
     H¹ = 2·(V_L − 1) small-L scaling identity at L = 0..3. -/
 theorem fractal_lift_master :
     -- Vertex counts (L = 0..5, 24)

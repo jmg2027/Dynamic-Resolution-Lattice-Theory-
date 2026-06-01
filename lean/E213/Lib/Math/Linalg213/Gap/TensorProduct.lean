@@ -10,8 +10,6 @@ Atomic content:
   * `tensorDim m n = m * n`
   * `5 ⊗ 5 = 25` (rfl)
   * `tensorDim` is associative + commutative on Nat
-  * Connection to `N_U = 5^25` (lens-output cardinality at the
-    fractal level, see `seed/RESOLUTION_LIMIT_SPEC.md`).
 -/
 
 namespace E213.Lib.Math.Linalg213.Gap.TensorProduct
@@ -36,8 +34,5 @@ theorem tensor_one_right (n : Nat) : tensorDim n 1 = n := by
 theorem tensor_comm (m n : Nat) : tensorDim m n = tensorDim n m := by
   show m * n = n * m
   exact Nat.mul_comm m n
-
-/-- ★ N_resolution link witness: `5^(5⊗5) = 5^25`. -/
-theorem n_resolution_link : (5 : Nat) ^ tensorDim 5 5 = (5 : Nat) ^ 25 := rfl
 
 end E213.Lib.Math.Linalg213.Gap.TensorProduct

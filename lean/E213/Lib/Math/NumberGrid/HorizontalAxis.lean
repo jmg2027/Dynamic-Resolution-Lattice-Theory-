@@ -17,8 +17,7 @@ type names.
 | ~10 | 5^10 ≈ 10⁷ | finite-state rationals |
 | ~15 | 5^15 ≈ 3·10¹⁰ | algebraic with small minimal poly |
 | ~20 | 5^20 ≈ 10¹⁴ | high-grade algebraic |
-| 25 | 5²⁵ = N_U | count-Lens ceiling at d=5 Lens application |
-| 26+ | beyond N_U | structurally absent |
+| 25 | 5²⁵ | grade-25 count-Lens reading at d=5 |
 
 213-native: traditional number-type names (ℕ, ℤ, ℚ, algebraic, ℝ)
 correspond to *intervals* of FSM grades, not individual grades.
@@ -35,7 +34,7 @@ inductive NumberType where
   | integer        -- grade 0-1 (sign-extension)
   | rational       -- grade 2..~12 (eventually periodic)
   | algebraic      -- grade ~13..~24 (algebraic minimal poly)
-  | countLensCeiling   -- grade 25 = count-Lens reading
+  | highGrade      -- grade 25 (count-Lens reading at d=5)
 
 /-- ★ Map a grade to its number-type classification. -/
 def gradeToType (j : Nat) : NumberType :=
@@ -43,7 +42,7 @@ def gradeToType (j : Nat) : NumberType :=
   else if j ≤ 1 then NumberType.integer
   else if j ≤ 12 then NumberType.rational
   else if j ≤ 24 then NumberType.algebraic
-  else NumberType.countLensCeiling
+  else NumberType.highGrade
 
 /-- ★ Grade 0 → natural. -/
 theorem grade0_natural : gradeToType 0 = NumberType.natural := rfl
@@ -58,11 +57,11 @@ theorem grade5_rational : gradeToType 5 = NumberType.rational := rfl
 theorem grade20_algebraic :
     gradeToType 20 = NumberType.algebraic := rfl
 
-/-- ★ Grade 25 → substrate maximum. -/
+/-- ★ Grade 25 → high-grade category. -/
 theorem grade25_substrate :
-    gradeToType 25 = NumberType.countLensCeiling := rfl
+    gradeToType 25 = NumberType.highGrade := rfl
 
-/-- ★ Grade-25 cardinality matches count-Lens ceiling at fractal level 2. -/
+/-- ★ Grade-25 cardinality (bare arithmetic value). -/
 theorem grade25_cardinality :
     fsmGradeStates 25 = 298023223876953125 := grade_25_states
 

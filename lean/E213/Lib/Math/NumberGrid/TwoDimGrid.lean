@@ -7,7 +7,7 @@ import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 
 Vertical: CD level `i ∈ {0..25}` (algebraic extension).
 Horizontal: FSM grade `j ∈ {0..25}` (pattern-recognizability).
-Total: **25 × 25 = 625 cells**, all within the count-Lens reading bounds at d=5.
+Total: **25 × 25 = 625 cells**.
 -/
 
 namespace E213.Lib.Math.NumberGrid.TwoDimGrid
@@ -26,8 +26,8 @@ def gridSize : Nat := 25 * 25
 /-- ★ Grid is 25×25 = 625. -/
 theorem grid_size_eq_625 : gridSize = 625 := rfl
 
-/-- The substrate ceiling cell `(25, 25)`. -/
-def gridCountLensCeiling : GridCell := (25, 25)
+/-- The grade-25 cell `(25, 25)`. -/
+def gridCellHighGrade : GridCell := (25, 25)
 
 /-- ★ Cell `(0, 0)` = ℕ at CD level 0 + FSM grade 0. -/
 theorem cell_naturals :
@@ -44,15 +44,16 @@ theorem cell_complex_rational :
     gradeToType 12 = NumberType.rational ∧ levelDim 2 = 4 :=
   ⟨rfl, rfl⟩
 
-/-- ★ Cell `(25, 25)` = substrate ceiling. -/
-theorem cell_substrate_ceiling :
-    gradeToType 25 = NumberType.countLensCeiling
+/-- ★ Cell `(25, 25)` = grade-25 high-grade category. -/
+theorem cell_high_grade :
+    gradeToType 25 = NumberType.highGrade
     ∧ levelDim 25 = 33554432
     ∧ fsmGradeStates 25 = 298023223876953125 :=
   ⟨rfl, rfl, grade_25_states⟩
 
-/-- ★ **Joint saturation**: both axis Lens readings converge at index 25 under d=5 application. -/
-theorem joint_saturation :
+/-- ★ **Index-25 readings**: both axis Lens readings at index 25
+    (bare arithmetic values). -/
+theorem index_25_readings :
     levelDim 25 = 33554432
     ∧ fsmGradeStates 25 = 298023223876953125
     ∧ gridSize = 625 :=

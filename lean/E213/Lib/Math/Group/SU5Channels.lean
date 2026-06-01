@@ -32,8 +32,4 @@ theorem total_eq_25 : su5_total_channels = 25 := rfl
 /-- ★ `25 − 1 = 24` (rfl). -/
 theorem generators_eq_24 : su5_generators = 24 := rfl
 
-/-- ★ N_U-link witness: `d^(d²) = 5^25` is the lens-output
-    count-Lens cardinality at this 25-channel readout (RESOLUTION_LIMIT_SPEC). -/
-theorem d_pow_d_sq_consistency : su5_dim ^ su5_total_channels = 5 ^ 25 := rfl
-
 end E213.Lib.Math.Group.SU5Channels
