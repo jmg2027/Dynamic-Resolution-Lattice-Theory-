@@ -3,6 +3,7 @@ import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.Mobius213.TowerLInfty
 import E213.Lib.Math.Real213.PhiCut
 import E213.Lib.Math.Real213.PhiConvergence
+import E213.Meta.Nat.PureNat
 
 /-!
 # SelfSimilarityBridge — the "same shape under descent" has a qualitative and a
@@ -34,23 +35,14 @@ namespace E213.Lib.Math.SelfSimilarityBridge
 open E213.Theory (Raw)
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
 open E213.Lib.Math.UniverseChain.Recursion (numV_def)
-
-/-- `a^(m+n) = a^m · a^n`, propext-free (core `Nat.pow_add` pulls propext;
-    this structural recursion via `Nat.pow_succ` + `NatHelper.mul_assoc` does
-    not). -/
-private theorem pow_add_pure (a : Nat) :
-    ∀ m n, a ^ (m + n) = a ^ m * a ^ n
-  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | m, n + 1 => by
-    rw [← Nat.add_assoc, Nat.pow_succ, Nat.pow_succ, pow_add_pure a m n]
-    exact E213.Tactic.NatHelper.mul_assoc (a ^ m) (a ^ n) a
+open E213.Meta.Nat.PureNat (pow_add)
 
 /-- **Quantitative self-similarity**: the level count replicates under level
     addition — `numV (m + n) = numV m · numV n`.  Each level carries a copy of
     the whole, so counts multiply (the `5^L` exponential law is the count-Lens
     reading of "same shape at every level"). -/
 theorem self_similar_count (m n : Nat) : numV (m + n) = numV m * numV n := by
-  rw [numV_def, numV_def, numV_def, pow_add_pure]
+  rw [numV_def, numV_def, numV_def, pow_add]
 
 /-- The base instance recovered from the general law: `numV 2 = numV 1 · numV 1`
     (one level replicating into two). -/

@@ -5,6 +5,7 @@ import E213.Lib.Math.ModArith.UniversalFLT
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
+import E213.Meta.Nat.PureNat
 /-!
 # Real213-p-adic — natural-number power
 
@@ -21,6 +22,8 @@ structures on `ℤ_p`.
 -/
 
 namespace E213.Lib.Math.Padic
+
+open E213.Meta.Nat.PureNat (pow_add)
 
 /-- Natural-number power on `ZpSeq`.  Defined recursively as
     repeated multiplication. -/
@@ -75,17 +78,6 @@ theorem Zp.pow_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (m : Nat) :
     -- LHS: ((x.trunc m)^n * x.trunc m) % p^m
     rw [Nat.pow_succ (x.trunc m) n]
 
-/-! ## Useful identities -/
-
-/-- PURE: `a^m * a^n = a^(m+n)` by induction. -/
-private theorem pow_add_pure_local (a : Nat) :
-    ∀ m n, a^m * a^n = a^(m + n)
-  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | m, n + 1 => by
-    rw [Nat.pow_succ, ← E213.Tactic.NatHelper.mul_assoc,
-        pow_add_pure_local a m n]
-    show a^(m + n) * a = a^(m + (n + 1))
-    rw [← Nat.add_assoc, ← Nat.pow_succ]
 
 /-- `Zp.pow x 2 = Zp.mul (Zp.mul one x) x`.  Note this isn't `Zp.mul x x`
     directly because `pow` does `pow 0 = one`, then `pow 1 = one · x`,
@@ -112,7 +104,7 @@ theorem Zp.pow_add_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (k m n : Nat) :
   rw [Zp.pow_trunc p hp x k (m + n), Zp.pow_trunc p hp x k m,
       Zp.pow_trunc p hp x k n]
   -- Goal: (x.trunc k)^(m+n) % p^k = ((x.trunc k)^m % p^k * ((x.trunc k)^n % p^k)) % p^k
-  rw [← pow_add_pure_local (x.trunc k) m n]
+  rw [pow_add (x.trunc k) m n]
   -- Goal: ((x.trunc k)^m * (x.trunc k)^n) % p^k
   --     = ((x.trunc k)^m % p^k * ((x.trunc k)^n % p^k)) % p^k
   exact E213.Meta.Nat.MulMod213.mul_mod_pure _ _ _

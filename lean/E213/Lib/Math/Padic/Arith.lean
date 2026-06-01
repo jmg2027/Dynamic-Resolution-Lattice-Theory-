@@ -2,6 +2,7 @@ import E213.Lib.Math.Padic.Foundation
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PureNat
 /-!
 # Real213-p-adic Arithmetic
 
@@ -14,6 +15,8 @@ from `E213.Meta.Nat.AddMod213` / `MulMod213`.
 -/
 
 namespace E213.Lib.Math.Padic
+
+open E213.Meta.Nat.PureNat (pow_add)
 
 /-! ## Addition with carry propagation
 
@@ -88,14 +91,6 @@ private theorem swap_distrib (a b c d pn : Nat) :
     _ = (a + c) + (b + d) * pn := by
           rw [← E213.Tactic.NatHelper.add_mul]
 
-/-- PURE replacement for `Nat.pow_add` (which leaks propext): by
-    induction on the second exponent. -/
-private theorem pow_add_pure (a : Nat) :
-    ∀ m n, a^(m + n) = a^m * a^n
-  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | m, n + 1 => by
-    rw [← Nat.add_assoc, Nat.pow_succ, Nat.pow_succ, pow_add_pure a m n]
-    exact E213.Tactic.NatHelper.mul_assoc (a^m) (a^n) a
 
 /-- Split a sum `s · p^n` into `(s % p) · p^n + (s / p) · p^(n+1)`,
     using `div_add_mod`.  Pure arithmetic rearrangement. -/
@@ -426,7 +421,7 @@ theorem Zp.shiftLeft_trunc_above (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) 
     -- Show the algebraic identity step-by-step on the second summand.
     have hstep : (x.digits n).val * p^(k + n)
                   = p^k * ((x.digits n).val * p^n) := by
-      have hpow : p^(k + n) = p^k * p^n := pow_add_pure p k n
+      have hpow : p^(k + n) = p^k * p^n := pow_add p k n
       calc (x.digits n).val * p^(k + n)
           = (x.digits n).val * (p^k * p^n) := by rw [hpow]
         _ = p^k * ((x.digits n).val * p^n) :=
@@ -904,7 +899,7 @@ theorem Zp.colSum_eq (p : Nat) (x y : ZpSeq p) (i : Nat) :
     show Zp.colSum p x y i b
           + (x.digits i).val * (y.digits b).val * p^(i + b)
         = (x.digits i).val * p^i * (y.trunc b + (y.digits b).val * p^b)
-    rw [Zp.colSum_eq p x y i b, Nat.mul_add, pow_add_pure]
+    rw [Zp.colSum_eq p x y i b, Nat.mul_add, pow_add]
     -- Goal: x_i p^i y.trunc b + x_i y_b (p^i p^b)
     --     = x_i p^i y.trunc b + x_i p^i (y_b p^b)
     -- Reduces to: x_i y_b (p^i p^b) = x_i p^i (y_b p^b), which is
@@ -1190,7 +1185,7 @@ theorem Zp.extColSum_eq_offDiagRow (p : Nat) (x y : ZpSeq p)
           rw [Nat.add_comm]
           exact E213.Tactic.NatHelper.sub_add_cancel h]
     -- Goal: ... + x_i * y * p^(n + c) = ... + p^n * (x_i * y * p^c)
-    rw [pow_add_pure]
+    rw [pow_add]
     -- Goal: ... + x_i * y * (p^n * p^c) = ... + p^n * (x_i * y * p^c)
     -- Use mul_left_comm: a * (b * c) = b * (a * c) with
     -- a = (x_i * y), b = p^n, c = p^c.
