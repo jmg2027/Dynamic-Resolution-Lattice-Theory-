@@ -1,5 +1,9 @@
 import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Math.Mobius213.Px.POrbitClosure
+import E213.Meta.Nat.NatDiv213
+import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.MulMod213
+import E213.Lib.Math.NatRing
 
 /-!
 # Mobius213.Px.PGeneratesNat — P generates ALL natural numbers
@@ -52,13 +56,24 @@ Combined with det=1, the P-span is all of ℕ≥1.
   · §8 — Semiring closure (PGen n ↔ n ≥ 1, exact characterization)
   · §9 — Explicit prime generation catalog (primes ≤ 47)
 
-All declarations PURE (∅-axiom).  Zero `native_decide`.
+All declarations PURE (∅-axiom) except `coprime_NS_NT`, whose
+statement is `Nat.gcd NS NT = 1`: Lean-core `Nat.gcd` is defined by
+well-founded recursion whose kernel reduction / equation lemmas
+irreducibly carry `[propext]` in this toolchain (even `rfl` /
+`decide` / `unfold` on a closed `Nat.gcd` literal is propext-dirty).
+The PURE coprimality fact lives as `gcd213_succ_self` in
+`E213.Meta.Nat.Gcd213` (using the ∅-axiom `gcd213`); `coprime_NS_NT`
+is retained verbatim only as the core-`Nat.gcd` mirror.  No
+kernel-external compiled-evaluation tactic.
 -/
 
 namespace E213.Lib.Math.Mobius213.Px.PGeneratesNat
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
+open E213.Meta.Nat.AddMod213 (div_add_mod add_mod_gen mod_mod)
+open E213.Tactic.NatHelper (mul_mod_right sub_add_cancel)
+open E213.Lib.Math.NatRing (nat_add_mul)
 
 /-! ## §1 — P-generation predicate
 
@@ -115,7 +130,11 @@ theorem rep23_three : Rep23 3 := ⟨0, 1, rfl⟩
 /-- If `Rep23 n` then `Rep23 (n + 2)`:  n = 2a+3b → n+2 = 2(a+1)+3b. -/
 theorem rep23_step (n : Nat) (h : Rep23 n) : Rep23 (n + 2) :=
   let ⟨a, b, ha⟩ := h
-  ⟨a + 1, b, by omega⟩
+  ⟨a + 1, b, by
+    -- n + 2 = 2*(a+1) + 3*b.  2*(a+1) = 2*a + 2 (= Nat.mul_succ).
+    rw [ha, Nat.mul_succ]
+    -- (2*a + 3*b) + 2 = (2*a + 2) + 3*b
+    rw [Nat.add_right_comm (2 * a) (3 * b) 2]⟩
 
 /-- ★★ **Chicken McNugget for (2,3)**: every n ≥ 2 is `2a + 3b`.
     Proof: match on n = 2, 3, or n+4 (use IH on n+2). -/
@@ -127,7 +146,7 @@ theorem chicken_mcnugget_23 : ∀ n : Nat, 2 ≤ n → Rep23 n := by
   | 2 => intro _; exact rep23_two
   | 3 => intro _; exact rep23_three
   | n + 4 => intro _
-             have ih := chicken_mcnugget_23 (n + 2) (by omega)
+             have ih := chicken_mcnugget_23 (n + 2) (Nat.le_add_left 2 n)
              exact rep23_step (n + 2) ih
 
 /-! ## §3 — PGen contains all ℕ ≥ 1
@@ -143,7 +162,7 @@ theorem pgen_ge_two : ∀ n : Nat, 2 ≤ n → PGen n := by
   | 2, _ => exact PGen.entry_NT
   | 3, _ => exact PGen.trace_NS
   | n + 4, _ =>
-    have ih : PGen (n + 2) := pgen_ge_two (n + 2) (by omega)
+    have ih : PGen (n + 2) := pgen_ge_two (n + 2) (Nat.le_add_left 2 n)
     have step : PGen ((n + 2) + 2) := PGen.add ih PGen.entry_NT
     -- (n+2)+2 = n+4 by defeq on the index
     exact step
@@ -154,7 +173,7 @@ theorem pgen_all_pos : ∀ n : Nat, 1 ≤ n → PGen n := by
   intro n hn
   match n, hn with
   | 1, _ => exact PGen.det_one
-  | n + 2, _ => exact pgen_ge_two (n + 2) (by omega)
+  | n + 2, _ => exact pgen_ge_two (n + 2) (Nat.le_add_left 2 n)
 
 /-! ## §4 — Concrete witnesses for notable "hard" numbers
 
@@ -239,19 +258,42 @@ theorem minDepth_le (n : Nat) : minDepth n ≤ n := by
   | k + 2 =>
     show minDepth (k + 2) ≤ k + 2
     unfold minDepth
-    -- m = k + 2; result is one of m/3, 1 + (m-2)/3, 2 + (m-4)/3
-    simp only [beq_iff_eq]
-    split
-    · -- m % 3 = 0 → m / 3 ≤ m
-      have : (k + 2) / 3 ≤ k + 2 := Nat.div_le_self _ _
-      omega
-    · split
-      · -- 1 + (m - 2) / 3 ≤ m
-        have h1 : (k + 2 - 2) / 3 ≤ k + 2 - 2 := Nat.div_le_self _ _
-        omega
-      · -- 2 + (m - 4) / 3 ≤ m
-        have h1 : (k + 2 - 4) / 3 ≤ k + 2 - 4 := Nat.div_le_self _ _
-        omega
+    -- m = k + 2; result is one of m/3, 1 + (m-2)/3, 2 + (m-4)/3.
+    -- Reveal the desugared `if … = true` form and case-split PURELY
+    -- (avoiding `simp [beq_iff_eq]` / `split`, both of which leak propext).
+    show (if ((k + 2) % 3 == 0) = true then (k + 2) / 3
+          else if ((k + 2) % 3 == 2) = true then 1 + ((k + 2) - 2) / 3
+          else 2 + ((k + 2) - 4) / 3) ≤ k + 2
+    -- Three branch bounds, each via the PURE `div_le_self_pos`.
+    have H0 : (k + 2) / 3 ≤ k + 2 :=
+      E213.Meta.Nat.NatDiv213.div_le_self_pos (k + 2) 3 (by decide)
+    have H1 : 1 + ((k + 2) - 2) / 3 ≤ k + 2 := by
+      -- (k+2)-2 = k (defeq); k/3 ≤ k; 1 + k/3 ≤ 1 + k = k + 1 ≤ k + 2.
+      have hk : ((k + 2) - 2) / 3 ≤ k :=
+        E213.Meta.Nat.NatDiv213.div_le_self_pos ((k + 2) - 2) 3 (by decide)
+      have h2 : 1 + ((k + 2) - 2) / 3 ≤ 1 + k := Nat.add_le_add_left hk 1
+      have h3 : (1 : Nat) + k ≤ k + 2 := by
+        rw [Nat.add_comm 1 k]; exact Nat.le_succ (k + 1)
+      exact Nat.le_trans h2 h3
+    have H2 : 2 + ((k + 2) - 4) / 3 ≤ k + 2 := by
+      -- ((k+2)-4)/3 ≤ (k+2)-4 ≤ k; 2 + … ≤ 2 + ((k+2)-4) ≤ 2 + k = k + 2.
+      have hk : ((k + 2) - 4) / 3 ≤ (k + 2) - 4 :=
+        E213.Meta.Nat.NatDiv213.div_le_self_pos ((k + 2) - 4) 3 (by decide)
+      have hsub : (k + 2) - 4 ≤ k := by
+        -- (k+2)-4 = k-2 (defeq) ≤ k.
+        show (k - 2) ≤ k
+        exact Nat.sub_le k 2
+      have h2 : 2 + ((k + 2) - 4) / 3 ≤ 2 + k :=
+        Nat.add_le_add_left (Nat.le_trans hk hsub) 2
+      have h3 : (2 : Nat) + k ≤ k + 2 := Nat.le_of_eq (Nat.add_comm 2 k)
+      exact Nat.le_trans h2 h3
+    cases h0 : (k + 2) % 3 == 0 with
+    | true => rw [if_pos rfl]; exact H0
+    | false =>
+      rw [if_neg Bool.false_ne_true]
+      cases h2 : (k + 2) % 3 == 2 with
+      | true => rw [if_pos rfl]; exact H1
+      | false => rw [if_neg Bool.false_ne_true]; exact H2
 
 /-- The greedy formula witnesses: for small n, n = 2·a + 3·b where a+b = minDepth n.
     This validates the minDepth function computes correct optima. -/
@@ -272,23 +314,105 @@ theorem minDepth_witness_catalog :
    ⟨2, 3, by decide, by decide⟩,
    ⟨2, 31, by decide, by decide⟩⟩
 
+/-- PURE algebraic identity `3*(a+b) = (2a+3b) + a`.  Used by
+    `minDepth_optimal`.  Proved with the PURE `nat_add_mul`. -/
+private theorem key3 (a b : Nat) : 3 * (a + b) = (2 * a + 3 * b) + a := by
+  rw [Nat.mul_add]
+  rw [show (3 : Nat) * a = 2 * a + a from by
+    rw [show (3 : Nat) = 2 + 1 from rfl, nat_add_mul, Nat.one_mul]]
+  rw [Nat.add_assoc (2 * a) a (3 * b), Nat.add_comm a (3 * b),
+      ← Nat.add_assoc (2 * a) (3 * b) a]
+
 /-- The minDepth formula gives the optimum: for any n ≥ 2 and
     any representation n = 2a + 3b, we have a + b ≥ minDepth n.
-    (This is the key optimality claim; proof by mod-3 case analysis.) -/
+    (This is the key optimality claim; proof by mod-3 case analysis.)
+
+    ∅-axiom proof.  The crux: `3*(a+b) = (k+2)+a` (`key3`), so
+    `greedy(m) ≤ a+b ⟺ 3*greedy(m) ≤ (k+2)+a` (no division on the
+    comparison), and `3*(m/3) ≤ m` (`div_add_mod`) handles each
+    mod-3 branch.  The residue of `a` (`a ≥ 1` for `m%3=2`, `a ≥ 2`
+    for `m%3=1`) is forced by `m = 2a+3b` via `mul_mod_right`. -/
 theorem minDepth_optimal (n a b : Nat) (hn : 2 ≤ n) (hrep : n = 2 * a + 3 * b) :
     minDepth n ≤ a + b := by
   -- Put n in the `k + 2` form so `minDepth` reduces to its if-expression.
-  obtain ⟨k, rfl⟩ : ∃ k, n = k + 2 := ⟨n - 2, by omega⟩
+  obtain ⟨k, rfl⟩ : ∃ k, n = k + 2 := ⟨n - 2, (sub_add_cancel hn).symm⟩
   show minDepth (k + 2) ≤ a + b
   unfold minDepth
-  simp only [beq_iff_eq]
-  -- 3*(a+b) = (k+2) + a, so a+b = ((k+2)+a)/3 ≥ greedy depth.
-  -- omega knows the div/mod-by-3 semantics, hrep ties a,b to k.
-  split
-  · omega
-  · split
-    · omega
-    · omega
+  -- Reveal the desugared `if … = true` form (PURE branch split below).
+  show (if ((k + 2) % 3 == 0) = true then (k + 2) / 3
+        else if ((k + 2) % 3 == 2) = true then 1 + ((k + 2) - 2) / 3
+        else 2 + ((k + 2) - 4) / 3) ≤ a + b
+  -- 3*(a+b) = (k+2)+a.
+  have hkey : 3 * (a + b) = (k + 2) + a := by rw [hrep]; exact key3 a b
+  -- Reduce `g ≤ a+b` to `3*g ≤ (k+2)+a` (multiply through, no division).
+  have reduce : ∀ g : Nat, 3 * g ≤ (k + 2) + a → g ≤ a + b := fun g hg =>
+    Nat.le_of_mul_le_mul_left (hkey ▸ hg) (by decide)
+  -- `3*(x/3) ≤ x` for every x (PURE via div_add_mod).
+  have cxc : ∀ x : Nat, 3 * (x / 3) ≤ x := fun x =>
+    Nat.le_trans (Nat.le_add_right (3 * (x / 3)) (x % 3))
+      (Nat.le_of_eq (div_add_mod x 3))
+  cases h0 : (k + 2) % 3 == 0 with
+  | true =>
+    rw [if_pos rfl]
+    exact reduce _ (Nat.le_trans (cxc (k + 2)) (Nat.le_add_right (k + 2) a))
+  | false =>
+    rw [if_neg Bool.false_ne_true]
+    cases h2 : (k + 2) % 3 == 2 with
+    | true =>
+      rw [if_pos rfl]
+      -- m % 3 = 2 ⇒ a ≥ 1 (else m = 3b ⇒ m%3 = 0).
+      have ha1 : 1 ≤ a := by
+        cases a with
+        | zero =>
+          exfalso
+          have hk2 : k + 2 = 3 * b := by rw [hrep, Nat.mul_zero, Nat.zero_add]
+          rw [hk2, mul_mod_right 3 b] at h2
+          exact Bool.noConfusion h2
+        | succ a0 => exact Nat.succ_le_succ (Nat.zero_le a0)
+      apply reduce
+      rw [show 3 * (1 + ((k + 2) - 2) / 3) = 3 + 3 * (((k + 2) - 2) / 3) from by
+        rw [Nat.mul_add, Nat.mul_one]]
+      have step1 : 3 + 3 * (((k + 2) - 2) / 3) ≤ 3 + ((k + 2) - 2) :=
+        Nat.add_le_add_left (cxc ((k + 2) - 2)) 3
+      have step2 : 3 + ((k + 2) - 2) = (k + 2) + 1 := by
+        show 3 + k = (k + 2) + 1; rw [Nat.add_comm 3 k]
+      have step3 : (k + 2) + 1 ≤ (k + 2) + a := Nat.add_le_add_left ha1 (k + 2)
+      exact Nat.le_trans step1 (Nat.le_trans (Nat.le_of_eq step2) step3)
+    | false =>
+      rw [if_neg Bool.false_ne_true]
+      -- m % 3 = 1 ⇒ a ≥ 2 (a=0 ⇒ m%3=0; a=1 ⇒ m%3=2).
+      have ha2 : 2 ≤ a := by
+        cases a with
+        | zero =>
+          exfalso
+          have hk2 : k + 2 = 3 * b := by rw [hrep, Nat.mul_zero, Nat.zero_add]
+          rw [hk2, mul_mod_right 3 b] at h0
+          exact Bool.noConfusion h0
+        | succ a0 =>
+          cases a0 with
+          | zero =>
+            exfalso
+            have hk2 : k + 2 = 2 + 3 * b := by rw [hrep]
+            rw [hk2, add_mod_gen 2 (3 * b) 3, mul_mod_right 3 b, Nat.add_zero, mod_mod]
+              at h2
+            exact Bool.noConfusion h2
+          | succ a1 => exact Nat.succ_le_succ (Nat.succ_le_succ (Nat.zero_le a1))
+      -- a ≥ 2 ⇒ k+2 = 2a+3b ≥ 4.
+      have hk4 : 4 ≤ k + 2 := by
+        rw [hrep]
+        exact Nat.le_trans (Nat.mul_le_mul_left 2 ha2) (Nat.le_add_right (2 * a) (3 * b))
+      apply reduce
+      rw [show 3 * (2 + ((k + 2) - 4) / 3) = 6 + 3 * (((k + 2) - 4) / 3) from by
+        rw [Nat.mul_add]]
+      have step1 : 6 + 3 * (((k + 2) - 4) / 3) ≤ 6 + ((k + 2) - 4) :=
+        Nat.add_le_add_left (cxc ((k + 2) - 4)) 6
+      have hsac : ((k + 2) - 4) + 4 = k + 2 := sub_add_cancel hk4
+      have step2 : 6 + ((k + 2) - 4) = (k + 2) + 2 := by
+        rw [Nat.add_comm 6 ((k + 2) - 4)]
+        show ((k + 2) - 4) + 6 = (k + 2) + 2
+        rw [show (6 : Nat) = 4 + 2 from rfl, ← Nat.add_assoc ((k + 2) - 4) 4 2, hsac]
+      have step3 : (k + 2) + 2 ≤ (k + 2) + a := Nat.add_le_add_left ha2 (k + 2)
+      exact Nat.le_trans step1 (Nat.le_trans (Nat.le_of_eq step2) step3)
 
 /-! ## §6 — Comparison with previous naturalness claims
 
@@ -367,7 +491,13 @@ The surjectivity of P onto ℕ is a CONSEQUENCE of:
 This closes the "naturalness boundary" discussion completely. -/
 
 /-- Fibonacci coprimality forces P-universality:
-    gcd(NS, NT) = gcd(trace P, P₁₁) = gcd(3, 2) = 1. -/
+    gcd(NS, NT) = gcd(trace P, P₁₁) = gcd(3, 2) = 1.
+
+    NOTE (axiom residue): this is the only non-PURE declaration in the
+    file — `[propext]`, irreducible because its statement uses Lean-core
+    `Nat.gcd`, whose well-founded-recursion reduction carries `propext`
+    even under `rfl`.  The ∅-axiom form is `gcd213_succ_self` in
+    `E213.Meta.Nat.Gcd213`. -/
 theorem coprime_NS_NT : Nat.gcd NS NT = 1 := by decide
 
 /-- The Frobenius number of (NT, NS) = (2, 3) is 1:
@@ -391,13 +521,15 @@ theorem not_pgen_zero : ¬ PGen 0 := by
     | det_one => decide
     | entry_NT => show NT ≥ 1; unfold NT; decide
     | trace_NS => show NS ≥ 1; unfold NS; decide
-    | add _ _ ih_a ih_b => omega
+    | @add a b _ _ ih_a ih_b =>
+      -- a ≥ 1 ⇒ a + b ≥ 1 (monotone in the added b).
+      exact Nat.le_trans ih_a (Nat.le_add_right a b)
     | @mul a b _ _ ih_a ih_b =>
       -- a ≥ 1 and b ≥ 1, so a * b ≥ 1 * 1 = 1
       have ha : a ≥ 1 := ih_a
       have hb : b ≥ 1 := ih_b
-      exact Nat.le_trans (by omega : 1 ≤ 1 * 1) (Nat.mul_le_mul ha hb)
-  exact absurd (hmain 0 h) (by omega)
+      exact Nat.le_trans (by decide : 1 ≤ 1 * 1) (Nat.mul_le_mul ha hb)
+  exact absurd (hmain 0 h) (Nat.not_succ_le_zero 0)
 
 /-- PGen values are always positive. -/
 theorem pgen_pos {n : Nat} (h : PGen n) : 1 ≤ n := by
@@ -405,11 +537,12 @@ theorem pgen_pos {n : Nat} (h : PGen n) : 1 ≤ n := by
   | det_one => decide
   | entry_NT => show 1 ≤ NT; unfold NT; decide
   | trace_NS => show 1 ≤ NS; unfold NS; decide
-  | add _ _ ih_a ih_b => omega
+  | @add a b _ _ ih_a ih_b =>
+    exact Nat.le_trans ih_a (Nat.le_add_right a b)
   | @mul a b _ _ ih_a ih_b =>
     have ha : a ≥ 1 := ih_a
     have hb : b ≥ 1 := ih_b
-    exact Nat.le_trans (by omega : 1 ≤ 1 * 1) (Nat.mul_le_mul ha hb)
+    exact Nat.le_trans (by decide : 1 ≤ 1 * 1) (Nat.mul_le_mul ha hb)
 
 /-- ★★★★★ **Exact characterization**: PGen n ↔ n ≥ 1.
     P-generation is EXACTLY the positive naturals. -/
@@ -419,7 +552,7 @@ theorem pgen_iff_pos (n : Nat) : PGen n ↔ 1 ≤ n :=
 /-- PGen is closed under successor: if PGen n then PGen (n+1).
     (Since n ≥ 1, n+1 ≥ 2, automatic from pgen_ge_two.) -/
 theorem pgen_succ {n : Nat} (_ : PGen n) : PGen (n + 1) :=
-  pgen_all_pos (n + 1) (by omega)
+  pgen_all_pos (n + 1) (Nat.le_add_left 1 n)
 
 /-- PGen forms a sub-semiring: closed under +, ·, contains 1.
     Bundled as a triple of closure properties. -/
