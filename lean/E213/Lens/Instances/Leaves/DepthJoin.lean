@@ -31,6 +31,7 @@ they are separated by JoinEquiv.
 namespace E213.Lens.Instances.Leaves.DepthJoin
 
 open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Tactic.NatHelper
 
 /-- `small r` := r is a base (Raw.a or Raw.b), leaves=1. -/
 private def small (r : Raw) : Prop := Lens.leaves.view r = 1
@@ -42,74 +43,8 @@ private theorem leaves_of_small {r : Raw} (h : small r) : Lens.leaves.view r = 1
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r :=
   Lens.leaves_view_ge_one r
 
-/-! ### PURE arithmetic micro-lemmas (∅-axiom, replace `omega`/`simp`)
-
-`omega` and goal-closing `simp` pull `propext`/`Quot.sound`; the linear-Nat
-facts the tier argument needs are isolated here and proved by explicit
-constructive Nat reasoning (`Nat.add_le_add`, `Nat.noConfusion`, match). -/
-
-/-- `1 ≤ a → 1 ≤ b → 2 ≤ a + b`. -/
-private theorem two_le_add {a b : Nat} (ha : 1 ≤ a) (hb : 1 ≤ b) : 2 ≤ a + b :=
-  Nat.add_le_add ha hb
-
-/-- `1 + n ≠ 0`. -/
-private theorem one_add_ne_zero (n : Nat) : 1 + n ≠ 0 :=
-  fun h => absurd (h ▸ Nat.le_add_right 1 n) (by decide)
-
-/-- From `a + b = 2`, `1 ≤ a`, `1 ≤ b`: both are `1`. -/
-private theorem eq_one_of_add_eq_two {a b : Nat}
-    (ha : 1 ≤ a) (hb : 1 ≤ b) (h : a + b = 2) : a = 1 ∧ b = 1 := by
-  match a, ha with
-  | 1, _ =>
-    have hb1 : b = 1 := by
-      have : 1 + b = 2 := h
-      have hbb : b + 1 = 2 := by rw [Nat.add_comm] at this; exact this
-      exact Nat.succ.inj hbb
-    exact ⟨rfl, hb1⟩
-  | (k+2), _ =>
-    exfalso
-    have : 2 + b ≤ (k + 2) + b := Nat.add_le_add_right (Nat.le_add_left 2 k) b
-    rw [h] at this
-    have h3 : 2 + 1 ≤ 2 + b := Nat.add_le_add_left hb 2
-    exact absurd (Nat.le_trans h3 this) (by decide)
-
-/-- `max a b = 0 → a = 0 ∧ b = 0`. -/
-private theorem max_eq_zero {a b : Nat} (h : max a b = 0) : a = 0 ∧ b = 0 :=
-  ⟨Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_left a b) (Nat.zero_le a),
-   Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_right a b) (Nat.zero_le b)⟩
-
-/-- `1 ≤ n → n < 2 → n = 1`. -/
-private theorem eq_one_of_ge_one_lt_two {n : Nat} (h1 : 1 ≤ n) (h2 : n < 2) : n = 1 :=
-  Nat.le_antisymm (Nat.le_of_lt_succ h2) h1
-
-/-- `1 ≤ n → n ≠ 1 → 2 ≤ n`. -/
-private theorem two_le_of_ne_one {n : Nat} (h1 : 1 ≤ n) (hne : n ≠ 1) : 2 ≤ n := by
-  rcases Nat.lt_or_ge n 2 with hlt | hge
-  · exact absurd (eq_one_of_ge_one_lt_two h1 hlt) hne
-  · exact hge
-
-/-- `n ≠ 0 → n ≠ 1 → 2 ≤ n`. -/
-private theorem ge_two_of_ne_zero_ne_one {n : Nat} (h0 : n ≠ 0) (h1 : n ≠ 1) : 2 ≤ n := by
-  rcases Nat.lt_or_ge n 2 with hlt | hge
-  · rcases Nat.lt_or_ge n 1 with hlt1 | hge1
-    · exact absurd (Nat.le_antisymm (Nat.le_of_lt_succ hlt1) (Nat.zero_le _)) h0
-    · exact absurd (eq_one_of_ge_one_lt_two hge1 hlt) h1
-  · exact hge
-
-/-- `1 ≤ max a b → 1 ≤ a ∨ 1 ≤ b`. -/
-private theorem or_ge_one_of_max_ge_one {a b : Nat} (h : 1 ≤ max a b) :
-    1 ≤ a ∨ 1 ≤ b := by
-  rcases Nat.lt_or_ge a 1 with ha | ha
-  · right
-    have ha0 : a = 0 := Nat.le_antisymm (Nat.le_of_lt_succ ha) (Nat.zero_le a)
-    have hm : max a b = b := by
-      rw [ha0]
-      exact (E213.Tactic.NatHelper.max_comm 0 b).trans
-        (E213.Tactic.NatHelper.max_eq_left_pure (Nat.zero_le b))
-    rw [hm] at h; exact h
-  · left; exact ha
-
-/-- Raw.slash x y h has leaves ≥ 2, so ¬ small. -/
+/-- Raw.slash x y h has leaves ≥ 2, so ¬ small.  (The general Nat/`max`
+    micro-lemmas this argument needs live in `Meta/Tactic/NatHelper`.) -/
 private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
     ¬ small (Raw.slash x y h) := by
   intro hsmall
