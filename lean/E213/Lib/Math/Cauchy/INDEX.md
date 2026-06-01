@@ -50,6 +50,11 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       one diff floors it
   - `DepthCeilingResidue.lean`     — naming the ceiling-raising is a diagonalisation
                                       = the residue (`cantor_general`)
+  - `DepthClosure.lean`            — the finite-coordinate class is closed under `×`
+                                      and the exponent axis (`diff` linear), breaking
+                                      at the exponential `2^{2^n}`
+  - `DepthCoordGenerator.lean`     — the tower as a coordinate system: `binom·d` /
+                                      `expTower` realize every coordinate, top-down
 
 ## Companion clusters
 

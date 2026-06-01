@@ -549,6 +549,7 @@ the exact axiom dependency listed.
 | `invAlphaEm_precision_theorem` | 0.2 ppb 1/α_em structural precision |
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
+| `tower_native_completeness_program` | completability = two-growth-axes comparison: boundary (`CrossDetOvertake`, 10/0), Liouville `W=d` free modulus (`LiouvilleModulus`, 13/0), finite-coordinate closure under `×`/exponent (`DepthClosure`, 16/0), coordinate generator (`DepthCoordGenerator`, 10/0), residue tie (`DepthCeilingResidue`).  Narrative `theory/math/analysis/tower_native_completeness.md` |
 
 ## STRICT 0-AXIOM additions from Phase 5 batch 1+2 (2026-05-01)
 

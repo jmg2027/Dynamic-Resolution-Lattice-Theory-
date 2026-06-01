@@ -50,6 +50,20 @@
     on `Q=+1`, e's `(65,24)` on `Q=2089`).  `N` is the conserved orbit-label;
     φ the common asymptote (discriminant `5 = NS+NT`).
 
+**Modulus + tower-native completeness** (narrative
+`theory/math/analysis/{holonomic_modulus, tower_native_completeness}.md`):
+  - `RateModulus.lean` — the general "rate-carrying ⟹ total modulus `N=k+2`"
+    generator; `Htel_of_crossdet` reduces the rate certificate to the
+    cross-determinant smallness condition.
+  - `HolonomicReal.lean` — the `Holonomic`/`HolonomicReal` bundle (recurrence + Cauchy
+    cut-sequence + valid limit); φ and e instances with constructed modulus.
+  - `CrossDetOvertake.lean` — ★ completability boundary: `CrossDetSmall`, below ⟹ free,
+    the double-exponential overtake break.
+  - `LiouvilleModulus.lean` — ★ the Liouville constant's cross-determinant equals its
+    denominator (`W=c^{k!}`), so it carries a free modulus — tame on this axis.
+  - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
+    pieces (boundary, Liouville, closure, generator, residue) bundled.
+
 ## Architecture notes
 
 - Real = (sequence + modulus) pair — type-level form of Cauchy completeness.

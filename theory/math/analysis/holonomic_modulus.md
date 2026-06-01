@@ -122,3 +122,9 @@ transcendental (e) are the *same kind* of object — each a `HolonomicReal` whos
 recurrence carries its own rate.  The only reals that still take the modulus as a
 hypothesis are the rate-free presentations, and that is a deficiency of the
 *presentation*, not of the real.
+
+The smallness condition `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}` (`Htel_of_crossdet`) is
+the comparison of the cross-determinant axis against the denominator axis;
+`tower_native_completeness.md` closes that comparison — the overtake boundary, the
+Liouville adjudication (`W = d`), closure of the finite-coordinate class, the
+coordinate generator, and the tie to the residue.

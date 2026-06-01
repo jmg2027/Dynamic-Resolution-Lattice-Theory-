@@ -17,9 +17,10 @@ Hub chapters:
 Cohomology sub-clusters (12 in `cohomology/`):
 - `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, aurifeuillean, hodge, surfaces, universal, examples, bridge}.md`
 
-Analysis sub-clusters (6 in `analysis/`):
+Analysis sub-clusters (7 in `analysis/`):
 - `analysis/{minimal_root, classic_calc, differentiation, flux_m_v_t, integration}.md`
 - [`analysis/holonomic_modulus.md`](analysis/holonomic_modulus.md) — completeness as a *constructed* convergence rate: the general "rate-carrying ⟹ total modulus" generator (`RateModulus.rate_total_modulus`), the rate criterion `tailᵢ·k·dᵢ < 1`, and the `HolonomicReal` instances φ (`N=2k`) and e (`N=k+2`, `eHolonomicReal`).  Rate-carrying vs rate-free, not algebraic vs transcendental.  Frontier: π (rate-free, needs `μ(π)`), the depth-rank ⟶ rate bridge
+- [`analysis/tower_native_completeness.md`](analysis/tower_native_completeness.md) — completability as a comparison of two growth-axes (cross-determinant `W` vs denominator `d`) *inside* the tower: the overtake boundary (`CrossDetOvertake`, constant `W` free / double-exp `W` breaks), Liouville tame on this axis (`LiouvilleModulus`, `W=d=c^{k!}` ⟹ free modulus), the finite-coordinate class closed under `×`/exponent (`DepthClosure`), the tower as a coordinate generator (`DepthCoordGenerator`), and the tower's top-lessness = the residue (`DepthCeilingResidue`).  Bundled in `TowerNativeCompleteness.tower_native_completeness_program`
 
 Discrete-substrate geometry (10):
 - `modulus, number_grid, angle_structure, bipartite_decomp, cartesian_vs_disjoint, generation_rule, triangular_tower, operation_topology, level_topology, algebra213_meta_theorems`
