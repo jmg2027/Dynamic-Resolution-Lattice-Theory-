@@ -242,4 +242,16 @@ theorem meta_tower_master :
   ⟨meta_tower_loop_spine, dyadic_branch_bottom_rung, no_cross_branch_loop_iso,
    eisenstein_denser_dim8, asymptote_classifies_branch⟩
 
+/-- ★ **Column density at a fixed dimension is `|μ_seed| / 2`.**  At
+    dimension 8 the three columns carry unit counts `2·8`, `1·8`, `3·8` —
+    densities `c = 2, 1, 3` set by the seed root-of-unity group: `μ₄`
+    (`ℤ[i]`, Type A), `μ₂` (`ℤ[√-2]`, Type B), `μ₆` (`ℤ[ω]`, Type C).  The
+    same loop sequence (dyadic A/B) is thus realised at different
+    densities, and the Eisenstein column is denser still. -/
+theorem seed_density_at_dim8 :
+    cay_units.length = 2 * 8        -- Type A (μ₄): density 2
+    ∧ L4T_units.length = 1 * 8      -- Type B (μ₂): density 1
+    ∧ zoq_units.length = 3 * 8 := by -- Type C (μ₆): density 3
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
