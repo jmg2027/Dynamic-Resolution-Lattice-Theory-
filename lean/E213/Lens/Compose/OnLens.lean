@@ -193,6 +193,23 @@ theorem lensCombineGeneric_eqPW_cong {α : Type} (c : α → α → α)
     show c (L1.combine x y) (M1.combine x y) = c (L2.combine x y) (M2.combine x y)
     rw [hL.2.2 x y, hM.2.2 x y]
 
+/-- `lensCombineGeneric` symmetry up to a base relation `R` — the `sameLens`
+    (recursive-tower) companion of `lensCombineGeneric_comm_eqPW`.  ∅-axiom:
+    each `sameLens` component is `hRsym` at the corresponding base values. -/
+theorem lensCombineGeneric_comm_same {α : Type} (c : α → α → α) (R : α → α → Prop)
+    (hRsym : ∀ u v, R (c u v) (c v u)) (L M : Lens α) :
+    (lensCombineGeneric c L M).sameLens R (lensCombineGeneric c M L) :=
+  ⟨hRsym _ _, hRsym _ _, fun _ _ => hRsym _ _⟩
+
+/-- `lensCombineGeneric` is `sameLens R`-congruent when `c` is `R`-congruent —
+    the recursive-tower companion of `lensCombineGeneric_eqPW_cong`. -/
+theorem lensCombineGeneric_cong_same {α : Type} (c : α → α → α) (R : α → α → Prop)
+    (hRcong : ∀ a a' b b', R a a' → R b b' → R (c a b) (c a' b'))
+    (L L' M M' : Lens α) (hL : L.sameLens R L') (hM : M.sameLens R M') :
+    (lensCombineGeneric c L M).sameLens R (lensCombineGeneric c L' M') :=
+  ⟨hRcong _ _ _ _ hL.1 hM.1, hRcong _ _ _ _ hL.2.1 hM.2.1,
+   fun u v => hRcong _ _ _ _ (hL.2.2 u v) (hM.2.2 u v)⟩
+
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
     (Lens α)`.  The Lens type itself is an instance of the semantic
