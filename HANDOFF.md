@@ -156,9 +156,15 @@ A–D + B are now **all closed ∅-axiom this arc**:
     reading** (`G164` revised): the wall is for *rate-free* sequences; e's factorial
     rate escapes it — no irrationality measure needed.  `ExpLog/EulerCertifiedBracket`
     (3/0) is the elementary bracket-witness view of the same Cauchy property.
-    OPEN: higher-degree transcendentals (π, deg 4 — Wallis tail rate, same margin
-    idea) and the *general* `Holonomic → CertifiedModulus` (rate from arbitrary
-    recurrence data — the `polyDepth` link).
+    `eHolonomicReal_cut_stable`: the holonomic cut is the stable convergent value
+    (e analogue of `phiHolonomicReal_cut`).  FRONTIER criterion (`research-notes/G165`):
+    a FREE total modulus `N≈k` exists iff `tail_i · k · d_i < 1` at `i≳k` (rate beats
+    the denominator-gap quantum).  e meets it (factorial rate `1/(i·i!)` vs gap
+    `1/(k·i!)`: ratio `k/i<1`); **π-via-Wallis does NOT** (tail `~1/n` vs fast
+    `wallisDen` → needs π's irrationality measure `μ(π)≤7.1`, genuinely hard — a fast
+    π series is the real route).  OPEN: a fast π representation; cheap factorial-rate
+    instances (`1/e`, exp/log at rationals); the *general* generator = abstract
+    `EulerModulus` over `(a,d)` + the criterion (depth/`polyDepth` supplies `d_i`).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`

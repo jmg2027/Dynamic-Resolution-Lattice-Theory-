@@ -232,4 +232,16 @@ def eHolonomicReal : E213.Lib.Math.Real213.HolonomicReal where
   seq   := eulerCauchySeq
   valid := CauchyCutSeq.limit_valid eulerCauchySeq (fun i => eulerCut_valid i)
 
+/-- e's holonomic cut is the convergent read at the modulus index: `eulerCut (k+2)`. -/
+theorem eHolonomicReal_cut (m k : Nat) :
+    eHolonomicReal.cut m k = eulerCut (k+2) m k := rfl
+
+/-- ★★ **The holonomic cut is the stable convergent value.**  For `k ≥ 1` and any
+    `i ≥ k+2`, e's `HolonomicReal` cut equals `eulerCut i m k` — the limit object is
+    exactly the (constant) tail value of the convergents, however far they are read.
+    The e analogue of `phiHolonomicReal_cut`. -/
+theorem eHolonomicReal_cut_stable (m k : Nat) (hk : 1 ≤ k) (i : Nat) (hi : k+2 ≤ i) :
+    eHolonomicReal.cut m k = eulerCut i m k := by
+  rw [eHolonomicReal_cut]; exact euler_cut_const m k hk (k+2) i (Nat.le_refl _) hi
+
 end E213.Lib.Math.Real213.ExpLog.EulerModulus
