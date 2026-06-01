@@ -1,7 +1,7 @@
 # Session handoff
 
-Branch: `claude/depth-arc-completeness-iEMpZ` (merged with `main`; adds the
-real-number depth-arc / holonomic-modulus thread on top of the Lens-rebuild main).
+Branch: `claude/transfinite-ordinals-intensional-budYF` (continues the real-number
+depth-arc / holonomic-modulus thread; adds the W-vs-d stratification of completeness).
 
 Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
 (narrative); `catalogs/`, `STRICT_ZERO_AXIOM.md`, and `research-notes/` carry
@@ -112,6 +112,22 @@ A–D + B are now **all closed ∅-axiom this arc**:
     so `euler_Htel` is now *derived from the cross-determinant*, not a bespoke estimate;
     the depth arc (W) and the modulus generator (Htel) are one mechanism.  Narrative:
     `theory/math/analysis/holonomic_modulus.md`.
+  - **W-vs-d stratification — DONE** this arc (`Real213/RateStratification`, 12 PURE):
+    the smallness law made the primitive object.  `Dominates W d i := i(i+1)·W_i +
+    i·d_i ≤ (i+1)·d_{i+1}`; `htel_iff_dominates` upgrades `Htel_of_crossdet` from
+    implication to **characterization** (`Htel a d` ⟺ every layer `i≥1` dominated);
+    `dominated_free_modulus` (domination everywhere ⟹ free modulus `N=k+2`);
+    `overtake_breaks_layer` (T1 boundary: any layer where `W` overtakes the denom
+    quantum `(i+1)d_{i+1} < W_i` breaks domination — no measure, axes flip order).  The
+    unimodular det-1 floor `W ≡ 1` (`T=[[2,1],[1,1]]`) is dominated everywhere against
+    `d_i=(i+1)(i+2)` (`floor_dominates_all`, collapses to `i≤i+2` via `PolyNat`) — the
+    trivially-free bottom (`floor_carries_Htel`, `tower_stratification`).  This is the
+    proposal's Phase 2 "free-modulus stratification" / G166-T1.  Narrative:
+    `theory/math/analysis/holonomic_modulus.md` §4; agenda `research-notes/G167`.
+    OPEN next: a concrete cut sequence realizing the floor end-to-end through
+    `dominated_free_modulus`; the Liouville overtake made concrete (named `W`/`d` from
+    a Liouville presentation into `overtake_breaks_layer`); closure of `Dominates`
+    under `+`/`×` (G166-T3).
     OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
     fast for the smallness law; needs `μ(π)`); more instances need their convergents
     as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet

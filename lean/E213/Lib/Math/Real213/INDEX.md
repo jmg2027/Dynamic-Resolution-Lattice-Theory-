@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  57 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  58 files in 7 sub-clusters.
 
 ## Sub-clusters
 
@@ -49,6 +49,24 @@
     orbit stays on its hyperbola `Q = N` (φ-convergents on `Q=−1`, the `(2,1)`-orbit
     on `Q=+1`, e's `(65,24)` on `Q=2089`).  `N` is the conserved orbit-label;
     φ the common asymptote (discriminant `5 = NS+NT`).
+
+**The constructed-modulus generator + its stratification**:
+  - `RateModulus.lean` — ★ the general "rate-carrying ⟹ total modulus" theorem.  A
+    monotone convergent cut `a_i/d_i` with a non-increasing margin (`Htel`, the rate
+    certificate) completes with a constructed total modulus `N(m,k)=k+2`
+    (`rate_total_modulus`).  `Htel_of_crossdet`: the certificate is a *smallness law*
+    on the cross-determinant `W_i = a_{i+1}d_i − a_i d_{i+1}` against the denominator's
+    discrete growth — the bridge where the divergence ladder (`W`) meets the modulus
+    generator.
+  - `RateStratification.lean` — ★ completeness as a layer-by-layer **W-vs-d
+    comparison**.  `Dominates W d i` = "`W` below the denominator quantum at layer
+    `i`"; `htel_iff_dominates` makes `Htel` *exactly* domination at every layer (the
+    smallness law upgraded from implication to characterization).  Domination
+    everywhere ⟹ free modulus (`dominated_free_modulus`); `overtake_breaks_layer` is
+    the boundary (any layer where `W` overtakes `d` breaks it).  The unimodular det-1
+    floor (`W ≡ 1`, the `T=[[2,1],[1,1]]` invariant) is dominated against
+    `d_i=(i+1)(i+2)` everywhere (`floor_dominates_all`, collapsing to `i ≤ i+2`) — the
+    trivially-free bottom (`floor_carries_Htel`, `tower_stratification`).
 
 ## Architecture notes
 

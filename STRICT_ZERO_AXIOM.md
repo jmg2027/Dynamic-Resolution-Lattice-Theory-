@@ -237,6 +237,20 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Real-number stratification addition (2026-06-01)
+
+`E213.Lib.Math.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
+The constructed-modulus generator's smallness law made a layer-by-layer
+**W-vs-d comparison**: `htel_iff_dominates` (the rate certificate `Htel`
+is *exactly* domination at every layer), `dominated_free_modulus`
+(domination everywhere ⟹ free modulus), `overtake_breaks_layer` (any
+layer where the cross-determinant overtakes the denominator quantum
+breaks it), and the unimodular det-1 floor as the trivially-free bottom
+(`floor_dominates_all` / `floor_carries_Htel` / `tower_stratification`).
+The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
+(Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
+polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE
