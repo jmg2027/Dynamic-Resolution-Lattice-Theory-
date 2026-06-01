@@ -41,7 +41,8 @@ open E213.Lib.Math.Real213.CrossDetOvertake
 open E213.Lib.Math.Real213.LiouvilleModulus
   (liouNum liouDen liouville_W_eq_denom_coordinate)
 open E213.Lib.Math.Cauchy.DepthLiouvilleCoord (fact)
-open E213.Lib.Math.Cauchy.DepthTower (ratioLift)
+open E213.Lib.Math.Cauchy.DepthTower (ratioLift diffN)
+open E213.Lib.Math.Cauchy.DivergenceLadder (isConst)
 open E213.Lib.Math.Cauchy.DepthExponentRecursion (totMono expSeq)
 open E213.Lib.Math.Cauchy.DepthDoubleExp (twoPow)
 open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
@@ -75,7 +76,7 @@ theorem tower_native_completeness_program :
         ∧ ¬ FinDiffDepth twoPow
         ∧ ¬ FinRatioDepth (expSeq 2 twoPow))
     -- the tower is a coordinate system, generated top-down (T4)
-    ∧ ((∀ d, polyDepth d (genExp d))
+    ∧ ((∀ d, polyDepth d (genExp d) ∧ ∀ j, j < d → ¬ isConst (diffN j (genExp d)))
         ∧ (∀ c r, expTower c (r+1) = expSeq c (expTower c r))
         ∧ (∀ r a (p q : Coord r), coordLt (r+1) (a, p) (a+1, q)))
     -- the tower has no top = the residue of pointing (the deep tie)

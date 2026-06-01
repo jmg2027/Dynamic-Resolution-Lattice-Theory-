@@ -12,12 +12,13 @@ sitting at it.  So the tower is a coordinate system populated top-down, not mere
 labelling of reals that happen to exist.
 
   * **Difference axis** — `genExp d = (n ↦ binom n d)` realizes difference-depth `d`
-    for *every* `d` (`genExp_realizes`, `= binomCol_polyDepth`): the degree-`d`
-    discrete monomial floors at exactly `d`.  The difference axis is surjectively
-    generated.
+    for *every* `d` (`genExp_realizes` floors by `d`, `genExp_not_below` not before):
+    the degree-`d` discrete monomial floors at *exactly* `d` (`genExp_depth_exact`), so
+    the difference axis is **surjectively** generated.
   * **Exponent / ratio axis** — `genValue c d = c^{binom · d}` lifts it one tier:
-    `genValue_floors` gives it finite ratio-depth `d` (via `DepthClosure`'s exponent
-    axis closure).  Every finite ratio coordinate is realized by an explicit value.
+    `genValue_floors` gives it finite ratio-depth (by depth `d`, via `DepthClosure`'s
+    exponent axis closure).  Every finite ratio coordinate is reached by an explicit
+    value.
   * **`ωʳ` tower** — `DepthOmegaTower.expTower c r` realizes every exponential height,
     each strictly dominating the whole lower tower (`coord_layer_dominates`), with the
     generator recursion `expTower c (r+1) = c^{expTower c r}` (`expTower_succ`).
@@ -37,7 +38,8 @@ namespace E213.Lib.Math.Cauchy.DepthCoordGenerator
 open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK isConst)
 open E213.Lib.Math.Cauchy.DepthTower (diffN ratioN)
 open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
-open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (binom binom_mono liftK_binomCol binomCol_polyDepth)
+open E213.Lib.Math.Cauchy.DepthPRecursiveInstances
+  (binom binom_mono liftK_binomCol binomCol_polyDepth binomCol_not_below)
 open E213.Lib.Math.Cauchy.DepthExponentRecursion (expSeq totMono)
 open E213.Lib.Math.Cauchy.DepthClosure
   (FinDiffDepth FinRatioDepth value_finRatio_of_finDiff floor_up)
@@ -60,10 +62,29 @@ theorem liftK_eq_diffN : ∀ (d : Nat) (s : Nat → Nat) (n : Nat),
 /-- The degree-`d` generator exponent `n ↦ binom n d`. -/
 def genExp (d : Nat) : Nat → Nat := fun n => binom n d
 
-/-- ★ **Every finite difference-depth is realized.**  `genExp d` is the degree-`d`
-    discrete monomial; it floors at difference-depth `d` (`binomCol_polyDepth`).  The
-    difference axis is surjectively generated. -/
+/-- ★ **Each depth is realized (upper bound).**  `genExp d` is the degree-`d` discrete
+    monomial; its `d`-th difference is constant (`polyDepth d`, `binomCol_polyDepth`) —
+    it floors *by* depth `d`. -/
 theorem genExp_realizes (d : Nat) : polyDepth d (genExp d) := binomCol_polyDepth d
+
+/-- The generator does **not** floor before its depth: for `j < d`, the `j`-th
+    difference of `genExp d` is not constant (`binomCol_not_below`, via the
+    `liftK = diffN` bridge). -/
+theorem genExp_not_below (d j : Nat) (hj : j < d) : ¬ isConst (diffN j (genExp d)) := by
+  intro hconst
+  refine binomCol_not_below d j hj (fun n => ?_)
+  show liftK j (genExp d) n = liftK j (genExp d) 0
+  rw [liftK_eq_diffN j (genExp d) n, liftK_eq_diffN j (genExp d) 0]
+  exact hconst n
+
+/-- ★★ **Each difference coordinate is realized *exactly*.**  `genExp d` floors at
+    depth `d` (`genExp_realizes`) and not before (`genExp_not_below`), so its
+    difference-depth is exactly `d`.  The generator `d ↦ genExp d` is therefore
+    **surjective** onto the difference-coordinate axis: every depth is hit by an
+    explicit sequence of precisely that depth. -/
+theorem genExp_depth_exact (d : Nat) :
+    polyDepth d (genExp d) ∧ ∀ j, j < d → ¬ isConst (diffN j (genExp d)) :=
+  ⟨genExp_realizes d, fun j hj => genExp_not_below d j hj⟩
 
 /-- `genExp d` floors at depth `d` on the `diffN` axis (the `diffN` reading of
     `genExp_realizes`). -/
@@ -100,9 +121,9 @@ theorem genExp_totMono (d : Nat) : totMono (genExp d) := by
 /-- The value generator `genValue c d = c^{binom · d}`. -/
 def genValue (c d : Nat) : Nat → Nat := expSeq c (genExp d)
 
-/-- ★★ **Every finite ratio-depth is realized.**  `genValue c d` has finite ratio
-    depth (depth `d`): the exponent `genExp d` has finite difference depth and the
-    exponent axis lifts it one tier (`DepthClosure.value_finRatio_of_finDiff`). -/
+/-- ★★ **Every finite ratio-depth is reached.**  `genValue c d` has finite ratio depth
+    (floors by ratio-depth `d`): the exponent `genExp d` has finite difference depth and
+    the exponent axis lifts it one tier (`DepthClosure.value_finRatio_of_finDiff`). -/
 theorem genValue_floors (c : Nat) (hc : 1 ≤ c) (d : Nat) :
     FinRatioDepth (genValue c d) :=
   value_finRatio_of_finDiff c hc (genExp d) (genExp_totMono d) ⟨d, genExp_floors_diffN d⟩
@@ -120,17 +141,18 @@ theorem tower_level_dominates (r a : Nat) (p q : Coord r) :
 /-! ## §4 — the coordinate system, bundled -/
 
 /-- ★★★ **The tower is a coordinate system, generated top-down.**  Every finite
-    difference-depth `d` is realized by an explicit sequence `genExp d`; every
-    exponential height is generated by the recursion `expTower c (r+1) =
-    c^{expTower c r}`, each height strictly dominating the whole lower tower.  So the
-    `ω^ω` ladder is not a mere classification of pre-existing reals — it is populated,
-    level by level, by sequences read off from the coordinate.  Placing a coordinate
-    and reading off the trajectory it defines is the constructive, generative form of
-    the completeness picture. -/
+    difference-depth `d` is realized **exactly** by an explicit sequence `genExp d`
+    (floors at `d`, not before — `genExp_depth_exact`); every exponential height is
+    generated by the recursion `expTower c (r+1) = c^{expTower c r}`, each height
+    strictly dominating the whole lower tower.  So the `ω^ω` ladder is not a mere
+    classification of pre-existing reals — it is populated, level by level, by
+    sequences read off from the coordinate.  Placing a coordinate and reading off the
+    trajectory it defines is the constructive, generative form of the completeness
+    picture. -/
 theorem tower_is_coordinate_system :
-    (∀ d, polyDepth d (genExp d))
+    (∀ d, polyDepth d (genExp d) ∧ ∀ j, j < d → ¬ isConst (diffN j (genExp d)))
     ∧ (∀ c r, expTower c (r+1) = expSeq c (expTower c r))
     ∧ (∀ r a (p q : Coord r), coordLt (r+1) (a, p) (a+1, q)) :=
-  ⟨genExp_realizes, expTower_succ, coord_layer_dominates⟩
+  ⟨genExp_depth_exact, expTower_succ, coord_layer_dominates⟩
 
 end E213.Lib.Math.Cauchy.DepthCoordGenerator

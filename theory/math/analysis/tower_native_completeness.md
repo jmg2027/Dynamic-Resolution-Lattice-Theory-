@@ -28,6 +28,7 @@ top-lessness of the tower to the residue of pointing.
 |---|---|---|
 | `Real213/CrossDetOvertake.lean` | 10 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
+| `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
@@ -88,6 +89,25 @@ factorial sits at recursion-coordinate ratio-depth 1 one tier down (`ratioLift_f
 `k! ↦ k+1`).  So the recursion-coordinate of `W` coincides with that of `d` while `d`
 strictly dominates — the comparison comes out `W ≤ d`, and a Liouville number completes
 exactly like e.  The value-axis depth-∞ is irrelevant to completability.
+
+### The W-relation rungs (`CrossDetEqDenom`)
+
+The cross-determinant's relation to the denominator sorts the trajectories into rungs,
+all read through the one bridge `CrossDetSmall ⟹ free`:
+
+  - **`W` constant** — the algebraic det-one floor (`DepthFloorDetOne`, φ/√2 with
+    `W = 1`); `const_crossdet_small` witnesses `CrossDetSmall` against a fast
+    denominator;
+  - **`W = d`** — the self-similar rung (e and the Liouville constant); the one theorem
+    `crossdet_eq_denom_total_modulus` covers both, with `CrossDetSmall d d` collapsing
+    (`i(i+1)+i = i(i+2)`) to a denominator-growth condition, and
+    `euler_total_modulus_via_eq_denom` / `liouville_total_modulus_via_eq_denom` the
+    one-line instances;
+  - **`W ≫ d`** — the overtake (`dexp_overtakes_denom`), where `CrossDetSmall` fails.
+
+So "constant cross-determinant" (algebraic) and "cross-determinant equal to the
+denominator" (the two structured transcendentals proven here) are two rungs *inside*
+the free region, and the double exponential is the first rung outside it.
 
 ### Closure of the finite-coordinate class (`DepthClosure`)
 

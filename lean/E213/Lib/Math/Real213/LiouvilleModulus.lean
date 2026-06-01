@@ -3,7 +3,7 @@ import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
 import E213.Meta.Nat.PureNat
 
 /-!
-# LiouvilleModulus — on the cross-determinant axis a Liouville number is as tame as e
+# LiouvilleModulus — on the cross-determinant axis the Liouville constant is as tame as e
 
 `DepthLiouvilleCoord` places the Liouville exponent `k!` *outside* every finite value
 coordinate `(h,d)` on the difference axis (`diff fact = k·k!`, super-polynomial): on
@@ -184,11 +184,10 @@ theorem liouDen_closed (c : Nat) : ∀ k, liouDen c k = c ^ (fact k)
     dominates.**  The cross-determinant equals the denominator (`liou_cross_det`,
     `W_k = liouDen_k`); the denominator's exponent is the factorial (`liouDen_closed`,
     `liouDen_k = c^{k!}`); and the factorial sits at recursion-coordinate ratio-depth 1
-    one tier down (`ratioLift_fact`, `k! ↦ k+1`).  So the recursion-coordinate of `W`
-    coincides with that of `d` while `d`'s growth strictly dominates `W`'s — the
-    comparison comes out "`W` ≤ `d`", and Liouville carries a free modulus
-    (`liouville_total_modulus`).  The tower adjudicates completability by a
-    coordinate comparison, with no irrationality measure. -/
+    one tier down (`ratioLift_fact`, `k! ↦ k+1`).  These three identities are what the
+    bundle returns; from them the smallness comparison `W ≤ d` follows and the free
+    modulus is delivered separately by `liouville_total_modulus` — the tower adjudicates
+    completability by a coordinate comparison, with no irrationality measure. -/
 theorem liouville_W_eq_denom_coordinate (c : Nat) :
     (∀ k, liouNum c (k+1) * liouDen c k
             = liouNum c k * liouDen c (k+1) + liouDen c k)

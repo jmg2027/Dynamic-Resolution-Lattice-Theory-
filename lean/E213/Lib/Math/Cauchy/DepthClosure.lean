@@ -152,8 +152,8 @@ theorem value_finRatio_of_finDiff (c : Nat) (hc : 1 ≤ c) (e : Nat → Nat)
 /-- ★★★ **The exponential-value class is closed under `×`.**  The product of two
     finite-ratio-depth values `c^{e₁}·c^{e₂}` is itself a finite-ratio-depth value,
     because it equals `c^{e₁+e₂}` and the exponent sum stays finite-difference-depth
-    (`finDiffDepth_add`).  So φ, e, and any finite-coordinate real generate a whole
-    family under multiplication, for free. -/
+    (`finDiffDepth_add`).  Any two exponential values built on finite-difference-depth
+    exponents thus generate their product for free. -/
 theorem value_mul_closed (c : Nat) (hc : 1 ≤ c) (e₁ e₂ : Nat → Nat)
     (htm₁ : totMono e₁) (htm₂ : totMono e₂)
     (h₁ : FinDiffDepth e₁) (h₂ : FinDiffDepth e₂) :
