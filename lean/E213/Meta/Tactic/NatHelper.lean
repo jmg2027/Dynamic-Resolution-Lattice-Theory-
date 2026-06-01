@@ -679,4 +679,15 @@ theorem lt_of_lt_le {a b c : Nat} (h1 : a < b) (h2 : b ≤ c) : a < c :=
 theorem lt_of_le_lt {a b c : Nat} (h1 : a ≤ b) (h2 : b < c) : a < c :=
   Nat.le_trans (Nat.succ_le_succ h1) h2
 
+/-- Generic sub/add range bound: from `s < c` and a `c - 1 - a + b ≤ k`,
+    conclude `s - a + b < k + 1`.  ∅-axiom replacement for the `omega`
+    range arithmetic in segmented `Fin`-pair enumerators.  Route:
+    `s ≤ c-1 ⇒ s-a ≤ (c-1)-a ⇒ s-a+b ≤ ((c-1)-a)+b ≤ k < k+1`. -/
+theorem sub_add_lt_succ_of_le {s c a b k : Nat} (h : s < c)
+    (hcab : c - 1 - a + b ≤ k) : s - a + b < k + 1 := by
+  have hs : s ≤ c - 1 := Nat.le_sub_one_of_lt h
+  have h1 : s - a ≤ c - 1 - a := Nat.sub_le_sub_right hs a
+  have h2 : s - a + b ≤ (c - 1 - a) + b := Nat.add_le_add_right h1 b
+  exact Nat.lt_of_le_of_lt (Nat.le_trans h2 hcab) (Nat.lt_succ_self k)
+
 end E213.Tactic.NatHelper

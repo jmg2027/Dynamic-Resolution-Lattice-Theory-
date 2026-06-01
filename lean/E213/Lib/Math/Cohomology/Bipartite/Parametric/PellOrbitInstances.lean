@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Pell-orbit Stern-Brocot extension: K_{7, 4}, K_{8, 5}, K_{5, 4}, K_{13, 8}
@@ -33,6 +34,7 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.PellOrbitInstances
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven
+open E213.Tactic.NatHelper renaming sub_add_lt_succ_of_le → hi13_bound
 
 /-! ## §1 — Concrete pair enumeration on `Fin 7`
 
@@ -156,17 +158,6 @@ def pair13_lo : Fin (chooseTwo 13) → Fin 13
     else if s < 75 then ⟨9, by decide⟩
     else if s < 77 then ⟨10, by decide⟩
     else ⟨11, by decide⟩
-
-/-- ∅-axiom bound helper: from `s < c` and a closed `decide`-checkable
-    `c - 1 - a + b ≤ 12`, conclude `s - a + b < 13`.  Replaces the
-    `omega` calls inside `pair13_hi` (which pull propext/Quot.sound).
-    Route: `s ≤ c-1 ⇒ s-a ≤ (c-1)-a ⇒ s-a+b ≤ ((c-1)-a)+b ≤ 12 < 13`. -/
-private theorem hi13_bound {s c a b : Nat} (h : s < c)
-    (hcab : c - 1 - a + b ≤ 12) : s - a + b < 13 := by
-  have hs : s ≤ c - 1 := Nat.le_sub_one_of_lt h
-  have h1 : s - a ≤ c - 1 - a := Nat.sub_le_sub_right hs a
-  have h2 : s - a + b ≤ (c - 1 - a) + b := Nat.add_le_add_right h1 b
-  exact Nat.lt_of_le_of_lt (Nat.le_trans h2 hcab) (by decide)
 
 /-- High endpoint of the `s`-th pair of `Fin 13`. -/
 def pair13_hi : Fin (chooseTwo 13) → Fin 13

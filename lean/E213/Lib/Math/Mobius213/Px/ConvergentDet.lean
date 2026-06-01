@@ -56,14 +56,9 @@ open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_univers
 open E213.Lib.Math.Mobius213.Px.QFibIdentity (Q00_eq_fib Q01_eq_fib)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Mobius213.Px.FibCassini (fib_cassini_shifted)
-open E213.Lib.Math.NatRing (nat_add_mul nat_mul_assoc)
+open E213.Lib.Math.NatRing (nat_add_mul nat_mul_assoc add_dup_succ)
 
 /-! ## §1 — Convergent cross-determinant = 1 -/
-
-/-- `a + (b + 1) + a = 2·a + b + 1`.  PURE additive rearrangement
-    (replaces an `omega` in `convergent_det`). -/
-private theorem add_dup_succ (a b : Nat) : a + (b + 1) + a = 2 * a + b + 1 := by
-  rw [Nat.two_mul, Nat.add_right_comm a (b + 1) a, ← Nat.add_assoc]
 
 /-- ★★★★★★★★★★ **Convergent cross-determinant**:
     For all n, `Q01(n+1) · Q00(n) = Q01(n) · Q00(n+1) + 1`.

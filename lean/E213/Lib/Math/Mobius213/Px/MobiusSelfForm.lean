@@ -3,6 +3,7 @@ import E213.Lib.Math.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.Mobius213.Px.CharPolySelf
 import E213.Lib.Math.Mobius213.Px.ConvergentDet
 import E213.Lib.Math.Mobius213.Px.POrbitClosure
+import E213.Lib.Math.NatRing
 
 /-!
 # Mobius213.Px.MobiusSelfForm — "모습 자체가 뫼비우스 행렬"
@@ -49,6 +50,7 @@ open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Physics.Simplex.Counts (NS)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (p_self_reference_master)
 open E213.Lib.Math.Mobius213.Px.ConvergentDet (convergent_det farey_neighbour_fib det_one_four_readings)
+open E213.Lib.Math.NatRing (mul_eq_one_left mul_eq_one_right)
 
 /-! ## §1 — Möbius iteration functional equation
 
@@ -166,35 +168,6 @@ P = [[2,1],[1,1]] is the UNIQUE 2×2 matrix with:
 This means: from trace and det alone — data available in P's own
 orbit via `p_self_reference_master` — the matrix is uniquely
 reconstructible. -/
-
-/-- Auxiliary: if b ≥ 1 and c ≥ 1 and b * c = 1, then b = 1. -/
-private theorem mul_eq_one_left (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
-    (hbc : b * c = 1) : b = 1 := by
-  cases b with
-  | zero => exact absurd hb (Nat.not_succ_le_zero 0)
-  | succ b0 =>
-    cases b0 with
-    | zero => rfl
-    | succ b1 =>
-      -- b = b1 + 2.  Then b * c = (b1+2)*c.
-      cases c with
-      | zero => exact absurd hc (Nat.not_succ_le_zero 0)
-      | succ c0 =>
-        -- (b1+2)*(c0+1) definitionally = ((b1+2)*c0 + b1).succ.succ ≥ 2, contradicts =1.
-        exfalso
-        -- LHS reduces definitionally to a `.succ.succ`; coerce hbc to that form.
-        have hbc' : ((b1 + 1 + 1) * c0 + b1).succ.succ = 1 := hbc
-        -- (.succ.succ = (0).succ) ⇒ noConfusion peels to (.succ = 0) ⇒ False.
-        -- `Nat.succ.inj` / `Nat.succ_ne_zero` leak propext; `noConfusion` is PURE.
-        exact Nat.noConfusion hbc' (fun h2 => Nat.noConfusion h2)
-
-/-- Auxiliary: if b ≥ 1 and c ≥ 1 and b * c = 1, then c = 1. -/
-private theorem mul_eq_one_right (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
-    (hbc : b * c = 1) : c = 1 := by
-  have hb1 := mul_eq_one_left b c hb hc hbc
-  subst hb1
-  rw [Nat.one_mul] at hbc
-  exact hbc
 
 /-- ★★★★★★★★★★ **P-uniqueness**: P = [[2,1],[1,1]] is the unique
     positive-entry element of SL(2,ℤ) with trace 3 and the canonical
