@@ -44,21 +44,31 @@ of `Raw.slash`).  Removing the seal removes the thesis.
 propAsDistinguishingOr, propAsDistinguishingIff, propXor_comm,
 iff_comm_eq, exists_non_lens_expressible}` (7).
 
-## (C) Lens `equiv` / `refines` `=`-surface — `equivR`-recoverable
+## (C) Lens `equiv` / `refines` `=`-surface — `equivR`-rebuilt (RETIRED)
 
-Internal, load-bearing (not correspondence): the refinement lattice
-stated via `Lens.equiv := (view x = view y)`.  The PURE Reading-native
-form exists (`equivR` / `refinesR`, `universalLens_kernel_eq_E_R`); full
-retirement is a foundational pointwise-API rebuild (see
-`theory/lens/dirty_recovery_patterns.md` Pattern P5, `STRICT_ZERO_AXIOM.md`).
+Internal, load-bearing (not correspondence): the refinement lattice.  The
+codomain-polymorphic Reading-equivalence API (`ReadingEq` / `equivG` /
+`refinesG` in `Lens/ReadingEquiv.lean`, reducing to `equivR` at `Raw → Prop`
+and `equiv` at the default instance) now carries the **whole universalLens
+refinement surface ∅-axiom**, with the hub `universalLens_kernel_eq_E_R` + the
+closure companions `universalLens_{recovers_R, idempotent_R}` PURE.  The
+`=`-of-view forms are gone; the lone `=`-cost is the isolated bridge
+`equivR_to_equiv`.  See `theory/lens/dirty_recovery_patterns.md` Pattern P5,
+`STRICT_ZERO_AXIOM.md`.
 
-Sealed: `Universal.QuotLens` (5), `Instances.Cauchy` (3),
-`Instances.Leaves.DepthJoin` (10), `Lattice.IndexedJoin` (3).
-Real-DIRTY: `Lattice.{Join (4), FamilyJoin (2), FamilyMeet (1)}`,
-`Algebra.Corresp` (2), `Properties.{CanonicalForm (2), TowerLevel3 (1)}`,
-`Compose.{OnLens (9), OnLensImage (2), OnLensImageGeneric (1),
-OnLensImageLevel2 (1)}`, `Lib.Math.Cauchy.GenericFamily` (2),
-`Lib.Math.Choice.Resolved` (1).
+PURE now: `Universal.QuotLens`, `Instances.Cauchy`, `Lattice.{Join,
+IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
+`Properties.CanonicalForm`, `Lib.Math.Choice.Resolved`.
+
+Still DIRTY — a **distinct** mechanism (not this API):
+  · `Compose.{OnLens (9), OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`,
+    `Properties.TowerLevel3`, `Lib.Math.Cauchy.GenericFamily` — `Quot.sound`
+    from `funext` on a function-valued `combine` (Lens-of-Lens composition);
+    the migration target is the pointwise Lens equality `Lens.eqPW`
+    (`Lens/EqPW.lean`), not `equivR`.
+  · `Instances.Leaves.DepthJoin` (10) — `propext`/`Quot.sound` from `omega` /
+    `simp`-closed `Nat` arithmetic, the `omega`/`simp`→explicit purification
+    playbook (cf. `Mobius213.Px`).
 
 ## (D) Genuine results via classical representation — purifiable backlog
 

@@ -1,6 +1,6 @@
 # Session handoff
 
-Branch: `claude/research-notes-9Nc74`
+Branch: `claude/lens-api-pointwise-rebuild-HCdLk`
 
 The durable record of closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps: this session's map, the open targets
@@ -63,35 +63,39 @@ index, and notes/hygiene.
     (`CayleyDickson.*`), same playbook as KerSizeUniversal.
   - **(E) intentional axiom exhibits / Elab plumbing / test guards** — by design.
 
-## OPEN — headline target (a): foundational pointwise Lens-API rebuild
+## CLOSED this session — headline (a): foundational pointwise Lens-API rebuild
 
-Retire the **category-(C)** propext/Quot.sound (the Lens refinement lattice
-stated via `=`) by redefining the Lens equivalence/refinement API pointwise.
-This is the big one — **a real project, not bounded migration** (a delegated
-agent attempt stalled here; broken WIP was reset).
+The **category-(C)** propext/Quot.sound (the universalLens refinement lattice
+stated via `=`) is **retired**.  All three walls solved:
 
-**Three walls (empirically confirmed):**
-  1. `Lens.equiv := (view x = view y)` and `refines` built on it are
-     *foundational* (`Lens/LensCore.lean`) — every consumer stated through them
-     inherits the `=`-cost unless the API itself is restated pointwise.
-  2. `equivR`/`refinesR` are typed for `Lens (Raw → Prop)`.  The consumer lenses
-     have other codomains (`iJoinLens : Lens (ι → α)`, the meets,
-     `limitLens`) — P5 does not even *type* there; each needs its own
-     per-codomain pointwise equivalence.  → the API must become
-     codomain-polymorphic in its notion of "same".
-  3. `universalLens_recovers` / `universalLens_idempotent` have **no** PURE
-     `_pw` companion — they are equivalence-*closure* facts, needing closure
-     lemmas re-proved on the new API.
+  1. **Codomain-polymorphic API** (`Lens/ReadingEquiv.lean`): `ReadingEq α`
+     typeclass (per-codomain reading-sameness — `=` default, pointwise `↔` at
+     `Raw → Prop`) + `Lens.equivG` / `Lens.refinesG`, reducing **definitionally**
+     to `equiv` (default) and `equivR` (`Raw → Prop`).  Generic
+     `equivG_slash_congruence`.  All PURE (the lone DIRTY is the intentional
+     `equivR_to_equiv` bridge).
+  2. **Closure companions** (wall 3, `Universal/QuotLens.lean`):
+     `universalLens_{recovers_R, idempotent_R}` PURE, built on the new
+     `universalLens_equivR_slash_congruence` / `combine_cong_pw` / `fold_pw`.
+  3. **All consumers migrated + `=`-forms deleted**: `Lattice.{Join,
+     IndexedJoin, FamilyMeet, FamilyJoin}`, `Instances.Cauchy`,
+     `Algebra.Corresp`, `Choice.Resolved`, `Properties.CanonicalForm` now state
+     refinement on `equivR`/`refinesG` and are **0 DIRTY**.  The DIRTY
+     `universalLens_{combine_sym, view_eq, kernel_eq_E, recovers, idempotent}`
+     are gone (no remaining consumers).  Full build 1533 clean; Lens-tree scan:
+     the only remaining non-sealed DIRTY is `Compose.OnLens` (9, a **distinct**
+     `funext`-on-`combine` mechanism → `Lens.eqPW` migration, not this API).
 
-**What already EXISTS (PURE, materialized — the hub is recoverable):**
-`Lens/ReadingEquiv.lean` (`equivR`/`refinesR` + refl/symm/trans, all PURE; lone
-`=`-shim `equivR_to_equiv`), `universalLens_{combine_sym,view_eq}_pw` +
-`universalLens_kernel_eq_E_R` (QuotLens, PURE), `Raw.fold_slash_iff` (Theory,
-PURE).  Consumers of the sealed hub `universalLens_kernel_eq_E`:
-`Lattice/{Join,IndexedJoin,FamilyMeet,FamilyJoin}`, `Instances/Cauchy`,
-`Algebra/Corresp`, `Choice/Resolved` (+ `Compose.OnLens*`, `Properties/CanonicalForm`,
-`Cauchy/GenericFamily` carry the same `=`-shape).  `propAsDistinguishing` (B)
-stays irreducible regardless.
+`propAsDistinguishing` (B) stays irreducible regardless.
+
+## OPEN — Lens DIRTY follow-ups (distinct mechanisms, not headline (a))
+
+  - **Compose funext-on-combine** (`Compose.{OnLens (9), OnLensImage*}`,
+    `Properties.TowerLevel3`, `Lib.Math.Cauchy.GenericFamily`): `Quot.sound` from
+    `funext` on a function-valued `combine` (Lens-of-Lens composition).  Target:
+    the pointwise Lens equality `Lens.eqPW` (`Lens/EqPW.lean`), already PURE.
+  - **DepthJoin `omega`/`simp`** (`Instances.Leaves.DepthJoin`, 10): `Nat`
+    arithmetic helpers; `omega`/`simp`→explicit playbook (cf. `Mobius213.Px`).
 
 ## OPEN — smaller / scoped
 
@@ -142,7 +146,7 @@ unclaimed extensions it exposes:
 |---|---|---|
 | `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
 | Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/G159` |
-| Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
+| Pointwise Lens-API rebuild — category-(C) propext RETIRED; codomain-polymorphic `ReadingEq`/`equivG`/`refinesG`; universalLens refinement surface (lattice + Cauchy + Corresp + Choice + CanonicalForm) all PURE | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`, `equivR_slash_congruence`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md`, `STRICT_ZERO_AXIOM.md` |
 | Real-number completeness arc (links 1–13) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne}`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
