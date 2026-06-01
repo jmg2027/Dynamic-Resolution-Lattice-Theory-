@@ -20,8 +20,8 @@ Cohomology sub-clusters (12 in `cohomology/`):
 Analysis sub-clusters (5 in `analysis/`):
 - `analysis/{minimal_root, classic_calc, differentiation, flux_m_v_t, integration}.md`
 
-G37-G50 discrete-substrate geometry (11):
-- `modulus, number_grid, angle_structure, dialogue_audit, bipartite_decomp, cartesian_vs_disjoint, generation_rule, triangular_tower, operation_topology, level_topology, algebra213_meta_theorems`
+Discrete-substrate geometry (10):
+- `modulus, number_grid, angle_structure, bipartite_decomp, cartesian_vs_disjoint, generation_rule, triangular_tower, operation_topology, level_topology, algebra213_meta_theorems`
 
 Marathon-completed domains (6):
 - `combinatorics, information, logic, probability, group, modular_arithmetic` (modular_arithmetic extended by G119 to 13 files: +Bezout / FLT / F_{p²})
