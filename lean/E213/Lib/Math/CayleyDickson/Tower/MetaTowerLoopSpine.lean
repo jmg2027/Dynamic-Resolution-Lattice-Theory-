@@ -41,6 +41,7 @@ carriers.
 namespace E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
 
 open E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz
 open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.Levels.Sedenion
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
@@ -48,30 +49,40 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 /-- ★ **Meta-CD-tower loop-spine structure.**  Type A is a sparse,
     branch-restricted section of the unit-loop spine:
 
-    1. `Cayley ≅ L5T` and `Sedenion ≅ L6T` at the unit-loop level
-       (equal order-4 counts `14`, `30`) — Type B carries Type A's loop
-       one dimension-doubling higher (the `+1` offset, two rungs).
-    2. At equal dimension 16, `Sedenion` (`M₃₂`, count 30) and `L5T`
-       (`M₁₆`, count 14) differ — the offset is exact, so Type A's index
-       into the spine is `n ↦ n+1` (it skips the bottom rung).
+    1. Three independent SHIFT rungs align Type A with Type B at the
+       unit-loop level, each with a constant `+1` dimension-doubling
+       offset (B one doubling above A): `Lipschitz ≅ L4T` (`Q₈`, count
+       6), `Cayley ≅ L5T` (`M₁₆`, 14), `Sedenion ≅ L6T` (`M₃₂`, 30).
+       Three equal rungs over the measured range exclude any non-linear
+       (e.g. Fibonacci) re-indexing.
+    2. At *equal* dimension the columns carry *different* loops (two
+       witnesses): at dim 8 `Cayley` (`M₁₆`, 14) ≠ `L4T` (`Q₈`, 6); at
+       dim 16 `Sedenion` (`M₃₂`, 30) ≠ `L5T` (`M₁₆`, 14).  So Type A's
+       index into the spine is `n ↦ n+1` — it skips the bottom rung.
     3. The dyadic spine (Type A, here `Cayley`) has no 3-torsion, while
        the Eisenstein spine (Type C, `ZOmegaDouble`) does — the spine
        branches by base discriminant. -/
 theorem meta_tower_loop_spine :
-    -- (1) SHIFT alignment — same loop, B one doubling above A.
-    (cay_units.countP (fun u => cay_orderOf u = 4)
+    -- (1) SHIFT alignment over three rungs — same loop, B one doubling above A.
+    (lip_units.countP (fun u => lip_orderOf u = 4)
+       = L4T_units.countP (fun u => L4T_orderOf u = 4))
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
        = L5T_units.countP (fun u => L5T_orderOf u = 4))
     ∧ (sed_units.countP (fun u => sed_orderOf u = 4)
        = L6T_units.countP (fun u => L6T_orderOf u = 4))
-    -- (2) exact +1 offset — equal dimension (16), different loop.
+    -- (2) exact +1 offset — equal dimension, different loop (two witnesses).
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
+       ≠ L4T_units.countP (fun u => L4T_orderOf u = 4))
     ∧ (sed_units.countP (fun u => sed_orderOf u = 4)
        ≠ L5T_units.countP (fun u => L5T_orderOf u = 4))
     -- (3) branching — dyadic spine has no 3-torsion, Eisenstein does.
     ∧ (cay_units.countP (fun u => cay_orderOf u = 3) = 0)
     ∧ (zod_units.countP (fun u => zod_orderOf u = 3) ≠ 0) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact (lip_order_distribution.2.2.1).trans (L4T_order_distribution.2.2.1).symm
   · exact (cay_order_distribution.2.2.1).trans (L5T_order_distribution.2.2.1).symm
   · exact (sed_order_distribution.2.2.1).trans (L6T_order_distribution.2.2.1).symm
+  · rw [cay_order_distribution.2.2.1, L4T_order_distribution.2.2.1]; decide
   · rw [sed_order_distribution.2.2.1, L5T_order_distribution.2.2.1]; decide
   · decide
   · decide
