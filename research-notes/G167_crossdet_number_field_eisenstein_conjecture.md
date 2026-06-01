@@ -100,11 +100,26 @@ Concrete ∅-axiom targets (in increasing reach):
          Eisenstein **definite** (`∀ a b, 0 ≤ eisForm a b`) vs golden **indefinite**
          (`∃, < 0`).  Definite ⟹ bounded level sets ⟹ curve; indefinite ⟹ unbounded ⟹
          line.  The ∅-axiom heart of the conjecture is now a theorem.
-  2. `golden_form_indefinite` — `Q(1,0) = 1`, `Q(1,1) = −1` (trivial, decide).
-  3. the dichotomy theorem: definite (Eisenstein, disc −3) vs indefinite (golden, disc
-     +5), tying the unit-count (6 vs ∞) to bounded-vs-unbounded level sets.
-  4. an `ℤ[ω]`-cross-determinant `W = a_{i+1}d_i − a_i d_{i+1} ∈ ℤ[ω]` with the
-     det-(unit) floor characterised by `ZOmegaUnits`.
+  2. `golden_indefinite` + `signature_dichotomy` — DONE (same module): definite
+     (Eisenstein, disc −3) vs indefinite (golden, disc +5).  And anisotropy
+     `eisenstein_norm_zero` (`normSq u = 0 → u = 0`) + `eisenstein_norm_posdef` (full
+     positive-definiteness) — DONE.
+  3. **NEXT — the det-one floor = the 6 units, with a *pure* multiplicative norm.**  The
+     Eisenstein analog of φ's Cassini floor (`W = ±1` = the 2 units of `ℤ`): the norm-1
+     elements of `ℤ[ω]` are exactly the **6 units** (`ZOmegaUnits.units6_normSq_one` +
+     `units_count_eq_six` = `NS·NT`, both PURE).  What makes them a *group* (a det-one
+     floor) is **norm multiplicativity** `normSq (u·v) = normSq u · normSq v`
+     (`ZOmegaDomain.normSq_mul`) — which is currently **`propext`-dirty** (it routes
+     through `quad_norm`).  Two routes to a PURE version:
+       (a) a **4-variable** Int reflection prover (one nesting deeper than `PolyInt2`:
+           `List⁴ Int`) — `normSq_mul` is a 4-var identity in `(a,b,c,d)`;
+       (b) the **conjugate route** — `|uv|² = (uv)(\overline{uv}) = u(v\bar v)\bar u =
+           normSq v · (u \bar u) = normSq v · normSq u`, reusing
+           `ZOmegaAlgebra213.self_mul_conj'` (`u·conj u = ofInt (normSq u)`) and a
+           conjugate anti-hom `conj (u·v) = conj v · conj u` — pure iff those algebra
+           lemmas are pure.
+     Either lands a pure `normSq_mul`, hence "Eisenstein det-one floor = the 6-unit
+     group" ∅-axiom — the genuine Eisenstein analog of the golden det-one floor.
 
 The **full** elliptic-curve / CM / modular layer remains out of scope (per
 `probe_twist_conic.md`); what is reachable is the **lattice reference** (`ℤ[ω]`, already
