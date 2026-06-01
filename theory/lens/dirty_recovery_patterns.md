@@ -7,13 +7,22 @@ synthesis).
 ## Overview
 
 `STRICT_ZERO_AXIOM.md` records ≈ 56 DIRTY theorems whose Lean-core
-axiom use (`propext` and / or `Quot.sound`) is sealed by
-structural categories (a) Prop-as-distinguishing and (b) Lens
-funext-by-design.  This chapter gives a **toolkit for rephrasing
-DIRTY claims as PURE Lens-arrow statements** when the DIRTY
-content is incidental rather than structural — when the question
-"what is the kernel?" already answers what the function-level Eq
-was trying to assert.
+axiom use (`propext` and / or `Quot.sound`) traces to two sources:
+(a) `Prop` as a distinguishing atom, and (b) Lens kernel / refinement
+claims stated as function-`=` of views.  This chapter gives a
+**toolkit for rephrasing DIRTY claims as PURE Lens-arrow statements**:
+the question "what is the kernel?" already answers what the
+function-level Eq was trying to assert.
+
+Of the two sources, only (a) is a genuine thesis-cost.  Source (b) is
+a **statement-shape** cost — function-`=` of `Prop`-valued views pulls
+`funext` (= `Quot.sound`) and `propext`, but the distinguishing
+content it carries is the pointwise `↔`, which is PURE (Pattern P5).
+The load-bearing kernel hub on the universal Lens family has a
+materialized PURE Reading-native form
+(`universalLens_kernel_eq_E_R`), so the whole refinement lattice on
+Prop-valued Lenses is recoverable; the `=`-forms persist as
+`propext`-shims pending consumer migration, not as structural seals.
 
 The Lens-arrow (`theory/lens/unified_equivalence.md`) provides the
 PURE replacement vocabulary: equivalence, equivalence class,
@@ -138,9 +147,74 @@ sealed by category (b)).
 
 ### Does NOT apply when
 The consumer needs the full bijection `{Lens kernels} =
-{slash-congruences}`.  Then `universalLens E` is the realising
-Lens and the sealed-DIRTY direction is unavoidable — this is
-the **structural DIRTY** case, not a pattern instance.
+{slash-congruences}` stated as Lean `=` of view-functions.  Then
+`universalLens E` is the realising Lens and the `=`-direction
+(`kernel_correspondence` / `universalLens_kernel_eq_E`) is sealed.
+This is **not** structural, however: the Reading-native bijection
+`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) is PURE — see
+Pattern P5.  Use P5 unless the consumer literally needs Lean `=`.
+
+## Pattern P5 — Lens-`equiv` at a Prop codomain → `equivR` / `refinesR`
+
+### Symptom
+A kernel / `refines` / `combine_sym` / `view_eq` claim about a
+`Prop`-valued Lens (`Lens (Raw → Prop)` — the universal / indexed /
+Cauchy family) that bottoms out in
+`Lens.equiv L x y := (L.view x = L.view y)`.  Because `view x : Raw →
+Prop`, that `=` is a **function-of-`Prop` equality**, so it pulls
+`funext` (= `Quot.sound`) and `propext` — independent of how clean the
+surrounding proof is.  This is the single root of the whole
+funext / propext seal set on Prop-valued Lenses: every sealed
+`combine_sym` / `view_eq` / kernel / `refines` theorem in that family
+inherits the cost from this one definition.
+
+### PURE shape
+The 213-native notion of "the same under `L`" is the
+**distinguishing-equivalence** — `L` separates `x` and `y` the same
+way — stated pointwise as `↔` rather than as `=` of the view-functions:
+
+```
+Lens.equivR  L x y := ∀ s, L.view x s ↔ L.view y s
+Lens.refinesR L M  := ∀ x y, L.equivR x y → M.equivR x y
+```
+
+`equivR` carries the full equivalence-relation structure
+(`equivR_refl` / `equivR_symm` / `equivR_trans`) and `refinesR` its
+reflexive-transitive order — all PURE.  Using `=` instead imports
+`Prop` / function identity beyond the distinguishing content, the
+"View promoted to identity" slip (CLAUDE.md failure catalog;
+`seed/AXIOM/06_lens_readings.md` §6.3, which mandates staying in the
+decidable / distinguishing layer out of `=`-at-`Prop`).
+
+### Bridge
+`Lens/ReadingEquiv.lean` carries the `equivR` / `refinesR` structure
+(PURE).  The kernel hub `universalLens_kernel_eq_E_R`
+(`Lens/Universal/QuotLens.lean`) — `(universalLens E).equivR r r' ↔ E
+r r'` — is the Reading-native form of the load-bearing
+`universalLens_kernel_eq_E`, and is **PURE** (built from
+`universalLens_view_eq_pw` + `Iff.trans`, ultimately
+`Raw.fold_slash_iff`).  Composition:
+
+```
+Raw.fold_slash_iff (Theory, PURE — pointwise ↔ fold/slash homomorphism)
+   │
+   ▼  universalLens_view_eq_pw / universalLens_combine_sym_pw
+universalLens_kernel_eq_E_R  (PURE kernel hub)
+   │
+   ▼  refinesR built pointwise
+the refinement lattice, rebuilt without funext/propext
+```
+
+A one-direction shim back to the `=`-world,
+`equivR_to_equiv` (`funext s; propext (h s)`), is retained and is the
+**lone** `propext` / `Quot.sound` cost — for any consumer that
+genuinely wants Lean `=`.
+
+### Does NOT apply when
+`propAsDistinguishing` — `Prop` itself as a `HasDistinguishing`
+instance — is the codomain *content*, not the kernel statement shape.
+That seal is `propext` expressing the thesis "Prop is an atom of
+meaning"; `equivR` does not touch it (see "When to seal" below).
 
 ## Decision flow
 
@@ -151,32 +225,37 @@ Have a DIRTY claim → ask:
   · Does it claim an iso via mutual functions?    → try P2
   · Does it construct `Quot L.equiv`?             → try P3
   · Does it claim "E is the kernel of a Lens"?    → try P4
+  · Is it a kernel / refines / combine_sym on a
+    Prop-valued Lens, bottoming out in
+    `view x = view y`?                            → try P5
   · None of the above?                            → likely structural
                                                     DIRTY (category
-                                                    (a) or (b));
-                                                    seal it
+                                                    (a)); seal it
 ```
 
 ## When to seal instead of recover
 
-Categories (a) and (b) of `STRICT_ZERO_AXIOM.md` exist because
-some uses of propext / funext are **the content**, not the
-ergonomics.  The sealed list is documented; do not attempt to
-recover those.  Specifically:
+Exactly one source is genuinely **the content**, not the ergonomics:
 
-  · `Prop` as a `HasDistinguishing` instance (category (a)) —
-    `combine_sym` on Prop IS the propext use.  Removing it
-    removes the thesis "Prop is an atom of meaning".
-  · `universalLens` constructions (category (b)) — the codomain
-    `Raw → Prop` makes `combine_sym` a function-equality at
-    Prop.  Removing it removes the kernel-realisation direction
-    of `kernel_correspondence`.
+  · `Prop` as a `HasDistinguishing` instance (`propAsDistinguishing`,
+    category (a)) — `combine_sym` on Prop IS the propext use.
+    Removing it removes the thesis "Prop is an atom of meaning".
+    This is a handful of theorems and stays sealed.
 
-Patterns P1–P4 apply to DIRTY claims that **incidentally**
-inherited the seal (e.g. via a downstream `=` on a Lens that
-the consumer only used at kernel level).  Recovery is then
-clean: state the claim at LensIso / LensImage level, prove via
-the bridge.
+Source (b) — `universalLens` and the wider Prop-valued Lens family —
+*looks* structural but is not.  The codomain `Raw → Prop` makes
+`combine_sym` / kernel / `refines` a function-`=` at `Prop`, which
+pulls `funext` / `propext`; but the distinguishing content is the
+pointwise `↔`, recovered PURE by Pattern P5.  The `=`-forms are
+retained as `propext`-shims for consumers that want Lean `=`, with the
+single cost isolated in `equivR_to_equiv` — they are not irreducible
+seals.
+
+Patterns P1–P5 apply to DIRTY claims that inherited the seal from a
+statement shape (a downstream `=` the consumer only used at kernel
+level; a function-`=` of Prop-valued views).  Recovery is clean: state
+the claim at LensIso / LensImage / `equivR` level and prove via the
+bridge.
 
 ## Worked example
 
@@ -260,8 +339,12 @@ class.
     `LensImage` + `LensImage.proj_val_eq_iff`)
   · `lean/E213/Lens/Algebra/Congruence.lean` — P4 forward
     direction (PURE)
-  · `lean/E213/Lens/Universal/QuotLens.lean` — P4 reverse
-    direction (sealed-DIRTY, category (b))
+  · `lean/E213/Lens/ReadingEquiv.lean` — P5 `equivR` / `refinesR`
+    structure (PURE; lone shim `equivR_to_equiv`)
+  · `lean/E213/Lens/Universal/QuotLens.lean` — P4/P5 reverse
+    direction: `universalLens_kernel_eq_E` (`=`-form, sealed) beside
+    `universalLens_kernel_eq_E_R` (`equivR`-form, PURE) and the
+    `*_pw` combine/view companions
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`
     — cong constructor instance; see the `cong` case in
     `primary_cup_span_soundness_conditional`

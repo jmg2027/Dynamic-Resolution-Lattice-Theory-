@@ -75,11 +75,17 @@ on α and never require new axioms.  All **PURE**.
 
 The reverse direction (every slash-congruence is some Lens's
 kernel) is `slash_cong_is_lens_kernel` via `universalLens E`
-(`Lens/Universal/QuotLens.lean`).  This direction is **sealed
-DIRTY-by-design** because `universalLens.combine` ends in
-`Raw → Prop` and `combine_sym` becomes function-equality at
-Prop (propext + funext / `Quot.sound`).  The seal is recorded
-in `STRICT_ZERO_AXIOM.md` category (b).
+(`Lens/Universal/QuotLens.lean`).  Stated as Lean `=` of views
+(`universalLens_kernel_eq_E`) it is DIRTY: `universalLens.combine`
+ends in `Raw → Prop`, so `combine_sym` becomes a function-equality at
+Prop (propext + funext / `Quot.sound`), recorded in
+`STRICT_ZERO_AXIOM.md` category (b).  This is a statement-shape cost,
+not a structural one: the **distinguishing** form of the same
+bijection, `universalLens_kernel_eq_E_R`
+(`(universalLens E).equivR r r' ↔ E r r'`), is **PURE** — the
+pointwise `↔` carries the kernel content without `funext` / `propext`.
+The `=`-form is retained as a `propext`-shim for consumers wanting Lean
+`=`.  See Pattern P5, `theory/lens/dirty_recovery_patterns.md`.
 
 ### (ii) Equivalence class = `Lens.view`-fiber
 
@@ -226,17 +232,22 @@ fills it with content.  Both **PURE**.
 | `mobiusEq` is an equivalence relation | PURE |
 | `cutEq → sternBrocotEq → mobiusEq` chain | PURE |
 | `Eqv_equiv_iff` | PURE |
-| Slash-congruence → Lens-kernel (`universalLens`) | DIRTY (propext + funext, sealed-by-design (b)) |
-| `kernel_correspondence` bidirectional | DIRTY (inherits universalLens) |
+| Slash-congruence → Lens-kernel, `=`-form (`universalLens_kernel_eq_E`) | DIRTY (propext + funext) |
+| Slash-congruence → Lens-kernel, `equivR`-form (`universalLens_kernel_eq_E_R`) | PURE |
+| `kernel_correspondence` bidirectional (`=`-form) | DIRTY (inherits universalLens) |
 | `mobiusEq → cutEq` (Stern-Brocot coverage) | open |
 
 The strict ∅-axiom backbone of the unification — Lens-arrow
 defines and recognises equivalence, equivalence class,
 isomorphism, and homomorphism — is **PURE**.  The reverse
-direction that "every 213-native equivalence is realised as
-some Lens kernel" requires propext (Iff↔Eq on Prop) and funext
-on `Raw → Prop`, both Lean-4-core kernel base, sealed in
-`STRICT_ZERO_AXIOM.md` category (b).
+direction ("every 213-native equivalence is realised as some Lens
+kernel") is PURE in its distinguishing form: stating it as `view x =
+view y` pulls propext (Iff↔Eq on Prop) and funext on `Raw → Prop`, but
+the pointwise `equivR` form (`universalLens_kernel_eq_E_R`) carries the
+same content axiom-free.  The `=`-cost is a statement shape, retained
+as a shim; only `propAsDistinguishing` is a genuine seal
+(`STRICT_ZERO_AXIOM.md`).  See `theory/lens/dirty_recovery_patterns.md`
+Pattern P5.
 
 ## What this is not
 

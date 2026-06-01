@@ -31,7 +31,7 @@ conceptual ranking.
 | Chapter | Anchors | Purpose |
 |---|---|---|
 | [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (14 PURE). |
-| [`dirty_recovery_patterns.md`](dirty_recovery_patterns.md) | `Lens/Unified.lean` + `Lens/EqPW.lean` + `STRICT_ZERO_AXIOM.md` | Methodology — four named patterns (P1–P4) for converting DIRTY (propext / Quot.sound) claims into PURE Lens-arrow statements; decision flow and seal-vs-recover criterion. |
+| [`dirty_recovery_patterns.md`](dirty_recovery_patterns.md) | `Lens/Unified.lean` + `Lens/EqPW.lean` + `Lens/ReadingEquiv.lean` + `STRICT_ZERO_AXIOM.md` | Methodology — five named patterns (P1–P5) for converting DIRTY (propext / Quot.sound) claims into PURE Lens-arrow statements; P5 = the Reading-native `equivR` / `refinesR` for Prop-valued Lenses (pointwise `↔` not view-`=`).  Decision flow and seal-vs-recover criterion — only `propAsDistinguishing` is a genuine seal. |
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.  Closed
 chapters are narrative-from-scratch — Lens prose without per-file
