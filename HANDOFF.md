@@ -35,12 +35,24 @@ hygiene must not displace this.
 
 ### CayleyDickson remaining (category D)
 
-  - `Trig.conj_mul_anti` — needs `NonAssocStarRing213 Sedenion` (a Sedenion→
-    `CDDouble Cayley` bridge replicating `CayleyAlgebra213`; the parametric CDDouble
-    star instance needs `[StarRing213 α]` and Cayley is non-associative, so a
-    manual route), then the structural proof (cf. `SedenionHeavy.conj_mul_anti`).
-  - `SedenionHeavy.flexible` — the `CDDoubleFlexible` cross-pair open item
-    (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
+  - `Trig.conj_mul_anti` — **CLOSED (∅-axiom)**.  Added `NonAssocStarRing213
+    Sedenion` (`SedenionAlgebra213`, the manual componentwise route — Cayley
+    is non-associative so the parametric `[StarRing213 α]` CDDouble star instance
+    cannot fire); `TrigintaduoionionHeavy.conj_mul_anti` is now the verbatim
+    structural analog of `SedenionHeavy.conj_mul_anti` one layer up.
+  - `SedenionHeavy.flexible` — **crux closed; concrete closure pending.**  The
+    long-standing `CDDoubleFlexible` cross-pair `(conj d·b)·a + conj b·(d·a) =
+    a·(conj b·d) + (a·conj d)·b` is now proved ∅-axiom (`FlexAlt213.flex_cross_pair`,
+    via `left_alt_polar`/`right_alt_polar` → alternating associator + central
+    trace).  Still needed to land `SedenionHeavy.flexible` itself: (i) register
+    `FlexAlt213 Cayley` (needs generic CDDouble nuclearity `ofInt_nuc_{l,m,r}` +
+    `TraceNormed213 (CDDouble α)` + `conj_mul_self`, none present yet), then
+    (ii) the concrete `re`/`im` assembly on `Sedenion` from `flex_cross_pair` +
+    `conj_sandwich` + base `flexible` (the `re`-split is `L1=R1`/`L4=R3`/cross-pair;
+    the `im`-component identity is not yet derived) — or, alternatively,
+    generalize `Mul (CDDouble α)` / `CDDouble.conj` to a `[NonAssocStarRing213 α]`
+    base so the abstract `cd_flexible` can be stated and the Sedenion→`CDDouble
+    Cayley` bridge reused.
 
 ### Depth-arc (real-number / completeness thread, B–E)
 
