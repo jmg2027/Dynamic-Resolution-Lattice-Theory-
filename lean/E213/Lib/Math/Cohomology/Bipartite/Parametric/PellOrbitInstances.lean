@@ -157,20 +157,31 @@ def pair13_lo : Fin (chooseTwo 13) → Fin 13
     else if s < 77 then ⟨10, by decide⟩
     else ⟨11, by decide⟩
 
+/-- ∅-axiom bound helper: from `s < c` and a closed `decide`-checkable
+    `c - 1 - a + b ≤ 12`, conclude `s - a + b < 13`.  Replaces the
+    `omega` calls inside `pair13_hi` (which pull propext/Quot.sound).
+    Route: `s ≤ c-1 ⇒ s-a ≤ (c-1)-a ⇒ s-a+b ≤ ((c-1)-a)+b ≤ 12 < 13`. -/
+private theorem hi13_bound {s c a b : Nat} (h : s < c)
+    (hcab : c - 1 - a + b ≤ 12) : s - a + b < 13 := by
+  have hs : s ≤ c - 1 := Nat.le_sub_one_of_lt h
+  have h1 : s - a ≤ c - 1 - a := Nat.sub_le_sub_right hs a
+  have h2 : s - a + b ≤ (c - 1 - a) + b := Nat.add_le_add_right h1 b
+  exact Nat.lt_of_le_of_lt (Nat.le_trans h2 hcab) (by decide)
+
 /-- High endpoint of the `s`-th pair of `Fin 13`. -/
 def pair13_hi : Fin (chooseTwo 13) → Fin 13
   | ⟨s, _⟩ =>
-    if h : s < 12 then ⟨s + 1, by omega⟩
-    else if h2 : s < 23 then ⟨s - 12 + 2, by omega⟩
-    else if h3 : s < 33 then ⟨s - 23 + 3, by omega⟩
-    else if h4 : s < 42 then ⟨s - 33 + 4, by omega⟩
-    else if h5 : s < 50 then ⟨s - 42 + 5, by omega⟩
-    else if h6 : s < 57 then ⟨s - 50 + 6, by omega⟩
-    else if h7 : s < 63 then ⟨s - 57 + 7, by omega⟩
-    else if h8 : s < 68 then ⟨s - 63 + 8, by omega⟩
-    else if h9 : s < 72 then ⟨s - 68 + 9, by omega⟩
-    else if h10 : s < 75 then ⟨s - 72 + 10, by omega⟩
-    else if h11 : s < 77 then ⟨s - 75 + 11, by omega⟩
+    if h : s < 12 then ⟨s + 1, Nat.succ_lt_succ h⟩
+    else if h2 : s < 23 then ⟨s - 12 + 2, hi13_bound h2 (by decide)⟩
+    else if h3 : s < 33 then ⟨s - 23 + 3, hi13_bound h3 (by decide)⟩
+    else if h4 : s < 42 then ⟨s - 33 + 4, hi13_bound h4 (by decide)⟩
+    else if h5 : s < 50 then ⟨s - 42 + 5, hi13_bound h5 (by decide)⟩
+    else if h6 : s < 57 then ⟨s - 50 + 6, hi13_bound h6 (by decide)⟩
+    else if h7 : s < 63 then ⟨s - 57 + 7, hi13_bound h7 (by decide)⟩
+    else if h8 : s < 68 then ⟨s - 63 + 8, hi13_bound h8 (by decide)⟩
+    else if h9 : s < 72 then ⟨s - 68 + 9, hi13_bound h9 (by decide)⟩
+    else if h10 : s < 75 then ⟨s - 72 + 10, hi13_bound h10 (by decide)⟩
+    else if h11 : s < 77 then ⟨s - 75 + 11, hi13_bound h11 (by decide)⟩
     else ⟨12, by decide⟩
 
 /-- Concrete `PairEnum 13` (78 pairs in lex order). -/
