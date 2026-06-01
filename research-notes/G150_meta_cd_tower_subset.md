@@ -221,6 +221,49 @@ enumerate edges → encode order-distributions as concrete Nat data →
 + prove `CD-A` non-surjective into it (P7-E gaps), or exhibit the
 branching triangle.
 
+### Phase 7.2 — proven (∅-axiom) `meta_tower_loop_spine`
+
+`Tower/MetaTowerLoopSpine.meta_tower_loop_spine` (strict ∅-axiom,
+assembled from the per-level order distributions, no expensive
+re-decide).  Empirical inputs now pinned (all `decide`, file:line):
+`shift_iso_L3` (`ZSqrtMinus2Findings:53`), `cay/sed_order_distribution`
+(`Levels/{Cayley,Sedenion}Order4Monopoly`), `L5T/L6T_order_distribution`
+(`Tower/Order4Monopoly_L{5,6}T`), `typeC_cyclotomic_3_preserved`
+(`UniversalOrderGrowthC:31`).  The dyadic order-4 counts are
+`g(p) = 2^{p+1} − 2`: `Z₂`0, `Z₄`2, `Q₈`6, `M₁₆`14, `M₃₂`30.
+
+Resolved conjectures:
+  - **P7-A loop-spine [CONFIRMED, dyadic branch].**  Order distribution
+    `= ` unit-loop class; `Cayley(A,dim8) ≅ L5T(B,dim16)` (`M₁₆`),
+    `Sedenion(A,dim16) ≅ L6T(B,dim32)` (`M₃₂`).  spine ≠ dimension.
+  - **P7-C offset linearity [CONFIRMED +1].**  Two independent rungs give
+    the same `+1` B-over-A offset.  **The Fibonacci/non-linear guess is
+    REFUTED** for the dyadic branch.
+  - **P7-E subsample/gap [CONFIRMED].**  At equal dim 16,
+    `Sedenion(M₃₂) ≠ L5T(M₁₆)` — Type A indexes the spine `n ↦ n+1`,
+    skipping the bottom `Z₂` rung that B's `ℤ[√-2]` fills.  *This is the
+    exact formal content of "CD layer n = layer n+1 of the complete
+    tower".*
+  - **P7-D branch [CONFIRMED first half].**  Dyadic (A) carries no
+    3-torsion; Eisenstein (C) does → the spine branches by base
+    discriminant.
+
+Still open after Phase 7.2:
+  - **P7-B (global consistency across ALL columns, incl. C/D).**  Proven
+    consistent on the A–B dyadic edges; the full potential over the
+    branched graph (Eisenstein, Hurwitz) is not yet bundled.
+  - **No cross-branch iso (dyadic ↔ Eisenstein)** is an *untested
+    absence*, not a theorem — needs a distinguishing-invariant proof
+    (3-torsion present/absent is the candidate witness).
+  - **Parametric `Tower (Base) (n) : Type`** + abstract SHIFT functor
+    (the long-standing Phase 5/6) — would make `r` a definition, not a
+    per-cell `decide`.
+  - **asymptote ↦ branch:** `asymptote_ab` is `(2,0)` for A *and* B (same
+    dyadic branch) but `(5,−1)` for C, `(1,1)` for D — conjecture: the
+    `ℤ[√5]` asymptote is the branch (discriminant) invariant, *constant
+    along columns, varying across branches* — linking P7-D to
+    `Mobius213CDBridge.cd_mobius_bridge_master`.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
