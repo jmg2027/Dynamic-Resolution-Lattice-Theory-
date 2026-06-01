@@ -47,6 +47,7 @@ theorem image_minimum_property (α : Type) [d : HasDistinguishing α]
     (S : α → Prop)
     (hSa : S d.a) (hSb : S d.b)
     (hSclosed : ∀ x y, S x → S y → S (d.combine x y))
+    (hSsame : ∀ x y, d.same x y → S x → S y)
     (r : Raw) :
     S (universalMorphism α r) := by
   induction r using Raw.rec with
@@ -57,7 +58,7 @@ theorem image_minimum_property (α : Type) [d : HasDistinguishing α]
       rw [universalMorphism_b α]
       exact hSb
   | slash x y h ihx ihy =>
-      rw [universalMorphism_slash α x y h]
-      exact hSclosed _ _ ihx ihy
+      exact hSsame _ _ (d.same_symm (universalMorphism_slash α x y h))
+        (hSclosed _ _ ihx ihy)
 
 end E213.Lens.Compose.ImageMinimum

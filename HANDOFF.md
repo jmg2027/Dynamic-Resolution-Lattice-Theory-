@@ -1,118 +1,49 @@
 # Session handoff
 
-Branch: `claude/depth-arc-completeness-iEMpZ`
+Branch: `claude/depth-arc-completeness-iEMpZ` (merged with `main`; adds the
+real-number depth-arc / holonomic-modulus thread on top of the Lens-rebuild main).
 
-**Branch scope: real-number / completeness thread only.**  The depth-arc section
-is this branch's active agenda.  The "headline **(a)**" Lens-API rebuild, "**(d)**
-CayleyDickson purity", and the DIRTY/seal-arc material below are **other tracks**
-(repo-wide open items, retained here for reference) — not this branch's work.
+Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
+(narrative); `catalogs/`, `STRICT_ZERO_AXIOM.md`, and `research-notes/` carry
+status + scratch.  This file keeps the current open targets, the closed index,
+and hygiene notes.
 
-The durable record of closed work lives in `lean/E213/` (source of truth) and
-`theory/` (narrative).  This file keeps: this session's map, the open targets,
-the closed-and-promoted index, and notes/hygiene.
+## State
 
-## Latest session (2026-06-01) — what closed
+The **Lens tree is 0 real DIRTY** (sealed-by-design = the `Prop`-atom thesis
+only: `propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`,
+where `propext` *is* the content).  213's equivalence is unified on
+reading-equivalence: `ReadingEq.same` is the canonical sameness, Lean `=` its
+realization at concrete codomains, pointwise `↔`/`sameLens` where `=` would
+import `funext`/`propext`.  Full build (1533 modules) clean.
 
-  1. **Repo consolidation / hygiene** — legacy-deletion narration stripped from
-     5 theory chapters (present-state exposition); ~20 buried general-purpose
-     Lean helpers hoisted into the Meta layer (NatRing/NatHelper/NatDiv213/
-     Fin213/Int213), incl. the `mul_lt_mul_left_pure` Classical-guard family and
-     deduped `pow_add`; seed corpus audited **already well-integrated** (no action).
-  2. **Capstone rename — `G##`-prefix dropped** (CLAUDE.md rule 5).  12 modules:
-     the 9 single-topic ones → `<Topic>/Capstone.lean` (matches the established
-     `Capstone` convention); `G38FinalCapstone`→`HurwitzSynthesisCapstone`,
-     `G39Capstone`→`NonAssocFanoCapstone`, `G6Vacuity`→`ClassAExactWitnesses`.
-     Inner theorem names unchanged.  theory/math docs use topic-qualified names.
-     Full build 1533 clean.
-  3. **`dialogue_audit.md` chapter removed** — orphan: it claimed "Closed/PURE"
-     against a `DialogueAudit/` Lean sub-tree that no longer exists (deleted in
-     the 5²⁵ sweep `6b69270`; the deleted Lean was entirely the
-     `maxDistinguishableCuts := 5²⁵` / `N_resolution` machinery).
-  4. **propext local-purification pass — 10 theorems cleared** (swap
-     propext-carrying Nat-core lemmas + Iff-closing `simp` for PURE infra):
-     `KerSizeUniversal` **4 → 0** (the universal `kerSize=2` / N_gen kernel — was
-     the highest-value; root = `Nat.{mul_div_cancel_left, add_mul_div_left,
-     add_mul_mod_self_left, add_sub_cancel', mul_assoc}`; added
-     `NatDiv213.add_mul_div_left_pure`), `EnrichedKNSNTcEvenEven` **2 → 0** +
-     `PellOrbitInstances` **2 → 0** (one-line `decide_eq_true` fix, cascaded via
-     import), `Choice.CanonicalTruthChar` **8 → 6**.  Now **12539 PURE / 45 real
-     DIRTY / 57 sealed**; full build 1533 clean.
-  5. **Classical-correspondence surface — catalog + finding** (originator
-     question: "are the structural/thesis propext theorems there just to say
-     'standard math's props/functions correspond like this'?" — **largely yes**).
-     New `catalogs/correspondence-surface.md` classifies every DIRTY by *why* it
-     carries the axiom; each category-(A) locus tagged in-source
-     (`grep -rn "classical-correspondence surface" lean/`).  KEY FINDING: the
-     DIRTY catalog ≈ the framework's **classical-correspondence surface**; the
-     ∅-axiom core does not depend on category (A).
-  6. **Seal-arc docs tempered to the empirical finding** — the earlier
-     "remaining is just engineering, fix complete" claim was over-optimistic; a
-     delegated migration attempt hit real walls (see **(a)**).  `STRICT_ZERO_AXIOM`,
-     `theory/lens/{dirty_recovery_patterns,unified_equivalence}` corrected: the
-     `universalLens` kernel hub *is* PURE-recoverable, but full `=`-form retirement
-     is a foundational refactor, not bounded migration.
+## OPEN — targets
 
-### The DIRTY classification (catalogs/correspondence-surface.md)
+### Validation core — the DRLT Standard (the real target)
 
-  - **(A) classical-correspondence surface** — "= the standard object" bridges;
-    PURE 213-native twin (Bool lens / pointwise) carries the content, DIRTY twin
-    is outward-facing, removable from the core: `BoolProp` (Bool→Prop morphism),
-    `SemanticAtom.canonical*Map`, `CanonicalTruthChar`, `CupPairing.cup_symm`,
-    `Hyper213Tower.lensTowerHasDistinguishing`.
-  - **(B) thesis adoption** — `propAsDistinguishing*` (`propext` IS the claim that
-    `Prop` occupies the distinguishing slot).  Irreducible by thesis.
-  - **(C) Lens `equiv`/`refines` `=`-surface** — equivR-recoverable; the target of
-    **(a)** below.
-  - **(D) genuine results via classical representation** — purifiable backlog
-    (`CayleyDickson.*`), same playbook as KerSizeUniversal.
-  - **(E) intentional axiom exhibits / Elab plumbing / test guards** — by design.
+`CLAUDE.md` "DRLT Validation Standard": from `(NS, NT, d) = (3, 2, 5)` atomicity,
+0 free parameters, satisfy at least one strict ∅-axiom result —
+  - **precision theorem** at ppb–ppm: `1/α_em`, `m_μ/m_e` (`NS·137/NT`, 0.48 ppb),
+    `m_p` (`NS·Λ_QCD·P`), `R∞` (4.3 ppb), `Ω_Λ` (0.0008 %);
+  - **falsifier** (measurable): `N_gen = C(NS,NT) = 3`, `θ_QCD ∈ [2.5,3.0]×10⁻¹¹`,
+    neutrino normal ordering, Cabibbo `λ = 5/22`.
 
-## OPEN — headline target (a): foundational pointwise Lens-API rebuild
+Catalogs: `catalogs/{physics-constants,falsifiers}.md`.  **Real target**: precision
+theorem AND falsifier for the same observable.  Next concrete step: audit which
+of these are *strict ∅-axiom* in Lean vs which are still Python/numerical or
+carry gaps (e.g. `AlphaEM/GramStructuralCapstone` for `1/α_em`).  Foundational
+hygiene must not displace this.
 
-Retire the **category-(C)** propext/Quot.sound (the Lens refinement lattice
-stated via `=`) by redefining the Lens equivalence/refinement API pointwise.
-This is the big one — **a real project, not bounded migration** (a delegated
-agent attempt stalled here; broken WIP was reset).
+### CayleyDickson remaining (category D)
 
-**Three walls (empirically confirmed):**
-  1. `Lens.equiv := (view x = view y)` and `refines` built on it are
-     *foundational* (`Lens/LensCore.lean`) — every consumer stated through them
-     inherits the `=`-cost unless the API itself is restated pointwise.
-  2. `equivR`/`refinesR` are typed for `Lens (Raw → Prop)`.  The consumer lenses
-     have other codomains (`iJoinLens : Lens (ι → α)`, the meets,
-     `limitLens`) — P5 does not even *type* there; each needs its own
-     per-codomain pointwise equivalence.  → the API must become
-     codomain-polymorphic in its notion of "same".
-  3. `universalLens_recovers` / `universalLens_idempotent` have **no** PURE
-     `_pw` companion — they are equivalence-*closure* facts, needing closure
-     lemmas re-proved on the new API.
+  - `Trig.conj_mul_anti` — needs `NonAssocStarRing213 Sedenion` (a Sedenion→
+    `CDDouble Cayley` bridge replicating `CayleyAlgebra213`; the parametric CDDouble
+    star instance needs `[StarRing213 α]` and Cayley is non-associative, so a
+    manual route), then the structural proof (cf. `SedenionHeavy.conj_mul_anti`).
+  - `SedenionHeavy.flexible` — the `CDDoubleFlexible` cross-pair open item
+    (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
 
-**What already EXISTS (PURE, materialized — the hub is recoverable):**
-`Lens/ReadingEquiv.lean` (`equivR`/`refinesR` + refl/symm/trans, all PURE; lone
-`=`-shim `equivR_to_equiv`), `universalLens_{combine_sym,view_eq}_pw` +
-`universalLens_kernel_eq_E_R` (QuotLens, PURE), `Raw.fold_slash_iff` (Theory,
-PURE).  Consumers of the sealed hub `universalLens_kernel_eq_E`:
-`Lattice/{Join,IndexedJoin,FamilyMeet,FamilyJoin}`, `Instances/Cauchy`,
-`Algebra/Corresp`, `Choice/Resolved` (+ `Compose.OnLens*`, `Properties/CanonicalForm`,
-`Cauchy/GenericFamily` carry the same `=`-shape).  `propAsDistinguishing` (B)
-stays irreducible regardless.
-
-## OPEN — smaller / scoped
-
-  - **(d) CayleyDickson purity** (category D): `CayleyHeavy.{normSq_eq_zero_iff,
-    no_zero_div}`, `SedenionHeavy.flexible`, `Trig.conj_mul_anti`,
-    `CDTower.CD_tower_full` — inherited from the Lipschitz base + `Cayley.ext` +
-    Int/`omega`.  Trace the root (likely the same propext-Nat/Int-core swap as
-    KerSizeUniversal) and purify.
-  - **Scoped doc follow-ups** (judgment/generative — do deliberately):
-    G## session-tag sweep in `theory/essays` bodies; merges
-    (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
-    `properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`);
-    splits (`cohomology/k_nm_c_classification`, `completeness_without_completeness`
-    — verify first); narrative-patchwork intros (`RESEARCH_PLAN`,
-    `meta/methodology_patterns`).
-
-## Depth-arc — real-number / completeness thread
+### Depth-arc — real-number / completeness thread (this branch, current)
 
 **Branch scope: real-number topics only.**  (Non-real tracks — the GRA/CD tower
 duality and Cayley-Dickson algebra — belong on a separate branch; see link E.)
@@ -211,25 +142,36 @@ A–D + B are now **all closed ∅-axiom this arc**:
     branch (its open `CDDoubleFlexible` cross-pair attack was logged then descoped;
     see git history if that track resumes).
 
-## Closed and promoted (durable homes — do not re-derive)
+
+### Scoped doc follow-ups (judgment / generative)
+
+Merges (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
+`properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`); splits
+(`cohomology/k_nm_c_classification`, `completeness_without_completeness` — verify
+first); narrative-patchwork intros (`RESEARCH_PLAN`, `meta/methodology_patterns`).
+
+## Closed (durable homes — do not re-derive)
 
 | Topic | Source of truth | Narrative |
 |---|---|---|
-| `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/archive/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/archive/G159` |
-| Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
-| Real-number completeness arc (links 1–13 + depth-arc B/C/D + HolonomicReal φ/e) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Equivalence unification — 213's sameness is reading-equivalence (`ReadingEq.same`); `HasDistinguishing` stated over `same`; composite instances thread `same` (`Pair`/`Sum`); Lens tree 0 real DIRTY | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Lens/EqPW` (`sameLens` + laws), `Lens/SemanticAtom` (`combine_sym`/universal morphism over `same`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`), `Theory/Raw/Fold` (`fold_slash_rel`, `fold_slash_iff`) | `theory/lens/{unified_equivalence,dirty_recovery_patterns}`, `research-notes/RFC_reading_equivalence_primitive.md` (+ `G164`), `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
+| `omega`/`simp` purifications — `Instances.Leaves.DepthJoin` (tier classification), `CayleyDickson.{CayleyHeavy,CDTower}`, `Cauchy.GenericFamily` (pointwise-at-index) all PURE | the modules above; general Nat/`max` helpers in `Meta/Tactic/NatHelper`, Int helpers in `Meta/Int213` | `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
+| `5²⁵`-as-resolution chain — DELETED (originator); 0.2 ppb α_em result survives on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
+| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |
-| `Mobius213.Px` + repo-wide purity (no Classical/native_decide in 213-math) | `Mobius213/Px/*` (0 dirty) | `STRICT_ZERO_AXIOM.md` |
+| Repo-wide purity (no Classical/native_decide in 213-math) | `Mobius213/Px/*` (0 dirty) | `STRICT_ZERO_AXIOM.md` |
 
-PURE Nat helper infrastructure (reuse, don't re-derive): `Meta/Nat/NatDiv213`
+PURE Nat/Int helper infrastructure (reuse, don't re-derive): `Meta/Nat/NatDiv213`
 (`mul_div_self_pure`, `mul_div_cancel_left_pure`, `add_mul_div_left_pure`,
 `pow_succ_div`, `add_div_right_pos`, `div_le_self_pos`), `Meta/Nat/PureNat`
 (`pow_add`, `mul_assoc`, `add_mul`), `Meta/Tactic/NatHelper` (`succ_sub`,
-`add_sub_cancel_right`, `add_sub_of_le`, `sub_add_cancel`, `add_mul_mod_self_pure`),
-`Meta/Nat/AddMod213` (`div_le_div_right_pos`), `Lib/Math/NatRing`
+`add_sub_cancel_right`, `sub_add_cancel`, `add_mul_mod_self_pure`, `le_max_left/right`,
+`max_comm`, `two_le_add`, `eq_one_of_add_eq_two`, `max_eq_zero`, `two_le_of_ne_one`,
+`ge_two_of_ne_zero_ne_one`, `or_ge_one_of_max_ge_one`), `Meta/Nat/AddMod213`
+(`div_le_div_right_pos`, `add_mod_gen`), `Meta/Int213` (`add_nonneg`,
+`add_eq_zero_of_nonneg`, `mul_eq_zero`), `Lib/Math/NatRing`
 (`nat_mul_assoc`, `nat_add_mul`, `mul_lt_mul_left_pure`).
 
 ## Notes / hygiene
@@ -237,20 +179,26 @@ PURE Nat helper infrastructure (reuse, don't re-derive): `Meta/Nat/NatDiv213`
   - **Verify Lean SEQUENTIALLY before commit**: `rm <file>.olean` → `lake env lean
     <file>` (exit 0) → `lake build <module>` → `tools/scan_axioms.py <module>`
     (N pure / 0 dirty) → commit.  build-green ≠ purity-green; never trust cached
-    "Build completed"; never parallelise build with scan.
-  - **propext-purification playbook** (verified — KerSizeUniversal, the Px subtree):
-    Lean-core `Nat.{mul_assoc, mul_div_cancel_left, add_mul_div_left,
-    add_mul_mod_self_left, add_sub_cancel', add_div_right, gcd}` all pull `propext`
-    → use the `Meta/Nat` + `NatRing` PURE helpers above.  `omega` is propext-dirty
-    (→ `Nat.two_mul`/`add_right_comm`/explicit).  A `simp`/`simpa` that *closes* an
-    `Eq`/`Iff` goal pulls `propext` (its `of_eq_true`/`Iff→Eq` closer) → reduce with
-    distribute/associate-only `simp only`, close with explicit `Iff.intro`/`rw`/
-    `decide` (`decide`/`decide_eq_true`/`of_decide_eq_true` are PURE;
-    `decide_eq_true_eq` is not).  `funext` = `Quot.sound` → state pointwise.
+    "Build completed"; never parallelise build with scan.  **`lake build` (default
+    target) does NOT cover every module** (e.g. `Compose.OnLens`) — verify changed
+    modules explicitly or with the comprehensive build.
+  - **propext-purification playbook** (verified): Lean-core `Nat.{mul_assoc,
+    mul_div_cancel_left, add_mul_div_left, add_mul_mod_self_left, add_sub_cancel',
+    add_div_right, gcd}` pull `propext` → use the `Meta/Nat` + `NatRing` helpers.
+    `omega` is propext-dirty (→ explicit `Nat`/`NatHelper`).  A `simp`/`simpa` that
+    *closes* an `Eq`/`Iff` goal pulls `propext` → reduce with `simp only`
+    distribute/associate, close with explicit `Iff.intro`/`rw`/`decide`
+    (`decide`/`decide_eq_true`/`of_decide_eq_true` PURE; `decide_eq_true_eq` not).
+    `funext` = `Quot.sound` → state pointwise (`fold_slash_rel`/`eqPW`/`sameLens`).
+  - **Reading-equivalence is the sameness primitive**: when a `=` of views /
+    functions / Lenses would pull `funext`/`propext`, state it up to `same`
+    (`equivR`/`sameLens`/the codomain's `ReadingEq.same`).  `=` stays only where it
+    is axiom-free (concrete codomains) or where it *is* the thesis (`Prop`-atom).
+    See `research-notes/RFC_reading_equivalence_primitive.md`.
   - `decide` on `Subtype`/`Raw` equality pulls `propext` via `DecidableEq Raw`;
     use `Tree.noConfusion` (for `a ≠ b`).
   - **Repo-first**: grep + INDEX before coding a "missing" cell.
-  - `5²⁵ = N_U = d^(d²)` as a **resolution / universe number is DELETED** — not
-    deprecated, gone.  `configCountD`/`configCount 2 = 5²⁵` survive only as bare
-    parametric arithmetic; never reintroduce a "the resolution" reading.  Don't
-    use "ℝ = final boss" framing.
+  - `5²⁵ = N_U = d^(d²)` as a **resolution / universe number is DELETED** — gone,
+    not deprecated.  `configCountD`/`configCount 2 = 5²⁵` survive only as bare
+    parametric arithmetic; never reintroduce a "the resolution" reading.  Don't use
+    "ℝ = final boss" framing.

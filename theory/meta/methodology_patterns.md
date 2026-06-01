@@ -126,9 +126,10 @@ About **30%** of agent-flagged reductions turn out to be:
 
   · **External API points**: referenced by other files via `open`
     + named reference.  Always `grep` for external use before
-    deletion.  Example: `Lens/Compose/OnLens.lensXor_comm_eqPW`
-    looks redundant with `lensXor_comm` but is the canonical
-    cutEq form referenced downstream.
+    deletion.  Example: the pointwise `_eqPW` / `_pw` companions
+    (`Lens/EqPW.lean`, `Universal/QuotLens.lean`) look redundant
+    with a naive view-`=` reading but are the canonical
+    distinguishing forms referenced downstream.
   · **Proof components**: used by a "master" theorem in the
     same file via explicit name reference (not by `rfl` /
     `decide`).  Deleting breaks the master's proof. Example:
@@ -149,7 +150,7 @@ About **30%** of agent-flagged reductions turn out to be:
   3. Open the file, check whether the theorem is referenced
      elsewhere in the same file (proof component).
 
-### Hand-applied this session
+### Hand-applied examples
 
 | File | Reduction | Net |
 |------|-----------|-----|
@@ -184,7 +185,7 @@ clean throughout, ∅-axiom contract preserved.
   · `CayleyDickson/Integer` (15 files with parallel projection
     lemmas): typeclass refactor (`GaussianLike`) would save 14
     lemmas × 15 files = 210 statements; substantial Lean-design
-    work, not within this session's scope.
+    work, deferred.
   · `PureNatMod3/5` (mod-p descent templates): generic
     `mod_p_descent_template` parameterised by `(p : Nat) [Prime
     p]` would save ~18 theorems; requires careful prime
@@ -277,7 +278,7 @@ prematurely, producing inscrutable "unexpected identifier" or
 "unexpected token '*'" errors at the line where the FALSE close
 ends.
 
-**Trap text examples observed this session**:
+**Trap text examples**:
   · `even-/odd-indexed Fibonacci numbers`  ← `-/` after "even"
   · `delta sign-/ordering convention`       ← `-/` after "sign"
 
@@ -661,7 +662,7 @@ but the corpus shadows it via manual 2-3 step `rw` chains, the gap
 surfaces as a high-frequency k-gram in tactic-token scans.  Adopt the
 helper mechanically; the corpus shrinks without any new mathematics.
 
-**Witness** (this session):
+**Witness**:
 
   · `NatHelper.mul_left_comm` (already PURE) ↔ 19 sites doing manual
     `[← mul_assoc, mul_comm, mul_assoc]` 3-step.
@@ -690,7 +691,7 @@ scan is the periodic-audit antidote.
 
 ## Pattern #11 — Pointwise dichotomy collapse for Cup-Leibniz lifts (2026-05-22)
 
-**Source**: G91 / G94 §8.1 L2 → execution this session
+**Source**: G91 / G94 §8.1 L2
 (`LeibnizDecomp.lean`).
 
 **Statement**: When a basis-component family `bz5_X β k j` has the

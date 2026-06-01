@@ -76,4 +76,24 @@ protected theorem Raw.fold_slash_iff
   · exact hsym _ _ s
   · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
 
+/-- **Relation-valued fold/slash homomorphism** — the codomain-polymorphic
+    form of `fold_slash` / `fold_slash_iff`.  For *any* reflexive relation `R`
+    on `α` under which `combine` is symmetric (`R (c u v) (c v u)`), folding
+    over `Raw.slash x y h` is `R`-related to `c (fold x) (fold y)`.  The
+    canonical-form swap (`cmp = gt`) is absorbed by `hsym`; the equal branch by
+    reflexivity.  ∅-axiom — no `funext`/`propext` (the `=`-form needs `hsym` as a
+    function-`=`, which at a function/`Prop` codomain pulls those).  Specialises
+    to `fold_slash` (`R := Eq`) and `fold_slash_iff` (`R := pointwise ↔`). -/
+protected theorem Raw.fold_slash_rel {α : Type} (R : α → α → Prop)
+    (Rrefl : ∀ a, R a a) (ba bb : α) (c : α → α → α)
+    (hsym : ∀ u v, R (c u v) (c v u))
+    (x y : Raw) (h : x ≠ y) :
+    R (Raw.fold ba bb c (Raw.slash x y h))
+      (c (Raw.fold ba bb c x) (Raw.fold ba bb c y)) := by
+  unfold Raw.slash Raw.fold
+  split <;> rename_i hc
+  · exact Rrefl _
+  · exact hsym _ _
+  · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
+
 end E213.Theory

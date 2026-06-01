@@ -61,7 +61,9 @@ theorem familyMeet_slash {I : Type} (E : I → Raw → Raw → Prop)
     expressed as the kernel of a single Lens.
 
     If each E_i is a slash-congruence (4 closure properties), then the
-    kernel of universalLens (familyMeet E) equals exactly `familyMeet E`. -/
+    Reading-equivalence kernel of universalLens (familyMeet E) equals exactly
+    `familyMeet E`.  Stated as `equivR` (pointwise `↔`), so ∅-axiom — the
+    `view r = view r'` form would pull `funext`/`propext`. -/
 theorem familyMeet_kernel_eq
     {I : Type} (E : I → Raw → Raw → Prop)
     (hrefl : ∀ i r, E i r r)
@@ -71,10 +73,8 @@ theorem familyMeet_kernel_eq
               E i x x' → E i y y' →
               E i (Raw.slash x y h) (Raw.slash x' y' h'))
     (r r' : Raw) :
-    (universalLens (familyMeet E)).view r
-      = (universalLens (familyMeet E)).view r'
-      ↔ familyMeet E r r' :=
-  universalLens_kernel_eq_E (familyMeet E)
+    (universalLens (familyMeet E)).equivR r r' ↔ familyMeet E r r' :=
+  universalLens_kernel_eq_E_R (familyMeet E)
     (familyMeet_refl E hrefl)
     (familyMeet_symm E hsymm)
     (familyMeet_trans E htrans)

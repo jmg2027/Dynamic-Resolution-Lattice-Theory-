@@ -15,9 +15,9 @@ universalLens construction.
 ## Theorem
 
 `choice_as_lens_spec`: ∀ E (equiv + slash-cong), ∃ L : Lens
-  (Raw → Prop), ∀ r r', L.view r = L.view r' ↔ E r r'.
+  (Raw → Prop), ∀ r r', L.equivR r r' ↔ E r r'.
 
-Proof: ⟨universalLens E, universalLens_kernel_eq_E E ...⟩.
+Proof: ⟨universalLens E, universalLens_kernel_eq_E_R E ...⟩.
 
 0 external axioms.  Constructive existence — explicit witness
 universalLens E.
@@ -29,7 +29,8 @@ open E213.Theory E213.Lens E213.Lens.Universal.QuotLens
 
 /-- **Choice resolved**: For any slash-congruence E, a concrete Lens
     exists (0 external axioms).  Universal construction without
-    Classical.choice. -/
+    Classical.choice.  The specification is the Reading-equivalence kernel
+    (`equivR`), so the existence is ∅-axiom — no `funext`/`propext`. -/
 theorem choice_as_lens_spec (E : Raw → Raw → Prop)
     (hrefl : ∀ r, E r r)
     (hsymm : ∀ r r', E r r' → E r' r)
@@ -37,9 +38,9 @@ theorem choice_as_lens_spec (E : Raw → Raw → Prop)
     (hslash : ∀ x x' y y' (h : x ≠ y) (h' : x' ≠ y'),
               E x x' → E y y' → E (Raw.slash x y h) (Raw.slash x' y' h')) :
     ∃ L : Lens (Raw → Prop),
-      ∀ r r' : Raw, L.view r = L.view r' ↔ E r r' :=
+      ∀ r r' : Raw, L.equivR r r' ↔ E r r' :=
   ⟨universalLens E,
-   fun r r' => universalLens_kernel_eq_E E hrefl hsymm htrans hslash r r'⟩
+   fun r r' => universalLens_kernel_eq_E_R E hrefl hsymm htrans hslash r r'⟩
 
 /-- **Choice as a direct consequence of Lens instances**: for each
     slash-cong E, universalLens E is the explicit witness of that choice. -/

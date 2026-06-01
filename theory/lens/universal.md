@@ -40,7 +40,6 @@ the universalLens is the initial Lens.
 - `theory/lens/compose.md` — factor-through definition
 - `theory/lens/unified_equivalence.md` — universalLens realises
   the slash-congruence → Lens-kernel direction of the single
-  concept.  Its `=`-form (`universalLens_kernel_eq_E`) is sealed
-  category (b); the distinguishing `equivR`-form
-  (`universalLens_kernel_eq_E_R`) is PURE
-  (`theory/lens/dirty_recovery_patterns.md` Pattern P5).
+  concept.  The kernel is stated on the distinguishing `equivR`-form
+  (`universalLens_kernel_eq_E_R`), which is PURE; the `=`-of-view form
+  is retired (`theory/lens/dirty_recovery_patterns.md` Pattern P5).

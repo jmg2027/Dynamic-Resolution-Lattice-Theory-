@@ -7,7 +7,7 @@ import E213.Lens.Universal.QuotLens
 `joinLens L M : Lens (Raw → Prop)` := `universalLens (JoinEquiv L M)`.
 
 The combination of `JoinEquiv`'s universal property and
-`universalLens_kernel_eq_E` yields a **concrete join Lens** for
+`universalLens_kernel_eq_E_R` yields a **concrete join Lens** for
 every Lens pair.
 
 Together with prodLens (meet), this completes the lattice structure
@@ -50,41 +50,41 @@ private theorem joinEquiv_slash {α β : Type} (L : Lens α) (M : Lens β)
 def joinLens {α β : Type} (L : Lens α) (M : Lens β) : Lens (Raw → Prop) :=
   universalLens (JoinEquiv L M)
 
-/-- **kernel = JoinEquiv**.  Direct consequence of universalLens. -/
+/-- **kernel = JoinEquiv**.  Direct consequence of universalLens.  Stated as the
+    Reading-equivalence `equivR` (pointwise `↔`), so ∅-axiom — the `view = view`
+    form would pull `funext`/`propext`. -/
 theorem joinLens_kernel {α β : Type} (L : Lens α) (M : Lens β)
     (r r' : Raw) :
-    (joinLens L M).view r = (joinLens L M).view r'
-      ↔ JoinEquiv L M r r' := by
-  apply universalLens_kernel_eq_E
+    (joinLens L M).equivR r r' ↔ JoinEquiv L M r r' := by
+  apply universalLens_kernel_eq_E_R
   · exact joinEquiv_refl L M
   · exact joinEquiv_symm L M
   · exact joinEquiv_trans L M
   · exact joinEquiv_slash L M
 
-/-- **L refines joinLens L M** (upper bound). -/
+/-- **L refines joinLens L M** (upper bound).  `refinesG`: the source side reads
+    `L`'s codomain (`equivG = equiv` at the default instance), the target side is
+    `equivR` — so the bound holds ∅-axiom. -/
 theorem L_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
-    L.refines (joinLens L M) := by
+    L.refinesG (joinLens L M) := by
   intro r r' h
-  show (joinLens L M).view r = (joinLens L M).view r'
-  rw [joinLens_kernel L M r r']
-  exact JoinEquiv.ofL h
+  exact (joinLens_kernel L M r r').mpr (JoinEquiv.ofL h)
 
 /-- **M refines joinLens L M** (upper bound). -/
 theorem M_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
-    M.refines (joinLens L M) := by
+    M.refinesG (joinLens L M) := by
   intro r r' h
-  show (joinLens L M).view r = (joinLens L M).view r'
-  rw [joinLens_kernel L M r r']
-  exact JoinEquiv.ofM h
+  exact (joinLens_kernel L M r r').mpr (JoinEquiv.ofM h)
 
 /-- **Universal property**: joinLens L M is the least upper bound.
     For any N (combine sym), if both L and M refine N then joinLens
-    also refines N. -/
+    also refines N.  ∅-axiom (`refinesG`: `joinLens` hypothesis read via
+    `equivR`, target `N` via `equivG`). -/
 theorem joinLens_is_least {α β γ : Type}
     (L : Lens α) (M : Lens β) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (hLN : L.refines N) (hMN : M.refines N) :
-    (joinLens L M).refines N := by
+    (hLN : L.refinesG N) (hMN : M.refinesG N) :
+    (joinLens L M).refinesG N := by
   intro r r' h
   have hJE : JoinEquiv L M r r' := (joinLens_kernel L M r r').mp h
   exact JoinEquiv_is_least L M N hNsym hLN hMN r r' hJE

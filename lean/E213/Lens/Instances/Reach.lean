@@ -120,8 +120,8 @@ theorem image_contains_b (α : Type) [d : HasDistinguishing α] :
 theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing α]
     (rx ry : Raw) (h : rx ≠ ry) :
     ∃ r : Raw,
-      universalMorphism α r
-        = d.combine (universalMorphism α rx) (universalMorphism α ry) :=
+      d.same (universalMorphism α r)
+        (d.combine (universalMorphism α rx) (universalMorphism α ry)) :=
   ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
 
 

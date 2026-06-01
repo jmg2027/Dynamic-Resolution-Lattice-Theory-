@@ -18,11 +18,11 @@ Of the two sources, only (a) is a genuine thesis-cost.  Source (b) is
 a **statement-shape** cost — function-`=` of `Prop`-valued views pulls
 `funext` (= `Quot.sound`) and `propext`, but the distinguishing
 content it carries is the pointwise `↔`, which is PURE (Pattern P5).
-The load-bearing kernel hub on the universal Lens family has a
-materialized PURE Reading-native form
-(`universalLens_kernel_eq_E_R`), so the whole refinement lattice on
-Prop-valued Lenses is recoverable; the `=`-forms persist as
-`propext`-shims pending consumer migration, not as structural seals.
+The load-bearing kernel hub on the universal Lens family has a PURE
+Reading-native form (`universalLens_kernel_eq_E_R`), and the whole
+refinement lattice on Prop-valued Lenses is now **stated on the
+codomain-polymorphic `equivG` / `refinesG` API** (PURE).  The `=`-of-view
+forms are retired, not sealed.
 
 The Lens-arrow (`theory/lens/unified_equivalence.md`) provides the
 PURE replacement vocabulary: equivalence, equivalence class,
@@ -146,13 +146,12 @@ kernel_correspondence` for the bidirectional statement (DIRTY,
 sealed by category (b)).
 
 ### Does NOT apply when
-The consumer needs the full bijection `{Lens kernels} =
-{slash-congruences}` stated as Lean `=` of view-functions.  Then
-`universalLens E` is the realising Lens and the `=`-direction
-(`kernel_correspondence` / `universalLens_kernel_eq_E`) is sealed.
-This is **not** structural, however: the Reading-native bijection
-`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) is PURE — see
-Pattern P5.  Use P5 unless the consumer literally needs Lean `=`.
+A consumer literally needs the bijection `{Lens kernels} =
+{slash-congruences}` stated as Lean `=` of view-functions.  That form
+would require funext/propext — which is exactly why it is retired: the
+Reading-native bijection `kernel_correspondence` /
+`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) carries the same
+content PURE (see Pattern P5), and is the form the codebase uses.
 
 ## Pattern P5 — Lens-`equiv` at a Prop codomain → `equivR` / `refinesR`
 
@@ -190,8 +189,7 @@ decidable / distinguishing layer out of `=`-at-`Prop`).
 `Lens/ReadingEquiv.lean` carries the `equivR` / `refinesR` structure
 (PURE).  The kernel hub `universalLens_kernel_eq_E_R`
 (`Lens/Universal/QuotLens.lean`) — `(universalLens E).equivR r r' ↔ E
-r r'` — is the Reading-native form of the load-bearing
-`universalLens_kernel_eq_E`, and is **PURE** (built from
+r r'` — is the load-bearing Reading-native kernel, **PURE** (built from
 `universalLens_view_eq_pw` + `Iff.trans`, ultimately
 `Raw.fold_slash_iff`).  Composition:
 
@@ -207,28 +205,32 @@ A one-direction shim back to the `=`-world,
 **lone** `propext` / `Quot.sound` cost — for any consumer that
 genuinely wants Lean `=`.
 
-### Scope — recoverable hub, structural cascade
-The `universalLens` (`Raw → Prop`) kernel hub IS recoverable PURE
-(`combine_sym_pw`, `view_eq_pw`, `kernel_eq_E_R` are materialized).
-**Retiring the sealed `=`-forms across the consumer lattice is not a
-bounded migration**, though — a direct attempt hit three walls:
+### Scope — full rebuild done, surface retired
+The `universalLens` (`Raw → Prop`) kernel hub is recoverable PURE
+(`combine_sym_pw`, `view_eq_pw`, `kernel_eq_E_R`), and the whole consumer
+lattice is now **rebuilt onto the pointwise API** — the three walls a first
+attempt hit are each resolved:
 
-  1. `Lens.equiv` / `Lens.refines` are *defined* as `view x = view y`;
-     a consumer stated through them inherits the `=`-cost unless the
-     equiv/refines API itself is restated pointwise.
-  2. `equivR` / `refinesR` are typed for `Lens (Raw → Prop)`.  The
-     consumer lenses have other codomains (`iJoinLens : Lens (ι → α)`,
-     the meets, `limitLens`), so P5 does not even type there — each
-     needs its own per-codomain pointwise form.
-  3. `universalLens_recovers` / `universalLens_idempotent` have **no**
-     PURE companion: they are equivalence-*closure* facts, not the
-     pointwise `combine` / `view` identities, so the `_pw` route does
-     not reach them.
+  1. **API restated pointwise, codomain-polymorphically.**  `ReadingEq α`
+     (per-codomain reading-sameness: `=` at the default instance, pointwise
+     `↔` at `Raw → Prop`) lifts `equivR` to `Lens.equivG` / `Lens.refinesG`,
+     which reduce *definitionally* to `equiv` and `equivR`.  Consumers no
+     longer inherit a `=`-cost.
+  2. **Codomain-polymorphism replaces the per-codomain gap.**  `equivG` /
+     `refinesG` type at any codomain; the source lenses being joined keep
+     their own sameness while the `Raw → Prop` join targets read via `equivR`.
+     (The dependent-product meets `iProdLens` were already PURE pointwise.)
+  3. **Closure companions materialized.**  `universalLens_recovers_R` /
+     `universalLens_idempotent_R` are PURE, via the new
+     `universalLens_equivR_slash_congruence` (the `equivR` slash-congruence,
+     from the generic `equivG_slash_congruence` + `combine_cong_pw` /
+     `fold_pw`).
 
-So P5 cleanly recovers the **hub** and the combine / view coherence;
-the closure theorems and the `=`-based consumer surface are structural
-pending a foundational pointwise-API rebuild (a real project, not
-mechanical migration).
+So P5 recovers the hub, and the rebuild carries it the rest of the way: the
+`=`-of-view forms (`combine_sym`, `view_eq`, `kernel_eq_E`, `recovers`,
+`idempotent`) are **deleted**, every consumer (`Lattice.*`, `Cauchy`,
+`Corresp`, `Choice`, `CanonicalForm`) is ∅-axiom, and the lone `=`-cost is the
+isolated `equivR_to_equiv` bridge.
 
 ### Does NOT apply when
 `propAsDistinguishing` — `Prop` itself as a `HasDistinguishing`
@@ -262,15 +264,13 @@ Exactly one source is genuinely **the content**, not the ergonomics:
     Removing it removes the thesis "Prop is an atom of meaning".
     This is a handful of theorems and stays sealed.
 
-Source (b) — `universalLens` and the wider Prop-valued Lens family —
-splits.  Its **kernel hub + combine/view coherence** are a statement-
-shape cost, recovered PURE by Pattern P5 (`kernel_eq_E_R` etc.).  But
-the **closure theorems** (`universalLens_recovers` /
-`universalLens_idempotent`) and the **`=`-based `equiv` / `refines`
-consumer surface** (incl. non-`Prop`-codomain lenses where `equivR`
-does not type) are structural pending a foundational pointwise-API
-rebuild — see "Scope" under P5.  So seal the closure / consumer-surface
-forms for now; only `propAsDistinguishing` is irreducible by thesis.
+Source (b) — `universalLens` and the wider Prop-valued Lens family — is
+**fully recovered**: kernel hub + combine/view coherence by Pattern P5
+(`kernel_eq_E_R`), the closure theorems by the `_R` companions
+(`universalLens_recovers_R` / `universalLens_idempotent_R`), and the
+`=`-based consumer surface by the codomain-polymorphic `equivG` / `refinesG`
+API (the non-`Prop`-codomain gap closed by `ReadingEq`).  The `=`-of-view
+forms are deleted; only `propAsDistinguishing` is irreducible by thesis.
 
 Patterns P1–P5 apply to DIRTY claims that inherited the seal from a
 statement shape (a downstream `=` the consumer only used at kernel
@@ -363,9 +363,9 @@ class.
   · `lean/E213/Lens/ReadingEquiv.lean` — P5 `equivR` / `refinesR`
     structure (PURE; lone shim `equivR_to_equiv`)
   · `lean/E213/Lens/Universal/QuotLens.lean` — P4/P5 reverse
-    direction: `universalLens_kernel_eq_E` (`=`-form, sealed) beside
-    `universalLens_kernel_eq_E_R` (`equivR`-form, PURE) and the
-    `*_pw` combine/view companions
+    direction: `universalLens_kernel_eq_E_R` (`equivR`-form, PURE), the
+    closure companions `recovers_R` / `idempotent_R`, and the `*_pw`
+    combine/view/fold companions
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`
     — cong constructor instance; see the `cong` case in
     `primary_cup_span_soundness_conditional`

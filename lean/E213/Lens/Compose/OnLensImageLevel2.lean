@@ -35,21 +35,20 @@ def constComposite2 (α : Type) [d : HasDistinguishing α] :
   fun r => constLens (constLens (@universalMorphism α d r))
 
 /-- **Tower collapse at level 2**.  The universalMorphism of
-    Lens (Lens α) also factors through the image of α —
-    via nested constLens. -/
+    Lens (Lens α) also factors through the image of α — via nested constLens,
+    up to the level-2 reading-sameness (`sameLens (sameLens d.same)`).  ∅-axiom:
+    `sameLens`-transitivity of the level-1 factorization with its constLens
+    lift (each `sameLens` component is the level-1 `step2`). -/
 theorem lensUniversalMorphism_factors_level2
     (α : Type) [d : HasDistinguishing α] (r : Raw) :
-    @universalMorphism (Lens (Lens α))
-      (lensHasDistinguishing (Lens α) (d := lensHasDistinguishing α)) r =
-      constComposite2 α r := by
+    (lensHasDistinguishing (Lens α) (d := lensHasDistinguishing α)).same
+      (@universalMorphism (Lens (Lens α))
+        (lensHasDistinguishing (Lens α) (d := lensHasDistinguishing α)) r)
+      (constComposite2 α r) := by
   have step1 := lensUniversalMorphism_factors_generic (Lens α)
     (d := lensHasDistinguishing α) r
-  -- step1: universalMorphism (Lens (Lens α)) r = constLens (universalMorphism (Lens α) r)
   have step2 := lensUniversalMorphism_factors_generic α (d := d) r
-  -- step2: universalMorphism (Lens α) r = constLens (universalMorphism α r)
-  rw [step1]
-  unfold constComposite constComposite2
-  rw [step2]
-  rfl
+  exact (lensHasDistinguishing (Lens α) (d := lensHasDistinguishing α)).same_trans step1
+    ⟨step2, step2, fun _ _ => step2⟩
 
 end E213.Lens.Compose.OnLensImageLevel2

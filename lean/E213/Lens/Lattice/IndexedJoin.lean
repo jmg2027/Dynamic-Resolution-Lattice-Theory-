@@ -41,12 +41,12 @@ inductive IJoinEquiv {ι : Type} (F : ι → (α : Type) × Lens α) :
 def iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α) :
     Lens (Raw → Prop) := universalLens (IJoinEquiv F)
 
-/-- **kernel = IJoinEquiv**.  Direct consequence of universalLens. -/
+/-- **kernel = IJoinEquiv**.  Direct consequence of universalLens.  Stated as the
+    Reading-equivalence `equivR`, ∅-axiom. -/
 theorem iJoinLens_kernel {ι : Type} (F : ι → (α : Type) × Lens α)
     (r r' : Raw) :
-    (iJoinLens F).view r = (iJoinLens F).view r'
-      ↔ IJoinEquiv F r r' := by
-  apply universalLens_kernel_eq_E
+    (iJoinLens F).equivR r r' ↔ IJoinEquiv F r r' := by
+  apply universalLens_kernel_eq_E_R
   · exact fun x => IJoinEquiv.refl x
   · exact fun _ _ h => IJoinEquiv.symm h
   · exact fun _ _ _ h1 h2 => IJoinEquiv.trans h1 h2
@@ -54,20 +54,18 @@ theorem iJoinLens_kernel {ι : Type} (F : ι → (α : Type) × Lens α)
       IJoinEquiv.slash_cong hxy hx'y' h1 h2
 
 /-- **Each L_i refines iJoinLens**: all L_i in the family have
-    iJoinLens as a common upper bound. -/
+    iJoinLens as a common upper bound.  ∅-axiom (`refinesG`). -/
 theorem each_refines_iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α)
     (i : ι) :
-    (F i).2.refines (iJoinLens F) := by
+    (F i).2.refinesG (iJoinLens F) := by
   intro r r' h
-  show (iJoinLens F).view r = (iJoinLens F).view r'
-  rw [iJoinLens_kernel F r r']
-  exact IJoinEquiv.ofL i h
+  exact (iJoinLens_kernel F r r').mpr (IJoinEquiv.ofL i h)
 
 /-- IJoinEquiv → N.equiv (helper for universal property). -/
 private theorem ijoin_implies_N {ι : Type} {γ : Type}
     (F : ι → (α : Type) × Lens α) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (hAll : ∀ i, (F i).2.refines N)
+    (hAll : ∀ i, (F i).2.refinesG N)
     (r r' : Raw) (h : IJoinEquiv F r r') : N.equiv r r' := by
   induction h with
   | ofL i hL => exact hAll i _ _ hL
@@ -79,12 +77,13 @@ private theorem ijoin_implies_N {ι : Type} {γ : Type}
         N hNsym _ _ _ _ hxy hx'y' ih1 ih2
 
 /-- **Universal property (indexed)**: iJoinLens is the least upper
-    bound.  All L_i refine N + N.combine sym → iJoinLens refines N. -/
+    bound.  All L_i refine N + N.combine sym → iJoinLens refines N.
+    ∅-axiom (`refinesG`). -/
 theorem iJoinLens_is_least {ι : Type} {γ : Type}
     (F : ι → (α : Type) × Lens α) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (hAll : ∀ i, (F i).2.refines N) :
-    (iJoinLens F).refines N := by
+    (hAll : ∀ i, (F i).2.refinesG N) :
+    (iJoinLens F).refinesG N := by
   intro r r' h
   have hJE : IJoinEquiv F r r' := (iJoinLens_kernel F r r').mp h
   exact ijoin_implies_N F N hNsym hAll r r' hJE

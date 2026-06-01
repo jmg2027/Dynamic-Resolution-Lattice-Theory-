@@ -6,7 +6,7 @@ A-B refinement?  ...) and the theorems characterising them.
 ## Files (10)
 
   - `ABRefines.lean` — `ABRefines` predicate
-  - `CanonicalForm.lean` — `universalLens_recovers` canonical form
+  - `CanonicalForm.lean` — `lens_canonical_universal` canonical form (∅-axiom)
   - `ConstLensTotalKernel.lean` — constant-Lens kernel = `Raw × Raw`
   - `EquivProperties.lean` — equiv-induced facts
   - `InjectiveClass.lean` — injective Lens characterisation

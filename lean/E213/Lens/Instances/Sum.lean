@@ -50,20 +50,62 @@ def sumCombine {α β : Type} [d_α : HasDistinguishing α]
   | Sum.inl a, Sum.inr _ => Sum.inl a
   | Sum.inr _, Sum.inl a => Sum.inl a
 
+/-- Reading-sameness for `Sum α β`: componentwise on matching constructors,
+    `False` on mixed (`inl`/`inr` are distinguished).  Coincides with `=` when
+    both components' `same` are `Eq`. -/
+def sumSame {α β : Type} [d_α : HasDistinguishing α] [d_β : HasDistinguishing β]
+    (x y : Sum α β) : Prop :=
+  match x, y with
+  | Sum.inl a, Sum.inl a' => d_α.same a a'
+  | Sum.inr b, Sum.inr b' => d_β.same b b'
+  | _, _ => False
+
+theorem sumSame_refl {α β : Type} [d_α : HasDistinguishing α]
+    [d_β : HasDistinguishing β] (x : Sum α β) : sumSame x x := by
+  cases x with
+  | inl a => exact d_α.same_refl a
+  | inr b => exact d_β.same_refl b
+
+theorem sumSame_symm {α β : Type} [d_α : HasDistinguishing α]
+    [d_β : HasDistinguishing β] {x y : Sum α β} : sumSame x y → sumSame y x := by
+  cases x <;> cases y <;> intro h <;>
+    first
+      | exact d_α.same_symm h
+      | exact d_β.same_symm h
+      | exact h.elim
+
+theorem sumSame_trans {α β : Type} [d_α : HasDistinguishing α]
+    [d_β : HasDistinguishing β] {x y z : Sum α β} :
+    sumSame x y → sumSame y z → sumSame x z := by
+  cases x <;> cases y <;> cases z <;> intro h1 h2 <;>
+    first
+      | exact d_α.same_trans h1 h2
+      | exact d_β.same_trans h1 h2
+      | exact h1.elim
+      | exact h2.elim
+
 theorem sumCombine_comm {α β : Type} [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] (x y : Sum α β) :
-    sumCombine x y = sumCombine y x := by
-  cases x with
-  | inl a => cases y with
-    | inl b =>
-        show Sum.inl (d_α.combine a b) = Sum.inl (d_α.combine b a)
-        rw [d_α.combine_sym]
-    | inr _ => rfl
-  | inr a => cases y with
-    | inl _ => rfl
-    | inr b =>
-        show Sum.inr (d_β.combine a b) = Sum.inr (d_β.combine b a)
-        rw [d_β.combine_sym]
+    sumSame (sumCombine x y) (sumCombine y x) := by
+  cases x <;> cases y <;>
+    first
+      | exact d_α.combine_sym _ _
+      | exact d_β.combine_sym _ _
+      | exact d_α.same_refl _
+      | exact d_β.same_refl _
+
+theorem sumCombine_cong {α β : Type} [d_α : HasDistinguishing α]
+    [d_β : HasDistinguishing β] (a a' b b' : Sum α β)
+    (ha : sumSame a a') (hb : sumSame b b') :
+    sumSame (sumCombine a b) (sumCombine a' b') := by
+  cases a <;> cases a' <;> cases b <;> cases b' <;>
+    first
+      | exact d_α.combine_cong _ _ _ _ ha hb
+      | exact d_β.combine_cong _ _ _ _ ha hb
+      | exact ha
+      | exact hb
+      | exact ha.elim
+      | exact hb.elim
 
 
 /-- HasDistinguishing instance for Sum type. -/
@@ -73,7 +115,12 @@ def sumHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
   b := Sum.inr d_β.b
   distinct := fun h => Sum.noConfusion h
   combine := sumCombine
+  same := sumSame
+  same_refl := sumSame_refl
+  same_symm := sumSame_symm
+  same_trans := sumSame_trans
   combine_sym := sumCombine_comm
+  combine_cong := sumCombine_cong
 
 /-- Universal morphism Raw → Sum α β. -/
 def sumUniversalMorphism (α β : Type) [d_α : HasDistinguishing α]
