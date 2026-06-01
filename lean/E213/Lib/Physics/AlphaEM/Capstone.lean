@@ -1,6 +1,4 @@
 import E213.Lib.Physics.AlphaEM.Augmented
-import E213.Lib.Physics.AlphaEM.NResolutionCandidates
-import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.FaceTerms
 import E213.Lib.Physics.Couplings.RunningGap
 
@@ -13,7 +11,6 @@ Sub-namespaces (preserved for `open` declarations across layers):
 
   * `E213.Lib.Physics.AlphaEM.UnifiedSum`        — three-force + 1/NS + Dyson tail
   * `E213.Lib.Physics.AlphaEM.SimplicialDecomp`  — five-term cohomology origin
-  * `E213.Lib.Physics.AlphaEM.MasterCapstone`    — finitist closure with N_U
   * `E213.Lib.Physics.AlphaEM.MilestoneAt137`    — |x − 137.036| < 1/10⁴ witness
 
 ## Decomposition
@@ -114,46 +111,6 @@ theorem alpha_em_simplicial_capstone :
        lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) := by decide
 
 end E213.Lib.Physics.AlphaEM.SimplicialDecomp
-
-namespace E213.Lib.Physics.AlphaEM.MasterCapstone
-
-open E213.Lib.Physics.Simplex.Counts
-open E213.Lib.Physics.AlphaEM.SO10
-open E213.Lib.Physics.AlphaEM.GramSelfEnergy
-open E213.Lib.Physics.Foundations.NResolutionFractalDepth
-
-/-! ## Finitist 213-internal closure with N_resolution = d^(d²) = 5²⁵.
-
-  ζ(2) = S(N_U), not π²/6.  π appears NOWHERE.
-
-  Bracket containment at N=20 contains observed 137.035999 sub-ppm.
-  At N_U = 5²⁵ bracket width ~10⁻¹⁶ (Lean cannot compute S there).
--/
-
-/-- ★★★★★★★★★ α_em FINITIST MASTER CAPSTONE ★★★★★★★★★ -/
-theorem alpha_em_master_capstone :
-    -- (a) 60 = edge count × atomic dim
-    2 * 3 * 2 * 5 = 60
-    -- (b) 30 = 1/α_2 = 12·NT·5/4
-    ∧ 12 * NT * 5 = 4 * 30
-    -- (c) 25 = d² (Gram dim)
-    ∧ d * d = 25
-    -- (d) 4 = NS + 1 (SU(5) face / Dyson tail denom)
-    ∧ NS + 1 = 4
-    -- (e) 45 = NS²·d (SO(10) tail denom, 4-fold atomic)
-    ∧ NS * NS * d = 45
-    -- (f) N_resolution = d^(d²) (self-referential)
-    ∧ d ^ (d * d) = 298023223876953125
-    -- (g) finite-N residual structurally bounded
-    ∧ d ^ (d * d) ≥ 10 ^ 17
-    -- (h) bracket containment of observed at N=20
-    ∧ (let lo := inv_lower_aug 20
-       let hi := inv_upper_aug 20
-       lo.1 * 1000000 < 137035999 * lo.2
-       ∧ 137035999 * hi.2 < 1000000 * hi.1) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-end E213.Lib.Physics.AlphaEM.MasterCapstone
 
 namespace E213.Lib.Physics.AlphaEM.MilestoneAt137
 

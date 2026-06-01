@@ -1021,9 +1021,9 @@ So `bilinSum 3 3 = mulSumRaw 3 + ((x_1 · y_2 + x_2 · y_1) + x_2 · y_2 · p) �
 and `mul_trunc 3` follows by the same chain as `mul_trunc_two`.
 
 The proof is mechanical Nat distributivity (same shape as
-`mul_trunc_two`, more terms).  Demonstrated case at `p = 5`,
-`x = y = canonical_5adic_NU` would compute exactly; the general
-proof is omitted in favor of the general bridge (future work).
+`mul_trunc_two`, more terms).  A demonstrated case at `p = 5`
+would compute exactly; the general proof is omitted in favor of
+the general bridge (future work).
 -/
 
 /-- Multiplicative truncation correctness at `n = 3` for the case

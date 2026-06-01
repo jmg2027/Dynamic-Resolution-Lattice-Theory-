@@ -2,27 +2,24 @@ import E213.Lib.Math.Padic.Valuation
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
-# Real213-p-adic ↔ DRLT integration (Phase 6 anchor)
+# Real213-p-adic ↔ configCount bridge
 
-The Real213-p-adic framework provides the natural infinite-precision
-limit for the finite-resolution DRLT lattice.  Specifically:
+The 5-adic Real213 (`ZpSeq 5`) gives base-5 expansions whose
+truncations connect to the parametric configuration-count family
+`configCount n` (`Fractal/ConfigCount.lean`).  The identity
+`configCount 2 = 5^25` is a bare arithmetic theorem; no fractal
+level is privileged and no level is a "resolution limit".
 
-  · DRLT uses the level-2 configuration count `configCount 2 = 5^25`
-    as its finite-resolution slice (`Fractal/ConfigCount.lean`)
-  · The 5-adic Real213 (`ZpSeq 5`) gives infinite-precision
-    expansions in base 5
-  · Truncation at level 25 connects the two: `(x : ZpSeq 5).trunc 25
-    < 5^25 = N_U` for any 5-adic integer x
+This file records level-25 instances of the general truncation
+bound `(x : ZpSeq 5).trunc n < 5^n`.
 
-This anchor file records the alignment.  Full DRLT-integration
-content (e.g., how DRLT precision-bounded results lift to 5-adic
-analogues) is deferred to subsequent phases.
+## Results
 
-## Anchor results
-
-  · Every 5-adic integer truncated at level 25 lies in `[0, N_U)`
-  · The 5-adic zero / one / neg_one all satisfy the truncation bound
-  · Bridge to the parametric `configCount` family
+  · Every 5-adic integer truncated at level 25 lies in `[0, 5^25)`
+    (the level-25 instance of the parametric bound)
+  · The 5-adic zero / one satisfy the corresponding truncation /
+    valuation facts at level 25
+  · `configCount 2 = 5^25` as a bare arithmetic identity
 -/
 
 namespace E213.Lib.Math.Padic.DRLTIntegration
@@ -30,14 +27,14 @@ namespace E213.Lib.Math.Padic.DRLTIntegration
 open E213.Lib.Math.Padic (ZpSeq)
 open E213.Lib.Math.Padic.Valuation (vAt vAt_zero vAt_one_pos)
 
-/-! ## 5-adic level-25 truncation lives in [0, N_U) -/
+/-! ## 5-adic level-25 truncation lives in [0, 5^25) -/
 
-/-- ★★★★ **Every 5-adic integer's level-25 truncation is below N_U**.
+/-- ★★★★ **Every 5-adic integer's level-25 truncation is below 5^25**.
 
-  For any `x : ZpSeq 5`, `x.trunc 25 < 5^25 = N_U`.  This is the
-  Real213-p-adic ↔ DRLT-lattice alignment: 5-adic integers at
-  truncation level 25 fit exactly within DRLT's configCount-2
-  resolution. -/
+  For any `x : ZpSeq 5`, `x.trunc 25 < 5^25`.  This is the
+  level-25 instance of the parametric bound `x.trunc n < 5^n`;
+  `5^25` here is `configCount 2` as bare arithmetic, no level
+  privileged. -/
 theorem trunc_25_lt_config2 (x : ZpSeq 5) :
     x.trunc 25 < 5^25 :=
   ZpSeq.trunc_lt_p_pow (by decide) x 25
@@ -67,25 +64,21 @@ theorem vAt_one_5adic_level_25 :
     vAt (ZpSeq.one 5 (by decide)) 25 = 0 :=
   vAt_one_pos (by decide) 25 (by decide)
 
-/-! ## DRLT alignment capstone -/
+/-! ## configCount bridge bundle -/
 
-/-- ★★★★★ **5-adic ↔ DRLT alignment at level 25**
+/-- ★★★★★ **5-adic ↔ configCount bridge at level 25**
 
-  The Real213-p-adic framework at p = 5 and truncation level 25
-  aligns exactly with DRLT's finite-resolution lattice via
-  N_U = configCount 2 = 5^25:
+  The Real213-p-adic framework at p = 5, evaluated at truncation
+  level 25, bundles with the bare identity `configCount 2 = 5^25`:
 
-    · Every 5-adic integer truncated at level 25 lies in [0, N_U)
-    · Canonical 5-adic elements (zero, one, neg_one) all satisfy
-      the truncation bound
-    · The 5-adic valuation at level 25 ranges in [0, 25]
+    · Every 5-adic integer truncated at level 25 lies in [0, 5^25)
+      (level-25 instance of the parametric bound)
+    · Canonical 5-adic elements (zero, one) satisfy the
+      corresponding truncation / valuation facts
+    · The 5-adic valuation of zero at level 25 is 25
 
-  This is the **structural bridge** between infinite-precision
-  Real213-p-adic and finite-resolution DRLT — both work in base 5,
-  and DRLT's resolution limit equals 5-adic truncation depth 25.
-
-  Full DRLT integration (lifting precision-bounded DRLT theorems
-  to 5-adic analogues) is the substantive open continuation. -/
+  `configCount 2 = 5^25` is a bare arithmetic theorem; no fractal
+  level is privileged and level 25 is not a resolution limit. -/
 theorem padic_DRLT_alignment :
     -- level-2 configuration count bridge
     E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount 2 = 5^25
