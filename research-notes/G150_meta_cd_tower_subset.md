@@ -264,6 +264,64 @@ Still open after Phase 7.2:
     along columns, varying across branches* — linking P7-D to
     `Mobius213CDBridge.cd_mobius_bridge_master`.
 
+### Phase 7.3 — adversarial review integrated (marathon 2026-06-01)
+
+Critique pass (second agent) confirmed the proofs sound but corrected the
+*interpretation*; two honesty fixes and two new ∅-axiom theorems:
+
+**Honesty corrections (carried into the Lean docstrings):**
+  - **basis loop ≠ arithmetic unit group.**  `cay_units` is the
+    16-element ±basis-doubling Moufang loop (`lip_units.map cay_left ++
+    … cay_right`), *not* the 240-unit integer-octonion group (E₈ roots).
+    The `Cayley ≅ L5T` alignment is an iso of *basis loops*; for the full
+    240/… unit groups it likely **breaks** (different base lattices give
+    different root counts).  So "A and B realise the same *algebra* one
+    rung apart" is **unsupported** — only the basis-loop relation holds.
+    Drop "the octonion unit loop" phrasing.
+  - **`+1 offset` is partly a naming artifact.**  There is no
+    column-intrinsic level index; the naming-free content is the
+    *equal-dimension* loop difference (`Sedenion ≠ L5T` at dim 16,
+    `Cayley ≠ L4T` at dim 8).  "n ↦ n+1" is a description of that single
+    gap, not an independent fact.  Likewise the dyadic order-4 count is
+    the closed form `2·dim − 2` (all non-`±1` units have order 4), so the
+    within-dyadic "spine" is the seed unit count re-told.
+  - **rank, not disc.**  The asymptote classifier is
+    `rank = ω(unitOrder) − 1 + nonAbelian` (`AlgebraTowerAsymptote`),
+    *not* a base discriminant routed through the Möbius `disc P = 5`
+    (a different 5 = `tr²−4det`).  `cd_mobius_bridge_master` ties only the
+    C/D asymptotes to P-invariants, never the dyadic `(2,0)`.  So P7-D
+    should read **branch ⇔ rank ⇔ asymptote**, not "skin = base disc".
+
+**New proven (∅-axiom, `Tower/MetaTowerLoopSpine`):**
+  - `no_cross_branch_loop_iso` (NC-1): order-3 count `= 0` on dyadic
+    basis loops, `= 2` on Eisenstein — the named obstruction to any
+    orderOf-preserving (hence any loop) iso across branches.  The
+    branches also separate by the order-4 *sequence* (`6,14,30` vs
+    `6,18,42`), so the separation is twofold.
+  - `asymptote_classifies_branch` (NC-4): `asymptote_ab` constant on the
+    dyadic branch (`A = B`, blind to the A↔B column shift) and distinct
+    across the three branch classes.
+
+**Still open (sharpened):**
+  - NC-2 — "A's skipped rung is exactly the dim-2 `Z₂`" as a set identity.
+    *Caveat:* B's `Z₂` base (`ℤ[√-2]`, units `{±1}`) is **not formalised**
+    (the `L_nT` cells start at `L3T = Z₄`), so this is currently a math
+    interpretation, not a repo cell — would need a `ZSqrtMinus2` base
+    units list to become a theorem.
+  - NC-3 — "C is the densest branch": order-4 count strictly greater at
+    each dim (`18>14`, `42>30`); decidable per level, conjectural for all.
+  - NC-5 — completion = a **branching forest rooted at `Z₂`** (dyadic
+    spine `Z₂◁Z₄◁Q₈◁M₁₆◁…`, Eisenstein `Z₂◁Z₆◁Dic₃◁…`, Hurwitz), not a
+    single chain and not a Fibonacci re-index of one column.  Only its
+    finite shadows (NC-1..4) are ∅-axiom-accessible; the forest object
+    itself needs the parametric `Tower (Base)` constructor (Phase 6).
+
+**Marathon verdict on the originating intuition:** "CD is not the
+complete tower / layer n = layer n+1 / not one direction" is **confirmed
+and formalised** at the basis-loop level; the non-linear (Fibonacci)
+re-index is **refuted**; the honest completion is a discriminant-branching
+forest, whose finite shadows are now ∅-axiom theorems.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
