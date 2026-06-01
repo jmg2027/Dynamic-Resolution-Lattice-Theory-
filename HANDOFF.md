@@ -113,6 +113,23 @@ purity-debt to track), prune genuinely-dead/WIP files; (3) once the orphan set
 is the intended-empty, flip the `lean_lib E213` `globs` to build all submodules
 so the hole cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
 
+**Px purity-audit IN PROGRESS** (user directive: make the dirty orphans PURE).
+Root cause was `omega` + dirty core lemmas.  **Reusable purification pattern**
+(verified this session):
+  - `omega` is **propext-dirty** — eliminate it: trivial `2*(k+1)=2*k+2` etc.
+    → `rfl`; additive rearrangements → `Nat.two_mul` + `Nat.add_right_comm`/
+    `Nat.add_assoc` (factor a `private` helper, cf. `ConvergentDet.add_dup_succ`);
+    impossible-hyp `0≥1` → `absurd h (Nat.not_succ_le_zero _)`.
+  - `Nat.mul_assoc` / `Nat.add_mul` are **propext-dirty** → use PURE
+    `NatRing.nat_mul_assoc` / `nat_add_mul`.  (`Nat.mul_add`, `Nat.mul_comm`,
+    `Nat.add_comm`, `Nat.add_assoc`, `Nat.add_right_comm`, `Nat.two_mul`,
+    concrete `decide` are PURE.)
+  - `simp` can pull propext → explicit `rw`.
+  **Done**: `QFibIdentity` 9/0, `FibCassini` 9/0, `ConvergentDet` 8/0 (the
+  QFibIdentity omega-root fix propagated to most of Px).  **In flight**
+  (background worker): `MobiusSelfForm` (7 dirty) + `PGeneratesNat` (23 dirty,
+  incl. div/mod-by-3 omega — may have an irreducible remainder).
+
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
 compact index of what is closed, and the detailed next-target list.
