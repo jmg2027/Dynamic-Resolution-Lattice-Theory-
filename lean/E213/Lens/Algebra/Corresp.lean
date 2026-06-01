@@ -46,12 +46,24 @@ theorem lens_kernel_is_slash_cong {α : Type} (L : Lens α)
 
 
 /-- **Direction 2**: any slash-congruence is the kernel of some Lens.
-    `universalLens E` is the explicit witness (§5.1). -/
+    `universalLens E` is the explicit witness (§5.1).  Stated as the
+    Reading-equivalence `equivR` (pointwise `↔`), ∅-axiom. -/
 theorem slash_cong_is_lens_kernel
     (E : Raw → Raw → Prop) (h : IsSlashCongruence E)
     (r r' : Raw) :
-    (universalLens E).view r = (universalLens E).view r' ↔ E r r' :=
-  universalLens_kernel_eq_E E h.1 h.2.1 h.2.2.1 h.2.2.2 r r'
+    (universalLens E).equivR r r' ↔ E r r' :=
+  universalLens_kernel_eq_E_R E h.1 h.2.1 h.2.2.1 h.2.2.2 r r'
+
+/-- `(universalLens E).equivR` is itself a slash-congruence — Reading-native,
+    ∅-axiom.  The realised kernel is in `KernelSpace` without leaving the
+    `equivR` world. -/
+theorem universalLens_kernel_is_slash_cong (E : Raw → Raw → Prop) :
+    IsSlashCongruence (universalLens E).equivR :=
+  ⟨fun r => Lens.equivR_refl _ r,
+   fun _ _ h => Lens.equivR_symm _ h,
+   fun _ _ _ h1 h2 => Lens.equivR_trans _ h1 h2,
+   fun _ _ _ _ hxy hx'y' hxx' hyy' =>
+     universalLens_equivR_slash_congruence E hxy hx'y' hxx' hyy'⟩
 
 /-- **Bijection statement**: K = {Lens kernels (commutative-combine
     Lenses only)} = {slash-congruences}.
@@ -59,21 +71,25 @@ theorem slash_cong_is_lens_kernel
     Formal version: conjunction of the two directions.  Direction 1:
     every commutative-combine Lens kernel is a slash-cong;
     Direction 2: every slash-cong is realized as the kernel of a
-    universalLens. -/
+    universalLens.  Stated and proven Reading-natively (`equivR`), so ∅-axiom —
+    the backward direction transports the closure properties through the
+    pointwise `↔` `hbi` rather than `funext`-collapsing the kernel to `E`. -/
 theorem kernel_correspondence
     (E : Raw → Raw → Prop) :
     (IsSlashCongruence E ↔
-      ∀ r r', (universalLens E).view r = (universalLens E).view r' ↔ E r r') := by
+      ∀ r r', (universalLens E).equivR r r' ↔ E r r') := by
   refine ⟨fun hslash r r' => slash_cong_is_lens_kernel E hslash r r', ?_⟩
   intro hbi
-  -- universalLens E.equiv = E (by hbi).  And (universalLens E).equiv is a slash-cong
-  -- by lens_kernel_is_slash_cong with universalLens_combine_sym.
-  have hLcong : IsSlashCongruence (universalLens E).equiv :=
-    lens_kernel_is_slash_cong _ (universalLens_combine_sym E)
-  -- E = (universalLens E).equiv  by hbi
-  have hext : (universalLens E).equiv = E := by
-    funext r r'
-    exact propext (hbi r r')
-  rw [← hext]; exact hLcong
+  -- (universalLens E).equivR is a slash-cong; transport each closure property to
+  -- E across the pointwise iff `hbi` (no funext / propext).
+  have hLcong := universalLens_kernel_is_slash_cong E
+  refine ⟨fun r => (hbi r r).mp (hLcong.1 r),
+          fun r r' h => (hbi r' r).mp (hLcong.2.1 r r' ((hbi r r').mpr h)),
+          fun r r' r'' h1 h2 =>
+            (hbi r r'').mp
+              (hLcong.2.2.1 r r' r'' ((hbi r r').mpr h1) ((hbi r' r'').mpr h2)),
+          fun x x' y y' hxy hx'y' hxx' hyy' =>
+            (hbi _ _).mp (hLcong.2.2.2 x x' y y' hxy hx'y'
+              ((hbi x x').mpr hxx') ((hbi y y').mpr hyy'))⟩
 
 end E213.Lens.Algebra.Corresp
