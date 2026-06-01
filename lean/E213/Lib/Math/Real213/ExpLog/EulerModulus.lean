@@ -232,6 +232,18 @@ def eHolonomicReal : E213.Lib.Math.Real213.HolonomicReal where
   seq   := eulerCauchySeq
   valid := CauchyCutSeq.limit_valid eulerCauchySeq (fun i => eulerCut_valid i)
 
+/-- ★★ **`eHolonomic` is the genuine recurrence, not decoration.**  e's convergent
+    denominators and numerators satisfy the order-1 P-recursive recurrence whose
+    coefficient is `eHolonomic.coeff n = (n:Int)+1` (degree 1): `eulerDen (n+1) =
+    (n+1)·eulerDen n` and `eulerNum (n+1) = (n+1)·eulerNum n + 1`.  So
+    `eHolonomicReal.hol` actually generates the cut-sequence `eHolonomicReal.seq` —
+    the architecture's recurrence-to-data tie, discharged for e. -/
+theorem eHolonomic_recurrence (n : Nat) :
+    eHolonomic.coeff n = (n : Int) + 1 ∧
+    eulerDen (n+1) = (n+1) * eulerDen n ∧
+    eulerNum (n+1) = (n+1) * eulerNum n + 1 :=
+  ⟨rfl, rfl, rfl⟩
+
 /-- e's holonomic cut is the convergent read at the modulus index: `eulerCut (k+2)`. -/
 theorem eHolonomicReal_cut (m k : Nat) :
     eHolonomicReal.cut m k = eulerCut (k+2) m k := rfl
