@@ -83,25 +83,23 @@ out-of-scope CM/modular edifice:
 >     elliptic curve's period lattice**.
 
 Concrete ∅-axiom targets (in increasing reach):
-  1. `eisenstein_norm_posdef` — via `2·normSq u = re² + im² + (re−im)²` (cleaner than the
-     `4N` form, and `Int213.nonneg_of_add_self : 0 ≤ N+N → 0 ≤ N` finishes the descent),
-     hence `0 ≤ normSq u`, `= 0 ↔ u = 0` (the bounded-level-set / "curve not line" core).
-     **Tested 2026-06-01 — the supporting pieces are ∅-axiom-ready, the identity is the
-     blocker:**
-       - `sq_nonneg (a : Int) : 0 ≤ a*a` — **PURE** by constructor cases (`ofNat`:
-         `Int.ofNat_nonneg (n*n)`; `negSucc`: `Int.negSucc_mul_negSucc` then
-         `ofNat_nonneg`).  Avoids the propext-dirty `Int.le_total`.
-       - `Int213.nonneg_of_add_self` — already PURE in repo.
-       - the polynomial identity `normSq u + normSq u = re² + im² + (re−im)²` is the one
-         blocker: **every Int AC/ring path here is axiom-dirty** — `ac_rfl` pulls
-         `propext + Quot.sound`; Lean-core `Int.{add_mul, mul_add, sub_mul, mul_sub,
-         neg_add, le_total}` pull `propext`; the `quad_norm` tactic (`Meta/Tactic/QuadNorm`)
-         uses `simp` + `omega` (both dirty).  The pure `Int213` ring lemmas exist
-         (`add_mul, mul_sub, sub_mul, mul_comm, add_assoc, neg_add, …`) but reduce the goal
-         only to a **linear Int AC identity in the monomial atoms** with no pure AC
-         closer.  So the genuine next ∅-axiom step is a **pure Int AC/poly-identity
-         normalizer** (the `Int` analog of `Meta/Nat/PolyNat.poly_id`) — a separable
-         infrastructure task; hand-rearrangement of the ~6-term identity is the fallback.
+  1. `eisenstein_norm_posdef` — **DONE / LANDED ∅-axiom**
+     (`CayleyDickson/Integer/EisensteinSignature`, 9 PURE):
+       - `sq_nonneg (a : Int) : 0 ≤ a*a` — PURE by constructor cases (`ofNat`:
+         `Int.ofNat_nonneg (n*n)`; `negSucc`: `Int.negSucc_mul_negSucc`), avoiding
+         the propext-dirty `Int.le_total`.
+       - `two_eisForm` — `(a²−ab+b²) + (a²−ab+b²) = a² + b² + (a−b)²` proved by the new
+         **bivariate `Int` reflection prover** `Meta/Int213/PolyInt2` (`poly_id2`,
+         22 PURE — two Horner layers, `X` over `Y`-polynomials, with a `neg` constructor
+         for subtraction; the `Int` analog of `Meta/Nat/PolyNat`).  This is the piece
+         that was blocked — built as reusable infrastructure (the repo previously had
+         **no** pure `Int` ring tactic; `quad_norm` is `simp`+`omega`-dirty).
+       - `eisForm_nonneg` / `eisenstein_norm_nonneg : 0 ≤ normSq u` — sum-of-three-squares
+         (`sq_nonneg`) + `Int213.nonneg_of_add_self`.
+       - `golden_indefinite` (`goldenForm 1 0 = 1`, `1 1 = −1`) + `signature_dichotomy` —
+         Eisenstein **definite** (`∀ a b, 0 ≤ eisForm a b`) vs golden **indefinite**
+         (`∃, < 0`).  Definite ⟹ bounded level sets ⟹ curve; indefinite ⟹ unbounded ⟹
+         line.  The ∅-axiom heart of the conjecture is now a theorem.
   2. `golden_form_indefinite` — `Q(1,0) = 1`, `Q(1,1) = −1` (trivial, decide).
   3. the dichotomy theorem: definite (Eisenstein, disc −3) vs indefinite (golden, disc
      +5), tying the unit-count (6 vs ∞) to bounded-vs-unbounded level sets.

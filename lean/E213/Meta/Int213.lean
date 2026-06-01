@@ -1,4 +1,5 @@
 import E213.Meta.Int213.Core
+import E213.Meta.Int213.PolyInt2
 import E213.Meta.Algebra213.Core
 
 /-! Spec-as-code entry point for `E213.Meta.Int213`.
