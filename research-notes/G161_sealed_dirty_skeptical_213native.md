@@ -93,6 +93,47 @@ coherence as `=`; the 213-native pointwise form is PURE."**  The refactor is a
 real, scoped piece of theory work (touches `Lens.combine`'s coherence field +
 `Raw.fold`'s slash hypothesis), not a one-liner — flagged here for a dedicated arc.
 
+## Refinement — applying the skepticism to *this note* (second pass)
+
+The first pass said the (b) seals are "artifacts of the `=` choice".  Tested
+harder, that is **too strong**.  Ground truth:
+
+  - `Raw.slash_comm : Raw.slash x y h = Raw.slash y x (Ne.symm h)` is a genuine
+    Raw `=` (canonical Trees sort children by `Tree.cmp`), proved
+    constructively (`Tree.cmp_swap` + `split`/`rfl`) — **PURE**.
+  - `Raw.fold_slash` genuinely takes **`hsym : ∀ u v : α, c u v = c v u`**
+    (`Theory/Raw/Fold.lean:39`).  Because `slash x y = slash y x` *as Raw*,
+    a function `fold : Raw → α` must return the same α on both, so the
+    homomorphism law in arbitrary (unsorted) order genuinely needs combine
+    `=`-symmetry **at α**.  For `α = Nat` that is plain `Nat` `=` (PURE, cf.
+    `Levels.lean` leaf-count fold); for `α = Prop` / `Raw → Prop` it is
+    `propext` / `funext` — and that is **forced, not gratuitous**.
+
+So the honest verdict is between the two extremes:
+
+  - The **standalone** "combine is symmetric" *is* PURE in its 213-native
+    pointwise-`↔` form (demonstrated) — that part of the first pass stands.
+  - But the sealed `=`-form is **genuinely required by `Raw.fold_slash`** over a
+    genuinely (and purely) commutative slash.  It is not a lazy restatement
+    artifact; it is the price of a **propositional-`=`-valued fold into a
+    `Prop`/function-of-`Prop` codomain**.
+  - The 213-native escape is therefore a real, scoped **foundational refactor**,
+    not a relabel: a **Reading-equivalence-valued `fold_slash`** —
+    `hsym : ∀ u v, c u v ≈ c v u` (pointwise `↔`) with conclusion
+    `fold (slash x y) ≈ c (fold x) (fold y)` — which is PURE and is the correct
+    213 reading ("the fold respects slash-commutativity *up to distinguishing*,
+    not up to Lean `=`").  Consumers (`*_view_eq`, the `HasDistinguishing`
+    `combine_sym` field) would move to `≈`.  This touches a foundational
+    primitive (`Raw.fold`) and its whole consumer set — **a dedicated arc**, to
+    be done carefully, not in passing.
+
+**Net**: the equality-seals are *honest under the current `=`-valued fold
+semantics* (so do not just delete them), **and** they are *not the 213-native
+end state* (the `≈`-valued fold is).  Both are true; the seal comment should say
+"`=`-valued fold over the commutative slash forces this; the `≈`-valued
+(Reading) fold is the native target" rather than either "inherently funext" or
+"trivially purifiable".
+
 ## Pointers
   - Demonstrated PURE pointwise form: `Lens/Universal/QuotLens.lean`
     `universalLens_combine_sym` (the `=`-form) vs the `combine_sym_pointwise`

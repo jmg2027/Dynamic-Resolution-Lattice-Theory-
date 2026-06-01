@@ -150,17 +150,19 @@ funext-on-combine = the same category (b) as the sealed Lens modules → **seal*
 The genuinely-purifiable artifact-dirty are the math clusters (`CayleyDickson`,
 `Cohomology/Bipartite/Parametric`, `Cauchy`, `Hyper`) via the Px playbook.
 
-**Skeptical 213-native re-read of the seals (G161)** — do NOT just rubber-stamp
-"by-design": of 57 sealed, only the **3 CommandElab** (`Classical.choice` via the
-Elab monad) are honestly inherent.  The other **~54 Lens/Prop funext/propext
-seals are framework-`=`-artifacts** — `Raw` is a *subtype* (not a quotient),
-`Raw.slash_comm` is PURE, and the `Quot.sound` is just `funext` used to lift a
-per-point fact to `=` at `(Raw → Prop)`.  **Demonstrated**: the 213-native
-Reading-equivalence form `combine_sym_pointwise` (pointwise `↔`) is PURE.  The
-`=`-form survives only because `Raw.fold`'s slash hypothesis wants combine
-`=`-symmetry; a Reading-equivalence (`Lens.equiv`) refactor of `Raw.fold` +
-the `Lens.combine` coherence field would purify the lot — the 213-native-correct
-notion of "Lens sameness".  Scoped arc, flagged in G161 (not a one-liner).
+**Skeptical 213-native re-read of the seals (G161, skepticism applied also to
+the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
+monad) are honestly inherent.  For the ~54 Lens/Prop seals the honest verdict is
+**between** inherent and trivial: the *standalone* "combine is symmetric" **is**
+PURE in its 213-native pointwise-`↔` form (**demonstrated**: `combine_sym_pointwise`
+→ "does not depend on any axioms"; `Raw` is a subtype not a quotient,
+`Raw.slash_comm` PURE) — **but** the sealed `=`-form is *genuinely required* by
+`Raw.fold_slash`'s `hsym : ∀ u v, c u v = c v u` over the genuinely-/purely-
+commutative `Raw.slash`; for `Prop`/`(Raw→Prop)` codomains that `=` is
+`propext`/`funext`, forced.  The 213-native end state is a **Reading-equivalence
+(`≈`)-valued fold** (`hsym : c u v ≈ c v u`, conclusion up to `≈`) — PURE, but a
+*real scoped foundational refactor* of `Raw.fold` + consumers, not a relabel.
+Flagged in G161 as a dedicated arc.
 
 **Reusable purification pattern** (verified — applies to any future dirty Nat code):
   - `omega` is **propext-dirty** — eliminate: trivial `2*(k+1)=2*k+2` → `rfl`;

@@ -148,17 +148,20 @@ exposes the purity status of the previously-ungated clusters.  Current
     plumbing modules.  **Skeptical re-reading (G161, 213-native, not just
     ∅-axiom)**: of the 57, only the **3 CommandElab** are *honestly inherent*
     (`Classical.choice` via the `Lean.Elab.Command` monad — no `↔`-form
-    alternative).  The other **~54 are framework-`=`-artifacts**: their
-    `propext`/`Quot.sound` enter only because combine-symmetry is *stated* as
-    `=` at `Prop` / at `(Raw → Prop)` (the `Quot.sound` is `funext`, not Raw —
-    `Raw` is a subtype, not a quotient, and `Raw.slash_comm` is PURE).  The
-    213-native **Reading-equivalence (pointwise `↔`) form is PURE** (demonstrated
-    in G161: `combine_sym_pointwise` → "does not depend on any axioms").  The
-    `=`-form survives only because `Raw.fold`'s slash hypothesis currently wants
-    combine `=`-symmetry; making `Raw.fold` respect slash-commutativity up to
-    `Lens.equiv` would purify these.  So the seal label should read "framework
-    states combine coherence as `=`; the native form is PURE" — not "Lens
-    equality is inherently funext".  Scoped refactor flagged in G161.
+    alternative).  For the other ~54 (Lens/Prop) the honest verdict is **between**
+    "inherent" and "trivial artifact" (`Raw` is a subtype not a quotient,
+    `Raw.slash_comm` is PURE, and the `Quot.sound` is `funext`): the *standalone*
+    "combine is symmetric" **is** PURE in its 213-native pointwise-`↔` form
+    (demonstrated, `combine_sym_pointwise` → "does not depend on any axioms"),
+    **but** the sealed `=`-form is *genuinely required* by `Raw.fold_slash`'s
+    `hsym : ∀ u v, c u v = c v u` over the genuinely- and purely-commutative
+    `Raw.slash` — for `Prop`/`(Raw → Prop)` codomains that `=` is `propext`/
+    `funext`, **forced, not lazy**.  The 213-native end state is a
+    **Reading-equivalence-valued fold** (`hsym : c u v ≈ c v u`, conclusion up to
+    `≈`) — PURE, but a *real scoped foundational refactor* of `Raw.fold` + its
+    consumers, not a relabel.  Seal label: "`=`-valued fold over the commutative
+    slash forces this; the `≈`-valued (Reading) fold is the native target"
+    (G161).
 
 ---
 
