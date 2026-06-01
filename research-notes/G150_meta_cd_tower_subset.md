@@ -509,6 +509,41 @@ exposed are closed (`μ₆ ⊂ 2T` and `μ₆ ≅ μ_NT×μ_NS` both proven), ma
 The seed-`μ` ladder extends in-repo toward `2I/ℤ[φ]` (Type E), pointing
 the "complete object" at the binary-polyhedral/McKay classification.
 
+### Phase 9 — Type E (`ℤ[φ]` icosian, `2I`, 120) — the order-5 branch
+
+The next ladder rung past Hurwitz (`2T`, 24) is the **icosian ring** —
+the maximal order of the quaternion algebra over `ℚ(√5)`, unit group the
+**binary icosahedral group `2I ≅ SL(2,𝔽₅)`** of order 120.  Its element
+orders are `{1,2,3,4,5,6,10}` — so it carries **order-5 and order-10
+torsion absent from every lower seed** (`A/B/C/D` menus top out at 6).
+This is the genuinely *new* branch: the golden/pentagonal signature.
+
+Conjectures:
+
+- **P9-A (order-5 torsion is the Type E signature) [decidable witness].**
+  An explicit icosian unit of order 5 exists.  Construction (computed):
+  over `ℤ[φ]` (`φ²=φ+1`, element `⟨a,b⟩ = a+bφ`), quaternions with
+  `ℤ[φ]` coordinates scaled by 2 (Hurwitz-style); the unit
+  `g = ((φ-1)+φ·i+j)/2` has `normSq = ((φ-1)²+φ²+1)/4 = 1` and real part
+  `(φ-1)/2 = cos 72°`, so `g⁵ = 1`, `g ≠ 1` ⇒ order exactly 5.  Witnesses
+  Type E carries 5-torsion.
+- **P9-B (the seed ladder = binary polyhedral / McKay).**  The seeds form
+  `μ₂ ⊂ μ₄ ⊂ μ₆` (cyclic) `→ 2T (24) → 2I (120)` — the binary polyhedral
+  groups, the `A–D–E` McKay classification of finite `SU(2)` subgroups.
+  Density / branch governance extends: `2I` adds the order-5 (`A₄`-free
+  icosahedral) torsion.  `24·5 = 120` (`AlgebraicGeometry.algebraic_geometric_core`)
+  is the `2T → 2I` index.
+- **P9-C (`5 = NS+NT` floor meets `2I`) [speculative].**  `2I`'s order
+  `120 = 5! = (NS+NT)!`, and the icosian ring lives over `ℚ(√5)` with
+  `5 = disc P = NS+NT` (the Möbius/atomic floor).  Conjecture: Type E is
+  where the seed ladder *meets the `5`-floor* — the golden seed `ℤ[φ]`
+  is the CM/automorphism shadow of the same `P = [[2,1],[1,1]]`,
+  `disc 5`, that bottoms the depth-ladder and the CD asymptote.  (Links
+  `tower_atlas` `5`-floor to the McKay endpoint.)
+
+Decidable target: P9-A (the order-5 icosian witness).  Stretch: the full
+`2I` order distribution; P9-B/C are the cited frame.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
