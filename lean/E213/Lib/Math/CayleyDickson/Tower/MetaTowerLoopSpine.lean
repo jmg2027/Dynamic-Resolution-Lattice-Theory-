@@ -195,4 +195,51 @@ theorem dyadic_branch_bottom_rung :
     ∧ ZIUnits.countP (fun u => zi_orderOf u = 4) = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-- ★★ **Meta-CD-tower master statement.**  The classical Cayley–Dickson
+    tower is a sparse section of a discriminant-branching basis-loop
+    spine.  One citable conjunction of the five reads:
+
+      * `meta_tower_loop_spine` — loop class ≠ dimension; Type B carries
+        Type A's loop at double the dimension; the spine branches;
+      * `dyadic_branch_bottom_rung` — the `Z₂` rung (`ℤ[√-2]`) below Type
+        A that Type A omits;
+      * `no_cross_branch_loop_iso` — dyadic and Eisenstein never coincide;
+      * `eisenstein_denser_dim8` — the Eisenstein branch is denser;
+      * `asymptote_classifies_branch` — the `ℤ[√5]` asymptote is a branch
+        invariant, blind to the within-branch column shift.
+
+    Together: Type A is the dyadic chain read from its second rung; the
+    completion is a forest branching by base discriminant, not a single
+    chain and not a non-linear (Fibonacci) re-index. -/
+theorem meta_tower_master :
+    (lip_units.countP (fun u => lip_orderOf u = 4)
+       = L4T_units.countP (fun u => L4T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 4)
+       = L5T_units.countP (fun u => L5T_orderOf u = 4)
+     ∧ sed_units.countP (fun u => sed_orderOf u = 4)
+       = L6T_units.countP (fun u => L6T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 4)
+       ≠ L4T_units.countP (fun u => L4T_orderOf u = 4)
+     ∧ sed_units.countP (fun u => sed_orderOf u = 4)
+       ≠ L5T_units.countP (fun u => L5T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 3) = 0
+     ∧ zod_units.countP (fun u => zod_orderOf u = 3) ≠ 0)
+    ∧ (z2_base_units.length = 2
+     ∧ z2_base_units.countP (fun u => z2_orderOf u = 4) = 0
+     ∧ z2_base_units.countP (fun u => z2_orderOf u = 3) = 0
+     ∧ ZIUnits.length = 4
+     ∧ ZIUnits.countP (fun u => zi_orderOf u = 4) = 2)
+    ∧ (lip_units.countP (fun u => lip_orderOf u = 3) = 0
+     ∧ cay_units.countP (fun u => cay_orderOf u = 3) = 0
+     ∧ zod_units.countP (fun u => zod_orderOf u = 3) = 2
+     ∧ zoq_units.countP (fun u => zoq_orderOf u = 3) = 2)
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
+       < zoq_units.countP (fun u => zoq_orderOf u = 4))
+    ∧ (asymptote_ab .A = asymptote_ab .B
+     ∧ asymptote_ab .A ≠ asymptote_ab .C
+     ∧ asymptote_ab .A ≠ asymptote_ab .D
+     ∧ asymptote_ab .C ≠ asymptote_ab .D) :=
+  ⟨meta_tower_loop_spine, dyadic_branch_bottom_rung, no_cross_branch_loop_iso,
+   eisenstein_denser_dim8, asymptote_classifies_branch⟩
+
 end E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
