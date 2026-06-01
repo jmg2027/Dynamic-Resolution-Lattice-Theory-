@@ -147,8 +147,13 @@ CommandElab modules** — falsifiability standard genuinely met (verified).
 dirty (`Compose.OnLens` 9, `Lattice.Join` 4, `Algebra.Corresp`, …) are
 funext-on-combine = the same category (b) as the sealed Lens modules → **seal**;
 `Choice.CanonicalTruthChar` (8) is Iff↔Bool propext = category (a) → **seal**.
-The genuinely-purifiable artifact-dirty are the math clusters (`CayleyDickson`,
-`Cohomology/Bipartite/Parametric`, `Cauchy`, `Hyper`) via the Px playbook.
+The math clusters split again on triage: **omega/simp artifacts** (`Cauchy/Wallis`
+Nat-omega, `Cohomology/Bipartite/Parametric/PellOrbitInstances` Nat-omega,
+`CayleyDickson/Integer/ZOmegaDomain` Int-omega) → purifiable via the Px playbook
+(**in flight**, background worker; Int harder); **funext (Quot.sound)** ones
+(`Cauchy/GenericFamily` L156/167, `Hyper/Hyper213Tower`) → the SAME
+function-`=`-coherence as the Lens seals → the ≈-fold (Reading) arc, NOT omega
+artifacts (left for that arc).
 
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
