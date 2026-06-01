@@ -1,4 +1,5 @@
 import E213.Lib.Math.Real213.ExpLog.EulerCut
+import E213.Lib.Math.Real213.HolonomicReal
 import E213.Meta.Nat.PolyNat
 
 /-!
@@ -188,5 +189,47 @@ theorem euler_cut_const (m k : Nat) (hk : 1 ≤ k) (i j : Nat)
 theorem euler_total_modulus (m k : Nat) (hk : 1 ≤ k) :
     ∃ N, ∀ i j, i ≥ N → j ≥ N → eulerCut i m k = eulerCut j m k :=
   ⟨k+2, fun i j hi hj => euler_cut_const m k hk i j hi hj⟩
+
+/-! ## §4 — e as a `HolonomicReal` with a constructed total modulus -/
+
+open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
+open E213.Lib.Math.Real213.ExpLog.EulerCut (eulerCut_valid)
+
+/-- At `k = 0` the cut is `true` at every layer (`eulerNum i · 0 = 0 ≤ _`). -/
+private theorem eulerCut_at_zero (i m : Nat) : eulerCut i m 0 = true := by
+  rw [eulerCut_eq]; apply decide_eq_true
+  show eulerNum i * 0 ≤ eulerDen i * m
+  rw [Nat.mul_zero]; exact Nat.zero_le _
+
+/-- ★★★ **e's convergent cut-sequence with its constructed total modulus
+    `N(m,k) = k+2`.**  The Cauchy field is discharged uniformly: `k = 0` is constant
+    `true`, `k ≥ 1` is `euler_cut_const`.  No modulus hypothesis. -/
+def eulerCauchySeq : CauchyCutSeq where
+  cs := eulerCut
+  N := fun _ k => k + 2
+  cauchy := by
+    intro m k i j hi hj
+    cases k with
+    | zero => rw [eulerCut_at_zero i m, eulerCut_at_zero j m]
+    | succ k' =>
+      exact euler_cut_const m (k'+1) (Nat.succ_le_succ (Nat.zero_le k')) i j hi hj
+
+/-- e's holonomic recurrence: order 1, the degree-1 coefficient `c(n) = n+1`
+    (`eulerDen (n+1) = (n+1)·eulerDen n`, `eulerNum (n+1) = (n+1)·eulerNum n + 1`). -/
+def eHolonomic : E213.Lib.Math.Real213.Holonomic where
+  order := 1
+  coeff := fun n => (n : Int) + 1
+  cdeg  := fun _ => 1
+  init  := fun _ => 1
+
+/-- ★★★ **e is a complete `HolonomicReal`** — like φ, with the convergence modulus a
+    *constructed field* (`eulerCauchySeq.N = k+2`), not a hypothesis.  The structured
+    transcendental e inhabits the unconditional real API ∅-axiom: the general
+    generator extends past the algebraic floor to (at least) the degree-1 holonomic
+    class. -/
+def eHolonomicReal : E213.Lib.Math.Real213.HolonomicReal where
+  hol   := eHolonomic
+  seq   := eulerCauchySeq
+  valid := CauchyCutSeq.limit_valid eulerCauchySeq (fun i => eulerCut_valid i)
 
 end E213.Lib.Math.Real213.ExpLog.EulerModulus
