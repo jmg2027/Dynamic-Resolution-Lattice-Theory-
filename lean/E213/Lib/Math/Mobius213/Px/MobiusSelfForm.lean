@@ -111,8 +111,8 @@ theorem mobius_denom_fib (n : Nat) :
   have h := mobius_denom_step n
   rw [Q01_eq_fib (n + 1), Q00_eq_fib n, Q00_eq_fib (n + 1)] at h
   have h1 : 2 * (n + 1) = 2 * n + 2 := by omega
-  have h2 : 2 * (n + 1) + 1 = 2 * n + 3 := by omega
-  rw [h1, h2] at h
+  -- after `rw [h1]`, `2*(n+1)+1` becomes `2*n+2+1`, defeq to `2*n+3`.
+  rw [h1] at h
   exact h
 
 /-- Fibonacci form of numerator step:
