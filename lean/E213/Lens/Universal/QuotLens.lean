@@ -102,6 +102,47 @@ theorem universalLens_view_eq
         · intro s; exact Iff.rfl
         · intro s; exact Iff.rfl
 
+/-! ## Reading-equivalence (∅-axiom) forms
+
+`universalLens_combine_sym` / `universalLens_view_eq` state coherence as a
+function `=` at `(Raw → Prop)`, which pulls `funext` (= `Quot.sound`) +
+`propext`.  The residue's directionless slash only requires the readings to
+*distinguish the same things*, i.e. a **pointwise `↔`**.  Stated that way both
+are **∅-axiom** — they need no `funext`/`propext` (using `Raw.fold_slash_iff`
+and `Iff.trans` rather than `rw` on an `↔`, which itself would pull `propext`). -/
+
+/-- Combine symmetry as a Reading-equivalence — PURE. -/
+theorem universalLens_combine_sym_pw (f g : Raw → Prop) (r' : Raw) :
+    (universalLens E).combine f g r' ↔ (universalLens E).combine g f r' := by
+  constructor
+  · rintro ⟨X, Y, h, hX, hY, hs⟩
+    exact ⟨Y, X, Ne.symm h, hY, hX, by rwa [Raw.slash_comm Y X (Ne.symm h)]⟩
+  · rintro ⟨X, Y, h, hX, hY, hs⟩
+    exact ⟨Y, X, Ne.symm h, hY, hX, by rwa [Raw.slash_comm Y X (Ne.symm h)]⟩
+
+/-- `view r` as a Reading-equivalence: `view r s ↔ E r s` for all `s` — PURE.
+    The pointwise form of `universalLens_view_eq`, via `Raw.fold_slash_iff`. -/
+theorem universalLens_view_eq_pw
+    (hrefl : ∀ r, E r r)
+    (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')
+    (hslash : ∀ x x' y y' (h : x ≠ y) (h' : x' ≠ y'),
+              E x x' → E y y' → E (Raw.slash x y h) (Raw.slash x' y' h'))
+    (r : Raw) : ∀ s, (universalLens E).view r s ↔ E r s := by
+  induction r using Raw.rec with
+  | a => intro s; exact Iff.rfl
+  | b => intro s; exact Iff.rfl
+  | slash x y h ihx ihy =>
+      intro s
+      refine (Raw.fold_slash_iff _ _ _
+        (fun u v t => universalLens_combine_sym_pw E u v t) x y h s).trans ?_
+      constructor
+      · rintro ⟨X, Y, h', hX, hY, hslashr'⟩
+        have hxX : E x X := (ihx X).mp ((hX X).mp (hrefl X))
+        have hyY : E y Y := (ihy Y).mp ((hY Y).mp (hrefl Y))
+        exact htrans _ _ _ (hslash x X y Y h h' hxX hyY) hslashr'
+      · intro hE
+        exact ⟨x, y, h, fun t => (ihx t).symm, fun t => (ihy t).symm, hE⟩
+
 /-- **General solution of Q37.3**: kernel of universalLens E = E.
     Any slash-congruence E (equivalence + slash-preserving) is the
     kernel of a concrete Lens. -/
