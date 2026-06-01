@@ -98,6 +98,60 @@ The **full** elliptic-curve / CM / modular layer remains out of scope (per
 `probe_twist_conic.md`); what is reachable is the **lattice reference** (`ℤ[ω]`, already
 built) and the **discriminant-sign dichotomy** that explains the line-vs-curve shape.
 
+## The stronger conjecture (Mingu Jeong) — the modular-surface / geodesic layer
+
+> Above/below the dyadic reference is not simply convergence/divergence; adding the
+> complex dimension of the Eisenstein elliptic curve *narrows the resolution*, the
+> dyadic magnitude-decision (`rcut`) is performed in that narrowed resolution, and then
+> via the elliptic curve's *modularity* the trajectory rides a *converging* orbit again.
+
+Repo-grounded reading.  This rough language is reaching, precisely, for the **modular
+surface `ℍ/SL₂(ℤ)` geodesic-flow picture of continued fractions** (Artin/Series coding):
+the cross-determinant `W` is the `SL₂(ℤ)` symplectic area, a convergent sequence is a
+geodesic, its `rcut`/continued-fraction digits are the geodesic's symbolic coding.  The
+surface has **one cusp** (`∞`, parabolic — genuine divergence, the rationals) and **two
+elliptic orbifold points**: order **3** at `ω` (Eisenstein) and order **2** at `i`
+(Gaussian) — the "narrowed-resolution" cone points.  Phrase by phrase:
+
+  - "above/below, not merely converge/diverge" → the `SL₂(ℤ)` conjugacy **trichotomy by
+    trace**: |trace| > 2 *hyperbolic* (a **closed** geodesic — bounded/recurrent in the
+    quotient; the golden `P = [[2,1],[1,1]]`, trace `3`, is the simplest one),
+    |trace| = 2 *parabolic* (the cusp — the only **genuine** divergence), |trace| < 2
+    *elliptic* (periodic fixed points — Eisenstein order 3, Gaussian order 2).
+  - "complex dimension of the Eisenstein curve narrows resolution" → lifting the
+    real-line cut to the lattice/torus `ℂ/ℤ[ω]` (the `j=0` curve's periods); at the
+    order-3 elliptic point the local chart is an orbifold cone — a finer reading.
+  - "modularity ⟹ converging orbit" → the `SL₂(ℤ)` action **folds** the geodesic into
+    the compact fundamental domain; the hyperbolic golden geodesic becomes a *closed*
+    (bounded, recurrent) orbit, the elliptic points are periodic.  The `j`-map ties this
+    to the elliptic curve.
+
+**Honest refinement (the over-reach to drop).**  Modularity does **not** turn a
+genuinely divergent real-line trajectory into a convergent one *on the line*.  What is
+true: the divergence is **folded**, not erased — it acquires a **bounded representation
+in the quotient** (a closed geodesic), exactly as a Dirichlet/L-series that diverges in
+a half-plane is *defined* there by analytic continuation through the modular functional
+equation.  Modularity bounds everything **except** the parabolic cusp, which *is* the
+residue (the genuine, irreducible divergence).  So "converging orbit" = bounded orbit
+in `ℍ/SL₂(ℤ)`, not convergence of the line-cut.
+
+**213-native reading.**  The overtake (divergent) trajectory is the **residue** —
+un-resolved by the real-line Lens.  The Eisenstein/elliptic lift is a *finer Lens* (the
+2-D lattice reading); modularity is a **self-covering symmetry** (the order-6 unit
+action / the `SL₂(ℤ)` folding) that re-presents the residue as a bounded orbit — the
+same self-covering of `DepthCeilingResidue`, now at the scale of the modular surface.
+The cusp is where the residue appears in the geodesic picture: the tower with no top.
+
+**Reachable seed (with a scope tension).**  The trace-trichotomy (hyperbolic `P` trace
+`3`; an order-3 Eisenstein element, e.g. `[[0,-1],[1,-1]]`, trace `−1`, cube `= I`; an
+order-4 Gaussian element `[[0,-1],[1,0]]`, trace `0`) is ∅-axiom (concrete `Int` 2×2
+matrices, `decide`).  **But** building a matrix / modular-group layer leans toward the
+elliptic-curve/modular edifice the repo *deliberately declines* (`probe_twist_conic.md`);
+the repo keeps `P` as a step `Pstep`, not a matrix.  So this seed is recorded, not
+built, pending a decision on whether 213 wants the modular-group layer at all.  Out of
+∅-axiom reach entirely: geodesic flow, modular forms, the `j`-map, the modularity
+theorem, analytic continuation.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
