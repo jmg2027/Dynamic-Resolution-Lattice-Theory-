@@ -264,16 +264,8 @@ open E213.Lib.Math.HodgeConjecture
 
 ## Citation guidance
 
-When citing this chapter from Lean docstrings:
+Lean docstrings cite this chapter as the narrative home for the Hodge result:
 
 ```
--- ✅ preferred
 `theory/math/cohomology/hodge_conjecture.md`
-
--- ❌ deprecated (research-notes/hodge/ is archived)
-`research-notes/hodge/G6_hodge_213_translation.md`
 ```
-
-For deep dives into specific aspects (e.g., the corrected G6 §0
-framing), cite both: this chapter for the narrative entry, plus the
-archived G-note for the historical record.

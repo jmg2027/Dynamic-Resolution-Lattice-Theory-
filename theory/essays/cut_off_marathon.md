@@ -86,25 +86,24 @@ These four are not pigeonhole consequences; they are the principle's
 *some* slice exists; the family says *which* slices, with what
 arithmetic content.
 
-## Refactor — `α_GUT` and `1/α_em` forced fits removed
+## Why the atomic catalogue is `{2, 3, 5, 7, 13, 521}`
 
-Mid-marathon, the catalogue redefined.  Pre-existing entries claimed
-`41 = α_GUT integer` and `137 = 1/α_em` as 213-atomic-prime
-justifications.  But `1/α_em = 137.035999…` is not 137, and
-`α_GUT^{−1}` is model-dependent (~24–26 in standard SUSY GUT, not
-41).  Both attributions were forced fits — non-integer physics
-constants rounded and labelled.
+The catalogue contains exactly the integers with clean derivations from
+`{NT, NS, d}` = `{2, 3, 5}`: the seeds `2, 3`; `d = NS + NT = 5`; the depth
+closure `7, 13`; and `521 = Φ₁₀(5)` from the aurifeuillean bound.
 
-The refactor removed 41 and 137 from the atomic catalogue
-(`catalogs/atomic-integers.md`), leaving `{2, 3, 5, 7, 13, 521}` —
-six elements with clean derivations from `{NT, NS, d}`.  
+Two superficially-atomic candidates are **not** members, and the distinction is
+structural, not a rounding:
+- `1/α_em = 137.035999…` is not the integer `137` — it is a measured physical
+  constant, a physics input, not a 213-derived integer.
+- `α_GUT⁻¹` is model-dependent (~24–26 in standard SUSY GUT, not `41`).
+
 `ConfigCountModular.lean` §H.1 (mod 41 → 9 = NS²) and §H.5 (mod 137
-→ 86 = NS²·NT² + d²·NT) lost their "catalogue atom" framing but
-retained their modular-congruence theorems; the math is valid, only
-the catalogue-claim was forced.  All session Lean files
-(HunterAtomicClosure, HunterComplexity, AurifeuilleanDepth2PowCutoff,
-AltPrimitiveSet) recomputed their closure counts and theorem sets to
-match the six-element catalogue.
+→ 86 = NS²·NT² + d²·NT) carry their modular-congruence theorems as valid
+arithmetic about those moduli, with no "catalogue atom" reading attached.
+The closure counts in `HunterAtomicClosure`, `HunterComplexity`,
+`AurifeuilleanDepth2PowCutoff`, `AltPrimitiveSet` are over the six-element
+catalogue.
 
 The refactor is itself the cut-off principle's "diagnose" step
 applied at the meta-level: catalogue membership claims must derive

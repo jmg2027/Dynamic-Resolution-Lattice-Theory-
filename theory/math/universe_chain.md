@@ -111,9 +111,7 @@ Encoding atomicity:
 The "glue" `1 = NS − NT` is the **Lorentz-style boost generator**
 in 213's physics reading.
 
-`Lib/Math/Mobius213.lean` + `Mobius213OneAsGlue.lean` formalize
-this; `theory/Raw/Mobius.lean` was promoted to this location per
-the M-series cleanup.
+`Lib/Math/Mobius213.lean` + `Mobius213OneAsGlue.lean` formalize this.
 
 ### 4. Lucas seeds (Step 8)
 
