@@ -188,9 +188,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     a property of π); C2 the rung floor (`W const` φ ⊂ `W=d` e/Liouville ⊂ `CrossDetSmall`,
     threshold `r<q`) as a rescaling-invariant coordinate of the cut; C3 the canonical
     witness (diagonal `bound+1` / gcd-reduced presentation) is the residue on both sides.
-    OPEN next: a 213-native gcd / "reduced presentation" predicate to state C2's rung
-    floor as a function of the cut; the C1′ converse (when a rate-carrying re-presentation
-    exists).
+    C2 first step closed: `Real213/ScalingOrbit` (7/0) — the rescaling orbit `(c·a, c·d)`
+    is a monoid action (`scaleBy_one`/`scaleBy_comp`) inside one cut
+    (`scaleBy_preserves_cut`), `CrossDetSmall` antitone along it
+    (`orbit_free_implies_base_free`), unique `Reduced` base (`reduced_scaling_trivial`) —
+    the rung floor is attained at the reduced base (scope: rescaling sub-family, not all
+    presentations).  OPEN next: the rung floor over *all* presentations (cross-presentation
+    invariant, subsumes C1′); the C1′ converse (when a rate-carrying re-presentation
+    exists, π the obstruction).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

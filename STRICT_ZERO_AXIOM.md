@@ -274,6 +274,15 @@ propext-dirty, used the PURE `NatHelper.mul_assoc`), `modulus_rescale_invariant`
 (the completion is presentation-invariant, via `rcut_rescale`), bundled in
 `completability_is_intensional`.  The test is presentation-relative; the truth is not.
 
+`E213.Lib.Math.Real213.ScalingOrbit` — **7 PURE / 0 DIRTY**.  The rescaling
+orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`,
+`scaleBy_comp`), the cut its complete invariant (`scaleBy_preserves_cut`),
+`CrossDetSmall` antitone along it (`orbit_free_implies_base_free`), and the
+`Reduced` base unique (`reduced_scaling_trivial`).  Bundled in
+`scaling_orbit_structure`.  Advances C2 (G169): the reduced base is the
+rung-minimal presentation within a rescaling orbit (scope: rescaling sub-family,
+not all presentations).
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE

@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  66 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  67 files in 7 sub-clusters.
 
 ## Sub-clusters
 
@@ -87,6 +87,11 @@
     *completion* is presentation-invariant (`modulus_rescale_invariant`).  The test is
     presentation-relative; the truth (the cut's completion) is not
     (`completability_is_intensional`).
+  - `ScalingOrbit.lean` — ★ the rescaling orbit `(c·a, c·d)` of a presentation: a monoid
+    action (`scaleBy_one`/`scaleBy_comp`) inside one cut (`scaleBy_preserves_cut`), with
+    `CrossDetSmall` antitone along it (`orbit_free_implies_base_free`) and a unique
+    `Reduced` base (`reduced_scaling_trivial`) — the canonical point to read the cut's
+    rung (`scaling_orbit_structure`).
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 

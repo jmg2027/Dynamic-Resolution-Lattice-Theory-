@@ -88,12 +88,27 @@ analytic side now has its canonical witness too: the gcd-reduced presentation
 > a larger overflow surplus, a rescaled `c²·W` — is the same redundancy read on the two
 > sides, and the unit `1` / the reduced form is the residue in both.
 
+## C2 — first step closed (the rescaling orbit)
+
+`Real213/ScalingOrbit` (7 PURE) gives C2 its first ∅-axiom backing, scoped to the
+**rescaling** sub-family of presentations.  The presentations `(c·a, c·d)`, `c ≥ 1`, of
+one cut form a monoid-action orbit (`scaleBy_one`, `scaleBy_comp`); the cut is the
+complete orbit invariant (`scaleBy_preserves_cut`); `CrossDetSmall` is antitone along the
+action (`orbit_free_implies_base_free` — the base is the canonical free-witness); and the
+orbit has a unique `Reduced` base (`reduced_scaling_trivial`).  So within a rescaling
+orbit the **rung floor is attained at the reduced base**, a rescaling-invariant
+coordinate.  `scaling_orbit_structure` bundles it.
+
+Scope, honest: this is the rescaling sub-family (common constant factor), not *all*
+presentations of a cut.  The rung floor over all presentations — continued-fraction vs
+series vs … — is the strictly larger open question (it subsumes C1′).
+
 ## Status of the directions
 
 C1′ is the sharpest *new* ∅-axiom target with a concrete obstruction (the converse: when
-does a rate-carrying re-presentation exist?).  C2 needs a 213-native gcd / "reduced
-presentation" predicate to state the rung floor as a function of the cut — the next
-formalisation step.  C3 is a synthesis statement that would bundle
-`DepthOverflowDuality` and `IntensionalCompletability` once C2's reduced-presentation
-predicate exists.  None imports a classical measure; all live inside the
-presentation/cut split that `PresentationDependence` opened.
+does a rate-carrying re-presentation exist?).  C2's rescaling-orbit core is now closed
+(`ScalingOrbit`); the remaining C2 step is the rung floor over *all* presentations (needs
+a cross-presentation invariant, harder).  C3 is a synthesis statement that would bundle
+`DepthOverflowDuality` and `IntensionalCompletability`/`ScalingOrbit` (the canonical
+witness: diagonal `bound+1` ↔ reduced base).  None imports a classical measure; all live
+inside the presentation/cut split that `PresentationDependence` opened.
