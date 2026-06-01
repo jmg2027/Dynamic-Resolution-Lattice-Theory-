@@ -1,6 +1,6 @@
 # Generation Rule
 
-**Status**: Closed (4 files, capstone `G46Capstone`).
+**Status**: Closed (4 files, capstone `GenerationRule.Capstone`).
 
 ## Overview
 
@@ -13,7 +13,7 @@ K_{3,2}^{(c=2)} substrate.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/GenerationRule/` (4 files)
-- **Capstone**: `G46Capstone`
+- **Capstone**: `GenerationRule.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -21,7 +21,7 @@ K_{3,2}^{(c=2)} substrate.
 | `GenerationCount` | Count generators at each step |
 | `OrthogonalDirection` | Orthogonal-direction selection |
 | `TriangleIteration` | Triangular iteration: step n → step n+1 |
-| `G46Capstone` | Generation rule master |
+| `GenerationRule.Capstone` | Generation rule master |
 
 ## Narrative
 

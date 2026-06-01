@@ -1,6 +1,6 @@
 # Triangular Tower Architecture
 
-**Status**: Closed (5 files, capstone `G47Capstone`).
+**Status**: Closed (5 files, capstone `TriangularTower.Capstone`).
 
 ## Overview
 
@@ -15,7 +15,7 @@ The tower's optimal precision at depth N is `O(log N)`.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/TriangularTower/` (5 files)
-- **Capstone**: `G47Capstone`
+- **Capstone**: `TriangularTower.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -24,7 +24,7 @@ The tower's optimal precision at depth N is `O(log N)`.
 | `OptimalPrecision` | Precision growth O(log N) at depth N |
 | `PropertySurvival` | Which axioms survive at each level |
 | `RealAsSquashed` | ℝ-encoding via tower paths |
-| `G47Capstone` | Triangular tower master |
+| `TriangularTower.Capstone` | Triangular tower master |
 
 ## Narrative
 

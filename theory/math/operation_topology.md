@@ -1,6 +1,6 @@
 # Operation × Topology
 
-**Status**: Closed (4 files, capstone `G48Capstone`).
+**Status**: Closed (4 files, capstone `OperationTopology.Capstone`).
 
 ## Overview
 
@@ -13,14 +13,14 @@ operation is `O(operation_levels · base_topology_complexity)`.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/OperationTopology/` (4 files)
-- **Capstone**: `G48Capstone`
+- **Capstone**: `OperationTopology.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
 |---|---|
 | `OperationLevels` | Operation-by-level decomposition |
 | `TopologicalComplexity` | Complexity measure per (op, topology) cell |
-| `G48Capstone` | Operation × topology master |
+| `OperationTopology.Capstone` | Operation × topology master |
 
 ## Narrative
 

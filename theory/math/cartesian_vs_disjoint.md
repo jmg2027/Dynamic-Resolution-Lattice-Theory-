@@ -1,6 +1,6 @@
 # Cartesian vs Disjoint
 
-**Status**: Closed (3 files, capstone `G45Capstone`).
+**Status**: Closed (3 files, capstone `CartesianVsDisjoint.Capstone`).
 
 ## Overview
 
@@ -15,14 +15,14 @@ not a single "product" that switches behavior by context.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/CartesianVsDisjoint/` (3 files)
-- **Capstone**: `G45Capstone`
+- **Capstone**: `CartesianVsDisjoint.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
 |---|---|
 | `CartesianCheck` | Cartesian-product check (cardinality A · B) |
 | `DisjointVsProduct` | Disjoint-union vs product (cardinality A + B vs A · B) |
-| `G45Capstone` | Cartesian-vs-disjoint master |
+| `CartesianVsDisjoint.Capstone` | Cartesian-vs-disjoint master |
 
 ## Narrative
 

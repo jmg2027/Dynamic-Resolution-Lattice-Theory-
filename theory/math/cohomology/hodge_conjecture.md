@@ -177,7 +177,7 @@ are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 - `Bridge/Ising.lean`, `Bridge/Potts.lean` — Ising/Potts on 4-simplex
 - `Bridge/SpinGlassGroundState.lean` — NP-hard ground-state witness
 - `Bridge/GaloisCounterfactual.lean` — Galois-at-eighty counterfactual 80-year Galois counterfactual
-- `Bridge/G6Vacuity.lean` — G6 §0 corrected-position witness
+- `Bridge/ClassAExactWitnesses.lean` — G6 §0 corrected-position witness
 
 These demonstrate that **once Hodge is 213-native, the cohomology
 machinery used by physics + CS + arithmetic geometry inherits the

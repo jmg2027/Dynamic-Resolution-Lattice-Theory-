@@ -1,6 +1,6 @@
 # Modulus Combinators
 
-**Status**: Closed (10 files, capstone `G40Capstone`).
+**Status**: Closed (10 files, capstone `Modulus.Capstone`).
 
 ## Overview
 
@@ -16,7 +16,7 @@ is the canonical example.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/Modulus/` (10 files)
-- **Capstone**: `G40Capstone.lean`
+- **Capstone**: `Modulus/Capstone.lean`
 - **∅-axiom status**: PURE
 
 | Group | Files |
@@ -24,7 +24,7 @@ is the canonical example.
 | Core predicate | `HasModulus`, `HasModulusBoundsExtra`, `StrongModulus` |
 | Diagonal / depth / info | `DiagonalHasModulus`, `DiagonalIrrelevance`, `DepthCompleteness`, `InfoClosure` |
 | Concrete witnesses | `PellHasModulus`, `Translation` |
-| Capstone | `G40Capstone` |
+| Capstone | `Modulus.Capstone` |
 
 ## Narrative
 

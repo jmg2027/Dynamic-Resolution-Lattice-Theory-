@@ -33,7 +33,7 @@ SignedCut level + its CD-doubled descendants.
 | `Core/` | 9 | Core / Algebra / Inv / UnifiedGenericInv / Equivalence / Capstones |
 | `CD/` | 6 | CD-doubling: Conjugation, LevelOps, MulRule, Norm, Tower{Capstone, Level} |
 | `Hurwitz/` | 4 | Dichotomy, ExactL1, Failure, NormProduct |
-| `Level/` | 2 | G38FinalCapstone, G39Capstone |
+| `Level/` | 2 | HurwitzSynthesisCapstone, NonAssocFanoCapstone |
 | `Bridge/` | 5 | Bridge/Capstone + FanoK32Bridge + FanoPlane + GenericGeomBridge |
 | `Octonion/` | 6 | Octonion + Quaternion mul rules + tables + NonAssociativity |
 
@@ -60,7 +60,7 @@ require.
 
 ### CD tower on SignedCut
 
-`G38FinalCapstone.lean` bundles the CD-doubled signed structure —
+`HurwitzSynthesisCapstone.lean` bundles the CD-doubled signed structure —
 the quaternion / octonion multiplication rules together with the
 Hurwitz magnitude bound and the Hurwitz-failure witness — all
 within SignedCut's machinery, no external import.
