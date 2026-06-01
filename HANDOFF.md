@@ -99,11 +99,17 @@ stated via `=`) is **retired**.  All three walls solved:
 
 ## OPEN — smaller / scoped
 
-  - **(d) CayleyDickson purity** (category D): `CayleyHeavy.{normSq_eq_zero_iff,
-    no_zero_div}`, `SedenionHeavy.flexible`, `Trig.conj_mul_anti`,
-    `CDTower.CD_tower_full` — inherited from the Lipschitz base + `Cayley.ext` +
-    Int/`omega`.  Trace the root (likely the same propext-Nat/Int-core swap as
-    KerSizeUniversal) and purify.
+  - **(d) CayleyDickson purity** (category D) — **partly done**:
+    `CayleyHeavy.{normSq_eq_zero_iff, no_zero_div}` PURE (swapped `omega` /
+    `Int.mul_eq_zero` → `Int213.{add_nonneg, add_eq_zero_of_nonneg,
+    mul_eq_zero}`); `CDTower.CD_tower_full` PURE (cascade).  **Still DIRTY — not
+    playbook swaps**: `Trig.conj_mul_anti` needs `NonAssocStarRing213 Sedenion`
+    (the Sedenion→`CDDouble Cayley` bridge replicating `CayleyAlgebra213`; the
+    parametric CDDouble star instance requires `[StarRing213 α]` and Cayley is
+    non-associative, so it won't fire — needs a manual/weaker route) before the
+    structural proof (cf. `SedenionHeavy.conj_mul_anti`) applies;
+    `SedenionHeavy.flexible` is the **CDDoubleFlexible cross-pair open item**
+    (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
   - **Scoped doc follow-ups** (judgment/generative — do deliberately):
     G## session-tag sweep in `theory/essays` bodies; merges
     (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →

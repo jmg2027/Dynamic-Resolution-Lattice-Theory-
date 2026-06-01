@@ -62,10 +62,13 @@ IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
 
 Still DIRTY — a **distinct** mechanism (not this API):
   · `Compose.{OnLens (9), OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`,
-    `Properties.TowerLevel3`, `Lib.Math.Cauchy.GenericFamily` — `Quot.sound`
-    from `funext` on a function-valued `combine` (Lens-of-Lens composition);
-    the migration target is the pointwise Lens equality `Lens.eqPW`
-    (`Lens/EqPW.lean`), not `equivR`.
+    `Properties.TowerLevel3` — `Quot.sound` from `funext` on a function-valued
+    `combine` (Lens-of-Lens composition) routed through the `HasDistinguishing`
+    typeclass whose `combine_sym` field is typed as Lean `=`; the migration
+    target is the pointwise Lens equality `Lens.eqPW` (`Lens/EqPW.lean`), a
+    `HasDistinguishing`-eqPW rebuild, not `equivR`.
+    (`Lib.Math.Cauchy.GenericFamily` was the same funext-on-`ι → β`-codomain
+    shape and is now PURE — `projectionLens_view` stated pointwise-at-index.)
   · `Instances.Leaves.DepthJoin` (10) — `propext`/`Quot.sound` from `omega` /
     `simp`-closed `Nat` arithmetic, the `omega`/`simp`→explicit purification
     playbook (cf. `Mobius213.Px`).
@@ -76,12 +79,25 @@ Real theorems whose DIRTY is inherited from `propext`-carrying Nat/Int
 core lemmas or structure-`ext`, not from correspondence.  Purifiable by
 the swap playbook (cf. `KerSizeUniversal`, 2026-06-01: `Nat.{mul_assoc,
 mul_div_cancel_left, add_mul_div_left, add_mul_mod_self_left,
-add_sub_cancel'}` → PURE infra).
+add_sub_cancel'}` → PURE infra; `CayleyHeavy`, 2026-06-01: `omega` /
+`Int.mul_eq_zero` → `Int213.{add_nonneg, add_eq_zero_of_nonneg,
+mul_eq_zero}`).
 
-`Lib.Math.CayleyDickson.{Levels.CayleyHeavy (2: normSq_eq_zero_iff,
-no_zero_div), Levels.SedenionHeavy (1: flexible),
-Levels.TrigintaduoionionHeavy (1: conj_mul_anti),
-Tower.CDTower (1: CD_tower_full)}`.
+PURE now: `Levels.CayleyHeavy` (`normSq_eq_zero_iff`, `no_zero_div`),
+`Tower.CDTower` (`CD_tower_full` — cascaded from `CayleyHeavy.no_zero_div`).
+
+Still DIRTY — **not** a playbook swap (genuine theorem development):
+  · `Levels.TrigintaduoionionHeavy.conj_mul_anti` (`hurwitz_ring`, 128
+    Int-var): needs `NonAssocStarRing213 Sedenion` (the
+    Sedenion→`CDDouble Cayley` algebra bridge, replicating
+    `CayleyAlgebra213`) so the proof can go structural like
+    `SedenionHeavy.conj_mul_anti`.
+  · `Levels.SedenionHeavy.flexible` (`hurwitz_ring`, 32 Int-var): the
+    **CDDoubleFlexible cross-pair open item** — Sedenion's base (Cayley)
+    is non-associative, so `cd_flexible` (which needs base alternativity
+    via `cd_alt_left`) does not apply; flexibility of the double of a
+    merely-flexible base needs the cross-pair lemma (`CDDoubleFlexible`,
+    long-standing CD open).
 
 ## (E) Intentional axiom exhibits / plumbing / tests
 
