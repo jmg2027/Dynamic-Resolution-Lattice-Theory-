@@ -87,7 +87,7 @@ private theorem rinv (hd : ∀ i, 1 ≤ d i) (htel : Htel a d) (m k : Nat)
       exact rinv_step hd htel m k (k+1+t) hi1 ih
   intro i hi; rw [← add_sub_of_le hi]; exact aux (i - (k+1))
 
-private theorem rinv_cut (hd : ∀ i, 1 ≤ d i) (m k i : Nat) (hk : 1 ≤ k)
+private theorem rinv_cut (m k i : Nat) (hk : 1 ≤ k)
     (hinv : RInv a d m k i) : rcut a d i m k = true := by
   apply decide_eq_true
   have h1 : (a i*i)*k + k ≤ m*(i*d i) := by
@@ -161,8 +161,8 @@ theorem rate_cut_const (hd : ∀ i, 1 ≤ d i) (htel : Htel a d)
   have hk1i : k+1 ≤ i := Nat.le_trans (Nat.le_succ _) hi
   have hk1j : k+1 ≤ j := Nat.le_trans (Nat.le_succ _) hj
   rcases Nat.lt_trichotomy (a (k+1)*k) (d (k+1)*m) with hlt | heq | hgt
-  · exact (rinv_cut hd m k i hk (rinv hd htel m k hlt i hk1i)).trans
-        (rinv_cut hd m k j hk (rinv hd htel m k hlt j hk1j)).symm
+  · exact (rinv_cut m k i hk (rinv hd htel m k hlt i hk1i)).trans
+        (rinv_cut m k j hk (rinv hd htel m k hlt j hk1j)).symm
   · have hf := eq_false m k hk hmonoS heq
     exact (false_fwd hd hmono m k (k+2) hf i hi).trans
         (false_fwd hd hmono m k (k+2) hf j hj).symm
