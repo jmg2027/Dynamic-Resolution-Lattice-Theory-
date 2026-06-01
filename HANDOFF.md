@@ -108,11 +108,14 @@ stays irreducible regardless.
     — verify first); narrative-patchwork intros (`RESEARCH_PLAN`,
     `meta/methodology_patterns`).
 
-## OPEN — depth-arc next targets (real-number / completeness thread, A–E)
+## Depth-arc — real-number / completeness thread
+
+**Branch scope: real-number topics only.**  (Non-real tracks — the GRA/CD tower
+duality and Cayley-Dickson algebra — belong on a separate branch; see link E.)
 
 The depth arc (real = decision procedure, completeness relocated; 13 links) is
-closed + promoted (`theory/math/completeness_without_completeness.md`).  The
-unclaimed extensions it exposes:
+closed + promoted (`theory/math/completeness_without_completeness.md`).  Extensions
+A–D + B are now **all closed ∅-axiom this arc**:
 
   - **A. `depth_floor_is_det_one`** — DONE this prior arc (`Cauchy/DepthFloorDetOne`,
     7/0): forward (`convergent_crossdet_floor_is_one`) + converse
@@ -131,18 +134,10 @@ unclaimed extensions it exposes:
     new reflection prover **`Meta/Nat/PolyNat`** (`poly_id`, 11/0): the ∅-axiom `ring`
     replacement — reify to a polynomial tree, normalise to Horner coeffs, equal lists
     ⟹ equal by `rfl`.  Reusable Nat helpers: `add_sub_add_of_le`, `liftK_congr`,
-    `binom_mono`, `poly_id`.
-    **π**: `pi_is_P_recursive` (Wallis num/den order-1 recurrences, degree-2 step
-    coeffs) PLUS `wallisDenCoeff_polyDepth` — the den step coefficient `(2n+1)(2n+3)`
-    has a *proven* `polyDepth 2` (2nd difference = const 8; the one nonlinear-Nat
-    identity `(2n+3)(2n+5) = (2n+1)(2n+3) + (8n+12)` done by hand via PURE
-    `NatHelper.{add_mul,mul_assoc}`).  REMAINING sliver: the *full* degree-4 cross-det
-    ratio polyDepth-4 needs the same hand-expansion 4× (degree 4→3→2→1→const), or a
-    PURE nonlinear-Nat `ring`/Newton-sum kit — the real infra gap (omega is
-    propext-dirty).  The G155
-    HolonomicReal *type* architecture (bundle recurrence + derived `CertifiedModulus`;
-    `toCertifiedModulus`) is the separate, heavier axis — needs the modulus/ValidCut
-    machinery — and remains open.
+    `binom_mono`, `poly_id`.  (Open *real-number* direction, not started: the G155
+    `HolonomicReal` type architecture — bundle the recurrence + a derived
+    `CertifiedModulus` so the convergence modulus is a constructed field, not a
+    hypothesis; needs the modulus/`ValidCut` machinery.)
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
@@ -159,19 +154,13 @@ unclaimed extensions it exposes:
     `c^{k!}`, with no finite `(h,d)`, has ratio-depth 1 / diff-depth 1 one
     recursion tier down — the concrete frontier toward `ε₀`.  PURE factorial
     (Lean-core `Nat.factorial` is Mathlib); division-cancel via `mul_div_self_pure`.
-  - **E. tower duality** — OPEN CONJECTURE, not a short ∅-axiom theorem (scouted +
-    scoped: `research-notes/G160`).  The GRA↔CD duality (level-`n` loss ↔ level-`5−n`
-    Reading-iso gain; both bottoming at the `5 = NS+NT` floor) is `gra_book.md`
-    Conjecture 5.3.1 / `tower_atlas.md` "Open frontier".  Three PURE bricks exist
-    (`DepthFloorDetOne`; `GRA/DepthFunctor.depth_const`; `axis_nt_five_prime` +
-    `mobius_213_discriminant`) but linking them needs (a) a formal `GRATowerLevel`
-    (narrative only now), (b) the loss⟺iso-gain proof, (c) the CD flexibility crux.
-    **Bundling the three `5`-facts is forbidden** (meaning-by-analogy import).  The
-    one concrete sub-item is the **`CDDoubleFlexible` cross-pair** (`Meta/Algebra213`,
-    all foundation PURE): `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
-    Route-1 (G160): `conj_eq`-substitute both conjugates → reduces to the
-    trace-commutator identity `−T_d·[a,b] − T_b·[a,d] + [a,b·d] + [a,d·b] = 0`; needs
-    alternativity to close (did not close by inspection — originator's flagged crux).
+  - **E. tower duality (GRA↔CD)** — OUT OF SCOPE for this branch.  It is a bridge to
+    the non-associative-algebra track (`CayleyDickson/`, `Meta/Algebra213/`), not a
+    real-number topic, and is an unproven conjecture (`gra_book.md` 5.3.1).  The
+    depth-floor `5 = NS+NT` vs CD-dimension `5` is a meaning-by-analogy that the
+    framework refuses, not an earned correspondence.  Belongs on a separate CD/GRA
+    branch (its open `CDDoubleFlexible` cross-pair attack was logged then descoped;
+    see git history if that track resumes).
 
 ## Closed and promoted (durable homes — do not re-derive)
 
