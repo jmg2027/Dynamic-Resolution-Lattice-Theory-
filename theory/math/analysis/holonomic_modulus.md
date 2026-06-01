@@ -83,8 +83,9 @@ discharged by the `Meta.Nat.PolyNat` reflection ring); the factorial tail
 > is a complete `HolonomicReal` with a constructed modulus, on the same footing as φ.
 
 e satisfies the abstract certificate (`euler_Htel`, `euler_hmono`, `euler_hmonoS`),
-so its modulus also follows from the general generator
-(`euler_total_modulus_via_rate`) — the abstraction is grounded, not vacuous.
+and `euler_cut_const` / `euler_total_modulus` are *direct instances* of
+`rate_cut_const` — e carries no bespoke engine of its own; the generator does the
+work once.
 `eHolonomic` is the genuine order-1 recurrence (`eHolonomic_recurrence`:
 `eulerDen (n+1) = (n+1)·eulerDen n`, coefficient `(n:ℤ)+1`), so the bundle's
 recurrence actually generates its convergents.

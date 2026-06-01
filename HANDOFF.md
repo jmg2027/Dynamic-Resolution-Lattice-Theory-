@@ -98,7 +98,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `rate_total_modulus` — *any* monotone convergent cut-sequence `a_i/d_i` with a
     non-increasing margin `e_i + 1/(i·d_i)` (the rate certificate `Htel`) has a total
     ∅-axiom modulus `N(m,k)=k+2`; the step is pure transitivity once `Htel` is
-    isolated.  **Validated on e** (`EulerModulus.euler_total_modulus_via_rate`, via
+    isolated.  **Validated on e**: `euler_cut_const`/`euler_total_modulus` are direct instances of `rate_cut_const`, via
     `euler_{Htel,hmono,hmonoS}`).
   - **Depth-rank ⟶ rate-certificate bridge — DONE** this arc
     (`RateModulus.Htel_of_crossdet`): `Htel` has a closed form in the
