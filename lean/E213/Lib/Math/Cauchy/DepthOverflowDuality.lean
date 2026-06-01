@@ -1,0 +1,116 @@
+import E213.Lib.Math.Cauchy.DepthCeilingResidue
+import E213.Lib.Math.Real213.RateStratification
+
+/-!
+# DepthOverflowDuality — the diagonalisation residue and the completeness-break are one operation
+
+Two facts about the resolution tower sit on opposite sides of the usual
+analysis / logic division:
+
+  * **Logical (`DepthCeilingResidue`).**  Naming "the whole tower of reference
+    levels" produces the diagonal `diag f i = f i i + 1`, which is *not* any level
+    `f i` of the family it summarises (`diag_not_in_seq`) — the Cantor residue,
+    `cantor_general` one scale up.
+  * **Analytic (`RateStratification`).**  A convergent presentation completes when its
+    cross-determinant `W` stays below the denominator quantum at every layer; where
+    `W` overflows that quantum, `(i+1)·d_{i+1} < W_i`, domination breaks
+    (`overtake_breaks_layer`) — the coordinate mismatch where completeness fails.
+
+This file shows the two are **readings of one finite operation**: at the index built
+to contain it, a constructed value strictly exceeds the closing bound — it **overflows
+by the irreducible unit `1`**.  `Overflow bound val i := bound i < val i` is, by `Nat`,
+exactly `bound i + 1 ≤ val i` (`overflow_is_unit_surplus`): the surplus is the unit,
+the count-Lens residue of one distinguishing.  Then:
+
+  * `overflow_escapes` — overflow ⟹ the value is no level of the family (the diagonal
+    reading; recovers `diag_not_in_seq` as `diag_escapes_via_overflow`);
+  * `overflow_breaks` — overflow ⟹ domination breaks at that layer (the divergence
+    reading; this is `overtake_breaks_layer`);
+  * ★★★ `overflow_dual_reading` — both at once.  Neither reading is privileged; the
+    overflow is the same surplus read at two scales.  The tie to the pointing residue
+    is `DepthCeilingResidue.ceiling_residue_is_pointing_residue`: the unit-surplus that
+    escapes/breaks here is the surplus that `Object1` leaves outside its image.
+
+So the limit of constructive completeness (where `Htel` breaks) and the surplus of
+pointing (the diagonalisation residue) are not two phenomena to be reconciled across a
+logic/analysis divide — they are one overflow, read once as "escapes the family" and
+once as "breaks the bound".  The tower has no top because the unit surplus is always
+available to overflow the next bound; that top-lessness is the residue
+(`seed/AXIOM/05_no_exterior.md`: pointing has no exterior).
+
+All zero-axiom.
+-/
+
+namespace E213.Lib.Math.Cauchy.DepthOverflowDuality
+
+open E213.Lib.Math.Cauchy.DepthCeilingResidue (diag diag_exceeds)
+open E213.Lib.Math.Real213.RateStratification (Dominates overtake_breaks_layer)
+
+/-! ## §1 — the shared operation: strict overflow at the diagonal index -/
+
+/-- **Diagonal overflow.**  At index `i`, the constructed value `val i` strictly
+    exceeds the closing bound `bound i`.  This is the single finite operation under
+    both the diagonalisation residue and the completeness-break. -/
+def Overflow (bound val : Nat → Nat) (i : Nat) : Prop := bound i < val i
+
+/-- **Overflow is a unit surplus.**  `Overflow bound val i` is, by `Nat`'s definition
+    of `<`, exactly `bound i + 1 ≤ val i` — the bound exceeded by *at least the
+    irreducible unit `1`* (the count-Lens residue of one distinguishing). -/
+theorem overflow_is_unit_surplus (bound val : Nat → Nat) (i : Nat) :
+    Overflow bound val i ↔ bound i + 1 ≤ val i := Iff.rfl
+
+/-! ## §2 — the logical reading: overflow escapes the family (the residue) -/
+
+/-- ★★★ **Overflow escapes the family.**  A value that overflows the diagonal bound
+    `i ↦ f i i` at every index cannot equal any level `f i` of the family — it escapes
+    the enumeration.  This is the diagonal/residue reading of overflow. -/
+theorem overflow_escapes (f : Nat → Nat → Nat) (val : Nat → Nat)
+    (hov : ∀ i, Overflow (fun i => f i i) val i) (i : Nat) : val ≠ f i := by
+  intro hi
+  have he : val i = f i i := congrFun hi i
+  have hlt : f i i < val i := hov i
+  rw [he] at hlt
+  exact Nat.lt_irrefl _ hlt
+
+/-- The Cantor diagonal `diag f` overflows the bound `i ↦ f i i` with surplus exactly
+    the unit `1` (`diag f i = f i i + 1`). -/
+theorem diag_is_overflow (f : Nat → Nat → Nat) (i : Nat) :
+    Overflow (fun i => f i i) (diag f) i :=
+  diag_exceeds f i
+
+/-- `diag_not_in_seq` recovered as a pure instance of `overflow_escapes`: the
+    canonical (unit-surplus) overflow escapes the family. -/
+theorem diag_escapes_via_overflow (f : Nat → Nat → Nat) (i : Nat) : diag f ≠ f i :=
+  overflow_escapes f (diag f) (diag_is_overflow f) i
+
+/-! ## §3 — the analytic reading: overflow breaks domination (¬Htel) -/
+
+/-- ★★★ **Overflow breaks the bound.**  A cross-determinant `W` that overflows the
+    denominator quantum `(i+1)·d_{i+1}` at layer `i ≥ 1` breaks domination there:
+    `¬ Dominates W d i`.  This is `overtake_breaks_layer` — the completeness/divergence
+    reading of the *same* overflow. -/
+theorem overflow_breaks (d W : Nat → Nat) (i : Nat) (hi : 1 ≤ i)
+    (hov : Overflow (fun i => (i+1) * d (i+1)) W i) : ¬ Dominates W d i :=
+  overtake_breaks_layer W i hi hov
+
+/-! ## §4 — the duality -/
+
+/-- ★★★ **The shared engine.**  The diagonalisation residue (logical) and the
+    completeness-break (analytic) are two readings of one finite operation — a value
+    overflowing, by the irreducible unit `1`, the bound built to contain it:
+
+      1. logical: overflow ⟹ the value escapes every level of the family (residue);
+      2. analytic: overflow ⟹ domination breaks at that layer (¬Htel).
+
+    Neither reading is privileged.  The overflow `bound i + 1 ≤ val i` is the
+    count-Lens surplus of one distinguishing, read at two scales; the tie to the
+    pointing residue is `DepthCeilingResidue.ceiling_residue_is_pointing_residue`. -/
+theorem overflow_dual_reading :
+    (∀ (f : Nat → Nat → Nat) (val : Nat → Nat),
+        (∀ i, Overflow (fun i => f i i) val i) → ∀ i, val ≠ f i)
+    ∧ (∀ (d W : Nat → Nat) (i : Nat), 1 ≤ i →
+        Overflow (fun i => (i+1) * d (i+1)) W i → ¬ Dominates W d i) :=
+  ⟨fun f val hov i => overflow_escapes f val hov i,
+   fun d W i hi hov => overflow_breaks d W i hi hov⟩
+
+end E213.Lib.Math.Cauchy.DepthOverflowDuality

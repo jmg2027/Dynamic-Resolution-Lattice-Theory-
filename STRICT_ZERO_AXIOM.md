@@ -251,6 +251,14 @@ The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
 (Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
 polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
 
+`E213.Lib.Math.Cauchy.DepthOverflowDuality` — **7 PURE / 0 DIRTY**.
+The analysis ↔ logic single engine: `Overflow bound val i := bound i <
+val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`
+(overflow ⟹ value is no level of the family; recovers `diag_not_in_seq`),
+`overflow_breaks` (overflow ⟹ domination breaks = `overtake_breaks_layer`),
+`overflow_dual_reading` (both readings of one operation).  Bridges
+`DepthCeilingResidue` (Cantor residue) and `RateStratification` (¬Htel).
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE

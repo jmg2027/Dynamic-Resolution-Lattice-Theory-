@@ -128,6 +128,21 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `dominated_free_modulus`; the Liouville overtake made concrete (named `W`/`d` from
     a Liouville presentation into `overtake_breaks_layer`); closure of `Dominates`
     under `+`/`×` (G166-T3).
+  - **Analysis ↔ logic single engine — DONE** this arc (`Cauchy/DepthOverflowDuality`,
+    7 PURE): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
+    Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val
+    i`, the unit surplus = count-Lens residue of one distinguishing).  Two readings of
+    one finite operation: `overflow_escapes` (overflow ⟹ value escapes the family =
+    Cantor residue, recovers `DepthCeilingResidue.diag_not_in_seq`) and
+    `overflow_breaks` (overflow ⟹ domination breaks = `RateStratification.
+    overtake_breaks_layer`, ¬Htel); `overflow_dual_reading` bundles them.  Honest: not
+    "¬Htel IS Cantor non-surjectivity" (stereotype-match) — both are the *same overflow
+    `bound+1 ≤ val`*, neither reading privileged (`05_no_exterior` §5.7).  Q2 (ω₁^CK as
+    gauge shift, not a wall) is the narrative reading in `research-notes/G168`: the
+    overflow engine runs identically above/below ω₁^CK; what changes is the naming-Lens,
+    no exterior wall (§5.1).  OPEN (still beyond T1–T4): Phase-1 transfinite projection
+    of `T` into ε₀/Γ₀ as one structural theorem (avoid the `_at_level_n` smell); a
+    measurable falsifier from the overflow unit `1`.
     OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
     fast for the smallness law; needs `μ(π)`); more instances need their convergents
     as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet

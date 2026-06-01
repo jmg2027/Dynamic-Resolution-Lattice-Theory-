@@ -19,6 +19,7 @@ import E213.Lib.Math.Cauchy.DepthOmegaTower
 import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
 import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
+import E213.Lib.Math.Cauchy.DepthOverflowDuality
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
@@ -88,9 +89,17 @@ import E213.Lib.Math.Cauchy.DepthFloorDetOne
     * `DepthCeilingResidue` — naming the ceiling-raising is a
                              diagonalisation = the residue
                              (`cantor_general`, `self_covering_closure`).
+    * `DepthOverflowDuality`— the diagonalisation residue and the
+                             completeness-break are one operation:
+                             a value overflowing the closing bound by
+                             the unit `1` either *escapes the family*
+                             (`overflow_escapes`, recovers
+                             `diag_not_in_seq`) or *breaks domination*
+                             (`overflow_breaks` = `overtake_breaks_layer`)
+                             — `overflow_dual_reading`.
 
   ## Status
 
-  23/23 files included.  All ∅-axiom on the production critical
+  24/24 files included.  All ∅-axiom on the production critical
   path (`tools/scan_axioms.py` — see per-file status notes).
 -/
