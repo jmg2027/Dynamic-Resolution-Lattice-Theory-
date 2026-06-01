@@ -174,8 +174,20 @@ natively means.  **Materialized PURE proof** (∅-axiom, end-to-end): new
 `Raw.fold_slash_iff` (Theory; ≈-fold homomorphism) + `universalLens_{combine_sym,
 view_eq}_pw` (QuotLens; pointwise companions to the sealed `=` forms).  Only
 `propAsDistinguishing` is a genuine thesis-cost.  **Playbook gem**: `rw` on an
-`↔` pulls `propext` → use `Iff.trans`.  Remaining = engineering (migrate the
-rest of the Prop-Lens family to `_pw`/`≈` or Bool per §6.3), not research.
+`↔` pulls `propext` → use `Iff.trans`.
+
+**SINGLE ROOT identified (G163).**  Every funext/propext seal for Prop/function-
+valued Lenses bottoms out in **`Lens.equiv := (view x = view y)`** (and
+`refines` built on it): pinned `equiv_from_pointwise` → `[propext, Quot.sound]`,
+while the Reading-native `equivR := ∀ s, view x s ↔ view y s` (refl/trans/symm)
+is PURE.  Universal — `IndexedJoin` (`iProdLens_view` "pointwise to avoid
+funext"), `Cauchy` (`pointwise_limit_match`), `QuotLens` (`_pw`) independently use
+the same fix; **no new obstruction**.  So the whole seal family is **one scoped
+foundational edit**: a Reading-native `Lens.equiv`/`refines` for `Prop` codomains
+(decidable `Bool`/`Nat` codomains keep `=`, already PURE).  The seal arc
+(G161→G162→G163) is the research result; materializing `equivR`/`refinesR` in
+`LensCore` + migrating the families is the (deliberate, foundational)
+implementation arc.
 
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
