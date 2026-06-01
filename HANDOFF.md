@@ -163,6 +163,20 @@ associate-only `simp only`, then close the residue with explicit `Int213`/`rw`
 chains (cf. `ZOmegaDomain`, `QuadIdentities.cancel_two_pairs`).  Pure Int helpers
 added: `ZOmegaDomain.{nonneg_of_add_self, eisenstein_double, conj_fc1, conj_fc2}`.
 
+**Prop-codomain seals RESOLVED + the fix DEMONSTRATED (G162).**  Grounded in the
+axiom text (§3.4 directionless slash, §10.2/10.4 Quot-avoidance = falsifiability +
+verified order-independence, §6.3 "strict reading = Bool/decidable", §8.2): the
+canonical slash, Quot-avoidance, and `fold` are all **correct** (free-slash ruled
+out by §3.4).  The ~54 seals are the cost of stating distinguishing-outcome
+coherence as Lean **function-`=`** (which pulls `funext` = `Quot.sound`, +
+`propext` at `Prop`) instead of the **pointwise Reading-equivalence (`↔`)** 213
+natively means.  **Materialized PURE proof** (∅-axiom, end-to-end): new
+`Raw.fold_slash_iff` (Theory; ≈-fold homomorphism) + `universalLens_{combine_sym,
+view_eq}_pw` (QuotLens; pointwise companions to the sealed `=` forms).  Only
+`propAsDistinguishing` is a genuine thesis-cost.  **Playbook gem**: `rw` on an
+`↔` pulls `propext` → use `Iff.trans`.  Remaining = engineering (migrate the
+rest of the Prop-Lens family to `_pw`/`≈` or Bool per §6.3), not research.
+
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
 monad) are honestly inherent.  For the ~54 Lens/Prop seals the honest verdict is

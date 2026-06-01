@@ -103,14 +103,31 @@ real arc (pointwise/`≈` fold + combine coherence, or Bool-valued Lenses per
     `propAsDistinguishing` (one thesis) are structural.  Pinned by
     `#print axioms` (`funext`→`Quot.sound`, `ptwise_bool`→PURE).
 
-## Next research increment
+## Constructive demonstration — DONE (materialized, ∅-axiom)
 
-Prototype the **pointwise/`≈` fold-homomorphism for `(Raw → Prop)`-valued
-Lenses** (`fold_slash_equiv`: `hsym` and conclusion up to pointwise `↔`) and
-derive `universalLens_view_eq_pointwise : ∀ r s, view r s ↔ E r s` PURE — which
-would demonstrate the entire Prop-Lens chain is purifiable without touching the
-correct `Raw`/canonical/`Quot`-free core.  Then either migrate Prop-valued
-Lenses to Bool (§6.3) or carry the `≈`-fold as the canonical homomorphism.
+The thesis is now proven end-to-end and materialized as real PURE theorems
+(not probes), without touching the correct `Raw`/canonical/`Quot`-free core:
+
+  - **`Raw.fold_slash_iff`** (`Theory/Raw/Fold.lean`) — the Reading-equivalence
+    (`↔`) fold/slash homomorphism: `hsym : ∀ u v s, c u v s ↔ c v u s` ⟹
+    `∀ s, fold (slash x y) s ↔ c (fold x)(fold y) s`.  **PURE** (the `cmp = gt`
+    canonicalisation swap is absorbed by the pointwise `hsym`; no `funext`,
+    no `propext`).
+  - **`universalLens_combine_sym_pw`** and **`universalLens_view_eq_pw`**
+    (`Lens/Universal/QuotLens.lean`) — the pointwise `↔` forms of the sealed
+    `combine_sym` / `view_eq`.  Both **PURE**, built on `fold_slash_iff`.  They
+    coexist with the sealed `=` forms, concretely proving in-module that the
+    `funext`/`propext` is a **statement-shape cost** (function-`=`), not a
+    Lean-core necessity.
+
+**Playbook gem found en route**: `rw` on an `↔` pulls `propext` (it rewrites
+`Iff`→`Eq` at `Prop`); thread the equivalence with `Iff.trans` instead.
+
+So the remaining work is *engineering, not research*: migrate the rest of the
+sealed Prop-valued Lens family (`IndexedJoin`, `Compose.OnLens`, `Lattice.Join`,
+`Cauchy/GenericFamily`, `Hyper`) to the `_pw` / `≈` forms (or to Bool-valued
+Lenses per §6.3), and decide per-consumer whether the `=` form is still needed.
+`propAsDistinguishing` stays sealed (the only genuine thesis-cost).
 
 ## Pointers
   - Axioms: `seed/AXIOM/03_form.md` §3.3-3.4, `06_lens_readings.md` §6.3,
