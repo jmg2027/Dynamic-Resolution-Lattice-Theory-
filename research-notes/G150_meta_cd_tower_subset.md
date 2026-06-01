@@ -576,6 +576,41 @@ P9-C (`120 = 5! = (NS+NT)!`, icosian over `ℚ(√5)`, `5 = disc P = NS+NT`)
 remains a *speculative* link of the seed-ladder endpoint to the repo's
 `5`-floor, not formalized.
 
+### Phase 9.3 — adversarial critique integrated
+
+An agent independently re-implemented `ZPhi`/`Icosian.mul` and recomputed
+`g²…g⁵` in exact `ℤ[φ]`: all three original conjuncts reproduce, build
+clean, genuinely ∅-axiom.  Crucially it found that **no truncation ever
+occurs** on the `g` orbit (every pre-halving coordinate of `g²…g⁵` is
+even), so the `Int /2` halving is exact throughout and `normSq` (computed
+*without* halving) is a clean unit witness — the construction is sound,
+not a truncation artifact.  The two soft spots it flagged were rhetorical,
+both now fixed:
+
+  - **order exactly 5 promoted to theorem.**  Added `g5² ≠ 1` so
+    `icosian_order5_unit` proves order divides 5, `≠ 1`, `≠` order-2 —
+    the "exactly 5" no longer lives only in prose.  (Order-10 witness
+    `icosian_order10_unit` added in parallel: full `{5,10}` menu.)
+  - **the `orderOf`-vacuity closed.**  `two_T_torsion_bounded_at_6`:
+    `hur_orderOf` returns `0` exactly for orders outside `{1,2,3,4,6}`,
+    and `hur_order_distribution` proves that `0`-count is `0` — so `2T`
+    *provably* has no order-5/order-10 element.  The contrast "Type E
+    carries `{5,10}`, the lower seeds do not" is now a real theorem, not
+    an artifact of a checker that never tests the 5th power.
+  - **framing softened.**  The Lean docstring now says "an order-5 element
+    *of the icosian quaternion order*" (not "of `2I`", which would
+    presume the 120-group), marks the "McKay rung" reading as conjectural
+    narrative, and states that only the explicit elements — not the full
+    `2I` group, its closure, or P9-B/C — are proved.
+
+**Marathon-4 verdict:** the seed/McKay ladder now has executable
+witnesses at its `2I` rung — order-5 and order-10 icosian units over
+`ℤ[φ]`, with the lower-seed order-bound proved so the new pentagonal
+torsion is genuine.  The construction is honestly scoped (one/two
+elements, not the 120-group; `ℤ[φ]` coefficients outside the `ℤ`-CD
+matrix), and the McKay/ADE "complete object" remains the cited frame the
+repo's own `24·5=120`, `SL(2,𝔽₅)≅2I` point toward.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
