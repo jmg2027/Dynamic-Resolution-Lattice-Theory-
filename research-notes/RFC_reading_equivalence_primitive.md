@@ -1,6 +1,6 @@
 # RFC — Reading-equivalence as 213's canonical equivalence primitive
 
-Status: **accepted (design)**, unimplemented.  Author: research-leadership
+Status: **accepted + IMPLEMENTED (P0–P4 done)**.  Author: research-leadership
 note (Mingu Jeong + Claude).  Supersedes the framing of `G164` (which is the
 technical investigation feeding this).  Scope marker: **foundational coherence
 arc, NOT a DRLT Validation target** — see §6.
@@ -232,8 +232,10 @@ codomains.
   * **Remaining DIRTY = the Prop-atom thesis only** (category B):
     `propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`
     — `propext` IS the content there, kept by design (boundary rule §2.1).
-  * **P4 (narrative)**: collapse the fragmentation story (`Lens.equiv`/`refines`/
-    kernel + `HasDistinguishing.combine_sym` = one reading-equivalence arrow) into
-    `theory/lens/unified_equivalence.md`.  Pending.
+  * **P4 DONE**: `theory/lens/unified_equivalence.md` carries the unified story
+    (the "Reading-equivalence is the equivalence primitive" section): `Lens.equiv`/
+    `refines`/kernel + `HasDistinguishing.combine_sym` + the composite/`sameLens`
+    tower are facets of one reading-equivalence arrow; `=` is the concrete
+    realization; `propext` only at the `Prop`-atom thesis.
   * Reminder (§6): this was foundational coherence — the precision/falsifier
     Validation work is the standard and was not displaced.

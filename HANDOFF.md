@@ -105,10 +105,12 @@ stated via `=`) is **retired**.  All three walls solved:
     `universalMorphism_unique` + `sameLens`-trans/cong; dead `=`-funext lemmas
     deleted.  Remaining DIRTY = **Prop-atom thesis only** (category B:
     `propAsDistinguishing*`/`canonical*Map`/`BoolProp.universalMorphism_commute_*`),
-    kept by design.  **P4 (pending, narrative)**: collapse the fragmentation story
-    into `theory/lens/unified_equivalence.md`.  Full recipe + decisions:
-    `research-notes/RFC_reading_equivalence_primitive.md` (§8).  **Was foundational
-    coherence — the precision/falsifier Validation work was not displaced.**
+    kept by design.  **P4 done**: `theory/lens/unified_equivalence.md` carries the
+    unified narrative (reading-equivalence as the one sameness; `=` its concrete
+    realization; `propext` only at the `Prop`-atom thesis).  **ARC COMPLETE
+    (P0–P4).**  Full recipe + decisions: `research-notes/RFC_reading_equivalence_primitive.md`.
+    **Was foundational coherence — the precision/falsifier Validation work was not
+    displaced.**
     Technical investigation: `G164` (5 passes — design-C-cascade scope + the
     defeq/diamond encoding findings).
     (`GenericFamily` was the same family and is now
