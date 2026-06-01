@@ -144,6 +144,42 @@ theorem universalLens_view_eq_pw
       · intro hE
         exact ⟨x, y, h, fun t => (ihx t).symm, fun t => (ihy t).symm, hE⟩
 
+/-- `combine` respects pointwise `↔` in both arguments — the universalLens
+    `combine`'s Reading-monotonicity.  PURE; holds for *any* `E`. -/
+theorem universalLens_combine_cong_pw (f f' g g' : Raw → Prop)
+    (hf : ∀ s, f s ↔ f' s) (hg : ∀ s, g s ↔ g' s) :
+    ∀ r', (universalLens E).combine f g r' ↔ (universalLens E).combine f' g' r' := by
+  intro r'
+  constructor
+  · rintro ⟨X, Y, h, hX, hY, hs⟩
+    exact ⟨X, Y, h, fun s => (hX s).trans (hf s), fun s => (hY s).trans (hg s), hs⟩
+  · rintro ⟨X, Y, h, hX, hY, hs⟩
+    exact ⟨X, Y, h, fun s => (hX s).trans (hf s).symm, fun s => (hY s).trans (hg s).symm, hs⟩
+
+/-- Fold/slash reduction as a pointwise `↔` — `view (slash x y h)` distinguishes
+    the same things as `combine (view x) (view y)`.  PURE, via `Raw.fold_slash_iff`
+    + the unconditional `combine_sym_pw`. -/
+theorem universalLens_fold_pw (x y : Raw) (h : x ≠ y) :
+    ∀ s, (universalLens E).view (Raw.slash x y h) s
+      ↔ (universalLens E).combine ((universalLens E).view x)
+           ((universalLens E).view y) s :=
+  fun s => Raw.fold_slash_iff _ _ _
+    (fun u v t => universalLens_combine_sym_pw E u v t) x y h s
+
+/-- `(universalLens E).equivR` is a slash-congruence — the Reading-native
+    (∅-axiom) form of `equiv_slash_congruence` at the `Raw → Prop` codomain,
+    via the generic `Lens.equivG_slash_congruence` (recall `equivG = equivR`
+    here).  Needs no symmetry hypothesis on `E`: the universalLens `combine`
+    is unconditionally `↔`-symmetric and `↔`-monotone. -/
+theorem universalLens_equivR_slash_congruence
+    {x x' y y' : Raw} (hx : x ≠ y) (hx' : x' ≠ y')
+    (hxx' : (universalLens E).equivR x x') (hyy' : (universalLens E).equivR y y') :
+    (universalLens E).equivR (Raw.slash x y hx) (Raw.slash x' y' hx') :=
+  Lens.equivG_slash_congruence (universalLens E)
+    (fun a b hab => universalLens_fold_pw E a b hab)
+    (fun a a' b b' ha hb => universalLens_combine_cong_pw E a a' b b' ha hb)
+    hx hx' hxx' hyy'
+
 /-- **Kernel = E, Reading-native** — the ∅-axiom hub.  `equivR` (pointwise `↔`)
     replaces the sealed `view r = view r'`; this is the load-bearing kernel
     theorem the lattice / Cauchy refinement machinery can migrate onto without
@@ -209,6 +245,20 @@ theorem universalLens_recovers (α : Type) (M : Lens α)
     exact E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
       M hMsym x x' y y' hxy hx'y' hxx' hyy'
 
+/-- **Canonical form, Reading-native (∅-axiom)** — the `equivR` companion of
+    `universalLens_recovers`.  `universalLens M.equiv` recovers `M`'s kernel:
+    its `equivR` kernel equals `M.equiv`.  PURE, via `kernel_eq_E_R`. -/
+theorem universalLens_recovers_R (α : Type) (M : Lens α)
+    (hMsym : ∀ u v, M.combine u v = M.combine v u)
+    (r r' : Raw) :
+    (universalLens M.equiv).equivR r r' ↔ M.equiv r r' :=
+  universalLens_kernel_eq_E_R M.equiv
+    (fun _ => rfl) (fun _ _ h => h.symm) (fun _ _ _ h1 h2 => h1.trans h2)
+    (fun x x' y y' hxy hx'y' hxx' hyy' =>
+      E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
+        M hMsym x x' y y' hxy hx'y' hxx' hyy')
+    r r'
+
 /-- **Idempotence**: applying universalLens twice yields the same kernel.
     Direct expression of universalLens as a normalization map. -/
 theorem universalLens_idempotent (α : Type) (M : Lens α)
@@ -224,5 +274,22 @@ theorem universalLens_idempotent (α : Type) (M : Lens α)
     exact E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
       (universalLens M.equiv) (universalLens_combine_sym M.equiv)
       x x' y y' hxy hx'y' hxx' hyy'
+
+/-- **Idempotence, Reading-native (∅-axiom)** — the `equivR` companion of
+    `universalLens_idempotent`.  Normalizing the (already-normal) `equivR` kernel
+    of `universalLens E` again recovers it.  PURE: the inner relation's
+    slash-congruence is `universalLens_equivR_slash_congruence`, needing no
+    `=`-form `combine_sym` (the sole `propext` source the sealed `idempotent`
+    carries). -/
+theorem universalLens_idempotent_R (r r' : Raw) :
+    (universalLens ((universalLens E).equivR)).equivR r r'
+      ↔ (universalLens E).equivR r r' :=
+  universalLens_kernel_eq_E_R ((universalLens E).equivR)
+    (fun x => Lens.equivR_refl _ x)
+    (fun _ _ h => Lens.equivR_symm _ h)
+    (fun _ _ _ h1 h2 => Lens.equivR_trans _ h1 h2)
+    (fun _ _ _ _ hxy hx'y' hxx' hyy' =>
+      universalLens_equivR_slash_congruence E hxy hx'y' hxx' hyy')
+    r r'
 
 end E213.Lens.Universal.QuotLens
