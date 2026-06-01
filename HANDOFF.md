@@ -93,11 +93,18 @@ stated via `=`) is **retired**.  All three walls solved:
   - **Compose funext-on-combine** (`Compose.OnLens (9)` + `Properties.TowerLevel3
     (1)`, all `Quot.sound`-only): `funext` on `HasDistinguishing.combine_sym`
     (`= ` field) at codomain `Lens β`.  Retire by the **`same`-augmented
-    `HasDistinguishing` rebuild** — design + the three elaboration walls + the
-    recommended green-per-commit path in **`research-notes/G164`**.  PURE
-    foundation already materialized: `Raw.fold_slash_rel` (`Theory/Raw/Fold.lean`)
-    + the eqPW twins (`Lens/EqPW.lean`, `OnLens.*_eqPW`).  **Headline-(a)-sized**;
-    needs a dedicated session.  (`GenericFamily` was the same family and is now
+    `HasDistinguishing` rebuild** — design **validated** (autoParam `same`-fields
+    = design C, diamond-free), cascade shown **mechanical** (relativize `=`→`same`
+    + thread an `hSsame` closure hyp, trivial at Eq-codomains), full recipe in
+    **`research-notes/G164`**.  PURE foundations **materialized + committed**:
+    `Raw.fold_slash_rel` (`Theory/Raw/Fold.lean`), `Lens.sameLens` +
+    `sameLens_refl/symm/trans` (`Lens/EqPW.lean`),
+    `lensCombineGeneric_{comm,cong}_same` (`OnLens`), + the eqPW twins.  Remaining
+    = the **one atomic commit** (SemanticAtom class + universal-morphism +
+    OnLens instances, kept green together — `lake build` default target does NOT
+    cover `Compose.OnLens`, verify explicitly) then thread `hSsame` through
+    Reach/ImageMinimum/OnLensImage*/TowerLevel3/Hyper213Tower.  Fresh-session task.
+    (`GenericFamily` was the same family and is now
     PURE — pointwise-at-index.)
   - **DepthJoin** (`Instances.Leaves.DepthJoin`) — **DONE** (10 → 0): `omega` /
     `simp` / `decide`-closing-`Iff` replaced by explicit PURE Nat reasoning
