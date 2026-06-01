@@ -251,13 +251,17 @@ The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
 (Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
 polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
 
-`E213.Lib.Math.Cauchy.DepthOverflowDuality` — **7 PURE / 0 DIRTY**.
+`E213.Lib.Math.Cauchy.DepthOverflowDuality` — **13 PURE / 0 DIRTY**.
 The analysis ↔ logic single engine: `Overflow bound val i := bound i <
 val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`
 (overflow ⟹ value is no level of the family; recovers `diag_not_in_seq`),
 `overflow_breaks` (overflow ⟹ domination breaks = `overtake_breaks_layer`),
 `overflow_dual_reading` (both readings of one operation).  Bridges
 `DepthCeilingResidue` (Cantor residue) and `RateStratification` (¬Htel).
+Plus the unit-generator layer: `minOverflow bound = bound + 1` is the
+pointwise-least overflow (`least_overflow`, `minOverflow_overflows`), the
+diagonal achieves it (`diag_is_minOverflow`), and overflow is monotone /
+shift-stable (`overflow_mono_val`, `overflow_shift`).
 
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
