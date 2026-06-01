@@ -202,6 +202,59 @@ default elaboration for omitting instances interferes), NOT a fundamental wall.
    `OnLensImageLevel2` / `TowerLevel3` (recursive — need `sameLens` at the base)
    and `Hyper213Tower`.
 
+## UPDATE 2026-06-01 (fifth pass) — DECISIVE: design C cascades to ALL
+## composite instances; design D (confined PW path) is the correct architecture
+
+Executing design C end-to-end (per the recipe) revealed its true scope, which is
+**not confined to the Lens tower**:
+
+  * `Pair.pairHasDistinguishing.combine_sym` (and every instance built FROM other
+    instances — `Sum`, `Subtype`, `SubtypeClosed`, …) proves its own `combine_sym`
+    by `rw [d_α.combine_sym, d_β.combine_sym]`.  Once `combine_sym` is `same`-based,
+    `d_α.combine_sym` is `same_α (…)(…)` with `same_α` **abstract** (α is a
+    variable), so it can be neither `rw`'d as `=` nor reduced — the composite
+    instance's `same` must itself become a product-sameness.  **Cascade reaches
+    the whole composite-instance surface.**
+  * Generic `=`-consumers (`Pair.universalMorphism_pair_commute`, the `BoolProp`
+    commute family) state `=` and cannot extract it from `universalMorphism_slash`
+    when the instance's `same` is abstract (generic α) — they too must relativize
+    to `same`.
+  * The `have e : (lhs = rhs) := universalMorphism_slash …` extraction works only
+    for a **concrete `def` instance whose `same` reduces** (e.g. `boolHD` in the
+    scratch); it does NOT work for an abstract `[d : HasDistinguishing α]`
+    (Pair/generic) nor reliably through an ambient resolved instance.
+
+**Conclusion — architecture decision:** design C (unify `combine_sym` via a
+`same` field on the *single* `HasDistinguishing`) is mechanically completable but
+its blast radius is the **entire instance + generic-consumer surface (~24 files)**
+— wrong cost.  The correct, *confined* architecture is **design D**: leave
+`HasDistinguishing` (Eq-world) completely UNCHANGED, and give the **Lens tower its
+own pointwise path**.  Two equivalent shapes for D:
+
+  (D1) a separate `HasDistinguishingPW` class (`combine_sym : sameLens …`) used
+       only by `lensBoolHasDistinguishingPW` / `lensHasDistinguishingPW` +
+       `universalMorphismPW` + `universalMorphismPW_slash` (sameLens form), and
+       rebuild the image tower (`OnLensImage{,Generic,Level2}`, `TowerLevel3`,
+       `Hyper213Tower`) on it; OR
+  (D2) no new class — delete the DIRTY `lens*HasDistinguishing` instances and the
+       `=`-form tower theorems (they have `_eqPW` twins), and rebuild the
+       **recursive** tower (`factors_level2/3`, `TowerLevel3`) directly on
+       `lensCombineGeneric` + `view_unique_eqPW` + the materialized `sameLens`
+       (the recursive base sameness), with **no** `HasDistinguishing (Lens β)`
+       instance.
+
+D2 is the smaller/cleaner one (no parallel class; reuses `sameLens` + the eqPW
+twins already present).  The crux it must solve: a `factors_generic_sameLens`
+(or eqPW) that works at a `Lens` base **without** requiring
+`[HasDistinguishing (Lens α)]` — threading the base's `combine_sym` (`=`-form,
+which the Eq-base provides) through `sameLens` at each tower level.  Foundations
+for D2 (`fold_slash_rel`, `Lens.sameLens` + laws, `lensCombineGeneric_{comm,
+cong}_same`, all the `_eqPW` twins) are **materialized + committed**.
+
+Execute D2 in a fresh focused session: it touches only the ~6 Lens-tower files,
+leaves the Eq-world untouched (no defeq wall, no composite-instance cascade), and
+retires the 10 Lens-tower DIRTY.
+
 ### Concrete green-per-commit sequence (next session)
 
 1. (DONE, committed) `Raw.fold_slash_rel`.
