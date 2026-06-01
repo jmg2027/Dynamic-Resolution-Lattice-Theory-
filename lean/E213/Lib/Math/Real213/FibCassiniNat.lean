@@ -3,6 +3,8 @@ import E213.Lib.Math.Real213.PhiAsCut
 import E213.Lib.Math.Real213.Mobius213PellInvariant
 import E213.Meta.Nat.PureNat
 import E213.Lib.Math.NatRing
+import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # FibCassiniNat — the Fibonacci convergents lie below φ (all-Nat, ∀ n)
@@ -28,7 +30,10 @@ namespace E213.Lib.Math.Real213.FibCassiniNat
 
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
-open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul)
+open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul mul_sq sq_le_imp sq_lt_imp)
+open E213.Lib.Math.NatRing renaming nat_mul_lt_mul_right → mul_lt_mul_r, nat_mul_lt_mul_left → mul_lt_mul_l
+open E213.Tactic.NatHelper (lt_of_lt_le lt_of_le_lt)
+open E213.Meta.Nat.NatDiv213 (two_cancel two_cancel_lt)
 
 /-! ## Fibonacci couplings (all PURE, from `fib_succ_succ` = rfl) -/
 
@@ -268,65 +273,6 @@ theorem cs_false_forward (i m k : Nat)
 If `phiCut m k = true` (target `m/k ≥ φ`) then every convergent is `≤ m/k`
 (since `conv_i < φ ≤ m/k`), so the cut is `true` at every layer.  Proof routes
 through φ as a mediator in squared-norm Nat form (`cut_trans`); no Int↔Nat cast. -/
-
-/-- `(x·y)² = x²·y²`. -/
-private theorem mul_sq (x y : Nat) : (x * y) * (x * y) = (x * x) * (y * y) := by
-  rw [nat_mul_assoc, ← nat_mul_assoc y x y, Nat.mul_comm y x, nat_mul_assoc x y y,
-      ← nat_mul_assoc x x (y * y)]
-
-/-- `a < b → b ≤ c → a < c`, PURE (`Nat.lt_of_lt_of_le` pulls propext; `a < b`
-    is `a+1 ≤ b`, so `Nat.le_trans` suffices). -/
-private theorem lt_of_lt_le {a b c : Nat} (h1 : a < b) (h2 : b ≤ c) : a < c :=
-  Nat.le_trans h1 h2
-
-/-- `a ≤ b → b < c → a < c`, PURE. -/
-private theorem lt_of_le_lt {a b c : Nat} (h1 : a ≤ b) (h2 : b < c) : a < c :=
-  Nat.le_trans (Nat.succ_le_succ h1) h2
-
-/-- `b·a < c·a` for `0 < a`, `b < c` — PURE (Lean-core `Nat.mul_lt_mul_right`
-    is an `iff` that pulls `propext`/`Classical`; `Nat.exists_eq_add_of_lt` also
-    pulls `Classical`, so this routes through `(b+1)·a ≤ c·a` instead). -/
-private theorem mul_lt_mul_r {b c a : Nat} (ha : 0 < a) (h : b < c) :
-    b * a < c * a := by
-  have hstep : (b + 1) * a ≤ c * a := Nat.mul_le_mul_right a h
-  have heq : (b + 1) * a = b * a + a := by rw [add_mul, Nat.one_mul]
-  rw [heq] at hstep
-  exact lt_of_lt_le (Nat.lt_add_of_pos_right ha) hstep
-
-/-- `x² ≤ y² → x ≤ y` on Nat (propext-free; rules out `y < x` via strict
-    square monotonicity, using the PURE `mul_lt_mul_r`).  `Nat.lt_or_ge` /
-    `Nat.not_le` are themselves PURE — the earlier `[propext]` came only through
-    the now-fixed `mul_lt_mul_r`. -/
-private theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
-  cases Nat.lt_or_ge y x with
-  | inr hle => exact hle
-  | inl hgt =>
-    have hx0 : 0 < x := lt_of_le_lt (Nat.zero_le y) hgt
-    have h1 : y * y ≤ y * x := Nat.mul_le_mul_left y (Nat.le_of_lt hgt)
-    have h2 : y * x < x * x := mul_lt_mul_r hx0 hgt
-    exact (Nat.not_le.mpr (lt_of_le_lt h1 h2) h).elim
-
-private theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
-  Nat.le_of_mul_le_mul_left h (by decide)
-
-/-- `2x < 2y → x < y`, PURE (Lean-core `Nat.lt_of_mul_lt_mul_left` pulls
-    `Classical`; rule out `y ≤ x` via `Nat.mul_le_mul_left`). -/
-private theorem two_cancel_lt (x y : Nat) (h : 2 * x < 2 * y) : x < y := by
-  cases Nat.lt_or_ge x y with
-  | inl hlt => exact hlt
-  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 hge) h).elim
-
-/-- `a < b → c·a < c·b` for `0 < c`, PURE (commute to the right-strict
-    `mul_lt_mul_r`). -/
-private theorem mul_lt_mul_l {a b c : Nat} (hc : 0 < c) (h : a < b) :
-    c * a < c * b := by
-  rw [Nat.mul_comm c a, Nat.mul_comm c b]; exact mul_lt_mul_r hc h
-
-/-- `x² < y² → x < y` on Nat, PURE (rule out `y ≤ x` via `Nat.mul_le_mul`). -/
-private theorem sq_lt_imp (x y : Nat) (h : x * x < y * y) : x < y := by
-  cases Nat.lt_or_ge x y with
-  | inl hlt => exact hlt
-  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul hge hge) h).elim
 
 /-- `fib(2i+1) ≤ fib(2i+2)` — the convergent numerator dominates its denominator
     (so every convergent ratio is `≥ 1`). -/

@@ -81,4 +81,15 @@ theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c ^ (n + 1) / c ^ n = c := by
   rw [Nat.pow_succ]
   exact mul_div_cancel_left_pure (c ^ n) c (Nat.pos_pow_of_pos n hc)
 
+/-- `2x ≤ 2y → x ≤ y`, ∅-axiom (left-cancel a positive factor). -/
+theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
+  Nat.le_of_mul_le_mul_left h (by decide)
+
+/-- `2x < 2y → x < y`, ∅-axiom (Lean-core `Nat.lt_of_mul_lt_mul_left`
+    pulls `Classical`; rule out `y ≤ x` via `Nat.mul_le_mul_left`). -/
+theorem two_cancel_lt (x y : Nat) (h : 2 * x < 2 * y) : x < y := by
+  cases Nat.lt_or_ge x y with
+  | inl hlt => exact hlt
+  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 hge) h).elim
+
 end E213.Meta.Nat.NatDiv213
