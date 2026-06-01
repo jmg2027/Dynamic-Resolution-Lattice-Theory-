@@ -63,6 +63,9 @@
     denominator (`W=c^{k!}`), so it carries a free modulus — tame on this axis.
   - `CrossDetEqDenom.lean` — ★ the general `W=d` theorem behind both e and Liouville
     (`crossdet_eq_denom_total_modulus`); both reprove as one-liners.
+  - `CrossDetConstDenom.lean` — ★ the `W=const` rung (`crossdet_const_total_modulus`) +
+    φ (Fibonacci convergents `fib(2i+2)/fib(2i+1)`) as its named instance, through the
+    same bridge as e/Liouville.
   - `GeometricThreshold.lean` — ★ the sharp growth-rate boundary: geometric `W=r^i`
     over `d=q^i` is free iff `r < q` (not `r ≤ q`); strong overtake `q²≤r` breaks it.
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five

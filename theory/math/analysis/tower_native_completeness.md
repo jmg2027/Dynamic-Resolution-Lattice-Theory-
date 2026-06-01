@@ -29,6 +29,7 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/CrossDetOvertake.lean` | 10 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
+| `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
 | `Real213/GeometricThreshold.lean` | 7 / 0 | the sharp growth-rate boundary: geometric `W=r^i` over `d=q^i` free iff `r < q` |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
@@ -111,8 +112,11 @@ The cross-determinant's relation to the denominator sorts the trajectories into 
 all read through the one bridge `CrossDetSmall ⟹ free`:
 
   - **`W` constant** — the algebraic det-one floor (`DepthFloorDetOne`, φ/√2 with
-    `W = 1`); `const_crossdet_small` witnesses `CrossDetSmall` against a fast
-    denominator;
+    `W = 1`); `crossdet_const_total_modulus` is the rung, and φ is its concrete named
+    inhabitant (`CrossDetConstDenom.phi_total_modulus_via_const`): φ's even-indexed
+    Fibonacci convergents `fib(2i+2)/fib(2i+1)` have constant cross-determinant `1` (the
+    Cassini unit) and a denominator with φ²-step growth that dominates `i(i+1)` for all
+    `i ≥ 1`, so φ completes through the *same* bridge as e and Liouville;
   - **`W = d`** — the self-similar rung (e and the Liouville constant); the one theorem
     `crossdet_eq_denom_total_modulus` covers both, with `CrossDetSmall d d` collapsing
     (`i(i+1)+i = i(i+2)`) to a denominator-growth condition, and
