@@ -47,13 +47,20 @@ Used the PURE `Real213.FibCassiniNat.fib_cassini_norm` (Nat-additive Cassini).
 (`OrbitForcing`/`PnFibonacciUniversal`) — the "distance from atomicity"
 theorem.  Details: `research-notes/G158_*`.
 
-**Latent breakage found** (separate Tier-A): `Mobius213/Px/ConvergentDet.lean`
-does not compile (undefined `convergent_det'`; unsolved goals) and has no
-olean; `MobiusSelfForm.lean` likewise.  This subtree is **outside the `E213`
-root build closure**, so `lake build E213` is green without compiling it
-(broken since the G139 commit).  `Mobius213/Px/FibCassini` builds but is
-axiom-dirty.  Needs: integrate the orphan subtree into the build (or prune),
-fix `ConvergentDet`, audit purity.
+**Orphaned subtree — Tier-A debt** (`Mobius213/Px/`): the `Px.lean` umbrella
+is **outside the `E213` root build closure** (nothing imports the
+`Mobius213.Px` umbrella module), so `lake build E213` is green without ever
+compiling it.  Several files rotted while orphaned.  **Fixed this session**
+(now build): `ConvergentDet.lean` (undefined `convergent_det'`; conv parse
+error; `rw [h1,h2]` defeq bug) and `MobiusSelfForm.lean` (same defeq bug).
+**Still broken**: `PGeneratesNat.lean` (type mismatch + multiple omega
+failures) — substantial, not a one-liner; possibly more behind it.  Also
+`ConvergentDet.convergent_det` is **axiom-dirty** (propext via omega/Nat-core),
+as is `Mobius213/Px/FibCassini` (the PURE Cassini for the depth brick is
+`Real213.FibCassiniNat.fib_cassini_norm`).  **Dedicated pass needed**: fix
+remaining breakage, wire `Px.lean` into the E213 closure (or prune dead
+files), then purity-audit.  Lesson: `lake build E213` is **not** a complete
+build/purity gate — orphaned subtrees escape it.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
