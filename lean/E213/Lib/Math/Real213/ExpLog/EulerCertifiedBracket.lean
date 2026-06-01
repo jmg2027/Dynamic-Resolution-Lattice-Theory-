@@ -1,33 +1,22 @@
 import E213.Lib.Math.Real213.ExpLog.EulerCut
 
 /-!
-# EulerCertifiedBracket — e's certified modulus on its decided region (the generator's
-  constructive boundary)
+# EulerCertifiedBracket — e's certified modulus on its proven bracket (witness form)
 
-`HolonomicReal` (autonomous/φ case) carries its convergence modulus as a *constructed
-field*: φ — an algebraic (det-1, order-2 constant-coefficient) real — has a **total**
-modulus `N(m,k) = 2k`, proven ∅-axiom.  The natural next rung, deriving a modulus from
-a *transcendental's* recurrence (e, coefficient `n+1`), runs into a sharp obstruction,
-and this file pins exactly where.
-
-**The wall.**  `MonotonicBounded` proves: monotone-bounded ⟹ Cauchy *only* with LEM —
-the total `∀(m,k), ∃N` closure needs the case split "`orderProj` true for all `n`" vs
-"false at some `n`", i.e. **deciding `e` against `m/k`**.  For a transcendental `e`
-this is a *constructive irrationality measure* (a computable lower bound on
-`|e − m/k|`), which is not available ∅-axiom.  So e has **no total ∅-axiom modulus**
-— the `HolonomicReal` generator is constructive on the algebraic (autonomous) class
-and stops at the transcendental boundary.
-
-**What is constructive.**  Wherever a strict rational *bracket* is provable, the
-modulus is the witness index (`MonotonicBounded.orderCauchy_from_{true_forever,
-false_witness}`).  e's convergent cut-sequence is therefore certified-Cauchy on its
-proven decided region `e ∈ (8/3, 3)`:
+This file records the *witness* form of e's cut-Cauchy certificate: wherever a strict
+rational bracket for e is proven, the convergence modulus is the witness index, via
+the constructive `MonotonicBounded.orderCauchy_from_{true_forever, false_witness}`.
+On e's proven decided region `e ∈ (8/3, 3)`:
 
   * `euler_certified_at_3`   — `e < 3`: true at every layer, modulus `0`;
   * `euler_certified_at_8_3` — `e > 8/3`: false from layer `4`, modulus `4`.
 
-So the generator *does* certify e at every `(m,k)` the bounds decide; only the
-undecided boundary (rationals approaching e) is the open irrationality-measure core.
+These are the bracket endpoints made into moduli directly from the proven bounds.
+
+The *total* per-`(m,k)` modulus for e (`N(m,k) = k+2`, every cut, ∅-axiom) lives in
+`EulerModulus` (`euler_total_modulus` / `eHolonomicReal`); it uses e's factorial-tail
+rate rather than a per-`(m,k)` bracket witness.  This file is the elementary,
+bound-driven view of the same Cauchy property.
 
 All zero-axiom.
 -/

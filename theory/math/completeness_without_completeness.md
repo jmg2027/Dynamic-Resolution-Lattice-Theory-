@@ -102,19 +102,26 @@ describable splits the reals cleanly.
   convergents gives an explicit, total modulus. The completion needs no hypothesis.
   **(L)** (`PhiProbeFixed`, `PellSeq` for `√2`.)
 
-- **Transcendental reals take the modulus as a hypothesis.** For `e` and `π` there
-  is no LEM-free *total* modulus available from the series alone; the construction
-  proceeds by *assuming* a modulus (`MonotonicBounded`, §180–194 of the development)
-  and is honest that this assumption is doing work. **(L for the conditional
-  statement; the unconditional total modulus is (✗) — it would need a choice
-  principle 213 refuses.)**
+- **Structured transcendentals carry a closed-form modulus too — from their
+  convergence rate.** `e` has a *total* ∅-axiom modulus `N(m,k) = k+2`: its
+  convergents `a_i/i!` carry a factorial tail rate, and the margin invariant
+  `e_i + 1/(i·i!) ≤ m/k` (forward step `i(i+2) ≤ (i+1)²`) makes the cut constant past
+  `k+2`. **(L)** (`ExpLog/EulerModulus.euler_total_modulus`, `eHolonomicReal`.)  So
+  `e` joins `φ` as a complete `HolonomicReal` with the modulus a *constructed field*,
+  not a hypothesis.
 
-The split is not cosmetic. It is the same split that the rest of the paper sees from
-every other angle: the shape of the convergents (Part II), the form of the
-divergence (Part III), the height of the resolution axis (Part IV). **Algebraicity =
-a finite description that closes; transcendence = a finite description that must keep
-deferring.** The reader should carry this single contrast forward; everything below
-is a refinement of it.
+- **A modulus becomes a hypothesis only for a *rate-free* presentation.** The general
+  "monotone-bounded ⟹ Cauchy" closure does need LEM (`MonotonicBounded`, §180–194 —
+  the rate-free case split), and `π` is still in that posture pending its explicit
+  (Wallis) rate. **(L for the conditional; the rate-free total modulus is (✗).)**  The
+  obstruction is *absence of a stated rate*, not transcendence.
+
+The split is therefore not algebraic-vs-transcendental but **rate-carrying vs
+rate-free**: a real presented with its convergence rate (any holonomic real, via its
+recurrence) completes unconditionally; only a rate-free presentation must keep
+deferring. This is the same contrast the rest of the paper sees from every other
+angle — the shape of the convergents (Part II), the form of the divergence
+(Part III), the height of the resolution axis (Part IV).
 
 ---
 

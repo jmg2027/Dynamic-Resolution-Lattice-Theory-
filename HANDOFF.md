@@ -145,16 +145,20 @@ A–D + B are now **all closed ∅-axiom this arc**:
     not a hypothesis) + `ValidCut` of the limit; `HolonomicReal.cut_valid` is the
     unconditional API.  φ is a complete instance (`phiHolonomicReal`): order-2
     constant-coeff (det 1), modulus `N(m,k)=2k` (proven, `phiConvergentSeq`), cut =
-    closed-form `phiCut`.  The general generator `Holonomic → CertifiedModulus` is
-    now characterized (`research-notes/G164`): **total-constructive exactly on the
-    autonomous (algebraic, det-1) class**; for transcendentals it certifies only the
-    *decided region*.  `ExpLog/EulerCertifiedBracket` (3/0): e is certified-Cauchy on
-    its proven bracket `(8/3,3)` — `euler_certified_at_3` (mod 0) + `euler_certified_at_8_3`
-    (mod 4) via constructive `orderCauchy_from_{true_forever,false_witness}`.  OPEN
-    core: e/π's **total** modulus is the LEM wall (`MonotonicBounded`: monotone-
-    bounded⟹Cauchy needs LEM = deciding e vs m/k) = a **constructive irrationality
-    measure** for e (`|e−m/k| > f(k)`) — the genuine open analytic problem, not a
-    packaging gap.
+    closed-form `phiCut`.
+  - **e — TOTAL constructive modulus, complete `HolonomicReal`** this arc
+    (`ExpLog/EulerModulus`, 5/0): `euler_total_modulus` / `euler_cut_const` — `eulerCut`
+    is constant past `k+2` for every `(m,k)`, `k≥1`; `N(m,k)=k+2` explicit.  `eHolonomicReal`
+    bundles it (modulus a constructed field, like φ).  Mechanism: margin invariant
+    `e_i + 1/(i·i!) ≤ m/k`, forward step `i(i+2)≤(i+1)²` (0≤1, via `PolyNat`); the
+    denominator gap `≥1/(k·(k+1)!)` beats the tail `<1/((k+1)·(k+1)!)`; the side is
+    read off the decidable `eulerCut (k+1) m k`.  **Breaks the earlier "LEM wall"
+    reading** (`G164` revised): the wall is for *rate-free* sequences; e's factorial
+    rate escapes it — no irrationality measure needed.  `ExpLog/EulerCertifiedBracket`
+    (3/0) is the elementary bracket-witness view of the same Cauchy property.
+    OPEN: higher-degree transcendentals (π, deg 4 — Wallis tail rate, same margin
+    idea) and the *general* `Holonomic → CertifiedModulus` (rate from arbitrary
+    recurrence data — the `polyDepth` link).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
@@ -186,7 +190,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
 | `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/archive/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
 | Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/archive/G159` |
 | Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
-| Real-number completeness arc (links 1–13 + depth-arc B/C/D) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc B/C/D + HolonomicReal φ/e) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

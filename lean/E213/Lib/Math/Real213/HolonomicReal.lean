@@ -29,12 +29,14 @@ The **autonomous case is closed end-to-end**: φ — order-2, constant-coefficie
 (`PhiCauchyLimit.phiConvergentSeq`), its cut definitionally the closed-form golden
 cut (`phiHolonomicReal_cut`).
 
-The **general generator** — deriving the certified modulus *from arbitrary holonomic
-data* (`Holonomic → CertifiedModulus`, the "toCertifiedModulus" of the architecture
-sketch) — is the open analysis core: e (coefficient `n+1`, degree 1) and π (degree 4)
-need their explicit tail-ratio modulus proven, which is genuine convergence-rate
-analysis.  This file lays the type and discharges it on the autonomous instance; it
-does **not** assert the general derivation (no `sorry`, no unproven `derived` field).
+The **degree-1 transcendental case is also closed**: e (coefficient `n+1`) is a
+complete `HolonomicReal` with a constructed total modulus `N(m,k) = k+2`
+(`ExpLog/EulerModulus.eHolonomicReal`), via e's factorial-tail rate.  So the
+generator covers the autonomous (algebraic) class and the degree-1 holonomic class
+(e).  Still open: higher-degree transcendentals (π, degree 4) — their explicit
+convergence-rate modulus — and the *general* `Holonomic → CertifiedModulus` for
+arbitrary recurrence data.  This file lays the type and discharges it on the
+autonomous instance (no `sorry`, no unproven `derived` field).
 
 All zero-axiom.
 -/
