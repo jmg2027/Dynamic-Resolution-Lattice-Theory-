@@ -40,8 +40,11 @@ open E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
 open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.ZSqrtMinus2
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
+open E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
+open E213.Lib.Math.CayleyDickson.Integer.ZOmegaOct
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
+open E213.Lib.Math.CayleyDickson.Levels.Sedenion
 open E213.Lib.Physics.Simplex.Counts
 
 /-- ★ **Seed unit-group sizes `|μ| ∈ {2, 4, 6}` (+ 24 for the rank-2
@@ -54,6 +57,18 @@ theorem seed_unit_trichotomy :
     ∧ units6.length = 6           -- ℤ[ω]   : μ₆  (density 3)
     ∧ hur_units.length = 24 :=    -- Hurwitz: 2T  (rank-2 seed)
   ⟨by decide, by decide, units6_length, hur_units_count⟩
+
+/-- ★ **Density `= |μ|/2` at two independent scales.**  The per-level unit
+    count is `(|μ|/2)·dim` at both dim 8 and dim 16 for all three rank-1
+    columns — densities `2, 1, 3` (Type A `ℤ[i]`, B `ℤ[√-2]`, C `ℤ[ω]`),
+    not a single-dimension coincidence. -/
+theorem seed_density_two_scales :
+    -- dim 8
+    (cay_units.length = 2 * 8 ∧ L4T_units.length = 1 * 8 ∧ zoq_units.length = 3 * 8)
+    -- dim 16
+    ∧ (sed_units.length = 2 * 16 ∧ L5T_units.length = 1 * 16
+       ∧ zooct_units.length = 3 * 16) := by
+  refine ⟨⟨?_, ?_, ?_⟩, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★ **The densest rank-1 seed has `|μ| = NS · NT`.**  The Eisenstein
     seed `ℤ[ω]` — the exceptional `μ₆` column — has unit-group order equal
