@@ -980,8 +980,8 @@ theorem psi_excl_T0_NT8_signature
       ht7]
   cases decide (m.val = m'.val) <;> rfl
 
-private theorem decide_self_true_NT8 (n : Nat) : decide (n = n) = true := by
-  simp [Nat.decEq]
+private theorem decide_self_true_NT8 (n : Nat) : decide (n = n) = true :=
+  decide_eq_true (rfl : n = n)
 
 /-- `e_face_layer_NT8` is not a coboundary at K_{NS, 8}. -/
 theorem e_face_layer_NT8_not_coboundary
