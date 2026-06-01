@@ -150,6 +150,58 @@ Recommended: option 3 for the Lens-`=` forms (retire them, eqPW twins exist) +
 option 1 (explicit `same := Eq`) for the genuinely-`=`-needing `Bool`/`Prop`
 consumers.  Resolve this defeq wall on a scratch FIRST, then run the cascade.
 
+## UPDATE 2026-06-01 (fourth pass) — the defeq "wall" is NOT fundamental
+
+Isolated scratch research (a faithful `Raw.fold` model: class `HD` with
+`same`/`same_refl`/`combine_sym` fields, `um := Raw.fold …`, `um_slash` via
+`fold_slash_rel`, an `Eq`-codomain `def` instance omitting `same`) **compiles
+end-to-end**, including the Eq-consumer extraction:
+
+```
+example (x y : Raw) (h : x ≠ y) :
+    @um Bool boolHD (Raw.slash x y h) = xor (@um Bool boolHD x) (@um Bool boolHD y) := by
+  have e : @um Bool boolHD (Raw.slash x y h)
+         = boolHD.combine (@um Bool boolHD x) (@um Bool boolHD y) :=
+    @um_slash Bool boolHD x y h     -- `same`→`=` coercion at DEFAULT transparency: OK
+  exact e
+```
+
+Findings, precisely:
+  * `@HD.same Bool boolHD = Eq` is provable `by rfl` (default transparency) and
+    `by with_unfolding_all rfl`, **but not** by a bare-term `rfl` (reducible).
+  * The Eq-consumer can extract `=` from the `same`-form via
+    `have e : (lhs = rhs) := um_slash …` (the ascription's `isDefEq` runs at
+    default transparency and unfolds the `def` instance + default field) — then
+    `rw [e]`.  So `composite_slash`/`BoolProp` ARE fixable with this pattern.
+  * Explicit `same := Eq` in an instance makes `.same` reduce at *reducible*
+    transparency too (so even bare `rw [um_slash]` would work) — a fallback if
+    the `have`-extraction ever misbehaves.
+
+So the 3rd-pass real failure (`composite_slash` `have e` rejected) was a **local
+elaboration detail** in the full setting (the only structural diff from the
+working model is the extra `combine_cong` autoParam field — diagnose whether its
+default elaboration for omitting instances interferes), NOT a fundamental wall.
+**The rebuild is mechanically completable.**
+
+### Definitive recipe (validated piecewise; execute fresh, green-per-commit)
+
+1. (DONE) `fold_slash_rel`; `Lens.sameLens` + laws + `lensCombineGeneric_{comm,
+   cong}_same`.
+2. Scratch-confirm the FULL `HasDistinguishing` (with `combine_cong`) + a `def`
+   Eq-instance + the `have`-extraction consumer compiles (≈ 20 lines); if the
+   `combine_cong` autoParam default is the culprit, give it a manual proof or
+   drop it to a separate lemma.  THIS de-risks the atomic commit.
+3. Atomic commit (verify `lake build E213.Lens.Compose.OnLens` explicitly):
+   SemanticAtom design-C class + `universalMorphism_{slash,unique}` + `raw_initial`
+   (relativized) + OnLens instances (`eqPW`/`sameLens`).  Fix the Eq-consumers
+   (`BoolProp`, `composite_slash`) with the `have e : (=) := … ; rw/ exact e`
+   extraction.
+4. Per-file: thread `hSsame` through `ImageMinimum`; relativize `Reach`; retire
+   the Lens-`=` forms with eqPW twins (`OnLensImage.{factors,image}`,
+   `OnLensImageGeneric.factors_generic`), keeping the `_eqPW` versions; handle
+   `OnLensImageLevel2` / `TowerLevel3` (recursive — need `sameLens` at the base)
+   and `Hyper213Tower`.
+
 ### Concrete green-per-commit sequence (next session)
 
 1. (DONE, committed) `Raw.fold_slash_rel`.
