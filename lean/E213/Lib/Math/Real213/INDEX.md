@@ -61,6 +61,10 @@
     the double-exponential overtake break.
   - `LiouvilleModulus.lean` — ★ the Liouville constant's cross-determinant equals its
     denominator (`W=c^{k!}`), so it carries a free modulus — tame on this axis.
+  - `CrossDetEqDenom.lean` — ★ the general `W=d` theorem behind both e and Liouville
+    (`crossdet_eq_denom_total_modulus`); both reprove as one-liners.
+  - `GeometricThreshold.lean` — ★ the sharp growth-rate boundary: geometric `W=r^i`
+    over `d=q^i` is free iff `r < q` (not `r ≤ q`); strong overtake `q²≤r` breaks it.
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 
