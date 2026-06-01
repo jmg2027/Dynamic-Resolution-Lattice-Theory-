@@ -32,8 +32,8 @@ namespace E213.Lib.Math.Cauchy.DepthPiQuartic
 
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK)
-open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm)
-open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (liftK_congr wallisDenCoeff)
+open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm liftK_congr)
+open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (wallisDenCoeff)
 open E213.Tactic.NatHelper (add_sub_cancel_right)
 
 /-- π's cross-determinant ratio: the product of the two Wallis step determinants
