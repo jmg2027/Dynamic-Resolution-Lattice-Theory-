@@ -172,14 +172,24 @@ exposes the purity status of the previously-ungated clusters.  Current
     `Raw.fold_slash_iff` (the pointwise-`↔` fold/slash homomorphism, PURE) →
     `universalLens_{combine_sym,view_eq}_pw` (PURE) →
     `universalLens_kernel_eq_E_R` (the load-bearing kernel hub, `equivR r r' ↔ E
-    r r'`, PURE).  Since that hub carries the refinement-lattice subsystem
-    (~6 consumers: `Lattice/{Join,IndexedJoin,FamilyMeet,FamilyJoin}`,
-    `Instances/Cauchy`, `Choice/Resolved`), the fix is **complete, not additive**;
-    `Lens/ReadingEquiv.lean` carries the `equivR` / `refinesR` structure (PURE)
-    with the lone `=`-cost isolated in `equivR_to_equiv`.  **Remaining is
-    engineering** — migrate the consumers onto `equivR` / `refinesR`, then the
-    sealed `=`-forms (and their `propext` / `Quot.sound`) can be retired for
-    Prop-valued Lenses.  Anchors: `theory/lens/dirty_recovery_patterns.md`
+    r r'`, PURE).  So the `universalLens` (`Raw → Prop`) kernel hub **is**
+    recoverable PURE, and `Lens/ReadingEquiv.lean` carries the `equivR` /
+    `refinesR` structure (PURE) with the lone `=`-cost isolated in
+    `equivR_to_equiv`.  **But retiring the sealed `=`-forms across the consumer
+    lattice is a foundational refactor, not bounded engineering** — a direct
+    attempt confirmed three walls: (1) `Lens.equiv` / `Lens.refines` are *defined*
+    as `view x = view y`, so every consumer stated via them inherits the cost
+    unless the API itself is restated pointwise; (2) the consumer lenses have
+    non-`Prop` codomains (`iJoinLens : Lens (ι → α)`, `limitLens`, the meets)
+    where `equivR` / `refinesR` (typed for `Lens (Raw → Prop)`) do not even apply,
+    so each needs its own per-codomain pointwise form; (3) `universalLens_recovers`
+    / `universalLens_idempotent` have **no** PURE companion — they need
+    equivalence-*closure* reasoning, not the pointwise `combine`/`view` identities.
+    Net: of the ~54, the kernel hub + combine/view coherence are PURE-recoverable
+    (companions materialized); the closure theorems (`recovers`, `idempotent`) and
+    the `=`-based `equiv`/`refines` consumer surface are **structural** pending a
+    foundational pointwise-API rebuild.  Only `propAsDistinguishing` is
+    irreducible by thesis.  Anchors: `theory/lens/dirty_recovery_patterns.md`
     Pattern P5, `theory/lens/unified_equivalence.md`.
 
 ---

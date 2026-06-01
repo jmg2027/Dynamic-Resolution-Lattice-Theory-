@@ -244,10 +244,13 @@ direction ("every 213-native equivalence is realised as some Lens
 kernel") is PURE in its distinguishing form: stating it as `view x =
 view y` pulls propext (Iff↔Eq on Prop) and funext on `Raw → Prop`, but
 the pointwise `equivR` form (`universalLens_kernel_eq_E_R`) carries the
-same content axiom-free.  The `=`-cost is a statement shape, retained
-as a shim; only `propAsDistinguishing` is a genuine seal
-(`STRICT_ZERO_AXIOM.md`).  See `theory/lens/dirty_recovery_patterns.md`
-Pattern P5.
+same content axiom-free.  So the kernel correspondence *itself* is
+recoverable.  Retiring the `=`-forms across the whole consumer lattice
+is a separate, foundational matter (the closure theorems
+`recovers` / `idempotent` and the `=`-based `equiv` / `refines` surface
+are structural pending a pointwise-API rebuild; `propAsDistinguishing`
+is irreducible by thesis).  See `STRICT_ZERO_AXIOM.md` and
+`theory/lens/dirty_recovery_patterns.md` Pattern P5.
 
 ## What this is not
 

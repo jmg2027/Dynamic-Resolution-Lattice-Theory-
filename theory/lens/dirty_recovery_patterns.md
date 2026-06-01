@@ -200,15 +200,35 @@ Raw.fold_slash_iff (Theory, PURE — pointwise ↔ fold/slash homomorphism)
    │
    ▼  universalLens_view_eq_pw / universalLens_combine_sym_pw
 universalLens_kernel_eq_E_R  (PURE kernel hub)
-   │
-   ▼  refinesR built pointwise
-the refinement lattice, rebuilt without funext/propext
 ```
 
 A one-direction shim back to the `=`-world,
 `equivR_to_equiv` (`funext s; propext (h s)`), is retained and is the
 **lone** `propext` / `Quot.sound` cost — for any consumer that
 genuinely wants Lean `=`.
+
+### Scope — recoverable hub, structural cascade
+The `universalLens` (`Raw → Prop`) kernel hub IS recoverable PURE
+(`combine_sym_pw`, `view_eq_pw`, `kernel_eq_E_R` are materialized).
+**Retiring the sealed `=`-forms across the consumer lattice is not a
+bounded migration**, though — a direct attempt hit three walls:
+
+  1. `Lens.equiv` / `Lens.refines` are *defined* as `view x = view y`;
+     a consumer stated through them inherits the `=`-cost unless the
+     equiv/refines API itself is restated pointwise.
+  2. `equivR` / `refinesR` are typed for `Lens (Raw → Prop)`.  The
+     consumer lenses have other codomains (`iJoinLens : Lens (ι → α)`,
+     the meets, `limitLens`), so P5 does not even type there — each
+     needs its own per-codomain pointwise form.
+  3. `universalLens_recovers` / `universalLens_idempotent` have **no**
+     PURE companion: they are equivalence-*closure* facts, not the
+     pointwise `combine` / `view` identities, so the `_pw` route does
+     not reach them.
+
+So P5 cleanly recovers the **hub** and the combine / view coherence;
+the closure theorems and the `=`-based consumer surface are structural
+pending a foundational pointwise-API rebuild (a real project, not
+mechanical migration).
 
 ### Does NOT apply when
 `propAsDistinguishing` — `Prop` itself as a `HasDistinguishing`
@@ -243,19 +263,20 @@ Exactly one source is genuinely **the content**, not the ergonomics:
     This is a handful of theorems and stays sealed.
 
 Source (b) — `universalLens` and the wider Prop-valued Lens family —
-*looks* structural but is not.  The codomain `Raw → Prop` makes
-`combine_sym` / kernel / `refines` a function-`=` at `Prop`, which
-pulls `funext` / `propext`; but the distinguishing content is the
-pointwise `↔`, recovered PURE by Pattern P5.  The `=`-forms are
-retained as `propext`-shims for consumers that want Lean `=`, with the
-single cost isolated in `equivR_to_equiv` — they are not irreducible
-seals.
+splits.  Its **kernel hub + combine/view coherence** are a statement-
+shape cost, recovered PURE by Pattern P5 (`kernel_eq_E_R` etc.).  But
+the **closure theorems** (`universalLens_recovers` /
+`universalLens_idempotent`) and the **`=`-based `equiv` / `refines`
+consumer surface** (incl. non-`Prop`-codomain lenses where `equivR`
+does not type) are structural pending a foundational pointwise-API
+rebuild — see "Scope" under P5.  So seal the closure / consumer-surface
+forms for now; only `propAsDistinguishing` is irreducible by thesis.
 
 Patterns P1–P5 apply to DIRTY claims that inherited the seal from a
 statement shape (a downstream `=` the consumer only used at kernel
-level; a function-`=` of Prop-valued views).  Recovery is clean: state
-the claim at LensIso / LensImage / `equivR` level and prove via the
-bridge.
+level; a function-`=` of Prop-valued views) and whose codomain admits
+the pointwise form.  Recovery is then clean: state the claim at
+LensIso / LensImage / `equivR` level and prove via the bridge.
 
 ## Worked example
 
