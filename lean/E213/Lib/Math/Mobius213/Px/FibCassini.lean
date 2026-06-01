@@ -65,8 +65,8 @@ theorem fib_cassini_shifted (n : Nat) :
   rw [Q01_eq_fib (n + 1)] at hdet
   rw [Q11_eq_fib_succ n] at hdet
   -- hdet : fib(2*(n+1)+1) * fib(2*n+1) = fib(2*(n+1)) * fib(2*(n+1)) + 1
-  have h1 : 2 * (n + 1) + 1 = 2 * n + 3 := by omega
-  have h2 : 2 * (n + 1) = 2 * n + 2 := by omega
+  have h1 : 2 * (n + 1) + 1 = 2 * n + 3 := rfl
+  have h2 : 2 * (n + 1) = 2 * n + 2 := rfl
   rw [h1, h2] at hdet
   exact hdet
 
