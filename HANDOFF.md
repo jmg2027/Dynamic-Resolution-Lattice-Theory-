@@ -69,10 +69,20 @@ Done this marathon (all pushed except the in-flight SignedCut work):
     **axiom-dirty** (propext via omega/Nat-core) — separate purity pass.
   - **`InvolutionCapstone`** (missing-type re-export) fixed → `AkbulutCork`
     cluster builds.
-  - **SignedCut 5²⁵-tail** (`Hurwitz/HurwitzCeiling`, `Level/{Level25Capstone,
-    Level25Residual,Level26Absence,G38FinalCapstone}` — the "5^25 = N_resolution
-    ceiling, level 26 absent" concept that escaped the main deletion via the
-    gate-hole) — **deletion in flight** (background worker).
+  - **SignedCut 5²⁵-tail DONE** (commit `b1eb06b`): deleted
+    `Hurwitz/HurwitzCeiling`, `Level/{Level25Capstone,Level25Residual,
+    Level26Absence}`; scrubbed `Level/G38FinalCapstone`, `Core/MulRuleCapstone`,
+    `CD/{CDTowerCapstone,CDTowerLevel,CDConjugation}` (kept mul-rule / Hurwitz
+    magnitude / bit-dim structural lemmas).  Heads build green.
+  - **5²⁵ was deeper than the original chain**: the ceiling/`N_resolution`
+    reading was scattered across more **gate-hidden** clusters —
+    `DialogueAudit/*`, `Linalg213/Gap/*`, `CartesianVsDisjoint/*`,
+    `Lens/Cardinality`, `OperationTopology/TotalPreservation`, `AlphaEM/CupRingTrace`
+    (~12 files, mixed gated/orphan).  **Final repo-wide sweep in flight**
+    (background worker); after it, `grep N_resolution` should be empty.
+  - **Separate rot noted** (not 5²⁵): `SignedCut/Level/G39Capstone.lean`
+    references nonexistent `FanoK32Bridge` constants — a partial-rename
+    breakage in the orphan tree; fix in the rot-cleanup thread.
 
 **Next-session gate work** (per G159 remediation): probe remaining orphan
 cluster heads for rot (`CayleyDickson.Tower`, `Padic`, `Cohomology.{Bipartite,
