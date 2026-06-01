@@ -47,20 +47,39 @@ Used the PURE `Real213.FibCassiniNat.fib_cassini_norm` (Nat-additive Cassini).
 (`OrbitForcing`/`PnFibonacciUniversal`) — the "distance from atomicity"
 theorem.  Details: `research-notes/G158_*`.
 
-**Orphaned subtree — Tier-A debt** (`Mobius213/Px/`): the `Px.lean` umbrella
-is **outside the `E213` root build closure** (nothing imports the
-`Mobius213.Px` umbrella module), so `lake build E213` is green without ever
-compiling it.  Several files rotted while orphaned.  **Fixed this session**
-(now build): `ConvergentDet.lean` (undefined `convergent_det'`; conv parse
-error; `rw [h1,h2]` defeq bug) and `MobiusSelfForm.lean` (same defeq bug).
-**Still broken**: `PGeneratesNat.lean` (type mismatch + multiple omega
-failures) — substantial, not a one-liner; possibly more behind it.  Also
-`ConvergentDet.convergent_det` is **axiom-dirty** (propext via omega/Nat-core),
-as is `Mobius213/Px/FibCassini` (the PURE Cassini for the depth brick is
-`Real213.FibCassiniNat.fib_cassini_norm`).  **Dedicated pass needed**: fix
-remaining breakage, wire `Px.lean` into the E213 closure (or prune dead
-files), then purity-audit.  Lesson: `lake build E213` is **not** a complete
-build/purity gate — orphaned subtrees escape it.
+### Build gate-hole — ~350 orphaned modules (G159)
+
+**Major finding**: a static import-graph audit shows **~350 of 1543 `E213`
+modules (~23%) are orphaned** — not reachable from any of the three build
+roots `{E213, Lib.Math, Lib.Physics}` that `tools/full_build.sh` exercises.
+`lake build E213` builds only the framework rings (~275 modules); even
+`full_build.sh` misses the orphans.  Two harms: **silent rot** (files stop
+compiling unnoticed) and **ungated-but-correct** results.  Full map +
+remediation plan: `research-notes/G159_*`.  Lesson: **`lake build E213` /
+`full_build.sh` are NOT a complete gate** — orphaned subtrees escape.
+
+Done this marathon (all pushed except the in-flight SignedCut work):
+  - **Gated the crown jewel**: the 0.2 ppb precision chain
+    (`AlphaEM/GramStructural*`, `invAlphaEm_precision_theorem`) was orphaned;
+    `AlphaEM.lean` now imports `GramStructuralCapstone` → in the gate.
+  - **`Mobius213/Px/` rot fixed** (now `lake build E213.Lib.Math.Mobius213.Px`
+    green): `ConvergentDet` (undefined `convergent_det'`; conv parse error;
+    `rw [h1,h2]` defeq bug), `MobiusSelfForm` (defeq bug), `PGeneratesNat`
+    (type mismatch + stuck-match omega).  Note: many Px theorems are
+    **axiom-dirty** (propext via omega/Nat-core) — separate purity pass.
+  - **`InvolutionCapstone`** (missing-type re-export) fixed → `AkbulutCork`
+    cluster builds.
+  - **SignedCut 5²⁵-tail** (`Hurwitz/HurwitzCeiling`, `Level/{Level25Capstone,
+    Level25Residual,Level26Absence,G38FinalCapstone}` — the "5^25 = N_resolution
+    ceiling, level 26 absent" concept that escaped the main deletion via the
+    gate-hole) — **deletion in flight** (background worker).
+
+**Next-session gate work** (per G159 remediation): probe remaining orphan
+cluster heads for rot (`CayleyDickson.Tower`, `Padic`, `Cohomology.{Bipartite,
+Cup,Fractal}`, `Real213` probe-twist, `Symmetry` all build OK but are ungated;
+others may be rotted); wire clean heads into umbrellas; once orphan set is
+empty, flip the `lean_lib E213` `globs` to build all submodules so the hole
+cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
