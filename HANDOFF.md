@@ -156,10 +156,19 @@ unclaimed extensions it exposes:
     `c^{k!}`, with no finite `(h,d)`, has ratio-depth 1 / diff-depth 1 one
     recursion tier down — the concrete frontier toward `ε₀`.  PURE factorial
     (Lean-core `Nat.factorial` is Mathlib); division-cancel via `mul_div_self_pure`.
-  - **E. tower duality** (conceptual): GRA-tower ↔ CD-tower (level `n` loss ↔
-    level `5−n` Reading-iso gain); depth-ladder ↔ Cayley–Dickson tower (both
-    bottoming at the `5 = NS+NT`-forced floor); `CDDoubleFlexible` cross-pair crux
-    (long-standing CD open item).  See `tower_atlas.md` / `G154` §2.
+  - **E. tower duality** — OPEN CONJECTURE, not a short ∅-axiom theorem (scouted +
+    scoped: `research-notes/G160`).  The GRA↔CD duality (level-`n` loss ↔ level-`5−n`
+    Reading-iso gain; both bottoming at the `5 = NS+NT` floor) is `gra_book.md`
+    Conjecture 5.3.1 / `tower_atlas.md` "Open frontier".  Three PURE bricks exist
+    (`DepthFloorDetOne`; `GRA/DepthFunctor.depth_const`; `axis_nt_five_prime` +
+    `mobius_213_discriminant`) but linking them needs (a) a formal `GRATowerLevel`
+    (narrative only now), (b) the loss⟺iso-gain proof, (c) the CD flexibility crux.
+    **Bundling the three `5`-facts is forbidden** (meaning-by-analogy import).  The
+    one concrete sub-item is the **`CDDoubleFlexible` cross-pair** (`Meta/Algebra213`,
+    all foundation PURE): `(conj d·b)·a + conj b·(d·a) = a·(conj b·d) + (a·conj d)·b`.
+    Route-1 (G160): `conj_eq`-substitute both conjugates → reduces to the
+    trace-commutator identity `−T_d·[a,b] − T_b·[a,d] + [a,b·d] + [a,d·b] = 0`; needs
+    alternativity to close (did not close by inspection — originator's flagged crux).
 
 ## Closed and promoted (durable homes — do not re-derive)
 
