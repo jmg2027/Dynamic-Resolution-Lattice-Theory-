@@ -16,14 +16,14 @@ removes a conditional or stated-but-unproved gap.
   · **What**: prove joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`
     for every `c ≥ 1`, removing the conditional in
     `codim_upper_bound_conditional`.
-  · **Status (2026-05-25, this session)**: BOTH DIRECTIONS CLOSED
+  · **Status**: BOTH DIRECTIONS CLOSED
     unconditionally at every c.
       · EASY (`InPrimary ⊆ joint ψ-kernel`):
         `primary_cup_span_soundness_all_c` — closed previously by
         chaining `primary_cup_span_soundness_on_layer` with
         Direction B's `parametric_arbitrary_m_full_kill_capstone`.
       · HARD (`joint ψ-kernel ⊆ InPrimary`):
-        `joint_psi_kernel_subset_primary` — closed this session
+        `joint_psi_kernel_subset_primary` — closed
         in `V33EnrichedParametricDualSpanHardLift`.  Strategy:
           1. c=1 base case: 8 explicit primary cup-product generators
              (`g_1 … g_8`) span the dim-8 ψ-kernel at single-layer
@@ -52,7 +52,7 @@ removes a conditional or stated-but-unproved gap.
   · **What**: prove "binary is the unique non-degenerate combine
     arity" — the missing 4th piece of the atomic signature
     forcing chain.
-  · **Status (2026-05-25, this session)**: CLOSED.
+  · **Status**: CLOSED.
     `lean/E213/Theory/Atomicity/CombinatorialArity.lean` (5 PURE)
     proves the **uniform pigeonhole** `pigeonhole_fin_to_fin2`:
     any function `f : Fin k → Fin 2` with `k ≥ 3` has a collision.
@@ -98,7 +98,7 @@ removes a conditional or stated-but-unproved gap.
     `invAlphaEm_precision_theorem` build as PURE, removing the
     self-referential bootstrap in Steps 3–4 (which use
     observed α on RHS).
-  · **Status (2026-05-25, audit this session)**: already CLOSED.
+  · **Status**: already CLOSED.
     `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean`
     scans **7 PURE / 0 DIRTY** including
     `invAlphaEm_precision_theorem` at line 133.  The theorem
@@ -112,9 +112,8 @@ removes a conditional or stated-but-unproved gap.
     `scan_axioms.py`.
   · **Anchor**: `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean`
     (7 PURE).
-  · **Closes**: α_em precision result HAD ALREADY graduated to
-    "structurally forced" status — this session's only action was
-    the verification audit.
+  · **Closes**: the α_em precision result is at "structurally forced"
+    status (verified).
 
 ## Tier 2 — Cross-chapter integration gaps (HIGH narrative leverage)
 
