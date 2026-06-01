@@ -277,6 +277,24 @@ The two preceding facts combine into the organising equivalence of Part III:
 > **Finite divergence depth ⟺ P-recursive convergent data.** **(L core +
 > (C) identification.)**
 
+This now has an explicit ∅-axiom witness. The Newton basis makes "degree `d` ⟹
+depth `d`" exact: the binomial column `binom · k` has a truncation-free forward
+difference (Pascal's rule), so its `k`-th difference is the constant `binom · 0 = 1`.
+
+> **The degree-`k` discrete monomial has divergence-depth `k`.** `polyDepth k
+> (binom · k)`. **(L)** (`DepthPRecursiveInstances.binomCol_polyDepth`.) Every
+> discrete polynomial is a `Nat`-combination of these columns, and the top column
+> fixes the depth.
+
+The instances follow. **e** is closed end-to-end: its convergent denominators obey a
+degree-1 P-recursive recurrence `eulerDen (n+1) = (n+1)·eulerDen n`, and its
+cross-determinant ratio `rₙ = n+1` has `polyDepth 1` — depth *equals* recurrence
+order (`e_finite_depth_iff_P_recursive`). **π** has its P-recursive recurrences
+exhibited (`pi_is_P_recursive`: Wallis num/den, degree-2 step coefficients, so the
+cross-determinant ratio is degree 4 — depth 6); pinning that quartic onto the
+"degree 4 ⟹ depth 4" count is the one residual step blocked only by the absence of an
+∅-axiom `ring` for nonlinear `Nat` identities.
+
 This explains §5 exactly. The exp/tan family (`e`, `e²`, `tan 1`, `tanh 1`) have
 arithmetic continued fractions *because* their convergent data is P-recursive —
 finite depth. `π`, `arctan 1`, `ln 2` have no known arithmetic CF *because* (as far
@@ -506,6 +524,11 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lib/Math/Cauchy/DivergenceLadder.lean` — `diff`, `liftK`, `reachesFloor`,
     `e_ratio_floor`, `infinite_depth`, `const_reaches_floor`
   - `lean/E213/Lib/Math/Cauchy/DepthPRecursive.lean` — depth = P-recursive rank
+    (structural: `polyDepth_succ_iff`)
+  - `lean/E213/Lib/Math/Cauchy/DepthPRecursiveInstances.lean` — the witnesses:
+    `binomCol_polyDepth` (degree-`k` monomial has depth `k`, exact Pascal diff);
+    `e_finite_depth_iff_P_recursive` (e: order-1 recurrence + `polyDepth 1`);
+    `pi_is_P_recursive` (π's Wallis recurrences, degree-2 coefficients)
 
 **Part IV — the axes and their ordinal hierarchy**
   - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,

@@ -9,6 +9,7 @@ import E213.Lib.Math.Cauchy.EulerDivergenceForm
 import E213.Lib.Math.Cauchy.DivergenceLadder
 import E213.Lib.Math.Cauchy.DivergenceDepth
 import E213.Lib.Math.Cauchy.DepthPRecursive
+import E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 import E213.Lib.Math.Cauchy.DepthTower
 import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
@@ -61,7 +62,13 @@ import E213.Lib.Math.Cauchy.DepthFloorDetOne
     * `DivergenceLadder`,
       `DivergenceDepth`     — finite-difference depth (φ 1, e 3,
                              π 6, Liouville ∞); = P-recursive rank.
-    * `DepthPRecursive`     — finite depth ⟺ P-recursive.
+    * `DepthPRecursive`     — finite depth ⟺ P-recursive (structural).
+    * `DepthPRecursiveInstances`
+                            — the witnesses: `binomCol_polyDepth`
+                             (degree-`k` monomial has depth `k`, via
+                             exact Pascal differences); e's order-1
+                             recurrence + `polyDepth 1` ratio; π's
+                             Wallis P-recursive recurrences.
     * `DepthTower`          — the ratio-lift axis (= diff on the
                              exponent); `(h,d)` coordinate.
     * `DepthOrdinal`        — `(h,d)` is an ordinal `< ω²` (`lex_wf`).
