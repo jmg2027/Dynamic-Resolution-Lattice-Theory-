@@ -135,7 +135,14 @@ exposes the purity status of the previously-ungated clusters.  Current
     Hyper}`, etc.  This is the **purity backlog** (not a falsifiability issue);
     the `Mobius213.Px` pass shows the playbook (`omega` → `rfl`/`Nat.two_mul`/
     `Nat.add_right_comm`; `Nat.mul_assoc`/`Nat.add_mul` → `NatRing.nat_*`;
-    `simp` → explicit `rw`).
+    `simp` → explicit `rw`; **`Nat.mul_lt_mul_left`/`mul_lt_mul_right` (the
+    `Iff`) pull `Classical.choice`** → use a constructive `c*m+1 ≤ c*m+c ≤ c*n`
+    helper, cf. `KerSizeUniversal.mul_lt_mul_left_pure`).
+  · **Gate vindication**: closing the build-gate hole (G159) exposed a genuine
+    falsifiability violation that had been invisible — `KerSizeUniversal`'s
+    `Classical.choice` (via `Nat.mul_lt_mul_left`) in an orphaned cluster, now
+    fixed.  A gate that only follows umbrella imports cannot guarantee the
+    ∅-axiom standard; the comprehensive build is required.
   · **Sealed-by-design** (57) per categories (a) + (b): the Prop-as-
     distinguishing / Lens-funext / Quot-Lens families + the three CommandElab
     plumbing modules.

@@ -130,8 +130,26 @@ now sealed (category a, plumbing).  The **62 real-DIRTY are all propext/Quot.sou
 exposed: `Lens.{Compose,Lattice}.*`, `Lib/Math/{Choice,CayleyDickson,
 Cohomology/Bipartite/Parametric,Cauchy,Hyper}`, etc.  This is the **purity
 backlog** (not a falsifiability issue); `STRICT_ZERO_AXIOM.md` "### Net effect"
-synced.  Next: purify these 62 via the Px playbook below — biggest first
-(`Lens.Compose.OnLens` 9, `Choice.CanonicalTruthChar` 8).
+synced.
+
+**Gate caught a REAL falsifiability violation.**  `KerSizeUniversal`
+(`Cohomology/Bipartite/Parametric`) carried **`Classical.choice`** in 3 math
+theorems (`ker_implies_pair_eq` + 2 inheritors) — forbidden in 213-math.  It was
+gate-hidden (only built after this session's `EnrichedKNSNTcEvenEven` /
+`PellOrbitInstances` fixes).  Root: **Lean-core `Nat.mul_lt_mul_left` (the `Iff`,
+used `.mpr`) pulls `Classical.choice`** — replaced with a PURE
+`mul_lt_mul_left_pure` (`c*m+1 ≤ c*m+c = c*(m+1) ≤ c*n`).  Now `[propext]` only.
+(`FibCassiniNat` already documents this `Nat.mul_lt_*` Classical leak.)  **After
+this fix, the only `Classical.choice` carriers repo-wide are the 3 sealed
+CommandElab modules** — falsifiability standard genuinely met (verified).
+
+**Triage of the 62 backlog** (most are by-design, NOT purify): the `Lens.*`
+dirty (`Compose.OnLens` 9, `Lattice.Join` 4, `Algebra.Corresp`, …) are
+funext-on-combine = the same category (b) as the sealed Lens modules → **seal**;
+`Choice.CanonicalTruthChar` (8) is Iff↔Bool propext = category (a) → **seal**.
+The genuinely-purifiable artifact-dirty are the math clusters (`CayleyDickson`,
+`Cohomology/Bipartite/Parametric`, `Cauchy`, `Hyper`) via the Px playbook.  Next:
+seal the by-design Lens/Choice clusters; purify the math artifacts.
 
 **Reusable purification pattern** (verified — applies to any future dirty Nat code):
   - `omega` is **propext-dirty** — eliminate: trivial `2*(k+1)=2*k+2` → `rfl`;
