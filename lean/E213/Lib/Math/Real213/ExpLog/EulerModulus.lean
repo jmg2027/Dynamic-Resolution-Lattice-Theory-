@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.ExpLog.EulerCut
 import E213.Lib.Math.Real213.HolonomicReal
+import E213.Lib.Math.Real213.RateModulus
 import E213.Meta.Nat.PolyNat
 
 /-!
@@ -255,5 +256,72 @@ theorem eHolonomicReal_cut (m k : Nat) :
 theorem eHolonomicReal_cut_stable (m k : Nat) (hk : 1 ≤ k) (i : Nat) (hi : k+2 ≤ i) :
     eHolonomicReal.cut m k = eulerCut i m k := by
   rw [eHolonomicReal_cut]; exact euler_cut_const m k hk (k+2) i (Nat.le_refl _) hi
+
+/-! ## §5 — e satisfies the abstract rate certificate (the generator is non-vacuous) -/
+
+open E213.Lib.Math.Real213.RateModulus (Htel rate_total_modulus)
+
+/-- e's convergents are strictly increasing: `eᵢ < eᵢ₊₁` (cross-multiplied).  The
+    difference is exactly `eulerDen i`. -/
+theorem euler_hmonoS (i : Nat) :
+    eulerNum i * eulerDen (i+1) < eulerNum (i+1) * eulerDen i := by
+  show eulerNum i * ((i+1)*eulerDen i) < ((i+1)*eulerNum i+1)*eulerDen i
+  have hL : eulerNum i * ((i+1)*eulerDen i) = (i+1)*eulerNum i*eulerDen i := by
+    rw [← mul_assoc, Nat.mul_comm (eulerNum i) (i+1)]
+  have hR : ((i+1)*eulerNum i+1)*eulerDen i = (i+1)*eulerNum i*eulerDen i + eulerDen i := by
+    rw [add_mul ((i+1)*eulerNum i) 1 (eulerDen i), Nat.one_mul]
+  rw [hL, hR]; exact Nat.lt_add_of_pos_right (eulerDen_pos i)
+
+/-- e's convergents are increasing across any gap (iterated, cross-multiplied). -/
+theorem euler_hmono (N : Nat) :
+    ∀ i, N ≤ i → eulerNum N * eulerDen i ≤ eulerNum i * eulerDen N := by
+  have aux : ∀ t, eulerNum N * eulerDen (N+t) ≤ eulerNum (N+t) * eulerDen N := by
+    intro t
+    induction t with
+    | zero => exact Nat.le_refl _
+    | succ t ih =>
+      show eulerNum N * ((N+t+1)*eulerDen (N+t)) ≤ ((N+t+1)*eulerNum (N+t)+1)*eulerDen N
+      have h1 : eulerNum N * ((N+t+1)*eulerDen (N+t))
+          = (N+t+1)*(eulerNum N*eulerDen (N+t)) := by
+        rw [← mul_assoc, Nat.mul_comm (eulerNum N) (N+t+1), mul_assoc]
+      have h3 : (N+t+1)*(eulerNum (N+t)*eulerDen N)
+          ≤ ((N+t+1)*eulerNum (N+t)+1)*eulerDen N := by
+        have hLr : (N+t+1)*(eulerNum (N+t)*eulerDen N)
+            = (N+t+1)*eulerNum (N+t)*eulerDen N := (mul_assoc _ _ _).symm
+        have hRr : ((N+t+1)*eulerNum (N+t)+1)*eulerDen N
+            = (N+t+1)*eulerNum (N+t)*eulerDen N + eulerDen N := by
+          rw [add_mul ((N+t+1)*eulerNum (N+t)) 1 (eulerDen N), Nat.one_mul]
+        rw [hLr, hRr]; exact Nat.le_add_right _ _
+      rw [h1]
+      exact Nat.le_trans (Nat.mul_le_mul_left (N+t+1) ih) h3
+  intro i hi; rw [← E213.Tactic.NatHelper.add_sub_of_le hi]; exact aux (i - N)
+
+/-- ★★ **e satisfies the rate certificate `Htel`** — the margin `eᵢ + 1/(i·i!)` is
+    non-increasing.  This is `L_step` (the `i(i+2) ≤ (i+1)²` core) scaled by
+    `eulerDen i`. -/
+theorem euler_Htel : Htel eulerNum eulerDen := by
+  intro i _
+  show (eulerNum (i+1)*(i+1)+1)*(i*eulerDen i) ≤ (eulerNum i*i+1)*((i+1)*eulerDen (i+1))
+  have hnum : eulerNum (i+1)*(i+1)+1 = ((i+1)*(i+1))*eulerNum i + (i+2) := by
+    show ((i+1)*eulerNum i+1)*(i+1)+1 = ((i+1)*(i+1))*eulerNum i + (i+2)
+    rw [add_mul, Nat.one_mul,
+        show (i+1)*eulerNum i*(i+1) = ((i+1)*(i+1))*eulerNum i from by
+          rw [Nat.mul_comm (i+1) (eulerNum i), mul_assoc,
+              Nat.mul_comm (eulerNum i) ((i+1)*(i+1))], Nat.add_assoc]
+  have hden : (i+1)*eulerDen (i+1) = ((i+1)*(i+1))*eulerDen i := by
+    show (i+1)*((i+1)*eulerDen i) = ((i+1)*(i+1))*eulerDen i; rw [← mul_assoc]
+  rw [hnum, hden, ← mul_assoc (((i+1)*(i+1))*eulerNum i + (i+2)) i (eulerDen i),
+      ← mul_assoc (eulerNum i*i+1) ((i+1)*(i+1)) (eulerDen i)]
+  exact Nat.mul_le_mul_right (eulerDen i) (L_step (eulerNum i) i)
+
+/-- ★★★ **e's total modulus, derived from the abstract generator.**  Instantiating
+    `RateModulus.rate_total_modulus` at e's convergents reproduces `euler_total_modulus`
+    — the general "rate-carrying ⟹ total modulus" theorem applies to e, witnessing it
+    is not vacuous. -/
+theorem euler_total_modulus_via_rate (m k : Nat) (hk : 1 ≤ k) :
+    ∃ N, ∀ i j, i ≥ N → j ≥ N → eulerCut i m k = eulerCut j m k := by
+  obtain ⟨N, hN⟩ := rate_total_modulus eulerDen_pos euler_Htel euler_hmono euler_hmonoS m k hk
+  exact ⟨N, fun i j hi hj => by
+    rw [eulerCut_eq i m k, eulerCut_eq j m k]; exact hN i j hi hj⟩
 
 end E213.Lib.Math.Real213.ExpLog.EulerModulus
