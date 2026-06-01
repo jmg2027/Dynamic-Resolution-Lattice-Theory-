@@ -126,9 +126,10 @@ About **30%** of agent-flagged reductions turn out to be:
 
   · **External API points**: referenced by other files via `open`
     + named reference.  Always `grep` for external use before
-    deletion.  Example: `Lens/Compose/OnLens.lensXor_comm_eqPW`
-    looks redundant with `lensXor_comm` but is the canonical
-    cutEq form referenced downstream.
+    deletion.  Example: the pointwise `_eqPW` / `_pw` companions
+    (`Lens/EqPW.lean`, `Universal/QuotLens.lean`) look redundant
+    with a naive view-`=` reading but are the canonical
+    distinguishing forms referenced downstream.
   · **Proof components**: used by a "master" theorem in the
     same file via explicit name reference (not by `rfl` /
     `decide`).  Deleting breaks the master's proof. Example:
