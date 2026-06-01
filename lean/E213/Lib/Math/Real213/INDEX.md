@@ -66,8 +66,11 @@
   - `CrossDetConstDenom.lean` — ★ the `W=const` rung (`crossdet_const_total_modulus`) +
     φ (Fibonacci convergents `fib(2i+2)/fib(2i+1)`) as its named instance, through the
     same bridge as e/Liouville.
-  - `GeometricThreshold.lean` — ★ the sharp growth-rate boundary: geometric `W=r^i`
-    over `d=q^i` is free iff `r < q` (not `r ≤ q`); strong overtake `q²≤r` breaks it.
+  - `GeometricThreshold.lean` — ★ the exact growth-rate boundary: geometric `W=r^i`
+    over `d=q^i` is free **iff** `r < q` (`geom_boundary_iff`).
+  - `PresentationDependence.lean` — ★ `CrossDetSmall` reads the representation, not the
+    real: `rcut` is rescaling-invariant (`rcut_rescale`) while the smallness condition
+    is not (e's `×2` representation breaks it — same real).
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 

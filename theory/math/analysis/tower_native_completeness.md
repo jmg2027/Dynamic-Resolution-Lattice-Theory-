@@ -31,6 +31,7 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
 | `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
+| `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
@@ -127,6 +128,22 @@ all read through the one bridge `CrossDetSmall ⟹ free`:
 So "constant cross-determinant" (algebraic) and "cross-determinant equal to the
 denominator" (the two structured transcendentals proven here) are two rungs *inside*
 the free region, and the double exponential is the first rung outside it.
+
+### `CrossDetSmall` reads the representation, not the real (`PresentationDependence`)
+
+The smallness condition is a *sufficient* test on a num/den presentation `a_i/d_i`, and
+it is genuinely a fact about the **presentation**, not the number.  The real itself —
+the decidable cut — is invariant under a common rescaling `(a, d) ↦ (c·a, c·d)`
+(`rcut_rescale`: the cut cancels the factor `c`).  But the cross-determinant scales by
+`c²` against a denominator scaling by `c` (`crossdet_rescale`), so the smallness
+condition is strictly harder for `c ≥ 2`.  Concretely
+(`crossDetSmall_is_presentation_dependent`): e's standard convergents
+`eulerNum/eulerDen` satisfy `CrossDetSmall` (the `W = d` rung), but the `×2`
+representation `2·eulerNum / 2·eulerDen` — *the same real* — carries cross-determinant
+`4·eulerDen` and fails `CrossDetSmall` already at `i = 1` (`10 ≤ 8`).  So whether the
+bridge applies is presentation-relative; the cut is the rescaling-invariant content.
+This is the "deficiency of the presentation, not of the real" reading
+(`holonomic_modulus.md`) made into a theorem.
 
 ### Closure of the finite-coordinate class (`DepthClosure`)
 
