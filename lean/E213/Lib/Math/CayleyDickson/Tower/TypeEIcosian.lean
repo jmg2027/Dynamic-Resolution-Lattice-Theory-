@@ -99,4 +99,22 @@ theorem icosian_order5_unit :
     ∧ g5 ≠ Icosian.one := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
+/-- An order-10 icosian unit: `g₁₀ = (φ + i + (φ-1)·j)/2`, scaled
+    `⟨φ, 1, φ-1, 0⟩`.  Real part `φ/2 = cos 36°`, norm `1`. -/
+def g10 : Icosian := ⟨⟨0, 1⟩, ⟨1, 0⟩, ⟨-1, 1⟩, ⟨0, 0⟩⟩
+
+set_option maxHeartbeats 1000000 in
+/-- ★ **An explicit order-10 unit of the icosian order (`2I`).**  `g₁₀`
+    is a unit (`normSq = 4`), `g₁₀¹⁰ = 1`, while `g₁₀⁵ ≠ 1` and
+    `g₁₀² ≠ 1` — so its order divides 10 but neither 5 nor 2, hence is
+    exactly 10.  With `g5`, this exhibits `2I`'s full new torsion menu
+    `{5, 10}` — the pentagonal orders absent from every lower seed
+    (`μ₂,μ₄,μ₆,2T`, orders `⊆ {1,2,3,4,6}`). -/
+theorem icosian_order10_unit :
+    Icosian.normSq g10 = ⟨4, 0⟩
+    ∧ g10 * g10 * g10 * g10 * g10 * g10 * g10 * g10 * g10 * g10 = Icosian.one
+    ∧ g10 * g10 * g10 * g10 * g10 ≠ Icosian.one
+    ∧ g10 * g10 ≠ Icosian.one := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.CayleyDickson.Tower.TypeEIcosian
