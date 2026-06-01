@@ -83,11 +83,25 @@ out-of-scope CM/modular edifice:
 >     elliptic curve's period lattice**.
 
 Concrete ∅-axiom targets (in increasing reach):
-  1. `eisenstein_norm_posdef` — `4·normSq u = (2·re − im)² + 3·im²`, hence `normSq ≥ 0`,
-     `= 0 ↔ u = 0` (the bounded-level-set / "curve not line" core).  Blocked only by the
-     lack of an ∅-axiom Int-ring tactic (`ring` is unavailable / axiom-dirty here); needs
-     a manual Int expansion or an `Int213` poly-identity helper analogous to
-     `Meta/Nat/PolyNat.poly_id`.
+  1. `eisenstein_norm_posdef` — via `2·normSq u = re² + im² + (re−im)²` (cleaner than the
+     `4N` form, and `Int213.nonneg_of_add_self : 0 ≤ N+N → 0 ≤ N` finishes the descent),
+     hence `0 ≤ normSq u`, `= 0 ↔ u = 0` (the bounded-level-set / "curve not line" core).
+     **Tested 2026-06-01 — the supporting pieces are ∅-axiom-ready, the identity is the
+     blocker:**
+       - `sq_nonneg (a : Int) : 0 ≤ a*a` — **PURE** by constructor cases (`ofNat`:
+         `Int.ofNat_nonneg (n*n)`; `negSucc`: `Int.negSucc_mul_negSucc` then
+         `ofNat_nonneg`).  Avoids the propext-dirty `Int.le_total`.
+       - `Int213.nonneg_of_add_self` — already PURE in repo.
+       - the polynomial identity `normSq u + normSq u = re² + im² + (re−im)²` is the one
+         blocker: **every Int AC/ring path here is axiom-dirty** — `ac_rfl` pulls
+         `propext + Quot.sound`; Lean-core `Int.{add_mul, mul_add, sub_mul, mul_sub,
+         neg_add, le_total}` pull `propext`; the `quad_norm` tactic (`Meta/Tactic/QuadNorm`)
+         uses `simp` + `omega` (both dirty).  The pure `Int213` ring lemmas exist
+         (`add_mul, mul_sub, sub_mul, mul_comm, add_assoc, neg_add, …`) but reduce the goal
+         only to a **linear Int AC identity in the monomial atoms** with no pure AC
+         closer.  So the genuine next ∅-axiom step is a **pure Int AC/poly-identity
+         normalizer** (the `Int` analog of `Meta/Nat/PolyNat.poly_id`) — a separable
+         infrastructure task; hand-rearrangement of the ~6-term identity is the fallback.
   2. `golden_form_indefinite` — `Q(1,0) = 1`, `Q(1,1) = −1` (trivial, decide).
   3. the dichotomy theorem: definite (Eisenstein, disc −3) vs indefinite (golden, disc
      +5), tying the unit-count (6 vs ∞) to bounded-vs-unbounded level sets.
