@@ -33,4 +33,11 @@ theorem pair_encoded_lt {n : Nat} (b c : Fin n) :
     _ = (b.val + 1) * n := hsucc.symm
     _ ≤ n * n := hbound
 
+/-- ∅-axiom `Fin` equality from equal values (subst on values + proof
+    irrelevance; avoids the `Fin.ext` `propext` leak). -/
+theorem fin_eq_of_val (n : Nat) (a b : Nat)
+    (ha : a < n) (hb : b < n) (h : a = b) :
+    (⟨a, ha⟩ : Fin n) = ⟨b, hb⟩ := by
+  subst h; rfl
+
 end E213.Tactic.Fin213

@@ -51,8 +51,8 @@ theorem bits_8 : bitsAfterBisections 8 = 8 := rfl
 /-- Concrete: `2^8 = 256` (a byte's bit-cardinality, decidable). -/
 theorem byte_cardinality : 2 ^ bitsAfterBisections 8 = 256 := by decide
 
-/-- The count-Lens readout `N_U = 2^25 = 5^25` analogue:
-    `2^25 bits = 25 bisections`.  Atomic. -/
-theorem nU_log_form : bitsAfterBisections 25 = 25 := rfl
+/-- Concrete: `bitsAfterBisections 25 = 25` (25 bisections give
+    a 25-bit index).  Atomic. -/
+theorem bits_25 : bitsAfterBisections 25 = 25 := rfl
 
 end E213.Lib.Math.Information.Bit

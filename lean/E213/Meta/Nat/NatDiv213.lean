@@ -69,9 +69,38 @@ theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k * b / b = k := by
 theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a * b / a = b := by
   rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
 
+/-- `(a + b * c) / b = a / b + c` (`0 < b`).  ∅-axiom replacement for
+    Lean-core `Nat.add_mul_div_left` (which pulls `propext`).  Induction
+    on `c` via `add_div_right_pos`. -/
+theorem add_mul_div_left_pure (a b c : Nat) (h : 0 < b) :
+    (a + b * c) / b = a / b + c := by
+  induction c with
+  | zero => rw [Nat.mul_zero, Nat.add_zero, Nat.add_zero]
+  | succ k ih =>
+    rw [Nat.mul_succ, ← Nat.add_assoc, add_div_right_pos h, ih]
+    exact Nat.add_assoc (a / b) k 1
+
+/-- `a / b ≤ a` when `0 < b`.  ∅-axiom replacement for Lean-core
+    `Nat.div_le_self` (which pulls `propext` via `Nat.div_zero`).
+    Proof: `a/b ≤ a/b * b ≤ a` using positivity of `b`. -/
+theorem div_le_self_pos (a b : Nat) (hb : 0 < b) : a / b ≤ a := by
+  have h1 : a / b ≤ a / b * b := Nat.le_mul_of_pos_right (a / b) hb
+  exact Nat.le_trans h1 (div_mul_le_self a b)
+
 /-- `c^(n+1) / c^n = c` for `c ≥ 1`.  ∅-axiom. -/
 theorem pow_succ_div (c n : Nat) (hc : 1 ≤ c) : c ^ (n + 1) / c ^ n = c := by
   rw [Nat.pow_succ]
   exact mul_div_cancel_left_pure (c ^ n) c (Nat.pos_pow_of_pos n hc)
+
+/-- `2x ≤ 2y → x ≤ y`, ∅-axiom (left-cancel a positive factor). -/
+theorem two_cancel (x y : Nat) (h : 2 * x ≤ 2 * y) : x ≤ y :=
+  Nat.le_of_mul_le_mul_left h (by decide)
+
+/-- `2x < 2y → x < y`, ∅-axiom (Lean-core `Nat.lt_of_mul_lt_mul_left`
+    pulls `Classical`; rule out `y ≤ x` via `Nat.mul_le_mul_left`). -/
+theorem two_cancel_lt (x y : Nat) (h : 2 * x < 2 * y) : x < y := by
+  cases Nat.lt_or_ge x y with
+  | inl hlt => exact hlt
+  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 hge) h).elim
 
 end E213.Meta.Nat.NatDiv213

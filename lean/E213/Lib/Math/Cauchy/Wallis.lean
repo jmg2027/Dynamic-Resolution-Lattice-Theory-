@@ -451,25 +451,14 @@ namespace E213.Lib.Math.Cauchy.WallisSharper
 open E213.Theory E213.Lens
 open E213.Lib.Math.Cauchy.WallisSeq
 
-/-- Polynomial: `4(k+1)² ≥ (2k+1)(2k+3)`. -/
+/-- Polynomial: `4(k+1)² ≥ (2k+1)(2k+3)`.  Routes through the PURE
+    `Polynomial213`-reflected `WallisSeq.kk_le_4_kp1_sq` (∅-axiom);
+    only reassociation `4*(k+1)*(k+1) = 4*((k+1)*(k+1))` separates the
+    two statements. -/
 private theorem poly_ineq (k : Nat) :
     4 * (k + 1) * (k + 1) ≥ (2 * k + 1) * (2 * k + 3) := by
-  have e1 : 4 * (k + 1) * (k + 1) = 4 + 8 * k + 4 * (k * k) := by
-    have := Nat.mul_mul_mul_comm 4 (k+1) 1 (k+1)
-    have ee : (4 * (k+1)) * (k+1) = 4 * ((k+1) * (k+1)) := by
-      rw [Nat.mul_assoc]
-    rw [ee]
-    have step : (k+1) * (k+1) = k*k + 2*k + 1 := by
-      have : (k+1)*(k+1) = k*(k+1) + 1*(k+1) := Nat.add_mul k 1 (k+1)
-      rw [this, Nat.mul_add, Nat.mul_add]; omega
-    rw [step]; omega
-  have e2 : (2 * k + 1) * (2 * k + 3) = 3 + 8 * k + 4 * (k * k) := by
-    have h0 : (2*k+1) * (2*k+3) = 2*k*(2*k+3) + 1*(2*k+3) := Nat.add_mul _ _ _
-    have h1 : 2*k*(2*k+3) = 2*k*(2*k) + 2*k*3 := Nat.mul_add _ _ _
-    have h2 : 1*(2*k+3) = 1*(2*k) + 1*3 := Nat.mul_add _ _ _
-    have h3 : 2*k*(2*k) = 4 * (k*k) := Nat.mul_mul_mul_comm _ _ _ _
-    rw [h0, h1, h2, h3]; omega
-  rw [e1, e2]; omega
+  rw [E213.Tactic.NatHelper.mul_assoc 4 (k+1) (k+1)]
+  exact WallisSeq.kk_le_4_kp1_sq k
 
 end E213.Lib.Math.Cauchy.WallisSharper
 
@@ -484,13 +473,19 @@ open E213.Lib.Math.Cauchy.WallisSeq
 theorem wallis_sharper_lower (n : Nat) (hn : n ≥ 2) :
     45 * wallisNum n ≥ 64 * wallisDen n := by
   induction n with
-  | zero => omega
+  | zero => exact absurd hn (by decide)
   | succ k ih =>
       by_cases hk : k = 1
       · subst hk
         show 45 * wallisNum 2 ≥ 64 * wallisDen 2
         decide
-      · have hk2 : k ≥ 2 := by omega
+      · -- hn : k + 1 ≥ 2, hk : k ≠ 1.  So k ≥ 2 constructively.
+        have hk1 : k ≥ 1 := Nat.le_of_succ_le_succ hn
+        have hk2 : k ≥ 2 := by
+          rcases Nat.lt_or_ge k 2 with hlt | hge
+          · -- k < 2 and k ≥ 1 ⇒ k = 1, contradiction with hk.
+            exact absurd (Nat.le_antisymm (Nat.le_of_lt_succ hlt) hk1) hk
+          · exact hge
         have h_inv := ih hk2
         have h_poly := poly_ineq k
         show 45 * (wallisNum k * (4 * (k+1) * (k+1))) ≥
@@ -504,10 +499,10 @@ theorem wallis_sharper_lower (n : Nat) (hn : n ≥ 2) :
           Nat.mul_le_mul_left (64 * wallisDen k) h_poly
         have eq1 : 45 * (wallisNum k * (4 * (k+1) * (k+1)))
                  = 45 * wallisNum k * (4 * (k+1) * (k+1)) :=
-          (Nat.mul_assoc _ _ _).symm
+          (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         have eq2 : 64 * (wallisDen k * ((2*k+1) * (2*k+3)))
                  = 64 * wallisDen k * ((2*k+1) * (2*k+3)) :=
-          (Nat.mul_assoc _ _ _).symm
+          (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
         rw [eq1, eq2]
         exact Nat.le_trans h2 h1
 

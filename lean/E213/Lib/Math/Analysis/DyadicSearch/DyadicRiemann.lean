@@ -199,8 +199,7 @@ theorem riemannSampleSum_id_depth_zero (db : DyadicBracket) :
 
 /-! ### M2: Riemann finite-N marker (no π / ∞ in dyadic accumulation)
 
-Sister-branch `Physics/FiniteUniverse.no_pi_in_finite_alpha_em` style:
-explicitly mark that at every finite depth, the Riemann sum is a
+Explicitly mark that at every finite depth, the Riemann sum is a
 concrete (Nat, Nat) rational — no transcendence creeps in. -/
 
 /-- **Concrete Riemann sum at depth 3 on a generic bracket**, cutEq (PURE).

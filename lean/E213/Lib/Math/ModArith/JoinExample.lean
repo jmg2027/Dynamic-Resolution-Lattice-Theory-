@@ -1,5 +1,6 @@
 import E213.Lens.LensCore
 import E213.Lens.Instances
+import E213.Lens.Congruence
 
 /-!
 # ModJoinExample: concrete example of Join = gcd
@@ -77,7 +78,7 @@ private theorem same_leaves_same_N {α : Type} (N : Lens α)
   show (leavesModNat 4).view r = (leavesModNat 4).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-open E213.Lens renaming leaves_view_ge_one → leaves_ge_one
+open E213.Lens renaming leaves_view_pos → leaves_ge_one
 
 /-- General chain: +2k step. -/
 theorem mod_4_6_step_2k {α : Type} (N : Lens α)

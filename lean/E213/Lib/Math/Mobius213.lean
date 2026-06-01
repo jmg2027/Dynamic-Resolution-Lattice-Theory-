@@ -47,6 +47,7 @@ All theorems ∅-axiom (using Recurrence2 from Ring213).
 namespace E213.Lib.Math.Mobius213
 
 open E213.Lib.Math.Tactic.Ring213
+open E213.Meta.Int213 (cross_step_algebra)
 
 /-- Pell-numerator sequence under [[2,1],[1,1]] iteration starting (1, 1).
     Satisfies a_{n+2} = 3·a_{n+1} − a_n.
@@ -216,28 +217,6 @@ nor Quot.sound. -/
 def pell_unit_at (n : Nat) : Int :=
   P_numerator.seq n * P_denominator.seq (n+1)
     - P_numerator.seq (n+1) * P_denominator.seq n
-
-/-- Helper: pure Int algebraic identity for the cross-product step under
-    `c₁ = 3, c₂ = -1` recurrence (d = 0).  Proved by explicit Int213.*
-    rewrites — no `simp`, no `omega`, no Mathlib.  PURE. -/
-private theorem cross_step_algebra (a b p q : Int) :
-    b * (3 * q + (-1) * p + 0) - (3 * b + (-1) * a + 0) * q = a * q - b * p := by
-  have hnp : ((-1 : Int) * p) = -p := by
-    rw [E213.Meta.Int213.neg_mul, Int.one_mul]
-  have hna : ((-1 : Int) * a) = -a := by
-    rw [E213.Meta.Int213.neg_mul, Int.one_mul]
-  rw [Int.add_zero, Int.add_zero, hnp, hna]
-  rw [E213.Meta.Int213.mul_add, E213.Meta.Int213.add_mul]
-  rw [E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_mul]
-  rw [E213.Meta.Int213.mul_left_comm b 3 q, E213.Meta.Int213.mul_assoc 3 b q]
-  -- 3*(b*q) + -(b*p) - (3*(b*q) + -(a*q)) = a*q - b*p
-  rw [Int.sub_eq_add_neg, E213.Meta.Int213.neg_add, Int.neg_neg]
-  -- 3*(b*q) + -(b*p) + (-(3*(b*q)) + a*q) = a*q - b*p
-  rw [E213.Meta.Int213.add_assoc (3*(b*q)) (-(b*p)) (-(3*(b*q)) + a*q)]
-  rw [E213.Meta.Int213.add_left_comm (-(b*p)) (-(3*(b*q))) (a*q)]
-  rw [← E213.Meta.Int213.add_assoc (3*(b*q)) (-(3*(b*q))) (-(b*p) + a*q)]
-  rw [E213.Meta.Int213.add_neg_cancel, E213.Meta.Int213.zero_add]
-  rw [E213.Meta.Int213.add_comm (-(b*p)) (a*q), ← Int.sub_eq_add_neg]
 
 /-- ★★ **Cross-product step identity** (`c₂ = -1` case):
     X(n+1) = X(n).  The det-1 symplectic invariant of the [[2,1],[1,1]]

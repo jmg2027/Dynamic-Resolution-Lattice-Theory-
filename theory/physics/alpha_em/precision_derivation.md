@@ -28,16 +28,17 @@ Both conjectures are subsections of the broader 213-Algebra catalog
 (`research-notes/G35_chiral_cup_ring_catalog.md` §C1, §C5 — still
 active scratch for the field-level meta-catalog).
 
-The single citable Lean theorem is `alpha_em_master_capstone` ∈
-`AlphaEM.Capstone`, with `alpha_em_milestone` giving the rational
-bracket containing observed.
+The single citable precision theorem is `invAlphaEm_precision_theorem`
+∈ `AlphaEM.GramStructuralCapstone` (0.2 ppb, π² as a literal input),
+with `alpha_em_milestone` giving the rational bracket containing
+observed.
 
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Physics/AlphaEM/` (23 .lean files)
 - **Umbrella**: `lean/E213/Lib/Physics/AlphaEM.lean`
 - **Master capstones**:
-  - `Capstone.alpha_em_master_capstone` — unified-sum + simplicial decomp
+  - `GramStructuralCapstone.invAlphaEm_precision_theorem` — 0.2 ppb structural precision (π² literal input)
   - `GradedFormulaPrecision.graded_formula_precision_master` — 9-digit π precision (Step 2)
   - `GramHigherOrder.gram_higher_order_master` — doubly-refined α^k/d² pattern (Step 4)
   - `FractalLevelZetaConvergence.fractal_zeta_convergence_master` — ζ_K(1) bracket (Step 4)
@@ -53,7 +54,7 @@ bracket containing observed.
 | **Δ⁴ topology + channel inventory** | `ChannelCohomologyLoss`, `CupChannelInventory`, `CupRingTrace`, `GradedDecomposition` | K↪Δ⁴ loss, finite cup-channel enumeration (10/80/785), bottom-up F₁..F₅ tests, 5-fold graded decomp |
 | **C1 — Pure cup-ring α_em** | `GradedFormula`, `GradedFormulaPrecision`, `GramSelfConsistency`, `GramHigherOrder` | Step 1-4 of C1 |
 | **C5 — Fractal-level ζ_K** | `FractalLevelLift`, `FractalLevelZetaBracket`, `FractalLevelZetaSpectrum`, `FractalLevelZetaConvergence`, `FractalLevelZetaCoeffSeq`, `FractalLevelZetaModulus` | Step 1-6 of C5 |
-| **Spectral / candidates** | `LaplacianSpectrum`, `NResolutionCandidates`, `PiFiveGap`, `ProjectionRatios` | Δ⁴ + K spectrum, five N_U candidates, π⁵ gap, projection geometry |
+| **Spectral** | `LaplacianSpectrum`, `PiFiveGap`, `ProjectionRatios` | Δ⁴ + K spectrum, π⁵ gap, projection geometry |
 
 ## The narrative
 
@@ -61,19 +62,20 @@ bracket containing observed.
 
 α_em(IR) is the photon coupling at the infrared scale (low-energy
 limit; the precision-measured `α_em⁻¹ ≈ 137.0359991`).  In 213,
-this is derived as a **finite rational** at resolution N_U = 5²⁵
-without continuum limits.
+its structural decomposition uses atomic-fixed integer/rational
+layer coefficients; the ζ(2)/π² analytic factors enter as literal
+inputs (the precision theorem takes π² as `pi2_e12`).
 
 The five-layer graded formula (Step 1, `GradedFormula.lean`):
 
 ```
 1/α_em = harmonic_base(k=0,1) + cup_correction(k=2) + Hodge_pairing(k=3,4) + Dyson_tail + Gram_self_energy
-       = 60·S(N_U) + 30 + 25/3 + 1/(NS·NT·S_Wallis(N_U)⁵) + (Dyson) + α²/d²
+       = 60·ζ(2) + 30 + 25/3 + 1/(NS·NT·π⁵) + (Dyson) + α²/d²
 ```
 
 where:
-- `S(N_U)` is the Basel sum bracket at N_U (finite rational approximation to π²/6)
-- `S_Wallis(N_U)` is the Wallis-bracket approximation to π
+- `ζ(2) = π²/6` is an analytic input (π enters as a literal)
+- the π⁵ factor is likewise an analytic input
 - `NS = 3, NT = 2, d = 5` (atomic constants per C2)
 - The α²/d² Gram term comes from self-energy (cup-ring self-loop)
 
@@ -101,7 +103,7 @@ the resolution depth.
 | Step | Module | What it gives |
 |---|---|---|
 | 1 | `FractalLevelZetaBracket` | L=1 sandwich `S(3) < ζ_K(1) < ζ(2)` |
-| 2 | `FractalLevelLift` | K^(L) vertex/edge/H¹ counts: V_L = 5^(L+1), E_L = 3·(5^(L+1) − 1), H¹_L = 2·(V_L − 1), V_24 = N_U |
+| 2 | `FractalLevelLift` | K^(L) vertex/edge/H¹ counts: V_L = 5^(L+1), E_L = 3·(5^(L+1) − 1), H¹_L = 2·(V_L − 1) (parametric in L) |
 | 3 | `FractalLevelZetaSpectrum` | ζ-spectrum on K^(L=1): `ζ_K(0) = 8`, `ζ_K(3) ≈ 7,374·10⁻⁵`, `ζ_K(4) = 1,736·10⁻⁵`; decreasing in s |
 | 4 | `FractalLevelZetaConvergence` | ζ_K(1) = 153,332 × 10⁻⁵ (≈ 1.5333), gap to ζ(2) target 164,493 × 10⁻⁵ = 11,161 × 10⁻⁵ ≈ 0.112; full monotonicity ζ_K(s+1) < ζ_K(s) |
 | 5 | `FractalLevelZetaCoeffSeq` | Spec(Δ_1) on K^(L=1) as `CoeffSeq` + `Information.Bit` bracket; H¹ rank 8 = 2³ = 3 bits = 1 octal digit (matches SU(3) gluon octet) |
@@ -113,8 +115,8 @@ convergence statement into an **explicit modulus function**
 
 ### 4. The simplicial decomposition (Capstone)
 
-`Capstone.alpha_em_master_capstone` packages the five-term
-simplicial decomposition:
+`Capstone.SimplicialDecomp.alpha_em_simplicial_capstone` packages
+the five-term simplicial decomposition:
 
 ```
 d²/NS = (NS² − 1) + 1/NS = 25/3
@@ -122,10 +124,9 @@ d²/NS = (NS² − 1) + 1/NS = 25/3
        = "channels per spatial dim"
 ```
 
-All five terms (`unified_single_sum_form`, `unified_higher_N`,
-`alpha_em_simplicial_capstone`, `alpha_em_master_capstone`,
-`alpha_em_milestone`) are graded geometric invariants of
-K_{NS,NT}^{(c)} ⊂ Δ⁴.
+These terms (`unified_single_sum_form`, `unified_higher_N`,
+`alpha_em_simplicial_capstone`, `alpha_em_milestone`) are graded
+geometric invariants of K_{NS,NT}^{(c)} ⊂ Δ⁴.
 
 `alpha_em_milestone` is the millimeter-precision witness
 `|x − 137.036| < 1/10⁴` produced by the N=50 bracket
@@ -160,8 +161,9 @@ of independent gluon channels."*
 
 | Theorem | Lean module | Statement (informal) |
 |---|---|---|
-| `alpha_em_master_capstone` | `Capstone` | Unified-sum + simplicial decomp master |
+| `alpha_em_simplicial_capstone` | `Capstone` | Five-term simplicial decomposition |
 | `alpha_em_milestone` | `Capstone` | N=50 bracket contains 137.036 ± 10⁻⁴ |
+| `invAlphaEm_precision_theorem` | `GramStructuralCapstone` | 0.2 ppb structural precision (π² literal) |
 | `graded_formula_precision_master` | `GradedFormulaPrecision` | 12-digit π precision, 2.16 ppm residual |
 | `gram_higher_order_master` | `GramHigherOrder` | 0.09 ppb (Step 4) — within CODATA uncertainty |
 | `phase2_omega_invariant_2cocycle` | `Math/Cohomology/Bipartite/Filled3CellCohomology` | ω (b_2 = 1) is the unique Sym(3)-invariant 2-cocycle of K_{3,2}^{(c=2)} |
@@ -389,10 +391,9 @@ Steenrod cup_i + Adem-Wu basis — multi-session marathon scope.
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 
 Step 6 closes the modulus reformulation but only at L = 1.  Extending
-the spectrum computation to higher L (especially L → 24 = N_U layers)
-requires:
+the spectrum computation to higher L requires:
 - General-L Laplacian eigenvalue computation (not just decide at L=1)
-- Convergence proof ζ_K^{(L)}(s) → ζ(s) as L → 24 for s = 1, 2
+- Convergence proof ζ_K^{(L)}(s) → ζ(s) as L → ∞ for s = 1, 2
 - Effective rate of convergence as `DepthModulus` parameterized by L
 
 ### Caveats
@@ -424,9 +425,9 @@ depend on any axioms".
 The single citable theorem from elsewhere:
 
 ```lean
-import E213.Lib.Physics.AlphaEM.Capstone
-open E213.Lib.Physics.AlphaEM.MasterCapstone
-#check @alpha_em_master_capstone
+import E213.Lib.Physics.AlphaEM.GramStructuralCapstone
+open E213.Lib.Physics.AlphaEM.GramStructuralCapstone
+#check @invAlphaEm_precision_theorem
 ```
 
 ## Citation guidance

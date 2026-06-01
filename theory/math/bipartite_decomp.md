@@ -1,6 +1,6 @@
 # Bipartite Decomposition 5 = 3 + 2
 
-**Status**: Closed (4 files, capstone `G44Capstone`).
+**Status**: Closed (4 files, capstone `BipartiteDecomp.Capstone`).
 
 ## Overview
 
@@ -16,7 +16,7 @@ d = 5 into a bipartite pair where:
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/BipartiteDecomp/` (4 files)
-- **Capstone**: `G44Capstone`
+- **Capstone**: `BipartiteDecomp.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -24,7 +24,7 @@ d = 5 into a bipartite pair where:
 | `AdditiveCheck` | Additive decomposition (5 = 3 + 2) check |
 | `BinomialExpansion` | Binomial expansion of (1+x)^5 = (1+x)^3 · (1+x)^2 |
 | `TernaryBinary` | Ternary × binary decomposition of grade-5 cochain |
-| `G44Capstone` | Bipartite-decomposition master |
+| `BipartiteDecomp.Capstone` | Bipartite-decomposition master |
 
 ## Narrative
 

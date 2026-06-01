@@ -43,4 +43,22 @@ theorem fano_k32_bridge :
   refine ⟨rfl, rfl, rfl, fanoLines_count, rfl, rfl, rfl, rfl, ?_⟩
   decide
 
+/-! ## Individual components (used by `Level.NonAssocFanoCapstone`) -/
+
+/-- K_{3,2}^{(c=2)} edge count = 12. -/
+theorem k32c2_edges_eq_12 : k32c2_edges = 12 := by decide
+
+/-- b₁ = E − V + 1 = 12 − 5 + 1 = 8. -/
+theorem k32c2_b1 : (12 : Nat) - 5 + 1 = 8 := by decide
+
+/-- 7-fold connection: Fano lines = b₁ − 1. -/
+theorem seven_fold_connection : fanoLines.length = (12 : Nat) - 5 + 1 - 1 := by decide
+
+/-- 8-fold match: octonion dim `1 + 7 = b₁`. -/
+theorem eight_fold_match : (1 + 7 : Nat) = (12 - 5 + 1 : Nat) := by decide
+
+/-- Cardinality bridge: Fano lines + K vertices = K edges. -/
+theorem cardinality_bridge :
+    fanoLines.length + ((3 : Nat) + 2) = k32c2_edges := by decide
+
 end E213.Lib.Math.SignedCut.Bridge.FanoK32Bridge

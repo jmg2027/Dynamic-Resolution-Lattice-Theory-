@@ -310,22 +310,13 @@ decide-checked at each `L`.  The spectrum gives the
 *topological* counterpart to the *count-Lens* readout
 `configCountD 5 L`: same fractal, different Lens output.
 
-### 7. Bridge to physics
+### 7. Parametric, no privileged level
 
-Two ∅-axiom sites in the physics layer connect the family to
-observables:
-  · `Lib/Physics/Foundations/NResolutionFromFractal` defines
-    `n_resolution_candidate := d^(numV)` (with `d = 5`,
-    `numV = 25`) and ships the additive bridge
-    `n_resolution_candidate_eq : ... = n_resolution_candidateD 5`,
-    where `n_resolution_candidateD b := configCountD b 2`.
-  · `Lib/Physics/Foundations/FractalLensCardinality` defines
-    `coloring_count (n d) := d^n` and ships
-    `K_b_sq_coloring_count_eq b : coloring_count (b^2) b
-    = configCountD b 2` (a free `rfl`), plus the d=5 instance
-    `K25_coloring_count_eq_configCountD`.
-
-Both bridges are additive; consumer literals are unchanged.
+`configCountD d n` is bare combinatorics, parametric in both base
+and level.  No level is privileged: `n ↦ configCountD d n` is a
+strict order-embedding (`configCountD_strictMono` for `d ≥ 2`),
+so no count can be crowned as "the resolution / universe number".
+`configCount 2 = 5²⁵` is a true arithmetic value, nothing more.
 
 ## Key results
 
@@ -352,8 +343,7 @@ Both bridges are additive; consumer literals are unchanged.
 | `configCountD_5_2_mod_table_extended` | `Fractal.ConfigCountModular` §H | physics-slice readouts mod `{17, 23, 31, 41}` |
 | `fractal_betti_spectrum` | `Fractal.Level` | `b₁(K_{5^L})` for `L = 1..4` |
 | `numV_eq_d_sq` | `Fractal.V25` | `numV = d² = 25` (level-2 enumeration) |
-| `K25_coloring_count_eq_configCountD` | `Physics.Foundations.FractalLensCardinality` | `coloring_count numV d = configCountD 5 2` |
-| `n_resolution_candidate_eq` | `Physics.Foundations.NResolutionFromFractal` | bridges the value-level alias to the family |
+| `configCountD_strictMono` | `Fractal.ConfigCount` | `n ↦ configCountD d n` strictly increasing (`d ≥ 2`): no privileged level |
 
 ## Research-note provenance
 

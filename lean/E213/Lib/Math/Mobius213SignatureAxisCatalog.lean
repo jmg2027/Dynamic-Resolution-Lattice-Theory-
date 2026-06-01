@@ -139,7 +139,7 @@ theorem axis_cd_type_D_eq_one_one :
     E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .D
       = (1, 1) := by decide
 
-/-! ## §5 — Resolution-limit axes -/
+/-! ## §5 — Config-count axes (bare arithmetic) -/
 
 theorem axis_res_d_sq : d * d = 25 := by decide
 
@@ -165,7 +165,7 @@ theorem axis_atom_six_conjunct :
 /-- ★★★★★★★★★★★ **Signature axis master catalog (Phase 1)**:
     every axis in this file holds simultaneously.  Bundles
     ≈28 distinct viewpoints across algebraic, combinatorial,
-    number-theoretic, CD-tower, resolution-limit, and atomicity
+    number-theoretic, CD-tower, config-count, and atomicity
     anchor domains where the framework's (NS, NT, det) signature
     is realised.
 
@@ -198,7 +198,7 @@ theorem signature_axis_master_phase_1 :
         .C).2 = -1)
     ∧ (E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .D = (1, 1))
-    -- Resolution-limit
+    -- Config-count (bare arithmetic)
     ∧ (d * d = 25)
     ∧ (d ^ (d * d) = 5 ^ 25)
     := by

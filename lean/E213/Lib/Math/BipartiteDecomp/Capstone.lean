@@ -13,7 +13,7 @@ Mingu's bipartite hypothesis verified:
   * d=5 substrate decomposes as N_S=3 (S-axis) + N_T=2 (T-axis).
 -/
 
-namespace E213.Lib.Math.BipartiteDecomp.G44Capstone
+namespace E213.Lib.Math.BipartiteDecomp.Capstone
 
 open E213.Lib.Math.BipartiteDecomp.AdditiveCheck
   (substrate_sum substrate_product three_pow_25 two_pow_25
@@ -60,4 +60,4 @@ theorem total_witness :
     ∧ (3 : Nat) * 3 - 1 = 8 :=
   ⟨additive_fails, binomial_closure, substrate_sum, su3_boson_count⟩
 
-end E213.Lib.Math.BipartiteDecomp.G44Capstone
+end E213.Lib.Math.BipartiteDecomp.Capstone

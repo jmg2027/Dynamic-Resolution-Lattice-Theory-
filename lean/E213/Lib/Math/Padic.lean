@@ -31,7 +31,7 @@ Sub-modules:
               mod p^(k+1)`, any `p ≥ 1`) and `teichmuller_iter_cauchy`
               (Cauchy property of `x ↦ x^p` iteration).
   · `Field` — `QpSeq` (ℚ_p): add, sub, mul, neg, ofNat, inv, div, sqrt.
-  · `DRLT` — 5-adic lift of `N_U = 5^25` for DRLT integration.
+  · `DRLT` — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`).
 
 All declarations satisfy `#print axioms … → "does not depend on
 any axioms"` — see `theory/math/padic_real213.md` for the

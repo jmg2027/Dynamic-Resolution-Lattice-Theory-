@@ -1,4 +1,4 @@
-import E213.Lib.Math.AngleStructure.G42Capstone
+import E213.Lib.Math.AngleStructure.Capstone
 import E213.Lib.Math.AngleStructure.GaugeDiagonal
 import E213.Lib.Math.AngleStructure.OrthogonalDoubling
 import E213.Lib.Math.AngleStructure.RotationOrder

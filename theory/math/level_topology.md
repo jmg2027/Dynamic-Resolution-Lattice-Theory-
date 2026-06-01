@@ -1,6 +1,6 @@
 # Level Topology
 
-**Status**: Closed (6 files, capstone `G49Capstone`).
+**Status**: Closed (6 files, capstone `LevelTopology.Capstone`).
 
 ## Overview
 
@@ -16,7 +16,7 @@ This is the topological-side counterpart to the algebra tower
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/LevelTopology/` (6 files)
-- **Capstone**: `G49Capstone`
+- **Capstone**: `LevelTopology.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -26,7 +26,7 @@ This is the topological-side counterpart to the algebra tower
 | `ComplexTopology` | L2 complex topology (re, im) |
 | `QuaternionTopology` | L3 quaternion topology (1, i, j, k) |
 | `TwoTowersDivergence` | Two paths diverge to different topologies |
-| `G49Capstone` | Level topology master |
+| `LevelTopology.Capstone` | Level topology master |
 
 ## Narrative
 

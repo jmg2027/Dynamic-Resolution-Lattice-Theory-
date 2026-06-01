@@ -57,9 +57,8 @@ def preservesAllProperties (n : Nat) (k : Nat) : Prop :=
 /-- ★ At level 0 with k=0, all properties preserved. -/
 theorem preserve_at_0 : preservesAllProperties 0 0 := rfl
 
-/-- ★ At level 25 with k=25, the residual (Z/2 + norm + N_U)
-    counts as "the level-25 surviving structure" — no further
-    loss. -/
+/-- ★ At level 25 with k=25, the residual (Z/2 + norm) counts as
+    "the level-25 surviving structure" — no further loss. -/
 theorem preserve_at_25 : preservesAllProperties 25 25 := rfl
 
 end E213.Lib.Math.TriangularTower.OptimalPrecision

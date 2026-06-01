@@ -19,23 +19,19 @@ top entries.
 
 ## CDI-1 — `b₁(K_{NS,NT}) = NS² - 1 = inv_α_em^{(finite)}`
 
-**Group size**: 5 decls, 301 nodes  
-**Spans**: Math.HodgeConjecture, Math.Cohomology, Physics.Foundations
+**Group size**: 3 decls  
+**Spans**: Math.HodgeConjecture, Math.Cohomology
 
 **Decls**:
   · `Math.HodgeConjecture.Foundation.ConjectureLens.b1_eq_NS_sq_minus_one`
   · `Math.Cohomology.Bipartite.V32Betti.b1_eq_NS_sq_minus_1`
   · `Math.HodgeConjecture.Pairing.HodgeIndex.h1_dim_K32`
-  · `Physics.Foundations.FiniteUniverse.inv_alpha_em_finite_3`
-  · `Physics.Foundations.FiniteUniverse.inv_alpha_em_finite_10`
 
 **Identification**: The first Betti number of K_{NS,NT}^{(c=2)}
-bipartite multigraph equals NS² - 1 = 8 (gluon octet count)
-AND equals the finite-bracketed inverse fine-structure constant
-α_em^{-1} at atomicity instances 3 and 10.  **Byte-identical
-proof at Expr level across 3 namespaces** confirms the
-cohomological-physical bridge isn't analogical — it's
-structural identity.
+bipartite multigraph equals NS² - 1 = 8 (gluon octet count =
+1/α_3 confinement integer).  **Byte-identical proof at Expr level
+across namespaces** confirms the cohomological bridge isn't
+analogical — it's structural identity.
 
 **Atomicity origin**: NS = 3 from atomicity chain.  K_{NS,NT}
 bipartite from (3,2) decomposition.  H¹ rank = 8 from cycle

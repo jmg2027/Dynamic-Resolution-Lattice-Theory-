@@ -9,7 +9,7 @@ resolution dimension `d = 5`.
 Per the `theory/math/analysis/flux_m_v_t.md` frontier:
 
 > MVT chain at higher depth: current chains close at 3-4 bracket
-> levels; deeper chains (d-depth-5 per resolution limit) pending.
+> levels; deeper chains (d-depth-5 at atomicity d = 5) pending.
 
 This file closes the d=5 case: along a chain of 5 pairwise-
 adjacent dyadic brackets, **all 4 interior walls cancel

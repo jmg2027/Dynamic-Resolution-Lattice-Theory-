@@ -1,6 +1,6 @@
 import E213.Lib.Math.HodgeConjecture.Bridge.BeilinsonRegulator
 import E213.Lib.Math.HodgeConjecture.Bridge.DiscreteGeometry
-import E213.Lib.Math.HodgeConjecture.Bridge.G6Vacuity
+import E213.Lib.Math.HodgeConjecture.Bridge.ClassAExactWitnesses
 import E213.Lib.Math.HodgeConjecture.Bridge.GaloisCounterfactual
 import E213.Lib.Math.HodgeConjecture.Bridge.Ising
 import E213.Lib.Math.HodgeConjecture.Bridge.MLDecoder
@@ -32,7 +32,7 @@ import E213.Lib.Math.HodgeConjecture.Bridge.SpinGlassGroundState
 
     * `DiscreteGeometry`   — discrete-geometry bridge
     * `PhaseRouting`       — phase-routing model
-    * `G6Vacuity`          — G6 vacuity claim
+    * `ClassAExactWitnesses`          — G6 vacuity claim
 
   ## Computer science
 

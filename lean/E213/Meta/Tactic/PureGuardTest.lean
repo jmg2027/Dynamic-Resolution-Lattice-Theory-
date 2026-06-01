@@ -3,6 +3,7 @@ import E213.Lib.Math.PatternCatalog.Instance
 import E213.Lib.Math.PatternCatalog.Span
 import E213.Lib.Math.PatternCatalog.Algebra
 import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
 # PureGuard regression tests for the Pattern Catalog
@@ -51,8 +52,8 @@ open E213.Meta.Tactic.PureGuard
 
 -- Cantor / Cauchy ∅-axiom type-distinction anchors + parametric count
 #guard_pure E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
-#guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount
-#guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount_two
+#guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD
+#guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD_succ
 #guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount_two
 
 end E213.Meta.Tactic.PureGuardTest

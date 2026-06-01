@@ -142,6 +142,13 @@ Lean's `Prop` type can also be a `HasDistinguishing` instance —
 auto-generates `universalMorphism Prop : Raw → Prop`
 (fold via the chosen connective).
 
+**Axiom split** (`catalogs/correspondence-surface.md`): the
+`propAsDistinguishing*` instances are category (B) thesis adoption
+(`propext` IS the claim that `Prop` occupies the distinguishing slot,
+`propXor` = the Prop-parallel of `Raw.slash`).  The `canonical*Map`
+maps below are category (A) classical-correspondence surface — their
+PURE 213-native twins are `Bool` lenses (`Choice.CanonicalTruthChar`).
+
 **Construction:**
 - `True`, `False`: two distinguishable bases.
 - `propXor` (= `(P ∨ Q) ∧ ¬(P ∧ Q)`): commutative combine.

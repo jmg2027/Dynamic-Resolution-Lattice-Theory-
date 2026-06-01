@@ -1,6 +1,6 @@
 # Operation × Topology
 
-**Status**: Closed (4 files, capstone `G48Capstone`).
+**Status**: Closed (4 files, capstone `OperationTopology.Capstone`).
 
 ## Overview
 
@@ -13,15 +13,14 @@ operation is `O(operation_levels · base_topology_complexity)`.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/OperationTopology/` (4 files)
-- **Capstone**: `G48Capstone`
+- **Capstone**: `OperationTopology.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
 |---|---|
 | `OperationLevels` | Operation-by-level decomposition |
 | `TopologicalComplexity` | Complexity measure per (op, topology) cell |
-| `TotalPreservation` | Total-preservation invariant (op preserves topology) |
-| `G48Capstone` | Operation × topology master |
+| `OperationTopology.Capstone` | Operation × topology master |
 
 ## Narrative
 
@@ -37,11 +36,6 @@ The 4 × N table (op rows × topology columns) at level N:
 - Topology columns: {sign, magnitude, quaternion, complex, ...}
 - Cell (op, topology): the complexity of `op` operating in
   `topology`
-
-`TotalPreservation` proves the invariant: an operation in 213
-**preserves** its native topology — never moves an element outside
-its topological class.  This eliminates the "well-defined on
-classes" boilerplate that classical algebra requires.
 
 ## Companion clusters
 

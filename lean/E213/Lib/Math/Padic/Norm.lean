@@ -1,6 +1,7 @@
 import E213.Lib.Math.Padic.Foundation
 import E213.Lib.Math.Padic.Arith
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PureNat
 /-!
 # Real213-p-adic Valuation
 
@@ -21,6 +22,8 @@ membership, without ever forming an actual `WithTop` value.
 -/
 
 namespace E213.Lib.Math.Padic
+
+open E213.Meta.Nat.PureNat (pow_add)
 
 /-- `valAtLeast x n` — every digit `< n` is zero.  Equivalently
     (via `Foundation.trunc_eq_of_eq_mod_pn`-style reasoning),
@@ -269,16 +272,6 @@ theorem Zp.valAtLeast_mul_of_right (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (n : N
 `valAtLeast x m ∧ valAtLeast y n → valAtLeast (x · y) (m + n)`.
 -/
 
-/-- PURE: `p^a · p^b = p^(a + b)` by induction. -/
-private theorem pow_add_pure_norm (p : Nat) :
-    ∀ m n, p^m * p^n = p^(m + n)
-  | _, 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | m, n + 1 => by
-    rw [Nat.pow_succ, ← E213.Tactic.NatHelper.mul_assoc,
-        pow_add_pure_norm p m n]
-    show p^(m + n) * p = p^(m + (n + 1))
-    rw [← Nat.add_assoc, ← Nat.pow_succ]
-
 /-- PURE: extending trunc beyond m preserves `% p^m`. -/
 private theorem trunc_extension_mod (p : Nat) (hp : 0 < p) (x : ZpSeq p) (m : Nat) :
     ∀ k, x.trunc (m + k) % p^m = x.trunc m % p^m
@@ -292,7 +285,7 @@ private theorem trunc_extension_mod (p : Nat) (hp : 0 < p) (x : ZpSeq p) (m : Na
     -- ((x.trunc m % p^m) + (digits.val * p^(m+k)) % p^m) % p^m = x.trunc m % p^m
     -- Show (digits.val * p^(m+k)) % p^m = 0.
     have h_zero : ((x.digits (m + k)).val * p^(m + k)) % p^m = 0 := by
-      rw [show p^(m + k) = p^m * p^k from (pow_add_pure_norm p m k).symm]
+      rw [show p^(m + k) = p^m * p^k from pow_add p m k]
       rw [show (x.digits (m + k)).val * (p^m * p^k)
               = p^m * ((x.digits (m + k)).val * p^k) by
             rw [Nat.mul_comm (p^m) (p^k),
@@ -332,7 +325,7 @@ theorem Zp.valAtLeast_mul (p : Nat) (hp : 0 < p) (x y : ZpSeq p) (m n : Nat)
     -- = (p^(m+n) · (A · B)) % p^(m+n) = 0
     rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213
           (p^m) (x.trunc (m + n) / p^m) (p^n) (y.trunc (m + n) / p^n),
-        pow_add_pure_norm p m n]
+        ← pow_add p m n]
     exact E213.Tactic.NatHelper.mul_mod_right (p^(m + n)) _
   exact (Zp.valAtLeast_iff_trunc hp _ (m + n)).mpr h_muln
 
@@ -500,7 +493,7 @@ theorem Zp.valEq_mul (p : Nat) (hp : 1 < p) (x y : ZpSeq p) (m n : Nat)
     exact this
   rw [h_x_div, h_y_div] at h_xy_n1_mul
   rw [E213.Tactic.NatHelper.mul_mul_mul_comm_213 (p^m) _ (p^n) _,
-      pow_add_pure_norm p m n] at h_xy_n1_mul
+      ← pow_add p m n] at h_xy_n1_mul
   rw [Nat.mul_comm (p^(m + n)) _] at h_xy_n1_mul
   rw [mul_pow_succ_mod_gen ((x.trunc (m + n + 1) / p^m) *
                               (y.trunc (m + n + 1) / p^n)) p (m + n) hp'] at h_xy_n1_mul

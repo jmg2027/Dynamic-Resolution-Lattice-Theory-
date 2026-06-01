@@ -1,21 +1,18 @@
-# `SignedCut/Level/` — signed-cut level analysis (G38 / G39)
+# `SignedCut/Level/` — signed-cut level capstones
 
-Level-25 / Level-26 specific signed-cut results.  G38 + G39
-final capstones for the Cayley-Dickson tower at signed-cut level.
+Final capstones for the generalised Cayley-Dickson tower algebra
+at signed-cut level.
 
-## Files (5)
+## Files (2)
 
-  - `Level25Residual.lean`    — Level-25 residual analysis
-  - `Level25Capstone.lean`    — Level-25 capstone
-  - `Level26Absence.lean`     — Level-26 absence theorem
-  - `G38FinalCapstone.lean`   — G38 final capstone
-  - `G39Capstone.lean`        — G39 capstone
+  - `G38FinalCapstone.lean`   — CD-tower algebra synthesis capstone
+                                (quaternion/octonion mul rules,
+                                Hurwitz preservation + failure)
+  - `G39Capstone.lean`        — Fano-plane / octonion capstone
 
 ## Where to add new files
 
-  - New level analysis     → `Level<N><kind>.lean`
-  - Capstone               → `G<N>Capstone.lean` or
-                              `Level<N>Capstone.lean`
+  - Capstone               → `G<N>Capstone.lean`
 
 ## Companion sub-clusters (in `SignedCut/`)
 

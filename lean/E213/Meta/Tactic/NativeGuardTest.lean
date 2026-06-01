@@ -3,6 +3,7 @@ import E213.Lib.Math.PatternCatalog.Instance
 import E213.Lib.Math.PatternCatalog.Algebra
 import E213.Lib.Math.PatternCatalog.Span
 import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
 # NativeGuard regression tests for the Pattern Catalog
@@ -57,6 +58,6 @@ open E213.Meta.Tactic.NativeGuard
 
 -- Cantor anchor + parametric configuration count
 #guard_native E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
-#guard_native E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount
+#guard_native E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD
 
 end E213.Meta.Tactic.NativeGuardTest

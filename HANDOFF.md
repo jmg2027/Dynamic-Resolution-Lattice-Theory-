@@ -1,146 +1,181 @@
 # Session handoff
 
-Branch: `claude/tower-research-analysis-3uWqd`
+Branch: `claude/research-notes-9Nc74`
 
-The durable record of all closed work lives in `lean/E213/` (source of truth) and
-`theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
-compact index of what is closed, and the detailed next-target list.
+The durable record of closed work lives in `lean/E213/` (source of truth) and
+`theory/` (narrative).  This file keeps: this session's map, the open targets
+(headline **(a)** + depth-arc A–E + scoped follow-ups), the closed-and-promoted
+index, and notes/hygiene.
 
-## Latest arc — real numbers as cuts, completeness without completeness
+## Latest session (2026-06-01) — what closed
 
-A long originator-driven thread, now closed and written up.  Capstone paper
-`theory/math/completeness_without_completeness.md` (5 parts, 15 §); detail chapters
-`theory/math/completeness_relocated.md` + `probe_twist_conic.md` (§0–13); essay
-`theory/essays/real_without_completeness.md`.  Every link is a ∅-axiom theorem.
+  1. **Repo consolidation / hygiene** — legacy-deletion narration stripped from
+     5 theory chapters (present-state exposition); ~20 buried general-purpose
+     Lean helpers hoisted into the Meta layer (NatRing/NatHelper/NatDiv213/
+     Fin213/Int213), incl. the `mul_lt_mul_left_pure` Classical-guard family and
+     deduped `pow_add`; seed corpus audited **already well-integrated** (no action).
+  2. **Capstone rename — `G##`-prefix dropped** (CLAUDE.md rule 5).  12 modules:
+     the 9 single-topic ones → `<Topic>/Capstone.lean` (matches the established
+     `Capstone` convention); `G38FinalCapstone`→`HurwitzSynthesisCapstone`,
+     `G39Capstone`→`NonAssocFanoCapstone`, `G6Vacuity`→`ClassAExactWitnesses`.
+     Inner theorem names unchanged.  theory/math docs use topic-qualified names.
+     Full build 1533 clean.
+  3. **`dialogue_audit.md` chapter removed** — orphan: it claimed "Closed/PURE"
+     against a `DialogueAudit/` Lean sub-tree that no longer exists (deleted in
+     the 5²⁵ sweep `6b69270`; the deleted Lean was entirely the
+     `maxDistinguishableCuts := 5²⁵` / `N_resolution` machinery).
+  4. **propext local-purification pass — 10 theorems cleared** (swap
+     propext-carrying Nat-core lemmas + Iff-closing `simp` for PURE infra):
+     `KerSizeUniversal` **4 → 0** (the universal `kerSize=2` / N_gen kernel — was
+     the highest-value; root = `Nat.{mul_div_cancel_left, add_mul_div_left,
+     add_mul_mod_self_left, add_sub_cancel', mul_assoc}`; added
+     `NatDiv213.add_mul_div_left_pure`), `EnrichedKNSNTcEvenEven` **2 → 0** +
+     `PellOrbitInstances` **2 → 0** (one-line `decide_eq_true` fix, cascaded via
+     import), `Choice.CanonicalTruthChar` **8 → 6**.  Now **12539 PURE / 45 real
+     DIRTY / 57 sealed**; full build 1533 clean.
+  5. **Classical-correspondence surface — catalog + finding** (originator
+     question: "are the structural/thesis propext theorems there just to say
+     'standard math's props/functions correspond like this'?" — **largely yes**).
+     New `catalogs/correspondence-surface.md` classifies every DIRTY by *why* it
+     carries the axiom; each category-(A) locus tagged in-source
+     (`grep -rn "classical-correspondence surface" lean/`).  KEY FINDING: the
+     DIRTY catalog ≈ the framework's **classical-correspondence surface**; the
+     ∅-axiom core does not depend on category (A).
+  6. **Seal-arc docs tempered to the empirical finding** — the earlier
+     "remaining is just engineering, fix complete" claim was over-optimistic; a
+     delegated migration attempt hit real walls (see **(a)**).  `STRICT_ZERO_AXIOM`,
+     `theory/lens/{dirty_recovery_patterns,unified_equivalence}` corrected: the
+     `universalLens` kernel hub *is* PURE-recoverable, but full `=`-form retirement
+     is a foundational refactor, not bounded migration.
 
-The chain, each link a theorem (Lean module in parentheses):
+### The DIRTY classification (catalogs/correspondence-surface.md)
 
-  1. **Completeness is relocated, not constitutive** — a real is a decision
-     procedure vs ℚ; completion is a leaf of the import graph, unconditional for
-     algebraic (φ closed-form modulus) / modulus-gated for transcendental
-     (`Real213/AbCutSeq`, `PhiAbCut`, `EulerCut`, `PiCut`, `Analysis/CompletionTower`,
-     `ModulusMonoid`, `ResolutionQuantitative`, `ModulusForm`).
-  2. **The probe lattice is P-twisted** — `P = [[2,1],[1,1]] ∈ SL₂(ℤ)`,
-     order-preserving, `det = NS − NT = 1` (`MobiusProbeTwist`).
-  3. **φ is the twist's fixed cut**; e is not (`PhiProbeFixed`, `ProbeTwistFixedPoint`).
-  4. **The wobble = `f⁻¹`, backward Pell** (`ProbeTwistDynamics.twist_undoes_step`).
-  5. **The wobble's shape = the conic `Q = m² − mk − k²`** — every orbit on its
-     hyperbola `Q = N`, disc 5 = NS+NT (`ProbeTwistConic.Q_preserved`).
-  6. **The divergence has a form** — cross-det `Wₙ` (discrete Wronskian): φ `±1`,
-     e `−n!`, π Wallis (`EulerDivergenceForm`).
-  7. **Divergence depth** — lift the form until constant: algebraic 1 < e 3 < π 6 <
-     Liouville ∞.  Depth ≠ irrationality measure μ (μ collapses alg=e=π=2); depth =
-     the P-recursive / holonomic rank (`DivergenceLadder`, `DivergenceDepth`).
-  8. **Finite depth ⟺ P-recursive** (`DepthPRecursive`).  Classical CF data: exp/tan
-     family (e, tanh1 = [0;1,3,5,7,…]) finite depth; π/arctan1/ln2 irregular.
-  9. **The ratio-lift axis** — `ratioLift` differences the exponent
-     (`ratio_is_diff_on_exponent`), so `ratioN^h` floors exactly `c^{poly deg h}`;
-     `h` = exponent's polynomial degree (`DepthTower`).
-  10. **The `(h,d)` coordinate is an ordinal `< ω²`** — `lex_wf`,
-      `no_infinite_descent` (`DepthOrdinal`).
-  11. **Third axis = recursion into the exponent** — value-height = 1 +
-      exponent-height; `value_floors_iff_exponent_floors` (`DepthExponentRecursion`).
-  12. **`ε₀` is not the end** — `ratioN` cannot cross one exponential layer
-      (`2^{2ⁿ}` is a fixed point: `ratioN_dexp`, `dexp_not_const`); the heights are
-      the classical ordinal hierarchy, with no top (`DepthDoubleExp`).
-  13. **Naming the ceiling-raising = the residue** — referencing the whole tower is a
-      diagonalisation `diag f n = f n n + 1` escaping every level (`diag_not_in_seq`);
-      this is `cantor_general` = the same non-surjectivity as the foundational residue
-      `self_covering_closure`.  The arc closes onto its origin (`DepthCeilingResidue`).
+  - **(A) classical-correspondence surface** — "= the standard object" bridges;
+    PURE 213-native twin (Bool lens / pointwise) carries the content, DIRTY twin
+    is outward-facing, removable from the core: `BoolProp` (Bool→Prop morphism),
+    `SemanticAtom.canonical*Map`, `CanonicalTruthChar`, `CupPairing.cup_symm`,
+    `Hyper213Tower.lensTowerHasDistinguishing`.
+  - **(B) thesis adoption** — `propAsDistinguishing*` (`propext` IS the claim that
+    `Prop` occupies the distinguishing slot).  Irreducible by thesis.
+  - **(C) Lens `equiv`/`refines` `=`-surface** — equivR-recoverable; the target of
+    **(a)** below.
+  - **(D) genuine results via classical representation** — purifiable backlog
+    (`CayleyDickson.*`), same playbook as KerSizeUniversal.
+  - **(E) intentional axiom exhibits / Elab plumbing / test guards** — by design.
 
-Depth-arc Lean: 9 modules, audited PURE / 0 dirty.  Wired into the `Cauchy.lean`
-umbrella; full `lake build` clean.
+## OPEN — headline target (a): foundational pointwise Lens-API rebuild
+
+Retire the **category-(C)** propext/Quot.sound (the Lens refinement lattice
+stated via `=`) by redefining the Lens equivalence/refinement API pointwise.
+This is the big one — **a real project, not bounded migration** (a delegated
+agent attempt stalled here; broken WIP was reset).
+
+**Three walls (empirically confirmed):**
+  1. `Lens.equiv := (view x = view y)` and `refines` built on it are
+     *foundational* (`Lens/LensCore.lean`) — every consumer stated through them
+     inherits the `=`-cost unless the API itself is restated pointwise.
+  2. `equivR`/`refinesR` are typed for `Lens (Raw → Prop)`.  The consumer lenses
+     have other codomains (`iJoinLens : Lens (ι → α)`, the meets,
+     `limitLens`) — P5 does not even *type* there; each needs its own
+     per-codomain pointwise equivalence.  → the API must become
+     codomain-polymorphic in its notion of "same".
+  3. `universalLens_recovers` / `universalLens_idempotent` have **no** PURE
+     `_pw` companion — they are equivalence-*closure* facts, needing closure
+     lemmas re-proved on the new API.
+
+**What already EXISTS (PURE, materialized — the hub is recoverable):**
+`Lens/ReadingEquiv.lean` (`equivR`/`refinesR` + refl/symm/trans, all PURE; lone
+`=`-shim `equivR_to_equiv`), `universalLens_{combine_sym,view_eq}_pw` +
+`universalLens_kernel_eq_E_R` (QuotLens, PURE), `Raw.fold_slash_iff` (Theory,
+PURE).  Consumers of the sealed hub `universalLens_kernel_eq_E`:
+`Lattice/{Join,IndexedJoin,FamilyMeet,FamilyJoin}`, `Instances/Cauchy`,
+`Algebra/Corresp`, `Choice/Resolved` (+ `Compose.OnLens*`, `Properties/CanonicalForm`,
+`Cauchy/GenericFamily` carry the same `=`-shape).  `propAsDistinguishing` (B)
+stays irreducible regardless.
+
+## OPEN — smaller / scoped
+
+  - **(d) CayleyDickson purity** (category D): `CayleyHeavy.{normSq_eq_zero_iff,
+    no_zero_div}`, `SedenionHeavy.flexible`, `Trig.conj_mul_anti`,
+    `CDTower.CD_tower_full` — inherited from the Lipschitz base + `Cayley.ext` +
+    Int/`omega`.  Trace the root (likely the same propext-Nat/Int-core swap as
+    KerSizeUniversal) and purify.
+  - **Scoped doc follow-ups** (judgment/generative — do deliberately):
+    G## session-tag sweep in `theory/essays` bodies; merges
+    (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
+    `properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`);
+    splits (`cohomology/k_nm_c_classification`, `completeness_without_completeness`
+    — verify first); narrative-patchwork intros (`RESEARCH_PLAN`,
+    `meta/methodology_patterns`).
+
+## OPEN — depth-arc next targets (real-number / completeness thread, A–E)
+
+The depth arc (real = decision procedure, completeness relocated; 13 links) is
+closed + promoted (`theory/math/completeness_without_completeness.md`).  The
+unclaimed extensions it exposes:
+
+  - **A. `depth_floor_is_det_one`** — DONE this prior arc (`Cauchy/DepthFloorDetOne`,
+    7/0): forward (`convergent_crossdet_floor_is_one`) + converse
+    (`floor_one_is_P_invariant` = `pellNormStep`).  The floor IS the P-orbit
+    invariant.  Hinge between analysis-ladder and atomic forcing.
+  - **B. finite-depth recurrence formal** — make "finite depth ⟺ P-recursive" a
+    theorem for e (coeff `n+1`, deg 1) and π (deg 4): exhibit the explicit
+    polynomial-coefficient recurrence their convergent data satisfies, prove
+    `polyDepth d` matches.  Closes the classical-bridge gap.  Architecture:
+    `research-notes/G155` (HolonomicReal: bundle recurrence + derived
+    `CertifiedModulus`; `Holonomic.toCertifiedModulus` is the target).
+  - **C. third-axis closure** — assemble `DepthDoubleExp` + `DepthExponentRecursion`
+    into a positive theorem that ratio-on-exponent floors `c^{c^{poly}}` at the
+    right coordinate; pin the ordinal rank `ω^r · d` for a depth-`r` tower.  The
+    proven path from `ω²` toward `ω^ω`.
+  - **D. Liouville's coordinate** — give `c^{k!}` (no finite `(h,d)`) a coordinate
+    in the recursion hierarchy: its exponent `k!` floors under ratio (`k! ↦ k+1`);
+    formalize "the exponent is itself an `expSeq`" — frontier toward `ε₀`.
+  - **E. tower duality** (conceptual): GRA-tower ↔ CD-tower (level `n` loss ↔
+    level `5−n` Reading-iso gain); depth-ladder ↔ Cayley–Dickson tower (both
+    bottoming at the `5 = NS+NT`-forced floor); `CDDoubleFlexible` cross-pair crux
+    (long-standing CD open item).  See `tower_atlas.md` / `G154` §2.
 
 ## Closed and promoted (durable homes — do not re-derive)
 
 | Topic | Source of truth | Narrative |
 |---|---|---|
-| Real-number completeness arc (links 1–13) | `Lib/Math/Cauchy/Depth*`, `Divergence*`, `EulerDivergenceForm`; `Lib/Math/Real213/*`; `Lib/Math/Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `theory/essays/real_without_completeness.md` |
-| φ self-similarity (form / count `5^L` / limit-ratio φ) | `Lib/Math/SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
-| The residue / self-covering closure | `Lens/FlatOntologyClosure`, `Lens/PredicateSelfEncoding`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
-| P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing`, `Mobius213SignatureAxisCatalog` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |
-| General Cauchy completeness (cut space closed under limits) | `Analysis/CauchyCompleteValid` | `completeness_relocated.md` |
+| `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
+| Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/G159` |
+| Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
+| Real-number completeness arc (links 1–13) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne}`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
+| The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
+| P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |
+| `Mobius213.Px` + repo-wide purity (no Classical/native_decide in 213-math) | `Mobius213/Px/*` (0 dirty) | `STRICT_ZERO_AXIOM.md` |
 
 PURE Nat helper infrastructure (reuse, don't re-derive): `Meta/Nat/NatDiv213`
-(`mul_div_self_pure`, `mul_div_cancel_left_pure`, `pow_succ_div`, `add_div_right_pos`),
-`Meta/Nat/PureNat` (`pow_add`, `mul_assoc`, `add_mul`), `Meta/Tactic/NatHelper`
-(`succ_sub`, `add_sub_cancel_right`, `add_sub_of_le`, `sub_add_cancel`).
-
-## Next targets (detailed)
-
-### A. Depth-floor = P-orbit, as one theorem (`research-notes/G154`)
-
-The strongest unclaimed result the arc exposes.  Three sub-trees independently land
-on `det = 1` as the floor: the divergence ladder (`const_reaches_floor`), convergent
-geometry (`ConvergentDet.convergent_det`, Cassini `Wₙ = ±1`), and atomic forcing
-(`OrbitForcing`).  **Depth measures distance from atomicity**: a real's generating
-recurrence departs from P's autonomous self-definition by a polynomial of degree
-`depth − 2`.  Promotable brick:
-
-> **`depth_floor_is_det_one`** — `reachesFloor` with cross-determinant floor value 1
-> ⟹ the convergents satisfy the autonomous Pell/Cassini step (`pellNormStep`), i.e.
-> lie on a P-orbit.
-
-Hinge between the analysis-side ladder and the atomic-side forcing.  Main obstacle:
-`Wₙ` is `Nat`-abstract in `DivergenceLadder`, the P-orbit is `Int`-valued in
-`Mobius213PellInvariant` — bridge needs the sign-free Nat reading of `Wₙ = ±1`
-matched to Cassini `a² + 1 = a·b + b²`, via the additive Int→Nat routing already used
-in `PellFibCutBridge` (no `Int` subtraction).  Est. one focused session.
-
-### B. `depth_floor_is_det_one`'s converse + the finite-depth recurrence (formal P-recursive)
-
-Currently "finite depth ⟺ P-recursive" is `DepthPRecursive` at the difference-degree
-level plus a classical (C) bridge to holonomic rank.  Open: make the bridge a
-theorem for the e and π cases — exhibit the explicit polynomial-coefficient recurrence
-their convergent data satisfies (e: coeff `n+1`, degree 1; π: degree 4) and prove
-`polyDepth d` matches.  This closes the (C) gap in chapter §III/§9–10.  **Architecture
-for A+B**: `research-notes/G155` (HolonomicReal type — bundle the recurrence data with
-a derived `CertifiedModulus` so the API is unconditional within the holonomic class;
-the unproven `Holonomic.toCertifiedModulus` is exactly this target).
-
-### C. The genuine third-axis closure (ratio-on-exponent reaches `c^{c^{poly}}`)
-
-`DepthDoubleExp` proves `ratioN` *cannot* cross one exponential layer; `DepthExponent‑
-Recursion` proves the recursion bridge `value-height = 1 + exponent-height`.  Open:
-assemble these into a positive theorem that the recursion *does* floor `c^{c^{poly}}`
-at the right coordinate (apply the `(ratio,diff)` ladder to the exponent, then to its
-exponent), and pin the ordinal rank `ω^r · d` for a depth-`r` tower as a Lean
-statement, not just the classical (C) reading.  This is the proven path from `ω²`
-toward `ω^ω`.
-
-### D. Liouville's coordinate beyond the two-operator system
-
-`DepthDoubleExp` shows Liouville `c^{k!}` has no finite `(h,d)`.  Open: give it a
-coordinate in the *recursion* hierarchy of C — its exponent `k!` floors under ratio
-(`k! ↦ k+1`), so it should sit at a specific transfinite coordinate.  Formalising
-"the exponent is itself an `expSeq`-like object" is the frontier toward `ε₀`.
-
-### E. Tower duality (longer-horizon, conceptual)
-
-Two open dualities flagged in `tower_atlas.md` / `G154` §2:
-  - **GRA-tower ↔ CD-tower**: level `n` of property-loss ↔ level `5−n` of Reading-iso
-    gain.
-  - **Depth-ladder ↔ Cayley–Dickson tower**: both property-loss/gain towers bottoming
-    at a 213-forced floor, both controlled by `5 = d = NS + NT`.  Whether these are
-    readings of one tower (as `tower_atlas` argues for the P-orbit towers) or genuine
-    coincidence is open.
-  - **Flexibility over a non-associative base** (`CDDoubleFlexible.lean` cross-pair
-    crux) — the long-standing Cayley–Dickson open item.
+(`mul_div_self_pure`, `mul_div_cancel_left_pure`, `add_mul_div_left_pure`,
+`pow_succ_div`, `add_div_right_pos`, `div_le_self_pos`), `Meta/Nat/PureNat`
+(`pow_add`, `mul_assoc`, `add_mul`), `Meta/Tactic/NatHelper` (`succ_sub`,
+`add_sub_cancel_right`, `add_sub_of_le`, `sub_add_cancel`, `add_mul_mod_self_pure`),
+`Meta/Nat/AddMod213` (`div_le_div_right_pos`), `Lib/Math/NatRing`
+(`nat_mul_assoc`, `nat_add_mul`, `mul_lt_mul_left_pure`).
 
 ## Notes / hygiene
 
   - **Verify Lean SEQUENTIALLY before commit**: `rm <file>.olean` → `lake env lean
-    <file>` (exit 0) → `lake build <module>` → `tools/scan_axioms.py <module>` (N pure
-    / 0 dirty) → commit.  build-green ≠ purity-green; never trust cached "Build
-    completed"; never parallelise build with scan.
-  - **PURE arithmetic**: every Lean-core division-cancel / `pow_add` / `add_sub_cancel'`
-    pulls `propext`.  Use the `Meta/Nat` helpers listed above; build new PURE chains
-    from `Nat.div_eq_sub_div`, induction, and `Int213.*` additive routing (no `Int`
-    subtraction, no `omega`, no `Nat.max`, no `funext` for function-equality — use
-    pointwise).
-  - `decide` on `Subtype`/`Raw` equality pulls `propext` via `DecidableEq Raw`; use
-    `Tree.noConfusion` (for `a ≠ b`) and `of_decide_eq_true` (not `decide_eq_true_eq`).
-  - **Repo-first**: grep + INDEX before coding a "missing" cell (`PredicateSelfEncoding`
-    and the `add_div_right_pos` helper were both nearly rebuilt).
-  - N_U = d^(d²) is **deprecated**; don't cite it as a constant, don't use
-    "ℝ = final boss" framing.
+    <file>` (exit 0) → `lake build <module>` → `tools/scan_axioms.py <module>`
+    (N pure / 0 dirty) → commit.  build-green ≠ purity-green; never trust cached
+    "Build completed"; never parallelise build with scan.
+  - **propext-purification playbook** (verified — KerSizeUniversal, the Px subtree):
+    Lean-core `Nat.{mul_assoc, mul_div_cancel_left, add_mul_div_left,
+    add_mul_mod_self_left, add_sub_cancel', add_div_right, gcd}` all pull `propext`
+    → use the `Meta/Nat` + `NatRing` PURE helpers above.  `omega` is propext-dirty
+    (→ `Nat.two_mul`/`add_right_comm`/explicit).  A `simp`/`simpa` that *closes* an
+    `Eq`/`Iff` goal pulls `propext` (its `of_eq_true`/`Iff→Eq` closer) → reduce with
+    distribute/associate-only `simp only`, close with explicit `Iff.intro`/`rw`/
+    `decide` (`decide`/`decide_eq_true`/`of_decide_eq_true` are PURE;
+    `decide_eq_true_eq` is not).  `funext` = `Quot.sound` → state pointwise.
+  - `decide` on `Subtype`/`Raw` equality pulls `propext` via `DecidableEq Raw`;
+    use `Tree.noConfusion` (for `a ≠ b`).
+  - **Repo-first**: grep + INDEX before coding a "missing" cell.
+  - `5²⁵ = N_U = d^(d²)` as a **resolution / universe number is DELETED** — not
+    deprecated, gone.  `configCountD`/`configCount 2 = 5²⁵` survive only as bare
+    parametric arithmetic; never reintroduce a "the resolution" reading.  Don't
+    use "ℝ = final boss" framing.

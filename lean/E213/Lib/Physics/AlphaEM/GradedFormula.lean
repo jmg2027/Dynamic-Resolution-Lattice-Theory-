@@ -29,9 +29,11 @@ atomic 4-tuple (NS, NT, c, d) = (3, 2, 2, 5) with no fitting:
   · 25 = d² , 3 = NS             (atomic-dim² normalised by S-rank)
   · 6 = NS · NT                  (distinct ST edges)
 
-The continuum factors `ζ(2) = π²/6` and `π⁵` are 213-finite at
-N_U = 5²⁵ via Basel partial sum and Wallis bracket fifth power
-respectively.  Full bracket-tightening to ppb is left for C1 step 2.
+The structural part is the integer/rational layer coefficients
+(60, 30, 25/3, 6).  The analytic factors `ζ(2) = π²/6` and `π⁵`
+are taken as analytic inputs (π enters as a literal); they are
+not finitistically replaced.  Full bracket-tightening to ppb is
+left for C1 step 2.
 
 STRICT ∅-AXIOM (decide on Nat identities + integer arithmetic).
 -/
@@ -86,7 +88,7 @@ def L2_den : Nat := NS
   to within 3 × 10⁻⁷ = 13× closer than α_GUT/45).
 
   See `PiFiveGap.lean` for the numerical comparison.  The π⁵
-  factor itself is 213-finite via Wallis bracket S_Wallis(N_U)⁵.
+  factor is taken as an analytic input (π enters as a literal).
 
   Symbolically: numerator = 1, denominator = NS · NT · π⁵.
   At 9-digit fixed precision: 1/(6 · π⁵) × 10⁷ ≈ 5446 (decide-
@@ -106,11 +108,10 @@ theorem L3_numerical_reference :
 
 /-! ## §4 — Layered identity at integer level
 
-  Combining the four layers (with continuum ζ(2) and π⁵ factored
-  out into S(N_U) and S_Wallis(N_U)⁵ respectively):
+  Combining the four layers (with the analytic factors ζ(2) and
+  π⁵ kept symbolic):
 
-    1/α_em(IR) at resolution N_U
-      = 60·S(N_U) + 30 + 25/3 + 1/(6·S_Wallis(N_U)⁵)
+    1/α_em(IR) = 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵)
 
   All four LEADING integers (60, 30, 25, 6) are atomic-fixed:
 
@@ -125,8 +126,8 @@ def leading_integer_sum : Nat := L1a_coeff + L1b_coeff + L2_num + L3_num
 -- leading_integer_sum_eq_116 folded into master.
 
 /-! Integer denominator-wise sum: L1a · ζ(2) + L1b + L2_num/L2_den
-    + L3 ≈ 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵), with the continuum
-    factors ζ(2) and π⁵ replaced by 213-finite Basel/Wallis at N_U. -/
+    + L3 ≈ 60·ζ(2) + 30 + 25/3 + 1/(6·π⁵), with the analytic
+    factors ζ(2) and π⁵ kept symbolic (π enters as a literal). -/
 
 
 /-! ## §5 — Numerical bracket: integer-formula × 10⁷ at fixed precision
@@ -168,7 +169,8 @@ theorem alphaInv_213_e7_value :
 
 /-- Difference from observed: 1370360011 − 1370359991 = 20 (in
     10⁻⁷ units) = 2 × 10⁻⁶ relative.  This is at the limit of
-    9-digit π precision; full N_U precision would absorb the gap. -/
+    9-digit π precision; a higher-precision π input would absorb
+    the gap. -/
 theorem alphaInv_213_minus_observed :
     alphaInv_213_e7_at_pi9 = E213.Lib.Physics.AlphaEM.PiFiveGap.observed_e7 + 20 := by
   decide
@@ -199,8 +201,7 @@ theorem alphaInv_213_bracket :
       diff = +20 (= 2 × 10⁻⁶ relative ≈ 2 ppm).
 
     The diff of 20 × 10⁻⁷ is at the limit of 9-digit π precision;
-    full 213-finite π via Wallis bracket S_Wallis(N_U) absorbs it
-    (left for C1 step 2).
+    a higher-precision π input absorbs it (left for C1 step 2).
 
     Bundles:
       (i)   each layer's atomic-fixed integer/rational coefficient

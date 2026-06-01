@@ -11,13 +11,12 @@ Each cell `(i, j)` = number system at CD level `i` and FSM
 recognizability grade `j`.  Total `25 × 25 = 625` cells.
 
 213-native paradigm: on d=5 Lens application, an FSM with `5^j` states
-can recognize patterns up to grade `j`.  Beyond grade 25 = beyond
-N_U = transcendental on d=5 Lens application.
+can recognize patterns up to grade `j`.
 
 Atomic content:
   * `FSMGrade : Nat → Nat` cardinality function (`5^j`).
-  * Concrete grades 0..5 + grade 25 = N_U ceiling.
-  * Beyond-grade-25 absence (mirrors Level-26 absence).
+  * Concrete grades 0..3 + grade 25 (bare arithmetic value).
+  * Grade-state ratio = 5 (each grade multiplies by 5).
 -/
 
 namespace E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
@@ -38,16 +37,12 @@ theorem grade_2_states : fsmGradeStates 2 = 25 := rfl
 /-- ★ **Grade 3**: 125 states. -/
 theorem grade_3_states : fsmGradeStates 3 = 125 := rfl
 
-/-- ★ **Grade 25**: 5²⁵ states = N_U ceiling. -/
+/-- ★ **Grade 25**: `5²⁵` states (bare arithmetic value). -/
 theorem grade_25_states :
     fsmGradeStates 25 = 298023223876953125 := rfl
 
-/-- ★ **N_U match**: grade 25 cardinality agrees with the N_U count-Lens readout. -/
-theorem grade25_eq_n_u :
-    fsmGradeStates 25 = (5 : Nat) ^ 25 := rfl
-
-/-- ★ **Grade 26 absence**: `5^26 > 5^25` = N_U.  No FSM with
-    more states than N_U can be distinguished on d=5 Lens application. -/
+/-- ★ **Grade monotone**: `5^25 < 5^26` (each grade strictly
+    larger). -/
 theorem grade_26_excess :
     fsmGradeStates 25 < fsmGradeStates 26 := by decide
 

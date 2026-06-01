@@ -17,7 +17,7 @@ Three Mingu questions answered:
      two terms are (N_T, N_S) = (2, 3) atomicity.
 -/
 
-namespace E213.Lib.Math.GenerationRule.G46Capstone
+namespace E213.Lib.Math.GenerationRule.Capstone
 
 open E213.Lib.Math.GenerationRule.TriangleIteration
   (T triIter T_two T_three T_six T_twentyone
@@ -64,4 +64,4 @@ theorem total_witness :
   ⟨triIter_2_1, binom_3_2, binomial_orthogonal_direction,
    total_exterior⟩
 
-end E213.Lib.Math.GenerationRule.G46Capstone
+end E213.Lib.Math.GenerationRule.Capstone

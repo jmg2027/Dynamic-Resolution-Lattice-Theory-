@@ -56,7 +56,7 @@ open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_univers
 open E213.Lib.Math.Mobius213.Px.QFibIdentity (Q00_eq_fib Q01_eq_fib)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Mobius213.Px.FibCassini (fib_cassini_shifted)
-open E213.Lib.Math.NatRing (nat_add_mul)
+open E213.Lib.Math.NatRing (nat_add_mul nat_mul_assoc add_dup_succ)
 
 /-! ## §1 — Convergent cross-determinant = 1 -/
 
@@ -71,34 +71,24 @@ theorem convergent_det (n : Nat) :
     Q01 n * (2 * Q00 n + Q01 n) + 1 := by
   have hsym := Q00_eq_Q01_add_Q11 n
   have hdet := det_pn_universal n
-  -- Both sides are Nat expressions in Q00, Q01, Q11 with the
-  -- constraints hsym and hdet.  Direct omega may not suffice
-  -- (nonlinear), so we proceed by nlinarith-style expansion.
-  -- After substituting Q11 = Q00 - Q01 (from hsym) into hdet:
-  -- Q00 * (Q00 - Q01) = Q01² + 1
-  -- (Only valid in Nat when Q00 ≥ Q01, which holds always.)
-  -- But since omega can't handle products, we do:
+  -- `Q00² = Q00·Q01 + (Q01² + 1)` from the column-sum symmetry and det = 1.
   have hQ00sq : Q00 n * Q00 n = Q00 n * Q01 n + (Q01 n * Q01 n + 1) := by
-    have : Q00 n * Q00 n = Q00 n * Q01 n + Q00 n * Q11 n := by
-      conv_lhs => rw [hsym]; rw [Nat.mul_add]
-    rw [hdet] at this; exact this
-  -- Now goal is pure additive after substituting hQ00sq:
-  -- LHS = (Q00*Q01 + Q01² + 1) + Q01*Q00
-  -- RHS = Q01*(2*Q00 + Q01) + 1 = 2*Q01*Q00 + Q01² + 1
-  -- These are equal since Q00*Q01 = Q01*Q00 (Nat.mul_comm)
-  -- and Q00*Q01 + Q01*Q00 = 2*Q01*Q00.
+    have h : Q00 n * Q00 n = Q00 n * Q01 n + Q00 n * Q11 n :=
+      calc Q00 n * Q00 n
+          = Q00 n * (Q01 n + Q11 n) := by rw [← hsym]
+        _ = Q00 n * Q01 n + Q00 n * Q11 n := Nat.mul_add _ _ _
+    rw [hdet] at h; exact h
+  -- Normalise both sides to atoms `Q01·Q00`, `Q01·Q01`, then close additively.
+  have c1 : Q00 n * Q01 n = Q01 n * Q00 n := Nat.mul_comm _ _
+  have c2 : Q01 n * (2 * Q00 n + Q01 n)
+          = 2 * (Q01 n * Q00 n) + Q01 n * Q01 n := by
+    rw [Nat.mul_add, Nat.mul_comm (Q01 n) (2 * Q00 n), nat_mul_assoc,
+        Nat.mul_comm (Q00 n) (Q01 n)]
   calc (Q00 n + Q01 n) * Q00 n
-      = Q00 n * Q00 n + Q01 n * Q00 n := nat_add_mul ..
+      = Q00 n * Q00 n + Q01 n * Q00 n := by rw [nat_add_mul]
     _ = Q00 n * Q01 n + (Q01 n * Q01 n + 1) + Q01 n * Q00 n := by rw [hQ00sq]
-    _ = Q01 n * Q00 n + (Q01 n * Q01 n + 1) + Q01 n * Q00 n := by rw [Nat.mul_comm (Q00 n) (Q01 n)]
-    _ = Q01 n * Q00 n + Q01 n * Q00 n + (Q01 n * Q01 n + 1) := by omega
-    _ = 2 * (Q01 n * Q00 n) + (Q01 n * Q01 n + 1) := by omega
-    _ = Q01 n * (2 * Q00 n) + Q01 n * Q01 n + 1 := by
-        rw [Nat.mul_comm (Q01 n) (2 * Q00 n)]
-        rw [Nat.mul_assoc 2 (Q00 n) (Q01 n)]
-        rw [Nat.mul_comm (Q00 n) (Q01 n)]
-        omega
-    _ = Q01 n * (2 * Q00 n + Q01 n) + 1 := by rw [← Nat.mul_add]
+    _ = Q01 n * (2 * Q00 n + Q01 n) + 1 := by
+        rw [c1, c2]; exact add_dup_succ (Q01 n * Q00 n) (Q01 n * Q01 n)
 
 /-! ## §2 — Fibonacci form -/
 
@@ -113,7 +103,7 @@ theorem convergent_det (n : Nat) :
 theorem farey_neighbour_fib (n : Nat) :
     fib (2 * n + 2) * fib (2 * n + 1) =
     fib (2 * n) * fib (2 * n + 3) + 1 := by
-  have hconv := convergent_det' n
+  have hconv := convergent_det n
   -- (Q00 n + Q01 n) * Q00 n = Q01 n * (2 * Q00 n + Q01 n) + 1
   -- Q00 n + Q01 n = Q01(n+1) = fib(2(n+1)) = fib(2n+2)  [definitionally]
   -- Q00 n = fib(2n+1)
@@ -125,9 +115,10 @@ theorem farey_neighbour_fib (n : Nat) :
   rw [Q00_eq_fib n] at hconv
   rw [Q01_eq_fib n] at hconv
   rw [Q00_eq_fib (n + 1)] at hconv
-  have h1 : 2 * (n + 1) = 2 * n + 2 := by omega
-  have h2 : 2 * (n + 1) + 1 = 2 * n + 3 := by omega
-  rw [h1, h2] at hconv
+  have h1 : 2 * (n + 1) = 2 * n + 2 := rfl
+  -- after `rw [h1]`, the `2*(n+1)+1` argument becomes `2*n+2+1`, which is
+  -- defeq to `2*n+3`; no second rewrite needed.
+  rw [h1] at hconv
   exact hconv
 
 /-! ## §3 — Concrete verification -/

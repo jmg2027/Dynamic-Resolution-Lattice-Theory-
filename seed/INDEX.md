@@ -171,10 +171,9 @@ seed/
   4-clause axiom.
 - `lean/E213/Theory/Atomicity/{Five, PairForcing}.lean` —
   formal counterpart of "atomicity forces (NS=3, NT=2, d=5)".
-- `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean` —
-  formal counterpart of `RESOLUTION_LIMIT_SPEC.md` (1/α_em
-  rational at every finite N_U; π² is limit-label, not a 213
-  primitive).
+- `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean` —
+  the 1/α_em precision theorem (`invAlphaEm_precision_theorem`,
+  0.2 ppb; π² enters as a literal input, not a 213 primitive).
 - `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
   corpus.
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture.

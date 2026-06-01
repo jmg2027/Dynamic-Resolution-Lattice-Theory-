@@ -249,4 +249,32 @@ theorem double_neg_mod_at (p r : Nat) (hp : 0 < p) (hr : r < p) :
     rw [E213.Tactic.NatHelper.sub_sub_self h_psub_le]
     rw [Nat.mod_eq_of_lt hr]
 
+/-- **Division monotonicity** (positive divisor): `x ≤ y → x / c ≤ y / c`.
+    ∅-axiom replacement for Lean-core `Nat.div_le_div_right` (propext).
+    Proof: if `y/c < x/c` then `c*(x/c) ≥ c*(y/c)+c > c*(y/c)+y%c = y ≥ x`
+    while `c*(x/c) ≤ x`, contradiction. -/
+theorem div_le_div_right_pos (c : Nat) (hc : 0 < c) {x y : Nat} (h : x ≤ y) :
+    x / c ≤ y / c := by
+  rcases Nat.lt_or_ge (y / c) (x / c) with hlt | hge
+  · exfalso
+    have hstep : (y / c) + 1 ≤ x / c := hlt
+    have hcmul : c * ((y / c) + 1) ≤ c * (x / c) := Nat.mul_le_mul_left c hstep
+    -- c*(x/c) ≤ x  (from div_add_mod)
+    have hx_ge : c * (x / c) ≤ x :=
+      Nat.le_trans (Nat.le_add_right (c * (x / c)) (x % c))
+        (Nat.le_of_eq (div_add_mod x c))
+    have hy_eq : c * (y / c) + y % c = y := div_add_mod y c
+    have hmod_lt : y % c < c := Nat.mod_lt y hc
+    -- c*(y/c) + c ≤ c*(x/c) ≤ x ≤ y
+    have hchain : c * (y / c) + c ≤ y := by
+      have e : c * ((y / c) + 1) = c * (y / c) + c := by rw [Nat.mul_add, Nat.mul_one]
+      rw [e] at hcmul
+      exact Nat.le_trans hcmul (Nat.le_trans hx_ge h)
+    -- y = c*(y/c) + y%c, so c ≤ y%c, contradicting y%c < c.
+    have hbad : c * (y / c) + c ≤ c * (y / c) + y % c :=
+      Nat.le_trans hchain (Nat.le_of_eq hy_eq.symm)
+    have hcle : c ≤ y % c := E213.Tactic.NatHelper.le_of_add_le_add_left hbad
+    exact Nat.lt_irrefl c (Nat.lt_of_le_of_lt hcle hmod_lt)
+  · exact hge
+
 end E213.Meta.Nat.AddMod213

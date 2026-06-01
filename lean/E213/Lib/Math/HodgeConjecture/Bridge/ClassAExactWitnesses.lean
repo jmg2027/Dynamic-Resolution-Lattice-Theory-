@@ -28,7 +28,7 @@ DG quantities", which is itself ZFC-flavored vocabulary.
 STRICT ∅-AXIOM by `decide`.
 -/
 
-namespace E213.Lib.Math.HodgeConjecture.Bridge.G6Vacuity
+namespace E213.Lib.Math.HodgeConjecture.Bridge.ClassAExactWitnesses
 
 open E213.Lib.Math.HodgeConjecture.Bridge.DiscreteGeometry
   (cheegerConstant lambda2_K5 degree_max
@@ -116,4 +116,4 @@ theorem g6_no_tradeoff_capstone :
     These are NOT formalized in this file.  Their absence is not a
     gap; they have no finite content to formalize.  See  Class B/D. -/
 
-end E213.Lib.Math.HodgeConjecture.Bridge.G6Vacuity
+end E213.Lib.Math.HodgeConjecture.Bridge.ClassAExactWitnesses

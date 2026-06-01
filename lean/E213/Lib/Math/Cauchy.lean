@@ -14,6 +14,7 @@ import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
 import E213.Lib.Math.Cauchy.DepthDoubleExp
 import E213.Lib.Math.Cauchy.DepthCeilingResidue
+import E213.Lib.Math.Cauchy.DepthFloorDetOne
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 

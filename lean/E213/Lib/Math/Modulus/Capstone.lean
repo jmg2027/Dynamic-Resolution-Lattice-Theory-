@@ -16,7 +16,7 @@ This Capstone closes the **completeness** layer of the CD-tower
 stack, completing the math-side closure begun in PRs #62-#67.
 -/
 
-namespace E213.Lib.Math.Modulus.G40Capstone
+namespace E213.Lib.Math.Modulus.Capstone
 
 open E213.Lib.Math.Modulus.Translation
   (DepthModulus identityDepthModulus identityDepthModulus_eq
@@ -67,4 +67,4 @@ theorem total_witness (n : Nat) (c : Nat → Nat → Bool) :
   ⟨identityDepthModulus_eq n, id_modulus n, id_depth_complete,
    const_depth_complete c⟩
 
-end E213.Lib.Math.Modulus.G40Capstone
+end E213.Lib.Math.Modulus.Capstone

@@ -3,7 +3,6 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Physics.Nuclear.MagicNumbers
 import E213.Lib.Physics.Nuclear.MagicNumbersAtomic
 import E213.Lib.Physics.Foundations.AtomicSuperCatalog
-import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 
 /-!
 # Pure Atomic Observables — no N_U dependence, complete rational closure

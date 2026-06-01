@@ -69,11 +69,10 @@ axiom signature becomes 0-axiom monotonically.
 **Top-down**: convert capstone obligations first.  Faster initial
 wins but leaves mixed signatures across the dependency tree.
 
-The math-branch finitist closures (validation_standard_capstone,
-pure_atomic_observables_capstone, alpha_em_master_capstone) already
-achieve "does not depend on any axioms" by avoiding omega in their
-ultimate proof step.  Migrating internal lemmas extends that
-cleanliness throughout 213.
+The math-branch closures (pure_atomic_observables_capstone,
+invAlphaEm_precision_theorem) already achieve "does not depend on
+any axioms" by avoiding omega in their ultimate proof step.
+Migrating internal lemmas extends that cleanliness throughout 213.
 
 ## Coverage progression
 

@@ -1,14 +1,12 @@
-# UniverseChain — deductive chain Atomicity ⇒ N_resolution (∅-axiom)
+# UniverseChain — deductive chain from atomicity (∅-axiom)
 
 This sub-tree consolidates in a single deductive chain the
-∅-axiom theorems linking the **atomicity statement** to the
-**count-Lens readout** `N_resolution = 5²⁵`.
+∅-axiom theorems anchored at the **atomicity statement** and the
+parametric vertex-count recursion `numV L = d^L`.
 
-Every theorem is a re-export or trivial wrapper around an
-already-∅-axiom-proven result in `Theory/Atomicity/`,
-`Lib/Physics/Simplex/Counts.lean`, or
-`Lib/Physics/Foundations/NResolution*.lean`.  The point of this
-sub-tree is to make the chain *visible in one place*.
+Atomic forcing (NS = 3, NT = 2, d = 5) and the residue are
+foundational.  The vertex-count recursion is parametric: no
+fractal level is privileged, the tower has no top.
 
 ## Reading order
 
@@ -18,17 +16,14 @@ sub-tree is to make the chain *visible in one place*.
 | `Atomicity.lean`     | 1 | `Atomic n ⟺ n = 5` |
 | `Decomposition.lean` | 2 | `5 = 2·1 + 3·1`, unique alive decomp |
 | `PairAxes.lean`      | 3 | `NS = 3, NT = 2, NS + NT = d` |
-| `Recursion.lean`     | 4 | `numV L = 5^L`; self-ref `L = d² = 25` |
-| `Universe.lean`      | 5 | `N_U = d^(d²) = 5²⁵` |
-| `Synthesis.lean`     | — | full chain bundle (Steps 1–5) |
-| `MobiusChain.lean`   | 6–12 | **Möbius P extension** (G65–G81) — atomicity → algebraic geometry |
+| `Recursion.lean`     | 4 | `numV L = 5^L` (parametric, no privileged level) |
 
 Each step imports only the previous step + the underlying
 existing modules.
 
-## Steps 6–12 (Möbius extension)
+## Möbius extension (algebraic-geometric realization)
 
-Continuation: post-atomicity → algebraic-geometric realization
+Post-atomicity → algebraic-geometric realization
 of (NS, NT, d) via Möbius P matrix `[[2, 1], [1, 1]]`.
 
 | Step | Source | Statement |
@@ -77,10 +72,8 @@ The same theorems are scattered across:
   * `Theory/Atomicity/PairForcing.lean` (partly dirty)
   * `Lib/Physics/Simplex/Counts.lean`
   * `Lib/Math/Cohomology/Fractal/Level.lean`
-  * `Lib/Physics/Foundations/NResolutionFromFractal.lean`
-  * `Lib/Physics/Foundations/NResolutionFractalDepth.lean`
   * `Lib/Math/ResolutionLimit.lean`
 
 This sub-tree makes the deductive flow Atomicity → 5 → (3, 2) →
-recursion → 5²⁵ visible without hopping through unrelated
+parametric recursion visible without hopping through unrelated
 neighbours.

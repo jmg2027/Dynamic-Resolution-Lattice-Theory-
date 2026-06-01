@@ -57,7 +57,11 @@ theorem cup_bb : cup basis_b basis_b Cell2.f = 0 := by decide
 
 /-- Cup is symmetric: `α ⌣ β = β ⌣ α`.  PURE (modulo funext-by-design)
     via `Int213.mul_comm` + `Int213.add_comm` in place of Lean-core
-    Int.mul_comm / Int.add_comm (which are propext-leaking). -/
+    Int.mul_comm / Int.add_comm (which are propext-leaking).
+    Category (A) classical-correspondence surface
+    (`catalogs/correspondence-surface.md`): the lone `Quot.sound` is the
+    `funext` toll for stating standard cup graded-commutativity as
+    cochain function-`=`; the pointwise `cup α β s = cup β α s` is PURE. -/
 theorem cup_symm (α β : C1) : cup α β = cup β α := by
   funext _
   show α Cell1.a * β Cell1.b + α Cell1.b * β Cell1.a

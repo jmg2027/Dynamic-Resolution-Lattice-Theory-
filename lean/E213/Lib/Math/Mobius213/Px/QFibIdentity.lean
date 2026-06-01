@@ -77,13 +77,13 @@ theorem Q00_eq_fib_odd_and_Q01_eq_fib_even :
     · -- Goal: Q00 (k+1) = fib (2*(k+1) + 1) = fib (2k+3)
       show 2 * Q00 k + Q01 k = fib (2 * (k + 1) + 1)
       rw [ih00, ih01]
-      have : 2 * (k + 1) + 1 = 2 * k + 3 := by omega
+      have : 2 * (k + 1) + 1 = 2 * k + 3 := rfl
       rw [this]
       rw [← fib_odd_double_step k]
     · -- Goal: Q01 (k+1) = fib (2*(k+1)) = fib (2k+2)
       show Q00 k + Q01 k = fib (2 * (k + 1))
       rw [ih00, ih01]
-      have : 2 * (k + 1) = 2 * k + 2 := by omega
+      have : 2 * (k + 1) = 2 * k + 2 := rfl
       rw [this]
       rw [← fib_even_step k]
 

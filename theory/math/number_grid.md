@@ -1,6 +1,6 @@
 # 2D Number Grid
 
-**Status**: Closed (4 files, capstone `G41Capstone`).
+**Status**: Closed (4 files, capstone `NumberGrid.Capstone`).
 
 ## Overview
 
@@ -17,7 +17,7 @@ no number system is foundational; all are positions in the grid.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/NumberGrid/` (4 files)
-- **Capstone**: `G41Capstone.lean`
+- **Capstone**: `NumberGrid/Capstone.lean`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -25,7 +25,7 @@ no number system is foundational; all are positions in the grid.
 | `TwoDimGrid` | Grid type + (i, j) → number-system instance |
 | `HorizontalAxis` | FSM-grade horizontal axis (213-native grades) |
 | `FSMGradeTaxonomy` | Taxonomy of FSM grades by atomic count |
-| `G41Capstone` | 25 × 25 grid master witness |
+| `NumberGrid.Capstone` | 25 × 25 grid master witness |
 
 ## Narrative
 

@@ -35,7 +35,7 @@ open E213.Lib.Physics.Simplex.Counts (d NS NT)
     SL(2, F_5) order = icosian order = 24 · pentagonal_period.
     Bundles |SL(2, F_5)| = 120 = 2·60 = 2T·5, Euler-Poincaré
     χ(K_{3,2}^{(2)}) = b_0 − b_1 = 1 − 8 = −7 = V − E.
-    Headline named theorem (cited by `UniverseChain.MobiusChain`). -/
+    Headline named theorem. -/
 theorem algebraic_geometric_core :
     (5 : Nat) * 4 * 6 = 120 ∧
     (24 : Nat) * 5 = 120 ∧
@@ -45,7 +45,7 @@ theorem algebraic_geometric_core :
 
 /-- ★★★★★★★★★ DUAL FILLINGS SUM: χ(Δ⁴) + χ(K_{3,2}^{(c=2)}) = 1 + (-7) = -6.
     The -6 = -(NS · NT) = -(Eisenstein dimension).
-    Headline named theorem (cited by `UniverseChain.MobiusChain`). -/
+    Headline named theorem. -/
 theorem dual_fillings_sum_eq_neg_eisenstein :
     (1 : Int) + (-7) = -(NS : Int) * (NT : Int) := by decide
 
@@ -53,7 +53,7 @@ theorem dual_fillings_sum_eq_neg_eisenstein :
     - mod NS+NT (= mod d = mod 5): pentagonal (NS+NT-fold)
     - mod NT (= mod 2): triangular (NS-fold = 3)
     Together: (5-fold pentagon) × (3-fold triangle) = full 213 rotation.
-    Headline named theorem (cited by `UniverseChain.MobiusChain`). -/
+    Headline named theorem. -/
 theorem two_closure_structures :
     -- mod 5: order 10 = NT · (NS + NT)
     (2 : Nat) * 5 = 10 ∧

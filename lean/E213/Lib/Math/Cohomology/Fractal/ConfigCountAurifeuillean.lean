@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
-# `configCountD` Aurifeuillean handle on `N_U + 1`
+# `configCountD` Aurifeuillean handle on `configCount 2 + 1`
 
 The integer `521` is the *unique* Aurifeuillean cyclotomic factor
 of the sequence `5^(5^n) + 1` across `n ≥ 1`.  It enters as
@@ -95,12 +95,12 @@ theorem configCount_one_plus_one_eq_mul_521 :
 theorem configCount_one_plus_one_mod_521 :
     (configCount 1 + 1) % 521 = 0 := by decide
 
-/-- `n = 2` slice (the physics slice, `N_U + 1`):
+/-- `n = 2` slice (the physics slice, `configCount 2 + 1`):
     `5^25 + 1 = 521 · 572021542950006`. -/
 theorem configCount_two_plus_one_eq_mul_521 :
     configCount 2 + 1 = 521 * 572021542950006 := by decide
 
-/-- `n = 2` modular form: `521 ∣ N_U + 1 = 5^25 + 1`.
+/-- `n = 2` modular form: `521 ∣ configCount 2 + 1 = 5^25 + 1`.
 
     Together with `phi_10_at_5` and `aurifeuillean_norm_521`,
     this expresses the Aurifeuillean handle on the physics slice. -/
@@ -164,8 +164,9 @@ theorem aurifeuillean_phi_90_at_5 :
 Bundles the norm representation, cyclotomic identity, and
 divisibility at `n = 2`. -/
 
-/-- Aurifeuillean fingerprint of `N_U + 1`:
-    `Φ_10(5) = 521`, `521 = 29² − 5 · 8²`, and `521 ∣ N_U + 1`. -/
+/-- Aurifeuillean fingerprint of `configCount 2 + 1`:
+    `Φ_10(5) = 521`, `521 = 29² − 5 · 8²`, and
+    `521 ∣ configCount 2 + 1`. -/
 theorem aurifeuillean_fingerprint_n_u :
     5^4 + 5^2 + 1 = 5^3 + 5 + 521
     ∧ 29 * 29 = 5 * (8 * 8) + 521

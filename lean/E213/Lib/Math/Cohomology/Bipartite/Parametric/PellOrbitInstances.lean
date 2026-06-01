@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Pell-orbit Stern-Brocot extension: K_{7, 4}, K_{8, 5}, K_{5, 4}, K_{13, 8}
@@ -33,6 +34,7 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.PellOrbitInstances
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTc
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcEvenEven
+open E213.Tactic.NatHelper renaming sub_add_lt_succ_of_le → hi13_bound
 
 /-! ## §1 — Concrete pair enumeration on `Fin 7`
 
@@ -160,17 +162,17 @@ def pair13_lo : Fin (chooseTwo 13) → Fin 13
 /-- High endpoint of the `s`-th pair of `Fin 13`. -/
 def pair13_hi : Fin (chooseTwo 13) → Fin 13
   | ⟨s, _⟩ =>
-    if s < 12 then ⟨s + 1, by omega⟩
-    else if s < 23 then ⟨s - 12 + 2, by omega⟩
-    else if s < 33 then ⟨s - 23 + 3, by omega⟩
-    else if s < 42 then ⟨s - 33 + 4, by omega⟩
-    else if s < 50 then ⟨s - 42 + 5, by omega⟩
-    else if s < 57 then ⟨s - 50 + 6, by omega⟩
-    else if s < 63 then ⟨s - 57 + 7, by omega⟩
-    else if s < 68 then ⟨s - 63 + 8, by omega⟩
-    else if s < 72 then ⟨s - 68 + 9, by omega⟩
-    else if s < 75 then ⟨s - 72 + 10, by omega⟩
-    else if s < 77 then ⟨s - 75 + 11, by omega⟩
+    if h : s < 12 then ⟨s + 1, Nat.succ_lt_succ h⟩
+    else if h2 : s < 23 then ⟨s - 12 + 2, hi13_bound h2 (by decide)⟩
+    else if h3 : s < 33 then ⟨s - 23 + 3, hi13_bound h3 (by decide)⟩
+    else if h4 : s < 42 then ⟨s - 33 + 4, hi13_bound h4 (by decide)⟩
+    else if h5 : s < 50 then ⟨s - 42 + 5, hi13_bound h5 (by decide)⟩
+    else if h6 : s < 57 then ⟨s - 50 + 6, hi13_bound h6 (by decide)⟩
+    else if h7 : s < 63 then ⟨s - 57 + 7, hi13_bound h7 (by decide)⟩
+    else if h8 : s < 68 then ⟨s - 63 + 8, hi13_bound h8 (by decide)⟩
+    else if h9 : s < 72 then ⟨s - 68 + 9, hi13_bound h9 (by decide)⟩
+    else if h10 : s < 75 then ⟨s - 72 + 10, hi13_bound h10 (by decide)⟩
+    else if h11 : s < 77 then ⟨s - 75 + 11, hi13_bound h11 (by decide)⟩
     else ⟨12, by decide⟩
 
 /-- Concrete `PairEnum 13` (78 pairs in lex order). -/

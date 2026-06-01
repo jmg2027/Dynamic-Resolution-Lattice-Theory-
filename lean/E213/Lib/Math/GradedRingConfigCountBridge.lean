@@ -1,7 +1,7 @@
 import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 /-!
-# Graded Ring ↔ N_U bridge (C6 cross-axis)
+# Graded Ring ↔ configCount bridge (cross-axis)
 
 Two **independent** counting structures both descend from the
 atomic constants `(NS, NT, d) = (3, 2, 5)`:
@@ -12,7 +12,8 @@ atomic constants `(NS, NT, d) = (3, 2, 5)`:
 
   (B) Tensor-power / configuration side (fractal hierarchy):
       `configCountD d n = d^(d^n)`.  Level 0 = `d`, level 1 = `d^d`,
-      level 2 = `d^(d²)` — the standard `N_U` reading.
+      level 2 = `d^(d²)`.  This is a parametric family; no level is
+      privileged.
 
 This file makes the bridge explicit at the Lean level: both
 quantities are decidable functions of `d`, and at `d = 5` they
@@ -21,22 +22,20 @@ take the values:
   · `2^d = 32` (paradigm row sum)
   · `d^d = 3125 = configCount 1`
   · `2^(2d) = 1024` (paradigm self-cup row sum)
-  · `d^(d²) = 5^25 = configCount 2 = N_U` (level-2 N_U)
+  · `d^(d²) = 5^25 = configCount 2` (a bare arithmetic value)
 
 The two structures are commensurate but **orthogonal**: graded-ring
 sums count *subsets* (binary 0/1 per atom); tensor-power counts
 count *d-labellings* per position.  Both arise from the same atomic
 `d`, but neither reduces to the other.
 
-This closes the cross_domain_unification.md "Beyond C6: deriving
-the resolution cutoff `N_U = 5²⁵` directly from the graded ring
-structure" frontier with the honest reading: the two are not
-identified, but are **simultaneously decidable** functions of d.
+The honest reading: the two are not identified, but are
+**simultaneously decidable** functions of d.
 
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.GradedRingNUBridge
+namespace E213.Lib.Math.GradedRingConfigCountBridge
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount
@@ -95,7 +94,8 @@ theorem paradigm_self_cup_eq_1024 :
 /-! ## §3 — Tensor-power / configCount side
 
 The configuration count at level `n` is `d^(d^n)`.  At `d = 5`,
-level 2 evaluates to `N_U = 5^25`. -/
+level 2 evaluates to `5^25` (a bare arithmetic value; no level
+is privileged). -/
 
 /-- Level-0 config count: `d = 5`. -/
 theorem configCount_level_0 : configCount 0 = d_atomic := by decide
@@ -129,7 +129,8 @@ decidable** in `d`.  Each takes a well-defined value at every
     and level-1 row sums, configCount level-0 / level-1 / level-2),
     plus the exponent-formula correspondences (`2^d`, `2^(2d)`,
     `d^d`, `d^(d²)`).  Both structures arise from the same atomic
-    `d`, so they are jointly decidable.
+    `d`, so they are jointly decidable; `5^25` is a bare value, not
+    a resolution.
 
     Reading: this is *not* an identification of the two — they
     count different things (subsets vs labellings).  It is the
@@ -151,4 +152,4 @@ theorem graded_ring_nu_bridge_capstone :
     ∧ configCount 2 = 298023223876953125 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.GradedRingNUBridge
+end E213.Lib.Math.GradedRingConfigCountBridge

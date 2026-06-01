@@ -94,11 +94,10 @@ Below this = below standard.  Python + numerical agreement = research
 note, not validation.  **Prohibited**: timeline/ROI considerations.
 **Real target**: precision theorem AND falsifier for the same observable.
 
-## Fractal-level configuration count (under re-research)
+## Fractal-level configuration count (parametric bare combinatorics)
 
-`configCountD d n = d^(d^n)` is a parametric count-Lens output
-(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); no level privileged.
-`N_U` (`5²⁵` "universe constant") is **removed**; dependents 재연구 필요: `research-notes/RERESEARCH_n_u_removal.md`.
+`configCountD d n = d^(d^n)` is parametric bare combinatorics
+(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); **no level privileged**; `configCount 2 = 5^25` is a true arithmetic theorem.  The `5²⁵ = N_U` "resolution for 1/α_em" claim (count ≠ truncation index) is **deleted** (`RERESEARCH_n_u_removal.md`).
 
 ## Operating principles
 

@@ -10,8 +10,7 @@ higher level the recursion flips the imaginary half.
 
 This is the **operationally minimal preserved structure** of
 the entire CD tower — survives loss of ordering, commutativity,
-associativity, alternativity, ..., at every level up to and
-including d=5 ceiling level 25.
+associativity, alternativity, ..., at every level `n`.
 -/
 
 namespace E213.Lib.Math.SignedCut.CD.CDConjugation

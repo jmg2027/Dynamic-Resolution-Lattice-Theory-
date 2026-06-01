@@ -435,10 +435,10 @@ the cut-off slice moves with the set.
      complexity assignment of catalogue atoms (most dramatically:
      `5` moves from depth 0 to depth 1 when `d` is dropped).
 
-## §9 Direction A unrestricted — depth-2 outer-pow case for `521` CLOSED
+## §9 Direction A unrestricted — depth-2 outer-pow case for `521`
 
-The previously-open outer-pow frontier of Direction A is closed
-for `521` via a kernel-feasible enumeration + monotonicity split.
+Direction A's outer-pow frontier is closed for `521` via a
+kernel-feasible enumeration + monotonicity split.
 
 **Strategy** (`AurifeuilleanDepth2PowCutoff.lean`):
 

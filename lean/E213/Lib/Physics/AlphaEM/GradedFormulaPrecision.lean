@@ -1,5 +1,3 @@
-import E213.Lib.Physics.AlphaEM.GradedFormula
-
 /-!
 # Graded Formula Precision (C1 Step 2)
 

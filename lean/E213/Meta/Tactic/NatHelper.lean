@@ -5,10 +5,9 @@ Replacements for Lean-core `Nat.*` lemmas that bring `propext` (or
 `Quot.sound`) into downstream theorems.  Every theorem here is
 verified `#print axioms` ∅.
 
-**Naming note**: 이전 이름은 `Tactic.Nat213` 이었으나
-type `Nat213` 과 혼동 가능해 `NatHelper` 로 rename.  여기 모인
-lemma 들은 Lean 의 `Nat` 위에서 작동하는 헬퍼이고, 213-native
-positive nat 타입은 `Lens.Number.Nat213.{Raw, Peano}` 에 있음.
+**Naming note**: 이 헬퍼들은 Lean 의 `Nat` 위에서 작동한다 (type
+`Nat213` 과 구별).  213-native positive nat 타입은
+`Lens.Number.Nat213.{Raw, Peano}` 에 있음.
 
 Companion to `Omega213.lean` (linear arithmetic tactic) and
 `Fin213.lean` (Fin-construction helpers).  See
@@ -670,5 +669,25 @@ theorem add_left_cancel_pure {a b c : Nat}
 theorem div_self_pure (p : Nat) (hp : 0 < p) : p / p = 1 := by
   rw [Nat.div_eq_sub_div hp (Nat.le_refl _)]
   rw [Nat.sub_self, Nat.zero_div]
+
+/-- `a < b → b ≤ c → a < c`, PURE (`Nat.lt_of_lt_of_le` pulls propext;
+    `a < b` is `a+1 ≤ b`, so `Nat.le_trans` suffices). -/
+theorem lt_of_lt_le {a b c : Nat} (h1 : a < b) (h2 : b ≤ c) : a < c :=
+  Nat.le_trans h1 h2
+
+/-- `a ≤ b → b < c → a < c`, PURE. -/
+theorem lt_of_le_lt {a b c : Nat} (h1 : a ≤ b) (h2 : b < c) : a < c :=
+  Nat.le_trans (Nat.succ_le_succ h1) h2
+
+/-- Generic sub/add range bound: from `s < c` and a `c - 1 - a + b ≤ k`,
+    conclude `s - a + b < k + 1`.  ∅-axiom replacement for the `omega`
+    range arithmetic in segmented `Fin`-pair enumerators.  Route:
+    `s ≤ c-1 ⇒ s-a ≤ (c-1)-a ⇒ s-a+b ≤ ((c-1)-a)+b ≤ k < k+1`. -/
+theorem sub_add_lt_succ_of_le {s c a b k : Nat} (h : s < c)
+    (hcab : c - 1 - a + b ≤ k) : s - a + b < k + 1 := by
+  have hs : s ≤ c - 1 := Nat.le_sub_one_of_lt h
+  have h1 : s - a ≤ c - 1 - a := Nat.sub_le_sub_right hs a
+  have h2 : s - a + b ≤ (c - 1 - a) + b := Nat.add_le_add_right h1 b
+  exact Nat.lt_of_le_of_lt (Nat.le_trans h2 hcab) (Nat.lt_succ_self k)
 
 end E213.Tactic.NatHelper

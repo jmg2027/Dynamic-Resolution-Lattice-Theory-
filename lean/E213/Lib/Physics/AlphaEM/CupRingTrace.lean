@@ -164,18 +164,15 @@ def F5 : Nat :=
     elementary cup-ring counts on H*(Δ⁴; ℤ).
   · A "single canonical functional = 1/α_em" must use either:
       (a) Laplacian spectrum (Σ 1/λ_k² style), bringing back ζ(2)
-          but as a finite eigenvalue sum at resolution N_U;
+          as a finite eigenvalue sum;
       (b) K_{3,2}^{(c=2)} multi-edge structure beyond Δ⁴ alone
           (the c=2 multiplicity doubles certain channel counts);
       (c) ℤ-coefficient signed cup pairings (Hodge–Riemann
-          signature integrals), not Bool/ℤ_2;
-      (d) Cup-ring convolved with the resolution N_resolution =
-          5²⁵ (so that "ζ(2) ≈ S(5²⁵) ≈ π²/6" reads as a finite
-          rational at lattice scale).
+          signature integrals), not Bool/ℤ_2.
 
-  This bottom-up data argues (a) or (d) is the right direction —
+  This bottom-up data argues (a) is the right direction —
   the integer 137 isn't a small Δ⁴ count; it requires the
-  resolution-scale spectral structure or its surrogate. -/
+  spectral structure or its surrogate. -/
 
 /-- ★★★★★ Cup-ring trace bottom-up test results.  STRICT ∅-AXIOM. -/
 theorem cup_ring_trace_master :

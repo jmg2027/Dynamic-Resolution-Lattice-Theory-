@@ -119,4 +119,85 @@ theorem three_mul_eq (x : Nat) : 3 * x = x + x + x := by
 theorem two_mul_eq (x : Nat) : 2 * x = x + x := by
   rw [show (2 : Nat) = 1 + 1 from rfl, nat_add_mul, Nat.one_mul]
 
+/-! ## §9 — Strict multiplication monotonicity (PURE)
+
+Lean-core `Nat.mul_lt_mul_left` / `Nat.mul_lt_mul_right` are `Iff`s
+that pull `Classical.choice`, and `Nat.exists_eq_add_of_lt` pulls
+`Classical` too.  These constructive forms route strict `<` through
+the `(b+1)·a ≤ c·a` chain so they stay ∅-axiom. -/
+
+/-- `b·a < c·a` for `0 < a`, `b < c` — PURE right-strict monotonicity. -/
+theorem nat_mul_lt_mul_right {b c a : Nat} (ha : 0 < a) (h : b < c) :
+    b * a < c * a := by
+  have hstep : (b + 1) * a ≤ c * a := Nat.mul_le_mul_right a h
+  have heq : (b + 1) * a = b * a + a := by rw [nat_add_mul, Nat.one_mul]
+  rw [heq] at hstep
+  exact Nat.le_trans (Nat.lt_add_of_pos_right ha) hstep
+
+/-- `c·a < c·b` for `0 < c`, `a < b` — PURE left-strict monotonicity
+    (commute to the right-strict form). -/
+theorem nat_mul_lt_mul_left {a b c : Nat} (hc : 0 < c) (h : a < b) :
+    c * a < c * b := by
+  rw [Nat.mul_comm c a, Nat.mul_comm c b]; exact nat_mul_lt_mul_right hc h
+
+/-- `c·m < c·n` from `1 ≤ c` and `m < n` — left-strict form stated with
+    the `1 ≤ c` hypothesis used at edge-index bounds.  PURE. -/
+theorem mul_lt_mul_left_pure {c m n : Nat} (hc : 1 ≤ c) (h : m < n) :
+    c * m < c * n :=
+  nat_mul_lt_mul_left hc h
+
+/-! ## §10 — Additive / cancel / square algebra (PURE) -/
+
+/-- `a + (b + 1) + a = 2·a + b + 1`.  PURE additive rearrangement. -/
+theorem add_dup_succ (a b : Nat) : a + (b + 1) + a = 2 * a + b + 1 := by
+  rw [Nat.two_mul, Nat.add_right_comm a (b + 1) a, ← Nat.add_assoc]
+
+/-- If `b ≥ 1`, `c ≥ 1`, and `b · c = 1`, then `b = 1`.  PURE
+    (`Nat.succ.inj` / `Nat.succ_ne_zero` leak propext; `noConfusion`
+    is PURE). -/
+theorem mul_eq_one_left (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
+    (hbc : b * c = 1) : b = 1 := by
+  cases b with
+  | zero => exact absurd hb (Nat.not_succ_le_zero 0)
+  | succ b0 =>
+    cases b0 with
+    | zero => rfl
+    | succ b1 =>
+      cases c with
+      | zero => exact absurd hc (Nat.not_succ_le_zero 0)
+      | succ c0 =>
+        exfalso
+        have hbc' : ((b1 + 1 + 1) * c0 + b1).succ.succ = 1 := hbc
+        exact Nat.noConfusion hbc' (fun h2 => Nat.noConfusion h2)
+
+/-- If `b ≥ 1`, `c ≥ 1`, and `b · c = 1`, then `c = 1`.  PURE. -/
+theorem mul_eq_one_right (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
+    (hbc : b * c = 1) : c = 1 := by
+  have hb1 := mul_eq_one_left b c hb hc hbc
+  subst hb1
+  rw [Nat.one_mul] at hbc
+  exact hbc
+
+/-- `(x·y)·(x·y) = (x·x)·(y·y)` — PURE square-of-product. -/
+theorem mul_sq (x y : Nat) : (x * y) * (x * y) = (x * x) * (y * y) := by
+  rw [nat_mul_assoc, ← nat_mul_assoc y x y, Nat.mul_comm y x, nat_mul_assoc x y y,
+      ← nat_mul_assoc x x (y * y)]
+
+/-- `x² ≤ y² → x ≤ y` on Nat (PURE; rules out `y < x` via strict square
+    monotonicity).  `Nat.lt_or_ge` / `Nat.not_le` are PURE. -/
+theorem sq_le_imp (x y : Nat) (h : x * x ≤ y * y) : x ≤ y := by
+  cases Nat.lt_or_ge y x with
+  | inr hle => exact hle
+  | inl hgt =>
+    have hx0 : 0 < x := Nat.le_trans (Nat.succ_le_succ (Nat.zero_le y)) hgt
+    have h1 : y * y ≤ y * x := Nat.mul_le_mul_left y (Nat.le_of_lt hgt)
+    have h2 : y * x < x * x := nat_mul_lt_mul_right hx0 hgt
+    exact (Nat.not_le.mpr (Nat.le_trans (Nat.succ_le_succ h1) h2) h).elim
+
+/-- `x² < y² → x < y` on Nat (PURE; rule out `y ≤ x` via `Nat.mul_le_mul`). -/
+theorem sq_lt_imp (x y : Nat) (h : x * x < y * y) : x < y := by
+  cases Nat.lt_or_ge x y with
+  | inl hlt => exact hlt
+  | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul hge hge) h).elim
+
 end E213.Lib.Math.NatRing

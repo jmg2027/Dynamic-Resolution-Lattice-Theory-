@@ -17,7 +17,7 @@ Plus the squashed-ℝ interpretation: ZFC ℝ = level-2 with
 absorbed 3-axes from 23 levels above.
 -/
 
-namespace E213.Lib.Math.TriangularTower.G47Capstone
+namespace E213.Lib.Math.TriangularTower.Capstone
 
 open E213.Lib.Math.TriangularTower.PropertySurvival
   (surviving surviving_0 surviving_1 surviving_2 surviving_3
@@ -76,4 +76,4 @@ theorem total_witness :
   ⟨surviving_0, surviving_25, absorbed_25, rfl,
    levels_above_eq_23⟩
 
-end E213.Lib.Math.TriangularTower.G47Capstone
+end E213.Lib.Math.TriangularTower.Capstone

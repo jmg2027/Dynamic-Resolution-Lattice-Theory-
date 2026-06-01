@@ -66,7 +66,7 @@ The thesis "Prop is an atom of meaning" *is* what `propext`
 expresses.  Removing the seal would require removing Prop as a
 HasDistinguishing instance, which removes the thesis.
 
-### (b) Lens funext-by-design — `Quot.sound` (= `funext`)
+### (b) Lens kernel as function-`=` of views — `Quot.sound` (= `funext`) + `propext`
 
 `Lens.combine : α → α → α` for the universal / indexed / Cauchy
 Lens family is function-valued — `α = Raw → β` or `α = (i : ι) →
@@ -77,6 +77,20 @@ pattern at one level up: it states `L.view r = L.view r'` at type
 `Prop` (Iff↔Eq via propext) and `Lens.refines` says
 `L.equiv r r' → M.view r = M.view r'` (function equality on
 view).  Both patterns inherit propext + Quot.sound from the kernel.
+
+This category is a **statement-shape** cost, not a redefinition cost.
+The 213-native meaning of "the same under `L`" is the
+distinguishing-equivalence — pointwise `↔`, `Lens.equivR L x y := ∀
+s, L.view x s ↔ L.view y s` — which is **PURE**, and using `=` of the
+view-functions is the move that *imports* `Prop` / function identity
+beyond the distinguishing content (the "View promoted to identity"
+slip).  The load-bearing hub `universalLens_kernel_eq_E_R`
+(`equivR r r' ↔ E r r'`) is materialized and PURE, so the whole
+refinement lattice on Prop-valued Lenses is recoverable without
+`funext` / `propext`.  The sealed `=`-forms persist as `propext`-shims
+pending consumer migration; only `propAsDistinguishing` (category a)
+is irreducible.  See `theory/lens/dirty_recovery_patterns.md` Pattern
+P5 and `theory/lens/unified_equivalence.md`.
 
 Sealed modules:
 
@@ -115,18 +129,76 @@ Sealed modules:
 
 ### Net effect
 
-  · **Non-sealed DRLT mathematical content** (Lib/Math/*, Lib/Physics/*,
-    Theory/*) is **fully PURE** on Lean 4 core.
-  · **Sealed Lens.* modules** carry 54 DIRTY theorems whose Lean-core
-    axiom use is structural per categories (a) + (b) above.
-  · **`Classical.choice` is absent from all DRLT mathematical
-    content** — the previous 5 DepthJoin theorems that carried
-    Classical.choice via `omega` / `simp` tactic artifacts were
-    refactored to use constructive Nat reasoning (`Nat.le_add_right`,
-    `Nat.not_succ_le_zero`, explicit case analysis), closing the
-    Classical.choice surface.
-  · `tools/scan_all_axioms.py` reports `<N> PURE / 0 real DIRTY /
-    54 sealed-DIRTY-by-design`.
+Scope note: until the build gate was made comprehensive (G159), only the
+umbrella-reachable subset was ever scanned, and that subset was fully PURE
+(non-sealed).  The comprehensive gate now scans **all 1532 modules**, which
+exposes the purity status of the previously-ungated clusters.  Current
+`tools/scan_all_axioms.py`:
+
+  · **~12499 PURE / ~52 real DIRTY / 57 sealed-DIRTY-by-design** (12608 total).
+    A local-purification pass cleared 10 propext-inherited theorems by swapping
+    propext-carrying Nat-core lemmas (`Nat.{mul_div_cancel_left, add_mul_div_left,
+    add_mul_mod_self_left, add_sub_cancel', mul_assoc}`) and Iff-closing `simp`
+    for PURE infra equivalents: `Cohomology/Bipartite/Parametric/KerSizeUniversal`
+    (4 → 0, the universal kerSize=2 / N_gen kernel), `EnrichedKNSNTcEvenEven`
+    (2 → 0) + `PellOrbitInstances` (2 → 0, via import), `Choice.CanonicalTruthChar`
+    (8 → 6; the `propXor`/`iff` Bool↔Prop characterisations purified, the
+    `canonical*Map` thesis-maps left).
+  · **No `Classical.choice` and no `Lean.ofReduceBool` (`native_decide`) in any
+    213-mathematical content** — the falsifiability-forbidden axioms are absent.
+    The only `Classical.choice` carriers are three `CommandElab` elaborators
+    (`Lib.Math.Tactic.QuadExtension`, `Meta.Tactic.{DeriveConjugationCodomain,
+    VerifyConjugation}`), inherited via the `Lean.Elab.Command` monad — sealed
+    plumbing per category (a), not math content.
+  · The **~52 real DIRTY are all `propext` / `Quot.sound` only** (the
+    "allowed-but-not-target" core-kernel axioms), in previously-orphaned
+    clusters now exposed by the gate — `Lens.Compose.*`, `Lens.Lattice.*`,
+    `Lib/Math/{Choice (canonical*Map thesis), CayleyDickson, Cauchy, Hyper}`,
+    etc.  This is the **purity backlog** (not a falsifiability issue);
+    the `Mobius213.Px` pass shows the playbook (`omega` → `rfl`/`Nat.two_mul`/
+    `Nat.add_right_comm`; `Nat.mul_assoc`/`Nat.add_mul` → `NatRing.nat_*`;
+    `simp` → explicit `rw`; **`Nat.mul_lt_mul_left`/`mul_lt_mul_right` (the
+    `Iff`) pull `Classical.choice`** → use a constructive `c*m+1 ≤ c*m+c ≤ c*n`
+    helper, cf. `KerSizeUniversal.mul_lt_mul_left_pure`).
+  · **Gate vindication**: closing the build-gate hole (G159) exposed a genuine
+    falsifiability violation that had been invisible — `KerSizeUniversal`'s
+    `Classical.choice` (via `Nat.mul_lt_mul_left`) in an orphaned cluster, now
+    fixed.  A gate that only follows umbrella imports cannot guarantee the
+    ∅-axiom standard; the comprehensive build is required.
+  · **Sealed-by-design** (57) per categories (a) + (b): the Prop-as-
+    distinguishing / Lens-funext / Quot-Lens families + the three CommandElab
+    plumbing modules.  **213-native re-reading (not just ∅-axiom)**: of the 57,
+    only the **3 CommandElab** + `propAsDistinguishing` are *irreducible*.  The 3
+    CommandElab inherit `Classical.choice` via the `Lean.Elab.Command` monad
+    (no `↔`-form alternative); `propAsDistinguishing` is `propext` expressing the
+    thesis "Prop is an atom of meaning".  The other ~54 (Lens/Prop kernel forms)
+    are a **statement-shape cost**, not structural: `Raw` is a subtype not a
+    quotient, `Raw.slash_comm` is PURE, and the `Quot.sound` is `funext` from
+    stating coherence as function-`=`.  The 213-native notion is the pointwise
+    **Reading-equivalence** (`equivR`, `∀ s, view x s ↔ view y s`), which is PURE,
+    and the materialized chain proves the whole family is recoverable:
+    `Raw.fold_slash_iff` (the pointwise-`↔` fold/slash homomorphism, PURE) →
+    `universalLens_{combine_sym,view_eq}_pw` (PURE) →
+    `universalLens_kernel_eq_E_R` (the load-bearing kernel hub, `equivR r r' ↔ E
+    r r'`, PURE).  So the `universalLens` (`Raw → Prop`) kernel hub **is**
+    recoverable PURE, and `Lens/ReadingEquiv.lean` carries the `equivR` /
+    `refinesR` structure (PURE) with the lone `=`-cost isolated in
+    `equivR_to_equiv`.  **But retiring the sealed `=`-forms across the consumer
+    lattice is a foundational refactor, not bounded engineering** — a direct
+    attempt confirmed three walls: (1) `Lens.equiv` / `Lens.refines` are *defined*
+    as `view x = view y`, so every consumer stated via them inherits the cost
+    unless the API itself is restated pointwise; (2) the consumer lenses have
+    non-`Prop` codomains (`iJoinLens : Lens (ι → α)`, `limitLens`, the meets)
+    where `equivR` / `refinesR` (typed for `Lens (Raw → Prop)`) do not even apply,
+    so each needs its own per-codomain pointwise form; (3) `universalLens_recovers`
+    / `universalLens_idempotent` have **no** PURE companion — they need
+    equivalence-*closure* reasoning, not the pointwise `combine`/`view` identities.
+    Net: of the ~54, the kernel hub + combine/view coherence are PURE-recoverable
+    (companions materialized); the closure theorems (`recovers`, `idempotent`) and
+    the `=`-based `equiv`/`refines` consumer surface are **structural** pending a
+    foundational pointwise-API rebuild.  Only `propAsDistinguishing` is
+    irreducible by thesis.  Anchors: `theory/lens/dirty_recovery_patterns.md`
+    Pattern P5, `theory/lens/unified_equivalence.md`.
 
 ---
 
@@ -212,8 +284,8 @@ closures:
     convergence of the iteration `x ↦ x^p`.  Notable: the proof
     avoids binomial coefficients entirely and holds for any p ≥ 1.
   · `QpSeq` ℚ_p localization with add/sub/mul/neg/inv/div/sqrt.
-  · `canonical_5adic_NU` — 5-adic lift of `N_U = 5^25` with
-    `trunc_le_25 = 0` attestation; DRLT bridge anchor.
+  · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
+    with digit smoke-tests.
 
 Chapter: `theory/math/padic_real213.md`.
 Source note: `research-notes/archive/G122_real213_padic_research_direction.md`.
@@ -490,12 +562,8 @@ the exact axiom dependency listed.
 
 | theorem | content |
 |---|---|
-| `validation_standard_capstone` | CLAUDE.md Standards #1+#2 met |
 | `pure_atomic_observables_capstone` | 17-conjunct atomic ratios |
-| `finitist_observable_chain` | 4 observables share N_U |
-| `n_resolution_self_consistent` | N_U = d^(d²) self-referential |
-| `fractal_lens_cardinality_capstone` | Lens count at fractal level |
-| `alpha_em_master_capstone` | α_em finitist with all corrections |
+| `invAlphaEm_precision_theorem` | 0.2 ppb 1/α_em structural precision |
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
 

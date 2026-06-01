@@ -71,7 +71,7 @@ cross-layer hypotheses.  The incidT branch needs
 the right of `&&` (`Bool.and` matches first arg); a syntactic
 asymmetry of Lean's reduction, not a structural one.
 
-## Conditional / unconditional separation — both directions now closed
+## Conditional / unconditional separation — both directions closed
 
 `primary_cup_span_soundness_on_layer` combines unconditional
 cross-layer (closed above) with the on-layer hypothesis
@@ -129,9 +129,7 @@ syntactic projections of the disjoint-layer factorisation;
 nothing is added when moving between them, only the reading
 depth changes.
 
-## Closed (2026-05-25)
-
-Both pieces previously open are now closed:
+## Both pieces, closed
 
   · **Direction B on-layer**: ψ_m kills `starS i m ∪ β` at
     layer m for arbitrary m via `nat_decide_add_left_assoc{1,2}`

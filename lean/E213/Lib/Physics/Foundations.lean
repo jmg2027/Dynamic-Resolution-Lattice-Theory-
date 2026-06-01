@@ -8,32 +8,26 @@ import E213.Lib.Physics.Foundations.DrltZeroParameters
 import E213.Lib.Physics.Foundations.FibonacciAtomic
 import E213.Lib.Physics.Foundations.FibonacciExtended
 import E213.Lib.Physics.Foundations.FiniteResonanceN
-import E213.Lib.Physics.Foundations.FiniteUniverse
-import E213.Lib.Physics.Foundations.FractalLensCardinality
 import E213.Lib.Physics.Foundations.GoldenRatio
 import E213.Lib.Physics.Foundations.HopHypothesis
 import E213.Lib.Physics.Foundations.KoideFormula
 import E213.Lib.Physics.Foundations.LensCardinalityFractalLevels
 import E213.Lib.Physics.Foundations.MasslessParticles
-import E213.Lib.Physics.Foundations.NResolutionFractalDepth
-import E213.Lib.Physics.Foundations.NResolutionFromFractal
 import E213.Lib.Physics.Foundations.ResolutionDepth
 import E213.Lib.Physics.Foundations.TightenBracket
 import E213.Lib.Physics.Foundations.UnifiedPattern
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Foundations`.
 
-  Foundational physics scaffolding — N_resolution cardinality, atomic
-  constants, finiteness witnesses, resonance structure.
+  Foundational physics scaffolding — atomic constants, fractal-level
+  cardinality, resonance structure.
 
-  ## N_resolution = d^(d²) = 5²⁵ scaffold
+  ## Fractal-level cardinality (parametric, no privileged level)
 
-    * `NResolutionFromFractal`        — fractal-lens derivation of 5²⁵
-    * `NResolutionFractalDepth`       — depth-as-fractal-level witness
-    * `FractalLensCardinality`      — combinatorial enumeration
-    * `LensCardinalityFractalLevels` — per-level cardinality lemmas
+    * `LensCardinalityFractalLevels` — per-level vertex counts
+                                       `numV L = d^L` (bare combinatorics;
+                                       no fractal level is privileged)
     * `ResolutionDepth`             — Basel resolution depth per gauge coupling (α_3, α_2, α_1)
-    * `FiniteUniverse`              — finiteness from resolution limit
     * `FiniteResonanceN`            — resonance count = N
 
   ## Atomic-constant catalog

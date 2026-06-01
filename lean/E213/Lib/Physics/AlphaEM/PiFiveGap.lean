@@ -23,32 +23,33 @@ motivated as Hodge-pairing top-form occlusion at vertex level
 
   ⟹ 1/(NS·NT·π⁵) is **~10× closer to observed gap than α_GUT/45**.
 
-## 213-finite π via Wallis bracket
+## Parametric Wallis bracket
 
-213 has no transcendental π.  In its place, the Wallis bracket
+The Wallis bracket
 
   S_Wallis(N) := 2 · ∏_{k=1..N} (2k)² / ((2k-1)(2k+1))
 
-converges to π as N → ∞, and at N = N_U = 5²⁵ gives a rational
-approximation to π tight to roughly 1/N_U = 5⁻²⁵ resolution.
+is a parametric rational sequence converging to π as N → ∞.  It is
+evaluated at a general truncation index N; no level is privileged.
 
 ## Conjecture (this file documents — proof open)
 
-  1/α_em(IR) = 60·S(N_U) + 30 + d²/NS + 1/(NS · NT · S_Wallis(N_U)⁵)
+  1/α_em(IR) = 60·ζ(2) + 30 + d²/NS + 1/(NS · NT · π⁵)
 
-with all four terms strict ∅-axiom rational at finite N_U.  Each
-term arises from a graded layer of the cohomology ring expansion:
+Each term arises from a graded layer of the cohomology ring
+expansion:
 
-  · `60·S(N_U) + 30`           harmonic base (k = 0, 1)
+  · `60·ζ(2) + 30`             harmonic base (k = 0, 1)
   · `d²/NS = 25/3`              cup-product correction (k = 2)
-  · `1/(NS·NT·S_Wallis^5)`     Hodge pairing (k = 3, 4)
+  · `1/(NS·NT·π⁵)`             Hodge pairing (k = 3, 4)
 
+The structural part is the integer/rational layer coefficients; the
+ζ(2) and π⁵ factors are analytic inputs (π enters as a literal).
 This file establishes the integer-coefficient rationality and the
 numerical match at the precision of the existing 9-digit-rounded
-gap; the full Wallis-bracket precision proof is left open.
+gap.
 
-STRICT ∅-AXIOM (rational arithmetic checks; π itself is documented
-as the user's conjecture target via S_Wallis).
+STRICT ∅-AXIOM (rational arithmetic checks).
 -/
 
 namespace E213.Lib.Physics.AlphaEM.PiFiveGap
@@ -149,7 +150,7 @@ def alpha_gut_45_distance : Nat :=
     form brackets the two-Lens difference **~13× more tightly**.
 
     This is numerical evidence (not proof) that
-        Δ_gap_213 := 1/(NS · NT · S_Wallis(N_U)⁵)
+        Δ_gap := 1/(NS · NT · π⁵)
     may be the correct cohomology-ring-graded replacement for the
     SO(10) tail in `1/α_em(IR)`, with all atomic constants
     (NS, NT, c, d) emerging from the K_{3,2}^{(c=2)} ↪ Δ⁴ scaffold

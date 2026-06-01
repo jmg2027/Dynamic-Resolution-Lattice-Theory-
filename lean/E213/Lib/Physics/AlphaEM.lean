@@ -14,17 +14,17 @@ import E213.Lib.Physics.AlphaEM.GradedFormula
 import E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 import E213.Lib.Physics.AlphaEM.GramSelfConsistency
 import E213.Lib.Physics.AlphaEM.GramHigherOrder
+import E213.Lib.Physics.AlphaEM.GramStructuralCapstone
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaCoeffSeq
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
-import E213.Lib.Physics.AlphaEM.NResolutionCandidates
 import E213.Lib.Physics.AlphaEM.PiFiveGap
 import E213.Lib.Physics.AlphaEM.ProjectionRatios
 import E213.Lib.Physics.AlphaEM.StructuralGap
 
 /-! Spec-as-code entry point for E213.Lib.Physics.AlphaEM.
 
-  1/α_em derivation cluster — thirteen topical files:
+  1/α_em derivation cluster — topical files:
 
   * `Augmented.lean`            — Dyson tail + SO(10) + Gram self-energy bracket
   * `Bare.lean`                 — atomic integers + lattice prefactors + 5-term
@@ -41,7 +41,7 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
                                   (Step A): 10 / 80 / 785 channels
   * `CupRingTrace.lean`         — bottom-up cup-ring functional tests
                                   (Test 1): F₁..F₅ — none give 137,
-                                  pointing to Laplacian or N_U
+                                  pointing to the Laplacian channel
   * `GradedDecomposition.lean`  — 5-fold output-grade decomposition
                                   of the 785 cross-terms
                                   (25/100/200/250/210), with three
@@ -55,7 +55,6 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
                                   ζ_Δ(2)=6/5; K_{3,2}^{(c=2)} spec
                                   {0,6,4,4,10}, ζ_K(1)=23/15≈1.533
                                   (closest to ζ(2)≈1.645).  STRICT ∅-AXIOM.
-  * `NResolutionCandidates.lean`  — five candidates for N_U
   * `PiFiveGap.lean`            — π⁵ structural gap conjecture:
                                   1/(NS·NT·π⁵) ≈ 5446·10⁻⁷ matches
                                   observed gap 5443·10⁻⁷ within 3,
@@ -73,5 +72,5 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
                                   NT, d.  STRICT ∅-AXIOM.
   * `StructuralGap.lean`        — open 5.4×10⁻⁴ falsifier target
 
-  Importing this single module pulls in all thirteen.
+  Importing this single module pulls in the whole cluster.
 -/

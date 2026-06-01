@@ -104,10 +104,9 @@ structure CatamorphismWitness (α : Type) where
     (91 files in `Math/Cohomology/Dyadic/`).
 
     Time `k : Nat` is a NEW dimension absent from the first four
-    games (which were time-less).  Pigeonhole at the lens-output
-    cardinality level — "ℕ-iteration on a state set whose cardinality
-    is bounded by N_U must cycle within N_U + 1 steps" — lives here.
-    Canonical reading on N_U: `seed/RESOLUTION_LIMIT_SPEC.md` §2. -/
+    games (which were time-less).  Pigeonhole on any finite state
+    set — "ℕ-iteration on a state set of cardinality `M` must cycle
+    within `M + 1` steps" — lives here. -/
 structure DynamicalWitness (S : Type) (Out : Type) where
   init   : S
   step   : S → S

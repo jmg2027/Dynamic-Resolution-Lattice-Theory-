@@ -1,4 +1,4 @@
-import E213.Lib.Math.GenerationRule.G46Capstone
+import E213.Lib.Math.GenerationRule.Capstone
 import E213.Lib.Math.GenerationRule.GenerationCount
 import E213.Lib.Math.GenerationRule.OrthogonalDirection
 import E213.Lib.Math.GenerationRule.TriangleIteration

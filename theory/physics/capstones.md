@@ -22,8 +22,6 @@ bundled `∧`-conjuncts of theorems proven elsewhere in
 `Lib/Physics/`.  This is the **single-citation interface** for
 downstream consumers:
 
-- `finitist_observable_chain` — bundle of all atomic-base-derived
-  observables (mass ratios, coupling values, mixing angles, ...)
 - `pure_atomic_observables` — sub-bundle of PURE observables only
   (filters out items with sealed-by-design axiom dependencies)
 - `master_catalog` — top-level master indexing every theorem

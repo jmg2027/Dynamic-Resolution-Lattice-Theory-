@@ -23,7 +23,7 @@ gets pointier as we ascend".
 | 3 | associativity | 2 |
 | 4 | alternativity | 1 |
 | 5+ | power-associativity | 0 |
-| 25 | (only Z/2 + norm + N_U) | 0 |
+| 25 | (only Z/2 + norm residual) | 0 |
 -/
 
 namespace E213.Lib.Math.TriangularTower.PropertySurvival
@@ -52,7 +52,7 @@ theorem surviving_4 : surviving 4 = 1 := rfl
 /-- ★ Level 5+: power-associativity lost → 0 survive. -/
 theorem surviving_5 : surviving 5 = 0 := rfl
 
-/-- ★ Level 25: only Z/2 + norm + N_U residual. -/
+/-- ★ Level 25: only Z/2 + norm residual. -/
 theorem surviving_25 : surviving 25 = 0 := rfl
 
 /-- ★ **Strict decrease at consecutive levels (concrete)**:

@@ -1,9 +1,7 @@
-import E213.Lib.Physics.Capstones.FinitistObservableChain
 import E213.Lib.Physics.Capstones.MasterCatalog
 import E213.Lib.Physics.Capstones.NSNTPi5Block
 import E213.Lib.Physics.Capstones.PhysicsTrackComplete
 import E213.Lib.Physics.Capstones.PureAtomicObservables
-import E213.Lib.Physics.Capstones.ValidationStandardOne
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Capstones`.
 
@@ -23,11 +21,6 @@ import E213.Lib.Physics.Capstones.ValidationStandardOne
     * `PhysicsTrackComplete`    — completeness statement: every
                                   Standard-Model parameter is
                                   predicted from atomic integers
-    * `ValidationStandardOne`   — DRLT validation standard
-                                  (first half: precision theorem
-                                  matching observation at ppb)
-    * `FinitistObservableChain` — finite-resolution closure of
-                                  the observable chain
     * `NSNTPi5Block`            — cross-observable bridge:
                                   m_p/m_e and 1/α_em(IR) gap
                                   share NS·NT·π⁵ skeleton

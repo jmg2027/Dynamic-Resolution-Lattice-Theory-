@@ -398,7 +398,7 @@ on the `(d, n) = (5, n)` slice of the family.  The constant-`n`
 readouts (`p ∈ {2, 3, 5}`) hold parametrically; the period-2
 readouts (`p ∈ {7, 13}`) hold for every starting `n`.  Together
 they characterise the full mod-{2, 3, 5, 7, 13} fingerprint of
-the `N_U` family at the physics base. -/
+the `configCount` family at the physics base. -/
 
 theorem configCountD_5_modular_structure (n : Nat) :
     -- Trivially constant moduli
@@ -781,8 +781,8 @@ theorem configCountD_5_succ_mod_11 (n : Nat) :
 /-! ## Capstone — modular table at the physics-selected base
 
 Bundles the small-prime modular readouts at the physics base
-`d = 5` and level `n = 2` (`= N_U`).  Records that the `N_U` value
-agrees with the per-prime FLT-reduced computation. -/
+`d = 5` and level `n = 2` (`configCount 2 = 5^25`).  Records that
+the value agrees with the per-prime FLT-reduced computation. -/
 
 theorem configCountD_5_2_mod_table :
     configCountD 5 2 % 2 = 1

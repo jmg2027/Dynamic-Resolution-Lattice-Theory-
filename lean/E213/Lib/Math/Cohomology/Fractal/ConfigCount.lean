@@ -114,6 +114,24 @@ private theorem pow_le_pow_exp (a : Nat) (h : 1 ≤ a) {m : Nat} :
   | refl       => exact Nat.le.refl
   | step _ ih  => exact Nat.le_trans ih (pow_le_succ a h _)
 
+/-- `m < m^d` for `m ≥ 2` and `d ≥ 2`.  Strict self-power growth: the
+    base sits strictly below its `d`-th power once both exceed one.
+    Chain `m < m + m = 2·m ≤ m·m = m^2 ≤ m^d`. -/
+private theorem lt_self_pow_pure (m d : Nat) (hm : 2 ≤ m) (hd : 2 ≤ d) :
+    m < m ^ d := by
+  have hm1 : 1 ≤ m := Nat.le_trans (Nat.le_succ 1) hm
+  -- `m^2 = m·m`
+  have emm : m ^ 2 = m * m := by rw [Nat.pow_succ, Nat.pow_one]
+  -- `2·m ≤ m·m`, then rewrite `2·m = m + m`
+  have h2m : 2 * m ≤ m * m := Nat.mul_le_mul_right m hm
+  rw [Nat.two_mul] at h2m            -- h2m : m + m ≤ m * m
+  -- `m < m + m` since `0 < m`
+  have hlt1 : m < m + m := Nat.lt_add_of_pos_right hm1
+  have hsq : m < m ^ 2 := emm ▸ Nat.lt_of_lt_of_le hlt1 h2m
+  -- `m^2 ≤ m^d` by exponent monotonicity
+  have hpow : m ^ 2 ≤ m ^ d := pow_le_pow_exp m hm1 hd
+  exact Nat.lt_of_lt_of_le hsq hpow
+
 /-- Parametric count-Lens readout: configurations of a level-`n`
     fractal complex with `d^n` vertices, each carrying `d` states. -/
 def configCountD (d n : Nat) : Nat := d ^ (d ^ n)
@@ -132,8 +150,7 @@ theorem configCount_one : configCount 1 = 3125 := by decide
 
 /-- `configCount 2 = 5^25 = 298_023_223_876_953_125`.
 
-    This is the value historically called `N_U`.  Demoted to one
-    value of the `configCount` family. -/
+    One value of the `configCount` family; no level privileged. -/
 theorem configCount_two : configCount 2 = 298023223876953125 := by decide
 
 /-- `configCount 2 = 5^25` (structural form). -/
@@ -199,6 +216,51 @@ theorem configCountD_mono_n (d n : Nat) (h : 1 ≤ d) :
     le_self_pow_pure (configCountD d n) d hpos h
   exact hsucc.symm ▸ hself
 
+/-! ## Strict level separation (no two levels collapse) -/
+
+/-- `2 ≤ configCountD d n` for `d ≥ 2`.  The count never drops below the
+    branching factor: `configCountD d n = d^(d^n) ≥ d^1 = d ≥ 2`. -/
+private theorem two_le_configCountD (d n : Nat) (hd : 2 ≤ d) :
+    2 ≤ configCountD d n := by
+  have hd1 : 1 ≤ d := Nat.le_trans (Nat.le_succ 1) hd
+  have hpn : 1 ≤ d ^ n := one_le_pow_pure d hd1 n
+  -- `d ≤ d^(d^n) = configCountD d n`
+  have hge : d ≤ configCountD d n := le_self_pow_pure d (d ^ n) hd1 hpn
+  exact Nat.le_trans hd hge
+
+/-- **Strict level-up** for `d ≥ 2`: each fractal level is strictly more
+    populated than the one below.  `configCountD d (n+1) = (configCountD
+    d n)^d` and the base is `≥ 2`, so `lt_self_pow_pure` applies.  This
+    is the strict refinement of `configCountD_mono_n`. -/
+theorem configCountD_strictMono_succ (d n : Nat) (hd : 2 ≤ d) :
+    configCountD d n < configCountD d (n + 1) := by
+  have hb : 2 ≤ configCountD d n := two_le_configCountD d n hd
+  rw [configCountD_succ d n]
+  exact lt_self_pow_pure (configCountD d n) d hb hd
+
+/-- **Strict monotonicity** of the level tower for `d ≥ 2`: `m < n`
+    implies `configCountD d m < configCountD d n`.  Induction on the
+    `<` proof, chaining single steps. -/
+theorem configCountD_strictMono (d : Nat) (hd : 2 ≤ d) {m : Nat} :
+    ∀ {n : Nat}, m < n → configCountD d m < configCountD d n := by
+  intro n hmn
+  induction hmn with
+  | refl      => exact configCountD_strictMono_succ d m hd
+  | step _ ih => exact Nat.lt_trans ih (configCountD_strictMono_succ d _ hd)
+
+/-- **The fractal-level tower is injective** for `d ≥ 2`: distinct levels
+    never share a configuration count.  The level index is recoverable
+    from the count alone — no level is privileged and no two coincide.
+    Proof by trichotomy against strict monotonicity. -/
+theorem configCountD_injective (d : Nat) (hd : 2 ≤ d) {m n : Nat}
+    (h : configCountD d m = configCountD d n) : m = n := by
+  cases Nat.lt_trichotomy m n with
+  | inl hlt => exact absurd h (Nat.ne_of_lt (configCountD_strictMono d hd hlt))
+  | inr hr =>
+    cases hr with
+    | inl heq => exact heq
+    | inr hgt => exact absurd h.symm (Nat.ne_of_lt (configCountD_strictMono d hd hgt))
+
 /-- Monotonicity in `d`: increasing the base (with both bases at
     least one) never decreases the count.  Two-step chain through
     `d^(e^n)`: first exponent monotonicity (`pow_le_pow_exp`), then
@@ -222,8 +284,7 @@ theorem configCountD_2_2 : configCountD 2 2 = 16 := by decide
 /-- `configCountD 3 2 = 3^9 = 19683`. -/
 theorem configCountD_3_2 : configCountD 3 2 = 19683 := by decide
 
-/-- `configCountD 5 2 = 5^25 = 298_023_223_876_953_125`
-    (the value display-aliased `N_U`). -/
+/-- `configCountD 5 2 = 5^25 = 298_023_223_876_953_125`. -/
 theorem configCountD_5_2 : configCountD 5 2 = 298023223876953125 := by decide
 
 /-- `configCountD 7 2 = 7^49` (structural — the decimal expansion

@@ -177,7 +177,7 @@ are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 - `Bridge/Ising.lean`, `Bridge/Potts.lean` — Ising/Potts on 4-simplex
 - `Bridge/SpinGlassGroundState.lean` — NP-hard ground-state witness
 - `Bridge/GaloisCounterfactual.lean` — Galois-at-eighty counterfactual 80-year Galois counterfactual
-- `Bridge/G6Vacuity.lean` — G6 §0 corrected-position witness
+- `Bridge/ClassAExactWitnesses.lean` — G6 §0 corrected-position witness
 
 These demonstrate that **once Hodge is 213-native, the cohomology
 machinery used by physics + CS + arithmetic geometry inherits the
@@ -264,16 +264,8 @@ open E213.Lib.Math.HodgeConjecture
 
 ## Citation guidance
 
-When citing this chapter from Lean docstrings:
+Lean docstrings cite this chapter as the narrative home for the Hodge result:
 
 ```
--- ✅ preferred
 `theory/math/cohomology/hodge_conjecture.md`
-
--- ❌ deprecated (research-notes/hodge/ is archived)
-`research-notes/hodge/G6_hodge_213_translation.md`
 ```
-
-For deep dives into specific aspects (e.g., the corrected G6 §0
-framing), cite both: this chapter for the narrative entry, plus the
-archived G-note for the historical record.

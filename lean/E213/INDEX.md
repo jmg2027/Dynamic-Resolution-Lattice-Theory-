@@ -85,9 +85,9 @@ Detailed theorem index: `CAPSTONE_INDEX.md` (root)
 Strict-zero-axiom list: `STRICT_ZERO_AXIOM.md` (root)
 
 Top achievements:
-  - `Physics/ValidationStandardOne.validation_standard_capstone`
   - `Physics/PureAtomicObservables.pure_atomic_observables_capstone`
-  - `Physics/AlphaEMMasterCapstone.alpha_em_master_capstone`
+  - `Physics/AlphaEM/GramStructuralCapstone.invAlphaEm_precision_theorem`
+    (0.2 ppb structural precision)
   - `Physics/AlphaEMMilestone.alpha_em_milestone`
     (CLAUDE.md "first milestone of rewriting physics from scratch")
 
@@ -97,7 +97,7 @@ Top achievements:
 |---|---|
 | "What does DRLT compute?"     | `Lib/Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
 | "How does α_em derive?"       | `Lib/Physics/AlphaEM/` chain |
-| "Where is N_resolution?"        | `Lib/Physics/Foundations/NResolutionFractalDepth.lean` |
+| "Where is the config count?"   | `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (parametric, no privileged level) |
 | "Why finite N only?"          | `Lib/Math/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Theory/Atomicity/Five.lean` + `Theory/Atomicity/PairForcing.lean` |
 | "How is Term ring 0-axiom?"   | `Term/` 12 files + `tools/kernel_regress.sh` + `STRICT_ZERO_AXIOM.md` |

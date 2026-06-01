@@ -29,7 +29,7 @@ Sub-trees (each = a sub-directory + a `<DirName>.lean` umbrella):
   Basel         — Basel partial sum S(N) brackets for ζ(2)
   Cosmology     — Ω_Λ, H_0, N_eff, GravityShadow, HorizonInformation
   Couplings     — α_GUT, α_3, α_2, ColorConfinement, GUTUnification
-  Foundations   — N_resolution = d^(d²) cardinality + atomic constants
+  Foundations   — configCount cardinality + atomic constants
   Hadron        — m_p, m_n, hadron masses, ProtonG, QuarkHierarchy
   Higgs         — m_H, v_H, λ_H quartic
   Mass          — m_μ/m_e, m_τ/m_μ, hierarchy towers
@@ -43,6 +43,5 @@ Sub-trees (each = a sub-directory + a `<DirName>.lean` umbrella):
   YangMills     — SU(5) roots, WZ bosons, Weinberg angle, mass gap
 
 Plus capstones at `OS/Physics/Capstones/`:
-  PureAtomicObservables, ValidationStandardOne, FinitistObservableChain,
-  PhysicsTrackComplete, MasterCatalog.
+  PureAtomicObservables, PhysicsTrackComplete, MasterCatalog.
 -/

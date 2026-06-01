@@ -1,6 +1,6 @@
 # Angle Structure
 
-**Status**: Closed (5 files, capstone `G42Capstone`).
+**Status**: Closed (5 files, capstone `AngleStructure.Capstone`).
 
 ## Overview
 
@@ -15,7 +15,7 @@ structural; the rest are continuous-extension artifacts.
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/AngleStructure/` (5 files)
-- **Capstone**: `G42Capstone`
+- **Capstone**: `AngleStructure.Capstone`
 - **∅-axiom status**: PURE
 
 | File | Purpose |
@@ -24,7 +24,7 @@ structural; the rest are continuous-extension artifacts.
 | `RotationOrder` | Rotation-order computation |
 | `GaugeDiagonal` | Gauge-diagonal structure (45° = free choice) |
 | `OrthogonalDoubling` | Orthogonal-doubling step (90° structural) |
-| `G42Capstone` | Angle programme master |
+| `AngleStructure.Capstone` | Angle programme master |
 
 ## Narrative
 

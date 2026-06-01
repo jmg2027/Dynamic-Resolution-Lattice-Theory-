@@ -24,8 +24,7 @@ open E213.Lib.Math.Group.Symmetric
 open E213.Lib.Math.Group.GroupAction
   (cyclicShiftAction shift_zero z5_orbit_step swap01_action)
 open E213.Lib.Math.Group.SU5Channels
-  (su5_total_channels su5_generators total_eq_25 generators_eq_24
-   d_pow_d_sq_consistency)
+  (su5_total_channels su5_generators total_eq_25 generators_eq_24)
 
 /-- ★ **Cyclic-group witness** — ℤ/2ℤ + ℤ/5ℤ identities. -/
 theorem cyclic_witness (n a : Nat) :
@@ -52,13 +51,11 @@ theorem action_witness :
     ∧ cyclicShiftAction 5 1 3 = 4
     ∧ cyclicShiftAction 5 1 4 = 0 := z5_orbit_step
 
-/-- ★ **SU(5) channel witness** — 5⊗5 = 25, 24 generators,
-    d^(d²) = 5²⁵ link. -/
+/-- ★ **SU(5) channel witness** — 5⊗5 = 25, 24 generators. -/
 theorem su5_witness :
     su5_total_channels = 25
-    ∧ su5_generators = 24
-    ∧ (5 : Nat) ^ 25 = (5 : Nat) ^ 25 :=
-  ⟨total_eq_25, generators_eq_24, d_pow_d_sq_consistency⟩
+    ∧ su5_generators = 24 :=
+  ⟨total_eq_25, generators_eq_24⟩
 
 /-- ★★★ **Total witness** ★★★ — 5-fact bundle covering cyclic /
     symmetric / action / SU(5) GUT integration. -/
