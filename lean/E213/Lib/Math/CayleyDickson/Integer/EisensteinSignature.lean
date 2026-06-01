@@ -1,4 +1,6 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaUnits
 import E213.Meta.Int213.PolyInt2
 import E213.Meta.Int213.Core
 
@@ -115,5 +117,29 @@ theorem golden_indefinite : goldenForm 1 0 = 1 ∧ goldenForm 1 1 = -1 := by
 theorem signature_dichotomy :
     (∀ a b : Int, 0 ≤ eisForm a b) ∧ (∃ a b : Int, goldenForm a b < 0) :=
   ⟨eisForm_nonneg, ⟨1, 1, by decide⟩⟩
+
+/-! ## §4 — the Eisenstein det-one floor is the 6-unit group -/
+
+/-- ★ **The norm-1 floor is multiplicatively closed.**  `normSq u = 1 → normSq v = 1 →
+    normSq (u·v) = 1`, via the multiplicative norm `ZOmega.normSq_mul`.  The Eisenstein
+    analog of the golden det-one floor being a group (where the cross-determinant
+    `W = ±1` is the Cassini unit of `ℤ`). -/
+theorem eisenstein_floor_closed (u v : ZOmega)
+    (hu : u.normSq = 1) (hv : v.normSq = 1) : (u * v).normSq = 1 := by
+  rw [ZOmega.normSq_mul, hu, hv]; decide
+
+/-- ★★★ **The Eisenstein det-one floor = the 6-unit group.**  The norm-1 elements of
+    `ℤ[ω]` form a multiplicatively closed set (`eisenstein_floor_closed`), and the **6
+    units** (`= NS·NT`) all lie on it (`units6_normSq_one`, `units_count_eq_six`).  This
+    is the Eisenstein analog of φ's det-one Cassini floor: where `ℤ` has the 2 units
+    `±1` (the algebraic golden floor, `W = ±1`), the hexagonal `ℤ[ω]` has the 6 units —
+    the order-6 rotation of the `j=0` elliptic-curve lattice.  Definite norm ⟹ the floor
+    is a *finite* group (the bounded, curve side), in contrast to the golden floor's
+    *infinite* unit group (the unbounded, line side). -/
+theorem eisenstein_det_one_floor :
+    (∀ u v : ZOmega, u.normSq = 1 → v.normSq = 1 → (u * v).normSq = 1)
+    ∧ (∀ u ∈ units6, u.normSq = 1)
+    ∧ units6.length = 6 :=
+  ⟨eisenstein_floor_closed, units6_normSq_one, units_count_eq_six⟩
 
 end E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature

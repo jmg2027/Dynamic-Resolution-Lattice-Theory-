@@ -104,22 +104,18 @@ Concrete ∅-axiom targets (in increasing reach):
      (Eisenstein, disc −3) vs indefinite (golden, disc +5).  And anisotropy
      `eisenstein_norm_zero` (`normSq u = 0 → u = 0`) + `eisenstein_norm_posdef` (full
      positive-definiteness) — DONE.
-  3. **NEXT — the det-one floor = the 6 units, with a *pure* multiplicative norm.**  The
-     Eisenstein analog of φ's Cassini floor (`W = ±1` = the 2 units of `ℤ`): the norm-1
-     elements of `ℤ[ω]` are exactly the **6 units** (`ZOmegaUnits.units6_normSq_one` +
-     `units_count_eq_six` = `NS·NT`, both PURE).  What makes them a *group* (a det-one
-     floor) is **norm multiplicativity** `normSq (u·v) = normSq u · normSq v`
-     (`ZOmegaDomain.normSq_mul`) — which is currently **`propext`-dirty** (it routes
-     through `quad_norm`).  Two routes to a PURE version:
-       (a) a **4-variable** Int reflection prover (one nesting deeper than `PolyInt2`:
-           `List⁴ Int`) — `normSq_mul` is a 4-var identity in `(a,b,c,d)`;
-       (b) the **conjugate route** — `|uv|² = (uv)(\overline{uv}) = u(v\bar v)\bar u =
-           normSq v · (u \bar u) = normSq v · normSq u`, reusing
-           `ZOmegaAlgebra213.self_mul_conj'` (`u·conj u = ofInt (normSq u)`) and a
-           conjugate anti-hom `conj (u·v) = conj v · conj u` — pure iff those algebra
-           lemmas are pure.
-     Either lands a pure `normSq_mul`, hence "Eisenstein det-one floor = the 6-unit
-     group" ∅-axiom — the genuine Eisenstein analog of the golden det-one floor.
+  3. **DONE — the det-one floor = the 6 units** (`EisensteinSignature` §4): the norm-1
+     elements of `ℤ[ω]` are multiplicatively closed (`eisenstein_floor_closed`, via the
+     multiplicative norm) and the **6 units** (`= NS·NT`) all lie on it
+     (`eisenstein_det_one_floor`, reusing `units6_normSq_one` + `units_count_eq_six`).
+     The Eisenstein analog of φ's Cassini det-one floor: where `ℤ` has the 2 units `±1`
+     (golden floor, `W = ±1`), the hexagonal `ℤ[ω]` has the **6** — the order-6 rotation
+     of the `j=0` lattice; definite norm ⟹ a *finite* unit group (curve side) vs the
+     golden floor's *infinite* units (line side).  Note: `ZOmegaDomain.normSq_mul` is in
+     fact **PURE** (`#print axioms` = "does not depend on any axioms"; the file's
+     `[propext]`-only docstring is stale), so no 4-variable prover was needed for this
+     step — `PolyInt2` (bivariate) sufficed for the positive-definiteness identity, and
+     the multiplicativity was already ∅-axiom.
 
 The **full** elliptic-curve / CM / modular layer remains out of scope (per
 `probe_twist_conic.md`); what is reachable is the **lattice reference** (`ℤ[ω]`, already
