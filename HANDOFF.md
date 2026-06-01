@@ -148,8 +148,19 @@ dirty (`Compose.OnLens` 9, `Lattice.Join` 4, `Algebra.Corresp`, …) are
 funext-on-combine = the same category (b) as the sealed Lens modules → **seal**;
 `Choice.CanonicalTruthChar` (8) is Iff↔Bool propext = category (a) → **seal**.
 The genuinely-purifiable artifact-dirty are the math clusters (`CayleyDickson`,
-`Cohomology/Bipartite/Parametric`, `Cauchy`, `Hyper`) via the Px playbook.  Next:
-seal the by-design Lens/Choice clusters; purify the math artifacts.
+`Cohomology/Bipartite/Parametric`, `Cauchy`, `Hyper`) via the Px playbook.
+
+**Skeptical 213-native re-read of the seals (G161)** — do NOT just rubber-stamp
+"by-design": of 57 sealed, only the **3 CommandElab** (`Classical.choice` via the
+Elab monad) are honestly inherent.  The other **~54 Lens/Prop funext/propext
+seals are framework-`=`-artifacts** — `Raw` is a *subtype* (not a quotient),
+`Raw.slash_comm` is PURE, and the `Quot.sound` is just `funext` used to lift a
+per-point fact to `=` at `(Raw → Prop)`.  **Demonstrated**: the 213-native
+Reading-equivalence form `combine_sym_pointwise` (pointwise `↔`) is PURE.  The
+`=`-form survives only because `Raw.fold`'s slash hypothesis wants combine
+`=`-symmetry; a Reading-equivalence (`Lens.equiv`) refactor of `Raw.fold` +
+the `Lens.combine` coherence field would purify the lot — the 213-native-correct
+notion of "Lens sameness".  Scoped arc, flagged in G161 (not a one-liner).
 
 **Reusable purification pattern** (verified — applies to any future dirty Nat code):
   - `omega` is **propext-dirty** — eliminate: trivial `2*(k+1)=2*k+2` → `rfl`;
