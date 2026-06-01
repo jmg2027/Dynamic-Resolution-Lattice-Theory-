@@ -103,6 +103,53 @@ materialized `fold_slash_rel` + `sameLens` foundation; Reach + ImageMinimum +
 `same`-relativization (+ a threaded `hSsame` for the closure ones).  Sizeable
 but mechanical — a focused session.
 
+## UPDATE 2026-06-01 (third pass) — the **defeq blocker** (must solve FIRST)
+
+A third pass executed the atomic change (SemanticAtom design C +
+`universalMorphism_{slash,unique}` + `raw_initial` relativized + OnLens instances
+to `eqPW`/`sameLens`) — SemanticAtom + OnLens compiled green.  But the
+Eq-codomain consumers of `universalMorphism_slash` broke on a **defeq-reduction
+wall**, and it was reverted to green (foundations kept).
+
+**The wall**: with `same` a field defaulting to `Eq`, an `Eq`-codomain instance
+that omits `same` does NOT have `inst.same` reduce to `Eq` at *reducible*
+transparency.  Verified empirically:
+
+```
+example : @HasDistinguishing.same Bool boolXorHasDistinguishing = Eq := rfl   -- FAILS
+example (x y : Bool) : @HasDistinguishing.same Bool boolXorHasDistinguishing x y
+        = (x = y) := rfl                                                       -- FAILS
+```
+
+So `universalMorphism_slash` (now `: d.same (uM slash)(combine …)`) cannot be
+used by `rw` (needs syntactic `Eq`) nor coerced via `have e : (…) = (…) := …`
+(the ascription defeq doesn't unfold the default-field through the `def`
+instance projection) at the Eq-codomain consumers — `BoolProp`
+(`boolXorHasDistinguishing`, line ~125), `OnLensImage.composite_slash`,
+`Pair`/`CanonicalTruthChar`/`Reach` (those wanting a literal `=`).  NB:
+`ImageMinimum.image_minimum_property` was fixed *without* `=` — it transports
+`S` along `same` via the threaded `hSsame` (that pattern works); the breakage is
+only where the consumer needs a genuine `=` for further `rw`.
+
+**Resolve FIRST (before the cascade), candidate fixes:**
+  1. Give the Eq-codomain consumers an `=`-form: a generic
+     `universalMorphism_slash_eq (α) [d] (hEq : d.same = Eq) …` returning Lean
+     `=` (caller supplies `hEq := rfl`-or-proof per instance) — but per the
+     failing `example`, `d.same = Eq` is NOT `rfl` for default instances, so
+     `hEq` needs the instances to **spell out `same := Eq` explicitly** (then
+     `inst.same` is syntactically `Eq` and `hEq := rfl`).  i.e. mark the ~5-7
+     Eq-instances consumed-as-`=` with explicit `same := Eq` (+ they then reduce).
+  2. OR mark those instances `@[reducible]` so `.same` unfolds.
+  3. OR (cleanest) restate the Eq-codomain consumers in `same`/`eqPW` form too
+     (e.g. `composite_slash` → its existing `_eqPW` path; `BoolProp` boolToProp
+     commute via `same`-transport) and **delete** the `=`-of-`Lens`/recursive
+     forms that have `eqPW` twins (no external consumers — verified for
+     `OnLensImage.{lensUniversalMorphism_factors,_image}`).
+
+Recommended: option 3 for the Lens-`=` forms (retire them, eqPW twins exist) +
+option 1 (explicit `same := Eq`) for the genuinely-`=`-needing `Bool`/`Prop`
+consumers.  Resolve this defeq wall on a scratch FIRST, then run the cascade.
+
 ### Concrete green-per-commit sequence (next session)
 
 1. (DONE, committed) `Raw.fold_slash_rel`.
