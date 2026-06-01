@@ -42,6 +42,42 @@ private theorem leaves_of_small {r : Raw} (h : small r) : Lens.leaves.view r = 1
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r :=
   Lens.leaves_view_ge_one r
 
+/-! ### PURE arithmetic micro-lemmas (∅-axiom, replace `omega`/`simp`)
+
+`omega` and goal-closing `simp` pull `propext`/`Quot.sound`; the linear-Nat
+facts the tier argument needs are isolated here and proved by explicit
+constructive Nat reasoning (`Nat.add_le_add`, `Nat.noConfusion`, match). -/
+
+/-- `1 ≤ a → 1 ≤ b → 2 ≤ a + b`. -/
+private theorem two_le_add {a b : Nat} (ha : 1 ≤ a) (hb : 1 ≤ b) : 2 ≤ a + b :=
+  Nat.add_le_add ha hb
+
+/-- `1 + n ≠ 0`. -/
+private theorem one_add_ne_zero (n : Nat) : 1 + n ≠ 0 :=
+  fun h => absurd (h ▸ Nat.le_add_right 1 n) (by decide)
+
+/-- From `a + b = 2`, `1 ≤ a`, `1 ≤ b`: both are `1`. -/
+private theorem eq_one_of_add_eq_two {a b : Nat}
+    (ha : 1 ≤ a) (hb : 1 ≤ b) (h : a + b = 2) : a = 1 ∧ b = 1 := by
+  match a, ha with
+  | 1, _ =>
+    have hb1 : b = 1 := by
+      have : 1 + b = 2 := h
+      have hbb : b + 1 = 2 := by rw [Nat.add_comm] at this; exact this
+      exact Nat.succ.inj hbb
+    exact ⟨rfl, hb1⟩
+  | (k+2), _ =>
+    exfalso
+    have : 2 + b ≤ (k + 2) + b := Nat.add_le_add_right (Nat.le_add_left 2 k) b
+    rw [h] at this
+    have h3 : 2 + 1 ≤ 2 + b := Nat.add_le_add_left hb 2
+    exact absurd (Nat.le_trans h3 this) (by decide)
+
+/-- `max a b = 0 → a = 0 ∧ b = 0`. -/
+private theorem max_eq_zero {a b : Nat} (h : max a b = 0) : a = 0 ∧ b = 0 :=
+  ⟨Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_left a b) (Nat.zero_le a),
+   Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_right a b) (Nat.zero_le b)⟩
+
 /-- Raw.slash x y h has leaves ≥ 2, so ¬ small. -/
 private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
     ¬ small (Raw.slash x y h) := by
@@ -52,10 +88,10 @@ private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
     intro u v; exact Nat.add_comm u v
   have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
   have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
-  have : Lens.leaves.view (Raw.slash x y h) ≥ 2 := by
-    rw [hfs]; omega
+  have hge : Lens.leaves.view (Raw.slash x y h) ≥ 2 := by
+    rw [hfs]; exact two_le_add hxge hyge
   unfold small at hsmall
-  omega
+  exact absurd (hsmall ▸ hge) (by decide)
 
 /-- Depth=0 iff small (= leaves=1 = base Raw.a/Raw.b). -/
 private theorem small_iff_depth_zero (r : Raw) :
@@ -104,20 +140,21 @@ theorem small_invariant (r r' : Raw)
     small r ↔ small r' := by
   induction h with
   | ofL hrr' =>
-      -- leaves.equiv: Lens.leaves.view r = Lens.leaves.view r'
-      have : Lens.leaves.view _ = Lens.leaves.view _ := hrr'
-      unfold small
-      rw [this]
+      -- leaves.equiv: Lens.leaves.view r = Lens.leaves.view r'.  Transport `small`
+      -- (= `leaves = 1`) across the Eq with `▸` — no `rw`-on-`Iff` propext.
+      have hl : Lens.leaves.view _ = Lens.leaves.view _ := hrr'
+      exact ⟨fun hh => hl.symm.trans hh, fun hh => hl.trans hh⟩
   | ofM hrr' =>
-      have : Lens.depth.view _ = Lens.depth.view _ := hrr'
-      rw [small_iff_depth_zero, small_iff_depth_zero, this]
+      have hd : Lens.depth.view _ = Lens.depth.view _ := hrr'
+      have hmid : (Lens.depth.view _ = 0) ↔ (Lens.depth.view _ = 0) :=
+        ⟨fun hh => hd.symm.trans hh, fun hh => hd.trans hh⟩
+      exact (small_iff_depth_zero _).trans (hmid.trans (small_iff_depth_zero _).symm)
   | refl x => exact Iff.rfl
   | symm _ ih => exact ih.symm
   | trans _ _ ih1 ih2 => exact ih1.trans ih2
   | slash_cong hxy hx'y' _ _ _ _ =>
-      constructor
-      · intro hs; exact absurd hs (not_small_slash _ _ hxy)
-      · intro hs; exact absurd hs (not_small_slash _ _ hx'y')
+      exact ⟨fun hs => absurd hs (not_small_slash _ _ hxy),
+             fun hs => absurd hs (not_small_slash _ _ hx'y')⟩
 
 /-- **Main result**: leaves ⊔ depth ≠ constLens (universal).
     Raw.a (leaves=1) and Raw.slash Raw.a Raw.b (leaves=2) are
