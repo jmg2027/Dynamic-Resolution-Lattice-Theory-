@@ -95,12 +95,23 @@ capstone_n20)` fragment applied to `Cert.boundsOk`'s body → "function expected
 + `sorryAx`; removed → `cert_n20_boundsOk` PURE).  `lake build E213.Lib.Math
 E213.Lib.Physics` completes clean.
 
-**Next-session gate work** (per G159 remediation): probe remaining orphan
-cluster heads for rot (`CayleyDickson.Tower`, `Padic`, `Cohomology.{Bipartite,
-Cup,Fractal}`, `Real213` probe-twist, `Symmetry` all build OK but are ungated;
-others may be rotted); wire clean heads into umbrellas; once orphan set is
-empty, flip the `lean_lib E213` `globs` to build all submodules so the hole
-cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
+**Orphan rot largely cleared.**  Probed cluster heads broadly: `Mobius213.Px`,
+`AkbulutCork`, `SignedCut/*`, `CayleyDickson.Tower.AlgebraTowerCapstone`,
+`Padic`, `Mobius213GrandUnification`, `Cohomology.{K33Unified,Mediant‑
+CohomologyFunctor,Universal}`, `GeometrizationConjecture`, `HodgeConjecture`,
+`GRA`, `Symmetry`, `Hadron`, `Quantum.Bell` — all build.  Fixed the rotted
+ones (Px ×3, InvolutionCapstone, `SignedCut/Level/G39Capstone` via restoring
+`FanoK32Bridge` components).  Rot density is now low; orphans mostly *build but
+are ungated*.
+
+**Next-session gate work** (per G159 remediation): (1) run a *full* orphan-build
+inventory (build every orphan, not just heads) to confirm no remaining rot;
+(2) the gate-closing itself is a **deliberate architectural decision** — wire
+intentionally-permanent clusters into `Lib/Math.lean`/`Lib/Physics.lean` (note:
+some carry axiom-dirty theorems, e.g. `Mobius213.Px`, so gating them surfaces a
+purity-debt to track), prune genuinely-dead/WIP files; (3) once the orphan set
+is the intended-empty, flip the `lean_lib E213` `globs` to build all submodules
+so the hole cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
