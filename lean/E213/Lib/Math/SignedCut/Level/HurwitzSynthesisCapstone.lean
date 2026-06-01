@@ -19,7 +19,7 @@ tower algebra:
     distinctness).
 -/
 
-namespace E213.Lib.Math.SignedCut.Level.G38FinalCapstone
+namespace E213.Lib.Math.SignedCut.Level.HurwitzSynthesisCapstone
 
 open E213.Lib.Math.SignedCut.Octonion.QuaternionMulRule
   (Quat quatOne quatI_imag quatJ_real quatK_imag)
@@ -60,4 +60,4 @@ theorem total_witness (a b c d : Nat) :
   ⟨octOne_first, hurwitz_magnitude_bound a b c d,
    sed_zero_neq_one⟩
 
-end E213.Lib.Math.SignedCut.Level.G38FinalCapstone
+end E213.Lib.Math.SignedCut.Level.HurwitzSynthesisCapstone

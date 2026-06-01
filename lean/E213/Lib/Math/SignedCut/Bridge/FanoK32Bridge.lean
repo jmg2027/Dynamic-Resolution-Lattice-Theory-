@@ -43,7 +43,7 @@ theorem fano_k32_bridge :
   refine ⟨rfl, rfl, rfl, fanoLines_count, rfl, rfl, rfl, rfl, ?_⟩
   decide
 
-/-! ## Individual components (used by `Level.G39Capstone`) -/
+/-! ## Individual components (used by `Level.NonAssocFanoCapstone`) -/
 
 /-- K_{3,2}^{(c=2)} edge count = 12. -/
 theorem k32c2_edges_eq_12 : k32c2_edges = 12 := by decide

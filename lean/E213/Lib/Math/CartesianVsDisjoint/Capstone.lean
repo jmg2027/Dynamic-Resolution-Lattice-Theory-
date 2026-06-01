@@ -13,7 +13,7 @@ Mingu's revised "Cartesian product" hypothesis verified:
     NOT Cartesian product (6 verts).
 -/
 
-namespace E213.Lib.Math.CartesianVsDisjoint.G45Capstone
+namespace E213.Lib.Math.CartesianVsDisjoint.Capstone
 
 open E213.Lib.Math.CartesianVsDisjoint.CartesianCheck
   (cartesian_product_eq six_pow_25 five_pow_25
@@ -56,4 +56,4 @@ theorem total_witness :
     ∧ (5 : Nat) ^ 25 < (2 : Nat) ^ 25 * (3 : Nat) ^ 25 :=
   ⟨sandwich_bound.1, rfl, sandwich_bound.2⟩
 
-end E213.Lib.Math.CartesianVsDisjoint.G45Capstone
+end E213.Lib.Math.CartesianVsDisjoint.Capstone

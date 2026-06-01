@@ -3,7 +3,7 @@ import E213.Lib.Math.Modulus.PellHasModulus
 import E213.Lib.Math.Modulus.StrongModulus
 import E213.Lib.Math.Modulus.DiagonalHasModulus
 import E213.Lib.Math.Modulus.DiagonalIrrelevance
-import E213.Lib.Math.Modulus.G40Capstone
+import E213.Lib.Math.Modulus.Capstone
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Modulus`.
 
@@ -40,7 +40,7 @@ import E213.Lib.Math.Modulus.G40Capstone
     * `Translation` →
       `InfoClosure` →
       `DepthCompleteness` →
-      `G40Capstone`            — depth-modulus / information-
+      `Capstone`            — depth-modulus / information-
                                  closure / depth-completeness
                                  chain (capstone is the tip,
                                  transitively pulls in the rest).

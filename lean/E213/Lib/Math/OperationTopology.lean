@@ -1,4 +1,4 @@
-import E213.Lib.Math.OperationTopology.G48Capstone
+import E213.Lib.Math.OperationTopology.Capstone
 import E213.Lib.Math.OperationTopology.OperationLevels
 import E213.Lib.Math.OperationTopology.TopologicalComplexity
 

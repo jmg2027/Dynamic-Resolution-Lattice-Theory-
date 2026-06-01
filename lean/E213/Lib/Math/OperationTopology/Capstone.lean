@@ -13,7 +13,7 @@ Mingu's complete synthesis:
   * 25 operation levels; topological complexity total 325.
 -/
 
-namespace E213.Lib.Math.OperationTopology.G48Capstone
+namespace E213.Lib.Math.OperationTopology.Capstone
 
 open E213.Lib.Math.OperationTopology.OperationLevels
   (totalOperationLevels cumulativeOperations
@@ -46,4 +46,4 @@ theorem total_witness :
     ∧ totalComplexity = 325 :=
   ⟨rfl, totalComplexity_eq_325⟩
 
-end E213.Lib.Math.OperationTopology.G48Capstone
+end E213.Lib.Math.OperationTopology.Capstone

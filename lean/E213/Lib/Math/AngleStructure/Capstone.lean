@@ -14,7 +14,7 @@ Mingu's three-part insight:
   3. Doubling fractal = mechanical 90° orthogonal extension.
 -/
 
-namespace E213.Lib.Math.AngleStructure.G42Capstone
+namespace E213.Lib.Math.AngleStructure.Capstone
 
 open E213.Lib.Math.AngleStructure.RotationOrder
   (angleAtLevel angle_level0 angle_level1 angle_level2)
@@ -63,4 +63,4 @@ theorem total_witness :
   ⟨angle_level1, angle_level2, level25_orthogonal_axes,
    level25_imaginaries⟩
 
-end E213.Lib.Math.AngleStructure.G42Capstone
+end E213.Lib.Math.AngleStructure.Capstone

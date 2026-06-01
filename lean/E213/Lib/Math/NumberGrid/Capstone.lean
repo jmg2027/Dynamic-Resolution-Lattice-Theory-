@@ -13,7 +13,7 @@ recognizability grade.  Both read out at index 25 (bare arithmetic
 values) on d=5 Lens application.
 -/
 
-namespace E213.Lib.Math.NumberGrid.G41Capstone
+namespace E213.Lib.Math.NumberGrid.Capstone
 
 open E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
   (fsmGradeStates grade_0_states grade_1_states grade_25_states
@@ -65,4 +65,4 @@ theorem total_witness :
   ⟨grade_0_states, grade_25_states, grid_size_eq_625,
    rfl, grade25_substrate⟩
 
-end E213.Lib.Math.NumberGrid.G41Capstone
+end E213.Lib.Math.NumberGrid.Capstone

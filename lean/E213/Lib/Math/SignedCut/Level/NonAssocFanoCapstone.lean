@@ -13,7 +13,7 @@ Together with the Fano plane / K_{3,2}^{(c=2)} combinatorial
 bridges.
 -/
 
-namespace E213.Lib.Math.SignedCut.Level.G39Capstone
+namespace E213.Lib.Math.SignedCut.Level.NonAssocFanoCapstone
 
 open E213.Lib.Math.SignedCut.Octonion.OctonionNonAssociativity
   (e1 e2 e4 octonion_non_associative quaternion_assoc_control
@@ -66,4 +66,4 @@ theorem total_witness :
   ⟨octonion_non_associative, fanoLines_count,
    k32c2_edges_eq_12, cardinality_bridge⟩
 
-end E213.Lib.Math.SignedCut.Level.G39Capstone
+end E213.Lib.Math.SignedCut.Level.NonAssocFanoCapstone

@@ -33,7 +33,7 @@ distinct atoms (not three, not one).  This is axiom-level and is
 not within scope of further derivation: Clause 1 is the
 distinguishing axiom of 213.
 
-See `GenerationRule/G46Capstone.atomicity_witness` and
+See `GenerationRule/Capstone.atomicity_witness` and
 `triangle_iter_witness` for the underlying triangle-iteration
 infrastructure.
 -/

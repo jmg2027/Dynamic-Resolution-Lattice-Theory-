@@ -18,7 +18,7 @@ import E213.Lib.Math.LevelTopology.TwoTowersDivergence
 | 5 | 4 | octonion | Fano  | 7 / 7 |
 -/
 
-namespace E213.Lib.Math.LevelTopology.G49Capstone
+namespace E213.Lib.Math.LevelTopology.Capstone
 
 open E213.Lib.Math.LevelTopology.MagnitudeTopology (floor1_structure)
 open E213.Lib.Math.LevelTopology.SignTopology (K2_structure)
@@ -53,4 +53,4 @@ theorem total_witness :
     ∧ E213.Lib.Math.LevelTopology.QuaternionTopology.nodeCount = 3 :=
   ⟨rfl, rfl, rfl, rfl⟩
 
-end E213.Lib.Math.LevelTopology.G49Capstone
+end E213.Lib.Math.LevelTopology.Capstone
