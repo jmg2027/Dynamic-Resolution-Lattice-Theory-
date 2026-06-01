@@ -113,22 +113,29 @@ purity-debt to track), prune genuinely-dead/WIP files; (3) once the orphan set
 is the intended-empty, flip the `lean_lib E213` `globs` to build all submodules
 so the hole cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
 
-**Px purity-audit IN PROGRESS** (user directive: make the dirty orphans PURE).
-Root cause was `omega` + dirty core lemmas.  **Reusable purification pattern**
-(verified this session):
-  - `omega` is **propext-dirty** — eliminate it: trivial `2*(k+1)=2*k+2` etc.
-    → `rfl`; additive rearrangements → `Nat.two_mul` + `Nat.add_right_comm`/
-    `Nat.add_assoc` (factor a `private` helper, cf. `ConvergentDet.add_dup_succ`);
-    impossible-hyp `0≥1` → `absurd h (Nat.not_succ_le_zero _)`.
-  - `Nat.mul_assoc` / `Nat.add_mul` are **propext-dirty** → use PURE
+**Px purity-audit DONE** — the entire `Mobius213.Px` subtree is now ∅-axiom
+(user directive "category-3 → all PURE" satisfied): `QFibIdentity` 9/0,
+`FibCassini` 9/0, `ConvergentDet` 8/0, `MobiusSelfForm` 11/0, `PGeneratesNat`
+50/0; full-subtree scan reports 0 dirty.  Two reusable PURE helpers were added
+(`Meta.Nat.NatDiv213.div_le_self_pos`, `Meta.Nat.AddMod213.div_le_div_right_pos`);
+`AddMod213`/`NatDiv213` stay 16/0 and 8/0; `lake build E213.Lib.Math
+E213.Lib.Physics` GREEN.  The lone irreducible `coprime_NS_NT`
+(`Nat.gcd NS NT = 1`, propext via core `Nat.gcd` WF-recursion) was *unused* and
+removed — the PURE coprimality fact is `Meta.Nat.Gcd213.gcd213_succ_self`.
+
+**Reusable purification pattern** (verified — applies to any future dirty Nat code):
+  - `omega` is **propext-dirty** — eliminate: trivial `2*(k+1)=2*k+2` → `rfl`;
+    additive rearrangements → `Nat.two_mul` + `Nat.add_right_comm`/`Nat.add_assoc`
+    (factor a `private` helper, cf. `ConvergentDet.add_dup_succ`); div/mod via
+    `Nat.div_add_mod` + `mul_mod_right` + the `Meta.Nat` div helpers; impossible
+    hyp `0≥1` → `absurd h (Nat.not_succ_le_zero _)`.
+  - `Nat.mul_assoc` / `Nat.add_mul` are **propext-dirty** → PURE
     `NatRing.nat_mul_assoc` / `nat_add_mul`.  (`Nat.mul_add`, `Nat.mul_comm`,
     `Nat.add_comm`, `Nat.add_assoc`, `Nat.add_right_comm`, `Nat.two_mul`,
-    concrete `decide` are PURE.)
-  - `simp` can pull propext → explicit `rw`.
-  **Done**: `QFibIdentity` 9/0, `FibCassini` 9/0, `ConvergentDet` 8/0 (the
-  QFibIdentity omega-root fix propagated to most of Px).  **In flight**
-  (background worker): `MobiusSelfForm` (7 dirty) + `PGeneratesNat` (23 dirty,
-  incl. div/mod-by-3 omega — may have an irreducible remainder).
+    concrete-literal `decide` are PURE.)
+  - `simp`/`simpa` → explicit `rw`; pair-`match` matcher → nested `cases`;
+    `Nat.succ.inj`/`Nat.succ_ne_zero` → `Nat.noConfusion`; core `Nat.gcd` →
+    213-native `gcd213` (core gcd is irreducibly propext).
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
