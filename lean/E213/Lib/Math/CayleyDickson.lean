@@ -5,6 +5,7 @@ import E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 import E213.Lib.Math.CayleyDickson.Tower.F2CDTower
 import E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
 import E213.Lib.Math.CayleyDickson.Tower.SeedUnitGovernance
+import E213.Lib.Math.CayleyDickson.Tower.TypeEIcosian
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion
