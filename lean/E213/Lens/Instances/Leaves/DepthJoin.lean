@@ -78,6 +78,37 @@ private theorem max_eq_zero {a b : Nat} (h : max a b = 0) : a = 0 ∧ b = 0 :=
   ⟨Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_left a b) (Nat.zero_le a),
    Nat.le_antisymm (h ▸ E213.Tactic.NatHelper.le_max_right a b) (Nat.zero_le b)⟩
 
+/-- `1 ≤ n → n < 2 → n = 1`. -/
+private theorem eq_one_of_ge_one_lt_two {n : Nat} (h1 : 1 ≤ n) (h2 : n < 2) : n = 1 :=
+  Nat.le_antisymm (Nat.le_of_lt_succ h2) h1
+
+/-- `1 ≤ n → n ≠ 1 → 2 ≤ n`. -/
+private theorem two_le_of_ne_one {n : Nat} (h1 : 1 ≤ n) (hne : n ≠ 1) : 2 ≤ n := by
+  rcases Nat.lt_or_ge n 2 with hlt | hge
+  · exact absurd (eq_one_of_ge_one_lt_two h1 hlt) hne
+  · exact hge
+
+/-- `n ≠ 0 → n ≠ 1 → 2 ≤ n`. -/
+private theorem ge_two_of_ne_zero_ne_one {n : Nat} (h0 : n ≠ 0) (h1 : n ≠ 1) : 2 ≤ n := by
+  rcases Nat.lt_or_ge n 2 with hlt | hge
+  · rcases Nat.lt_or_ge n 1 with hlt1 | hge1
+    · exact absurd (Nat.le_antisymm (Nat.le_of_lt_succ hlt1) (Nat.zero_le _)) h0
+    · exact absurd (eq_one_of_ge_one_lt_two hge1 hlt) h1
+  · exact hge
+
+/-- `1 ≤ max a b → 1 ≤ a ∨ 1 ≤ b`. -/
+private theorem or_ge_one_of_max_ge_one {a b : Nat} (h : 1 ≤ max a b) :
+    1 ≤ a ∨ 1 ≤ b := by
+  rcases Nat.lt_or_ge a 1 with ha | ha
+  · right
+    have ha0 : a = 0 := Nat.le_antisymm (Nat.le_of_lt_succ ha) (Nat.zero_le a)
+    have hm : max a b = b := by
+      rw [ha0]
+      exact (E213.Tactic.NatHelper.max_comm 0 b).trans
+        (E213.Tactic.NatHelper.max_eq_left_pure (Nat.zero_le b))
+    rw [hm] at h; exact h
+  · left; exact ha
+
 /-- Raw.slash x y h has leaves ≥ 2, so ¬ small. -/
 private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
     ¬ small (Raw.slash x y h) := by
@@ -219,8 +250,7 @@ private theorem leaves_two_iff_depth_one (r : Raw) (hns : ¬ small r) :
       · intro hl2
         rw [hfsL] at hl2
         -- leaves x + leaves y = 2 ∧ both ≥ 1 → both = 1 → both small → depth 0
-        have hx1 : Lens.leaves.view x = 1 := by omega
-        have hy1 : Lens.leaves.view y = 1 := by omega
+        obtain ⟨hx1, hy1⟩ := eq_one_of_add_eq_two hxge hyge hl2
         have hxd : Lens.depth.view x = 0 :=
           (small_iff_depth_zero x).mp hx1
         have hyd : Lens.depth.view y = 0 :=
@@ -228,12 +258,11 @@ private theorem leaves_two_iff_depth_one (r : Raw) (hns : ¬ small r) :
         rw [hfsD, hxd, hyd]; rfl
       · intro hd1
         rw [hfsD] at hd1
-        have hxd : Lens.depth.view x = 0 := by
-          have : max (Lens.depth.view x) (Lens.depth.view y) = 0 := by omega
-          omega
-        have hyd : Lens.depth.view y = 0 := by
-          have : max (Lens.depth.view x) (Lens.depth.view y) = 0 := by omega
-          omega
+        -- 1 + max dx dy = 1 → max dx dy = 0 → dx = dy = 0
+        have hd1' : 1 + max (Lens.depth.view x) (Lens.depth.view y) = 1 + 0 := hd1
+        have hmax0 : max (Lens.depth.view x) (Lens.depth.view y) = 0 :=
+          E213.Tactic.NatHelper.add_left_cancel hd1'
+        obtain ⟨hxd, hyd⟩ := max_eq_zero hmax0
         have hx1 : Lens.leaves.view x = 1 :=
           (small_iff_depth_zero x).mpr hxd
         have hy1 : Lens.leaves.view y = 1 :=
@@ -246,13 +275,23 @@ private def tier (r : Raw) : Nat :=
   else if Lens.leaves.view r = 2 then 1
   else 2
 
-/-- depth ≥ 2 → leaves ≥ 3. -/
+/-- `1 ≤ depth r → 2 ≤ leaves r` (non-base ⇒ at least two leaves). -/
+private theorem two_le_leaves_of_depth_ge_one (r : Raw)
+    (hd : 1 ≤ Lens.depth.view r) : 2 ≤ Lens.leaves.view r := by
+  have hne1 : Lens.leaves.view r ≠ 1 := by
+    intro he
+    have hd0 : Lens.depth.view r = 0 := (small_iff_depth_zero r).mp he
+    exact absurd (hd0 ▸ hd) (by decide)
+  exact two_le_of_ne_one (leaves_ge_one r) hne1
+
+/-- depth ≥ 2 → leaves ≥ 3.  One child has depth ≥ 1 (so ≥ 2 leaves); the
+    other has ≥ 1 leaf; the slash sums them. -/
 private theorem depth_ge_two_leaves_ge_three (r : Raw)
     (hd : Lens.depth.view r ≥ 2) : Lens.leaves.view r ≥ 3 := by
   induction r using Raw.rec with
-  | a => unfold Lens.depth Lens.view at hd; simp [Raw.fold_a] at hd
-  | b => unfold Lens.depth Lens.view at hd; simp [Raw.fold_b] at hd
-  | slash x y h ihx ihy =>
+  | a => exact absurd hd (by decide)
+  | b => exact absurd hd (by decide)
+  | slash x y h _ _ =>
       have hfsL : Lens.leaves.view (Raw.slash x y h)
                     = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
@@ -264,136 +303,97 @@ private theorem depth_ge_two_leaves_ge_three (r : Raw)
       have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
       have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
       rw [hfsD] at hd
-      -- max (depth x) (depth y) ≥ 1, so at least one ≥ 1
-      by_cases hdx : Lens.depth.view x ≥ 1
-      · by_cases hdx2 : Lens.depth.view x ≥ 2
-        · have hxL : Lens.leaves.view x ≥ 3 := ihx hdx2
-          rw [hfsL]; omega
-        · -- depth x = 1, so leaves x ≥ 2
-          have hdxe : Lens.depth.view x = 1 := by omega
-          have hxns : ¬ small x := by
-            intro hs
-            have : Lens.depth.view x = 0 := (small_iff_depth_zero x).mp hs
-            omega
-          have hxL2 : Lens.leaves.view x = 2 :=
-            (leaves_two_iff_depth_one x hxns).mpr hdxe
-          rw [hfsL]; omega
-      · have hdx0 : Lens.depth.view x = 0 := by omega
-        have hxs : small x := (small_iff_depth_zero x).mpr hdx0
-        have hxL1 : Lens.leaves.view x = 1 := leaves_of_small hxs
-        -- max = depth y ≥ 1.  Subcase on depth y.
-        have hdy1 : Lens.depth.view y ≥ 1 := by
-          have : max (Lens.depth.view x) (Lens.depth.view y)
-                  = Lens.depth.view y := by omega
-          omega
-        by_cases hdy2 : Lens.depth.view y ≥ 2
-        · have hyL : Lens.leaves.view y ≥ 3 := ihy hdy2
-          rw [hfsL]; omega
-        · have hdye : Lens.depth.view y = 1 := by omega
-          have hyns : ¬ small y := by
-            intro hs
-            have : Lens.depth.view y = 0 := (small_iff_depth_zero y).mp hs
-            omega
-          have hyL2 : Lens.leaves.view y = 2 :=
-            (leaves_two_iff_depth_one y hyns).mpr hdye
-          rw [hfsL]; omega
+      have hd' : 1 + 1 ≤ 1 + max (Lens.depth.view x) (Lens.depth.view y) := hd
+      have hmax1 : 1 ≤ max (Lens.depth.view x) (Lens.depth.view y) :=
+        E213.Tactic.NatHelper.le_of_add_le_add_left hd'
+      rw [hfsL]
+      rcases or_ge_one_of_max_ge_one hmax1 with hgx | hgy
+      · exact Nat.add_le_add (two_le_leaves_of_depth_ge_one x hgx) hyge
+      · exact Nat.add_le_add hxge (two_le_leaves_of_depth_ge_one y hgy)
 
 /-- tier is determined by depth. -/
 private theorem tier_eq_of_depth_eq (r r' : Raw)
     (h : Lens.depth.view r = Lens.depth.view r') : tier r = tier r' := by
-  have hri : tier r = if Lens.depth.view r = 0 then 0
-                     else if Lens.depth.view r = 1 then 1 else 2 := by
+  have hri : ∀ s : Raw, tier s = if Lens.depth.view s = 0 then 0
+                     else if Lens.depth.view s = 1 then 1 else 2 := by
+    intro s
     unfold tier
-    by_cases hd0 : Lens.depth.view r = 0
-    · have hsm : small r := (small_iff_depth_zero r).mpr hd0
-      have hl1 : Lens.leaves.view r = 1 := leaves_of_small hsm
-      simp [hl1, hd0]
-    · have hns : ¬ small r := fun hs =>
-        hd0 ((small_iff_depth_zero r).mp hs)
-      have hl_ne_1 : Lens.leaves.view r ≠ 1 := fun h => hns h
-      by_cases hd1 : Lens.depth.view r = 1
-      · have hl2 : Lens.leaves.view r = 2 :=
-          (leaves_two_iff_depth_one r hns).mpr hd1
-        simp [hl_ne_1, hl2, hd0, hd1]
-      · have hd2 : Lens.depth.view r ≥ 2 := by
-          have := Nat.zero_le (Lens.depth.view r); omega
-        have hl3 : Lens.leaves.view r ≥ 3 :=
-          depth_ge_two_leaves_ge_three r hd2
-        have hl_ne_2 : Lens.leaves.view r ≠ 2 := by omega
-        simp [hl_ne_1, hl_ne_2, hd0, hd1]
-  have hri' : tier r' = if Lens.depth.view r' = 0 then 0
-                       else if Lens.depth.view r' = 1 then 1 else 2 := by
-    unfold tier
-    by_cases hd0 : Lens.depth.view r' = 0
-    · have hsm : small r' := (small_iff_depth_zero r').mpr hd0
-      have hl1 : Lens.leaves.view r' = 1 := leaves_of_small hsm
-      simp [hl1, hd0]
-    · have hns : ¬ small r' := fun hs =>
-        hd0 ((small_iff_depth_zero r').mp hs)
-      have hl_ne_1 : Lens.leaves.view r' ≠ 1 := fun h => hns h
-      by_cases hd1 : Lens.depth.view r' = 1
-      · have hl2 : Lens.leaves.view r' = 2 :=
-          (leaves_two_iff_depth_one r' hns).mpr hd1
-        simp [hl_ne_1, hl2, hd0, hd1]
-      · have hd2 : Lens.depth.view r' ≥ 2 := by
-          have := Nat.zero_le (Lens.depth.view r'); omega
-        have hl3 : Lens.leaves.view r' ≥ 3 :=
-          depth_ge_two_leaves_ge_three r' hd2
-        have hl_ne_2 : Lens.leaves.view r' ≠ 2 := by omega
-        simp [hl_ne_1, hl_ne_2, hd0, hd1]
-  rw [hri, hri', h]
+    by_cases hd0 : Lens.depth.view s = 0
+    · have hl1 : Lens.leaves.view s = 1 :=
+        leaves_of_small ((small_iff_depth_zero s).mpr hd0)
+      rw [if_pos hl1, if_pos hd0]
+    · have hns : ¬ small s := fun hs => hd0 ((small_iff_depth_zero s).mp hs)
+      have hl_ne_1 : Lens.leaves.view s ≠ 1 := fun he => hns he
+      by_cases hd1 : Lens.depth.view s = 1
+      · have hl2 : Lens.leaves.view s = 2 :=
+          (leaves_two_iff_depth_one s hns).mpr hd1
+        rw [if_neg hl_ne_1, if_pos hl2, if_neg hd0, if_pos hd1]
+      · have hl3 : Lens.leaves.view s ≥ 3 :=
+          depth_ge_two_leaves_ge_three s (ge_two_of_ne_zero_ne_one hd0 hd1)
+        have hl_ne_2 : Lens.leaves.view s ≠ 2 := fun he => absurd (he ▸ hl3) (by decide)
+        rw [if_neg hl_ne_1, if_neg hl_ne_2, if_neg hd0, if_neg hd1]
+  rw [hri r, hri r', h]
 
 /-- tier is determined by leaves (directly from the definition). -/
 private theorem tier_eq_of_leaves_eq (r r' : Raw)
     (h : Lens.leaves.view r = Lens.leaves.view r') : tier r = tier r' := by
   unfold tier; rw [h]
 
+/-- `leaves r = 1 → tier r = 0`. -/
+private theorem tier_zero_of_leaves_one (r : Raw) (h : Lens.leaves.view r = 1) :
+    tier r = 0 := by unfold tier; rw [if_pos h]
+
+/-- `leaves r ≠ 1 → tier r ≠ 0`. -/
+private theorem tier_ne_zero_of_leaves_ne_one (r : Raw) (h : Lens.leaves.view r ≠ 1) :
+    tier r ≠ 0 := by
+  unfold tier; rw [if_neg h]
+  by_cases h2 : Lens.leaves.view r = 2
+  · rw [if_pos h2]; decide
+  · rw [if_neg h2]; decide
+
+/-- `leaves r = 2 → tier r = 1`. -/
+private theorem tier_one_of_leaves_two (r : Raw) (h : Lens.leaves.view r = 2) :
+    tier r = 1 := by
+  have hne1 : Lens.leaves.view r ≠ 1 := by rw [h]; decide
+  unfold tier; rw [if_neg hne1, if_pos h]
+
+/-- `leaves r ≥ 3 → tier r = 2`. -/
+private theorem tier_two_of_leaves_ge_three (r : Raw) (h : Lens.leaves.view r ≥ 3) :
+    tier r = 2 := by
+  have hne1 : Lens.leaves.view r ≠ 1 := fun he => absurd (he ▸ h) (by decide)
+  have hne2 : Lens.leaves.view r ≠ 2 := fun he => absurd (he ▸ h) (by decide)
+  unfold tier; rw [if_neg hne1, if_neg hne2]
+
 /-- tier of a slash is 1 if both children are small (tier 0), else 2. -/
 private theorem tier_slash (x y : Raw) (h : x ≠ y) :
     tier (Raw.slash x y h) = (if tier x = 0 ∧ tier y = 0 then 1 else 2) := by
   have hfsL : Lens.leaves.view (Raw.slash x y h)
-                = Lens.leaves.view x + Lens.leaves.view y := by
-    apply Raw.fold_slash
-    intro u v; exact Nat.add_comm u v
+                = Lens.leaves.view x + Lens.leaves.view y :=
+    Raw.fold_slash _ _ _ (fun u v => Nat.add_comm u v) x y h
   have hxge : 1 ≤ Lens.leaves.view x := leaves_ge_one x
   have hyge : 1 ≤ Lens.leaves.view y := leaves_ge_one y
-  have hslashL : Lens.leaves.view (Raw.slash x y h)
-                   = Lens.leaves.view x + Lens.leaves.view y := hfsL
-  unfold tier
   by_cases hsx : Lens.leaves.view x = 1
   · by_cases hsy : Lens.leaves.view y = 1
-    · -- both small → output leaves = 2 → tier 1
-      have hslash2 : Lens.leaves.view (Raw.slash x y h) = 2 := by
-        rw [hfsL, hsx, hsy]
-      have hslash_ne_1 : Lens.leaves.view (Raw.slash x y h) ≠ 1 := by
-        rw [hslash2]; decide
-      simp [hslash_ne_1, hslash2, hsx, hsy]
-    · -- x small, y not small
+    · -- both small → output leaves = 2 → tier 1; both tiers 0 → RHS 1
+      have hslash2 : Lens.leaves.view (Raw.slash x y h) = 2 := by rw [hfsL, hsx, hsy]
+      rw [tier_one_of_leaves_two _ hslash2,
+          if_pos ⟨tier_zero_of_leaves_one x hsx, tier_zero_of_leaves_one y hsy⟩]
+    · -- y not small → leaves slash ≥ 3 → tier 2; tier y ≠ 0 → RHS 2
       have hslash3 : Lens.leaves.view (Raw.slash x y h) ≥ 3 := by
-        rw [hfsL, hsx]; omega
-      have h_ne_1 : Lens.leaves.view (Raw.slash x y h) ≠ 1 := by omega
-      have h_ne_2 : Lens.leaves.view (Raw.slash x y h) ≠ 2 := by omega
-      have hty_ne_0 : ¬ ((if Lens.leaves.view y = 2 then 1 else 2 : Nat) = 0) := by
-        split <;> decide
-      simp [h_ne_1, h_ne_2, hsx, hsy, hty_ne_0]
+        rw [hfsL, hsx]; exact Nat.add_le_add (Nat.le_refl 1) (two_le_of_ne_one hyge hsy)
+      rw [tier_two_of_leaves_ge_three _ hslash3,
+          if_neg (fun hc => tier_ne_zero_of_leaves_ne_one y hsy hc.2)]
   · by_cases hsy : Lens.leaves.view y = 1
     · have hslash3 : Lens.leaves.view (Raw.slash x y h) ≥ 3 := by
-        have : Lens.leaves.view x ≥ 2 := by omega
-        rw [hfsL, hsy]; omega
-      have h_ne_1 : Lens.leaves.view (Raw.slash x y h) ≠ 1 := by omega
-      have h_ne_2 : Lens.leaves.view (Raw.slash x y h) ≠ 2 := by omega
-      have htx_ne_0 : ¬ ((if Lens.leaves.view x = 2 then 1 else 2 : Nat) = 0) := by
-        split <;> decide
-      simp [h_ne_1, h_ne_2, hsx, hsy, htx_ne_0]
-    · have hslash4 : Lens.leaves.view (Raw.slash x y h) ≥ 4 := by
-        have : Lens.leaves.view x ≥ 2 := by omega
-        have : Lens.leaves.view y ≥ 2 := by omega
-        rw [hfsL]; omega
-      have h_ne_1 : Lens.leaves.view (Raw.slash x y h) ≠ 1 := by omega
-      have h_ne_2 : Lens.leaves.view (Raw.slash x y h) ≠ 2 := by omega
-      have htx_ne_0 : ¬ ((if Lens.leaves.view x = 2 then 1 else 2 : Nat) = 0) := by
-        split <;> decide
-      simp [h_ne_1, h_ne_2, hsx, hsy, htx_ne_0]
+        rw [hfsL, hsy]; exact Nat.add_le_add (two_le_of_ne_one hxge hsx) (Nat.le_refl 1)
+      rw [tier_two_of_leaves_ge_three _ hslash3,
+          if_neg (fun hc => tier_ne_zero_of_leaves_ne_one x hsx hc.1)]
+    · have hslash3 : Lens.leaves.view (Raw.slash x y h) ≥ 3 := by
+        rw [hfsL]
+        exact Nat.le_trans (by decide : (3 : Nat) ≤ 2 + 2)
+          (Nat.add_le_add (two_le_of_ne_one hxge hsx) (two_le_of_ne_one hyge hsy))
+      rw [tier_two_of_leaves_ge_three _ hslash3,
+          if_neg (fun hc => tier_ne_zero_of_leaves_ne_one x hsx hc.1)]
 
 /-- slash_cong step: join_cong-like preservation of tier. -/
 private theorem tier_slash_from_inputs (x y x' y' : Raw)
@@ -435,9 +435,9 @@ private theorem tierLens_combine_sym (u v : Nat) :
        = (if v = 0 ∧ u = 0 then 1 else 2)
   by_cases hu : u = 0
   · by_cases hv : v = 0
-    · simp [hu, hv]
-    · simp [hu, hv]
-  · simp [hu]
+    · rw [if_pos ⟨hu, hv⟩, if_pos ⟨hv, hu⟩]
+    · rw [if_neg (fun hc => hv hc.2), if_neg (fun hc => hv hc.1)]
+  · rw [if_neg (fun hc => hu hc.1), if_neg (fun hc => hu hc.2)]
 
 /-- tierLens.view = tier function.  Represented as Nat in Bool-style. -/
 theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
