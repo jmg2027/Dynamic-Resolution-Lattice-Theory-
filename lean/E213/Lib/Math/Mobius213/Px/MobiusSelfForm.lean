@@ -61,6 +61,24 @@ proving that P-iteration IS the Möbius transformation on rational
 approximants to φ.
 -/
 
+/-- PURE arithmetic identity `2*(a+b) + a = (2*a + b) + (a + b)`.
+    Both sides equal `a + a + a + b + b`.  Proved without `omega`. -/
+private theorem numer_arith (a b : Nat) :
+    2 * (a + b) + a = (2 * a + b) + (a + b) := by
+  have lhs : 2 * (a + b) + a = a + a + a + b + b := by
+    rw [Nat.mul_add, Nat.two_mul a, Nat.two_mul b]
+    -- a + a + (b + b) + a = a + a + a + b + b
+    rw [Nat.add_right_comm (a + a) (b + b) a]
+    -- a + a + a + (b + b) = a + a + a + b + b
+    rw [← Nat.add_assoc (a + a + a) b b]
+  have rhs : (2 * a + b) + (a + b) = a + a + a + b + b := by
+    rw [Nat.two_mul a]
+    -- (a + a + b) + (a + b) = a + a + a + b + b
+    rw [← Nat.add_assoc (a + a + b) a b]
+    -- a + a + b + a + b = a + a + a + b + b
+    rw [Nat.add_right_comm (a + a) b a]
+  rw [lhs, rhs]
+
 /-- **Denominator step**: applying the Möbius denominator
     `T_denom(p,q) = p + q` to convergent n gives the denominator
     of convergent n+1.
@@ -73,7 +91,7 @@ theorem mobius_denom_step (n : Nat) :
   -- Q01(n+1) = Q00 n + Q01 n (def), Q00(n+1) = 2*Q00 n + Q01 n (def)
   -- Goal: (Q00 n + Q01 n) + Q00 n = 2 * Q00 n + Q01 n
   show (Q00 n + Q01 n) + Q00 n = 2 * Q00 n + Q01 n
-  omega
+  rw [Nat.two_mul, Nat.add_right_comm (Q00 n) (Q01 n) (Q00 n)]
 
 /-- **Numerator step**: applying the Möbius numerator
     `T_numer(p,q) = 2p + q` to convergent n gives the numerator
@@ -87,8 +105,7 @@ theorem mobius_numer_step (n : Nat) :
   -- Q01(n+1) = Q00 n + Q01 n; Q01(n+2) = Q00(n+1) + Q01(n+1)
   -- = (2*Q00 n + Q01 n) + (Q00 n + Q01 n) = 3*Q00 n + 2*Q01 n
   -- LHS = 2*(Q00 n + Q01 n) + Q00 n = 3*Q00 n + 2*Q01 n ✓
-  show 2 * (Q00 n + Q01 n) + Q00 n = (2 * Q00 n + Q01 n) + (Q00 n + Q01 n)
-  omega
+  exact numer_arith (Q00 n) (Q01 n)
 
 /-- ★★★★★ **Möbius iteration master**: T maps convergent n to
     convergent n+1.  Both components (numerator and denominator)
@@ -110,7 +127,7 @@ theorem mobius_denom_fib (n : Nat) :
     fib (2 * n + 2) + fib (2 * n + 1) = fib (2 * n + 3) := by
   have h := mobius_denom_step n
   rw [Q01_eq_fib (n + 1), Q00_eq_fib n, Q00_eq_fib (n + 1)] at h
-  have h1 : 2 * (n + 1) = 2 * n + 2 := by omega
+  have h1 : 2 * (n + 1) = 2 * n + 2 := rfl
   -- after `rw [h1]`, `2*(n+1)+1` becomes `2*n+2+1`, defeq to `2*n+3`.
   rw [h1] at h
   exact h
@@ -121,8 +138,8 @@ theorem mobius_numer_fib (n : Nat) :
     2 * fib (2 * n + 2) + fib (2 * n + 1) = fib (2 * n + 4) := by
   have h := mobius_numer_step n
   rw [Q01_eq_fib (n + 1), Q00_eq_fib n, Q01_eq_fib (n + 2)] at h
-  have h1 : 2 * (n + 1) = 2 * n + 2 := by omega
-  have h2 : 2 * (n + 2) = 2 * n + 4 := by omega
+  have h1 : 2 * (n + 1) = 2 * n + 2 := rfl
+  have h2 : 2 * (n + 2) = 2 * n + 4 := rfl
   rw [h1, h2] at h
   exact h
 
@@ -153,22 +170,31 @@ reconstructible. -/
 /-- Auxiliary: if b ≥ 1 and c ≥ 1 and b * c = 1, then b = 1. -/
 private theorem mul_eq_one_left (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
     (hbc : b * c = 1) : b = 1 := by
-  match b, c with
-  | 0, _ => omega
-  | 1, _ => rfl
-  | b + 2, 0 => omega
-  | b + 2, c + 1 =>
-    -- (b+2)*(c+1) definitionally = (b+2)*c + (b+2) ≥ 2, contradicts =1
-    exfalso
-    have h : (b + 2) * (c + 1) = (b + 2) * c + (b + 2) := rfl
-    omega
+  cases b with
+  | zero => exact absurd hb (Nat.not_succ_le_zero 0)
+  | succ b0 =>
+    cases b0 with
+    | zero => rfl
+    | succ b1 =>
+      -- b = b1 + 2.  Then b * c = (b1+2)*c.
+      cases c with
+      | zero => exact absurd hc (Nat.not_succ_le_zero 0)
+      | succ c0 =>
+        -- (b1+2)*(c0+1) definitionally = ((b1+2)*c0 + b1).succ.succ ≥ 2, contradicts =1.
+        exfalso
+        -- LHS reduces definitionally to a `.succ.succ`; coerce hbc to that form.
+        have hbc' : ((b1 + 1 + 1) * c0 + b1).succ.succ = 1 := hbc
+        -- (.succ.succ = (0).succ) ⇒ noConfusion peels to (.succ = 0) ⇒ False.
+        -- `Nat.succ.inj` / `Nat.succ_ne_zero` leak propext; `noConfusion` is PURE.
+        exact Nat.noConfusion hbc' (fun h2 => Nat.noConfusion h2)
 
 /-- Auxiliary: if b ≥ 1 and c ≥ 1 and b * c = 1, then c = 1. -/
 private theorem mul_eq_one_right (b c : Nat) (hb : b ≥ 1) (hc : c ≥ 1)
     (hbc : b * c = 1) : c = 1 := by
   have hb1 := mul_eq_one_left b c hb hc hbc
   subst hb1
-  simpa using hbc
+  rw [Nat.one_mul] at hbc
+  exact hbc
 
 /-- ★★★★★★★★★★ **P-uniqueness**: P = [[2,1],[1,1]] is the unique
     positive-entry element of SL(2,ℤ) with trace 3 and the canonical
@@ -186,12 +212,39 @@ theorem p_unique_sl2_trace3 (a b c d : Nat)
     (ha : a ≥ 1) (hb : b ≥ 1) (hc : c ≥ 1) (hd : d ≥ 1)
     (hord : a ≥ d) :
     a = 2 ∧ b = 1 ∧ c = 1 ∧ d = 1 := by
-  -- From trace and ordering: a = 2, d = 1
-  have ha2 : a = 2 := by omega
-  have hd1 : d = 1 := by omega
+  -- From trace and ordering: a = 2, d = 1.
+  -- Step 1: 2*d ≤ a + d = 3 (since a ≥ d), forcing d ≤ 1; with d ≥ 1, d = 1.
+  have h2d : d + d ≤ 3 := htrace ▸ Nat.add_le_add_right hord d
+  have hd1 : d = 1 := by
+    cases d with
+    | zero => exact absurd hd (Nat.not_succ_le_zero 0)
+    | succ e =>
+      cases e with
+      | zero => rfl
+      | succ f =>
+        -- d = f + 2; d + d = (f+2)+(f+2) ≥ 4 > 3 — contradiction.
+        exfalso
+        -- (f+2)+(f+2) definitionally = (((f+2)+f)+1).succ ; ≤ 3 = (1).succ.succ
+        -- strips to (f+2)+f ≤ 1.  But (f+2)+f ≥ 2.  Contradiction.
+        have hform : (f + 1 + 1) + (f + 1 + 1) = (((f + 2) + f) + 1).succ := rfl
+        rw [hform] at h2d
+        have hle1 : (f + 2) + f ≤ 1 :=
+          Nat.le_of_succ_le_succ (Nat.le_of_succ_le_succ h2d)
+        have hge2 : 2 ≤ (f + 2) + f :=
+          Nat.le_trans (Nat.le_add_left 2 f) (Nat.le_add_right (f + 2) f)
+        exact absurd (Nat.le_trans hge2 hle1)
+          (fun h => Nat.not_succ_le_zero 0 (Nat.le_of_succ_le_succ h))
+  -- Step 2: a = 3 - d = 2.
+  have ha2 : a = 2 := by
+    rw [hd1] at htrace
+    -- htrace : a + 1 = 3 = (2).succ.  noConfusion peels succ injectivity (PURE).
+    exact Nat.noConfusion htrace (fun h => h)
   subst ha2; subst hd1
-  -- det constraint: 2 * 1 = b * c + 1, i.e. b * c = 1
-  have hbc : b * c = 1 := by omega
+  -- det constraint: 2 * 1 = b * c + 1, i.e. b * c = 1.
+  -- hdet : 2 * 1 = b * c + 1, and 2 * 1 = 1 + 1 definitionally.
+  have hbc : b * c = 1 := by
+    have h : (1 : Nat) + 1 = b * c + 1 := hdet
+    exact (E213.Lib.Math.NatRing.nat_add_right_cancel h).symm
   exact ⟨rfl, mul_eq_one_left b c hb hc hbc, mul_eq_one_right b c hb hc hbc, rfl⟩
 
 /-- Concrete verification of P-uniqueness. -/
