@@ -995,9 +995,13 @@ on any axioms".  No `propext`, `Quot.sound`, `Classical.choice`,
 
 Sealed-by-design exceptions:
   · `propext` in `Lens.SemanticAtom` (Prop-as-distinguishing
-    thesis)
-  · `Quot.sound` in `Lens.Universal/QuotLens` (funext-by-design
-    on function-valued combines)
+    thesis) — irreducible
+  · `propext` / `Quot.sound` in the Prop-valued Lens kernel forms
+    (`Lens.Universal/QuotLens` etc.) — a statement-shape cost of
+    writing the kernel as function-`=` of views, recoverable via the
+    distinguishing `equivR` form (`universalLens_kernel_eq_E_R` is
+    PURE; see `theory/lens/dirty_recovery_patterns.md` Pattern P5),
+    retained as `propext`-shims pending consumer migration
 
 Tier 5.1 (omega → kernel-lemma migration) closed for `Lib/Math/GRA/`
 in this session; 401 PURE / 0 DIRTY.
