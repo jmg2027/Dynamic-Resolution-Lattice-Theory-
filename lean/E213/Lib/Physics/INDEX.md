@@ -51,7 +51,8 @@ The physics track must satisfy at least one of:
      ppb–ppm precision.
   2. Strict ∅-axiom falsifier (N_gen = 3, θ_QCD < J·α⁴).
 
-See `Capstones/ValidationStandardOne.lean` for criterion (1) status.
+See `AlphaEM/GramStructuralCapstone.lean`
+(`invAlphaEm_precision_theorem`, 0.2 ppb) for criterion (1) status.
 
 ## Where to add new files
 

@@ -73,34 +73,26 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
       · `configCount 0 = 5`
       · `configCount 1 = 3125`
       · `configCount 2 = 5²⁵ = 298 023 223 876 953 125`
-        (display-aliased `N_U` per `Lib/Math/ResolutionLimit.N_U`)
+        (a bare arithmetic value)
       · `configCount 3 = 5^125 ≈ 2.35 × 10^87`
 
     Level-2 readout per base:
       · `configCountD 2 2 = 2^4 = 16`
       · `configCountD 3 2 = 3^9 = 19683`
-      · `configCountD 5 2 = 5^25` (physics-selected)
+      · `configCountD 5 2 = 5^25`
       · `configCountD 7 2 = 7^49 ≈ 2.56 × 10^41`
 
     Clean recursion (∅-axiom PURE):
       `configCountD d (n+1) = (configCountD d n) ^ d`
-    — canonical "level-up" identity.
+    — canonical "level-up" identity.  `n ↦ configCountD d n` is a
+    strict order-embedding (`configCountD_strictMono`, `d ≥ 2`):
+    **no level is privileged**.
 
-    Two real Lean derivations of the level-2 value:
-      (1) fractal iteration:
-        `Physics/Foundations/NResolutionFromFractal.n_resolution_eq_hierarchy`
-        + bridge `n_resolution_candidate_eq` to the parametric
-        family.
-      (2) K_{b²} graph b-colouring count:
-        `Physics/Foundations/FractalLensCardinality.K_b_sq_coloring_count_eq`
-        (parametric bridge), plus the d=5 instance
-        `K25_coloring_count_eq_configCountD`.
-
-    Both bridge into `configCountD` as the unifying object.
     Per CLAUDE.md "Universe-constant framing": no `def N_U`
-    anywhere; the privileged status of the d=5 instance sits in
-    `Theory.Atomicity.Five`, not in this family definition.
-    See `seed/RESOLUTION_LIMIT_SPEC.md` §2.
+    anywhere; the privileged status of the base `d = 5` sits in
+    `Theory.Atomicity.Five`, not in any selected level.  The claim
+    that `5²⁵` is "the resolution / universe number" was a category
+    error (count ≠ truncation index) and is deleted.
 
   `φ = (1+√5)/2` — fixed point of Möbius P(x) = (2x+1)/(x+1),
     dominant eigenvalue of [[2,1],[1,1]] with characteristic

@@ -212,8 +212,8 @@ closures:
     convergence of the iteration `x ↦ x^p`.  Notable: the proof
     avoids binomial coefficients entirely and holds for any p ≥ 1.
   · `QpSeq` ℚ_p localization with add/sub/mul/neg/inv/div/sqrt.
-  · `canonical_5adic_NU` — 5-adic lift of `N_U = 5^25` with
-    `trunc_le_25 = 0` attestation; DRLT bridge anchor.
+  · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
+    with digit smoke-tests.
 
 Chapter: `theory/math/padic_real213.md`.
 Source note: `research-notes/archive/G122_real213_padic_research_direction.md`.
@@ -490,12 +490,8 @@ the exact axiom dependency listed.
 
 | theorem | content |
 |---|---|
-| `validation_standard_capstone` | CLAUDE.md Standards #1+#2 met |
 | `pure_atomic_observables_capstone` | 17-conjunct atomic ratios |
-| `finitist_observable_chain` | 4 observables share N_U |
-| `n_resolution_self_consistent` | N_U = d^(d²) self-referential |
-| `fractal_lens_cardinality_capstone` | Lens count at fractal level |
-| `alpha_em_master_capstone` | α_em finitist with all corrections |
+| `invAlphaEm_precision_theorem` | 0.2 ppb 1/α_em structural precision |
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
 

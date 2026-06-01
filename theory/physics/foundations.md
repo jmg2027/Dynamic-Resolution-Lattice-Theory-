@@ -18,7 +18,7 @@ patterns (Fibonacci, golden ratio, Koide).
 
 | Group | Files | Topic |
 |---|---|---|
-| N_resolution scaffold | 7 | `NResolutionFromFractal` + `NResolutionFractalDepth` + helpers |
+| Fractal-level cardinality | 2 | `LensCardinalityFractalLevels` (`numV L = d^L`, parametric) |
 | AtomicConstants | 5 | (already chaptered: `atomic_constants.md`) |
 | Finiteness | ~3 | finite-witness layer |
 | Resonance | ~3 | resonance structure |
@@ -26,17 +26,13 @@ patterns (Fibonacci, golden ratio, Koide).
 
 ## Narrative
 
-`N_resolution = d^(d²) = 5²⁵` is the **fractal-lens output** at
-fractal level 2: take d = 5 (atomic dim), iterate d² = 25 times,
-get d^25 = 5²⁵ distinguishable points.  This is the **count-Lens
-readout** of the universe-chain's terminal cardinality (per
-`seed/RESOLUTION_LIMIT_SPEC.md`).
+The fractal-level vertex count is `numV L = d^L` — a **parametric**
+count-Lens output, with **no privileged level** (the fractal-level
+axis is a strict order-embedding, no top).  `configCount 2 = 5²⁵`
+is a true arithmetic value, bare combinatorics, not a resolution
+or universe cardinality.
 
 Other foundational primitives:
-- **Finiteness witnesses**: any DRLT observable's value bracket
-  has explicit finite-precision representation at the chosen
-  `configCount` family-evaluation level (`configCount 2 = 5²⁵`
-  for canonical physics-side work)
 - **Resonance structure**: which integer ratios admit resonant
   interpretations (matches CKM, mass ratios, ...)
 - **Koide formula**: lepton mass relation `(m_e + m_μ + m_τ)² /
@@ -46,5 +42,4 @@ Other foundational primitives:
 ## Connection
 
 - `theory/physics/foundations/atomic_constants.md` — C2 sub-chapter
-- `seed/RESOLUTION_LIMIT_SPEC.md` — `N_U = 5²⁵` canonical
 - `theory/physics/atomic_base.md` — atomic primitive layer

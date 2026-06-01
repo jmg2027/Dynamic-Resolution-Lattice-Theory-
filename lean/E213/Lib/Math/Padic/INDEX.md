@@ -27,8 +27,8 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
 | `Teichmuller.lean` | 4 | 7 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum |
 | `Field.lean` | 5 | 40 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt |
-| `DRLT.lean` | 6 | 13 | `canonical_5adic_NU` (5^25 in base 5), digit smokes |
-| `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ DRLT: `trunc_25_lt_N_U` + alignment capstone |
+| `DRLT.lean` | 6 | 4 | `canonical_5adic_p` (= 5), digit smokes |
+| `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ configCount: `trunc_25_lt_config2` + bridge bundle |
 | `ZpSqrtD.lean` | ext | 13 | `ℤ_p[√d]` quadratic extension |
 | `ZpSqrtDRing.lean` | ext | 8 | Ring structure on `ℤ_p[√d]` |
 | `ZpSqrtDSetoid.lean` | ext | 11 | Setoid on `ℤ_p[√d]` |

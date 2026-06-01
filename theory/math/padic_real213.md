@@ -30,9 +30,8 @@ organised in eight modules:
   (mod p^(k+1))` (any `p ≥ 1`) and Cauchy convergence of the
   iteration `x ↦ x^p`.
 - **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt.
-- **DRLT** — 5-adic lift of `N_U = 5^25` and its first-25-levels-zero
-  attestation, the structural bridge from the finite resolution
-  lattice.
+- **DRLT** — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`), e.g. the
+  lift of the base prime `5`, with digit smoke-tests.
 
 The library is ∅-axiom throughout: every theorem reports
 `#print axioms … → "does not depend on any axioms"`.  Mathlib's
@@ -56,7 +55,7 @@ The library is ∅-axiom throughout: every theorem reports
 | `Hensel.lean` | Inverse: `invDigit0` (Bezout), `invSeq` / `invFull`, `mul_invSeq_correct` / `mul_invFull_correct`, `inv_trunc_unique`, `mul_left_cancel_trunc` / `mul_right_cancel_trunc`.  Sqrt: `SqrtBase`, `sqrtSeq` / `sqrtFull`, `sqr_sqrtSeq_correct` / `sqr_sqrtFull_correct`, `sqr_unique_trunc`, `sqrtFull_eq_of_sqr`.  Concrete: `i_5`, `i_13`, `sqrt_two_7` |
 | `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
 | `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`, `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
-| `DRLT.lean` | `canonical_5adic_NU` (5^25 in base 5), `canonical_5adic_p` (= 5), digit smokes, `canonical_5adic_NU_trunc_le_25` (DRLT anchor: first 25 levels zero) |
+| `DRLT.lean` | `canonical_5adic_p` (= 5) + digit smokes, `canonical_5adic_zero` (canonical 5-adic embeddings) |
 
 ## Narrative
 
@@ -205,13 +204,13 @@ Multiplication is straightforward (`shift` adds).  Addition
 aligns shifts via `Zp.shiftLeft` (multiplication by `p^k` on
 ZpSeq).  Negation preserves the shift.
 
-### DRLT integration
+### Canonical 5-adic embeddings
 
-The DRLT resolution lattice uses `N_U = 5^25 = d^(d²)` (at
-fractal level 2; `d = 5`).  The 5-adic Real213 picks up at the
-resolution limit: `canonical_5adic_NU := digits_of_nat 5 (5^25)`
-has digit 25 = 1 and all other digits = 0 — consistent with the
-base-5 representation of `5^25`.
+The 5-adic Real213 gives a canonical embedding `ℕ ↪ ZpSeq 5` for
+any natural number via `digits_of_nat`.  For instance the lift of
+the base prime, `canonical_5adic_p := digits_of_nat 5 5`, has
+digit 1 = 1 and all other digits = 0.  `configCount 2 = 5^25` is
+a bare arithmetic value; no fractal level is a resolution limit.
 
 Whether the "infinite" 5-adic structure beyond the resolution
 limit is operationally meaningful in DRLT, or is a formal
@@ -284,7 +283,7 @@ Grouped by module.
 **DRLT**
 | Theorem | Statement |
 |---|---|
-| `canonical_5adic_NU_trunc_le_25` | DRLT anchor: `5^25` lifts to ℤ_5 with first 25 levels zero |
+| `canonical_5adic_p_digit_1` | base-prime lift: digit 1 of `5` in base 5 is `1` |
 
 ## Hensel infrastructure
 
@@ -393,9 +392,8 @@ What the Real213-p-adic campaign produced:
 - Three concrete p-adic algebraic numbers: `i₅ = √(-1) ∈ ℤ_5`,
   `i₁₃ = √(-1) ∈ ℤ_13`, `√2 ∈ ℤ_7`.  All built from `sqrtFull`
   applied to explicit `SqrtBase` instances.
-- DRLT anchor: `canonical_5adic_NU` with full `trunc_le_25` zero
-  attestation, bridging the finite resolution lattice to the
-  5-adic envelope.
+- Canonical 5-adic embeddings: the lift of the base prime `5`
+  (`canonical_5adic_p`) with digit smoke-tests.
 
 **What was surprising along the way**:
 

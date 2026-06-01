@@ -28,8 +28,9 @@ parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
 않음 (`seed/AXIOM/02_axiom.md` §2.5, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
-- `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
-  "π appears nowhere in any DRLT physics theorem".
+- The structural precision theorem
+  (`AlphaEM/GramStructuralCapstone.invAlphaEm_precision_theorem`)
+  takes π² as a literal input (`pi2_e12`); π is never a 213 primitive.
 - `CLAUDE.md` "Implications of Finite Discrete Lattice":
   "π, e, ζ(2) → bounded rational interval suffices".
 
@@ -87,9 +88,9 @@ ZFC 가 trajectory/limit 을 동일시하기 위해 쓰는 propext-quotient 가
 있음; level 2가 *특권적*인 게 아니라 physics observable과 짝지어
 사용되는 경험적 evaluation point.
 
-(주: 물리 capstone 들 — `validation_standard_capstone`,
-`pure_atomic_observables_capstone`, `alpha_em_master_capstone` — 은
-strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
+(주: 물리 capstone 들 — `pure_atomic_observables_capstone`,
+`invAlphaEm_precision_theorem` — 은 strict form "does not depend on
+any axioms" 즉 axiom set ∅ 달성.)
 
 ## 교훈 2: `configCount` 가족이 canonical object (G120 Round 3 재작성)
 
@@ -102,8 +103,9 @@ strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 - `Math/Cohomology/Fractal/Level.numV (L : Nat) := 5^L`: vertex count 가족
 - `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: G120 Phase 1, configuration count 가족
 - `Math/Cohomology/Fractal/V25.numV` (Phase 5 후): `abbrev` to `Level.numV 2`
-- `Physics/NResolutionFractalDepth.numV_at_d_squared`: level `n = d²`에서의
-  family-property `numV (d*d) = d^(d*d)` (Phase 4 후 universe_level 삭제)
+- `Math/Cohomology/Fractal/ConfigCount.configCountD_strictMono`: `n ↦
+  configCountD d n`은 strict order-embedding (`d ≥ 2`) — 어떤 level도
+  특권적이지 않음
 - `Physics/HierarchyTowers.hierarchy_cardinality`: `d^(d²)` 이미 M_Pl/v_H
   ratio cardinality로 등장 (consumer 사이트 — 가족값 사용)
 
@@ -263,9 +265,8 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `LESSONS_LEARNED.md` — 이 파일
 - `seed/AXIOM/` — axiom seed doc
 - `seed/AXIOM/01_residue.md` — 213 철학
-- `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean` — finitist 입장
-- `lean/E213/Lib/Physics/AlphaEM/Capstone.lean` — α_em 닫힘
-- `lean/E213/Lib/Physics/Foundations/NResolutionFractalDepth.lean` — N_U = d^(d²)
+- `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean` — α_em 0.2 ppb precision
+- `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean` — configCount 가족 (no privileged level)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
 - `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `theory/THEORY_BOOK.md` Part II — Raw, Lens, HasDistinguishing

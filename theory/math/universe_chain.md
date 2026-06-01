@@ -47,8 +47,9 @@ Step 12: CRT (mod 5, mod 2) decomposition
         - lcm = 30 = full closure
 ```
 
-The single Lean sentinel is `MobiusChain.lean` ∈
-`Lib/Math/UniverseChain/` — imports every chain step.
+The chain steps live in their own modules; the Möbius-extension
+theorems are realized across `Lens/Number/Nat213/` and
+`Lib/Math/Geometry/`.
 
 ## Lean source
 
@@ -58,9 +59,8 @@ The single Lean sentinel is `MobiusChain.lean` ∈
   - `Lib/Math/Mobius213/` (2 files) + `Mobius213.lean`,
     `Mobius213ModFive.lean`, `Mobius213OneAsGlue.lean` — Möbius
     matrix encoding
-  - `Lib/Math/UniverseChain/` (15 files) — chain sentinel + atomicity
-    + bipartite fractal + pentagonal closure + CRT
-- **Sentinel**: `Lib/Math/UniverseChain/MobiusChain.lean`
+  - `Lib/Math/UniverseChain/` — atomicity + bipartite fractal
+    + parametric vertex-count recursion
 - **∅-axiom status**: ~115 PURE theorems across the four sub-trees
 
 ## The narrative
@@ -78,8 +78,8 @@ These are not parameters; per C2 atomic constants (closed in
 unique solution to the 213-self-consistency equations.
 
 `UniverseChain/Atomicity.lean` packages the atomic numerals;
-`Universe.lean` ties them to `N_U = d^(d²) = 5²⁵` (per
-`seed/RESOLUTION_LIMIT_SPEC.md`).
+`Recursion.lean` carries the parametric vertex-count recursion
+`numV L = d^L` (no level privileged).
 
 ### 2. Nat213 as the typed atomicity (Step 6)
 
@@ -192,9 +192,6 @@ lcm = 30 = full closure period
 The two prime moduli (5 = d and 2 = NT) generate the full
 universe-chain dynamics; CRT splits the action cleanly.
 
-`UniverseChain/MobiusChain.lean` is the sentinel importing all
-chain steps + the CRT decomposition.
-
 ## Key results
 
 | Theorem / Def | Module | Statement |
@@ -208,7 +205,7 @@ chain steps + the CRT decomposition.
 | Möbius P signature | `Lib/Math/Mobius213` | trace 3, det 1, eigenvalues φ², 1/φ² |
 | Pentagonal closure | `Lens/Number/Nat213/RotationGeometry` | P^10 ≡ I (mod 5) |
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
-| `Mobius213.MobiusChain` | `Lib/Math/UniverseChain/MobiusChain` | Chain sentinel (imports all steps) |
+| `numV_def` | `Lib/Math/UniverseChain/Recursion` | `numV L = d^L` (parametric, no privileged level) |
 
 ## Orthogonal-axis tower — ℕᵏ → ℤᵏ⁻¹
 

@@ -1,17 +1,14 @@
 # `Lib/Physics/Capstones/` — physics-track capstone results
 
-Top-level capstones synthesizing the entire physics derivation:
-finitist observable chain, master catalog, pure-atomic observables,
-DRLT Validation Standard.
+Top-level capstones synthesizing the physics derivation: master
+catalog, pure-atomic observables, cross-observable bridges.
 
-## Files (5)
+## Files
 
   - `MasterCatalog.lean`             — master observable catalog
   - `PhysicsTrackComplete.lean`      — physics-track completeness
-  - `FinitistObservableChain.lean`   — finitist observable chain
   - `PureAtomicObservables.lean`     — pure-atomic observable set
-  - `ValidationStandardOne.lean`     — CLAUDE.md validation standard
-                                       criterion (1)
+  - `NSNTPi5Block.lean`              — NS·NT·π⁵ cross-observable bridge
 
 ## Top-level
 
@@ -21,5 +18,4 @@ DRLT Validation Standard.
 
   - New capstone synthesis    → `<Topic>Capstone.lean` /
                                  `<Topic>Complete.lean`
-  - Validation criterion      → `ValidationStandard<N>.lean`
   - Catalog refinement        → `<Topic>Catalog.lean`

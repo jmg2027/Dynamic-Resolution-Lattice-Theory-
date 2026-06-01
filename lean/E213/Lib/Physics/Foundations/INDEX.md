@@ -1,18 +1,14 @@
 # `Lib/Physics/Foundations/` — physics scaffolding
 
-Foundational physics primitives: N_resolution cardinality, atomic
+Foundational physics primitives: fractal-level cardinality, atomic
 constants, finiteness witnesses, resonance structure, and number-
 theoretic atomic-integer patterns (Fibonacci, golden ratio, Koide).
 
-## Files (22)
+## Files
 
-### N_resolution = d^(d²) = 5²⁵ scaffold (7)
-  - `NResolutionFromFractal.lean`         — fractal-lens derivation of 5²⁵
-  - `NResolutionFractalDepth.lean`        — depth-as-fractal-level witness
-  - `FractalLensCardinality.lean`       — combinatorial enumeration
-  - `LensCardinalityFractalLevels.lean` — per-level cardinality lemmas
+### Fractal-level cardinality (parametric, no privileged level)
+  - `LensCardinalityFractalLevels.lean` — per-level vertex counts `numV L = d^L`
   - `ResolutionDepth.lean`              — Basel resolution depth per gauge coupling (α_3, α_2, α_1)
-  - `FiniteUniverse.lean`               — finiteness from resolution limit
   - `FiniteResonanceN.lean`             — resonance count = N
 
 ### Atomic-constant catalog (6)

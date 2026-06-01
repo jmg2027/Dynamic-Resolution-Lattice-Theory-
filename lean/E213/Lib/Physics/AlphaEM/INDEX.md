@@ -49,9 +49,8 @@ The cluster is organised around two `research-notes/G35` conjectures:
   - `FractalLevelZetaCoeffSeq.lean`— Step 5: spectrum as CoeffSeq
   - `FractalLevelZetaModulus.lean` — Step 6: convergence modulus
 
-### Spectral / candidates
+### Spectral
   - `LaplacianSpectrum.lean`       — Δ⁴ + K spectrum finite ζ
-  - `NResolutionCandidates.lean`     — five N_U candidates
   - `PiFiveGap.lean`               — π⁵ structural-gap conjecture
   - `ProjectionRatios.lean`        — K_{3,2} ↔ Δ⁴ projection geom
 
