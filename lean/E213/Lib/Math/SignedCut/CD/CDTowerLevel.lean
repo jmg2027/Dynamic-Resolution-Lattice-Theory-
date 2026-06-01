@@ -55,12 +55,7 @@ theorem levelDim_concrete :
     ∧ levelDim 4 = 16 :=
   ⟨rfl, rfl, rfl, rfl, rfl⟩
 
-/-- ★ Level 25 dimension (prediction): `2^25 = 33554432`. -/
+/-- ★ Level 25 bit-dimension: `2^25 = 33554432`. -/
 theorem levelDim_25 : levelDim 25 = 33554432 := rfl
-
--- `n_resolution_emergence : 5^25 = 5^25 := rfl` deleted
--- Round 3 audit §11.2 #2: vacuous tautology providing no content
--- beyond reflexivity.  Downstream consumers (HurwitzCeiling) updated
--- to use `rfl` directly.
 
 end E213.Lib.Math.SignedCut.CD.CDTowerLevel

@@ -1,7 +1,7 @@
 # SignedCut — Module Index (sub-organized 2026-05-13)
 
 213-native signed Cut layer via `SignedCut := Cut × Cut` pair.
-35 files in 6 sub-clusters.
+30 files in 6 sub-clusters.
 
 ## Sub-clusters
 
@@ -9,8 +9,8 @@
 |---|---|---|
 | `Core/` | 9 | Core/Algebra/Inv/UnifiedGenericInv/Equivalence/Capstones |
 | `CD/` | 6 | CD-doubling (Conjugation/LevelOps/MulRule/Norm/Tower{Capstone,Level}) |
-| `Hurwitz/` | 4 | HurwitzCeiling/ExactL1/Failure/NormProduct |
-| `Level/` | 5 | Level25/26 + G38/G39 capstones |
+| `Hurwitz/` | 4 | HurwitzDichotomy/ExactL1/Failure/NormProduct |
+| `Level/` | 2 | G38/G39 CD-tower capstones |
 | `Bridge/` | 5 | Bridge/Capstone + FanoK32Bridge/FanoPlane + GenericGeomBridge |
 | `Octonion/` | 6 | Octonion + Quaternion mul rules + tables + NonAssociativity |
 

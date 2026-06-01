@@ -17,8 +17,8 @@ generalised CD tower skeleton (formalisation):
     structure with trivial baseline modulus (structural fixpoint
     holds at every depth, no precision-dependent gating).
   * **CD Tower formalization**: `CDLevel : Nat → Type` recursive
-    definition; concrete witnesses at levels 0, 1, 2; level-25
-    dimension `2^25 = 33554432`; N_U = 5²⁵ count-Lens readout.
+    definition; concrete witnesses at levels 0, 1, 2; level-`n`
+    bit-dimension `2^n` (concrete at 25: `2^25 = 33554432`).
 -/
 
 namespace E213.Lib.Math.SignedCut.CD.CDTowerCapstone
@@ -30,7 +30,7 @@ open E213.Lib.Math.SignedCut.Core.CauchyConvergence
    end_to_end_convergence limit_at_zero_baseline)
 open E213.Lib.Math.SignedCut.CD.CDTowerLevel
   (CDLevel CDLevel_zero CDLevel_one CDLevel_two
-   levelDim levelDim_concrete levelDim_25 n_u_emergence)
+   levelDim levelDim_concrete levelDim_25)
 open E213.Lib.Math.SignedCut.Core.Core (SignedCut)
 
 /-- ★ **Equivalence witness**. -/
@@ -45,16 +45,14 @@ theorem cauchy_witness (x : Nat → Nat → Bool) (ε : Nat) :
   trivial_modulus_zero x ε
 
 /-- ★ **CD Tower witness** — structural unification at the type
-    level: levels 0/1/2 dimensional checks, level-25 dimension,
-    N_U emergence. -/
+    level: levels 0/1/2 dimensional checks, level-25 bit-dimension. -/
 theorem cd_tower_witness :
     CDLevel 0 = (Nat → Nat → Bool)
     ∧ levelDim 0 = 1
     ∧ levelDim 1 = 2
     ∧ levelDim 2 = 4
-    ∧ levelDim 25 = 33554432
-    ∧ (5 : Nat) ^ 25 = (5 : Nat) ^ 25 := by
-  refine ⟨CDLevel_zero, ?_, ?_, ?_, levelDim_25, n_u_emergence⟩
+    ∧ levelDim 25 = 33554432 := by
+  refine ⟨CDLevel_zero, ?_, ?_, ?_, levelDim_25⟩
   · exact levelDim_concrete.1
   · exact levelDim_concrete.2.1
   · exact levelDim_concrete.2.2.1
