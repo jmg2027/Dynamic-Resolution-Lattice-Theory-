@@ -45,7 +45,77 @@ via `fold_slash_rel d.same d.same_refl … d.combine_sym`; at `Eq`-instances it 
 defeq the current `=`-form, so concrete consumers (`Pair`, `Reach`, `BoolProp`,
 `CanonicalTruthChar`) are unaffected; at `Lens β` it is the ∅-axiom eqPW form.
 
-## The three elaboration walls (empirically hit 2026-06-01)
+## UPDATE 2026-06-01 (second pass) — design VALIDATED + cascade mapped
+
+A second attempt validated the design and mapped the real blocker (then reverted
+to green, keeping `fold_slash_rel`).  Concrete findings:
+
+  * **Design C works** (the `autoParam` fix for wall 1).  `same`/`same_refl`/
+    `same_symm`/`same_trans`/`combine_cong` as **`autoParam`-defaulted fields**
+    (`:= by intro …; …`, NOT term-defaults `:= fun …`) elaborate at class def
+    AND defer to per-instance elaboration — so `Eq`-codomain instances need **no
+    edits** (verified by a scratch: `MiniHD Nat` with no `same`/law fields, a
+    generic `[MiniHD α]` theorem, and a `MiniHD (Lens Bool)` override all
+    compiled; no diamond because `same` is a *field*, not a `[ReadingEq α]`
+    param — the param version DID hit the diamond: `MiniHD (Lens Bool)`
+    synthesis failed with both default-`Eq` and override `ReadingEq` present).
+  * **SemanticAtom relativizes cleanly + green**: `combine_sym` → `same`-based;
+    `universalMorphism_slash` via `Raw.fold_slash_rel`; `universalMorphism_unique`
+    + `raw_initial` reproven by `Raw.rec` (chain `hslash` + `combine_cong` on IHs
+    + `_slash`).  All three PURE.  At `Eq`-instances `same` reduces to `Eq`
+    definitionally, so the **full default-target build stayed green** with the
+    class changed (existing consumers unaffected by defeq).
+  * **`Lens.sameLens R` is the tower's sameness** (NOT `eqPW`): `eqPW` hardcodes
+    `=` on `base_a : β`, which is funext-DIRTY when β is itself `Lens γ` (nested
+    tower).  `sameLens R L M := R base_a base_a ∧ R base_b base_b ∧ ∀ u v, R (comb
+    u v)(comb u v)` threads the base's own `same`.  Materialize `sameLens` +
+    `sameLens_refl/symm/trans` + `lensCombineGeneric_{comm,cong}_same` (all
+    one-liners, PURE).  Then `lensBoolHasDistinguishing` uses `same := eqPW`
+    (base `Bool`, `=` is fine) and `lensHasDistinguishing` uses
+    `same := sameLens d.same` (recursive).  Both go PURE.  NOTE: pass the law
+    args with `(R := d.same)` pinned — higher-order implicit inference of `R`
+    through `∀ {x y z}, R x y → …` fails otherwise.
+
+### THE REAL BLOCKER — the image tower needs `same`-closure hypotheses
+
+`universalMorphism_slash` now yields `same (uM slash)(combine …)`, not `=`.
+Consumers that did `rw [universalMorphism_slash]` break — and not just
+syntactically (`rw` won't unfold the `HasDistinguishing.same` projection to see
+`Eq`).  Worse, the statements are **genuinely `=`-only**: e.g.
+`ImageMinimum.image_minimum_property` ("image ⊆ every distinguishing-closed S")
+proves `S (uM slash)` from `S (combine …)`, which needs `uM slash = combine …`.
+For a non-`Eq` `same` (the Lens tower) that step is **false unless `S` respects
+`same`**.  So the image tower (`Reach.image_closed_under_distinct_combine`,
+`ImageMinimum.image_minimum_property`, `OnLensImage*`, `TowerLevel3`) must each
+gain a `∀ x y, same x y → (S x ↔ S y)` (or `f`-respects-`same`) hypothesis to
+stay true generically — a **semantic generalization, not a mechanical
+`= → same` swap**.  This is where the cascade expands and why it needs a
+dedicated session (estimate: SemanticAtom + EqPW + OnLens are ~mechanical given
+the above; Reach + ImageMinimum + the 3 `OnLensImage*` + TowerLevel3 + verifying
+Hyper213Tower each need a same-closure hypothesis threaded through their
+statements and every downstream consumer).
+
+### Concrete green-per-commit sequence (next session)
+
+1. (DONE, committed) `Raw.fold_slash_rel`.
+2. Materialize `Lens.sameLens` + laws + `lensCombineGeneric_{comm,cong}_same`
+   in `EqPW.lean`/`OnLens.lean` (additive, green).
+3. Atomic commit: SemanticAtom class change (design C) + `universalMorphism_slash`
+   + `universalMorphism_unique` + `raw_initial` (all relativized) **and**
+   convert `lensBoolHasDistinguishing`/`lensHasDistinguishing` to `eqPW`/`sameLens`
+   in the same commit (so OnLens stays green — `lake build` default target does
+   NOT catch OnLens, so verify with `tools/full_build.sh`/explicit `lake build
+   E213.Lens.Compose.OnLens`).
+4. Per-file commits: thread the `same`-closure hypothesis through `Reach`,
+   `ImageMinimum`, `OnLensImage`, `OnLensImageGeneric`, `OnLensImageLevel2`,
+   `TowerLevel3`; fix `Hyper213Tower`.  Each green.
+
+**Gotcha**: `lake build` (default target) does NOT build `Compose.OnLens` (G159
+gate-hole residue) — a broken OnLens passes `lake build`.  Always verify this
+refactor with an explicit `lake build E213.Lens.Compose.OnLens` (+ the image
+tower modules) or the comprehensive build.
+
+## The three elaboration walls (empirically hit 2026-06-01, first pass)
 
 1. **Field defaults can't see `same`'s default.**  `same_refl : ∀ x, same x x
    := fun _ => rfl` fails to elaborate — inside the class body `same` is the
