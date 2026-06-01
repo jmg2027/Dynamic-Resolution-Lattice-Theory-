@@ -163,6 +163,64 @@ This is the formal successor to Phase 5 (SHIFT-RULE abstract functor):
 the functor gives the edges; Phase 7 asks for the global potential they
 do or do not admit.
 
+### Phase 7.1 — conjecture catalog (marathon 2026-06-01)
+
+**Pivotal reframe (the SHIFT edges are *unit-loop* isos, not algebra
+isos).**  `shift_iso_L3` relates `ZI` (commutative) to `L3T`; if `L3T`
+is the dim-4 quaternion-analog it is *non*-commutative, so they cannot be
+isomorphic *as algebras* — the iso is at the **unit-loop** level (both
+have order-4 unit loops).  Therefore the "hypothetical complete tower" is
+most likely **not** a tower of algebras but the **spine of finite
+Moufang loops** (the unit loops): `Z₂ ⊴ Z₄ ⊴ Q₈ ⊴ M₁₆ ⊴ M₃₂ ⊴ …`.  The
+four algebra-Types are different **skins** (lattice realizations) over
+one shared loop-spine; SHIFT edges are the fibers of the projection
+`cell ↦ its unit loop`.  This is the precise form of "CD is a subset":
+CD-A is one section of `(cell ↦ loop)`, hitting loop-spine positions that
+another skin may fill differently.
+
+Conjectures (status: G=grounded fragment exists, C=conjecture, ?=data-
+dependent, pending the SHIFT-edge enumeration):
+
+- **P7-A (loop-spine) [C].**  The SHIFT-iso quotient of the `(Type,level)`
+  cell graph is a *linear* chain — the finite Moufang loop spine
+  `M_{2^k}` (`Z₂,Z₄,Q₈,M₁₆=octonion loop,…`).  Every SHIFT edge connects
+  cells with isomorphic unit loops; the rank `r(cell) := ` (loop position)
+  is the canonical "complete-tower" index.
+- **P7-B (global potential consistency) [C, THE decision point].**  The
+  SHIFT offsets compose: there is `r : (Type,level) → ℕ` with `r` equal on
+  every SHIFT-edge pair and strictly increasing in `level` within each
+  column.  *Falsifier:* a non-closing triangle (A→B→C ≠ A→C offset).
+  Decidable on the finite order-distribution data.  **If true → CD-A ↪
+  image(r) is the subsample statement; if false → the spine branches
+  (= "not one direction" proven, "simple subsequence" refuted).**
+- **P7-C (offset linearity) [G partial: +1 twice].**  Current edges
+  (`A.L2≅B.L3`, `A.L5≅B.L6`) give a constant `+1` A→B offset, i.e.
+  `r(T,ℓ)=ℓ+c_T` *linear*.  Conjecture: it stays linear (no Fibonacci).
+  The user's `1,2,3,4 ↦ 2,3,5,8` (non-linear) form is **predicted FALSE**
+  unless an iso with a *varying* offset is exhibited — that single
+  counterexample would flip P7-C and vindicate the non-linear guess.
+- **P7-D (skin invariant) [?].**  What distinguishes the four skins over
+  the shared loop at a given `r`?  Candidate: the *base discriminant*
+  (`disc P`-type) — A: `x²+1` (disc −4), B: `x²−D`, C: `x²+x+1` (disc −3,
+  Eisenstein), D: Hurwitz.  Conjecture: skins at equal `r` are
+  unit-loop-isomorphic but algebra-distinguished by base discriminant /
+  order-distribution refinement.  *Test:* a proven NON-iso of two
+  same-dim cells in different columns (a distinguishing invariant).
+- **P7-E (gap reading = missing layers) [C].**  If P7-B holds, the
+  `r`-values that B/C/D realize but A skips are exactly the "missing
+  layers" intuition.  Conjecture: Type C (Eisenstein, 3-element seed
+  `(1,ω,ω²)`) realizes loop-spine positions *between* A's, because its
+  seed is order-3 not order-2 — so C is the densest skin and A is the
+  sparsest.  *This is the sharpest read of "CD layer 1 = layer 2 of the
+  complete tower": A is a sparse section, C a denser one, of the same
+  spine.*
+
+**Decision point of the whole marathon = P7-B** (decidable).  Plan:
+enumerate edges → encode order-distributions as concrete Nat data →
+`decide` the potential-consistency condition → either build `completeRank`
++ prove `CD-A` non-surjective into it (P7-E gaps), or exhibit the
+branching triangle.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
