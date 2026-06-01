@@ -37,6 +37,15 @@ private theorem eq_of_xor_false {a b : Bool} (h : xor a b = false) : a = b := by
   · exact absurd h (by decide)
   · rfl
 
+/-- PURE `c·m < c·n` from `1 ≤ c` and `m < n`.  Lean-core
+    `Nat.mul_lt_mul_left` (the `Iff`) pulls `Classical.choice`; this
+    constructive chain `c·m + 1 ≤ c·m + c = c·(m+1) ≤ c·n` is ∅-axiom. -/
+private theorem mul_lt_mul_left_pure {c m n : Nat} (hc : 1 ≤ c) (h : m < n) :
+    c * m < c * n := by
+  have h1 : c * (m + 1) ≤ c * n := Nat.mul_le_mul_left c h
+  rw [Nat.mul_succ] at h1
+  exact Nat.le_trans (Nat.add_le_add_left hc (c * m)) h1
+
 /-! ## §2 — Key edge index bounds -/
 
 /-- Edge `c·NT·s` (mult-0 connecting S-vertex `s` to T-vertex `0`)
@@ -44,15 +53,15 @@ private theorem eq_of_xor_false {a b : Bool} (h : xor a b = false) : a = b := by
 private theorem edge_S_bound (NS NT c s : Nat) (hc : 1 ≤ c)
     (hNT : 1 ≤ NT) (hs : s < NS) : c * NT * s < c * NS * NT := by
   rw [Nat.mul_assoc, Nat.mul_assoc]
-  apply (Nat.mul_lt_mul_left hc).mpr
-  have h_NT_mul : NT * s < NT * NS := (Nat.mul_lt_mul_left hNT).mpr hs
+  apply mul_lt_mul_left_pure hc
+  have h_NT_mul : NT * s < NT * NS := mul_lt_mul_left_pure hNT hs
   rw [Nat.mul_comm NS NT]; exact h_NT_mul
 
 /-- Edge `c·t` (mult-0 connecting S-vertex `0` to T-vertex `t`)
     is in range when `t < NT` and `NS ≥ 1`. -/
 private theorem edge_T_bound (NS NT c t : Nat) (hc : 1 ≤ c)
     (hNS : 1 ≤ NS) (ht : t < NT) : c * t < c * NS * NT := by
-  have h1 : c * t < c * NT := (Nat.mul_lt_mul_left hc).mpr ht
+  have h1 : c * t < c * NT := mul_lt_mul_left_pure hc ht
   have h_NS_NT : NT ≤ NS * NT := by
     have : 1 * NT ≤ NS * NT := Nat.mul_le_mul_right NT hNS
     rw [Nat.one_mul] at this; exact this
@@ -139,7 +148,7 @@ private theorem canonical_edge_bound (NS NT c s t : Nat) (hc : 1 ≤ c)
   have h_combined : NT * s + t < NT * NS :=
     Nat.lt_of_lt_of_le h_inner h_step
   have h_lhs : c * (NT * s + t) < c * (NT * NS) :=
-    (Nat.mul_lt_mul_left hc).mpr h_combined
+    mul_lt_mul_left_pure hc h_combined
   have h_swap : c * (NT * NS) = c * NS * NT := by
     rw [Nat.mul_comm NT NS, ← Nat.mul_assoc]
   rw [h_swap] at h_lhs
