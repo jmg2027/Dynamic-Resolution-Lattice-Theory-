@@ -54,6 +54,11 @@ import E213.Lib.Math.Real213.PhiCauchyLimit
 import E213.Lib.Math.Real213.HolonomicReal
 import E213.Lib.Math.Real213.RateModulus
 import E213.Lib.Math.Real213.RateStratification
+import E213.Lib.Math.Real213.CrossDetOvertake
+import E213.Lib.Math.Real213.LiouvilleModulus
+import E213.Lib.Math.Real213.CrossDetEqDenom
+import E213.Lib.Math.Real213.GeometricThreshold
+import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus
 

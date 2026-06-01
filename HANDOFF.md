@@ -112,47 +112,58 @@ A–D + B are now **all closed ∅-axiom this arc**:
     so `euler_Htel` is now *derived from the cross-determinant*, not a bespoke estimate;
     the depth arc (W) and the modulus generator (Htel) are one mechanism.  Narrative:
     `theory/math/analysis/holonomic_modulus.md`.
-  - **W-vs-d stratification — DONE** this arc (`Real213/RateStratification`, 12 PURE):
-    the smallness law made the primitive object.  `Dominates W d i := i(i+1)·W_i +
-    i·d_i ≤ (i+1)·d_{i+1}`; `htel_iff_dominates` upgrades `Htel_of_crossdet` from
-    implication to **characterization** (`Htel a d` ⟺ every layer `i≥1` dominated);
-    `dominated_free_modulus` (domination everywhere ⟹ free modulus `N=k+2`);
-    `overtake_breaks_layer` (T1 boundary: any layer where `W` overtakes the denom
-    quantum `(i+1)d_{i+1} < W_i` breaks domination — no measure, axes flip order).  The
+  - **Tower-native completeness program (T1–T4) — CLOSED + PROMOTED** (merged from
+    `claude/goal-g166-A6MVE`).  Completability = comparison of two growth-axes
+    (cross-det `W` vs denominator `d`) inside the tower; narrative
+    `theory/math/analysis/tower_native_completeness.md`, capstone
+    `Real213/TowerNativeCompleteness.tower_native_completeness_program`:
+      - **T1 boundary** (`Real213/CrossDetOvertake`, 10/0): `CrossDetSmall W d`
+        (`i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`); below ⟹ free
+        (`crossdet_small_total_modulus`, `N=k+2`); above ⟹ broken (`overtake_breaks`;
+        `dexp_overtakes_denom`, `2^{2^i}` overtakes `2^i`).  `completability_boundary`.
+      - **T2 Liouville** (`Real213/LiouvilleModulus`, 13/0): `W_k = liouDen_k = c^{k!}`
+        (`liou_cross_det`); factorial denominator dominates ⟹ free
+        (`liouville_total_modulus`); `liouville_W_eq_denom_coordinate`.
+      - **T3 closure** (`Cauchy/DepthClosure`, 16/0): finite-diff-depth closed under `+`
+        (`finDiffDepth_add`), values under `×` (`value_mul_closed`); exponent axis lifts
+        depth and breaks at `2^{2^n}` (`exp_axis_breaks`).
+      - **T4 generator** (`Cauchy/DepthCoordGenerator`, 10/0): `genExp d = binom·d`
+        realizes diff-depth `d`, `expTower` populates `ω^r` — `tower_is_coordinate_system`.
+      - W=d unification (`Real213/CrossDetEqDenom`, 3/0): `crossdet_eq_denom_total_modulus`
+        — one theorem behind e and Liouville.  Sharp threshold (`Real213/GeometricThreshold`,
+        7/0): geometric `W=r^i` over `d=q^i` is free iff `r < q` (not `r ≤ q`); `q²≤r`
+        breaks it.  Depth-exactness (`binomCol_depth_exact`, `genExp_depth_exact`).
+      - **tie**: the tower has no top = the residue (`DepthCeilingResidue`).
+  - **W-vs-d stratification — DONE** (this branch, `Real213/RateStratification`, 12/0):
+    the smallness law made the primitive object.  `Dominates W d i`; `htel_iff_dominates`
+    upgrades `Htel_of_crossdet` from implication to **characterization** (`Htel a d` ⟺
+    every layer `i≥1` dominated); `dominated_free_modulus`; `overtake_breaks_layer`; the
     unimodular det-1 floor `W ≡ 1` (`T=[[2,1],[1,1]]`) is dominated everywhere against
-    `d_i=(i+1)(i+2)` (`floor_dominates_all`, collapses to `i≤i+2` via `PolyNat`) — the
-    trivially-free bottom (`floor_carries_Htel`, `tower_stratification`).  This is the
-    proposal's Phase 2 "free-modulus stratification" / G166-T1.  Narrative:
-    `theory/math/analysis/holonomic_modulus.md` §4; agenda `research-notes/G167`.
-    OPEN next: a concrete cut sequence realizing the floor end-to-end through
-    `dominated_free_modulus`; the Liouville overtake made concrete (named `W`/`d` from
-    a Liouville presentation into `overtake_breaks_layer`); closure of `Dominates`
-    under `+`/`×` (G166-T3).
-  - **Analysis ↔ logic single engine — DONE** this arc (`Cauchy/DepthOverflowDuality`,
-    7 PURE): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
-    Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val
-    i`, the unit surplus = count-Lens residue of one distinguishing).  Two readings of
-    one finite operation: `overflow_escapes` (overflow ⟹ value escapes the family =
-    Cantor residue, recovers `DepthCeilingResidue.diag_not_in_seq`) and
-    `overflow_breaks` (overflow ⟹ domination breaks = `RateStratification.
-    overtake_breaks_layer`, ¬Htel); `overflow_dual_reading` bundles them.  Honest: not
-    "¬Htel IS Cantor non-surjectivity" (stereotype-match) — both are the *same overflow
-    `bound+1 ≤ val`*, neither reading privileged (`05_no_exterior` §5.7).  Q2 (ω₁^CK as
-    gauge shift, not a wall) is the narrative reading in `research-notes/G168`: the
-    overflow engine runs identically above/below ω₁^CK; what changes is the naming-Lens,
-    no exterior wall (§5.1).  OPEN (still beyond T1–T4): Phase-1 transfinite projection
-    of `T` into ε₀/Γ₀ as one structural theorem (avoid the `_at_level_n` smell); a
-    measurable falsifier from the overflow unit `1`.
-    OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
-    fast for the smallness law; needs `μ(π)`); more instances need their convergents
-    as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet
-    num/den).  **Tower-native research agenda** (`research-notes/G166`): completability
-    = comparison of two growth-axes (cross-det vs denominator) *inside* the tower —
-    T1 the exponential-overtake boundary layer (`DepthExponentRecursion`/`DoubleExp`);
-    T2 Liouville's recursion-coordinate vs the denominator (`DepthLiouvilleCoord`);
-    T3 rate-carrying closure under `+`/`×`/exponent; T4 top-down coordinate→real.  Tie:
-    the tower has no top = the residue (`DepthCeilingResidue`).  These are the sharpest
-    next ∅-axiom targets — internal to the tower, no classical measure.
+    `d_i=(i+1)(i+2)` (`floor_dominates_all`, `i≤i+2` via `PolyNat`) — the trivially-free
+    bottom (`floor_carries_Htel`, `tower_stratification`).  Narrative `holonomic_modulus.md`
+    §4; agenda `research-notes/G167`.  **DEDUP REVIEW (open)**: `RateStratification`
+    (`Dominates`, `overtake_breaks_layer`) and the merged `CrossDetOvertake` (`CrossDetSmall`,
+    `overtake_breaks`) are the *same* W-vs-d boundary stated twice; `htel_iff_dominates`
+    (the iff characterization) is the strict superset — consolidate to one home, keeping
+    the characterization + the floor instance.
+  - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
+    13/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
+    Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,
+    the unit surplus = count-Lens residue of one distinguishing).  One operation, two
+    readings: `overflow_escapes` (⟹ value escapes the family = Cantor residue, recovers
+    `DepthCeilingResidue.diag_not_in_seq`) and `overflow_breaks` (⟹ domination breaks =
+    the T1 boundary, ¬Htel); `overflow_dual_reading` bundles them.  Structural content is
+    the unit generator, not an adjunction: `minOverflow bound = bound+1` is the
+    pointwise-least overflow (`least_overflow`), the diagonal achieves it
+    (`diag_is_minOverflow`), overflow is monotone / shift-stable.  Honest: not "¬Htel IS
+    Cantor non-surjectivity" — both are the *same overflow*, neither reading privileged
+    (`05_no_exterior` §5.7).  Q2 (ω₁^CK as gauge shift, not a wall): narrative in
+    `research-notes/G168`.  OPEN (still beyond T1–T4): Phase-1 transfinite projection of
+    `T` into ε₀/Γ₀ as ONE structural theorem over the native `Coord r` (no `Ordinal`/`Γ₀`
+    — Mathlib-forbidden; the merged `DepthCoordGenerator` is the substrate); the
+    universal-property / factorization of `least_overflow`; a measurable falsifier from
+    the overflow unit `1`.  Also still open: a fast π representation meeting the rate
+    criterion (Wallis too slow — needs `μ(π)`).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
@@ -193,7 +204,7 @@ is one coherent 13-link arc, `holonomic_modulus` the constructed-modulus mechani
 | Equivalence unification — 213's sameness is reading-equivalence (`ReadingEq.same`); `HasDistinguishing` stated over `same`; composite instances thread `same` (`Pair`/`Sum`); Lens tree 0 real DIRTY | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Lens/EqPW` (`sameLens` + laws), `Lens/SemanticAtom` (`combine_sym`/universal morphism over `same`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`), `Theory/Raw/Fold` (`fold_slash_rel`, `fold_slash_iff`) | `theory/lens/{unified_equivalence,dirty_recovery_patterns}`, `research-notes/RFC_reading_equivalence_primitive.md` (+ `G164`), `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `omega`/`simp` purifications — `Instances.Leaves.DepthJoin` (tier classification), `CayleyDickson.{CayleyHeavy,CDTower}`, `Cauchy.GenericFamily` (pointwise-at-index) all PURE | the modules above; general Nat/`max` helpers in `Meta/Tactic/NatHelper`, Int helpers in `Meta/Int213` | `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `5²⁵`-as-resolution chain — DELETED (originator); 0.2 ppb α_em result survives on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,CrossDetOvertake,LiouvilleModulus,CrossDetEqDenom,GeometricThreshold,TowerNativeCompleteness,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Cauchy/{DepthClosure,DepthCoordGenerator}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `analysis/tower_native_completeness`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

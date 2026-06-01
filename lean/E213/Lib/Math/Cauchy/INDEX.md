@@ -56,6 +56,11 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       escapes the family (`overflow_escapes`) or breaks
                                       domination (`overflow_breaks`) — same surplus,
                                       two scales (`overflow_dual_reading`)
+  - `DepthClosure.lean`            — the finite-coordinate class is closed under `×`
+                                      and the exponent axis (`diff` linear), breaking
+                                      at the exponential `2^{2^n}`
+  - `DepthCoordGenerator.lean`     — the tower as a coordinate system: `binom·d` /
+                                      `expTower` realize every coordinate, top-down
 
 ## Companion clusters
 

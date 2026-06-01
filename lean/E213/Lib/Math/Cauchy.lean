@@ -20,6 +20,8 @@ import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
 import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
 import E213.Lib.Math.Cauchy.DepthOverflowDuality
+import E213.Lib.Math.Cauchy.DepthClosure
+import E213.Lib.Math.Cauchy.DepthCoordGenerator
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
@@ -97,9 +99,13 @@ import E213.Lib.Math.Cauchy.DepthOverflowDuality
                              `diag_not_in_seq`) or *breaks domination*
                              (`overflow_breaks` = `overtake_breaks_layer`)
                              — `overflow_dual_reading`.
+    * `DepthClosure`        — the finite-coordinate class is closed
+                             under `×` and the exponent axis (T3).
+    * `DepthCoordGenerator` — the tower is a coordinate system: every
+                             coordinate is generated top-down (T4).
 
   ## Status
 
-  24/24 files included.  All ∅-axiom on the production critical
+  26/26 files included.  All ∅-axiom on the production critical
   path (`tools/scan_axioms.py` — see per-file status notes).
 -/
