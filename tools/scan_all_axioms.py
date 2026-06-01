@@ -138,6 +138,14 @@ SEALED_DIRTY_PREFIXES = (
     "E213.Lens.Lattice.IndexedJoin",
     "E213.Lens.Instances.Cauchy",
     "E213.Lens.Instances.Leaves.DepthJoin",
+    # (a) cont. — command-elaborator plumbing.  Each module's only DIRTY
+    #     declaration is a `def elab… : CommandElab` that inherits
+    #     `Classical.choice` (+ propext, Quot.sound) via the
+    #     `Lean.Elab.Command` monad.  Not 213-math content (no theorem about
+    #     Raw / Lens / observables); cannot be PURE (lives in the Elab monad).
+    "E213.Lib.Math.Tactic.QuadExtension",
+    "E213.Meta.Tactic.DeriveConjugationCodomain",
+    "E213.Meta.Tactic.VerifyConjugation",
 )
 
 

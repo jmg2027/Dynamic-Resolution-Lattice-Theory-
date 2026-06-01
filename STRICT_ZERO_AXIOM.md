@@ -115,18 +115,30 @@ Sealed modules:
 
 ### Net effect
 
-  · **Non-sealed DRLT mathematical content** (Lib/Math/*, Lib/Physics/*,
-    Theory/*) is **fully PURE** on Lean 4 core.
-  · **Sealed Lens.* modules** carry 54 DIRTY theorems whose Lean-core
-    axiom use is structural per categories (a) + (b) above.
-  · **`Classical.choice` is absent from all DRLT mathematical
-    content** — the previous 5 DepthJoin theorems that carried
-    Classical.choice via `omega` / `simp` tactic artifacts were
-    refactored to use constructive Nat reasoning (`Nat.le_add_right`,
-    `Nat.not_succ_le_zero`, explicit case analysis), closing the
-    Classical.choice surface.
-  · `tools/scan_all_axioms.py` reports `<N> PURE / 0 real DIRTY /
-    54 sealed-DIRTY-by-design`.
+Scope note: until the build gate was made comprehensive (G159), only the
+umbrella-reachable subset was ever scanned, and that subset was fully PURE
+(non-sealed).  The comprehensive gate now scans **all 1532 modules**, which
+exposes the purity status of the previously-ungated clusters.  Current
+`tools/scan_all_axioms.py`:
+
+  · **12489 PURE / 62 real DIRTY / 57 sealed-DIRTY-by-design** (12608 total).
+  · **No `Classical.choice` and no `Lean.ofReduceBool` (`native_decide`) in any
+    213-mathematical content** — the falsifiability-forbidden axioms are absent.
+    The only `Classical.choice` carriers are three `CommandElab` elaborators
+    (`Lib.Math.Tactic.QuadExtension`, `Meta.Tactic.{DeriveConjugationCodomain,
+    VerifyConjugation}`), inherited via the `Lean.Elab.Command` monad — sealed
+    plumbing per category (a), not math content.
+  · The **62 real DIRTY are all `propext` / `Quot.sound` only** (the
+    "allowed-but-not-target" core-kernel axioms), in previously-orphaned
+    clusters now exposed by the gate — `Lens.Compose.*`, `Lens.Lattice.*`,
+    `Lib/Math/{Choice, CayleyDickson, Cohomology/Bipartite/Parametric, Cauchy,
+    Hyper}`, etc.  This is the **purity backlog** (not a falsifiability issue);
+    the `Mobius213.Px` pass shows the playbook (`omega` → `rfl`/`Nat.two_mul`/
+    `Nat.add_right_comm`; `Nat.mul_assoc`/`Nat.add_mul` → `NatRing.nat_*`;
+    `simp` → explicit `rw`).
+  · **Sealed-by-design** (57) per categories (a) + (b): the Prop-as-
+    distinguishing / Lens-funext / Quot-Lens families + the three CommandElab
+    plumbing modules.
 
 ---
 
