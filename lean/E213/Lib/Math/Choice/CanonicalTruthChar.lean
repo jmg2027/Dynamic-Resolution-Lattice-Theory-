@@ -55,7 +55,29 @@ theorem propXor_iff_bool_xor (P Q : Prop) (b₁ b₂ : Bool)
     (hP : P ↔ (b₁ = true)) (hQ : Q ↔ (b₂ = true)) :
     propXor P Q ↔ (xor b₁ b₂ = true) := by
   unfold propXor
-  cases b₁ <;> cases b₂ <;> simp [xor, hP, hQ]
+  constructor
+  · rintro ⟨hpq, hnp⟩
+    rcases hpq with hp | hq
+    · have hb1 : b₁ = true := hP.mp hp
+      have hb2 : b₂ ≠ true := fun h => hnp ⟨hp, hQ.mpr h⟩
+      cases b₂
+      · subst hb1; rfl
+      · exact absurd rfl hb2
+    · have hb2 : b₂ = true := hQ.mp hq
+      have hb1 : b₁ ≠ true := fun h => hnp ⟨hP.mpr h, hq⟩
+      cases b₁
+      · subst hb2; rfl
+      · exact absurd rfl hb1
+  · intro hxor
+    cases b₁ <;> cases b₂ <;>
+      first
+      | exact absurd hxor (by decide)
+      | (refine ⟨?_, ?_⟩
+         · first | exact Or.inl (hP.mpr rfl) | exact Or.inr (hQ.mpr rfl)
+         · rintro ⟨hp, hq⟩
+           first
+           | exact absurd (hP.mp hp) (by decide)
+           | exact absurd (hQ.mp hq) (by decide))
 
 
 /-- **Main characterization**: canonicalTruthMap r ↔ aCountParityLens.view r = true. -/
@@ -137,7 +159,21 @@ theorem canonicalTruthMap_ne_canonicalIffMap :
 theorem iff_iff_bool_eq (P Q : Prop) (b₁ b₂ : Bool)
     (hP : P ↔ (b₁ = true)) (hQ : Q ↔ (b₂ = true)) :
     (P ↔ Q) ↔ (decide (b₁ = b₂) = true) := by
-  cases b₁ <;> cases b₂ <;> simp [hP, hQ]
+  constructor
+  · intro hpq
+    have hbb : (b₁ = true) ↔ (b₂ = true) := hP.symm.trans (hpq.trans hQ)
+    cases b₁ <;> cases b₂
+    · rfl
+    · exact absurd (hbb.mpr rfl) (by decide)
+    · exact absurd (hbb.mp rfl) (by decide)
+    · rfl
+  · intro hdec
+    cases b₁ <;> cases b₂
+    · exact ⟨fun hp => absurd (hP.mp hp) (by decide),
+            fun hq => absurd (hQ.mp hq) (by decide)⟩
+    · exact absurd hdec (by decide)
+    · exact absurd hdec (by decide)
+    · exact ⟨fun _ => hQ.mpr rfl, fun _ => hP.mpr rfl⟩
 
 /-- **canonicalIffMap characterization**: `canonicalIffMap r ↔
     iffBoolLens.view r = true`.  The algebraic content of the
