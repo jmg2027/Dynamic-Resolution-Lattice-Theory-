@@ -1,5 +1,14 @@
 # G159 — The build gate has a hole: ~350 orphaned modules
 
+> **RESOLVED (this session)**: the hole is closed.  All latent breakage the
+> orphans hid was fixed (Px subtree, AkbulutCork/InvolutionCapstone, SignedCut,
+> G39Capstone, the 7 gated-build failures, and the last two —
+> `EnrichedKNSNTcEvenEven`, `PellOrbitInstances`).  **`tools/full_build.sh` now
+> builds every module under `lean/E213` (all 1532, exit 0)**, so no orphan can
+> hide breakage anymore.  Fast `lake build E213` (framework) is kept for
+> iteration.  The crown-jewel α_em precision chain was also wired into the
+> umbrella.  History below.
+
 **Tier-1.**  A static-reachability audit of the Lean import graph found
 that **about 23% of `E213/**.lean` modules are not built by the standard
 gate** (`tools/full_build.sh`).  Some are silently rotted; the headline

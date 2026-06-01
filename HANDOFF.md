@@ -50,16 +50,16 @@ Cauchy umbrella; full `lake build E213` green.
     `FibCassiniNat.fib_cassini_norm`; pellNormStep's hypothesis IS floor-1.
   The "strongest unclaimed result" (HANDOFF Target A) is closed.
 
-### Build gate-hole — ~350 orphaned modules (G159)
+### Build gate-hole — CLOSED (G159)
 
-**Major finding**: a static import-graph audit shows **~350 of 1543 `E213`
-modules (~23%) are orphaned** — not reachable from any of the three build
-roots `{E213, Lib.Math, Lib.Physics}` that `tools/full_build.sh` exercises.
-`lake build E213` builds only the framework rings (~275 modules); even
-`full_build.sh` misses the orphans.  Two harms: **silent rot** (files stop
-compiling unnoticed) and **ungated-but-correct** results.  Full map +
-remediation plan: `research-notes/G159_*`.  Lesson: **`lake build E213` /
-`full_build.sh` are NOT a complete gate** — orphaned subtrees escape.
+A static import-graph audit found **~350 of 1532 `E213` modules (~23%)
+orphaned** — unreachable from the build roots, so `full_build.sh` never
+compiled them and latent breakage hid.  **Now resolved**: every orphan's rot
+was fixed and **`tools/full_build.sh` rebuilds all 1532 modules (exit 0)** —
+no orphan can hide breakage.  Crown-jewel α_em precision chain wired into the
+umbrella.  Fast `lake build E213` (framework only) kept for iteration.  Full
+history + map: `research-notes/G159_*`.  Lesson retained: a gate that follows
+only umbrella imports is incomplete — build the module set, not the closure.
 
 Done this marathon (all pushed except the in-flight SignedCut work):
   - **Gated the crown jewel**: the 0.2 ppb precision chain
@@ -98,23 +98,17 @@ capstone_n20)` fragment applied to `Cert.boundsOk`'s body → "function expected
 + `sorryAx`; removed → `cert_n20_boundsOk` PURE).  `lake build E213.Lib.Math
 E213.Lib.Physics` completes clean.
 
-**Orphan rot largely cleared.**  Probed cluster heads broadly: `Mobius213.Px`,
-`AkbulutCork`, `SignedCut/*`, `CayleyDickson.Tower.AlgebraTowerCapstone`,
-`Padic`, `Mobius213GrandUnification`, `Cohomology.{K33Unified,Mediant‑
-CohomologyFunctor,Universal}`, `GeometrizationConjecture`, `HodgeConjecture`,
-`GRA`, `Symmetry`, `Hadron`, `Quantum.Bell` — all build.  Fixed the rotted
-ones (Px ×3, InvolutionCapstone, `SignedCut/Level/G39Capstone` via restoring
-`FanoK32Bridge` components).  Rot density is now low; orphans mostly *build but
-are ungated*.
-
-**Next-session gate work** (per G159 remediation): (1) run a *full* orphan-build
-inventory (build every orphan, not just heads) to confirm no remaining rot;
-(2) the gate-closing itself is a **deliberate architectural decision** — wire
-intentionally-permanent clusters into `Lib/Math.lean`/`Lib/Physics.lean` (note:
-some carry axiom-dirty theorems, e.g. `Mobius213.Px`, so gating them surfaces a
-purity-debt to track), prune genuinely-dead/WIP files; (3) once the orphan set
-is the intended-empty, flip the `lean_lib E213` `globs` to build all submodules
-so the hole cannot reopen.  Px purity-audit (dirty → PURE) is a separate thread.
+**Orphan rot — fully cleared.**  The complete all-modules inventory found and
+fixed every broken orphan: Px ×3, InvolutionCapstone (→ AkbulutCork),
+`SignedCut/Level/G39Capstone` (restored `FanoK32Bridge` components),
+`EnrichedKNSNTcEvenEven` (`rcases`-literal → `match`), `PellOrbitInstances`
+(non-dependent `if` → `if h :` so omega sees the bound).  **All 1532 modules
+build; `full_build.sh` is now the comprehensive gate.**  Remaining gate work is
+*optional polish*, not correctness: (a) **purity audit** of the now-gated
+orphan clusters (most are unscanned — likely the same `omega`/`Nat.mul_assoc`
+dirt the Px pass fixed; apply that pattern); (b) wiring chosen clusters into the
+`Lib/Math.lean` umbrella for fast-iteration coverage (vs the comprehensive
+script); (c) pruning any genuinely-dead WIP files.
 
 **Px purity-audit DONE** — the entire `Mobius213.Px` subtree is now ∅-axiom
 (user directive "category-3 → all PURE" satisfied): `QFibIdentity` 9/0,
