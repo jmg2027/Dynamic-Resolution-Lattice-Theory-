@@ -2,24 +2,49 @@
 
 Branch: `claude/research-notes-9Nc74`
 
-## Latest autonomous iteration (2026-05-31)
+## Latest autonomous iteration (2026-06-01)
 
-  1. **Build fix (Tier A).**  The N_U-removal commit (`9c993c0`) added
-     `configCount` `#guard_pure` / `#guard_native` lines to `PureGuardTest`
-     and `NativeGuardTest` without importing `Cohomology.Fractal.ConfigCount`
-     → build broke ("unknown declaration"; the "build green" claim rested on
-     a stale olean cache).  Fixed: added the import to both, pointed guards at
-     real decls (`configCountD`, `configCountD_succ`, `configCount_two`),
-     dropped a duplicate guard line.  `lake build E213` clean.
-  2. **New ∅-axiom theorems** in `Lib/Math/Cohomology/Fractal/ConfigCount.lean`:
-     `configCountD_strictMono_succ`, `configCountD_strictMono`,
-     `configCountD_injective` (for `d ≥ 2`) — the level tower is a strict
-     order-embedding ℕ ↪ ℕ.  Scan: `23 pure / 0 dirty`.
-  3. **G156** (`research-notes/G156_configcount_level_injectivity.md`):
-     injectivity turns "no level privileged" into a theorem on the level axis
-     (faithful, fixed-point-free count coordinate → no selected level).
-     Partial answer to the RERESEARCH open question; cross-linked from
-     `RERESEARCH_n_u_removal.md`.
+  1. **Headline — the `5²⁵`-as-resolution chain is DELETED** (originator
+     decision, not re-derivation).  The claim that `5²⁵ = N_U = d^(d²) =
+     configCount 2` is "the resolution" at which physics is evaluated rests on
+     a category error (a configuration **count** is not a spectral-sum
+     **truncation index**) and contradicts the foundation (no privileged level
+     — G156; no top — residue/self-covering).  Deleted whole:
+     `Foundations/{FiniteUniverse,NResolutionFromFractal,NResolutionFractalDepth,
+     FractalLensCardinality}`, `Capstones/{FinitistObservableChain,
+     ValidationStandardOne}`, `AlphaEM/NResolutionCandidates`,
+     `UniverseChain/{Universe,Synthesis,MobiusChain}`,
+     `AlphaEM/Capstone.MasterCapstone`, `Padic/DRLT.canonical_5adic_NU`.
+     Scrubbed (structure kept): `AlphaEM/{Capstone,GradedFormula,PiFiveGap}`,
+     `Padic/*`, `Recursion.lean`, aggregators, + `GradedRingNUBridge` →
+     `GradedRingConfigCountBridge`, + docs/catalogs/theory.  Commits
+     `a8bc77f`, `bda7a07`, `b8e4c84`, `df1c444`.
+  2. **What SURVIVES (verified ∅-axiom)** — the 0.2 ppb precision result is
+     independent of `5²⁵`: it rests on `π²` as a **literal input** (`pi2_e12`),
+     not a finitist resolution.  `GramStructuralCapstone.invAlphaEm_precision_
+     theorem` scans **5 pure / 0 dirty**; full `lake build E213` green.  Honest
+     claim now: *given π, the K_{3,2} cup-ring 5-layer + Gram cubic reproduce
+     1/α_em to 0.2 ppb* — no "π-free / finitist / derivation" overclaim.  Also
+     kept: atomic forcing `(NS,NT,d)=(3,2,5)`, residue, parametric
+     `configCountD`/`numV=5^L`/`S(N)`, and `configCount 2 = 5²⁵` as bare arithmetic.
+  3. **ConfigCount strict tower** (`Lib/Math/Cohomology/Fractal/ConfigCount.lean`):
+     `configCountD_strictMono_succ/strictMono/injective` (`d ≥ 2`) — the level
+     tower is a strict order-embedding ℕ ↪ ℕ.  Plus a Tier-A build fix
+     (guard-test imports).
+  4. **Research notes** — **G156** (no privileged level, theorem); **G157**
+     (the deletion *argument*: category error + no-top foundation); **G158**
+     (Target A scoping — see below).
+
+### Next target sharpened: `depth_floor_is_det_one` (G158)
+
+The forward brick is now **near-trivial** and the cheapest high-value close:
+`convergent_det` and `cassini_universal` are already PURE *Nat-additive*, so
+HANDOFF's old Int→Nat worry is moot.  Plan: new
+`Lib/Math/Cauchy/DepthFloorDetOne.lean` — define the convergent cross-det gap
+`W : Nat → Nat`, prove `W = const 1` via `convergent_det`, conclude
+`reachesFloor W` at depth 0 (ladder floor = det 1).  Then the converse
+(recurrence-uniqueness via `OrbitForcing`/`PnFibonacciUniversal`) is the real
+"distance from atomicity" theorem.  Details: `research-notes/G158_*`.
 
 The durable record of all closed work lives in `lean/E213/` (source of truth) and
 `theory/` (narrative).  This file keeps only: the latest arc's one-line map, a
@@ -100,11 +125,13 @@ recurrence departs from P's autonomous self-definition by a polynomial of degree
 > ⟹ the convergents satisfy the autonomous Pell/Cassini step (`pellNormStep`), i.e.
 > lie on a P-orbit.
 
-Hinge between the analysis-side ladder and the atomic-side forcing.  Main obstacle:
-`Wₙ` is `Nat`-abstract in `DivergenceLadder`, the P-orbit is `Int`-valued in
-`Mobius213PellInvariant` — bridge needs the sign-free Nat reading of `Wₙ = ±1`
-matched to Cassini `a² + 1 = a·b + b²`, via the additive Int→Nat routing already used
-in `PellFibCutBridge` (no `Int` subtraction).  Est. one focused session.
+Hinge between the analysis-side ladder and the atomic-side forcing.  **Obstacle
+re-assessed (G158, 2026-06-01)**: the old Int→Nat worry is moot — `convergent_det`
+and `cassini_universal` are already PURE *Nat-additive*.  Forward direction is
+near-trivial (`W = const 1` via `convergent_det` → `reachesFloor` at depth 0).
+The real remaining content is the **converse** (recurrence-uniqueness: floor value 1
+⟹ autonomous P-step), via `OrbitForcing`/`PnFibonacciUniversal`.  See
+`research-notes/G158_depth_floor_det_one_scoping.md` for the full plan.
 
 ### B. `depth_floor_is_det_one`'s converse + the finite-depth recurrence (formal P-recursive)
 
@@ -161,5 +188,8 @@ Two open dualities flagged in `tower_atlas.md` / `G154` §2:
     `Tree.noConfusion` (for `a ≠ b`) and `of_decide_eq_true` (not `decide_eq_true_eq`).
   - **Repo-first**: grep + INDEX before coding a "missing" cell (`PredicateSelfEncoding`
     and the `add_div_right_pos` helper were both nearly rebuilt).
-  - N_U = d^(d²) is **deprecated**; don't cite it as a constant, don't use
-    "ℝ = final boss" framing.
+  - `5²⁵ = N_U = d^(d²)` as a **resolution / universe number is DELETED**
+    (2026-06-01) — not deprecated, gone.  `configCountD`/`configCount 2 = 5²⁵`
+    survive only as bare parametric arithmetic; never reintroduce a "the
+    resolution" reading.  See `research-notes/{G156,G157}` +
+    `RERESEARCH_n_u_removal.md`.  Don't use "ℝ = final boss" framing.
