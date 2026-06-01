@@ -40,19 +40,17 @@ hygiene must not displace this.
     is non-associative so the parametric `[StarRing213 α]` CDDouble star instance
     cannot fire); `TrigintaduoionionHeavy.conj_mul_anti` is now the verbatim
     structural analog of `SedenionHeavy.conj_mul_anti` one layer up.
-  - `SedenionHeavy.flexible` — **crux closed; concrete closure pending.**  The
-    long-standing `CDDoubleFlexible` cross-pair `(conj d·b)·a + conj b·(d·a) =
-    a·(conj b·d) + (a·conj d)·b` is now proved ∅-axiom (`FlexAlt213.flex_cross_pair`,
-    via `left_alt_polar`/`right_alt_polar` → alternating associator + central
-    trace).  Still needed to land `SedenionHeavy.flexible` itself: (i) register
-    `FlexAlt213 Cayley` (needs generic CDDouble nuclearity `ofInt_nuc_{l,m,r}` +
-    `TraceNormed213 (CDDouble α)` + `conj_mul_self`, none present yet), then
-    (ii) the concrete `re`/`im` assembly on `Sedenion` from `flex_cross_pair` +
-    `conj_sandwich` + base `flexible` (the `re`-split is `L1=R1`/`L4=R3`/cross-pair;
-    the `im`-component identity is not yet derived) — or, alternatively,
-    generalize `Mul (CDDouble α)` / `CDDouble.conj` to a `[NonAssocStarRing213 α]`
-    base so the abstract `cd_flexible` can be stated and the Sedenion→`CDDouble
-    Cayley` bridge reused.
+  - `SedenionHeavy.flexible` — **CLOSED (∅-axiom).**  Full chain landed:
+    (1) the long-standing `CDDoubleFlexible` cross-pair `(conj d·b)·a +
+    conj b·(d·a) = a·(conj b·d) + (a·conj d)·b` proved via the alternating
+    associator (`left_alt_polar`/`right_alt_polar`) + central trace
+    (`FlexAlt213.flex_cross_pair`); the `im`-component lemmas `mm_conj` /
+    `skew_conj` (skew-associator conj-invariance); (2) generic CDDouble
+    foundations in `CDDoubleMoufang` (`cd_ofInt_nuc_{l,m,r}`, `cd_self_add_conj`,
+    `cd_conj_mul_self`); (3) `FlexAlt213 Cayley` registered
+    (`CayleyFlexAlt213`); (4) the `re`/`im` assembly `Cayley.flexible_re` /
+    `flexible_im`, and `SedenionHeavy.flexible := ext + those`.  The
+    category-D CayleyDickson backlog is **empty**.
 
 ### Depth-arc (real-number / completeness thread, B–E)
 
