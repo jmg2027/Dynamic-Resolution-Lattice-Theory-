@@ -117,45 +117,53 @@ For an algebraic real, completion is available unconditionally *and adds
 nothing*: the limit was already writable as a finite decision procedure.
 This is √2, the golden ratio, and their kin.
 
-### 3.3 Transcendental — completion needs a hypothesis-modulus
+### 3.3 Transcendental — the modulus comes from the convergence rate
 
 `Real213/ExpLog/EulerCut.lean` (e = Σ 1/k!) and `PiCut.lean` (π/2 via
-Wallis, π by doubling) are the *same* `AbCutSeq` carrier with the *same*
-per-threshold facts.  Each constant is genuinely located:
+Wallis, π by doubling) are the *same* `AbCutSeq` carrier.  Each constant
+is genuinely located:
 
   - e is pinned strictly inside `(8/3, 3)` at every tail layer
     (`eulerCut_in_8_3_to_3`);
-  - π/2 inside `(7/5, 2)`, π inside `(14/5, 4)` (`piCut_in_14_5_to_4`) —
-    the sharp lower bound from `W₂ = 64/45 > 7/5` by `decide` plus
-    nesting.
+  - π/2 inside `(7/5, 2)`, π inside `(14/5, 4)` (`piCut_in_14_5_to_4`).
 
-You can compare e or π to **any** specific rational and get the bit.
-What you cannot do — without leaving the falsifiability contract — is
-hand over a *total* modulus `N(m,k)` covering every threshold at once.
-That total object is the global order-Cauchy closure, and
-`Cauchy/MonotonicBounded` (§180–194) refuses it deliberately: a case
-split on "`true` at every `n`" versus "`false` at some `n`", quantified
-over all `(m,k)`, is `LEM` — the constructive analogue of ZFC's
-commitment to arbitrary subsets.  So `eulerCut`/`halfPiCut` complete via
-`AbCutSeq.toCauchy` only with the modulus supplied as a **hypothesis**.
+For **e** the completion is unconditional: e's convergents `a_i/i!` carry
+a factorial tail rate, which yields a *total* ∅-axiom modulus
+`N(m,k) = k+2` — `eulerCut` is constant past `k+2` at every threshold
+(`ExpLog/EulerModulus.euler_total_modulus`, `euler_cut_const`), and e
+completes as a `HolonomicReal` (`eHolonomicReal`) with the modulus a
+constructed field.  The case-split on "`true` at every `n`" vs "`false`
+at some `n`" is decided here by reading `eulerCut (k+1) m k`, because the
+denominator gap `≥ 1/(k·(k+1)!)` exceeds the tail `< 1/((k+1)·(k+1)!)`.
+
+The `LEM` refusal of `Cauchy/MonotonicBounded` (§180–194) bites only on a
+**rate-free** presentation — the general monotone-bounded closure with no
+stated rate.  `π` (`halfPiCut`) is in that posture *pending* its explicit
+Wallis rate, so for now it completes via `AbCutSeq.toCauchy` with the
+modulus supplied as a hypothesis; the obstruction is the missing rate,
+not transcendence.
 
 ### 3.4 The trichotomy, stated
 
-Same structure for φ, e, π — one carrier, `AbCutSeq`.  The only
-difference is the modulus that completes it:
+Same carrier, `AbCutSeq`; the difference is the modulus that completes it
+— and the real line is **rate-carrying vs rate-free**, not
+algebraic-vs-transcendental:
 
-| Real             | Cut object     | Completion modulus                    |
-|------------------|----------------|---------------------------------------|
-| rational         | `constCut a b` | trivial (constant sequence)           |
-| algebraic (φ, √2)| `AbCutSeq`     | **closed-form**, unconditional        |
-| transcendental   | `AbCutSeq`     | **hypothesis** (no LEM-free total one) |
+| Real                  | Cut object     | Completion modulus                       |
+|-----------------------|----------------|------------------------------------------|
+| rational              | `constCut a b` | trivial (constant sequence)              |
+| algebraic (φ, √2)     | `AbCutSeq`     | **closed-form** `N=2k`, unconditional    |
+| holonomic transc. (e) | `AbCutSeq`     | **closed-form** `N=k+2`, unconditional   |
+| rate-free (π for now) | `AbCutSeq`     | **hypothesis** (no LEM-free total yet)   |
 
 The classical construction collapses this table to one row: every real is
-an element of a complete field, and the algebraicity of the modulus is
-invisible.  Real213 keeps the column.  **Algebraicity, here, just is the
-existence of a closed-form completion modulus** — a fact the structure of
-the cut exhibits, rather than a property proved after the fact about
-points in a pre-built continuum.
+an element of a complete field, and the source of the modulus is
+invisible.  Real213 keeps the column.  **A closed-form completion modulus,
+here, just is the convergence rate made explicit** — present for the
+algebraic reals (φ, √2) and for the holonomic transcendentals whose
+recurrence supplies a rate (e), a fact the structure of the cut exhibits
+rather than a property proved after the fact about points in a pre-built
+continuum.
 
 ## 4. Why this is the rigorous form, and how it is falsifiable
 
@@ -167,8 +175,9 @@ It is constructive and positive:
   3. arithmetic, order, and the algebraic reals are built without ever
      invoking completeness;
   4. completeness re-enters only as a limit operation on sequences —
-     unconditional exactly for the algebraic case, modulus-gated for the
-     transcendental case.
+     unconditional for every rate-carrying real (algebraic φ/√2 and
+     holonomic e), modulus-gated only for a rate-free presentation
+     (π, pending its Wallis rate).
 
 Each clause is a Lean fact, ∅-axiom:
 
@@ -176,14 +185,18 @@ Each clause is a Lean fact, ∅-axiom:
   - (B) arithmetic/order independent of completion — the import graph;
   - (C) completion derived and, for algebraic reals, redundant —
     `PhiAbCut.phiCompletion_limit_eq_phiCut` PURE;
-  - (D) completion modulus-gated for transcendentals — `EulerCut` /
-    `PiCut` take it as a hypothesis; the refusal of the total modulus is
-    `Cauchy/MonotonicBounded` §180–194.
+  - (D) completion unconditional for the holonomic transcendental e —
+    `ExpLog/EulerModulus.euler_total_modulus` gives the total modulus
+    `N=k+2` PURE (`eHolonomicReal`); only the rate-free closure
+    (`Cauchy/MonotonicBounded` §180–194) is LEM-gated, and `PiCut` sits
+    there pending π's explicit rate.
 
 Falsification would be concrete: exhibit a Real213 arithmetic or order
 theorem whose `#print axioms` reveals a dependence on `CauchyComplete`,
-or a PURE total order-Cauchy modulus for e (which would mean the §180 LEM
-barrier was illusory).  Neither exists in the current tree.
+or a PURE *rate-free* total order-Cauchy modulus (one not derived from a
+convergence rate — which would mean the §180 LEM barrier was illusory).
+e's total modulus is *not* such a witness: it is built from the factorial
+rate, exactly the data the rate-free closure lacks.
 
 ## 5. Grouping the groupings: the tower closes (no regress)
 
@@ -317,6 +330,13 @@ means, now a theorem.
 
 ## Anchors
 
+  - [`analysis/holonomic_modulus.md`](analysis/holonomic_modulus.md) — the modulus
+    as a constructed convergence rate: the general generator
+    (`RateModulus.rate_total_modulus`) and the `HolonomicReal` instances (φ, e); the
+    rate-carrying/rate-free divide made into a theorem
+  - `lean/E213/Lib/Math/Real213/RateModulus.lean` — `rate_total_modulus` (the general
+    generator), `HolonomicReal.lean` — the bundled type, `ExpLog/EulerModulus.lean` —
+    e's total modulus `N=k+2` + `eHolonomicReal`
   - `lean/E213/Lib/Math/Real213/AbCutSeq.lean` — the shared carrier
   - `lean/E213/Lib/Math/Real213/PhiAbCut.lean` — algebraic case
   - `lean/E213/Lib/Math/Real213/ExpLog/{EulerCut,PiCut}.lean` —

@@ -85,6 +85,15 @@ theorem add_sub_add_right (a k b : Nat) : (a + k) - (b + k) = a - b :=
     (Nat.add_comm k b) ▸ (Nat.add_comm k a) ▸ rfl
   h1.trans (add_sub_add_left k a b)
 
+/-- Split a difference of sums (truncation-free case): `(b+d) − (a+c) = (b−a) +
+    (d−c)` when `a ≤ b`, `c ≤ d`.  ∅-axiom — what makes a forward difference additive
+    on monotone summands. -/
+theorem add_sub_add_of_le {a b c d : Nat} (h1 : a ≤ b) (h2 : c ≤ d) :
+    (b + d) - (a + c) = (b - a) + (d - c) := by
+  have key : (a + c) + ((b - a) + (d - c)) = b + d := by
+    rw [Nat.add_add_add_comm a c (b-a) (d-c), add_sub_of_le h1, add_sub_of_le h2]
+  rw [← key, Nat.add_comm (a+c) ((b-a)+(d-c)), add_sub_cancel_right]
+
 /-- `(a + b) * c = a * c + b * c`.  ∅-axiom replacement for
     `Nat.add_mul` (Lean-core proof brings propext).  Term-mode
     via `Nat.mul_comm` + `Nat.mul_add`. -/

@@ -1,6 +1,7 @@
 # Session handoff
 
-Branch: `claude/lens-api-pointwise-rebuild-HCdLk`
+Branch: `claude/depth-arc-completeness-iEMpZ` (merged with `main`; adds the
+real-number depth-arc / holonomic-modulus thread on top of the Lens-rebuild main).
 
 Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
 (narrative); `catalogs/`, `STRICT_ZERO_AXIOM.md`, and `research-notes/` carry
@@ -42,30 +43,117 @@ hygiene must not displace this.
   - `SedenionHeavy.flexible` — the `CDDoubleFlexible` cross-pair open item
     (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
 
-### Depth-arc (real-number / completeness thread, B–E)
+### Depth-arc — real-number / completeness thread (this branch, current)
 
-Depth arc closed + promoted (`theory/math/completeness_without_completeness.md`);
-unclaimed extensions:
-  - **B. finite-depth recurrence** — make "finite depth ⟺ P-recursive" a theorem
-    for e (coeff `n+1`, deg 1) and π (deg 4): exhibit the polynomial-coefficient
-    recurrence their convergents satisfy, prove `polyDepth d` matches.
-    Architecture: `research-notes/G155` (`Holonomic.toCertifiedModulus`).
-  - **C. third-axis closure** — assemble `DepthDoubleExp` + `DepthExponentRecursion`
-    into a positive theorem that ratio-on-exponent floors `c^{c^{poly}}`; pin the
-    ordinal rank `ω^r · d` for a depth-`r` tower (path from `ω²` toward `ω^ω`).
-  - **D. Liouville's coordinate** — give `c^{k!}` a coordinate (its exponent `k!`
-    floors under ratio, `k! ↦ k+1`); formalize "the exponent is itself an `expSeq`"
-    (frontier toward `ε₀`).
-  - **E. tower duality** (conceptual) — GRA-tower ↔ CD-tower; depth-ladder ↔
-    Cayley–Dickson tower (both bottoming at the `5 = NS+NT` floor).  See
-    `theory/essays/tower_atlas.md`.
+**Branch scope: real-number topics only.**  (Non-real tracks — the GRA/CD tower
+duality and Cayley-Dickson algebra — belong on a separate branch; see link E.)
+
+The depth arc (real = decision procedure, completeness relocated; 13 links) is
+closed + promoted (`theory/math/completeness_without_completeness.md`).  Extensions
+A–D + B are now **all closed ∅-axiom this arc**:
+
+  - **A. `depth_floor_is_det_one`** — DONE this prior arc (`Cauchy/DepthFloorDetOne`,
+    7/0): forward (`convergent_crossdet_floor_is_one`) + converse
+    (`floor_one_is_P_invariant` = `pellNormStep`).  The floor IS the P-orbit
+    invariant.  Hinge between analysis-ladder and atomic forcing.
+  - **B. finite-depth recurrence formal** — DONE FULLY (general theorem + e + π) this
+    arc.  **General theorem** (`Cauchy/DepthPRecursiveInstances`, 23/0):
+    `newton_polyDepth` — *every* degree-`d` discrete polynomial `Σ_{i≤d} cᵢ·binom(·,i)`
+    (Newton form, 213-native `binom`, Pascal) has `polyDepth d`; exact Newton-basis
+    difference (`diff_newton` lowers degree by one, iterated `d`× via `liftK_congr` +
+    `liftK_diff_comm`).  `binomCol_polyDepth` = single-column case.  **e closed**:
+    `e_finite_depth_iff_P_recursive` = order-1 recurrence + `polyDepth 1` ratio.
+    **π closed**: `DepthPiQuartic.piRatio_polyDepth` — the full degree-4 cross-det
+    ratio `4(n+1)²(2n+1)(2n+3)` has `polyDepth 4` (4 differences → const `384`),
+    confirming π depth 6 ∅-axiom.  The nonlinear-Nat expansion is discharged by the
+    new reflection prover **`Meta/Nat/PolyNat`** (`poly_id`, 11/0): the ∅-axiom `ring`
+    replacement — reify to a polynomial tree, normalise to Horner coeffs, equal lists
+    ⟹ equal by `rfl`.  Reusable helpers live in their fundamental homes:
+    `add_sub_add_of_le` in `Meta/Tactic/NatHelper`, `liftK_congr` in
+    `Cauchy/DepthPRecursive` (pointwise-equality lift, no `funext`), `poly_id` in
+    `Meta/Nat/PolyNat`; `binom_mono` stays with the Newton-basis machinery in
+    `DepthPRecursiveInstances`.
+  - **HolonomicReal type architecture** — AUTONOMOUS CASE DONE this arc
+    (`Real213/HolonomicReal`, 8/0): `HolonomicReal` bundles a holonomic recurrence
+    spec + the convergent `CauchyCutSeq` (modulus `seq.N` as a *constructed field*,
+    not a hypothesis) + `ValidCut` of the limit; `HolonomicReal.cut_valid` is the
+    unconditional API.  φ is a complete instance (`phiHolonomicReal`): order-2
+    constant-coeff (det 1), modulus `N(m,k)=2k` (proven, `phiConvergentSeq`), cut =
+    closed-form `phiCut`.
+  - **e — TOTAL constructive modulus, complete `HolonomicReal`** this arc
+    (`ExpLog/EulerModulus`, 11/0, deriving from `RateModulus` — no bespoke engine):
+    `euler_total_modulus` / `euler_cut_const` — `eulerCut`
+    is constant past `k+2` for every `(m,k)`, `k≥1`; `N(m,k)=k+2` explicit.  `eHolonomicReal`
+    bundles it (modulus a constructed field, like φ).  Mechanism: margin invariant
+    `e_i + 1/(i·i!) ≤ m/k`, forward step `i(i+2)≤(i+1)²` (0≤1, via `PolyNat`); the
+    denominator gap `≥1/(k·(k+1)!)` beats the tail `<1/((k+1)·(k+1)!)`; the side is
+    read off the decidable `eulerCut (k+1) m k`.  **Breaks the earlier "LEM wall"
+    reading** (`G164` revised): the wall is for *rate-free* sequences; e's factorial
+    rate escapes it — no irrationality measure needed.  `ExpLog/EulerCertifiedBracket`
+    (3/0) is the elementary bracket-witness view of the same Cauchy property.
+    `eHolonomicReal_cut_stable`: the holonomic cut is the stable convergent value
+    (e analogue of `phiHolonomicReal_cut`).  FRONTIER criterion (`research-notes/G165`):
+    a FREE total modulus `N≈k` exists iff `tail_i · k · d_i < 1` at `i≳k` (rate beats
+    the denominator-gap quantum).  e meets it (factorial rate `1/(i·i!)` vs gap
+    `1/(k·i!)`: ratio `k/i<1`); **π-via-Wallis does NOT** (tail `~1/n` vs fast
+    `wallisDen` → needs π's irrationality measure `μ(π)≤7.1`, genuinely hard — a fast
+    π series is the real route).
+  - **General generator — DONE** this arc (`Real213/RateModulus`, 4 PURE):
+    `rate_total_modulus` — *any* monotone convergent cut-sequence `a_i/d_i` with a
+    non-increasing margin `e_i + 1/(i·d_i)` (the rate certificate `Htel`) has a total
+    ∅-axiom modulus `N(m,k)=k+2`; the step is pure transitivity once `Htel` is
+    isolated.  **Validated on e**: `euler_cut_const`/`euler_total_modulus` are direct instances of `rate_cut_const`, via
+    `euler_{Htel,hmono,hmonoS}`).
+  - **Depth-rank ⟶ rate-certificate bridge — DONE** this arc
+    (`RateModulus.Htel_of_crossdet`): `Htel` has a closed form in the
+    **cross-determinant** `W_i = a_{i+1}d_i − a_i d_{i+1}` — it holds iff
+    `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}` (W small vs the denominator's discrete
+    growth).  e instantiates it directly — e's cross-det IS `eulerDen` (`euler_cross_det`),
+    so `euler_Htel` is now *derived from the cross-determinant*, not a bespoke estimate;
+    the depth arc (W) and the modulus generator (Htel) are one mechanism.  Narrative:
+    `theory/math/analysis/holonomic_modulus.md`.
+    OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
+    fast for the smallness law; needs `μ(π)`); more instances need their convergents
+    as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet
+    num/den).  **Tower-native research agenda** (`research-notes/G166`): completability
+    = comparison of two growth-axes (cross-det vs denominator) *inside* the tower —
+    T1 the exponential-overtake boundary layer (`DepthExponentRecursion`/`DoubleExp`);
+    T2 Liouville's recursion-coordinate vs the denominator (`DepthLiouvilleCoord`);
+    T3 rate-carrying closure under `+`/`×`/exponent; T4 top-down coordinate→real.  Tie:
+    the tower has no top = the residue (`DepthCeilingResidue`).  These are the sharpest
+    next ∅-axiom targets — internal to the tower, no classical measure.
+  - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
+    `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
+    `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
+    ladder, level by level (`coord_wf 2` recovers `DepthOrdinal`'s `ω²`).
+    `coord_layer_dominates` — each exponential layer ×`ω` (one larger leading
+    coeff outranks the entire lower tower).  Positive sequence companion to
+    `dexp_not_const`: `dexp_exponent_floors` (the double exp's *exponent* floors
+    under one ratio) + `expTower`/`expTower_succ` (value sits one `expSeq` above
+    the shorter tower).
+  - **D. Liouville's coordinate** — DONE this arc (`Cauchy/DepthLiouvilleCoord`,
+    9/0): `liouville_exponent_coordinate` — `ratioLift fact n = (n+1)!/n! = n+1`
+    (super-poly `k!` → linear in one ratio), `diff (ratioLift fact) = 1` (one diff
+    floors it), `diff fact n = n·n!` (never floors on the diff axis alone).  So
+    `c^{k!}`, with no finite `(h,d)`, has ratio-depth 1 / diff-depth 1 one
+    recursion tier down — the concrete frontier toward `ε₀`.  PURE factorial
+    (Lean-core `Nat.factorial` is Mathlib); division-cancel via `mul_div_self_pure`.
+  - **E. tower duality (GRA↔CD)** — OUT OF SCOPE for this branch.  It is a bridge to
+    the non-associative-algebra track (`CayleyDickson/`, `Meta/Algebra213/`), not a
+    real-number topic, and is an unproven conjecture (`gra_book.md` 5.3.1).  The
+    depth-floor `5 = NS+NT` vs CD-dimension `5` is a meaning-by-analogy that the
+    framework refuses, not an earned correspondence.  Belongs on a separate CD/GRA
+    branch (its open `CDDoubleFlexible` cross-pair attack was logged then descoped;
+    see git history if that track resumes).
+
 
 ### Scoped doc follow-ups (judgment / generative)
 
-Merges (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
-`properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`); splits
-(`cohomology/k_nm_c_classification`, `completeness_without_completeness` — verify
-first); narrative-patchwork intros (`RESEARCH_PLAN`, `meta/methodology_patterns`).
+Candidate merges (`theory/lens/{properties,cardinality,instances,axiom_lenses}` →
+`properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}`).  The
+real-number chapters are well-classified as they stand: `completeness_without_completeness`
+is one coherent 13-link arc, `holonomic_modulus` the constructed-modulus mechanism,
+`real_without_completeness` the on-demand essay — no split improves them.
 
 ## Closed (durable homes — do not re-derive)
 
@@ -74,7 +162,7 @@ first); narrative-patchwork intros (`RESEARCH_PLAN`, `meta/methodology_patterns`
 | Equivalence unification — 213's sameness is reading-equivalence (`ReadingEq.same`); `HasDistinguishing` stated over `same`; composite instances thread `same` (`Pair`/`Sum`); Lens tree 0 real DIRTY | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Lens/EqPW` (`sameLens` + laws), `Lens/SemanticAtom` (`combine_sym`/universal morphism over `same`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`), `Theory/Raw/Fold` (`fold_slash_rel`, `fold_slash_iff`) | `theory/lens/{unified_equivalence,dirty_recovery_patterns}`, `research-notes/RFC_reading_equivalence_primitive.md` (+ `G164`), `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `omega`/`simp` purifications — `Instances.Leaves.DepthJoin` (tier classification), `CayleyDickson.{CayleyHeavy,CDTower}`, `Cauchy.GenericFamily` (pointwise-at-index) all PURE | the modules above; general Nat/`max` helpers in `Meta/Tactic/NatHelper`, Int helpers in `Meta/Int213` | `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `5²⁵`-as-resolution chain — DELETED (originator); 0.2 ppb α_em result survives on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Real-number completeness arc (links 1–13) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne}`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

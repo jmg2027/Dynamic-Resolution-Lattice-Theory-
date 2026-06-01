@@ -1,9 +1,19 @@
 # G155 — HolonomicReal: internalising the modulus gate into type architecture
 
-**Date**: 2026-05-31. **Status**: design spec + Lean 4 sketches (NOT yet compiled).
+**Date**: 2026-05-31. **Status**: ACTIVE — Axis 1 realized; Axes 2–3 + general
+generator open.
 **Depends on**: completeness arc (`completeness_without_completeness.md`),
 `Real213/{AbCutSeq,EulerCut,PiCut,PhiAsCut}`, `Cauchy/{DivergenceLadder,DepthTower,
 DepthOrdinal,DepthPRecursive}`, `Analysis/CauchyCompleteValid`, `G154`.
+
+> **Axis 1 is now compiled** (`lean/E213/Lib/Math/Real213/HolonomicReal.lean`, 8/0):
+> `HolonomicReal` bundles the recurrence spec + the convergent `CauchyCutSeq` (modulus
+> `seq.N` as a constructed field) + `ValidCut` of the limit; `cut_valid` is the
+> unconditional API.  The autonomous instance `phiHolonomicReal` is complete (φ,
+> order-2 const-coeff, modulus `N=2k`).  STILL OPEN: the general generator
+> `Holonomic → CertifiedModulus` (derive the modulus from arbitrary recurrence data —
+> e deg-1, π deg-4: convergence-rate analysis), and Axes 2 (closure algebra +
+> `solve_descent`) and 3 (automaton reals + `CertStream`) below.
 
 This note records a proposed architecture (originator-driven) for turning two
 *formal-overhead* properties of the completeness arc into type structure and

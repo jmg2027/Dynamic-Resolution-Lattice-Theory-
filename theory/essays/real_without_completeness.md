@@ -83,24 +83,39 @@ total — the foundational residue (`FlatOntologyClosure.self_covering_closure`)
 
 ## Open frontier
 
-Graspability is not uniform. Algebraic reals complete their cut
-**unconditionally** (φ: closed-form modulus `N=2k`). For e and π the modulus
-re-enters as a *hypothesis* — a total LEM-free modulus would need a choice
-principle `MonotonicBounded` refuses (✗, §180–194). The "depth = P-recursive
-rank" identification and the `ω^ω`/`ε₀` readings rest on (C) classical
-interpretation; the ladder above the (L)-pinned first rungs is not yet proven.
-"π's data is not P-recursive" means "no known low-order recurrence," not a
-theorem.
+Graspability is not uniform, and the line it follows is **rate-carrying vs
+rate-free**, not algebraic vs transcendental. A real presented with its
+convergence rate completes its cut **unconditionally**: φ by the closed-form
+modulus `N=2k`, and e — a structured transcendental — by a *constructed*
+modulus `N(m,k)=k+2` read off its factorial rate
+(`EulerModulus.euler_total_modulus`, `eHolonomicReal`, both (L) ∅-axiom). The
+general mechanism is `RateModulus.rate_total_modulus`: a margin invariant carried
+by pure transitivity once a rate certificate `Htel` holds, and `Htel` is itself a
+smallness law on the cross-determinant `W` (`Htel_of_crossdet`) — the same `W`
+whose divergence depth this essay tracked. Depth-smallness and constructive
+completeness meet at the cross-determinant
+(`theory/math/analysis/holonomic_modulus.md`).
 
-So: **a real is graspable without completeness — in that the trajectory
-reaches pointable syntactic objects (cut, conic `Q=N`, depth integer, ordinal
-coordinate, diagonal `diag f`).** For transcendentals that grasp is
-modulus-gated, not unconditional, and the gate not closing is itself another
-face of the residue.
+The modulus stays a *hypothesis* only for a **rate-free presentation** — π via
+Wallis, whose tail `~1/n` is too slow against fast-growing denominators, so
+deciding the side needs a lower bound on `|π/2 − m/k|` (π's irrationality
+measure). The choice principle `MonotonicBounded` refuses (§180–194) is exactly
+what a rate-free presentation would demand; a rate-carrying one never asks for it.
+The "depth = P-recursive rank" identification and the `ω^ω`/`ε₀` readings rest on
+(C) classical interpretation; the ladder above the (L)-pinned first rungs is not
+yet proven. "π's data is not P-recursive" means "no known low-order recurrence,"
+not a theorem.
 
-## Provenance
+So: **a real is graspable without completeness — the trajectory reaches
+pointable syntactic objects (cut, conic `Q=N`, depth integer, ordinal
+coordinate, diagonal `diag f`).** For a rate-carrying real (φ, e) the grasp is
+unconditional; for a rate-free presentation it is modulus-gated, and the gate
+not closing is itself another face of the residue.
 
-Crystallised on branch `claude/tower-research-analysis-3uWqd` alongside the
-capstone paper `theory/math/completeness_without_completeness.md`, of which
-this essay is the on-demand trajectory form. Anchor chapters:
-`theory/math/real213.md`, `completeness_relocated.md`, `probe_twist_conic.md`.
+## Anchor chapters
+
+This essay is the on-demand trajectory form of the capstone paper
+`theory/math/completeness_without_completeness.md`; the constructed-modulus
+mechanism is `theory/math/analysis/holonomic_modulus.md`. Foundational
+chapters: `theory/math/real213.md`, `completeness_relocated.md`,
+`probe_twist_conic.md`.

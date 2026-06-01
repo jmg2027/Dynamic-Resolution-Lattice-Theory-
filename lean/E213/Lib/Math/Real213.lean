@@ -50,6 +50,11 @@ import E213.Lib.Math.Real213.PhiAsCut
 import E213.Lib.Math.Real213.PhiCutConvergents
 import E213.Lib.Math.Real213.PhiNormInvariant
 import E213.Lib.Math.Real213.FibCassiniNat
+import E213.Lib.Math.Real213.PhiCauchyLimit
+import E213.Lib.Math.Real213.HolonomicReal
+import E213.Lib.Math.Real213.RateModulus
+import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
+import E213.Lib.Math.Real213.ExpLog.EulerModulus
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

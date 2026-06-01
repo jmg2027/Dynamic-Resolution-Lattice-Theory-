@@ -102,19 +102,26 @@ describable splits the reals cleanly.
   convergents gives an explicit, total modulus. The completion needs no hypothesis.
   **(L)** (`PhiProbeFixed`, `PellSeq` for `√2`.)
 
-- **Transcendental reals take the modulus as a hypothesis.** For `e` and `π` there
-  is no LEM-free *total* modulus available from the series alone; the construction
-  proceeds by *assuming* a modulus (`MonotonicBounded`, §180–194 of the development)
-  and is honest that this assumption is doing work. **(L for the conditional
-  statement; the unconditional total modulus is (✗) — it would need a choice
-  principle 213 refuses.)**
+- **Structured transcendentals carry a closed-form modulus too — from their
+  convergence rate.** `e` has a *total* ∅-axiom modulus `N(m,k) = k+2`: its
+  convergents `a_i/i!` carry a factorial tail rate, and the margin invariant
+  `e_i + 1/(i·i!) ≤ m/k` (forward step `i(i+2) ≤ (i+1)²`) makes the cut constant past
+  `k+2`. **(L)** (`ExpLog/EulerModulus.euler_total_modulus`, `eHolonomicReal`.)  So
+  `e` joins `φ` as a complete `HolonomicReal` with the modulus a *constructed field*,
+  not a hypothesis.
 
-The split is not cosmetic. It is the same split that the rest of the paper sees from
-every other angle: the shape of the convergents (Part II), the form of the
-divergence (Part III), the height of the resolution axis (Part IV). **Algebraicity =
-a finite description that closes; transcendence = a finite description that must keep
-deferring.** The reader should carry this single contrast forward; everything below
-is a refinement of it.
+- **A modulus becomes a hypothesis only for a *rate-free* presentation.** The general
+  "monotone-bounded ⟹ Cauchy" closure does need LEM (`MonotonicBounded`, §180–194 —
+  the rate-free case split), and `π` is still in that posture pending its explicit
+  (Wallis) rate. **(L for the conditional; the rate-free total modulus is (✗).)**  The
+  obstruction is *absence of a stated rate*, not transcendence.
+
+The split is therefore not algebraic-vs-transcendental but **rate-carrying vs
+rate-free**: a real presented with its convergence rate (any holonomic real, via its
+recurrence) completes unconditionally; only a rate-free presentation must keep
+deferring. This is the same contrast the rest of the paper sees from every other
+angle — the shape of the convergents (Part II), the form of the divergence
+(Part III), the height of the resolution axis (Part IV).
 
 ---
 
@@ -277,6 +284,32 @@ The two preceding facts combine into the organising equivalence of Part III:
 > **Finite divergence depth ⟺ P-recursive convergent data.** **(L core +
 > (C) identification.)**
 
+This now has an explicit ∅-axiom witness. The Newton basis makes "degree `d` ⟹
+depth `d`" exact: the binomial column `binom · k` has a truncation-free forward
+difference (Pascal's rule), so its `k`-th difference is the constant `binom · 0 = 1`.
+
+> **Every degree-`d` discrete polynomial has divergence-depth `d`.** `polyDepth d
+> (newton c d)`, for any coefficients `c`, where `newton c d n = Σ_{i≤d} cᵢ·binom n
+> i` is the Newton forward-difference form. **(L)**
+> (`DepthPRecursiveInstances.newton_polyDepth`; the single column
+> `binomCol_polyDepth` is the case `c = δ_k`.) The `d`-th difference is the constant
+> top coefficient `c d` — one `diff` lowers the form by exactly one degree
+> (`diff_newton`), iterated `d` times.
+
+The instances follow. **e** is closed end-to-end: its convergent denominators obey a
+degree-1 P-recursive recurrence `eulerDen (n+1) = (n+1)·eulerDen n`, and its
+cross-determinant ratio `rₙ = n+1` has `polyDepth 1` — depth *equals* recurrence
+order (`e_finite_depth_iff_P_recursive`). **π** is now closed end-to-end too: its
+Wallis recurrences are P-recursive of order 1 with degree-2 step coefficients
+(`pi_is_P_recursive`), and its **full degree-4 cross-determinant ratio**
+`4(n+1)²(2n+1)(2n+3)` has a *proven* `polyDepth 4` (`DepthPiQuartic.piRatio_polyDepth`:
+four finite differences reach the constant `384 = 4!·16`) — confirming π's divergence
+depth 6 (1 cross-det + 1 ratio + 4 differences) ∅-axiom. The nonlinear-`Nat`
+expansion this required (no Mathlib `ring`) is discharged by a small ∅-axiom
+*reflection* prover (`Meta.Nat.PolyNat.poly_id`): mirror each side as a polynomial
+tree, normalise to a Horner coefficient list, equal lists ⟹ equal values — all by
+`rfl`, no `propext`.
+
 This explains §5 exactly. The exp/tan family (`e`, `e²`, `tan 1`, `tanh 1`) have
 arithmetic continued fractions *because* their convergent data is P-recursive —
 finite depth. `π`, `arctan 1`, `ln 2` have no known arithmetic CF *because* (as far
@@ -344,13 +377,30 @@ value `c^{eₙ}`, resolve its **exponent sequence** `eₙ` one axis down.
 The tower of axes is therefore a **self-similar recursion**, not a stack of new
 primitives: the *same* `(diff / ratio)` ladder, applied one exponent-layer deeper at
 each step, bottoming out at a polynomial exponent. Liouville `c^{k!}` is precisely
-the case whose exponent `k!` is itself not diff-resolvable (it floors only under
-*ratio*, `k! ↦ k+1`) — so it needs the recursion one layer deeper, and the climb
-through exponent after exponent is the frontier toward `ε₀`.
+the case whose exponent `k!` is itself not diff-resolvable, and this is now pinned
+∅-axiom:
 
-The ordinal reading (classical interpretation of these (L) facts): each exponential
-layer multiplies the rank by `ω`. A value at exponential-depth `r` sits at `ω^r · d`;
-the finite-`r` supremum is `ω^ω`.
+> **The Liouville exponent has a finite recursion coordinate.** `ratioLift fact n =
+> (n+1)!/n! = n+1` collapses the super-polynomial `k!` to a degree-1 sequence in one
+> ratio, and one further difference floors it (`Δ(n+1) = 1`) — yet `k!` never floors
+> on the difference axis alone (`Δ(k!) = k·k!`). So the value `c^{k!}`, with **no**
+> finite `(h, d)`, sits at ratio-depth `1`, diff-depth `1` one recursion tier down.
+> **(L)** (`DepthLiouvilleCoord.liouville_exponent_coordinate`.)
+
+The ordinal reading is now itself ∅-axiom at every finite tower height: each
+exponential layer multiplies the rank by `ω`, and the depth-`r` tower coordinate is
+an ordinal below `ω^r`.
+
+> **The depth-`r` tower coordinate is a well-order, an ordinal `< ω^r` — the whole
+> `ω^ω` ladder, level by level.** The `r`-fold nested lexicographic product `Coord r`
+> is well-founded for every `r` (`coord_wf`, generalising `lex_wf` from `ω²`), and
+> one more layer strictly dominates the entire lower tower (`coord_layer_dominates`:
+> `ω^r·a + ‹sub-ω^r› < ω^r·(a+1)`). **(L)** (`DepthOmegaTower`.) `coord_wf 2`
+> recovers `DepthOrdinal`'s `ω²`.
+
+What stays a *classical reading* (C) is only the identification of a *particular
+transcendental's* tower with a *specific* `ω^r·d` — the lattice of ranks is proven;
+pinning a given real onto a named rung is the holonomic-bridge gap (§10).
 
 ### 14. Is `ε₀` the end of the axes? No
 
@@ -358,9 +408,11 @@ The natural question — do the axes stop? — has a clean, honest answer, separ
 proven step from the classical reading.
 
 - **Proven (L):** `ratioN` cannot cross one exponential layer (`dexp_not_const`); the
-  second layer needs the §13 recursion. This is the *first rung* of the ladder, pinned
-  ∅-axiom.
-- **Classical reading (C):** finite exponential towers reach `ω^ω`. Reaching `ε₀`
+  second layer needs the §13 recursion. The positive complement is also pinned: the
+  double exponential's *exponent* `cⁿ` floors under one ratio-lift one axis down
+  (`DepthOmegaTower.dexp_exponent_floors`). And every finite rung `ω^r` is now a
+  proven well-order (`coord_wf`), so the finite-`r` ladder up to `ω^ω` is ∅-axiom.
+- **Classical reading (C):** the *supremum* `ω^ω` and beyond. Reaching `ε₀`
   requires diagonalising the tower *height* `r` itself — a further meta-recursion
   (`ω^ω`, `ω^{ω^ω}`, … with limit `ε₀`). But `ε₀` is a *fixed point*
   (`ω^{ε₀} = ε₀`), the closure of *one* diagonalisation — **not a top.** `ε₀ + 1`,
@@ -487,6 +539,16 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lib/Math/Cauchy/DivergenceLadder.lean` — `diff`, `liftK`, `reachesFloor`,
     `e_ratio_floor`, `infinite_depth`, `const_reaches_floor`
   - `lean/E213/Lib/Math/Cauchy/DepthPRecursive.lean` — depth = P-recursive rank
+    (structural: `polyDepth_succ_iff`)
+  - `lean/E213/Lib/Math/Cauchy/DepthPRecursiveInstances.lean` — the witnesses:
+    `newton_polyDepth` (every degree-`d` discrete polynomial has depth `d`, via
+    exact Pascal differences; `binomCol_polyDepth` is the single-column case);
+    `e_finite_depth_iff_P_recursive` (e: order-1 recurrence + `polyDepth 1`);
+    `pi_is_P_recursive` (π's Wallis recurrences + `polyDepth 2` step coefficient)
+  - `lean/E213/Lib/Math/Cauchy/DepthPiQuartic.lean` — `piRatio_polyDepth`: π's full
+    degree-4 cross-det ratio has `polyDepth 4` (depth 6 confirmed ∅-axiom)
+  - `lean/E213/Meta/Nat/PolyNat.lean` — `poly_id`: ∅-axiom reflection prover for
+    `Nat` polynomial identities (the nonlinear-`Nat` `ring` replacement)
 
 **Part IV — the axes and their ordinal hierarchy**
   - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,
@@ -497,6 +559,13 @@ the Lean disagree, the Lean wins.
     `value_floors_iff_exponent_floors` (value-height = 1 + exponent-height)
   - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN_dexp`, `dexp_not_const`
     (`ratioN` cannot cross one exponential layer)
+  - `lean/E213/Lib/Math/Cauchy/DepthOmegaTower.lean` — `coord_wf`,
+    `coord_no_infinite_descent`, `coord_layer_dominates` (depth-`r` tower coordinate
+    is an ordinal `< ω^r`; the `ω^ω` ladder, each layer ×`ω`); `expTower`,
+    `dexp_exponent_floors` (positive companion to `dexp_not_const`)
+  - `lean/E213/Lib/Math/Cauchy/DepthLiouvilleCoord.lean` —
+    `liouville_exponent_coordinate` (`ratioLift fact = n+1`, one diff floors it;
+    `Δ(k!) = k·k!`: `c^{k!}` has no finite `(h,d)` but a finite recursion coordinate)
 
 **Part V — the closure**
   - `lean/E213/Lib/Math/Cauchy/DepthCeilingResidue.lean` — `diag_not_in_seq`,

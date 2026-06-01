@@ -93,6 +93,11 @@ Active top-level registries after merge:
 | `G135_padic_closure_synthesis.md` | Synthesis note from post-G122 padic library closure | post-closure synthesis (could be archived) |
 | `G136_kplus1_marathon_insights.md` | Insight note from G132 cup-ladder marathon; companion to `theory/math/cohomology/cup_ladder_graduation.md` | post-closure synthesis |
 | `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/gra_book.md Ch.6 | post-closure synthesis |
+| `archive/G155_holonomic_real_architecture.md` | HolonomicReal: modulus-as-data type architecture.  Axis 1 (bundled certificate) + the general generator → `theory/math/analysis/holonomic_modulus.md` (`Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus}`, all ∅-axiom); the forward closure question (rate-carrying under +/×) continues in `G166` T3, the automaton-real / `CertStream` sketches preserved here as record of the path |
+| `G166_tower_native_real_research_program.md` | The tower-native real-number agenda: completability = comparison of two growth-axes (cross-det vs denominator) *inside* the resolution-axis tower.  T1 exponential-overtake boundary layer; T2 Liouville recursion-coordinate; T3 rate-carrying closure under +/×/exponent; T4 top-down coordinate→real.  Tie: tower has no top = residue | **active** (research agenda) |
+| `archive/G164_holonomic_generator_constructive_boundary.md` | The generator is total-constructive on the algebraic class AND degree-1 (e); the "LEM wall" is a rate-free artifact, not transcendence — absorbed into `theory/math/analysis/holonomic_modulus.md` §2–4 |
+| `archive/G165_modulus_rate_frontier.md` | The free-total-modulus criterion `tailᵢ·k·dᵢ < 1` (rate beats the denominator-gap quantum) — absorbed into `theory/math/analysis/holonomic_modulus.md` §1, §4 |
+| `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion (what was removed) | active registry |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
 | `archive/G61_213_tower_research_candidates.md` | 213-tower candidate enumeration — superseded by G62/G63/G64 closures |
@@ -121,6 +126,11 @@ Active top-level registries after merge:
 | `archive/c_counter/G142_K33_massey_full_h2_map.md` | Full H² map of K_{3,3}^{(c=2)} (all 5 dims, 4-fold Massey 5th) — absorbed into `theory/math/cohomology/k_nm_c_classification.md` |
 | `archive/c_counter/G142_p_x_symmetry_classification_algorithm.md` | Algorithmic classification of P(x) symmetries — absorbed into `theory/math/mobius213_p_orbit_closure.md` Px catalog |
 | `archive/c_counter/G144_p_symmetry_meta_patterns.md` | 12 meta-patterns + 4 deep insights from P(x) species programme — superseded by P-orbit closure (see `theory/math/mobius213_p_orbit_closure.md` and `theory/essays/p_orbit_closure_master.md`) |
+| `archive/G154_depth_floor_is_the_p_orbit.md` | depth-floor IS the P-orbit (det 1) — closed-and-absorbed into `Cauchy/DepthFloorDetOne.lean` + `theory/math/completeness_without_completeness.md` + essays `every_axis_sees_p`/`p_orbit_closure_master` (the §2 GRA↔CD aspiration is out of scope) |
+| `archive/G156_configcount_level_injectivity.md` | fractal-level tower is a strict order-embedding — result in `Cohomology/Fractal/ConfigCount.lean`; N_U-removal context in `RERESEARCH_n_u_removal.md` |
+| `archive/G157_why_525_is_not_a_resolution.md` | the *why* behind the `5²⁵`-as-resolution deletion — closed decision; registry `RERESEARCH_n_u_removal.md` |
+| `archive/G158_depth_floor_det_one_scoping.md` | scoping for `depth_floor_is_det_one` — target CLOSED (`Cauchy/DepthFloorDetOne.lean`, both directions) |
+| `archive/G159_build_gate_hole_orphan_audit.md` | ~350-orphan build-gate hole — RESOLVED (`tools/full_build.sh` rebuilds all modules) |
 
 Renaming note: my G123/G124/G125 collided with the n-u branch's
 G123 (N_U family, promoted), G124 (cross-field survey, OPEN

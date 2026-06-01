@@ -42,6 +42,17 @@ theorem liftK_diff_comm (k : Nat) (s : Nat → Nat) :
   | zero => rfl
   | succ j ih => show diff (liftK (j+1) s) = diff (liftK j (diff s)); rw [ih]
 
+/-- `liftK` respects pointwise equality — `(∀ m, f m = g m) → liftK d f n = liftK d
+    g n` — proved without `funext` (each `liftK` value depends on finitely many
+    points, and `diff` is pointwise).  Lets a *pointwise* identity be pushed under the
+    iterated lift. -/
+theorem liftK_congr : ∀ (d : Nat) (f g : Nat → Nat), (∀ m, f m = g m) →
+    ∀ n, liftK d f n = liftK d g n
+  | 0,   f, g, h, n => h n
+  | d+1, f, g, h, n => by
+    show (liftK d f) (n+1) - (liftK d f) n = (liftK d g) (n+1) - (liftK d g) n
+    rw [liftK_congr d f g h (n+1), liftK_congr d f g h n]
+
 /-- `polyDepth d s`: the `d`-th finite difference of `s` is constant — `s` is a
     discrete polynomial of degree at most `d` (P-recursive of difference-order
     `d`). -/
