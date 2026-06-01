@@ -323,6 +323,52 @@ and formalised** at the basis-loop level; the non-linear (Fibonacci)
 re-index is **refuted**; the honest completion is a discriminant-branching
 forest, whose finite shadows are now ∅-axiom theorems.
 
+### Phase 8 — seed-`μ` governance (the imaginary-quadratic-units thread)
+
+The numbers from Phase 7 point past "branching forest" to *what indexes
+the branches*.  Seed unit counts: `ℤ[√-2]` = 2, `ℤ[i]` = 4, `ℤ[ω]` = 6,
+Hurwitz = 24.  Per-level counts: Type A `= 2·dim`, Type B `= 1·dim`,
+Type C `= 3·dim`; order-4 counts: dyadic `2·dim − 2`, Eisenstein
+`3·dim − 6`.  **Classical fact:** the only imaginary quadratic fields
+with units past `{±1}` are `ℚ(i)` (`μ₄`, 4 units) and `ℚ(ω)=ℚ(√-3)`
+(`μ₆`, 6 units); every other imaginary quadratic order has `μ₂ = {±1}`.
+So the meta-tower's columns look governed by the seed's **root-of-unity
+group `μ`**, with `ℤ[i]`, `ℤ[ω]` the two exceptional dense columns.
+
+Conjectures (status `?` pending the Phase-8 data + math agents):
+
+- **P8-A (`μ` governs density).**  Per-level unit count `= (|μ_seed|/2)·dim`;
+  density `c = |μ_seed|/2 ∈ {1,2,3}` for `μ ∈ {μ₂,μ₄,μ₆}` (B, A, C).
+  *Formalizable:* the `c·dim` law from the unit-doubling theorems.
+- **P8-B (`μ` odd-torsion governs branch).**  Loop-spine torsion menu =
+  the 2-power torsion (always) plus the **odd part of `μ_seed`**: `μ₂,μ₄`
+  give 2-power only (dyadic); `μ₆` adds `3,6`-torsion (Eisenstein).  So
+  *branch = whether `3 ∣ |μ_seed|`*.  Grounded already by
+  `no_cross_branch_loop_iso` (order-3: 0 vs 2).
+- **P8-C (exceptional columns).**  Among imaginary quadratic seeds,
+  exactly `ℤ[i]` and `ℤ[ω]` are dense (`c>1`); all `ℤ[√-D]` (`D≥2`) are
+  density-1 generic dyadic.  This is the CD-tower shadow of the `μ₄/μ₆`
+  exceptionality.  *Formalizable only as the finite trichotomy
+  `|μ_seed| ∈ {2,4,6}`; the "only these" is a field-theory fact, not a
+  decide.*
+- **P8-D (Hurwitz = Eisenstein-containing, rank 2).**  `2T` (Hurwitz, 24
+  units, element orders `{1,2,3,4,6}`) contains `μ₆` (`ω ∈` Hurwitz), so
+  its torsion menu `⊇` Eisenstein's; it is a **quaternion (rank-2)** seed,
+  the "next dimension of seed".  Conjecture: Type D's spine contains the
+  Eisenstein spine.  *Test:* does Hurwitz have order-3 units (`>0`)?
+- **P8-E (closed forms).**  order-4 count `= c·dim − k`, with `k` = the
+  non-order-4 units (`±1` plus the cyclotomic surplus): dyadic `2·dim−2`
+  (`k=2`), Eisenstein `3·dim−6` (`k=6 = 2 + 2·(order-3) + 2·(order-6)`).
+  *Formalizable per level; the closed form is the conjecture.*
+
+**The deeper object (P8 candidate completion).**  The "complete tower"
+is the **family of CD towers over imaginary quadratic (and quaternion)
+orders, fibered by the unit group `μ`** — classical CD = the `ℤ[i]`
+column; the special columns (`i`, `ω`, and the quaternionic `2T`) are the
+CM-exceptional points with extra automorphisms.  `μ ∈ {2,4,6}` (plus `2T`
+for the rank-2 lift) is the organizing trichotomy.  Decidable shadows:
+the density `c·dim` law, the order-4 closed forms, and `branch = 3∣|μ|`.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
