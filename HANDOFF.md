@@ -180,7 +180,13 @@ A–D + B are now **all closed ∅-axiom this arc**:
     OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
     fast for the smallness law; needs `μ(π)`); more instances need their convergents
     as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet
-    num/den).
+    num/den).  **Tower-native research agenda** (`research-notes/G166`): completability
+    = comparison of two growth-axes (cross-det vs denominator) *inside* the tower —
+    T1 the exponential-overtake boundary layer (`DepthExponentRecursion`/`DoubleExp`);
+    T2 Liouville's recursion-coordinate vs the denominator (`DepthLiouvilleCoord`);
+    T3 rate-carrying closure under `+`/`×`/exponent; T4 top-down coordinate→real.  Tie:
+    the tower has no top = the residue (`DepthCeilingResidue`).  These are the sharpest
+    next ∅-axiom targets — internal to the tower, no classical measure.
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
