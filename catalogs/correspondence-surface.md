@@ -58,7 +58,10 @@ closure companions `universalLens_{recovers_R, idempotent_R}` PURE.  The
 
 PURE now: `Universal.QuotLens`, `Instances.Cauchy`, `Lattice.{Join,
 IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
-`Properties.CanonicalForm`, `Lib.Math.Choice.Resolved`.
+`Properties.CanonicalForm`, `Lib.Math.Choice.Resolved`,
+`Instances.Leaves.DepthJoin` (the leaves⊔depth tier classification — the
+`omega`/`simp` arithmetic was replaced by explicit PURE Nat reasoning +
+`if_pos`/`if_neg`).
 
 Still DIRTY — a **distinct** mechanism (not this API):
   · `Compose.{OnLens (9), OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`,
@@ -69,9 +72,6 @@ Still DIRTY — a **distinct** mechanism (not this API):
     `HasDistinguishing`-eqPW rebuild, not `equivR`.
     (`Lib.Math.Cauchy.GenericFamily` was the same funext-on-`ι → β`-codomain
     shape and is now PURE — `projectionLens_view` stated pointwise-at-index.)
-  · `Instances.Leaves.DepthJoin` (10) — `propext`/`Quot.sound` from `omega` /
-    `simp`-closed `Nat` arithmetic, the `omega`/`simp`→explicit purification
-    playbook (cf. `Mobius213.Px`).
 
 ## (D) Genuine results via classical representation — purifiable backlog
 

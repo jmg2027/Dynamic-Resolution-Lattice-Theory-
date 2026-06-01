@@ -94,8 +94,12 @@ stated via `=`) is **retired**.  All three walls solved:
     `Properties.TowerLevel3`, `Lib.Math.Cauchy.GenericFamily`): `Quot.sound` from
     `funext` on a function-valued `combine` (Lens-of-Lens composition).  Target:
     the pointwise Lens equality `Lens.eqPW` (`Lens/EqPW.lean`), already PURE.
-  - **DepthJoin `omega`/`simp`** (`Instances.Leaves.DepthJoin`, 10): `Nat`
-    arithmetic helpers; `omega`/`simp`→explicit playbook (cf. `Mobius213.Px`).
+  - **DepthJoin** (`Instances.Leaves.DepthJoin`) — **DONE** (10 → 0): `omega` /
+    `simp` / `decide`-closing-`Iff` replaced by explicit PURE Nat reasoning
+    (new micro-lemmas: `two_le_add`, `eq_one_of_add_eq_two`, `max_eq_zero`,
+    `two_le_of_ne_one`, `or_ge_one_of_max_ge_one`, `ge_two_of_ne_zero_ne_one`,
+    `two_le_leaves_of_depth_ge_one`; tier characterized via `if_pos`/`if_neg`
+    helpers).  `depth_ge_two_leaves_ge_three` also simplified (no induction).
 
 ## OPEN — smaller / scoped
 
