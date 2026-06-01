@@ -138,10 +138,11 @@ A–D + B are now **all closed ∅-axiom this arc**:
     Follow-on results (agent-collaboration round): **W=d unification**
     (`Real213/CrossDetEqDenom`, 3/0): `crossdet_eq_denom_total_modulus` — one theorem
     behind e and Liouville (both reproven as one-liners). **Sharp growth-rate threshold**
-    (`Real213/GeometricThreshold`, 7/0): geometric `W=r^i` over `d=q^i` is free iff
-    `r < q` (`r+1 ≤ q`, `geom_crossdet_small` for all i≥1) — corrects the naive `r≤q`
-    (equal-rate `r=q` fails, polynomial factor `i(i+1)` spoils it); strong overtake
-    `q²≤r` breaks it (`geom_crossdet_overtake`).  **Depth-exactness** added
+    (`Real213/GeometricThreshold`, 6/0): **exact iff** `geom_boundary_iff` —
+    `CrossDetSmall (r^·) (q^·) ↔ r < q` (for q≥2).  Free side all i≥1
+    (`geom_crossdet_small`); broken side (`geom_crossdet_overtake_sharp`, every `q≤r`)
+    at the single fixed witness `i=q`.  Corrects the naive `r≤q` — equal-rate `r=q`
+    fails, the polynomial factor `i(i+1)` outliving the single denominator factor `q`.  **Depth-exactness** added
     (`DepthPRecursiveInstances.binomCol_depth_exact`, `DepthCoordGenerator.genExp_depth_exact`):
     the binomial column floors at *exactly* `d`, so T4's "surjective generator" is now a
     theorem, not a docstring claim.  W-relation rungs: `{W const (algebraic), W=d

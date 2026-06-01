@@ -23,22 +23,18 @@ exponential rate is not enough; the cross-determinant must grow *strictly slower
     factor into the geometric gap.
   * ★★★ `geom_crossdet_small` — `r + 1 ≤ q ⟹ CrossDetSmall (r^·) (q^·)` for **all**
     `i ≥ 1` (no eventually-quantifier): below the rate threshold, free.
-  * ★★★ `geom_crossdet_overtake` — `q^2 ≤ r ⟹ ¬ CrossDetSmall (r^·) (q^·)`: a strong
-    overtake (rate at least the square) breaks it, via `overtake_breaks` at `i = 2`.
-  * `geom_completability_boundary` — both sides bundled, the geometric analogue of
-    `completability_boundary`.
-
-The window `q < r < q^2` (overtake by a rate above `q` but below `q^2`) also fails, but
-the failing index varies with `r/q`, so its clean single-statement falsifier needs a
-per-`(r,q)` witness index rather than the fixed `i = 2`; `q^2 ≤ r` is the clean
-immediately-provable complement to the sharp free side.
+  * ★★★ `geom_crossdet_overtake_sharp` — `q ≤ r ⟹ ¬ CrossDetSmall (r^·) (q^·)`: at or
+    above the denominator's rate it breaks, tested at the single fixed witness index
+    `i = q` (no overtake lemma, no `q^2` machinery — covers the equal-rate case `r = q`
+    and everything above).
+  * ★★★ `geom_boundary_iff` — the exact boundary: `CrossDetSmall (r^·) (q^·) ↔ r < q`.
 
 All zero-axiom.
 -/
 
 namespace E213.Lib.Math.Real213.GeometricThreshold
 
-open E213.Lib.Math.Real213.CrossDetOvertake (CrossDetSmall overtake_breaks)
+open E213.Lib.Math.Real213.CrossDetOvertake (CrossDetSmall)
 open E213.Tactic.NatHelper (mul_assoc add_mul)
 
 /-- ★ **The polynomial-into-geometric engine.**  `r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}` —
@@ -105,43 +101,58 @@ theorem geom_crossdet_small {r q : Nat} (hrq : r + 1 ≤ q) :
       _ = (n+1+1) * q ^ (n+1+1) := by rw [mul_assoc, ← Nat.pow_succ']
   exact Nat.le_trans (Nat.add_le_add_right term1 _) hsum
 
-/-- `q^{m+2} ≤ (q^2)^{m+1}` — a helper for the overtake side. -/
-theorem q_pow_le {q : Nat} (m : Nat) : q ^ (m + 2) ≤ (q ^ 2) ^ (m + 1) := by
-  induction m with
-  | zero => rw [Nat.pow_one]; exact Nat.le.refl
-  | succ k ih =>
-    rw [Nat.pow_succ ((q^2)) (k+1), Nat.pow_succ q (k+2)]
-    have hq : q ≤ q ^ 2 := by
-      rcases Nat.eq_zero_or_pos q with h|h
-      · subst h; rw [Nat.pow_two]; exact Nat.zero_le _
-      · rw [Nat.pow_two]; exact Nat.le_mul_of_pos_left q h
-    exact Nat.mul_le_mul ih hq
+/-- `q·(q+1) + q = q·(q+2)` — the cross-determinant-side collapse at the witness
+    index `i = q`. -/
+theorem q_collapse (q : Nat) : q * (q + 1) + q = q * (q + 2) := by
+  rw [Nat.mul_add, Nat.mul_add, Nat.mul_one]
+  rw [Nat.add_assoc, show q + q = 2 * q from (Nat.two_mul q).symm]
+  rw [show q * 2 = 2 * q from Nat.mul_comm q 2]
 
-/-- `q^{i+1} ≤ r^i` for `i ≥ 1` when `q^2 ≤ r` (the strong-overtake hypothesis). -/
-theorem geom_overtake_pow {q r : Nat} (hr : q ^ 2 ≤ r) (i : Nat) (hi : 1 ≤ i) :
-    q ^ (i + 1) ≤ r ^ i := by
-  match i, hi with
-  | m + 1, _ => exact Nat.le_trans (q_pow_le m) (Nat.pow_le_pow_left hr (m+1))
+/-- ★★★ **At or above the denominator's rate ⟹ broken.**  For `q ≥ 2` and `q ≤ r`,
+    `CrossDetSmall (r^·) (q^·)` fails — tested at the single fixed witness index
+    `i = q`: smallness would force `q(q+2)·q^q ≤ q(q+1)·q^q` (LHS via `r^q ≥ q^q` and
+    the collapse `q(q+1)+q = q(q+2)`; RHS via `(q+1)q^{q+1} = q(q+1)q^q`), contradicting
+    `q(q+1) < q(q+2)`.  Needs only `q ≤ r` — covering the equal-rate case `r = q` and the
+    whole window up to the strong overtake, with no overtake lemma. -/
+theorem geom_crossdet_overtake_sharp {q r : Nat} (hq : 2 ≤ q) (hrq : q ≤ r) :
+    ¬ CrossDetSmall (fun i => r ^ i) (fun i => q ^ i) := by
+  intro hcs
+  have hq1 : 1 ≤ q := Nat.le_trans (by decide) hq
+  have hsmall : q * (q + 1) * r ^ q + q * q ^ q ≤ (q + 1) * q ^ (q + 1) := hcs q hq1
+  have hrq_pow : q ^ q ≤ r ^ q := Nat.pow_le_pow_left hrq q
+  have hLB : q * (q + 1) * q ^ q + q * q ^ q ≤ q * (q + 1) * r ^ q + q * q ^ q :=
+    Nat.add_le_add_right (Nat.mul_le_mul_left _ hrq_pow) _
+  have hcollapse : q * (q + 1) * q ^ q + q * q ^ q = q * (q + 2) * q ^ q := by
+    rw [← add_mul, q_collapse]
+  have hRHS : (q + 1) * q ^ (q + 1) = q * (q + 1) * q ^ q := by
+    rw [Nat.pow_succ, Nat.mul_comm (q^q) q, mul_assoc q (q+1) (q^q),
+        Nat.mul_comm (q+1) (q * q^q), mul_assoc q (q^q) (q+1),
+        Nat.mul_comm (q^q) (q+1), ← mul_assoc q (q+1) (q^q)]
+  have hchain : q * (q + 2) * q ^ q ≤ q * (q + 1) * q ^ q :=
+    calc q * (q + 2) * q ^ q
+        = q * (q + 1) * q ^ q + q * q ^ q := hcollapse.symm
+      _ ≤ q * (q + 1) * r ^ q + q * q ^ q := hLB
+      _ ≤ (q + 1) * q ^ (q + 1) := hsmall
+      _ = q * (q + 1) * q ^ q := hRHS
+  have hqq : 1 ≤ q ^ q := Nat.pos_pow_of_pos q hq1
+  have hcoef : q * (q + 1) < q * (q + 2) := by
+    rw [← q_collapse q]; exact Nat.lt_add_of_pos_right hq1
+  have hlt : q * (q + 1) * q ^ q < q * (q + 2) * q ^ q :=
+    Nat.mul_lt_mul_of_pos_right hcoef hqq
+  exact absurd hlt (Nat.not_lt.mpr hchain)
 
-/-- ★★★ **Strong overtake ⟹ broken.**  If the cross-determinant's rate is at least the
-    square of the denominator's (`q^2 ≤ r`), then `CrossDetSmall (r^·) (q^·)` fails —
-    the overtake (`q^{i+1} ≤ r^i`) feeds `CrossDetOvertake.overtake_breaks` at `i = 2`. -/
-theorem geom_crossdet_overtake {q r : Nat} (hq : 1 ≤ q) (hr : q ^ 2 ≤ r) :
-    ¬ CrossDetSmall (fun i => r ^ i) (fun i => q ^ i) :=
-  overtake_breaks (fun i => r ^ i) (fun i => q ^ i)
-    (fun i => Nat.pos_pow_of_pos i hq)
-    (fun i hi => geom_overtake_pow hr i (Nat.le_trans (by decide) hi))
-
-/-- ★★★ **The sharp geometric completability boundary.**  Over the geometric
-    denominator `q^i` (`q ≥ 2`): a cross-determinant growing strictly slower
-    (`r + 1 ≤ q`) satisfies the smallness condition (free), while one growing at least
-    as the square (`q^2 ≤ r'`) breaks it.  The completability boundary is a comparison
-    of growth *rates*, with the threshold at `r < q` — matching the denominator's rate
-    is not enough. -/
-theorem geom_completability_boundary {q r r' : Nat} (hq : 2 ≤ q)
-    (hsmall : r + 1 ≤ q) (hover : q ^ 2 ≤ r') :
-    CrossDetSmall (fun i => r ^ i) (fun i => q ^ i)
-      ∧ ¬ CrossDetSmall (fun i => r' ^ i) (fun i => q ^ i) :=
-  ⟨geom_crossdet_small hsmall, geom_crossdet_overtake (Nat.le_trans (by decide) hq) hover⟩
+/-- ★★★ **The exact geometric completability boundary (an iff).**  Over the geometric
+    denominator `d_i = q^i` (`q ≥ 2`), `CrossDetSmall (r^·) (q^·)` holds **iff** the
+    cross-determinant grows strictly slower than the denominator, `r < q`.  Free below
+    the rate threshold (`geom_crossdet_small`), broken at or above it
+    (`geom_crossdet_overtake_sharp`).  Matching the denominator's exponential rate is
+    not enough — the boundary is exactly `r < q`. -/
+theorem geom_boundary_iff {q r : Nat} (hq : 2 ≤ q) :
+    CrossDetSmall (fun i => r ^ i) (fun i => q ^ i) ↔ r < q :=
+  ⟨fun hcs =>
+      match Nat.lt_or_ge r q with
+      | Or.inl hlt => hlt
+      | Or.inr hge => absurd hcs (geom_crossdet_overtake_sharp hq hge),
+   fun hlt => geom_crossdet_small (Nat.succ_le_of_lt hlt)⟩
 
 end E213.Lib.Math.Real213.GeometricThreshold

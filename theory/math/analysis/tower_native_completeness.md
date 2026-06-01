@@ -30,7 +30,7 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
-| `Real213/GeometricThreshold.lean` | 7 / 0 | the sharp growth-rate boundary: geometric `W=r^i` over `d=q^i` free iff `r < q` |
+| `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
@@ -72,17 +72,17 @@ modulus whatsoever exists.
 
 Between the constant and the double-exponential the boundary is a precise **growth-rate
 threshold** (`GeometricThreshold`).  Over a geometric denominator `d_i = q^i` with a
-geometric cross-determinant `W_i = r^i`, `CrossDetSmall` holds for all `i ≥ 1` iff the
-cross-determinant grows *strictly* slower than the denominator: `r < q` (`r + 1 ≤ q`,
-`geom_crossdet_small`).  The threshold is `r < q`, **not** `r ≤ q` — the equal-rate
-case `r = q` already fails, because the polynomial factor `i(i+1)` on the
-cross-determinant side is linear in `i` while the single extra denominator factor `q`
-is only linear in `q`.  Matching the denominator's exponential rate is not enough; a
-strong overtake `q^2 ≤ r` breaks it through the same `overtake_breaks` at `i = 2`
-(`geom_crossdet_overtake`), and `geom_completability_boundary` bundles the sharp
-boundary.  This sharpens the engine `succ_pow_ge` (`r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}`,
-the binomial first two terms) that absorbs the polynomial factor into one base
-increment.
+geometric cross-determinant `W_i = r^i`, `CrossDetSmall (r^·) (q^·)` holds **iff** the
+cross-determinant grows *strictly* slower than the denominator: an exact boundary
+`geom_boundary_iff : CrossDetSmall (r^·) (q^·) ↔ r < q` (for `q ≥ 2`).  The threshold is
+`r < q`, **not** `r ≤ q` — the equal-rate case `r = q` already fails, because the
+polynomial factor `i(i+1)` on the cross-determinant side is linear in `i` while the
+single extra denominator factor `q` is only linear in `q`.  The free side holds for all
+`i ≥ 1` (`geom_crossdet_small`, sharpening the engine `succ_pow_ge`,
+`r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}`, which absorbs the polynomial factor into one base
+increment); the broken side (`geom_crossdet_overtake_sharp`, every `q ≤ r`) is tested at
+the single fixed witness index `i = q`, where smallness would force
+`q(q+2)·q^q ≤ q(q+1)·q^q`.  Matching the denominator's exponential rate is not enough.
 
 ### Liouville is tame on this axis (`LiouvilleModulus`)
 
