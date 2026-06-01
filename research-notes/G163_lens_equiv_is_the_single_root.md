@@ -84,6 +84,27 @@ This is now a **single, well-scoped foundational edit** (a Reading-native
 piecemeal pointwise lemmas already scattered across the modules become instances
 of it.
 
+## Completion — the fix is *complete*, not additive (materialized)
+
+Is the Reading-native fix a real seal-elimination, or do consumers genuinely need
+Lean-`=`?  Traced the dependency: the sealed `universalLens_kernel_eq_E`
+(`view r = view r' ↔ E r r'`) is the **load-bearing hub** — consumed by ~6
+modules (`Lattice/{Join,IndexedJoin,FamilyMeet,FamilyJoin}`, `Instances/Cauchy`,
+`Choice/Resolved`) through `=`-based `Lens.equiv`/`refines`.  So it is a *single
+root that carries a whole subsystem* (the refinement lattice), not an isolated
+seal.
+
+The migration anchor is materialized and **PURE**: `universalLens_kernel_eq_E_R`
+(`(universalLens E).equivR r r' ↔ E r r'`, via `view_eq_pw` + `Iff.trans`) —
+∅-axiom.  So the entire lattice/Cauchy refinement machinery **can** rebuild on
+`equivR`/`refinesR` without `funext`/`propext`: the fix is complete.  QuotLens now
+carries the full PURE Reading-native chain (`combine_sym_pw`, `view_eq_pw`,
+`kernel_eq_E_R`) beside the sealed `=` forms; `Lens/ReadingEquiv.lean` carries the
+`equivR`/`refinesR` structure (PURE) with the lone `=`-cost isolated in
+`equivR_to_equiv`.  **Remaining = engineering**: migrate the 6 spokes onto
+`kernel_eq_E_R`/`refinesR`, then the sealed `=` forms (and their `propext`/
+`Quot.sound`) can be retired for `Prop`-valued Lenses.
+
 ## Evidence / pointers
   - Pins: `equiv_from_pointwise` → `[propext, Quot.sound]`; `equivR_{refl,trans}`
     → PURE (probed).  `Raw.fold_slash_iff` (Theory, PURE).

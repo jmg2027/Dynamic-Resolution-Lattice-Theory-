@@ -189,10 +189,16 @@ foundational edit**: a Reading-native `Lens.equiv`/`refines` for `Prop` codomain
 refinesR refl/trans) **all PURE (7)**; the entire Lean-`=` cost is isolated to one
 bridge `equivR_to_equiv` (lone DIRTY).  Gated (Lens umbrella).  Plus the enabling
 primitive `Raw.fold_slash_iff` (Theory) + `universalLens_{combine_sym,view_eq}_pw`
-(QuotLens), all PURE.  Remaining = the engineering migration of the Prop-Lens
-family (`IndexedJoin`, `Compose.OnLens`, `Lattice.Join`, `Cauchy`, `DepthJoin`)
-onto `equivR`/`refinesR` — each already has the pointwise lemmas; restate kernels/
-refines via `equivR`.  `propAsDistinguishing` stays a thesis-cost.
+(QuotLens), all PURE.  **Fix is COMPLETE, not additive** (traced + materialized): the sealed
+`universalLens_kernel_eq_E` is the *load-bearing hub* consumed by ~6 lattice/Cauchy
+modules via `=`-based `refines`/`equiv`; its Reading-native form
+`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) is **PURE**, so the whole
+refinement lattice can rebuild on `equivR`/`refinesR`.  QuotLens now has the full
+PURE chain (`combine_sym_pw`/`view_eq_pw`/`kernel_eq_E_R`).  Remaining =
+engineering: migrate the 6 spokes (`Lattice/{Join,IndexedJoin,FamilyMeet,
+FamilyJoin}`, `Instances/Cauchy`, `Choice/Resolved`) onto `kernel_eq_E_R`/
+`refinesR`, then retire the sealed `=` forms.  `propAsDistinguishing` stays a
+thesis-cost.
 
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
