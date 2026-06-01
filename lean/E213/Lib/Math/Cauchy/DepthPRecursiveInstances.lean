@@ -60,9 +60,9 @@ All zero-axiom.
 namespace E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 
 open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK)
-open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm)
+open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm liftK_congr)
 open E213.Tactic.NatHelper
-  (add_sub_cancel_right add_mul mul_assoc add_sub_of_le mul_sub_distrib)
+  (add_sub_cancel_right add_mul mul_assoc add_sub_of_le mul_sub_distrib add_sub_add_of_le)
 
 /-! ## §1 — 213-native binomial and the monomial-column depth theorem -/
 
@@ -132,15 +132,6 @@ def newton (c : Nat → Nat) : Nat → Nat → Nat
   | 0,   _ => c 0
   | d+1, n => newton c d n + c (d+1) * binom n (d+1)
 
-/-- Split a difference of sums (general `Nat` helper): `(b+d) − (a+c) = (b−a) +
-    (d−c)` when `a ≤ b`, `c ≤ d` — the truncation-free case, what makes `diff`
-    additive on monotone summands. -/
-theorem add_sub_add_of_le {a b c d : Nat} (h1 : a ≤ b) (h2 : c ≤ d) :
-    (b + d) - (a + c) = (b - a) + (d - c) := by
-  have key : (a + c) + ((b - a) + (d - c)) = b + d := by
-    rw [Nat.add_add_add_comm a c (b-a) (d-c), add_sub_of_le h1, add_sub_of_le h2]
-  rw [← key, Nat.add_comm (a+c) ((b-a)+(d-c)), add_sub_cancel_right]
-
 /-- `binom · k` is monotone in `n` (Pascal: a column only grows). -/
 theorem binom_mono (k n : Nat) : binom n k ≤ binom (n+1) k := by
   cases k with
@@ -160,17 +151,6 @@ theorem newton_mono (c : Nat → Nat) : ∀ d n, newton c d n ≤ newton c d (n+
   | 0, _ => Nat.le_refl _
   | d+1, n => Nat.add_le_add (newton_mono c d n)
       (Nat.mul_le_mul (Nat.le_refl (c (d+1))) (binom_mono (d+1) n))
-
-/-- `liftK` respects pointwise equality — `(∀ m, f m = g m) → liftK d f n = liftK d
-    g n` — proved without `funext` (each `liftK` value depends on finitely many
-    points, and `diff` is pointwise).  This is what lets a *pointwise* difference
-    identity be pushed under the iterated lift. -/
-theorem liftK_congr : ∀ (d : Nat) (f g : Nat → Nat), (∀ m, f m = g m) →
-    ∀ n, liftK d f n = liftK d g n
-  | 0,   f, g, h, n => h n
-  | d+1, f, g, h, n => by
-    show (liftK d f) (n+1) - (liftK d f) n = (liftK d g) (n+1) - (liftK d g) n
-    rw [liftK_congr d f g h (n+1), liftK_congr d f g h n]
 
 /-- ★ **One difference lowers the Newton form by exactly one degree, with shifted
     coefficients** (pointwise): `diff (newton c (d+1)) n = newton (c ∘ succ) d n`.
