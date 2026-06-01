@@ -9,6 +9,12 @@ Direct formalization of the *structure-preserving morphism* between them.
 
 The typeclass-based formalization of `DistMorphism` lacks synthesis
 for multiple Prop instances — formalized directly via an explicit record.
+
+**Category (A) classical-correspondence surface**
+(`catalogs/correspondence-surface.md`): the `propext` here is the toll
+for stating the Bool→Prop bridge as Prop-`=`; the PURE 213-native twin
+is the `Bool` connectives themselves.  The ∅-axiom core does not depend
+on this module.
 -/
 
 namespace E213.Lens.Properties.Morphism.BoolProp

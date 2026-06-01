@@ -48,7 +48,11 @@ def LensTower (α : Type) [HasDistinguishing α] : Nat → Type
   | 0 => α
   | n + 1 => Lens (LensTower α n)
 
-/-- HasDistinguishing instance for LensTower α n — recursive. -/
+/-- HasDistinguishing instance for LensTower α n — recursive.
+    Category (A) classical-correspondence surface
+    (`catalogs/correspondence-surface.md`): states that the tower carries
+    the standard `HasDistinguishing` structure; `Quot.sound` enters via
+    the Lens `combine` function-`=`.  Terminal (no 213-internal consumer). -/
 def lensTowerHasDistinguishing (α : Type) [d : HasDistinguishing α] :
     (n : Nat) → HasDistinguishing (LensTower α n)
   | 0 => d

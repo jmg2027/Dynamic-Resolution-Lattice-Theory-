@@ -14,6 +14,7 @@ Lookup tables for the 213 library.  grep-able.
   recursor-inventory.md  185 inductive types with recursor invocations (G105)
   internal-hubs.md       top E213-internal load-bearing lemmas (G92 surface + G102 Expr)
   falsifier-roster.md    135 decide-verified impossibility theorems (G100 automated catalog)
+  correspondence-surface.md  propext / Quot.sound classification — the classical-correspondence surface (A) + thesis (B) + equivR-recoverable (C) + backlog (D) + plumbing (E)
 
 ## Usage
 

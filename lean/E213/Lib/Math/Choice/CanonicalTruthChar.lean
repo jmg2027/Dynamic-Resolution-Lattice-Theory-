@@ -4,6 +4,12 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # CanonicalTruthChar: Exact characterization of canonicalTruthMap
 
+**Category (A) classical-correspondence surface**
+(`catalogs/correspondence-surface.md`): these characterizations equate
+the Prop semantic-atom maps with PURE `Bool` lenses; the remaining
+`propext` is the Prop-side statement, the `Bool`-lens `view` equalities
+are the PURE 213-native content.
+
 The meaning of `SemanticAtom.canonicalTruthMap : Raw → Prop`
 (Xor-based): what determines the truth value of each Raw?
 
