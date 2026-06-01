@@ -50,4 +50,30 @@ protected theorem Raw.fold_slash {α : Type}
     exact hsym _ _
   · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
 
+/-- **Reading-equivalence (`↔`) fold/slash homomorphism** for `Prop`-valued
+    readings — the 213-native form of `fold_slash`.
+
+    `Raw.fold_slash` states slash-coherence as a function `=` (`c u v = c v u`),
+    which for a `Prop`/function-valued codomain pulls `funext` (= `Quot.sound`)
+    and `propext`.  But the residue's directionless slash (`a/b = b/a`,
+    `seed/AXIOM/03_form.md` §3.4) only ever needs the readings to *distinguish
+    the same things* — a **pointwise `↔`**, not Lean `=`.  Stated that way the
+    homomorphism is **∅-axiom**: the canonicalisation swap (`cmp = gt`) is
+    absorbed by the pointwise symmetry `hsym`, with no `funext`/`propext`.
+
+    This is the PURE primitive for stating the `Prop`-valued Lens
+    `combine_sym` / `view_eq` family as Reading-equivalences rather than
+    function-`=`. -/
+protected theorem Raw.fold_slash_iff
+    (ba bb : Raw → Prop) (c : (Raw → Prop) → (Raw → Prop) → (Raw → Prop))
+    (hsym : ∀ u v s, c u v s ↔ c v u s)
+    (x y : Raw) (h : x ≠ y) (s : Raw) :
+    Raw.fold ba bb c (Raw.slash x y h) s
+      ↔ c (Raw.fold ba bb c x) (Raw.fold ba bb c y) s := by
+  unfold Raw.slash Raw.fold
+  split <;> rename_i hc
+  · exact Iff.rfl
+  · exact hsym _ _ s
+  · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
+
 end E213.Theory
