@@ -90,20 +90,22 @@ stated via `=`) is **retired**.  All three walls solved:
 
 ## OPEN — Lens DIRTY follow-ups (distinct mechanisms, not headline (a))
 
-  - **Compose funext-on-combine** (`Compose.OnLens (9)` + `Properties.TowerLevel3
-    (1)`, all `Quot.sound`-only): `funext` on `HasDistinguishing.combine_sym`
-    (`= ` field) at codomain `Lens β`.  Retire by the **`same`-augmented
-    `HasDistinguishing` rebuild** — design **validated** (autoParam `same`-fields
-    = design C, diamond-free), cascade shown **mechanical** (relativize `=`→`same`
-    + thread an `hSsame` closure hyp, trivial at Eq-codomains), full recipe in
-    **`research-notes/G164`**.  PURE foundations **materialized + committed**:
-    `Raw.fold_slash_rel` (`Theory/Raw/Fold.lean`), `Lens.sameLens` +
-    `sameLens_refl/symm/trans` (`Lens/EqPW.lean`),
-    `lensCombineGeneric_{comm,cong}_same` (`OnLens`), + the eqPW twins.  Remaining
-    = the **one atomic commit** (SemanticAtom class + universal-morphism +
-    OnLens instances, kept green together — `lake build` default target does NOT
-    cover `Compose.OnLens`, verify explicitly) then thread `hSsame` through
-    Reach/ImageMinimum/OnLensImage*/TowerLevel3/Hyper213Tower.  Fresh-session task.
+  - **Equivalence-unification arc** (architecture decision — see
+    **`research-notes/RFC_reading_equivalence_primitive.md`**, accepted).
+    Reading-equivalence (`ReadingEq.same`) becomes 213's *canonical* equivalence
+    primitive; `=` is its pure realization at concrete codomains; `propext` stays
+    only at the `Prop`-atom thesis (category B).  The scattered `=`-based
+    samenesses (`Lens.equiv/refines`, `HasDistinguishing.combine_sym`, kernels)
+    unify into one Lens-arrow.  Phases P0 (done: category-C retired) → P1 (settle
+    the encoding §5 on a scratch — recommend (c), drop the universal `Eq`
+    fallback) → P2 (Lens tower / `Compose.OnLens (9)` + `TowerLevel3 (1)` via
+    `G164` design D2, confined) → P3 (`HasDistinguishing` over `same`) → P4
+    (collapse fragmentation, promote narrative).  **Foundational coherence, NOT a
+    Validation target — do not displace the precision/falsifier work.**  PURE
+    foundations materialized: `Raw.fold_slash_rel`, `Lens.sameLens` + laws,
+    `lensCombineGeneric_{comm,cong}_same`, `ReadingEq` + `equivG`/`refinesG`.
+    Technical investigation: `G164` (5 passes — design-C-cascade scope + the
+    defeq/diamond encoding findings).
     (`GenericFamily` was the same family and is now
     PURE — pointwise-at-index.)
   - **DepthJoin** (`Instances.Leaves.DepthJoin`) — **DONE** (10 → 0): `omega` /
