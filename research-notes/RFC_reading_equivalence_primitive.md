@@ -148,26 +148,43 @@ a broken module can pass it.
     `HasDistinguishing.combine_sym` are facets of one `ReadingEq`/Lens-arrow;
     promote the unified narrative to `theory/lens/unified_equivalence.md`.
 
-## 5. Open encoding decision (resolve in P1, the only real unknown)
+## 5. Encoding decision — RESOLVED (P1, validated on scratch)
 
 How is the single canonical `same` attached without the diamond?
 
-  (a) `class HasDistinguishing (α) extends ReadingEq α` — instances must supply
-      the `ReadingEq` fields (autoParam-defaulted to `Eq`); one `same` per
-      instance, no overlap.  Cleanest if autoParam defaults survive `extends`.
-  (b) `same`/laws as direct fields of `HasDistinguishing` (no separate class) —
-      diamond-free by construction, but duplicates `ReadingEq` (loses the
-      "one primitive" story for non-`HasDistinguishing` codomains).
-  (c) `ReadingEq` as an `outParam`-free standalone primitive that *every*
-      sameness site (`Lens.equivG`, `HasDistinguishing`, …) consumes via
-      `[ReadingEq α]`, with a deliberate **instance-coherence discipline** (no
-      overlapping `ReadingEq` instances; the `Lens β` instance is the *only*
-      `ReadingEq (Lens β)`, no low-priority `Eq` fallback for `Lens`).
+  (a) `class HasDistinguishing (α) extends ReadingEq α`.
+  (b) **`same` + `same_refl/symm/trans` + `combine_cong` as `autoParam` fields
+      directly on the class**, `combine_sym : ∀ x y, same (combine x y)
+      (combine y x)`.
+  (c) `HasDistinguishing (α) [ReadingEq α]` (parameter) — **diamond** (default-`Eq`
+      vs the `Lens β` pointwise instance overlap); rejected.
 
-Recommendation: **(c)** — it is the truest to "one primitive", and the diamond
-was caused by a *low-priority `Eq` fallback overlapping* a specific instance;
-removing the universal `Eq` fallback (making `ReadingEq` instances deliberate,
-not a catch-all) dissolves it.  Validate on the P1 scratch before committing.
+**DECISION: (b).**  A comprehensive P1 scratch (`HD` model with `um` / `um_slash`
+/ `um_unique` over `same`) validated **all** consumer shapes end-to-end,
+diamond-free:
+  * concrete `Eq`-instance (`boolHD`) omitting `same`/laws/`combine_cong` — the
+    `autoParam` (`:= by …`) defaults fill them, **no edits**;
+  * composite `pairHD` threading `same` (`same p q := da.same p.1 q.1 ∧ db.same
+    p.2 q.2`, laws/`combine_sym`/`combine_cong` componentwise) — the §2 "cascade"
+    point: it **works**, cleanly and mechanically;
+  * `Lens`-codomain `lensHD` via `Lens.sameLens da.same` (+ `sameLens_*` laws,
+    `(R := da.same)`-pinned) — the recursive/funext point;
+  * generic consumer relativized to `same` (abstract α);
+  * `Eq`-consumer extracting `=` via `have e : (lhs = rhs) := um_slash …; exact e`
+    (default-transparency ascription);
+  * recursive `lensHD`-over-`boolHD` usable.
+
+This **corrects the earlier draft recommendation (c)**: the diamond is intrinsic
+to the *parameter* encoding; **(b) avoids it by construction** (one `same` per
+instance, carried in the structure), needs no surgery on the universal `Eq`
+fallback that `Lens.equivG` relies on, and the composite-instance threading
+(the "24-file cascade") is mechanical and validated — a *cost*, not a *blocker*.
+`ReadingEq` (the standalone class) remains for the Lens-lattice `equivG`/`refinesG`
+sites; `HasDistinguishing` carries its own `same` fields (b).  The "one primitive"
+story is preserved at the *concept* level (everything is reading-equivalence);
+the two carriers (`ReadingEq` instance vs `HasDistinguishing.same` field) are
+implementation detail, both realizing the same notion, both `Eq` at concrete
+codomains.
 
 ## 6. Scope, non-goals, priority (research-leadership boundary)
 
@@ -191,6 +208,21 @@ not a catch-all) dissolves it.  Validate on the P1 scratch before committing.
     `=` as its pure realization; `propext` only at the `Prop`-atom thesis.
   * **Rejected as the destination** (accepted as a way-station): design D
     (quarantine funext, keep `=` foundational).
-  * **Deferred to P1**: the encoding (§5(a)/(b)/(c)); recommendation (c).
+  * **Resolved in P1**: encoding **(b)** — `same`/laws/`combine_cong` as
+    `autoParam` class fields; validated on a comprehensive scratch (concrete /
+    composite / `Lens`-recursive / generic / `=`-extraction), diamond-free.
+    (Earlier draft recommendation (c) corrected — its diamond is intrinsic.)
   * **Invariant**: every step green + ∅-axiom-verified via the comprehensive
     build; foundational arc kept separate from validation work.
+
+## 8. Status / next
+
+  * **P0 done** (category-C retired) + foundations + `ReadingEq`.
+  * **P1 done** — encoding (b) validated on scratch (this update).  The only
+    real unknown is now closed; P2/P3 are **mechanical** (the `pairHD`/`lensHD`/
+    extraction patterns are the templates).
+  * **P2 next** (when the arc is scheduled): the Lens tower (`G164` design D2 /
+    encoding (b) for `lens*HasDistinguishing`) — confined to ~6 files, retires
+    10 DIRTY, zero Eq-world blast.
+  * Reminder (§6): foundational coherence, **not** a Validation target — schedule
+    around the precision/falsifier work, do not displace it.
