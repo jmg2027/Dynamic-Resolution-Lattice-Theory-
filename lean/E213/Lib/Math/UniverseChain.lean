@@ -2,7 +2,6 @@ import E213.Lib.Math.UniverseChain.Atomicity
 import E213.Lib.Math.UniverseChain.BipartiteFractal
 import E213.Lib.Math.UniverseChain.Decomposition
 import E213.Lib.Math.UniverseChain.FiniteContainsInfinite
-import E213.Lib.Math.UniverseChain.MobiusChain
 import E213.Lib.Math.UniverseChain.PairAxes
 import E213.Lib.Math.UniverseChain.RawBipartition
 import E213.Lib.Math.UniverseChain.RawCountGeneric
@@ -12,16 +11,15 @@ import E213.Lib.Math.UniverseChain.RawEnumeration
 import E213.Lib.Math.UniverseChain.RawRecurrence
 import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.UniverseChain.Residue
-import E213.Lib.Math.UniverseChain.Synthesis
 import E213.Lib.Math.UniverseChain.TriangleRecurrence
-import E213.Lib.Math.UniverseChain.Universe
 
 /-! Spec-as-code entry point for `E213.Lib.Math.UniverseChain`.
 
   Universe chain — Raw count / depth / enumeration / decomposition
-  / Möbius / bipartite-fractal / atomicity / finite-contains-
-  infinite / synthesis (17 files).
+  / bipartite-fractal / atomicity / finite-contains-infinite.
 
-  Theme: the recursive Raw → Universe chain that anchors the DRLT
-  N_U = d^(d²) count-Lens readout.
+  Theme: the recursive Raw → distinction chain.  Atomic forcing
+  (NS = 3, NT = 2, d = 5) and the residue are foundational; the
+  parametric vertex-count recursion `numV L = d^L` carries no
+  privileged level.
 -/
