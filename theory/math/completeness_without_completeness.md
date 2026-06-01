@@ -291,9 +291,11 @@ degree-1 P-recursive recurrence `eulerDen (n+1) = (n+1)·eulerDen n`, and its
 cross-determinant ratio `rₙ = n+1` has `polyDepth 1` — depth *equals* recurrence
 order (`e_finite_depth_iff_P_recursive`). **π** has its P-recursive recurrences
 exhibited (`pi_is_P_recursive`: Wallis num/den, degree-2 step coefficients, so the
-cross-determinant ratio is degree 4 — depth 6); pinning that quartic onto the
+cross-determinant ratio is degree 4 — depth 6), and its denominator step coefficient
+`(2n+1)(2n+3)` has a *proven* `polyDepth 2` (second difference the constant `8`, the
+one nonlinear-`Nat` identity done by hand). Pinning the full quartic onto the
 "degree 4 ⟹ depth 4" count is the one residual step blocked only by the absence of an
-∅-axiom `ring` for nonlinear `Nat` identities.
+∅-axiom `ring` for higher nonlinear `Nat` identities.
 
 This explains §5 exactly. The exp/tan family (`e`, `e²`, `tan 1`, `tanh 1`) have
 arithmetic continued fractions *because* their convergent data is P-recursive —

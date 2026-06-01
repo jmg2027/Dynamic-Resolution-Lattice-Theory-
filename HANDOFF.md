@@ -125,11 +125,14 @@ unclaimed extensions it exposes:
     Nat-truncation), so this is the clean ∅-axiom core of "finite depth ⟺
     P-recursive".  **e closed**: `e_finite_depth_iff_P_recursive` = order-1 recurrence
     `eulerDen (n+1) = (n+1)·eulerDen n` + `polyDepth 1` ratio (depth = order).
-    **π recurrences exhibited**: `pi_is_P_recursive` (Wallis num/den, degree-2 step
-    coeffs ⇒ degree-4 cross-det ratio ⇒ depth 6).  REMAINING sliver: pinning π's
-    *quartic* cross-det ratio onto `binomCol_polyDepth`'s "deg 4 ⟹ depth 4" needs a
-    nonlinear-Nat identity (`(2n+1)(2n+3)` etc. in binom basis) — blocked only by the
-    absence of an ∅-axiom `ring`/`omega` (omega is propext-dirty).  The G155
+    **π**: `pi_is_P_recursive` (Wallis num/den order-1 recurrences, degree-2 step
+    coeffs) PLUS `wallisDenCoeff_polyDepth` — the den step coefficient `(2n+1)(2n+3)`
+    has a *proven* `polyDepth 2` (2nd difference = const 8; the one nonlinear-Nat
+    identity `(2n+3)(2n+5) = (2n+1)(2n+3) + (8n+12)` done by hand via PURE
+    `NatHelper.{add_mul,mul_assoc}`).  REMAINING sliver: the *full* degree-4 cross-det
+    ratio polyDepth-4 needs the same hand-expansion 4× (degree 4→3→2→1→const), or a
+    PURE nonlinear-Nat `ring`/Newton-sum kit — the real infra gap (omega is
+    propext-dirty).  The G155
     HolonomicReal *type* architecture (bundle recurrence + derived `CertifiedModulus`;
     `toCertifiedModulus`) is the separate, heavier axis — needs the modulus/ValidCut
     machinery — and remains open.
