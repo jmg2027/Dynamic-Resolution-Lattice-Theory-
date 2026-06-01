@@ -304,11 +304,11 @@ canonically.
 `lean/E213/Lens/Universal/QuotLens.lean` constructs
 `universalLens : Lens (Raw → Prop)` whose view is *injective*
 modulo Lens-equivalence — every Lens M satisfies
-`universalLens (M.equiv).view r = universalLens (M.equiv).view
-r' ↔ M.equiv r r'` (theorem `universalLens_recovers`).
-`universalLens` is therefore the canonical normalised form of
-any Lens; `universalLens_idempotent` confirms applying twice
-yields the same kernel.
+`(universalLens M.equiv).equivR r r' ↔ M.equiv r r'` (theorem
+`universalLens_recovers_R`), stated on the Reading-equivalence
+`equivR` (pointwise `↔`), so ∅-axiom.  `universalLens` is therefore
+the canonical normalised form of any Lens; `universalLens_idempotent_R`
+confirms applying twice yields the same kernel.
 
 **Lens composition suite**.
 `lean/E213/Lens/Compose/{Morphism, OnLens, OnLensImage,

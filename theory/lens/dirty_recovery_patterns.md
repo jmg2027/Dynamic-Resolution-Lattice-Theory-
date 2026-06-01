@@ -146,13 +146,12 @@ kernel_correspondence` for the bidirectional statement (DIRTY,
 sealed by category (b)).
 
 ### Does NOT apply when
-The consumer needs the full bijection `{Lens kernels} =
-{slash-congruences}` stated as Lean `=` of view-functions.  Then
-`universalLens E` is the realising Lens and the `=`-direction
-(`kernel_correspondence` / `universalLens_kernel_eq_E`) is sealed.
-This is **not** structural, however: the Reading-native bijection
-`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) is PURE — see
-Pattern P5.  Use P5 unless the consumer literally needs Lean `=`.
+A consumer literally needs the bijection `{Lens kernels} =
+{slash-congruences}` stated as Lean `=` of view-functions.  That form
+would require funext/propext — which is exactly why it is retired: the
+Reading-native bijection `kernel_correspondence` /
+`universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`) carries the same
+content PURE (see Pattern P5), and is the form the codebase uses.
 
 ## Pattern P5 — Lens-`equiv` at a Prop codomain → `equivR` / `refinesR`
 
@@ -190,8 +189,7 @@ decidable / distinguishing layer out of `=`-at-`Prop`).
 `Lens/ReadingEquiv.lean` carries the `equivR` / `refinesR` structure
 (PURE).  The kernel hub `universalLens_kernel_eq_E_R`
 (`Lens/Universal/QuotLens.lean`) — `(universalLens E).equivR r r' ↔ E
-r r'` — is the Reading-native form of the load-bearing
-`universalLens_kernel_eq_E`, and is **PURE** (built from
+r r'` — is the load-bearing Reading-native kernel, **PURE** (built from
 `universalLens_view_eq_pw` + `Iff.trans`, ultimately
 `Raw.fold_slash_iff`).  Composition:
 
@@ -365,9 +363,9 @@ class.
   · `lean/E213/Lens/ReadingEquiv.lean` — P5 `equivR` / `refinesR`
     structure (PURE; lone shim `equivR_to_equiv`)
   · `lean/E213/Lens/Universal/QuotLens.lean` — P4/P5 reverse
-    direction: `universalLens_kernel_eq_E` (`=`-form, sealed) beside
-    `universalLens_kernel_eq_E_R` (`equivR`-form, PURE) and the
-    `*_pw` combine/view companions
+    direction: `universalLens_kernel_eq_E_R` (`equivR`-form, PURE), the
+    closure companions `recovers_R` / `idempotent_R`, and the `*_pw`
+    combine/view/fold companions
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`
     — cong constructor instance; see the `cong` case in
     `primary_cup_span_soundness_conditional`

@@ -75,7 +75,7 @@ theorem universalLens_combine_sym_pw (f g : Raw → Prop) (r' : Raw) :
     exact ⟨Y, X, Ne.symm h, hY, hX, by rwa [Raw.slash_comm Y X (Ne.symm h)]⟩
 
 /-- `view r` as a Reading-equivalence: `view r s ↔ E r s` for all `s` — PURE.
-    The pointwise form of `universalLens_view_eq`, via `Raw.fold_slash_iff`. -/
+    The view characterisation in pointwise-`↔` form, via `Raw.fold_slash_iff`. -/
 theorem universalLens_view_eq_pw
     (hrefl : ∀ r, E r r)
     (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')

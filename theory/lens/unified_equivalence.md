@@ -75,11 +75,13 @@ on α and never require new axioms.  All **PURE**.
 
 The reverse direction (every slash-congruence is some Lens's
 kernel) is `slash_cong_is_lens_kernel` via `universalLens E`
-(`Lens/Universal/QuotLens.lean`).  Stated as Lean `=` of views
-(`universalLens_kernel_eq_E`) it is DIRTY: `universalLens.combine`
-ends in `Raw → Prop`, so `combine_sym` becomes a function-equality at
-Prop (propext + funext / `Quot.sound`), recorded in
-`STRICT_ZERO_AXIOM.md` category (b).  This is a statement-shape cost,
+(`Lens/Universal/QuotLens.lean`), stated on the Reading-equivalence
+`equivR` (`universalLens_kernel_eq_E_R`) and therefore PURE.  Stating
+it instead as Lean `=` of views would be DIRTY: `universalLens.combine`
+ends in `Raw → Prop`, so `combine_sym` would become a function-equality
+at Prop (propext + funext / `Quot.sound`) — which is exactly why the
+`=`-of-view form is retired in favour of `equivR`.  This is a
+statement-shape cost,
 not a structural one: the **distinguishing** form of the same
 bijection, `universalLens_kernel_eq_E_R`
 (`(universalLens E).equivR r r' ↔ E r r'`), is **PURE** — the
@@ -232,9 +234,8 @@ fills it with content.  Both **PURE**.
 | `mobiusEq` is an equivalence relation | PURE |
 | `cutEq → sternBrocotEq → mobiusEq` chain | PURE |
 | `Eqv_equiv_iff` | PURE |
-| Slash-congruence → Lens-kernel, `=`-form (`universalLens_kernel_eq_E`) | DIRTY (propext + funext) |
 | Slash-congruence → Lens-kernel, `equivR`-form (`universalLens_kernel_eq_E_R`) | PURE |
-| `kernel_correspondence` bidirectional (`=`-form) | DIRTY (inherits universalLens) |
+| `kernel_correspondence` bidirectional (`equivR`-form) | PURE |
 | `mobiusEq → cutEq` (Stern-Brocot coverage) | open |
 
 The strict ∅-axiom backbone of the unification — Lens-arrow
