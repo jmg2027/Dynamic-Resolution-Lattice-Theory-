@@ -951,12 +951,12 @@ theorem psi_excl_T0_NT8_signature
         (foldXor_const_false _)
     intro s
     unfold e_face_layer_NT8
-    rcases hkv : k.val with
+    match hkv : k.val with
       | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
       | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27
       | _+28 =>
-    all_goals (first | (cases s.val <;> rfl) | exact absurd hkv hne |
-      exact absurd k.isLt (by decide))
+        first | (cases s.val <;> rfl) | exact absurd hkv hne |
+          exact absurd k.isLt (by decide)
   rw [htk ⟨8,  by decide⟩ (by decide),
       htk ⟨9,  by decide⟩ (by decide),
       htk ⟨10, by decide⟩ (by decide),

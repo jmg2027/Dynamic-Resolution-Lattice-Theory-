@@ -160,17 +160,17 @@ def pair13_lo : Fin (chooseTwo 13) → Fin 13
 /-- High endpoint of the `s`-th pair of `Fin 13`. -/
 def pair13_hi : Fin (chooseTwo 13) → Fin 13
   | ⟨s, _⟩ =>
-    if s < 12 then ⟨s + 1, by omega⟩
-    else if s < 23 then ⟨s - 12 + 2, by omega⟩
-    else if s < 33 then ⟨s - 23 + 3, by omega⟩
-    else if s < 42 then ⟨s - 33 + 4, by omega⟩
-    else if s < 50 then ⟨s - 42 + 5, by omega⟩
-    else if s < 57 then ⟨s - 50 + 6, by omega⟩
-    else if s < 63 then ⟨s - 57 + 7, by omega⟩
-    else if s < 68 then ⟨s - 63 + 8, by omega⟩
-    else if s < 72 then ⟨s - 68 + 9, by omega⟩
-    else if s < 75 then ⟨s - 72 + 10, by omega⟩
-    else if s < 77 then ⟨s - 75 + 11, by omega⟩
+    if h : s < 12 then ⟨s + 1, by omega⟩
+    else if h2 : s < 23 then ⟨s - 12 + 2, by omega⟩
+    else if h3 : s < 33 then ⟨s - 23 + 3, by omega⟩
+    else if h4 : s < 42 then ⟨s - 33 + 4, by omega⟩
+    else if h5 : s < 50 then ⟨s - 42 + 5, by omega⟩
+    else if h6 : s < 57 then ⟨s - 50 + 6, by omega⟩
+    else if h7 : s < 63 then ⟨s - 57 + 7, by omega⟩
+    else if h8 : s < 68 then ⟨s - 63 + 8, by omega⟩
+    else if h9 : s < 72 then ⟨s - 68 + 9, by omega⟩
+    else if h10 : s < 75 then ⟨s - 72 + 10, by omega⟩
+    else if h11 : s < 77 then ⟨s - 75 + 11, by omega⟩
     else ⟨12, by decide⟩
 
 /-- Concrete `PairEnum 13` (78 pairs in lex order). -/
