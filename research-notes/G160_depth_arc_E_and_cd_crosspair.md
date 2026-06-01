@@ -80,11 +80,12 @@ second path.  The bookkeeping is intricate; not closed here.
 flagged crux), not a quick win.  Route 1's trace-commutator form is the most
 promising single target for a focused future attempt.
 
-## π's degree-4 ratio polyDepth (B residual) — ring-blocked, low value
+## π's degree-4 ratio polyDepth (B residual) — CLOSED
 
-`newton_polyDepth` already proves every degree-4 polynomial has depth 4.  Pinning
-π's *product* form `4(n+1)²(2n+1)(2n+3)` onto it needs the expansion
-`= 16n⁴+64n³+92n²+56n+12` and its Newton coefficients `[12,228,792,960,384]` — pure
-nonlinear-`Nat` algebra with no `ring` (`omega` is propext-dirty).  ~100 lines of
-mechanical bookkeeping, zero conceptual content; deferred unless a PURE nonlinear-Nat
-kit is built.
+The PURE nonlinear-`Nat` kit got built (`Meta/Nat/PolyNat`, a reflection `ring`:
+reify → Horner normal form → equal lists by `rfl`), and with it the π quartic is
+mechanical: `Cauchy/DepthPiQuartic.piRatio_polyDepth` proves the full degree-4
+cross-det ratio `4(n+1)²(2n+1)(2n+3)` has `polyDepth 4` (four exact differences →
+const `384`, each `f(n+1) = f(n)+g(n)` discharged by `poly_id`).  Depth-arc B is now
+fully closed (general theorem + e + π).  `PolyNat` is reusable for the repo's other
+hand-rolled `Nat` expansions.
