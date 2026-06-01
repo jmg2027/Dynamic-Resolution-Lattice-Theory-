@@ -35,17 +35,20 @@ Branch: `claude/research-notes-9Nc74`
      (the deletion *argument*: category error + no-top foundation); **G158**
      (Target A scoping — see below).
 
-### `depth_floor_is_det_one` — forward CLOSED, converse open (G158)
+### `depth_floor_is_det_one` — CLOSED, both directions (G158)
 
-**Forward done**: `Lib/Math/Cauchy/DepthFloorDetOne.lean`,
-`convergent_crossdet_floor_is_one` (`reachesFloor W ∧ ∀ n, W n = 1`),
-4 pure / 0 dirty, wired into the Cauchy umbrella.  The convergent
-cross-determinant `W` reaches the ladder floor at depth 0 with value 1 —
-the analysis-side floor (`const_reaches_floor`) IS the atomic-side det P = 1.
-Used the PURE `Real213.FibCassiniNat.fib_cassini_norm` (Nat-additive Cassini).
-**Converse open**: floor value 1 ⟹ autonomous P-step
-(`OrbitForcing`/`PnFibonacciUniversal`) — the "distance from atomicity"
-theorem.  Details: `research-notes/G158_*`.
+`Lib/Math/Cauchy/DepthFloorDetOne.lean`, **7 pure / 0 dirty**, wired into the
+Cauchy umbrella; full `lake build E213` green.
+  - **Forward** `convergent_crossdet_floor_is_one` (`reachesFloor W ∧ ∀ n, W n
+    = 1`): the convergent cross-determinant `W` reaches the ladder floor at
+    depth 0 with value 1 — analysis-side floor (`const_reaches_floor`) = det P = 1.
+  - **Converse** `floor_one_is_P_invariant`: floor value 1 in squared Cassini
+    form `a²+1 = a·b+b²` is *preserved* by the autonomous P-step
+    `(a,b) ↦ (2a+b, a+b)` (= `Mobius213PellInvariant.pellNormStep`) — the
+    floor IS the P-orbit's defining invariant, not merely a value reached.
+  - **Master** `depth_floor_is_det_one` bundles both.  Built on the PURE
+    `FibCassiniNat.fib_cassini_norm`; pellNormStep's hypothesis IS floor-1.
+  The "strongest unclaimed result" (HANDOFF Target A) is closed.
 
 ### Build gate-hole — ~350 orphaned modules (G159)
 
