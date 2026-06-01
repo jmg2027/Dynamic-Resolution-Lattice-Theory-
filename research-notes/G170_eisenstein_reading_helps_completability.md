@@ -35,7 +35,11 @@ closed-form modulus `N = 2k`).  So C2's rung floor acquires an algebraic charact
 > presentation's cross-determinant.  The det-one floor is the indefinite (disc `+5`)
 > rung — a convergent line — the completing bottom.
 
-This is now ∅-axiom-backed at its heart (`EisensteinSignature`, below).
+This is now ∅-axiom-backed at its heart (`EisensteinSignature`, below), and the
+completability-side (line) half is `Real213/FloorReferenceForm.floor_reference_is_indefinite`:
+the det-one floor preserves the golden form (`Q_preserved`) and that form is indefinite
+(`golden_indefinite`, `Q(2,1)=+1`, `Q(1,1)=−1`) — the disc+5 / convergent-line / completing
+bottom rung, in-track (no CD import).
 
 **C3 (the canonical witness = residue) — yes, conceptually.**  The Eisenstein note's
 deepest reading is that the divergent/overtake trajectory is the **residue**, the

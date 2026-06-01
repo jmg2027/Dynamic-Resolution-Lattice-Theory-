@@ -217,8 +217,13 @@ A–D + B are now **all closed ∅-axiom this arc**:
     disc+5 real-quadratic = completing line) and **C3** (the Eisenstein modular
     self-covering = `DepthOverflowDuality`'s cusp/residue, one scale up); orthogonal to
     C1′/π.  (My earlier ℕ-sidestep `CrossDetDiscriminant` removed — superseded by the
-    signed-ℤ `EisensteinSignature` once `PolyInt2` landed.)  OPEN: a `rung ↔ discriminant`
-    theorem (cross-track narrative; CD-import boundary keeps it in G170).
+    signed-ℤ `EisensteinSignature` once `PolyInt2` landed.)  **C2 bottom rung closed
+    in-track** (`Real213/FloorReferenceForm`, 2/0): the det-one floor preserves the golden
+    form (`ProbeTwistConic.Q_preserved`) and that form is indefinite (`golden_indefinite`,
+    `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → completing bottom rung
+    (`floor_reference_is_indefinite`) — the disc+5/line complement of the disc−3/curve
+    `EisensteinSignature`, no CD import.  OPEN: the `W=d`/geometric rungs' discriminant
+    labels (the rest of `rung ↔ discriminant`).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

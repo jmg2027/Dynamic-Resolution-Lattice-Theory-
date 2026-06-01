@@ -95,6 +95,12 @@
     `CrossDetSmall` antitone along it (`orbit_free_implies_base_free`) and a unique
     `Reduced` base (`reduced_scaling_trivial`) — the canonical point to read the cut's
     rung (`scaling_orbit_structure`).
+  - `FloorReferenceForm.lean` — ★ the det-one floor's reference form is **indefinite**:
+    the golden `Q = m²−mk−k²` (`ProbeTwistConic.Q_preserved`, the P-orbit invariant) takes
+    both signs (`golden_indefinite`, `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded hyperbolic
+    orbits → convergent line → the completing bottom rung (`floor_reference_is_indefinite`).
+    The completability-side (disc+5, line) complement of `EisensteinSignature` (disc−3,
+    curve).
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 
