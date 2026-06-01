@@ -2,6 +2,46 @@
 
 Branch: `claude/research-notes-9Nc74`
 
+## Repo consolidation audit (2026-06-01)
+
+Two read-only survey agents audited the repo (Lean infra-migration candidates;
+doc hygiene / seed / split-merge / insights).  Acted on the clear, high-value,
+verifiable items; the rest is a scoped follow-up list (nothing lost).
+
+**Done**:
+  - **Legacy-deletion narration** stripped from 5 theory chapters (present-state
+    exposition): `essays/cut_off_marathon` (the `## Refactor … removed` section →
+    "Why the catalogue is {2,3,5,7,13,521}"), `math/universe_chain` (drop "was
+    promoted … per the M-series cleanup"), `cohomology/hodge_conjecture` (drop
+    preferred/deprecated + "archived G-note for historical record"),
+    `essays/cup_image_dual_span`, `meta/cardinality_cutoff_applications`.
+  - **Lean infra-migration** of ~20 buried general-purpose helpers into the Meta
+    layer — **delegated** (background worker; build-verified, ∅-axiom):
+    `mul_lt_mul_left_pure` + the strict-mul-mono family → `NatRing` (Classical-leak
+    guard); unify duplicate `pow_add_pure` (×4); `add_dup_succ`/`mul_eq_one_*`/
+    `mul_sq`/`sq_*`/`two_cancel*`/`hi13_bound`(generalised)/`lt_of_*` → NatRing/
+    NatHelper/NatDiv213; `fin_eq_of_val`→Fin213; Bool destructors; Int213
+    (`nonneg_of_add_self`, `eisenstein_double`, `cross_step_algebra`).
+
+**Seed corpus**: audited as **already well-integrated** (linear §01→§10, no
+append-accretion, no redundancy) — no action.
+
+**Scoped follow-up** (not done; judgment/generative — do deliberately):
+  - **G## session tags in theory/essays body** (forbidden in non-exempt bodies):
+    pervasive — `mobius213_p_orbit_closure`, `p_orbit_naturalness_boundary`,
+    `k32_cohomology_simplex_higher_insight`, `mobius_self_form_fixed_point`, … —
+    needs a dedicated sweep rewriting `G##` refs to live-chapter citations.
+  - **Merges**: `theory/lens/{properties,cardinality,instances,axiom_lenses}` →
+    one `properties_catalog`; `theory/physics/{atomic_base,atomic,capstones}` →
+    one chapter.  **Split**: `cohomology/k_nm_c_classification` (4 topics),
+    `completeness_without_completeness` (13 §→4 chapters) — verify before cutting.
+  - **Narrative-patchwork**: `RESEARCH_PLAN` (cluster the ~40 open items),
+    `meta/methodology_patterns` + `cardinality_cutoff_applications` (add unifying
+    intros).
+  - **Promote** the seal arc (G161–G163) to a theory essay
+    (`theory/essays/lens_equiv_reading_equivalence.md`) — closed research, durable.
+  - HANDOFF itself is large; trim completed-detail when it next turns over.
+
 ## Latest autonomous iteration (2026-06-01)
 
   1. **Headline — the `5²⁵`-as-resolution chain is DELETED** (originator
