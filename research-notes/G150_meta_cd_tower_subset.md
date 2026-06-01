@@ -369,6 +369,68 @@ CM-exceptional points with extra automorphisms.  `μ ∈ {2,4,6}` (plus `2T`
 for the rank-2 lift) is the organizing trichotomy.  Decidable shadows:
 the density `c·dim` law, the order-4 closed forms, and `branch = 3∣|μ|`.
 
+### Phase 8.2 — confirmed (∅-axiom) + the deep structure
+
+Two agents (repo data + imaginary-quadratic math) confirmed the data and
+synthesized the structure.  Proven in `Tower/SeedUnitGovernance` +
+`Tower/MetaTowerLoopSpine`:
+
+  - `seed_unit_trichotomy` — `|μ| = 2,4,6,24` for `ℤ[√-2], ℤ[i], ℤ[ω],`
+    Hurwitz.  **P8-A/C confirmed** (rank-1 trio `{2,4,6}`).
+  - `eisenstein_seed_unit_count_eq_NS_NT` — `|μ_{ℤ[ω]}| = 6 = NS·NT`.  The
+    exceptional dense rank-1 seed's unit count *is* the atomic product
+    (`ZOmegaUnits.units_count_eq_NSNT`).
+  - `branch_by_odd_torsion` — order-3 count `0 / 0 / 2 / 8` for A / B / C /
+    Hurwitz.  **P8-B confirmed**: branch `= (3 ∣ |μ|)`.
+  - `hurwitz_contains_eisenstein_core` — `2T` carries order-3 (8) *and*
+    order-6 (8): the Eisenstein menu `{3,6}` (`μ₆ ⊂ 2T`).  **P8-D
+    confirmed**: Eisenstein is the abelian core of the rank-2 Hurwitz
+    branch.
+  - `seed_density_at_dim8` — at dim 8 the columns carry `2·8, 1·8, 3·8`
+    units (densities `c = |μ|/2 = 2,1,3`).  **P8-A density confirmed.**
+  - Data also pins (file:line, all `decide`): A `=2·dim`, B `=1·dim`
+    (to `L9T=256`), C `=3·dim`; order-4 `2·dim−2` (dyadic) / `3·dim−6`
+    (Eisenstein); Hurwitz order distribution `(1,1,8,6,8)` for
+    `{1,2,3,4,6}`.
+
+**The deep structure (math synthesis — the real answer to "complete
+tower").**  Density `c = |μ/{±1}|` (projectivized unit order); branch =
+the *odd torsion* of `μ`.  The trichotomy is **forced**: imaginary
+quadratic fields with `μ ≠ {±1}` are *exactly* `ℚ(i)` (`μ₄`) and `ℚ(ω)`
+(`μ₆`) (Dirichlet, rank 0).  So `ℤ[i], ℤ[ω]` are the two exceptional
+columns *for the identical reason* they are the only such fields.
+
+  - **`A/B` = one branch, index-shifted**: `μ₄`'s built-in `i`
+    pre-supplies one CD doubling, so `ℤ[i]` realises the dyadic spine at
+    half the dimension of generic `ℤ[√-D]` — same loop sequence, density
+    2 vs 1, index `n ↦ n+1`.  (`μ₄` is a 2-group ⇒ stays dyadic.)
+  - **branch = seed-lattice symmetry**: `μ₂, μ₄, μ₆` = `Aut` of the
+    rectangular / square / **hexagonal** rank-2 lattice.  The hexagonal
+    3-fold symmetry *is* the order-3/6 torsion of branch C.  Odd torsion
+    a CD doubling can never manufacture from `{±1}` and `√-1` — which is
+    why Eisenstein is a genuinely new branch, not a shifted dyadic one.
+  - **`2T` (Hurwitz) = rank-2 lift**: the `24`-cell / `D₄`–`F₄`
+    symmetry; `μ₆ ⊂ 2T` makes Eisenstein the abelian core, the non-abelian
+    quaternionic completion `Q₈⋊C₃` on top (the asymptote `nonAbelian`
+    flag, rank 2).
+  - **The complete object**: the meta-CD-tower is a **functor from finite
+    unit groups of definite `ℤ`-orders** (= finite subgroups of the
+    division-algebra units: `μ₂,μ₄,μ₆` rank-1; `2T,…` rank-2) **to graded
+    systems of basis-unit Moufang loops**.  Classical CD = the section
+    over the trivial seed `μ = {±1}` (the density-1 dyadic trunk).  The
+    speculative endpoint: the **binary-polyhedral / McKay (ADE) ladder**
+    — `μ₄,μ₆` cyclic, `2T` the first binary polyhedral; `2O (48), 2I
+    (120)` would be the next exceptional seeds.  The CM `j`-invariant
+    connection is real but downstream — the operative invariant is
+    `Aut(E) = μ_seed`, not the full CM datum.
+
+**Marathon-2 verdict:** the originating "complete tower" is the family of
+CD towers **fibered over seed unit groups**; the `μ ∈ {2,4,6}` trichotomy
+(Dirichlet) makes `ℤ[i], ℤ[ω]` the two exceptional dense columns, branch
+`= 3∣|μ| =` hexagonal seed-lattice symmetry, and Hurwitz `2T` the rank-2
+lift containing Eisenstein.  Decidable shadows are all ∅-axiom.  Open
+frontier: the rank-2 (`2O, 2I`) seeds and the McKay/ADE classification.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
