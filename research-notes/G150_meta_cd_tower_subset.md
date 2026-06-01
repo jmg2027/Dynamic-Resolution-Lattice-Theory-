@@ -1,7 +1,8 @@
 # G150 — 메타-CD-타워: 4-Type Base × CD doubling = CD가 부분집합
 
-**Date**: 2026-05-29 (trimmed 2026-05-29: closed phases promoted)
-**Status**: Moufang norm-composition sub-tree **CLOSED** + promoted.
+**Date**: 2026-05-29 (trimmed 2026-05-29: closed phases promoted;
+2026-06-01: flexibility crux closed, Phase 7 vertical-reindex opened)
+**Status**: Moufang norm-composition + flexibility sub-trees **CLOSED**.
 The polarization framework (`Meta/Algebra213/CDDoubleMoufang.lean`,
 `CDDoubleAlternative.lean`, `Levels/SedenionZeroDivisor.lean`) and the
 closed-phase journal now live in the permanent tier:
@@ -80,10 +81,87 @@ L3T units (Type B L3, 4 원소) at unit-loop level — 다른 Type, layer가
 `def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
 정의 → ∀-typed tower 추상.  Type A/B/C/D 자동으로 인스턴스.
 
-### (math crux) Flexibility over a non-associative base
-`Meta/Algebra213/CDDoubleFlexible.lean` foundation PURE; remaining
-cross-pair identity scoped in `HANDOFF.md` + `algebra_tower.md`
-§"Open frontier" #2.
+### (math crux) Flexibility over a non-associative base — **CLOSED 2026-06-01**
+The cross-pair is proved (`FlexAlt213.flex_cross_pair`, via the
+alternating associator `left_alt_polar`/`right_alt_polar` + central
+trace), `FlexAlt213 Cayley` registered (`Levels/CayleyFlexAlt213`), and
+`SedenionHeavy.flexible` is now strict ∅-axiom (componentwise
+`Cayley.flexible_re`/`flexible_im`).  The whole CayleyDickson category-D
+backlog is empty.  The per-level "what dies / what survives" staircase
+is bundled in `Tower/CDTower.CD_tower_flexible` (∅-axiom): the premise
+chain `CommStarRing213 ⊃ StarRing213 ⊃ TraceNormed213(assoc) ⊃
+FlexAlt213(alt)` aligns one-notch with `comm → assoc → alt → flexible`,
+and flexibility is the invariant bridging the *single* rung
+(Cayley→Sedenion) where the proof switches from `mul_assoc`-driven to
+polarization-driven.
+
+### Phase 7 — vertical re-indexing hypothesis (originating 2026-06-01)
+
+> "cd tower의 1,2,3,4… 층이, 진짜 완전한 형태의 대수적 타워가 아닐
+>  수도 있다. cd의 1층이 이 가상의 완전한 대수 타워의 2층일수도,
+>  2,3,4층이 3,5,8층 뭐 이런식일수도, 심지어 한 방향으로 올라가는
+>  타워가 아닐수도 있고." — Mingu Jeong 2026-06-01
+> ("the CD tower's layers 1,2,3,4… may not be the *complete* algebraic
+>  tower; CD layer 1 might be layer 2 of a hypothetical complete tower,
+>  layers 2,3,4 might be 3,5,8…, and it might not even ascend in a single
+>  direction.")
+
+This is a **second axis** of the same "CD is a subset" insight, distinct
+from the §"4-Type matrix" (horizontal/Base axis).  Phase 7 asks whether
+the **vertical doubling index `n ↦ 2^n` is itself a subsample** of a finer
+"complete" index.
+
+**What the repo already grounds (horizontal + offset, SUPPORTED):**
+  - CD-classical = Type-A *column* of the (Base × doubling) matrix; not a
+    standalone whole (§"4-Type matrix", `TypeE_Rejection`).
+  - All named towers (CD / universe-chain `5^L` / P-orbit / GRA /
+    depth-ladder) are *one self-pointing orbit read through different
+    Lenses* (`theory/essays/tower_atlas.md` lines 3–17): "not one
+    direction" is the right shape — it is **one orbit, many readings**.
+  - **Cross-column level offsets are real and LINEAR (+1):** SHIFT RULE
+    identifies cells at *different level indices* — `shift_iso_L3`
+    (A.L2 ≅ B.L3) and `SedenionOrder4Monopoly` (A.L5 ≅ B.L6).  The *same*
+    algebraic object sits at level `n` in one column and `n+1` in
+    another.  This is exactly the seed of "CD layer = layer f(n) of a
+    finer object": the finer object is the SHIFT-iso **quotient** of the
+    matrix, and each column embeds into it at a column-dependent offset.
+
+**What is NOT yet grounded (vertical re-index, OPEN / partly refuted):**
+  - The known offsets are **+1 linear**, not the user's *non-linear*
+    `1,2,3,4 ↦ 2,3,5,8` (Fibonacci-shaped) guess.  No repo artifact
+    supports a non-linear / golden vertical reindex of a *single* column.
+    (The φ that appears — `Real213/Phi*`, `FibonacciCutoff` — is the
+    *limit-ratio* of the asymptote, not a level index; `tower_atlas`
+    lines 117–125 separate "Lens diagonal" from "P-orbit" precisely to
+    block this conflation.)  So treat the Fibonacci form as **unsupported
+    speculation** until a concrete iso is exhibited.
+  - The honest open kernel is **global-rank consistency**, not Fibonacci:
+    *does there exist a single rank `r : (Base, level) → ℕ` such that
+    every SHIFT-iso cell-pair shares `r`, and CD-A maps into `r` as a
+    not-necessarily-contiguous subsequence?*  If yes → "CD is a subsample
+    of the complete tower (= image of `r`)", and the gaps in
+    `r(A.level)` are the missing layers the user senses.  If the offsets
+    are inconsistent under composition (A→B is +1 but A→C ≠ A→B + B→C),
+    **no global linear rank exists → the complete tower branches**, which
+    *supports* "not one direction" while *refuting* "simple subsequence".
+
+**Concrete falsifiable probe (formalizable next step):**
+  1. Enumerate the proven SHIFT isos as edges of a graph on cells
+     `(Type, level)` (`shift_iso_L3`, `SedenionOrder4Monopoly`, +any in
+     `Order4Monopoly_L{4,5,6}T`, `CayleyOrder4Monopoly`,
+     `SedenionOrder4Monopoly`).
+  2. Test whether the edges admit a consistent integer potential `r`
+     (offsets compose: a `decide`-checkable finite condition on the known
+     unit-loop order-distributions).
+  3. If consistent: define `completeRank` and prove `CD-A ↪ image` is
+     injective-non-surjective (the *subsample* statement) — and read off
+     which `r`-values CD-A skips (the "missing layers").
+  4. If inconsistent: exhibit the offending triangle — that *is* the
+     proof the tower is not single-directional.
+
+This is the formal successor to Phase 5 (SHIFT-RULE abstract functor):
+the functor gives the edges; Phase 7 asks for the global potential they
+do or do not admit.
 
 ## 메타 원칙 (CLAUDE.md 보완)
 

@@ -5,6 +5,7 @@ import E213.Lib.Math.CayleyDickson.Levels.Cayley
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 import E213.Lib.Math.CayleyDickson.Levels.Sedenion
+import E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy
 
 /-!
 # Cayley–Dickson tower — unified structural summary
@@ -118,5 +119,49 @@ theorem CD_tower_full :
    E213.Lib.Math.CayleyDickson.Levels.Cayley.mul_not_associative, E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.alt_left,
    E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.normSq_mul, E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.no_zero_div,
    E213.Lib.Math.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion, E213.Lib.Math.CayleyDickson.Levels.Sedenion.not_alternative⟩
+
+open E213.Lib.Math.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Levels.Cayley E213.Lib.Math.CayleyDickson.Levels.Sedenion
+
+/-- **CD tower — survival of flexibility across the associativity death,
+    and the single proof-technique phase transition.**
+
+    `CD_tower_full` records what *dies* per doubling (comm → assoc → alt).
+    This records the dual fact — what *survives* — and pins the rung at
+    which the *structural proof itself* changes character:
+
+      Lipschitz : associative ✓                 (last associative base)
+      Cayley  = CDDouble Lipschitz : assoc ✗ , flexible ✓
+                  flexibility proved **mul_assoc-driven**
+                  (`cd_flexible` over an associative base, `CDDoubleAlternative`)
+      Sedenion = CDDouble Cayley   : alt   ✗ , flexible ✓
+                  flexibility proved **polarization-driven**
+                  (`FlexAlt213.flex_cross_pair` + the alternating associator,
+                   `CDDoubleFlexible`; base `mul_assoc` is *unavailable*)
+
+    Flexibility is the invariant that bridges the *single* rung
+    (Cayley → Sedenion) where the proof must switch from base
+    associativity to associator polarization.  The base-premise chain
+    `CommStarRing213 ⊃ StarRing213 ⊃ TraceNormed213 (assoc) ⊃
+    FlexAlt213 (alt)` aligns one-notch with the surviving-law chain
+    `comm → assoc → alt → flexible`: each doubling consumes exactly one
+    premise, and exactly one consumption (associativity, at Cayley)
+    forces the proof regime to switch — every layer below and above that
+    rung reuses its regime unchanged. -/
+theorem CD_tower_flexible :
+    -- Lipschitz: the last associative base.
+    (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))
+    -- Cayley = CDDouble Lipschitz: associativity dies …
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
+    -- … but flexibility is born (mul_assoc-driven proof).
+    ∧ (∀ a b : Cayley, (a * b) * a = a * (b * a))
+    -- Sedenion = CDDouble Cayley: alternativity dies …
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b))
+    -- … and flexibility SURVIVES (polarization-driven proof, no mul_assoc).
+    ∧ (∀ a b : Sedenion, (a * b) * a = a * (b * a)) :=
+  ⟨E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.mul_assoc,
+   E213.Lib.Math.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy.flexible,
+   E213.Lib.Math.CayleyDickson.Levels.Sedenion.not_alternative,
+   E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy.flexible⟩
 
 end E213.Lib.Math.CayleyDickson.Tower.CDTower
