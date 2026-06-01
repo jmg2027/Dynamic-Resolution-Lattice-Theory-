@@ -90,10 +90,15 @@ stated via `=`) is **retired**.  All three walls solved:
 
 ## OPEN — Lens DIRTY follow-ups (distinct mechanisms, not headline (a))
 
-  - **Compose funext-on-combine** (`Compose.{OnLens (9), OnLensImage*}`,
-    `Properties.TowerLevel3`, `Lib.Math.Cauchy.GenericFamily`): `Quot.sound` from
-    `funext` on a function-valued `combine` (Lens-of-Lens composition).  Target:
-    the pointwise Lens equality `Lens.eqPW` (`Lens/EqPW.lean`), already PURE.
+  - **Compose funext-on-combine** (`Compose.OnLens (9)` + `Properties.TowerLevel3
+    (1)`, all `Quot.sound`-only): `funext` on `HasDistinguishing.combine_sym`
+    (`= ` field) at codomain `Lens β`.  Retire by the **`same`-augmented
+    `HasDistinguishing` rebuild** — design + the three elaboration walls + the
+    recommended green-per-commit path in **`research-notes/G164`**.  PURE
+    foundation already materialized: `Raw.fold_slash_rel` (`Theory/Raw/Fold.lean`)
+    + the eqPW twins (`Lens/EqPW.lean`, `OnLens.*_eqPW`).  **Headline-(a)-sized**;
+    needs a dedicated session.  (`GenericFamily` was the same family and is now
+    PURE — pointwise-at-index.)
   - **DepthJoin** (`Instances.Leaves.DepthJoin`) — **DONE** (10 → 0): `omega` /
     `simp` / `decide`-closing-`Iff` replaced by explicit PURE Nat reasoning
     (new micro-lemmas: `two_le_add`, `eq_one_of_add_eq_two`, `max_eq_zero`,
