@@ -120,6 +120,19 @@ E213.Lib.Physics` GREEN.  The lone irreducible `coprime_NS_NT`
 (`Nat.gcd NS NT = 1`, propext via core `Nat.gcd` WF-recursion) was *unused* and
 removed — the PURE coprimality fact is `Meta.Nat.Gcd213.gcd213_succ_self`.
 
+**Repo-wide purity audit DONE** (now that the gate scans all 1532): whole-repo
+`scan_all_axioms` = **12489 PURE / 62 real-DIRTY / 57 sealed**.  **Falsifiability
+standard MET** — no `Classical.choice` / no `native_decide` in any 213-math
+content; the only `Classical.choice` carriers are 3 `CommandElab` modules
+(`Tactic.QuadExtension`, `Meta.Tactic.{DeriveConjugationCodomain,VerifyConjugation}`),
+now sealed (category a, plumbing).  The **62 real-DIRTY are all propext/Quot.sound**
+(allowed-but-not-target), in previously-orphaned clusters the comprehensive gate
+exposed: `Lens.{Compose,Lattice}.*`, `Lib/Math/{Choice,CayleyDickson,
+Cohomology/Bipartite/Parametric,Cauchy,Hyper}`, etc.  This is the **purity
+backlog** (not a falsifiability issue); `STRICT_ZERO_AXIOM.md` "### Net effect"
+synced.  Next: purify these 62 via the Px playbook below — biggest first
+(`Lens.Compose.OnLens` 9, `Choice.CanonicalTruthChar` 8).
+
 **Reusable purification pattern** (verified — applies to any future dirty Nat code):
   - `omega` is **propext-dirty** — eliminate: trivial `2*(k+1)=2*k+2` → `rfl`;
     additive rearrangements → `Nat.two_mul` + `Nat.add_right_comm`/`Nat.add_assoc`
