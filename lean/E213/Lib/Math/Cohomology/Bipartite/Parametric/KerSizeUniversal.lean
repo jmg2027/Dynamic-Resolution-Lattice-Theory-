@@ -2,6 +2,8 @@ import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
 import E213.Lib.Math.NatRing
 import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.Fin213
+import E213.Meta.Nat.NatDiv213
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Universal kerSize δ⁰ = 2 for K_{NS,NT}^{(c)}
@@ -29,9 +31,11 @@ STRICT ∅-AXIOM.
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KerSizeUniversal
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-open E213.Lib.Math.NatRing (mul_lt_mul_left_pure)
+open E213.Lib.Math.NatRing (mul_lt_mul_left_pure nat_mul_assoc)
 open E213.Tactic.BoolHelper (eq_of_xor_false)
 open E213.Tactic.Fin213 (fin_eq_of_val)
+open E213.Meta.Nat.NatDiv213 (mul_div_cancel_left_pure add_mul_div_left_pure)
+open E213.Tactic.NatHelper (add_mul_mod_self_pure add_sub_of_le)
 
 /-! ## §2 — Key edge index bounds -/
 
@@ -104,10 +108,10 @@ private theorem canonical_edge_val (NT c s t : Nat) :
 private theorem srcOf_canonical (NT c s t : Nat) (hc : 1 ≤ c) (hNT : 1 ≤ NT)
     (ht : t < NT) : srcOf c NT (c * (NT * s + t)) = s := by
   unfold srcOf
-  rw [Nat.mul_div_cancel_left (NT * s + t) hc]
+  rw [mul_div_cancel_left_pure c (NT * s + t) hc]
   -- (NT * s + t) / NT = s; rewrite as (t + NT * s) / NT
   rw [Nat.add_comm (NT * s) t]
-  rw [Nat.add_mul_div_left t s hNT]
+  rw [add_mul_div_left_pure t NT s hNT]
   rw [Nat.div_eq_of_lt ht]
   exact Nat.zero_add s
 
@@ -116,10 +120,11 @@ private theorem srcOf_canonical (NT c s t : Nat) (hc : 1 ≤ c) (hNT : 1 ≤ NT)
 private theorem tgtOf_canonical (NT c s t : Nat) (hc : 1 ≤ c) (hNT : 1 ≤ NT)
     (ht : t < NT) : tgtOf c NT (c * (NT * s + t)) = t := by
   unfold tgtOf
-  rw [Nat.mul_div_cancel_left (NT * s + t) hc]
+  rw [mul_div_cancel_left_pure c (NT * s + t) hc]
   -- (NT * s + t) % NT = t; rewrite via add_comm
   rw [Nat.add_comm (NT * s) t]
-  rw [Nat.add_mul_mod_self_left]
+  rw [Nat.mul_comm NT s]
+  rw [add_mul_mod_self_pure t NT s]
   exact Nat.mod_eq_of_lt ht
 
 /-- Canonical edge bound: `c·(NT·s + t) < c·NS·NT` when `s < NS`
@@ -137,7 +142,7 @@ private theorem canonical_edge_bound (NS NT c s t : Nat) (hc : 1 ≤ c)
   have h_lhs : c * (NT * s + t) < c * (NT * NS) :=
     mul_lt_mul_left_pure hc h_combined
   have h_swap : c * (NT * NS) = c * NS * NT := by
-    rw [Nat.mul_comm NT NS, ← Nat.mul_assoc]
+    rw [Nat.mul_comm NT NS, ← nat_mul_assoc]
   rw [h_swap] at h_lhs
   exact h_lhs
 
@@ -239,7 +244,7 @@ theorem pair_eq_implies_constant (NS NT : Nat) (hS : 1 ≤ NS) (hT : 1 ≤ NT)
       -- this : σ ⟨v, ...⟩ = σ anchor, with the Fin proof
       exact this
     · -- T-side: v ≥ NS.  Let t = v - NS.
-      have h_v_eq : v = NS + (v - NS) := (Nat.add_sub_cancel' hv_T).symm
+      have h_v_eq : v = NS + (v - NS) := (add_sub_of_le hv_T).symm
       have h_t_lt : v - NS < NT := by
         have : NS + (v - NS) < NS + NT := h_v_eq ▸ hv
         exact Nat.lt_of_add_lt_add_left this

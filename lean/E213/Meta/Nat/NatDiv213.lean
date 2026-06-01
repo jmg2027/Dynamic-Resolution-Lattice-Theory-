@@ -69,6 +69,17 @@ theorem mul_div_self_pure (k b : Nat) (h : 0 < b) : k * b / b = k := by
 theorem mul_div_cancel_left_pure (a b : Nat) (h : 0 < a) : a * b / a = b := by
   rw [Nat.mul_comm a b]; exact mul_div_self_pure b a h
 
+/-- `(a + b * c) / b = a / b + c` (`0 < b`).  ∅-axiom replacement for
+    Lean-core `Nat.add_mul_div_left` (which pulls `propext`).  Induction
+    on `c` via `add_div_right_pos`. -/
+theorem add_mul_div_left_pure (a b c : Nat) (h : 0 < b) :
+    (a + b * c) / b = a / b + c := by
+  induction c with
+  | zero => rw [Nat.mul_zero, Nat.add_zero, Nat.add_zero]
+  | succ k ih =>
+    rw [Nat.mul_succ, ← Nat.add_assoc, add_div_right_pos h, ih]
+    exact Nat.add_assoc (a / b) k 1
+
 /-- `a / b ≤ a` when `0 < b`.  ∅-axiom replacement for Lean-core
     `Nat.div_le_self` (which pulls `propext` via `Nat.div_zero`).
     Proof: `a/b ≤ a/b * b ≤ a` using positivity of `b`. -/
