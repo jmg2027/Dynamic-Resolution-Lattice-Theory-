@@ -1,11 +1,15 @@
 # Session handoff
 
-Branch: `claude/research-notes-9Nc74`
+Branch: `claude/depth-arc-completeness-iEMpZ`
+
+**Branch scope: real-number / completeness thread only.**  The depth-arc section
+is this branch's active agenda.  The "headline **(a)**" Lens-API rebuild, "**(d)**
+CayleyDickson purity", and the DIRTY/seal-arc material below are **other tracks**
+(repo-wide open items, retained here for reference) — not this branch's work.
 
 The durable record of closed work lives in `lean/E213/` (source of truth) and
-`theory/` (narrative).  This file keeps: this session's map, the open targets
-(headline **(a)** + depth-arc A–E + scoped follow-ups), the closed-and-promoted
-index, and notes/hygiene.
+`theory/` (narrative).  This file keeps: this session's map, the open targets,
+the closed-and-promoted index, and notes/hygiene.
 
 ## Latest session (2026-06-01) — what closed
 
@@ -173,8 +177,8 @@ A–D + B are now **all closed ∅-axiom this arc**:
 
 | Topic | Source of truth | Narrative |
 |---|---|---|
-| `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/G159` |
+| `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/archive/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
+| Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/archive/G159` |
 | Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
 | Real-number completeness arc (links 1–13 + depth-arc B/C/D) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
