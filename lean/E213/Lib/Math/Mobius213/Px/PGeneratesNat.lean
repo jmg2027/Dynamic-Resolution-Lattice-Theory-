@@ -144,8 +144,9 @@ theorem pgen_ge_two : ∀ n : Nat, 2 ≤ n → PGen n := by
   | 3, _ => exact PGen.trace_NS
   | n + 4, _ =>
     have ih : PGen (n + 2) := pgen_ge_two (n + 2) (by omega)
-    have heq : n + 4 = (n + 2) + 2 := by omega
-    exact heq ▸ PGen.add ih PGen.entry_NT
+    have step : PGen ((n + 2) + 2) := PGen.add ih PGen.entry_NT
+    -- (n+2)+2 = n+4 by defeq on the index
+    exact step
 
 /-- ★★★★ **P generates every n ≥ 1**: all of ℕ \ {0} is P-generated.
     Combines `PGen.det_one` (for n=1) with `pgen_ge_two` (for n≥2). -/
@@ -235,16 +236,22 @@ theorem minDepth_le (n : Nat) : minDepth n ≤ n := by
   match n with
   | 0 => decide
   | 1 => decide
-  | 2 => decide
-  | 3 => decide
-  | 4 => decide
-  | 5 => decide
-  | 6 => decide
-  | 7 => decide
-  | 8 => decide
-  | n + 9 =>
+  | k + 2 =>
+    show minDepth (k + 2) ≤ k + 2
     unfold minDepth
-    omega
+    -- m = k + 2; result is one of m/3, 1 + (m-2)/3, 2 + (m-4)/3
+    simp only [beq_iff_eq]
+    split
+    · -- m % 3 = 0 → m / 3 ≤ m
+      have : (k + 2) / 3 ≤ k + 2 := Nat.div_le_self _ _
+      omega
+    · split
+      · -- 1 + (m - 2) / 3 ≤ m
+        have h1 : (k + 2 - 2) / 3 ≤ k + 2 - 2 := Nat.div_le_self _ _
+        omega
+      · -- 2 + (m - 4) / 3 ≤ m
+        have h1 : (k + 2 - 4) / 3 ≤ k + 2 - 4 := Nat.div_le_self _ _
+        omega
 
 /-- The greedy formula witnesses: for small n, n = 2·a + 3·b where a+b = minDepth n.
     This validates the minDepth function computes correct optima. -/
@@ -270,14 +277,18 @@ theorem minDepth_witness_catalog :
     (This is the key optimality claim; proof by mod-3 case analysis.) -/
 theorem minDepth_optimal (n a b : Nat) (hn : 2 ≤ n) (hrep : n = 2 * a + 3 * b) :
     minDepth n ≤ a + b := by
-  -- Key insight: for n = 2a + 3b, a + b = n/3 + a·(2/3).
-  -- Since a ≥ 0, the minimum is achieved when a is as small as possible
-  -- (0, 1, or 2 depending on n mod 3).
-  -- We use: n = 2a + 3b implies 3*(a+b) = n + a, so a+b = (n+a)/3 ≥ n/3.
-  -- More precisely: a+b = (n + a)/3 (exact when 3 | n+a).
-  -- minDepth n ≤ (n + min_a) / 3 ≤ (n + a) / 3 = a + b.
+  -- Put n in the `k + 2` form so `minDepth` reduces to its if-expression.
+  obtain ⟨k, rfl⟩ : ∃ k, n = k + 2 := ⟨n - 2, by omega⟩
+  show minDepth (k + 2) ≤ a + b
   unfold minDepth
-  omega
+  simp only [beq_iff_eq]
+  -- 3*(a+b) = (k+2) + a, so a+b = ((k+2)+a)/3 ≥ greedy depth.
+  -- omega knows the div/mod-by-3 semantics, hrep ties a,b to k.
+  split
+  · omega
+  · split
+    · omega
+    · omega
 
 /-! ## §6 — Comparison with previous naturalness claims
 
@@ -377,9 +388,9 @@ theorem not_pgen_zero : ¬ PGen 0 := by
   have hmain : ∀ m, PGen m → m ≥ 1 := by
     intro m hm
     induction hm with
-    | det_one => omega
-    | entry_NT => omega
-    | trace_NS => omega
+    | det_one => decide
+    | entry_NT => show NT ≥ 1; unfold NT; decide
+    | trace_NS => show NS ≥ 1; unfold NS; decide
     | add _ _ ih_a ih_b => omega
     | @mul a b _ _ ih_a ih_b =>
       -- a ≥ 1 and b ≥ 1, so a * b ≥ 1 * 1 = 1
@@ -391,9 +402,9 @@ theorem not_pgen_zero : ¬ PGen 0 := by
 /-- PGen values are always positive. -/
 theorem pgen_pos {n : Nat} (h : PGen n) : 1 ≤ n := by
   induction h with
-  | det_one => omega
-  | entry_NT => omega
-  | trace_NS => omega
+  | det_one => decide
+  | entry_NT => show 1 ≤ NT; unfold NT; decide
+  | trace_NS => show 1 ≤ NS; unfold NS; decide
   | add _ _ ih_a ih_b => omega
   | @mul a b _ _ ih_a ih_b =>
     have ha : a ≥ 1 := ih_a
