@@ -7,7 +7,7 @@ import E213.Lens.Universal.QuotLens
 `joinLens L M : Lens (Raw → Prop)` := `universalLens (JoinEquiv L M)`.
 
 The combination of `JoinEquiv`'s universal property and
-`universalLens_kernel_eq_E` yields a **concrete join Lens** for
+`universalLens_kernel_eq_E_R` yields a **concrete join Lens** for
 every Lens pair.
 
 Together with prodLens (meet), this completes the lattice structure
