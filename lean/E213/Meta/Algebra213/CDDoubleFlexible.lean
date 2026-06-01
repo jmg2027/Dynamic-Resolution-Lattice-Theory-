@@ -347,6 +347,111 @@ theorem flex_cross_pair (a b d : α) :
       NonAssocRing213.add_right_comm ((a * conj b) * d) ((a * conj d) * b)
         (-(assoc a (conj b) d))]
 
+/-! ### Auxiliary identities for the `im`-component of CD flexibility -/
+
+/-- **Conjugate moufang-mid**: `(s·p)·conj p = (s·conj p)·p`.  Both sides
+    collapse to `ofInt (trace p)·(s·p) − s·(p·p)` via `conj_eq`,
+    `alt_right`, and scalar nuclearity/centrality. -/
+theorem mm_conj (s p : α) : (s * p) * conj p = (s * conj p) * p := by
+  have hL : (s * p) * conj p = ofInt (trace p) * (s * p) + -(s * (p * p)) := by
+    rw [FlexAlt213.conj_eq p,
+        NonAssocRing213.mul_add (s * p) (ofInt (trace p)) (-p),
+        NonAssocRing213.mul_neg (s * p) p, ← FlexAlt213.alt_right s p,
+        ← ofInt_central (trace p) (s * p)]
+  have hR : (s * conj p) * p = ofInt (trace p) * (s * p) + -(s * (p * p)) := by
+    rw [FlexAlt213.conj_eq p,
+        NonAssocRing213.mul_add s (ofInt (trace p)) (-p),
+        NonAssocRing213.add_mul (s * ofInt (trace p)) (s * (-p)) p,
+        NonAssocRing213.mul_neg s p, NonAssocRing213.neg_mul (s * p) p,
+        ← FlexAlt213.alt_right s p,
+        ← ofInt_central (trace p) s,
+        FlexAlt213.ofInt_nuc_l (trace p) s p]
+  rw [hL, hR]
+
+/-- The skew-associator `q·(p·r) − (q·r)·p`, bilinear in `(p, r)`. -/
+private def skew (q p r : α) : α := q * (p * r) + -((q * r) * p)
+
+private theorem skew_neg_m (q p r : α) : skew q (-p) r = -(skew q p r) := by
+  show q * ((-p) * r) + -((q * r) * (-p)) = -(q * (p * r) + -((q * r) * p))
+  rw [NonAssocRing213.neg_mul p r, NonAssocRing213.mul_neg q (p * r),
+      NonAssocRing213.mul_neg (q * r) p, NonAssocRing213.neg_neg,
+      NonAssocRing213.neg_add (q * (p * r)) (-((q * r) * p)), NonAssocRing213.neg_neg]
+
+private theorem skew_neg_r (q p r : α) : skew q p (-r) = -(skew q p r) := by
+  show q * (p * (-r)) + -((q * (-r)) * p) = -(q * (p * r) + -((q * r) * p))
+  rw [NonAssocRing213.mul_neg p r, NonAssocRing213.mul_neg q (p * r),
+      NonAssocRing213.mul_neg q r, NonAssocRing213.neg_mul (q * r) p,
+      NonAssocRing213.neg_neg,
+      NonAssocRing213.neg_add (q * (p * r)) (-((q * r) * p)), NonAssocRing213.neg_neg]
+
+private theorem skew_add_m (q p p' r : α) :
+    skew q (p + p') r = skew q p r + skew q p' r := by
+  show q * ((p + p') * r) + -((q * r) * (p + p'))
+     = (q * (p * r) + -((q * r) * p)) + (q * (p' * r) + -((q * r) * p'))
+  rw [NonAssocRing213.add_mul p p' r, NonAssocRing213.mul_add q (p * r) (p' * r),
+      NonAssocRing213.mul_add (q * r) p p',
+      NonAssocRing213.neg_add ((q * r) * p) ((q * r) * p')]
+  exact NonAssocRing213.add_4_swap_mid (q * (p * r)) (q * (p' * r))
+          (-((q * r) * p)) (-((q * r) * p'))
+
+private theorem skew_add_r (q p r r' : α) :
+    skew q p (r + r') = skew q p r + skew q p r' := by
+  show q * (p * (r + r')) + -((q * (r + r')) * p)
+     = (q * (p * r) + -((q * r) * p)) + (q * (p * r') + -((q * r') * p))
+  rw [NonAssocRing213.mul_add p r r', NonAssocRing213.mul_add q (p * r) (p * r'),
+      NonAssocRing213.mul_add q r r', NonAssocRing213.add_mul (q * r) (q * r') p,
+      NonAssocRing213.neg_add ((q * r) * p) ((q * r') * p)]
+  exact NonAssocRing213.add_4_swap_mid (q * (p * r)) (q * (p * r'))
+          (-((q * r) * p)) (-((q * r') * p))
+
+private theorem skew_ofInt_m (q : α) (n : Int) (r : α) : skew q (ofInt n) r = 0 := by
+  show q * (ofInt n * r) + -((q * r) * ofInt n) = 0
+  rw [← FlexAlt213.ofInt_nuc_m n q r, ← ofInt_central n q,
+      FlexAlt213.ofInt_nuc_l n q r, ← ofInt_central n (q * r),
+      NonAssocRing213.add_comm, NonAssocRing213.add_left_neg]
+
+private theorem skew_ofInt_r (q p : α) (n : Int) : skew q p (ofInt n) = 0 := by
+  show q * (p * ofInt n) + -((q * ofInt n) * p) = 0
+  rw [FlexAlt213.ofInt_nuc_r n q p, ← ofInt_central n (q * p),
+      ← ofInt_central n q, FlexAlt213.ofInt_nuc_l n q p,
+      NonAssocRing213.add_comm, NonAssocRing213.add_left_neg]
+
+/-- The skew-associator is invariant under simultaneous conjugation of
+    both inner factors: `skew q (conj p) (conj r) = skew q p r`.  By
+    bilinearity (`conj x = ofInt (trace x) − x`) + vanishing on a scalar
+    slot. -/
+private theorem skew_conj_inv (q p r : α) :
+    skew q (conj p) (conj r) = skew q p r := by
+  rw [FlexAlt213.conj_eq p, skew_add_m, skew_ofInt_m, skew_neg_m,
+      NonAssocRing213.zero_add, FlexAlt213.conj_eq r, skew_add_r,
+      skew_ofInt_r, skew_neg_r, NonAssocRing213.zero_add,
+      NonAssocRing213.neg_neg]
+
+/-- Additive group rearrange: `A + -C = D + -B → A + B = C + D`. -/
+private theorem cross_cancel {A B C D : α} (h : A + -C = D + -B) :
+    A + B = C + D := by
+  calc A + B
+      = (A + -C) + (C + B) := by
+        rw [NonAssocRing213.add_assoc A (-C) (C + B),
+            ← NonAssocRing213.add_assoc (-C) C B,
+            NonAssocRing213.add_left_neg, NonAssocRing213.zero_add]
+    _ = (D + -B) + (C + B) := by rw [h]
+    _ = D + C := by
+        rw [NonAssocRing213.add_assoc D (-B) (C + B),
+            NonAssocRing213.add_comm C B,
+            ← NonAssocRing213.add_assoc (-B) B C,
+            NonAssocRing213.add_left_neg, NonAssocRing213.zero_add]
+    _ = C + D := NonAssocRing213.add_comm D C
+
+/-- **The `im`-component identity** for CD flexibility:
+    `q·(p·r) + (q·conj r)·conj p = (q·r)·p + q·(conj p·conj r)`.
+    Rearranged `skew_conj_inv`. -/
+theorem skew_conj (q p r : α) :
+    q * (p * r) + (q * conj r) * conj p = (q * r) * p + q * (conj p * conj r) := by
+  have hi : q * (conj p * conj r) + -((q * conj r) * conj p)
+          = q * (p * r) + -((q * r) * p) := skew_conj_inv q p r
+  exact cross_cancel hi.symm
+
 end FlexAlt213
 
 end E213.Meta.Algebra213
