@@ -52,6 +52,7 @@ import E213.Lib.Math.Real213.PhiNormInvariant
 import E213.Lib.Math.Real213.FibCassiniNat
 import E213.Lib.Math.Real213.PhiCauchyLimit
 import E213.Lib.Math.Real213.HolonomicReal
+import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

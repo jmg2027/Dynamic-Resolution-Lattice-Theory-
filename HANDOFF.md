@@ -145,10 +145,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
     not a hypothesis) + `ValidCut` of the limit; `HolonomicReal.cut_valid` is the
     unconditional API.  φ is a complete instance (`phiHolonomicReal`): order-2
     constant-coeff (det 1), modulus `N(m,k)=2k` (proven, `phiConvergentSeq`), cut =
-    closed-form `phiCut`.  OPEN core: the *general* generator
-    `Holonomic → CertifiedModulus` (derive the modulus from arbitrary recurrence
-    data) — e (deg-1 `n+1`) / π (deg-4) need their explicit tail-ratio modulus
-    proven (genuine convergence-rate analysis).
+    closed-form `phiCut`.  The general generator `Holonomic → CertifiedModulus` is
+    now characterized (`research-notes/G164`): **total-constructive exactly on the
+    autonomous (algebraic, det-1) class**; for transcendentals it certifies only the
+    *decided region*.  `ExpLog/EulerCertifiedBracket` (3/0): e is certified-Cauchy on
+    its proven bracket `(8/3,3)` — `euler_certified_at_3` (mod 0) + `euler_certified_at_8_3`
+    (mod 4) via constructive `orderCauchy_from_{true_forever,false_witness}`.  OPEN
+    core: e/π's **total** modulus is the LEM wall (`MonotonicBounded`: monotone-
+    bounded⟹Cauchy needs LEM = deciding e vs m/k) = a **constructive irrationality
+    measure** for e (`|e−m/k| > f(k)`) — the genuine open analytic problem, not a
+    packaging gap.
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`

@@ -94,6 +94,7 @@ Active top-level registries after merge:
 | `G136_kplus1_marathon_insights.md` | Insight note from G132 cup-ladder marathon; companion to `theory/math/cohomology/cup_ladder_graduation.md` | post-closure synthesis |
 | `G149_analysis_continuum_space_insights.md` | Analysis / continuum / space survey — fed into G148 GRA framework + theory/math/gra_book.md Ch.6 | post-closure synthesis |
 | `G155_holonomic_real_architecture.md` | HolonomicReal: modulus-as-data type architecture. **Axis 1 realized** (`Real213/HolonomicReal.lean`, φ instance); Axes 2–3 + general `Holonomic→CertifiedModulus` generator open | **active** (real-number direction) |
+| `G164_holonomic_generator_constructive_boundary.md` | The generator is total-constructive **exactly on the autonomous (algebraic) class**; transcendentals certified only on the decided region (`ExpLog/EulerCertifiedBracket`). Total e-modulus = constructive irrationality measure (LEM wall) | **active** finding |
 | `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion (what was removed) | active registry |
 | `archive/G59_generic_CDDouble_starring_lift.md` | CDDouble StarRing213 functor `[CommStarRing213 α] → StarRing213 (CDDouble α)` — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Generic-lift functor" |
 | `archive/G60_tower_ascent_fixed_point.md` | Three concurrent fates (algebraic loss / Order-4 ascent / {±1} pointwise meta-fixed point) — absorbed into `theory/math/cayley_dickson/algebra_tower.md` "Three concurrent fates" |
