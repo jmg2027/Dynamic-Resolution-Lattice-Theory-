@@ -178,34 +178,59 @@ the consumer only used at kernel level).  Recovery is then
 clean: state the claim at LensIso / LensImage level, prove via
 the bridge.
 
-## Worked example
+## Worked example — `lensXor_comm` three-step ladder
 
-A Cat-1 candidate in pre-EqPW history was the function-Eq
-between `idLens` and a Lens whose combine reproduces the same
-view-function on Raw.  Two forms:
-
-```
--- DIRTY: L_alt = idLens : Lens (Raw → Raw)
--- needs funext on combine
-theorem L_alt_eq_idLens : L_alt = idLens := by funext _ _; rfl
-```
-
-vs.
+Concrete in `lean/E213/Lens/Compose/OnLens.lean`: three statements
+of "`lensXor` is commutative" at three rungs of the axiom-cost
+ladder.
 
 ```
--- PURE: kernels coincide on every Raw-pair
-theorem L_alt_kernel_eq_idLens : LensIso L_alt idLens :=
-  lensIso_of_eqPW
-    ⟨rfl, rfl, fun _ _ => rfl⟩  -- the eqPW proof
-    L_alt.combine_sym             -- symmetric combine hypothesis
+-- Rung 0 (DIRTY, funext): function-level Lens equality.
+-- #print axioms → Quot.sound
+theorem lensXor_comm (L M : Lens Bool) :
+    lensXor L M = lensXor M L := by …  -- funext on combine
 ```
 
-The PURE form delivers the same operational content for any
-downstream caller that uses the Lens via `view` / `equiv` /
-`refines`.  Cat-1 conversions during the marathon (Phase 2 in
-`STRICT_ZERO_AXIOM.md`) replaced ≈ 11 DIRTY theorems with the
-eqPW companion; LensIso extends the same template to Lenses
-of differing codomain α, β.
+```
+-- Rung 1 (PURE, eqPW): the EqPW companion — pointwise equality on
+-- combine.  funext-free.  base of the marathon's Cat-1 conversion.
+theorem lensXor_comm_eqPW (L M : Lens Bool) :
+    (lensXor L M).eqPW (lensXor M L) := by …  -- structural cases
+```
+
+```
+-- Rung 2 (PURE, LensIso): the unification-layer companion produced
+-- by Pattern P1.  Composes the eqPW proof with the combine-sym
+-- hypothesis on the source Lenses to give a PURE LensIso witness.
+theorem lensXor_comm_lensIso (L M : Lens Bool)
+    (hLsym : ∀ u v, L.combine u v = L.combine v u)
+    (hMsym : ∀ u v, M.combine u v = M.combine v u) :
+    LensIso (lensXor L M) (lensXor M L) := by
+  apply lensIso_of_eqPW (lensXor_comm_eqPW L M)
+  intro u v
+  show xor (L.combine u v) (M.combine u v)
+     = xor (L.combine v u) (M.combine v u)
+  rw [hLsym u v, hMsym u v]
+```
+
+Audit confirms:
+
+```
+[DIRTY] lensXor_comm                       [Quot.sound]
+[PURE]  lensXor_comm_eqPW
+[PURE]  lensXor_comm_lensIso
+```
+
+Rung 1 → Rung 2 cost: one `apply lensIso_of_eqPW` + the
+`combine`-symmetry rewrites that descend the `xor`-of-combines.
+The hypothesis on `L`, `M` having symmetric combines is exactly
+the precondition `lensIso_of_eqPW` needs.
+
+The ladder makes the methodology operational: future DIRTY
+Lens-equality results can land an `_eqPW` companion (the existing
+marathon pattern) and an `_lensIso` companion (this pattern) so
+that downstream consumers at kernel level never depend on the
+funext at rung 0.
 
 ## Inductive-predicate level generalisation
 

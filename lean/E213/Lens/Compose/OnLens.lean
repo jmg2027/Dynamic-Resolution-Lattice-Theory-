@@ -1,6 +1,7 @@
 import E213.Lens.SemanticAtom
 import E213.Lens.Instances.Reach
 import E213.Lens.EqPW
+import E213.Lens.Unified
 
 /-!
 # LensOnLens: Lens itself as an instance of the semantic framework
@@ -72,6 +73,25 @@ theorem lensXor_comm_eqPW (L M : Lens Bool) :
   · intro x y
     show xor (L.combine x y) (M.combine x y) = xor (M.combine x y) (L.combine x y)
     cases L.combine x y <;> cases M.combine x y <;> rfl
+
+/-- **DIRTY-recovery P1 worked example**: `lensXor` commutativity
+    at the Lens-arrow level.  Where `lensXor_comm` is DIRTY (funext)
+    and `lensXor_comm_eqPW` is PURE (pointwise), this companion
+    composes the eqPW proof with `lensIso_of_eqPW` from
+    `Lens/Unified.lean` to give a PURE LensIso witness — useful
+    for any downstream consumer who needs the symmetric pair to
+    interact with kernel-equality theorems.  Requires the source
+    Lenses to have symmetric combines (so the combined
+    `xor`-of-combines is itself symmetric). -/
+theorem lensXor_comm_lensIso (L M : Lens Bool)
+    (hLsym : ∀ u v, L.combine u v = L.combine v u)
+    (hMsym : ∀ u v, M.combine u v = M.combine v u) :
+    E213.Lens.Unified.LensIso (lensXor L M) (lensXor M L) := by
+  apply E213.Lens.Unified.lensIso_of_eqPW (lensXor_comm_eqPW L M)
+  intro u v
+  show xor (L.combine u v) (M.combine u v)
+     = xor (L.combine v u) (M.combine v u)
+  rw [hLsym u v, hMsym u v]
 
 /-- `lensXor` is eqPW-congruent in both arguments — required to use
     `Lens.view_unique_eqPW` for the lensXor combine. -/
