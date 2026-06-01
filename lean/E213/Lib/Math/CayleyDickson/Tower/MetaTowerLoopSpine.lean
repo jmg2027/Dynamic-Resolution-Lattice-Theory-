@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Tower.UniversalOrderGrowth
 import E213.Lib.Math.CayleyDickson.Tower.UniversalOrderGrowthC
 import E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote
+import E213.Lib.Math.CayleyDickson.Integer.ZSqrtMinus2Findings
 
 /-!
 # Meta-CD-tower loop spine
@@ -55,6 +56,8 @@ open E213.Lib.Math.CayleyDickson.Levels.Cayley
 open E213.Lib.Math.CayleyDickson.Levels.Sedenion
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaDouble
 open E213.Lib.Math.CayleyDickson.Integer.ZOmegaQuad
+open E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+open E213.Lib.Math.CayleyDickson.Integer.ZI
 
 /-- ★ **Meta-CD-tower loop-spine structure.**  Type A's basis-loop
     classes are a proper, branch-restricted subset of Type B's:
@@ -140,5 +143,56 @@ theorem eisenstein_denser_dim8 :
     cay_units.countP (fun u => cay_orderOf u = 4)
       < zoq_units.countP (fun u => zoq_orderOf u = 4) := by
   rw [cay_order_distribution.2.2.1]; decide
+
+/-! ### The bottom rung Type A omits
+
+`ℤ[√-2] = ZSqrt 2` (Type B's base) has unit group exactly `{±1}` (an
+imaginary quadratic order, discriminant `-8`): a `Z₂` loop with **no**
+order-4 element.  Type A's base `ℤ[i]` is already `Z₄` (units
+`{±1,±i}`, order-4 count 2).  So the dyadic loop spine has a rung
+(`Z₂`, order-4 count 0) below Type A's start, supplied by Type B and
+omitted by Type A — the formal content of "Type A is a section that
+skips the bottom rung". -/
+
+/-- `ℤ[√-2]` unit group `{±1}`. -/
+def z2_one : Z2 := ⟨1, 0⟩
+
+/-- The two units `{1, -1}` of `ℤ[√-2]`. -/
+def z2_base_units : List Z2 := [⟨1, 0⟩, ⟨-1, 0⟩]
+
+/-- Element order on `ℤ[√-2]`, checking the torsion menu `{1,2,3,4,6}`. -/
+def z2_orderOf (u : Z2) : Nat :=
+  if u = z2_one then 1
+  else if u * u = z2_one then 2
+  else if u * u * u = z2_one then 3
+  else if u * u * u * u = z2_one then 4
+  else if u * u * u * u * u * u = z2_one then 6
+  else 0
+
+/-- `ℤ[i]` unit `1`. -/
+def zi_one : ZI := ⟨1, 0⟩
+
+/-- Element order on `ℤ[i]`. -/
+def zi_orderOf (u : ZI) : Nat :=
+  if u = zi_one then 1
+  else if u * u = zi_one then 2
+  else if u * u * u * u = zi_one then 4
+  else 0
+
+/-- ★ **The dyadic spine has a `Z₂` bottom rung that Type A omits.**
+    Type B's base `ℤ[√-2]` is the `Z₂` loop — 2 units, no order-4, no
+    3-torsion — sitting one doubling below Type A's base `ℤ[i]`, which is
+    already `Z₄` (4 units, order-4 count 2).  So the dyadic loop spine
+    extends one rung below Type A; Type A indexes it from the second
+    position. -/
+theorem dyadic_branch_bottom_rung :
+    -- B base ℤ[√-2]: the Z₂ rung (no order-4, no 3-torsion).
+    z2_base_units.length = 2
+    ∧ z2_base_units.countP (fun u => z2_orderOf u = 4) = 0
+    ∧ z2_base_units.countP (fun u => z2_orderOf u = 3) = 0
+    -- A base ℤ[i]: already Z₄ (order-4 count 2) — the Z₂ rung is absent.
+    ∧ ZIUnits.length = 4
+    ∧ ZIUnits.countP (fun u => zi_orderOf u = 4) = 2 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine

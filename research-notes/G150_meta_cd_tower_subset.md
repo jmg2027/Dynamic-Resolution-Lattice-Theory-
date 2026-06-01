@@ -303,11 +303,12 @@ Critique pass (second agent) confirmed the proofs sound but corrected the
     across the three branch classes.
 
 **Still open (sharpened):**
-  - NC-2 — "A's skipped rung is exactly the dim-2 `Z₂`" as a set identity.
-    *Caveat:* B's `Z₂` base (`ℤ[√-2]`, units `{±1}`) is **not formalised**
-    (the `L_nT` cells start at `L3T = Z₄`), so this is currently a math
-    interpretation, not a repo cell — would need a `ZSqrtMinus2` base
-    units list to become a theorem.
+  - NC-2 — **CONFIRMED.**  `dyadic_branch_bottom_rung` formalises the
+    `Z₂` bottom: `ℤ[√-2] = ZSqrt 2` has unit group `{±1}` (2 units, no
+    order-4, no 3-torsion), one doubling below Type A's base `ℤ[i]` (`Z₄`,
+    4 units, order-4 count 2).  So "Type A skips the bottom rung" is now a
+    theorem, not a caveat — the dyadic spine extends below Type A and
+    Type A indexes it from the second position.
   - NC-3 — "C is the densest branch": order-4 count strictly greater at
     each dim (`18>14`, `42>30`); decidable per level, conjectural for all.
   - NC-5 — completion = a **branching forest rooted at `Z₂`** (dyadic
