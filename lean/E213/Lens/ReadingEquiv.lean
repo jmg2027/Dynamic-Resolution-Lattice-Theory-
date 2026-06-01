@@ -1,26 +1,27 @@
 import E213.Lens.LensCore
 
 /-!
-# Reading-native equivalence for `Prop`-valued Lenses (∅-axiom)
+# Reading-native equivalence — 213's sameness on Lens codomains (∅-axiom)
 
-`Lens.equiv L x y := L.view x = L.view y` records "same reading under `L`" as
-Lean propositional `=`.  For a `Prop`-valued Lens (`Lens (Raw → Prop)`) that is
-an equality at a function-of-`Prop` codomain, so it pulls `funext`
-(= `Quot.sound`) + `propext` — the source of the whole sealed-DIRTY
-`combine_sym` / `view_eq` / kernel / `refines` family.
+The residue's notion of "same under `L`" is **distinguishing the same things**,
+not Lean `=` of the view-values.  At a `Prop`-valued codomain (`Lens (Raw → Prop)`)
+Lean `=` of views is an equality at a function-of-`Prop` codomain — it pulls
+`funext` (= `Quot.sound`) + `propext`, importing identity beyond the
+distinguishing content.  `Lens.equivR L x y := ∀ s, L.view x s ↔ L.view y s`
+records the distinguishing content directly: a pointwise `↔`.  It is ∅-axiom and
+carries the full equivalence structure (`refl` / `symm` / `trans`) and a
+refinement order (`refinesR`); the single `=`-cost is isolated in the lone bridge
+`equivR_to_equiv`.
 
-But the residue's distinguishing content only asks that two readings
-**distinguish the same things** — a pointwise `↔`, not Lean `=` of the
-view-values.  `Lens.equivR` records exactly that.  It is ∅-axiom and carries the
-full equivalence structure (`refl` / `symm` / `trans`) and a refinement order
-(`refinesR`) purely.  The single `=`-cost is isolated in one bridge,
-`equivR_to_equiv` (the only declaration here that is not PURE).
-
-This is the 213-native notion of Lens sameness: "`L` distinguishes `x` and `y`
-the same way", matching `theory/lens/unified_equivalence.md` ("equivalence is one
-Lens-arrow") and `seed/AXIOM/06_lens_readings.md` §6.3.  For decidable codomains
-(`Bool`, `Nat`) the `=`-based `Lens.equiv` is already PURE and needs no
-counterpart; the issue is precisely the `Prop`-valued case captured here.
+`ReadingEq α` lifts this to the **codomain-polymorphic** primitive: per codomain
+`α`, the relation `same` under which two `α`-readings count as the same
+distinguishing.  At decidable codomains (`Bool`, `Nat`) `same` is `=` (already
+∅-axiom); at `Raw → Prop` it is the pointwise `↔` (`equivR`).  `Lens.equivG` /
+`Lens.refinesG` are the equivalence and refinement over `same`, reducing
+definitionally to `equiv` / `refines` (default) and `equivR` / `refinesR`
+(`Raw → Prop`).  This is the carrier of 213's one sameness across the Lens ring;
+see `theory/lens/unified_equivalence.md`, `seed/AXIOM/06_lens_readings.md` §6.3,
+and `research-notes/RFC_reading_equivalence_primitive.md`.
 -/
 
 namespace E213.Lens
