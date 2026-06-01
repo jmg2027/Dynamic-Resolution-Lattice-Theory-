@@ -14,9 +14,11 @@ surface**.  The PURE ∅-axiom core does **not** depend on category (A)
 below — those theorems exist to say "this 213 object, read classically,
 **is** the standard object (∧ / ∨ / ↔ / cup / instance)".
 
-Counts (full-scan, all 1533 modules): **12539 PURE / 45 real DIRTY +
-57 sealed-DIRTY-by-design**.  Tag in source:
-`grep -rn "classical-correspondence surface" lean/`.
+Current state (`tools/scan_all_axioms.py` for the live count): the 213-math core
+is ∅-axiom; the non-sealed `propext`/`Quot.sound` that remain are the `Prop`-atom
+thesis surface (category B) + the CayleyDickson open items (category D,
+`Trig.conj_mul_anti` / `SedenionHeavy.flexible`).  The Lens ring is 0 real DIRTY.
+Tag in source: `grep -rn "classical-correspondence surface" lean/`.
 
 ## (A) Correspondence / translation — "= the standard object"
 
@@ -44,21 +46,36 @@ of `Raw.slash`).  Removing the seal removes the thesis.
 propAsDistinguishingOr, propAsDistinguishingIff, propXor_comm,
 iff_comm_eq, exists_non_lens_expressible}` (7).
 
-## (C) Lens `equiv` / `refines` `=`-surface — `equivR`-recoverable
+## (C) Lens `equiv` / `refines` `=`-surface — `equivR`-rebuilt (RETIRED)
 
-Internal, load-bearing (not correspondence): the refinement lattice
-stated via `Lens.equiv := (view x = view y)`.  The PURE Reading-native
-form exists (`equivR` / `refinesR`, `universalLens_kernel_eq_E_R`); full
-retirement is a foundational pointwise-API rebuild (see
-`theory/lens/dirty_recovery_patterns.md` Pattern P5, `STRICT_ZERO_AXIOM.md`).
+Internal, load-bearing (not correspondence): the refinement lattice.  The
+codomain-polymorphic Reading-equivalence API (`ReadingEq` / `equivG` /
+`refinesG` in `Lens/ReadingEquiv.lean`, reducing to `equivR` at `Raw → Prop`
+and `equiv` at the default instance) now carries the **whole universalLens
+refinement surface ∅-axiom**, with the hub `universalLens_kernel_eq_E_R` + the
+closure companions `universalLens_{recovers_R, idempotent_R}` PURE.  The
+`=`-of-view forms are gone; the lone `=`-cost is the isolated bridge
+`equivR_to_equiv`.  See `theory/lens/dirty_recovery_patterns.md` Pattern P5,
+`STRICT_ZERO_AXIOM.md`.
 
-Sealed: `Universal.QuotLens` (5), `Instances.Cauchy` (3),
-`Instances.Leaves.DepthJoin` (10), `Lattice.IndexedJoin` (3).
-Real-DIRTY: `Lattice.{Join (4), FamilyJoin (2), FamilyMeet (1)}`,
-`Algebra.Corresp` (2), `Properties.{CanonicalForm (2), TowerLevel3 (1)}`,
-`Compose.{OnLens (9), OnLensImage (2), OnLensImageGeneric (1),
-OnLensImageLevel2 (1)}`, `Lib.Math.Cauchy.GenericFamily` (2),
-`Lib.Math.Choice.Resolved` (1).
+PURE now: `Universal.QuotLens`, `Instances.Cauchy`, `Lattice.{Join,
+IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
+`Properties.CanonicalForm`, `Lib.Math.Choice.Resolved`,
+`Instances.Leaves.DepthJoin` (the leaves⊔depth tier classification — the
+`omega`/`simp` arithmetic was replaced by explicit PURE Nat reasoning +
+`if_pos`/`if_neg`).
+
+PURE now (the Lens-of-Lens funext surface — retired by the equivalence-unification
+arc, `research-notes/RFC_reading_equivalence_primitive.md`): `Compose.{OnLens,
+OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`, `Properties.TowerLevel3`,
+`Lib.Math.Cauchy.GenericFamily`.  `HasDistinguishing` is now stated over its
+reading-sameness `same` (`= ` realization at concrete codomains, `eqPW`/`sameLens`
+at `Lens β`); the recursive Lens tower uses `universalMorphism_unique` +
+`sameLens`-transitivity.
+
+Remaining `propext` here is **category (B)**, not (C): `propAsDistinguishing*` /
+`canonical*Map` / `BoolProp.universalMorphism_commute_*` — `propext` IS the
+"Prop is an atom of meaning" thesis, kept by design.
 
 ## (D) Genuine results via classical representation — purifiable backlog
 
@@ -66,12 +83,25 @@ Real theorems whose DIRTY is inherited from `propext`-carrying Nat/Int
 core lemmas or structure-`ext`, not from correspondence.  Purifiable by
 the swap playbook (cf. `KerSizeUniversal`, 2026-06-01: `Nat.{mul_assoc,
 mul_div_cancel_left, add_mul_div_left, add_mul_mod_self_left,
-add_sub_cancel'}` → PURE infra).
+add_sub_cancel'}` → PURE infra; `CayleyHeavy`, 2026-06-01: `omega` /
+`Int.mul_eq_zero` → `Int213.{add_nonneg, add_eq_zero_of_nonneg,
+mul_eq_zero}`).
 
-`Lib.Math.CayleyDickson.{Levels.CayleyHeavy (2: normSq_eq_zero_iff,
-no_zero_div), Levels.SedenionHeavy (1: flexible),
-Levels.TrigintaduoionionHeavy (1: conj_mul_anti),
-Tower.CDTower (1: CD_tower_full)}`.
+PURE now: `Levels.CayleyHeavy` (`normSq_eq_zero_iff`, `no_zero_div`),
+`Tower.CDTower` (`CD_tower_full` — cascaded from `CayleyHeavy.no_zero_div`).
+
+Still DIRTY — **not** a playbook swap (genuine theorem development):
+  · `Levels.TrigintaduoionionHeavy.conj_mul_anti` (`hurwitz_ring`, 128
+    Int-var): needs `NonAssocStarRing213 Sedenion` (the
+    Sedenion→`CDDouble Cayley` algebra bridge, replicating
+    `CayleyAlgebra213`) so the proof can go structural like
+    `SedenionHeavy.conj_mul_anti`.
+  · `Levels.SedenionHeavy.flexible` (`hurwitz_ring`, 32 Int-var): the
+    **CDDoubleFlexible cross-pair open item** — Sedenion's base (Cayley)
+    is non-associative, so `cd_flexible` (which needs base alternativity
+    via `cd_alt_left`) does not apply; flexibility of the double of a
+    merely-flexible base needs the cross-pair lemma (`CDDoubleFlexible`,
+    long-standing CD open).
 
 ## (E) Intentional axiom exhibits / plumbing / tests
 

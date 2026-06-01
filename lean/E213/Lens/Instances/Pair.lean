@@ -30,49 +30,31 @@ def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
   b := (d_α.b, d_β.b)
   distinct := fun h => d_α.distinct (congrArg Prod.fst h)
   combine := fun p q => (d_α.combine p.1 q.1, d_β.combine p.2 q.2)
-  combine_sym := by
-    intro p q
-    show (d_α.combine p.1 q.1, d_β.combine p.2 q.2)
-         = (d_α.combine q.1 p.1, d_β.combine q.2 p.2)
-    rw [d_α.combine_sym, d_β.combine_sym]
+  same := fun p q => d_α.same p.1 q.1 ∧ d_β.same p.2 q.2
+  same_refl := fun p => ⟨d_α.same_refl p.1, d_β.same_refl p.2⟩
+  same_symm := fun h => ⟨d_α.same_symm h.1, d_β.same_symm h.2⟩
+  same_trans := fun h1 h2 => ⟨d_α.same_trans h1.1 h2.1, d_β.same_trans h1.2 h2.2⟩
+  combine_sym := fun p q => ⟨d_α.combine_sym p.1 q.1, d_β.combine_sym p.2 q.2⟩
+  combine_cong := fun _ _ _ _ ha hb =>
+    ⟨d_α.combine_cong _ _ _ _ ha.1 hb.1, d_β.combine_cong _ _ _ _ ha.2 hb.2⟩
 
 
 /-- **Universal property of binary product**: universalMorphism (α × β)
-    is the pair of componentwise universalMorphisms. -/
+    is the pair of componentwise universalMorphisms — up to the product
+    reading-sameness (at `Eq` components this is literal pair equality).
+    Proven via `universalMorphism_unique` (componentwise homomorphism). -/
 theorem universalMorphism_pair_commute (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
-    @universalMorphism (α × β) (pairHasDistinguishing α β) r
-      = (universalMorphism α r, universalMorphism β r) := by
-  induction r using Raw.rec with
-  | a =>
-      have h_pair : @universalMorphism (α × β) (pairHasDistinguishing α β) Raw.a
-                    = (d_α.a, d_β.a) :=
-        @universalMorphism_a (α × β) (pairHasDistinguishing α β)
-      have h_α : universalMorphism α Raw.a = d_α.a := universalMorphism_a α
-      have h_β : universalMorphism β Raw.a = d_β.a := universalMorphism_a β
-      rw [h_pair, h_α, h_β]
-  | b =>
-      have h_pair : @universalMorphism (α × β) (pairHasDistinguishing α β) Raw.b
-                    = (d_α.b, d_β.b) :=
-        @universalMorphism_b (α × β) (pairHasDistinguishing α β)
-      have h_α : universalMorphism α Raw.b = d_α.b := universalMorphism_b α
-      have h_β : universalMorphism β Raw.b = d_β.b := universalMorphism_b β
-      rw [h_pair, h_α, h_β]
-  | slash x y h ihx ihy =>
-      have h_pair : @universalMorphism (α × β) (pairHasDistinguishing α β)
-                      (Raw.slash x y h)
-                  = (pairHasDistinguishing α β).combine
-                      (@universalMorphism (α × β) (pairHasDistinguishing α β) x)
-                      (@universalMorphism (α × β) (pairHasDistinguishing α β) y) :=
-        @universalMorphism_slash (α × β) (pairHasDistinguishing α β) x y h
-      have h_α : universalMorphism α (Raw.slash x y h)
-                  = d_α.combine (universalMorphism α x) (universalMorphism α y) :=
-        universalMorphism_slash α x y h
-      have h_β : universalMorphism β (Raw.slash x y h)
-                  = d_β.combine (universalMorphism β x) (universalMorphism β y) :=
-        universalMorphism_slash β x y h
-      rw [h_pair, h_α, h_β, ihx, ihy]
-      rfl
+    (pairHasDistinguishing α β).same
+      (@universalMorphism (α × β) (pairHasDistinguishing α β) r)
+      (universalMorphism α r, universalMorphism β r) :=
+  (pairHasDistinguishing α β).same_symm
+    (universalMorphism_unique (α × β) (d := pairHasDistinguishing α β)
+      (fun r => (universalMorphism α r, universalMorphism β r))
+      ((pairHasDistinguishing α β).same_refl _)
+      ((pairHasDistinguishing α β).same_refl _)
+      (fun x y h => ⟨universalMorphism_slash α x y h, universalMorphism_slash β x y h⟩)
+      r)
 
 
 /-! ### Pair forget projections (categorical projection morphisms)
@@ -121,14 +103,14 @@ universal property of the categorical product. -/
 
 theorem universalMorphism_first (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
-    Prod.fst (@universalMorphism (α × β) (pairHasDistinguishing α β) r)
-      = universalMorphism α r := by
-  rw [universalMorphism_pair_commute]
+    d_α.same (Prod.fst (@universalMorphism (α × β) (pairHasDistinguishing α β) r))
+      (universalMorphism α r) :=
+  (universalMorphism_pair_commute α β r).1
 
 theorem universalMorphism_second (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
-    Prod.snd (@universalMorphism (α × β) (pairHasDistinguishing α β) r)
-      = universalMorphism β r := by
-  rw [universalMorphism_pair_commute]
+    d_β.same (Prod.snd (@universalMorphism (α × β) (pairHasDistinguishing α β) r))
+      (universalMorphism β r) :=
+  (universalMorphism_pair_commute α β r).2
 
 end E213.Lens.Instances.Pair

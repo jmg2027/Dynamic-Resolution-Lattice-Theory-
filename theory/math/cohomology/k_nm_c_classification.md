@@ -736,7 +736,7 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 
 ## Open frontier (residual)
 
-Per-layer completeness — closed (2026-05-25, this session):
+Per-layer completeness:
 `joint_psi_kernel_subset_primary` discharges the hypothesis of
 `codim_upper_bound_conditional` unconditionally at every c.  The
 unconditional capstones `parametric_dual_span_unconditional` and

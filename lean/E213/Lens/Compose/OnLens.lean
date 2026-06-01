@@ -49,19 +49,9 @@ def lensXor (L M : Lens Bool) : Lens Bool :=
   ⟨xor L.base_a M.base_a, xor L.base_b M.base_b,
    fun x y => xor (L.combine x y) (M.combine x y)⟩
 
-theorem lensXor_comm (L M : Lens Bool) : lensXor L M = lensXor M L := by
-  unfold lensXor
-  -- Structural equality on Lens record.
-  congr 1
-  · cases L.base_a <;> cases M.base_a <;> rfl
-  · cases L.base_b <;> cases M.base_b <;> rfl
-  · funext x y
-    cases L.combine x y <;> cases M.combine x y <;> rfl
-
-/-- Pointwise (eqPW) commutativity of `lensXor` — ∅-axiom companion
-    to `lensXor_comm` (which uses funext on the combine field).
-    For Lens-equality consumers that can be expressed via eqPW,
-    this companion eliminates the Quot.sound dependency. -/
+/-- Pointwise (eqPW) commutativity of `lensXor` — ∅-axiom; the residue-native
+    form of `lensXor`'s symmetry (the readings distinguish the same things),
+    avoiding the `funext` a Lens-`=` would pull on the combine field. -/
 theorem lensXor_comm_eqPW (L M : Lens Bool) :
     (lensXor L M).eqPW (lensXor M L) := by
   refine ⟨?_, ?_, ?_⟩
@@ -95,7 +85,12 @@ def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
   b := constFalseLens
   distinct := const_lenses_distinct
   combine := lensXor
-  combine_sym := lensXor_comm
+  same := Lens.eqPW
+  same_refl := Lens.eqPW_refl
+  same_symm := Lens.eqPW_symm
+  same_trans := Lens.eqPW_trans
+  combine_sym := lensXor_comm_eqPW
+  combine_cong := lensXor_eqPW_cong
 
 
 /-! ### Universal morphism Raw → Lens Bool
@@ -103,12 +98,9 @@ def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
 The sharpest self-application instance — elements of Raw map to
 Lenses (= the representation unit of the framework). -/
 
-/-- Universal morphism Raw → Lens Bool.  Defined directly via
-    `Raw.fold` on `(constTrueLens, constFalseLens, lensXor)`,
-    bypassing the DIRTY `lensBoolHasDistinguishing` instance.
-    Definitionally equal to `@universalMorphism (Lens Bool)
-    lensBoolHasDistinguishing` but ∅-axiom (the indirect route
-    pulls in `lensXor_comm`'s funext via the typeclass field). -/
+/-- Universal morphism Raw → Lens Bool — `Raw.fold` on
+    `(constTrueLens, constFalseLens, lensXor)`, definitionally equal to
+    `@universalMorphism (Lens Bool) lensBoolHasDistinguishing`. -/
 def lensUniversalMorphism : Raw → Lens Bool :=
   Raw.fold constTrueLens constFalseLens lensXor
 
@@ -118,15 +110,9 @@ theorem lensUniversalMorphism_a :
 theorem lensUniversalMorphism_b :
     lensUniversalMorphism Raw.b = constFalseLens := rfl
 
-theorem lensUniversalMorphism_slash (x y : Raw) (h : x ≠ y) :
-    lensUniversalMorphism (Raw.slash x y h)
-      = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) := by
-  unfold lensUniversalMorphism
-  exact Raw.fold_slash _ _ _ lensXor_comm x y h
-
-/-- ∅-axiom companion to `lensUniversalMorphism_slash`: pointwise
-    Lens equality (eqPW) of the slash image with the lensXor of the
-    children, derived via `Lens.fold_slash_eqPW` and `lensXor_comm_eqPW`. -/
+/-- Slash image of `lensUniversalMorphism` as a pointwise Lens equality (eqPW):
+    the residue-native form of the slash homomorphism, derived via
+    `Lens.fold_slash_eqPW` and `lensXor_comm_eqPW` — ∅-axiom. -/
 theorem lensUniversalMorphism_slash_eqPW (x y : Raw) (h : x ≠ y) :
     (lensUniversalMorphism (Raw.slash x y h)).eqPW
       (lensXor (lensUniversalMorphism x) (lensUniversalMorphism y)) := by
@@ -157,19 +143,8 @@ def lensCombineGeneric {α : Type} (c : α → α → α) (L M : Lens α) : Lens
   ⟨c L.base_a M.base_a, c L.base_b M.base_b,
    fun x y => c (L.combine x y) (M.combine x y)⟩
 
-/-- Commutativity of α's combine implies commutativity of lensCombineGeneric. -/
-theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
-    (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
-    lensCombineGeneric c L M = lensCombineGeneric c M L := by
-  unfold lensCombineGeneric
-  congr 1
-  · exact hsym _ _
-  · exact hsym _ _
-  · funext x y; exact hsym _ _
-
-/-- Pointwise (eqPW) version — ∅-axiom companion to
-    `lensCombineGeneric_comm`, which uses funext on the combine field.
-    Sufficient for any consumer reasoning at the kernel level. -/
+/-- Pointwise (eqPW) commutativity of `lensCombineGeneric` from `c`-commutativity
+    — ∅-axiom (the residue-native form; a Lens-`=` would pull `funext`). -/
 theorem lensCombineGeneric_comm_eqPW {α : Type} (c : α → α → α)
     (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
     (lensCombineGeneric c L M).eqPW (lensCombineGeneric c M L) := by
@@ -193,6 +168,23 @@ theorem lensCombineGeneric_eqPW_cong {α : Type} (c : α → α → α)
     show c (L1.combine x y) (M1.combine x y) = c (L2.combine x y) (M2.combine x y)
     rw [hL.2.2 x y, hM.2.2 x y]
 
+/-- `lensCombineGeneric` symmetry up to a base relation `R` — the `sameLens`
+    (recursive-tower) companion of `lensCombineGeneric_comm_eqPW`.  ∅-axiom:
+    each `sameLens` component is `hRsym` at the corresponding base values. -/
+theorem lensCombineGeneric_comm_same {α : Type} (c : α → α → α) (R : α → α → Prop)
+    (hRsym : ∀ u v, R (c u v) (c v u)) (L M : Lens α) :
+    (lensCombineGeneric c L M).sameLens R (lensCombineGeneric c M L) :=
+  ⟨hRsym _ _, hRsym _ _, fun _ _ => hRsym _ _⟩
+
+/-- `lensCombineGeneric` is `sameLens R`-congruent when `c` is `R`-congruent —
+    the recursive-tower companion of `lensCombineGeneric_eqPW_cong`. -/
+theorem lensCombineGeneric_cong_same {α : Type} (c : α → α → α) (R : α → α → Prop)
+    (hRcong : ∀ a a' b b', R a a' → R b b' → R (c a b) (c a' b'))
+    (L L' M M' : Lens α) (hL : L.sameLens R L') (hM : M.sameLens R M') :
+    (lensCombineGeneric c L M).sameLens R (lensCombineGeneric c L' M') :=
+  ⟨hRcong _ _ _ _ hL.1 hM.1, hRcong _ _ _ _ hL.2.1 hM.2.1,
+   fun u v => hRcong _ _ _ _ (hL.2.2 u v) (hM.2.2 u v)⟩
+
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
     (Lens α)`.  The Lens type itself is an instance of the semantic
@@ -206,7 +198,12 @@ def lensHasDistinguishing (α : Type) [d : HasDistinguishing α] :
   b := constLens d.b
   distinct := constLens_distinct d.distinct
   combine := lensCombineGeneric d.combine
-  combine_sym := lensCombineGeneric_comm d.combine d.combine_sym
+  same := Lens.sameLens d.same
+  same_refl := Lens.sameLens_refl d.same_refl
+  same_symm := fun h => Lens.sameLens_symm (R := d.same) d.same_symm h
+  same_trans := fun h1 h2 => Lens.sameLens_trans (R := d.same) d.same_trans h1 h2
+  combine_sym := lensCombineGeneric_comm_same d.combine d.same d.combine_sym
+  combine_cong := lensCombineGeneric_cong_same d.combine d.same d.combine_cong
 
 open E213.Lens.Instances.Reach
 

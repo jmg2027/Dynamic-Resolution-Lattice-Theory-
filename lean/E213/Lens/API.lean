@@ -41,7 +41,7 @@ classes (HV1 + HV2 + HV3):
 **HV6 — Canonical Form API** (`import E213.Lens.Universal`):
   - `Universal.Flat.every_lens_factors_through_idLens`
   - `Universal.QuotLens.universalLens`
-  - `Properties.CanonicalForm.universalLens_recovers`
+  - `Properties.CanonicalForm.lens_canonical_universal`
   - `Universal.Witnesses.*` — concrete universal-Lens witnesses
     at Nat2/3/4, Q213, Q213³ (moved from Meta)
 

@@ -34,11 +34,39 @@ protected def Lens.eqPW {α : Type} (L M : Lens α) : Prop :=
   L.base_b = M.base_b ∧
   ∀ u v, L.combine u v = M.combine u v
 
+/-- **Base-relation Lens sameness**: pointwise `eqPW` with the base comparison
+    generalized from Lean `=` to an arbitrary base relation `R`.  For the
+    recursive Lens tower `Lens (Lens β)` the base values (`base_a : Lens β`) are
+    themselves Lenses, whose `=` is funext-bearing — so the tower threads the
+    base's *own* sameness (`R := base.same`) instead of Lean `=`.
+    `sameLens Eq` coincides with `eqPW`. -/
+protected def Lens.sameLens {β : Type} (R : β → β → Prop) (L M : Lens β) : Prop :=
+  R L.base_a M.base_a ∧
+  R L.base_b M.base_b ∧
+  ∀ u v, R (L.combine u v) (M.combine u v)
+
 namespace Lens
 
 /-- Reflexivity. -/
 protected theorem eqPW_refl {α : Type} (L : Lens α) : L.eqPW L :=
   ⟨rfl, rfl, fun _ _ => rfl⟩
+
+/-- `sameLens R` reflexivity (from `R` reflexive). -/
+protected theorem sameLens_refl {β : Type} {R : β → β → Prop}
+    (Rrefl : ∀ x, R x x) (L : Lens β) : L.sameLens R L :=
+  ⟨Rrefl _, Rrefl _, fun _ _ => Rrefl _⟩
+
+/-- `sameLens R` symmetry (from `R` symmetric). -/
+protected theorem sameLens_symm {β : Type} {R : β → β → Prop}
+    (Rsymm : ∀ {x y}, R x y → R y x) {L M : Lens β}
+    (h : L.sameLens R M) : M.sameLens R L :=
+  ⟨Rsymm h.1, Rsymm h.2.1, fun u v => Rsymm (h.2.2 u v)⟩
+
+/-- `sameLens R` transitivity (from `R` transitive). -/
+protected theorem sameLens_trans {β : Type} {R : β → β → Prop}
+    (Rtrans : ∀ {x y z}, R x y → R y z → R x z) {L M N : Lens β}
+    (h1 : L.sameLens R M) (h2 : M.sameLens R N) : L.sameLens R N :=
+  ⟨Rtrans h1.1 h2.1, Rtrans h1.2.1 h2.2.1, fun u v => Rtrans (h1.2.2 u v) (h2.2.2 u v)⟩
 
 /-- Symmetry. -/
 protected theorem eqPW_symm {α : Type} {L M : Lens α} (h : L.eqPW M) : M.eqPW L :=

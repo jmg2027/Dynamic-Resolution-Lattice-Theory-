@@ -162,11 +162,10 @@ def limitLens (xs : Nat → Raw) (N : Nat) : Lens (Raw → Prop) :=
   universalLens (TailCong xs N)
 
 /-- **Kernel of limitLens = TailCong**.  Direct consequence of
-    universalLens. -/
+    universalLens.  Stated as the Reading-equivalence `equivR`, ∅-axiom. -/
 theorem limitLens_kernel (xs : Nat → Raw) (N : Nat) (r r' : Raw) :
-    (limitLens xs N).view r = (limitLens xs N).view r'
-      ↔ TailCong xs N r r' := by
-  apply universalLens_kernel_eq_E
+    (limitLens xs N).equivR r r' ↔ TailCong xs N r r' := by
+  apply universalLens_kernel_eq_E_R
   · exact fun x => TailCong.refl x
   · exact fun _ _ h => TailCong.symm h
   · exact fun _ _ _ h1 h2 => TailCong.trans h1 h2
@@ -175,10 +174,10 @@ theorem limitLens_kernel (xs : Nat → Raw) (N : Nat) (r r' : Raw) :
 
 /-- **Tail collapse**: all tail elements (xs m, xs k) (m, k ≥ N)
     form a single class under limitLens.  Core expression of Cauchy
-    completeness. -/
+    completeness.  Stated as `equivR` (pointwise `↔`), ∅-axiom. -/
 theorem limitLens_tail_collapse (xs : Nat → Raw) (N : Nat)
     (m k : Nat) (hm : m ≥ N) (hk : k ≥ N) :
-    (limitLens xs N).view (xs m) = (limitLens xs N).view (xs k) :=
+    (limitLens xs N).equivR (xs m) (xs k) :=
   (limitLens_kernel xs N (xs m) (xs k)).mpr (TailCong.tail_eq m k hm hk)
 
 /-- TailCong ⊆ N.equiv (helper for universal property). -/
@@ -206,7 +205,7 @@ theorem limitLens_is_least {α : Type} (N : Lens α)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
     (xs : Nat → Raw) (M : Nat)
     (hCollapse : ∀ m k, m ≥ M → k ≥ M → N.equiv (xs m) (xs k)) :
-    (limitLens xs M).refines N := by
+    (limitLens xs M).refinesG N := by
   intro r r' h
   have hTC : TailCong xs M r r' := (limitLens_kernel xs M r r').mp h
   exact tailCong_implies_equiv N hNsym xs M hCollapse r r' hTC

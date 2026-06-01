@@ -50,19 +50,19 @@ def familyJoinLens {I : Type} (E : I → Raw → Raw → Prop) :
 
 theorem familyJoinLens_kernel {I : Type} (E : I → Raw → Raw → Prop)
     (r r' : Raw) :
-    (familyJoinLens E).view r = (familyJoinLens E).view r'
-      ↔ FamilyJoinEquiv E r r' :=
-  universalLens_kernel_eq_E (FamilyJoinEquiv E)
+    (familyJoinLens E).equivR r r' ↔ FamilyJoinEquiv E r r' :=
+  universalLens_kernel_eq_E_R (FamilyJoinEquiv E)
     FamilyJoinEquiv.refl
     (fun _ _ h => FamilyJoinEquiv.symm h)
     (fun _ _ _ h1 h2 => FamilyJoinEquiv.trans h1 h2)
     (fun _ _ _ _ h h' h1 h2 => FamilyJoinEquiv.slash_cong h h' h1 h2)
     r r'
 
-/-- **Universal property**: each E_i is contained in the family join. -/
+/-- **Universal property**: each E_i is contained in the family join.  Stated as
+    `equivR` (pointwise `↔`), ∅-axiom. -/
 theorem familyJoin_contains {I : Type} (E : I → Raw → Raw → Prop)
     (i : I) (r r' : Raw) (h : E i r r') :
-    (familyJoinLens E).view r = (familyJoinLens E).view r' :=
+    (familyJoinLens E).equivR r r' :=
   (familyJoinLens_kernel E r r').mpr (FamilyJoinEquiv.ofI i h)
 
 end E213.Lens.Lattice.FamilyJoin

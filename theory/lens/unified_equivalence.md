@@ -60,6 +60,41 @@ Five facts make the Lens-arrow the single concept:
      (`seed/AXIOM/10_encoding_costs.md` §10.1; no Quot.sound
      required).
 
+## Reading-equivalence is the equivalence primitive
+
+What "same" means in 213 is **distinguishing-the-same**, not Lean
+substrate `=`.  `ReadingEq α` (`Lens/ReadingEquiv.lean`) supplies, per
+codomain `α`, the relation `same : α → α → Prop` under which two
+`α`-readings count as the same distinguishing — an equivalence relation,
+nothing more (`seed/AXIOM/06_lens_readings.md` §6.3).  Lean `=` is the
+**realization** of `same` exactly where `=` is axiom-free: at the
+decidable / "concrete" codomains (`Nat`, `Bool`, `Fin n`, and products,
+sums, subtypes of these) `same` is `Eq`; at `Raw → Prop` it is the
+pointwise `↔` (`equivR`); at `Lens β` it is `Lens.sameLens` on the base's
+own sameness; at `Prop` it is `Iff`.  `Lens.equivG` / `Lens.refinesG` are
+the codomain-polymorphic equivalence and refinement over `same`, with
+`Lens.equiv` / `Lens.refines` their `=`-realization at concrete codomains.
+
+The same primitive runs through `HasDistinguishing`
+(`Lens/SemanticAtom.lean`): the distinguishing framework's swap-invariance
+is `combine_sym : ∀ x y, same (combine x y) (combine y x)`, and the
+universal morphism's slash-coherence is `universalMorphism_slash` stated
+up to `same` (`Raw.fold_slash_rel`).  A composite instance carries the
+composite sameness — `Pair` the product `same`, `Sum` the per-constructor
+`sumSame` — never `Prod`/`Sum` substrate `=`; the recursive Lens tower
+(`Compose.OnLens{,Image,ImageGeneric,ImageLevel2}`, `Properties.TowerLevel3`)
+carries `sameLens` and is ∅-axiom.  So `Lens.equiv`, `Lens.refines`,
+Lens-kernels, and `HasDistinguishing.combine_sym` are not four sameness
+notions — they are the one reading-equivalence, realized as `=` where that
+imports nothing and as the pointwise form where Lean `=` would import
+`funext`/`propext`.
+
+`propext` survives in exactly one place: `propAsDistinguishing*`
+(`Prop` as a `HasDistinguishing` instance, `Lens/SemanticAtom.lean`) and
+the `canonical*Map` it generates.  There `propext` is the **content** — the
+thesis "`Prop` is an atom of meaning", `propXor` the `Prop`-parallel of
+`Raw.slash` — not a borrowed statement shape.  It is held, not removed.
+
 ## Four classical readings
 
 Let `L : Lens α` with commutative combine.  Let `E := L.equiv`
@@ -75,17 +110,16 @@ on α and never require new axioms.  All **PURE**.
 
 The reverse direction (every slash-congruence is some Lens's
 kernel) is `slash_cong_is_lens_kernel` via `universalLens E`
-(`Lens/Universal/QuotLens.lean`).  Stated as Lean `=` of views
-(`universalLens_kernel_eq_E`) it is DIRTY: `universalLens.combine`
-ends in `Raw → Prop`, so `combine_sym` becomes a function-equality at
-Prop (propext + funext / `Quot.sound`), recorded in
-`STRICT_ZERO_AXIOM.md` category (b).  This is a statement-shape cost,
-not a structural one: the **distinguishing** form of the same
-bijection, `universalLens_kernel_eq_E_R`
-(`(universalLens E).equivR r r' ↔ E r r'`), is **PURE** — the
-pointwise `↔` carries the kernel content without `funext` / `propext`.
-The `=`-form is retained as a `propext`-shim for consumers wanting Lean
-`=`.  See Pattern P5, `theory/lens/dirty_recovery_patterns.md`.
+(`Lens/Universal/QuotLens.lean`), stated on the Reading-equivalence
+`equivR` (`universalLens_kernel_eq_E_R`: `(universalLens E).equivR r r' ↔
+E r r'`) and therefore **PURE**.  The pointwise `↔` carries the kernel
+content directly: the residue's sameness asks only that two readings
+*distinguish the same things*, never Lean `=` of the view-functions.  At
+the `Raw → Prop` codomain a function-`=` would pull `funext` (`Quot.sound`)
++ `propext` — importing `Prop`/function identity beyond the distinguishing
+content (the *View promoted to identity* slip); the `equivR` form is the
+213-native statement, axiom-free.  See Pattern P5,
+`theory/lens/dirty_recovery_patterns.md`.
 
 ### (ii) Equivalence class = `Lens.view`-fiber
 
@@ -232,24 +266,24 @@ fills it with content.  Both **PURE**.
 | `mobiusEq` is an equivalence relation | PURE |
 | `cutEq → sternBrocotEq → mobiusEq` chain | PURE |
 | `Eqv_equiv_iff` | PURE |
-| Slash-congruence → Lens-kernel, `=`-form (`universalLens_kernel_eq_E`) | DIRTY (propext + funext) |
 | Slash-congruence → Lens-kernel, `equivR`-form (`universalLens_kernel_eq_E_R`) | PURE |
-| `kernel_correspondence` bidirectional (`=`-form) | DIRTY (inherits universalLens) |
+| `kernel_correspondence` bidirectional (`equivR`-form) | PURE |
 | `mobiusEq → cutEq` (Stern-Brocot coverage) | open |
 
-The strict ∅-axiom backbone of the unification — Lens-arrow
-defines and recognises equivalence, equivalence class,
-isomorphism, and homomorphism — is **PURE**.  The reverse
-direction ("every 213-native equivalence is realised as some Lens
-kernel") is PURE in its distinguishing form: stating it as `view x =
-view y` pulls propext (Iff↔Eq on Prop) and funext on `Raw → Prop`, but
-the pointwise `equivR` form (`universalLens_kernel_eq_E_R`) carries the
-same content axiom-free.  So the kernel correspondence *itself* is
-recoverable.  Retiring the `=`-forms across the whole consumer lattice
-is a separate, foundational matter (the closure theorems
-`recovers` / `idempotent` and the `=`-based `equiv` / `refines` surface
-are structural pending a pointwise-API rebuild; `propAsDistinguishing`
-is irreducible by thesis).  See `STRICT_ZERO_AXIOM.md` and
+The whole unification is ∅-axiom on reading-equivalence.  The Lens-arrow
+defines and recognises equivalence, equivalence class, isomorphism, and
+homomorphism; the kernel↔slash-congruence bijection
+(`universalLens_kernel_eq_E_R`), the refinement lattice
+(`equivG`/`refinesG` + the `_R` closure companions `recovers_R` /
+`idempotent_R`), the Cauchy limit Lens, the canonical-form theorems, the
+codomain-polymorphic `HasDistinguishing` (`combine_sym`/universal morphism
+over `same`), and the recursive Lens tower (`sameLens`) are all PURE.  The
+sameness everywhere is the pointwise distinguishing relation; Lean `=` is
+its realization at concrete codomains and carries no axiom there.
+
+`propext` lives in exactly one place — `propAsDistinguishing*` and its
+`canonical*Map` — where it is the thesis content ("`Prop` is an atom of
+meaning"), not a statement shape.  See `STRICT_ZERO_AXIOM.md` and
 `theory/lens/dirty_recovery_patterns.md` Pattern P5.
 
 ## What this is not

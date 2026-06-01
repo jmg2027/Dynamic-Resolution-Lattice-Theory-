@@ -138,37 +138,58 @@ def projectionLens {α β ι : Type} (L : Lens α) (F : ι → α → β)
   base_b := fun i => F i L.base_b
   combine f g := fun i => combine_β i (f i) (g i)
 
-/-- ProjectionLens view is pointwise (assuming fold-compatibility). -/
+open E213.Term.Internal (Tree)
+
+/-- ProjectionLens view, **stated pointwise at each index** `i` — so the proof
+    needs no `funext` on the codomain `ι → β` (which would pull `Quot.sound`).
+    The `i`-component of the view is exactly `F i` applied to `L`'s view; the
+    canonical-form swap in `Raw.fold` is absorbed by the pointwise `hβsym`. -/
 theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → β)
     (combine_β : ι → β → β → β)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)
     (hβsym : ∀ i u v, combine_β i u v = combine_β i v u)
     (compat : ∀ i u v, F i (L.combine u v) = combine_β i (F i u) (F i v))
-    (r : Raw) :
-    (projectionLens L F combine_β).view r = fun i => F i (L.view r) := by
+    (r : Raw) (i : ι) :
+    (projectionLens L F combine_β).view r i = F i (L.view r) := by
   induction r using Raw.rec with
   | a => rfl
   | b => rfl
   | slash x y h ihx ihy =>
-      have hLproj_sym : ∀ u v : ι → β,
-          (projectionLens L F combine_β).combine u v
-            = (projectionLens L F combine_β).combine v u := by
-        intro u v; funext i
-        exact hβsym i (u i) (v i)
-      have hfsP : (projectionLens L F combine_β).view (Raw.slash x y h)
-                    = (projectionLens L F combine_β).combine
-                        ((projectionLens L F combine_β).view x)
-                        ((projectionLens L F combine_β).view y) := by
-        apply Raw.fold_slash _ _ _ hLproj_sym
       have hfsL : L.view (Raw.slash x y h)
-                    = L.combine (L.view x) (L.view y) := by
-        apply Raw.fold_slash _ _ _ hLsym
-      rw [hfsP, ihx, ihy]
-      funext i
-      show combine_β i (F i (L.view x)) (F i (L.view y))
-           = F i (L.view (Raw.slash x y h))
-      rw [hfsL]
-      exact (compat i (L.view x) (L.view y)).symm
+                    = L.combine (L.view x) (L.view y) :=
+        Raw.fold_slash _ _ _ hLsym x y h
+      rw [hfsL, compat i (L.view x) (L.view y), ← ihx, ← ihy]
+      -- Reduce the projectionLens view on the slash at index `i`, splitting on
+      -- the canonical-form cmp.  Funext-free.
+      show (Raw.fold (projectionLens L F combine_β).base_a
+              (projectionLens L F combine_β).base_b
+              (projectionLens L F combine_β).combine (Raw.slash x y h)) i
+        = combine_β i
+            ((Raw.fold (projectionLens L F combine_β).base_a
+                (projectionLens L F combine_β).base_b
+                (projectionLens L F combine_β).combine x) i)
+            ((Raw.fold (projectionLens L F combine_β).base_a
+                (projectionLens L F combine_β).base_b
+                (projectionLens L F combine_β).combine y) i)
+      unfold Raw.slash Raw.fold
+      split <;> rename_i hc
+      · rfl
+      · show combine_β i
+              ((Tree.fold (projectionLens L F combine_β).base_a
+                  (projectionLens L F combine_β).base_b
+                  (projectionLens L F combine_β).combine y.val) i)
+              ((Tree.fold (projectionLens L F combine_β).base_a
+                  (projectionLens L F combine_β).base_b
+                  (projectionLens L F combine_β).combine x.val) i)
+            = combine_β i
+                ((Tree.fold (projectionLens L F combine_β).base_a
+                    (projectionLens L F combine_β).base_b
+                    (projectionLens L F combine_β).combine x.val) i)
+                ((Tree.fold (projectionLens L F combine_β).base_a
+                    (projectionLens L F combine_β).base_b
+                    (projectionLens L F combine_β).combine y.val) i)
+        exact hβsym i _ _
+      · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
 
 
 /-- **Mod family projectionLens**: leaves + mod are fold-compatible,
@@ -179,10 +200,11 @@ def leavesModAllLens : Lens (Nat → Nat) :=
     (fun (m : Nat) (a b : Nat) => (a + b) % (m + 1))
 
 /-- The m-th component of leavesModAllLens.view r = leaves r % (m+1).
-    PURE — uses `AddMod213.add_mod_gen` (∅-axiom) in place of
-    Lean-core `Nat.add_mod` (propext-leaking). -/
-theorem leavesModAllLens_view (r : Raw) :
-    leavesModAllLens.view r = fun m => Lens.leaves.view r % (m + 1) := by
+    Stated pointwise at index `m` (no `funext`), PURE — uses
+    `AddMod213.add_mod_gen` (∅-axiom) in place of Lean-core `Nat.add_mod`
+    (propext-leaking). -/
+theorem leavesModAllLens_view (r : Raw) (m : Nat) :
+    leavesModAllLens.view r m = Lens.leaves.view r % (m + 1) := by
   apply projectionLens_view
   · intro u v; exact Nat.add_comm u v
   · intro _ u v; rw [Nat.add_comm u v]
