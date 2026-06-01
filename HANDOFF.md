@@ -162,9 +162,18 @@ A–D + B are now **all closed ∅-axiom this arc**:
     the denominator-gap quantum).  e meets it (factorial rate `1/(i·i!)` vs gap
     `1/(k·i!)`: ratio `k/i<1`); **π-via-Wallis does NOT** (tail `~1/n` vs fast
     `wallisDen` → needs π's irrationality measure `μ(π)≤7.1`, genuinely hard — a fast
-    π series is the real route).  OPEN: a fast π representation; cheap factorial-rate
-    instances (`1/e`, exp/log at rationals); the *general* generator = abstract
-    `EulerModulus` over `(a,d)` + the criterion (depth/`polyDepth` supplies `d_i`).
+    π series is the real route).
+  - **General generator — DONE** this arc (`Real213/RateModulus`, 3 PURE + engine):
+    `rate_total_modulus` — *any* monotone convergent cut-sequence `a_i/d_i` with a
+    non-increasing margin `e_i + 1/(i·d_i)` (the rate certificate `Htel`) has a total
+    ∅-axiom modulus `N(m,k)=k+2`; the step is pure transitivity once `Htel` is
+    isolated.  **Validated on e** (`EulerModulus.euler_total_modulus_via_rate`, via
+    `euler_{Htel,hmono,hmonoS}`).  OPEN: a fast π representation (Wallis too slow);
+    more instances are NOT cheap — `ExpLog/CutExpSeries` is *cut-level*
+    (`partialSum`/`cutSum`), not integer `a_i/d_i` convergents, and its own modulus is
+    open; a new constant needs its convergents recast as a num/den pair first.  The
+    `polyDepth`↔`d_i`-growth link (rate from arbitrary recurrence data) is the deepest
+    remaining direction.
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
@@ -196,7 +205,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
 | `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/archive/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
 | Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/archive/G159` |
 | Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
-| Real-number completeness arc (links 1–13 + depth-arc B/C/D + HolonomicReal φ/e) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc B/C/D + HolonomicReal φ/e) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |
