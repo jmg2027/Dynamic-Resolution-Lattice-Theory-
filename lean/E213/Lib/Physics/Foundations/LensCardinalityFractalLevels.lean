@@ -1,5 +1,4 @@
 import E213.Lib.Math.Cohomology.Fractal.Level
-import E213.Lib.Physics.Foundations.NResolutionFractalDepth
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
@@ -17,13 +16,14 @@ discrete state information.
   | 2 | 25            | 276          | K_{25} (Gram dim level)|
   | 3 | 125           | 7626         | super-Gram             |
   | d | 5^d = 3125    | huge         | atomic-deep            |
-  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | N_resolution (self-ref)  |
+  | d²| 5^(d²) ≈ 10¹⁷ | astronomical | (parametric, no privileged level) |
 
-## Self-referential signature
+## Parametric self-similarity
 
-  L = d²:  numV(L) = d^(d²) = N_resolution
-  This level closes the recursion: vertex count equals d^L where L
-  itself equals d² — a fixed-point property of the fractal recursion.
+  `numV (L+1) = d · numV L` holds at every level — a recursion with
+  no privileged terminus; the fractal-level axis is a strict
+  order-embedding, no level distinguished.  The identity
+  `numV (d²) = d^(d²)` is a bare arithmetic fact.
 
 All theorems STRICT 0-AXIOM via decide (numV at finite levels).
 -/
@@ -34,9 +34,9 @@ open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Math.Cohomology.Fractal.Level
 
 /-- ★★★★ Lens cardinality master — per-level vertex counts at
-    L = 0..3 and atomic-deep L = d (= 5); self-referential identity
-    `numV(d²) = d^(d²) = N_resolution` at L = 25; ∀ L recursive
-    self-similarity `numV(L+1) = d · numV(L)`. -/
+    L = 0..3 and atomic-deep L = d (= 5); parametric identity
+    `numV(d²) = d^(d²)` at L = 25 (bare arithmetic, no privileged
+    level); ∀ L recursive self-similarity `numV(L+1) = d · numV(L)`. -/
 theorem lens_cardinality_master :
     -- Per-level counts
     numV 0 = 1

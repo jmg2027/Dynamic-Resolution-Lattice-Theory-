@@ -43,6 +43,5 @@ Sub-trees (each = a sub-directory + a `<DirName>.lean` umbrella):
   YangMills     — SU(5) roots, WZ bosons, Weinberg angle, mass gap
 
 Plus capstones at `OS/Physics/Capstones/`:
-  PureAtomicObservables, ValidationStandardOne, FinitistObservableChain,
-  PhysicsTrackComplete, MasterCatalog.
+  PureAtomicObservables, PhysicsTrackComplete, MasterCatalog.
 -/
