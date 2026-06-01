@@ -22,10 +22,10 @@ tactics provide the 213-native equivalent without `propext` reliance.
   - `QuadExtension.lean` — quadratic-extension tactic
   - `IntSquare.lean` — Int-square supporting lemmas
 - **Hurwitz layer** (`Lib/Math/SignedCut/Hurwitz/`):
-  - `HurwitzCeiling.lean` — ceiling identity
   - `HurwitzNormProduct.lean` — norm product
-  - `ExactL1.lean` — L1 exact
-  - `Failure.lean` — failure modes
+  - `HurwitzExactL1.lean` — L1 exact
+  - `HurwitzFailure.lean` — failure modes
+  - `HurwitzDichotomy.lean` — Hurwitz dichotomy
 - **∅-axiom status**: PURE
 
 ## Narrative

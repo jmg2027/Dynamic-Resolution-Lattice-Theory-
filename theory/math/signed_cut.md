@@ -32,8 +32,8 @@ SignedCut level + its CD-doubled descendants.
 |---|---|---|
 | `Core/` | 9 | Core / Algebra / Inv / UnifiedGenericInv / Equivalence / Capstones |
 | `CD/` | 6 | CD-doubling: Conjugation, LevelOps, MulRule, Norm, Tower{Capstone, Level} |
-| `Hurwitz/` | 4 | HurwitzCeiling, ExactL1, Failure, NormProduct |
-| `Level/` | 5 | Level25Residual, Level25Capstone, Level26Absence, G38FinalCapstone, G39Capstone |
+| `Hurwitz/` | 4 | Dichotomy, ExactL1, Failure, NormProduct |
+| `Level/` | 2 | G38FinalCapstone, G39Capstone |
 | `Bridge/` | 5 | Bridge/Capstone + FanoK32Bridge + FanoPlane + GenericGeomBridge |
 | `Octonion/` | 6 | Octonion + Quaternion mul rules + tables + NonAssociativity |
 
@@ -58,22 +58,12 @@ Equality on SignedCut is `signedEq`, not propositional equality.
 This **avoids the propext load** that ℤ-as-quotient would
 require.
 
-### Level 25 closure
+### CD tower on SignedCut
 
-The CD tower on SignedCut closes at level 25 (the family-evaluation
-level chosen for physics-side readings, `configCount 2 = 5²⁵`):
-- L25: full CD-doubled signed structure
-- L26: **absent** — exceeds the level-2 family evaluation
-  `configCount 2 = 5²⁵` (per N_U re-derivation Round 3: the boundary is a
-  level-choice, not a privileged "resolution limit cap")
-
-`Level/Level25Residual.lean` and `Level26Absence.lean` prove the
-absence directly: any putative L26 element reduces to a smaller
-level under the resolution-limit reading.
-
-`G38FinalCapstone.lean` bundles the unified 25-level algebra —
-all CD-derived structures up to L25 exist within SignedCut's
-machinery without external import.
+`G38FinalCapstone.lean` bundles the CD-doubled signed structure —
+the quaternion / octonion multiplication rules together with the
+Hurwitz magnitude bound and the Hurwitz-failure witness — all
+within SignedCut's machinery, no external import.
 
 ### Octonion non-associativity
 
@@ -92,7 +82,7 @@ in DRLT's 213-native algebra.
 
 `Hurwitz/` proves the Hurwitz norm-multiplicativity `|uv|² =
 |u|² · |v|²` for SignedCut and its CD-doubled descendants.
-`HurwitzCeiling` gives the L1 exact identity; `NormProduct`
+`ExactL1` gives the L1 exact identity; `NormProduct`
 extends to higher levels; `Failure` documents where the identity
 **fails** (beyond Hurwitz's theorem-determined levels).
 
