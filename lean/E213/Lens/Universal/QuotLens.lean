@@ -1,4 +1,5 @@
 import E213.Lens.LensCore
+import E213.Lens.ReadingEquiv
 import E213.Lens.Algebra.Congruence
 
 /-!
@@ -142,6 +143,26 @@ theorem universalLens_view_eq_pw
         exact htrans _ _ _ (hslash x X y Y h h' hxX hyY) hslashr'
       · intro hE
         exact ⟨x, y, h, fun t => (ihx t).symm, fun t => (ihy t).symm, hE⟩
+
+/-- **Kernel = E, Reading-native** — the ∅-axiom hub.  `equivR` (pointwise `↔`)
+    replaces the sealed `view r = view r'`; this is the load-bearing kernel
+    theorem the lattice / Cauchy refinement machinery can migrate onto without
+    `funext`/`propext`.  Companion to the sealed `universalLens_kernel_eq_E`. -/
+theorem universalLens_kernel_eq_E_R
+    (hrefl : ∀ r, E r r) (hsymm : ∀ r r', E r r' → E r' r)
+    (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')
+    (hslash : ∀ x x' y y' (h : x ≠ y) (h' : x' ≠ y'),
+              E x x' → E y y' → E (Raw.slash x y h) (Raw.slash x' y' h'))
+    (r r' : Raw) :
+    (universalLens E).equivR r r' ↔ E r r' := by
+  constructor
+  · intro h
+    have h2 := (universalLens_view_eq_pw E hrefl htrans hslash r' r').mpr (hrefl r')
+    exact (universalLens_view_eq_pw E hrefl htrans hslash r r').mp ((h r').mpr h2)
+  · intro hE s
+    refine (universalLens_view_eq_pw E hrefl htrans hslash r s).trans ?_
+    refine Iff.trans ?_ (universalLens_view_eq_pw E hrefl htrans hslash r' s).symm
+    exact ⟨fun hh => htrans r' r s (hsymm r r' hE) hh, fun hh => htrans r r' s hE hh⟩
 
 /-- **General solution of Q37.3**: kernel of universalLens E = E.
     Any slash-congruence E (equivalence + slash-preserving) is the
