@@ -84,14 +84,16 @@ Done this marathon (all pushed except the in-flight SignedCut work):
     references nonexistent `FanoK32Bridge` constants — a partial-rename
     breakage in the orphan tree; fix in the rot-cleanup thread.
 
-**`full_build.sh` was RED** (pre-existing, gated tree — independent of 5²⁵):
-5 broken modules.  **Fixed 4**: `ModArith/Join{Bezout,Coprime,Example}`
-(stale `open E213.Lens renaming leaves_view_ge_one`; the lemma is now
-`Lens.Congruence.leaves_view_pos`, namespace `E213.Lens`) and
-`DyadicFSM/ArithFSM/V3Equiv` (doc-comment on an `open`).  **Deferred**:
-`Physics/Certificates/Checker.lean` — `Cert.boundsOk := c.all Step.boundOk`
-gives "function expected" (likely `List.all` resolution/API drift) + the
-`cert_n20_boundsOk` `decide` does not reduce; a deeper two-part fix.
+**`full_build.sh` is now GREEN** (was pre-existing RED, gated tree, independent
+of 5²⁵).  All 7 gated-build failures fixed: `ModArith/Join{Bezout,Coprime,
+Example,Euclidean,EquivGCD}` (stale `open E213.Lens renaming leaves_view_ge_one`
+— that lemma is `protected Lens.leaves_view_ge_one`; the open now renames the
+public `leaves_view_pos`, same statement `1 ≤ Lens.leaves.view r`),
+`DyadicFSM/ArithFSM/V3Equiv` (doc-comment on an `open`), and
+`Physics/Certificates/Checker` (a stray duplicate `(inv_lower_tight inv_upper
+capstone_n20)` fragment applied to `Cert.boundsOk`'s body → "function expected"
++ `sorryAx`; removed → `cert_n20_boundsOk` PURE).  `lake build E213.Lib.Math
+E213.Lib.Physics` completes clean.
 
 **Next-session gate work** (per G159 remediation): probe remaining orphan
 cluster heads for rot (`CayleyDickson.Tower`, `Padic`, `Cohomology.{Bipartite,
