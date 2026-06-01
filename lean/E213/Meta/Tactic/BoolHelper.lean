@@ -3,9 +3,9 @@
 
 213-native helpers for `Bool` that are repeatedly needed across
 `Lib/Math/Real213/`, `Lib/Math/Analysis/`, and downstream cut/sum
-machinery.  Each lemma here was previously emitted as `private
-theorem bool_eq_iff` (or variants `_v2` / `_v3` / `_local` / `'`)
-in a dozen leaf files; this module is the canonical source.
+machinery.  This module is the canonical source for the shared
+`Bool` lemmas (`bool_eq_iff`, `xor_comm`, `eq_of_xor_false`,
+`and_eq_true_pair`).
 
 Standard: 0 sorry, ∅-axiom (PURE).
 -/
@@ -29,5 +29,22 @@ theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) :
     fold-swap-symmetric Lens constructions. -/
 theorem xor_comm : ∀ u v : Bool, xor u v = xor v u := by
   intro u v; cases u <;> cases v <;> rfl
+
+/-- `xor a b = false → a = b` (∅-axiom).  Reads the kernel condition
+    `δ⁰ σ = 0` as vertex equality across an edge. -/
+theorem eq_of_xor_false {a b : Bool} (h : xor a b = false) : a = b := by
+  cases a <;> cases b
+  · rfl
+  · exact absurd h (by decide)
+  · exact absurd h (by decide)
+  · rfl
+
+/-- `(a && b) = true → a = true ∧ b = true` (∅-axiom `Bool` destructor;
+    avoids cross-tier imports for conjunction splitting). -/
+theorem and_eq_true_pair : ∀ {a b : Bool},
+    (a && b) = true → a = true ∧ b = true
+  | true, true, _ => ⟨rfl, rfl⟩
+  | false, _, h => by cases h
+  | true, false, h => by cases h
 
 end E213.Tactic.BoolHelper

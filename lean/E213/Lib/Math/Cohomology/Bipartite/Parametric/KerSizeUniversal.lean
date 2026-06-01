@@ -1,4 +1,7 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
+import E213.Lib.Math.NatRing
+import E213.Meta.Tactic.BoolHelper
+import E213.Meta.Tactic.Fin213
 
 /-!
 # Universal kerSize δ⁰ = 2 for K_{NS,NT}^{(c)}
@@ -26,25 +29,9 @@ STRICT ∅-AXIOM.
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KerSizeUniversal
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-
-/-! ## §1 — Bool: xor = false ↔ equality -/
-
-/-- One direction: `xor a b = false → a = b` (∅-axiom). -/
-private theorem eq_of_xor_false {a b : Bool} (h : xor a b = false) : a = b := by
-  cases a <;> cases b
-  · rfl
-  · exact absurd h (by decide)
-  · exact absurd h (by decide)
-  · rfl
-
-/-- PURE `c·m < c·n` from `1 ≤ c` and `m < n`.  Lean-core
-    `Nat.mul_lt_mul_left` (the `Iff`) pulls `Classical.choice`; this
-    constructive chain `c·m + 1 ≤ c·m + c = c·(m+1) ≤ c·n` is ∅-axiom. -/
-private theorem mul_lt_mul_left_pure {c m n : Nat} (hc : 1 ≤ c) (h : m < n) :
-    c * m < c * n := by
-  have h1 : c * (m + 1) ≤ c * n := Nat.mul_le_mul_left c h
-  rw [Nat.mul_succ] at h1
-  exact Nat.le_trans (Nat.add_le_add_left hc (c * m)) h1
+open E213.Lib.Math.NatRing (mul_lt_mul_left_pure)
+open E213.Tactic.BoolHelper (eq_of_xor_false)
+open E213.Tactic.Fin213 (fin_eq_of_val)
 
 /-! ## §2 — Key edge index bounds -/
 
@@ -153,14 +140,6 @@ private theorem canonical_edge_bound (NS NT c s t : Nat) (hc : 1 ≤ c)
     rw [Nat.mul_comm NT NS, ← Nat.mul_assoc]
   rw [h_swap] at h_lhs
   exact h_lhs
-
-/-! ## §5 — Custom Fin equality helper (avoids Fin.ext propext leak) -/
-
-/-- ∅-axiom Fin equality via subst on values + proof irrelevance. -/
-private theorem fin_eq_of_val (n : Nat) (a b : Nat)
-    (ha : a < n) (hb : b < n) (h : a = b) :
-    (⟨a, ha⟩ : Fin n) = ⟨b, hb⟩ := by
-  subst h; rfl
 
 /-! ## §6 — Universal kernel ⟹ vertex-pair equality
 
