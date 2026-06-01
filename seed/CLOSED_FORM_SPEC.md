@@ -125,8 +125,11 @@ deeper Lean-core dependencies remain:
   - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases
     + decide chain.
 
-These need either deeper trick development or Lens-equality refactor-style staged
-refactor via `eqPW`.
+These need either deeper trick development or a staged Lens-equality refactor:
+`eqPW` for Lens-`=` claims, and for Prop-valued Lens combines (the
+`Cauchy.GenericFamily` case) the Reading-native `equivR` / `refinesR`
+(distinguishing-equivalence as pointwise `↔`, PURE — see
+`theory/lens/dirty_recovery_patterns.md` Pattern P5).
 
 ## Future work
 
