@@ -184,10 +184,15 @@ is PURE.  Universal — `IndexedJoin` (`iProdLens_view` "pointwise to avoid
 funext"), `Cauchy` (`pointwise_limit_match`), `QuotLens` (`_pw`) independently use
 the same fix; **no new obstruction**.  So the whole seal family is **one scoped
 foundational edit**: a Reading-native `Lens.equiv`/`refines` for `Prop` codomains
-(decidable `Bool`/`Nat` codomains keep `=`, already PURE).  The seal arc
-(G161→G162→G163) is the research result; materializing `equivR`/`refinesR` in
-`LensCore` + migrating the families is the (deliberate, foundational)
-implementation arc.
+(decidable `Bool`/`Nat` codomains keep `=`, already PURE).  **Seed materialized**: `Lens/ReadingEquiv.lean` now carries `Lens.equivR`
+(`∀ s, view x s ↔ view y s`) + `refinesR` with full structure (refl/symm/trans,
+refinesR refl/trans) **all PURE (7)**; the entire Lean-`=` cost is isolated to one
+bridge `equivR_to_equiv` (lone DIRTY).  Gated (Lens umbrella).  Plus the enabling
+primitive `Raw.fold_slash_iff` (Theory) + `universalLens_{combine_sym,view_eq}_pw`
+(QuotLens), all PURE.  Remaining = the engineering migration of the Prop-Lens
+family (`IndexedJoin`, `Compose.OnLens`, `Lattice.Join`, `Cauchy`, `DepthJoin`)
+onto `equivR`/`refinesR` — each already has the pointwise lemmas; restate kernels/
+refines via `equivR`.  `propAsDistinguishing` stays a thesis-cost.
 
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
