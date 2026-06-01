@@ -611,6 +611,42 @@ elements, not the 120-group; `ℤ[φ]` coefficients outside the `ℤ`-CD
 matrix), and the McKay/ADE "complete object" remains the cited frame the
 repo's own `24·5=120`, `SL(2,𝔽₅)≅2I` point toward.
 
+### Phase 9.4 — the `E₆–E₇–E₈` exceptional trio completed (`2O`, marathon-5)
+
+`Tower/TypeOOctahedral` adds the missing middle rung — the **binary
+octahedral group `2O` (48, `E₇`)** — completing the binary-polyhedral /
+McKay exceptional trio as definite quaternion orders over the three
+relevant rings:
+
+| group | order | ring | new torsion | McKay |
+|---|---|---|---|---|
+| `2T` | 24 | `ℤ` (Hurwitz) | `3,6` | `E₆` |
+| `2O` | 48 | `ℤ[√2]` | `8` | `E₇` |
+| `2I` | 120 | `ℤ[φ]=ℤ[√5]` | `5,10` | `E₈` |
+
+The clean parallel: `2T` over `ℤ`; `2O`, `2I` over the *real* quadratic
+rings `ℤ[√2]`, `ℤ[√5]` (own units infinite, definite-order units finite).
+Built `ZRt2` (`(√2)²=2`, `mul ⟨a,b⟩⟨c,d⟩ = ⟨ac+2bd, ad+bc⟩`) + `ℤ[√2]`-
+quaternions, and proved (∅-axiom):
+  - `octahedral_order8_unit` — `g = (1+i)/√2 = cos 45° + sin 45°·i`,
+    scaled `⟨√2,√2,0,0⟩`: `normSq = 4` (unit), `g⁸ = 1`, `g⁴ ≠ 1` ⇒ order
+    exactly 8.  The octahedral `E₇` signature.
+  - `two_T_has_no_order_8` — `2T` orders `⊆ {1,2,3,4,6}`, so order-8 is
+    genuinely new at `E₇` (and absent from `2I`'s `{1..6,10}` too).
+
+So the exceptional `E`-series now has executable order-witnesses at every
+rung: `E₆` (`2T`, `{3,6}`), `E₇` (`2O`, `{8}`), `E₈` (`2I`, `{5,10}`).
+Same honest scope as Phase 9.2/9.3 (explicit elements, not the full
+48-/120-groups; the McKay/ADE identification is the cited frame).
+
+**Marathon-5 verdict:** the seed ladder's exceptional endpoints
+`E₆–E₇–E₈ = 2T–2O–2I` over `ℤ, ℤ[√2], ℤ[√5]` are all realised with
+∅-axiom torsion witnesses (`{3,6} / {8} / {5,10}`).  The "complete
+object" — finite unit groups of definite arithmetic orders, indexed by
+the binary-polyhedral / McKay classification — now has concrete proven
+shadows across its whole exceptional row, with the lower-rung order-bounds
+proved so each new torsion type is genuine, not a checker artifact.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
