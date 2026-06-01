@@ -1,5 +1,6 @@
 import E213.Lens.LensCore
 import E213.Lens.Instances
+import E213.Lens.Congruence
 import E213.Meta.Nat.NatDiv213
 
 /-!
@@ -23,7 +24,7 @@ namespace E213.Lib.Math.ModArith.JoinBezout
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat
 
-open E213.Lens renaming leaves_view_ge_one → leaves_ge_one
+open E213.Lens renaming leaves_view_pos → leaves_ge_one
 
 /-- **Chain step**: L_m + L_k → +(m - k) step (for m > k ≥ 2).
     Intermediate Raw with leaves = leaves r + m.  ∅-axiom. -/
