@@ -996,15 +996,14 @@ on any axioms".  No `propext`, `Quot.sound`, `Classical.choice`,
 Sealed-by-design exceptions:
   · `propext` in `Lens.SemanticAtom` (Prop-as-distinguishing
     thesis) — irreducible
-  · `propext` / `Quot.sound` in the Prop-valued Lens kernel forms
-    (`Lens.Universal/QuotLens` etc.) — a statement-shape cost of
-    writing the kernel as function-`=` of views, recoverable via the
-    distinguishing `equivR` form (`universalLens_kernel_eq_E_R` is
-    PURE; see `theory/lens/dirty_recovery_patterns.md` Pattern P5),
-    retained as `propext`-shims pending consumer migration
+  · the Prop-valued Lens kernel forms (`Lens.Universal/QuotLens` etc.)
+    are stated on the distinguishing `equivR` / `same`
+    (`universalLens_kernel_eq_E_R` PURE; see
+    `theory/lens/dirty_recovery_patterns.md` Pattern P5 and
+    `theory/lens/unified_equivalence.md`) — ∅-axiom, no function-`=` of views
 
-Tier 5.1 (omega → kernel-lemma migration) closed for `Lib/Math/GRA/`
-in this session; 401 PURE / 0 DIRTY.
+Tier 5.1 (omega → kernel-lemma migration) is closed for `Lib/Math/GRA/`
+(PURE).
 
 ### VIII.3 Scanner suite
 
