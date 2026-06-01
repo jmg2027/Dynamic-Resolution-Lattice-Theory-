@@ -96,14 +96,19 @@ stated via `=`) is **retired**.  All three walls solved:
     primitive; `=` is its pure realization at concrete codomains; `propext` stays
     only at the `Prop`-atom thesis (category B).  The scattered `=`-based
     samenesses (`Lens.equiv/refines`, `HasDistinguishing.combine_sym`, kernels)
-    unify into one Lens-arrow.  Phases P0 (done: category-C retired) → P1 (settle
-    the encoding §5 on a scratch — recommend (c), drop the universal `Eq`
-    fallback) → P2 (Lens tower / `Compose.OnLens (9)` + `TowerLevel3 (1)` via
-    `G164` design D2, confined) → P3 (`HasDistinguishing` over `same`) → P4
-    (collapse fragmentation, promote narrative).  **Foundational coherence, NOT a
-    Validation target — do not displace the precision/falsifier work.**  PURE
-    foundations materialized: `Raw.fold_slash_rel`, `Lens.sameLens` + laws,
-    `lensCombineGeneric_{comm,cong}_same`, `ReadingEq` + `equivG`/`refinesG`.
+    unify into one Lens-arrow.  Phases P0 (done: category-C retired) → **P1 done**
+    (encoding settled = **(b)**: `same`/laws/`combine_cong` as `autoParam` class
+    fields; comprehensive scratch validated concrete/composite/`Lens`-recursive/
+    generic/`=`-extraction, diamond-free; corrects the draft's (c)) → P2 (Lens
+    tower / `Compose.OnLens (9)` + `TowerLevel3 (1)`, confined) → P3
+    (`HasDistinguishing` over `same` — the SemanticAtom class change breaks only
+    the ~7 `universalMorphism_slash/unique` *consumers* + composite instances
+    `Pair`/`Sum`/`Subtype` (thread `same`); Eq-*instances* compile unedited via
+    `autoParam`) → P4 (collapse fragmentation, promote narrative).  **Foundational
+    coherence, NOT a Validation target — do not displace the precision/falsifier
+    work.**  PURE foundations materialized: `Raw.fold_slash_rel`, `Lens.sameLens`
+    + laws, `lensCombineGeneric_{comm,cong}_same`, `ReadingEq` + `equivG`/
+    `refinesG`.  P1 templates: `pairHD`/`lensHD`/`have e:(=):=…_slash;exact e`.
     Technical investigation: `G164` (5 passes — design-C-cascade scope + the
     defeq/diamond encoding findings).
     (`GenericFamily` was the same family and is now
