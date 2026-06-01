@@ -124,13 +124,22 @@ unclaimed extensions it exposes:
     `polyDepth d` matches.  Closes the classical-bridge gap.  Architecture:
     `research-notes/G155` (HolonomicReal: bundle recurrence + derived
     `CertifiedModulus`; `Holonomic.toCertifiedModulus` is the target).
-  - **C. third-axis closure** — assemble `DepthDoubleExp` + `DepthExponentRecursion`
-    into a positive theorem that ratio-on-exponent floors `c^{c^{poly}}` at the
-    right coordinate; pin the ordinal rank `ω^r · d` for a depth-`r` tower.  The
-    proven path from `ω²` toward `ω^ω`.
-  - **D. Liouville's coordinate** — give `c^{k!}` (no finite `(h,d)`) a coordinate
-    in the recursion hierarchy: its exponent `k!` floors under ratio (`k! ↦ k+1`);
-    formalize "the exponent is itself an `expSeq`" — frontier toward `ε₀`.
+  - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
+    `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
+    `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
+    ladder, level by level (`coord_wf 2` recovers `DepthOrdinal`'s `ω²`).
+    `coord_layer_dominates` — each exponential layer ×`ω` (one larger leading
+    coeff outranks the entire lower tower).  Positive sequence companion to
+    `dexp_not_const`: `dexp_exponent_floors` (the double exp's *exponent* floors
+    under one ratio) + `expTower`/`expTower_succ` (value sits one `expSeq` above
+    the shorter tower).
+  - **D. Liouville's coordinate** — DONE this arc (`Cauchy/DepthLiouvilleCoord`,
+    9/0): `liouville_exponent_coordinate` — `ratioLift fact n = (n+1)!/n! = n+1`
+    (super-poly `k!` → linear in one ratio), `diff (ratioLift fact) = 1` (one diff
+    floors it), `diff fact n = n·n!` (never floors on the diff axis alone).  So
+    `c^{k!}`, with no finite `(h,d)`, has ratio-depth 1 / diff-depth 1 one
+    recursion tier down — the concrete frontier toward `ε₀`.  PURE factorial
+    (Lean-core `Nat.factorial` is Mathlib); division-cancel via `mul_div_self_pure`.
   - **E. tower duality** (conceptual): GRA-tower ↔ CD-tower (level `n` loss ↔
     level `5−n` Reading-iso gain); depth-ladder ↔ Cayley–Dickson tower (both
     bottoming at the `5 = NS+NT`-forced floor); `CDDoubleFlexible` cross-pair crux
@@ -143,7 +152,7 @@ unclaimed extensions it exposes:
 | `5²⁵`-as-resolution chain — **DELETED** (originator decision); 0.2 ppb α_em result SURVIVES on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
 | Build gate-hole — CLOSED; `full_build.sh` rebuilds all 1533 modules | — | `research-notes/G159` |
 | Prop-codomain seal arc — single root `Lens.equiv := =`; equivR materialized PURE | `Lens/ReadingEquiv`, `Universal/QuotLens` (`*_pw`, `kernel_eq_E_R`), `Theory/Raw/Fold` (`fold_slash_iff`) | `theory/lens/{dirty_recovery_patterns (P5),unified_equivalence}`, `catalogs/correspondence-surface.md` |
-| Real-number completeness arc (links 1–13) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne}`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc C/D) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord}`, `Real213/*`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

@@ -13,6 +13,8 @@ import E213.Lib.Math.Cauchy.DepthTower
 import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
 import E213.Lib.Math.Cauchy.DepthDoubleExp
+import E213.Lib.Math.Cauchy.DepthOmegaTower
+import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
 import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
 
@@ -67,6 +69,13 @@ import E213.Lib.Math.Cauchy.DepthFloorDetOne
       `DepthDoubleExp`      — third axis = recursion into the
                              exponent; `ratioN` cannot cross one
                              exponential layer (`ε₀` is not the end).
+    * `DepthOmegaTower`     — the depth-`r` tower coordinate is an
+                             ordinal `< ω^r` (`coord_wf`); the whole
+                             `ω^ω` ladder, each layer multiplying the
+                             rank by `ω` (`coord_layer_dominates`).
+    * `DepthLiouvilleCoord` — `k!` (Liouville exponent, diff-∞)
+                             acquires a finite recursion coordinate:
+                             `ratioLift fact = n+1`, one diff floors it.
     * `DepthCeilingResidue` — naming the ceiling-raising is a
                              diagonalisation = the residue
                              (`cantor_general`, `self_covering_closure`).

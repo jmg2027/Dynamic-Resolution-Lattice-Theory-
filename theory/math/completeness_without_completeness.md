@@ -344,13 +344,30 @@ value `c^{eₙ}`, resolve its **exponent sequence** `eₙ` one axis down.
 The tower of axes is therefore a **self-similar recursion**, not a stack of new
 primitives: the *same* `(diff / ratio)` ladder, applied one exponent-layer deeper at
 each step, bottoming out at a polynomial exponent. Liouville `c^{k!}` is precisely
-the case whose exponent `k!` is itself not diff-resolvable (it floors only under
-*ratio*, `k! ↦ k+1`) — so it needs the recursion one layer deeper, and the climb
-through exponent after exponent is the frontier toward `ε₀`.
+the case whose exponent `k!` is itself not diff-resolvable, and this is now pinned
+∅-axiom:
 
-The ordinal reading (classical interpretation of these (L) facts): each exponential
-layer multiplies the rank by `ω`. A value at exponential-depth `r` sits at `ω^r · d`;
-the finite-`r` supremum is `ω^ω`.
+> **The Liouville exponent has a finite recursion coordinate.** `ratioLift fact n =
+> (n+1)!/n! = n+1` collapses the super-polynomial `k!` to a degree-1 sequence in one
+> ratio, and one further difference floors it (`Δ(n+1) = 1`) — yet `k!` never floors
+> on the difference axis alone (`Δ(k!) = k·k!`). So the value `c^{k!}`, with **no**
+> finite `(h, d)`, sits at ratio-depth `1`, diff-depth `1` one recursion tier down.
+> **(L)** (`DepthLiouvilleCoord.liouville_exponent_coordinate`.)
+
+The ordinal reading is now itself ∅-axiom at every finite tower height: each
+exponential layer multiplies the rank by `ω`, and the depth-`r` tower coordinate is
+an ordinal below `ω^r`.
+
+> **The depth-`r` tower coordinate is a well-order, an ordinal `< ω^r` — the whole
+> `ω^ω` ladder, level by level.** The `r`-fold nested lexicographic product `Coord r`
+> is well-founded for every `r` (`coord_wf`, generalising `lex_wf` from `ω²`), and
+> one more layer strictly dominates the entire lower tower (`coord_layer_dominates`:
+> `ω^r·a + ‹sub-ω^r› < ω^r·(a+1)`). **(L)** (`DepthOmegaTower`.) `coord_wf 2`
+> recovers `DepthOrdinal`'s `ω²`.
+
+What stays a *classical reading* (C) is only the identification of a *particular
+transcendental's* tower with a *specific* `ω^r·d` — the lattice of ranks is proven;
+pinning a given real onto a named rung is the holonomic-bridge gap (§10).
 
 ### 14. Is `ε₀` the end of the axes? No
 
@@ -358,9 +375,11 @@ The natural question — do the axes stop? — has a clean, honest answer, separ
 proven step from the classical reading.
 
 - **Proven (L):** `ratioN` cannot cross one exponential layer (`dexp_not_const`); the
-  second layer needs the §13 recursion. This is the *first rung* of the ladder, pinned
-  ∅-axiom.
-- **Classical reading (C):** finite exponential towers reach `ω^ω`. Reaching `ε₀`
+  second layer needs the §13 recursion. The positive complement is also pinned: the
+  double exponential's *exponent* `cⁿ` floors under one ratio-lift one axis down
+  (`DepthOmegaTower.dexp_exponent_floors`). And every finite rung `ω^r` is now a
+  proven well-order (`coord_wf`), so the finite-`r` ladder up to `ω^ω` is ∅-axiom.
+- **Classical reading (C):** the *supremum* `ω^ω` and beyond. Reaching `ε₀`
   requires diagonalising the tower *height* `r` itself — a further meta-recursion
   (`ω^ω`, `ω^{ω^ω}`, … with limit `ε₀`). But `ε₀` is a *fixed point*
   (`ω^{ε₀} = ε₀`), the closure of *one* diagonalisation — **not a top.** `ε₀ + 1`,
@@ -497,6 +516,13 @@ the Lean disagree, the Lean wins.
     `value_floors_iff_exponent_floors` (value-height = 1 + exponent-height)
   - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN_dexp`, `dexp_not_const`
     (`ratioN` cannot cross one exponential layer)
+  - `lean/E213/Lib/Math/Cauchy/DepthOmegaTower.lean` — `coord_wf`,
+    `coord_no_infinite_descent`, `coord_layer_dominates` (depth-`r` tower coordinate
+    is an ordinal `< ω^r`; the `ω^ω` ladder, each layer ×`ω`); `expTower`,
+    `dexp_exponent_floors` (positive companion to `dexp_not_const`)
+  - `lean/E213/Lib/Math/Cauchy/DepthLiouvilleCoord.lean` —
+    `liouville_exponent_coordinate` (`ratioLift fact = n+1`, one diff floors it;
+    `Δ(k!) = k·k!`: `c^{k!}` has no finite `(h,d)` but a finite recursion coordinate)
 
 **Part V — the closure**
   - `lean/E213/Lib/Math/Cauchy/DepthCeilingResidue.lean` — `diag_not_in_seq`,
