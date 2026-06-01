@@ -1,7 +1,7 @@
 # G168 — analysis ↔ logic single engine: the overflow duality, and ω₁^CK as gauge shift
 
 **Date**: 2026-06-01.  **Status**: closed ∅-axiom result (Q3) + grounded narrative (Q2).
-**Source of truth**: `lean/E213/Lib/Math/Cauchy/DepthOverflowDuality.lean` (7 PURE / 0
+**Source of truth**: `lean/E213/Lib/Math/Cauchy/DepthOverflowDuality.lean` (15 PURE / 0
 DIRTY).  **Anchors**: `Cauchy/DepthCeilingResidue` (`diag_not_in_seq`,
 `ceiling_residue_is_pointing_residue`, `cantor_general`), `Real213/RateStratification`
 (`Dominates`, `overtake_breaks_layer`), `seed/AXIOM/05_no_exterior.md`.
@@ -139,6 +139,48 @@ generator + minimality + stability layer (`minOverflow`, `least_overflow`,
 classical frames (Galois adjunction, symmetric deformation, ordinal endofunctor) were
 each either decorative, asymmetric, or Mathlib-dependent, and were declined in favour
 of the ∅-axiom-honest statements.
+
+## Second strengthening review (Galois / rigidity / functor, round 2)
+
+A reviewer proposed three more development directions after the unit-generator layer.
+Tested again; two yield genuine (thin) theorems, one rests on a conflation.
+
+  - **Universal property of `least_overflow`.**  Genuine but thin.  The "universal
+    property" here is poset-initiality of `minOverflow` among the overflows of a bound;
+    in a `Prop`-ordered poset there is no factorisation content beyond `≤`, so the
+    proposed "unique factorisation of all algebraic deformations" has no operand.  The
+    honest content — `minOverflow` is *the* least overflow, not merely *a* one — is now
+    `minOverflow_unique`: any `g` overflowing the bound everywhere and below every
+    overflow equals `minOverflow` pointwise (`Nat.le_antisymm` of `least_overflow` and
+    the lower-bound hypothesis).  This is the canonical minimal witness both readings are
+    mediated by.
+
+  - **Conservation law / boundary rigidity for `overflow_shift`.**  Genuine, modest.  The
+    conserved quantity under the additive deformation is the **surplus** itself:
+    `gap_shift_invariant` — `(val + c) − (bound + c) = val − bound` (pure
+    `NatHelper.add_sub_add_right`; the Lean-core `Nat.add_sub_add_right` is propext-dirty).
+    The surplus — the unit on the diagonal side, the excess on the break side — is the
+    conserved charge.  The "topological invariant of a critical edge" framing is
+    inflation (no topology is in play); multiplicative scaling does *not* conserve the
+    gap, so the conservation is additive only.
+
+  - **`T` as a `Coord r` transition functor (Phase 1).**  Declined — rests on a
+    conflation.  In the actual framework the tower-height transition `r ↦ r+1` is
+    **exponentiation**: `DepthCoordGenerator`/`DepthOmegaTower` give `expTower c (r+1) =
+    c^{expTower c r}` (`expTower_succ`).  The matrix `T = [[2,1],[1,1]]` is a *different*
+    operation — the det-1 **floor** invariant (`DepthFloorDetOne`: the P-step `(a,b) ↦
+    (2a+b, a+b)` preserves `W ≡ 1`), the trivially-free *bottom* of the stratification
+    (`RateStratification.floor_carries_Htel`), not the height-climbing generator.  Asking
+    `T` to "push `r ↦ r+1` preserving `coord_wf`" forces it into a role it does not play
+    (CLAUDE.md "No forcible map" / "Stereotype matching").  The honest Phase-1 content —
+    `T` is the floor invariant — is **already closed** (`DepthFloorDetOne` +
+    `floor_dominates_all`); there is no further "`T` into Γ₀" theorem because `T` is not
+    the tower-climbing operation.  (`Ordinal`/`Γ₀` also remain Mathlib-forbidden; the
+    native climb is `expTower`, already done.)
+
+Net (round 2): `minOverflow_unique` + `gap_shift_invariant` (2 PURE, module now 15 PURE).
+The classical frames again resolved to either thin poset facts or a category error; kept
+the ∅-axiom-honest statements, declined the inflation.
 
 ## What remains open (still beyond T1–T4)
 

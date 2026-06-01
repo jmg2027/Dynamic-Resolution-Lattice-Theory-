@@ -176,4 +176,36 @@ theorem overflow_shift (bound val : Nat → Nat) (c i : Nat)
     Overflow (fun i => bound i + c) (fun i => val i + c) i :=
   Nat.add_lt_add_right hov c
 
+/-! ## §7 — the least overflow is unique, and the surplus is the conserved quantity
+
+Two sharpenings.  First, the unit-generated floor is not merely *a* least overflow but
+*the* one: any sequence that overflows `bound` everywhere and lies below every overflow
+**equals** `minOverflow bound` pointwise (`minOverflow_unique`).  This is the universal
+property — poset-initiality of `minOverflow` among the overflows of a bound — stated as
+the honest uniqueness it is (in a `Prop`-ordered poset there is no further factorisation
+content beyond `≤`).  Second, the genuinely conserved quantity under the additive
+deformation of `overflow_shift` is the **surplus** itself: shifting bound and value by a
+common `c` leaves `val − bound` exactly fixed (`gap_shift_invariant`).  The surplus — the
+unit on the diagonal, the excess on the break — is the conserved charge of the
+operation, not a topological invariant of a critical edge. -/
+
+/-- ★★★ **The least overflow is unique.**  Any `g` that overflows `bound` everywhere and
+    is a lower bound of every overflow equals `minOverflow bound` pointwise.  So
+    `minOverflow` is *the* canonical minimal witness of overflow — the universal object
+    both readings are mediated by (the diagonal achieves it, the break exceeds it). -/
+theorem minOverflow_unique (bound g : Nat → Nat)
+    (hg : ∀ i, Overflow bound g i)
+    (hlb : ∀ val, (∀ i, Overflow bound val i) → ∀ i, g i ≤ val i)
+    (i : Nat) : g i = minOverflow bound i :=
+  Nat.le_antisymm (hlb (minOverflow bound) (minOverflow_overflows bound) i)
+    (least_overflow bound g hg i)
+
+/-- ★★ **The surplus is conserved under shift.**  A common additive deformation of bound
+    and value leaves the surplus `val − bound` exactly fixed: `(val i + c) − (bound i + c)
+    = val i − bound i`.  The conserved quantity of `overflow_shift` is the surplus itself
+    — the unit on the diagonal side, the excess on the break side. -/
+theorem gap_shift_invariant (bound val : Nat → Nat) (c i : Nat) :
+    (val i + c) - (bound i + c) = val i - bound i :=
+  E213.Tactic.NatHelper.add_sub_add_right (val i) c (bound i)
+
 end E213.Lib.Math.Cauchy.DepthOverflowDuality
