@@ -281,10 +281,13 @@ This now has an explicit ∅-axiom witness. The Newton basis makes "degree `d` �
 depth `d`" exact: the binomial column `binom · k` has a truncation-free forward
 difference (Pascal's rule), so its `k`-th difference is the constant `binom · 0 = 1`.
 
-> **The degree-`k` discrete monomial has divergence-depth `k`.** `polyDepth k
-> (binom · k)`. **(L)** (`DepthPRecursiveInstances.binomCol_polyDepth`.) Every
-> discrete polynomial is a `Nat`-combination of these columns, and the top column
-> fixes the depth.
+> **Every degree-`d` discrete polynomial has divergence-depth `d`.** `polyDepth d
+> (newton c d)`, for any coefficients `c`, where `newton c d n = Σ_{i≤d} cᵢ·binom n
+> i` is the Newton forward-difference form. **(L)**
+> (`DepthPRecursiveInstances.newton_polyDepth`; the single column
+> `binomCol_polyDepth` is the case `c = δ_k`.) The `d`-th difference is the constant
+> top coefficient `c d` — one `diff` lowers the form by exactly one degree
+> (`diff_newton`), iterated `d` times.
 
 The instances follow. **e** is closed end-to-end: its convergent denominators obey a
 degree-1 P-recursive recurrence `eulerDen (n+1) = (n+1)·eulerDen n`, and its
@@ -528,9 +531,10 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lib/Math/Cauchy/DepthPRecursive.lean` — depth = P-recursive rank
     (structural: `polyDepth_succ_iff`)
   - `lean/E213/Lib/Math/Cauchy/DepthPRecursiveInstances.lean` — the witnesses:
-    `binomCol_polyDepth` (degree-`k` monomial has depth `k`, exact Pascal diff);
+    `newton_polyDepth` (every degree-`d` discrete polynomial has depth `d`, via
+    exact Pascal differences; `binomCol_polyDepth` is the single-column case);
     `e_finite_depth_iff_P_recursive` (e: order-1 recurrence + `polyDepth 1`);
-    `pi_is_P_recursive` (π's Wallis recurrences, degree-2 coefficients)
+    `pi_is_P_recursive` (π's Wallis recurrences + `polyDepth 2` step coefficient)
 
 **Part IV — the axes and their ordinal hierarchy**
   - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,

@@ -64,11 +64,12 @@ import E213.Lib.Math.Cauchy.DepthFloorDetOne
                              π 6, Liouville ∞); = P-recursive rank.
     * `DepthPRecursive`     — finite depth ⟺ P-recursive (structural).
     * `DepthPRecursiveInstances`
-                            — the witnesses: `binomCol_polyDepth`
-                             (degree-`k` monomial has depth `k`, via
-                             exact Pascal differences); e's order-1
-                             recurrence + `polyDepth 1` ratio; π's
-                             Wallis P-recursive recurrences.
+                            — the witnesses: `newton_polyDepth`
+                             (every degree-`d` discrete polynomial has
+                             depth `d`, via exact Pascal differences);
+                             e's order-1 recurrence + `polyDepth 1`
+                             ratio; π's Wallis recurrences + `polyDepth
+                             2` step coefficient.
     * `DepthTower`          — the ratio-lift axis (= diff on the
                              exponent); `(h,d)` coordinate.
     * `DepthOrdinal`        — `(h,d)` is an ordinal `< ω²` (`lex_wf`).

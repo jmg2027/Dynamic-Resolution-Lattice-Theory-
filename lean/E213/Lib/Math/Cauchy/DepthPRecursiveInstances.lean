@@ -22,9 +22,13 @@ difference of the `k`-th column is the constant `binom · 0 = 1`:
 > ★ `binomCol_polyDepth` : `polyDepth k (fun n => binom n k)` — the degree-`k`
 > discrete monomial has divergence-depth exactly `k`.
 
-This is the ∅-axiom core of "finite depth = P-recursive (difference) order": every
-discrete polynomial is a finite `Nat`-combination of these columns, and the top
-column fixes the depth.
+Every discrete polynomial is a finite `Nat`-combination `Σ_{i≤d} cᵢ·binom(·,i)` of
+these columns (the Newton forward-difference form), and §1b lifts the column result
+to that whole class:
+
+> ★★★ `newton_polyDepth` : `polyDepth d (newton c d)` — *every* degree-`d` discrete
+> polynomial has divergence-depth `d`, for any coefficients `c`.  The complete
+> ∅-axiom "finite depth = P-recursive (difference) order".
 
 ## §2 — e: P-recursive of order 1, depth 1 (complete)
 
@@ -56,8 +60,9 @@ All zero-axiom.
 namespace E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 
 open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK)
-open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
-open E213.Tactic.NatHelper (add_sub_cancel_right add_mul mul_assoc)
+open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm)
+open E213.Tactic.NatHelper
+  (add_sub_cancel_right add_mul mul_assoc add_sub_of_le mul_sub_distrib)
 
 /-! ## §1 — 213-native binomial and the monomial-column depth theorem -/
 
@@ -112,6 +117,103 @@ theorem binomCol_polyDepth (k : Nat) : polyDepth k (fun m => binom m k) := by
   intro n
   show liftK k (fun m => binom m k) n = liftK k (fun m => binom m k) 0
   rw [binomCol_liftK_const k n, binomCol_liftK_const k 0]
+
+/-! ## §1b — the full Newton-form polynomial: every degree-`d` discrete polynomial
+       has depth `d`
+
+`binomCol_polyDepth` handles a single column.  A general discrete polynomial of
+degree `d` is a `Nat`-combination `Σ_{i≤d} cᵢ · binom(·, i)` (the Newton forward-
+difference form).  This sub-section lifts the column result to that whole class —
+the complete "finite divergence depth = P-recursive (difference) order". -/
+
+/-- The degree-`d` Newton-form polynomial `newton c d n = Σ_{i=0}^{d} cᵢ · binom n i`
+    (`binom · 0 = 1`, so the `i = 0` term is `c 0`). -/
+def newton (c : Nat → Nat) : Nat → Nat → Nat
+  | 0,   _ => c 0
+  | d+1, n => newton c d n + c (d+1) * binom n (d+1)
+
+/-- Split a difference of sums (general `Nat` helper): `(b+d) − (a+c) = (b−a) +
+    (d−c)` when `a ≤ b`, `c ≤ d` — the truncation-free case, what makes `diff`
+    additive on monotone summands. -/
+theorem add_sub_add_of_le {a b c d : Nat} (h1 : a ≤ b) (h2 : c ≤ d) :
+    (b + d) - (a + c) = (b - a) + (d - c) := by
+  have key : (a + c) + ((b - a) + (d - c)) = b + d := by
+    rw [Nat.add_add_add_comm a c (b-a) (d-c), add_sub_of_le h1, add_sub_of_le h2]
+  rw [← key, Nat.add_comm (a+c) ((b-a)+(d-c)), add_sub_cancel_right]
+
+/-- `binom · k` is monotone in `n` (Pascal: a column only grows). -/
+theorem binom_mono (k n : Nat) : binom n k ≤ binom (n+1) k := by
+  cases k with
+  | zero => exact Nat.le_of_eq (by rw [binom_zero_right n, binom_zero_right (n+1)])
+  | succ j => show binom n (j+1) ≤ binom n j + binom n (j+1); exact Nat.le_add_left _ _
+
+/-- A scaled column's forward difference: `cc·binom(n+1)(k+1) − cc·binom n (k+1) =
+    cc·binom n k` (Pascal under the scalar, exact). -/
+theorem coeff_col_diff (cc n k : Nat) :
+    cc * binom (n+1) (k+1) - cc * binom n (k+1) = cc * binom n k := by
+  rw [← mul_sub_distrib (binom_mono (k+1) n)]
+  congr 1
+  exact add_sub_cancel_right (binom n k) (binom n (k+1))
+
+/-- `newton c d` is monotone in `n` (sum of monotone columns, nonneg coeffs). -/
+theorem newton_mono (c : Nat → Nat) : ∀ d n, newton c d n ≤ newton c d (n+1)
+  | 0, _ => Nat.le_refl _
+  | d+1, n => Nat.add_le_add (newton_mono c d n)
+      (Nat.mul_le_mul (Nat.le_refl (c (d+1))) (binom_mono (d+1) n))
+
+/-- `liftK` respects pointwise equality — `(∀ m, f m = g m) → liftK d f n = liftK d
+    g n` — proved without `funext` (each `liftK` value depends on finitely many
+    points, and `diff` is pointwise).  This is what lets a *pointwise* difference
+    identity be pushed under the iterated lift. -/
+theorem liftK_congr : ∀ (d : Nat) (f g : Nat → Nat), (∀ m, f m = g m) →
+    ∀ n, liftK d f n = liftK d g n
+  | 0,   f, g, h, n => h n
+  | d+1, f, g, h, n => by
+    show (liftK d f) (n+1) - (liftK d f) n = (liftK d g) (n+1) - (liftK d g) n
+    rw [liftK_congr d f g h (n+1), liftK_congr d f g h n]
+
+/-- ★ **One difference lowers the Newton form by exactly one degree, with shifted
+    coefficients** (pointwise): `diff (newton c (d+1)) n = newton (c ∘ succ) d n`.
+    Each column drops one index (Pascal), the constant term falls away, and the
+    coefficient sequence shifts up by one.  Truncation-free via `add_sub_add_of_le`
+    on the monotone summands. -/
+theorem diff_newton (c : Nat → Nat) : ∀ d n,
+    diff (newton c (d+1)) n = newton (fun i => c (i+1)) d n
+  | 0, n => by
+    show (c 0 + c 1 * binom (n+1) 1) - (c 0 + c 1 * binom n 1) = c 1
+    rw [add_sub_add_of_le (Nat.le_refl (c 0))
+         (Nat.mul_le_mul (Nat.le_refl (c 1)) (binom_mono 1 n)),
+        Nat.sub_self, Nat.zero_add, coeff_col_diff (c 1) n 0, binom_zero_right, Nat.mul_one]
+  | d+1, n => by
+    show (newton c (d+1) (n+1) + c (d+2) * binom (n+1) (d+2))
+       - (newton c (d+1) n + c (d+2) * binom n (d+2))
+       = newton (fun i => c (i+1)) d n + c (d+2) * binom n (d+1)
+    rw [add_sub_add_of_le (newton_mono c (d+1) n)
+         (Nat.mul_le_mul (Nat.le_refl (c (d+2))) (binom_mono (d+2) n)),
+        coeff_col_diff (c (d+2)) n (d+1)]
+    show diff (newton c (d+1)) n + c (d+2) * binom n (d+1)
+       = newton (fun i => c (i+1)) d n + c (d+2) * binom n (d+1)
+    rw [diff_newton c d n]
+
+/-- The `d`-th difference of a degree-`d` Newton form is the constant top
+    coefficient: `liftK d (newton c d) n = c d`.  Iterate `diff_newton` (shifting
+    coefficients) `d` times via `liftK_diff_comm` + `liftK_congr`. -/
+theorem liftK_newton_const : ∀ (c : Nat → Nat) d n, liftK d (newton c d) n = c d
+  | _, 0,   _ => rfl
+  | c, d+1, n => by
+    rw [liftK_diff_comm d (newton c (d+1)),
+        liftK_congr d (diff (newton c (d+1))) (newton (fun i => c (i+1)) d)
+          (diff_newton c d) n]
+    exact liftK_newton_const (fun i => c (i+1)) d n
+
+/-- ★★★ **Every degree-`d` discrete polynomial has divergence-depth `d`.**
+    `polyDepth d (newton c d)` — for *any* coefficient sequence `c`, the Newton-form
+    polynomial `Σ_{i≤d} cᵢ·binom(·,i)` has its `d`-th finite difference constant
+    (`= c d`), so its depth is `d`.  This is the complete ∅-axiom statement of
+    "finite divergence depth = P-recursive (difference) order" — `binomCol_polyDepth`
+    is the single-column case (`c = δ_k`). -/
+theorem newton_polyDepth (c : Nat → Nat) (d : Nat) : polyDepth d (newton c d) :=
+  fun n => by rw [liftK_newton_const c d n, liftK_newton_const c d 0]
 
 /-! ## §2 — e: P-recursive of order 1, depth 1 -/
 

@@ -118,12 +118,16 @@ unclaimed extensions it exposes:
     7/0): forward (`convergent_crossdet_floor_is_one`) + converse
     (`floor_one_is_P_invariant` = `pellNormStep`).  The floor IS the P-orbit
     invariant.  Hinge between analysis-ladder and atomic forcing.
-  - **B. finite-depth recurrence formal** — DONE (e + general bridge) this arc
-    (`Cauchy/DepthPRecursiveInstances`, 12/0).  **General witness**:
-    `binomCol_polyDepth` — degree-`k` discrete monomial (213-native `binom`, Pascal)
-    has `polyDepth k`; the forward difference is *exact* in the Newton basis (no
-    Nat-truncation), so this is the clean ∅-axiom core of "finite depth ⟺
-    P-recursive".  **e closed**: `e_finite_depth_iff_P_recursive` = order-1 recurrence
+  - **B. finite-depth recurrence formal** — DONE (general theorem + e) this arc
+    (`Cauchy/DepthPRecursiveInstances`, 25/0).  **General theorem**:
+    `newton_polyDepth` — *every* degree-`d` discrete polynomial `Σ_{i≤d} cᵢ·binom(·,i)`
+    (Newton form, 213-native `binom`, Pascal) has `polyDepth d`; the forward
+    difference is *exact* in the Newton basis (no Nat-truncation: `diff_newton` lowers
+    the form by one degree with shifted coeffs, iterated `d`× via `liftK_congr` +
+    `liftK_diff_comm`).  The complete ∅-axiom "finite depth ⟺ P-recursive
+    (difference) order" (`binomCol_polyDepth` = single-column case).  Reusable Nat
+    helpers proved en route: `add_sub_add_of_le`, `liftK_congr`, `binom_mono`.
+    **e closed**: `e_finite_depth_iff_P_recursive` = order-1 recurrence
     `eulerDen (n+1) = (n+1)·eulerDen n` + `polyDepth 1` ratio (depth = order).
     **π**: `pi_is_P_recursive` (Wallis num/den order-1 recurrences, degree-2 step
     coeffs) PLUS `wallisDenCoeff_polyDepth` — the den step coefficient `(2n+1)(2n+3)`
