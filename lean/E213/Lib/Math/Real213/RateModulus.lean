@@ -3,11 +3,11 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # RateModulus — the general "rate-carrying ⟹ total modulus" theorem
 
-`EulerModulus` gave e a total ∅-axiom cut modulus by carrying the margin invariant
-`e_i + 1/(i·d_i) ≤ m/k`.  Nothing in that argument is specific to e once the
-**margin-monotone** fact is isolated: if the convergents `a_i/d_i` are increasing and
-the margin `e_i + 1/(i·d_i)` is non-increasing (`Htel`), the cut is constant past
-`k+2`, uniformly in `(m,k)`.  This file states that abstractly.
+A monotone convergent cut-sequence `a_i/d_i` whose margin `e_i + 1/(i·d_i)` is
+non-increasing completes with a *constructed* total modulus: the cut is constant past
+`k+2`, uniformly in `(m,k)`, with no recurrence, no LEM, no irrationality measure.
+The whole argument turns on one fact — the margin is non-increasing (`Htel`) — and is
+then pure transitivity; nothing is specific to any individual real.
 
 `Htel a d` is the *rate certificate* — the cross-multiplied form of "the margin
 sequence decreases".  An instance supplies `(a, d)` plus:
