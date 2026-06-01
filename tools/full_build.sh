@@ -1,16 +1,16 @@
 #!/bin/bash
-# 213 full build — framework rings + Lib content libraries.
+# 213 full build — COMPREHENSIVE gate over every E213 module.
 #
-# `lake build E213` (the default target driven by `E213.lean`)
-# only exercises the framework rings (Term / Theory / Lens / Meta
-# + Pigeonhole).  Lib/Math + Lib/Physics are excluded by design
-# (large dependency closures, slow build) and consumers import the
-# specific sub-modules they need.  This script does the explicit
-# Lib build so refactor regressions are caught BEFORE they bite a
-# downstream consumer.
+# `lake build E213` (the default target driven by `E213.lean`) only
+# exercises the framework rings (Term / Theory / Lens / Meta +
+# Pigeonhole) — fast, for iteration.  `lake build E213.Lib.Math
+# E213.Lib.Physics` adds the two content-umbrella closures.  But neither
+# is a complete gate: modules not transitively imported from those roots
+# ("orphans") are never compiled, so latent breakage hides (see
+# research-notes/G159).
 #
-# Use after any refactor touching Meta tactics, Real213, List213,
-# or any framework symbol that Lib depends on transitively.
+# This script builds EVERY module under lean/E213, so no orphan escapes.
+# Use it as the build gate after any refactor.
 #
 # Exit 0 = clean; non-zero = build failure (see output).
 
@@ -22,8 +22,9 @@ echo "===> Building E213 (framework rings)..."
 lake build E213
 
 echo ""
-echo "===> Building E213.Lib.Math + E213.Lib.Physics (content)..."
-lake build E213.Lib.Math E213.Lib.Physics
+echo "===> Building ALL E213 modules (comprehensive — no orphan escapes)..."
+mods=$(find E213 -name '*.lean' | sed 's|\.lean$||; s|/|.|g')
+lake build $mods
 
 echo ""
-echo "✓ Full build clean (framework + Lib)."
+echo "✓ Full build clean — all $(echo "$mods" | wc -l) modules."
