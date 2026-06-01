@@ -431,6 +431,47 @@ CD towers **fibered over seed unit groups**; the `μ ∈ {2,4,6}` trichotomy
 lift containing Eisenstein.  Decidable shadows are all ∅-axiom.  Open
 frontier: the rank-2 (`2O, 2I`) seeds and the McKay/ADE classification.
 
+### Phase 8.3 — adversarial critique integrated (honest status)
+
+A third agent stress-tested the Phase-8 theorems.  Soundness: all
+∅-axiom, true `decide`/composition facts.  The critique was about *what
+the decidable facts mean* — corrections applied to the Lean docstrings:
+
+  - **Density-governance is largely a restatement of the construction.**
+    The tracked object is the *doubled-basis loop* (`lip_units.map
+    cay_left ++ … cay_right`), twice the previous by construction; so
+    "density `= |μ|/2`" is the seed count read back out, not independent
+    governance.  The *contentful* claim is **branch** (odd torsion).
+  - **Branch is the real content** — 3-torsion is a genuine iso invariant
+    the doubling *preserves but cannot create*.  `branch_by_odd_torsion`
+    now covers **every measured dyadic cell** (`lip,cay,sed,L4T,L5T` →
+    order-3 `= 0`) vs `zod = 2`, `hur = 8`.  But the universal direction
+    ("no dyadic level *ever* gains odd torsion") is still **pointwise**,
+    not a uniform theorem (would need the parametric tower).
+  - **`6 = NS·NT` is a coincidence as formalized** — the same `6` is also
+    `3!`, `d+1`, ….  The structural reading (`μ₆ ≅ μ₂×μ₃` ↔ the `K_{3,2}`
+    ST-phase `μ_NT × μ_NS`) is real but **not wired** in Lean.  Docstring
+    demoted to numerical identity.
+  - **`hurwitz_contains_eisenstein_core` → `hurwitz_carries_cyclotomic_torsion`.**
+    Count `> 0` does *not* witness a subgroup `μ₆ ⊂ 2T`, and `2T`'s
+    3-torsion (8) is 4× a single `μ₆` (2); `2T ≅ SL(2,𝔽₃)` non-abelian.
+    Docstring now states only the order-count menu overlap.
+  - **Number-theoretic labels** (the trichotomy uniqueness; lattice
+    symmetry `μ₂/μ₄/μ₆` = rectangular/square/hexagonal; the McKay/ADE
+    ladder; the loop-class names `Q₈/Dic₃`) are **classical facts or
+    speculation, cited not formalized** — they live in this note, and the
+    Lean docstrings now say so.
+
+**Net honest status of "seed-`μ` governs the tower":** the *density*
+half is a corollary of the doubling; the *branch* half (odd-torsion =
+discriminant class) is the genuine, partly-formalized content; the
+*deep* identifications (lattice symmetry, McKay, CM) are the cited
+mathematical frame, the right picture but beyond the ∅-axiom finite
+shadows.  Hardening targets left: a real `μ₆ ⊂ 2T` subgroup witness
+(generator + closure), the CRT `μ₆ ≅ μ₂×μ₃` wired to `(NT,NS)`, and the
+uniform "dyadic doubling preserves order-3 `= 0`" (needs the parametric
+`Tower (Base)` constructor — the standing NC-5 frontier).
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
