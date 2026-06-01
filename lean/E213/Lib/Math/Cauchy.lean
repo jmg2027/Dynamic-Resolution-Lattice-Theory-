@@ -19,6 +19,8 @@ import E213.Lib.Math.Cauchy.DepthOmegaTower
 import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
 import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
+import E213.Lib.Math.Cauchy.DepthClosure
+import E213.Lib.Math.Cauchy.DepthCoordGenerator
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
