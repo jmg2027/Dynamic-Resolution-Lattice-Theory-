@@ -130,4 +130,15 @@ theorem asymptote_classifies_branch :
     ∧ asymptote_ab .C ≠ asymptote_ab .D := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
+set_option maxHeartbeats 4000000 in
+/-- ★ **The Eisenstein branch is denser than the dyadic branch.**  At
+    equal dimension 8, the Eisenstein basis loop (`ZOmegaQuad`) carries
+    more order-4 elements (`18`) than the dyadic one (`Cayley`, `14`) —
+    the extra `cyclotomic` content makes Type C the denser column per
+    dimension.  (At dim 16 the gap widens to `42` vs `30`.) -/
+theorem eisenstein_denser_dim8 :
+    cay_units.countP (fun u => cay_orderOf u = 4)
+      < zoq_units.countP (fun u => zoq_orderOf u = 4) := by
+  rw [cay_order_distribution.2.2.1]; decide
+
 end E213.Lib.Math.CayleyDickson.Tower.MetaTowerLoopSpine
