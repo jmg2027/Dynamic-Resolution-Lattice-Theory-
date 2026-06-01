@@ -78,54 +78,48 @@ pattern at one level up: it states `L.view r = L.view r'` at type
 `L.equiv r r' → M.view r = M.view r'` (function equality on
 view).  Both patterns inherit propext + Quot.sound from the kernel.
 
-This category is a **statement-shape** cost, not a redefinition cost.
-The 213-native meaning of "the same under `L`" is the
-distinguishing-equivalence — pointwise `↔`, `Lens.equivR L x y := ∀
-s, L.view x s ↔ L.view y s` — which is **PURE**, and using `=` of the
-view-functions is the move that *imports* `Prop` / function identity
-beyond the distinguishing content (the "View promoted to identity"
-slip).  The load-bearing hub `universalLens_kernel_eq_E_R`
-(`equivR r r' ↔ E r r'`) is materialized and PURE, so the whole
-refinement lattice on Prop-valued Lenses is recoverable without
-`funext` / `propext`.  The sealed `=`-forms persist as `propext`-shims
-pending consumer migration; only `propAsDistinguishing` (category a)
-is irreducible.  See `theory/lens/dirty_recovery_patterns.md` Pattern
-P5 and `theory/lens/unified_equivalence.md`.
+This category is a **statement-shape** cost, not a redefinition cost,
+and the universalLens refinement surface is **retired from it**.  The
+213-native meaning of "the same under `L`" is the
+distinguishing-equivalence — pointwise `↔` — carried by the
+codomain-polymorphic Reading-equivalence API in `Lens/ReadingEquiv.lean`:
 
-Sealed modules:
+  · `ReadingEq α` — per-codomain reading-sameness (`=` at the default
+    instance, pointwise `↔` at `Raw → Prop`), an equivalence relation,
+    laws PURE;
+  · `Lens.equivG` / `Lens.refinesG` — codomain-polymorphic equivalence /
+    refinement, reducing **definitionally** to `equiv` (default) and
+    `equivR` (`Raw → Prop`);
+  · `Lens.equivG_slash_congruence` — the slash-congruence, generic over
+    the codomain.
 
-  · `E213.Lens.Universal.QuotLens`
-      `universalLens.combine : (Raw → Prop) → (Raw → Prop) →
-      (Raw → Prop)` is the closed-form equivalence-class function;
-      `combine_sym` needs both `funext` (Quot.sound) and `propext`
-      (Iff at Prop result).  All 5 theorems (`combine_sym`,
-      `idempotent`, `kernel_eq_E`, `recovers`, `view_eq`) inherit
-      this structurally.
+The load-bearing hub `universalLens_kernel_eq_E_R` (`equivR r r' ↔ E r r'`)
+plus the closure companions `universalLens_recovers_R` /
+`universalLens_idempotent_R` (built on `universalLens_equivR_slash_congruence`
+/ `combine_cong_pw` / `fold_pw`) are PURE, and **every consumer is stated on
+this API** — the refinement lattice (`Join`, `IndexedJoin`, `FamilyMeet`,
+`FamilyJoin`), the Cauchy limit Lens, the kernel↔slash-congruence bijection
+(`Corresp`), the choice-as-Lens-spec, and the canonical-form / idempotence
+theorems (`CanonicalForm`) are all ∅-axiom.  The `=`-of-view-functions forms
+are gone; the only `=`-cost is the single isolated bridge
+`Lens.equivR_to_equiv` (the `↔ ⟹ =` direction, kept by design).  Only
+`propAsDistinguishing` (category a) remains irreducible by thesis.  See
+`theory/lens/dirty_recovery_patterns.md` Pattern P5 and
+`theory/lens/unified_equivalence.md`.
 
-  · `E213.Lens.Lattice.IndexedJoin`
-      `iJoinLens.view : Raw → (ι → α)` is the indexed-join function;
-      `combine` is pointwise.  Kernel theorems (`each_refines`,
-      `is_least`, `kernel`) close through `universalLens_kernel_eq_E`
-      with QuotLens-inherited DIRTY.  Companion theorems
-      `iProdLens_refines_each` and `iProdLens_is_greatest_pw` are
-      PURE — they expose the pointwise-at-index statement that
-      avoids the final `funext i` reassembly.
-
-  · `E213.Lens.Instances.Cauchy`
-      `limitLens` for Cauchy chains is universalLens applied to
-      `TailCong`; `limitLens_{kernel, is_least, tail_collapse}`
-      all close via `universalLens_kernel_eq_E`, inheriting the
-      QuotLens funext-by-design seal.
+Remaining sealed module in this category:
 
   · `E213.Lens.Instances.Leaves.DepthJoin`
       Three-tier classification of `Raw` via `JoinEquiv
-      Lens.leaves Lens.depth`.  All 10 tier invariants
-      (`small_invariant`, `tier_invariant`, `class_of_a_iff_small`,
-      `three_classes_distinct`, `tierLens_*`,
+      Lens.leaves Lens.depth` (a `Nat`-valued lens family).  The 10
+      tier invariants (`small_invariant`, `tier_invariant`,
+      `class_of_a_iff_small`, `three_classes_distinct`, `tierLens_*`,
       `depth_refines_tierLens`, `leaves_refines_tierLens`,
       `joinEquiv_subset_tierLens`, `leaves_depth_join_not_universal`)
-      close through `Lens.equiv` (propext for Iff↔Eq at Prop) and
-      `Lens.refines` (funext-via-Quot.sound for view equality).
+      carry `propext` / `Quot.sound` from the `omega` / `simp`-closed
+      arithmetic helpers, **not** from the refinement API — this is the
+      `omega`/`simp`→explicit purification playbook (cf. `Mobius213.Px`),
+      a separate backlog from the Reading-equivalence rebuild.
 
 ### Net effect
 
@@ -165,40 +159,30 @@ exposes the purity status of the previously-ungated clusters.  Current
     `Classical.choice` (via `Nat.mul_lt_mul_left`) in an orphaned cluster, now
     fixed.  A gate that only follows umbrella imports cannot guarantee the
     ∅-axiom standard; the comprehensive build is required.
-  · **Sealed-by-design** (57) per categories (a) + (b): the Prop-as-
-    distinguishing / Lens-funext / Quot-Lens families + the three CommandElab
-    plumbing modules.  **213-native re-reading (not just ∅-axiom)**: of the 57,
-    only the **3 CommandElab** + `propAsDistinguishing` are *irreducible*.  The 3
-    CommandElab inherit `Classical.choice` via the `Lean.Elab.Command` monad
-    (no `↔`-form alternative); `propAsDistinguishing` is `propext` expressing the
-    thesis "Prop is an atom of meaning".  The other ~54 (Lens/Prop kernel forms)
-    are a **statement-shape cost**, not structural: `Raw` is a subtype not a
-    quotient, `Raw.slash_comm` is PURE, and the `Quot.sound` is `funext` from
-    stating coherence as function-`=`.  The 213-native notion is the pointwise
-    **Reading-equivalence** (`equivR`, `∀ s, view x s ↔ view y s`), which is PURE,
-    and the materialized chain proves the whole family is recoverable:
-    `Raw.fold_slash_iff` (the pointwise-`↔` fold/slash homomorphism, PURE) →
-    `universalLens_{combine_sym,view_eq}_pw` (PURE) →
-    `universalLens_kernel_eq_E_R` (the load-bearing kernel hub, `equivR r r' ↔ E
-    r r'`, PURE).  So the `universalLens` (`Raw → Prop`) kernel hub **is**
-    recoverable PURE, and `Lens/ReadingEquiv.lean` carries the `equivR` /
-    `refinesR` structure (PURE) with the lone `=`-cost isolated in
-    `equivR_to_equiv`.  **But retiring the sealed `=`-forms across the consumer
-    lattice is a foundational refactor, not bounded engineering** — a direct
-    attempt confirmed three walls: (1) `Lens.equiv` / `Lens.refines` are *defined*
-    as `view x = view y`, so every consumer stated via them inherits the cost
-    unless the API itself is restated pointwise; (2) the consumer lenses have
-    non-`Prop` codomains (`iJoinLens : Lens (ι → α)`, `limitLens`, the meets)
-    where `equivR` / `refinesR` (typed for `Lens (Raw → Prop)`) do not even apply,
-    so each needs its own per-codomain pointwise form; (3) `universalLens_recovers`
-    / `universalLens_idempotent` have **no** PURE companion — they need
-    equivalence-*closure* reasoning, not the pointwise `combine`/`view` identities.
-    Net: of the ~54, the kernel hub + combine/view coherence are PURE-recoverable
-    (companions materialized); the closure theorems (`recovers`, `idempotent`) and
-    the `=`-based `equiv`/`refines` consumer surface are **structural** pending a
-    foundational pointwise-API rebuild.  Only `propAsDistinguishing` is
-    irreducible by thesis.  Anchors: `theory/lens/dirty_recovery_patterns.md`
-    Pattern P5, `theory/lens/unified_equivalence.md`.
+  · **Sealed-by-design** per categories (a) + (b): the Prop-as-distinguishing
+    family + the three CommandElab plumbing modules.  **213-native re-reading
+    (not just ∅-axiom)**: only the **3 CommandElab** + `propAsDistinguishing` are
+    *irreducible*.  The 3 CommandElab inherit `Classical.choice` via the
+    `Lean.Elab.Command` monad (no `↔`-form alternative); `propAsDistinguishing` is
+    `propext` expressing the thesis "Prop is an atom of meaning".
+  · **The universalLens refinement surface is PURE** (the headline (a)
+    pointwise-API rebuild, done).  The 213-native notion of "the same under `L`"
+    is the pointwise **Reading-equivalence** (`equivR`, `∀ s, view x s ↔ view y
+    s`); `Lens/ReadingEquiv.lean` lifts it to the codomain-polymorphic
+    `ReadingEq` / `equivG` / `refinesG` (reducing definitionally to `equiv` at
+    the default instance and `equivR` at `Raw → Prop`).  The kernel hub
+    (`universalLens_kernel_eq_E_R`), the slash-congruence
+    (`universalLens_equivR_slash_congruence`), and the closure companions
+    (`universalLens_recovers_R` / `universalLens_idempotent_R`) are all PURE, and
+    **every consumer is stated on this API**: the refinement lattice (`Join`,
+    `IndexedJoin`, `FamilyMeet`, `FamilyJoin`), the Cauchy `limitLens`, the
+    kernel↔slash-congruence bijection (`Corresp`), `Choice.choice_as_lens_spec`,
+    and `CanonicalForm.{refinesEquiv, lens_canonical_universal,
+    lens_canonical_idempotent}`.  The `=`-of-view-function forms are gone; the
+    lone `=`-cost is the isolated bridge `equivR_to_equiv` (the `↔ ⟹ =`
+    direction).  Only `propAsDistinguishing` stays irreducible.  Anchors:
+    `theory/lens/dirty_recovery_patterns.md` Pattern P5,
+    `theory/lens/unified_equivalence.md`.
 
 ---
 
