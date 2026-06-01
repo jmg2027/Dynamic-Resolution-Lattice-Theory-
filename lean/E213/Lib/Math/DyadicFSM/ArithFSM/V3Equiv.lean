@@ -40,7 +40,7 @@ theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
   rw [hreshape]
   exact E213.Meta.Nat.EncodePair213.encode_mod hn (a.val * n + b.val) c.val c.isLt
 
-/-- Helper: b * n + c < n * n when b, c < n.  ∅-axiom. -/
+-- Helper: `b * n + c < n * n` when `b, c < n` (aliased `bn_plus_c_lt_nn`).
 open E213.Tactic.Fin213 renaming pair_encoded_lt → bn_plus_c_lt_nn
 
 /-- Encoded value's mod-n² block recovers b*n + c.  STRICT ∅-AXIOM. -/
