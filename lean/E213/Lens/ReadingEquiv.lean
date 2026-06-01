@@ -63,4 +63,14 @@ protected theorem Lens.equivR_to_equiv (L : Lens (Raw → Prop)) {x y : Raw}
   show L.view x = L.view y
   funext s; exact propext (h s)
 
+/-- The converse bridge is **free** (∅-axiom): any `=`-equivalence already gives
+    the Reading-equivalence.  So results proven via the sealed `=`-forms transport
+    to `equivR` at no cost; only the `equivR → =` direction above pays.  This is
+    the precise cost asymmetry — `=` ⟹ `↔` free, `↔` ⟹ `=` costs `funext`/`propext`
+    — that makes migrating the refinement lattice onto `equivR`/`refinesR`
+    mechanical. -/
+protected theorem Lens.equivR_of_equiv (L : Lens (Raw → Prop)) {x y : Raw}
+    (h : L.equiv x y) : L.equivR x y :=
+  fun s => h ▸ Iff.rfl
+
 end E213.Lens
