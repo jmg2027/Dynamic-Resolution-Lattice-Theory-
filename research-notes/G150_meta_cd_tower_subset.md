@@ -472,6 +472,43 @@ shadows.  Hardening targets left: a real `μ₆ ⊂ 2T` subgroup witness
 uniform "dyadic doubling preserves order-3 `= 0`" (needs the parametric
 `Tower (Base)` constructor — the standing NC-5 frontier).
 
+### Phase 8.4 — the two cited claims hardened into proofs (marathon-3)
+
+Both overclaims the critique flagged are now ∅-axiom theorems in
+`Tower/SeedUnitGovernance`:
+
+  - **`mu6_subgroup_of_2T`** — a genuine cyclic `μ₆ ⊂ 2T`.  The Hurwitz
+    unit `g = ⟨1,1,1,1⟩ = (1+i+j+k)/2` is a primitive 6th root
+    (`hur_orderOf g = 6`, indeed `g³ = -1`); its 6 powers
+    `{1,g,g²,g³,g⁴,g⁵}` are distinct and all lie in `hur_units`.  So the
+    subgroup containment is *witnessed*, not inferred from counts —
+    `2T`'s order-3 count 8 is still 4× a single `μ₆`, but a `μ₆` is now
+    provably inside.
+  - **`eisenstein_units_crt`** — `μ₆ ≅ μ_NT × μ_NS` by CRT.  `{±1}`
+    (order `NT=2`) × `{1,ω,ω²}` (order `NS=3`); the product map
+    `(s,t) ↦ s·t` is a `Nodup` bijection onto `units6`.  So `6 = NS·NT`
+    is the *structural* `μ_NS × μ_NT` split, not a numerical collision —
+    the order-2 factor is the `±1`/temporal `NT`, the order-3 factor the
+    cube-root/spatial `NS`.
+
+**McKay-ladder evidence found in-repo (not external after all).**
+`Lib/Math/Geometry/AlgebraicGeometry.lean` already carries the rank-2
+continuation past Hurwitz: `SL(2,𝔽₅) ≅ 2I` (binary icosahedral, 120),
+"`Type D` (Hurwitz `2T`, 24) is the `ℤ`-base level; icosian (`2I`, 120)
+extends to `ℤ[φ]` (`Type E`)", with `24·5 = 120` and `5·4·6 = 120`
+(`algebraic_geometric_core`).  So the seed ladder `μ₄,μ₆ → 2T → 2I`
+(cyclic → binary tetrahedral → binary icosahedral) is the repo's own
+`A/C → D → E` progression, the `ℤ[φ]` golden seed being the next
+exceptional column.  The McKay/ADE frame for the "complete object" is
+thus *gestured by the repo*, not merely imported — though `2I`/`ℤ[φ]`
+unit-group constructions are cited, not yet built.
+
+**Marathon-3 verdict:** the two formalization gaps the adversarial pass
+exposed are closed (`μ₆ ⊂ 2T` and `μ₆ ≅ μ_NT×μ_NS` both proven), making
+`6 = NS·NT` structural and the Hurwitz–Eisenstein containment genuine.
+The seed-`μ` ladder extends in-repo toward `2I/ℤ[φ]` (Type E), pointing
+the "complete object" at the binary-polyhedral/McKay classification.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
