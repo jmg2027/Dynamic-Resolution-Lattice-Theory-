@@ -168,12 +168,19 @@ A–D + B are now **all closed ∅-axiom this arc**:
     non-increasing margin `e_i + 1/(i·d_i)` (the rate certificate `Htel`) has a total
     ∅-axiom modulus `N(m,k)=k+2`; the step is pure transitivity once `Htel` is
     isolated.  **Validated on e** (`EulerModulus.euler_total_modulus_via_rate`, via
-    `euler_{Htel,hmono,hmonoS}`).  OPEN: a fast π representation (Wallis too slow);
-    more instances are NOT cheap — `ExpLog/CutExpSeries` is *cut-level*
-    (`partialSum`/`cutSum`), not integer `a_i/d_i` convergents, and its own modulus is
-    open; a new constant needs its convergents recast as a num/den pair first.  The
-    `polyDepth`↔`d_i`-growth link (rate from arbitrary recurrence data) is the deepest
-    remaining direction.
+    `euler_{Htel,hmono,hmonoS}`).
+  - **Depth-rank ⟶ rate-certificate bridge — DONE** this arc
+    (`RateModulus.Htel_of_crossdet`): `Htel` has a closed form in the
+    **cross-determinant** `W_i = a_{i+1}d_i − a_i d_{i+1}` — it holds iff
+    `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}` (W small vs the denominator's discrete
+    growth).  e instantiates it directly — e's cross-det IS `eulerDen` (`euler_cross_det`),
+    so `euler_Htel` is now *derived from the cross-determinant*, not a bespoke estimate;
+    the depth arc (W) and the modulus generator (Htel) are one mechanism.  Narrative:
+    `theory/math/analysis/holonomic_modulus.md`.
+    OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
+    fast for the smallness law; needs `μ(π)`); more instances need their convergents
+    as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet
+    num/den).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`

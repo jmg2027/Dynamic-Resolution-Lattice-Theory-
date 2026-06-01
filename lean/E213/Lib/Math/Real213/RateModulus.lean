@@ -29,7 +29,7 @@ All zero-axiom.
 namespace E213.Lib.Math.Real213.RateModulus
 
 open E213.Tactic.NatHelper
-  (add_mul mul_assoc le_of_mul_le_mul_right add_sub_of_le lt_of_lt_le)
+  (add_mul mul_assoc le_of_mul_le_mul_right add_sub_of_le lt_of_lt_le mul_mul_mul_comm_213)
 
 /-- The convergent cut: `e_i ≤ m/k`, i.e. `a i · k ≤ d i · m`. -/
 abbrev rcut (a d : Nat → Nat) (i m k : Nat) : Bool := decide (a i * k ≤ d i * m)
@@ -178,5 +178,28 @@ theorem rate_total_modulus (hd : ∀ i, 1 ≤ d i) (htel : Htel a d)
     (m k : Nat) (hk : 1 ≤ k) :
     ∃ N, ∀ i j, i ≥ N → j ≥ N → rcut a d i m k = rcut a d j m k :=
   ⟨k+2, fun i j hi hj => rate_cut_const hd htel hmono hmonoS m k hk i j hi hj⟩
+
+/-- ★★★ **The depth-rank ⟶ rate-certificate bridge.**  The rate certificate `Htel`
+    is exactly a *smallness* condition on the **cross-determinant** `W_i = a_{i+1}·d_i
+    − a_i·d_{i+1}` (the divergence-ladder's central object, here given by `hW`): the
+    margin is non-increasing iff `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`, i.e. the
+    cross-det is small relative to the denominator's discrete growth.  This is where
+    the depth arc (cross-determinant `W`) meets the modulus generator (rate `Htel`):
+    a real whose cross-determinant is controlled by its denominator growth carries its
+    own modulus. -/
+theorem Htel_of_crossdet (W : Nat → Nat)
+    (hW : ∀ i, a (i+1) * d i = a i * d (i+1) + W i)
+    (hcond : ∀ i, 1 ≤ i → i*(i+1)*W i + i*d i ≤ (i+1)*d (i+1)) : Htel a d := by
+  intro i hi
+  show (a (i+1)*(i+1)+1)*(i*d i) ≤ (a i*i+1)*((i+1)*d (i+1))
+  have hLHS : (a (i+1)*(i+1)+1)*(i*d i) = i*(i+1)*(a (i+1)*d i) + i*d i := by
+    rw [add_mul, Nat.one_mul]; congr 1
+    rw [mul_mul_mul_comm_213, Nat.mul_comm (a (i+1)) i, ← mul_mul_mul_comm_213]
+  have hRHS : (a i*i+1)*((i+1)*d (i+1)) = i*(i+1)*(a i*d (i+1)) + (i+1)*d (i+1) := by
+    rw [add_mul, Nat.one_mul]; congr 1
+    rw [mul_mul_mul_comm_213, Nat.mul_comm (a i) (i+1), mul_mul_mul_comm_213,
+        Nat.mul_comm (i+1) i]
+  rw [hLHS, hRHS, hW i, Nat.mul_add, Nat.add_assoc]
+  exact Nat.add_le_add_left (hcond i hi) _
 
 end E213.Lib.Math.Real213.RateModulus

@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.ExpLog.EulerCut
 import E213.Lib.Math.Real213.HolonomicReal
 import E213.Lib.Math.Real213.RateModulus
+import E213.Lib.Math.Cauchy.EulerDivergenceForm
 import E213.Meta.Nat.PolyNat
 
 /-!
@@ -261,7 +262,8 @@ theorem eHolonomicReal_cut_stable (m k : Nat) (hk : 1 ≤ k) (i : Nat) (hi : k+2
 
 /-! ## §5 — e satisfies the abstract rate certificate (the generator is non-vacuous) -/
 
-open E213.Lib.Math.Real213.RateModulus (Htel rate_total_modulus)
+open E213.Lib.Math.Real213.RateModulus (Htel rate_total_modulus Htel_of_crossdet)
+open E213.Lib.Math.Cauchy.EulerDivergenceForm (euler_cross_det)
 
 /-- e's convergents are strictly increasing: `eᵢ < eᵢ₊₁` (cross-multiplied).  The
     difference is exactly `eulerDen i`. -/
@@ -298,23 +300,22 @@ theorem euler_hmono (N : Nat) :
       exact Nat.le_trans (Nat.mul_le_mul_left (N+t+1) ih) h3
   intro i hi; rw [← E213.Tactic.NatHelper.add_sub_of_le hi]; exact aux (i - N)
 
-/-- ★★ **e satisfies the rate certificate `Htel`** — the margin `eᵢ + 1/(i·i!)` is
-    non-increasing.  This is `L_step` (the `i(i+2) ≤ (i+1)²` core) scaled by
-    `eulerDen i`. -/
-theorem euler_Htel : Htel eulerNum eulerDen := by
-  intro i _
-  show (eulerNum (i+1)*(i+1)+1)*(i*eulerDen i) ≤ (eulerNum i*i+1)*((i+1)*eulerDen (i+1))
-  have hnum : eulerNum (i+1)*(i+1)+1 = ((i+1)*(i+1))*eulerNum i + (i+2) := by
-    show ((i+1)*eulerNum i+1)*(i+1)+1 = ((i+1)*(i+1))*eulerNum i + (i+2)
-    rw [add_mul, Nat.one_mul,
-        show (i+1)*eulerNum i*(i+1) = ((i+1)*(i+1))*eulerNum i from by
-          rw [Nat.mul_comm (i+1) (eulerNum i), mul_assoc,
-              Nat.mul_comm (eulerNum i) ((i+1)*(i+1))], Nat.add_assoc]
-  have hden : (i+1)*eulerDen (i+1) = ((i+1)*(i+1))*eulerDen i := by
-    show (i+1)*((i+1)*eulerDen i) = ((i+1)*(i+1))*eulerDen i; rw [← mul_assoc]
-  rw [hnum, hden, ← mul_assoc (((i+1)*(i+1))*eulerNum i + (i+2)) i (eulerDen i),
-      ← mul_assoc (eulerNum i*i+1) ((i+1)*(i+1)) (eulerDen i)]
-  exact Nat.mul_le_mul_right (eulerDen i) (L_step (eulerNum i) i)
+/-- ★★ **e satisfies the rate certificate `Htel`, via its cross-determinant.**
+    e's cross-determinant is exactly `eulerDen` (`euler_cross_det`:
+    `eulerNum (n+1)·eulerDen n = eulerNum n·eulerDen (n+1) + eulerDen n`), so the
+    bridge `RateModulus.Htel_of_crossdet` applies with `W = eulerDen`; the remaining
+    condition `i(i+1)·eulerDen i + i·eulerDen i ≤ (i+1)·eulerDen (i+1)` reduces to
+    `i(i+1)+i ≤ (i+1)²` (i.e. `0 ≤ 1`, via the `PolyNat` ring).  This is the
+    depth-arc cross-determinant feeding directly into the rate certificate. -/
+theorem euler_Htel : Htel eulerNum eulerDen :=
+  Htel_of_crossdet eulerDen (fun i => euler_cross_det i) (fun i _ => by
+    show i*(i+1)*eulerDen i + i*eulerDen i ≤ (i+1)*eulerDen (i+1)
+    rw [show eulerDen (i+1) = (i+1)*eulerDen i from rfl, ← add_mul, ← mul_assoc]
+    refine Nat.mul_le_mul_right (eulerDen i) ?_
+    have h : (i+1)*(i+1) = i*(i+1)+i+1 :=
+      poly_id (.mul (.add .X (.C 1)) (.add .X (.C 1)))
+              (.add (.add (.mul .X (.add .X (.C 1))) .X) (.C 1)) rfl i
+    rw [h]; exact Nat.le_succ _)
 
 /-- ★★★ **e's total modulus, derived from the abstract generator.**  Instantiating
     `RateModulus.rate_total_modulus` at e's convergents reproduces `euler_total_modulus`

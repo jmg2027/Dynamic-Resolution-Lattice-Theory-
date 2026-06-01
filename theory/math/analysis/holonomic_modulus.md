@@ -50,6 +50,18 @@ The three regimes at index `k+1` are decided by a `ℕ`-trichotomy on `a_{k+1}·
 equal ⟹ `false` from `k+2` (strict monotonicity crosses the threshold); above ⟹
 `false` from `k+1`, forward by monotonicity (`false_fwd`).
 
+`Htel` itself has a closed form in the **cross-determinant** `W_i = a_{i+1}·d_i −
+a_i·d_{i+1}` — the divergence ladder's central object:
+
+> **`RateModulus.Htel_of_crossdet`** *(∅-axiom)*.  Given `W` with `a_{i+1}·d_i =
+> a_i·d_{i+1} + W_i`, the rate certificate holds as soon as `i(i+1)·W_i + i·d_i ≤
+> (i+1)·d_{i+1}` — the cross-determinant is small relative to the denominator's
+> discrete growth.
+
+This is the bridge where the depth arc (the cross-determinant `W` of
+`completeness_without_completeness.md` Part III) meets the modulus generator: `Htel`
+*is* a smallness law on `W`.
+
 This is the *unconditional real* API: a generator-built real coerces to a valid cut
 with the modulus a field, not an assumption.  Its typed home is `HolonomicReal`
 (`HolonomicReal.cut_valid`).
@@ -89,13 +101,16 @@ deciding the side needs a lower bound on `|π/2 − m/k|` — π's irrationality
 would meet the criterion; Wallis cannot.  This is the rate-free posture of `PiCut`,
 not a property of transcendence.
 
-**Toward the holonomic class in general.**  `Htel` is a fact about the recurrence's
-denominator growth.  Extracting it from arbitrary P-recursive recurrence data — the
-`d_i`-growth supplied by the divergence-depth/`polyDepth` rank
-(`completeness_without_completeness.md` Part III) — would let every *fast* holonomic
-real instantiate the generator automatically.  That bridge, depth-rank ⟶ rate
-certificate, is the convergence point of the completeness arc and the modulus
-generator.
+**The holonomic class, via the cross-determinant.**  `Htel_of_crossdet` reduces the
+rate certificate to a smallness law on the cross-determinant `W` — exactly the object
+the divergence ladder studies.  e instantiates it directly: e's cross-determinant
+*is* `eulerDen` (`euler_cross_det`: `eulerNum (n+1)·eulerDen n = eulerNum n·eulerDen
+(n+1) + eulerDen n`), and the smallness condition collapses to `i(i+1)+i ≤ (i+1)²`
+(i.e. `0 ≤ 1`).  So `euler_Htel` is *derived from the cross-determinant*, not from a
+bespoke estimate — the depth arc and the modulus generator are one mechanism.  What
+remains for another fast holonomic real is just its `W` and the smallness check
+`i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`; the rate-free reals (π via Wallis) are exactly
+those whose `W` grows too fast for it.
 
 ## 5. The thesis, completed
 
