@@ -99,20 +99,17 @@ theorem composite_b : composite Raw.b = constFalseLens := by
 theorem composite_slash (x y : Raw) (h : x ≠ y) :
     composite (Raw.slash x y h) = lensXor (composite x) (composite y) := by
   unfold composite
-  rw [@universalMorphism_slash Bool boolXorHasDistinguishing x y h]
+  -- `universalMorphism_slash` is stated up to `same`; at the `Bool` codomain
+  -- `same = Eq`, extracted here (default-transparency ascription) for the `rw`.
+  have e : @universalMorphism Bool boolXorHasDistinguishing (Raw.slash x y h)
+         = boolXorHasDistinguishing.combine
+             (@universalMorphism Bool boolXorHasDistinguishing x)
+             (@universalMorphism Bool boolXorHasDistinguishing y) :=
+    @universalMorphism_slash Bool boolXorHasDistinguishing x y h
+  rw [e]
   exact boolToConstLens_xor _ _
 
-
-/-- **Tower collapse**: lensUniversalMorphism factors through
-    universalMorphism Bool.  The image of Lens-on-Lens equals the
-    image of boolToConstLens = {constTrueLens, constFalseLens}. -/
-theorem lensUniversalMorphism_factors (r : Raw) :
-    lensUniversalMorphism r = composite r := by
-  have h := @universalMorphism_unique (Lens Bool) lensBoolHasDistinguishing
-    composite composite_a composite_b composite_slash r
-  exact h.symm
-
-/-- ∅-axiom companion to `lensUniversalMorphism_factors`: pointwise
+/-- ∅-axiom (the residue-native tower collapse): pointwise
     Lens equality (eqPW) of `lensUniversalMorphism r` and `composite r`,
     avoiding funext on the combine field via `Lens.view_unique_eqPW`. -/
 theorem lensUniversalMorphism_factors_eqPW (r : Raw) :
@@ -136,18 +133,8 @@ theorem lensUniversalMorphism_factors_eqPW (r : Raw) :
   exact Lens.eqPW_symm h
 
 
-/-- **Image characterization**: the image of lensUniversalMorphism is
-    exactly 2 elements — {constTrueLens, constFalseLens}. -/
-theorem lensUniversalMorphism_image (r : Raw) :
-    lensUniversalMorphism r = constTrueLens ∨
-    lensUniversalMorphism r = constFalseLens := by
-  rw [lensUniversalMorphism_factors]
-  unfold composite boolToConstLens
-  cases @universalMorphism Bool boolXorHasDistinguishing r
-  · right; rfl
-  · left; rfl
-
-/-- ∅-axiom companion: pointwise (eqPW) image characterization. -/
+/-- ∅-axiom: pointwise (eqPW) image characterization — the image of
+    lensUniversalMorphism is exactly {constTrueLens, constFalseLens}. -/
 theorem lensUniversalMorphism_image_eqPW (r : Raw) :
     (lensUniversalMorphism r).eqPW constTrueLens ∨
     (lensUniversalMorphism r).eqPW constFalseLens := by
