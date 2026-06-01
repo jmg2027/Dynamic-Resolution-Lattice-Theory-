@@ -27,6 +27,8 @@ The choice of side (e `<`/`>` `m/k`) is *not* a smuggled LEM: it is read off
 `eulerCut (k+1) m k`, a decidable `Bool`, because the gap exceeds the approximation
 error — exactly what a rate-free sequence lacks.
 
+Narrative: `theory/math/analysis/holonomic_modulus.md`.
+
 All zero-axiom.
 -/
 

@@ -21,6 +21,8 @@ and gets `rate_total_modulus`: a total modulus `N(m,k) = k+2`.  This is the reus
 generator behind `eHolonomicReal` — any real presented by such a rate-carrying
 convergent sequence completes unconditionally, with the modulus a constructed value.
 
+Narrative: `theory/math/analysis/holonomic_modulus.md`.
+
 All zero-axiom.
 -/
 

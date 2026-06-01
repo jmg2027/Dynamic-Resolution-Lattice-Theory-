@@ -330,6 +330,13 @@ means, now a theorem.
 
 ## Anchors
 
+  - [`analysis/holonomic_modulus.md`](analysis/holonomic_modulus.md) — the modulus
+    as a constructed convergence rate: the general generator
+    (`RateModulus.rate_total_modulus`) and the `HolonomicReal` instances (φ, e); the
+    rate-carrying/rate-free divide made into a theorem
+  - `lean/E213/Lib/Math/Real213/RateModulus.lean` — `rate_total_modulus` (the general
+    generator), `HolonomicReal.lean` — the bundled type, `ExpLog/EulerModulus.lean` —
+    e's total modulus `N=k+2` + `eHolonomicReal`
   - `lean/E213/Lib/Math/Real213/AbCutSeq.lean` — the shared carrier
   - `lean/E213/Lib/Math/Real213/PhiAbCut.lean` — algebraic case
   - `lean/E213/Lib/Math/Real213/ExpLog/{EulerCut,PiCut}.lean` —

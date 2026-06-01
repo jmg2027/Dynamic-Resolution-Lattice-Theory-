@@ -38,6 +38,8 @@ convergence-rate modulus — and the *general* `Holonomic → CertifiedModulus` 
 arbitrary recurrence data.  This file lays the type and discharges it on the
 autonomous instance (no `sorry`, no unproven `derived` field).
 
+Narrative: `theory/math/analysis/holonomic_modulus.md`.
+
 All zero-axiom.
 -/
 
