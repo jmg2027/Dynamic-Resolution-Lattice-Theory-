@@ -33,6 +33,9 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       Pascal differences); e (order-1 recurrence +
                                       `polyDepth 1`); π (Wallis recurrences +
                                       `polyDepth 2` step coefficient)
+  - `DepthPiQuartic.lean`          — π's full degree-4 cross-det ratio has
+                                      `polyDepth 4` (depth 6 ∅-axiom), nonlinear
+                                      expansion via `Meta/Nat/PolyNat` reflection
   - `DepthTower.lean`              — the ratio-lift axis (= diff on the exponent);
                                       `(h,d)` coordinate
   - `DepthOrdinal.lean`            — `(h,d)` is an ordinal `< ω²` (`lex_wf`)

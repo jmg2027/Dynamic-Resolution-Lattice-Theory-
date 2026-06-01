@@ -4,6 +4,7 @@ import E213.Meta.Nat.IntHelpers
 import E213.Meta.Nat.Max213
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PureNat
+import E213.Meta.Nat.PolyNat
 
 /-! Spec-as-code entry point for `E213.Meta.Nat`.
 
@@ -22,4 +23,7 @@ import E213.Meta.Nat.PureNat
     * `Max213`       — `Nat.max` lemma library
     * `NatDiv213`    — `Nat.div` / `Nat.mod` helper lemmas
     * `PureNat`      — `Nat`-arithmetic primitives without `omega`
+    * `PolyNat`      — ∅-axiom reflection prover for univariate `Nat`
+                       polynomial identities (`poly_id`; replaces hand
+                       `ring`-style expansion)
 -/

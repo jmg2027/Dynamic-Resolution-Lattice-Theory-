@@ -292,13 +292,16 @@ difference (Pascal's rule), so its `k`-th difference is the constant `binom · 0
 The instances follow. **e** is closed end-to-end: its convergent denominators obey a
 degree-1 P-recursive recurrence `eulerDen (n+1) = (n+1)·eulerDen n`, and its
 cross-determinant ratio `rₙ = n+1` has `polyDepth 1` — depth *equals* recurrence
-order (`e_finite_depth_iff_P_recursive`). **π** has its P-recursive recurrences
-exhibited (`pi_is_P_recursive`: Wallis num/den, degree-2 step coefficients, so the
-cross-determinant ratio is degree 4 — depth 6), and its denominator step coefficient
-`(2n+1)(2n+3)` has a *proven* `polyDepth 2` (second difference the constant `8`, the
-one nonlinear-`Nat` identity done by hand). Pinning the full quartic onto the
-"degree 4 ⟹ depth 4" count is the one residual step blocked only by the absence of an
-∅-axiom `ring` for higher nonlinear `Nat` identities.
+order (`e_finite_depth_iff_P_recursive`). **π** is now closed end-to-end too: its
+Wallis recurrences are P-recursive of order 1 with degree-2 step coefficients
+(`pi_is_P_recursive`), and its **full degree-4 cross-determinant ratio**
+`4(n+1)²(2n+1)(2n+3)` has a *proven* `polyDepth 4` (`DepthPiQuartic.piRatio_polyDepth`:
+four finite differences reach the constant `384 = 4!·16`) — confirming π's divergence
+depth 6 (1 cross-det + 1 ratio + 4 differences) ∅-axiom. The nonlinear-`Nat`
+expansion this required (no Mathlib `ring`) is discharged by a small ∅-axiom
+*reflection* prover (`Meta.Nat.PolyNat.poly_id`): mirror each side as a polynomial
+tree, normalise to a Horner coefficient list, equal lists ⟹ equal values — all by
+`rfl`, no `propext`.
 
 This explains §5 exactly. The exp/tan family (`e`, `e²`, `tan 1`, `tanh 1`) have
 arithmetic continued fractions *because* their convergent data is P-recursive —
@@ -535,6 +538,10 @@ the Lean disagree, the Lean wins.
     exact Pascal differences; `binomCol_polyDepth` is the single-column case);
     `e_finite_depth_iff_P_recursive` (e: order-1 recurrence + `polyDepth 1`);
     `pi_is_P_recursive` (π's Wallis recurrences + `polyDepth 2` step coefficient)
+  - `lean/E213/Lib/Math/Cauchy/DepthPiQuartic.lean` — `piRatio_polyDepth`: π's full
+    degree-4 cross-det ratio has `polyDepth 4` (depth 6 confirmed ∅-axiom)
+  - `lean/E213/Meta/Nat/PolyNat.lean` — `poly_id`: ∅-axiom reflection prover for
+    `Nat` polynomial identities (the nonlinear-`Nat` `ring` replacement)
 
 **Part IV — the axes and their ordinal hierarchy**
   - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,
