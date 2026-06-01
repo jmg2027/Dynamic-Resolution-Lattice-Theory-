@@ -94,9 +94,6 @@ def Step.boundOk : Step → Bool
 /-- A certificate's bound steps are all valid. -/
 def Cert.boundsOk (c : Cert) : Bool := c.all Step.boundOk
 
-
-  (inv_lower_tight inv_upper capstone_n20)
-
 -- ═══ §3.  Anchor: N = 20 α_em bracket certificate ═══
 
 /-- The α_em bracket certificate at N = 20, mirroring exactly what
