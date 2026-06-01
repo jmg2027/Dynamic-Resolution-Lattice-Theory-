@@ -50,6 +50,8 @@ import E213.Lib.Math.Real213.PhiAsCut
 import E213.Lib.Math.Real213.PhiCutConvergents
 import E213.Lib.Math.Real213.PhiNormInvariant
 import E213.Lib.Math.Real213.FibCassiniNat
+import E213.Lib.Math.Real213.PhiCauchyLimit
+import E213.Lib.Math.Real213.HolonomicReal
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Real213`.
 

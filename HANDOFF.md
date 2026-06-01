@@ -134,10 +134,17 @@ A–D + B are now **all closed ∅-axiom this arc**:
     new reflection prover **`Meta/Nat/PolyNat`** (`poly_id`, 11/0): the ∅-axiom `ring`
     replacement — reify to a polynomial tree, normalise to Horner coeffs, equal lists
     ⟹ equal by `rfl`.  Reusable Nat helpers: `add_sub_add_of_le`, `liftK_congr`,
-    `binom_mono`, `poly_id`.  (Open *real-number* direction, not started: the G155
-    `HolonomicReal` type architecture — bundle the recurrence + a derived
-    `CertifiedModulus` so the convergence modulus is a constructed field, not a
-    hypothesis; needs the modulus/`ValidCut` machinery.)
+    `binom_mono`, `poly_id`.
+  - **HolonomicReal type architecture** — AUTONOMOUS CASE DONE this arc
+    (`Real213/HolonomicReal`, 8/0): `HolonomicReal` bundles a holonomic recurrence
+    spec + the convergent `CauchyCutSeq` (modulus `seq.N` as a *constructed field*,
+    not a hypothesis) + `ValidCut` of the limit; `HolonomicReal.cut_valid` is the
+    unconditional API.  φ is a complete instance (`phiHolonomicReal`): order-2
+    constant-coeff (det 1), modulus `N(m,k)=2k` (proven, `phiConvergentSeq`), cut =
+    closed-form `phiCut`.  OPEN core: the *general* generator
+    `Holonomic → CertifiedModulus` (derive the modulus from arbitrary recurrence
+    data) — e (deg-1 `n+1`) / π (deg-4) need their explicit tail-ratio modulus
+    proven (genuine convergence-rate analysis).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
