@@ -544,6 +544,38 @@ Conjectures:
 Decidable target: P9-A (the order-5 icosian witness).  Stretch: the full
 `2I` order distribution; P9-B/C are the cited frame.
 
+### Phase 9.2 — P9-A confirmed: the order-5 icosian unit (∅-axiom)
+
+`Tower/TypeEIcosian.icosian_order5_unit` (strict ∅-axiom).  Built from
+scratch (the repo had no `ℤ[φ]` ring, no quaternion-over-ring, no icosian
+— only the textual `SL(2,𝔽₅) ≅ 2I`):
+  - `ZPhi` golden integers `⟨a,b⟩ = a+bφ`, `φ²=φ+1`, `(a+bφ)(c+dφ) =
+    (ac+bd)+(ad+bc+bd)φ`;
+  - `Icosian` = quaternions with `ℤ[φ]` coords, scaled-by-2 (Hurwitz
+    convention with `ℤ[φ]` for `ℤ`);
+  - `g = ((φ-1)+φ·i+j)/2 = ` scaled `⟨φ-1,φ,1,0⟩`: `normSq g = 4` (a
+    unit), `g⁵ = 1`, `g ≠ 1` ⇒ order exactly 5 (5 prime).
+  - `g` is an *even* permutation of `(0,1/φ,1,φ)/2` (a 3-cycle), hence one
+    of the 96 golden icosians — a genuine element of `2I`.  The
+    `decide` passing through `Int /2` halving also *self-certifies* the
+    construction: a non-icosian `g` would break `g⁵ = 1` under
+    truncation.
+
+This is the **first executable order-5 element in the repo** and the
+McKay rung past `2T` — order-5 torsion no lower seed carries.
+
+**Honest scope (reconciling `Misc/TypeE_Rejection`).**  `Misc/TypeE_Rejection`
+excludes the icosian from the strict 4-row `ℤ`-coefficient CD matrix, and
+correctly so: `ℚ(√5)` is *real* quadratic, so `ℤ[φ]`'s *own* unit group is
+*infinite* (`φ` fundamental).  Phase 9 does **not** contradict this — it
+steps deliberately *outside* the `ℤ`-CD scope: the relevant finite object
+is the *totally-definite quaternion order* over `ℤ[φ]`, whose unit group
+*is* finite (`2I`, 120).  So Type E is "rejected as a `ℤ`-CD seed,
+realised as the rank-2 McKay rung over `ℤ[φ]`" — two compatible facts.
+P9-C (`120 = 5! = (NS+NT)!`, icosian over `ℚ(√5)`, `5 = disc P = NS+NT`)
+remains a *speculative* link of the seed-ladder endpoint to the repo's
+`5`-floor, not formalized.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
