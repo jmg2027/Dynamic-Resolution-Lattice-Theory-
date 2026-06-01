@@ -283,6 +283,15 @@ orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`
 rung-minimal presentation within a rescaling orbit (scope: rescaling sub-family,
 not all presentations).
 
+`E213.Lib.Math.Real213.CrossDetDiscriminant` — **3 PURE / 0 DIRTY**.  The
+ℕ-visible heart of the Eisenstein/elliptic conjecture (G170): the two
+cross-determinant reference forms split by sign of discriminant.
+`eisenstein_definite` (`a·b ≤ a²+b²`, the disc−3 form positive-definite →
+bounded → torus), `golden_indefinite` (the disc+5 det-one floor form takes both
+signs → unbounded → convergent line), `discriminant_dichotomy`.  Sidesteps the
+blocked signed-ℤ `eisenstein_norm_posdef` — the boundedness dichotomy is already
+visible over ℕ.
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE
