@@ -82,27 +82,40 @@ theorem crossdet_small_total_modulus {a d : Nat → Nat} (W : Nat → Nat)
 
 /-! ## §2 — above the boundary ⟹ the smallness condition fails -/
 
-/-- ★ **Above ⟹ the bridge breaks.**  If the cross-determinant overtakes the *next*
-    denominator (`d_{i+1} ≤ W_i` for `i ≥ 2`) on a positive-denominator sequence, then
-    `CrossDetSmall` is false — the sufficient completability condition is violated.
+/-- ★ **Above ⟹ the bridge breaks, at a single witness index.**  If the
+    cross-determinant overtakes the *next* denominator at one index `i₀ ≥ 2`
+    (`d_{i₀+1} ≤ W_{i₀}`) on a positive-denominator sequence, then `CrossDetSmall` is
+    false.  At `i₀` smallness would force `i₀(i₀+1)·W_{i₀} + i₀·d_{i₀} ≤ (i₀+1)·d_{i₀+1}
+    ≤ (i₀+1)·W_{i₀}`, hence `i₀(i₀+1)·W_{i₀} ≤ (i₀+1)·W_{i₀}` with `W_{i₀} ≥ 1`,
+    contradicting `(i₀+1) < i₀(i₀+1)` (true for `i₀ ≥ 2`).  A single overtaking index
+    suffices — no need for the cross-determinant to overtake at *every* index. -/
+theorem overtake_breaks_at (W d : Nat → Nat) (hd : ∀ i, 1 ≤ d i)
+    (i₀ : Nat) (hi₀ : 2 ≤ i₀) (hover : d (i₀ + 1) ≤ W i₀) :
+    ¬ CrossDetSmall W d := by
+  intro hcs
+  have hi1 : 1 ≤ i₀ := Nat.le_trans (by decide) hi₀
+  have hsmall : i₀ * (i₀+1) * W i₀ + i₀ * d i₀ ≤ (i₀+1) * d (i₀+1) := hcs i₀ hi1
+  have h3 : (i₀+1) * d (i₀+1) ≤ (i₀+1) * W i₀ := Nat.mul_le_mul_left (i₀+1) hover
+  have hchain : i₀ * (i₀+1) * W i₀ ≤ (i₀+1) * W i₀ :=
+    Nat.le_trans (Nat.le_add_right _ _) (Nat.le_trans hsmall h3)
+  have hWi : 1 ≤ W i₀ := Nat.le_trans (hd (i₀+1)) hover
+  have hcoef : i₀ + 1 < i₀ * (i₀+1) := by
+    have h1 : i₀ + 1 < 2 * (i₀+1) := by
+      rw [Nat.two_mul]; exact Nat.lt_add_of_pos_right (Nat.succ_pos i₀)
+    exact Nat.lt_of_lt_of_le h1 (Nat.mul_le_mul_right (i₀+1) hi₀)
+  have hlt : (i₀+1) * W i₀ < i₀ * (i₀+1) * W i₀ := Nat.mul_lt_mul_of_pos_right hcoef hWi
+  exact absurd hlt (Nat.not_lt.mpr hchain)
 
-    Tested at `i = 2`: smallness would force `2·3·W₂ + 2·d₂ ≤ 3·d₃ ≤ 3·W₂`, hence
-    `6·W₂ ≤ 3·W₂` with `W₂ ≥ 1` (`1 ≤ d₃ ≤ W₂`), contradicting `3·W₂ < 6·W₂`.  (This
-    falsifies the *sufficient* bridge, the honest tower-internal boundary; it is not a
-    claim that no modulus whatsoever exists.) -/
+/-- ★ **Above ⟹ the bridge breaks.**  If the cross-determinant overtakes the *next*
+    denominator (`d_{i+1} ≤ W_i` for `i ≥ 2`), `CrossDetSmall` is false.  The `i = 2`
+    corollary of `overtake_breaks_at`.  (This falsifies the *sufficient* bridge, the
+    honest tower-internal boundary; it is not a claim that no modulus whatsoever
+    exists.) -/
 theorem overtake_breaks (W d : Nat → Nat)
     (hd : ∀ i, 1 ≤ d i)
     (hover : ∀ i, 2 ≤ i → d (i + 1) ≤ W i) :
-    ¬ CrossDetSmall W d := by
-  intro hcs
-  have hsmall : 2 * 3 * W 2 + 2 * d 2 ≤ 3 * d 3 := hcs 2 (by decide)
-  have hov : d 3 ≤ W 2 := hover 2 (by decide)
-  have h3 : 3 * d 3 ≤ 3 * W 2 := Nat.mul_le_mul_left 3 hov
-  have hchain : 2 * 3 * W 2 ≤ 3 * W 2 :=
-    Nat.le_trans (Nat.le_add_right _ _) (Nat.le_trans hsmall h3)
-  have hW2 : 1 ≤ W 2 := Nat.le_trans (hd 3) hov
-  have hlt : 3 * W 2 < 2 * 3 * W 2 := Nat.mul_lt_mul_of_pos_right (by decide) hW2
-  exact absurd hlt (Nat.not_lt.mpr hchain)
+    ¬ CrossDetSmall W d :=
+  overtake_breaks_at W d hd 2 (by decide) (hover 2 (by decide))
 
 /-! ## §3 — the tower-native arithmetic: `2^i` dominates the polynomial axis -/
 

@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  63 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  65 files in 7 sub-clusters.
 
 ## Sub-clusters
 
@@ -73,8 +73,14 @@
     denominator (`W=c^{k!}`), so it carries a free modulus — tame on this axis.
   - `CrossDetEqDenom.lean` — ★ the general `W=d` theorem behind both e and Liouville
     (`crossdet_eq_denom_total_modulus`); both reprove as one-liners.
-  - `GeometricThreshold.lean` — ★ the sharp growth-rate boundary: geometric `W=r^i`
-    over `d=q^i` is free iff `r < q` (not `r ≤ q`); strong overtake `q²≤r` breaks it.
+  - `CrossDetConstDenom.lean` — ★ the `W=const` rung (`crossdet_const_total_modulus`) +
+    φ (Fibonacci convergents `fib(2i+2)/fib(2i+1)`) as its named instance, through the
+    same bridge as e/Liouville.
+  - `GeometricThreshold.lean` — ★ the exact growth-rate boundary: geometric `W=r^i`
+    over `d=q^i` is free **iff** `r < q` (`geom_boundary_iff`).
+  - `PresentationDependence.lean` — ★ `CrossDetSmall` reads the representation, not the
+    real: `rcut` is rescaling-invariant (`rcut_rescale`) while the smallness condition
+    is not (e's `×2` representation breaks it — same real).
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 

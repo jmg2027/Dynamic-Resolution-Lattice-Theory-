@@ -26,10 +26,12 @@ top-lessness of the tower to the residue of pointing.
 
 | File | PURE / dirty | Content |
 |---|---|---|
-| `Real213/CrossDetOvertake.lean` | 10 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
+| `Real213/CrossDetOvertake.lean` | 11 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
-| `Real213/GeometricThreshold.lean` | 7 / 0 | the sharp growth-rate boundary: geometric `W=r^i` over `d=q^i` free iff `r < q` |
+| `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
+| `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
+| `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
@@ -71,17 +73,17 @@ modulus whatsoever exists.
 
 Between the constant and the double-exponential the boundary is a precise **growth-rate
 threshold** (`GeometricThreshold`).  Over a geometric denominator `d_i = q^i` with a
-geometric cross-determinant `W_i = r^i`, `CrossDetSmall` holds for all `i ≥ 1` iff the
-cross-determinant grows *strictly* slower than the denominator: `r < q` (`r + 1 ≤ q`,
-`geom_crossdet_small`).  The threshold is `r < q`, **not** `r ≤ q` — the equal-rate
-case `r = q` already fails, because the polynomial factor `i(i+1)` on the
-cross-determinant side is linear in `i` while the single extra denominator factor `q`
-is only linear in `q`.  Matching the denominator's exponential rate is not enough; a
-strong overtake `q^2 ≤ r` breaks it through the same `overtake_breaks` at `i = 2`
-(`geom_crossdet_overtake`), and `geom_completability_boundary` bundles the sharp
-boundary.  This sharpens the engine `succ_pow_ge` (`r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}`,
-the binomial first two terms) that absorbs the polynomial factor into one base
-increment.
+geometric cross-determinant `W_i = r^i`, `CrossDetSmall (r^·) (q^·)` holds **iff** the
+cross-determinant grows *strictly* slower than the denominator: an exact boundary
+`geom_boundary_iff : CrossDetSmall (r^·) (q^·) ↔ r < q` (for `q ≥ 2`).  The threshold is
+`r < q`, **not** `r ≤ q` — the equal-rate case `r = q` already fails, because the
+polynomial factor `i(i+1)` on the cross-determinant side is linear in `i` while the
+single extra denominator factor `q` is only linear in `q`.  The free side holds for all
+`i ≥ 1` (`geom_crossdet_small`, sharpening the engine `succ_pow_ge`,
+`r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}`, which absorbs the polynomial factor into one base
+increment); the broken side (`geom_crossdet_overtake_sharp`, every `q ≤ r`) is tested at
+the single fixed witness index `i = q`, where smallness would force
+`q(q+2)·q^q ≤ q(q+1)·q^q`.  Matching the denominator's exponential rate is not enough.
 
 ### Liouville is tame on this axis (`LiouvilleModulus`)
 
@@ -111,8 +113,11 @@ The cross-determinant's relation to the denominator sorts the trajectories into 
 all read through the one bridge `CrossDetSmall ⟹ free`:
 
   - **`W` constant** — the algebraic det-one floor (`DepthFloorDetOne`, φ/√2 with
-    `W = 1`); `const_crossdet_small` witnesses `CrossDetSmall` against a fast
-    denominator;
+    `W = 1`); `crossdet_const_total_modulus` is the rung, and φ is its concrete named
+    inhabitant (`CrossDetConstDenom.phi_total_modulus_via_const`): φ's even-indexed
+    Fibonacci convergents `fib(2i+2)/fib(2i+1)` have constant cross-determinant `1` (the
+    Cassini unit) and a denominator with φ²-step growth that dominates `i(i+1)` for all
+    `i ≥ 1`, so φ completes through the *same* bridge as e and Liouville;
   - **`W = d`** — the self-similar rung (e and the Liouville constant); the one theorem
     `crossdet_eq_denom_total_modulus` covers both, with `CrossDetSmall d d` collapsing
     (`i(i+1)+i = i(i+2)`) to a denominator-growth condition, and
@@ -123,6 +128,22 @@ all read through the one bridge `CrossDetSmall ⟹ free`:
 So "constant cross-determinant" (algebraic) and "cross-determinant equal to the
 denominator" (the two structured transcendentals proven here) are two rungs *inside*
 the free region, and the double exponential is the first rung outside it.
+
+### `CrossDetSmall` reads the representation, not the real (`PresentationDependence`)
+
+The smallness condition is a *sufficient* test on a num/den presentation `a_i/d_i`, and
+it is genuinely a fact about the **presentation**, not the number.  The real itself —
+the decidable cut — is invariant under a common rescaling `(a, d) ↦ (c·a, c·d)`
+(`rcut_rescale`: the cut cancels the factor `c`).  But the cross-determinant scales by
+`c²` against a denominator scaling by `c` (`crossdet_rescale`), so the smallness
+condition is strictly harder for `c ≥ 2`.  Concretely
+(`crossDetSmall_is_presentation_dependent`): e's standard convergents
+`eulerNum/eulerDen` satisfy `CrossDetSmall` (the `W = d` rung), but the `×2`
+representation `2·eulerNum / 2·eulerDen` — *the same real* — carries cross-determinant
+`4·eulerDen` and fails `CrossDetSmall` already at `i = 1` (`10 ≤ 8`).  So whether the
+bridge applies is presentation-relative; the cut is the rescaling-invariant content.
+This is the "deficiency of the presentation, not of the real" reading
+(`holonomic_modulus.md`) made into a theorem.
 
 ### Closure of the finite-coordinate class (`DepthClosure`)
 
