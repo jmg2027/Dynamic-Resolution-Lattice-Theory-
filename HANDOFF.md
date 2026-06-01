@@ -147,13 +147,21 @@ CommandElab modules** — falsifiability standard genuinely met (verified).
 dirty (`Compose.OnLens` 9, `Lattice.Join` 4, `Algebra.Corresp`, …) are
 funext-on-combine = the same category (b) as the sealed Lens modules → **seal**;
 `Choice.CanonicalTruthChar` (8) is Iff↔Bool propext = category (a) → **seal**.
-The math clusters split again on triage: **omega/simp artifacts** (`Cauchy/Wallis`
-Nat-omega, `Cohomology/Bipartite/Parametric/PellOrbitInstances` Nat-omega,
-`CayleyDickson/Integer/ZOmegaDomain` Int-omega) → purifiable via the Px playbook
-(**in flight**, background worker; Int harder); **funext (Quot.sound)** ones
-(`Cauchy/GenericFamily` L156/167, `Hyper/Hyper213Tower`) → the SAME
-function-`=`-coherence as the Lens seals → the ≈-fold (Reading) arc, NOT omega
-artifacts (left for that arc).
+The math clusters split again on triage: **omega/simp artifacts** → PURIFIED:
+`Cauchy/Wallis` (0 dirty), `Cohomology/Bipartite/Parametric/PellOrbitInstances`
+(omega bounds cleared; `pairEnum13`/`pair13_hi` PURE — only 2 theorems retain
+`[propext]` *inherited* from `EnrichedKNSNTcEvenEven`, not local), and
+`CayleyDickson/Integer/ZOmegaDomain` (**5/0, all Int omega/simp purified**).
+**funext (Quot.sound)** ones (`Cauchy/GenericFamily`, `Hyper/Hyper213Tower`) →
+the SAME function-`=`-coherence as the Lens seals → the ≈-fold (Reading) arc, NOT
+omega artifacts (left for that arc).
+
+**Playbook addition (Int / `simp`)**: a `simp only` that *closes* an `Eq` goal
+pulls `propext` even with a PURE rewrite set (its `of_eq_true` closer is
+propext-tagged).  Fix: never let `simp` close — reduce with a distribute/
+associate-only `simp only`, then close the residue with explicit `Int213`/`rw`
+chains (cf. `ZOmegaDomain`, `QuadIdentities.cancel_two_pairs`).  Pure Int helpers
+added: `ZOmegaDomain.{nonneg_of_add_self, eisenstein_double, conj_fc1, conj_fc2}`.
 
 **Skeptical 213-native re-read of the seals (G161, skepticism applied also to
 the re-read)** — only the **3 CommandElab** (`Classical.choice` via the Elab
