@@ -117,7 +117,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     narrative `theory/math/analysis/tower_native_completeness.md`, capstone
     `Real213/TowerNativeCompleteness.tower_native_completeness_program`.  Four new PURE
     modules:
-      - **T1 boundary** (`Real213/CrossDetOvertake`, 10/0): `CrossDetSmall W d`
+      - **T1 boundary** (`Real213/CrossDetOvertake`, 11/0): `CrossDetSmall W d`
         (`i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`); below ⟹ free
         (`crossdet_small_total_modulus`, `N=k+2`; free bottom = constant `W=1`); above ⟹
         broken (`overtake_breaks`; witness `dexp_overtakes_denom`, `2^{2^i}` overtakes

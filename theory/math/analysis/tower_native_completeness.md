@@ -26,7 +26,7 @@ top-lessness of the tower to the residue of pointing.
 
 | File | PURE / dirty | Content |
 |---|---|---|
-| `Real213/CrossDetOvertake.lean` | 10 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
+| `Real213/CrossDetOvertake.lean` | 11 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
 | `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
