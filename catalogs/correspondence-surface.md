@@ -14,9 +14,11 @@ surface**.  The PURE ∅-axiom core does **not** depend on category (A)
 below — those theorems exist to say "this 213 object, read classically,
 **is** the standard object (∧ / ∨ / ↔ / cup / instance)".
 
-Counts (full-scan, all 1533 modules): **12539 PURE / 45 real DIRTY +
-57 sealed-DIRTY-by-design**.  Tag in source:
-`grep -rn "classical-correspondence surface" lean/`.
+Current state (`tools/scan_all_axioms.py` for the live count): the 213-math core
+is ∅-axiom; the non-sealed `propext`/`Quot.sound` that remain are the `Prop`-atom
+thesis surface (category B) + the CayleyDickson open items (category D,
+`Trig.conj_mul_anti` / `SedenionHeavy.flexible`).  The Lens ring is 0 real DIRTY.
+Tag in source: `grep -rn "classical-correspondence surface" lean/`.
 
 ## (A) Correspondence / translation — "= the standard object"
 
