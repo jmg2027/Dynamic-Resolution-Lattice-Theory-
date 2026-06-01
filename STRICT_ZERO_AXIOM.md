@@ -283,14 +283,12 @@ orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`
 rung-minimal presentation within a rescaling orbit (scope: rescaling sub-family,
 not all presentations).
 
-`E213.Lib.Math.Real213.CrossDetDiscriminant` — **3 PURE / 0 DIRTY**.  The
-ℕ-visible heart of the Eisenstein/elliptic conjecture (G170): the two
-cross-determinant reference forms split by sign of discriminant.
-`eisenstein_definite` (`a·b ≤ a²+b²`, the disc−3 form positive-definite →
-bounded → torus), `golden_indefinite` (the disc+5 det-one floor form takes both
-signs → unbounded → convergent line), `discriminant_dichotomy`.  Sidesteps the
-blocked signed-ℤ `eisenstein_norm_posdef` — the boundedness dichotomy is already
-visible over ℕ.
+The signed-ℤ Eisenstein/golden signature dichotomy is closed canonically in
+`E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature` (`eisForm_nonneg`,
+`eisenstein_norm_nonneg`, `golden_indefinite`, `signature_dichotomy`) via the
+bivariate Int reflection prover `Meta.Int213.PolyInt2` — the genuine `0 ≤ a²−ab+b²`
+over ℤ, tied to `ZOmega.normSq`.  (The earlier ℕ-visible sidestep
+`Real213.CrossDetDiscriminant` is removed — superseded once `PolyInt2` landed.)
 
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 

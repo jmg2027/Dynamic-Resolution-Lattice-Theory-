@@ -205,19 +205,20 @@ A–D + B are now **all closed ∅-axiom this arc**:
     presentations).  OPEN next: the rung floor over *all* presentations (cross-presentation
     invariant, subsumes C1′); the C1′ converse (when a rate-carrying re-presentation
     exists, π the obstruction).
-  - **Eisenstein/discriminant reading of the rungs — DONE** (this branch,
-    `Real213/CrossDetDiscriminant`, 3/0): the ℕ-visible heart of the other branch's
-    Eisenstein/elliptic conjecture, and how it helps C2/C3 (`research-notes/G170`).  The
-    two cross-determinant reference forms split by sign of discriminant: golden `m²−mk−k²`
-    (disc +5, the det-one floor) is indefinite (`golden_indefinite`, both signs →
-    unbounded → convergent line → completes); Eisenstein `a²−ab+b²` (disc −3) is
-    positive-definite (`eisenstein_definite`, `ab ≤ a²+b²` → bounded → torus / j=0 curve);
-    `discriminant_dichotomy`.  Sidesteps the blocked signed-ℤ `eisenstein_norm_posdef`
-    (which needs a pure Int poly normalizer — the other branch's open infra).  **Helps C2**
+  - **Eisenstein/discriminant reading of the rungs — DONE** (merged
+    `CayleyDickson/Integer/EisensteinSignature` + `Meta/Int213/PolyInt2`), and how it
+    helps C2/C3 (`research-notes/G170`).  Signed-ℤ signature dichotomy: golden `m²−mk−k²`
+    (disc +5, the det-one floor) indefinite (`golden_indefinite`, `goldenForm 1 1 = −1`)
+    → unbounded → convergent line → completes; Eisenstein `a²−ab+b²` (disc −3)
+    positive-definite (`eisForm_nonneg`, `0 ≤ a²−ab+b²` via `poly_id2`; `eisenstein_norm_nonneg`
+    for `ZOmega.normSq`) → bounded → torus / j=0 curve; `signature_dichotomy`.  The pure
+    Int reflection prover `PolyInt2` (the infra G170 flagged) is now built.  **Helps C2**
     (the rung floor = discriminant/order of the reduced cross-determinant; det-one floor =
     disc+5 real-quadratic = completing line) and **C3** (the Eisenstein modular
     self-covering = `DepthOverflowDuality`'s cusp/residue, one scale up); orthogonal to
-    C1′/π.  OPEN: a `rung ↔ discriminant` theorem; the pure Int poly normalizer.
+    C1′/π.  (My earlier ℕ-sidestep `CrossDetDiscriminant` removed — superseded by the
+    signed-ℤ `EisensteinSignature` once `PolyInt2` landed.)  OPEN: a `rung ↔ discriminant`
+    theorem (cross-track narrative; CD-import boundary keeps it in G170).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

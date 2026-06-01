@@ -1,11 +1,12 @@
 # G170 — does the Eisenstein/elliptic conjecture help the completability candidates?
 
-**Date**: 2026-06-01.  **Status**: synthesis + supporting ∅-axiom lemmas.
-**Source of truth**: `lean/E213/Lib/Math/Real213/CrossDetDiscriminant.lean` (3 PURE).
-**Anchors**: the Eisenstein conjecture note (`G167_crossdet_number_field_eisenstein_conjecture`,
-the other branch), `Real213/{ProbeTwistConic, IntensionalCompletability, ScalingOrbit,
-CrossDetEqDenom, CrossDetConstDenom}`, `Cauchy/{DepthFloorDetOne, DepthOverflowDuality}`,
-the C1′/C2/C3 conjectures (`G169`).
+**Date**: 2026-06-01.  **Status**: synthesis; the dichotomy is closed ∅-axiom.
+**Source of truth**: `lean/E213/Lib/Math/CayleyDickson/Integer/EisensteinSignature.lean`
+(the signed-ℤ dichotomy, via the bivariate `Int` reflection prover `Meta/Int213/PolyInt2`).
+**Anchors**: the Eisenstein conjecture note (`G167_crossdet_number_field_eisenstein_conjecture`),
+`Real213/{ProbeTwistConic, IntensionalCompletability, ScalingOrbit, CrossDetEqDenom,
+CrossDetConstDenom}`, `Cauchy/{DepthFloorDetOne, DepthOverflowDuality}`, the C1′/C2/C3
+conjectures (`G169`).
 
 ## The question
 
@@ -34,7 +35,7 @@ closed-form modulus `N = 2k`).  So C2's rung floor acquires an algebraic charact
 > presentation's cross-determinant.  The det-one floor is the indefinite (disc `+5`)
 > rung — a convergent line — the completing bottom.
 
-This is now ∅-axiom-backed at its heart (`CrossDetDiscriminant`, below).
+This is now ∅-axiom-backed at its heart (`EisensteinSignature`, below).
 
 **C3 (the canonical witness = residue) — yes, conceptually.**  The Eisenstein note's
 deepest reading is that the divergent/overtake trajectory is the **residue**, the
@@ -51,24 +52,26 @@ structure of `W`.  The discriminant classifies *which algebraic locus* a present
 cross-determinant sits in; it does not produce a fast re-presentation.  Honest: the
 Eisenstein reading does not move π.
 
-## Closed this step (the ∅-axiom heart, over ℕ)
+## Closed (the dichotomy, over signed ℤ)
 
-The Eisenstein conjecture's *signed-`ℤ[ω]`* form (`eisenstein_norm_posdef` over `ℤ`) is
-blocked on a pure `Int` polynomial-identity normalizer (the other branch's open
-infrastructure item).  But the **dichotomy's heart needs no signed arithmetic** — it is
-visible over `ℕ` as a sign comparison `a·b ⋚ a²+b²`, and `CrossDetDiscriminant` proves it:
+The dichotomy is closed ∅-axiom in `CayleyDickson/Integer/EisensteinSignature`, on the
+genuine signed forms, via the bivariate `Int` reflection prover `Meta/Int213/PolyInt2`
+(the `Int` analog of `PolyNat`, the infrastructure item G170 first flagged — now built):
 
-  - `eisenstein_definite` — `a·b ≤ a²+b²` for all `a, b`: the Eisenstein form `a²−ab+b²`
-    is never negative (positive-definite → **bounded** level sets → torus / curve).
-    Pure: the larger of `a, b` absorbs the cross term into its square.
-  - `golden_indefinite` — the golden form `m²−mk−k²` takes both signs (`+1` at `(1,0)`,
-    `−1` at `(1,1)`): indefinite → **unbounded** level sets → convergent line.
-  - `discriminant_dichotomy` — bundles them: definite (curve) vs indefinite (line, the
-    det-one floor = completing bottom).
+  - `eisForm_nonneg` — `0 ≤ a²−ab+b²` for all `a, b : Int`, through `2·N = a² + b² +
+    (a−b)²` (`two_eisForm`, by `poly_id2`) and sum-of-squares nonneg.  `eisenstein_norm_nonneg`
+    is the same for `ZOmega.normSq` — the Eisenstein form is positive-**definite** ⟹
+    **bounded** level sets ⟹ torus / `j=0` elliptic-curve lattice.
+  - `golden_indefinite` — `goldenForm 1 0 = 1`, `goldenForm 1 1 = −1`: the disc `+5`
+    golden form takes both signs ⟹ **unbounded** level sets ⟹ convergent line.
+  - `signature_dichotomy` — definite (curve) vs indefinite (line, the det-one floor =
+    completing bottom).
 
 So "line vs curve" — the geometric core of Mingu's Eisenstein intuition — is an ∅-axiom
-`ℕ` fact about the sign of the discriminant, *independent* of the elliptic-curve / CM /
-modular edifice (which stays out of scope) and of the blocked signed-`ℤ` normalizer.
+fact about the sign of the discriminant, on the real `ℤ` forms (tied to `ZOmega.normSq`),
+*independent* of the elliptic-curve / CM / modular edifice (which stays out of scope).
+(An earlier ℕ-visible sidestep proved `a·b ≤ a²+b²`; it is removed now that the signed-ℤ
+`PolyInt2` route exists and is canonical.)
 
 ## What this opens (still ∅-axiom-shaped)
 
@@ -76,10 +79,10 @@ modular edifice (which stays out of scope) and of the blocked signed-`ℤ` norma
     ⊂ `W=d` ⊂ `CrossDetSmall`) to quadratic-order data: the det-one floor is disc `+5`; the
     open step is naming the discriminant of the `W=d` and geometric rungs and proving the
     inclusion is a discriminant ordering.
-  - **The pure `Int` poly-identity normalizer** (the other branch's blocker) would unblock
-    the *signed* `ℤ[ω]` cross-determinant (`eisenstein_norm_posdef`, target #1 there) and
-    is reusable for any signed-cross-determinant extension of the stratification — a
-    separable infrastructure task (the `Int` analog of `Meta/Nat/PolyNat.poly_id`).
+  - **The pure `Int` poly-identity normalizer is now built** (`Meta/Int213/PolyInt2`,
+    `poly_id2`, bivariate) — the infrastructure item first flagged here — and it carried
+    the signed-ℤ `eisForm_nonneg`.  It is reusable for any signed-cross-determinant
+    extension of the stratification.
   - **C3 synthesis** — bundle `DepthOverflowDuality` (cusp/diagonal = residue) with the
     Eisenstein modular self-covering once the lattice-Lens has a 213-native statement.
 

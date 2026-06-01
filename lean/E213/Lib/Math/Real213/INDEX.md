@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  68 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  67 files in 7 sub-clusters.
 
 ## Sub-clusters
 
@@ -95,12 +95,6 @@
     `CrossDetSmall` antitone along it (`orbit_free_implies_base_free`) and a unique
     `Reduced` base (`reduced_scaling_trivial`) — the canonical point to read the cut's
     rung (`scaling_orbit_structure`).
-  - `CrossDetDiscriminant.lean` — ★ the two cross-determinant reference forms split by
-    sign of discriminant (the ℕ-visible heart of the Eisenstein/elliptic conjecture):
-    golden `m²−mk−k²` (disc `+5`, the det-one floor) is **indefinite**
-    (`golden_indefinite`, both signs → unbounded → convergent line, completes); Eisenstein
-    `a²−ab+b²` (disc `−3`) is positive-**definite** (`eisenstein_definite`, `ab ≤ a²+b²`
-    → bounded → torus / `j=0` curve).  `discriminant_dichotomy` bundles them.
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 
