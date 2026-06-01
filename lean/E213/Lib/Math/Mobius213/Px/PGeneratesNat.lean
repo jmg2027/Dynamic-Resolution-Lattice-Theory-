@@ -56,15 +56,11 @@ Combined with det=1, the P-span is all of ℕ≥1.
   · §8 — Semiring closure (PGen n ↔ n ≥ 1, exact characterization)
   · §9 — Explicit prime generation catalog (primes ≤ 47)
 
-All declarations PURE (∅-axiom) except `coprime_NS_NT`, whose
-statement is `Nat.gcd NS NT = 1`: Lean-core `Nat.gcd` is defined by
-well-founded recursion whose kernel reduction / equation lemmas
-irreducibly carry `[propext]` in this toolchain (even `rfl` /
-`decide` / `unfold` on a closed `Nat.gcd` literal is propext-dirty).
-The PURE coprimality fact lives as `gcd213_succ_self` in
-`E213.Meta.Nat.Gcd213` (using the ∅-axiom `gcd213`); `coprime_NS_NT`
-is retained verbatim only as the core-`Nat.gcd` mirror.  No
-kernel-external compiled-evaluation tactic.
+All declarations PURE (∅-axiom).  The generator-coprimality fact
+`gcd(NS, NT) = gcd(3, 2) = 1` is the ∅-axiom `gcd213_succ_self` in
+`E213.Meta.Nat.Gcd213` (the 213-native `gcd213`); Lean-core `Nat.gcd`
+carries `[propext]` through its well-founded-recursion reduction
+(even under `rfl` / `decide`), so it is not used here.
 -/
 
 namespace E213.Lib.Math.Mobius213.Px.PGeneratesNat
@@ -490,15 +486,9 @@ The surjectivity of P onto ℕ is a CONSEQUENCE of:
 
 This closes the "naturalness boundary" discussion completely. -/
 
-/-- Fibonacci coprimality forces P-universality:
-    gcd(NS, NT) = gcd(trace P, P₁₁) = gcd(3, 2) = 1.
-
-    NOTE (axiom residue): this is the only non-PURE declaration in the
-    file — `[propext]`, irreducible because its statement uses Lean-core
-    `Nat.gcd`, whose well-founded-recursion reduction carries `propext`
-    even under `rfl`.  The ∅-axiom form is `gcd213_succ_self` in
-    `E213.Meta.Nat.Gcd213`. -/
-theorem coprime_NS_NT : Nat.gcd NS NT = 1 := by decide
+/-! Generator coprimality `gcd(NS, NT) = gcd(3, 2) = 1` is the ∅-axiom
+    `E213.Meta.Nat.Gcd213.gcd213_succ_self` (213-native `gcd213`).  The
+    Lean-core `Nat.gcd` mirror is propext-dirty, so it is not stated here. -/
 
 /-- The Frobenius number of (NT, NS) = (2, 3) is 1:
     the largest non-representable integer is 1.
