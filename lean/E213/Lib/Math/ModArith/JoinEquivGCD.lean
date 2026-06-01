@@ -24,7 +24,7 @@ open E213.Meta.Nat.Gcd213
    succ_sub_self_213)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
-open E213.Lens renaming leaves_view_ge_one → leaves_ge_one_local
+open E213.Lens renaming leaves_view_pos → leaves_ge_one_local
 
 /-- **Chain step** at JE level: m > k ≥ 2,
     `leaves r' = leaves r + (m - k) → JoinEquiv L_m L_k r r'`.  ∅-axiom. -/
