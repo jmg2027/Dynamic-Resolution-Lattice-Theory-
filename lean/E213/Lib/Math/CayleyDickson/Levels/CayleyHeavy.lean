@@ -67,7 +67,9 @@ private theorem lip_normSq_nonneg (u : Lipschitz) :
   have h1b := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.re.im
   have h1c := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.im.re
   have h1d := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.im.im
-  omega
+  exact E213.Meta.Int213.add_nonneg
+    (E213.Meta.Int213.add_nonneg h1a h1b)
+    (E213.Meta.Int213.add_nonneg h1c h1d)
 
 /-- `Cayley.normSq u = 0 ↔ u = 0`.  Sum of 8 integer squares
     = 0 iff each is 0; delegates to Lipschitz. -/
@@ -76,12 +78,8 @@ theorem normSq_eq_zero_iff (u : Cayley) : normSq u = 0 ↔ u = 0 := by
   · intro h
     have h1 := lip_normSq_nonneg u.re
     have h2 := lip_normSq_nonneg u.im
-    have hre_z : Lipschitz.normSq u.re = 0 := by
-      change Lipschitz.normSq u.re + Lipschitz.normSq u.im = 0 at h
-      omega
-    have him_z : Lipschitz.normSq u.im = 0 := by
-      change Lipschitz.normSq u.re + Lipschitz.normSq u.im = 0 at h
-      omega
+    have hsum : Lipschitz.normSq u.re + Lipschitz.normSq u.im = 0 := h
+    obtain ⟨hre_z, him_z⟩ := E213.Meta.Int213.add_eq_zero_of_nonneg h1 h2 hsum
     have hre : u.re = 0 := (E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.normSq_eq_zero_iff u.re).mp hre_z
     have him : u.im = 0 := (E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy.normSq_eq_zero_iff u.im).mp him_z
     show u = ⟨0, 0⟩
@@ -98,7 +96,7 @@ theorem no_zero_div (u v : Cayley) :
   intro huv
   have hnorm : normSq (u * v) = 0 := by rw [huv]; rfl
   rw [normSq_mul] at hnorm
-  rcases Int.mul_eq_zero.mp hnorm with h | h
+  rcases E213.Meta.Int213.mul_eq_zero hnorm with h | h
   · left; exact (normSq_eq_zero_iff u).mp h
   · right; exact (normSq_eq_zero_iff v).mp h
 
