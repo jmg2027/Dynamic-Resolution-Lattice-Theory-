@@ -218,11 +218,22 @@ codomains.
 ## 8. Status / next
 
   * **P0 done** (category-C retired) + foundations + `ReadingEq`.
-  * **P1 done** — encoding (b) validated on scratch (this update).  The only
-    real unknown is now closed; P2/P3 are **mechanical** (the `pairHD`/`lensHD`/
-    extraction patterns are the templates).
-  * **P2 next** (when the arc is scheduled): the Lens tower (`G164` design D2 /
-    encoding (b) for `lens*HasDistinguishing`) — confined to ~6 files, retires
-    10 DIRTY, zero Eq-world blast.
-  * Reminder (§6): foundational coherence, **not** a Validation target — schedule
-    around the precision/falsifier work, do not displace it.
+  * **P1 done** — encoding (b) validated on scratch.
+  * **P2 + P3 DONE** (executed): `HasDistinguishing` is now stated over `same`
+    (autoParam fields default to `Eq` — Eq-codomain *instances* unedited);
+    `universalMorphism_slash`/`_unique`/`raw_initial` relativized to `same` (via
+    `Raw.fold_slash_rel` + `Raw.rec` + `combine_cong`); composite instances thread
+    `same` (`Pair` product-sameness, `Sum` `sumSame`); the Lens tower
+    (`OnLens`/`OnLensImage{,Generic,Level2}`/`TowerLevel3`) uses `eqPW`/`sameLens`
+    and is **0 DIRTY** (was 10) — the recursive tower via `universalMorphism_unique`
+    + `sameLens`-trans/congruence (`⟨step,step,fun _ _ => step⟩`); the dead `=`-form
+    funext lemmas deleted (eqPW twins kept).  Eq-consumers needing literal `=`
+    extract it (`have e : (lhs = rhs) := …_slash; …`).  Full build green.
+  * **Remaining DIRTY = the Prop-atom thesis only** (category B):
+    `propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`
+    — `propext` IS the content there, kept by design (boundary rule §2.1).
+  * **P4 (narrative)**: collapse the fragmentation story (`Lens.equiv`/`refines`/
+    kernel + `HasDistinguishing.combine_sym` = one reading-equivalence arrow) into
+    `theory/lens/unified_equivalence.md`.  Pending.
+  * Reminder (§6): this was foundational coherence — the precision/falsifier
+    Validation work is the standard and was not displaced.

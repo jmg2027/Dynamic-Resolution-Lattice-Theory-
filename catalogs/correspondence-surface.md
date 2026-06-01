@@ -63,15 +63,17 @@ IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
 `omega`/`simp` arithmetic was replaced by explicit PURE Nat reasoning +
 `if_pos`/`if_neg`).
 
-Still DIRTY — a **distinct** mechanism (not this API):
-  · `Compose.{OnLens (9), OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`,
-    `Properties.TowerLevel3` — `Quot.sound` from `funext` on a function-valued
-    `combine` (Lens-of-Lens composition) routed through the `HasDistinguishing`
-    typeclass whose `combine_sym` field is typed as Lean `=`; the migration
-    target is the pointwise Lens equality `Lens.eqPW` (`Lens/EqPW.lean`), a
-    `HasDistinguishing`-eqPW rebuild, not `equivR`.
-    (`Lib.Math.Cauchy.GenericFamily` was the same funext-on-`ι → β`-codomain
-    shape and is now PURE — `projectionLens_view` stated pointwise-at-index.)
+PURE now (the Lens-of-Lens funext surface — retired by the equivalence-unification
+arc, `research-notes/RFC_reading_equivalence_primitive.md`): `Compose.{OnLens,
+OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`, `Properties.TowerLevel3`,
+`Lib.Math.Cauchy.GenericFamily`.  `HasDistinguishing` is now stated over its
+reading-sameness `same` (`= ` realization at concrete codomains, `eqPW`/`sameLens`
+at `Lens β`); the recursive Lens tower uses `universalMorphism_unique` +
+`sameLens`-transitivity.
+
+Remaining `propext` here is **category (B)**, not (C): `propAsDistinguishing*` /
+`canonical*Map` / `BoolProp.universalMorphism_commute_*` — `propext` IS the
+"Prop is an atom of meaning" thesis, kept by design.
 
 ## (D) Genuine results via classical representation — purifiable backlog
 
