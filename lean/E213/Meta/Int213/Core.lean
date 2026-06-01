@@ -662,8 +662,6 @@ theorem mul_one (a : Int) : a * 1 = a := by
 
 /-- `Int.mul_sub` — PURE replacement for Lean-core
     `Int.mul_sub` (which brings propext via Iff-chain derivation).
-
- per the dep-purity cleanup.
     Composed from `mul_add` + `mul_neg`. -/
 theorem mul_sub (a b c : Int) : a * (b - c) = a * b - a * c := by
   show a * (b + -c) = a * b + -(a * c)
@@ -673,5 +671,39 @@ theorem mul_sub (a b c : Int) : a * (b - c) = a * b - a * c := by
 theorem sub_mul (a b c : Int) : (a - b) * c = a * c - b * c := by
   show (a + -b) * c = a * c + -(b * c)
   rw [add_mul a (-b) c, neg_mul]
+
+/-! ## Order / domain finishing helpers -/
+
+/-- `0 ≤ N + N → 0 ≤ N` over `Int` (constructive halving).  `negSucc m
+    + negSucc m` reduces to `negSucc (m + m + 1)`, which is never
+    `Int.NonNeg`.  PURE. -/
+theorem nonneg_of_add_self {N : Int} (h : 0 ≤ N + N) : 0 ≤ N := by
+  cases N with
+  | ofNat m => exact Int.ofNat_nonneg m
+  | negSucc m =>
+      exfalso
+      have e : Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) := rfl
+      rw [e] at h
+      cases h
+
+/-- Cross-product step identity for the `c₁ = 3, c₂ = -1` (d = 0)
+    Pell recurrence: `b·(3q + (-1)p + 0) − (3b + (-1)a + 0)·q = aq − bp`.
+    Explicit Int213 `rw`-chain (no `simp`, no `omega`).  PURE. -/
+theorem cross_step_algebra (a b p q : Int) :
+    b * (3 * q + (-1) * p + 0) - (3 * b + (-1) * a + 0) * q = a * q - b * p := by
+  have hnp : ((-1 : Int) * p) = -p := by
+    rw [neg_mul, Int.one_mul]
+  have hna : ((-1 : Int) * a) = -a := by
+    rw [neg_mul, Int.one_mul]
+  rw [Int.add_zero, Int.add_zero, hnp, hna]
+  rw [mul_add, add_mul]
+  rw [mul_neg, neg_mul]
+  rw [mul_left_comm b 3 q, mul_assoc 3 b q]
+  rw [Int.sub_eq_add_neg, neg_add, Int.neg_neg]
+  rw [add_assoc (3*(b*q)) (-(b*p)) (-(3*(b*q)) + a*q)]
+  rw [add_left_comm (-(b*p)) (-(3*(b*q))) (a*q)]
+  rw [← add_assoc (3*(b*q)) (-(3*(b*q))) (-(b*p) + a*q)]
+  rw [add_neg_cancel, zero_add]
+  rw [add_comm (-(b*p)) (a*q), ← Int.sub_eq_add_neg]
 
 end E213.Meta.Int213

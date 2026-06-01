@@ -18,29 +18,19 @@ namespace E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega
 
 open E213.Meta.Int213
 
-/-! ### ∅-axiom finishing helpers (replace `omega`/`simp` over `Int`)
+/-! ### Int finishing helpers (Lean-kernel reduction over `Int`)
 
-The previous proofs leaned on `omega` (Int linear arithmetic) and
-`simp`, both of which leak `[propext, Quot.sound]`.  These helpers do
-the same work using only Lean kernel reduction + the PURE `Int213`
-ring/order lemmas (constructive `Int.NonNeg` case analysis). -/
+These helpers work by Lean kernel reduction + the PURE `Int213`
+ring/order lemmas (constructive `Int.NonNeg` case analysis), avoiding
+`omega` / `simp`-driven Int arithmetic that leaks
+`[propext, Quot.sound]`.  The `0 ≤ N + N → 0 ≤ N` halving step lives
+in `Meta/Int213/Core.nonneg_of_add_self`. -/
 
-/-- `0 ≤ N + N → 0 ≤ N` over `Int` (constructive halving; replaces the
-    `omega` division-by-2 step).  `negSucc m + negSucc m` reduces to
-    `negSucc (m + m + 1)`, which is never `Int.NonNeg`. -/
-private theorem nonneg_of_add_self {N : Int} (h : 0 ≤ N + N) : 0 ≤ N := by
-  cases N with
-  | ofNat m => exact Int.ofNat_nonneg m
-  | negSucc m =>
-      exfalso
-      have e : Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) := rfl
-      rw [e] at h
-      cases h
-
-/-- ∅-axiom Eisenstein doubling identity:
+/-- Eisenstein doubling identity:
     `(a²-ab+b²) + (a²-ab+b²) = (a-b)² + (a²+b²)`.  Both squares are
-    `Int213`-nonneg, so the LHS is nonneg; halving gives `normSq ≥ 0`.
-    Closed entirely by the PURE `Int213` AC-rewrite `simp only` set. -/
+    `Int213`-nonneg, so the LHS is nonneg; halving (via
+    `Int213.nonneg_of_add_self`) gives `normSq ≥ 0`.  Closed by the
+    `Int213` AC-rewrite `simp only` set. -/
 private theorem eisenstein_double (a b : Int) :
     (a*a - a*b + b*b) + (a*a - a*b + b*b)
       = (a - b)*(a - b) + (a*a + b*b) := by
@@ -51,9 +41,7 @@ private theorem eisenstein_double (a b : Int) :
 
 
 /-- `|uv|² = |u|²·|v|²` for the Eisenstein norm.  Typeclass projection
-    through `IntegerNormed213.normSq_mul` — `[propext]`-only purity
-    (the previous `quad_norm`-based proof leaked `[propext, Quot.sound]`
-    via simp + omega). -/
+    through `IntegerNormed213.normSq_mul` — `[propext]`-only purity. -/
 theorem normSq_mul (u v : ZOmega) :
     (u * v).normSq = u.normSq * v.normSq :=
   E213.Meta.Algebra213.IntegerNormed213.normSq_mul u v

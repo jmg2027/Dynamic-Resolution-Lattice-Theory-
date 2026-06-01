@@ -1,3 +1,5 @@
+import E213.Meta.Tactic.BoolHelper
+
 /-!
 # `findStructure` — universal 213-native search building block
 
@@ -78,12 +80,7 @@ All ∅-axiom by construction.
 
 namespace E213.Lib.Math.Search
 
-/-- ∅-axiom Bool destructor (inlined to avoid cross-tier import). -/
-private theorem and_eq_true_pair : ∀ {a b : Bool},
-    (a && b) = true → a = true ∧ b = true
-  | true, true, _ => ⟨rfl, rfl⟩
-  | false, _, h => by cases h
-  | true, false, h => by cases h
+open E213.Tactic.BoolHelper (and_eq_true_pair)
 
 /-- Find first `(a, b) ∈ xs × ys` with `prop a b = true`. -/
 def findCounterexample {α β : Type}
