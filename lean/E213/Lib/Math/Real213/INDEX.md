@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  65 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  66 files in 7 sub-clusters.
 
 ## Sub-clusters
 
@@ -81,6 +81,12 @@
   - `PresentationDependence.lean` — ★ `CrossDetSmall` reads the representation, not the
     real: `rcut` is rescaling-invariant (`rcut_rescale`) while the smallness condition
     is not (e's `×2` representation breaks it — same real).
+  - `IntensionalCompletability.lean` — ★ the intensional reduction: the bridge
+    `CrossDetSmall` is antitone under rescaling (`crossDetSmall_rescale_antitone` —
+    rescaling up only loses it, so the gcd-reduced presentation is canonical), while the
+    *completion* is presentation-invariant (`modulus_rescale_invariant`).  The test is
+    presentation-relative; the truth (the cut's completion) is not
+    (`completability_is_intensional`).
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 

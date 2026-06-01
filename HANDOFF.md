@@ -176,6 +176,21 @@ A–D + B are now **all closed ∅-axiom this arc**:
     strict superset.  Consolidate to one home (characterization + floor instance), with
     `CrossDetOvertake`/`CrossDetConstDenom`/`GeometricThreshold`/`PresentationDependence`
     kept as the concrete witnessed rungs/instances on top.
+  - **Intensional completability — DONE** (this branch, `Real213/IntensionalCompletability`,
+    3/0): built on the merged `PresentationDependence`.  The W-vs-d bridge `CrossDetSmall`
+    is *presentation-relative* (`crossDetSmall_rescale_antitone`: `CrossDetSmall (c²·W)
+    (c·d) → CrossDetSmall W d`, so the gcd-reduced presentation is canonical), while the
+    *completion* is presentation-invariant (`modulus_rescale_invariant`, via
+    `rcut_rescale`); `completability_is_intensional` bundles the split.  The W-readout is
+    an extensional probe; the cut's completion is the intensional truth.  Conjectures in
+    `research-notes/G169`: C1′ completing reals = those with a rate-carrying
+    *re*-presentation (π-via-Wallis the obstruction → reframes π as the existential, not
+    a property of π); C2 the rung floor (`W const` φ ⊂ `W=d` e/Liouville ⊂ `CrossDetSmall`,
+    threshold `r<q`) as a rescaling-invariant coordinate of the cut; C3 the canonical
+    witness (diagonal `bound+1` / gcd-reduced presentation) is the residue on both sides.
+    OPEN next: a 213-native gcd / "reduced presentation" predicate to state C2's rung
+    floor as a function of the cut; the C1′ converse (when a rate-carrying re-presentation
+    exists).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

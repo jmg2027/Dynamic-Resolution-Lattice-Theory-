@@ -266,6 +266,14 @@ unique (`minOverflow_unique`, the honest universal property), and the surplus
 is the conserved quantity under shift (`gap_shift_invariant`, via the PURE
 `NatHelper.add_sub_add_right`).
 
+`E213.Lib.Math.Real213.IntensionalCompletability` — **3 PURE / 0 DIRTY**.
+The intensional reduction of completability: `crossDetSmall_rescale_antitone`
+(the sufficient bridge `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` — rescaling
+up only loses it, so the gcd-reduced presentation is canonical; `Nat.mul_assoc` is
+propext-dirty, used the PURE `NatHelper.mul_assoc`), `modulus_rescale_invariant`
+(the completion is presentation-invariant, via `rcut_rescale`), bundled in
+`completability_is_intensional`.  The test is presentation-relative; the truth is not.
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE
