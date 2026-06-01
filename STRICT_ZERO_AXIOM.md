@@ -145,7 +145,20 @@ exposes the purity status of the previously-ungated clusters.  Current
     ∅-axiom standard; the comprehensive build is required.
   · **Sealed-by-design** (57) per categories (a) + (b): the Prop-as-
     distinguishing / Lens-funext / Quot-Lens families + the three CommandElab
-    plumbing modules.
+    plumbing modules.  **Skeptical re-reading (G161, 213-native, not just
+    ∅-axiom)**: of the 57, only the **3 CommandElab** are *honestly inherent*
+    (`Classical.choice` via the `Lean.Elab.Command` monad — no `↔`-form
+    alternative).  The other **~54 are framework-`=`-artifacts**: their
+    `propext`/`Quot.sound` enter only because combine-symmetry is *stated* as
+    `=` at `Prop` / at `(Raw → Prop)` (the `Quot.sound` is `funext`, not Raw —
+    `Raw` is a subtype, not a quotient, and `Raw.slash_comm` is PURE).  The
+    213-native **Reading-equivalence (pointwise `↔`) form is PURE** (demonstrated
+    in G161: `combine_sym_pointwise` → "does not depend on any axioms").  The
+    `=`-form survives only because `Raw.fold`'s slash hypothesis currently wants
+    combine `=`-symmetry; making `Raw.fold` respect slash-commutativity up to
+    `Lens.equiv` would purify these.  So the seal label should read "framework
+    states combine coherence as `=`; the native form is PURE" — not "Lens
+    equality is inherently funext".  Scoped refactor flagged in G161.
 
 ---
 
