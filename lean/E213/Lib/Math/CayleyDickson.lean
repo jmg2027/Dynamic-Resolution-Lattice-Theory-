@@ -24,6 +24,7 @@ import E213.Lib.Math.CayleyDickson.Tower.QuadraticFieldDiscriminant
 import E213.Lib.Math.CayleyDickson.Tower.UnitResidueRootTwo
 import E213.Lib.Math.CayleyDickson.Tower.TraceDoublingMap
 import E213.Lib.Math.CayleyDickson.Tower.TwoEnginesDichotomy
+import E213.Lib.Math.CayleyDickson.Tower.AxisSeedTrichotomy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion

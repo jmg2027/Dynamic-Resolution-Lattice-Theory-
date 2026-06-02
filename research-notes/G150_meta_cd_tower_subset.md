@@ -1128,6 +1128,41 @@ doubling map (unit as fixed core) → two engines, one map.  The exceptional
 `E₆E₇E₈` and their seeds `{√−NS, √NT, √(NS+NT)}` are derived end-to-end,
 ∅-axiom, from the atomic `{NS, NT}` and the single map `D(x) = x² − NT`.
 
+## Phase 23 — 세 축의 대수적 대응값: the axis trichotomy
+
+User (parallel branch): viewing reals through algebraic correspondences,
+`e ↔ 1` (unit, the `2`-axis), `π ↔` unit circle (the `2-3` spiral).  *What
+is the `3`-axis real value and its algebraic correspondence?*  The
+framework answers the algebraic half exactly.  `AxisSeedTrichotomy.lean`
+(∅-axiom, 4 theorems):
+
+| axis  | radicand | algebraic # | min poly      | `D`-type            | rung |
+|-------|----------|-------------|---------------|---------------------|------|
+| `2`   | `NT`     | `√2` bare   | `x² − NT`     | even fixed `+2`(unit) | `E₇` |
+| `3`   | `−NS`    | `ω` Eisen.  | `x² + x + 1`  | odd fixed `−1`(ord 3) | `E₆` |
+| `2+3` | `NS+NT`  | `φ` golden  | `x² − x − 1`  | hyperbolic (P)        | `E₈` |
+
+  * `axis_two_bare` — `(√2)² = NT`; `D`-even fixed `+2`; disc `4·NT = 8`.
+  * `axis_three_eisenstein` — **the answer**: `ω² + ω + 1 = 0` (`Φ₃`),
+    `trace ω = −1` (the `D`-odd fixed point), `normSq ω = 1`, `Φ₃` disc
+    `= −NS`.  The `3`-axis algebraic correspondence is the **Eisenstein
+    cube root of unity `ω`** (`√−NS`, the order-`3`, `E₆`).
+  * `axis_two_three_golden` — `φ² − φ − 1 = 0`; `D`-hyperbolic; disc
+    `= NS+NT = disc P`.
+  * `axis_seed_trichotomy` — bundles; radicands `{NT, −NS, NS+NT}` = the
+    atomic triple.
+
+**Answer.**  Where the `2`-axis is the bare doubling `√NT = √2` (even
+fixed point of `D`, the unit) and the `2-3` spiral is the golden/
+hyperbolic `√(NS+NT) = √5` (the `P`-orbit), the **`3`-axis is the
+Eisenstein `ω`** — `Φ₃ = x²+x+1`, seed `√−3 = √−NS`, the *odd* fixed
+point `−1` dual to the unit's *even* `+2`.  The three minimal-polynomial
+discriminants `{4·NT, −NS, NS+NT} = {8, −3, 5}` are the `Phase-19` field
+discriminants.  The transcendental shadow of the `3`-axis (the analogue
+of `e`/`π`) is the equianharmonic Eisenstein period (`j=0` CM by `ℤ[ω]`,
+a `Γ(1/3)`-value) — interpretive, not formalised; the algebraic skeleton
+is pinned.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
