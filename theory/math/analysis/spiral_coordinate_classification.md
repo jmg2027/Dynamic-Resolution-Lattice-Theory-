@@ -31,7 +31,7 @@ together with the top-less depth tower.
 | `Real213/SpiralLayer.lean` | 2 / 0 | the layer is intensional (`depth_is_intensional`); spectrum is all of `ℕ` (`depth_spectrum_unrestricted`) |
 | `Real213/SpiralCoordinate.lean` | 1 / 0 | `spiral_coordinate`: the two orthogonal counts bundled |
 | `CayleyDickson/Integer/ZIUnits.lean` | 6 / 0 | the Gaussian 4-theorem (`ZI_units_exact_four`, `\|ℤ[i]^×\| = 4`) |
-| `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` | 3 / 0 | the axis is exhaustively `{2,4,6}` (`unitForm_generic_axis`: `d ≥ 2 ⇒` only `±1`; `imaginary_quadratic_unit_trichotomy`) |
+| `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` | 7 / 0 | the axis is exhaustively `{2,4,6}` (`unitForm_generic_axis`: `d ≥ 2 ⇒` only `±1`; `imaginary_quadratic_unit_trichotomy`; `maximal_order_no_complex_unit`; `axis_binary_cover`) |
 | `CayleyDickson/Integer/GaussianCrossDet.lean` | 11 / 0 | the `ℤ[i]` floor rotates with order 4 (`gaussian_floor_rotation`, `μ = −i`) |
 | `CayleyDickson/Integer/EisensteinCrossDet.lean` | 14 / 0 | the `ℤ[ω]` cross-det rides the 6-unit floor (`crossDet_on_units`) |
 | `CayleyDickson/Integer/EisensteinCompletion.lean` | 9 / 0 | the `ℤ[ω]` floor rotates with order 6 (`eisenstein_floor_rotation`); completion factors through the real norm |
@@ -92,6 +92,15 @@ for **every** `d ≥ 2` the only solutions are `(±1, 0)`: a non-zero `b` alread
 and order-6 (`ℤ[ω]`) points.  The axis coordinate has a **closed finite range**, not three
 sampled instances — the classical Dirichlet trichotomy made constructive (the proof runs
 through `Int.natAbs` into `Nat`, no `ring`, no `omega`).
+
+The `ℤ[√−d]` recurrence family does not exhaust the imaginary-quadratic *maximal* orders:
+for `d ≡ 3 (mod 4)` the maximal order is the denser `ℤ[(1+√−d)/2]`, norm `a² + a·b + c·b²`
+with `c = (1+d)/4`.  `maximal_order_no_complex_unit` closes this last case too: scaling the
+norm by `4` gives `(2a+b)² + d·b² = 4` (since `4c − 1 = d`), and for `d ≥ 5` the same
+kernel (`nat_form_forces_b_zero` at `N = 4`) forces the imaginary part `b = 0` — every unit
+is real, so the order is `ℤ^× = {±1}`.  Eisenstein (`d = 3`) is the unique reduced-form
+order with a complex unit, so the trichotomy holds for **all** imaginary-quadratic maximal
+orders, not just the `ℤ[√−d]` family.
 
 The axis is realized *geometrically* as a floor rotation.  With a unit-coefficient
 recurrence `s_{n+2} = s_{n+1} + q·s_n`, the cross-determinant is multiplied each step by
@@ -166,6 +175,7 @@ convergence mechanism.
 | `ZI_units_exact_four` | `ZIUnits` | `\|ℤ[i]^×\| = 4` (the Gaussian 4-theorem) |
 | `unitForm_generic_axis` | `ImaginaryQuadraticUnitTrichotomy` | `d ≥ 2 ⇒ a²+d·b²=1` only at `(±1,0)`: no fourth axis |
 | `imaginary_quadratic_unit_trichotomy` | `ImaginaryQuadraticUnitTrichotomy` | the axis is exactly `{2,4,6}`, a closed finite range |
+| `maximal_order_no_complex_unit` | `ImaginaryQuadraticUnitTrichotomy` | `d ≡ 3 (mod 4)` maximal orders (`d≥5`): `(2a+b)²+d·b²=4 ⇒ b=0`, no complex unit |
 | `axis_binary_cover` | `ImaginaryQuadraticUnitTrichotomy` | `{2,4,6}=2·{1,2,3}`: midpoint `μᵏ=−1`, the central `−1` is the binary cover |
 | `gaussian_floor_rotation` | `GaussianCrossDet` | the `ℤ[i]` floor rotates by `−i`, order 4 |
 | `eisenstein_floor_rotation` | `EisensteinCompletion` | the `ℤ[ω]` floor rotates by `−ω`, order `6 = NS·NT` |

@@ -38,33 +38,43 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmega (units6 units6_length Zeta6 zeta
 
 /-! ## §1 — the `Nat` kernel: `a² + d·b² = 1`, `d ≥ 2`, forces `b = 0`, `a = 1` -/
 
-/-- The arithmetic core.  Over `Nat`, with `d ≥ 2`, `aN² + d·bN² = 1` forces `bN = 0` and
-    `aN = 1`: a non-zero `bN` makes `d·bN² ≥ 2·1 = 2`, already past `1`; then `aN² = 1`
-    forces `aN = 1` (`0` undershoots, `≥ 2` overshoots). -/
-theorem nat_unitform_forces (d aN bN : Nat) (hd : 2 ≤ d)
-    (h : aN * aN + d * (bN * bN) = 1) : bN = 0 ∧ aN = 1 := by
+/-- `aN² = 1` over `Nat` forces `aN = 1` (`0` undershoots, `≥ 2` overshoots). -/
+theorem nat_sq_eq_one (aN : Nat) (h : aN * aN = 1) : aN = 1 := by
+  rcases aN with _ | _ | k
+  · exact absurd h (by decide)
+  · rfl
+  · exfalso
+    have hge : 2 * 2 ≤ (k + 2) * (k + 2) :=
+      Nat.mul_le_mul (Nat.le_add_left 2 k) (Nat.le_add_left 2 k)
+    rw [h] at hge
+    exact absurd hge (by decide)
+
+/-- The general kernel: `aN² + d·bN² = N` with `N < d` forces `bN = 0` — a non-zero `bN`
+    already makes the `d`-term alone (`≥ d`) overshoot `N`.  The unit case is `N = 1`,
+    `d ≥ 2`; the `d ≡ 3 (mod 4)` reduced-form case is `N = 4`, `d ≥ 5`. -/
+theorem nat_form_forces_b_zero (d aN bN N : Nat) (hNd : N < d)
+    (h : aN * aN + d * (bN * bN) = N) : bN = 0 := by
   rcases bN with _ | bN'
-  · -- bN = 0: the equation is `aN² = 1` (by defeq, `d·(0·0) = 0`)
-    refine ⟨rfl, ?_⟩
-    have h' : aN * aN = 1 := h
-    rcases aN with _ | _ | k
-    · exact absurd h' (by decide)
-    · rfl
-    · exfalso
-      have hge : 2 * 2 ≤ (k + 2) * (k + 2) :=
-        Nat.mul_le_mul (Nat.le_add_left 2 k) (Nat.le_add_left 2 k)
-      rw [h'] at hge
-      exact absurd hge (by decide)
-  · -- bN = bN'+1 ≠ 0: `d·bN² ≥ 2 > 1` overshoots
-    exfalso
+  · rfl
+  · exfalso
     have hb1 : 1 ≤ bN' + 1 := Nat.succ_le_succ (Nat.zero_le _)
     have hbb : 1 ≤ (bN' + 1) * (bN' + 1) := Nat.mul_le_mul hb1 hb1
-    have hd2 : 2 ≤ d * ((bN' + 1) * (bN' + 1)) := Nat.mul_le_mul hd hbb
-    have hle : d * ((bN' + 1) * (bN' + 1)) ≤ 1 := by
-      have hsum : d * ((bN' + 1) * (bN' + 1))
+    have hdle : d ≤ d * ((bN' + 1) * (bN' + 1)) := by
+      have hx := Nat.mul_le_mul (Nat.le_refl d) hbb
+      rwa [Nat.mul_one] at hx
+    have hsum : d * ((bN' + 1) * (bN' + 1)) ≤ N := by
+      have hle : d * ((bN' + 1) * (bN' + 1))
           ≤ aN * aN + d * ((bN' + 1) * (bN' + 1)) := Nat.le_add_left _ _
-      rw [h] at hsum; exact hsum
-    exact absurd (Nat.le_trans hd2 hle) (by decide)
+      rw [h] at hle; exact hle
+    exact absurd (Nat.lt_of_lt_of_le hNd (Nat.le_trans hdle hsum)) (Nat.lt_irrefl N)
+
+/-- The arithmetic core for the unit case.  With `d ≥ 2`, `aN² + d·bN² = 1` forces `bN = 0`
+    (`nat_form_forces_b_zero`, `1 < d`) and then `aN = 1` (`nat_sq_eq_one`). -/
+theorem nat_unitform_forces (d aN bN : Nat) (hd : 2 ≤ d)
+    (h : aN * aN + d * (bN * bN) = 1) : bN = 0 ∧ aN = 1 := by
+  have hbz : bN = 0 := nat_form_forces_b_zero d aN bN 1 hd h
+  subst hbz
+  exact ⟨rfl, nat_sq_eq_one aN h⟩
 
 /-! ## §2 — the `Int` statement: the generic axis has exactly the two units `±1` -/
 
@@ -110,6 +120,26 @@ theorem imaginary_quadratic_unit_trichotomy :
     -- (3) the Eisenstein axis is order 6
     ∧ units6.length = 6 :=
   ⟨fun d hd a b => unitForm_generic_axis d hd a b, units4_length, units6_length⟩
+
+/-! ## §3b — the `d ≡ 3 (mod 4)` maximal orders also collapse to `±1` -/
+
+/-- ★★★ **The reduced-form (`d ≡ 3 mod 4`) maximal orders carry no complex unit.**  For
+    `d ≡ 3 (mod 4)`, `d ≥ 7`, the maximal order `ℤ[(1+√−d)/2]` has norm form
+    `a² + a·b + c·b²` with `c = (1+d)/4`; multiplying by `4` gives `(2a+b)² + d·b² = 4`
+    (using `4c − 1 = d`).  For `d ≥ 5` this forces the imaginary part `b = 0`: every unit
+    is *real*, i.e. lies in `ℤ`, so the unit group is `ℤ^× = {±1}` of order 2.  Hence
+    `ℤ[ω]` (`d = 3`) is the *only* reduced-form order with a complex unit — completing the
+    Dirichlet trichotomy to **all** imaginary-quadratic maximal orders, not just the
+    `ℤ[√−d]` family.  (Only `b = 0` is asserted; that the resulting `(2a)² = 4` gives
+    `a = ±1` is the order-2 count, an integer cancellation outside the `∅`-axiom Int API.) -/
+theorem maximal_order_no_complex_unit (d : Nat) (hd : 5 ≤ d) (a b : Int)
+    (h : (2 * a + b) * (2 * a + b) + (d : Int) * (b * b) = 4) : b = 0 := by
+  rw [← Int.natAbs_mul_self (a := 2 * a + b), ← Int.natAbs_mul_self (a := b),
+      ← Int.ofNat_mul, ← Int.ofNat_add] at h
+  have hnat : (2 * a + b).natAbs * (2 * a + b).natAbs
+      + d * (b.natAbs * b.natAbs) = 4 := Int.ofNat.inj h
+  have hbz := nat_form_forces_b_zero d (2 * a + b).natAbs b.natAbs 4 hd hnat
+  rcases Int.natAbs_eq b with hb | hb <;> (rw [hb, hbz]; rfl)
 
 /-! ## §4 — the binary cover: `{2,4,6} = 2·{1,2,3}`, the midpoint is the central `−1` -/
 

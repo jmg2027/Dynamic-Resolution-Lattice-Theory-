@@ -206,13 +206,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
     2-axis is the only unconditionally-completing one.  Frontier: π's CF non-holonomicity
     (classical open; would make "π rate-free" a theorem).
   - **Axis exhaustiveness — CLOSED ∅-axiom** (`CayleyDickson/Integer/
-    ImaginaryQuadraticUnitTrichotomy`, 3/0; deepens the spiral arc against merged main).
+    ImaginaryQuadraticUnitTrichotomy`, 7/0; deepens the spiral arc against merged main).
     The gap `SeedUnitGovernance` flagged ("ℤ[i],ℤ[ω] the ONLY imaginary-quadratic orders
     with μ≠{±1} — Dirichlet trichotomy, *cited not formalized*") is now proven.
     `unitForm_generic_axis`: for every `d ≥ 2` the norm form `a²+d·b²=1` has only `(±1,0)`
     (b≠0 ⇒ d·b²≥d≥2>1 overshoots); the recurrence ring `ℤ[√−d]` is order 2.
     `imaginary_quadratic_unit_trichotomy` bundles with `ℤ[i]`(4)/`ℤ[ω]`(6): the axis is a
-    **closed finite range {2,4,6}**, not three sampled instances.  Proof via `Int.natAbs`
+    **closed finite range {2,4,6}**, not three sampled instances.  Extended to ALL imaginary-
+    quadratic *maximal* orders via `maximal_order_no_complex_unit`: for d≡3 mod4 the maximal
+    order ℤ[(1+√−d)/2] (norm a²+ab+cb², c=(1+d)/4) scales ×4 to (2a+b)²+d·b²=4, same kernel
+    (N=4<d, d≥5) forces b=0 — no complex unit, so ℤ[ω] is the unique reduced-form exception.  Proof via `Int.natAbs`
     → Nat (the `two_not_a_discriminant` idiom), no `ring`/`omega`/`Classical`; the one
     propext leak (`Int.natAbs_eq_zero`) routed around via `Int.natAbs_eq`.  Folded into
     `Real213/SpiralCoordinate.spiral_coordinate` as a 4th conjunct (now 4-fold capstone).
