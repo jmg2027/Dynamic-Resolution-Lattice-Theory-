@@ -405,4 +405,124 @@ theorem obstruction_int_constant :
     liftKZ 2 (fun n => (vObs n : Int)) 0 = 2
       ∧ liftKZ 2 (fun n => (vObs n : Int)) 1 = 2 := by decide
 
+/-! ## §7 — the polynomial growth bound (unblocks T4: Hurwitzian ⟹ poly-bounded)
+
+A faithfully depth-`d` sequence grows at most polynomially:
+`|s n| ≤ C·(n+1)^d` with the explicit constant `C = Σ_{i≤d} |Δⁱs(0)|` (the
+Pólya–Ostrowski coefficient ℓ¹-norm).  Read off `reconstruct` + the triangle
+inequality + `binom n i ≤ (n+1)ⁱ ≤ (n+1)^d`.  This is the ∅-axiom half of
+"Hurwitzian (quasi-polynomial partial quotients) ⟹ partial quotients
+polynomially bounded ⟹ irrationality measure μ = 2" (Pólya 1915 basis; the μ=2
+step is classical, cited) — the general bridge `HANDOFF` flagged Newton–Gregory-
+blocked over `ℕ`, now closed over `ℤ`. -/
+
+/-- `(subNatNat m n).natAbs ≤ m + n` (pure; the `ℤ` triangle inequality kernel). -/
+theorem natAbs_subNatNat_le (m n : Nat) : (Int.subNatNat m n).natAbs ≤ m + n := by
+  unfold Int.subNatNat
+  split
+  · next => exact Nat.le_trans (Nat.sub_le m n) (Nat.le_add_right m n)
+  · next k h =>
+      show k + 1 ≤ m + n
+      have hk : k + 1 ≤ n := by
+        have hle := Nat.sub_le n m; rw [h] at hle; exact hle
+      exact Nat.le_trans hk (Nat.le_add_left n m)
+
+/-- ∅-axiom triangle inequality `|a + b| ≤ |a| + |b|` (core `Int.natAbs_add_le`
+    pulls `propext`). -/
+theorem natAbs_add_le (a b : Int) : (a + b).natAbs ≤ a.natAbs + b.natAbs := by
+  cases a with
+  | ofNat m => cases b with
+    | ofNat n => exact Nat.le_refl _
+    | negSucc n =>
+      show (Int.subNatNat m (n+1)).natAbs ≤ m + (n+1)
+      exact natAbs_subNatNat_le m (n+1)
+  | negSucc m => cases b with
+    | ofNat n =>
+      show (Int.subNatNat n (m+1)).natAbs ≤ (m+1) + n
+      exact Nat.le_trans (natAbs_subNatNat_le n (m+1)) (Nat.le_of_eq (Nat.add_comm n (m+1)))
+    | negSucc n =>
+      show (m + n + 1 + 1) ≤ m + 1 + (n + 1)
+      exact Nat.le_of_eq (by rw [Nat.add_succ (m+1) n, Nat.add_right_comm m 1 n])
+
+/-- `|negOfNat j| = j` (pure). -/
+theorem natAbs_negOfNat (j : Nat) : (Int.negOfNat j).natAbs = j := by cases j <;> rfl
+
+/-- `|↑k · a| = k · |a|` (pure; nonneg scalar). -/
+theorem natAbs_ofNat_mul (k : Nat) (a : Int) : ((k : Int) * a).natAbs = k * a.natAbs := by
+  show (Int.ofNat k * a).natAbs = k * a.natAbs
+  cases a with
+  | ofNat m => rfl
+  | negSucc m =>
+    show (Int.negOfNat (k * (m+1))).natAbs = k * (m+1)
+    rw [natAbs_negOfNat]
+
+/-- The binomial column is bounded by a power: `binom n i ≤ (n+1)ⁱ` (pure). -/
+theorem binom_le_pow : ∀ (i n : Nat), binom n i ≤ (n + 1) ^ i
+  | 0,   n => by rw [binom_zero_right]; exact Nat.le_refl _
+  | i+1, n => by
+    induction n with
+    | zero => exact Nat.zero_le _
+    | succ n ih =>
+      show binom n i + binom n (i+1) ≤ (n + 1 + 1) ^ (i+1)
+      have hsum : binom n i + binom n (i+1) ≤ (n+1)^i + (n+1)^(i+1) :=
+        Nat.add_le_add (binom_le_pow i n) ih
+      have hfact : (n+1)^i + (n+1)^(i+1) = (n+1+1) * (n+1)^i := by
+        rw [Nat.pow_succ, Nat.succ_mul, Nat.add_comm ((n+1)*(n+1)^i) ((n+1)^i),
+            Nat.mul_comm ((n+1)^i) (n+1)]
+      have hmul : (n+1+1) * (n+1)^i ≤ (n+1+1) * (n+1+1)^i :=
+        Nat.mul_le_mul (Nat.le_refl _) (Nat.pow_le_pow_left (Nat.le_succ (n+1)) i)
+      have hpow : (n+1+1) * (n+1+1)^i = (n+1+1)^(i+1) := by rw [Nat.pow_succ, Nat.mul_comm]
+      exact Nat.le_trans hsum
+        (Nat.le_trans (Nat.le_of_eq hfact) (Nat.le_trans hmul (Nat.le_of_eq hpow)))
+
+/-- `1 ≤ (a+1)^d` (pure). -/
+theorem one_le_succ_pow (a : Nat) : ∀ d, 1 ≤ (a + 1) ^ d
+  | 0   => Nat.le_refl 1
+  | d+1 => by
+    rw [Nat.pow_succ]
+    exact Nat.mul_le_mul (one_le_succ_pow a d) (Nat.le_add_left 1 a)
+
+/-- The ℓ¹-norm of the Newton coefficients to degree `L`: `Σ_{i≤L} |cᵢ|`. -/
+def absSum (c : Nat → Int) : Nat → Nat
+  | 0   => (c 0).natAbs
+  | L+1 => absSum c L + (c (L+1)).natAbs
+
+/-- ★ **The Newton sum's ℓ∞ growth bound.**  `|bsum n c L| ≤ (n+1)^d · Σ_{i≤L}|cᵢ|`
+    for `L ≤ d`: triangle inequality termwise, each `binom n i ≤ (n+1)^d`. -/
+theorem bsum_abs_le (n d : Nat) (c : Nat → Int) : ∀ L, L ≤ d →
+    (bsum n c L).natAbs ≤ (n + 1) ^ d * absSum c L
+  | 0, _ => by
+    show ((binom n 0 : Int) * c 0).natAbs ≤ (n + 1) ^ d * (c 0).natAbs
+    rw [natAbs_ofNat_mul, binom_zero_right, Nat.one_mul]
+    exact Nat.le_trans (Nat.le_of_eq (Nat.one_mul ((c 0).natAbs)).symm)
+      (Nat.mul_le_mul (one_le_succ_pow n d) (Nat.le_refl _))
+  | L+1, hL => by
+    show (bsum n c L + (binom n (L+1) : Int) * c (L+1)).natAbs
+       ≤ (n + 1) ^ d * (absSum c L + (c (L+1)).natAbs)
+    have hLd : L + 1 ≤ d := hL
+    have hbinom : binom n (L+1) ≤ (n + 1) ^ d :=
+      Nat.le_trans (binom_le_pow (L+1) n)
+        (Nat.pow_le_pow_right (Nat.le_add_left 1 n) hLd)
+    calc (bsum n c L + (binom n (L+1) : Int) * c (L+1)).natAbs
+        ≤ (bsum n c L).natAbs + ((binom n (L+1) : Int) * c (L+1)).natAbs :=
+          natAbs_add_le _ _
+      _ = (bsum n c L).natAbs + binom n (L+1) * (c (L+1)).natAbs := by rw [natAbs_ofNat_mul]
+      _ ≤ (n + 1) ^ d * absSum c L + (n + 1) ^ d * (c (L+1)).natAbs :=
+          Nat.add_le_add (bsum_abs_le n d c L (Nat.le_of_succ_le hLd))
+            (Nat.mul_le_mul hbinom (Nat.le_refl _))
+      _ = (n + 1) ^ d * (absSum c L + (c (L+1)).natAbs) := (Nat.mul_add _ _ _).symm
+
+/-- ★★★ **Polynomial growth bound (unblocks T4).**  Every faithfully depth-`d`
+    sequence grows at most polynomially: `|s n| ≤ C·(n+1)^d` with the explicit
+    constant `C = Σ_{i≤d} |Δⁱs(0)|`.  The ∅-axiom half of "Hurwitzian ⟹
+    polynomially-bounded partial quotients ⟹ μ = 2" (μ=2 step cited). -/
+theorem poly_bound {d : Nat} {s : Nat → Int} (h : polyDepthZ d s) :
+    ∃ C, ∀ n, (s n).natAbs ≤ C * (n + 1) ^ d := by
+  refine ⟨absSum (fun i => liftKZ i s 0) d, fun n => ?_⟩
+  rw [reconstruct h n]
+  show (bsum n (fun i => liftKZ i s 0) d).natAbs
+     ≤ absSum (fun i => liftKZ i s 0) d * (n + 1) ^ d
+  rw [Nat.mul_comm (absSum (fun i => liftKZ i s 0) d) ((n + 1) ^ d)]
+  exact bsum_abs_le n d (fun i => liftKZ i s 0) d (Nat.le_refl d)
+
 end E213.Lib.Math.Cauchy.NewtonGregory
