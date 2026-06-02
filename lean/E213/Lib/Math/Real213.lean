@@ -75,6 +75,7 @@ import E213.Lib.Math.Real213.SpiralRotationInvariant
 import E213.Lib.Math.Real213.GoldenFormMarkov
 import E213.Lib.Math.Real213.MarkovTree
 import E213.Lib.Math.Real213.ModularElliptic
+import E213.Lib.Math.Real213.LagrangeExtremes
 import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus

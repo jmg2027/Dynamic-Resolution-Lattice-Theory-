@@ -122,4 +122,25 @@ theorem markov_pell_branch :
 theorem markov_pell_jump : markovEq 2 (pell 5) (pell 7) :=
   markov_vieta 2 (pell 5) (pell 3) (pell 7) (by decide) (by decide)
 
+/-! ## §5 — the binary fork: where the Fibonacci and Pell spines diverge (Stern-Brocot node) -/
+
+/-- The Fibonacci child of `(1,2,5)`: jump the `2` (keep `1,5`), `2 + 13 = 15 = 3·1·5`,
+    landing on `(1,5,13)` — the `√5`/golden branch (`fib 7 = 13`). -/
+theorem markov_fork_fibonacci : markovEq 1 5 13 :=
+  markov_vieta 1 5 2 13 (by decide) (markov_symm 1 2 5 (by decide))
+
+/-- The Pell child of `(1,2,5)`: jump the `1` (keep `2,5`), `1 + 29 = 30 = 3·2·5`, landing on
+    `(2,5,29)` — the `√8`/silver branch (`pell 5 = 29`). -/
+theorem markov_fork_pell : markovEq 2 5 29 :=
+  markov_vieta 2 5 1 29 (by decide) (by decide)
+
+/-- ★★★ **The first binary fork `(1,2,5) → {(1,5,13), (2,5,29)}`.**  The Markov tree is the
+    Stern-Brocot binary tree on `SL(2,ℤ)` data: each triple has two Vieta children.  At
+    `(1,2,5)` the two children are the **Fibonacci spine** (`13`, the `√5` side) and the
+    **Pell spine** (`29`, the `√8` side) — the node where the two principal branches of the
+    Lagrange spectrum diverge.  (Whether this indexing is injective — every Markov number on
+    a unique node — is the classical **Markov uniqueness conjecture**, open.) -/
+theorem markov_first_fork : markovEq 1 5 13 ∧ markovEq 2 5 29 :=
+  ⟨markov_fork_fibonacci, markov_fork_pell⟩
+
 end E213.Lib.Math.Real213.MarkovTree
