@@ -28,6 +28,21 @@ repo-infra, red-team, synthesis) — see `research-notes/G170`.  Headline π non
 stays a conjecture, strictly above π non-Hurwitzian; FGS asymptotic obstruction is the
 credible route.  Next ∅-axiom step: `QuasiPolyCF ⟹ poly-bounded p.q.` (Newton growth bound) ⟹ μ=2.
 
+## Markov-spectrum ↔ golden form (latest)
+
+**`Real213/GoldenFormMarkov` (8 PURE).**  The golden form `Q=m²−mk−k²` (P-spiral invariant,
+disc 5) is the **first Markov form**: `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`,
+fuel-bounded, no mod-5) ⟹ `Q=0` only at origin ⟹ `inf|Q|=1` ⟹ Markov value `√5` = Lagrange
+spectrum MINIMUM (φ worst-approximable; its Fibonacci-Cassini `W=±1` floor = the form's
+minimum).  `silver_anisotropic` (reuses `sqrt2_irrational`) gives the 2nd value `√8` (form
+`x²−2y²`, disc 8).  So the repo's two ∅-axiom irrational seeds realise the first two
+Lagrange/Markov values `√5,√8` off the spiral invariant — a proven instance of the
+"W-structure encodes the approximation spectrum" thesis.  Pure infra: `add_left_cancel_pure`,
+`sq_lt_sq` (core `add_left_cancel`/`mul_lt_mul_right` leak).  Honest μ-positioning (4th
+research agent): the rate modulus `N(m,k)` IS the irrationality-measure function ψ(q)
+(genuinely finer than μ = its limsup); divergence depth is ORTHOGONAL/presentation-dependent;
+CF-tier separates e/π.  ∅-axiom μ=2 bridge half-done (`ePQ_linear_bound`/`tanPQ_linear_bound`).
+
 ## State
 
 The **Lens tree is 0 real DIRTY** (sealed-by-design = the `Prop`-atom thesis

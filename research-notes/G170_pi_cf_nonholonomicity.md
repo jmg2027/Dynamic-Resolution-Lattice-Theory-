@@ -209,3 +209,15 @@ an equivalence.
 - milestone 1: HurwitzianCF (e, tan1, periodic, certificate, geometric properness) 19 PURE,
   promoted to `theory/math/analysis/cf_holonomicity_hierarchy.md`.
 - positioning: μ-vs-213 analysis drafted; agent E dispatched to ground novelty/finer-vs-orthogonal.
+- **Markov-spectrum thread — DONE ∅-axiom** (`Real213/GoldenFormMarkov`, 8 PURE).  The
+  repo's golden form `Q=m²−mk−k²` (P-spiral invariant, disc 5) is the **first Markov form**:
+  `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`, no mod-5/omega — cleaner than the
+  √2 mod-2 descent) proves `Q=0` only at the origin, so `inf|Q|=1` (attained at `(1,0)`),
+  Markov value `√5` = the **Lagrange-spectrum minimum** (φ, worst-approximable, whose
+  Fibonacci-Cassini convergents carry the `W=±1` floor `= the form's minimum`).  Second
+  value `√8` from the silver form `x²−2y²` (disc 8) via `silver_anisotropic` (reusing the
+  repo's `sqrt2_irrational`).  So the repo's two ∅-axiom irrational seeds realise the first
+  two Lagrange/Markov spectrum values `√5, √8`, read off the spiral invariant — a concrete,
+  proven instance of "the W-cross-determinant structure encodes the approximation spectrum".
+  Pure infra added: `add_left_cancel_pure`, `sq_lt_sq` (core `add_left_cancel`/
+  `mul_lt_mul_right` leak propext/Classical/Quot).
