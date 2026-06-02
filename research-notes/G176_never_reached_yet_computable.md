@@ -71,6 +71,38 @@ what they all converge to / agree on.  **"Having π" = having a coherent family 
 not possessing the residue.  The residue is *reached by none, pointed to by all* — and that
 suffices for all of mathematics, because all of it is done in the pointings.
 
+## What then makes π special, if "pointing, not the number" is generic?
+
+The pointing/residue distinction is **generic** — true of every irrational (and rationals are
+pointings too).  So it is *not* π's specialness.  That lives on two axes the marathon measured.
+
+**Axis 1 — structure of the canonical (CF) pointing.**  Order the reals by how structured their
+regular continued fraction is: rationals (finite/periodic) ; **quadratic irrationals**
+`√2,√3,√5,φ` (eventually *periodic* CF — tier 0, `periodic_quasipoly`, Lagrange — *proven*
+ordered) ; **e, tan 1** (*quasi-periodic*/Hurwitzian CF — tier 1, `e_cf_quasipoly` — *proven*
+ordered) ; **π** (no known pattern — conjectured non-holonomic, tier 3 — *open*).  So `√2,√3,√5`
+are **not like π at all** (their CF is periodic); e is structured too.  π is the disordered one
+*among this list*.
+
+  - *Precision:* π's CF-disorder is **not unique** — degree-≥3 algebraics (`∛2`) and almost
+    every real share it (Gauss–Kuzmin genericity).  The *special* numbers are the **ordered
+    exceptions** (quadratic + e-family, measure zero).  π is the **generic/typical** one; that
+    is *why* it is hard — proving genericity is hard, proving structure is comparatively easy
+    (which is exactly why the marathon closed `√2,√5,e` and left π open).
+
+**Axis 2 — role/origin (where π is genuinely unique).**  π is the **rotation/period/circle
+constant** (`e^{2πi}=1`, every U(1)/Fourier/rotation) — the continuous-symmetry image of the
+residue (elliptic face, `phi_pi_poles.md`, `HyperbolicEllipticTrace`).  `√2,√3,√5` are
+**quadratic-field units/discriminants** (algebraic axis, hyperbolic face); `e` is the
+**exponential self-rate**; `φ` the **self-reference fixed point** (`Mobius213`).  Here π is the
+odd one out, uniquely tied to the circle.
+
+**One line:** π is special not for *how it is written* (infinite decimal — generic) nor even for
+its *CF-disorder* (shared with `∛2`, in fact *generic*), but for *what it is* — the rotation
+constant — and for the paradox that a constant we care about so deeply is statistically
+*ordinary* in its CF.  `√2,√3,√5,e` are the *atypically ordered* rarities; π is the *typically
+disordered* rotation constant.
+
 ## ∅-axiom anchors (all already proven)
 
   - `Real213/FibCassiniNat.fib_convergent_below_phi`, `Real213/PhiCauchyLimit.phiCauchy_limit_eq_phiCut`
