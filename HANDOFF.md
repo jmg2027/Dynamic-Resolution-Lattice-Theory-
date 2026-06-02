@@ -32,6 +32,25 @@ only*.  Periodic floor (`φ`,`√2`) is not finite-difference-depth; the `2ⁿ` 
 `MonotonicBounded`).  Propext landmine caught: `Nat.sub_eq_zero_of_le` → replaced by
 `Nat.sub_le_sub_right`+`Nat.sub_self`.
 
+### Marathon-3 (all three branches attempted, this session-leg)
+- **Branch 2 DONE** — `Real213/HyperbolicEllipticTrace.lean` (5 PURE): the φ/π split is the sign
+  of `Δ = tr²−4` (golden `[[2,1],[1,1]]` hyperbolic `Δ=5`; `S,U` elliptic orders 4,6 `Δ<0`);
+  Wick `cos(iθ)=cosh θ` = the sign flip.  Formalizes C-π2.
+- **Branch 3 DONE** — `theory/math/analysis/phi_pi_poles.md`: theorem-anchored essay (φ/π poles,
+  pentagon forbidden axis, *holonomicity is a property of the pointing*); registered in
+  `theory/math/INDEX.md` (12 analysis sub-clusters).
+- **Branch 1 DONE (recon)** — `research-notes/G175`: FGS analytic obstruction has **no ∅-axiom
+  shadow** (Fuchs–Frobenius + Stokes summability + Tauberian transfer, irreducibly complex);
+  **π unreachable** (bottoms out at open Gauss–Kuzmin normality).  *New finding*: a second
+  ∅-axiom-reachable obstruction finer than Klazar — **Garrabrant–Pak mod-2 forbidden-factor**
+  (P-recursive ℤ-seq's `aₙ mod 2` omits a factor; arXiv:1505.06508) — but it too is vacuous on
+  π.  Queued ∅-axiom targets (neither reaching π): Champernowne-parity (needs GP Lemma 1.2.1 +
+  `v₂` infra), Thue–Morse/Sturmian (needs full TM aperiodicity + bounded-P-rec⟹periodic; repo
+  has only partial TM + the `expSeq` pigeonhole template).  No new Lean (disciplined outcome for
+  an open analytic problem: map the boundary, don't force an unverified proof).
+  **Correction to G173**: "P-recursive ⟹ eventually periodic mod m" is false for *unbounded*
+  (Banderier–Luca); the forbidden-factor statement is the correct unbounded analog.
+
 ### Ontology arc — `research-notes/G174` (φ/π as residue projections; conjectures C-π1..4)
 The φ↔π conceptual thread, ∅-axiom-anchored where possible: π = the continuous-symmetry /
 (operation=object, §6.2) projection of the residue's self-reference; φ = its discrete
