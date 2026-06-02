@@ -647,6 +647,42 @@ the binary-polyhedral / McKay classification — now has concrete proven
 shadows across its whole exceptional row, with the lower-rung order-bounds
 proved so each new torsion type is genuine, not a checker artifact.
 
+### Phase 10 — the loop closes: `P` meets the icosian `E₈` endpoint (marathon-6)
+
+`Tower/MobiusPIcosian` ties the whole meta-CD-tower exploration back to
+the DRLT *core*.  The framework's atomic Möbius generator
+`P = [[2,1],[1,1]]` — trace `3 = NS`, det `1`, disc `5 = NS+NT` (the
+floor that bottoms the depth-ladder, the CD asymptote, and the atomic
+forcing) — reduced mod `5` is an **order-10 element of `SL(2,𝔽₅) ≅ 2I`**,
+the binary-icosahedral `E₈` rung whose order-5/10 torsion the icosian
+`g5`/`g10` witness over `ℤ[φ]`.
+
+  - `P_mod5_order_exactly_10` (∅-axiom): via the existing `pellCoeff`
+    Cayley–Hamilton detector for `M = [[2,1],[1,1]]`, `P¹⁰ ≡ I` while
+    `P¹,P²,P⁵ ≢ I` ⇒ order divides 10, is none of `1,2,5`, hence exactly
+    10.  `det P = 1` puts `P mod 5 ∈ SL(2,𝔽₅)`; `10 = NT·(NS+NT)`.
+  - `mobius_P_meets_icosian_endpoint` bundles the `5`-floor invariants,
+    the order-10 reduction, and `10 = NT·(NS+NT)`.
+
+So the `5`-floor generator of the entire framework is the order-10
+element of the seed ladder's `E₈` endpoint — the meta-CD-tower's top
+rung and the foundational `P`-orbit are the *same* order-10 conjugacy
+class in `2I`.  Honestly scoped: the group iso `SL(2,𝔽₅) ≅ 2I` and the
+`P ∼ g10` conjugacy are cited classical facts; what is *proved* is `P mod
+5`'s matrix order and its `SL(2,𝔽₅)` membership.
+
+**Marathon-6 verdict / arc close:** the six-marathon arc that began from
+"CD is not the complete tower" closes a full circle — CD is a sparse
+section of a discriminant-branching basis-loop spine (M1); the branches
+are governed by the seed unit group `μ` (M2, hardened M3); the exceptional
+`E₆–E₇–E₈ = 2T–2O–2I` rungs are realised with order-`{3,6}/{8}/{5,10}`
+witnesses (M4–M5); and the `E₈` endpoint is generated, mod the `5`-floor,
+by the framework's own atomic `P` (M6).  The "complete object" the
+intuition reached for is the McKay-indexed family of finite definite-order
+unit groups, with its top rung pinned to the DRLT `disc P = 5 = NS+NT`
+floor.  All finite shadows ∅-axiom; the group-theoretic / CM frame
+honestly cited throughout.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
