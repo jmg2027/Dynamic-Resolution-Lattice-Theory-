@@ -3,7 +3,7 @@
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**
 (101 commits: NewtonGregory/FiniteDepthAlgebra, StateMachine FSM, PolynomialDepth, `ring_nat`
-tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 44 PURE +
+tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 46 PURE +
 `ModArith/MarkovPrimeFactor` 28 PURE = 72, all ∅-axiom.  **Integration**: main's `ring_nat`
 (∅-axiom `ℕ` ring, `Meta/Nat/PolyNatMTactic`) grafted into the Markov polynomial-identity lemmas
 (`sq_expand`, `neg_one_sq_mod`, `neg_one_qr_of_inverse`'s `hsq`/`hkey`, `3bac=3abc`) — verbose
@@ -30,8 +30,9 @@ The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery 
 - **§4 Encoding fires.** `neg_one_qr_mod_{5,29,433}` on triples `(1,2,5),(2,5,29),(5,29,433)`.
 - **§5 Computational uniqueness.** `markov_max_unique_{5,13,29,34}` + `markovMaxUnique_{5,13,29}`
   — the conjecture verified decidably at small maxima.  (decide heartbeats out for `c≥169`.)
-- **§8 Fibonacci spine via Cassini.** `fib_spine_sqrt_neg_one` — `fib(2n+3) ∣ fib(2n+2)²+1`
-  (∀n), from `golden_min_attained_on_fib`: φ's convergents ARE the spine's `√(−1)` roots.
+- **§8 Fibonacci spine via Cassini + recurrence.** `fib_spine_sqrt_neg_one` (`fib(2n+3) ∣
+  fib(2n+2)²+1`, ∀n); `fib_spine_recurrence`/`pell_spine_recurrence` — the trace-`NS`(=3)/silver(=6)
+  linear recurrences of the Markov spines (C-finite; the Vieta jump; Casoratian = Cassini = √(−1)).
 - **§9 Cohn matrix.** `cohn_sq_neg_one_mod` — `C²≡−I mod c` for `tr=3c, det=1` (Cayley–Hamilton),
   pure ℕ: the order-4 generator `S` (Gaussian `i`) survives mod every Markov number.
 - **§10 Pairwise coprimality (C2/C3).** `coprime_vieta_step` (Vieta step preserves `gcd`),
@@ -61,6 +62,10 @@ rebuttal).  Synthesis recorded in `research-notes/G173`.
 ### Docs
 - `research-notes/G173_markov_uniqueness.md` — conjecture slate C1–C8 (graded ∅-axiom
   tractability), literature, red-team discussion, 213-native angle.
+- `research-notes/G174_markov_newton_synthesis.md` — **idea-level graft of merged `main`**: Markov
+  spine = C-finite trace-`NS` recurrence (Newton/holonomicity layer); `√(−1)` residue = Casoratian
+  (Cassini); uniqueness = Myhill–Nerode minimality of the tree coalgebra (StateMachine), localising
+  the open C6 crux to "insufficient observable at composite `c`".
 - `theory/math/analysis/markov_uniqueness.md` — promoted chapter mirroring the Lean.
 - Wired into `theory/math/INDEX.md` + cross-link from `markov_spectrum.md`.
 - `Real213.lean` umbrella imports `MarkovUniqueness`.

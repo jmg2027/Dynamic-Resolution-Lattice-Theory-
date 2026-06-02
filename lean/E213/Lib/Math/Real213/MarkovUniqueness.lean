@@ -386,6 +386,48 @@ theorem fib_spine_sqrt_neg_one_pred (n : Nat) :
   have hrec : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
   rw [hrec, Nat.mul_add, Nat.mul_comm (fib (2 * n + 1)) (fib (2 * n + 2))]
 
+/-- ★★★ **The Markov spine is the trace-`NS` linear recurrence.**  The odd-index Fibonacci
+    numbers — the golden Markov spine — satisfy the second-order linear recurrence
+
+      `fib(2n+1) + fib(2n+5) = 3 · fib(2n+3)`     (`= NS · fib(2n+3)`),
+
+    i.e. `fib(2n+5) = 3·fib(2n+3) − fib(2n+1)`, char. polynomial `x² − 3x + 1` — exactly the
+    characteristic polynomial of the golden matrix `P = [[2,1],[1,1]]` (trace `3 = NS`, det `1`),
+    whose `P`-orbit *is* the odd-index Fibonacci sequence.  The recurrence step is the
+    **Markov-Vieta jump** on the spine (`F_{2n−1} + F_{2n+3} = 3·F_{2n+1}`, `markov_fibonacci_branch`).
+    So the spine is a C-finite (constant-coefficient linear-recurrence) sequence — exponential
+    growth, *not* finite forward-difference depth (like the geometric witness `2ⁿ` in the
+    holonomicity hierarchy `QuasiPolyCF ⊊ C-finite`); and the **Casoratian** (discrete Wronskian)
+    of this recurrence is the Cassini constant `±1`, which `fib_spine_sqrt_neg_one` reads as the
+    `√(−1)` residue mod the spine Markov number.  Coefficient `NS = 3` ties recurrence, golden
+    matrix, and Markov equation into one number. -/
+theorem fib_spine_recurrence (n : Nat) :
+    fib (2 * n + 1) + fib (2 * n + 5) = 3 * fib (2 * n + 3) := by
+  have h5 : fib (2 * n + 5) = fib (2 * n + 4) + fib (2 * n + 3) := rfl
+  have h4 : fib (2 * n + 4) = fib (2 * n + 3) + fib (2 * n + 2) := rfl
+  have h3 : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+  rw [h5, h4, h3]; ring_nat
+
+/-- ★★ **The silver (Pell) Markov spine recurrence.**  The odd-index Pell numbers `1,5,29,169,…`
+    (the `√8`/silver Markov spine) satisfy the trace-`6` linear recurrence
+    `pell(2n+1) + pell(2n+5) = 6·pell(2n+3)` (char. polynomial `x²−6x+1`, `6 = NS·NT`, the trace
+    of the silver square / Cohn `B`).  The second C-finite Markov spine, companion to the golden
+    `fib_spine_recurrence`. -/
+theorem pell_spine_recurrence (n : Nat) :
+    E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 1)
+      + E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 5)
+    = 6 * E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 3) := by
+  have h5 : E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 5)
+    = 2 * E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 4)
+      + E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 3) := rfl
+  have h4 : E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 4)
+    = 2 * E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 3)
+      + E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 2) := rfl
+  have h3 : E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 3)
+    = 2 * E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 2)
+      + E213.Lib.Math.Real213.MarkovTree.pell (2 * n + 1) := rfl
+  rw [h5, h4, h3]; ring_nat
+
 /-! ## §9 — the Cohn-matrix form: `C² ≡ −I (mod c)` (the order-4 generator survives mod c)
 
 Every Markov number `c` carries a **Cohn matrix** `C = [[a,b],[cc,d]] ∈ SL(2,ℤ)` (built from

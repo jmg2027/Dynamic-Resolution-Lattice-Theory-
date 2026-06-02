@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (44 PURE / 0 dirty):
+explicit open target.  Source of truth (46 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -115,6 +115,31 @@ required.  The companion `fib_spine_sqrt_neg_one_pred` reads the same Cassini pr
 other factor (`fib(2n+1) ∣ fib(2n+2)² + 1`).  Concretely `fib(9) = 34 ∣ fib(8)² + 1 = 442 =
 34·13`, and the root `21 = fib(8)` mod `34` is exactly the predicted convergent.
 
+## The spine as a linear recurrence; the residue as a Casoratian
+
+The golden spine is `C`-finite: the odd-index Fibonacci numbers satisfy the trace-`NS` recurrence
+`fib(2n+1) + fib(2n+5) = 3·fib(2n+3)` (`fib_spine_recurrence`), characteristic polynomial
+`x² − 3x + 1` — the characteristic polynomial of the golden matrix `P = [[2,1],[1,1]]` (trace
+`3 = NS`, det `1`) whose orbit is the spine, the recurrence step being the Markov-Vieta jump
+itself.  The Pell/silver spine is the companion with coefficient `6` (`pell_spine_recurrence`,
+char. `x² − 6x + 1`).  So `NS = 3` is the Markov coefficient, the trace of `P`, and the spine
+recurrence coefficient at once.
+
+Read in the discrete-difference calculus, `fib_spine_sqrt_neg_one` (`fib(2n+2)² + 1 =
+fib(2n+1)·fib(2n+3)`) is the **Casoratian** (discrete Wronskian, cross-determinant of two
+solution windows) of this recurrence, pinned to the constant `±1` by Cassini; reduced mod the
+spine's Markov number it is the `√(−1)` residue.  The spine grows exponentially, so it has
+infinite forward-difference depth — `C`-finite but not Newton-reconstructible (like `2ⁿ`); the
+Markov/quadratic-irrational sector meets the polynomial-depth sector only at the constants.
+
+This also reframes the open crux.  The Markov tree is a coalgebra; labelling each triple by its
+maximum and reading off the `√(−1)`-residue is an observable, and the uniqueness conjecture says
+the labelling is **minimal/reduced** (distinct triples have distinct labels — the residue
+separates states, Myhill–Nerode).  The arc supplies reachability and determinism; uniqueness is
+the missing reducedness.  The reduction `#roots ≤ 2 ⟹ unique` says the observable separates when
+it takes ≤ 2 values (prime powers); at composite `c` it takes ≥ 4 values and stops separating —
+the precise localisation of where the conjecture is open.
+
 ## Pairwise coprimality is the tree's invariant
 
 The square-root encoding needs `b` invertible mod `c`, i.e. `gcd(b,c) = 1`.  This is not an
@@ -169,4 +194,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `44 pure / 0 dirty`.
+Reports `46 pure / 0 dirty`.

@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 44 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 46 PURE)
 
 | theorem | content |
 |---|---|
@@ -47,6 +47,7 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `markov_common_dvd_sq`, `markov_gcd_dvd_sq` | `d∣b → d∣c → d∣a²`; `gcd(b,c)∣a²` (coprimality foothold) |
 | `markov_partner_is_triple` | the explicit Vieta partner `markovEq a b (3ab−c)` (tree edge map) |
 | `fib_spine_sqrt_neg_one` (+`_pred`) | **`fib(2n+3) ∣ fib(2n+2)²+1`** ∀n, from Cassini — φ's convergents are the spine's `√(−1)` roots |
+| `fib_spine_recurrence`, `pell_spine_recurrence` | **trace-`NS`/silver linear recurrences** of the Markov spines (`x²−3x+1`, `x²−6x+1`) — C-finite, the Vieta jump; Casoratian = Cassini = `√(−1)` residue (see `G174`) |
 | `cohn_sq_neg_one_mod` (+`cohn5_…`) | **`C² ≡ −I (mod c)`** for `tr C = 3c`, `det C = 1` (Cayley–Hamilton) — the Cohn matrix is order-4 mod `c`, a copy of the Gaussian `i = S` |
 | `coprime_vieta_step` | `gcd(a,c)=1 ∧ c+c'=3ab ⟹ gcd(a,c')=1` — the Vieta step preserves coprimality |
 | `MarkovReachable`, `markov_reachable_coprime` | **every tree triple is pairwise coprime** (C3, induction on the tree); `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc` (C2) |
