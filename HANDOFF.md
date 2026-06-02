@@ -3,7 +3,28 @@
 ## Branch
 `claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom.
 
-## Latest: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (19 PURE)
+## Latest: the autonomous-machine axis is now **closed tight** (Morse–Hedlund iff + full Thue–Morse)
+
+State after this leg (all ∅-axiom, pushed):
+  - `MorseHedlund.lean` **16 PURE** — `bool_autoRec_iff_evPeriodic`: `AutoRec` over the
+    `{0,1}`-embedding **⟺** eventually periodic.  Forward = `bool_autoRec_periodic` (pigeonhole);
+    converse = `bool_evPeriodic_autoRec` (period `p`+threshold `N` ⟹ window `N+p`, single-slot
+    rule `F w = w N`).  Escaping `AutoRec` ⟺ aperiodic, **no slack**.
+  - `ThueMorseAperiodic.lean` **21 PURE** — the canonical dense witness, complete: definition
+    (`tmF`/`tmF_canon` fuel-structural), recurrence (`tm_even`/`tm_odd`/`tm_pair_differ`),
+    **run-length ≤ 2** (`tm_run_le_two`: no three consecutive equal), **aperiodicity**
+    (`tm_not_evPeriodic`, period-descent), the **dense escape** (`tm_morse_not_autoRec`), and the
+    **automatic structure** (`tm_eq_popParity` = popcount mod 2).
+  - **Location, sharp**: `χ` escapes both machine classes (zero-runs); Thue–Morse escapes
+    `AutoRec` only — its `¬ HomogRec` is *not* ∅-axiom-closable (run-length ≤ 2 forbids the
+    zero-run certificate; the real obstruction is the deep automatic∧aperiodic⟹non-holonomic
+    theorem, sharing π's open status).
+
+### Conjecture captured (`G185`, on-goal "추측들도 만들고")
+The crisp shape an *elementary shadow* of Cobham/Christol would need, stated as the open ∅-axiom
+target for the dense `HomogRec` side — see `research-notes/G185` "Open conjecture".
+
+## Earlier this leg: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (21 PURE)
 
 **Automatic half (`tm_eq_popParity`).**  Thue–Morse *lacks* term-window memory (`AutoRec`,
 escape above) but *has* digit memory: `tm n = ` parity of the binary digit-sum `popcount(n)`

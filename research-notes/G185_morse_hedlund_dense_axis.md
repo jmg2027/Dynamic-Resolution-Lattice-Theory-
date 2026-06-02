@@ -103,3 +103,37 @@ the elementary shadow.
 `χ` escapes the union `FiniteRecurrence = HomogRec ∨ AutoRec` (`chi_not_finiteRecurrence`).  The
 three criteria together cover both machine classes across both densities — the full elementary
 ∅-axiom reach.  π stays the open core (no constructive shadow of the FGS analytic obstruction).
+
+## The autonomous axis, closed to an iff
+
+With `bool_autoRec_iff_evPeriodic` the `AutoRec` column is no longer a one-way escape: over the
+`{0,1}`-embedding, `AutoRec ⟺ EvPeriodic` *exactly*.  So the entire content of "escapes the
+autonomous machine" **is** "aperiodic" — the three escape criteria above are the only ways to
+*exhibit* aperiodicity ∅-axiom (long zero-runs, a repeated window with two continuations, or the
+Morse–Hedlund pigeonhole), but the class boundary itself is now a clean equivalence.  Dense
+witnesses are not a stronger escape; they are the aperiodic sequences for which the first two
+*cheap* exhibition routes are unavailable, leaving only Morse–Hedlund.
+
+## Open conjecture — the elementary shadow of Cobham/Christol on the `HomogRec` side
+
+The one genuinely-open ∅-axiom target this map leaves (short of π itself):
+
+> **Conjecture (dense `HomogRec` escape).**  There is an *elementary, ∅-axiom* certificate `C`
+> such that `C a ⟹ ¬ HomogRec a`, with `C` satisfiable by a **bounded, no-long-run** sequence
+> (run-length `≤ B` for a fixed `B`).  Equivalently: an ∅-axiom witness that *some* digit-
+> automatic aperiodic sequence (e.g. Thue–Morse, `tm_eq_popParity` + `tm_not_evPeriodic`) is not
+> P-recursive — a constructive shadow of *automatic ∧ aperiodic ⟹ non-holonomic* that does **not**
+> route through long zero-runs.
+
+Why it is hard, sharply.  `HomogRec` is *time-varying*: the leading coefficient `lead(n)` may
+change with `n`, so the Myhill–Nerode "one state, two outputs" obstruction (which kills `AutoRec`)
+does **not** transfer — `two_continuations` is powerless here.  The only elementary handle is the
+`zero_run` cascade (`lead(n)≠0` + a zero window ⟹ forced-zero tail), which `tm_run_le_two`
+structurally denies.  So `C`, if it exists, must obstruct a *polynomial-coefficient* recurrence
+without invoking a forced cascade from a constant window — a genuinely new mechanism.  Absent it,
+Thue–Morse's `¬ HomogRec` sits at exactly π's status: true classically, no ∅-axiom shadow.
+
+**Falsification handle.**  The conjecture is *false* if every bounded no-long-run aperiodic
+sequence's non-P-recursivity provably requires a normality/Gauss–Kuzmin-strength input (the FGS
+flavour) — i.e. if no finitary certificate can exist.  Either resolution is a real datum about
+where the elementary/analytic boundary actually lies.
