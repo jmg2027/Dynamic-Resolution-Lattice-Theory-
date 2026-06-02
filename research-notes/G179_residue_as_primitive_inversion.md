@@ -136,13 +136,28 @@ commutations) is proven — *not* the object-property "weakly final" (the name w
 *not* uniqueness (full finality).  The `rfl` commutations are the computation rule of `ana`.
 The escape conjunct is re-exported from the structural step, not new.
 
-## Still open — uniqueness/injectivity (full Lean-native νF)
+## Fourth step — the faithful embedding (`CoResidue` §6)
 
-`CoResidue` remains an **emulation**: `CoShape` is the full function space (not the
-well-formed cotree subtype), `toShape` is not injective (`Bool`-`CoShape` conflates the two
-atoms — a faithful embedding needs a leaf-labelled `CoShape`), and the unfold's *uniqueness*
-(finality proper, via bisimulation) is unproven.  A genuinely Lean-native νF — leaf-labelled
-carrier + injective `toShape` + final-coalgebra uniqueness — remains open (Mathlib-free Lean
-has no coinduction primitive; would need a setoid emulation with encoding cost).  The
-existence half (route (a)+anamorphism) is the honest tractable realisation; uniqueness is the
-deeper deferred piece.
+The `Bool`-`CoShape` conflates the two atoms (records only branch-vs-leaf).  Recording the
+leaf label — `LCoShape := List Bool → Option Bool` (`none` = branch, `some b` = leaf-atom) —
+makes the embedding **faithful**: `lToShape_faithful` — `(∀ p, lToShape t p = lToShape t' p)
+→ t = t'`, stated *pointwise* (funext-free).  The leaf-free inhabitant `allBranchL =
+fun _ => none` still escapes (`lToShape_ne_allBranchL`).  This closes the faithful-embedding
+spec item (G180 item 2).
+
+## Where the emulation stands — all four numbered spec items met
+
+The G180 νF spec items are now all met *in the emulation*: (1) coalgebra `coOut`; (2)
+faithful embedding (`lToShape_faithful`, pointwise); (3) non-surjective with a named infinite
+inhabitant (`raw_ne_allBranch` / `lToShape_ne_allBranchL`); (4) that inhabitant has infinite
+`coOut`-descent (`allBranch_no_leaf`, `allBranch_coLeft_self`).  Plus unfold existence (every
+coalgebra unfolds, `ana`).
+
+## Still open — true finality (uniqueness via coinduction)
+
+What remains is **finality proper**: *uniqueness* of the unfold (two coalgebra homs into the
+carrier that agree as coalgebra maps are equal), the bisimulation/coinduction content.
+Mathlib-free Lean has no coinduction primitive, so this needs a setoid emulation with
+encoding cost — the genuinely deferred deep piece.  The emulation (items 1–4 + unfold
+existence) is the honest tractable realisation of the inversion's νF face; finality's
+uniqueness is the frontier.

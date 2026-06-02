@@ -222,4 +222,66 @@ theorem unfold_existence_and_escape :
   ⟨fun c x p => ⟨ana_isBranch c x, ana_coLeft c x p, ana_coRight c x p⟩,
    toShape_eq_ana, allBranch_eq_ana, raw_ne_allBranch⟩
 
+/-! ## §6 — a leaf-labelled refinement: the embedding is *faithful*
+
+The `Bool`-`CoShape` records only branch-vs-leaf, so it conflates the two atoms.  Recording
+the leaf's atom label — `LCoShape := List Bool → Option Bool` (`none` = branch, `some b` =
+leaf with atom `b`) — makes the finite embedding **faithful**: trees that agree everywhere as
+labelled shapes are equal (`lToShape_faithful`, stated *pointwise* to avoid `funext`).  This
+closes the faithful-embedding spec item; the leaf-free inhabitant `allBranchL = fun _ => none`
+still escapes (`lToShape_ne_allBranchL`).  (Uniqueness/finality of the unfold — full νF —
+still needs coinduction.) -/
+
+/-- A leaf-labelled self-pointing tree: `none` at a branch node, `some b` at a leaf with
+    atom `b`. -/
+def LCoShape : Type := List Bool → Option Bool
+
+/-- The leaf-labelled embedding: atoms carry their label, a slash is a branch with children. -/
+def lToShape : Tree → LCoShape
+  | Tree.a,         _            => some true
+  | Tree.b,         _            => some false
+  | Tree.slash _ _, []           => none
+  | Tree.slash x _, (true :: p)  => lToShape x p
+  | Tree.slash _ y, (false :: p) => lToShape y p
+
+/-- ★★★ **The leaf-labelled embedding is faithful.**  If two trees agree everywhere as
+    labelled shapes (`∀ p, lToShape t p = lToShape t' p`), they are equal.  Stated pointwise
+    (no `funext`): the root label separates atom-a / atom-b / branch, and the branch case
+    recurses into the children via the `true ::`/`false ::` paths.  So the finite Raw embeds
+    *faithfully* into the (leaf-labelled) co-tree model. -/
+theorem lToShape_faithful : ∀ (t t' : Tree),
+    (∀ p, lToShape t p = lToShape t' p) → t = t'
+  | Tree.a, Tree.a, _ => rfl
+  | Tree.b, Tree.b, _ => rfl
+  | Tree.a, Tree.b, h => by have := h []; exact Bool.noConfusion (Option.some.inj this)
+  | Tree.b, Tree.a, h => by have := h []; exact Bool.noConfusion (Option.some.inj this)
+  | Tree.a, Tree.slash _ _, h => by have := h []; exact Option.noConfusion this
+  | Tree.b, Tree.slash _ _, h => by have := h []; exact Option.noConfusion this
+  | Tree.slash _ _, Tree.a, h => by have := h []; exact Option.noConfusion this
+  | Tree.slash _ _, Tree.b, h => by have := h []; exact Option.noConfusion this
+  | Tree.slash x y, Tree.slash x' y', h => by
+      have hx : x = x' := lToShape_faithful x x' (fun p => h (true :: p))
+      have hy : y = y' := lToShape_faithful y y' (fun p => h (false :: p))
+      rw [hx, hy]
+
+/-- The leaf-free infinite inhabitant in the labelled model. -/
+def allBranchL : LCoShape := fun _ => none
+
+/-- Every finite tree has a leaf (a `some` label somewhere). -/
+theorem lTree_has_leaf : ∀ t : Tree, ∃ p b, lToShape t p = some b
+  | Tree.a         => ⟨[], true, rfl⟩
+  | Tree.b         => ⟨[], false, rfl⟩
+  | Tree.slash x _ =>
+      let ⟨p, b, hp⟩ := lTree_has_leaf x
+      ⟨true :: p, b, hp⟩
+
+/-- ★★ **The leaf-free inhabitant escapes the faithful embedding too.**  No finite tree's
+    labelled shape is leaf-free: `lToShape t ≠ allBranchL` (a finite tree has a leaf, where
+    its label is `some _`, while `allBranchL` is `none` everywhere). -/
+theorem lToShape_ne_allBranchL (t : Tree) : lToShape t ≠ allBranchL := by
+  intro h
+  obtain ⟨p, b, hp⟩ := lTree_has_leaf t
+  have e : allBranchL p = some b := by rw [← h]; exact hp
+  exact Option.noConfusion e
+
 end E213.Theory.Raw.CoResidue
