@@ -138,6 +138,55 @@ theorem fib_convergent_below_phi (n : Nat) :
   exact E213.Lib.Math.Real213.PhiAsCut.phiCut_false_of_norm
     (fib (2 * n + 2)) (fib (2 * n + 1)) hform
 
+/-! ## The dynamic orbit approaches φ but never satisfies the frozen relation
+
+`05_no_exterior.md` §5.7 reads φ two ways — *frozen* (the algebraic fixed point of
+`P(x) = (2x+1)/(x+1)`, i.e. the root of `x² = x + 1`, realised here as the decidable cut
+`phiCut`) and *dynamic* (the limit the Pell/Fibonacci convergents `fib(2n+2)/fib(2n+1)`
+approach).  This file records the ∅-axiom facts available over `Nat` about how the dynamic
+orbit relates to the frozen relation — it does **not** prove an equality/identification of
+two objects (that would need the real limit), only the homogeneous-`Nat` shadow:
+
+  * the frozen relation, homogenised for a pair `(a,b)`, is `a² = a·b + b²` (`Q(a,b) = 0`);
+  * every dynamic convergent satisfies the Cassini form `a² + 1 = a·b + b²` instead
+    (`fib_cassini_norm`), so it sits one `Nat` step off the frozen relation;
+  * hence the convergent **never** satisfies `a² = a·b + b²` (`convergent_never_frozen`),
+    while lying below the frozen cut φ (`fib_convergent_below_phi`).
+
+So the dynamic orbit approaches φ from below and never lands on the homogeneous frozen
+relation — the separating step is the Cassini surplus `+1`.  (Whether this `+1` is "the
+same" unit as the descent step or the overflow surplus is narrative, not proved here — no
+`Nat` term links them; cf. `ReentryUnit.peel_overflow_is_unit`, which is the one place two
+such units are linked.) -/
+
+/-- ★★ **The dynamic orbit never satisfies the homogeneous frozen relation.**  No convergent
+    satisfies `a² = a·b + b²` (the pair form of `x² = x + 1`): the Cassini norm gives
+    `a² + 1 = a·b + b²`, so `a² = a·b + b²` would force `a² + 1 = a²`.  The convergent sits
+    one `Nat` step off the frozen relation. -/
+theorem convergent_never_frozen (n : Nat) :
+    fib (2 * n + 2) * fib (2 * n + 2)
+      ≠ fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) := by
+  intro h
+  have hc := fib_cassini_norm n
+  rw [← h] at hc
+  exact Nat.succ_ne_self _ hc
+
+/-- ★★ **Approaches but never reaches** (the ∅-axiom `Nat` shadow of §5.7).  Three facts of
+    the dynamic-vs-frozen relation: each convergent lies below the frozen cut φ
+    (`fib_convergent_below_phi`), satisfies the Cassini form `a² + 1 = a·b + b²`
+    (`fib_cassini_norm`), and so never satisfies the homogeneous frozen relation
+    `a² = a·b + b²` (`convergent_never_frozen`).  The orbit approaches φ and stays exactly
+    the Cassini step `+1` off the frozen relation — it never lands on it.  This is a bundle
+    of three `Nat` facts, not an identification of frozen with dynamic (the latter needs the
+    real limit, outside the ∅-axiom `Nat` reach). -/
+theorem dynamic_approaches_never_reaches_frozen (n : Nat) :
+    E213.Lib.Math.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false
+    ∧ fib (2 * n + 2) * fib (2 * n + 2) + 1
+        = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1)
+    ∧ fib (2 * n + 2) * fib (2 * n + 2)
+        ≠ fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) :=
+  ⟨fib_convergent_below_phi n, fib_cassini_norm n, convergent_never_frozen n⟩
+
 /-! ## Toward the Cauchy-complete limit — consecutive-convergent cross-product
 
 For the `CauchyCutSeq` limit construction (`Analysis/CauchyComplete`), the key

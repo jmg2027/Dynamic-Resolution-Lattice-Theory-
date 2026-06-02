@@ -13,8 +13,9 @@ spec file overlap, **the spec file wins**.
    absence of exterior, dichotomy-avoidance guide.  **Re-read every
    session start.**  False dichotomies (inside/outside 213,
    classical/213, foundation/derivation) are the most common slip.
-2. **`research-notes/G29_residue.md`** — what 213 *is*, in
-   minimum-commitment language with no comparison frames.
+2. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
+   — what 213 *is* (minimum-commitment) and the residue's *form*
+   (source-without-enclosure), pinned so it is not re-fought each session.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
    three-tier discipline + promotion gates.

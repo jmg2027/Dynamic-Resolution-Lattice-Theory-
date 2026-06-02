@@ -19,6 +19,8 @@ derivation+citation+dual-function+cross-frame+self-check
 
 | Essay | Triggering question | Anchor chapters |
 |-------|---------------------|-----------------|
+| `the_form_of_the_residue.md` | What is the **form of the residue** (잔여의 형식)? How does 213 stand on its own — the all-encompassing concept? | `seed/AXIOM/{01_residue,03_form §3.5,05_no_exterior §5.1}` + `Lib/Math/ResidueForm` + `Lens/{SemanticAtom,FlatOntologyClosure}` |
+| `the_residue_as_primitive.md` | The **inversion**: take the self-pointing act as primitive — Raw = µF, the residue-escape = νF.  How is the exact slash-νF built ∅-axiom, no coinduction? | `Theory/Raw/{MuNuMirror,CoResidue}` (the M-type final coalgebra) + `Theory/Raw/{Lambek,PrimitiveTower}` |
 | `kplus1_alpha_power_graduation.md` | What is `(k+1)` in 213? Why does H^k → α^(k+1)? | `math/cohomology/cup_ladder_graduation.md` + `physics/alpha_em/precision_derivation.md` C1 Step 6 |
 | `steenrod_whitehead_bridge.md` | Why does `cup_1(ω, ω) = δ²(ω)` hold at K_{3,2}^{(c=2)}? | `math/cohomology/k32_higher_cohomology.md` + `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` |
 | `cut_off_marathon.md` | What collapsed in the cardinality cut-off 6-direction marathon? | `math/cohomology/aurifeuillean.md` + `meta/cardinality_cutoff_applications.md` |

@@ -1,5 +1,6 @@
 import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Math.Mobius213.Px.POrbitClosure
+import E213.Meta.Int213.PolyInt2
 
 /-!
 # Mobius213.Px.CharPolySelf — P's char-poly reproduced from its own L-orbit
@@ -79,6 +80,41 @@ theorem cassini_at_two : L 1 * L 3 - (L 2)^2 = (d : Int) := by decide
 /-- ★★ **Cassini identity at n = 3**: `L(2) · L(4) − L(3)² = d`.
     Concrete: `7·47 − 324 = 329 − 324 = 5`. -/
 theorem cassini_at_three : L 2 * L 4 - (L 3)^2 = (d : Int) := by decide
+
+/-! ## §1b — the Cassini identity for *every* `n` (the conserved determinant)
+
+The three instances above are `decide`-checks at `n = 1, 2, 3`.  The general law is one
+theorem: `L n · L(n+2) − L(n+1)² = d` for **all** `n`.  The Cassini quantity is the
+determinant `det [[L(n+1), L n], [L(n+2), L(n+1)]]`, conserved by the recurrence
+`L(n+2) = 3·L(n+1) − L n` (`L_rec`, definitional) — so it equals its value at `n = 0`, which
+is `d = 5`.  The inductive step is a 2-variable `Int` identity discharged by the `poly_id2`
+reflection prover. -/
+
+/-- The `L`-recurrence, definitionally: `L(k+2) = 3·L(k+1) − L k`. -/
+theorem L_rec (k : Nat) : L (k + 2) = 3 * L (k + 1) - L k := rfl
+
+/-- ★★★ **Cassini identity for every `n`.**  `L n · L(n+2) − L(n+1)² = d` for all `n` — the
+    conserved determinant of the `L`-orbit, equal to the discriminant `d = NS + NT = 5` at
+    every layer.  Generalises `cassini_at_{one,two,three}`.  Proof: the quantity is conserved
+    by the recurrence (inductive step = a 2-var `Int` identity via `poly_id2`), so it stays
+    at its `n = 0` value `d`. -/
+theorem cassini_general (n : Nat) :
+    L n * L (n + 2) - L (n + 1) * L (n + 1) = (d : Int) := by
+  induction n with
+  | zero => decide
+  | succ k ih =>
+    show L (k + 1) * L (k + 3) - L (k + 2) * L (k + 2) = (d : Int)
+    have h3 : L (k + 3) = 3 * L (k + 2) - L (k + 1) := rfl
+    have h2 : L (k + 2) = 3 * L (k + 1) - L k := rfl
+    rw [h2] at ih
+    rw [h3, h2, ← ih]
+    exact E213.Meta.Int213.PolyInt2.poly_id2
+      (.add (.mul .Y (.add (.mul (.C 3) (.add (.mul (.C 3) .Y) (.neg .X))) (.neg .Y)))
+            (.neg (.mul (.add (.mul (.C 3) .Y) (.neg .X))
+                        (.add (.mul (.C 3) .Y) (.neg .X)))))
+      (.add (.mul .X (.add (.mul (.C 3) .Y) (.neg .X)))
+            (.neg (.mul .Y .Y)))
+      rfl (L k) (L (k + 1))
 
 /-! ## §3 — Atomic primes reconstructed from L -/
 
