@@ -177,12 +177,12 @@ Nörlund–Rice integral, Newton-series convergence / Carlson's theorem.
   (finite-depth) sector and the periodic (Markov / quadratic-irrational) sector are
   disjoint: periodic non-constant sequences have *no* finite ℤ-difference-depth.
   A clean separation lemma; the Markov spectrum itself stays classically open.
-- **C5 (∅-axiom-closable; the *right* home for the §5.2 self-reference question)**
-  characterize the **fixed-point eigenspace** of the binomial transform
-  `s = Σ (−1)^{n−j} binom(n,j) s(j)`.  This is a definable ℤ-subspace; computing it
-  ∅-axiom would *earn* the "self-inverse Lens" narrative with an actual fixed-point
-  set — and empirically settle Nat-style (fixed-point-rich, predicted) vs Bool-style
-  (fixed-point-free).  Replaces the dropped liar-involution claim.
+- **C5 ✅ DONE** (`Cauchy/BinomialTransform.lean`, 6 PURE): `binomialT_involutive`
+  (`T∘T = id`, `T s n = Σ_{j≤n}(−1)ʲbinom(n,j)s(j)`) — a genuine self-inverse change
+  of basis, proved by reusing `binomial_transform_roundtrip` (`T s n = (−1)ⁿ(Δⁿs)(0)`,
+  `(−1)ⁿ(−1)ⁿ=1`).  `binomialT_fixed`: `s + Ts` fixed for EVERY `s` ⟹ **fixed-point-
+  rich = Nat-style**, settling the §5.2 question and confirming the red-team prediction
+  (NOT Bool-style/liar).  Frontier left: the eigenspace's full structure over ℤ.
 
 ## Session log
 

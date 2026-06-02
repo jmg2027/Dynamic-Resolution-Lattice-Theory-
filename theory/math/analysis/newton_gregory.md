@@ -129,11 +129,28 @@ through induction on the degree bound (`mul_vanish`, in the vanishing view
 is degree `d+e`", e.g. π's degree-4 cross-determinant ratio as the product of two
 degree-2 Wallis coefficients — into a theorem.
 
+## The involution, and the §5.2 self-reference question (closed)
+
+`Cauchy/BinomialTransform.lean` (6 PURE) makes the "self-inverse Lens" reading a
+theorem.  Define the sign-twisted transform `T s n = Σ_{j≤n} (−1)ʲ binom(n,j)
+s(j)`.  Then:
+
+> `binomialT_involutive` : `T (T s) = s` — `T` is a genuine **involution** (a
+> self-inverse change of basis, Pólya–Ostrowski ⇄ monomial).
+> `binomialT_fixed` : for *every* `s`, `s + T s` is a fixed point of `T`.
+
+The proof reuses `binomial_transform_roundtrip`: `T s n = (−1)ⁿ·(Δⁿ s)(0)`
+(`binomialT_eq`), and `(−1)ⁿ·(−1)ⁿ = 1` collapses `T∘T` onto the forward Newton
+identity.  This **settles the §5.2 question** (`seed/AXIOM/05_no_exterior.md`): the
+binomial transform is **fixed-point-rich** — an involution with a large fixed set
+(`s + T s` for any `s`) — which is **Nat-style** grounding (a fixed point exists and
+the iteration settles), the *opposite* of the fixed-point-free Bool-style liar
+oscillation `not ∘ not = id`.  The "two readings of one residue related by an
+involution" framing is thereby earned with an actual fixed set, not asserted.
+
 ## Frontier
 
-- **Fixed-point eigenspace** of the binomial transform — the definable ℤ-subspace
-  of `s = Σ (−1)^{n−j} binom(n,j) s(j)`; settles Nat-style vs Bool-style for the
-  involution and earns the "self-inverse Lens" reading with an actual fixed set.
+- The fixed-point eigenspace's full structure (dimension / explicit basis) over ℤ.
 
 Anchors: Gregory c.1670 / Newton *Methodus Differentialis* 1711 (operator form);
 Rota–Kahaner–Odlyzko 1973 (finite operator calculus; `Δ` a delta operator, falling

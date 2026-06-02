@@ -65,16 +65,23 @@ Standard status unchanged.
    (finite-depth ring, depth-additivity) via discrete Leibniz `diffZ_mul` +
    `mul_vanish`.  Plus module structure (add/smul/shift).  π "depth 6=1+1+4" now a
    theorem.
-3. **C5 (∅-axiom-closable; the *right* home for the §5.2 self-reference question)**
-   characterize the **fixed-point eigenspace** of the binomial transform
-   `s = Σ(−1)^{n−j}binom(n,j)s(j)` — settles Nat-style (predicted) vs Bool-style and
-   earns the "self-inverse Lens" reading with an actual fixed set.
-4. π non-holonomicity (classical open, from prior session, `G170`) — unchanged.
-5. ζ(3) Apéry depth — DEFERRED to another branch (user).  Do NOT build here.
+2. **C5 ✅ DONE** (`Cauchy/BinomialTransform.lean`, 6 PURE): `binomialT_involutive`
+   (`T∘T=id`) + `binomialT_fixed` (`s+Ts` always fixed) — binomial transform is a
+   fixed-point-rich (Nat-style) involution, settling the §5.2 self-reference question.
+3. **C3 (next, combinatorial part ∅-axiom)** the e/π depth separation as a structural
+   invariant (e depth 1, π Wallis-coeff depth 2 — provable they differ).  Do NOT slide
+   to "explains the e–π separation" (metaphysical).  Transcendence part classically open.
+4. **C4 (∅-axiom-statable)** boundary marker: finite-depth (Newton-reconstructible)
+   sector vs periodic (Markov/quadratic) sector are disjoint.  Eigenspace structure (C5
+   frontier): dimension/basis of `{s : T s = s}` over ℤ.
+5. π non-holonomicity (classical open, from prior session, `G170`) — unchanged.
+6. ζ(3) Apéry depth — DEFERRED to another branch (user).  Do NOT build here.
 
 ## Dead ends / cautions (don't repeat)
 - `funext` pulls `Quot.sound` (DIRTY).  Use pointwise congruence lemmas
-  (`bsum_congr`) instead — same pattern as `liftK_congr`.
+  (`bsum_congr`, `liftKZ_congrZ`, `vanishZ_congr`) instead.
+- Core `Int.zero_add` pulls **propext** (asymmetric — `Int.add_zero` is fine); use
+  `Int213.zero_add`.
 - `conv_lhs`/`conv_rhs`, `omega`, `Nat.one_le_pow` are **unavailable** (Mathlib /
   version).  Use base `conv`, explicit rewrites, local `one_le_succ_pow`.
 - Core `Int.natAbs_add_le`, `Int.natAbs_mul` pull **propext** — use the local pure
@@ -92,6 +99,8 @@ NEW Lean (∅-axiom, 41 PURE):
                                                     (periodic + e witnesses), 14 PURE
   lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2: finite-depth ring
                                                     (polyDepthZ_mul, Leibniz), 22 PURE
+  lean/E213/Lib/Math/Cauchy/BinomialTransform.lean ← C5: involution T∘T=id +
+                                                    fixed-point richness, 6 PURE
 NEW theory chapter:
   theory/math/analysis/newton_gregory.md
 NEW research note:
