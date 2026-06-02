@@ -27,7 +27,7 @@ This is the *sufficiency* direction `q = 1 ⟹ depth 0`, the structural floor be
 namespace E213.Lib.Math.Cauchy.CassiniDepthFloor
 
 open E213.Lib.Math.CassiniUnimodular (det det_step)
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ)
+open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ diffZ)
 open E213.Lib.Math.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (L_rec)
@@ -109,5 +109,28 @@ theorem cassini_is_polynomial (p : Int) (s : Nat → Int)
     (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) :
     ∃ c : Nat → Int, ∀ n, det s n = newtonZ c 0 n :=
   finite_depthZ_iff.mp (cassini_conserved_depth0 p s hrec)
+
+/-! ## §4 — the orbit is C-finite: the Δ-orbit closes at dimension ≤ 2 (the middle rung)
+
+Where §3 puts the *Cassini* on the polynomial bottom rung, the *orbit itself* sits on the
+**C-finite** middle rung of the orbit-dimension ladder (`G183_above_the_polynomials`): a 2nd-order
+constant-coefficient recurrence makes the difference-orbit `⟨s, Δs, Δ²s, …⟩` close at dimension
+`≤ 2` — the **second difference is a constant-coefficient combination of `s` and `Δs`** (the
+"Cayley–Hamilton for `Δ`").  This is finite-`Δ`-orbit-over-`ℚ` for order 2, the witness that the
+orbit is C-finite (and, generically, divergence-depth `∞` — above the polynomials, even as its
+Cassini collapses to depth 0). -/
+
+/-- ★★★ **The Δ-orbit closes at dimension ≤ 2 (C-finite witness).**  For a 2nd-order
+    constant-coefficient orbit `s(n+2) = p·s(n+1) − q·s(n)`, the second difference is a *constant*
+    -coefficient combination of `s` and `Δs`: `Δ²s n = (p − q − 1)·s n + (p − 2)·Δs n`.  So the
+    difference-orbit `⟨s, Δs, Δ²s, …⟩` is spanned by `{s, Δs}` over `ℚ` — the orbit is C-finite
+    (orbit dimension `≤ 2`), the middle rung of the divergence-depth ladder. -/
+theorem second_diff_closure (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) (n : Nat) :
+    diffZ (diffZ s) n = (p - q - 1) * s n + (p - 2) * diffZ s n := by
+  show (s (n + 2) - s (n + 1)) - (s (n + 1) - s n)
+       = (p - q - 1) * s n + (p - 2) * (s (n + 1) - s n)
+  rw [hrec n]
+  ring_intZ
 
 end E213.Lib.Math.Cauchy.CassiniDepthFloor
