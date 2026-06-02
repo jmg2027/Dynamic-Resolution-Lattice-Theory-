@@ -81,4 +81,104 @@ theorem neg_neg (p : NPair) : neg (neg p) = p := rfl
     readings of the one pair. -/
 theorem scale_neg (c : Nat) (p : NPair) : scale c (neg p) = neg (scale c p) := rfl
 
+/-! ## §3 — the signed telescope: ζ(3)'s `1/n³` Casoratian as a constant-sign ℕ-pair
+
+With the sign native (a ℕ-pair axis), the telescoping of the signed step law runs *on the
+pair*, carrying the sign exactly.  For ζ(3) the trailing coefficient `c₀ = −(n−1)³` is on the
+negative axis, so `−c₀` keeps the axis: every step is swap-free and the Casoratian holds one
+**constant** sign.  This section telescopes that swap-free case to the closed pair form
+`scale (∏ P) Cₙ ~ scale (∏ Q) C₀` — the `1/n³` denominator with a fixed sign, ∅-axiom, no
+`ℤ`.  (ζ(2)'s `c₀ = +n²` is on the positive axis ⟹ a swap each step ⟹ the sign is
+`iterNeg n` = `(−1)ⁿ`; the period-2 `iterNeg` infrastructure below carries it.) -/
+
+open E213.Lens.Number.Nat213.Tower.NatPairToInt (npairEquiv_refl npairEquiv_trans)
+open E213.Lib.Math.Cauchy.CasoratianStep (prodFrom)
+open E213.Tactic.NatHelper (mul_assoc)
+
+/-- `scale (a·b) p = scale a (scale b p)` — scaling factors through the pair. -/
+theorem scale_mul (a b : Nat) (p : NPair) : scale (a * b) p = scale a (scale b p) := by
+  show (a * b * p.1, a * b * p.2) = (a * (b * p.1), a * (b * p.2))
+  rw [mul_assoc a b p.1, mul_assoc a b p.2]
+
+/-- Scaling factors commute: `scale a (scale b p) = scale b (scale a p)`. -/
+theorem scale_comm (a b : Nat) (p : NPair) : scale a (scale b p) = scale b (scale a p) := by
+  rw [← scale_mul a b p, ← scale_mul b a p, Nat.mul_comm a b]
+
+/-- `npairEquiv` is a congruence for `scale`: equal integers stay equal when scaled. -/
+theorem scale_congr (c : Nat) {p q : NPair} (h : npairEquiv p q) :
+    npairEquiv (scale c p) (scale c q) := by
+  have h' : p.1 + q.2 = p.2 + q.1 := h
+  show c * p.1 + c * q.2 = c * p.2 + c * q.1
+  rw [← Nat.mul_add c p.1 q.2, ← Nat.mul_add c p.2 q.1, h']
+
+/-- `npairEquiv` is a congruence for the sign toggle `neg`. -/
+theorem neg_congr {p q : NPair} (h : npairEquiv p q) : npairEquiv (neg p) (neg q) :=
+  (show p.1 + q.2 = p.2 + q.1 from h).symm
+
+/-- Apply the sign toggle `n` times — the accumulated sign over `n` swaps. -/
+def iterNeg : Nat → NPair → NPair
+  | 0,   p => p
+  | k+1, p => neg (iterNeg k p)
+
+/-- The accumulated sign has period 2 (the Oscillate outcome): `iterNeg (k+2) = iterNeg k`. -/
+theorem iterNeg_succ_succ (k : Nat) (p : NPair) : iterNeg (k+2) p = iterNeg k p :=
+  neg_neg (iterNeg k p)
+
+/-- Scaling commutes through the accumulated sign: `scale c (iterNeg n p) = iterNeg n (scale
+    c p)` (magnitude and sign independent at every depth). -/
+theorem scale_iterNeg (c : Nat) : ∀ n p, scale c (iterNeg n p) = iterNeg n (scale c p)
+  | 0,   _ => rfl
+  | n+1, p => by
+      show scale c (neg (iterNeg n p)) = neg (iterNeg n (scale c p))
+      rw [scale_neg, scale_iterNeg c n p]
+
+/-- ★★★ **The constant-sign signed telescope (ζ(3) shape).**  If the pair Casoratian `C`
+    obeys the swap-free step law `P(k+1)·C(k+1) = Q(k+1)·C(k)` (as a `npairEquiv`, with `Q =
+    −c₀ = (n−1)³` on the same axis — ζ(3)'s case), then it telescopes to
+    `scale (∏_{k≤n} P k) (C n) ~ scale (∏_{k≤n} Q k) (C 0)` — the running products of the
+    outer coefficients carry the Casoratian back to `C 0` with **one constant sign**.  For
+    ζ(3) (`P = n³`, `Q = (n−1)³`) this is exactly the `1/n³` Casoratian denominator, sign
+    included, ∅-axiom over ℕ-pairs (no `ℤ`).  Proof: `npairEquiv` transitivity through the
+    `scale`-congruence and `scale`-commutation. -/
+theorem telescope_pair (P Q : Nat → Nat) (C : Nat → NPair)
+    (h : ∀ k, npairEquiv (scale (P (k+1)) (C (k+1))) (scale (Q (k+1)) (C k))) :
+    ∀ n, npairEquiv (scale (prodFrom P n) (C n)) (scale (prodFrom Q n) (C 0))
+  | 0   => npairEquiv_refl _
+  | n+1 => by
+      show npairEquiv (scale (prodFrom P n * P (n+1)) (C (n+1)))
+                      (scale (prodFrom Q n * Q (n+1)) (C 0))
+      rw [scale_mul (prodFrom P n) (P (n+1)) (C (n+1)),
+          scale_mul (prodFrom Q n) (Q (n+1)) (C 0)]
+      refine npairEquiv_trans (scale_congr (prodFrom P n) (h n)) ?_
+      rw [scale_comm (prodFrom P n) (Q (n+1)) (C n),
+          scale_comm (prodFrom Q n) (Q (n+1)) (C 0)]
+      exact scale_congr (Q (n+1)) (telescope_pair P Q C h n)
+
+/-- ★★★ **The alternating-sign signed telescope (ζ(2) shape).**  If the pair Casoratian `C`
+    obeys the swap-each-step law `P(k+1)·C(k+1) = Q(k+1)·(neg C(k))` (as a `npairEquiv`, with
+    `Q = c₀ = n²` on the positive axis — ζ(2)'s case, where `−c₀` swaps), then it telescopes
+    to `scale (∏ P) (C n) ~ iterNeg n (scale (∏ Q) (C 0))` — the running products carry the
+    Casoratian back to `C 0` with the **accumulated sign `(−1)ⁿ`** (`iterNeg n`, period 2).
+    For ζ(2) (`P = (n+1)²`, `Q = n²`) this is exactly the alternating `±5/n²` Casoratian,
+    sign included, ∅-axiom over ℕ-pairs (no `ℤ`). -/
+theorem telescope_pair_alt (P Q : Nat → Nat) (C : Nat → NPair)
+    (h : ∀ k, npairEquiv (scale (P (k+1)) (C (k+1))) (scale (Q (k+1)) (neg (C k)))) :
+    ∀ n, npairEquiv (scale (prodFrom P n) (C n)) (iterNeg n (scale (prodFrom Q n) (C 0)))
+  | 0   => npairEquiv_refl _
+  | n+1 => by
+      show npairEquiv (scale (prodFrom P n * P (n+1)) (C (n+1)))
+                      (iterNeg (n+1) (scale (prodFrom Q n * Q (n+1)) (C 0)))
+      rw [scale_mul (prodFrom P n) (P (n+1)) (C (n+1))]
+      refine npairEquiv_trans (scale_congr (prodFrom P n) (h n)) ?_
+      rw [scale_comm (prodFrom P n) (Q (n+1)) (neg (C n)), scale_neg (prodFrom P n) (C n)]
+      have rhs_eq : iterNeg (n+1) (scale (prodFrom Q n * Q (n+1)) (C 0))
+                  = scale (Q (n+1)) (neg (iterNeg n (scale (prodFrom Q n) (C 0)))) := by
+        show neg (iterNeg n (scale (prodFrom Q n * Q (n+1)) (C 0)))
+           = scale (Q (n+1)) (neg (iterNeg n (scale (prodFrom Q n) (C 0))))
+        rw [Nat.mul_comm (prodFrom Q n) (Q (n+1)), scale_mul (Q (n+1)) (prodFrom Q n) (C 0),
+            ← scale_iterNeg (Q (n+1)) n (scale (prodFrom Q n) (C 0)),
+            ← scale_neg (Q (n+1)) (iterNeg n (scale (prodFrom Q n) (C 0)))]
+      rw [rhs_eq]
+      exact scale_congr (Q (n+1)) (neg_congr (telescope_pair_alt P Q C h n))
+
 end E213.Lib.Math.Cauchy.CasoratianSigned

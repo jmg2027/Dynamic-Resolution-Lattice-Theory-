@@ -292,14 +292,20 @@ Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`,
 nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
 multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
 
-`E213.Lib.Math.Cauchy.CasoratianSigned` — **6 PURE / 0 DIRTY**.  The *signed* Casoratian law,
-sign carried 213-natively as a ℕ-pair (`Lens.Number.Nat213.Tower.NatPairToInt`: integer =
-pair `(a,b)` = `a−b`, negation = axis swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ)
-(scale c₀ (neg Cₙ₋₁))` *is* `c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — so the
-signed law holds ∅-axiom over ℕ with **no `ℤ` type, no propext**.  `neg_neg` (swap involution,
-period-2 = the Oscillate outcome) + `scale_neg`: the Casoratian's sign is the
-`SelfReferenceThreeOutcomes` Oscillate reading (binary axis toggle), independent of its
-magnitude (Converge/Escape, telescoped) — constant sign for ζ(3), alternating `(−1)ⁿ` for ζ(2).
+`E213.Lib.Math.Cauchy.CasoratianSigned` — **15 PURE / 0 DIRTY**.  The *signed* Casoratian law
++ its signed telescope, sign carried 213-natively as a ℕ-pair
+(`Lens.Number.Nat213.Tower.NatPairToInt`: integer = pair `(a,b)` = `a−b`, negation = axis
+swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ) (scale c₀ (neg Cₙ₋₁))` *is*
+`c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — signed law ∅-axiom over ℕ, **no
+`ℤ` type, no propext**.  Pair-congruences (`scale_mul/comm/congr`, `neg_congr`), `neg_neg`
+(swap involution = period-2 Oscillate), `iterNeg` (accumulated sign, `iterNeg_succ_succ`
+period 2).  **Signed telescopes**: `telescope_pair` — ζ(3) constant-sign shape `scale (∏ P)
+Cₙ ~ scale (∏ Q) C₀` (`P=n³`, `Q=(n−1)³`: the `+6/n³` Casoratian); `telescope_pair_alt` —
+ζ(2) alternating shape `scale (∏ P) Cₙ ~ iterNeg n (scale (∏ Q) C₀)` (`P=(n+1)²`, `Q=n²`: the
+`±5/n²` Casoratian, sign `(−1)ⁿ`).  The signed `±5/n²`,`±6/n³` closed forms realized ∅-axiom
+over ℕ-pairs (the sign = the residue's binary axis-distinguishing).  The Casoratian's
+magnitude (Converge/Escape, `CasoratianStep.telescope`) and sign (Oscillate, `iterNeg`) are
+the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
