@@ -167,6 +167,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     is the *same real* yet fails `CrossDetSmall` at `i=1`.  The "deficiency of the
     presentation, not the real" thesis as a theorem.  Also `overtake_breaks_at`
     (`CrossDetOvertake`): the overtake break at any single witness index `i₀≥2`.
+    **Completability is a lex `(height, rate)` grade** (`Real213/CompletabilityGrade`,
+    3/0, reals-only refinement): not binary but ordinal `ω·height + rate`.
+    `height_two_overtakes` — double-exp `q^{b^i}` over single-exp `q^i` breaks
+    `CrossDetSmall` for *any* base (up one exponential height ⟹ broken regardless of
+    rate); `height_one_under_height_two` — single-exp over double-exp always free (down a
+    height ⟹ free); `geom_boundary_iff` — within a height, free ⟺ `r<q`.  `completability_grade`
+    bundles the three: **height dominates rate.**  First rung of grading the binary
+    boundary into a transfinite/intensional ordinal (the refined real engine).
     Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
     arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
     instance: a fast π representation meeting the rate criterion.
