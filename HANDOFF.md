@@ -1,11 +1,49 @@
 # Session Handoff — 2026-06-02
 
 ## Branch
-`claude/goal-g166-A6MVE` — pushed, and **fast-forward merged to `main`** (both at `c1ed6a7`).
-Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty` on every module below).
+`claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom
+(`tools/scan_axioms.py` → `13 pure / 0 dirty` on the new module).
 
-## What Was Done This Session
+## What Was Done This Session (π non-holonomicity marathon, cont.)
+
+### π's boundedness frontier → `Cauchy/PositiveFloorUnbounded.lean` (13 PURE)
+The structural reason the CF-holonomicity tiers above periodic live on **unbounded** partial
+quotients, proved constructively (no LPO):
+- **`positive_floor_unbounded`** — a positive *constant* top finite-difference
+  (`polyDepth (m+1) s`, `liftK (m+1) s 0 ≥ 1`) ⟹ `s` **unbounded** with an *explicit* witness
+  `n = N+(B+1)`.  Engine: positive top diff ⟹ `Δᵐs` strictly increasing everywhere;
+  `evStrictMono_down`/`evStrictMono_descend` push it down to `s`; `evStrictMono_unbounded`
+  telescopes.
+- **`bounded_floor_zero`** — decidable-on-`ℕ` contrapositive: bounded depth-`(m+1)` ⟹ top
+  difference `= 0`.
+- **`positive_linear_exact`** — depth-1 positive-floor closes to the *exact* `s n = s 0 + c·n`
+  (truncation vanishes for `c ≥ 1`); the ∅-axiom positive-linear case of the Newton–Gregory-
+  blocked `QuasiPolyCF ⟹ poly-bounded` bridge.
+- **`ePQ_unbounded`** — e's `2k+2` section has positive top difference ⟹ e's partial quotients
+  unbounded *through the structural theorem*.
+- **3 agents** (literature / red-team / repo-infra).  Promoted to
+  `theory/math/analysis/cf_holonomicity_hierarchy.md` (frontier + boundedness subsection);
+  scratch `research-notes/G173_pi_cf_boundedness_frontier.md`.
+
+**Honest scope (red-team-corrected):** the theorem covers *positive-degree polynomial sections
+only*.  Periodic floor (`φ`,`√2`) is not finite-difference-depth; the `2ⁿ` gap is exponential
+(no finite depth) — both OUTSIDE the hypothesis class, NOT explained by this lemma.  "bounded
+⟹ eventually constant" = LPO (Mandelkern 1988), deliberately NOT ∅-axiom (mirrors
+`MonotonicBounded`).  Propext landmine caught: `Nat.sub_eq_zero_of_le` → replaced by
+`Nat.sub_le_sub_right`+`Nat.sub_self`.
+
+### Key agent findings (for next session)
+- π's partial-quotient **boundedness is OPEN** — not even a sharp conjecture; unboundedness is
+  only the Gauss–Kuzmin heuristic, and π is not known GK-normal.  (Correct G170's "conjecturally
+  unbounded" wording.)
+- "**bounded integer P-recursive ⟹ eventually periodic**" IS a (classical) theorem — mod-`m`
+  periodicity of the polynomial recurrence coefficients (Garrabrant–Pak).  Not ∅-axiom here.
+- **Klazar bound** (holonomic ⟹ `|aₙ| ≤ cⁿ·(n!)^d`): super-`(n!)^d` growth ⟹ non-holonomic —
+  route to a *genuinely* non-holonomic witness (C10, next).
+
+---
+
+## Prior session (branch `claude/goal-g166-A6MVE`, merged to `main` at `c1ed6a7`)
 
 ### 1. Merged `origin/main` (88 commits) into the branch
 Resolved 5 conflicts (umbrella imports, `IntensionalCompletability` add/add cross-branch
@@ -65,9 +103,14 @@ approximation / Markov spectrum).  Precision table unchanged — see
 
 ### 1. π non-holonomicity (the marathon headline) — classically OPEN
 `(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  Provable neighbours closed
-(`HurwitzianCF`).  Credible route = Flajolet–Gerhold–Salvy asymptotic obstruction (holonomic
-⟹ asymptotics `C·ρ⁻ⁿ·nθ·(log n)ᵏ`, π's Gauss–Kuzmin statistics incompatible — itself
-conditional on π being GK-normal).  See `research-notes/G170`.
+(`HurwitzianCF`, `PositiveFloorUnbounded`).  Credible routes: Flajolet–Gerhold–Salvy
+asymptotic obstruction; **Klazar growth bound** (super-`(n!)^d` ⟹ non-holonomic).
+**Localized** this session: π's p.q. boundedness is OPEN; the elementary periodicity route
+is unavailable in the expected-unbounded regime, so any proof must engage unbounded p.q.
+growth directly.  **Next provable increment (C10):** a constructed super-`(n!)^d` CF section
+is genuinely non-holonomic — populates the true top tier above the non-Hurwitzian `2ⁿ`.  Try
+building a ∅-axiom growth-vs-`liftK`-ladder obstruction (cf. `DepthDoubleExp`,
+`geom_infinite_depth`).  See `research-notes/G173` + `G170`.
 
 ### 2. ζ(3) Apéry divergence depth — DEFERRED TO ANOTHER BRANCH (user)
 The depth tower `e=3 → π=6 → ζ(3)=?` via the Apéry recurrence
@@ -117,6 +160,7 @@ Options (none uniquely forced — ask user):
 ## File Map
 ```
 NEW Lean (all ∅-axiom):
+  lean/E213/Lib/Math/Cauchy/PositiveFloorUnbounded.lean                    ← positive top diff ⟹ unbounded (13 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean                              ← CF-holonomicity tiers (21 PURE)
   lean/E213/Lib/Math/CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean ← axis {2,4,6} exhaustive + cosines (9)
   lean/E213/Lib/Math/CayleyDickson/Tower/SpiralAxisCrystallographic.lean   ← {2,4,6}=even half of {1,2,3,4,6} (1)
