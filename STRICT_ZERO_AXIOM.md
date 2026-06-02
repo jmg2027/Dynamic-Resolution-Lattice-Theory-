@@ -266,6 +266,15 @@ difference identities discharged by the `Meta.Nat.PolyNat` reflection ring; lowe
 by `decide`.  Degree is *incidental to irrationality* (ζ(4) order 2, Catalan β(2) open) —
 ζ(3) degree 3 is the exception above the order-2 degree-2 Apéry-like family.
 
+`E213.Lib.Math.Cauchy.DepthResidueFloor` — **2 PURE / 0 DIRTY**.  The self-pointing depth
+ladder anchored at the residue floor: `diff` as a pointing event, depth as the count of
+re-pointings to self-coincidence.  `floor_polyDepth0` (`P`/φ Cassini `W` is depth 0 — the
+self-same rule that is its own fixed point) and `self_pointing_depth_ladder` (`polyDepth 0
+W ∧ polyDepth 1 ratio ∧ polyDepth 2 zeta2Top ∧ polyDepth 3 aperyTop`): from the `P`/φ floor
+the depth climbs by one degree of `n`-dependence per rung (e:1, ζ(2):2, ζ(3):3).  Reads the
+divergence-depth count as drift-from-pure-self-reference, placing it inside the
+residue/no-exterior canon (`DepthCeilingResidue` = infinite depth = residue).
+
 `E213.Lib.Math.Cauchy.DepthQuadraticGeneric` — **7 PURE / 0 DIRTY**.  Every quadratic
 discrete polynomial has divergence-depth 2: `quadratic_polyDepth` — `∀ A B C, polyDepth 2
 (fun n => A·n²+B·n+C)` (floor `2A`), capping the whole order-2 degree-2 Apéry-like (Zagier

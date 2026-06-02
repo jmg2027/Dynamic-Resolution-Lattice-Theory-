@@ -8,8 +8,13 @@ Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems 
 ## What Was Done This Session
 
 ### 0. G171 Apéry zeta tower marathon (this branch, merged here)
-**`Cauchy/DepthAperyCubic` (23 PURE) + `Cauchy/DepthQuadraticGeneric` (7 PURE) +
-`Cauchy/CasoratianStep` (2 PURE) = 32 PURE + `research-notes/G171_apery_zeta_tower.md`.**
+**`Cauchy/DepthAperyCubic` (23) + `DepthQuadraticGeneric` (7) + `CasoratianStep` (2) +
+`DepthResidueFloor` (2) = 34 PURE + research-notes `G171_apery_zeta_tower.md` /
+`G171_self_pointing_depth_213.md`.**  `DepthResidueFloor.self_pointing_depth_ladder` reads
+the depth count in 213: `diff` = a pointing event, depth = re-pointings to self-coincidence;
+from the `P`/φ Cassini floor (`DepthFloorDetOne`, depth 0, self-same rule = own fixed point)
+the depth is the drift of a rule's `n`-dependence from pure self-reference — e:1, ζ(2):2,
+ζ(3):3 — with infinite depth = the residue (`DepthCeilingResidue`, no exterior).
 The divergence-depth thread carried to ζ(2)/ζ(3): the minimal-holonomic recurrence
 coefficients of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
 (`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
