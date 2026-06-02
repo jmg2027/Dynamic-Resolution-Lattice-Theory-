@@ -57,15 +57,17 @@ top-less tower (`DepthCeilingResidue`).
 
 - `Real213/SpiralLayer.lean` (2): `depth_is_intensional`, `depth_spectrum_unrestricted`.
 - `CayleyDickson/Integer/ZIUnits.lean` (6): the Gaussian 4-theorem (`ZI_units_exact_four`).
-- `Real213/SpiralCoordinate.lean` (1): `spiral_coordinate` — the two orthogonal counts +
-  order-6 rotation, bundled.
+- `CayleyDickson/Integer/GaussianCrossDet.lean` (11): `gaussian_floor_rotation` — the ℤ[i]
+  floor rotates with order 4 (`q = i`, `μ = −i`), the middle rung; the axis spectrum
+  `{2,4,6}` is now geometrically realized at all three orders (2 = `W=±1`, 4 = `−i`,
+  6 = `−ω`).
+- `Real213/SpiralCoordinate.lean` (1): `spiral_coordinate` — the two orthogonal counts
+  (layer intensional + unrestricted, axis spectrum `{2,4,6}`), bundled.
 
 ## Open frontier
 
 - π's continued-fraction non-holonomicity (would make "π is rate-free" a theorem, not an
   observation).
-- The Gaussian (order-4) floor *rotation* realized as a `ZI` recurrence (mirror
-  `eisenstein_floor_rotation` with `q = i`) — needs a `ZI` `crossDet_step`.
 - Whether the layer and axis counts have a common origin in the `(NS,NT)` atomic structure,
   or are genuinely independent (current evidence: independent — layer spectrum `ℕ`, axis
   spectrum `{2,4,6}`).
