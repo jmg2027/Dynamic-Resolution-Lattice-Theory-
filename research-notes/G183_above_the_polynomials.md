@@ -21,12 +21,34 @@ polynomial).
 - `cfiniteZ_smul`, `cfiniteZ_shift`, `cfiniteZ_add_sameRec` : C-finite is a module, shift-stable,
   closed under `+` of sequences sharing one annihilator (the linear half of the ring closure).
 
-**Remaining for the full C-A ring.**  General `+`/`·` (distinct annihilators `p`, `q`) close under
-the product operator `p·q` — needs an operator-polynomial layer `applyOp : List ℤ → (ℕ→ℤ) → ℕ→ℤ`
-with `applyOp (conv p q) s = applyOp p (applyOp q s)` (composition = convolution) + `conv_comm`,
-so that `(p·q)` annihilates both `s` and `t`, monic·monic = monic.  Elementary but ~80–120 lines
-of ∅-axiom `List`/`ℤ` induction; the bridge `CFiniteZ ↔ ∃ monic applyOp-annihilator` is one
-`rw` (the top-recurrence `Δᵏs = Σcᵢ Δⁱs` is the operator `[−c₀,…,−c_{k-1},1]`).
+**The operator algebra + ring law are built (`Cauchy/CFiniteRing`, 28 PURE).**
+
+- `applyOp p s = Σ_i pᵢ·Δⁱs` (coefficient list low-to-high `Δ`-power); linearity, `Δ`-commutation,
+  and ★ `applyOp_comm` (`p(Δ)q(Δ)s = q(Δ)p(Δ)s` — difference operators commute, *no* `conv_comm`
+  needed: commutativity proven directly by induction via `applyOp_diffZ` + linearity).
+- `conv` (coefficient convolution) + `applyOp_conv` (`(p·q)(Δ) = p(Δ)∘q(Δ)`).
+- ★★★ **the ring law** `conv_annih_add`: `Annih p s → Annih q t → Annih (conv p q) (s+t)`.  The
+  constant-coefficient annihilators *multiply* — this IS "C-finite closed under `+`" at the operator
+  level (the orbit dimensions add).  Via `conv_annih_left`/`right` (the product kills what either
+  factor kills, using `applyOp_comm`).
+- **Bridge both ways**: `cfiniteZ_to_annih` (`CFiniteZ ⟹ ∃ monic operator annihilating`, the operator
+  is `opOf c k = [−c₀,…,−c_{k-1},1]`, `applyOp_opOf` evaluates it to `Δᵏs−ΣcᵢΔⁱs`) +
+  `annih_snoc_to_cfiniteZ` (a monic `lo++[1]` annihilator *is* an orbit recurrence).  So **C-finite ⟺
+  has a monic constant-coefficient annihilator** — my orbit-recurrence `CFiniteZ` = the standard
+  annihilating-polynomial definition.
+
+**Remaining for the predicate-level `cfiniteZ_add`** (`CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)`):
+one list lemma — `conv` of two monic operators is monic (leading `1·1=1`).  The math is done
+(`conv_annih_add` gives the annihilator; `cfiniteZ_to_annih`/`annih_snoc_to_cfiniteZ` are the
+endpoints).  The friction is purely syntactic: `addL` injects `+0`/`*1` into the leading coefficient
+(`conv [1] [1] = [1+0]`, not literal `[1]`), so the snoc-`1` reverse bridge needs a leading-coefficient
+*normalization* (`v = 1` hypothesis form of `applyOp_snoc_one`) + `smulL_snoc`/`addL_snoc_right` +
+`opOf_snoc` (`opOf c k = lower ++ [1]`).  ~50–70 lines; best done with fresh budget.
+
+**Pointwise (Hadamard) product `s·t`** (the other ring operation) is genuinely harder — the
+characteristic roots multiply pairwise (tensor of recurrences), degree `k·m` — this is C-B territory
+(`DepthCharacterization` already has `polyDepthZ_mul` for the *finite-depth* case via the discrete
+Leibniz rule; the C-finite analogue needs the Hadamard/resultant construction).
 
 ## The gap the characterization exposes
 

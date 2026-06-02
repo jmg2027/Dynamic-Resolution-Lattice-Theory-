@@ -43,6 +43,7 @@ import E213.Lib.Math.Cauchy.PolynomialDepth
 import E213.Lib.Math.Cauchy.DepthCharacterization
 import E213.Lib.Math.Cauchy.CassiniDepthFloor
 import E213.Lib.Math.Cauchy.OrbitDimension
+import E213.Lib.Math.Cauchy.CFiniteRing
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
