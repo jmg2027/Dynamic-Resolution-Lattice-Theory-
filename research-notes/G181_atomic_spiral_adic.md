@@ -96,3 +96,46 @@ the "carry = +1, base = local axis" framing is the 213-native reading.
    it the same as / different from Ostrowski(φ)?
 4. Does the digit-pattern grade (periodic / quasi-periodic / patternless) coincide with the
    `HurwitzianCF` tier exactly?  (Likely yes — Ostrowski digits of α track α's CF.)
+
+## FINDINGS (investigation: literature agent + hand-expansion)
+
+**Honest verdict: the *mathematics* is known — this is Ostrowski numeration (1922).  213's
+content is the *reading*, not a new numeration.**
+
+- **The "atomic spiral adic" = Ostrowski numeration.**  Places = convergent denominators
+  `qₙ` (`qₙ = aₙqₙ₋₁ + qₙ₋₂`), digits `0 ≤ bₙ ≤ aₙ`, admissibility "`bₙ = aₙ ⇒ bₙ₋₁ = 0`."
+  The partial quotients `aₙ` *are* the per-place "local axis."  **Zeckendorf = Ostrowski(φ)**
+  exactly (all `aₙ=1` ⟹ Fibonacci places ⟹ {0,1}, no-consecutive — a textbook identity, not
+  new).  The `011→100` carry = `Fₙ₊₁=Fₙ+Fₙ₋₁`.
+- **Two splits confirmed distinct (hand-finding correct).**  (a) golden/**Ostrowski(φ)** =
+  additive (Fibonacci places).  (b) the "2,3,5… promoting-carry" = **mixed-radix**: bases =
+  primes ⟹ the *primorial number system* (named); place-values = running products
+  (factoradic/Cantor).  These are genuinely different systems; the "atomic spiral" intuition
+  conflates them.  Unique representation in (b) needs Ostrowski-type admissibility (not free).
+- **Digit-pattern grade = Ostrowski–Sturmian complexity (known).**  Eventually-periodic CF ⟺
+  quadratic irrational ⟺ regular/automatic Ostrowski digits (Lagrange); Sturmian words of
+  quadratic slope (Fibonacci word for `1/φ²`).  So `HurwitzianCF`'s tiers (periodic /
+  quasi-periodic / patternless) = the classical Ostrowski–Sturmian dictionary — which this
+  repo *formalized ∅-axiom*, but did not discover.
+- **The genuine "adic" already exists: the Ostrowski G-odometer.**  The true adic/profinite
+  object is the **odometer (the "+1" adding machine) on the profinite completion of the
+  admissible digit space** (Bratteli–Vershik / Vershik adic; Grabner, Ferenczi–Talet).  A
+  *single profinite group/odometer*, not a tower of fields like `ℚₚ`.
+
+**What survives as 213-native (the reading, sharpened — not overclaim):**
+- **The odometer's `+1` IS the residue unit / the act of pointing.**  Standard math has the
+  odometer as a dynamical system; 213 says *why* its `+1` is fundamental — it is the
+  self-pointing act, the carry is the spiral lift (one rung up the `qₙ` tower), the profinite
+  completion is the **νF escape** (completed self-pointing).  This matches `rawTower`
+  (`ascent_unbounded`) and the µF/νF mirror: the odometer = the act made an arithmetic
+  dynamical system; `ℤₚ`-style "single self-similar group" = the residue's one self-cover.
+- **Contribution = unifying interpretation + ∅-axiom formalization**, not a new numeration:
+  Ostrowski(α) + odometer + CF/Sturmian complexity, read as one residue/act structure, with
+  the tiers proven (`HurwitzianCF`).  The `+1` unit recurring (Cassini `W=±1`, glue, carry,
+  odometer) is the residue's invariant — the cross-domain agreement that is "no exterior"'s
+  operational signature.
+
+**Direction**: if anything is to be *built*, the target is the **Ostrowski/Vershik odometer
+as the arithmetic face of the pointing act** (`+1` = the act, carry = spiral lift, profinite
+limit = νF) — connecting `rawTower` / `MuNuMirror` to Ostrowski numeration.  Not a new adic;
+a native reading of the known one.  (Done elsewhere per branch policy.)
