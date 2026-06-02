@@ -135,6 +135,30 @@ Two consequences read directly:
     same transition `c` are trace-equivalent at every state (`transition_determines_behaviour`
     read through the equivalence relation — one class per state, both implementations in it).
 
+## The finite machine is reduced (minimal)
+
+The sharpest FSM-theoretic statement: the finite (µF) carrier is **reduced/minimal** — no two
+distinct states are behaviourally equivalent, so trace equivalence coincides with state
+equality.  (This is observational *faithfulness* — the trace map is injective; the right side
+is structural identity, not an independently-defined contextual equivalence, so it is
+minimality, not "full abstraction" in the denotational-semantics sense.)
+
+  - `traceEq_finite_minimal` — **`TraceEq (lToShape t) (lToShape t') ↔ t = t'`**: two finite
+    states are trace-equivalent iff they are the *same* state.  No two distinct finite states
+    are behaviourally equivalent; there is no hidden behavioural collapse (no mergeable states).
+    The non-trivial half is `CoResidue.lToShape_faithful` (distinct trees ⟹ distinct traces);
+    the converse is reflexivity.
+  - `raw_traceEq_iff_eq` lifts it to `Raw`: trace-equivalent register values are equal — the
+    residue's finite carrier is observationally faithful.
+  - `finite_states_finitely_separated` — and the separating observation is *finite*
+    (`treeDiffPath` constructs the distinguishing experiment by structural recursion): two
+    finite states never need an infinite observation to be told apart.
+
+This is the finite-side counterpart of `spineL_escapes`: over µF, observation is *complete*
+(state equality = trace equality, by a bounded experiment); the only behaviours that escape
+finite observation are the genuinely infinite ones (`spineL`), which is exactly the residue's
+un-enclosed face.
+
 ## Open frontier (honest scope)
 
   - This is a *reading*, not an identity (`§6`, the facet discipline): the FSM vocabulary is one
@@ -148,7 +172,7 @@ Two consequences read directly:
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (14 PURE) — the FSM-reading theorems above; in
+- `lean/E213/Theory/Raw/StateMachine.lean` (17 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.

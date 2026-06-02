@@ -36,7 +36,7 @@ open E213.Theory (Raw)
 open E213.Theory.Raw.Lambek (IsAtom IsTerminal IsPart decompose terminal_iff_atom
   slash_has_part part_depth_succ_le depth_drops)
 open E213.Theory.Raw.CoResidue (LCoShape allBranchL AntiRefl coLeftAt coRightAt lAna lAna_unique
-  Distinct slash_children_distinct lToShape)
+  Distinct slash_children_distinct lToShape lToShape_faithful treeDiffPath)
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth)
 open E213.Theory.Raw.MuNuMirror (tower_no_cycle tower_ascent_isPart)
 
@@ -243,5 +243,38 @@ theorem behaviours_traceEq {X : Type} (c : X → Option Bool × X × X)
     (x : X) : TraceEq (h x) (h' x) :=
   fun p => transition_determines_behaviour c h h' hB hLn hLs hRn hRs
     h'B h'Ln h'Ls h'Rn h'Rs x p
+
+/-! ## §7 — the finite carrier is reduced (minimal): trace equality = state equality -/
+
+/-- ★★★ **The finite machine is reduced/minimal: trace equivalence *is* state equality.**  Over
+    the finite carrier, two states are behaviourally (trace) equivalent **iff** they are the
+    *same* state: `TraceEq (lToShape t) (lToShape t') ↔ t = t'`.  No two distinct finite states
+    are behaviourally equivalent — the trace map `lToShape` is **injective** on µF (the
+    automaton is *reduced*: no mergeable states).  The non-trivial half is `lToShape_faithful`
+    (distinct trees give distinct traces); the converse is reflexivity.  (This is observational
+    *faithfulness* — the right side is structural identity, not an independent contextual
+    equivalence, so it is minimality, not "full abstraction" in the denotational sense.) -/
+theorem traceEq_finite_minimal (t t' : E213.Term.Internal.Tree) :
+    TraceEq (lToShape t) (lToShape t') ↔ t = t' := by
+  constructor
+  · exact lToShape_faithful t t'
+  · intro h; subst h; intro _; rfl
+
+/-- ★★ **Reducedness lifted to `Raw`.**  Two register values are trace-equivalent iff equal:
+    `TraceEq (lToShape r.val) (lToShape r'.val) ↔ r = r'`.  The finite residue carrier `Raw` is
+    observationally faithful — behavioural equivalence detects every distinction. -/
+theorem raw_traceEq_iff_eq (r r' : Raw) :
+    TraceEq (lToShape r.val) (lToShape r'.val) ↔ r = r' := by
+  constructor
+  · intro h; exact Subtype.ext (lToShape_faithful r.val r'.val h)
+  · intro h; subst h; intro _; rfl
+
+/-- ★★ **Distinct finite states are separated by a finite observation.**  If `t ≠ t'`, there is
+    an explicit finite path `q` (a *distinguishing experiment*) on which their traces differ —
+    `treeDiffPath` constructs it by structural recursion.  Distinguishing two finite states
+    never needs an infinite observation: a bounded experiment suffices. -/
+theorem finite_states_finitely_separated (t t' : E213.Term.Internal.Tree) (h : t ≠ t') :
+    ∃ q : List Bool, lToShape t q ≠ lToShape t' q :=
+  treeDiffPath t t' h
 
 end E213.Theory.Raw.StateMachine
