@@ -64,6 +64,11 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       at the exponential `2^{2^n}`
   - `DepthCoordGenerator.lean`     — the tower as a coordinate system: `binom·d` /
                                       `expTower` realize every coordinate, top-down
+  - `OrbitDimension.lean`          — above the polynomials: the **C-finite** rung.
+                                      `Δ(2ⁿ)=2ⁿ` eigen-identity; `CFiniteZ` (finite
+                                      `Δ`-orbit); strict inclusion `polynomial ⊊
+                                      C-finite` (`2ⁿ` C-finite, orbit dim 1, but no
+                                      finite divergence depth); module + shift closure
 
 ## Companion clusters
 

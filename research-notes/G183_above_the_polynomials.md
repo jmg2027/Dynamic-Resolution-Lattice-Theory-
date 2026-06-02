@@ -1,8 +1,32 @@
 # G183 — above the polynomials: the orbit-dimension ladder
 
-**Date**: 2026-06-02.  **Status**: direction note (conjectures + first buildable step),
-grown out of `theory/essays/polynomial_in_213.md` and the closed characterization
-`Cauchy/DepthCharacterization.finite_depthZ_iff` (finite divergence depth ⟺ polynomial).
+**Date**: 2026-06-02.  **Status**: **Conjecture C-A built** (`Cauchy/OrbitDimension`, 15 PURE) —
+the strict inclusion `polynomial ⊊ C-finite` is now an ∅-axiom theorem.  Remaining: the full
+`ℤ[Δ]`-ring closure (C-A's product/general-sum part), C-B (Casoratian rank), C-C (holonomic),
+C-D (orbit dim = order).  Grown out of `theory/essays/polynomial_in_213.md` and the closed
+characterization `Cauchy/DepthCharacterization.finite_depthZ_iff` (finite divergence depth ⟺
+polynomial).
+
+## What is built (`lean/E213/Lib/Math/Cauchy/OrbitDimension.lean`, 15 PURE / 0 DIRTY)
+
+- `twoPow_is_diffZ_fixed` : `Δ(2ⁿ) = 2ⁿ` — the geometric eigen-identity, via `ring_intZ` over
+  the core-free `powInt` (`2·2ⁿ − 2ⁿ = 2ⁿ`).
+- `liftKZ_twoPow_fixed` : every iterate `Δᵏ(2ⁿ) = 2ⁿ` — the orbit is the single line `⟨2ⁿ⟩`.
+- `CFiniteZ s := ∃ k c, ∀ n, Δᵏs n = Σ_{i<k} cᵢ·Δⁱs n` — the monic constant-coefficient
+  `Δ`-orbit recurrence (finite orbit dimension), with `linComb` the lower-part sum.
+- `polyDepthZ_cfiniteZ` : **polynomial ⟹ C-finite** (zero lower part; annihilator `Δ^{d+1}`).
+- `cfiniteZ_twoPow` : **`2ⁿ` C-finite** (annihilator `Δ − 1`, orbit dim 1).
+- `twoPow_not_polyDepthZ` : **`2ⁿ` not polynomial** — the strict inclusion.  (`Δᵏ(2ⁿ)=2ⁿ` never
+  `≡0` since `2⁰=1≠0`.)  This is C-A's headline.
+- `cfiniteZ_smul`, `cfiniteZ_shift`, `cfiniteZ_add_sameRec` : C-finite is a module, shift-stable,
+  closed under `+` of sequences sharing one annihilator (the linear half of the ring closure).
+
+**Remaining for the full C-A ring.**  General `+`/`·` (distinct annihilators `p`, `q`) close under
+the product operator `p·q` — needs an operator-polynomial layer `applyOp : List ℤ → (ℕ→ℤ) → ℕ→ℤ`
+with `applyOp (conv p q) s = applyOp p (applyOp q s)` (composition = convolution) + `conv_comm`,
+so that `(p·q)` annihilates both `s` and `t`, monic·monic = monic.  Elementary but ~80–120 lines
+of ∅-axiom `List`/`ℤ` induction; the bridge `CFiniteZ ↔ ∃ monic applyOp-annihilator` is one
+`rw` (the top-recurrence `Δᵏs = Σcᵢ Δⁱs` is the operator `[−c₀,…,−c_{k-1},1]`).
 
 ## The gap the characterization exposes
 
@@ -61,9 +85,11 @@ A clean **`C-finite`** predicate `CFiniteZ` (∃ const-coeff `p`, `p(Δ) s ≡ 0
 
 ## Conjectures (ranked)
 
-- **C-A (most tractable, buildable now).**  `twoPow_is_diffZ_fixed` + `CFiniteZ` predicate +
-  the three closure/inclusion facts above.  This *states and witnesses* the next rung ∅-axiom; the
-  finite-depth ring (`FiniteDepthAlgebra`) is the template one level down.  Effort: ~1 session.
+- **C-A (separation + module DONE; ring closure remaining).**  `twoPow_is_diffZ_fixed` +
+  `CFiniteZ` predicate + `polyDepthZ_cfiniteZ` + `cfiniteZ_twoPow` + `twoPow_not_polyDepthZ`
+  (the strict inclusion) + module/shift/same-annihilator-`+` closure are built ∅-axiom in
+  `Cauchy/OrbitDimension` (15 PURE).  The general `+`/`·` ring closure (distinct annihilators)
+  is the remaining piece — see "Remaining for the full C-A ring" above.
 - **C-B (characterization of C-finite).**  C-finite ⟺ the **Hankel/Casoratian determinants**
   eventually vanish (the sequence's shift-orbit is rank-bounded).  Connects directly to this
   branch's Casoratian work (`CasoratianStep`, `CasoratianSigned`): the cross-determinant of two
