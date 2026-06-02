@@ -86,6 +86,15 @@ theorem markov_partner_is_triple (a b c : Nat) (hc : c ≤ 3 * a * b) (h : marko
   E213.Lib.Math.Real213.MarkovTree.markov_vieta a b c (3 * a * b - c)
     (E213.Tactic.NatHelper.add_sub_of_le hc) h
 
+/-- ★★★ **The Vieta jump is the difference reflection** (the ℤ-difference-Lens reading of the
+    transition action).  The jump `c ↦ c' = 3ab − c` sums back to the reflection axis
+    (`c + c' = 3ab`) and is an **involution** (`3ab − c' = c`): the discrete tree transition is a
+    structural additive reflection on the state, the difference-Lens shadow of `t ↦ 3ab − t`.
+    (Over `ℕ`, valid for `c ≤ 3ab` — supplied by `markov_le_3mul` on a triple.) -/
+theorem vieta_reflection (a b c : Nat) (hc : c ≤ 3 * a * b) :
+    c + (3 * a * b - c) = 3 * a * b ∧ 3 * a * b - (3 * a * b - c) = c :=
+  ⟨E213.Tactic.NatHelper.add_sub_of_le hc, E213.Tactic.NatHelper.sub_sub_self hc⟩
+
 /-! ## §2 — the neighbor congruence `c ∣ a² + b²` -/
 
 /-- ★★★★ **The neighbor congruence.**  For a Markov triple `(a,b,c)`, the entry `c` divides
@@ -351,6 +360,43 @@ theorem not_sqrtNegOneTwoRoots_65 : ¬ SqrtNegOneTwoRoots 65 := by
   rcases h 8 (by decide) 18 (by decide) (by decide) (by decide) with heq | hsum
   · exact absurd heq (by decide)
   · exact absurd hsum (by decide)
+
+/-- ★★★★ **`SqrtNegOneTwoRoots` promoted to the prime-power layer.**  For an odd prime `p`
+    (divisor property `e ∣ p → e = 1 ∨ e = p`, `3 ≤ p`), the predicate holds at every prime
+    power `p^(k+1)` — `x² ≡ −1 (mod p^(k+1))` has at most the two roots `±u`.  The named-predicate
+    form of `MarkovPrimeFactor.two_roots_of_prime_pow` (the Button/Zhang `p`-adic valuation split:
+    `p` divides exactly one of `x−y, x+y`, the coprime one cancelled by `euclid_of_coprime`).
+    Discharges the C6 root-count input across the whole prime-power class. -/
+theorem sqrtNegOneTwoRoots_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) : SqrtNegOneTwoRoots (p ^ (k + 1)) :=
+  fun x hx y hy hxr hyr =>
+    E213.Lib.Math.ModArith.MarkovPrimeFactor.two_roots_of_prime_pow p k hp3 hpr x y hx hy hxr hyr
+
+/-! ### The phantom-root filter (sniping the C6 barrier at the first composite)
+
+Zhang's theorem (`markov_reachable_no_3mod4_factor`) fixes that a composite `c` with `ω` distinct
+odd prime factors (all `≡ 1 mod 4`) has `2^ω` square roots of `−1`.  At the **first** such
+composite `c = 65 = 5·13` (`ω = 2`, so `4` roots `{8,18,47,57}` = two `±` pairs `{8,57},{18,47}`)
+the `u²≡−1` observable already over-counts (`not_sqrtNegOneTwoRoots_65`).  So for Myhill–Nerode
+separation an *extra* observer is needed — the **primitive Diophantine constraint** a reachable
+triple satisfies: `markovEq a b c`, whose Vieta partner `c' = 3ab − c` must descend.
+
+`markov_phantom_root_filter` is the first such filter, anchored at `65`: the four roots explode,
+but `markovEq · · 65` admits **no** triple at all — every root is *phantom*.  (The descent
+quotients `(u²+1)/65 = 1,5,34,50` for `u = 8,18,47,57`: even where the quotient is a Markov
+number — `1,5,34` — no triple closes, because `65` is not on the tree.  The Diophantine descent
+filters what the residue observable cannot.)  This is the testbed mechanism; the real composite
+Markov numbers (`610 = 2·5·61`, `1325 = 5²·53`) are the continuation. -/
+set_option maxRecDepth 8000 in
+theorem markov_phantom_root_filter :
+    -- the 2^ω = 4 root explosion at 65 = 5·13 (two ± pairs)
+    ((8 * 8 + 1) % 65 = 0 ∧ (18 * 18 + 1) % 65 = 0
+      ∧ (47 * 47 + 1) % 65 = 0 ∧ (57 * 57 + 1) % 65 = 0)
+    -- so the two-roots observable over-counts
+    ∧ (¬ SqrtNegOneTwoRoots 65)
+    -- yet the Diophantine descent constraint admits no triple: all four roots are phantom
+    ∧ (∀ a, a ≤ 65 → ∀ b, b ≤ 65 → ¬ markovEq a b 65) :=
+  ⟨⟨by decide, by decide, by decide, by decide⟩, not_sqrtNegOneTwoRoots_65, by decide⟩
 
 /-! ## §8 — the Fibonacci spine's `√(−1)` residues are φ's convergents (from Cassini)
 

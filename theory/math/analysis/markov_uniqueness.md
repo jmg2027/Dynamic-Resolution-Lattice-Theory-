@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (47 PURE / 0 dirty):
+explicit open target.  Source of truth (50 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -135,17 +135,26 @@ recurrence coefficient at once.
 Read in the discrete-difference calculus, `fib_spine_sqrt_neg_one` (`fib(2n+2)² + 1 =
 fib(2n+1)·fib(2n+3)`) is the **Casoratian** (discrete Wronskian, cross-determinant of two
 solution windows) of this recurrence, pinned to the constant `±1` by Cassini; reduced mod the
-spine's Markov number it is the `√(−1)` residue.  The spine grows exponentially, so it has
-infinite forward-difference depth — `C`-finite but not Newton-reconstructible (like `2ⁿ`); the
-Markov/quadratic-irrational sector meets the polynomial-depth sector only at the constants.
+spine's Markov number it is the `√(−1)` residue.  In the forward-difference calculus the spine's
+annihilator is `Δ² − Δ − 1` — *the golden ratio's minimal polynomial* — whose **nonzero constant
+term** is exactly why the spine is strictly `C`-finite, not poly-depth (a poly-depth sequence is
+killed by a pure `Δ^k`).  This is the precise alignment of the infinite-forward-difference-depth
+boundary with the holonomicity markers (`QuasiPolyCF ⊊ C-finite`, like `2ⁿ`); the
+Markov/quadratic-irrational sector meets the polynomial-depth sector only at the constants.  The
+Vieta jump `c ↦ 3ab − c` is itself the difference reflection on the state (`vieta_reflection`:
+`c + c' = 3ab`, involution `3ab − c' = c`).
 
 This also reframes the open crux.  The Markov tree is a coalgebra; labelling each triple by its
 maximum and reading off the `√(−1)`-residue is an observable, and the uniqueness conjecture says
 the labelling is **minimal/reduced** (distinct triples have distinct labels — the residue
 separates states, Myhill–Nerode).  The arc supplies reachability and determinism; uniqueness is
 the missing reducedness.  The reduction `#roots ≤ 2 ⟹ unique` says the observable separates when
-it takes ≤ 2 values (prime powers); at composite `c` it takes ≥ 4 values and stops separating —
-the precise localisation of where the conjecture is open.
+it takes ≤ 2 values (prime powers); at composite `c` it takes `2^ω ≥ 4` values and stops
+separating — so an extra observer is needed.  `markov_phantom_root_filter` is the first such
+filter, at the smallest composite `c = 65 = 5·13`: the four roots `{8,18,47,57}` explode, yet
+`markovEq · · 65` admits no triple — every root is *phantom*, and the primitive Diophantine
+descent constraint is what filters them.  This is the precise localisation of where the conjecture
+is open, with the separating mechanism anchored at the testbed.
 
 ## Pairwise coprimality is the tree's invariant
 
@@ -201,4 +210,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `47 pure / 0 dirty`.
+Reports `50 pure / 0 dirty`.
