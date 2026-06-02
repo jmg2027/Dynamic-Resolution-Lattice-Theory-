@@ -10,6 +10,7 @@ import E213.Lib.Math.ModArith.PureNatMod5
 import E213.Lib.Math.ModArith.ModBezout
 import E213.Lib.Math.ModArith.ModBezoutInvariant
 import E213.Lib.Math.ModArith.UniversalFLT
+import E213.Lib.Math.ModArith.MarkovPrimeFactor
 import E213.Lib.Math.ModArith.FP2Sqrt5
 import E213.Lib.Math.ModArith.FP2SqrtD
 
