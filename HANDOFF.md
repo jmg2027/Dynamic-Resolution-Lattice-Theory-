@@ -1,203 +1,163 @@
-# Session Handoff — 2026-06-02 (self-reference / µF↔νF / FSM marathon)
+# Session Handoff — 2026-06-02 (G171 Apéry-zeta depth + the ∅-axiom `ring` infra)
 
 ## Branch
-`claude/concrete-non-fixed-point-witness-vi1IQ` (self-reference / µF↔νF / FSM marathon).
-Working tree clean.  `lake build E213.Theory.Raw.API` clean.  All new theorems ∅-axiom.
-(Concurrent `claude/newton-gregory-generalization-F6gYv` work — 41 PURE `NewtonGregory` —
-is already on `main`; detailed in "What Was Done This Session / Arc B" below.)
-
-## Current arc — the residue's self-pointing functor: µF, νF, and the FSM Lens
-
-The self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` is built out on both faces:
-
-- **µF = Raw** (`Theory/Raw/Lambek`, `MuNuMirror`): initial algebra; descent well-founded
-  (`isPart_wf`, `no_infinite_descent`), ascent unbounded (`ascent_unbounded`), `rawTower` the
-  free-running counter at the seam.
-- **νF = `CoResidue.SlashNu`** (`Theory/Raw/CoResidue`, **94 PURE**): the exact slash-νF via the
-  M-type / path-function presentation (no coinduction primitive); `lAna`, `slashNu_final`
-  (finality up to pointwise eq among anti-reflexive coalgebras), anti-reflexivity *positive*
-  (`Distinct`, `treeDiffPath` — no bisimulation), `spineL` the infinite inhabitant escaping
-  every finite Raw.  **νF populated** (§13–§17, the G178 proof-line): `spineOf` family (one
-  escape per finite Raw, `spine_family_populates_nu`), `coSwap` (the `swap` automorphism acting
-  on νF, `coSwap_nu_endomorphism`), `boolSpine` (`(Nat→Bool) ↪ SlashNu` preserving `Distinct` —
-  honest ∅-axiom "uncountable", `boolSpine_injects_bitstreams`), `spineL_unique` (left-spine
-  fixpoint), `nu_population_capstone`.  Dual µF tight bound: `StateMachine.exact_descent`.
-- **The form of the residue** (`Lib/Math/ResidueForm`, essay `the_form_of_the_residue.md` — in
-  the CLAUDE.md boot sequence): source-without-enclosure.
-- **The inversion** (essay `the_residue_as_primitive.md`): Raw=µF, νF=SlashNu, view difference.
-- **FSM / coalgebra Lens** (`Theory/Raw/StateMachine`, **20 PURE**, 9 sections, closed-arc;
-  essay `the_residue_as_state_machine.md`): a §6 Lens reading (state read as state-transition;
-  NOT an identity).  §1 state≅transition decode + `transition_deterministic` (single-valued);
-  §2 determinacy (`transition_determines_behaviour` = finality); §3 excluded self-loop
-  (`allBranchL ∉ SlashNu`); §4 counter never returns; §5 reachability (`BuildsIn` `n`-step
-  build, `counter_reachable` clock, `every_state_reachable` whole-µF within `depth`);
-  §6 behavioural/trace equivalence (`TraceEq = ¬Distinct` via decidable `Option Bool`, no
-  bisimulation; `behaviours_traceEq` = determinacy as trace eq); §7 reducedness/minimality
-  (`traceEq_finite_minimal` — trace map injective; `finite_states_finitely_separated`);
-  §8 capstone (`mu_carrier_reachable_reduced_machine` — total+deterministic+reachable+reduced;
-  Myhill-Nerode *uniqueness* explicitly NOT formalised); §9 loop-closing
-  (`residue_escapes_minimal_machine` — `spineL` a genuine behaviour outside every finite state =
-  source-without-enclosure at the FSM scale).  Adversarial-reviewed each round.
-
-**Merged to main this session**: the FSM batch (`StateMachine.lean` +
-`the_residue_as_state_machine.md`), alongside the form/inversion batch (merged earlier).
+`claude/goal-g171-marathon-research-Dj9Go` — pushed, **fast-forward merged to `main`**
+(`main` = branch HEAD).  Full `lake build` clean (1500+ modules).  Every theorem below is
+∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`).  Concurrent sessions
+(`newton-gregory-generalization`, `concrete-non-fixed-point-witness`) also merged to `main`;
+their work is summarised under "Adjacent work on main".
 
 ---
 
 ## What Was Done This Session
 
-### Arc A — G171 Apéry zeta tower marathon
-**`Cauchy/DepthAperyCubic` (23) + `DepthQuadraticGeneric` (7) + `CasoratianStep` (5, incl.
-`telescope`: `(∏P)g(n)=(∏Q)g(0)`, the ζ(3) Casoratian `1/n³` cube-product shape) +
-`CasoratianSigned` (17: signed law + signed telescope as ℕ-pair `npairEquiv`, sign = axis
-swap; `telescope_pair` ζ(3) constant `+6/n³`, `telescope_pair_alt` ζ(2) alternating `±5/n²`
-via `iterNeg n`=`(−1)ⁿ`, concrete `cube_casoratian_telescope`; ℤ caveat dissolved
-213-natively via `NatPairToInt`) + `CassiniSigned` (2: the residue floor's Cassini
-cross-determinant `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the depth-0 signed Casoratian —
-`cassini_pair`: `npairEquiv (fib(n+2)fib n, fib(n+1)²) (iterNeg (n+1) (1,0))`, magnitude 1
-floor + sign Oscillate) + `DepthCubicGeneric` (5: `cubic_polyDepth` — `∀ A B C D, polyDepth 3
-(A·n³+B·n²+C·n+D)`, COMPLETE; `cube_eq` `n³=6·C(n,3)+6·C(n,2)+n`) +
-`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 64 PURE (+ infra `Meta/Nat/PolyNatM` 22
-PURE) + research-notes
-`G171_apery_zeta_tower.md` / `G171_self_pointing_depth_213.md` / `G171_casoratian_pair_213.md`.**
+The arc began as a G171 marathon (the divergence-depth tower for ζ(2)/ζ(3)) and turned into
+building a reusable **∅-axiom `ring` infrastructure** for ℕ and ℤ, then using it.
 
-**Infra (this session, the user's "build infra not Lean core" push):**
-`Meta/Nat/PolyNatM` (22 PURE) — a ∅-axiom **multivariate** `Nat` polynomial reflection prover
-`poly_idM` (flat monomial-map normal form; the `k`-variable generalization of `PolyNat`
-(1-var) / `PolyInt2` (2-var)).  The `ring`-replacement that `ac_rfl` (propext-dirty) cannot be
-over ℕ.  Discharges any multivariate `Nat` identity in one line — used to land `cube_reorder`
-and the two `cubic_eq` reorders, unblocking the generic cubic.  Plus `Meta/Nat/PolyNatMTactic` — the **`ring_nat`** elaboration tactic (auto-reifies a `Nat` `=` goal and discharges via `poly_idM`), the ergonomic ∅-axiom `ring` for ℕ; `DepthCubicGeneric` now uses `by ring_nat` throughout (no hand-written `PE` trees).  And `Meta/Int213/PolyIntM` (26 PURE) + `PolyIntMTactic` — the **ℤ** companion `poly_idMZ` / **`ring_intZ`** tactic (k-variable, with neg + zero-coefficient drop so signed cancellation `(a−b)(a+b)=a²−b²` normalises).  Infra stack now: PolyNat(1,ℕ)·PolyInt2(2,ℤ)·PolyNatM(k,ℕ,ring_nat)·PolyIntM(k,ℤ,ring_intZ) — a ∅-axiom `ring` for both ℕ and ℤ.
-`DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
-pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor
-(`DepthFloorDetOne`, depth 0, self-same rule = own fixed point) the depth is the drift of a
-rule's `n`-dependence from pure self-reference — e:1, ζ(2):2, ζ(3):3.
-`DepthSelfReference.diff_converge_or_escape` ties this to the concurrent session's
-`Lens.SelfReferenceThreeOutcomes`: `diff` is the `Nat`-sequence realisation of Converge
-(`W` settles at the unit `1 = det P = NS−NT`) / Escape (`2ᵏ` never closes = the residue,
-`DepthCeilingResidue` / `object1_not_surjective`), parallel to the Raw realisation, unit `1`.
-The divergence-depth thread carried to ζ(2)/ζ(3): the minimal-holonomic recurrence
-coefficients of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
-(`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
-finite-difference depth equals their degree (`apery_cubic_rung`, `zeta2_quadratic_rung`,
-`zeta2_to_zeta3_degree_step`), depths pinned **exactly** (`aperyTop_depth_exact` /
-`zeta2Top_depth_exact`).  ζ(3) cubics reindexed to `n=m+2` (all-positive); difference
-identities by the `Meta.Nat.PolyNat` reflection ring; lower bounds by `decide`.
-`casoratian_step` — the subtraction-free discrete-Wronskian law `c₂Cₙ=−c₀Cₙ₋₁`: the middle
-coefficient cancels, so the Casoratian propagates by the outer coefficients
-(`aperyTop=n³`, `aperyBot=(n−1)³`) alone — why the invariant is `deg c₂=deg c₀`.  The whole
-order-2 degree-2 Apéry-like (Zagier sporadic) family is capped ∅-axiom:
-`quadratic_polyDepth : ∀ A B C, polyDepth 2 (A·n²+B·n+C)` (Newton-form transfer + new
-reusable `polyDepth_congr`).  **Honest correction (red-team)**: coefficient degree is
-*incidental to irrationality* (ζ(4) order-2 doesn't prove it, Catalan β(2) open, ζ(5)
-order-3); the e→ζ(2)→ζ(3) degree run does NOT continue as a tower — ζ(3) deg 3 is the
-exception above the sporadic family.
+### 1. The divergence-depth / Apéry-zeta math (`Lib/Math/Cauchy/`)
+- **`DepthAperyCubic` (23 PURE)** — the Apéry zeta coefficient-degree statistic: ζ(2)
+  recurrence coefficients (`(n+1)²`, `11n²+11n+3`, `n²`) are `polyDepth 2`; ζ(3) (`n³`,
+  `34n³−51n²+27n−5`, `(n−1)³`, reindexed `n=m+2` to clear ℕ truncation) are `polyDepth 3`;
+  depths pinned **exactly** (`aperyTop_depth_exact`, `zeta2Top_depth_exact`).
+  **Honest correction (red-team agent):** coefficient degree is *incidental to irrationality*
+  (ζ(4) order-2 doesn't prove it; Catalan β(2) order-2 OPEN; ζ(5) order-3) — the e→ζ(2)→ζ(3)
+  degree run does NOT continue; ζ(3) deg-3 is the exception above the order-2 sporadic family.
+- **`DepthQuadraticGeneric` (7 PURE)** — `quadratic_polyDepth : ∀ A B C, polyDepth 2
+  (A·n²+B·n+C)` (whole order-2 sporadic family) via Newton-form transfer + `polyDepth_congr`.
+  `quad_eq` now closes with `by ring_nat` (the old hand `add4_reorder` deleted).
+- **`DepthCubicGeneric` (5 PURE)** — `cubic_polyDepth : ∀ A B C D, polyDepth 3 (A·n³+…)`,
+  crux `cube_eq` (`n³ = 6·C(n,3)+6·C(n,2)+n`); all multivariate reorders via `by ring_nat`.
+- **`CasoratianStep` (5 PURE)** — subtraction-free discrete-Wronskian law `c₂Cₙ=−c₀Cₙ₋₁`
+  (`casoratian_step`; middle coeff cancels) + `telescope` (`(∏P)g(n)=(∏Q)g(0)`).
+- **`CasoratianSigned` (17 PURE)** — the signed Casoratian over **ℕ-pairs** (`NatPairToInt`:
+  ℤ = ℕ-pair, sign = axis swap).  `casoratian_signed` (= `casoratian_step` repackaged),
+  `telescope_pair` (ζ(3) constant `+6/n³`), `telescope_pair_alt` (ζ(2) alternating `±5/n²`,
+  `iterNeg n` = `(−1)ⁿ`), `cube_casoratian_telescope`.  **The "needs ℤ" caveat dissolved
+  213-natively** — sign is the residue's binary axis-distinguishing.
+- **`CassiniSigned` (2 PURE)** — the residue floor's Cassini cross-determinant
+  `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the **depth-0** signed Casoratian (`cassini_pair`):
+  magnitude 1 (det-P/φ floor) + sign Oscillate.
+- **`DepthResidueFloor` (2 PURE)** — `self_pointing_depth_ladder`: depth read in 213 as
+  drift from the `P`/φ Cassini floor — e:1 → ζ(2):2 → ζ(3):3.
+- **`DepthSelfReference` (3 PURE)** — `diff` realises the Converge/Escape outcomes of
+  `Lens.SelfReferenceThreeOutcomes` (`W` settles at unit `1=det P=NS−NT`; `2ᵏ` never closes).
+- **`PolynomialDepth` (13 PURE)** — ★ the general **degree = depth** theorem:
+  `polyDepthZ_polySeq : ∀ a d, polyDepthZ d (polySeq a d)` (`polySeq a d n = Σ_{i≤d} aᵢ·nⁱ`,
+  any ℤ coeffs), via the finite-depth **ring** (`idZ` depth 1, `powSeq i` depth i by
+  `polyDepthZ_mul`, `polyDepthZ_mono`+`polyDepthZ_add`) — no Stirling.  `aperyLeadZ_depth`:
+  the ζ(3) coeff `34n³−51n²+27n−5` (negative coeffs) has depth 3 over ℤ with **no reindex**
+  (vs the ℕ version's `n=m+2`); `aperyLeadZ_value` = 117 at n=2.
 
-### Arc B — Newton–Gregory generalization (concurrent branch, merged)
-A full marathon on the **Newton–Gregory forward-difference reconstruction**, the
-HANDOFF Open Problem #4 ("Newton–Gregory blocked over `ℕ`").  Diagnosis: the ℕ
-forward difference `s(n+1)−s n` truncates, so the converse `polyDepth d ⟹ Newton
-form` cannot be stated.  Generalization: run the calculus over `ℤ` (the readout
-group in which `Δ` closes under iteration — `Int213.Core` is ∅-axiom).
+### 2. The ∅-axiom `ring` infrastructure (the durable reusable win — `Meta/`)
+The user's "build infra, not Lean core" push.  Lean-core `ring`/`omega`/`ac_rfl` pull
+`propext`/`Quot.sound`; these are ∅-axiom replacements.
+- **`Meta/Nat/PolyNatM` (22 PURE)** — multivariate **ℕ** polynomial reflection prover
+  `poly_idM` (flat monomial-map normal form; the `k`-variable generalization of `PolyNat`
+  (1-var) / `PolyInt2` (2-var ℤ)).  All `Nat.beq`-based (`eq_of_beq`/`==` pull propext).
+- **`Meta/Nat/PolyNatMTactic`** — **`ring_nat`** elab tactic (auto-reify a `Nat` `=` goal,
+  discharge via `poly_idM`; `consumeMData` for `show`-wrapped goals).
+- **`Meta/Int213/PolyIntM` (26 PURE)** — multivariate **ℤ** prover `poly_idMZ`.  Adds
+  Int coeffs + `neg` + **zero-coefficient drop** (`insertAddZ`/`isZeroZ`) so signed
+  cancellation (`(a−b)(a+b)=a²−b²`) normalises.  Powers via repeated-mult `powInt` (no core
+  Int `^`); Int ring corners PURE (Int213 kit + local `one_mulZ`/`mul_zeroZ`/`neg_zeroZ`).
+- **`Meta/Int213/PolyIntMTactic`** — **`ring_intZ`** elab tactic (auto-reify; `Sub`→add+neg,
+  `Neg`→`PE.neg`).
 
-New file `lean/E213/Lib/Math/Cauchy/NewtonGregory.lean` (41 PURE):
+> **Infra stack now: `PolyNat`(1,ℕ) · `PolyInt2`(2,ℤ) · `PolyNatM`(k,ℕ)+`ring_nat` ·
+> `PolyIntM`(k,ℤ)+`ring_intZ`** — a ∅-axiom `ring` for both ℕ and ℤ, multivariate.
 
-- **G1 `newton_gregory`** — universal `s(m+n) = Σ_{j≤n} binom(n,j)·(Δʲs)(m)` for
-  *every* `s : ℕ → ℤ` (operator `Eⁿ=(I+Δ)ⁿ`, no hypothesis).  Single induction on
-  `n` ∀`m`, expand `(Δʲs)(m+1)=(Δʲs)(m)+(Δʲ⁺¹s)(m)`, Pascal-recombine (`bsum_pascal`).
-- **G2 `newton_gregory_inverse`** — `(Δⁿs)(m)=Σ_{j≤n}(−1)^{n−j}binom(n,j)s(m+j)`;
-  `binomial_transform_roundtrip` (`F∘G=id`).  Sign handled by *reusing* `bsum_pascal`
-  (on `j≤n`, `(−1)^{n−j}=(−1)ⁿ(−1)ʲ`) — no second induction.
-- **G3 `reconstruct`** — `polyDepthZ d s ⟹ s n = Σ_{i≤d}(Δⁱs 0)·binom(n,i)`.
-  **Closes Open Problem #4** (the ℤ converse ℕ could not state).
-- **G4 `poly_bound`** — `polyDepthZ d s ⟹ ∃C, |s n| ≤ C·(n+1)^d`, `C=Σ|Δⁱs 0|`.
-  **Unblocks T4** (∅-axiom half of Hurwitzian ⟹ poly-bounded p.q. ⟹ μ=2).
-  New reusable pure infra: `natAbs_add_le` (ℤ triangle; core pulls propext),
-  `natAbs_ofNat_mul`, `binom_le_pow` (`binom n i ≤ (n+1)ⁱ`), `one_le_succ_pow`.
-- **G5 obstruction** — `vObs=(n−2)(n−1)`: `obstruction_nat` (¬polyDepth 2),
-  `obstruction_first_diff_clamp` (ℤ slope −2 clamps to 0 over ℕ),
-  `obstruction_int_constant` (ℤ 2nd diff const 2).  All `decide` (stays pure).
+### 3. Research notes (Tier-1, `research-notes/`)
+`G171_apery_zeta_tower.md` (standard-math + falsifiers + conjectures C-A done),
+`G171_self_pointing_depth_213.md` (213-native: depth = self-pointing distance from floor),
+`G171_casoratian_pair_213.md` (213-native: ℤ=ℕ-pair, sign=axis, magnitude/sign = two
+SelfReferenceThreeOutcomes readings).
 
-**Agents**: A (literature) confirmed G1=Thread 1A, G2=Thread 2B, G4=Thread 4
-(Pólya–Ostrowski basis), the Hurwitzian⟹μ=2 chain a novel synthesis.  B (red-team)
-gave three framing corrections, all folded in (see below).
-
-**Three-tier**: promoted `theory/math/analysis/newton_gregory.md` (new chapter);
-updated `theory/math/INDEX.md` (12 analysis sub-clusters), `cf_holonomicity_hierarchy.md`
-(bridge no longer Newton–Gregory-blocked).  Scratch: `research-notes/G173`.
-
-## Red-team corrections folded in (don't re-slip)
-- **ℤ-lift framing**: NOT "ℤ keeps the signed distinguishing" (that's a
-  Count-Lens-import-as-Raw slip) and NO ℕ-vs-ℤ dichotomy.  Say: **ℤ is the readout
-  group the difference-Lens `Δ` lands in** (Δ doesn't close under iteration over ℕ).
-- **Involution**: the binomial transform is **fixed-point-RICH = Nat-style**
-  grounding, NOT a Bool-style/liar oscillation (that inverts §5.2's criterion —
-  stereotype-matching).  "Two readings of one object" (change of basis) is fine.
-- **Obstruction**: the *values* don't truncate (all nonneg); only the **first
-  difference** clamps `−2→0`.  ℕ-`diff` is a *different Lens*, not broken.
+### Adjacent work on `main` (concurrent sessions — do not re-derive)
+- `Cauchy/NewtonGregory` (41 PURE): `newton_gregory`, `reconstruct` (`polyDepthZ d s ⟹ s =
+  Σ(Δⁱs0)binom(·,i)`), `poly_bound`.  `Cauchy/FiniteDepthAlgebra`: `polyDepthZ_{add,smul,mul}`
+  (finite-depth **ring**) — `PolynomialDepth` builds on this.  `Cauchy/QuasiPolyBound`,
+  `Cauchy/BinomialTransform`.
+- `Theory/Raw/{CoResidue (94 PURE), StateMachine (20 PURE), MuNuMirror}`, `Lib/Math/ResidueForm`
+  — µF=Raw / νF=SlashNu self-pointing functor, FSM Lens.
 
 ## Current Precision Results (0 free parameters)
-**No physics constants changed this session** (pure math: finite-difference
-calculus / interpolation / growth bounds).  Precision table unchanged — see
-`catalogs/physics-constants.md` and `catalogs/falsifiers.md`.  DRLT Validation
-Standard status unchanged.
+**No physics constants changed this session** (pure math: finite-difference calculus /
+divergence depth / multivariate-identity tactics).  Precision table unchanged — see
+`catalogs/physics-constants.md` (1/α_em, m_μ/m_e 0.48 ppb, R∞ 4.3 ppb, Ω_Λ, …) and
+`catalogs/falsifiers.md`.  **DRLT Validation Standard status unchanged** — see Open #1.
 
-## Open Problems / Next (priority order)
+## Open Problems (Priority Order)
 
-0. **C1 ✅ DONE** (`Cauchy/QuasiPolyBound.lean`, 14 PURE): `quasiPolyCFZ_poly_bounded`
-   — quasi-polynomial CFs are polynomially bounded (Hurwitzian⟹μ=2 spine, μ cited).
-   Witnesses: periodic (Lagrange, bounded) + e (transcendental).  Used ℤ-faithful
-   `QuasiPolyCFZ` (ℕ `polyDepth` does NOT imply `polyDepthZ` — `[3,2,1,0,0]` clamp).
-1. **C2 ✅ DONE** (`Cauchy/FiniteDepthAlgebra.lean`, 22 PURE): `polyDepthZ_mul`
-   (finite-depth ring, depth-additivity) via discrete Leibniz `diffZ_mul` +
-   `mul_vanish`.  Plus module structure (add/smul/shift).  π "depth 6=1+1+4" now a
-   theorem.
-2. **C5 ✅ DONE** (`Cauchy/BinomialTransform.lean`, 6 PURE): `binomialT_involutive`
-   (`T∘T=id`) + `binomialT_fixed` (`s+Ts` always fixed) — binomial transform is a
-   fixed-point-rich (Nat-style) involution, settling the §5.2 self-reference question.
-3. **C3 (partial)** e/π depth separation: ℤ witnesses now exist —
-   `WallisDepthProduct.polyDepthZ_affine` gives e's ratio `n+1` depth 1; π's ratio
-   `polyDepthZ 4` (`pi_ratio_polyDepthZ`, via the ring).  Remaining: the *exact*
-   lower bounds (depth ≠ smaller).  Do NOT slide to "explains the e–π separation"
-   (metaphysical); transcendence part classically open.
-4. **C4 ✅ DONE** (`FiniteDepthAlgebra` §5, +5 PURE): `periodic_finite_depth_const`
-   — periodic ℤ-sequence of finite depth is constant; finite-depth and periodic
-   (Markov/quadratic) sectors meet only at constants.  Frontier left: eigenspace
-   structure (dimension/basis of `{s : T s = s}`) over ℤ.
-5. π non-holonomicity (classical open, from prior session, `G170`) — unchanged.
-6. ζ(3) Apéry depth — DEFERRED to another branch (user).  Do NOT build here.
+### 1. DRLT Validation Standard — the repo's stated "real target" (untouched this session)
+`CLAUDE.md`: from `(NS,NT,d)=(3,2,5)`, 0 free parameters, deliver a **strict ∅-axiom
+precision theorem AND falsifier for the same observable**.  This session was pure-math infra;
+it did not advance the physics validation.  Next concrete step: audit which catalog results
+(`1/α_em` via `AlphaEM/GramStructuralCapstone`, `m_μ/m_e = NS·137/NT`, `N_gen=C(NS,NT)=3`,
+`θ_QCD`, Cabibbo `λ=5/22`) are strict ∅-axiom in Lean vs still Python/numerical.
 
-## Dead ends / cautions (don't repeat)
-- `funext` pulls `Quot.sound` (DIRTY).  Use pointwise congruence lemmas
-  (`bsum_congr`, `liftKZ_congrZ`, `vanishZ_congr`) instead.
-- Core `Int.zero_add` pulls **propext** (asymmetric — `Int.add_zero` is fine); use
-  `Int213.zero_add`.
-- `conv_lhs`/`conv_rhs`, `omega`, `Nat.one_le_pow` are **unavailable** (Mathlib /
-  version).  Use base `conv`, explicit rewrites, local `one_le_succ_pow`.
-- Core `Int.natAbs_add_le`, `Int.natAbs_mul` pull **propext** — use the local pure
-  `natAbs_add_le` / `natAbs_ofNat_mul` in `NewtonGregory.lean`.
-- Coercion `(k : Int)` ≠ syntactic `Int.ofNat k` for `rw` matching — state lemmas
-  with the `(k : Int)` coercion form, bridge to `Int.ofNat` by `show` inside.
+### 2. `ring_intZ` retrofit / reach (low-risk consolidation)
+Apply `ring_intZ`/`ring_nat` to remaining hand-written multivariate identities **in
+owned files** (e.g. `DepthAperyCubic` `poly_id` chains).  Do NOT touch concurrent-session
+files (`FiniteDepthAlgebra`, `NewtonGregory`, `PolyInt2`, `CoResidue`, `StateMachine`) —
+merge-conflict risk while they are active.
+
+### 3. π non-holonomicity (classically OPEN) — `research-notes/G170`
+`(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  FGS asymptotic-obstruction is the
+credible route.  Provable neighbours closed (`HurwitzianCF`).
+
+### 4. ζ(4)/ζ(5)/Catalan boundary (a falsifier exhibit, not a tower rung)
+The degree=depth coincidence stops at ζ(3); encoding ζ(4)'s order-2 recurrence as a
+*boundary marker* (it does NOT prove irrationality) would document this in-repo.
+
+## Unresolved from This Session (don't repeat)
+- **Generic cubic over ℕ by hand** is a 7-term multivariate AC grind with combines
+  (`3n+3n=6n`); `ac_rfl` is propext-dirty.  RESOLVED by building `PolyNatM`/`ring_nat` —
+  use the tactic, do not hand-grind.
+- **propext landmines (Int + ℕ):** `Int.add_comm`, `Int.add_sub_cancel`, `eq_of_beq`, `==`,
+  `Nat.mul_assoc`, `Nat.add_mul` all leak `propext`.  PURE replacements: `Int213.{add_comm,
+  add_assoc,mul_*,add_neg_cancel,zero_add,sub_add_cancel_int}`, `NatHelper.{add_mul,mul_assoc,
+  add_right_comm}`, `Nat.beq`+structural induction (`nat_eq_of_beq`).
+- **`monoEval []`/`zipAdd []` reductions** need an explicit `show` (WF-vs-structural); a
+  `show <reduced> = _` before `rw` unblocks; goals wrapped by `show` carry `Expr.mdata`
+  (use `consumeMData` in tactics before `ty.eq?`).
+
+## Next
+Either (a) **pivot to the DRLT Validation Standard** (Open #1 — the repo's real target; audit
+α_em / m_μ-m_e / falsifiers for strict ∅-axiom status), or (b) continue the
+infra/depth thread (retrofit Open #2, or a `polyDepthZ` ↔ "is a polynomial" characterization
+combining `PolynomialDepth` + `NewtonGregory.reconstruct`).  Recommend (a) — the math infra is
+mature; the physics validation is where the stated standard lives.
+
+## Three-tier state
+- **Promotions this session**: none (all new Lean is Tier-2 source; the depth/Casoratian
+  sub-trees are PURE-closed and are **promotion candidates** for `theory/math/analysis/`).
+- **Promotion candidates**: `Cauchy/{DepthAperyCubic, PolynomialDepth, CasoratianSigned}` +
+  the `Meta` `ring` infra — eligible for a `theory/math/analysis/divergence_depth.md` chapter
+  per `theory/PROMOTION_CRITERIA.md`.
+- **Active scratchpad**: `research-notes/G171_*` (this thread), `G170` (π), `G178` (νF, other
+  session).
 
 ## File Map
 ```
-NEW Lean (∅-axiom, 41 PURE):
-  lean/E213/Lib/Math/Cauchy/NewtonGregory.lean   ← G1-G5: universal id, inverse
-                                                    transform, reconstruction,
-                                                    growth bound, obstruction
-  lean/E213/Lib/Math/Cauchy/QuasiPolyBound.lean  ← C1: quasi-poly CF ⟹ poly-bounded
-                                                    (periodic + e witnesses), 14 PURE
-  lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2 ring (polyDepthZ_mul,
-                                                    Leibniz) + C4 boundary, 27 PURE
-  lean/E213/Lib/Math/Cauchy/BinomialTransform.lean ← C5: involution T∘T=id +
-                                                    fixed-point richness + ±1 eigendecomp, 9 PURE
-  lean/E213/Lib/Math/Cauchy/WallisDepthProduct.lean ← C2 applied to π: degree-4
-                                                    ratio depth via the ring, 6 PURE
-NEW theory chapter:
-  theory/math/analysis/newton_gregory.md
-NEW research note:
-  research-notes/G173_newton_gregory_generalization.md
+NEW Lean infra (∅-axiom):
+  lean/E213/Meta/Nat/PolyNatM.lean            ← k-var ℕ poly reflection prover (poly_idM)
+  lean/E213/Meta/Nat/PolyNatMTactic.lean      ← ring_nat tactic
+  lean/E213/Meta/Int213/PolyIntM.lean         ← k-var ℤ prover (poly_idMZ), zero-drop
+  lean/E213/Meta/Int213/PolyIntMTactic.lean   ← ring_intZ tactic
+NEW Lean math (∅-axiom):
+  lean/E213/Lib/Math/Cauchy/DepthAperyCubic.lean       ← ζ(2):2, ζ(3):3 coeff degrees, exact
+  lean/E213/Lib/Math/Cauchy/DepthQuadraticGeneric.lean ← ∀ quadratic depth 2 (ring_nat)
+  lean/E213/Lib/Math/Cauchy/DepthCubicGeneric.lean     ← ∀ cubic depth 3 (ring_nat)
+  lean/E213/Lib/Math/Cauchy/CasoratianStep.lean        ← discrete-Wronskian law + telescope
+  lean/E213/Lib/Math/Cauchy/CasoratianSigned.lean      ← signed Casoratian as ℕ-pair
+  lean/E213/Lib/Math/Cauchy/CassiniSigned.lean         ← residue floor = depth-0 signed Casoratian
+  lean/E213/Lib/Math/Cauchy/DepthResidueFloor.lean     ← self-pointing depth ladder
+  lean/E213/Lib/Math/Cauchy/DepthSelfReference.lean    ← diff = Converge/Escape
+  lean/E213/Lib/Math/Cauchy/PolynomialDepth.lean       ← ★ general degree=depth + Apéry-ℤ
+NEW research notes:
+  research-notes/G171_apery_zeta_tower.md
+  research-notes/G171_self_pointing_depth_213.md
+  research-notes/G171_casoratian_pair_213.md
 MODIFIED:
-  lean/E213/Lib/Math/Cauchy.lean                 ← umbrella import
-  theory/math/INDEX.md                           ← 12 analysis sub-clusters
-  theory/math/analysis/cf_holonomicity_hierarchy.md ← bridge unblocked
+  STRICT_ZERO_AXIOM.md  ← entries for all the above
 ```
