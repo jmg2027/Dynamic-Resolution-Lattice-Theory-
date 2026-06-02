@@ -33,7 +33,12 @@ Contents (all ∅-axiom):
     divides a Markov number);
   * `MarkovMaxUnique` / `SqrtNegOneTwoRoots` — the conjecture and its root-count input, with
     the reduction documented as an explicit open target, and `not_sqrtNegOneTwoRoots_65`
-    pinpointing where the difficulty begins (composite `c`, ≥ 4 roots).
+    pinpointing where the difficulty begins (composite `c`, ≥ 4 roots);
+  * `fib_spine_sqrt_neg_one` — for the whole Fibonacci spine, `fib(2n+3) ∣ fib(2n+2)²+1`
+    straight from Cassini (`golden_min_attained_on_fib`): φ's convergents are the spine's
+    `√(−1)` roots;
+  * `cohn_sq_neg_one_mod` — the Cohn-matrix form `C² ≡ −I (mod c)` (`tr C = 3c`, `det C = 1`,
+    Cayley–Hamilton): the order-4 modular generator `S` survives mod every Markov number.
 -/
 
 namespace E213.Lib.Math.Real213.MarkovUniqueness
@@ -388,5 +393,53 @@ theorem fib_spine_sqrt_neg_one_pred (n : Nat) :
   rw [golden_min_attained_on_fib n]
   have hrec : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
   rw [hrec, Nat.mul_add, Nat.mul_comm (fib (2 * n + 1)) (fib (2 * n + 2))]
+
+/-! ## §9 — the Cohn-matrix form: `C² ≡ −I (mod c)` (the order-4 generator survives mod c)
+
+Every Markov number `c` carries a **Cohn matrix** `C = [[a,b],[cc,d]] ∈ SL(2,ℤ)` (built from
+its Stern-Brocot word in `A=[[2,1],[1,1]], B=[[5,2],[2,1]]`) with `tr C = a+d = 3c` and
+`det C = a·d − b·cc = 1`.  Cayley–Hamilton for `2×2` gives `C² = (tr C)·C − (det C)·I = 3c·C − I`,
+so reduced mod `c` it squares to `−I`: `C mod c` is an **order-4 element of `SL(2,ℤ/cℤ)`** — a
+copy of the Gaussian `i = S` (the order-4 modular generator, `ModularElliptic.S`) carried along
+the tree path to `c`.  This is the matrix form of the Markov `√(−1)`: the defining relation
+`S² = −I` survives reduction mod `c` along *any* tree path.
+
+Cohn-matrix entries are positive, so the statement lives over `ℕ`: each entry of `C²` is `≡` the
+corresponding entry of `−I` mod `c`, i.e. `c ∣ (C²)₁₁+1`, `c ∣ (C²)₁₂`, `c ∣ (C²)₂₁`,
+`c ∣ (C²)₂₂+1`.  Det in the additive form `a·d = b·cc + 1` keeps it subtraction-free. -/
+
+/-- ★★★★ **A trace-`3m`, det-`1` matrix squares to `−I` mod `m`.**  For `[[a,b],[cc,d]]` with
+    `a·d = b·cc + 1` and `a + d = 3m`, the four entries of the square satisfy
+    `m ∣ a²+b·cc+1`, `m ∣ a·b+b·d`, `m ∣ cc·a+d·cc`, `m ∣ cc·b+d²+1` — Cayley–Hamilton
+    `C² = 3m·C − I ≡ −I (mod m)`, pure `ℕ`. -/
+theorem cohn_sq_neg_one_mod (a b cc d m : Nat)
+    (hdet : a * d = b * cc + 1) (htr : a + d = 3 * m) :
+    m ∣ (a * a + b * cc + 1) ∧ m ∣ (a * b + b * d)
+    ∧ m ∣ (cc * a + d * cc) ∧ m ∣ (cc * b + d * d + 1) := by
+  have hdvd3 : ∀ y : Nat, m ∣ ((3 * m) * y) :=
+    fun y => ⟨3 * y, by rw [Nat.mul_comm 3 m, mul_assoc m 3 y]⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · have h : a * a + b * cc + 1 = (3 * m) * a := by
+      rw [← htr, E213.Tactic.NatHelper.add_mul, Nat.mul_comm d a, hdet, Nat.add_assoc]
+    rw [h]; exact hdvd3 a
+  · have h : a * b + b * d = (3 * m) * b := by
+      rw [← htr, E213.Tactic.NatHelper.add_mul, Nat.mul_comm d b]
+    rw [h]; exact hdvd3 b
+  · have h : cc * a + d * cc = (3 * m) * cc := by
+      rw [← htr, E213.Tactic.NatHelper.add_mul, Nat.mul_comm cc a]
+    rw [h]; exact hdvd3 cc
+  · have h : cc * b + d * d + 1 = (3 * m) * d := by
+      rw [← htr, E213.Tactic.NatHelper.add_mul, hdet, Nat.mul_comm cc b,
+          Nat.add_assoc (b * cc) (d * d) 1, Nat.add_assoc (b * cc) 1 (d * d),
+          Nat.add_comm (d * d) 1]
+    rw [h]; exact hdvd3 d
+
+/-- ★ **The Cohn matrix of `5` is order-4 mod `5`.**  `C = [[12,5],[7,3]]` (Stern-Brocot word
+    `AB`, `tr = 15 = 3·5`, `det = 36−35 = 1`): `C² ≡ −I (mod 5)` — the Gaussian `i` realised mod
+    the Markov number `5`.  `C² = [[179,75],[105,44]] ≡ [[−1,0],[0,−1]] (mod 5)`. -/
+theorem cohn5_sq_neg_one_mod_5 :
+    (5 : Nat) ∣ (12 * 12 + 5 * 7 + 1) ∧ (5 : Nat) ∣ (12 * 5 + 5 * 3)
+    ∧ (5 : Nat) ∣ (7 * 12 + 3 * 7) ∧ (5 : Nat) ∣ (7 * 5 + 3 * 3 + 1) :=
+  cohn_sq_neg_one_mod 12 5 7 3 5 (by decide) (by decide)
 
 end E213.Lib.Math.Real213.MarkovUniqueness

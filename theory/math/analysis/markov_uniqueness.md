@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (28 PURE / 0 dirty):
+explicit open target.  Source of truth (35 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -75,6 +75,22 @@ congruence, and `x² ≡ −1 (mod p)` is unsolvable when `p ≡ 3 (mod 4)`, no 
 divides a Markov number — every odd prime factor is `≡ 1 (mod 4)`.  The unsolvability is recorded
 per prime in `no_sqrt_neg_one_mod_{3,7,11,19}`, against the solvable contrast at `5` and `13`.
 
+## The Fibonacci spine: φ's convergents are the spine's `√(−1)` roots
+
+The most native instance of the encoding is general and needs no inverse to exhibit.  The
+Cassini/Catalan identity, already present as `golden_min_attained_on_fib` (the golden form
+taking its minimum `−1` on φ's convergents), reads `fib(2n+2)² + 1 = fib(2n+1)·fib(2n+3)`.  So
+the Fibonacci-spine Markov number `fib(2n+3)` divides `fib(2n+2)² + 1`:
+
+  `fib(2n+3) ∣ fib(2n+2)² + 1`     (`fib_spine_sqrt_neg_one`, for every `n`),
+
+i.e. `u = fib(2n+2)` is a square root of `−1` modulo `fib(2n+3)`.  The square root of `−1` that
+indexes each Markov number on the golden spine is the *next Fibonacci convergent of* the
+worst-approximable number φ — the convergent itself is the root, with no modular inversion
+required.  The companion `fib_spine_sqrt_neg_one_pred` reads the same Cassini product on the
+other factor (`fib(2n+1) ∣ fib(2n+2)² + 1`).  Concretely `fib(9) = 34 ∣ fib(8)² + 1 = 442 =
+34·13`, and the root `21 = fib(8)` mod `34` is exactly the predicted convergent.
+
 ## Relation to the modular tower
 
 The Markov coefficient is `NS = 3`, the trace of `P = [[2,1],[1,1]]`, and the tree is the
@@ -84,6 +100,16 @@ square root of `−1` modulo the maximum — the same `i` carried by the order-4
 `S` of `PSL(2,ℤ) = ℤ₂ * ℤ₃` (`modular_generator_orders`).  The root that indexes a Markov number
 and the Gaussian unit that fixes the order-4 cusp are one element.
 
+This is made exact at the matrix level.  Each Markov number `c` carries a Cohn matrix
+`C = [[a,b],[cc,d]] ∈ SL(2,ℤ)` (from its Stern-Brocot word in `A=[[2,1],[1,1]], B=[[5,2],[2,1]]`)
+with `tr C = 3c` and `det C = 1`.  Cayley–Hamilton gives `C² = (tr C)·C − I = 3c·C − I`, so
+`C² ≡ −I (mod c)`: reduced mod `c`, `C` is an order-4 element of `SL(2,ℤ/cℤ)` — a copy of the
+Gaussian `i = S` carried along the tree path to `c`.  Because the entries are positive this is a
+pure-`ℕ` statement (`cohn_sq_neg_one_mod`: from `a·d = b·cc+1` and `a+d = 3m`, each entry of `C²`
+is congruent mod `m` to the entry of `−I`), instantiated at `cohn5_sq_neg_one_mod_5`
+(`C=[[12,5],[7,3]]`, `C² = [[179,75],[105,44]] ≡ −I (mod 5)`).  So the defining relation of the
+order-4 modular generator survives reduction mod every Markov number, along any tree path.
+
 ## How to verify
 
 ```bash
@@ -92,4 +118,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `28 pure / 0 dirty`.
+Reports `35 pure / 0 dirty`.

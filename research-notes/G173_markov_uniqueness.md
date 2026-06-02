@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (28 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (35 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 28 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 35 PURE)
 
 | theorem | content |
 |---|---|
@@ -44,6 +44,10 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `no_sqrt_neg_one_mod_{3,7,11,19}` | `−1` a non-residue mod `p≡3 (mod 4)` |
 | `MarkovMaxUnique`, `SqrtNegOneTwoRoots` | the conjecture + its root-count input, formalised |
 | `not_sqrtNegOneTwoRoots_65` | `c=65=5·13` has 4 roots `{8,18,47,57}` — the obstruction onset |
+| `markov_common_dvd_sq`, `markov_gcd_dvd_sq` | `d∣b → d∣c → d∣a²`; `gcd(b,c)∣a²` (coprimality foothold) |
+| `markov_partner_is_triple` | the explicit Vieta partner `markovEq a b (3ab−c)` (tree edge map) |
+| `fib_spine_sqrt_neg_one` (+`_pred`) | **`fib(2n+3) ∣ fib(2n+2)²+1`** ∀n, from Cassini — φ's convergents are the spine's `√(−1)` roots |
+| `cohn_sq_neg_one_mod` (+`cohn5_…`) | **`C² ≡ −I (mod c)`** for `tr C = 3c`, `det C = 1` (Cayley–Hamilton) — the Cohn matrix is order-4 mod `c`, a copy of the Gaussian `i = S` |
 
 Reused infra: `Gcd213.{dvd_sub_213, dvd_add_213}`, `NatHelper.{mul_sub_distrib, mul_mod_right,
 mul_mul_mul_comm_213}`.  The `%`-residue form (not `∣`) is used in `decide` statements — the
@@ -91,6 +95,16 @@ neighbor congruence `c ∣ a²+b²` says the second neighbor is a `√(−1)` mo
 modular generator.  Possible 213-native conjecture: the Markov-number ↦ `√(−1)`-residue map is
 the Stern-Brocot ↦ `PSL(2,ℤ)`-elliptic correspondence restricted to the `c=2` `K_{3,2}` axis —
 to be sharpened.
+
+**Closed this session (the Fibonacci spine, general ∀n):** `fib_spine_sqrt_neg_one` —
+`fib(2n+3) ∣ fib(2n+2)²+1`, straight from the repo's Cassini identity
+`golden_min_attained_on_fib` (`fib(2n+2)²+1 = fib(2n+1)·fib(2n+3)`).  So along the golden spine
+the `√(−1)` residue of the Markov number `fib(2n+3)` is `u = fib(2n+2)` — *φ's next convergent*.
+The worst-approximable number's convergents are exactly the `√(−1)` roots indexing its Markov
+spine; no modular inversion is needed (the convergent IS the root, by Cassini).  E.g.
+`fib9=34 ∣ fib8²+1 = 442 = 34·13`, root `21=fib8` mod `34`.  This is the cleanest 213-native
+realisation of the encoding: the Markov spine, the golden form's `−1`-minimum, and the `√(−1)`
+root all coincide on the Fibonacci convergents.
 
 ## Next
 
