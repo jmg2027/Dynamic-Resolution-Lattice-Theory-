@@ -1,5 +1,5 @@
 import E213.Lib.Math.Real213.SpiralLayer
-import E213.Lib.Math.CayleyDickson.Integer.ZIUnits
+import E213.Lib.Math.CayleyDickson.Integer.GaussianCrossDet
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion
 
 /-!
@@ -57,23 +57,15 @@ theorem spiral_coordinate :
     (∀ (a : Nat → Nat) (n : Nat), cfDet a n * cfDet a n = 1)
     -- 2. layer spectrum unrestricted: every finite depth realized
     ∧ (∀ d : Nat, polyDepth d (genExp d))
-    -- 3. axis spectrum exactly {2,4,6}
+    -- 3. axis spectrum exactly {2,4,6} (the orders 4, 6 realized as floor rotations:
+    --    `GaussianCrossDet.gaussian_floor_rotation`, `EisensteinCompletion.eisenstein_floor_rotation`)
     ∧ (E213.Lib.Math.CayleyDickson.Integer.ZI.units4.length = 4
         ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = 6
-        ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = NS * NT)
-    -- 4. the axis is realized geometrically: the 3-axis floor rotates with order 6
-    ∧ (∀ n, E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.crossDet
-              E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.aFib
-              E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.dFib (n+1)
-            = (⟨0, -1⟩ : E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega)
-              * E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.crossDet
-                  E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.aFib
-                  E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet.dFib n) :=
+        ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = NS * NT) :=
   ⟨cf_det_sq,
    fun d => (genExp_depth_exact d).1,
    ⟨E213.Lib.Math.CayleyDickson.Integer.ZI.units4_length,
     E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6_length,
-    E213.Lib.Math.CayleyDickson.Integer.ZOmega.units_count_eq_NSNT⟩,
-   E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion.omega_cross_step⟩
+    E213.Lib.Math.CayleyDickson.Integer.ZOmega.units_count_eq_NSNT⟩⟩
 
 end E213.Lib.Math.Real213.SpiralCoordinate

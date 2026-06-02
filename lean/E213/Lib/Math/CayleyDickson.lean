@@ -22,6 +22,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion
+import E213.Lib.Math.CayleyDickson.Integer.GaussianCrossDet
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2Domain
