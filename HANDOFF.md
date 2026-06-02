@@ -178,6 +178,9 @@ This merge also brings the foundational **residue-form / inversion** arc (origin
   coinduction), faithful embedding (`lToShape_faithful`), **anti-reflexivity is positive**
   (`treeDiffPath`/`slash_children_distinct` — no bisimulation), named infinite anti-reflexive
   inhabitant (`spineL`, the left-spine, `spineL_antiRefl` + `spineL_escapes`).
-- RESIDUAL: the exact slash-νF final assembly (bundle `Consistent`+`AntiRefl` subtype + its
-  finality + `lToShape r.val ∈ AntiRefl` needing the Raw everywhere-distinct invariant — mechanical,
-  not a coinduction obstruction).  Whole arc ∅-axiom, critique-hardened (5 adversarial rounds).
+- §10: the everywhere-distinct subtlety **resolved** — it IS canonicity (`canonical_slash_decompose`
+  ⟹ `cmp x y=.lt` ⟹ `x≠y`).  `lToShape_antiRefl`/`raw_embeds_antiRefl`: every Raw embeds
+  **anti-reflexively** (+ faithfully, §6) into the leaf-labelled co-tree model; `spineL` the infinite
+  anti-reflexive escapee.  RESIDUAL: only the subtype's OWN finality (`{s//Consistent s ∧ AntiRefl s}`
+  as a type + `ana` landing + uniqueness surviving) — not a coinduction obstruction.  CoResidue 30
+  thm, 47/0 PURE.  Whole arc ∅-axiom, critique-hardened (5+ adversarial rounds).

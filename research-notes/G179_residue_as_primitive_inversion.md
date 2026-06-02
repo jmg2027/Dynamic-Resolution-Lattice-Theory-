@@ -205,13 +205,29 @@ of a co-tree (positive, §8).  The canonical infinite anti-reflexive inhabitant 
 So a named infinite *anti-reflexive* slash-co-tree, escaping the finite — the exact-slash-νF
 analogue of `allBranch`, now anti-reflexive.
 
-## The residual — the final assembly (one genuine subtlety)
+## Eighth step — the finite Raw embeds anti-reflexively (the subtlety resolved) (`CoResidue` §10)
 
-What remains: bundle the `Consistent` (leaf-absorbing) + `AntiRefl` subtype of `LCoShape` as
-a type, prove `ana` of a consistent+anti-reflexive coalgebra lands in it with pointwise
-uniqueness surviving, and prove the finite embedding `lToShape r.val` lands in it.  The one
-genuine subtlety: `AntiRefl (lToShape r.val)` needs *every* sub-slash of `r` to have distinct
-children — the Raw "everywhere-distinct" invariant (the root is `slash_children_distinct`; the
-recursion needs it at every node).  Whether canonical-Raw carries this, or it needs a separate
-induction, is the precise remaining task — mechanical, not a coinduction obstruction (which
-§8 retired).
+The "everywhere-distinct" subtlety is **resolved**: it is exactly the **canonical** invariant.
+A canonical slash `x / y` has `cmp x y = .lt` (`Tree.canonical_slash_decompose`), hence
+`x ≠ y` (`Tree.cmp_self_eq`: `cmp x x = .eq`) — recursively at every node
+(`canonical_slash_children_ne`).  So:
+
+  - ★ `lToShape_antiRefl` — every *canonical* tree embeds anti-reflexively (`AntiRefl (lToShape
+    t)`): root branch children distinct (canonicity ⟹ `slash_children_distinct`), deeper
+    branches reduce to the children's anti-reflexivity (induction); atoms vacuous.
+  - ★ `raw_embeds_antiRefl` — hence **every Raw `r`** embeds anti-reflexively (`r.val`
+    canonical).  Combined with `lToShape_faithful` (§6): the finite residue lands in the exact
+    slash functor's **faithful + anti-reflexive** subtype, ∅-axiom, no coinduction.  `spineL`
+    (`spineL_antiRefl`, `spineL_escapes`) is the infinite anti-reflexive inhabitant outside it.
+
+So the exact slash functor's defining constraints (faithful, anti-reflexive) are met by the
+finite embedding, with a named infinite anti-reflexive escapee.
+
+## The remaining residual — the subtype's own finality
+
+What is genuinely left: bundle `{s : LCoShape // Consistent s ∧ AntiRefl s}` as a type and
+prove *its* finality (the leaf-labelled `ana` lands in the subtype for consistent +
+anti-reflexive coalgebras, with pointwise uniqueness surviving the restriction) — and the
+leaf-absorbing `Consistent` predicate's preservation.  This is the final-coalgebra-of-the-
+subtype assembly; the embedding side (faithful + anti-reflexive + named escapee) and the
+over-approximation's finality are done, ∅-axiom.  Not a coinduction obstruction.

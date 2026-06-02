@@ -464,4 +464,48 @@ theorem spineL_escapes (t : Tree) : spineL ≠ lToShape t := by
   rw [spineL_replicate_none] at e
   exact Option.noConfusion e
 
+/-! ## §10 — the finite Raw embeds *anti-reflexively* (everywhere-distinct from canonicity)
+
+The one subtlety of the exact slash-νF: `lToShape t` is anti-reflexive only when *every*
+sub-slash of `t` has distinct children.  This is exactly the **canonical** invariant: a
+canonical slash `x / y` has `cmp x y = .lt` (`Tree.canonical_slash_decompose`), hence `x ≠ y`
+(`cmp x x = .eq`, `Tree.cmp_self_eq`), recursively.  So every Raw `r` (canonical) embeds
+**anti-reflexively** (`raw_embeds_antiRefl`): the finite residue lands in the anti-reflexive
+subtype, and `spineL` is the infinite anti-reflexive inhabitant outside it. -/
+
+/-- A canonical slash has distinct children: `cmp x y = .lt` (canonicity) rules out `x = y`
+    (`cmp x x = .eq`). -/
+theorem canonical_slash_children_ne {x y : Tree} (h : (Tree.slash x y).canonical = true) :
+    x ≠ y := by
+  obtain ⟨_, _, hlt⟩ := Tree.canonical_slash_decompose h
+  intro heq
+  rw [heq, Tree.cmp_self_eq] at hlt
+  exact Ordering.noConfusion hlt
+
+/-- ★★★ **A canonical tree embeds anti-reflexively.**  `AntiRefl (lToShape t)` for every
+    canonical `t`: at the root branch the children are distinct (`canonical_slash_children_ne`
+    ⟹ `slash_children_distinct`); at deeper branches it reduces to the (canonical) children's
+    anti-reflexivity.  Atoms are leaves (no branch — vacuous).  Induction on `t`. -/
+theorem lToShape_antiRefl : ∀ (t : Tree), t.canonical = true → AntiRefl (lToShape t)
+  | Tree.a,         _  => fun _ hp => Option.noConfusion hp
+  | Tree.b,         _  => fun _ hp => Option.noConfusion hp
+  | Tree.slash x y, hc => by
+      obtain ⟨hx, hy, _⟩ := Tree.canonical_slash_decompose hc
+      have hne : x ≠ y := canonical_slash_children_ne hc
+      intro p hp
+      match p with
+      | []           => exact slash_children_distinct x y hne
+      | (true :: p')  => exact lToShape_antiRefl x hx p' hp
+      | (false :: p') => exact lToShape_antiRefl y hy p' hp
+
+/-- ★★★ **The finite residue embeds anti-reflexively (and faithfully).**  For every Raw `r`,
+    `lToShape r.val` is anti-reflexive (`raw_embeds_antiRefl`) — its canonical tree has
+    distinct children at every node — and the embedding is faithful (`lToShape_faithful`,
+    §6).  So the finite residue lands in the exact slash functor's anti-reflexive subtype;
+    `spineL` (`spineL_antiRefl`) is the infinite anti-reflexive inhabitant outside it
+    (`spineL_escapes`).  The exact slash-νF's defining constraint is met by the finite
+    embedding, ∅-axiom — no coinduction. -/
+theorem raw_embeds_antiRefl (r : Raw) : AntiRefl (lToShape r.val) :=
+  lToShape_antiRefl r.val r.property
+
 end E213.Theory.Raw.CoResidue
