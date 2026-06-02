@@ -537,6 +537,20 @@ theorem markov_reachable_is_triple {a b c : Nat} (h : MarkovReachable a b c) : m
 theorem markov_reachable_gcd_bc {a b c : Nat} (h : MarkovReachable a b c) : gcd213 b c = 1 :=
   (markov_reachable_coprime h).2.2
 
+/-- **No two entries of a reachable triple share a factor `≥ 2`** — the usable form of pairwise
+    coprimality.  Any common divisor `d` of two entries divides their `gcd213 = 1`, so `d = 1`.
+    In particular at most one entry is even (`d = 2`). -/
+theorem markov_reachable_no_common_factor {a b c : Nat} (h : MarkovReachable a b c)
+    (d : Nat) (hd : 2 ≤ d) :
+    ¬ (d ∣ a ∧ d ∣ b) ∧ ¬ (d ∣ b ∧ d ∣ c) ∧ ¬ (d ∣ a ∧ d ∣ c) := by
+  obtain ⟨hab, hac, hbc⟩ := markov_reachable_coprime h
+  have no : ∀ u v : Nat, gcd213 u v = 1 → ¬ (d ∣ u ∧ d ∣ v) := by
+    intro u v huv hduv
+    have hd1 : d = 1 := eq_one_of_dvd_one (huv ▸ gcd213_greatest u v d hduv.1 hduv.2)
+    rw [hd1] at hd
+    exact absurd hd (by decide)
+  exact ⟨no a b hab, no b c hbc, no a c hac⟩
+
 /-! ## §11 — the encoding from a modular inverse (residue form)
 
 The `√(−1)` encoding in its natural usability form: rather than a hand-supplied `(b', j)` with

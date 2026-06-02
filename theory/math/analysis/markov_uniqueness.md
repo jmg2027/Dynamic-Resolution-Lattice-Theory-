@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (42 PURE / 0 dirty):
+explicit open target.  Source of truth (43 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -150,4 +150,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `42 pure / 0 dirty`.
+Reports `43 pure / 0 dirty`.

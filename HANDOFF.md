@@ -2,7 +2,7 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
-(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `42 pure / 0 dirty`).
+(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `43 pure / 0 dirty`).
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
@@ -10,7 +10,7 @@ prove ∅-axiom neighbours, run agent discussion, build conjectures.
 
 ## What Was Done This Session
 
-### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (42 PURE / 0 dirty)
+### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (43 PURE / 0 dirty)
 The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery existed in the repo.
 
 - **§1–2 Neighbor congruence.** `markov_le_3mul` (every entry `≤ 3·`product of other two);
@@ -111,7 +111,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ## File Map
 ```
 NEW Lean (∅-axiom):
-  lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (42 PURE)
+  lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (43 PURE)
   lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime + two_roots_13 (16 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md

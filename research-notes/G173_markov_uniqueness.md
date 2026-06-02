@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (42 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (43 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 42 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 43 PURE)
 
 | theorem | content |
 |---|---|
