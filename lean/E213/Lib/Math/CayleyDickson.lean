@@ -20,6 +20,7 @@ import E213.Lib.Math.CayleyDickson.Tower.DiscForcingObstruction
 import E213.Lib.Math.CayleyDickson.Tower.ExceptionalTraceSeed
 import E213.Lib.Math.CayleyDickson.Tower.CyclotomicTraceDegree
 import E213.Lib.Math.CayleyDickson.Tower.PlatonicSchlafliFilter
+import E213.Lib.Math.CayleyDickson.Tower.QuadraticFieldDiscriminant
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion

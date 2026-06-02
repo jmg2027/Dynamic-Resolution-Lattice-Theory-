@@ -978,6 +978,43 @@ traces are the seeds `√NT`, `√(NS+NT)` (Phase 16) → the binary covers
 indices, one spherical condition; the boundary is the Euclidean affine
 edge.
 
+## Phase 19 — 잔여물 재진입: the seed is its own operand at every scale
+
+User shared (from a parallel branch) the 213 expansion engine:
+*distinction → unit residue → that residue is the next operand → gapless
+self-similar spiral, no exterior; the meta-layer is just another step of
+the same operation (`diag_self_applies`).*  At the exceptional seeds this
+is literally visible — the seed **number** re-enters as its own operand
+at each scale.
+
+`QuadraticFieldDiscriminant.lean` (∅-axiom, 5 theorems):
+
+  * `seed_reentry` — `5 = NS+NT` appears at **three scales**, one
+    residue fed back each time:
+      - 2D matrix: `disc P = 3² − 4 = NS+NT`;
+      - number-field: `fundDisc ℚ(√5) = NS+NT` (`5 ≡ 1 mod 4`);
+      - 4D quaternion: `(2·trace(g₅)+1)² = NS+NT` (the order-`5` icosian
+        trace, cited from `ExceptionalTraceSeed`).
+    Not three facts — the same `5` seen one scale up each time.
+  * `E8_disc_eq_field_disc` — the double anchor isolated: matrix
+    `disc P` = number-field `fundDisc ℚ(√5)` = `NS+NT`.
+  * `E7_field_disc` — `fundDisc ℚ(√NT) = 4·NT = 8`, and `8` *is* a matrix
+    discriminant (`8 = 2² − 4·(−1)`), **unlike** the naive seed `NT = 2`
+    (`two_not_a_discriminant`).  So `ℚ(√2)` is field-realised; only its
+    `P`-forcing fails (P yields `5`, never `8`).  Sharpens the Phase-15
+    obstruction: it was about the *value* `2`, not the field.
+  * `E6_field_disc` — `fundDisc ℚ(√(−NS)) = −NS = −3`.
+  * `seed_field_discriminants` — the three: `{5, 8, −3}`.
+
+`fundDisc` defined with closed `Int` `emod` (decide-pure).  This realises
+the engine at the seed-number level: the `P`-engine produces `5`, and
+`5` re-enters as the matrix disc, the field disc, and the quaternion
+trace — gaplessly, with no outside to supply a different number.  `E₇`'s
+`√2` is the residue that the `P`-engine *cannot* re-produce (its disc is
+always `5`), so it appears only on the diagonal (trace) and as the field
+disc `8`, never as `disc P` — the precise, bounded sense in which `E₇` is
+the exception.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
