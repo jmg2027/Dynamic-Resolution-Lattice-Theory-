@@ -170,4 +170,60 @@ theorem residue_reentry_concrete (n : Nat) :
    multipoint_object1_differ_at (fun _ => true) Raw.a Raw.b rfl rfl a_ne_b
      (predicateToRaw n (fun _ => true))⟩
 
+/-! ## §4 — the exact fixed-point characterization
+
+§3 gave the sufficient exclusion: a predicate true at two distinct Raws is never fixed.
+Here is the *exact* fixed set.  The composite `Object1 ∘ predicateToRaw n` always lands on
+an indicator `Object1 (·)`, so a fixed point must itself be an indicator — and not just
+any: the one whose encoding **round-trips** (`predicateToRaw n (Object1 r) = r`).  So the
+fixed points are exactly the round-tripping single-Raw indicators — a *proper* refinement
+of "single-point": single-pointedness is necessary (`reentry_fixed_imp_single`) but the
+round-trip condition is the rest.  `object1_true_exactly_one` records the single-Raw count
+(`1`) that makes the indicator the lever. -/
+
+/-- ★ **`Object1 r` is true at exactly one Raw.**  Existence (`Object1 r r = true`) and
+    uniqueness (`Object1 r s = true → s = r`): the indicator's truth set has count `1` —
+    the count-Lens unit that re-pointing collapses every predicate to. -/
+theorem object1_true_exactly_one (r : Raw) :
+    Object1 r r = true ∧ ∀ s : Raw, Object1 r s = true → s = r :=
+  ⟨E213.Lens.FlatOntology.Object1_self r, fun s h => object1_true_unique r s h⟩
+
+/-- ★★★ **The fixed points are exactly the round-tripping indicators.**  `Object1
+    (predicateToRaw n P) = P` holds **iff** `P` is the indicator of some Raw `r` whose
+    encoding returns it: `P = Object1 r` and `predicateToRaw n (Object1 r) = r`.  Forward:
+    a fixed `P` equals `Object1 (predicateToRaw n P)`, an indicator, and its encoding
+    round-trips by the fixedness itself.  Backward: an indicator that round-trips is fixed
+    by substitution.  So naming the residue closes only on the self-encoding indicators —
+    the rest re-open. -/
+theorem reentry_fixed_iff (n : Nat) (P : Raw → Bool) :
+    Object1 (predicateToRaw n P) = P
+      ↔ ∃ r : Raw, P = Object1 r ∧ predicateToRaw n (Object1 r) = r := by
+  constructor
+  · intro hfix
+    exact ⟨predicateToRaw n P, hfix.symm, by rw [hfix]⟩
+  · rintro ⟨r, hP, hrt⟩
+    rw [hP, hrt]
+
+/-- ★★ **A fixed point is single-pointed.**  The necessary half of the characterization:
+    if `P` is fixed by re-pointing, it is true at most at one Raw (it is an indicator).
+    The contrapositive of `reentry_nonfixed_of_multipoint`, via `reentry_fixed_iff`. -/
+theorem reentry_fixed_imp_single (n : Nat) (P : Raw → Bool)
+    (hfix : Object1 (predicateToRaw n P) = P) (s t : Raw)
+    (hs : P s = true) (ht : P t = true) : s = t := by
+  obtain ⟨r, hP, _⟩ := (reentry_fixed_iff n P).mp hfix
+  rw [hP] at hs ht
+  exact (object1_true_unique r s hs).trans (object1_true_unique r t ht).symm
+
+/-- ★★★ **The fixed-point picture, bundled.**  The fixed points of re-pointing are exactly
+    the round-tripping indicators (`reentry_fixed_iff`), and in particular single-pointed
+    (`reentry_fixed_imp_single`); dually any two-point predicate is excluded
+    (`reentry_nonfixed_of_multipoint`).  The residue closes only on the self-encoding
+    single points; every distinction-drawing predicate re-opens. -/
+theorem reentry_fixed_characterization (n : Nat) (P : Raw → Bool) :
+    (Object1 (predicateToRaw n P) = P
+       ↔ ∃ r : Raw, P = Object1 r ∧ predicateToRaw n (Object1 r) = r)
+    ∧ (Object1 (predicateToRaw n P) = P
+       → ∀ s t : Raw, P s = true → P t = true → s = t) :=
+  ⟨reentry_fixed_iff n P, reentry_fixed_imp_single n P⟩
+
 end E213.Lens.ResidueReentry

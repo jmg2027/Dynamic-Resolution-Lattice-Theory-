@@ -1,7 +1,7 @@
 # G176 — the residue re-enters as the next operand, and the self-cover never closes
 
 **Date**: 2026-06-02.  **Status**: closed ∅-axiom result (foundational / residue axis).
-**Source of truth**: `lean/E213/Lens/ResidueReentry.lean` (8 PURE / 0 DIRTY).
+**Source of truth**: `lean/E213/Lens/ResidueReentry.lean` (12 PURE / 0 DIRTY).
 **Anchors**: `Lens/FlatOntologyClosure` (`Object1`, `object1_injective`,
 `object1_not_surjective`, `self_covering_closure`), `Lens/PredicateSelfEncoding`
 (`predicateToRaw`, `predicate_self_encoding_closure`), `Cauchy/DepthHeightDiagonal`
@@ -75,10 +75,30 @@ explicit Raw of disagreement — the sharp mechanism made a theorem:
     and its explicit disagreement point.
 
 So "naming the residue yields a different predicate" is no longer only non-surjectivity:
-it is a point-witnessed inequality.  The criterion is the content — re-pointing collapses
-*every* predicate to a single-Raw indicator, so the non-fixed-points are exactly the
-predicates that draw any distinction (true at ≥ 2 Raws), the undifferentiated one being the
-extreme member.
+it is a point-witnessed inequality.  The sufficient exclusion is the content — re-pointing
+collapses *every* predicate to a single-Raw indicator, so any distinction-drawing predicate
+(true at ≥ 2 Raws) is non-fixed, the undifferentiated one being the extreme member.
+
+## The exact fixed-point characterization (§4, now closed)
+
+A first pass read the non-fixed-points as *exactly* the distinction-drawing predicates —
+i.e. every single-point predicate fixed.  §4 sharpens this to the precise fixed set, which
+is a *proper* refinement of "single-point":
+
+  - ★ `object1_true_exactly_one` — the indicator's truth set has count exactly `1`
+    (existence `Object1 r r = true` + uniqueness): the count-Lens unit the collapse targets.
+  - ★ `reentry_fixed_iff` — `Object1 (predicateToRaw n P) = P` **iff** `P` is the indicator
+    of some Raw `r` whose encoding round-trips: `P = Object1 r ∧ predicateToRaw n (Object1 r)
+    = r`.  The composite always lands on an indicator, so a fixed point must be one — and
+    precisely the self-encoding one.
+  - ★ `reentry_fixed_imp_single` — a fixed point is single-pointed (the necessary half).
+  - ★ `reentry_fixed_characterization` — bundles the iff + the single-pointedness.
+
+So single-pointedness is *necessary* but not *sufficient* for fixedness: the fixed set is
+the round-tripping indicators, a proper subset of the single-point predicates.  The honest
+statement of "what closes": naming the residue closes only on the self-encoding single
+points; every distinction-drawing predicate (and every non-round-tripping indicator)
+re-opens.
 
 ## Honest scope
 
@@ -86,6 +106,10 @@ extreme member.
     predicates (as in `PredicateSelfEncoding`), the decidable reach of the encoding.  The
     concrete witness above is independent of the prefix length `n` (the undifferentiated
     predicate is two-point at the atoms for every `n`).
+  - The fixed set is characterized abstractly (round-tripping indicators); a *concrete*
+    single-point indicator that fails to round-trip (hence single-pointed yet non-fixed)
+    would need a `numeral`-level computation of `predicateToRaw n (Object1 r) ≠ r` — left
+    for the encoding-arithmetic track, the characterization being the cleaner statement.
 
 ## Open (foundational axis)
 
