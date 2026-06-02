@@ -1,9 +1,38 @@
 # Session Handoff — 2026-06-02
 
 ## Branch
-`claude/goal-g171-marathon-research-Dj9Go` (G171 Apéry zeta marathon) — **merged to `main`**.
-Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty` on every module below).
+`claude/concrete-non-fixed-point-witness-vi1IQ` (self-reference / µF↔νF / FSM marathon).
+Working tree clean.  `lake build E213.Theory.Raw.API` clean.  All new theorems ∅-axiom.
+
+## Current arc — the residue's self-pointing functor: µF, νF, and the FSM Lens
+
+The self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` is built out on both faces:
+
+- **µF = Raw** (`Theory/Raw/Lambek`, `MuNuMirror`): initial algebra; descent well-founded
+  (`isPart_wf`, `no_infinite_descent`), ascent unbounded (`ascent_unbounded`), `rawTower` the
+  free-running counter at the seam.
+- **νF = `CoResidue.SlashNu`** (`Theory/Raw/CoResidue`, ~64 PURE): the exact slash-νF via the
+  M-type / path-function presentation (no coinduction primitive); `lAna`, `slashNu_final`
+  (finality up to pointwise eq among anti-reflexive coalgebras), anti-reflexivity *positive*
+  (`Distinct`, `treeDiffPath` — no bisimulation), `spineL` the infinite inhabitant escaping
+  every finite Raw.
+- **The form of the residue** (`Lib/Math/ResidueForm`, essay `the_form_of_the_residue.md` — in
+  the CLAUDE.md boot sequence): source-without-enclosure.
+- **The inversion** (essay `the_residue_as_primitive.md`): Raw=µF, νF=SlashNu, view difference.
+- **FSM / coalgebra Lens** (`Theory/Raw/StateMachine`, **14 PURE**; essay
+  `the_residue_as_state_machine.md`): §6 Lens reading (state read as state-transition; NOT an
+  identity).  §1 state≅transition decode; §2 determinacy (`transition_determines_behaviour`);
+  §3 excluded self-loop (`allBranchL ∉ SlashNu`); §4 counter never returns; §5 reachability
+  (`BuildsIn` `n`-step build, `counter_reachable` clock, `every_state_reachable` whole-µF within
+  `depth`); §6 behavioural/trace equivalence (`TraceEq = ¬Distinct` via decidable `Option Bool`,
+  no bisimulation; `behaviours_traceEq` = determinacy as trace eq).  Adversarial-reviewed each round.
+
+**Not yet merged to main**: the FSM batch (`StateMachine.lean` + `the_residue_as_state_machine.md`)
+is on the branch only.  (The form/inversion batch was merged earlier.)
+
+---
+
+## (Prior session) G171 Apéry zeta marathon — merged to `main`
 
 ## What Was Done This Session
 
