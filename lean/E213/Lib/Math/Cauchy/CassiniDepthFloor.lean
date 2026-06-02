@@ -151,4 +151,28 @@ theorem cfinite_orbit_ladder_placement (p q : Int) (s : Nat → Int)
     ∧ (∀ n, det s n = qpow q n * det s 0) :=
   ⟨second_diff_closure p q s hrec, det_closed p q s hrec⟩
 
+/-! ## §5 — the orbit lies on a conic (genus 0), not (yet) an elliptic curve
+
+Geometric reading of the conserved Cassini.  The consecutive triple `(s n, s(n+1), s(n+2))` of
+an `SL₂` (`q=1`) order-2 orbit lies on a **fixed conic** `X·Z − Y² = c` (the Cassini/Pell quadric):
+the "circle" the two-orbit traces.  The shift (the `P`-step / Möbius) is the conic's `SL₂`
+automorphism — and that `SL₂(ℤ)` Möbius action is the **modular group** (`Real213.ModularElliptic`:
+`PSL(2,ℤ) = ℤ/2 * ℤ/3`, elliptic generators of orders `4, 6` — the rotations).
+
+Honest scope (against over-reading): a conic is **genus 0**, *not* an elliptic curve (genus 1).
+The orbit at this depth (order 2, quadratic) is a conic; a genus-1 *elliptic curve* is the
+*cubic* object that would appear **one depth up** (order 3 — the ζ(3)-Apéry level), where the
+Apéry↔modular-form connection (Beukers) lives.  That higher-depth elliptic/modular step is a
+**conjecture** for the 213 ladder, not proved here — what *is* proved is the genus-0 conic. -/
+
+/-- ★★★ **The order-2 SL₂ orbit lies on a fixed conic.**  For `q=1`, every consecutive triple
+    `(s n, s(n+1), s(n+2))` satisfies the *same* conic equation `X·Z − Y² = s 0·s 2 − s 1²` — the
+    Cassini/Pell quadric (genus 0).  This is the orbit's "circle": the two-orbit traces a conic,
+    conserved by the `SL₂` (Möbius / modular) shift.  (A restatement of `cassini_conserved_depth0`
+    in conic-geometry form.) -/
+theorem orbit_on_conic (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) (n : Nat) :
+    s n * s (n + 2) - s (n + 1) * s (n + 1) = s 0 * s 2 - s 1 * s 1 :=
+  cassini_conserved_depth0 p s hrec n
+
 end E213.Lib.Math.Cauchy.CassiniDepthFloor

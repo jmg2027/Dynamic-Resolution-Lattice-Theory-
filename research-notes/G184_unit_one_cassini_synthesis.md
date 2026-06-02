@@ -154,3 +154,28 @@ So the **atomicity counting** `(NT, NS) = (2, 3)` and the **orbit geometry** `(o
 atom but the residue the two-orbit generates, and `NS = NT + 1` is the layer-count *including* it.
 Honest scope: this is the **atomic `P`-orbit** (where order `= NT`), the orbit forced by
 atomicity — not a claim about arbitrary orbits.
+
+## The conic ↔ depth ↔ genus reading (Mingu Jeong, 2026-06-02) — and its honest scope
+
+> "y=x 축을 한바퀴 돌리면 모듈러 타원곡선… 한 depth 올라가는거구.  그 타원곡선을 다시 y=x로
+> 사영시키고 한바퀴 돌리는 과정이 뫼비우스 짓일수도."
+
+**What is proved (genus 0).**  `orbit_on_conic` (`CassiniDepthFloor §5`, PURE): the order-2 `SL₂`
+(`q=1`) orbit's consecutive triple `(s n, s(n+1), s(n+2))` lies on a **fixed conic**
+`X·Z − Y² = s0·s2 − s1²` (the Cassini/Pell quadric) — the "circle" the two-orbit traces.  The
+shift (`P`-step) is the conic's `SL₂` Möbius automorphism, and that `SL₂(ℤ)` Möbius action is the
+**modular group** — already formalized: `Real213.ModularElliptic` (`PSL(2,ℤ) = ℤ/2 * ℤ/3`,
+elliptic generators `S, U` of orders `4, 6`, the rotations).  So "뫼비우스 짓 = 모듈러 군" is real.
+
+**The honest correction.**  A conic is **genus 0**, *not* an elliptic curve (genus 1).  At this
+depth (order 2, quadratic) the orbit is a conic.  The reframing the insight *correctly* points at
+is **depth ↦ genus**: a genus-1 elliptic curve is the *cubic* object that would appear **one depth
+up** (order 3 — the ζ(3)-Apéry level), where the famous **Apéry ↔ modular-form / elliptic-surface
+connection (Beukers)** lives.  So the ladder reads as a *genus ladder* — conic (genus 0, order 2)
+→ elliptic (genus 1, order 3) → … — with the Möbius/modular group the symmetry at **every** rung
+(the self-similar "project back, rotate again").
+
+**Status.**  genus-0 (conic) = PROVED (`orbit_on_conic`).  depth-`k` ↦ genus-`(k−1)` and the
+order-3 ↦ elliptic/modular (Apéry-Beukers) step = **CONJECTURE** for the 213 ladder, not proved.
+Flag: claiming 213 *constructs* modular elliptic curves would be over-reach (modularity is deep);
+the honest, formalizable content is the conic + the modular-group symmetry already in the repo.
