@@ -133,8 +133,11 @@ exposes the purity status of the previously-ungated clusters.  Current
     that remain are (i) the **`Prop`-atom thesis surface**
     (`propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`,
     category (B) — `propext` IS "`Prop` is an atom of meaning") and (ii) the
-    **CayleyDickson open items** (`Trig.conj_mul_anti`, `SedenionHeavy.flexible`,
-    category (D)).  The Lens ring is **0 real DIRTY** (`scan_all_axioms.py
+    `Prop`-atom thesis surface (category (B)).  The **CayleyDickson category-D
+    backlog is closed** (2026-06-01): `Trig.conj_mul_anti` via the
+    `NonAssocStarRing213 Sedenion` bridge (`SedenionAlgebra213`), and
+    `SedenionHeavy.flexible` via the `CDDoubleFlexible` cross-pair +
+    `FlexAlt213 Cayley`.  The Lens ring is **0 real DIRTY** (`scan_all_axioms.py
     --filter Lens`): its equivalence surface is stated on reading-equivalence
     (`ReadingEq.same` / `equivR` / `sameLens`), not `=` of views.  Run
     `tools/scan_all_axioms.py` for the live count.
@@ -146,8 +149,8 @@ exposes the purity status of the previously-ungated clusters.  Current
     plumbing per category (a), not math content.
   · The remaining real DIRTY are **`propext` / `Quot.sound` only** (the
     "allowed-but-not-target" core-kernel axioms) — the `Prop`-atom thesis surface
-    (category B) + the CayleyDickson `Trig.conj_mul_anti` / `SedenionHeavy.flexible`
-    (category D).  The category-D backlog uses the `Mobius213.Px` playbook
+    (category B).  The CayleyDickson category-D items (`Trig.conj_mul_anti`,
+    `SedenionHeavy.flexible`) are now both closed.  The category-D backlog uses the `Mobius213.Px` playbook
     (`omega` → `rfl`/`Nat.two_mul`/`Nat.add_right_comm`; `Nat.mul_assoc`/`Nat.add_mul`
     → `NatRing.nat_*`; `simp` → explicit `rw`; `Nat.mul_lt_mul_left`/`mul_lt_mul_right`
     (the `Iff`) pull `Classical.choice` → constructive `c*m+1 ≤ c*m+c ≤ c*n` helper,

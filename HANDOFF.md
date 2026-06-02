@@ -36,12 +36,22 @@ hygiene must not displace this.
 
 ### CayleyDickson remaining (category D)
 
-  - `Trig.conj_mul_anti` — needs `NonAssocStarRing213 Sedenion` (a Sedenion→
-    `CDDouble Cayley` bridge replicating `CayleyAlgebra213`; the parametric CDDouble
-    star instance needs `[StarRing213 α]` and Cayley is non-associative, so a
-    manual route), then the structural proof (cf. `SedenionHeavy.conj_mul_anti`).
-  - `SedenionHeavy.flexible` — the `CDDoubleFlexible` cross-pair open item
-    (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
+  - `Trig.conj_mul_anti` — **CLOSED (∅-axiom)**.  Added `NonAssocStarRing213
+    Sedenion` (`SedenionAlgebra213`, the manual componentwise route — Cayley
+    is non-associative so the parametric `[StarRing213 α]` CDDouble star instance
+    cannot fire); `TrigintaduoionionHeavy.conj_mul_anti` is now the verbatim
+    structural analog of `SedenionHeavy.conj_mul_anti` one layer up.
+  - `SedenionHeavy.flexible` — **CLOSED (∅-axiom).**  Full chain landed:
+    (1) the long-standing `CDDoubleFlexible` cross-pair `(conj d·b)·a +
+    conj b·(d·a) = a·(conj b·d) + (a·conj d)·b` proved via the alternating
+    associator (`left_alt_polar`/`right_alt_polar`) + central trace
+    (`FlexAlt213.flex_cross_pair`); the `im`-component lemmas `mm_conj` /
+    `skew_conj` (skew-associator conj-invariance); (2) generic CDDouble
+    foundations in `CDDoubleMoufang` (`cd_ofInt_nuc_{l,m,r}`, `cd_self_add_conj`,
+    `cd_conj_mul_self`); (3) `FlexAlt213 Cayley` registered
+    (`CayleyFlexAlt213`); (4) the `re`/`im` assembly `Cayley.flexible_re` /
+    `flexible_im`, and `SedenionHeavy.flexible := ext + those`.  The
+    category-D CayleyDickson backlog is **empty**.
 
 ### Depth-arc — real-number / completeness thread (this branch, current)
 
