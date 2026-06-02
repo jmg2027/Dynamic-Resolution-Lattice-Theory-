@@ -17,7 +17,10 @@ autonomous finite-state machine, via the Morse–Hedlund argument.
   - **Phase C — `aperiodic_not_autoRec`**: `AutoRec` over the `{0,1}`-embedding ⟹ `kStepDet` ⟹
     `EvPeriodic`; contrapositive (clean modus tollens, no `∃`-from-`¬∀`) — **any
     non-eventually-periodic `Bool`-sequence escapes every autonomous finite-state machine**,
-    *including dense ones with no long runs*.
+    *including dense ones with no long runs*.  Now closed to an **iff**
+    (`bool_autoRec_iff_evPeriodic`, 16 PURE): the converse `bool_evPeriodic_autoRec` builds the
+    machine outright — period `p` + threshold `N` ⟹ window length `N+p`, single-slot rule
+    `F w = w N` (since `a(n+N+p)=a(n+N)`).  Escaping `AutoRec` ⟺ aperiodic, no slack.
   - **Phase D — `isPow2_morse_not_autoRec`**: a concrete bounded aperiodic witness (the
     powers-of-two indicator is not eventually periodic — a gap-length-`p` window would force
     `false` forever — hence `¬ AutoRec`).  `ZeroRunNonHolonomicWitness` now 24 PURE.

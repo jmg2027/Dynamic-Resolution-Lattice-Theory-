@@ -45,7 +45,12 @@ sequences split:
     (even one with no long runs and no exhibited repeated window) escapes the class — a
     `k`-step-deterministic bounded sequence has finitely many windows and a deterministic shift,
     so pigeonhole forces eventual periodicity (`kStepDet_periodic`, the Morse–Hedlund bounded
-    direction).
+    direction).  The characterization is exact and closes to an **iff**
+    (`MorseHedlund.bool_autoRec_iff_evPeriodic`): the autonomous machine class over `Bool` is
+    *precisely* the eventually-periodic sequences — the converse `bool_evPeriodic_autoRec` builds
+    the machine outright (period `p`, threshold `N` ⟹ window length `N+p` and the single-slot rule
+    `F w = w N`, since `a(n+N+p)=a(n+N)`).  So escaping `AutoRec` is *equivalent* to aperiodicity,
+    no slack.
 
   The two classes unite as `ZeroRunNonHolonomic.FiniteRecurrence := HomogRec ∨ AutoRec` — the
   finite-state-machine class; a sequence is non-holonomic in the strong, machine-free sense when
