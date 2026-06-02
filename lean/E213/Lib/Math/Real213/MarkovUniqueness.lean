@@ -42,6 +42,8 @@ open E213.Lib.Math.Real213.MarkovTree (markovEq markov_symm)
 open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Tactic.NatHelper (add_sub_cancel_right mul_sub_distrib mul_assoc mul_mul_mul_comm_213)
 open E213.Meta.Nat.Gcd213 (dvd_sub_213 dvd_add_213)
+open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Real213.GoldenFormMarkov (golden_min_attained_on_fib)
 
 /-- `c ∣ m → c ∣ k·m`.  ∅-axiom — explicit witness `k·t`. -/
 theorem dvd_mul_left_213 (c k m : Nat) (h : c ∣ m) : c ∣ (k * m) := by
@@ -352,5 +354,39 @@ theorem not_sqrtNegOneTwoRoots_65 : ¬ SqrtNegOneTwoRoots 65 := by
   rcases h 8 (by decide) 18 (by decide) (by decide) (by decide) with heq | hsum
   · exact absurd heq (by decide)
   · exact absurd hsum (by decide)
+
+/-! ## §8 — the Fibonacci spine's `√(−1)` residues are φ's convergents (from Cassini)
+
+The most `213`-native fact in the file: the square root of `−1` mod a Fibonacci-spine Markov
+number is the *next Fibonacci convergent of* `φ`.  Because the Cassini/Catalan identity gives
+`fib(2n+2)² + 1 = fib(2n+1)·fib(2n+3)` (already in the repo as `golden_min_attained_on_fib`,
+the golden form taking its minimum `−1`), the Markov number `fib(2n+3)` divides `fib(2n+2)²+1`:
+
+  `fib(2n+3) ∣ fib(2n+2)² + 1`,
+
+i.e. `u = fib(2n+2)` is a root of `x² ≡ −1` mod the spine Markov number `fib(2n+3)` — for every
+`n`, a *general* `√(−1)` encoding (no inverse to exhibit; the Cassini convergent IS the root).
+So the worst-approximable number's convergents are exactly the `√(−1)` residues that index its
+Markov spine.  (The other factor `fib(2n+1)` gives the same residue mod the predecessor.) -/
+
+/-- ★★★★ **The Fibonacci spine's `√(−1)` residue.**  `fib(2n+3) ∣ fib(2n+2)² + 1` — the Markov
+    number `fib(2n+3)` has `u = fib(2n+2)` as a square root of `−1`, directly from Cassini
+    (`golden_min_attained_on_fib`).  General in `n`: φ's convergents are the spine's roots. -/
+theorem fib_spine_sqrt_neg_one (n : Nat) :
+    fib (2 * n + 3) ∣ (fib (2 * n + 2) * fib (2 * n + 2) + 1) := by
+  refine ⟨fib (2 * n + 1), ?_⟩
+  rw [golden_min_attained_on_fib n]
+  -- fib(2n+2)·fib(2n+1) + fib(2n+1)² = (fib(2n+2)+fib(2n+1))·fib(2n+1) = fib(2n+3)·fib(2n+1)
+  have hrec : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+  rw [hrec, E213.Tactic.NatHelper.add_mul]
+
+/-- The predecessor factor: `fib(2n+1) ∣ fib(2n+2)² + 1` too — the same Cassini product
+    `fib(2n+2)²+1 = fib(2n+1)·fib(2n+3)`, read on the other factor. -/
+theorem fib_spine_sqrt_neg_one_pred (n : Nat) :
+    fib (2 * n + 1) ∣ (fib (2 * n + 2) * fib (2 * n + 2) + 1) := by
+  refine ⟨fib (2 * n + 3), ?_⟩
+  rw [golden_min_attained_on_fib n]
+  have hrec : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+  rw [hrec, Nat.mul_add, Nat.mul_comm (fib (2 * n + 1)) (fib (2 * n + 2))]
 
 end E213.Lib.Math.Real213.MarkovUniqueness
