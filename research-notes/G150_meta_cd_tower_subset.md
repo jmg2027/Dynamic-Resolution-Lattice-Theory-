@@ -826,6 +826,47 @@ falsification worry (no outside for `√2` to come from); what remains is
 the bounded, internal task of tightening `E₇`'s privilege from evidence to
 forcing.
 
+## Phase 15 — 유도로: the disc-forcing obstruction at `E₇`
+
+User: *"유도로 가자"* — stop describing seed-atomicity as observation;
+*derive* whether 213's `P`-disc mechanism **forces** the `E₇/√2`
+octahedral rung the way it forces `E₈/√5`.  No-exterior makes this a
+strong, falsifiable test: *"만약 진짜로 외삽이라면 213 이론은 폐기행"*.
+
+**Result — a sharp number-theoretic obstruction, not a falsification.**
+`DiscForcingObstruction.lean` (∅-axiom, 8 theorems):
+
+  * `disc_forcing_splits_at_E7` — the three seeds side by side:
+      - `E₈`: `disc P = 3² − 4·1 = 5 = NS+NT` — **is** a discriminant.
+      - `E₆`: Eisenstein `disc = 1² − 4·1 = −3 = −NS` — **is** a
+        discriminant.
+      - `E₇`: seed `NT = 2`, and `∀ t d, t² − 4d ≠ 2` — **not** a
+        discriminant.
+  * `two_not_a_discriminant` — the crux: no integer `2×2` matrix
+    discriminant equals `2`.  An integer discriminant is `t² − 4d`, and
+    `t² ≡ 0,1 (mod 4)` (even ⇒ 0, odd ⇒ 1), so `t² − 4d ≢ 2 (mod 4)`.
+
+So the disc-mechanism that **proves** the `E₈` floor (`√5 = √(disc P)`,
+`P mod 5 ∈ 2I`) and reaches the Eisenstein `E₆` (`√−3`) **provably
+cannot reach `√2`**.  `E₇` is the genuine exception, with a *proven
+reason* (`disc ≢ 2 mod 4`), not a gap.
+
+**Reading.**  This *sharpens* — does not weaken — `E₇`'s privilege from
+Phase 14.  `E₇`'s seed is still the atomic `√NT`; what the derivation
+adds is that its mechanism is **necessarily different** from `E₈/E₆`'s
+discriminant route.  Two real seeds (`√5`, `√−3`) are disc-forced; the
+third (`√2`) is disc-*excluded* — by the same `mod 4` arithmetic.  No
+exterior is imported (`ℤ[√2]` is a 213-internal construction), so this
+is the bounded internal finding the no-exterior frame predicts: the
+question was never "inside vs outside" but "which internal mechanism".
+
+**∅-axiom kernel (notable).**  The first draft routed through
+`Int.emod` lemmas and `omega`, which leak `propext`/`Quot.sound`.  The
+shipped proof is *purified* to parity: `t·t = ↑|t|²`
+(`Int.natAbs_mul_self`); `|t| = 2j ⇒ 4(j²)` forces `4·X = 2`;
+`|t| = 2j+1 ⇒ 4(j²+j)+1` forces `4·X = 1`; both impossible because
+`4·X = 2·(2·X)` and `2·Y ≠ 1`.  All 8 theorems `#print axioms` clean.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
