@@ -230,7 +230,11 @@ A–D + B are now **all closed ∅-axiom this arc**:
     mirroring the SL₂(ℤ) trace trichotomy.  The cusp = rational direction = the residue at
     the modular scale (ties to C3).  OPEN: the `W=d`/geometric rungs have no clean
     conserved quadratic form (non-unimodular), so `rung ↔ discriminant` is natural only
-    for the det-one floor — done.
+    for the det-one floor — done.  `EisensteinSignature` (now 13/0) also lands full
+    positive-definiteness (`eisenstein_norm_posdef`, anisotropy `normSq=0 → u=0`) and the
+    **Eisenstein det-one floor = the 6-unit group** (`eisenstein_det_one_floor`,
+    `= NS·NT`, the Eisenstein analog of φ's Cassini det-one floor; reuses the PURE
+    `ZOmega.normSq_mul`).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

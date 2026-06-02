@@ -1,4 +1,6 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
+import E213.Lib.Math.CayleyDickson.Integer.ZOmegaUnits
 import E213.Meta.Int213.PolyInt2
 import E213.Meta.Int213.Core
 
@@ -30,7 +32,7 @@ namespace E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature
 
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Meta.Int213.PolyInt2 (PE2 poly_id2)
-open E213.Meta.Int213 (add_nonneg nonneg_of_add_self)
+open E213.Meta.Int213 (add_nonneg nonneg_of_add_self add_eq_zero_of_nonneg mul_eq_zero)
 
 /-! ## §1 — squares are nonnegative over `Int` (constructor cases, no `Int.le_total`) -/
 
@@ -75,6 +77,28 @@ theorem eisForm_eq_normSq (u : ZOmega) : eisForm u.re u.im = u.normSq := rfl
 theorem eisenstein_norm_nonneg (u : ZOmega) : 0 ≤ u.normSq := by
   rw [← eisForm_eq_normSq u]; exact eisForm_nonneg u.re u.im
 
+/-- ★★ **The Eisenstein norm is anisotropic.**  `normSq u = 0 → u = 0`: the form
+    vanishes only at the origin.  From `2·N = re² + im² + (re−im)²` a zero norm forces
+    all three squares to vanish (`add_eq_zero_of_nonneg`), hence `re = im = 0`
+    (`mul_eq_zero`).  Together with `eisenstein_norm_nonneg` this is full
+    **positive-definiteness**. -/
+theorem eisenstein_norm_zero (u : ZOmega) (h : u.normSq = 0) : u = 0 := by
+  have he : eisForm u.re u.im = 0 := by rw [eisForm_eq_normSq u]; exact h
+  have h2 : u.re * u.re + u.im * u.im + (u.re - u.im) * (u.re - u.im) = 0 := by
+    have ht := two_eisForm u.re u.im
+    rw [he, Int.add_zero] at ht
+    exact ht.symm
+  have hsplit := add_eq_zero_of_nonneg
+    (add_nonneg (sq_nonneg u.re) (sq_nonneg u.im)) (sq_nonneg (u.re - u.im)) h2
+  have hab := add_eq_zero_of_nonneg (sq_nonneg u.re) (sq_nonneg u.im) hsplit.1
+  exact ZOmega.ext ((mul_eq_zero hab.1).elim id id) ((mul_eq_zero hab.2).elim id id)
+
+/-- ★★★ **The Eisenstein norm is positive-definite** — nonnegative and vanishing only
+    at the origin. -/
+theorem eisenstein_norm_posdef (u : ZOmega) :
+    0 ≤ u.normSq ∧ (u.normSq = 0 → u = 0) :=
+  ⟨eisenstein_norm_nonneg u, eisenstein_norm_zero u⟩
+
 /-! ## §3 — the golden form is indefinite, and the dichotomy -/
 
 /-- The golden form `a² − ab − b²` (disc `+5`, the `√5`/φ form). -/
@@ -93,5 +117,29 @@ theorem golden_indefinite : goldenForm 1 0 = 1 ∧ goldenForm 1 1 = -1 := by
 theorem signature_dichotomy :
     (∀ a b : Int, 0 ≤ eisForm a b) ∧ (∃ a b : Int, goldenForm a b < 0) :=
   ⟨eisForm_nonneg, ⟨1, 1, by decide⟩⟩
+
+/-! ## §4 — the Eisenstein det-one floor is the 6-unit group -/
+
+/-- ★ **The norm-1 floor is multiplicatively closed.**  `normSq u = 1 → normSq v = 1 →
+    normSq (u·v) = 1`, via the multiplicative norm `ZOmega.normSq_mul`.  The Eisenstein
+    analog of the golden det-one floor being a group (where the cross-determinant
+    `W = ±1` is the Cassini unit of `ℤ`). -/
+theorem eisenstein_floor_closed (u v : ZOmega)
+    (hu : u.normSq = 1) (hv : v.normSq = 1) : (u * v).normSq = 1 := by
+  rw [ZOmega.normSq_mul, hu, hv]; decide
+
+/-- ★★★ **The Eisenstein det-one floor = the 6-unit group.**  The norm-1 elements of
+    `ℤ[ω]` form a multiplicatively closed set (`eisenstein_floor_closed`), and the **6
+    units** (`= NS·NT`) all lie on it (`units6_normSq_one`, `units_count_eq_six`).  This
+    is the Eisenstein analog of φ's det-one Cassini floor: where `ℤ` has the 2 units
+    `±1` (the algebraic golden floor, `W = ±1`), the hexagonal `ℤ[ω]` has the 6 units —
+    the order-6 rotation of the `j=0` elliptic-curve lattice.  Definite norm ⟹ the floor
+    is a *finite* group (the bounded, curve side), in contrast to the golden floor's
+    *infinite* unit group (the unbounded, line side). -/
+theorem eisenstein_det_one_floor :
+    (∀ u v : ZOmega, u.normSq = 1 → v.normSq = 1 → (u * v).normSq = 1)
+    ∧ (∀ u ∈ units6, u.normSq = 1)
+    ∧ units6.length = 6 :=
+  ⟨eisenstein_floor_closed, units6_normSq_one, units_count_eq_six⟩
 
 end E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature

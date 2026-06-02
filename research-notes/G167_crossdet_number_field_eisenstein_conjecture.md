@@ -100,11 +100,22 @@ Concrete ∅-axiom targets (in increasing reach):
          Eisenstein **definite** (`∀ a b, 0 ≤ eisForm a b`) vs golden **indefinite**
          (`∃, < 0`).  Definite ⟹ bounded level sets ⟹ curve; indefinite ⟹ unbounded ⟹
          line.  The ∅-axiom heart of the conjecture is now a theorem.
-  2. `golden_form_indefinite` — `Q(1,0) = 1`, `Q(1,1) = −1` (trivial, decide).
-  3. the dichotomy theorem: definite (Eisenstein, disc −3) vs indefinite (golden, disc
-     +5), tying the unit-count (6 vs ∞) to bounded-vs-unbounded level sets.
-  4. an `ℤ[ω]`-cross-determinant `W = a_{i+1}d_i − a_i d_{i+1} ∈ ℤ[ω]` with the
-     det-(unit) floor characterised by `ZOmegaUnits`.
+  2. `golden_indefinite` + `signature_dichotomy` — DONE (same module): definite
+     (Eisenstein, disc −3) vs indefinite (golden, disc +5).  And anisotropy
+     `eisenstein_norm_zero` (`normSq u = 0 → u = 0`) + `eisenstein_norm_posdef` (full
+     positive-definiteness) — DONE.
+  3. **DONE — the det-one floor = the 6 units** (`EisensteinSignature` §4): the norm-1
+     elements of `ℤ[ω]` are multiplicatively closed (`eisenstein_floor_closed`, via the
+     multiplicative norm) and the **6 units** (`= NS·NT`) all lie on it
+     (`eisenstein_det_one_floor`, reusing `units6_normSq_one` + `units_count_eq_six`).
+     The Eisenstein analog of φ's Cassini det-one floor: where `ℤ` has the 2 units `±1`
+     (golden floor, `W = ±1`), the hexagonal `ℤ[ω]` has the **6** — the order-6 rotation
+     of the `j=0` lattice; definite norm ⟹ a *finite* unit group (curve side) vs the
+     golden floor's *infinite* units (line side).  Note: `ZOmegaDomain.normSq_mul` is in
+     fact **PURE** (`#print axioms` = "does not depend on any axioms"; the file's
+     `[propext]`-only docstring is stale), so no 4-variable prover was needed for this
+     step — `PolyInt2` (bivariate) sufficed for the positive-definiteness identity, and
+     the multiplicativity was already ∅-axiom.
 
 The **full** elliptic-curve / CM / modular layer remains out of scope (per
 `probe_twist_conic.md`); what is reachable is the **lattice reference** (`ℤ[ω]`, already
