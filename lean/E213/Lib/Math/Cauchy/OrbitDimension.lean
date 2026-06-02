@@ -44,7 +44,7 @@ namespace E213.Lib.Math.Cauchy.OrbitDimension
 open E213.Lib.Math.Cauchy.NewtonGregory
   (diffZ liftKZ isConstZ polyDepthZ mul_zero')
 open E213.Lib.Math.Cauchy.FiniteDepthAlgebra
-  (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift)
+  (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift liftKZ_add)
 open E213.Meta.Int213.PolyIntM (powInt)
 open E213.Meta.Int213
   (zero_mul mul_add add_comm mul_comm zero_add)
@@ -109,6 +109,16 @@ theorem linComb_smul (c : Nat → Int) (a : Int) (s : Nat → Int) :
        = a * linComb c s k n + a * (c k * liftKZ k s n)
     rw [show c k * (a * liftKZ k s n) = a * (c k * liftKZ k s n) from by ring_intZ]
 
+/-- `linComb` is additive in its sequence argument (fixed coefficients). -/
+theorem linComb_add (c : Nat → Int) (u v : Nat → Int) :
+    ∀ k n, linComb c (fun m => u m + v m) k n = linComb c u k n + linComb c v k n
+  | 0,   _ => by show (0 : Int) = 0 + 0; rw [zero_add]
+  | k+1, n => by
+    show linComb c (fun m => u m + v m) k n + c k * liftKZ k (fun m => u m + v m) n
+       = (linComb c u k n + c k * liftKZ k u n) + (linComb c v k n + c k * liftKZ k v n)
+    rw [linComb_add c u v k n, liftKZ_add u v k n]
+    ring_intZ
+
 /-- `linComb` commutes with the shift in its sequence argument. -/
 theorem linComb_shift (c : Nat → Int) (s : Nat → Int) :
     ∀ k n, linComb c (fun m => s (m + 1)) k n = linComb c s k (n + 1)
@@ -167,5 +177,18 @@ theorem cfiniteZ_shift {s : Nat → Int} (h : CFiniteZ s) :
   obtain ⟨k, c, hrec⟩ := h
   refine ⟨k, c, fun n => ?_⟩
   rw [liftKZ_shift s k n, hrec (n + 1), linComb_shift c s k n]
+
+/-- **C-finite is closed under addition of two sequences sharing one annihilator.**
+    The solution set of a fixed constant-coefficient `Δ`-orbit recurrence is a
+    module (linearity of `linComb`).  The *general* sum (distinct annihilators
+    `p`, `q`) closes under the product operator `p·q` — the `ℤ[Δ]`-module / ring
+    structure one rung up, whose proof needs the operator-product (convolution)
+    machinery; this is the linear half. -/
+theorem cfiniteZ_add_sameRec {s t : Nat → Int} {k : Nat} {c : Nat → Int}
+    (hs : ∀ n, liftKZ k s n = linComb c s k n)
+    (ht : ∀ n, liftKZ k t n = linComb c t k n) :
+    CFiniteZ (fun m => s m + t m) := by
+  refine ⟨k, c, fun n => ?_⟩
+  rw [liftKZ_add s t k n, hs n, ht n, linComb_add c s t k n]
 
 end E213.Lib.Math.Cauchy.OrbitDimension
