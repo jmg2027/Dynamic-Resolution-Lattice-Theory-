@@ -313,6 +313,16 @@ every `r` (via `DepthCeilingResidue.diag_not_in_seq`).  The residue at the heigh
 scale, the frontier *toward* `ε₀` (no `Ordinal` constructed); `epsilon_direction`
 bundles it with `coord_layer_dominates` (each layer ×`ω`).
 
+`E213.Lens.ResidueReentry` — **2 PURE / 0 DIRTY**.  The residue re-enters as the
+next operand, and the self-cover never closes: `residue_reentry_never_closes` — the
+composite `P ↦ Object1 (predicateToRaw n P)` (encode the predicate to a Raw, point at
+it) is not surjective (its image ⊆ `Object1`'s, which misses the residue), so re-pointing
+the re-entered residue leaves a fresh residue.  `residue_perpetually_reenters` bundles:
+pointing faithful-but-not-total (`object1_injective`/`object1_not_surjective`), the
+residue re-encodes to a Raw (`predicateToRaw`), re-pointing never closes.  The
+foundational-pointing instance of the gapless self-applying re-entry
+(`Cauchy/DepthHeightDiagonal.diag_self_applies`).
+
 `E213.Lens.Bool213.SelfReferenceForms` — **2 PURE / 0 DIRTY**.  The two
 structural forms of Raw self-reference (`05_no_exterior` §5.2): `bool_not_no_fixed_point`
 (the Bool `not` has no fixed point on its values `{T,F}` — the liar oscillation, period 2

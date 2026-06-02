@@ -274,6 +274,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     express the `ω^ω` ceiling).  OPEN (this axis): a native ε₀ limit object + proof the
     diagonal is its `+1` (genuinely uncertain); frozen=dynamic equivalence (§5.7);
     computability/ω₁^CK out of scope.
+  - **Residue re-entry — DONE** (`Lens/ResidueReentry`, 2/0; `research-notes/G176`): the
+    residue re-enters as the next operand, the self-cover never closes.
+    `residue_reentry_never_closes` — `P ↦ Object1 (predicateToRaw n P)` (encode the
+    predicate to a Raw, point at it) is not surjective (image ⊆ `Object1`'s, which misses
+    the residue), so re-pointing the re-entered residue leaves a fresh residue;
+    `residue_perpetually_reenters` bundles faithful-not-total + re-encode + non-closure.
+    The foundational-pointing instance of the gapless self-applying re-entry
+    (`diag_self_applies` at the diagonalisation scale, here at the pointing floor).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
