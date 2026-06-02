@@ -253,6 +253,75 @@ The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
 (Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
 polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
 
+`E213.Lib.Math.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
+zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients
+of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
+(`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
+finite-difference depth equals their degree.  `zeta2_to_zeta3_degree_step`,
+`apery_cubic_rung` (`aperyTop=n³`, `aperyLead=34n³−51n²+27n−5`, `aperyBot=(n−1)³` all
+`polyDepth 3`, floors `6,204,6`), `zeta2_quadratic_rung` (floors `2,22,2`).  Exactness:
+`aperyTop_depth_exact` / `zeta2Top_depth_exact` (`polyDepth d ∧ ¬ polyDepth (d−1)`).
+ζ(3)'s cubic coefficients reindexed to `n=m+2` (all-positive); cubic/quadratic
+difference identities discharged by the `Meta.Nat.PolyNat` reflection ring; lower bounds
+by `decide`.  Degree is *incidental to irrationality* (ζ(4) order 2, Catalan β(2) open) —
+ζ(3) degree 3 is the exception above the order-2 degree-2 Apéry-like family.
+
+`E213.Lib.Math.Cauchy.DepthSelfReference` — **3 PURE / 0 DIRTY**.  The `diff` ladder
+realises self-reference's Converge / Escape outcomes (`Lens.SelfReferenceThreeOutcomes`) on
+`Nat` sequences: `floor_converges` (`W` `reachesFloor`, settles at the unit `1 = det P =
+NS−NT`, the Lambek terminating descent) and `geom_escapes` (`2ᵏ` `¬ reachesFloor`, the
+residue's top-less ascent), bundled in `diff_converge_or_escape`.  Naming capstone — no
+operator forced across the Raw-peel vs `Nat`-`diff` types; parallel readings of the §5.2
+self-pointing sharing the count-Lens unit `1`.
+
+`E213.Lib.Math.Cauchy.DepthResidueFloor` — **2 PURE / 0 DIRTY**.  The self-pointing depth
+ladder anchored at the residue floor: `diff` as a pointing event, depth as the count of
+re-pointings to self-coincidence.  `floor_polyDepth0` (`P`/φ Cassini `W` is depth 0 — the
+self-same rule that is its own fixed point) and `self_pointing_depth_ladder` (`polyDepth 0
+W ∧ polyDepth 1 ratio ∧ polyDepth 2 zeta2Top ∧ polyDepth 3 aperyTop`): from the `P`/φ floor
+the depth climbs by one degree of `n`-dependence per rung (e:1, ζ(2):2, ζ(3):3).  Reads the
+divergence-depth count as drift-from-pure-self-reference, placing it inside the
+residue/no-exterior canon (`DepthCeilingResidue` = infinite depth = residue).
+
+`E213.Lib.Math.Cauchy.DepthQuadraticGeneric` — **7 PURE / 0 DIRTY**.  Every quadratic
+discrete polynomial has divergence-depth 2: `quadratic_polyDepth` — `∀ A B C, polyDepth 2
+(fun n => A·n²+B·n+C)` (floor `2A`), capping the whole order-2 degree-2 Apéry-like (Zagier
+sporadic: ζ(2)-Apéry, Domb, Almkvist–Zudilin, Catalan-β(2), …) family in one statement.
+Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`, `n² =
+2·binom n 2 + n`) along the new reusable `polyDepth_congr` + `newton_polyDepth`; the one
+nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
+multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
+
+`E213.Lib.Math.Cauchy.CasoratianSigned` — **17 PURE / 0 DIRTY**.  The *signed* Casoratian law
++ its signed telescope (incl. concrete `cube_casoratian_telescope`), sign carried 213-natively as a ℕ-pair
+(`Lens.Number.Nat213.Tower.NatPairToInt`: integer = pair `(a,b)` = `a−b`, negation = axis
+swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ) (scale c₀ (neg Cₙ₋₁))` *is*
+`c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — signed law ∅-axiom over ℕ, **no
+`ℤ` type, no propext**.  Pair-congruences (`scale_mul/comm/congr`, `neg_congr`), `neg_neg`
+(swap involution = period-2 Oscillate), `iterNeg` (accumulated sign, `iterNeg_succ_succ`
+period 2).  **Signed telescopes**: `telescope_pair` — ζ(3) constant-sign shape `scale (∏ P)
+Cₙ ~ scale (∏ Q) C₀` (`P=n³`, `Q=(n−1)³`: the `+6/n³` Casoratian); `telescope_pair_alt` —
+ζ(2) alternating shape `scale (∏ P) Cₙ ~ iterNeg n (scale (∏ Q) C₀)` (`P=(n+1)²`, `Q=n²`: the
+`±5/n²` Casoratian, sign `(−1)ⁿ`).  The signed `±5/n²`,`±6/n³` closed forms realized ∅-axiom
+over ℕ-pairs (the sign = the residue's binary axis-distinguishing).  The Casoratian's
+magnitude (Converge/Escape, `CasoratianStep.telescope`) and sign (Oscillate, `iterNeg`) are
+the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
+
+`E213.Lib.Math.Cauchy.CassiniSigned` — **2 PURE / 0 DIRTY**.  The residue floor's cross-determinant as the depth-0 signed Casoratian: the Fibonacci Cassini `fib(n+2)·fib(n) − fib(n+1)² = (−1)ⁿ⁺¹` in ℕ-pair form — `cassini_pair`: `npairEquiv (fib(n+2)·fib(n), fib(n+1)²) (iterNeg (n+1) (1,0))`, the unit pair `(1,0)` toggled `n+1` times.  Magnitude `1` (the `det P = 1` floor, Converge depth 0) with the sign carried entirely by the period-2 axis swap (Oscillate); `cassini_step` is the subtraction-free Fibonacci identity, the `c₂=c₀=1` floor instance of `casoratian_signed`.  ∅-axiom over ℕ — the floor's `±1` with its sign, no `ℤ`.
+
+`E213.Lib.Math.Cauchy.DepthCubicGeneric` — **5 PURE / 0 DIRTY**.  Every cubic discrete polynomial has divergence-depth 3: `cubic_polyDepth` — `∀ A B C D, polyDepth 3 (A·n³+B·n²+C·n+D)` (cubic analog of `quadratic_polyDepth`, completing depth=degree to 3), via `cubic_eq` (cubic = `newton (D,A+B+C,6A+2B,6A) 3`) + `newton_polyDepth` + `polyDepth_congr`.  Crux `cube_eq` — `n³ = 6·binom n 3 + 6·binom n 2 + n` (the subtraction-free `n³ = 6·C(n,3)+6·C(n,2)+C(n,1)`, cube analog of `DepthQuadraticGeneric.sq_eq`), via the univariate `(n+1)³=n³+3n²+3n+1` (`poly_id`) + `sq_eq` + `cube_reorder` (the combine/reorder identity, PURE via `NatHelper.{add_mul,mul_assoc}` + `Nat.add_right_comm`, no propext-dirty `ring`/`ac_rfl`).  All multivariate reorders (the `cube_reorder` combine + the two collect steps in `cubic_eq`) are one-line `Meta.Nat.PolyNatM.poly_idM` calls.
+
+`E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
+(Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
+`telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
+Casoratian `P=n³=aperyTop`, `Q=(n−1)³=aperyBot`, `g=|Cₙ|` ⟹ the cube-product telescoping
+whose ratio is the `1/n³` denominator), with non-vacuous `telescope_geometric` (`rⁿ`).
+`casoratian_step` — for any solutions `a,b` of `c₂·x₂=c₁·x₁+c₀·x₀`,
+`c₂·(a₂·b₁)+c₀·(a₁·b₀) = c₂·(a₁·b₂)+c₀·(a₀·b₁)` (both sides `=
+c₁a₁b₁+c₀a₀b₁+c₀a₁b₀`), the minus of `c₂Cₙ=−c₀Cₙ₋₁` moved across.  The middle coefficient
+`c₁` cancels ⟹ the Casoratian propagates by the *outer* coefficients alone, grounding why
+the Apéry-tower invariant is `deg c₂ = deg c₀` (`DepthAperyCubic`).
+
 `E213.Lib.Math.Cauchy.DepthOverflowDuality` — **15 PURE / 0 DIRTY**.
 The analysis ↔ logic single engine: `Overflow bound val i := bound i <
 val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`
