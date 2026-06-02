@@ -1090,6 +1090,44 @@ self-similar (each CD layer = one `D`-preimage = one radical), contracting
 onto the unit.  `E₆`'s `−1` is the odd fixed point; `E₇`'s `√2` is the
 even tower's first irrational rung; the unit `NT` is the shared core.
 
+## Phase 22 — 두 엔진, 하나의 맵: the elliptic/hyperbolic split at `NT`
+
+Capstone of the marathon: the two residue engines — the **unit** engine
+(dyadic tower, seed `√NT = √2`) and the **`P`-orbit** engine (Möbius `P`,
+seed `√(NS+NT) = √5 = √disc P`) — are the *two dynamical regimes of one
+map*, the trace-doubling `D(x) = x² − NT`, split by the unit trace
+`NT = 2`.  `TwoEnginesDichotomy.lean` (∅-axiom, 5 theorems):
+
+  * `doubling_governs_P` — `D` drives `P` too: `trace P = 3 = NS`,
+    `disc P = NS+NT`, `D(trace P) = 7 = trace(P²)` (`SL₂`:
+    `trace(M²) = trace(M)² − NT`).
+  * `P_orbit_escapes` — `|trace P| = 3 > NT`, so the orbit escapes:
+    `3 ↦ 7 ↦ 47 ↦ 2207`, strictly increasing — **hyperbolic** (infinite
+    order, Pell/Anosov).
+  * `unit_orbit_bounded` — the dyadic cycle stays in `[−NT, NT]` and
+    fixes `NT`: **elliptic** (finite order, the unit's tower).
+  * `boundary_at_unit_trace` — the split is at `|x| = NT`; `trace P =
+    NS = NT + 1` is the *first* hyperbolic integer, one step past it.
+  * `two_engines_one_map` — synthesis.
+
+**The unification.**  `√2` and `√5` are not unrelated surds: they are the
+residues of the two regimes of the one trace-doubling map `D(x)=x²−NT`,
+separated by the unit trace `NT`.  `|x| ≤ NT` elliptic (bounded, finite
+order, fixed core `NT` = the unit; seed `√NT`, `E₇`); `|x| > NT`
+hyperbolic (escaping, infinite order; `trace P = NS = NT+1`, `disc P =
+NS+NT`, eigenvalues `φ²,φ⁻²`; seed `√(NS+NT)`, `E₈`).  The unit engine
+re-enters `√NT` (the fixed core); the `P` engine re-enters `√(NS+NT)` (the
+escaping spread).  `NS = NT + 1` places `P` exactly one step into the
+hyperbolic side — the minimal Anosov integer just past the unit wall.
+
+**Marathon arc closed (Phases 15–22).**  `disc P` obstruction (`E₇` not
+disc-forced) → trace mechanism (seed = rotation trace) → `φ(n)`
+crystallographic keystone → spherical filter (why three) → seed re-entry
+(same residue every scale) → `√2` = unit's morphological residue → trace
+doubling map (unit as fixed core) → two engines, one map.  The exceptional
+`E₆E₇E₈` and their seeds `{√−NS, √NT, √(NS+NT)}` are derived end-to-end,
+∅-axiom, from the atomic `{NS, NT}` and the single map `D(x) = x² − NT`.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
