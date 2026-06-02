@@ -13,11 +13,14 @@ The genuinely new proof-line is **populating νF** — turning the lone escaping
 *consolidation* of integers the DRLT side already deploys `(NS,NT,d)=(3,2,5)`, not new results;
 two are category errors to record-and-stop (below).  Recommended order: **C1 → C4 → C2**.
 
-**STATUS 2026-06-02**: P1 + P2 + P3 **CLOSED** ∅-axiom in `Theory/Raw/CoResidue` §13–§15
-(64 → 92 PURE).  `spineOf` family (`spine_family_populates_nu`), `coSwap` νF endomorphism
-(`coSwap_nu_endomorphism`), `boolSpine` bit-stream injection (`boolSpine_injects_bitstreams`).
-Adversarial-reviewed; essay `the_residue_as_primitive.md` updated ("Populating νF").  Remaining:
-P4 (exact descent length), P5 (spineL uniqueness), P6 (νF capstone, pointwise only).
+**STATUS 2026-06-02 — FULL TIER CLOSED** ∅-axiom (CoResidue 64→94 PURE, StateMachine +1):
+  - P1 `spine_family_populates_nu` (CoResidue §13) — `spineOf` family, one escape per Raw.
+  - P2 `coSwap_nu_endomorphism` (CoResidue §14) — `swap` acts on νF (leaf-relabel involution).
+  - P3 `boolSpine_injects_bitstreams` (CoResidue §15) — `(Nat→Bool) ↪ SlashNu`, Distinct-preserving.
+  - P4 `exact_descent` (StateMachine §5) — exact deep-spine descent length = `depth`.
+  - P5 `spineL_unique` (CoResidue §16) — `spineL` the unique left-spine fixpoint (path induction).
+  - P6 `nu_population_capstone` (CoResidue §17) — νF a `Distinct`-rich populated carrier.
+  Adversarial-reviewed; essays `the_residue_as_{primitive,state_machine}.md` updated.
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 

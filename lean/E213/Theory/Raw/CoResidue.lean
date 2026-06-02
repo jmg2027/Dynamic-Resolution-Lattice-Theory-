@@ -1003,4 +1003,54 @@ theorem boolSpine_injects_bitstreams :
    fun f s => boolSpine_escapes f s,
    fun _ _ h => boolSpine_inj h⟩
 
+/-! ## §16 — `spineL` is the unique left-spine fixpoint (bisimulation-free uniqueness)
+
+`spineL` has, so far, existence + escape; here it gets a **uniqueness**.  It is the *unique*
+co-tree that branches at the root, whose left subtree is the constant leaf-`a`, and whose right
+subtree is **itself** — the self-similar fixpoint `coRightAt s [] = s`, `coLeftAt s [] =
+lToShape a`.  Proved by **finite-path induction** (the `lAna_unique` shape), *not* a coinductive
+bisimulation: the residue's positive-`Distinct` discipline makes even νF *uniqueness* a plain
+path induction. -/
+
+/-- ★★★ **`spineL` is the unique left-spine fixpoint.**  Any co-tree `s` whose root is a branch
+    (`s [] = none`), whose left subtree is the constant leaf-`a` (`s (true :: q) = some true`),
+    and whose right subtree is itself (`s (false :: q) = s q` — the self-similar fixpoint
+    `coRightAt s [] = s`) is `spineL`, pointwise.  Uniqueness by path induction; pointwise (the
+    `s = spineL` form would need `funext`). -/
+theorem spineL_unique (s : LCoShape)
+    (hroot : s [] = none)
+    (hleft : ∀ q, s (true :: q) = some true)
+    (hself : ∀ q, s (false :: q) = s q) :
+    ∀ p, s p = spineL p
+  | []           => hroot
+  | (true :: q)  => hleft q
+  | (false :: q) => (hself q).trans (spineL_unique s hroot hleft hself q)
+
+/-! ## §17 — capstone: νF is a `Distinct`-rich populated carrier -/
+
+/-- ★★★ **νF (`SlashNu`) is a richly-populated carrier.**  Capstone of §10–§16: the residue's
+    exact slash-νF is not a lone escapee above the finite µF but a `Distinct`-rich carrier —
+
+    1. the finite µF (`Raw`) embeds **faithfully** (distinct Raws ⟹ distinct co-trees);
+    2. there is a `Distinct`-preserving **`Raw`-indexed family** of escapes (`spineOf`);
+    3. there is a `Distinct`-preserving **bit-stream injection** `(Nat→Bool) ↪ SlashNu`
+       (`boolSpine` — the honest ∅-axiom "uncountable", not a cardinality claim);
+    4. the lone automorphism `swap` **acts** on νF (`coSwap`), moving `spineL` to a distinct
+       escape;
+    5. `spineL` is the **unique** left-spine fixpoint.
+
+    All ∅-axiom, pointwise, positive-`Distinct` (no coinduction, no `funext`, no `Cardinal`). -/
+theorem nu_population_capstone :
+    (∀ r r' : Raw, (∀ p, lToShape r.val p = lToShape r'.val p) → r = r')
+    ∧ (∀ r r' : Raw, r ≠ r' → Distinct (spineOf r.val) (spineOf r'.val))
+    ∧ (∀ f g : Nat → Bool, (∃ k, f k ≠ g k) → Distinct (boolSpine f) (boolSpine g))
+    ∧ Distinct spineL (coSwap spineL)
+    ∧ (∀ s : LCoShape, s [] = none → (∀ q, s (true :: q) = some true) →
+        (∀ q, s (false :: q) = s q) → ∀ p, s p = spineL p) :=
+  ⟨fun r r' h => Subtype.ext (lToShape_faithful r.val r'.val h),
+   fun r r' h => spineOf_distinct (fun e => h (Subtype.ext e)),
+   fun _ _ h => boolSpine_inj h,
+   coSwap_spineL_distinct,
+   spineL_unique⟩
+
 end E213.Theory.Raw.CoResidue

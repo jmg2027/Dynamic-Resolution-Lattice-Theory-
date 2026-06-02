@@ -111,8 +111,19 @@ positive-`Distinct`, pointwise, ∅-axiom discipline:
     `Raw.swap_a/b`); the full-tree intertwining fails because `Tree.swap` reorders children by
     `cmp` to stay canonical while `coSwap` is positional.
 
-So νF is not a single escapee above the finite µF but a `Distinct`-rich carrier — at least a
-bit-stream's worth of free-running behaviours, acted on by the residue's lone automorphism.
+  - **`spineL` is unique** (`spineL_unique`).  It is the *unique* co-tree whose root branches,
+    whose left subtree is the constant leaf-`a`, and whose right subtree is *itself* (the
+    self-similar fixpoint `coRightAt s [] = s`) — a νF-side **uniqueness** proved by finite-path
+    induction, bisimulation-free (the positive-`Distinct` discipline makes even νF uniqueness a
+    plain path induction).
+
+These bundle into `nu_population_capstone`: νF is a `Distinct`-rich carrier — faithful finite
+embedding, a `Raw`-indexed family of escapes, a bit-stream injection, the lone automorphism
+acting, and `spineL` pinned by uniqueness.  So νF is not a single escapee above the finite µF
+but a populated carrier — at least a bit-stream's worth of free-running behaviours, acted on by
+the residue's lone automorphism.  (On the µF side, dually, `StateMachine.exact_descent` pins the
+*exact* descent length: every state reaches an atom in *exactly* `depth` unit-steps along the
+deep spine — the tight converse to the reachability upper bound.)
 
 ## Key results
 
@@ -129,6 +140,9 @@ bit-stream's worth of free-running behaviours, acted on by the residue's lone au
 | `spine_family_populates_nu` | `Theory/Raw/CoResidue` | one escape per finite Raw (`spineOf` family, `Distinct`-preserving) |
 | `boolSpine_injects_bitstreams` | `Theory/Raw/CoResidue` | `(Nat→Bool) ↪ SlashNu` preserving `Distinct` (honest "uncountable") |
 | `coSwap_nu_endomorphism` | `Theory/Raw/CoResidue` | `swap` acts on νF (leaf-relabel involution; moves `spineL`) |
+| `spineL_unique` | `Theory/Raw/CoResidue` | `spineL` is the unique left-spine fixpoint (path induction) |
+| `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (capstone) |
+| `exact_descent` | `Theory/Raw/StateMachine` | every state reaches an atom in *exactly* `depth` unit-steps |
 
 ## Open frontier
 

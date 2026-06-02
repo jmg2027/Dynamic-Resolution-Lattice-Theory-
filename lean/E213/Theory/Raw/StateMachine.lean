@@ -188,6 +188,51 @@ theorem every_state_reachable (r : Raw) :
             Nat.le_trans (Nat.add_le_add_right hj 1) hxle, BuildsIn.step hbuild hpart⟩
   exact key (r.depth + 1) r (Nat.lt_succ_self _)
 
+/-- ★★★ **Exact descent: every state reaches an atom in *exactly* `depth` steps.**  Strengthens
+    `every_state_reachable`'s `k ≤ r.depth` to an equality along the **deep spine**: there is an
+    atom `seed` with `BuildsIn r.depth seed r` — a build (peel) chain of length *exactly*
+    `r.depth`.  Each step drops the depth by exactly the unit `1` (descend into the deeper child:
+    `(slash x y).depth = 1 + max …`, so the `max`-realising child has depth `r.depth − 1`).  The
+    tight converse to the upper bound — `depth` *is* the deep-spine descent length, not merely a
+    bound.  Strong induction via `decompose` + `Nat.le_total` (the deeper-child selector); no
+    `Raw.rec`. -/
+theorem exact_descent (r : Raw) :
+    ∃ seed : Raw, IsAtom seed ∧ BuildsIn r.depth seed r := by
+  have key : ∀ n : Nat, ∀ r : Raw, r.depth < n →
+      ∃ seed : Raw, IsAtom seed ∧ BuildsIn r.depth seed r := by
+    intro n
+    induction n with
+    | zero => intro r hr; exact absurd hr (Nat.not_lt_zero _)
+    | succ m ih =>
+        intro r hr
+        rcases decompose r with ha | hb | ⟨x, y, hxy, hr_eq⟩
+        · exact ⟨Raw.a, Or.inl rfl, by rw [ha]; exact BuildsIn.refl Raw.a⟩
+        · exact ⟨Raw.b, Or.inr rfl, by rw [hb]; exact BuildsIn.refl Raw.b⟩
+        · subst hr_eq
+          rcases Nat.le_total x.depth y.depth with hle | hle
+          · have hmax : max x.depth y.depth = y.depth :=
+              (E213.Tactic.NatHelper.max_comm_pure x.depth y.depth).trans
+                (E213.Tactic.NatHelper.max_eq_left_pure hle)
+            have hdepth : (Raw.slash x y hxy).depth = y.depth + 1 := by
+              rw [Raw.depth_slash, hmax, Nat.add_comm]
+            have hylt : y.depth < m :=
+              Nat.lt_of_lt_of_le (depth_drops x y hxy).2 (Nat.le_of_lt_succ hr)
+            obtain ⟨seed, hseed, hbuild⟩ := ih y hylt
+            refine ⟨seed, hseed, ?_⟩
+            rw [hdepth]
+            exact BuildsIn.step hbuild ⟨x, y, hxy, rfl, Or.inr rfl⟩
+          · have hmax : max x.depth y.depth = x.depth :=
+              E213.Tactic.NatHelper.max_eq_left_pure hle
+            have hdepth : (Raw.slash x y hxy).depth = x.depth + 1 := by
+              rw [Raw.depth_slash, hmax, Nat.add_comm]
+            have hxlt : x.depth < m :=
+              Nat.lt_of_lt_of_le (depth_drops x y hxy).1 (Nat.le_of_lt_succ hr)
+            obtain ⟨seed, hseed, hbuild⟩ := ih x hxlt
+            refine ⟨seed, hseed, ?_⟩
+            rw [hdepth]
+            exact BuildsIn.step hbuild ⟨x, y, hxy, rfl, Or.inl rfl⟩
+  exact key (r.depth + 1) r (Nat.lt_succ_self _)
+
 /-! ## §6 — behavioural / trace equivalence is pointwise (not bisimulation) -/
 
 /-- **Trace (behavioural) equivalence**: two behaviours agree at *every* observation path.
