@@ -236,11 +236,30 @@ The carrier is now a bundled type with the complete embedding + escape picture:
   - ★ `slashNu_carrier` — faithful embedding ∧ `spineSlashNu ∈ SlashNu` ∧ no finite Raw is the
     spine (`spineL_escapes`).  The carrier is assembled ∅-axiom, no coinduction.
 
-## The remaining residual — the carrier's own finality
+## Tenth step — `SlashNu` is the final slash-coalgebra (the arc complete) (`CoResidue` §12)
 
-Genuinely left: whether `SlashNu` is the *final* coalgebra — the leaf-labelled `ana` of a
-consistent + anti-reflexive coalgebra lands back in `SlashNu`, with pointwise uniqueness
-surviving the restriction.  Proving it confirms `SlashNu` is *exactly* νF.  The
-over-approximation's finality (`final_coalgebra`) and the whole embedding side (faithful +
-anti-reflexive + consistent + named escapee) are done, ∅-axiom; this last step is the
-final-coalgebra-of-the-subtype assembly, not a coinduction obstruction.
+The carrier's own finality is **done** — `SlashNu` is *exactly* the residue's exact slash-νF,
+∅-axiom, no coinduction primitive (the leaf-absorbing M-type, finite-path induction):
+
+  - `lAna` — the leaf-absorbing anamorphism of a slash-coalgebra `c : X → Option Bool × X × X`
+    (branch ⇒ recurse, leaf ⇒ repeat the label, so consistent by construction).
+  - ★ `lAna_consistent` — always consistent; ★ `lAna_antiRefl` — anti-reflexive *when the
+    coalgebra is* (`hAR`: each branch's children unfold to `Distinct` co-trees); ★
+    `lAna_unique` — the unique hom (pointwise, by finite-path induction; split leaf/branch hom
+    equations, no `funext`, no `simp`/propext).
+  - ★★★ `slashNu_final` — existence (`lAna c` lands in `SlashNu`) + uniqueness: `SlashNu` is
+    the final coalgebra of the slash functor among anti-reflexive coalgebras.
+
+So the inversion's νF face is **complete**: the residue's exact slash functor
+`{a} ⊎ {b} ⊎ {x/y : x ≠ y}` has its final coalgebra `SlashNu` realised ∅-axiom (carrier +
+faithful embedding + named escapee + finality), with the finite Raw = µF embedding in
+faithfully and anti-reflexively, no coinduction primitive anywhere.
+
+## Honest scope (the standing caveats)
+
+  - Finality is *up to pointwise/extensional equality* (uniqueness is `∀ x p, h x p = lAna c x
+    p`; `h = lAna c` needs `funext`), and among *anti-reflexive* slash-coalgebras (the `hAR`
+    hypothesis — only anti-reflexive coalgebras map into the anti-reflexive νF).
+  - The carrier is the path-function (M-type) presentation, not a Lean-native coinductive
+    type (which Mathlib-free Lean lacks); the path-function M-type is the standard
+    coinduction-free construction of the final coalgebra of a polynomial functor.

@@ -568,4 +568,170 @@ theorem slashNu_carrier :
    ⟨spineL_consistent, spineL_antiRefl⟩,
    fun r => fun h => spineL_escapes r.val h.symm⟩
 
+/-! ## §12 — `SlashNu` is the final slash-coalgebra (its own finality)
+
+The slash functor's coalgebra on a seed `X` is `c : X → Option Bool × X × X`: `(c x).1 =
+some b` is a **leaf** (atom `b`, children ignored), `(c x).1 = none` is a **branch** (children
+seeds `(c x).2.1`, `(c x).2.2`).  The leaf-absorbing anamorphism `lAna` unfolds it into
+`LCoShape`, *repeating the leaf label below a leaf* (so the unfold is `Consistent` by
+construction).  `lAna` is the unique coalgebra hom (`lAna_unique`), it is always consistent
+(`lAna_consistent`), and it is anti-reflexive when the coalgebra is — i.e. when each branch's
+two child-seeds unfold to `Distinct` co-trees (`lAna_antiRefl`).  So `SlashNu` is the final
+coalgebra of the slash functor — confirming the §11 carrier is *exactly* νF — ∅-axiom, no
+coinduction. -/
+
+/-- The leaf-absorbing anamorphism of a slash-coalgebra: branch ⇒ recurse, leaf ⇒ repeat
+    the label (consistency by construction). -/
+def lAna {X : Type} (c : X → Option Bool × X × X) (x : X) : List Bool → Option Bool
+  | []           => (c x).1
+  | (true :: p)  => match (c x).1 with
+      | none   => lAna c (c x).2.1 p
+      | some b => some b
+  | (false :: p) => match (c x).1 with
+      | none   => lAna c (c x).2.2 p
+      | some b => some b
+
+/-- `lAna` branch/leaf reductions (propext-free: `show` the defining match, then `rw` the
+    head). -/
+theorem lAna_true_none {X : Type} (c : X → Option Bool × X × X) (x : X) (p : List Bool)
+    (h : (c x).1 = none) : lAna c x (true :: p) = lAna c (c x).2.1 p := by
+  show (match (c x).1 with | none => lAna c (c x).2.1 p | some b => some b) = lAna c (c x).2.1 p
+  rw [h]
+
+theorem lAna_true_some {X : Type} (c : X → Option Bool × X × X) (x : X) (p : List Bool)
+    {b : Bool} (h : (c x).1 = some b) : lAna c x (true :: p) = some b := by
+  show (match (c x).1 with | none => lAna c (c x).2.1 p | some b => some b) = some b
+  rw [h]
+
+theorem lAna_false_none {X : Type} (c : X → Option Bool × X × X) (x : X) (p : List Bool)
+    (h : (c x).1 = none) : lAna c x (false :: p) = lAna c (c x).2.2 p := by
+  show (match (c x).1 with | none => lAna c (c x).2.2 p | some b => some b) = lAna c (c x).2.2 p
+  rw [h]
+
+theorem lAna_false_some {X : Type} (c : X → Option Bool × X × X) (x : X) (p : List Bool)
+    {b : Bool} (h : (c x).1 = some b) : lAna c x (false :: p) = some b := by
+  show (match (c x).1 with | none => lAna c (c x).2.2 p | some b => some b) = some b
+  rw [h]
+
+/-- ★★ **`lAna` is the unique slash-coalgebra hom.**  Any `h : X → LCoShape` satisfying the
+    slash-coalgebra hom equations (root `hB`; branch `hLn`/`hRn`; leaf `hLs`/`hRs` — split by
+    leaf/branch, no `match`) equals `lAna c` (pointwise, by induction on the finite path). -/
+theorem lAna_unique {X : Type} (c : X → Option Bool × X × X) (h : X → LCoShape)
+    (hB : ∀ x, h x [] = (c x).1)
+    (hLn : ∀ x p, (c x).1 = none → h x (true :: p) = h (c x).2.1 p)
+    (hLs : ∀ x p b, (c x).1 = some b → h x (true :: p) = some b)
+    (hRn : ∀ x p, (c x).1 = none → h x (false :: p) = h (c x).2.2 p)
+    (hRs : ∀ x p b, (c x).1 = some b → h x (false :: p) = some b) :
+    ∀ (x : X) (p : List Bool), h x p = lAna c x p := by
+  intro x p
+  induction p generalizing x with
+  | nil => exact hB x
+  | cons d p ih =>
+      cases d with
+      | true  =>
+          cases hc : (c x).1 with
+          | none   => rw [hLn x p hc, lAna_true_none c x p hc]; exact ih ((c x).2.1)
+          | some b => rw [hLs x p b hc, lAna_true_some c x p hc]
+      | false =>
+          cases hc : (c x).1 with
+          | none   => rw [hRn x p hc, lAna_false_none c x p hc]; exact ih ((c x).2.2)
+          | some b => rw [hRs x p b hc, lAna_false_some c x p hc]
+
+/-- ★★ **`lAna` is always consistent.**  Below a leaf the label repeats — by construction. -/
+theorem lAna_consistent {X : Type} (c : X → Option Bool × X × X) (x : X) :
+    Consistent (lAna c x) := by
+  intro p
+  induction p generalizing x with
+  | nil =>
+      intro b hb d
+      have hc : (c x).1 = some b := hb
+      cases d with
+      | true  => exact lAna_true_some c x [] hc
+      | false => exact lAna_false_some c x [] hc
+  | cons d p ih =>
+      intro b hb e
+      cases d with
+      | true =>
+          cases hc : (c x).1 with
+          | some b' =>
+              rw [lAna_true_some c x p hc] at hb
+              show lAna c x (true :: (p ++ [e])) = some b
+              rw [lAna_true_some c x (p ++ [e]) hc]; exact hb
+          | none =>
+              have hb' : lAna c (c x).2.1 p = some b := by
+                rw [lAna_true_none c x p hc] at hb; exact hb
+              show lAna c x (true :: (p ++ [e])) = some b
+              rw [lAna_true_none c x (p ++ [e]) hc]; exact ih ((c x).2.1) b hb' e
+      | false =>
+          cases hc : (c x).1 with
+          | some b' =>
+              rw [lAna_false_some c x p hc] at hb
+              show lAna c x (false :: (p ++ [e])) = some b
+              rw [lAna_false_some c x (p ++ [e]) hc]; exact hb
+          | none =>
+              have hb' : lAna c (c x).2.2 p = some b := by
+                rw [lAna_false_none c x p hc] at hb; exact hb
+              show lAna c x (false :: (p ++ [e])) = some b
+              rw [lAna_false_none c x (p ++ [e]) hc]; exact ih ((c x).2.2) b hb' e
+
+/-- ★★★ **`lAna` is anti-reflexive when the coalgebra is.**  If at each branch the two
+    child-seeds unfold to `Distinct` co-trees (`hAR`), then `lAna c x` is anti-reflexive. -/
+theorem lAna_antiRefl {X : Type} (c : X → Option Bool × X × X)
+    (hAR : ∀ y, (c y).1 = none → Distinct (lAna c (c y).2.1) (lAna c (c y).2.2)) :
+    ∀ (x : X), AntiRefl (lAna c x) := by
+  intro x p
+  induction p generalizing x with
+  | nil =>
+      intro hp
+      have hc : (c x).1 = none := hp
+      obtain ⟨q, hq⟩ := hAR x hc
+      refine ⟨q, ?_⟩
+      show lAna c x (true :: q) ≠ lAna c x (false :: q)
+      rw [lAna_true_none c x q hc, lAna_false_none c x q hc]; exact hq
+  | cons d p ih =>
+      intro hp
+      cases d with
+      | true =>
+          cases hc : (c x).1 with
+          | some b => rw [lAna_true_some c x p hc] at hp; exact Option.noConfusion hp
+          | none =>
+              have hp' : lAna c (c x).2.1 p = none := by
+                rw [lAna_true_none c x p hc] at hp; exact hp
+              obtain ⟨q, hq⟩ := ih ((c x).2.1) hp'
+              refine ⟨q, ?_⟩
+              show lAna c x (true :: (p ++ true :: q)) ≠ lAna c x (true :: (p ++ false :: q))
+              rw [lAna_true_none c x (p ++ true :: q) hc, lAna_true_none c x (p ++ false :: q) hc]
+              exact hq
+      | false =>
+          cases hc : (c x).1 with
+          | some b => rw [lAna_false_some c x p hc] at hp; exact Option.noConfusion hp
+          | none =>
+              have hp' : lAna c (c x).2.2 p = none := by
+                rw [lAna_false_none c x p hc] at hp; exact hp
+              obtain ⟨q, hq⟩ := ih ((c x).2.2) hp'
+              refine ⟨q, ?_⟩
+              show lAna c x (false :: (p ++ true :: q)) ≠ lAna c x (false :: (p ++ false :: q))
+              rw [lAna_false_none c x (p ++ true :: q) hc, lAna_false_none c x (p ++ false :: q) hc]
+              exact hq
+
+/-- ★★★ **`SlashNu` is the final slash-coalgebra.**  For every slash-coalgebra `c` that is
+    anti-reflexive (`hAR`: each branch's children unfold distinctly), the leaf-absorbing
+    unfold `lAna c` lands in `SlashNu` (consistent by `lAna_consistent`, anti-reflexive by
+    `lAna_antiRefl`), and it is the *unique* coalgebra hom (`lAna_unique`, **pointwise**: `∀ x
+    p, h x p = lAna c x p`; the `h = lAna c` form needs `funext`).  So `SlashNu` is exactly the
+    residue's exact slash-νF among anti-reflexive coalgebras — its own finality, ∅-axiom, no
+    coinduction primitive (the finite-path induction of the M-type presentation). -/
+theorem slashNu_final {X : Type} (c : X → Option Bool × X × X)
+    (hAR : ∀ y, (c y).1 = none → Distinct (lAna c (c y).2.1) (lAna c (c y).2.2)) :
+    (∀ x : X, Consistent (lAna c x) ∧ AntiRefl (lAna c x))
+    ∧ (∀ h : X → LCoShape,
+        (∀ x, h x [] = (c x).1) →
+        (∀ x p, (c x).1 = none → h x (true :: p) = h (c x).2.1 p) →
+        (∀ x p b, (c x).1 = some b → h x (true :: p) = some b) →
+        (∀ x p, (c x).1 = none → h x (false :: p) = h (c x).2.2 p) →
+        (∀ x p b, (c x).1 = some b → h x (false :: p) = some b) →
+        ∀ x p, h x p = lAna c x p) :=
+  ⟨fun x => ⟨lAna_consistent c x, lAna_antiRefl c hAR x⟩,
+   fun h hB hLn hLs hRn hRs => lAna_unique c h hB hLn hLs hRn hRs⟩
+
 end E213.Theory.Raw.CoResidue

@@ -181,8 +181,12 @@ This merge also brings the foundational **residue-form / inversion** arc (origin
 - §10: the everywhere-distinct subtlety **resolved** — it IS canonicity (`canonical_slash_decompose`
   ⟹ `cmp x y=.lt` ⟹ `x≠y`).  `lToShape_antiRefl`/`raw_embeds_antiRefl`: every Raw embeds
   **anti-reflexively** (+ faithfully, §6) into the leaf-labelled co-tree model; `spineL` the infinite
-  anti-reflexive escapee.  §11: the exact slash-νF **carrier assembled** —
-  `SlashNu := {s//Consistent s ∧ AntiRefl s}`; `rawToSlashNu`(+`_faithful`), `spineSlashNu`∈SlashNu,
-  `slashNu_carrier` (faithful embedding ∧ spine∈SlashNu ∧ escape).  RESIDUAL: only the carrier's
-  OWN finality (`ana` into SlashNu + uniqueness ⟹ SlashNu is exactly νF) — not a coinduction
-  obstruction.  CoResidue 34 thm, 55/0 PURE.  Whole arc ∅-axiom, critique-hardened (6 adversarial rounds).
+  anti-reflexive escapee.  §11–§12: the exact slash-νF **fully realised** —
+  `SlashNu := {s//Consistent s ∧ AntiRefl s}` (carrier); `rawToSlashNu`(+`_faithful`, Raw=µF embeds),
+  `spineSlashNu`∈SlashNu, `slashNu_carrier`; and **finality** `slashNu_final` — `lAna` (leaf-absorbing
+  M-type anamorphism) is consistent (`lAna_consistent`), anti-reflexive given hAR (`lAna_antiRefl`),
+  and the UNIQUE hom (`lAna_unique`, pointwise, finite-path induction, no funext/simp).  So SlashNu is
+  the residue's exact slash-νF, ∅-axiom, **no coinduction primitive**.  INVERSION ARC COMPLETE
+  (carrier + faithful embedding + named escapee + finality).  Honest: finality up to pointwise eq,
+  among anti-reflexive coalgebras; M-type (path-function) presentation.  CoResidue ~43 thm, 64/0 PURE.
+  Whole arc critique-hardened (6 adversarial rounds).
