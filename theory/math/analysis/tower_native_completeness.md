@@ -31,6 +31,8 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Real213/ReciprocalSeries.lean` | 12 / 0 | the `W = d` line as a ratio-parametrized reciprocal-series reference family (`Σ 1/d`); e = linear-ratio point |
 | `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
+| `Real213/ContinuedFractionFloor.lean` | 17 / 0 | the universal det-one floor: any partial-quotient sequence's convergent cross-determinant is a unit (`cf_det_sq`, `W² = 1`); even two-step `W'_{2n} = a_{2n+2}` |
+| `Real213/ContinuedFractionModulus.lean` | 16 / 0 | every real `≥ 1` completes through its continued fraction (`cf_universal_total_modulus`); the `W = const` φ-rung over an arbitrary partial-quotient sequence |
 | `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
 | `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
@@ -141,6 +143,43 @@ So "constant cross-determinant" (algebraic) and "cross-determinant equal to the
 denominator" (the two structured transcendentals proven here) are two rungs *inside*
 the free region, and the double exponential is the first rung outside it.
 
+### Every real rides the floor (`ContinuedFractionFloor`, `ContinuedFractionModulus`)
+
+The `W = const` rung is not special to φ.  Present **any** real by its continued
+fraction `a : ℕ → ℕ` (partial quotients), with convergent numerators/denominators
+`p_{n+2} = a_{n+2}·p_{n+1} + p_n`, `q` likewise.  The convergent cross-determinant
+`W_n = p_{n+1}·q_n − p_n·q_{n+1}` runs through the universal Cassini engine
+`cf_det_step`: `W_{n+1} = −W_n`, the partial-quotient terms cancelling by commutativity
+(the `q = 1` case `cassini_one` of the general second-order recurrence determinant).
+Hence `cf_det_sq`: `W_n² = 1` for **every** `n` and **every** partial-quotient sequence
+— the det-one floor is the *universal* best-approximation locus, and `FibCassiniNat`'s
+φ-instance is the all-`1`s case.
+
+The even-indexed convergents `p_{2n}/q_{2n}` are a positive-denominator, strictly
+increasing convergent system whose two-step cross-determinant is a partial quotient:
+`cfDet2_even`, `W'_{2n} = p_{2n+2}·q_{2n} − p_{2n}·q_{2n+2} = a_{2n+2}·W_{2n} = a_{2n+2}`
+(the `+1` even floor amplified to the quotient).  Over `ℕ` (`cfDet2_even_nat`, descended
+from `ℤ` by `ofNat` injectivity) this is exactly the bridge's `hW` for `a' = p_{2·},
+d' = q_{2·}, W' = a_{2·+2}`.  The denominators grow at least like Fibonacci
+(`cfQn_fib`, `q_{n+2} ≥ q_{n+1} + q_n`, hence `cfQn_ge_self`, `n ≤ q_n`), which is
+precisely enough to satisfy `CrossDetSmall` at every index (`cf_hcs`: the smallness
+inequality reduces to `i ≤ q_{2i+1}`).  A single strict step gives across-layer
+monotonicity for any positive-denominator system (`mono_of_step`, the reusable
+`ratio_trans` chaining made generic), supplying `hmono`.  So
+`cf_universal_total_modulus`: every real `≥ 1` carries a free total ∅-axiom modulus
+`N(m,k) = k+2` through its own continued fraction.  This is
+`phi_total_modulus_via_const` with the Fibonacci sequence replaced by an arbitrary
+partial-quotient sequence — the algebraic-φ proof of completion generalised to the whole
+real line.  (Shift-invariance reduces every real to a `≥ 1` representative, so the
+hypothesis costs no generality.)
+
+The continued fraction is the expansion engine at its terminus: a distinction (the
+floor) leaves a unit residue (`cf_det_sq`), and that residue is the next operand
+(`x ↦ 1/(x − ⌊x⌋)`), re-entering the same distinction one scale down — a self-similar
+chain, gapless because the step is the indivisible unit `W = ±1` and the
+Fibonacci-growing denominator shrinks the residue faster than it accrues, with no
+exterior slot to leave empty.
+
 ### `CrossDetSmall` reads the representation, not the real (`PresentationDependence`)
 
 The smallness condition is a *sufficient* test on a num/den presentation `a_i/d_i`, and
@@ -222,6 +261,9 @@ foundation-touching structure, not a yes/no fact about individual reals.**
 | `liouville_W_eq_denom_coordinate` | `LiouvilleModulus` | `W` and `d` share the factorial-tier coordinate, `d` dominates |
 | `finDiffDepth_add` / `value_mul_closed` | `DepthClosure` | finite-coordinate class closed under `+` / `×` |
 | `value_finRatio_of_finDiff` / `exp_axis_breaks` | `DepthClosure` | exponent-axis closure, breaking at `2^{2^n}` |
+| `cf_det_sq` | `ContinuedFractionFloor` | every real's continued-fraction cross-determinant is a unit (`W² = 1`) |
+| `cfDet2_even` | `ContinuedFractionFloor` | the even two-step cross-determinant is the partial quotient `a_{2n+2}` |
+| `cf_universal_total_modulus` | `ContinuedFractionModulus` | every real `≥ 1` completes through its continued fraction |
 | `tower_is_coordinate_system` | `DepthCoordGenerator` | every tower coordinate realized by an explicit sequence |
 | `ceiling_residue_is_pointing_residue` | `DepthCeilingResidue` | the tower's top-lessness is the residue of pointing |
 | `tower_native_completeness_program` | `TowerNativeCompleteness` | the five, bundled |
@@ -230,8 +272,9 @@ foundation-touching structure, not a yes/no fact about individual reals.**
 
 None internal to the program.  The tower-native targets — the overtake boundary, the
 Liouville adjudication, closure of the finite-coordinate class under `×` and the
-exponent axis, a generator surjective onto the tower coordinates, and the residue tie
-— are all closed ∅-axiom.  Two genuinely-classical questions sit *outside* the
+exponent axis, a generator surjective onto the tower coordinates, the universal
+det-one floor with its continued-fraction completion for every real, and the residue
+tie — are all closed ∅-axiom.  Two genuinely-classical questions sit *outside* the
 tower-native frame and are not claimed here: full num/den closure under `+` and `×`
 for arbitrary rate-carrying presentations (the classical holonomic-closure theorem),
 and a fully generic ordinal-indexed `coord → cut` map for every `ω^r` position at once.
@@ -249,6 +292,8 @@ cd ..
 for M in \
   E213.Lib.Math.Real213.CrossDetOvertake \
   E213.Lib.Math.Real213.LiouvilleModulus \
+  E213.Lib.Math.Real213.ContinuedFractionFloor \
+  E213.Lib.Math.Real213.ContinuedFractionModulus \
   E213.Lib.Math.Cauchy.DepthClosure \
   E213.Lib.Math.Cauchy.DepthCoordGenerator \
   E213.Lib.Math.Real213.TowerNativeCompleteness ; do
