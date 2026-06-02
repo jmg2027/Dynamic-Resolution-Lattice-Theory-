@@ -2,10 +2,15 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **73 PURE** + `ModArith/MarkovPrimeFactor`
-28 PURE = 101, all ∅-axiom.
+Full `lake build` clean.  Markov: `MarkovUniqueness` **86 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 114, all ∅-axiom.
 
-## ★ CAPSTONE THIS SESSION — `markov_max_unique_1325 : MarkovMaxUnique 1325` (UNCONDITIONAL, ∅-axiom)
+## ★ CAPSTONES — UNCONDITIONAL ∅-axiom uniqueness at TWO 4-root composite Markov numbers
+`markov_max_unique_1325 : MarkovMaxUnique 1325` (`1325=5²·53`, triple `(13,34,1325)`) **and**
+`markov_max_unique_985 : MarkovMaxUnique 985` (`985=5·197`, triple `(2,169,985)`) — both with no
+hypotheses, both `#print axioms` clean.  The mod-collapse is now general
+(`markov_factor_dvd_sum`: `c=k·p ⟹ p∣a²+b²`); each new composite needs only its root-set lemma,
+per-root certs, and per-prime reduced-equation no-solution decides.  Template details below.
 The first complete Markov uniqueness theorem at a **4-root composite Markov number**
 (`1325 = 5²·53`), with no hypotheses.  The 2-D `∀a∀b` `decide` is infeasible (stack overflow);
 the proof is a **2-D→1-D reduction** + **finite descent**:
@@ -106,12 +111,26 @@ descent — separate.)
 **Remaining C5**: the `p≡1(mod4)` *existence* branch (root of `x²≡−1 mod pᵏ`) — hard without
 `Classical` (Wilson construction).
 
-### 3b. C7 at 1325 — DONE UNCONDITIONALLY (capstone, see top).
-`markov_max_unique_1325` closes uniqueness at the first 4-root composite Markov number with no
+### 3b. C7 at 1325 AND 985 — DONE UNCONDITIONALLY (capstones, see top).
+`markov_max_unique_{1325,985}` close uniqueness at two 4-root composite Markov numbers, no
 hypotheses, ∅-axiom.  The route (recovery reduction + finite-descent coprimality) is **reusable**:
-to extend to `610 = 2·5·61` or `985 = 5·197`, redo `sqrtNegOneRoots_<c>`, the per-root
-phantom/valid 1-D certificates, and the `÷p²` reduced-equation no-solution decides.  The 266²
-`reduced_eq_5_no_sol` decide costs ~110 s (maxHeartbeats 0) — budget accordingly.
+next is `610 = 2·5·61` (NOTE: even — factor 2 needs the mod-2 parity branch `2∣b ⟹ 2∣a`, and the
+`÷4` reduced eq `a²+b²+93025=1830ab` over `305²` — heavier).  Recipe per composite `c`:
+`sqrtNegOneRoots_<c>` (1-D), per-root phantom/valid 1-D certs, `markov_no_top_<c>`,
+`reduced_eq_<p>_<c>_no_sol` for each prime `p∣c` (`÷p²`, bound `c/p`), `not_<p>_dvd_b_<c>` (reuse
+`markov_factor_dvd_sum` + `dvd_of_sq_dvd_cert`), `div<c>_trivial_of_...`, `markov_hcop_<c>`.
+**Cost warning**: the largest `reduced_eq` decide (266² for 1325, 198² for 985) needs
+`maxHeartbeats 0` + `maxRecDepth 20000`, ~60–110 s.  And the `dvd_of_sq_dvd_cert` residue cert
+`∀r<p, r²≡0→r=0` needs `maxRecDepth ≥ ~4000` once `p` is large (e.g. 197).
+
+### 3c. NEXT BIG TARGET — the Markov descent theorem (retires all per-c coprimality).
+Numerically verified engine (this session): `a²+2b² ≤ 3ab²` for `1≤a≤b` (= `f(b)≤0` where
+`f(x)=x²−3ab·x+(a²+b²)` has roots `c,c'`), and `c'=3ab−c ≤ b` for every triple with `c≥2`.
+Proving `c'≤b` generally (then well-founded recursion on the max) gives: every Markov triple is
+reachable ⟹ **general pairwise coprimality** (`markov_reachable_coprime` already done for the
+tree) ⟹ `markov_hcop_<c>` for ALL `c` at once, no per-c reduced-equation decides.  The `c'≤b`
+step needs a careful ℕ sign argument (`(b−c)(b−c')=f(b)≤0`, `b≤c` ⟹ `c'≤b`) — work in `Int213`
+or case-split; ~40–60 lines.  This is the route to the GENERAL conjecture's coprimality half.
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
 **Input now done for prime POWERS** (full Button/Zhang class): `two_roots_of_prime` (primes) and

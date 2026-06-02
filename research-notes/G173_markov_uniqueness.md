@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (73 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (86 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 73 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 86 PURE)
 
 | theorem | content |
 |---|---|
@@ -65,6 +65,8 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `markov_root_recovery` | **the 2-D→1-D bundle**: a triple `(a,b,c)`, `gcd(b,c)=1`, gives a root `u=(a·b⁻¹)%c` of `x²≡−1` *and* `a=(u·b)%c`.  Pins a triple by `(u,b)`, `u` in the finite root set — uniqueness is a per-root 1-D search over `b` |
 | `markov_hcop_1325` | **coprimality discharged at 1325, unconditional**: `p∣b ⟹ p∣a` (mod-`p` of the eq) ⟹ the `÷25`/`÷53²` generalised Markov eq `a²+b²+70225=3975ab` / `+625` — no bounded solution (`reduced_eq_{5,53}_no_sol`).  Finite descent, no infinite descent / tree input |
 | ★ `markov_max_unique_1325` | **UNCONDITIONAL `MarkovMaxUnique 1325`** — first complete Markov uniqueness at a 4-root composite Markov number, ∅-axiom, no hypotheses.  `(13,34,1325)` is the unique ordered triple.  = recovery reduction ∘ `sqrtNegOneRoots_1325` ∘ per-root certs ∘ `markov_hcop_1325` |
+| `markov_factor_dvd_sum` | **any factor of the maximum divides `a²+b²`**: `c=k·p ⟹ p∣a²+b²` — the general mod-collapse lever for finite descent (subsumes per-prime `_dvd_sum`) |
+| ★ `markov_max_unique_985` | **UNCONDITIONAL `MarkovMaxUnique 985`** (`985=5·197`, unique triple `(2,169,985)`) — second 4-root composite closed ∅-axiom by the same template; roots `{183,408,577,802}` (183,802 phantom; 408→(2,169); 577 unordered) |
 | `markov_reachable_no_3mod4_factor` | **no prime `≡3(mod4)` divides a reachable Markov number** (Zhang 2007) — joins the two files: `√(−1)` exists mod `c` (`markov_reachable_neg_one_qr`) but not mod a `p≡3` factor (`no_sqrt_neg_one_4k3`) |
 | `MarkovPrimeFactor.euclid_of_coprime` | **fully general Euclid's lemma**: `gcd213 a m = 1 ∧ m∣a·b ⟹ m∣b` (any `m>1`) |
 | `MarkovPrimeFactor.coprime_prime_pow` | `p∤n ⟹ gcd213 n (pᵏ) = 1` (`dvd_prime_pow_cases`: divisors of `pᵏ` are `1` or `p·…`) |
