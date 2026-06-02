@@ -10,7 +10,9 @@ Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems 
 ### 0. G171 Apéry zeta tower marathon (this branch, merged here)
 **`Cauchy/DepthAperyCubic` (23) + `DepthQuadraticGeneric` (7) + `CasoratianStep` (5, incl.
 `telescope`: `(∏P)g(n)=(∏Q)g(0)`, the ζ(3) Casoratian `1/n³` cube-product shape) +
-`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 40 PURE + research-notes
+`CasoratianSigned` (6: signed law as ℕ-pair `npairEquiv`, sign = axis swap = Oscillate
+period-2, ℤ caveat dissolved 213-natively via `NatPairToInt`) +
+`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 46 PURE + research-notes
 `G171_apery_zeta_tower.md` / `G171_self_pointing_depth_213.md`.**
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor

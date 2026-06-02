@@ -292,6 +292,15 @@ Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`,
 nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
 multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
 
+`E213.Lib.Math.Cauchy.CasoratianSigned` — **6 PURE / 0 DIRTY**.  The *signed* Casoratian law,
+sign carried 213-natively as a ℕ-pair (`Lens.Number.Nat213.Tower.NatPairToInt`: integer =
+pair `(a,b)` = `a−b`, negation = axis swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ)
+(scale c₀ (neg Cₙ₋₁))` *is* `c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — so the
+signed law holds ∅-axiom over ℕ with **no `ℤ` type, no propext**.  `neg_neg` (swap involution,
+period-2 = the Oscillate outcome) + `scale_neg`: the Casoratian's sign is the
+`SelfReferenceThreeOutcomes` Oscillate reading (binary axis toggle), independent of its
+magnitude (Converge/Escape, telescoped) — constant sign for ζ(3), alternating `(−1)ⁿ` for ζ(2).
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
