@@ -69,12 +69,13 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       `Δ`-orbit); strict inclusion `polynomial ⊊
                                       C-finite` (`2ⁿ` C-finite, orbit dim 1, but no
                                       finite divergence depth); module + shift closure
-  - `CFiniteRing.lean`             — the **difference-operator algebra**: `applyOp`
-                                      (`Σ pᵢΔⁱ`), `conv` (operator product),
-                                      `applyOp_comm` (operators commute), the ring
-                                      law `conv_annih_add` (annihilators multiply ⇒
-                                      C-finite closed under `+`), and the bridge
-                                      `CFiniteZ ⟺ monic annihilator`
+  - `CFiniteRing.lean`             — the **difference-operator algebra** + the
+                                      **C-finite ring closure**: `applyOp` (`Σ pᵢΔⁱ`),
+                                      `conv` (operator product), `applyOp_comm`
+                                      (operators commute), `conv_annih_add`
+                                      (annihilators multiply), the bridge `CFiniteZ ⟺
+                                      monic annihilator`, and ★ `cfiniteZ_add`
+                                      (C-finite closed under `+`; orbit dimensions add)
 
 ## Companion clusters
 

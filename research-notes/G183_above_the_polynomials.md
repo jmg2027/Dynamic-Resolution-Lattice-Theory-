@@ -37,13 +37,14 @@ polynomial).
   has a monic constant-coefficient annihilator** — my orbit-recurrence `CFiniteZ` = the standard
   annihilating-polynomial definition.
 
-**Remaining for the predicate-level `cfiniteZ_add`** (`CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)`):
-one list lemma — `conv` of two monic operators is monic (leading `1·1=1`).  The math is done
-(`conv_annih_add` gives the annihilator; `cfiniteZ_to_annih`/`annih_snoc_to_cfiniteZ` are the
-endpoints).  The friction is purely syntactic: `addL` injects `+0`/`*1` into the leading coefficient
-(`conv [1] [1] = [1+0]`, not literal `[1]`), so the snoc-`1` reverse bridge needs a leading-coefficient
-*normalization* (`v = 1` hypothesis form of `applyOp_snoc_one`) + `smulL_snoc`/`addL_snoc_right` +
-`opOf_snoc` (`opOf c k = lower ++ [1]`).  ~50–70 lines; best done with fresh budget.
+**`cfiniteZ_add` is built — the full ring closure under `+`** (`CFiniteZ s → CFiniteZ t →
+CFiniteZ (s+t)`).  The monic annihilators of `s`, `t` multiply (`conv_snoc`: leading coefficients
+multiply, `1·1=1`) to a monic annihilator of `s+t` (`conv_annih_add`), recovered as an orbit
+recurrence (`annih_snoc_unit`).  The `+0`/`*1` syntactic noise `addL` injects is absorbed by stating
+`conv_snoc` with an existential leading value (`∃ r v, conv … = r++[v] ∧ v = a·b ∧ |r|=|p|+|q|`).
+`Nat.max`-free toolkit: `length_snoc`, `smulL_snoc`, `length_smulL`, `addL_nil_right`,
+`addL_zero_cons`, `addL_snoc_right`, `length_addL_right_ge`, `conv_snoc`, `opOf_snoc`.  Concrete
+witness `cfiniteZ_one_add_twoPow` (`1+2ⁿ` C-finite, neither polynomial nor geometric).
 
 **Pointwise (Hadamard) product `s·t`** (the other ring operation) is genuinely harder — the
 characteristic roots multiply pairwise (tensor of recurrences), degree `k·m` — this is C-B territory

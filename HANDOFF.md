@@ -22,7 +22,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
   (`2ⁿ` C-finite, annihilator `Δ−1`); ★★★ `twoPow_not_polyDepthZ` (`2ⁿ` not polynomial — strict).
 - `cfiniteZ_smul` / `cfiniteZ_shift` / `cfiniteZ_add_sameRec` (module + shift + shared-annihilator-sum).
 
-### 2. `Cauchy/CFiniteRing` (28 PURE) — the difference-operator algebra + ring law
+### 2. `Cauchy/CFiniteRing` (41 PURE) — the difference-operator algebra + the ring closure
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
@@ -34,6 +34,10 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Bridge both ways** → **C-finite ⟺ has a monic constant-coefficient annihilator**:
   `cfiniteZ_to_annih` (forward; `opOf c k=[−c₀,…,−c_{k-1},1]`, `applyOp_opOf`, `opOf_getLastD`) +
   `annih_snoc_to_cfiniteZ` (reverse; `applyOp_snoc_one` + `applyOp_eq_linComb` + `linComb_neg`).
+- ★★★ **the ring closure** `cfiniteZ_add`: `CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)` — monic
+  annihilators multiply (`conv_snoc`: leading `1·1=1`, existential-value form absorbs `+0`/`*1`
+  noise; `Nat.max`-free toolkit `length_snoc`/`smulL_snoc`/`addL_snoc_right`/`length_addL_right_ge`/
+  `opOf_snoc`).  Witness `cfiniteZ_one_add_twoPow` (`1+2ⁿ`).  `polynomial ⊊ C-finite` is a **ring**.
 
 ### 3. Repo hygiene (latent bug fixed)
 The whole divergence-depth thread was **orphaned from the `Cauchy.lean` aggregator** — `PolynomialDepth`,
@@ -44,14 +48,11 @@ files).  **Default build now reaches every Cauchy module (0 orphans).**
 
 ## Open Problems (Priority Order)
 
-### 1. Finish the predicate-level `cfiniteZ_add` (`CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)`)
-The math is **done** (`conv_annih_add` + both bridges).  One list lemma remains: **`conv` of two
-monic operators is monic** (leading `1·1=1`).  Friction is purely syntactic — `addL` injects `+0`/`*1`
-into the leading term (`conv [1] [1] = [1+0]`, not literal `[1]`).  Needed: a `v=1`-hypothesis form of
-`applyOp_snoc_one`, plus `smulL_snoc` (`smulL c (q++[b]) = smulL c q ++ [c*b]`), `addL_snoc_right`
-(`x.length ≤ y.length → addL x (y++[b]) = addL x y ++ [b]`, needs `Nat.le_of_succ_le_succ`/
-`Nat.not_succ_le_zero` — verify pure), and `opOf_snoc` (`opOf c k = lower ++ [1]`, length `k`).
-~50–70 lines.  Best done fresh.
+### 1. Hadamard (pointwise) product closure `s·t` — the other ring operation [now the top open]
+`cfiniteZ_add` (sum closure) is **done**.  The product closure `CFiniteZ s → CFiniteZ t →
+CFiniteZ (s·t)` is genuinely harder: characteristic roots multiply pairwise (tensor of recurrences,
+degree `k·m`).  `FiniteDepthAlgebra.polyDepthZ_mul` is the finite-*depth* analogue (discrete Leibniz);
+the C-finite version needs the Hadamard/resultant construction.  C-B-adjacent.
 
 ### 2. C-B — Casoratian/Hankel rank = orbit dimension (`research-notes/G183` conj C-B)
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
