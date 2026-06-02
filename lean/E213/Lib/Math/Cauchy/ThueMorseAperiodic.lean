@@ -96,6 +96,35 @@ theorem tm_odd (n : Nat) : tm (2 * n + 1) = !tm n := by
 theorem tm_pair_differ (n : Nat) : tm (2 * n + 1) ≠ tm (2 * n) := by
   rw [tm_odd, tm_even]; cases tm n <;> decide
 
+/-- A `Bool` never equals its own negation. -/
+theorem bool_ne_not (b : Bool) : b ≠ !b := by cases b <;> decide
+
+/-- ★ **Run-length `≤ 2`**: Thue–Morse has *no three consecutive equal values*.  This is what
+    makes it the genuinely-*dense* witness — the sparse `zero_run_not_homogRec` route (needing
+    arbitrarily long constant runs) provably cannot catch it, so it is caught *only* by the dense
+    Morse–Hedlund route.  In any length-`3` window an adjacent differing pair already sits: at an
+    even start `(2k, 2k+1) = (tm k, ¬tm k)`; at an odd start the next pair
+    `(2(k+1), 2(k+1)+1) = (tm(k+1), ¬tm(k+1))`. -/
+theorem tm_run_le_two (n : Nat) (h1 : tm n = tm (n + 1)) (h2 : tm (n + 1) = tm (n + 2)) :
+    False := by
+  have hdm : 2 * (n / 2) + n % 2 = n := E213.Meta.Nat.AddMod213.div_add_mod n 2
+  rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one n with he | ho
+  · -- even start: positions n, n+1 are 2k, 2k+1 — they already differ
+    have e0 : 2 * (n / 2) = n := by rw [he, Nat.add_zero] at hdm; exact hdm
+    have e1 : 2 * (n / 2) + 1 = n + 1 := by rw [e0]
+    have ht0 : tm n = tm (n / 2) := (congrArg tm e0.symm).trans (tm_even (n / 2))
+    have ht1 : tm (n + 1) = !tm (n / 2) := (congrArg tm e1.symm).trans (tm_odd (n / 2))
+    rw [ht0, ht1] at h1
+    exact bool_ne_not (tm (n / 2)) h1
+  · -- odd start: positions n+1, n+2 are 2(k+1), 2(k+1)+1 — they already differ
+    have e0 : 2 * (n / 2) + 1 = n := by rw [ho] at hdm; exact hdm
+    have e1 : 2 * (n / 2 + 1) = n + 1 := by rw [Nat.mul_succ]; exact congrArg (· + 1) e0
+    have e2 : 2 * (n / 2 + 1) + 1 = n + 2 := congrArg (· + 1) e1
+    have ht1 : tm (n + 1) = tm (n / 2 + 1) := (congrArg tm e1.symm).trans (tm_even (n / 2 + 1))
+    have ht2 : tm (n + 2) = !tm (n / 2 + 1) := (congrArg tm e2.symm).trans (tm_odd (n / 2 + 1))
+    rw [ht1, ht2] at h2
+    exact bool_ne_not (tm (n / 2 + 1)) h2
+
 /-! ## The self-similar descent on the period -/
 
 /-- An even period `2q` descends to period `q` (via `tm(2m)=tm(m)`). -/

@@ -61,7 +61,10 @@ bounded aperiodic sequence escapes `AutoRec` (`aperiodic_not_autoRec`), witnesse
 `isPow2_morse_not_autoRec` and applying in principle to Thue–Morse / Sturmian.  `χ` is bounded
 yet needs unbounded memory: the powers-of-two trace escapes every finite-state machine, the
 CF-scale shadow of `spineL_escapes`.  And the dense axis is non-vacuous: **Thue–Morse** —
-run-length `≤ 2`, no long runs, no exhibited repeated window — is proven aperiodic ∅-axiom by
+run-length `≤ 2` (`ThueMorseAperiodic.tm_run_le_two`: no three consecutive equal values, so the
+*sparse* `zero_run_not_homogRec` route, which needs arbitrarily long constant runs, provably
+cannot catch it — only the dense route can), no exhibited repeated window — is proven aperiodic
+∅-axiom by
 the self-similar period-descent (`ThueMorseAperiodic.tm_not_evPeriodic`: an even period halves
 through `tm(2n)=tm(n)`, an odd period drops by one through `tm(2n+1)=¬tm(n)`, and period `1`
 contradicts the always-differing consecutive pair `tm(2n),tm(2n+1)`), so

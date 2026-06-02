@@ -31,7 +31,7 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
-## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 19 PURE)
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 21 PURE)
 
 The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
 `≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
@@ -48,6 +48,15 @@ induction on a fuel bound) pinning the canonical fuel `= n`.  The recurrence rea
 
 `tm_morse_not_autoRec := aperiodic_not_autoRec tm tm_not_evPeriodic` — a concrete *dense*
 inhabitant of the Morse–Hedlund escape, not the long-run `isPow2`.
+
+### Run-length `≤ 2` — `tm_run_le_two`
+
+The density is now a theorem, not a citation: `tm_run_le_two` proves Thue–Morse has **no three
+consecutive equal values** (in any length-`3` window an adjacent differing pair already sits — at
+an even start `(tm k, ¬tm k)`, at an odd start `(tm(k+1), ¬tm(k+1))`).  This is exactly what
+makes Thue–Morse the *genuinely-dense* witness: the sparse `zero_run_not_homogRec` route needs
+arbitrarily long constant runs, which `tm_run_le_two` forbids — so Thue–Morse escapes the
+finite-state class **only** through the dense Morse–Hedlund route, not the sparse one.
 
 ### The automatic structure — `tm_eq_popParity`
 
