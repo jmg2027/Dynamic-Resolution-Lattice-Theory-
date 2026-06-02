@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.MarkovTree
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # MarkovUniqueness — the neighbor congruence `a²+b² ≡ 0 (mod c)` and the uniqueness machinery
@@ -535,5 +536,24 @@ theorem markov_reachable_is_triple {a b c : Nat} (h : MarkovReachable a b c) : m
     `√(−1)` encoding needs (C2), now structural: every reachable triple has `gcd(b,c) = 1`. -/
 theorem markov_reachable_gcd_bc {a b c : Nat} (h : MarkovReachable a b c) : gcd213 b c = 1 :=
   (markov_reachable_coprime h).2.2
+
+/-! ## §11 — the encoding from a modular inverse (residue form)
+
+The `√(−1)` encoding in its natural usability form: rather than a hand-supplied `(b', j)` with
+`b·b' = 1 + c·j`, take a modular inverse of `b` in residue form, `(b·b') % c = 1` (what a
+Bezout/`modBezout` computation produces).  `div_add_mod` converts it to the additive form and
+fires `neg_one_qr_of_inverse`. -/
+
+/-- ★★★★ **The encoding fires from a modular inverse `(b·b') % c = 1`.**  If `b'` is an inverse
+    of `b` mod `c` (residue form), then `c ∣ (a·b')² + 1` — `−1` is a QR mod `c`.  Bridges the
+    encoding to how inverses are actually computed (Bezout / `modBezout`). -/
+theorem neg_one_qr_of_mod (a b c b' : Nat) (h : markovEq a b c)
+    (hmod : (b * b') % c = 1) : c ∣ ((a * b') * (a * b') + 1) := by
+  have hdm := E213.Meta.Nat.AddMod213.div_add_mod (b * b') c
+  rw [hmod] at hdm
+  -- hdm : c * ((b*b')/c) + 1 = b*b'
+  have hinv : b * b' = 1 + c * ((b * b') / c) :=
+    hdm.symm.trans (Nat.add_comm (c * ((b * b') / c)) 1)
+  exact neg_one_qr_of_inverse a b c b' ((b * b') / c) h hinv
 
 end E213.Lib.Math.Real213.MarkovUniqueness
