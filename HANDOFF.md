@@ -292,7 +292,18 @@ A–D + B are now **all closed ∅-axiom this arc**:
     naming the undifferentiated residue yields, re-pointed, a single-Raw indicator — a
     different predicate.  `residue_reentry_concrete` bundles non-surjectivity + named witness
     + disagreement point.  The non-fixed-points are exactly the distinction-drawing predicates
-    (true at ≥2 Raws); the undifferentiated one is the extreme member.  Remaining open
+    (true at ≥2 Raws); the undifferentiated one is the extreme member.
+  - **Convergence-side re-entry — DONE** (this branch, `Theory/Raw/Lambek` §5, 13/0;
+    `research-notes/G172`): the Lambek dual of `ResidueReentry`.  `IsPart c p` (peel
+    relation: `c` is one of the two parts of slash `p`); `no_part_of_atom` (atoms terminal),
+    `part_depth_lt` (peel strictly shallower), **`isPart_wf`** (`WellFounded IsPart` — every
+    descent chain terminates at an atom, strong induction on a `depth` bound, ∅-axiom via
+    Lean-core `Acc`/`WellFounded`, the `DepthOmegaTower.coord_wf` pattern);
+    `descent_reentry_converges` bundles terminal-atoms + strict-descent + well-foundedness.
+    Strengthens the §2 per-step measure to actual termination.  Two faces of one self-
+    pointing: atomic side **closes** at the floor (`isPart_wf`, bounded), predicate side
+    **never closes** (`residue_reentry_never_closes`, unbounded) — the re-entry analog of the
+    `SpiralRotationInvariant` (atomic conserves / residue escapes) pairing.  Remaining open
     (foundational axis): the single abstract self-applying residue operator unifying `diag`,
     `Object1`, `D` (deferred, forced-abstraction risk).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;

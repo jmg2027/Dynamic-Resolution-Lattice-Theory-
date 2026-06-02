@@ -48,6 +48,32 @@ The contrast is now machine-checked: the Bool loop closes only at period 2 (osci
 no period-1 fixed point), the Nat loop closes at period 1 (identity, convergence) and
 terminates at the atomic floor.
 
+## The convergence-side re-entry made a theorem (`Lambek` §5)
+
+The Nat-style side of the dichotomy was carried by the per-step facts (`decompose`,
+`depth_drops`).  `Theory/Raw/Lambek.lean` §5 now states the **descent re-entry** as actual
+well-foundedness — the dynamic form, and the convergence dual of the predicate-side
+`Lens.ResidueReentry.residue_reentry_never_closes`:
+
+  - `IsPart c p` — the **peel relation**: `c` is one of the two parts of a slash `p`.  One
+    peel re-enters the structure at a part.
+  - ★ `no_part_of_atom` — the atoms are **terminal**: nothing is a part of an atom (the
+    floor where the descent stops).
+  - ★ `part_depth_lt` — every peel re-enters strictly **shallower** (the measure).
+  - ★ `isPart_wf` — **`WellFounded IsPart`**: every chain of peels terminates at an atom.
+    Proof by strong induction on a `depth` bound (a part is shallower than its bound, so
+    accessibility lifts one layer); ∅-axiom (`WellFounded`/`Acc` are Lean-core, the
+    `DepthOmegaTower.coord_wf` pattern).
+  - ★ `descent_reentry_converges` — bundles terminal-atoms + strict-descent +
+    well-foundedness: the descent re-entry **converges** at the floor.
+
+So the self-applying re-entry has two faces as one Raw self-pointing: read on the
+atomic/Nat side (peeling toward the floor) it **closes** at the atoms (`isPart_wf`, bounded,
+terminating); read on the predicate/residue side (re-pointing the encoded residue) it
+**never closes** (`residue_reentry_never_closes`, unbounded, escaping).  This is the
+re-entry analog of the `SpiralRotationInvariant` pairing (atomic conserves / residue
+escapes) and the `DepthHeightDiagonal` ε₀-direction, now at the Lambek pointing floor.
+
 ## Honest scope
 
   - "No fixed point" is on the **Bool values** `{T, F}` (the Bool-Lens image), not all of
