@@ -170,6 +170,24 @@ A–D + B are now **all closed ∅-axiom this arc**:
     Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
     arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
     instance: a fast π representation meeting the rate criterion.
+  - **Eisenstein/elliptic conjecture — discriminant-sign core LANDED** (`research-notes/G167`).
+    The `(W,d)` classification's number-field reading: golden form `m²−mk−k²` (disc `+5`,
+    indefinite, ∞ units → convergent *line*) vs Eisenstein norm `a²−ab+b²` (disc `−3`,
+    definite, 6 units → *torus* = `j=0` elliptic-curve lattice).  New ∅-axiom modules:
+      - **`Meta/Int213/PolyInt2`** (22/0): a **bivariate `Int` polynomial-identity
+        reflection prover** (two Horner layers + `neg`; the `Int` analog of `PolyNat`,
+        which is `Nat`-only/univariate).  The repo had **no** pure `Int` ring tactic
+        (`quad_norm` = `simp`+`omega`-dirty); `poly_id2` closes bivariate `Int`
+        identities by `rfl`.  Reusable repo-wide.
+      - **`CayleyDickson/Integer/EisensteinSignature`** (13/0): `eisenstein_norm_posdef`
+        (positive-definite, via `two_eisForm` by `poly_id2` + `sq_nonneg` by Int
+        constructor-cases); `signature_dichotomy` (Eisenstein definite vs golden
+        indefinite = curve vs line); `eisenstein_det_one_floor` (norm-1 floor is
+        multiplicatively closed = the 6-unit group `= NS·NT`, the Eisenstein analog of
+        φ's Cassini det-one floor — reuses `ZOmega.normSq_mul`, which is in fact PURE
+        despite its stale `[propext]` docstring).
+    Out of scope (the edifice 213 declines): elliptic curves / CM / modular forms /
+    the `j`-map / modularity (the geodesic-folding picture stays conceptual in G167).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
