@@ -72,11 +72,16 @@ The escape is witnessed two ways.  Negatively: the self-cover misses the residue
 *upward* — the self-pointing tower `rawTower` (depth `n` at rung `n`) — has depths cofinal in
 `ℕ`, so no *finite* Raw caps the ascent (`Theory/Raw/MuNuMirror.ascent_unbounded`,
 `∀ N, ∃ r, N < r.depth`), and the ascending peel-stream is total (`tower_ascent_isPart`)
-while every descent terminates (`no_infinite_descent`, `ascent_total_descent_partial`).  This
-is the *finite shadow* of the escape, not a completed infinite object: a native final
-`F`-coalgebra (νF) is an open piece (Mathlib-free Lean has no coinduction), and these
-theorems quantify over finite Raws, they do not construct an infinite one.  Descent grounds,
-ascent is unbounded — source-without-enclosure read at the Raw floor.
+while every descent terminates (`no_infinite_descent`, `ascent_total_descent_partial`).  And
+at the tower scale: naming a whole family or height at once escapes it
+(`Cauchy/DepthCeilingResidue.diag_not_in_seq`, `DepthHeightDiagonal.height_diagonal_escapes`),
+already identified with the pointing residue (`ceiling_residue_is_pointing_residue`).  These
+are three readouts of one escape — predicate (non-image), Raw-floor (`depth` cofinal), tower
+(`diag`) — by one unit (`+1`).  All are the *finite shadow* of the escape, not a completed
+infinite object: a native final `F`-coalgebra (νF) is an open piece (Mathlib-free Lean has no
+coinduction), and these theorems quantify over finite objects, they do not construct an
+infinite one.  Descent grounds, ascent is unbounded — source-without-enclosure read at the
+Raw floor.
 
 The unit by which they move is one: the convergence step and the escape surplus are the
 *same* `Nat` `1` (`Cauchy/ReentryUnit.peel_overflow_is_unit`); the oscillation and the golden
