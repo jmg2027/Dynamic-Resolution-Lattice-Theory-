@@ -32,12 +32,13 @@ All zero-axiom.
 namespace E213.Lib.Math.Cauchy.DepthCharacterization
 
 open E213.Lib.Math.Cauchy.NewtonGregory
-  (diffZ liftKZ isConstZ polyDepthZ bsum newtonZ reconstruct)
+  (diffZ liftKZ isConstZ polyDepthZ bsum newtonZ reconstruct bsum_pascal_aux)
 open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (binom binom_zero_right)
 open E213.Lib.Math.Cauchy.FiniteDepthAlgebra
-  (polyDepthZ_add polyDepthZ_smul liftKZ_diffZ_comm liftKZ_congrZ)
+  (polyDepthZ_add polyDepthZ_smul liftKZ_diffZ_comm liftKZ_congrZ
+   polyDepthZ_iff_vanish vanishZ)
 open E213.Lib.Math.Cauchy.PolynomialDepth (polyDepthZ_mono)
-open E213.Meta.Int213 (add_comm add_assoc add_neg_cancel zero_add mul_comm)
+open E213.Meta.Int213 (add_comm add_assoc add_neg_cancel zero_add mul_comm mul_one)
 
 /-! ## §0 — small PURE Int + depth-transfer helpers -/
 
@@ -115,5 +116,46 @@ theorem finite_depthZ_iff {d : Nat} {s : Nat → Int} :
     exact ⟨fun i => liftKZ i s 0, fun n => reconstruct h n⟩
   · rintro ⟨c, hc⟩
     exact polyDepthZ_congrZ hc (polyDepthZ_newtonZ c d)
+
+/-! ## §4 — exactness: depth is **exactly** the degree (top Newton coefficient ≠ 0) -/
+
+theorem add_sub_cancel_leftZ (a b : Int) : a + b - a = b := by
+  show a + b + (-a) = b
+  rw [add_comm a b, add_assoc b a (-a), add_neg_cancel a, add_zeroZ b]
+
+/-- The forward difference of a degree-`(d+1)` Newton form is the degree-`d` Newton form with
+    the coefficients shifted up by one — `Δ (Σ_{j≤d+1} C(·,j)cⱼ) = Σ_{j≤d} C(·,j)c_{j+1}` —
+    the ℤ `diff_newton`, from `bsum_pascal_aux`. -/
+theorem diffZ_newtonZ (c : Nat → Int) (d n : Nat) :
+    diffZ (fun m => bsum m c (d + 1)) n = bsum n (fun j => c (j + 1)) d := by
+  show bsum (n + 1) c (d + 1) - bsum n c (d + 1) = bsum n (fun j => c (j + 1)) d
+  rw [bsum_pascal_aux n c d]
+  exact add_sub_cancel_leftZ (bsum n c (d + 1)) (bsum n (fun j => c (j + 1)) d)
+
+/-- ★★ **The `d`-th difference of a degree-`d` Newton form is its top coefficient**:
+    `Δ^d (Σ_{j≤d} C(·,j)cⱼ) = c_d` (constant).  Iterate `diffZ_newtonZ`. -/
+theorem liftKZ_newtonZ_const (c : Nat → Int) : ∀ d n, liftKZ d (fun m => bsum m c d) n = c d
+  | 0,     n => by
+      show Int.ofNat (binom n 0) * c 0 = c 0
+      rw [binom_zero_right n]
+      exact (mul_comm 1 (c 0)).trans (mul_one (c 0))
+  | d + 1, n => by
+      rw [← liftKZ_diffZ_comm (fun m => bsum m c (d + 1)) d n,
+          liftKZ_congrZ (fun m => diffZ_newtonZ c d m) d n]
+      exact liftKZ_newtonZ_const (fun j => c (j + 1)) d n
+
+/-- ★★★ **Exactness — a degree-`(e+1)` Newton form drops to depth `e` iff its top coefficient
+    vanishes.**  `polyDepthZ e (Σ_{j≤e+1} C(·,j)cⱼ) ↔ c_{e+1} = 0`.  With `finite_depthZ_iff`,
+    this pins divergence depth = degree *exactly*: a degree-`(e+1)` polynomial has depth `e+1`,
+    not `e`, precisely when its leading Newton coefficient is non-zero. -/
+theorem newtonZ_depth_drop (c : Nat → Int) (e : Nat) :
+    polyDepthZ e (fun m => bsum m c (e + 1)) ↔ c (e + 1) = 0 := by
+  constructor
+  · intro hpd
+    have h0 := (polyDepthZ_iff_vanish.mp hpd) 0
+    rwa [liftKZ_newtonZ_const c (e + 1) 0] at h0
+  · intro h
+    refine polyDepthZ_iff_vanish.mpr (fun n => ?_)
+    rw [liftKZ_newtonZ_const c (e + 1) n]; exact h
 
 end E213.Lib.Math.Cauchy.DepthCharacterization
