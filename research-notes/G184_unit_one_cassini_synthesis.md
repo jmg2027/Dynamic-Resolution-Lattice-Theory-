@@ -130,3 +130,27 @@ never-closing (the `q=1` multiplier in `det_step`).  Honest scope: this is a *re
 genuine theorems about two aspects of `P` (matrix vs orbit) — NOT a forced single-ambient
 trichotomy (B-3 remains open: that needs a common self-map type the docstrings say doesn't exist).
 The concrete realization through `P` is the honest, non-forced form of CP-4.
+
+## 2-1-3 as orbit residue-generation (Mingu Jeong's orbit reading, 2026-06-02)
+
+> "213을 orbit 관점에서 보면 2개가 원을 그리면서 궤도를 계속 도는게 잔여 생성이라는 말인가봐
+> 그 생성된 잔여까지를 각 층에서 보면 3개가 보인다는 말인가봐."
+
+`orbit_two_generates_residue_seen_as_three` (`PhiResidueGlue`, PURE) is the formal witness, and
+the reading is **structural, not a small-number coincidence**:
+
+  - **2** = the orbit *order* = `NT`.  The atomic Möbius `P` (trace `NS = 3`, det `NS − NT = 1`)
+    is `2×2`; its order-2 orbit is the pair `(s(n), s(n+1))` that keeps turning (the circle).
+    `P`'s 2-dimensionality **is** `NT = 2` (`second_diff_closure`: the pair generates the next
+    term, the orbit dimension `≤ 2`).
+  - **the residue, generated** = the conserved Cassini unit, produced identically at every layer
+    (`W m = W 0`, `det_step` at `q=1`): the orbit drawing the same residue each turn.
+  - **3** = the Cassini/Wronskian *window* = order + 1 = `NT + 1 = NS`.  `det(n) = s(n)·s(n+2) −
+    s(n+1)²` literally spans the 3 = `NS` consecutive terms `(n, n+1, n+2)` over the order-2
+    orbit — and counting the generated residue (value `NS − NT`) with the pair gives `NS = NT + 1`.
+
+So the **atomicity counting** `(NT, NS) = (2, 3)` and the **orbit geometry** `(order, window) =
+(2, 3)` are *the same* `2-1-3`: the `1` (glue `= NS − NT = det P`) is not an independent third
+atom but the residue the two-orbit generates, and `NS = NT + 1` is the layer-count *including* it.
+Honest scope: this is the **atomic `P`-orbit** (where order `= NT`), the orbit forced by
+atomicity — not a claim about arbitrary orbits.
