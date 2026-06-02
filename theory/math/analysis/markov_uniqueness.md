@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (43 PURE / 0 dirty):
+explicit open target.  Source of truth (44 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -123,6 +123,18 @@ satisfies `x²+y²+z² = 3xyz` (via `markov_vieta` on jumps, `markov_symm` on tr
 these are genuine, pairwise-coprime Markov solutions, not an empty class.  And once an inverse is
 in hand in residue form `(b·b') % c = 1`, `neg_one_qr_of_mod` fires the encoding directly.
 
+## The encoding fires unconditionally
+
+The coprimality invariant and the `√(−1)` encoding combine without any leftover hypothesis.  The
+xgcd-correctness bridge `MarkovPrimeFactor.inverse_of_coprime` turns `gcd(a,m) = 1` into an
+explicit modular inverse `(a · (modBezout a m).2) % m = 1 % m` — proved via `xgcdAux_dvd_both`
+(the xgcd gcd-component divides both inputs, under the bound `fuel ≥ r₁ + 1`, which `modBezout`'s
+`a+m+1` satisfies since `r₁` strictly decreases).  Since `markov_reachable_gcd_bc` gives
+`gcd(b,c) = 1` on every tree triple, `markov_reachable_neg_one_qr` concludes: **for every
+reachable Markov triple with maximum `c > 1`, `c ∣ (a·b⁻¹)² + 1`** — the square root of `−1` mod
+`c` exists structurally, with no invertibility assumption.  This closes the chain from the tree's
+coprimality to the encoding.
+
 ## Relation to the modular tower
 
 The Markov coefficient is `NS = 3`, the trace of `P = [[2,1],[1,1]]`, and the tree is the
@@ -150,4 +162,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `43 pure / 0 dirty`.
+Reports `44 pure / 0 dirty`.

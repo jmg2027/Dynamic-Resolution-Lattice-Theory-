@@ -2,7 +2,7 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
-(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `43 pure / 0 dirty`).
+(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `44 pure / 0 dirty`).
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
@@ -10,7 +10,7 @@ prove ∅-axiom neighbours, run agent discussion, build conjectures.
 
 ## What Was Done This Session
 
-### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (43 PURE / 0 dirty)
+### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (44 PURE / 0 dirty)
 The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery existed in the repo.
 
 - **§1–2 Neighbor congruence.** `markov_le_3mul` (every entry `≤ 3·`product of other two);
@@ -69,10 +69,11 @@ unchanged — see `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ### 1. C2/C3 — pairwise coprimality — DONE along the tree (§10)
 `markov_reachable_coprime` (every reachable triple pairwise coprime, via `coprime_vieta_step`
 preservation + induction over `MarkovReachable`); `markov_reachable_gcd_bc` gives `gcd(b,c)=1`.
-No descent / no Hurwitz needed.  **Remaining bridge to unconditional encoding-firing**:
-`gcd213 b c = 1 ⟹ ∃ b', (b·b')%c = 1` — needs `gcd213 = (modBezout …).1` (or `= Nat.gcd`) to
-feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Markov triples =
-"every triple reachable" = Markov's theorem, the descent — separate.)
+No descent / no Hurwitz needed.  **C2→C4 bridge now DONE** (`MarkovPrimeFactor.inverse_of_coprime`
+via `xgcdAux_dvd_both`, the xgcd gcd-component divides both inputs under `fuel≥r₁+1`):
+`markov_reachable_neg_one_qr` fires the encoding unconditionally on every reachable triple
+(`1<c`).  (Gap to *all* Markov triples = "every triple reachable" = Markov's theorem, the
+descent — separate.)
 
 ### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 16 PURE)
 `no_sqrt_neg_one_4k3`: for `p=4k+3` with the prime-gcd hypothesis, `¬(p∣x²+1)`, via
@@ -112,7 +113,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (43 PURE)
-  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime + two_roots_13 (16 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime + Euclid + xgcd-correctness inverse (20 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:

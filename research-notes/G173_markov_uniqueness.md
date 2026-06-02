@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (43 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (44 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 43 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 44 PURE)
 
 | theorem | content |
 |---|---|
@@ -51,9 +51,11 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `coprime_vieta_step` | `gcd(a,c)=1 ∧ c+c'=3ab ⟹ gcd(a,c')=1` — the Vieta step preserves coprimality |
 | `MarkovReachable`, `markov_reachable_coprime` | **every tree triple is pairwise coprime** (C3, induction on the tree); `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc` (C2) |
 | `neg_one_qr_of_mod` | the encoding from a modular inverse in residue form `(b·b')%c = 1` (Bezout-ready) |
-| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (separate file `ModArith/MarkovPrimeFactor`, 16 PURE) — no prime `≡3(4)` divides a Markov number |
+| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (separate file `ModArith/MarkovPrimeFactor`, 20 PURE) — no prime `≡3(4)` divides a Markov number |
 | `MarkovPrimeFactor.euclid_via_inverse` | **Euclid's lemma** `(a·a')%p=1 ∧ p∣a·b ⟹ p∣b`, constructively from the modular inverse |
 | `MarkovPrimeFactor.two_roots_of_prime` | **`SqrtNegOneTwoRoots p` for every prime `p`** — `x²≡−1` has ≤2 roots mod a prime (the C6 input at prime maxima), GENERAL not `decide` |
+| `MarkovPrimeFactor.inverse_of_coprime` | **`gcd213 a m = 1 ⟹ ∃ inverse`** — xgcd correctness (`xgcdAux_dvd_both` under bound `fuel≥r₁+1`); closes C2→C4 |
+| `markov_reachable_neg_one_qr` | **unconditional `√(−1)` on every reachable triple** (`1<c`): `c ∣ (a·b⁻¹)²+1`, no invertibility hypothesis (from the tree's coprimality) |
 
 Reused infra: `Gcd213.{dvd_sub_213, dvd_add_213}`, `NatHelper.{mul_sub_distrib, mul_mod_right,
 mul_mul_mul_comm_213}`.  The `%`-residue form (not `∣`) is used in `decide` statements — the
@@ -114,10 +116,8 @@ root all coincide on the Fibonacci convergents.
 
 ## Next
 
-1. **C2→C4 inverse-existence bridge** — close the last gap to *unconditional* firing of the
-   encoding on tree triples: `gcd213 b c = 1 ⟹ ∃ b', (b·b')%c = 1`.  Needs
-   `gcd213 b c = (modBezout b c).1` (or both `= Nat.gcd`) to feed `modInverseFromBezout`; then
-   `neg_one_qr_of_mod` fires.  `markov_reachable_gcd_bc` already supplies the `gcd=1`.
+1. **C2→C4 inverse-existence bridge** — **DONE** (`inverse_of_coprime` via `xgcdAux_dvd_both`).
+   The encoding now fires unconditionally on every reachable triple (`markov_reachable_neg_one_qr`).
 2. **C5 `p≡1` branch** — *existence* of a root of `x²≡−1 (mod pᵏ)` for `p≡1(mod4)` (the
    `p≡3` no-root branch is now done, `no_sqrt_neg_one_4k3`).  Existence without `Classical` is
    the hard part (Wilson `((p−1)/2)!` construction / explicit search bound).

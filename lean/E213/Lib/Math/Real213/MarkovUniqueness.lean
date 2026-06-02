@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.MarkovTree
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Nat.AddMod213
+import E213.Lib.Math.ModArith.MarkovPrimeFactor
 
 /-!
 # MarkovUniqueness — the neighbor congruence `a²+b² ≡ 0 (mod c)` and the uniqueness machinery
@@ -569,5 +570,28 @@ theorem neg_one_qr_of_mod (a b c b' : Nat) (h : markovEq a b c)
   have hinv : b * b' = 1 + c * ((b * b') / c) :=
     hdm.symm.trans (Nat.add_comm (c * ((b * b') / c)) 1)
   exact neg_one_qr_of_inverse a b c b' ((b * b') / c) h hinv
+
+/-! ## §12 — the encoding fires unconditionally on every reachable triple (C2→C4 closed)
+
+Combining the coprimality invariant (`markov_reachable_gcd_bc`: `gcd(b,c) = 1`) with the
+xgcd-correctness bridge (`MarkovPrimeFactor.inverse_of_coprime`: coprimality yields an explicit
+modular inverse) discharges the encoding's invertibility hypothesis with no leftover assumption:
+**every reachable Markov triple's maximum `c > 1` has `−1` as a quadratic residue**, witnessed by
+`a · (b⁻¹ mod c)`.  This closes the C2→C4 chain — the `√(−1)` encoding now fires structurally,
+not just on hand-supplied inverses. -/
+
+/-- ★★★★★ **Unconditional `√(−1)` on every reachable triple.**  For a reachable Markov triple
+    `(a,b,c)` with `1 < c`, `c ∣ (a·b')² + 1` where `b' = (modBezout b c).2` is the computed
+    inverse of `b` mod `c`.  No invertibility hypothesis — it comes from `gcd(b,c)=1` (the tree
+    invariant) through `inverse_of_coprime`. -/
+theorem markov_reachable_neg_one_qr {a b c : Nat} (hc : 1 < c) (h : MarkovReachable a b c) :
+    c ∣ ((a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2)
+       * (a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) + 1) := by
+  have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
+  have hinv : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos
+          (markov_reachable_gcd_bc h), Nat.mod_eq_of_lt hc]
+  exact neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2
+    (markov_reachable_is_triple h) hinv
 
 end E213.Lib.Math.Real213.MarkovUniqueness
