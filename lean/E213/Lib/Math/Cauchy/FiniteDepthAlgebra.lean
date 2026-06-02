@@ -25,7 +25,8 @@ open E213.Lib.Math.Cauchy.NewtonGregory
    add_sub_cancel_left' mul_zero')
 open E213.Meta.Int213
   (add_comm add_assoc add_left_comm add_right_comm mul_comm mul_add add_mul
-   mul_sub sub_mul add_neg_cancel neg_add zero_mul zero_add sub_add_cancel_int)
+   mul_sub sub_mul add_neg_cancel add_left_neg neg_add zero_mul zero_add
+   mul_eq_zero sub_add_cancel_int)
 
 /-! ## §0 — ℤ rearrangement helpers -/
 
@@ -237,5 +238,66 @@ theorem polyDepthZ_mul {d e : Nat} {s t : Nat → Int}
   polyDepthZ_iff_vanish.mpr
     (mul_vanish (d + e) d e s t (Nat.le_refl _)
       (polyDepthZ_iff_vanish.mp hs) (polyDepthZ_iff_vanish.mp ht))
+
+/-! ## §5 — the boundary marker: periodic ∩ finite-depth = constant
+
+A periodic continued fraction (quadratic irrational, Lagrange) is bounded but
+*not* polynomial unless constant.  So the Newton-reconstructible (finite-depth)
+sector and the periodic (Markov/quadratic) sector meet only at the constants —
+the boundary of the divergence-depth classification. -/
+
+/-- `s` has period `p` over `ℤ`. -/
+def PeriodicZ (p : Nat) (s : Nat → Int) : Prop := ∀ n, s (n + p) = s n
+
+/-- The forward difference of a periodic sequence is periodic. -/
+theorem diffZ_periodic {p : Nat} {s : Nat → Int} (h : PeriodicZ p s) :
+    PeriodicZ p (diffZ s) := fun n => by
+  show s (n + p + 1) - s (n + p) = s (n + 1) - s n
+  rw [h n, show n + p + 1 = (n + 1) + p from by rw [Nat.add_right_comm], h (n + 1)]
+
+/-- `a + x = a ⟹ x = 0`. -/
+theorem add_right_eq_self {a x : Int} (h : a + x = a) : x = 0 := by
+  have h2 : -a + (a + x) = 0 := by rw [h, add_left_neg]
+  rwa [← add_assoc, add_left_neg, zero_add] at h2
+
+/-- A sequence with constant first difference `c` is affine: `s k = s 0 + k·c`. -/
+theorem affine_of_diff_const (s : Nat → Int) (c : Int) (hc : ∀ k, diffZ s k = c) :
+    ∀ k, s k = s 0 + (k : Int) * c
+  | 0 => by show s 0 = s 0 + (0 : Int) * c; rw [zero_mul, Int.add_zero]
+  | k+1 => by
+    have hstep : s (k + 1) = c + s k := by
+      show s (k + 1) = c + s k
+      rw [← hc k]; show s (k + 1) = (s (k + 1) - s k) + s k; rw [sub_add_cancel_int]
+    rw [hstep, affine_of_diff_const s c hc k]
+    show c + (s 0 + (k : Int) * c) = s 0 + ((k : Int) + 1) * c
+    rw [add_mul, Int.one_mul, add_left_comm, add_comm c ((k : Int) * c)]
+
+/-- ★★★ **Periodic ∩ finite-depth = constant.**  A periodic `ℤ`-sequence of finite
+    faithful divergence depth is constant.  So the finite-depth (Newton-
+    reconstructible) class and the periodic (quadratic-irrational / Markov) class are
+    disjoint apart from the constants — the boundary of the depth classification. -/
+theorem periodic_finite_depth_const {p : Nat} (hp : 0 < p) {s : Nat → Int} :
+    ∀ d, PeriodicZ p s → polyDepthZ d s → isConstZ s
+  | 0,   _,    h => h
+  | d+1, hper, h => by
+    have hdpd : polyDepthZ d (diffZ s) :=
+      polyDepthZ_iff_vanish.mpr (vanishZ_diff (polyDepthZ_iff_vanish.mp h))
+    have hdconst : isConstZ (diffZ s) :=
+      periodic_finite_depth_const hp d (diffZ_periodic hper) hdpd
+    have hc0 : diffZ s 0 = 0 := by
+      have haff := affine_of_diff_const s (diffZ s 0) hdconst
+      have hsp : s p = s 0 := by have := hper 0; rwa [Nat.zero_add] at this
+      have hpc : (p : Int) * diffZ s 0 = 0 := by
+        have heq := haff p
+        rw [hsp] at heq
+        exact add_right_eq_self heq.symm
+      rcases mul_eq_zero hpc with hp0 | hc
+      · have hp00 : p = 0 := Int.ofNat.inj hp0
+        rw [hp00] at hp; exact absurd hp (Nat.lt_irrefl 0)
+      · exact hc
+    exact fun n => by
+      show liftKZ 0 s n = liftKZ 0 s 0
+      have hdz : ∀ m, diffZ s m = 0 := fun m => by rw [hdconst m, hc0]
+      exact (polyDepthZ_iff_vanish (d := 0) (s := s)).mpr hdz n
 
 end E213.Lib.Math.Cauchy.FiniteDepthAlgebra
