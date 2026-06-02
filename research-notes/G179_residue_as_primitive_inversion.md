@@ -161,18 +161,26 @@ final coalgebra of `F X = Bool × X × X`, and uniqueness is induction on the **
 
   - ★ `ana_unique` — any `h : X → CoShape` satisfying the (pointwise) coalgebra-hom equations
     equals `ana c` (pointwise); proof by `induction p` (no coinduction, no `funext`).
-  - ★ `final_coalgebra` — existence (`ana` is a hom) + uniqueness: `CoShape` is the final
-    coalgebra of `F X = Bool × X × X`.  The argument is **label-agnostic**, so the
-    leaf-labelled `LCoShape` (the *faithful* carrier, §6) is final by the same proof.
+  - ★ `final_coalgebra` — existence (`ana` is a hom) + uniqueness: `CoShape` is *a* final
+    coalgebra of `F X = Bool × X × X` **up to pointwise/extensional equality** (the `h = ana c`
+    form needs `funext`, avoided).  The argument is **label-agnostic**, so the leaf-labelled
+    `LCoShape` (the *faithful* carrier, §6) is final by the same proof.
 
-So the inversion's νF face is realised: a genuine final coalgebra, ∅-axiom, the escape
-inhabitant `allBranch` inside it, finite Raw embedding faithfully (in `LCoShape`).
+Precise honest statement: a final coalgebra of the **over-approximating** full-binary-tree
+functor `Bool × X × X` is realised ∅-axiom (existence + pointwise uniqueness), with the escape
+inhabitant `allBranch` inside it and finite Raw embedding faithfully (in `LCoShape`).  This is
+*not* the residue's exact νF (see below) — the over-approximation's finality should not stand
+in for it.
 
-## The only residual — the exact slash functor
+## The residual — the exact slash functor (conjectured subtype, not free)
 
-What is *not* the `Bool × X × X` (full-binary-tree) functor: the residue's exact functor is
-leaf-or-branch with anti-reflexivity, `F X = {a} ⊎ {b} ⊎ {x/y : x ≠ y}`.  `CoResidue` builds
-the final coalgebra of the over-approximating `Bool × X × X` (every node has two children);
-restricting to *consistent* leaf/branch shapes (no node below a leaf) with `x ≠ y` is the
-residual refinement — a subtype carve-out, **not** a coinduction obstruction.  That is the
-honest remaining gap; finality itself is closed.
+The residue's exact functor is leaf-or-branch with anti-reflexivity,
+`F X = {a} ⊎ {b} ⊎ {x/y : x ≠ y}`, *not* `Bool × X × X`.  `CoResidue` builds the final
+coalgebra of the over-approximation.  The exact slash-νF would restrict to *consistent*
+leaf/branch shapes (no node below a leaf) with anti-reflexive children — a **conjectured**
+subtype refinement, **not** claimed free: (1) whether the consistent subtype is itself final
+needs `ana` to land in it + uniqueness to survive the restriction (genuine work, undone);
+(2) anti-reflexivity `x ≠ y` is a disequality *relating two co-data subtrees*, which may
+itself need a bisimulation/coinductive notion of inequality.  So finality is closed *for the
+over-approximating functor*; the exact slash-νF (and whether it sidesteps coinduction) is the
+honest open frontier.

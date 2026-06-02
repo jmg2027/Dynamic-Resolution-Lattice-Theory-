@@ -390,11 +390,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     (the leaf-free inhabitant escapes here too).  All four G180 νF spec items met + unfold
     existence.  **§7 finality — DONE** (the coinduction worry was over-cautious): `CoShape =
     List Bool → Bool` is the M-type (paths→labels), the final coalgebra of `F X = Bool×X×X`;
-    `ana_unique` (any coalgebra hom = `ana c`, pointwise, by induction on the finite path — no
-    coinduction, no funext) + `final_coalgebra` (existence + uniqueness).  Label-agnostic, so
-    the faithful `LCoShape` (§6) is final too.  ONLY RESIDUAL: the *exact* slash functor
-    `{a}⊎{b}⊎{x/y:x≠y}` (vs the over-approximating `Bool×X×X`) — a subtype carve-out
-    (consistent leaf/branch + anti-reflexivity), NOT a coinduction obstruction.  CoResidue 20
+    `ana_unique` (any coalgebra hom = `ana c`, *pointwise*, by induction on the finite path —
+    no coinduction, no funext) + `final_coalgebra` (existence + uniqueness, **final up to
+    pointwise equality**).  Label-agnostic, so the faithful `LCoShape` (§6) is final too.
+    HONEST: this is finality for the **over-approximating** `Bool×X×X` functor, NOT the
+    residue's exact slash functor `{a}⊎{b}⊎{x/y:x≠y}` — the over-approx's finality must not
+    stand in for the residue's νF.  RESIDUAL (conjectured, not free): the exact slash-νF
+    subtype (consistent leaf/branch + anti-reflexive children); whether that subtype is final,
+    and stating anti-reflexivity on co-data without bisimulation, is open.  CoResidue 20
     theorems, 32/0 PURE in scan.
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
