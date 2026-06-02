@@ -174,6 +174,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     rate); `height_one_under_height_two` — single-exp over double-exp always free (down a
     height ⟹ free); `geom_boundary_iff` — within a height, free ⟺ `r<q`.  `completability_grade`
     bundles the three: **height dominates rate.**  `height_is_omega_coordinate`: every exponential-tower step up (`expTower` level `r`) overtakes, so height is a genuine ω-indexed coordinate (not just {1,2}). First rung of the refined real engine: completability graded into a transfinite ordinal.
+    **Intensional gauge axis** (`Real213/IntensionalCompletability`, 3/0): `crossdet_rescale_antitone` (CrossDetSmall (c²W)(c·d)→CrossDetSmall W d, c≥1 ⇒ gcd-reduced presentation canonical) + `modulus_rescale_invariant` (completion is gauge-invariant = the cut's truth) + `completability_is_intensional`. Refined engine = (ordinal height) × (rate) × (intensional gauge class); cut = gauge collapse, canonical grade read on the reduced representative.
     Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
     arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
     instance: a fast π representation meeting the rate criterion.
