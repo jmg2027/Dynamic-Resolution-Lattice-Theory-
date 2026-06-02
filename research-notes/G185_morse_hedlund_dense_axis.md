@@ -58,6 +58,15 @@ makes Thue–Morse the *genuinely-dense* witness: the sparse `zero_run_not_homog
 arbitrarily long constant runs, which `tm_run_le_two` forbids — so Thue–Morse escapes the
 finite-state class **only** through the dense Morse–Hedlund route, not the sparse one.
 
+**Location, sharply.**  `χ` escapes *both* machine classes (`chi_not_finiteRecurrence`) on the
+back of its long zero-runs.  Thue–Morse escapes `AutoRec` only; whether it escapes `HomogRec`
+(P-recursive) is **not** ∅-axiom-closable here, and not by accident — `tm_run_le_two` removes the
+very zero-runs the cheap `HomogRec` certificate needs, so the only route to `¬ HomogRec` for a
+no-long-run sequence is the deep *automatic ∧ aperiodic ⟹ non-holonomic* theorem
+(Cobham/Christol), which has no constructive shadow.  Thue–Morse's P-recursive escape thus shares
+π's open status: density is not a *strengthening* of the sparse witness but the regime where the
+cheap certificate is structurally unavailable.
+
 ### The automatic structure — `tm_eq_popParity`
 
 The companion fact: Thue–Morse *lacks* term-window memory (`AutoRec`) but *has* digit memory.

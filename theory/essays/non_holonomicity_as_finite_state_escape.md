@@ -71,6 +71,18 @@ contradicts the always-differing consecutive pair `tm(2n),tm(2n+1)`), so
 `ThueMorseAperiodic.tm_morse_not_autoRec` is a concrete dense inhabitant of
 `aperiodic_not_autoRec`.
 
+The *location* is sharp and worth stating exactly.  `χ` escapes **both** machine classes
+(`chi_not_finiteRecurrence`) because its long zero-runs feed the elementary `HomogRec`
+certificate.  Thue–Morse escapes the autonomous class `AutoRec` — but whether it escapes the
+time-varying `HomogRec` (P-recursive) class is **not** ∅-axiom-closable by the present tools, and
+not by accident: `tm_run_le_two` *forbids* the long constant runs that `zero_run_not_homogRec`
+needs, so the only route to `¬ HomogRec` for a no-long-run sequence is the deep
+*automatic ∧ aperiodic ⟹ non-holonomic* theorem (Cobham/Christol), which has no elementary
+constructive shadow.  So the two canonical witnesses sit on *different* sides of the same map: `χ`
+is caught by the cheap zero-run mechanism on both axes; Thue–Morse is caught only by the dense
+automaton route, and its P-recursive escape shares π's open status.  Density is not a strengthening
+of the sparse witness — it is the regime where the cheap certificate is structurally unavailable.
+
 **Why the tier is a ring stratification.**  The finite-Δ-depth `ℤ`-sequences form a ring
 (`FiniteDepthAlgebra.polyDepthZ_mul`: depths add under product) with exact normal form
 (`NewtonGregory.reconstruct`: a depth-`d` sequence *is* `Σ_{i≤d}(Δⁱs 0)·binom(·,i)`) and
