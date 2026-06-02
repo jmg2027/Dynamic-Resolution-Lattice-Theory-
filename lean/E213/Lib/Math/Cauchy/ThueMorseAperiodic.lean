@@ -173,4 +173,117 @@ theorem tm_not_evPeriodic : ¬ EvPeriodic tm := by
 theorem tm_morse_not_autoRec : ¬ AutoRec (fun n => ((b2n (tm n) : Nat) : Int)) :=
   aperiodic_not_autoRec tm tm_not_evPeriodic
 
+/-! ## The automatic structure: `tm n = popcount(n) mod 2`
+
+Thue–Morse escapes the *term-window* machine `AutoRec` (above) yet it is the prototypical
+**digit-automatic** sequence: a fixed finite automaton reading the base-`2` digits of the index
+emits `tm n`.  Concretely `tm n` is the parity of the binary digit-sum (`popcount`).  This is the
+exact place where the two finite-state notions diverge — finite memory *in the digits of the
+index* (automatic) versus finite memory *in the previous terms* (window-recurrence): Thue–Morse
+has the first and lacks the second.  Aperiodic-but-automatic is the Cobham/Christol boundary
+beyond which a sequence is non-holonomic. -/
+
+/-- Fuel-structural binary digit-sum (`popcount`). -/
+def s2F : Nat → Nat → Nat
+  | 0,     _     => 0
+  | _,     0     => 0
+  | (f+1), (n+1) => (n + 1) % 2 + s2F f ((n + 1) / 2)
+
+/-- Binary digit-sum: `s2 n = s2F n n`. -/
+def s2 (n : Nat) : Nat := s2F n n
+
+/-- **Fuel irrelevance** for `s2F` (mirrors `tmF_canon`). -/
+theorem s2F_canon : ∀ T n f, n < T → n ≤ f → s2F f n = s2F n n := by
+  intro T
+  induction T with
+  | zero => intro n f h _; exact absurd h (Nat.not_lt_zero n)
+  | succ T ih =>
+    intro n f hnT hnf
+    cases n with
+    | zero => cases f <;> rfl
+    | succ m =>
+      cases f with
+      | zero => exact absurd hnf (Nat.not_succ_le_zero m)
+      | succ f' =>
+        have hd : (m + 1) / 2 < m + 1 := by
+          apply E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul
+          rw [Nat.two_mul]; exact Nat.lt_add_of_pos_left (Nat.succ_pos m)
+        have hdT : (m + 1) / 2 < T := Nat.lt_of_lt_of_le hd (Nat.le_of_lt_succ hnT)
+        have hf' : (m + 1) / 2 ≤ f' := Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hd hnf)
+        have hm' : (m + 1) / 2 ≤ m := Nat.le_of_lt_succ hd
+        show (m + 1) % 2 + s2F f' ((m + 1) / 2) = (m + 1) % 2 + s2F m ((m + 1) / 2)
+        rw [ih ((m + 1) / 2) f' hdT hf', ih ((m + 1) / 2) m hdT hm']
+
+/-- `s2F f n = s2 n` for `n ≤ f`. -/
+theorem s2F_eq_s2 (n f : Nat) (h : n ≤ f) : s2F f n = s2 n :=
+  s2F_canon (n + 1) n f (Nat.lt_succ_self n) h
+
+/-- `popcount(2n) = popcount(n)` (a low zero bit adds nothing). -/
+theorem s2_even (n : Nat) : s2 (2 * n) = s2 n := by
+  cases n with
+  | zero => rfl
+  | succ m =>
+    have key : 2 * (m + 1) = (2 * m + 1) + 1 := by rw [Nat.mul_succ]
+    have hmod : ((2 * m + 1) + 1) % 2 = 0 := by
+      rw [← key]; exact E213.Tactic.NatHelper.mul_mod_right 2 (m + 1)
+    have hdiv : ((2 * m + 1) + 1) / 2 = m + 1 := by
+      rw [← key, Nat.mul_comm]
+      exact E213.Meta.Nat.NatDiv213.mul_div_self_pure (m + 1) 2 (by decide)
+    have hle : m + 1 ≤ 2 * m + 1 := by
+      rw [Nat.two_mul]; exact Nat.succ_le_succ (Nat.le_add_left m m)
+    show s2F (2 * (m + 1)) (2 * (m + 1)) = s2 (m + 1)
+    rw [key]
+    show ((2 * m + 1) + 1) % 2 + s2F (2 * m + 1) (((2 * m + 1) + 1) / 2) = s2 (m + 1)
+    rw [hmod, hdiv, Nat.zero_add, s2F_eq_s2 (m + 1) (2 * m + 1) hle]
+
+/-- `popcount(2n+1) = popcount(n) + 1` (a low one bit adds one). -/
+theorem s2_odd (n : Nat) : s2 (2 * n + 1) = s2 n + 1 := by
+  have hmod : (2 * n + 1) % 2 = 1 := by
+    rw [Nat.add_comm, Nat.mul_comm]
+    exact E213.Tactic.NatHelper.add_mul_mod_self_pure 1 2 n
+  have hdiv : (2 * n + 1) / 2 = n := by
+    rw [Nat.add_comm, E213.Meta.Nat.NatDiv213.add_mul_div_left_pure 1 2 n (by decide)]
+    exact Nat.zero_add n
+  have hle : n ≤ 2 * n := by rw [Nat.two_mul]; exact Nat.le_add_left n n
+  show s2F (2 * n + 1) (2 * n + 1) = s2 n + 1
+  show (2 * n + 1) % 2 + s2F (2 * n) ((2 * n + 1) / 2) = s2 n + 1
+  rw [hmod, hdiv, s2F_eq_s2 n (2 * n) hle, Nat.add_comm]
+
+/-- Parity flips under successor: `((k+1) mod 2 = 1) ↔ ¬(k mod 2 = 1)`, as a `Bool` identity. -/
+theorem succ_parity (k : Nat) :
+    decide ((k + 1) % 2 = 1) = !decide (k % 2 = 1) := by
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen k 1 2]
+  rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one k with h | h <;> rw [h] <;> decide
+
+/-- ★★★ **Thue–Morse is `2`-automatic**: `tm n` is the parity of the binary digit-sum
+    (`popcount`) of `n`.  A finite automaton reading the base-`2` digits of the index emits the
+    sequence — finite memory *in the digits*, the companion to the term-window escape
+    `tm_morse_not_autoRec`.  Proven by strong induction matching `tm`'s `even/odd` recurrence
+    against `s2`'s. -/
+theorem tm_eq_popParity : ∀ n, tm n = decide (s2 n % 2 = 1) := by
+  suffices H : ∀ T n, n < T → tm n = decide (s2 n % 2 = 1) by
+    intro n; exact H (n + 1) n (Nat.lt_succ_self n)
+  intro T
+  induction T with
+  | zero => intro n h; exact absurd h (Nat.not_lt_zero n)
+  | succ T ih =>
+    intro n hnT
+    rcases Nat.eq_zero_or_pos n with hn0 | hnpos
+    · subst hn0; decide
+    · have hdm : 2 * (n / 2) + n % 2 = n := E213.Meta.Nat.AddMod213.div_add_mod n 2
+      have hhalf : n / 2 < n :=
+        E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul
+          (by rw [E213.Tactic.NatHelper.two_mul]; exact Nat.lt_add_of_pos_left hnpos)
+      have hh : n / 2 < T := Nat.lt_of_lt_of_le hhalf (Nat.le_of_lt_succ hnT)
+      rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one n with he | ho
+      · have e : 2 * (n / 2) = n := by rw [he, Nat.add_zero] at hdm; exact hdm
+        have htm : tm n = tm (n / 2) := (congrArg tm e.symm).trans (tm_even (n / 2))
+        have hs2 : s2 n = s2 (n / 2) := (congrArg s2 e.symm).trans (s2_even (n / 2))
+        rw [htm, hs2]; exact ih (n / 2) hh
+      · have e : 2 * (n / 2) + 1 = n := by rw [ho] at hdm; exact hdm
+        have htm : tm n = !tm (n / 2) := (congrArg tm e.symm).trans (tm_odd (n / 2))
+        have hs2 : s2 n = s2 (n / 2) + 1 := (congrArg s2 e.symm).trans (s2_odd (n / 2))
+        rw [htm, hs2, ih (n / 2) hh]
+        exact (succ_parity (s2 (n / 2))).symm
+
 end E213.Lib.Math.Cauchy.ThueMorseAperiodic

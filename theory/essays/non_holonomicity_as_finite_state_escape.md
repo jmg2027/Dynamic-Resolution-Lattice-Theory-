@@ -75,6 +75,26 @@ polynomial growth bound (`NewtonGregory.poly_bound`).  The holonomicity tier mea
 partial-quotient sequence sits relative to this generating ring; the genuine non-holonomic tier
 is outside it — no finite generating machine.
 
+## Two finite-state notions, diverging at Thue–Morse
+
+"Finite-state" is ambiguous and Thue–Morse is exactly where the two readings split.
+
+  - **Finite memory in the previous *terms*** — the term-window machine `AutoRec`: the next value
+    is a fixed function of a length-`k` window of past outputs.  Thue–Morse **lacks** this
+    (`tm_morse_not_autoRec`).
+  - **Finite memory in the *digits of the index*** — a base-`k` automaton (DFAO) reading the
+    digits of `n` and emitting a state-output.  Thue–Morse **has** this:
+    `ThueMorseAperiodic.tm_eq_popParity` proves `tm n = ` parity of the binary digit-sum
+    `popcount(n)` — a two-state automaton on the base-`2` digits (the digit-sum recurrence
+    `s2(2n)=s2(n)`, `s2(2n+1)=s2(n)+1` carries one bit of parity, `succ_parity`).
+
+The classical theory living on this split: a `k`-automatic sequence is **P-recursive (holonomic)
+iff it is eventually periodic** (Cobham-type), and over `GF(p)` is exactly the algebraic-power-
+series class (Christol).  So *automatic ∧ aperiodic ⟹ non-holonomic*: Thue–Morse, being
+digit-automatic (`tm_eq_popParity`) and aperiodic (`tm_not_evPeriodic`), is non-holonomic at the
+generating-function scale — the term-window escape `tm_morse_not_autoRec` is the elementary,
+∅-axiom shadow of that boundary, with the *automatic* hypothesis now also formalised.
+
 ## Dual function
 
 Classically this is the **holonomic / P-recursive** dividing line and its automata-theoretic

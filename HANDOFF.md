@@ -3,7 +3,18 @@
 ## Branch
 `claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom.
 
-## Latest: Thue–Morse — the genuinely-dense Morse–Hedlund witness → `Cauchy/ThueMorseAperiodic.lean` (11 PURE)
+## Latest: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (19 PURE)
+
+**Automatic half (`tm_eq_popParity`).**  Thue–Morse *lacks* term-window memory (`AutoRec`,
+escape above) but *has* digit memory: `tm n = ` parity of the binary digit-sum `popcount(n)`
+(`s2` fuel-structural; `s2_even : s2(2n)=s2(n)`, `s2_odd : s2(2n+1)=s2(n)+1`; `succ_parity`
+parity-flip; strong-induction match against `tm`'s even/odd recurrence).  This pins the exact
+divergence of the two finite-state notions — finite memory *in the digits of the index*
+(automatic, Thue–Morse has) vs *in the previous terms* (window-recurrence, Thue–Morse lacks).
+Classically automatic ∧ aperiodic ⟹ non-holonomic (Cobham/Christol); both hypotheses now
+∅-axiom, the term-window escape is the elementary shadow.  Essay + G185 updated.
+
+### Dense aperiodicity half (`tm_morse_not_autoRec`)
 The dense non-holonomicity axis is now **non-vacuous on the canonical example**.  `tm`
 (Thue–Morse, run-length `≤ 2`) defined by fuel-structural recursion (`tmF` + `tmF_canon`
 fuel-irrelevance; well-founded recursion leaks `propext`); recurrence `tm_even : tm(2n)=tm(n)`,

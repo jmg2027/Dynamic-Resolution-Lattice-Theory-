@@ -31,7 +31,7 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
-## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 12 PURE)
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 19 PURE)
 
 The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
 `≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
@@ -48,6 +48,17 @@ induction on a fuel bound) pinning the canonical fuel `= n`.  The recurrence rea
 
 `tm_morse_not_autoRec := aperiodic_not_autoRec tm tm_not_evPeriodic` — a concrete *dense*
 inhabitant of the Morse–Hedlund escape, not the long-run `isPow2`.
+
+### The automatic structure — `tm_eq_popParity`
+
+The companion fact: Thue–Morse *lacks* term-window memory (`AutoRec`) but *has* digit memory.
+`tm_eq_popParity : tm n = decide (s2 n % 2 = 1)` proves `tm n` = parity of the binary digit-sum
+`popcount(n)` — a two-state base-`2` automaton.  `s2` (fuel-structural `popcount`, `s2_even`,
+`s2_odd`, `succ_parity` parity-flip).  This pins the exact divergence of the two finite-state
+notions: finite memory *in the digits of the index* (automatic — Thue–Morse has it) vs *in the
+previous terms* (window-recurrence — Thue–Morse lacks it).  Classically: automatic ∧ aperiodic
+⟹ non-holonomic (Cobham/Christol); here both hypotheses are ∅-axiom, the term-window escape is
+the elementary shadow.
 
 ## Honest scope
 
