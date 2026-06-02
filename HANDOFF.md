@@ -10,8 +10,8 @@ and hygiene notes.
 
 ## Latest arc — G171 Apéry zeta tower marathon (this session)
 
-**`Cauchy/DepthAperyCubic` (23 PURE) + `Cauchy/CasoratianStep` (2 PURE) +
-`research-notes/G171_apery_zeta_tower.md`.**  Completing the divergence-depth thread to
+**`Cauchy/DepthAperyCubic` (23 PURE) + `Cauchy/DepthQuadraticGeneric` (7 PURE) +
+`Cauchy/CasoratianStep` (2 PURE) = 32 PURE + `research-notes/G171_apery_zeta_tower.md`.**  Completing the divergence-depth thread to
 ζ(2)/ζ(3): the minimal-holonomic recurrence coefficients of ζ(2)
 (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
 (`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
@@ -27,9 +27,11 @@ middle coefficient cancels, so the Casoratian propagates by the outer coefficien
 degree is *incidental to irrationality* — ζ(4) has an order-2 recurrence that does NOT prove
 irrationality, Catalan β(2) order-2 with irrationality OPEN, ζ(5) order-3.  So
 e→ζ(2)→ζ(3) does NOT continue as an infinite tower; ζ(3)'s degree 3 is the exception above
-the order-2 degree-2 Apéry-like (Zagier sporadic) family.  Next build (C-A): the generic
-`∀ A B C, polyDepth 2 (fun n => A·n²+B·n+C)` capping the whole sporadic family (needs
-multivariate `Nat` AC — see note for the two routes).
+the order-2 degree-2 Apéry-like (Zagier sporadic) family.  That family is itself now capped
+∅-axiom: `DepthQuadraticGeneric.quadratic_polyDepth : ∀ A B C, polyDepth 2 (A·n²+B·n+C)`
+(Newton-form transfer + new reusable `polyDepth_congr`), dissolving the multivariate-`Nat`-AC
+obstruction.  Next (open): generic *cubic* depth-3 (needs `binom n 3` + `n³` Newton form),
+and the Casoratian telescoping `n³Cₙ=(n−1)³Cₙ₋₁ ⟹ Cₙ∝1/n³` (C-C).
 
 ## Previous arc — π CF non-holonomicity marathon
 

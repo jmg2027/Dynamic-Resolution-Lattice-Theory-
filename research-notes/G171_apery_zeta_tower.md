@@ -1,8 +1,9 @@
 # G171 — the Apéry zeta coefficient-degree statistic: ζ(2) degree 2, ζ(3) degree 3 (∅-axiom)
 
-**Date**: 2026-06-02.  **Status**: 25 PURE theorems landed (`DepthAperyCubic` 23 +
-`CasoratianStep` 2) + honest re-positioning + conjectures.  **Source of truth**:
-`lean/E213/Lib/Math/Cauchy/{DepthAperyCubic, CasoratianStep}.lean`.
+**Date**: 2026-06-02.  **Status**: 32 PURE theorems landed (`DepthAperyCubic` 23 +
+`DepthQuadraticGeneric` 7 + `CasoratianStep` 2) + honest re-positioning + conjectures.
+**Source of truth**: `lean/E213/Lib/Math/Cauchy/{DepthAperyCubic, DepthQuadraticGeneric,
+CasoratianStep}.lean`.
 **Anchors**: `G171_modular_tower_axes.md` (the e→π→ζ(3) row-3 "buildable next rung"),
 `DivergenceDepth` (e depth 3), `DepthPiQuartic`/`DepthPRecursiveInstances` (π depth 6).
 
@@ -96,19 +97,17 @@ Apéry-like (Zagier sporadic) family — not "rung 3 of a ladder."
 
 ## Conjectures (ranked, for the next rungs)
 
-- **C-A (most promising, partially scoped): the Zagier/Almkvist–Zudilin "sporadic"
-  Apéry-like family is uniformly order-2 with degree-2 coefficients.**  The ~15 sporadic
-  sequences (ζ(2)-Apéry, Domb, Almkvist–Zudilin, Catalan-β(2), …) all satisfy
-  `(an²+bn+c)uₙ = …uₙ₋₁ − d·(n−1)²uₙ₋₂`, order 2, **degree 2**.  The right ∅-axiom statement
-  is the **generic quadratic-coefficient depth theorem** `∀ A B C, polyDepth 2 (fun n =>
-  A·n²+B·n+C)` (floor `2A`) — it subsumes the entire family with zero coefficient-
-  transcription risk.  **Build-cost note (this marathon):** the generic version needs
-  multivariate `Nat` AC reordering (no `ring`/`omega` for nonlinear `Nat`; `poly_id` is
-  univariate-in-`X`, `omega213` is inequality-only), so it is real work — either via a
-  Newton-form transfer (`A·n²+B·n+C = newton c 2`, needing `binom n 1 = n` and `n² =
-  2·binom n 2 + n` for the local `binom` + a `polyDepth_congr` transfer) or a hand difference
-  chain (two AC-reorder lemmas).  Concrete instances via `poly_id` are cheap but risk wrong
-  coefficients — verify each against a source first.  Recommended next build.
+- **C-A — DONE this marathon (`DepthQuadraticGeneric`, 7 PURE).**  The Zagier/Almkvist–
+  Zudilin "sporadic" Apéry-like family is uniformly order-2 with degree-2 coefficients
+  (ζ(2)-Apéry, Domb, Almkvist–Zudilin, Catalan-β(2), … all `(an²+bn+c)`).
+  `quadratic_polyDepth : ∀ A B C, polyDepth 2 (fun n => A·n²+B·n+C)` (floor `2A`) caps the
+  entire family in one ∅-axiom statement, zero coefficient-transcription risk.  The
+  multivariate-`Nat` obstruction (no `ring`/`omega` for nonlinear `Nat`; `poly_id` is
+  univariate-in-`X`) was dissolved by the **Newton-form transfer**: `A·n²+B·n+C = newton
+  (C, A+B, 2A) 2` (via `binom n 1 = n` and `n² = 2·binom n 2 + n`, both proved here for the
+  local `binom`) carried along `polyDepth_congr` (a new reusable transfer lemma) +
+  `newton_polyDepth`; only two small additive-AC reorder lemmas + the reflection prover's
+  `(n+1)² = n²+2n+1` were needed by hand.
 
 - **C-B: ζ(5)/ζ(4) and the degree-4/5 continuation.**  Zudilin's order-3 Apéry-like
   recursion for ζ(5) and the (conjectural) ζ(4) recurrence raise the **order** to 3 while
