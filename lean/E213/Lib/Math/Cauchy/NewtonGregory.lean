@@ -362,4 +362,47 @@ theorem binomial_transform_roundtrip (s : Nat → Int) (n : Nat) :
             rw [Nat.zero_add]) n] at h
     exact h⟩
 
+/-! ## §6 — the obstruction made precise: ℕ-`diff` and ℤ-`diff` are different Lenses
+
+The genuine degree-2 sequence `(n−2)(n−1)` has nonneg values `2, 0, 0, 2, 6, 12, …`
+(`vObs` below).  The **values** are identical in `ℕ` and `ℤ` — what differs is the
+difference operator: the genuine first difference `s(1)−s(0) = −2` is faithful over
+`ℤ` but **clamps to `0`** over `ℕ`'s truncated subtraction.  That single clamp
+breaks constancy of the second difference, so `ℕ`-`polyDepth 2` fails while
+`ℤ`-`polyDepthZ 2` holds.  ℕ-`diff` is not a *broken* ℤ-`diff`; it is a different
+Lens, agreeing with ℤ-`diff` exactly on the monotone-difference cone (where no
+clamp occurs).  ℤ is simply the readout group in which `Δ` closes under iteration. -/
+
+open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK isConst)
+open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
+
+/-- The genuine nonneg values of `(n−2)(n−1)`: `2, 0, 0, 2, 6, 12, …`
+    (`vObs (k+2) = k·(k+1)`). -/
+def vObs : Nat → Nat
+  | 0   => 2
+  | 1   => 0
+  | k+2 => k * (k + 1)
+
+/-- The ℤ-faithful first difference clamps over `ℕ`: at `n=0` the genuine slope is
+    `−2`, but `ℕ`-`diff` returns `0`.  The exact mechanism of the obstruction. -/
+theorem obstruction_first_diff_clamp :
+    diffZ (fun n => (vObs n : Int)) 0 = -2 ∧ diff vObs 0 = 0 := by decide
+
+/-- ★ **ℕ-`polyDepth 2` FAILS on a genuine degree-2 sequence.**  The truncated
+    second difference jumps `0, 2, 2, …` — `liftK 2 vObs 0 = 0` but
+    `liftK 2 vObs 1 = 2` — so it is not constant.  (The single first-difference clamp
+    of `obstruction_first_diff_clamp` is what corrupts it.) -/
+theorem obstruction_nat : ¬ polyDepth 2 vObs := by
+  intro h
+  exact absurd (h 1) (by decide)
+
+/-- ★ **ℤ-`polyDepthZ 2` holds at the divergence point.**  The faithful second
+    difference is constant `2` exactly where the `ℕ` one jumped:
+    `liftKZ 2 (↑vObs) 0 = 2 = liftKZ 2 (↑vObs) 1`.  The genuine degree-2 structure,
+    visible once subtraction is faithful.  (`obstruction_nat` shows the `ℕ` Lens
+    cannot see it.) -/
+theorem obstruction_int_constant :
+    liftKZ 2 (fun n => (vObs n : Int)) 0 = 2
+      ∧ liftKZ 2 (fun n => (vObs n : Int)) 1 = 2 := by decide
+
 end E213.Lib.Math.Cauchy.NewtonGregory
