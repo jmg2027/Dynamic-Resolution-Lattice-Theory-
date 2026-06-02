@@ -298,6 +298,14 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
+`E213.Lib.Math.Real213.SpiralRotationInvariant` — **3 PURE / 0 DIRTY**.  The
+spiral rotation invariant conserved at every turn: `Q_iterate_preserved` —
+`Q(Pseq (m,k) n) = Q(m,k)` (sign-free golden form `a²+mk+k² = ab+b²+m²`) for all `n`,
+by induction on the one-step `ProbeTwistConic.Q_preserved` chained through the pure
+additive `add_cancel_chain` (the dirty `Nat.add_right_cancel` replaced by
+`NatHelper.add_right_cancel`).  The golden form (disc `5 = NS+NT`) is the scale-invariant
+of the self-similar `P`-shift.
+
 `E213.Lib.Math.Cauchy.DepthHeightDiagonal` — **4 PURE / 0 DIRTY**.  Naming the
 whole `ω^r` height-tower escapes every finite height: `heightTower c r n = expTower
 c r n`, and `height_diagonal_escapes` — `diag (heightTower c) ≠ expTower c r` for

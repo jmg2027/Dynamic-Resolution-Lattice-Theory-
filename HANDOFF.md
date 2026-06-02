@@ -274,6 +274,17 @@ A–D + B are now **all closed ∅-axiom this arc**:
     express the `ω^ω` ceiling).  OPEN (this axis): a native ε₀ limit object + proof the
     diagonal is its `+1` (genuinely uncertain); frozen=dynamic equivalence (§5.7);
     computability/ω₁^CK out of scope.
+  - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
+    `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
+    the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
+    the `P`-shift: `Q(Pseq (m,k) n) = Q(m,k)` ∀n (induct + one-step `ProbeTwistConic.Q_preserved`,
+    chained by the pure additive `add_cancel_chain`; dirty `Nat.add_right_cancel` →
+    `NatHelper.add_right_cancel`).  Generalises `Pseq_seedZero_pell_invariant` (`N=−1`) to
+    every orbit.  The literal "nasun(spiral) rotation invariant" of the proposal — same
+    shift, same invariant, every scale.  Pairs with `DepthHeightDiagonal.diag_self_applies`
+    (residue side: same operation every meta-level, always escapes): the self-similar
+    spiral has two faces — atomic *conserves* (bounded, golden orbit), residue *escapes*
+    (unbounded, ε₀-direction), the two ends `FiveFloorUnification` ties at the `5`-floor.
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

@@ -49,6 +49,10 @@
     orbit stays on its hyperbola `Q = N` (φ-convergents on `Q=−1`, the `(2,1)`-orbit
     on `Q=+1`, e's `(65,24)` on `Q=2089`).  `N` is the conserved orbit-label;
     φ the common asymptote (discriminant `5 = NS+NT`).
+  - `SpiralRotationInvariant.lean` — ★ the rotation invariant conserved at **every** turn:
+    `Q_iterate_preserved` — `Q(Pseq (m,k) n) = Q(m,k)` for all `n` (induct + `Q_preserved`,
+    via the pure additive `add_cancel_chain`).  The golden form is the scale-invariant of
+    the self-similar `P`-shift — the same form preserved identically at every iteration.
 
 **Modulus + tower-native completeness + stratification** (narrative
 `theory/math/analysis/{holonomic_modulus, tower_native_completeness}.md`):
