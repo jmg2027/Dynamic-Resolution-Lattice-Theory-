@@ -95,6 +95,29 @@ constructed — equational laws only, by `{T,F}` case-split).
     (well-founded + terminal-iff-atom), escape (never closes).  Co-present, none privileged,
     no operator forced across the three types.
 
+## Oscillation ↔ Cassini: the thematic link made a theorem (`Lib/Math/CassiniUnimodular`, 7/0)
+
+The honest spine (below) had the oscillation period-2 and the Cassini `+1` only
+*thematically* linked.  Thinking 213-natively, the link **is** a theorem: both are 2nd-order
+`Int` orbits, and the Cassini determinant `D(n) = s(n)·s(n+2) − s(n+1)²` of such an orbit is
+governed by the orbit's **multiplier** `q` (the determinant of its shift):
+
+  - **golden / Pell** (`s(n+2) = NS·s(n+1) − s(n)`, `q = 1` = det `[[2,1],[1,1]]`): `D`
+    **conserved** — `det_golden` (`= d = 5` at every `n`, = `cassini_general`);
+  - **oscillation** (`s(n+2) = s(n)`, the period-2 `not(not r) = r`, `q = −1` = det of the
+    swap `[[0,1],[1,0]]`): `D` **alternates** — `det_period2_alternates` (`D(n+1) = −D(n)`);
+    on the concrete swap-orbit toggle `1,0,1,0,…` the value is the unit `D = ±1`
+    (`toggle_det_unit`).
+
+`cassini_unimodular_dichotomy` bundles the two.  The honest content: **both shifts are
+unimodular (`|q| = 1`), so both conserve `|Cassini|`** — the *period* (∞ vs 2) is set by the
+**trace** `p` (`NS = 3` hyperbolic vs `0` reflection), the *conservation* by the **det**
+`q = ±1`.  So "period-2 vs Cassini-conserved" is precisely "`q = −1` vs `q = +1`" — the two
+unimodular multipliers.  Note the conserved *values* differ (golden `d = 5`, oscillation
+`±1`); what is shared and proved is the **conservation-from-unimodularity**, not the value.
+(The general multiplier law `D(n+1) = q·D(n)` is the principle; both instances are proved
+directly — the oscillation needs no `ring` since `p = 0` kills the cross terms.)
+
 ## The spine: the unit `1` (what is proved vs. what is narrative)
 
 The four readings each move by a `+1`.  **Only one cross-reading identity is proved**: the
@@ -106,13 +129,15 @@ single proved `1`:
 |---|---|---|
 | converge (Nat) | `part_depth_succ_le`: `c.depth + 1 ≤ p.depth` | **yes** — = escape-unit (`peel_overflow_is_unit`) |
 | escape (residue) | `overflow_is_unit_surplus`: `bound + 1 ≤ val` | **yes** — = converge-unit |
-| oscillate (Bool) | period 2 (two of one toggle) | no — narrative grouping |
+| oscillate (Bool) | period 2 (two of one toggle) | linked to golden via the **multiplier** `q = ±1` (`cassini_unimodular_dichotomy`), not via the unit value |
 | frozen/dynamic | Cassini step `a²+1` vs frozen `a²` | no — narrative grouping |
 
-So the honest claim: the converge and escape steps are literally the same `Nat` unit; the
-oscillation period-2 and the Cassini `+1` are *thematically* the same "one distinguishing"
-but are not linked to that unit by any `Nat` term.  The spine is a real identity between two
-of the four, plus a reading over the other two.
+So the honest claim: the converge and escape steps are literally the same `Nat` unit
+(`peel_overflow_is_unit`); the oscillation and the golden Cassini are linked by being the two
+**unimodular multipliers** `q = ±1` (`cassini_unimodular_dichotomy`) — a *different* proved
+axis (conservation-from-unimodularity), not the same unit value (`±1` vs `d = 5`).  The
+frozen/dynamic `+1` remains a thematic grouping.  The spine is therefore two real proved
+links (converge=escape on the unit; oscillate≈golden on the multiplier) plus one reading.
 
 ## Open (foundational axis)
 
