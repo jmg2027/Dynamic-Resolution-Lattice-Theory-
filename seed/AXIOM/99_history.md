@@ -158,3 +158,12 @@ root.
 
   - Author: **Mingu Jeong** only.  Claude in acknowledgements.
   - 0 sorry, 0 external axioms.  Mathlib-free.
+
+## 2026-06-02 — §6.7 sign-Lens refinement
+
+§6.7's "adding a sign-Lens gives ℤ" sharpened: the sign-Lens named
+concretely as the count-Lens on an *ordered* count-pair `(m,n) ↦ m−n`
+(magnitude Nat-style, sign Bool-style §5.2; orientation = §2.4 clause-3
+direction-freedom broken), grounded in `Int213`'s `subNatNat` pair-arithmetic.
+Refinement, not a new chapter — ℤ-as-Lens-output was already foundational in
+§6.7.  Essay: `theory/essays/integers_as_difference_lens.md`.

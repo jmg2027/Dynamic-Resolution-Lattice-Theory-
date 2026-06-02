@@ -12,6 +12,11 @@ import E213.Lib.Math.Cauchy.DepthPRecursive
 import E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 import E213.Lib.Math.Cauchy.DepthPiQuartic
 import E213.Lib.Math.Cauchy.HurwitzianCF
+import E213.Lib.Math.Cauchy.NewtonGregory
+import E213.Lib.Math.Cauchy.QuasiPolyBound
+import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
+import E213.Lib.Math.Cauchy.BinomialTransform
+import E213.Lib.Math.Cauchy.WallisDepthProduct
 import E213.Lib.Math.Cauchy.DepthTower
 import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
@@ -22,6 +27,7 @@ import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthHeightDiagonal
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
 import E213.Lib.Math.Cauchy.DepthOverflowDuality
+import E213.Lib.Math.Cauchy.ReentryUnit
 import E213.Lib.Math.Cauchy.DepthClosure
 import E213.Lib.Math.Cauchy.DepthCoordGenerator
 

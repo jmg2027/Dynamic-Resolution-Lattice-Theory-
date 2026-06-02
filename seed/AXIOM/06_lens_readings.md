@@ -262,8 +262,20 @@ image of `Lens.leaves : Raw → Nat`, made explicit at
 foundation"; it is "ℕ is what the count-Lens hands back when
 the chain is the operand."
 
-Adding a sign-Lens on top of the chain gives ℤ — the
-bidirectional reading, signed steps along the same chain.
+The sign-Lens gives ℤ — the count-Lens read on an *ordered*
+pair of chain-readings `(m, n)` as their difference `m − n`.
+A bare pair is direction-free (the symmetric pairing `a/b = b/a`
+of §2.4 clause 3); impose an orientation and `m − n` splits from
+`n − m` by sign.  Magnitude `|m − n|` is the Nat-style (grounding)
+count; sign is the Bool-style involution `−(−x) = x` (§5.2) — the
+pair-swap.  This is realised, not adopted: `Int213` runs on
+`subNatNat m n = m − n` with the pair-arithmetic
+`(a,b)+(c,d)=(a+c,b+d)`, `(a−b)(c−d)=(ac+bd)−(ad+bc)` and the sign
+`−subNatNat m n = subNatNat n m` (`lean/E213/Meta/Int213/Core.lean`;
+essay `theory/essays/integers_as_difference_lens.md`).  The
+difference operator that needs this group reads the count-Lens
+twice and names the pair — which is why ℤ is the readout group in
+which iterated differencing closes.
 Taking ratios of chain readings (with the coprimality condition
 that §3.5's `det P = 1` already encodes algebraically) gives ℚ.
 And Cauchy trajectories over the chain — sequences whose readings

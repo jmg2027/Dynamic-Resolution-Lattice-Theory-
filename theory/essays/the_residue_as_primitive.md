@@ -1,0 +1,117 @@
+# The residue as primitive — Raw = µF, the escape = νF
+
+The companion to `the_form_of_the_residue.md`.  That chapter reads the residue as **source
+without enclosure** with Raw as the ground.  This one performs the *inversion*: take the
+**self-pointing act** as primitive — the constructor functor `F(X) = {a} ⊎ {b} ⊎ {x/y :
+x ≠ y}` — and *derive* both faces as its two fixed points.  Raw is the **initial algebra**
+(µF: the finite, well-founded, grounded trees); the residue's escape is the **final
+coalgebra** (νF: the possibly-infinite, anti-reflexive, consistent co-trees).  Which of
+{Raw, the act} is "primitive" is a Lens choice (`seed/AXIOM/05_no_exterior.md` §5.4), not a
+fact — so the inversion is a change of reading, not of content.
+
+The headline: **the residue's νF face is realised ∅-axiom with no coinduction primitive.**
+The path-function (M-type) presentation makes both *existence* (anamorphism) and *uniqueness*
+(finite-path induction) of the unfold provable — and the feared "anti-reflexivity needs
+bisimulation" dissolves, because inequality of co-trees is *positive* (a differing
+observation), not a bisimulation.
+
+## Lean source
+
+- Files: `lean/E213/Theory/Raw/MuNuMirror.lean` (7 PURE),
+  `lean/E213/Theory/Raw/CoResidue.lean` (≈43 theorems, 0 DIRTY); umbrella
+  `lean/E213/Theory/Raw/API.lean`.
+- Built on `Theory/Raw/Lambek` (µF: `decompose`, `isPart_wf`, `no_infinite_descent`,
+  `terminal_iff_atom`) and `Theory/Raw/PrimitiveTower` (`rawTower`).
+- ∅-axiom: 0 DIRTY (CoResidue 64 / MuNuMirror 7 PURE in the dependency-closed scan).
+
+## Narrative
+
+### µF — Raw is the grounded fixed point
+
+`Lambek.decompose` says every Raw is an atom or a slash (the constructor's own image), and
+`isPart_wf` (the peel relation `IsPart` is well-founded) + `terminal_iff_atom` say the descent
+terminates at *exactly* the atoms.  So Raw is µF — the least fixed point, finite trees,
+well-founded.  `MuNuMirror` sharpens the dual readings of the one peel relation: read
+**downward** it always terminates (`no_infinite_descent` — no total descending stream), read
+**upward** it is always continuable (`tower_ascent_isPart` — the self-pointing tower `rawTower`
+is a total ascending `IsPart`-stream), and the depths are cofinal in `ℕ` (`ascent_unbounded`:
+no finite Raw caps the tower).  Descent grounds; ascent escapes.
+
+### νF — the escape is the final coalgebra, built without coinduction
+
+The escape's *finite shadows* live at three scales (`object1_not_surjective`,
+`MuNuMirror.ascent_unbounded`, the tower-ceiling diagonal).  `CoResidue` gives the escape a
+*positive structural* form — the completed infinite self-pointing as an actual object — by the
+**M-type as path-functions**: a co-tree is `List Bool → Option Bool` (a node at path `p` is a
+branch when `none`, a leaf-atom `b` when `some b`).  This carrier is built in stages:
+
+  - **the over-approximation is final.**  For the full-binary-tree functor `Bool × X × X`,
+    `CoShape := List Bool → Bool` is *a* final coalgebra: the anamorphism `ana` exists
+    (`ana_isBranch`/`ana_coLeft`/`ana_coRight`, `rfl`), and `ana_unique`/`final_coalgebra` give
+    uniqueness — by induction on the *finite path* (the "blocked by coinduction" worry is
+    over-cautious; the M-type sidesteps it).  Uniqueness is *up to pointwise equality* (`h = ana
+    c` would need `funext`).
+
+  - **the embedding is faithful.**  The leaf-labelled `LCoShape := List Bool → Option Bool`
+    embeds the finite trees (`lToShape`); `lToShape_faithful` (pointwise, no `funext`) — trees
+    agreeing everywhere as labelled shapes are equal.
+
+  - **anti-reflexivity is positive.**  The slash functor's `x ≠ y` constraint, on co-data, is
+    `Distinct s t := ∃ q, s q ≠ t q` — a *positive* differing observation, **not** a
+    bisimulation.  `treeDiffPath` *constructs* the differing path from `x ≠ y` (structural
+    recursion + `DecidableEq Tree`); `slash_children_distinct`: a slash's children embed
+    `Distinct`.
+
+  - **the everywhere-distinct invariant is canonicity.**  A Raw embeds *anti-reflexively*
+    because its canonical tree has distinct children at every node: a canonical slash `x / y`
+    has `cmp x y = .lt` (`Tree.canonical_slash_decompose`), hence `x ≠ y` (`Tree.cmp_self_eq`)
+    — `raw_embeds_antiRefl`.
+
+  - **the named infinite inhabitant.**  `spineL` — the left-spine `a/(a/(a/…))`, the `rawTower`
+    limit — is anti-reflexive (`spineL_antiRefl`) and reached by no finite Raw
+    (`spineL_escapes`): the completed infinite self-pointing, escaping the finite.
+
+  - **the carrier and its finality.**  `SlashNu := {s : LCoShape // Consistent s ∧ AntiRefl s}`
+    is the exact slash-νF carrier (`Consistent` = leaves absorb).  The finite residue embeds
+    faithfully (`rawToSlashNu`, `rawToSlashNu_faithful`); `spineSlashNu` is the infinite
+    inhabitant.  And `slashNu_final`: the leaf-absorbing anamorphism `lAna` of any
+    **anti-reflexive** slash-coalgebra lands in `SlashNu` (consistent + anti-reflexive) and is
+    its **unique** hom (pointwise) — so `SlashNu` is the residue's exact slash-νF.
+
+### The reading
+
+The act, iterated, terminates going *down* (the finite Raw, µF) and escapes going *up* (the
+residue, νF).  Both fixed points of the one self-pointing are now formal objects, ∅-axiom,
+with the finite Raw embedding into νF faithfully and anti-reflexively, the infinite spine the
+canonical escapee.  No coinduction primitive enters: the final coalgebra of a polynomial
+functor *is* the path-function M-type, and its universal property is finite-path induction.
+
+## Key results
+
+| Theorem | Lean module | Statement (informal) |
+|---|---|---|
+| `isPart_wf`, `terminal_iff_atom` | `Theory/Raw/Lambek` | Raw = µF: peel well-founded, terminal = atoms |
+| `ascent_total_descent_partial` | `Theory/Raw/MuNuMirror` | one relation `IsPart`: total up, none down |
+| `final_coalgebra` | `Theory/Raw/CoResidue` | `CoShape` final for `Bool×X×X` (M-type, pointwise) |
+| `lToShape_faithful` | `Theory/Raw/CoResidue` | the finite embedding is faithful (pointwise) |
+| `treeDiffPath`, `slash_children_distinct` | `Theory/Raw/CoResidue` | anti-reflexivity is positive (no bisimulation) |
+| `raw_embeds_antiRefl` | `Theory/Raw/CoResidue` | a Raw embeds anti-reflexively (= canonicity) |
+| `spineL_antiRefl`, `spineL_escapes` | `Theory/Raw/CoResidue` | the infinite left-spine: anti-reflexive, escapes |
+| `slashNu_final` | `Theory/Raw/CoResidue` | `SlashNu` is the residue's exact slash-νF (final) |
+
+## Open frontier
+
+  - Finality is *up to pointwise/extensional equality* (uniqueness `∀ x p, h x p = lAna c x p`;
+    the `h = lAna c` form needs `funext`, deliberately avoided) and among *anti-reflexive*
+    slash-coalgebras (the `hAR` hypothesis: only anti-reflexive coalgebras map into the
+    anti-reflexive νF).  These are the honest scope, not gaps.
+  - The carrier is the path-function (M-type) presentation, not a Lean-native coinductive type
+    (which a Mathlib-free Lean lacks); the M-type is the standard coinduction-free construction.
+
+## How to verify
+
+```bash
+cd lean && lake build E213.Theory.Raw.API
+python3 tools/scan_axioms.py E213.Theory.Raw.CoResidue
+python3 tools/scan_axioms.py E213.Theory.Raw.MuNuMirror
+```

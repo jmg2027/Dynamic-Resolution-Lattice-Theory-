@@ -13,8 +13,9 @@ spec file overlap, **the spec file wins**.
    absence of exterior, dichotomy-avoidance guide.  **Re-read every
    session start.**  False dichotomies (inside/outside 213,
    classical/213, foundation/derivation) are the most common slip.
-2. **`research-notes/G29_residue.md`** — what 213 *is*, in
-   minimum-commitment language with no comparison frames.
+2. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
+   — what 213 *is* (minimum-commitment) and the residue's *form*
+   (source-without-enclosure), pinned so it is not re-fought each session.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
    three-tier discipline + promotion gates.
@@ -209,6 +210,7 @@ When user issues a correction: extract the underlying rule, add to
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 | Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
 | View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`).  See `research-notes/G152_residue_self_covering.md` |
+| ℤ / sign as exterior import | "adjoin signed integers", "ℤ keeps the signed distinguishing", ℕ-vs-ℤ dichotomy, sign as a Raw primitive | ℤ is the **readout group of the difference-Lens** — the count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style pair-swap (`Int213.neg_subNatNat`), not in Raw.  Canonical: `seed/AXIOM/06_lens_readings.md` §6.7 + `theory/essays/integers_as_difference_lens.md` |
 
 When the user catches one, *don't apologize and repeat* — internalize.
 
