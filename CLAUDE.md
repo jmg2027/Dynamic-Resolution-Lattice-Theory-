@@ -209,6 +209,7 @@ When user issues a correction: extract the underlying rule, add to
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 | Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
 | View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`).  See `research-notes/G152_residue_self_covering.md` |
+| External-ruler smuggling | "apply an external measure/ruler (Wallis, a presentation) to break the structure / *reach* the limit" | No exterior (§5.1); a presentation is a residue-internal pointing.  Holonomicity/depth is a property of the *pointing* (approximant sequence), not the real (`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent`, `rcut_rescale`); the residue is presentation-invariant and *reached by none* — pointings only converge (`object1_not_surjective`) |
 
 When the user catches one, *don't apologize and repeat* — internalize.
 

@@ -158,33 +158,36 @@ real, π included); the gap between consecutive (upper/lower) convergents is exa
 (`PentagonGoldenTrace.phi_norm`, `pentagon_trace_norm`) whose power-ladder carries the
 alternating `(−1)ⁿ` determinant.
 
-### The resolution — π's two faces (this names the *reachable* one)
+### The resolution — π's two *pointings* (holonomicity is a property of the pointing, not of π)
 
-| face | presentation | status | repo |
+| pointing | presentation | structure of the *approximant sequence* | repo |
 |---|---|---|---|
-| **bracketed / period** | polygon / Wallis, upper-lower squeeze, det-1 descent | **reachable** — *finite* divergence depth | `DepthPiQuartic.liftK4_piRatio = 384` (π Wallis-ratio depth 4 ⟹ holonomic-via-Wallis); `cf_det_sq` |
-| **non-holonomic / pole** | regular continued fraction | **unreachable** by any finite recurrence (conjectured) | `HurwitzianCF`, `NonHolonomicWitness` |
+| **bracketed / period** | polygon / Wallis, upper-lower squeeze, det-1 descent | *finite* divergence depth (the rationals are holonomic) | `DepthPiQuartic.liftK4_piRatio = 384` (π Wallis-ratio depth 4); `cf_det_sq` |
+| **non-holonomic / pole** | regular continued fraction | *no* finite recurrence (the partial quotients are non-holonomic, conjectured) | `HurwitzianCF`, `NonHolonomicWitness` |
 
-These do **not** contradict — divergence depth is *presentation-dependent*
-(`Real213/PresentationDependence`): π is depth-1 via its CF and depth-6 via Wallis.  The user's
-construction realises the **bracketed face**: π *is* constructible as the det-1 squeeze between
-the allowed-axis (4, 6) approximants — a limit, holonomic-via-Wallis — while remaining the
-non-holonomic pole in the CF presentation.  π is the residue squeezed between bounds it never
-equals: the bracket reaches it *as a limit* (`sup`/`inf`), never *as a finite reading* — which
-is `object1_not_surjective` once more, now in the convergent Lens.
+These do **not** contradict and there is **no exterior** distinguishing them — both are internal
+pointings, and divergence depth is *presentation-dependent*
+(`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent`, `rcut_rescale`): the
+recurrence structure is a property of the *approximant sequence*, while the cut (π itself) is
+invariant.  **Neither pointing reaches π** — both only converge / point; π is outside every
+approximant image (`object1_not_surjective`).  So the finite det-1 structure of the Wallis
+rationals does not "reach" π any more than the CF does; it is a feature of *that pointing*, not
+of the residue.  π is *neither* holonomic *nor* non-holonomic — those classify pointings.
 
 ## Conjecture C-π3 (the det-1 bracket between allowed neighbours)
 
-> π is the number defined by upper/lower bounds — the det-`±1` squeeze (`cf_det_sq`; Archimedes
+> π is pointed at by upper/lower bounds — the det-`±1` squeeze (`cf_det_sq`; Archimedes
 > inscribed/circumscribed) seeded from the crystallographically *allowed* axes `4` and `6` that
 > bracket the *forbidden* `5` where the golden trace lives (`0 < φ−1 < 1`).  This is π's
-> **reachable face**: finite divergence depth in the polygon/Wallis presentation
-> (`DepthPiQuartic`), holonomic *there*, even though non-holonomic in the CF presentation
-> (presentation-dependence).  The bracket reaches π only as a limit — never equal to any bound
-> (`object1_not_surjective`) — so the construction defines π without contradicting its residue
-> (pole) nature.  The golden det-1 engine is concrete: `φ`, `ψ = 2cos(2π/5)` are norm-`−1`
-> units (`PentagonGoldenTrace`), Cassini `(−1)ⁿ` (`FibCassiniNat`) the determinant of the
-> descent.
+> **finitely-structured pointing**: the polygon/Wallis *approximant sequence* has finite
+> divergence depth (`DepthPiQuartic`) — the *rationals* are holonomic — even though the CF
+> partial-quotient pointing has none (presentation-dependence,
+> `crossDetSmall_is_presentation_dependent`).  No exterior is involved and **π is not reached**:
+> the bracket only *points* (converges); π is outside every bound (`object1_not_surjective`).
+> So the finite structure is a feature of *the pointing*, not of π — the construction points at
+> π without contradicting its residue (pole) nature, because holonomicity never was π's property.
+> The golden det-1 engine is concrete: `φ`, `ψ = 2cos(2π/5)` are norm-`−1` units
+> (`PentagonGoldenTrace`), Cassini `(−1)ⁿ` (`FibCassiniNat`) the determinant of the descent.
 
 ## Refinement (Mingu, 2026-06): π is the (structure = state) point projected to the continuous real codomain
 
@@ -217,12 +220,23 @@ point:
 > conjectured to sit there *because* its continuous-projection reading admits no rule/state
 > split.
 
-**Calibration (no contradiction with C-π3).**  This non-factorizability is the *intrinsic*
-(self-read, CF) face.  The Wallis/polygon bracket (C-π3) *imposes an external* rule/state split
-(a chosen presentation), so π is finite-depth — reachable — *there* (`DepthPiQuartic`,
-presentation-dependence).  Read as itself (structure = state): non-holonomic pole.  Read
-against an external ruler (Wallis): det-1 bracket to a limit.  Both true; neither bracket *is*
-π (`object1_not_surjective`).
+**Calibration — CORRECTED, no exterior (Mingu caught the error).**  An earlier draft said the
+Wallis/polygon bracket "imposes an *external* ruler" that splits rule from state.  Double error:
+(a) it smuggled an **exterior** (§5.1: there is none); (b) it said π is "reached" by Wallis —
+it is not (the Wallis rationals only *point at* π; π is outside their image,
+`object1_not_surjective`).  Correct reading: **holonomicity is a property of the *pointing*
+(presentation / approximant sequence), not of the real** — a theorem,
+`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent` (+ `rcut_rescale`): the
+cross-determinant (holonomic-bridge) property is representation-relative, while the cut (the
+real) is invariant.  CF and Wallis are **two internal pointings** at the one invariant residue;
+each carries its own recurrence structure (CF: no finite one — non-holonomic; Wallis: depth 4,
+`DepthPiQuartic`); **neither reaches π** (both only converge / point).  So "non-factorizable yet
+reachable-by-presentation" dissolves: a finitely-structured pointing and an infinitely-
+structured one point, with different structures, at the same never-reached invariant residue.
+The structure belongs to the *act of pointing* (operation); π to the *object/residue* (§6.2
+operation = object) — inseparable from, not reducible to, any single pointing's structure.  π
+is therefore *neither* holonomic *nor* non-holonomic intrinsically; those predicates classify
+pointings, and the residue is outside every pointing's image.
 
 **Status correction folded in.**  The phrasing is now the corrected one: π is the *image* of
 the (structure = state) point under the continuous projection — **not** the residue itself
