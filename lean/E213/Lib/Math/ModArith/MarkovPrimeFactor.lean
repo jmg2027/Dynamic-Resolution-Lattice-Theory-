@@ -156,6 +156,20 @@ theorem dvd_mul_right_loc (g m k : Nat) (h : g ∣ m) : g ∣ (m * k) := by
   obtain ⟨s, hs⟩ := h
   exact ⟨s * k, by rw [hs, E213.Tactic.NatHelper.mul_assoc]⟩
 
+/-- `a ∣ b → b ∣ c → a ∣ c`.  ∅-axiom (manual, avoids the leaky core `Nat.dvd_trans`). -/
+theorem dvd_trans_loc (a b c : Nat) (hab : a ∣ b) (hbc : b ∣ c) : a ∣ c := by
+  obtain ⟨s, hs⟩ := hab; obtain ⟨t, ht⟩ := hbc
+  exact ⟨s * t, by rw [ht, hs, E213.Tactic.NatHelper.mul_assoc]⟩
+
+/-- `0 < b → a ∣ b → a ≤ b`.  ∅-axiom (core `le_of_dvd_loc` leaks `propext`). -/
+theorem le_of_dvd_loc {a b : Nat} (hb : 0 < b) (h : a ∣ b) : a ≤ b := by
+  obtain ⟨c, hc⟩ := h
+  rcases Nat.eq_zero_or_pos c with h0 | h0
+  · rw [h0, Nat.mul_zero] at hc; rw [hc] at hb; exact absurd hb (Nat.lt_irrefl 0)
+  · calc a = a * 1 := (Nat.mul_one a).symm
+      _ ≤ a * c := Nat.mul_le_mul_left a h0
+      _ = b := hc.symm
+
 /-- ★★★★ **Euclid's lemma via a modular inverse.**  If `(a·a') % p = 1` (so `a'` inverts `a`
     mod `p`) and `p ∣ a·b`, then `p ∣ b`.  Multiply `p ∣ a·b` by `a'`: `b·(a·a') = b + p·(b·q)`
     with `a·a' = p·q + 1`, so `p ∣ b·(a·a') − p·(b·q) = b`. -/
@@ -439,5 +453,117 @@ theorem coprime_prime_pow (p n : Nat) (hp2 : 2 ≤ p) (hpr : ∀ d, d ∣ p → 
     obtain ⟨c, hc⟩ := hp
     obtain ⟨e, he⟩ := gcd213_dvd_left n (p ^ k)
     exact absurd ⟨c * e, by rw [he, hc]; exact E213.Tactic.NatHelper.mul_assoc p c e⟩ hn
+
+/-! ## §9 — ≤ 2 roots mod a prime power (the Button/Zhang case) -/
+
+/-- Ordered core for a prime-power modulus `m` (`p` prime, `p ∣ m`, coprimality supplied by
+    `hcop`).  With `x = y+d`, `m ∣ d·(2y+d)`; `p` divides at most one of `d, 2y+d` (else `p ∣ x`,
+    impossible), so the other is coprime to `m` and cancels, giving `d = 0` or `(y+d)+y = m`. -/
+theorem two_roots_pow_ordered (p m y d : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hpm : p ∣ m) (hm1 : 1 < m)
+    (hcop : ∀ n, ¬ p ∣ n → gcd213 n m = 1)
+    (hlt : y + d < m) (hy1 : 1 ≤ y)
+    (hxr : ((y + d) * (y + d) + 1) % m = 0) (hyr : (y * y + 1) % m = 0) :
+    d = 0 ∨ (y + d) + y = m := by
+  have hp2 : 2 ≤ p := Nat.le_trans (by decide) hp3
+  have hp1 : 1 < p := Nat.lt_of_lt_of_le (by decide) hp3
+  -- p ∤ 2  (else p ≤ 2 < 3)
+  have hp_not2 : ¬ p ∣ 2 := fun h =>
+    absurd (Nat.le_trans hp3 (le_of_dvd_loc (by decide) h)) (by decide)
+  -- m ∣ d·(2y+d)
+  have hX : m ∣ ((y + d) * (y + d) + 1) := dvd_of_mod_eq_zero hxr
+  have hY : m ∣ (y * y + 1) := dvd_of_mod_eq_zero hyr
+  have hdiff : m ∣ (d * (2 * y + d)) := by
+    have hle : y * y + 1 ≤ (y + d) * (y + d) + 1 := by
+      rw [sq_expand]; exact Nat.add_le_add_right (Nat.le_add_right _ _) 1
+    have hs := dvd_sub_213 (y * y + 1) ((y + d) * (y + d) + 1) m hle hY hX
+    have heq : (y + d) * (y + d) + 1 - (y * y + 1) = d * (2 * y + d) := by
+      rw [sq_expand, Nat.add_right_comm (y * y) (d * (2 * y + d)) 1,
+          Nat.add_comm (y * y + 1) (d * (2 * y + d)), E213.Tactic.NatHelper.add_sub_cancel_right]
+    rwa [heq] at hs
+  -- p ∤ (y+d)  (= x)
+  have hpx : ¬ p ∣ (y + d) := by
+    intro hpd
+    have hpX : p ∣ ((y + d) * (y + d) + 1) := dvd_trans_loc p m _ hpm hX
+    have hpsq : p ∣ (y + d) * (y + d) := dvd_mul_right_loc p (y + d) (y + d) hpd
+    have hp1' : p ∣ 1 := by
+      have := dvd_sub_213 ((y + d) * (y + d)) ((y + d) * (y + d) + 1) p
+        (Nat.le_succ _) hpsq hpX
+      rwa [E213.Tactic.NatHelper.succ_sub] at this
+    exact absurd (Nat.le_trans hp3 (le_of_dvd_loc (by decide) hp1')) (by decide)
+  -- 2y+d = (y+d)+y
+  have hsum : 2 * y + d = (y + d) + y := by rw [two_mul, Nat.add_right_comm y y d]
+  have hpos : 0 < (y + d) + y :=
+    Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_trans hy1 (Nat.le_add_left y (y + d)))
+  have hlt2 : (y + d) + y < 2 * m := by
+    rw [two_mul]; exact Nat.add_lt_add hlt (Nat.lt_of_le_of_lt (Nat.le_add_right y d) hlt)
+  -- split on gcd213 p d = 1 (p∤d) or = p (p∣d)
+  rcases hpr (gcd213 p d) (gcd213_dvd_left p d) with hg1 | hgp
+  · -- p ∤ d ⟹ gcd(d,m)=1 ⟹ m ∣ (2y+d) = (y+d)+y ⟹ = m
+    right
+    have hpd : ¬ p ∣ d := by
+      intro hpd
+      have : p ∣ gcd213 p d := gcd213_greatest p d p ⟨1, (Nat.mul_one p).symm⟩ hpd
+      rw [hg1] at this
+      exact absurd (le_of_dvd_loc (by decide) this) (by
+        exact Nat.not_le_of_lt hp1)
+    have h2yd : m ∣ (2 * y + d) :=
+      euclid_of_coprime d (2 * y + d) m hm1 (hcop d hpd) hdiff
+    rw [hsum] at h2yd
+    exact eq_p_of_dvd m ((y + d) + y) hm1 hpos hlt2 h2yd
+  · -- p ∣ d ⟹ p ∤ (2y+d) ⟹ gcd(2y+d,m)=1 ⟹ m ∣ d ⟹ d = 0
+    left
+    have hpd : p ∣ d := hgp ▸ gcd213_dvd_right p d
+    have hp_not : ¬ p ∣ (2 * y + d) := by
+      intro hp2yd
+      -- p∣d, p∣(2y+d) ⟹ p∣2y ⟹ p∣y ⟹ p∣(y+d), contra hpx
+      have hp2y : p ∣ (2 * y) := by
+        have := dvd_sub_213 d (2 * y + d) p (Nat.le_add_left d (2 * y)) hpd hp2yd
+        rwa [E213.Tactic.NatHelper.add_sub_cancel_right] at this
+      have hpy : p ∣ y := euclid_of_coprime 2 y p hp1
+        (by rw [E213.Meta.Nat.Gcd213.gcd213_comm]; exact prime_coprime p 2 hpr hp_not2) hp2y
+      exact hpx (dvd_add_213 p y d hpy hpd)
+    have hmd : m ∣ d := euclid_of_coprime (2 * y + d) d m hm1 (hcop (2 * y + d) hp_not)
+      (by rw [Nat.mul_comm] at hdiff; exact hdiff)
+    rcases Nat.eq_zero_or_pos d with h0 | h0
+    · exact h0
+    · exact absurd (le_of_dvd_loc h0 hmd)
+        (Nat.not_le_of_lt (Nat.lt_of_le_of_lt (Nat.le_add_left d y) hlt))
+
+/-- ★★★★★ **≤ 2 roots of `x² ≡ −1` mod a prime power** (`p` odd prime, `m = p^(k+1)`).  Any two
+    roots `x, y < m` satisfy `x = y ∨ x + y = m` — i.e. `SqrtNegOneTwoRoots (p^(k+1))`, the
+    Button/Zhang prime-power input the uniqueness reduction needs.  `p` divides at most one of
+    `x−y, x+y` (else `p ∣ x`, impossible since `x² ≡ −1`), and the coprime one cancels. -/
+theorem two_roots_of_prime_pow (p k : Nat) (hp3 : 3 ≤ p) (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p)
+    (x y : Nat) (hx : x < p ^ (k + 1)) (hy : y < p ^ (k + 1))
+    (hxr : (x * x + 1) % p ^ (k + 1) = 0) (hyr : (y * y + 1) % p ^ (k + 1) = 0) :
+    x = y ∨ x + y = p ^ (k + 1) := by
+  have hp2 : 2 ≤ p := Nat.le_trans (by decide) hp3
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hp2
+  have hpm : p ∣ p ^ (k + 1) := ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have hm1 : 1 < p ^ (k + 1) :=
+    Nat.lt_of_lt_of_le (Nat.lt_of_lt_of_le (by decide) hp3)
+      (le_of_dvd_loc (Nat.pos_pow_of_pos _ hppos) hpm)
+  have hcop : ∀ n, ¬ p ∣ n → gcd213 n (p ^ (k + 1)) = 1 :=
+    fun n hn => coprime_prime_pow p n hp2 hpr hn (k + 1)
+  have pos : ∀ z, (z * z + 1) % p ^ (k + 1) = 0 → 1 ≤ z := by
+    intro z hz
+    rcases Nat.eq_zero_or_pos z with h0 | h0
+    · rw [h0, Nat.zero_mul, Nat.zero_add, Nat.mod_eq_of_lt hm1] at hz
+      exact absurd hz (by decide)
+    · exact h0
+  have hx1 : 1 ≤ x := pos x hxr
+  have hy1 : 1 ≤ y := pos y hyr
+  rcases Nat.le_total y x with hyx | hxy
+  · obtain ⟨d, hd⟩ := Nat.le.dest hyx
+    rw [← hd] at hx hxr
+    rcases two_roots_pow_ordered p (p ^ (k + 1)) y d hp3 hpr hpm hm1 hcop hx hy1 hxr hyr with h | h
+    · left; rw [← hd, h, Nat.add_zero]
+    · right; rw [← hd]; exact h
+  · obtain ⟨d, hd⟩ := Nat.le.dest hxy
+    rw [← hd] at hy hyr
+    rcases two_roots_pow_ordered p (p ^ (k + 1)) x d hp3 hpr hpm hm1 hcop hy hx1 hyr hxr with h | h
+    · left; rw [← hd, h, Nat.add_zero]
+    · right; rw [← hd, Nat.add_comm x (x + d)]; exact h
 
 end E213.Lib.Math.ModArith.MarkovPrimeFactor
