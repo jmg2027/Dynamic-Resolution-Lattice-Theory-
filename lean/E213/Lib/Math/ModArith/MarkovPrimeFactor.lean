@@ -318,4 +318,61 @@ theorem two_roots_13 (x y : Nat) (hx : x < 13) (hy : y < 13)
     x = y ∨ x + y = 13 :=
   two_roots_of_prime 13 (by decide) prime_gcd_13 x y hx hy hxr hyr
 
+/-! ## §7 — `gcd = 1 ⟹ a modular inverse exists` (xgcd correctness)
+
+The keystone bridging coprimality (which `markov_reachable_gcd_bc` supplies as `gcd213 b c = 1`)
+to the encoding's invertibility hypothesis: **`gcd213 a m = 1 ⟹ ∃ x, (a·x) % m = 1 % m`**.  Its
+core is that the gcd-component of `modBezout` (computed by `xgcdAux`) **divides both inputs** —
+proved by an invariant under the bound `fuel ≥ r₁ + 1` (which `modBezout`'s `a+m+1` satisfies
+since `a+m+1 ≥ m+1`).  Then `(modBezout a m).1 ∣ gcd213 a m = 1`, so it is `1`, and
+`modBezout_inverse_correct` yields the inverse. -/
+
+open E213.Lib.Math.ModArith.ModBezout (xgcdAux bezoutSubMod)
+open E213.Meta.Nat.Gcd213 (dvd_add_213 gcd213_greatest gcd213_dvd_left gcd213_dvd_right
+  mul_eq_one_left)
+open E213.Tactic.NatHelper (gcd213)
+
+/-- ★★★★ **The `xgcdAux` gcd-component divides both inputs**, under `fuel ≥ r₁ + 1` (which
+    rules out fuel-exhaustion: `r₁` strictly decreases, so the bound propagates and the
+    recursion reaches `r₁ = 0`).  Induction on fuel. -/
+theorem xgcdAux_dvd_both (p : Nat) :
+    ∀ (fuel r₀ r₁ x₀ x₁ : Nat), r₁ + 1 ≤ fuel →
+      (xgcdAux p fuel r₀ r₁ x₀ x₁).1 ∣ r₀ ∧ (xgcdAux p fuel r₀ r₁ x₀ x₁).1 ∣ r₁ := by
+  intro fuel
+  induction fuel with
+  | zero => intro r₀ r₁ x₀ x₁ h; exact absurd h (Nat.not_succ_le_zero r₁)
+  | succ f ih =>
+    intro r₀ r₁ x₀ x₁ h
+    match r₁ with
+    | 0 => exact ⟨⟨1, (Nat.mul_one r₀).symm⟩, ⟨0, (Nat.mul_zero r₀).symm⟩⟩
+    | k + 1 =>
+      have hmod : r₀ % (k + 1) < k + 1 := Nat.mod_lt r₀ (Nat.zero_lt_succ k)
+      have hbound : r₀ % (k + 1) + 1 ≤ f :=
+        Nat.le_trans hmod (Nat.le_of_succ_le_succ h)
+      have ihr := ih (k + 1) (r₀ % (k + 1)) x₁ (bezoutSubMod p (r₀ / (k + 1)) x₀ x₁) hbound
+      refine ⟨?_, ihr.1⟩
+      have hdm : (k + 1) * (r₀ / (k + 1)) + r₀ % (k + 1) = r₀ :=
+        E213.Meta.Nat.AddMod213.div_add_mod r₀ (k + 1)
+      have hsum := dvd_add_213 _ _ _
+        (dvd_mul_right_loc _ (k + 1) (r₀ / (k + 1)) ihr.1) ihr.2
+      rwa [hdm] at hsum
+
+/-- `(modBezout a m).1` divides both `a` and `m`. -/
+theorem modBezout_dvd_both (a m : Nat) : (modBezout a m).1 ∣ a ∧ (modBezout a m).1 ∣ m :=
+  xgcdAux_dvd_both m (a + m + 1) a m 1 0 (Nat.le_add_left (m + 1) a)
+
+/-- `gcd213 a m = 1 ⟹ (modBezout a m).1 = 1`: the xgcd gcd-component divides `gcd213 a m`. -/
+theorem modBezout_gcd_one (a m : Nat) (h : gcd213 a m = 1) : (modBezout a m).1 = 1 := by
+  obtain ⟨hda, hdm⟩ := modBezout_dvd_both a m
+  have hdvd1 : (modBezout a m).1 ∣ 1 := h ▸ gcd213_greatest a m (modBezout a m).1 hda hdm
+  obtain ⟨k, hk⟩ := hdvd1
+  exact mul_eq_one_left (modBezout a m).1 k hk.symm
+
+/-- ★★★★★ **Inverse from coprimality.**  `gcd213 a m = 1` and `0 < m` give an explicit modular
+    inverse: `(a · (modBezout a m).2) % m = 1 % m`.  Closes the C2→C4 bridge — combined with
+    `markov_reachable_gcd_bc` the `√(−1)` encoding fires unconditionally on every tree triple. -/
+theorem inverse_of_coprime (a m : Nat) (hm : 0 < m) (h : gcd213 a m = 1) :
+    (a * (modBezout a m).2) % m = 1 % m :=
+  modBezout_inverse_correct a m hm (modBezout_gcd_one a m h)
+
 end E213.Lib.Math.ModArith.MarkovPrimeFactor
