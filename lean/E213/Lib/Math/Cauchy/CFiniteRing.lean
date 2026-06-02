@@ -492,4 +492,15 @@ theorem cfiniteZ_add {s t : Nat → Int} (hs : CFiniteZ s) (ht : CFiniteZ t) :
   have hv1 : v = 1 := by rw [hv, Int.one_mul]
   exact annih_snoc_unit hv1 hAnnih
 
+/-- **The ring is strictly larger than its summands.**  `1 + 2ⁿ` is C-finite (a
+    constant polynomial plus the geometric `2ⁿ`, via `cfiniteZ_add`), yet it is
+    neither a polynomial (`twoPow_not_polyDepthZ`-style: it inherits `2ⁿ`'s
+    infinite divergence depth) nor a pure geometric sequence — a concrete witness
+    that `+` generates genuinely new C-finite sequences. -/
+theorem cfiniteZ_one_add_twoPow :
+    OrbitDimension.CFiniteZ (fun n => 1 + OrbitDimension.twoPowZ n) :=
+  cfiniteZ_add
+    (OrbitDimension.polyDepthZ_cfiniteZ (d := 0) (s := fun _ => (1 : Int)) (fun _ => rfl))
+    OrbitDimension.cfiniteZ_twoPow
+
 end E213.Lib.Math.Cauchy.CFiniteRing
