@@ -181,6 +181,8 @@ This merge also brings the foundational **residue-form / inversion** arc (origin
 - §10: the everywhere-distinct subtlety **resolved** — it IS canonicity (`canonical_slash_decompose`
   ⟹ `cmp x y=.lt` ⟹ `x≠y`).  `lToShape_antiRefl`/`raw_embeds_antiRefl`: every Raw embeds
   **anti-reflexively** (+ faithfully, §6) into the leaf-labelled co-tree model; `spineL` the infinite
-  anti-reflexive escapee.  RESIDUAL: only the subtype's OWN finality (`{s//Consistent s ∧ AntiRefl s}`
-  as a type + `ana` landing + uniqueness surviving) — not a coinduction obstruction.  CoResidue 30
-  thm, 47/0 PURE.  Whole arc ∅-axiom, critique-hardened (5+ adversarial rounds).
+  anti-reflexive escapee.  §11: the exact slash-νF **carrier assembled** —
+  `SlashNu := {s//Consistent s ∧ AntiRefl s}`; `rawToSlashNu`(+`_faithful`), `spineSlashNu`∈SlashNu,
+  `slashNu_carrier` (faithful embedding ∧ spine∈SlashNu ∧ escape).  RESIDUAL: only the carrier's
+  OWN finality (`ana` into SlashNu + uniqueness ⟹ SlashNu is exactly νF) — not a coinduction
+  obstruction.  CoResidue 34 thm, 55/0 PURE.  Whole arc ∅-axiom, critique-hardened (6 adversarial rounds).

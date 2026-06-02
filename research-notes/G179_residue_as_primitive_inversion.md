@@ -223,11 +223,24 @@ A canonical slash `x / y` has `cmp x y = .lt` (`Tree.canonical_slash_decompose`)
 So the exact slash functor's defining constraints (faithful, anti-reflexive) are met by the
 finite embedding, with a named infinite anti-reflexive escapee.
 
-## The remaining residual — the subtype's own finality
+## Ninth step — the exact slash-νF carrier assembled (`CoResidue` §11)
 
-What is genuinely left: bundle `{s : LCoShape // Consistent s ∧ AntiRefl s}` as a type and
-prove *its* finality (the leaf-labelled `ana` lands in the subtype for consistent +
-anti-reflexive coalgebras, with pointwise uniqueness surviving the restriction) — and the
-leaf-absorbing `Consistent` predicate's preservation.  This is the final-coalgebra-of-the-
-subtype assembly; the embedding side (faithful + anti-reflexive + named escapee) and the
-over-approximation's finality are done, ∅-axiom.  Not a coinduction obstruction.
+The carrier is now a bundled type with the complete embedding + escape picture:
+
+  - `Consistent s := ∀ p b, s p = some b → ∀ d, s (p ++ [d]) = some b` (leaves absorb);
+    `lToShape_consistent` (every finite tree) + `spineL_consistent`.
+  - ★ `SlashNu := {s : LCoShape // Consistent s ∧ AntiRefl s}` — the exact slash-νF carrier.
+  - `rawToSlashNu` (the finite residue as a consistent + anti-reflexive co-tree) +
+    `rawToSlashNu_faithful` (faithful, via `lToShape_faithful`); `spineSlashNu` (the infinite
+    left-spine in `SlashNu`).
+  - ★ `slashNu_carrier` — faithful embedding ∧ `spineSlashNu ∈ SlashNu` ∧ no finite Raw is the
+    spine (`spineL_escapes`).  The carrier is assembled ∅-axiom, no coinduction.
+
+## The remaining residual — the carrier's own finality
+
+Genuinely left: whether `SlashNu` is the *final* coalgebra — the leaf-labelled `ana` of a
+consistent + anti-reflexive coalgebra lands back in `SlashNu`, with pointwise uniqueness
+surviving the restriction.  Proving it confirms `SlashNu` is *exactly* νF.  The
+over-approximation's finality (`final_coalgebra`) and the whole embedding side (faithful +
+anti-reflexive + consistent + named escapee) are done, ∅-axiom; this last step is the
+final-coalgebra-of-the-subtype assembly, not a coinduction obstruction.

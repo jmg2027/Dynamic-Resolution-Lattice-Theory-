@@ -508,4 +508,64 @@ theorem lToShape_antiRefl : ∀ (t : Tree), t.canonical = true → AntiRefl (lTo
 theorem raw_embeds_antiRefl (r : Raw) : AntiRefl (lToShape r.val) :=
   lToShape_antiRefl r.val r.property
 
+/-! ## §11 — the exact slash-νF carrier: `{Consistent ∧ AntiRefl}` co-trees
+
+The residue's exact slash functor `{a} ⊎ {b} ⊎ {x/y : x ≠ y}` has two constraints on its
+co-trees: **anti-reflexive** (branches have distinct children, §8–§10) and **consistent**
+(below a leaf there is nothing — leaf labels absorb).  `SlashNu` bundles both into the carrier
+type.  The finite residue embeds into it (consistent + anti-reflexive + faithful), and `spineL`
+is the infinite inhabitant escaping the finite. -/
+
+/-- **Consistency**: a leaf absorbs — below a `some b` node the label repeats. -/
+def Consistent (s : LCoShape) : Prop :=
+  ∀ p b, s p = some b → ∀ d, s (p ++ [d]) = some b
+
+/-- Every finite tree's labelled shape is consistent (leaves absorb), by induction. -/
+theorem lToShape_consistent : ∀ (t : Tree), Consistent (lToShape t)
+  | Tree.a         => fun _ _ hb _ => hb
+  | Tree.b         => fun _ _ hb _ => hb
+  | Tree.slash x y => fun p b hb d => by
+      match p with
+      | []           => exact Option.noConfusion hb
+      | (true :: p')  => exact lToShape_consistent x p' b hb d
+      | (false :: p') => exact lToShape_consistent y p' b hb d
+
+/-- The left-spine is consistent (its leaf-`a`s absorb). -/
+theorem spineL_consistent : Consistent spineL
+  | [],           _, hb, _ => Option.noConfusion hb
+  | (true :: _),  _, hb, _ => hb
+  | (false :: q), b, hb, d => spineL_consistent q b hb d
+
+/-- The **exact slash-νF carrier**: consistent + anti-reflexive co-trees. -/
+def SlashNu : Type := { s : LCoShape // Consistent s ∧ AntiRefl s }
+
+/-- The finite residue as an exact slash-co-tree (consistent + anti-reflexive). -/
+def rawToSlashNu (r : Raw) : SlashNu :=
+  ⟨lToShape r.val, lToShape_consistent r.val, raw_embeds_antiRefl r⟩
+
+/-- The infinite left-spine as an exact slash-co-tree. -/
+def spineSlashNu : SlashNu := ⟨spineL, spineL_consistent, spineL_antiRefl⟩
+
+/-- ★★ **The embedding into `SlashNu` is faithful.**  Distinct Raws give distinct exact
+    slash-co-trees (pointwise): `lToShape_faithful` lifted to the subtype carrier. -/
+theorem rawToSlashNu_faithful (r r' : Raw)
+    (h : ∀ p, (rawToSlashNu r).val p = (rawToSlashNu r').val p) : r = r' :=
+  Subtype.ext (lToShape_faithful r.val r'.val h)
+
+/-- ★★★ **The exact slash-νF carrier, assembled.**  `SlashNu` (consistent + anti-reflexive
+    co-trees) contains the finite residue *faithfully* (`rawToSlashNu`, `rawToSlashNu_faithful`)
+    and the infinite anti-reflexive inhabitant `spineSlashNu` (= the left-spine), which is
+    reached by no finite Raw (`spineL_escapes`).  The exact slash functor's νF carrier is
+    *assembled* ∅-axiom (the type + faithful embedding + escape), no coinduction.  Whether
+    `SlashNu` is the *final* coalgebra — its own finality (`ana` into `SlashNu` + uniqueness) —
+    is the deepest residual (which would confirm the carrier is exactly νF); the
+    over-approximation's finality is `final_coalgebra`. -/
+theorem slashNu_carrier :
+    (∀ r r' : Raw, (∀ p, (rawToSlashNu r).val p = (rawToSlashNu r').val p) → r = r')
+    ∧ (Consistent spineSlashNu.val ∧ AntiRefl spineSlashNu.val)
+    ∧ (∀ r : Raw, (rawToSlashNu r).val ≠ spineSlashNu.val) :=
+  ⟨rawToSlashNu_faithful,
+   ⟨spineL_consistent, spineL_antiRefl⟩,
+   fun r => fun h => spineL_escapes r.val h.symm⟩
+
 end E213.Theory.Raw.CoResidue
