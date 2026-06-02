@@ -136,4 +136,33 @@ theorem e_cf_quasipoly : QuasiPolyCF 3 ePQ := by
   · -- r ≥ 3: impossible
     exact absurd (Nat.lt_of_lt_of_le hr (Nat.le_add_left 3 r)) (Nat.lt_irrefl _)
 
+/-! ## §5 — the holonomicity certificate: quasi-polynomial ⟹ constant-coefficient
+recurrence -/
+
+/-- The finite difference of a constant sequence is `0`. -/
+theorem isConst_diff_zero {t : Nat → Nat} (h : isConst t) : ∀ n, diff t n = 0 := by
+  intro n
+  show t (n + 1) - t n = 0
+  rw [h (n + 1), h n, Nat.sub_self]
+
+/-- ★★★ **Holonomicity certificate.**  A `polyDepth d` sequence satisfies the homogeneous
+    **constant-coefficient** recurrence `Δ^{d+1} s = 0` (the `(d+1)`-th finite difference
+    vanishes identically) — i.e. `Σⱼ C(d+1,j)(−1)ʲ s_{n+j} = 0`.  So every polynomial
+    section is C-finite, hence P-recursive (holonomic).  This is the bridge "quasi-polynomial
+    ⟹ holonomic" at the level of one residue class; the global interleaving of finitely many
+    such sections is holonomic by the classical interlacing-closure of P-recursive sequences
+    (cited). -/
+theorem polyDepth_diff_recurrence {d : Nat} {s : Nat → Nat} (h : polyDepth d s) :
+    ∀ n, liftK (d + 1) s n = 0 :=
+  isConst_diff_zero h
+
+/-- ★★★ **Each residue section of a quasi-polynomial CF is C-finite.**  For a
+    `QuasiPolyCF p a`, every residue section `k ↦ a(p·k+r)` satisfies a constant-coefficient
+    recurrence `Δ^{dᵣ+1} = 0`.  Quasi-polynomial ⟹ (section-wise) holonomic, explicitly. -/
+theorem quasipoly_section_recurrence {p : Nat} {a : Nat → Nat} (h : QuasiPolyCF p a)
+    (r : Nat) (hr : r < p) :
+    ∃ d, ∀ n, liftK (d + 1) (fun k => a (p * k + r)) n = 0 := by
+  obtain ⟨d, hd⟩ := h r hr
+  exact ⟨d, polyDepth_diff_recurrence hd⟩
+
 end E213.Lib.Math.Cauchy.HurwitzianCF
