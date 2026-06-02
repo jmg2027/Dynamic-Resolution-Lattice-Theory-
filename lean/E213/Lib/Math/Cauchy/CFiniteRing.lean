@@ -358,4 +358,138 @@ theorem annih_snoc_to_cfiniteZ {lo : List Int} {s : Nat → Int}
   rw [neg_eq_of_add_eq_zero hz, applyOp_eq_linComb lo s n,
       linComb_neg (fun i => lo.getD i 0) s lo.length n]
 
+/-! ## §7 — conv of monic operators is monic ⟹ the full ring closure `cfiniteZ_add` -/
+
+/-- Length of a snoc. -/
+theorem length_snoc : ∀ (q : List Int) (b : Int), (q ++ [b]).length = q.length + 1
+  | [],     _ => rfl
+  | _ :: q, b => by
+    show (q ++ [b]).length + 1 = (q.length + 1) + 1
+    rw [length_snoc q b]
+
+/-- `smulL` distributes over snoc. -/
+theorem smulL_snoc (c : Int) : ∀ (q : List Int) (b : Int),
+    smulL c (q ++ [b]) = smulL c q ++ [c * b]
+  | [],     _ => rfl
+  | a :: q, b => by
+    show (c * a) :: smulL c (q ++ [b]) = (c * a) :: (smulL c q ++ [c * b])
+    rw [smulL_snoc c q b]
+
+/-- `smulL` preserves length. -/
+theorem length_smulL (c : Int) : ∀ (q : List Int), (smulL c q).length = q.length
+  | []     => rfl
+  | _ :: q => by show (smulL c q).length + 1 = q.length + 1; rw [length_smulL c q]
+
+/-- `addL` with `[]` on the right is identity. -/
+theorem addL_nil_right : ∀ (x : List Int), addL x [] = x
+  | []     => rfl
+  | _ :: _ => rfl
+
+/-- `addL` of a cons with `[0]` adds `0` to the head, keeps the tail. -/
+theorem addL_zero_cons (y : Int) (ys : List Int) :
+    addL (y :: ys) [0] = (y + 0) :: ys := by
+  show (y + 0) :: addL ys [] = (y + 0) :: ys
+  rw [addL_nil_right]
+
+/-- When the left operand is no longer than the right, `addL` commutes with snoc on
+    the right (the appended element survives). -/
+theorem addL_snoc_right : ∀ (x y : List Int) (b : Int), x.length ≤ y.length →
+    addL x (y ++ [b]) = addL x y ++ [b]
+  | [],      _,      _, _ => rfl
+  | _ :: _,  [],     _, h => absurd h (Nat.not_succ_le_zero _)
+  | a :: x', c :: y', b, h => by
+    show (a + c) :: addL x' (y' ++ [b]) = (a + c) :: (addL x' y' ++ [b])
+    rw [addL_snoc_right x' y' b (Nat.le_of_succ_le_succ h)]
+
+/-- When the left operand is no longer than the right, `addL` has the right length. -/
+theorem length_addL_right_ge : ∀ (x y : List Int), x.length ≤ y.length →
+    (addL x y).length = y.length
+  | [],      _,      _ => rfl
+  | _ :: _,  [],     h => absurd h (Nat.not_succ_le_zero _)
+  | a :: x', c :: y', h => by
+    show (addL x' y').length + 1 = y'.length + 1
+    rw [length_addL_right_ge x' y' (Nat.le_of_succ_le_succ h)]
+
+/-- ★ **`conv` of two snocs.**  The operator product of `p++[a]` and `q++[b]` is a
+    snoc whose appended (leading) coefficient is `a·b` — leading coefficients
+    multiply, and the lower part has length `|p|+|q|`.  (The value is stated as an
+    existential `v = a·b` to absorb the `+0`/`*1` syntactic noise `addL` introduces.) -/
+theorem conv_snoc : ∀ (p : List Int) (a : Int) (q : List Int) (b : Int),
+    ∃ r v, conv (p ++ [a]) (q ++ [b]) = r ++ [v] ∧ v = a * b
+           ∧ r.length = p.length + q.length
+  | [], a, [], b => by
+    refine ⟨[], a * b + 0, ?_, by rw [Int.add_zero], rfl⟩
+    show addL (smulL a ([] ++ [b])) [0] = [] ++ [a * b + 0]
+    show addL [a * b] [0] = [a * b + 0]
+    rw [addL_zero_cons]
+  | [], a, c :: q', b => by
+    refine ⟨(a * c + 0) :: smulL a q', a * b, ?_, rfl, ?_⟩
+    · show addL (smulL a ((c :: q') ++ [b])) [0]
+         = ((a * c + 0) :: smulL a q') ++ [a * b]
+      rw [smulL_snoc a (c :: q') b]
+      show addL ((a * c) :: (smulL a q' ++ [a * b])) [0]
+         = ((a * c + 0) :: smulL a q') ++ [a * b]
+      rw [addL_zero_cons]
+      rfl
+    · show ((a * c + 0) :: smulL a q').length = 0 + (c :: q').length
+      show (smulL a q').length + 1 = 0 + (q'.length + 1)
+      rw [length_smulL a q', Nat.zero_add]
+  | x :: p', a, q, b => by
+    obtain ⟨r', v', he, hv, hl⟩ := conv_snoc p' a q b
+    have hlen : (smulL x (q ++ [b])).length ≤ (0 :: r').length := by
+      show (smulL x (q ++ [b])).length ≤ r'.length + 1
+      rw [length_smulL x (q ++ [b]), length_snoc q b, hl]
+      exact Nat.succ_le_succ (Nat.le_add_left q.length p'.length)
+    refine ⟨addL (smulL x (q ++ [b])) (0 :: r'), v', ?_, hv, ?_⟩
+    · show addL (smulL x (q ++ [b])) (0 :: conv (p' ++ [a]) (q ++ [b]))
+         = addL (smulL x (q ++ [b])) (0 :: r') ++ [v']
+      rw [he]
+      exact addL_snoc_right (smulL x (q ++ [b])) (0 :: r') v' hlen
+    · rw [length_addL_right_ge (smulL x (q ++ [b])) (0 :: r') hlen]
+      show r'.length + 1 = (p'.length + 1) + q.length
+      rw [hl, Nat.add_right_comm]
+
+/-- `opOf c k` is a snoc `lower ++ [1]` with `|lower| = k` (its monic structure made
+    explicit, for the reverse bridge). -/
+theorem opOf_snoc : ∀ (c : Nat → Int) (k : Nat),
+    ∃ lo, opOf c k = lo ++ [1] ∧ lo.length = k
+  | _, 0   => ⟨[], rfl, rfl⟩
+  | c, k+1 => by
+    obtain ⟨lo, he, hl⟩ := opOf_snoc (fun i => c (i+1)) k
+    refine ⟨(-(c 0)) :: lo, ?_, ?_⟩
+    · show (-(c 0)) :: opOf (fun i => c (i+1)) k = ((-(c 0)) :: lo) ++ [1]
+      rw [he]; rfl
+    · show lo.length + 1 = k + 1
+      rw [hl]
+
+/-- A monic annihilator `lo ++ [v]` with `v = 1` gives C-finiteness. -/
+theorem annih_snoc_unit {lo : List Int} {v : Int} {s : Nat → Int}
+    (hv : v = 1) (h : Annih (lo ++ [v]) s) : CFiniteZ s := by
+  subst hv; exact annih_snoc_to_cfiniteZ h
+
+/-- Every C-finite sequence has a monic annihilator in explicit snoc form. -/
+theorem cfiniteZ_annih_snoc {s : Nat → Int} (h : CFiniteZ s) :
+    ∃ lo, Annih (lo ++ [1]) s := by
+  obtain ⟨k, c, hrec⟩ := h
+  obtain ⟨lo, he, _⟩ := opOf_snoc c k
+  refine ⟨lo, fun n => ?_⟩
+  rw [← he, applyOp_opOf c k s n, hrec n, Int.sub_eq_add_neg, add_neg_cancel]
+
+/-- ★★★ **The ring closure.**  C-finite is closed under pointwise addition:
+    `CFiniteZ s → CFiniteZ t → CFiniteZ (s + t)`.  The monic annihilators `pₛ`, `pₜ`
+    of `s`, `t` multiply (`conv`, leading `1·1 = 1` by `conv_snoc`) to a monic
+    annihilator of `s + t` (`conv_annih_add`), which is again an orbit recurrence
+    (`annih_snoc_unit`).  So `polynomial ⊊ C-finite` is a genuine **ring** under
+    `+` — the orbit dimensions add. -/
+theorem cfiniteZ_add {s t : Nat → Int} (hs : CFiniteZ s) (ht : CFiniteZ t) :
+    CFiniteZ (fun m => s m + t m) := by
+  obtain ⟨loS, hAs⟩ := cfiniteZ_annih_snoc hs
+  obtain ⟨loT, hAt⟩ := cfiniteZ_annih_snoc ht
+  obtain ⟨r, v, hconv, hv, _⟩ := conv_snoc loS 1 loT 1
+  have hAnnih : Annih (conv (loS ++ [1]) (loT ++ [1])) (fun m => s m + t m) :=
+    conv_annih_add (loS ++ [1]) (loT ++ [1]) hAs hAt
+  rw [hconv] at hAnnih
+  have hv1 : v = 1 := by rw [hv, Int.one_mul]
+  exact annih_snoc_unit hv1 hAnnih
+
 end E213.Lib.Math.Cauchy.CFiniteRing
