@@ -108,6 +108,17 @@ that does not close under its own iteration unless its readout group is taken; t
 group is `ℤ`.  No exterior, no comparison, no "fixing".  (`Int` is axiom-clean: a
 definable inductive type with ∅-axiom ring laws in `Int213.Core`.)
 
+**ℤ = ℕ-pair (the concrete grounding, user note).**  `Int213` runs on the
+`subNatNat` representation: `subNatNat m n = m − n` is the integer *named by the
+count-pair `(m,n)`*, with pair-arithmetic exactly the classical `ℤ = ℕ×ℕ/~`
+(`subNatNat_add_subNatNat`: `(a,b)+(c,d)=(a+c,b+d)`; `subNatNat_mul_subNatNat`:
+`(a−b)(c−d)=(ac+bd)−(ad+bc)`; `ofNat`/`negSucc` = normal-form reps).  So `Δ` at a
+point reads the count-Lens **twice** (`(s(n+1), s(n))`) and the integer is that
+pair read as a difference.  The **sign is derived from the pair's asymmetry**
+(`neg_subNatNat`: `−subNatNat m n = subNatNat n m`), *not* a Raw primitive — which
+is exactly why "readout group of the difference-Lens" is the right phrase and
+"signed distinguishing kept" was the slip.
+
 On the involution (red-team correction): the binomial transform is
 **fixed-point-RICH** (any ±1-eigen-sequence is fixed) — that is **Nat-style**
 grounding (§5.2), the *opposite* of the Bool-style liar's fixed-point-free

@@ -30,6 +30,29 @@ axiom-clean — a definable inductive type with ∅-axiom ring laws in `Int213.C
 no Mathlib, no `Classical`.)  Over `ℤ` the calculus is `diffZ`, `liftKZ`,
 `polyDepthZ`.
 
+### `ℤ` as a ℕ-pair — no sign is imported
+
+The readout group is **not** an exterior structure with a primitive "sign".  In
+the repo, `Int213` works entirely through the **`subNatNat`** representation:
+`subNatNat m n = m − n` is the integer named by the **pair of counts `(m, n)`**.
+Its arithmetic is exactly the pair-arithmetic of the classical `ℤ = ℕ×ℕ / ~`
+construction (`(a,b) ~ (c,d) ⟺ a+d = b+c`):
+
+```
+subNatNat_add_subNatNat :  subNatNat a b + subNatNat c d = subNatNat (a+c) (b+d)
+subNatNat_mul_subNatNat :  subNatNat a b * subNatNat c d = subNatNat (a·c+b·d) (a·d+b·c)
+```
+
+(`Int.ofNat`/`Int.negSucc` are merely the normal-form representatives of these
+pair-classes.)  This is what licenses the 213-native reading of the difference
+operator: `Δ` at a point reads the count-Lens **twice** — the pair
+`(s(n+1), s(n))` — and `diffZ s n = s(n+1) − s n = subNatNat`-of-that-pair is the
+integer those two readings *name*.  The **sign is not a primitive of Raw** awaiting
+faithful transcription; it is *derived* from the pair's asymmetry — `subNatNat m n`
+vs `subNatNat n m`, with `neg_subNatNat : −subNatNat m n = subNatNat n m` the
+pair-swap.  So "ℤ is the readout group of the difference-Lens" is concrete: the
+group element *is* the pair of count-readings, read as a difference.
+
 ## The four faces
 
 ### 1. Universal identity (`newton_gregory`)
