@@ -129,18 +129,17 @@ umbrella-reachable subset was ever scanned, and that subset was fully PURE
 exposes the purity status of the previously-ungated clusters.  Current
 `tools/scan_all_axioms.py`:
 
-  · The 213-mathematical core is ∅-axiom.  The non-sealed `propext`/`Quot.sound`
-    that remain are (i) the **`Prop`-atom thesis surface**
+  · The 213-mathematical core is ∅-axiom.  The only non-sealed `propext`/`Quot.sound`
+    that remains is the **`Prop`-atom thesis surface**
     (`propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`,
-    category (B) — `propext` IS "`Prop` is an atom of meaning") and (ii) the
-    `Prop`-atom thesis surface (category (B)).  The **CayleyDickson category-D
-    backlog is closed** (2026-06-01): `Trig.conj_mul_anti` via the
+    category (a) — `propext` IS "`Prop` is an atom of meaning").  The **CayleyDickson
+    category-D backlog is closed** (2026-06-01): `Trig.conj_mul_anti` via the
     `NonAssocStarRing213 Sedenion` bridge (`SedenionAlgebra213`), and
     `SedenionHeavy.flexible` via the `CDDoubleFlexible` cross-pair +
-    `FlexAlt213 Cayley`.  The Lens ring is **0 real DIRTY** (`scan_all_axioms.py
-    --filter Lens`): its equivalence surface is stated on reading-equivalence
-    (`ReadingEq.same` / `equivR` / `sameLens`), not `=` of views.  Run
-    `tools/scan_all_axioms.py` for the live count.
+    `FlexAlt213 Cayley` — both verified PURE (`#print axioms`).  The Lens ring is
+    **0 real DIRTY** (`scan_all_axioms.py --filter Lens`): its equivalence surface is
+    stated on reading-equivalence (`ReadingEq.same` / `equivR` / `sameLens`), not `=` of
+    views.  Run `tools/scan_all_axioms.py` for the live count.
   · **No `Classical.choice` and no `Lean.ofReduceBool` (`native_decide`) in any
     213-mathematical content** — the falsifiability-forbidden axioms are absent.
     The only `Classical.choice` carriers are three `CommandElab` elaborators
