@@ -216,10 +216,12 @@ A–D + B are now **all closed ∅-axiom this arc**:
     → Nat (the `two_not_a_discriminant` idiom), no `ring`/`omega`/`Classical`; the one
     propext leak (`Int.natAbs_eq_zero`) routed around via `Int.natAbs_eq`.  Folded into
     `Real213/SpiralCoordinate.spiral_coordinate` as a 4th conjunct (now 4-fold capstone).
-    Conceptual: {2,4,6}=2·{1,2,3} is the even/binary half of the crystallographic set
-    {1,2,3,4,6} (main's `CyclotomicTraceDegree.crystallographic_restriction`); the doubling
-    is the Cassini sign −1, the structural origin of "binary" in the binary-polyhedral
-    E₆E₇E₈ rungs (`Tower/BinaryPolyhedralTower`, `MckayADECensus`).
+    Binary cover (`axis_binary_cover`, also PURE): {2,4,6}=2·{1,2,3}, each floor multiplier
+    μ hits the central −1 at midpoint power k∈{1,2,3} (μ¹=−1 / μ²=−1 / ζ₆³=−1) and 1 at 2k.
+    {2,4,6} is the even half of the crystallographic set {1,2,3,4,6} (main's
+    `CyclotomicTraceDegree.crystallographic_restriction`); the doubling is the Cassini sign
+    −1 — the structural origin of "binary" in the binary-polyhedral E₆E₇E₈ rungs
+    (`Tower/BinaryPolyhedralTower`, `MckayADECensus`).  Spiral arc ↔ McKay tower bridged.
   - **Eisenstein/elliptic conjecture — discriminant-sign core LANDED** (`research-notes/G167`).
     The `(W,d)` classification's number-field reading: golden form `m²−mk−k²` (disc `+5`,
     indefinite, ∞ units → convergent *line*) vs Eisenstein norm `a²−ab+b²` (disc `−3`,

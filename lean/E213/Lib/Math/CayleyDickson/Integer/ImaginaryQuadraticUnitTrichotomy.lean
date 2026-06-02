@@ -33,8 +33,8 @@ The proof runs through `Int.natAbs` into `Nat` (the same `∅`-axiom route as
 
 namespace E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI (units4 units4_length)
-open E213.Lib.Math.CayleyDickson.Integer.ZOmega (units6 units6_length)
+open E213.Lib.Math.CayleyDickson.Integer.ZI (ZI units4 units4_length)
+open E213.Lib.Math.CayleyDickson.Integer.ZOmega (units6 units6_length Zeta6 zeta6_cubed zeta6_pow_six)
 
 /-! ## §1 — the `Nat` kernel: `a² + d·b² = 1`, `d ≥ 2`, forces `b = 0`, `a = 1` -/
 
@@ -110,5 +110,33 @@ theorem imaginary_quadratic_unit_trichotomy :
     -- (3) the Eisenstein axis is order 6
     ∧ units6.length = 6 :=
   ⟨fun d hd a b => unitForm_generic_axis d hd a b, units4_length, units6_length⟩
+
+/-! ## §4 — the binary cover: `{2,4,6} = 2·{1,2,3}`, the midpoint is the central `−1` -/
+
+/-- ★★★ **The spiral axis is the binary double cover of the point-rotation `{1,2,3}`.**
+    Each floor-rotation multiplier `μ` reaches the central unit `−1` at its *midpoint*
+    power `k ∈ {1,2,3}` and the identity at `2k ∈ {2,4,6}`:
+
+      * order-2 axis `ℤ`:    `μ = −1`,  `μ¹ = −1`,  `μ² = 1`   (`k = 1`);
+      * order-4 axis `ℤ[i]`: `μ = −i`,  `μ² = −1`,  `μ⁴ = 1`   (`k = 2`);
+      * order-6 axis `ℤ[ω]`: `μ = ζ₆`, `μ³ = −1`,  `μ⁶ = 1`   (`k = 3`).
+
+    So the axis orders `{2,4,6} = 2·{1,2,3}` are the **even half** of the crystallographic
+    set `{1,2,3,4,6}` (`Tower/CyclotomicTraceDegree.crystallographic_restriction`), and the
+    factor `2` is the central involution `−1` — the Cassini sign `(−1)ⁿ` carried by every
+    cross-determinant.  This central `−1` is the `2`-fold cover, the structural origin of the
+    word *binary* in the binary-polyhedral rungs `E₆ = 2T, E₇ = 2O, E₈ = 2I`
+    (`Tower/BinaryPolyhedralTower`, `Tower/MckayADECensus`): the spiral floor lives one
+    central `−1` above the bare point rotation. -/
+theorem axis_binary_cover :
+    -- order-2 axis `ℤ`: midpoint `k=1`, full `2`
+    ((-1 : Int) * (-1) = 1)
+    -- order-4 axis `ℤ[i]`: midpoint `k=2` (`μ² = −1`), full `4` (`μ⁴ = 1`)
+    ∧ ((⟨0, -1⟩ : ZI) * ⟨0, -1⟩ = ⟨-1, 0⟩
+        ∧ (⟨0, -1⟩ : ZI) * ⟨0, -1⟩ * ⟨0, -1⟩ * ⟨0, -1⟩ = ⟨1, 0⟩)
+    -- order-6 axis `ℤ[ω]`: midpoint `k=3` (`ζ₆³ = −1`), full `6` (`ζ₆⁶ = 1`)
+    ∧ (Zeta6 * Zeta6 * Zeta6 = ⟨-1, 0⟩
+        ∧ Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 = ⟨1, 0⟩) :=
+  ⟨by decide, ⟨by decide, by decide⟩, ⟨zeta6_cubed, zeta6_pow_six⟩⟩
 
 end E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy

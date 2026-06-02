@@ -107,6 +107,28 @@ This rotation is a specific algebraic recurrence, distinct from the canonical Hu
 nearest-integer continued fraction (whose cross-determinant is `(−1)ⁿ ∈ {±1}` in every
 ring); the full unit group enters precisely through the primitive-unit coefficient.
 
+### The axis is the binary cover — `{2,4,6} = 2·{1,2,3}`
+
+The three axis orders are not three unrelated numbers: `{2,4,6} = 2·{1,2,3}` is the **even
+half** of the crystallographic restriction `{1,2,3,4,6}` (`φ(m) ≤ 2`,
+`Tower/CyclotomicTraceDegree.crystallographic_restriction`), and the doubling factor is
+structural.  Each floor-rotation multiplier `μ` reaches the central unit `−1` at its
+*midpoint* power `k ∈ {1,2,3}` and the identity at `2k ∈ {2,4,6}` (`axis_binary_cover`):
+
+  | axis | `μ` | midpoint `μᵏ = −1` | full `μ²ᵏ = 1` |
+  |---|---|---|---|
+  | 2 | `−1` | `μ¹ = −1` (`k=1`) | `μ² = 1` |
+  | 4 | `−i` | `μ² = −1` (`k=2`) | `μ⁴ = 1` |
+  | 6 | `ζ₆` | `μ³ = −1` (`k=3`, `zeta6_cubed`) | `μ⁶ = 1` (`zeta6_pow_six`) |
+
+The factor `2` is the central involution `−1` — the **Cassini sign** `(−1)ⁿ` carried by
+every cross-determinant.  This central `−1` is the `2`-fold cover: the spiral floor sits one
+central `−1` above the bare point-rotation `{1,2,3}`.  It is the structural origin of the
+word *binary* in the binary-polyhedral rungs `E₆ = 2T, E₇ = 2O, E₈ = 2I`
+(`Tower/BinaryPolyhedralTower`, `Tower/MckayADECensus`): the spiral axis, read dynamically
+off a continued-fraction cross-determinant, is the same `2`-fold cover that makes the
+exceptional groups *binary*.
+
 The three axes carry a transcendental shadow through the Chowla–Selberg / Gross CM-period
 formula (the unit order `w` appears in its exponent): `Γ(1/2) ∼ π` at the boundary, `Γ(1/4)`
 at disc `−4` (`ℤ[i]`), `Γ(1/3)` at disc `−3` (`ℤ[ω]`).  This is interpretive, not
@@ -144,6 +166,7 @@ convergence mechanism.
 | `ZI_units_exact_four` | `ZIUnits` | `\|ℤ[i]^×\| = 4` (the Gaussian 4-theorem) |
 | `unitForm_generic_axis` | `ImaginaryQuadraticUnitTrichotomy` | `d ≥ 2 ⇒ a²+d·b²=1` only at `(±1,0)`: no fourth axis |
 | `imaginary_quadratic_unit_trichotomy` | `ImaginaryQuadraticUnitTrichotomy` | the axis is exactly `{2,4,6}`, a closed finite range |
+| `axis_binary_cover` | `ImaginaryQuadraticUnitTrichotomy` | `{2,4,6}=2·{1,2,3}`: midpoint `μᵏ=−1`, the central `−1` is the binary cover |
 | `gaussian_floor_rotation` | `GaussianCrossDet` | the `ℤ[i]` floor rotates by `−i`, order 4 |
 | `eisenstein_floor_rotation` | `EisensteinCompletion` | the `ℤ[ω]` floor rotates by `−ω`, order `6 = NS·NT` |
 | `spiral_coordinate` | `SpiralCoordinate` | the two orthogonal counts (layer intensional + unrestricted; axis `{2,4,6}`) |
