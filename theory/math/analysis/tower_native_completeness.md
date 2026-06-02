@@ -236,7 +236,9 @@ tower-native frame and are not claimed here: full num/den closure under `+` and 
 for arbitrary rate-carrying presentations (the classical holonomic-closure theorem),
 and a fully generic ordinal-indexed `coord → cut` map for every `ω^r` position at once.
 A fast π representation meeting the rate criterion is the concrete next instance
-(`holonomic_modulus.md` frontier).
+(`holonomic_modulus.md` frontier).  The binary boundary itself is refined into a
+two-axis ordinal engine — `(height, rate)` lex grade plus the rescaling gauge — in
+`refined_completability_engine.md`.
 
 ## How to verify
 
