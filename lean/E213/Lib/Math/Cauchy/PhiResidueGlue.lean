@@ -1,53 +1,68 @@
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
 import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
 import E213.Lib.Math.Real213.PhiFrozenDynamic
 
 /-!
-# Cauchy.PhiResidueGlue — the φ residue unit IS the atomic glue `NS − NT = det P`
+# Cauchy.PhiResidueGlue — the orbit determinant `det Pⁿ` IS the atomic glue `NS − NT`
 
 The residue between *dynamic* φ (the Pell convergents) and *frozen* φ (the algebraic fixed
-point) is the unit `1`: the convergent cross-determinant `W n` (`DepthFloorDetOne`, the Cassini
-surplus `a² + 1 = a·b + b²`) is constant `1` for every `n` (`W_eq_one`).
+point) is the unit `1`.  This file gives the **structural** cross-scale identity, not a
+"both equal 1" chaining: the determinant of the *actual matrix power* `Pⁿ` —
+`Q00 n · Q11 n − Q01 n²` (`PnFibonacciUniversal.det_pn_universal`, `= 1` for every `n`,
+i.e. `det Pⁿ = (det P)ⁿ = 1`) — **equals the atomic glue** `NS − NT` (`orbit_det_is_glue`).
+This is a genuine arrow: the orbit's conserved determinant on one side, the atomicity-count
+difference on the other, sharing the matrix `P` whose orbit *is* the convergent sequence.
 
-This file makes the **cross-scale identification** explicit: that residue unit is *not* a bare
-`1` — it is the **atomic glue** `NS − NT` (`Mobius213OneAsGlue.ns_minus_nt_is_one`), which is
-itself `det P` (`mobius_det_eq_ns_minus_nt`).  So the analysis-side residue (the never-closing
-gap between the convergent and φ) **equals** the algebra-side determinant of `P` **equals** the
-atomicity-count difference `NS − NT`.  One unit, read at three scales — analysis, algebra,
-atomicity — now chained by one ∅-axiom theorem, not three coincident `1`s.
-
-This is the genuine cross-scale link (the convergent cross-determinant is *literally* `det Pⁿ =
-(det P)ⁿ = 1` = `NS − NT`), not a "both equal 1" coincidence.
+The analysis-side reading is then the *value*: the convergent cross-determinant `W n`
+(`DepthFloorDetOne`, the Cassini surplus separating dynamic from frozen φ) is the same constant
+`1 = NS − NT` (`phi_residue_is_glue`).  `det Pⁿ` (algebra), `W n` (analysis), and `NS − NT`
+(atomicity) all read the unit `1` — but the load-bearing identity is `orbit_det_is_glue`
+(`det Pⁿ = NS − NT`), with `W` and the `decide`-fact `NS − NT = 1` as the analysis/atomicity
+readings of that one conserved determinant.
 -/
 
 namespace E213.Lib.Math.Cauchy.PhiResidueGlue
 
 open E213.Lib.Math.Cauchy.DepthFloorDetOne (W W_eq_one)
 open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt)
+open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
-/-- ★★ **The φ-convergent residue is the atomic glue.**  The convergent cross-determinant
-    `W n` (the Cassini surplus separating the dynamic convergent from the frozen φ) equals the
-    atomic-count difference `NS − NT` for every `n`: the residue unit between dynamic and frozen
-    φ *is* the glue.  (`W n = 1 = NS − NT`.) -/
+/-- ★★★ **The orbit determinant `det Pⁿ` is the atomic glue `NS − NT`.**  The determinant of the
+    matrix power `Pⁿ`, in the additive (subtraction-free) form `Q00 n · Q11 n = Q01 n² + (NS −
+    NT)` — i.e. `det Pⁿ = NS − NT` — for *every* `n`.  This is the genuine structural identity:
+    `det Pⁿ = (det P)ⁿ = 1` (`det_pn_universal`) and `1 = NS − NT` (`ns_minus_nt_is_one`), the two
+    sharing the *actual* matrix `P` (the convergent orbit's generator).  Not a coincidence of
+    constants: it is the conserved determinant of the orbit equalling the atomicity difference. -/
+theorem orbit_det_is_glue (n : Nat) :
+    Q00 n * Q11 n = Q01 n * Q01 n + (NS - NT) := by
+  rw [ns_minus_nt_is_one]; exact det_pn_universal n
+
+/-- ★★ **The φ-convergent residue reads the same unit.**  The convergent cross-determinant `W n`
+    (the Cassini surplus separating the dynamic convergent from the frozen φ) equals the atomic
+    glue `NS − NT` for every `n`: `W n = 1 = NS − NT`.  (The analysis-side *value* reading of the
+    conserved orbit determinant `orbit_det_is_glue`.) -/
 theorem phi_residue_is_glue (n : Nat) : W n = NS - NT := by
   rw [W_eq_one n]; exact ns_minus_nt_is_one.symm
 
-/-- ★★★ **The residue unit at three scales — analysis = algebra = atomicity.**  For every `n`:
+/-- ★★★ **One conserved determinant, three scales — algebra, analysis, atomicity.**  For every
+    `n`:
 
-    1. **analysis** — the φ-convergent cross-determinant `W n` (the never-closing residue between
-       the Pell convergent and the frozen φ) is `NS − NT` (`phi_residue_is_glue`);
-    2. **atomicity** — `NS − NT = 1`, the atomic glue elevating `NT` to `NS`
-       (`ns_minus_nt_is_one`);
-    3. **algebra** — that `1` is `det P` (`mobius_det_eq_ns_minus_nt`): the determinant of the
-       Möbius matrix whose orbit *is* the convergent sequence.
+    1. **algebra** — the orbit's matrix-power determinant is the glue: `det Pⁿ = NS − NT`
+       (`orbit_det_is_glue`, the load-bearing structural identity);
+    2. **analysis** — the φ-convergent cross-determinant reads the same constant: `W n = NS − NT`
+       (`phi_residue_is_glue`);
+    3. **atomicity** — that value is `NS − NT = 1`, the atomic glue, which is `det P`
+       (`ns_minus_nt_is_one`, `mobius_det_eq_ns_minus_nt`).
 
-    So the residue between dynamic and frozen φ, the atomic glue `NS − NT`, and `det P` are the
-    **same unit `1`**, read at three scales — chained, not merely coincident. -/
+    The conserved orbit determinant `det Pⁿ`, the φ-convergent residue `W`, and the atomic glue
+    `NS − NT` are one unit — connected by the genuine arrow (1), not merely three coincident `1`s. -/
 theorem residue_unit_three_scales (n : Nat) :
-    W n = NS - NT
+    Q00 n * Q11 n = Q01 n * Q01 n + (NS - NT)
+    ∧ W n = NS - NT
     ∧ NS - NT = 1
     ∧ ((2 : Int) * 1 - 1 * 1 = (NS : Int) - (NT : Int)) :=
-  ⟨phi_residue_is_glue n, ns_minus_nt_is_one, mobius_det_eq_ns_minus_nt⟩
+  ⟨orbit_det_is_glue n, phi_residue_is_glue n, ns_minus_nt_is_one, mobius_det_eq_ns_minus_nt⟩
 
 end E213.Lib.Math.Cauchy.PhiResidueGlue

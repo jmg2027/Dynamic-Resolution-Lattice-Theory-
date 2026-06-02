@@ -148,15 +148,22 @@ theorem det_closed (p q : Int) (s : Nat → Int)
       show det s (k + 1) = q * qpow q k * det s 0
       rw [det_step p q s hrec k, ih]; ring_intZ
 
-/-- ★★★ **The unimodular dichotomy is one law at two multipliers.**  Both `det_golden` (`q=1`,
-    conserved) and `det_period2_alternates` (`q=−1`, alternating) are instances of the single
-    parametric `det_step`: the golden orbit has `s(n+2) = 3·s(n+1) − 1·s(n)` (`q=1`), the
-    period-2 orbit has `s(n+2) = 0·s(n+1) − (−1)·s(n)` (`q=−1`).  The "period-2 ↔ Cassini +1"
-    link is exactly: *same law, different `q`*. -/
+/-- The period-2 recurrence `s(n+2) = s n` is the `p=0, q=−1` shape `s(n+2) = 0·s(n+1) − (−1)·s n`. -/
+private theorem zero_sub_negone_mul (a b : Int) : (0 : Int) * a - (-1) * b = b := by
+  rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.neg_mul, Int.one_mul]
+  show (0 : Int) + -(-b) = b
+  rw [Int.neg_neg, E213.Meta.Int213.zero_add]
+
+/-- ★★★ **The dichotomy is one law at two multipliers — both branches factor through `det_step`.**
+    The golden orbit (`s(n+2) = 3·s(n+1) − 1·s(n)`, `q=1`, conserved) and *every* period-2 orbit
+    (`s(n+2) = s n`, rewritten `s(n+2) = 0·s(n+1) − (−1)·s(n)`, `q=−1`, alternating) are both
+    *instances of the single parametric `det_step`* — here enacted, not narrated: the q=−1 branch
+    is `det_step 0 (-1)`, not the standalone `det_period2_alternates`.  "Period-2 vs Cassini +1"
+    is exactly: same law, different `q`. -/
 theorem cassini_law_one_at_two_multipliers :
     (∀ n, det L (n + 1) = 1 * det L n)
-    ∧ (∀ (s : Nat → Int), (∀ m, s (m + 2) = s m) → ∀ n, det s (n + 1) = - det s n) :=
+    ∧ (∀ (s : Nat → Int), (∀ m, s (m + 2) = s m) → ∀ n, det s (n + 1) = (-1) * det s n) :=
   ⟨det_step 3 1 L (fun n => by rw [Int.one_mul]; exact L_rec n),
-   det_period2_alternates⟩
+   fun s hp => det_step 0 (-1) s (fun n => by rw [zero_sub_negone_mul]; exact hp n)⟩
 
 end E213.Lib.Math.CassiniUnimodular

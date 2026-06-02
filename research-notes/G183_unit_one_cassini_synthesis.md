@@ -14,30 +14,36 @@ the same object vs merely both `1`, and the gaps closable.
 
 ## Proved this session (∅-axiom)
 
-### C1 — the φ residue **is** the atomic glue `NS − NT = det P`  (`Cauchy/PhiResidueGlue`, 2 PURE)
-`phi_residue_is_glue`: the φ-convergent cross-determinant `W n` (the residue between dynamic
-convergent and frozen φ, `DepthFloorDetOne.W_eq_one`) **equals** `NS − NT`.
-`residue_unit_three_scales`: the *same* unit `1` read at three scales — **analysis** (`W n`),
-**atomicity** (`NS − NT`), **algebra** (`det P`) — chained by one theorem, not three coincident
-`1`s.  Genuine: `W n` is literally `det Pⁿ = (det P)ⁿ = 1`.
+### C1 — the orbit determinant `det Pⁿ` **is** the atomic glue `NS − NT`  (`Cauchy/PhiResidueGlue`, 3 PURE)
+**`orbit_det_is_glue`** (the load-bearing structural identity): the *actual matrix-power*
+determinant `det Pⁿ = Q00 n · Q11 n − Q01 n²` (`PnFibonacciUniversal.det_pn_universal`, `= 1`)
+**equals** `NS − NT` — `Q00 n · Q11 n = Q01 n² + (NS − NT)`.  A genuine arrow (shared matrix `P`,
+the convergent orbit's generator), not a coincidence of `1`s.  `phi_residue_is_glue`: the
+analysis-side reading — the φ-convergent cross-determinant `W n` reads the same constant
+`NS − NT`.  `residue_unit_three_scales` bundles algebra (`det Pⁿ`), analysis (`W`), atomicity
+(`NS − NT = 1`).  **(Adversarial-corrected: the original prose claimed `W n` was "literally
+`det Pⁿ`" with no proof — that was the both-equal-1 trap; replaced by the real
+`orbit_det_is_glue` via `det_pn_universal`.)**
 
 ### C2 — the parametric Cassini multiplier law (THE breakthrough)  (`CassiniUnimodular` §5, +4 PURE)
 `det_step`: for **any** 2nd-order `Int` recurrence `s(n+2) = p·s(n+1) − q·s(n)`, the Cassini
 determinant multiplies by the shift determinant `q` each step — `det s (n+1) = q · det s n` (one
 `ring_intZ`; **no `q²=1` needed**).  `det_closed`: `det s n = qⁿ · det s 0` (`qpow`,
 propext-free, since Mathlib-free Lean lacks `pow_succ`/`pow_zero` for `Int`).
-`cassini_law_one_at_two_multipliers`: `det_golden` (`q=1`, conserved `=5`) and
-`det_period2_alternates` (`q=−1`, alternating `±1`) are **one law at two multipliers** — subsumes
-the golden/oscillation dichotomy under a single parametric theorem.
+`cassini_law_one_at_two_multipliers`: `det_golden` (`q=1`, conserved `=5`) and the period-2 orbit
+(`q=−1`, alternating `±1`) are **one law at two multipliers** — *both branches enacted as
+`det_step` instances* (`det_step 3 1` and `det_step 0 (-1)`; adversarial-corrected — the period-2
+side originally reused the old standalone lemma, making the unification cosmetic).
 
-### C7 — unimodular (`q=1`) ⟺ depth-0 Cassini floor  (`Cauchy/CassiniDepthFloor`, 3 PURE)
+### C7 — `q=1` (`SL₂`) ⟹ depth-0 Cassini floor  (`Cauchy/CassiniDepthFloor`, 3 PURE)
 `cassini_conserved_depth0`: a `q=1` orbit (`SL₂` shift) has a *constant* Cassini, hence
-`polyDepthZ 0 (det s)` — the unimodular orbit is the divergence-ladder **floor**.
-`unimodular_floor_capstone`: **depth 0 ⟺ conserved Cassini ⟺ unimodular self-reference**.  The
-`DepthResidueFloor` ladder (e:1 → ζ(2):2 → ζ(3):3) is the *degree of departure* from this floor:
-the floor is the rule that is its own fixed point (constant-coeff `q=1` Möbius shift); each
-ζ-rung has `n`-dependent coefficients — polynomial drift from constant-Cassini self-reference.
-Generalizes `DepthResidueFloor.floor_polyDepth0` (the φ/`W` instance) to the law behind it.
+`polyDepthZ 0 (det s)` — the `SL₂` orbit is the divergence-ladder **floor**.  `sl2_cassini_floor`
+bundles the *sufficiency* + the golden instance (`det L = d = 5`).  Generalizes
+`DepthResidueFloor.floor_polyDepth0` (the φ/`W` instance) to the law behind it.
+**(Adversarial-corrected scope:** one-directional `q=1 ⟹ depth 0`, **not** a biconditional — the
+converse is false for degenerate `det s 0 = 0`; only `q=1`/`SL₂` is covered, **not** all
+unimodular `|q|=1` (`q=−1` period-2 alternates); and "the ζ-ladder is the degree of departure
+from this floor" is a **conjectural reading, not formalized**.)
 
 ## The proved unit-`1` connection map (agent 1)
 
