@@ -25,19 +25,29 @@ The constant floors are the leading coefficient times the factorial of the degre
 `204 = 34·3!` for the cubic leading-quotient, `6 = 1·3!` for the two cubes, `2 = 1·2!`
 and `22 = 11·2!` for the ζ(2) quadratics.
 
-## The coefficient-degree tower
+## The coefficient-degree statistic (e: 1, ζ(2): 2, ζ(3): 3)
 
-    e : degree 1 (linear)  →  ζ(2) : degree 2 (quadratic)  →  ζ(3) : degree 3 (cubic).
+The minimal-holonomic-recurrence coefficient degree is a discrete-polynomial statistic of
+the convergents: e (order 1) degree 1, ζ(2) (order 2) degree 2, ζ(3) (order 2) degree 3.
 
-This is the **Apéry zeta tower** as a strict ∅-axiom arithmetic statement: the minimal
-holonomic recurrence coefficient degree of `ζ(k)`'s convergents rises by one with `k`.
-The degree is the invariant that controls the Casoratian (discrete Wronskian) of the
-order-2 recurrence: `Cₙ = aₙbₙ₋₁ − aₙ₋₁bₙ` satisfies `c₂(n)·Cₙ = −c₀(n)·Cₙ₋₁`, whose
-closed forms are `±5/n²` (ζ(2), the `n²` from `c₂=(n+1)²`, `c₀=n²`) and `±6/n³` (ζ(3),
-the `n³` from `c₂=n³`, `c₀=(n−1)³`) — the denominators `n²`, `n³` are exactly `aperyBot`
-/ `aperyTop` here, of finite-difference depth 2 and 3.  The middle coefficient
-(`34n³−51n²+27n−5`, `11n²+11n+3`) cancels out of the Casoratian, so although it is the
-same degree it is not what the Wronskian sees.
+Honest scope: "finite-difference depth = polynomial degree" is the classical Newton fact
+(`Δ^d` of a degree-`d` polynomial is `lead·d!`, `Δ^{d+1} = 0`).  The content earned here is
+the **∅-axiom exact reindexed encoding** of the *actual* Apéry coefficients — the
+reflection prover `Meta.Nat.PolyNat` machine-checks the algebra, and the `n = m+2` reindex
+legitimately clears `Nat` truncation — not a new fact about differences.  The degree
+equals the **Casoratian (discrete Wronskian) denominator order** at the ζ(2), ζ(3) rungs:
+`Cₙ = aₙbₙ₋₁ − aₙ₋₁bₙ` propagates by `c₂(n)·Cₙ = −c₀(n)·Cₙ₋₁` (`CasoratianStep`), the
+outer coefficients `c₂ = (n+1)²/n³`, `c₀ = n²/(n−1)³` (= `zeta2Top`/`zeta2Bot`,
+`aperyTop`/`aperyBot`); the middle coefficient cancels, so although it shares the degree it
+is not what the Wronskian sees.
+
+What this is **not**: the degree is *incidental to irrationality*.  Apéry irrationality is
+driven by growth rates and the `lcm(1..n)` denominator bound, not coefficient degree —
+ζ(4) has an order-2 recurrence that does **not** prove irrationality, Catalan's `β(2)` an
+order-2 one with irrationality **open**, ζ(5) only order-3 recurrences.  So the
+e → ζ(2) → ζ(3) degree coincidence does **not** continue as an infinite tower.  ζ(3)'s
+degree 3 is the **exception** above the order-2, degree-2 Apéry-like (Zagier sporadic)
+family — of which ζ(2) is one member (`Ap/Domb/Almkvist–Zudilin/…`).
 
 All zero-axiom.
 -/
@@ -325,14 +335,17 @@ theorem apery_cubic_rung :
     polyDepth 3 aperyTop ∧ polyDepth 3 aperyLead ∧ polyDepth 3 aperyBot :=
   ⟨aperyTop_polyDepth, aperyLead_polyDepth, aperyBot_polyDepth⟩
 
-/-- ★★★ **The Apéry zeta tower, ∅-axiom.**  The Casoratian-controlling coefficients of
-    the minimal holonomic recurrences climb by exactly one degree from ζ(2) to ζ(3):
-    `zeta2Top = (n+1)²` has depth **2** (Casoratian `±5/n²`), `aperyTop = n³` has depth
-    **3** (Casoratian `±6/n³`).  Together with e's degree-1 ratio (`DivergenceDepth`),
-    the coefficient-degree tower is `e : 1 → ζ(2) : 2 → ζ(3) : 3` — the minimal
-    holonomic recurrence coefficient degree of `ζ(k)`'s convergents rises by one with
-    `k`, the structural invariant behind the Apéry irrationality proofs. -/
-theorem apery_zeta_tower :
+/-- ★★★ **The ζ(2) → ζ(3) coefficient-degree step, ∅-axiom.**  The Casoratian-controlling
+    outer coefficients of the minimal holonomic recurrences differ by exactly one degree:
+    `zeta2Top = (n+1)²` has depth **2** (its Casoratian denominator is `n²`), `aperyTop =
+    n³` has depth **3** (Casoratian denominator `n³`).  Together with e's degree-1 ratio
+    (`DivergenceDepth`) this is the `e : 1 → ζ(2) : 2 → ζ(3) : 3` coefficient-degree
+    statistic.  It is a fact about the recurrences (the Wronskian sees the outer
+    coefficient degree, `CasoratianStep`), **not** a cause of irrationality, and it does
+    not continue past ζ(3) — ζ(4)'s recurrence is order 2, ζ(5)'s order 3, neither proving
+    irrationality.  ζ(3)'s degree 3 is the exception above the order-2, degree-2
+    Apéry-like family. -/
+theorem zeta2_to_zeta3_degree_step :
     polyDepth 2 zeta2Top ∧ polyDepth 3 aperyTop :=
   ⟨zeta2_quadratic_rung.1, aperyTop_polyDepth⟩
 

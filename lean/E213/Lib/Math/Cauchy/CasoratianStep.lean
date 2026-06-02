@@ -22,19 +22,20 @@ expand (using the two recurrence hypotheses) to the common value
 `c₁·a₁·b₁ + c₀·a₀·b₁ + c₀·a₁·b₀`, so the identity holds with no sign or integer
 machinery — pure `ℕ`, ∅-axiom.
 
-**Consequence for the Apéry zeta tower** (`DepthAperyCubic`).  The propagation depends
-only on the outer coefficients `c₂`, `c₀`:
+**Scope.**  This is the subtraction-free *identity* only — the discrete Abel/summation-by-
+parts kernel.  The signed closed forms `Cₙ = ±5/n²` (ζ(2)), `±6/n³` (ζ(3)) require an
+`ℤ`/`ℚ` ambient and the sign-alternation of `Cₙ` (and the telescoping product); they are a
+separate, harder statement and are **not** proved here.  What this ℕ identity *does* give,
+cleanly and ∅-axiom, is the structural content that **the middle coefficient `c₁` cancels**,
+so the Casoratian propagates by the **outer** coefficients `c₂`, `c₀` alone.
 
-  * ζ(2): `c₂ = (n+1)²`, `c₀ = n²` (degree 2) ⟹ `(n+1)²·Cₙ = −n²·Cₙ₋₁` ⟹ `Cₙ ∝ ±1/n²`;
-  * ζ(3): `c₂ = n³` (`aperyTop`), `c₀ = (n−1)³` (`aperyBot`) (degree 3)
-    ⟹ `n³·Cₙ = (n−1)³·Cₙ₋₁` ⟹ `Cₙ ∝ 1/n³`.
-
-So the Casoratian denominator degree (`2`, `3`) is exactly the degree of the outer
-coefficients — the polynomials `zeta2Top`/`zeta2Bot`, `aperyTop`/`aperyBot` of
-`DepthAperyCubic`, of finite-difference depth `2`, `3`.  This is why the
-**coefficient-degree tower is the invariant the discrete Wronskian sees**, and why the
-middle coefficient (`11n²+11n+3`, `34n³−51n²+27n−5`), though the same degree, does not
-enter.
+**Connection to the Apéry zeta tower** (`DepthAperyCubic`).  Because only `c₂`, `c₀`
+propagate the Casoratian, the relevant degree is `deg c₂ = deg c₀`: `(n+1)²`/`n²` (degree
+2) for ζ(2), `n³` (`aperyTop`)/`(n−1)³` (`aperyBot`) (degree 3) for ζ(3) — the polynomials
+of `DepthAperyCubic`, of finite-difference depth `2`, `3`.  The middle coefficient
+(`11n²+11n+3`, `34n³−51n²+27n−5`), though the same degree, does not enter the Wronskian.
+(This is a statement about the recurrence, carrying no irrationality claim — see
+`DepthAperyCubic`.)
 
 All zero-axiom.
 -/
