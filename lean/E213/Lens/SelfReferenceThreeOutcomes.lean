@@ -4,11 +4,13 @@ import E213.Lens.ResidueReentry
 /-!
 # SelfReferenceThreeOutcomes — one Raw self-pointing, three co-present outcomes
 
-`seed/AXIOM/05_no_exterior.md` §5.2 + §5.5: the residue's self-reference is one event read
-several ways.  Three structurally distinct outcomes are now each closed ∅-axiom in their
-*sharp* form, and this file bundles them as the co-presence theorem — not a single operator
-(the three act on different objects: `not` on Raw values, the peel relation on Raw, the
-re-pointing on predicates), but three readings of the *same* self-pointing:
+`seed/AXIOM/05_no_exterior.md` §5.2 + §5.5 read the residue's self-reference as one event
+seen several ways.  Three structurally distinct outcomes are now each closed ∅-axiom in
+their *sharp* form, and this file bundles them.  The bundle is a conjunction of three
+independent facts about three *different* objects (`not` on Raw values, the peel relation on
+Raw, re-pointing on predicates) — the "same self-pointing read three ways" is the §5.2
+reading, not part of the Lean (no operator unifies the three types, and none reduces to
+another):
 
   * **Oscillate** (Bool / liar, bounded loop).  On a Bool value, `not` has minimal period
     **exactly 2** (`SelfReferenceForms.bool_min_period_two`): never period 1 (no fixed
@@ -38,18 +40,20 @@ open E213.Lens.Bool213.Raw (isBool not)
 open E213.Lens.FlatOntology (Object1)
 open E213.Lens.PredicateSelfEncoding (predicateToRaw)
 
-/-- ★★★ **One self-pointing, three co-present outcomes.**  For the Raw substrate, all three
-    readings of §5.2/§5.5 hold simultaneously, each in its sharp form:
+/-- ★★ **Three sharp facts about the Raw substrate, none reducible to the others.**  For the
+    Raw substrate, the three §5.2/§5.5 readings each hold in their sharp form:
 
     1. **oscillate** — every Bool value has `not`-orbit of minimal period exactly `2`
-       (closes at `2`, never at `1`): the bounded liar loop;
+       (closes at `2`, never at `1`): a bounded loop on the Bool values;
     2. **converge** — the peel relation is well-founded and terminal exactly at the atoms:
        the descent settles at the floor;
     3. **escape** — re-pointing the encoded residue never closes the cover: the unbounded
        residue ascent.
 
-    Three readings of one Raw self-pointing — co-present, none privileged, no operator
-    forced across their different types. -/
+    A conjunction of three independent sharp results about three *different* objects (`not`
+    on Bool-valued Raws, the peel relation on Raw, re-pointing on predicates).  That they are
+    "one self-pointing read three ways" is the §5.2 reading, not part of the Lean: no
+    operator is forced across the three types, and none of the three reduces to another. -/
 theorem self_reference_three_outcomes (n : Nat) :
     -- OSCILLATE (bounded): minimal period exactly 2 on the Bool values
     (∀ r : Raw, isBool r = true →

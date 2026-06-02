@@ -53,23 +53,31 @@ Three outcomes by what the unit residue does next: **loop** (bounded, Bool), **s
     "single-point" (single-pointedness is necessary, `reentry_fixed_imp_single`, not
     sufficient).
 
-### The cross-scale unit (`Lib/Math/Cauchy/ReentryUnit`, 4/0)
+### The shared unit (`Lib/Math/Cauchy/ReentryUnit`, 4/0)
 
-  - ★ `slash_depth_is_minOverflow` — the slash constructor's depth is exactly `minOverflow`
-    over its parts: the foundational pointing step *is* the tower's least overflow.
-  - ★ `reentry_unit_across_scales` — the foundational descent (`Lambek`, converging) and the
-    tower overflow (`DepthOverflowDuality`, escaping) move by the identical `Nat` unit `1`;
-    only well-foundedness distinguishes the direction.  No operator forced across types —
-    the shared object is the unit they both step by.
+  - `peel_overflow_is_unit` — **the load-bearing link**: a peel, read through the tower's
+    `Overflow` predicate, reduces to the same unit surplus `c.depth + 1 ≤ p.depth` the tower
+    uses (via the shared `overflow_is_unit_surplus`).  The one place two `1`s from different
+    files are proven the same `Nat` successor.
+  - `slash_depth_is_minOverflow` — lighter: `(x/y).depth` and `minOverflow` are both `(·)+1`,
+    so agree modulo `add_comm` (a shared `+1` *shape*, not a deep fact).
+  - `reentry_unit_across_scales` — bundles the three; only the `peel_overflow_is_unit`
+    conjunct is load-bearing.  **No operator forced across types** — the shared object is the
+    `Nat` unit, and only that conjunct proves two such units the same.
 
-### Frozen = dynamic (`Lib/Math/Real213/FibCassiniNat`, +2/0) — the §5.7 open item, closed
+### Dynamic-vs-frozen `Nat` shadow (`Lib/Math/Real213/FibCassiniNat`, +2/0)
 
-  - ★ `convergent_never_frozen` — no Pell-Fibonacci convergent satisfies the frozen relation
-    `Q = 0` (`a² = ab + b²`): Cassini gives `a² + 1 = ab + b²`, so `Q = −1` forever.
-  - ★ `frozen_eq_dynamic` — the dynamic convergents approach the frozen φ-cut from below
-    (`fib_convergent_below_phi`), conserve `Q` at the Pell unit (`fib_cassini_norm`), and
-    never reach `Q = 0`.  The frozen φ is the limit; the gap is the conserved unit `1`,
-    the count-Lens residue at the algebraic-fixed-point scale (never settling, §5.5).
+This is the ∅-axiom `Nat` shadow of §5.7, **not** an identification of frozen with dynamic
+(that needs the real limit, outside the `Nat` reach):
+
+  - ★ `convergent_never_frozen` — no Pell-Fibonacci convergent satisfies the homogeneous
+    frozen relation `a² = ab + b²`: Cassini gives `a² + 1 = ab + b²`, so it sits one `Nat`
+    step off.
+  - `dynamic_approaches_never_reaches_frozen` — bundles: each convergent lies below the
+    frozen cut φ (`fib_convergent_below_phi`), satisfies the Cassini form, and never lands on
+    `a² = ab + b²`.  The orbit approaches φ and stays exactly the Cassini step `+1` off.
+    (Whether this `+1` is "the same" unit as the descent/overflow steps is narrative — no
+    `Nat` term links them here.)
 
 ### Synthesis capstone (`Lens/SelfReferenceThreeOutcomes`, 1/0)
 
@@ -78,20 +86,24 @@ Three outcomes by what the unit residue does next: **loop** (bounded, Bool), **s
     (well-founded + terminal-iff-atom), escape (never closes).  Co-present, none privileged,
     no operator forced across the three types.
 
-## The spine: one unit `1`
+## The spine: the unit `1` (what is proved vs. what is narrative)
 
-Every result here is the count-Lens residue of **one distinguishing**, read in one place:
+The four readings each move by a `+1`.  **Only one cross-reading identity is proved**: the
+converge-unit and the escape-unit are the *same* `Nat` successor
+(`ReentryUnit.peel_overflow_is_unit`).  The rest of the table is a thematic grouping, not a
+single proved `1`:
 
-| reading | the unit `1` | direction | fate |
-|---|---|---|---|
-| oscillate (Bool) | the toggle (period 2 = two of one) | in place | loops, never settles |
-| converge (Nat) | `part_depth_succ_le`: `c.depth + 1 ≤ p.depth` | down | settles at floor (WF) |
-| escape (residue) | `overflow_is_unit_surplus`: `bound + 1 ≤ val` | up | never closes (top-less) |
-| frozen/dynamic | Pell unit `Q = −1` vs frozen `Q = 0` | the gap | approaches, never reaches |
+| reading | the `+1` | proved same as others? |
+|---|---|---|
+| converge (Nat) | `part_depth_succ_le`: `c.depth + 1 ≤ p.depth` | **yes** — = escape-unit (`peel_overflow_is_unit`) |
+| escape (residue) | `overflow_is_unit_surplus`: `bound + 1 ≤ val` | **yes** — = converge-unit |
+| oscillate (Bool) | period 2 (two of one toggle) | no — narrative grouping |
+| frozen/dynamic | Cassini step `a²+1` vs frozen `a²` | no — narrative grouping |
 
-`reentry_unit_across_scales` proves the converge-unit and the escape-unit are the *same*
-`Nat` `1`; `frozen_eq_dynamic` shows the same unit is the never-closing gap at the algebraic
-scale.
+So the honest claim: the converge and escape steps are literally the same `Nat` unit; the
+oscillation period-2 and the Cassini `+1` are *thematically* the same "one distinguishing"
+but are not linked to that unit by any `Nat` term.  The spine is a real identity between two
+of the four, plus a reading over the other two.
 
 ## Open (foundational axis)
 

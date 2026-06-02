@@ -2,30 +2,30 @@ import E213.Theory.Raw.API
 import E213.Lib.Math.Cauchy.DepthOverflowDuality
 
 /-!
-# ReentryUnit — the foundational descent unit IS the tower overflow unit
+# ReentryUnit — the foundational descent step and the tower overflow share the `Nat` unit
 
 The self-applying re-entry has two faces, proven separately: the **foundational** descent
-(`Theory.Raw.Lambek`, peeling a Raw drops `depth` by the unit, well-founded → converges)
-and the **tower** overflow (`Cauchy.DepthOverflowDuality`, a value exceeds its bound by the
-unit, top-less → escapes).  This file states the one fact behind both: the unit is the
-*same* `Nat` surplus `1`, the count-Lens residue of one distinguishing.
+(`Theory.Raw.Lambek`, peeling a Raw drops `depth`, well-founded → converges) and the
+**tower** overflow (`Cauchy.DepthOverflowDuality`, a value exceeds its bound, top-less →
+escapes).  The load-bearing link this file makes is one fact: a peel, restated through the
+tower's own `Overflow` predicate, reduces to the **same** unit surplus `+1` the tower uses
+(`peel_overflow_is_unit`, via the shared `overflow_is_unit_surplus`).  That is the one place
+two `1`s from different files are identified as the same `Nat` successor.
 
-  * **The slash constructor realizes the minimal overflow.**  `(x / y).depth =
-    max(x.depth, y.depth) + 1` is exactly `minOverflow` (the pointwise-least overflow,
-    `bound + 1`) over the parts' depths (`slash_depth_is_minOverflow`).  The act of pointing
-    (parenting two distinct Raws) adds precisely the irreducible unit on top of the deeper
-    part — the foundational pointing step *is* the tower's minimal overflow.
+The two supporting observations are lighter:
 
-  * **Each peel is an overflow.**  A part's depth is overflowed by its whole's depth
-    (`part_is_overflow`: `IsPart c p → Overflow (const c.depth) (const p.depth)`), and that
-    overflow is, by `Nat`, the unit surplus `c.depth + 1 ≤ p.depth`
-    (`peel_overflow_is_unit`).
+  * **The slash depth matches the minimal-overflow shape.**  `(x / y).depth = max(x.depth,
+    y.depth) + 1` and `minOverflow bound = bound + 1` are both `(·) + 1`, so they agree
+    modulo `add_comm` (`slash_depth_is_minOverflow`) — a shared `+1` shape, not a deep fact.
 
-So the downward (converging, well-founded) and upward (escaping, top-less) readings move by
-the identical unit `1`; well-foundedness is the only thing that distinguishes which way the
-unit is read.  This is the precise, cross-scale form of the engine's first property — *the
-step is the irreducible unit* — without forcing the two acts (peel on `Raw`, overflow on
-`Nat → Nat`) into one operator: the shared object is the `Nat` unit they both move by.
+  * **Each peel is an overflow.**  `IsPart c p → c.depth < p.depth` is, by definition of
+    `Overflow`, an overflow of `p.depth` over `c.depth` (`part_is_overflow`) — `part_depth_lt`
+    read through the tower predicate.
+
+So the converging (well-founded) and escaping (top-less) readings move by the same `Nat`
+unit `1`; well-foundedness is what distinguishes the direction.  This does **not** force the
+two acts (peel on `Raw`, overflow on `Nat → Nat`) into one operator — the only shared object
+is the `Nat` unit, and only `peel_overflow_is_unit` proves they are the same one.
 
 All zero-axiom.
 -/
@@ -36,17 +36,16 @@ open E213.Theory (Raw)
 open E213.Theory.Raw.Lambek (IsPart part_depth_lt part_depth_succ_le)
 open E213.Lib.Math.Cauchy.DepthOverflowDuality (Overflow minOverflow overflow_is_unit_surplus)
 
-/-! ## §1 — the slash constructor is the minimal overflow over its parts -/
+/-! ## §1 — the slash depth matches the minimal-overflow shape -/
 
-/-- ★★ **The pointing step is the minimal overflow.**  `(x / y).depth = max(x.depth,
-    y.depth) + 1`, which is exactly `minOverflow` (the least overflow, `bound + 1`) of the
-    constant bound `max(x.depth, y.depth)`.  Parenting two distinct Raws adds precisely the
-    irreducible unit above the deeper part — the foundational step realizes the tower's
-    minimal-overflow generator. -/
-theorem slash_depth_is_minOverflow (x y : Raw) (h : x ≠ y) (i : Nat) :
-    (Raw.slash x y h).depth = minOverflow (fun _ => max x.depth y.depth) i := by
+/-- **The slash depth has the minimal-overflow shape.**  `(x / y).depth = max(x.depth,
+    y.depth) + 1` and `minOverflow bound = bound + 1` are both `(·) + 1`; over the constant
+    bound `max(x.depth, y.depth)` they agree modulo `add_comm`.  A shared `+1` shape — the
+    content is only that both definitions are a successor. -/
+theorem slash_depth_is_minOverflow (x y : Raw) (h : x ≠ y) :
+    (Raw.slash x y h).depth = minOverflow (fun _ => max x.depth y.depth) 0 := by
   rw [Raw.depth_slash]
-  -- `minOverflow bound i = bound i + 1`; goal `1 + max .. = max .. + 1`.
+  -- `minOverflow bound 0 = bound 0 + 1`; goal `1 + max .. = max .. + 1`.
   show 1 + max x.depth y.depth = max x.depth y.depth + 1
   exact Nat.add_comm 1 _
 
@@ -66,26 +65,23 @@ theorem peel_overflow_is_unit (c p : Raw) (i : Nat) :
     Overflow (fun _ => c.depth) (fun _ => p.depth) i ↔ c.depth + 1 ≤ p.depth :=
   overflow_is_unit_surplus _ _ i
 
-/-! ## §3 — the cross-scale unit, bundled -/
+/-! ## §3 — the shared unit, bundled -/
 
-/-- ★★★ **One unit, two scales.**  For the pointing step `x / y`:
-
-    1. its depth is the minimal overflow over its parts (`slash_depth_is_minOverflow`) — the
-       foundational step *is* the tower's least overflow;
-    2. every peel from it is an overflow (`part_is_overflow`);
-    3. that overflow is exactly the unit surplus `+1` (`peel_overflow_is_unit`).
-
-    The foundational descent (`Lambek`, converging) and the tower overflow
-    (`DepthOverflowDuality`, escaping) move by the identical `Nat` unit `1`; only
-    well-foundedness distinguishes the direction.  No operator is forced across the two
-    types — the shared object is the unit they both step by. -/
+/-- ★★ **The peel and the overflow share the `Nat` unit.**  The load-bearing fact is the
+    third conjunct: a peel from `x / y`, read through the tower's `Overflow` predicate,
+    reduces to the unit surplus `c.depth + 1 ≤ (x / y).depth` — the *same* `+1` the tower
+    uses, via the shared `overflow_is_unit_surplus`.  Conjuncts 1–2 are the lighter
+    supporting shape-matches (`slash_depth_is_minOverflow` is `add_comm`; `part_is_overflow`
+    is `part_depth_lt` read through `Overflow`).  No operator is forced across the two types
+    (peel on `Raw`, overflow on `Nat → Nat`); only the `Nat` unit is shared, and only the
+    third conjunct proves two such units the same. -/
 theorem reentry_unit_across_scales (x y : Raw) (h : x ≠ y) :
-    (∀ i : Nat, (Raw.slash x y h).depth = minOverflow (fun _ => max x.depth y.depth) i)
+    ((Raw.slash x y h).depth = minOverflow (fun _ => max x.depth y.depth) 0)
     ∧ (∀ (c : Raw) (i : Nat), IsPart c (Raw.slash x y h) →
         Overflow (fun _ => c.depth) (fun _ => (Raw.slash x y h).depth) i)
     ∧ (∀ (c : Raw) (i : Nat), Overflow (fun _ => c.depth) (fun _ => (Raw.slash x y h).depth) i
         ↔ c.depth + 1 ≤ (Raw.slash x y h).depth) :=
-  ⟨fun i => slash_depth_is_minOverflow x y h i,
+  ⟨slash_depth_is_minOverflow x y h,
    fun c i hc => part_is_overflow c _ hc i,
    fun c i => peel_overflow_is_unit c _ i⟩
 

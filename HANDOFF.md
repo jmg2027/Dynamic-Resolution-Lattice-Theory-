@@ -314,7 +314,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `Object1`, `D` (deferred, forced-abstraction risk).
   - **Self-reference marathon — DONE** (this branch, `research-notes/G177`): the three
     outcomes of the one engine (oscillate / converge / escape) each taken to its **sharp**
-    form, tied by the cross-scale **unit `1`**, plus the §5.7 frozen=dynamic identification.
+    form, plus the shared-unit link (converge=escape only) and the §5.7 `Nat` shadow.
     - **Oscillate** (`SelfReferenceForms` §3–§4, 11/0): `bool_min_period_two` (minimal period
       exactly 2), `bool_notIter_eq_self_iff` (`notIter k r = r ↔ even k`),
       `oscillation_region_is_bool` (`not` fixed-point-free *exactly* on the Bool values;
@@ -325,14 +325,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
     - **Escape** (`ResidueReentry` §4, 12/0): `reentry_fixed_iff` (fixed points are *exactly*
       the round-tripping indicators — single-pointedness necessary not sufficient),
       `object1_true_exactly_one`.
-    - **Cross-scale unit** (`Lib/Math/Cauchy/ReentryUnit`, 4/0, NEW file):
-      `slash_depth_is_minOverflow` (the slash depth IS the tower's minimal overflow),
-      `reentry_unit_across_scales` (foundational descent + tower overflow move by the
-      identical `Nat` unit `1`; only well-foundedness distinguishes direction).
-    - **Frozen = dynamic** (`Real213/FibCassiniNat`, +2/0; closes the G172 §5.7 open item):
-      `convergent_never_frozen` (no convergent reaches `Q=0`; the orbit sits at the Pell unit
-      `Q=−1` forever), `frozen_eq_dynamic` (the dynamic orbit approaches frozen φ, gap = the
-      conserved unit `1`).
+    - **Shared unit** (`Lib/Math/Cauchy/ReentryUnit`, 4/0, NEW file): `peel_overflow_is_unit`
+      (the load-bearing link — a peel read through the tower's `Overflow` IS the unit surplus
+      `c.depth+1 ≤ p.depth`, the one place two `1`s are proven the same `Nat`),
+      `reentry_unit_across_scales` (bundles; only that conjunct is load-bearing,
+      `slash_depth_is_minOverflow` is `add_comm`).  No operator forced across types.
+    - **Dynamic-vs-frozen `Nat` shadow** (`Real213/FibCassiniNat`, +2/0; the §5.7 `Nat`
+      shadow, NOT a real identification): `convergent_never_frozen` (no convergent satisfies
+      the homogeneous frozen relation `a²=ab+b²`; sits one `Nat` step off),
+      `dynamic_approaches_never_reaches_frozen` (orbit below φ + Cassini + never lands on the
+      frozen relation).
     - **Synthesis capstone** (`Lens/SelfReferenceThreeOutcomes`, 1/0, NEW file):
       `self_reference_three_outcomes` — one Raw self-pointing, three co-present sharp
       outcomes, no operator forced across their types.  Remaining open: a concrete
