@@ -95,10 +95,11 @@ scale.
 
 ## Open (foundational axis)
 
-  - **Concrete non-round-tripping indicator** — a specific single-point predicate
-    `Object1 r` with `predicateToRaw n (Object1 r) ≠ r` (single-pointed yet non-fixed),
-    making the `reentry_fixed_iff` refinement concrete.  Needs a `numeral`-level
-    computation; left for the encoding-arithmetic track.
+  - **Concrete non-round-tripping indicator** — CLOSED (`ResidueReentry` §5):
+    `object1_b_singlepoint_nonfixed` — `Object1 Raw.b` is single-pointed yet non-fixed, its
+    encoding being `numeral 0 ≠ b` (`object1_b_encodes_to_numeral_zero`).  The
+    `reentry_fixed_iff` refinement is now concrete: single-pointedness does not imply
+    fixedness.
   - **ε₀ as a native diagonal limit** — whether iterating the height-diagonal yields a native
     `ε₀` (no Mathlib `Ordinal`) or bottoms out at `ω^ω` (genuinely uncertain; `G173`).
   - **Rejected (category error)** — a single self-applying operator unifying `not`, the peel

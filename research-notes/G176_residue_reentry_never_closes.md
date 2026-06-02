@@ -1,7 +1,7 @@
 # G176 — the residue re-enters as the next operand, and the self-cover never closes
 
 **Date**: 2026-06-02.  **Status**: closed ∅-axiom result (foundational / residue axis).
-**Source of truth**: `lean/E213/Lens/ResidueReentry.lean` (12 PURE / 0 DIRTY).
+**Source of truth**: `lean/E213/Lens/ResidueReentry.lean` (14 PURE / 0 DIRTY).
 **Anchors**: `Lens/FlatOntologyClosure` (`Object1`, `object1_injective`,
 `object1_not_surjective`, `self_covering_closure`), `Lens/PredicateSelfEncoding`
 (`predicateToRaw`, `predicate_self_encoding_closure`), `Cauchy/DepthHeightDiagonal`
@@ -106,10 +106,12 @@ re-opens.
     predicates (as in `PredicateSelfEncoding`), the decidable reach of the encoding.  The
     concrete witness above is independent of the prefix length `n` (the undifferentiated
     predicate is two-point at the atoms for every `n`).
-  - The fixed set is characterized abstractly (round-tripping indicators); a *concrete*
-    single-point indicator that fails to round-trip (hence single-pointed yet non-fixed)
-    would need a `numeral`-level computation of `predicateToRaw n (Object1 r) ≠ r` — left
-    for the encoding-arithmetic track, the characterization being the cleaner statement.
+  - The concrete single-point-yet-non-fixed witness is **closed** (§5): `Object1 Raw.b` is an
+    indicator (single-pointed), but `object1_b_encodes_to_numeral_zero` shows its encoding is
+    `numeral 0 ≠ b` (no numeral is `b`), so `object1_b_singlepoint_nonfixed` —
+    `Object1 (predicateToRaw n (Object1 b)) = Object1 (numeral 0) ≠ Object1 b`.  The
+    round-trip condition of `reentry_fixed_iff` is a genuine constraint, witnessed concretely:
+    single-pointedness does not imply fixedness.
 
 ## Open (foundational axis)
 

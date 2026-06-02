@@ -49,7 +49,8 @@ namespace E213.Lens.ResidueReentry
 open E213.Theory (Raw)
 open E213.Lens.FlatOntology (Object1)
 open E213.Lens.FlatOntologyClosure (object1_injective object1_not_surjective)
-open E213.Lens.PredicateSelfEncoding (predicateToRaw)
+open E213.Lens.PredicateSelfEncoding (predicateToRaw predicateToRaw_kernel truthTableNat_const_false)
+open E213.Lens.Number.Nat213.Raw (numeral numeral_ne_b)
 
 /-! ## §1 — re-entering the residue never closes the cover -/
 
@@ -225,5 +226,40 @@ theorem reentry_fixed_characterization (n : Nat) (P : Raw → Bool) :
     ∧ (Object1 (predicateToRaw n P) = P
        → ∀ s t : Raw, P s = true → P t = true → s = t) :=
   ⟨reentry_fixed_iff n P, reentry_fixed_imp_single n P⟩
+
+/-! ## §5 — a concrete single-point indicator that is NOT fixed
+
+`reentry_fixed_iff` says single-pointedness is necessary but not sufficient — the encoding
+must round-trip.  Here is the concrete witness that it genuinely fails: the indicator of the
+atom `b` (`Object1 Raw.b`) is single-pointed, yet its encoding lands on `numeral 0 ≠ b` (no
+numeral is `b`, `numeral_ne_b`), so re-pointing it gives a *different* indicator.  A
+single-point predicate that is not a fixed point — the iff "fixed ⟺ single-point" is
+genuinely proper. -/
+
+/-- The encoding of `Object1 Raw.b` is `numeral 0`, not `b`: `Object1 b` is false on every
+    numeral (no numeral is `b`), so its truth table is all-zero and encodes to `numeral 0`. -/
+theorem object1_b_encodes_to_numeral_zero (n : Nat) :
+    predicateToRaw n (Object1 Raw.b) = numeral 0 := by
+  have hfalse : ∀ i : Nat,
+      Object1 Raw.b (numeral i) = (fun _ : Raw => false) (numeral i) := by
+    intro i
+    show Object1 Raw.b (numeral i) = false
+    exact decide_eq_false (numeral_ne_b i)
+  rw [predicateToRaw_kernel n (Object1 Raw.b) (fun _ => false) (fun i _ => hfalse i)]
+  show numeral (E213.Lens.PredicateSelfEncoding.truthTableNat n (fun _ => false)) = numeral 0
+  rw [truthTableNat_const_false]
+
+/-- ★★★ **A single-point indicator that re-pointing does not fix.**  `Object1 Raw.b` is true
+    at exactly one Raw (`object1_true_exactly_one`), yet `Object1 (predicateToRaw n (Object1
+    b)) = Object1 (numeral 0) ≠ Object1 b` (since `numeral 0 ≠ b` and `Object1` is injective).
+    So single-pointedness does **not** imply fixedness — the round-trip condition of
+    `reentry_fixed_iff` is a genuine constraint, witnessed concretely. -/
+theorem object1_b_singlepoint_nonfixed (n : Nat) :
+    (Object1 Raw.b Raw.b = true ∧ ∀ s : Raw, Object1 Raw.b s = true → s = Raw.b)
+    ∧ Object1 (predicateToRaw n (Object1 Raw.b)) ≠ Object1 Raw.b := by
+  refine ⟨object1_true_exactly_one Raw.b, ?_⟩
+  rw [object1_b_encodes_to_numeral_zero n]
+  intro h
+  exact numeral_ne_b 0 (object1_injective h)
 
 end E213.Lens.ResidueReentry
