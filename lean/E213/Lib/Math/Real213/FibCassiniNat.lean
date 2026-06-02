@@ -138,6 +138,53 @@ theorem fib_convergent_below_phi (n : Nat) :
   exact E213.Lib.Math.Real213.PhiAsCut.phiCut_false_of_norm
     (fib (2 * n + 2)) (fib (2 * n + 1)) hform
 
+/-! ## Frozen = dynamic — the orbit approaches φ but never settles, the gap is the unit
+
+`05_no_exterior.md` §5.7: φ read two ways — *frozen* (the algebraic fixed point of
+`P(x) = (2x+1)/(x+1)`, i.e. the root of `x² = x + 1`, realised here as the decidable cut
+`phiCut`) and *dynamic* (the limit the Pell/Fibonacci convergents `fib(2n+2)/fib(2n+1)`
+approach).  The two are the same object, and the ∅-axiom identification carries the same
+unit `1` that runs through the self-reference engine:
+
+  * the frozen relation is `Q(x,1) = x² − x − 1 = 0`;
+  * every dynamic convergent conserves the golden form at the **Pell unit**:
+    `Q(a,b) = a² − ab − b² = −1` (Nat form `a² + 1 = ab + b²`, `fib_cassini_norm`);
+  * so the convergent **never** satisfies the frozen relation `Q = 0`
+    (`convergent_never_frozen`) — the orbit approaches φ (all convergents below,
+    `fib_convergent_below_phi`) but never reaches it, the perpetual gap being exactly the
+    conserved unit `1`.
+
+The frozen fixed point is the limit; the dynamic orbit is the never-settling approach; the
+difference is the count-Lens residue `1` — the §5.5 self-completion at the algebraic scale,
+the same unit as the descent step and the overflow surplus. -/
+
+/-- ★★ **The dynamic orbit never reaches the frozen relation.**  No convergent satisfies the
+    frozen fixed-point equation `Q = 0` (`a² = a·b + b²`): the Cassini norm gives
+    `a² + 1 = a·b + b²`, so `a² = a·b + b²` would force `a² + 1 = a²`.  The golden form sits
+    at the Pell unit `−1`, never `0`. -/
+theorem convergent_never_frozen (n : Nat) :
+    fib (2 * n + 2) * fib (2 * n + 2)
+      ≠ fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) := by
+  intro h
+  have hc := fib_cassini_norm n
+  rw [← h] at hc
+  exact Nat.succ_ne_self _ hc
+
+/-- ★★★ **Frozen = dynamic.**  The §5.7 identification, ∅-axiom: the dynamic convergents
+    approach the frozen cut φ from below (`fib_convergent_below_phi`), conserving the golden
+    form at the Pell unit (`fib_cassini_norm`, `Q = −1`), and **never** reach the frozen
+    fixed-point relation `Q = 0` (`convergent_never_frozen`).  The frozen φ is the limit the
+    dynamic orbit perpetually approaches; the gap is the conserved unit `1` — the same
+    count-Lens residue as the descent step and the overflow surplus, here at the
+    algebraic-fixed-point scale (never settling, §5.5). -/
+theorem frozen_eq_dynamic (n : Nat) :
+    E213.Lib.Math.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false
+    ∧ fib (2 * n + 2) * fib (2 * n + 2) + 1
+        = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1)
+    ∧ fib (2 * n + 2) * fib (2 * n + 2)
+        ≠ fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) :=
+  ⟨fib_convergent_below_phi n, fib_cassini_norm n, convergent_never_frozen n⟩
+
 /-! ## Toward the Cauchy-complete limit — consecutive-convergent cross-product
 
 For the `CauchyCutSeq` limit construction (`Analysis/CauchyComplete`), the key
