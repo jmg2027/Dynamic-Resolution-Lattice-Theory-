@@ -53,6 +53,18 @@ theorem state_transition_decode (r : Raw) :
     ∧ (IsTerminal r ↔ IsAtom r) :=
   ⟨decompose r, terminal_iff_atom r⟩
 
+/-- ★★ **The transition is unambiguous (single-valued / deterministic).**  No state is *both*
+    a halt-atom and a branch: `¬ (IsAtom r ∧ ∃ x y h, r = Raw.slash x y h)`.  With
+    `state_transition_decode` (every state is *at least one* case) this gives **exactly one**
+    case per state — the decode is a deterministic (single-valued), total transition, not a
+    relation.  (Proof: a slash equals neither atom — `Raw.slash_ne_a/b`.) -/
+theorem transition_deterministic (r : Raw) :
+    ¬ (IsAtom r ∧ ∃ (x y : Raw) (h : x ≠ y), r = Raw.slash x y h) := by
+  rintro ⟨hatom, x, y, h, hr⟩
+  rcases hatom with ha | hb
+  · exact Raw.slash_ne_a x y h (hr.symm.trans ha)
+  · exact Raw.slash_ne_b x y h (hr.symm.trans hb)
+
 /-! ## §2 — determinacy: the transition determines the behaviour -/
 
 /-- ★★★ **Determinacy.**  Any two behaviours `h`, `h'` that both implement the transition `c`
@@ -276,5 +288,35 @@ theorem raw_traceEq_iff_eq (r r' : Raw) :
 theorem finite_states_finitely_separated (t t' : E213.Term.Internal.Tree) (h : t ≠ t') :
     ∃ q : List Bool, lToShape t q ≠ lToShape t' q :=
   treeDiffPath t t' h
+
+/-! ## §8 — capstone: the µF carrier is reachable, reduced, with a total deterministic transition -/
+
+/-- ★★★ **The residue's µF carrier reads as a reachable, reduced state machine with a total
+    deterministic transition.**  Four properties hold simultaneously of the finite residue
+    carrier:
+
+    1. **total transition** — every state decodes to a halt-atom or a branch with two distinct
+       next-states, terminal iff atomic (`state_transition_decode`, defined for *all* `r`);
+    2. **deterministic** — that decode is single-valued: no state is both atom and branch, so
+       exactly one case applies (`transition_deterministic`);
+    3. **reachable** — every state is built from an initial atom within `depth` steps
+       (`every_state_reachable`);
+    4. **reduced** — no two distinct states are behaviourally equivalent
+       (`traceEq_finite_minimal`): the trace map is injective.
+
+    Reachable + reduced is what *minimisation* produces (no unreachable states, no mergeable
+    states).  The **further** classical fact — that a reachable, reduced automaton is the
+    *unique* smallest machine with its behaviour, up to isomorphism (Myhill–Nerode) — is **not**
+    formalised here; only these four component properties are.  (A Lens reading — §6 facet
+    discipline; not a claim the residue *is* an automaton.) -/
+theorem mu_carrier_reachable_reduced_machine :
+    (∀ r : Raw,
+        (r = Raw.a ∨ r = Raw.b ∨ ∃ (x y : Raw) (h : x ≠ y), r = Raw.slash x y h)
+        ∧ (IsTerminal r ↔ IsAtom r))
+    ∧ (∀ r : Raw, ¬ (IsAtom r ∧ ∃ (x y : Raw) (h : x ≠ y), r = Raw.slash x y h))
+    ∧ (∀ r : Raw, ∃ seed : Raw, IsAtom seed ∧ ∃ k : Nat, k ≤ r.depth ∧ BuildsIn k seed r)
+    ∧ (∀ t t' : E213.Term.Internal.Tree, TraceEq (lToShape t) (lToShape t') ↔ t = t') :=
+  ⟨state_transition_decode, transition_deterministic, every_state_reachable,
+   traceEq_finite_minimal⟩
 
 end E213.Theory.Raw.StateMachine

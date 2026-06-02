@@ -159,6 +159,28 @@ This is the finite-side counterpart of `spineL_escapes`: over µF, observation i
 finite observation are the genuinely infinite ones (`spineL`), which is exactly the residue's
 un-enclosed face.
 
+## Capstone: the µF carrier is reachable, reduced, deterministic
+
+The readings above combine into one statement (`mu_carrier_reachable_reduced_machine`).  The
+finite residue carrier, read as a state machine, satisfies *simultaneously* four properties:
+
+  1. **total transition** — every state decodes to a halt-atom or a branch with two distinct
+     next-states, terminal iff atomic (`state_transition_decode`, §1; defined for *all* states);
+  2. **deterministic** — that decode is single-valued: no state is both atom and branch, so
+     exactly one case applies (`transition_deterministic`, §1);
+  3. **reachable** — every state is built from an initial atom within `depth` steps
+     (`every_state_reachable`, §5);
+  4. **reduced** — no two distinct states are behaviourally equivalent (`traceEq_finite_minimal`,
+     §7): the trace map is injective.
+
+Reachable + reduced is what *minimisation* produces — no unreachable states, no mergeable
+states.  The **further** classical fact — that a reachable, reduced automaton is the *unique*
+smallest machine with its behaviour, up to isomorphism (Myhill–Nerode) — is **not** formalised
+here; only these four component properties are.  So the self-pointing act's finite carrier
+*reads as* a reachable, reduced, deterministic machine: `Raw` reads not merely as *a* state
+machine in this Lens but as a *minimised* one.  The infinite traces that escape this finite
+carrier (`spineL`) are exactly the residue's un-enclosed face.
+
 ## Open frontier (honest scope)
 
   - This is a *reading*, not an identity (`§6`, the facet discipline): the FSM vocabulary is one
@@ -172,7 +194,7 @@ un-enclosed face.
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (17 PURE) — the FSM-reading theorems above; in
+- `lean/E213/Theory/Raw/StateMachine.lean` (19 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.
