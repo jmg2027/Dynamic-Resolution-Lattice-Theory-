@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (35 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (42 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 35 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 42 PURE)
 
 | theorem | content |
 |---|---|
@@ -48,6 +48,9 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `markov_partner_is_triple` | the explicit Vieta partner `markovEq a b (3ab−c)` (tree edge map) |
 | `fib_spine_sqrt_neg_one` (+`_pred`) | **`fib(2n+3) ∣ fib(2n+2)²+1`** ∀n, from Cassini — φ's convergents are the spine's `√(−1)` roots |
 | `cohn_sq_neg_one_mod` (+`cohn5_…`) | **`C² ≡ −I (mod c)`** for `tr C = 3c`, `det C = 1` (Cayley–Hamilton) — the Cohn matrix is order-4 mod `c`, a copy of the Gaussian `i = S` |
+| `coprime_vieta_step` | `gcd(a,c)=1 ∧ c+c'=3ab ⟹ gcd(a,c')=1` — the Vieta step preserves coprimality |
+| `MarkovReachable`, `markov_reachable_coprime` | **every tree triple is pairwise coprime** (C3, induction on the tree); `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc` (C2) |
+| `neg_one_qr_of_mod` | the encoding from a modular inverse in residue form `(b·b')%c = 1` (Bezout-ready) |
 
 Reused infra: `Gcd213.{dvd_sub_213, dvd_add_213}`, `NatHelper.{mul_sub_distrib, mul_mod_right,
 mul_mul_mul_comm_213}`.  The `%`-residue form (not `∣`) is used in `decide` statements — the
@@ -59,8 +62,8 @@ Green = elementary/done; Yellow = formalizable but a tedious Nat-descent or mode
 Red = needs imports far from the current arithmetic core, or depends on a Yellow/Red prerequisite.
 
 - **C1 — neighbor congruence.**  `markovEq a b c → c ∣ a²+b²`.  **Proven** (`markov_neighbor_dvd`).  **Green ✓.**
-- **C2 — single-pair coprimality.**  `gcd(b,c)=1` for the ordered max-element triple.  Classical; Lean: not yet.  **Green/Yellow** — descent on `c`; the minimal lemma actually needed to fire C4.  *Highest value/effort ratio — do next.*
-- **C3 — full pairwise coprimality.**  `gcd(a,b)=gcd(b,c)=gcd(a,c)=1`.  **Yellow** — same descent ×3 + minimality.  Hurwitz "n∈{1,3}" NOT required (gcd-divides-all + minimal-solution descent suffices).
+- **C2 — single-pair coprimality.**  `gcd(b,c)=1`.  **Proven along the tree** (`markov_reachable_gcd_bc`) — the input C4 needs, now structural.  **Green ✓.**
+- **C3 — full pairwise coprimality.**  `gcd(a,b)=gcd(b,c)=gcd(a,c)=1`.  **Proven along the tree** (`markov_reachable_coprime`): the *invariant* of the Vieta generation (`coprime_vieta_step` preserves it under a jump, transpositions permute it), over the inductive `MarkovReachable` predicate (sound: `markov_reachable_is_triple`).  No descent / no Hurwitz needed — preservation + induction.  **Green ✓.**  (Gap to *all* Markov triples = "every triple is reachable", Markov's theorem, which is the descent.)
 - **C4 — `u²≡−1` encoding.**  invertibility ⟹ `c∣(a·b')²+1`.  **Proven** (`neg_one_qr_of_inverse`).  **Green ✓** (gains full force once C2 lands).
 - **C5 — prime-power root count.**  `x²≡−1 (mod pᵏ)` has exactly 2 roots if `p≡1 (mod 4)`, 0 if `p≡3 (mod 4)`.  The `p≡3` (0-root) branch is the clean win — order-4 / FLT argument; the repo HAS `universal_flt_main` (`a^(p−1)≡1 mod p`, ∅-axiom, per-prime gcd input).  The `p≡1` (existence) branch is **Yellow→Red** (constructing a root without `Classical`).  Finitary instances done (`no_sqrt_neg_one_mod_{3,7,11,19}`).
 - **C6 — root-count ⇒ uniqueness reduction.**  `SqrtNegOneTwoRoots c → MarkovMaxUnique c`.  The *implication* is classical; the crux is **injectivity of the residue map** `triple ↦ a·b⁻¹ (mod c)` — recovering `(a,b)` from `u` via the Markov equation + size bounds.  **Yellow/Red.**  Formalizable but multi-week; a sloppy version risks asserting injectivity by fiat / going vacuous.  **Stated as an explicit OPEN target — never claimed.**
@@ -108,8 +111,10 @@ root all coincide on the Fibonacci convergents.
 
 ## Next
 
-1. **C2** (single-pair `gcd(b,c)=1`) — the next ∅-axiom deliverable; Nat-descent on `c` using
-   `markov_le_3mul` + `Gcd213`.  Unlocks unconditional firing of C4.
+1. **C2→C4 inverse-existence bridge** — close the last gap to *unconditional* firing of the
+   encoding on tree triples: `gcd213 b c = 1 ⟹ ∃ b', (b·b')%c = 1`.  Needs
+   `gcd213 b c = (modBezout b c).1` (or both `= Nat.gcd`) to feed `modInverseFromBezout`; then
+   `neg_one_qr_of_mod` fires.  `markov_reachable_gcd_bc` already supplies the `gcd=1`.
 2. **C5 `p≡3` branch, general** — via `universal_flt_main`: `x²≡−1 ⟹ x^(p−1)≡(−1)^((p−1)/2)≡−1`
    contradicts FLT `≡1` for `p≡3 (mod 4)`.  Moderate; needs the per-prime gcd hypothesis route
    generalised or applied per prime.

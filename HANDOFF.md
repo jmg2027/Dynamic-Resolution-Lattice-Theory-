@@ -2,7 +2,7 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
-(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `35 pure / 0 dirty`).
+(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `42 pure / 0 dirty`).
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
@@ -10,7 +10,7 @@ prove ∅-axiom neighbours, run agent discussion, build conjectures.
 
 ## What Was Done This Session
 
-### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (35 PURE / 0 dirty)
+### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (42 PURE / 0 dirty)
 The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery existed in the repo.
 
 - **§1–2 Neighbor congruence.** `markov_le_3mul` (every entry `≤ 3·`product of other two);
@@ -29,6 +29,12 @@ The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery 
   (∀n), from `golden_min_attained_on_fib`: φ's convergents ARE the spine's `√(−1)` roots.
 - **§9 Cohn matrix.** `cohn_sq_neg_one_mod` — `C²≡−I mod c` for `tr=3c, det=1` (Cayley–Hamilton),
   pure ℕ: the order-4 generator `S` (Gaussian `i`) survives mod every Markov number.
+- **§10 Pairwise coprimality (C2/C3).** `coprime_vieta_step` (Vieta step preserves `gcd`),
+  `MarkovReachable` (inductive tree), `markov_reachable_coprime` (every tree triple pairwise
+  coprime), `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc`
+  (the `gcd(b,c)=1` the encoding needs).  No descent / no Hurwitz — preservation + induction.
+- **§11 Encoding from a modular inverse.** `neg_one_qr_of_mod`: `(b·b')%c = 1 ⟹ c ∣ (a·b')²+1`
+  (residue form, via `AddMod213.div_add_mod`).
 - **§6 `p≡3` obstruction.** `no_sqrt_neg_one_mod_{3,7,11,19}` (`−1` non-residue mod `p≡3(4)`)
   + `sqrt_neg_one_mod_5_and_13` contrast.
 - **§7 The conjecture, formalised.** `MarkovMaxUnique c`, `SqrtNegOneTwoRoots c` (abbrev so
@@ -60,10 +66,13 @@ unchanged — see `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 
 ## Open Problems (Priority Order)
 
-### 1. C2 — single-pair coprimality `gcd(b,c)=1` for the ordered max triple — NEXT ∅-axiom target
-Highest value/effort (red-team).  Unlocks unconditional firing of the `√(−1)` encoding.
-`markov_common_dvd_sq` is the foothold; remaining step is the minimal-solution descent on `c`
-(a prime dividing all three entries descends below `(1,1,1)`).  Use `markov_le_3mul` + `Gcd213`.
+### 1. C2/C3 — pairwise coprimality — DONE along the tree (§10)
+`markov_reachable_coprime` (every reachable triple pairwise coprime, via `coprime_vieta_step`
+preservation + induction over `MarkovReachable`); `markov_reachable_gcd_bc` gives `gcd(b,c)=1`.
+No descent / no Hurwitz needed.  **Remaining bridge to unconditional encoding-firing**:
+`gcd213 b c = 1 ⟹ ∃ b', (b·b')%c = 1` — needs `gcd213 = (modBezout …).1` (or `= Nat.gcd`) to
+feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Markov triples =
+"every triple reachable" = Markov's theorem, the descent — separate.)
 
 ### 2. C5 `p≡3` no-root, GENERAL (currently finitary only)
 Via the repo's ∅-axiom `universal_flt_main` (`a^(p−1)≡1 mod p`): `x²≡−1 ⟹ x^(p−1)≡(−1)^((p−1)/2)

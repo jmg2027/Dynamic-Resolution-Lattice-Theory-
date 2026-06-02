@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (35 PURE / 0 dirty):
+explicit open target.  Source of truth (42 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -91,6 +91,21 @@ required.  The companion `fib_spine_sqrt_neg_one_pred` reads the same Cassini pr
 other factor (`fib(2n+1) ∣ fib(2n+2)² + 1`).  Concretely `fib(9) = 34 ∣ fib(8)² + 1 = 442 =
 34·13`, and the root `21 = fib(8)` mod `34` is exactly the predicted convergent.
 
+## Pairwise coprimality is the tree's invariant
+
+The square-root encoding needs `b` invertible mod `c`, i.e. `gcd(b,c) = 1`.  This is not an
+extra assumption: pairwise coprimality is the **invariant** of the Vieta generation.  At the
+root `(1,1,1)` it is trivial, and a Vieta jump `c ↦ c' = 3ab − c` preserves it, because
+`gcd(a,c') = gcd(a,c)` — any common divisor `g` of `a` and `c'` divides `3ab` (through `a`) and
+`c'`, hence divides `c = 3ab − c'`, hence divides `gcd(a,c) = 1` (`coprime_vieta_step`).  Over an
+explicit reachability predicate (`MarkovReachable`: root, Vieta jump on the last entry, and the
+two transpositions), induction then gives `markov_reachable_coprime`: **every tree triple is
+pairwise coprime**, with `markov_reachable_gcd_bc` extracting the `gcd(b,c) = 1` the encoding
+needs.  `markov_reachable_is_triple` confirms the predicate is sound — every reachable triple
+satisfies `x²+y²+z² = 3xyz` (via `markov_vieta` on jumps, `markov_symm` on transpositions) — so
+these are genuine, pairwise-coprime Markov solutions, not an empty class.  And once an inverse is
+in hand in residue form `(b·b') % c = 1`, `neg_one_qr_of_mod` fires the encoding directly.
+
 ## Relation to the modular tower
 
 The Markov coefficient is `NS = 3`, the trace of `P = [[2,1],[1,1]]`, and the tree is the
@@ -118,4 +133,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `35 pure / 0 dirty`.
+Reports `42 pure / 0 dirty`.
