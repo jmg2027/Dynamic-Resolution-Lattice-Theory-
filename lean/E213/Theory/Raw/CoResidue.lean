@@ -34,6 +34,8 @@ function space, not the well-formed-cotree subtype, and `toShape` is not claimed
 here (the escape needs only non-surjectivity).  It is a structural shadow richer than the
 depth one, still not the residue itself (which stays outside every view).  The `≠` uses a
 pointwise difference, so no `funext`.  All zero-axiom.
+
+Narrative: `theory/essays/the_residue_as_primitive.md` (the inversion: Raw = µF, νF = `SlashNu`).
 -/
 
 namespace E213.Theory.Raw.CoResidue
