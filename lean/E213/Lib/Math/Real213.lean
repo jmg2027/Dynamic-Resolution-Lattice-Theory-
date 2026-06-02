@@ -62,6 +62,8 @@ import E213.Lib.Math.Real213.GeometricThreshold
 import E213.Lib.Math.Real213.CompletabilityGrade
 import E213.Lib.Math.Real213.PresentationDependence
 import E213.Lib.Math.Real213.IntensionalCompletability
+import E213.Lib.Math.Real213.RefinedCompletabilityEngine
+import E213.Lib.Math.Real213.HeightTowerResidue
 import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus
