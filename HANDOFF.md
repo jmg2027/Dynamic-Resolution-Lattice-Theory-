@@ -8,6 +8,26 @@ Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
 status + scratch.  This file keeps the current open targets, the closed index,
 and hygiene notes.
 
+## Latest arc — π CF non-holonomicity marathon (this session)
+
+**`Cauchy/HurwitzianCF` (19 PURE / 0 dirty) + `theory/math/analysis/cf_holonomicity_hierarchy.md`
+(promoted).**  The CF-holonomicity hierarchy on the partial-quotient sequence `(aᵢ)` (the
+THIRD spiral-layer reading, distinct from the cross-determinant det-one floor):
+`QuasiPolyCF p a` = polynomial on each residue class mod `p` (formal handle on Hurwitzian /
+holonomic partial quotients).  Tier 0 `periodic_quasipoly` (quadratic irrationals); tier 1
+`e_cf_quasipoly` (e=[2;1,2k,1], `QuasiPolyCF 3`) + `tan_cf_quasipoly` (tan 1, `QuasiPolyCF 2`)
+— the folklore "Hurwitzian ⟹ holonomic" made explicit; certificate `polyDepth_diff_recurrence`
+(`Δ^{d+1}=0`, C-finite per section); **properness** `geometric_not_quasipoly` (`2ⁿ ∉ QuasiPolyCF`
+any p, via `liftK_geo`/`geom_infinite_depth`) — and `2ⁿ` is C-finite, so `QuasiPolyCF ⊊
+C-finite ⊊ holonomic` STRICTLY: the top tier is non-Hurwitzian, weaker than non-holonomic.
+Reusable pure infra: `pow_mul_pure`, `mul_sub_pure_le`, `polyDepth_congr`, `resP_mod`,
+`res3_div` (each dodging a propext/Quot.sound-leaking core lemma; key gotchas: `rw` on an
+`Iff` or inside an `ite` condition pulls propext, `Nat.mul_assoc`/`mul_right_comm`/`mul_add_mod`
+/`pow_mul`/`pow_add` all leak — use NatHelper/PureNat).  4 research agents (literature,
+repo-infra, red-team, synthesis) — see `research-notes/G170`.  Headline π non-holonomicity
+stays a conjecture, strictly above π non-Hurwitzian; FGS asymptotic obstruction is the
+credible route.  Next ∅-axiom step: `QuasiPolyCF ⟹ poly-bounded p.q.` (Newton growth bound) ⟹ μ=2.
+
 ## State
 
 The **Lens tree is 0 real DIRTY** (sealed-by-design = the `Prop`-atom thesis
