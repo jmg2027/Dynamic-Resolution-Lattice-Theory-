@@ -1,4 +1,4 @@
-# G183 — the unit `1`, the Cassini multiplier, and the depth-0 floor (frozen=dynamic synthesis)
+# G184 — the unit `1`, the Cassini multiplier, and the depth-0 floor (frozen=dynamic synthesis)
 
 **Date**: 2026-06-02.  **Status**: closed ∅-axiom results + honest non-bridges.  **Method**:
 three parallel agents (unit-1 connection map + unit-unification conjectures + cross-frame
