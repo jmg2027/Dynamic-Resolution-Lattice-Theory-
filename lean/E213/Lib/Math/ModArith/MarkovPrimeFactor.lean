@@ -4,6 +4,7 @@ import E213.Meta.Nat.PureNat
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.PolyNatMTactic
 import E213.Lib.Math.ModArith.UniversalFLT
 
 /-!
@@ -39,12 +40,7 @@ theorem pow_mul_loc (a m : Nat) : ∀ n, a ^ (m * n) = (a ^ m) ^ n
 /-- ★★★ **`(e+1)² ≡ 1 (mod e+2)`** — i.e. `(p−1)² ≡ 1 (mod p)` for `p = e+2 ≥ 2`.  Writing
     `p = e+2`: `(e+1)² = (e+2)·e + 1`, so the square is `1` mod `p`.  Pure `ℕ`. -/
 theorem neg_one_sq_mod (e : Nat) : ((e + 1) * (e + 1)) % (e + 2) = 1 % (e + 2) := by
-  have hid : (e + 1) * (e + 1) = (e + 2) * e + 1 := by
-    have hL : (e + 1) * (e + 1) = e * e + e + e + 1 := by
-      rw [add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
-    have hR : (e + 2) * e + 1 = e * e + e + e + 1 := by
-      rw [add_mul, two_mul, ← Nat.add_assoc]
-    exact hL.trans hR.symm
+  have hid : (e + 1) * (e + 1) = (e + 2) * e + 1 := by ring_nat
   rw [hid, Nat.add_comm ((e + 2) * e) 1, Nat.mul_comm (e + 2) e]
   exact add_mul_mod_self_pure 1 (e + 2) e
 
@@ -195,13 +191,9 @@ theorem euclid_via_inverse (p a b a' : Nat) (hinv : (a * a') % p = 1)
   have hsub := dvd_sub_213 (p * (b * q)) (b * (a * a')) p hle ⟨b * q, rfl⟩ hdb
   rwa [hbq, E213.Tactic.NatHelper.add_sub_cancel_right] at hsub
 
-/-- `(y+d)² = y² + d·(2y+d)`.  ∅-axiom expansion. -/
+/-- `(y+d)² = y² + d·(2y+d)`.  ∅-axiom — `ring_nat` (main's reflection ring for `ℕ`). -/
 theorem sq_expand (y d : Nat) : (y + d) * (y + d) = y * y + d * (2 * y + d) := by
-  have hL : (y + d) * (y + d) = y * y + (d * y + (d * y + d * d)) := by
-    rw [add_mul, Nat.mul_add, Nat.mul_add, Nat.mul_comm y d, Nat.add_assoc]
-  have hR : y * y + d * (2 * y + d) = y * y + (d * y + (d * y + d * d)) := by
-    rw [Nat.mul_add, two_mul, Nat.mul_add, Nat.add_assoc]
-  exact hL.trans hR.symm
+  ring_nat
 
 /-- The only multiple of `p` strictly between `0` and `2p` is `p`. -/
 theorem eq_p_of_dvd (p s : Nat) (hp : 1 < p) (h0 : 0 < s) (hlt : s < 2 * p) (hd : p ∣ s) :

@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.MarkovTree
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.PolyNatMTactic
 import E213.Lib.Math.ModArith.MarkovPrimeFactor
 
 /-!
@@ -121,8 +122,7 @@ theorem markov_neighbor_dvd_all (a b c : Nat) (h : markovEq a b c) :
   · -- a ∣ b² + c²: permute to put a last.  (a,b,c) → (b,a,c) → (b,c,a)
     have h1 : markovEq b a c := by
       show b * b + a * a + c * c = 3 * b * a * c
-      have hmul : 3 * b * a * c = 3 * a * b * c := by
-        rw [mul_assoc 3 b a, Nat.mul_comm b a, ← mul_assoc 3 a b]
+      have hmul : 3 * b * a * c = 3 * a * b * c := by ring_nat
       rw [Nat.add_comm (b * b) (a * a), hmul]; exact h
     have h2 : markovEq b c a := markov_symm b a c h1
     exact markov_neighbor_dvd b c a h2
@@ -160,23 +160,10 @@ theorem neg_one_qr_of_inverse (a b c b' j : Nat) (h : markovEq a b c)
   -- M with (b·b')² = 1 + c·M  (introduced abstractly via the explicit witness)
   obtain ⟨M, hsq⟩ : ∃ M, (b * b') * (b * b') = 1 + c * M := by
     refine ⟨2 * j + c * (j * j), ?_⟩
-    rw [hinv]
-    -- normalise LHS and RHS to the common form `1 + (cj + (cj + (cj)(cj)))`
-    have hL : (1 + c * j) * (1 + c * j)
-              = 1 + (c * j + (c * j + (c * j) * (c * j))) := by
-      rw [E213.Tactic.NatHelper.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, Nat.add_assoc]
-    have hR : 1 + c * (2 * j + c * (j * j))
-              = 1 + (c * j + (c * j + (c * j) * (c * j))) := by
-      rw [Nat.mul_add, Nat.two_mul, Nat.mul_add, ← mul_assoc c c (j * j),
-          ← mul_mul_mul_comm_213 c j c j, Nat.add_assoc]
-    exact hL.trans hR.symm
+    rw [hinv]; ring_nat
   -- b'²·(a²+b²) = (a b')² + (b b')²
   have hkey : (b' * b') * (a * a + b * b) = (a * b') * (a * b') + (b * b') * (b * b') := by
-    have e1 : (b' * b') * (a * a) = (a * b') * (a * b') := by
-      rw [Nat.mul_comm (b' * b') (a * a), ← mul_mul_mul_comm_213 a b' a b']
-    have e2 : (b' * b') * (b * b) = (b * b') * (b * b') := by
-      rw [Nat.mul_comm (b' * b') (b * b), ← mul_mul_mul_comm_213 b b' b b']
-    rw [Nat.mul_add, e1, e2]
+    ring_nat
   -- c divides the b'²-multiple of (a²+b²)
   have hdvd : c ∣ ((a * b') * (a * b') + (b * b') * (b * b')) := by
     rw [← hkey]; exact dvd_mul_left_213 c (b' * b') _ (markov_neighbor_dvd a b c h)
@@ -528,8 +515,7 @@ theorem markov_reachable_is_triple {a b c : Nat} (h : MarkovReachable a b c) : m
   | @swap12 a b c hr ih =>
     -- markovEq a b c → markovEq b a c
     show b * b + a * a + c * c = 3 * b * a * c
-    have hmul : 3 * b * a * c = 3 * a * b * c := by
-      rw [mul_assoc 3 b a, Nat.mul_comm b a, ← mul_assoc 3 a b]
+    have hmul : 3 * b * a * c = 3 * a * b * c := by ring_nat
     rw [Nat.add_comm (b * b) (a * a), hmul]; exact ih
   | @swap23 a b c hr ih => exact markov_symm a b c ih
 
