@@ -40,6 +40,14 @@ classical formal handle on "P-recursive / holonomic partial quotients".
 Reusable pure infrastructure born here: `pow_mul_pure`, `mul_sub_pure_le`, `polyDepth_congr`,
 `resP_mod`, `res3_div` (each replacing a `propext`/`Quot.sound`-leaking core lemma).
 
+A companion file `Cauchy/PositiveFloorUnbounded.lean` (11 PURE) adds the unboundedness side:
+
+| Theorem | Statement (informal) |
+|---|---|
+| `positive_floor_unbounded` | a positive *constant* top finite-difference (`polyDepth (m+1) s`, `Δ^{m+1}s(0) ≥ 1`) ⟹ `s` unbounded, with explicit witness `n` for every bound `B` |
+| `bounded_floor_zero` | (decidable `ℕ` contrapositive) bounded depth-`(m+1)` sequence ⟹ `Δ^{m+1}s(0) = 0` |
+| `ePQ_unbounded` | e's partial quotients are unbounded — its `2k+2` section has positive top difference, so `positive_floor_unbounded` fires |
+
 ## Narrative
 
 ### The quasi-polynomial class
@@ -120,9 +128,28 @@ Two honest layers sit below it:
 The credible route is the **Flajolet–Gerhold–Salvy asymptotic obstruction**: a holonomic
 sequence has asymptotics of the restricted form `C·ρ⁻ⁿ·n^θ·(log n)^κ`, against which π's
 Gauss–Kuzmin statistics are conjecturally incompatible — but this is itself conditional on
-π being Gauss–Kuzmin normal, which is also open.  Adamczewski–Bugeaud prove the related
-statement that an algebraic number of degree `≥ 3` cannot have an *automatic* continued
-fraction; the holonomic analogue for π is beyond current methods.
+π being Gauss–Kuzmin normal, which is also open.  A second obstruction is **Klazar's growth
+bound** (holonomic ⟹ `|aₙ| ≤ cⁿ·(n!)^d`): super-`(n!)^d` growth ⟹ non-holonomic — the route
+to a genuinely *non-holonomic* witness above the merely *non-Hurwitzian* `2ⁿ`.
+Adamczewski–Bugeaud prove the related statement that an algebraic number of degree `≥ 3`
+cannot have an *automatic* continued fraction; the holonomic analogue for π is beyond current
+methods.
+
+### Where the difficulty is localized — the boundedness frontier
+
+Whether π's partial quotients are **bounded** is itself **open** (not even a sharply-stated
+conjecture; unboundedness is only the Gauss–Kuzmin *heuristic*, and π is not known to be
+Gauss–Kuzmin normal).  This open boundedness is exactly where the difficulty sits.  *If* π's
+partial quotients were bounded, π would be non-holonomic by an elementary route — bounded +
+holonomic ⟹ eventually periodic (a classical fact for integer P-recursive sequences, via the
+mod-`m` periodicity of the polynomial recurrence coefficients; Garrabrant–Pak) ⟹ quadratic
+irrational (Lagrange) ⟹ contradiction with π transcendental.  Since π's partial quotients are
+*expected unbounded*, this elementary route is unavailable: any proof of π's non-holonomicity
+must engage the unbounded growth of the partial quotients **directly**.  `PositiveFloorUnbounded`
+proves the ∅-axiom nucleus of this picture — a genuine positive-degree polynomial section
+*forces* unbounded partial quotients (`ePQ_unbounded` for e) — while deliberately **not**
+proving "bounded ⟹ eventually constant", which over `ℕ` is the monotone-sequence principle,
+equivalent to the limited principle of omniscience (LPO; Mandelkern 1988), hence not ∅-axiom.
 
 ### Relationship to the irrationality measure
 
