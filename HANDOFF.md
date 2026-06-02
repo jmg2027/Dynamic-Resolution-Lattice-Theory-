@@ -66,7 +66,7 @@ PURE) + research-notes
 `poly_idM` (flat monomial-map normal form; the `k`-variable generalization of `PolyNat`
 (1-var) / `PolyInt2` (2-var)).  The `ring`-replacement that `ac_rfl` (propext-dirty) cannot be
 over ℕ.  Discharges any multivariate `Nat` identity in one line — used to land `cube_reorder`
-and the two `cubic_eq` reorders, unblocking the generic cubic.  Plus `Meta/Nat/PolyNatMTactic` — the **`ring_nat`** elaboration tactic (auto-reifies a `Nat` `=` goal and discharges via `poly_idM`), the ergonomic ∅-axiom `ring` for ℕ; `DepthCubicGeneric` now uses `by ring_nat` throughout (no hand-written `PE` trees).
+and the two `cubic_eq` reorders, unblocking the generic cubic.  Plus `Meta/Nat/PolyNatMTactic` — the **`ring_nat`** elaboration tactic (auto-reifies a `Nat` `=` goal and discharges via `poly_idM`), the ergonomic ∅-axiom `ring` for ℕ; `DepthCubicGeneric` now uses `by ring_nat` throughout (no hand-written `PE` trees).  And `Meta/Int213/PolyIntM` (26 PURE) + `PolyIntMTactic` — the **ℤ** companion `poly_idMZ` / **`ring_intZ`** tactic (k-variable, with neg + zero-coefficient drop so signed cancellation `(a−b)(a+b)=a²−b²` normalises).  Infra stack now: PolyNat(1,ℕ)·PolyInt2(2,ℤ)·PolyNatM(k,ℕ,ring_nat)·PolyIntM(k,ℤ,ring_intZ) — a ∅-axiom `ring` for both ℕ and ℤ.
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor
 (`DepthFloorDetOne`, depth 0, self-same rule = own fixed point) the depth is the drift of a
