@@ -13,6 +13,12 @@ The genuinely new proof-line is **populating νF** — turning the lone escaping
 *consolidation* of integers the DRLT side already deploys `(NS,NT,d)=(3,2,5)`, not new results;
 two are category errors to record-and-stop (below).  Recommended order: **C1 → C4 → C2**.
 
+**STATUS 2026-06-02**: P1 + P2 + P3 **CLOSED** ∅-axiom in `Theory/Raw/CoResidue` §13–§15
+(64 → 92 PURE).  `spineOf` family (`spine_family_populates_nu`), `coSwap` νF endomorphism
+(`coSwap_nu_endomorphism`), `boolSpine` bit-stream injection (`boolSpine_injects_bitstreams`).
+Adversarial-reviewed; essay `the_residue_as_primitive.md` updated ("Populating νF").  Remaining:
+P4 (exact descent length), P5 (spineL uniqueness), P6 (νF capstone, pointwise only).
+
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
 ### P1 (≙ agent-C1) — a spine *family*: one escaping behaviour per finite Raw ★ top pick

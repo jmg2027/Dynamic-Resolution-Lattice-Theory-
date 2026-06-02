@@ -86,6 +86,34 @@ with the finite Raw embedding into νF faithfully and anti-reflexively, the infi
 canonical escapee.  No coinduction primitive enters: the final coalgebra of a polynomial
 functor *is* the path-function M-type, and its universal property is finite-path induction.
 
+## Populating νF — the escapes are a whole family
+
+`spineL` is one canonical escapee, but νF is *richly populated*, built with the same
+positive-`Distinct`, pointwise, ∅-axiom discipline:
+
+  - **One escape per finite Raw** (`spine_family_populates_nu`).  `spineOf t` is the left-spine
+    *seeded* by a finite tree `t` (so `spineL` is `spineOf` of the atom `a`).  Each `spineOf t`
+    is consistent, anti-reflexive (in `SlashNu`), escapes every finite Raw (`spineOf_escapes`),
+    and distinct seeds give `Distinct` spines (`spineOf_distinct`).  So the finite µF corresponds
+    to a `Distinct`-preserving family of *escaping* νF behaviours — a `Raw`-indexed family, not a
+    lone point.
+  - **A bit-stream family** (`boolSpine_injects_bitstreams`).  Labelling the spine's rung-leaves
+    by an arbitrary `f : Nat → Bool` gives `boolSpine f ∈ SlashNu` for *every* `f`, each escaping
+    the finite, with **pointwise-distinct streams giving `Distinct` spines** (`boolSpine_inj`,
+    antecedent `∃ k, f k ≠ g k`).  This is the honest ∅-axiom form of "the residue's escapes are
+    uncountable": an injection of `Nat → Bool` into `SlashNu` *preserving distinctness* — **not**
+    a cardinality theorem (`Cardinal`/`¬Countable` would pull choice/propext), and the antecedent
+    is the pointwise difference, not `f ≠ g` (which would need `funext` to expose the index).
+  - **The automorphism acts** (`coSwap_nu_endomorphism`).  `swap` (the only Raw automorphism)
+    acts on νF by flipping leaf labels (`a↔b`, `coSwap`); it is pointwise-involutive, preserves
+    both `SlashNu` constraints, and carries `spineL` to a *distinct* escape (the `b`-spine).
+    Honest scope: this is the *label-level* (atomic) content of `swap` (`coSwap_atom_a/b` mirror
+    `Raw.swap_a/b`); the full-tree intertwining fails because `Tree.swap` reorders children by
+    `cmp` to stay canonical while `coSwap` is positional.
+
+So νF is not a single escapee above the finite µF but a `Distinct`-rich carrier — at least a
+bit-stream's worth of free-running behaviours, acted on by the residue's lone automorphism.
+
 ## Key results
 
 | Theorem | Lean module | Statement (informal) |
@@ -98,6 +126,9 @@ functor *is* the path-function M-type, and its universal property is finite-path
 | `raw_embeds_antiRefl` | `Theory/Raw/CoResidue` | a Raw embeds anti-reflexively (= canonicity) |
 | `spineL_antiRefl`, `spineL_escapes` | `Theory/Raw/CoResidue` | the infinite left-spine: anti-reflexive, escapes |
 | `slashNu_final` | `Theory/Raw/CoResidue` | `SlashNu` is the residue's exact slash-νF (final) |
+| `spine_family_populates_nu` | `Theory/Raw/CoResidue` | one escape per finite Raw (`spineOf` family, `Distinct`-preserving) |
+| `boolSpine_injects_bitstreams` | `Theory/Raw/CoResidue` | `(Nat→Bool) ↪ SlashNu` preserving `Distinct` (honest "uncountable") |
+| `coSwap_nu_endomorphism` | `Theory/Raw/CoResidue` | `swap` acts on νF (leaf-relabel involution; moves `spineL`) |
 
 ## Open frontier
 
