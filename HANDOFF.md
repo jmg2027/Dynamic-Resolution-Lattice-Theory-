@@ -349,6 +349,18 @@ A–D + B are now **all closed ∅-axiom this arc**:
       `self_reference_three_outcomes` — one Raw self-pointing, three co-present sharp
       outcomes, no operator forced across their types.  Remaining open: a concrete
       non-round-tripping indicator (numeral-level), ε₀ native limit (`G173`).
+  - **The form of the residue — DONE** (whole-repo read + 4-agent + pro/con debate;
+    `research-notes/G178`, `Lib/Math/ResidueForm`, 1/0).  Foundational synthesis of "the
+    all-encompassing concept of the residue": it is the self-applying engine read OUT into
+    everything (initiality, `SemanticAtom.raw_initial`) and enclosed by nothing
+    (`object1_not_surjective`) — **source without enclosure** — with the unit `1` (axis/glue/
+    det = NS−NT, byte-identical CDI-9) its invariant and φ/`P`/(3,2,5) its forced self-form.
+    `no_exterior_source_without_enclosure` bundles the four faces as the ∅-axiom content of
+    §5.1 "no exterior", **honestly disclaimed as naming, not capture** (the residue stays
+    outside every view — conjunct 2).  Debate verdict: keep source-without-enclosure + shared
+    unit; cut "captured object / single operator" (category error) and "bounded independent
+    domain" → "self-justified, no exterior".  Honest limit: structural (β), not operational
+    (γ) — `theory/meta/raw_derivation_levels`.
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
