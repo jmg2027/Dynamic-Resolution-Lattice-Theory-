@@ -748,4 +748,42 @@ theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovR
   · exact E213.Lib.Math.ModArith.MarkovPrimeFactor.no_sqrt_neg_one_4k3 k
       (u % (4 * k + 3)) hpg hx0 hxlt hpx
 
+/-! ## §14 — toward the uniqueness certificate framework: the recovery map
+
+The Stern-Brocot tree node theorem (`Cohomology/BipartiteStermBrocotClassification`) already gives
+that every coprime `(p,q)` is a *unique* tree node — so the Markov uniqueness conjecture is purely
+that the **node ↦ maximum** labelling is injective.  The phantom-root filter
+(`markov_phantom_root_filter`, `markov_composite_separation`) certifies this per-`c` by reducing
+the `2`-D search over `(a,b)` to a `1`-D recovery search per root.  The backbone of that reduction
+is the **recovery map**: from a triple's root `u = a·b⁻¹ (mod c)` the smallest entry is recovered
+as `a = (u·b) mod c`.  Made general here (the engine a per-`c` certificate runs on). -/
+
+/-- ★★★★ **The recovery map.**  For `1 < c`, `b` invertible mod `c` (`gcd213 b c = 1`), and
+    `a < c`, the smallest entry is recovered from the root `u = (a · b⁻¹) mod c`:
+
+      `a = (u · b) mod c`     where `b⁻¹ = (modBezout b c).2`.
+
+    (`u·b ≡ a·(b⁻¹·b) ≡ a`, and `a < c`.)  This is the 2-D→1-D reduction's core: a triple is
+    determined by its root and middle entry, so uniqueness at `c` is a finite per-root search. -/
+theorem markov_recovery (a b c : Nat) (hc : 1 < c) (hco : gcd213 b c = 1) (ha : a < c) :
+    a = ((a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c * b) % c := by
+  have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
+  -- inverse: b · b' = 1 + c·j
+  have hbinv : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
+        Nat.mod_eq_of_lt hc]
+  obtain ⟨j, hj⟩ : ∃ j, b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 = 1 + c * j := by
+    have hdm := E213.Meta.Nat.AddMod213.div_add_mod
+      (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) c
+    rw [hbinv] at hdm
+    exact ⟨_, hdm.symm.trans (Nat.add_comm _ 1)⟩
+  -- ((a·b')%c · b) %c = (a·b'·b)%c = (a·(b·b'))%c = (a·(1+c·j))%c = a%c = a
+  rw [← E213.Meta.Nat.MulMod213.mul_mod_left_pure
+        (a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) b c,
+      E213.Tactic.NatHelper.mul_assoc a (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 b,
+      Nat.mul_comm (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 b, hj,
+      Nat.mul_add, Nat.mul_one, Nat.mul_comm c j,
+      ← E213.Tactic.NatHelper.mul_assoc a j c,
+      E213.Tactic.NatHelper.add_mul_mod_self_pure a c (a * j), Nat.mod_eq_of_lt ha]
+
 end E213.Lib.Math.Real213.MarkovUniqueness

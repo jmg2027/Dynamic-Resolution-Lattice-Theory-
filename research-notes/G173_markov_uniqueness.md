@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 51 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 52 PURE)
 
 | theorem | content |
 |---|---|
@@ -60,6 +60,7 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `vieta_reflection` | the Vieta jump `c↦3ab−c` as a **difference reflection** (`c+c'=3ab`) + involution — the ℤ-difference-Lens reading; annihilator `Δ²−Δ−1` (golden), strictly C-finite not poly-depth (see `G174`) |
 | `sqrtNegOneTwoRoots_prime_pow` | **`SqrtNegOneTwoRoots (p^(k+1))`** promoted to the named predicate for every odd prime power (Button/Zhang `≤2` roots) |
 | `markov_phantom_root_filter` | **phantom-root filter at `c=65=5·13`** (C6 sniper): the `2^ω=4` root explosion `{8,18,47,57}` over-counts, yet `markovEq · · 65` admits no triple — all roots phantom (the descent constraint is the separating observer) |
+| `markov_recovery` | **the recovery map** `a = (u·b) mod c` (`u = a·b⁻¹`) — backbone of the per-`c` uniqueness certificate (2-D→1-D reduction); engine the phantom filter runs on |
 | `markov_composite_separation` | **first real-composite separation** at `c=1325=5²·53` (4-root Markov number): `markovEq` separates the 4 roots `{182,507,818,1143}` into the valid pair `{507,818}` (recovers triple `(13,34,1325)` via `a=(u·b)%c`) and the phantom pair `{182,1143}` (`∀b ¬markovEq`) — uniqueness at 1325 *structurally*, where the general conjecture is open |
 | `markov_reachable_no_3mod4_factor` | **no prime `≡3(mod4)` divides a reachable Markov number** (Zhang 2007) — joins the two files: `√(−1)` exists mod `c` (`markov_reachable_neg_one_qr`) but not mod a `p≡3` factor (`no_sqrt_neg_one_4k3`) |
 | `MarkovPrimeFactor.euclid_of_coprime` | **fully general Euclid's lemma**: `gcd213 a m = 1 ∧ m∣a·b ⟹ m∣b` (any `m>1`) |
