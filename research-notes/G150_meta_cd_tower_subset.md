@@ -1055,6 +1055,41 @@ morphological residue of the unit, exactly as the intuition said.  This
 connects to the parallel-branch engine (`gapless_unit_step`,
 `diag_self_applies`): the unit step's own residue, read on the diagonal.
 
+## Phase 21 — 딥 리서치: the trace-doubling map, unit as fixed core
+
+Marathon continuation of the unit-residue thread (Phase 20).  Studies the
+*dynamics* of the dyadic tower `1 →² −1 →² i →² g₈` — the parallel-branch
+engine's "chain of chains" (`diag_self_applies`), read on the trace.
+`TraceDoublingMap.lean` (∅-axiom, 5 theorems):
+
+  * `trace_square_is_doubling` — the squaring map `g ↦ g²` (which halves
+    the order) acts on traces as **`D(x) = x² − NT`** (the angle-doubling
+    Chebyshev map): `trace(g²) = D(trace g)` on the tower.
+  * `dyadic_descent_to_unit` — iterating `D` walks down: `√2 ↦ 0 ↦ −2 ↦
+    2`, and the unit trace `NT = 2` is the **fixed point** `D(NT) = NT`.
+    The dyadic spiral contracts onto the identity; `√2` is one squaring
+    step into its backward orbit.
+  * `trace_doubling_fixed_points` — `D(x) = x` ⟺ `(x−2)(x+1) = 0`; among
+    integer trace values `{−2,…,2}` the fixed points are exactly
+    `{−1, NT}` = `trace(order-3, E₆)` (odd, squaring-stable) and
+    `trace(unit)`.  The two fixed cores: the unit (even tower) and `E₆`
+    (odd).
+  * `nested_radical_recurrence` — inverting `D`: `t_{k+1}² = NT + t_k`,
+    the nested radicals `√2, √(2+√2), √(2+√(2+√2)), …` — one radical per
+    CD doubling, the trace of the chain of chains, `NT` fed back at every
+    layer.
+  * `unit_is_fixed_core` — synthesis.
+
+**Engine connection.**  The trace-doubling map `D(x) = x² − NT` is the
+*bare* polynomial again (Phase 20's minimal poly of `√2`).  The unit
+trace `NT` is its fixed core; the dyadic tower is the backward-orbit tree;
+the nested-radical recurrence only ever adds `NT` (no exterior).  This
+realises the parallel-branch picture in trace dynamics: the residue chain
+is one map `D` applied to itself, gapless (a polynomial preimage tree),
+self-similar (each CD layer = one `D`-preimage = one radical), contracting
+onto the unit.  `E₆`'s `−1` is the odd fixed point; `E₇`'s `√2` is the
+even tower's first irrational rung; the unit `NT` is the shared core.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
