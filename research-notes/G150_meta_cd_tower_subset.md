@@ -1194,6 +1194,34 @@ higher trace field the tensor (compositum) of the primitive ones
 the intuition holds.  (The `7`-gap is the sharp witness: `7 ∉ {2,3,5}`, so
 no order-`7` axis occurs.)
 
+## Phase 25 — P-행렬 다리: 자연수(피보나치)와 p-adic (5/p) 법칙
+
+User: `P` 행렬은 **자연수 구성**과, 그리고 **p-adic 섹션**과 깊게
+연관돼 보인다.  둘 다 단일 불변량 `disc P = NS+NT = 5`가 지배한다 —
+`PMatrixArithmeticBridge.lean` (∅-axiom, 4 theorems):
+
+  * `P_is_fibonacci_and_stern_brocot` — `P = Q²` (피보나치 행렬 제곱) `=
+    R·L` (슈테른-브로코 생성자); `Pⁿ` 성분이 피보나치
+    `(F₂ₙ₊₁,F₂ₙ,F₂ₙ,F₂ₙ₋₁)`.  자연수가 `P`의 대각선에서 자란다,
+    `trace Pⁿ = L₂ₙ` (Lucas).  Phase 22의 쌍곡 `P` 엔진이 피보나치
+    생성자로 읽힘.
+  * `disc_governs_splitting` — `disc P = NS+NT = 5`가 QR mod p ⟺
+    `p ≡ ±1 (mod 5)` (split, e.g. 11,19) vs `±2` (inert, 7,13).  (`∈`
+    Prop 멤버십이 propext/Quot.sound를 흘려서 `List.contains` Bool로
+    재작성.)
+  * `P_mod_p_three_regimes` — `P mod p` 세 분기: **분岐** `p=5=NS+NT`
+    차수 `10 = 2(NS+NT)` (E₈ icosian 끝점); **분해** `p=11≡1` 차수
+    `5 ∣ p−1`; **관성** `p=7≡2` 차수 `8 ∣ p²−1`.
+  * `P_matrix_bridge` — 종합.
+
+**다리.**  `disc P = NS+NT`가 두 직감을 잇는 단일 불변량이다:
+자연수(피보나치/슈테른-브로코, ℤ 위) ↔ p-adic 국소화 (`(5/p)` 법칙,
+`E₈` 축체 `ℚ(√(NS+NT))`의 분해; `√5 ∈ ℚ_p ⟺ p ≡ ±1 mod 5`, Hensel).
+램ified prime `5 = NS+NT`가 피벗이고, `P mod 5`의 order-`10` 끝점이
+바로 마라톤 내내 나온 `E₈` icosian 끝점.  레포의 `DyadicFSM/Fib`
+(Pisano, BinetBridge)와 `Padic/ZpSqrtDFrob` (√D Frobenius)가 이 다리의
+양끝.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
