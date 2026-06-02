@@ -148,9 +148,21 @@ the iteration settles), the *opposite* of the fixed-point-free Bool-style liar
 oscillation `not ∘ not = id`.  The "two readings of one residue related by an
 involution" framing is thereby earned with an actual fixed set, not asserted.
 
+## The classification boundary (closed)
+
+`FiniteDepthAlgebra.periodic_finite_depth_const` (§5): a periodic `ℤ`-sequence of
+finite faithful depth is **constant**.  So the Newton-reconstructible (finite-depth)
+class and the periodic (quadratic-irrational / Markov) class are disjoint apart from
+the constants — the boundary of the divergence-depth classification.  Proof:
+induction on depth — `diffZ s` is periodic and one depth lower, hence constant `c`
+by IH; the sequence is then affine `s k = s 0 + k·c`, and periodicity forces
+`p·c = 0` at the period, so `c = 0` and `s` is constant.
+
 ## Frontier
 
 - The fixed-point eigenspace's full structure (dimension / explicit basis) over ℤ.
+- The combinatorial e/π depth separation (e depth 1, π Wallis-coeff depth 2) as a
+  bare invariant — *not* a claim about transcendence (classically open).
 
 Anchors: Gregory c.1670 / Newton *Methodus Differentialis* 1711 (operator form);
 Rota–Kahaner–Odlyzko 1973 (finite operator calculus; `Δ` a delta operator, falling

@@ -71,9 +71,10 @@ Standard status unchanged.
 3. **C3 (next, combinatorial part ∅-axiom)** the e/π depth separation as a structural
    invariant (e depth 1, π Wallis-coeff depth 2 — provable they differ).  Do NOT slide
    to "explains the e–π separation" (metaphysical).  Transcendence part classically open.
-4. **C4 (∅-axiom-statable)** boundary marker: finite-depth (Newton-reconstructible)
-   sector vs periodic (Markov/quadratic) sector are disjoint.  Eigenspace structure (C5
-   frontier): dimension/basis of `{s : T s = s}` over ℤ.
+4. **C4 ✅ DONE** (`FiniteDepthAlgebra` §5, +5 PURE): `periodic_finite_depth_const`
+   — periodic ℤ-sequence of finite depth is constant; finite-depth and periodic
+   (Markov/quadratic) sectors meet only at constants.  Frontier left: eigenspace
+   structure (dimension/basis of `{s : T s = s}`) over ℤ.
 5. π non-holonomicity (classical open, from prior session, `G170`) — unchanged.
 6. ζ(3) Apéry depth — DEFERRED to another branch (user).  Do NOT build here.
 
@@ -97,8 +98,8 @@ NEW Lean (∅-axiom, 41 PURE):
                                                     growth bound, obstruction
   lean/E213/Lib/Math/Cauchy/QuasiPolyBound.lean  ← C1: quasi-poly CF ⟹ poly-bounded
                                                     (periodic + e witnesses), 14 PURE
-  lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2: finite-depth ring
-                                                    (polyDepthZ_mul, Leibniz), 22 PURE
+  lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2 ring (polyDepthZ_mul,
+                                                    Leibniz) + C4 boundary, 27 PURE
   lean/E213/Lib/Math/Cauchy/BinomialTransform.lean ← C5: involution T∘T=id +
                                                     fixed-point richness, 6 PURE
 NEW theory chapter:

@@ -173,10 +173,13 @@ Nörlund–Rice integral, Newton-series convergence / Carlson's theorem.
   e/π depth separation (e depth 1, π Wallis-coeff depth 2) is a *structural*
   invariant.  Provable: their difference-orders differ.  **Do NOT** slide to "this
   explains the e–π separation" (metaphysical framing).
-- **C4 (boundary marker, ∅-axiom-statable)** the Newton-reconstructible
-  (finite-depth) sector and the periodic (Markov / quadratic-irrational) sector are
-  disjoint: periodic non-constant sequences have *no* finite ℤ-difference-depth.
-  A clean separation lemma; the Markov spectrum itself stays classically open.
+- **C4 ✅ DONE** (`Cauchy/FiniteDepthAlgebra.lean` §5, +5 PURE):
+  `periodic_finite_depth_const` — a periodic ℤ-sequence of finite faithful depth is
+  constant (induction on depth: `diffZ` periodic + lower depth ⟹ const by IH ⟹
+  affine ⟹ `p·c=0` at the period ⟹ `c=0`).  So the finite-depth (Newton-
+  reconstructible) and periodic (quadratic-irrational/Markov) sectors meet only at
+  the constants — the boundary of the depth classification.  Markov spectrum itself
+  stays classically open.
 - **C5 ✅ DONE** (`Cauchy/BinomialTransform.lean`, 6 PURE): `binomialT_involutive`
   (`T∘T = id`, `T s n = Σ_{j≤n}(−1)ʲbinom(n,j)s(j)`) — a genuine self-inverse change
   of basis, proved by reusing `binomial_transform_roundtrip` (`T s n = (−1)ⁿ(Δⁿs)(0)`,
