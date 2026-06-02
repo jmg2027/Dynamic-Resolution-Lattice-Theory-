@@ -31,13 +31,30 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 12 PURE)
+
+The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
+`≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
+(well-founded recursion leaks `propext`), with a fuel-irrelevance lemma (`tmF_canon`, strong
+induction on a fuel bound) pinning the canonical fuel `= n`.  The recurrence reads off as
+`tm_even : tm(2n)=tm(n)`, `tm_odd : tm(2n+1)=¬tm(n)`, hence `tm_pair_differ : tm(2n+1)≠tm(2n)`
+(never constant).  **Aperiodicity** (`tm_not_evPeriodic`) is the self-similar **period-descent**:
+
+  - `even_descent` — a period `2q` halves to period `q` through `tm(2m)=tm(m)`;
+  - `odd_descent` — a period `2r+1` drops to the even period `2r` (the auxiliary `tm(m+r)=¬tm(m)`
+    via `tm_odd`+`tm_even`, applied twice cancels the negation);
+  - strong induction on the period: even halves, odd drops-by-one to even, and period `1`
+    contradicts `tm_pair_differ`.
+
+`tm_morse_not_autoRec := aperiodic_not_autoRec tm tm_not_evPeriodic` — a concrete *dense*
+inhabitant of the Morse–Hedlund escape, not the long-run `isPow2`.
+
 ## Honest scope
 
-  - The *formalized witness* (`isPow2`) happens also to have long runs (so the sparse route would
-    catch it too); the **theorem** `aperiodic_not_autoRec` is the general result, and applies to
-    genuinely dense witnesses — Thue–Morse, Sturmian — whose only missing input is their own
-    aperiodicity (the repo has Thue–Morse with finite-period aperiodicity witnesses only, not the
-    full overlap-free aperiodicity; supplying it would give a dense instance directly).
+  - The earlier *formalized witness* (`isPow2`) happens also to have long runs (so the sparse
+    route would catch it too); **Thue–Morse** (`ThueMorseAperiodic`, run-length `≤ 2`) closes the
+    genuinely-dense gap — `aperiodic_not_autoRec` now has a dense inhabitant proven ∅-axiom.
+    Sturmian (complexity `n+1`) remains the next dense instance, awaiting its own aperiodicity.
   - This closes the *autonomous* (time-invariant) machine class on the dense side.  It does
     **not** touch the time-varying P-recursive class (that is `HomogRec`/zero-runs) nor π (π's CF
     non-holonomicity remains classically open; even π's aperiodicity-as-a-CF is not the relevant
@@ -49,7 +66,7 @@ bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexit
 |---|---|---|
 | time-varying homogeneous P-recursive (`HomogRec`) | `zero_run_not_homogRec` (long zero-runs) | `(n!)ⁿ`, `χ`, Champernowne |
 | time-invariant autonomous, *sparse* (`AutoRec`) | `two_continuations_not_autoRec` / `distinct_next_equal_window_not_autoRec` | `χ`, Champernowne |
-| time-invariant autonomous, *dense* (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — Thue–Morse, Sturmian, `isPow2` |
+| time-invariant autonomous, *dense* (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — **Thue–Morse** (formalised, `tm_morse_not_autoRec`), `isPow2`; Sturmian next |
 
 `χ` escapes the union `FiniteRecurrence = HomogRec ∨ AutoRec` (`chi_not_finiteRecurrence`).  The
 three criteria together cover both machine classes across both densities — the full elementary

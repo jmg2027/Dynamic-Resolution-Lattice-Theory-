@@ -1,8 +1,19 @@
 # Session Handoff — 2026-06-02
 
 ## Branch
-`claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom
-(`tools/scan_axioms.py` → `13 pure / 0 dirty` on the new module).
+`claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom.
+
+## Latest: Thue–Morse — the genuinely-dense Morse–Hedlund witness → `Cauchy/ThueMorseAperiodic.lean` (11 PURE)
+The dense non-holonomicity axis is now **non-vacuous on the canonical example**.  `tm`
+(Thue–Morse, run-length `≤ 2`) defined by fuel-structural recursion (`tmF` + `tmF_canon`
+fuel-irrelevance; well-founded recursion leaks `propext`); recurrence `tm_even : tm(2n)=tm(n)`,
+`tm_odd : tm(2n+1)=¬tm(n)`, hence `tm_pair_differ`.  **Aperiodicity** (`tm_not_evPeriodic`) by
+self-similar period-descent: `even_descent` (period `2q`→`q`), `odd_descent` (period `2r+1`→`2r`),
+strong induction on the period bottoming at period `1` = `tm_pair_differ`.  Result:
+`tm_morse_not_autoRec := aperiodic_not_autoRec tm tm_not_evPeriodic` — a concrete *dense*
+inhabitant of the Morse–Hedlund escape (previously only the long-run `isPow2`).  Wired into the
+`Cauchy` umbrella; essay + `G185` updated.  Closes the open-frontier item "a genuinely dense
+formalised instance awaits only its own aperiodicity".
 
 ## What Was Done This Session (π non-holonomicity marathon, cont.)
 

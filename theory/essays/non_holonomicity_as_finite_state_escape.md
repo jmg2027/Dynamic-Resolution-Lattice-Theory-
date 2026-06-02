@@ -60,7 +60,13 @@ sparse direction: the indicator of the powers of two, `χ`, escapes **both** mac
 bounded aperiodic sequence escapes `AutoRec` (`aperiodic_not_autoRec`), witnessed concretely by
 `isPow2_morse_not_autoRec` and applying in principle to Thue–Morse / Sturmian.  `χ` is bounded
 yet needs unbounded memory: the powers-of-two trace escapes every finite-state machine, the
-CF-scale shadow of `spineL_escapes`.
+CF-scale shadow of `spineL_escapes`.  And the dense axis is non-vacuous: **Thue–Morse** —
+run-length `≤ 2`, no long runs, no exhibited repeated window — is proven aperiodic ∅-axiom by
+the self-similar period-descent (`ThueMorseAperiodic.tm_not_evPeriodic`: an even period halves
+through `tm(2n)=tm(n)`, an odd period drops by one through `tm(2n+1)=¬tm(n)`, and period `1`
+contradicts the always-differing consecutive pair `tm(2n),tm(2n+1)`), so
+`ThueMorseAperiodic.tm_morse_not_autoRec` is a concrete dense inhabitant of
+`aperiodic_not_autoRec`.
 
 **Why the tier is a ring stratification.**  The finite-Δ-depth `ℤ`-sequences form a ring
 (`FiniteDepthAlgebra.polyDepthZ_mul`: depths add under product) with exact normal form
@@ -118,7 +124,7 @@ The ∅-axiom reach is now complete across both machine classes and both densiti
   |---|---|---|
   | time-varying homogeneous P-recursive (`HomogRec`) | `zero_run_not_homogRec` | `(n!)ⁿ`, `χ` |
   | time-invariant autonomous, sparse (`AutoRec`) | `two_continuations_not_autoRec` | `χ` |
-  | time-invariant autonomous, dense (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — `isPow2`, in principle Thue–Morse / Sturmian |
+  | time-invariant autonomous, dense (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — `isPow2`, and the genuinely-dense **Thue–Morse** (`ThueMorseAperiodic.tm_morse_not_autoRec`, run-length `≤ 2`) |
 
 ## Open frontier
 
@@ -131,15 +137,16 @@ The ∅-axiom reach is now complete across both machine classes and both densiti
     Myhill–Nerode certificates — no 2-adic valuation needed; the full structural statement (every
     P-recursive sequence omits a mod-2 factor, including the no-zero-run corner) is strictly more
     general but witnessed by nothing the present tools miss.
-  - The dense witnesses are reached by the *theorem* (`aperiodic_not_autoRec`); a genuinely dense
-    *formalised* instance (Thue–Morse, with no long runs) awaits only its own full aperiodicity
-    — the repo carries Thue–Morse with finite-period witnesses, not the overlap-free proof.
+  - The dense axis is now non-vacuous: **Thue–Morse** (run-length `≤ 2`) is formalised and
+    proven aperiodic ∅-axiom (`ThueMorseAperiodic`), so `aperiodic_not_autoRec` has a concrete
+    genuinely-dense inhabitant — not merely the long-run `isPow2`.  Sturmian (complexity `n+1`)
+    remains the next dense instance, awaiting its own aperiodicity.
 
 ## Lean source
 
 `lean/E213/Lib/Math/Cauchy/{ZeroRunNonHolonomic, ZeroRunNonHolonomicWitness,
-NonHolonomicWitness, MorseHedlund}` (the escape certificates, the dense Morse–Hedlund
-direction, and the witnesses);
+NonHolonomicWitness, MorseHedlund, ThueMorseAperiodic}` (the escape certificates, the dense
+Morse–Hedlund direction, and the witnesses — including the genuinely-dense Thue–Morse);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra}` (the difference-Lens generating ring);
 `Real213/PresentationDependence` (pointing, not number).
