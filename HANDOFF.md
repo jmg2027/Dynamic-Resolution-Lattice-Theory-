@@ -1,7 +1,7 @@
 # Session handoff
 
-Branch: `claude/depth-arc-completeness-iEMpZ` (merged with `main`; adds the
-real-number depth-arc / holonomic-modulus thread on top of the Lens-rebuild main).
+Branch: `claude/transfinite-ordinals-intensional-budYF` (continues the real-number
+depth-arc / holonomic-modulus thread; adds the W-vs-d stratification of completeness).
 
 Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
 (narrative); `catalogs/`, `STRICT_ZERO_AXIOM.md`, and `research-notes/` carry
@@ -36,12 +36,22 @@ hygiene must not displace this.
 
 ### CayleyDickson remaining (category D)
 
-  - `Trig.conj_mul_anti` — needs `NonAssocStarRing213 Sedenion` (a Sedenion→
-    `CDDouble Cayley` bridge replicating `CayleyAlgebra213`; the parametric CDDouble
-    star instance needs `[StarRing213 α]` and Cayley is non-associative, so a
-    manual route), then the structural proof (cf. `SedenionHeavy.conj_mul_anti`).
-  - `SedenionHeavy.flexible` — the `CDDoubleFlexible` cross-pair open item
-    (`cd_flexible` needs base alternativity, which Sedenion's Cayley base lacks).
+  - `Trig.conj_mul_anti` — **CLOSED (∅-axiom)**.  Added `NonAssocStarRing213
+    Sedenion` (`SedenionAlgebra213`, the manual componentwise route — Cayley
+    is non-associative so the parametric `[StarRing213 α]` CDDouble star instance
+    cannot fire); `TrigintaduoionionHeavy.conj_mul_anti` is now the verbatim
+    structural analog of `SedenionHeavy.conj_mul_anti` one layer up.
+  - `SedenionHeavy.flexible` — **CLOSED (∅-axiom).**  Full chain landed:
+    (1) the long-standing `CDDoubleFlexible` cross-pair `(conj d·b)·a +
+    conj b·(d·a) = a·(conj b·d) + (a·conj d)·b` proved via the alternating
+    associator (`left_alt_polar`/`right_alt_polar`) + central trace
+    (`FlexAlt213.flex_cross_pair`); the `im`-component lemmas `mm_conj` /
+    `skew_conj` (skew-associator conj-invariance); (2) generic CDDouble
+    foundations in `CDDoubleMoufang` (`cd_ofInt_nuc_{l,m,r}`, `cd_self_add_conj`,
+    `cd_conj_mul_self`); (3) `FlexAlt213 Cayley` registered
+    (`CayleyFlexAlt213`); (4) the `re`/`im` assembly `Cayley.flexible_re` /
+    `flexible_im`, and `SedenionHeavy.flexible := ext + those`.  The
+    category-D CayleyDickson backlog is **empty**.
 
 ### Depth-arc — real-number / completeness thread (this branch, current)
 
@@ -112,16 +122,196 @@ A–D + B are now **all closed ∅-axiom this arc**:
     so `euler_Htel` is now *derived from the cross-determinant*, not a bespoke estimate;
     the depth arc (W) and the modulus generator (Htel) are one mechanism.  Narrative:
     `theory/math/analysis/holonomic_modulus.md`.
-    OPEN (genuinely next): a fast π representation (Wallis too slow — `W` grows too
-    fast for the smallness law; needs `μ(π)`); more instances need their convergents
-    as num/den + the `W`-smallness check (`ExpLog/CutExpSeries` is cut-level, not yet
-    num/den).  **Tower-native research agenda** (`research-notes/G166`): completability
-    = comparison of two growth-axes (cross-det vs denominator) *inside* the tower —
-    T1 the exponential-overtake boundary layer (`DepthExponentRecursion`/`DoubleExp`);
-    T2 Liouville's recursion-coordinate vs the denominator (`DepthLiouvilleCoord`);
-    T3 rate-carrying closure under `+`/`×`/exponent; T4 top-down coordinate→real.  Tie:
-    the tower has no top = the residue (`DepthCeilingResidue`).  These are the sharpest
-    next ∅-axiom targets — internal to the tower, no classical measure.
+  - **Tower-native completeness program (T1–T4) — CLOSED + PROMOTED** (merged from
+    `claude/goal-g166-A6MVE`).  Completability = comparison of two growth-axes
+    (cross-det `W` vs denominator `d`) inside the tower; narrative
+    `theory/math/analysis/tower_native_completeness.md`, capstone
+    `Real213/TowerNativeCompleteness.tower_native_completeness_program`:
+      - **T1 boundary** (`Real213/CrossDetOvertake`, 11/0): `CrossDetSmall W d`
+        (`i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`); below ⟹ free
+        (`crossdet_small_total_modulus`, `N=k+2`); above ⟹ broken (`overtake_breaks`;
+        `dexp_overtakes_denom`, `2^{2^i}` overtakes `2^i`).  `completability_boundary`.
+      - **T2 Liouville** (`Real213/LiouvilleModulus`, 13/0): `W_k = liouDen_k = c^{k!}`
+        (`liou_cross_det`); factorial denominator dominates ⟹ free
+        (`liouville_total_modulus`); `liouville_W_eq_denom_coordinate`.
+      - **T3 closure** (`Cauchy/DepthClosure`, 16/0): finite-diff-depth closed under `+`
+        (`finDiffDepth_add`), values under `×` (`value_mul_closed`); exponent axis lifts
+        depth and breaks at `2^{2^n}` (`exp_axis_breaks`).
+      - **T4 generator** (`Cauchy/DepthCoordGenerator`, 10/0): `genExp d = binom·d`
+        realizes diff-depth `d`, `expTower` populates `ω^r` — `tower_is_coordinate_system`.
+      - W=d unification (`Real213/CrossDetEqDenom`, 3/0): `crossdet_eq_denom_total_modulus`
+        — one theorem behind e and Liouville.  Sharp threshold (`Real213/GeometricThreshold`,
+        7/0): geometric `W=r^i` over `d=q^i` is free iff `r < q` (not `r ≤ q`); `q²≤r`
+        breaks it.  Depth-exactness (`binomCol_depth_exact`, `genExp_depth_exact`).
+      - **tie**: the tower has no top = the residue (`DepthCeilingResidue`).
+    Follow-on results: **W=d unification**
+    (`Real213/CrossDetEqDenom`, 3/0): `crossdet_eq_denom_total_modulus` — one theorem
+    behind e and Liouville (both reproven as one-liners). **Sharp growth-rate threshold**
+    (`Real213/GeometricThreshold`, 6/0): **exact iff** `geom_boundary_iff` —
+    `CrossDetSmall (r^·) (q^·) ↔ r < q` (for q≥2).  Free side all i≥1
+    (`geom_crossdet_small`); broken side (`geom_crossdet_overtake_sharp`, every `q≤r`)
+    at the single fixed witness `i=q`.  Corrects the naive `r≤q` — equal-rate `r=q`
+    fails, the polynomial factor `i(i+1)` outliving the single denominator factor `q`.  **Depth-exactness** added
+    (`DepthPRecursiveInstances.binomCol_depth_exact`, `DepthCoordGenerator.genExp_depth_exact`):
+    the binomial column floors at *exactly* `d`, so T4's "surjective generator" is now a
+    theorem, not a docstring claim.  W-relation rungs: `{W const (algebraic), W=d
+    (e/Liouville)} ⊆ CrossDetSmall` (free), threshold `r<q` for geometric, overtake breaks.
+    **W=const rung** (`Real213/CrossDetConstDenom`, 13/0): `crossdet_const_total_modulus`
+    + φ as named instance (`phi_total_modulus_via_const`) — φ's even-Fibonacci convergents
+    `fib(2i+2)/fib(2i+1)` have constant cross-det `1` (Cassini unit) and φ²-step denominator
+    growth beating `i(i+1)` for all i≥1, so φ completes through the same bridge as e/Liouville.
+    **W=d line = reciprocal-series reference family** (`Real213/ReciprocalSeries`, 12/0):
+    `W=d` cross-divides to `a_{i+1}/d_{i+1} − a_i/d_i = 1/d_{i+1}`, so the rung is exactly
+    `Σ 1/d_j`, a one-parameter family indexed by the ratio `g_i = d_{i+1}/d_i` (`den`/`num`
+    from `g`, `recip_cross_det` = W=d by construction); `recip_total_modulus` — free iff
+    `i+1 ≤ g_i`.  e = linear-ratio point `g_i=i+1` (`den_linear_is_factorial`: denominators
+    = `j!`); Liouville = fast-ratio points.  Originator's reading: the diagonal `y=x` of the
+    (W,d) plane is a growth-graded reference family of self-completing reals, each named by
+    its ratio sequence.  Open: universal reciprocal-series chart (every real has such a
+    representation — Engel/Sylvester).
+    **Presentation-dependence** (`Real213/PresentationDependence`, 6/0):
+    `crossDetSmall_is_presentation_dependent` — `rcut` is rescaling-invariant
+    (`rcut_rescale`, the cut cancels a common factor `c`) while `CrossDetSmall` is not
+    (cross-det scales `c²`, denom `c`); e's `×2` representation `2·eulerNum/2·eulerDen`
+    is the *same real* yet fails `CrossDetSmall` at `i=1`.  The "deficiency of the
+    presentation, not the real" thesis as a theorem.  Also `overtake_breaks_at`
+    (`CrossDetOvertake`): the overtake break at any single witness index `i₀≥2`.
+    Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
+    arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
+    instance: a fast π representation meeting the rate criterion.
+  - **W-vs-d stratification — DONE** (this branch, `Real213/RateStratification`, 12/0):
+    the smallness law made the primitive object.  `Dominates W d i`; `htel_iff_dominates`
+    upgrades `Htel_of_crossdet` from implication to **characterization** (`Htel a d` ⟺
+    every layer `i≥1` dominated); `dominated_free_modulus`; `overtake_breaks_layer`; the
+    unimodular det-1 floor `W ≡ 1` (`T=[[2,1],[1,1]]`) is dominated everywhere against
+    `d_i=(i+1)(i+2)` (`floor_dominates_all`, `i≤i+2` via `PolyNat`) — the trivially-free
+    bottom (`floor_carries_Htel`, `tower_stratification`).  Narrative `holonomic_modulus.md`
+    §4; agenda `research-notes/G167`.  **DEDUP REVIEW (open, partly converging)**:
+    `RateStratification` (`Dominates`, `overtake_breaks_layer`) and the merged
+    `CrossDetOvertake` (`CrossDetSmall`, `overtake_breaks_at`) are the *same* W-vs-d
+    boundary stated twice — `CrossDetSmall W d` is literally `∀ i≥1, Dominates W d i`,
+    and the merged `overtake_breaks_at` (single witness index) now matches the per-layer
+    `overtake_breaks_layer`.  `htel_iff_dominates` (the iff characterization) is the
+    strict superset.  Consolidate to one home (characterization + floor instance), with
+    `CrossDetOvertake`/`CrossDetConstDenom`/`GeometricThreshold`/`PresentationDependence`
+    kept as the concrete witnessed rungs/instances on top.
+  - **Intensional completability — DONE** (this branch, `Real213/IntensionalCompletability`,
+    3/0): built on the merged `PresentationDependence`.  The W-vs-d bridge `CrossDetSmall`
+    is *presentation-relative* (`crossDetSmall_rescale_antitone`: `CrossDetSmall (c²·W)
+    (c·d) → CrossDetSmall W d`, so the gcd-reduced presentation is canonical), while the
+    *completion* is presentation-invariant (`modulus_rescale_invariant`, via
+    `rcut_rescale`); `completability_is_intensional` bundles the split.  The W-readout is
+    an extensional probe; the cut's completion is the intensional truth.  Conjectures in
+    `research-notes/G169`: C1′ completing reals = those with a rate-carrying
+    *re*-presentation (π-via-Wallis the obstruction → reframes π as the existential, not
+    a property of π); C2 the rung floor (`W const` φ ⊂ `W=d` e/Liouville ⊂ `CrossDetSmall`,
+    threshold `r<q`) as a rescaling-invariant coordinate of the cut; C3 the canonical
+    witness (diagonal `bound+1` / gcd-reduced presentation) is the residue on both sides.
+    C2 first step closed: `Real213/ScalingOrbit` (7/0) — the rescaling orbit `(c·a, c·d)`
+    is a monoid action (`scaleBy_one`/`scaleBy_comp`) inside one cut
+    (`scaleBy_preserves_cut`), `CrossDetSmall` antitone along it
+    (`orbit_free_implies_base_free`), unique `Reduced` base (`reduced_scaling_trivial`) —
+    the rung floor is attained at the reduced base (scope: rescaling sub-family, not all
+    presentations).  OPEN next: the rung floor over *all* presentations (cross-presentation
+    invariant, subsumes C1′); the C1′ converse (when a rate-carrying re-presentation
+    exists, π the obstruction).
+  - **Eisenstein/discriminant reading of the rungs — DONE** (merged
+    `CayleyDickson/Integer/EisensteinSignature` + `Meta/Int213/PolyInt2`), and how it
+    helps C2/C3 (`research-notes/G170`).  Signed-ℤ signature dichotomy: golden `m²−mk−k²`
+    (disc +5, the det-one floor) indefinite (`golden_indefinite`, `goldenForm 1 1 = −1`)
+    → unbounded → convergent line → completes; Eisenstein `a²−ab+b²` (disc −3)
+    positive-definite (`eisForm_nonneg`, `0 ≤ a²−ab+b²` via `poly_id2`; `eisenstein_norm_nonneg`
+    for `ZOmega.normSq`) → bounded → torus / j=0 curve; `signature_dichotomy`.  The pure
+    Int reflection prover `PolyInt2` (the infra G170 flagged) is now built.  **Helps C2**
+    (the rung floor = discriminant/order of the reduced cross-determinant; det-one floor =
+    disc+5 real-quadratic = completing line) and **C3** (the Eisenstein modular
+    self-covering = `DepthOverflowDuality`'s cusp/residue, one scale up); orthogonal to
+    C1′/π.  (My earlier ℕ-sidestep `CrossDetDiscriminant` removed — superseded by the
+    signed-ℤ `EisensteinSignature` once `PolyInt2` landed.)  **C2 bottom rung closed
+    in-track** (`Real213/FloorReferenceForm`, 2/0): the det-one floor preserves the golden
+    form (`ProbeTwistConic.Q_preserved`) and that form is indefinite (`golden_indefinite`,
+    `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → completing bottom rung
+    (`floor_reference_is_indefinite`) — the disc+5/line complement of the disc−3/curve
+    `EisensteinSignature`, no CD import.  **Signature trichotomy completed**
+    (`CayleyDickson/Integer/ParabolicSignature`, 4/0): the degenerate disc-0 form
+    `(m−k)²` is semi-definite (`parab_nonneg`) with a non-origin zero (`parab_nonorigin_zero`,
+    `parabForm 1 1 = 0`, zero on a line) — the parabolic cusp between the golden line
+    (disc+5) and Eisenstein curve (disc−3); `signature_trichotomy` = line/cusp/curve,
+    mirroring the SL₂(ℤ) trace trichotomy.  The cusp = rational direction = the residue at
+    the modular scale (ties to C3).  OPEN: the `W=d`/geometric rungs have no clean
+    conserved quadratic form (non-unimodular), so `rung ↔ discriminant` is natural only
+    for the det-one floor — done.  `EisensteinSignature` (now 13/0) also lands full
+    positive-definiteness (`eisenstein_norm_posdef`, anisotropy `normSq=0 → u=0`) and the
+    **Eisenstein det-one floor = the 6-unit group** (`eisenstein_det_one_floor`,
+    `= NS·NT`, the Eisenstein analog of φ's Cassini det-one floor; reuses the PURE
+    `ZOmega.normSq_mul`).
+  - **Five-floor unification — DONE** (`Lib/Math/FiveFloorUnification`, 1/0; assessment
+    `research-notes/G171`): the completability floor and the McKay E₈ endpoint are the
+    *same* atomic `P=[[2,1],[1,1]]` (disc `5=NS+NT`).  `five_floor_unifies` bundles the
+    det-one floor's indefinite golden form (`FloorReferenceForm`, completing line bottom)
+    with the merged `MobiusPIcosian` fact that `P mod 5` is the order-10 E₈ icosian
+    endpoint (`SL(2,𝔽₅)≅2I`, `10=NT·(NS+NT)`).  **Breakthrough**: bottom-of-completability
+    = top-of-McKay at the `5`-floor (a convergence on the shared `P`, §5.6 no-exterior;
+    the no-top completability loop pinned to the E₈ rung).  Also sharpens C2 (the rung
+    floor's discriminant names a McKay rung: disc−3=C₆=A-family, disc+5→E₈) and C3 (the
+    cusp = the modular/McKay boundary).  Orthogonal to C1′/π (rate, not unit-group).
+  - **Self-reference two forms — DONE** (`Lens/Bool213/SelfReferenceForms`, 2/0;
+    `research-notes/G172`): the foundational/logic axis (distinct from the real and
+    algebra-tower tracks).  `05_no_exterior` §5.2's two structural forms of Raw
+    self-reference, formalized: `bool_not_no_fixed_point` (the Bool `not` has no fixed
+    point on its values `{T,F}` — the liar oscillation, period 2 never period 1; the new
+    half, since `not_not` alone gives only the involution) vs the Nat-style Lambek
+    period-1 self-fixed-point (`decompose`) + well-founded descent (`depth_drops`);
+    `self_reference_two_forms` bundles the dichotomy.  Both are co-present Lens readings
+    of one Raw self-pointing.
+  - **Height-diagonal / ε₀-direction — DONE** (`Cauchy/DepthHeightDiagonal`, 4/0;
+    `research-notes/G173`): naming the whole `ω^r` height-tower escapes every finite
+    height.  `heightTower c r n = expTower c r n`; `height_diagonal_escapes` —
+    `diag (heightTower c) ≠ expTower c r` for every `r` (via
+    `DepthCeilingResidue.diag_not_in_seq`); `epsilon_direction` bundles it with
+    `coord_layer_dominates`.  The residue at the height scale, the frontier *toward* ε₀
+    — **honest**: no `Ordinal` constructed, ε₀ not claimed reached (the diagonal may only
+    express the `ω^ω` ceiling).  OPEN (this axis): a native ε₀ limit object + proof the
+    diagonal is its `+1` (genuinely uncertain); frozen=dynamic equivalence (§5.7);
+    computability/ω₁^CK out of scope.
+  - **Residue re-entry — DONE** (`Lens/ResidueReentry`, 2/0; `research-notes/G176`): the
+    residue re-enters as the next operand, the self-cover never closes.
+    `residue_reentry_never_closes` — `P ↦ Object1 (predicateToRaw n P)` (encode the
+    predicate to a Raw, point at it) is not surjective (image ⊆ `Object1`'s, which misses
+    the residue), so re-pointing the re-entered residue leaves a fresh residue;
+    `residue_perpetually_reenters` bundles faithful-not-total + re-encode + non-closure.
+    The foundational-pointing instance of the gapless self-applying re-entry
+    (`diag_self_applies` at the diagonalisation scale, here at the pointing floor).
+  - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
+    `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
+    the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
+    the `P`-shift: `Q(Pseq (m,k) n) = Q(m,k)` ∀n (induct + one-step `ProbeTwistConic.Q_preserved`,
+    chained by the pure additive `add_cancel_chain`; dirty `Nat.add_right_cancel` →
+    `NatHelper.add_right_cancel`).  Generalises `Pseq_seedZero_pell_invariant` (`N=−1`) to
+    every orbit.  The literal "nasun(spiral) rotation invariant" of the proposal — same
+    shift, same invariant, every scale.  Pairs with `DepthHeightDiagonal.diag_self_applies`
+    (residue side: same operation every meta-level, always escapes): the self-similar
+    spiral has two faces — atomic *conserves* (bounded, golden orbit), residue *escapes*
+    (unbounded, ε₀-direction), the two ends `FiveFloorUnification` ties at the `5`-floor.
+  - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
+    15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
+    Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,
+    the unit surplus = count-Lens residue of one distinguishing).  One operation, two
+    readings: `overflow_escapes` (⟹ value escapes the family = Cantor residue, recovers
+    `DepthCeilingResidue.diag_not_in_seq`) and `overflow_breaks` (⟹ domination breaks =
+    the T1 boundary, ¬Htel); `overflow_dual_reading` bundles them.  Structural content is
+    the unit generator, not an adjunction: `minOverflow bound = bound+1` is the
+    pointwise-least overflow (`least_overflow`), unique (`minOverflow_unique`), the
+    diagonal achieves it (`diag_is_minOverflow`), overflow is monotone / shift-stable, and
+    the surplus is the conserved quantity under shift (`gap_shift_invariant`).  Honest: not
+    "¬Htel IS Cantor non-surjectivity" — both are the *same overflow*, neither reading
+    privileged (`05_no_exterior` §5.7).  Q2 (ω₁^CK as gauge shift, not a wall): narrative
+    in `research-notes/G168`.  OPEN (still beyond T1–T4): Phase-1 — `T` is the det-1
+    *floor* invariant (`DepthFloorDetOne`), NOT the tower-climb generator (the climb is
+    exponentiation, `DepthCoordGenerator.expTower_succ`), so "T into ε₀/Γ₀" rests on a
+    conflation and the honest Phase-1 content is already closed; a measurable falsifier
+    from the overflow unit `1`; a fast π representation meeting the rate criterion (Wallis
+    too slow — needs `μ(π)`).
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
@@ -162,7 +352,7 @@ is one coherent 13-link arc, `holonomic_modulus` the constructed-modulus mechani
 | Equivalence unification — 213's sameness is reading-equivalence (`ReadingEq.same`); `HasDistinguishing` stated over `same`; composite instances thread `same` (`Pair`/`Sum`); Lens tree 0 real DIRTY | `Lens/ReadingEquiv` (`ReadingEq`/`equivG`/`refinesG`), `Lens/EqPW` (`sameLens` + laws), `Lens/SemanticAtom` (`combine_sym`/universal morphism over `same`), `Universal/QuotLens` (`kernel_eq_E_R`, `recovers_R`, `idempotent_R`), `Theory/Raw/Fold` (`fold_slash_rel`, `fold_slash_iff`) | `theory/lens/{unified_equivalence,dirty_recovery_patterns}`, `research-notes/RFC_reading_equivalence_primitive.md` (+ `G164`), `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `omega`/`simp` purifications — `Instances.Leaves.DepthJoin` (tier classification), `CayleyDickson.{CayleyHeavy,CDTower}`, `Cauchy.GenericFamily` (pointwise-at-index) all PURE | the modules above; general Nat/`max` helpers in `Meta/Tactic/NatHelper`, Int helpers in `Meta/Int213` | `STRICT_ZERO_AXIOM.md`, `catalogs/correspondence-surface.md` |
 | `5²⁵`-as-resolution chain — DELETED (originator); 0.2 ppb α_em result survives on π as literal input | `AlphaEM/GramStructuralCapstone` (5/0), `configCountD`/`configCount 2 = 5²⁵` bare arithmetic | `research-notes/{G156,G157}`, `RERESEARCH_n_u_removal.md` |
-| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `probe_twist_conic`); essay `real_without_completeness.md` |
+| Real-number completeness arc (links 1–13 + depth-arc A–D/B + HolonomicReal φ/e + general generator) | `Lib/Math/Cauchy/{Depth*,Divergence*,EulerDivergenceForm,DepthFloorDetOne,DepthOmegaTower,DepthLiouvilleCoord,DepthPRecursiveInstances,DepthPiQuartic}`, `Meta/Nat/PolyNat`, `Real213/{HolonomicReal,RateModulus,CrossDetOvertake,LiouvilleModulus,CrossDetEqDenom,ReciprocalSeries,CrossDetConstDenom,GeometricThreshold,PresentationDependence,TowerNativeCompleteness,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket,*}`, `Cauchy/{DepthClosure,DepthCoordGenerator}`, `Analysis/*` | `theory/math/completeness_without_completeness.md` (+ `completeness_relocated`, `analysis/holonomic_modulus`, `analysis/tower_native_completeness`, `probe_twist_conic`); essay `real_without_completeness.md` |
 | φ self-similarity (form / count `5^L` / limit-ratio φ) | `SelfSimilarityBridge`, `Real213/{PhiAsCut,PhiConvergence,PhiNormInvariant,PhiAbCut,FibCassiniNat}`, `PellFibCutBridge` | `theory/math/phi_self_similarity.md` |
 | The residue / self-covering closure | `Lens/{FlatOntologyClosure,PredicateSelfEncoding}`, `Theory/Raw/{PrimitiveTower,Lambek}` | `research-notes/G152`, `theory/essays/tower_atlas.md` |
 | P-orbit closure (P self-defining; every axis sees `{3,2,1}`) | `Mobius213/Px/{CharPolySelf,MobiusSelfForm,ConvergentDet}`, `Theory/Atomicity/OrbitForcing` | `theory/essays/{every_axis_sees_p,p_orbit_closure_master}.md` |

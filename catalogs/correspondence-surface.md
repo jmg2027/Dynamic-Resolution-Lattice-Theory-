@@ -16,8 +16,9 @@ below — those theorems exist to say "this 213 object, read classically,
 
 Current state (`tools/scan_all_axioms.py` for the live count): the 213-math core
 is ∅-axiom; the non-sealed `propext`/`Quot.sound` that remain are the `Prop`-atom
-thesis surface (category B) + the CayleyDickson open items (category D,
-`Trig.conj_mul_anti` / `SedenionHeavy.flexible`).  The Lens ring is 0 real DIRTY.
+thesis surface (category B).  The CayleyDickson category-D backlog is closed
+(2026-06-01: `Trig.conj_mul_anti` + `SedenionHeavy.flexible` both strict ∅-axiom).
+The Lens ring is 0 real DIRTY.
 Tag in source: `grep -rn "classical-correspondence surface" lean/`.
 
 ## (A) Correspondence / translation — "= the standard object"
@@ -88,20 +89,19 @@ add_sub_cancel'}` → PURE infra; `CayleyHeavy`, 2026-06-01: `omega` /
 mul_eq_zero}`).
 
 PURE now: `Levels.CayleyHeavy` (`normSq_eq_zero_iff`, `no_zero_div`),
-`Tower.CDTower` (`CD_tower_full` — cascaded from `CayleyHeavy.no_zero_div`).
+`Tower.CDTower` (`CD_tower_full` — cascaded from `CayleyHeavy.no_zero_div`),
+`Levels.TrigintaduoionionHeavy.conj_mul_anti` (2026-06-01: `NonAssocStarRing213
+Sedenion` algebra bridge in `SedenionAlgebra213` — componentwise structural proof,
+verbatim analog of `SedenionHeavy.conj_mul_anti`, replacing `hurwitz_ring`),
+`Levels.SedenionHeavy.flexible` (2026-06-01: the **CDDoubleFlexible cross-pair**
+closed — `FlexAlt213.flex_cross_pair` from the alternating associator + central
+trace; `FlexAlt213 Cayley` registered via generic CDDouble nuclearity/trace/
+reverse-norm; `Sedenion = CDDouble Cayley` flexibility assembled componentwise
+in `Cayley.flexible_re`/`flexible_im` from base flexibility + `conj_sandwich` +
+`flex_cross_pair` + `mm_conj` + `skew_conj`, replacing `hurwitz_ring`).
 
-Still DIRTY — **not** a playbook swap (genuine theorem development):
-  · `Levels.TrigintaduoionionHeavy.conj_mul_anti` (`hurwitz_ring`, 128
-    Int-var): needs `NonAssocStarRing213 Sedenion` (the
-    Sedenion→`CDDouble Cayley` algebra bridge, replicating
-    `CayleyAlgebra213`) so the proof can go structural like
-    `SedenionHeavy.conj_mul_anti`.
-  · `Levels.SedenionHeavy.flexible` (`hurwitz_ring`, 32 Int-var): the
-    **CDDoubleFlexible cross-pair open item** — Sedenion's base (Cayley)
-    is non-associative, so `cd_flexible` (which needs base alternativity
-    via `cd_alt_left`) does not apply; flexibility of the double of a
-    merely-flexible base needs the cross-pair lemma (`CDDoubleFlexible`,
-    long-standing CD open).
+The **category-D CayleyDickson backlog is now empty** — both `Trig.conj_mul_anti`
+and `SedenionHeavy.flexible` are strict ∅-axiom.
 
 ## (E) Intentional axiom exhibits / plumbing / tests
 

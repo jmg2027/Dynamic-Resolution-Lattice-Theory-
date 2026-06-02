@@ -43,6 +43,30 @@ comparing axis positions — no measure, no LEM.  The autonomous floor
 (`DepthFloorDetOne`, det 1, `W` constant) is the trivially-free bottom; the boundary
 layer is the genuine content.
 
+**DONE — boundary layer ∅-axiom** (`Real213/CrossDetOvertake`, 10 PURE / 0 dirty).
+The bridge condition `Htel_of_crossdet` is named `CrossDetSmall W d` (`i(i+1)·W_i +
+i·d_i ≤ (i+1)·d_{i+1}`) — the two-growth-axes comparison.  Both regimes are realised
+over the *same* fixed single-exponential denominator `d_i = 2^i`:
+  - **below ⟹ free** (`crossdet_small_total_modulus`): `CrossDetSmall` feeds
+    `Htel_of_crossdet → rate_total_modulus`, yielding the total ∅-axiom modulus
+    `N=k+2`.  The free bottom is concrete: a *constant* cross-det `W_i = 1` (the
+    det-one floor) satisfies `CrossDetSmall` against `2^i` (`const_crossdet_small`,
+    since `i ≤ 2^i`);
+  - **above ⟹ broken** (`overtake_breaks`): if `d_{i+1} ≤ W_i` for `i ≥ 2` the
+    smallness condition is false (tested at `i=2`: forces `6W₂ ≤ 3W₂`, `W₂ ≥ 1`).
+    Concrete witness `dexp_overtakes_denom`: the **double exponential** `W_i = 2^{2^i}`
+    — `DepthDoubleExp`'s object, the same `2^{2^i}` whose ratio-axis floor never
+    exists (`dexp_not_const`) — overtakes `2^i` (`2^{i+1} ≤ 2^{2^i}` via `i+1 ≤ 2^i`),
+    breaking completability.
+`completability_boundary` bundles the two.  So completability is **not** a yes/no fact
+about a real but a stratification by where the cross-det axis sits relative to the
+denominator axis; the single-exponential `2^i` is the reference, constant-`W` is free,
+double-exponential-`W` breaks.  The honest scope: the overtake falsifies the
+*sufficient* bridge (not a no-modulus proof).  Genuinely-next: a *sharp* threshold
+(geometric `W` ratio `r` vs denominator ratio `q`, free iff `r ≤ q`) rather than the
+two extreme regimes; and the `DepthExponentRecursion` value-height = 1 + exponent-height
+restatement of the layer height.
+
 ### T2 — Liouville's recursion coordinate vs the denominator
 
 Liouville is diff-axis depth-∞ (`DepthLiouvilleCoord`: exponent `k!`) yet has a

@@ -59,10 +59,11 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 
-open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK)
+open E213.Lib.Math.Cauchy.DivergenceLadder (diff liftK isConst)
 open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth liftK_diff_comm liftK_congr)
 open E213.Tactic.NatHelper
-  (add_sub_cancel_right add_mul mul_assoc add_sub_of_le mul_sub_distrib add_sub_add_of_le)
+  (add_sub_cancel_right add_mul mul_assoc add_sub_of_le mul_sub_distrib add_sub_add_of_le
+   sub_add_cancel)
 
 /-! ## §1 — 213-native binomial and the monomial-column depth theorem -/
 
@@ -117,6 +118,63 @@ theorem binomCol_polyDepth (k : Nat) : polyDepth k (fun m => binom m k) := by
   intro n
   show liftK k (fun m => binom m k) n = liftK k (fun m => binom m k) 0
   rw [binomCol_liftK_const k n, binomCol_liftK_const k 0]
+
+/-! ## §1c — the column's depth is *exactly* `k` (a lower bound, not just `≤ k`)
+
+`binomCol_polyDepth` is an *upper* bound — `polyDepth k` is `isConst (liftK k ·)`,
+"floors *by* `k`".  To say the depth is **exactly** `k` we also need the *lower* bound:
+no earlier difference is constant.  Below depth `k` the column is again a lower column
+(`binomCol_liftK_eq`: `liftK j (binom·k) = binom·(k−j)`), which is non-constant because
+its diagonal value is `1` (`binom_diag`) while its value at `0` is `0`
+(`binom_lt_zero`). -/
+
+/-- Above the diagonal the binomial vanishes: `binom n k = 0` for `n < k`. -/
+theorem binom_lt_zero : ∀ n k, n < k → binom n k = 0
+  | _,   0,   h => absurd h (Nat.not_lt_zero _)
+  | 0,   _+1, _ => rfl
+  | n+1, k+1, h => by
+    have hnk : n < k := Nat.lt_of_succ_lt_succ h
+    show binom n k + binom n (k+1) = 0
+    rw [binom_lt_zero n k hnk, binom_lt_zero n (k+1) (Nat.lt_succ_of_lt hnk)]
+
+/-- On the diagonal the binomial is `1`: `binom k k = 1`. -/
+theorem binom_diag : ∀ k, binom k k = 1
+  | 0   => rfl
+  | k+1 => by
+    show binom k k + binom k (k+1) = 1
+    rw [binom_diag k, binom_lt_zero k (k+1) (Nat.lt_succ_self k)]
+
+/-- Below its degree the `k`-th column equals a lower column:
+    `liftK j (binom·k) = binom·(k−j)` for `j ≤ k`. -/
+theorem binomCol_liftK_eq (k j : Nat) (h : j ≤ k) (n : Nat) :
+    liftK j (fun m => binom m k) n = binom n (k - j) := by
+  have hb := liftK_binomCol j (k - j) n
+  rw [sub_add_cancel h] at hb
+  exact hb
+
+/-- ★ **Lower bound on the column's depth.**  For `j < k`, the `j`-th difference of the
+    `k`-th column is *not* constant — it is the lower column `binom·(k−j)` (`k−j ≥ 1`),
+    whose value `1` on the diagonal differs from its value `0` at `0`.  So the column
+    does not floor before `k`. -/
+theorem binomCol_not_below (k j : Nat) (hj : j < k) :
+    ¬ isConst (liftK j (fun m => binom m k)) := by
+  intro hconst
+  have hjk : j ≤ k := Nat.le_of_lt hj
+  have key : binom (k - j) (k - j) = binom 0 (k - j) := by
+    have h1 := hconst (k - j)
+    rwa [binomCol_liftK_eq k j hjk (k - j), binomCol_liftK_eq k j hjk 0] at h1
+  rw [binom_diag (k - j)] at key
+  cases hkj : k - j with
+  | zero   => exact absurd (Nat.le_of_sub_eq_zero hkj) (Nat.not_le.mpr hj)
+  | succ m => rw [hkj] at key; exact Nat.one_ne_zero key
+
+/-- ★★★ **The degree-`k` column has divergence-depth *exactly* `k`.**  Upper bound
+    (`binomCol_polyDepth`: the `k`-th difference is constant) and lower bound
+    (`binomCol_not_below`: no earlier difference is) together pin the depth at `k`. -/
+theorem binomCol_depth_exact (k : Nat) :
+    polyDepth k (fun m => binom m k)
+    ∧ ∀ j, j < k → ¬ isConst (liftK j (fun m => binom m k)) :=
+  ⟨binomCol_polyDepth k, fun j hj => binomCol_not_below k j hj⟩
 
 /-! ## §1b — the full Newton-form polynomial: every degree-`d` discrete polynomial
        has depth `d`

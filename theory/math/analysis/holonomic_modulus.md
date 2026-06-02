@@ -113,6 +113,33 @@ remains for another fast holonomic real is just its `W` and the smallness check
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`; the rate-free reals (π via Wallis) are exactly
 those whose `W` grows too fast for it.
 
+**The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
+the smallness condition the primitive object turns completeness into a comparison of
+two tower-internal growth axes, read at every layer
+(`Real213/RateStratification.lean`).  Write `Dominates W d i` for "the
+cross-determinant stays below the denominator's growth quantum at layer `i`":
+`i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`.  Then
+
+> **`htel_iff_dominates`** *(∅-axiom)*.  The rate certificate `Htel a d` holds **iff**
+> every layer `i ≥ 1` is dominated.
+
+This upgrades `Htel_of_crossdet` from an implication to a characterization:
+completability *is* the W-vs-d comparison, read at every layer — not a yes/no fact
+about an individual real.  Domination everywhere gives the free modulus
+(`dominated_free_modulus`, via `rate_total_modulus`); conversely **any** layer where
+`W` overtakes the denominator quantum, `(i+1)·d_{i+1} < W_i`, breaks domination
+there (`overtake_breaks_layer`) — the abstract overtake boundary, no irrationality
+measure, just the two growth axes flipping order.
+
+The **unimodular det-1 floor** is the trivially-free bottom of this stratification.
+`DepthFloorDetOne` shows the P-orbit's convergent cross-determinant is the constant
+`W ≡ 1` (the invariant of `T = [[2,1],[1,1]]`, `det T = 1`); against the denominator
+`d_i = (i+1)(i+2)` the comparison `i(i+1)·1 + i·d_i ≤ (i+1)·d_{i+1}` collapses to
+`i ≤ i+2` (`floor_dominates_all`).  So any presentation whose cross-determinant is the
+unimodular floor carries its own rate certificate unconditionally
+(`floor_carries_Htel`).  The atomic floor is the free bottom; the overtake regime is
+the genuine content above it.  `tower_stratification` bundles the three facts.
+
 ## 5. The thesis, completed
 
 "Completeness is a relocated finite operation" becomes fully constructive for the
@@ -122,3 +149,9 @@ transcendental (e) are the *same kind* of object — each a `HolonomicReal` whos
 recurrence carries its own rate.  The only reals that still take the modulus as a
 hypothesis are the rate-free presentations, and that is a deficiency of the
 *presentation*, not of the real.
+
+The smallness condition `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}` (`Htel_of_crossdet`) is
+the comparison of the cross-determinant axis against the denominator axis;
+`tower_native_completeness.md` closes that comparison — the overtake boundary, the
+Liouville adjudication (`W = d`), closure of the finite-coordinate class, the
+coordinate generator, and the tie to the residue.

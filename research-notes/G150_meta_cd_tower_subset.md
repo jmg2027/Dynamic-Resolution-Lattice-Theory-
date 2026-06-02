@@ -1,7 +1,8 @@
 # G150 — 메타-CD-타워: 4-Type Base × CD doubling = CD가 부분집합
 
-**Date**: 2026-05-29 (trimmed 2026-05-29: closed phases promoted)
-**Status**: Moufang norm-composition sub-tree **CLOSED** + promoted.
+**Date**: 2026-05-29 (trimmed 2026-05-29: closed phases promoted;
+2026-06-01: flexibility crux closed, Phase 7 vertical-reindex opened)
+**Status**: Moufang norm-composition + flexibility sub-trees **CLOSED**.
 The polarization framework (`Meta/Algebra213/CDDoubleMoufang.lean`,
 `CDDoubleAlternative.lean`, `Levels/SedenionZeroDivisor.lean`) and the
 closed-phase journal now live in the permanent tier:
@@ -80,10 +81,634 @@ L3T units (Type B L3, 4 원소) at unit-loop level — 다른 Type, layer가
 `def Tower (Base : Type) [MoufangIntegerNormed213 Base] : Nat → Type`
 정의 → ∀-typed tower 추상.  Type A/B/C/D 자동으로 인스턴스.
 
-### (math crux) Flexibility over a non-associative base
-`Meta/Algebra213/CDDoubleFlexible.lean` foundation PURE; remaining
-cross-pair identity scoped in `HANDOFF.md` + `algebra_tower.md`
-§"Open frontier" #2.
+### (math crux) Flexibility over a non-associative base — **CLOSED 2026-06-01**
+The cross-pair is proved (`FlexAlt213.flex_cross_pair`, via the
+alternating associator `left_alt_polar`/`right_alt_polar` + central
+trace), `FlexAlt213 Cayley` registered (`Levels/CayleyFlexAlt213`), and
+`SedenionHeavy.flexible` is now strict ∅-axiom (componentwise
+`Cayley.flexible_re`/`flexible_im`).  The whole CayleyDickson category-D
+backlog is empty.  The per-level "what dies / what survives" staircase
+is bundled in `Tower/CDTower.CD_tower_flexible` (∅-axiom): the premise
+chain `CommStarRing213 ⊃ StarRing213 ⊃ TraceNormed213(assoc) ⊃
+FlexAlt213(alt)` aligns one-notch with `comm → assoc → alt → flexible`,
+and flexibility is the invariant bridging the *single* rung
+(Cayley→Sedenion) where the proof switches from `mul_assoc`-driven to
+polarization-driven.
+
+### Phase 7 — vertical re-indexing hypothesis (originating 2026-06-01)
+
+> "cd tower의 1,2,3,4… 층이, 진짜 완전한 형태의 대수적 타워가 아닐
+>  수도 있다. cd의 1층이 이 가상의 완전한 대수 타워의 2층일수도,
+>  2,3,4층이 3,5,8층 뭐 이런식일수도, 심지어 한 방향으로 올라가는
+>  타워가 아닐수도 있고." — Mingu Jeong 2026-06-01
+> ("the CD tower's layers 1,2,3,4… may not be the *complete* algebraic
+>  tower; CD layer 1 might be layer 2 of a hypothetical complete tower,
+>  layers 2,3,4 might be 3,5,8…, and it might not even ascend in a single
+>  direction.")
+
+This is a **second axis** of the same "CD is a subset" insight, distinct
+from the §"4-Type matrix" (horizontal/Base axis).  Phase 7 asks whether
+the **vertical doubling index `n ↦ 2^n` is itself a subsample** of a finer
+"complete" index.
+
+**What the repo already grounds (horizontal + offset, SUPPORTED):**
+  - CD-classical = Type-A *column* of the (Base × doubling) matrix; not a
+    standalone whole (§"4-Type matrix", `TypeE_Rejection`).
+  - All named towers (CD / universe-chain `5^L` / P-orbit / GRA /
+    depth-ladder) are *one self-pointing orbit read through different
+    Lenses* (`theory/essays/tower_atlas.md` lines 3–17): "not one
+    direction" is the right shape — it is **one orbit, many readings**.
+  - **Cross-column level offsets are real and LINEAR (+1):** SHIFT RULE
+    identifies cells at *different level indices* — `shift_iso_L3`
+    (A.L2 ≅ B.L3) and `SedenionOrder4Monopoly` (A.L5 ≅ B.L6).  The *same*
+    algebraic object sits at level `n` in one column and `n+1` in
+    another.  This is exactly the seed of "CD layer = layer f(n) of a
+    finer object": the finer object is the SHIFT-iso **quotient** of the
+    matrix, and each column embeds into it at a column-dependent offset.
+
+**What is NOT yet grounded (vertical re-index, OPEN / partly refuted):**
+  - The known offsets are **+1 linear**, not the user's *non-linear*
+    `1,2,3,4 ↦ 2,3,5,8` (Fibonacci-shaped) guess.  No repo artifact
+    supports a non-linear / golden vertical reindex of a *single* column.
+    (The φ that appears — `Real213/Phi*`, `FibonacciCutoff` — is the
+    *limit-ratio* of the asymptote, not a level index; `tower_atlas`
+    lines 117–125 separate "Lens diagonal" from "P-orbit" precisely to
+    block this conflation.)  So treat the Fibonacci form as **unsupported
+    speculation** until a concrete iso is exhibited.
+  - The honest open kernel is **global-rank consistency**, not Fibonacci:
+    *does there exist a single rank `r : (Base, level) → ℕ` such that
+    every SHIFT-iso cell-pair shares `r`, and CD-A maps into `r` as a
+    not-necessarily-contiguous subsequence?*  If yes → "CD is a subsample
+    of the complete tower (= image of `r`)", and the gaps in
+    `r(A.level)` are the missing layers the user senses.  If the offsets
+    are inconsistent under composition (A→B is +1 but A→C ≠ A→B + B→C),
+    **no global linear rank exists → the complete tower branches**, which
+    *supports* "not one direction" while *refuting* "simple subsequence".
+
+**Concrete falsifiable probe (formalizable next step):**
+  1. Enumerate the proven SHIFT isos as edges of a graph on cells
+     `(Type, level)` (`shift_iso_L3`, `SedenionOrder4Monopoly`, +any in
+     `Order4Monopoly_L{4,5,6}T`, `CayleyOrder4Monopoly`,
+     `SedenionOrder4Monopoly`).
+  2. Test whether the edges admit a consistent integer potential `r`
+     (offsets compose: a `decide`-checkable finite condition on the known
+     unit-loop order-distributions).
+  3. If consistent: define `completeRank` and prove `CD-A ↪ image` is
+     injective-non-surjective (the *subsample* statement) — and read off
+     which `r`-values CD-A skips (the "missing layers").
+  4. If inconsistent: exhibit the offending triangle — that *is* the
+     proof the tower is not single-directional.
+
+This is the formal successor to Phase 5 (SHIFT-RULE abstract functor):
+the functor gives the edges; Phase 7 asks for the global potential they
+do or do not admit.
+
+### Phase 7.1 — conjecture catalog (marathon 2026-06-01)
+
+**Pivotal reframe (the SHIFT edges are *unit-loop* isos, not algebra
+isos).**  `shift_iso_L3` relates `ZI` (commutative) to `L3T`; if `L3T`
+is the dim-4 quaternion-analog it is *non*-commutative, so they cannot be
+isomorphic *as algebras* — the iso is at the **unit-loop** level (both
+have order-4 unit loops).  Therefore the "hypothetical complete tower" is
+most likely **not** a tower of algebras but the **spine of finite
+Moufang loops** (the unit loops): `Z₂ ⊴ Z₄ ⊴ Q₈ ⊴ M₁₆ ⊴ M₃₂ ⊴ …`.  The
+four algebra-Types are different **skins** (lattice realizations) over
+one shared loop-spine; SHIFT edges are the fibers of the projection
+`cell ↦ its unit loop`.  This is the precise form of "CD is a subset":
+CD-A is one section of `(cell ↦ loop)`, hitting loop-spine positions that
+another skin may fill differently.
+
+Conjectures (status: G=grounded fragment exists, C=conjecture, ?=data-
+dependent, pending the SHIFT-edge enumeration):
+
+- **P7-A (loop-spine) [C].**  The SHIFT-iso quotient of the `(Type,level)`
+  cell graph is a *linear* chain — the finite Moufang loop spine
+  `M_{2^k}` (`Z₂,Z₄,Q₈,M₁₆=octonion loop,…`).  Every SHIFT edge connects
+  cells with isomorphic unit loops; the rank `r(cell) := ` (loop position)
+  is the canonical "complete-tower" index.
+- **P7-B (global potential consistency) [C, THE decision point].**  The
+  SHIFT offsets compose: there is `r : (Type,level) → ℕ` with `r` equal on
+  every SHIFT-edge pair and strictly increasing in `level` within each
+  column.  *Falsifier:* a non-closing triangle (A→B→C ≠ A→C offset).
+  Decidable on the finite order-distribution data.  **If true → CD-A ↪
+  image(r) is the subsample statement; if false → the spine branches
+  (= "not one direction" proven, "simple subsequence" refuted).**
+- **P7-C (offset linearity) [G partial: +1 twice].**  Current edges
+  (`A.L2≅B.L3`, `A.L5≅B.L6`) give a constant `+1` A→B offset, i.e.
+  `r(T,ℓ)=ℓ+c_T` *linear*.  Conjecture: it stays linear (no Fibonacci).
+  The user's `1,2,3,4 ↦ 2,3,5,8` (non-linear) form is **predicted FALSE**
+  unless an iso with a *varying* offset is exhibited — that single
+  counterexample would flip P7-C and vindicate the non-linear guess.
+- **P7-D (skin invariant) [?].**  What distinguishes the four skins over
+  the shared loop at a given `r`?  Candidate: the *base discriminant*
+  (`disc P`-type) — A: `x²+1` (disc −4), B: `x²−D`, C: `x²+x+1` (disc −3,
+  Eisenstein), D: Hurwitz.  Conjecture: skins at equal `r` are
+  unit-loop-isomorphic but algebra-distinguished by base discriminant /
+  order-distribution refinement.  *Test:* a proven NON-iso of two
+  same-dim cells in different columns (a distinguishing invariant).
+- **P7-E (gap reading = missing layers) [C].**  If P7-B holds, the
+  `r`-values that B/C/D realize but A skips are exactly the "missing
+  layers" intuition.  Conjecture: Type C (Eisenstein, 3-element seed
+  `(1,ω,ω²)`) realizes loop-spine positions *between* A's, because its
+  seed is order-3 not order-2 — so C is the densest skin and A is the
+  sparsest.  *This is the sharpest read of "CD layer 1 = layer 2 of the
+  complete tower": A is a sparse section, C a denser one, of the same
+  spine.*
+
+**Decision point of the whole marathon = P7-B** (decidable).  Plan:
+enumerate edges → encode order-distributions as concrete Nat data →
+`decide` the potential-consistency condition → either build `completeRank`
++ prove `CD-A` non-surjective into it (P7-E gaps), or exhibit the
+branching triangle.
+
+### Phase 7.2 — proven (∅-axiom) `meta_tower_loop_spine`
+
+`Tower/MetaTowerLoopSpine.meta_tower_loop_spine` (strict ∅-axiom,
+assembled from the per-level order distributions, no expensive
+re-decide).  Empirical inputs now pinned (all `decide`, file:line):
+`shift_iso_L3` (`ZSqrtMinus2Findings:53`), `cay/sed_order_distribution`
+(`Levels/{Cayley,Sedenion}Order4Monopoly`), `L5T/L6T_order_distribution`
+(`Tower/Order4Monopoly_L{5,6}T`), `typeC_cyclotomic_3_preserved`
+(`UniversalOrderGrowthC:31`).  The dyadic order-4 counts are
+`g(p) = 2^{p+1} − 2`: `Z₂`0, `Z₄`2, `Q₈`6, `M₁₆`14, `M₃₂`30.
+
+Resolved conjectures:
+  - **P7-A loop-spine [CONFIRMED, dyadic branch].**  Order distribution
+    `= ` unit-loop class; `Cayley(A,dim8) ≅ L5T(B,dim16)` (`M₁₆`),
+    `Sedenion(A,dim16) ≅ L6T(B,dim32)` (`M₃₂`).  spine ≠ dimension.
+  - **P7-C offset linearity [CONFIRMED +1].**  Two independent rungs give
+    the same `+1` B-over-A offset.  **The Fibonacci/non-linear guess is
+    REFUTED** for the dyadic branch.
+  - **P7-E subsample/gap [CONFIRMED].**  At equal dim 16,
+    `Sedenion(M₃₂) ≠ L5T(M₁₆)` — Type A indexes the spine `n ↦ n+1`,
+    skipping the bottom `Z₂` rung that B's `ℤ[√-2]` fills.  *This is the
+    exact formal content of "CD layer n = layer n+1 of the complete
+    tower".*
+  - **P7-D branch [CONFIRMED first half].**  Dyadic (A) carries no
+    3-torsion; Eisenstein (C) does → the spine branches by base
+    discriminant.
+
+Still open after Phase 7.2:
+  - **P7-B (global consistency across ALL columns, incl. C/D).**  Proven
+    consistent on the A–B dyadic edges; the full potential over the
+    branched graph (Eisenstein, Hurwitz) is not yet bundled.
+  - **No cross-branch iso (dyadic ↔ Eisenstein)** is an *untested
+    absence*, not a theorem — needs a distinguishing-invariant proof
+    (3-torsion present/absent is the candidate witness).
+  - **Parametric `Tower (Base) (n) : Type`** + abstract SHIFT functor
+    (the long-standing Phase 5/6) — would make `r` a definition, not a
+    per-cell `decide`.
+  - **asymptote ↦ branch:** `asymptote_ab` is `(2,0)` for A *and* B (same
+    dyadic branch) but `(5,−1)` for C, `(1,1)` for D — conjecture: the
+    `ℤ[√5]` asymptote is the branch (discriminant) invariant, *constant
+    along columns, varying across branches* — linking P7-D to
+    `Mobius213CDBridge.cd_mobius_bridge_master`.
+
+### Phase 7.3 — adversarial review integrated (marathon 2026-06-01)
+
+Critique pass (second agent) confirmed the proofs sound but corrected the
+*interpretation*; two honesty fixes and two new ∅-axiom theorems:
+
+**Honesty corrections (carried into the Lean docstrings):**
+  - **basis loop ≠ arithmetic unit group.**  `cay_units` is the
+    16-element ±basis-doubling Moufang loop (`lip_units.map cay_left ++
+    … cay_right`), *not* the 240-unit integer-octonion group (E₈ roots).
+    The `Cayley ≅ L5T` alignment is an iso of *basis loops*; for the full
+    240/… unit groups it likely **breaks** (different base lattices give
+    different root counts).  So "A and B realise the same *algebra* one
+    rung apart" is **unsupported** — only the basis-loop relation holds.
+    Drop "the octonion unit loop" phrasing.
+  - **`+1 offset` is partly a naming artifact.**  There is no
+    column-intrinsic level index; the naming-free content is the
+    *equal-dimension* loop difference (`Sedenion ≠ L5T` at dim 16,
+    `Cayley ≠ L4T` at dim 8).  "n ↦ n+1" is a description of that single
+    gap, not an independent fact.  Likewise the dyadic order-4 count is
+    the closed form `2·dim − 2` (all non-`±1` units have order 4), so the
+    within-dyadic "spine" is the seed unit count re-told.
+  - **rank, not disc.**  The asymptote classifier is
+    `rank = ω(unitOrder) − 1 + nonAbelian` (`AlgebraTowerAsymptote`),
+    *not* a base discriminant routed through the Möbius `disc P = 5`
+    (a different 5 = `tr²−4det`).  `cd_mobius_bridge_master` ties only the
+    C/D asymptotes to P-invariants, never the dyadic `(2,0)`.  So P7-D
+    should read **branch ⇔ rank ⇔ asymptote**, not "skin = base disc".
+
+**New proven (∅-axiom, `Tower/MetaTowerLoopSpine`):**
+  - `no_cross_branch_loop_iso` (NC-1): order-3 count `= 0` on dyadic
+    basis loops, `= 2` on Eisenstein — the named obstruction to any
+    orderOf-preserving (hence any loop) iso across branches.  The
+    branches also separate by the order-4 *sequence* (`6,14,30` vs
+    `6,18,42`), so the separation is twofold.
+  - `asymptote_classifies_branch` (NC-4): `asymptote_ab` constant on the
+    dyadic branch (`A = B`, blind to the A↔B column shift) and distinct
+    across the three branch classes.
+
+**Still open (sharpened):**
+  - NC-2 — **CONFIRMED.**  `dyadic_branch_bottom_rung` formalises the
+    `Z₂` bottom: `ℤ[√-2] = ZSqrt 2` has unit group `{±1}` (2 units, no
+    order-4, no 3-torsion), one doubling below Type A's base `ℤ[i]` (`Z₄`,
+    4 units, order-4 count 2).  So "Type A skips the bottom rung" is now a
+    theorem, not a caveat — the dyadic spine extends below Type A and
+    Type A indexes it from the second position.
+  - NC-3 — "C is the densest branch": order-4 count strictly greater at
+    each dim (`18>14`, `42>30`); decidable per level, conjectural for all.
+  - NC-5 — completion = a **branching forest rooted at `Z₂`** (dyadic
+    spine `Z₂◁Z₄◁Q₈◁M₁₆◁…`, Eisenstein `Z₂◁Z₆◁Dic₃◁…`, Hurwitz), not a
+    single chain and not a Fibonacci re-index of one column.  Only its
+    finite shadows (NC-1..4) are ∅-axiom-accessible; the forest object
+    itself needs the parametric `Tower (Base)` constructor (Phase 6).
+
+**Marathon verdict on the originating intuition:** "CD is not the
+complete tower / layer n = layer n+1 / not one direction" is **confirmed
+and formalised** at the basis-loop level; the non-linear (Fibonacci)
+re-index is **refuted**; the honest completion is a discriminant-branching
+forest, whose finite shadows are now ∅-axiom theorems.
+
+### Phase 8 — seed-`μ` governance (the imaginary-quadratic-units thread)
+
+The numbers from Phase 7 point past "branching forest" to *what indexes
+the branches*.  Seed unit counts: `ℤ[√-2]` = 2, `ℤ[i]` = 4, `ℤ[ω]` = 6,
+Hurwitz = 24.  Per-level counts: Type A `= 2·dim`, Type B `= 1·dim`,
+Type C `= 3·dim`; order-4 counts: dyadic `2·dim − 2`, Eisenstein
+`3·dim − 6`.  **Classical fact:** the only imaginary quadratic fields
+with units past `{±1}` are `ℚ(i)` (`μ₄`, 4 units) and `ℚ(ω)=ℚ(√-3)`
+(`μ₆`, 6 units); every other imaginary quadratic order has `μ₂ = {±1}`.
+So the meta-tower's columns look governed by the seed's **root-of-unity
+group `μ`**, with `ℤ[i]`, `ℤ[ω]` the two exceptional dense columns.
+
+Conjectures (status `?` pending the Phase-8 data + math agents):
+
+- **P8-A (`μ` governs density).**  Per-level unit count `= (|μ_seed|/2)·dim`;
+  density `c = |μ_seed|/2 ∈ {1,2,3}` for `μ ∈ {μ₂,μ₄,μ₆}` (B, A, C).
+  *Formalizable:* the `c·dim` law from the unit-doubling theorems.
+- **P8-B (`μ` odd-torsion governs branch).**  Loop-spine torsion menu =
+  the 2-power torsion (always) plus the **odd part of `μ_seed`**: `μ₂,μ₄`
+  give 2-power only (dyadic); `μ₆` adds `3,6`-torsion (Eisenstein).  So
+  *branch = whether `3 ∣ |μ_seed|`*.  Grounded already by
+  `no_cross_branch_loop_iso` (order-3: 0 vs 2).
+- **P8-C (exceptional columns).**  Among imaginary quadratic seeds,
+  exactly `ℤ[i]` and `ℤ[ω]` are dense (`c>1`); all `ℤ[√-D]` (`D≥2`) are
+  density-1 generic dyadic.  This is the CD-tower shadow of the `μ₄/μ₆`
+  exceptionality.  *Formalizable only as the finite trichotomy
+  `|μ_seed| ∈ {2,4,6}`; the "only these" is a field-theory fact, not a
+  decide.*
+- **P8-D (Hurwitz = Eisenstein-containing, rank 2).**  `2T` (Hurwitz, 24
+  units, element orders `{1,2,3,4,6}`) contains `μ₆` (`ω ∈` Hurwitz), so
+  its torsion menu `⊇` Eisenstein's; it is a **quaternion (rank-2)** seed,
+  the "next dimension of seed".  Conjecture: Type D's spine contains the
+  Eisenstein spine.  *Test:* does Hurwitz have order-3 units (`>0`)?
+- **P8-E (closed forms).**  order-4 count `= c·dim − k`, with `k` = the
+  non-order-4 units (`±1` plus the cyclotomic surplus): dyadic `2·dim−2`
+  (`k=2`), Eisenstein `3·dim−6` (`k=6 = 2 + 2·(order-3) + 2·(order-6)`).
+  *Formalizable per level; the closed form is the conjecture.*
+
+**The deeper object (P8 candidate completion).**  The "complete tower"
+is the **family of CD towers over imaginary quadratic (and quaternion)
+orders, fibered by the unit group `μ`** — classical CD = the `ℤ[i]`
+column; the special columns (`i`, `ω`, and the quaternionic `2T`) are the
+CM-exceptional points with extra automorphisms.  `μ ∈ {2,4,6}` (plus `2T`
+for the rank-2 lift) is the organizing trichotomy.  Decidable shadows:
+the density `c·dim` law, the order-4 closed forms, and `branch = 3∣|μ|`.
+
+### Phase 8.2 — confirmed (∅-axiom) + the deep structure
+
+Two agents (repo data + imaginary-quadratic math) confirmed the data and
+synthesized the structure.  Proven in `Tower/SeedUnitGovernance` +
+`Tower/MetaTowerLoopSpine`:
+
+  - `seed_unit_trichotomy` — `|μ| = 2,4,6,24` for `ℤ[√-2], ℤ[i], ℤ[ω],`
+    Hurwitz.  **P8-A/C confirmed** (rank-1 trio `{2,4,6}`).
+  - `eisenstein_seed_unit_count_eq_NS_NT` — `|μ_{ℤ[ω]}| = 6 = NS·NT`.  The
+    exceptional dense rank-1 seed's unit count *is* the atomic product
+    (`ZOmegaUnits.units_count_eq_NSNT`).
+  - `branch_by_odd_torsion` — order-3 count `0 / 0 / 2 / 8` for A / B / C /
+    Hurwitz.  **P8-B confirmed**: branch `= (3 ∣ |μ|)`.
+  - `hurwitz_contains_eisenstein_core` — `2T` carries order-3 (8) *and*
+    order-6 (8): the Eisenstein menu `{3,6}` (`μ₆ ⊂ 2T`).  **P8-D
+    confirmed**: Eisenstein is the abelian core of the rank-2 Hurwitz
+    branch.
+  - `seed_density_at_dim8` — at dim 8 the columns carry `2·8, 1·8, 3·8`
+    units (densities `c = |μ|/2 = 2,1,3`).  **P8-A density confirmed.**
+  - Data also pins (file:line, all `decide`): A `=2·dim`, B `=1·dim`
+    (to `L9T=256`), C `=3·dim`; order-4 `2·dim−2` (dyadic) / `3·dim−6`
+    (Eisenstein); Hurwitz order distribution `(1,1,8,6,8)` for
+    `{1,2,3,4,6}`.
+
+**The deep structure (math synthesis — the real answer to "complete
+tower").**  Density `c = |μ/{±1}|` (projectivized unit order); branch =
+the *odd torsion* of `μ`.  The trichotomy is **forced**: imaginary
+quadratic fields with `μ ≠ {±1}` are *exactly* `ℚ(i)` (`μ₄`) and `ℚ(ω)`
+(`μ₆`) (Dirichlet, rank 0).  So `ℤ[i], ℤ[ω]` are the two exceptional
+columns *for the identical reason* they are the only such fields.
+
+  - **`A/B` = one branch, index-shifted**: `μ₄`'s built-in `i`
+    pre-supplies one CD doubling, so `ℤ[i]` realises the dyadic spine at
+    half the dimension of generic `ℤ[√-D]` — same loop sequence, density
+    2 vs 1, index `n ↦ n+1`.  (`μ₄` is a 2-group ⇒ stays dyadic.)
+  - **branch = seed-lattice symmetry**: `μ₂, μ₄, μ₆` = `Aut` of the
+    rectangular / square / **hexagonal** rank-2 lattice.  The hexagonal
+    3-fold symmetry *is* the order-3/6 torsion of branch C.  Odd torsion
+    a CD doubling can never manufacture from `{±1}` and `√-1` — which is
+    why Eisenstein is a genuinely new branch, not a shifted dyadic one.
+  - **`2T` (Hurwitz) = rank-2 lift**: the `24`-cell / `D₄`–`F₄`
+    symmetry; `μ₆ ⊂ 2T` makes Eisenstein the abelian core, the non-abelian
+    quaternionic completion `Q₈⋊C₃` on top (the asymptote `nonAbelian`
+    flag, rank 2).
+  - **The complete object**: the meta-CD-tower is a **functor from finite
+    unit groups of definite `ℤ`-orders** (= finite subgroups of the
+    division-algebra units: `μ₂,μ₄,μ₆` rank-1; `2T,…` rank-2) **to graded
+    systems of basis-unit Moufang loops**.  Classical CD = the section
+    over the trivial seed `μ = {±1}` (the density-1 dyadic trunk).  The
+    speculative endpoint: the **binary-polyhedral / McKay (ADE) ladder**
+    — `μ₄,μ₆` cyclic, `2T` the first binary polyhedral; `2O (48), 2I
+    (120)` would be the next exceptional seeds.  The CM `j`-invariant
+    connection is real but downstream — the operative invariant is
+    `Aut(E) = μ_seed`, not the full CM datum.
+
+**Marathon-2 verdict:** the originating "complete tower" is the family of
+CD towers **fibered over seed unit groups**; the `μ ∈ {2,4,6}` trichotomy
+(Dirichlet) makes `ℤ[i], ℤ[ω]` the two exceptional dense columns, branch
+`= 3∣|μ| =` hexagonal seed-lattice symmetry, and Hurwitz `2T` the rank-2
+lift containing Eisenstein.  Decidable shadows are all ∅-axiom.  Open
+frontier: the rank-2 (`2O, 2I`) seeds and the McKay/ADE classification.
+
+### Phase 8.3 — adversarial critique integrated (honest status)
+
+A third agent stress-tested the Phase-8 theorems.  Soundness: all
+∅-axiom, true `decide`/composition facts.  The critique was about *what
+the decidable facts mean* — corrections applied to the Lean docstrings:
+
+  - **Density-governance is largely a restatement of the construction.**
+    The tracked object is the *doubled-basis loop* (`lip_units.map
+    cay_left ++ … cay_right`), twice the previous by construction; so
+    "density `= |μ|/2`" is the seed count read back out, not independent
+    governance.  The *contentful* claim is **branch** (odd torsion).
+  - **Branch is the real content** — 3-torsion is a genuine iso invariant
+    the doubling *preserves but cannot create*.  `branch_by_odd_torsion`
+    now covers **every measured dyadic cell** (`lip,cay,sed,L4T,L5T` →
+    order-3 `= 0`) vs `zod = 2`, `hur = 8`.  But the universal direction
+    ("no dyadic level *ever* gains odd torsion") is still **pointwise**,
+    not a uniform theorem (would need the parametric tower).
+  - **`6 = NS·NT` is a coincidence as formalized** — the same `6` is also
+    `3!`, `d+1`, ….  The structural reading (`μ₆ ≅ μ₂×μ₃` ↔ the `K_{3,2}`
+    ST-phase `μ_NT × μ_NS`) is real but **not wired** in Lean.  Docstring
+    demoted to numerical identity.
+  - **`hurwitz_contains_eisenstein_core` → `hurwitz_carries_cyclotomic_torsion`.**
+    Count `> 0` does *not* witness a subgroup `μ₆ ⊂ 2T`, and `2T`'s
+    3-torsion (8) is 4× a single `μ₆` (2); `2T ≅ SL(2,𝔽₃)` non-abelian.
+    Docstring now states only the order-count menu overlap.
+  - **Number-theoretic labels** (the trichotomy uniqueness; lattice
+    symmetry `μ₂/μ₄/μ₆` = rectangular/square/hexagonal; the McKay/ADE
+    ladder; the loop-class names `Q₈/Dic₃`) are **classical facts or
+    speculation, cited not formalized** — they live in this note, and the
+    Lean docstrings now say so.
+
+**Net honest status of "seed-`μ` governs the tower":** the *density*
+half is a corollary of the doubling; the *branch* half (odd-torsion =
+discriminant class) is the genuine, partly-formalized content; the
+*deep* identifications (lattice symmetry, McKay, CM) are the cited
+mathematical frame, the right picture but beyond the ∅-axiom finite
+shadows.  Hardening targets left: a real `μ₆ ⊂ 2T` subgroup witness
+(generator + closure), the CRT `μ₆ ≅ μ₂×μ₃` wired to `(NT,NS)`, and the
+uniform "dyadic doubling preserves order-3 `= 0`" (needs the parametric
+`Tower (Base)` constructor — the standing NC-5 frontier).
+
+### Phase 8.4 — the two cited claims hardened into proofs (marathon-3)
+
+Both overclaims the critique flagged are now ∅-axiom theorems in
+`Tower/SeedUnitGovernance`:
+
+  - **`mu6_subgroup_of_2T`** — a genuine cyclic `μ₆ ⊂ 2T`.  The Hurwitz
+    unit `g = ⟨1,1,1,1⟩ = (1+i+j+k)/2` is a primitive 6th root
+    (`hur_orderOf g = 6`, indeed `g³ = -1`); its 6 powers
+    `{1,g,g²,g³,g⁴,g⁵}` are distinct and all lie in `hur_units`.  So the
+    subgroup containment is *witnessed*, not inferred from counts —
+    `2T`'s order-3 count 8 is still 4× a single `μ₆`, but a `μ₆` is now
+    provably inside.
+  - **`eisenstein_units_crt`** — `μ₆ ≅ μ_NT × μ_NS` by CRT.  `{±1}`
+    (order `NT=2`) × `{1,ω,ω²}` (order `NS=3`); the product map
+    `(s,t) ↦ s·t` is a `Nodup` bijection onto `units6`.  So `6 = NS·NT`
+    is the *structural* `μ_NS × μ_NT` split, not a numerical collision —
+    the order-2 factor is the `±1`/temporal `NT`, the order-3 factor the
+    cube-root/spatial `NS`.
+
+**McKay-ladder evidence found in-repo (not external after all).**
+`Lib/Math/Geometry/AlgebraicGeometry.lean` already carries the rank-2
+continuation past Hurwitz: `SL(2,𝔽₅) ≅ 2I` (binary icosahedral, 120),
+"`Type D` (Hurwitz `2T`, 24) is the `ℤ`-base level; icosian (`2I`, 120)
+extends to `ℤ[φ]` (`Type E`)", with `24·5 = 120` and `5·4·6 = 120`
+(`algebraic_geometric_core`).  So the seed ladder `μ₄,μ₆ → 2T → 2I`
+(cyclic → binary tetrahedral → binary icosahedral) is the repo's own
+`A/C → D → E` progression, the `ℤ[φ]` golden seed being the next
+exceptional column.  The McKay/ADE frame for the "complete object" is
+thus *gestured by the repo*, not merely imported — though `2I`/`ℤ[φ]`
+unit-group constructions are cited, not yet built.
+
+**Marathon-3 verdict:** the two formalization gaps the adversarial pass
+exposed are closed (`μ₆ ⊂ 2T` and `μ₆ ≅ μ_NT×μ_NS` both proven), making
+`6 = NS·NT` structural and the Hurwitz–Eisenstein containment genuine.
+The seed-`μ` ladder extends in-repo toward `2I/ℤ[φ]` (Type E), pointing
+the "complete object" at the binary-polyhedral/McKay classification.
+
+### Phase 9 — Type E (`ℤ[φ]` icosian, `2I`, 120) — the order-5 branch
+
+The next ladder rung past Hurwitz (`2T`, 24) is the **icosian ring** —
+the maximal order of the quaternion algebra over `ℚ(√5)`, unit group the
+**binary icosahedral group `2I ≅ SL(2,𝔽₅)`** of order 120.  Its element
+orders are `{1,2,3,4,5,6,10}` — so it carries **order-5 and order-10
+torsion absent from every lower seed** (`A/B/C/D` menus top out at 6).
+This is the genuinely *new* branch: the golden/pentagonal signature.
+
+Conjectures:
+
+- **P9-A (order-5 torsion is the Type E signature) [decidable witness].**
+  An explicit icosian unit of order 5 exists.  Construction (computed):
+  over `ℤ[φ]` (`φ²=φ+1`, element `⟨a,b⟩ = a+bφ`), quaternions with
+  `ℤ[φ]` coordinates scaled by 2 (Hurwitz-style); the unit
+  `g = ((φ-1)+φ·i+j)/2` has `normSq = ((φ-1)²+φ²+1)/4 = 1` and real part
+  `(φ-1)/2 = cos 72°`, so `g⁵ = 1`, `g ≠ 1` ⇒ order exactly 5.  Witnesses
+  Type E carries 5-torsion.
+- **P9-B (the seed ladder = binary polyhedral / McKay).**  The seeds form
+  `μ₂ ⊂ μ₄ ⊂ μ₆` (cyclic) `→ 2T (24) → 2I (120)` — the binary polyhedral
+  groups, the `A–D–E` McKay classification of finite `SU(2)` subgroups.
+  Density / branch governance extends: `2I` adds the order-5 (`A₄`-free
+  icosahedral) torsion.  `24·5 = 120` (`AlgebraicGeometry.algebraic_geometric_core`)
+  is the `2T → 2I` index.
+- **P9-C (`5 = NS+NT` floor meets `2I`) [speculative].**  `2I`'s order
+  `120 = 5! = (NS+NT)!`, and the icosian ring lives over `ℚ(√5)` with
+  `5 = disc P = NS+NT` (the Möbius/atomic floor).  Conjecture: Type E is
+  where the seed ladder *meets the `5`-floor* — the golden seed `ℤ[φ]`
+  is the CM/automorphism shadow of the same `P = [[2,1],[1,1]]`,
+  `disc 5`, that bottoms the depth-ladder and the CD asymptote.  (Links
+  `tower_atlas` `5`-floor to the McKay endpoint.)
+
+Decidable target: P9-A (the order-5 icosian witness).  Stretch: the full
+`2I` order distribution; P9-B/C are the cited frame.
+
+### Phase 9.2 — P9-A confirmed: the order-5 icosian unit (∅-axiom)
+
+`Tower/TypeEIcosian.icosian_order5_unit` (strict ∅-axiom).  Built from
+scratch (the repo had no `ℤ[φ]` ring, no quaternion-over-ring, no icosian
+— only the textual `SL(2,𝔽₅) ≅ 2I`):
+  - `ZPhi` golden integers `⟨a,b⟩ = a+bφ`, `φ²=φ+1`, `(a+bφ)(c+dφ) =
+    (ac+bd)+(ad+bc+bd)φ`;
+  - `Icosian` = quaternions with `ℤ[φ]` coords, scaled-by-2 (Hurwitz
+    convention with `ℤ[φ]` for `ℤ`);
+  - `g = ((φ-1)+φ·i+j)/2 = ` scaled `⟨φ-1,φ,1,0⟩`: `normSq g = 4` (a
+    unit), `g⁵ = 1`, `g ≠ 1` ⇒ order exactly 5 (5 prime).
+  - `g` is an *even* permutation of `(0,1/φ,1,φ)/2` (a 3-cycle), hence one
+    of the 96 golden icosians — a genuine element of `2I`.  The
+    `decide` passing through `Int /2` halving also *self-certifies* the
+    construction: a non-icosian `g` would break `g⁵ = 1` under
+    truncation.
+
+This is the **first executable order-5 element in the repo** and the
+McKay rung past `2T` — order-5 torsion no lower seed carries.
+
+**Honest scope (reconciling `Misc/TypeE_Rejection`).**  `Misc/TypeE_Rejection`
+excludes the icosian from the strict 4-row `ℤ`-coefficient CD matrix, and
+correctly so: `ℚ(√5)` is *real* quadratic, so `ℤ[φ]`'s *own* unit group is
+*infinite* (`φ` fundamental).  Phase 9 does **not** contradict this — it
+steps deliberately *outside* the `ℤ`-CD scope: the relevant finite object
+is the *totally-definite quaternion order* over `ℤ[φ]`, whose unit group
+*is* finite (`2I`, 120).  So Type E is "rejected as a `ℤ`-CD seed,
+realised as the rank-2 McKay rung over `ℤ[φ]`" — two compatible facts.
+P9-C (`120 = 5! = (NS+NT)!`, icosian over `ℚ(√5)`, `5 = disc P = NS+NT`)
+remains a *speculative* link of the seed-ladder endpoint to the repo's
+`5`-floor, not formalized.
+
+### Phase 9.3 — adversarial critique integrated
+
+An agent independently re-implemented `ZPhi`/`Icosian.mul` and recomputed
+`g²…g⁵` in exact `ℤ[φ]`: all three original conjuncts reproduce, build
+clean, genuinely ∅-axiom.  Crucially it found that **no truncation ever
+occurs** on the `g` orbit (every pre-halving coordinate of `g²…g⁵` is
+even), so the `Int /2` halving is exact throughout and `normSq` (computed
+*without* halving) is a clean unit witness — the construction is sound,
+not a truncation artifact.  The two soft spots it flagged were rhetorical,
+both now fixed:
+
+  - **order exactly 5 promoted to theorem.**  Added `g5² ≠ 1` so
+    `icosian_order5_unit` proves order divides 5, `≠ 1`, `≠` order-2 —
+    the "exactly 5" no longer lives only in prose.  (Order-10 witness
+    `icosian_order10_unit` added in parallel: full `{5,10}` menu.)
+  - **the `orderOf`-vacuity closed.**  `two_T_torsion_bounded_at_6`:
+    `hur_orderOf` returns `0` exactly for orders outside `{1,2,3,4,6}`,
+    and `hur_order_distribution` proves that `0`-count is `0` — so `2T`
+    *provably* has no order-5/order-10 element.  The contrast "Type E
+    carries `{5,10}`, the lower seeds do not" is now a real theorem, not
+    an artifact of a checker that never tests the 5th power.
+  - **framing softened.**  The Lean docstring now says "an order-5 element
+    *of the icosian quaternion order*" (not "of `2I`", which would
+    presume the 120-group), marks the "McKay rung" reading as conjectural
+    narrative, and states that only the explicit elements — not the full
+    `2I` group, its closure, or P9-B/C — are proved.
+
+**Marathon-4 verdict:** the seed/McKay ladder now has executable
+witnesses at its `2I` rung — order-5 and order-10 icosian units over
+`ℤ[φ]`, with the lower-seed order-bound proved so the new pentagonal
+torsion is genuine.  The construction is honestly scoped (one/two
+elements, not the 120-group; `ℤ[φ]` coefficients outside the `ℤ`-CD
+matrix), and the McKay/ADE "complete object" remains the cited frame the
+repo's own `24·5=120`, `SL(2,𝔽₅)≅2I` point toward.
+
+### Phase 9.4 — the `E₆–E₇–E₈` exceptional trio completed (`2O`, marathon-5)
+
+`Tower/TypeOOctahedral` adds the missing middle rung — the **binary
+octahedral group `2O` (48, `E₇`)** — completing the binary-polyhedral /
+McKay exceptional trio as definite quaternion orders over the three
+relevant rings:
+
+| group | order | ring | new torsion | McKay |
+|---|---|---|---|---|
+| `2T` | 24 | `ℤ` (Hurwitz) | `3,6` | `E₆` |
+| `2O` | 48 | `ℤ[√2]` | `8` | `E₇` |
+| `2I` | 120 | `ℤ[φ]=ℤ[√5]` | `5,10` | `E₈` |
+
+The clean parallel: `2T` over `ℤ`; `2O`, `2I` over the *real* quadratic
+rings `ℤ[√2]`, `ℤ[√5]` (own units infinite, definite-order units finite).
+Built `ZRt2` (`(√2)²=2`, `mul ⟨a,b⟩⟨c,d⟩ = ⟨ac+2bd, ad+bc⟩`) + `ℤ[√2]`-
+quaternions, and proved (∅-axiom):
+  - `octahedral_order8_unit` — `g = (1+i)/√2 = cos 45° + sin 45°·i`,
+    scaled `⟨√2,√2,0,0⟩`: `normSq = 4` (unit), `g⁸ = 1`, `g⁴ ≠ 1` ⇒ order
+    exactly 8.  The octahedral `E₇` signature.
+  - `two_T_has_no_order_8` — `2T` orders `⊆ {1,2,3,4,6}`, so order-8 is
+    genuinely new at `E₇` (and absent from `2I`'s `{1..6,10}` too).
+
+So the exceptional `E`-series now has executable order-witnesses at every
+rung: `E₆` (`2T`, `{3,6}`), `E₇` (`2O`, `{8}`), `E₈` (`2I`, `{5,10}`).
+Same honest scope as Phase 9.2/9.3 (explicit elements, not the full
+48-/120-groups; the McKay/ADE identification is the cited frame).
+
+**Marathon-5 verdict:** the seed ladder's exceptional endpoints
+`E₆–E₇–E₈ = 2T–2O–2I` over `ℤ, ℤ[√2], ℤ[√5]` are all realised with
+∅-axiom torsion witnesses (`{3,6} / {8} / {5,10}`).  The "complete
+object" — finite unit groups of definite arithmetic orders, indexed by
+the binary-polyhedral / McKay classification — now has concrete proven
+shadows across its whole exceptional row, with the lower-rung order-bounds
+proved so each new torsion type is genuine, not a checker artifact.
+
+### Phase 10 — the loop closes: `P` meets the icosian `E₈` endpoint (marathon-6)
+
+`Tower/MobiusPIcosian` ties the whole meta-CD-tower exploration back to
+the DRLT *core*.  The framework's atomic Möbius generator
+`P = [[2,1],[1,1]]` — trace `3 = NS`, det `1`, disc `5 = NS+NT` (the
+floor that bottoms the depth-ladder, the CD asymptote, and the atomic
+forcing) — reduced mod `5` is an **order-10 element of `SL(2,𝔽₅) ≅ 2I`**,
+the binary-icosahedral `E₈` rung whose order-5/10 torsion the icosian
+`g5`/`g10` witness over `ℤ[φ]`.
+
+  - `P_mod5_order_exactly_10` (∅-axiom): via the existing `pellCoeff`
+    Cayley–Hamilton detector for `M = [[2,1],[1,1]]`, `P¹⁰ ≡ I` while
+    `P¹,P²,P⁵ ≢ I` ⇒ order divides 10, is none of `1,2,5`, hence exactly
+    10.  `det P = 1` puts `P mod 5 ∈ SL(2,𝔽₅)`; `10 = NT·(NS+NT)`.
+  - `mobius_P_meets_icosian_endpoint` bundles the `5`-floor invariants,
+    the order-10 reduction, and `10 = NT·(NS+NT)`.
+
+So the `5`-floor generator of the entire framework is the order-10
+element of the seed ladder's `E₈` endpoint — the meta-CD-tower's top
+rung and the foundational `P`-orbit are the *same* order-10 conjugacy
+class in `2I`.  Honestly scoped: the group iso `SL(2,𝔽₅) ≅ 2I` and the
+`P ∼ g10` conjugacy are cited classical facts; what is *proved* is `P mod
+5`'s matrix order and its `SL(2,𝔽₅)` membership.
+
+### Phase 11 — the complete object named: the full McKay `A–D–E` (marathon-7)
+
+`Tower/MckayADECensus` makes the "complete object" explicit.  The finite
+subgroups of `SU(2)` are McKay-classified into `A` (cyclic), `D` (binary
+dihedral), `E₆,₇,₈` (`2T,2O,2I`) — and these are *exactly* the loop
+classes the seed ladder realises:
+
+| McKay | group | meta-CD-tower realisation |
+|---|---|---|
+| `Aₙ` | `Cₙ` | seed roots of unity `μ₂,μ₄,μ₆` (`units6 = C₆`) |
+| `Dₙ` | `Dicₙ` | `Q₈ = Dic₂` (dyadic `Lipschitz`/`Cayley` loop), `Dic₃` (`ZOmegaDouble`) |
+| `E₆` | `2T` | `Hurwitz` (24) |
+| `E₇` | `2O` | octahedral over `ℤ[√2]` (48) |
+| `E₈` | `2I` | icosian over `ℤ[φ]` (120) |
+
+`mckay_ADE_census` (∅-axiom) bundles one discriminating order-signature
+per family/rung: `A` (`|units6| = 6`, cyclic `C₆`); `D` (`Q₈` —
+`Lipschitz` order-4 count 6; `Dic₃` — `ZOmegaDouble` order 12, 3-torsion
+2); `E` (`2T` order-6 count 8; `2O` order-8 unit `g8`; `2I` order-5/10
+units `g5,g10`).  The group-name identifications are the cited McKay
+frame; the order signatures are proved.
+
+So the "complete tower" the sparse-section intuition reached for is the
+**McKay `A–D–E` classification of finite `SU(2)` subgroups** — every type
+realised as a meta-CD-tower loop class, and (Phase 10) the `E₈` top
+anchored to the framework's own `5 = NS+NT` floor via `P mod 5`.
+
+**Marathon-6 verdict / arc close:** the six-marathon arc that began from
+"CD is not the complete tower" closes a full circle — CD is a sparse
+section of a discriminant-branching basis-loop spine (M1); the branches
+are governed by the seed unit group `μ` (M2, hardened M3); the exceptional
+`E₆–E₇–E₈ = 2T–2O–2I` rungs are realised with order-`{3,6}/{8}/{5,10}`
+witnesses (M4–M5); and the `E₈` endpoint is generated, mod the `5`-floor,
+by the framework's own atomic `P` (M6).  The "complete object" the
+intuition reached for is the McKay-indexed family of finite definite-order
+unit groups, with its top rung pinned to the DRLT `disc P = 5 = NS+NT`
+floor.  All finite shadows ∅-axiom; the group-theoretic / CM frame
+honestly cited throughout.
 
 ## 메타 원칙 (CLAUDE.md 보완)
 

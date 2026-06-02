@@ -50,6 +50,20 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       one diff floors it
   - `DepthCeilingResidue.lean`     — naming the ceiling-raising is a diagonalisation
                                       = the residue (`cantor_general`)
+  - `DepthHeightDiagonal.lean`     — naming the whole `ω^r` height-tower escapes every
+                                      finite height (`height_diagonal_escapes`) — the
+                                      residue at the height scale, the `ε₀`-direction
+  - `DepthOverflowDuality.lean`    — the diagonalisation residue and the
+                                      completeness-break are one operation: a value
+                                      overflowing the closing bound by the unit `1`
+                                      escapes the family (`overflow_escapes`) or breaks
+                                      domination (`overflow_breaks`) — same surplus,
+                                      two scales (`overflow_dual_reading`)
+  - `DepthClosure.lean`            — the finite-coordinate class is closed under `×`
+                                      and the exponent axis (`diff` linear), breaking
+                                      at the exponential `2^{2^n}`
+  - `DepthCoordGenerator.lean`     — the tower as a coordinate system: `binom·d` /
+                                      `expTower` realize every coordinate, top-down
 
 ## Companion clusters
 

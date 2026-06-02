@@ -2,7 +2,7 @@ import E213.Lib.Math.CayleyDickson.Levels.Sedenion
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzAlgebra213
 import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
-import E213.Lib.Math.Tactic.HurwitzRing
+import E213.Lib.Math.CayleyDickson.Levels.CayleyFlexAlt213
 import E213.Meta.Algebra213.Core
 import E213.Meta.Algebra213.AlternativeNormed
 
@@ -10,8 +10,9 @@ import E213.Meta.Algebra213.AlternativeNormed
 # Sedenion "heavy" identities
 
 `conj_conj` migrated to ∅-axiom via Ring213.neg_neg cascade.
-`flexible` / `conj_mul_anti` still use hurwitz_ring (DIRTY) — would
-need Cayley alternative ring algebra to avoid Int polynomial.
+`flexible` and `conj_mul_anti` are now both **strict ∅-axiom**: the
+componentwise structural proofs over the `Cayley` base (`FlexAlt213
+Cayley`), replacing the `hurwitz_ring` Int-polynomial brute force.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy
@@ -42,10 +43,24 @@ theorem conj_conj (u : Sedenion) : conj (conj u) = u := by
 
 open E213.Tactic
 
-set_option maxHeartbeats 8000000 in
-/-- **Sedenion flexibility** — DIRTY (32 Int vars). -/
+/-- **Sedenion flexibility** `(a·b)·a = a·(b·a)` — strict ∅-axiom.
+    Componentwise over the `Cayley` base: the `re`/`im` identities
+    `Cayley.flexible_re` / `Cayley.flexible_im`, each assembled from the
+    `FlexAlt213 Cayley` toolkit (base flexibility, `conj_sandwich`,
+    `flex_cross_pair`, `mm_conj`, `skew_conj`) — replacing the 32-Int-var
+    `hurwitz_ring` brute force. -/
 theorem flexible (a b : Sedenion) : (a * b) * a = a * (b * a) := by
-  hurwitz_ring
+  apply Sedenion.ext
+  · show (a.re * b.re + -(b.im.conj * a.im)) * a.re
+         + -(a.im.conj * (b.im * a.re + a.im * b.re.conj))
+       = a.re * (b.re * a.re + -(a.im.conj * b.im))
+         + -((a.im * b.re + b.im * a.re.conj).conj * a.im)
+    exact E213.Lib.Math.CayleyDickson.Levels.Cayley.flexible_re a.re a.im b.re b.im
+  · show a.im * (a.re * b.re + -(b.im.conj * a.im))
+         + (b.im * a.re + a.im * b.re.conj) * a.re.conj
+       = (a.im * b.re + b.im * a.re.conj) * a.re
+         + a.im * (b.re * a.re + -(a.im.conj * b.im)).conj
+    exact E213.Lib.Math.CayleyDickson.Levels.Cayley.flexible_im a.re a.im b.re b.im
 
 /-- **Sedenion anti-distributivity of conj**: `conj(u·v) = conj v·conj u`.
     Strict ∅-axiom — componentwise over the Cayley base using the
