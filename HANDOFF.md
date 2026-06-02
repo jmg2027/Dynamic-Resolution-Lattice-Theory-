@@ -1,138 +1,98 @@
-# Session Handoff — 2026-06-02
+# Session Handoff — 2026-06-02 (Newton–Gregory generalization marathon)
 
 ## Branch
-`claude/goal-g166-A6MVE` — pushed, and **fast-forward merged to `main`** (both at `c1ed6a7`).
-Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty` on every module below).
+`claude/newton-gregory-generalization-F6gYv` — pushed.  Working tree clean.
+Full `lake build` clean (1500+ modules).  All new theorems ∅-axiom
+(`tools/scan_axioms.py E213.Lib.Math.Cauchy.NewtonGregory` → **41 pure / 0 dirty**).
 
 ## What Was Done This Session
 
-### 1. Merged `origin/main` (88 commits) into the branch
-Resolved 5 conflicts (umbrella imports, `IntensionalCompletability` add/add cross-branch
-convergence, `tower_native_completeness.md`, HANDOFF).  Adapted `RefinedCompletabilityEngine`
-to main's `crossDetSmall_rescale_antitone` API.  Verified PURE + full build.
+A full marathon on the **Newton–Gregory forward-difference reconstruction**, the
+HANDOFF Open Problem #4 ("Newton–Gregory blocked over `ℕ`").  Diagnosis: the ℕ
+forward difference `s(n+1)−s n` truncates, so the converse `polyDepth d ⟹ Newton
+form` cannot be stated.  Generalization: run the calculus over `ℤ` (the readout
+group in which `Δ` closes under iteration — `Int213.Core` is ∅-axiom).
 
-### 2. Spiral-axis exhaustiveness + binary cover + crystallographic bridge
-- `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` (9 PURE).
-  `unitForm_generic_axis` (Diophantine: `a²+d·b²=1`, `d≥2` ⇒ only `±1`),
-  `imaginary_quadratic_unit_trichotomy` (axis = closed range `{2,4,6}`),
-  `maximal_order_no_complex_unit` (the `d≡3 mod4` reduced form too), `axis_binary_cover`
-  (`{2,4,6}=2·{1,2,3}`, midpoint `μᵏ=−1` = Cassini sign), `crystallographic_cosines`
-  (Eisenstein `ztrace(ζ6^k)=2cos(2πk/6)={1,−1,−2,−1,1,2}`).
-- `CayleyDickson/Tower/SpiralAxisCrystallographic.lean` (1 PURE): `{2,4,6}` = even half of
-  crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` (verified bridge to `crystallographic_restriction`).
+New file `lean/E213/Lib/Math/Cauchy/NewtonGregory.lean` (41 PURE):
 
-### 3. π non-holonomicity MARATHON → `Cauchy/HurwitzianCF.lean` (21 PURE)
-The CF-holonomicity hierarchy on the **partial-quotient sequence** `(aᵢ)` (third spiral-layer
-reading).  `QuasiPolyCF p a` (= Hurwitzian: polynomial on each residue class mod p).  Tiers:
-**0** `periodic_quasipoly` (quadratic irrationals); **1** `e_cf_quasipoly` (e=[2;1,2k,1] is
-`QuasiPolyCF 3` — folklore "Hurwitzian ⟹ holonomic" made explicit) + `tan_cf_quasipoly`;
-certificate `polyDepth_diff_recurrence` (`Δ^{d+1}=0`); **properness** `geometric_not_quasipoly`
-(`2ⁿ ∉ QuasiPolyCF`, yet C-finite ⟹ `QuasiPolyCF ⊊ C-finite ⊊ holonomic` STRICTLY);
-μ=2 bridge half `ePQ_linear_bound`/`tanPQ_linear_bound`.  **4 research agents** (literature,
-repo-infra, red-team, synthesis).  Promoted `theory/math/analysis/cf_holonomicity_hierarchy.md`.
+- **G1 `newton_gregory`** — universal `s(m+n) = Σ_{j≤n} binom(n,j)·(Δʲs)(m)` for
+  *every* `s : ℕ → ℤ` (operator `Eⁿ=(I+Δ)ⁿ`, no hypothesis).  Single induction on
+  `n` ∀`m`, expand `(Δʲs)(m+1)=(Δʲs)(m)+(Δʲ⁺¹s)(m)`, Pascal-recombine (`bsum_pascal`).
+- **G2 `newton_gregory_inverse`** — `(Δⁿs)(m)=Σ_{j≤n}(−1)^{n−j}binom(n,j)s(m+j)`;
+  `binomial_transform_roundtrip` (`F∘G=id`).  Sign handled by *reusing* `bsum_pascal`
+  (on `j≤n`, `(−1)^{n−j}=(−1)ⁿ(−1)ʲ`) — no second induction.
+- **G3 `reconstruct`** — `polyDepthZ d s ⟹ s n = Σ_{i≤d}(Δⁱs 0)·binom(n,i)`.
+  **Closes Open Problem #4** (the ℤ converse ℕ could not state).
+- **G4 `poly_bound`** — `polyDepthZ d s ⟹ ∃C, |s n| ≤ C·(n+1)^d`, `C=Σ|Δⁱs 0|`.
+  **Unblocks T4** (∅-axiom half of Hurwitzian ⟹ poly-bounded p.q. ⟹ μ=2).
+  New reusable pure infra: `natAbs_add_le` (ℤ triangle; core pulls propext),
+  `natAbs_ofNat_mul`, `binom_le_pow` (`binom n i ≤ (n+1)ⁱ`), `one_le_succ_pow`.
+- **G5 obstruction** — `vObs=(n−2)(n−1)`: `obstruction_nat` (¬polyDepth 2),
+  `obstruction_first_diff_clamp` (ℤ slope −2 clamps to 0 over ℕ),
+  `obstruction_int_constant` (ℤ 2nd diff const 2).  All `decide` (stays pure).
 
-### 4. μ-positioning grounded (vs the irrationality measure)
-A 4th research agent vs literature confirmed: the rate modulus `N(m,k)` IS the
-irrationality-measure function `ψ(q)` (genuinely finer than μ = its limsup); divergence depth
-is ORTHOGONAL + presentation-dependent (does NOT separate numbers); the CF-tier separates e/π.
+**Agents**: A (literature) confirmed G1=Thread 1A, G2=Thread 2B, G4=Thread 4
+(Pólya–Ostrowski basis), the Hurwitzian⟹μ=2 chain a novel synthesis.  B (red-team)
+gave three framing corrections, all folded in (see below).
 
-### 5. Markov spectrum from the repo's own forms (`Real213/GoldenFormMarkov` 9 PURE, `MarkovTree` 13 PURE)
-- `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`, no mod-5): golden form `m²−mk−k²`
-  (disc 5) is the **first Markov form**, value `√5` = Lagrange minimum (φ).  `silver_anisotropic`
-  (reuses `sqrt2_irrational`): disc-8 form, `√8`.  `golden_min_attained_on_fib` (= `fib_cassini_norm`):
-  the `W=±1` floor IS the form's minimum, on φ's Fibonacci convergents.
-- `markov_vieta` (Vieta jumping preserves `x²+y²+z²=3xyz`, coeff `3=NS`, no-subtraction
-  invariant `x²+y²=z·z'`), `markov_tree_branch`, `markov_symm`, `markov_fibonacci_branch`
-  (odd Fib 1,2,5,13,34) + `markov_pell_branch` (odd Pell 1,5,29,169) = the two spines,
-  `markov_first_fork` ((1,2,5) forks to Fibonacci/Pell = Stern-Brocot binary node).
-- Promoted `theory/math/analysis/markov_spectrum.md`.
+**Three-tier**: promoted `theory/math/analysis/newton_gregory.md` (new chapter);
+updated `theory/math/INDEX.md` (12 analysis sub-clusters), `cf_holonomicity_hierarchy.md`
+(bridge no longer Newton–Gregory-blocked).  Scratch: `research-notes/G173`.
 
-### 6. Modular tower + Lagrange extremes
-- `Real213/ModularElliptic.lean` (7 PURE): `modular_generator_orders` — `S` order 4, `U`
-  order 6, det 1; `PSL(2,ℤ)=ℤ₂*ℤ₃`, elliptic orders `{4,6}` = Gaussian/Eisenstein axis,
-  `−I` central = Cassini 2.  (Grounds a user-proposed axis/lattice/shape table — note G171.)
-- `Real213/LagrangeExtremes.lean` (4 PURE): φ = spectrum floor (all-1s CF, `Periodic 1`,
-  `QuasiPolyCF 1`, partial quotients pointwise minimal); π = opposite pole (unbounded pq).
+## Red-team corrections folded in (don't re-slip)
+- **ℤ-lift framing**: NOT "ℤ keeps the signed distinguishing" (that's a
+  Count-Lens-import-as-Raw slip) and NO ℕ-vs-ℤ dichotomy.  Say: **ℤ is the readout
+  group the difference-Lens `Δ` lands in** (Δ doesn't close under iteration over ℕ).
+- **Involution**: the binomial transform is **fixed-point-RICH = Nat-style**
+  grounding, NOT a Bool-style/liar oscillation (that inverts §5.2's criterion —
+  stereotype-matching).  "Two readings of one object" (change of basis) is fine.
+- **Obstruction**: the *values* don't truncate (all nonneg); only the **first
+  difference** clamps `−2→0`.  ℕ-`diff` is a *different Lens*, not broken.
 
 ## Current Precision Results (0 free parameters)
-**No physics constants changed this session** (all work is pure math: irrationality /
-approximation / Markov spectrum).  Precision table unchanged — see
-`catalogs/physics-constants.md` (1/α_em, m_μ/m_e 0.48 ppb, R∞ 4.3 ppb, Ω_Λ, etc.) and
-`catalogs/falsifiers.md`.  DRLT Validation Standard status unchanged.
+**No physics constants changed this session** (pure math: finite-difference
+calculus / interpolation / growth bounds).  Precision table unchanged — see
+`catalogs/physics-constants.md` and `catalogs/falsifiers.md`.  DRLT Validation
+Standard status unchanged.
 
-## Open Problems (Priority Order)
+## Open Problems / Next (priority order)
 
-### 1. π non-holonomicity (the marathon headline) — classically OPEN
-`(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  Provable neighbours closed
-(`HurwitzianCF`).  Credible route = Flajolet–Gerhold–Salvy asymptotic obstruction (holonomic
-⟹ asymptotics `C·ρ⁻ⁿ·nθ·(log n)ᵏ`, π's Gauss–Kuzmin statistics incompatible — itself
-conditional on π being GK-normal).  See `research-notes/G170`.
+1. **C1 (∅-axiom-closable, highest value — direct follow-on to G4)**
+   `QuasiPolyCF p a ⟹ ∃ C d, ∀ n, a n ≤ C·(n+1)^d` for the ℕ-valued partial-quotient
+   sections: lift each residue section to `ℤ`, apply `poly_bound`, collapse `natAbs`
+   on the nonneg sequence.  Then (cited) `μ = 2`.  Closes the Hurwitzian⟹μ=2 spine.
+2. **C2 (∅-axiom-closable)** depth-additivity `polyDepthZ d s → polyDepthZ e t →
+   polyDepthZ (d+e) (s·t)` (a `diffZ`-Leibniz rule), turning π's hand-counted
+   "depth 6 = 1+1+4" into a theorem.
+3. **C5 (∅-axiom-closable; the *right* home for the §5.2 self-reference question)**
+   characterize the **fixed-point eigenspace** of the binomial transform
+   `s = Σ(−1)^{n−j}binom(n,j)s(j)` — settles Nat-style (predicted) vs Bool-style and
+   earns the "self-inverse Lens" reading with an actual fixed set.
+4. π non-holonomicity (classical open, from prior session, `G170`) — unchanged.
+5. ζ(3) Apéry depth — DEFERRED to another branch (user).  Do NOT build here.
 
-### 2. ζ(3) Apéry divergence depth — DEFERRED TO ANOTHER BRANCH (user)
-The depth tower `e=3 → π=6 → ζ(3)=?` via the Apéry recurrence
-`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`.  Would precise the "constant+depth" of G171's
-3-axis row.  **Do NOT build here.**
-
-### 3. Markov uniqueness ↔ Stern-Brocot indexing — classically OPEN
-The binary fork + two spines are anchored (`markov_first_fork`).  A full ∅-axiom bijection
-`Markov triples ↔ Stern-Brocot rationals` needs the L/R-word indexing; injectivity = the
-Markov uniqueness conjecture (open).  See `research-notes/G172` thread A.
-
-### 4. `QuasiPolyCF ⟹ polynomially-bounded` (general) — Newton–Gregory blocked
-General growth bound fails over `ℕ` truncated subtraction for non-monotone polyDepth
-sequences (Newton–Gregory reconstruction breaks).  Only witness-specific linear bounds done
-(`ePQ_linear_bound`, `tanPQ_linear_bound`).  Don't re-attempt the general version naively.
-
-## Unresolved from This Session (dead ends — don't repeat)
-- **Newton–Gregory converse** (`polyDepth d s ⟹ s = newton form`) FAILS over `ℕ`: truncated
-  `diff` corrupts non-monotone sequences (e.g. `[2,0,2,…]`).  So T4 general μ=2 bridge blocked.
-- **propext landmines** (cost many DIRTY→PURE fixes; for next time): `rw` on an `Iff` pulls
-  `propext`; `rw` inside an `ite` *condition* pulls `propext` (use `if_pos`/`if_neg`);
-  leaking core lemmas to AVOID — `Nat.mul_assoc`, `Nat.mul_right_comm`, `Nat.add_mul`,
-  `Nat.mul_add_mod`, `Nat.mul_add_div`, `Nat.pow_mul`, `Nat.pow_add`, `Nat.add_left_cancel`,
-  `Nat.mul_lt_mul_right` (Iff), `Int.natAbs_eq_zero`, `Int.mul_neg`, `Int.eq_of_mul_eq_mul_left`.
-  PURE replacements: `NatHelper.{add_mul,mul_assoc}`, `PureNat.pow_add`, `Int.natAbs_eq`, and
-  local `add_left_cancel_pure`/`sq_lt_sq`/`pow_mul_pure`/`mul_sub_pure_le` (in GoldenFormMarkov/
-  HurwitzianCF).  `abbrev` (not `def`) for Prop-shapes you want `decide` to see.
-
-## Next
-Options (none uniquely forced — ask user):
-- **Hecke-group Lagrange spectra** (deepen thread C: `2cos(π/q)` ↔ spectrum) — needs cos infra.
-- **Lagrange spectrum `<3` discrete part** entirely from anisotropic forms (extend
-  `GoldenFormMarkov` along the Markov tree).
-- New direction entirely.  (ζ(3) is on another branch.)
-
-## Three-tier state
-- **Promotions this session**: `theory/math/analysis/cf_holonomicity_hierarchy.md`,
-  `theory/math/analysis/markov_spectrum.md` (both new chapters); updated
-  `spiral_coordinate_classification.md` frontier, `tower_native_completeness.md`,
-  `theory/math/INDEX.md` (now 11 analysis sub-clusters).
-- **Promotion candidates**: `Real213/{ModularElliptic, LagrangeExtremes}` and
-  `crystallographic_cosines` are PURE but only noted in research-notes G171/G172 — could fold
-  into a short `theory/math/analysis/modular_lagrange.md` if the thread continues.
-- **Active scratchpad**: `research-notes/G170` (π non-holonomicity marathon, conjectures
-  C1–C7), `G171` (modular tower table), `G172` (three Lagrange threads).
+## Dead ends / cautions (don't repeat)
+- `funext` pulls `Quot.sound` (DIRTY).  Use pointwise congruence lemmas
+  (`bsum_congr`) instead — same pattern as `liftK_congr`.
+- `conv_lhs`/`conv_rhs`, `omega`, `Nat.one_le_pow` are **unavailable** (Mathlib /
+  version).  Use base `conv`, explicit rewrites, local `one_le_succ_pow`.
+- Core `Int.natAbs_add_le`, `Int.natAbs_mul` pull **propext** — use the local pure
+  `natAbs_add_le` / `natAbs_ofNat_mul` in `NewtonGregory.lean`.
+- Coercion `(k : Int)` ≠ syntactic `Int.ofNat k` for `rw` matching — state lemmas
+  with the `(k : Int)` coercion form, bridge to `Int.ofNat` by `show` inside.
 
 ## File Map
 ```
-NEW Lean (all ∅-axiom):
-  lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean                              ← CF-holonomicity tiers (21 PURE)
-  lean/E213/Lib/Math/CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean ← axis {2,4,6} exhaustive + cosines (9)
-  lean/E213/Lib/Math/CayleyDickson/Tower/SpiralAxisCrystallographic.lean   ← {2,4,6}=even half of {1,2,3,4,6} (1)
-  lean/E213/Lib/Math/Real213/GoldenFormMarkov.lean                         ← golden/silver Markov forms √5,√8 (9)
-  lean/E213/Lib/Math/Real213/MarkovTree.lean                               ← Vieta tree, spines, fork (13)
-  lean/E213/Lib/Math/Real213/ModularElliptic.lean                          ← PSL(2,ℤ)=ℤ₂*ℤ₃ orders 4,6 (7)
-  lean/E213/Lib/Math/Real213/LagrangeExtremes.lean                         ← φ floor / π pole (4)
-NEW theory chapters:
-  theory/math/analysis/cf_holonomicity_hierarchy.md                        ← Hurwitzian / π frontier
-  theory/math/analysis/markov_spectrum.md                                  ← √5,√8, Vieta tree, spines
-NEW research notes:
-  research-notes/G170_pi_cf_nonholonomicity.md                             ← marathon + conjectures C1–C7
-  research-notes/G171_modular_tower_axes.md                                ← axis/lattice/shape table analysis
-  research-notes/G172_lagrange_threads.md                                  ← Stern-Brocot / φ-π / cosines
+NEW Lean (∅-axiom, 41 PURE):
+  lean/E213/Lib/Math/Cauchy/NewtonGregory.lean   ← G1-G5: universal id, inverse
+                                                    transform, reconstruction,
+                                                    growth bound, obstruction
+NEW theory chapter:
+  theory/math/analysis/newton_gregory.md
+NEW research note:
+  research-notes/G173_newton_gregory_generalization.md
 MODIFIED:
-  lean/E213/Lib/Math/Real213.lean, CayleyDickson.lean, Cauchy.lean         ← umbrella imports
-  lean/E213/Lib/Math/Real213/{SpiralCoordinate,RefinedCompletabilityEngine}.lean ← capstone + merge-adapt
-  theory/math/INDEX.md, theory/math/analysis/spiral_coordinate_classification.md ← index + frontier
+  lean/E213/Lib/Math/Cauchy.lean                 ← umbrella import
+  theory/math/INDEX.md                           ← 12 analysis sub-clusters
+  theory/math/analysis/cf_holonomicity_hierarchy.md ← bridge unblocked
 ```
