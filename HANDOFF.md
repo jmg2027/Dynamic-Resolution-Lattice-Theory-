@@ -16,11 +16,18 @@ via `iterNeg n`=`(−1)ⁿ`, concrete `cube_casoratian_telescope`; ℤ caveat di
 213-natively via `NatPairToInt`) + `CassiniSigned` (2: the residue floor's Cassini
 cross-determinant `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the depth-0 signed Casoratian —
 `cassini_pair`: `npairEquiv (fib(n+2)fib n, fib(n+1)²) (iterNeg (n+1) (1,0))`, magnitude 1
-floor + sign Oscillate) + `DepthCubicGeneric` (2: `cube_eq` — `n³ = 6·binom n3+6·binom n2+n`,
-the cube Newton form, crux toward generic cubic depth; full `cubic_polyDepth` assembly is a
-mechanical 7-term reorder, deferred) +
-`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 61 PURE + research-notes
+floor + sign Oscillate) + `DepthCubicGeneric` (5: `cubic_polyDepth` — `∀ A B C D, polyDepth 3
+(A·n³+B·n²+C·n+D)`, COMPLETE; `cube_eq` `n³=6·C(n,3)+6·C(n,2)+n`) +
+`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 64 PURE (+ infra `Meta/Nat/PolyNatM` 22
+PURE) + research-notes
 `G171_apery_zeta_tower.md` / `G171_self_pointing_depth_213.md` / `G171_casoratian_pair_213.md`.**
+
+**Infra (this session, the user's "build infra not Lean core" push):**
+`Meta/Nat/PolyNatM` (22 PURE) — a ∅-axiom **multivariate** `Nat` polynomial reflection prover
+`poly_idM` (flat monomial-map normal form; the `k`-variable generalization of `PolyNat`
+(1-var) / `PolyInt2` (2-var)).  The `ring`-replacement that `ac_rfl` (propext-dirty) cannot be
+over ℕ.  Discharges any multivariate `Nat` identity in one line — used to land `cube_reorder`
+and the two `cubic_eq` reorders, unblocking the generic cubic.
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor
 (`DepthFloorDetOne`, depth 0, self-same rule = own fixed point) the depth is the drift of a
