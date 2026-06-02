@@ -129,6 +129,12 @@ through induction on the degree bound (`mul_vanish`, in the vanishing view
 is degree `d+e`", e.g. π's degree-4 cross-determinant ratio as the product of two
 degree-2 Wallis coefficients — into a theorem.
 
+`Cauchy/WallisDepthProduct.lean` (6 PURE) carries this out on the real π data:
+`polyDepthZ_affine` (affine ⟹ depth 1), then each Wallis coefficient `4(n+1)²`,
+`(2n+1)(2n+3)` is a product of two affine factors (depth 2, `polyDepthZ_mul`), and
+π's ratio is their product — `pi_ratio_polyDepthZ` : `polyDepthZ 4` — with **no**
+nonlinear-`ℤ` expansion, closing the residual step `DepthPRecursiveInstances` left.
+
 ## The involution, and the §5.2 self-reference question (closed)
 
 `Cauchy/BinomialTransform.lean` (6 PURE) makes the "self-inverse Lens" reading a

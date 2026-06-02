@@ -68,9 +68,11 @@ Standard status unchanged.
 2. **C5 ✅ DONE** (`Cauchy/BinomialTransform.lean`, 6 PURE): `binomialT_involutive`
    (`T∘T=id`) + `binomialT_fixed` (`s+Ts` always fixed) — binomial transform is a
    fixed-point-rich (Nat-style) involution, settling the §5.2 self-reference question.
-3. **C3 (next, combinatorial part ∅-axiom)** the e/π depth separation as a structural
-   invariant (e depth 1, π Wallis-coeff depth 2 — provable they differ).  Do NOT slide
-   to "explains the e–π separation" (metaphysical).  Transcendence part classically open.
+3. **C3 (partial)** e/π depth separation: ℤ witnesses now exist —
+   `WallisDepthProduct.polyDepthZ_affine` gives e's ratio `n+1` depth 1; π's ratio
+   `polyDepthZ 4` (`pi_ratio_polyDepthZ`, via the ring).  Remaining: the *exact*
+   lower bounds (depth ≠ smaller).  Do NOT slide to "explains the e–π separation"
+   (metaphysical); transcendence part classically open.
 4. **C4 ✅ DONE** (`FiniteDepthAlgebra` §5, +5 PURE): `periodic_finite_depth_const`
    — periodic ℤ-sequence of finite depth is constant; finite-depth and periodic
    (Markov/quadratic) sectors meet only at constants.  Frontier left: eigenspace
@@ -102,6 +104,8 @@ NEW Lean (∅-axiom, 41 PURE):
                                                     Leibniz) + C4 boundary, 27 PURE
   lean/E213/Lib/Math/Cauchy/BinomialTransform.lean ← C5: involution T∘T=id +
                                                     fixed-point richness + ±1 eigendecomp, 9 PURE
+  lean/E213/Lib/Math/Cauchy/WallisDepthProduct.lean ← C2 applied to π: degree-4
+                                                    ratio depth via the ring, 6 PURE
 NEW theory chapter:
   theory/math/analysis/newton_gregory.md
 NEW research note:
