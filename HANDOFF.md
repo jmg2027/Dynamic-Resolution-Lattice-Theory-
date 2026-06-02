@@ -27,7 +27,7 @@ PURE) + research-notes
 `poly_idM` (flat monomial-map normal form; the `k`-variable generalization of `PolyNat`
 (1-var) / `PolyInt2` (2-var)).  The `ring`-replacement that `ac_rfl` (propext-dirty) cannot be
 over ℕ.  Discharges any multivariate `Nat` identity in one line — used to land `cube_reorder`
-and the two `cubic_eq` reorders, unblocking the generic cubic.
+and the two `cubic_eq` reorders, unblocking the generic cubic.  Plus `Meta/Nat/PolyNatMTactic` — the **`ring_nat`** elaboration tactic (auto-reifies a `Nat` `=` goal and discharges via `poly_idM`), the ergonomic ∅-axiom `ring` for ℕ; `DepthCubicGeneric` now uses `by ring_nat` throughout (no hand-written `PE` trees).
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor
 (`DepthFloorDetOne`, depth 0, self-same rule = own fixed point) the depth is the drift of a

@@ -1,5 +1,5 @@
 import E213.Meta.Nat.PolyNat
-import E213.Meta.Nat.PolyNatM
+import E213.Meta.Nat.PolyNatMTactic
 import E213.Lib.Math.Cauchy.DepthQuadraticGeneric
 
 /-!
@@ -32,19 +32,11 @@ open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (binom newton newton_polyDepth)
 open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
 open E213.Lib.Math.Cauchy.DepthQuadraticGeneric (binom_one binom_succ_two sq_eq polyDepth_congr)
-open E213.Meta.Nat.PolyNatM (poly_idM)
-
 /-- The combine/reorder identity at the heart of `cube_eq`'s induction step — discharged in
-    one line by the multivariate reflection prover `Meta.Nat.PolyNatM` (`T2, T3, n` =
-    `var 0, var 1, var 2`). -/
+    one line by the `ring_nat` reflection tactic (`Meta.Nat.PolyNatMTactic`). -/
 theorem cube_reorder (T2 T3 n : Nat) :
-    6*T3 + 6*T2 + n + 3*(2*T2 + n) + 3*n + 1 = 6*(T2 + T3) + 6*(n + T2) + (n+1) :=
-  poly_idM
-    (.add (.add (.add (.add (.add (.mul (.C 6) (.var 1)) (.mul (.C 6) (.var 0))) (.var 2))
-                  (.mul (.C 3) (.add (.mul (.C 2) (.var 0)) (.var 2)))) (.mul (.C 3) (.var 2))) (.C 1))
-    (.add (.add (.mul (.C 6) (.add (.var 0) (.var 1))) (.mul (.C 6) (.add (.var 2) (.var 0))))
-          (.add (.var 2) (.C 1)))
-    rfl [T2, T3, n]
+    6*T3 + 6*T2 + n + 3*(2*T2 + n) + 3*n + 1 = 6*(T2 + T3) + 6*(n + T2) + (n+1) := by
+  ring_nat
 
 /-- ★★ **The cube in the Newton (binomial) basis**: `n³ = 6·binom n 3 + 6·binom n 2 + n`
     — the subtraction-free `n³ = 6·C(n,3) + 6·C(n,2) + C(n,1)`.  Induction via the univariate
@@ -82,21 +74,9 @@ theorem cubic_eq (A B C D n : Nat) :
   show A*n*n*n + B*n*n + C*n + D
      = D + (A+B+C) * binom n 1 + (6*A+2*B) * binom n 2 + 6*A * binom n 3
   rw [binom_one n]
-  have reassoc : A*n*n*n + B*n*n + C*n + D = A*(n*n*n) + B*(n*n) + C*n + D :=
-    poly_idM
-      (.add (.add (.add (.mul (.mul (.mul (.var 0) (.var 4)) (.var 4)) (.var 4))
-                    (.mul (.mul (.var 1) (.var 4)) (.var 4))) (.mul (.var 2) (.var 4))) (.var 3))
-      (.add (.add (.add (.mul (.var 0) (.mul (.mul (.var 4) (.var 4)) (.var 4)))
-                    (.mul (.var 1) (.mul (.var 4) (.var 4)))) (.mul (.var 2) (.var 4))) (.var 3))
-      rfl [A, B, C, D, n]
+  have reassoc : A*n*n*n + B*n*n + C*n + D = A*(n*n*n) + B*(n*n) + C*n + D := by ring_nat
   rw [reassoc, cube_eq n, sq_eq n]
-  exact poly_idM
-    (.add (.add (.add (.mul (.var 0) (.add (.add (.mul (.C 6) (.var 6)) (.mul (.C 6) (.var 5))) (.var 4)))
-                  (.mul (.var 1) (.add (.mul (.C 2) (.var 5)) (.var 4)))) (.mul (.var 2) (.var 4))) (.var 3))
-    (.add (.add (.add (.var 3) (.mul (.add (.add (.var 0) (.var 1)) (.var 2)) (.var 4)))
-                (.mul (.add (.mul (.C 6) (.var 0)) (.mul (.C 2) (.var 1))) (.var 5)))
-          (.mul (.mul (.C 6) (.var 0)) (.var 6)))
-    rfl [A, B, C, D, n, binom n 2, binom n 3]
+  ring_nat
 
 /-- ★★★ **Every cubic discrete polynomial has divergence-depth 3.**  For all `A B C D : ℕ`,
     `polyDepth 3 (fun n => A·n³ + B·n² + C·n + D)` — the cubic analog of
