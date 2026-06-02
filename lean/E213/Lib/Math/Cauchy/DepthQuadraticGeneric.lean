@@ -1,4 +1,5 @@
 import E213.Meta.Nat.PolyNat
+import E213.Meta.Nat.PolyNatMTactic
 import E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 
 /-!
@@ -74,19 +75,14 @@ def quadCoeff (A B C : Nat) : Nat → Nat
   | 1   => A + B
   | _   => 2 * A
 
-/-- The four-term additive reshuffle `P + Q + R + S = S + (Q + R) + P`. -/
-private theorem add4_reorder (P Q R S : Nat) : P + Q + R + S = S + (Q + R) + P := by
-  rw [Nat.add_assoc P Q R, Nat.add_comm P (Q+R), Nat.add_assoc (Q+R) P S,
-      Nat.add_comm P S, ← Nat.add_assoc (Q+R) S P, Nat.add_comm (Q+R) S]
-
 /-- ★★ **A quadratic is its Newton form.**  `A·n² + B·n + C = newton (quadCoeff A B C) 2
-    n` pointwise — using `binom n 1 = n` and `n² = 2·binom n 2 + n`, no truncation. -/
+    n` pointwise — using `binom n 1 = n` and `n² = 2·binom n 2 + n`, then the collect step is
+    one `ring_nat` (the multivariate reflection tactic; was a hand-written 4-term reorder). -/
 theorem quad_eq (A B C n : Nat) :
     A*n*n + B*n + C = newton (quadCoeff A B C) 2 n := by
   show A*n*n + B*n + C = (C + (A+B) * binom n 1) + 2*A * binom n 2
-  rw [binom_one n, add_mul A B n, mul_assoc A n n, sq_eq n,
-      Nat.mul_add A (2*binom n 2) n, ← mul_assoc A 2 (binom n 2), Nat.mul_comm A 2]
-  exact add4_reorder (2*A * binom n 2) (A*n) (B*n) C
+  rw [binom_one n, mul_assoc A n n, sq_eq n]
+  ring_nat
 
 /-! ## §3 — depth-2 transfer -/
 
