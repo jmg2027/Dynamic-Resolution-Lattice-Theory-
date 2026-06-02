@@ -255,6 +255,18 @@ A–D + B are now **all closed ∅-axiom this arc**:
     the no-top completability loop pinned to the E₈ rung).  Also sharpens C2 (the rung
     floor's discriminant names a McKay rung: disc−3=C₆=A-family, disc+5→E₈) and C3 (the
     cusp = the modular/McKay boundary).  Orthogonal to C1′/π (rate, not unit-group).
+  - **Self-reference two forms — DONE** (`Lens/Bool213/SelfReferenceForms`, 2/0;
+    `research-notes/G172`): the foundational/logic axis (distinct from the real and
+    algebra-tower tracks).  `05_no_exterior` §5.2's two structural forms of Raw
+    self-reference, formalized: `bool_not_no_fixed_point` (the Bool `not` has no fixed
+    point on its values `{T,F}` — the liar oscillation, period 2 never period 1; the new
+    half, since `not_not` alone gives only the involution) vs the Nat-style Lambek
+    period-1 self-fixed-point (`decompose`) + well-founded descent (`depth_drops`);
+    `self_reference_two_forms` bundles the dichotomy.  Both are co-present Lens readings
+    of one Raw self-pointing.  OPEN (this axis): ε₀ as the diagonal limit of the `ω^r`
+    tower (`DepthOmegaTower` + `DepthCeilingResidue.diag`; uncertain it produces ε₀
+    without Mathlib `Ordinal`); frozen=dynamic equivalence (§5.7); computability/ω₁^CK
+    out of scope.
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

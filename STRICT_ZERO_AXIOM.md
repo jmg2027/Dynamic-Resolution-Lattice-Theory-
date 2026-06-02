@@ -298,6 +298,13 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
+`E213.Lens.Bool213.SelfReferenceForms` — **2 PURE / 0 DIRTY**.  The two
+structural forms of Raw self-reference (`05_no_exterior` §5.2): `bool_not_no_fixed_point`
+(the Bool `not` has no fixed point on its values `{T,F}` — the liar oscillation, period 2
+never period 1) contrasted with the Nat-style Lambek period-1 self-fixed-point
+(`decompose`) + well-founded descent (`depth_drops`); `self_reference_two_forms` bundles
+the dichotomy.
+
 `E213.Lib.Math.FiveFloorUnification` — **1 PURE / 0 DIRTY**.  The completability
 floor and the McKay E₈ endpoint are the same atomic `P = [[2,1],[1,1]]` (disc
 `5 = NS+NT`): `five_floor_unifies` bundles the det-one floor's indefinite golden form
