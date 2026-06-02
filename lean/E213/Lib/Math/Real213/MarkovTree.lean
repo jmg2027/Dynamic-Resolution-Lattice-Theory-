@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.GoldenFormMarkov
 import E213.Lib.Physics.Simplex.Counts
+import E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock
 
 /-!
 # MarkovTree — the Markov equation `x²+y²+z² = 3xyz`, the Vieta tree, and `3 = NS`
@@ -30,6 +31,7 @@ namespace E213.Lib.Math.Real213.MarkovTree
 
 open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Lib.Physics.Simplex.Counts (NS)
+open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 
 /-- The Markov equation `x² + y² + z² = 3·x·y·z`. -/
 abbrev markovEq (x y z : Nat) : Prop := x * x + y * y + z * z = 3 * x * y * z
@@ -71,5 +73,28 @@ theorem markov_tree_branch :
     3·1·1`), tying the tree engine to the `√5 → √8` step (golden → silver Markov form). -/
 theorem markov_first_jump : markovEq 1 1 2 :=
   markov_vieta 1 1 1 2 (by decide) (by decide)
+
+/-! ## §3 — symmetry, and the Fibonacci branch of the tree -/
+
+/-- The Markov equation is symmetric in its last two arguments. -/
+theorem markov_symm (x y z : Nat) (h : markovEq x y z) : markovEq x z y := by
+  show x * x + z * z + y * y = 3 * x * z * y
+  have hmul : 3 * x * z * y = 3 * x * y * z := by
+    rw [E213.Tactic.NatHelper.mul_assoc (3 * x) z y, Nat.mul_comm z y,
+        ← E213.Tactic.NatHelper.mul_assoc (3 * x) y z]
+  rw [Nat.add_right_comm (x * x) (z * z) (y * y), hmul]
+  exact h
+
+/-- ★★★ **The Fibonacci branch of the Markov tree.**  The odd-index Fibonacci numbers
+    `fib 1, fib 3, fib 5, fib 7, fib 9 = 1, 2, 5, 13, 34` are exactly the Markov numbers along
+    the `(1, F_{2n−1}, F_{2n+1})` branch: each consecutive pair forms a triple
+    `markovEq 1 (fib(2n+1)) (fib(2n+3))`.  (The Vieta step `F_{2n−1} + F_{2n+3} = 3·F_{2n+1}`
+    sends one odd-index Fibonacci to the next — the golden recurrence *is* the tree's
+    left spine.)  Verified concretely; the general `∀ n` pattern follows by that identity. -/
+theorem markov_fibonacci_branch :
+    fib 1 = 1 ∧ fib 3 = 2 ∧ fib 5 = 5 ∧ fib 7 = 13 ∧ fib 9 = 34
+    ∧ markovEq 1 (fib 1) (fib 3) ∧ markovEq 1 (fib 3) (fib 5)
+    ∧ markovEq 1 (fib 5) (fib 7) ∧ markovEq 1 (fib 7) (fib 9) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Real213.MarkovTree

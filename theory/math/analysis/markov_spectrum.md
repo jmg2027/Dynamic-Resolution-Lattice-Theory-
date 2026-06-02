@@ -71,6 +71,14 @@ cancelling `z²` from `3xyz = z² + z·z'`.  From the root `(1,1,1)` the branch
 `(1,1,1) → (1,1,2) → (1,2,5) → (1,5,13) → (2,5,29)` gives the Markov numbers `1,2,5,13,29`,
 whose Lagrange values build the spectrum.
 
+The tree's **left spine is the golden recurrence itself**: the odd-index Fibonacci numbers
+`fib 1, fib 3, fib 5, fib 7, fib 9 = 1, 2, 5, 13, 34` are exactly the Markov numbers on the
+`(1, F_{2n−1}, F_{2n+1})` branch (`markov_fibonacci_branch`), and the Vieta step
+`F_{2n−1} + F_{2n+3} = 3·F_{2n+1}` carries one odd-index Fibonacci to the next.  So the
+worst-approximable spine of the approximation spectrum is the same Fibonacci/golden recursion
+that runs `P = [[2,1],[1,1]]` — φ at the bottom (`√5`), its Fibonacci convergents climbing
+the spine.
+
 ### Relation to the spiral classification
 
 This is the approximation-spectrum reading of the spiral invariant.  Where `μ` collapses
