@@ -671,6 +671,33 @@ class in `2I`.  Honestly scoped: the group iso `SL(2,𝔽₅) ≅ 2I` and the
 `P ∼ g10` conjugacy are cited classical facts; what is *proved* is `P mod
 5`'s matrix order and its `SL(2,𝔽₅)` membership.
 
+### Phase 11 — the complete object named: the full McKay `A–D–E` (marathon-7)
+
+`Tower/MckayADECensus` makes the "complete object" explicit.  The finite
+subgroups of `SU(2)` are McKay-classified into `A` (cyclic), `D` (binary
+dihedral), `E₆,₇,₈` (`2T,2O,2I`) — and these are *exactly* the loop
+classes the seed ladder realises:
+
+| McKay | group | meta-CD-tower realisation |
+|---|---|---|
+| `Aₙ` | `Cₙ` | seed roots of unity `μ₂,μ₄,μ₆` (`units6 = C₆`) |
+| `Dₙ` | `Dicₙ` | `Q₈ = Dic₂` (dyadic `Lipschitz`/`Cayley` loop), `Dic₃` (`ZOmegaDouble`) |
+| `E₆` | `2T` | `Hurwitz` (24) |
+| `E₇` | `2O` | octahedral over `ℤ[√2]` (48) |
+| `E₈` | `2I` | icosian over `ℤ[φ]` (120) |
+
+`mckay_ADE_census` (∅-axiom) bundles one discriminating order-signature
+per family/rung: `A` (`|units6| = 6`, cyclic `C₆`); `D` (`Q₈` —
+`Lipschitz` order-4 count 6; `Dic₃` — `ZOmegaDouble` order 12, 3-torsion
+2); `E` (`2T` order-6 count 8; `2O` order-8 unit `g8`; `2I` order-5/10
+units `g5,g10`).  The group-name identifications are the cited McKay
+frame; the order signatures are proved.
+
+So the "complete tower" the sparse-section intuition reached for is the
+**McKay `A–D–E` classification of finite `SU(2)` subgroups** — every type
+realised as a meta-CD-tower loop class, and (Phase 10) the `E₈` top
+anchored to the framework's own `5 = NS+NT` floor via `P mod 5`.
+
 **Marathon-6 verdict / arc close:** the six-marathon arc that began from
 "CD is not the complete tower" closes a full circle — CD is a sparse
 section of a discriminant-branching basis-loop spine (M1); the branches
