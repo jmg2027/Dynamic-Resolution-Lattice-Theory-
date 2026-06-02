@@ -123,11 +123,11 @@ of the four, plus a reading over the other two.
     fixedness.
   - **ε₀ as a native diagonal limit** — whether iterating the height-diagonal yields a native
     `ε₀` (no Mathlib `Ordinal`) or bottoms out at `ω^ω` (genuinely uncertain; `G173`).
-  - **General Cassini for `L`** — `∀ n, L n · L(n+2) − L(n+1)² = d` (the conserved
-    determinant), generalising the three `decide` instances `cassini_at_{one,two,three}` in
-    `Mobius213/Px/CharPolySelf`.  The quantity is conserved by `L_cayley_hamilton`; the step
-    is a 2-var `Int` identity (`poly_id2`).  Easy–medium; deferred (the closely-related
-    `FibCassiniNat.fib_cassini_norm` already gives the ∀n convergent Cassini).
+  - **General Cassini for `L`** — CLOSED (`Mobius213/Px/CharPolySelf`, +2/0):
+    `cassini_general` — `∀ n, L n · L(n+2) − L(n+1)² = d` (the conserved determinant), from
+    `L_rec` (definitional recurrence) + a 2-var `Int` identity (`poly_id2`) for the conserved
+    step.  Generalises the three `decide` instances `cassini_at_{one,two,three}` to every
+    layer; the determinant equals the discriminant `d = NS + NT = 5` at all `n`.
   - **Rejected (category error)** — a single self-applying operator unifying `not`, the peel
     relation, `Object1`, the trace-doubling `D`.  They act on different types; the honest
     unification is the *shared unit* (`reentry_unit_across_scales`), not a forced map (G175).
