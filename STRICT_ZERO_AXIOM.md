@@ -292,8 +292,11 @@ Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`,
 nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
 multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
 
-`E213.Lib.Math.Cauchy.CasoratianStep` — **2 PURE / 0 DIRTY**.  The discrete-Wronskian
-(Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form:
+`E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
+(Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
+`telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
+Casoratian `P=n³=aperyTop`, `Q=(n−1)³=aperyBot`, `g=|Cₙ|` ⟹ the cube-product telescoping
+whose ratio is the `1/n³` denominator), with non-vacuous `telescope_geometric` (`rⁿ`).
 `casoratian_step` — for any solutions `a,b` of `c₂·x₂=c₁·x₁+c₀·x₀`,
 `c₂·(a₂·b₁)+c₀·(a₁·b₀) = c₂·(a₁·b₂)+c₀·(a₀·b₁)` (both sides `=
 c₁a₁b₁+c₀a₀b₁+c₀a₁b₀`), the minus of `c₂Cₙ=−c₀Cₙ₋₁` moved across.  The middle coefficient

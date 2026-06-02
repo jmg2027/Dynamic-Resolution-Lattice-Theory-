@@ -79,4 +79,44 @@ theorem casoratian_self
     c₂ * (a₂ * a₁) + c₀ * (a₁ * a₀) = c₂ * (a₁ * a₂) + c₀ * (a₀ * a₁) :=
   casoratian_step c₂ c₁ c₀ a₀ a₁ a₂ a₀ a₁ a₂ ha ha
 
+/-! ## §2 — telescoping the one-step law to a product (the `1/n³` Casoratian shape)
+
+When the Casoratian is sign-definite (as it is for ζ(3): `c₀ = −(n−1)³`, so
+`c₂(n)·Cₙ = (n−1)³·Cₙ₋₁` with every term `≥ 0`), its magnitude `g = |C|` obeys a single
+multiplicative `ℕ` recurrence `P(n)·g(n) = Q(n)·g(n−1)` (here `P = c₂ = n³`, `Q = (n−1)³`).
+This section telescopes that recurrence: the running products of `P` and `Q` carry `g(n)`
+back to `g(0)`. -/
+
+/-- `prodFrom f n = ∏_{k=1}^{n} f k` (empty product `1`). -/
+def prodFrom (f : Nat → Nat) : Nat → Nat
+  | 0   => 1
+  | n+1 => prodFrom f n * f (n+1)
+
+/-- ★★★ **Telescoping the multiplicative one-step law.**  If `g` obeys `P(n+1)·g(n+1) =
+    Q(n+1)·g(n)` for all `n`, then `(∏_{k≤n} P k)·g(n) = (∏_{k≤n} Q k)·g(0)` — the running
+    products of the outer coefficients carry the whole recurrence back to the start.  For the
+    sign-definite ζ(3) Casoratian (`P = n³ = aperyTop`, `Q = (n−1)³ = aperyBot`,
+    `g = |Cₙ|`) this is exactly `(∏ n³)·|Cₙ| = (∏ (n−1)³)·|C₀|` — the cube-product
+    telescoping whose ratio is the `1/n³` denominator.  ∅-axiom, no signs. -/
+theorem telescope (P Q g : Nat → Nat)
+    (h : ∀ n, P (n+1) * g (n+1) = Q (n+1) * g n) :
+    ∀ n, prodFrom P n * g n = prodFrom Q n * g 0
+  | 0   => rfl
+  | n+1 => by
+      show prodFrom P n * P (n+1) * g (n+1) = prodFrom Q n * Q (n+1) * g 0
+      rw [mul_assoc (prodFrom P n) (P (n+1)) (g (n+1)), h n,
+          mul_left_comm (prodFrom P n) (Q (n+1)) (g n), telescope P Q g h n,
+          mul_left_comm (Q (n+1)) (prodFrom Q n) (g 0),
+          mul_assoc (prodFrom Q n) (Q (n+1)) (g 0)]
+
+/-- A non-vacuous instance: the geometric magnitude `g(n) = rⁿ` solves the one-step law with
+    `P = 1`, `Q = r` (`1·rⁿ⁺¹ = r·rⁿ`), and telescopes to `rⁿ = (∏ r)·1` — the
+    escape-side reading (constant-`g` would be `P = Q`). -/
+theorem telescope_geometric (r : Nat) (n : Nat) :
+    prodFrom (fun _ => 1) n * r ^ n = prodFrom (fun _ => r) n * r ^ 0 :=
+  telescope (fun _ => 1) (fun _ => r) (fun k => r ^ k)
+    (fun m => by
+      show 1 * r ^ (m+1) = r * r ^ m
+      rw [Nat.one_mul, Nat.pow_succ, Nat.mul_comm (r ^ m) r]) n
+
 end E213.Lib.Math.Cauchy.CasoratianStep
