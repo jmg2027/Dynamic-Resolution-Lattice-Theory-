@@ -113,14 +113,30 @@ Flajolet–Gerhold–Salvy asymptotic-form obstruction; Lindelöf.
 
 ## Conjecture log (red-team-corrected)
 
-**Theorems (∅-axiom, this arc):**
-- **T0** `e_cf_quasipoly` — e's CF is `QuasiPolyCF 3` (tier 1).  ✅ DONE (`HurwitzianCF`, 9/0).
+**Theorems (∅-axiom, `Cauchy/HurwitzianCF`, 19 pure / 0 dirty):**
+- **T0** `e_cf_quasipoly` — e's `[2;1,2k,1]` is `QuasiPolyCF 3` (tier 1).  ✅ DONE.
+- **T0b** `tan_cf_quasipoly` — tan 1 `=[1;1,1,3,1,5,…]` is `QuasiPolyCF 2` (second tier-1
+  witness; `tanPQ i = if i%2==0 then 1 else i`).  ✅ DONE.
 - **T1** `periodic_quasipoly` — periodic CF ⟹ `QuasiPolyCF` (tier 0).  ✅ DONE.
-- **T2** (next) `QuasiPolyCF`/`polyDepth` ⟹ constant-coeff difference recurrence
-  (`Δ^{d+1} = 0` per residue class) — the explicit holonomicity certificate.
+- **T2** `polyDepth_diff_recurrence` / `quasipoly_section_recurrence` — `polyDepth d ⟹
+  Δ^{d+1}=0` (constant-coeff = C-finite per residue section).  ✅ DONE.
+- **T5 (properness, the synthesis Rank-1)** `geometric_not_quasipoly` — `2ⁿ ∉ QuasiPolyCF p`
+  for any `p` (residue-0 section `(2^p)^k` is geometric, `geom_infinite_depth`: every lift
+  keeps the value at 0 < value at 1).  ✅ DONE.  **Key honesty payoff:** `2ⁿ` IS C-finite
+  (`2ⁿ⁺¹=2·2ⁿ`) hence holonomic, yet ∉ `QuasiPolyCF` — so `QuasiPolyCF ⊊ C-finite ⊊
+  holonomic` *strictly*, and the top tier here is **non-Hurwitzian**, weaker than
+  non-holonomic.  Reusable pure infra added: `pow_mul_pure`, `mul_sub_pure_le`, `liftK_geo`,
+  `polyDepth_congr`, `resP_mod`/`res3_div`.
 - **T3** (Lagrange, cite) eventually-periodic CF ⟺ quadratic irrational.
-- **T4** (next, partial) `QuasiPolyCF ⟹ polynomially-bounded p.q.` (∅-axiom core); ⟹ μ=2
-  (cited).
+- **T4** (next, partial) `QuasiPolyCF ⟹ polynomially-bounded p.q.` (∅-axiom core, via
+  `liftK_geo`-style Newton bound); ⟹ μ=2 (cited).
+
+**Synthesis-agent corrections folded in (agent D):** e/tan encodings verified;
+`QuasiPolyCF` = *purely* Hurwitzian (rational-coeff, integer-valued — `polyDepth` is the
+integer-VALUED class, not integer-coefficient), full Hurwitzian = eventually-`QuasiPolyCF`;
+**the C-finite ≠ holonomic distinction is now explicit** (T5); index base pinned in docstring
+(`ePQ i = a_{i+1}`, e's `2k` on residue 1 mod 3).  The headline "π non-holonomic" stays a
+conjecture strictly above "π non-Hurwitzian".
 
 **Conjectures:**
 - **C1 (headline, OPEN classical)** π's `(aᵢ)` is **not P-recursive** (non-holonomic).
