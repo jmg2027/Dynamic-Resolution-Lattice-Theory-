@@ -61,6 +61,15 @@ Two definitions carry this in Lean.  `MarkovMaxUnique c` is the conjecture at a 
 result, and its one non-elementary step — injectivity of the residue map
 `triple ↦ a·b⁻¹ (mod c)` — is held as an explicit open target rather than asserted.
 
+The root-count input itself is now proved **generally for primes**.  In
+`ModArith/MarkovPrimeFactor`, `two_roots_of_prime` shows `SqrtNegOneTwoRoots p` for every prime
+`p` (with the prime-gcd hypothesis): any two roots `x, y < p` of `x² ≡ −1` satisfy `x = y` or
+`x + y = p`.  The proof reduces `p ∣ x²+1` and `p ∣ y²+1` to `p ∣ (x−y)(x+y)` (the difference of
+squares, `sq_expand`), then applies **Euclid's lemma** `euclid_via_inverse` (`x−y` is invertible
+mod `p` when `0 < x−y < p`, from the modular inverse) to force `p ∣ (x+y)`, whence `x+y = p`
+(`eq_p_of_dvd`: the only multiple of `p` in `(0, 2p)`).  So the reduction's hypothesis is
+discharged at every prime maximum; the remaining open step is the residue-map injectivity above.
+
 What is established directly: the conjecture itself at small maxima, `MarkovMaxUnique` for
 `c = 5, 13, 29` (assembled from the decidable single-pair checks `markov_max_unique_{5,13,29,34}`);
 the input `SqrtNegOneTwoRoots` for the prime powers `5, 13, 25` and the prime `29`; and the

@@ -74,7 +74,7 @@ No descent / no Hurwitz needed.  **Remaining bridge to unconditional encoding-fi
 feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Markov triples =
 "every triple reachable" = Markov's theorem, the descent — separate.)
 
-### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 7 PURE)
+### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 14 PURE)
 `no_sqrt_neg_one_4k3`: for `p=4k+3` with the prime-gcd hypothesis, `¬(p∣x²+1)`, via
 `universal_flt_main` (`x^(p−1)=(x²)^(2k+1)≡(−1)^(2k+1)≡−1` vs Fermat `≡1`).  Helpers
 `neg_one_sq_mod`, `neg_one_odd_pow_mod`, `pred_mod_of_dvd_succ`.  Concrete `no_sqrt_neg_one_mod_{7,11}`.
@@ -82,6 +82,10 @@ feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Mark
 `Classical` (Wilson construction).
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
+**Input now done for primes**: `MarkovPrimeFactor.two_roots_of_prime` proves `SqrtNegOneTwoRoots p`
+for every prime `p` (≤2 roots mod a prime), via `euclid_via_inverse` (Euclid's lemma from the
+modular inverse) + `sq_expand` + `eq_p_of_dvd`.  So the reduction's hypothesis is discharged at
+prime maxima; closing the residue-map injectivity (below) would give prime-Markov uniqueness (C7).
 The *implication* is classical; the crux is **injectivity of the residue map**
 `triple ↦ a·b⁻¹ (mod c)`.  Keep as a single named open Lean target; attempt only the
 injectivity lemma in isolation, guarding against vacuity.  Do NOT claim the full reduction.
@@ -108,7 +112,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (42 PURE)
-  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← general p≡3(4) ⇒ no √(−1) via FLT (7 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime (14 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:

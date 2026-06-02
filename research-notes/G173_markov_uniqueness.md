@@ -51,7 +51,9 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `coprime_vieta_step` | `gcd(a,c)=1 ∧ c+c'=3ab ⟹ gcd(a,c')=1` — the Vieta step preserves coprimality |
 | `MarkovReachable`, `markov_reachable_coprime` | **every tree triple is pairwise coprime** (C3, induction on the tree); `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc` (C2) |
 | `neg_one_qr_of_mod` | the encoding from a modular inverse in residue form `(b·b')%c = 1` (Bezout-ready) |
-| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (7 PURE, separate file `ModArith/MarkovPrimeFactor`) — no prime `≡3(4)` divides a Markov number |
+| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (separate file `ModArith/MarkovPrimeFactor`, 14 PURE) — no prime `≡3(4)` divides a Markov number |
+| `MarkovPrimeFactor.euclid_via_inverse` | **Euclid's lemma** `(a·a')%p=1 ∧ p∣a·b ⟹ p∣b`, constructively from the modular inverse |
+| `MarkovPrimeFactor.two_roots_of_prime` | **`SqrtNegOneTwoRoots p` for every prime `p`** — `x²≡−1` has ≤2 roots mod a prime (the C6 input at prime maxima), GENERAL not `decide` |
 
 Reused infra: `Gcd213.{dvd_sub_213, dvd_add_213}`, `NatHelper.{mul_sub_distrib, mul_mod_right,
 mul_mul_mul_comm_213}`.  The `%`-residue form (not `∣`) is used in `decide` statements — the
@@ -67,7 +69,7 @@ Red = needs imports far from the current arithmetic core, or depends on a Yellow
 - **C3 — full pairwise coprimality.**  `gcd(a,b)=gcd(b,c)=gcd(a,c)=1`.  **Proven along the tree** (`markov_reachable_coprime`): the *invariant* of the Vieta generation (`coprime_vieta_step` preserves it under a jump, transpositions permute it), over the inductive `MarkovReachable` predicate (sound: `markov_reachable_is_triple`).  No descent / no Hurwitz needed — preservation + induction.  **Green ✓.**  (Gap to *all* Markov triples = "every triple is reachable", Markov's theorem, which is the descent.)
 - **C4 — `u²≡−1` encoding.**  invertibility ⟹ `c∣(a·b')²+1`.  **Proven** (`neg_one_qr_of_inverse`).  **Green ✓** (gains full force once C2 lands).
 - **C5 — prime-power root count.**  `x²≡−1 (mod pᵏ)` has exactly 2 roots if `p≡1 (mod 4)`, 0 if `p≡3 (mod 4)`.  The **`p≡3` (0-root) branch is now GENERAL** (`MarkovPrimeFactor.no_sqrt_neg_one_4k3`): for `p=4k+3` with the prime-gcd hypothesis, `¬(p ∣ x²+1)`, via `universal_flt_main` (`x^(p−1)=(x²)^(2k+1)≡(−1)^(2k+1)≡−1` vs Fermat `≡1`).  **Green ✓** (the `p≡3` half).  The `p≡1` (existence, for `pᵏ`) branch is **Yellow→Red** (constructing a root without `Classical`).
-- **C6 — root-count ⇒ uniqueness reduction.**  `SqrtNegOneTwoRoots c → MarkovMaxUnique c`.  The *implication* is classical; the crux is **injectivity of the residue map** `triple ↦ a·b⁻¹ (mod c)` — recovering `(a,b)` from `u` via the Markov equation + size bounds.  **Yellow/Red.**  Formalizable but multi-week; a sloppy version risks asserting injectivity by fiat / going vacuous.  **Stated as an explicit OPEN target — never claimed.**
+- **C6 — root-count ⇒ uniqueness reduction.**  `SqrtNegOneTwoRoots c → MarkovMaxUnique c`.  The **input `SqrtNegOneTwoRoots p` is now PROVEN for every prime `p`** (`two_roots_of_prime`, via Euclid's lemma) — so the reduction's hypothesis is discharged at prime maxima.  The reduction *itself* (the implication) is the open part: the crux is **injectivity of the residue map** `triple ↦ a·b⁻¹ (mod c)` — recovering `(a,b)` from `u`.  **Yellow/Red.**  A sloppy version risks asserting injectivity by fiat / going vacuous.  **Stated as an explicit OPEN target — never claimed.**
 - **C7 — prime-power Markov numbers are unique** (Baragar/Button/Zhang).  = C5 ∘ C6.  **Red** (aspirational capstone; depends on the hard reduction).
 - **C8 — Aigner monotonicity** (fixed numerator / denominator / sum).  **Proven** — Rabideau–Schiffler 2020 (numerator, denominator), Lagisquet–Pelantová–Tavenas–Vuillon 2020 (sum).  Necessary conditions, *not* equivalent to uniqueness.  **Red** for ∅-axiom (continued-fraction / Christoffel-word combinatorics; huge import surface).
 
@@ -119,5 +121,7 @@ root all coincide on the Fibonacci convergents.
 2. **C5 `p≡1` branch** — *existence* of a root of `x²≡−1 (mod pᵏ)` for `p≡1(mod4)` (the
    `p≡3` no-root branch is now done, `no_sqrt_neg_one_4k3`).  Existence without `Classical` is
    the hard part (Wilson `((p−1)/2)!` construction / explicit search bound).
-3. **C6** — keep as a single named open Lean target; attempt only the residue-injectivity lemma
-   in isolation, guarding against vacuity.
+3. **C6 residue-injectivity** — the one open crux now that `SqrtNegOneTwoRoots p` (prime) is
+   done: prove `triple ↦ a·b⁻¹ (mod c)` injective on ordered triples with max `c` (recover
+   `(a,b)` from the root `u` + size bounds + the Markov equation).  Attempt in isolation,
+   guarding against vacuity.  Closing it would give prime-Markov-number uniqueness (C7) outright.
