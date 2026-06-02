@@ -292,8 +292,8 @@ Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`,
 nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
 multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
 
-`E213.Lib.Math.Cauchy.CasoratianSigned` — **15 PURE / 0 DIRTY**.  The *signed* Casoratian law
-+ its signed telescope, sign carried 213-natively as a ℕ-pair
+`E213.Lib.Math.Cauchy.CasoratianSigned` — **17 PURE / 0 DIRTY**.  The *signed* Casoratian law
++ its signed telescope (incl. concrete `cube_casoratian_telescope`), sign carried 213-natively as a ℕ-pair
 (`Lens.Number.Nat213.Tower.NatPairToInt`: integer = pair `(a,b)` = `a−b`, negation = axis
 swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ) (scale c₀ (neg Cₙ₋₁))` *is*
 `c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — signed law ∅-axiom over ℕ, **no

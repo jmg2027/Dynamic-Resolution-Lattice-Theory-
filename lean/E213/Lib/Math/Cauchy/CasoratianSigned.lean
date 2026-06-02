@@ -181,4 +181,26 @@ theorem telescope_pair_alt (P Q : Nat → Nat) (C : Nat → NPair)
       rw [rhs_eq]
       exact scale_congr (Q (n+1)) (neg_congr (telescope_pair_alt P Q C h n))
 
+/-! ## §4 — concrete ζ(3): the cube `n³` Casoratian telescope -/
+
+/-- The ζ(3) cube coefficient `j³` (`= DepthAperyCubic.aperyTop (j−2) = aperyBot (j−1)` on the
+    recurrence domain: leading `n³`, trailing `(n−1)³`). -/
+def cube (j : Nat) : Nat := j * j * j
+
+/-- ★★★ **The concrete ζ(3) Casoratian telescope.**  Any constant-sign pair-Casoratian `C`
+    obeying the cube step law `(k+2)³·C(k+1) = (k+1)³·C(k)` (the Apéry ζ(3) Casoratian
+    recurrence `n³Cₙ = (n−1)³Cₙ₋₁` on the domain `n = k+2`, leading `aperyTop`, trailing
+    `aperyBot`) telescopes to
+
+        scale (∏_{j≤n} (j+1)³) (C n)  ~  scale (∏_{j≤n} j³) (C 0)
+
+    — the cube-product `((n+1)!)³ / (n!)³`-shaped denominator, **constant sign**, ∅-axiom
+    over ℕ-pairs.  This is `+6/n³` with the actual `n³` coefficient, the sign carried by the
+    pair (no `ℤ`). -/
+theorem cube_casoratian_telescope (C : Nat → NPair)
+    (h : ∀ k, npairEquiv (scale (cube (k+2)) (C (k+1))) (scale (cube (k+1)) (C k))) (n : Nat) :
+    npairEquiv (scale (prodFrom (fun j => cube (j+1)) n) (C n))
+               (scale (prodFrom (fun j => cube j) n) (C 0)) :=
+  telescope_pair (fun j => cube (j+1)) (fun j => cube j) C h n
+
 end E213.Lib.Math.Cauchy.CasoratianSigned
