@@ -22,6 +22,7 @@ import E213.Lib.Math.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Cauchy.DepthHeightDiagonal
 import E213.Lib.Math.Cauchy.DepthFloorDetOne
 import E213.Lib.Math.Cauchy.DepthOverflowDuality
+import E213.Lib.Math.Cauchy.ReentryUnit
 import E213.Lib.Math.Cauchy.DepthClosure
 import E213.Lib.Math.Cauchy.DepthCoordGenerator
 

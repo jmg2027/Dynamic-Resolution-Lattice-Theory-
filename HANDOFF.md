@@ -163,3 +163,26 @@ MODIFIED:
   lean/E213/Lib/Math/Real213/{SpiralCoordinate,RefinedCompletabilityEngine}.lean ← capstone + merge-adapt
   theory/math/INDEX.md, theory/math/analysis/spiral_coordinate_classification.md ← index + frontier
 ```
+
+---
+
+## Merged: the form of the residue + the inversion (claude/concrete-non-fixed-point-witness)
+
+This merge also brings the foundational **residue-form / inversion** arc (originator's
+"잔여의 형식 = 다 포괄하는 개념"):
+
+- **(i) the form** — *source without enclosure* (`Lib/Math/ResidueForm.no_exterior_source_without_enclosure`):
+  initial out (`SemanticAtom.raw_initial`) ∧ un-enclosed (`object1_not_surjective`) ∧ unit-name
+  (`det = NS−NT`) ∧ forced shape (`atomic_iff_five`).  Canonical essay
+  `theory/essays/the_form_of_the_residue.md` (in the boot sequence).  Escape at every scale
+  (`research-notes/G180`: predicate / Raw-floor / tower-ceiling).  Synthesis: `research-notes/G178`.
+- **(ii) the inversion** (`Theory/Raw/{MuNuMirror,CoResidue}`; `research-notes/G179`): residue/act
+  as primitive, Raw = µF.  `MuNuMirror` (descent terminates / ascent unbounded).  `CoResidue` (26
+  thm): the νF face via the M-type/path-functions — structural escape (`allBranch`), **finality**
+  (`final_coalgebra`: `CoShape` final for `Bool×X×X`, existence + pointwise uniqueness, no
+  coinduction), faithful embedding (`lToShape_faithful`), **anti-reflexivity is positive**
+  (`treeDiffPath`/`slash_children_distinct` — no bisimulation), named infinite anti-reflexive
+  inhabitant (`spineL`, the left-spine, `spineL_antiRefl` + `spineL_escapes`).
+- RESIDUAL: the exact slash-νF final assembly (bundle `Consistent`+`AntiRefl` subtype + its
+  finality + `lToShape r.val ∈ AntiRefl` needing the Raw everywhere-distinct invariant — mechanical,
+  not a coinduction obstruction).  Whole arc ∅-axiom, critique-hardened (5 adversarial rounds).
