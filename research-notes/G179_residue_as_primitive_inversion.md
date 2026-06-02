@@ -189,12 +189,29 @@ subtrees — might need a bisimulation/coinductive notion of inequality.  It doe
 
 So the feared coinductive inequality is unnecessary.
 
-## The residual — assembling the exact slash-νF subtype
+## Seventh step — the named infinite anti-reflexive inhabitant (`CoResidue` §9)
 
-What remains is mechanical, not a coinduction obstruction: define the `Consistent`
-(leaf-absorbing) + `AntiRefl` (`∀` branch, children `Distinct`) subtype of `LCoShape`, show
-`ana` of a consistent + anti-reflexive coalgebra lands in it and that pointwise uniqueness
-survives the restriction, and exhibit the named infinite anti-reflexive inhabitant (the
-left-spine `a/(a/(…))`, the `rawTower` limit).  Finality (over the approximation) is closed,
-the embedding is faithful, and anti-reflexivity is positive — the exact slash-νF is now an
-assembly task, the honest remaining frontier.
+`AntiRefl s := ∀ p, s p = none → Distinct (coLeftAt s p) (coRightAt s p)` — anti-reflexivity
+of a co-tree (positive, §8).  The canonical infinite anti-reflexive inhabitant is built:
+
+  - `spineL` — the left-spine `a/(a/(a/…))` (the `rawTower` limit) as a path-function: branch
+    on the all-false spine, leaf `a` once a `true` is taken.
+  - ★ `spineL_antiRefl` — it is anti-reflexive: at every branch the left subtree (leaf `a`)
+    and the right subtree (rest of the spine) differ at the empty continuation.
+  - ★ `spineL_escapes` — `spineL ≠ lToShape t` for every finite tree: the spine branches all
+    along the all-false path, but every finite tree's right spine hits a leaf
+    (`lToShape_rightspine_leaf`).
+
+So a named infinite *anti-reflexive* slash-co-tree, escaping the finite — the exact-slash-νF
+analogue of `allBranch`, now anti-reflexive.
+
+## The residual — the final assembly (one genuine subtlety)
+
+What remains: bundle the `Consistent` (leaf-absorbing) + `AntiRefl` subtype of `LCoShape` as
+a type, prove `ana` of a consistent+anti-reflexive coalgebra lands in it with pointwise
+uniqueness surviving, and prove the finite embedding `lToShape r.val` lands in it.  The one
+genuine subtlety: `AntiRefl (lToShape r.val)` needs *every* sub-slash of `r` to have distinct
+children — the Raw "everywhere-distinct" invariant (the root is `slash_children_distinct`; the
+recursion needs it at every node).  Whether canonical-Raw carries this, or it needs a separate
+induction, is the precise remaining task — mechanical, not a coinduction obstruction (which
+§8 retired).

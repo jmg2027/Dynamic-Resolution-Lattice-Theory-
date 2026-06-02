@@ -396,4 +396,72 @@ theorem slash_children_distinct (x y : Tree) (h : x ≠ y) :
     Distinct (lToShape x) (lToShape y) :=
   treeDiffPath x y h
 
+/-! ## §9 — the named infinite anti-reflexive inhabitant (the left-spine)
+
+The exact slash-νF restricts to the **anti-reflexive** subtype: at each branch the two
+subtrees are `Distinct`.  `AntiRefl s := ∀ p, s p = none → Distinct (left-subtree at p)
+(right-subtree at p)` (anti-reflexivity stated *positively*, §8).  The canonical infinite
+anti-reflexive inhabitant is the **left-spine** `a/(a/(a/…))` — the `rawTower` limit: at every
+rung the left child is the leaf `a` and the right child is the rest (distinct).  `spineL`
+realises it as a path-function; it is anti-reflexive (`spineL_antiRefl`) and is reached by no
+finite Raw (`spineL_escapes`).  A named infinite anti-reflexive slash-co-tree, escaping the
+finite, ∅-axiom. -/
+
+/-- The left subtree of `s` at a branch path `p`. -/
+def coLeftAt (s : LCoShape) (p : List Bool) : LCoShape := fun q => s (p ++ true :: q)
+
+/-- The right subtree of `s` at a branch path `p`. -/
+def coRightAt (s : LCoShape) (p : List Bool) : LCoShape := fun q => s (p ++ false :: q)
+
+/-- **Anti-reflexivity**: at every branch (`s p = none`), the two subtrees are `Distinct`
+    (positively — a differing observation; §8).  This is the slash functor's `x ≠ y`. -/
+def AntiRefl (s : LCoShape) : Prop :=
+  ∀ p, s p = none → Distinct (coLeftAt s p) (coRightAt s p)
+
+/-- The infinite left-spine `a/(a/(a/…))` as a path-function: branch on the all-false spine,
+    leaf `a` (`some true`) once a `true` is taken. -/
+def spineL : LCoShape
+  | []           => none
+  | (true :: _)  => some true
+  | (false :: q) => spineL q
+
+/-- At any branch path of the spine, the two children differ at the empty continuation:
+    left descends to the leaf `a` (`some true`), right continues the branch spine (`none`). -/
+theorem spineL_diff_step : ∀ p, spineL p = none →
+    spineL (p ++ [true]) ≠ spineL (p ++ [false])
+  | [],          _  => fun e => Option.noConfusion e
+  | (true :: _), hp => Option.noConfusion hp
+  | (false :: p'), hp => spineL_diff_step p' hp
+
+/-- ★★ **The left-spine is anti-reflexive.**  At every branch, the left subtree (the leaf `a`)
+    and the right subtree (the rest of the spine) differ at the empty continuation. -/
+theorem spineL_antiRefl : AntiRefl spineL :=
+  fun p hp => ⟨[], spineL_diff_step p hp⟩
+
+/-- The spine is `none` (a branch) all along the all-false path — it never bottoms out. -/
+theorem spineL_replicate_none : ∀ k, spineL (List.replicate k false) = none
+  | 0     => rfl
+  | k + 1 => spineL_replicate_none k
+
+/-- Every finite tree's right spine bottoms out at a leaf: `lToShape t` is `some _` at some
+    all-false path. -/
+theorem lToShape_rightspine_leaf : ∀ t : Tree, ∃ k b, lToShape t (List.replicate k false) = some b
+  | Tree.a         => ⟨0, true, rfl⟩
+  | Tree.b         => ⟨0, false, rfl⟩
+  | Tree.slash _ y =>
+      let ⟨k, b, hk⟩ := lToShape_rightspine_leaf y
+      ⟨k + 1, b, hk⟩
+
+/-- ★★★ **The left-spine escapes every finite Raw.**  `spineL ≠ lToShape t`: the spine is a
+    branch (`none`) all along the all-false path (`spineL_replicate_none`), but every finite
+    tree's all-false path eventually hits a leaf (`lToShape_rightspine_leaf`).  So `spineL` is
+    a *named infinite anti-reflexive* slash-co-tree (`spineL_antiRefl`) reached by no finite
+    Raw — the exact-slash-νF analogue of `allBranch`, now anti-reflexive. -/
+theorem spineL_escapes (t : Tree) : spineL ≠ lToShape t := by
+  intro h
+  obtain ⟨k, b, hk⟩ := lToShape_rightspine_leaf t
+  have e : spineL (List.replicate k false) = some b := by rw [h]; exact hk
+  rw [spineL_replicate_none] at e
+  exact Option.noConfusion e
+
 end E213.Theory.Raw.CoResidue
