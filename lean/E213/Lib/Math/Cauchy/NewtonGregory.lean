@@ -32,7 +32,7 @@ namespace E213.Lib.Math.Cauchy.NewtonGregory
 
 open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (binom binom_zero_right binom_lt_zero binom_diag)
 open E213.Meta.Int213
-  (add_comm add_assoc add_left_comm add_right_comm mul_add add_mul zero_mul
+  (add_comm add_assoc add_left_comm add_right_comm mul_comm mul_add add_mul zero_mul
    add_neg_cancel)
 
 /-! ## §0 — small ℤ rearrangement helpers (pure, over `Int213`) -/
@@ -40,6 +40,9 @@ open E213.Meta.Int213
 /-- `a + (b − a) = b` (pure). -/
 theorem add_sub_cancel_left' (a b : Int) : a + (b - a) = b := by
   rw [Int.sub_eq_add_neg, add_left_comm, add_neg_cancel, Int.add_zero]
+
+/-- `a · 0 = 0` (pure, via `mul_comm` + `zero_mul`). -/
+theorem mul_zero' (a : Int) : a * 0 = 0 := by rw [mul_comm, zero_mul]
 
 /-- Four-term middle swap: `a + b + (c + d) = a + c + (b + d)` (pure). -/
 theorem add_add_add_comm (a b c d : Int) : a + b + (c + d) = a + c + (b + d) := by
@@ -168,5 +171,94 @@ theorem newton_gregory (s : Nat → Int) : ∀ n m,
           (fun j => liftKZ j s m + liftKZ (j + 1) s m) (fun j => liftKZ_succ_arg j s m) n,
         bsum_add n (fun j => liftKZ j s m) (fun j => liftKZ (j+1) s m),
         ← bsum_pascal n (fun j => liftKZ j s m)]
+
+/-- Newton–Gregory at base point `0`: `s n = Σ_{j=0}^n binom(n,j) · (Δʲ s)(0)`. -/
+theorem newton_gregory_zero (s : Nat → Int) (n : Nat) :
+    s n = bsum n (fun j => liftKZ j s 0) n := by
+  have h := newton_gregory s n 0
+  rwa [Nat.zero_add] at h
+
+/-! ## §4 — faithful divergence depth over ℤ, and the reconstruction (the converse) -/
+
+/-- A `ℤ`-sequence is constant iff every value equals its value at `0`. -/
+def isConstZ (s : Nat → Int) : Prop := ∀ n, s n = s 0
+
+/-- Faithful divergence depth: `polyDepthZ d s` iff the `d`-th forward difference
+    is constant.  Over `ℤ` (unlike `ℕ`) this is exactly "genuinely degree ≤ `d`". -/
+def polyDepthZ (d : Nat) (s : Nat → Int) : Prop := isConstZ (liftKZ d s)
+
+/-- `a − a = 0` (pure). -/
+theorem sub_self_zero (a : Int) : a - a = 0 := by
+  rw [Int.sub_eq_add_neg, add_neg_cancel]
+
+/-- The forward difference of a constant `ℤ`-sequence is identically `0`. -/
+theorem diffZ_isConstZ_zero {t : Nat → Int} (h : isConstZ t) : ∀ n, diffZ t n = 0 := by
+  intro n; show t (n + 1) - t n = 0; rw [h (n + 1), h n, sub_self_zero]
+
+/-- One step past the depth, the difference vanishes identically: `polyDepthZ d s ⟹
+    Δ^{d+1}s ≡ 0`. -/
+theorem liftKZ_succ_depth_zero {d : Nat} {s : Nat → Int} (h : polyDepthZ d s) :
+    ∀ n, liftKZ (d + 1) s n = 0 := diffZ_isConstZ_zero h
+
+/-- If `Δᵖs ≡ 0` then `Δ^{p+k}s ≡ 0` for every `k` (differencing zero stays zero). -/
+theorem liftKZ_zero_extend {s : Nat → Int} {p : Nat} (h : ∀ n, liftKZ p s n = 0) :
+    ∀ k n, liftKZ (p + k) s n = 0
+  | 0,   n => by rw [Nat.add_zero]; exact h n
+  | k+1, n => by
+    have hk : ∀ n, liftKZ (p + k) s n = 0 := liftKZ_zero_extend h k
+    show liftKZ (p + (k + 1)) s n = 0
+    rw [Nat.add_succ]
+    show diffZ (liftKZ (p + k) s) n = 0
+    show liftKZ (p + k) s (n + 1) - liftKZ (p + k) s n = 0
+    rw [hk (n + 1), hk n, sub_self_zero]
+
+/-- ★ **Above the depth, every difference-at-a-point vanishes.**  `polyDepthZ d s ⟹
+    Δʲs ≡ 0` for all `j > d` — the truncation of the Newton sum. -/
+theorem liftKZ_high_zero {d : Nat} {s : Nat → Int} (h : polyDepthZ d s) :
+    ∀ j, d < j → ∀ n, liftKZ j s n = 0 := by
+  intro j hj n
+  obtain ⟨k, hk⟩ := Nat.le.dest hj
+  rw [← hk]
+  exact liftKZ_zero_extend (liftKZ_succ_depth_zero h) k n
+
+/-- ★ **Tail-truncation of `bsum`.**  If every term strictly above `A` (up to `B`)
+    vanishes, the partial sum to `B` equals the partial sum to `A`.  Lets a Newton
+    sum be retruncated to the exact degree. -/
+theorem bsum_tail_eq (T : Nat) (y : Nat → Int) : ∀ (A B : Nat), A ≤ B →
+    (∀ j, A < j → j ≤ B → (binom T j : Int) * y j = 0) → bsum T y B = bsum T y A
+  | A, 0,   hAB, _  => by rw [Nat.le_zero.mp hAB]
+  | A, B+1, hAB, hz => by
+    rcases Nat.eq_or_lt_of_le hAB with heq | hlt
+    · rw [heq]
+    · have hAB' : A ≤ B := Nat.le_of_lt_succ hlt
+      show bsum T y B + (binom T (B + 1) : Int) * y (B + 1) = bsum T y A
+      rw [hz (B + 1) (Nat.lt_succ_of_le hAB') (Nat.le_refl _), Int.add_zero]
+      exact bsum_tail_eq T y A B hAB' (fun j hj hjB => hz j hj (Nat.le_succ_of_le hjB))
+
+/-- The Newton-form `ℤ`-polynomial `newtonZ c d n = Σ_{i=0}^{d} cᵢ · binom(n,i)`
+    (the binomial / Pólya–Ostrowski basis). -/
+def newtonZ (c : Nat → Int) (d n : Nat) : Int := bsum n c d
+
+/-- ★★★ **Reconstruction — the ℤ converse that `ℕ` could not state.**  Every
+    faithfully depth-`d` sequence is its own Newton series, truncated at `d`:
+    `polyDepthZ d s ⟹ ∀ n, s n = Σ_{i=0}^{d} (Δⁱs)(0) · binom(n,i)`.  The
+    coefficients are the iterated differences-at-`0` (the Pólya–Ostrowski
+    coordinates); over `ℤ` no truncated subtraction corrupts them.  Closes
+    HANDOFF Open Problem #4. -/
+theorem reconstruct {d : Nat} {s : Nat → Int} (h : polyDepthZ d s) (n : Nat) :
+    s n = newtonZ (fun i => liftKZ i s 0) d n := by
+  show s n = bsum n (fun i => liftKZ i s 0) d
+  rw [newton_gregory_zero s n]
+  rcases Nat.le_total d n with hdn | hnd
+  · -- d ≤ n: high terms vanish because Δʲs 0 = 0 for j > d
+    exact bsum_tail_eq n (fun i => liftKZ i s 0) d n hdn
+      (fun j hj _ => by
+        show (binom n j : Int) * liftKZ j s 0 = 0
+        rw [liftKZ_high_zero h j hj 0]; exact mul_zero' _)
+  · -- n ≤ d: extra terms vanish because binom n j = 0 for j > n
+    exact (bsum_tail_eq n (fun i => liftKZ i s 0) n d hnd
+      (fun j hj _ => by
+        show (binom n j : Int) * liftKZ j s 0 = 0
+        rw [binom_lt_zero n j hj]; exact zero_mul _)).symm
 
 end E213.Lib.Math.Cauchy.NewtonGregory
