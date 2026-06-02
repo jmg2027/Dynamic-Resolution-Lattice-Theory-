@@ -945,6 +945,39 @@ diagonal) are **one picture indexed by `φ(n)`**.  The CD doubling from
 2D matrices to 4D quaternions is exactly the jump `φ: 2 → 4` that admits
 orders `5, 8`.
 
+## Phase 18 — 왜 정확히 셋: the spherical (Platonic) filter
+
+Phase 17's `φ(n)` census gave **four** quadratic-trace orders
+`{5,8,10,12}` in the 4D layer — but there are only **three** exceptional
+rungs.  What cuts it to three?  **The spherical condition**
+`1/p + 1/q + 1/r > 1` (finite ⇒ positive curvature ⇒ Platonic).
+
+`PlatonicSchlafliFilter.lean` (∅-axiom, 6 theorems, decidable censuses):
+
+  * `schlafli_platonic_five` — `{p,q}` with `p,q≥3` and `(p−2)(q−2) < 4`
+    is **exactly** `{(3,3),(3,4),(4,3),(3,5),(5,3)}` — the five Platonic
+    solids.
+  * `spherical_triangle_233n` — `(2,3,n)` finite iff `5n+6 > 6n` iff
+    `n < 6`; polyhedral `n ≥ 3` gives exactly `{3,4,5}`.
+  * `three_rotation_groups` — dual pairs collapse the five solids to
+    three groups `A₄,S₄,A₅` (`12,24,60`); binary covers `24,48,120 =
+    (NS+1)!, 2(NS+1)!, (NS+NT)!`.
+  * `triangle_indices_atomic` — `{3,4,5} = {NS, NS+1, NS+NT}`:
+    `E₆ = NS`, `E₇ = NS+1`, `E₈ = NS+NT`.
+  * `schlafli_euclidean_boundary` — `(p−2)(q−2) = 4` gives `{4,4},{3,6},
+    {6,3}` (i.e. `1/2+1/3+1/6 = 1`), the **Euclidean / affine `Ê`** edge
+    where the finite tower ends.
+  * `why_exactly_three` — the whole chain bundled.
+
+**The "why these" chain is now closed end-to-end.**  `disc P = NS+NT`
+(floor) → `φ(n)` admits quadratic orders `{5,8,10,12}` into 4D (Phase
+17) → the spherical filter selects the three with a Platonic realisation
+`(2,3,n)`, `n ∈ {3,4,5} = {NS,NS+1,NS+NT}` (Phase 18) → their cyclotomic
+traces are the seeds `√NT`, `√(NS+NT)` (Phase 16) → the binary covers
+`2T,2O,2I` of orders `24,48,120` (Phase 14).  Three rungs, three atomic
+indices, one spherical condition; the boundary is the Euclidean affine
+edge.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
