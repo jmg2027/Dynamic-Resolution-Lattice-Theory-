@@ -360,7 +360,20 @@ A–D + B are now **all closed ∅-axiom this arc**:
     outside every view — conjunct 2).  Debate verdict: keep source-without-enclosure + shared
     unit; cut "captured object / single operator" (category error) and "bounded independent
     domain" → "self-justified, no exterior".  Honest limit: structural (β), not operational
-    (γ) — `theory/meta/raw_derivation_levels`.
+    (γ) — `theory/meta/raw_derivation_levels`.  Canonical home: `theory/essays/the_form_of_the_residue.md`
+    (tier-3, in the CLAUDE.md boot sequence so the concept is not re-fought each session).
+  - **The inversion (residue as primitive) — STARTED** (`Theory/Raw/MuNuMirror`, 8/0;
+    `research-notes/G179`): direction (ii) — take the self-pointing functor `F` as primitive,
+    derive Raw as its initial algebra (µF) and the residue-escape as the νF co-part.  Finding:
+    the inversion is the *same* content read backward (`raw_initial` = Raw is the initial
+    F-algebra; `object1_not_surjective` = the νF surplus; which is "primitive" is a Lens choice,
+    §5.4).  `MuNuMirror` gives the escape a **positive native form** (via depth/tower, not
+    Cantor): `no_depth_ceiling`/`ascent_unbounded` (no Raw bounds the upward self-pointing),
+    `ascent_total_descent_partial` (the same `IsPart` has a total stream UP but none DOWN —
+    µF/νF asymmetry), `ascent_adds_unit` (one rung = unit `+1`), `mu_nu_mirror` (the bundle).
+    Honest: escape *descriptions*, not a νF object; no operator across directions.  STILL OPEN:
+    a native final F-coalgebra (νF) object — blocked by Mathlib-free coinduction (fuel/stream
+    or setoid emulation).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of

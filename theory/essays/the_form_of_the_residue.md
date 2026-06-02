@@ -67,6 +67,16 @@ The same self-pointing, read by one Lens, has three co-present outcomes
     at the atoms (settles);
   - **escape** — the predicate/residue reading re-enters and never closes (unbounded).
 
+The escape has both a negative and a positive native form.  Negative: the self-cover misses
+the residue (`object1_not_surjective`, Cantor).  Positive: the act iterated *upward* — the
+self-pointing tower `rawTower` (depth `n` at rung `n`) — has unbounded depth, so no Raw
+bounds it (`Theory/Raw/MuNuMirror.no_depth_ceiling`, `ascent_unbounded`); the completed
+infinite act is not any Raw.  The two fixed points are one bundle
+(`MuNuMirror.mu_nu_mirror`): the same relation `IsPart` terminates downward
+(`no_infinite_descent`, µF) and is endlessly continuable upward
+(`ascent_total_descent_partial`, νF) — descent grounds, ascent escapes, both ∅-axiom and
+native (no Cantor, no coinduction).  This is source-without-enclosure at the Raw floor.
+
 The unit by which they move is one: the convergence step and the escape surplus are the
 *same* `Nat` `1` (`Cauchy/ReentryUnit.peel_overflow_is_unit`); the oscillation and the golden
 orbit share the unimodular multiplier `q = ±1` (`CassiniUnimodular.cassini_unimodular_dichotomy`,

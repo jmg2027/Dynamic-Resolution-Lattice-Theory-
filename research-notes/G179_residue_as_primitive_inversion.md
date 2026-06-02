@@ -78,10 +78,29 @@ no operand (§5.1) — the act is the asking.  This is the §5.6 reading (the M�
 the self-reference loop's surrogate, converging to φ) taken as the starting point rather than
 the destination.
 
-## Next step (if pursued)
+## First step — DONE (`Theory/Raw/MuNuMirror`, 8 PURE)
 
-A small ∅-axiom experiment: the peel-stream coalgebra `S = Nat → Raw` with `IsPart`-steps;
-`Raw` (well-founded, `no_infinite_descent`) as the terminating sub-part; the non-terminating
-streams as the residue's native escape-form.  This would be the first *positive* coalgebraic
-witness of the νF face, paired with the existing negative `object1_not_surjective`.  Deferred
-unless the inversion is taken up as a track.
+The positive native escape-form is now closed (∅-axiom), via depth/tower rather than via a
+νF carrier:
+
+  - `no_depth_ceiling` / `ascent_unbounded` — no Raw bounds the upward self-pointing
+    (`rawTower`); the completed infinite act is not any Raw (the Raw-floor dual of the
+    tower-scale `DepthCeilingResidue` "no top").
+  - `tower_ascent_isPart` + `ascent_total_descent_partial` — the *same* relation `IsPart` has
+    a **total stream upward** (always continuable — the νF escape) but **none downward**
+    (`no_infinite_descent` — the µF floor).  The sharp µF/νF asymmetry.
+  - `ascent_adds_unit` — one rung = the count-Lens unit `+1`, the same unit the descent drops
+    by (`part_depth_succ_le`).
+  - `mu_nu_mirror` — the bundle: well-founded descent (µF) ∧ unbounded ascent (νF) ∧
+    terminal-iff-atom (floor).
+
+This is a positive escape **description** (`∀ N, ∃ r, N < r.depth`; a total ascending stream
+exists), paired with the negative `object1_not_surjective` — **not** a νF object (the guard
+holds; the residue stays outside every view), and no operator unifies the directions.
+
+## Still open — a native νF
+
+The deeper piece remains: a **native final `F`-coalgebra** object with the canonical
+`µF → νF` as a Lean map (rather than the depth/predicate shadows).  Mathlib-free Lean has no
+coinduction; this needs a fuel/stream or setoid emulation.  Deferred unless the inversion is
+taken up as a full track.
