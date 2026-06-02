@@ -111,3 +111,22 @@ itself (Fibonacci/Lucas, C-finite) is *above* the polynomials (depth `∞`, grow
 the **Cassini quadratic map collapses a depth-`∞` C-finite orbit to a depth-`0` polynomial** — a
 depth-collapsing invariant linking the unit-`1`/Cassini arc to the concurrent orbit-dimension
 ladder.  (The conserved Cassini unit is the bottom-rung shadow of the above-polynomial orbit.)
+
+## CP-4 realized concretely: P closes, P's orbit never closes (det = 1 the hinge)
+
+The cross-frame agent's deepest theme — the **closing / non-closing duality** (P's self-form is
+the residue's *closing* twin) — is now concretely realizable through `P`, with the determinant
+unit `q = 1` as the hinge.  Both faces are theorems (about `P` and about `P`'s orbit):
+
+  - **closing** — `MobiusSelfForm.p_unique_sl2_trace3` / `p_self_reference_master`: `P` is the
+    *unique* positive `SL₂` matrix with trace `NS = 3` and **det `= 1`** — an isolated, closing
+    self-form fixed point;
+  - **non-closing** — `CassiniDepthFloor.conserved_never_degenerate`: the orbit `P` generates
+    (`q = 1`) keeps Cassini `= det s 0 ≠ 0` forever, so it *never* reaches its frozen fixed point.
+
+The hinge is `det P = NS − NT = q = 1`: the *same* unimodular unit that **pins** `P` as a closed
+self-form (the det-1 constraint in `p_unique`) is what makes `P`'s **orbit** non-degenerate and
+never-closing (the `q=1` multiplier in `det_step`).  Honest scope: this is a *reading* linking two
+genuine theorems about two aspects of `P` (matrix vs orbit) — NOT a forced single-ambient
+trichotomy (B-3 remains open: that needs a common self-map type the docstrings say doesn't exist).
+The concrete realization through `P` is the honest, non-forced form of CP-4.
