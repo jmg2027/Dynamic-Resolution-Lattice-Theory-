@@ -1,14 +1,37 @@
 # Session handoff
 
-Branch: `claude/transfinite-ordinals-intensional-budYF` (continues the real-number
-depth-arc / holonomic-modulus thread; adds the W-vs-d stratification of completeness).
+Branch: `claude/goal-g171-marathon-research-Dj9Go` (G171 Apéry zeta marathon; continues
+the real-number depth-arc / holonomic-modulus thread).
 
 Durable closed work lives in `lean/E213/` (source of truth) and `theory/`
 (narrative); `catalogs/`, `STRICT_ZERO_AXIOM.md`, and `research-notes/` carry
 status + scratch.  This file keeps the current open targets, the closed index,
 and hygiene notes.
 
-## Latest arc — π CF non-holonomicity marathon (this session)
+## Latest arc — G171 Apéry zeta tower marathon (this session)
+
+**`Cauchy/DepthAperyCubic` (23 PURE) + `Cauchy/CasoratianStep` (2 PURE) +
+`research-notes/G171_apery_zeta_tower.md`.**  Completing the divergence-depth thread to
+ζ(2)/ζ(3): the minimal-holonomic recurrence coefficients of ζ(2)
+(`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
+(`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
+finite-difference depth equals their degree (`apery_cubic_rung`, `zeta2_quadratic_rung`,
+`zeta2_to_zeta3_degree_step`), depths pinned **exactly** (`aperyTop_depth_exact` /
+`zeta2Top_depth_exact`).  ζ(3) cubics reindexed to `n=m+2` (all-positive), difference
+identities by the `Meta.Nat.PolyNat` reflection ring, lower bounds by `decide`.
+`casoratian_step` is the subtraction-free discrete-Wronskian law `c₂Cₙ=−c₀Cₙ₋₁`: the
+middle coefficient cancels, so the Casoratian propagates by the outer coefficients
+(`aperyTop=n³`, `aperyBot=(n−1)³`) alone — why the invariant is `deg c₂=deg c₀`.
+
+3 research agents (literature, repo-infra, red-team).  **Key honest correction**: coefficient
+degree is *incidental to irrationality* — ζ(4) has an order-2 recurrence that does NOT prove
+irrationality, Catalan β(2) order-2 with irrationality OPEN, ζ(5) order-3.  So
+e→ζ(2)→ζ(3) does NOT continue as an infinite tower; ζ(3)'s degree 3 is the exception above
+the order-2 degree-2 Apéry-like (Zagier sporadic) family.  Next build (C-A): the generic
+`∀ A B C, polyDepth 2 (fun n => A·n²+B·n+C)` capping the whole sporadic family (needs
+multivariate `Nat` AC — see note for the two routes).
+
+## Previous arc — π CF non-holonomicity marathon
 
 **`Cauchy/HurwitzianCF` (19 PURE / 0 dirty) + `theory/math/analysis/cf_holonomicity_hierarchy.md`
 (promoted).**  The CF-holonomicity hierarchy on the partial-quotient sequence `(aᵢ)` (the
