@@ -1015,6 +1015,46 @@ always `5`), so it appears only on the diagonal (trace) and as the field
 disc `8`, never as `disc P` — the precise, bounded sense in which `E₇` is
 the exception.
 
+## Phase 20 — 깊은 연구: `√2` is the morphological residue of the unit
+
+User intuition on the `E₇` exception: *"√2는 일종의 단위원 그 자체의
+모습적 잔여 느낌"* — `√2` is the morphological residue of the *unit
+itself*, not of the `P`-orbit.  Deep dive — the intuition is confirmed
+sharply.  `UnitResidueRootTwo.lean` (∅-axiom, 6 theorems):
+
+  * `root_two_is_sqrt_unit_trace` — `trace(g₈)² = trace(1) = NT`.  The
+    identity `1 = ⟨2,0,0,0⟩` has trace `2 = NT`; the order-`8` octahedral
+    trace is its *bare square root*.  `√2 = √(trace 1)`.
+  * `root_five_is_not_sqrt_unit_trace` — **uniquely so**:
+    `trace(g₅)² ≠ trace(1)` (decide proves it false).  Only `√2` among
+    the seeds is `√(trace 1)`.  This is the precise reason `disc P` (the
+    `5`-engine) cannot reproduce it.
+  * `dyadic_root_tower_of_unit` — the mechanism: `g₈² = i` (order-4,
+    trace `0`), `g₈⁴ = −1` (trace `−2`).  Orders `2⁰,2¹,2²,2³`, traces
+    `2,−2,0,√2`.  `g₈ = (−1)^{1/4}`; `trace(g₈)² = 2 + trace(g₈²) = NT`.
+    This is the **pure 2-power doubling = the CD-doubling direction**
+    (each step adjoins `√−1`); `√5` (order 5, not a power of `NT`) is off
+    this tower.
+  * `root_two_is_ramification` — `√2 = |1+i|` in `ℤ[i]`: `(1+i)² = 2i`,
+    `N(1+i) = NT`.  `2` ramifies; `1+i =` unit `+` first distinction,
+    magnitude `√2` = √(ramified `NT`, the count-Lens first distinguishing).
+  * `bare_versus_golden` — `√2 : x² − NT = 0` (bare, no linear term);
+    `φ−1 : x² + x − 1 = 0` (golden shift).  `√2` is the unique bare
+    square-root seed.
+  * `unit_morphological_residue` — synthesis.
+
+**Why this matters.**  The `E₇` exception is not deprivation but
+identity: `√2` is the unit's own residue under the CD engine — `√(trace
+1)`, the trace of `(−1)^{1/4}`, `|1+i|`, the bare `√NT`.  Two engines,
+two residues: the `P`-orbit re-enters its own `5 = NS+NT`
+(`QuadraticFieldDiscriminant.seed_reentry`); the unit re-enters its own
+`√2`.  `disc P` always yields `5` because it is the `5`-engine; it cannot
+yield `√2` because `√2` lives on the unit's dyadic square-root tower, a
+different residue.  `E₇` is the diagonal shadow of the identity — the
+morphological residue of the unit, exactly as the intuition said.  This
+connects to the parallel-branch engine (`gapless_unit_step`,
+`diag_self_applies`): the unit step's own residue, read on the diagonal.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
