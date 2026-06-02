@@ -1,6 +1,7 @@
 import E213.Lib.Math.Real213.SpiralLayer
 import E213.Lib.Math.CayleyDickson.Integer.GaussianCrossDet
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion
+import E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy
 
 /-!
 # SpiralCoordinate — the two orthogonal count-coordinates of a real, and the residue
@@ -38,6 +39,7 @@ namespace E213.Lib.Math.Real213.SpiralCoordinate
 open E213.Lib.Math.Real213.ContinuedFractionFloor (cfDet cf_det_sq)
 open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
 open E213.Lib.Math.Cauchy.DepthCoordGenerator (genExp genExp_depth_exact)
+open E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy (unitForm_generic_axis)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- ★★★ **The spiral coordinate of a real: two orthogonal counts plus the residue.**
@@ -49,6 +51,8 @@ open E213.Lib.Physics.Simplex.Counts (NS NT)
        so the famous `{1,3,6}` of `{φ,e,π}` is a selection, not a structural law.
     3. **Axis spectrum is exactly `{2,4,6}`** — `ℤ[i]^×` order 4, `ℤ[ω]^×` order 6 `= NS·NT`
        (with `ℤ^×` order 2 the regular-CF floor); the only imaginary-quadratic orders.
+    4. **Axis is exhaustive** — every other ring `ℤ[√−d]` (`d ≥ 2`) collapses to `{±1}`
+       (order 2): `a² + d·b² = 1` forces `(±1,0)` (`unitForm_generic_axis`).  No fourth axis.
 
     The two axes are orthogonal: the layer reads continued-fraction holonomicity (it
     separates e from π, which Mahler/μ cannot); the axis reads the arithmetic ring. -/
@@ -61,11 +65,15 @@ theorem spiral_coordinate :
     --    `GaussianCrossDet.gaussian_floor_rotation`, `EisensteinCompletion.eisenstein_floor_rotation`)
     ∧ (E213.Lib.Math.CayleyDickson.Integer.ZI.units4.length = 4
         ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = 6
-        ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = NS * NT) :=
+        ∧ E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6.length = NS * NT)
+    -- 4. axis exhaustive: no fourth axis — every `ℤ[√−d]`, `d ≥ 2`, is order 2
+    ∧ (∀ (d : Nat), 2 ≤ d → ∀ a b : Int,
+        a * a + (d : Int) * (b * b) = 1 → b = 0 ∧ (a = 1 ∨ a = -1)) :=
   ⟨cf_det_sq,
    fun d => (genExp_depth_exact d).1,
    ⟨E213.Lib.Math.CayleyDickson.Integer.ZI.units4_length,
     E213.Lib.Math.CayleyDickson.Integer.ZOmega.units6_length,
-    E213.Lib.Math.CayleyDickson.Integer.ZOmega.units_count_eq_NSNT⟩⟩
+    E213.Lib.Math.CayleyDickson.Integer.ZOmega.units_count_eq_NSNT⟩,
+   fun d hd a b => unitForm_generic_axis d hd a b⟩
 
 end E213.Lib.Math.Real213.SpiralCoordinate

@@ -31,6 +31,7 @@ together with the top-less depth tower.
 | `Real213/SpiralLayer.lean` | 2 / 0 | the layer is intensional (`depth_is_intensional`); spectrum is all of `ℕ` (`depth_spectrum_unrestricted`) |
 | `Real213/SpiralCoordinate.lean` | 1 / 0 | `spiral_coordinate`: the two orthogonal counts bundled |
 | `CayleyDickson/Integer/ZIUnits.lean` | 6 / 0 | the Gaussian 4-theorem (`ZI_units_exact_four`, `\|ℤ[i]^×\| = 4`) |
+| `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` | 3 / 0 | the axis is exhaustively `{2,4,6}` (`unitForm_generic_axis`: `d ≥ 2 ⇒` only `±1`; `imaginary_quadratic_unit_trichotomy`) |
 | `CayleyDickson/Integer/GaussianCrossDet.lean` | 11 / 0 | the `ℤ[i]` floor rotates with order 4 (`gaussian_floor_rotation`, `μ = −i`) |
 | `CayleyDickson/Integer/EisensteinCrossDet.lean` | 14 / 0 | the `ℤ[ω]` cross-det rides the 6-unit floor (`crossDet_on_units`) |
 | `CayleyDickson/Integer/EisensteinCompletion.lean` | 9 / 0 | the `ℤ[ω]` floor rotates with order 6 (`eisenstein_floor_rotation`); completion factors through the real norm |
@@ -82,6 +83,16 @@ classification.  Both extra orders are built here as exact-cardinality theorems 
 each other: the Gaussian 4-theorem (`ZI_units_exact_four`) and the Eisenstein 6-theorem
 (`ZOmega_units_exact_six`, with `6 = NS·NT`).
 
+The **exhaustiveness** — that no fourth axis occurs — is closed `∅`-axiom in
+`ImaginaryQuadraticUnitTrichotomy`.  For the recurrence coefficient ring `ℤ[√−d]` a unit
+is a solution of the norm form `a² + d·b² = 1`, and `unitForm_generic_axis` proves that
+for **every** `d ≥ 2` the only solutions are `(±1, 0)`: a non-zero `b` already gives
+`d·b² ≥ d ≥ 2 > 1`.  So every axis past the Gaussian one collapses to the bare `{±1}`
+(order 2); `imaginary_quadratic_unit_trichotomy` bundles this with the order-4 (`ℤ[i]`)
+and order-6 (`ℤ[ω]`) points.  The axis coordinate has a **closed finite range**, not three
+sampled instances — the classical Dirichlet trichotomy made constructive (the proof runs
+through `Int.natAbs` into `Nat`, no `ring`, no `omega`).
+
 The axis is realized *geometrically* as a floor rotation.  With a unit-coefficient
 recurrence `s_{n+2} = s_{n+1} + q·s_n`, the cross-determinant is multiplied each step by
 `−q`; when `q` is a primitive unit the cross-determinant walks the whole unit group:
@@ -131,6 +142,8 @@ convergence mechanism.
 | `depth_is_intensional` | `SpiralLayer` | regular CF ⇒ depth-1 floor universal; e `3`, π `6` are series-presentation depths |
 | `depth_spectrum_unrestricted` | `SpiralLayer` | every finite depth realized exactly; `{1,3,6}` is a selection, not a law |
 | `ZI_units_exact_four` | `ZIUnits` | `\|ℤ[i]^×\| = 4` (the Gaussian 4-theorem) |
+| `unitForm_generic_axis` | `ImaginaryQuadraticUnitTrichotomy` | `d ≥ 2 ⇒ a²+d·b²=1` only at `(±1,0)`: no fourth axis |
+| `imaginary_quadratic_unit_trichotomy` | `ImaginaryQuadraticUnitTrichotomy` | the axis is exactly `{2,4,6}`, a closed finite range |
 | `gaussian_floor_rotation` | `GaussianCrossDet` | the `ℤ[i]` floor rotates by `−i`, order 4 |
 | `eisenstein_floor_rotation` | `EisensteinCompletion` | the `ℤ[ω]` floor rotates by `−ω`, order `6 = NS·NT` |
 | `spiral_coordinate` | `SpiralCoordinate` | the two orthogonal counts (layer intensional + unrestricted; axis `{2,4,6}`) |
@@ -157,7 +170,8 @@ for M in \
   E213.Lib.Math.Real213.SpiralCoordinate \
   E213.Lib.Math.CayleyDickson.Integer.ZIUnits \
   E213.Lib.Math.CayleyDickson.Integer.GaussianCrossDet \
-  E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion ; do
+  E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion \
+  E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy ; do
     python3 tools/scan_axioms.py $M
 done
 ```

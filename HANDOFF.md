@@ -205,6 +205,21 @@ A–D + B are now **all closed ∅-axiom this arc**:
     unconditional (any aᵢ≥1), complex/Hurwitz conditional (`|aₙ|≥√2`+admissibility) — the
     2-axis is the only unconditionally-completing one.  Frontier: π's CF non-holonomicity
     (classical open; would make "π rate-free" a theorem).
+  - **Axis exhaustiveness — CLOSED ∅-axiom** (`CayleyDickson/Integer/
+    ImaginaryQuadraticUnitTrichotomy`, 3/0; deepens the spiral arc against merged main).
+    The gap `SeedUnitGovernance` flagged ("ℤ[i],ℤ[ω] the ONLY imaginary-quadratic orders
+    with μ≠{±1} — Dirichlet trichotomy, *cited not formalized*") is now proven.
+    `unitForm_generic_axis`: for every `d ≥ 2` the norm form `a²+d·b²=1` has only `(±1,0)`
+    (b≠0 ⇒ d·b²≥d≥2>1 overshoots); the recurrence ring `ℤ[√−d]` is order 2.
+    `imaginary_quadratic_unit_trichotomy` bundles with `ℤ[i]`(4)/`ℤ[ω]`(6): the axis is a
+    **closed finite range {2,4,6}**, not three sampled instances.  Proof via `Int.natAbs`
+    → Nat (the `two_not_a_discriminant` idiom), no `ring`/`omega`/`Classical`; the one
+    propext leak (`Int.natAbs_eq_zero`) routed around via `Int.natAbs_eq`.  Folded into
+    `Real213/SpiralCoordinate.spiral_coordinate` as a 4th conjunct (now 4-fold capstone).
+    Conceptual: {2,4,6}=2·{1,2,3} is the even/binary half of the crystallographic set
+    {1,2,3,4,6} (main's `CyclotomicTraceDegree.crystallographic_restriction`); the doubling
+    is the Cassini sign −1, the structural origin of "binary" in the binary-polyhedral
+    E₆E₇E₈ rungs (`Tower/BinaryPolyhedralTower`, `MckayADECensus`).
   - **Eisenstein/elliptic conjecture — discriminant-sign core LANDED** (`research-notes/G167`).
     The `(W,d)` classification's number-field reading: golden form `m²−mk−k²` (disc `+5`,
     indefinite, ∞ units → convergent *line*) vs Eisenstein norm `a²−ab+b²` (disc `−3`,
