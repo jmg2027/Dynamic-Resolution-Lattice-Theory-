@@ -298,6 +298,13 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
+`E213.Lib.Math.Cauchy.DepthHeightDiagonal` — **4 PURE / 0 DIRTY**.  Naming the
+whole `ω^r` height-tower escapes every finite height: `heightTower c r n = expTower
+c r n`, and `height_diagonal_escapes` — `diag (heightTower c) ≠ expTower c r` for
+every `r` (via `DepthCeilingResidue.diag_not_in_seq`).  The residue at the height
+scale, the frontier *toward* `ε₀` (no `Ordinal` constructed); `epsilon_direction`
+bundles it with `coord_layer_dominates` (each layer ×`ω`).
+
 `E213.Lens.Bool213.SelfReferenceForms` — **2 PURE / 0 DIRTY**.  The two
 structural forms of Raw self-reference (`05_no_exterior` §5.2): `bool_not_no_fixed_point`
 (the Bool `not` has no fixed point on its values `{T,F}` — the liar oscillation, period 2

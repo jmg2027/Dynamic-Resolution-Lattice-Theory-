@@ -263,10 +263,17 @@ A–D + B are now **all closed ∅-axiom this arc**:
     half, since `not_not` alone gives only the involution) vs the Nat-style Lambek
     period-1 self-fixed-point (`decompose`) + well-founded descent (`depth_drops`);
     `self_reference_two_forms` bundles the dichotomy.  Both are co-present Lens readings
-    of one Raw self-pointing.  OPEN (this axis): ε₀ as the diagonal limit of the `ω^r`
-    tower (`DepthOmegaTower` + `DepthCeilingResidue.diag`; uncertain it produces ε₀
-    without Mathlib `Ordinal`); frozen=dynamic equivalence (§5.7); computability/ω₁^CK
-    out of scope.
+    of one Raw self-pointing.
+  - **Height-diagonal / ε₀-direction — DONE** (`Cauchy/DepthHeightDiagonal`, 4/0;
+    `research-notes/G173`): naming the whole `ω^r` height-tower escapes every finite
+    height.  `heightTower c r n = expTower c r n`; `height_diagonal_escapes` —
+    `diag (heightTower c) ≠ expTower c r` for every `r` (via
+    `DepthCeilingResidue.diag_not_in_seq`); `epsilon_direction` bundles it with
+    `coord_layer_dominates`.  The residue at the height scale, the frontier *toward* ε₀
+    — **honest**: no `Ordinal` constructed, ε₀ not claimed reached (the diagonal may only
+    express the `ω^ω` ceiling).  OPEN (this axis): a native ε₀ limit object + proof the
+    diagonal is its `+1` (genuinely uncertain); frozen=dynamic equivalence (§5.7);
+    computability/ω₁^CK out of scope.
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

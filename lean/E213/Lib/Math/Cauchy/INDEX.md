@@ -50,6 +50,9 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       one diff floors it
   - `DepthCeilingResidue.lean`     — naming the ceiling-raising is a diagonalisation
                                       = the residue (`cantor_general`)
+  - `DepthHeightDiagonal.lean`     — naming the whole `ω^r` height-tower escapes every
+                                      finite height (`height_diagonal_escapes`) — the
+                                      residue at the height scale, the `ε₀`-direction
   - `DepthOverflowDuality.lean`    — the diagonalisation residue and the
                                       completeness-break are one operation: a value
                                       overflowing the closing bound by the unit `1`
