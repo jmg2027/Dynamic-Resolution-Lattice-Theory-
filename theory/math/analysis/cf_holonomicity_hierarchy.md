@@ -144,7 +144,10 @@ The bridge **polynomially-bounded partial quotients ⟹ μ = 2** (classical, exa
 `tanPQ_linear_bound` (`tanPQ i ≤ i+1`) give linear bounds, whence (cited) `μ(e) = μ(tan 1) =
 2` directly from the quasi-polynomial structure.  The implication is one-directional (`μ = 2`
 does not force bounded partial quotients).  The general `QuasiPolyCF ⟹ polynomially-bounded`
-would need the discrete Newton–Gregory bound, delicate over `ℕ` truncated subtraction.
+needs the discrete Newton–Gregory bound — delicate over `ℕ` truncated subtraction, but
+**closed over `ℤ`** in [`newton_gregory.md`](newton_gregory.md): `poly_bound`
+(`polyDepthZ d s ⟹ |s n| ≤ C·(n+1)^d`, `C = Σ_{i≤d}|Δⁱs 0|`) supplies the bound for any
+ℤ-lifted residue section; the remaining step is the `natAbs` collapse on the nonneg p.q.
 
 ## How to verify
 
