@@ -907,6 +907,44 @@ disc-anchored (`√−3`) with integer trace.  The three exceptional seeds
 of the order-`{3, 8, 5}` rotations — no exterior, no extrapolation; the
 "miss" at `E₇` is precisely its trace's irrationality.
 
+## Phase 17 — 차근차근: the keystone, `φ(n)` makes it rigorous
+
+User: *"차근차근 ㄱㄱ"* — make the narrative keystone (Phase 16's
+"crystallographic restriction: integer trace ⟹ order ∈ {1,2,3,4,6}")
+*provable*, not prose.
+
+**Keystone — the trace of an order-`n` rotation generates the real
+cyclotomic field `ℚ(ζ_n)⁺` of degree `φ(n)/2`.**
+`CyclotomicTraceDegree.lean` (∅-axiom, 6 theorems):
+
+  * `crystallographic_restriction` — over `1 ≤ n ≤ 12`, the orders with
+    *rational* trace (`φ(n) ≤ 2`) are **exactly** `{1,2,3,4,6}` — the
+    classical crystallographic set, decidable as a list census.
+  * `cd_lift_orders` — quadratic trace (`φ(n) ≤ 4`) adds **exactly**
+    `{5,8,10,12}`: the orders that first appear in 4D.
+  * `e6_trace_rational` / `e7_e8_trace_quadratic` — trace-field degree
+    `φ(n)/2`: `1` for `{3,4,6}` (E₆, integer trace), `2` for `{5,8}`
+    (E₇/E₈, quadratic surd).
+  * `exceptional_rotation_dimension_four` — `φ(NS+NT) = φ(8) = 4 = 2²`:
+    orders `5,8` need the **quaternion** dimension, the 2nd CD rung.
+  * `why_root_two_and_root_five` — bundles it: rational-trace wall at
+    `{1,2,3,4,6}`; the two quadratic exceptions are order-`5 → √(NS+NT)`
+    and order-`8 → √NT`, *matching the proven trace seeds*
+    (`octahedral_trace_sq_eq_NT`, `icosian_trace_seed_eq_NS_NT`).
+
+**∅-axiom note.**  Core `Nat.gcd` (well-founded recursion) leaks
+`propext` under `decide`; `φ` is defined with the repo's pure
+`NatHelper.gcd213` (fuel-based), so the censuses are clean.
+
+**Why `√2`, `√5` — closed.**  The surds are not chosen: they generate
+the two degree-`2` real cyclotomic fields that appear *immediately past*
+`φ = 2`.  The disc-mechanism (`φ ≤ 2`, rational/integer invariants, 2D,
+E₆'s `√−3` on the discriminant) and the trace-mechanism (`φ = 4`,
+quadratic surds, 4D quaternions, E₇/E₈'s `√NT`/`√(NS+NT)` on the
+diagonal) are **one picture indexed by `φ(n)`**.  The CD doubling from
+2D matrices to 4D quaternions is exactly the jump `φ: 2 → 4` that admits
+orders `5, 8`.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**

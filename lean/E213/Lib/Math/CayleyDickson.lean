@@ -18,6 +18,7 @@ import E213.Lib.Math.CayleyDickson.Tower.BinaryPolyhedralTower
 import E213.Lib.Math.CayleyDickson.Tower.ExceptionalAtomicIndex
 import E213.Lib.Math.CayleyDickson.Tower.DiscForcingObstruction
 import E213.Lib.Math.CayleyDickson.Tower.ExceptionalTraceSeed
+import E213.Lib.Math.CayleyDickson.Tower.CyclotomicTraceDegree
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion
