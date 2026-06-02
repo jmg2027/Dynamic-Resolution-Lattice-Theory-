@@ -292,6 +292,25 @@ Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`,
 nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
 multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
 
+`E213.Lib.Math.Cauchy.CasoratianSigned` — **17 PURE / 0 DIRTY**.  The *signed* Casoratian law
++ its signed telescope (incl. concrete `cube_casoratian_telescope`), sign carried 213-natively as a ℕ-pair
+(`Lens.Number.Nat213.Tower.NatPairToInt`: integer = pair `(a,b)` = `a−b`, negation = axis
+swap).  `casoratian_signed` — `npairEquiv (scale c₂ Cₙ) (scale c₀ (neg Cₙ₋₁))` *is*
+`c₂Cₙ = −c₀Cₙ₋₁`, unfolding to `casoratian_step` verbatim — signed law ∅-axiom over ℕ, **no
+`ℤ` type, no propext**.  Pair-congruences (`scale_mul/comm/congr`, `neg_congr`), `neg_neg`
+(swap involution = period-2 Oscillate), `iterNeg` (accumulated sign, `iterNeg_succ_succ`
+period 2).  **Signed telescopes**: `telescope_pair` — ζ(3) constant-sign shape `scale (∏ P)
+Cₙ ~ scale (∏ Q) C₀` (`P=n³`, `Q=(n−1)³`: the `+6/n³` Casoratian); `telescope_pair_alt` —
+ζ(2) alternating shape `scale (∏ P) Cₙ ~ iterNeg n (scale (∏ Q) C₀)` (`P=(n+1)²`, `Q=n²`: the
+`±5/n²` Casoratian, sign `(−1)ⁿ`).  The signed `±5/n²`,`±6/n³` closed forms realized ∅-axiom
+over ℕ-pairs (the sign = the residue's binary axis-distinguishing).  The Casoratian's
+magnitude (Converge/Escape, `CasoratianStep.telescope`) and sign (Oscillate, `iterNeg`) are
+the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
+
+`E213.Lib.Math.Cauchy.CassiniSigned` — **2 PURE / 0 DIRTY**.  The residue floor's cross-determinant as the depth-0 signed Casoratian: the Fibonacci Cassini `fib(n+2)·fib(n) − fib(n+1)² = (−1)ⁿ⁺¹` in ℕ-pair form — `cassini_pair`: `npairEquiv (fib(n+2)·fib(n), fib(n+1)²) (iterNeg (n+1) (1,0))`, the unit pair `(1,0)` toggled `n+1` times.  Magnitude `1` (the `det P = 1` floor, Converge depth 0) with the sign carried entirely by the period-2 axis swap (Oscillate); `cassini_step` is the subtraction-free Fibonacci identity, the `c₂=c₀=1` floor instance of `casoratian_signed`.  ∅-axiom over ℕ — the floor's `±1` with its sign, no `ℤ`.
+
+`E213.Lib.Math.Cauchy.DepthCubicGeneric` — **5 PURE / 0 DIRTY**.  Every cubic discrete polynomial has divergence-depth 3: `cubic_polyDepth` — `∀ A B C D, polyDepth 3 (A·n³+B·n²+C·n+D)` (cubic analog of `quadratic_polyDepth`, completing depth=degree to 3), via `cubic_eq` (cubic = `newton (D,A+B+C,6A+2B,6A) 3`) + `newton_polyDepth` + `polyDepth_congr`.  Crux `cube_eq` — `n³ = 6·binom n 3 + 6·binom n 2 + n` (the subtraction-free `n³ = 6·C(n,3)+6·C(n,2)+C(n,1)`, cube analog of `DepthQuadraticGeneric.sq_eq`), via the univariate `(n+1)³=n³+3n²+3n+1` (`poly_id`) + `sq_eq` + `cube_reorder` (the combine/reorder identity, PURE via `NatHelper.{add_mul,mul_assoc}` + `Nat.add_right_comm`, no propext-dirty `ring`/`ac_rfl`).  All multivariate reorders (the `cube_reorder` combine + the two collect steps in `cubic_eq`) are one-line `Meta.Nat.PolyNatM.poly_idM` calls.
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
