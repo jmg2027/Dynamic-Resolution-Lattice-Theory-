@@ -24,6 +24,8 @@ piece, blocked by Mathlib-free coinduction.  And the up/down facts are not symme
 "readings of one operator": the ascent is one explicit stream (`rawTower`), the descent is a
 universal-negation taken straight from `Lambek`.  No operator unifies them; they share only
 the relation `IsPart` and the readout `depth`, both already defined.  All zero-axiom.
+
+Narrative: `theory/essays/the_residue_as_primitive.md` (Raw = µF, the escape = νF).
 -/
 
 namespace E213.Theory.Raw.MuNuMirror

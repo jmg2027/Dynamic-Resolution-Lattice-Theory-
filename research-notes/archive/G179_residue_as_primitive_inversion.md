@@ -205,13 +205,61 @@ of a co-tree (positive, §8).  The canonical infinite anti-reflexive inhabitant 
 So a named infinite *anti-reflexive* slash-co-tree, escaping the finite — the exact-slash-νF
 analogue of `allBranch`, now anti-reflexive.
 
-## The residual — the final assembly (one genuine subtlety)
+## Eighth step — the finite Raw embeds anti-reflexively (the subtlety resolved) (`CoResidue` §10)
 
-What remains: bundle the `Consistent` (leaf-absorbing) + `AntiRefl` subtype of `LCoShape` as
-a type, prove `ana` of a consistent+anti-reflexive coalgebra lands in it with pointwise
-uniqueness surviving, and prove the finite embedding `lToShape r.val` lands in it.  The one
-genuine subtlety: `AntiRefl (lToShape r.val)` needs *every* sub-slash of `r` to have distinct
-children — the Raw "everywhere-distinct" invariant (the root is `slash_children_distinct`; the
-recursion needs it at every node).  Whether canonical-Raw carries this, or it needs a separate
-induction, is the precise remaining task — mechanical, not a coinduction obstruction (which
-§8 retired).
+The "everywhere-distinct" subtlety is **resolved**: it is exactly the **canonical** invariant.
+A canonical slash `x / y` has `cmp x y = .lt` (`Tree.canonical_slash_decompose`), hence
+`x ≠ y` (`Tree.cmp_self_eq`: `cmp x x = .eq`) — recursively at every node
+(`canonical_slash_children_ne`).  So:
+
+  - ★ `lToShape_antiRefl` — every *canonical* tree embeds anti-reflexively (`AntiRefl (lToShape
+    t)`): root branch children distinct (canonicity ⟹ `slash_children_distinct`), deeper
+    branches reduce to the children's anti-reflexivity (induction); atoms vacuous.
+  - ★ `raw_embeds_antiRefl` — hence **every Raw `r`** embeds anti-reflexively (`r.val`
+    canonical).  Combined with `lToShape_faithful` (§6): the finite residue lands in the exact
+    slash functor's **faithful + anti-reflexive** subtype, ∅-axiom, no coinduction.  `spineL`
+    (`spineL_antiRefl`, `spineL_escapes`) is the infinite anti-reflexive inhabitant outside it.
+
+So the exact slash functor's defining constraints (faithful, anti-reflexive) are met by the
+finite embedding, with a named infinite anti-reflexive escapee.
+
+## Ninth step — the exact slash-νF carrier assembled (`CoResidue` §11)
+
+The carrier is now a bundled type with the complete embedding + escape picture:
+
+  - `Consistent s := ∀ p b, s p = some b → ∀ d, s (p ++ [d]) = some b` (leaves absorb);
+    `lToShape_consistent` (every finite tree) + `spineL_consistent`.
+  - ★ `SlashNu := {s : LCoShape // Consistent s ∧ AntiRefl s}` — the exact slash-νF carrier.
+  - `rawToSlashNu` (the finite residue as a consistent + anti-reflexive co-tree) +
+    `rawToSlashNu_faithful` (faithful, via `lToShape_faithful`); `spineSlashNu` (the infinite
+    left-spine in `SlashNu`).
+  - ★ `slashNu_carrier` — faithful embedding ∧ `spineSlashNu ∈ SlashNu` ∧ no finite Raw is the
+    spine (`spineL_escapes`).  The carrier is assembled ∅-axiom, no coinduction.
+
+## Tenth step — `SlashNu` is the final slash-coalgebra (the arc complete) (`CoResidue` §12)
+
+The carrier's own finality is **done** — `SlashNu` is *exactly* the residue's exact slash-νF,
+∅-axiom, no coinduction primitive (the leaf-absorbing M-type, finite-path induction):
+
+  - `lAna` — the leaf-absorbing anamorphism of a slash-coalgebra `c : X → Option Bool × X × X`
+    (branch ⇒ recurse, leaf ⇒ repeat the label, so consistent by construction).
+  - ★ `lAna_consistent` — always consistent; ★ `lAna_antiRefl` — anti-reflexive *when the
+    coalgebra is* (`hAR`: each branch's children unfold to `Distinct` co-trees); ★
+    `lAna_unique` — the unique hom (pointwise, by finite-path induction; split leaf/branch hom
+    equations, no `funext`, no `simp`/propext).
+  - ★★★ `slashNu_final` — existence (`lAna c` lands in `SlashNu`) + uniqueness: `SlashNu` is
+    the final coalgebra of the slash functor among anti-reflexive coalgebras.
+
+So the inversion's νF face is **complete**: the residue's exact slash functor
+`{a} ⊎ {b} ⊎ {x/y : x ≠ y}` has its final coalgebra `SlashNu` realised ∅-axiom (carrier +
+faithful embedding + named escapee + finality), with the finite Raw = µF embedding in
+faithfully and anti-reflexively, no coinduction primitive anywhere.
+
+## Honest scope (the standing caveats)
+
+  - Finality is *up to pointwise/extensional equality* (uniqueness is `∀ x p, h x p = lAna c x
+    p`; `h = lAna c` needs `funext`), and among *anti-reflexive* slash-coalgebras (the `hAR`
+    hypothesis — only anti-reflexive coalgebras map into the anti-reflexive νF).
+  - The carrier is the path-function (M-type) presentation, not a Lean-native coinductive
+    type (which Mathlib-free Lean lacks); the path-function M-type is the standard
+    coinduction-free construction of the final coalgebra of a polynomial functor.
