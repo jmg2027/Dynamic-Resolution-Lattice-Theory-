@@ -32,6 +32,7 @@ together with the top-less depth tower.
 | `Real213/SpiralCoordinate.lean` | 1 / 0 | `spiral_coordinate`: the two orthogonal counts bundled |
 | `CayleyDickson/Integer/ZIUnits.lean` | 6 / 0 | the Gaussian 4-theorem (`ZI_units_exact_four`, `\|ℤ[i]^×\| = 4`) |
 | `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` | 7 / 0 | the axis is exhaustively `{2,4,6}` (`unitForm_generic_axis`: `d ≥ 2 ⇒` only `±1`; `imaginary_quadratic_unit_trichotomy`; `maximal_order_no_complex_unit`; `axis_binary_cover`) |
+| `CayleyDickson/Tower/SpiralAxisCrystallographic.lean` | 1 / 0 | verified bridge: `{2,4,6}` = even half of crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` |
 | `CayleyDickson/Integer/GaussianCrossDet.lean` | 11 / 0 | the `ℤ[i]` floor rotates with order 4 (`gaussian_floor_rotation`, `μ = −i`) |
 | `CayleyDickson/Integer/EisensteinCrossDet.lean` | 14 / 0 | the `ℤ[ω]` cross-det rides the 6-unit floor (`crossDet_on_units`) |
 | `CayleyDickson/Integer/EisensteinCompletion.lean` | 9 / 0 | the `ℤ[ω]` floor rotates with order 6 (`eisenstein_floor_rotation`); completion factors through the real norm |
@@ -138,6 +139,15 @@ word *binary* in the binary-polyhedral rungs `E₆ = 2T, E₇ = 2O, E₈ = 2I`
 off a continued-fraction cross-determinant, is the same `2`-fold cover that makes the
 exceptional groups *binary*.
 
+This identification is itself a checked fact, not only a reading.
+`Tower/SpiralAxisCrystallographic.spiral_axis_is_even_crystallographic` bundles three
+decidable identities: the crystallographic orders are `{1,2,3,4,6}`
+(`crystallographic_restriction`, the `GL(2,ℤ)` census `φ(m) ≤ 2`), their even members are
+exactly the spiral axis `{2,4,6}`, and `{2,4,6} = 2·{1,2,3}`.  So the arithmetic unit-group
+axis (read off a continued fraction) and the geometric rotation census (read off `GL(2,ℤ)`)
+are the same `{1,2,3}` seen through one binary cover — the analysis side and the
+exceptional-tower side meet on `{1,2,3}`.
+
 The three axes carry a transcendental shadow through the Chowla–Selberg / Gross CM-period
 formula (the unit order `w` appears in its exponent): `Γ(1/2) ∼ π` at the boundary, `Γ(1/4)`
 at disc `−4` (`ℤ[i]`), `Γ(1/3)` at disc `−3` (`ℤ[ω]`).  This is interpretive, not
@@ -177,6 +187,7 @@ convergence mechanism.
 | `imaginary_quadratic_unit_trichotomy` | `ImaginaryQuadraticUnitTrichotomy` | the axis is exactly `{2,4,6}`, a closed finite range |
 | `maximal_order_no_complex_unit` | `ImaginaryQuadraticUnitTrichotomy` | `d ≡ 3 (mod 4)` maximal orders (`d≥5`): `(2a+b)²+d·b²=4 ⇒ b=0`, no complex unit |
 | `axis_binary_cover` | `ImaginaryQuadraticUnitTrichotomy` | `{2,4,6}=2·{1,2,3}`: midpoint `μᵏ=−1`, the central `−1` is the binary cover |
+| `spiral_axis_is_even_crystallographic` | `Tower/SpiralAxisCrystallographic` | `{2,4,6}` = even half of crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` (verified bridge) |
 | `gaussian_floor_rotation` | `GaussianCrossDet` | the `ℤ[i]` floor rotates by `−i`, order 4 |
 | `eisenstein_floor_rotation` | `EisensteinCompletion` | the `ℤ[ω]` floor rotates by `−ω`, order `6 = NS·NT` |
 | `spiral_coordinate` | `SpiralCoordinate` | the two orthogonal counts (layer intensional + unrestricted; axis `{2,4,6}`) |

@@ -225,6 +225,11 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `CyclotomicTraceDegree.crystallographic_restriction`); the doubling is the Cassini sign
     −1 — the structural origin of "binary" in the binary-polyhedral E₆E₇E₈ rungs
     (`Tower/BinaryPolyhedralTower`, `MckayADECensus`).  Spiral arc ↔ McKay tower bridged.
+    Bridge made a VERIFIED FACT (`Tower/SpiralAxisCrystallographic`, 1/0,
+    `spiral_axis_is_even_crystallographic`): three decidable identities — crystallographic
+    orders = {1,2,3,4,6} (cite `crystallographic_restriction`), even half = {2,4,6}, and
+    {2,4,6}=2·{1,2,3}.  Arithmetic unit axis (CF) and geometric GL(2,ℤ) census meet on
+    {1,2,3} through one binary cover.
   - **Eisenstein/elliptic conjecture — discriminant-sign core LANDED** (`research-notes/G167`).
     The `(W,d)` classification's number-field reading: golden form `m²−mk−k²` (disc `+5`,
     indefinite, ∞ units → convergent *line*) vs Eisenstein norm `a²−ab+b²` (disc `−3`,
