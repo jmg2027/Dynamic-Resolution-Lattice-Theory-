@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (46 PURE / 0 dirty):
+explicit open target.  Source of truth (47 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -99,6 +99,13 @@ prime-gcd hypothesis (the ∅-axiom proxy for primality used by the repo's Ferma
 (`no_sqrt_neg_one_mod_{7,11}` from `prime_gcd_{7,11}`); the solvable contrast `5, 13`
 (`p ≡ 1 mod 4`) is in `MarkovUniqueness`.
 
+The two halves then meet: `markov_reachable_no_3mod4_factor` proves **no prime `≡ 3 (mod 4)`
+divides a reachable Markov number `c > 1`** (Zhang 2007).  A `√(−1)` exists mod `c`
+(`markov_reachable_neg_one_qr`), so it would descend to a `√(−1)` mod any prime factor `p`; but
+`no_sqrt_neg_one_4k3` forbids that for `p ≡ 3 (mod 4)`.  So every odd prime factor of a Markov
+number is `≡ 1 (mod 4)` — the existence half (the uniqueness machinery) and the non-existence
+half (the prime-factor obstruction) closing on each other.
+
 ## The Fibonacci spine: φ's convergents are the spine's `√(−1)` roots
 
 The most native instance of the encoding is general and needs no inverse to exhibit.  The
@@ -194,4 +201,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `46 pure / 0 dirty`.
+Reports `47 pure / 0 dirty`.

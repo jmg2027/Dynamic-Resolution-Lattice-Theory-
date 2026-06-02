@@ -622,4 +622,52 @@ theorem markov_reachable_neg_one_qr {a b c : Nat} (hc : 1 < c) (h : MarkovReacha
   exact neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2
     (markov_reachable_is_triple h) hinv
 
+/-! ## §13 — no prime `≡ 3 (mod 4)` divides a Markov number (the two halves meet)
+
+The capstone joining the two files.  Every reachable Markov number `c > 1` carries a square root
+of `−1` (`markov_reachable_neg_one_qr`); but `x² ≡ −1 (mod p)` is *impossible* when `p ≡ 3 (mod 4)`
+(`MarkovPrimeFactor.no_sqrt_neg_one_4k3`, via Fermat).  A prime `p ≡ 3 (mod 4)` dividing `c` would
+inherit the root mod `p` — contradiction.  So **every odd prime factor of a Markov number is
+`≡ 1 (mod 4)`** (Zhang 2007), here ∅-axiom for the whole tree. -/
+
+/-- ★★★★★ **No prime `≡ 3 (mod 4)` divides a reachable Markov number.**  For a reachable triple
+    `(a,b,c)` with `1 < c` and `p = 4k+3` (with the FLT prime-gcd hypothesis), `¬ (p ∣ c)`.  The
+    `√(−1)` mod `c` (`markov_reachable_neg_one_qr`) would descend to a `√(−1)` mod `p`, which
+    `no_sqrt_neg_one_4k3` forbids. -/
+theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovReachable a b c)
+    (k : Nat)
+    (hpg : ∀ m, 0 < m → m < 4 * k + 3 →
+      (E213.Lib.Math.ModArith.ModBezout.modBezout m (4 * k + 3)).1 = 1) :
+    ¬ ((4 * k + 3) ∣ c) := by
+  intro hpc
+  have hppos : 0 < 4 * k + 3 := Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 3 (4 * k))
+  -- the √(−1): c ∣ u²+1, with u = a·b⁻¹ mod c
+  have hcu := markov_reachable_neg_one_qr hc h
+  generalize hu : a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 = u at hcu
+  -- p ∣ u²+1
+  have hpu : (4 * k + 3) ∣ (u * u + 1) :=
+    E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc (4 * k + 3) c (u * u + 1) hpc hcu
+  -- reduce to x = u % p:  p ∣ x²+1, x < p
+  have hpmod : (u * u + 1) % (4 * k + 3) = 0 := by
+    obtain ⟨t, ht⟩ := hpu; rw [ht]; exact E213.Tactic.NatHelper.mul_mod_right (4 * k + 3) t
+  have hxmod : ((u % (4 * k + 3)) * (u % (4 * k + 3)) + 1) % (4 * k + 3) = 0 := by
+    have h1 : ((u % (4 * k + 3)) * (u % (4 * k + 3))) % (4 * k + 3) = (u * u) % (4 * k + 3) :=
+      (E213.Meta.Nat.MulMod213.mul_mod_pure u u (4 * k + 3)).symm
+    calc ((u % (4 * k + 3)) * (u % (4 * k + 3)) + 1) % (4 * k + 3)
+        = (((u % (4 * k + 3)) * (u % (4 * k + 3))) % (4 * k + 3) + 1 % (4 * k + 3)) % (4 * k + 3) :=
+          E213.Meta.Nat.AddMod213.add_mod_gen _ _ _
+      _ = ((u * u) % (4 * k + 3) + 1 % (4 * k + 3)) % (4 * k + 3) := by rw [h1]
+      _ = (u * u + 1) % (4 * k + 3) := (E213.Meta.Nat.AddMod213.add_mod_gen (u * u) 1 _).symm
+      _ = 0 := hpmod
+  have hpx : (4 * k + 3) ∣ ((u % (4 * k + 3)) * (u % (4 * k + 3)) + 1) :=
+    E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hxmod
+  have hxlt : u % (4 * k + 3) < 4 * k + 3 := Nat.mod_lt u hppos
+  rcases Nat.eq_zero_or_pos (u % (4 * k + 3)) with hx0 | hx0
+  · -- x = 0 ⟹ p ∣ 1 ⟹ p ≤ 1, contra p ≥ 3
+    rw [hx0] at hpx
+    exact absurd (E213.Lib.Math.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hpx)
+      (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 3 (4 * k))))
+  · exact E213.Lib.Math.ModArith.MarkovPrimeFactor.no_sqrt_neg_one_4k3 k
+      (u % (4 * k + 3)) hpg hx0 hxlt hpx
+
 end E213.Lib.Math.Real213.MarkovUniqueness

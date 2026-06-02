@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 46 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 47 PURE)
 
 | theorem | content |
 |---|---|
@@ -57,6 +57,7 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `MarkovPrimeFactor.two_roots_of_prime` | **`SqrtNegOneTwoRoots p` for every prime `p`** — `x²≡−1` has ≤2 roots mod a prime (the C6 input at prime maxima), GENERAL not `decide` |
 | `MarkovPrimeFactor.inverse_of_coprime` | **`gcd213 a m = 1 ⟹ ∃ inverse`** — xgcd correctness (`xgcdAux_dvd_both` under bound `fuel≥r₁+1`); closes C2→C4 |
 | `markov_reachable_neg_one_qr` | **unconditional `√(−1)` on every reachable triple** (`1<c`): `c ∣ (a·b⁻¹)²+1`, no invertibility hypothesis (from the tree's coprimality) |
+| `markov_reachable_no_3mod4_factor` | **no prime `≡3(mod4)` divides a reachable Markov number** (Zhang 2007) — joins the two files: `√(−1)` exists mod `c` (`markov_reachable_neg_one_qr`) but not mod a `p≡3` factor (`no_sqrt_neg_one_4k3`) |
 | `MarkovPrimeFactor.euclid_of_coprime` | **fully general Euclid's lemma**: `gcd213 a m = 1 ∧ m∣a·b ⟹ m∣b` (any `m>1`) |
 | `MarkovPrimeFactor.coprime_prime_pow` | `p∤n ⟹ gcd213 n (pᵏ) = 1` (`dvd_prime_pow_cases`: divisors of `pᵏ` are `1` or `p·…`) |
 | `MarkovPrimeFactor.two_roots_of_prime_pow` | **`SqrtNegOneTwoRoots (p^(k+1))` for odd prime `p`** — `x²≡−1` has ≤2 roots mod a prime power (the Button/Zhang case): `p` divides at most one of `x±y`, the coprime one cancels |
