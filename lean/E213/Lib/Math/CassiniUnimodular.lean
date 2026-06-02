@@ -1,5 +1,6 @@
 import E213.Lib.Math.Mobius213.Px.CharPolySelf
 import E213.Meta.Int213.Core
+import E213.Meta.Int213.PolyIntMTactic
 
 /-!
 # CassiniUnimodular — period-2 oscillation and the golden Cassini are one unimodular law
@@ -35,7 +36,7 @@ All zero-axiom.
 namespace E213.Lib.Math.CassiniUnimodular
 
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
-open E213.Lib.Math.Mobius213.Px.CharPolySelf (cassini_general)
+open E213.Lib.Math.Mobius213.Px.CharPolySelf (cassini_general L_rec)
 open E213.Lib.Physics.Simplex.Counts (d)
 
 /-- `-(a − b) = b − a`, ∅-axiom via the `Int213` primitives (no core `Int.neg_sub`,
@@ -105,5 +106,57 @@ theorem cassini_unimodular_dichotomy :
     (∀ n : Nat, det L (n + 1) = det L n)
     ∧ (∀ (s : Nat → Int), (∀ m, s (m + 2) = s m) → ∀ n, det s (n + 1) = - det s n) :=
   ⟨fun n => by rw [det_golden, det_golden], det_period2_alternates⟩
+
+/-! ## §5 — the parametric Cassini law: `det` multiplies by the orbit's `q` each step
+
+The two readings above (`det_golden` `q=1`, `det_period2_alternates` `q=−1`) are instances of
+**one** law: for *any* 2nd-order `Int` recurrence `s(n+2) = p·s(n+1) − q·s(n)`, the Cassini
+determinant multiplies by the shift's determinant `q` at every step — `det s (n+1) = q·det s n`
+— hence `det s n = qⁿ·det s 0`.  No `q² = 1` is needed for the step (unimodularity only makes
+`|det|` *constant*); the multiplier is the orbit's own `q`, whatever it is. -/
+
+/-- ★★★ **The Cassini multiplier law (parametric).**  For any `Int` orbit obeying the 2nd-order
+    recurrence `s(n+2) = p·s(n+1) − q·s(n)`, one Cassini step multiplies the determinant by the
+    shift determinant `q`: `det s (n+1) = q · det s n`.  (The discrete-Wronskian / Abel identity:
+    `D(n+1) = q·D(n)`, by one `ring_intZ` after expanding `s(n+2)`, `s(n+3)` via the
+    recurrence.)  `det_golden` is `q=1`; `det_period2_alternates` is `p=0, q=−1`. -/
+theorem det_step (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) (n : Nat) :
+    det s (n + 1) = q * det s n := by
+  have h2 : s (n + 2) = p * s (n + 1) - q * s n := hrec n
+  have h3 : s (n + 3) = p * s (n + 2) - q * s (n + 1) := hrec (n + 1)
+  show s (n + 1) * s (n + 3) - s (n + 2) * s (n + 2)
+       = q * (s n * s (n + 2) - s (n + 1) * s (n + 1))
+  rw [h3, h2]
+  ring_intZ
+
+/-- The multiplier power `qⁿ`, recursively (a propext-free `Int` power — Mathlib-free Lean lacks
+    the `pow_zero`/`pow_succ` lemmas for `Int`). -/
+def qpow (q : Int) : Nat → Int
+  | 0     => 1
+  | n + 1 => q * qpow q n
+
+/-- ★★ **The closed form: `det s n = qⁿ · det s 0`.**  Iterating `det_step`: the Cassini
+    determinant of the orbit at layer `n` is its initial value scaled by the `n`-th power of the
+    multiplier `q`.  (`q=1`: constant `det s 0`; `q=−1`: alternating `±det s 0`.) -/
+theorem det_closed (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) (n : Nat) :
+    det s n = qpow q n * det s 0 := by
+  induction n with
+  | zero => show det s 0 = 1 * det s 0; ring_intZ
+  | succ k ih =>
+      show det s (k + 1) = q * qpow q k * det s 0
+      rw [det_step p q s hrec k, ih]; ring_intZ
+
+/-- ★★★ **The unimodular dichotomy is one law at two multipliers.**  Both `det_golden` (`q=1`,
+    conserved) and `det_period2_alternates` (`q=−1`, alternating) are instances of the single
+    parametric `det_step`: the golden orbit has `s(n+2) = 3·s(n+1) − 1·s(n)` (`q=1`), the
+    period-2 orbit has `s(n+2) = 0·s(n+1) − (−1)·s(n)` (`q=−1`).  The "period-2 ↔ Cassini +1"
+    link is exactly: *same law, different `q`*. -/
+theorem cassini_law_one_at_two_multipliers :
+    (∀ n, det L (n + 1) = 1 * det L n)
+    ∧ (∀ (s : Nat → Int), (∀ m, s (m + 2) = s m) → ∀ n, det s (n + 1) = - det s n) :=
+  ⟨det_step 3 1 L (fun n => by rw [Int.one_mul]; exact L_rec n),
+   det_period2_alternates⟩
 
 end E213.Lib.Math.CassiniUnimodular
