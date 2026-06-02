@@ -27,6 +27,7 @@ import E213.Lib.Math.CayleyDickson.Tower.TwoEnginesDichotomy
 import E213.Lib.Math.CayleyDickson.Tower.AxisSeedTrichotomy
 import E213.Lib.Math.CayleyDickson.Tower.AxisComposition
 import E213.Lib.Math.CayleyDickson.Tower.PMatrixArithmeticBridge
+import E213.Lib.Math.CayleyDickson.Tower.NaturalTowerForm
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion
