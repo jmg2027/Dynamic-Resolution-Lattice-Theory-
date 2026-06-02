@@ -109,19 +109,46 @@ So µF is not merely well-founded (descent terminates) but **reachable** (ascent
 covers it): the two faces of the same finite-build structure — read downward it converges
 (`isPart_wf`), read upward it is generated from the initial states (`every_state_reachable`).
 
+## Behavioural equivalence — pointwise trace equality, the complement of `Distinct`
+
+The standard FSM notion of *behavioural equivalence* (two states with the same observable
+behaviour) here is `StateMachine.TraceEq s t := ∀ q, s q = t q` — agreement at every
+observation path.  It is an equivalence relation (`traceEq_equivalence`), and the key fact is
+
+  - `traceEq_iff_not_distinct` — **`TraceEq s t ↔ ¬ Distinct s t`**: behavioural equivalence is
+    *exactly* the absence of a distinguishing observation.  The reverse direction uses only the
+    **decidable** equality of `Option Bool` (`¬¬(s q = t q) → s q = t q`), **never** a
+    coinductive bisimulation.
+
+This is the operational payoff of the construction's design choice that inequality is
+*positive*: `Distinct s t := ∃ q, s q ≠ t q` is a single witness path (`treeDiffPath`
+constructs it), so its complement — behavioural equivalence — is the plain decidable negation.
+Co-data equality is normally the hard, bisimulation-requiring direction; here it is free,
+because the *inequality* carries the witness.
+
+Two consequences read directly:
+
+  - **The residue's `x ≠ y` is observable separation** — `slash_children_not_traceEq`: two
+    distinct finite states embed as traces that are *not* trace-equivalent (the slash's
+    disequality says the two next-states are observably different machines).
+  - **Determinacy is trace equivalence** — `behaviours_traceEq`: any two implementations of the
+    same transition `c` are trace-equivalent at every state (`transition_determines_behaviour`
+    read through the equivalence relation — one class per state, both implementations in it).
+
 ## Open frontier (honest scope)
 
   - This is a *reading*, not an identity (`§6`, the facet discipline): the FSM vocabulary is one
     Lens; the residue is outside every view (`the_form_of_the_residue.md`).
   - Determinacy / finality is *up to pointwise/extensional equality* (`∀ x p`, not `funext`) and
     among *anti-reflexive* (non-degenerate) coalgebras — the honest scope of `slashNu_final`.
-  - "Behavioural equivalence" here is *pointwise trace equality*, **not** a coinductive
-    bisimulation (the construction's whole point is that inequality is positive — `Distinct`,
-    `treeDiffPath` — so equality-by-bisimulation is never needed).
+  - "Behavioural equivalence" here is *pointwise trace equality* (`TraceEq`, `∀ q`, not
+    `funext`), **not** a coinductive bisimulation — `traceEq_iff_not_distinct` discharges it
+    against the *positive* inequality `Distinct` via decidable `Option Bool` equality, so
+    equality-by-bisimulation is never needed.
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (8 PURE) — the FSM-reading theorems above; in
+- `lean/E213/Theory/Raw/StateMachine.lean` (14 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.

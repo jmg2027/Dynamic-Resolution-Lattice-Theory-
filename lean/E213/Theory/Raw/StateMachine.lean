@@ -20,7 +20,8 @@ objects, read as:
   | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / anti-reflexivity |
   | the all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`) |
   | free-running counter | `rawTower` (`depth` = cycle count) |
-  | reachable state (built from an initial atom) | `BuildsIn` (reflexive–transitive build relation) |
+  | reachable state (built from an initial atom) | `BuildsIn` (`n`-step build relation) |
+  | behavioural / trace equivalence (same observable behaviour) | `TraceEq` (`= ¬ Distinct`, no bisimulation) |
   | state decodes to its next-state (Lambek forward; round-trip `rebuild`) | `decompose` + `terminal_iff_atom` |
 
 All carriers are function types, so everything is stated **pointwise** (no `funext`); no
@@ -34,7 +35,8 @@ namespace E213.Theory.Raw.StateMachine
 open E213.Theory (Raw)
 open E213.Theory.Raw.Lambek (IsAtom IsTerminal IsPart decompose terminal_iff_atom
   slash_has_part part_depth_succ_le depth_drops)
-open E213.Theory.Raw.CoResidue (LCoShape allBranchL AntiRefl coLeftAt coRightAt lAna lAna_unique)
+open E213.Theory.Raw.CoResidue (LCoShape allBranchL AntiRefl coLeftAt coRightAt lAna lAna_unique
+  Distinct slash_children_distinct lToShape)
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth)
 open E213.Theory.Raw.MuNuMirror (tower_no_cycle tower_ascent_isPart)
 
@@ -172,5 +174,74 @@ theorem every_state_reachable (r : Raw) :
           exact ⟨seed, hseed, j + 1,
             Nat.le_trans (Nat.add_le_add_right hj 1) hxle, BuildsIn.step hbuild hpart⟩
   exact key (r.depth + 1) r (Nat.lt_succ_self _)
+
+/-! ## §6 — behavioural / trace equivalence is pointwise (not bisimulation) -/
+
+/-- **Trace (behavioural) equivalence**: two behaviours agree at *every* observation path.
+    `TraceEq s t := ∀ q, s q = t q`.  In the FSM reading: two states are behaviourally
+    equivalent when their output traces coincide on every input string.  Stated *pointwise*
+    (the `s = t` form would need `funext`). -/
+def TraceEq (s t : LCoShape) : Prop := ∀ q : List Bool, s q = t q
+
+/-- ★ **Trace equivalence is an equivalence relation** (reflexive, symmetric, transitive) —
+    pointwise, ∅-axiom.  Behavioural equivalence behaves as a congruence on observable traces. -/
+theorem traceEq_equivalence :
+    (∀ s, TraceEq s s)
+    ∧ (∀ s t, TraceEq s t → TraceEq t s)
+    ∧ (∀ s t u, TraceEq s t → TraceEq t u → TraceEq s u) :=
+  ⟨fun _ _ => rfl,
+   fun _ _ h q => (h q).symm,
+   fun _ _ _ h1 h2 q => (h1 q).trans (h2 q)⟩
+
+/-- ★★★ **Trace equivalence is exactly non-distinctness — equality and the positive inequality
+    are complementary, no bisimulation.**  `TraceEq s t ↔ ¬ Distinct s t`: two behaviours are
+    trace-equivalent precisely when there is *no* differing observation path.  The forward way
+    is immediate; the reverse uses only the *decidable* equality of `Option Bool` (`¬¬(s q = t
+    q) → s q = t q`, `Decidable.byContradiction`) — **not** a coinductive bisimulation.  This
+    is the whole point of the construction: inequality is *positive* (a single witness path,
+    `Distinct`), so equality is its plain decidable complement; co-data equality never needs a
+    bisimulation here. -/
+theorem traceEq_iff_not_distinct (s t : LCoShape) : TraceEq s t ↔ ¬ Distinct s t := by
+  constructor
+  · rintro h ⟨q, hq⟩
+    exact hq (h q)
+  · intro h q
+    exact Decidable.byContradiction (fun hne => h ⟨q, hne⟩)
+
+/-- ★★ **Distinct states are behaviourally distinguished.**  If two behaviours are `Distinct`
+    (differ at some path), they are *not* trace-equivalent — the witnessing path observably
+    separates them.  Immediate from `traceEq_iff_not_distinct`. -/
+theorem distinct_states_not_traceEq (s t : LCoShape) (hd : Distinct s t) : ¬ TraceEq s t :=
+  fun hEq => (traceEq_iff_not_distinct s t).1 hEq hd
+
+/-- ★★ **The residue's `x ≠ y` is observable separation.**  Two distinct finite states embed
+    as behaviourally *distinguished* traces: from `x ≠ y` the children `lToShape x`, `lToShape
+    y` differ at a constructible path (`slash_children_distinct`), so they are not
+    trace-equivalent.  The slash's disequality reads as: the two next-states are observably
+    different machines. -/
+theorem slash_children_not_traceEq {x y : E213.Term.Internal.Tree} (h : x ≠ y) :
+    ¬ TraceEq (lToShape x) (lToShape y) :=
+  distinct_states_not_traceEq _ _ (slash_children_distinct x y h)
+
+/-- ★★★ **Same transition ⟹ trace-equivalent (determinacy as trace equivalence).**  Any two
+    behaviours `h`, `h'` implementing the same transition `c` are trace-equivalent at every
+    state: `TraceEq (h x) (h' x)`.  This is `transition_determines_behaviour` read through the
+    equivalence relation — finality says the trace is *determined* (one equivalence class per
+    state), so two implementations land in the same class. -/
+theorem behaviours_traceEq {X : Type} (c : X → Option Bool × X × X)
+    (h h' : X → LCoShape)
+    (hB : ∀ x, h x [] = (c x).1)
+    (hLn : ∀ x p, (c x).1 = none → h x (true :: p) = h (c x).2.1 p)
+    (hLs : ∀ x p b, (c x).1 = some b → h x (true :: p) = some b)
+    (hRn : ∀ x p, (c x).1 = none → h x (false :: p) = h (c x).2.2 p)
+    (hRs : ∀ x p b, (c x).1 = some b → h x (false :: p) = some b)
+    (h'B : ∀ x, h' x [] = (c x).1)
+    (h'Ln : ∀ x p, (c x).1 = none → h' x (true :: p) = h' (c x).2.1 p)
+    (h'Ls : ∀ x p b, (c x).1 = some b → h' x (true :: p) = some b)
+    (h'Rn : ∀ x p, (c x).1 = none → h' x (false :: p) = h' (c x).2.2 p)
+    (h'Rs : ∀ x p b, (c x).1 = some b → h' x (false :: p) = some b)
+    (x : X) : TraceEq (h x) (h' x) :=
+  fun p => transition_determines_behaviour c h h' hB hLn hLs hRn hRs
+    h'B h'Ln h'Ls h'Rn h'Rs x p
 
 end E213.Theory.Raw.StateMachine
