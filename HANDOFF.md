@@ -1,13 +1,27 @@
 # Session Handoff — 2026-06-02 (Markov uniqueness marathon)
 
 ## Branch
-`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**
-(101 commits: NewtonGregory/FiniteDepthAlgebra, StateMachine FSM, PolynomialDepth, `ring_nat`
-tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 52 PURE +
-`ModArith/MarkovPrimeFactor` 28 PURE = 72, all ∅-axiom.  **Integration**: main's `ring_nat`
-(∅-axiom `ℕ` ring, `Meta/Nat/PolyNatMTactic`) grafted into the Markov polynomial-identity lemmas
-(`sq_expand`, `neg_one_sq_mod`, `neg_one_qr_of_inverse`'s `hsq`/`hkey`, `3bac=3abc`) — verbose
-`rw` chains → one-line `ring_nat`, purity preserved.
+`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
+Full `lake build` clean.  Markov: `MarkovUniqueness` **73 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 101, all ∅-axiom.
+
+## ★ CAPSTONE THIS SESSION — `markov_max_unique_1325 : MarkovMaxUnique 1325` (UNCONDITIONAL, ∅-axiom)
+The first complete Markov uniqueness theorem at a **4-root composite Markov number**
+(`1325 = 5²·53`), with no hypotheses.  The 2-D `∀a∀b` `decide` is infeasible (stack overflow);
+the proof is a **2-D→1-D reduction** + **finite descent**:
+- `markov_recovery` + `markov_root_recovery`: a triple `(a,b,c)` with `gcd(b,c)=1` maps to a root
+  `u=(a·b⁻¹) mod c` of `x²≡−1`, and `a=(u·b) mod c` recovers it.  So a triple is pinned by `(u,b)`.
+- `sqrtNegOneRoots_1325`: the root set is exactly `{182,507,818,1143}` (1-D decide).
+- `markov_root_{182,1143}` phantom (`∀b ¬`), `markov_root_{507,818}` valid (each closes one) — 1-D.
+- `markov_max_unique_of_single` / `..._1325_of_coprime`: assembles the above into `MarkovMaxUnique`
+  conditional on coprimality.
+- `markov_hcop_1325`: discharges coprimality **unconditionally** — `p∣b ⟹ p∣a` (mod-`p` of the
+  equation, `markov_{5,53}_dvd_sum` + `dvd_of_sq_dvd_cert`) ⟹ the `÷25`/`÷53²` generalised Markov
+  equation `a²+b²+70225=3975ab` / `+625`, which has **no** bounded solution
+  (`reduced_eq_{5,53}_no_sol`).  Pure finite descent — no infinite descent, no tree reachability.
+
+(Earlier in session: main merge + `ring_nat` graft into the Markov polynomial-identity lemmas;
+verbose `rw` chains → one-line `ring_nat`, purity preserved.)
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
@@ -92,6 +106,13 @@ descent — separate.)
 **Remaining C5**: the `p≡1(mod4)` *existence* branch (root of `x²≡−1 mod pᵏ`) — hard without
 `Classical` (Wilson construction).
 
+### 3b. C7 at 1325 — DONE UNCONDITIONALLY (capstone, see top).
+`markov_max_unique_1325` closes uniqueness at the first 4-root composite Markov number with no
+hypotheses, ∅-axiom.  The route (recovery reduction + finite-descent coprimality) is **reusable**:
+to extend to `610 = 2·5·61` or `985 = 5·197`, redo `sqrtNegOneRoots_<c>`, the per-root
+phantom/valid 1-D certificates, and the `÷p²` reduced-equation no-solution decides.  The 266²
+`reduced_eq_5_no_sol` decide costs ~110 s (maxHeartbeats 0) — budget accordingly.
+
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
 **Input now done for prime POWERS** (full Button/Zhang class): `two_roots_of_prime` (primes) and
 `two_roots_of_prime_pow` (`SqrtNegOneTwoRoots (p^(k+1))`, odd prime `p`) — `p` divides ≤1 of
@@ -113,6 +134,8 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 - `decide` on `c ∣ …` → `propext` DIRTY.  Use `% c = 0`.
 - `markov_composite_separation` (c=1325) uses `decide` over `∀ b<1325` (×2) — `maxRecDepth
   40000`, ~60s to build that module.  Larger composites cost more; 1D recovery search only.
+- `reduced_eq_5_no_sol` (`∀a<266 ∀b<266`) needs `maxHeartbeats 0` + `maxRecDepth 20000`, ~110s.
+  The 2-D `∀a∀b markovEq` decide at c=1325 STACK-OVERFLOWS (don't attempt) — must go 1-D.
 - `decide` on `MarkovMaxUnique`/uniqueness for `c≥169` → heartbeat timeout (>200000) /
   max-recursion.  Cap in-kernel `decide` at `c≈34`; cite external enumeration for larger.
 - `set` tactic = Mathlib, unavailable.  Use `obtain ⟨M,_⟩ : ∃ M, …`.

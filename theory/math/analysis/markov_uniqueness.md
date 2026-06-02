@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (52 PURE / 0 dirty):
+explicit open target.  Source of truth (73 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -163,6 +163,39 @@ no triple (`∀ b < 1325, ¬ markovEq ((u·b)%1325) b 1325`).  Since any triple 
 `a·b⁻¹` among the four and the `∀b¬` rules out the phantom pair, uniqueness holds at `1325`
 *structurally* — the first such separation at a genuine composite Markov number, exactly where the
 general conjecture is open.
+
+## Full uniqueness at `1325`, unconditionally (`markov_max_unique_1325`)
+
+The separation above is upgraded to the named predicate `MarkovMaxUnique 1325` — *every* ordered
+triple with maximum `1325` is `(13,34,1325)` — and then made **unconditional**, ∅-axiom, with no
+hypotheses.  The first complete Markov uniqueness theorem at a four-root composite Markov number.
+
+Two moves replace the infeasible two-dimensional `∀a ∀b` enumeration (which stack-overflows the
+kernel at `c = 1325`):
+
+  1. **The 2-D→1-D reduction** (`markov_root_recovery`).  A triple `(a,b,c)` with `gcd(b,c)=1`
+     produces the residue `u = (a·b⁻¹) mod c`, which is *both* a root of `−1`
+     (`(u·u+1)%c = 0`, via `mod_root_of_dvd_sq_succ` descending the divisibility witness to its
+     residue) *and* recovers the smallest entry (`a = (u·b) mod c`, `markov_recovery`).  So a
+     triple is pinned by the pair `(u,b)` with `u` in the *finite* root set
+     (`sqrtNegOneRoots_1325`: exactly `{182,507,818,1143}`).  Uniqueness becomes a four-way case
+     split, each a one-dimensional decidable search over `b` (`markov_root_{182,1143}` phantom,
+     `markov_root_{507,818}` valid) — assembled by `markov_max_unique_of_single` and
+     `markov_max_unique_1325_of_coprime`.
+
+  2. **Coprimality by finite descent** (`markov_hcop_1325`).  The reduction needs `gcd(b,1325)=1`.
+     Suppose `5 ∣ b`.  Reducing the Markov equation mod `5` (and `5 ∣ 1325`) gives `5 ∣ a²+b²`
+     (`markov_5_dvd_sum`), so `5 ∣ a²`, so `5 ∣ a` (`dvd_of_sq_dvd_cert`).  Writing `a = 5a'`,
+     `b = 5b'` and dividing the equation by `25` lands on the *generalised* Markov equation
+     `a'² + b'² + 70225 = 3975 a'b'`, which has **no** solution with `a',b' ≤ 265` — a bounded
+     decidable check (`reduced_eq_5_no_sol`).  Likewise `53 ∣ b` reduces (÷`53²`) to
+     `a'² + b'² + 625 = 3975 a'b'`, no solution with `a',b' ≤ 25`.  A divisor of `1325 = 5²·53`
+     coprime to both `5` and `53` is `1`, so `gcd(b,1325) = 1`.  This is the primitivity of Markov
+     triples, proved here by *finite* descent + enumeration — no infinite descent, no appeal to
+     the Markov tree.
+
+The route is reusable: extending to `610 = 2·5·61` or `985 = 5·197` repeats the per-root
+certificates and the per-prime reduced-equation checks.
 
 ## Pairwise coprimality is the tree's invariant
 
