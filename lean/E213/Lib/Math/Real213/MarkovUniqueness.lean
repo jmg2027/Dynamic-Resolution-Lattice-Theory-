@@ -318,26 +318,31 @@ abbrev SqrtNegOneTwoRoots (c : Nat) : Prop :=
   ∀ x : Nat, x < c → ∀ y : Nat, y < c →
     (x * x + 1) % c = 0 → (y * y + 1) % c = 0 → x = y ∨ x + y = c
 
-/-- `MarkovMaxUnique 5`, assembled from the decidable single-pair check. -/
-theorem markovMaxUnique_5 : MarkovMaxUnique 5 := by
+/-- ★★★★ **The 2-D → 1-D reduction (general assembly).**  `MarkovMaxUnique c` follows from a
+    *single-triple* pinning lemma: if every ordered triple `(a,b,c)` collapses to one fixed pair
+    `(a₀,b₀)`, then any two such triples coincide.  This is the clean form of the reduction — the
+    recovery backbone `markov_recovery` is the tool that *discharges* the `hpin` hypothesis by a
+    1-D per-root search (the 2-D enumeration `∀a∀b` is infeasible in-kernel; the 1-D one is not).
+    Generalises `markovMaxUnique_{5,13,29}`. -/
+theorem markov_max_unique_of_single {c a₀ b₀ : Nat}
+    (hpin : ∀ a b, a ≤ b → b ≤ c → markovEq a b c → a = a₀ ∧ b = b₀) :
+    MarkovMaxUnique c := by
   intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
-  have e1 := markov_max_unique_5 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
-  have e2 := markov_max_unique_5 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
-  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+  obtain ⟨e1a, e1b⟩ := hpin a₁ b₁ h1 hb1 m1
+  obtain ⟨e2a, e2b⟩ := hpin a₂ b₂ h2 hb2 m2
+  exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+
+/-- `MarkovMaxUnique 5`, via the general reduction + the decidable single-pair check. -/
+theorem markovMaxUnique_5 : MarkovMaxUnique 5 :=
+  markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_5 a (Nat.le_trans hab hb) b hb hab m)
 
 /-- `MarkovMaxUnique 13`. -/
-theorem markovMaxUnique_13 : MarkovMaxUnique 13 := by
-  intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
-  have e1 := markov_max_unique_13 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
-  have e2 := markov_max_unique_13 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
-  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+theorem markovMaxUnique_13 : MarkovMaxUnique 13 :=
+  markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_13 a (Nat.le_trans hab hb) b hb hab m)
 
 /-- `MarkovMaxUnique 29`. -/
-theorem markovMaxUnique_29 : MarkovMaxUnique 29 := by
-  intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
-  have e1 := markov_max_unique_29 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
-  have e2 := markov_max_unique_29 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
-  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+theorem markovMaxUnique_29 : MarkovMaxUnique 29 :=
+  markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_29 a (Nat.le_trans hab hb) b hb hab m)
 
 /-- `SqrtNegOneTwoRoots 5`: roots of `x²≡−1 mod 5` are `{2,3}`, and `2+3 = 5`.  (Prime power.) -/
 theorem sqrtNegOneTwoRoots_5 : SqrtNegOneTwoRoots 5 := by decide
@@ -429,6 +434,15 @@ theorem markov_composite_separation :
     ∧ (∀ b, b < 1325 → ¬ markovEq ((1143 * b) % 1325) b 1325) :=
   ⟨by decide, ⟨by decide, by decide, by decide, by decide⟩,
    ⟨by decide, by decide⟩, by decide, by decide⟩
+
+set_option maxRecDepth 40000 in
+/-- ★★★★ **The root set of `x² ≡ −1 (mod 1325)` is *exactly* `{182, 507, 818, 1143}`.**  A 1-D
+    decidable enumeration (`∀ u < 1325`): every solution is one of the four, no more.  This is the
+    upper bound the recovery reduction needs — a triple's root `(a·b⁻¹) mod 1325` lands in this
+    finite set, so uniqueness at `1325` is a four-way case split (two phantom, two valid). -/
+theorem sqrtNegOneRoots_1325 :
+    ∀ u, u < 1325 → (u * u + 1) % 1325 = 0 → u = 182 ∨ u = 507 ∨ u = 818 ∨ u = 1143 := by
+  decide
 
 /-! ## §8 — the Fibonacci spine's `√(−1)` residues are φ's convergents (from Cassini)
 
