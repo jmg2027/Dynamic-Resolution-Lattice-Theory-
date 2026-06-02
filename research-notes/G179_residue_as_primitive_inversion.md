@@ -153,11 +153,26 @@ inhabitant (`raw_ne_allBranch` / `lToShape_ne_allBranchL`); (4) that inhabitant 
 `coOut`-descent (`allBranch_no_leaf`, `allBranch_coLeft_self`).  Plus unfold existence (every
 coalgebra unfolds, `ana`).
 
-## Still open — true finality (uniqueness via coinduction)
+## Fifth step — finality, DONE (the coinduction worry was over-cautious) (`CoResidue` §7)
 
-What remains is **finality proper**: *uniqueness* of the unfold (two coalgebra homs into the
-carrier that agree as coalgebra maps are equal), the bisimulation/coinduction content.
-Mathlib-free Lean has no coinduction primitive, so this needs a setoid emulation with
-encoding cost — the genuinely deferred deep piece.  The emulation (items 1–4 + unfold
-existence) is the honest tractable realisation of the inversion's νF face; finality's
-uniqueness is the frontier.
+*Uniqueness* of the unfold is provable ∅-axiom after all — the function-space presentation
+sidesteps coinduction.  `CoShape = List Bool → Bool` is the **M-type** (paths → labels), the
+final coalgebra of `F X = Bool × X × X`, and uniqueness is induction on the **finite path**:
+
+  - ★ `ana_unique` — any `h : X → CoShape` satisfying the (pointwise) coalgebra-hom equations
+    equals `ana c` (pointwise); proof by `induction p` (no coinduction, no `funext`).
+  - ★ `final_coalgebra` — existence (`ana` is a hom) + uniqueness: `CoShape` is the final
+    coalgebra of `F X = Bool × X × X`.  The argument is **label-agnostic**, so the
+    leaf-labelled `LCoShape` (the *faithful* carrier, §6) is final by the same proof.
+
+So the inversion's νF face is realised: a genuine final coalgebra, ∅-axiom, the escape
+inhabitant `allBranch` inside it, finite Raw embedding faithfully (in `LCoShape`).
+
+## The only residual — the exact slash functor
+
+What is *not* the `Bool × X × X` (full-binary-tree) functor: the residue's exact functor is
+leaf-or-branch with anti-reflexivity, `F X = {a} ⊎ {b} ⊎ {x/y : x ≠ y}`.  `CoResidue` builds
+the final coalgebra of the over-approximating `Bool × X × X` (every node has two children);
+restricting to *consistent* leaf/branch shapes (no node below a leaf) with `x ≠ y` is the
+residual refinement — a subtype carve-out, **not** a coinduction obstruction.  That is the
+honest remaining gap; finality itself is closed.

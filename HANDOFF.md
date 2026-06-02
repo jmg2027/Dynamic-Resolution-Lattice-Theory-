@@ -387,11 +387,15 @@ A–D + B are now **all closed ∅-axiom this arc**:
     dropped; not uniqueness).  **§6 faithful embedding**: `LCoShape := List Bool → Option Bool`
     (leaf-labelled); `lToShape_faithful` (`(∀ p, lToShape t p = lToShape t' p) → t = t'`,
     pointwise, funext-free) — closes the faithful-embedding spec item; `lToShape_ne_allBranchL`
-    (the leaf-free inhabitant escapes here too).  All four G180 νF spec items now met in the
-    emulation (coalgebra / faithful embedding / non-surjective named inhabitant / infinite
-    descent) + unfold existence.  STILL OPEN: true finality — *uniqueness* of the unfold
-    (bisimulation/coinduction); needs a setoid emulation (Mathlib-free Lean has no coinduction
-    primitive).  CoResidue 18 theorems, 30/0 PURE in scan.
+    (the leaf-free inhabitant escapes here too).  All four G180 νF spec items met + unfold
+    existence.  **§7 finality — DONE** (the coinduction worry was over-cautious): `CoShape =
+    List Bool → Bool` is the M-type (paths→labels), the final coalgebra of `F X = Bool×X×X`;
+    `ana_unique` (any coalgebra hom = `ana c`, pointwise, by induction on the finite path — no
+    coinduction, no funext) + `final_coalgebra` (existence + uniqueness).  Label-agnostic, so
+    the faithful `LCoShape` (§6) is final too.  ONLY RESIDUAL: the *exact* slash functor
+    `{a}⊎{b}⊎{x/y:x≠y}` (vs the over-approximating `Bool×X×X`) — a subtype carve-out
+    (consistent leaf/branch + anti-reflexivity), NOT a coinduction obstruction.  CoResidue 20
+    theorems, 32/0 PURE in scan.
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of

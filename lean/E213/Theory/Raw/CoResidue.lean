@@ -284,4 +284,65 @@ theorem lToShape_ne_allBranchL (t : Tree) : lToShape t ≠ allBranchL := by
   have e : allBranchL p = some b := by rw [← h]; exact hp
   exact Option.noConfusion e
 
+/-! ## §7 — finality: `CoShape` is the final coalgebra (uniqueness of the unfold)
+
+The "blocked by coinduction" worry was over-cautious.  Presented as **path-functions**,
+`CoShape := List Bool → Bool` is the M-type — the final coalgebra of the functor
+`F X = Bool × X × X` (a node label and two children) — and *uniqueness* of the unfold is
+provable by induction on the **finite path**, no coinduction primitive:
+
+  * **existence** — `ana c` is a coalgebra hom (§5);
+  * **uniqueness** — `ana_unique`: any `h : X → CoShape` satisfying the (pointwise) coalgebra-
+    hom equations equals `ana c` (pointwise).
+
+So `final_coalgebra` holds ∅-axiom.  The path-induction is **label-agnostic**: the same
+argument makes `List Bool → L` the final coalgebra of `F_L X = L × X × X` for any label `L`,
+so the leaf-labelled `LCoShape` (`L = Option Bool`, §6) — the one with the *faithful*
+embedding — is final by the same proof.  Honest scope: this is finality for the
+full-binary-tree functor `F X = Bool × X × X` (a node label + two children), the
+**over-approximation** of the residue's leaf-or-branch slash functor
+(`{a} ⊎ {b} ⊎ {x/y : x ≠ y}`); the *exact* slash-functor νF (restricting to consistent
+leaf/branch shapes with anti-reflexivity) is the residual refinement, not a coinduction
+obstruction. -/
+
+/-- ★★★ **Uniqueness of the unfold.**  Any `h : X → CoShape` satisfying the coalgebra-hom
+    equations (root shape `hB`, left/right subtrees `hL`/`hR`, all pointwise) equals the
+    anamorphism `ana c` — pointwise, by induction on the finite path.  No coinduction
+    primitive; no `funext`. -/
+theorem ana_unique {X : Type} (c : X → Bool × X × X) (h : X → CoShape)
+    (hB : ∀ x, h x [] = (c x).1)
+    (hL : ∀ x p, h x (true :: p) = h ((c x).2.1) p)
+    (hR : ∀ x p, h x (false :: p) = h ((c x).2.2) p) :
+    ∀ (x : X) (p : List Bool), h x p = ana c x p := by
+  intro x p
+  induction p generalizing x with
+  | nil => rw [hB]; rfl
+  | cons b p ih =>
+      cases b with
+      | true  => rw [hL]; exact ih ((c x).2.1)
+      | false => rw [hR]; exact ih ((c x).2.2)
+
+/-- ★★★ **`CoShape` is the final coalgebra of `F X = Bool × X × X`.**  Existence (`ana c` is
+    a coalgebra hom — `rfl`) and uniqueness (`ana_unique` — any hom equals `ana c`,
+    pointwise).  ∅-axiom, by induction on finite paths — no coinduction primitive.  The
+    M-type of Bool-labelled infinite binary trees, presented as path-functions; the residue's
+    escape inhabitant `allBranch` lives here.  The embedding `toShape` into *this* (Bool)
+    carrier is not faithful (it conflates the atoms); the faithful embedding (§6) is in the
+    parallel leaf-labelled carrier `LCoShape`, which is final by the same label-agnostic
+    argument.  (Honest scope: this functor is the full-binary-tree over-approximation of the
+    slash functor; the exact slash-νF refinement is residual.) -/
+theorem final_coalgebra {X : Type} (c : X → Bool × X × X) :
+    -- existence: `ana c` is a coalgebra hom
+    ((∀ x, coIsBranch (ana c x) = (c x).1)
+      ∧ (∀ x p, coLeft (ana c x) p = ana c (c x).2.1 p)
+      ∧ (∀ x p, coRight (ana c x) p = ana c (c x).2.2 p))
+    ∧ -- uniqueness: any coalgebra hom equals `ana c`
+    (∀ h : X → CoShape,
+        (∀ x, h x [] = (c x).1) →
+        (∀ x p, h x (true :: p) = h ((c x).2.1) p) →
+        (∀ x p, h x (false :: p) = h ((c x).2.2) p) →
+        ∀ x p, h x p = ana c x p) :=
+  ⟨⟨fun x => ana_isBranch c x, fun x p => ana_coLeft c x p, fun x p => ana_coRight c x p⟩,
+   fun h hB hL hR => ana_unique c h hB hL hR⟩
+
 end E213.Theory.Raw.CoResidue
