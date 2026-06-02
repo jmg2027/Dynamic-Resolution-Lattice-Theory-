@@ -208,4 +208,18 @@ theorem gap_shift_invariant (bound val : Nat → Nat) (c i : Nat) :
     (val i + c) - (bound i + c) = val i - bound i :=
   E213.Tactic.NatHelper.add_sub_add_right (val i) c (bound i)
 
+/-! ## §8 — gap-free expansion: nothing lies inside the unit step -/
+
+/-- ★★★ **The unit step is gapless.**  Between a bound `b` and its minimal overflow
+    `b + 1` there is **nothing**: no `x` with `b < x < b + 1`.  The minimal overflow
+    (`minOverflow`, the unit surplus) is the *immediate* next — every overflow is at
+    least `b + 1` (`least_overflow`) and the unit gap is empty.  So the expansion
+    proceeds by the irreducible unit with no blank to fill: each next is the previous
+    plus the residue `1`, and nothing sits between.  This is the discreteness that makes
+    the residue cascade gap-free — the surplus of one act is, immediately and with no
+    interior, the operand of the next. -/
+theorem gapless_unit_step (b : Nat) : ¬ ∃ x, b < x ∧ x < b + 1 := by
+  rintro ⟨x, h1, h2⟩
+  exact Nat.lt_irrefl b (Nat.lt_of_lt_of_le h1 (Nat.le_of_lt_succ h2))
+
 end E213.Lib.Math.Cauchy.DepthOverflowDuality
