@@ -74,7 +74,7 @@ No descent / no Hurwitz needed.  **Remaining bridge to unconditional encoding-fi
 feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Markov triples =
 "every triple reachable" = Markov's theorem, the descent — separate.)
 
-### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 14 PURE)
+### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 16 PURE)
 `no_sqrt_neg_one_4k3`: for `p=4k+3` with the prime-gcd hypothesis, `¬(p∣x²+1)`, via
 `universal_flt_main` (`x^(p−1)=(x²)^(2k+1)≡(−1)^(2k+1)≡−1` vs Fermat `≡1`).  Helpers
 `neg_one_sq_mod`, `neg_one_odd_pow_mod`, `pred_mod_of_dvd_succ`.  Concrete `no_sqrt_neg_one_mod_{7,11}`.
@@ -112,7 +112,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (42 PURE)
-  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime (14 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime + two_roots_13 (16 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:

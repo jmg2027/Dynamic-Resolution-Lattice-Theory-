@@ -51,7 +51,7 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | `coprime_vieta_step` | `gcd(a,c)=1 ∧ c+c'=3ab ⟹ gcd(a,c')=1` — the Vieta step preserves coprimality |
 | `MarkovReachable`, `markov_reachable_coprime` | **every tree triple is pairwise coprime** (C3, induction on the tree); `markov_reachable_is_triple` (sound: reachable ⟹ markovEq), `markov_reachable_gcd_bc` (C2) |
 | `neg_one_qr_of_mod` | the encoding from a modular inverse in residue form `(b·b')%c = 1` (Bezout-ready) |
-| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (separate file `ModArith/MarkovPrimeFactor`, 14 PURE) — no prime `≡3(4)` divides a Markov number |
+| `MarkovPrimeFactor.no_sqrt_neg_one_4k3` | **general `p≡3(mod4) ⟹ ¬(p∣x²+1)`** via FLT (separate file `ModArith/MarkovPrimeFactor`, 16 PURE) — no prime `≡3(4)` divides a Markov number |
 | `MarkovPrimeFactor.euclid_via_inverse` | **Euclid's lemma** `(a·a')%p=1 ∧ p∣a·b ⟹ p∣b`, constructively from the modular inverse |
 | `MarkovPrimeFactor.two_roots_of_prime` | **`SqrtNegOneTwoRoots p` for every prime `p`** — `x²≡−1` has ≤2 roots mod a prime (the C6 input at prime maxima), GENERAL not `decide` |
 

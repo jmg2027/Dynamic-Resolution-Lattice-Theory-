@@ -290,4 +290,32 @@ theorem two_roots_5 (x y : Nat) (hx : x < 5) (hy : y < 5)
     x = y ∨ x + y = 5 :=
   two_roots_of_prime 5 (by decide) E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5 x y hx hy hxr hyr
 
+/-- Prime-gcd hypothesis at `p = 13` (enumeration, per the `prime_gcd_5/7/11` pattern). -/
+theorem prime_gcd_13 : ∀ m, 0 < m → m < 13 → (modBezout m 13).1 = 1 := by
+  intro m hm hmlt
+  match m with
+  | 0 => exact absurd hm (Nat.lt_irrefl 0)
+  | 1 => decide
+  | 2 => decide
+  | 3 => decide
+  | 4 => decide
+  | 5 => decide
+  | 6 => decide
+  | 7 => decide
+  | 8 => decide
+  | 9 => decide
+  | 10 => decide
+  | 11 => decide
+  | 12 => decide
+  | n + 13 => exact absurd hmlt (Nat.not_lt_of_le (Nat.le_add_left 13 n))
+
+/-- ★★ Concrete at a **prime Markov number**: `x² ≡ −1 (mod 13)` has at most two roots
+    (`13 ≡ 1 mod 4`, roots `{5,8}`, `5+8 = 13`).  So `SqrtNegOneTwoRoots 13` holds for the
+    *general* prime reason — and `13` is the maximum of the Markov triple `(1,5,13)`, so this is
+    the root-count input the uniqueness reduction needs at an actual prime Markov number. -/
+theorem two_roots_13 (x y : Nat) (hx : x < 13) (hy : y < 13)
+    (hxr : (x * x + 1) % 13 = 0) (hyr : (y * y + 1) % 13 = 0) :
+    x = y ∨ x + y = 13 :=
+  two_roots_of_prime 13 (by decide) prime_gcd_13 x y hx hy hxr hyr
+
 end E213.Lib.Math.ModArith.MarkovPrimeFactor
