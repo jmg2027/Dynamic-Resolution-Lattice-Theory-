@@ -13,8 +13,11 @@ Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems 
 `CasoratianSigned` (17: signed law + signed telescope as ℕ-pair `npairEquiv`, sign = axis
 swap; `telescope_pair` ζ(3) constant `+6/n³`, `telescope_pair_alt` ζ(2) alternating `±5/n²`
 via `iterNeg n`=`(−1)ⁿ`, concrete `cube_casoratian_telescope`; ℤ caveat dissolved
-213-natively via `NatPairToInt`) +
-`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 57 PURE + research-notes
+213-natively via `NatPairToInt`) + `CassiniSigned` (2: the residue floor's Cassini
+cross-determinant `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the depth-0 signed Casoratian —
+`cassini_pair`: `npairEquiv (fib(n+2)fib n, fib(n+1)²) (iterNeg (n+1) (1,0))`, magnitude 1
+floor + sign Oscillate) +
+`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 59 PURE + research-notes
 `G171_apery_zeta_tower.md` / `G171_self_pointing_depth_213.md` / `G171_casoratian_pair_213.md`.**
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor
