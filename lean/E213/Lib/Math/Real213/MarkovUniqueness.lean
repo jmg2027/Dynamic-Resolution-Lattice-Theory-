@@ -891,4 +891,143 @@ theorem markov_max_unique_1325_of_coprime
     exact absurd hab (by decide)
   · exact absurd hm (markov_root_1143 b hblt)
 
+/-! ### Discharging `hcop` — the middle entry of any triple at `1325` is coprime to `1325`
+
+`1325 = 5²·53`.  A triple `(a,b,1325)` with `5 ∣ b` would force `5 ∣ a` (mod-`5` of the Markov
+equation: `5 ∣ a²+b²`), and dividing the equation by `25` lands on the *generalised* Markov
+equation `a'²+b'²+70225 = 3975·a'·b'` (`a=5a', b=5b'`), which has **no** solution with
+`a',b' ≤ 265` (decidable).  Likewise `53 ∣ b` reduces to `a'²+b'²+625 = 3975·a'·b'`, no solution
+with `a',b' ≤ 25`.  So neither `5` nor `53` divides `b`, hence `gcd(b,1325) = 1`.  This is the
+primitivity (pairwise-coprimality) fact, proved here *unconditionally at `1325`* by finite descent
++ bounded enumeration — no infinite descent / Markov-tree input. -/
+
+set_option maxHeartbeats 0 in
+set_option maxRecDepth 20000 in
+/-- The reduced (`÷25`) equation `a²+b²+70225 = 3975ab` has no solution with `a,b < 266` —
+    the obstruction to `5 ∣ b` in a Markov triple at `1325`. -/
+theorem reduced_eq_5_no_sol :
+    ∀ a, a < 266 → ∀ b, b < 266 → ¬ (a * a + b * b + 70225 = 3975 * a * b) := by decide
+
+set_option maxRecDepth 8000 in
+/-- The reduced (`÷53²`) equation `a²+b²+625 = 3975ab` has no solution with `a,b < 26` —
+    the obstruction to `53 ∣ b` in a Markov triple at `1325`. -/
+theorem reduced_eq_53_no_sol :
+    ∀ a, a < 26 → ∀ b, b < 26 → ¬ (a * a + b * b + 625 = 3975 * a * b) := by decide
+
+/-- `p ∣ a²  ⟹  p ∣ a`, via a per-`p` residue certificate `∀ r < p, r² ≡ 0 → r = 0`. -/
+theorem dvd_of_sq_dvd_cert {p a : Nat} (hp : 0 < p)
+    (hcert : ∀ r, r < p → (r * r) % p = 0 → r = 0) (h : p ∣ (a * a)) : p ∣ a := by
+  obtain ⟨k, hk⟩ := h
+  have hmod : (a * a) % p = 0 := by rw [hk]; exact E213.Tactic.NatHelper.mul_mod_right p k
+  have hres : ((a % p) * (a % p)) % p = 0 :=
+    (E213.Meta.Nat.MulMod213.mul_mod_pure a a p).symm.trans hmod
+  exact E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero (hcert (a % p) (Nat.mod_lt a hp) hres)
+
+/-- `5 ∣ a² + b²` for a Markov triple at `1325` (`5 ∣ 1325`, so the equation collapses mod 5). -/
+theorem markov_5_dvd_sum {a b : Nat} (h : markovEq a b 1325) : 5 ∣ (a * a + b * b) := by
+  apply E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero
+  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
+  have hQ : (1325 : Nat) * 1325 = (265 * 1325) * 5 := by decide
+  have hq : 3 * a * b * 1325 = 5 * (3 * a * b * 265) := by ring_nat
+  have e : (a * a + b * b + 1325 * 1325) % 5 = (3 * a * b * 1325) % 5 := by rw [h']
+  rw [hQ, E213.Tactic.NatHelper.add_mul_mod_self_pure (a * a + b * b) 5 (265 * 1325)] at e
+  rw [hq, E213.Tactic.NatHelper.mul_mod_right 5 (3 * a * b * 265)] at e
+  exact e
+
+/-- `53 ∣ a² + b²` for a Markov triple at `1325` (`53 ∣ 1325`). -/
+theorem markov_53_dvd_sum {a b : Nat} (h : markovEq a b 1325) : 53 ∣ (a * a + b * b) := by
+  apply E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero
+  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
+  have hQ : (1325 : Nat) * 1325 = (25 * 1325) * 53 := by decide
+  have hq : 3 * a * b * 1325 = 53 * (3 * a * b * 25) := by ring_nat
+  have e : (a * a + b * b + 1325 * 1325) % 53 = (3 * a * b * 1325) % 53 := by rw [h']
+  rw [hQ, E213.Tactic.NatHelper.add_mul_mod_self_pure (a * a + b * b) 53 (25 * 1325)] at e
+  rw [hq, E213.Tactic.NatHelper.mul_mod_right 53 (3 * a * b * 25)] at e
+  exact e
+
+/-- No Markov triple at `1325` has `5 ∣ b` (finite descent + bounded no-solution). -/
+theorem not_5_dvd_b_1325 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 1325)
+    (h : markovEq a b 1325) : ¬ 5 ∣ b := by
+  intro h5b
+  have hbb : 5 ∣ (b * b) := dvd_mul_right_213 5 b b h5b
+  have haa : 5 ∣ (a * a) := by
+    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 5 (Nat.le_add_left (b * b) (a * a)) hbb
+      (markov_5_dvd_sum h)
+    rwa [add_sub_cancel_right] at hsub
+  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
+  obtain ⟨b', hb'⟩ := h5b
+  -- bounds a', b' ≤ 265
+  have hb5 : 5 * b' ≤ 5 * 265 := by rw [show (1325 : Nat) = 5 * 265 from by decide] at hb; rw [← hb']; exact hb
+  have hb265 : b' ≤ 265 := Nat.le_of_mul_le_mul_left hb5 (by decide)
+  have ha5 : 5 * a' ≤ 5 * b' := by rw [← ha', ← hb']; exact hab
+  have ha265 : a' ≤ 265 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha5 (by decide)) hb265
+  -- reduced equation
+  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
+  rw [ha', hb'] at h'
+  have hL : 5 * a' * (5 * a') + 5 * b' * (5 * b') + 1325 * 1325
+      = 25 * (a' * a' + b' * b' + 70225) := by ring_nat
+  have hR : 3 * (5 * a') * (5 * b') * 1325 = 25 * (3975 * a' * b') := by ring_nat
+  rw [hL, hR] at h'
+  exact reduced_eq_5_no_sol a' (Nat.lt_of_le_of_lt ha265 (by decide))
+    b' (Nat.lt_of_le_of_lt hb265 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
+
+/-- No Markov triple at `1325` has `53 ∣ b`. -/
+theorem not_53_dvd_b_1325 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 1325)
+    (h : markovEq a b 1325) : ¬ 53 ∣ b := by
+  intro h53b
+  have hbb : 53 ∣ (b * b) := dvd_mul_right_213 53 b b h53b
+  have haa : 53 ∣ (a * a) := by
+    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 53 (Nat.le_add_left (b * b) (a * a)) hbb
+      (markov_53_dvd_sum h)
+    rwa [add_sub_cancel_right] at hsub
+  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
+  obtain ⟨b', hb'⟩ := h53b
+  have hb53 : 53 * b' ≤ 53 * 25 := by rw [show (1325 : Nat) = 53 * 25 from by decide] at hb; rw [← hb']; exact hb
+  have hb25 : b' ≤ 25 := Nat.le_of_mul_le_mul_left hb53 (by decide)
+  have ha53 : 53 * a' ≤ 53 * b' := by rw [← ha', ← hb']; exact hab
+  have ha25 : a' ≤ 25 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha53 (by decide)) hb25
+  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
+  rw [ha', hb'] at h'
+  have hL : 53 * a' * (53 * a') + 53 * b' * (53 * b') + 1325 * 1325
+      = 2809 * (a' * a' + b' * b' + 625) := by ring_nat
+  have hR : 3 * (53 * a') * (53 * b') * 1325 = 2809 * (3975 * a' * b') := by ring_nat
+  rw [hL, hR] at h'
+  exact reduced_eq_53_no_sol a' (Nat.lt_of_le_of_lt ha25 (by decide))
+    b' (Nat.lt_of_le_of_lt hb25 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
+
+/-- `mod = 0` from divisibility (pure, via the witness + `mul_mod_right`). -/
+theorem mod_eq_zero_of_dvd {m k : Nat} (h : k ∣ m) : m % k = 0 := by
+  obtain ⟨q, hq⟩ := h; rw [hq]; exact E213.Tactic.NatHelper.mul_mod_right k q
+
+set_option maxRecDepth 8000 in
+/-- A divisor of `1325` coprime to both `5` and `53` is `1` (1-D enumeration). -/
+theorem div1325_trivial_of_no_5_53 :
+    ∀ g, g < 1326 → 1325 % g = 0 → g % 5 ≠ 0 → g % 53 ≠ 0 → g = 1 := by decide
+
+/-- ★★★★★ **Coprimality discharged at `1325`** (the `hcop` input, unconditional).  The middle
+    entry `b` of any ordered Markov triple with maximum `1325` is coprime to `1325`. -/
+theorem markov_hcop_1325 :
+    ∀ a b, a ≤ b → b ≤ 1325 → markovEq a b 1325 → gcd213 b 1325 = 1 := by
+  intro a b hab hb h
+  have h5 : ¬ 5 ∣ b := not_5_dvd_b_1325 hab hb h
+  have h53 : ¬ 53 ∣ b := not_53_dvd_b_1325 hab hb h
+  have hgb : gcd213 b 1325 ∣ b := gcd213_dvd_left b 1325
+  have hg1325 : gcd213 b 1325 ∣ 1325 := gcd213_dvd_right b 1325
+  refine div1325_trivial_of_no_5_53 (gcd213 b 1325)
+    (Nat.lt_of_le_of_lt (E213.Lib.Math.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hg1325)
+      (by decide))
+    (mod_eq_zero_of_dvd hg1325) ?_ ?_
+  · exact fun hc => h5 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 5 (gcd213 b 1325) b
+      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
+  · exact fun hc => h53 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 53 (gcd213 b 1325) b
+      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
+
+/-- ★★★★★ **UNCONDITIONAL full uniqueness at `c = 1325 = 5²·53`** — the first complete Markov
+    uniqueness theorem at a 4-root composite Markov number, with **no** hypotheses.  Every ordered
+    triple `(a,b,1325)` is `(13,34,1325)`.  Assembled from the conditional reduction
+    (`markov_max_unique_1325_of_coprime`) by discharging coprimality (`markov_hcop_1325`) via
+    finite descent + bounded no-solution — entirely ∅-axiom. -/
+theorem markov_max_unique_1325 : MarkovMaxUnique 1325 :=
+  markov_max_unique_1325_of_coprime markov_hcop_1325
+
 end E213.Lib.Math.Real213.MarkovUniqueness
