@@ -66,6 +66,8 @@ import E213.Lib.Math.Real213.RefinedCompletabilityEngine
 import E213.Lib.Math.Real213.HeightTowerResidue
 import E213.Lib.Math.Real213.ContinuedFractionFloor
 import E213.Lib.Math.Real213.ContinuedFractionModulus
+import E213.Lib.Math.Real213.SpiralLayer
+import E213.Lib.Math.Real213.SpiralCoordinate
 import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus

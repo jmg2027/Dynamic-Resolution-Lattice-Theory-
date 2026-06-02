@@ -15,6 +15,7 @@ import E213.Lib.Math.CayleyDickson.Levels.TrigintaduoionionHeavy
 import E213.Lib.Math.CayleyDickson.Integer.ZI
 import E213.Lib.Math.CayleyDickson.Integer.ZIArith
 import E213.Lib.Math.CayleyDickson.Integer.ZIDomain
+import E213.Lib.Math.CayleyDickson.Integer.ZIUnits
 import E213.Lib.Math.CayleyDickson.Integer.ZIHom
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
