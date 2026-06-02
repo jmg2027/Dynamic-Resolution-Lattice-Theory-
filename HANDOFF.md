@@ -173,8 +173,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `CrossDetSmall` for *any* base (up one exponential height ⟹ broken regardless of
     rate); `height_one_under_height_two` — single-exp over double-exp always free (down a
     height ⟹ free); `geom_boundary_iff` — within a height, free ⟺ `r<q`.  `completability_grade`
-    bundles the three: **height dominates rate.**  First rung of grading the binary
-    boundary into a transfinite/intensional ordinal (the refined real engine).
+    bundles the three: **height dominates rate.**  `height_is_omega_coordinate`: every exponential-tower step up (`expTower` level `r`) overtakes, so height is a genuine ω-indexed coordinate (not just {1,2}). First rung of the refined real engine: completability graded into a transfinite ordinal.
     Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
     arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
     instance: a fast π representation meeting the rate criterion.

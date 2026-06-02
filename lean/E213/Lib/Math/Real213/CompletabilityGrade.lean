@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.CrossDetOvertake
 import E213.Lib.Math.Real213.GeometricThreshold
+import E213.Lib.Math.Cauchy.DepthOmegaTower
 import E213.Meta.Nat.PureNat
 import E213.Meta.Nat.PolyNat
 
@@ -39,6 +40,7 @@ open E213.Lib.Math.Real213.GeometricThreshold (geom_boundary_iff)
 open E213.Meta.Nat.PureNat (pow_add)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc)
+open E213.Lib.Math.Cauchy.DepthOmegaTower (expTower expTower_succ)
 
 /-! ## §1 — the `ω`-jump: one exponential height up breaks, regardless of rate -/
 
@@ -116,5 +118,59 @@ theorem completability_grade :
     ∧ (∀ q b : Nat, 2 ≤ q → 2 ≤ b →
         ¬ CrossDetSmall (fun i => q ^ (b ^ i)) (fun i => q ^ i)) :=
   ⟨height_one_under_height_two, fun _ _ hq => geom_boundary_iff hq, height_two_overtakes⟩
+
+/-! ## §3 — the height axis is a genuine `ω`-coordinate (the full exponential tower) -/
+
+/-- `i + 1 ≤ q^i` for `q ≥ 2` (the base-`q` form of `two_pow_ge_succ`). -/
+theorem succ_le_pow (q i : Nat) (hq : 2 ≤ q) : i + 1 ≤ q ^ i := by
+  induction i with
+  | zero => exact Nat.le_refl 1
+  | succ k ih =>
+    rw [Nat.pow_succ]
+    calc k + 1 + 1 ≤ q ^ k + 1 := Nat.add_le_add_right ih 1
+      _ ≤ q ^ k + q ^ k :=
+          Nat.add_le_add_left (Nat.pos_pow_of_pos k (Nat.lt_of_lt_of_le (by decide) hq)) _
+      _ = q ^ k * 2 := (Nat.mul_two _).symm
+      _ ≤ q ^ k * q := Nat.mul_le_mul_left _ hq
+
+/-- ★★ **One tower step is dominated by the next exponential.**  For `q ≥ 2` and any
+    tower level, `expTower q (r+1) (i+1) ≤ q^{expTower q (r+1) i}` — advancing the index
+    one step costs less than one exponential layer.  By induction on `r`: the base is
+    `i+1 ≤ q^i`, each layer lifts it through `q^·`. -/
+theorem expTower_succ_le (q : Nat) (hq : 2 ≤ q) :
+    ∀ r i, expTower q (r+1) (i+1) ≤ q ^ (expTower q (r+1) i) := by
+  intro r
+  induction r with
+  | zero =>
+    intro i
+    show q ^ (i+1) ≤ q ^ (q ^ i)
+    exact Nat.pow_le_pow_right (Nat.le_trans (by decide) hq) (succ_le_pow q i hq)
+  | succ s ih =>
+    intro i
+    show q ^ (expTower q (s+1) (i+1)) ≤ q ^ (q ^ (expTower q (s+1) i))
+    exact Nat.pow_le_pow_right (Nat.le_trans (by decide) hq) (ih i)
+
+/-- ★★★ **Every exponential-height step up overtakes.**  For `q ≥ 2` and *any* tower
+    level `r`, the height-`(r+2)` cross-determinant `expTower q (r+2)` over the
+    height-`(r+1)` denominator `expTower q (r+1)` breaks `CrossDetSmall` — climbing one
+    exponential layer always overruns the layer below.  So the "height" of the
+    completability grade is a genuine `ω`-indexed coordinate (the exponential tower
+    `DepthOmegaTower.expTower`), not just `{1, 2}`: each `ω`-step up is a hard break. -/
+theorem height_succ_overtakes (q r : Nat) (hq : 2 ≤ q) :
+    ¬ CrossDetSmall (expTower q (r+2)) (expTower q (r+1)) := by
+  have hq0 : 0 < q := Nat.lt_of_lt_of_le (by decide) hq
+  refine overtake_breaks_at (expTower q (r+2)) (expTower q (r+1))
+    (fun i => Nat.pos_pow_of_pos _ hq0) 2 (by decide) ?_
+  show expTower q (r+1) (2 + 1) ≤ q ^ (expTower q (r+1) 2)
+  exact expTower_succ_le q hq r 2
+
+/-- ★★★ **Height is an `ω`-indexed coordinate.**  Climbing the exponential tower
+    `expTower q (·)` one level always breaks completability (`height_succ_overtakes`,
+    every `r`).  Together with `geom_boundary_iff` (the finite rate within a height),
+    the completability grade is the ordinal `ω·height + rate`, with the height ranging
+    over the whole exponential tower — the refined, ordinal completability engine. -/
+theorem height_is_omega_coordinate (q : Nat) (hq : 2 ≤ q) :
+    ∀ r, ¬ CrossDetSmall (expTower q (r+2)) (expTower q (r+1)) :=
+  fun r => height_succ_overtakes q r hq
 
 end E213.Lib.Math.Real213.CompletabilityGrade
