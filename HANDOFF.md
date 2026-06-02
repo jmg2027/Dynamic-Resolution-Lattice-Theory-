@@ -399,10 +399,13 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `Distinct s t := ∃ q, s q ≠ t q` (co-tree inequality is positive — bisimulation is only for
     *equality*); `treeDiffPath` (constructively build a differing path from `x≠y`, structural
     recursion + clean `DecidableEq Tree`); `slash_children_distinct` (a Raw-slash's children are
-    positively `Distinct`).  So the feared coinductive inequality is unnecessary.  RESIDUAL
-    (mechanical, NOT a coinduction obstruction): assemble the `Consistent`+`AntiRefl` subtype +
-    its finality + the named infinite anti-reflexive inhabitant (left-spine `a/(a/…)`).
-    CoResidue 23 theorems, 35/0 PURE in scan.
+    positively `Distinct`).  So the feared coinductive inequality is unnecessary.  **§9 — the
+    named infinite anti-reflexive inhabitant DONE**: `AntiRefl` predicate; `spineL` (left-spine
+    `a/(a/…)`, the `rawTower` limit) with `spineL_antiRefl` (anti-reflexive) + `spineL_escapes`
+    (≠ any finite `lToShape t`).  RESIDUAL (mechanical, NOT a coinduction obstruction): the final
+    assembly — bundle `Consistent`+`AntiRefl` subtype + its finality + prove `lToShape r.val ∈
+    AntiRefl` (needs the Raw *everywhere-distinct* invariant — the one genuine subtlety).
+    CoResidue 26 theorems, 44/0 PURE in scan.
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
