@@ -16,6 +16,7 @@ import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Cauchy.BinomialTransform
+import E213.Lib.Math.Cauchy.WallisDepthProduct
 import E213.Lib.Math.Cauchy.DepthTower
 import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
