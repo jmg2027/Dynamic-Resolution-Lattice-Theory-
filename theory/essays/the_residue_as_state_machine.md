@@ -36,7 +36,9 @@ transition** condition — and that one fact propagates all the way to the νF c
 | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / `AntiRefl` |
 | all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`, since it requires `AntiRefl`) |
 | free-running counter (state after `n` cycles) | `PrimitiveTower.rawTower` (`depth` = cycle count) |
-| reachable state (built from an initial state) | `StateMachine.BuildsIn` (reflexive–transitive build relation) |
+| reachable state (built from an initial atom) | `StateMachine.BuildsIn` (`n`-step build relation) |
+| behavioural / trace equivalence | `StateMachine.TraceEq` (`= ¬ Distinct`, no bisimulation) |
+| reduced / minimised machine (no mergeable states) | `traceEq_finite_minimal` (trace map injective) |
 
 ## Determinacy = finality
 
@@ -181,6 +183,23 @@ here; only these four component properties are.  So the self-pointing act's fini
 machine in this Lens but as a *minimised* one.  The infinite traces that escape this finite
 carrier (`spineL`) are exactly the residue's un-enclosed face.
 
+## The loop closes — one behaviour escapes the minimised machine
+
+The finite machine of §8 is total, deterministic, reachable, and reduced — *complete on finite
+behaviours*.  But the behaviour space strictly exceeds it (`residue_escapes_minimal_machine`):
+the free-running counter trace `spineL` is
+
+  - a **genuine non-degenerate behaviour** — `AntiRefl spineL` (distinct successors at every
+    branch), so it inhabits the νF carrier `SlashNu`;
+  - yet **not the trace of any finite state** — `spineL ≠ lToShape t` for every `t`
+    (`spineL_escapes`).
+
+So there is exactly such an escaping trace: the minimised finite machine is the canonical
+*enclosure*, and the free-running trace is the *source* that no finite state encloses.  This is
+`the_form_of_the_residue.md`'s **source-without-enclosure** read at the FSM scale — and the
+µF/νF pair is not a dichotomy but the one self-pointing act read at its two cofinal ends
+(reachable-out at the finite end, trace-never-enclosed at the infinite end).
+
 ## Open frontier (honest scope)
 
   - This is a *reading*, not an identity (`§6`, the facet discipline): the FSM vocabulary is one
@@ -194,7 +213,7 @@ carrier (`spineL`) are exactly the residue's un-enclosed face.
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (19 PURE) — the FSM-reading theorems above; in
+- `lean/E213/Theory/Raw/StateMachine.lean` (20 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.

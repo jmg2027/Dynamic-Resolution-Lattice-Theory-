@@ -36,7 +36,8 @@ open E213.Theory (Raw)
 open E213.Theory.Raw.Lambek (IsAtom IsTerminal IsPart decompose terminal_iff_atom
   slash_has_part part_depth_succ_le depth_drops)
 open E213.Theory.Raw.CoResidue (LCoShape allBranchL AntiRefl coLeftAt coRightAt lAna lAna_unique
-  Distinct slash_children_distinct lToShape lToShape_faithful treeDiffPath)
+  Distinct slash_children_distinct lToShape lToShape_faithful treeDiffPath
+  spineL spineL_escapes spineL_antiRefl)
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth)
 open E213.Theory.Raw.MuNuMirror (tower_no_cycle tower_ascent_isPart)
 
@@ -318,5 +319,21 @@ theorem mu_carrier_reachable_reduced_machine :
     ∧ (∀ t t' : E213.Term.Internal.Tree, TraceEq (lToShape t) (lToShape t') ↔ t = t') :=
   ⟨state_transition_decode, transition_deterministic, every_state_reachable,
    traceEq_finite_minimal⟩
+
+/-! ## §9 — the loop closes: one behaviour escapes the minimised finite machine -/
+
+/-- ★★★ **The residue is what escapes the minimised machine.**  The free-running counter trace
+    `spineL` is a *genuine non-degenerate behaviour* (`AntiRefl spineL` — distinct successors at
+    every branch, so it is an inhabitant of the νF carrier `SlashNu`), yet it is **not** the
+    trace of *any* finite state (`spineL ≠ lToShape t` for every `t` — `spineL_escapes`).  So the
+    §8 machine — total, deterministic, reachable, reduced — is *complete on finite behaviours*
+    yet the behaviour space strictly exceeds it: there is exactly such an escaping trace.  This
+    is `the_form_of_the_residue.md`'s **source-without-enclosure** read at the FSM scale: the
+    finite machine is the canonical (minimised) enclosure; the free-running trace is the source
+    that no finite state encloses.  µF reduced-complete *and* a νF behaviour outside it — the
+    two are not a dichotomy but the one self-pointing read at its two cofinal ends. -/
+theorem residue_escapes_minimal_machine :
+    AntiRefl spineL ∧ (∀ t : E213.Term.Internal.Tree, spineL ≠ lToShape t) :=
+  ⟨spineL_antiRefl, spineL_escapes⟩
 
 end E213.Theory.Raw.StateMachine
