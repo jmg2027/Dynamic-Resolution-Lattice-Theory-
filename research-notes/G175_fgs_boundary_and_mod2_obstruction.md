@@ -86,6 +86,26 @@ growth route of `NonHolonomicWitness`):
   fixed finite-state map + pigeonhole) is clean and elementary, but yields only "not C-finite",
   weaker than non-holonomic.
 
+## Update — the bounded route is DONE, and cleaner than the recon expected
+
+The Thue–Morse/Sturmian idea (bounded + aperiodic ⟹ non-holonomic) had two hard pieces (full TM
+aperiodicity; bounded-P-recursive ⟹ eventually-periodic, the latter LPO-adjacent).  Both are
+**sidestepped** by a sharper observation: a P-recursive recurrence is **homogeneous**, so a
+*zero window* (past the leading-coefficient's finitely many roots) forces every later term to
+zero.  Hence the criterion needs only *arbitrarily long zero-runs + infinitely many nonzero* —
+no periodicity theorem, no LPO, no `funext`.  Built ∅-axiom:
+
+  - `Cauchy/ZeroRunNonHolonomic.zero_run_not_homogRec` (3 PURE) — the criterion.
+  - `Cauchy/ZeroRunNonHolonomicWitness.chi_nonHolonomic` (18 PURE) — the **powers-of-two
+    indicator** `χ` (bounded `{0,1}`, growing gaps ⟹ long zero-runs, infinitely many `1`s) is
+    non-holonomic.  A fuel-structural power-of-two test makes the witness fully constructive.
+
+So the second ∅-axiom non-holonomicity certificate (orthogonal to growth) is **closed**.  Scope:
+the zero-run route catches *sparse* sequences (growing zero-gaps), **not** dense aperiodic ones
+like Thue–Morse (overlap-free, no long runs) — that case still needs the bounded-periodicity
+machinery and remains queued.  The Champernowne/mod-2 (Garrabrant–Pak Lemma 1.2.1) route also
+remains queued (needs the 2-adic valuation argument).  Neither reaches π.
+
 ## Net for the marathon
 
 The honest π result stands where it was: **classically OPEN, no ∅-axiom closure.**  This recon

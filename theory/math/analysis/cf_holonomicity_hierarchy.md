@@ -141,6 +141,31 @@ is *conjectured* to reach.
   | 2 | non-Hurwitzian, C-finite | `2ⁿ` | still **holonomic** |
   | 3 | **non-holonomic** | `(n!)ⁿ` (proven); π (conjectured) | no P-recurrence |
 
+### A second, orthogonal certificate — bounded sequences by the zero-run argument
+
+Growth is not the only ∅-axiom route into tier 3.  `Cauchy/ZeroRunNonHolonomic.lean` (3 PURE)
+gives a certificate that works on **bounded** sequences, via the **homogeneity** of a
+P-recursive recurrence rather than its size.  A holonomic integer sequence obeys a homogeneous
+recurrence `lead(n)·a(n+k) = Σᵢ qᵢ(n)·a(n+i)` with `lead` a nonzero polynomial (so `lead(n) ≠ 0`
+past its finitely many roots); hence **a window of `k` consecutive zeros past those roots forces
+every later term to be zero**.  Therefore `zero_run_not_homogRec`: a sequence with *arbitrarily
+long zero-runs at arbitrarily large positions* and *infinitely many nonzero terms* is
+non-holonomic (`HomogRec` abstracts the homogeneous-recurrence class; non-membership is the
+certificate — no growth, no `funext`, no analysis).
+
+`Cauchy/ZeroRunNonHolonomicWitness.lean` (18 PURE) inhabits it with the **indicator of the
+powers of two** `χ` (`chi_nonHolonomic : ¬ HomogRec χ`): the gaps between consecutive powers of
+two grow without bound, giving arbitrarily long zero-runs, while the powers themselves are
+infinitely many `1`s.  So `χ` is **bounded** (values `{0,1}`) yet non-holonomic — the sparse
+companion to the unbounded `(n!)ⁿ`.
+
+The two certificates are orthogonal: `(n!)ⁿ` is rejected for growing *too fast* (Klazar), `χ`
+for being *too sparse* (zero-runs).  The zero-run route applies only to sequences with
+arbitrarily long zero-runs (sparse), not to dense aperiodic sequences such as Thue–Morse
+(overlap-free, no long runs); the growth route applies only to super-`(n!)^d` growth.  Neither
+reaches π, whose continued fraction is conjecturally dense and slowly-varying — the genuine open
+frontier.
+
 ### Orthogonality
 
 The CF-holonomicity tier separates e (tier 1) from a geometric Liouville-type CF (top tier)

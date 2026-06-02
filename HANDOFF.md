@@ -133,9 +133,11 @@ approximation / Markov spectrum).  Precision table unchanged — see
 
 ### 1. π non-holonomicity (the marathon headline) — classically OPEN
 `(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  Provable neighbours closed
-(`HurwitzianCF`, `PositiveFloorUnbounded`, `NonHolonomicWitness`).  The **genuine
-non-holonomic tier is now inhabited ∅-axiom** by `(n!)ⁿ` (`superFact_nonHolonomic`, via the
-elementary Klazar growth majorant — C10 CLOSED this session).  **But π is provably NOT
+(`HurwitzianCF`, `PositiveFloorUnbounded`, `NonHolonomicWitness`, `ZeroRunNonHolonomic`).  The
+**genuine non-holonomic tier is now inhabited ∅-axiom by TWO orthogonal certificates**: `(n!)ⁿ`
+(`superFact_nonHolonomic`, growth/Klazar — C10) and the bounded powers-of-2 indicator
+(`ZeroRunNonHolonomicWitness.chi_nonHolonomic`, zero-run + homogeneity — sparse axis).  Neither
+reaches π (dense, slowly-varying).  **But π is provably NOT
 reachable by that growth route** (π's p.q. don't grow super-factorially), so π's tier-3
 membership needs a *different* obstruction.  **Next (C11):** the FGS *asymptotic-shape*
 obstruction (holonomic ⟹ `C·ρ⁻ⁿ·n^θ·(log n)^κ`), incompatible with π's Gauss–Kuzmin
@@ -190,6 +192,10 @@ Options (none uniquely forced — ask user):
 ## File Map
 ```
 NEW Lean (all ∅-axiom):
+  lean/E213/Lib/Math/Cauchy/ZeroRunNonHolonomic.lean                       ← bounded non-holonomicity criterion: zero-run + homogeneity (3 PURE) [this session]
+  lean/E213/Lib/Math/Cauchy/ZeroRunNonHolonomicWitness.lean                ← powers-of-2 indicator: bounded, non-holonomic (18 PURE) [this session]
+  lean/E213/Lib/Math/Real213/HyperbolicEllipticTrace.lean                  ← φ/π = hyperbolic/elliptic, disc sign, Wick (5 PURE) [this session]
+  lean/E213/Lib/Math/Real213/PentagonGoldenTrace.lean                      ← φ=2cos(π/5) skeleton, norm−1 golden units (6 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/NonHolonomicWitness.lean                       ← (n!)ⁿ genuinely non-holonomic, Klazar envelope (22 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/PositiveFloorUnbounded.lean                    ← positive top diff ⟹ unbounded (13 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean                              ← CF-holonomicity tiers (21 PURE)
