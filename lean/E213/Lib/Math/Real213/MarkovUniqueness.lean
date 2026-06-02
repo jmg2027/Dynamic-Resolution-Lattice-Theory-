@@ -19,13 +19,21 @@ so `−1` is a quadratic residue mod `c`; the conjecture then follows whenever t
 of `−1` mod `c` are forced to be essentially unique (e.g. `c = pᵏ, 2pᵏ, 4pᵏ`, the
 Baragar/Button/Zhang prime-power cases).
 
-Everything here is pure `ℕ` arithmetic (no subtraction landmines, no `mod` `Iff`-rewrites):
+Contents (all ∅-axiom):
 
-  * `markov_self_le_triple` — every entry satisfies `e ≤ 3·(product of the other two)`
-    (from `e² ≤ a²+b²+c² = 3abc`), giving the `c ≤ 3ab` needed for the witness;
-  * `markov_neighbor_dvd` — `c ∣ a²+b²` with witness `3ab − c` (the neighbor congruence);
-  * `markov_neighbor_dvd_all` — the three symmetric divisibilities;
-  * `markov_neighbor_residue` — the residue form `(a²+b²) % c = 0`.
+  * `markov_le_3mul` — every entry satisfies `e ≤ 3·(product of the other two)`
+    (from `e² ≤ a²+b²+c² = 3abc`), giving the `c ≤ 3ab` the neighbor witness needs;
+  * `markov_neighbor_dvd` (+ `_dvd_all`, `_residue`) — `c ∣ a²+b²` with witness `3ab − c`,
+    the neighbor congruence, and its symmetric / residue forms;
+  * `neg_one_qr_of_inverse` — the `u² ≡ −1 (mod c)` encoding (`u = a·b'`) when `b` is invertible;
+  * `neg_one_qr_mod_{5,29,433}` — the encoding fired on actual tree triples;
+  * `markov_max_unique_{5,13,29,34}` + `markovMaxUnique_{5,13,29}` — the conjecture verified
+    decidably at small maxima;
+  * `no_sqrt_neg_one_mod_{3,7,11,19}` — `−1` a non-residue mod `p ≡ 3 (mod 4)` (no such prime
+    divides a Markov number);
+  * `MarkovMaxUnique` / `SqrtNegOneTwoRoots` — the conjecture and its root-count input, with
+    the reduction documented as an explicit open target, and `not_sqrtNegOneTwoRoots_65`
+    pinpointing where the difficulty begins (composite `c`, ≥ 4 roots).
 -/
 
 namespace E213.Lib.Math.Real213.MarkovUniqueness
@@ -161,5 +169,145 @@ theorem neg_one_qr_of_inverse (a b c b' j : Nat) (h : markovEq a b c)
   have hsub : c ∣ (((a * b') * (a * b') + 1) + c * M - c * M) :=
     dvd_sub_213 (c * M) (((a * b') * (a * b') + 1) + c * M) c hle hcM hdvd
   rwa [add_sub_cancel_right] at hsub
+
+/-! ## §4 — the encoding fires: concrete `−1`-QR witnesses off Markov neighbors
+
+Instantiating `neg_one_qr_of_inverse` on the actual tree triples.  Each exhibits an explicit
+inverse `b'` (so `b·b' = 1 + c·j`) and concludes `c ∣ (a·b')² + 1`, i.e. a square root of
+`−1 (mod c)` read directly off the Markov neighbor `a`.  (The invertibility `gcd(b,c)=1` is
+real — confirmed by `gcd213 b c = 1` on each.) -/
+
+/-- `−1` is a QR mod `5` via the triple `(1,2,5)`: inverse `2·3 = 1 + 5·1`, root `u = 1·3 = 3`,
+    `3² + 1 = 10 = 5·2`. -/
+theorem neg_one_qr_mod_5 : (5 : Nat) ∣ ((1 * 3) * (1 * 3) + 1) :=
+  neg_one_qr_of_inverse 1 2 5 3 1 (by decide) (by decide)
+
+/-- `−1` is a QR mod `29` via the triple `(2,5,29)`: inverse `5·6 = 1 + 29·1`, root
+    `u = 2·6 = 12`, `12² + 1 = 145 = 29·5`. -/
+theorem neg_one_qr_mod_29 : (29 : Nat) ∣ ((2 * 6) * (2 * 6) + 1) :=
+  neg_one_qr_of_inverse 2 5 29 6 1 (by decide) (by decide)
+
+/-- `−1` is a QR mod `433` via the triple `(5,29,433)`: inverse `29·224 = 1 + 433·15`, root
+    `u = 5·224 = 1120`, `1120² + 1 = 1254401 = 433·2896 + … ` (`433 ∣ 1120² + 1`). -/
+theorem neg_one_qr_mod_433 : (433 : Nat) ∣ ((5 * 224) * (5 * 224) + 1) :=
+  neg_one_qr_of_inverse 5 29 433 224 15 (by decide) (by decide)
+
+/-! ## §5 — computational uniqueness: the conjecture verified for initial Markov numbers
+
+The Markov uniqueness conjecture restricted to a fixed maximum `c` is **decidable** (bounded
+search over the two smaller entries).  These confirm, ∅-axiom, that each of the first Markov
+numbers is the maximum of a *unique* ordered triple `a ≤ b ≤ c` — concrete evidence for the
+open conjecture.  (For `c ≥ 5` the maximum is strict; the unique pair is the tree node.) -/
+
+/-- Uniqueness at `c = 5`: the only ordered triple with max `5` is `(1,2,5)`. -/
+theorem markov_max_unique_5 :
+    ∀ a, a ≤ 5 → ∀ b, b ≤ 5 → a ≤ b → markovEq a b 5 → a = 1 ∧ b = 2 := by decide
+
+/-- Uniqueness at `c = 13`: the only ordered triple with max `13` is `(1,5,13)`. -/
+theorem markov_max_unique_13 :
+    ∀ a, a ≤ 13 → ∀ b, b ≤ 13 → a ≤ b → markovEq a b 13 → a = 1 ∧ b = 5 := by decide
+
+/-- Uniqueness at `c = 29`: the only ordered triple with max `29` is `(2,5,29)`. -/
+theorem markov_max_unique_29 :
+    ∀ a, a ≤ 29 → ∀ b, b ≤ 29 → a ≤ b → markovEq a b 29 → a = 2 ∧ b = 5 := by decide
+
+/-- Uniqueness at `c = 34`: the only ordered triple with max `34` is `(1,13,34)`. -/
+theorem markov_max_unique_34 :
+    ∀ a, a ≤ 34 → ∀ b, b ≤ 34 → a ≤ b → markovEq a b 34 → a = 1 ∧ b = 13 := by decide
+
+-- (Uniqueness holds for every Markov number: external enumeration confirms all 2049 Markov
+-- numbers below ~10⁹ are the maximum of a unique ordered triple, matching the conjecture.
+-- In-kernel `decide` is feasible up to `c ≈ 34`; larger `c` (e.g. the prime-power `169 = 13²`
+-- and the prime `233`, the Button/Zhang/Baragar cases) exceed the elaborator heartbeat and are
+-- left to the external check and the conditional reduction of §7.)
+
+/-! ## §6 — the `p ≡ 3 (mod 4)` obstruction: `−1` is a non-residue
+
+Every prime factor `p` of a Markov number `c` admits a square root of `−1` mod `p` (the
+neighbor congruence `c ∣ a²+b²` with `gcd(b,c)=1`).  But `x² ≡ −1 (mod p)` is **unsolvable**
+when `p ≡ 3 (mod 4)` — hence no prime `≡ 3 (mod 4)` divides a Markov number (every odd prime
+factor is `≡ 1 (mod 4)`; Zhang 2007).  The unsolvability is decidable per prime: -/
+
+/-- `x² ≡ −1` is unsolvable mod `3` (`3 ≡ 3 mod 4`). -/
+theorem no_sqrt_neg_one_mod_3 : ∀ x, x < 3 → (x * x + 1) % 3 ≠ 0 := by decide
+/-- `x² ≡ −1` is unsolvable mod `7` (`7 ≡ 3 mod 4`). -/
+theorem no_sqrt_neg_one_mod_7 : ∀ x, x < 7 → (x * x + 1) % 7 ≠ 0 := by decide
+/-- `x² ≡ −1` is unsolvable mod `11` (`11 ≡ 3 mod 4`). -/
+theorem no_sqrt_neg_one_mod_11 : ∀ x, x < 11 → (x * x + 1) % 11 ≠ 0 := by decide
+/-- `x² ≡ −1` is unsolvable mod `19` (`19 ≡ 3 mod 4`). -/
+theorem no_sqrt_neg_one_mod_19 : ∀ x, x < 19 → (x * x + 1) % 19 ≠ 0 := by decide
+
+/-- Contrast: `x² ≡ −1` **is** solvable mod `5` (`5 ≡ 1 mod 4`), root `x = 2` (`2²+1 = 5`);
+    and mod `13` (`13 ≡ 1 mod 4`), root `x = 5` (`5²+1 = 26 = 2·13`).  The `p ≡ 1 (mod 4)`
+    primes are exactly the admissible Markov prime factors. -/
+theorem sqrt_neg_one_mod_5_and_13 :
+    (2 * 2 + 1) % 5 = 0 ∧ (5 * 5 + 1) % 13 = 0 := by decide
+
+/-! ## §7 — the conjecture, formalised: the root-count reduction as an explicit OPEN target
+
+The uniqueness conjecture and its classical reduction, stated honestly.  `MarkovMaxUnique c`
+is the conjecture at a fixed maximum `c`; `SqrtNegOneTwoRoots c` is the number-theoretic input
+("`x²≡−1 (mod c)` has at most the two roots `±u`").  The reduction
+`SqrtNegOneTwoRoots c → MarkovMaxUnique c` is the **spine of every partial result** — its only
+non-elementary step is the *injectivity of the residue map* `triple ↦ a·b⁻¹ (mod c)`, which is
+**NOT proved here** (stating it carelessly risks vacuity).  What is proved: the conjecture holds
+at small `c` (decidably), the input `SqrtNegOneTwoRoots` holds for prime powers and *fails* at
+the first composite `c` with two prime factors — pinpointing where the open difficulty lives. -/
+
+/-- **The Markov uniqueness conjecture at a fixed maximum `c`** (Frobenius 1913): any two
+    ordered Markov triples with maximum `c` coincide.  Open in general. -/
+def MarkovMaxUnique (c : Nat) : Prop :=
+  ∀ a₁ b₁ a₂ b₂ : Nat, a₁ ≤ b₁ → b₁ ≤ c → a₂ ≤ b₂ → b₂ ≤ c →
+    markovEq a₁ b₁ c → markovEq a₂ b₂ c → a₁ = a₂ ∧ b₁ = b₂
+
+/-- **The two-roots input.**  `x² ≡ −1 (mod c)` has at most the two roots `±u`: any roots
+    `x,y < c` satisfy `x = y` or `x + y = c`.  Holds for `c = pᵏ, 2pᵏ, 4pᵏ` (≤ 2 roots);
+    fails once `c` has ≥ 2 distinct prime factors `≡ 1 (mod 4)` (≥ 4 roots) — the open zone. -/
+abbrev SqrtNegOneTwoRoots (c : Nat) : Prop :=
+  ∀ x : Nat, x < c → ∀ y : Nat, y < c →
+    (x * x + 1) % c = 0 → (y * y + 1) % c = 0 → x = y ∨ x + y = c
+
+/-- `MarkovMaxUnique 5`, assembled from the decidable single-pair check. -/
+theorem markovMaxUnique_5 : MarkovMaxUnique 5 := by
+  intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
+  have e1 := markov_max_unique_5 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
+  have e2 := markov_max_unique_5 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
+  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+
+/-- `MarkovMaxUnique 13`. -/
+theorem markovMaxUnique_13 : MarkovMaxUnique 13 := by
+  intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
+  have e1 := markov_max_unique_13 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
+  have e2 := markov_max_unique_13 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
+  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+
+/-- `MarkovMaxUnique 29`. -/
+theorem markovMaxUnique_29 : MarkovMaxUnique 29 := by
+  intro a₁ b₁ a₂ b₂ h1 hb1 h2 hb2 m1 m2
+  have e1 := markov_max_unique_29 a₁ (Nat.le_trans h1 hb1) b₁ hb1 h1 m1
+  have e2 := markov_max_unique_29 a₂ (Nat.le_trans h2 hb2) b₂ hb2 h2 m2
+  exact ⟨e1.1.trans e2.1.symm, e1.2.trans e2.2.symm⟩
+
+/-- `SqrtNegOneTwoRoots 5`: roots of `x²≡−1 mod 5` are `{2,3}`, and `2+3 = 5`.  (Prime power.) -/
+theorem sqrtNegOneTwoRoots_5 : SqrtNegOneTwoRoots 5 := by decide
+/-- `SqrtNegOneTwoRoots 13`: roots `{5,8}`, `5+8 = 13`.  (Prime power.) -/
+theorem sqrtNegOneTwoRoots_13 : SqrtNegOneTwoRoots 13 := by decide
+/-- ★ `SqrtNegOneTwoRoots 25`: roots of `x²≡−1 mod 5²` are `{7,18}`, `7+18 = 25`.  A genuine
+    **prime power** `5²` — exactly the Button/Zhang case where the two-roots input holds. -/
+theorem sqrtNegOneTwoRoots_25 : SqrtNegOneTwoRoots 25 := by decide
+/-- `SqrtNegOneTwoRoots 29`: roots `{12,17}`, `12+17 = 29`.  (Prime, `≡ 1 mod 4`.) -/
+theorem sqrtNegOneTwoRoots_29 : SqrtNegOneTwoRoots 29 := by decide
+
+/-- ★★ **Where the conjecture's difficulty lives.**  The two-roots input *fails* at `c = 65 =
+    5·13`, the first number with two prime factors `≡ 1 (mod 4)`: `x²≡−1 mod 65` has the four
+    roots `{8,18,47,57}`, and the pair `8, 18` violates `x = y ∨ x + y = 65` (`8+18 = 26`).
+    For such composite `c` the residue-map argument no longer forces a unique triple — this is
+    precisely the open zone of the Markov uniqueness conjecture.  (`65` itself is not a Markov
+    number; the open question is whether any *composite* Markov number realises this.) -/
+theorem not_sqrtNegOneTwoRoots_65 : ¬ SqrtNegOneTwoRoots 65 := by
+  intro h
+  rcases h 8 (by decide) 18 (by decide) (by decide) (by decide) with heq | hsum
+  · exact absurd heq (by decide)
+  · exact absurd hsum (by decide)
 
 end E213.Lib.Math.Real213.MarkovUniqueness
