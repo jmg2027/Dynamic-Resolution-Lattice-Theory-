@@ -63,6 +63,9 @@ def phi : GoldenInt := ⟨0, 1⟩
 /-- `ψ = φ − 1 = 1/φ = 2cos(2π/5)` (the pentagon / 5-fold rotational trace). -/
 def psi : GoldenInt := ⟨-1, 1⟩
 
+/-- Galois conjugation `φ ↦ 1 − φ` (`√5 ↦ −√5`): `a + bφ ↦ (a+b) − bφ`. -/
+def conj (x : GoldenInt) : GoldenInt := ⟨x.a + x.b, -x.b⟩
+
 end GoldenInt
 
 open GoldenInt
@@ -86,5 +89,24 @@ theorem pentagon_trace_unit : phi * psi = one := by decide
     forbidden orders `10` and `5`. -/
 theorem golden_axis_reciprocal : phi * psi = one ∧ psi * phi = one :=
   ⟨by decide, by decide⟩
+
+/-! ## The det `−1` golden units — the descent that brackets the forbidden axis
+
+A real is squeezed between its convergents, whose cross-determinant is the unit `±1`
+(`ContinuedFractionFloor.cf_det_sq`); for the golden axis this det-1 is **Cassini's identity**
+(`Real213/FibCassiniNat`), and the Fibonacci convergents tighten to `φ` (`PhiCauchyLimit`).
+Algebraically the engine is that `φ` and the pentagon trace `ψ` are **norm `−1` units** of
+`ℤ[φ]`: their power-ladder carries the alternating `(−1)ⁿ` Cassini determinant.  So the
+forbidden 5-fold value is not skipped but *approached* — bracketed, upper/lower, by the det-1
+descent on the golden axis (the same det-1 floor `W² = 1` that brackets every real, π
+included). -/
+
+/-- ★★ **`φ` is a norm `−1` golden unit:** `φ·(1−φ) = −1` (the field norm `N(φ) = −1`).  The
+    unit whose powers `φⁿ` generate the Fibonacci ladder with alternating Cassini det `(−1)ⁿ`. -/
+theorem phi_norm : phi * conj phi = ⟨-1, 0⟩ := by decide
+
+/-- ★★ **The pentagon trace is a norm `−1` golden unit:** `(φ−1)·(−φ) = −1`.  The forbidden
+    5-fold trace sits on the same det-`(−1)` golden axis whose convergent descent brackets it. -/
+theorem pentagon_trace_norm : psi * conj psi = ⟨-1, 0⟩ := by decide
 
 end E213.Lib.Math.Real213.PentagonGoldenTrace

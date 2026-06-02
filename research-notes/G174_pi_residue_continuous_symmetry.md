@@ -136,6 +136,56 @@ can and cannot cross.
 > angle is the residue's continuous remainder, unreachable by any discrete Lens (which is, once
 > more, `object1_not_surjective` in the rotation Lens).
 
+## Refinement (Mingu, 2026-06): π as the det-1 squeeze between the allowed neighbours 4 and 6
+
+The forbidden 5-fold axis lies *between* the allowed 4-fold and 6-fold axes — and not only in
+the order list `{…,4,(5),6,…}`: the **trace values** bracket too.  `2cos(2π/4) = 0`,
+`2cos(2π/6) = 1`, and the pentagon trace `2cos(2π/5) = φ−1 ≈ 0.618` sits strictly between:
+`0 < φ−1 < 1`.  The forbidden value is not skipped — it is *bracketed* by its allowed
+neighbours.
+
+This is exactly the **Archimedean definition of π**: π as the common value squeezed between
+inscribed (lower) and circumscribed (upper) regular-polygon perimeters — Archimedes seeded the
+hexagon (6) and doubled (`6→12→24→48→96`); the square (4) is the other natural seed.  π is
+`sup`(inscribed) = `inf`(circumscribed): an **upper/lower-bound-defined** number, never equal
+to any bound (outside every approximant's image — `object1_not_surjective`), their limit.
+
+The "det만큼의 차이를 계속 찾아들어가는" is precise: a real is bracketed by its convergents whose
+**cross-determinant is the unit `±1`** (`ContinuedFractionFloor.cf_det_sq`, `W² = 1` for *every*
+real, π included); the gap between consecutive (upper/lower) convergents is exactly
+`|det|/(qₙqₙ₊₁) = 1/(qₙqₙ₊₁)`.  On the golden axis this det-1 is **Cassini's identity**
+(`Real213/FibCassiniNat`), and `φ`, the pentagon trace `ψ` are the **norm `−1` units**
+(`PentagonGoldenTrace.phi_norm`, `pentagon_trace_norm`) whose power-ladder carries the
+alternating `(−1)ⁿ` determinant.
+
+### The resolution — π's two faces (this names the *reachable* one)
+
+| face | presentation | status | repo |
+|---|---|---|---|
+| **bracketed / period** | polygon / Wallis, upper-lower squeeze, det-1 descent | **reachable** — *finite* divergence depth | `DepthPiQuartic.liftK4_piRatio = 384` (π Wallis-ratio depth 4 ⟹ holonomic-via-Wallis); `cf_det_sq` |
+| **non-holonomic / pole** | regular continued fraction | **unreachable** by any finite recurrence (conjectured) | `HurwitzianCF`, `NonHolonomicWitness` |
+
+These do **not** contradict — divergence depth is *presentation-dependent*
+(`Real213/PresentationDependence`): π is depth-1 via its CF and depth-6 via Wallis.  The user's
+construction realises the **bracketed face**: π *is* constructible as the det-1 squeeze between
+the allowed-axis (4, 6) approximants — a limit, holonomic-via-Wallis — while remaining the
+non-holonomic pole in the CF presentation.  π is the residue squeezed between bounds it never
+equals: the bracket reaches it *as a limit* (`sup`/`inf`), never *as a finite reading* — which
+is `object1_not_surjective` once more, now in the convergent Lens.
+
+## Conjecture C-π3 (the det-1 bracket between allowed neighbours)
+
+> π is the number defined by upper/lower bounds — the det-`±1` squeeze (`cf_det_sq`; Archimedes
+> inscribed/circumscribed) seeded from the crystallographically *allowed* axes `4` and `6` that
+> bracket the *forbidden* `5` where the golden trace lives (`0 < φ−1 < 1`).  This is π's
+> **reachable face**: finite divergence depth in the polygon/Wallis presentation
+> (`DepthPiQuartic`), holonomic *there*, even though non-holonomic in the CF presentation
+> (presentation-dependence).  The bracket reaches π only as a limit — never equal to any bound
+> (`object1_not_surjective`) — so the construction defines π without contradicting its residue
+> (pole) nature.  The golden det-1 engine is concrete: `φ`, `ψ = 2cos(2π/5)` are norm-`−1`
+> units (`PentagonGoldenTrace`), Cassini `(−1)ⁿ` (`FibCassiniNat`) the determinant of the
+> descent.
+
 ## ∅-axiom anchors (already proven; this note adds no new Lean beyond `PentagonGoldenTrace`)
 
   - `Mobius213` — `P(φ)=φ`, the self-reference fixed point (φ face).
@@ -146,6 +196,11 @@ can and cannot cross.
     (the pole is now an inhabited tier, with π conjectured to share it).
   - `Lens.FlatOntologyClosure.{object1_not_surjective, self_covering_closure}`,
     `ResolutionLimit.cantor_general` — residue = outside every view = diagonalisation.
-  - `Real213/PentagonGoldenTrace.{phi_quad, pentagon_trace_quad, pentagon_trace_unit}` —
-    the golden value of the forbidden 5-fold rotational trace (`φ = 2cos(π/5)` algebraic
-    skeleton); the φ-half of the φ↔π continuous-Lens bridge, ∅-axiom.
+  - `Real213/PentagonGoldenTrace.{phi_quad, pentagon_trace_quad, pentagon_trace_unit,
+    phi_norm, pentagon_trace_norm, golden_axis_reciprocal}` — the golden value of the forbidden
+    5-fold rotational trace (`φ = 2cos(π/5)` algebraic skeleton) and the norm-`−1` golden units
+    that carry the det-1 descent; the φ-half of the φ↔π continuous-Lens bridge, ∅-axiom.
+  - `ContinuedFractionFloor.cf_det_sq` (`W² = 1` det-1 floor, every real), `Real213/FibCassiniNat`
+    (Cassini det-1), `PhiCauchyLimit` (Fibonacci convergents → φ) — the det-1 squeeze mechanism.
+  - `Cauchy/DepthPiQuartic.liftK4_piRatio` (π's Wallis ratio, finite depth 4), `Real213/
+    PresentationDependence` — π's *reachable* (bracketed, holonomic-via-Wallis) face.
