@@ -71,16 +71,33 @@ direction, the 6 units sit *on* the torus, and the torus is the `j = 0` curve.
 This reframes the conjecture into a repo-native, ∅-axiom-shaped form, dropping the
 out-of-scope CM/modular edifice:
 
-## The repo-native conjecture (∅-axiom-shaped)
+## The repo-native conjecture — **BUILT ∅-axiom** (`EisensteinCrossDet`, 14 PURE)
 
 > **An Eisenstein cross-determinant theory.**  Replace the `ℤ`-convergent pairs
 > `(a_i, d_i)` and their `SL₂(ℤ)` cross-determinant `W ∈ ℤ` by **`ℤ[ω]`-convergent
-> pairs** and a cross-determinant `W ∈ ℤ[ω]`.  Then:
->   - the **det-one floor** is the order-**6** unit group (`units_count_eq_six`) — the
->     Eisenstein analog of `±1` (the 2 units of `ℤ`, the φ-floor);
->   - because `ℤ[ω]` is imaginary-quadratic (finite units), there is **no** `W = d`
->     convergent *line*; the reference is the **lattice `ℤ[ω]` itself = the `j = 0`
->     elliptic curve's period lattice**.
+> pairs** and a cross-determinant `W ∈ ℤ[ω]`.
+
+Done — `CayleyDickson/Integer/EisensteinCrossDet`:
+  - `crossDet a d n = a_{n+1}·d_n − a_n·d_{n+1} ∈ ℤ[ω]`.
+  - ★ `cassini_ring` — the ring identity `(p·x+q·y)·z − x·(p·z+q·w) = q·(y·z − x·w)`,
+    proved ∅-axiom over the commutative ring `ℤ[ω]` by a manual `calc` on the pure
+    `Ring213`/`CommRing213` API (`add_mul`/`mul_add`/`mul_assoc`/`mul_comm`/`add_4_swap_mid`
+    /`neg_add_cancel_self` — there is **no** ring normalizer, so the calc is by hand).
+  - ★★ `crossDet_step` — the **Cassini engine**: for two sequences obeying a common
+    second-order recurrence `s_{n+2} = p·s_{n+1} + q·s_n`, `W_{n+1} = −q·W_n` (the
+    `p`-terms cancel by commutativity).
+  - ★★ `crossDet_normSq_step` — `‖W_{n+1}‖² = ‖q‖²·‖W_n‖²` (`normSq_mul` + `normSq_neg`).
+  - ★★★ `crossDet_unit_floor` — `q, W_0` units ⟹ `‖W_n‖² = 1` ∀n: the **det-one floor**
+    (the order-**6** unit group, the Eisenstein analog of `±1` = the 2 units of `ℤ`) is
+    preserved.
+  - ★★★ `crossDet_on_units` — hence each `W_n` is **literally one of the 6 units**
+    (`normSq_one_in_units6`).  And `omegaFib_on_units` — a concrete ω-involving witness
+    (`s_{n+2} = 1·s_{n+1} + ω·s_n`, `q = ω`, `‖ω‖² = 1`) whose cross-determinant rides
+    the 6-unit floor at every step.
+  - Because `ℤ[ω]` is imaginary-quadratic (finite units), there is **no** `W = d`
+    convergent *line*; the reference is the **lattice `ℤ[ω]` itself = the `j = 0`
+    elliptic curve's period lattice**, and the cross-determinant floor is the order-6
+    unit group rather than an infinite Pell/φ orbit.
 
 Concrete ∅-axiom targets (in increasing reach):
   1. `eisenstein_norm_posdef` — **DONE / LANDED ∅-axiom**

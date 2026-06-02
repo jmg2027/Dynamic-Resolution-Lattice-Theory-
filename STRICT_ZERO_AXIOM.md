@@ -253,6 +253,36 @@ The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
 (Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
 polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
 
+`E213.Lib.Math.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
+zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients
+of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)
+(`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`, degree 3) are discrete polynomials whose
+finite-difference depth equals their degree.  `zeta2_to_zeta3_degree_step`,
+`apery_cubic_rung` (`aperyTop=n³`, `aperyLead=34n³−51n²+27n−5`, `aperyBot=(n−1)³` all
+`polyDepth 3`, floors `6,204,6`), `zeta2_quadratic_rung` (floors `2,22,2`).  Exactness:
+`aperyTop_depth_exact` / `zeta2Top_depth_exact` (`polyDepth d ∧ ¬ polyDepth (d−1)`).
+ζ(3)'s cubic coefficients reindexed to `n=m+2` (all-positive); cubic/quadratic
+difference identities discharged by the `Meta.Nat.PolyNat` reflection ring; lower bounds
+by `decide`.  Degree is *incidental to irrationality* (ζ(4) order 2, Catalan β(2) open) —
+ζ(3) degree 3 is the exception above the order-2 degree-2 Apéry-like family.
+
+`E213.Lib.Math.Cauchy.DepthQuadraticGeneric` — **7 PURE / 0 DIRTY**.  Every quadratic
+discrete polynomial has divergence-depth 2: `quadratic_polyDepth` — `∀ A B C, polyDepth 2
+(fun n => A·n²+B·n+C)` (floor `2A`), capping the whole order-2 degree-2 Apéry-like (Zagier
+sporadic: ζ(2)-Apéry, Domb, Almkvist–Zudilin, Catalan-β(2), …) family in one statement.
+Newton-form transfer `A·n²+B·n+C = newton (C,A+B,2A) 2` (via `binom n 1 = n`, `n² =
+2·binom n 2 + n`) along the new reusable `polyDepth_congr` + `newton_polyDepth`; the one
+nonlinear identity by the `Meta.Nat.PolyNat` reflection ring.  Dissolves the
+multivariate-`Nat`-AC obstruction (no `ring`/`omega`).
+
+`E213.Lib.Math.Cauchy.CasoratianStep` — **2 PURE / 0 DIRTY**.  The discrete-Wronskian
+(Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form:
+`casoratian_step` — for any solutions `a,b` of `c₂·x₂=c₁·x₁+c₀·x₀`,
+`c₂·(a₂·b₁)+c₀·(a₁·b₀) = c₂·(a₁·b₂)+c₀·(a₀·b₁)` (both sides `=
+c₁a₁b₁+c₀a₀b₁+c₀a₁b₀`), the minus of `c₂Cₙ=−c₀Cₙ₋₁` moved across.  The middle coefficient
+`c₁` cancels ⟹ the Casoratian propagates by the *outer* coefficients alone, grounding why
+the Apéry-tower invariant is `deg c₂ = deg c₀` (`DepthAperyCubic`).
+
 `E213.Lib.Math.Cauchy.DepthOverflowDuality` — **15 PURE / 0 DIRTY**.
 The analysis ↔ logic single engine: `Overflow bound val i := bound i <
 val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`

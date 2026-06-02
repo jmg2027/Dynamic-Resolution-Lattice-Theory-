@@ -112,7 +112,7 @@ See `seed/AXIOM/08_falsifiability.md` §8.4.
 DRLT results come from **counting** (combinatorics, number theory,
 algebra), not continuous variation.  When stuck, check discrete
 structure first (ATM_026-028 fail → ATM_029 works).  Most "what if X?"
-intuitions are already partially formalised — grep + `INDEX.md` first (log: `research-notes/G150_meta_cd_tower_subset.md`).
+intuitions are already partially formalised — grep + `INDEX.md` first (log: `research-notes/archive/exceptional_axes/G150_meta_cd_tower_subset.md`).
 
 ### Hunter methodology
 `rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form:
