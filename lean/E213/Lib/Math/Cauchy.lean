@@ -13,6 +13,7 @@ import E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 import E213.Lib.Math.Cauchy.DepthPiQuartic
 import E213.Lib.Math.Cauchy.HurwitzianCF
 import E213.Lib.Math.Cauchy.NewtonGregory
+import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.DepthTower
 import E213.Lib.Math.Cauchy.DepthOrdinal
 import E213.Lib.Math.Cauchy.DepthExponentRecursion
