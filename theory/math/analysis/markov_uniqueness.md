@@ -72,8 +72,16 @@ difficulty appears.
 
 Because every prime factor of a Markov number admits a square root of `−1` through the neighbor
 congruence, and `x² ≡ −1 (mod p)` is unsolvable when `p ≡ 3 (mod 4)`, no prime `≡ 3 (mod 4)`
-divides a Markov number — every odd prime factor is `≡ 1 (mod 4)`.  The unsolvability is recorded
-per prime in `no_sqrt_neg_one_mod_{3,7,11,19}`, against the solvable contrast at `5` and `13`.
+divides a Markov number — every odd prime factor is `≡ 1 (mod 4)`.
+
+This unsolvability is proved **generally** (not just per prime) in
+`ModArith/MarkovPrimeFactor`: `no_sqrt_neg_one_4k3` shows that for `p = 4k+3` satisfying the
+prime-gcd hypothesis (the ∅-axiom proxy for primality used by the repo's Fermat little theorem
+`universal_flt_main`), there is no `x` with `p ∣ x²+1`.  The argument is `x^(p−1) = (x²)^(2k+1) ≡
+(−1)^(2k+1) ≡ −1` (`neg_one_odd_pow_mod`, `pred_mod_of_dvd_succ`), contradicting Fermat's
+`x^(p−1) ≡ 1` and forcing `p ∣ 2`.  Concrete primes follow by the repo's per-prime gcd witnesses
+(`no_sqrt_neg_one_mod_{7,11}` from `prime_gcd_{7,11}`); the solvable contrast `5, 13`
+(`p ≡ 1 mod 4`) is in `MarkovUniqueness`.
 
 ## The Fibonacci spine: φ's convergents are the spine's `√(−1)` roots
 

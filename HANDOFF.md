@@ -74,10 +74,12 @@ No descent / no Hurwitz needed.  **Remaining bridge to unconditional encoding-fi
 feed `modInverseFromBezout`, then `neg_one_qr_of_mod` fires.  (Gap to *all* Markov triples =
 "every triple reachable" = Markov's theorem, the descent — separate.)
 
-### 2. C5 `p≡3` no-root, GENERAL (currently finitary only)
-Via the repo's ∅-axiom `universal_flt_main` (`a^(p−1)≡1 mod p`): `x²≡−1 ⟹ x^(p−1)≡(−1)^((p−1)/2)
-≡−1` contradicts FLT `≡1` for `p≡3 (mod 4)`.  Needs the per-prime gcd hypothesis route + the
-`(p−1)/2` odd-parity bookkeeping.  Moderate.
+### 2. C5 `p≡3` no-root, GENERAL — DONE (`ModArith/MarkovPrimeFactor`, 7 PURE)
+`no_sqrt_neg_one_4k3`: for `p=4k+3` with the prime-gcd hypothesis, `¬(p∣x²+1)`, via
+`universal_flt_main` (`x^(p−1)=(x²)^(2k+1)≡(−1)^(2k+1)≡−1` vs Fermat `≡1`).  Helpers
+`neg_one_sq_mod`, `neg_one_odd_pow_mod`, `pred_mod_of_dvd_succ`.  Concrete `no_sqrt_neg_one_mod_{7,11}`.
+**Remaining C5**: the `p≡1(mod4)` *existence* branch (root of `x²≡−1 mod pᵏ`) — hard without
+`Classical` (Wilson construction).
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
 The *implication* is classical; the crux is **injectivity of the residue map**
@@ -104,13 +106,14 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 
 ## File Map
 ```
-NEW Lean (∅-axiom, 30 PURE):
-  lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding
+NEW Lean (∅-axiom):
+  lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (42 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← general p≡3(4) ⇒ no √(−1) via FLT (7 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:
   research-notes/G173_markov_uniqueness.md               ← conjecture slate C1–C8 + red-team
 MODIFIED:
-  lean/E213/Lib/Math/Real213.lean                        ← umbrella import
+  lean/E213/Lib/Math/Real213.lean, ModArith.lean         ← umbrella imports
   theory/math/INDEX.md, theory/math/analysis/markov_spectrum.md  ← index + cross-link
 ```
