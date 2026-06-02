@@ -63,6 +63,16 @@ theorem markov_le_3mul (a b c : Nat) (hc : 0 < c) (h : markovEq a b c) : c ≤ 3
   rw [Nat.mul_comm (3 * a * b) c] at hsq
   exact Nat.le_of_mul_le_mul_left hsq hc
 
+/-- ★★★ **The explicit Vieta partner is a triple.**  With `c ≤ 3ab`, the partner
+    `c' = 3ab − c` (the other root of `t² − 3ab·t + (a²+b²)`) again solves the Markov equation:
+    `markovEq a b (3ab − c)`.  The closed form of `markov_vieta` (`c + c' = 3ab` via
+    `add_sub_of_le`) — the edge map of the tree as a function of the triple, and the descent
+    step toward the root `(1,1,1)`. -/
+theorem markov_partner_is_triple (a b c : Nat) (hc : c ≤ 3 * a * b) (h : markovEq a b c) :
+    markovEq a b (3 * a * b - c) :=
+  E213.Lib.Math.Real213.MarkovTree.markov_vieta a b c (3 * a * b - c)
+    (E213.Tactic.NatHelper.add_sub_of_le hc) h
+
 /-! ## §2 — the neighbor congruence `c ∣ a² + b²` -/
 
 /-- ★★★★ **The neighbor congruence.**  For a Markov triple `(a,b,c)`, the entry `c` divides
