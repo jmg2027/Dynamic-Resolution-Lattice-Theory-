@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZI
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.Real213.ModularElliptic
+import E213.Lib.Math.CassiniUnimodular
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
@@ -30,6 +31,7 @@ namespace E213.Lib.Math.CayleyDickson.Integer.UnitsToModular
 open E213.Lib.Math.CayleyDickson.Integer.ZI (ZI)
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Real213.ModularElliptic (Mat2 S U I2 negI2 mul)
+open E213.Lib.Math.CassiniUnimodular (det det_step)
 
 /-! ## §1 — Gaussian `ℤ[i]`: the regular representation sends `i` to `S` (literally) -/
 
@@ -107,5 +109,25 @@ theorem orders_four_six_from_two_cm_points :
     ∧ ((repO ⟨0, -1⟩).a + (repO ⟨0, -1⟩).d = U.a + U.d
         ∧ mul (mul (mul (mul (mul U U) U) U) U) U = I2) :=
   ⟨⟨repI_I, by decide⟩, ⟨by decide, by decide⟩⟩
+
+/-! ## §4 — the modular generators sit on the q=1 Cassini floor (bridge to `det_step`) -/
+
+/-- ★★★ **The modular elliptic generators are on the q=1 Cassini floor.**  `S, U ∈ SL₂` (`det = 1`),
+    so their *characteristic recurrence* `s(n+2) = tr(M)·s(n+1) − det(M)·s(n)` has multiplier
+    `q = det(M) = 1` — hence every solution is a **conserved-Cassini** (`det_step` with `q=1`)
+    orbit, the same `q=1` floor as the golden orbit (`CassiniUnimodular`).  `S` gives
+    `tr=0, det=1` (`s(n+2) = 0·s(n+1) − 1·s(n)`); `U` gives `tr=1, det=1`
+    (`s(n+2) = 1·s(n+1) − 1·s(n)`).  This bridges the modular generators (`ModularElliptic`) to the
+    Cassini multiplier law: being in `SL₂` *is* being on the `q=1` floor.  (Complements the
+    regular-representation Bridge B — units↔generators — with generators↔Cassini-floor.) -/
+theorem modular_generators_on_q1_floor :
+    (S.a * S.d - S.b * S.c = 1 ∧ U.a * U.d - U.b * U.c = 1)
+    ∧ (∀ s : Nat → Int, (∀ n, s (n + 2) = 0 * s (n + 1) - 1 * s n) →
+        ∀ n, det s (n + 1) = det s n)
+    ∧ (∀ s : Nat → Int, (∀ n, s (n + 2) = 1 * s (n + 1) - 1 * s n) →
+        ∀ n, det s (n + 1) = det s n) :=
+  ⟨⟨by decide, by decide⟩,
+   fun s hrec n => (det_step 0 1 s hrec n).trans (Int.one_mul _),
+   fun s hrec n => (det_step 1 1 s hrec n).trans (Int.one_mul _)⟩
 
 end E213.Lib.Math.CayleyDickson.Integer.UnitsToModular
