@@ -13,11 +13,15 @@ The self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` is built out on both
 - **µF = Raw** (`Theory/Raw/Lambek`, `MuNuMirror`): initial algebra; descent well-founded
   (`isPart_wf`, `no_infinite_descent`), ascent unbounded (`ascent_unbounded`), `rawTower` the
   free-running counter at the seam.
-- **νF = `CoResidue.SlashNu`** (`Theory/Raw/CoResidue`, ~64 PURE): the exact slash-νF via the
+- **νF = `CoResidue.SlashNu`** (`Theory/Raw/CoResidue`, **94 PURE**): the exact slash-νF via the
   M-type / path-function presentation (no coinduction primitive); `lAna`, `slashNu_final`
   (finality up to pointwise eq among anti-reflexive coalgebras), anti-reflexivity *positive*
   (`Distinct`, `treeDiffPath` — no bisimulation), `spineL` the infinite inhabitant escaping
-  every finite Raw.
+  every finite Raw.  **νF populated** (§13–§17, the G178 proof-line): `spineOf` family (one
+  escape per finite Raw, `spine_family_populates_nu`), `coSwap` (the `swap` automorphism acting
+  on νF, `coSwap_nu_endomorphism`), `boolSpine` (`(Nat→Bool) ↪ SlashNu` preserving `Distinct` —
+  honest ∅-axiom "uncountable", `boolSpine_injects_bitstreams`), `spineL_unique` (left-spine
+  fixpoint), `nu_population_capstone`.  Dual µF tight bound: `StateMachine.exact_descent`.
 - **The form of the residue** (`Lib/Math/ResidueForm`, essay `the_form_of_the_residue.md` — in
   the CLAUDE.md boot sequence): source-without-enclosure.
 - **The inversion** (essay `the_residue_as_primitive.md`): Raw=µF, νF=SlashNu, view difference.
