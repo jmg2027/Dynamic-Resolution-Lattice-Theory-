@@ -172,15 +172,29 @@ inhabitant `allBranch` inside it and finite Raw embedding faithfully (in `LCoSha
 *not* the residue's exact νF (see below) — the over-approximation's finality should not stand
 in for it.
 
-## The residual — the exact slash functor (conjectured subtype, not free)
+## Sixth step — anti-reflexivity is *positive* (no bisimulation) (`CoResidue` §8)
 
-The residue's exact functor is leaf-or-branch with anti-reflexivity,
-`F X = {a} ⊎ {b} ⊎ {x/y : x ≠ y}`, *not* `Bool × X × X`.  `CoResidue` builds the final
-coalgebra of the over-approximation.  The exact slash-νF would restrict to *consistent*
-leaf/branch shapes (no node below a leaf) with anti-reflexive children — a **conjectured**
-subtype refinement, **not** claimed free: (1) whether the consistent subtype is itself final
-needs `ana` to land in it + uniqueness to survive the restriction (genuine work, undone);
-(2) anti-reflexivity `x ≠ y` is a disequality *relating two co-data subtrees*, which may
-itself need a bisimulation/coinductive notion of inequality.  So finality is closed *for the
-over-approximating functor*; the exact slash-νF (and whether it sidesteps coinduction) is the
-honest open frontier.
+The sharpest worry about the exact slash functor `{a} ⊎ {b} ⊎ {x/y : x ≠ y}` was that
+**anti-reflexivity** (a branch's two children distinct) — a disequality of two co-data
+subtrees — might need a bisimulation/coinductive notion of inequality.  It does **not**:
+
+  - `Distinct s t := ∃ q, s q ≠ t q` — inequality of co-trees is **positive** (one differing
+    observation path).  Bisimulation is needed only to prove *equality* of co-data;
+    *inequality* is just one differing point.
+  - ★ `treeDiffPath` — and the witness is **constructive**: from `x ≠ y` (finite trees), build
+    a differing path by structural recursion, using `DecidableEq Tree` to descend into the
+    differing child (the `¬∀ → ∃¬` step is *constructed*, not classical).
+  - ★ `slash_children_distinct` — so a Raw-slash's two children embed as `Distinct` co-trees:
+    anti-reflexivity holds *positively*, ∅-axiom, no coinduction.
+
+So the feared coinductive inequality is unnecessary.
+
+## The residual — assembling the exact slash-νF subtype
+
+What remains is mechanical, not a coinduction obstruction: define the `Consistent`
+(leaf-absorbing) + `AntiRefl` (`∀` branch, children `Distinct`) subtype of `LCoShape`, show
+`ana` of a consistent + anti-reflexive coalgebra lands in it and that pointwise uniqueness
+survives the restriction, and exhibit the named infinite anti-reflexive inhabitant (the
+left-spine `a/(a/(…))`, the `rawTower` limit).  Finality (over the approximation) is closed,
+the embedding is faithful, and anti-reflexivity is positive — the exact slash-νF is now an
+assembly task, the honest remaining frontier.

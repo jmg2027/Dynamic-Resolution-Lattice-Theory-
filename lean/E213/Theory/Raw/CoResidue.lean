@@ -347,4 +347,53 @@ theorem final_coalgebra {X : Type} (c : X → Bool × X × X) :
   ⟨⟨fun x => ana_isBranch c x, fun x p => ana_coLeft c x p, fun x p => ana_coRight c x p⟩,
    fun h hB hL hR => ana_unique c h hB hL hR⟩
 
+/-! ## §8 — anti-reflexivity is *positive* (no bisimulation)
+
+Toward the residue's *exact* slash functor `{a} ⊎ {b} ⊎ {x/y : x ≠ y}`: the open worry was
+that the **anti-reflexivity** constraint (a branch's two children are distinct) — a
+disequality of two co-data subtrees — might need a bisimulation/coinductive notion of
+inequality.  It does **not**.  Inequality of co-trees is **positive**: `Distinct s t := ∃ q,
+s q ≠ t q` — a single differing observation path.  (Bisimulation is needed only to prove
+*equality* of co-data; *inequality* is just one differing point.)  And the witnessing path is
+**constructive**: from `x ≠ y` as finite trees, `treeDiffPath` builds a path where their
+labelled shapes differ, by structural recursion (`DecidableEq Tree` picks the differing
+child).  So a Raw-slash's two children embed as `Distinct` co-trees (`slash_children_distinct`)
+— anti-reflexivity holds *positively*, ∅-axiom, no coinduction.  (What remains for the exact
+slash-νF is assembling the consistent + anti-reflexive subtype and its finality; the
+anti-reflexivity itself is not the obstruction.) -/
+
+/-- Positive inequality of co-trees: they differ at some observation path. -/
+def Distinct (s t : LCoShape) : Prop := ∃ q : List Bool, s q ≠ t q
+
+/-- ★★ **Distinct finite trees differ at a constructible path.**  From `x ≠ y` (finite
+    trees), build a path `q` where the labelled shapes `lToShape x`, `lToShape y` differ — by
+    structural recursion, using `DecidableEq Tree` to descend into the differing child.  The
+    witness is *constructed*, not obtained from `¬∀`. -/
+theorem treeDiffPath : ∀ (x y : Tree), x ≠ y → ∃ q : List Bool, lToShape x q ≠ lToShape y q
+  | Tree.a,         Tree.a,         h => absurd rfl h
+  | Tree.b,         Tree.b,         h => absurd rfl h
+  | Tree.a,         Tree.b,         _ => ⟨[], fun e => Bool.noConfusion (Option.some.inj e)⟩
+  | Tree.b,         Tree.a,         _ => ⟨[], fun e => Bool.noConfusion (Option.some.inj e)⟩
+  | Tree.a,         Tree.slash _ _, _ => ⟨[], fun e => Option.noConfusion e⟩
+  | Tree.b,         Tree.slash _ _, _ => ⟨[], fun e => Option.noConfusion e⟩
+  | Tree.slash _ _, Tree.a,         _ => ⟨[], fun e => Option.noConfusion e⟩
+  | Tree.slash _ _, Tree.b,         _ => ⟨[], fun e => Option.noConfusion e⟩
+  | Tree.slash x1 x2, Tree.slash y1 y2, h =>
+      if hx1 : x1 = y1 then
+        have hx2 : x2 ≠ y2 := fun e => h (by rw [hx1, e])
+        let ⟨q, hq⟩ := treeDiffPath x2 y2 hx2
+        ⟨false :: q, hq⟩
+      else
+        let ⟨q, hq⟩ := treeDiffPath x1 y1 hx1
+        ⟨true :: q, hq⟩
+
+/-- ★★★ **A Raw-slash's children are positively `Distinct` — anti-reflexivity, no
+    bisimulation.**  For `x ≠ y`, the two child co-trees `lToShape x`, `lToShape y` differ at
+    a constructible path (`treeDiffPath`).  So the slash functor's anti-reflexivity constraint
+    is a *positive* condition on co-data (a differing observation), discharged ∅-axiom — the
+    feared coinductive inequality is unnecessary. -/
+theorem slash_children_distinct (x y : Tree) (h : x ≠ y) :
+    Distinct (lToShape x) (lToShape y) :=
+  treeDiffPath x y h
+
 end E213.Theory.Raw.CoResidue
