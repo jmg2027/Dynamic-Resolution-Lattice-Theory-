@@ -113,7 +113,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (43 PURE)
-  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT) + Euclid + ≤2 roots mod prime + Euclid + xgcd-correctness inverse + general Euclid (21 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT), ≤2 roots mod prime, xgcd-correctness inverse, general Euclid (21 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:
