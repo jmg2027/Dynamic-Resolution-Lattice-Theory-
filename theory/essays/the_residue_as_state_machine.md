@@ -1,20 +1,23 @@
-# The residue as a state machine — state = transition
+# The residue as a state machine — state read as state-transition
 
 A cross-frame reading of `the_residue_as_primitive.md`, offered from the register-transfer
 (RTL) frame.  It is a **Lens reading** (`seed/AXIOM/06_lens_readings.md`): not a claim that the
 residue *is* a state machine, but that the self-pointing act, read through the automaton
 dictionary, *is* the standard mathematics of state-based systems — because **coalgebras are
-the mathematics of state machines**, and what `CoResidue` builds is exactly a final coalgebra.
-So the RTL reading lands on the established operational semantics of the construction, not on a
-metaphor.
+the mathematics of state machines**, and what `CoResidue` builds *reads as* a final coalgebra
+(up to pointwise equality, among anti-reflexive coalgebras — `CoResidue.slashNu_final`; the
+over-approximation `CoResidue.final_coalgebra` is for `F X = Bool × X × X`).  So the RTL
+reading is a faithful operational facet of the construction — one Lens among others, not the
+construction's identity.
 
-## The point: state = state transition
+## The point: state *read as* state-transition
 
 In RTL one keeps the *register value* (state) and the *next-state logic* (transition) distinct.
-The residue's fixed point is the place where they **coincide**: Lambek's iso `X ≅ F(X)` — the
-carrier is its own one-step decode.  `Lambek.decompose` reads a state's transition (a halt-atom
-or a node branching to two next-states); `Lambek.rebuild` recovers the state from it
-(lossless).  `StateMachine.state_transition_decode` packages it: every register value decodes to
+The residue's fixed point is the place where they **coincide**: Lambek's iso `X ≅ F(X)` (the
+forward decode `Lambek.decompose` together with the round-trip `Lambek.rebuild` — `build ∘
+decode = id`) — the carrier is its own one-step decode.  `Lambek.decompose` reads a state's
+transition (a halt-atom or a node branching to two next-states); `Lambek.rebuild` recovers the
+state from it (lossless).  `StateMachine.state_transition_decode` packages it: every register value decodes to
 a **terminal atom (halt, no successor)** or a **branch to two *distinct* next-states**, and is
 terminal *iff* it is an atom.  The `x ≠ y` on the slash is, in this frame, the **non-degenerate
 transition** condition — and that one fact propagates all the way to the νF carrier.
@@ -31,7 +34,7 @@ transition** condition — and that one fact propagates all the way to the νF c
 | reachable / terminating runs | **µF = Raw** (well-founded, every run halts at an atom) |
 | trace / observable behaviour (infinite runs too) | **νF = `CoResidue.SlashNu`** |
 | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / `AntiRefl` |
-| forbidden pure self-loop (successors identical) | `allBranchL` (`∉ SlashNu`) |
+| all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`, since it requires `AntiRefl`) |
 | free-running counter (state after `n` cycles) | `PrimitiveTower.rawTower` (`depth` = cycle count) |
 
 ## Determinacy = finality
@@ -69,9 +72,9 @@ A register that steps to two *identical* next-states is degenerate (a pure self-
 information).  The slash forbids it (`x ≠ y`), and the forbidding propagates:
 
   - at µF: a branch decodes to two **distinct** next-states (`state_transition_decode`);
-  - at νF: the pure self-loop `allBranchL` (both successors the same state, `coLeftAt =
-    coRightAt`) is **excluded** — `StateMachine.self_loop_excluded`: `¬ AntiRefl allBranchL`,
-    so `allBranchL ∉ SlashNu`;
+  - at νF: the all-branch self-loop `allBranchL` (both successors the same state, `coLeftAt
+    = coRightAt`) is **excluded** — `StateMachine.self_loop_excluded`: `¬ AntiRefl allBranchL`,
+    and since `SlashNu` requires `AntiRefl`, `allBranchL ∉ SlashNu`;
   - the *allowed* infinite machine is the counter `spineL` (each successor distinct from the
     last — `CoResidue.spineL_antiRefl`), not the self-loop.
 
@@ -90,7 +93,7 @@ So anti-reflexivity, the residue's `x ≠ y`, reads as **non-degeneracy of the t
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (4 PURE) — the FSM-reading theorems above; umbrella
+- `lean/E213/Theory/Raw/StateMachine.lean` (5 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.

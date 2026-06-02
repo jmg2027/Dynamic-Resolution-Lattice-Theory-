@@ -1,4 +1,7 @@
-import E213.Theory.Raw.API
+import E213.Theory.Raw.Lambek
+import E213.Theory.Raw.CoResidue
+import E213.Theory.Raw.MuNuMirror
+import E213.Theory.Raw.PrimitiveTower
 
 /-!
 # Theory.Raw.StateMachine — the FSM / coalgebra Lens reading
@@ -15,9 +18,9 @@ objects, read as:
   | **determinacy** (behaviour fixed by transition) | finality `lAna_unique` / `slashNu_final` |
   | terminal / halt state | an atom (peel-terminal, `Lambek.terminal_iff_atom`) |
   | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / anti-reflexivity |
-  | the **forbidden** pure self-loop (successors identical) | `allBranchL` (`∉ SlashNu`) |
+  | the all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`) |
   | free-running counter | `rawTower` (`depth` = cycle count) |
-  | state ≅ its decoded next-state (Lambek iso) | `decompose` + `terminal_iff_atom` |
+  | state decodes to its next-state (Lambek forward; round-trip `rebuild`) | `decompose` + `terminal_iff_atom` |
 
 All carriers are function types, so everything is stated **pointwise** (no `funext`); no
 `simp` / `decide` / `DecidableEq Raw` (which would pull `propext`).  All zero-axiom.
@@ -38,7 +41,8 @@ open E213.Theory.Raw.MuNuMirror (tower_no_cycle)
 /-- ★★ **A state decodes to a terminal atom or a branch with two distinct next-states.**  The
     register value reads as either a halt (atom — no successor) or a node branching to **two
     distinct** next-states (`x ≠ y` — a *non-degenerate* transition); and it is terminal iff
-    it is an atom.  The Lambek iso "register ≅ decoded next-state", with the non-degeneracy
+    it is an atom.  The Lambek *decode* (the forward half — the register decodes to its
+    next-state; the round-trip `build ∘ decode = id` is `Lambek.rebuild`), non-degeneracy
     built in. -/
 theorem state_transition_decode (r : Raw) :
     (r = Raw.a ∨ r = Raw.b ∨ ∃ (x y : Raw) (h : x ≠ y), r = Raw.slash x y h)
@@ -69,9 +73,9 @@ theorem transition_determines_behaviour {X : Type} (c : X → Option Bool × X �
     (lAna_unique c h hB hLn hLs hRn hRs x p).trans
       (lAna_unique c h' h'B h'Ln h'Ls h'Rn h'Rs x p).symm
 
-/-! ## §3 — the forbidden self-loop (anti-reflexivity = non-degenerate transition) -/
+/-! ## §3 — the excluded self-loop (anti-reflexivity = non-degenerate transition) -/
 
-/-- ★★★ **The pure self-loop is excluded.**  `allBranchL` — every node a branch, *both*
+/-- ★★★ **The all-branch self-loop is excluded.**  `allBranchL` — every node a branch, *both*
     successors the identical state (`coLeftAt allBranchL [] = coRightAt allBranchL []`, both
     constantly `none`) — is **not** anti-reflexive: at the root branch its two successors do
     not differ at any trace, so `¬ Distinct`.  Hence the degenerate transition (a register
@@ -81,6 +85,17 @@ theorem self_loop_excluded : ¬ AntiRefl allBranchL := by
   intro hAR
   obtain ⟨q, hq⟩ := hAR [] rfl
   exact hq rfl
+
+/-- ★★ **The excluded state is exactly the transition self-loop.**  `allBranchL` is a fixpoint
+    of the next-state map — both successors are the state itself (`coLeftAt allBranchL [] =
+    coRightAt allBranchL [] = allBranchL`, pointwise) — and that *same* state is the one
+    excluded (`self_loop_excluded`).  So this excluded degenerate state is precisely the
+    transition-fixpoint (the pure self-loop); a non-degenerate transition never fixpoints. -/
+theorem self_loop_is_excluded_fixpoint :
+    ((∀ q, coLeftAt allBranchL [] q = allBranchL q)
+      ∧ (∀ q, coRightAt allBranchL [] q = allBranchL q))
+    ∧ ¬ AntiRefl allBranchL :=
+  ⟨⟨fun _ => rfl, fun _ => rfl⟩, self_loop_excluded⟩
 
 /-! ## §4 — the free-running counter never returns -/
 
