@@ -20,6 +20,18 @@ best-approximation locus.
   * ★★★ `cf_det_sq` — hence `W_n² = 1` for **every** `n` and **every** partial-quotient
     sequence: the continued-fraction cross-determinant is always a unit.  The det-one
     floor, universal over the reals — `FibCassiniNat` is the all-`1`s instance.
+  * `cfQn` / `cfQn_fib` / `cfQn_pos` — the denominators as `ℕ` (the `ℤ` ones are their
+    cast, `cfQ_eq_cast`), positive and Fibonacci-growing (`q_{n+2} ≥ q_{n+1} + q_n`) — the
+    gaps `1/(q_n q_{n+1})` shrink at least geometrically.
+
+The continued fraction is the **expansion engine** in its purest form: a distinction
+(the floor) leaves a unit residue, and *that residue is the next operand*
+(`x ↦ 1/(x − ⌊x⌋)`), re-entering the same distinction one scale down — a self-similar
+chain, not an infinite regress (the tail of a continued fraction is again a continued
+fraction).  It is **gapless** for two reasons made precise here: the step is the
+*indivisible* unit `W = ±1` (`cf_det_sq` — nothing wedges between one convergent and the
+next), and the denominators grow so the residue shrinks (`cfQn_fib`) — surplus fed back,
+not space filled, with no exterior slot to leave empty.
 
 All zero-axiom.
 -/
@@ -98,5 +110,36 @@ theorem cf_det_sq (a : Nat → Nat) : ∀ n, cfDet a n * cfDet a n = 1 := by
     show -(cfDet a k) * -(cfDet a k) = 1
     rw [neg_mul, mul_neg, neg_neg]
     exact ih
+
+/-! ## §4 — the denominators grow (the residue shrinks) -/
+
+/-- The convergent denominators as a `ℕ` sequence (the `ℤ` `cfQ` is their cast). -/
+def cfQn (a : Nat → Nat) : Nat → Nat
+  | 0   => 1
+  | 1   => a 1
+  | n+2 => a (n+2) * cfQn a (n+1) + cfQn a n
+
+/-- `cfQ` is the `ℤ`-cast of `cfQn`. -/
+theorem cfQ_eq_cast (a : Nat → Nat) : ∀ n, cfQ a n = (cfQn a n : Int)
+  | 0   => rfl
+  | 1   => rfl
+  | n+2 => by
+    show (a (n+2) : Int) * cfQ a (n+1) + cfQ a n = ((a (n+2) * cfQn a (n+1) + cfQn a n : Nat) : Int)
+    rw [Int.ofNat_add, Int.ofNat_mul, cfQ_eq_cast a (n+1), cfQ_eq_cast a n]
+
+/-- The denominators are positive (partial quotients `≥ 1`). -/
+theorem cfQn_pos (a : Nat → Nat) (ha : ∀ i, 1 ≤ a (i+1)) : ∀ n, 1 ≤ cfQn a n
+  | 0   => Nat.le_refl 1
+  | 1   => ha 0
+  | n+2 => Nat.le_trans (cfQn_pos a ha n) (Nat.le_add_left _ _)
+
+/-- ★★ **The denominators grow at least like Fibonacci.**  `q_{n+2} ≥ q_{n+1} + q_n` (for
+    partial quotients `≥ 1`), so `q_n ≥ Fib(n)` grows geometrically and the convergent
+    gaps `|W_n|/(q_n q_{n+1}) = 1/(q_n q_{n+1})` shrink — the residue of the expansion
+    chain shrinks at every step. -/
+theorem cfQn_fib (a : Nat → Nat) (ha : ∀ i, 1 ≤ a (i+1)) (n : Nat) :
+    cfQn a (n+1) + cfQn a n ≤ cfQn a (n+2) := by
+  show cfQn a (n+1) + cfQn a n ≤ a (n+2) * cfQn a (n+1) + cfQn a n
+  exact Nat.add_le_add_right (Nat.le_mul_of_pos_left (cfQn a (n+1)) (ha (n+1))) _
 
 end E213.Lib.Math.Real213.ContinuedFractionFloor
