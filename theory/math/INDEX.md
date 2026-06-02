@@ -2,11 +2,12 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (56)
+## Closed chapters (57)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
 - [`cayley_dickson/algebra_tower.md`](cayley_dickson/algebra_tower.md) — CayleyDickson/ (50 files)
+- [`cayley_dickson/exceptional_axes.md`](cayley_dickson/exceptional_axes.md) — CayleyDickson/Tower/ E₆E₇E₈ derivation (13 files, ~65 PURE; `{√−3,√2,√5}` from `{NS,NT}` + the map `D(x)=x²−NT`; surd-free `ℕ` form)
 - [`universe_chain.md`](universe_chain.md) — UniverseChain + Mobius213 + Nat213 (~32 files)
 - [`real213.md`](real213.md) — Real213/ (57 files, 7 sub-clusters)
 - [`dyadic_fsm.md`](dyadic_fsm.md) — DyadicFSM/ (101 files)
