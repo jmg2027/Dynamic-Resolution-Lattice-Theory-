@@ -375,4 +375,14 @@ theorem inverse_of_coprime (a m : Nat) (hm : 0 < m) (h : gcd213 a m = 1) :
     (a * (modBezout a m).2) % m = 1 % m :=
   modBezout_inverse_correct a m hm (modBezout_gcd_one a m h)
 
+/-- ★★★★★ **Euclid's lemma, fully general.**  `gcd213 a m = 1 ∧ m ∣ a·b ⟹ m ∣ b` for any
+    modulus `m > 1` — coprime cancellation, no inverse hypothesis (the inverse is produced from
+    coprimality by `inverse_of_coprime`).  A reusable ∅-axiom number-theory primitive. -/
+theorem euclid_of_coprime (a b m : Nat) (hm : 1 < m) (hco : gcd213 a m = 1) (hdvd : m ∣ (a * b)) :
+    m ∣ b := by
+  have hmpos : 0 < m := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hm)
+  have hinv : (a * (modBezout a m).2) % m = 1 := by
+    rw [inverse_of_coprime a m hmpos hco, Nat.mod_eq_of_lt hm]
+  exact euclid_via_inverse m a b (modBezout a m).2 hinv hdvd
+
 end E213.Lib.Math.ModArith.MarkovPrimeFactor
