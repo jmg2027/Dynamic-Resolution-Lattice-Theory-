@@ -41,7 +41,7 @@ namespace E213.Lib.Math.Real213.ContinuedFractionFloor
 open E213.Meta.Algebra213 (Ring213 CommRing213)
 open E213.Meta.Algebra213.Ring213
   (add_mul mul_add mul_assoc add_comm add_assoc neg_add neg_neg neg_mul mul_neg
-   add_4_swap_mid neg_add_cancel_self zero_add)
+   add_4_swap_mid neg_add_cancel_self add_zero zero_add)
 open E213.Meta.Int213 (mul_one add_neg_cancel)
 open E213.Meta.Algebra213.CommRing213 (mul_comm)
 
@@ -141,5 +141,53 @@ theorem cfQn_fib (a : Nat → Nat) (ha : ∀ i, 1 ≤ a (i+1)) (n : Nat) :
     cfQn a (n+1) + cfQn a n ≤ cfQn a (n+2) := by
   show cfQn a (n+1) + cfQn a n ≤ a (n+2) * cfQn a (n+1) + cfQn a n
   exact Nat.add_le_add_right (Nat.le_mul_of_pos_left (cfQn a (n+1)) (ha (n+1))) _
+
+/-! ## §5 — the even two-step cross-determinant is a partial quotient -/
+
+private theorem cancel_lemma2 {α} [Ring213 α] (A B C : α) : A + B + (C + -B) = A + C := by
+  rw [add_4_swap_mid A B C (-B), add_comm B (-B), neg_add_cancel_self, add_zero]
+
+/-- `a·(b·c) = b·(a·c)` over a commutative ring (derived from `mul_comm`/`mul_assoc`). -/
+private theorem mul_lc {α} [CommRing213 α] (a b c : α) : a*(b*c) = b*(a*c) := by
+  rw [← mul_assoc, mul_comm a b, mul_assoc]
+
+/-- The two-step determinant in terms of the one-step: `(a·x₁+x₀)·z₀ − x₀·(a·z₁+z₀) =
+    a·(x₁·z₀ − x₀·z₁)` over any commutative ring. -/
+theorem det2_ring {α} [CommRing213 α] (a x1 x0 z1 z0 : α) :
+    (a*x1 + x0)*z0 + -(x0*(a*z1 + z0)) = a*(x1*z0 + -(x0*z1)) := by
+  calc (a*x1 + x0)*z0 + -(x0*(a*z1 + z0))
+      = (a*x1)*z0 + x0*z0 + (-(x0*(a*z1)) + -(x0*z0)) := by rw [add_mul, mul_add, neg_add]
+    _ = (a*x1)*z0 + -(x0*(a*z1)) := cancel_lemma2 _ _ _
+    _ = a*(x1*z0) + -(a*(x0*z1)) := by rw [mul_assoc, mul_lc x0 a z1]
+    _ = a*(x1*z0 + -(x0*z1)) := by rw [← mul_neg, ← mul_add]
+
+/-- The two-step cross-determinant `W'_n = p_{n+2}·q_n − p_n·q_{n+2}`. -/
+def cfDet2 (a : Nat → Nat) (n : Nat) : Int :=
+  cfP a (n+2) * cfQ a n + -(cfP a n * cfQ a (n+2))
+
+/-- ★★ **The two-step determinant is the partial quotient times the one-step.**
+    `W'_n = a_{n+2}·W_n` (`det2_ring` on the convergent recurrence). -/
+theorem cfDet2_eq (a : Nat → Nat) (n : Nat) :
+    cfDet2 a n = (a (n+2) : Int) * cfDet a n := by
+  show ((a (n+2) : Int) * cfP a (n+1) + cfP a n) * cfQ a n
+        + -(cfP a n * ((a (n+2) : Int) * cfQ a (n+1) + cfQ a n))
+     = (a (n+2) : Int) * (cfP a (n+1) * cfQ a n + -(cfP a n * cfQ a (n+1)))
+  exact det2_ring (a (n+2) : Int) (cfP a (n+1)) (cfP a n) (cfQ a (n+1)) (cfQ a n)
+
+/-- The cross-determinant at an even index is `+1` (`W_{2n} = (−1)^{2n} = 1`). -/
+theorem cf_det_even (a : Nat → Nat) : ∀ n, cfDet a (2*n) = 1
+  | 0     => cf_det_zero a
+  | n+1 => by
+    rw [Nat.mul_succ, cf_det_step, cf_det_step, neg_neg]
+    exact cf_det_even a n
+
+/-- ★★★ **The even two-step cross-determinant is the partial quotient.**
+    `W'_{2n} = a_{2n+2}` — the cross-determinant of the (monotone-increasing) even
+    convergents `p_{2n}/q_{2n}` is exactly the partial quotient `a_{2n+2}`.  This is the
+    structural heart of universal completion: on the even convergents the floor's unit
+    is amplified to the partial quotient, and the denominators grow with it. -/
+theorem cfDet2_even (a : Nat → Nat) (n : Nat) :
+    cfDet2 a (2*n) = (a (2*n + 2) : Int) := by
+  rw [cfDet2_eq, cf_det_even, mul_one]
 
 end E213.Lib.Math.Real213.ContinuedFractionFloor
