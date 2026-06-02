@@ -293,17 +293,23 @@ A–D + B are now **all closed ∅-axiom this arc**:
     different predicate.  `residue_reentry_concrete` bundles non-surjectivity + named witness
     + disagreement point.  The non-fixed-points are exactly the distinction-drawing predicates
     (true at ≥2 Raws); the undifferentiated one is the extreme member.
-  - **Convergence-side re-entry — DONE** (this branch, `Theory/Raw/Lambek` §5, 13/0;
+  - **Convergence-side re-entry — DONE** (this branch, `Theory/Raw/Lambek` §5, 16/0;
     `research-notes/G172`): the Lambek dual of `ResidueReentry`.  `IsPart c p` (peel
     relation: `c` is one of the two parts of slash `p`); `no_part_of_atom` (atoms terminal),
     `part_depth_lt` (peel strictly shallower), **`isPart_wf`** (`WellFounded IsPart` — every
     descent chain terminates at an atom, strong induction on a `depth` bound, ∅-axiom via
     Lean-core `Acc`/`WellFounded`, the `DepthOmegaTower.coord_wf` pattern);
     `descent_reentry_converges` bundles terminal-atoms + strict-descent + well-foundedness.
-    Strengthens the §2 per-step measure to actual termination.  Two faces of one self-
-    pointing: atomic side **closes** at the floor (`isPart_wf`, bounded), predicate side
-    **never closes** (`residue_reentry_never_closes`, unbounded) — the re-entry analog of the
-    `SpiralRotationInvariant` (atomic conserves / residue escapes) pairing.  Remaining open
+    **Quantitative convergence**: `part_depth_succ_le` (one peel removes the unit `1`:
+    `c.depth + 1 ≤ p.depth`, the same surplus `DepthOverflowDuality.overflow_is_unit_surplus`
+    reads upward), `descent_chain_drops` (`(chain k).depth + k ≤ (chain 0).depth` — unit
+    accumulates one-for-one), `no_infinite_descent` (no total peeling chain; every descent
+    bottoms out within `root depth` peels — explicit length bound, not abstract `Acc`).
+    Two faces of one self-pointing: atomic side **closes** at the floor (`isPart_wf`,
+    bounded, terminates within `depth` steps), predicate side **never closes**
+    (`residue_reentry_never_closes`, unbounded) — one unit `1`, two directions; the re-entry
+    analog of the `SpiralRotationInvariant` (atomic conserves / residue escapes) pairing.
+    Remaining open
     (foundational axis): the single abstract self-applying residue operator unifying `diag`,
     `Object1`, `D` (deferred, forced-abstraction risk).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;

@@ -67,6 +67,22 @@ well-foundedness — the dynamic form, and the convergence dual of the predicate
   - ★ `descent_reentry_converges` — bundles terminal-atoms + strict-descent +
     well-foundedness: the descent re-entry **converges** at the floor.
 
+**Quantitative convergence** (the unit step, explicit length bound):
+
+  - ★ `part_depth_succ_le` — one peel removes at least the irreducible **unit `1`** of
+    depth: `c.depth + 1 ≤ p.depth` (the `Nat` form of strict `<`).  The unit is the same
+    surplus `DepthOverflowDuality.overflow_is_unit_surplus` reads *upward* (`bound i + 1 ≤
+    val i`, the escaping ascent); here it is read *downward* (the terminating descent).
+  - ★ `descent_chain_drops` — a peeling chain `chain : Nat → Raw` drops depth by at least
+    its length: `(chain k).depth + k ≤ (chain 0).depth`.  The unit accumulates one-for-one,
+    the explicit convergence rate.
+  - ★ `no_infinite_descent` — no total peeling chain exists: a chain of length `depth+1`
+    forces `depth + 1 ≤ depth`.  Every descent bottoms out within `root depth` peels — the
+    convergence of `isPart_wf` with an explicit length bound, not abstract accessibility.
+
+One unit `1`, two directions: well-foundedness is what makes the downward read terminate
+while the upward read (residue/overflow) stays top-less.
+
 So the self-applying re-entry has two faces as one Raw self-pointing: read on the
 atomic/Nat side (peeling toward the floor) it **closes** at the atoms (`isPart_wf`, bounded,
 terminating); read on the predicate/residue side (re-pointing the encoded residue) it

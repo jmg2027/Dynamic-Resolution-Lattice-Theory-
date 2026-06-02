@@ -229,4 +229,53 @@ theorem descent_reentry_converges :
     ∧ WellFounded IsPart :=
   ⟨no_part_of_atom, part_depth_lt, isPart_wf⟩
 
+/-! ### Quantitative convergence — the unit step and the explicit length bound
+
+`isPart_wf` is the qualitative termination (the descent is accessible).  Here is the
+*quantitative* form: each peel removes at least the irreducible **unit `1`** of depth — the
+count-Lens residue of one distinguishing — so a descending chain drops depth by at least
+its length, and therefore no descending chain is longer than the root's depth.  The unit
+`1` per step is the same surplus the tower-scale
+`Cauchy.DepthOverflowDuality.overflow_is_unit_surplus` reads *upward* (the escaping,
+top-less ascent: `bound i + 1 ≤ val i`); here it is read *downward* (the terminating
+descent: `c.depth + 1 ≤ p.depth`).  One unit, two directions — well-foundedness is what
+makes the downward read terminate. -/
+
+/-- One peel removes at least the **unit** of depth: `c.depth + 1 ≤ p.depth`.  The `Nat`
+    form of `part_depth_lt` (strict `<` is `+1 ≤`), naming the irreducible step `1`. -/
+theorem part_depth_succ_le (c p : Raw) (hcp : IsPart c p) : c.depth + 1 ≤ p.depth :=
+  part_depth_lt c p hcp
+
+/-- ★★ **A descending chain drops depth by at least its length.**  For any `chain : Nat →
+    Raw` that peels at every step (`IsPart (chain (k+1)) (chain k)`), after `k` peels the
+    depth has dropped by at least `k`: `(chain k).depth + k ≤ (chain 0).depth`.  The unit
+    step accumulates one-for-one — the explicit convergence rate. -/
+theorem descent_chain_drops (chain : Nat → Raw)
+    (hstep : ∀ k, IsPart (chain (k+1)) (chain k)) :
+    ∀ k, (chain k).depth + k ≤ (chain 0).depth := by
+  intro k
+  induction k with
+  | zero => exact Nat.le_refl _
+  | succ k ih =>
+      have h1 : (chain (k+1)).depth + 1 ≤ (chain k).depth :=
+        part_depth_succ_le _ _ (hstep k)
+      have e : (chain (k+1)).depth + (k+1) = ((chain (k+1)).depth + 1) + k := by
+        rw [Nat.add_comm k 1, ← Nat.add_assoc]
+      calc (chain (k+1)).depth + (k+1)
+          = ((chain (k+1)).depth + 1) + k := e
+        _ ≤ (chain k).depth + k := Nat.add_le_add_right h1 k
+        _ ≤ (chain 0).depth := ih
+
+/-- ★★★ **No infinite descent — the explicit bound.**  There is no total `chain : Nat →
+    Raw` peeling at every step: a chain of length `(chain 0).depth + 1` would drop depth
+    below zero (`descent_chain_drops` at index `depth+1` forces `depth + 1 ≤ depth`).  So
+    every descent chain bottoms out within `root depth` peels — the convergence of
+    `isPart_wf`, now with an explicit length bound rather than abstract accessibility. -/
+theorem no_infinite_descent (chain : Nat → Raw)
+    (hstep : ∀ k, IsPart (chain (k+1)) (chain k)) : False := by
+  have hb := descent_chain_drops chain hstep ((chain 0).depth + 1)
+  have hcontra : (chain 0).depth + 1 ≤ (chain 0).depth :=
+    Nat.le_trans (Nat.le_add_left _ _) hb
+  exact Nat.not_succ_le_self _ hcontra
+
 end E213.Theory.Raw.Lambek
