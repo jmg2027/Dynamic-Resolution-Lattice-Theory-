@@ -152,10 +152,15 @@ Nörlund–Rice integral, Newton-series convergence / Carlson's theorem.
 
 ## Conjecture log
 
-- **C1 (∅-axiom-closable, highest value — next)** the full bridge
-  `QuasiPolyCF p a ⟹ ∃ C d, ∀ n, a n ≤ C·(n+1)^d` for the ℕ-valued partial-quotient
-  sections, via lifting each residue section to `ℤ`, `poly_bound`, and `natAbs`
-  collapse on nonneg sequences.  Then (cited) `μ = 2`.  Mechanical follow-on to G4.
+- **C1 ✅ DONE** (`Cauchy/QuasiPolyBound.lean`, 14 PURE): `quasiPolyCFZ_poly_bounded`
+  — `QuasiPolyCFZ p a ⟹ ∃ C D, ∀ n, a n ≤ C·(n+1)^D` (per-residue `poly_bound`
+  reassembled via a pure finite max + the pure `div_add_mod` decomposition
+  `n=p·⌊n/p⌋+n%p`).  Then (cited) `μ = 2`.  Witnesses: `periodic_partial_bounded`
+  (quadratic irrationals, Lagrange, degree 0) and `e_partial_quotients_poly_bounded`
+  (transcendental Hurwitzian, subsumes `ePQ_linear_bound`).  Note: had to use the
+  ℤ-faithful `QuasiPolyCFZ` (polyDepthZ on lifted sections), NOT ℕ `QuasiPolyCF` —
+  ℕ-`polyDepth` does not imply `polyDepthZ` (the `[3,2,1,0,0,…]` clamp gives a
+  spurious ℕ depth-1).
 - **C2 (∅-axiom-closable)** depth-additivity of the finite-depth ring:
   `polyDepthZ d s → polyDepthZ e t → polyDepthZ (d+e) (s·t)` (pointwise product),
   turning the hand-counted "π is depth 6 = 1+1+4" into a theorem.  Needs a

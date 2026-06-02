@@ -57,11 +57,11 @@ Standard status unchanged.
 
 ## Open Problems / Next (priority order)
 
-1. **C1 (∅-axiom-closable, highest value — direct follow-on to G4)**
-   `QuasiPolyCF p a ⟹ ∃ C d, ∀ n, a n ≤ C·(n+1)^d` for the ℕ-valued partial-quotient
-   sections: lift each residue section to `ℤ`, apply `poly_bound`, collapse `natAbs`
-   on the nonneg sequence.  Then (cited) `μ = 2`.  Closes the Hurwitzian⟹μ=2 spine.
-2. **C2 (∅-axiom-closable)** depth-additivity `polyDepthZ d s → polyDepthZ e t →
+0. **C1 ✅ DONE** (`Cauchy/QuasiPolyBound.lean`, 14 PURE): `quasiPolyCFZ_poly_bounded`
+   — quasi-polynomial CFs are polynomially bounded (Hurwitzian⟹μ=2 spine, μ cited).
+   Witnesses: periodic (Lagrange, bounded) + e (transcendental).  Used ℤ-faithful
+   `QuasiPolyCFZ` (ℕ `polyDepth` does NOT imply `polyDepthZ` — `[3,2,1,0,0]` clamp).
+1. **C2 (∅-axiom-closable)** depth-additivity `polyDepthZ d s → polyDepthZ e t →
    polyDepthZ (d+e) (s·t)` (a `diffZ`-Leibniz rule), turning π's hand-counted
    "depth 6 = 1+1+4" into a theorem.
 3. **C5 (∅-axiom-closable; the *right* home for the §5.2 self-reference question)**
@@ -87,6 +87,8 @@ NEW Lean (∅-axiom, 41 PURE):
   lean/E213/Lib/Math/Cauchy/NewtonGregory.lean   ← G1-G5: universal id, inverse
                                                     transform, reconstruction,
                                                     growth bound, obstruction
+  lean/E213/Lib/Math/Cauchy/QuasiPolyBound.lean  ← C1: quasi-poly CF ⟹ poly-bounded
+                                                    (periodic + e witnesses), 14 PURE
 NEW theory chapter:
   theory/math/analysis/newton_gregory.md
 NEW research note:

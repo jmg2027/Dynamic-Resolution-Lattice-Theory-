@@ -96,10 +96,26 @@ the `ℤ` second difference is the constant `2` (`obstruction_int_constant`).
 ℕ-`diff` is therefore a **different Lens**, agreeing with ℤ-`diff` exactly on the
 monotone-difference cone; not a broken one.
 
+## Application — quasi-polynomial CFs are polynomially bounded (closed)
+
+Built directly on `poly_bound` in `Cauchy/QuasiPolyBound.lean` (14 PURE):
+
+> `quasiPolyCFZ_poly_bounded` : `QuasiPolyCFZ p a ⟹ ∃ C D, ∀ n, a n ≤ C·(n+1)^D`.
+
+`QuasiPolyCFZ p a` = every residue section `k ↦ a(p·k+r)`, lifted to `ℤ`, is
+genuinely `polyDepthZ`-`dᵣ`.  Each section is bounded by `poly_bound`; the
+per-residue bounds are reassembled with a pure finite max and the (pure)
+decomposition `n = p·⌊n/p⌋ + n%p`.  By the classical `μ = 2 + limsupₙ(ln a_{n+1}/ln
+qₙ)` (cited), polynomially-bounded partial quotients ⟹ `μ = 2` — the ∅-axiom half
+of "Hurwitzian ⟹ μ = 2", the general bridge that was Newton–Gregory-blocked over
+`ℕ`.  Witnesses: **periodic** CFs (quadratic irrationals, Lagrange) land at degree
+0 — *bounded* partial quotients (`periodic_partial_bounded`); **e** = [2;1,2k,1,…]
+lands with a linear residue section (`e_cf_quasiPolyCFZ`,
+`e_partial_quotients_poly_bounded`), the general machinery subsuming the hand-built
+`HurwitzianCF.ePQ_linear_bound`.
+
 ## Frontier
 
-- **Apply to partial quotients**: `QuasiPolyCF ⟹ poly-bounded p.q. ⟹ μ = 2` for
-  the ℕ-valued sections (mechanical follow-on to `poly_bound`).
 - **Depth-additivity** of the finite-depth ring (`diffZ`-Leibniz), turning π's
   hand-counted "depth 6 = 1+1+4" into a theorem.
 - **Fixed-point eigenspace** of the binomial transform — the definable ℤ-subspace
