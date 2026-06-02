@@ -280,4 +280,31 @@ theorem geometric_not_quasipoly : ∀ p, 1 ≤ p → ¬ QuasiPolyCF p (fun n => 
   exact geom_infinite_depth 1 (2 ^ p) (Nat.le_refl 1) h2p
     (polyDepth_reachesFloor d _ hd')
 
+/-! ## §7 — the bridge to the irrationality measure: Hurwitzian ⟹ polynomially-bounded
+partial quotients
+
+The irrationality measure satisfies `μ(x) = 2 + limsupₙ (ln a_{n+1} / ln qₙ)`; if the
+partial quotients are bounded by a polynomial in `n` then `μ(x) = 2` (classical, cited).
+So an *explicit polynomial bound* on the partial quotients is the ∅-axiom half of
+"Hurwitzian ⟹ μ = 2".  Here the tier-1 witnesses get **linear** bounds — e and tan 1 are
+badly-approximable-adjacent (`μ = 2`), read straight off the quasi-polynomial structure.
+(The general `QuasiPolyCF ⟹ polynomially-bounded` needs the discrete Newton–Gregory bound,
+which is delicate over `ℕ` truncated subtraction; the explicit witnesses sidestep it.) -/
+
+/-- e's partial quotients grow at most linearly: `ePQ i ≤ 2·i + 2`.  Hence (cited) `μ(e)=2`. -/
+theorem ePQ_linear_bound (i : Nat) : ePQ i ≤ 2 * i + 2 := by
+  unfold ePQ
+  split
+  · exact Nat.add_le_add_right
+      (Nat.mul_le_mul_left 2 (E213.Meta.Nat.NatDiv213.div_le_self_pos i 3 (by decide))) 2
+  · exact Nat.le_trans (by decide) (Nat.le_add_left 2 (2 * i))
+
+/-- tan 1's partial quotients grow at most linearly: `tanPQ i ≤ i + 1`.  Hence (cited)
+    `μ(tan 1) = 2`. -/
+theorem tanPQ_linear_bound (i : Nat) : tanPQ i ≤ i + 1 := by
+  unfold tanPQ
+  split
+  · exact Nat.le_add_left 1 i
+  · exact Nat.le_succ i
+
 end E213.Lib.Math.Cauchy.HurwitzianCF

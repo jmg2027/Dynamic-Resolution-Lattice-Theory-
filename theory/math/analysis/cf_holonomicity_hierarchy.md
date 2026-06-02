@@ -1,7 +1,7 @@
 # The continued-fraction holonomicity hierarchy — Hurwitzian, and the π frontier
 
 **Status**: Framework closed; the top tier's π-membership is the documented open frontier.
-Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean` (19 PURE / 0
+Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean` (21 PURE / 0
 dirty), on the `polyDepth` divergence-ladder of `Cauchy/DepthPRecursive`.
 
 ## Overview
@@ -35,6 +35,7 @@ classical formal handle on "P-recursive / holonomic partial quotients".
 | `quasipoly_section_recurrence` | each residue section of a Hurwitzian CF is C-finite |
 | `geometric_not_quasipoly` | `2ⁿ ∉ QuasiPolyCF p` for any `p` — the top tier is inhabited |
 | `geom_infinite_depth`, `liftK_geo` | a geometric `c·bᵏ` (`b ≥ 2`) has no finite divergence depth |
+| `ePQ_linear_bound`, `tanPQ_linear_bound` | e, tan 1 have linearly-bounded partial quotients ⟹ (cited) `μ = 2` |
 
 Reusable pure infrastructure born here: `pow_mul_pure`, `mul_sub_pure_le`, `polyDepth_congr`,
 `resP_mod`, `res3_div` (each replacing a `propext`/`Quot.sound`-leaking core lemma).
@@ -123,9 +124,27 @@ Gauss–Kuzmin statistics are conjecturally incompatible — but this is itself 
 statement that an algebraic number of degree `≥ 3` cannot have an *automatic* continued
 fraction; the holonomic analogue for π is beyond current methods.
 
-A natural ∅-axiom next step inside the framework: `QuasiPolyCF ⟹ polynomially-bounded
-partial quotients` (the Newton-form growth bound), whence `μ = 2` (cited) — making the
-"holonomic regularity ⟹ best-approximation tameness" link explicit.
+### Relationship to the irrationality measure
+
+The irrationality measure `μ(x) = 2 + limsupₙ (ln a_{n+1} / ln qₙ)` is a coarse single
+number — a limsup that sees only the worst-case partial quotients.  Three different things
+sit in this framework:
+
+  - the **rate modulus** `N(m,k)` (`Real213/RateModulus`) is the irrationality-measure
+    *function* `ψ(q)`, of which μ is the limsup-collapse — genuinely **finer** than μ (φ with
+    `N = 2k` and e with `N = k+2` share `μ = 2` but have different moduli);
+  - the **divergence depth** is the order of the holonomic recurrence of a *presentation* —
+    **orthogonal** to μ and presentation-dependent (π is depth 1 via its CF, depth 6 via
+    Wallis), so it does not separate numbers;
+  - the **CF-regularity tier** is the component that genuinely separates e from π, which μ
+    cannot.
+
+The bridge **polynomially-bounded partial quotients ⟹ μ = 2** (classical, exact) has its
+∅-axiom half here for the tier-1 witnesses: `ePQ_linear_bound` (`ePQ i ≤ 2i+2`) and
+`tanPQ_linear_bound` (`tanPQ i ≤ i+1`) give linear bounds, whence (cited) `μ(e) = μ(tan 1) =
+2` directly from the quasi-polynomial structure.  The implication is one-directional (`μ = 2`
+does not force bounded partial quotients).  The general `QuasiPolyCF ⟹ polynomially-bounded`
+would need the discrete Newton–Gregory bound, delicate over `ℕ` truncated subtraction.
 
 ## How to verify
 
@@ -135,4 +154,4 @@ lake build E213.Lib.Math.Cauchy.HurwitzianCF
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.HurwitzianCF
 ```
-Reports `19 pure / 0 dirty`.
+Reports `21 pure / 0 dirty`.

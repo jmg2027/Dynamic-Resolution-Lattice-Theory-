@@ -158,6 +158,54 @@ conjecture strictly above "π non-Hurwitzian".
 
 ## (old conjecture scratch)
 
+## Positioning: are the 213 invariants finer than the irrationality measure μ? (draft)
+
+User hypothesis: the repo's machinery may classify irrationality more finely than the
+standard irrationality measure.  Honest assessment (to be grounded by agent E):
+
+**μ is coarse.**  `μ(α) = 2 + limsup(ln a_{n+1} / ln q_n)` — a single real, a *limsup*, so it
+sees only the worst-case partial quotients and forgets everything else.  It does **not**
+separate e and π (both conjecturally 2; μ(π) only bounded ≤ 7.103, Zeilberger–Zudilin 2020).
+
+**Grounded picture (agent E), coarsest → finest classical:**
+```
+μ (single limsup exponent)
+  ⊊ ψ(q) irrationality-measure FUNCTION   ← repo rate modulus N(m,k): GENUINELY FINER (μ = its limsup)
+  ⊊ Lagrange/Markov constant (μ=2 stratum)
+  ⊊ full regular continued fraction        ← finest classical invariant OF THE NUMBER
+```
+Orthogonal (structural, about the *presentation*, not the number):
+```
+holonomy-order of a chosen series-recurrence  ← repo "divergence depth": ORTHOGONAL, PRESENTATION-DEPENDENT
+CF-regularity tier (periodic/Hurwitzian/none) ← repo "holonomicity tier": a coarse quotient of the full CF
+```
+
+**Where the hypothesis is right, precisely:**
+- **YES, genuinely finer than μ:** the **rate modulus `N(m,k)`** (`RateModulus`) = the
+  irrationality-measure function `ψ(q)`, and **μ is exactly its limsup-collapse**.  φ
+  (`N=2k`) and e (`N=k+2`) share μ=2 but have proven-different moduli — finer, formally.
+- **What separates e from π:** the **CF-regularity tier** (e Hurwitzian, `e_cf_quasipoly`; π
+  conjecturally not) — μ cannot (both μ=2); the classically recognized separator.
+
+**Corrections (agent E, avoid overclaim):**
+- **Divergence depth is NOT finer than μ and does NOT separate e and π as *numbers*.**  It is
+  the *order of the holonomic recurrence* (known, D-finite theory), **presentation-dependent**:
+  π is depth 1 via its CF and depth 6 via Wallis; e is depth 3 via the factorial series and
+  depth 1 via its CF.  "e depth 3, π depth 6" compares two *chosen series*, not the points on
+  the line.  Depth is **orthogonal**, structural.
+- The three invariants are 213-native *re-encodings* (holonomy-order, the CF trichotomy,
+  ψ(q)) — not new objects.  The contribution is the **uniform ∅-axiom Lean treatment** + the
+  **tier ⟹ μ=2 bridge**.
+
+**The one-directional bridge (now half-formal):** polynomially-bounded partial quotients ⟹
+μ=2 (classical, exact: `μ = 2 + limsup ln a_{n+1}/ln q_n`).  ∅-axiom half DONE for the
+witnesses: `ePQ_linear_bound` (`ePQ i ≤ 2i+2`), `tanPQ_linear_bound` (`tanPQ i ≤ i+1`) ⟹
+(cited) μ(e)=μ(tan 1)=2.  Converse fails (μ=2 ⇏ bounded p.q.), so it is an implication, not
+an equivalence.
+
 ## Session log
 
 - start: note created, agents A+B dispatched.
+- milestone 1: HurwitzianCF (e, tan1, periodic, certificate, geometric properness) 19 PURE,
+  promoted to `theory/math/analysis/cf_holonomicity_hierarchy.md`.
+- positioning: μ-vs-213 analysis drafted; agent E dispatched to ground novelty/finer-vs-orthogonal.
