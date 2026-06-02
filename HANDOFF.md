@@ -245,6 +245,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
     **Eisenstein det-one floor = the 6-unit group** (`eisenstein_det_one_floor`,
     `= NS·NT`, the Eisenstein analog of φ's Cassini det-one floor; reuses the PURE
     `ZOmega.normSq_mul`).
+  - **Five-floor unification — DONE** (`Lib/Math/FiveFloorUnification`, 1/0; assessment
+    `research-notes/G171`): the completability floor and the McKay E₈ endpoint are the
+    *same* atomic `P=[[2,1],[1,1]]` (disc `5=NS+NT`).  `five_floor_unifies` bundles the
+    det-one floor's indefinite golden form (`FloorReferenceForm`, completing line bottom)
+    with the merged `MobiusPIcosian` fact that `P mod 5` is the order-10 E₈ icosian
+    endpoint (`SL(2,𝔽₅)≅2I`, `10=NT·(NS+NT)`).  **Breakthrough**: bottom-of-completability
+    = top-of-McKay at the `5`-floor (a convergence on the shared `P`, §5.6 no-exterior;
+    the no-top completability loop pinned to the E₈ rung).  Also sharpens C2 (the rung
+    floor's discriminant names a McKay rung: disc−3=C₆=A-family, disc+5→E₈) and C3 (the
+    cusp = the modular/McKay boundary).  Orthogonal to C1′/π (rate, not unit-group).
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

@@ -298,6 +298,14 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
+`E213.Lib.Math.FiveFloorUnification` — **1 PURE / 0 DIRTY**.  The completability
+floor and the McKay E₈ endpoint are the same atomic `P = [[2,1],[1,1]]` (disc
+`5 = NS+NT`): `five_floor_unifies` bundles the det-one floor's indefinite golden form
+(`FloorReferenceForm.floor_reference_is_indefinite`, the completing line bottom) with
+`P mod 5` being the order-10 E₈ icosian endpoint (`MobiusPIcosian.mobius_P_meets_icosian_endpoint`).
+Bottom-of-completability meets top-of-McKay at the `5`-floor (a convergence, not a
+derivation; `seed/AXIOM/05_no_exterior.md` §5.6).
+
 `E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature` — **4 PURE / 0 DIRTY**.
 Completes the signature dichotomy to a trichotomy: the degenerate disc-0 form
 `parabForm m k = (m−k)²` is semi-definite (`parab_nonneg`, a square) with a non-origin
