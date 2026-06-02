@@ -16,8 +16,10 @@ via `iterNeg n`=`(−1)ⁿ`, concrete `cube_casoratian_telescope`; ℤ caveat di
 213-natively via `NatPairToInt`) + `CassiniSigned` (2: the residue floor's Cassini
 cross-determinant `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the depth-0 signed Casoratian —
 `cassini_pair`: `npairEquiv (fib(n+2)fib n, fib(n+1)²) (iterNeg (n+1) (1,0))`, magnitude 1
-floor + sign Oscillate) +
-`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 59 PURE + research-notes
+floor + sign Oscillate) + `DepthCubicGeneric` (2: `cube_eq` — `n³ = 6·binom n3+6·binom n2+n`,
+the cube Newton form, crux toward generic cubic depth; full `cubic_polyDepth` assembly is a
+mechanical 7-term reorder, deferred) +
+`DepthResidueFloor` (2) + `DepthSelfReference` (3) = 61 PURE + research-notes
 `G171_apery_zeta_tower.md` / `G171_self_pointing_depth_213.md` / `G171_casoratian_pair_213.md`.**
 `DepthResidueFloor.self_pointing_depth_ladder` reads the depth count in 213: `diff` = a
 pointing event, depth = re-pointings to self-coincidence; from the `P`/φ Cassini floor

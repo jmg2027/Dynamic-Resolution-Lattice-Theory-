@@ -309,6 +309,8 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Cauchy.CassiniSigned` — **2 PURE / 0 DIRTY**.  The residue floor's cross-determinant as the depth-0 signed Casoratian: the Fibonacci Cassini `fib(n+2)·fib(n) − fib(n+1)² = (−1)ⁿ⁺¹` in ℕ-pair form — `cassini_pair`: `npairEquiv (fib(n+2)·fib(n), fib(n+1)²) (iterNeg (n+1) (1,0))`, the unit pair `(1,0)` toggled `n+1` times.  Magnitude `1` (the `det P = 1` floor, Converge depth 0) with the sign carried entirely by the period-2 axis swap (Oscillate); `cassini_step` is the subtraction-free Fibonacci identity, the `c₂=c₀=1` floor instance of `casoratian_signed`.  ∅-axiom over ℕ — the floor's `±1` with its sign, no `ℤ`.
 
+`E213.Lib.Math.Cauchy.DepthCubicGeneric` — **2 PURE / 0 DIRTY**.  The cube in the Newton (binomial) basis: `cube_eq` — `n³ = 6·binom n 3 + 6·binom n 2 + n` (the subtraction-free `n³ = 6·C(n,3)+6·C(n,2)+C(n,1)`, cube analog of `DepthQuadraticGeneric.sq_eq`), via the univariate `(n+1)³=n³+3n²+3n+1` (`poly_id`) + `sq_eq` + `cube_reorder` (the combine/reorder identity, PURE via `NatHelper.{add_mul,mul_assoc}` + `Nat.add_right_comm`, no propext-dirty `ring`/`ac_rfl`).  The degree-3 crux toward `∀ A B C D, polyDepth 3 (A·n³+B·n²+C·n+D)`; the remaining `newton`-transfer assembly is a mechanical 7-term multivariate reorder.
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
