@@ -744,6 +744,25 @@ So the McKay `A–D–E` realisation now has: `A` (cyclic group `C₆`), `D`
 48-census), `E₈` (`2I` full order spectrum) — every family a proven
 group/census shadow, only the `2I` 120-count deferred.
 
+### Phase 12.1 — the `2I` count, ripe (heaviness = unripe formulation)
+
+The deferred `2I` 120-count was *heavy* only under enumeration — and that
+heaviness was the symptom of an unripe formulation, not an intrinsic
+cost (cf. the dyadic tower, *light* because it had the order-4-monopoly
+*recurrence*: count from structure, not brute force).
+`Tower/IcosianClassStructure` gives the ripe account:
+`2I = double cover of A₅`, `A₅ = Alt(d = NS+NT = 5 atomic slots)`,
+`|A₅| = d!/2 = 60`; the census is the double-cover image of `A₅`'s class
+equation `60 = 1+15+20+12+12` (order-1→`{1,2}`, order-2 `15`→order-4 `30`,
+order-3 `20`→`{3,6}`, order-5 `12+12`→`{5,10}`), summing to
+`2·60 = d! = 120` — small arithmetic, **no enumeration**.  The order-10
+elements are the lifts of `A₅` 5-cycles = order-5 cyclic rearrangements of
+the `5` slots; the Möbius `P` (order 10) is one such lifted 5-cycle.
+Group-theoretic double cover / class structure cited; the structural
+arithmetic proved.  **Methodological closure: a count that needs
+enumeration signals missing structure; the ripe count falls out of the
+symmetry (here `A₅` on the `NS+NT` slots).**
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
