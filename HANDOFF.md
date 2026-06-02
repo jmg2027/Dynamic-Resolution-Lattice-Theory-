@@ -274,7 +274,7 @@ A–D + B are now **all closed ∅-axiom this arc**:
     express the `ω^ω` ceiling).  OPEN (this axis): a native ε₀ limit object + proof the
     diagonal is its `+1` (genuinely uncertain); frozen=dynamic equivalence (§5.7);
     computability/ω₁^CK out of scope.
-  - **Residue re-entry — DONE** (`Lens/ResidueReentry`, 2/0; `research-notes/G176`): the
+  - **Residue re-entry — DONE** (`Lens/ResidueReentry`, 8/0; `research-notes/G176`): the
     residue re-enters as the next operand, the self-cover never closes.
     `residue_reentry_never_closes` — `P ↦ Object1 (predicateToRaw n P)` (encode the
     predicate to a Raw, point at it) is not surjective (image ⊆ `Object1`'s, which misses
@@ -282,6 +282,19 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `residue_perpetually_reenters` bundles faithful-not-total + re-encode + non-closure.
     The foundational-pointing instance of the gapless self-applying re-entry
     (`diag_self_applies` at the diagonalisation scale, here at the pointing floor).
+    **Concrete non-fixed-point witness — DONE** (this branch, §3): the universal
+    non-closure made point-witnessed.  `object1_true_unique` (`Object1 r` true at exactly
+    one Raw) ⟹ `multipoint_not_object1` (a predicate true at two distinct Raws is no
+    indicator) ⟹ `reentry_nonfixed_of_multipoint` (`Object1 (predicateToRaw n P) ≠ P` for
+    *any* two-point `P` — re-pointing collapses every predicate to a single-Raw indicator),
+    with `multipoint_object1_differ_at` giving the **explicit Raw of disagreement**.  Named
+    instance `reentry_undifferentiated_nonfixed` (`fun _ => true`, true at both atoms `a≠b`):
+    naming the undifferentiated residue yields, re-pointed, a single-Raw indicator — a
+    different predicate.  `residue_reentry_concrete` bundles non-surjectivity + named witness
+    + disagreement point.  The non-fixed-points are exactly the distinction-drawing predicates
+    (true at ≥2 Raws); the undifferentiated one is the extreme member.  Remaining open
+    (foundational axis): the single abstract self-applying residue operator unifying `diag`,
+    `Object1`, `D` (deferred, forced-abstraction risk).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
