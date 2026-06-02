@@ -87,6 +87,22 @@ The depth ladder realises the residue dichotomy directly:
 exterior.  It is the path's **own** structure folding onto itself in finitely many
 self-pointings.  The floor `P`/φ is the limit case: one fold and it is already itself.
 
+This lands exactly on `Lens.SelfReferenceThreeOutcomes` (Oscillate / Converge / Escape).
+`diff` is the **`Nat`-sequence realisation** of that frame's two non-oscillating outcomes
+(`DepthSelfReference.diff_converge_or_escape`, ∅-axiom):
+
+  * **Converge** — `W` (the `P`/φ Cassini cross-determinant) `reachesFloor` and settles at
+    the unit `1` (`= det P = NS − NT`, the residue's name in `ResidueForm`): the Lambek
+    terminating descent, on the analysis side;
+  * **Escape** — `2ᵏ` `¬ reachesFloor` (`geom_infinite_depth`): the residue's top-less
+    ascent, re-pointing forever, on the analysis side.
+
+No operator is forced across the types (Raw peel vs `Nat` `diff`); they are parallel
+readings of the §5.2 self-pointing, sharing the count-Lens unit `1` (the floor value here,
+the descent/escape unit in `Cauchy/ReentryUnit`).  The marathon's depth counts are thus the
+*finite* (Converge) side, measured from the floor; the residue (`DepthCeilingResidue`,
+`object1_not_surjective`) is the *Escape* side, infinite.
+
 ## Honest flags (don't force)
 
 - The rung counts land on `{2, 3}` for ζ(2), ζ(3); the atomicity is `(NS, NT) = (3, 2)`

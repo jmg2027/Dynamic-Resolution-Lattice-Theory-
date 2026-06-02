@@ -266,6 +266,14 @@ difference identities discharged by the `Meta.Nat.PolyNat` reflection ring; lowe
 by `decide`.  Degree is *incidental to irrationality* (ζ(4) order 2, Catalan β(2) open) —
 ζ(3) degree 3 is the exception above the order-2 degree-2 Apéry-like family.
 
+`E213.Lib.Math.Cauchy.DepthSelfReference` — **3 PURE / 0 DIRTY**.  The `diff` ladder
+realises self-reference's Converge / Escape outcomes (`Lens.SelfReferenceThreeOutcomes`) on
+`Nat` sequences: `floor_converges` (`W` `reachesFloor`, settles at the unit `1 = det P =
+NS−NT`, the Lambek terminating descent) and `geom_escapes` (`2ᵏ` `¬ reachesFloor`, the
+residue's top-less ascent), bundled in `diff_converge_or_escape`.  Naming capstone — no
+operator forced across the Raw-peel vs `Nat`-`diff` types; parallel readings of the §5.2
+self-pointing sharing the count-Lens unit `1`.
+
 `E213.Lib.Math.Cauchy.DepthResidueFloor` — **2 PURE / 0 DIRTY**.  The self-pointing depth
 ladder anchored at the residue floor: `diff` as a pointing event, depth as the count of
 re-pointings to self-coincidence.  `floor_polyDepth0` (`P`/φ Cassini `W` is depth 0 — the
