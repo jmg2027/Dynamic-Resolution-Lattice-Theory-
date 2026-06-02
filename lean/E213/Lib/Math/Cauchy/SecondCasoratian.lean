@@ -95,4 +95,39 @@ theorem third_diff_closure (a b c : Int) (s : Nat → Int)
   rw [hrec n]
   ring_intZ
 
+/-! ## §3 — what *actually* changes going up a depth: the conserved determinant grows, genus stays 0
+
+A concrete witness (Tribonacci `0,0,1,1,2,4,7,…`, `t(n+3) = t(n+2)+t(n+1)+t(n)`, `a=b=c=1`)
+showing the honest content of "one depth up": the order-2 invariant (the `2×2` Cassini conic) is
+**not** conserved by an order-3 orbit, but the order-3 invariant — the `3×3` Casoratian — **is**.
+So climbing a depth grows the **size of the conserved determinant** (`order = k`), *not* the genus
+(still 0).  This is the precise replacement for the (mistaken) "order-3 ↦ genus-1 curve". -/
+
+/-- The Tribonacci sequence (an order-3 `c=1` orbit). -/
+def trib : Nat → Int
+  | 0     => 0
+  | 1     => 0
+  | 2     => 1
+  | n + 3 => trib (n + 2) + trib (n + 1) + trib n
+
+/-- Tribonacci as a `c=1` order-3 recurrence. -/
+theorem trib_rec (n : Nat) : trib (n + 3) = 1 * trib (n + 2) + 1 * trib (n + 1) + 1 * trib n := by
+  rw [Int.one_mul, Int.one_mul, Int.one_mul]; rfl
+
+/-- ★★★ **Going up a depth grows the conserved determinant from `2×2` to `3×3` (genus stays 0).**
+    On the order-3 Tribonacci orbit:
+
+    1. the order-2 **Cassini** (the conic invariant `s(n)·s(n+2) − s(n+1)²`) is **not** conserved
+       — it is `0` at `n=0` but `−1` at `n=1`: the genus-0 *conic* does not persist at order 3;
+    2. the order-3 **`3×3` Casoratian** `hankel3` **is** conserved (`sl3_hankel_conserved`, `c=1`).
+
+    So one depth up the conserved invariant moves from the `2×2` to the `3×3` determinant — its
+    *size* grows with the order — while the geometry stays genus 0 (a determinantal ladder).  This
+    is the honest replacement for "order-3 ↦ elliptic/genus-1": no curve's genus climbs; the
+    Casorati determinant's dimension does. -/
+theorem conserved_invariant_grows_with_order :
+    (trib 0 * trib 2 - trib 1 * trib 1 ≠ trib 1 * trib 3 - trib 2 * trib 2)
+    ∧ (∀ n, hankel3 trib n = hankel3 trib 0) :=
+  ⟨by decide, sl3_hankel_conserved 1 1 trib trib_rec⟩
+
 end E213.Lib.Math.Cauchy.SecondCasoratian
