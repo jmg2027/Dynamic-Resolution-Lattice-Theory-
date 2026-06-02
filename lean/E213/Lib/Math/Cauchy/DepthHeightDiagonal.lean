@@ -73,4 +73,18 @@ theorem epsilon_direction (c : Nat) :
     ∧ (∀ r, diag (heightTower c) ≠ heightTower c r) :=
   ⟨coord_layer_dominates, height_diagonal_escapes c⟩
 
+/-! ## §2 — the chain is self-applying: the residue-chain is itself a residue-chain -/
+
+/-- ★★★ **The diagonalisation applies to its own output.**  Collect the diagonals of
+    any family-of-families `g` into one family `n ↦ diag (g n)` — the assembled
+    residue-chain — and name *that* with the same `diag`: it escapes again,
+    `diag (n ↦ diag (g n)) ≠ (n ↦ diag (g n)) r` for every `r`.  So the chain of chains
+    is a chain by the **same** operation: there is no meta-level sitting outside the
+    mechanism, and naming the whole cascade is itself a cascade-step.  `diag_not_in_seq`
+    holds for *every* family, including one built from diagonals — the operation is
+    scale-invariant, applied identically at each level, always leaving a residue. -/
+theorem diag_self_applies (g : Nat → (Nat → Nat → Nat)) :
+    ∀ r, diag (fun n => diag (g n)) ≠ (fun n => diag (g n)) r :=
+  diag_not_in_seq (fun n => diag (g n))
+
 end E213.Lib.Math.Cauchy.DepthHeightDiagonal
