@@ -19,13 +19,19 @@ The self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` is built out on both
 - **The form of the residue** (`Lib/Math/ResidueForm`, essay `the_form_of_the_residue.md` — in
   the CLAUDE.md boot sequence): source-without-enclosure.
 - **The inversion** (essay `the_residue_as_primitive.md`): Raw=µF, νF=SlashNu, view difference.
-- **FSM / coalgebra Lens** (`Theory/Raw/StateMachine`, **14 PURE**; essay
-  `the_residue_as_state_machine.md`): §6 Lens reading (state read as state-transition; NOT an
-  identity).  §1 state≅transition decode; §2 determinacy (`transition_determines_behaviour`);
-  §3 excluded self-loop (`allBranchL ∉ SlashNu`); §4 counter never returns; §5 reachability
-  (`BuildsIn` `n`-step build, `counter_reachable` clock, `every_state_reachable` whole-µF within
-  `depth`); §6 behavioural/trace equivalence (`TraceEq = ¬Distinct` via decidable `Option Bool`,
-  no bisimulation; `behaviours_traceEq` = determinacy as trace eq).  Adversarial-reviewed each round.
+- **FSM / coalgebra Lens** (`Theory/Raw/StateMachine`, **20 PURE**, 9 sections, closed-arc;
+  essay `the_residue_as_state_machine.md`): a §6 Lens reading (state read as state-transition;
+  NOT an identity).  §1 state≅transition decode + `transition_deterministic` (single-valued);
+  §2 determinacy (`transition_determines_behaviour` = finality); §3 excluded self-loop
+  (`allBranchL ∉ SlashNu`); §4 counter never returns; §5 reachability (`BuildsIn` `n`-step
+  build, `counter_reachable` clock, `every_state_reachable` whole-µF within `depth`);
+  §6 behavioural/trace equivalence (`TraceEq = ¬Distinct` via decidable `Option Bool`, no
+  bisimulation; `behaviours_traceEq` = determinacy as trace eq); §7 reducedness/minimality
+  (`traceEq_finite_minimal` — trace map injective; `finite_states_finitely_separated`);
+  §8 capstone (`mu_carrier_reachable_reduced_machine` — total+deterministic+reachable+reduced;
+  Myhill-Nerode *uniqueness* explicitly NOT formalised); §9 loop-closing
+  (`residue_escapes_minimal_machine` — `spineL` a genuine behaviour outside every finite state =
+  source-without-enclosure at the FSM scale).  Adversarial-reviewed each round.
 
 **Not yet merged to main**: the FSM batch (`StateMachine.lean` + `the_residue_as_state_machine.md`)
 is on the branch only.  (The form/inversion batch was merged earlier.)
