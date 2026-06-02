@@ -867,6 +867,46 @@ shipped proof is *purified* to parity: `t·t = ↑|t|²`
 `|t| = 2j+1 ⇒ 4(j²+j)+1` forces `4·X = 1`; both impossible because
 `4·X = 2·(2·X)` and `2·Y ≠ 1`.  All 8 theorems `#print axioms` clean.
 
+## Phase 16 — 그럼 뭘까: the seed is a *trace*, not a discriminant
+
+User: *"그럼 몰까?"* — if the disc-mechanism misses `E₇`, what **is**
+its mechanism?
+
+**Answer — the seed of each exceptional rung is the `trace` of its
+defining rotation** (`trace = 2·Re = 2cos θ`), the *diagonal* invariant
+dual to the discriminant.  `ExceptionalTraceSeed.lean` (∅-axiom, 5
+theorems, built on the existing `ZRt2`/`g₈`, `ZPhi`/`g₅` rings):
+
+  * `octahedral_trace_sq_eq_NT` — order-`8` unit `g₈`:
+    `trace(g₈)² = 2 = NT`.  `√NT = √2 = 2cos(2π/8)`.
+  * `icosian_trace_seed_eq_NS_NT` — order-`5` unit `g₅`:
+    `(2·trace(g₅)+1)² = 5 = NS+NT`.  `2cos(2π/5) = φ−1`,
+    `(2(φ−1)+1)² = (2φ−1)² = 5`.
+  * `order_three_six_trace_integer` — order-`3/6`: `2cos = −1, 1` ∈ `ℤ`.
+    `E₆`'s rotation lives in `GL(2,ℤ)`; its `√−3` is the *discriminant*
+    (imaginary part), not the trace.
+  * `sqrt_NT_irrational` — `∀ m, m² ≠ NT` (= `2`), *reusing*
+    `two_not_a_discriminant m 0`.  The **same** `mod 4` fact that
+    excludes `√2` as a discriminant proves `√2` irrational.
+
+**The bridge = crystallographic restriction.**  An integer trace is
+`2cos(2π/n)` only for `n ∈ {1,2,3,4,6}`; orders `5` and `8` are
+forbidden in `GL(2,ℤ)` *because* their traces (`φ−1`, `√2`) are
+irrational.  So `trace(g₈) = √2 ∉ ℤ` ⇒ the order-`8` rotation cannot sit
+in 2D ⇒ it is realised one CD-doubling **up**, in the quaternions, as
+the binary octahedral unit.  That is the `E₇` mechanism: the disc route
+is 2D and excludes `√2`; the trace route is the order-`8` rotation,
+forced into the 4D layer where `2O` lives.
+
+**Unified reading.**  `E₈` is *doubly* anchored — trace **and** disc both
+reach `√5` (the order-`5` rotation's trace seed, and `disc P = NS+NT`).
+`E₇` is trace-anchored and disc-excluded — by *one* arithmetic fact
+(`√NT ∉ ℤ`), read on the diagonal vs the discriminant.  `E₆` is
+disc-anchored (`√−3`) with integer trace.  The three exceptional seeds
+`{√−3, √2, √5} = {√(−NS), √NT, √(NS+NT)}` are the trace/disc invariants
+of the order-`{3, 8, 5}` rotations — no exterior, no extrapolation; the
+"miss" at `E₇` is precisely its trace's irrationality.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
