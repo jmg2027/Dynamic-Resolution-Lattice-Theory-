@@ -180,6 +180,22 @@ A–D + B are now **all closed ∅-axiom this arc**:
     Outside the tower-native frame (not claimed): full num/den closure under `+`/`×` for
     arbitrary rate-carrying presentations; a generic ordinal-indexed `coord→cut`.  Next
     instance: a fast π representation meeting the rate criterion.
+  - **Spiral-coordinate classification — PROMOTED** (`theory/math/analysis/spiral_coordinate_classification.md`;
+    research `G168`/`G169`).  A classification of reals finer than algebraic/transcendental
+    and ⊥ to Mahler/Koksma/μ: two independent 213-native count-coordinates + residue.
+    **Layer** = divergence depth, *intensional* (regular CF ⇒ depth-1 floor universal via
+    `cf_det_sq`; e `3`, π `6` are series-presentation depths), spectrum all of `ℕ`
+    (`Real213/SpiralLayer` 2/0: `depth_is_intensional`, `depth_spectrum_unrestricted` —
+    `{1,3,6}` of φ/e/π is a selection, not triangular law).  **Axis** = arithmetic
+    unit-group order, exactly `{2,4,6}` (Dirichlet + `φ(m)≤2`), realized as floor rotations:
+    `ℤ` order 2 (`W=±1`), `ℤ[i]` order 4 (`CayleyDickson/Integer/GaussianCrossDet` 11/0,
+    `gaussian_floor_rotation`, `μ=−i`), `ℤ[ω]` order 6=NS·NT (`EisensteinCompletion`
+    `eisenstein_floor_rotation`, `μ=−ω`).  Gaussian **4-theorem** (`ZIUnits` 6/0,
+    `ZI_units_exact_four`) mirrors the Eisenstein 6-theorem.  Capstone
+    `Real213/SpiralCoordinate` 1/0: `spiral_coordinate`.  Completion asymmetry: real CF
+    unconditional (any aᵢ≥1), complex/Hurwitz conditional (`|aₙ|≥√2`+admissibility) — the
+    2-axis is the only unconditionally-completing one.  Frontier: π's CF non-holonomicity
+    (classical open; would make "π rate-free" a theorem).
   - **Eisenstein/elliptic conjecture — discriminant-sign core LANDED** (`research-notes/G167`).
     The `(W,d)` classification's number-field reading: golden form `m²−mk−k²` (disc `+5`,
     indefinite, ∞ units → convergent *line*) vs Eisenstein norm `a²−ab+b²` (disc `−3`,
