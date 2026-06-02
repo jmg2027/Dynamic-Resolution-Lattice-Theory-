@@ -710,6 +710,40 @@ unit groups, with its top rung pinned to the DRLT `disc P = 5 = NS+NT`
 floor.  All finite shadows ∅-axiom; the group-theoretic / CM frame
 honestly cited throughout.
 
+### Phase 12 — the three open frontiers worked (marathon-8)
+
+The frontiers named at the arc close, now addressed:
+
+  - **Full group closure.**  `Tower/FullOctahedral` proves the *complete*
+    48-element `2O` order census `{1:1,2:1,3:8,4:18,6:8,8:12}` (the
+    correct distribution — the 12 order-8 elements are the octahedral
+    extras *with* a real part, `(1+i)/√2`; the 12 *without* join the
+    6 `±eᵢ` at order 4).  The complete `E₇` rung, not just a witness.
+    `Tower/FullIcosian` proves the `2I` order *spectrum* `{1,2,3,4,5,6,10}`
+    via an explicit unit of each order.  (`2T`'s full census is the
+    existing `hur_order_distribution`.)  The full 120-element per-order
+    *count* census for `2I` needs the exact even-permutation/sign
+    enumeration of the 96 golden icosians over `ℤ[φ]` + a heavy `decide`
+    — deferred; the spectrum is proved.
+  - **Parametric tower.**  `Tower/CDTowerParametric` defines the
+    type-level `CDTowerType α n` (`CDDouble` is a bare pair, so the TYPE
+    iterates with no instances) and proves the one-step parametric law
+    (`conj` anti-distributive on `CDDouble α` for any `StarRing213 α`).
+    The obstruction is made explicit: no uniform `∀ n, C (CDTowerType α
+    n)` instance exists, since `CDDouble` drops commutativity (at
+    `Lipschitz`) then associativity (at `Cayley`) — which is *why* the
+    tower is studied rung-by-rung.
+  - **`A`/`D` infinite families.**  `Tower/McKayADClosure` lifts the
+    cyclic `A` and binary-dihedral `D` nodes from order-signatures to
+    *closed groups*: `units6 = ⟨ζ₆⟩ ≅ C₆` (the six powers enumerate it),
+    and `Q₈` (8 `Lipschitz` units) and `Dic₃` (12 `ZOmegaDouble` units)
+    are each closed under `*`.
+
+So the McKay `A–D–E` realisation now has: `A` (cyclic group `C₆`), `D`
+(closed `Q₈`, `Dic₃`), `E₆` (`2T` full census), `E₇` (`2O` full
+48-census), `E₈` (`2I` full order spectrum) — every family a proven
+group/census shadow, only the `2I` 120-count deferred.
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
