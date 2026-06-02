@@ -40,6 +40,12 @@ side originally reused the old standalone lemma, making the unification cosmetic
 `polyDepthZ 0 (det s)` — the `SL₂` orbit is the divergence-ladder **floor**.  `sl2_cassini_floor`
 bundles the *sufficiency* + the golden instance (`det L = d = 5`).  Generalizes
 `DepthResidueFloor.floor_polyDepth0` (the φ/`W` instance) to the law behind it.
+**`conserved_never_degenerate`** (the residue, generalized): a `q=1` orbit with `det s 0 ≠ 0`
+has `det s n ≠ 0` at every layer — it *never* reaches the degenerate (frozen) relation
+`s(n)·s(n+2) = s(n+1)²`.  The conserved Cassini unit **is** the residue between dynamic and
+frozen, for *every* `SL₂` orbit — generalising `FibCassiniNat.convergent_never_frozen` (the φ
+instance) and `golden_never_degenerate` (`det L = 5 ≠ 0`).  So the multiplier `q=1` gives *both*
+faces: the depth-0 floor *and* the never-reached residue.
 **(Adversarial-corrected scope:** one-directional `q=1 ⟹ depth 0`, **not** a biconditional — the
 converse is false for degenerate `det s 0 = 0`; only `q=1`/`SL₂` is covered, **not** all
 unimodular `|q|=1` (`q=−1` period-2 alternates); and "the ζ-ladder is the degree of departure

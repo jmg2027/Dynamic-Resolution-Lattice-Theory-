@@ -61,4 +61,32 @@ theorem sl2_cassini_floor :
     ∧ polyDepthZ 0 (det L) :=
   ⟨cassini_conserved_depth0, golden_cassini_depth0⟩
 
+/-! ## §2 — the conserved unit is the residue: an SL₂ orbit never reaches its frozen fixed point
+
+The **frozen fixed point** of a 2nd-order orbit is the *degenerate* window `det s n = 0` (where
+`s(n)·s(n+2) = s(n+1)²`, the homogeneous relation a convergent ratio would satisfy *exactly*).
+For an `SL₂` (`q=1`) orbit the Cassini determinant is the conserved constant `det s 0`; if that
+is non-zero, the orbit **never** lands on the degenerate relation — the dynamic approaches but
+never reaches the frozen.  So the **conserved Cassini unit is the residue**, for *every* such
+orbit — generalising the φ-specific `FibCassiniNat.convergent_never_frozen`. -/
+
+/-- ★★★ **A non-degenerate SL₂ orbit never reaches its frozen fixed point.**  For a `q=1` orbit
+    with non-zero initial Cassini (`det s 0 ≠ 0`), the determinant stays that constant
+    (`cassini_conserved_depth0`), so `det s n ≠ 0` at *every* layer: the orbit never satisfies the
+    degenerate (frozen) relation `s(n)·s(n+2) = s(n+1)²`.  The conserved Cassini unit is exactly
+    the residue between the dynamic orbit and its frozen fixed point — the general law behind
+    `convergent_never_frozen` (the φ instance, where `det = 1`). -/
+theorem conserved_never_degenerate (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) (h0 : det s 0 ≠ 0) (n : Nat) :
+    det s n ≠ 0 := by
+  have hconst : det s n = det s 0 := cassini_conserved_depth0 p s hrec n
+  rw [hconst]; exact h0
+
+/-- ★★ **The golden orbit never reaches its frozen fixed point.**  `det L n = d = 5 ≠ 0` at every
+    layer (`conserved_never_degenerate` with `det L 0 = 5`): the Lucas/golden orbit never
+    satisfies the degenerate relation — the φ/`d` residue, as an instance of the general law. -/
+theorem golden_never_degenerate (n : Nat) : det L n ≠ 0 :=
+  conserved_never_degenerate 3 L (fun m => by rw [Int.one_mul]; exact L_rec m)
+    (by decide) n
+
 end E213.Lib.Math.Cauchy.CassiniDepthFloor
