@@ -278,4 +278,62 @@ theorem no_infinite_descent (chain : Nat → Raw)
     Nat.le_trans (Nat.le_add_left _ _) hb
   exact Nat.not_succ_le_self _ hcontra
 
+/-! ## 6. The floor is *exactly* the atoms — no partial pointing
+
+`no_part_of_atom` (§5) is one direction: atoms are terminal.  Here is the biconditional —
+a Raw is peel-terminal **iff** it is an atom — and the §5.5 "self-completion" reading: every
+Raw is *exactly one* of {atom, complete slash with parts}, exhaustively and exclusively.
+There is no third "partial" state: the descent stops exactly at the atomic floor, nowhere
+else, and nothing is halfway-formed. -/
+
+/-- A Raw is an **atom** (the floor candidate). -/
+def IsAtom (r : Raw) : Prop := r = Raw.a ∨ r = Raw.b
+
+/-- A Raw is **terminal** for the peel relation: nothing peels from it. -/
+def IsTerminal (r : Raw) : Prop := ¬ ∃ c : Raw, IsPart c r
+
+/-- Every slash *has* a part: its left child peels from it.  So a slash is never terminal. -/
+theorem slash_has_part (x y : Raw) (h : x ≠ y) : IsPart x (Raw.slash x y h) :=
+  ⟨x, y, h, rfl, Or.inl rfl⟩
+
+/-- A non-atom has a part — `decompose` makes it a slash, whose left child peels. -/
+theorem nonatom_has_part (r : Raw) (h : ¬ IsAtom r) : ∃ c : Raw, IsPart c r := by
+  rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+  · exact absurd (Or.inl ha) h
+  · exact absurd (Or.inr hb) h
+  · exact ⟨x, hr ▸ slash_has_part x y hxy⟩
+
+/-- ★★ **Terminal iff atom.**  A Raw is peel-terminal exactly when it is an atom: atoms
+    have no parts (`no_part_of_atom`), and every non-atom (a slash) has one
+    (`nonatom_has_part`).  The descent stops at *exactly* the atomic floor. -/
+theorem terminal_iff_atom (r : Raw) : IsTerminal r ↔ IsAtom r := by
+  constructor
+  · intro hterm
+    rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+    · exact Or.inl ha
+    · exact Or.inr hb
+    · exact absurd ⟨x, hr ▸ slash_has_part x y hxy⟩ hterm
+  · intro hatom hex
+    obtain ⟨c, hc⟩ := hex
+    rcases hatom with ha | hb
+    · exact (no_part_of_atom c).1 (ha ▸ hc)
+    · exact (no_part_of_atom c).2 (hb ▸ hc)
+
+/-- ★★★ **Self-completion: no partial pointing.**  Every Raw is *exactly one* of an atom
+    or a complete slash with a part — exhaustive (`no_partial`: one always holds) and
+    exclusive (`atom_xor_part`: never both).  There is no halfway-formed Raw and no
+    terminal that is not the atomic floor; the pointing is complete at every Raw (§5.5). -/
+theorem self_completion_no_partial (r : Raw) :
+    (IsAtom r ∨ ∃ c : Raw, IsPart c r)
+    ∧ ¬ (IsAtom r ∧ ∃ c : Raw, IsPart c r) := by
+  refine ⟨?_, ?_⟩
+  · rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+    · exact Or.inl (Or.inl ha)
+    · exact Or.inl (Or.inr hb)
+    · exact Or.inr ⟨x, hr ▸ slash_has_part x y hxy⟩
+  · rintro ⟨hatom, c, hc⟩
+    rcases hatom with ha | hb
+    · exact (no_part_of_atom c).1 (ha ▸ hc)
+    · exact (no_part_of_atom c).2 (hb ▸ hc)
+
 end E213.Theory.Raw.Lambek
