@@ -103,9 +103,30 @@ negative `object1_not_surjective` — **not** a νF object, and no operator unif
 directions.  The genuinely new theorem is `tower_ascent_isPart` (the explicit ascending
 stream); the depth-unboundedness is `ℕ`-cofinality via `rawTower_depth`.
 
-## Still open — a native νF
+## Second step — the structural escape (route (a), DONE) (`Theory/Raw/CoResidue`, 8 PURE)
 
-The deeper piece remains: a **native final `F`-coalgebra** object with the canonical
-`µF → νF` as a Lean map (rather than the depth/predicate shadows).  Mathlib-free Lean has no
-coinduction; this needs a fuel/stream or setoid emulation.  Deferred unless the inversion is
-taken up as a full track.
+Beyond the depth shadow: a **structural** emulation of νF via the path-function model
+`CoShape := List Bool → Bool` (a node at path `p` is a branch iff `s p = true`), with the
+`F`-coalgebra readout `coOut` (`coIsBranch`/`coLeft`/`coRight`):
+
+  - `allBranch := fun _ => true` — the **infinite complete self-pointing**: a branch at every
+    path (`allBranch_no_leaf`), its own left subtree (`allBranch_coLeft_self`, pointwise, no
+    `funext`) — genuine infinite `coOut`-descent (G180 spec item 4);
+  - `toShape : Tree → CoShape` — the finite-Raw embedding; every finite tree has a leaf path
+    (`tree_has_leaf_path`);
+  - ★ `raw_ne_allBranch` — `toShapeRaw r ≠ allBranch` for every Raw: **no finite Raw is the
+    infinite tree** (the escape, structurally, via a named inhabitant — G180 spec item 3);
+  - `structural_escape` — the bundle (infinite descent + outside the image).
+
+This is richer than the depth shadow (a named co-tree with genuine non-termination), and
+∅-axiom (the `≠` is a pointwise difference, no `funext`).
+
+## Still open — a Lean-native final coalgebra
+
+`CoResidue` is an **emulation**: `CoShape` is the full function space (not the well-formed
+cotree subtype), `toShape` is not claimed injective, and there is no universal-property
+statement (νF as the *final* coalgebra).  A genuinely Lean-native νF — a coinductive carrier
+with `toShape` injective and the final-coalgebra universal property — remains open (Mathlib-
+free Lean has no coinduction primitive; would need a setoid emulation with encoding cost).
+The structural escape (route (a)) is the honest tractable realisation; the universal-property
+νF is the deeper deferred piece.

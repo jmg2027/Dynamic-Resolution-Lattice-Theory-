@@ -373,8 +373,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
     `tower_ascent_isPart` (the genuinely new bit — explicit total ascending `IsPart`-stream),
     `ascent_total_descent_partial` (∃ ascending stream vs ¬∃ descending = `no_infinite_descent`;
     honestly NOT two symmetric faces), `ascent_adds_unit`, `tower_no_cycle`,
-    `descent_wf_ascent_unbounded` (convenience bundle, no new content).  STILL OPEN: a native
-    final F-coalgebra (νF) object — blocked by Mathlib-free coinduction.
+    `descent_wf_ascent_unbounded` (convenience bundle, no new content).  **Route (a) — the
+    structural escape — DONE** (`Theory/Raw/CoResidue`, 8/0; `research-notes/G180`): the
+    path-function νF emulation `CoShape := List Bool → Bool`, with `allBranch` (the infinite
+    complete self-pointing: no leaf, own left subtree, genuine `coOut`-descent) and
+    `raw_ne_allBranch` (no finite Raw is the infinite tree — the escape via a named structural
+    inhabitant, richer than the depth shadow, ∅-axiom no funext).  Escape now witnessed at
+    three scales (`research-notes/G180`: predicate / Raw-floor / tower-ceiling).  STILL OPEN:
+    a Lean-native final F-coalgebra (νF) — `CoShape` is the full function space not the
+    well-formed-cotree subtype, `toShape` not claimed injective, no universal property
+    (needs a setoid coinductive emulation; Mathlib-free Lean has no coinduction primitive).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of

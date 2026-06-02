@@ -67,12 +67,15 @@ A native νF construction must give, ∅-axiom and Mathlib-free (no coinduction 
   4. that inhabitant has an *infinite* `out`-descent (no atom floor) — the positive νF
      content the µF `no_infinite_descent` denies for finite Raw.
 
-Tractable route (a): the **path-function model** `CoShape := List Bool → Bool` (a node at
-path `p` is a branch iff `s p = true`); `allBranch := fun _ => true` is the infinite complete
-tree (no leaf path, its own left-subtree — infinite descent); the finite-Raw embedding
-`toShape` has a leaf path on every Raw, so `toShape r ≠ allBranch` for all `r` — the
-structural escape.  (`≠` from a pointwise difference needs no `funext`.)  Route (b): a setoid
-coinductive emulation (encoding cost).
+Route (a) is now **realized** (`Theory/Raw/CoResidue`, 8 PURE): the path-function model
+`CoShape := List Bool → Bool`; `allBranch := fun _ => true` (the infinite complete tree — no
+leaf path, its own left subtree, genuine infinite `coOut`-descent); the finite-Raw embedding
+`toShape` (leaf path on every Raw), so `raw_ne_allBranch : toShapeRaw r ≠ allBranch` ∀r — the
+structural escape (items 1,3,4), ∅-axiom (`≠` from a pointwise difference, no `funext`).  It
+is an **emulation** (full function space, not the well-formed-cotree subtype; `toShape` not
+claimed injective; no universal property), so items 2 (injective embedding) and the
+final-coalgebra universal property remain the deeper open piece (route (b): a setoid
+coinductive emulation with encoding cost).
 
 This is the next track (direction (ii)'s deep piece).  Doing the synthesis first — pinning
 the three shadows and the precise νF spec — is what makes the native construction
