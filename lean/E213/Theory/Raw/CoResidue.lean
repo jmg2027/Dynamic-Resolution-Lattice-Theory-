@@ -130,4 +130,92 @@ theorem structural_escape :
     ∧ (∀ r : Raw, toShapeRaw r ≠ allBranch) :=
   ⟨⟨allBranch_isBranch, allBranch_coLeft_self, allBranch_no_leaf⟩, raw_ne_allBranch⟩
 
+/-! ## §5 — the anamorphism: `CoShape` is weakly final
+
+An `F`-coalgebra is a seed type `X` with `c : X → Bool × X × X` (root-is-branch, left seed,
+right seed).  The **anamorphism** `ana c` unfolds any coalgebra into `CoShape` — it walks a
+path, branching by the seed's children — and it is a *coalgebra homomorphism* (`coOut`
+commutes, pointwise).  So every `F`-coalgebra maps into `CoShape`: `CoShape` is **weakly
+final**.  Both the finite embedding (`toShape = ana treeCoalg`) and the infinite inhabitant
+(`allBranch = ana` of the always-branch coalgebra) are anamorphisms — the difference is
+whether the seed-coalgebra is well-founded (`Tree`, terminates) or not (always-branch).
+
+Honest scope: this is the **existence** half of finality (every coalgebra has a hom in);
+*uniqueness* of the hom (finality proper) needs bisimulation/coinduction and stays open.  And
+this `Bool`-`CoShape` records only branch-vs-leaf, conflating the two atoms, so `toShape` is
+not injective — a faithful embedding needs a leaf-labelled `CoShape`, a further step. -/
+
+/-- The anamorphism: unfold an `F`-coalgebra `c` from seed `x` into a `CoShape` by walking
+    the path through the seed's children. -/
+def ana {X : Type} (c : X → Bool × X × X) (x : X) : List Bool → Bool
+  | []           => (c x).1
+  | (true :: p)  => ana c (c x).2.1 p
+  | (false :: p) => ana c (c x).2.2 p
+
+/-- `ana` reads the root shape off the seed. -/
+theorem ana_isBranch {X : Type} (c : X → Bool × X × X) (x : X) :
+    coIsBranch (ana c x) = (c x).1 := rfl
+
+/-- `ana` is a coalgebra hom on the left subtree (pointwise): the left subtree of the unfold
+    is the unfold of the left seed. -/
+theorem ana_coLeft {X : Type} (c : X → Bool × X × X) (x : X) (p : List Bool) :
+    coLeft (ana c x) p = ana c (c x).2.1 p := rfl
+
+/-- `ana` is a coalgebra hom on the right subtree (pointwise). -/
+theorem ana_coRight {X : Type} (c : X → Bool × X × X) (x : X) (p : List Bool) :
+    coRight (ana c x) p = ana c (c x).2.2 p := rfl
+
+/-- The always-branch coalgebra on `Unit`: a single state that branches into itself forever. -/
+def fullCoalg : Unit → Bool × Unit × Unit := fun _ => (true, (), ())
+
+/-- ★★ **The infinite inhabitant is an anamorphism.**  `allBranch` is the unfold of the
+    always-branch coalgebra (`allBranch p = ana fullCoalg () p`): the canonical non-well-founded
+    self-pointing, presented as a coalgebra unfold. -/
+theorem allBranch_eq_ana (p : List Bool) : allBranch p = ana fullCoalg () p := by
+  induction p with
+  | nil => rfl
+  | cons b p ih => cases b <;> exact ih
+
+/-- The finite tree's natural `F`-coalgebra: an atom is a leaf (children itself), a slash is
+    a branch with its two children. -/
+def treeCoalg : Tree → Bool × Tree × Tree
+  | Tree.a         => (false, Tree.a, Tree.a)
+  | Tree.b         => (false, Tree.b, Tree.b)
+  | Tree.slash x y => (true, x, y)
+
+/-- ★★ **The finite embedding is an anamorphism.**  `toShape = ana treeCoalg` (pointwise):
+    the finite-Raw shape is the unfold of the tree's own coalgebra — the well-founded
+    companion of `allBranch`'s non-well-founded unfold. -/
+theorem toShape_eq_ana : ∀ (t : Tree) (p : List Bool), toShape t p = ana treeCoalg t p
+  | _,              []           => by cases ‹Tree› <;> rfl
+  | Tree.a,         (b :: p)     => by cases b <;> exact toShape_eq_ana Tree.a p
+  | Tree.b,         (b :: p)     => by cases b <;> exact toShape_eq_ana Tree.b p
+  | Tree.slash x y, (true :: p)  => toShape_eq_ana x p
+  | Tree.slash x y, (false :: p) => toShape_eq_ana y p
+
+/-- ★★★ **`CoShape` is weakly final, and the escape is an anamorphism gap.**  Three facts:
+
+    1. **weakly final** — every `F`-coalgebra `c` unfolds into `CoShape` via `ana c`, a
+       coalgebra hom (`ana_isBranch`/`ana_coLeft`/`ana_coRight`): existence of the unfold for
+       all coalgebras;
+    2. **both faces are unfolds** — the finite embedding is `ana treeCoalg` (`toShape_eq_ana`)
+       and the infinite inhabitant is `ana fullCoalg` (`allBranch_eq_ana`);
+    3. **the escape** — the always-branch unfold `allBranch` is reached by no finite Raw
+       (`raw_ne_allBranch`).
+
+    So the residue's escape is, structurally, the **gap between the well-founded unfolds
+    (finite Raw) and the non-well-founded one (allBranch)** inside the weakly-final coalgebra.
+    Honest: weakly final (existence), not final (uniqueness needs coinduction); the
+    `Bool`-`CoShape` is not the injective/well-formed cotree — both deferred. -/
+theorem weakly_final_escape :
+    (∀ {X : Type} (c : X → Bool × X × X) (x : X) (p : List Bool),
+        coIsBranch (ana c x) = (c x).1
+        ∧ coLeft (ana c x) p = ana c (c x).2.1 p
+        ∧ coRight (ana c x) p = ana c (c x).2.2 p)
+    ∧ (∀ t p, toShape t p = ana treeCoalg t p)
+    ∧ (∀ p, allBranch p = ana fullCoalg () p)
+    ∧ (∀ r : Raw, toShapeRaw r ≠ allBranch) :=
+  ⟨fun c x p => ⟨ana_isBranch c x, ana_coLeft c x p, ana_coRight c x p⟩,
+   toShape_eq_ana, allBranch_eq_ana, raw_ne_allBranch⟩
+
 end E213.Theory.Raw.CoResidue
