@@ -170,6 +170,39 @@ theorem neg_one_qr_of_inverse (a b c b' j : Nat) (h : markovEq a b c)
     dvd_sub_213 (c * M) (((a * b') * (a * b') + 1) + c * M) c hle hcM hdvd
   rwa [add_sub_cancel_right] at hsub
 
+/-! ## §3b — toward coprimality: a common divisor of two entries divides the third's square
+
+The first (descent-free) step of pairwise coprimality.  A common divisor `d` of `b` and `c`
+divides `a²`: from `a² = 3abc − (b²+c²)` and `d ∣ 3abc`, `d ∣ b²`, `d ∣ c²`.  Hence
+`gcd(b,c) ∣ a²` — so any prime in `gcd(b,c)` divides all three entries, the foothold for the
+full coprimality descent (the remaining "no such prime" step is the classical minimal-solution
+argument, recorded as an open target). -/
+
+/-- ★★★ **A common divisor of two entries divides the third's square.**  `d ∣ b → d ∣ c →
+    d ∣ a²` for a Markov triple, since `a² = 3abc − (b²+c²)` with every term on the right
+    divisible by `d`.  Pure `ℕ` (one `dvd_sub_213`). -/
+theorem markov_common_dvd_sq (a b c d : Nat) (h : markovEq a b c)
+    (hb : d ∣ b) (hc : d ∣ c) : d ∣ (a * a) := by
+  have h' : a * a + (b * b + c * c) = 3 * a * b * c := by
+    rw [← Nat.add_assoc]; exact h
+  have hbc : d ∣ (b * b + c * c) :=
+    dvd_add_213 d (b * b) (c * c) (dvd_mul_left_213 d b b hb) (dvd_mul_left_213 d c c hc)
+  have h3 : d ∣ 3 * a * b * c := dvd_mul_left_213 d (3 * a * b) c hc
+  have hle : b * b + c * c ≤ 3 * a * b * c := by
+    rw [← h']; exact Nat.le_add_left (b * b + c * c) (a * a)
+  have hsub : d ∣ (3 * a * b * c - (b * b + c * c)) := dvd_sub_213 _ _ d hle hbc h3
+  have heq : 3 * a * b * c - (b * b + c * c) = a * a := by
+    rw [← h', add_sub_cancel_right]
+  rwa [heq] at hsub
+
+/-- `gcd(b,c) ∣ a²` for a Markov triple — the common divisor specialised to the gcd
+    (`gcd213_dvd_left/right`).  A prime in `gcd(b,c)` therefore divides all three entries. -/
+theorem markov_gcd_dvd_sq (a b c : Nat) (h : markovEq a b c) :
+    E213.Tactic.NatHelper.gcd213 b c ∣ (a * a) :=
+  markov_common_dvd_sq a b c (E213.Tactic.NatHelper.gcd213 b c) h
+    (E213.Meta.Nat.Gcd213.gcd213_dvd_left b c)
+    (E213.Meta.Nat.Gcd213.gcd213_dvd_right b c)
+
 /-! ## §4 — the encoding fires: concrete `−1`-QR witnesses off Markov neighbors
 
 Instantiating `neg_one_qr_of_inverse` on the actual tree triples.  Each exhibits an explicit
