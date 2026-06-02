@@ -800,4 +800,37 @@ theorem markov_recovery (a b c : Nat) (hc : 1 < c) (hco : gcd213 b c = 1) (ha : 
       ← E213.Tactic.NatHelper.mul_assoc a j c,
       E213.Tactic.NatHelper.add_mul_mod_self_pure a c (a * j), Nat.mod_eq_of_lt ha]
 
+/-- **Residue of a `√(−1)` witness is a root.**  If `c ∣ x² + 1` then `u = x % c` satisfies
+    `(u·u + 1) % c = 0` — the divisibility witness descends to its residue (`x ≡ u`, so
+    `x² + 1 ≡ u² + 1 ≡ 0`).  ∅-axiom via `mul_mod_pure` + `add_mod_gen` + `mul_mod_right`. -/
+theorem mod_root_of_dvd_sq_succ {c x : Nat} (h : c ∣ (x * x + 1)) :
+    ((x % c) * (x % c) + 1) % c = 0 := by
+  obtain ⟨k, hk⟩ := h
+  have hsq : ((x % c) * (x % c)) % c = (x * x) % c :=
+    (E213.Meta.Nat.MulMod213.mul_mod_pure x x c).symm
+  calc ((x % c) * (x % c) + 1) % c
+      = (((x % c) * (x % c)) % c + 1 % c) % c := E213.Meta.Nat.AddMod213.add_mod_gen _ _ _
+    _ = ((x * x) % c + 1 % c) % c := by rw [hsq]
+    _ = (x * x + 1) % c := (E213.Meta.Nat.AddMod213.add_mod_gen _ _ _).symm
+    _ = (c * k) % c := by rw [hk]
+    _ = 0 := E213.Tactic.NatHelper.mul_mod_right c k
+
+/-- ★★★★★ **The root-recovery bundle (2-D → 1-D, general).**  For a Markov triple `(a,b,c)`
+    with `1 < c`, `a < c`, and `b` coprime to `c`, the residue `u = (a · b⁻¹) mod c` is BOTH a
+    root of `−1` (`(u·u + 1) % c = 0`) AND recovers the smallest entry (`a = (u · b) % c`).  So a
+    triple at maximum `c` is determined by the pair `(u, b)`, with `u` ranging over the *finite*
+    root set of `x² ≡ −1 (mod c)`.  Uniqueness at `c` is therefore a finite per-root 1-D search
+    over `b` — the route that sidesteps the infeasible 2-D `∀a∀b` enumeration. -/
+theorem markov_root_recovery (a b c : Nat) (hc : 1 < c) (ha : a < c)
+    (hco : gcd213 b c = 1) (h : markovEq a b c) :
+    ∃ u, u < c ∧ (u * u + 1) % c = 0 ∧ a = (u * b) % c := by
+  have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
+  refine ⟨(a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c, Nat.mod_lt _ hcpos, ?_, ?_⟩
+  · have hmod : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+      rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
+          Nat.mod_eq_of_lt hc]
+    exact mod_root_of_dvd_sq_succ
+      (neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 h hmod)
+  · exact markov_recovery a b c hc hco ha
+
 end E213.Lib.Math.Real213.MarkovUniqueness
