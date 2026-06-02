@@ -16,6 +16,7 @@ import E213.Lib.Math.Cauchy.PositiveFloorUnbounded
 import E213.Lib.Math.Cauchy.NonHolonomicWitness
 import E213.Lib.Math.Cauchy.ZeroRunNonHolonomic
 import E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness
+import E213.Lib.Math.Cauchy.MorseHedlund
 import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
