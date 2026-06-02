@@ -19,6 +19,7 @@ import E213.Lib.Math.CayleyDickson.Integer.ZIHom
 import E213.Lib.Math.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaDomain
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature
+import E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.CayleyDickson.Integer.ZSqrt2Domain

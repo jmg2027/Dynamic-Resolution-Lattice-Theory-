@@ -222,8 +222,15 @@ A–D + B are now **all closed ∅-axiom this arc**:
     form (`ProbeTwistConic.Q_preserved`) and that form is indefinite (`golden_indefinite`,
     `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → completing bottom rung
     (`floor_reference_is_indefinite`) — the disc+5/line complement of the disc−3/curve
-    `EisensteinSignature`, no CD import.  OPEN: the `W=d`/geometric rungs' discriminant
-    labels (the rest of `rung ↔ discriminant`).
+    `EisensteinSignature`, no CD import.  **Signature trichotomy completed**
+    (`CayleyDickson/Integer/ParabolicSignature`, 4/0): the degenerate disc-0 form
+    `(m−k)²` is semi-definite (`parab_nonneg`) with a non-origin zero (`parab_nonorigin_zero`,
+    `parabForm 1 1 = 0`, zero on a line) — the parabolic cusp between the golden line
+    (disc+5) and Eisenstein curve (disc−3); `signature_trichotomy` = line/cusp/curve,
+    mirroring the SL₂(ℤ) trace trichotomy.  The cusp = rational direction = the residue at
+    the modular scale (ties to C3).  OPEN: the `W=d`/geometric rungs have no clean
+    conserved quadratic form (non-unimodular), so `rung ↔ discriminant` is natural only
+    for the det-one floor — done.
   - **Analysis ↔ logic single engine — DONE** (this branch, `Cauchy/DepthOverflowDuality`,
     15/0): the **beyond-T1–T4** part of the transfinite-ordinals proposal (Core Q3 /
     Expected Impact).  `Overflow bound val i := bound i < val i` (= `bound i + 1 ≤ val i`,

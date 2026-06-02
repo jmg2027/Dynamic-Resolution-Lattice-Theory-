@@ -296,6 +296,13 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
+`E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature` — **4 PURE / 0 DIRTY**.
+Completes the signature dichotomy to a trichotomy: the degenerate disc-0 form
+`parabForm m k = (m−k)²` is semi-definite (`parab_nonneg`, a square) with a non-origin
+zero (`parab_nonorigin_zero`, `parabForm 1 1 = 0`, vanishing on a line) — the parabolic
+cusp between the indefinite golden line (disc+5) and the definite Eisenstein curve
+(disc−3).  `signature_trichotomy` bundles all three.
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.Padic.*` — Real213-p-adic library — adds **308 PURE

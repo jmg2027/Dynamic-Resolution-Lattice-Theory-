@@ -77,6 +77,17 @@ fact about the sign of the discriminant, on the real `ℤ` forms (tied to `ZOmeg
 (An earlier ℕ-visible sidestep proved `a·b ≤ a²+b²`; it is removed now that the signed-ℤ
 `PolyInt2` route exists and is canonical.)
 
+**The trichotomy, completed.**  `CayleyDickson/Integer/ParabolicSignature` adds the
+degenerate **disc `0`** middle: `parabForm m k = (m−k)²` is semi-definite (`parab_nonneg`,
+a square) with a *non-origin* zero (`parab_nonorigin_zero`, `parabForm 1 1 = 0`, vanishing
+on a line) — the **parabolic cusp** between the indefinite golden line (disc `+5`) and the
+definite Eisenstein curve (disc `−3`).  `signature_trichotomy` bundles disc `+5` / `0` /
+`−3` = line / cusp / curve, mirroring the `SL₂(ℤ)` trace trichotomy (|tr| > 2 / = 2 / < 2).
+The cusp is the rational direction — the genuine, irreducible divergence of the geodesic
+coding, i.e. the **residue** read at the modular-surface scale (the one cusp of
+`ℍ/SL₂(ℤ)`), tying the discriminant trichotomy back to `DepthOverflowDuality`/
+`DepthCeilingResidue` (C3).
+
 ## What this opens (still ∅-axiom-shaped)
 
   - **C2 refined → a `rung ↔ discriminant` theorem.**  Tie the W-relation rungs (`W const`
