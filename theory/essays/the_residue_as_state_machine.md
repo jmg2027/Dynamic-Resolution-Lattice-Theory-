@@ -3,7 +3,7 @@
 A cross-frame reading of `the_residue_as_primitive.md`, offered from the register-transfer
 (RTL) frame.  It is a **Lens reading** (`seed/AXIOM/06_lens_readings.md`): not a claim that the
 residue *is* a state machine, but that the self-pointing act, read through the automaton
-dictionary, *is* the standard mathematics of state-based systems — because **coalgebras are
+dictionary, *is* the standard mathematics of state-based systems — because **coalgebras model
 the mathematics of state machines**, and what `CoResidue` builds *reads as* a final coalgebra
 (up to pointwise equality, among anti-reflexive coalgebras — `CoResidue.slashNu_final`; the
 over-approximation `CoResidue.final_coalgebra` is for `F X = Bool × X × X`).  So the RTL
@@ -36,6 +36,7 @@ transition** condition — and that one fact propagates all the way to the νF c
 | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / `AntiRefl` |
 | all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`, since it requires `AntiRefl`) |
 | free-running counter (state after `n` cycles) | `PrimitiveTower.rawTower` (`depth` = cycle count) |
+| reachable state (built from an initial state) | `StateMachine.BuildsIn` (reflexive–transitive build relation) |
 
 ## Determinacy = finality
 
@@ -64,7 +65,7 @@ sequence of finite states* (`MuNuMirror.ascent_unbounded` — never a completed 
 Raw).  The **gap** between the two readings — that the trace `spineL` is no reachable finite
 state — is exactly the **residue** (`FlatOntologyClosure.object1_not_surjective` at the
 foundational scale; the un-enclosed face of `the_form_of_the_residue.md`).  So the µF/νF
-distinction *is* the source-without-enclosure: reachable-out, trace-never-enclosed.
+distinction *reads as* the source-without-enclosure: reachable-out, trace-never-enclosed.
 
 ## The non-degenerate transition, end to end
 
@@ -81,6 +82,33 @@ information).  The slash forbids it (`x ≠ y`), and the forbidding propagates:
 So anti-reflexivity, the residue's `x ≠ y`, reads as **non-degeneracy of the transition**: the
 νF carrier admits free-running counters but excludes pure self-loops.
 
+## Reachability — every state is built from an initial state
+
+The µF side has the standard FSM completeness property: **every state is reachable from an
+initial (atom) state**, by a bounded number of build-steps.  The build relation
+`StateMachine.BuildsIn n seed top` is the **`n`-step** iterate of the *reverse* peel
+relation (`IsPart`, upward) — `refl` plus one-step `IsPart`-extension, not a transitive closure
+(no `trans` is proved): each step builds a bigger register value from one of its constituents
+(its next-state-down).
+
+  - **The counter reaches every level on the clock.**  `StateMachine.counter_reachable`: from
+    the reset atom `b`, the counter `rawTower n` is reached in *exactly* `n` build-steps —
+    one rung per tick (`tower_ascent_isPart`).  With `rawTower_depth` it gives
+    `counter_reaches_every_level`: the reached state has `depth = n`, so step-count = level.
+    The counter is, in this reading, a **clock** — and (`counter_no_return`, §4) one that never
+    revisits a state.
+  - **Every state is reachable, within `depth` steps.**  `StateMachine.every_state_reachable`:
+    for *any* register value `r` there is *an* atom `seed` (`a` or `b`, whichever floors that
+    state — not a unique reset) and a step count `k ≤ r.depth` with `BuildsIn k seed r`.  The
+    whole µF carrier is reachable from the atomic floor, and the build never takes more steps
+    than the state's depth — `depth` is an *upper bound* on the build distance (`k ≤ r.depth`),
+    not in general an equality.  (Proved by depth-bounded strong induction via `decompose`, the
+    `isPart_wf` shape; no `Raw.rec`.)
+
+So µF is not merely well-founded (descent terminates) but **reachable** (ascent from the atoms
+covers it): the two faces of the same finite-build structure — read downward it converges
+(`isPart_wf`), read upward it is generated from the initial states (`every_state_reachable`).
+
 ## Open frontier (honest scope)
 
   - This is a *reading*, not an identity (`§6`, the facet discipline): the FSM vocabulary is one
@@ -93,7 +121,7 @@ So anti-reflexivity, the residue's `x ≠ y`, reads as **non-degeneracy of the t
 
 ## Lean source
 
-- `lean/E213/Theory/Raw/StateMachine.lean` (5 PURE) — the FSM-reading theorems above; in
+- `lean/E213/Theory/Raw/StateMachine.lean` (8 PURE) — the FSM-reading theorems above; in
   `Theory/Raw/API`.
 - Reads `Theory/Raw/{Lambek, CoResidue, MuNuMirror, PrimitiveTower}` through the dictionary;
   companion to `the_residue_as_primitive.md`.

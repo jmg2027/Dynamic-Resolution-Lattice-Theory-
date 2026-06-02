@@ -20,6 +20,7 @@ objects, read as:
   | non-degenerate transition (distinct successors) | the slash's `x ≠ y` / anti-reflexivity |
   | the all-branch self-loop (successors identical), excluded | `allBranchL` (`∉ SlashNu`) |
   | free-running counter | `rawTower` (`depth` = cycle count) |
+  | reachable state (built from an initial atom) | `BuildsIn` (reflexive–transitive build relation) |
   | state decodes to its next-state (Lambek forward; round-trip `rebuild`) | `decompose` + `terminal_iff_atom` |
 
 All carriers are function types, so everything is stated **pointwise** (no `funext`); no
@@ -31,10 +32,11 @@ Narrative: `theory/essays/the_residue_as_state_machine.md`.
 namespace E213.Theory.Raw.StateMachine
 
 open E213.Theory (Raw)
-open E213.Theory.Raw.Lambek (IsAtom IsTerminal decompose terminal_iff_atom)
+open E213.Theory.Raw.Lambek (IsAtom IsTerminal IsPart decompose terminal_iff_atom
+  slash_has_part part_depth_succ_le depth_drops)
 open E213.Theory.Raw.CoResidue (LCoShape allBranchL AntiRefl coLeftAt coRightAt lAna lAna_unique)
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth)
-open E213.Theory.Raw.MuNuMirror (tower_no_cycle)
+open E213.Theory.Raw.MuNuMirror (tower_no_cycle tower_ascent_isPart)
 
 /-! ## §1 — state ≅ transition (the µF Lambek reading) -/
 
@@ -107,5 +109,68 @@ theorem counter_no_return {m n : Nat} (h : m < n) :
     (rawTower m).depth < (rawTower n).depth ∧ rawTower m ≠ rawTower n := by
   refine ⟨?_, tower_no_cycle (Nat.ne_of_lt h)⟩
   rw [rawTower_depth, rawTower_depth]; exact h
+
+/-! ## §5 — reachability: every state is built from an initial (atom) state -/
+
+/-- **Reachability in exactly `n` build-steps.**  `BuildsIn n seed top` — there is a chain
+    `seed = r₀, r₁, …, rₙ = top` where each `rᵢ` is a *part* (immediate predecessor /
+    constituent next-state) of `rᵢ₊₁` (`IsPart rᵢ rᵢ₊₁`).  This is the **`n`-step** build
+    relation — `refl` (zero steps) plus one-step `IsPart`-extension (the upward reading of the
+    peel relation `IsPart`); it is the iterate `IsPartᵇⁿ`, *not* a transitive closure (no
+    `trans` is proved).  One step builds a bigger state from one of its constituents.  In the
+    FSM reading, `seed` is an initial register value and `top` is reached after `n`
+    build-steps. -/
+inductive BuildsIn : Nat → Raw → Raw → Prop where
+  | refl (r : Raw) : BuildsIn 0 r r
+  | step {n : Nat} {seed mid top : Raw} :
+      BuildsIn n seed mid → IsPart mid top → BuildsIn (n + 1) seed top
+
+/-- ★★★ **The free-running counter reaches every level — in exactly that many build-steps.**
+    From the initial atom `b` (`rawTower 0 = b`), the counter `rawTower n` is reached in
+    *exactly* `n` build-steps, each adding one rung (`tower_ascent_isPart`).  Read as an FSM:
+    starting from the reset state, the free-running counter reaches its `n`-th value after
+    `n` clock ticks — and (`counter_reaches_every_level`) that state has `depth = n`, so every
+    level is reached. -/
+theorem counter_reachable (n : Nat) : BuildsIn n Raw.b (rawTower n) := by
+  induction n with
+  | zero => exact BuildsIn.refl Raw.b
+  | succ k ih => exact BuildsIn.step ih (tower_ascent_isPart k)
+
+/-- ★★ **Every level is reached.**  Packaging `counter_reachable` with `rawTower_depth`: in
+    `n` build-steps from `b` the counter reaches a state of `depth = n` — so for every level
+    `n` there is a reachable state at exactly that depth (the counter is a *clock*: step count
+    = level reached). -/
+theorem counter_reaches_every_level (n : Nat) :
+    BuildsIn n Raw.b (rawTower n) ∧ (rawTower n).depth = n :=
+  ⟨counter_reachable n, rawTower_depth n⟩
+
+/-- ★★★ **Every state is reachable from an initial (atom) state, within `depth` build-steps.**
+    For *any* register value `r` there is *an* atom `seed` (`a` or `b`, whichever floors that
+    state — not a unique reset) and a step count `k ≤ r.depth` with `BuildsIn k seed r`: every
+    state is built up from an atomic floor, and the build never takes more steps than the
+    state's depth (`k ≤ r.depth` — an upper bound, not an equality).  This is **reachability of
+    the whole µF carrier** from the initial states — the synthesizable invariant.  Proved by
+    depth-bounded strong induction (the `isPart_wf` shape) via `decompose`; no `Raw.rec`. -/
+theorem every_state_reachable (r : Raw) :
+    ∃ seed : Raw, IsAtom seed ∧ ∃ k : Nat, k ≤ r.depth ∧ BuildsIn k seed r := by
+  have key : ∀ n : Nat, ∀ r : Raw, r.depth < n →
+      ∃ seed : Raw, IsAtom seed ∧ ∃ k : Nat, k ≤ r.depth ∧ BuildsIn k seed r := by
+    intro n
+    induction n with
+    | zero => intro r hr; exact absurd hr (Nat.not_lt_zero _)
+    | succ m ih =>
+        intro r hr
+        rcases decompose r with ha | hb | ⟨x, y, hxy, hr_eq⟩
+        · exact ⟨Raw.a, Or.inl rfl, 0, Nat.zero_le _, by rw [ha]; exact BuildsIn.refl Raw.a⟩
+        · exact ⟨Raw.b, Or.inr rfl, 0, Nat.zero_le _, by rw [hb]; exact BuildsIn.refl Raw.b⟩
+        · subst hr_eq
+          have hpart : IsPart x (Raw.slash x y hxy) := slash_has_part x y hxy
+          have hxle : x.depth + 1 ≤ (Raw.slash x y hxy).depth := part_depth_succ_le _ _ hpart
+          have hxdlt : x.depth < m :=
+            Nat.lt_of_lt_of_le (depth_drops x y hxy).1 (Nat.le_of_lt_succ hr)
+          obtain ⟨seed, hseed, j, hj, hbuild⟩ := ih x hxdlt
+          exact ⟨seed, hseed, j + 1,
+            Nat.le_trans (Nat.add_le_add_right hj 1) hxle, BuildsIn.step hbuild hpart⟩
+  exact key (r.depth + 1) r (Nat.lt_succ_self _)
 
 end E213.Theory.Raw.StateMachine
