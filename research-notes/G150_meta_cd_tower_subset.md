@@ -1163,6 +1163,37 @@ of `e`/`π`) is the equianharmonic Eisenstein period (`j=0` CM by `ℤ[ω]`,
 a `Γ(1/3)`-value) — interpretive, not formalised; the algebraic skeleton
 is pinned.
 
+## Phase 24 — 4 이상의 축은 세 구성품의 합성
+
+User intuition: axes ≥ 4 are built from the three components of
+`AxisSeedTrichotomy` (`2`-axis `NT`, `3`-axis `NS`, `2+3`-axis `NS+NT`).
+The framework confirms it — the three are `{2,3,5}` and generate every
+exceptional axis multiplicatively.  `AxisComposition.lean` (∅-axiom, 5
+theorems):
+
+  * `icosahedral_order_factors` — `|2I| = 120 = NT³·NS·(NS+NT) = 2³·3·5`:
+    the three components are exactly the prime factors of the largest
+    binary polyhedral group.
+  * `polyhedral_orders_smooth` — every order in `2T/2O/2I` (`{1,2,3,4,5,
+    6,8,10}`) is `{2,3,5}`-smooth; the first non-smooth `7` is the first
+    order *absent* from every binary polyhedral group (`is5smooth 7 =
+    false`).  (Uses a fuel-based `dropFactor`/`is5smooth`, pure via
+    `Nat.mod`/`div`.)
+  * `higher_axes_factor` — `4 = NT²`, `6 = NT·NS`, `8 = NT³`, `9 = NS²`,
+    `10 = NT·(NS+NT)`, `12 = NT²·NS`, `15 = NS·(NS+NT)`.
+  * `trace_field_composes` — `φ` multiplicative ⇒ composite trace fields
+    are the **compositum** of prime-axis ones: `φ(6)=φ(2)φ(3)`,
+    `φ(10)=φ(2)φ(5)`, `φ(12)=φ(4)φ(3)`, `φ(15)=φ(3)φ(5)`.
+  * `axes_from_three_components` — synthesis.
+
+**Confirmed.**  The three components `{NT, NS, NS+NT} = {2,3,5}` are a
+*generating set*: the primes of `|2I|`, with all polyhedral orders
+`{2,3,5}`-smooth, every higher order a product of the three, and every
+higher trace field the tensor (compositum) of the primitive ones
+(`bare √NT`, Eisenstein `ω`, golden `φ`).  Nothing of order ≥ 4 is new —
+the intuition holds.  (The `7`-gap is the sharp witness: `7 ∉ {2,3,5}`, so
+no order-`7` axis occurs.)
+
 ## 메타 원칙 (CLAUDE.md 보완)
 
 > **크게 생각하고 레포지토리를 먼저 뒤져라.**
