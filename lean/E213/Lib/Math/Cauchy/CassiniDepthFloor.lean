@@ -26,7 +26,7 @@ This is the *sufficiency* direction `q = 1 ⟹ depth 0`, the structural floor be
 
 namespace E213.Lib.Math.Cauchy.CassiniDepthFloor
 
-open E213.Lib.Math.CassiniUnimodular (det det_step)
+open E213.Lib.Math.CassiniUnimodular (det det_step det_closed qpow)
 open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ diffZ)
 open E213.Lib.Math.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
@@ -132,5 +132,23 @@ theorem second_diff_closure (p q : Int) (s : Nat → Int)
        = (p - q - 1) * s n + (p - 2) * (s (n + 1) - s n)
   rw [hrec n]
   ring_intZ
+
+/-- ★★★ **The orbit on the ladder: order-2 C-finite, Cassini drops it by one order.**  For a
+    2nd-order constant-coefficient orbit, two complementary structures:
+
+    1. **additive / middle rung** — the orbit is C-finite, `Δ²s = (p−q−1)·s + (p−2)·Δs`
+       (`second_diff_closure`): the difference-orbit closes at dimension `≤ 2`;
+    2. **multiplicative / order-drop** — its Cassini determinant is *geometric* (order-1 C-finite),
+       `det s n = qⁿ · det s 0` (`det_closed`): the quadratic Cassini invariant **drops the order
+       by one** — from the order-2 orbit to an order-1 geometric sequence (and, when `q = 1`, to
+       the order-0 constant of the polynomial bottom rung, `cassini_is_polynomial`).
+
+    So the Cassini map is a one-step descent of the orbit-dimension ladder: order-2 C-finite ↦
+    order-1 geometric ↦ (at `q=1`) order-0 polynomial. -/
+theorem cfinite_orbit_ladder_placement (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) :
+    (∀ n, diffZ (diffZ s) n = (p - q - 1) * s n + (p - 2) * diffZ s n)
+    ∧ (∀ n, det s n = qpow q n * det s 0) :=
+  ⟨second_diff_closure p q s hrec, det_closed p q s hrec⟩
 
 end E213.Lib.Math.Cauchy.CassiniDepthFloor
