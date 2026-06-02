@@ -33,7 +33,7 @@ namespace E213.Lib.Math.Cauchy.NewtonGregory
 open E213.Lib.Math.Cauchy.DepthPRecursiveInstances (binom binom_zero_right binom_lt_zero binom_diag)
 open E213.Meta.Int213
   (add_comm add_assoc add_left_comm add_right_comm mul_comm mul_add add_mul zero_mul
-   add_neg_cancel)
+   add_neg_cancel mul_neg neg_mul neg_add mul_sub)
 
 /-! ## §0 — small ℤ rearrangement helpers (pure, over `Int213`) -/
 
@@ -260,5 +260,106 @@ theorem reconstruct {d : Nat} {s : Nat → Int} (h : polyDepthZ d s) (n : Nat) :
       (fun j hj _ => by
         show (binom n j : Int) * liftKZ j s 0 = 0
         rw [binom_lt_zero n j hj]; exact zero_mul _)).symm
+
+/-! ## §5 — the inverse transform: `Δⁿ = (E − I)ⁿ` (the binomial-transform involution)
+
+`newton_gregory` is the forward arrow `s ↦ (Δʲs)(0)` read back: `s = F (Δ·s 0)` where
+`F` is the binomial transform `(F c) n = Σ binom(n,j) cⱼ`.  The matched inverse arrow
+is `Δⁿ = (E − I)ⁿ` expanded:
+
+> ★★★ `newton_gregory_inverse` : `(Δⁿ s)(m) = Σ_{j=0}^{n} (−1)^{n−j} binom(n,j) s(m+j)`.
+
+Together they say the binomial transform and its sign-twisted partner are a matched
+inverse pair (the "umbral inverse pair", Pólya–Ostrowski ⇄ monomial change of basis).
+The two presentations — a sequence and its iterated differences-at-a-point — are one
+object read in two bases, related by an involutive change of basis; this is a
+fixed-point-*rich* (grounding) self-map, not a fixed-point-free oscillation.
+
+The sign is handled without a second Pascal induction: on the effective range
+`j ≤ n` (where `binom n j ≠ 0`), `(−1)^{n−j} = (−1)ⁿ·(−1)ʲ`, so the whole inverse sum
+is `(−1)ⁿ · bsum n (fun j => (−1)ʲ·s(m+j)) n` and the existing `bsum_pascal` carries it. -/
+
+/-- `(−1)^k` as a `ℤ`-valued sign. -/
+def negPow : Nat → Int
+  | 0   => 1
+  | k+1 => -(negPow k)
+
+theorem negPow_succ (k : Nat) : negPow (k + 1) = -(negPow k) := rfl
+
+/-- `bsum` pulls a global sign out of the summand (`Σ binom·(−xⱼ) = −Σ binom·xⱼ`). -/
+theorem bsum_neg (T : Nat) (x : Nat → Int) : ∀ L,
+    bsum T (fun j => -(x j)) L = -(bsum T x L)
+  | 0 => by
+    show (binom T 0 : Int) * (-(x 0)) = -((binom T 0 : Int) * x 0)
+    rw [mul_neg]
+  | L+1 => by
+    show bsum T (fun j => -(x j)) L + (binom T (L+1) : Int) * (-(x (L+1)))
+       = -(bsum T x L + (binom T (L+1) : Int) * x (L+1))
+    rw [bsum_neg T x L, mul_neg, neg_add]
+
+/-- `−(a − b) = b − a` (pure). -/
+theorem neg_sub' (a b : Int) : -(a - b) = b - a := by
+  rw [Int.sub_eq_add_neg, neg_add, Int.neg_neg, Int.sub_eq_add_neg, add_comm]
+
+/-- ★ **Signed Pascal step**, reusing the forward `bsum_pascal`.  For any `u`:
+    `(−1)ⁿ·[ Σ binom(n,j)(−1)ʲ u(j+1) − Σ binom(n,j)(−1)ʲ u j ] =
+     (−1)^{n+1}·Σ binom(n+1,j)(−1)ʲ u j`.  The bracket is exactly `−bsum(n+1)` of the
+    signed sequence by `bsum_pascal` (the shifted column carries the extra `−1` from
+    `(−1)^{j+1}`). -/
+theorem inv_step (n : Nat) (u : Nat → Int) :
+    negPow n * (bsum n (fun j => negPow j * u (j+1)) n
+                - bsum n (fun j => negPow j * u j) n)
+    = negPow (n+1) * bsum (n+1) (fun j => negPow j * u j) (n+1) := by
+  -- W j = negPow j * u j ;  bsum_pascal: bsum (n+1) W (n+1) = bsum n W n + bsum n (W∘succ) n
+  have hshift : bsum n (fun j => (fun i => negPow i * u i) (j+1)) n
+              = -(bsum n (fun j => negPow j * u (j+1)) n) := by
+    rw [← bsum_neg n (fun j => negPow j * u (j+1)) n]
+    exact bsum_congr n _ _ (fun j => by
+      show negPow (j+1) * u (j+1) = -(negPow j * u (j+1))
+      rw [negPow_succ, neg_mul]) n
+  rw [bsum_pascal n (fun j => negPow j * u j), hshift, negPow_succ, neg_mul,
+      mul_add, mul_neg, ← Int.sub_eq_add_neg, neg_sub', mul_sub]
+
+/-- ★★★ **Inverse Newton–Gregory: `Δⁿ = (E − I)ⁿ`.**  For every `s : ℕ → ℤ` and all
+    `m n`: `(Δⁿ s)(m) = Σ_{j=0}^{n} (−1)^{n−j} binom(n,j) · s(m+j)`, written as
+    `(−1)ⁿ · Σ_{j≤n} (−1)ʲ binom(n,j) s(m+j)`.  The matched inverse of `newton_gregory`
+    — together they exhibit the binomial transform as a self-paired (involutive)
+    change of basis. -/
+theorem newton_gregory_inverse (s : Nat → Int) : ∀ n m,
+    liftKZ n s m = negPow n * bsum n (fun j => negPow j * s (m + j)) n
+  | 0, m => by
+    show s m = negPow 0 * bsum 0 (fun j => negPow j * s (m + j)) 0
+    show s m = (1 : Int) * ((binom 0 0 : Int) * (negPow 0 * s (m + 0)))
+    rw [Nat.add_zero]
+    show s m = (1 : Int) * ((1 : Int) * ((1 : Int) * s m))
+    rw [Int.one_mul, Int.one_mul, Int.one_mul]
+  | n+1, m => by
+    show liftKZ n s (m + 1) - liftKZ n s m
+       = negPow (n+1) * bsum (n+1) (fun j => negPow j * s (m + j)) (n+1)
+    -- bridge s((m+1)+j) = s(m+(j+1)) inside the first sum, factor, then apply inv_step
+    rw [newton_gregory_inverse s n (m + 1), newton_gregory_inverse s n m,
+        bsum_congr n (fun j => negPow j * s (m + 1 + j))
+          (fun j => negPow j * s (m + (j + 1)))
+          (fun j => by
+            show negPow j * s (m + 1 + j) = negPow j * s (m + (j + 1))
+            rw [Nat.add_assoc m 1 j, Nat.add_comm 1 j]) n,
+        ← mul_sub]
+    exact inv_step n (fun j => s (m + j))
+
+/-- ★★ **Round-trip `F ∘ G = id`.**  Reconstructing a sequence from its
+    inverse-transform coefficients returns the sequence: combining the forward
+    (`newton_gregory_zero`) and inverse (`newton_gregory_inverse`) arrows, the
+    iterated differences-at-`0` are exactly the inverse-transform of `s`, and the
+    forward transform inverts them.  The binomial transform is invertible over `ℤ`. -/
+theorem binomial_transform_roundtrip (s : Nat → Int) (n : Nat) :
+    s n = bsum n (fun j => liftKZ j s 0) n
+      ∧ liftKZ n s 0 = negPow n * bsum n (fun j => negPow j * s j) n :=
+  ⟨newton_gregory_zero s n, by
+    have h := newton_gregory_inverse s n 0
+    rw [bsum_congr n (fun j => negPow j * s (0 + j)) (fun j => negPow j * s j)
+          (fun j => by
+            show negPow j * s (0 + j) = negPow j * s j
+            rw [Nat.zero_add]) n] at h
+    exact h⟩
 
 end E213.Lib.Math.Cauchy.NewtonGregory
