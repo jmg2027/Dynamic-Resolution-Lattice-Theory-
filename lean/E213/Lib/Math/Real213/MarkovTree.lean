@@ -97,4 +97,29 @@ theorem markov_fibonacci_branch :
     ∧ markovEq 1 (fib 5) (fib 7) ∧ markovEq 1 (fib 7) (fib 9) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! ## §4 — the Pell branch (the `√2`/silver spine) -/
+
+/-- Pell numbers `P(n+2) = 2·P(n+1) + P(n)`: `0, 1, 2, 5, 12, 29, 70, 169, …`. -/
+def pell : Nat → Nat
+  | 0 => 0
+  | 1 => 1
+  | (n + 2) => 2 * pell (n + 1) + pell n
+
+/-- ★★★ **The Pell branch of the Markov tree.**  The odd-index Pell numbers
+    `pell 1, pell 3, pell 5, pell 7 = 1, 5, 29, 169` are the Markov numbers on the
+    `(2, P_{2n−1}, P_{2n+1})` branch: each consecutive pair forms a triple
+    `markovEq 2 (pell(2n−1)) (pell(2n+1))`.  The Vieta step `P_{2n−1} + P_{2n+3} = 6·P_{2n+1}
+    = 3·2·P_{2n+1}` is the Pell recurrence — the `√2`/silver-form spine, parallel to the
+    Fibonacci/golden spine, the two principal branches descending from `(1,1,2)`. -/
+theorem markov_pell_branch :
+    pell 1 = 1 ∧ pell 3 = 5 ∧ pell 5 = 29 ∧ pell 7 = 169
+    ∧ markovEq 2 (pell 1) (pell 3) ∧ markovEq 2 (pell 3) (pell 5)
+    ∧ markovEq 2 (pell 5) (pell 7) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- A Vieta jump along the Pell spine `(2, 5, 29) → (2, 29, 169)` via `markov_vieta`
+    (`pell 3 + pell 7 = 5 + 169 = 174 = 3·2·29 = 3·2·pell 5`). -/
+theorem markov_pell_jump : markovEq 2 (pell 5) (pell 7) :=
+  markov_vieta 2 (pell 5) (pell 3) (pell 7) (by decide) (by decide)
+
 end E213.Lib.Math.Real213.MarkovTree

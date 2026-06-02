@@ -79,6 +79,13 @@ worst-approximable spine of the approximation spectrum is the same Fibonacci/gol
 that runs `P = [[2,1],[1,1]]` — φ at the bottom (`√5`), its Fibonacci convergents climbing
 the spine.
 
+The **other principal spine is Pell** (`markov_pell_branch`): the odd-index Pell numbers
+`pell 1, pell 3, pell 5, pell 7 = 1, 5, 29, 169` are the Markov numbers on the
+`(2, P_{2n−1}, P_{2n+1})` branch, with Vieta step `P_{2n−1} + P_{2n+3} = 6·P_{2n+1}` the Pell
+recurrence — the `√2`/silver-form side.  So the two recursions that generate the repo's two
+quadratic seeds (golden disc 5, silver disc 8) are exactly the two principal branches of the
+Markov tree descending from `(1,1,2)`.
+
 ### Relation to the spiral classification
 
 This is the approximation-spectrum reading of the spiral invariant.  Where `μ` collapses
