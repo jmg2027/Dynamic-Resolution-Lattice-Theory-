@@ -14,6 +14,7 @@ import E213.Lib.Math.CayleyDickson.Tower.McKayADClosure
 import E213.Lib.Math.CayleyDickson.Tower.FullOctahedral
 import E213.Lib.Math.CayleyDickson.Tower.FullIcosian
 import E213.Lib.Math.CayleyDickson.Tower.IcosianClassStructure
+import E213.Lib.Math.CayleyDickson.Tower.BinaryPolyhedralTower
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Levels.Pathion
