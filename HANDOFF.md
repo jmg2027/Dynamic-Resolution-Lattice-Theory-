@@ -47,6 +47,7 @@ building a reusable **∅-axiom `ring` infrastructure** for ℕ and ℤ, then us
   `polyDepthZ_mul`, `polyDepthZ_mono`+`polyDepthZ_add`) — no Stirling.  `aperyLeadZ_depth`:
   the ζ(3) coeff `34n³−51n²+27n−5` (negative coeffs) has depth 3 over ℤ with **no reindex**
   (vs the ℕ version's `n=m+2`); `aperyLeadZ_value` = 117 at n=2.
+- **`DepthCharacterization` (13 PURE)** — ★ the capstone: `finite_depthZ_iff` (`polyDepthZ d s ↔ ∃ c, s = newtonZ c d` — finite divergence depth ⟺ degree-≤d polynomial; ⟹ `reconstruct`, ⟸ new ℤ binom-column depth `polyDepthZ_binomColZ`) + exactness `newtonZ_depth_drop` (depth = degree exactly).  Unifies this branch's ℕ ladder with the concurrent ℤ `reconstruct`.
 
 ### 2. The ∅-axiom `ring` infrastructure (the durable reusable win — `Meta/`)
 The user's "build infra, not Lean core" push.  Lean-core `ring`/`omega`/`ac_rfl` pull
@@ -129,8 +130,8 @@ combining `PolynomialDepth` + `NewtonGregory.reconstruct`).  Recommend (a) — t
 mature; the physics validation is where the stated standard lives.
 
 ## Three-tier state
-- **Promotions this session**: none (all new Lean is Tier-2 source; the depth/Casoratian
-  sub-trees are PURE-closed and are **promotion candidates** for `theory/math/analysis/`).
+- **Promotions this session**: `theory/math/analysis/divergence_depth_characterization.md` (the
+  divergence-depth thread, mirroring the closed Lean; G171 notes archived to `research-notes/archive/`).
 - **Promotion candidates**: `Cauchy/{DepthAperyCubic, PolynomialDepth, CasoratianSigned}` +
   the `Meta` `ring` infra — eligible for a `theory/math/analysis/divergence_depth.md` chapter
   per `theory/PROMOTION_CRITERIA.md`.
