@@ -3,7 +3,7 @@
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**
 (101 commits: NewtonGregory/FiniteDepthAlgebra, StateMachine FSM, PolynomialDepth, `ring_nat`
-tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 50 PURE +
+tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 51 PURE +
 `ModArith/MarkovPrimeFactor` 28 PURE = 72, all ∅-axiom.  **Integration**: main's `ring_nat`
 (∅-axiom `ℕ` ring, `Meta/Nat/PolyNatMTactic`) grafted into the Markov polynomial-identity lemmas
 (`sq_expand`, `neg_one_sq_mod`, `neg_one_qr_of_inverse`'s `hsq`/`hkey`, `3bac=3abc`) — verbose
@@ -111,6 +111,8 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 
 ## Dead ends (don't repeat)
 - `decide` on `c ∣ …` → `propext` DIRTY.  Use `% c = 0`.
+- `markov_composite_separation` (c=1325) uses `decide` over `∀ b<1325` (×2) — `maxRecDepth
+  40000`, ~60s to build that module.  Larger composites cost more; 1D recovery search only.
 - `decide` on `MarkovMaxUnique`/uniqueness for `c≥169` → heartbeat timeout (>200000) /
   max-recursion.  Cap in-kernel `decide` at `c≈34`; cite external enumeration for larger.
 - `set` tactic = Mathlib, unavailable.  Use `obtain ⟨M,_⟩ : ∃ M, …`.

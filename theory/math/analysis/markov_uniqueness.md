@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (50 PURE / 0 dirty):
+explicit open target.  Source of truth (51 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -153,8 +153,16 @@ it takes ≤ 2 values (prime powers); at composite `c` it takes `2^ω ≥ 4` val
 separating — so an extra observer is needed.  `markov_phantom_root_filter` is the first such
 filter, at the smallest composite `c = 65 = 5·13`: the four roots `{8,18,47,57}` explode, yet
 `markovEq · · 65` admits no triple — every root is *phantom*, and the primitive Diophantine
-descent constraint is what filters them.  This is the precise localisation of where the conjecture
-is open, with the separating mechanism anchored at the testbed.
+descent constraint is what filters them.
+
+`markov_composite_separation` then advances the mechanism to the **first real composite Markov
+number** with the explosion, `c = 1325 = 5²·53` (four roots `{182,507,818,1143}`).  Here `markovEq`
+separates them exactly: the valid pair `{507,818}` recovers the actual triple `(13,34,1325)` via
+`a = (u·b) mod c` (`507↦b=34⇒a=13`, `818↦b=13⇒a=34`), while the phantom pair `{182,1143}` closes
+no triple (`∀ b < 1325, ¬ markovEq ((u·b)%1325) b 1325`).  Since any triple `(a,b,1325)` has root
+`a·b⁻¹` among the four and the `∀b¬` rules out the phantom pair, uniqueness holds at `1325`
+*structurally* — the first such separation at a genuine composite Markov number, exactly where the
+general conjecture is open.
 
 ## Pairwise coprimality is the tree's invariant
 
@@ -210,4 +218,4 @@ lake build E213.Lib.Math.Real213.MarkovUniqueness
 cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
 ```
-Reports `50 pure / 0 dirty`.
+Reports `51 pure / 0 dirty`.

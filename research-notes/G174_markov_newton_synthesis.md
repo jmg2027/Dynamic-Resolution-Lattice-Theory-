@@ -77,8 +77,7 @@ separates is the primitive Diophantine descent constraint `markovEq` itself: eve
 descent quotient `(u²+1)/65 ∈ {1,5,34,50}` is a Markov number (`1,5,34`), no triple closes because
 `65` is not on the tree.  So the residue observable is provably insufficient and the descent
 constraint provably filters — at `65`, exactly the Myhill–Nerode "extra observer" the framing
-calls for.  (Real composite Markov numbers — `610 = 2·5·61`, `1325 = 5²·53` — are the continuation;
-the filter mechanism is now anchored.)
+calls for.  (Advanced to the *real* composite Markov number `1325 = 5²·53` below — `markov_composite_separation`.)
 
 ## D — the Vieta jump as a difference reflection; the depth boundary  [PROVEN]
 
@@ -107,9 +106,12 @@ difference-annihilator being the golden quadratic.
   C-finite recurrence with golden difference-annihilator `Δ²−Δ−1`; Casoratian = the `√(−1)`
   residue; Vieta jump = difference reflection/involution.
 - **C** — the Myhill–Nerode reframing of the open C6 crux; the **phantom-root filter**
-  (`markov_phantom_root_filter`) is the first *proven* instance of the "extra observer" at the
-  composite testbed `65`.  Still does not claim residue-injectivity at real composite Markov
-  numbers (per the red-team standing warning) — that is the continuation.
+  (`markov_phantom_root_filter`, `65`) and **`markov_composite_separation`** (the *first real*
+  composite Markov number `1325=5²·53`: `markovEq` separates the 4 roots into the valid pair
+  `{507,818}` recovering `(13,34,1325)` and the phantom pair `{182,1143}` closing no triple — so
+  uniqueness holds at `1325` structurally) are *proven* instances of the "extra observer".  Still
+  not the *general* residue-injectivity at all composite `c` (per the red-team warning) — that is
+  the continuation; but the mechanism is now demonstrated at a genuine composite Markov number.
 - **Prime-power input** — `sqrtNegOneTwoRoots_prime_pow` promotes `SqrtNegOneTwoRoots (p^(k+1))`
   to a named theorem (the Button/Zhang `≤2`-roots, via the `p`-adic valuation split
   `two_roots_of_prime_pow`).

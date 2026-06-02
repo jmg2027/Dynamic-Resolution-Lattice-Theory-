@@ -398,6 +398,38 @@ theorem markov_phantom_root_filter :
     ∧ (∀ a, a ≤ 65 → ∀ b, b ≤ 65 → ¬ markovEq a b 65) :=
   ⟨⟨by decide, by decide, by decide, by decide⟩, not_sqrtNegOneTwoRoots_65, by decide⟩
 
+/-! ### Composite separation at a real Markov number `c = 1325 = 5²·53`
+
+The phantom filter advanced from the `65` testbed (not a Markov number) to the **first real
+composite Markov number with the `2^ω = 4` root explosion**, `c = 1325 = 5²·53` (`ω = 2` distinct
+odd primes `≡ 1 mod 4`).  Its four roots of `x² ≡ −1` are `{182, 507, 818, 1143}` — two `±` pairs
+`{507,818}` and `{182,1143}`.  The Diophantine observer `markovEq` separates them exactly:
+
+  * the **valid pair** `{507,818}` is the actual historical tree path — each root recovers the
+    Markov triple via `a = (u·b) mod c`: `507 ↦ b=34 ⇒ a=13`, `818 ↦ b=13 ⇒ a=34`, both the unique
+    triple `(13,34,1325)`;
+  * the **phantom pair** `{182,1143}` violates the descent invariant — **no** `b < 1325` closes a
+    triple (`∀ b, ¬ markovEq ((u·b)%1325) b 1325`).
+
+So uniqueness holds at `1325` *structurally*: any triple `(a,b,1325)` gives a root `a·b⁻¹` among
+the four; the `∀b¬` rules out the phantom pair, and the valid pair recovers only `(13,34,1325)`.
+The residue observable over-counts (4 values) but the descent constraint filters to the one
+triple — the first such separation at a genuine composite Markov number. -/
+set_option maxRecDepth 40000 in
+theorem markov_composite_separation :
+    -- the actual tree triple at 1325
+    markovEq 13 34 1325
+    -- the 2^ω = 4 root explosion {182,507,818,1143} (two ± pairs, 507+818 = 182+1143 = 1325)
+    ∧ ((182 * 182 + 1) % 1325 = 0 ∧ (507 * 507 + 1) % 1325 = 0
+        ∧ (818 * 818 + 1) % 1325 = 0 ∧ (1143 * 1143 + 1) % 1325 = 0)
+    -- VALID pair {507,818}: each root recovers the triple via a = (u·b) mod 1325
+    ∧ (markovEq ((507 * 34) % 1325) 34 1325 ∧ markovEq ((818 * 13) % 1325) 13 1325)
+    -- PHANTOM pair {182,1143}: no b closes a triple (descent invariant violated)
+    ∧ (∀ b, b < 1325 → ¬ markovEq ((182 * b) % 1325) b 1325)
+    ∧ (∀ b, b < 1325 → ¬ markovEq ((1143 * b) % 1325) b 1325) :=
+  ⟨by decide, ⟨by decide, by decide, by decide, by decide⟩,
+   ⟨by decide, by decide⟩, by decide, by decide⟩
+
 /-! ## §8 — the Fibonacci spine's `√(−1)` residues are φ's convergents (from Cassini)
 
 The most `213`-native fact in the file: the square root of `−1` mod a Fibonacci-spine Markov
