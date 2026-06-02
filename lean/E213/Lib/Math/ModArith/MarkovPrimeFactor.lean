@@ -385,4 +385,59 @@ theorem euclid_of_coprime (a b m : Nat) (hm : 1 < m) (hco : gcd213 a m = 1) (hdv
     rw [inverse_of_coprime a m hmpos hco, Nat.mod_eq_of_lt hm]
   exact euclid_via_inverse m a b (modBezout a m).2 hinv hdvd
 
+/-! ## §8 — prime-power coprimality (toward the Button/Zhang case)
+
+With Euclid's lemma in hand, the structure of divisors of `pᵏ`: a "prime" `p` (divisors only
+`1, p`) makes every divisor of `pᵏ` either `1` or divisible by `p`, hence `gcd(n, pᵏ) = 1`
+whenever `p ∤ n`.  This is the coprimality the prime-power two-roots theorem needs. -/
+
+/-- For a prime `p` (`hpr`: divisors are `1` or `p`), `p ∤ n ⟹ gcd213 p n = 1`. -/
+theorem prime_coprime (p n : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) (hn : ¬ p ∣ n) :
+    gcd213 p n = 1 := by
+  rcases hpr (gcd213 p n) (gcd213_dvd_left p n) with h1 | hp
+  · exact h1
+  · exact absurd (hp ▸ gcd213_dvd_right p n) hn
+
+/-- **Divisors of a prime power are `1` or divisible by `p`.**  `d ∣ pᵏ ⟹ d = 1 ∨ p ∣ d`.
+    Induction on `k`, cancelling one `p` via `euclid_of_coprime` when `p ∤ d`. -/
+theorem dvd_prime_pow_cases (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) :
+    ∀ (k d : Nat), d ∣ p ^ k → d = 1 ∨ p ∣ d := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hp2
+  intro k
+  induction k with
+  | zero =>
+    intro d hd
+    obtain ⟨c, hc⟩ := hd
+    exact Or.inl (mul_eq_one_left d c hc.symm)
+  | succ k ih =>
+    intro d hd
+    have hpowpos : 0 < p ^ (k + 1) := Nat.pos_pow_of_pos (k + 1) hppos
+    have hdne : 0 < d := by
+      rcases Nat.eq_zero_or_pos d with h0 | h0
+      · rw [h0] at hd
+        obtain ⟨c, hc⟩ := hd
+        rw [Nat.zero_mul] at hc
+        exact absurd hc (Nat.ne_of_gt hpowpos)
+      · exact h0
+    rcases Nat.lt_or_ge d 2 with hd2 | hd2
+    · exact Or.inl (Nat.le_antisymm (Nat.le_of_lt_succ hd2) hdne)
+    · -- split on gcd213 p d = 1 ∨ = p (pure; avoids Decidable (∣))
+      rcases hpr (gcd213 p d) (gcd213_dvd_left p d) with hco | hgp
+      · have hdvd' : d ∣ p * p ^ k := by
+          have h1 : d ∣ p ^ k * p := (Nat.pow_succ p k) ▸ hd
+          rwa [Nat.mul_comm] at h1
+        exact ih d (euclid_of_coprime p (p ^ k) d hd2 hco hdvd')
+      · exact Or.inr (hgp ▸ gcd213_dvd_right p d)
+
+/-- `p ∤ n ⟹ gcd213 n (pᵏ) = 1` for a prime `p`. -/
+theorem coprime_prime_pow (p n : Nat) (hp2 : 2 ≤ p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hn : ¬ p ∣ n) (k : Nat) : gcd213 n (p ^ k) = 1 := by
+  rcases dvd_prime_pow_cases p hp2 hpr k (gcd213 n (p ^ k)) (gcd213_dvd_right n (p ^ k))
+    with h | hp
+  · exact h
+  · -- p ∣ gcd213 n (p^k) ∣ n  ⟹  p ∣ n, contradicting hn (manual transitivity)
+    obtain ⟨c, hc⟩ := hp
+    obtain ⟨e, he⟩ := gcd213_dvd_left n (p ^ k)
+    exact absurd ⟨c * e, by rw [he, hc]; exact E213.Tactic.NatHelper.mul_assoc p c e⟩ hn
+
 end E213.Lib.Math.ModArith.MarkovPrimeFactor
