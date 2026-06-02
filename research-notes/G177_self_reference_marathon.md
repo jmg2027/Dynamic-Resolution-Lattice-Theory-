@@ -79,6 +79,15 @@ This is the ∅-axiom `Nat` shadow of §5.7, **not** an identification of frozen
     (Whether this `+1` is "the same" unit as the descent/overflow steps is narrative — no
     `Nat` term links them here.)
 
+### Boolean-algebra completion (`Lens/Bool213/Raw`, +9/0) — the oscillation substrate
+
+Rounds out the `{T,F}` algebra the oscillation side lives on: `and_compl`/`or_compl`
+(complement `x ∧ ¬x = ⊥`, `x ∨ ¬x = ⊤`), `and_T_right`/`and_F_right`/`or_F_right`/`or_T_right`
+(identity + null bounds), `and_assoc213`/`or_assoc213` (associativity); `bool213_boolean_algebra_laws`
+bundles them.  With the prior comm/idem/distrib/absorption/De Morgan, this is the complete
+*equational* signature of the two-element Boolean algebra (no `BooleanAlgebra` typeclass
+constructed — equational laws only, by `{T,F}` case-split).
+
 ### Synthesis capstone (`Lens/SelfReferenceThreeOutcomes`, 1/0)
 
   - ★ `self_reference_three_outcomes` — one ∅-axiom statement: the same Raw self-pointing
@@ -114,6 +123,11 @@ of the four, plus a reading over the other two.
     fixedness.
   - **ε₀ as a native diagonal limit** — whether iterating the height-diagonal yields a native
     `ε₀` (no Mathlib `Ordinal`) or bottoms out at `ω^ω` (genuinely uncertain; `G173`).
+  - **General Cassini for `L`** — `∀ n, L n · L(n+2) − L(n+1)² = d` (the conserved
+    determinant), generalising the three `decide` instances `cassini_at_{one,two,three}` in
+    `Mobius213/Px/CharPolySelf`.  The quantity is conserved by `L_cayley_hamilton`; the step
+    is a 2-var `Int` identity (`poly_id2`).  Easy–medium; deferred (the closely-related
+    `FibCassiniNat.fib_cassini_norm` already gives the ∀n convergent Cassini).
   - **Rejected (category error)** — a single self-applying operator unifying `not`, the peel
     relation, `Object1`, the trace-doubling `D`.  They act on different types; the honest
     unification is the *shared unit* (`reentry_unit_across_scales`), not a forced map (G175).

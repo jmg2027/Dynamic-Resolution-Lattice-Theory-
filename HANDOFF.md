@@ -335,6 +335,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
       the homogeneous frozen relation `a²=ab+b²`; sits one `Nat` step off),
       `dynamic_approaches_never_reaches_frozen` (orbit below φ + Cassini + never lands on the
       frozen relation).
+    - **Boolean-algebra completion** (`Lens/Bool213/Raw`, +9/0): `and_compl`/`or_compl`
+      (complement), identity/null bounds, `and_assoc213`/`or_assoc213`,
+      `bool213_boolean_algebra_laws` — the complete equational signature of the `{T,F}`
+      Boolean algebra (the oscillation substrate).
+    - **Honesty pass** (adversarial review): corrected overclaiming docstrings/names —
+      `frozen_eq_dynamic` → `dynamic_approaches_never_reaches_frozen` (it is the §5.7 `Nat`
+      shadow, not a real identification); `slash_depth_is_minOverflow` downgraded (`add_comm`,
+      unused index dropped); `reentry_unit_across_scales` reworded (only `peel_overflow_is_unit`
+      load-bearing); `self_reference_three_outcomes` reworded (three independent facts, not
+      proved "one self-pointing").  G177 spine table marks proved vs narrative links.
     - **Synthesis capstone** (`Lens/SelfReferenceThreeOutcomes`, 1/0, NEW file):
       `self_reference_three_outcomes` — one Raw self-pointing, three co-present sharp
       outcomes, no operator forced across their types.  Remaining open: a concrete
