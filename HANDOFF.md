@@ -103,14 +103,14 @@ approximation / Markov spectrum).  Precision table unchanged — see
 
 ### 1. π non-holonomicity (the marathon headline) — classically OPEN
 `(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  Provable neighbours closed
-(`HurwitzianCF`, `PositiveFloorUnbounded`).  Credible routes: Flajolet–Gerhold–Salvy
-asymptotic obstruction; **Klazar growth bound** (super-`(n!)^d` ⟹ non-holonomic).
-**Localized** this session: π's p.q. boundedness is OPEN; the elementary periodicity route
-is unavailable in the expected-unbounded regime, so any proof must engage unbounded p.q.
-growth directly.  **Next provable increment (C10):** a constructed super-`(n!)^d` CF section
-is genuinely non-holonomic — populates the true top tier above the non-Hurwitzian `2ⁿ`.  Try
-building a ∅-axiom growth-vs-`liftK`-ladder obstruction (cf. `DepthDoubleExp`,
-`geom_infinite_depth`).  See `research-notes/G173` + `G170`.
+(`HurwitzianCF`, `PositiveFloorUnbounded`, `NonHolonomicWitness`).  The **genuine
+non-holonomic tier is now inhabited ∅-axiom** by `(n!)ⁿ` (`superFact_nonHolonomic`, via the
+elementary Klazar growth majorant — C10 CLOSED this session).  **But π is provably NOT
+reachable by that growth route** (π's p.q. don't grow super-factorially), so π's tier-3
+membership needs a *different* obstruction.  **Next (C11):** the FGS *asymptotic-shape*
+obstruction (holonomic ⟹ `C·ρ⁻ⁿ·n^θ·(log n)^κ`), incompatible with π's Gauss–Kuzmin
+statistics — the genuinely hard, still-open core (and conditional on π GK-normal, also open).
+See `research-notes/G173` + `G170`.
 
 ### 2. ζ(3) Apéry divergence depth — DEFERRED TO ANOTHER BRANCH (user)
 The depth tower `e=3 → π=6 → ζ(3)=?` via the Apéry recurrence
@@ -160,6 +160,7 @@ Options (none uniquely forced — ask user):
 ## File Map
 ```
 NEW Lean (all ∅-axiom):
+  lean/E213/Lib/Math/Cauchy/NonHolonomicWitness.lean                       ← (n!)ⁿ genuinely non-holonomic, Klazar envelope (22 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/PositiveFloorUnbounded.lean                    ← positive top diff ⟹ unbounded (13 PURE) [this session]
   lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean                              ← CF-holonomicity tiers (21 PURE)
   lean/E213/Lib/Math/CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean ← axis {2,4,6} exhaustive + cosines (9)

@@ -49,6 +49,15 @@ A companion file `Cauchy/PositiveFloorUnbounded.lean` (13 PURE) adds the unbound
 | `positive_linear_exact` | positive-floor depth-1 ⟹ *exact* `s n = s 0 + c·n` (the ∅-axiom positive-linear case of `QuasiPolyCF ⟹ polynomially-bounded`) |
 | `ePQ_unbounded` | e's partial quotients are unbounded — its `2k+2` section has positive top difference, so `positive_floor_unbounded` fires |
 
+A third file `Cauchy/NonHolonomicWitness.lean` (22 PURE) reaches the genuinely-non-holonomic tier:
+
+| Theorem | Statement (informal) |
+|---|---|
+| `HolonomicGrowth` | the eventual Klazar growth majorant — `∃ k C D N, ∀ n ≥ N, s(n+k) ≤ C(n+1)^D · windowSum k s n` |
+| `holonomicGrowth_envelope` | `⟹ windowSum k s (N+m) ≤ windowSum k s N · (C+1)ᵐ · ((N+m)!)^D` (window-sum telescoping) |
+| `envelope_exceeded` | `(n!)ⁿ` exceeds every envelope at an explicit `m = 2(W+C+D+2)²+2` |
+| `superFact_nonHolonomic` | `¬ HolonomicGrowth ((n!)ⁿ)` — genuine non-holonomicity, ∅-axiom |
+
 ## Narrative
 
 ### The quasi-polynomial class
@@ -104,6 +113,33 @@ floor.  No finite difference-depth, so no `p` works.
 Yet `2ⁿ` is C-finite (`2ⁿ⁺¹ = 2·2ⁿ`), hence holonomic.  So the "non-Hurwitzian" top tier is
 non-empty *inside* the holonomic class: being non-Hurwitzian is **strictly weaker** than
 being non-holonomic.  This is the precise altitude of the π frontier.
+
+### The genuinely non-holonomic tier — `(n!)ⁿ`
+
+Above the non-Hurwitzian-but-holonomic `2ⁿ` sits the tier of sequences with *no*
+polynomial-coefficient linear recurrence at all.  `Cauchy/NonHolonomicWitness.lean` (22 PURE)
+populates it ∅-axiom, via the elementary form of **Klazar's growth bound** (holonomic ⟹
+`|aₙ| ≤ cⁿ·(n!)^d`).  The bound is formalised through the *growth majorant*
+
+  `HolonomicGrowth s := ∃ k C D N, 1 ≤ k ∧ ∀ n ≥ N, s(n+k) ≤ C·(n+1)^D · windowSum k s n`,
+
+the eventual (`∃N`, mandated by the leading-coefficient roots of a genuine P-recurrence)
+shadow that every ℕ-valued P-recursive sequence satisfies.  `holonomicGrowth_envelope` derives
+the Klazar envelope `windowSum k s (N+m) ≤ windowSum k s N · (C+1)ᵐ · ((N+m)!)^D` by
+subtraction-free window-sum telescoping, and `envelope_exceeded` shows the super-factorial
+witness `superFact n = (n!)ⁿ` beats *every* envelope — so
+**`superFact_nonHolonomic : ¬ HolonomicGrowth ((n!)ⁿ)`**.  The certificate is one-directional
+(`HolonomicGrowth` is *necessary* for P-recursive, so its failure certifies non-holonomicity;
+it is not a characterisation).  This is the first ∅-axiom **non-holonomicity proper** result —
+the genuine top tier, strictly above the merely non-Hurwitzian `2ⁿ`, and the altitude π's CF
+is *conjectured* to reach.
+
+  | tier | class | witness | status |
+  |---|---|---|---|
+  | 0 | quadratic | `φ`, `√2` | periodic ⟹ holonomic |
+  | 1 | Hurwitzian | `e`, `tan 1` | quasi-poly ⟹ holonomic |
+  | 2 | non-Hurwitzian, C-finite | `2ⁿ` | still **holonomic** |
+  | 3 | **non-holonomic** | `(n!)ⁿ` (proven); π (conjectured) | no P-recurrence |
 
 ### Orthogonality
 

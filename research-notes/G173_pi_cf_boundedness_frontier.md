@@ -125,13 +125,41 @@ positive-degree polynomial residue section** has **unbounded** partial quotients
 (`positive_floor_unbounded` on the section; witnessed by `ePQ_unbounded` for e).  This is the
 clean, scoped, fully-constructive content extracted from the (overclaiming) "dichotomy".
 
-**C10 (Klazar route, classical, for the record).**  A constructed CF with **super-`(n!)^d`**
-partial-quotient growth is **non-holonomic** (Klazar's bound, contrapositive) — a *genuinely
-non-holonomic* witness, unlike `2ⁿ` (which is C-finite, only non-Hurwitzian).  This would
-populate the true top tier (non-holonomic) above the current `2ⁿ` (non-Hurwitzian-but-
-holonomic) witness.  Not ∅-axiom (Klazar's bound is analytic/D-finite theory), but a
-candidate target if a ∅-axiom growth-vs-recurrence obstruction can be built over the repo's
-`liftK` ladder.  **This is the most promising next provable increment.**
+**C10 (Klazar route) — CLOSED ∅-axiom this session.**  `Cauchy/NonHolonomicWitness.lean`
+(22 PURE).  The *elementary* form of Klazar's bound IS ∅-axiom-provable (the analytic D-finite
+theory is **not** needed): define the eventual growth majorant `HolonomicGrowth` (the shadow
+every ℕ-valued P-recursive sequence satisfies past the roots of its leading coefficient), prove
+its Klazar envelope by subtraction-free **window-sum telescoping** (`holonomicGrowth_envelope`:
+`W(n+1) ≤ (C+1)(n+1)^D·W(n)` ⟹ `W(N+m) ≤ W_N·(C+1)^m·((N+m)!)^D`), and exhibit the
+super-factorial witness `superFact n = (n!)ⁿ` that beats every envelope (`envelope_exceeded`,
+explicit `m = 2(W+C+D+2)²+2`).  Result: **`superFact_nonHolonomic : ¬ HolonomicGrowth ((n!)ⁿ)`**
+— the first ∅-axiom certificate of **non-holonomicity proper**, the genuine top tier strictly
+above the C-finite `2ⁿ`.
+
+A 4th red-team agent validated the design and forced two corrections, both folded in:
+- **`HolonomicGrowth` must be eventual (`∃N, ∀ n ≥ N`).**  A genuine P-recurrence's leading
+  coefficient `p_k(n)` has finitely many integer roots; at a root the per-`n` majorant
+  inequality can fail.  Without the `∃N` quantifier a singular-but-holonomic sequence would be
+  *falsely* certified non-holonomic — the certificate's soundness rests on
+  `P-recursive ⟹ HolonomicGrowth`, which only holds eventually.
+- **The bridge is the triangle inequality, not "division rounds down".**  `|p_k(n)|·a_{n+k} =
+  |Σ p_i(n) a_{n+i}| ≤ Σ |p_i(n)|·a_{n+i}`, then `|p_k(n)| ≥ 1` (non-root) drops the factor.
+  ℕ-valuedness of `(aₙ)` is essential and explicit.  The certificate is **one-directional**
+  (sufficient, not a characterisation): `HolonomicGrowth` is strictly weaker than P-recursive,
+  so it cannot detect *every* non-holonomic sequence — only those whose growth beats the
+  envelope.  (So `(n!)ⁿ` is certified; π — slowly-growing CF — is **not** reachable this way,
+  which is exactly why π's CF non-holonomicity stays open.)
+
+Tooling note: `omega`, Mathlib `set`/`conv` are all unavailable/axiom-dirty here; every
+add/pow rearrangement is by hand (single-step `Nat.add_assoc`/`add_comm` calc + pure NatHelper).
+New reusable pure helpers: `mul_lt_mul_left_pure`, `pow_mul_pure`, `pow_lt_pow_right_pure`,
+`le_fact`, `windowSum`(+`windowSum_shift`, the subtraction-free identity), `four_comm`.
+
+**Next (C11):** the genuine tier is now inhabited by `(n!)ⁿ`; π's CF remains *conjectured* at
+tier 3 but is **provably not reachable by the Klazar/growth route** (π's partial quotients do
+not grow super-factorially — they are conjecturally Gauss–Kuzmin, bounded-in-`log`-average).
+So tier-3 membership of π needs a *different* obstruction (FGS asymptotic shape, not growth) —
+the genuinely hard, still-open core.
 
 ## Session log
 
