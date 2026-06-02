@@ -130,4 +130,17 @@ theorem conserved_invariant_grows_with_order :
     ∧ (∀ n, hankel3 trib n = hankel3 trib 0) :=
   ⟨by decide, sl3_hankel_conserved 1 1 trib trib_rec⟩
 
+/-- ★★ **The order-3 unimodular dichotomy** (`c = ±1`), mirroring the order-2
+    `CassiniUnimodular.cassini_unimodular_dichotomy`: the `3×3` Casoratian is *conserved* when
+    `c = 1` (det-companion `= 1`) and *alternates* `W₃(n+1) = −W₃(n)` when `c = −1` — both genus-0
+    determinantal, the same `det_step`-style multiplier law at the two unimodular companions. -/
+theorem order3_unimodular_dichotomy (a b : Int) (s : Nat → Int) :
+    ((∀ n, s (n + 3) = a * s (n + 2) + b * s (n + 1) + 1 * s n) →
+      ∀ n, hankel3 s (n + 1) = hankel3 s n)
+    ∧ ((∀ n, s (n + 3) = a * s (n + 2) + b * s (n + 1) + (-1) * s n) →
+      ∀ n, hankel3 s (n + 1) = - hankel3 s n) :=
+  ⟨fun hrec n => (second_casoratian a b 1 s hrec n).trans (Int.one_mul _),
+   fun hrec n => (second_casoratian a b (-1) s hrec n).trans
+     (by rw [E213.Meta.Int213.neg_mul, Int.one_mul])⟩
+
 end E213.Lib.Math.Cauchy.SecondCasoratian
