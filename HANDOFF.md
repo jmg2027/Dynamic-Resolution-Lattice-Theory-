@@ -83,10 +83,11 @@ descent — separate.)
 `Classical` (Wilson construction).
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
-**Input now done for primes**: `MarkovPrimeFactor.two_roots_of_prime` proves `SqrtNegOneTwoRoots p`
-for every prime `p` (≤2 roots mod a prime), via `euclid_via_inverse` (Euclid's lemma from the
-modular inverse) + `sq_expand` + `eq_p_of_dvd`.  So the reduction's hypothesis is discharged at
-prime maxima; closing the residue-map injectivity (below) would give prime-Markov uniqueness (C7).
+**Input now done for prime POWERS** (full Button/Zhang class): `two_roots_of_prime` (primes) and
+`two_roots_of_prime_pow` (`SqrtNegOneTwoRoots (p^(k+1))`, odd prime `p`) — `p` divides ≤1 of
+`x±y`, the coprime one cancels via `euclid_of_coprime` + `coprime_prime_pow`.  So the reduction's
+hypothesis is discharged at every prime-power maximum; closing the residue-map injectivity (below)
+would give prime-power-Markov uniqueness (C7).
 The *implication* is classical; the crux is **injectivity of the residue map**
 `triple ↦ a·b⁻¹ (mod c)`.  Keep as a single named open Lean target; attempt only the
 injectivity lemma in isolation, guarding against vacuity.  Do NOT claim the full reduction.
@@ -113,7 +114,7 @@ Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding + coprimality (43 PURE)
-  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT), ≤2 roots mod prime, xgcd-correctness inverse, general Euclid (21 PURE)
+  lean/E213/Lib/Math/ModArith/MarkovPrimeFactor.lean     ← p≡3 no-root (FLT), xgcd-correctness inverse, general Euclid, ≤2 roots mod p^(k+1) Button/Zhang (28 PURE)
 NEW theory chapter:
   theory/math/analysis/markov_uniqueness.md
 NEW research note:

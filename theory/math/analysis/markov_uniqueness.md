@@ -67,8 +67,15 @@ The root-count input itself is now proved **generally for primes**.  In
 `x + y = p`.  The proof reduces `p ∣ x²+1` and `p ∣ y²+1` to `p ∣ (x−y)(x+y)` (the difference of
 squares, `sq_expand`), then applies **Euclid's lemma** `euclid_via_inverse` (`x−y` is invertible
 mod `p` when `0 < x−y < p`, from the modular inverse) to force `p ∣ (x+y)`, whence `x+y = p`
-(`eq_p_of_dvd`: the only multiple of `p` in `(0, 2p)`).  So the reduction's hypothesis is
-discharged at every prime maximum; the remaining open step is the residue-map injectivity above.
+(`eq_p_of_dvd`: the only multiple of `p` in `(0, 2p)`).
+
+This extends to **every odd prime power** (the full Button/Zhang class): `two_roots_of_prime_pow`
+shows `SqrtNegOneTwoRoots (p^(k+1))` for odd prime `p`.  The new ingredient is that `p` divides
+at most one of `x−y, x+y` (else `p ∣ x`, impossible since `x² ≡ −1`); the coprime one is coprime
+to `p^(k+1)` (`coprime_prime_pow`, from `dvd_prime_pow_cases`: divisors of `pᵏ` are `1` or
+multiples of `p`) and cancels via the fully general Euclid's lemma `euclid_of_coprime`.  So the
+reduction's hypothesis is discharged at every prime-power maximum; the remaining open step is the
+residue-map injectivity above.
 
 What is established directly: the conjecture itself at small maxima, `MarkovMaxUnique` for
 `c = 5, 13, 29` (assembled from the decidable single-pair checks `markov_max_unique_{5,13,29,34}`);
