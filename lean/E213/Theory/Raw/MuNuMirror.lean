@@ -2,36 +2,28 @@ import E213.Theory.Raw.Lambek
 import E213.Theory.Raw.PrimitiveTower
 
 /-!
-# Theory.Raw.MuNuMirror — the two fixed points of the self-pointing act: descent
-terminates (µF), ascent escapes (νF)
+# Theory.Raw.MuNuMirror — the self-pointing act: descent terminates, ascent is unbounded
 
-The act of pointing has two structurally distinct fates, the two fixed points of its own
-constructor shape `F(X) = {a} ⊎ {b} ⊎ {x/y : x ≠ y}` (see `Lambek`):
+The act of pointing, read through its peel relation `IsPart` (`Lambek`), has two contrasting
+facts — and they are an **existential** and a **universal-negation**, not two symmetric faces:
 
-  * **µF (Raw — descent terminates).**  Peeling a Raw is well-founded: every downward
-    `IsPart`-chain bottoms out at an atom (`Lambek.isPart_wf`, `no_infinite_descent`).  Raw is
-    the least fixed point — the finite, grounded realisation of the act.
+  * **descent terminates** — `Lambek.no_infinite_descent`: there is *no* total downward
+    `IsPart`-chain; every descent bottoms out at an atom (`isPart_wf`).  This is the
+    well-founded floor (Raw = µF).
 
-  * **νF (the residue's escape — ascent escapes).**  Iterating the act *upward* — the
-    self-pointing tower `rawTower n = a/(a/(…/b))` (`PrimitiveTower`) — has depth `n` at every
-    rung (`rawTower_depth`), so the depths are cofinal in `ℕ` and **no Raw bounds them**: the
-    completed infinite self-pointing is not any Raw.  This is the residue's escape given a
-    **positive native** form (via `depth`), dual to its negative form
-    (`FlatOntologyClosure.object1_not_surjective`, Cantor) and to the tower-scale
-    `Cauchy.DepthCeilingResidue` — here at the Raw floor.
+  * **ascent is unbounded** — the self-pointing tower `rawTower n = a/(a/(…/b))`
+    (`PrimitiveTower`) has depth `n` at every rung (`rawTower_depth`), and each rung peels
+    from the next (`tower_ascent_isPart`), so there is an *explicit total upward*
+    `IsPart`-stream and the `Raw`-depths are cofinal in `ℕ`: no finite Raw caps them
+    (`ascent_unbounded`).
 
-The same relation `IsPart` carries both: read **downward** it always terminates
-(`no_infinite_descent`), read **upward** it is always continuable
-(`tower_ascent_isPart` — an endless ascending stream exists, `ascent_total_descent_partial`).
-The unit by which the ascent climbs is the count-Lens `1` of one distinguishing
-(`ascent_adds_unit`: one rung = `+1` depth), the same unit the descent drops by
-(`Lambek.part_depth_succ_le`).
-
-Honest scope (the standing guard, `theory/essays/the_form_of_the_residue.md`): these are
-**escape *descriptions*** (`∀ N, ∃ r, N < r.depth`; an ascending stream exists), never a νF
-*object* — Mathlib-free Lean has no native coinduction, and the residue stays outside every
-view.  No operator unifies the up/down readings; they share only the one relation `IsPart`
-and the one readout `depth`, both already defined.  All zero-axiom.
+These are the depth/finite **shadow** of the µF/νF distinction.  Honest scope: there is **no
+νF object here** — `ascent_unbounded` is `∀ N, ∃ r, N < r.depth`, a statement about every
+*finite* Raw, not a completed infinite one; a native final `F`-coalgebra (νF) is an open
+piece, blocked by Mathlib-free coinduction.  And the up/down facts are not symmetric
+"readings of one operator": the ascent is one explicit stream (`rawTower`), the descent is a
+universal-negation taken straight from `Lambek`.  No operator unifies them; they share only
+the relation `IsPart` and the readout `depth`, both already defined.  All zero-axiom.
 -/
 
 namespace E213.Theory.Raw.MuNuMirror
@@ -42,30 +34,22 @@ open E213.Theory.Raw.Lambek (IsPart IsAtom IsTerminal isPart_wf no_infinite_desc
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth depth_and_ne)
 open E213.Theory.Raw.Endomorphic (slashOrSelf_of_ne)
 
-/-! ## §1 — depth is cofinal: every level is realised, no Raw bounds the ascent -/
+/-! ## §1 — `depth` is cofinal over Raw -/
 
 /-- ★ **Depth is cofinal.**  Every `n : Nat` is the depth of some Raw — the tower rung
     `rawTower n` (`rawTower_depth`).  The `depth` readout hits every level. -/
 theorem depth_cofinal (n : Nat) : ∃ r : Raw, r.depth = n :=
   ⟨rawTower n, rawTower_depth n⟩
 
-/-- ★★ **No Raw caps the ascent.**  There is no global depth ceiling: for every bound `N`
-    the rung `rawTower (N+1)` has depth `N+1 > N`.  The self-pointing iterated upward escapes
-    every finite Raw — the residue's escape at the Raw floor, dual to the tower-scale
-    `DepthCeilingResidue` "no top". -/
-theorem no_depth_ceiling : ¬ ∃ N : Nat, ∀ r : Raw, r.depth ≤ N := by
-  rintro ⟨N, hN⟩
-  have h := hN (rawTower (N + 1))
-  rw [rawTower_depth] at h
-  exact Nat.not_succ_le_self N h
-
-/-- ★ **The ascent is unbounded (positive form).**  For every `N` there is a Raw deeper than
-    `N`: `rawTower (N+1)` has depth `N+1`. -/
+/-- ★ **No finite Raw caps the depths.**  For every bound `N` the rung `rawTower (N+1)` has
+    depth `N+1 > N`: the depths are unbounded over Raw (`∀ N, ∃ r, N < r.depth`).  This is the
+    finite/depth shadow of the open νF object (a native final `F`-coalgebra), **not** a νF
+    carrier — it quantifies over finite Raws, it does not construct an infinite one. -/
 theorem ascent_unbounded (N : Nat) : ∃ r : Raw, N < r.depth := by
   refine ⟨rawTower (N + 1), ?_⟩
   rw [rawTower_depth]; exact Nat.lt_succ_self N
 
-/-! ## §2 — the ascent climbs by the unit `1`, and never settles -/
+/-! ## §2 — the ascent climbs by the unit `1`, and never returns -/
 
 /-- ★ **One rung = the unit `1`.**  Each ascent step adds exactly the count-Lens unit of one
     distinguishing: `(rawTower (n+1)).depth = (rawTower n).depth + 1` — the same unit the
@@ -75,7 +59,7 @@ theorem ascent_adds_unit (n : Nat) :
   rw [rawTower_depth, rawTower_depth]
 
 /-- ★ **The ascent never cycles.**  Distinct levels give distinct Raws — the tower never
-    returns: `rawTower` is injective (depth-injective, `rawTower_depth`). -/
+    returns: `rawTower` is depth-injective (`rawTower_depth`). -/
 theorem tower_no_cycle {m n : Nat} (h : m ≠ n) : rawTower m ≠ rawTower n := by
   intro e
   apply h
@@ -83,45 +67,40 @@ theorem tower_no_cycle {m n : Nat} (h : m ≠ n) : rawTower m ≠ rawTower n := 
     _ = (rawTower n).depth := congrArg Raw.depth e
     _ = n := rawTower_depth n
 
-/-! ## §3 — the ascent is an `IsPart`-stream: always continuable -/
+/-! ## §3 — the ascent is an explicit total `IsPart`-stream -/
 
-/-- ★ **Each rung peels from the next.**  `rawTower n` is a part of `rawTower (n+1) =
-    a / rawTower n` — the right child.  So the ascending tower is an `IsPart`-stream going
-    *up*. -/
+/-- ★★ **Each rung peels from the next.**  `rawTower n` is a part of
+    `rawTower (n+1) = a / rawTower n` — the right child.  So `rawTower` is a *total* upward
+    `IsPart`-stream.  (The genuinely new content of this file: an explicit total ascending
+    stream, against which the imported `no_infinite_descent` is the downward
+    universal-negation.) -/
 theorem tower_ascent_isPart (n : Nat) : IsPart (rawTower n) (rawTower (n + 1)) :=
   ⟨Raw.a, rawTower n, (depth_and_ne n).2, slashOrSelf_of_ne (depth_and_ne n).2, Or.inr rfl⟩
 
-/-- ★★★ **Ascent total, descent partial — the µF/νF asymmetry.**  The *same* relation
-    `IsPart`:
+/-- ★★ **Ascent total, descent partial (an existential vs a universal-negation).**  The
+    relation `IsPart`:
 
-    * read **upward** has a total stream — `rawTower` peels at every step
-      (`tower_ascent_isPart`): the self-pointing is always continuable (the νF escape);
-    * read **downward** has *no* total stream — `no_infinite_descent`: every descent
-      terminates at an atom (the µF floor).
+    * read **upward** has an *explicit total* stream — `rawTower` peels at every step
+      (`tower_ascent_isPart`): there is an endless ascending self-pointing;
+    * read **downward** has *no* total stream — `no_infinite_descent` (taken from `Lambek`):
+      every descent terminates at an atom.
 
-    One relation, two fates — the sharp form of "descent converges, ascent escapes".  No
-    operator unifies the directions; they are one relation read two ways. -/
+    Note the asymmetry is between an existential witness and a universal-negation; the descent
+    half is not new here, and these are not symmetric "two faces of one operator". -/
 theorem ascent_total_descent_partial :
     (∃ s : Nat → Raw, ∀ k, IsPart (s k) (s (k + 1)))
     ∧ ¬ ∃ d : Nat → Raw, ∀ k, IsPart (d (k + 1)) (d k) :=
   ⟨⟨rawTower, tower_ascent_isPart⟩,
    fun ⟨d, hd⟩ => no_infinite_descent d hd⟩
 
-/-! ## §4 — the mirror, bundled -/
+/-! ## §4 — convenience bundle -/
 
-/-- ★★★ **The two fixed points of the act.**  Bundles the µF/νF mirror:
-
-    1. **µF (descent terminates)** — the peel relation is well-founded (`isPart_wf`): every
-       downward chain bottoms out;
-    2. **νF (ascent escapes)** — no Raw bounds the upward self-pointing (`ascent_unbounded`):
-       the completed infinite act is not any Raw;
-    3. **floor = atoms** — peel-terminal exactly at the atoms (`terminal_iff_atom`).
-
-    The act, iterated, terminates going *down* (the finite Raw, µF) and escapes going *up*
-    (the residue, νF) — both ∅-axiom, both native (via `IsPart` and `depth`, no Cantor, no
-    coinduction).  This is `Lambek.two_closures` re-read as the two fixed points: the least
-    (grounded) and the escaping (un-bounded), source-without-enclosure at the Raw scale. -/
-theorem mu_nu_mirror :
+/-- **Convenience bundle** (no new logical content beyond its conjuncts): well-founded
+    descent (`isPart_wf`, from `Lambek`), depth-unboundedness (`ascent_unbounded`, the finite
+    shadow), and the floor (`terminal_iff_atom`, from `Lambek`).  Pairs the three facts that
+    describe the act's down/up behaviour at the Raw scale; it does not capture any infinite
+    object. -/
+theorem descent_wf_ascent_unbounded :
     WellFounded IsPart
     ∧ (∀ N : Nat, ∃ r : Raw, N < r.depth)
     ∧ (∀ r : Raw, IsTerminal r ↔ IsAtom r) :=

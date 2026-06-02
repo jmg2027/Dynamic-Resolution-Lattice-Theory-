@@ -367,13 +367,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     derive Raw as its initial algebra (µF) and the residue-escape as the νF co-part.  Finding:
     the inversion is the *same* content read backward (`raw_initial` = Raw is the initial
     F-algebra; `object1_not_surjective` = the νF surplus; which is "primitive" is a Lens choice,
-    §5.4).  `MuNuMirror` gives the escape a **positive native form** (via depth/tower, not
-    Cantor): `no_depth_ceiling`/`ascent_unbounded` (no Raw bounds the upward self-pointing),
-    `ascent_total_descent_partial` (the same `IsPart` has a total stream UP but none DOWN —
-    µF/νF asymmetry), `ascent_adds_unit` (one rung = unit `+1`), `mu_nu_mirror` (the bundle).
-    Honest: escape *descriptions*, not a νF object; no operator across directions.  STILL OPEN:
-    a native final F-coalgebra (νF) object — blocked by Mathlib-free coinduction (fuel/stream
-    or setoid emulation).
+    §5.4).  `MuNuMirror` (7/0) gives the escape's **finite depth/tower shadow** (NOT a νF
+    object — an adversarial review corrected a "positive native νF" overclaim):
+    `depth_cofinal`/`ascent_unbounded` (depths cofinal in ℕ, no finite Raw caps `rawTower`),
+    `tower_ascent_isPart` (the genuinely new bit — explicit total ascending `IsPart`-stream),
+    `ascent_total_descent_partial` (∃ ascending stream vs ¬∃ descending = `no_infinite_descent`;
+    honestly NOT two symmetric faces), `ascent_adds_unit`, `tower_no_cycle`,
+    `descent_wf_ascent_unbounded` (convenience bundle, no new content).  STILL OPEN: a native
+    final F-coalgebra (νF) object — blocked by Mathlib-free coinduction.
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of

@@ -67,15 +67,16 @@ The same self-pointing, read by one Lens, has three co-present outcomes
     at the atoms (settles);
   - **escape** — the predicate/residue reading re-enters and never closes (unbounded).
 
-The escape has both a negative and a positive native form.  Negative: the self-cover misses
-the residue (`object1_not_surjective`, Cantor).  Positive: the act iterated *upward* — the
-self-pointing tower `rawTower` (depth `n` at rung `n`) — has unbounded depth, so no Raw
-bounds it (`Theory/Raw/MuNuMirror.no_depth_ceiling`, `ascent_unbounded`); the completed
-infinite act is not any Raw.  The two fixed points are one bundle
-(`MuNuMirror.mu_nu_mirror`): the same relation `IsPart` terminates downward
-(`no_infinite_descent`, µF) and is endlessly continuable upward
-(`ascent_total_descent_partial`, νF) — descent grounds, ascent escapes, both ∅-axiom and
-native (no Cantor, no coinduction).  This is source-without-enclosure at the Raw floor.
+The escape is witnessed two ways.  Negatively: the self-cover misses the residue
+(`object1_not_surjective`, Cantor).  And by a finite depth/tower shadow: the act iterated
+*upward* — the self-pointing tower `rawTower` (depth `n` at rung `n`) — has depths cofinal in
+`ℕ`, so no *finite* Raw caps the ascent (`Theory/Raw/MuNuMirror.ascent_unbounded`,
+`∀ N, ∃ r, N < r.depth`), and the ascending peel-stream is total (`tower_ascent_isPart`)
+while every descent terminates (`no_infinite_descent`, `ascent_total_descent_partial`).  This
+is the *finite shadow* of the escape, not a completed infinite object: a native final
+`F`-coalgebra (νF) is an open piece (Mathlib-free Lean has no coinduction), and these
+theorems quantify over finite Raws, they do not construct an infinite one.  Descent grounds,
+ascent is unbounded — source-without-enclosure read at the Raw floor.
 
 The unit by which they move is one: the convergence step and the escape surplus are the
 *same* `Nat` `1` (`Cauchy/ReentryUnit.peel_overflow_is_unit`); the oscillation and the golden
