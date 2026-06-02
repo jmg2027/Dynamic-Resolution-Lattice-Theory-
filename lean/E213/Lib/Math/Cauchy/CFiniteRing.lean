@@ -27,7 +27,7 @@ All ∅-axiom (over `Int213`).
 namespace E213.Lib.Math.Cauchy.CFiniteRing
 
 open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ mul_zero')
-open E213.Lib.Math.Cauchy.FiniteDepthAlgebra (add_sub_add)
+open E213.Lib.Math.Cauchy.FiniteDepthAlgebra (add_sub_add liftKZ_diffZ_comm)
 open E213.Lib.Math.Cauchy.OrbitDimension (CFiniteZ linComb)
 open E213.Meta.Int213
   (zero_mul mul_add add_mul add_comm add_assoc add_left_comm add_right_comm
@@ -215,5 +215,91 @@ theorem applyOp_conv (p q : List Int) (s : Nat → Int) :
         applyOp_cons0 (conv p q) s n, ih (diffZ s) n,
         applyOp_congr p (u := applyOp q (diffZ s)) (v := diffZ (applyOp q s))
           (fun m => applyOp_diffZ q s m) n]
+
+/-! ## §4 — the ring law: annihilators multiply -/
+
+/-- `s` is annihilated by the operator `p`: `p(Δ) s ≡ 0`. -/
+def Annih (p : List Int) (s : Nat → Int) : Prop := ∀ n, applyOp p s n = 0
+
+/-- The product `p·q` annihilates whatever `p` annihilates (operators commute, so
+    `q` is harmless on the left). -/
+theorem conv_annih_left (p q : List Int) {s : Nat → Int} (h : Annih p s) :
+    Annih (conv p q) s := fun n => by
+  rw [applyOp_conv p q s n, applyOp_comm p q s n]
+  exact applyOp_zero q h n
+
+/-- The product `p·q` annihilates whatever `q` annihilates. -/
+theorem conv_annih_right (p q : List Int) {t : Nat → Int} (h : Annih q t) :
+    Annih (conv p q) t := fun n => by
+  rw [applyOp_conv p q t n]
+  exact applyOp_zero p h n
+
+/-- ★★★ **The ring law (additive heart).**  If `p` annihilates `s` and `q`
+    annihilates `t`, the product operator `p·q` annihilates `s + t`.  The
+    constant-coefficient annihilators *multiply* — so pointwise sums of C-finite
+    sequences are again C-finite (the orbit dimensions add).  This is the engine of
+    `polynomial ⊊ C-finite` being a *ring*, not just a module. -/
+theorem conv_annih_add (p q : List Int) {s t : Nat → Int}
+    (hs : Annih p s) (ht : Annih q t) : Annih (conv p q) (fun m => s m + t m) :=
+  fun n => by
+    rw [applyOp_add (conv p q) s t n, conv_annih_left p q hs n,
+        conv_annih_right p q ht n, zero_add]
+
+/-! ## §5 — bridge: a C-finite sequence has a monic operator annihilator -/
+
+/-- Peel the lowest term of a `linComb`: `Σ_{i<k+1} cᵢ Δⁱs = c₀·s + Σ_{i<k} c_{i+1} Δⁱ(Δs)`. -/
+theorem linComb_peel (c : Nat → Int) (s : Nat → Int) : ∀ k n,
+    linComb c s (k+1) n
+      = c 0 * s n + linComb (fun i => c (i+1)) (diffZ s) k n
+  | 0,   n => by
+    show linComb c s 0 n + c 0 * liftKZ 0 s n
+       = c 0 * s n + linComb (fun i => c (i+1)) (diffZ s) 0 n
+    show (0 : Int) + c 0 * s n = c 0 * s n + 0
+    rw [zero_add, Int.add_zero]
+  | k+1, n => by
+    show linComb c s (k+1) n + c (k+1) * liftKZ (k+1) s n
+       = c 0 * s n + (linComb (fun i => c (i+1)) (diffZ s) k n
+                       + c (k+1) * liftKZ k (diffZ s) n)
+    rw [linComb_peel c s k n, liftKZ_diffZ_comm s k n, add_assoc]
+
+/-- The monic difference operator `Δᵏ − Σ_{i<k} cᵢ Δⁱ` as a coefficient list
+    `[-c₀, …, -c_{k-1}, 1]` (low-to-high `Δ`-power; leading coefficient `1`). -/
+def opOf (c : Nat → Int) : Nat → List Int
+  | 0   => [1]
+  | k+1 => (-(c 0)) :: opOf (fun i => c (i+1)) k
+
+/-- `opOf` evaluates to the difference `Δᵏs − Σ_{i<k} cᵢ Δⁱs`. -/
+theorem applyOp_opOf : ∀ (c : Nat → Int) (k : Nat) (s : Nat → Int) (n : Nat),
+    applyOp (opOf c k) s n = liftKZ k s n - linComb c s k n
+  | c, 0,   s, n => by
+    show 1 * s n + applyOp [] (diffZ s) n = liftKZ 0 s n - linComb c s 0 n
+    show 1 * s n + 0 = s n - 0
+    ring_intZ
+  | c, k+1, s, n => by
+    show -(c 0) * s n + applyOp (opOf (fun i => c (i+1)) k) (diffZ s) n
+       = liftKZ (k+1) s n - linComb c s (k+1) n
+    rw [applyOp_opOf (fun i => c (i+1)) k (diffZ s) n, liftKZ_diffZ_comm s k n,
+        linComb_peel c s k n]
+    ring_intZ
+
+/-- `opOf` is monic: its leading (last) coefficient is `1`, for any default. -/
+theorem opOf_getLastD : ∀ (c : Nat → Int) (d : Int) (k : Nat),
+    (opOf c k).getLastD d = 1
+  | _, _, 0   => rfl
+  | c, d, k+1 => by
+    show ((-(c 0)) :: opOf (fun i => c (i+1)) k).getLastD d = 1
+    rw [List.getLastD_cons]
+    exact opOf_getLastD (fun i => c (i+1)) (-(c 0)) k
+
+/-- ★ **Bridge.**  Every C-finite sequence has a *monic* constant-coefficient
+    operator annihilator (`Δᵏ − lower`).  This realizes `CFiniteZ` in the operator
+    algebra, so the ring law `conv_annih_add` applies: the monic annihilators of two
+    C-finite sequences multiply (`conv`, leading `1·1 = 1`) to a monic annihilator of
+    their sum — the orbit dimensions add. -/
+theorem cfiniteZ_to_annih {s : Nat → Int} (h : CFiniteZ s) :
+    ∃ p, (p.getLastD 0 = 1) ∧ Annih p s := by
+  obtain ⟨k, c, hrec⟩ := h
+  refine ⟨opOf c k, opOf_getLastD c 0 k, fun n => ?_⟩
+  rw [applyOp_opOf c k s n, hrec n, Int.sub_eq_add_neg, add_neg_cancel]
 
 end E213.Lib.Math.Cauchy.CFiniteRing
