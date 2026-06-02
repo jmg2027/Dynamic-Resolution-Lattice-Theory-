@@ -2,7 +2,7 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
-(1500+ modules, cached).  All new theorems ∅-axiom (`MarkovUniqueness` → `30 pure / 0 dirty`).
+(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `35 pure / 0 dirty`).
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
@@ -10,7 +10,7 @@ prove ∅-axiom neighbours, run agent discussion, build conjectures.
 
 ## What Was Done This Session
 
-### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (30 PURE / 0 dirty)
+### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (35 PURE / 0 dirty)
 The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery existed in the repo.
 
 - **§1–2 Neighbor congruence.** `markov_le_3mul` (every entry `≤ 3·`product of other two);
@@ -25,6 +25,10 @@ The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery 
 - **§4 Encoding fires.** `neg_one_qr_mod_{5,29,433}` on triples `(1,2,5),(2,5,29),(5,29,433)`.
 - **§5 Computational uniqueness.** `markov_max_unique_{5,13,29,34}` + `markovMaxUnique_{5,13,29}`
   — the conjecture verified decidably at small maxima.  (decide heartbeats out for `c≥169`.)
+- **§8 Fibonacci spine via Cassini.** `fib_spine_sqrt_neg_one` — `fib(2n+3) ∣ fib(2n+2)²+1`
+  (∀n), from `golden_min_attained_on_fib`: φ's convergents ARE the spine's `√(−1)` roots.
+- **§9 Cohn matrix.** `cohn_sq_neg_one_mod` — `C²≡−I mod c` for `tr=3c, det=1` (Cayley–Hamilton),
+  pure ℕ: the order-4 generator `S` (Gaussian `i`) survives mod every Markov number.
 - **§6 `p≡3` obstruction.** `no_sqrt_neg_one_mod_{3,7,11,19}` (`−1` non-residue mod `p≡3(4)`)
   + `sqrt_neg_one_mod_5_and_13` contrast.
 - **§7 The conjecture, formalised.** `MarkovMaxUnique c`, `SqrtNegOneTwoRoots c` (abbrev so
