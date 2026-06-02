@@ -199,6 +199,22 @@ partial quotients satisfy no linear recurrence with polynomial coefficients.  Th
 classical open problem, not closable ∅-axiom here; it is what would turn "π is rate-free"
 from an observation into a theorem.  The provable direction — a holonomic / P-recursive
 presentation has finite divergence depth — is already closed (`Cauchy/DepthPRecursive`).
+
+This frontier has a **third spiral-layer reading** — the divergence-depth of the
+*partial-quotient sequence* `(aᵢ)` itself (distinct from the convergent cross-determinant,
+which is the det-one floor for every real).  Its provable neighbours are closed in
+`Cauchy/HurwitzianCF`: the quasi-polynomial class `QuasiPolyCF p a` (partial quotients
+polynomial on each residue class mod `p`, the formal handle on "Hurwitzian / holonomic
+partial quotients"), with the tiers **0** periodic-CF ⟹ quasi-polynomial
+(`periodic_quasipoly`, quadratic irrationals) and **1** e's `[2;1,2k,1]` pattern is
+`QuasiPolyCF 3` (`e_cf_quasipoly` — the folklore "Hurwitzian ⟹ holonomic" made an explicit
+∅-axiom theorem), plus the certificate `polyDepth d ⟹ Δ^{d+1} = 0` (constant-coefficient
+recurrence, C-finite per section).  π is the conjectured **tier ∞**; the CF-holonomicity
+tier is conjectured to separate e from π where the irrationality measure does not (both
+`μ = 2`, conditionally for π).  The credible route to non-holonomicity is the
+Flajolet–Gerhold–Salvy asymptotic obstruction (holonomic sequences have asymptotics of the
+restricted form `C·ρ⁻ⁿ·n^θ·(log n)^κ`), against which π's Gauss–Kuzmin partial-quotient
+statistics are conjecturally incompatible.
 The CM-period shadow (`Γ(1/3)`, `Γ(1/4)`) is interpretive: periods are not ∅-axiom integer
 data, so the chapter pins the algebraic skeleton (unit orders, rotations) the periods hang
 on, not the periods themselves.
