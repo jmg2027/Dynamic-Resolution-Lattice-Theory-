@@ -1,8 +1,9 @@
 import E213.Lib.Math.CayleyDickson.Levels.Trigintaduonion
 import E213.Lib.Math.CayleyDickson.Levels.SedenionHeavy
+import E213.Lib.Math.CayleyDickson.Levels.SedenionAlgebra213
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzAlgebra213
-import E213.Lib.Math.Tactic.HurwitzRing
 import E213.Meta.Algebra213.Core
+import E213.Meta.Algebra213.AlternativeNormed
 
 /-!
 # Trigintaduonion "heavy" identities
@@ -11,8 +12,11 @@ import E213.Meta.Algebra213.Core
 (Lipschitz Ring213 instance + componentwise structural
 recursion through Cayley → Sedenion → Trigintaduonion).
 
-`conj_mul_anti` still uses hurwitz_ring (DIRTY) — 128-Int-var
-2-factor polynomial.
+`conj_mul_anti` is now **strict ∅-axiom**: the componentwise
+structural proof over the `NonAssocStarRing213 Sedenion` base
+(`SedenionAlgebra213`) — verbatim analog of
+`SedenionHeavy.conj_mul_anti` one layer up — replacing the
+128-Int-var `hurwitz_ring` brute force.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Levels.TrigintaduoionionHeavy
@@ -53,10 +57,44 @@ theorem conj_conj (u : Trigintaduonion) : conj (conj u) = u := by
   · show -(-u.im) = u.im
     exact sedenion_neg_neg u.im
 
-set_option maxHeartbeats 32000000 in
-/-- Anti-distributivity at layer 4 — DIRTY (128 Int vars). -/
+/-- **Trigintaduonion anti-distributivity of conj**:
+    `conj(u·v) = conj v·conj u`.  Strict ∅-axiom — componentwise
+    over the `Sedenion` base using the generic
+    `NonAssocStarRing213` / `NonAssocRing213` algebra (no base
+    associativity needed), the verbatim analog of
+    `SedenionHeavy.conj_mul_anti`, replacing the 128-Int-var
+    `hurwitz_ring` brute force. -/
 theorem conj_mul_anti (u v : Trigintaduonion) :
     conj (u * v) = conj v * conj u := by
-  hurwitz_ring
+  have cm : ∀ a b : Sedenion, Sedenion.conj (a * b) = Sedenion.conj b * Sedenion.conj a :=
+    fun a b => NonAssocStarRing213.conj_mul a b
+  have ca : ∀ a b : Sedenion, Sedenion.conj (a + b) = Sedenion.conj a + Sedenion.conj b :=
+    fun a b => NonAssocStarRing213.conj_add a b
+  have cc : ∀ a : Sedenion, Sedenion.conj (Sedenion.conj a) = a :=
+    fun a => NonAssocStarRing213.conj_conj a
+  have cn : ∀ a : Sedenion, Sedenion.conj (-a) = -(Sedenion.conj a) :=
+    fun a => NonAssocStarRing213.conj_neg a
+  have nm : ∀ a b : Sedenion, (-a) * b = -(a * b) :=
+    fun a b => NonAssocRing213.neg_mul a b
+  have mn : ∀ a b : Sedenion, a * (-b) = -(a * b) :=
+    fun a b => NonAssocRing213.mul_neg a b
+  have nn : ∀ a : Sedenion, -(-a) = a := fun a => NonAssocRing213.neg_neg a
+  have na : ∀ a b : Sedenion, -(a + b) = -a + -b :=
+    fun a b => NonAssocRing213.neg_add a b
+  have ac : ∀ a b : Sedenion, a + b = b + a := fun a b => NonAssocRing213.add_comm a b
+  apply Trigintaduonion.ext
+  · show Sedenion.conj (u.re * v.re + -(v.im.conj * u.im))
+       = v.re.conj * u.re.conj + -((-u.im).conj * -v.im)
+    rw [ca (u.re * v.re) (-(v.im.conj * u.im)), cm u.re v.re]
+    have h_left : Sedenion.conj (-(v.im.conj * u.im)) = -(u.im.conj * v.im) := by
+      rw [cn (v.im.conj * u.im), cm (v.im.conj) u.im, cc v.im]
+    have h_right : -((-u.im).conj * -v.im) = -(u.im.conj * v.im) := by
+      rw [cn u.im, nm (u.im.conj) (-v.im), nn, mn (u.im.conj) v.im]
+    rw [h_left, h_right]
+  · show -(v.im * u.re + u.im * v.re.conj)
+       = (-u.im) * v.re.conj + (-v.im) * (u.re.conj).conj
+    rw [cc u.re, nm u.im (v.re.conj), nm v.im u.re,
+        na (v.im * u.re) (u.im * v.re.conj),
+        ac (-(v.im * u.re)) (-(u.im * v.re.conj))]
 
 end E213.Lib.Math.CayleyDickson.Levels.TrigintaduoionionHeavy

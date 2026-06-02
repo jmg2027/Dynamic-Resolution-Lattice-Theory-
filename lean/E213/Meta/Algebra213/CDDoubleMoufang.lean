@@ -395,4 +395,96 @@ instance instMoufangIntegerNormed213CDDouble :
   moufang_norm        := cd_moufang_norm
   ofInt_paren_central := cd_ofInt_paren_central
 
+/-! ## §5 — `cdm_ofInt` scalar nuclearity + trace + reverse-norm
+    (foundations for `FlexAlt213 (CDDouble α)` / `FlexAlt213 Cayley`). -/
+
+/-- `cdm_ofInt` scalars are **left-nuclear** in `CDDouble α`. -/
+theorem cd_ofInt_nuc_l (z : Int) (a b : CDDouble α) :
+    (cdm_ofInt z * a) * b = cdm_ofInt z * (a * b) := by
+  apply CDDouble.ext
+  · show (ofInt z * a.re + -(conj a.im * 0)) * b.re
+         + -(conj b.im * (a.im * ofInt z + 0 * conj a.re))
+       = ofInt z * (a.re * b.re + -(conj b.im * a.im))
+         + -(conj (b.im * a.re + a.im * conj b.re) * 0)
+    rw [Ring213.mul_zero (conj a.im), base_neg_zero, Ring213.add_zero (ofInt z * a.re),
+        Ring213.zero_mul (conj a.re), Ring213.add_zero (a.im * ofInt z),
+        Ring213.mul_zero (conj (b.im * a.re + a.im * conj b.re)), base_neg_zero,
+        Ring213.add_zero (ofInt z * (a.re * b.re + -(conj b.im * a.im))),
+        Ring213.mul_assoc (ofInt z) a.re b.re,
+        Ring213.mul_add (ofInt z) (a.re * b.re) (-(conj b.im * a.im)),
+        Ring213.mul_neg (ofInt z) (conj b.im * a.im),
+        ← IntegerNormed213.ofInt_central z a.im,
+        ← Ring213.mul_assoc (conj b.im) (ofInt z) a.im,
+        ← IntegerNormed213.ofInt_central z (conj b.im),
+        Ring213.mul_assoc (ofInt z) (conj b.im) a.im]
+  · show b.im * (ofInt z * a.re + -(conj a.im * 0))
+         + (a.im * ofInt z + 0 * conj a.re) * conj b.re
+       = (b.im * a.re + a.im * conj b.re) * ofInt z
+         + 0 * conj (a.re * b.re + -(conj b.im * a.im))
+    rw [Ring213.mul_zero (conj a.im), base_neg_zero, Ring213.add_zero (ofInt z * a.re),
+        Ring213.zero_mul (conj a.re), Ring213.add_zero (a.im * ofInt z),
+        Ring213.zero_mul (conj (a.re * b.re + -(conj b.im * a.im))),
+        Ring213.add_zero ((b.im * a.re + a.im * conj b.re) * ofInt z),
+        Ring213.add_mul (b.im * a.re) (a.im * conj b.re) (ofInt z),
+        IntegerNormed213.ofInt_central z a.re,
+        ← Ring213.mul_assoc b.im a.re (ofInt z),
+        Ring213.mul_assoc a.im (ofInt z) (conj b.re),
+        IntegerNormed213.ofInt_central z (conj b.re),
+        ← Ring213.mul_assoc a.im (conj b.re) (ofInt z)]
+
+/-- `conj` fixes `cdm_ofInt` scalars. -/
+theorem cd_conj_ofInt (z : Int) :
+    CDDouble.conj (cdm_ofInt z) = (cdm_ofInt z : CDDouble α) := by
+  apply CDDouble.ext
+  · show conj (ofInt z) = ofInt z; exact ofInt_conj z
+  · show -(0 : α) = 0; exact base_neg_zero
+
+/-- `cdm_ofInt` scalars are **right-nuclear** — from `cd_ofInt_nuc_l` by the
+    `conj` anti-automorphism. -/
+theorem cd_ofInt_nuc_r (z : Int) (a b : CDDouble α) :
+    a * (b * cdm_ofInt z) = (a * b) * cdm_ofInt z := by
+  have h := congrArg CDDouble.conj (cd_ofInt_nuc_l z (CDDouble.conj b) (CDDouble.conj a))
+  have ca : CDDouble.conj (CDDouble.conj a) = a := NonAssocStarRing213.conj_conj a
+  have cb : CDDouble.conj (CDDouble.conj b) = b := NonAssocStarRing213.conj_conj b
+  rw [cd_conj_mul, cd_conj_mul, cd_conj_mul, cd_conj_mul, cd_conj_ofInt, ca, cb] at h
+  exact h
+
+/-- `cdm_ofInt` scalars are **middle-nuclear** — from `cd_ofInt_nuc_l` +
+    `cd_ofInt_nuc_r` + centrality. -/
+theorem cd_ofInt_nuc_m (z : Int) (a b : CDDouble α) :
+    (a * cdm_ofInt z) * b = a * (cdm_ofInt z * b) := by
+  rw [← cd_ofInt_central z a, cd_ofInt_nuc_l z a b, cd_ofInt_central z (a * b),
+      cd_ofInt_central z b, cd_ofInt_nuc_r z a b]
+
+/-- CD trace: the base trace of the real component. -/
+def cdm_trace (u : CDDouble α) : Int := trace u.re
+
+/-- Trace polarization for `CDDouble α`: `u + conj u = ofInt (trace u)`. -/
+theorem cd_self_add_conj (u : CDDouble α) :
+    u + CDDouble.conj u = cdm_ofInt (cdm_trace u) := by
+  apply CDDouble.ext
+  · show u.re + conj u.re = ofInt (trace u.re); exact self_add_conj u.re
+  · show u.im + -u.im = 0
+    rw [Ring213.add_comm u.im (-u.im), Ring213.add_left_neg]
+
+/-- Base norm is neg-invariant. -/
+private theorem base_normSq_neg (x : α) : normSq (-x) = normSq x := by
+  apply @IntegerNormed213.ofInt_inj α _
+  rw [← self_mul_conj (-x), ← self_mul_conj x, base_conj_neg x,
+      Ring213.mul_neg (-x) (conj x), Ring213.neg_mul x (conj x), Ring213.neg_neg]
+
+/-- CD norm is conj-invariant. -/
+theorem cd_normSq_conj (u : CDDouble α) :
+    cdm_normSq (CDDouble.conj u) = cdm_normSq u := by
+  show normSq (conj u.re) + normSq (-u.im) = normSq u.re + normSq u.im
+  rw [normSq_conj u.re, base_normSq_neg u.im]
+
+/-- Reverse self-norm for `CDDouble α`: `conj u · u = ofInt (normSq u)`. -/
+theorem cd_conj_mul_self (u : CDDouble α) :
+    CDDouble.conj u * u = cdm_ofInt (cdm_normSq u) := by
+  have h := cd_self_mul_conj (CDDouble.conj u)
+  have cc : CDDouble.conj (CDDouble.conj u) = u := NonAssocStarRing213.conj_conj u
+  rw [cc, cd_normSq_conj u] at h
+  exact h
+
 end E213.Meta.Algebra213

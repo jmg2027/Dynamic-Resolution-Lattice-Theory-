@@ -55,13 +55,13 @@ theorem refined_completability_engine :
           ¬ CrossDetSmall (fun i => q ^ (b ^ i)) (fun i => q ^ i)))
     ∧ (∀ q : Nat, 2 ≤ q → ∀ r : Nat,
         ¬ CrossDetSmall (expTower q (r + 2)) (expTower q (r + 1)))
-    ∧ (∀ c : Nat, 1 ≤ c → ∀ W d : Nat → Nat,
+    ∧ (∀ (W d : Nat → Nat) (c : Nat), 1 ≤ c →
         CrossDetSmall (fun i => c * c * W i) (fun i => c * d i) → CrossDetSmall W d)
-    ∧ (∀ c : Nat, 1 ≤ c → ∀ a d : Nat → Nat, ∀ m k : Nat,
+    ∧ (∀ (a d : Nat → Nat) (c : Nat), 1 ≤ c → ∀ m k,
         (∃ N, ∀ i j, i ≥ N → j ≥ N → rcut a d i m k = rcut a d j m k) →
-        (∃ N, ∀ i j, i ≥ N → j ≥ N →
+        ∃ N, ∀ i j, i ≥ N → j ≥ N →
           rcut (fun i => c * a i) (fun i => c * d i) i m k
-            = rcut (fun i => c * a i) (fun i => c * d i) j m k)) :=
+            = rcut (fun i => c * a i) (fun i => c * d i) j m k) :=
   ⟨completability_grade,
    fun q hq => height_is_omega_coordinate q hq,
    completability_is_intensional.1,

@@ -53,6 +53,7 @@ import E213.Lib.Math.Real213.FibCassiniNat
 import E213.Lib.Math.Real213.PhiCauchyLimit
 import E213.Lib.Math.Real213.HolonomicReal
 import E213.Lib.Math.Real213.RateModulus
+import E213.Lib.Math.Real213.RateStratification
 import E213.Lib.Math.Real213.CrossDetOvertake
 import E213.Lib.Math.Real213.LiouvilleModulus
 import E213.Lib.Math.Real213.CrossDetEqDenom
@@ -68,6 +69,9 @@ import E213.Lib.Math.Real213.ContinuedFractionFloor
 import E213.Lib.Math.Real213.ContinuedFractionModulus
 import E213.Lib.Math.Real213.SpiralLayer
 import E213.Lib.Math.Real213.SpiralCoordinate
+import E213.Lib.Math.Real213.ScalingOrbit
+import E213.Lib.Math.Real213.FloorReferenceForm
+import E213.Lib.Math.Real213.SpiralRotationInvariant
 import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus

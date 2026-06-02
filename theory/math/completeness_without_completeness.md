@@ -417,6 +417,16 @@ proven step from the classical reading.
   (`ω^ω`, `ω^{ω^ω}`, … with limit `ε₀`). But `ε₀` is a *fixed point*
   (`ω^{ε₀} = ε₀`), the closure of *one* diagonalisation — **not a top.** `ε₀ + 1`,
   `ε₁`, the Veblen hierarchy all lie above, each reached by yet another meta-axis.
+- **Proven (L), the height step:** diagonalising the tower *height* is itself now
+  ∅-axiom. The height-tower `heightTower c r = expTower c r` is a sequence in the
+  height `r`, and naming the whole of it escapes every finite height —
+  `diag (heightTower c) ≠ expTower c r` for all `r`
+  (`DepthHeightDiagonal.height_diagonal_escapes`, the §15 `diag_not_in_seq` applied
+  one scale up). So the `ω^ω` ceiling is reached as a *proven escape*, not a posited
+  limit. What stays classical (C) is only the *naming of that supremum as the ordinal*
+  `ε₀`: no `Ordinal` object is built here, and whether the height-escape expresses a
+  canonical `ε₀` is left open — `ε₀` is the classical reading of the open-endedness the
+  escape exhibits, not a constructed object.
 
 The hierarchy has **no top**. "Handle the infinite by a finite reference, iterate"
 generates an open-ended sequence of axes, and every named ceiling — `ω²`, `ω^ω`,
@@ -467,6 +477,18 @@ therefore **one self-covering closure read at two scales**. The act of comprehen
 always lands inside the thing it tried to exceed, leaving exactly the gap that forces
 the next step. The hierarchy has no top because **pointing has no exterior**
 (`seed/AXIOM/05_no_exterior.md`).
+
+That self-pointing — the residue's self-reference — itself has **two structurally
+distinct forms** (`05_no_exterior.md` §5.2), and both are now ∅-axiom. Read through the
+**Bool-Lens** it is *oscillation*: `not` is an involution (`not_not`, period 2) with no
+fixed point on its values — `not r ≠ r` for `r ∈ {T, F}`
+(`SelfReferenceForms.bool_not_no_fixed_point`), the liar that never settles. Read
+through the **Nat-Lens** it is *convergence*: every Raw is its own constructor readout
+(Lambek `decompose`, a period-1 self-fixed-point) with strictly well-founded descent to
+the atomic floor (`depth_drops`). `self_reference_two_forms` bundles them **(L)**. Same
+Raw self-pointing, two readings — the bounded loop that oscillates and the loop that
+closes at the floor; the Cantor non-surjectivity above is the surplus *neither* loop
+contains, the residue that forces the next act.
 
 And so the arc closes onto its origin. It began (Part I) by refusing to posit a
 completed limit — insisting the real is a finite act of pointing, the "limit" already

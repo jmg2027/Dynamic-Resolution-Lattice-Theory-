@@ -129,15 +129,17 @@ umbrella-reachable subset was ever scanned, and that subset was fully PURE
 exposes the purity status of the previously-ungated clusters.  Current
 `tools/scan_all_axioms.py`:
 
-  · The 213-mathematical core is ∅-axiom.  The non-sealed `propext`/`Quot.sound`
-    that remain are (i) the **`Prop`-atom thesis surface**
+  · The 213-mathematical core is ∅-axiom.  The only non-sealed `propext`/`Quot.sound`
+    that remains is the **`Prop`-atom thesis surface**
     (`propAsDistinguishing*` / `canonical*Map` / `BoolProp.universalMorphism_commute_*`,
-    category (B) — `propext` IS "`Prop` is an atom of meaning") and (ii) the
-    **CayleyDickson open items** (`Trig.conj_mul_anti`, `SedenionHeavy.flexible`,
-    category (D)).  The Lens ring is **0 real DIRTY** (`scan_all_axioms.py
-    --filter Lens`): its equivalence surface is stated on reading-equivalence
-    (`ReadingEq.same` / `equivR` / `sameLens`), not `=` of views.  Run
-    `tools/scan_all_axioms.py` for the live count.
+    category (a) — `propext` IS "`Prop` is an atom of meaning").  The **CayleyDickson
+    category-D backlog is closed** (2026-06-01): `Trig.conj_mul_anti` via the
+    `NonAssocStarRing213 Sedenion` bridge (`SedenionAlgebra213`), and
+    `SedenionHeavy.flexible` via the `CDDoubleFlexible` cross-pair +
+    `FlexAlt213 Cayley` — both verified PURE (`#print axioms`).  The Lens ring is
+    **0 real DIRTY** (`scan_all_axioms.py --filter Lens`): its equivalence surface is
+    stated on reading-equivalence (`ReadingEq.same` / `equivR` / `sameLens`), not `=` of
+    views.  Run `tools/scan_all_axioms.py` for the live count.
   · **No `Classical.choice` and no `Lean.ofReduceBool` (`native_decide`) in any
     213-mathematical content** — the falsifiability-forbidden axioms are absent.
     The only `Classical.choice` carriers are three `CommandElab` elaborators
@@ -146,8 +148,8 @@ exposes the purity status of the previously-ungated clusters.  Current
     plumbing per category (a), not math content.
   · The remaining real DIRTY are **`propext` / `Quot.sound` only** (the
     "allowed-but-not-target" core-kernel axioms) — the `Prop`-atom thesis surface
-    (category B) + the CayleyDickson `Trig.conj_mul_anti` / `SedenionHeavy.flexible`
-    (category D).  The category-D backlog uses the `Mobius213.Px` playbook
+    (category B).  The CayleyDickson category-D items (`Trig.conj_mul_anti`,
+    `SedenionHeavy.flexible`) are now both closed.  The category-D backlog uses the `Mobius213.Px` playbook
     (`omega` → `rfl`/`Nat.two_mul`/`Nat.add_right_comm`; `Nat.mul_assoc`/`Nat.add_mul`
     → `NatRing.nat_*`; `simp` → explicit `rw`; `Nat.mul_lt_mul_left`/`mul_lt_mul_right`
     (the `Iff`) pull `Classical.choice` → constructive `c*m+1 ≤ c*m+c ≤ c*n` helper,
@@ -236,6 +238,112 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 `E213.Theory.*`, all capstones) is **fully PURE**.  Zero unsealed
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
+
+### Real-number stratification addition (2026-06-01)
+
+`E213.Lib.Math.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
+The constructed-modulus generator's smallness law made a layer-by-layer
+**W-vs-d comparison**: `htel_iff_dominates` (the rate certificate `Htel`
+is *exactly* domination at every layer), `dominated_free_modulus`
+(domination everywhere ⟹ free modulus), `overtake_breaks_layer` (any
+layer where the cross-determinant overtakes the denominator quantum
+breaks it), and the unimodular det-1 floor as the trivially-free bottom
+(`floor_dominates_all` / `floor_carries_Htel` / `tower_stratification`).
+The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
+(Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
+polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
+
+`E213.Lib.Math.Cauchy.DepthOverflowDuality` — **15 PURE / 0 DIRTY**.
+The analysis ↔ logic single engine: `Overflow bound val i := bound i <
+val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`
+(overflow ⟹ value is no level of the family; recovers `diag_not_in_seq`),
+`overflow_breaks` (overflow ⟹ domination breaks = `overtake_breaks_layer`),
+`overflow_dual_reading` (both readings of one operation).  Bridges
+`DepthCeilingResidue` (Cantor residue) and `RateStratification` (¬Htel).
+Plus the unit-generator layer: `minOverflow bound = bound + 1` is the
+pointwise-least overflow (`least_overflow`, `minOverflow_overflows`), the
+diagonal achieves it (`diag_is_minOverflow`), overflow is monotone /
+shift-stable (`overflow_mono_val`, `overflow_shift`), the least overflow is
+unique (`minOverflow_unique`, the honest universal property), and the surplus
+is the conserved quantity under shift (`gap_shift_invariant`, via the PURE
+`NatHelper.add_sub_add_right`).
+
+`E213.Lib.Math.Real213.IntensionalCompletability` — **3 PURE / 0 DIRTY**.
+The intensional reduction of completability: `crossDetSmall_rescale_antitone`
+(the sufficient bridge `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` — rescaling
+up only loses it, so the gcd-reduced presentation is canonical; `Nat.mul_assoc` is
+propext-dirty, used the PURE `NatHelper.mul_assoc`), `modulus_rescale_invariant`
+(the completion is presentation-invariant, via `rcut_rescale`), bundled in
+`completability_is_intensional`.  The test is presentation-relative; the truth is not.
+
+`E213.Lib.Math.Real213.ScalingOrbit` — **7 PURE / 0 DIRTY**.  The rescaling
+orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`,
+`scaleBy_comp`), the cut its complete invariant (`scaleBy_preserves_cut`),
+`CrossDetSmall` antitone along it (`orbit_free_implies_base_free`), and the
+`Reduced` base unique (`reduced_scaling_trivial`).  Bundled in
+`scaling_orbit_structure`.  Advances C2 (G169): the reduced base is the
+rung-minimal presentation within a rescaling orbit (scope: rescaling sub-family,
+not all presentations).
+
+The signed-ℤ Eisenstein/golden signature dichotomy is closed canonically in
+`E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature` (`eisForm_nonneg`,
+`eisenstein_norm_nonneg`, `golden_indefinite`, `signature_dichotomy`) via the
+bivariate Int reflection prover `Meta.Int213.PolyInt2` — the genuine `0 ≤ a²−ab+b²`
+over ℤ, tied to `ZOmega.normSq`.  (The earlier ℕ-visible sidestep
+`Real213.CrossDetDiscriminant` is removed — superseded once `PolyInt2` landed.)
+
+`E213.Lib.Math.Real213.FloorReferenceForm` — **2 PURE / 0 DIRTY**.  The
+completability-side (disc+5, line) complement: the det-one floor's conserved golden
+form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_indefinite`,
+`Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
+(`floor_reference_is_indefinite`).
+
+`E213.Lib.Math.Real213.SpiralRotationInvariant` — **3 PURE / 0 DIRTY**.  The
+spiral rotation invariant conserved at every turn: `Q_iterate_preserved` —
+`Q(Pseq (m,k) n) = Q(m,k)` (sign-free golden form `a²+mk+k² = ab+b²+m²`) for all `n`,
+by induction on the one-step `ProbeTwistConic.Q_preserved` chained through the pure
+additive `add_cancel_chain` (the dirty `Nat.add_right_cancel` replaced by
+`NatHelper.add_right_cancel`).  The golden form (disc `5 = NS+NT`) is the scale-invariant
+of the self-similar `P`-shift.
+
+`E213.Lib.Math.Cauchy.DepthHeightDiagonal` — **4 PURE / 0 DIRTY**.  Naming the
+whole `ω^r` height-tower escapes every finite height: `heightTower c r n = expTower
+c r n`, and `height_diagonal_escapes` — `diag (heightTower c) ≠ expTower c r` for
+every `r` (via `DepthCeilingResidue.diag_not_in_seq`).  The residue at the height
+scale, the frontier *toward* `ε₀` (no `Ordinal` constructed); `epsilon_direction`
+bundles it with `coord_layer_dominates` (each layer ×`ω`).
+
+`E213.Lens.ResidueReentry` — **2 PURE / 0 DIRTY**.  The residue re-enters as the
+next operand, and the self-cover never closes: `residue_reentry_never_closes` — the
+composite `P ↦ Object1 (predicateToRaw n P)` (encode the predicate to a Raw, point at
+it) is not surjective (its image ⊆ `Object1`'s, which misses the residue), so re-pointing
+the re-entered residue leaves a fresh residue.  `residue_perpetually_reenters` bundles:
+pointing faithful-but-not-total (`object1_injective`/`object1_not_surjective`), the
+residue re-encodes to a Raw (`predicateToRaw`), re-pointing never closes.  The
+foundational-pointing instance of the gapless self-applying re-entry
+(`Cauchy/DepthHeightDiagonal.diag_self_applies`).
+
+`E213.Lens.Bool213.SelfReferenceForms` — **2 PURE / 0 DIRTY**.  The two
+structural forms of Raw self-reference (`05_no_exterior` §5.2): `bool_not_no_fixed_point`
+(the Bool `not` has no fixed point on its values `{T,F}` — the liar oscillation, period 2
+never period 1) contrasted with the Nat-style Lambek period-1 self-fixed-point
+(`decompose`) + well-founded descent (`depth_drops`); `self_reference_two_forms` bundles
+the dichotomy.
+
+`E213.Lib.Math.FiveFloorUnification` — **1 PURE / 0 DIRTY**.  The completability
+floor and the McKay E₈ endpoint are the same atomic `P = [[2,1],[1,1]]` (disc
+`5 = NS+NT`): `five_floor_unifies` bundles the det-one floor's indefinite golden form
+(`FloorReferenceForm.floor_reference_is_indefinite`, the completing line bottom) with
+`P mod 5` being the order-10 E₈ icosian endpoint (`MobiusPIcosian.mobius_P_meets_icosian_endpoint`).
+Bottom-of-completability meets top-of-McKay at the `5`-floor (a convergence, not a
+derivation; `seed/AXIOM/05_no_exterior.md` §5.6).
+
+`E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature` — **4 PURE / 0 DIRTY**.
+Completes the signature dichotomy to a trichotomy: the degenerate disc-0 form
+`parabForm m k = (m−k)²` is semi-definite (`parab_nonneg`, a square) with a non-origin
+zero (`parab_nonorigin_zero`, `parabForm 1 1 = 0`, vanishing on a line) — the parabolic
+cusp between the indefinite golden line (disc+5) and the definite Eisenstein curve
+(disc−3).  `signature_trichotomy` bundles all three.
 
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 

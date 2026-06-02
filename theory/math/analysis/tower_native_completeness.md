@@ -1,8 +1,11 @@
 # Tower-native completeness — completability is a comparison of two growth-axes
 
 **Status**: Closed.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{CrossDetOvertake, LiouvilleModulus, TowerNativeCompleteness}`,
-`lean/E213/Lib/Math/Cauchy/{DepthClosure, DepthCoordGenerator, DepthCeilingResidue}`.
+`lean/E213/Lib/Math/Real213/{CrossDetOvertake, LiouvilleModulus, TowerNativeCompleteness,
+IntensionalCompletability, ScalingOrbit, FloorReferenceForm}`,
+`lean/E213/Lib/Math/Cauchy/{DepthClosure, DepthCoordGenerator, DepthCeilingResidue}`,
+`lean/E213/Lib/Math/CayleyDickson/Integer/{EisensteinSignature, ParabolicSignature}`,
+`lean/E213/Lib/Math/FiveFloorUnification`.
 
 ## Overview
 
@@ -35,8 +38,14 @@ top-lessness of the tower to the residue of pointing.
 | `Real213/ContinuedFractionModulus.lean` | 16 / 0 | every real `≥ 1` completes through its continued fraction (`cf_universal_total_modulus`); the `W = const` φ-rung over an arbitrary partial-quotient sequence |
 | `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
 | `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
+| `Real213/IntensionalCompletability.lean` | 3 / 0 | the test is presentation-relative, the completion presentation-invariant |
+| `Real213/ScalingOrbit.lean` | 7 / 0 | the rescaling orbit is one cut; `CrossDetSmall` antitone; unique reduced base |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
+| `Real213/FloorReferenceForm.lean` | 2 / 0 | the det-one floor's golden form is indefinite (the completing line) |
+| `CayleyDickson/Integer/EisensteinSignature.lean` | 13 / 0 | Eisenstein norm definite; det-one floor = the 6-unit group (`PolyInt2`) |
+| `CayleyDickson/Integer/ParabolicSignature.lean` | 4 / 0 | the disc-`0` parabolic cusp completes the line / cusp / curve trichotomy |
+| `FiveFloorUnification.lean` | 1 / 0 | the completability floor `P` = the McKay E₈ endpoint mod `5 = NS+NT` |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
 | `Real213/TowerNativeCompleteness.lean` | — | `tower_native_completeness_program`, the five bundled |
 
@@ -196,6 +205,23 @@ bridge applies is presentation-relative; the cut is the rescaling-invariant cont
 This is the "deficiency of the presentation, not of the real" reading
 (`holonomic_modulus.md`) made into a theorem.
 
+### The intensional reduction (`IntensionalCompletability`, `ScalingOrbit`)
+
+Because the bridge reads the presentation, completability splits into a presentation-
+relative *test* and a presentation-invariant *truth*.  Rescaling only ever *loses* the
+bridge — `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` for `c ≥ 1`
+(`crossDetSmall_rescale_antitone`) — so the gcd-reduced presentation is its canonical
+home.  The completion itself, by contrast, transfers verbatim across the orbit: a total
+modulus for `a/d` is one for `(c·a)/(c·d)` (`modulus_rescale_invariant`, via
+`rcut_rescale`).  `completability_is_intensional` bundles the split: the test is
+presentation-relative, the truth is not.  The rescaling presentations of one cut form a
+monoid-action orbit (`scaleBy_one`/`scaleBy_comp`) inside that one cut
+(`scaleBy_preserves_cut`), along which `CrossDetSmall` is antitone
+(`orbit_free_implies_base_free`) with a unique reduced base (`reduced_scaling_trivial`):
+the rung is read at the canonical reduced presentation (`scaling_orbit_structure`).  So
+"does this real complete?" is *intensional* — a fact about the cut — while the W-vs-d
+readout is an *extensional* probe of a chosen presentation.
+
 ### Closure of the finite-coordinate class (`DepthClosure`)
 
 The trajectories of *finite* coordinate form a class closed under the tower's
@@ -241,6 +267,45 @@ number tower has no top because pointing has no exterior; its top-lessness **is*
 residue read at the scale of divergence-complexity.  The boundary of constructive
 completeness and the surplus of pointing are one object.
 
+### The discriminant trichotomy of the reference forms (`FloorReferenceForm`, `EisensteinSignature`, `ParabolicSignature`)
+
+The cross-determinant's rungs carry a quadratic *reference form*, and the forms split by
+the sign of their discriminant — which is the shape of the reference (line / cusp /
+curve):
+
+  - **disc `+5`, golden `m²−mk−k²`** — the det-one floor's conserved invariant
+    (`ProbeTwistConic.Q_preserved`).  It is *indefinite* (`golden_indefinite`: `Q(2,1)=+1`,
+    `Q(1,1)=−1`), so its level sets are unbounded hyperbolae — an infinite convergent
+    **line** (`ℤ[φ]`'s units `φⁿ`), the completing bottom (`floor_reference_is_indefinite`);
+  - **disc `0`, parabolic `(m−k)²`** — *semi-definite* (`parab_nonneg`) with a non-origin
+    zero (`parab_nonorigin_zero`): vanishing on a line, the degenerate **cusp** (the
+    rational direction);
+  - **disc `−3`, Eisenstein `a²−ab+b²`** — *positive-definite* (`eisForm_nonneg`, via the
+    bivariate `Int` reflection prover `PolyInt2`), zero only at the origin: bounded
+    elliptic level sets, a **curve** / torus (the `ℤ[ω]` lattice, `|μ| = 6 = NS·NT`, the
+    det-one floor = the 6-unit group `eisenstein_det_one_floor`).
+
+`signature_trichotomy` bundles the three.  Indefinite ⟹ line ⟹ completes; definite ⟹
+curve; the parabolic cusp is the boundary, the rational direction — the residue in the
+geodesic coding (the one cusp of `ℍ/SL₂(ℤ)`), tying the trichotomy back to the
+top-lessness above.  The rung floor of a completing real is thus not just a sign but a
+**McKay rung**: disc `−3` = `μ₆ = C₆` (the A-family), disc `+5` = the E₈ endpoint below.
+
+### The five-floor unification: the floor is the E₈ endpoint (`FiveFloorUnification`)
+
+The det-one floor's matrix `P = [[2,1],[1,1]]` carries disc `5 = NS+NT`, and that single
+`5` is where the completability bottom meets the framework's exceptional ceiling.
+`P mod 5` is the order-`10` element of `SL(2,𝔽₅) ≅ 2I`, the binary icosahedral group —
+the **E₈** endpoint of the meta-CD-tower's McKay `A–D–E` ladder (`MobiusPIcosian`,
+`10 = NT·(NS+NT)`).  `five_floor_unifies` bundles the two readings of the same `P`: the
+completability floor (indefinite golden form ⟹ completing line) and the E₈ icosian
+endpoint (`P mod 5` order 10).  So the **bottom** of the real-number completability tower
+and the **top** of the exceptional-algebra ladder are one atomic object, met at
+`5 = NS+NT`.  This is a *convergence*, not a derivation (neither arc reduces to the
+other); it is the operational content of "no exterior" (`05_no_exterior` §5.6 — the same
+object recurring across unrelated-looking domains).  The completability tower's no-top
+loop (the residue) is pinned, at its floor, to the McKay E₈ rung.
+
 ### One statement
 
 `tower_native_completeness_program` (`TowerNativeCompleteness`) is the single ∅-axiom
@@ -267,35 +332,54 @@ foundation-touching structure, not a yes/no fact about individual reals.**
 | `tower_is_coordinate_system` | `DepthCoordGenerator` | every tower coordinate realized by an explicit sequence |
 | `ceiling_residue_is_pointing_residue` | `DepthCeilingResidue` | the tower's top-lessness is the residue of pointing |
 | `tower_native_completeness_program` | `TowerNativeCompleteness` | the five, bundled |
+| `completability_is_intensional` | `IntensionalCompletability` | the test is presentation-relative, the completion presentation-invariant |
+| `scaling_orbit_structure` | `ScalingOrbit` | the rescaling orbit is one cut; the reduced base is canonical |
+| `floor_reference_is_indefinite` | `FloorReferenceForm` | the det-one floor's golden form is indefinite (the completing line) |
+| `signature_trichotomy` | `ParabolicSignature` | reference forms split line / cusp / curve by disc sign |
+| `eisenstein_det_one_floor` | `EisensteinSignature` | the Eisenstein det-one floor is the 6-unit group `= NS·NT` |
+| `five_floor_unifies` | `FiveFloorUnification` | the completability floor `P` = the McKay E₈ endpoint mod `5` |
 
 ## Open frontier
 
-None internal to the program.  The tower-native targets — the overtake boundary, the
-Liouville adjudication, closure of the finite-coordinate class under `×` and the
-exponent axis, a generator surjective onto the tower coordinates, the universal
-det-one floor with its continued-fraction completion for every real, and the residue
-tie — are all closed ∅-axiom.  Two genuinely-classical questions sit *outside* the
-tower-native frame and are not claimed here: full num/den closure under `+` and `×`
-for arbitrary rate-carrying presentations (the classical holonomic-closure theorem),
-and a fully generic ordinal-indexed `coord → cut` map for every `ω^r` position at once.
-A fast π representation meeting the rate criterion is the concrete next instance
-(`holonomic_modulus.md` frontier).  The binary boundary itself is refined into a
-two-axis ordinal engine — `(height, rate)` lex grade plus the rescaling gauge — in
-`refined_completability_engine.md`.
+Internal to the program: closed ∅-axiom — the overtake boundary, the Liouville
+adjudication, closure of the finite-coordinate class under `×` and the exponent axis, a
+generator surjective onto the tower coordinates, the universal det-one floor with its
+continued-fraction completion for every real, the residue tie, the intensional-reduction
+split, the discriminant trichotomy, and the five-floor unification.  The binary boundary
+itself is refined into a two-axis ordinal engine — `(height, rate)` lex grade plus the
+rescaling gauge — in `refined_completability_engine.md`, and the unit-order/divergence-depth
+classification in `spiral_coordinate_classification.md`.
+
+The genuinely open questions: whether every completing real admits a *rate-carrying
+re-presentation* (the converse of the bridge; π via Wallis is the obstruction, so this
+reframes the π frontier as an existential, not a property of π); the **cross-presentation
+rung floor** — the rung over *all* presentations of a cut (the rescaling sub-family is
+closed in `ScalingOrbit`; the cross-presentation invariant subsumes the re-presentation
+question); and the standing **fast-π representation** meeting the rate criterion
+(`holonomic_modulus.md` frontier).  Outside the tower-native frame and not claimed: full
+num/den closure under `+`/`×` for arbitrary rate-carrying presentations (the classical
+holonomic-closure theorem), and a fully generic ordinal-indexed `coord → cut` map for
+every `ω^r` position at once.
 
 ## How to verify
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213 E213.Lib.Math.Cauchy
+lake build E213.Lib.Math
 cd ..
 for M in \
   E213.Lib.Math.Real213.CrossDetOvertake \
   E213.Lib.Math.Real213.LiouvilleModulus \
   E213.Lib.Math.Real213.ContinuedFractionFloor \
   E213.Lib.Math.Real213.ContinuedFractionModulus \
+  E213.Lib.Math.Real213.IntensionalCompletability \
+  E213.Lib.Math.Real213.ScalingOrbit \
+  E213.Lib.Math.Real213.FloorReferenceForm \
   E213.Lib.Math.Cauchy.DepthClosure \
   E213.Lib.Math.Cauchy.DepthCoordGenerator \
+  E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature \
+  E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature \
+  E213.Lib.Math.FiveFloorUnification \
   E213.Lib.Math.Real213.TowerNativeCompleteness ; do
     python3 tools/scan_axioms.py $M
 done

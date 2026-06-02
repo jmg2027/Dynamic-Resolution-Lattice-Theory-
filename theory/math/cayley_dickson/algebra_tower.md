@@ -13,6 +13,12 @@ past-Moufang layer.
 > **H** of `Mobius213GrandUnification.grand_unification`.  For the full
 > map (Raw / Möbius / GRA / universe-chain / fractal-cohomology towers
 > as readings of the same object), see `theory/essays/tower_atlas.md`.
+>
+> **Sibling chapter.**  The *exceptional* rungs of this tower —
+> `E₆ = 2T`, `E₇ = 2O`, `E₈ = 2I` and their quadratic seeds `{√−3, √2,
+> √5}` — are derived end-to-end (`∅`-axiom) from `{NS, NT}` and the map
+> `D(x) = x² − NT` in
+> [`exceptional_axes.md`](exceptional_axes.md).
 
 ℝ, ℂ, ℍ, 𝕆, ... Are **not** different mathematical worlds.  They
 are *the same structural pair extension* on a common `Cut` substrate,
@@ -447,5 +453,7 @@ python3 tools/scan_axioms.py Lib/Math/CayleyDickson
 ## Citation guidance
 
 - ✅ `theory/math/cayley_dickson/algebra_tower.md` (primary narrative)
+- ✅ `theory/math/cayley_dickson/exceptional_axes.md` (sibling: the
+  `E₆E₇E₈` exceptional-rung derivation)
 - ✅ archived G-notes for deep dives:
   `research-notes/archive/algebra_tower/G##_*.md`
