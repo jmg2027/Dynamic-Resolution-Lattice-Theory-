@@ -186,6 +186,50 @@ is `object1_not_surjective` once more, now in the convergent Lens.
 > units (`PentagonGoldenTrace`), Cassini `(−1)ⁿ` (`FibCassiniNat`) the determinant of the
 > descent.
 
+## Refinement (Mingu, 2026-06): π is the (structure = state) point projected to the continuous real codomain
+
+The compression: *"모습 자체가 값 — state machine의 구조 자체가 state인, 연속 실수체 코도메인
+투영체 값이 π."*  The shape itself is the value; π is the value of the **operation = object**
+point (`06_lens_readings.md` §6.2: with no external role-assigner separating operator from
+operand, the operation *is* the object) read through the continuous-real-codomain projection.
+
+φ and π are the **discrete** and **continuous** projections of the *same* (structure = state)
+point:
+
+| | φ (discrete/algebraic) | π (continuous real) |
+|---|---|---|
+| structure = state witness | `P(φ) = φ` (`Mobius213`): the operation `P` applied to the object `φ` returns the object | `e^{2πi} = 1`: one full rotation = identity — the whole loop closes onto one state |
+| frozen / dynamic (§5.7) | fixed **point** (it stops) | fixed **loop** / period (it returns and closes) |
+
+φ is structure = state *where it stops*; π *where it closes*.  "모습 자체가 값" = the figure
+(the loop) *is* its measure (π) — no external ruler separates shape from value.
+
+### Conjecture C-π4 (operation = object ⟹ non-factorizable ⟹ non-holonomic)
+
+> **If structure *is* state (operation = object, §6.2), there is no `rule + state`
+> factorization** — and *that* is precisely what holonomic / P-recursive means: a *finite rule*
+> (the recurrence coefficients) applied to a *finite state* (the window).  With no external
+> separation of rule from state, no such finite factorization exists, so the object is
+> **non-holonomic**.  Hence **π's CF-face non-holonomicity is the in-Lens shadow of
+> operation/object non-separation (§6.2)** — the same residue structure whose discrete
+> projection is the fixed point `P(φ)=φ` and whose continuous projection is the rotational
+> closure `e^{2πi}=1`.  `NonHolonomicWitness` certifies the tier is inhabited ∅-axiom; π is
+> conjectured to sit there *because* its continuous-projection reading admits no rule/state
+> split.
+
+**Calibration (no contradiction with C-π3).**  This non-factorizability is the *intrinsic*
+(self-read, CF) face.  The Wallis/polygon bracket (C-π3) *imposes an external* rule/state split
+(a chosen presentation), so π is finite-depth — reachable — *there* (`DepthPiQuartic`,
+presentation-dependence).  Read as itself (structure = state): non-holonomic pole.  Read
+against an external ruler (Wallis): det-1 bracket to a limit.  Both true; neither bracket *is*
+π (`object1_not_surjective`).
+
+**Status correction folded in.**  The phrasing is now the corrected one: π is the *image* of
+the (structure = state) point under the continuous projection — **not** the residue itself
+(the residue is pre-projection, outside every Lens output, π included).  The earlier "π = 잔여
+그 자체" was the *View-promoted-to-identity* failure mode; "π = the continuous-codomain
+projection-value of operation=object" is its accurate form.
+
 ## ∅-axiom anchors (already proven; this note adds no new Lean beyond `PentagonGoldenTrace`)
 
   - `Mobius213` — `P(φ)=φ`, the self-reference fixed point (φ face).

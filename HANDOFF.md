@@ -32,6 +32,17 @@ only*.  Periodic floor (`φ`,`√2`) is not finite-difference-depth; the `2ⁿ` 
 `MonotonicBounded`).  Propext landmine caught: `Nat.sub_eq_zero_of_le` → replaced by
 `Nat.sub_le_sub_right`+`Nat.sub_self`.
 
+### Ontology arc — `research-notes/G174` (φ/π as residue projections; conjectures C-π1..4)
+The φ↔π conceptual thread, ∅-axiom-anchored where possible: π = the continuous-symmetry /
+(operation=object, §6.2) projection of the residue's self-reference; φ = its discrete
+fixed-point projection.  **New ∅-axiom anchor**: `Real213/PentagonGoldenTrace.lean` (6 PURE) —
+`φ = 2cos(π/5)` algebraic skeleton (`phi_quad`, `pentagon_trace_quad/unit`), norm-`−1` golden
+units (`phi_norm`, `pentagon_trace_norm`) carrying the det-1 descent.  Conjectures: C-π1
+(continuous-symmetry image, not the residue itself), C-π2 (φ↔π = hyperbolic↔elliptic / Wick
+`cos(iθ)=cosh θ`), C-π3 (π = det-1 bracket between allowed axes 4,6 around forbidden 5 — the
+*reachable* Wallis face, `DepthPiQuartic`), C-π4 (operation=object ⟹ no rule/state split ⟹
+non-holonomic — the CF pole face is §6.2's shadow).  Tier-1 conceptual; proven anchors only.
+
 ### Key agent findings (for next session)
 - π's partial-quotient **boundedness is OPEN** — not even a sharp conjecture; unboundedness is
   only the Gauss–Kuzmin heuristic, and π is not known GK-normal.  (Correct G170's "conjecturally
