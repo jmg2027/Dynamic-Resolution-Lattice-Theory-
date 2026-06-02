@@ -188,6 +188,16 @@ A–D + B are now **all closed ∅-axiom this arc**:
         despite its stale `[propext]` docstring).
     Out of scope (the edifice 213 declines): elliptic curves / CM / modular forms /
     the `j`-map / modularity (the geodesic-folding picture stays conceptual in G167).
+      - **Eisenstein cross-determinant over ℤ[ω] — BUILT** (`CayleyDickson/Integer/
+        EisensteinCrossDet`, 14/0): `crossDet a d n = a_{n+1}d_n − a_n d_{n+1} ∈ ℤ[ω]`;
+        `cassini_ring` (the ring identity, manual `calc` over the pure `Ring213`/
+        `CommRing213` API — no normalizer exists); `crossDet_step` (Cassini engine
+        `W_{n+1} = −q·W_n`); `crossDet_normSq_step` (`‖W_{n+1}‖² = ‖q‖²‖W_n‖²`);
+        `crossDet_unit_floor` (q, W₀ units ⟹ ‖W_n‖²=1 ∀n — the det-one floor preserved);
+        `crossDet_on_units` (each W_n is one of the **6 units**, via
+        `normSq_one_in_units6`); `omegaFib_on_units` (concrete `s_{n+2}=s_{n+1}+ω·s_n`,
+        `q=ω`).  The Eisenstein analog of φ's Fibonacci–Cassini `W=±1` (the 2 units of
+        ℤ): over hexagonal ℤ[ω] the cross-det floor is the order-6 unit group.
   - **C. third-axis closure** — DONE this arc (`Cauchy/DepthOmegaTower`, 13/0):
     `coord_wf` — the depth-`r` tower coordinate (`r`-fold nested lex product
     `Coord r`) is well-founded for every `r`, an ordinal `< ω^r`; the whole `ω^ω`
