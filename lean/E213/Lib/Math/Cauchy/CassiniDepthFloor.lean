@@ -151,25 +151,43 @@ theorem cfinite_orbit_ladder_placement (p q : Int) (s : Nat → Int)
     ∧ (∀ n, det s n = qpow q n * det s 0) :=
   ⟨second_diff_closure p q s hrec, det_closed p q s hrec⟩
 
-/-! ## §5 — the orbit lies on a conic (genus 0), not (yet) an elliptic curve
+/-! ## §5 — the orbit lies on a conic (genus 0): a *determinantal* ladder, NOT a genus ladder
 
 Geometric reading of the conserved Cassini.  The consecutive triple `(s n, s(n+1), s(n+2))` of
-an `SL₂` (`q=1`) order-2 orbit lies on a **fixed conic** `X·Z − Y² = c` (the Cassini/Pell quadric):
-the "circle" the two-orbit traces.  The shift (the `P`-step / Möbius) is the conic's `SL₂`
-automorphism — and that `SL₂(ℤ)` Möbius action is the **modular group** (`Real213.ModularElliptic`:
-`PSL(2,ℤ) = ℤ/2 * ℤ/3`, elliptic generators of orders `4, 6` — the rotations).
+an order-2 orbit lies on a **fixed conic** `X·Z − Y² = c` (the Cassini/Pell quadric, the `2×2`
+Hankel determinant): the "circle" the two-orbit traces.
 
-Honest scope (against over-reading): a conic is **genus 0**, *not* an elliptic curve (genus 1).
-The orbit at this depth (order 2, quadratic) is a conic; a genus-1 *elliptic curve* is the
-*cubic* object that would appear **one depth up** (order 3 — the ζ(3)-Apéry level), where the
-Apéry↔modular-form connection (Beukers) lives.  That higher-depth elliptic/modular step is a
-**conjecture** for the 213 ladder, not proved here — what *is* proved is the genus-0 conic. -/
+**Honest scope (an adversarial-math audit corrected a category error here).**  The tempting
+"depth ↦ genus" reading — order-2 → conic (genus 0), order-3 → elliptic curve (genus 1),
+order-`k` → genus `k−1` — is **wrong, a stereotype-match, not a conjecture worth chasing**:
 
-/-- ★★★ **The order-2 SL₂ orbit lies on a fixed conic.**  For `q=1`, every consecutive triple
-    `(s n, s(n+1), s(n+2))` satisfies the *same* conic equation `X·Z − Y² = s 0·s 2 − s 1²` — the
-    Cassini/Pell quadric (genus 0).  This is the orbit's "circle": the two-orbit traces a conic,
-    conserved by the `SL₂` (Möbius / modular) shift.  (A restatement of `cassini_conserved_depth0`
-    in conic-geometry form.) -/
+  * **the genus does not climb.**  A const-coeff *linear* recurrence's orbit is genus 0 at
+    *every* order (its dynamics are a companion matrix on `ℤᵏ` — a toric / linear-algebraic
+    object).  The order-`k` invariant is the **`k×k` Casorati/Hankel determinant**, which obeys
+    the *same* multiplier law `Wₖ(n+1) = q·Wₖ(n)` (the Abel/Casorati identity) — a
+    **determinantal/arithmetic** ascent, all genus 0.  Degree-`k` of a *form in many variables*
+    is **not** the genus `binom(d−1,2)` of a *plane curve* (which also needs smoothness — the
+    `k×k` Hankel determinant is a *singular/reducible* determinantal variety, never a smooth
+    plane cubic).  So the real ladder is `det_step` generalised to order `k`, **not** a genus
+    ascent.
+  * **the shift is the Pell *unit* group, not the modular group.**  The `q=1` shift is a single
+    *hyperbolic* element of `SL₂(ℤ)` generating the rank-1 Pell unit group `⟨ε⟩ ≅ ℤ×ℤ/2` (the
+    conic's automorphisms) — **not** the rank-2 free-product modular group `PSL₂(ℤ)=ℤ/2*ℤ/3`
+    (`Real213.ModularElliptic`, whose generators are the *elliptic* `S, U` of finite order, which
+    the hyperbolic shift is not).  They share the ambient `SL₂(ℤ)`; they are different groups.
+  * **Apéry/ζ(3) is a different category.**  The Apéry recurrence is order-2 **holonomic**
+    (polynomial-coefficient), not order-3 const-coeff; Beukers' modularity is a **K3-surface /
+    weight-4 / Picard–Fuchs** phenomenon, not an elliptic curve attached to a recurrence orbit.
+
+So: genus-0 conic = proved; the honest ascent is the **order-`k` Casorati determinant**
+(`second_casoratian` below, order 3); "genus climbs / modular elliptic curve" is a category
+error, recorded and dropped. -/
+
+/-- ★★★ **The order-2 SL₂ orbit lies on a fixed conic (genus 0).**  For `q=1`, every consecutive
+    triple `(s n, s(n+1), s(n+2))` satisfies the *same* conic equation `X·Z − Y² = s 0·s 2 − s 1²`
+    — the Cassini/Pell quadric (the `2×2` Hankel determinant).  The two-orbit traces a conic,
+    conserved by the shift (a hyperbolic element of the Pell unit group).  (A restatement of
+    `cassini_conserved_depth0` in conic-geometry form.) -/
 theorem orbit_on_conic (p : Int) (s : Nat → Int)
     (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) (n : Nat) :
     s n * s (n + 2) - s (n + 1) * s (n + 1) = s 0 * s 2 - s 1 * s 1 :=

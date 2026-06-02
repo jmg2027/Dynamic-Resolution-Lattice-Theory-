@@ -163,19 +163,36 @@ atomicity — not a claim about arbitrary orbits.
 **What is proved (genus 0).**  `orbit_on_conic` (`CassiniDepthFloor §5`, PURE): the order-2 `SL₂`
 (`q=1`) orbit's consecutive triple `(s n, s(n+1), s(n+2))` lies on a **fixed conic**
 `X·Z − Y² = s0·s2 − s1²` (the Cassini/Pell quadric) — the "circle" the two-orbit traces.  The
-shift (`P`-step) is the conic's `SL₂` Möbius automorphism, and that `SL₂(ℤ)` Möbius action is the
-**modular group** — already formalized: `Real213.ModularElliptic` (`PSL(2,ℤ) = ℤ/2 * ℤ/3`,
-elliptic generators `S, U` of orders `4, 6`, the rotations).  So "뫼비우스 짓 = 모듈러 군" is real.
+shift (`P`-step) is the conic's automorphism — but (see the correction below) it is a *single
+hyperbolic* element generating the rank-1 **Pell unit group**, **not** the modular group
+`PSL₂(ℤ)` (`Real213.ModularElliptic`'s `S, U` are the *elliptic*, finite-order generators — a
+structurally different, rank-2 group).  Same ambient `SL₂(ℤ)`; different group.
 
-**The honest correction.**  A conic is **genus 0**, *not* an elliptic curve (genus 1).  At this
-depth (order 2, quadratic) the orbit is a conic.  The reframing the insight *correctly* points at
-is **depth ↦ genus**: a genus-1 elliptic curve is the *cubic* object that would appear **one depth
-up** (order 3 — the ζ(3)-Apéry level), where the famous **Apéry ↔ modular-form / elliptic-surface
-connection (Beukers)** lives.  So the ladder reads as a *genus ladder* — conic (genus 0, order 2)
-→ elliptic (genus 1, order 3) → … — with the Möbius/modular group the symmetry at **every** rung
-(the self-similar "project back, rotate again").
+**The honest correction (an adversarial-math audit + a conjecture agent, both numerically
+verified, overturned the "depth ↦ genus" framing — it is a *category error*, not a conjecture).**
 
-**Status.**  genus-0 (conic) = PROVED (`orbit_on_conic`).  depth-`k` ↦ genus-`(k−1)` and the
-order-3 ↦ elliptic/modular (Apéry-Beukers) step = **CONJECTURE** for the 213 ladder, not proved.
-Flag: claiming 213 *constructs* modular elliptic curves would be over-reach (modularity is deep);
-the honest, formalizable content is the conic + the modular-group symmetry already in the repo.
+  * **The genus does NOT climb.**  A const-coeff *linear* recurrence's orbit is genus 0 at *every*
+    order (companion matrix on `ℤᵏ`, a toric object).  The order-`k` conserved invariant is the
+    **`k×k` Casorati/Hankel determinant**, obeying the *same* multiplier law `Wₖ(n+1) = q·Wₖ(n)`
+    (`q = det` of the shift) — a **determinantal/arithmetic** ascent, all genus 0.  The
+    `k×k` Hankel determinant is a *singular/reducible* determinantal variety, **never** a smooth
+    plane curve; the degree of a many-variable form is **not** the genus `binom(d−1,2)`.
+  * **No conserved *cubic form* exists** on order-3 orbit triples (nullity 0 beyond the constant,
+    verified numerically) — there is **no** genus-1 curve the order-3 orbit lies on.  The conserved
+    object is the `3×3` Casoratian (`SecondCasoratian.hankel3`), not a single-window cubic.
+  * **The shift is the Pell *unit* group, not the modular group.**  The `q=1` shift is a *single
+    hyperbolic* element of `SL₂(ℤ)` generating the rank-1 Pell unit group `⟨ε⟩` (the conic's
+    automorphisms) — **not** the rank-2 free-product `PSL₂(ℤ)=ℤ/2*ℤ/3` (whose generators `S, U`
+    are *elliptic*, finite order, which the hyperbolic shift is not).  Same ambient, different group.
+  * **Apéry/ζ(3) is a different category.**  The Apéry recurrence is order-2 *holonomic*
+    (polynomial-coeff), not order-3 const-coeff; Beukers' modularity is K3-surface / weight-4 /
+    Picard–Fuchs, not an elliptic curve on a recurrence orbit; its Hankel determinants carry large
+    primes (no ∅-axiom closed form).
+
+**The genuine ladder (proved this round, `Cauchy/SecondCasoratian`, 4 PURE).**  `second_casoratian`:
+the order-3 `3×3` Casorati determinant multiplies by `c` each step, `W₃(n+1) = c·W₃(n)` — the exact
+order-3 sibling of `det_step`.  `sl3_hankel_conserved` (`c=1` floor), `third_diff_closure` (order-3
+C-finite, `Δ³s = (a+b+c−1)s + (2a+b−3)Δs + (a−3)Δ²s`).  So the honest ascent is the **order-`k`
+Casorati determinant** (a *determinantal* ladder, all genus 0), and "depth ↦ genus / order-3 ↦
+modular elliptic curve" is a recorded-and-dropped category error.  The math intuition pointed at a
+*real* object — just the determinantal ladder, not a genus ladder.
