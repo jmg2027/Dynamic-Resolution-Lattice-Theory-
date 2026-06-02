@@ -34,7 +34,7 @@ The proof runs through `Int.natAbs` into `Nat` (the same `∅`-axiom route as
 namespace E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy
 
 open E213.Lib.Math.CayleyDickson.Integer.ZI (ZI units4 units4_length)
-open E213.Lib.Math.CayleyDickson.Integer.ZOmega (units6 units6_length Zeta6 zeta6_cubed zeta6_pow_six)
+open E213.Lib.Math.CayleyDickson.Integer.ZOmega (ZOmega units6 units6_length Zeta6 zeta6_cubed zeta6_pow_six)
 
 /-! ## §1 — the `Nat` kernel: `a² + d·b² = 1`, `d ≥ 2`, forces `b = 0`, `a = 1` -/
 
@@ -168,5 +168,25 @@ theorem axis_binary_cover :
     ∧ (Zeta6 * Zeta6 * Zeta6 = ⟨-1, 0⟩
         ∧ Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 = ⟨1, 0⟩) :=
   ⟨by decide, ⟨by decide, by decide⟩, ⟨zeta6_cubed, zeta6_pow_six⟩⟩
+
+/-! ## §5 — the crystallographic cosines `2cos(2πk/6)` as the Eisenstein traces -/
+
+/-- The rational-integer trace `u + conj(u) = ⟨2·re − im, 0⟩` of an Eisenstein integer. -/
+def ztrace (u : ZOmega) : Int := 2 * u.re - u.im
+
+/-- ★★★ **The crystallographic cosines are the Eisenstein order-6 traces.**  The traces of
+    `ζ₆¹..ζ₆⁶` are `1, −1, −2, −1, 1, 2` — exactly `2cos(2πk/6)` for `k = 1..6`, the only
+    *integer* values of `2cos(2π/n)` (the rational-trace / crystallographic orders
+    `n ∈ {1,2,3,4,6}`, `Tower/CyclotomicTraceDegree.crystallographic_restriction`).  So the
+    order-6 axis (π/circle, Eisenstein) carries the full integer cosine spectrum
+    `{2, 1, −1, −2}`, the trace-reading of the `{2,4,6}` axis. -/
+theorem crystallographic_cosines :
+    ztrace Zeta6 = 1
+    ∧ ztrace (Zeta6 * Zeta6) = -1
+    ∧ ztrace (Zeta6 * Zeta6 * Zeta6) = -2
+    ∧ ztrace (Zeta6 * Zeta6 * Zeta6 * Zeta6) = -1
+    ∧ ztrace (Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6) = 1
+    ∧ ztrace (Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6) = 2 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy
