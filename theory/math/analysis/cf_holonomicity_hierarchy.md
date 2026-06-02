@@ -40,12 +40,13 @@ classical formal handle on "P-recursive / holonomic partial quotients".
 Reusable pure infrastructure born here: `pow_mul_pure`, `mul_sub_pure_le`, `polyDepth_congr`,
 `resP_mod`, `res3_div` (each replacing a `propext`/`Quot.sound`-leaking core lemma).
 
-A companion file `Cauchy/PositiveFloorUnbounded.lean` (11 PURE) adds the unboundedness side:
+A companion file `Cauchy/PositiveFloorUnbounded.lean` (13 PURE) adds the unboundedness side:
 
 | Theorem | Statement (informal) |
 |---|---|
 | `positive_floor_unbounded` | a positive *constant* top finite-difference (`polyDepth (m+1) s`, `Δ^{m+1}s(0) ≥ 1`) ⟹ `s` unbounded, with explicit witness `n` for every bound `B` |
 | `bounded_floor_zero` | (decidable `ℕ` contrapositive) bounded depth-`(m+1)` sequence ⟹ `Δ^{m+1}s(0) = 0` |
+| `positive_linear_exact` | positive-floor depth-1 ⟹ *exact* `s n = s 0 + c·n` (the ∅-axiom positive-linear case of `QuasiPolyCF ⟹ polynomially-bounded`) |
 | `ePQ_unbounded` | e's partial quotients are unbounded — its `2k+2` section has positive top difference, so `positive_floor_unbounded` fires |
 
 ## Narrative

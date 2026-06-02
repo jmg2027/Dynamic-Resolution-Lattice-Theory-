@@ -50,7 +50,12 @@ in `MonotonicBounded.lean`.  Constructively we get only the witnessed direction
 (`positive_floor_unbounded`) and, by a decidable `ℕ` case split, the vanishing of the *top*
 coefficient (`bounded_floor_zero`) — never the collapse to a constant.
 
-All ∅-axiom (`11 pure / 0 dirty`).
+A sharper companion (`positive_linear_exact`) closes the depth-1 positive case to the *exact*
+linear formula `s n = s 0 + c·n` — the ∅-axiom positive-linear instance of the otherwise
+Newton–Gregory-blocked `QuasiPolyCF ⟹ polynomially-bounded` bridge (truncation, the blocker
+over `ℕ`, vanishes once `c ≥ 1`).
+
+All ∅-axiom (`13 pure / 0 dirty`).
 -/
 
 namespace E213.Lib.Math.Cauchy.PositiveFloorUnbounded
@@ -164,6 +169,39 @@ theorem bounded_floor_zero (m : Nat) (s : Nat → Nat)
   · exact h
   · obtain ⟨n, hn⟩ := positive_floor_unbounded m s hpoly h B
     exact absurd (Nat.lt_of_lt_of_le hn (hb n)) (Nat.lt_irrefl B)
+
+/-! ## §4b — exact linear growth: a positive-floor depth-1 sequence is `s 0 + c·n`
+
+For `polyDepth 1 s` with a *positive* constant difference `c = Δs(0) ≥ 1`, the truncated
+subtraction never truncates (`Δs n = c ≥ 1 ⟹ s(n+1) = s n + c` genuinely), so the discrete
+antiderivative closes to an **exact** linear formula — sharper than mere unboundedness, and
+the ∅-axiom witness that such sections are linearly bounded (⟹ irrationality measure `μ = 2`,
+cited).  This is the positive-linear case of the otherwise Newton–Gregory-blocked
+`QuasiPolyCF ⟹ polynomially-bounded` (truncated subtraction is what blocks the general `ℕ`
+version; positivity removes it here). -/
+
+/-- `a - b = c` with `c ≥ 1` is genuine subtraction: `a = b + c`. -/
+theorem eq_add_of_sub_eq {a b c : Nat} (hc : 1 ≤ c) (h : a - b = c) : a = b + c := by
+  have hab : 1 ≤ a - b := by rw [h]; exact hc
+  have hba : b < a := lt_of_one_le_sub hab
+  have he : b + (a - b) = a := E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hba)
+  rw [h] at he
+  exact he.symm
+
+/-- ★★★ **Exact linear growth.**  A depth-1 sequence with positive constant difference
+    `c = liftK 1 s 0 ≥ 1` is exactly `s n = s 0 + c · n` — the discrete antiderivative closes
+    with no `ℕ` truncation.  (e's `2k+2` section: `s 0 = 2`, `c = 2`.) -/
+theorem positive_linear_exact (s : Nat → Nat) (hpoly : polyDepth 1 s)
+    (hpos : 1 ≤ liftK 1 s 0) : ∀ n, s n = s 0 + liftK 1 s 0 * n := by
+  intro n
+  induction n with
+  | zero => rw [Nat.mul_zero, Nat.add_zero]
+  | succ n ih =>
+    have hc : liftK 1 s n = liftK 1 s 0 := hpoly n
+    have hdef : liftK 1 s n = s (n + 1) - s n := rfl
+    have hstep : s (n + 1) = s n + liftK 1 s 0 :=
+      eq_add_of_sub_eq hpos (by rw [← hdef, hc])
+    rw [hstep, ih, Nat.add_assoc, ← Nat.mul_succ]
 
 /-! ## §5 — the CF instance: a genuine positive-degree section forces unbounded p.q. (e) -/
 
