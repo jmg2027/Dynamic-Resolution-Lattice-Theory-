@@ -368,6 +368,82 @@ theorem or_and_absorb (x y : Raw) (hx : IsBool213 x) (hy : IsBool213 y) :
   all_goals (first | (subst hyT) | (subst hyF))
   all_goals decide
 
+/-! ### Boolean-algebra completion — complement, identity/null, associativity
+
+With the commutativity / idempotence / distributivity / absorption / De Morgan laws above,
+these complete the equational laws of the two-element Boolean algebra on `{T, F}`: `and` /
+`or` the meet / join, `T` / `F` the bounds, `not` the complement.  (These are the equational
+laws, proved by the same `{T,F}` case-split; no `BooleanAlgebra` typeclass is constructed.) -/
+
+/-- Complement: `and x (not x) = F` for Bool213 inputs (`x ∧ ¬x = ⊥`). -/
+theorem and_compl (x : Raw) (hx : IsBool213 x) : and x (not x) = F := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Complement: `or x (not x) = T` for Bool213 inputs (`x ∨ ¬x = ⊤`). -/
+theorem or_compl (x : Raw) (hx : IsBool213 x) : or x (not x) = T := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Identity: `and x T = x` — `T` is the `∧`-unit. -/
+theorem and_T_right (x : Raw) (hx : IsBool213 x) : and x T = x := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Null: `and x F = F` — `F` is the `∧`-zero. -/
+theorem and_F_right (x : Raw) (hx : IsBool213 x) : and x F = F := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Identity: `or x F = x` — `F` is the `∨`-unit. -/
+theorem or_F_right (x : Raw) (hx : IsBool213 x) : or x F = x := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Null: `or x T = T` — `T` is the `∨`-zero. -/
+theorem or_T_right (x : Raw) (hx : IsBool213 x) : or x T = T := by
+  rcases hx with hT | hF
+  · subst hT; decide
+  · subst hF; decide
+
+/-- Associativity of `and` on Bool213 inputs. -/
+theorem and_assoc213 (x y z : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) (hz : IsBool213 z) :
+    and (and x y) z = and x (and y z) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF <;> rcases hz with hzT | hzF
+  all_goals (try (subst hxT)); all_goals (try (subst hxF))
+  all_goals (try (subst hyT)); all_goals (try (subst hyF))
+  all_goals (try (subst hzT)); all_goals (try (subst hzF))
+  all_goals decide
+
+/-- Associativity of `or` on Bool213 inputs. -/
+theorem or_assoc213 (x y z : Raw)
+    (hx : IsBool213 x) (hy : IsBool213 y) (hz : IsBool213 z) :
+    or (or x y) z = or x (or y z) := by
+  rcases hx with hxT | hxF <;> rcases hy with hyT | hyF <;> rcases hz with hzT | hzF
+  all_goals (try (subst hxT)); all_goals (try (subst hxF))
+  all_goals (try (subst hyT)); all_goals (try (subst hyF))
+  all_goals (try (subst hzT)); all_goals (try (subst hzF))
+  all_goals decide
+
+/-- ★★ **The two-element Boolean-algebra laws hold on `{T, F}`.**  Complement
+    (`and_compl`/`or_compl`), identity (`and_T_right`/`or_F_right`), and null
+    (`and_F_right`/`or_T_right`) for a Bool213 input — together with commutativity,
+    idempotence, distributivity, absorption, De Morgan, and associativity
+    (`and_assoc213`/`or_assoc213`), the complete equational signature of the two-element
+    Boolean algebra (`{T,F}, ∧, ∨, ¬, ⊥=F, ⊤=T`). -/
+theorem bool213_boolean_algebra_laws (x : Raw) (hx : IsBool213 x) :
+    and x (not x) = F ∧ or x (not x) = T
+    ∧ and x T = x ∧ or x F = x
+    ∧ and x F = F ∧ or x T = T :=
+  ⟨and_compl x hx, or_compl x hx, and_T_right x hx, or_F_right x hx,
+   and_F_right x hx, or_T_right x hx⟩
+
 /-- **`boolValue` injectivity on the Bool213 image**: distinct
     Bool213 elements have distinct `boolValue`s.  Direct 4-case
     enumeration.  Combined with surjectivity onto `{true, false}`

@@ -11,6 +11,7 @@ import E213.Lens.PredicateSelfEncoding
 import E213.Lens.ResidueReentry
 import E213.Lens.RawTopology
 import E213.Lens.SelfCompletion
+import E213.Lens.SelfReferenceThreeOutcomes
 import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality

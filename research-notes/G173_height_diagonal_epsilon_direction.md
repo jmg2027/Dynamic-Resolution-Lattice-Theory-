@@ -49,11 +49,25 @@ ladder, then named); here only the ∅-axiom structural fact (the diagonal escap
 finite height) is proved.  Whether a native `ε₀` object exists in this framework remains
 open and is not forced by this result.
 
-## Open (this axis)
+## Resolved 2026-06-02
 
-  - A native `ε₀`/limit-ordinal object (no Mathlib `Ordinal`) and a proof that the
-    height-diagonal is its `+1` — genuinely uncertain (the diagonal may only express the
-    `ω^ω` ceiling, not a canonical `ε₀`).
-  - frozen = dynamic equivalence (§5.7): `φ` as `P`'s algebraic fixed point vs the Pell
-    iteration limit, identified by one ∅-axiom theorem.
+  - **frozen = dynamic φ (§5.7) — CLOSED.**  `Real213/PhiFrozenDynamic.frozen_eq_dynamic_phi`
+    (2 PURE): frozen φ (the algebraic cut, discriminant `(L 1)² − 4 = 5` = `P`'s char-poly
+    discriminant, `phi_discriminant_is_P_charpoly`) **=** dynamic φ (the Pell-convergent Cauchy
+    limit, `PhiCauchyLimit.phiCauchy_limit_eq_phiCut`), with the **residue unit `1`** between
+    them (`fib_cassini_norm` + `convergent_never_frozen`: the `Nat` orbit stays exactly `1` off
+    the frozen relation and never reaches it).  The identification needs no foreign reals — the
+    213 real layer builds φ both ways and proves them the same cut.  §5.7 closed.
+
+## Open / honest ceiling (this axis)
+
+  - **Native `ε₀` object — out of ∅-axiom reach (NOT forced).**  The structural content is
+    already closed: `height_diagonal_escapes` (naming the whole `ω^r` ladder escapes every
+    finite height — the `ω^ω` ceiling) and `diag_self_applies` (the diagonalisation is
+    scale-invariant — applied to its own output it escapes again).  Together these are the
+    ∅-axiom shadow of "ε₀ is the first fixed point of `α ↦ ω^α`, unreachable from below": no
+    finite height is a fixed point of the tower-naming.  Constructing a *native* `ε₀` ordinal
+    object (no Mathlib `Ordinal`) and proving the diagonal is its `+1` would be a **forced**
+    construction (the diagonal expresses only the `ω^ω` ceiling, not a canonical `ε₀`); per the
+    no-forcible-map discipline it is not pursued.  This is the honest ceiling, not a gap.
   - Computability / `ω₁^CK`: out of scope (a Lens reading on top of Nat-style recursion).

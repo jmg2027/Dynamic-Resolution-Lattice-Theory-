@@ -26,6 +26,16 @@ implies the other (Lambek alone holds for νF too); together they pin Raw = μF.
 This is the ∅-axiom form of the question "one closure or two?": **two, mutually
 supporting.**  See `research-notes/G152_residue_self_covering.md` for the
 discussion.
+
+§5 makes the well-foundedness of §2 a *theorem about the descent re-entry*, not only a
+per-step measure: the peel relation `IsPart` (a Raw is one of the two parts of a slash) is
+**well-founded** (`isPart_wf`) — every chain of peels terminates at an atom, the atoms
+being the terminal points (`no_part_of_atom`).  Peeling re-enters the structure at a
+strictly shallower part (`part_depth_lt`) and the re-entry **converges** at the floor.
+This is the convergence dual of `Lens.ResidueReentry.residue_reentry_never_closes`: the
+*same* self-applying re-entry, read on the atomic/Nat-Lens side, closes at the atoms; read
+on the predicate/residue side, never closes — two faces of one self-pointing (cf.
+`Lens.Bool213.SelfReferenceForms.self_reference_two_forms`).
 -/
 
 namespace E213.Theory.Raw.Lambek
@@ -150,5 +160,180 @@ theorem self_similar_floor :
     ∧ -- and bottoms out at the atoms (the shape's fixed points: depth 0)
     (Raw.a.depth = 0 ∧ Raw.b.depth = 0) :=
   ⟨decompose, depth_drops, atoms_are_floor⟩
+
+/-! ## 5. The descent re-entry converges — well-foundedness as a theorem
+
+§2 gave well-foundedness as a per-step *measure* (`depth_drops`).  Here it is the actual
+**well-foundedness of the peel relation**: peeling a non-atom re-enters the structure at
+one of its two strictly-shallower parts, and every such re-entry chain terminates at an
+atom.  This is the convergence face of the self-applying re-entry — the dual of the
+predicate-side `Lens.ResidueReentry.residue_reentry_never_closes` (which never closes). -/
+
+/-- The **peel (descent) relation**: `c` is a *part* of `p` — `p` is a slash and `c` is
+    one of its two parts.  One peel re-enters the structure at a part. -/
+def IsPart (c p : Raw) : Prop :=
+  ∃ (x y : Raw) (h : x ≠ y), p = Raw.slash x y h ∧ (c = x ∨ c = y)
+
+/-- The atoms are **terminal**: nothing is a part of an atom (atoms do not peel — they are
+    the floor where the descent re-entry stops). -/
+theorem no_part_of_atom (c : Raw) : ¬ IsPart c Raw.a ∧ ¬ IsPart c Raw.b := by
+  refine ⟨?_, ?_⟩
+  · rintro ⟨x, y, h, hp, _⟩
+    exact (Raw.slash_ne_a x y h) hp.symm
+  · rintro ⟨x, y, h, hp, _⟩
+    exact (Raw.slash_ne_b x y h) hp.symm
+
+/-- A peel re-enters strictly **shallower**: every part has smaller depth than its whole.
+    The re-entry descends — this is the measure behind well-foundedness. -/
+theorem part_depth_lt (c p : Raw) (hcp : IsPart c p) : c.depth < p.depth := by
+  obtain ⟨x, y, h, hp, hc⟩ := hcp
+  subst hp
+  rcases hc with hc | hc
+  · rw [hc]; exact (depth_drops x y h).1
+  · rw [hc]; exact (depth_drops x y h).2
+
+/-- ★★ **The peel relation is well-founded** — every descent re-entry terminates.
+    `IsPart` strictly drops the `depth` measure (`part_depth_lt`), so there is no infinite
+    descent: each Raw is accessible (reached by finitely many peels from the atoms).  The
+    floor is reached in finitely many steps.  Proof: strong induction on a `depth` bound —
+    a part is shallower than its bound, so accessibility lifts one layer. -/
+theorem isPart_wf : WellFounded IsPart := by
+  -- `key n`: every Raw with depth `< n` is accessible.
+  have key : ∀ n : Nat, ∀ r : Raw, r.depth < n → Acc IsPart r := by
+    intro n
+    induction n with
+    | zero => intro r hr; exact absurd hr (Nat.not_lt_zero _)
+    | succ k ih =>
+        intro r hr
+        refine Acc.intro r (fun c hc => ?_)
+        have hlt : c.depth < r.depth := part_depth_lt c r hc
+        exact ih c (Nat.lt_of_lt_of_le hlt (Nat.le_of_lt_succ hr))
+  exact WellFounded.intro (fun r => key (r.depth + 1) r (Nat.lt_succ_self _))
+
+/-- ★★★ **The descent re-entry converges** (the Lambek / Nat-Lens face).  Three facts of
+    one downward re-entry:
+
+    1. the atoms are terminal — nothing peels from an atom (`no_part_of_atom`);
+    2. every peel re-enters strictly shallower (`part_depth_lt`);
+    3. the peel relation is well-founded — every descent chain terminates at the atomic
+       floor (`isPart_wf`).
+
+    This is the convergence dual of `Lens.ResidueReentry.residue_reentry_never_closes`: the
+    *same* self-applying re-entry, read on the atomic side (peeling toward the floor),
+    **closes** at the atoms; read on the predicate/residue side (re-pointing the encoded
+    residue), **never closes**.  Two faces of one Raw self-pointing — the bounded,
+    terminating descent and the unbounded, escaping ascent. -/
+theorem descent_reentry_converges :
+    (∀ c : Raw, ¬ IsPart c Raw.a ∧ ¬ IsPart c Raw.b)
+    ∧ (∀ c p : Raw, IsPart c p → c.depth < p.depth)
+    ∧ WellFounded IsPart :=
+  ⟨no_part_of_atom, part_depth_lt, isPart_wf⟩
+
+/-! ### Quantitative convergence — the unit step and the explicit length bound
+
+`isPart_wf` is the qualitative termination (the descent is accessible).  Here is the
+*quantitative* form: each peel removes at least the irreducible **unit `1`** of depth — the
+count-Lens residue of one distinguishing — so a descending chain drops depth by at least
+its length, and therefore no descending chain is longer than the root's depth.  The unit
+`1` per step is the same surplus the tower-scale
+`Cauchy.DepthOverflowDuality.overflow_is_unit_surplus` reads *upward* (the escaping,
+top-less ascent: `bound i + 1 ≤ val i`); here it is read *downward* (the terminating
+descent: `c.depth + 1 ≤ p.depth`).  One unit, two directions — well-foundedness is what
+makes the downward read terminate. -/
+
+/-- One peel removes at least the **unit** of depth: `c.depth + 1 ≤ p.depth`.  The `Nat`
+    form of `part_depth_lt` (strict `<` is `+1 ≤`), naming the irreducible step `1`. -/
+theorem part_depth_succ_le (c p : Raw) (hcp : IsPart c p) : c.depth + 1 ≤ p.depth :=
+  part_depth_lt c p hcp
+
+/-- ★★ **A descending chain drops depth by at least its length.**  For any `chain : Nat →
+    Raw` that peels at every step (`IsPart (chain (k+1)) (chain k)`), after `k` peels the
+    depth has dropped by at least `k`: `(chain k).depth + k ≤ (chain 0).depth`.  The unit
+    step accumulates one-for-one — the explicit convergence rate. -/
+theorem descent_chain_drops (chain : Nat → Raw)
+    (hstep : ∀ k, IsPart (chain (k+1)) (chain k)) :
+    ∀ k, (chain k).depth + k ≤ (chain 0).depth := by
+  intro k
+  induction k with
+  | zero => exact Nat.le_refl _
+  | succ k ih =>
+      have h1 : (chain (k+1)).depth + 1 ≤ (chain k).depth :=
+        part_depth_succ_le _ _ (hstep k)
+      have e : (chain (k+1)).depth + (k+1) = ((chain (k+1)).depth + 1) + k := by
+        rw [Nat.add_comm k 1, ← Nat.add_assoc]
+      calc (chain (k+1)).depth + (k+1)
+          = ((chain (k+1)).depth + 1) + k := e
+        _ ≤ (chain k).depth + k := Nat.add_le_add_right h1 k
+        _ ≤ (chain 0).depth := ih
+
+/-- ★★★ **No infinite descent — the explicit bound.**  There is no total `chain : Nat →
+    Raw` peeling at every step: a chain of length `(chain 0).depth + 1` would drop depth
+    below zero (`descent_chain_drops` at index `depth+1` forces `depth + 1 ≤ depth`).  So
+    every descent chain bottoms out within `root depth` peels — the convergence of
+    `isPart_wf`, now with an explicit length bound rather than abstract accessibility. -/
+theorem no_infinite_descent (chain : Nat → Raw)
+    (hstep : ∀ k, IsPart (chain (k+1)) (chain k)) : False := by
+  have hb := descent_chain_drops chain hstep ((chain 0).depth + 1)
+  have hcontra : (chain 0).depth + 1 ≤ (chain 0).depth :=
+    Nat.le_trans (Nat.le_add_left _ _) hb
+  exact Nat.not_succ_le_self _ hcontra
+
+/-! ## 6. The floor is *exactly* the atoms — no partial pointing
+
+`no_part_of_atom` (§5) is one direction: atoms are terminal.  Here is the biconditional —
+a Raw is peel-terminal **iff** it is an atom — and the §5.5 "self-completion" reading: every
+Raw is *exactly one* of {atom, complete slash with parts}, exhaustively and exclusively.
+There is no third "partial" state: the descent stops exactly at the atomic floor, nowhere
+else, and nothing is halfway-formed. -/
+
+/-- A Raw is an **atom** (the floor candidate). -/
+def IsAtom (r : Raw) : Prop := r = Raw.a ∨ r = Raw.b
+
+/-- A Raw is **terminal** for the peel relation: nothing peels from it. -/
+def IsTerminal (r : Raw) : Prop := ¬ ∃ c : Raw, IsPart c r
+
+/-- Every slash *has* a part: its left child peels from it.  So a slash is never terminal. -/
+theorem slash_has_part (x y : Raw) (h : x ≠ y) : IsPart x (Raw.slash x y h) :=
+  ⟨x, y, h, rfl, Or.inl rfl⟩
+
+/-- A non-atom has a part — `decompose` makes it a slash, whose left child peels. -/
+theorem nonatom_has_part (r : Raw) (h : ¬ IsAtom r) : ∃ c : Raw, IsPart c r := by
+  rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+  · exact absurd (Or.inl ha) h
+  · exact absurd (Or.inr hb) h
+  · exact ⟨x, hr ▸ slash_has_part x y hxy⟩
+
+/-- ★★ **Terminal iff atom.**  A Raw is peel-terminal exactly when it is an atom: atoms
+    have no parts (`no_part_of_atom`), and every non-atom (a slash) has one
+    (`nonatom_has_part`).  The descent stops at *exactly* the atomic floor. -/
+theorem terminal_iff_atom (r : Raw) : IsTerminal r ↔ IsAtom r := by
+  constructor
+  · intro hterm
+    rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+    · exact Or.inl ha
+    · exact Or.inr hb
+    · exact absurd ⟨x, hr ▸ slash_has_part x y hxy⟩ hterm
+  · intro hatom hex
+    obtain ⟨c, hc⟩ := hex
+    rcases hatom with ha | hb
+    · exact (no_part_of_atom c).1 (ha ▸ hc)
+    · exact (no_part_of_atom c).2 (hb ▸ hc)
+
+/-- ★★★ **Self-completion: no partial pointing.**  Every Raw is *exactly one* of an atom
+    or a complete slash with a part — exhaustive (`no_partial`: one always holds) and
+    exclusive (`atom_xor_part`: never both).  There is no halfway-formed Raw and no
+    terminal that is not the atomic floor; the pointing is complete at every Raw (§5.5). -/
+theorem self_completion_no_partial (r : Raw) :
+    (IsAtom r ∨ ∃ c : Raw, IsPart c r)
+    ∧ ¬ (IsAtom r ∧ ∃ c : Raw, IsPart c r) := by
+  refine ⟨?_, ?_⟩
+  · rcases decompose r with ha | hb | ⟨x, y, hxy, hr⟩
+    · exact Or.inl (Or.inl ha)
+    · exact Or.inl (Or.inr hb)
+    · exact Or.inr ⟨x, hr ▸ slash_has_part x y hxy⟩
+  · rintro ⟨hatom, c, hc⟩
+    rcases hatom with ha | hb
+    · exact (no_part_of_atom c).1 (ha ▸ hc)
+    · exact (no_part_of_atom c).2 (hb ▸ hc)
 
 end E213.Theory.Raw.Lambek

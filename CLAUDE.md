@@ -13,8 +13,9 @@ spec file overlap, **the spec file wins**.
    absence of exterior, dichotomy-avoidance guide.  **Re-read every
    session start.**  False dichotomies (inside/outside 213,
    classical/213, foundation/derivation) are the most common slip.
-2. **`research-notes/G29_residue.md`** — what 213 *is*, in
-   minimum-commitment language with no comparison frames.
+2. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
+   — what 213 *is* (minimum-commitment) and the residue's *form*
+   (source-without-enclosure), pinned so it is not re-fought each session.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
    three-tier discipline + promotion gates.
@@ -175,11 +176,6 @@ volatile scratchpad).
   (or `rust-engine/`).  Closed sub-tree (PURE + categorical) →
   `theory/PROMOTION_CRITERIA.md`; promote if eligible.
 
-## Active learning (course-correction loop)
-
-When user issues a correction: extract the underlying rule, add to
-"Failure modes catalog" below or the relevant spec.  Not one-off.
-
 ## Self-check before responding
 
 1. Did I just import a comparison frame I'm about to argue against?
@@ -210,8 +206,11 @@ When user issues a correction: extract the underlying rule, add to
 | Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
 | View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`).  See `research-notes/G152_residue_self_covering.md` |
 | External-ruler smuggling | "apply an external measure/ruler (Wallis, a presentation) to break the structure / *reach* the limit" | No exterior (§5.1); a presentation is a residue-internal pointing.  Holonomicity/depth is a property of the *pointing* (approximant sequence), not the real (`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent`, `rcut_rescale`); the residue is presentation-invariant and *reached by none* — pointings only converge (`object1_not_surjective`) |
+| ℤ / sign as exterior import | "adjoin signed integers", "ℤ keeps the signed distinguishing", ℕ-vs-ℤ dichotomy, sign as a Raw primitive | ℤ is the **readout group of the difference-Lens** — the count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style pair-swap (`Int213.neg_subNatNat`), not in Raw.  Canonical: `seed/AXIOM/06_lens_readings.md` §6.7 + `theory/essays/integers_as_difference_lens.md` |
 
-When the user catches one, *don't apologize and repeat* — internalize.
+When the user catches one (course-correction loop): *don't apologize and
+repeat* — extract the underlying rule, add it here or to the relevant
+spec.  Not one-off.
 
 ## Static-analysis tooling
 
