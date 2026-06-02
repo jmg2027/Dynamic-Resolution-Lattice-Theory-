@@ -1,138 +1,103 @@
-# Session Handoff — 2026-06-02
+# Session Handoff — 2026-06-02 (Markov uniqueness marathon)
 
 ## Branch
-`claude/goal-g166-A6MVE` — pushed, and **fast-forward merged to `main`** (both at `c1ed6a7`).
-Working tree clean.  Full `lake build` clean (1500+ modules).  All new theorems ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty` on every module below).
+`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
+(1500+ modules, cached).  All new theorems ∅-axiom (`MarkovUniqueness` → `30 pure / 0 dirty`).
+
+## Goal
+Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
+prove ∅-axiom neighbours, run agent discussion, build conjectures.
 
 ## What Was Done This Session
 
-### 1. Merged `origin/main` (88 commits) into the branch
-Resolved 5 conflicts (umbrella imports, `IntensionalCompletability` add/add cross-branch
-convergence, `tower_native_completeness.md`, HANDOFF).  Adapted `RefinedCompletabilityEngine`
-to main's `crossDetSmall_rescale_antitone` API.  Verified PURE + full build.
+### New module `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (30 PURE / 0 dirty)
+The ∅-axiom **arithmetic spine** of the conjecture — none of this machinery existed in the repo.
 
-### 2. Spiral-axis exhaustiveness + binary cover + crystallographic bridge
-- `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` (9 PURE).
-  `unitForm_generic_axis` (Diophantine: `a²+d·b²=1`, `d≥2` ⇒ only `±1`),
-  `imaginary_quadratic_unit_trichotomy` (axis = closed range `{2,4,6}`),
-  `maximal_order_no_complex_unit` (the `d≡3 mod4` reduced form too), `axis_binary_cover`
-  (`{2,4,6}=2·{1,2,3}`, midpoint `μᵏ=−1` = Cassini sign), `crystallographic_cosines`
-  (Eisenstein `ztrace(ζ6^k)=2cos(2πk/6)={1,−1,−2,−1,1,2}`).
-- `CayleyDickson/Tower/SpiralAxisCrystallographic.lean` (1 PURE): `{2,4,6}` = even half of
-  crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` (verified bridge to `crystallographic_restriction`).
+- **§1–2 Neighbor congruence.** `markov_le_3mul` (every entry `≤ 3·`product of other two);
+  `markov_neighbor_dvd` — **`c ∣ a²+b²`** with witness `a²+b² = c·(3ab−c)` (the lever of every
+  partial result); `markov_neighbor_dvd_all` (3 symmetric), `markov_neighbor_residue` (`%c=0`).
+- **§3 The `√(−1)` encoding.** `neg_one_qr_of_inverse` — if `b·b' = 1+c·j` (b invertible mod c)
+  then **`c ∣ (a·b')²+1`**, i.e. `−1` is a QR mod `c`, witnessed by `u = a·b'`.  The exact form
+  the prime-power theorems (Baragar/Button/Zhang) exploit.  Subtraction-free except one
+  `dvd_sub_213`; additive inverse form `b·b'=1+c·j` keeps it clean.
+- **§3b Toward coprimality.** `markov_common_dvd_sq` — `d∣b → d∣c → d∣a²` (descent-free, from
+  `a²=3abc−(b²+c²)`); `markov_gcd_dvd_sq` — `gcd(b,c)∣a²`.  Foothold for pairwise coprimality.
+- **§4 Encoding fires.** `neg_one_qr_mod_{5,29,433}` on triples `(1,2,5),(2,5,29),(5,29,433)`.
+- **§5 Computational uniqueness.** `markov_max_unique_{5,13,29,34}` + `markovMaxUnique_{5,13,29}`
+  — the conjecture verified decidably at small maxima.  (decide heartbeats out for `c≥169`.)
+- **§6 `p≡3` obstruction.** `no_sqrt_neg_one_mod_{3,7,11,19}` (`−1` non-residue mod `p≡3(4)`)
+  + `sqrt_neg_one_mod_5_and_13` contrast.
+- **§7 The conjecture, formalised.** `MarkovMaxUnique c`, `SqrtNegOneTwoRoots c` (abbrev so
+  `decide` sees it); reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` documented as an
+  **explicit OPEN target** (not claimed — red-team warned against vacuity).  Prime powers hold
+  (`sqrtNegOneTwoRoots_{5,13,25,29}`); `not_sqrtNegOneTwoRoots_65` (c=65=5·13 has 4 roots
+  {8,18,47,57}) pinpoints the composite-`c` onset of the open difficulty.
 
-### 3. π non-holonomicity MARATHON → `Cauchy/HurwitzianCF.lean` (21 PURE)
-The CF-holonomicity hierarchy on the **partial-quotient sequence** `(aᵢ)` (third spiral-layer
-reading).  `QuasiPolyCF p a` (= Hurwitzian: polynomial on each residue class mod p).  Tiers:
-**0** `periodic_quasipoly` (quadratic irrationals); **1** `e_cf_quasipoly` (e=[2;1,2k,1] is
-`QuasiPolyCF 3` — folklore "Hurwitzian ⟹ holonomic" made explicit) + `tan_cf_quasipoly`;
-certificate `polyDepth_diff_recurrence` (`Δ^{d+1}=0`); **properness** `geometric_not_quasipoly`
-(`2ⁿ ∉ QuasiPolyCF`, yet C-finite ⟹ `QuasiPolyCF ⊊ C-finite ⊊ holonomic` STRICTLY);
-μ=2 bridge half `ePQ_linear_bound`/`tanPQ_linear_bound`.  **4 research agents** (literature,
-repo-infra, red-team, synthesis).  Promoted `theory/math/analysis/cf_holonomicity_hierarchy.md`.
+**Purity note**: all `decide` statements use the `%`-residue form (`(x*x+1)%c=0`), NOT `∣` —
+the `Decidable (a∣b)` instance leaks `propext`; `Nat.decidableBallLT`+`%`+`decEq` are pure.
 
-### 4. μ-positioning grounded (vs the irrationality measure)
-A 4th research agent vs literature confirmed: the rate modulus `N(m,k)` IS the
-irrationality-measure function `ψ(q)` (genuinely finer than μ = its limsup); divergence depth
-is ORTHOGONAL + presentation-dependent (does NOT separate numbers); the CF-tier separates e/π.
+### Agents (the "discussion")
+4 research agents: literature survey (Frobenius/Baragar/Button/Zhang/Aigner; Rabideau-Schiffler
+& Lagisquet et al. for the now-proven monotonicity conjectures), repo-infra survey (found
+`Gcd213.{dvd_sub_213,dvd_add_213}`, `AddMod213.*`, `ModBezout.modBezout`), and an adversarial
+red-team (triviality/vacuity check on the encoding, graded conjecture slate, devil's-advocate +
+rebuttal).  Synthesis recorded in `research-notes/G173`.
 
-### 5. Markov spectrum from the repo's own forms (`Real213/GoldenFormMarkov` 9 PURE, `MarkovTree` 13 PURE)
-- `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`, no mod-5): golden form `m²−mk−k²`
-  (disc 5) is the **first Markov form**, value `√5` = Lagrange minimum (φ).  `silver_anisotropic`
-  (reuses `sqrt2_irrational`): disc-8 form, `√8`.  `golden_min_attained_on_fib` (= `fib_cassini_norm`):
-  the `W=±1` floor IS the form's minimum, on φ's Fibonacci convergents.
-- `markov_vieta` (Vieta jumping preserves `x²+y²+z²=3xyz`, coeff `3=NS`, no-subtraction
-  invariant `x²+y²=z·z'`), `markov_tree_branch`, `markov_symm`, `markov_fibonacci_branch`
-  (odd Fib 1,2,5,13,34) + `markov_pell_branch` (odd Pell 1,5,29,169) = the two spines,
-  `markov_first_fork` ((1,2,5) forks to Fibonacci/Pell = Stern-Brocot binary node).
-- Promoted `theory/math/analysis/markov_spectrum.md`.
-
-### 6. Modular tower + Lagrange extremes
-- `Real213/ModularElliptic.lean` (7 PURE): `modular_generator_orders` — `S` order 4, `U`
-  order 6, det 1; `PSL(2,ℤ)=ℤ₂*ℤ₃`, elliptic orders `{4,6}` = Gaussian/Eisenstein axis,
-  `−I` central = Cassini 2.  (Grounds a user-proposed axis/lattice/shape table — note G171.)
-- `Real213/LagrangeExtremes.lean` (4 PURE): φ = spectrum floor (all-1s CF, `Periodic 1`,
-  `QuasiPolyCF 1`, partial quotients pointwise minimal); π = opposite pole (unbounded pq).
+### Docs
+- `research-notes/G173_markov_uniqueness.md` — conjecture slate C1–C8 (graded ∅-axiom
+  tractability), literature, red-team discussion, 213-native angle.
+- `theory/math/analysis/markov_uniqueness.md` — promoted chapter mirroring the Lean.
+- Wired into `theory/math/INDEX.md` + cross-link from `markov_spectrum.md`.
+- `Real213.lean` umbrella imports `MarkovUniqueness`.
 
 ## Current Precision Results (0 free parameters)
-**No physics constants changed this session** (all work is pure math: irrationality /
-approximation / Markov spectrum).  Precision table unchanged — see
-`catalogs/physics-constants.md` (1/α_em, m_μ/m_e 0.48 ppb, R∞ 4.3 ppb, Ω_Λ, etc.) and
-`catalogs/falsifiers.md`.  DRLT Validation Standard status unchanged.
+**No physics constants changed** (pure math: Diophantine / number theory).  Precision table
+unchanged — see `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 
 ## Open Problems (Priority Order)
 
-### 1. π non-holonomicity (the marathon headline) — classically OPEN
-`(aᵢ)` of π not P-recursive.  NOT closable ∅-axiom.  Provable neighbours closed
-(`HurwitzianCF`).  Credible route = Flajolet–Gerhold–Salvy asymptotic obstruction (holonomic
-⟹ asymptotics `C·ρ⁻ⁿ·nθ·(log n)ᵏ`, π's Gauss–Kuzmin statistics incompatible — itself
-conditional on π being GK-normal).  See `research-notes/G170`.
+### 1. C2 — single-pair coprimality `gcd(b,c)=1` for the ordered max triple — NEXT ∅-axiom target
+Highest value/effort (red-team).  Unlocks unconditional firing of the `√(−1)` encoding.
+`markov_common_dvd_sq` is the foothold; remaining step is the minimal-solution descent on `c`
+(a prime dividing all three entries descends below `(1,1,1)`).  Use `markov_le_3mul` + `Gcd213`.
 
-### 2. ζ(3) Apéry divergence depth — DEFERRED TO ANOTHER BRANCH (user)
-The depth tower `e=3 → π=6 → ζ(3)=?` via the Apéry recurrence
-`n³aₙ=(34n³−51n²+27n−5)aₙ₋₁−(n−1)³aₙ₋₂`.  Would precise the "constant+depth" of G171's
-3-axis row.  **Do NOT build here.**
+### 2. C5 `p≡3` no-root, GENERAL (currently finitary only)
+Via the repo's ∅-axiom `universal_flt_main` (`a^(p−1)≡1 mod p`): `x²≡−1 ⟹ x^(p−1)≡(−1)^((p−1)/2)
+≡−1` contradicts FLT `≡1` for `p≡3 (mod 4)`.  Needs the per-prime gcd hypothesis route + the
+`(p−1)/2` odd-parity bookkeeping.  Moderate.
 
-### 3. Markov uniqueness ↔ Stern-Brocot indexing — classically OPEN
-The binary fork + two spines are anchored (`markov_first_fork`).  A full ∅-axiom bijection
-`Markov triples ↔ Stern-Brocot rationals` needs the L/R-word indexing; injectivity = the
-Markov uniqueness conjecture (open).  See `research-notes/G172` thread A.
+### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
+The *implication* is classical; the crux is **injectivity of the residue map**
+`triple ↦ a·b⁻¹ (mod c)`.  Keep as a single named open Lean target; attempt only the
+injectivity lemma in isolation, guarding against vacuity.  Do NOT claim the full reduction.
 
-### 4. `QuasiPolyCF ⟹ polynomially-bounded` (general) — Newton–Gregory blocked
-General growth bound fails over `ℕ` truncated subtraction for non-monotone polyDepth
-sequences (Newton–Gregory reconstruction breaks).  Only witness-specific linear bounds done
-(`ePQ_linear_bound`, `tanPQ_linear_bound`).  Don't re-attempt the general version naively.
+### 4. C7 — prime-power Markov numbers unique (Baragar/Button/Zhang) = C5∘C6.  Aspirational capstone.
 
-## Unresolved from This Session (dead ends — don't repeat)
-- **Newton–Gregory converse** (`polyDepth d s ⟹ s = newton form`) FAILS over `ℕ`: truncated
-  `diff` corrupts non-monotone sequences (e.g. `[2,0,2,…]`).  So T4 general μ=2 bridge blocked.
-- **propext landmines** (cost many DIRTY→PURE fixes; for next time): `rw` on an `Iff` pulls
-  `propext`; `rw` inside an `ite` *condition* pulls `propext` (use `if_pos`/`if_neg`);
-  leaking core lemmas to AVOID — `Nat.mul_assoc`, `Nat.mul_right_comm`, `Nat.add_mul`,
-  `Nat.mul_add_mod`, `Nat.mul_add_div`, `Nat.pow_mul`, `Nat.pow_add`, `Nat.add_left_cancel`,
-  `Nat.mul_lt_mul_right` (Iff), `Int.natAbs_eq_zero`, `Int.mul_neg`, `Int.eq_of_mul_eq_mul_left`.
-  PURE replacements: `NatHelper.{add_mul,mul_assoc}`, `PureNat.pow_add`, `Int.natAbs_eq`, and
-  local `add_left_cancel_pure`/`sq_lt_sq`/`pow_mul_pure`/`mul_sub_pure_le` (in GoldenFormMarkov/
-  HurwitzianCF).  `abbrev` (not `def`) for Prop-shapes you want `decide` to see.
+## 213-native conjecture (to sharpen)
+The `√(−1)`-residue indexing a Markov number = the order-4 elliptic generator `S` (Gaussian `i`)
+of `PSL(2,ℤ)=ℤ₂*ℤ₃` (`ModularElliptic`).  Conjecture: the Markov↦`√(−1)`-residue map is the
+Stern-Brocot↦`PSL(2,ℤ)`-elliptic correspondence on the `c=2` `K_{3,2}` axis.
 
-## Next
-Options (none uniquely forced — ask user):
-- **Hecke-group Lagrange spectra** (deepen thread C: `2cos(π/q)` ↔ spectrum) — needs cos infra.
-- **Lagrange spectrum `<3` discrete part** entirely from anisotropic forms (extend
-  `GoldenFormMarkov` along the Markov tree).
-- New direction entirely.  (ζ(3) is on another branch.)
-
-## Three-tier state
-- **Promotions this session**: `theory/math/analysis/cf_holonomicity_hierarchy.md`,
-  `theory/math/analysis/markov_spectrum.md` (both new chapters); updated
-  `spiral_coordinate_classification.md` frontier, `tower_native_completeness.md`,
-  `theory/math/INDEX.md` (now 11 analysis sub-clusters).
-- **Promotion candidates**: `Real213/{ModularElliptic, LagrangeExtremes}` and
-  `crystallographic_cosines` are PURE but only noted in research-notes G171/G172 — could fold
-  into a short `theory/math/analysis/modular_lagrange.md` if the thread continues.
-- **Active scratchpad**: `research-notes/G170` (π non-holonomicity marathon, conjectures
-  C1–C7), `G171` (modular tower table), `G172` (three Lagrange threads).
+## Dead ends (don't repeat)
+- `decide` on `c ∣ …` → `propext` DIRTY.  Use `% c = 0`.
+- `decide` on `MarkovMaxUnique`/uniqueness for `c≥169` → heartbeat timeout (>200000) /
+  max-recursion.  Cap in-kernel `decide` at `c≈34`; cite external enumeration for larger.
+- `set` tactic = Mathlib, unavailable.  Use `obtain ⟨M,_⟩ : ∃ M, …`.
+- A docstring may NOT be followed by `set_option … in` (parser rejects); order
+  `set_option … in` *before* the docstring.
+- `def` for a decidable Prop-shape hides the `Decidable` instance from `decide`; use `abbrev`,
+  and put each bound `x < c` *immediately* after its binder (interleaved `∀ x y, x<c→y<c` breaks
+  `Nat.decidableBallLT`).
 
 ## File Map
 ```
-NEW Lean (all ∅-axiom):
-  lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean                              ← CF-holonomicity tiers (21 PURE)
-  lean/E213/Lib/Math/CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean ← axis {2,4,6} exhaustive + cosines (9)
-  lean/E213/Lib/Math/CayleyDickson/Tower/SpiralAxisCrystallographic.lean   ← {2,4,6}=even half of {1,2,3,4,6} (1)
-  lean/E213/Lib/Math/Real213/GoldenFormMarkov.lean                         ← golden/silver Markov forms √5,√8 (9)
-  lean/E213/Lib/Math/Real213/MarkovTree.lean                               ← Vieta tree, spines, fork (13)
-  lean/E213/Lib/Math/Real213/ModularElliptic.lean                          ← PSL(2,ℤ)=ℤ₂*ℤ₃ orders 4,6 (7)
-  lean/E213/Lib/Math/Real213/LagrangeExtremes.lean                         ← φ floor / π pole (4)
-NEW theory chapters:
-  theory/math/analysis/cf_holonomicity_hierarchy.md                        ← Hurwitzian / π frontier
-  theory/math/analysis/markov_spectrum.md                                  ← √5,√8, Vieta tree, spines
-NEW research notes:
-  research-notes/G170_pi_cf_nonholonomicity.md                             ← marathon + conjectures C1–C7
-  research-notes/G171_modular_tower_axes.md                                ← axis/lattice/shape table analysis
-  research-notes/G172_lagrange_threads.md                                  ← Stern-Brocot / φ-π / cosines
+NEW Lean (∅-axiom, 30 PURE):
+  lean/E213/Lib/Math/Real213/MarkovUniqueness.lean       ← neighbor congruence + √(−1) encoding
+NEW theory chapter:
+  theory/math/analysis/markov_uniqueness.md
+NEW research note:
+  research-notes/G173_markov_uniqueness.md               ← conjecture slate C1–C8 + red-team
 MODIFIED:
-  lean/E213/Lib/Math/Real213.lean, CayleyDickson.lean, Cauchy.lean         ← umbrella imports
-  lean/E213/Lib/Math/Real213/{SpiralCoordinate,RefinedCompletabilityEngine}.lean ← capstone + merge-adapt
-  theory/math/INDEX.md, theory/math/analysis/spiral_coordinate_classification.md ← index + frontier
+  lean/E213/Lib/Math/Real213.lean                        ← umbrella import
+  theory/math/INDEX.md, theory/math/analysis/markov_spectrum.md  ← index + cross-link
 ```
