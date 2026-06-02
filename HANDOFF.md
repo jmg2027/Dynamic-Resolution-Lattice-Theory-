@@ -101,7 +101,7 @@ NEW Lean (∅-axiom, 41 PURE):
   lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2 ring (polyDepthZ_mul,
                                                     Leibniz) + C4 boundary, 27 PURE
   lean/E213/Lib/Math/Cauchy/BinomialTransform.lean ← C5: involution T∘T=id +
-                                                    fixed-point richness, 6 PURE
+                                                    fixed-point richness + ±1 eigendecomp, 9 PURE
 NEW theory chapter:
   theory/math/analysis/newton_gregory.md
 NEW research note:

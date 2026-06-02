@@ -148,6 +148,11 @@ the iteration settles), the *opposite* of the fixed-point-free Bool-style liar
 oscillation `not ∘ not = id`.  The "two readings of one residue related by an
 involution" framing is thereby earned with an actual fixed set, not asserted.
 
+The full spectral picture: `binomialT_antifixed` (`s − T s` is a `−1`-eigenvector)
++ `binomialT_eigendecomp` (`(s + T s) + (s − T s) = 2s`) — `T` has eigenvalues `±1`
+and both eigenspaces are large (they span up to a factor 2), the definitive
+fixed-point-richness.
+
 ## The classification boundary (closed)
 
 `FiniteDepthAlgebra.periodic_finite_depth_const` (§5): a periodic `ℤ`-sequence of
@@ -160,9 +165,10 @@ by IH; the sequence is then affine `s k = s 0 + k·c`, and periodicity forces
 
 ## Frontier
 
-- The fixed-point eigenspace's full structure (dimension / explicit basis) over ℤ.
 - The combinatorial e/π depth separation (e depth 1, π Wallis-coeff depth 2) as a
   bare invariant — *not* a claim about transcendence (classically open).
+- Exact depth as a grading: `depth(s·t) = depth s + depth t` (leading-coefficient
+  lower bound, complementing the `≤` of `polyDepthZ_mul`).
 
 Anchors: Gregory c.1670 / Newton *Methodus Differentialis* 1711 (operator form);
 Rota–Kahaner–Odlyzko 1973 (finite operator calculus; `Δ` a delta operator, falling
