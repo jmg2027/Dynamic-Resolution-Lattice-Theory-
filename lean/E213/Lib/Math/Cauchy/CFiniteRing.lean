@@ -37,6 +37,11 @@ open E213.Meta.Int213
 theorem mul_left_comm' (a b c : Int) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc, mul_comm a b, mul_assoc]
 
+/-- `a + b = 0 → b = -a` (pure). -/
+theorem neg_eq_of_add_eq_zero {a b : Int} (h : a + b = 0) : b = -a := by
+  have hh : (-a) + (a + b) = (-a) + 0 := by rw [h]
+  rwa [← add_assoc, add_comm (-a) a, add_neg_cancel, zero_add, Int.add_zero] at hh
+
 /-! ## §1 — the difference-operator polynomial `applyOp` -/
 
 /-- The difference operator `Σ_i pᵢ·Δⁱ` applied to `s`, evaluated at `n`.  The
@@ -301,5 +306,56 @@ theorem cfiniteZ_to_annih {s : Nat → Int} (h : CFiniteZ s) :
   obtain ⟨k, c, hrec⟩ := h
   refine ⟨opOf c k, opOf_getLastD c 0 k, fun n => ?_⟩
   rw [applyOp_opOf c k s n, hrec n, Int.sub_eq_add_neg, add_neg_cancel]
+
+/-! ## §6 — reverse bridge: a monic annihilator gives the orbit recurrence -/
+
+/-- `applyOp` of a monic operator `lo ++ [1]` peels the top `Δ`-power:
+    `(lo ++ [1])(Δ) s = lo(Δ) s + Δ^{|lo|} s`. -/
+theorem applyOp_snoc_one : ∀ (lo : List Int) (s : Nat → Int) (n : Nat),
+    applyOp (lo ++ [1]) s n = applyOp lo s n + liftKZ lo.length s n
+  | [],      s, n => by
+    show 1 * s n + applyOp [] (diffZ s) n = 0 + liftKZ 0 s n
+    show 1 * s n + 0 = 0 + s n
+    ring_intZ
+  | a :: lo, s, n => by
+    show a * s n + applyOp (lo ++ [1]) (diffZ s) n
+       = (a * s n + applyOp lo (diffZ s) n) + liftKZ (lo.length + 1) s n
+    rw [applyOp_snoc_one lo (diffZ s) n, liftKZ_diffZ_comm s lo.length n, add_assoc]
+
+/-- `applyOp` of a coefficient list is the `linComb` reading off the list (with `0`
+    default beyond its length). -/
+theorem applyOp_eq_linComb : ∀ (lo : List Int) (s : Nat → Int) (n : Nat),
+    applyOp lo s n = linComb (fun i => lo.getD i 0) s lo.length n
+  | [],      _, _ => rfl
+  | a :: lo, s, n => by
+    show a * s n + applyOp lo (diffZ s) n
+       = linComb (fun i => (a :: lo).getD i 0) s (lo.length + 1) n
+    rw [linComb_peel (fun i => (a :: lo).getD i 0) s lo.length n,
+        applyOp_eq_linComb lo (diffZ s) n]
+    rfl
+
+/-- `linComb` is negated by negating every coefficient. -/
+theorem linComb_neg (c : Nat → Int) (s : Nat → Int) : ∀ k n,
+    linComb (fun i => -(c i)) s k n = -(linComb c s k n)
+  | 0,   _ => by show (0 : Int) = -0; rw [Int.neg_zero]
+  | k+1, n => by
+    show linComb (fun i => -(c i)) s k n + (-(c k)) * liftKZ k s n
+       = -(linComb c s k n + c k * liftKZ k s n)
+    rw [linComb_neg c s k n]
+    ring_intZ
+
+/-- ★ **Reverse bridge.**  A monic operator `lo ++ [1]` annihilating `s` *is* an
+    orbit recurrence `Δ^{|lo|}s = Σ_{i<|lo|} cᵢ Δⁱs`, so `s` is C-finite.  Together
+    with `cfiniteZ_to_annih` this characterizes C-finite as exactly the sequences
+    with a monic constant-coefficient annihilator — the orbit-recurrence definition
+    equals the standard annihilating-polynomial one. -/
+theorem annih_snoc_to_cfiniteZ {lo : List Int} {s : Nat → Int}
+    (h : Annih (lo ++ [1]) s) : CFiniteZ s := by
+  refine ⟨lo.length, (fun i => -(lo.getD i 0)), fun n => ?_⟩
+  -- from h: applyOp lo s n + Δ^{|lo|}s n = 0, i.e. Δ^{|lo|}s n = -(applyOp lo s n)
+  have hz : applyOp lo s n + liftKZ lo.length s n = 0 := by
+    rw [← applyOp_snoc_one lo s n]; exact h n
+  rw [neg_eq_of_add_eq_zero hz, applyOp_eq_linComb lo s n,
+      linComb_neg (fun i => lo.getD i 0) s lo.length n]
 
 end E213.Lib.Math.Cauchy.CFiniteRing
