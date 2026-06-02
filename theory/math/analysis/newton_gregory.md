@@ -114,10 +114,23 @@ lands with a linear residue section (`e_cf_quasiPolyCFZ`,
 `e_partial_quotients_poly_bounded`), the general machinery subsuming the hand-built
 `HurwitzianCF.ePQ_linear_bound`.
 
+## The finite-depth ring (closed)
+
+`Cauchy/FiniteDepthAlgebra.lean` (22 PURE) makes the finite-faithful-depth
+`ℤ`-sequences a ring closed under `+`, scalar `·`, shift, and **product with
+additive depths**:
+
+> `polyDepthZ_mul` : `polyDepthZ d s → polyDepthZ e t → polyDepthZ (d+e) (s·t)`.
+
+Via the discrete **Leibniz rule** `Δ(s·t) = (E s)(Δt) + (Δs)t` (`diffZ_mul`) driven
+through induction on the degree bound (`mul_vanish`, in the vanishing view
+`polyDepthZ d s ↔ Δ^{d+1}s ≡ 0`).  This turns the hand-counted depth arithmetic of
+`DivergenceDepth` — "a product of a degree-`d` and a degree-`e` discrete polynomial
+is degree `d+e`", e.g. π's degree-4 cross-determinant ratio as the product of two
+degree-2 Wallis coefficients — into a theorem.
+
 ## Frontier
 
-- **Depth-additivity** of the finite-depth ring (`diffZ`-Leibniz), turning π's
-  hand-counted "depth 6 = 1+1+4" into a theorem.
 - **Fixed-point eigenspace** of the binomial transform — the definable ℤ-subspace
   of `s = Σ (−1)^{n−j} binom(n,j) s(j)`; settles Nat-style vs Bool-style for the
   involution and earns the "self-inverse Lens" reading with an actual fixed set.

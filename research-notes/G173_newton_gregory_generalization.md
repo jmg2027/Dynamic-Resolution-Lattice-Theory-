@@ -161,10 +161,14 @@ Nörlund–Rice integral, Newton-series convergence / Carlson's theorem.
   ℤ-faithful `QuasiPolyCFZ` (polyDepthZ on lifted sections), NOT ℕ `QuasiPolyCF` —
   ℕ-`polyDepth` does not imply `polyDepthZ` (the `[3,2,1,0,0,…]` clamp gives a
   spurious ℕ depth-1).
-- **C2 (∅-axiom-closable)** depth-additivity of the finite-depth ring:
-  `polyDepthZ d s → polyDepthZ e t → polyDepthZ (d+e) (s·t)` (pointwise product),
-  turning the hand-counted "π is depth 6 = 1+1+4" into a theorem.  Needs a
-  `diffZ`-Leibniz rule.
+- **C2 ✅ DONE** (`Cauchy/FiniteDepthAlgebra.lean`, 22 PURE): `polyDepthZ_mul`
+  (`polyDepthZ d s → polyDepthZ e t → polyDepthZ (d+e) (s·t)`) via the discrete
+  Leibniz rule `diffZ_mul` (`Δ(s·t)=(Es)(Δt)+(Δs)t`) + induction on the degree bound
+  (`mul_vanish`, vanishing view `polyDepthZ d s ↔ Δ^{d+1}s≡0`).  Plus the module
+  structure (`polyDepthZ_add`, `polyDepthZ_smul`, shift-invariance).  Turns the
+  hand-counted "π depth 6 = 1+1+4" into a theorem.  Note: core `Int.zero_add` pulls
+  propext (asymmetric vs `Int.add_zero`) — use `Int213.zero_add`; `funext` pulls
+  `Quot.sound` — use the pointwise `liftKZ_congrZ`/`vanishZ_congr`.
 - **C3 (combinatorial part ∅-axiom; transcendence part classically open)** the
   e/π depth separation (e depth 1, π Wallis-coeff depth 2) is a *structural*
   invariant.  Provable: their difference-orders differ.  **Do NOT** slide to "this

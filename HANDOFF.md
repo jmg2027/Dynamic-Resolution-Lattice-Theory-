@@ -61,9 +61,10 @@ Standard status unchanged.
    — quasi-polynomial CFs are polynomially bounded (Hurwitzian⟹μ=2 spine, μ cited).
    Witnesses: periodic (Lagrange, bounded) + e (transcendental).  Used ℤ-faithful
    `QuasiPolyCFZ` (ℕ `polyDepth` does NOT imply `polyDepthZ` — `[3,2,1,0,0]` clamp).
-1. **C2 (∅-axiom-closable)** depth-additivity `polyDepthZ d s → polyDepthZ e t →
-   polyDepthZ (d+e) (s·t)` (a `diffZ`-Leibniz rule), turning π's hand-counted
-   "depth 6 = 1+1+4" into a theorem.
+1. **C2 ✅ DONE** (`Cauchy/FiniteDepthAlgebra.lean`, 22 PURE): `polyDepthZ_mul`
+   (finite-depth ring, depth-additivity) via discrete Leibniz `diffZ_mul` +
+   `mul_vanish`.  Plus module structure (add/smul/shift).  π "depth 6=1+1+4" now a
+   theorem.
 3. **C5 (∅-axiom-closable; the *right* home for the §5.2 self-reference question)**
    characterize the **fixed-point eigenspace** of the binomial transform
    `s = Σ(−1)^{n−j}binom(n,j)s(j)` — settles Nat-style (predicted) vs Bool-style and
@@ -89,6 +90,8 @@ NEW Lean (∅-axiom, 41 PURE):
                                                     growth bound, obstruction
   lean/E213/Lib/Math/Cauchy/QuasiPolyBound.lean  ← C1: quasi-poly CF ⟹ poly-bounded
                                                     (periodic + e witnesses), 14 PURE
+  lean/E213/Lib/Math/Cauchy/FiniteDepthAlgebra.lean ← C2: finite-depth ring
+                                                    (polyDepthZ_mul, Leibniz), 22 PURE
 NEW theory chapter:
   theory/math/analysis/newton_gregory.md
 NEW research note:
