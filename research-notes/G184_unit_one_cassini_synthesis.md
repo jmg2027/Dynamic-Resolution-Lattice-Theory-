@@ -101,3 +101,13 @@ Three agents, 2026-06-02.  Anchors: `Real213/PhiFrozenDynamic`, `Cauchy/{PhiResi
 DepthFloorDetOne, DepthResidueFloor, CassiniDepthFloor, ReentryUnit}`, `CassiniUnimodular`,
 `Mobius213OneAsGlue`, `Mobius213/Px/{CharPolySelf,MobiusSelfForm}`, `research-notes/G177`,
 `catalogs/cross-domain-identifications.md` CDI-9.
+
+## Bridge to the orbit-dimension ladder (G183_above_the_polynomials)
+
+`cassini_is_polynomial` (`CassiniDepthFloor §3`): via `DepthCharacterization.finite_depthZ_iff`
+(finite divergence depth ⟺ polynomial), the Cassini of an SL₂ (`q=1`) orbit is a **degree-0
+polynomial** — it lands on the *bottom* rung of the divergence-depth ladder.  But the orbit `s`
+itself (Fibonacci/Lucas, C-finite) is *above* the polynomials (depth `∞`, grows like `φⁿ`).  So
+the **Cassini quadratic map collapses a depth-`∞` C-finite orbit to a depth-`0` polynomial** — a
+depth-collapsing invariant linking the unit-`1`/Cassini arc to the concurrent orbit-dimension
+ladder.  (The conserved Cassini unit is the bottom-rung shadow of the above-polynomial orbit.)

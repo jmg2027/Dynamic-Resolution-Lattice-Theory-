@@ -1,5 +1,6 @@
 import E213.Lib.Math.CassiniUnimodular
 import E213.Lib.Math.Cauchy.NewtonGregory
+import E213.Lib.Math.Cauchy.DepthCharacterization
 
 /-!
 # Cauchy.CassiniDepthFloor — a conserved (`q = 1`, `SL₂`) orbit sits at depth-0 Cassini
@@ -26,7 +27,8 @@ This is the *sufficiency* direction `q = 1 ⟹ depth 0`, the structural floor be
 namespace E213.Lib.Math.Cauchy.CassiniDepthFloor
 
 open E213.Lib.Math.CassiniUnimodular (det det_step)
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ)
+open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ)
+open E213.Lib.Math.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (L_rec)
 
@@ -88,5 +90,24 @@ theorem conserved_never_degenerate (p : Int) (s : Nat → Int)
 theorem golden_never_degenerate (n : Nat) : det L n ≠ 0 :=
   conserved_never_degenerate 3 L (fun m => by rw [Int.one_mul]; exact L_rec m)
     (by decide) n
+
+/-! ## §3 — the Cassini is a depth-collapsing invariant (bridge to the orbit-dimension ladder)
+
+`DepthCharacterization.finite_depthZ_iff` proves **finite divergence depth ⟺ polynomial**, and
+the orbit-dimension ladder (`G183_above_the_polynomials`) places constant-coefficient (C-finite)
+recurrences — exactly the `s(n+2) = p·s(n+1) − q·s(n)` orbits here — *above* the polynomials
+(divergence depth `∞`, e.g. Fibonacci/Lucas grow like `φⁿ`).  Yet the **Cassini determinant** of
+such an orbit lands on the *bottom* rung (depth 0, `cassini_conserved_depth0`): the quadratic
+Cassini map collapses a depth-`∞` C-finite orbit to a depth-`0` polynomial. -/
+
+/-- ★★★ **The Cassini of an SL₂ orbit is a degree-0 polynomial (the bottom rung).**  Via the
+    depth characterization `finite_depthZ_iff`: since `det s` is depth-0 (`cassini_conserved_depth0`,
+    `q=1`), it is a degree-`≤0` polynomial in the Newton basis — `∃ c, ∀ n, det s n = newtonZ c 0 n`.
+    So the Cassini quadratic invariant maps the (generally above-polynomial, C-finite) orbit `s`
+    onto the polynomial bottom rung of the divergence-depth ladder — a *depth-collapsing* invariant. -/
+theorem cassini_is_polynomial (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) :
+    ∃ c : Nat → Int, ∀ n, det s n = newtonZ c 0 n :=
+  finite_depthZ_iff.mp (cassini_conserved_depth0 p s hrec)
 
 end E213.Lib.Math.Cauchy.CassiniDepthFloor
