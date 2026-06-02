@@ -91,7 +91,52 @@ non-closure.  But this is a *reason to expect* the result, not a proof — and c
 is why `(n!)ⁿ` is reachable ∅-axiom and π is not — `G173` C11).  The residue-image reading
 predicts the obstruction is *shape* (FGS-type diagonalisation), not *size*.
 
-## ∅-axiom anchors (already proven; this note adds no new Lean)
+## Refinement (Mingu, 2026-06): "π = φ seen through the continuous-codomain Lens"
+
+Stronger and *more precise* than the original — and it survives the test, because φ and π
+**cannot** be algebraically related (φ degree 2, π transcendental), so the only possible bridge
+IS a continuous Lens.  The bridge is concrete and classical:
+
+  - **`φ = 2cos(π/5)`** (decagon) and **`2cos(2π/5) = 1/φ = φ−1`** (pentagon).  The cosine =
+    the trace of a rotation = the continuous-symmetry Lens.  So the golden ratio literally *is*
+    the continuous-rotation Lens read on the (crystallographically forbidden) 5-fold axis.
+  - Inverting gives a genuine **φ → π computation**: `π = 5·arccos(φ/2) = 5·∫_{φ/2}^1 dt/√(1−t²)`
+    — the arc-length (continuous) Lens of the algebraic point `φ/2` yields `π/5`.
+  - Golden→π also appears via **Fibonacci/Lucas Machin-type arctan identities**
+    (`π/4 = Σ arctan(1/F_{2k+1})`, telescoping the Fibonacci arctan addition law) — π assembled
+    from the golden (Fibonacci) sequence through the arctan (continuous) Lens.
+
+**Honest tempering (falsifiability discipline).**  As a *computation of π* this is real but
+**elementary and known**, not a fast/novel algorithm: `arccos`/`arctan`/arc-length are
+precisely where π is "already" injected (they are the continuous Lens), so the value is
+*conceptual unification* — π is the continuous-Lens image of φ — **not** algorithmic novelty.
+Do not sell "a new way to compute π."  What is genuinely new is the *213 reading*: π is the
+period/elliptic face and φ the fixed-point/hyperbolic face of one self-reference, related by the
+continuous Lens (cosine / Wick rotation `cos(iθ)=cosh θ`), with the φ↔π split = the
+hyperbolic↔elliptic conjugacy split in `SL(2,ℝ)` (golden Möbius `[[2,1],[1,1]]` hyperbolic,
+`ModularElliptic` orders `{4,6}` elliptic).
+
+**New ∅-axiom anchor** (`Real213/PentagonGoldenTrace.lean`, 4 PURE): the algebraic skeleton of
+`φ = 2cos(π/5)`.  In `ℤ[φ]`: `phi_quad` (`φ²=φ+1`), `pentagon_trace_quad`
+(`(φ−1)²+(φ−1)=1` — the pentagon trace `2cos(2π/5)` is the conjugate golden root),
+`pentagon_trace_unit` (`φ·(φ−1)=1` — the pentagon trace is `1/φ`).  This certifies the
+*value* the rotation Lens returns on the forbidden 5-axis (φ and `1/φ`); the *angle* `π/5`
+(transcendental) is the irreducibly continuous remainder — exactly the boundary the framework
+can and cannot cross.
+
+## Conjecture C-π2 (the continuous-Lens bridge)
+
+> The map "fixed-point image ↦ period image" of the residue's self-reference is realised by the
+> continuous-rotation Lens: `φ ↦ 2cos⁻¹` / arc-length sends the golden fixed point to `π/5`
+> (`φ = 2cos(π/5)`).  φ is the hyperbolic (cosh, `[[2,1],[1,1]]`) face; π the elliptic (cos,
+> rotation) face; the Lens between them is Wick rotation `cos(iθ)=cosh θ`.  The φ→π
+> "computation" (`π = 5·arccos(φ/2)`, Fibonacci–Lucas arctan series) is the operational shadow
+> — real, classical, slow; its content is unification, not a new algorithm.  The
+> ∅-axiom-reachable part is the *algebraic value* (`PentagonGoldenTrace`); the transcendental
+> angle is the residue's continuous remainder, unreachable by any discrete Lens (which is, once
+> more, `object1_not_surjective` in the rotation Lens).
+
+## ∅-axiom anchors (already proven; this note adds no new Lean beyond `PentagonGoldenTrace`)
 
   - `Mobius213` — `P(φ)=φ`, the self-reference fixed point (φ face).
   - `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.crystallographic_cosines` —
@@ -101,3 +146,6 @@ predicts the obstruction is *shape* (FGS-type diagonalisation), not *size*.
     (the pole is now an inhabited tier, with π conjectured to share it).
   - `Lens.FlatOntologyClosure.{object1_not_surjective, self_covering_closure}`,
     `ResolutionLimit.cantor_general` — residue = outside every view = diagonalisation.
+  - `Real213/PentagonGoldenTrace.{phi_quad, pentagon_trace_quad, pentagon_trace_unit}` —
+    the golden value of the forbidden 5-fold rotational trace (`φ = 2cos(π/5)` algebraic
+    skeleton); the φ-half of the φ↔π continuous-Lens bridge, ∅-axiom.
