@@ -1,8 +1,13 @@
 # Session Handoff — 2026-06-02 (Markov uniqueness marathon)
 
 ## Branch
-`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  Full `lake build` clean
-(1500+ modules).  All new theorems ∅-axiom (`MarkovUniqueness` → `44 pure / 0 dirty`).
+`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**
+(101 commits: NewtonGregory/FiniteDepthAlgebra, StateMachine FSM, PolynomialDepth, `ring_nat`
+tactic, ℤ-difference-Lens, …).  Full `lake build` clean.  Markov: `MarkovUniqueness` 44 PURE +
+`ModArith/MarkovPrimeFactor` 28 PURE = 72, all ∅-axiom.  **Integration**: main's `ring_nat`
+(∅-axiom `ℕ` ring, `Meta/Nat/PolyNatMTactic`) grafted into the Markov polynomial-identity lemmas
+(`sq_expand`, `neg_one_sq_mod`, `neg_one_qr_of_inverse`'s `hsq`/`hkey`, `3bac=3abc`) — verbose
+`rw` chains → one-line `ring_nat`, purity preserved.
 
 ## Goal
 Marathon research on the **Markov uniqueness conjecture** (Frobenius 1913, classically open):
