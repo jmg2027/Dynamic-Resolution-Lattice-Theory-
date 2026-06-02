@@ -324,7 +324,46 @@ theorem zeta2_quadratic_rung :
    fun n => by rw [liftK2_zeta2Mid n, liftK2_zeta2Mid 0],
    fun n => by rw [liftK2_zeta2Bot n, liftK2_zeta2Bot 0]⟩
 
-/-! ## §5 — the Apéry zeta tower: coefficient degree 1 → 2 → 3 -/
+/-! ## §5 — exactness: the depths are exactly 3 (ζ(3)) and exactly 2 (ζ(2))
+
+`polyDepth d` is an upper bound (`isConst (liftK d ·)`).  The lower bounds below pin the
+depths exactly: the previous lift is still non-constant. -/
+
+/-- The 2nd finite difference of `aperyTop` is the *linear* `aT2 = 6m+18` — not yet
+    constant. -/
+theorem liftK2_aperyTop (m : Nat) : liftK 2 aperyTop m = aT2 m := by
+  rw [liftK_diff_comm 1 aperyTop, liftK_congr 1 (diff aperyTop) aT1 diff_aperyTop m]
+  show diff aT1 m = aT2 m
+  exact diff_aT1 m
+
+/-- ★★ **ζ(3)'s `n³` is not depth 2** — its 2nd difference `6m+18` is non-constant
+    (`18 ≠ 24`).  With `aperyTop_polyDepth`, the depth of `n³` is **exactly 3**. -/
+theorem aperyTop_not_polyDepth2 : ¬ polyDepth 2 aperyTop := by
+  intro h
+  have h1 := h 1
+  rw [liftK2_aperyTop 1, liftK2_aperyTop 0] at h1
+  exact absurd h1 (by decide)
+
+/-- ★★ **ζ(3)'s Casoratian-controlling coefficient `n³` has divergence-depth *exactly*
+    3.**  Upper bound `aperyTop_polyDepth` (3rd difference constant) and lower bound
+    `aperyTop_not_polyDepth2` (2nd difference non-constant) together. -/
+theorem aperyTop_depth_exact : polyDepth 3 aperyTop ∧ ¬ polyDepth 2 aperyTop :=
+  ⟨aperyTop_polyDepth, aperyTop_not_polyDepth2⟩
+
+/-- ★★ **ζ(2)'s `(n+1)²` is not depth 1** — its 1st difference `2n+3` is non-constant
+    (`3 ≠ 5`).  With `zeta2_quadratic_rung`, the depth of `(n+1)²` is **exactly 2**. -/
+theorem zeta2Top_not_polyDepth1 : ¬ polyDepth 1 zeta2Top := by
+  intro h
+  have h1 := h 1
+  change diff zeta2Top 1 = diff zeta2Top 0 at h1
+  rw [diff_zeta2Top 1, diff_zeta2Top 0] at h1
+  exact absurd h1 (by decide)
+
+/-- ★★ **ζ(2)'s `(n+1)²` has divergence-depth *exactly* 2.** -/
+theorem zeta2Top_depth_exact : polyDepth 2 zeta2Top ∧ ¬ polyDepth 1 zeta2Top :=
+  ⟨zeta2_quadratic_rung.1, zeta2Top_not_polyDepth1⟩
+
+/-! ## §6 — the Apéry zeta coefficient-degree statistic: 1 → 2 → 3 -/
 
 /-- ★★★ **ζ(3) is P-recursive of order 2 with degree-3 (cubic) coefficients, each of
     divergence-depth 3.**  The three coefficients of the Apéry recurrence — leading `n³`
