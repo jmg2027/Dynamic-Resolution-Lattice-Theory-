@@ -2,7 +2,7 @@
 
 **Status**: Closed for the first two spectrum values and the tree engine; the full spectrum
 is the documented continuation.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{GoldenFormMarkov, MarkovTree}` (13 PURE / 0 dirty).
+`lean/E213/Lib/Math/Real213/{GoldenFormMarkov, MarkovTree}` (19 PURE / 0 dirty).
 
 ## Overview
 
@@ -27,6 +27,8 @@ invariants genuinely *finer than* `μ`, and it falls out of the repo's own quadr
 | `golden_first_markov_form` | `GoldenFormMarkov` | anisotropy + `Q(1,0)=1` ⟹ `inf|Q| = 1`, value `√5` |
 | `silver_anisotropic` | `GoldenFormMarkov` | `x² = 2y² ⟹ x = y = 0` (reusing `sqrt2_irrational`) |
 | `silver_second_markov_form` | `GoldenFormMarkov` | the disc-`8` form, value `√8` |
+| `golden_min_attained_on_fib` | `GoldenFormMarkov` | `Q(fib(2n+2),fib(2n+1)) = −1` (Cassini): the `W=±1` floor *is* the minimum |
+| `markov_fibonacci_branch`, `markov_pell_branch` | `MarkovTree` | the two spines: odd-index Fibonacci (`√5` side) and Pell (`√8` side) |
 | `markov_xy` | `MarkovTree` | the Vieta invariant `x² + y² = z·z'` on a triple with `z + z' = 3xy` |
 | `markov_vieta` | `MarkovTree` | Vieta jumping preserves `x²+y²+z² = 3xyz` |
 | `markov_coefficient_is_NS` | `MarkovTree` | the coefficient `3` is `NS` |
@@ -112,4 +114,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.GoldenFormMarkov
 python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovTree
 ```
-Reports `8 pure / 0 dirty` and `5 pure / 0 dirty`.
+Reports `9 pure / 0 dirty` and `10 pure / 0 dirty`.

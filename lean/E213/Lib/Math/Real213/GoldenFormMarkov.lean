@@ -1,5 +1,6 @@
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.Irrational.Sqrt2KernelFree
+import E213.Lib.Math.Real213.FibCassiniNat
 
 /-!
 # GoldenFormMarkov — the golden form is anisotropic, and the Markov value is `√5`
@@ -122,6 +123,20 @@ theorem golden_first_markov_form :
     (∀ m k : Nat, m * m = m * k + k * k → m = 0 ∧ k = 0)
     ∧ (1 : Nat) * 1 = 1 * 0 + 0 * 0 + 1 :=
   ⟨golden_anisotropic, golden_represents_one⟩
+
+open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+
+/-- ★★★ **The minimum is attained on φ's convergents — the `W = ±1` floor is the form's
+    minimum.**  On every Fibonacci convergent pair, the golden form takes value `−1`:
+    `fib(2n+2)² + 1 = fib(2n+2)·fib(2n+1) + fib(2n+1)²` (i.e. `Q(fib(2n+2), fib(2n+1)) = −1`),
+    which is exactly the Cassini relation (`FibCassiniNat.fib_cassini_norm`).  With anisotropy
+    (`|Q| ≥ 1`) this shows `inf|Q| = 1` is **attained** precisely along φ's Fibonacci
+    convergents — the `W = ±1` cross-determinant floor *is* the golden form's minimum, the
+    Markov/Lagrange value `√5` realised on the worst-approximable number. -/
+theorem golden_min_attained_on_fib (n : Nat) :
+    fib (2 * n + 2) * fib (2 * n + 2) + 1
+    = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) :=
+  E213.Lib.Math.Real213.FibCassiniNat.fib_cassini_norm n
 
 /-! ## §3 — the second Markov value `√8`: the `√2` form `x² − 2y²` (disc 8) -/
 
