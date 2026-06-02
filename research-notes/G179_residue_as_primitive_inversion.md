@@ -121,12 +121,28 @@ Beyond the depth shadow: a **structural** emulation of νF via the path-function
 This is richer than the depth shadow (a named co-tree with genuine non-termination), and
 ∅-axiom (the `≠` is a pointwise difference, no `funext`).
 
-## Still open — a Lean-native final coalgebra
+## Third step — the anamorphism (the existence half of finality) (`CoResidue` §5)
 
-`CoResidue` is an **emulation**: `CoShape` is the full function space (not the well-formed
-cotree subtype), `toShape` is not claimed injective, and there is no universal-property
-statement (νF as the *final* coalgebra).  A genuinely Lean-native νF — a coinductive carrier
-with `toShape` injective and the final-coalgebra universal property — remains open (Mathlib-
-free Lean has no coinduction primitive; would need a setoid emulation with encoding cost).
-The structural escape (route (a)) is the honest tractable realisation; the universal-property
-νF is the deeper deferred piece.
+A modest advance toward the universal property, ∅-axiom: the **anamorphism** `ana` unfolds
+*any* `F`-coalgebra `c : X → Bool × X × X` into `CoShape`, commuting with the `coOut`
+projections (`ana_isBranch`/`ana_coLeft`/`ana_coRight`, all `rfl`).  So every coalgebra admits
+an unfold — the **existence** half of finality.  Both faces are unfolds: `toShape_eq_ana`
+(finite embedding = unfold of the tree's coalgebra `treeCoalg`) and `allBranch_eq_ana`
+(infinite inhabitant = unfold of the always-branch coalgebra).  `unfold_existence_and_escape`
+bundles existence + both-faces + the escape (`raw_ne_allBranch`, from the structural step).
+
+Honest (after adversarial review): only **existence** of unfolds (+ three `rfl`
+commutations) is proven — *not* the object-property "weakly final" (the name was dropped) and
+*not* uniqueness (full finality).  The `rfl` commutations are the computation rule of `ana`.
+The escape conjunct is re-exported from the structural step, not new.
+
+## Still open — uniqueness/injectivity (full Lean-native νF)
+
+`CoResidue` remains an **emulation**: `CoShape` is the full function space (not the
+well-formed cotree subtype), `toShape` is not injective (`Bool`-`CoShape` conflates the two
+atoms — a faithful embedding needs a leaf-labelled `CoShape`), and the unfold's *uniqueness*
+(finality proper, via bisimulation) is unproven.  A genuinely Lean-native νF — leaf-labelled
+carrier + injective `toShape` + final-coalgebra uniqueness — remains open (Mathlib-free Lean
+has no coinduction primitive; would need a setoid emulation with encoding cost).  The
+existence half (route (a)+anamorphism) is the honest tractable realisation; uniqueness is the
+deeper deferred piece.

@@ -379,10 +379,14 @@ A–D + B are now **all closed ∅-axiom this arc**:
     complete self-pointing: no leaf, own left subtree, genuine `coOut`-descent) and
     `raw_ne_allBranch` (no finite Raw is the infinite tree — the escape via a named structural
     inhabitant, richer than the depth shadow, ∅-axiom no funext).  Escape now witnessed at
-    three scales (`research-notes/G180`: predicate / Raw-floor / tower-ceiling).  STILL OPEN:
-    a Lean-native final F-coalgebra (νF) — `CoShape` is the full function space not the
-    well-formed-cotree subtype, `toShape` not claimed injective, no universal property
-    (needs a setoid coinductive emulation; Mathlib-free Lean has no coinduction primitive).
+    three scales (`research-notes/G180`: predicate / Raw-floor / tower-ceiling).  **§5
+    anamorphism (existence half of finality)**: `ana` unfolds any coalgebra into `CoShape`
+    (commutes with `coOut` by `rfl`), both faces are unfolds (`toShape_eq_ana`,
+    `allBranch_eq_ana`), `unfold_existence_and_escape` bundles existence + escape.  Honest
+    (post-review): only unfold *existence* (not "weakly final" as object-property — name
+    dropped; not uniqueness).  STILL OPEN: full Lean-native νF — leaf-labelled `CoShape` +
+    injective `toShape` + final-coalgebra *uniqueness* (bisimulation); needs setoid coinductive
+    emulation (Mathlib-free Lean has no coinduction primitive).
   - **Spiral rotation invariant — DONE** (`Real213/SpiralRotationInvariant`, 3/0;
     `research-notes/G174`): the atomic-side self-similar spiral.  `Q_iterate_preserved` —
     the golden form `Q(m,k)=m²−mk−k²` (disc `5=NS+NT`) is conserved at **every** turn of
