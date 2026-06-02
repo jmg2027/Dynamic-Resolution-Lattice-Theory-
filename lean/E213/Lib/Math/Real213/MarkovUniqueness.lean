@@ -47,6 +47,9 @@ open E213.Lib.Math.Real213.MarkovTree (markovEq markov_symm)
 open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Tactic.NatHelper (add_sub_cancel_right mul_sub_distrib mul_assoc mul_mul_mul_comm_213)
 open E213.Meta.Nat.Gcd213 (dvd_sub_213 dvd_add_213)
+open E213.Tactic.NatHelper (gcd213)
+open E213.Meta.Nat.Gcd213
+  (gcd213_dvd_left gcd213_dvd_right gcd213_greatest gcd213_comm mul_eq_one_left)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Real213.GoldenFormMarkov (golden_min_attained_on_fib)
 
@@ -441,5 +444,96 @@ theorem cohn5_sq_neg_one_mod_5 :
     (5 : Nat) ∣ (12 * 12 + 5 * 7 + 1) ∧ (5 : Nat) ∣ (12 * 5 + 5 * 3)
     ∧ (5 : Nat) ∣ (7 * 12 + 3 * 7) ∧ (5 : Nat) ∣ (7 * 5 + 3 * 3 + 1) :=
   cohn_sq_neg_one_mod 12 5 7 3 5 (by decide) (by decide)
+
+/-! ## §10 — pairwise coprimality: the Vieta tree preserves it (C2/C3)
+
+The Markov tree generates all triples from `(1,1,1)` by Vieta jumps (replacing one entry `c`
+by `c' = 3ab − c`) and permutations.  Pairwise coprimality is the **invariant** of this
+generation: it holds at the root and is preserved by every move, because `c' = 3ab − c` and
+`a ∣ 3ab` give `gcd(a,c') = gcd(a,c)`.  So every tree triple is pairwise coprime — the
+condition the `√(−1)` encoding (`neg_one_qr_of_inverse`) needs, now established structurally
+(not just per triple).  Encoded via an explicit reachability predicate so the invariant is
+proved by induction on the generation. -/
+
+/-- `g ∣ m → g ∣ m·k`.  ∅-axiom (right companion of `dvd_mul_left_213`). -/
+theorem dvd_mul_right_213 (g m k : Nat) (h : g ∣ m) : g ∣ (m * k) := by
+  obtain ⟨s, hs⟩ := h
+  exact ⟨s * k, by rw [hs, mul_assoc]⟩
+
+/-- `g ∣ 1 → g = 1`.  ∅-axiom via `mul_eq_one_left`. -/
+theorem eq_one_of_dvd_one {g : Nat} (h : g ∣ 1) : g = 1 := by
+  obtain ⟨k, hk⟩ := h; exact mul_eq_one_left g k hk.symm
+
+/-- ★★★★ **The Vieta step preserves coprimality with the fixed entries.**  If `gcd(a,c) = 1`
+    and `c + c' = 3ab` (so `c' = 3ab − c` is the Vieta partner), then `gcd(a,c') = 1`.  Because
+    `g = gcd(a,c')` divides `a` (hence `3ab`) and `c'`, it divides `c = 3ab − c'`, so it divides
+    `gcd(a,c) = 1`. -/
+theorem coprime_vieta_step (a b c c' : Nat) (hc : c + c' = 3 * a * b)
+    (hcop : gcd213 a c = 1) : gcd213 a c' = 1 := by
+  have hg_a : gcd213 a c' ∣ a := gcd213_dvd_left a c'
+  have hg_c' : gcd213 a c' ∣ c' := gcd213_dvd_right a c'
+  -- g ∣ 3·a·b  (via g ∣ a)
+  have hg_3ab : gcd213 a c' ∣ 3 * a * b :=
+    dvd_mul_right_213 (gcd213 a c') (3 * a) b (dvd_mul_left_213 (gcd213 a c') 3 a hg_a)
+  -- c = 3ab − c'
+  have hc'le : c' ≤ 3 * a * b := hc ▸ Nat.le_add_left c' c
+  have heq : 3 * a * b - c' = c := by rw [← hc]; exact add_sub_cancel_right c c'
+  have hg_c : gcd213 a c' ∣ c := by
+    have := dvd_sub_213 c' (3 * a * b) (gcd213 a c') hc'le hg_c' hg_3ab
+    rwa [heq] at this
+  -- g ∣ gcd(a,c) = 1
+  have hg1 : gcd213 a c' ∣ 1 := hcop ▸ gcd213_greatest a c (gcd213 a c') hg_a hg_c
+  exact eq_one_of_dvd_one hg1
+
+/-- Pairwise coprimality of a triple, in the `gcd213` form. -/
+abbrev MarkovPairwiseCoprime (a b c : Nat) : Prop :=
+  gcd213 a b = 1 ∧ gcd213 a c = 1 ∧ gcd213 b c = 1
+
+/-- Reachability in the Markov tree: from the root `(1,1,1)` by Vieta jumps on the last entry
+    (`c ↦ c' = 3ab − c`) and the two transpositions (so any entry can be jumped). -/
+inductive MarkovReachable : Nat → Nat → Nat → Prop
+  | root : MarkovReachable 1 1 1
+  | jump {a b c c' : Nat} : MarkovReachable a b c → c + c' = 3 * a * b → MarkovReachable a b c'
+  | swap12 {a b c : Nat} : MarkovReachable a b c → MarkovReachable b a c
+  | swap23 {a b c : Nat} : MarkovReachable a b c → MarkovReachable a c b
+
+/-- ★★★★★ **Every reachable Markov triple is pairwise coprime** (C3 along the tree).  The root
+    is coprime; `coprime_vieta_step` preserves it under a jump (the jumped entry stays coprime
+    to both fixed entries, and the fixed pair is untouched); transpositions permute the
+    conjuncts (`gcd213_comm`).  Induction on the generation. -/
+theorem markov_reachable_coprime {a b c : Nat} (h : MarkovReachable a b c) :
+    MarkovPairwiseCoprime a b c := by
+  induction h with
+  | root => exact ⟨by decide, by decide, by decide⟩
+  | @jump a b c c' _hr hcc ih =>
+    refine ⟨ih.1, ?_, ?_⟩
+    · exact coprime_vieta_step a b c c' hcc ih.2.1
+    · -- gcd(b,c') = 1: jump with a,b swapped, c+c' = 3ab = 3ba
+      exact coprime_vieta_step b a c c'
+        (by rw [hcc, mul_assoc 3 a b, Nat.mul_comm a b, ← mul_assoc 3 b a]) ih.2.2
+  | @swap12 a b c _hr ih =>
+    exact ⟨gcd213_comm a b ▸ ih.1, ih.2.2, ih.2.1⟩
+  | @swap23 a b c _hr ih =>
+    exact ⟨ih.2.1, ih.1, gcd213_comm b c ▸ ih.2.2⟩
+
+/-- Reachable triples satisfy the Markov equation (`markov_vieta` on jumps, `markov_symm` on
+    transpositions, `decide` at the root).  Together with `markov_reachable_coprime`: every
+    tree triple is a *pairwise-coprime* solution of `x²+y²+z² = 3xyz`. -/
+theorem markov_reachable_is_triple {a b c : Nat} (h : MarkovReachable a b c) : markovEq a b c := by
+  induction h with
+  | root => decide
+  | @jump a b c c' hr hcc ih => exact E213.Lib.Math.Real213.MarkovTree.markov_vieta a b c c' hcc ih
+  | @swap12 a b c hr ih =>
+    -- markovEq a b c → markovEq b a c
+    show b * b + a * a + c * c = 3 * b * a * c
+    have hmul : 3 * b * a * c = 3 * a * b * c := by
+      rw [mul_assoc 3 b a, Nat.mul_comm b a, ← mul_assoc 3 a b]
+    rw [Nat.add_comm (b * b) (a * a), hmul]; exact ih
+  | @swap23 a b c hr ih => exact markov_symm a b c ih
+
+/-- ★★★ **Coprimality of the fixed pair after any jump** = the `gcd(b,c)=1` input the
+    `√(−1)` encoding needs (C2), now structural: every reachable triple has `gcd(b,c) = 1`. -/
+theorem markov_reachable_gcd_bc {a b c : Nat} (h : MarkovReachable a b c) : gcd213 b c = 1 :=
+  (markov_reachable_coprime h).2.2
 
 end E213.Lib.Math.Real213.MarkovUniqueness
