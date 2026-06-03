@@ -22,8 +22,9 @@ open E213.Lib.Math.Linalg213.Permutation
   (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
    ltCount_append sumZ)
 open E213.Lib.Math.Linalg213.PermClosure
-  (cnt permsOf_sound lt_of_mem_iota length_iota Nodup cnt_pos_mem cnt_pos_of_mem
-   cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq)
+  (cnt permsOf_sound permsOf_complete lt_of_mem_iota length_iota Nodup cnt_pos_mem cnt_pos_of_mem
+   cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq
+   nodup_cons nodup_map nodup_iota mem_map' mem_map_mpr mem_append_left mem_append_right)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -220,5 +221,70 @@ theorem lperm_of_nodup_mem_iff {α : Type} [DecidableEq α] {L1 L2 : List α}
   | inr hp =>
     rw [eq_one_of_le_one_of_pos (h1 q) hp,
         eq_one_of_le_one_of_pos (h2 q) (cnt_pos_of_mem ((hm q).mp (cnt_pos_mem hp)))]
+
+/-- `v < n → v ∈ iota n`. -/
+theorem mem_iota_of_lt : ∀ {n v : Nat}, v < n → v ∈ iota n
+  | n + 1, v, h => by
+    show v ∈ iota n ++ [n]
+    by_cases hv : v < n
+    · exact mem_append_left _ (mem_iota_of_lt hv)
+    · have hvn : v = n := Nat.le_antisymm (Nat.le_of_lt_succ h) (Nat.not_lt.mp hv)
+      rw [hvn]; exact mem_append_right _ (List.Mem.head _)
+
+/-- `colShift j` is injective (from strict monotonicity). -/
+theorem colShift_inj (j a b : Nat) (h : colShift j a = colShift j b) : a = b := by
+  rcases Nat.lt_trichotomy a b with hlt | heq | hgt
+  · exact absurd h (Nat.ne_of_lt (colShift_lt_mono j a b hlt))
+  · exact heq
+  · exact absurd h.symm (Nat.ne_of_lt (colShift_lt_mono j b a hgt))
+
+/-- `colShift j l ≤ l + 1`. -/
+theorem colShift_le_succ (j l : Nat) : colShift j l ≤ l + 1 := by
+  show (if l < j then l else l + 1) ≤ l + 1
+  by_cases hl : l < j
+  · rw [if_pos hl]; exact Nat.le_succ l
+  · rw [if_neg hl]; exact Nat.le_refl _
+
+/-- `unshift j v < n` for `v ≤ n`, `v ≠ j`, `j ≤ n`. (helper) -/
+theorem unshift_lt {n j v : Nat} (hvn : v ≤ n) (hvj : v ≠ j) (hjn : j ≤ n) : unshift j v < n := by
+  show (if v < j then v else v - 1) < n
+  by_cases hv : v < j
+  · rw [if_pos hv]; exact Nat.lt_of_lt_of_le hv hjn
+  · rw [if_neg hv]
+    have hjv : j < v := Nat.lt_of_le_of_ne (Nat.not_lt.mp hv) (fun e => hvj e.symm)
+    obtain ⟨k, hk⟩ := Nat.le.dest hjv
+    have hv1 : v - 1 = j + k := by rw [← hk, Nat.add_right_comm j 1 k]; exact Nat.succ_sub_one _
+    rw [← hk, Nat.add_right_comm j 1 k] at hvn
+    rw [hv1]; exact hvn
+
+/-- ★ **Canonical decomposition LPerm**: `j :: (iota n).map (colShift j)` is a permutation of
+    `iota (n+1)` (insert `j`, shift the rest up past the gap). -/
+theorem canonical_lperm (n j : Nat) (hj : j ≤ n) :
+    LPerm (j :: (iota n).map (colShift j)) (iota (n + 1)) := by
+  apply lperm_of_nodup_mem_iff
+  · apply nodup_cons
+    · intro hmem
+      rcases mem_map' _ hmem with ⟨l, _, hl⟩
+      exact colShift_ne j l hl
+    · exact nodup_map (colShift_inj j) (nodup_iota n)
+  · exact nodup_iota (n + 1)
+  · intro v
+    constructor
+    · intro hv
+      apply mem_iota_of_lt
+      cases hv with
+      | head => exact Nat.lt_succ_of_le hj
+      | tail _ hmem =>
+        rcases mem_map' _ hmem with ⟨l, hl, he⟩
+        rw [← he]
+        exact Nat.lt_succ_of_le (Nat.le_trans (colShift_le_succ j l)
+          (Nat.succ_le_of_lt (lt_of_mem_iota hl)))
+    · intro hv
+      by_cases hvj : v = j
+      · rw [hvj]; exact List.Mem.head _
+      · refine List.Mem.tail _ ?_
+        rw [← colShift_unshift hvj]
+        exact mem_map_mpr (colShift j)
+          (mem_iota_of_lt (unshift_lt (Nat.le_of_lt_succ (lt_of_mem_iota hv)) hvj hj))
 
 end E213.Lib.Math.Linalg213.Laplace
