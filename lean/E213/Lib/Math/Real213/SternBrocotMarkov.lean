@@ -900,4 +900,126 @@ theorem mNode_triple_coprime (path : List Bool) :
       (mInterval path).1.c.toNat (mInterval path).2.c.toNat (mNode path).c.toNat :=
   E213.Lib.Math.Real213.MarkovUniqueness.markov_reachable_coprime (mInterval_reachable path)
 
+/-! ## §11 — global slope injectivity (the genuine crux for `SamePairInjective`)
+
+  The window (§9) only fixes each node's residue *within its own* `m_t`; closing `SamePairInjective`
+  additionally needs that the map node ↦ slope `u_t/m_t` is **injective** across the whole tree (so
+  two triples at the same `c` with the same windowed residue are the same node).  This follows the
+  Stern-Brocot order: every node lies strictly between its interval bounds (§7–§8), the bounds nest
+  as the tree deepens, so each subtree's slopes are confined strictly between the subtree-root's
+  bounds — hence distinct paths give distinct slopes.  Slopes are compared by cross-multiplication
+  (`slopeLt M N := u_M·m_N < u_N·m_M`, valid since `m > 0`). -/
+
+private theorem mul_pos {a b : Int} (ha : 0 < a) (hb : 0 < b) : 0 < a * b := by
+  apply lt_of_pos_sub
+  have e : a * b - 0 = a * b := by rw [sub_zero_int]
+  rw [e]
+  -- 0 < a*b : a ≥ 1, b ≥ 1 ⟹ a*b ≥ 1 ⟹ 0 < a*b
+  exact one_le_mul ha hb
+
+private theorem mul_lt_mul_right {a b k : Int} (h : a < b) (hk : 0 < k) : a * k < b * k := by
+  apply lt_of_pos_sub
+  have e : b * k - a * k = (b - a) * k := by ring_intZ
+  rw [e]
+  exact mul_pos (pos_sub_of_lt h) hk
+
+private theorem lt_trans {a b c : Int} (h1 : a < b) (h2 : b < c) : a < c :=
+  lt_of_lt_of_le h1 (le_of_lt h2)
+
+/-- `slope M < slope N`, by cross-multiplication (`m > 0`): `(M.d−M.c)·N.c < (N.d−N.c)·M.c`. -/
+def slopeLt (M N : Mat2) : Prop := (M.d - M.c) * N.c < (N.d - N.c) * M.c
+
+/-- Fraction transitivity for slopes (all `m > 0`). -/
+private theorem slope_trans {M N P : Mat2} (hM : 0 < M.c) (hN : 0 < N.c) (hP : 0 < P.c)
+    (h1 : slopeLt M N) (h2 : slopeLt N P) : slopeLt M P := by
+  have k1 : (M.d - M.c) * N.c * P.c < (N.d - N.c) * M.c * P.c := mul_lt_mul_right h1 hP
+  have k2 : (N.d - N.c) * P.c * M.c < (P.d - P.c) * N.c * M.c := mul_lt_mul_right h2 hM
+  have e : (N.d - N.c) * M.c * P.c = (N.d - N.c) * P.c * M.c := by ring_intZ
+  rw [e] at k1
+  have k3 : (M.d - M.c) * N.c * P.c < (P.d - P.c) * N.c * M.c := lt_trans k1 k2
+  have e2 : (M.d - M.c) * N.c * P.c = (M.d - M.c) * P.c * N.c := by ring_intZ
+  have e3 : (P.d - P.c) * N.c * M.c = (P.d - P.c) * M.c * N.c := by ring_intZ
+  rw [e2, e3] at k3
+  exact lt_of_mul_lt_mul_right k3 hN
+
+/-- `slope M ≤ slope N`. -/
+def slopeLe (M N : Mat2) : Prop := (M.d - M.c) * N.c ≤ (N.d - N.c) * M.c
+
+private theorem le_refl_int (a : Int) : a ≤ a := by
+  show Int.NonNeg (a - a)
+  have e : a - a = 0 := by show a + -a = 0; exact E213.Meta.Int213.add_neg_cancel a
+  rw [e]; exact ⟨0⟩
+
+private theorem slopeLe_refl (M : Mat2) : slopeLe M M := le_refl_int _
+
+private theorem slopeLt_imp_le {M N : Mat2} (h : slopeLt M N) : slopeLe M N := le_of_lt h
+
+/-- Mixed transitivity `slope M ≤ slope N < slope P ⟹ slope M < slope P`. -/
+private theorem slope_le_lt_trans {M N P : Mat2} (hM : 0 < M.c) (hN : 0 < N.c) (hP : 0 < P.c)
+    (h1 : slopeLe M N) (h2 : slopeLt N P) : slopeLt M P := by
+  have k1 : (M.d - M.c) * N.c * P.c ≤ (N.d - N.c) * M.c * P.c := mul_le_mul_right h1 (le_of_lt hP)
+  have k2 : (N.d - N.c) * P.c * M.c < (P.d - P.c) * N.c * M.c := mul_lt_mul_right h2 hM
+  have e : (N.d - N.c) * M.c * P.c = (N.d - N.c) * P.c * M.c := by ring_intZ
+  rw [e] at k1
+  have k3 : (M.d - M.c) * N.c * P.c < (P.d - P.c) * N.c * M.c := lt_of_le_of_lt k1 k2
+  have e2 : (M.d - M.c) * N.c * P.c = (M.d - M.c) * P.c * N.c := by ring_intZ
+  have e3 : (P.d - P.c) * N.c * M.c = (P.d - P.c) * M.c * N.c := by ring_intZ
+  rw [e2, e3] at k3
+  exact lt_of_mul_lt_mul_right k3 hN
+
+/-- Mixed transitivity `slope M < slope N ≤ slope P ⟹ slope M < slope P`. -/
+private theorem slope_lt_le_trans {M N P : Mat2} (hM : 0 < M.c) (hN : 0 < N.c) (hP : 0 < P.c)
+    (h1 : slopeLt M N) (h2 : slopeLe N P) : slopeLt M P := by
+  have k1 : (M.d - M.c) * N.c * P.c < (N.d - N.c) * M.c * P.c := mul_lt_mul_right h1 hP
+  have k2 : (N.d - N.c) * P.c * M.c ≤ (P.d - P.c) * N.c * M.c := mul_le_mul_right h2 (le_of_lt hM)
+  have e : (N.d - N.c) * M.c * P.c = (N.d - N.c) * P.c * M.c := by ring_intZ
+  rw [e] at k1
+  have k3 : (M.d - M.c) * N.c * P.c < (P.d - P.c) * N.c * M.c := lt_of_lt_of_le k1 k2
+  have e2 : (M.d - M.c) * N.c * P.c = (M.d - M.c) * P.c * N.c := by ring_intZ
+  have e3 : (P.d - P.c) * N.c * M.c = (P.d - P.c) * M.c * N.c := by ring_intZ
+  rw [e2, e3] at k3
+  exact lt_of_mul_lt_mul_right k3 hN
+
+/-- Positivity of any node/bound `.c` entry (`= 0 < `, defeq to `1 ≤`). -/
+private theorem c_pos_l (p : List Bool) : 0 < (mInterval p).1.c := (mInterval_pos p).1.2.2.1
+private theorem c_pos_r (p : List Bool) : 0 < (mInterval p).2.c := (mInterval_pos p).2.2.2.1
+private theorem c_pos_node (p : List Bool) : 0 < (mNode p).c := markovNum_pos p
+
+/-- ★★★★★ **Interval nesting**: as the tree deepens (path `s ++ t`), the interval bounds nest in
+    slope — the left bound only rises, the right bound only falls.  By induction on `s` using
+    node-between-bounds (§7–§8). -/
+theorem slope_nest (s t : List Bool) :
+    slopeLe (mInterval t).1 (mInterval (s ++ t)).1
+    ∧ slopeLe (mInterval (s ++ t)).2 (mInterval t).2 := by
+  induction s with
+  | nil => exact ⟨slopeLe_refl _, slopeLe_refl _⟩
+  | cons b s' ih =>
+      cases b
+      · -- false / R-step: interval (mNode(s'++t), (mInterval(s'++t)).2)
+        refine ⟨?_, ?_⟩
+        · show slopeLe (mInterval t).1 (mNode (s' ++ t))
+          exact slopeLt_imp_le
+            (slope_le_lt_trans (c_pos_l t) (c_pos_l (s' ++ t)) (c_pos_node (s' ++ t))
+              ih.1 (markov_node_slope_gt_left (s' ++ t)))
+        · show slopeLe (mInterval (s' ++ t)).2 (mInterval t).2
+          exact ih.2
+      · -- true / L-step: interval ((mInterval(s'++t)).1, mNode(s'++t))
+        refine ⟨?_, ?_⟩
+        · show slopeLe (mInterval t).1 (mInterval (s' ++ t)).1
+          exact ih.1
+        · show slopeLe (mNode (s' ++ t)) (mInterval t).2
+          exact slopeLt_imp_le
+            (slope_lt_le_trans (c_pos_node (s' ++ t)) (c_pos_r (s' ++ t)) (c_pos_r t)
+              (markov_node_slope_lt_right (s' ++ t)) ih.2)
+
+/-- ★★★★★ **Subtree bounding**: every node in the subtree rooted at `t` (path `s ++ t`) has slope
+    **strictly** between `t`'s interval bounds.  Nesting + node-between-bounds + slope transitivity. -/
+theorem subtree_between (s t : List Bool) :
+    slopeLt (mInterval t).1 (mNode (s ++ t)) ∧ slopeLt (mNode (s ++ t)) (mInterval t).2 := by
+  refine ⟨?_, ?_⟩
+  · exact slope_le_lt_trans (c_pos_l t) (c_pos_l (s ++ t)) (c_pos_node (s ++ t))
+      (slope_nest s t).1 (markov_node_slope_gt_left (s ++ t))
+  · exact slope_lt_le_trans (c_pos_node (s ++ t)) (c_pos_r (s ++ t)) (c_pos_r t)
+      (markov_node_slope_lt_right (s ++ t)) (slope_nest s t).2
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
