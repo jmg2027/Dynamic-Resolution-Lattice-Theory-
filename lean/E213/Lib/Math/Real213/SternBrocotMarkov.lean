@@ -662,4 +662,147 @@ theorem markov_node_slope_gt_left (path : List Bool) :
       < markovRes path * (mInterval path).1.c :=
   lt_of_sub_eq_of_one_le (markovRes_cross_left path) (mInterval_pos path).2.2.2.1
 
+/-! ## §9 — the residue window `0 < u_t < m_t/2` (canonical Markov window on every node)
+
+  The root bounds have slopes `u/m = 0/1` (genL) and `1/2` (genR); strict monotonicity (§7–§8)
+  confines every node strictly between, giving `0 < u_t < m_t/2` — the canonical window of
+  `root_unique_below_half` realised on the tree.  Proved by induction carrying
+  `windowMat M := 0 ≤ u ∧ 2u ≤ m` on **both** interval bounds; the node's *strict* window
+  (`node_window_of_bounds`, from the slope inequalities + `0 ≤ u_l` / `2u_r ≤ m_r` + positivity)
+  weakens to the bound invariant, so it propagates.  Needs a pure ℤ strict-order toolkit. -/
+
+private theorem nonneg_add : ∀ {x y : Int}, Int.NonNeg x → Int.NonNeg y → Int.NonNeg (x + y)
+  | _, _, ⟨p⟩, ⟨q⟩ => by show Int.NonNeg (Int.ofNat p + Int.ofNat q); exact ⟨p + q⟩
+
+private theorem ofNat_succ_pos (n : Nat) : 0 < Int.ofNat (n + 1) := by
+  show Int.NonNeg (Int.subNatNat (n + 1) 1)
+  rw [E213.Meta.Int213.subNatNat_of_le (Nat.le_add_left 1 n)]
+  exact ⟨n⟩
+
+/-- `0 < z·k → 0 < k → 0 < z` (positive-factor cancellation), by case analysis on `z, k`. -/
+private theorem pos_of_mul_pos_right : ∀ {z k : Int}, 0 < z * k → 0 < k → 0 < z
+  | .ofNat (n + 1), _, _, _ => ofNat_succ_pos n
+  | .ofNat 0, k, h, _ => by
+      have hz : Int.ofNat 0 * k = 0 := E213.Meta.Int213.zero_mul k
+      rw [hz] at h; exact absurd h (by decide)
+  | .negSucc _, .ofNat 0, _, hk => absurd hk (by decide)
+  | .negSucc _, .ofNat (_ + 1), h, _ => by nomatch h
+  | .negSucc _, .negSucc _, _, hk => by nomatch hk
+
+private theorem pos_sub_of_lt {a b : Int} (h : a < b) : 0 < b - a := by
+  show Int.NonNeg ((b - a) - 1)
+  have e : (b - a) - 1 = b - (a + 1) := by ring_intZ
+  rw [e]; exact h
+
+private theorem lt_of_pos_sub {a b : Int} (h : 0 < b - a) : a < b := by
+  show Int.NonNeg (b - (a + 1))
+  have e : b - (a + 1) = (b - a) - 1 := by ring_intZ
+  rw [e]; exact h
+
+private theorem lt_of_lt_of_le {a b c : Int} (h1 : a < b) (h2 : b ≤ c) : a < c := by
+  show Int.NonNeg (c - (a + 1))
+  have e : c - (a + 1) = (b - (a + 1)) + (c - b) := by ring_intZ
+  rw [e]; exact nonneg_add h1 h2
+
+private theorem lt_of_le_of_lt {a b c : Int} (h1 : a ≤ b) (h2 : b < c) : a < c := by
+  show Int.NonNeg (c - (a + 1))
+  have e : c - (a + 1) = (b - a) + (c - (b + 1)) := by ring_intZ
+  rw [e]; exact nonneg_add h1 h2
+
+private theorem le_of_lt {a b : Int} (h : a < b) : a ≤ b := by
+  show Int.NonNeg (b - a)
+  have e : b - a = (b - (a + 1)) + 1 := by ring_intZ
+  rw [e]; exact nonneg_add h ⟨1⟩
+
+private theorem zero_le_of_nonneg {x : Int} (h : Int.NonNeg x) : 0 ≤ x := by
+  show Int.NonNeg (x - 0); rw [sub_zero_int]; exact h
+
+private theorem nonneg_of_zero_le {x : Int} (h : 0 ≤ x) : Int.NonNeg x := by
+  have h' : Int.NonNeg (x - 0) := h; rw [sub_zero_int] at h'; exact h'
+
+private theorem mul_le_mul_right {a b k : Int} (h : a ≤ b) (hk : 0 ≤ k) : a * k ≤ b * k := by
+  show Int.NonNeg (b * k - a * k)
+  have e : b * k - a * k = (b - a) * k := by ring_intZ
+  rw [e]
+  exact nonneg_of_zero_le (E213.Meta.Int213.mul_nonneg (zero_le_of_nonneg h) hk)
+
+private theorem lt_of_mul_lt_mul_right {a b k : Int} (h : a * k < b * k) (hk : 0 < k) : a < b := by
+  apply lt_of_pos_sub
+  have hp : 0 < b * k - a * k := pos_sub_of_lt h
+  have e : b * k - a * k = (b - a) * k := by ring_intZ
+  rw [e] at hp
+  exact pos_of_mul_pos_right hp hk
+
+private theorem pos_add_pos {x : Int} (h : 0 < x) : 0 < x + x := by
+  show Int.NonNeg ((x + x) - 1)
+  have e : (x + x) - 1 = (x - 1) + x := by ring_intZ
+  rw [e]
+  refine nonneg_add h ?_
+  show Int.NonNeg x
+  have e2 : x = (x - 1) + 1 := by ring_intZ
+  rw [e2]; exact nonneg_add h ⟨1⟩
+
+private theorem lt_two_mul {a b : Int} (h : a < b) : 2 * a < 2 * b := by
+  apply lt_of_pos_sub
+  have e : 2 * b - 2 * a = (b - a) + (b - a) := by ring_intZ
+  rw [e]; exact pos_add_pos (pos_sub_of_lt h)
+
+/-- A matrix's residue/number lie in the (closed) Markov slope window `0 ≤ u ≤ m/2`. -/
+def windowMat (M : Mat2) : Prop := 0 ≤ M.d - M.c ∧ 2 * (M.d - M.c) ≤ M.c
+
+/-- The node's **strict** window `0 < u_t` and `2·u_t < m_t` from the slope inequalities
+    (`markov_node_slope_gt_left/lt_right`) and the bounds' `0 ≤ u_l`, `2·u_r ≤ m_r` + positivity. -/
+private theorem node_window_of_bounds (path : List Bool)
+    (hL : 0 ≤ (mInterval path).1.d - (mInterval path).1.c)
+    (hR : 2 * ((mInterval path).2.d - (mInterval path).2.c) ≤ (mInterval path).2.c) :
+    0 < markovRes path ∧ 2 * markovRes path < markovNum path := by
+  have hmt : (0 : Int) ≤ (mNode path).c := nonneg_of_one_le (markovNum_pos path)
+  refine ⟨?_, ?_⟩
+  · -- 0 < u_t: 0 ≤ u_l·m_t < u_t·m_l, cancel m_l > 0
+    have h1 : (0 : Int) ≤ ((mInterval path).1.d - (mInterval path).1.c) * (mNode path).c :=
+      E213.Meta.Int213.mul_nonneg hL hmt
+    have h2 : (0 : Int) < markovRes path * (mInterval path).1.c :=
+      lt_of_le_of_lt h1 (markov_node_slope_gt_left path)
+    exact pos_of_mul_pos_right h2 (mInterval_pos path).1.2.2.1
+  · -- 2·u_t < m_t: 2·(u_t·m_r) < 2·(u_r·m_t) = (2u_r)·m_t ≤ m_r·m_t, cancel m_r > 0
+    have step1 : 2 * (markovRes path * (mInterval path).2.c)
+               < 2 * (((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c) :=
+      lt_two_mul (markov_node_slope_lt_right path)
+    have step2 : 2 * (((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c)
+               ≤ (mInterval path).2.c * (mNode path).c := by
+      have e : 2 * (((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c)
+             = (2 * ((mInterval path).2.d - (mInterval path).2.c)) * (mNode path).c := by ring_intZ
+      rw [e]; exact mul_le_mul_right hR hmt
+    have step3 : 2 * (markovRes path * (mInterval path).2.c)
+               < (mInterval path).2.c * (mNode path).c := lt_of_lt_of_le step1 step2
+    have e2 : 2 * (markovRes path * (mInterval path).2.c)
+            = (2 * markovRes path) * (mInterval path).2.c := by ring_intZ
+    have e3 : (mInterval path).2.c * (mNode path).c
+            = (mNode path).c * (mInterval path).2.c := by ring_intZ
+    rw [e2, e3] at step3
+    exact lt_of_mul_lt_mul_right step3 (mInterval_pos path).2.2.2.1
+
+/-- ★★★★★ **Both interval bounds lie in the closed window `0 ≤ u ≤ m/2`** at every node, by
+    induction: the generators do, and each new mediant's *strict* window (`node_window_of_bounds`)
+    weakens to the closed one, so it propagates. -/
+theorem mInterval_window (path : List Bool) :
+    windowMat (mInterval path).1 ∧ windowMat (mInterval path).2 := by
+  induction path with
+  | nil => exact ⟨⟨by decide, by decide⟩, ⟨by decide, by decide⟩⟩
+  | cons b t ih =>
+      have nw := node_window_of_bounds t ih.1.1 ih.2.2
+      have nodeW : windowMat (mul (mInterval t).1 (mInterval t).2) :=
+        ⟨nonneg_of_one_le nw.1, le_of_lt nw.2⟩
+      cases b
+      · exact ⟨nodeW, ih.2⟩
+      · exact ⟨ih.1, nodeW⟩
+
+/-- ★★★★★ **The residue window `0 < u_t < m_t/2`** at every node — the canonical Markov window of
+    `MarkovInjectivity.root_unique_below_half`, realised on the tree.  Every node's residue is the
+    unique sqrt of `−1` in `(0, m_t/2)`: it squares to `−1` (`markovNum_dvd_res_sq_succ`) AND lies
+    strictly in the lower window half.  This completes Zhang's Lemma 2 on the tree. -/
+theorem markov_window (path : List Bool) :
+    0 < markovRes path ∧ 2 * markovRes path < markovNum path :=
+  node_window_of_bounds path (mInterval_window path).1.1 (mInterval_window path).2.2
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
