@@ -92,6 +92,24 @@ eventually monotone — so `popcount` has no finite difference-depth: it sits *o
 dense non-holonomic witness.  One structure, two ends: the readout escapes the *machine*, the
 counter escapes the *ring*.
 
+**Honest Lean status + the missing bridge.**  `s2_not_eventually_monotone` (213-native, ∅-axiom)
+is the proven half.  Turning it into `¬ ∃ d, polyDepth d s2` needs exactly one bridge lemma:
+
+> **`eventually_monotone_of_polyDepth` (open ∅-axiom target).**  `polyDepth d s → ∃ N, ∀ m n,
+> N ≤ m → m ≤ n → s m ≤ s n` (a finite-Δ-depth integer sequence is eventually monotone).
+
+Why it is not a quick reuse of `positive_floor_unbounded`: that lemma only fires when the top
+difference is `≥ 1`, where it already builds `EvStrictMono` internally (via `evStrictMono_descend`)
+— so the `c ≥ 1` branch of the bridge is *one call away*.  The obstruction is the **vanishing**
+top-difference branch (`liftK (e+1) s 0 = 0`): over `ℕ`'s *truncated* `diff`, `liftK(e+1)s ≡ 0`
+only gives `liftK e s` **non-increasing** (not `polyDepth e`), and indeed `popcount` is genuinely
+polynomially bounded (`s2 n ≤ log₂ n ≤ n`), so growth alone yields no contradiction — the
+oscillation is what kills it.  The faithful fix is the **`Int`** version: `polyDepthZ` +
+`NewtonGregory.reconstruct` (exact Newton form, no truncation) + a both-sign `EvStrictMono` /
+`EvStrictAnti` descent (the negative-`c` mirror of `positive_floor`).  Then `s2_not_eventually_
+monotone` contraposes to `¬ ∃ d, polyDepthZ d (Int-embed s2)` cleanly.  Isolated, ∅-axiom-shaped,
+~100 lines; flagged here rather than half-done.
+
 ## Honest scope
 
   - The earlier *formalized witness* (`isPow2`) happens also to have long runs (so the sparse

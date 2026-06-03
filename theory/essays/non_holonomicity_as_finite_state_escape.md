@@ -98,12 +98,16 @@ is outside it — no finite generating machine.
 The automatic side furnishes a concrete escapee.  Read off the same automaton that emits
 Thue–Morse, the digit counter `s2 = popcount` is **unbounded** (`ThueMorseAperiodic.s2_unbounded`:
 `s2(ones k) = k`) yet returns to its minimum `1` at every power of two (`s2_pw2 : s2(2^k)=1`), so
-it is *not eventually monotone* (`s2_not_eventually_monotone`).  A finite-Δ-depth integer sequence
-is eventually a polynomial in `n` — hence eventually monotone — so `popcount` carries **no** finite
-difference-depth: the automatic counter sits *outside* the generating ring while its bounded `{0,1}`
-readout `tm` is the dense non-holonomic witness.  The two facts are one structure seen at its two
-ends: the bounded readout escapes the *machine* (term-window), the unbounded counter escapes the
-*ring* (finite Δ-depth).
+it is *not eventually monotone* — proven ∅-axiom (`s2_not_eventually_monotone`).  By the standard
+fact that a finite-Δ-depth integer sequence is eventually a polynomial in `n` — hence eventually
+monotone — `popcount` carries **no** finite difference-depth: the automatic counter sits *outside*
+the generating ring while its bounded `{0,1}` readout `tm` is the dense non-holonomic witness.  The
+two facts are one structure seen at its two ends: the bounded readout escapes the *machine*
+(term-window), the unbounded counter escapes the *ring* (finite Δ-depth).  The 213-native half —
+non-monotonicity — is closed ∅-axiom; the bridge `polyDepth d s ⟹ eventually monotone` is the one
+classical step still to formalise — the faithful-`Int`, both-sign analogue of
+`PositiveFloorUnbounded.positive_floor_unbounded`, whose vanishing-top-difference case is exactly
+where `popcount`'s sub-linear growth hides the oscillation.
 
 ## Two finite-state notions, diverging at Thue–Morse
 
