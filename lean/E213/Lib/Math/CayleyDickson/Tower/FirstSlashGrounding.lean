@@ -44,4 +44,25 @@ theorem disc_neg_two_descends_to_first_slash :
     ∧ (¬ ∃ m : Nat, m * m = NT) :=
   ⟨Raw.leaves_slash, by decide, NT_is_nonsquare_count.2⟩
 
+/-- ★★★ **The number-tower bottom: `slash → + → ×`, each rung derived, then `NT` non-square.**  The
+    whole quadratic (Cassini/disc) edifice rests on three derived rungs, made explicit here:
+
+    1. **`+` = the slash counted** (`Raw.leaves_slash`, the count-Lens `⟨1,1,+⟩` on the residue's
+       distinguishing) — addition is not a primitive;
+    2. **`×` = iterated `+`** (`m·0 = 0`, `m·(n+1) = m·n + m` — multiplication *is* the count-Lens
+       combining op applied `n` times; one iteration above `+`, hence one Lens-step further from
+       the residue) — multiplication is not residue-native;
+    3. a **square count** is `m·m` (a count of a count), and `NT` is **not** one
+       (`¬ ∃ m, m·m = NT`).
+
+    So the Cassini — being *quadratic* (needs rung 2) and a *difference* (needs the next, `ℤ`,
+    rung) — sits `≥3` Lens-steps above the residue: it is readout-layer, not foundational.  The
+    only residue-native datum that survives the whole descent is rung 3: **the first
+    distinguishing's count `NT = 1+1` is non-square.** -/
+theorem number_tower_bottom :
+    (∀ (x y : Raw) (h : x ≠ y), (Raw.slash x y h).leaves = x.leaves + y.leaves)
+    ∧ ((∀ m : Nat, m * 0 = 0) ∧ (∀ m n : Nat, m * (n + 1) = m * n + m))
+    ∧ (¬ ∃ m : Nat, m * m = NT) :=
+  ⟨Raw.leaves_slash, ⟨fun _ => rfl, fun m n => Nat.mul_succ m n⟩, NT_is_nonsquare_count.2⟩
+
 end E213.Lib.Math.CayleyDickson.Tower.FirstSlashGrounding
