@@ -268,19 +268,30 @@ The gate `LPerm (map (swapAt k) (perms n)) (perms n)` is being built bottom-up. 
   `cnt_append`/`cnt_eq_zero_nil`/`cnt_pos_mem`/`mem_split`/`lperm_mid_to_front` +
   `add_left_cancel'` (propext-free replacement for the tainted `Nat.add_left_cancel`).
 
-**Remaining (next sessions):**
-1. **Generalize** `cnt`/`lperm_of_cnt_eq` to `{α} [DecidableEq α]` (counts of *lists* — the
-   elements of `perms n` are `List Nat`).  Decidable casing via explicit `DecidableEq` instance
-   match (avoid `by_cases`/Classical).
-2. **`swapAt_invol`** (`swapAt k (swapAt k p) = p`) + **`cnt_map_inv`** (`cnt q (map f L) =
-   cnt (f q) L` for an involution `f`) ⟹ `cnt q (map (swapAt k) (perms n)) = cnt (swapAt k q) (perms n)`.
-3. **nodup** `Nodup (permsOf xs)` for `Nodup xs` (the hard combinatorial lemma: `nodup_flatMap`
-   + each `insertEverywhere a r` nodup + disjoint images, via `a ∉ r` recoverability).  Needs
-   a clean ∅-axiom `Nodup`.
-4. **completeness** `LPerm q (List.range n) → q ∈ perms n` (via `insEv_complete` + `lperm_of_cnt_eq`
-   for the recursion).  With nodup ⟹ `cnt q (perms n) = (1 if q ∈ perms n else 0)`.
-5. **closure**: `cnt (swapAt k q) (perms n) = cnt q (perms n)` (both `= 1`/`0` since
-   `swapAt k q ~ q ~ range n` and nodup) ⟹ via `lperm_of_cnt_eq` the closure `LPerm`.
-6. **alternating assembly**: `leibDet (rowSwapAt k M) = − leibDet M` (per-term `leibTerm_rowSwap`
-   needs each `p ∈ perms n` nodup so `x≠y` at positions `k,k+1`; then `sumZ_map_neg` + `map_lperm`
-   + `sumZ_lperm` + closure), whence equal rows ⟹ `2·leibDet = 0` ⟹ `0` (ℤ domain).
+**DONE (PURE):**
+- **§3-§4 generalized** to `{α} [DecidableEq α]` (`cnt` of *lists*; `by_cases` clean on `DecidableEq`).
+- **§5** `swapAt_invol` (`swapAt k` twice = id) + `cnt_map_inv` (`cnt q (map f L) = cnt (f q) L` for
+  an involution) ⟹ `cnt q (map (swapAt k) (perms n)) = cnt (swapAt k q) (perms n)`.
+- **§6** completeness: `mem_map_mpr`/`mem_append_left`/`mem_append_right`/`mem_flatMap_mpr`/
+  `insEv_head`/`insEv_complete`/★`permsOf_complete` (`LPerm q xs → q ∈ permsOf xs`).  With
+  soundness: **`q ∈ permsOf xs ⟺ LPerm q xs`**.  (22 PURE total.)
+
+**Remaining (the home stretch):**
+1. **nodup** `Nodup (permsOf xs)` for `Nodup xs`, where `Nodup L := ∀ a, cnt a L ≤ 1` (clean,
+   no `Pairwise`).  Plan — the **`removeFirst a`** retraction: for `p ∈ insertEverywhere a r`
+   with `a ∉ r`, `removeFirst a p = r` (the inserted `a` is the only one), so `r` is recovered
+   from `p`.  Induct on `permsOf ys` (= `P`): `cnt p (flatMap g (r::P')) = cnt p (g r) +
+   cnt p (flatMap g P')` (`cnt_append`); if `cnt p (g r) > 0` then `r = removeFirst a p =: r0`
+   and `r0 ∉ P'` (nodup `r::P'`), forcing `cnt p (flatMap g P') = 0`; so the sum is `≤ 1`.
+   Needs: `removeFirst`, `insEv` nodup (a-position recoverable), `a ∉ r` (from `r ~ ys`,
+   `a ∉ ys`), `cnt_flatMap` via `cnt_append`.
+2. **count characterization** under nodup: `cnt_eq_of_iff_mem` (`Nodup L → (q∈L ↔ q'∈L) →
+   cnt q L = cnt q' L`, via `cnt_pos_of_mem` + `Nat.le_antisymm`).
+3. **closure**: `cnt (swapAt k q) (perms n) = cnt q (perms n)` (both `=1`/`0`: `swapAt k q ∈ perms n
+   ⟺ LPerm (swapAt k q) range ⟺ LPerm q range ⟺ q ∈ perms n`, sound+complete+`swapAt_lperm`),
+   then with §5 ⟹ `cnt q (map (swapAt k)(perms n)) = cnt q (perms n)` ∀q ⟹ `lperm_of_cnt_eq`
+   gives the closure `LPerm (map (swapAt k)(perms n)) (perms n)`.
+4. **alternating assembly**: `leibDet (rowSwapAt k M) = − leibDet M` (`leibTerm_rowSwap` per-term
+   needs each `p ∈ perms n` to decompose `pre++y::x::l` at `k` with `x≠y` — from nodup `p`; then
+   `sumZ_map_neg` + `map_lperm` + `sumZ_lperm` + closure), whence equal rows ⟹ `2·leibDet = 0` ⟹
+   `0` (ℤ domain).  Then §6-bridge `leibDet = DetN.det` (Laplace) for char-poly/CH.
