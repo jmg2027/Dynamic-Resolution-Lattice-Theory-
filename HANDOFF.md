@@ -1,6 +1,38 @@
-# Session Handoff — 2026-06-03d (Markov marathon — forward bridge: matrix tree = Markov tree)
+# Session Handoff — 2026-06-03e (Markov marathon — GLOBAL SLOPE INJECTIVITY closed)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★ LATEST: `Real213/SternBrocotMarkov` now **54 PURE** — §11 global slope injectivity
+**The genuine crux that the "reverse-bridge + window ⟹ SamePairInjective" chain GLOSSED OVER.**
+The window (§9) only fixes each node's residue within its *own* `c`; it does NOT give that two
+distinct triples at the *same* `c` are equal.  That needs **node ↦ slope `u_t/m_t` injective across
+the whole tree** (Stern-Brocot ordering).  Now proven:
+- `slopeLt`/`slopeLe` (cross-multiplied) + transitivity family (`slope_trans`, `slope_le_lt_trans`,
+  `slope_lt_le_trans`) on the §9 Int toolkit (+ `mul_pos`, `mul_lt_mul_right`, `lt_trans`,
+  `lt_irrefl_int`).
+- `slope_nest`: interval bounds nest in slope as the tree deepens (left rises, right falls).
+- `subtree_between`: every node in `t`'s subtree (`s ++ t`) lies STRICTLY between `t`'s bounds;
+  `subtree_true_lt`/`subtree_false_gt` are the directional forms.
+- `slope_sep`: distinct paths (shared deep suffix) ⟹ separated slopes, by length-fuel induction
+  peeling shallow ends.  Needed **pure** List helpers (`eq_nil_or_concat`, `concat_ne_nil`,
+  `append_singleton_cancel`) — core `List` lemmas leak propext.  Decidable-eq split avoids Classical.
+- **`slope_path_inj`**: `slopeEq (mNode p) (mNode q) ⟹ p = q`.  ∅-axiom verified.
+
+### Honest status of the objective (reverse bridge + SamePairInjective)
+The objective's 3-step chain had a real gap at step 2 (global injectivity) — now FILLED.  Two pieces
+remain for prime-power `MarkovMaxUnique`:
+  1. **Reverse bridge** (objective #1, NOT yet done): every ordered Markov triple with `c ≥ 5` is a
+     matrix-tree node.  Route: `markov_ordered_reachable` (DONE, abstract descent) → invert
+     `MarkovReachable`/descent to a Stern-Brocot path.  Caveat: indexing offset (tree roots `(1,2,5)`,
+     `MarkovReachable` roots `(1,1,1)`); needs ℤ↔ℕ (`toNat`, §10 helpers) + descent-to-path.
+  2. **Assembly**: two triples at `c` ⟹ (reverse bridge) two nodes `p,q`; same windowed residue (via
+     `root_unique_below_half`, the residues are equal) ⟹ same slope ⟹ (`slope_path_inj`) `p = q`
+     ⟹ same triple ⟹ `SamePairInjective`.  Then `markov_prime_pow_unique_of_same_pair_injective`
+     (DONE) closes Button's family.
+The crux (injectivity) being done de-risks the remainder substantially — the assembly is now mostly
+plumbing once the reverse bridge lands.
+
+## ★ EARLIER 2026-06-03d: forward bridge (matrix tree = Markov tree, 48 PURE)
 
 ## ★ LATEST: `Real213/SternBrocotMarkov` now **47 PURE** — §10 forward bridge
 - **§10 `mInterval_reachable`**: every matrix-tree node's `(2,1)`-entry triple `(m_l,m_r,m_t)`, as
