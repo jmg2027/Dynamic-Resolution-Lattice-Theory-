@@ -172,6 +172,38 @@ What this session pinned down:
   continued-fraction / Stern-Brocot recovery (repo: `Mobius213SternBrocot`,
   `Cohomology/BipartiteStermBrocotClassification`, `Mobius213/Px/ConvergentDet` Farey det = 1).
 
+## Execution blueprint for `SamePairInjective` (2 expert-agent reports + `SternBrocotMarkov`)
+
+Two deep literature agents (Lang–Tan elementary route; Zhang CF blueprint) converged on a concrete,
+Mathlib-free-friendly plan.  **The Markoff-matrix carrier is the recommended vehicle** (makes the
+Frobenius identities a one-multiply entry read-off; avoids modular inverses).
+
+**Foundations DONE** (`Real213/SternBrocotMarkov`, 16 PURE):
+  * proper det-1 Stern-Brocot tree `sbInterval` + invariant `sbInterval_adj` (`q·r=p·s+1`) +
+    `sbInterval_mediant_coprime` (the repo's `SternBrocotReachable` is all-pairs, NOT this);
+  * Markoff-matrix tree: `det2`, **`det2_mul`** (det multiplicative, the backbone), generators
+    `genL=⟨2,1,1,1⟩`, `genR=⟨3,4,2,3⟩`, `mMat` (path→product), **`mMat_det1`** (`det=1` ∀ node);
+    `markovNum=(M)₂₁`, `markovRes=(M)₂₂−(M)₂₁`; `markov_root_node` (1/1 ↦ (5,2)).
+
+**Remaining steps** (dependency order; `M_t∈SL₂(ℤ)`, `M_{r⊕s}=M_rM_s`):
+  1. `entry_shape`: `(M_t)₁₁+(M_t)₂₂ = 3(M_t)₂₁` (so `markovNum` is the Markov coeff) + ordering
+     `c≤d≤a≤b` — by tree induction (Zhang Prop 7).  [subtle: the inequalities]
+  2. `markov_eq`: the matrix entries satisfy `a²+b²+c²=3abc` for the triple — tree induction.
+  3. **Frobenius identity** `u_t·m_r − u_r·m_t = m_s`: the `(2,1)`-entry of `M_r⁻¹M_t = M_s`, using
+     `M_r⁻¹=[[d,−b],[−c,a]]` (`det=1`).  ONE matrix multiply + entry read-off (`ring_intZ`). [routine
+     given the carrier — the big win of the matrix route]
+  4. `local_mono` ⟹ **`global_mono`** `t1<t2 → u_{t1}·m_{t2} < u_{t2}·m_{t1}` (Zhang Lemma 2): from
+     the positive Frobenius determinant, by tree induction (or Prop 9's `ρ=a/c`, independent of #3).
+  5. `window`: `0 < u_t < m_t/2` (corollary, endpoints `0, 1/2`).
+  6. **`SamePairInjective`**: `global_mono` ⟹ residue (window-normalized) injective ⟹ triple
+     determined.  Then `markov_max_unique_of_same_pair_injective` (DONE) closes general `MarkovMaxUnique`.
+
+**For prime powers (Button) specifically** the agents confirmed: the root-count input is already done
+(`sqrtNegOneTwoRoots_prime_pow` + `root_unique_below_half`); Lang–Tan's `gcd(c,k,d−a−k)∈{1,2}` and
+Zhang's "≤2 roots mod pⁿ" are the SAME elementary gcd fact (`p^n ∣ (x−y)(x+y)`, `gcd(x−y,x+y)∣2`,
+`p` odd ⟹ `p^n ∣ x∓y`) — no group theory.  So **prime-power uniqueness needs only steps 3–6**
+(the Frobenius identity + monotonicity), all now with the matrix carrier in place.
+
 ## Next
 
 1. **C2→C4 inverse-existence bridge** — **DONE** (`inverse_of_coprime` via `xgcdAux_dvd_both`).

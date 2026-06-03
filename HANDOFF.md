@@ -52,6 +52,17 @@ recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residu
   **strictly increasing** (`fib(2n)·fib(2n+3) < fib(2n+1)·fib(2n+2)`) — Zhang Lemma 2 realized ON
   the spine.
 
+## ★ NEW: `Real213/SternBrocotMarkov` (16 PURE) — the recovery vehicle + expert blueprint
+Two deep literature agents (Lang–Tan + Zhang) gave a concrete Mathlib-free plan; the **Markoff-matrix
+carrier** is recommended (Frobenius identities = one-multiply entry read-off via `det=1`).  Built:
+the **proper det-1 Stern-Brocot tree** (`sbInterval_adj`, `sbInterval_mediant_coprime` — the repo's
+`SternBrocotReachable` is all-pairs, not this) AND the **Markoff-matrix tree** (`det2_mul` backbone,
+`genL/genR`, `mMat`, `mMat_det1`: every node `det=1`; `markovNum=(M)₂₁`, `markovRes=(M)₂₂−(M)₂₁`;
+`markov_root_node`: 1/1↦(5,2)).  Remaining (in G173 "Execution blueprint", dependency order): entry
+shape `a+d=3c`; Frobenius identity `u_t m_r − u_r m_t = m_s` via `M_r⁻¹M_t=M_s` (ring_intZ);
+`global_mono` (Zhang Lemma 2); window; ⟹ `SamePairInjective` ⟹ `MarkovMaxUnique`.  **Prime-power
+uniqueness (Button) needs only these 3–6 steps** (root-count already done).
+
 ## Next frontier: `SamePairInjective` for all `c` (= Zhang Lemma 2 / Farey-monotone recovery)
 Scoping (Explore agent) + a **strategic correction**: the repo's `Mobius213SternBrocot`
 `reachable_of_pos` proves `∀ m k, 1 ≤ m+k → SternBrocotReachable (m,k)` — **every** pair (no
