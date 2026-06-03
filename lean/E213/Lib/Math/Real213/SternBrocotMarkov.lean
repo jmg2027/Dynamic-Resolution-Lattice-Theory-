@@ -124,6 +124,21 @@ theorem mMat_det1 (path : List Bool) : det2 (mMat path) = 1 := by
       · show det2 genR * det2 (mMat t) = 1; rw [ih]; show (3 * 3 - 4 * 2) * 1 = 1; ring_intZ
       · show det2 genL * det2 (mMat t) = 1; rw [ih]; show (2 * 1 - 1 * 1) * 1 = 1; ring_intZ
 
+/-- ★★★★★ **Frobenius's determinant identity** (matrix form, the monotonicity engine).  For the
+    mediant `M_t = M_r·M_s` with `det M_r = 1`, the cross-determinant
+    `(M_r)ₐ·(M_t)_c − (M_r)_c·(M_t)ₐ = (M_s)_c = m_s`.  Since `m_s > 0`, this fixes the *sign* of
+    the cross-determinant — exactly Zhang's Lemma 2 (slope `u_t/m_t` strictly monotone), the
+    residue-map injectivity `SamePairInjective`.  Proof: it is `(M_s)_c · det M_r` (`ring_intZ`)
+    `= (M_s)_c · 1`. -/
+theorem markoff_frobenius (Mr Ms : Mat2) (hd : det2 Mr = 1) :
+    Mr.a * (mul Mr Ms).c - Mr.c * (mul Mr Ms).a = Ms.c := by
+  have hd' : Mr.a * Mr.d - Mr.b * Mr.c = 1 := hd
+  show Mr.a * (Mr.c * Ms.a + Mr.d * Ms.c) - Mr.c * (Mr.a * Ms.a + Mr.b * Ms.c) = Ms.c
+  calc Mr.a * (Mr.c * Ms.a + Mr.d * Ms.c) - Mr.c * (Mr.a * Ms.a + Mr.b * Ms.c)
+      = Ms.c * (Mr.a * Mr.d - Mr.b * Mr.c) := by ring_intZ
+    _ = Ms.c * 1 := by rw [hd']
+    _ = Ms.c := by ring_intZ
+
 /-- The Markov number at a node = the `(2,1)` matrix entry. -/
 def markovNum (path : List Bool) : Int := (mMat path).c
 
