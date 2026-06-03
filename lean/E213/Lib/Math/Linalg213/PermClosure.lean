@@ -20,7 +20,7 @@ namespace E213.Lib.Math.Linalg213.PermClosure
 open E213.Lib.Math.Linalg213.Permutation
   (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm swapAt_prefix
    sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap
-   prodDiagFrom psign)
+   prodDiagFrom psign rowSwapAt_other rowSwapAt_at)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -666,5 +666,33 @@ theorem leibDet_eq_zero_of_rows_eq (M : Nat → Nat → Int) (n k : Nat) (hk : k
     (hrows : ∀ c, M k c = M (k + 1) c) : leibDet n M = 0 :=
   int_eq_zero_of_eq_neg
     ((leibDet_congr n (rowSwapAt_eq_of_rows_eq M k hrows)).symm.trans (leibDet_rowSwap M n k hk))
+
+/-! ## §11 — general equal rows (any gap) ⟹ `leibDet = 0` -/
+
+/-- Rows `a` and `a+d+1` equal ⟹ `leibDet = 0`.  Induction on the gap `d`: swap the adjacent
+    rows just below the lower one, shrinking the gap by one (the lower row keeps matching). -/
+theorem leibDet_rows_eq_gap (n : Nat) : ∀ (d a : Nat) (M : Nat → Nat → Int),
+    a + d + 1 < n → (∀ c, M a c = M (a + d + 1) c) → leibDet n M = 0
+  | 0,     a, M, hk, hrows => leibDet_eq_zero_of_rows_eq M n a hk hrows
+  | d + 1, a, M, hk, hrows => by
+    have hne0 : a ≠ a + d + 1 := Nat.ne_of_lt (Nat.lt_add_of_pos_right (Nat.succ_pos d))
+    have hne1 : a ≠ (a + d + 1) + 1 := Nat.ne_of_lt (Nat.lt_add_of_pos_right (Nat.succ_pos (d + 1)))
+    have hrows' : ∀ c, (rowSwapAt (a + d + 1) M) a c = (rowSwapAt (a + d + 1) M) (a + d + 1) c := by
+      intro c
+      rw [rowSwapAt_other (a + d + 1) M hne0 hne1 c, rowSwapAt_at (a + d + 1) M c]
+      exact hrows c
+    have hlt : a + d + 1 < n := Nat.lt_of_lt_of_le (Nat.lt_succ_self _) (Nat.le_of_lt hk)
+    have hz : leibDet n (rowSwapAt (a + d + 1) M) = 0 :=
+      leibDet_rows_eq_gap n d a (rowSwapAt (a + d + 1) M) hlt hrows'
+    have hswap := leibDet_rowSwap M n (a + d + 1) hk
+    have heq : - leibDet n M = 0 := hswap.symm.trans hz
+    exact ((Int.neg_neg (leibDet n M)).symm).trans (congrArg Neg.neg heq)
+
+/-- ★ **Any two equal rows ⟹ `leibDet = 0`** (general form). -/
+theorem leibDet_eq_zero_of_two_rows_eq (M : Nat → Nat → Int) (n a b : Nat)
+    (hab : a < b) (hb : b < n) (hrows : ∀ c, M a c = M b c) : leibDet n M = 0 := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hab
+  have hbd : a + d + 1 = b := by rw [Nat.add_right_comm]; exact hd
+  exact leibDet_rows_eq_gap n d a M (hbd.symm ▸ hb) (fun c => hbd.symm ▸ hrows c)
 
 end E213.Lib.Math.Linalg213.PermClosure
