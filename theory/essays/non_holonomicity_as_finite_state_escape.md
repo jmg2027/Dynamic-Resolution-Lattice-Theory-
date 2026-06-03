@@ -129,6 +129,17 @@ digit-automatic (`tm_eq_popParity`) and aperiodic (`tm_not_evPeriodic`), is non-
 generating-function scale — the term-window escape `tm_morse_not_autoRec` is the elementary,
 ∅-axiom shadow of that boundary, with the *automatic* hypothesis now also formalised.
 
+**One automaton, two output maps.**  The sparse and dense witnesses are not two automata but one,
+read differently.  Both `χ`/`isPow2` (powers of two) and `tm` (Thue–Morse) are output functions of
+the *same* `2`-automatic digit-sum `s2 = popcount`: `isPow2 n = (s2 n == 1)`
+(`isPow2_eq_s2_one` — a power of two has exactly one binary `1`) and `tm n = (s2 n % 2 == 1)`
+(`tm_eq_popParity`).  Their holonomic statuses differ — `χ` escapes *both* machine classes (its
+`s2 = 1` output map carves the sparse powers-of-two set with long zero-runs), `tm` only the
+autonomous one (its parity output map gives run-length `≤ 2`) — but the divergence is entirely in
+the *output map* applied to the shared automaton, not in the automaticity.  This is the concrete
+texture of "automatic ∧ aperiodic": the automaton is fixed; what the readout does to its state is
+what decides which machine class the sequence escapes.
+
 ## Dual function
 
 Classically this is the **holonomic / P-recursive** dividing line and its automata-theoretic

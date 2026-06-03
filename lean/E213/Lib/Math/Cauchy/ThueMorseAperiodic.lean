@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cauchy.MorseHedlund
+import E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Tactic.NatHelper
 
@@ -19,6 +20,8 @@ namespace E213.Lib.Math.Cauchy.ThueMorseAperiodic
 
 open E213.Lib.Math.Cauchy.MorseHedlund (EvPeriodic aperiodic_not_autoRec b2n)
 open E213.Lib.Math.Cauchy.ZeroRunNonHolonomic (AutoRec)
+open E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness
+  (isPow2 pow2aux_pow pow2aux_true_imp lt_two_pow)
 
 /-- Fuel-structural Thue–Morse kernel. -/
 def tmF : Nat → Nat → Bool
@@ -391,6 +394,116 @@ theorem s2_not_eventually_monotone :
   rw [s2_ones, s2_pw2] at hle
   -- hle : N + 2 ≤ 1, but 2 ≤ N + 2
   exact absurd (Nat.le_trans (Nat.le_add_left 2 N) hle) (by decide)
+
+/-! ## The two witnesses are one automaton: `isPow2 n = (s2 n == 1)`
+
+The sparse witness `χ`/`isPow2` (powers of two) and the dense witness `tm` (Thue–Morse) are the
+**same** `2`-automatic digit-sum `s2 = popcount`, read through different output functions:
+`tm n = (s2 n % 2 == 1)` (`tm_eq_popParity`) and `isPow2 n = (s2 n == 1)` (`isPow2_eq_s2_one`,
+since a power of two has exactly one binary `1`).  Both are digit-automatic; their differing
+holonomic status (sparse `χ` escapes *both* machine classes, dense `tm` only the autonomous one)
+is a property of the *output map*, not of automaticity. -/
+
+/-- `popcount(2^j) = 1`. -/
+theorem s2_two_pow (j : Nat) : s2 (2 ^ j) = 1 := by
+  induction j with
+  | zero => rfl
+  | succ j ih =>
+    have h2 : 2 ^ (j + 1) = 2 * 2 ^ j := by rw [Nat.pow_succ, Nat.mul_comm]
+    rw [h2, s2_even, ih]
+
+/-- `popcount n = 0 ⟹ n = 0`. -/
+theorem s2_eq_zero_imp : ∀ n, s2 n = 0 → n = 0 := by
+  suffices H : ∀ T n, n < T → s2 n = 0 → n = 0 by
+    intro n; exact H (n + 1) n (Nat.lt_succ_self n)
+  intro T
+  induction T with
+  | zero => intro n h _; exact absurd h (Nat.not_lt_zero n)
+  | succ T ih =>
+    intro n hnT hs
+    rcases Nat.eq_zero_or_pos n with hn0 | hnpos
+    · exact hn0
+    · have hdm : 2 * (n / 2) + n % 2 = n := E213.Meta.Nat.AddMod213.div_add_mod n 2
+      have hhalf : n / 2 < n :=
+        E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul
+          (by rw [E213.Tactic.NatHelper.two_mul]; exact Nat.lt_add_of_pos_left hnpos)
+      have hh : n / 2 < T := Nat.lt_of_lt_of_le hhalf (Nat.le_of_lt_succ hnT)
+      rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one n with he | ho
+      · have e : 2 * (n / 2) = n := by rw [he, Nat.add_zero] at hdm; exact hdm
+        have hs2 : s2 (n / 2) = 0 := by
+          have hcong : s2 n = s2 (n / 2) := (congrArg s2 e.symm).trans (s2_even (n / 2))
+          rw [← hcong]; exact hs
+        have hz : n / 2 = 0 := ih (n / 2) hh hs2
+        exact e.symm.trans (show 2 * (n / 2) = 0 by rw [hz, Nat.mul_zero])
+      · have e : 2 * (n / 2) + 1 = n := by rw [ho] at hdm; exact hdm
+        have hs2 : s2 n = s2 (n / 2) + 1 := (congrArg s2 e.symm).trans (s2_odd (n / 2))
+        rw [hs2] at hs
+        exact Nat.noConfusion hs
+
+/-- `popcount n = 1 ⟹ n` is a power of two. -/
+theorem s2_eq_one_imp : ∀ n, s2 n = 1 → ∃ j, 2 ^ j = n := by
+  suffices H : ∀ T n, n < T → s2 n = 1 → ∃ j, 2 ^ j = n by
+    intro n; exact H (n + 1) n (Nat.lt_succ_self n)
+  intro T
+  induction T with
+  | zero => intro n h _; exact absurd h (Nat.not_lt_zero n)
+  | succ T ih =>
+    intro n hnT hs
+    rcases Nat.eq_zero_or_pos n with hn0 | hnpos
+    · rw [hn0] at hs; exact absurd hs (by decide)
+    · have hdm : 2 * (n / 2) + n % 2 = n := E213.Meta.Nat.AddMod213.div_add_mod n 2
+      have hhalf : n / 2 < n :=
+        E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul
+          (by rw [E213.Tactic.NatHelper.two_mul]; exact Nat.lt_add_of_pos_left hnpos)
+      have hh : n / 2 < T := Nat.lt_of_lt_of_le hhalf (Nat.le_of_lt_succ hnT)
+      rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one n with he | ho
+      · have e : 2 * (n / 2) = n := by rw [he, Nat.add_zero] at hdm; exact hdm
+        have hs2 : s2 (n / 2) = 1 := by
+          have hcong : s2 n = s2 (n / 2) := (congrArg s2 e.symm).trans (s2_even (n / 2))
+          rw [← hcong]; exact hs
+        obtain ⟨j, hj⟩ := ih (n / 2) hh hs2
+        refine ⟨j + 1, ?_⟩
+        rw [Nat.pow_succ, Nat.mul_comm, hj]; exact e
+      · have e : 2 * (n / 2) + 1 = n := by rw [ho] at hdm; exact hdm
+        have hs2 : s2 n = s2 (n / 2) + 1 := (congrArg s2 e.symm).trans (s2_odd (n / 2))
+        rw [hs2] at hs
+        have hz : n / 2 = 0 := s2_eq_zero_imp (n / 2) (Nat.succ.inj hs)
+        have hn1 : n = 1 := e.symm.trans (by rw [hz, Nat.mul_zero])
+        exact ⟨0, by rw [Nat.pow_zero, hn1]⟩
+
+/-- `isPow2 n = true ↔ n` is a power of two. -/
+theorem isPow2_true_iff (n : Nat) : isPow2 n = true ↔ ∃ j, 2 ^ j = n := by
+  constructor
+  · intro h; exact pow2aux_true_imp n n h
+  · rintro ⟨j, hj⟩
+    show E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness.pow2aux n n = true
+    rw [← hj]; exact pow2aux_pow j (2 ^ j) (lt_two_pow j)
+
+/-- `popcount n = 1 ↔ n` is a power of two. -/
+theorem s2_eq_one_iff (n : Nat) : s2 n = 1 ↔ ∃ j, 2 ^ j = n := by
+  constructor
+  · exact s2_eq_one_imp n
+  · rintro ⟨j, hj⟩; rw [← hj]; exact s2_two_pow j
+
+/-- ★★★ **The sparse and dense witnesses are one automaton.**  `isPow2` (powers of two, the
+    sparse `χ`) and `tm` (Thue–Morse, dense) are the same `2`-automatic digit-sum `s2` read
+    through different output maps: `isPow2 n = (s2 n == 1)`, `tm n = (s2 n % 2 == 1)`.  The
+    differing holonomic status is in the output function, not the automaticity. -/
+theorem isPow2_eq_s2_one (n : Nat) : isPow2 n = decide (s2 n = 1) := by
+  have hiff : isPow2 n = true ↔ s2 n = 1 :=
+    (isPow2_true_iff n).trans (s2_eq_one_iff n).symm
+  cases hp : isPow2 n with
+  | true =>
+    have h1 : s2 n = 1 := hiff.mp hp
+    rw [h1]; rfl
+  | false =>
+    cases hd : decide (s2 n = 1) with
+    | false => rfl
+    | true =>
+      have h1 : s2 n = 1 := of_decide_eq_true hd
+      have hpt := hiff.mpr h1
+      rw [hp] at hpt
+      exact absurd hpt (by decide)
 
 /-! ## A concrete bounded aperiodic continued fraction
 

@@ -34,7 +34,7 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
-## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 34 PURE)
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 40 PURE)
 
 The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
 `≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
@@ -80,6 +80,18 @@ notions: finite memory *in the digits of the index* (automatic — Thue–Morse 
 previous terms* (window-recurrence — Thue–Morse lacks it).  Classically: automatic ∧ aperiodic
 ⟹ non-holonomic (Cobham/Christol); here both hypotheses are ∅-axiom, the term-window escape is
 the elementary shadow.
+
+### Sparse and dense witnesses are one automaton — `isPow2_eq_s2_one`
+
+`χ`/`isPow2` and `tm` are the *same* 2-automatic digit-sum `s2 = popcount` with different output
+maps: `isPow2 n = decide (s2 n = 1)` (`isPow2_eq_s2_one`, via `s2_eq_one_iff : s2 n = 1 ↔
+∃ j, 2^j = n` bridged to the existing `pow2aux` characterization `isPow2_true_iff`) and
+`tm n = decide (s2 n % 2 = 1)` (`tm_eq_popParity`).  Supporting Nat number-theory:
+`s2_two_pow : s2(2^j)=1`, `s2_eq_zero_imp : s2 n = 0 → n = 0`, `s2_eq_one_imp : s2 n = 1 →
+∃ j, 2^j = n`.  (propext landmine: `Nat.succ_ne_zero` is propext-dirty — replaced by
+`Nat.noConfusion`.)  The conceptual payoff: their differing holonomic status (sparse `χ` escapes
+both machine classes, dense `tm` only the autonomous one) lives in the **output map**, not the
+automaticity — the automaton is shared.
 
 ### Realised as an actual continued fraction — `tmCF`
 
