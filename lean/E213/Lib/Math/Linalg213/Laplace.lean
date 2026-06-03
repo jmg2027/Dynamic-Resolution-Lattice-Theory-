@@ -21,7 +21,9 @@ open E213.Lib.Math.Linalg213.DetN (colShift colShift_lt colShift_ge minor altSig
 open E213.Lib.Math.Linalg213.Permutation
   (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
    ltCount_append sumZ)
-open E213.Lib.Math.Linalg213.PermClosure (cnt permsOf_sound lt_of_mem_iota length_iota)
+open E213.Lib.Math.Linalg213.PermClosure
+  (cnt permsOf_sound lt_of_mem_iota length_iota Nodup cnt_pos_mem cnt_pos_of_mem
+   cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -202,5 +204,21 @@ theorem leibTerm_cons_colShift (M : Nat → Nat → Int) (n j : Nat) (hj : j ≤
      = altSign j * M 0 j * (psign rel * prodDiagFrom (minor M j) 0 rel)
   rw [prodDiag_minor M j 0 rel]
   ring_intZ
+
+/-! ## §2 (D) — the `perms (n+1)` head-decomposition reindex -/
+
+/-- Two `Nodup` lists with the same membership are `LPerm` (the set-equality ⟹ multiset-equality
+    bridge, via the count engine). -/
+theorem lperm_of_nodup_mem_iff {α : Type} [DecidableEq α] {L1 L2 : List α}
+    (h1 : Nodup L1) (h2 : Nodup L2) (hm : ∀ q, q ∈ L1 ↔ q ∈ L2) : LPerm L1 L2 := by
+  apply lperm_of_cnt_eq
+  intro q
+  cases Nat.eq_zero_or_pos (cnt q L1) with
+  | inl h0 =>
+    have hq1 : q ∉ L1 := fun hmem => absurd (h0 ▸ cnt_pos_of_mem hmem) (Nat.lt_irrefl 0)
+    rw [h0, cnt_eq_zero_of_not_mem (fun hmem => hq1 ((hm q).mpr hmem))]
+  | inr hp =>
+    rw [eq_one_of_le_one_of_pos (h1 q) hp,
+        eq_one_of_le_one_of_pos (h2 q) (cnt_pos_of_mem ((hm q).mp (cnt_pos_mem hp)))]
 
 end E213.Lib.Math.Linalg213.Laplace
