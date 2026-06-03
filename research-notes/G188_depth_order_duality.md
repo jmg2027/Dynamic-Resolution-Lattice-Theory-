@@ -151,6 +151,33 @@ honest unification is a **shape**, not a proof: a predicate `ReachedByNoStage (e
 Fibonacci/irrationality engine).  Note: `object1_not_surjective` (universal: every map misses
 something) is strictly stronger than `ReachedByNoStage` (pointwise: this map misses this witness).
 
+### Ceiling, gone DEEPER (the "five engines" verdict was too coarse) — `CeilingSchema`
+
+On re-examination the agent's "five separate engines / separate domains" is a taxonomy of *proof
+tactics*, not of *content*.  At the content level **every escape has the same shape**: `∀ stage,
+gen stage ≠ target` = `target ∉ range gen` = **`gen` is not surjective**.  Formalized ∅-axiom in
+`Lib/Math/CeilingSchema.lean` (5 PURE):
+  - `ReachedByNoStage gen target := ∀ s, gen s ≠ target`;
+  - `not_surjective_of_reachedByNoStage` — the schema *is* non-surjectivity;
+  - instances: `diag_reached` (the universal constructive diagonal — Cantor archetype, `∀ f, ¬
+    Surjective f`), `s2Z_poly_reached` (popcount reached by no `newtonZ c d` — the non-holonomicity
+    ceiling), and `object1_not_surjective` (the foundational pointing residue) — bundled as
+    `ceilings_are_nonsurjectivity`.
+
+So the ceilings are **one phenomenon**: the finite-stage map is not surjective; the target is the
+residue surplus, *outside every view's image* (the framework's own reading of the residue, per the
+failure-modes catalog).  **Why it looked like separate domains** — the sharp ∅-axiom point:
+*classically* one Cantor/cardinality argument settles every ceiling at once (countably many finite
+descriptions, "uncountably" many objects); the **∅-axiom discipline forbids that shortcut** (no
+`Classical`, no completed uncountable carrier), so each ceiling needs a **named constructive
+witness** with a domain-specific escape-proof.  The "five engines" are these *constructive
+realizers* of the one non-surjection; the domains are the Lens-carvings.  *One residue, many
+constructive witnesses, forced apart by the refusal of the cardinality shortcut.*  Honest residue
+kept: universal Cantor (`cantor_general`, ∀ gen ¬surj) ⊋ pointwise `ReachedByNoStage`; and ℝ
+(`CauchyLensFounding`, a positive convergence) joins only once `∀ i, convergentᵢ ≠ phiCut` is
+supplied.  So the floor (`founding_swap_is_elliptic_floor`) is one theorem AND the ceiling is now
+one theorem-schema — both made precise, neither forced.
+
 ### Bounded-P-recursive (agent b): it is PROVEN, not open
 
 Major correction: **"bounded + P-recursive ⟹ eventually periodic" is a theorem** (Pólya–Carlson;

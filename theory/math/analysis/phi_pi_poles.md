@@ -123,14 +123,19 @@ central element `S² = −I` *is* negation-of-identity — the same period-2 neg
 realises.  So the static "invert is one move" and the dynamic discriminant floor are one structure:
 the tower completes the pair once; the dial iterates it, the elliptic floor being the iteration that
 remains the pure period-2 swap.  The two chains share this floor — the unit `1` —
-*at the theorem level* (`founding_swap_is_elliptic_floor`).  They also share a *ceiling* — the residue,
-reached by no finite stage — but only **thematically**: the ℝ side (`CauchyLensFounding`) is a
-positive convergence statement, and the escapes that inhabit the residue run on *mechanically
-disjoint* engines (Cantor diagonal `object1_not_surjective`; finite-tree leaf-path `spineL_escapes`;
-eventual-monotonicity `s2Z_not_polyDepthZ`; finite-window pigeonhole `aperiodic_not_autoRec`).  The
-honest common form is a *shape* — "reached by no finite stage" — instantiated by each escape under
-its own proof, not one non-surjection; `object1_not_surjective` (every map misses something) is
-strictly stronger than the pointwise escapes.  The floor is one theorem; the ceiling is one theme.
+*at the theorem level* (`founding_swap_is_elliptic_floor`).  They also share a *ceiling*, and it too
+is one at the theorem level — not a single proof, but a single *phenomenon*: **non-surjectivity of
+the finite-stage map** (`CeilingSchema.ceilings_are_nonsurjectivity`).  Every escape has the form
+`∀ stage, gen stage ≠ target` = `target ∉ range gen`; the universal diagonal (`diag`, the Cantor
+archetype), the non-holonomicity escape (`s2Z` no polynomial), and the foundational residue
+(`Object1`) are all *that*.  The reason it *looks* like separate engines (Cantor diagonal,
+leaf-path, monotonicity, pigeonhole) is the ∅-axiom discipline: *classically* one cardinality
+argument settles every ceiling, but with no `Classical`/completed-uncountable carrier each ceiling
+needs a **named constructive witness** with a domain-specific escape-proof — the "engines" are
+constructive realizers of the one non-surjection.  Honest residue: universal Cantor
+(`cantor_general`) strictly exceeds a pointwise `ReachedByNoStage`, and the ℝ side
+(`CauchyLensFounding`, a positive convergence) joins only once `∀ i, convergentᵢ ≠ phiCut` is
+supplied.  Floor: one theorem.  Ceiling: one phenomenon — the residue outside every view's image.
 
 ## Holonomicity is a property of the pointing, not of the real
 
