@@ -137,6 +137,36 @@ spine; no modular inversion is needed (the convergent IS the root, by Cassini). 
 realisation of the encoding: the Markov spine, the golden form's `−1`-minimum, and the `√(−1)`
 root all coincide on the Fibonacci convergents.
 
+## Injectivity analysis (`Real213/MarkovInjectivity`, marathon + literature deep-dive)
+
+A literature deep-dive (Zhang 2007 `math/0606283`; Lang–Tan `math/0508443`; Baragar 1996; Button
+1998; Aigner's book) **recalibrated** the open locus.  The classical reduction is:
+
+> `MarkovMaxUnique c  ⟸  SqrtNegOneTwoRoots c` (root-count ≤ 2)  `∧  residue-map injective`.
+
+What this session pinned down:
+
+- **The triple ↦ root map is the EASY direction** (Zhang Lemma 2: `u_t/m_t` strictly monotone in
+  the Farey slope `t`, so the root + `c` recovers the ordered triple).  The **open** content is
+  *root-counting*: for composite `c` with `ω ≥ 2` distinct prime factors, `x²≡−1 (mod c)` has
+  `2^{ω−1}` window-roots and it is unknown that ≤ 1 is *Markov-realisable*.  (Our per-`c` `decide`
+  certificates do exactly this counting, ≤ 1325.)
+- **Zhang Lemma 4 — DONE** (`root_unique_below_half`): with `SqrtNegOneTwoRoots c`, `x²≡−1` has
+  **≤ 1 root in `(0,c/2)`** (the `x+y=c` alternative is impossible when `2x,2y<c`).  General,
+  ∅-axiom; the prime-power instance `root_unique_below_half_prime_pow` uses primality *only* through
+  `sqrtNegOneTwoRoots_prime_pow`.  This is the single place primality enters Button's theorem.
+- **Dead end recorded** (`coprime_cross_eq` + `markov_same_root_parallel`): same-root triples are
+  parallel mod `c` (`c ∣ a₁b₂−a₂b₁`, proven), and coprime+*exact*-parallel ⟹ equal (proven), BUT
+  the tempting finish `|a₁b₂−a₂b₁| < c` is **FALSE** — by Frobenius's identities
+  `u_t·m_r − u_r·m_t = m_s` the cross-determinant equals a *neighbour Markov number* (≈ `c`), a
+  genuine nonzero multiple of `c`.  No determinant size bound closes it.
+- **Remaining for prime-power uniqueness (Button's theorem) as an infinite family**: only the
+  **Farey-monotone recovery** (Zhang Lemma 2) — that the window-root determines the ordered triple.
+  Needs continued-fraction / Stern-Brocot machinery; the repo has `Mobius213SternBrocot`,
+  `Cohomology/BipartiteStermBrocotClassification`, `Mobius213/Px/ConvergentDet` (Farey det = 1) to
+  build on.  With Lemma 2 + the already-done Lemma 4 + `sqrtNegOneTwoRoots_prime_pow`, prime-power
+  uniqueness closes.
+
 ## Next
 
 1. **C2→C4 inverse-existence bridge** — **DONE** (`inverse_of_coprime` via `xgcdAux_dvd_both`).

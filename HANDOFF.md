@@ -26,6 +26,21 @@ unit `i`, `UnitsToModular.repI i = S`) + `ring_intZ`:
 So the √(−1)-residue indexing a Markov number is the eigenvalue of the Gaussian unit `i = S` on the
 Markov pair `(a,b)` mod `c`.  (The only formality between the two is the Nat→Int dvd cast.)
 
+## ★ NEW (this session): `Real213/MarkovInjectivity` (5 PURE) — the injectivity analysis
+After a literature deep-dive (Zhang 2007, Lang–Tan, Baragar, Button, Aigner), the open locus is
+recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residue-map-injective`.
+- **Zhang Lemma 4 — DONE**: `root_unique_below_half` (with the 2-root property, ≤1 root of `x²≡−1`
+  in `(0,c/2)`; the `x+y=c` branch dies when `2x,2y<c`).  `root_unique_below_half_prime_pow` uses
+  primality ONLY via `sqrtNegOneTwoRoots_prime_pow` — the single primality lock of Button's theorem.
+- **Parallel reduction** (`markov_same_root_parallel`, `coprime_cross_eq`, `markov_eq_of_cross`):
+  same-root triples are parallel mod `c`; coprime+exact-parallel ⟹ equal.
+- **Dead end recorded**: `|a₁b₂−a₂b₁| < c` is FALSE — Frobenius's identities make the
+  cross-determinant a neighbour Markov number (≈c).  No size bound closes it.
+- **Open content** is *root-counting* (Markov-realisability of the `2^{ω−1}` window-roots) for
+  composite `c`, ω≥2 — NOT the injectivity of `triple↦root`.  Prime-power uniqueness (Button) as an
+  infinite family needs only the **Farey-monotone recovery** (Zhang Lemma 2) — build on the repo's
+  `Mobius213SternBrocot` / `ConvergentDet` (Farey det=1).  See G173 "Injectivity analysis".
+
 Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `MarkovCassiniBridge` 3 PURE +
 `MarkovModularBridge` 2 PURE + `ModArith/MarkovPrimeFactor`
 28 PURE = 113, all ∅-axiom.  **★ Frobenius uniqueness verified for EVERY Markov number
