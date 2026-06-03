@@ -163,4 +163,52 @@ theorem hyperbolic_grows (s : Nat → Int) (hrec : ∀ n, s (n + 2) = 3 * s (n +
   have h := evStrictMonoZ_ge (hyperbolic_strictMono s hrec h0 h01) i
   rwa [Nat.zero_add] at h
 
+/-! ## Order 3: the discriminant trichotomy does NOT lift — root-location, not sign
+
+At order 2 the discriminant `tr²−4` *is* the dial (elliptic/parabolic/hyperbolic = periodic/linear/
+growing).  At order 3 this **breaks**.  The order-3 recurrence `s(n+3)=a·s(n+2)+b·s(n+1)+c·s(n)` has
+characteristic cubic `x³−a·x²−b·x−c` with cubic discriminant `Δ₃`; but `Δ₃`'s sign only splits
+*3-real-roots* (`>0`) from *1-real+2-complex* (`<0`) — it does **not** classify periodicity.  Both the
+periodic `(0,0,1)` (`x³−1`, period 3) and the **growing Tribonacci** `(1,1,1)` (dominant real root
+≈1.839) have `Δ₃ < 0` (−27 and −44, `cubic_disc_witnesses`).  The real periodicity dial at order 3 is
+**root-location** — all roots on the unit circle, i.e. the char poly is a product of cyclotomics
+(Kronecker), with necessary condition `|c| = 1` (the unimodular `SL₃` floor, mirroring order-2 `q=±1`).
+So the order-2 discriminant's classifying power is *special to order 2*, where `tr²−4` couples the
+additive (trace) and multiplicative (det) folds; above it, the discriminant degenerates to a coarse
+real/complex split and the finer cyclotomic data takes over.  (Per the repo's category-error guard:
+"elliptic-*analog*" = periodic cyclotomic orbit, NOT an elliptic curve.) -/
+
+/-- The cubic discriminant of the order-3 characteristic polynomial `x³ − a·x² − b·x − c`. -/
+def cubic_disc (a b c : Int) : Int :=
+  -18 * a * b * c - 4 * a * a * a * c + a * a * b * b + 4 * b * b * b - 27 * c * c
+
+/-- ★★ **`Δ₃`'s sign does not classify periodicity.**  The periodic `(0,0,1)` (`x³−1`, period 3),
+    the period-4 `(1,−1,1)`, the period-6 `(2,−2,1)`, and the **growing** Tribonacci `(1,1,1)` all
+    have `Δ₃ < 0` — so the order-2 elliptic/hyperbolic sign-split fails to lift to order 3. -/
+theorem cubic_disc_witnesses :
+    cubic_disc 0 0 1 = -27 ∧ cubic_disc 1 (-1) 1 = -16
+    ∧ cubic_disc 2 (-2) 1 = -3 ∧ cubic_disc 1 1 1 = -44 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★ **Order-3 elliptic-analog, period 4.**  `s(n+3)=s(n+2)−s(n+1)+s(n)` ⟹ `s(n+4)=s(n)`.
+    Char poly `(x−1)(x²+1)` — roots `1, i, −i`, all roots of unity (the cyclotomic/periodic floor),
+    `Δ₃ = −16 < 0` (same sign class as growing Tribonacci: periodicity is root-location, not sign). -/
+theorem periodic_elliptic_order3_p4 (s : Nat → Int)
+    (hrec : ∀ n, s (n + 3) = s (n + 2) - s (n + 1) + s n) : ∀ n, s (n + 4) = s n := by
+  intro n
+  have e3 : s (n + 3) = s (n + 2) - s (n + 1) + s n := hrec n
+  have e4 : s (n + 4) = s (n + 3) - s (n + 2) + s (n + 1) := hrec (n + 1)
+  rw [e4, e3]; ring_intZ
+
+/-- ★★★ **Order-3 elliptic-analog, period 6.**  `s(n+3)=2·s(n+2)−2·s(n+1)+s(n)` ⟹ `s(n+6)=s(n)`.
+    Char poly `(x−1)(x²−x+1)` — roots `1` and the primitive 6th roots of unity, `Δ₃ = −3 < 0`. -/
+theorem periodic_elliptic_order3_p6 (s : Nat → Int)
+    (hrec : ∀ n, s (n + 3) = 2 * s (n + 2) - 2 * s (n + 1) + s n) : ∀ n, s (n + 6) = s n := by
+  intro n
+  have e3 : s (n + 3) = 2 * s (n + 2) - 2 * s (n + 1) + s n := hrec n
+  have e4 : s (n + 4) = 2 * s (n + 3) - 2 * s (n + 2) + s (n + 1) := hrec (n + 1)
+  have e5 : s (n + 5) = 2 * s (n + 4) - 2 * s (n + 3) + s (n + 2) := hrec (n + 2)
+  have e6 : s (n + 6) = 2 * s (n + 5) - 2 * s (n + 4) + s (n + 3) := hrec (n + 3)
+  rw [e6, e5, e4, e3]; ring_intZ
+
 end E213.Lib.Math.Cauchy.EllipticPeriodicTier

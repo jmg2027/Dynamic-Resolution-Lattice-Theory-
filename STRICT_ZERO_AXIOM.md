@@ -313,12 +313,16 @@ killed by an `if`-guarded `lead`/`R`).
 `order3_homogRec` (a constant-coefficient recurrence *is* `HomogRec`), `trib_homogRec` (Tribonacci is
 holonomic — the opposite pole from Thue–Morse).
 
-`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **13 PURE**.  The order-2 companion discriminant as the
+`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **17 PURE**.  The order-2 companion discriminant as the
 holonomicity-hierarchy dial: `comp_disc` (`disc (comp p q) = p²−4q` = the `HyperbolicEllipticTrace`
 discriminant), `comp_eq_S` / `comp_eq_U` (the elliptic generators *are* the companions of the
 periodic recurrences), the trichotomy — *elliptic* `periodic_elliptic_{S,U}` (periodic floor),
 *parabolic* `parabolic_iff_depth1` (`disc=0` ⟺ linear depth-1, an iff), *hyperbolic*
-`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).
+`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).  **The dial is
+special to order 2 — it does not lift**: `cubic_disc` + `cubic_disc_witnesses` show `Δ₃`'s sign does
+not classify periodicity (periodic `(0,0,1)` and growing Tribonacci `(1,1,1)` both `Δ₃<0`); the
+order-3 periodicity dial is root-location (cyclotomic, `|c|=1`), witnessed by
+`periodic_elliptic_order3_p4` / `periodic_elliptic_order3_p6`.
 
 `E213.Lens.Number.FoundingDynamicBridge` — **1 PURE**.  `founding_swap_is_elliptic_floor`: the
 number-tower founding's static invert-**swap** (= negation, period-2 by `NT`, `NatPairToInt.
