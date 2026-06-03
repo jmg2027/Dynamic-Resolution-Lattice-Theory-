@@ -14,7 +14,7 @@ The G183 thread — the **orbit-dimension ladder** *above* `DepthCharacterizatio
 separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-finite`) and the
 **C-finite operator ring**.
 
-### 1. `Cauchy/OrbitDimension` (28 PURE) — the strict inclusion + concrete witnesses
+### 1. `Cauchy/OrbitDimension` (30 PURE) — the strict inclusion + concrete witnesses + group
 - ★ `twoPow_is_diffZ_fixed`: `Δ(2ⁿ)=2ⁿ` (geometric eigen-identity, `ring_intZ` over core-free
   `powInt`); `liftKZ_twoPow_fixed` (every iterate fixes it — orbit = single line).
 - `CFiniteZ s := ∃ k c, ∀n, Δᵏs n = Σ_{i<k} cᵢ·Δⁱs n` (monic `Δ`-orbit recurrence) with `linComb`.
@@ -26,6 +26,8 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
   `cfiniteZ_congr` (C-finite respects pointwise eq); `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ` —
   geometric Hadamard instance, orbit dims multiply `1·1=1`).
 - **§6 Fibonacci** `fibZ`: `cfiniteZ_fib` — orbit dimension 2 (`Δ²f=f−Δf`), a non-geometric witness.
+- **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
+  an abelian group under `±` (commutative ring under `+`).
 
 ### 2. `Cauchy/CFiniteRing` (41 PURE) — the difference-operator algebra + the ring closure
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
@@ -80,8 +82,8 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ## File Map
 ```
 NEW Lean (∅-axiom):
-  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard (28 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges + cfiniteZ_add (41 PURE)
+  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges + cfiniteZ_add/sub (42 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md

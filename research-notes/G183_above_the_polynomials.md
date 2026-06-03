@@ -24,6 +24,10 @@ polynomial).
   (`geom_diffZ` `Δ(cⁿ)=(c−1)cⁿ`, `liftKZ_geomZ`, `cfiniteZ_geom` orbit dim 1, `geom_not_polyDepthZ`
   for `c≠1`) and **Fibonacci** `fibZ` (`cfiniteZ_fib`, orbit dim 2 via `Δ²f=f−Δf`) — concrete
   sequences at orbit dimensions 1 and 2 above the polynomials.
+- **Abelian group / module structure**: `cfiniteZ_congr` (respects pointwise eq), `cfiniteZ_zero`,
+  `cfiniteZ_neg`, `cfiniteZ_smul`, `CFiniteRing.cfiniteZ_sub` — C-finite is an abelian group under
+  `±` (commutative ring under `+`).  `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ`) is the geometric instance of
+  the open Hadamard product.
 
 **The operator algebra + ring law are built (`Cauchy/CFiniteRing`, 28 PURE).**
 
