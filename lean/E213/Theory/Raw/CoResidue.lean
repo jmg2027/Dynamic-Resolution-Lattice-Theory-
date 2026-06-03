@@ -736,4 +736,321 @@ theorem slashNu_final {X : Type} (c : X → Option Bool × X × X)
   ⟨fun x => ⟨lAna_consistent c x, lAna_antiRefl c hAR x⟩,
    fun h hB hLn hLs hRn hRs => lAna_unique c h hB hLn hLs hRn hRs⟩
 
+/-! ## §13 — a spine *family*: one escaping behaviour per finite Raw
+
+`spineL` is the one canonical escaping inhabitant of `SlashNu` (the `a`-seeded left-spine).
+Here it is generalised to a **`Tree`-indexed family** `spineOf t` — the left-spine whose left
+child is the finite tree `t` (so `spineL` is `spineOf` of the atom `a`, pointwise).  Each
+`spineOf t` is consistent, anti-reflexive (hence in `SlashNu`), and escapes every finite Raw;
+and distinct seeds give `Distinct` spines.  So the whole finite µF (`Raw`) injects into the
+*escaping* νF behaviours — `SlashNu` is richly populated, not just by `spineL`. -/
+
+/-- The left-spine seeded by a finite tree `t`: a branch on the all-false spine, the left child
+    at each rung being the finite tree `t`.  (`spineL` is `spineOf Tree.a`, pointwise.) -/
+def spineOf (t : Tree) : LCoShape
+  | []           => none
+  | (true :: q)  => lToShape t q
+  | (false :: q) => spineOf t q
+
+/-- The seeded spine is `none` (a branch) all along the all-false path — never bottoms out. -/
+theorem spineOf_replicate_none (t : Tree) :
+    ∀ k, spineOf t (List.replicate k false) = none
+  | 0     => rfl
+  | k + 1 => spineOf_replicate_none t k
+
+/-- The seeded spine is consistent: its leaf labels (inside the seed `t`) absorb. -/
+theorem spineOf_consistent (t : Tree) : Consistent (spineOf t)
+  | [],           _, hb, _ => Option.noConfusion hb
+  | (true :: q),  b, hb, d => lToShape_consistent t q b hb d
+  | (false :: q), b, hb, d => spineOf_consistent t q b hb d
+
+/-- ★★★ **The seeded spine is anti-reflexive** (for canonical `t`).  At the root branch the
+    left child is the *finite* seed `t` (bottoms out at a leaf on the all-false path) while the
+    right child is the *infinite* spine (`none` everywhere on it) — so they differ; at a
+    `true`-branch it reduces to the seed's own anti-reflexivity (`lToShape_antiRefl`); at a
+    `false`-branch it self-recurses.  So `spineOf t ∈ SlashNu`. -/
+theorem spineOf_antiRefl (t : Tree) (ht : t.canonical = true) : AntiRefl (spineOf t) := by
+  intro p
+  induction p with
+  | nil =>
+      intro _
+      obtain ⟨k, b, hk⟩ := lToShape_rightspine_leaf t
+      refine ⟨List.replicate k false, ?_⟩
+      show lToShape t (List.replicate k false) ≠ spineOf t (List.replicate k false)
+      rw [spineOf_replicate_none t k, hk]
+      exact fun e => Option.noConfusion e
+  | cons head tail ih =>
+      cases head with
+      | true  => intro hp; exact lToShape_antiRefl t ht tail hp
+      | false => intro hp; exact ih hp
+
+/-- ★★★ **The seeded spine escapes every finite Raw.**  `spineOf t ≠ lToShape s`: the seeded
+    spine is a branch (`none`) all along the all-false path (`spineOf_replicate_none`), but
+    every finite tree's all-false path eventually hits a leaf (`lToShape_rightspine_leaf`).  So
+    every `spineOf t` is an infinite anti-reflexive inhabitant outside the finite. -/
+theorem spineOf_escapes (t s : Tree) : spineOf t ≠ lToShape s := by
+  intro h
+  obtain ⟨k, b, hk⟩ := lToShape_rightspine_leaf s
+  have e : spineOf t (List.replicate k false) = some b := by rw [h]; exact hk
+  rw [spineOf_replicate_none t k] at e
+  exact Option.noConfusion e
+
+/-- ★★★ **Distinct seeds give distinct spines.**  `t ≠ t' → Distinct (spineOf t) (spineOf t')`:
+    the spines differ at `true :: q` where the seeds' labelled shapes differ (`treeDiffPath`).
+    So `spineOf` injects the finite trees into the escaping νF behaviours, preserving
+    distinctness — `SlashNu` contains a faithful `Tree`-indexed family of escapes. -/
+theorem spineOf_distinct {t t' : Tree} (h : t ≠ t') : Distinct (spineOf t) (spineOf t') := by
+  obtain ⟨q, hq⟩ := treeDiffPath t t' h
+  exact ⟨true :: q, hq⟩
+
+/-- The seeded spine as an exact slash-co-tree (`SlashNu` inhabitant), for canonical `t`. -/
+def spineOfSlashNu (r : Raw) : SlashNu :=
+  ⟨spineOf r.val, spineOf_consistent r.val, spineOf_antiRefl r.val r.property⟩
+
+/-- ★★★ **`SlashNu` is richly populated: the finite µF injects into the escapes.**  Bundles the
+    family: every `spineOf r.val` is consistent + anti-reflexive (in `SlashNu`), escapes every
+    finite Raw, and distinct Raws give `Distinct` spines.  So the escaping νF behaviours
+    correspond to at least the finite Raws — a `Distinct`-preserving `Raw`-indexed family (an
+    injection preserving `Distinct`, not a cardinality claim); `spineL` is one of it. -/
+theorem spine_family_populates_nu :
+    (∀ r : Raw, Consistent (spineOf r.val) ∧ AntiRefl (spineOf r.val))
+    ∧ (∀ (r : Raw) (s : Tree), spineOf r.val ≠ lToShape s)
+    ∧ (∀ r r' : Raw, r ≠ r' → Distinct (spineOf r.val) (spineOf r'.val)) :=
+  ⟨fun r => ⟨spineOf_consistent r.val, spineOf_antiRefl r.val r.property⟩,
+   fun r s => spineOf_escapes r.val s,
+   fun r r' h => spineOf_distinct (fun e => h (Subtype.ext e))⟩
+
+/-! ## §14 — `coSwap`: the leaf-relabel (a↔b) involution on νF
+
+`swap` (the only Raw automorphism, `Theory/Raw/Swap`) acts on co-trees by **flipping the leaf
+labels** (`a↔b`, i.e. `Bool.not`) while keeping the branch structure.  `coSwap` realises this
+on `LCoShape`.  It is an involution that preserves both `SlashNu` constraints (consistent +
+anti-reflexive), so it is an automorphism of the νF carrier; it carries the canonical escape
+`spineL` (the `a`-spine) to a *distinct* escape (the `b`-spine).
+
+**Honest scope caveat**: this is the *label-level* (atomic) content of `swap` — `coSwap` agrees
+with `Raw.swap` on atoms (`coSwap_atom_a/b` mirror `Raw.swap_a/b`).  The *full-tree*
+intertwining `coSwap ∘ lToShape = lToShape ∘ Tree.swap` does **not** hold, because `Tree.swap`
+reorders a slash's children by `cmp` to stay canonical, whereas `coSwap` is positional.  So
+`coSwap` is the νF leaf-relabel, not a lift of the reordering `Tree.swap`. -/
+
+/-- The leaf-relabel involution on co-trees: flip every leaf label (`a↔b`), keep branches. -/
+def coSwap (s : LCoShape) : LCoShape := fun q => (s q).map Bool.not
+
+/-- Pointwise unfold of `coSwap` (definitional; for rewriting). -/
+theorem coSwap_apply (s : LCoShape) (q : List Bool) :
+    coSwap s q = Option.map Bool.not (s q) := rfl
+
+/-- ★★ **`coSwap` is involutive** (pointwise): flipping labels twice is the identity
+    (`Bool.not_not`).  Stated `∀ q` — the `coSwap (coSwap s) = s` form would need `funext`. -/
+theorem coSwap_involutive (s : LCoShape) (q : List Bool) : coSwap (coSwap s) q = s q := by
+  show Option.map Bool.not (Option.map Bool.not (s q)) = s q
+  cases s q with
+  | none   => rfl
+  | some b => show some (Bool.not (Bool.not b)) = some b; rw [Bool.not_not]
+
+/-- `coSwap` on the leaf-`a` shape is the leaf-`b` shape — the atomic content of `Raw.swap_a`. -/
+theorem coSwap_atom_a (q : List Bool) : coSwap (lToShape Tree.a) q = lToShape Tree.b q := rfl
+
+/-- `coSwap` on the leaf-`b` shape is the leaf-`a` shape — the atomic content of `Raw.swap_b`. -/
+theorem coSwap_atom_b (q : List Bool) : coSwap (lToShape Tree.b) q = lToShape Tree.a q := rfl
+
+/-- `Option.map Bool.not` is injective (since `Bool.not` is): needed to transport `Distinct`. -/
+theorem optionMapNot_inj {x y : Option Bool}
+    (h : Option.map Bool.not x = Option.map Bool.not y) : x = y := by
+  cases x with
+  | none => cases y with
+    | none   => rfl
+    | some b => exact Option.noConfusion h
+  | some a => cases y with
+    | none   => exact Option.noConfusion h
+    | some b =>
+        have hab : Bool.not a = Bool.not b := Option.some.inj h
+        have : a = b := by rw [← Bool.not_not a, hab, Bool.not_not]
+        rw [this]
+
+/-- ★★ **`coSwap` preserves consistency**: relabelling leaves keeps leaf-absorption. -/
+theorem coSwap_consistent {s : LCoShape} (h : Consistent s) : Consistent (coSwap s) := by
+  intro p b' hb' d
+  rw [coSwap_apply] at hb' ⊢
+  cases hsp : s p with
+  | none   => rw [hsp] at hb'; exact Option.noConfusion hb'
+  | some c =>
+      rw [hsp] at hb'
+      rw [h p c hsp d]
+      exact hb'
+
+/-- ★★★ **`coSwap` preserves anti-reflexivity.**  A branch stays a branch under relabelling
+    (`coSwap s p = none ⟹ s p = none`), and the distinguishing observation transports because
+    `Option.map Bool.not` is injective (`optionMapNot_inj`) — `Distinct` is preserved.  So
+    `coSwap` maps `SlashNu` into `SlashNu`. -/
+theorem coSwap_antiRefl {s : LCoShape} (h : AntiRefl s) : AntiRefl (coSwap s) := by
+  intro p hp
+  have hsp : s p = none := by
+    rw [coSwap_apply] at hp
+    cases hx : s p with
+    | none   => rfl
+    | some c => rw [hx] at hp; exact Option.noConfusion hp
+  obtain ⟨q, hq⟩ := h p hsp
+  refine ⟨q, ?_⟩
+  show Option.map Bool.not (s (p ++ true :: q)) ≠ Option.map Bool.not (s (p ++ false :: q))
+  exact fun e => hq (optionMapNot_inj e)
+
+/-- `coSwap` as an automorphism of the νF carrier `SlashNu`. -/
+def coSwapSlashNu (s : SlashNu) : SlashNu :=
+  ⟨coSwap s.val, coSwap_consistent s.property.1, coSwap_antiRefl s.property.2⟩
+
+/-- ★★ **`coSwap` moves the canonical escape.**  `Distinct spineL (coSwap spineL)`: the
+    `a`-spine and its leaf-flip (the `b`-spine) differ at the first left leaf (`[true]`:
+    `some true` vs `some false`).  So `coSwap` carries `spineL` to a *distinct* escaping
+    inhabitant — a second canonical free-running behaviour. -/
+theorem coSwap_spineL_distinct : Distinct spineL (coSwap spineL) :=
+  ⟨[true], fun e => Bool.noConfusion (Option.some.inj e)⟩
+
+/-- ★★★ **`coSwap` is a νF involution-endomorphism that moves `spineL`.**  Bundles: it preserves
+    consistency and anti-reflexivity (so `SlashNu → SlashNu`), is pointwise involutive, and
+    carries `spineL` to a distinct escape — the leaf-relabel (`a↔b`) automorphism of the
+    residue's exact slash-νF. -/
+theorem coSwap_nu_endomorphism :
+    (∀ s, Consistent s → Consistent (coSwap s))
+    ∧ (∀ s, AntiRefl s → AntiRefl (coSwap s))
+    ∧ (∀ s q, coSwap (coSwap s) q = s q)
+    ∧ Distinct spineL (coSwap spineL) :=
+  ⟨fun _ h => coSwap_consistent h, fun _ h => coSwap_antiRefl h,
+   coSwap_involutive, coSwap_spineL_distinct⟩
+
+/-! ## §15 — `boolSpine`: a bit-stream family of escapes (injection `(Nat→Bool) ↪ SlashNu`)
+
+The spine has one leaf per rung; labelling those leaves by an arbitrary bit-stream
+`f : Nat → Bool` gives `boolSpine f`, an escaping `SlashNu` inhabitant for *every* `f`, with
+pointwise-distinct streams giving `Distinct` spines.  This is the **∅-axiom-honest form of
+"uncountably many escapes"**: an injection of the function space `Nat → Bool` into `SlashNu`
+preserving distinctness — *not* a cardinality theorem (`Cardinal`/`¬Countable` would pull
+choice/propext).  The injectivity antecedent is the **pointwise** difference `∃ k, f k ≠ g k`
+(NOT `f ≠ g`, which would need `funext` to expose a witness index). -/
+
+/-- The bit-stream spine: at the depth-`k` left leaf put the label `f k`; the right branch
+    continues the spine on the shifted stream. -/
+def boolSpine (f : Nat → Bool) : LCoShape
+  | []           => none
+  | (true :: _)  => some (f 0)
+  | (false :: q) => boolSpine (fun n => f (n + 1)) q
+
+/-- The bit-stream spine is `none` (a branch) all along the all-false path. -/
+theorem boolSpine_replicate_none (f : Nat → Bool) :
+    ∀ k, boolSpine f (List.replicate k false) = none
+  | 0     => rfl
+  | k + 1 => boolSpine_replicate_none (fun n => f (n + 1)) k
+
+/-- The depth-`k` left leaf of `boolSpine f` carries the label `f k`:
+    `boolSpine f (replicate k false ++ [true]) = some (f k)`. -/
+theorem boolSpine_leaf (f : Nat → Bool) :
+    ∀ k, boolSpine f (List.replicate k false ++ [true]) = some (f k)
+  | 0     => rfl
+  | k + 1 => boolSpine_leaf (fun n => f (n + 1)) k
+
+/-- The bit-stream spine is consistent: its leaf labels absorb. -/
+theorem boolSpine_consistent (f : Nat → Bool) : Consistent (boolSpine f)
+  | [],           _, hb, _ => Option.noConfusion hb
+  | (true :: _),  _, hb, _ => hb
+  | (false :: q), b, hb, d => boolSpine_consistent (fun n => f (n + 1)) q b hb d
+
+/-- ★★ **The bit-stream spine is anti-reflexive** (every `f`).  At each branch the left child
+    is a leaf (`some (f k)`) and the right child continues the spine (`none` on its all-false
+    path) — distinct; a `true`-branch is a leaf (never `none`, vacuous); a `false`-branch
+    recurses on the shifted stream.  So `boolSpine f ∈ SlashNu` for every `f`. -/
+theorem boolSpine_antiRefl (f : Nat → Bool) : AntiRefl (boolSpine f)
+  | [],           _  => ⟨[], fun e => Option.noConfusion e⟩
+  | (true :: _),  hp => Option.noConfusion hp
+  | (false :: q), hp => boolSpine_antiRefl (fun n => f (n + 1)) q hp
+
+/-- ★★ **The bit-stream spine escapes every finite Raw** (every `f`): it is `none` all along
+    the all-false path, but every finite tree bottoms out there. -/
+theorem boolSpine_escapes (f : Nat → Bool) (s : Tree) : boolSpine f ≠ lToShape s := by
+  intro h
+  obtain ⟨k, b, hk⟩ := lToShape_rightspine_leaf s
+  have e : boolSpine f (List.replicate k false) = some b := by rw [h]; exact hk
+  rw [boolSpine_replicate_none f k] at e
+  exact Option.noConfusion e
+
+/-- ★★★ **Pointwise-distinct streams give distinct spines.**  Given a witnessing index
+    `∃ k, f k ≠ g k`, the spines differ at the depth-`k` left leaf (`replicate k false ++
+    [true]`, where they carry `f k` vs `g k` — `boolSpine_leaf`).  This is injectivity of
+    `boolSpine` in the ∅-axiom-faithful form: the antecedent is the *pointwise* difference (no
+    `funext` to expose the index, no `Cardinal`). -/
+theorem boolSpine_inj {f g : Nat → Bool} (h : ∃ k, f k ≠ g k) :
+    Distinct (boolSpine f) (boolSpine g) := by
+  obtain ⟨k, hk⟩ := h
+  refine ⟨List.replicate k false ++ [true], ?_⟩
+  rw [boolSpine_leaf f k, boolSpine_leaf g k]
+  exact fun e => hk (Option.some.inj e)
+
+/-- The bit-stream spine as a `SlashNu` inhabitant. -/
+def boolSpineSlashNu (f : Nat → Bool) : SlashNu :=
+  ⟨boolSpine f, boolSpine_consistent f, boolSpine_antiRefl f⟩
+
+/-- ★★★ **`(Nat → Bool)` injects into `SlashNu`, preserving distinctness.**  Bundles: every
+    bit-stream gives a `SlashNu` inhabitant (consistent + anti-reflexive), each escapes every
+    finite Raw, and pointwise-distinct streams give `Distinct` spines.  So the escaping νF
+    behaviours are at least as many as the infinite bit-streams — the honest ∅-axiom form of
+    "the residue's escapes are uncountable" (an injection preserving `Distinct`, not a
+    cardinality claim). -/
+theorem boolSpine_injects_bitstreams :
+    (∀ f, Consistent (boolSpine f) ∧ AntiRefl (boolSpine f))
+    ∧ (∀ f (s : Tree), boolSpine f ≠ lToShape s)
+    ∧ (∀ f g, (∃ k, f k ≠ g k) → Distinct (boolSpine f) (boolSpine g)) :=
+  ⟨fun f => ⟨boolSpine_consistent f, boolSpine_antiRefl f⟩,
+   fun f s => boolSpine_escapes f s,
+   fun _ _ h => boolSpine_inj h⟩
+
+/-! ## §16 — `spineL` is the unique left-spine fixpoint (bisimulation-free uniqueness)
+
+`spineL` has, so far, existence + escape; here it gets a **uniqueness**.  It is the *unique*
+co-tree that branches at the root, whose left subtree is the constant leaf-`a`, and whose right
+subtree is **itself** — the self-similar fixpoint `coRightAt s [] = s`, `coLeftAt s [] =
+lToShape a`.  Proved by **finite-path induction** (the `lAna_unique` shape), *not* a coinductive
+bisimulation: the residue's positive-`Distinct` discipline makes even νF *uniqueness* a plain
+path induction. -/
+
+/-- ★★★ **`spineL` is the unique left-spine fixpoint.**  Any co-tree `s` whose root is a branch
+    (`s [] = none`), whose left subtree is the constant leaf-`a` (`s (true :: q) = some true`),
+    and whose right subtree is itself (`s (false :: q) = s q` — the self-similar fixpoint
+    `coRightAt s [] = s`) is `spineL`, pointwise.  Uniqueness by path induction; pointwise (the
+    `s = spineL` form would need `funext`). -/
+theorem spineL_unique (s : LCoShape)
+    (hroot : s [] = none)
+    (hleft : ∀ q, s (true :: q) = some true)
+    (hself : ∀ q, s (false :: q) = s q) :
+    ∀ p, s p = spineL p
+  | []           => hroot
+  | (true :: q)  => hleft q
+  | (false :: q) => (hself q).trans (spineL_unique s hroot hleft hself q)
+
+/-! ## §17 — capstone: νF is a `Distinct`-rich populated carrier -/
+
+/-- ★★★ **νF (`SlashNu`) is a richly-populated carrier.**  Capstone of §10–§16: the residue's
+    exact slash-νF is not a lone escapee above the finite µF but a `Distinct`-rich carrier —
+
+    1. the finite µF (`Raw`) embeds **faithfully** (distinct Raws ⟹ distinct co-trees);
+    2. there is a `Distinct`-preserving **`Raw`-indexed family** of escapes (`spineOf`);
+    3. there is a `Distinct`-preserving **bit-stream injection** `(Nat→Bool) ↪ SlashNu`
+       (`boolSpine` — the honest ∅-axiom "uncountable", not a cardinality claim);
+    4. the lone automorphism `swap` **acts** on νF (`coSwap`), moving `spineL` to a distinct
+       escape;
+    5. `spineL` is the **unique** left-spine fixpoint.
+
+    All ∅-axiom, pointwise, positive-`Distinct` (no coinduction, no `funext`, no `Cardinal`). -/
+theorem nu_population_capstone :
+    (∀ r r' : Raw, (∀ p, lToShape r.val p = lToShape r'.val p) → r = r')
+    ∧ (∀ r r' : Raw, r ≠ r' → Distinct (spineOf r.val) (spineOf r'.val))
+    ∧ (∀ f g : Nat → Bool, (∃ k, f k ≠ g k) → Distinct (boolSpine f) (boolSpine g))
+    ∧ Distinct spineL (coSwap spineL)
+    ∧ (∀ s : LCoShape, s [] = none → (∀ q, s (true :: q) = some true) →
+        (∀ q, s (false :: q) = s q) → ∀ p, s p = spineL p) :=
+  ⟨fun r r' h => Subtype.ext (lToShape_faithful r.val r'.val h),
+   fun r r' h => spineOf_distinct (fun e => h (Subtype.ext e)),
+   fun _ _ h => boolSpine_inj h,
+   coSwap_spineL_distinct,
+   spineL_unique⟩
+
 end E213.Theory.Raw.CoResidue

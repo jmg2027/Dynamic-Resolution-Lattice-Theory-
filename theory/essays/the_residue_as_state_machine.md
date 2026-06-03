@@ -111,6 +111,12 @@ So µF is not merely well-founded (descent terminates) but **reachable** (ascent
 covers it): the two faces of the same finite-build structure — read downward it converges
 (`isPart_wf`), read upward it is generated from the initial states (`every_state_reachable`).
 
+And the reachability bound is **tight**: `StateMachine.exact_descent` strengthens `k ≤ r.depth`
+to an equality along the *deep spine* — every state reaches an atom in *exactly* `r.depth`
+build-steps (`BuildsIn r.depth seed r`), each step dropping the depth by exactly the unit `1`
+(descend into the `max`-realising child).  So `depth` *is* the deep-spine descent length, not
+merely a bound on it.
+
 ## Behavioural equivalence — pointwise trace equality, the complement of `Distinct`
 
 The standard FSM notion of *behavioural equivalence* (two states with the same observable

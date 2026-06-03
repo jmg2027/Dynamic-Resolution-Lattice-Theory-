@@ -134,3 +134,12 @@ rings, not infrastructure layers below Math / Physics.  Per
 build-time dependency only — Lens application is itself a
 residue-internal event, not a substrate beneath Raw.  See
 `theory/lens/api.md` for the canonical statement.
+
+## Standalone treatise
+
+`book/` — **The Lens Tower: From the Residue to the Discriminant, and the Descent Home.**
+A 6-chapter book reading the orbit/axis/discriminant structure in 213-native primitives: the
+number tower as Lens bundlings (residue → count `+` → iterated `×` → difference-Lens `ℤ`), the
+Cassini as readout layer (with the genus category-error caught and corrected), the native/imported
+separation of `{2,4,6}`/discriminants, and the descent of "disc −2 skipped" to one count-Lens fact
+— `leaves(a/b) = 1+1 = NT` is non-square. Every claim cites a PURE Lean theorem. See `book/README.md`.

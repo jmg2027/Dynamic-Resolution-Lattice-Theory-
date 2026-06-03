@@ -100,4 +100,27 @@ theorem polyDepthZ_polySeq (a : Nat → Int) : ∀ d, polyDepthZ d (polySeq a d)
         (polyDepthZ_mono (Nat.le_succ d) (polyDepthZ_polySeq a d))
         (polyDepthZ_smul (a (d + 1)) (polyDepthZ_powSeq (d + 1)))
 
+/-! ## §5 — the ζ(3) Apéry leading coefficient: negative coefficients, **no reindex**
+
+The `ℕ` version (`DepthAperyCubic.aperyLead`) had to reindex `n = m+2` to dodge the negative
+`−5`, `−51` in `34n³ − 51n² + 27n − 5`.  Over `ℤ` the general theorem applies *directly*. -/
+
+/-- The coefficients of the ζ(3) Apéry leading-quotient `34n³ − 51n² + 27n − 5`. -/
+def aperyCoeff : Nat → Int
+  | 0 => -5
+  | 1 => 27
+  | 2 => -51
+  | _ => 34
+
+/-- ★★★ **The ζ(3) Apéry leading coefficient has divergence-depth 3, over ℤ, with no
+    reindex.**  `polySeq aperyCoeff 3 = 34n³ − 51n² + 27n − 5` (negative coefficients and
+    all), depth 3 as a one-line instance of the general `polyDepthZ_polySeq` — the `ℤ` ring
+    handles directly what the `ℕ` version needed the `n = m+2` shift to avoid. -/
+theorem aperyLeadZ_depth : polyDepthZ 3 (polySeq aperyCoeff 3) :=
+  polyDepthZ_polySeq aperyCoeff 3
+
+/-- `polySeq aperyCoeff 3` is the genuine Apéry coefficient: its value at `n = 2` is
+    `34·8 − 51·4 + 27·2 − 5 = 117` (matching `DepthAperyCubic.aperyLead 0`). -/
+theorem aperyLeadZ_value : polySeq aperyCoeff 3 2 = 117 := by decide
+
 end E213.Lib.Math.Cauchy.PolynomialDepth
