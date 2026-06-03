@@ -18,6 +18,7 @@ import E213.Lib.Math.Cauchy.ZeroRunNonHolonomic
 import E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness
 import E213.Lib.Math.Cauchy.MorseHedlund
 import E213.Lib.Math.Cauchy.ThueMorseAperiodic
+import E213.Lib.Math.Cauchy.HomogRecPeriodic
 import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Lib.Math.Cauchy.PolyDepthMonotone
 import E213.Lib.Math.Cauchy.ThueMorseRingEscape

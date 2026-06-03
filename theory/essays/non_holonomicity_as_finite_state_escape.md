@@ -208,21 +208,60 @@ The ∅-axiom reach is now complete across both machine classes and both densiti
   | time-invariant autonomous, sparse (`AutoRec`) | `two_continuations_not_autoRec` | `χ` |
   | time-invariant autonomous, dense (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — `isPow2`, and the genuinely-dense **Thue–Morse** (`ThueMorseAperiodic.tm_morse_not_autoRec`, run-length `≤ 2`) |
 
-## Open frontier
+## The verdict on the two cores
 
-  - π's *own* continued-fraction non-holonomicity is classically open and not closable
-    ∅-axiom: the analytic shape obstruction (Flajolet–Gerhold–Salvy) has no constructive shadow
-    and bottoms out at the unproven Gauss–Kuzmin normality of π.  The escape is *certified* here
-    only for constructed witnesses, not for π.
-  - The mod-2 forbidden-factor obstruction (Garrabrant–Pak) is, for its concrete witnesses
-    (Champernowne, which contains `0^k` for every `k`), already subsumed by the zero-run and
-    Myhill–Nerode certificates — no 2-adic valuation needed; the full structural statement (every
-    P-recursive sequence omits a mod-2 factor, including the no-zero-run corner) is strictly more
-    general but witnessed by nothing the present tools miss.
-  - The dense axis is now non-vacuous: **Thue–Morse** (run-length `≤ 2`) is formalised and
-    proven aperiodic ∅-axiom (`ThueMorseAperiodic`), so `aperiodic_not_autoRec` has a concrete
-    genuinely-dense inhabitant — not merely the long-run `isPow2`.  Sturmian (complexity `n+1`)
-    remains the next dense instance, awaiting its own aperiodicity.
+Two cores resisted the elementary program.  Both are now *concluded* — not by forcing a proof, but
+by locating each exactly: stating what is ∅-axiom-closed, what the residual step provably is, and
+why it sits where it does.
+
+### Dense `HomogRec` — concluded as one classical theorem
+
+The autonomous class is a clean equivalence: `AutoRec ⟺ EvPeriodic` over the `{0,1}`-embedding
+(`bool_autoRec_iff_evPeriodic`, both directions ∅-axiom).  For the time-varying `HomogRec` class
+the **elementary direction is now closed too**: `HomogRecPeriodic.evPeriodic_homogRec` proves
+`EvPeriodic ⟹ HomogRec` (the prefix killed by an `if`-guarded leading coefficient — `HomogRec`
+admits an arbitrary `lead`/`R`).  So for bounded integer sequences exactly *one* implication
+remains:
+
+> `HomogRec a ∧ bounded a ⟹ EvPeriodic a`  — the **bounded-P-recursive theorem**.
+
+Its contrapositive *is* the dense escape `aperiodic ∧ bounded ⟹ ¬ HomogRec`.  And it is **not**
+∅-axiom-elementary, for a precise reason: the time-varying recurrence drives the state vector by an
+`n`-dependent transition `M(n)`, so a bounded integer sequence's finitely-many states recur
+(pigeonhole) but at *different* transitions — equal states at `n₁ ≠ n₂` give no periodicity, exactly
+the step the `AutoRec` (time-invariant) iff could take and this cannot.  The zero-run certificate is
+the *only* elementary handle on `HomogRec`, and it needs run-length `→ ∞`; a bounded-run-length
+witness (Thue–Morse, run-length `≤ 2`) defeats `HomogRec` only up to order `2` (its `00` windows),
+never all orders.  **Verdict:** dense `HomogRec` escape ≡ the bounded-P-recursive theorem; elementary
+half ∅-axiom-closed, hard half identified and outside elementary reach — it is π's neighbour, not a
+gap in the program.
+
+### π — concluded as the open core, boundary exactly mapped
+
+π's continued-fraction non-holonomicity is **classically open** and provably **not closable
+∅-axiom**, and this is now a settled boundary statement rather than a frontier:
+
+  - the analytic shape obstruction (Flajolet–Gerhold–Salvy) is irreducibly analytic — Fuchs–Frobenius
+    local exponents, Stokes/Borel summability, a Tauberian transfer — with **no constructive shadow**;
+  - it bottoms out at the **unproven Gauss–Kuzmin normality** of π's partial quotients; even the
+    weaker "π's partial quotients are unbounded" is itself open;
+  - the mod-2 forbidden-factor obstruction (Garrabrant–Pak) is, for its concrete witnesses
+    (Champernowne), already subsumed by the zero-run / Myhill–Nerode certificates — it adds no reach
+    toward π either.
+
+What the program *does* conclude is the **map**: the escape is certified ∅-axiom for constructed
+witnesses across every elementary axis — growth (`(n!)ⁿ`), sparse (`χ`), dense (Thue–Morse, with its
+automatic structure, ring-escape, and an actual continued fraction `tmCF`) — and the two cores it
+cannot reach are pinned to named classical theorems.  π is reached by *no* elementary pointing; the
+witnesses converge to the same boundary from the inside.  This is the residue's own signature: the
+limit is approached by every constructed pointing and generated as a finite state by none
+(`spineL_escapes`, `object1_not_surjective`) — "map the boundary, do not force the centre."
+
+### Next dense instance
+
+Sturmian (complexity `n + 1`) is the next genuinely-dense witness, awaiting its own aperiodicity;
+its golden case (the Fibonacci word) would tie the dense axis to the `φ`/π pentagon structure
+(`phi_pi_poles.md`).  This extends the *map*; it does not move either core.
 
 ## Lean source
 
@@ -231,6 +270,8 @@ NonHolonomicWitness, MorseHedlund, ThueMorseAperiodic}` (the escape certificates
 Morse–Hedlund direction, and the witnesses — including the genuinely-dense Thue–Morse);
 `Cauchy/{PolyDepthMonotone, ThueMorseRingEscape}` + `Meta/Int213/Order` (the finite-depth ⟹
 eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` ordering layer);
+`Cauchy/HomogRecPeriodic` (`evPeriodic_homogRec` — the elementary half of the bounded `HomogRec`
+characterization);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra}` (the difference-Lens generating ring);
 `Real213/PresentationDependence` (pointing, not number).

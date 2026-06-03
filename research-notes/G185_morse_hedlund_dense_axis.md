@@ -180,26 +180,41 @@ Morse–Hedlund pigeonhole), but the class boundary itself is now a clean equiva
 witnesses are not a stronger escape; they are the aperiodic sequences for which the first two
 *cheap* exhibition routes are unavailable, leaving only Morse–Hedlund.
 
-## Open conjecture — the elementary shadow of Cobham/Christol on the `HomogRec` side
+## Verdict — dense `HomogRec` concluded as one classical theorem
 
-The one genuinely-open ∅-axiom target this map leaves (short of π itself):
+The dense `HomogRec` question is now *concluded* (located, not forced).  The bounded `{0,1}` picture:
 
-> **Conjecture (dense `HomogRec` escape).**  There is an *elementary, ∅-axiom* certificate `C`
-> such that `C a ⟹ ¬ HomogRec a`, with `C` satisfiable by a **bounded, no-long-run** sequence
-> (run-length `≤ B` for a fixed `B`).  Equivalently: an ∅-axiom witness that *some* digit-
-> automatic aperiodic sequence (e.g. Thue–Morse, `tm_eq_popParity` + `tm_not_evPeriodic`) is not
-> P-recursive — a constructive shadow of *automatic ∧ aperiodic ⟹ non-holonomic* that does **not**
-> route through long zero-runs.
+  - `AutoRec ⟺ EvPeriodic` — both ∅-axiom (`bool_autoRec_iff_evPeriodic`).
+  - `EvPeriodic ⟹ HomogRec` — **now ∅-axiom** (`HomogRecPeriodic.evPeriodic_homogRec`, 1 PURE):
+    order `k = p`, prefix `< N` killed by an `if`-guarded `lead`/`R` (the repo's `HomogRec` admits
+    arbitrary `lead`/`R`, so no polynomial-product is needed).
+  - `HomogRec a ∧ bounded a ⟹ EvPeriodic a` — the **bounded-P-recursive theorem**; its
+    contrapositive *is* the dense escape `aperiodic ∧ bounded ⟹ ¬ HomogRec`.
 
-Why it is hard, sharply.  `HomogRec` is *time-varying*: the leading coefficient `lead(n)` may
-change with `n`, so the Myhill–Nerode "one state, two outputs" obstruction (which kills `AutoRec`)
-does **not** transfer — `two_continuations` is powerless here.  The only elementary handle is the
-`zero_run` cascade (`lead(n)≠0` + a zero window ⟹ forced-zero tail), which `tm_run_le_two`
-structurally denies.  So `C`, if it exists, must obstruct a *polynomial-coefficient* recurrence
-without invoking a forced cascade from a constant window — a genuinely new mechanism.  Absent it,
-Thue–Morse's `¬ HomogRec` sits at exactly π's status: true classically, no ∅-axiom shadow.
+So the entire residual content of the conjecture is exactly this one classical theorem, and it is
+**not** ∅-axiom-elementary for a precise reason: `HomogRec` is *time-varying*, so the state vector
+evolves by an `n`-dependent transition `M(n)`; a bounded integer sequence's finitely-many states
+recur by pigeonhole but at *different* transitions, so equal states at `n₁ ≠ n₂` yield no
+periodicity — exactly the step the time-invariant `AutoRec` iff could take and this cannot.  The
+only elementary handle on `HomogRec` is the `zero_run` cascade, needing run-length `→ ∞`; a
+bounded-run-length witness (`tm_run_le_two`, run `≤ 2`) defeats `HomogRec` only up to order `2` (its
+`00` windows), never all orders.
 
-**Falsification handle.**  The conjecture is *false* if every bounded no-long-run aperiodic
-sequence's non-P-recursivity provably requires a normality/Gauss–Kuzmin-strength input (the FGS
-flavour) — i.e. if no finitary certificate can exist.  Either resolution is a real datum about
-where the elementary/analytic boundary actually lies.
+**Conclusion.**  Dense `HomogRec` escape ≡ the bounded-P-recursive theorem.  Elementary half
+∅-axiom-closed; hard half identified and outside elementary reach — it is π's neighbour, not a gap
+in the elementary program.  (Falsification handle, were it ever to move: an ∅-axiom certificate `C`
+obstructing a polynomial-coefficient recurrence without a constant-window cascade — a genuinely new
+mechanism; absent it, Thue–Morse's `¬ HomogRec` sits at exactly π's status.)
+
+## Verdict — π concluded as the open core
+
+π's CF non-holonomicity is **classically open** and provably **not ∅-axiom-closable**, now a settled
+boundary statement: the FGS analytic obstruction is irreducibly analytic (Fuchs–Frobenius + Stokes
+summability + Tauberian transfer, no constructive shadow) and bottoms at the unproven Gauss–Kuzmin
+normality of π — even "π's partial quotients unbounded" is itself open.  The marathon's deliverable
+is the **map**: the escape is ∅-axiom-certified for constructed witnesses on every elementary axis
+(growth `(n!)ⁿ`, sparse `χ`, dense Thue–Morse with automatic structure + ring-escape + the concrete
+CF `tmCF`), and the two cores it cannot reach are pinned to named classical theorems.  π is reached
+by no elementary pointing; the witnesses converge to the same boundary from inside — the residue's
+own signature (`spineL_escapes`, `object1_not_surjective`).  See
+`theory/essays/non_holonomicity_as_finite_state_escape.md` "The verdict on the two cores".

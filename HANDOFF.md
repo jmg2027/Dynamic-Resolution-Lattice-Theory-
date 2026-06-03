@@ -39,10 +39,18 @@ theorem.  Three new files:
     s2Z`: popcount has no finite difference-depth (MonoFromZ ⊥ `s2_not_eventually_monotone`;
     AntiFromZ ⟹ bounded ⊥ `s2_unbounded`).
 
-Remaining open (honest, on-goal "추측들도 만들고"):
-  - **Dense `HomogRec` escape conjecture** — the crisp shape an *elementary shadow* of
-    Cobham/Christol would need (a certificate `C ⟹ ¬HomogRec` for a bounded no-long-run sequence).
-    π itself stays the open core.
+### Both cores CONCLUDED (located, not forced — per "map the boundary" discipline)
+  - **Dense `HomogRec`** — `HomogRecPeriodic.evPeriodic_homogRec` (1 PURE) closes the elementary
+    half (`EvPeriodic ⟹ HomogRec`, via an `if`-guarded `lead`/`R`).  With `AutoRec ⟺ EvPeriodic`,
+    the *entire* residual content is the one classical theorem `HomogRec ∧ bounded ⟹ EvPeriodic`,
+    which is non-elementary (time-varying transition defeats the finite-state pigeonhole; zero-run
+    is the only elementary handle, and `tm_run_le_two` denies it past order 2).  Verdict: dense
+    escape ≡ bounded-P-recursive theorem, hard half outside elementary reach — π's neighbour.
+  - **π** — classically open, provably no ∅-axiom shadow (FGS irreducibly analytic; bottoms at
+    Gauss–Kuzmin normality; even PQ-unboundedness open).  The deliverable is the *map*: escape
+    ∅-axiom-certified for constructed witnesses on every elementary axis; both unreachable cores
+    pinned to named classical theorems.  Verdicts written in the essay ("The verdict on the two
+    cores") + `G185`.
 
 ## Earlier this leg: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (21 PURE)
 
