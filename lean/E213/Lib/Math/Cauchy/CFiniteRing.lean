@@ -781,4 +781,50 @@ theorem applyShift_dPow (s : Nat → Int) : ∀ i n,
     rw [applyShift_dPow s i (n + 1), applyShift_dPow s i n]
     rfl
 
+/-! ## §11 — C-D forward: C-finite ⟹ a monic shift recurrence -/
+
+/-- The shift-operator for a difference combination: `Σ_{i<k} cᵢ · Δⁱ = Σ_{i<k} cᵢ · dPow i`. -/
+def sCombo (c : Nat → Int) : Nat → List Int
+  | 0   => []
+  | k+1 => addL (sCombo c k) (smulL (c k) (dPow k))
+
+/-- `applyShift (sCombo c k) s n = Σ_{i<k} cᵢ Δⁱs(n) = linComb c s k n` — the shift-operator
+    `sCombo` realizes the difference combination (each `dPow i` realizes `Δⁱ`). -/
+theorem applyShift_sCombo (c : Nat → Int) (s : Nat → Int) : ∀ k n,
+    applyShift (sCombo c k) s n = linComb c s k n
+  | 0,   _ => rfl
+  | k+1, n => by
+    show applyShift (addL (sCombo c k) (smulL (c k) (dPow k))) s n
+       = linComb c s k n + c k * liftKZ k s n
+    rw [applyShift_addL (sCombo c k) (smulL (c k) (dPow k)) s n,
+        applyShift_smulL (c k) (dPow k) s n, applyShift_dPow s k n, applyShift_sCombo c s k n]
+
+/-- `dPow k` is monic of degree `k`: `dPow k = lo ++ [v]` with `v = 1`, `|lo| = k`
+    (`Δᵏ = (E−I)ᵏ` has leading `E`-coefficient `1`). -/
+theorem dPow_eq_snoc : ∀ k, ∃ lo v, dPow k = lo ++ [v] ∧ v = 1 ∧ lo.length = k
+  | 0   => ⟨[], 1, rfl, rfl, rfl⟩
+  | k+1 => by
+    obtain ⟨lo, v, he, hv, hl⟩ := dPow_eq_snoc k
+    obtain ⟨r, w, hc, hw, hrl⟩ := conv_snoc [-1] 1 lo v
+    refine ⟨r, w, ?_, ?_, ?_⟩
+    · show conv [-1, 1] (dPow k) = r ++ [w]
+      rw [he]; exact hc
+    · rw [hw, hv, Int.one_mul]
+    · rw [hrl, hl]; exact Nat.add_comm 1 k
+
+/-- `|sCombo c k| ≤ k` — the difference combination has degree `< k`, so its shift-list is
+    shorter than `dPow k` (length `k+1`). -/
+theorem sCombo_length_le (c : Nat → Int) : ∀ k, (sCombo c k).length ≤ k
+  | 0   => Nat.le_refl 0
+  | k+1 => by
+    obtain ⟨lo, v, he, _, hl⟩ := dPow_eq_snoc k
+    have hsl : (smulL (c k) (dPow k)).length = k + 1 := by
+      rw [length_smulL, he, length_snoc, hl]
+    have hle : (sCombo c k).length ≤ (smulL (c k) (dPow k)).length := by
+      rw [hsl]; exact Nat.le_succ_of_le (sCombo_length_le c k)
+    have heq : (sCombo c (k+1)).length = k + 1 := by
+      show (addL (sCombo c k) (smulL (c k) (dPow k))).length = k + 1
+      rw [length_addL_right_ge (sCombo c k) (smulL (c k) (dPow k)) hle, hsl]
+    exact Nat.le_of_eq heq
+
 end E213.Lib.Math.Cauchy.CFiniteRing
