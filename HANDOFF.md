@@ -53,10 +53,13 @@ recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residu
   the spine.
 
 ## Next frontier: `SamePairInjective` for all `c` (= Zhang Lemma 2 / Farey-monotone recovery)
-Scoping (Explore agent) + a **correction**: the repo's `Mobius213SternBrocot.SternBrocotReachable`
-`mediant` constructor takes mediants of *any* two reachable pairs, so it includes **non-coprime**
-pairs (e.g. `(2,2)=(1,0)+(1,2)`) — the naive "SB-reachable ⟹ coprime" bridge is **FALSE** for this
-definition.  A real bridge needs the *adjacency-restricted* mediant (Farey neighbours, det ±1) or a
+Scoping (Explore agent) + a **strategic correction**: the repo's `Mobius213SternBrocot`
+`reachable_of_pos` proves `∀ m k, 1 ≤ m+k → SternBrocotReachable (m,k)` — **every** pair (no
+coprimality!).  So `SternBrocotReachable` is the full mediant-closure (all pairs), **NOT** the
+injective/unique-path Stern-Brocot tree — it **cannot** be the recovery's injectivity backbone.  A
+real recovery needs **canonical continued-fraction paths** built on `farey_mediant_coprime` +
+`farey_mediant_adjacent` (now in `MarkovInjectivity` §5), essentially from scratch.  (The naive
+"SB-reachable ⟹ coprime" is also false: `(2,2)=(1,0)+(1,2)` is reachable.)  A real bridge needs the *adjacency-restricted* mediant (Farey neighbours, det ±1) or a
 direct Farey-order/monotonicity argument.  Layers: (1) **DONE** — Farey-adjacency foundations `farey_mediant_coprime` (`p·s=q·r+1 ⟹
 gcd(p+r,q+s)=1`) + `farey_mediant_adjacent` (mediant stays det-1 to both parents); (2) Markov-pair
 → Farey-slope map; (3) **the deep open piece** — residue strictly monotone in slope
