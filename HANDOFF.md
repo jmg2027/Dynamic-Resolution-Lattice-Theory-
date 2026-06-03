@@ -1,8 +1,37 @@
-# Session Handoff — 2026-06-03 (Markov marathon — tree residue closed)
+# Session Handoff — 2026-06-03b (Markov marathon — full Zhang Lemma 2 monotonicity)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
 
-## ★ THIS ITERATION: `Real213/SternBrocotMarkov` now **37 PURE** (was 27)
+## ★ LATEST: `Real213/SternBrocotMarkov` now **43 PURE** — §7–§8 added
+- **§7 right-half monotonicity** (`markov_node_slope_lt_right`): `u_t·m_r < u_r·m_t` — the node's
+  residue slope is strictly below the right bound's.  From `markovRes_cross` (= `m_l`) + `m_l ≥ 1`.
+  Int bridge `lt_of_sub_eq_of_one_le`.
+- **§8 left identity + full monotonicity**:
+  - `markoff_res_vieta` (L) / `markoff_res_vieta_R` (R): the **residue Vieta recurrence** — `u = d−c`
+    satisfies the *same* Cayley–Hamilton recurrence as the number `c` (because it's linear).
+  - `bound_res_identity` (generic, needs only right bound's shape): `m_l·u_r − m_r·u_l = 3 m_l m_r − m_t`.
+  - **`markovRes_cross_left`**: `u_t·m_l − u_l·m_t = m_r` — the tree-specific left Frobenius identity
+    (the deferred mirror), **proven by coupled tree induction**: R-step via IH; L-step via
+    `3·m_l·(IH) − (bound_res_identity)`.  Multipliers found by sympy.
+  - **`markov_node_slope_gt_left`**: `u_l·m_t < u_t·m_l` (left half).  
+  **⇒ FULL Zhang Lemma 2 on the tree**: `u_l/m_l < u_t/m_t < u_r/m_r` — the mediant residue slope lies
+  *strictly between* the two interval bounds.  The core monotonicity is DONE.
+
+### ★ IMMEDIATE NEXT: the window `0 < u_t < m_t/2` (clean corollary, plan ready)
+Root bounds have slopes `0/1` and `1/2`; monotonicity keeps every node strictly between ⇒ window.
+Proof plan (carry invariant `W(M) := 0 ≤ M.d−M.c ∧ 2(M.d−M.c) ≤ M.c` on **both** bounds):
+  - base: genL `u=0`, genR `u=1,m=2` both satisfy `W`.
+  - L/R-step: node satisfies `W` from `markov_node_slope_gt_left` (+ `0 ≤ u_l` ⇒ `0 < u_t`) and
+    `markov_node_slope_lt_right` (+ `2u_r ≤ m_r` ⇒ `2u_t < m_t`); node's strict `W` ⇒ non-strict `W`,
+    so it propagates as a bound.
+  - **Needs new pure Int helpers**: `le_zero_or_one_le : ∀ d:Int, d ≤ 0 ∨ 1 ≤ d` (cases on
+    ofNat/negSucc); `mul_nonpos_of_nonpos_of_pos`; `lt_of_mul_lt_mul_right : a·c < b·c → 0 < c → a < b`
+    (and the special `pos_of_mul_pos_right`).  ~40–50 lines; the only reason it wasn't done this
+    session (budget).  Build these in `Meta/Int213/Bound.lean` (reusable) or locally.
+Then connect the windowed tree residue to `MarkovInjectivity.root_unique_below_half`'s `(0,c/2)`
+window — the tree residue IS the canonical windowed root.
+
+## ★ EARLIER THIS DAY: `Real213/SternBrocotMarkov` 27 → 37 PURE (§4–§6)
 The Markoff-matrix tree carrier is fully wired for the residue analysis.  Earlier this marathon:
 `mInterval`/`mNode` (interval-mediant tree, NOT word products), `det2_mul`, `mInterval_det`,
 `mNode_det1`, `markoff_frobenius`, `markoff_vieta(_trace)(_R)`, `mInterval_shape` (tr=3c keystone),
