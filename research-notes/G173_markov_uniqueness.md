@@ -160,12 +160,17 @@ What this session pinned down:
   the tempting finish `|a₁b₂−a₂b₁| < c` is **FALSE** — by Frobenius's identities
   `u_t·m_r − u_r·m_t = m_s` the cross-determinant equals a *neighbour Markov number* (≈ `c`), a
   genuine nonzero multiple of `c`.  No determinant size bound closes it.
-- **Remaining for prime-power uniqueness (Button's theorem) as an infinite family**: only the
-  **Farey-monotone recovery** (Zhang Lemma 2) — that the window-root determines the ordered triple.
-  Needs continued-fraction / Stern-Brocot machinery; the repo has `Mobius213SternBrocot`,
-  `Cohomology/BipartiteStermBrocotClassification`, `Mobius213/Px/ConvergentDet` (Farey det = 1) to
-  build on.  With Lemma 2 + the already-done Lemma 4 + `sqrtNegOneTwoRoots_prime_pow`, prime-power
-  uniqueness closes.
+- **Capstone reduction — DONE** (`markov_max_unique_of_same_pair_injective`): `MarkovMaxUnique c ⟸
+  SqrtNegOneTwoRoots c ∧ SamePairInjective c`, the exact Frobenius/Aigner reduction (both inputs
+  honest, neither is `MarkovMaxUnique` in disguise).  `markov_prime_pow_unique_of_same_pair_injective`:
+  for `c=p^(k+1)`, uniqueness ⟸ `SamePairInjective` ALONE — **Button's prime-power unicity (infinite
+  family) is reduced to the single residue-injectivity input** `SamePairInjective` (= Zhang Lemma 2).
+- **Remaining for prime-power uniqueness (Button) as an infinite family**: only `SamePairInjective`
+  = the **Farey-monotone recovery** (Zhang Lemma 2).  Realized **on the Fibonacci spine**
+  (`MarkovCassiniBridge.spine_residue_farey`: `fib(2n+1)·fib(2n+2)=fib(2n)·fib(2n+3)+1`, the
+  `(residue,max)` pairs are unimodular Farey neighbors).  Generalising to all `c` needs the
+  continued-fraction / Stern-Brocot recovery (repo: `Mobius213SternBrocot`,
+  `Cohomology/BipartiteStermBrocotClassification`, `Mobius213/Px/ConvergentDet` Farey det = 1).
 
 ## Next
 

@@ -37,9 +37,18 @@ recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residu
 - **Dead end recorded**: `|a₁b₂−a₂b₁| < c` is FALSE — Frobenius's identities make the
   cross-determinant a neighbour Markov number (≈c).  No size bound closes it.
 - **Open content** is *root-counting* (Markov-realisability of the `2^{ω−1}` window-roots) for
-  composite `c`, ω≥2 — NOT the injectivity of `triple↦root`.  Prime-power uniqueness (Button) as an
-  infinite family needs only the **Farey-monotone recovery** (Zhang Lemma 2) — build on the repo's
-  `Mobius213SternBrocot` / `ConvergentDet` (Farey det=1).  See G173 "Injectivity analysis".
+  composite `c`, ω≥2 — NOT the injectivity of `triple↦root`.
+- **★ Capstone reduction** (`markov_max_unique_of_same_pair_injective`): `MarkovMaxUnique c ⟸
+  SqrtNegOneTwoRoots c ∧ SamePairInjective c` — the exact Frobenius/Aigner reduction, both inputs
+  honest.  **`markov_prime_pow_unique_of_same_pair_injective`**: for `c=p^(k+1)`, uniqueness ⟸
+  `SamePairInjective` ALONE (root-count discharged) — **Button's prime-power unicity (infinite
+  family) reduced to the single residue-injectivity input** `SamePairInjective` (= Zhang Lemma 2).
+- **Spine realization** (`MarkovCassiniBridge.spine_residue_farey`): on the Fibonacci spine the
+  `(residue fib(2n), max fib(2n+1))` pairs are Farey/Stern-Brocot neighbors
+  (`fib(2n+1)·fib(2n+2)=fib(2n)·fib(2n+3)+1`, unimodular cross-det) — the structural basis of
+  Zhang Lemma 2 on the spine.  Generalising this monotone recovery to all of `c` (via the repo's
+  `Mobius213SternBrocot`/`ConvergentDet`) is the next step toward `SamePairInjective`.
+  See G173 "Injectivity analysis".
 
 Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `MarkovCassiniBridge` 3 PURE +
 `MarkovModularBridge` 2 PURE + `ModArith/MarkovPrimeFactor`
