@@ -214,6 +214,32 @@ The ∅-axiom reach is now complete across both machine classes and both densiti
   | time-invariant autonomous, sparse (`AutoRec`) | `two_continuations_not_autoRec` | `χ` |
   | time-invariant autonomous, dense (`AutoRec`) | `aperiodic_not_autoRec` (Morse–Hedlund) | any bounded aperiodic — `isPow2`, and the genuinely-dense **Thue–Morse** (`ThueMorseAperiodic.tm_morse_not_autoRec`, run-length `≤ 2`) |
 
+## The hierarchy, end to end
+
+The escape sits at the top of a now-connected chain of generating classes, each rung ∅-axiom:
+
+  - **polynomial** — `finite_depthZ_iff`: depth-`d` ⟺ degree-`≤d` Newton polynomial; the depth
+    *ring* (`PolynomialDepth`); and these objects are eventually monotone
+    (`DepthMonotoneSynthesis.newtonZ_evMono`).
+  - **C-finite** (constant-coefficient linear recurrence) — the orbit closes at finite difference
+    dimension (`CassiniDepthFloor.second_diff_closure` order 2,
+    `SecondCasoratian.third_diff_closure` order 3), detected by the conserved Casorati determinant
+    (the discrete Wronskian: order-`k` ⟹ `k×k` Hankel multiplied by `det(shift)` —
+    `SecondCasoratian.second_casoratian`).  Polynomials are C-finite (`Δ^{d+1}=0`).
+  - **P-recursive** (`HomogRec`) — **C-finite sits inside it**: `CFiniteHomogRec.{order2,order3}_homogRec`
+    show a constant-coefficient recurrence *is* a homogeneous window recurrence (constant `lead`,
+    linear `R`).  Concretely `trib_homogRec` places **Tribonacci** — the `SecondCasoratian`
+    witness — inside the holonomic class.
+  - **non-holonomic** — escapes all of the above: `(n!)ⁿ` (growth), `χ` (sparse, both classes),
+    **Thue–Morse** (dense; and its counter `s2` escapes even the polynomial ring,
+    `DepthMonotoneSynthesis.s2Z_not_polynomial`).
+
+So Tribonacci and Thue–Morse are the two poles: a constant-recurrence sequence whose Casorati
+determinant is conserved (holonomic), versus an automatic-but-aperiodic sequence whose counter has
+no finite Casorati closure / no finite depth (non-holonomic).  The Casoratian (discrete Wronskian)
+is the order detector throughout; "no finite Casoratian closure" is the determinantal face of the
+machine-free escape.
+
 ## The verdict on the two cores
 
 Two cores resisted the elementary program.  Both are now *concluded* — not by forcing a proof, but
@@ -277,7 +303,9 @@ Morse–Hedlund direction, and the witnesses — including the genuinely-dense T
 `Cauchy/{PolyDepthMonotone, ThueMorseRingEscape}` + `Meta/Int213/Order` (the finite-depth ⟹
 eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` ordering layer);
 `Cauchy/HomogRecPeriodic` (`evPeriodic_homogRec` — the elementary half of the bounded `HomogRec`
-characterization);
+characterization); `Cauchy/CFiniteHomogRec` (C-finite ⊆ P-recursive: `order2/order3_homogRec`,
+`trib_homogRec`); `Cauchy/{CassiniDepthFloor, SecondCasoratian, PolynomialDepth}` (the Casoratian
+order-detector and the depth ring);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra, PolynomialDepth, DepthCharacterization}` (the
 difference-Lens generating ring = the polynomials, `finite_depthZ_iff`); `Cauchy/
