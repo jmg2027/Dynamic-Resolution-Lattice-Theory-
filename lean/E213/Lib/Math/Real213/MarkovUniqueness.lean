@@ -1160,4 +1160,31 @@ set_option maxRecDepth 40000 in
 theorem markov_max_unique_433 : MarkovMaxUnique 433 :=
   markov_max_unique_of_2roots 433 5 29 179 254 (by decide) (by decide) (by decide) (by decide)
 
+/-! ### Completing the small range: every Markov number `2 ≤ c ≤ 1325` is unique
+
+Filling the remaining gaps (`2, 34, 89, 194`) closes uniqueness for *all* Markov numbers up to
+`1325`: `{2,5,13,29,34,89,169,194,233,433,610,985,1325}`.  (The in-kernel `decide` over `b < c`
+stack-overflows for `c ≳ 1500`, so larger Markov numbers — `1597, 2897, …` — are out of reach by
+this method and would need the general residue-map injectivity.) -/
+
+set_option maxRecDepth 40000 in
+/-- `MarkovMaxUnique 2` — the triple `(1,1,2)` (single root `1` mod 2). -/
+theorem markov_max_unique_2 : MarkovMaxUnique 2 :=
+  markov_max_unique_of_2roots 2 1 1 1 1 (by decide) (by decide) (by decide) (by decide)
+
+/-- `MarkovMaxUnique 34` (`34 = 2·17`) — triple `(1,13,34)`, assembled from the decidable
+    single-pair check `markov_max_unique_34`. -/
+theorem markovMaxUnique_34 : MarkovMaxUnique 34 :=
+  markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_34 a (Nat.le_trans hab hb) b hb hab m)
+
+set_option maxRecDepth 40000 in
+/-- `MarkovMaxUnique 89` (prime) — roots `{34,55}` (consecutive Fibonacci), triple `(1,34,89)`. -/
+theorem markov_max_unique_89 : MarkovMaxUnique 89 :=
+  markov_max_unique_of_2roots 89 1 34 34 55 (by decide) (by decide) (by decide) (by decide)
+
+set_option maxRecDepth 40000 in
+/-- `MarkovMaxUnique 194` (`194 = 2·97`) — roots `{75,119}`, triple `(5,13,194)`. -/
+theorem markov_max_unique_194 : MarkovMaxUnique 194 :=
+  markov_max_unique_of_2roots 194 5 13 75 119 (by decide) (by decide) (by decide) (by decide)
+
 end E213.Lib.Math.Real213.MarkovUniqueness
