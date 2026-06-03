@@ -166,14 +166,17 @@ Re-merging `origin/main` brought the **Cassini-unimodular / orbit-depth** thread
   G174's "Casoratian = Cassini = √(−1)" as Lean, and places the Markov spine on the depth-0
   Cassini floor (`CassiniDepthFloor`).
 
-- **The √(−1)-residue = the Gaussian unit `i` = `S`, reduced mod `c`** (idea-level).
-  `UnitsToModular.repI i = S` (`S = [[0,-1],[1,0]]`, order 4, `S²=−I`).  Mod a Markov number `c`,
-  the residue `u` (with `u²≡−1`) is `S`'s eigenvalue: `S·(u,1) ≡ u·(u,1)` exactly when `u²≡−1`
-  (component 1 is `−1 ≡ u²`).  So `(u,1)` is the `i`-eigenvector mod `c`, and the Cohn matrix
-  (`cohn_sq_neg_one_mod`, `tr=3c,det=1,C²≡−I`) is the Markov-tree image of `S` mod `c`.  This
-  realizes the HANDOFF "213-native conjecture" (Markov↦√(−1) = Stern-Brocot↦`PSL₂(ℤ)`-elliptic)
-  concretely — content is `u²≡−1` redressed in the modular-generator language (honest: a
-  structure-map reading, per `UnitsToModular`'s own construction-tautology caveat).
+- **The √(−1)-residue = the Gaussian unit `i` = `S`, reduced mod `c`** — now **Lean**
+  (`Real213/MarkovModularBridge`, 2 PURE).  `UnitsToModular.repI i = S` (`S = [[0,-1],[1,0]]`,
+  order 4, `S²=−I`).  `markov_pair_eigen`: for a Markov triple the residue `u=(a·b⁻¹)%c` satisfies
+  `(u·b)%c=a` (recovery) and `(u·a+b)%c=0` (neighbor congruence `a²+b²≡0` + Euclid) — these ARE
+  `S·(a,b)≡u·(a,b) (mod c)` (since `S·(a,b)=(−b,a)`).  `S_eigenvector_of_dvd` (ℤ, `ring_intZ`) is
+  the abstract criterion consuming exactly those two divisibilities.  So the Markov **pair `(a,b)`
+  is `S`'s eigenvector** mod `c` with eigenvalue the √(−1)-residue — the Cohn matrix
+  (`cohn_sq_neg_one_mod`, `tr=3c,det=1,C²≡−I`) is the Markov-tree image of `S = `Gaussian-`i` mod
+  `c`.  This realizes the HANDOFF "213-native conjecture" (Markov↦√(−1) = Stern-Brocot↦`PSL₂(ℤ)`-
+  elliptic).  (Honest: the eigenvector content is recovery + neighbor congruence; the `S`-framing
+  is the structure-map reading, per `UnitsToModular`'s own construction-tautology caveat.)
 
 - **`ring_intZ` for the open injectivity (C6).**  The residue-map injectivity argument is
   cleanest over `ℤ` (the quadratic `f(b)=(b−c)(b−c')`, the Vieta sign reasoning I did awkwardly in

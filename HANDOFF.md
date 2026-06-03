@@ -14,13 +14,21 @@ Using merged-main's `CassiniUnimodular` (`det_closed`: `D(n)=qⁿ·D(0)`, the `q
 - `markov_fib_second_cassini` (`q=+1`): `fib(2n+1)·fib(2n+5) = fib(2n+3)²+1` — the spine's
   index-gap-2 Cassini is the conserved unit (`det_closed` at `q=1` for `s(n+2)=3s(n+1)−s(n)`).
 - `markov_spine_cassini_dichotomy` bundles them; both reduce to `fib_cassini_norm`.
-**Idea-level (not yet Lean)**: `UnitsToModular.repI i = S` ⟹ the √(−1)-residue `u` is `S`'s
-eigenvalue mod `c` (eigenvector `(u,1)`: `S·(u,1)≡u·(u,1)` iff `u²≡−1`); the Cohn matrix
-(`cohn_sq_neg_one_mod`) is `S = `Gaussian-`i` reduced mod `c`.
+
+## ★ NEW (this session): `Real213/MarkovModularBridge` (2 PURE) — Markov pair = `S`'s eigenvector
+Realizes the HANDOFF "213-native conjecture" via merged-main's `ModularElliptic.S` (= Gaussian
+unit `i`, `UnitsToModular.repI i = S`) + `ring_intZ`:
+- `markov_pair_eigen` (∅-axiom `ℕ`): for a Markov triple, the recovery residue `u=(a·b⁻¹)%c` has
+  `(u·b)%c = a` (recovery) and `(u·a+b)%c = 0` (neighbor congruence `a²+b²≡0` + Euclid via
+  `b·(u·a+b)=c·(a·q+(3ab−c))`).  These ARE `S·(a,b) ≡ u·(a,b) (mod c)`.
+- `S_eigenvector_of_dvd` (∅-axiom `ℤ`, `ring_intZ`): the abstract criterion — `c∣(u·a+b) ∧
+  c∣(u·b−a) ⟹ S·(a,b) − u·(a,b) ≡ 0` (`S=[[0,-1],[1,0]]`).
+So the √(−1)-residue indexing a Markov number is the eigenvalue of the Gaussian unit `i = S` on the
+Markov pair `(a,b)` mod `c`.  (The only formality between the two is the Nat→Int dvd cast.)
 
 Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `MarkovCassiniBridge` 3 PURE +
-`ModArith/MarkovPrimeFactor`
-28 PURE = 108, all ∅-axiom.  **★ Frobenius uniqueness verified for EVERY Markov number
+`MarkovModularBridge` 2 PURE + `ModArith/MarkovPrimeFactor`
+28 PURE = 113, all ∅-axiom.  **★ Frobenius uniqueness verified for EVERY Markov number
 `2 ≤ c ≤ 1325`** — `{2,5,13,29,34,89,169,194,233,433,610,985,1325}`, all unconditional ∅-axiom,
 each a one-liner via `markov_max_unique_of_{2,4}roots` (or the small `markov_max_unique_{5,13,29,34}`
 decides).  **Practical wall**: the in-kernel `decide` over `b<c` stack-overflows for `c ≳ 1500`
