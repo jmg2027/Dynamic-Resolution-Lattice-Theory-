@@ -29,7 +29,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
   an abelian group under `±` (commutative ring under `+`).
 
-### 2. `Cauchy/CFiniteRing` (53 PURE) — operator algebra + ring + `cfiniteZ_sub` + §8 shift=Δ-op + §9 C-D reverse
+### 2. `Cauchy/CFiniteRing` (77 PURE) — operator algebra + ring + §8–§9 C-D reverse + §10–§11 C-D forward
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
@@ -66,14 +66,12 @@ version needs the Hadamard/resultant construction.  C-B-adjacent.
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
 `CasoratianStep`/`CasoratianSigned`.  Needs a rank/determinant argument.
 
-### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D) [reverse DONE]
-**Reverse direction done** (`CFiniteRing` §8–§9): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`),
-`applyOp_ePow` (`Eᵏ` as a `Δ`-operator, no binomial sums), and `cfiniteZ_of_shiftRec` — a monic
-order-`k` shift recurrence (`ShiftRecZ`) ⟹ `CFiniteZ` (orbit dim ≤ k), via `eCombo`/`ePow_eq_snoc`/
-`eCombo_length_le`/`addL_snoc_right`.  Validated end-to-end by `cfiniteZ_fib_via_shift`.  **Remaining
-— forward direction** (CFiniteZ ⟹ ∃ monic shift rec): heavier — assemble `newton_gregory` (`s(n+m)=
-Σ binom·Δʲs(n)`) + `newton_gregory_inverse` (both in `NewtonGregory`) into a double sum reducing the
-top `Δᵏ` via the orbit recurrence.  That would close the full equivalence (standard C-finite ⟺ CFiniteZ).
+### 3. C-D — orbit dimension = recurrence order [CLOSED, both directions]
+`cfiniteZ_iff_shiftRec` (`CFiniteRing` §8–§11): **`CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s`**.  Reverse
+`cfiniteZ_of_shiftRec` (shift rec ⟹ C-finite, via `ePow`) + forward `shiftRec_of_cfiniteZ` (C-finite
+⟹ shift rec, via the dual shift-operator algebra `applyShift`, `Δ = applyShift [-1,1]`, `dPow`).  No
+binomial sums — the change of basis is operator-side (`ePow`/`dPow` = convolutions of `[1,1]`/`[-1,1]`).
+`CFiniteZ` is exactly the standard constant-recursive class.  Folded into the theory chapter.
 
 ### 4. DRLT Validation Standard (unchanged, untouched this thread)
 The repo's stated real target — strict ∅-axiom precision theorem AND falsifier for one observable.
@@ -87,7 +85,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + §8 shift=Δ-op + §9 C-D reverse (53 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + C-D both directions (77 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
@@ -97,15 +95,15 @@ MODIFIED:
 
 ## Three-tier state
 - **Promoted (thread closed)**: the C-finite / orbit-dimension thread is now a Tier-3 chapter
-  `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 83 PURE);
-  the research note is archived under `research-notes/archive/`.  Open items (C-D forward, Hadamard
+  `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 107 PURE);
+  the research note is archived under `research-notes/archive/`.  Open items (the general Hadamard
   product, Casoratian rank, holonomic `ℚ(n)`-orbit) live in the chapter's **Open frontier** section.
 - No active Tier-1 scratch remains for this thread.
 
 ## Next
-**G183 is closed** (promoted to `theory/math/analysis/cfinite_orbit_dimension.md`).  Its documented
-open frontier, if revisited, in rough difficulty order: **C-D forward** (CFiniteZ ⟹ shift rec —
-double-binom assembly of `newton_gregory`(+inverse); closes the full equivalence), the general
-**Hadamard product** `s·t` (tensor/resultant), **C-B** (Casoratian rank = orbit dimension), **C-C**
-(holonomic `ℚ(n)`-orbit, the top rung).  Otherwise: pivot to a fresh thread, or the standing
-**DRLT Validation Standard** (precision theorem + falsifier for one observable).
+**G183 is closed** (promoted to `theory/math/analysis/cfinite_orbit_dimension.md`); C-A, both bridges,
+the `+`-ring, and **C-D (orbit dimension = recurrence order, both directions)** are all proven.  The
+chapter's remaining open frontier, if revisited, in rough difficulty order: the general **Hadamard
+product** `s·t` (tensor/resultant), **C-B** (Casoratian rank = orbit dimension), **C-C** (holonomic
+`ℚ(n)`-orbit, the top rung).  Otherwise: pivot to a fresh thread, or the standing **DRLT Validation
+Standard** (precision theorem + falsifier for one observable).

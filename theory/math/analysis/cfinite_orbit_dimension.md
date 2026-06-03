@@ -1,9 +1,10 @@
 # C-finite and the orbit-dimension ladder — above the polynomials
 
-**Status**: The `+`-ring and the orbit-recurrence ⟺ annihilator characterization are
-closed; the Hadamard product and the C-D forward direction are the documented open
-frontier.  Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/OrbitDimension.lean`
-(30 PURE) and `lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (53 PURE).
+**Status**: The `+`-ring, the orbit-recurrence ⟺ annihilator characterization, and the
+**orbit dimension = recurrence order** equivalence are closed; the Hadamard product is the
+documented open frontier.  Source of truth (all ∅-axiom):
+`lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (30 PURE) and
+`lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (77 PURE).
 
 ## Overview
 
@@ -48,7 +49,8 @@ polynomials, and the algebraic structure carried on it — a commutative ring un
 | `cfiniteZ_to_annih` / `annih_snoc_to_cfiniteZ` | `CFiniteRing` | C-finite ⟺ has a monic constant-coefficient annihilator |
 | `cfiniteZ_add` / `cfiniteZ_sub` | `CFiniteRing` | C-finite is closed under `±` — a ring under `+` |
 | `applyOp_shift` / `applyOp_ePow` | `CFiniteRing` | `E = applyOp [1,1] = I+Δ`; `Eᵏ` as a `Δ`-operator, `applyOp (ePow k) s n = s(n+k)` |
-| `cfiniteZ_of_shiftRec` | `CFiniteRing` | a monic shift recurrence ⟹ C-finite (the C-D reverse direction) |
+| `applyShift_diffBase` / `applyShift_dPow` | `CFiniteRing` | `Δ = applyShift [-1,1] = E−I`; `Δᵏ` as a shift operator, `applyShift (dPow k) s n = Δᵏs(n)` |
+| `cfiniteZ_iff_shiftRec` | `CFiniteRing` | **C-finite ⟺ has a monic shift recurrence** — orbit dimension = recurrence order |
 
 ## Narrative
 
@@ -116,28 +118,26 @@ coincide.  The bridge is that the forward shift is itself a difference operator:
 `Δ`-operator `(I+Δ)ᵏ`, built by convolving `[1,1]` with itself `k` times, and `applyOp (ePow k)
 s n = s(n+k)` (`applyOp_ePow`) — with no binomial sums.
 
-This realizes the reverse direction: a monic order-`k` shift recurrence `s(n+k) = Σ_{i<k} bᵢ
-s(n+i)` (the standard definition of a constant-recursive / C-finite sequence) is the `Δ`-operator
-annihilator `ePow k − Σ bᵢ ePow i`, which is monic of degree `k` because the lower `ePow i` are
-strictly shorter than `ePow k`, leaving the leading `Δᵏ`-coefficient untouched.  So
-`cfiniteZ_of_shiftRec` concludes `CFiniteZ s` (orbit dimension `≤ k`).  `cfiniteZ_fib_via_shift`
-validates the whole construction end-to-end: it re-derives `CFiniteZ fibZ` from Fibonacci's
-natural shift recurrence, an independent route from the `Δ`-recurrence of `cfiniteZ_fib`, both
-giving orbit dimension `2`.
+Both directions close, giving `cfiniteZ_iff_shiftRec`: **`CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s`**.
+The reverse (`cfiniteZ_of_shiftRec`) reads a monic order-`k` shift recurrence `s(n+k) = Σ_{i<k} bᵢ
+s(n+i)` (the standard definition of a constant-recursive / C-finite sequence) as the `Δ`-operator
+annihilator `ePow k − Σ bᵢ ePow i`, monic of degree `k` because the lower `ePow i` are strictly
+shorter.  The forward (`shiftRec_of_cfiniteZ`) is the exact mirror: a dual shift-operator algebra
+`applyShift` carries `Δ = applyShift [-1,1] = E − I` (`applyShift_diffBase`) and `Δᵏ` as the shift
+operator `dPow k = (E−I)ᵏ` (`applyShift_dPow`), so the `Δ`-orbit recurrence becomes the *shift*
+annihilator `dPow k − Σ cᵢ dPow i`, monic of degree `k`, which reads off as the shift recurrence.
+So the two notions of order — the `Δ`-orbit dimension and the shift recurrence order — are one;
+`CFiniteZ` is exactly the standard constant-recursive class.  `cfiniteZ_fib_via_shift` validates
+the reverse end-to-end (Fibonacci's natural shift recurrence ⟹ `CFiniteZ fibZ`, orbit dimension 2).
 
 The forward-difference calculus that underwrites the two pictures — `s(n+m) = Σ binom(m,j) Δʲs(n)`
 and its inverse `Δⁿ = (E−I)ⁿ` — is the binomial transform of
-[`newton_gregory.md`](newton_gregory.md).
+[`newton_gregory.md`](newton_gregory.md); here the change of basis is carried *operator-side* by
+`ePow`/`dPow` (convolutions of `[1,1]`/`[-1,1]`), with no binomial sums.
 
 ## Open frontier
 
-Four directions remain, in rough difficulty order.
-
-- **The forward direction of "orbit dimension = recurrence order"** (`CFiniteZ ⟹ ∃ monic shift
-  recurrence).  The reverse is closed; the forward needs to express a `Δ`-polynomial in the shift
-  (`ePow`) basis — the binomial transform of `newton_gregory`(+ its inverse) assembled into a
-  double sum that reduces the top `Δᵏ` via the orbit recurrence.  Closing it gives the full
-  equivalence: the standard constant-recursive definition exactly equals `CFiniteZ`.
+Three directions remain, in rough difficulty order.
 
 - **The Hadamard (pointwise) product `s·t`** — the remaining ring operation.  The geometric case
   is closed (`cfiniteZ_geom_mul`, `cⁿ·dⁿ = (cd)ⁿ`, orbit dimensions multiply `1·1 = 1`), but the
@@ -165,4 +165,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.OrbitDimension
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.CFiniteRing
 ```
-Reports `30 pure / 0 dirty` and `53 pure / 0 dirty`.
+Reports `30 pure / 0 dirty` and `77 pure / 0 dirty`.
