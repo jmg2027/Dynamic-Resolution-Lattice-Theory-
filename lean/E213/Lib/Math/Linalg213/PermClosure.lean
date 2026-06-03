@@ -141,4 +141,82 @@ theorem cnt_lperm {a : Nat} {L1 L2 : List Nat} (h : LPerm L1 L2) : cnt a L1 = cn
     exact Nat.add_left_comm _ _ _
   | trans _ _ ih₁ ih₂ => exact ih₁.trans ih₂
 
+/-! ## §4 — count-equality ⟹ `LPerm` (the cancellation engine)
+
+Two lists with identical occurrence counts are `LPerm`-related.  Proven by induction on the
+first list: peel its head `b`, locate `b` in the second list (`cnt_pos_mem` + `mem_split`),
+cancel one `b` from every count (`Nat.add_left_cancel`), recurse, and move `b` back to its
+place (`lperm_mid_to_front`).  This is the engine behind completeness and the closure. -/
+
+/-- `cnt` distributes over append. -/
+theorem cnt_append (a : Nat) : ∀ (L1 L2 : List Nat),
+    cnt a (L1 ++ L2) = cnt a L1 + cnt a L2
+  | [],     L2 => by show cnt a L2 = 0 + cnt a L2; rw [Nat.zero_add]
+  | b :: l, L2 => by
+    show (if b = a then 1 else 0) + cnt a (l ++ L2)
+       = ((if b = a then 1 else 0) + cnt a l) + cnt a L2
+    rw [cnt_append a l L2, Nat.add_assoc]
+
+/-- A list with all occurrence counts zero is empty. -/
+theorem cnt_eq_zero_nil : ∀ {L : List Nat}, (∀ a, cnt a L = 0) → L = []
+  | [],     _ => rfl
+  | b :: l, h => by
+    have hpos : 0 < cnt b (b :: l) := by
+      rw [show cnt b (b :: l) = (if b = b then 1 else 0) + cnt b l from rfl, if_pos rfl]
+      exact Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_add_right 1 (cnt b l))
+    exact absurd (h b) (Nat.ne_of_gt hpos)
+
+/-- Positive count implies membership. -/
+theorem cnt_pos_mem : ∀ {L : List Nat} {a : Nat}, 0 < cnt a L → a ∈ L
+  | [],     a, h => absurd h (Nat.lt_irrefl 0)
+  | b :: l, a, h => by
+    cases Nat.decEq b a with
+    | isTrue hba  => exact hba ▸ List.Mem.head _
+    | isFalse hba =>
+      rw [show cnt a (b :: l) = (if b = a then 1 else 0) + cnt a l from rfl, if_neg hba,
+          Nat.zero_add] at h
+      exact List.Mem.tail _ (cnt_pos_mem h)
+
+/-- Membership splits a list around the element. -/
+theorem mem_split {a : Nat} : ∀ (L : List Nat), a ∈ L → ∃ L1 L2, L = L1 ++ a :: L2
+  | [],     h => by cases h
+  | b :: l, h => by
+    cases h with
+    | head      => exact ⟨[], l, rfl⟩
+    | tail _ h' => rcases mem_split l h' with ⟨L1, L2, he⟩; exact ⟨b :: L1, L2, congrArg (b :: ·) he⟩
+
+/-- Moving an element from the front to a middle position is an `LPerm`. -/
+theorem lperm_mid_to_front {α : Type} (b : α) : ∀ (L1 L2 : List α),
+    LPerm (b :: (L1 ++ L2)) (L1 ++ b :: L2)
+  | [],      L2 => LPerm.refl _
+  | c :: L1, L2 =>
+    LPerm.trans (LPerm.swap c b (L1 ++ L2)) (LPerm.cons c (lperm_mid_to_front b L1 L2))
+
+/-- Left cancellation for `Nat` addition (propext-free; core's pulls `propext`). -/
+theorem add_left_cancel' : ∀ (a : Nat) {b c : Nat}, a + b = a + c → b = c
+  | 0,     _, _, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
+  | a + 1, _, _, h => by rw [Nat.succ_add, Nat.succ_add] at h; exact add_left_cancel' a (Nat.succ.inj h)
+
+/-- ★ **Count-equality implies `LPerm`** — the cancellation engine. -/
+theorem lperm_of_cnt_eq : ∀ (L1 L2 : List Nat), (∀ a, cnt a L1 = cnt a L2) → LPerm L1 L2
+  | [],      L2, hc => by
+    have : L2 = [] := cnt_eq_zero_nil (fun a => (hc a).symm)
+    subst this; exact LPerm.nil
+  | b :: l1, L2, hc => by
+    have hb : 0 < cnt b L2 := by
+      rw [← hc b, show cnt b (b :: l1) = (if b = b then 1 else 0) + cnt b l1 from rfl, if_pos rfl]
+      exact Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_add_right 1 (cnt b l1))
+    rcases mem_split L2 (cnt_pos_mem hb) with ⟨L2a, L2b, hsplit⟩
+    have key : ∀ a, cnt a l1 = cnt a (L2a ++ L2b) := by
+      intro a
+      have h := hc a
+      rw [hsplit, cnt_append] at h
+      change (if b = a then 1 else 0) + cnt a l1
+           = cnt a L2a + ((if b = a then 1 else 0) + cnt a L2b) at h
+      rw [Nat.add_left_comm (cnt a L2a)] at h
+      rw [cnt_append]
+      exact add_left_cancel' _ h
+    exact LPerm.trans (LPerm.cons b (lperm_of_cnt_eq l1 (L2a ++ L2b) key))
+      (hsplit ▸ lperm_mid_to_front b L2a L2b)
+
 end E213.Lib.Math.Linalg213.PermClosure
