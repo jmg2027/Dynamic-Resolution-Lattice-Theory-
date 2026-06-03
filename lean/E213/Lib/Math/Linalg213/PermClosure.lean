@@ -312,4 +312,61 @@ theorem permsOf_complete : ∀ (xs q : List Nat), LPerm q xs → q ∈ permsOf x
     exact mem_flatMap_mpr (insertEverywhere a) (permsOf_complete ys (q1 ++ q2) hlp)
       (insEv_complete a q1 q2)
 
+/-! ## §7 — nodup (`permsOf` has no repeats)
+
+`Nodup L := ∀ a, cnt a L ≤ 1` (clean, no `Pairwise`).  `permsOf xs` is nodup when `xs` is,
+because inserting the fresh `a` is recoverable (`removeFirst a`), making the `flatMap` fibers
+disjoint and each `insertEverywhere a r` repeat-free. -/
+
+/-- No-repeats, as: every element occurs at most once. -/
+def Nodup {α : Type} [DecidableEq α] (L : List α) : Prop := ∀ a, cnt a L ≤ 1
+
+/-- Membership gives a positive count. -/
+theorem cnt_pos_of_mem {α : Type} [DecidableEq α] {a : α} : ∀ {L : List α}, a ∈ L → 0 < cnt a L
+  | b :: l, h => by
+    cases h with
+    | head =>
+      show 0 < (if a = a then 1 else 0) + cnt a l
+      rw [if_pos rfl]; exact Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_add_right 1 _)
+    | tail _ h' =>
+      show 0 < (if b = a then 1 else 0) + cnt a l
+      exact Nat.lt_of_lt_of_le (cnt_pos_of_mem h') (Nat.le_add_left _ _)
+
+/-- Non-membership gives zero count. -/
+theorem cnt_eq_zero_of_not_mem {α : Type} [DecidableEq α] {a : α} {L : List α} (h : a ∉ L) :
+    cnt a L = 0 := by
+  cases Nat.eq_zero_or_pos (cnt a L) with
+  | inl hz => exact hz
+  | inr hp => exact absurd (cnt_pos_mem hp) h
+
+/-- `Nodup` is inherited by the tail. -/
+theorem nodup_tail {α : Type} [DecidableEq α] {x : α} {L : List α} (h : Nodup (x :: L)) :
+    Nodup L := fun a => Nat.le_trans (Nat.le_add_left _ _) (h a)
+
+/-- A nodup `x :: L` has no further `x`. -/
+theorem nodup_head_cnt_zero {α : Type} [DecidableEq α] {x : α} {L : List α} (h : Nodup (x :: L)) :
+    cnt x L = 0 := by
+  have hx := h x
+  rw [show cnt x (x :: L) = (if x = x then 1 else 0) + cnt x L from rfl, if_pos rfl] at hx
+  cases Nat.eq_zero_or_pos (cnt x L) with
+  | inl hz => exact hz
+  | inr hp => exact absurd (Nat.le_trans (Nat.add_le_add_left hp 1) hx) (Nat.not_succ_le_self 1)
+
+/-- A nodup `x :: L` has `x ∉ L`. -/
+theorem nodup_head_not_mem {α : Type} [DecidableEq α] {x : α} {L : List α} (h : Nodup (x :: L)) :
+    x ∉ L := by
+  intro hm
+  have hp := cnt_pos_of_mem hm
+  rw [nodup_head_cnt_zero h] at hp
+  exact Nat.lt_irrefl 0 hp
+
+/-- Cons preserves `Nodup` when the head is new. -/
+theorem nodup_cons {α : Type} [DecidableEq α] {x : α} {L : List α} (hx : x ∉ L) (hL : Nodup L) :
+    Nodup (x :: L) := by
+  intro a
+  show (if x = a then 1 else 0) + cnt a L ≤ 1
+  by_cases hxa : x = a
+  · rw [if_pos hxa, cnt_eq_zero_of_not_mem (hxa ▸ hx)]; exact Nat.le_refl 1
+  · rw [if_neg hxa, Nat.zero_add]; exact hL a
+
 end E213.Lib.Math.Linalg213.PermClosure
