@@ -19,7 +19,7 @@ All ∅-axiom (over `Int213` core).
 
 namespace E213.Lib.Math.Linalg213.Permutation
 
-open E213.Meta.Int213 (add_left_comm mul_neg neg_add)
+open E213.Meta.Int213 (add_left_comm mul_neg neg_mul neg_add mul_comm mul_assoc mul_left_comm)
 
 /-! ## §1 — list permutation-equivalence + sum invariance -/
 
@@ -206,5 +206,101 @@ theorem map_lperm {α β : Type} (f : α → β) {L1 L2 : List α} (h : LPerm L1
   | cons x _ ih        => exact LPerm.cons (f x) ih
   | swap x y l         => exact LPerm.swap (f x) (f y) (l.map f)
   | trans _ _ ih₁ ih₂  => exact LPerm.trans ih₁ ih₂
+
+/-! ## §5 — the per-term reindex (adjacent row swap negates each Leibniz term)
+
+Swapping rows `k, k+1` of `M` maps the term at `pre ++ y :: x :: l` (`k = pre.length`) to the
+**negation** of the term at the position-swapped list `pre ++ x :: y :: l`: the diagonal products
+agree (two factors commute, `mul_left_comm`), and the sign flips (`psign_swap_prefix`).  This is
+the determinant's core combinatorial content; the remaining gate is closure of `perms` under the
+position-swap up to `LPerm`. -/
+
+/-- `prodDiagFrom` splits over append (with the row offset advancing by the prefix length). -/
+theorem prodDiagFrom_append (M : Nat → Nat → Int) : ∀ (i : Nat) (L R : List Nat),
+    prodDiagFrom M i (L ++ R) = prodDiagFrom M i L * prodDiagFrom M (i + L.length) R
+  | i, [],      R => by show prodDiagFrom M i R = 1 * prodDiagFrom M i R; rw [Int.one_mul]
+  | i, p :: ps, R => by
+    have hidx : (i + 1) + ps.length = i + (ps.length + 1) := by
+      rw [Nat.add_assoc, Nat.add_comm 1 ps.length]
+    show M i p * prodDiagFrom M (i + 1) (ps ++ R)
+       = (M i p * prodDiagFrom M (i + 1) ps) * prodDiagFrom M (i + (ps.length + 1)) R
+    rw [prodDiagFrom_append M (i + 1) ps R, ← hidx, mul_assoc]
+
+/-- Swap rows `k` and `k+1` of a matrix. -/
+def rowSwapAt (k : Nat) (M : Nat → Nat → Int) : Nat → Nat → Int :=
+  fun r c => if r = k then M (k + 1) c else if r = k + 1 then M k c else M r c
+
+/-- `rowSwapAt` is unchanged on a row `r ≠ k, k+1`. -/
+theorem rowSwapAt_other (k : Nat) (M : Nat → Nat → Int) {r : Nat} (h1 : r ≠ k) (h2 : r ≠ k + 1)
+    (c : Nat) : rowSwapAt k M r c = M r c := by
+  show (if r = k then M (k + 1) c else if r = k + 1 then M k c else M r c) = M r c
+  rw [if_neg h1, if_neg h2]
+
+/-- Below the swap (`rows < k`): `prodDiagFrom` is unaffected. -/
+theorem prodDiagFrom_eq_below (k : Nat) (M : Nat → Nat → Int) : ∀ (i : Nat) (p : List Nat),
+    i + p.length ≤ k → prodDiagFrom (rowSwapAt k M) i p = prodDiagFrom M i p
+  | _, [],      _ => rfl
+  | i, q :: qs, h => by
+    have hik : i < k :=
+      Nat.lt_of_lt_of_le (Nat.lt_add_of_pos_right (Nat.succ_pos qs.length)) h
+    have hile : (i + 1) + qs.length ≤ k := by
+      rw [Nat.add_assoc, Nat.add_comm 1 qs.length]; exact h
+    show rowSwapAt k M i q * prodDiagFrom (rowSwapAt k M) (i + 1) qs
+       = M i q * prodDiagFrom M (i + 1) qs
+    rw [rowSwapAt_other k M (Nat.ne_of_lt hik) (Nat.ne_of_lt (Nat.lt_trans hik (Nat.lt_succ_self k))),
+        prodDiagFrom_eq_below k M (i + 1) qs hile]
+
+/-- Above the swap (`rows ≥ k+2`): `prodDiagFrom` is unaffected. -/
+theorem prodDiagFrom_eq_above (k : Nat) (M : Nat → Nat → Int) : ∀ (i : Nat) (p : List Nat),
+    k + 2 ≤ i → prodDiagFrom (rowSwapAt k M) i p = prodDiagFrom M i p
+  | _, [],      _ => rfl
+  | i, q :: qs, h => by
+    have hki : k < i := Nat.lt_of_lt_of_le (Nat.lt_succ_self k) (Nat.le_trans (Nat.le_succ _) h)
+    have hk1i : k + 1 < i := Nat.lt_of_lt_of_le (Nat.lt_succ_self (k + 1)) h
+    show rowSwapAt k M i q * prodDiagFrom (rowSwapAt k M) (i + 1) qs
+       = M i q * prodDiagFrom M (i + 1) qs
+    rw [rowSwapAt_other k M (Ne.symm (Nat.ne_of_lt hki)) (Ne.symm (Nat.ne_of_lt hk1i)),
+        prodDiagFrom_eq_above k M (i + 1) qs (Nat.le_trans h (Nat.le_succ i))]
+
+/-- `rowSwapAt` at the swapped row `k` reads row `k+1`. -/
+theorem rowSwapAt_at (k : Nat) (M : Nat → Nat → Int) (c : Nat) :
+    rowSwapAt k M k c = M (k + 1) c := by
+  show (if k = k then M (k + 1) c else if k = k + 1 then M k c else M k c) = M (k + 1) c
+  rw [if_pos rfl]
+
+/-- `rowSwapAt` at `k+1` reads row `k`. -/
+theorem rowSwapAt_at1 (k : Nat) (M : Nat → Nat → Int) (c : Nat) :
+    rowSwapAt k M (k + 1) c = M k c := by
+  show (if k + 1 = k then M (k + 1) c else if k + 1 = k + 1 then M k c else M (k + 1) c) = M k c
+  rw [if_neg (Nat.ne_of_lt (Nat.lt_succ_self k)).symm, if_pos rfl]
+
+/-- The diagonal products of `M` (at the position-swapped list) and of `rowSwapAt k M` agree:
+    the two affected factors commute (`mul_left_comm`); the rest match. -/
+theorem prodDiag_rowSwap (M : Nat → Nat → Int) (pre : List Nat) (x y : Nat) (l : List Nat) :
+    prodDiagFrom (rowSwapAt pre.length M) 0 (pre ++ y :: x :: l)
+      = prodDiagFrom M 0 (pre ++ x :: y :: l) := by
+  rw [prodDiagFrom_append (rowSwapAt pre.length M) 0 pre (y :: x :: l),
+      prodDiagFrom_append M 0 pre (x :: y :: l),
+      prodDiagFrom_eq_below pre.length M 0 pre (Nat.le_of_eq (Nat.zero_add pre.length)),
+      Nat.zero_add]
+  show prodDiagFrom M 0 pre * (rowSwapAt pre.length M pre.length y *
+         (rowSwapAt pre.length M (pre.length + 1) x *
+           prodDiagFrom (rowSwapAt pre.length M) (pre.length + 2) l))
+     = prodDiagFrom M 0 pre *
+         (M pre.length x * (M (pre.length + 1) y * prodDiagFrom M (pre.length + 2) l))
+  rw [rowSwapAt_at, rowSwapAt_at1,
+      prodDiagFrom_eq_above pre.length M (pre.length + 2) l (Nat.le_refl _),
+      mul_left_comm (M (pre.length + 1) y)]
+
+/-- ★ **Per-term identity.**  An adjacent row swap (rows `k = pre.length`, `k+1`) sends the
+    Leibniz term at `pre ++ y :: x :: l` to the negation of the term at `pre ++ x :: y :: l`
+    (for `x ≠ y`).  The diagonal products agree; the sign flips. -/
+theorem leibTerm_rowSwap (M : Nat → Nat → Int) (pre : List Nat) {x y : Nat} (l : List Nat)
+    (h : x ≠ y) :
+    leibTerm (rowSwapAt pre.length M) (pre ++ y :: x :: l)
+      = - leibTerm M (pre ++ x :: y :: l) := by
+  show psign (pre ++ y :: x :: l) * prodDiagFrom (rowSwapAt pre.length M) 0 (pre ++ y :: x :: l)
+     = -(psign (pre ++ x :: y :: l) * prodDiagFrom M 0 (pre ++ x :: y :: l))
+  rw [prodDiag_rowSwap, psign_swap_prefix pre l h, neg_mul]
 
 end E213.Lib.Math.Linalg213.Permutation
