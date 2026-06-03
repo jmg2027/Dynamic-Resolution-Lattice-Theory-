@@ -63,3 +63,42 @@ State the count/difference-Lens content directly; treat `ℤ[i]`, "discriminant"
 `06_lens_readings §6.7` and `Mobius213OneAsGlue` already follow).  `∅-axiom-correct ≠ 213-native`.
 The imported files keep their PURE theorems (true arithmetic about imported substrate) but now
 carry a "cited-classical substrate, native content is the count triple + period-2 sign" caveat.
+
+## Addendum — "why ℤ?": the Cassini/disc edifice is readout-layer, not foundational
+
+Deep multi-agent re-research (foundational re-derivation + adversarial "is ℤ avoidable") on:
+*can the disc/Cassini structure be re-expressed below ℤ, at the residue + count-Lens(ℕ) + Bool-sign
+layer?*  Decisive synthesis:
+
+**The Lens tower for this structure** (`06_lens_readings §6.7`): residue/slash (only distinguishing
++ depth — NO operation) → **count-Lens** (ℕ; addition = count on concatenation) → **iterated-count**
+(× = count-Lens on a count-Lens output; assoc/distrib are theorems, not Lens facts) → **difference-
+Lens** (ℤ; sign = Bool pair-swap, "the readout group in which iterated differencing closes").
+
+So the Cassini, being **quadratic** (`s²`, `a·b`) and a **difference** (`s·s − s·s`), sits at
+*iterated-count + difference* — **≥3 Lens-steps above the residue**.  Multiplication itself is NOT
+residue-native (it is iterated count).  ⟹ the whole disc/axis/Cassini marathon is **readout-layer
+math, not foundational**.  Foundational = the residue/slash/self-pointing layer (the earlier
+µF/νF/`CoResidue` work), where there is no ℤ, no ℕ-multiplication, no Cassini.
+
+**Why ℤ is used (and where it is unavoidable vs avoidable):**
+  - **ℤ-UNAVOIDABLE** for the *signed/alternating* Cassini: `det(n+1) = q·det(n)` with `q=−1` is a
+    sign flip — inexpressible without a sign-closed object (`−(−x)=x`), which *is* ℤ = the
+    difference-Lens.  §6.7 names this exactly.  Also the negation-fixed-point `0` (the diagonal pair
+    `(m,m)` = clause-4's forbidden self-pair) — no ℕ analog.
+  - **GENUINELY BELOW ℤ** (pure count-Lens ℕ, no difference): (a) **`NT_is_nonsquare_count`** —
+    `1² < NT < 2²` ∧ `¬∃m, m·m = NT` (the foundational form of "disc −2 skipped": `NT` is a
+    non-square count, the leaf-count of no squared chain — zero ℤ/disc/trace); (b) the *additive*
+    Cassini norm `a²+1 = a·b+b²` (`fib_cassini_norm`), genuine ℕ *but only on the constant-sign
+    slice* — index parity froze the alternation away; (c) the cut/ordering comparisons (`phiCut`).
+  - **RELABELING (ℤ-in-coordinates, NOT below ℤ)**: `NatPairToInt` / `CasoratianSigned`'s `NPair` +
+    `npairEquiv` *is* `ℤ = ℕ²/~` with the quotient named and sign = swap — faithful, ∅-axiom, but a
+    *presentation of ℤ*, exactly what §6.7 says ℤ is.  Calling it "no ℤ" is the "view promoted to
+    identity" smell.
+
+**Bottom line**: the honest floor for the Cassini/disc structure is the difference-Lens (= ℤ) —
+you cannot push it toward the residue, because the Cassini *is* the difference-Lens doing its
+defining job.  The only genuine residue-direction descent is the non-square count fact
+(`NT_is_nonsquare_count`) and the constant-sign additive norm.  And the whole edifice is ≥3
+Lens-steps up — readout-layer, not foundational.  (The user's instinct was right: this is not
+foundational work; the foundation is the slash/residue layer, ℤ-free and Cassini-free.)

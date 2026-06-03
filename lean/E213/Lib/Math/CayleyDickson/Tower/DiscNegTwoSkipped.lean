@@ -41,6 +41,17 @@ theorem no_nat_sqrt_two : ¬ ∃ n : Nat, n * n = 2 := by
       rw [h] at hle
       exact absurd hle (by decide)
 
+/-- ★★★ **The count-Lens-native (below-ℤ) form of the skip: `NT` is a non-square count.**  No
+    "discriminant", no "trace", no `ℤ` — purely the count-Lens: `NT = 2` is a count strictly
+    *between consecutive count-squares* (`1² < NT < 2²`), so it is the leaf-count of no squared
+    chain (`¬ ∃ m, m·m = NT`).  This is the genuinely-foundational reading of "disc −2 skipped":
+    the imported `ℤ`-discriminant statement `t² − 4 ≠ −2` is the difference-Lens dressing of this
+    one `ℕ` fact — `NT` is non-square, so no count squares to it.  (The signed/`ℤ` framing below is
+    the difference-Lens readout; *this* is what survives stripping `ℤ`.) -/
+theorem NT_is_nonsquare_count :
+    (1 * 1 < NT ∧ NT < 2 * 2) ∧ (¬ ∃ m : Nat, m * m = NT) :=
+  ⟨by decide, fun ⟨m, hm⟩ => no_nat_sqrt_two ⟨m, hm⟩⟩
+
 /-- ★★★ **The integer elliptic traces skip disc −2.**  The only `|tr| < 2` integer traces,
     `tr ∈ {−1, 0, 1}`, give discriminants `tr² − 4 ∈ {−3, −4}` — and **none equals −2**.  Since a
     negative discriminant forces `|tr| < 2` (elliptic), `−2` is unreachable by any `SL₂(ℤ)`
