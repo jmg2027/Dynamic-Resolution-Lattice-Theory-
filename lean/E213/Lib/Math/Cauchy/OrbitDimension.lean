@@ -44,7 +44,7 @@ namespace E213.Lib.Math.Cauchy.OrbitDimension
 open E213.Lib.Math.Cauchy.NewtonGregory
   (diffZ liftKZ isConstZ polyDepthZ mul_zero')
 open E213.Lib.Math.Cauchy.FiniteDepthAlgebra
-  (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift liftKZ_add)
+  (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift liftKZ_add liftKZ_congrZ)
 open E213.Meta.Int213.PolyIntM (powInt)
 open E213.Meta.Int213
   (zero_mul mul_add add_comm mul_comm zero_add mul_one mul_eq_zero sub_add_cancel_int neg_mul)
@@ -128,6 +128,14 @@ theorem linComb_shift (c : Nat → Int) (s : Nat → Int) :
        = linComb c s k (n + 1) + c k * liftKZ k s (n + 1)
     rw [linComb_shift c s k n, liftKZ_shift s k n]
 
+/-- `linComb` respects pointwise equality of the sequence argument. -/
+theorem linComb_congr {s t : Nat → Int} (c : Nat → Int) (h : ∀ m, s m = t m) :
+    ∀ k n, linComb c s k n = linComb c t k n
+  | 0,   _ => rfl
+  | k+1, n => by
+    show linComb c s k n + c k * liftKZ k s n = linComb c t k n + c k * liftKZ k t n
+    rw [linComb_congr c h k n, liftKZ_congrZ h k n]
+
 /-! ## §3 — the inclusions: polynomial ⟹ C-finite ⟹ (not back) -/
 
 /-- ★ **Polynomial ⟹ C-finite.**  A degree-`d` polynomial has `Δ^{d+1} s ≡ 0`
@@ -191,6 +199,13 @@ theorem cfiniteZ_add_sameRec {s t : Nat → Int} {k : Nat} {c : Nat → Int}
   refine ⟨k, c, fun n => ?_⟩
   rw [liftKZ_add s t k n, hs n, ht n, linComb_add c s t k n]
 
+/-- **C-finite respects pointwise equality.** -/
+theorem cfiniteZ_congr {s t : Nat → Int} (h : ∀ n, s n = t n) (hs : CFiniteZ s) :
+    CFiniteZ t := by
+  obtain ⟨k, c, hrec⟩ := hs
+  refine ⟨k, c, fun n => ?_⟩
+  rw [← liftKZ_congrZ h k n, hrec n, linComb_congr c h k n]
+
 /-! ## §5 — the general geometric family `cⁿ` (orbit dimension 1) -/
 
 /-- The geometric sequence `n ↦ cⁿ` over `ℤ`, via the core-free power `powInt`.
@@ -252,6 +267,22 @@ theorem geom_not_polyDepthZ {c : Int} (hc : c ≠ 1) (d : Nat) :
   apply hc
   have hcc : c - 1 + 1 = 0 + 1 := congrArg (· + 1) hc1
   rwa [sub_add_cancel_int, zero_add] at hcc
+
+/-- `cⁿ·dⁿ = (cd)ⁿ` — the geometric bases multiply. -/
+theorem powInt_mul_base (c d : Int) : ∀ n, powInt c n * powInt d n = powInt (c * d) n
+  | 0   => Int.one_mul 1
+  | n+1 => by
+    show powInt c n * c * (powInt d n * d) = powInt (c * d) n * (c * d)
+    rw [← powInt_mul_base c d n]
+    ring_intZ
+
+/-- ★ **Hadamard product, geometric case:** `cⁿ · dⁿ` is C-finite (it *is* `(cd)ⁿ`,
+    orbit dimension 1).  A concrete instance of the C-finite ring's *product*
+    closure — the orbit dimensions multiply `1·1 = 1` (the general Hadamard closure
+    is the open frontier; here the geometric tensor is explicit). -/
+theorem cfiniteZ_geom_mul (c d : Int) :
+    CFiniteZ (fun n => geomZ c n * geomZ d n) :=
+  cfiniteZ_congr (fun n => (powInt_mul_base c d n).symm) (cfiniteZ_geom (c * d))
 
 /-! ## §6 — a non-geometric witness: Fibonacci (orbit dimension 2) -/
 
