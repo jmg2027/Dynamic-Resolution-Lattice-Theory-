@@ -241,8 +241,12 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Invert universal property + deep-research additions (2026-06-03)
 
-`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **15 PURE / 0 DIRTY**.  The invert
-move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free.
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
+move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,
+**validated concretely**: `intTarget` (`Int` as an `AbTarget` from the PURE `Int213` kit),
+`natToInt_hom`, `liftZ`, and `addCCS_completion_is_Int` — the additive completion of
+`(Nat213, +)` is `ℤ` (`liftZ` is the integer-difference map; `(2,1) ↦ +1`, `(1,2) ↦ −1`), and by
+the capstone it is the unique factoring hom.  The universal property is non-vacuous.
 `AbTarget` (abelian-group target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`;
 existence — `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine`
 (homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`); uniqueness — `lift_unique`

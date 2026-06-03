@@ -86,8 +86,10 @@ inside a Lens-readout.  Completed the law:
   (existence ∧ uniqueness) is `invert_is_the_universal_group_completion`.  The only AC issue was
   for `g`'s that do *not* respect `pairEquiv` — but those are not maps on the completion at all,
   so the hypothesis is not a restriction, it is the definition of "map on the completion".
-- Instantiate the universal property at `addCCS → Int` and `mulCCS → QPos` (an `AbTarget` for
-  `Int` from the PURE `Int213` kit) to recover `npairToInt`/`qpair` as `lift` — validation, not
-  new content.
+- **Int instantiation — DONE** (`intTarget`, `natToInt_hom`, `liftZ`, `addCCS_completion_is_Int`):
+  the additive completion of `(Nat213, +)` is `ℤ` — `liftZ` is the integer-difference map,
+  `(2,1) ↦ +1`, `(1,2) ↦ −1`, and by the capstone it is the unique factoring hom.  The universal
+  property is non-vacuous.  (A `mulCCS → QPos` instance would need a concrete `ℚ_+` group type,
+  which the repo does not have — the pair model `NatPairToQPos` is itself that type.)
 - The "diagram of universal constructions" is narrative; if ever formalized it must NOT be a
   "lattice of adjoints" (4th vocabulary) — stay with the shared-unit (downward) unification.

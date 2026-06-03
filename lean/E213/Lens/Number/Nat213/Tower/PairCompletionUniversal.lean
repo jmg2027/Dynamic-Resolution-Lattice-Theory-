@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Tower.PairCompletion
+import E213.Meta.Int213.Core
 
 /-!
 # PairCompletionUniversal — the invert move is THE universal group completion
@@ -29,7 +30,8 @@ namespace E213.Lens.Number.Nat213.Tower.PairCompletionUniversal
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Tower.PairCompletion
-  (CommCancelSemigroup pairEquiv combine swap diagonal_single_class combine_swap_equiv_diagonal)
+  (CommCancelSemigroup pairEquiv combine swap diagonal_single_class combine_swap_equiv_diagonal
+   addCCS)
 
 /-- An abelian-group target, all laws as `∀`-quantified equalities (PURE — no `funext`,
     no Mathlib `Group`).  The invert completion factors into any such target. -/
@@ -223,5 +225,51 @@ theorem invert_is_the_universal_group_completion
         ∀ p : Nat213 × Nat213, g p = lift M H f p) :=
   ⟨fun hpq => lift_respects_pairEquiv hf hpq, lift_combine hf, lift_eta hf,
    fun g gr gh ge p => lift_unique hf g gr gh ge Nat213.one p⟩
+
+/-! ### The universal property is non-vacuous: the additive completion is `ℤ`
+
+`Int` as an `AbTarget` (from the PURE `Int213` kit), and the `Nat213 → ℤ` embedding
+`n ↦ ofNat n.toNat`, instantiate the universal property at the additive instance.  Then `lift`
+is the integer-difference map, its values are the integers, and (by
+`invert_is_the_universal_group_completion`) it is the *unique* factoring hom — so the additive
+completion of `(Nat213, +)` is `ℤ`. -/
+
+/-- `Int` as an abelian-group target (PURE `Int213` laws). -/
+def intTarget : AbTarget where
+  carrier := Int
+  add := fun a b => a + b
+  neg := fun a => -a
+  zero := 0
+  add_comm := E213.Meta.Int213.add_comm
+  add_assoc := E213.Meta.Int213.add_assoc
+  add_zero := Int.add_zero
+  add_neg := E213.Meta.Int213.add_neg_cancel
+
+/-- `n ↦ ofNat n.toNat` is a semigroup-hom from `(Nat213, +)` to `ℤ`. -/
+theorem natToInt_hom (x y : Nat213) :
+    (fun n : Nat213 => Int.ofNat n.toNat) (addCCS.op x y)
+      = intTarget.add ((fun n : Nat213 => Int.ofNat n.toNat) x)
+                      ((fun n : Nat213 => Int.ofNat n.toNat) y) :=
+  calc Int.ofNat (Nat213.add x y).toNat
+      = Int.ofNat (x.toNat + y.toNat) := by rw [Nat213.toNat_add]
+    _ = Int.ofNat x.toNat + Int.ofNat y.toNat := rfl
+
+/-- The universal `lift` of the `Nat213 → ℤ` embedding, typed as `ℤ` — the integer-difference
+    map `(a, b) ↦ a.toNat − b.toNat`. -/
+def liftZ (p : Nat213 × Nat213) : Int :=
+  lift addCCS intTarget (fun n : Nat213 => Int.ofNat n.toNat) p
+
+/-- ★★★ **The additive completion of `(Nat213, +)` is `ℤ`.**  The embedding `n ↦ ofNat n.toNat`
+    is a hom; the universal `lift` into `ℤ` (`liftZ`) is the integer-difference map; its values
+    are the integers (`(2,1) ↦ +1`, `(1,2) ↦ −1`).  By
+    `invert_is_the_universal_group_completion` this `lift` is the unique factoring hom — so the
+    universal property is non-vacuous and the additive completion is exactly `ℤ`. -/
+theorem addCCS_completion_is_Int :
+    (∀ x y : Nat213, (fun n : Nat213 => Int.ofNat n.toNat) (addCCS.op x y)
+        = intTarget.add ((fun n : Nat213 => Int.ofNat n.toNat) x)
+                        ((fun n : Nat213 => Int.ofNat n.toNat) y))
+    ∧ liftZ (Nat213.two, Nat213.one) = 1
+    ∧ liftZ (Nat213.one, Nat213.two) = -1 :=
+  ⟨natToInt_hom, by decide, by decide⟩
 
 end E213.Lens.Number.Nat213.Tower.PairCompletionUniversal
