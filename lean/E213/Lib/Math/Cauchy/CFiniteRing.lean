@@ -631,4 +631,135 @@ theorem cfiniteZ_fib_via_shift : CFiniteZ OrbitDimension.fibZ :=
        = OrbitDimension.fibZ n + OrbitDimension.fibZ (n + 1)
     exact add_comm _ _)
 
+/-! ## §10 — the shift-operator algebra `applyShift` (`Δ = applyShift [-1,1]`) -/
+
+/-- The shift operator `Σ_i qᵢ·Eⁱ` applied to `s` (`E` = forward shift), evaluated at
+    `n`.  Mirror of `applyOp` with `E` in place of `Δ`: `applyShift (a::q) s` peels
+    `a·s` and recurses on the *shifted* sequence. -/
+def applyShift : List Int → (Nat → Int) → Nat → Int
+  | [],     _, _ => 0
+  | a :: q, s, n => a * s n + applyShift q (fun m => s (m + 1)) n
+
+/-- `applyShift` respects pointwise equality of the sequence argument. -/
+theorem applyShift_congr (q : List Int) {u v : Nat → Int} (h : ∀ m, u m = v m) :
+    ∀ n, applyShift q u n = applyShift q v n := by
+  induction q generalizing u v with
+  | nil => intro n; rfl
+  | cons a q ih =>
+    intro n
+    show a * u n + applyShift q (fun m => u (m + 1)) n
+       = a * v n + applyShift q (fun m => v (m + 1)) n
+    rw [h n, ih (u := fun m => u (m + 1)) (v := fun m => v (m + 1)) (fun m => h (m + 1)) n]
+
+/-- `applyShift` is additive in its sequence argument. -/
+theorem applyShift_add (q : List Int) (u v : Nat → Int) :
+    ∀ n, applyShift q (fun m => u m + v m) n = applyShift q u n + applyShift q v n := by
+  induction q generalizing u v with
+  | nil => intro n; show (0 : Int) = 0 + 0; rw [zero_add]
+  | cons a q ih =>
+    intro n
+    show a * (u n + v n) + applyShift q (fun m => u (m + 1) + v (m + 1)) n
+       = (a * u n + applyShift q (fun m => u (m + 1)) n)
+         + (a * v n + applyShift q (fun m => v (m + 1)) n)
+    rw [ih (fun m => u (m + 1)) (fun m => v (m + 1)) n, mul_add]
+    show a * u n + a * v n + (applyShift q (fun m => u (m + 1)) n
+           + applyShift q (fun m => v (m + 1)) n)
+       = a * u n + applyShift q (fun m => u (m + 1)) n
+         + (a * v n + applyShift q (fun m => v (m + 1)) n)
+    rw [add_assoc, add_assoc, add_left_comm (a * v n) (applyShift q (fun m => u (m + 1)) n)]
+
+/-- `applyShift` pulls out a scalar from its sequence argument. -/
+theorem applyShift_smul (q : List Int) (c : Int) (s : Nat → Int) :
+    ∀ n, applyShift q (fun m => c * s m) n = c * applyShift q s n := by
+  induction q generalizing s with
+  | nil => intro n; show (0 : Int) = c * 0; rw [mul_zero']
+  | cons a q ih =>
+    intro n
+    show a * (c * s n) + applyShift q (fun m => c * s (m + 1)) n
+       = c * (a * s n + applyShift q (fun m => s (m + 1)) n)
+    rw [ih (fun m => s (m + 1)) n, mul_add]
+    show a * (c * s n) + c * applyShift q (fun m => s (m + 1)) n
+       = c * (a * s n) + c * applyShift q (fun m => s (m + 1)) n
+    rw [mul_left_comm' a c (s n)]
+
+/-- `applyShift` of the zero sequence is `0`. -/
+theorem applyShift_zero (q : List Int) {s : Nat → Int} (h : ∀ m, s m = 0) :
+    ∀ n, applyShift q s n = 0 := by
+  induction q generalizing s with
+  | nil => intro n; rfl
+  | cons a q ih =>
+    intro n
+    show a * s n + applyShift q (fun m => s (m + 1)) n = 0
+    rw [h n, mul_zero', ih (s := fun m => s (m + 1)) (fun m => h (m + 1)) n, zero_add]
+
+/-- `applyShift` commutes with the shift: `applyShift q (E s) n = (applyShift q s)(n+1)`. -/
+theorem applyShift_shift (q : List Int) (s : Nat → Int) : ∀ n,
+    applyShift q (fun m => s (m + 1)) n = applyShift q s (n + 1) := by
+  induction q generalizing s with
+  | nil => intro n; rfl
+  | cons a q ih =>
+    intro n
+    show a * s (n + 1) + applyShift q (fun m => s (m + 1 + 1)) n
+       = a * s (n + 1) + applyShift q (fun m => s (m + 1)) (n + 1)
+    rw [ih (fun m => s (m + 1)) n]
+
+/-- `applyShift` of a sum of operators (`addL`) is the sum. -/
+theorem applyShift_addL (p q : List Int) (s : Nat → Int) :
+    ∀ n, applyShift (addL p q) s n = applyShift p s n + applyShift q s n := by
+  induction p generalizing q s with
+  | nil => intro n; show applyShift q s n = 0 + applyShift q s n; rw [zero_add]
+  | cons a p ih =>
+    cases q with
+    | nil => intro n; show applyShift (a :: p) s n = applyShift (a :: p) s n + 0; rw [Int.add_zero]
+    | cons b q =>
+      intro n
+      show (a + b) * s n + applyShift (addL p q) (fun m => s (m + 1)) n
+         = (a * s n + applyShift p (fun m => s (m + 1)) n)
+           + (b * s n + applyShift q (fun m => s (m + 1)) n)
+      rw [ih q (fun m => s (m + 1)) n, add_mul]
+      show a * s n + b * s n + (applyShift p (fun m => s (m + 1)) n
+             + applyShift q (fun m => s (m + 1)) n)
+         = a * s n + applyShift p (fun m => s (m + 1)) n
+           + (b * s n + applyShift q (fun m => s (m + 1)) n)
+      rw [add_assoc, add_assoc, add_left_comm (b * s n) (applyShift p (fun m => s (m + 1)) n)]
+
+/-- `applyShift` of a scaled operator (`smulL`) is the scalar multiple. -/
+theorem applyShift_smulL (c : Int) (p : List Int) (s : Nat → Int) :
+    ∀ n, applyShift (smulL c p) s n = c * applyShift p s n := by
+  induction p generalizing s with
+  | nil => intro n; show (0 : Int) = c * 0; rw [mul_zero']
+  | cons b p ih =>
+    intro n
+    show c * b * s n + applyShift (smulL c p) (fun m => s (m + 1)) n
+       = c * (b * s n + applyShift p (fun m => s (m + 1)) n)
+    rw [ih (fun m => s (m + 1)) n, mul_add, mul_assoc]
+
+/-- `applyShift (0 :: p) s = applyShift p (E s)` (prepending a zero = shift up one `E`-power). -/
+theorem applyShift_cons0 (p : List Int) (s : Nat → Int) (n : Nat) :
+    applyShift (0 :: p) s n = applyShift p (fun m => s (m + 1)) n := by
+  show (0 : Int) * s n + applyShift p (fun m => s (m + 1)) n
+     = applyShift p (fun m => s (m + 1)) n
+  rw [zero_mul, zero_add]
+
+/-- **Convolution = shift-operator composition.**  `applyShift (conv p q) s = applyShift p (applyShift q s)`. -/
+theorem applyShift_conv (p q : List Int) (s : Nat → Int) :
+    ∀ n, applyShift (conv p q) s n = applyShift p (applyShift q s) n := by
+  induction p generalizing s with
+  | nil => intro n; rfl
+  | cons a p ih =>
+    intro n
+    show applyShift (addL (smulL a q) (0 :: conv p q)) s n
+       = a * applyShift q s n + applyShift p (fun m => applyShift q s (m + 1)) n
+    rw [applyShift_addL (smulL a q) (0 :: conv p q) s n, applyShift_smulL a q s n,
+        applyShift_cons0 (conv p q) s n, ih (fun m => s (m + 1)) n,
+        applyShift_congr p (u := applyShift q (fun m => s (m + 1)))
+          (v := fun m => applyShift q s (m + 1)) (fun m => applyShift_shift q s m) n]
+
+/-- ★ **`Δ` is a shift operator: `applyShift [-1,1] = Δ`.**  `(E − I)s(n) = s(n+1) − s(n)`.
+    The mirror of `applyOp_shift` (`E = applyOp [1,1]`). -/
+theorem applyShift_diffBase (s : Nat → Int) (n : Nat) :
+    applyShift [-1, 1] s n = diffZ s n := by
+  show (-1) * s n + (1 * s (n + 1) + 0) = s (n + 1) - s n
+  rw [neg_mul, Int.one_mul, Int.one_mul, Int.add_zero, Int.sub_eq_add_neg, add_comm]
+
 end E213.Lib.Math.Cauchy.CFiniteRing
