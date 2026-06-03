@@ -255,3 +255,32 @@ underway in `Linalg213/Permutation.lean` (**12 PURE**):
    `leibDet` and use `leibDet` throughout.
 
 Cornerstones §1–§5 are route-A-essential and reusable regardless; the perms-closure + nodup is the gate.
+
+### Closure development (`Linalg213/PermClosure.lean`) — marathon in progress
+
+The gate `LPerm (map (swapAt k) (perms n)) (perms n)` is being built bottom-up.  **Done (PURE):**
+- **§0** clean ∅-axiom `List` membership (`mem_append'`/`map'`/`flatMap'`/`singleton'` — structural
+  on `List.Mem`, since core's `mem_*` iff-lemmas are `propext`/`Quot`-tainted).
+- **§1** `LPerm.mem` (membership preserved), `lperm_swap_prefix`.
+- **§2** soundness: `insEv_sound`, `permsOf_sound` (every enumerated list is a rearrangement).
+- **§3** `LPerm.length_eq`; occurrence count `cnt` + `cnt_lperm` (LPerm-invariant).
+- **§4** ★ `lperm_of_cnt_eq` — **count-equality ⟹ `LPerm`** (the cancellation engine), via
+  `cnt_append`/`cnt_eq_zero_nil`/`cnt_pos_mem`/`mem_split`/`lperm_mid_to_front` +
+  `add_left_cancel'` (propext-free replacement for the tainted `Nat.add_left_cancel`).
+
+**Remaining (next sessions):**
+1. **Generalize** `cnt`/`lperm_of_cnt_eq` to `{α} [DecidableEq α]` (counts of *lists* — the
+   elements of `perms n` are `List Nat`).  Decidable casing via explicit `DecidableEq` instance
+   match (avoid `by_cases`/Classical).
+2. **`swapAt_invol`** (`swapAt k (swapAt k p) = p`) + **`cnt_map_inv`** (`cnt q (map f L) =
+   cnt (f q) L` for an involution `f`) ⟹ `cnt q (map (swapAt k) (perms n)) = cnt (swapAt k q) (perms n)`.
+3. **nodup** `Nodup (permsOf xs)` for `Nodup xs` (the hard combinatorial lemma: `nodup_flatMap`
+   + each `insertEverywhere a r` nodup + disjoint images, via `a ∉ r` recoverability).  Needs
+   a clean ∅-axiom `Nodup`.
+4. **completeness** `LPerm q (List.range n) → q ∈ perms n` (via `insEv_complete` + `lperm_of_cnt_eq`
+   for the recursion).  With nodup ⟹ `cnt q (perms n) = (1 if q ∈ perms n else 0)`.
+5. **closure**: `cnt (swapAt k q) (perms n) = cnt q (perms n)` (both `= 1`/`0` since
+   `swapAt k q ~ q ~ range n` and nodup) ⟹ via `lperm_of_cnt_eq` the closure `LPerm`.
+6. **alternating assembly**: `leibDet (rowSwapAt k M) = − leibDet M` (per-term `leibTerm_rowSwap`
+   needs each `p ∈ perms n` nodup so `x≠y` at positions `k,k+1`; then `sumZ_map_neg` + `map_lperm`
+   + `sumZ_lperm` + closure), whence equal rows ⟹ `2·leibDet = 0` ⟹ `0` (ℤ domain).
