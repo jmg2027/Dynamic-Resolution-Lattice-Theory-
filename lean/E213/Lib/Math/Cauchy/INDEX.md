@@ -67,8 +67,9 @@ Narrative: `theory/math/completeness_without_completeness.md`.
   - `OrbitDimension.lean`          — above the polynomials: the **C-finite** rung.
                                       `Δ(2ⁿ)=2ⁿ` eigen-identity; `CFiniteZ` (finite
                                       `Δ`-orbit); strict inclusion `polynomial ⊊
-                                      C-finite` (`2ⁿ` C-finite, orbit dim 1, but no
-                                      finite divergence depth); module + shift closure
+                                      C-finite`; module + shift closure; the general
+                                      geometric family `cⁿ` (orbit dim 1) and
+                                      Fibonacci (orbit dim 2) as concrete witnesses
   - `CFiniteRing.lean`             — the **difference-operator algebra** + the
                                       **C-finite ring closure**: `applyOp` (`Σ pᵢΔⁱ`),
                                       `conv` (operator product), `applyOp_comm`

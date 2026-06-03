@@ -20,6 +20,10 @@ polynomial).
   `≡0` since `2⁰=1≠0`.)  This is C-A's headline.
 - `cfiniteZ_smul`, `cfiniteZ_shift`, `cfiniteZ_add_sameRec` : C-finite is a module, shift-stable,
   closed under `+` of sequences sharing one annihilator (the linear half of the ring closure).
+- **Concrete witnesses** (`Cauchy/OrbitDimension` §5–§6): the general geometric family `geomZ c = cⁿ`
+  (`geom_diffZ` `Δ(cⁿ)=(c−1)cⁿ`, `liftKZ_geomZ`, `cfiniteZ_geom` orbit dim 1, `geom_not_polyDepthZ`
+  for `c≠1`) and **Fibonacci** `fibZ` (`cfiniteZ_fib`, orbit dim 2 via `Δ²f=f−Δf`) — concrete
+  sequences at orbit dimensions 1 and 2 above the polynomials.
 
 **The operator algebra + ring law are built (`Cauchy/CFiniteRing`, 28 PURE).**
 

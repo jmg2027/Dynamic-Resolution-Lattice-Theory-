@@ -14,13 +14,16 @@ The G183 thread — the **orbit-dimension ladder** *above* `DepthCharacterizatio
 separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-finite`) and the
 **C-finite operator ring**.
 
-### 1. `Cauchy/OrbitDimension` (15 PURE) — the strict inclusion
+### 1. `Cauchy/OrbitDimension` (24 PURE) — the strict inclusion + concrete witnesses
 - ★ `twoPow_is_diffZ_fixed`: `Δ(2ⁿ)=2ⁿ` (geometric eigen-identity, `ring_intZ` over core-free
   `powInt`); `liftKZ_twoPow_fixed` (every iterate fixes it — orbit = single line).
 - `CFiniteZ s := ∃ k c, ∀n, Δᵏs n = Σ_{i<k} cᵢ·Δⁱs n` (monic `Δ`-orbit recurrence) with `linComb`.
 - ★ `polyDepthZ_cfiniteZ` (polynomial ⟹ C-finite, annihilator `Δ^{d+1}`); ★ `cfiniteZ_twoPow`
   (`2ⁿ` C-finite, annihilator `Δ−1`); ★★★ `twoPow_not_polyDepthZ` (`2ⁿ` not polynomial — strict).
 - `cfiniteZ_smul` / `cfiniteZ_shift` / `cfiniteZ_add_sameRec` (module + shift + shared-annihilator-sum).
+- **§5 general geometric family** `geomZ c = cⁿ`: `geom_diffZ` (`Δ(cⁿ)=(c−1)cⁿ`), `liftKZ_geomZ`,
+  `cfiniteZ_geom` (orbit dim 1), `powInt_eq_zero`, `geom_not_polyDepthZ` (`c≠1` ⟹ not poly).
+- **§6 Fibonacci** `fibZ`: `cfiniteZ_fib` — orbit dimension 2 (`Δ²f=f−Δf`), a non-geometric witness.
 
 ### 2. `Cauchy/CFiniteRing` (41 PURE) — the difference-operator algebra + the ring closure
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
@@ -78,7 +81,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ## File Map
 ```
 NEW Lean (∅-axiom):
-  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite (15 PURE)
+  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci (24 PURE)
   lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges (28 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
