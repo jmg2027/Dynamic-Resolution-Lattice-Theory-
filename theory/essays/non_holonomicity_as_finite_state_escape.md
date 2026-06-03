@@ -98,16 +98,21 @@ is outside it — no finite generating machine.
 The automatic side furnishes a concrete escapee.  Read off the same automaton that emits
 Thue–Morse, the digit counter `s2 = popcount` is **unbounded** (`ThueMorseAperiodic.s2_unbounded`:
 `s2(ones k) = k`) yet returns to its minimum `1` at every power of two (`s2_pw2 : s2(2^k)=1`), so
-it is *not eventually monotone* — proven ∅-axiom (`s2_not_eventually_monotone`).  By the standard
-fact that a finite-Δ-depth integer sequence is eventually a polynomial in `n` — hence eventually
-monotone — `popcount` carries **no** finite difference-depth: the automatic counter sits *outside*
-the generating ring while its bounded `{0,1}` readout `tm` is the dense non-holonomic witness.  The
-two facts are one structure seen at its two ends: the bounded readout escapes the *machine*
-(term-window), the unbounded counter escapes the *ring* (finite Δ-depth).  The 213-native half —
-non-monotonicity — is closed ∅-axiom; the bridge `polyDepth d s ⟹ eventually monotone` is the one
-classical step still to formalise — the faithful-`Int`, both-sign analogue of
-`PositiveFloorUnbounded.positive_floor_unbounded`, whose vanishing-top-difference case is exactly
-where `popcount`'s sub-linear growth hides the oscillation.
+it is *not eventually monotone* — proven ∅-axiom (`s2_not_eventually_monotone`).  This now closes
+to a full theorem: `ThueMorseRingEscape.s2Z_not_polyDepthZ : ¬ ∃ d, polyDepthZ d s2Z` — `popcount`
+carries **no** finite difference-depth, the automatic counter sits *outside* the generating ring
+while its bounded `{0,1}` readout `tm` is the dense non-holonomic witness.  The two facts are one
+structure seen at its two ends: the bounded readout escapes the *machine* (term-window), the
+unbounded counter escapes the *ring* (finite Δ-depth).
+
+The bridge is `PolyDepthMonotone.polyDepthZ_evMono` — **every finite-Δ-depth integer sequence is
+eventually monotone** (non-decreasing or non-increasing), the LPO-free engine built on the
+sign trichotomy of the constant top difference: `c > 0` gives eventual *strict* increase (the
+faithful-`Int` port of `PositiveFloorUnbounded`'s descent), `c < 0` its negation, and `c = 0`
+genuinely drops the depth (faithful `Int` difference, no `ℕ` truncation).  Composed with `s2`'s
+non-monotonicity it rules out every depth; the `Int` ordering it needs is the standalone
+∅-axiom layer `Int213.Order` (rebuilt from `Int.NonNeg`, since Lean-core `Int.le_trans`/
+`lt_trichotomy` carry `propext`).
 
 ## Two finite-state notions, diverging at Thue–Morse
 
@@ -224,6 +229,8 @@ The ∅-axiom reach is now complete across both machine classes and both densiti
 `lean/E213/Lib/Math/Cauchy/{ZeroRunNonHolonomic, ZeroRunNonHolonomicWitness,
 NonHolonomicWitness, MorseHedlund, ThueMorseAperiodic}` (the escape certificates, the dense
 Morse–Hedlund direction, and the witnesses — including the genuinely-dense Thue–Morse);
+`Cauchy/{PolyDepthMonotone, ThueMorseRingEscape}` + `Meta/Int213/Order` (the finite-depth ⟹
+eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` ordering layer);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra}` (the difference-Lens generating ring);
 `Real213/PresentationDependence` (pointing, not number).

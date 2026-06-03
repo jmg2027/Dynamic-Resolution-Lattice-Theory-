@@ -122,23 +122,30 @@ eventually monotone — so `popcount` has no finite difference-depth: it sits *o
 dense non-holonomic witness.  One structure, two ends: the readout escapes the *machine*, the
 counter escapes the *ring*.
 
-**Honest Lean status + the missing bridge.**  `s2_not_eventually_monotone` (213-native, ∅-axiom)
-is the proven half.  Turning it into `¬ ∃ d, polyDepth d s2` needs exactly one bridge lemma:
+**Lean status: CLOSED.**  `s2_not_eventually_monotone` (213-native) + the bridge now give the full
+theorem `ThueMorseRingEscape.s2Z_not_polyDepthZ : ¬ ∃ d, polyDepthZ d s2Z` (∅-axiom).  Built in
+three files:
 
-> **`eventually_monotone_of_polyDepth` (open ∅-axiom target).**  `polyDepth d s → ∃ N, ∀ m n,
-> N ≤ m → m ≤ n → s m ≤ s n` (a finite-Δ-depth integer sequence is eventually monotone).
+  - **`Meta/Int213/Order.lean`** (33 PURE) — the `Int` ordering layer the repo lacked (Lean-core
+    `Int.le_trans`/`lt_trichotomy` carry `propext`): `le_trans`/`lt_trans`/`lt_of_le_of_lt`,
+    `lt_irrefl` (contradiction engine), `add_le_add_*`, sign trichotomy `pos_zero_or_neg`,
+    negation-reverses-order, the `ofNat` embedding — all from the inductive `Int.NonNeg` +
+    `ring_intZ`.
+  - **`Cauchy/PolyDepthMonotone.lean`** (11 PURE) — `polyDepthZ_evMono`: **every finite-Δ-depth
+    integer sequence is eventually monotone** (non-decreasing or non-increasing).  LPO-free via
+    the constant-top-difference sign trichotomy: `c>0` ⟹ eventual strict increase
+    (`posTop_evStrictMonoZ`, the faithful-`Int` port of `positive_floor`'s descent, using the
+    eventual-positivity telescope `evStrictMonoZ_eventually_pos`), `c<0` ⟹ negation
+    (`liftKZ_negS_apply`, pointwise to avoid `funext`'s `Quot.sound`), `c=0` ⟹ genuine depth-drop
+    (faithful `Int` difference, no `ℕ` truncation — exactly the branch the `ℕ` version could not
+    close).
+  - **`Cauchy/ThueMorseRingEscape.lean`** (4 PURE) — `s2Z_not_polyDepthZ`: `MonoFromZ` contradicts
+    `s2_not_eventually_monotone`; `AntiFromZ` ⟹ bounded ⟹ contradicts `s2_unbounded` (via
+    `s2 (ones k) = k`).
 
-Why it is not a quick reuse of `positive_floor_unbounded`: that lemma only fires when the top
-difference is `≥ 1`, where it already builds `EvStrictMono` internally (via `evStrictMono_descend`)
-— so the `c ≥ 1` branch of the bridge is *one call away*.  The obstruction is the **vanishing**
-top-difference branch (`liftK (e+1) s 0 = 0`): over `ℕ`'s *truncated* `diff`, `liftK(e+1)s ≡ 0`
-only gives `liftK e s` **non-increasing** (not `polyDepth e`), and indeed `popcount` is genuinely
-polynomially bounded (`s2 n ≤ log₂ n ≤ n`), so growth alone yields no contradiction — the
-oscillation is what kills it.  The faithful fix is the **`Int`** version: `polyDepthZ` +
-`NewtonGregory.reconstruct` (exact Newton form, no truncation) + a both-sign `EvStrictMono` /
-`EvStrictAnti` descent (the negative-`c` mirror of `positive_floor`).  Then `s2_not_eventually_
-monotone` contraposes to `¬ ∃ d, polyDepthZ d (Int-embed s2)` cleanly.  Isolated, ∅-axiom-shaped,
-~100 lines; flagged here rather than half-done.
+The earlier worry — that the vanishing-top-difference branch was the obstruction — was right about
+`ℕ` (truncated `diff` only gives non-increasing) and is dissolved over `Int`: faithful `diffZ` makes
+`liftKZ(e+1)s ≡ 0` give `liftKZ e s` *genuinely constant* ⟹ `polyDepthZ e s`, the clean recursion.
 
 ## Honest scope
 

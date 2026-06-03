@@ -25,7 +25,7 @@ State after this leg (all ∅-axiom, pushed):
     zero-run certificate; the real obstruction is the deep automatic∧aperiodic⟹non-holonomic
     theorem, sharing π's open status).
 
-### Conjecture + open Lean target captured (`G185`, on-goal "추측들도 만들고")
+### Conjecture captured + ring-escape bridge CLOSED (`G185`, on-goal "추측들도 만들고")
 Two open items recorded precisely (honest, not half-done):
   - **Dense `HomogRec` escape conjecture** — the crisp shape an *elementary shadow* of
     Cobham/Christol would need (a certificate `C ⟹ ¬HomogRec` for a bounded no-long-run sequence).

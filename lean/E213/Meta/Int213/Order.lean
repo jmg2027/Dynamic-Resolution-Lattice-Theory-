@@ -111,6 +111,22 @@ theorem add_lt_add_right {a b : Int} (h : a < b) (c : Int) : a + c < b + c := by
 
 theorem succ_le_succ {a b : Int} (h : a ≤ b) : a + 1 ≤ b + 1 := add_le_add_right h 1
 
+theorem add_le_add_left {b c : Int} (h : b ≤ c) (a : Int) : a + b ≤ a + c := by
+  apply le_of_sub_nonneg
+  rw [show (a + c) - (a + b) = c - b by ring_intZ]
+  exact sub_nonneg_of_le h
+
+/-- `0 ≤ x + |x|` — the magnitude dominates the negative part. -/
+theorem nonneg_add_natAbs (x : Int) : (0 : Int) ≤ x + Int.ofNat x.natAbs := by
+  match x with
+  | Int.ofNat p =>
+    exact le_zero_of_nonneg
+      ((show Int.ofNat p + Int.ofNat (Int.ofNat p).natAbs = Int.ofNat (p + p) from rfl).symm
+        ▸ (⟨p + p⟩ : (Int.ofNat (p + p)).NonNeg))
+  | Int.negSucc q =>
+    have he : Int.negSucc q + Int.ofNat (Int.negSucc q).natAbs = 0 := add_left_neg (Int.ofNat (q + 1))
+    rw [he]; exact le_refl 0
+
 /-! ## Sign trichotomy on a single integer, and `sub = 0` -/
 
 theorem pos_zero_or_neg (a : Int) : (0 : Int) < a ∨ a = 0 ∨ a < 0 := by
@@ -132,5 +148,42 @@ theorem eq_of_sub_eq_zero {a b : Int} (h : a - b = 0) : a = b := by
   have h2 : a - b + b = 0 + b := by rw [h]
   rw [sub_add_cancel_int, zero_add] at h2
   exact h2
+
+/-! ## Negation reverses order -/
+
+theorem zero_sub (a : Int) : (0 : Int) - a = -a := by show (0 : Int) + -a = -a; exact zero_add (-a)
+
+theorem neg_pos_of_neg {c : Int} (h : c < 0) : (0 : Int) < -c := by
+  apply lt_of_sub_one_nonneg
+  exact (show (0 : Int) - c - 1 = -c - 0 - 1 by rw [zero_sub, sub_zero]) ▸ sub_one_nonneg_of_lt h
+
+theorem lt_of_neg_lt_neg {a b : Int} (h : -b < -a) : a < b := by
+  apply lt_of_sub_one_nonneg
+  exact (show -a - -b - 1 = b - a - 1 by ring_intZ) ▸ sub_one_nonneg_of_lt h
+
+theorem le_of_neg_le_neg {a b : Int} (h : -b ≤ -a) : a ≤ b := by
+  apply le_of_sub_nonneg
+  exact (show -a - -b = b - a by ring_intZ) ▸ sub_nonneg_of_le h
+
+/-! ## `ofNat` order embedding -/
+
+theorem ofNat_sub_ofNat (b a : Nat) : Int.ofNat b - Int.ofNat a = Int.subNatNat b a := by
+  cases a with
+  | zero =>
+    show Int.ofNat b - Int.ofNat 0 = Int.subNatNat b 0
+    rw [subNatNat_zero]; exact sub_zero (Int.ofNat b)
+  | succ j => rfl
+
+theorem ofNat_le {a b : Nat} (h : a ≤ b) : Int.ofNat a ≤ Int.ofNat b := by
+  apply le_of_sub_nonneg
+  rw [ofNat_sub_ofNat, subNatNat_of_le h]; exact ⟨b - a⟩
+
+theorem le_of_ofNat_le {a b : Nat} (h : Int.ofNat a ≤ Int.ofNat b) : a ≤ b := by
+  rcases Nat.lt_or_ge b a with hlt | hge
+  · exfalso
+    have hnn : (Int.ofNat b - Int.ofNat a).NonNeg := sub_nonneg_of_le h
+    rw [ofNat_sub_ofNat, subNatNat_of_lt hlt] at hnn
+    cases hnn
+  · exact hge
 
 end E213.Meta.Int213.Order
