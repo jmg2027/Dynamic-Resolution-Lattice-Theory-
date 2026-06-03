@@ -96,16 +96,16 @@ MODIFIED:
 ```
 
 ## Three-tier state
-- **Active scratchpad**: `research-notes/G183_above_the_polynomials.md` (this thread; C-A *done* —
-  strict inclusion + ring closure under `+` + both bridges + concrete witnesses; C-B/C-D + general
-  Hadamard product open).
-- **Promotion candidate**: the `OrbitDimension`+`CFiniteRing` pair is a clean, mostly-closed sub-tree
-  (sum closure done; only the Hadamard product is open) → eligible for
-  `theory/math/analysis/cfinite_orbit_dimension.md` per `PROMOTION_CRITERIA` (consider once the
-  product closure lands, or promote the `+`-ring now and extend later).
+- **Promoted (thread closed)**: the C-finite / orbit-dimension thread is now a Tier-3 chapter
+  `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 83 PURE);
+  the research note is archived under `research-notes/archive/`.  Open items (C-D forward, Hadamard
+  product, Casoratian rank, holonomic `ℚ(n)`-orbit) live in the chapter's **Open frontier** section.
+- No active Tier-1 scratch remains for this thread.
 
 ## Next
-C-D **reverse** is now done + validated.  Remaining, in rough difficulty order: **C-D forward**
-(CFiniteZ ⟹ shift rec — double-binom assembly of `newton_gregory`(+inverse); closes the full
-equivalence), **Open #1** general Hadamard product (tensor/resultant), **Open #2** C-B (Casoratian
-rank).  Lower-risk alternative: promote the `+`-ring sub-tree to `theory/`.
+**G183 is closed** (promoted to `theory/math/analysis/cfinite_orbit_dimension.md`).  Its documented
+open frontier, if revisited, in rough difficulty order: **C-D forward** (CFiniteZ ⟹ shift rec —
+double-binom assembly of `newton_gregory`(+inverse); closes the full equivalence), the general
+**Hadamard product** `s·t` (tensor/resultant), **C-B** (Casoratian rank = orbit dimension), **C-C**
+(holonomic `ℚ(n)`-orbit, the top rung).  Otherwise: pivot to a fresh thread, or the standing
+**DRLT Validation Standard** (precision theorem + falsifier for one observable).
