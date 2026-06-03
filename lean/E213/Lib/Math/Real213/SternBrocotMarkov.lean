@@ -1198,4 +1198,91 @@ theorem node_false_child {a b c : Nat} (h : IsNode a b c) :
 /-- Base node: the root `[]` realises `(1, 2, 5)`. -/
 theorem isNode_root : IsNode 1 2 5 := ⟨[], by decide, by decide, by decide⟩
 
+/-- **The descent step** (structural core of the reverse bridge): if the Vieta parent `{a, c'}`-pair
+    (max `b`) is a node in either bound-order, and `c' + c = 3·a·b` (the up-jump), then `(a,b,c)` is a
+    node (up to swapping `a,b`).  `a`-bound-order ↦ true-child, `c'`-bound-order ↦ false-child;
+    `c = d` by `Nat` cancellation. -/
+theorem descent_step {a b c c' : Nat} (hcc : c' + c = 3 * a * b)
+    (hp : IsNode a c' b ∨ IsNode c' a b) : IsNode a b c ∨ IsNode b a c := by
+  rcases hp with hp | hp
+  · obtain ⟨d, hd, hjd⟩ := node_true_child hp
+    have hcd : c = d := E213.Tactic.NatHelper.add_left_cancel_pure (hcc.trans hjd.symm)
+    exact Or.inl (by rw [hcd]; exact hd)
+  · obtain ⟨d, hd, hjd⟩ := node_false_child hp
+    have hcd : c = d := E213.Tactic.NatHelper.add_left_cancel_pure (hcc.trans hjd.symm)
+    exact Or.inr (by rw [hcd]; exact hd)
+
+open E213.Lib.Math.Real213.MarkovTree (markovEq markov_symm)
+open E213.Lib.Math.Real213.MarkovUniqueness
+  (markov_le_3mul markov_mid_lt_max markov_partner_is_triple markov_vieta_partner_le
+   markovEq_perm_cab markov_max_unique_5 markov_neighbor_eq)
+
+set_option maxRecDepth 4000 in
+/-- Bounded check: any `(a,b,c)` with `a,b ≤ 4`, `c ≤ 48` and the Markov equation has `c ≤ 5`. -/
+private theorem markov_small_mid :
+    ∀ a, a ≤ 4 → ∀ b, b ≤ 4 → ∀ c, c ≤ 48 →
+      a * a + b * b + c * c = 3 * a * b * c → c ≤ 5 := by decide
+
+/-- The middle entry of an ordered Markov triple with `c ≥ 6` is `≥ 5` (so the descent stays
+    `≥ 5`).  Contrapositive `b ≤ 4 → c ≤ 5` via `markov_small_mid` (with `c ≤ 3ab ≤ 48`). -/
+private theorem markov_mid_ge_5 {a b c : Nat} (h : markovEq a b c) (ha : 1 ≤ a) (hab : a ≤ b)
+    (hc6 : 6 ≤ c) : 5 ≤ b := by
+  rcases Nat.lt_or_ge b 5 with hb | hb
+  · exfalso
+    have hb4 : b ≤ 4 := Nat.le_of_lt_succ hb
+    have ha4 : a ≤ 4 := Nat.le_trans hab hb4
+    have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) hc6
+    have hc3 : c ≤ 3 * a * b := markov_le_3mul a b c hcpos h
+    have hc48 : c ≤ 48 := Nat.le_trans hc3
+      (Nat.le_trans (Nat.mul_le_mul (Nat.mul_le_mul_left 3 ha4) hb4) (by decide))
+    exact absurd (Nat.le_trans hc6 (markov_small_mid a ha4 b hb4 c hc48 h)) (by decide)
+  · exact hb
+
+/-- The reverse bridge by Vieta descent (fuel = `c`): every ordered Markov triple with `5 ≤ c` is a
+    matrix-tree node (up to swapping the two smaller entries).  Base `c = 5` ↦ root `(1,2,5)`; for
+    `c ≥ 6` descend to the parent `{a, b, 3ab−c}` (max `b ≥ 5`, `markov_mid_ge_5`), recurse, and
+    re-ascend by `descent_step`. -/
+theorem reverse_of_fuel : ∀ (fuel a b c : Nat), c ≤ fuel → markovEq a b c → 1 ≤ a → a ≤ b →
+    b ≤ c → 5 ≤ c → IsNode a b c ∨ IsNode b a c
+  | 0, _, _, c, hf, _, _, _, _, h5 => absurd (Nat.le_trans h5 hf) (by decide)
+  | fuel + 1, a, b, c, hf, hm, ha, hab, hbc, h5 => by
+      rcases Nat.lt_or_ge c 6 with hclt | hcge
+      · have hc5 : c = 5 := Nat.le_antisymm (Nat.le_of_lt_succ hclt) h5
+        subst hc5
+        obtain ⟨ha1, hb2⟩ := markov_max_unique_5 a (Nat.le_trans hab hbc) b hbc hab hm
+        subst ha1; subst hb2
+        exact Or.inl isNode_root
+      · have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) hcge
+        have hc2 : 2 ≤ c := Nat.le_trans (by decide) hcge
+        have hbc_strict : b < c := markov_mid_lt_max a b c hm ha hab hbc hc2
+        have hc3 : c ≤ 3 * a * b := markov_le_3mul a b c hcpos hm
+        have hcc : (3 * a * b - c) + c = 3 * a * b := E213.Tactic.NatHelper.sub_add_cancel hc3
+        have hb5 : 5 ≤ b := markov_mid_ge_5 hm ha hab hcge
+        have hc'b : 3 * a * b - c ≤ b := markov_vieta_partner_le a b c hm ha hab hbc_strict
+        have hcp : markovEq a b (3 * a * b - c) := markov_partner_is_triple a b c hc3 hm
+        have hbf : b ≤ fuel := Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hbc_strict hf)
+        have hc'pos : 1 ≤ 3 * a * b - c := by
+          rcases Nat.eq_zero_or_pos (3 * a * b - c) with h0 | hp
+          · exfalso
+            have hpr := markov_neighbor_eq a b c hcpos hm
+            rw [h0, Nat.mul_zero] at hpr
+            have h1 : 1 ≤ a * a + b * b := Nat.le_trans (Nat.mul_pos ha ha) (Nat.le_add_right _ _)
+            rw [hpr] at h1; exact absurd h1 (by decide)
+          · exact hp
+        rcases Nat.lt_or_ge a (3 * a * b - c) with hlt | hge
+        · have m2 : markovEq a (3 * a * b - c) b := markov_symm a b (3 * a * b - c) hcp
+          exact descent_step hcc
+            (reverse_of_fuel fuel a (3 * a * b - c) b hbf m2 ha (Nat.le_of_lt hlt) hc'b hb5)
+        · have m1 : markovEq (3 * a * b - c) a b := markovEq_perm_cab hcp
+          exact descent_step hcc
+            (Or.symm (reverse_of_fuel fuel (3 * a * b - c) a b hbf m1 hc'pos hge hab hb5))
+
+/-- ★★★★★ **The reverse bridge.**  Every ordered Markov triple `(a,b,c)` with `1 ≤ a ≤ b ≤ c` and
+    `5 ≤ c` is realised by a matrix-tree node (with the two smaller entries in either order).  The
+    converse of `mInterval_reachable`; with `slope_path_inj` (§11) this closes the path from abstract
+    triples to the window/injectivity machinery. -/
+theorem reverse_bridge (a b c : Nat) (h : markovEq a b c) (ha : 1 ≤ a) (hab : a ≤ b)
+    (hbc : b ≤ c) (h5 : 5 ≤ c) : IsNode a b c ∨ IsNode b a c :=
+  reverse_of_fuel c a b c (Nat.le_refl c) h ha hab hbc h5
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
