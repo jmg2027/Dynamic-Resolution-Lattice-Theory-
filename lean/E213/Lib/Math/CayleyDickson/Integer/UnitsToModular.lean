@@ -24,6 +24,15 @@ determinant and order `6` as `U` — the same `SL₂` conjugacy class `λ²−λ
 Honest scope: this connects the *units* to `S, U` by a genuine homomorphism.  It does **not**
 formalise `PSL₂(ℤ) ≅ ℤ/2 * ℤ/3` (cited classical), and makes no claim about the Cayley–Dickson
 *dimension* tower `1,2,4,8` (which diverges from the axis `{2,4,6}` at `6 ≠ 8`).
+
+**213-native caveat**: `ℤ[i]`, `ℤ[ω]`, `S`, `U` are *imported* substrate (bare `Int`-pair /
+`Int`-matrix structures — no `NS/NT/d` in their definitions), and `repI i = S` holds by `rfl`
+*because `S` is defined as `repI ⟨0,1⟩`* — a construction-tautology, not a 213 primitive at work.
+The genuinely 213-native content this gestures at is only: the **period-2 swap** (the
+difference-Lens sign, `seed/AXIOM/06_lens_readings.md §6.7`) is the one un-adjoined automorphism,
+and `det = NS − NT = 1` is the glue.  Orders `4, 6` are *adjoined-and-derived* from the two
+non-square residues `−1, −NS`, not native; the unit→generator bridge is structure-preserving-map
+theory about imported objects.  `∅`-axiom-correct ≠ 213-native.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.Integer.UnitsToModular
