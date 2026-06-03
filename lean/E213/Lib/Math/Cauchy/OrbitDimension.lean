@@ -47,7 +47,7 @@ open E213.Lib.Math.Cauchy.FiniteDepthAlgebra
   (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift liftKZ_add)
 open E213.Meta.Int213.PolyIntM (powInt)
 open E213.Meta.Int213
-  (zero_mul mul_add add_comm mul_comm zero_add mul_one mul_eq_zero sub_add_cancel_int)
+  (zero_mul mul_add add_comm mul_comm zero_add mul_one mul_eq_zero sub_add_cancel_int neg_mul)
 
 /-! ## §1 — the geometric eigen-sequence `2ⁿ` over `ℤ` -/
 
@@ -252,5 +252,33 @@ theorem geom_not_polyDepthZ {c : Int} (hc : c ≠ 1) (d : Nat) :
   apply hc
   have hcc : c - 1 + 1 = 0 + 1 := congrArg (· + 1) hc1
   rwa [sub_add_cancel_int, zero_add] at hcc
+
+/-! ## §6 — a non-geometric witness: Fibonacci (orbit dimension 2) -/
+
+/-- Fibonacci over `ℤ`, `fibZ(n+2) = fibZ(n+1) + fibZ n`. -/
+def fibZ : Nat → Int
+  | 0     => 0
+  | 1     => 1
+  | n + 2 => fibZ (n + 1) + fibZ n
+
+/-- The orbit recurrence coefficients for Fibonacci: `Δ²f = f − Δf`
+    (`fibCoeff 0 = 1`, `fibCoeff (i+1) = −1`). -/
+def fibCoeff : Nat → Int
+  | 0     => 1
+  | _ + 1 => -1
+
+/-- ★ **Fibonacci is C-finite with orbit dimension 2** — the cleanest
+    *non-geometric*, *non-polynomial* witness above the polynomials.  The shift
+    recurrence `f(n+2) = f(n+1) + f n` becomes the `Δ`-orbit recurrence
+    `Δ²f = f − Δf` (`E² = I + 2Δ + Δ²`, so `E²−E−I = Δ²+Δ−I`).  Two independent
+    self-relations (`f` and `Δf`) generate the orbit — dimension exactly 2, one
+    above the geometric family. -/
+theorem cfiniteZ_fib : CFiniteZ fibZ := by
+  refine ⟨2, fibCoeff, fun n => ?_⟩
+  show fibZ (n+1+1) - fibZ (n+1) - (fibZ (n+1) - fibZ n)
+     = (0 + 1 * fibZ n) + (-1) * (fibZ (n+1) - fibZ n)
+  rw [show fibZ (n+1+1) = fibZ (n+1) + fibZ n from rfl, neg_mul, zero_add,
+      Int.one_mul, Int.one_mul]
+  ring_intZ
 
 end E213.Lib.Math.Cauchy.OrbitDimension
