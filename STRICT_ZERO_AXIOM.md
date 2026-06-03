@@ -374,6 +374,15 @@ swap_realizes_negation`) is the **elliptic floor** of the dynamic discriminant d
 the dynamic non-holonomicity dial pinned as one structure (shared floor = unit `1`; shared ceiling =
 the residue).
 
+`E213.Lib.Math.CeilingSchema` — **5 PURE**.  The residue ceiling is **one phenomenon**, not five
+engines: `ReachedByNoStage gen target := ∀ s, gen s ≠ target`, `not_surjective_of_reachedByNoStage`
+(the schema *is* non-surjectivity), and `ceilings_are_nonsurjectivity` bundling the universal
+diagonal (`diag_reached`, Cantor archetype `∀ f, ¬Surjective f`), the non-holonomicity escape
+(`s2Z_poly_reached`, popcount = no `newtonZ c d`), and the foundational residue
+(`object1_not_surjective`) as one shape — the finite-stage map missing its target.  Classically one
+Cantor/cardinality argument; ∅-axiom forces named constructive witnesses (the "engines" are
+realizers, the domains Lens-carvings).
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
