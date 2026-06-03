@@ -239,6 +239,44 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Invert universal property + deep-research additions (2026-06-03)
+
+`E213.Lens.Number.FoundingDialUnification` — **1 PURE / 0 DIRTY**.  The number-tower founding
+meets the concurrent non-holonomicity discriminant-dial marathon at one order-2 companion
+`comp p q`, split along its two coordinates: `founding_unit_floors_dial_trace_runs_tiers` — the
+founding unit `q = NS − NT` is the dial's fixed determinant (`det (comp p q) = q`); the trace `p`
+runs the discriminant (`disc = p² − 4q`); the forced atomic counts are the tier boundaries —
+`p = 0` elliptic (founding swap `S`), `p = NT` parabolic (`disc = 0`), `p = NS` hyperbolic (golden,
+`disc = NS² − 4 = NS + NT = d`).  (Det-floor + trace-dial parametric; `p = NT`/`p = NS` landing on
+the tiers is atomic — pins `NS = 3`.)  Builds on `FoundingDynamicBridge`.
+
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
+move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,
+**validated concretely**: `intTarget` (`Int` as an `AbTarget` from the PURE `Int213` kit),
+`natToInt_hom`, `liftZ`, and `addCCS_completion_is_Int` — the additive completion of
+`(Nat213, +)` is `ℤ` (`liftZ` is the integer-difference map; `(2,1) ↦ +1`, `(1,2) ↦ −1`), and by
+the capstone it is the unique factoring hom.  The universal property is non-vacuous.
+`AbTarget` (abelian-group target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`;
+existence — `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine`
+(homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`); uniqueness — `lift_unique`
+(any `g` respecting `pairEquiv` + `combine` + `η` equals `lift`), via `pair_equiv_eta_combine`
+(every pair `~ η(a) ∘ inv(η(b))`); capstones `invert_factors_through_any_group` and
+`invert_is_the_universal_group_completion`.  Group-algebra toolkit `ab_neg_add`,
+`ab_add_add_add_comm`, `ab_add_{left,right}_cancel`, `ab_neg_unique`.  Makes "invert is one
+move" precise: the invert move is *the* universal group completion, unique up to iso (initiality,
+not an imported adjunction).
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **+2 PURE (17 total)**.
+`diagonal_is_combine_identity` (the emergent diagonal *is* the `combine`-identity, unit-free —
+the no-exterior principle in a readout) and `invert_branch_two_distinct_instances`
+(`ℤ ⊥ ℚ_+`: `add 1 1 ≠ mul 1 1`, two instances of one move joined at the diagonal).
+
+`E213.Lib.Math.CassiniUnimodular` — **+2 PURE (13 total)**.  `qpow_one` and
+`multiplier_unit_magnitude_sign_order_NT`: the unimodular multiplier `q = ±1` factors as (unit
+magnitude `qpow 1 n = 1`, order-`NT` sign `qpow (−1) NT = 1 ∧ qpow (−1) 1 ≠ 1`) — the genuine
+`(unit, period) = (1, NT)` factorization (the arithmetic re-readings of `NS = NT+1` are
+numerology).
+
 ### Number-tower founding + invert-move addition (2026-06-03)
 
 `E213.Lens.Number.SharedUnitAcrossReadings` — **1 PURE / 0 DIRTY**.  The honest unification
