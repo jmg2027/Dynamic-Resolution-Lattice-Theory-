@@ -259,4 +259,18 @@ theorem farey_mediant_coprime (p q r s : Nat) (hdet : p * s = q * r + 1) :
         rw [Nat.add_comm ((q + s) * r) 1]; exact add_sub_cancel_right 1 ((q + s) * r)] at hsub
   exact eq_one_of_dvd_one hsub
 
+/-- ★★★★ **The mediant is Farey-adjacent to each parent** (the defining Stern-Brocot property).
+    If `(p,q)`, `(r,s)` are Farey neighbours (`p·s = q·r + 1`), the mediant `(p+r, q+s)` inserts
+    between them preserving adjacency: `p·(q+s) = q·(p+r) + 1` (left) and `(p+r)·s = (q+s)·r + 1`
+    (right).  With `farey_mediant_coprime`, this is the correct (det-1) Layer-1 foundation for the
+    Stern-Brocot recovery — the structure on which the residue's Farey-monotonicity (Zhang Lemma 2,
+    the open `SamePairInjective`) is built. -/
+theorem farey_mediant_adjacent (p q r s : Nat) (hdet : p * s = q * r + 1) :
+    p * (q + s) = q * (p + r) + 1 ∧ (p + r) * s = (q + s) * r + 1 := by
+  refine ⟨?_, ?_⟩
+  · rw [show p * (q + s) = p * s + p * q from by ring_nat, hdet,
+        show q * (p + r) = q * p + q * r from by ring_nat]; ring_nat
+  · rw [show (p + r) * s = p * s + r * s from by ring_nat, hdet,
+        show (q + s) * r = q * r + s * r from by ring_nat]; ring_nat
+
 end E213.Lib.Math.Real213.MarkovInjectivity
