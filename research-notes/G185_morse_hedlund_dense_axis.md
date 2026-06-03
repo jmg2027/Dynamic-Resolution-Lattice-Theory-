@@ -34,7 +34,7 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
-## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 21 PURE)
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 29 PURE)
 
 The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
 `≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
@@ -80,6 +80,17 @@ notions: finite memory *in the digits of the index* (automatic — Thue–Morse 
 previous terms* (window-recurrence — Thue–Morse lacks it).  Classically: automatic ∧ aperiodic
 ⟹ non-holonomic (Cobham/Christol); here both hypotheses are ∅-axiom, the term-window escape is
 the elementary shadow.
+
+### The digit counter escapes the ring — `s2_not_eventually_monotone`
+
+The companion at the *other* end: the digit counter `s2 = popcount` (unbounded, `s2_unbounded` via
+`s2_ones : s2(ones k)=k`) returns to its minimum `1` at every power of two (`s2_pw2 : s2(2^k)=1`),
+so it is **not eventually monotone** (`s2_not_eventually_monotone`; subtraction-free `ones`/`pw2`
+families, `ones_ge`/`pw2_gt`).  A finite-Δ-depth integer sequence is eventually a polynomial, hence
+eventually monotone — so `popcount` has no finite difference-depth: it sits *outside* the
+`FiniteDepthAlgebra`/`NewtonGregory` generating ring while its bounded `{0,1}` readout `tm` is the
+dense non-holonomic witness.  One structure, two ends: the readout escapes the *machine*, the
+counter escapes the *ring*.
 
 ## Honest scope
 

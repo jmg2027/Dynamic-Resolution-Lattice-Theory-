@@ -95,6 +95,16 @@ polynomial growth bound (`NewtonGregory.poly_bound`).  The holonomicity tier mea
 partial-quotient sequence sits relative to this generating ring; the genuine non-holonomic tier
 is outside it — no finite generating machine.
 
+The automatic side furnishes a concrete escapee.  Read off the same automaton that emits
+Thue–Morse, the digit counter `s2 = popcount` is **unbounded** (`ThueMorseAperiodic.s2_unbounded`:
+`s2(ones k) = k`) yet returns to its minimum `1` at every power of two (`s2_pw2 : s2(2^k)=1`), so
+it is *not eventually monotone* (`s2_not_eventually_monotone`).  A finite-Δ-depth integer sequence
+is eventually a polynomial in `n` — hence eventually monotone — so `popcount` carries **no** finite
+difference-depth: the automatic counter sits *outside* the generating ring while its bounded `{0,1}`
+readout `tm` is the dense non-holonomic witness.  The two facts are one structure seen at its two
+ends: the bounded readout escapes the *machine* (term-window), the unbounded counter escapes the
+*ring* (finite Δ-depth).
+
 ## Two finite-state notions, diverging at Thue–Morse
 
 "Finite-state" is ambiguous and Thue–Morse is exactly where the two readings split.

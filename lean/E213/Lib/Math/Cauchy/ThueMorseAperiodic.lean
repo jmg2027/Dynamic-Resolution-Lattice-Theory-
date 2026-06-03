@@ -315,4 +315,81 @@ theorem tm_eq_popParity : ∀ n, tm n = decide (s2 n % 2 = 1) := by
         rw [htm, hs2, ih (n / 2) hh]
         exact (succ_parity (s2 (n / 2))).symm
 
+/-! ## The digit counter escapes monotonicity
+
+The `{0,1}` *output* `tm` is bounded, but the digit counter `s2` (`popcount`) read off the same
+automaton is **unbounded** — and it returns to its minimum value `1` at every power of two.  So
+`s2` is *not eventually monotone*, hence cannot be a positive-finite-difference-depth sequence
+(an integer sequence of finite Δ-depth is eventually a polynomial in `n`, so eventually monotone):
+the automatic sequence's natural counter sits **outside the finite-depth generating ring**
+(`FiniteDepthAlgebra` / `NewtonGregory`), even though its bounded readout `tm` is the dense
+non-holonomic witness.  Two subtraction-free families pin both halves: `ones k` (`k` binary ones,
+`s2 = k`) and `pw2 k` (`2^k`, `s2 = 1`). -/
+
+/-- The number with `k` binary ones (`2^k - 1`), built without subtraction. -/
+def ones : Nat → Nat
+  | 0     => 0
+  | (k+1) => 2 * ones k + 1
+
+/-- The power of two `2^k`, built without `Nat.pow`. -/
+def pw2 : Nat → Nat
+  | 0     => 1
+  | (k+1) => 2 * pw2 k
+
+/-- `popcount(ones k) = k`: the `k`-ones number has digit-sum `k`. -/
+theorem s2_ones (k : Nat) : s2 (ones k) = k := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    show s2 (2 * ones k + 1) = k + 1
+    rw [s2_odd, ih]
+
+/-- `popcount(2^k) = 1`: a power of two has a single binary one. -/
+theorem s2_pw2 (k : Nat) : s2 (pw2 k) = 1 := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    show s2 (2 * pw2 k) = 1
+    rw [s2_even, ih]
+
+/-- `ones` dominates its index (`k ≤ ones k`). -/
+theorem ones_ge (k : Nat) : k ≤ ones k := by
+  induction k with
+  | zero => exact Nat.le_refl 0
+  | succ k ih =>
+    show k + 1 ≤ 2 * ones k + 1
+    apply Nat.succ_le_succ
+    exact Nat.le_trans ih (Nat.le_mul_of_pos_left (ones k) (by decide))
+
+/-- `pw2` strictly dominates its index (`k < pw2 k`). -/
+theorem pw2_gt (k : Nat) : k < pw2 k := by
+  induction k with
+  | zero => exact Nat.lt_succ_self 0
+  | succ k ih =>
+    show k + 1 < 2 * pw2 k
+    have h1 : pw2 k + pw2 k = 2 * pw2 k := (E213.Tactic.NatHelper.two_mul (pw2 k)).symm
+    have hpos : 1 ≤ pw2 k := Nat.le_trans (Nat.zero_lt_succ k) ih
+    calc k + 1 ≤ pw2 k := ih
+      _ < pw2 k + pw2 k := Nat.lt_add_of_pos_right hpos
+      _ = 2 * pw2 k := h1
+
+/-- **`popcount` is unbounded.**  For every bound `B`, `ones (B+1)` has digit-sum `B+1 > B`. -/
+theorem s2_unbounded (B : Nat) : ∃ n, B < s2 n :=
+  ⟨ones (B + 1), by rw [s2_ones]; exact Nat.lt_succ_self B⟩
+
+/-- ★★★ **The digit counter is not eventually monotone.**  Past every threshold `N` there is a
+    pair `m ≤ n` with `s2 n < s2 m`: take `m = ones (N+2)` (`s2 m = N+2`, and `m ≥ N`) and
+    `n = pw2 m` (`s2 n = 1`, and `n > m`).  A finite-Δ-depth integer sequence is eventually
+    monotone, so `s2` has **no** finite difference-depth — the automatic counter escapes the
+    generating ring while its bounded readout `tm` is the dense non-holonomic witness. -/
+theorem s2_not_eventually_monotone :
+    ¬ ∃ N, ∀ m n, N ≤ m → m ≤ n → s2 m ≤ s2 n := by
+  rintro ⟨N, hmono⟩
+  have hNm : N ≤ ones (N + 2) := Nat.le_trans (Nat.le_add_right N 2) (ones_ge (N + 2))
+  have hmn : ones (N + 2) ≤ pw2 (ones (N + 2)) := Nat.le_of_lt (pw2_gt (ones (N + 2)))
+  have hle := hmono (ones (N + 2)) (pw2 (ones (N + 2))) hNm hmn
+  rw [s2_ones, s2_pw2] at hle
+  -- hle : N + 2 ≤ 1, but 2 ≤ N + 2
+  exact absurd (Nat.le_trans (Nat.le_add_left 2 N) hle) (by decide)
+
 end E213.Lib.Math.Cauchy.ThueMorseAperiodic
