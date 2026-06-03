@@ -161,6 +161,41 @@ to main's `crossDetSmall_rescale_antitone` API.  Verified PURE + full build.
 - `CayleyDickson/Tower/SpiralAxisCrystallographic.lean` (1 PURE): `{2,4,6}` = even half of
   crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` (verified bridge to `crystallographic_restriction`).
 
+### 1. (from main) The divergence-depth / Apéry-zeta math (`Lib/Math/Cauchy/`)
+- **`DepthAperyCubic` (23 PURE)** — the Apéry zeta coefficient-degree statistic: ζ(2)
+  recurrence coefficients (`(n+1)²`, `11n²+11n+3`, `n²`) are `polyDepth 2`; ζ(3) (`n³`,
+  `34n³−51n²+27n−5`, `(n−1)³`, reindexed `n=m+2` to clear ℕ truncation) are `polyDepth 3`;
+  depths pinned **exactly** (`aperyTop_depth_exact`, `zeta2Top_depth_exact`).
+  **Honest correction (red-team agent):** coefficient degree is *incidental to irrationality*
+  (ζ(4) order-2 doesn't prove it; Catalan β(2) order-2 OPEN; ζ(5) order-3) — the e→ζ(2)→ζ(3)
+  degree run does NOT continue; ζ(3) deg-3 is the exception above the order-2 sporadic family.
+- **`DepthQuadraticGeneric` (7 PURE)** — `quadratic_polyDepth : ∀ A B C, polyDepth 2
+  (A·n²+B·n+C)` (whole order-2 sporadic family) via Newton-form transfer + `polyDepth_congr`.
+  `quad_eq` now closes with `by ring_nat` (the old hand `add4_reorder` deleted).
+- **`DepthCubicGeneric` (5 PURE)** — `cubic_polyDepth : ∀ A B C D, polyDepth 3 (A·n³+…)`,
+  crux `cube_eq` (`n³ = 6·C(n,3)+6·C(n,2)+n`); all multivariate reorders via `by ring_nat`.
+- **`CasoratianStep` (5 PURE)** — subtraction-free discrete-Wronskian law `c₂Cₙ=−c₀Cₙ₋₁`
+  (`casoratian_step`; middle coeff cancels) + `telescope` (`(∏P)g(n)=(∏Q)g(0)`).
+- **`CasoratianSigned` (17 PURE)** — the signed Casoratian over **ℕ-pairs** (`NatPairToInt`:
+  ℤ = ℕ-pair, sign = axis swap).  `casoratian_signed` (= `casoratian_step` repackaged),
+  `telescope_pair` (ζ(3) constant `+6/n³`), `telescope_pair_alt` (ζ(2) alternating `±5/n²`,
+  `iterNeg n` = `(−1)ⁿ`), `cube_casoratian_telescope`.  **The "needs ℤ" caveat dissolved
+  213-natively** — sign is the residue's binary axis-distinguishing.
+- **`CassiniSigned` (2 PURE)** — the residue floor's Cassini cross-determinant
+  `fib(n+2)fib(n)−fib(n+1)²=(−1)ⁿ⁺¹` as the **depth-0** signed Casoratian (`cassini_pair`):
+  magnitude 1 (det-P/φ floor) + sign Oscillate.
+- **`DepthResidueFloor` (2 PURE)** — `self_pointing_depth_ladder`: depth read in 213 as
+  drift from the `P`/φ Cassini floor — e:1 → ζ(2):2 → ζ(3):3.
+- **`DepthSelfReference` (3 PURE)** — `diff` realises the Converge/Escape outcomes of
+  `Lens.SelfReferenceThreeOutcomes` (`W` settles at unit `1=det P=NS−NT`; `2ᵏ` never closes).
+- **`PolynomialDepth` (13 PURE)** — ★ the general **degree = depth** theorem:
+  `polyDepthZ_polySeq : ∀ a d, polyDepthZ d (polySeq a d)` (`polySeq a d n = Σ_{i≤d} aᵢ·nⁱ`,
+  any ℤ coeffs), via the finite-depth **ring** (`idZ` depth 1, `powSeq i` depth i by
+  `polyDepthZ_mul`, `polyDepthZ_mono`+`polyDepthZ_add`) — no Stirling.  `aperyLeadZ_depth`:
+  the ζ(3) coeff `34n³−51n²+27n−5` (negative coeffs) has depth 3 over ℤ with **no reindex**
+  (vs the ℕ version's `n=m+2`); `aperyLeadZ_value` = 117 at n=2.
+- **`DepthCharacterization` (13 PURE)** — ★ the capstone: `finite_depthZ_iff` (`polyDepthZ d s ↔ ∃ c, s = newtonZ c d` — finite divergence depth ⟺ degree-≤d polynomial; ⟹ `reconstruct`, ⟸ new ℤ binom-column depth `polyDepthZ_binomColZ`) + exactness `newtonZ_depth_drop` (depth = degree exactly).  Unifies this branch's ℕ ladder with the concurrent ℤ `reconstruct`.
+
 ### 3. π non-holonomicity MARATHON → `Cauchy/HurwitzianCF.lean` (21 PURE)
 The CF-holonomicity hierarchy on the **partial-quotient sequence** `(aᵢ)` (third spiral-layer
 reading).  `QuasiPolyCF p a` (= Hurwitzian: polynomial on each residue class mod p).  Tiers:
@@ -259,6 +294,13 @@ Options (none uniquely forced — ask user):
   into a short `theory/math/analysis/modular_lagrange.md` if the thread continues.
 - **Active scratchpad**: `research-notes/G170` (π non-holonomicity marathon, conjectures
   C1–C7), `G171` (modular tower table), `G172` (three Lagrange threads).
+- **Promotions this session**: `theory/math/analysis/divergence_depth_characterization.md` (the
+  divergence-depth thread, mirroring the closed Lean; G171 notes archived to `research-notes/archive/`).
+- **Promotion candidates**: `Cauchy/{DepthAperyCubic, PolynomialDepth, CasoratianSigned}` +
+  the `Meta` `ring` infra — eligible for a `theory/math/analysis/divergence_depth.md` chapter
+  per `theory/PROMOTION_CRITERIA.md`.
+- **Active scratchpad**: `research-notes/G171_*` (this thread), `G170` (π), `G178` (νF, other
+  session).
 
 ## File Map
 ```
