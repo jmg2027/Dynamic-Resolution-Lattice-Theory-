@@ -19,7 +19,7 @@ All ∅-axiom (over `Int213` core).
 
 namespace E213.Lib.Math.Linalg213.Permutation
 
-open E213.Meta.Int213 (add_left_comm mul_neg)
+open E213.Meta.Int213 (add_left_comm mul_neg neg_add)
 
 /-! ## §1 — list permutation-equivalence + sum invariance -/
 
@@ -156,5 +156,55 @@ theorem psign_swap_prefix (pre : List Nat) {x y : Nat} (l : List Nat) (h : x ≠
     rw [psign_cons a (pre ++ y :: x :: l), psign_cons a (pre ++ x :: y :: l), ih,
         ltCount_append a pre (y :: x :: l), ltCount_append a pre (x :: y :: l),
         ltCount_cons2_comm a x y l, mul_neg]
+
+/-! ## §4 — the Leibniz determinant + assembly lemmas
+
+`det M = Σ_σ sign(σ)·Πᵢ M i (σ i)`, summing over the explicit enumeration of permutation value
+lists.  The two assembly lemmas (`sumZ_map_neg`, `map_lperm`) plus `psign_swap_prefix` reduce
+the alternating property to "the enumeration is closed under a position-swap up to `LPerm`". -/
+
+/-- Diagonal product selected by a value list, from row `i`: `M i p₀ · M (i+1) p₁ · …`. -/
+def prodDiagFrom (M : Nat → Nat → Int) : Nat → List Nat → Int
+  | _, []      => 1
+  | i, p :: ps => M i p * prodDiagFrom M (i + 1) ps
+
+/-- The Leibniz term for a permutation value list: `sign · diagonal product`. -/
+def leibTerm (M : Nat → Nat → Int) (p : List Nat) : Int := psign p * prodDiagFrom M 0 p
+
+/-- Insert `x` into every position of a list (the enumeration step). -/
+def insertEverywhere (x : Nat) : List Nat → List (List Nat)
+  | []      => [[x]]
+  | y :: ys => (x :: y :: ys) :: (insertEverywhere x ys).map (fun l => y :: l)
+
+/-- All permutation value lists of a list. -/
+def permsOf : List Nat → List (List Nat)
+  | []      => [[]]
+  | x :: xs => (permsOf xs).flatMap (insertEverywhere x)
+
+/-- All permutation value lists of `[0,…,n−1]`. -/
+def perms (n : Nat) : List (List Nat) := permsOf (List.range n)
+
+/-- The **Leibniz determinant**: `Σ_σ sign(σ)·Πᵢ M i (σ i)`. -/
+def leibDet (n : Nat) (M : Nat → Nat → Int) : Int := sumZ ((perms n).map (leibTerm M))
+
+/-- Sanity: `2×2` identity-like matrix has determinant `1` (the enumeration + sign compute). -/
+theorem leibDet_two_id : leibDet 2 (fun i j => if i = j then (1 : Int) else 0) = 1 := rfl
+
+/-- A pointwise-negated sum negates. -/
+theorem sumZ_map_neg {α : Type} (g : α → Int) : ∀ (L : List α),
+    sumZ (L.map (fun a => -(g a))) = - sumZ (L.map g)
+  | []      => rfl
+  | a :: as => by
+    show -(g a) + sumZ (as.map (fun a => -(g a))) = -(g a + sumZ (as.map g))
+    rw [sumZ_map_neg g as, neg_add]
+
+/-- `map` is an `LPerm` congruence. -/
+theorem map_lperm {α β : Type} (f : α → β) {L1 L2 : List α} (h : LPerm L1 L2) :
+    LPerm (L1.map f) (L2.map f) := by
+  induction h with
+  | nil               => exact LPerm.nil
+  | cons x _ ih        => exact LPerm.cons (f x) ih
+  | swap x y l         => exact LPerm.swap (f x) (f y) (l.map f)
+  | trans _ _ ih₁ ih₂  => exact LPerm.trans ih₁ ih₂
 
 end E213.Lib.Math.Linalg213.Permutation
