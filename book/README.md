@@ -64,6 +64,25 @@ under `seed/AXIOM/`.
 
 ---
 
+---
+
+## Companion volume: `foundations/` (working draft)
+
+Where this book *applies* the number tower `ℕ → ℤ → ℚ → ℝ`, the companion working draft
+(준-책) `foundations/` interrogates the tower itself — three questions this book takes as given:
+
+- **Is it complete?**  The bundling closes at `ℝ` (a Cauchy fixpoint); `ℝ → ℂ → ℍ → 𝕆` is an
+  orthogonal algebra-axis, not a fifth rung.
+- **Is it one axis?**  Hybrid — a breadth axis, two orthogonal inverse-closures (`ℤ`, `ℚ`),
+  and a limit, over a lattice of Lens refinements; the staircase is one chosen chain.
+- **Is each step forced?**  The opening is a choice; the seams are forced by inheritance;
+  the end at `ℝ` is a forced fixpoint.
+
+It is a draft, not a closed chapter: five load-bearing open problems are listed at its close
+(`foundations/05_open_frontier.md`).
+
+---
+
 ## Acknowledgments
 
 The theory and every foundational insight are Mingu Jeong's.  The formalization, the adversarial
