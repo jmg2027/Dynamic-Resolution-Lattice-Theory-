@@ -963,4 +963,42 @@ theorem cfiniteZ_geomScale (c : Int) {s : Nat → Int} (h : CFiniteZ s) :
   rw [geom_shiftSum a s c n k k (Nat.le_refl k), ha n, Nat.add_comm n k]
   rfl
 
+/-! ## §13 — Hadamard product with an explicit-spectrum (geometric-combination) factor
+
+The general Hadamard product `s·t` needs a determinant (the composed-product/resultant gives
+the monic `ℤ` annihilator).  But when one factor is presented *split* — an explicit
+`ℤ`-combination of geometrics `Σ aᵢ cᵢⁿ` (integer bases, the explicit spectrum) — the Hadamard
+product closes with no determinant, reusing `cfiniteZ_geomScale` (`cⁿ·s`) and `cfiniteZ_add`:
+the multiplicative root-pairing is realized one geometric at a time.  This is the
+additive/multiplicative `ℤ/ℚ` sibling reading made concrete on the split class. -/
+
+/-- An explicit `ℤ`-combination of geometrics: `Σ (aᵢ, cᵢ) ↦ aᵢ·cᵢⁿ`. -/
+def geomCombo : List (Int × Int) → Nat → Int
+  | [],          _ => 0
+  | (a, c) :: l, n => a * OrbitDimension.geomZ c n + geomCombo l n
+
+/-- A geometric combination is C-finite. -/
+theorem cfiniteZ_geomCombo : ∀ l, CFiniteZ (geomCombo l)
+  | []          => OrbitDimension.cfiniteZ_congr (fun _ => rfl) OrbitDimension.cfiniteZ_zero
+  | (a, c) :: l =>
+    OrbitDimension.cfiniteZ_congr (fun _ => rfl)
+      (cfiniteZ_add (OrbitDimension.cfiniteZ_smul a (OrbitDimension.cfiniteZ_geom c))
+        (cfiniteZ_geomCombo l))
+
+/-- ★ **Hadamard product, explicit-spectrum factor.**  `(Σ aᵢ cᵢⁿ) · t` is C-finite for every
+    C-finite `t` — a factor with explicit integer spectrum Hadamard-multiplies into any C-finite
+    sequence, with no determinant: each `cᵢⁿ·t` is C-finite (`cfiniteZ_geomScale`), scaled and
+    summed.  Covers e.g. `(2·3ⁿ − 5·2ⁿ)·fib`, `(3ⁿ+5ⁿ)·(n²)`. -/
+theorem cfiniteZ_geomCombo_mul : ∀ (l : List (Int × Int)) {t : Nat → Int}, CFiniteZ t →
+    CFiniteZ (fun n => geomCombo l n * t n)
+  | [],          t, _  =>
+    OrbitDimension.cfiniteZ_congr (fun n => (zero_mul (t n)).symm) OrbitDimension.cfiniteZ_zero
+  | (a, c) :: l, t, ht =>
+    OrbitDimension.cfiniteZ_congr (fun n => by
+      show a * (OrbitDimension.geomZ c n * t n) + geomCombo l n * t n
+         = (a * OrbitDimension.geomZ c n + geomCombo l n) * t n
+      rw [add_mul, mul_assoc])
+      (cfiniteZ_add (OrbitDimension.cfiniteZ_smul a (cfiniteZ_geomScale c ht))
+        (cfiniteZ_geomCombo_mul l ht))
+
 end E213.Lib.Math.Cauchy.CFiniteRing
