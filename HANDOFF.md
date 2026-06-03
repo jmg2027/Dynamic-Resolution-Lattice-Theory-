@@ -29,7 +29,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
   an abelian group under `±` (commutative ring under `+`).
 
-### 2. `Cauchy/CFiniteRing` (42 PURE) — the difference-operator algebra + the ring closure (+ `cfiniteZ_sub`)
+### 2. `Cauchy/CFiniteRing` (45 PURE) — operator algebra + ring closure + `cfiniteZ_sub` + §8 shift=Δ-op
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
@@ -66,10 +66,16 @@ version needs the Hadamard/resultant construction.  C-B-adjacent.
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
 `CasoratianStep`/`CasoratianSigned`.  Needs a rank/determinant argument.
 
-### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D)
-A monic order-`k` `Δ`-recurrence ⟺ monic order-`k` shift(`E`)-recurrence (`E=I+Δ`, `Δ=E−I`; the
-operator algebras coincide).  Needs an operator-coefficient binomial transform (build a shift-operator
-`applyShift` mirroring `applyOp`); `BinomialTransform.lean` is a *sequence-value* transform, not this.
+### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D) [foundation built]
+A monic order-`k` `Δ`-recurrence ⟺ monic order-`k` shift(`E`)-recurrence.  **Foundation done**
+(`CFiniteRing` §8): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`), `applyOp_ePow` (`applyOp (ePow k) s n
+= s(n+k)`, `Eᵏ` as a `Δ`-operator via `conv` of `[1,1]` — no binomial sums).  **Remaining — reverse
+direction** (shift rec ⟹ CFiniteZ): build `eCombo q = Σ_i qᵢ·ePow i` (shift-coeff list → `Δ`-coeff
+list, a fold via `addL`/`smulL`), prove `applyOp (eCombo q) s n = Σ qᵢ s(n+i)`, and that `eCombo` of a
+monic `q` is monic degree `k` (degree-tracking: `ePow_length` `|ePow k|=k+1`, leading `1`; the lower
+`qᵢ ePow i` are shorter so don't touch the top — reuse `addL_snoc_right`/`length_addL_right_ge`), then
+`annih_snoc_unit`.  **Forward direction** (CFiniteZ ⟹ shift rec): heavier — `newton_gregory` (`s(n+m)=
+Σ binom·Δʲs(n)`) + `newton_gregory_inverse` (already in `NewtonGregory`) assembled into a double sum.
 
 ### 4. DRLT Validation Standard (unchanged, untouched this thread)
 The repo's stated real target — strict ∅-axiom precision theorem AND falsifier for one observable.
@@ -83,7 +89,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges + cfiniteZ_add/sub (42 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + cfiniteZ_add/sub + §8 shift=Δ-op (45 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
