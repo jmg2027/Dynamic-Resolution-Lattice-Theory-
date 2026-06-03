@@ -322,4 +322,96 @@ theorem mInterval_markov (path : List Bool) :
           ring_intZ
         rw [e, ihm]; ring_intZ
 
+/-! ## §4 — positivity of the Markoff matrix entries
+
+  Every interval-bound matrix and every node mediant has all four entries `≥ 1` (strictly positive
+  integers).  This is the prerequisite for the *sign* of Frobenius's cross-determinant
+  (`markoff_frobenius` gives it `= m_s`, and `m_s ≥ 1 > 0`), hence for global monotonicity of the
+  residue slope `u_t/m_t` (Zhang Lemma 2 = `SamePairInjective`).  Proved by tree induction: the
+  generators have all entries `≥ 1`, and `mul` preserves "all entries `≥ 1`" (each product entry is
+  a sum of two products of `≥ 1` factors). -/
+
+/-- `z − 0 = z` (pure; `ring_intZ` does not simplify the literal `0`). -/
+private theorem sub_zero_int (z : Int) : z - 0 = z := by
+  show z + -(0 : Int) = z
+  rw [E213.Meta.Int213.PolyIntM.neg_zeroZ]
+  exact Int.add_zero z
+
+/-- Int bridge: `0 ≤ b − a → a ≤ b`.  `a ≤ b` is `Int.NonNeg (b − a)`; `0 ≤ b − a` is
+    `Int.NonNeg ((b−a) − 0)`, and `(b−a) − 0 = b − a`. -/
+private theorem le_of_nonneg_sub {a b : Int} (h : 0 ≤ b - a) : a ≤ b := by
+  show Int.NonNeg (b - a)
+  have h' : Int.NonNeg ((b - a) - 0) := h
+  rw [sub_zero_int] at h'; exact h'
+
+/-- Int bridge (reverse): `a ≤ b → 0 ≤ b − a`. -/
+private theorem nonneg_sub_of_le {a b : Int} (h : a ≤ b) : 0 ≤ b - a := by
+  show Int.NonNeg ((b - a) - 0)
+  rw [sub_zero_int]; exact h
+
+/-- `1 ≤ x → 1 ≤ y → 1 ≤ x·y`.  `x·y − 1 = (x−1)(y−1) + ((x−1)+(y−1))`, a sum of nonnegatives. -/
+private theorem one_le_mul {x y : Int} (hx : 1 ≤ x) (hy : 1 ≤ y) : 1 ≤ x * y := by
+  apply le_of_nonneg_sub
+  have hx0 : 0 ≤ x - 1 := nonneg_sub_of_le hx
+  have hy0 : 0 ≤ y - 1 := nonneg_sub_of_le hy
+  have key : x * y - 1 = (x - 1) * (y - 1) + ((x - 1) + (y - 1)) := by ring_intZ
+  rw [key]
+  exact E213.Meta.Int213.add_nonneg
+    (E213.Meta.Int213.mul_nonneg hx0 hy0) (E213.Meta.Int213.add_nonneg hx0 hy0)
+
+/-- `1 ≤ x → 0 ≤ y → 1 ≤ x + y`.  `(x+y) − 1 = (x−1) + y`, a sum of nonnegatives. -/
+private theorem one_le_add_nonneg {x y : Int} (hx : 1 ≤ x) (hy : 0 ≤ y) : 1 ≤ x + y := by
+  apply le_of_nonneg_sub
+  have hx0 : 0 ≤ x - 1 := nonneg_sub_of_le hx
+  have key : (x + y) - 1 = (x - 1) + y := by ring_intZ
+  rw [key]
+  exact E213.Meta.Int213.add_nonneg hx0 hy
+
+/-- `1 ≤ x → 0 ≤ x`.  `x − 0 = (x−1) + 1`. -/
+private theorem nonneg_of_one_le {x : Int} (h : 1 ≤ x) : 0 ≤ x := by
+  apply le_of_nonneg_sub
+  have key : x - 0 = (x - 1) + 1 := by rw [sub_zero_int]; ring_intZ
+  rw [key]
+  exact E213.Meta.Int213.add_nonneg (nonneg_sub_of_le h) (by decide)
+
+/-- A matrix is *positive* when all four entries are `≥ 1` (a positive-integer `SL₂`-matrix). -/
+def posMat (M : Mat2) : Prop := 1 ≤ M.a ∧ 1 ≤ M.b ∧ 1 ≤ M.c ∧ 1 ≤ M.d
+
+/-- `mul` preserves positivity: each product-matrix entry `p·r + q·s` is `≥ 1` (first product `≥ 1`,
+    second product `≥ 1 ≥ 0`). -/
+theorem posMat_mul {M N : Mat2} (hM : posMat M) (hN : posMat N) : posMat (mul M N) := by
+  obtain ⟨ha, hb, hc, hd⟩ := hM
+  obtain ⟨ha', hb', hc', hd'⟩ := hN
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · show 1 ≤ M.a * N.a + M.b * N.c
+    exact one_le_add_nonneg (one_le_mul ha ha') (nonneg_of_one_le (one_le_mul hb hc'))
+  · show 1 ≤ M.a * N.b + M.b * N.d
+    exact one_le_add_nonneg (one_le_mul ha hb') (nonneg_of_one_le (one_le_mul hb hd'))
+  · show 1 ≤ M.c * N.a + M.d * N.c
+    exact one_le_add_nonneg (one_le_mul hc ha') (nonneg_of_one_le (one_le_mul hd hc'))
+  · show 1 ≤ M.c * N.b + M.d * N.d
+    exact one_le_add_nonneg (one_le_mul hc hb') (nonneg_of_one_le (one_le_mul hd hd'))
+
+/-- ★★★★★ **Both interval bounds are positive `SL₂` matrices** (all entries `≥ 1`) at every node, by
+    tree induction: the generators are positive, and each L/R mediant step is a `posMat_mul`. -/
+theorem mInterval_pos (path : List Bool) :
+    posMat (mInterval path).1 ∧ posMat (mInterval path).2 := by
+  induction path with
+  | nil =>
+      exact ⟨by refine ⟨?_, ?_, ?_, ?_⟩ <;> decide,
+             by refine ⟨?_, ?_, ?_, ?_⟩ <;> decide⟩
+  | cons b t ih =>
+      cases b
+      · exact ⟨posMat_mul ih.1 ih.2, ih.2⟩
+      · exact ⟨ih.1, posMat_mul ih.1 ih.2⟩
+
+/-- ★★★★★ **Every Markoff node matrix is positive** (all entries `≥ 1`). -/
+theorem mNode_pos (path : List Bool) : posMat (mNode path) :=
+  posMat_mul (mInterval_pos path).1 (mInterval_pos path).2
+
+/-- The Markov number at every node is `≥ 1` (strictly positive) — the cross-determinant of
+    `markoff_frobenius` is `m_s ≥ 1 > 0`, fixing the monotonicity sign. -/
+theorem markovNum_pos (path : List Bool) : 1 ≤ markovNum path :=
+  (mNode_pos path).2.2.1
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
