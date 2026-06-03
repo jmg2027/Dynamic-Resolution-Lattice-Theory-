@@ -38,6 +38,7 @@ open E213.Lib.Math.Real213.MarkovUniqueness
    MarkovMaxUnique markov_mid_lt_max markov_root_recovery)
 open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
 open E213.Meta.Nat.Gcd213 (gcd213_comm)
+open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 
 /-! ## §1 — the parallel reduction (true, but does not self-close) -/
 
@@ -172,5 +173,65 @@ theorem markov_prime_pow_unique_of_same_pair_injective (p k : Nat) (hp3 : 3 ≤ 
   markov_max_unique_of_same_pair_injective (p ^ (k + 1))
     (two_le_pow_succ p k (Nat.le_trans (by decide) hp3))
     (sqrtNegOneTwoRoots_prime_pow p k hp3 hpr) hinj
+
+/-! ## §4 — a Markov triple is determined by its two largest entries -/
+
+/-- ★★★★ **The middle entry determines the smallest** (Vieta-quadratic uniqueness).  Two ordered
+    Markov triples sharing the pair `(b,c)` coincide: `a` is the *unique* root `≤ b` of
+    `x² − 3bc·x + (b²+c²) = 0` (the other root `3bc − a > b`).  Proof: the symmetric relation
+    `a₁² + 3·a₂·b·c = a₂² + 3·a₁·b·c` forces `a₁ = a₂` or `a₁ + a₂ = 3bc`; the latter is impossible
+    since `a₁+a₂ ≤ 2b < 3bc` (`c ≥ 2`).  So a Markov triple is pinned by its two largest entries —
+    uniqueness at `c` reduces to *middle-entry* uniqueness. -/
+theorem markov_same_mid_eq (a₁ a₂ b c : Nat) (hc : 2 ≤ c)
+    (h1 : markovEq a₁ b c) (h2 : markovEq a₂ b c) (hb1 : a₁ ≤ b) (hb2 : a₂ ≤ b) :
+    a₁ = a₂ := by
+  have e1 : a₁ * a₁ + b * b + c * c = 3 * a₁ * b * c := h1
+  have e2 : a₂ * a₂ + b * b + c * c = 3 * a₂ * b * c := h2
+  have hkey : a₁ * a₁ + 3 * a₂ * b * c = a₂ * a₂ + 3 * a₁ * b * c := by
+    have hL : (b * b + c * c) + (a₁ * a₁ + 3 * a₂ * b * c)
+            = (b * b + c * c) + (a₂ * a₂ + 3 * a₁ * b * c) := by
+      rw [show (b*b+c*c) + (a₁*a₁ + 3*a₂*b*c) = (a₁*a₁+b*b+c*c) + 3*a₂*b*c from by ring_nat,
+          show (b*b+c*c) + (a₂*a₂ + 3*a₁*b*c) = (a₂*a₂+b*b+c*c) + 3*a₁*b*c from by ring_nat,
+          e1, e2]; ring_nat
+    exact add_left_cancel_pure _ _ _ hL
+  have hbpos : 1 ≤ b := Nat.le_trans (markov_a_pos hc h1) hb1
+  have hsum_le : a₁ + a₂ ≤ 2 * b := by
+    rw [show 2 * b = b + b from by ring_nat]; exact Nat.add_le_add hb1 hb2
+  have h6le : (6 : Nat) ≤ 3 * c := by rw [show (6:Nat) = 3 * 2 from rfl]; exact Nat.mul_le_mul_left 3 hc
+  have h23c : 2 < 3 * c := Nat.lt_of_lt_of_le (by decide) h6le
+  have hsum_lt : 2 * b < 3 * b * c := by
+    rw [show 2 * b = b * 2 from by ring_nat, show 3 * b * c = b * (3 * c) from by ring_nat]
+    exact Nat.mul_lt_mul_of_pos_left h23c hbpos
+  rcases Nat.le_total a₁ a₂ with hle | hle
+  · obtain ⟨d, hd⟩ := Nat.le.dest hle
+    rcases Nat.eq_zero_or_pos d with hd0 | hdpos
+    · rw [← hd, hd0, Nat.add_zero]
+    · exfalso
+      have hmul : d * (3 * b * c) = d * (2 * a₁ + d) := by
+        have hk : a₁ * a₁ + 3 * (a₁ + d) * b * c = (a₁ + d) * (a₁ + d) + 3 * a₁ * b * c := by
+          rw [hd]; exact hkey
+        have hcab : (a₁*a₁ + 3*a₁*b*c) + d*(3*b*c) = (a₁*a₁ + 3*a₁*b*c) + d*(2*a₁+d) := by
+          rw [show (a₁*a₁+3*a₁*b*c) + d*(3*b*c) = a₁*a₁ + 3*(a₁+d)*b*c from by ring_nat,
+              show (a₁*a₁+3*a₁*b*c) + d*(2*a₁+d) = (a₁+d)*(a₁+d) + 3*a₁*b*c from by ring_nat]
+          exact hk
+        exact add_left_cancel_pure _ _ _ hcab
+      have heq : 3 * b * c = 2 * a₁ + d := Nat.eq_of_mul_eq_mul_left hdpos hmul
+      have hsum : a₁ + a₂ = 3 * b * c := by rw [heq, ← hd]; ring_nat
+      exact absurd (hsum ▸ hsum_le) (Nat.not_le_of_lt hsum_lt)
+  · obtain ⟨d, hd⟩ := Nat.le.dest hle
+    rcases Nat.eq_zero_or_pos d with hd0 | hdpos
+    · rw [← hd, hd0, Nat.add_zero]
+    · exfalso
+      have hmul : d * (3 * b * c) = d * (2 * a₂ + d) := by
+        have hk : a₂ * a₂ + 3 * (a₂ + d) * b * c = (a₂ + d) * (a₂ + d) + 3 * a₂ * b * c := by
+          rw [hd]; exact hkey.symm
+        have hcab : (a₂*a₂ + 3*a₂*b*c) + d*(3*b*c) = (a₂*a₂ + 3*a₂*b*c) + d*(2*a₂+d) := by
+          rw [show (a₂*a₂+3*a₂*b*c) + d*(3*b*c) = a₂*a₂ + 3*(a₂+d)*b*c from by ring_nat,
+              show (a₂*a₂+3*a₂*b*c) + d*(2*a₂+d) = (a₂+d)*(a₂+d) + 3*a₂*b*c from by ring_nat]
+          exact hk
+        exact add_left_cancel_pure _ _ _ hcab
+      have heq : 3 * b * c = 2 * a₂ + d := Nat.eq_of_mul_eq_mul_left hdpos hmul
+      have hsum : a₁ + a₂ = 3 * b * c := by rw [heq, ← hd]; ring_nat
+      exact absurd (hsum ▸ hsum_le) (Nat.not_le_of_lt hsum_lt)
 
 end E213.Lib.Math.Real213.MarkovInjectivity
