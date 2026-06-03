@@ -103,26 +103,43 @@ theorem det2_mul (M N : Mat2) : det2 (mul M N) = det2 M * det2 N := by
   ring_intZ
 
 /-- Markoff matrix generators: `M_{0/1} = [[2,1],[1,1]]` (`genL`), `M_{1/0} = [[3,4],[2,3]]`
-    (`genR`), both in `SL₂(ℤ)`. -/
+    (`genR`), both in `SL₂(ℤ)`.  These are the two interval endpoints; interior node matrices are
+    mediant *products* `M_t = M_r·M_s` (NOT word products — `genL² = ⟨5,3,3,2⟩` has `a+d ≠ 3c`, so
+    it is not a Markoff matrix). -/
 def genL : Mat2 := ⟨2, 1, 1, 1⟩
 def genR : Mat2 := ⟨3, 4, 2, 3⟩
 
-/-- The Markoff matrix at a Stern-Brocot path (a word in the two generators). -/
-def mMat : List Bool → Mat2
-  | []     => I2
-  | b :: t => mul (if b then genL else genR) (mMat t)
+/-- Interval of bounding Markoff matrices at a Stern-Brocot path (root = `(M_{0/1}, M_{1/0})`);
+    each L/R step replaces one bound by the mediant `M_l·M_r`. -/
+def mInterval : List Bool → Mat2 × Mat2
+  | []         => (genL, genR)
+  | true :: t  => ((mInterval t).1, mul (mInterval t).1 (mInterval t).2)
+  | false :: t => (mul (mInterval t).1 (mInterval t).2, (mInterval t).2)
 
-/-- ★★★★★ **Every Markoff matrix has `det = 1`** (`SL₂(ℤ)`) — by `det2_mul` + the det-1
-    generators, the same det-1 invariant as the Farey-interval tree (`sbInterval_adj`). -/
-theorem mMat_det1 (path : List Bool) : det2 (mMat path) = 1 := by
+/-- The Markoff matrix at a node = the mediant of its two bounds, `M_t = M_l·M_r`. -/
+def mNode (path : List Bool) : Mat2 := mul (mInterval path).1 (mInterval path).2
+
+/-- Both bounds of every interval are in `SL₂(ℤ)` (`det = 1`), by `det2_mul` from the det-1
+    generators. -/
+theorem mInterval_det (path : List Bool) :
+    det2 (mInterval path).1 = 1 ∧ det2 (mInterval path).2 = 1 := by
   induction path with
-  | nil => show (1 : Int) * 1 - 0 * 0 = 1; ring_intZ
+  | nil => exact ⟨by show (2 * 1 - 1 * 1 : Int) = 1; ring_intZ,
+                  by show (3 * 3 - 4 * 2 : Int) = 1; ring_intZ⟩
   | cons b t ih =>
-      show det2 (mul (if b then genL else genR) (mMat t)) = 1
-      rw [det2_mul]
       cases b
-      · show det2 genR * det2 (mMat t) = 1; rw [ih]; show (3 * 3 - 4 * 2) * 1 = 1; ring_intZ
-      · show det2 genL * det2 (mMat t) = 1; rw [ih]; show (2 * 1 - 1 * 1) * 1 = 1; ring_intZ
+      · refine ⟨?_, ih.2⟩
+        show det2 (mul (mInterval t).1 (mInterval t).2) = 1
+        rw [det2_mul, ih.1, ih.2]; ring_intZ
+      · refine ⟨ih.1, ?_⟩
+        show det2 (mul (mInterval t).1 (mInterval t).2) = 1
+        rw [det2_mul, ih.1, ih.2]; ring_intZ
+
+/-- ★★★★★ **Every Markoff node matrix has `det = 1`** (`SL₂(ℤ)`) — the mediant of two det-1
+    bounds, the same det-1 invariant as the Farey-interval tree (`sbInterval_adj`). -/
+theorem mNode_det1 (path : List Bool) : det2 (mNode path) = 1 := by
+  show det2 (mul (mInterval path).1 (mInterval path).2) = 1
+  rw [det2_mul, (mInterval_det path).1, (mInterval_det path).2]; ring_intZ
 
 /-- ★★★★★ **Frobenius's determinant identity** (matrix form, the monotonicity engine).  For the
     mediant `M_t = M_r·M_s` with `det M_r = 1`, the cross-determinant
@@ -139,15 +156,18 @@ theorem markoff_frobenius (Mr Ms : Mat2) (hd : det2 Mr = 1) :
     _ = Ms.c * 1 := by rw [hd']
     _ = Ms.c := by ring_intZ
 
-/-- The Markov number at a node = the `(2,1)` matrix entry. -/
-def markovNum (path : List Bool) : Int := (mMat path).c
+/-- The Markov number at a node = the `(2,1)` matrix entry of the mediant. -/
+def markovNum (path : List Bool) : Int := (mNode path).c
 
 /-- The residue at a node = `(M)₂₂ − (M)₂₁`. -/
-def markovRes (path : List Bool) : Int := (mMat path).d - (mMat path).c
+def markovRes (path : List Bool) : Int := (mNode path).d - (mNode path).c
 
-/-- Sanity: the root mediant `1/1 = (0/1)⊕(1/0)` gives `(m, u) = (5, 2)` — the Markov number `5`
-    and its `√(−1)` residue `2` (`2²+1 = 5`). -/
-theorem markov_root_node : markovNum [true, false] = 5 ∧ markovRes [true, false] = 2 := by
-  refine ⟨?_, ?_⟩ <;> decide
+/-- Sanity: the first nodes are the Markov numbers `5, 13, 29` (root mediant `1/1` and its two
+    children), with residues `2, 5, 12` (`2²+1=5`, `5²+1=2·13`, `12²+1=5·29`). -/
+theorem markov_first_nodes :
+    (markovNum [] = 5 ∧ markovRes [] = 2)
+    ∧ (markovNum [true] = 13 ∧ markovRes [true] = 5)
+    ∧ (markovNum [false] = 29 ∧ markovRes [false] = 12) := by
+  refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
