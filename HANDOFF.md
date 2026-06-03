@@ -21,11 +21,13 @@ connected it to the non-holonomicity work (build green, foundations PURE):
 
 Essay rewritten with the end-to-end hierarchy section + Casoratian framing.
 
-**Next conceptual thread (surfaced by the survey, not yet Lean):** the order-2 recurrence
-discriminant `p²−4q` = the hyperbolic/elliptic split (`Real213/HyperbolicEllipticTrace`, φ Δ=5>0 vs
-elliptic Δ<0) = whether the orbit grows (unbounded p.q., quadratic-irrational CF) or stays bounded
-(`CassiniDepthFloor.orbit_on_conic` + `DiscNegTwoSkipped`).  Connecting the trace-discriminant
-classification to the CF-holonomicity tier would unify the φ/π pole work with the depth hierarchy.
+**Discriminant↔hierarchy thread — DONE** (`EllipticPeriodicTier.lean`, 9 PURE).  The order-2
+recurrence `s(n+2)=p·s(n+1)−q·s(n)` companion `comp p q` has `comp_disc : disc = p²−4q` = the
+`HyperbolicEllipticTrace` φ/π discriminant.  `comp_eq_S` (`comp 0 1 = S`), `comp_eq_U`
+(`comp 1 1 = U`): the elliptic generators *are* periodic order-2 companions; `periodic_elliptic_S/U`
+(period 4 / 6) + `elliptic_S_homogRec` place elliptic at the periodic bottom tier, hyperbolic
+(`comp 3 1`, disc 5) growing.  The φ/π pole work and the depth hierarchy are one structure at the
+order-2 rung.  Essay updated.
 
 ## The autonomous-machine axis is **closed tight** (Morse–Hedlund iff + full Thue–Morse)
 

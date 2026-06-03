@@ -240,6 +240,19 @@ no finite Casorati closure / no finite depth (non-holonomic).  The Casoratian (d
 is the order detector throughout; "no finite Casoratian closure" is the determinantal face of the
 machine-free escape.
 
+**What sets the order-2 sub-tier — the trace discriminant.**  Inside C-finite, the order-2
+recurrence `s(n+2) = p·s(n+1) − q·s(n)` is split by its **companion discriminant** `p² − 4q`
+(`EllipticPeriodicTier.comp_disc`), which is literally the `HyperbolicEllipticTrace` discriminant
+`tr² − 4·det` whose sign is the φ/π pole split (`wick_discriminant_split`).  *Elliptic* (`disc < 0`,
+unimodular): the companion is a finite-order generator — `comp 0 1 = S` (order 4), `comp 1 1 = U`
+(order 6) — so the orbit is **periodic** (`periodic_elliptic_S`/`_U`), the bottom tier (still
+`HomogRec`, `elliptic_S_homogRec`).  *Hyperbolic* (`disc > 0`, e.g. `comp 3 1`, the golden/Lucas
+`disc = 5`): a real quadratic-irrational iterator whose orbit **grows** — unbounded partial
+quotients, the quadratic-irrational CF tier (`PositiveFloorUnbounded`).  So the same trace
+discriminant that names the residue's φ (scaling) and π (rotation) faces is the dial between the
+periodic floor and the growing C-finite sequences: the φ/π pole work and the depth hierarchy are
+one structure, read at the order-2 rung.
+
 ## The verdict on the two cores
 
 Two cores resisted the elementary program.  Both are now *concluded* — not by forcing a proof, but
@@ -305,7 +318,9 @@ eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` or
 `Cauchy/HomogRecPeriodic` (`evPeriodic_homogRec` — the elementary half of the bounded `HomogRec`
 characterization); `Cauchy/CFiniteHomogRec` (C-finite ⊆ P-recursive: `order2/order3_homogRec`,
 `trib_homogRec`); `Cauchy/{CassiniDepthFloor, SecondCasoratian, PolynomialDepth}` (the Casoratian
-order-detector and the depth ring);
+order-detector and the depth ring); `Cauchy/EllipticPeriodicTier` +
+`Real213/HyperbolicEllipticTrace` (the order-2 companion discriminant `p²−4q` = the φ/π
+hyperbolic/elliptic split = periodic-floor-vs-growing dial);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra, PolynomialDepth, DepthCharacterization}` (the
 difference-Lens generating ring = the polynomials, `finite_depthZ_iff`); `Cauchy/
