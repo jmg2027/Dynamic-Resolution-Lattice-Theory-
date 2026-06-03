@@ -1,6 +1,36 @@
-# Session Handoff — 2026-06-03e (Markov marathon — GLOBAL SLOPE INJECTIVITY closed)
+# Session Handoff — 2026-06-03f (Markov marathon — REVERSE BRIDGE closed, 61 PURE)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★ LATEST: `Real213/SternBrocotMarkov` **61 PURE** — §12 reverse bridge (objective #1 DONE)
+- **`reverse_bridge`**: every ordered Markov triple `(a,b,c)`, `1≤a≤b≤c`, `5≤c`, is a matrix-tree
+  node — `IsNode a b c ∨ IsNode b a c`.  By Vieta descent (`reverse_of_fuel`, fuel=`c`): base `c=5`
+  ↦ root `(1,2,5)` (`markov_max_unique_5`); `c≥6` descend to parent `{a,b,3ab−c}` (max `b≥5` via
+  `markov_mid_ge_5` — bounded `decide` `markov_small_mid`), recurse, re-ascend via `descent_step`.
+- Scaffolding: `IsNode`, `node_true_child`/`node_false_child` (Vieta up-moves, `∃d + jump-eq`,
+  no Nat subtraction), `isNode_root`, `descent_step`.
+- ∅-axiom care: used pure `add_left_cancel_pure`, `NatHelper.sub_add_cancel`; avoided
+  propext-leaking `Nat.add_left_cancel`/`sub_add_cancel`/`mul_assoc`.  All MarkovUniqueness
+  descent lemmas verified pure.
+
+### ★ FINAL ASSEMBLY remaining → `SamePairInjective` → prime-power `MarkovMaxUnique`
+Both hard pieces are now in hand: **`slope_path_inj`** (§11, global injectivity) + **`reverse_bridge`**
+(§12).  `SamePairInjective c` (`MarkovInjectivity`) is: two ordered triples at `c` with recovery
+residues `u_i` (`u_i<c`, `(u_i·b_i)%c=a_i`) in the same ±pair ⟹ equal.  Assembly plan:
+  1. `reverse_bridge` → each triple is node `p_i`; `(m_l,m_r)={a_i,b_i}`, `m_t=c`.
+  2. **Connect residues** (the remaining plumbing): the node's Int residue `r_i = markovRes p_i`
+     satisfies `r_i² ≡ −1` (`markovNum_dvd_res_sq_succ`) and `r_i·m_l ≡ m_r` (`markovRes_recovery_dvd`),
+     windowed `0<r_i, 2r_i<c` (`markov_window`) — convert these Int-divisibility facts to Nat `% c`.
+     Then the given `u_i ∈ {r_i, c−r_i}` (modular inverse, using coprimality + `r²≡−1`).
+  3. `u₁,u₂` same ±pair + each `u_i∈{r_i,c−r_i}` ⟹ `r_1,r_2` same ±pair; both windowed ⟹
+     `root_unique_below_half` ⟹ `r_1=r_2` ⟹ `slopeEq (mNode p_1)(mNode p_2)` (same `c`) ⟹
+     `slope_path_inj` ⟹ `p_1=p_2` ⟹ same node ⟹ sorted `(a_i,b_i)` equal.
+  Then `markov_max_unique_of_same_pair_injective` (DONE) ⟹ `MarkovMaxUnique`;
+  `markov_prime_pow_unique_of_same_pair_injective` (DONE) ⟹ Button's family.
+The remaining work is step 2's Int↔Nat modular conversion (substantial but well-scoped plumbing) —
+the conceptual cruxes (injectivity, reverse bridge) are both closed.
+
+## ★ EARLIER 2026-06-03e: GLOBAL SLOPE INJECTIVITY (§11, 54 PURE)
 
 ## ★ LATEST: `Real213/SternBrocotMarkov` now **54 PURE** — §11 global slope injectivity
 **The genuine crux that the "reverse-bridge + window ⟹ SamePairInjective" chain GLOSSED OVER.**
