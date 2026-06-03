@@ -543,4 +543,123 @@ theorem markov_node_slope_lt_right (path : List Bool) :
       < ((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c :=
   lt_of_sub_eq_of_one_le (markovRes_cross path) (mInterval_pos path).1.2.2.1
 
+/-! ## §8 — the tree-specific left Frobenius identity (left half of Zhang Lemma 2)
+
+  `u_t·m_l − u_l·m_t = m_r` — the mirror of `markovRes_cross`, which is **not** a generic det-1
+  identity (it needs the tree's recursion).  Proved by coupled induction using (i) the **residue
+  Vieta recurrence** `u_t' = tr·u_t − u_r` (the residue `d−c` is linear, so it satisfies the same
+  Cayley–Hamilton recurrence as the number `c`); (ii) `markoff_vieta`; (iii) the generic
+  bound-residue identity `m_l·u_r − m_r·u_l = 3 m_l m_r − m_t` (needs only the right bound's shape);
+  (iv) the IH and the generic `markovRes_cross`.  Then `markov_node_slope_gt_left` gives the left
+  half of strict monotonicity — completing "mediant slope strictly between the two bounds". -/
+
+/-- Residue Vieta recurrence (L): `u` (`=d−c`) satisfies the same recurrence as the number `c`,
+    `u_{l²r} = tr(M_l)·u_{lr} − u_r` (det `M_l`=1).  The difference is `u_r·(1 − det M_l) = 0`. -/
+theorem markoff_res_vieta (Ml Mr : Mat2) (hd : det2 Ml = 1) :
+    (mul Ml (mul Ml Mr)).d - (mul Ml (mul Ml Mr)).c
+    = (Ml.a + Ml.d) * ((mul Ml Mr).d - (mul Ml Mr).c) - (Mr.d - Mr.c) := by
+  have hd' : Ml.a * Ml.d - Ml.b * Ml.c = 1 := hd
+  show (Ml.c * (Ml.a * Mr.b + Ml.b * Mr.d) + Ml.d * (Ml.c * Mr.b + Ml.d * Mr.d))
+       - (Ml.c * (Ml.a * Mr.a + Ml.b * Mr.c) + Ml.d * (Ml.c * Mr.a + Ml.d * Mr.c))
+     = (Ml.a + Ml.d) * ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) - (Mr.d - Mr.c)
+  calc (Ml.c * (Ml.a * Mr.b + Ml.b * Mr.d) + Ml.d * (Ml.c * Mr.b + Ml.d * Mr.d))
+       - (Ml.c * (Ml.a * Mr.a + Ml.b * Mr.c) + Ml.d * (Ml.c * Mr.a + Ml.d * Mr.c))
+      = ((Ml.a + Ml.d) * ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) - (Mr.d - Mr.c))
+        + (Mr.d - Mr.c) * (1 - (Ml.a * Ml.d - Ml.b * Ml.c)) := by ring_intZ
+    _ = _ := by rw [hd']; ring_intZ
+
+/-- Residue Vieta recurrence (R): `u_{lr²} = tr(M_r)·u_{lr} − u_l` (det `M_r`=1). -/
+theorem markoff_res_vieta_R (Ml Mr : Mat2) (hd : det2 Mr = 1) :
+    (mul (mul Ml Mr) Mr).d - (mul (mul Ml Mr) Mr).c
+    = (Mr.a + Mr.d) * ((mul Ml Mr).d - (mul Ml Mr).c) - (Ml.d - Ml.c) := by
+  have hd' : Mr.a * Mr.d - Mr.b * Mr.c = 1 := hd
+  show ((Ml.c * Mr.a + Ml.d * Mr.c) * Mr.b + (Ml.c * Mr.b + Ml.d * Mr.d) * Mr.d)
+       - ((Ml.c * Mr.a + Ml.d * Mr.c) * Mr.a + (Ml.c * Mr.b + Ml.d * Mr.d) * Mr.c)
+     = (Mr.a + Mr.d) * ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) - (Ml.d - Ml.c)
+  calc ((Ml.c * Mr.a + Ml.d * Mr.c) * Mr.b + (Ml.c * Mr.b + Ml.d * Mr.d) * Mr.d)
+       - ((Ml.c * Mr.a + Ml.d * Mr.c) * Mr.a + (Ml.c * Mr.b + Ml.d * Mr.d) * Mr.c)
+      = ((Mr.a + Mr.d) * ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) - (Ml.d - Ml.c))
+        + (Ml.d - Ml.c) * (1 - (Mr.a * Mr.d - Mr.b * Mr.c)) := by ring_intZ
+    _ = _ := by rw [hd']; ring_intZ
+
+/-- Generic bound-residue identity: `m_l·u_r − m_r·u_l = 3 m_l m_r − m_t` — needs only the right
+    bound's entry-shape `M_r.a + M_r.d = 3 M_r.c`.  The difference is `M_l.c·(tr M_r − 3 m_r) = 0`. -/
+theorem bound_res_identity (Ml Mr : Mat2) (hs : Mr.a + Mr.d = 3 * Mr.c) :
+    Ml.c * (Mr.d - Mr.c) - Mr.c * (Ml.d - Ml.c) = 3 * Ml.c * Mr.c - (mul Ml Mr).c := by
+  show Ml.c * (Mr.d - Mr.c) - Mr.c * (Ml.d - Ml.c)
+     = 3 * Ml.c * Mr.c - (Ml.c * Mr.a + Ml.d * Mr.c)
+  calc Ml.c * (Mr.d - Mr.c) - Mr.c * (Ml.d - Ml.c)
+      = (3 * Ml.c * Mr.c - (Ml.c * Mr.a + Ml.d * Mr.c)) + Ml.c * ((Mr.a + Mr.d) - 3 * Mr.c) := by
+        ring_intZ
+    _ = (3 * Ml.c * Mr.c - (Ml.c * Mr.a + Ml.d * Mr.c)) + Ml.c * (3 * Mr.c - 3 * Mr.c) := by rw [hs]
+    _ = 3 * Ml.c * Mr.c - (Ml.c * Mr.a + Ml.d * Mr.c) := by ring_intZ
+
+/-- ★★★★★ **Tree-specific left Frobenius identity**: `u_t·m_l − u_l·m_t = m_r` at every node — the
+    mirror of `markovRes_cross`, the missing half of Zhang's Lemma 2.  By coupled induction: the
+    R-step closes via the IH; the L-step via `3·m_l·(IH) − (bound_res_identity)`, both using the
+    residue + number Vieta recurrences and the right bound's entry-shape. -/
+theorem markovRes_cross_left (path : List Bool) :
+    markovRes path * (mInterval path).1.c
+      - ((mInterval path).1.d - (mInterval path).1.c) * (mNode path).c
+    = (mInterval path).2.c := by
+  induction path with
+  | nil => show ((mul genL genR).d - (mul genL genR).c) * genL.c
+                - (genL.d - genL.c) * (mul genL genR).c = genR.c
+           decide
+  | cons b t ih =>
+      have d1 := (mInterval_det t).1
+      have d2 := (mInterval_det t).2
+      have s1 := (mInterval_shape t).1
+      have s2 := (mInterval_shape t).2.1
+      have ihm : ((mul (mInterval t).1 (mInterval t).2).d - (mul (mInterval t).1 (mInterval t).2).c)
+                   * (mInterval t).1.c
+                 - ((mInterval t).1.d - (mInterval t).1.c) * (mul (mInterval t).1 (mInterval t).2).c
+               = (mInterval t).2.c := ih
+      cases b
+      · -- R-step (false): interval (M_t, M_r); gR = u_t·m_l − u_l·m_t = m_r (the IH).
+        show ((mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).d
+              - (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c)
+               * (mul (mInterval t).1 (mInterval t).2).c
+             - ((mul (mInterval t).1 (mInterval t).2).d - (mul (mInterval t).1 (mInterval t).2).c)
+               * (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+           = (mInterval t).2.c
+        rw [markoff_res_vieta_R (mInterval t).1 (mInterval t).2 d2,
+            markoff_vieta_R (mInterval t).1 (mInterval t).2 d2, s2]
+        calc _ = ((mul (mInterval t).1 (mInterval t).2).d - (mul (mInterval t).1 (mInterval t).2).c)
+                   * (mInterval t).1.c
+                 - ((mInterval t).1.d - (mInterval t).1.c) * (mul (mInterval t).1 (mInterval t).2).c
+               := by ring_intZ
+             _ = (mInterval t).2.c := ihm
+      · -- L-step (true): interval (M_l, M_t); gL = m_t via 3·m_l·(IH) − (bound_res_identity).
+        show ((mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).d
+              - (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c) * (mInterval t).1.c
+             - ((mInterval t).1.d - (mInterval t).1.c)
+               * (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+           = (mul (mInterval t).1 (mInterval t).2).c
+        rw [markoff_res_vieta (mInterval t).1 (mInterval t).2 d1,
+            markoff_vieta (mInterval t).1 (mInterval t).2 d1, s1]
+        have hb := bound_res_identity (mInterval t).1 (mInterval t).2 s2
+        calc _ = (mul (mInterval t).1 (mInterval t).2).c
+                 + 3 * (mInterval t).1.c
+                   * (((mul (mInterval t).1 (mInterval t).2).d - (mul (mInterval t).1 (mInterval t).2).c)
+                        * (mInterval t).1.c
+                      - ((mInterval t).1.d - (mInterval t).1.c)
+                        * (mul (mInterval t).1 (mInterval t).2).c
+                      - (mInterval t).2.c)
+                 - ((mInterval t).1.c * ((mInterval t).2.d - (mInterval t).2.c)
+                    - (mInterval t).2.c * ((mInterval t).1.d - (mInterval t).1.c)
+                    - (3 * (mInterval t).1.c * (mInterval t).2.c
+                       - (mul (mInterval t).1 (mInterval t).2).c)) := by ring_intZ
+             _ = (mul (mInterval t).1 (mInterval t).2).c := by rw [ihm, hb]; ring_intZ
+
+/-- ★★★★★ **Strict slope monotonicity (left half)**: `u_l·m_t < u_t·m_l` — the node's residue slope
+    is strictly greater than the left bound's.  From `markovRes_cross_left`
+    (`u_t·m_l − u_l·m_t = m_r`) and `1 ≤ m_r` (`mInterval_pos`).  With `markov_node_slope_lt_right`
+    this completes Zhang's Lemma 2 on the tree: the mediant slope lies *strictly between* the two
+    bounds' slopes, `u_l/m_l < u_t/m_t < u_r/m_r`. -/
+theorem markov_node_slope_gt_left (path : List Bool) :
+    ((mInterval path).1.d - (mInterval path).1.c) * (mNode path).c
+      < markovRes path * (mInterval path).1.c :=
+  lt_of_sub_eq_of_one_le (markovRes_cross_left path) (mInterval_pos path).2.2.2.1
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
