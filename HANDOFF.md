@@ -1,6 +1,30 @@
-# Session Handoff — 2026-06-03c (Markov marathon — tree-side of Zhang Lemma 2 COMPLETE)
+# Session Handoff — 2026-06-03d (Markov marathon — forward bridge: matrix tree = Markov tree)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★ LATEST: `Real213/SternBrocotMarkov` now **47 PURE** — §10 forward bridge
+- **§10 `mInterval_reachable`**: every matrix-tree node's `(2,1)`-entry triple `(m_l,m_r,m_t)`, as
+  `Nat`, is `MarkovUniqueness.MarkovReachable` (root `(1,1,1)` + Vieta jumps + swaps).  **The Markoff
+  matrix tree realises exactly the Markov tree.**  By induction: each L/R mediant step is a Vieta
+  jump (`markoff_vieta(_R)` + entry-shape ⟹ `m_t' = 3·m_i·m_j − m_k`), matched to the `jump`
+  constructor after reordering by `swap`s.  Bridges ℤ→ℕ via `Int.toNat` (entries positive): pure
+  `toNat_of_nonneg`/`toNat_add`/`toNat_mul` + `jump_eq_toNat` (all ∅-axiom).
+- Consequence: tree nodes now inherit ALL of `MarkovUniqueness`'s reachable-triple theorems
+  (`markov_reachable_coprime`, `markov_reachable_no_3mod4_factor`, `markov_reachable_neg_one_qr`, …).
+
+### Remaining gap to `SamePairInjective` — now precisely the REVERSE bridge
+`markov_ordered_reachable` (already in `MarkovUniqueness`) gives: every ordered triple is
+`MarkovReachable`.  §10 gives: every matrix-tree node is `MarkovReachable`.  The missing piece is the
+**reverse of §10**: every `MarkovReachable` triple (with max ≥ 5) is a matrix-tree *node* (so the
+window/monotonicity §7–§9 applies to it).  **Caveat — indexing offset**: the matrix tree roots at
+`(1,2,5)` (node `[]`), while `MarkovReachable` roots at `(1,1,1)`; the small triples
+`(1,1,1),(1,1,2)` are NOT matrix-tree nodes.  So the reverse bridge is "every MarkovReachable triple
+with max ≥ 5 is a tree node" — provable by induction on the derivation but needs care at the small
+base triples + inverting jumps/swaps to a Stern-Brocot path.  This is the crux that remains.
+With it: window-injectivity (§9) + reverse bridge ⟹ `SamePairInjective` ⟹ `MarkovMaxUnique` (via the
+DONE `markov_max_unique_of_same_pair_injective`); prime powers ⟹ Button's infinite family.
+
+## ★ EARLIER 2026-06-03c: tree-side of Zhang Lemma 2 COMPLETE (§9 window, 46 PURE)
 
 ## ★ LATEST: `Real213/SternBrocotMarkov` now **46 PURE** — §9 window added
 - **§9 residue window** (`markov_window`): every tree node satisfies `0 < u_t < m_t/2` — the
