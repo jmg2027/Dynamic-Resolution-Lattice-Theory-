@@ -762,4 +762,23 @@ theorem applyShift_diffBase (s : Nat → Int) (n : Nat) :
   show (-1) * s n + (1 * s (n + 1) + 0) = s (n + 1) - s n
   rw [neg_mul, Int.one_mul, Int.one_mul, Int.add_zero, Int.sub_eq_add_neg, add_comm]
 
+/-- The `k`-fold difference `Δᵏ` as a *shift* operator: `Δᵏ = (E−I)ᵏ`, built by
+    convolving `[-1,1]` with itself `k` times. -/
+def dPow : Nat → List Int
+  | 0   => [1]
+  | i+1 => conv [-1, 1] (dPow i)
+
+/-- ★ **`Δᵏ` as a shift operator computes the `k`-th difference.**  `applyShift (dPow k)
+    s n = Δᵏs(n) = liftKZ k s n` — the difference is a polynomial in the shift `E`.  The
+    dual of `applyOp_ePow`, and the bridge for C-D's forward direction. -/
+theorem applyShift_dPow (s : Nat → Int) : ∀ i n,
+    applyShift (dPow i) s n = liftKZ i s n
+  | 0,   n => by show 1 * s n + 0 = s n; rw [Int.one_mul, Int.add_zero]
+  | i+1, n => by
+    show applyShift (conv [-1, 1] (dPow i)) s n = liftKZ (i + 1) s n
+    rw [applyShift_conv [-1, 1] (dPow i) s n, applyShift_diffBase (applyShift (dPow i) s) n]
+    show applyShift (dPow i) s (n + 1) - applyShift (dPow i) s n = liftKZ (i + 1) s n
+    rw [applyShift_dPow s i (n + 1), applyShift_dPow s i n]
+    rfl
+
 end E213.Lib.Math.Cauchy.CFiniteRing
