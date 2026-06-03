@@ -21,12 +21,20 @@ All ∅-axiom (over `Int213`).
 
 namespace E213.Lib.Math.Linalg213.DetN
 
-open E213.Meta.Int213 (add_comm add_assoc mul_comm mul_assoc mul_add add_mul neg_mul mul_one zero_add zero_mul)
+open E213.Meta.Int213 (add_comm add_assoc mul_comm mul_assoc mul_add add_mul neg_mul mul_neg mul_one zero_add zero_mul)
 
 /-- The alternating sign `(−1)ⁿ` over `ℤ` (core-free). -/
 def altSign : Nat → Int
   | 0   => 1
   | n+1 => -(altSign n)
+
+/-- `(−1)` is multiplicative on the exponent: `altSign (a+b) = altSign a · altSign b`. -/
+theorem altSign_add (a b : Nat) : altSign (a + b) = altSign a * altSign b := by
+  induction b with
+  | zero => show altSign a = altSign a * 1; rw [mul_one]
+  | succ b ih =>
+    show -(altSign (a + b)) = altSign a * -(altSign b)
+    rw [ih, mul_neg]
 
 /-- Column reindex used by `minor`: skip column `j` (`l ↦ l` below `j`, `l ↦ l+1` at/above). -/
 def colShift (j l : Nat) : Nat := if l < j then l else l + 1

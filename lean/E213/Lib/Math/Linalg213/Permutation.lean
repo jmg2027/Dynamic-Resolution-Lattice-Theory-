@@ -19,7 +19,7 @@ All ∅-axiom (over `Int213` core).
 
 namespace E213.Lib.Math.Linalg213.Permutation
 
-open E213.Meta.Int213 (add_left_comm)
+open E213.Meta.Int213 (add_left_comm mul_neg)
 
 /-! ## §1 — list permutation-equivalence + sum invariance -/
 
@@ -68,7 +68,7 @@ A permutation is carried as its value list `[σ 0, σ 1, …]`.  Its **sign** is
 flips the sign — `sign(σ∘τ) = −sign σ` for an adjacent transposition `τ`, the structural fact
 the determinant essay names as alternating's natural home. -/
 
-open E213.Lib.Math.Linalg213.DetN (altSign)
+open E213.Lib.Math.Linalg213.DetN (altSign altSign_add)
 
 /-- Inversions contributed by `x` against a tail: the count of later entries `< x`. -/
 def ltCount (x : Nat) : List Nat → Nat
@@ -118,5 +118,43 @@ theorem psign_swap_adj {x y : Nat} (l : List Nat) (h : x ≠ y) :
       exact ac_form (ltCount x l) (ltCount y l) (inversions l)
     show altSign (inversions (y :: x :: l)) = - altSign (inversions (x :: y :: l))
     rw [key, altSign_succ, Int.neg_neg]
+
+/-! ## §3 — the positional sign flip (swap at any depth, via a prefix)
+
+Lifting `psign_swap_adj` (head swap) to a swap of two adjacent entries *after any prefix*.  A
+prefix `a` multiplies both signs by the same `altSign (ltCount a …)` — equal because the two
+lists are multiset-equal across the swap — so the flip survives.  This is the bridge from
+"adjacent value swap" to "swap rows `i, i+1` of a matrix". -/
+
+/-- `ltCount` distributes over append. -/
+theorem ltCount_append (a : Nat) : ∀ (L M : List Nat),
+    ltCount a (L ++ M) = ltCount a L + ltCount a M
+  | [],      M => by show ltCount a M = 0 + ltCount a M; rw [Nat.zero_add]
+  | y :: ys, M => by
+    show (if y < a then 1 else 0) + ltCount a (ys ++ M)
+       = ((if y < a then 1 else 0) + ltCount a ys) + ltCount a M
+    rw [ltCount_append a ys M, Nat.add_assoc]
+
+/-- Swapping the first two entries leaves `ltCount` unchanged (multiset-invariant). -/
+theorem ltCount_cons2_comm (a x y : Nat) (l : List Nat) :
+    ltCount a (y :: x :: l) = ltCount a (x :: y :: l) :=
+  Nat.add_left_comm (if y < a then 1 else 0) (if x < a then 1 else 0) (ltCount a l)
+
+/-- `psign` peels a head via `altSign` of its inversion contribution: a clean factorization. -/
+theorem psign_cons (a : Nat) (L : List Nat) :
+    psign (a :: L) = altSign (ltCount a L) * psign L :=
+  altSign_add (ltCount a L) (inversions L)
+
+/-- ★ **Positional sign flip.**  Swapping two distinct adjacent entries after any prefix flips
+    the sign: `psign (pre ++ y :: x :: l) = − psign (pre ++ x :: y :: l)` for `x ≠ y`. -/
+theorem psign_swap_prefix (pre : List Nat) {x y : Nat} (l : List Nat) (h : x ≠ y) :
+    psign (pre ++ y :: x :: l) = - psign (pre ++ x :: y :: l) := by
+  induction pre with
+  | nil          => exact psign_swap_adj l h
+  | cons a pre ih =>
+    show psign (a :: (pre ++ y :: x :: l)) = - psign (a :: (pre ++ x :: y :: l))
+    rw [psign_cons a (pre ++ y :: x :: l), psign_cons a (pre ++ x :: y :: l), ih,
+        ltCount_append a pre (y :: x :: l), ltCount_append a pre (x :: y :: l),
+        ltCount_cons2_comm a x y l, mul_neg]
 
 end E213.Lib.Math.Linalg213.Permutation
