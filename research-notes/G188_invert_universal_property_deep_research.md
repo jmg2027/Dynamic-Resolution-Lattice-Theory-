@@ -89,8 +89,11 @@ is the difference-Lens rung** — `liftKZ 1 s n = s(n+1) − s n` is the `ℤ`-d
 `ℤ`-sign = elliptic (period-2 swap), `ℤ`-difference (depth-1) = parabolic
 (`parabolic_at_NT_is_difference_lens_depth1`), `ℚ`/`ℝ` ratio/Cauchy = hyperbolic
 (`hyperbolic_at_NS_is_ratio_cauchy_rung`: det = unit `NS−NT`, convergents' cross-det = same unit,
-completing to `φ`).  `ℕ` (count) is the base they are read from.  The founding number-rungs *are*
-the discriminant tiers — two marathons, one structure.
+completing to `φ`).  `ℕ` (count, depth-0 constants) is the difference-Lens **fixed locus**
+(`count_constants_are_difference_fixed_below_parabolic`: `liftKZ 1 (const) = 0`), at the bottom of
+the parabolic tier.  Every founding rung is now placed: `ℕ` difference-fixed bottom of parabolic,
+`ℤ`-difference full parabolic, `ℤ`-sign elliptic, `ℚ`/`ℝ` hyperbolic.  The founding number-rungs
+*are* the discriminant tiers — two marathons, one structure.
 
 ## Net new theorems (all ∅-axiom, 0 dirty)
 | Theorem | Module | What it forces |
