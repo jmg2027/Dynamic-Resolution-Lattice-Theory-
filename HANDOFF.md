@@ -29,7 +29,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
   an abelian group under `±` (commutative ring under `+`).
 
-### 2. `Cauchy/CFiniteRing` (45 PURE) — operator algebra + ring closure + `cfiniteZ_sub` + §8 shift=Δ-op
+### 2. `Cauchy/CFiniteRing` (53 PURE) — operator algebra + ring + `cfiniteZ_sub` + §8 shift=Δ-op + §9 C-D reverse
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
@@ -66,16 +66,14 @@ version needs the Hadamard/resultant construction.  C-B-adjacent.
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
 `CasoratianStep`/`CasoratianSigned`.  Needs a rank/determinant argument.
 
-### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D) [foundation built]
-A monic order-`k` `Δ`-recurrence ⟺ monic order-`k` shift(`E`)-recurrence.  **Foundation done**
-(`CFiniteRing` §8): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`), `applyOp_ePow` (`applyOp (ePow k) s n
-= s(n+k)`, `Eᵏ` as a `Δ`-operator via `conv` of `[1,1]` — no binomial sums).  **Remaining — reverse
-direction** (shift rec ⟹ CFiniteZ): build `eCombo q = Σ_i qᵢ·ePow i` (shift-coeff list → `Δ`-coeff
-list, a fold via `addL`/`smulL`), prove `applyOp (eCombo q) s n = Σ qᵢ s(n+i)`, and that `eCombo` of a
-monic `q` is monic degree `k` (degree-tracking: `ePow_length` `|ePow k|=k+1`, leading `1`; the lower
-`qᵢ ePow i` are shorter so don't touch the top — reuse `addL_snoc_right`/`length_addL_right_ge`), then
-`annih_snoc_unit`.  **Forward direction** (CFiniteZ ⟹ shift rec): heavier — `newton_gregory` (`s(n+m)=
-Σ binom·Δʲs(n)`) + `newton_gregory_inverse` (already in `NewtonGregory`) assembled into a double sum.
+### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D) [reverse DONE]
+**Reverse direction done** (`CFiniteRing` §8–§9): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`),
+`applyOp_ePow` (`Eᵏ` as a `Δ`-operator, no binomial sums), and `cfiniteZ_of_shiftRec` — a monic
+order-`k` shift recurrence (`ShiftRecZ`) ⟹ `CFiniteZ` (orbit dim ≤ k), via `eCombo`/`ePow_eq_snoc`/
+`eCombo_length_le`/`addL_snoc_right`.  Validated end-to-end by `cfiniteZ_fib_via_shift`.  **Remaining
+— forward direction** (CFiniteZ ⟹ ∃ monic shift rec): heavier — assemble `newton_gregory` (`s(n+m)=
+Σ binom·Δʲs(n)`) + `newton_gregory_inverse` (both in `NewtonGregory`) into a double sum reducing the
+top `Δᵏ` via the orbit recurrence.  That would close the full equivalence (standard C-finite ⟺ CFiniteZ).
 
 ### 4. DRLT Validation Standard (unchanged, untouched this thread)
 The repo's stated real target — strict ∅-axiom precision theorem AND falsifier for one observable.
@@ -89,7 +87,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + cfiniteZ_add/sub + §8 shift=Δ-op (45 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + §8 shift=Δ-op + §9 C-D reverse (53 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
@@ -107,8 +105,7 @@ MODIFIED:
   product closure lands, or promote the `+`-ring now and extend later).
 
 ## Next
-Recommend **Open #3 reverse direction** (now the lowest-risk substantial win — the C-D foundation
-`applyOp_ePow` is built; finish `eCombo` + `ePow` degree-tracking → shift-rec ⟹ CFiniteZ, reusing the
-existing `conv_snoc`/`addL_snoc_right` toolkit, **no binomial sums**).  Heavier: **Open #1** (general
-Hadamard product, tensor/resultant) or **Open #3 forward** (double binom via `newton_gregory`).
-Lower-risk alternative: promote the `+`-ring sub-tree to `theory/`.
+C-D **reverse** is now done + validated.  Remaining, in rough difficulty order: **C-D forward**
+(CFiniteZ ⟹ shift rec — double-binom assembly of `newton_gregory`(+inverse); closes the full
+equivalence), **Open #1** general Hadamard product (tensor/resultant), **Open #2** C-B (Casoratian
+rank).  Lower-risk alternative: promote the `+`-ring sub-tree to `theory/`.

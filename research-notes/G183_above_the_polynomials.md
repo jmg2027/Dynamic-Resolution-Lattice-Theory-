@@ -28,10 +28,12 @@ polynomial).
   `cfiniteZ_neg`, `cfiniteZ_smul`, `CFiniteRing.cfiniteZ_sub` — C-finite is an abelian group under
   `±` (commutative ring under `+`).  `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ`) is the geometric instance of
   the open Hadamard product.
-- **C-D foundation** (`CFiniteRing` §8): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`), `ePow k` (`=Eᵏ`
-  via `conv` of `[1,1]`), `applyOp_ePow` (`applyOp (ePow k) s n = s(n+k)`) — **the shift is a `Δ`-operator**,
-  so a monic shift recurrence is a monic `Δ`-annihilator.  This reduces C-D's reverse direction to
-  degree-tracking on `ePow` (no binomial sums); forward direction uses `newton_gregory`(+inverse).
+- **C-D reverse direction DONE** (`CFiniteRing` §8–§9): `applyOp_shift` (`E = applyOp [1,1] = I+Δ`),
+  `applyOp_ePow` (`Eᵏ` as a `Δ`-operator via `conv` of `[1,1]`, no binomial sums), and
+  `cfiniteZ_of_shiftRec` — a monic order-`k` shift recurrence (`ShiftRecZ`) ⟹ `CFiniteZ` (orbit dim ≤ k),
+  the standard constant-recursive definition ⟹ the `Δ`-orbit one.  Validated by `cfiniteZ_fib_via_shift`
+  (Fibonacci's shift recurrence ⟹ `CFiniteZ fibZ`).  **Forward direction** (CFiniteZ ⟹ shift rec) open —
+  double-binom assembly of `newton_gregory`(+inverse) — would close the full equivalence.
 
 **The operator algebra + ring law are built (`Cauchy/CFiniteRing`, 28 PURE).**
 
