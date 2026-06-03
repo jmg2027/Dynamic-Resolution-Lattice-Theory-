@@ -14,7 +14,7 @@ The G183 thread — the **orbit-dimension ladder** *above* `DepthCharacterizatio
 separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-finite`) and the
 **C-finite operator ring**.
 
-### 1. `Cauchy/OrbitDimension` (24 PURE) — the strict inclusion + concrete witnesses
+### 1. `Cauchy/OrbitDimension` (28 PURE) — the strict inclusion + concrete witnesses
 - ★ `twoPow_is_diffZ_fixed`: `Δ(2ⁿ)=2ⁿ` (geometric eigen-identity, `ring_intZ` over core-free
   `powInt`); `liftKZ_twoPow_fixed` (every iterate fixes it — orbit = single line).
 - `CFiniteZ s := ∃ k c, ∀n, Δᵏs n = Σ_{i<k} cᵢ·Δⁱs n` (monic `Δ`-orbit recurrence) with `linComb`.
@@ -23,6 +23,8 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - `cfiniteZ_smul` / `cfiniteZ_shift` / `cfiniteZ_add_sameRec` (module + shift + shared-annihilator-sum).
 - **§5 general geometric family** `geomZ c = cⁿ`: `geom_diffZ` (`Δ(cⁿ)=(c−1)cⁿ`), `liftKZ_geomZ`,
   `cfiniteZ_geom` (orbit dim 1), `powInt_eq_zero`, `geom_not_polyDepthZ` (`c≠1` ⟹ not poly).
+  `cfiniteZ_congr` (C-finite respects pointwise eq); `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ` —
+  geometric Hadamard instance, orbit dims multiply `1·1=1`).
 - **§6 Fibonacci** `fibZ`: `cfiniteZ_fib` — orbit dimension 2 (`Δ²f=f−Δf`), a non-geometric witness.
 
 ### 2. `Cauchy/CFiniteRing` (41 PURE) — the difference-operator algebra + the ring closure
@@ -51,11 +53,12 @@ files).  **Default build now reaches every Cauchy module (0 orphans).**
 
 ## Open Problems (Priority Order)
 
-### 1. Hadamard (pointwise) product closure `s·t` — the other ring operation [now the top open]
-`cfiniteZ_add` (sum closure) is **done**.  The product closure `CFiniteZ s → CFiniteZ t →
-CFiniteZ (s·t)` is genuinely harder: characteristic roots multiply pairwise (tensor of recurrences,
-degree `k·m`).  `FiniteDepthAlgebra.polyDepthZ_mul` is the finite-*depth* analogue (discrete Leibniz);
-the C-finite version needs the Hadamard/resultant construction.  C-B-adjacent.
+### 1. Hadamard (pointwise) product closure `s·t` — the other ring operation [top open]
+`cfiniteZ_add` (sum closure) is **done**; the geometric instance `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ`)
+is done.  The *general* product closure `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` is genuinely
+harder: characteristic roots multiply pairwise (tensor of recurrences, degree `k·m`).
+`FiniteDepthAlgebra.polyDepthZ_mul` is the finite-*depth* analogue (discrete Leibniz); the C-finite
+version needs the Hadamard/resultant construction.  C-B-adjacent.
 
 ### 2. C-B — Casoratian/Hankel rank = orbit dimension (`research-notes/G183` conj C-B)
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
@@ -63,14 +66,10 @@ The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casora
 
 ### 3. C-D — orbit dimension = recurrence order (`research-notes/G183` conj C-D)
 A monic order-`k` `Δ`-recurrence ⟺ monic order-`k` shift(`E`)-recurrence (`E=I+Δ`, `Δ=E−I`; the
-operator algebras coincide).  `BinomialTransform.lean` has the `Eᵏ=Σbinom·Δʲ` machinery.
+operator algebras coincide).  Needs an operator-coefficient binomial transform (build a shift-operator
+`applyShift` mirroring `applyOp`); `BinomialTransform.lean` is a *sequence-value* transform, not this.
 
-### 4. Hadamard (pointwise) product closure `s·t` — the other ring operation
-Characteristic roots multiply pairwise (tensor of recurrences, degree `k·m`).  Harder; C-B-adjacent.
-`FiniteDepthAlgebra.polyDepthZ_mul` is the finite-*depth* analogue (discrete Leibniz); the C-finite
-version needs the Hadamard/resultant construction.
-
-### 5. DRLT Validation Standard (unchanged, untouched this session)
+### 4. DRLT Validation Standard (unchanged, untouched this thread)
 The repo's stated real target — strict ∅-axiom precision theorem AND falsifier for one observable.
 This session was pure math (C-finite ladder).  See prior handoffs / `CLAUDE.md`.
 
@@ -81,8 +80,8 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ## File Map
 ```
 NEW Lean (∅-axiom):
-  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci (24 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges (28 PURE)
+  lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard (28 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring law + bridges + cfiniteZ_add (41 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
@@ -91,11 +90,15 @@ MODIFIED:
 ```
 
 ## Three-tier state
-- **Active scratchpad**: `research-notes/G183_above_the_polynomials.md` (this thread; conjectures C-A
-  done at the operator level, C-B/C-C/C-D + Hadamard open).
-- **Promotion candidate**: once `cfiniteZ_add` closes, the `OrbitDimension`+`CFiniteRing` pair is a
-  clean closed sub-tree → `theory/math/analysis/cfinite_orbit_dimension.md` per `PROMOTION_CRITERIA`.
+- **Active scratchpad**: `research-notes/G183_above_the_polynomials.md` (this thread; C-A *done* —
+  strict inclusion + ring closure under `+` + both bridges + concrete witnesses; C-B/C-D + general
+  Hadamard product open).
+- **Promotion candidate**: the `OrbitDimension`+`CFiniteRing` pair is a clean, mostly-closed sub-tree
+  (sum closure done; only the Hadamard product is open) → eligible for
+  `theory/math/analysis/cfinite_orbit_dimension.md` per `PROMOTION_CRITERIA` (consider once the
+  product closure lands, or promote the `+`-ring now and extend later).
 
 ## Next
-Recommend **Open #1** (finish `cfiniteZ_add` — the headline ring closure, one list lemma away) or
-**Open #3** (C-D via `BinomialTransform`, conceptually crisp).
+Recommend **Open #1** (general Hadamard product — the last ring operation; needs the tensor/resultant
+construction) or **Open #3** (C-D via a new shift-operator `applyShift` + operator binomial transform).
+Lower-risk: promote the closed `+`-ring sub-tree to `theory/`.
