@@ -55,14 +55,14 @@ files).  **Default build now reaches every Cauchy module (0 orphans).**
 
 ## Open Problems (Priority Order)
 
-### 1. General Hadamard (pointwise) product `s·t` [geometric-factor corner DONE]
-The **geometric factor** is closed: `cfiniteZ_geomScale` (`cⁿ·s` C-finite for every C-finite `s`,
-via `cfiniteZ_iff_shiftRec` + `geom_shiftSum`), generalizing `cfiniteZ_geom_mul`.  The **general**
-product `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` (both factors non-geometric) is the open part:
-characteristic roots multiply pairwise (tensor of recurrences, degree `k·m`), annihilator = the
-resultant of the two characteristic polynomials.  `FiniteDepthAlgebra.polyDepthZ_mul` is the
-finite-*depth* analogue (discrete Leibniz).  Needs a determinant/resultant or km-dim linear-algebra
-argument — the genuinely hard remaining piece.  C-B-adjacent.
+### 1. General Hadamard product `s·t` [linalg program started — `research-notes/G185`]
+The **geometric factor** is closed (`cfiniteZ_geomScale`).  The **general** product is a large
+linear-algebra build (the monic `ℤ` annihilator is `det(zI−M)` = char poly = Cayley–Hamilton — no
+shortcut to monic without a determinant).  **Phase A started**: `Linalg213/DetN.lean` — the `n×n`
+determinant over `ℤ` (cofactor expansion, `det_one`/`det_two` sanity, 6 PURE).  Next: the alternating
+property (two equal rows ⟹ det 0), then char poly + Cayley–Hamilton (Phase B/C), then the Kronecker
+matrix `M` with `V(n+1)=M·V(n)` and `cfiniteZ_mul` (Phase D).  Full plan + survey in
+`research-notes/G185_hadamard_linalg_program.md`.  Also unlocks C-B.  ~1000+ lines, multi-session.
 
 ### 2. C-B — Casoratian/Hankel rank = orbit dimension (`research-notes/G183` conj C-B)
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
@@ -88,6 +88,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
   lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + C-D both directions + geometric Hadamard (79 PURE)
+  lean/E213/Lib/Math/Linalg213/DetN.lean          ← n×n determinant over ℤ (Phase A toward general Hadamard, 6 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
@@ -100,7 +101,9 @@ MODIFIED:
   `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 109 PURE);
   the research note is archived under `research-notes/archive/`.  Open items (the general Hadamard
   product, Casoratian rank, holonomic `ℚ(n)`-orbit) live in the chapter's **Open frontier** section.
-- No active Tier-1 scratch remains for this thread.
+- **Active Tier-1 scratch**: `research-notes/G185_hadamard_linalg_program.md` — the linear-algebra
+  program (det → char poly → Cayley–Hamilton → Kronecker `M`) for the general Hadamard product, the
+  last open ring operation; Phase A (`Linalg213/DetN`) started.
 
 ## Next
 **G183 is closed** (promoted to `theory/math/analysis/cfinite_orbit_dimension.md`); C-A, both bridges,
