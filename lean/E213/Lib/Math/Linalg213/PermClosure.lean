@@ -220,4 +220,34 @@ theorem lperm_of_cnt_eq {α : Type} [DecidableEq α] :
     exact LPerm.trans (LPerm.cons b (lperm_of_cnt_eq l1 (L2a ++ L2b) key))
       (hsplit ▸ lperm_mid_to_front b L2a L2b)
 
+/-! ## §5 — `swapAt` is an involution; count under an involution-map
+
+`swapAt k` applied twice is the identity, so counting `q` in `map (swapAt k) L` counts
+`swapAt k q` in `L`.  This reduces the closure `LPerm (map (swapAt k) (perms n)) (perms n)` to
+the count equality `cnt (swapAt k q) (perms n) = cnt q (perms n)`. -/
+
+/-- `swapAt k` is an involution. -/
+theorem swapAt_invol (k : Nat) (p : List Nat) : swapAt k (swapAt k p) = p := by
+  induction p generalizing k with
+  | nil => cases k <;> rfl
+  | cons a r ih =>
+    cases k with
+    | zero =>
+      cases r with
+      | nil       => rfl
+      | cons b r' => rfl
+    | succ k => show a :: swapAt k (swapAt k r) = a :: r; rw [ih]
+
+/-- Counting under an involution-map: `cnt q (map f L) = cnt (f q) L`. -/
+theorem cnt_map_inv {α : Type} [DecidableEq α] (f : α → α) (hf : ∀ x, f (f x) = x) (q : α) :
+    ∀ (L : List α), cnt q (L.map f) = cnt (f q) L
+  | []     => rfl
+  | b :: l => by
+    rw [show cnt q ((b :: l).map f) = (if f b = q then 1 else 0) + cnt q (l.map f) from rfl,
+        show cnt (f q) (b :: l) = (if b = f q then 1 else 0) + cnt (f q) l from rfl,
+        cnt_map_inv f hf q l]
+    by_cases hbq : b = f q
+    · rw [if_pos hbq, if_pos ((congrArg f hbq).trans (hf q))]
+    · rw [if_neg hbq, if_neg (fun h : f b = q => hbq ((hf b).symm.trans (congrArg f h)))]
+
 end E213.Lib.Math.Linalg213.PermClosure
