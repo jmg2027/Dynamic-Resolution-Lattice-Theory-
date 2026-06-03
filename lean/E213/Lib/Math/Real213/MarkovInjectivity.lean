@@ -1,0 +1,118 @@
+import E213.Lib.Math.Real213.MarkovUniqueness
+
+/-!
+# MarkovInjectivity — the residue-map injectivity analysis (Zhang/Frobenius skeleton)
+
+The Markov uniqueness conjecture at a fixed maximum `c` reduces to **injectivity of the residue
+map** `triple ↦ u`, `u = (a·b⁻¹) mod c` (a root of `x² ≡ −1`).  Following the classical
+literature (Frobenius 1913; Baragar 1996, Button 1998, Lang–Tan 2005, Zhang 2007; Aigner's book),
+this module records the *correct* shape of the argument and isolates what is elementary from what
+is open.
+
+**What is the easy direction.**  `triple ↦ u` is injective once one has the *window
+normalization*: among the (at most two, for prime powers) roots `{r, c−r}` of `x² ≡ −1`, the one
+in `(0, c/2)` is unique (`root_unique_below_half`), and the strictly monotone recovery
+`u/c ↦ (a,b)` reconstructs the ordered triple.  The monotonicity (Zhang Lemma 2) needs the
+Farey/Stern-Brocot slope parametrisation; the *root-window uniqueness* (Zhang **Lemma 4**, the
+single place primality enters) is proved here outright from the 2-root property.
+
+**Why there is no determinant size bound.**  Two ordered triples sharing a root `u` ARE parallel
+mod `c`: `c ∣ a₁·b₂ − a₂·b₁` (`markov_same_root_parallel`).  One is tempted to finish by bounding
+`|a₁b₂ − a₂b₁| < c` to force `= 0` and conclude equality (`coprime_cross_eq`).  **This bound is
+false**: by Frobenius's identities `u_t·m_r − u_r·m_t = m_s`, the cross-determinant equals a
+*neighbouring Markov number* (≈ `c`), a genuine nonzero multiple of `c`.  So the parallel relation,
+while true and exact, does **not** self-close — recorded here to mark the dead end.
+
+**What is open.**  For composite `c` with `≥ 2` distinct prime factors, `x² ≡ −1 (mod c)` has
+`2^{ω−1}` roots in the window, and it is unknown that at most one is *Markov-realisable*.  That
+root-counting — not the injectivity of `triple ↦ u` — is the open content of the Frobenius
+conjecture.  (Our per-`c` `decide` certificates do this counting concretely up to `c = 1325`.)
+-/
+
+namespace E213.Lib.Math.Real213.MarkovInjectivity
+
+open E213.Lib.Math.Real213.MarkovTree (markovEq)
+open E213.Tactic.NatHelper (gcd213)
+open E213.Lib.Math.Real213.MarkovUniqueness
+  (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos)
+open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
+open E213.Meta.Nat.Gcd213 (gcd213_comm)
+
+/-! ## §1 — the parallel reduction (true, but does not self-close) -/
+
+/-- ★★★ **Same-root triples are parallel mod `c`.**  If `(u·b₁) % c = a₁` and `(u·b₂) % c = a₂`
+    (the two triples share the residue `u`), then `a₁·b₂ ≡ a₂·b₁ (mod c)` — the Markov pairs are
+    parallel as vectors over `ℤ/c`.  (`a_i ≡ u·b_i`, so `a₁b₂ ≡ u·b₁b₂ ≡ a₂b₁`.) -/
+theorem markov_same_root_parallel (a₁ b₁ a₂ b₂ c u : Nat)
+    (h1 : (u * b₁) % c = a₁) (h2 : (u * b₂) % c = a₂) :
+    (a₁ * b₂) % c = (a₂ * b₁) % c := by
+  rw [← h1, ← h2,
+      ← E213.Meta.Nat.MulMod213.mul_mod_left_pure (u * b₁) b₂ c,
+      ← E213.Meta.Nat.MulMod213.mul_mod_left_pure (u * b₂) b₁ c,
+      show u * b₁ * b₂ = u * b₂ * b₁ from by ring_nat]
+
+/-- ★★★ **Coprime + *exactly* parallel ⟹ equal.**  Two coprime pairs with `a₁·b₂ = a₂·b₁` (exact,
+    not merely mod `c`) coincide: `b₁ ∣ b₂` and `b₂ ∣ b₁` (Euclid, via coprimality), so `b₁ = b₂`,
+    then `a₁ = a₂` by cancellation.  This is the closing step *if* the cross-determinant vanished
+    — which (see header) it does not for distinct triples. -/
+theorem coprime_cross_eq (a₁ b₁ a₂ b₂ : Nat) (hb₁ : 0 < b₁) (hb₂ : 0 < b₂)
+    (hco₁ : gcd213 a₁ b₁ = 1) (hco₂ : gcd213 a₂ b₂ = 1)
+    (hcross : a₁ * b₂ = a₂ * b₁) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hb1b2 : b₁ ∣ b₂ := by
+    have hd : b₁ ∣ a₁ * b₂ := ⟨a₂, by rw [hcross, Nat.mul_comm]⟩
+    rcases Nat.lt_or_ge 1 b₁ with hgt | hle
+    · exact euclid_of_coprime a₁ b₂ b₁ hgt (gcd213_comm a₁ b₁ ▸ hco₁) hd
+    · exact (Nat.le_antisymm hle hb₁) ▸ ⟨b₂, (Nat.one_mul b₂).symm⟩
+  have hb2b1 : b₂ ∣ b₁ := by
+    have hd : b₂ ∣ a₂ * b₁ := ⟨a₁, by rw [← hcross, Nat.mul_comm]⟩
+    rcases Nat.lt_or_ge 1 b₂ with hgt | hle
+    · exact euclid_of_coprime a₂ b₁ b₂ hgt (gcd213_comm a₂ b₂ ▸ hco₂) hd
+    · exact (Nat.le_antisymm hle hb₂) ▸ ⟨b₁, (Nat.one_mul b₁).symm⟩
+  have hbeq : b₁ = b₂ := Nat.le_antisymm (le_of_dvd_loc hb₂ hb1b2) (le_of_dvd_loc hb₁ hb2b1)
+  exact ⟨Nat.eq_of_mul_eq_mul_right hb₂ (by rw [hcross, hbeq]), hbeq⟩
+
+/-- ★★★ **Two ordered Markov triples with vanishing cross-determinant are equal.**  Combines
+    `coprime_cross_eq` with the (general, descent-theorem) pairwise coprimality of Markov triples.
+    The hypothesis `a₁·b₂ = a₂·b₁` is exactly "the residue map does not separate them and the
+    cross-determinant vanishes" — true iff the triples coincide. -/
+theorem markov_eq_of_cross (a₁ b₁ a₂ b₂ c : Nat) (hc : 2 ≤ c)
+    (h1 : markovEq a₁ b₁ c) (hab1 : a₁ ≤ b₁) (hbc1 : b₁ ≤ c)
+    (h2 : markovEq a₂ b₂ c) (hab2 : a₂ ≤ b₂) (hbc2 : b₂ ≤ c)
+    (hcross : a₁ * b₂ = a₂ * b₁) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hco1 := (markov_ordered_coprime a₁ b₁ c h1 (markov_a_pos hc h1) hab1 hbc1).1
+  have hco2 := (markov_ordered_coprime a₂ b₂ c h2 (markov_a_pos hc h2) hab2 hbc2).1
+  exact coprime_cross_eq a₁ b₁ a₂ b₂
+    (Nat.lt_of_lt_of_le (markov_a_pos hc h1) hab1) (Nat.lt_of_lt_of_le (markov_a_pos hc h2) hab2)
+    hco1 hco2 hcross
+
+/-! ## §2 — Zhang's Lemma 4: the root window holds ≤ 1 root (the primality lock) -/
+
+/-- ★★★★ **At most one `√(−1)` in the window `(0, c/2)`** (Zhang Lemma 4 core).  If `x² ≡ −1` has
+    at most the two roots `{r, c−r}` (`SqrtNegOneTwoRoots c`), then a root `x` with `2x < c` is
+    unique: the alternative `x + y = c` is impossible when both `2x, 2y < c`.  This is the single
+    ingredient that, with the (Farey-monotone) recovery, pins the triple — and the *only* place
+    the root-count `≤ 2` (i.e. prime-power-ness) is used. -/
+theorem root_unique_below_half (c : Nat) (h2 : SqrtNegOneTwoRoots c)
+    {x y : Nat} (hx : x < c) (hy : y < c) (hxh : 2 * x < c) (hyh : 2 * y < c)
+    (hrx : (x * x + 1) % c = 0) (hry : (y * y + 1) % c = 0) : x = y := by
+  rcases h2 x hx y hy hrx hry with heq | hsum
+  · exact heq
+  · exfalso
+    have hlt : 2 * x + 2 * y < c + c := Nat.add_lt_add hxh hyh
+    rw [show 2 * x + 2 * y = (x + y) + (x + y) from by ring_nat, hsum] at hlt
+    exact absurd hlt (Nat.lt_irrefl (c + c))
+
+/-- ★★★★ **The window root is unique at every odd prime power** (Zhang Lemma 4).  For `c = p^(k+1)`
+    (`p ≥ 3` prime), `x² ≡ −1 (mod c)` has at most one root in `(0, c/2)`.  The prime-power
+    hypothesis enters *only* through `sqrtNegOneTwoRoots_prime_pow` (≤ 2 roots); everything else is
+    `root_unique_below_half`.  With the Farey-monotone recovery (Zhang Lemma 2, not yet formalised)
+    this yields prime-power Markov uniqueness — Button's theorem. -/
+theorem root_unique_below_half_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p)
+    {x y : Nat} (hx : x < p ^ (k + 1)) (hy : y < p ^ (k + 1))
+    (hxh : 2 * x < p ^ (k + 1)) (hyh : 2 * y < p ^ (k + 1))
+    (hrx : (x * x + 1) % p ^ (k + 1) = 0) (hry : (y * y + 1) % p ^ (k + 1) = 0) : x = y :=
+  root_unique_below_half (p ^ (k + 1)) (sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
+    hx hy hxh hyh hrx hry
+
+end E213.Lib.Math.Real213.MarkovInjectivity
