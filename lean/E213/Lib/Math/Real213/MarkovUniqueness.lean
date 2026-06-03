@@ -1116,4 +1116,48 @@ theorem markov_max_unique_985 : MarkovMaxUnique 985 :=
   markov_max_unique_of_4roots 985 2 169 183 408 577 802 (by decide)
     (by decide) (by decide) (by decide) (by decide) (by decide)
 
+/-! ### The 2-root class: prime and prime-power Markov numbers (Button/Zhang)
+
+When `c = pᵏ` (or `2pᵏ`, `4pᵏ`) the root set of `x²≡−1 (mod c)` has exactly two elements
+`{r, c−r}` (`two_roots_of_prime_pow`), so uniqueness needs only two per-root certificates.
+`markov_max_unique_of_2roots` packages this; each prime / prime-power Markov number is then a
+one-liner — the (per-`c`) Button/Zhang case, ∅-axiom. -/
+
+/-- ★★★★★ **General uniqueness from a 2-root certificate** (the prime / prime-power class).
+    Identical to `markov_max_unique_of_4roots` with two roots. -/
+theorem markov_max_unique_of_2roots (c a₀ b₀ r₁ r₂ : Nat) (hc : 2 ≤ c)
+    (hroots : ∀ u, u < c → (u * u + 1) % c = 0 → u = r₁ ∨ u = r₂)
+    (h₁ : ∀ b, b < c → markovEq ((r₁ * b) % c) b c → (r₁ * b) % c ≤ b → (r₁ * b) % c = a₀ ∧ b = b₀)
+    (h₂ : ∀ b, b < c → markovEq ((r₂ * b) % c) b c → (r₂ * b) % c ≤ b → (r₂ * b) % c = a₀ ∧ b = b₀) :
+    MarkovMaxUnique c := by
+  refine markov_max_unique_of_single (a₀ := a₀) (b₀ := b₀) ?_
+  intro a b hab hbc hm
+  have ha : 1 ≤ a := markov_a_pos hc hm
+  have hbc' : b < c := markov_mid_lt_max a b c hm ha hab hbc hc
+  have hac : a < c := Nat.lt_of_le_of_lt hab hbc'
+  have hco : gcd213 b c = 1 := markov_hcop_general c hc a b hab hbc hm
+  obtain ⟨u, hu_lt, hu_root, hu_rec⟩ :=
+    markov_root_recovery a b c (Nat.lt_of_lt_of_le (by decide) hc) hac hco hm
+  rcases hroots u hu_lt hu_root with rfl | rfl
+  · obtain ⟨e1, e2⟩ := h₁ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
+  · obtain ⟨e1, e2⟩ := h₂ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
+
+set_option maxRecDepth 40000 in
+/-- ★★★★★ **UNCONDITIONAL `MarkovMaxUnique 169`** (`169 = 13²`) — the first **prime-power
+    composite** Markov number, roots `{70,99}`, unique triple `(2,29,169)`.  ∅-axiom. -/
+theorem markov_max_unique_169 : MarkovMaxUnique 169 :=
+  markov_max_unique_of_2roots 169 2 29 70 99 (by decide) (by decide) (by decide) (by decide)
+
+set_option maxRecDepth 40000 in
+/-- ★★★★★ **UNCONDITIONAL `MarkovMaxUnique 233`** (prime) — roots `{89,144}` (consecutive
+    Fibonacci!), unique triple `(1,89,233)`. -/
+theorem markov_max_unique_233 : MarkovMaxUnique 233 :=
+  markov_max_unique_of_2roots 233 1 89 89 144 (by decide) (by decide) (by decide) (by decide)
+
+set_option maxRecDepth 40000 in
+/-- ★★★★★ **UNCONDITIONAL `MarkovMaxUnique 433`** (prime) — roots `{179,254}`, unique triple
+    `(5,29,433)` (the third node of the silver/Pell spine). -/
+theorem markov_max_unique_433 : MarkovMaxUnique 433 :=
+  markov_max_unique_of_2roots 433 5 29 179 254 (by decide) (by decide) (by decide) (by decide)
+
 end E213.Lib.Math.Real213.MarkovUniqueness
