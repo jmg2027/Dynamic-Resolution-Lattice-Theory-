@@ -241,14 +241,17 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Invert universal property + deep-research additions (2026-06-03)
 
-`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **11 PURE / 0 DIRTY**.  The invert
-move's **universal property**, Quot-free.  `AbTarget` (abelian-group target, laws as
-∀-equalities); `lift M H f (a,b) = f a − f b`; `lift_respects_pairEquiv` (well-defined on the
-completion), `lift_combine` (homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`);
-capstone `invert_factors_through_any_group` (every map to an abelian group factors through the
-completion — initiality, not an imported adjunction).  Group-algebra toolkit `ab_neg_add`,
-`ab_add_add_add_comm`, `ab_add_right_cancel`, `ab_neg_unique`.  Makes "invert is one move"
-precise: the invert move is *the* universal group completion.
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **15 PURE / 0 DIRTY**.  The invert
+move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free.
+`AbTarget` (abelian-group target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`;
+existence — `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine`
+(homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`); uniqueness — `lift_unique`
+(any `g` respecting `pairEquiv` + `combine` + `η` equals `lift`), via `pair_equiv_eta_combine`
+(every pair `~ η(a) ∘ inv(η(b))`); capstones `invert_factors_through_any_group` and
+`invert_is_the_universal_group_completion`.  Group-algebra toolkit `ab_neg_add`,
+`ab_add_add_add_comm`, `ab_add_{left,right}_cancel`, `ab_neg_unique`.  Makes "invert is one
+move" precise: the invert move is *the* universal group completion, unique up to iso (initiality,
+not an imported adjunction).
 
 `E213.Lens.Number.Nat213.Tower.PairCompletion` — **+2 PURE (17 total)**.
 `diagonal_is_combine_identity` (the emergent diagonal *is* the `combine`-identity, unit-free —

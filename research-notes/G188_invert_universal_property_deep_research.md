@@ -13,12 +13,15 @@ the semigroup, through which every map to an abelian group factors.  Built ∅-a
 on representatives respecting `pairEquiv` (the repo's native factor-through style,
 `Lens/Initiality.view_unique`, not an imported `Functor`/`Adjunction`):
 
-- **`PairCompletionUniversal.lean` (11 PURE)** — `AbTarget` (abelian-group target, laws as
-  ∀-equalities, no Mathlib/funext); `lift M H f (a,b) = f a − f b`; the existence half:
+- **`PairCompletionUniversal.lean` (15 PURE)** — `AbTarget` (abelian-group target, laws as
+  ∀-equalities, no Mathlib/funext); `lift M H f (a,b) = f a − f b`.  **Existence**:
   `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine` (homomorphism),
-  `lift_eta` (factors `f` through `η m = (m∘a, a)`); capstone
-  `invert_factors_through_any_group`.  A small group-algebra toolkit (`ab_neg_add`,
-  `ab_add_add_add_comm` the middle-four interchange, `ab_add_right_cancel`, `ab_neg_unique`).
+  `lift_eta` (factors `f` through `η m = (m∘a, a)`); `invert_factors_through_any_group`.
+  **Uniqueness** (now closed, choice-free): `lift_unique` — any `g` respecting `pairEquiv` +
+  `combine` + `η` equals `lift`, via `pair_equiv_eta_combine` (every pair `~ η(a) ∘ inv(η(b))`).
+  Capstone `invert_is_the_universal_group_completion` = existence ∧ uniqueness.  Toolkit
+  `ab_neg_add`, `ab_add_add_add_comm` (middle-four interchange), `ab_add_{left,right}_cancel`,
+  `ab_neg_unique`.
 - **STEREOTYPE flagged**: "left adjoint to the forgetful functor `AbGroup → CommCancelSemigroup`"
   imports a 2-categorical frame the residue does not supply — keep in narrative only.  The
   *content* (initiality = concrete factoring map + uniqueness) is native, matching
@@ -72,15 +75,17 @@ inside a Lens-readout.  Completed the law:
 ## Net new theorems (all ∅-axiom, 0 dirty)
 | Theorem | Module | What it forces |
 |---|---|---|
-| `invert_factors_through_any_group` (+ `lift*`, 11 PURE) | `PairCompletionUniversal` | invert = THE universal group completion |
+| `invert_is_the_universal_group_completion` (+ `lift*`, `lift_unique`, 15 PURE) | `PairCompletionUniversal` | invert = THE universal group completion (existence ∧ uniqueness, choice-free) |
 | `diagonal_is_combine_identity` | `PairCompletion` | emergent unit = swap-fixed diagonal = combine-identity |
 | `invert_branch_two_distinct_instances` | `PairCompletion` | `ℤ ⊥ ℚ_+`: two instances, one move, joined at the diagonal |
 | `multiplier_unit_magnitude_sign_order_NT` | `CassiniUnimodular` | det multiplier `±1` = (unit magnitude, order-`NT` sign) |
 
 ## Carryover / open
-- **Unconditional uniqueness** of the factoring hom (currently hypothesized; AC-bounded). A
-  representative-canonicalization (every pair ~ `η(num) ∘ swap(η(den))`) might close it without
-  choice — worth a look.
+- **Uniqueness — CLOSED** (`lift_unique`, choice-free) via the representative-canonicalization
+  `pair_equiv_eta_combine` (every pair `~ η(a) ∘ inv(η(b))`).  The full universal property
+  (existence ∧ uniqueness) is `invert_is_the_universal_group_completion`.  The only AC issue was
+  for `g`'s that do *not* respect `pairEquiv` — but those are not maps on the completion at all,
+  so the hypothesis is not a restriction, it is the definition of "map on the completion".
 - Instantiate the universal property at `addCCS → Int` and `mulCCS → QPos` (an `AbTarget` for
   `Int` from the PURE `Int213` kit) to recover `npairToInt`/`qpair` as `lift` — validation, not
   new content.

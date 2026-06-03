@@ -28,7 +28,8 @@ an imported `Functor`/`Adjunction`).  The identity emerging as the diagonal
 namespace E213.Lens.Number.Nat213.Tower.PairCompletionUniversal
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
-open E213.Lens.Number.Nat213.Tower.PairCompletion (CommCancelSemigroup pairEquiv combine)
+open E213.Lens.Number.Nat213.Tower.PairCompletion
+  (CommCancelSemigroup pairEquiv combine swap diagonal_single_class combine_swap_equiv_diagonal)
 
 /-- An abelian-group target, all laws as `∀`-quantified equalities (PURE — no `funext`,
     no Mathlib `Group`).  The invert completion factors into any such target. -/
@@ -141,5 +142,86 @@ theorem invert_factors_through_any_group
         lift M H f (combine M p q) = H.add (lift M H f p) (lift M H f q))
     ∧ (∀ m a : Nat213, lift M H f (M.op m a, a) = f m) :=
   ⟨fun hpq => lift_respects_pairEquiv hf hpq, lift_combine hf, lift_eta hf⟩
+
+theorem ab_add_left_cancel (H : AbTarget) {a b k : H.carrier}
+    (h : H.add k a = H.add k b) : a = b := by
+  rw [H.add_comm k a, H.add_comm k b] at h
+  exact ab_add_right_cancel H h
+
+/-- Every pair decomposes as `η(a) ∘ inv(η(b))` for any base point `c` — `(a, b) ~ combine
+    (a∘c, c) (c, b∘c)`.  This is "every group element is `η a − η b`", the key to uniqueness. -/
+theorem pair_equiv_eta_combine (M : CommCancelSemigroup) (c : Nat213) (p : Nat213 × Nat213) :
+    pairEquiv M p (combine M (M.op p.1 c, c) (swap (M.op p.2 c, c))) := by
+  show M.op p.1 (M.op c (M.op p.2 c)) = M.op p.2 (M.op (M.op p.1 c) c)
+  rw [← M.assoc c p.2 c, M.comm c p.2, M.assoc p.2 c c,
+      ← M.assoc p.1 p.2 (M.op c c), M.assoc p.1 c c,
+      ← M.assoc p.2 p.1 (M.op c c), M.comm p.2 p.1]
+
+/-- ★★★★ **Uniqueness — the factoring hom is `lift`.**  Any `g` that (i) is well-defined on the
+    completion (respects `pairEquiv`), (ii) is a `combine`-homomorphism, and (iii) factors `f`
+    through `η` (`g (m∘a, a) = f m`) equals `lift f` on every representative.  Together with
+    `invert_factors_through_any_group` this is the **full** group-completion universal property
+    (initiality, existence ∧ uniqueness), ∅-axiom and Quot-free.  Choice is not needed: `g` is
+    assumed to respect `pairEquiv` (i.e. to genuinely be a map on the completion) — the only AC
+    issue is for `g`'s that do *not*, which are not maps on the completion at all. -/
+theorem lift_unique
+    (hf : ∀ x y, f (M.op x y) = H.add (f x) (f y))
+    (g : Nat213 × Nat213 → H.carrier)
+    (g_resp : ∀ {p q : Nat213 × Nat213}, pairEquiv M p q → g p = g q)
+    (g_hom : ∀ p q : Nat213 × Nat213, g (combine M p q) = H.add (g p) (g q))
+    (g_eta : ∀ m a : Nat213, g (M.op m a, a) = f m)
+    (c : Nat213) (p : Nat213 × Nat213) :
+    g p = lift M H f p := by
+  -- (1) g kills the diagonal: g (k, k) = 0
+  have hz : ∀ k : Nat213, g (k, k) = H.zero := by
+    intro k
+    have hx : H.add (g (k, k)) (g (k, k)) = g (k, k) := by
+      rw [← g_hom (k, k) (k, k)]
+      exact g_resp (diagonal_single_class M (M.op k k) k)
+    have e : H.add (g (k, k)) (g (k, k)) = H.add (g (k, k)) H.zero := by
+      rw [hx, H.add_zero]
+    exact ab_add_left_cancel H e
+  -- (2) g sends inv(η b) to −f b
+  have hswap : ∀ b : Nat213, g (swap (M.op b c, c)) = H.neg (f b) := by
+    intro b
+    have key : H.add (g (M.op b c, c)) (g (swap (M.op b c, c))) = H.zero := by
+      rw [← g_hom (M.op b c, c) (swap (M.op b c, c))]
+      have hd : g (combine M (M.op b c, c) (swap (M.op b c, c)))
+          = g (M.op b c, M.op b c) :=
+        g_resp (combine_swap_equiv_diagonal M (M.op b c, c) (M.op b c))
+      rw [hd]; exact hz (M.op b c)
+    rw [g_eta b c] at key
+    exact ab_neg_unique H key
+  -- (3) decompose p and compute
+  show g p = H.add (f p.1) (H.neg (f p.2))
+  rw [g_resp (pair_equiv_eta_combine M c p), g_hom, g_eta p.1 c, hswap p.2]
+
+/-- ★★★★★ **The invert move is THE universal group completion — existence ∧ uniqueness.**
+    For every abelian-group target `H` and semigroup-hom `f : M → H`:
+
+      * **existence** — `lift f` is well-defined on the completion, a homomorphism, and factors
+        `f` through `η`;
+      * **uniqueness** — any `g` that is well-defined on the completion (respects `pairEquiv`),
+        a `combine`-homomorphism, and factors `f` through `η`, equals `lift f`.
+
+    This is the complete group-completion universal property (initiality), ∅-axiom, Quot-free,
+    and choice-free.  It is the precise content of "invert is one move": the invert move is *the*
+    unique-up-to-iso group completion, instantiated at `+` (`ℤ`) and `·` (`ℚ_+`).  The framing as
+    a "left adjoint to a forgetful functor" is an imported 2-categorical comparison and is kept to
+    narrative only; the residue-native content is this concrete factor-through + uniqueness, the
+    same shape as `Theory.Raw.Lambek`'s initiality. -/
+theorem invert_is_the_universal_group_completion
+    (hf : ∀ x y, f (M.op x y) = H.add (f x) (f y)) :
+    (∀ {p q : Nat213 × Nat213}, pairEquiv M p q → lift M H f p = lift M H f q)
+    ∧ (∀ p q : Nat213 × Nat213,
+        lift M H f (combine M p q) = H.add (lift M H f p) (lift M H f q))
+    ∧ (∀ m a : Nat213, lift M H f (M.op m a, a) = f m)
+    ∧ (∀ (g : Nat213 × Nat213 → H.carrier),
+        (∀ {p q : Nat213 × Nat213}, pairEquiv M p q → g p = g q) →
+        (∀ p q : Nat213 × Nat213, g (combine M p q) = H.add (g p) (g q)) →
+        (∀ m a : Nat213, g (M.op m a, a) = f m) →
+        ∀ p : Nat213 × Nat213, g p = lift M H f p) :=
+  ⟨fun hpq => lift_respects_pairEquiv hf hpq, lift_combine hf, lift_eta hf,
+   fun g gr gh ge p => lift_unique hf g gr gh ge Nat213.one p⟩
 
 end E213.Lens.Number.Nat213.Tower.PairCompletionUniversal

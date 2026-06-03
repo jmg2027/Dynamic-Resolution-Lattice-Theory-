@@ -21,11 +21,11 @@ citable as one unit (and promotable per `theory/PROMOTION_CRITERIA.md`).
     (`diagonal_is_combine_identity`); the swap has order exactly `NT = 2` (`swap_order_eq_NT`);
     and `ℤ ⊥ ℚ_+` as two distinct instances joined at the diagonal
     (`invert_branch_two_distinct_instances`).
-  * **`Nat213/Tower/PairCompletionUniversal`** — the invert move's **universal property**:
-    every map to an abelian group factors through the completion
-    (`invert_factors_through_any_group` — well-defined, homomorphism, factors `η`), Quot-free.
-    This makes "invert is one move" precise: the invert move is *the* universal group
-    completion.
+  * **`Nat213/Tower/PairCompletionUniversal`** — the invert move's **complete universal
+    property** (existence ∧ uniqueness, Quot-free and choice-free): every map to an abelian group
+    factors *uniquely* through the completion (`invert_is_the_universal_group_completion`;
+    `lift_unique` via `pair_equiv_eta_combine`).  This makes "invert is one move" precise: the
+    invert move is *the* universal group completion, unique up to iso.
   * **`Nat213/Order`** — native strict order (Lean `Nat` order is propext-dirty): trichotomy,
     strict square-monotonicity from distributivity, and square-injectivity `mul_self_inj`.
   * **`SharedUnitAcrossReadings`** — the honest unification: the unit `1` is one value across
