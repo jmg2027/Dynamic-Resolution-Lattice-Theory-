@@ -827,4 +827,97 @@ theorem sCombo_length_le (c : Nat → Int) : ∀ k, (sCombo c k).length ≤ k
       rw [length_addL_right_ge (sCombo c k) (smulL (c k) (dPow k)) hle, hsl]
     exact Nat.le_of_eq heq
 
+/-- Peel the lowest term of a `shiftSum`: `Σ_{i<k+1} bᵢ s(n+i) = b₀·s(n) + Σ_{i<k} b_{i+1} (Es)(n+i)`. -/
+theorem shiftSum_peel (b : Nat → Int) (s : Nat → Int) : ∀ k n,
+    shiftSum b s (k+1) n
+      = b 0 * s n + shiftSum (fun i => b (i+1)) (fun m => s (m+1)) k n
+  | 0,   n => by
+    show shiftSum b s 0 n + b 0 * s (n + 0)
+       = b 0 * s n + shiftSum (fun i => b (i+1)) (fun m => s (m+1)) 0 n
+    show (0 : Int) + b 0 * s (n + 0) = b 0 * s n + 0
+    rw [Nat.add_zero, zero_add, Int.add_zero]
+  | k+1, n => by
+    show shiftSum b s (k+1) n + b (k+1) * s (n + (k+1))
+       = b 0 * s n + (shiftSum (fun i => b (i+1)) (fun m => s (m+1)) k n
+                       + b (k+1) * s (n + k + 1))
+    rw [shiftSum_peel b s k n, add_assoc]
+    rfl
+
+/-- `applyShift` of a coefficient list is the `shiftSum` reading off the list. -/
+theorem applyShift_eq_shiftSum : ∀ (lo : List Int) (s : Nat → Int) (n : Nat),
+    applyShift lo s n = shiftSum (fun i => lo.getD i 0) s lo.length n
+  | [],      _, _ => rfl
+  | a :: lo, s, n => by
+    show a * s n + applyShift lo (fun m => s (m + 1)) n
+       = shiftSum (fun i => (a :: lo).getD i 0) s (lo.length + 1) n
+    rw [shiftSum_peel (fun i => (a :: lo).getD i 0) s lo.length n,
+        applyShift_eq_shiftSum lo (fun m => s (m + 1)) n]
+    rfl
+
+/-- `shiftSum` is negated by negating every coefficient. -/
+theorem shiftSum_neg (b : Nat → Int) (s : Nat → Int) : ∀ k n,
+    shiftSum (fun i => -(b i)) s k n = -(shiftSum b s k n)
+  | 0,   _ => by show (0 : Int) = -0; rw [Int.neg_zero]
+  | k+1, n => by
+    show shiftSum (fun i => -(b i)) s k n + (-(b k)) * s (n + k)
+       = -(shiftSum b s k n + b k * s (n + k))
+    rw [shiftSum_neg b s k n]
+    ring_intZ
+
+/-- `applyShift` of a monic operator `lo ++ [v]` peels the top shift:
+    `(lo ++ [v])(E) s n = lo(E) s n + v·s(n + |lo|)`. -/
+theorem applyShift_snoc : ∀ (lo : List Int) (v : Int) (s : Nat → Int) (n : Nat),
+    applyShift (lo ++ [v]) s n = applyShift lo s n + v * s (n + lo.length)
+  | [],      v, s, n => by
+    show v * s n + 0 = 0 + v * s (n + 0)
+    rw [Nat.add_zero, Int.add_zero, zero_add]
+  | a :: lo, v, s, n => by
+    show a * s n + applyShift (lo ++ [v]) (fun m => s (m + 1)) n
+       = (a * s n + applyShift lo (fun m => s (m + 1)) n) + v * s (n + (lo.length + 1))
+    rw [applyShift_snoc lo v (fun m => s (m + 1)) n, ← add_assoc]
+    rfl
+
+/-- A monic shift annihilator `lo ++ [1]` *is* the shift recurrence `s(n+|lo|) =
+    Σ_{i<|lo|} (−loᵢ) s(n+i)`. -/
+theorem shiftRec_of_shiftAnnih {lo : List Int} {s : Nat → Int}
+    (h : ∀ n, applyShift (lo ++ [1]) s n = 0) :
+    ShiftRecZ lo.length (fun i => -(lo.getD i 0)) s := fun n => by
+  have hz : applyShift lo s n + s (n + lo.length) = 0 := by
+    have hh := h n
+    rwa [applyShift_snoc lo 1 s n, Int.one_mul] at hh
+  show s (n + lo.length) = shiftSum (fun i => -(lo.getD i 0)) s lo.length n
+  rw [neg_eq_of_add_eq_zero hz, shiftSum_neg (fun i => lo.getD i 0) s lo.length n,
+      applyShift_eq_shiftSum lo s n]
+
+/-- ★★★ **C-D forward direction.**  Every C-finite sequence satisfies a monic shift
+    recurrence of the same order — its `Δ`-orbit recurrence `Δᵏs = Σ cᵢ Δⁱs` is, read
+    through `Δⁱ = (E−I)ⁱ` (`applyShift_dPow`), the shift recurrence `s(n+k) = Σ bᵢ
+    s(n+i)`.  With `cfiniteZ_of_shiftRec` (the reverse) this is the full
+    **"orbit dimension = recurrence order"** equivalence: `CFiniteZ` is exactly the
+    standard constant-recursive (C-finite) class.  The shift annihilator is
+    `dPow k − Σ cᵢ dPow i` (monic of degree `k`, the lower `dPow i` being shorter). -/
+theorem shiftRec_of_cfiniteZ {s : Nat → Int} (h : CFiniteZ s) :
+    ∃ K b, ShiftRecZ K b s := by
+  obtain ⟨k, c, hrec⟩ := h
+  obtain ⟨loK, vK, heK, hvK, hlK⟩ := dPow_eq_snoc k
+  subst hvK
+  have hnsl : (smulL (-1) (sCombo c k)).length ≤ loK.length := by
+    rw [length_smulL, hlK]; exact sCombo_length_le c k
+  have hannih : ∀ n, applyShift ((addL (smulL (-1) (sCombo c k)) loK) ++ [1]) s n = 0 := by
+    intro n
+    rw [← addL_snoc_right (smulL (-1) (sCombo c k)) loK 1 hnsl, ← heK,
+        applyShift_addL (smulL (-1) (sCombo c k)) (dPow k) s n,
+        applyShift_smulL (-1) (sCombo c k) s n, applyShift_sCombo c s k n,
+        applyShift_dPow s k n, hrec n, neg_mul, Int.one_mul, add_comm, add_neg_cancel]
+  exact ⟨_, _, shiftRec_of_shiftAnnih hannih⟩
+
+/-- ★★★ **Orbit dimension = recurrence order.**  A sequence is C-finite (`CFiniteZ`,
+    a monic `Δ`-orbit recurrence) iff it satisfies a monic constant-coefficient shift
+    recurrence (`ShiftRecZ`, the standard definition of a C-finite / constant-recursive
+    sequence).  The two definitions — `Δ`-orbit dimension and shift recurrence order —
+    coincide, via `Δⁱ = (E−I)ⁱ` and `Eⁱ = (I+Δ)ⁱ` realized as `dPow`/`ePow`. -/
+theorem cfiniteZ_iff_shiftRec {s : Nat → Int} :
+    CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s :=
+  ⟨shiftRec_of_cfiniteZ, fun ⟨_, _, h⟩ => cfiniteZ_of_shiftRec h⟩
+
 end E213.Lib.Math.Cauchy.CFiniteRing
