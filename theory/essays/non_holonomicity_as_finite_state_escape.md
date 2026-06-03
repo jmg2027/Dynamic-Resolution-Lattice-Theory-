@@ -243,15 +243,17 @@ machine-free escape.
 **What sets the order-2 sub-tier — the trace discriminant.**  Inside C-finite, the order-2
 recurrence `s(n+2) = p·s(n+1) − q·s(n)` is split by its **companion discriminant** `p² − 4q`
 (`EllipticPeriodicTier.comp_disc`), which is literally the `HyperbolicEllipticTrace` discriminant
-`tr² − 4·det` whose sign is the φ/π pole split (`wick_discriminant_split`).  *Elliptic* (`disc < 0`,
+`tr² − 4·det` whose sign is the φ/π pole split (`wick_discriminant_split`).  The three signs read off three rungs of the hierarchy directly.  *Elliptic* (`disc < 0`,
 unimodular): the companion is a finite-order generator — `comp 0 1 = S` (order 4), `comp 1 1 = U`
 (order 6) — so the orbit is **periodic** (`periodic_elliptic_S`/`_U`), the bottom tier (still
-`HomogRec`, `elliptic_S_homogRec`).  *Hyperbolic* (`disc > 0`, e.g. `comp 3 1`, the golden/Lucas
-`disc = 5`): a real quadratic-irrational iterator whose orbit **grows** — unbounded partial
-quotients, the quadratic-irrational CF tier (`PositiveFloorUnbounded`).  So the same trace
-discriminant that names the residue's φ (scaling) and π (rotation) faces is the dial between the
-periodic floor and the growing C-finite sequences: the φ/π pole work and the depth hierarchy are
-one structure, read at the order-2 rung.
+`HomogRec`, `elliptic_S_homogRec`).  *Parabolic* (`disc = 0`, `comp 2 1`): the recurrence is
+`s(n+2) = 2·s(n+1) − s(n)`, i.e. `Δ²s = 0` — exactly **polynomial depth 1** (linear), the floor of
+the generating ring, and this is an **iff** (`parabolic_iff_depth1`).  *Hyperbolic* (`disc > 0`,
+e.g. `comp 3 1`, the golden/Lucas `disc = 5`): a real quadratic-irrational iterator whose orbit
+**grows** — unbounded partial quotients, the quadratic-irrational CF tier (`PositiveFloorUnbounded`).
+So the same trace discriminant that names the residue's φ (scaling) and π (rotation) faces is the
+dial across the hierarchy — periodic floor `<0`, linear-polynomial floor `=0`, growing C-finite
+`>0`: the φ/π pole work and the depth hierarchy are one structure, read at the order-2 rung.
 
 ## The verdict on the two cores
 

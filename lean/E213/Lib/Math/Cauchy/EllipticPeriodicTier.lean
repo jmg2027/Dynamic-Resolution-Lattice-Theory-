@@ -1,5 +1,6 @@
 import E213.Lib.Math.Real213.HyperbolicEllipticTrace
 import E213.Lib.Math.Cauchy.CFiniteHomogRec
+import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
@@ -28,6 +29,7 @@ namespace E213.Lib.Math.Cauchy.EllipticPeriodicTier
 open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Math.Cauchy.CFiniteHomogRec (order2_homogRec)
 open E213.Lib.Math.Cauchy.ZeroRunNonHolonomic (HomogRec)
+open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ polyDepthZ)
 
 /-- The companion matrix of `s(n+2) = p·s(n+1) − q·s(n)`. -/
 def comp (p q : Int) : Mat2 := ⟨p, -q, 1, 0⟩
@@ -85,5 +87,38 @@ theorem elliptic_S_homogRec (s : Nat → Int) (hrec : ∀ n, s (n + 2) = -s n) :
   rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.PolyIntM.one_mulZ,
       show (0 : Int) - s n = -s n from E213.Meta.Int213.zero_add (-(s n))]
   exact hrec n
+
+/-! ## The parabolic rung: `disc = 0` ⟺ polynomial depth 1 (linear)
+
+The middle discriminant sign — `disc = 0`, the companion `comp 2 1` — is the recurrence
+`s(n+2) = 2·s(n+1) − s(n)`, i.e. `Δ²s = 0`: exactly the degree-1 (linear) polynomials, the
+`polyDepthZ 1` floor.  So the discriminant trichotomy `<0 / =0 / >0` reads off the hierarchy
+directly: *elliptic* periodic (bottom), *parabolic* linear-polynomial (the depth-1 floor of the
+generating ring), *hyperbolic* growing (quadratic-irrational CF). -/
+
+/-- The parabolic companion has zero discriminant. -/
+theorem parabolic_comp_disc : Mat2.disc (comp 2 1) = 0 := by rw [comp_disc]; decide
+
+/-- ★★★ **Parabolic ⟺ linear.**  `s(n+2) = 2·s(n+1) − s(n)` (the `disc = 0` order-2 recurrence,
+    `Δ²s = 0`) holds for all `n` **iff** `s` has polynomial depth `1` — i.e. `s` is a degree-≤1
+    polynomial (`finite_depthZ_iff`).  The parabolic point of the φ/π discriminant *is* the
+    depth-1 floor of the generating ring. -/
+theorem parabolic_iff_depth1 (s : Nat → Int) :
+    (∀ n, s (n + 2) = 2 * s (n + 1) - s n) ↔ polyDepthZ 1 s := by
+  constructor
+  · intro hrec
+    have h2 : ∀ n, liftKZ 1 s (n + 1) = liftKZ 1 s n := fun n => by
+      show s (n + 2) - s (n + 1) = s (n + 1) - s n
+      rw [hrec n]; ring_intZ
+    intro n
+    induction n with
+    | zero => rfl
+    | succ n ih => rw [h2 n, ih]
+  · intro hpd n
+    have e' : s (n + 2) - s (n + 1) = s (n + 1) - s n := (hpd (n + 1)).trans (hpd n).symm
+    have step : s (n + 2) = (s (n + 2) - s (n + 1)) + s (n + 1) :=
+      (E213.Meta.Int213.sub_add_cancel_int (s (n + 2)) (s (n + 1))).symm
+    rw [e'] at step
+    rw [step]; ring_intZ
 
 end E213.Lib.Math.Cauchy.EllipticPeriodicTier
