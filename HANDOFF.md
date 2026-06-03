@@ -107,6 +107,8 @@ MODIFIED:
   product closure lands, or promote the `+`-ring now and extend later).
 
 ## Next
-Recommend **Open #1** (general Hadamard product — the last ring operation; needs the tensor/resultant
-construction) or **Open #3** (C-D via a new shift-operator `applyShift` + operator binomial transform).
-Lower-risk: promote the closed `+`-ring sub-tree to `theory/`.
+Recommend **Open #3 reverse direction** (now the lowest-risk substantial win — the C-D foundation
+`applyOp_ePow` is built; finish `eCombo` + `ePow` degree-tracking → shift-rec ⟹ CFiniteZ, reusing the
+existing `conv_snoc`/`addL_snoc_right` toolkit, **no binomial sums**).  Heavier: **Open #1** (general
+Hadamard product, tensor/resultant) or **Open #3 forward** (double binom via `newton_gregory`).
+Lower-risk alternative: promote the `+`-ring sub-tree to `theory/`.
