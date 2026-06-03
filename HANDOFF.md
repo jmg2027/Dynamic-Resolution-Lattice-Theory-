@@ -1,175 +1,141 @@
-# Session Handoff — 2026-06-03 (number-tower founding + closure-move marathon)
+# Session Handoff — 2026-06-03 (invert universal property + cross-marathon dial unification)
 
 ## Branch
-`claude/concrete-non-fixed-point-witness-vi1IQ` — **merged to `main`** this session (after
-merging `origin/main`'s non-holonomicity thread in; see §6).  Working tree clean.
-Full `cd lean && lake build` clean (1500+ modules); every new theorem ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty`, run from **repo root**).
+`claude/concrete-non-fixed-point-witness-vi1IQ` — **merged to `main`** (`main` = branch HEAD =
+`fd58a7a`).  Working tree clean.  Full `cd lean && lake build` clean (1500+ modules).  Every new
+theorem ∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`, run from **repo root**).  Ran
+alongside a concurrent `non-holonomicity-rGhug` session also pushing to `main`; merges were clean
+(no conflicts beyond auto-merged `STRICT_ZERO_AXIOM.md`).
 
 ---
 
 ## What Was Done This Session
 
-A marathon that founded the number tower `ℕ → ℤ → ℚ → ℝ` as a chain of Lens bundlings,
-ran a multi-agent generalization audit, resolved every open frontier item, and promoted
-the closed sub-tree.
+Two arcs.  **(I)** the number-tower founding marathon (`ℕ→ℤ→ℚ→ℝ` as Lens bundlings, promoted) —
+detailed in the prior handoff (`cb8da4d`); summary below.  **(II)** a deep-research round that
+characterized the invert move by its **universal property** and unified the founding with the
+concurrent discriminant-dial marathon.
 
-### 1. The number-tower founding (Lean, all PURE) — `Lens/Number/`
-- **`DifferenceLensFounding` (4 PURE)** — `ℤ` = count-Lens on an ordered pair; sign =
-  period-2 swap; `difference_lens_slash_additive` (the count-Lens bundled into a group).
-- **`RatioLensFounding` (5 PURE)** — `ℚ`'s lowest-terms = `det P = NS − NT = 1`
-  (`convergent_lowest_terms_is_det`).  Content is **`Nat`-level**; imports neither `ℤ`
-  nor the difference-Lens.
-- **`CauchyLensFounding` (1 PURE)** — `ℝ` is the Cauchy rung; convergents narrow to one
-  cut; `ℝ` is a fixpoint.
-- **`TowerFounding` (1 PURE)** — capstone `number_tower_is_lens_bundling` chaining all four.
-- **`Founding.lean`** — umbrella collecting the founding sub-tree (for promotion / citation).
+### I. Number-tower founding (promoted to `theory/`, prior arc)
+`Lens/Number/{Difference,Ratio,Cauchy,Tower}Founding` + umbrella `Founding.lean`; `Nat213/Order`
+(native strict order, `mul_self_inj`); `Nat213/Tower/{NatPairToInt, NatPairToQPos, PairCompletion}`;
+`SharedUnitAcrossReadings`.  `book/foundations/` 준-책 (all 5 OPEN items resolved).  Promoted per
+`PROMOTION_CRITERIA` → `theory/lens/number_systems.md`; `G186`/`G187` archived.
 
-### 2. The closure-move generalization + multi-agent audit (archived `G187`)
-Hypothesis "a number system = a word in a {iterate, invert, complete, double} move-monoid"
-was **adversarially REJECTED** (no shared carrier; `double`/Cayley–Dickson exits the Lens
-codomain; iterate's native object is one iterated `slash`, not a `+→×→^` hyperoperation
-ladder, and its unboundedness IS the residue via `cantor_general`).  What **survived**:
-- **The invert twin**: `ℤ = invert(+)`, `ℚ = invert(×)` — one mechanism, two folds.
-  - **`Nat213/Tower/NatPairToQPos` (19 PURE)** — the reciprocal involution, full
-    multiplicative twin of `ℤ`'s negation: `qSwap_involutive`, `qpair_mul_swap_eq_qOne`
-    (`x·(1/x)=1`), `reciprocal_fixed_iff_unit` (exact twin of `zero_unique_negation_fixed`).
-  - **`Nat213/Tower/PairCompletion` (15 PURE)** — `invert_is_one_move`: a generic
-    `CommCancelSemigroup` pair-completion at `+` (`ℤ`) and `·` (`ℚ_+`); the group identity
-    **emerges as the diagonal, unit-free** (forced: `Nat213` has no additive `0`).  Also
-    `swap_order_eq_NT` (period-2 forced by `NT = 2`).
-- **The shared unit (the honest unification, NOT a monoid)**:
-  - **`SharedUnitAcrossReadings` (1 PURE)** — `the_unit_is_one_across_readings`: the unit
-    `1` is one value across count-difference (`NS−NT`), Möbius/ratio determinant, Cassini
-    oscillation, and the reciprocal law.  *Identity-of-the-unit (downward), not an operator
-    monoid.*
+### II. Deep research: the invert move's universal property (G188 round, ~19 PURE theorems)
+A 4-agent adversarial deep-research round (read `research-notes/G188_invert_universal_property_deep_research.md`).
 
-### 3. Native order on `Nat213` (reusable) — `Nat213/Order` (8 PURE)
-Lean `Nat` order is propext/Classical/Quot-**dirty** (verified by scratch probe), so order
-was built natively: `lt a b := ∃ c, add a c = b`; `lt_trichotomy`; `lt_mul_self` (strict
-square-monotonicity **purely from distributivity**, no order lemma); `mul_self_inj`
-(`a·a = b·b → a = b`).  Reusable wherever `Nat213` order is needed.
+- **`Nat213/Tower/PairCompletionUniversal` (19 PURE)** — ★ the invert move is **THE universal group
+  completion**, existence ∧ uniqueness, Quot-free **and choice-free**.  `AbTarget` (abelian-group
+  target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`; `lift_respects_pairEquiv`,
+  `lift_combine`, `lift_eta`; uniqueness `lift_unique` (any `g` respecting `pairEquiv`+`combine`+`η`
+  = `lift`, via `pair_equiv_eta_combine`: every pair `~ η(a) ∘ inv(η(b))`); capstone
+  `invert_is_the_universal_group_completion`.  **Validated**: `intTarget` + `addCCS_completion_is_Int`
+  — the additive completion of `(Nat213,+)` *is* `ℤ` (`liftZ` = integer-difference map; `(2,1)↦+1`,
+  `(1,2)↦−1`).  Group-algebra toolkit `ab_{neg_add, add_add_add_comm, add_left/right_cancel, neg_unique}`.
+- **`PairCompletion` (17 PURE)** — added `diagonal_is_combine_identity` (the emergent unit = the
+  swap-fixed diagonal = the combine-identity, unit-free — no-exterior inside a readout) and
+  `invert_branch_two_distinct_instances` (`ℤ ⊥ ℚ_+`: `add 1 1 ≠ mul 1 1`, two instances joined at
+  the diagonal).
+- **`CassiniUnimodular` (13 PURE)** — `multiplier_unit_magnitude_sign_order_NT` (+ `qpow_one`): the
+  unimodular multiplier `±1` factors as (unit magnitude, order-`NT` sign).  The one genuine result
+  from the `(unit,period)=(1,2)` facet (the rest was numerology — rejected).
 
-### 4. The `book/foundations/` working treatise (준-책) + all OPEN items resolved
-6 files (`README` + 5 chapters) founding the tower and answering: is `ℕ→ℤ→ℚ→ℝ` complete
-(yes — `ℝ` Cauchy fixpoint), one axis (hybrid — one unit, many readings), forced (only at
-its seams).  **All five frontier items resolved** (ch 5.2): #1 ℚ-on-ℤ (honest direction —
-identity-of-the-unit, docstring corrected), #2 exhaustiveness (resolved as *no* — preorder,
-≥2 chains), #3 period-2 (theorem `swap_order_eq_NT`), #4 ℚ obligation (resolved as a
-choice — no exterior dialer), #5 unify axes (`the_unit_is_one_across_readings`).
+### III. Cross-marathon unification: the founding IS the discriminant dial
+`Lens/Number/FoundingDialUnification` (4 PURE) — the concurrent session independently bridged its
+discriminant dial to this work (`FoundingDynamicBridge`: founding swap = elliptic floor).  Deepened
+to the **whole dial**: the two marathons are one order-2 companion `comp p q` split along its
+coordinates — **founding fixes the determinant** (`= q`, the unit `NS − NT`), **dial varies the
+trace** (`disc = p² − 4q`).  Complete tier↔rung correspondence:
 
-### 5. Promotion + hygiene
-- Promoted the founding sub-tree per `PROMOTION_CRITERIA` (H1–H4 + S1–S3): umbrella +
-  `theory/lens/number_systems.md` Founding section; `G187` archived.
-- Archived `G186`; **verified book/ main treatise citations**: all 22 cited theorems exist,
-  all 12 modules 0 dirty.
-- Fixed stale `N_U = d^(d²) = 5²⁵` / `seed/RESOLUTION_LIMIT_SPEC.md` (nonexistent) in **two**
-  places (`seed/AXIOM/06_lens_readings.md` §6.7 and `theory/INDEX.md`) → parametric
-  `configCountD d n = d^(d^n)`, no level privileged.
+| dial tier (trace) | founding rung | theorem |
+|---|---|---|
+| elliptic (`p=0`) | `ℤ`-sign (period-2 swap, `S²=−I`) | `FoundingDynamicBridge.founding_swap_is_elliptic_floor` |
+| parabolic (`p=NT`) | `ℤ`-difference, depth-1 (`liftKZ 1 s = s(·+1)−s`) | `parabolic_at_NT_is_difference_lens_depth1` |
+| hyperbolic (`p=NS`) | `ℚ`/`ℝ` ratio/Cauchy (convergents → `φ`, `disc=d`) | `hyperbolic_at_NS_is_ratio_cauchy_rung` |
+| parabolic bottom | `ℕ` (count, depth-0 constants = difference-fixed) | `count_constants_are_difference_fixed_below_parabolic` |
 
-### 6. Merged from `main` (concurrent non-holonomicity session — do not re-derive)
-This branch merged `origin/main` (the `claude/non-holonomicity-rGhug` thread) before going to
-`main`.  Disjoint from this session's `Lens/Number/` work; adjacent PURE material now on `main`:
-- **`Meta/Int213/Order` (34 PURE)** — ∅-axiom `Int` ordering layer (core `Int.le_trans` /
-  `lt_trichotomy` are propext-dirty).  Pairs with this session's `Nat213/Order` — two native
-  order layers now exist (`Int` and `Nat213`); future order work should reuse, not rebuild.
-- **`Cauchy/{PolyDepthMonotone, ThueMorseRingEscape, ThueMorseAperiodic, MorseHedlund,
-  EllipticPeriodicTier, CFiniteHomogRec, DepthMonotoneSynthesis, HomogRecPeriodic, …}`** — the
-  non-holonomicity / holonomicity-hierarchy thread closed end-to-end (polynomial ⊆ C-finite ⊆
-  P-recursive ⊊ non-holonomic; Thue–Morse dense witness `tm_eq_popParity`; discriminant↔hierarchy
-  at the order-2 rung, `comp_disc = p²−4q`).  π non-holonomicity mapped (located, not forced).
-- Notes: `research-notes/G170, G173–G176, G183, G184` (+ `archive/G185`).
+`founding_unit_floors_dial_trace_runs_tiers` is the umbrella.  **Honesty**: det-floor + trace-dial
+are *parametric*; `p=NT` parabolic / `p=NS` hyperbolic (disc=d) are *atomic* — they pin `NS=3`.
 
----
+### Rejected (method integrity)
+- "Lattice of adjoints" — a 4th axis-vocabulary, does NOT unify the three; adjoints relate OBJECTS,
+  the shared unit relates READINGS.  Kept narrative-only.
+- `(NS,NT)=(unit+period, period)` arithmetic — re-reading of `NS=NT+1`; `1·2`, `2²−1=3` numerology.
+- "Left adjoint to forgetful functor" framing — imported 2-categorical stereotype; the native form
+  is the concrete factor-through + uniqueness (Lambek-style).
 
 ## Current Precision Results (0 free parameters)
-**No physics constants changed this session** (pure math / founding / three-tier hygiene).
-Table unchanged — from `catalogs/physics-constants.md`:
-
-| Observable | DRLT | Error |
-|---|---|---|
-| m_μ/m_e = 206.768 | NS·137/NT | 0.48 ppb |
-| R∞ = 13.605693 eV | Phase 4 H | 4.3 ppb |
-| m_p = 938.27 MeV | NS·Λ_QCD·P | 0.000% |
-| Ω_Λ = 0.685 | (1−1/π)(1+α/d) | 0.0008% |
-| m_H = 125.28 GeV | 1/c · v_H | +0.02% |
-| Cabibbo λ = 5/22 | d/(d²−NS) | atomic |
-| 1/α_em ≈ 137.036 | Phase 1 | ppm |
-
-**DRLT Validation Standard status UNCHANGED** — see Open #1 (still the repo's stated "real
-target"; this session was math/founding, not physics validation).
-
----
+**No physics constants changed this session** (pure math / founding / unification).  Table
+unchanged — `catalogs/physics-constants.md`: `m_μ/m_e = NS·137/NT` (0.48 ppb), `R∞` (4.3 ppb),
+`m_p = NS·Λ_QCD·P` (0.000%), `Ω_Λ` (0.0008%), `m_H` (+0.02%), Cabibbo `λ = 5/22`, `1/α_em` (ppm).
+**DRLT Validation Standard status UNCHANGED** — see Open #1.
 
 ## Open Problems (Priority Order)
 
-### 1. DRLT Validation Standard — the repo's stated "real target" (untouched this session)
-`CLAUDE.md`: from `(NS,NT,d)=(3,2,5)`, deliver a **strict ∅-axiom precision theorem AND
-falsifier for the same observable**.  Next concrete step: audit which catalog results
-(`1/α_em`, `m_μ/m_e = NS·137/NT`, `N_gen = C(NS,NT) = 3`, `θ_QCD`, Cabibbo `λ = 5/22`) are
-strict ∅-axiom in Lean vs still Python/numerical.  **Recommended next axis.**
+### 1. DRLT Validation Standard — the repo's stated "real target" (untouched all session)
+From `(NS,NT,d)=(3,2,5)`, deliver a **strict ∅-axiom precision theorem AND falsifier for the same
+observable**.  Audit which catalog results are strict ∅-axiom in Lean vs Python.  **Recommended
+next axis** — the math/founding/unification threads are mature and fully on main.
 
-### 2. `book/foundations` promotion to `book/` proper (low effort)
-The 준-책 frontier is closed; it is now a closeable treatise.  Remaining: meet the `book/`
-narrative-promotion bar (it already has a `theory/lens/number_systems.md` + `theory/INDEX`
-pointer).  Mostly a labeling decision (drop "working draft" if desired — user asked for
-준-책, so confirm before finalizing).
+### 2. The orthogonal CD / 4th axis
+The G188 audit found the move-monoid generalization fails because `double` (Cayley–Dickson) exits
+the Lens codomain — it is a genuinely orthogonal axis.  The dial unification covers the order-2
+(elliptic/parabolic/hyperbolic) tiers; the concurrent session has order-3 (`cubic_disc_witnesses`).
+Open: does the CD doubling axis relate to the dial's order, or is it fully orthogonal (likely)?
 
-### 3. Other closed sub-trees lacking `theory/` chapters
-Scan PURE-closed Lean sub-trees against `theory/PROMOTION_CRITERIA.md` for promotion
-candidates (the founding + disc were done this session).
+### 3. Unconditional uniqueness without the `pairEquiv` hypothesis — CLOSED as "not needed"
+`lift_unique` assumes `g` respects `pairEquiv` (= is a genuine map on the completion).  Documented
+that the AC issue only affects non-maps; no further work needed.
 
-### 4. π non-holonomicity (classically OPEN) — `research-notes/G170_pi_cf_*`
-Not closable ∅-axiom; FGS asymptotic-obstruction is the credible route.
-
----
+### 4. π non-holonomicity (classically OPEN) — concurrent session's thread (`research-notes/G170,G173-G176`).
 
 ## Unresolved from This Session (don't repeat)
-- **Core Nat order is propext-dirty** — `Nat.lt_or_ge`, `Nat.le_antisymm`,
-  `Nat.mul_lt_mul_right`, `Nat.mul_le_mul_left` all pull `propext`/`Classical.choice`/
-  `Quot.sound` (verified by scratch probe, then deleted).  Use `Nat213.Order` (native) or
-  build PURE replacements; do NOT import core Nat order into PURE theorems.
-- **`Nat213.Order` square-injectivity** needed `lt_trichotomy` + strict square mono; built
-  unit-free from distributivity (no Mathlib).  The reciprocal fixed-point iff now closes.
-- **Build cycle**: `Lib/Math/Mobius213OneAsGlue` imports `Lens.Number` aggregator, so a
-  `Lens/Number/` file importing Mobius CANNOT be added to the `Lens.Number` aggregator
-  (`SharedUnitAcrossReadings` is a glob-built leaf, like the founding files).
-- **Layer-import guard**: `Lib/Math` files cannot import `Lens/...` submodules (hook block);
-  put Lens-consuming capstones under `Lens/`.
-- **Move-monoid generalization is stereotype** — do not revive "free monoid on construction
-  functors"; the honest unification is downward to the shared unit (`G187`, archived).
+- **`ring_intZ` fails on `c − c = 0`** (PolyIntM sub-cancellation edge: `var0 + var0.neg` didn't
+  normalize to `C 0`).  Use `E213.Meta.Int213.Order.sub_self_zero` (PURE) instead.
+- **Two native order layers now exist** — `Meta/Int213/Order` (34 PURE, `Int`) and
+  `Lens/Number/Nat213/Order` (8 PURE, `Nat213`).  Reuse, don't rebuild; core Lean order is
+  propext/Classical/Quot-dirty.
+- **`AbTarget.carrier` does not propagate `OfNat`/`Neg`** through a `(… : Int)` ascription — define a
+  typed abbreviation (`liftZ : … → Int`) when comparing the universal `lift` to integer literals.
+- **Build-cycle**: `Lib/Math/Mobius213OneAsGlue` imports the `Lens.Number` aggregator, so a
+  `Lens/Number/` file importing Mobius cannot be added to that aggregator (glob-built leaf).
+- **Layer-import guard**: `Lib/Math` files cannot import `Lens/...` submodules.
+- **G188 number collision** — both this session (`G188_invert_universal_property_deep_research`) and
+  the concurrent session (`G188_depth_order_duality`) used G188.  Harmless (different topics), but
+  the next free index is **G189**.
 
 ## Next
-Recommend **pivot to Open #1** (the DRLT Validation Standard) — audit α_em / m_μ-m_e /
-falsifiers for strict ∅-axiom status in Lean.  The math/founding thread is mature and
-fully promoted; the physics validation is where the stated standard lives.
+Recommend **pivot to Open #1** (DRLT Validation Standard — the repo's real target; audit
+α_em / m_μ-m_e / falsifiers for strict ∅-axiom status in Lean).  The founding + invert + dial
+threads are complete and on main.
 
 ## Three-tier state
-- **Promotions this session**: `theory/lens/number_systems.md` (Founding section) ←
-  `Lens/Number/Founding` sub-tree; `G187` + `G186` archived to `research-notes/archive/`.
-- **Promotion candidates**: `book/foundations` → `book/` proper (Open #2); other PURE-closed
-  sub-trees (Open #3).
-- **Active scratchpad**: `research-notes/` top-level (50+ G-notes across many threads — NOT
-  this session's; G186/G187 archived).
+- **Promotions**: `theory/lens/number_systems.md` (founding sub-tree, prior arc).  The dial
+  unification (`FoundingDialUnification`) + invert-universal are promotion candidates (PURE-closed)
+  but lack a dedicated `theory/` chapter — eligible per `PROMOTION_CRITERIA`.
+- **Active scratchpad**: `research-notes/G188_invert_universal_property_deep_research.md` (this
+  round); concurrent session's `G170, G173–G176, G183, G188_depth_order_duality`.
+- **Archived this/prior arc**: `G186`, `G187`.
 
 ## File Map
 ```
-NEW Lean (∅-axiom):
-  lean/E213/Lens/Number/Founding.lean                  ← umbrella for the founding sub-tree
-  lean/E213/Lens/Number/Nat213/Order.lean              ← native strict order + mul_self_inj (8 PURE)
-  lean/E213/Lens/Number/Nat213/Tower/PairCompletion.lean ← invert_is_one_move + swap_order_eq_NT (15 PURE)
-  lean/E213/Lens/Number/SharedUnitAcrossReadings.lean  ← the_unit_is_one_across_readings (1 PURE)
+NEW Lean (∅-axiom, this session, all on main):
+  lean/E213/Lens/Number/Nat213/Tower/PairCompletionUniversal.lean ← invert universal property (19 PURE)
+  lean/E213/Lens/Number/FoundingDialUnification.lean              ← founding = discriminant dial (4 PURE)
+  lean/E213/Lens/Number/Founding.lean                             ← founding-sub-tree umbrella
+  lean/E213/Lens/Number/{Difference,Ratio,Cauchy,Tower}Founding.lean ← the tower rungs (prior arc)
+  lean/E213/Lens/Number/SharedUnitAcrossReadings.lean             ← the_unit_is_one_across_readings
+  lean/E213/Lens/Number/Nat213/Order.lean                         ← native order + mul_self_inj (8 PURE)
 MODIFIED Lean:
-  lean/E213/Lens/Number/Nat213/Tower/NatPairToQPos.lean ← reciprocal involution +iff (19 PURE)
-  lean/E213/Lens/Number/RatioLensFounding.lean          ← docstring corrected (ℚ⊥ℤ, identity-of-unit)
-  lean/E213/Lens/Number/{Nat213,Number}.lean            ← aggregator imports/docs
-NEW docs:
-  book/foundations/{README,01..05}.md                   ← the founding 준-책 (frontier resolved)
-MODIFIED docs:
-  seed/AXIOM/06_lens_readings.md                        ← §6.7 stale-ref/N_U fix
-  theory/{INDEX, lens/INDEX, lens/number_systems}.md    ← promotion + N_U fix + book/foundations pointer
-  STRICT_ZERO_AXIOM.md                                  ← catalog entries for all the above
-ARCHIVED:
-  research-notes/archive/G187_closure_move_generalization.md  ← the closure-move audit
-  research-notes/archive/G186_native_vs_imported_axis.md      ← disc native-vs-imported (→ book/ ch4-6)
+  lean/E213/Lens/Number/Nat213/Tower/PairCompletion.lean          ← +diagonal_is_combine_identity, branch (17 PURE)
+  lean/E213/Lens/Number/Nat213/Tower/NatPairToQPos.lean           ← reciprocal involution (19 PURE)
+  lean/E213/Lib/Math/CassiniUnimodular.lean                       ← +multiplier (unit,period) (13 PURE)
+FROM CONCURRENT SESSION (on main, do not re-derive):
+  lean/E213/Lens/Number/FoundingDynamicBridge.lean                ← founding swap = elliptic floor (their bridge)
+  lean/E213/Lib/Math/Cauchy/EllipticPeriodicTier.lean             ← the discriminant dial (comp, tiers)
+  lean/E213/Lib/Math/Cauchy/{DetZeroCollapse, CeilingSchema, …}   ← det/ceiling thread
+  lean/E213/Meta/Int213/Order.lean                                ← Int order layer (34 PURE)
+RESEARCH NOTES:
+  research-notes/G188_invert_universal_property_deep_research.md  ← this round (full record)
 ```
