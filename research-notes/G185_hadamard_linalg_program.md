@@ -235,24 +235,23 @@ underway in `Linalg213/Permutation.lean` (**12 PURE**):
 
 ### Remaining (§5 the real theorem, §6 bridge)
 
-5. **§5 alternating**.  Target: `leibDet (rowSwapAdj i M) = − leibDet M` (swap rows `i, i+1`),
-   whence two equal rows ⟹ `2·leibDet = 0` ⟹ `0`.  Per-term identity (the conceptual heart, uses
-   `psign_swap_prefix`): `leibTerm (rowSwapAdj i M) p = − leibTerm M (swapPos i p)` for `p` a genuine
-   permutation (distinct entries ⟹ the two swapped values differ).  Then
-   `leibDet (rowSwapAdj i M) = sumZ (map (leibTerm (rowSwapAdj i M)) (perms n))
-   = sumZ (map (fun p => −leibTerm M (swapPos i p)) (perms n))
-   = − sumZ (map (leibTerm M ∘ swapPos i) (perms n))   [sumZ_map_neg]
-   = − sumZ (map (leibTerm M) (map (swapPos i) (perms n)))
-   = − sumZ (map (leibTerm M) (perms n))               [map_lperm + sumZ_lperm]
-   = − leibDet M`.
-   **The one remaining nut**: `LPerm (map (swapPos i) (perms n)) (perms n)` — the enumeration is
-   closed under an adjacent position-swap up to reordering.  Also needs: every `p ∈ perms n` has
-   distinct entries (nodup) for the per-term sign flip, and `prodDiagFrom` reindex under `swapPos i`.
-   This closure is **the same class of obstacle as route B's nested-sum involution** (as the essay
-   predicted) — the determinant-level combinatorial closure is hard either way; route A's win was
-   the clean, reusable, *banked* sign theory (§1–§4).
+5. **§5 alternating** (the real theorem).  **Per-term identity DONE** (`Permutation` §5, 30 PURE):
+   `prodDiagFrom_append`, `rowSwapAt` + `rowSwapAt_{other,at,at1}`, `prodDiagFrom_eq_{below,above}`
+   (rows outside `{k,k+1}` unaffected), `prodDiag_rowSwap` (diagonal products agree — two factors
+   commute, `mul_left_comm`), and ★ `leibTerm_rowSwap`: an adjacent row swap (rows `k=pre.length`,
+   `k+1`) sends the term at `pre ++ y::x::l` to `−(term at pre ++ x::y::l)` for `x≠y`.  The
+   determinant's core combinatorial content is proven.
+   **The one remaining gate** (to assemble `leibDet (rowSwapAt k M) = − leibDet M` ⟹ equal rows
+   ⟹ 0):
+   - `LPerm (map (swapAt k) (perms n)) (perms n)` — the enumeration closed under the position-`k`
+     swap up to reordering (the genuine combinatorial nut — proving the insertion enumeration
+     `permsOf` realizes the symmetric-group action; multi-hundred lines, no `Finset`/Fubini infra).
+   - every `p ∈ perms n` has length `n` and **distinct entries** (nodup) — so each `p` decomposes
+     `pre ++ y::x::l` at position `k` with `x≠y`, licensing `leibTerm_rowSwap`.
+   Same depth as route B's nested-sum involution (essay's prediction); route A's delivered win is
+   the clean reusable sign theory + per-term reindex (§1–§5), all banked PURE.
 6. **§6 bridge** `leibDet = DetN.det` (Laplace) to transport alternating onto the cofactor
    determinant for char-poly/adjugate/Cayley–Hamilton — or re-derive cofactor expansion from
    `leibDet` and use `leibDet` throughout.
 
-Cornerstones §1–§4 are route-A-essential and reusable regardless; §5 (perms-closure) is the gate.
+Cornerstones §1–§5 are route-A-essential and reusable regardless; the perms-closure + nodup is the gate.
