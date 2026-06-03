@@ -1,6 +1,43 @@
-# Session Handoff — 2026-06-03b (Markov marathon — full Zhang Lemma 2 monotonicity)
+# Session Handoff — 2026-06-03c (Markov marathon — tree-side of Zhang Lemma 2 COMPLETE)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★ LATEST: `Real213/SternBrocotMarkov` now **46 PURE** — §9 window added
+- **§9 residue window** (`markov_window`): every tree node satisfies `0 < u_t < m_t/2` — the
+  canonical Markov window of `MarkovInjectivity.root_unique_below_half`.  Root bounds have slopes
+  `0/1`, `1/2`; strict monotonicity (§7–§8) confines every node strictly between.  Proof:
+  `mInterval_window` (closed window `0 ≤ u ≤ m/2` on **both** bounds, by induction; the node's strict
+  window from `node_window_of_bounds` weakens to propagate as a bound).
+- Added a **pure ℤ strict-order toolkit** (all private, ∅-axiom): `pos_of_mul_pos_right`
+  (positive-factor cancellation, by case analysis on `z,k` — no trichotomy), `lt_of_mul_lt_mul_right`,
+  `mul_le_mul_right`, `lt_two_mul`, `lt_of_lt_of_le`, `lt_of_le_of_lt`, `le_of_lt`, `nonneg_add`,
+  `pos_sub_of_lt`/`lt_of_pos_sub`, `ofNat_succ_pos`, `zero_le_of_nonneg`/`nonneg_of_zero_le`.  All on
+  the `Int.NonNeg` backbone (`subNatNat_of_le`, `mul_nonneg`).  Reusable.
+
+### ★ TREE-SIDE OF ZHANG LEMMA 2 IS COMPLETE.  Every tree node's residue `u_t`:
+  - squares to `−1` mod `m_t` (§5 `markovNum_dvd_res_sq_succ`),
+  - recovers the partner Markov number `u_t·m_l ≡ m_r` (§6 `markovRes_recovery_dvd`),
+  - has strictly monotone slope `u_l/m_l < u_t/m_t < u_r/m_r` (§7–§8),
+  - lies in the canonical window `0 < u_t < m_t/2` (§9 `markov_window`).
+
+### ★ THE ONE REMAINING GAP to `SamePairInjective` (= the open conjecture core): SURJECTIVITY
+`SamePairInjective c` is over **arbitrary Nat triples** at max `c`.  The tree→data direction is done;
+the missing piece is **surjectivity / Frobenius completeness**: every ordered Markov triple `(a,b,c)`
+appears on the tree (as some node's c-entry triple `(m_l,m_r,m_t)`).  Classical proof = **Vieta
+descent**: replace max `c` by `3ab−c < c`, repeat to reach `(1,1,1)` = root; each step = a tree
+parent.  `MarkovUniqueness.lean` already has descent infrastructure (`markov_ordered_reachable`,
+`markov_descent`-style, `markov_up_jump`) over abstract Nat triples — the task is the **bridge**:
+connect the matrix tree's `markovNum`/triple to the abstract-triple descent (show `markovNum` ranges
+over exactly the Markov numbers, surjectively).  With surjectivity + window-injectivity (now in
+hand), `SamePairInjective` closes ⇒ `markov_max_unique_of_same_pair_injective` (DONE) closes
+`MarkovMaxUnique`; for prime powers, `markov_prime_pow_unique_of_same_pair_injective` (DONE) gives
+Button's infinite family.
+
+Next session: the surjectivity bridge (tree `markovNum` ↔ abstract Markov triples via Vieta descent).
+Inspect `MarkovUniqueness` reachability lemmas first; the bridge may be short given the descent is
+already there.
+
+## ★ EARLIER 2026-06-03: full Zhang Lemma 2 monotonicity (§7–§8, 43 PURE)
 
 ## ★ LATEST: `Real213/SternBrocotMarkov` now **43 PURE** — §7–§8 added
 - **§7 right-half monotonicity** (`markov_node_slope_lt_right`): `u_t·m_r < u_r·m_t` — the node's
