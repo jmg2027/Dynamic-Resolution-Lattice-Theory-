@@ -239,6 +239,28 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Invert universal property + deep-research additions (2026-06-03)
+
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **11 PURE / 0 DIRTY**.  The invert
+move's **universal property**, Quot-free.  `AbTarget` (abelian-group target, laws as
+∀-equalities); `lift M H f (a,b) = f a − f b`; `lift_respects_pairEquiv` (well-defined on the
+completion), `lift_combine` (homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`);
+capstone `invert_factors_through_any_group` (every map to an abelian group factors through the
+completion — initiality, not an imported adjunction).  Group-algebra toolkit `ab_neg_add`,
+`ab_add_add_add_comm`, `ab_add_right_cancel`, `ab_neg_unique`.  Makes "invert is one move"
+precise: the invert move is *the* universal group completion.
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **+2 PURE (17 total)**.
+`diagonal_is_combine_identity` (the emergent diagonal *is* the `combine`-identity, unit-free —
+the no-exterior principle in a readout) and `invert_branch_two_distinct_instances`
+(`ℤ ⊥ ℚ_+`: `add 1 1 ≠ mul 1 1`, two instances of one move joined at the diagonal).
+
+`E213.Lib.Math.CassiniUnimodular` — **+2 PURE (13 total)**.  `qpow_one` and
+`multiplier_unit_magnitude_sign_order_NT`: the unimodular multiplier `q = ±1` factors as (unit
+magnitude `qpow 1 n = 1`, order-`NT` sign `qpow (−1) NT = 1 ∧ qpow (−1) 1 ≠ 1`) — the genuine
+`(unit, period) = (1, NT)` factorization (the arithmetic re-readings of `NS = NT+1` are
+numerology).
+
 ### Number-tower founding + invert-move addition (2026-06-03)
 
 `E213.Lens.Number.SharedUnitAcrossReadings` — **1 PURE / 0 DIRTY**.  The honest unification

@@ -1,0 +1,88 @@
+# G188 — Deep research on the invert move: the universal property and what it forces
+
+**Date**: 2026-06-03.  **Method**: 4-agent adversarial deep research (world-class-algebraist
+framing) on this session's number-tower founding, each agent pushing one facet + flagging
+PROVABLE / NARRATIVE / STEREOTYPE.  Result: **4 new ∅-axiom theorems**, two rejections.
+
+## The four facets and their verdicts
+
+### 1. Universal property of the invert move → PROVABLE (the deepest result)
+`PairCompletion.invert_is_one_move` was a conjunction of properties; it did not *characterize*
+the construction.  The universal property does: the pair-completion is **the** group receiving
+the semigroup, through which every map to an abelian group factors.  Built ∅-axiom, Quot-free,
+on representatives respecting `pairEquiv` (the repo's native factor-through style,
+`Lens/Initiality.view_unique`, not an imported `Functor`/`Adjunction`):
+
+- **`PairCompletionUniversal.lean` (11 PURE)** — `AbTarget` (abelian-group target, laws as
+  ∀-equalities, no Mathlib/funext); `lift M H f (a,b) = f a − f b`; the existence half:
+  `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine` (homomorphism),
+  `lift_eta` (factors `f` through `η m = (m∘a, a)`); capstone
+  `invert_factors_through_any_group`.  A small group-algebra toolkit (`ab_neg_add`,
+  `ab_add_add_add_comm` the middle-four interchange, `ab_add_right_cancel`, `ab_neg_unique`).
+- **STEREOTYPE flagged**: "left adjoint to the forgetful functor `AbGroup → CommCancelSemigroup`"
+  imports a 2-categorical frame the residue does not supply — keep in narrative only.  The
+  *content* (initiality = concrete factoring map + uniqueness) is native, matching
+  `Theory/Raw/Lambek` (initiality as `decompose`/`build` round-trip, not a functor category).
+- **Uniqueness**: holds for any `g` that respects `pairEquiv`/`combine`; unconditional uniqueness
+  needs choice on the fiber (`Lens/Compose/Factoring.lean:17` "converse requires AC") — left as
+  the hypothesized companion, not attempted.
+
+### 2. Tower as a diagram of universal constructions → NARRATIVE (real, but not a Lean object)
+All three moves *are* universal constructions: count = initial algebra (`Lambek.two_closures`,
+`Lens/Initiality.view_unique`), invert = group completion (above), complete = idempotent Cauchy
+fixpoint (`CompletionTower.completion_idempotent`).  The honest SHAPE is a **diagram with a
+`ℤ ⊥ ℚ_+` branch**, not a chain.  Pinned in Lean:
+
+- **`PairCompletion.invert_branch_two_distinct_instances`** — `addCCS` and `mulCCS` differ
+  (`add 1 1 = 2 ≠ 1 = mul 1 1`) yet share the emergent diagonal identity; the two inverse-axes
+  are orthogonal instances of one move, joined at the diagonal, not serialized.
+
+- **STEREOTYPE flagged**: "lattice of adjoints" does NOT unify the three axis-vocabularies
+  (refines-breadth / depth `(h,d)` / CD-grade) — it is a *fourth* vocabulary; forcing them under
+  "adjoints" is the External-classification failure.  It also does not contradict the shared-unit
+  resolution: **adjoints relate the OBJECTS (rung to rung); the unit relates the READINGS (axis
+  to axis)** — orthogonal claims; the unit is the answer to "how many axes?".
+
+### 3. `(unit, period) = (1, 2)` → mostly NUMEROLOGY, one genuine factorization
+The decomposition `NS = (NS−NT) + NT` is just `ns_is_succ_nt` (`NS = NT+1`) re-read; `1·2`,
+`1+2`, `2²−1=3=N_gen` are numerology (no structural Lean theorem); the physics routing is
+overreach.  The ONE genuine result, salvaged and proven:
+
+- **`CassiniUnimodular.multiplier_unit_magnitude_sign_order_NT` + `qpow_one` (13 PURE)** — the
+  unimodular multiplier `q = ±1` factors as (unit magnitude, order-`NT` sign): the golden
+  `q = +1` conserves the determinant (`qpow 1 n = 1`); the swap `q = −1` has order **exactly**
+  `NT = 2` (`qpow (−1) NT = 1`, `qpow (−1) 1 ≠ 1`).  The two shared invariants (unit `1`, residue
+  size `NT`) are the magnitude and sign-order of the *one* multiplier.
+
+### 4. Unit-free emergence = no-exterior → UNIFICATION REAL (at the principle level)
+The group identity emerges as the diagonal with NO base unit (`Nat213` has no additive `0`,
+`Peano.no_additive_identity_at_one`) — the no-exterior principle (`05_no_exterior §5.1`) realized
+inside a Lens-readout.  Completed the law:
+
+- **`PairCompletion.diagonal_is_combine_identity`** — the diagonal *is* the `combine`-identity
+  (`combine (k,k) p ~ p`), the missing half of `combine_swap_equiv_diagonal`.  Together:
+  **identity = swap-fixed diagonal = combine-identity, emergent, unit-free**, generic over
+  `CommCancelSemigroup`.
+- Connection to Lambek = analogy of KIND (fixed-locus-of-the-closure-map, internally generated),
+  NOT the same object (µF-of-endofunctor ≠ Fix-of-involution).  **Boundary held**: the emergent
+  unit is a READOUT (inside a view's image), NOT the residue (outside every view's image,
+  `FlatOntologyClosure.object1_not_surjective`).  Calling it "the residue" would be the
+  view-promoted-to-identity failure.
+
+## Net new theorems (all ∅-axiom, 0 dirty)
+| Theorem | Module | What it forces |
+|---|---|---|
+| `invert_factors_through_any_group` (+ `lift*`, 11 PURE) | `PairCompletionUniversal` | invert = THE universal group completion |
+| `diagonal_is_combine_identity` | `PairCompletion` | emergent unit = swap-fixed diagonal = combine-identity |
+| `invert_branch_two_distinct_instances` | `PairCompletion` | `ℤ ⊥ ℚ_+`: two instances, one move, joined at the diagonal |
+| `multiplier_unit_magnitude_sign_order_NT` | `CassiniUnimodular` | det multiplier `±1` = (unit magnitude, order-`NT` sign) |
+
+## Carryover / open
+- **Unconditional uniqueness** of the factoring hom (currently hypothesized; AC-bounded). A
+  representative-canonicalization (every pair ~ `η(num) ∘ swap(η(den))`) might close it without
+  choice — worth a look.
+- Instantiate the universal property at `addCCS → Int` and `mulCCS → QPos` (an `AbTarget` for
+  `Int` from the PURE `Int213` kit) to recover `npairToInt`/`qpair` as `lift` — validation, not
+  new content.
+- The "diagram of universal constructions" is narrative; if ever formalized it must NOT be a
+  "lattice of adjoints" (4th vocabulary) — stay with the shared-unit (downward) unification.

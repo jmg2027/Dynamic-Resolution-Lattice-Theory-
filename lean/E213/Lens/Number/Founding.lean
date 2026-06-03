@@ -1,5 +1,6 @@
 import E213.Lens.Number.TowerFounding
 import E213.Lens.Number.Nat213.Tower.PairCompletion
+import E213.Lens.Number.Nat213.Tower.PairCompletionUniversal
 import E213.Lens.Number.Nat213.Order
 import E213.Lens.Number.SharedUnitAcrossReadings
 
@@ -16,8 +17,15 @@ citable as one unit (and promotable per `theory/PROMOTION_CRITERIA.md`).
     Cauchy completion (`CauchyLensFounding`, the fixpoint at `ℝ`).
   * **`Nat213/Tower/PairCompletion`** — the invert move once: a generic
     `CommCancelSemigroup` pair-completion instantiated at `+` (`ℤ`) and `·` (`ℚ_+`)
-    (`invert_is_one_move`); the group identity emerges as the diagonal, unit-free; the swap
-    has order exactly `NT = 2` (`swap_order_eq_NT`, period-2 forced by the count).
+    (`invert_is_one_move`); the group identity emerges as the diagonal, unit-free
+    (`diagonal_is_combine_identity`); the swap has order exactly `NT = 2` (`swap_order_eq_NT`);
+    and `ℤ ⊥ ℚ_+` as two distinct instances joined at the diagonal
+    (`invert_branch_two_distinct_instances`).
+  * **`Nat213/Tower/PairCompletionUniversal`** — the invert move's **universal property**:
+    every map to an abelian group factors through the completion
+    (`invert_factors_through_any_group` — well-defined, homomorphism, factors `η`), Quot-free.
+    This makes "invert is one move" precise: the invert move is *the* universal group
+    completion.
   * **`Nat213/Order`** — native strict order (Lean `Nat` order is propext-dirty): trichotomy,
     strict square-monotonicity from distributivity, and square-injectivity `mul_self_inj`.
   * **`SharedUnitAcrossReadings`** — the honest unification: the unit `1` is one value across
