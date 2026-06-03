@@ -1138,4 +1138,64 @@ theorem slope_path_inj (p q : List Bool) (heq : slopeEq (mNode p) (mNode q)) : p
     · exact slopeLt_ne h heq.symm
   · exact he
 
+/-! ## §12 — the reverse bridge: every ordered Markov triple (`c ≥ 5`) is a matrix-tree node
+
+  `IsNode a b c` := some tree node has `(m_l, m_r, m_t) = (a, b, c)` (as `Nat`).  Each tree node has
+  two children (Vieta up-moves); stated as `∃ d, IsNode … ∧ jump-eq` to avoid `Nat` subtraction.
+  These drive the descent inversion (Piece B). -/
+
+/-- A `Nat` triple `(a,b,c)` is realised by a matrix-tree node (`m_l = a`, `m_r = b`, `m_t = c`). -/
+def IsNode (a b c : Nat) : Prop :=
+  ∃ path : List Bool, (mInterval path).1.c.toNat = a ∧ (mInterval path).2.c.toNat = b
+    ∧ (mNode path).c.toNat = c
+
+/-- The **true**-child Vieta up-move: from node `(a,b,c)`, the true-child is `(a, c, d)` with
+    `b + d = 3·a·c` (`d = 3ac − b`). -/
+theorem node_true_child {a b c : Nat} (h : IsNode a b c) :
+    ∃ d, IsNode a c d ∧ b + d = 3 * a * c := by
+  obtain ⟨t, ha, hb, hc⟩ := h
+  have d1 := (mInterval_det t).1
+  have s1 := (mInterval_shape t).1
+  have hLv : (mNode (true :: t)).c
+           = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).2.c := by
+    show (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c = _
+    rw [markoff_vieta (mInterval t).1 (mInterval t).2 d1, s1]
+  have heq : (mInterval t).2.c + (mNode (true :: t)).c
+           = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c := by rw [hLv]; ring_intZ
+  have hj : (mInterval t).2.c.toNat + (mNode (true :: t)).c.toNat
+          = 3 * (mInterval t).1.c.toNat * (mul (mInterval t).1 (mInterval t).2).c.toNat :=
+    jump_eq_toNat (nonneg_of_one_le (mInterval_pos t).2.2.2.1)
+      (nonneg_of_one_le (markovNum_pos (true :: t))) (nonneg_of_one_le (mInterval_pos t).1.2.2.1)
+      (nonneg_of_one_le (markovNum_pos t)) heq
+  refine ⟨(mNode (true :: t)).c.toNat, ⟨true :: t, ha, hc, rfl⟩, ?_⟩
+  have hc' : (mul (mInterval t).1 (mInterval t).2).c.toNat = c := hc
+  rw [hb, ha, hc'] at hj
+  exact hj
+
+/-- The **false**-child Vieta up-move: from node `(a,b,c)`, the false-child is `(c, b, d)` with
+    `a + d = 3·b·c` (`d = 3bc − a`). -/
+theorem node_false_child {a b c : Nat} (h : IsNode a b c) :
+    ∃ d, IsNode c b d ∧ a + d = 3 * b * c := by
+  obtain ⟨t, ha, hb, hc⟩ := h
+  have d2 := (mInterval_det t).2
+  have s2 := (mInterval_shape t).2.1
+  have hRv : (mNode (false :: t)).c
+           = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c - (mInterval t).1.c := by
+    show (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c = _
+    rw [markoff_vieta_R (mInterval t).1 (mInterval t).2 d2, s2]; ring_intZ
+  have heq : (mInterval t).1.c + (mNode (false :: t)).c
+           = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c := by rw [hRv]; ring_intZ
+  have hj : (mInterval t).1.c.toNat + (mNode (false :: t)).c.toNat
+          = 3 * (mul (mInterval t).1 (mInterval t).2).c.toNat * (mInterval t).2.c.toNat :=
+    jump_eq_toNat (nonneg_of_one_le (mInterval_pos t).1.2.2.1)
+      (nonneg_of_one_le (markovNum_pos (false :: t))) (nonneg_of_one_le (markovNum_pos t))
+      (nonneg_of_one_le (mInterval_pos t).2.2.2.1) heq
+  refine ⟨(mNode (false :: t)).c.toNat, ⟨false :: t, hc, hb, rfl⟩, ?_⟩
+  have hc' : (mul (mInterval t).1 (mInterval t).2).c.toNat = c := hc
+  rw [ha, hb, hc'] at hj
+  exact hj.trans (by ring_nat)
+
+/-- Base node: the root `[]` realises `(1, 2, 5)`. -/
+theorem isNode_root : IsNode 1 2 5 := ⟨[], by decide, by decide, by decide⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
