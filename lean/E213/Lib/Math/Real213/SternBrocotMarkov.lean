@@ -254,4 +254,72 @@ theorem markov_first_nodes :
     ∧ (markovNum [false] = 29 ∧ markovRes [false] = 12) := by
   refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_⟩ <;> decide
 
+/-! ## §3 — the tree generates Markov triples -/
+
+/-- Markov equation preserved by the Vieta jump `(x,y,z) → (x,z,3xz−y)` (over `ℤ`). -/
+theorem markov_vieta_int (x y z : Int) (h : x * x + y * y + z * z = 3 * x * y * z) :
+    x * x + z * z + (3 * x * z - y) * (3 * x * z - y) = 3 * x * z * (3 * x * z - y) := by
+  have e : x * x + z * z + (3 * x * z - y) * (3 * x * z - y)
+         = 3 * x * z * (3 * x * z - y) + ((x * x + y * y + z * z) - 3 * x * y * z) := by ring_intZ
+  rw [h] at e; rw [e]; ring_intZ
+
+/-- ★★★★★ **The Stern-Brocot/Markoff tree generates Markov triples.**  At every node, the triple of
+    `(2,1)`-entries `(m_l, m_r, m_t)` (the two interval bounds and the mediant) satisfies the Markov
+    equation `m_l² + m_r² + m_t² = 3·m_l·m_r·m_t`.  Proof: Vieta-jump induction — each L/R step's new
+    mediant is `3·m₁·m₂ − m₃` (`markoff_vieta(_R)` + the entry-shape `mInterval_shape`), and the
+    Markov equation is preserved by the jump (`markov_vieta_int`, inlined).  So `markovNum` ranges
+    over exactly the Markov numbers — the semantic identification of the tree with the Markov tree. -/
+theorem mInterval_markov (path : List Bool) :
+    (mInterval path).1.c * (mInterval path).1.c + (mInterval path).2.c * (mInterval path).2.c
+      + (mNode path).c * (mNode path).c
+    = 3 * (mInterval path).1.c * (mInterval path).2.c * (mNode path).c := by
+  induction path with
+  | nil => show (1 : Int) * 1 + 2 * 2 + (mul genL genR).c * (mul genL genR).c
+                = 3 * 1 * 2 * (mul genL genR).c
+           decide
+  | cons b t ih =>
+      have d1 := (mInterval_det t).1
+      have d2 := (mInterval_det t).2
+      obtain ⟨h1, h2, _⟩ := mInterval_shape t
+      have ihm : (mInterval t).1.c * (mInterval t).1.c + (mInterval t).2.c * (mInterval t).2.c
+               + (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c
+               = 3 * (mInterval t).1.c * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c := ih
+      cases b
+      · show (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c
+             + (mInterval t).2.c * (mInterval t).2.c
+             + (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+               * (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+           = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c
+             * (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+        rw [markoff_vieta_R (mInterval t).1 (mInterval t).2 d2, h2]
+        have e : (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c
+               + (mInterval t).2.c * (mInterval t).2.c
+               + (3 * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).1.c)
+                 * (3 * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).1.c)
+             = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c
+               * (3 * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).1.c)
+               + (((mInterval t).1.c * (mInterval t).1.c + (mInterval t).2.c * (mInterval t).2.c
+                   + (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c)
+                  - 3 * (mInterval t).1.c * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c) := by
+          ring_intZ
+        rw [e, ihm]; ring_intZ
+      · show (mInterval t).1.c * (mInterval t).1.c
+             + (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c
+             + (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+               * (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+           = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c
+             * (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+        rw [markoff_vieta (mInterval t).1 (mInterval t).2 d1, h1]
+        have e : (mInterval t).1.c * (mInterval t).1.c
+               + (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c
+               + (3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).2.c)
+                 * (3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).2.c)
+             = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c
+               * (3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).2.c)
+               + (((mInterval t).1.c * (mInterval t).1.c + (mInterval t).2.c * (mInterval t).2.c
+                   + (mul (mInterval t).1 (mInterval t).2).c * (mul (mInterval t).1 (mInterval t).2).c)
+                  - 3 * (mInterval t).1.c * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c) := by
+          ring_intZ
+        rw [e, ihm]; ring_intZ
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
