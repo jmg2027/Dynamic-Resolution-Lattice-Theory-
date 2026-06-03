@@ -20,7 +20,7 @@ namespace E213.Lib.Math.Linalg213.PermClosure
 open E213.Lib.Math.Linalg213.Permutation
   (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm swapAt_prefix
    sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap
-   prodDiagFrom psign rowSwapAt_other rowSwapAt_at)
+   prodDiagFrom psign rowSwapAt_other rowSwapAt_at prodDiagFrom_append)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -694,5 +694,126 @@ theorem leibDet_eq_zero_of_two_rows_eq (M : Nat → Nat → Int) (n a b : Nat)
   obtain ⟨d, hd⟩ := Nat.le.dest hab
   have hbd : a + d + 1 = b := by rw [Nat.add_right_comm]; exact hd
   exact leibDet_rows_eq_gap n d a M (hbd.symm ▸ hb) (fun c => hbd.symm ▸ hrows c)
+
+/-! ## §12 — multilinearity of `leibDet` (linear in each row) -/
+
+/-- Replace row `i` of `M` by the vector `r`. -/
+def setRow (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int) : Nat → Nat → Int :=
+  fun a c => if a = i then r c else M a c
+
+theorem setRow_off (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int) {a : Nat} (h : a ≠ i) (c : Nat) :
+    setRow i r M a c = M a c := by show (if a = i then r c else M a c) = M a c; rw [if_neg h]
+
+theorem setRow_at (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int) (c : Nat) :
+    setRow i r M i c = r c := by show (if i = i then r c else M i c) = r c; rw [if_pos rfl]
+
+/-- Below row `i`: `setRow` leaves `prodDiagFrom` unchanged. -/
+theorem prodDiagFrom_setRow_below (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int) :
+    ∀ (j : Nat) (p : List Nat), j + p.length ≤ i →
+      prodDiagFrom (setRow i r M) j p = prodDiagFrom M j p
+  | _, [],      _ => rfl
+  | j, q :: qs, h => by
+    have hji : j < i := Nat.lt_of_lt_of_le (Nat.lt_add_of_pos_right (Nat.succ_pos qs.length)) h
+    have hle : (j + 1) + qs.length ≤ i := by rw [Nat.add_assoc, Nat.add_comm 1 qs.length]; exact h
+    show setRow i r M j q * prodDiagFrom (setRow i r M) (j + 1) qs = M j q * prodDiagFrom M (j + 1) qs
+    rw [setRow_off i r M (Nat.ne_of_lt hji) q, prodDiagFrom_setRow_below i r M (j + 1) qs hle]
+
+/-- Above row `i`: `setRow` leaves `prodDiagFrom` unchanged. -/
+theorem prodDiagFrom_setRow_above (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int) :
+    ∀ (j : Nat) (p : List Nat), i < j → prodDiagFrom (setRow i r M) j p = prodDiagFrom M j p
+  | _, [],      _ => rfl
+  | j, q :: qs, h => by
+    show setRow i r M j q * prodDiagFrom (setRow i r M) (j + 1) qs = M j q * prodDiagFrom M (j + 1) qs
+    rw [setRow_off i r M (Ne.symm (Nat.ne_of_lt h)) q,
+        prodDiagFrom_setRow_above i r M (j + 1) qs (Nat.lt_succ_of_lt h)]
+
+/-- Split a list at position `i` (single element). -/
+theorem split_at1 : ∀ (p : List Nat) (i : Nat), i < p.length →
+    ∃ pre x l, p = pre ++ x :: l ∧ pre.length = i
+  | [],      _,     h => absurd h (Nat.not_lt_zero _)
+  | a :: p', 0,     _ => ⟨[], a, p', rfl, rfl⟩
+  | a :: p', i + 1, h => by
+    rcases split_at1 p' i (Nat.lt_of_succ_lt_succ h) with ⟨pre, x, l, he, hl⟩
+    exact ⟨a :: pre, x, l, congrArg (a :: ·) he, congrArg (· + 1) hl⟩
+
+/-- The diagonal product factors the row-`i` entry out linearly (after splitting `p` at `i`). -/
+theorem prodDiagFrom_setRow_split (i : Nat) (r : Nat → Int) (M : Nat → Nat → Int)
+    (pre : List Nat) (x : Nat) (l : List Nat) (hpre : pre.length = i) :
+    prodDiagFrom (setRow i r M) 0 (pre ++ x :: l)
+      = prodDiagFrom M 0 pre * (r x * prodDiagFrom M (i + 1) l) := by
+  subst hpre
+  rw [prodDiagFrom_append (setRow pre.length r M) 0 pre (x :: l),
+      prodDiagFrom_setRow_below pre.length r M 0 pre (Nat.le_of_eq (Nat.zero_add pre.length)),
+      Nat.zero_add]
+  show prodDiagFrom M 0 pre * (setRow pre.length r M pre.length x *
+         prodDiagFrom (setRow pre.length r M) (pre.length + 1) l)
+     = prodDiagFrom M 0 pre * (r x * prodDiagFrom M (pre.length + 1) l)
+  rw [setRow_at, prodDiagFrom_setRow_above pre.length r M (pre.length + 1) l (Nat.lt_succ_self _)]
+
+/-- Every `p ∈ perms n` has length `n`. -/
+theorem perm_length {n : Nat} {p : List Nat} (hp : p ∈ perms n) : p.length = n :=
+  (LPerm.length_eq (permsOf_sound (iota n) p hp)).trans (length_iota n)
+
+/-- A `leibTerm` is additive in row `i` (for a permutation reaching row `i`). -/
+theorem leibTerm_setRow_add (i : Nat) (r1 r2 : Nat → Int) (M : Nat → Nat → Int) (p : List Nat)
+    (hp : i < p.length) :
+    leibTerm (setRow i (fun c => r1 c + r2 c) M) p
+      = leibTerm (setRow i r1 M) p + leibTerm (setRow i r2 M) p := by
+  rcases split_at1 p i hp with ⟨pre, x, l, he, hl⟩
+  subst he
+  show psign (pre ++ x :: l) * prodDiagFrom (setRow i (fun c => r1 c + r2 c) M) 0 (pre ++ x :: l)
+     = psign (pre ++ x :: l) * prodDiagFrom (setRow i r1 M) 0 (pre ++ x :: l)
+       + psign (pre ++ x :: l) * prodDiagFrom (setRow i r2 M) 0 (pre ++ x :: l)
+  rw [prodDiagFrom_setRow_split i (fun c => r1 c + r2 c) M pre x l hl,
+      prodDiagFrom_setRow_split i r1 M pre x l hl, prodDiagFrom_setRow_split i r2 M pre x l hl]
+  ring_intZ
+
+/-- A `leibTerm` is scalar-homogeneous in row `i`. -/
+theorem leibTerm_setRow_smul (i : Nat) (a : Int) (r : Nat → Int) (M : Nat → Nat → Int)
+    (p : List Nat) (hp : i < p.length) :
+    leibTerm (setRow i (fun c => a * r c) M) p = a * leibTerm (setRow i r M) p := by
+  rcases split_at1 p i hp with ⟨pre, x, l, he, hl⟩
+  subst he
+  show psign (pre ++ x :: l) * prodDiagFrom (setRow i (fun c => a * r c) M) 0 (pre ++ x :: l)
+     = a * (psign (pre ++ x :: l) * prodDiagFrom (setRow i r M) 0 (pre ++ x :: l))
+  rw [prodDiagFrom_setRow_split i (fun c => a * r c) M pre x l hl,
+      prodDiagFrom_setRow_split i r M pre x l hl]
+  ring_intZ
+
+/-- A pointwise-sum maps to a sum of sums. -/
+theorem sumZ_map_add {α : Type} (f g : α → Int) : ∀ (L : List α),
+    sumZ (L.map (fun a => f a + g a)) = sumZ (L.map f) + sumZ (L.map g)
+  | []     => rfl
+  | a :: l => by
+    show (f a + g a) + sumZ (l.map (fun a => f a + g a))
+       = (f a + sumZ (l.map f)) + (g a + sumZ (l.map g))
+    rw [sumZ_map_add f g l]; ring_intZ
+
+/-- A pointwise-scalar maps to a scaled sum. -/
+theorem sumZ_map_smul {α : Type} (c : Int) (f : α → Int) : ∀ (L : List α),
+    sumZ (L.map (fun a => c * f a)) = c * sumZ (L.map f)
+  | []     => ((E213.Meta.Int213.mul_comm c 0).trans (E213.Meta.Int213.zero_mul c)).symm
+  | a :: l => by
+    show c * f a + sumZ (l.map (fun a => c * f a)) = c * (f a + sumZ (l.map f))
+    rw [sumZ_map_smul c f l]; ring_intZ
+
+/-- ★ **`leibDet` is additive in any row.** -/
+theorem leibDet_setRow_add (n i : Nat) (hi : i < n) (r1 r2 : Nat → Int) (M : Nat → Nat → Int) :
+    leibDet n (setRow i (fun c => r1 c + r2 c) M)
+      = leibDet n (setRow i r1 M) + leibDet n (setRow i r2 M) := by
+  show sumZ ((perms n).map (leibTerm (setRow i (fun c => r1 c + r2 c) M))) = _
+  rw [map_eq_of_mem (leibTerm (setRow i (fun c => r1 c + r2 c) M))
+        (fun p => leibTerm (setRow i r1 M) p + leibTerm (setRow i r2 M) p)
+        (fun p hp => leibTerm_setRow_add i r1 r2 M p ((perm_length hp).symm ▸ hi))]
+  exact sumZ_map_add (leibTerm (setRow i r1 M)) (leibTerm (setRow i r2 M)) (perms n)
+
+/-- ★ **`leibDet` is scalar-homogeneous in any row.** -/
+theorem leibDet_setRow_smul (n i : Nat) (hi : i < n) (a : Int) (r : Nat → Int) (M : Nat → Nat → Int) :
+    leibDet n (setRow i (fun c => a * r c) M) = a * leibDet n (setRow i r M) := by
+  show sumZ ((perms n).map (leibTerm (setRow i (fun c => a * r c) M))) = _
+  rw [map_eq_of_mem (leibTerm (setRow i (fun c => a * r c) M))
+        (fun p => a * leibTerm (setRow i r M) p)
+        (fun p hp => leibTerm_setRow_smul i a r M p ((perm_length hp).symm ▸ hi))]
+  exact sumZ_map_smul a (leibTerm (setRow i r M)) (perms n)
 
 end E213.Lib.Math.Linalg213.PermClosure
