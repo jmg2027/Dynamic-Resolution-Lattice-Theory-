@@ -172,6 +172,74 @@ theorem markoff_vieta (Ml Mr : Mat2) (hd : det2 Ml = 1) :
     _ = ((Ml.a + Ml.d) * (Ml.c * Mr.a + Ml.d * Mr.c) - Mr.c) + Mr.c * (1 - 1) := by rw [hd']
     _ = (Ml.a + Ml.d) * (Ml.c * Mr.a + Ml.d * Mr.c) - Mr.c := by ring_intZ
 
+/-- Trace form of the Vieta recurrence: `tr(M_l²M_r) = tr(M_l)·tr(M_lM_r) − tr(M_r)` (det `M_l`=1). -/
+theorem markoff_vieta_trace (Ml Mr : Mat2) (hd : det2 Ml = 1) :
+    (mul Ml (mul Ml Mr)).a + (mul Ml (mul Ml Mr)).d
+    = (Ml.a + Ml.d) * ((mul Ml Mr).a + (mul Ml Mr).d) - (Mr.a + Mr.d) := by
+  have hd' : Ml.a * Ml.d - Ml.b * Ml.c = 1 := hd
+  show (Ml.a*(Ml.a*Mr.a+Ml.b*Mr.c) + Ml.b*(Ml.c*Mr.a+Ml.d*Mr.c))
+       + (Ml.c*(Ml.a*Mr.b+Ml.b*Mr.d) + Ml.d*(Ml.c*Mr.b+Ml.d*Mr.d))
+     = (Ml.a+Ml.d) * ((Ml.a*Mr.a+Ml.b*Mr.c) + (Ml.c*Mr.b+Ml.d*Mr.d)) - (Mr.a+Mr.d)
+  calc _ = ((Ml.a+Ml.d) * ((Ml.a*Mr.a+Ml.b*Mr.c) + (Ml.c*Mr.b+Ml.d*Mr.d)) - (Mr.a+Mr.d))
+        + (Mr.a+Mr.d) * (1 - (Ml.a*Ml.d - Ml.b*Ml.c)) := by ring_intZ
+    _ = _ := by rw [hd']; ring_intZ
+
+/-- Right Vieta recurrence: `((M_l M_r) M_r)_c = tr(M_r)·(M_lM_r)_c − (M_l)_c` (det `M_r`=1). -/
+theorem markoff_vieta_R (Ml Mr : Mat2) (hd : det2 Mr = 1) :
+    (mul (mul Ml Mr) Mr).c = (Mr.a + Mr.d) * (mul Ml Mr).c - Ml.c := by
+  have hd' : Mr.a * Mr.d - Mr.b * Mr.c = 1 := hd
+  show (Ml.c*Mr.a+Ml.d*Mr.c)*Mr.a + (Ml.c*Mr.b+Ml.d*Mr.d)*Mr.c
+     = (Mr.a+Mr.d)*(Ml.c*Mr.a+Ml.d*Mr.c) - Ml.c
+  calc _ = ((Mr.a+Mr.d)*(Ml.c*Mr.a+Ml.d*Mr.c) - Ml.c) + Ml.c*(1 - (Mr.a*Mr.d-Mr.b*Mr.c)) := by ring_intZ
+    _ = _ := by rw [hd']; ring_intZ
+
+/-- Right trace recurrence: `tr((M_lM_r)M_r) = tr(M_r)·tr(M_lM_r) − tr(M_l)` (det `M_r`=1). -/
+theorem markoff_vieta_trace_R (Ml Mr : Mat2) (hd : det2 Mr = 1) :
+    (mul (mul Ml Mr) Mr).a + (mul (mul Ml Mr) Mr).d
+    = (Mr.a + Mr.d) * ((mul Ml Mr).a + (mul Ml Mr).d) - (Ml.a + Ml.d) := by
+  have hd' : Mr.a * Mr.d - Mr.b * Mr.c = 1 := hd
+  show ((Ml.a*Mr.a+Ml.b*Mr.c)*Mr.a + (Ml.a*Mr.b+Ml.b*Mr.d)*Mr.c)
+       + ((Ml.c*Mr.a+Ml.d*Mr.c)*Mr.b + (Ml.c*Mr.b+Ml.d*Mr.d)*Mr.d)
+     = (Mr.a+Mr.d)*((Ml.a*Mr.a+Ml.b*Mr.c) + (Ml.c*Mr.b+Ml.d*Mr.d)) - (Ml.a+Ml.d)
+  calc _ = ((Mr.a+Mr.d)*((Ml.a*Mr.a+Ml.b*Mr.c) + (Ml.c*Mr.b+Ml.d*Mr.d)) - (Ml.a+Ml.d))
+        + (Ml.a+Ml.d)*(1 - (Mr.a*Mr.d-Mr.b*Mr.c)) := by ring_intZ
+    _ = _ := by rw [hd']; ring_intZ
+
+/-- ★★★★★ **The entry-shape (Markoff form) `tr = 3·(·)_c`** holds for both interval bounds AND the
+    mediant, at every node — the keystone (Zhang Prop 7).  Proved as a *coupled invariant*: each
+    L/R step's new mediant `tr = 3c` follows from the old mediant's via the Vieta + trace
+    recurrences (`markoff_vieta(_trace)(_R)`) and `det = 1`.  This is what makes `markovNum` the
+    actual Markov coefficient and (with `markoff_vieta`) gives the Markov equation on the tree. -/
+theorem mInterval_shape (path : List Bool) :
+    (mInterval path).1.a + (mInterval path).1.d = 3 * (mInterval path).1.c
+    ∧ (mInterval path).2.a + (mInterval path).2.d = 3 * (mInterval path).2.c
+    ∧ (mul (mInterval path).1 (mInterval path).2).a + (mul (mInterval path).1 (mInterval path).2).d
+        = 3 * (mul (mInterval path).1 (mInterval path).2).c := by
+  induction path with
+  | nil => refine ⟨?_, ?_, ?_⟩ <;> decide
+  | cons b t ih =>
+      obtain ⟨h1, h2, h3⟩ := ih
+      have d1 := (mInterval_det t).1
+      have d2 := (mInterval_det t).2
+      cases b
+      · refine ⟨h3, h2, ?_⟩
+        show (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).a
+             + (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).d
+             = 3 * (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+        rw [markoff_vieta_trace_R (mInterval t).1 (mInterval t).2 d2,
+            markoff_vieta_R (mInterval t).1 (mInterval t).2 d2, h3, h1]; ring_intZ
+      · refine ⟨h1, h3, ?_⟩
+        show (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).a
+             + (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).d
+             = 3 * (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+        rw [markoff_vieta_trace (mInterval t).1 (mInterval t).2 d1,
+            markoff_vieta (mInterval t).1 (mInterval t).2 d1, h3, h2]; ring_intZ
+
+/-- The node's entry-shape `tr(M_t) = 3·m_t` (`m_t = (M_t)_c`) — `markovNum` is the Markov
+    coefficient.  Corollary of `mInterval_shape`. -/
+theorem mNode_shape (path : List Bool) : (mNode path).a + (mNode path).d = 3 * (mNode path).c :=
+  (mInterval_shape path).2.2
+
 /-- The Markov number at a node = the `(2,1)` matrix entry of the mediant. -/
 def markovNum (path : List Bool) : Int := (mNode path).c
 
