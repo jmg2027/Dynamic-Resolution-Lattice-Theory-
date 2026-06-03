@@ -320,4 +320,29 @@ theorem cfiniteZ_fib : CFiniteZ fibZ := by
       Int.one_mul, Int.one_mul]
   ring_intZ
 
+/-! ### The orbit's conserved unit — Fibonacci's Cassini determinant
+
+The `2×2` Casoratian (Cassini cross-determinant) of the orbit-dimension-2 witness is the
+**conserved unit** `±1`, oscillating with period 2.  This is the same `det = NS − NT = 1`
+unimodular invariant that the number-tower founding reads as `ℚ`'s lowest-terms / the shared unit
+(`RatioLensFounding`, `PnFibonacciUniversal.det_pn_universal`: `det Qⁿ = unit`); the period-2 sign
+flip is the count-Lens binary axis (negation = the `PairCompletion` swap).  So the C-finite orbit's
+conserved unit *is* the founding's shared unit, read on the difference axis. -/
+
+/-- The Cassini determinant at the floor: `fib₀·fib₂ − fib₁² = −1` (the unit). -/
+theorem cassini_fibZ_zero : fibZ 0 * fibZ 2 - fibZ 1 * fibZ 1 = -1 := by
+  show (0 : Int) * (1 + 0) - 1 * 1 = -1
+  rw [zero_mul, Int.one_mul, Int.sub_eq_add_neg, zero_add]
+
+/-- ★ **The Cassini determinant oscillates with period 2** — `Cₙ₊₁ = −Cₙ` for
+    `Cₙ = fibₙ·fibₙ₊₂ − fibₙ₊₁²`.  The discrete-Wronskian of the Fibonacci orbit is the
+    conserved unit up to the binary-axis sign; with `cassini_fibZ_zero` it pins `Cₙ = (−1)ⁿ⁺¹`,
+    the unimodular `det Qⁿ = ±1` shared with the number-tower's `det P = NS − NT = 1`. -/
+theorem cassini_fibZ_step (n : Nat) :
+    fibZ (n+1) * fibZ (n+3) - fibZ (n+2) * fibZ (n+2)
+      = -(fibZ n * fibZ (n+2) - fibZ (n+1) * fibZ (n+1)) := by
+  rw [show fibZ (n+3) = fibZ (n+2) + fibZ (n+1) from rfl,
+      show fibZ (n+2) = fibZ (n+1) + fibZ n from rfl]
+  ring_intZ
+
 end E213.Lib.Math.Cauchy.OrbitDimension
