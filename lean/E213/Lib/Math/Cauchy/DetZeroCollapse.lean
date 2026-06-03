@@ -87,4 +87,37 @@ theorem cas_step (p q : Int) (s : Nat → Int) (hrec : ∀ n, s (n + 2) = p * s 
       = q * (s n * s (n + 2) - s (n + 1) * s (n + 1))
   rw [h3, h2]; ring_intZ
 
+/-! ## The two units `det = ±1` are the founding's two faces of the unit
+
+`cas_step` makes the unimodular floor concrete and ties it to the number-tower founding's reading of
+the unit `1 = NS − NT` (`SharedUnitAcrossReadings`), which is *magnitude `1` with sign `±`*:
+
+  - **`det = +1`** — the Wronskian is **conserved** (`cas s n = cas s 0`): the orbit is exactly
+    area-preserving, `SL₂`, the founding unit's *magnitude* face.
+  - **`det = −1`** — the Wronskian is **period-2** (`cas s (n+2) = cas s n`, flipping sign each
+    step): the founding unit's *sign* face — the period-2 swap (`PairCompletion.swap_order_eq_NT`,
+    `NT = 2`) that the founding reads as negation.
+
+So the two unimodular dets are exactly the founding unit's (magnitude, sign) — conservation and the
+period-2 swap — the same `±1` that floors the discriminant dial (`EllipticPeriodicTier`, elliptic
+`comp 0 1 = S`, `comp 1 1 = U`). -/
+
+/-- ★★★ **`det = +1`: the Wronskian is conserved.**  `s(n+2) = p·s(n+1) − s(n)` ⟹ `cas s n =
+    cas s 0` — exact area preservation, the founding unit's magnitude face (`SL₂`). -/
+theorem cas_conserved_unit (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) : ∀ n, cas s n = cas s 0 := by
+  intro n
+  induction n with
+  | zero => rfl
+  | succ n ih => rw [cas_step p 1 s hrec n, E213.Meta.Int213.PolyIntM.one_mulZ, ih]
+
+/-- ★★★ **`det = −1`: the Wronskian is period-2.**  `s(n+2) = p·s(n+1) + s(n)` ⟹
+    `cas s (n+2) = cas s n` — the founding unit's sign face, the period-2 swap (`NT = 2`). -/
+theorem cas_period2_neg_unit (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - (-1) * s n) : ∀ n, cas s (n + 2) = cas s n := by
+  intro n
+  have e1 : cas s (n + 1) = (-1) * cas s n := cas_step p (-1) s hrec n
+  have e2 : cas s (n + 2) = (-1) * cas s (n + 1) := cas_step p (-1) s hrec (n + 1)
+  rw [e2, e1]; ring_intZ
+
 end E213.Lib.Math.Cauchy.DetZeroCollapse
