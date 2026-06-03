@@ -89,21 +89,27 @@ automaton route, and its P-recursive escape shares π's open status.  Density is
 of the sparse witness — it is the regime where the cheap certificate is structurally unavailable.
 
 **Why the tier is a ring stratification.**  The finite-Δ-depth `ℤ`-sequences form a ring
-(`FiniteDepthAlgebra.polyDepthZ_mul`: depths add under product) with exact normal form
-(`NewtonGregory.reconstruct`: a depth-`d` sequence *is* `Σ_{i≤d}(Δⁱs 0)·binom(·,i)`) and
-polynomial growth bound (`NewtonGregory.poly_bound`).  The holonomicity tier measures where a
-partial-quotient sequence sits relative to this generating ring; the genuine non-holonomic tier
-is outside it — no finite generating machine.
+(`PolynomialDepth.polyDepthZ_mul`: depths add under product; `polyDepthZ_add`/`polyDepthZ_mono`)
+and are *exactly the polynomials*: `DepthCharacterization.finite_depthZ_iff` — `polyDepthZ d s ↔
+s = newtonZ c d` (a degree-`≤d` Newton/binomial polynomial), with depth `=` degree exactly
+(`newtonZ_depth_drop`).  So "the generating ring" is not a metaphor: it is the polynomial ring in
+the Newton basis, and the holonomicity tier measures where a partial-quotient sequence sits
+relative to it.  These ring objects are also eventually monotone (`DepthMonotoneSynthesis.
+newtonZ_evMono` — the order-theoretic reading meeting the algebraic one); the genuine non-holonomic
+tier is outside the ring — no finite generating machine, and (the dense witness's counter) *no
+polynomial at all*.
 
 The automatic side furnishes a concrete escapee.  Read off the same automaton that emits
 Thue–Morse, the digit counter `s2 = popcount` is **unbounded** (`ThueMorseAperiodic.s2_unbounded`:
 `s2(ones k) = k`) yet returns to its minimum `1` at every power of two (`s2_pw2 : s2(2^k)=1`), so
 it is *not eventually monotone* — proven ∅-axiom (`s2_not_eventually_monotone`).  This now closes
 to a full theorem: `ThueMorseRingEscape.s2Z_not_polyDepthZ : ¬ ∃ d, polyDepthZ d s2Z` — `popcount`
-carries **no** finite difference-depth, the automatic counter sits *outside* the generating ring
-while its bounded `{0,1}` readout `tm` is the dense non-holonomic witness.  The two facts are one
-structure seen at its two ends: the bounded readout escapes the *machine* (term-window), the
-unbounded counter escapes the *ring* (finite Δ-depth).
+carries **no** finite difference-depth; and through `finite_depthZ_iff` this reads literally as
+`DepthMonotoneSynthesis.s2Z_not_polynomial`: the automatic counter equals **no polynomial**
+`newtonZ c d`, sitting outside the polynomial generating ring while its bounded `{0,1}` readout
+`tm` is the dense non-holonomic witness.  The two facts are one structure seen at its two ends: the
+bounded readout escapes the *machine* (term-window), the unbounded counter escapes the *ring*
+(finite Δ-depth = polynomials).
 
 The bridge is `PolyDepthMonotone.polyDepthZ_evMono` — **every finite-Δ-depth integer sequence is
 eventually monotone** (non-decreasing or non-increasing), the LPO-free engine built on the
@@ -273,5 +279,8 @@ eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` or
 `Cauchy/HomogRecPeriodic` (`evPeriodic_homogRec` — the elementary half of the bounded `HomogRec`
 characterization);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
-`Cauchy/{NewtonGregory, FiniteDepthAlgebra}` (the difference-Lens generating ring);
+`Cauchy/{NewtonGregory, FiniteDepthAlgebra, PolynomialDepth, DepthCharacterization}` (the
+difference-Lens generating ring = the polynomials, `finite_depthZ_iff`); `Cauchy/
+DepthMonotoneSynthesis` (`newtonZ_evMono`, `s2Z_not_polynomial` — the algebraic and order-theoretic
+readings joined);
 `Real213/PresentationDependence` (pointing, not number).
