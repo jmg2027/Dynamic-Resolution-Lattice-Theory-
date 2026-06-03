@@ -29,6 +29,7 @@ namespace E213.Lib.Math.Cauchy.CFiniteRing
 open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ mul_zero' add_sub_cancel_left')
 open E213.Lib.Math.Cauchy.FiniteDepthAlgebra (add_sub_add liftKZ_diffZ_comm)
 open E213.Lib.Math.Cauchy.OrbitDimension (CFiniteZ linComb)
+open E213.Meta.Int213.PolyIntM (powInt powInt_add)
 open E213.Meta.Int213
   (zero_mul mul_add add_mul add_comm add_assoc add_left_comm add_right_comm
    mul_comm mul_assoc zero_add mul_sub add_neg_cancel neg_mul)
@@ -919,5 +920,47 @@ theorem shiftRec_of_cfiniteZ {s : Nat → Int} (h : CFiniteZ s) :
 theorem cfiniteZ_iff_shiftRec {s : Nat → Int} :
     CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s :=
   ⟨shiftRec_of_cfiniteZ, fun ⟨_, _, h⟩ => cfiniteZ_of_shiftRec h⟩
+
+/-! ## §12 — Hadamard product, geometric factor: `cⁿ · s` is C-finite -/
+
+/-- Scaling a shift sum by a geometric weight: `Σ_{i<k} aᵢ c^{E−i} · (cᵐs)(n+i) =
+    c^{E+n} · Σ_{i<k} aᵢ s(n+i)` (for `k ≤ E`; the `c^{E−i}·c^{n+i} = c^{E+n}` cancellation
+    is constant in `i`). -/
+theorem geom_shiftSum (a s : Nat → Int) (c : Int) (n : Nat) : ∀ E k, k ≤ E →
+    shiftSum (fun i => a i * powInt c (E - i)) (fun m => OrbitDimension.geomZ c m * s m) k n
+      = powInt c (E + n) * shiftSum a s k n
+  | E, 0,   _  => by show (0 : Int) = powInt c (E + n) * 0; rw [mul_zero']
+  | E, k+1, hk => by
+    show shiftSum (fun i => a i * powInt c (E - i)) (fun m => OrbitDimension.geomZ c m * s m) k n
+           + a k * powInt c (E - k) * (OrbitDimension.geomZ c (n + k) * s (n + k))
+       = powInt c (E + n) * (shiftSum a s k n + a k * s (n + k))
+    have hexp : (E - k) + (n + k) = E + n := by
+      rw [Nat.add_comm n k, ← Nat.add_assoc,
+          E213.Tactic.NatHelper.sub_add_cancel (Nat.le_of_succ_le hk)]
+    have hpow : powInt c (E - k) * powInt c (n + k) = powInt c (E + n) := by
+      rw [← powInt_add, hexp]
+    have hterm : a k * powInt c (E - k) * (OrbitDimension.geomZ c (n + k) * s (n + k))
+               = powInt c (E + n) * (a k * s (n + k)) := by
+      show a k * powInt c (E - k) * (powInt c (n + k) * s (n + k))
+         = powInt c (E + n) * (a k * s (n + k))
+      rw [show a k * powInt c (E - k) * (powInt c (n + k) * s (n + k))
+            = a k * (powInt c (E - k) * powInt c (n + k)) * s (n + k) from by ring_intZ, hpow]
+      ring_intZ
+    rw [geom_shiftSum a s c n E k (Nat.le_of_succ_le hk), mul_add, hterm]
+
+/-- ★ **Hadamard product with a geometric factor.**  `cⁿ · s` is C-finite for every
+    C-finite `s` — a geometric weight preserves C-finiteness (same recurrence order):
+    if `s(n+k) = Σ aᵢ s(n+i)` then `(cⁿs)(n+k) = Σ (aᵢ c^{k−i}) (cⁿs)(n+i)`.  Generalizes
+    `cfiniteZ_geom_mul` (`cⁿ·dⁿ`) to `cⁿ · (anything C-finite)` — e.g. `n²·2ⁿ`, `fib·3ⁿ`.
+    A closed corner of the Hadamard-product frontier, via `cfiniteZ_iff_shiftRec`. -/
+theorem cfiniteZ_geomScale (c : Int) {s : Nat → Int} (h : CFiniteZ s) :
+    CFiniteZ (fun n => OrbitDimension.geomZ c n * s n) := by
+  obtain ⟨k, a, ha⟩ := shiftRec_of_cfiniteZ h
+  apply cfiniteZ_of_shiftRec (k := k) (b := fun i => a i * powInt c (k - i))
+  intro n
+  show OrbitDimension.geomZ c (n + k) * s (n + k)
+     = shiftSum (fun i => a i * powInt c (k - i)) (fun m => OrbitDimension.geomZ c m * s m) k n
+  rw [geom_shiftSum a s c n k k (Nat.le_refl k), ha n, Nat.add_comm n k]
+  rfl
 
 end E213.Lib.Math.Cauchy.CFiniteRing
