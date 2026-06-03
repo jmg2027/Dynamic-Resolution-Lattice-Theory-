@@ -289,9 +289,12 @@ commitments: the entire number tower is downstream of the
 axiom + one Lens choice at each level.
 
 The cascade has a finite-resolution ceiling — at any actual
-configuration `N_U = d^(d²)`, the Lens outputs are exact
-rationals; π and e are limit labels, not framework primitives
-(`seed/RESOLUTION_LIMIT_SPEC.md` for the parametric family).
+configuration the Lens outputs are exact rationals; π and e are
+limit labels, not framework primitives.  The parametric
+configuration count is `configCountD d n = d^(d^n)`
+(`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`), a bare
+combinatorial readout with no level privileged; the infinity
+type-distinctions live in `lean/E213/Lib/Math/ResolutionLimit.lean`.
 This is the operational form of "no exterior dialer" at the
 numerical level: the framework does not invoke transcendentals
 because the Lenses that produce numbers terminate at every finite

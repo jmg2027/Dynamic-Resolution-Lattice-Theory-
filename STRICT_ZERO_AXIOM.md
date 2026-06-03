@@ -241,7 +241,16 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Number-tower founding + invert-move addition (2026-06-03)
 
-`E213.Lens.Number.Nat213.Tower.PairCompletion` — **13 PURE / 0 DIRTY**.  The **invert
+`E213.Lens.Number.SharedUnitAcrossReadings` — **1 PURE / 0 DIRTY**.  The honest unification
+of the axis-readings: `the_unit_is_one_across_readings` — the unit `1` is one value across
+count-difference (`NS − NT`, `ns_minus_nt_is_one`), the Möbius/ratio determinant
+(`mobius_det_eq_ns_minus_nt`, `mobius_det_is_unit`), the Cassini oscillation
+(`toggle_det_unit`), and the reciprocal law (`qpair_mul_swap_eq_qOne`).  Identity-of-the-unit
+(downward), not an operator monoid (which has no shared carrier).
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **15 PURE / 0 DIRTY**.  Includes
+`swap_order_eq_NT` (the swap's order is exactly `NT = 2`: involution + non-identity, so
+period-2 is forced by the count, not chosen — no period-`k` on a pair).  The **invert
 move as one theorem**: a generic `CommCancelSemigroup` on `Nat213` (op + comm + assoc +
 right-cancel, **no unit**) with pair-completion `pairEquiv M p q := M.op p.1 q.2 =
 M.op p.2 q.1`, equivalence-relation proofs (`pairEquiv_{refl,symm,trans}`), the `swap`

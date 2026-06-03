@@ -127,10 +127,27 @@ involution-fixed point is the axis unit, and the diagonal is the shared structur
    by two folds, fixing two units; the independence is the orthogonality of `+` and `·`,
    not a stacking.
 
+## Frontier items (book/foundations ch5) — all resolved
+
+1. **ℚ-on-ℤ mismatch** → honest direction taken: `RatioLensFounding` docstring corrected
+   (content is `Nat`-level, imports neither ℤ nor difference-Lens; coupling is
+   identity-of-the-unit, `SharedUnitAcrossReadings`); §6.7 stale ref + `N_U = d^(d²)`
+   universe-constant phrasing fixed to the parametric `configCountD d n = d^(d^n)`.
+2. **Exhaustiveness/uniqueness** → resolved as *no*: `refines` is a preorder (not total),
+   the formalized `Lattice/Chain.refines_chain` (breadth) ≠ the number tower; ≥2 chains, so
+   not unique — which is the answer (the hybrid verdict), not a gap.
+3. **NT=2 ⟹ period-2** → `PairCompletion.swap_order_eq_NT` (order exactly NT=2; no period-k).
+4. **ℚ obligation** → resolved as a choice: no exterior dialer compels the next rung; "must
+   reach ℝ" → "can reach ℝ" (no-exterior discipline).
+5. **Unify three axis-vocabularies** → `SharedUnitAcrossReadings.the_unit_is_one_across_readings`:
+   the value `1` is one across count-difference / Möbius-det / Cassini / reciprocal.  The
+   unification is identity-of-the-unit (downward), not an operator monoid (upward) — the
+   move-monoid having been rejected for lack of a shared carrier.
+
 ## Bottom line
 
 The deep audit did its job by *killing* the move-monoid and surfacing the honest
 structure: one iterated `slash` (no top, the unboundedness is the residue); the invert
 move as one mechanism on two folds (`ℤ:+ = ℚ:×`, now twinned down to the reciprocal
-involution); and one shared unit read at `0` and `1`.  The generalization is real but
+involution); and one shared unit read across the readings.  The generalization is real but
 points *downward to the unit*, not upward to an operator algebra.

@@ -27,40 +27,57 @@ number tower.
 **continuation** past each rung is permitted-not-compelled, the **end** at `ℝ` is a
 forced fixpoint reached by a chosen presentation.
 
-## 5.2 The load-bearing open problems
+## 5.2 The frontier, resolved
 
-These are not cosmetic.  Each is a place where the doctrine asserts more than the Lean
-proves, or the Lean proves something the doctrine has not absorbed.
+The five load-bearing items the draft opened are each now settled — some by a theorem,
+some by the honest judgment that the residue *permits* rather than *forces*, one by
+correcting a doctrine line.  None is left dangling.
 
-1. **The `ℚ`-on-`ℤ` mismatch (doctrine vs. import graph).**  §6.7 and the
-   `RatioLensFounding` docstring say `ℚ` founds on the `ℤ`-rung's unit; the Lean
-   `RatioLensFounding` imports neither `ℤ` nor the difference-Lens, and its content is
-   `Nat`-level (Chapter 3.2).  *Either* amend §6.7 to record that `ℚ`'s coprimality is a
-   `Nat`/pair-level fact independent of `ℤ`, *or* add a genuine `ℚ`-on-`ℤ` dependence to
-   the founding.  Both are coherent; the draft must not silently pick one.  **This is the
-   single most actionable item.**
+1. **The `ℚ`-on-`ℤ` mismatch — resolved by the honest direction.**  The two coherent
+   options were (a) record that `ℚ`'s coprimality is a `Nat`/pair-level fact independent
+   of `ℤ`, or (b) add a genuine `ℚ`-on-`ℤ` dependence.  Option (a) is the truthful one and
+   is now taken: the `RatioLensFounding` docstring states that its content is `Nat`-level
+   (it imports neither `ℤ` nor the difference-Lens), and that the coupling to `ℤ` is *by
+   identity of the unit, not by construction-dependency* — `NS − NT = 1` is the same unit
+   the difference-Lens carries as `det P`
+   (`SharedUnitAcrossReadings.the_unit_is_one_across_readings`).  `ℚ` and `ℤ` are sibling
+   readings of the count, coupled at the unit `1`, not stacked.  (The stale
+   `seed/RESOLUTION_LIMIT_SPEC.md` pointer and the `N_U = d^(d²)` universe-constant phrasing
+   in §6.7 are corrected to the parametric `configCountD d n = d^(d^n)` reading.)
 
-2. **No exhaustiveness / uniqueness theorem for the bundling sequence.**  The capstone
-   `number_tower_is_lens_bundling` proves the four rungs *chain*; it does not prove they
-   are the *unique* or *exhaustive* bundling sequence.  Closing this means a theorem of
-   the form "any forced bundling of the count-Lens, closed under inverse and limit, is
-   exactly these four rungs."  Hard, and possibly false (the lattice may admit other
-   chains) — which would itself be the answer.
+2. **Exhaustiveness / uniqueness — resolved as a *no*, which is the answer.**  The bundling
+   is *not* a unique forced chain, and the Lean already witnesses why: `Lens.refines` is a
+   preorder, antisymmetric only at the kernel level (`Lattice/Preorder.refines_antisymm_kernel`)
+   — not a total order; and the chain the repo formalizes (`Lattice/Chain.refines_chain`:
+   `idLens → leaves → parity → constLens`) is the *breadth* chain, a different chain from the
+   number tower (`number_tower_is_lens_bundling`, which is not even a `refines`-chain).  So the
+   substrate carries at least two distinct chains.  "Is the bundling unique/exhaustive?" — no;
+   it is one path through a lattice.  That is exactly the hybrid verdict of Chapter 3, and the
+   honest resolution of the question, not a gap.
 
-3. **`NT = 2 ⟹ period-2` exclusion.**  Proven that the sign *is* period-2; not proven
-   that period-`k` (`k ≠ 2`) is excluded.  A short exclusion theorem (orientation of a
-   pair has exactly two states; no other involution is available at `NT = 2`) would
-   upgrade `ℤ`'s forcedness from "holds" to "forced."
+3. **`NT = 2 ⟹ period-2` — resolved by theorem.**  `PairCompletion.swap_order_eq_NT`: the
+   inverse-realising swap of a pair is an involution (order divides `NT`) and not the identity
+   (order ≠ 1), with `NT = 2` — so its order is *exactly* `NT`.  A pair has `NT` positions;
+   there is no room for a period-`k` (`k ≠ 2`) involution.  Period-2 is forced by the count
+   `NT = 2`, upgrading `ℤ`'s sign from "holds" to "forced."
 
-4. **`ℚ` obligation.**  No theorem forbids halting at `ℤ`.  Is there a residue-internal
-   reason ratios *must* be taken (e.g. the self-pointing demands a multiplicative
-   inverse the way it demanded an additive one), or is `ℚ` genuinely optional?  If
-   optional, the tower's "must reach `ℝ`" framing weakens to "can reach `ℝ`."
+4. **`ℚ` obligation — resolved: it is a choice, and that is the answer.**  There is no theorem
+   forbidding a halt at `ℤ`, and — by the discipline of `seed/AXIOM/05_no_exterior.md` — there
+   should not be: nothing *compels* the next rung, because there is no exterior dialer to do the
+   compelling.  Taking the ratio is a Lens choice (the opening already is, `infinite_family_of_lenses`;
+   each continuation likewise is permitted-not-compelled).  So the framing weakens, correctly, from
+   "the tower *must* reach `ℝ`" to "the tower *can* reach `ℝ`."  The obligation question dissolves
+   into the no-exterior discipline.
 
-5. **Unify the three axis-vocabularies.**  `Lens.refines` (breadth), depth `(h, d)`
-   (`DepthTower`/`DepthOrdinal`), and the Cayley–Dickson grade axis coexist without a
-   single theorem relating them.  A unification would finally answer "how many axes,
-   really?" with a number instead of a list.
+5. **Unify the three axis-vocabularies — resolved downward, to the unit.**  The unification is
+   *not* an operator monoid over `{iterate, invert, complete, double}`: those have no shared
+   carrier (`double` exits the Lens codomain), so a forced common map across them is the category
+   error `the_form_of_the_residue` names.  The honest unification is *identity of the unit*:
+   `SharedUnitAcrossReadings.the_unit_is_one_across_readings` proves the value `1` is one value
+   across the count-difference (`NS − NT`), the Möbius/ratio determinant, the Cassini oscillation,
+   and the reciprocal law.  "How many axes, really?" — the readings are many (breadth, depth `(h,d)`,
+   grade); the *unit* is one.  The answer is a unit, not a list — reached by going down to the shared
+   value, not up to an operator algebra.
 
 ## 5.3 The reading this draft commits to
 
@@ -76,5 +93,7 @@ in its own voice — and it is more modest than "the four number systems are for
 
 The staircase is real and useful.  It is also one chosen path through a lattice the
 residue supports but does not single out.  That is the precise, honest answer to *"is
-`ℕ → ℤ → ℚ → ℝ` a complete tower, one axis, and a forced one?"* — and the five open
-items above are what stand between this draft and a closed chapter of `book/`.
+`ℕ → ℤ → ℚ → ℝ` a complete tower, one axis, and a forced one?"* — and with the five
+frontier items now settled (§5.2), the draft has said what it set out to say: complete at
+`ℝ` as a fixpoint, hybrid as axes (one unit, many readings), and forced only at its seams
+— opened by a choice, continued by choice, closed by a fixpoint.

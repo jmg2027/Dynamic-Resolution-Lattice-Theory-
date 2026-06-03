@@ -27,9 +27,7 @@ questions, none of which `book/` settled:
    ratio, completion), or is each one Lens-*choice* among alternatives — the word
    `seed/AXIOM/06_lens_readings.md` §6.7 actually uses?
 
-It is a **준-책 (semi-book / working draft)** and not a closed treatise because the
-honest answer to all three is *partly settled, partly open*, and the open parts are
-load-bearing.  Each claim below carries a status tag:
+It is a **준-책 (semi-book / working draft)**.  Each claim below carries a status tag:
 
 | Tag | Meaning |
 |---|---|
@@ -37,8 +35,14 @@ load-bearing.  Each claim below carries a status tag:
 | **DOCTRINE** | `seed/AXIOM/06_lens_readings.md` §6.7 (or another seed spec) asserts it; no Lean witness yet. |
 | **OPEN** | Under investigation; the codebase does not settle it, and a draft must say so. |
 
-When the open items close, this draft is promoted to `book/` proper per
-`theory/PROMOTION_CRITERIA.md`.
+The five frontier items the draft opened are now settled (Chapter 5.2): the `ℚ`-on-`ℤ`
+coupling is identity-of-the-unit not build-dependency (`SharedUnitAcrossReadings`); the
+bundling is provably *not* a unique chain (the substrate is a lattice with ≥2 chains);
+period-2 is forced by `NT = 2` (`PairCompletion.swap_order_eq_NT`); `ℚ` is a Lens choice,
+not an obligation (no exterior dialer); and the axis-vocabularies unify *downward* to one
+shared unit, not upward into an operator monoid.  What remains genuinely open is left as
+such and flagged.  When the build-side promotion gates are met, this is promoted to
+`book/` proper per `theory/PROMOTION_CRITERIA.md`.
 
 ---
 
@@ -49,8 +53,8 @@ When the open items close, this draft is promoted to `book/` proper per
 | Does the bundling terminate at `ℝ`? | **Yes — `ℝ` is a Cauchy fixpoint**: completing `ℝ` again returns `ℝ`. | PROVED (`CauchyCompleteValid.limit_valid`) |
 | Is `ℝ → ℂ → ℍ → 𝕆` a continuation? | **No — a different axis** (algebra-grade / dimension-doubling), exiting the commutative codomain world the number tower inhabits. | PROVED divergence (`TwoTowersDivergence.divergence`) |
 | Is anything above `ℝ` endless? | **Yes, but not the number tower** — the resolution / completability diagonal has no top and bottoms out in the pointing residue. | PROVED (`TowerNativeCompleteness`) |
-| One axis or many? | **Hybrid** — the linear chain serializes a *breadth* axis (`ℕ`), two *orthogonal inverse-closures* (`ℤ` additive, `ℚ` multiplicative), and a *character-changing limit* (`ℝ`); the substrate is a lattice of Lens refinements, not a chain. | PROVED-adjacent; one key independence PROVED, the unification OPEN |
-| Is `ℚ` built on `ℤ`? | **Not formally** — `RatioLensFounding` imports neither `ℤ` nor the difference-Lens; its content is `Nat`-level.  The "`ℚ` founds on the `ℤ` unit" link is doctrine, not a Lean dependency. | PROVED (import graph) / OPEN (whether it *should* depend) |
+| One axis or many? | **Hybrid** — the linear chain serializes a *breadth* axis (`ℕ`), two *orthogonal inverse-closures* (`ℤ` additive, `ℚ` multiplicative), and a *character-changing limit* (`ℝ`); the substrate is a lattice of Lens refinements, not a chain. | PROVED (independence); unification resolved downward to one unit (`the_unit_is_one_across_readings`) |
+| Is `ℚ` built on `ℤ`? | **No — sibling readings.** `RatioLensFounding` imports neither `ℤ` nor the difference-Lens; its content is `Nat`-level.  `ℚ` and `ℤ` are coupled at the shared unit `1`, not stacked. | PROVED (import graph + `the_unit_is_one_across_readings`) |
 | Is each rung forced or chosen? | See Chapter 4. | (forcedness investigation) |
 
 ---

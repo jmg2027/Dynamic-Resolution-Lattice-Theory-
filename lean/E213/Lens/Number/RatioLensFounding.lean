@@ -4,24 +4,25 @@ import E213.Lib.Math.Mobius213OneAsGlue
 /-!
 # RatioLensFounding — `ℚ` is the ratio rung, and its coprimality is `det P = NS − NT = 1`
 
-`seed/AXIOM/06_lens_readings.md` §6.7 founds `ℚ` as the next tower rung above the difference-Lens
-(`ℤ`): *ratios of chain readings, with the coprimality condition that §3.5's `det P = 1` already
-encodes algebraically.*  The distinctive 213 content is not the generic field-of-fractions
-construction; it is that **the ratio's lowest-terms (coprimality) condition is exactly the
-difference-Lens unit `det P = NS − NT = 1`.**
+`seed/AXIOM/06_lens_readings.md` §6.7 founds `ℚ` by *"taking ratios of chain readings, with the
+coprimality condition that §3.5's `det P = 1` already encodes algebraically."*  The distinctive
+213 content is not the generic field-of-fractions construction; it is that **the ratio's
+lowest-terms (coprimality) condition is exactly the unimodular determinant `det P = NS − NT = 1`.**
 
 This file makes that a theorem.  The convergent matrix `Pⁿ = [[Q00, Q01],[Q01, Q11]]` reads the
-self-pointing as a ratio `Q01/Q00` (or `Q00/Q01`), and:
+self-pointing as a ratio `Q01/Q00` (or `Q00/Q01`), and its determinant is the unit:
+`Q00·Q11 − Q01² = NS − NT = 1` (`PnFibonacciUniversal.det_pn_universal`,
+`Mobius213OneAsGlue.ns_minus_nt_is_one`).  A unimodular determinant is exactly the
+coprimality / lowest-terms condition `ℚ` requires, so the ratio is automatically in lowest terms.
 
-  * its determinant is the difference-Lens unit — `Q00·Q11 − Q01² = NS − NT = 1`
-    (`PnFibonacciUniversal.det_pn_universal`, `Mobius213OneAsGlue.ns_minus_nt_is_one`);
-  * **therefore the numerator and denominator are coprime** — `gcd(Q00, Q01) = 1`
-    (`convergent_coprime`): a determinant of `1` is a Bézout combination forcing coprimality, so the
-    ratio is automatically in lowest terms.
-
-So the `ℚ`-rung's defining coprimality is *derived from* the `ℤ`-rung's unit, not imposed: `ℚ` is the
-ratio reading whose well-definedness (lowest terms) is the difference-Lens unit `det P = NS − NT`.
-The ratio's own identity is cross-multiplication (`ratioEquiv`, reflexive and symmetric below).
+The coupling to `ℤ` is by *identity of the unit*, not by construction-dependency.  This file's
+content is `Nat`-level — `Q00, Q01, Q11 : Nat → Nat`, `NS − NT` a `Nat` value (`= 1` by
+`ns_minus_nt_is_one`) — and it imports neither `ℤ` (`Int213`) nor `DifferenceLensFounding`.  The
+value `NS − NT = 1` is the *same unit* the difference-Lens carries as its `det P`
+(`SharedUnitAcrossReadings.the_unit_is_one_across_readings`): the ratio rung does not *build on*
+the `ℤ` rung, it *shares its unit*.  So `ℚ` and `ℤ` are sibling readings of the count, coupled at
+the unit `1`, not stacked.  The ratio's own identity is cross-multiplication (`ratioEquiv`,
+reflexive and symmetric below).
 -/
 
 namespace E213.Lens.Number.RatioLensFounding
