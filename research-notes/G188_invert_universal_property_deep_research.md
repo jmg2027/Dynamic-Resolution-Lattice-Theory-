@@ -85,9 +85,12 @@ trace-dial.  Atomic (pins `NS = 3`): `p = NT`/`p = NS` landing on the tiers.
 
 Deepened further (`parabolic_at_NT_is_difference_lens_depth1`): the **parabolic tier (trace `NT`)
 is the difference-Lens rung** — `liftKZ 1 s n = s(n+1) − s n` is the `ℤ`-difference, and parabolic
-⟺ that output is constant (`polyDepthZ 1`, depth-1).  Full tier↔rung correspondence: `ℤ`-sign =
-elliptic (period-2 swap), `ℤ`-difference (depth-1) = parabolic, `ℚ`/`ℝ` Pell = hyperbolic.  The
-founding number-rungs *are* the discriminant tiers.
+⟺ that output is constant (`polyDepthZ 1`, depth-1).  Full tier↔rung correspondence, **complete in Lean**:
+`ℤ`-sign = elliptic (period-2 swap), `ℤ`-difference (depth-1) = parabolic
+(`parabolic_at_NT_is_difference_lens_depth1`), `ℚ`/`ℝ` ratio/Cauchy = hyperbolic
+(`hyperbolic_at_NS_is_ratio_cauchy_rung`: det = unit `NS−NT`, convergents' cross-det = same unit,
+completing to `φ`).  `ℕ` (count) is the base they are read from.  The founding number-rungs *are*
+the discriminant tiers — two marathons, one structure.
 
 ## Net new theorems (all ∅-axiom, 0 dirty)
 | Theorem | Module | What it forces |
