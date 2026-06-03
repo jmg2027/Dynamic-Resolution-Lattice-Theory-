@@ -34,7 +34,8 @@ namespace E213.Lib.Math.Real213.MarkovInjectivity
 open E213.Lib.Math.Real213.MarkovTree (markovEq)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Lib.Math.Real213.MarkovUniqueness
-  (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos)
+  (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos
+   MarkovMaxUnique markov_mid_lt_max markov_root_recovery)
 open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
 open E213.Meta.Nat.Gcd213 (gcd213_comm)
 
@@ -114,5 +115,62 @@ theorem root_unique_below_half_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
     (hrx : (x * x + 1) % p ^ (k + 1) = 0) (hry : (y * y + 1) % p ^ (k + 1) = 0) : x = y :=
   root_unique_below_half (p ^ (k + 1)) (sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
     hx hy hxh hyh hrx hry
+
+/-! ## §3 — the capstone reduction: uniqueness ⟸ root-count + residue injectivity -/
+
+/-- **Residue-map injectivity up to sign** (Zhang Lemma 2, the open input).  Two ordered Markov
+    triples at `c` whose recovered residues `u₁,u₂` lie in the same `±`-pair (`u₁=u₂` or
+    `u₁+u₂=c`) coincide.  Classically true by the strict monotonicity of `u_t/m_t` along the Farey
+    slope; the **only** ingredient still missing for prime-power uniqueness. -/
+def SamePairInjective (c : Nat) : Prop :=
+  ∀ a₁ b₁ a₂ b₂ u₁ u₂ : Nat, a₁ ≤ b₁ → b₁ ≤ c → markovEq a₁ b₁ c →
+    a₂ ≤ b₂ → b₂ ≤ c → markovEq a₂ b₂ c →
+    u₁ < c → (u₁ * b₁) % c = a₁ → u₂ < c → (u₂ * b₂) % c = a₂ →
+    (u₁ = u₂ ∨ u₁ + u₂ = c) → a₁ = a₂ ∧ b₁ = b₂
+
+/-- ★★★★★ **The classical reduction, formalised.**  `MarkovMaxUnique c` follows from the
+    root-count input `SqrtNegOneTwoRoots c` (at most the two roots `±u`) together with the
+    residue-map injectivity `SamePairInjective c`.  Proof: recover each triple's residue
+    (`markov_root_recovery`); `SqrtNegOneTwoRoots` forces the two residues into one `±`-pair;
+    `SamePairInjective` then identifies the triples.  This is the exact Frobenius/Aigner reduction
+    — both hypotheses are honest (neither is `MarkovMaxUnique` in disguise): `SqrtNegOneTwoRoots`
+    is a pure congruence fact (proved for prime powers, `sqrtNegOneTwoRoots_prime_pow`), and
+    `SamePairInjective` is the Farey-monotonicity recovery (Zhang Lemma 2). -/
+theorem markov_max_unique_of_same_pair_injective (c : Nat) (hc : 2 ≤ c)
+    (h2 : SqrtNegOneTwoRoots c) (hinj : SamePairInjective c) : MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ hab1 hbc1 hab2 hbc2 hm1 hm2
+  have ha1 := markov_a_pos hc hm1
+  have ha2 := markov_a_pos hc hm2
+  have hb1lt : b₁ < c := markov_mid_lt_max a₁ b₁ c hm1 ha1 hab1 hbc1 hc
+  have hb2lt : b₂ < c := markov_mid_lt_max a₂ b₂ c hm2 ha2 hab2 hbc2 hc
+  have hco1 := (markov_ordered_coprime a₁ b₁ c hm1 ha1 hab1 hbc1).2.2
+  have hco2 := (markov_ordered_coprime a₂ b₂ c hm2 ha2 hab2 hbc2).2.2
+  obtain ⟨u₁, hu1lt, hu1root, hu1rec⟩ :=
+    markov_root_recovery a₁ b₁ c hc (Nat.lt_of_le_of_lt hab1 hb1lt) hco1 hm1
+  obtain ⟨u₂, hu2lt, hu2root, hu2rec⟩ :=
+    markov_root_recovery a₂ b₂ c hc (Nat.lt_of_le_of_lt hab2 hb2lt) hco2 hm2
+  exact hinj a₁ b₁ a₂ b₂ u₁ u₂ hab1 hbc1 hm1 hab2 hbc2 hm2
+    hu1lt hu1rec.symm hu2lt hu2rec.symm (h2 u₁ hu1lt u₂ hu2lt hu1root hu2root)
+
+/-- `2 ≤ p^(k+1)` for `p ≥ 2` (helper for the prime-power instance). -/
+private theorem two_le_pow_succ (p k : Nat) (hp : 2 ≤ p) : 2 ≤ p ^ (k + 1) := by
+  induction k with
+  | zero => rw [Nat.pow_one]; exact hp
+  | succ n ih =>
+      rw [Nat.pow_succ]
+      exact Nat.le_trans ih
+        (Nat.le_mul_of_pos_right (p ^ (n + 1)) (Nat.lt_of_lt_of_le (by decide) hp))
+
+/-- ★★★★★ **Prime-power Markov uniqueness ⟸ residue injectivity (Button's theorem, packaged).**
+    For an odd prime power `c = p^(k+1)`, `MarkovMaxUnique c` follows from `SamePairInjective c`
+    alone — the root-count input is discharged by `sqrtNegOneTwoRoots_prime_pow`.  So the entire
+    prime-power unicity conjecture (an infinite family) is reduced to the single Farey-monotonicity
+    recovery `SamePairInjective`. -/
+theorem markov_prime_pow_unique_of_same_pair_injective (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hinj : SamePairInjective (p ^ (k + 1))) :
+    MarkovMaxUnique (p ^ (k + 1)) :=
+  markov_max_unique_of_same_pair_injective (p ^ (k + 1))
+    (two_le_pow_succ p k (Nat.le_trans (by decide) hp3))
+    (sqrtNegOneTwoRoots_prime_pow p k hp3 hpr) hinj
 
 end E213.Lib.Math.Real213.MarkovInjectivity
