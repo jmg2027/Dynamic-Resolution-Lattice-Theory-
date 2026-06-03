@@ -145,6 +145,99 @@ theorem markov_neighbor_residue (a b c : Nat) (h : markovEq a b c) :
   rw [hk]
   exact E213.Tactic.NatHelper.mul_mod_right c k
 
+/-! ## §2b — the descent engine: the Vieta partner is `≤` the middle entry
+
+The Markov tree's down-move `c ↦ c' = 3ab − c` strictly decreases the maximum.  The arithmetic
+core is the **descent inequality** `a² + 2b² ≤ 3ab²` for `1 ≤ a ≤ b` — equivalently `f(b) ≤ 0`
+where `f(t) = t² − 3ab·t + (a²+b²)` is the quadratic with roots `c, c'`.  Since `b ≤ c` and `f`
+opens upward, `f(b) ≤ 0` forces `b` between the roots, so `c' ≤ b`.  This is the engine of Markov's
+descent theorem (every triple reduces to the root `(1,1,1)`), which would give pairwise
+coprimality for *all* triples at once — retiring the per-`c` coprimality discharges. -/
+
+/-- ★★★★ **The descent inequality** `a² + 2b² ≤ 3ab²` for `1 ≤ a ≤ b`.  Equivalently `f(b) ≤ 0`
+    for the Vieta quadratic — the value at the middle entry is below the axis.  Pure `ℕ`:
+    `a² ≤ a·b²` (as `a ≤ b ≤ b²`) and `2b² ≤ 2·a·b²` (as `1 ≤ a`). -/
+theorem markov_descent_ineq {a b : Nat} (ha : 1 ≤ a) (hab : a ≤ b) :
+    a * a + 2 * (b * b) ≤ 3 * a * (b * b) := by
+  have hbpos : 0 < b := Nat.lt_of_lt_of_le ha hab
+  have hab2 : a ≤ b * b := Nat.le_trans hab (Nat.le_mul_of_pos_left b hbpos)
+  have t1 : a * a ≤ a * (b * b) := Nat.mul_le_mul (Nat.le_refl a) hab2
+  have t2 : 2 * (b * b) ≤ 2 * (a * (b * b)) :=
+    Nat.mul_le_mul (Nat.le_refl 2) (Nat.le_mul_of_pos_left (b * b) ha)
+  have e : 3 * a * (b * b) = a * (b * b) + 2 * (a * (b * b)) := by ring_nat
+  rw [e]; exact Nat.add_le_add t1 t2
+
+/-- ★★★★★ **The Vieta partner is `≤` the middle entry.**  For a Markov triple `(a,b,c)` with
+    `1 ≤ a ≤ b` and `b < c` (the strict-max situation), the down-move partner `c' = 3ab − c`
+    satisfies `c' ≤ b`.  Proof: the descent inequality is exactly
+    `c·c' + b² ≤ b·c + b·c'` (via `c·c' = a²+b²`, `c + c' = 3ab`); writing `c = b+1+d`,
+    `c' = b+1+e` (both `> b`) would make the gap `(d+1)(e+1) > 0`, contradicting `≤`.  Hence
+    `c' ≤ b`, so `c' ≤ b < c` — the max strictly drops. -/
+theorem markov_vieta_partner_le (a b c : Nat) (h : markovEq a b c)
+    (ha : 1 ≤ a) (hab : a ≤ b) (hbc : b < c) : 3 * a * b - c ≤ b := by
+  have hcpos : 0 < c := Nat.lt_of_le_of_lt (Nat.zero_le b) hbc
+  have hle : c ≤ 3 * a * b := markov_le_3mul a b c hcpos h
+  -- the two Vieta relations
+  have hprod : a * a + b * b = c * (3 * a * b - c) := by
+    rw [mul_sub_distrib hle]
+    have hcomm : c * (3 * a * b) = a * a + b * b + c * c := by
+      rw [Nat.mul_comm c (3 * a * b)]; exact h.symm
+    rw [hcomm, add_sub_cancel_right]
+  have hcc : c + (3 * a * b - c) = 3 * a * b := E213.Tactic.NatHelper.add_sub_of_le hle
+  -- the descent inequality in product form: c·c' + b² ≤ b·c + b·c'
+  have hstar : c * (3 * a * b - c) + b * b ≤ b * c + b * (3 * a * b - c) := by
+    have e1 : c * (3 * a * b - c) + b * b = a * a + 2 * (b * b) := by rw [← hprod]; ring_nat
+    have e2 : b * c + b * (3 * a * b - c) = 3 * a * (b * b) := by
+      rw [← Nat.mul_add, hcc]; ring_nat
+    rw [e1, e2]; exact markov_descent_ineq ha hab
+  -- if c' > b, write c = b+1+d, c' = b+1+e and derive a contradiction with hstar
+  rcases Nat.lt_or_ge b (3 * a * b - c) with hgt | hle'
+  · exfalso
+    obtain ⟨d, hd⟩ := Nat.le.dest hbc
+    obtain ⟨e, he⟩ := Nat.le.dest hgt
+    rw [← he, ← hd] at hstar
+    have hid : (b + 1 + d) * (b + 1 + e) + b * b
+        = (b * (b + 1 + d) + b * (b + 1 + e)) + (d + 1) * (e + 1) := by ring_nat
+    rw [hid] at hstar
+    have hp : 0 < (d + 1) * (e + 1) := Nat.mul_pos (Nat.succ_pos d) (Nat.succ_pos e)
+    exact absurd hstar (Nat.not_le_of_lt (Nat.lt_add_of_pos_right hp))
+  · exact hle'
+
+/-- **The down-move strictly decreases the maximum.**  `c' = 3ab − c < c` under `1 ≤ a ≤ b`,
+    `b < c`.  Immediate from `c' ≤ b < c`.  The well-foundedness of Markov descent. -/
+theorem markov_partner_lt_max (a b c : Nat) (h : markovEq a b c)
+    (ha : 1 ≤ a) (hab : a ≤ b) (hbc : b < c) : 3 * a * b - c < c :=
+  Nat.lt_of_le_of_lt (markov_vieta_partner_le a b c h ha hab hbc) hbc
+
+/-- ★★★★ **The maximum is strict** (`b < c`) for any Markov triple with `c ≥ 2`.  The middle
+    entry never equals the maximum except at the root `(1,1,1)` (where `c = 1`).  Proof: if
+    `b = c` the equation reads `a² + 2c² = 3ac²`, but for `1 ≤ a ≤ c`, `2 ≤ c` the strict descent
+    inequality `a² + 2c² < 3ac²` holds (`a < c²` gives `a² < a·c²`).  So `b ≤ c` upgrades to
+    `b < c` — the hypothesis the descent step needs, discharged from `c ≥ 2`. -/
+theorem markov_mid_lt_max (a b c : Nat) (h : markovEq a b c)
+    (ha : 1 ≤ a) (hab : a ≤ b) (hbc : b ≤ c) (hc : 2 ≤ c) : b < c := by
+  rcases Nat.eq_or_lt_of_le hbc with heq | hlt
+  · exfalso
+    subst heq
+    have hapos : 0 < a := ha
+    have hbpos : 0 < b := Nat.lt_of_lt_of_le (by decide) hc
+    have h2 : b + b ≤ b * b :=
+      Nat.le_trans (Nat.le_of_eq (by ring_nat : b + b = b * 2)) (Nat.mul_le_mul_left b hc)
+    have hb_lt : b < b * b := Nat.lt_of_lt_of_le (Nat.lt_add_of_pos_right hbpos) h2
+    have ha_lt : a < b * b := Nat.lt_of_le_of_lt hab hb_lt
+    have t1 : a * a < a * (b * b) := Nat.mul_lt_mul_of_pos_left ha_lt hapos
+    have t2 : 2 * (b * b) ≤ 2 * (a * (b * b)) :=
+      Nat.mul_le_mul (Nat.le_refl 2) (Nat.le_mul_of_pos_left (b * b) ha)
+    have hstrict : a * a + 2 * (b * b) < 3 * a * (b * b) := by
+      have e : 3 * a * (b * b) = a * (b * b) + 2 * (a * (b * b)) := by ring_nat
+      rw [e]; exact Nat.add_lt_add_of_lt_of_le t1 t2
+    have heq2 : a * a + 2 * (b * b) = 3 * a * (b * b) := by
+      have hm : a * a + b * b + b * b = 3 * a * b * b := h
+      rw [show a * a + 2 * (b * b) = a * a + b * b + b * b from by ring_nat,
+          show 3 * a * (b * b) = 3 * a * b * b from by ring_nat]; exact hm
+    exact absurd heq2 (Nat.ne_of_lt hstrict)
+  · exact hlt
+
 /-! ## §3 — the square-root-of-(−1) encoding (`u² ≡ −1 mod c`) -/
 
 /-- ★★★★★ **The square-root-of-(−1) encoding.**  This is the form of the Markov uniqueness
