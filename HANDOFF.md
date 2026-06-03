@@ -25,15 +25,24 @@ State after this leg (all ∅-axiom, pushed):
     zero-run certificate; the real obstruction is the deep automatic∧aperiodic⟹non-holonomic
     theorem, sharing π's open status).
 
-### Conjecture captured + ring-escape bridge CLOSED (`G185`, on-goal "추측들도 만들고")
-Two open items recorded precisely (honest, not half-done):
+### Ring-escape bridge — CLOSED (big infra build, 49 PURE across 3 files)
+The `eventually_monotone_of_polyDepth` bridge — flagged open last leg — is now a full ∅-axiom
+theorem.  Three new files:
+  - **`Meta/Int213/Order.lean`** (34 PURE) — the `Int` ordering layer the repo lacked (Lean-core
+    `Int.le_trans`/`lt_trichotomy` carry `propext`): `le_trans`/`lt_trans`/`lt_of_le_of_lt`,
+    `lt_irrefl`, `add_le_add_*`, `pos_zero_or_neg`, negation-reverses-order, `ofNat` embedding —
+    from inductive `Int.NonNeg` + `ring_intZ`.  Reusable foundation.
+  - **`Cauchy/PolyDepthMonotone.lean`** (11 PURE) — `polyDepthZ_evMono`: every finite-Δ-depth
+    integer sequence is eventually monotone.  LPO-free sign trichotomy on the constant top
+    difference (`c>0` strict-increase descent / `c<0` negation / `c=0` faithful-`Int` depth-drop).
+  - **`Cauchy/ThueMorseRingEscape.lean`** (4 PURE) — `s2Z_not_polyDepthZ : ¬ ∃ d, polyDepthZ d
+    s2Z`: popcount has no finite difference-depth (MonoFromZ ⊥ `s2_not_eventually_monotone`;
+    AntiFromZ ⟹ bounded ⊥ `s2_unbounded`).
+
+Remaining open (honest, on-goal "추측들도 만들고"):
   - **Dense `HomogRec` escape conjecture** — the crisp shape an *elementary shadow* of
     Cobham/Christol would need (a certificate `C ⟹ ¬HomogRec` for a bounded no-long-run sequence).
-  - **`eventually_monotone_of_polyDepth` bridge** — the one classical step to upgrade the
-    ring-escape from narrative to `¬ ∃ d, polyDepthZ d s2`.  Scouted: needs a faithful-`Int`
-    both-sign `EvStrictMono`/`EvStrictAnti` descent (the repo has no pure Int `<`
-    transitivity/trichotomy yet, so it is a real ~Int-ordering-layer build, not a quick reuse of
-    `positive_floor_unbounded` — that only covers the top-difference-≥1 branch).
+    π itself stays the open core.
 
 ## Earlier this leg: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (21 PURE)
 
