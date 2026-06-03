@@ -2,6 +2,7 @@ import E213.Lib.Math.Real213.MarkovInjectivity
 import E213.Lib.Math.Real213.ModularElliptic
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Tactic.List213
 
 /-!
 # SternBrocotMarkov — the proper det-1 Stern-Brocot tree (toward the Markov recovery)
@@ -1021,5 +1022,120 @@ theorem subtree_between (s t : List Bool) :
       (slope_nest s t).1 (markov_node_slope_gt_left (s ++ t))
   · exact slope_lt_le_trans (c_pos_node (s ++ t)) (c_pos_r (s ++ t)) (c_pos_r t)
       (markov_node_slope_lt_right (s ++ t)) (slope_nest s t).2
+
+/-- Directional: every node in `t`'s **true**-subtree (path `s ++ true :: t`) has slope `<` node `t`
+    (right bound of `true::t` is `mNode t`). -/
+private theorem subtree_true_lt (s t : List Bool) :
+    slopeLt (mNode (s ++ true :: t)) (mNode t) := (subtree_between s (true :: t)).2
+
+/-- Directional: every node in `t`'s **false**-subtree has slope `>` node `t`. -/
+private theorem subtree_false_gt (s t : List Bool) :
+    slopeLt (mNode t) (mNode (s ++ false :: t)) := (subtree_between s (false :: t)).1
+
+/-! ### Path injectivity of the slope map (Stern-Brocot ordering). -/
+
+private theorem eq_nil_or_concat : ∀ (l : List Bool), l = [] ∨ ∃ L b, l = L ++ [b]
+  | [] => Or.inl rfl
+  | x :: xs => by
+      rcases eq_nil_or_concat xs with h | ⟨L, b, h⟩
+      · exact Or.inr ⟨[], x, by rw [h]; rfl⟩
+      · exact Or.inr ⟨x :: L, b, by rw [h]; rfl⟩
+
+private theorem concat_ne_nil : ∀ (xs : List Bool) (b : Bool), xs ++ [b] ≠ []
+  | [], _ => by intro h; exact List.noConfusion h
+  | _ :: _, _ => by intro h; exact List.noConfusion h
+
+private theorem append_singleton_cancel : ∀ (as cs : List Bool) (b : Bool),
+    as ++ [b] = cs ++ [b] → as = cs
+  | [], [], _, _ => rfl
+  | [], c :: cs, b, h => absurd (List.cons.inj h).2.symm (concat_ne_nil cs b)
+  | a :: as, [], b, h => absurd (List.cons.inj h).2 (concat_ne_nil as b)
+  | a :: as, c :: cs, b, h => by
+      have hi := List.cons.inj h
+      rw [hi.1, append_singleton_cancel as cs b hi.2]
+
+private theorem concat_append (L : List Bool) (b : Bool) (base : List Bool) :
+    (L ++ [b]) ++ base = L ++ b :: base := by
+  rw [E213.Tactic.List213.append_assoc]; rfl
+
+/-- Slope-comparison disjunction for two paths, with a shared deep suffix `base`. -/
+private def DISJ (p q base : List Bool) : Prop :=
+  slopeLt (mNode (p ++ base)) (mNode (q ++ base)) ∨ slopeLt (mNode (q ++ base)) (mNode (p ++ base))
+
+/-- The empty path vs a nonempty one: the nonempty path is in a true- or false-subtree of `base`,
+    so its slope is separated from `mNode base = mNode ([] ++ base)`. -/
+private theorem nil_sep (q base : List Bool) (hq : q ≠ []) : DISJ [] q base := by
+  rcases eq_nil_or_concat q with h | ⟨L, b, h⟩
+  · exact absurd h hq
+  · subst h
+    unfold DISJ
+    rw [concat_append L b base]
+    cases b
+    · exact Or.inl (subtree_false_gt L base)
+    · exact Or.inr (subtree_true_lt L base)
+
+private theorem length_concat (L : List Bool) (b : Bool) : (L ++ [b]).length = L.length + 1 := by
+  rw [E213.Tactic.List213.length_append]; rfl
+
+/-- ★★★★★ **Slope separation**: distinct paths (sharing deep suffix `base`) have separated slopes.
+    Length-fuel induction peeling the shallow (root-adjacent) ends via `eq_nil_or_concat`.  The
+    divergence point sits at a common node, with the two paths in its true/false subtrees. -/
+private theorem slope_sep : ∀ (m : Nat) (base p q : List Bool), p.length ≤ m → p ≠ q → DISJ p q base
+  | 0, base, p, q, hm, hpq => by
+      rcases eq_nil_or_concat p with hp | ⟨Lp, bp, hp⟩
+      · subst hp; exact nil_sep q base (fun hq => hpq hq.symm)
+      · exact absurd (hp ▸ hm) (by rw [length_concat]; exact Nat.not_succ_le_zero _)
+  | m + 1, base, p, q, hm, hpq => by
+      rcases eq_nil_or_concat p with hp | ⟨Lp, bp, hp⟩
+      · subst hp; exact nil_sep q base (fun hq => hpq hq.symm)
+      · rcases eq_nil_or_concat q with hq | ⟨Lq, bq, hq⟩
+        · subst hq; exact Or.symm (nil_sep p base hpq)
+        · subst hp; subst hq
+          have hlen : Lp.length ≤ m := by
+            have hm' := hm; rw [length_concat] at hm'; exact Nat.le_of_succ_le_succ hm'
+          show DISJ (Lp ++ [bp]) (Lq ++ [bq]) base
+          unfold DISJ
+          rw [concat_append Lp bp base, concat_append Lq bq base]
+          cases bp <;> cases bq
+          · -- false, false : same branch, recurse
+            have hne : Lp ≠ Lq := fun he => hpq (by rw [he])
+            exact slope_sep m (false :: base) Lp Lq hlen hne
+          · -- false, true : p in false-subtree (>), q in true-subtree (<) of base
+            exact Or.inr (slope_trans (c_pos_node (Lq ++ true :: base)) (c_pos_node base)
+              (c_pos_node (Lp ++ false :: base))
+              (subtree_true_lt Lq base) (subtree_false_gt Lp base))
+          · -- true, false : p in true-subtree (<), q in false-subtree (>) of base
+            exact Or.inl (slope_trans (c_pos_node (Lp ++ true :: base)) (c_pos_node base)
+              (c_pos_node (Lq ++ false :: base))
+              (subtree_true_lt Lp base) (subtree_false_gt Lq base))
+          · -- true, true : same branch, recurse
+            have hne : Lp ≠ Lq := fun he => hpq (by rw [he])
+            exact slope_sep m (true :: base) Lp Lq hlen hne
+
+/-- Slope equality (cross-multiplied). -/
+def slopeEq (M N : Mat2) : Prop := (M.d - M.c) * N.c = (N.d - N.c) * M.c
+
+private theorem lt_irrefl_int {a : Int} (h : a < a) : False := by
+  have h0 : 0 < a - a := pos_sub_of_lt h
+  have e : a - a = 0 := by show a + -a = 0; exact E213.Meta.Int213.add_neg_cancel a
+  rw [e] at h0; exact absurd h0 (by decide)
+
+private theorem slopeLt_ne {M N : Mat2} (hlt : slopeLt M N) (heq : slopeEq M N) : False := by
+  unfold slopeLt at hlt; unfold slopeEq at heq; rw [heq] at hlt; exact lt_irrefl_int hlt
+
+/-- ★★★★★ **Path injectivity of the slope map** (Stern-Brocot ordering): distinct tree paths have
+    distinct node slopes.  Hence node `↦ u_t/m_t` is injective — the global injectivity that
+    `SamePairInjective` needs (two triples at the same `c` with the same windowed residue have the
+    same slope, hence are the same node). -/
+theorem slope_path_inj (p q : List Bool) (heq : slopeEq (mNode p) (mNode q)) : p = q := by
+  rcases (inferInstance : Decidable (p = q)) with hpq | he
+  · exfalso
+    have hd : DISJ p q [] := slope_sep p.length [] p q (Nat.le_refl _) hpq
+    unfold DISJ at hd
+    rw [E213.Tactic.List213.append_nil, E213.Tactic.List213.append_nil] at hd
+    rcases hd with h | h
+    · exact slopeLt_ne h heq
+    · exact slopeLt_ne h heq.symm
+  · exact he
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
