@@ -43,6 +43,9 @@ recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residu
   honest.  **`markov_prime_pow_unique_of_same_pair_injective`**: for `c=p^(k+1)`, uniqueness ⟸
   `SamePairInjective` ALONE (root-count discharged) — **Button's prime-power unicity (infinite
   family) reduced to the single residue-injectivity input** `SamePairInjective` (= Zhang Lemma 2).
+- **Triple determined by two largest entries** (`markov_same_mid_eq`): two ordered triples sharing
+  `(b,c)` coincide (`a` = the unique root `≤ b` of the Vieta quadratic; the partner `3bc−a > b`).
+  So uniqueness at `c` reduces to **middle-entry uniqueness**.
 - **Spine realization** (`MarkovCassiniBridge.spine_residue_farey`): on the Fibonacci spine the
   `(residue fib(2n), max fib(2n+1))` pairs are Farey/Stern-Brocot neighbors
   (`fib(2n+1)·fib(2n+2)=fib(2n)·fib(2n+3)+1`, unimodular cross-det) — the structural basis of
