@@ -29,7 +29,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
   an abelian group under `±` (commutative ring under `+`).
 
-### 2. `Cauchy/CFiniteRing` (41 PURE) — the difference-operator algebra + the ring closure
+### 2. `Cauchy/CFiniteRing` (42 PURE) — the difference-operator algebra + the ring closure (+ `cfiniteZ_sub`)
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
