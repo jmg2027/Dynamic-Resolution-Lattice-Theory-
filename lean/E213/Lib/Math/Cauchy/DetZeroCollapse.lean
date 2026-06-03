@@ -59,4 +59,32 @@ theorem det_zero_is_ratio_collapse :
     ∧ (∀ (r : Int) (s : Nat → Int), (∀ n, s (n + 1) = r * s n) → ∀ n, cas s n = 0) :=
   ⟨fun p => comp_det p 0, fun r s hrec => geometric_cas_zero r s hrec⟩
 
+/-! ## `det` is the geometric ratio of the orbit's own Wronskian
+
+The Cassini cross-determinant `cas` of an order-2 orbit is **itself a single geometric sequence**,
+with ratio exactly the companion determinant `q`: `cas s (n+1) = q · cas s n`.  So the order-2
+orbit's Wronskian is *order 1* (the Casoratian drops the order by one), and `det = q` is the
+per-step multiplier of the discrete area / surviving distinguishing.  This places the whole `det`
+spectrum at once:
+
+  - `q = 0`   — ratio `0`: the area collapses to `0` immediately (`geometric_cas_zero`); the orbit
+    is a degenerate geometric ray, the multiplicative-fold collapse.
+  - `q = ±1`  — ratio a *unit*: the area is conserved (`|cas|` constant) — the Cassini/`SL₂` floor,
+    the founding unit `det P = NS − NT`, the live full-dimensional (elliptic/hyperbolic) orbit.
+  - `|q| ≥ 2` — ratio of magnitude `> 1`: the area expands geometrically `|cas s n| = |q|ⁿ·|cas s 0|`.
+
+So `det` is not a quantity to force-fit: it *is* the orbit's area-multiplier, and its value (relative
+to the unit `±1`) reads off collapse / conservation / expansion. -/
+
+/-- ★★★ **The Wronskian is geometric with ratio `det`.**  For `s(n+2) = p·s(n+1) − q·s(n)`, the
+    Cassini determinant satisfies `cas s (n+1) = q · cas s n` — the companion det `q` is the
+    geometric ratio of the orbit's own Wronskian (the middle coefficient `p` cancels). -/
+theorem cas_step (p q : Int) (s : Nat → Int) (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n)
+    (n : Nat) : cas s (n + 1) = q * cas s n := by
+  have h2 : s (n + 2) = p * s (n + 1) - q * s n := hrec n
+  have h3 : s (n + 3) = p * s (n + 2) - q * s (n + 1) := hrec (n + 1)
+  show s (n + 1) * s (n + 3) - s (n + 2) * s (n + 2)
+      = q * (s n * s (n + 2) - s (n + 1) * s (n + 1))
+  rw [h3, h2]; ring_intZ
+
 end E213.Lib.Math.Cauchy.DetZeroCollapse
