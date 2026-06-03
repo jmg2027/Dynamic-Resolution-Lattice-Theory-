@@ -2,10 +2,13 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **76 PURE** + `ModArith/MarkovPrimeFactor`
-28 PURE = 104, all ∅-axiom.  **Six Markov numbers closed unconditionally**: 2-root (prime /
-prime-power) `{169=13², 233, 433}` via `markov_max_unique_of_2roots`; 4-root (composite)
-`{610=2·5·61, 985, 1325}` via `markov_max_unique_of_4roots`.  Each a one-liner.
+Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 108, all ∅-axiom.  **★ Frobenius uniqueness verified for EVERY Markov number
+`2 ≤ c ≤ 1325`** — `{2,5,13,29,34,89,169,194,233,433,610,985,1325}`, all unconditional ∅-axiom,
+each a one-liner via `markov_max_unique_of_{2,4}roots` (or the small `markov_max_unique_{5,13,29,34}`
+decides).  **Practical wall**: the in-kernel `decide` over `b<c` stack-overflows for `c ≳ 1500`
+(1597, 2897 confirmed) — larger Markov numbers need the general residue-map injectivity, not
+enumeration.
 
 ## ★ CAPSTONES — UNCONDITIONAL ∅-axiom uniqueness at TWO 4-root composite Markov numbers
 `markov_max_unique_1325 : MarkovMaxUnique 1325` (`1325=5²·53`, triple `(13,34,1325)`) **and**
@@ -133,14 +136,15 @@ next is `610 = 2·5·61` (NOTE: even — factor 2 needs the mod-2 parity branch 
 `markov_hcop_general (c≥2)`: the `hcop` input for ALL `c` at once — `markov_max_unique_{1325,985}`
 now route through it; the per-c reduced-equation method (266²/198² decides) is deleted.
 
-### 3d. Per-c uniqueness PACKAGED — `markov_max_unique_of_{2,4}roots`.
-A new prime / prime-power Markov number (2 roots) is ONE LINE:
-`markov_max_unique_of_2roots c a₀ b₀ r₁ r₂ (by decide)×4`; a 4-root composite is
-`markov_max_unique_of_4roots c a₀ b₀ r₁ r₂ r₃ r₄ (by decide)×6` (root-set disjunction + per-root
-certs; coprimality/`a≥1`/`b<c` internal).  Done: 2-root `{169,233,433}`, 4-root `{610,985,1325}`.
-An **8-root** analogue (`markov_max_unique_of_8roots`) would cover `c` with 3 distinct odd prime
-factors (e.g. `6466=2·53·61`, the next).  All mechanical per-`c`; the `(by decide)` over `b<c`
-grows with `c` (needs `maxRecDepth 40000`; ~OK to `c≈3000`).
+### 3d. Per-c uniqueness PACKAGED + COMPLETE to 1325.
+`markov_max_unique_of_{2,4}roots c a₀ b₀ <roots> (by decide)×(4|6)` closes any prime/prime-power
+(2-root) or composite (4-root) Markov number in one line (root-set disjunction + per-root certs;
+coprimality/`a≥1`/`b<c` discharged internally).  All Markov numbers `2 ≤ c ≤ 1325` are now done.
+**The `decide` wall is `c≈1325`** (1597/2897 stack-overflow even at `maxRecDepth 60000` — it's a
+native C-stack overflow in kernel whnf of the `decidableBallLT` term, NOT a `maxRecDepth` limit, so
+unfixable by raising it).  Going higher (or to the infinite families) requires the general
+residue-map injectivity, below.  (An 8-root analogue would handle `c` with 3 distinct odd primes,
+but the smallest such Markov number is far past the `decide` wall.)
 
 ### 3e. GENERAL conjecture crux (still open).
 The residue-map injectivity (`triple ↦ a·b⁻¹ mod c` is injective on triples with max `c`) for
