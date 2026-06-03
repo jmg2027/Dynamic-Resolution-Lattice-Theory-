@@ -765,6 +765,116 @@ theorem markov_reachable_no_common_factor {a b c : Nat} (h : MarkovReachable a b
     exact absurd hd (by decide)
   exact ⟨no a b hab, no b c hbc, no a c hac⟩
 
+/-! ## §10b — Markov's descent theorem: every ordered triple is reachable
+
+The descent engine (§2b) drives a structural recursion: any ordered triple `(a,b,c)` with `c ≥ 2`
+descends to `{a, b, 3ab−c}` whose maximum is `b < c` (`markov_partner_lt_max`,
+`markov_vieta_partner_le`); bounding the recursion by a fuel `≥ c` makes it plain `Nat.rec`
+(∅-axiom — no `WellFounded.fix`).  Reaching the root `(1,1,1)` proves **every** ordered Markov
+triple is reachable, hence (via `markov_reachable_coprime`) **pairwise coprime** — the
+primitivity of Markov triples, now for *all* triples at once, retiring the per-`c` discharges. -/
+
+/-- The neighbor congruence as an equality: `a²+b² = c·(3ab−c)`. -/
+theorem markov_neighbor_eq (a b c : Nat) (hc : 0 < c) (h : markovEq a b c) :
+    a * a + b * b = c * (3 * a * b - c) := by
+  rw [mul_sub_distrib (markov_le_3mul a b c hc h)]
+  have hcomm : c * (3 * a * b) = a * a + b * b + c * c := by
+    rw [Nat.mul_comm c (3 * a * b)]; exact h.symm
+  rw [hcomm, add_sub_cancel_right]
+
+/-- The up-jump: if the Vieta partner `3ab−c` is reachable, so is `c`. -/
+theorem markov_up_jump (a b c : Nat) (h : markovEq a b c) (hc : 0 < c)
+    (hr : MarkovReachable a b (3 * a * b - c)) : MarkovReachable a b c := by
+  have hsum : (3 * a * b - c) + c = 3 * a * b := by
+    rw [Nat.add_comm]; exact E213.Tactic.NatHelper.add_sub_of_le (markov_le_3mul a b c hc h)
+  exact MarkovReachable.jump hr hsum
+
+/-- Full symmetry of `x²+y²+z²=3xyz`: `markovEq a b c → markovEq c a b`. -/
+theorem markovEq_perm_cab {a b c : Nat} (h : markovEq a b c) : markovEq c a b := by
+  show c * c + a * a + b * b = 3 * c * a * b
+  rw [show c * c + a * a + b * b = a * a + b * b + c * c from by ring_nat,
+      show 3 * c * a * b = 3 * a * b * c from by ring_nat]; exact h
+
+/-- Every ordered Markov triple with max `≤ fuel` is reachable.  Structural recursion on `fuel`
+    (∅-axiom): the descent (`3ab−c < c`, `≤ b`) shrinks the max below the fuel each step. -/
+theorem reachable_of_fuel : ∀ (fuel a b c : Nat), c ≤ fuel → markovEq a b c →
+    1 ≤ a → a ≤ b → b ≤ c → MarkovReachable a b c
+  | 0, _, _, _, hf, _, ha, hab, hbc =>
+      absurd (Nat.le_trans ha (Nat.le_trans hab (Nat.le_trans hbc hf))) (Nat.not_succ_le_zero 0)
+  | fuel + 1, a, b, c, hf, hm, ha, hab, hbc => by
+      rcases Nat.lt_or_ge c 2 with hclt | hcge
+      · -- c ≤ 1 ⇒ a = b = c = 1
+        have hc1 : c ≤ 1 := Nat.le_of_lt_succ hclt
+        have h1b : 1 ≤ b := Nat.le_trans ha hab
+        have hb1 : b = 1 := Nat.le_antisymm (Nat.le_trans hbc hc1) h1b
+        have ha1 : a = 1 := Nat.le_antisymm (Nat.le_trans hab (hb1 ▸ Nat.le_refl 1)) ha
+        have hc1' : c = 1 := Nat.le_antisymm hc1 (Nat.le_trans h1b hbc)
+        rw [ha1, hb1, hc1']; exact MarkovReachable.root
+      · -- c ≥ 2: descend to {a, b, 3ab−c}, max = b < c
+        have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) hcge
+        have hbc_strict : b < c := markov_mid_lt_max a b c hm ha hab hbc hcge
+        have hbf : b ≤ fuel := Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hbc_strict hf)
+        have hcp_triple : markovEq a b (3 * a * b - c) :=
+          markov_partner_is_triple a b c (markov_le_3mul a b c hcpos hm) hm
+        have hc'b : (3 * a * b - c) ≤ b := markov_vieta_partner_le a b c hm ha hab hbc_strict
+        have hc'pos : 1 ≤ (3 * a * b - c) := by
+          rcases Nat.eq_zero_or_pos (3 * a * b - c) with h0 | hp
+          · exfalso
+            have hprod := markov_neighbor_eq a b c hcpos hm
+            rw [h0, Nat.mul_zero] at hprod
+            have h1 : 1 ≤ a * a + b * b :=
+              Nat.le_trans (Nat.mul_pos ha ha) (Nat.le_add_right (a * a) (b * b))
+            rw [hprod] at h1
+            exact absurd h1 (Nat.not_succ_le_zero 0)
+          · exact hp
+        have hr : MarkovReachable a b (3 * a * b - c) := by
+          rcases Nat.lt_or_ge a (3 * a * b - c) with hlt | hge
+          · -- a < 3ab−c ≤ b : sorted (a, 3ab−c, b)
+            have m2 : markovEq a (3 * a * b - c) b := markov_symm a b (3 * a * b - c) hcp_triple
+            exact MarkovReachable.swap23
+              (reachable_of_fuel fuel a (3 * a * b - c) b hbf m2 ha (Nat.le_of_lt hlt) hc'b)
+          · -- 3ab−c ≤ a ≤ b : sorted (3ab−c, a, b)
+            have m1 : markovEq (3 * a * b - c) a b := markovEq_perm_cab hcp_triple
+            exact MarkovReachable.swap23 (MarkovReachable.swap12
+              (reachable_of_fuel fuel (3 * a * b - c) a b hbf m1 hc'pos hge hab))
+        exact markov_up_jump a b c hm hcpos hr
+
+/-- ★★★★★ **Markov's descent theorem.**  Every ordered Markov triple `(a,b,c)`, `1 ≤ a ≤ b ≤ c`,
+    is reachable from the root `(1,1,1)` by Vieta jumps and transpositions.  The unconditional
+    bridge from "tree triple" to "every triple". -/
+theorem markov_ordered_reachable (a b c : Nat) (h : markovEq a b c)
+    (ha : 1 ≤ a) (hab : a ≤ b) (hbc : b ≤ c) : MarkovReachable a b c :=
+  reachable_of_fuel c a b c (Nat.le_refl c) h ha hab hbc
+
+/-- ★★★★★ **Pairwise coprimality for *every* Markov triple** (not just the tree): an ordered
+    triple `(a,b,c)` is pairwise coprime.  Composes the descent theorem with the tree invariant
+    `markov_reachable_coprime`.  The primitivity of Markov triples, ∅-axiom. -/
+theorem markov_ordered_coprime (a b c : Nat) (h : markovEq a b c)
+    (ha : 1 ≤ a) (hab : a ≤ b) (hbc : b ≤ c) :
+    gcd213 a b = 1 ∧ gcd213 a c = 1 ∧ gcd213 b c = 1 :=
+  markov_reachable_coprime (markov_ordered_reachable a b c h ha hab hbc)
+
+/-- ★★★★★ **General coprimality discharge.**  For any maximum `c ≥ 2`, the middle entry of an
+    ordered triple is coprime to `c` — the `hcop` hypothesis of the uniqueness reductions, proved
+    for ALL `c` at once (`a ≥ 1` is forced by the equation when `c ≥ 2`). -/
+theorem markov_hcop_general (c : Nat) (hc : 2 ≤ c) :
+    ∀ a b, a ≤ b → b ≤ c → markovEq a b c → gcd213 b c = 1 := by
+  intro a b hab hbc hm
+  have ha : 1 ≤ a := by
+    rcases Nat.eq_zero_or_pos a with h0 | hp
+    · exfalso
+      subst h0
+      have e : 0 * 0 + b * b + c * c = 3 * 0 * b * c := hm
+      have hrhs : (3 : Nat) * 0 * b * c = 0 := by rw [Nat.mul_zero, Nat.zero_mul, Nat.zero_mul]
+      have hlhs : (0 : Nat) * 0 + b * b + c * c = b * b + c * c := by rw [Nat.zero_mul, Nat.zero_add]
+      rw [hlhs, hrhs] at e
+      have hccpos : 0 < c * c := Nat.mul_pos (Nat.lt_of_lt_of_le (by decide) hc)
+        (Nat.lt_of_lt_of_le (by decide) hc)
+      have hpos : 0 < b * b + c * c := Nat.lt_of_lt_of_le hccpos (Nat.le_add_left (c * c) (b * b))
+      rw [e] at hpos; exact absurd hpos (Nat.lt_irrefl 0)
+    · exact hp
+  exact (markov_ordered_coprime a b c hm ha hab hbc).2.2
+
 /-! ## §11 — the encoding from a modular inverse (residue form)
 
 The `√(−1)` encoding in its natural usability form: rather than a hand-supplied `(b', j)` with
@@ -984,142 +1094,19 @@ theorem markov_max_unique_1325_of_coprime
     exact absurd hab (by decide)
   · exact absurd hm (markov_root_1143 b hblt)
 
-/-! ### Discharging `hcop` — the middle entry of any triple at `1325` is coprime to `1325`
-
-`1325 = 5²·53`.  A triple `(a,b,1325)` with `5 ∣ b` would force `5 ∣ a` (mod-`5` of the Markov
-equation: `5 ∣ a²+b²`), and dividing the equation by `25` lands on the *generalised* Markov
-equation `a'²+b'²+70225 = 3975·a'·b'` (`a=5a', b=5b'`), which has **no** solution with
-`a',b' ≤ 265` (decidable).  Likewise `53 ∣ b` reduces to `a'²+b'²+625 = 3975·a'·b'`, no solution
-with `a',b' ≤ 25`.  So neither `5` nor `53` divides `b`, hence `gcd(b,1325) = 1`.  This is the
-primitivity (pairwise-coprimality) fact, proved here *unconditionally at `1325`* by finite descent
-+ bounded enumeration — no infinite descent / Markov-tree input. -/
-
-set_option maxHeartbeats 0 in
-set_option maxRecDepth 20000 in
-/-- The reduced (`÷25`) equation `a²+b²+70225 = 3975ab` has no solution with `a,b < 266` —
-    the obstruction to `5 ∣ b` in a Markov triple at `1325`. -/
-theorem reduced_eq_5_no_sol :
-    ∀ a, a < 266 → ∀ b, b < 266 → ¬ (a * a + b * b + 70225 = 3975 * a * b) := by decide
-
-set_option maxRecDepth 8000 in
-/-- The reduced (`÷53²`) equation `a²+b²+625 = 3975ab` has no solution with `a,b < 26` —
-    the obstruction to `53 ∣ b` in a Markov triple at `1325`. -/
-theorem reduced_eq_53_no_sol :
-    ∀ a, a < 26 → ∀ b, b < 26 → ¬ (a * a + b * b + 625 = 3975 * a * b) := by decide
-
-/-- `p ∣ a²  ⟹  p ∣ a`, via a per-`p` residue certificate `∀ r < p, r² ≡ 0 → r = 0`. -/
-theorem dvd_of_sq_dvd_cert {p a : Nat} (hp : 0 < p)
-    (hcert : ∀ r, r < p → (r * r) % p = 0 → r = 0) (h : p ∣ (a * a)) : p ∣ a := by
-  obtain ⟨k, hk⟩ := h
-  have hmod : (a * a) % p = 0 := by rw [hk]; exact E213.Tactic.NatHelper.mul_mod_right p k
-  have hres : ((a % p) * (a % p)) % p = 0 :=
-    (E213.Meta.Nat.MulMod213.mul_mod_pure a a p).symm.trans hmod
-  exact E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero (hcert (a % p) (Nat.mod_lt a hp) hres)
-
-/-- ★★★★ **Any factor of the maximum divides the sum of squares.**  If `c = k·p` then the Markov
-    equation collapses mod `p` to `p ∣ a² + b²` — the lever for descent on any prime factor.
-    ∅-axiom via `add_mul_mod_self_pure` + `mul_mod_right` + `ring_nat`. -/
-theorem markov_factor_dvd_sum {a b c k p : Nat} (h : markovEq a b c) (hc : c = k * p) :
-    p ∣ (a * a + b * b) := by
-  apply E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero
-  have h' : a * a + b * b + c * c = 3 * a * b * c := h
-  have hcc : c * c = (k * c) * p := by rw [hc]; ring_nat
-  have hrhs : 3 * a * b * c = p * (3 * a * b * k) := by rw [hc]; ring_nat
-  have e : (a * a + b * b + c * c) % p = (3 * a * b * c) % p := by rw [h']
-  rw [hcc, E213.Tactic.NatHelper.add_mul_mod_self_pure (a * a + b * b) p (k * c)] at e
-  rw [hrhs, E213.Tactic.NatHelper.mul_mod_right p (3 * a * b * k)] at e
-  exact e
-
-/-- No Markov triple at `1325` has `5 ∣ b` (finite descent + bounded no-solution). -/
-theorem not_5_dvd_b_1325 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 1325)
-    (h : markovEq a b 1325) : ¬ 5 ∣ b := by
-  intro h5b
-  have hbb : 5 ∣ (b * b) := dvd_mul_right_213 5 b b h5b
-  have haa : 5 ∣ (a * a) := by
-    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 5 (Nat.le_add_left (b * b) (a * a)) hbb
-      (markov_factor_dvd_sum h (show (1325 : Nat) = 265 * 5 from by decide))
-    rwa [add_sub_cancel_right] at hsub
-  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
-  obtain ⟨b', hb'⟩ := h5b
-  -- bounds a', b' ≤ 265
-  have hb5 : 5 * b' ≤ 5 * 265 := by rw [show (1325 : Nat) = 5 * 265 from by decide] at hb; rw [← hb']; exact hb
-  have hb265 : b' ≤ 265 := Nat.le_of_mul_le_mul_left hb5 (by decide)
-  have ha5 : 5 * a' ≤ 5 * b' := by rw [← ha', ← hb']; exact hab
-  have ha265 : a' ≤ 265 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha5 (by decide)) hb265
-  -- reduced equation
-  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
-  rw [ha', hb'] at h'
-  have hL : 5 * a' * (5 * a') + 5 * b' * (5 * b') + 1325 * 1325
-      = 25 * (a' * a' + b' * b' + 70225) := by ring_nat
-  have hR : 3 * (5 * a') * (5 * b') * 1325 = 25 * (3975 * a' * b') := by ring_nat
-  rw [hL, hR] at h'
-  exact reduced_eq_5_no_sol a' (Nat.lt_of_le_of_lt ha265 (by decide))
-    b' (Nat.lt_of_le_of_lt hb265 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
-
-/-- No Markov triple at `1325` has `53 ∣ b`. -/
-theorem not_53_dvd_b_1325 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 1325)
-    (h : markovEq a b 1325) : ¬ 53 ∣ b := by
-  intro h53b
-  have hbb : 53 ∣ (b * b) := dvd_mul_right_213 53 b b h53b
-  have haa : 53 ∣ (a * a) := by
-    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 53 (Nat.le_add_left (b * b) (a * a)) hbb
-      (markov_factor_dvd_sum h (show (1325 : Nat) = 25 * 53 from by decide))
-    rwa [add_sub_cancel_right] at hsub
-  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
-  obtain ⟨b', hb'⟩ := h53b
-  have hb53 : 53 * b' ≤ 53 * 25 := by rw [show (1325 : Nat) = 53 * 25 from by decide] at hb; rw [← hb']; exact hb
-  have hb25 : b' ≤ 25 := Nat.le_of_mul_le_mul_left hb53 (by decide)
-  have ha53 : 53 * a' ≤ 53 * b' := by rw [← ha', ← hb']; exact hab
-  have ha25 : a' ≤ 25 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha53 (by decide)) hb25
-  have h' : a * a + b * b + 1325 * 1325 = 3 * a * b * 1325 := h
-  rw [ha', hb'] at h'
-  have hL : 53 * a' * (53 * a') + 53 * b' * (53 * b') + 1325 * 1325
-      = 2809 * (a' * a' + b' * b' + 625) := by ring_nat
-  have hR : 3 * (53 * a') * (53 * b') * 1325 = 2809 * (3975 * a' * b') := by ring_nat
-  rw [hL, hR] at h'
-  exact reduced_eq_53_no_sol a' (Nat.lt_of_le_of_lt ha25 (by decide))
-    b' (Nat.lt_of_le_of_lt hb25 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
-
-/-- `mod = 0` from divisibility (pure, via the witness + `mul_mod_right`). -/
-theorem mod_eq_zero_of_dvd {m k : Nat} (h : k ∣ m) : m % k = 0 := by
-  obtain ⟨q, hq⟩ := h; rw [hq]; exact E213.Tactic.NatHelper.mul_mod_right k q
-
-set_option maxRecDepth 8000 in
-/-- A divisor of `1325` coprime to both `5` and `53` is `1` (1-D enumeration). -/
-theorem div1325_trivial_of_no_5_53 :
-    ∀ g, g < 1326 → 1325 % g = 0 → g % 5 ≠ 0 → g % 53 ≠ 0 → g = 1 := by decide
-
-/-- ★★★★★ **Coprimality discharged at `1325`** (the `hcop` input, unconditional).  The middle
-    entry `b` of any ordered Markov triple with maximum `1325` is coprime to `1325`. -/
-theorem markov_hcop_1325 :
-    ∀ a b, a ≤ b → b ≤ 1325 → markovEq a b 1325 → gcd213 b 1325 = 1 := by
-  intro a b hab hb h
-  have h5 : ¬ 5 ∣ b := not_5_dvd_b_1325 hab hb h
-  have h53 : ¬ 53 ∣ b := not_53_dvd_b_1325 hab hb h
-  have hgb : gcd213 b 1325 ∣ b := gcd213_dvd_left b 1325
-  have hg1325 : gcd213 b 1325 ∣ 1325 := gcd213_dvd_right b 1325
-  refine div1325_trivial_of_no_5_53 (gcd213 b 1325)
-    (Nat.lt_of_le_of_lt (E213.Lib.Math.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hg1325)
-      (by decide))
-    (mod_eq_zero_of_dvd hg1325) ?_ ?_
-  · exact fun hc => h5 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 5 (gcd213 b 1325) b
-      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
-  · exact fun hc => h53 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 53 (gcd213 b 1325) b
-      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
-
 /-- ★★★★★ **UNCONDITIONAL full uniqueness at `c = 1325 = 5²·53`** — the first complete Markov
     uniqueness theorem at a 4-root composite Markov number, with **no** hypotheses.  Every ordered
     triple `(a,b,1325)` is `(13,34,1325)`.  Assembled from the conditional reduction
-    (`markov_max_unique_1325_of_coprime`) by discharging coprimality (`markov_hcop_1325`) via
-    finite descent + bounded no-solution — entirely ∅-axiom. -/
+    (`markov_max_unique_1325_of_coprime`) by discharging coprimality via the general descent
+    theorem (`markov_hcop_general`) — entirely ∅-axiom. -/
 theorem markov_max_unique_1325 : MarkovMaxUnique 1325 :=
-  markov_max_unique_1325_of_coprime markov_hcop_1325
+  markov_max_unique_1325_of_coprime (markov_hcop_general 1325 (by decide))
 
 /-! ### A second 4-root composite Markov number, `c = 985 = 5·197` — same template
 
 `985 = 5·197` (both primes `≡ 1 mod 4`, four roots `{183,408,577,802}`, triple `(2,169,985)`).
 The same machinery — `markov_root_recovery`, the exact root set, per-root certificates, and
-finite-descent coprimality via `markov_factor_dvd_sum` — yields `MarkovMaxUnique 985`
+coprimality via the general descent theorem (`markov_hcop_general`) — yields `MarkovMaxUnique 985`
 unconditionally, confirming the route generalises beyond `1325`. -/
 
 set_option maxRecDepth 40000 in
@@ -1164,90 +1151,10 @@ theorem markov_max_unique_985_of_coprime
     exact absurd hab (by decide)
   · exact absurd hm (markov_root_802 b hblt)
 
-set_option maxHeartbeats 0 in
-set_option maxRecDepth 20000 in
-/-- `÷25` reduced equation at `985`: `a²+b²+38809 = 2955ab` has no solution with `a,b < 198`. -/
-theorem reduced_eq_5_985_no_sol :
-    ∀ a, a < 198 → ∀ b, b < 198 → ¬ (a * a + b * b + 38809 = 2955 * a * b) := by decide
-set_option maxRecDepth 8000 in
-/-- `÷197²` reduced equation at `985`: `a²+b²+25 = 2955ab` has no solution with `a,b < 6`. -/
-theorem reduced_eq_197_985_no_sol :
-    ∀ a, a < 6 → ∀ b, b < 6 → ¬ (a * a + b * b + 25 = 2955 * a * b) := by decide
-
-/-- No Markov triple at `985` has `5 ∣ b`. -/
-theorem not_5_dvd_b_985 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 985)
-    (h : markovEq a b 985) : ¬ 5 ∣ b := by
-  intro h5b
-  have hbb : 5 ∣ (b * b) := dvd_mul_right_213 5 b b h5b
-  have haa : 5 ∣ (a * a) := by
-    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 5 (Nat.le_add_left (b * b) (a * a)) hbb
-      (markov_factor_dvd_sum h (show (985 : Nat) = 197 * 5 from by decide))
-    rwa [add_sub_cancel_right] at hsub
-  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
-  obtain ⟨b', hb'⟩ := h5b
-  have hb5 : 5 * b' ≤ 5 * 197 := by rw [show (985 : Nat) = 5 * 197 from by decide] at hb; rw [← hb']; exact hb
-  have hb197 : b' ≤ 197 := Nat.le_of_mul_le_mul_left hb5 (by decide)
-  have ha5 : 5 * a' ≤ 5 * b' := by rw [← ha', ← hb']; exact hab
-  have ha197 : a' ≤ 197 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha5 (by decide)) hb197
-  have h' : a * a + b * b + 985 * 985 = 3 * a * b * 985 := h
-  rw [ha', hb'] at h'
-  have hL : 5 * a' * (5 * a') + 5 * b' * (5 * b') + 985 * 985
-      = 25 * (a' * a' + b' * b' + 38809) := by ring_nat
-  have hR : 3 * (5 * a') * (5 * b') * 985 = 25 * (2955 * a' * b') := by ring_nat
-  rw [hL, hR] at h'
-  exact reduced_eq_5_985_no_sol a' (Nat.lt_of_le_of_lt ha197 (by decide))
-    b' (Nat.lt_of_le_of_lt hb197 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
-
-set_option maxRecDepth 4000 in
-/-- No Markov triple at `985` has `197 ∣ b`. -/
-theorem not_197_dvd_b_985 {a b : Nat} (hab : a ≤ b) (hb : b ≤ 985)
-    (h : markovEq a b 985) : ¬ 197 ∣ b := by
-  intro h197b
-  have hbb : 197 ∣ (b * b) := dvd_mul_right_213 197 b b h197b
-  have haa : 197 ∣ (a * a) := by
-    have hsub := dvd_sub_213 (b * b) (a * a + b * b) 197 (Nat.le_add_left (b * b) (a * a)) hbb
-      (markov_factor_dvd_sum h (show (985 : Nat) = 5 * 197 from by decide))
-    rwa [add_sub_cancel_right] at hsub
-  obtain ⟨a', ha'⟩ := dvd_of_sq_dvd_cert (by decide) (by decide) haa
-  obtain ⟨b', hb'⟩ := h197b
-  have hb197 : 197 * b' ≤ 197 * 5 := by rw [show (985 : Nat) = 197 * 5 from by decide] at hb; rw [← hb']; exact hb
-  have hb5 : b' ≤ 5 := Nat.le_of_mul_le_mul_left hb197 (by decide)
-  have ha197 : 197 * a' ≤ 197 * b' := by rw [← ha', ← hb']; exact hab
-  have ha5 : a' ≤ 5 := Nat.le_trans (Nat.le_of_mul_le_mul_left ha197 (by decide)) hb5
-  have h' : a * a + b * b + 985 * 985 = 3 * a * b * 985 := h
-  rw [ha', hb'] at h'
-  have hL : 197 * a' * (197 * a') + 197 * b' * (197 * b') + 985 * 985
-      = 38809 * (a' * a' + b' * b' + 25) := by ring_nat
-  have hR : 3 * (197 * a') * (197 * b') * 985 = 38809 * (2955 * a' * b') := by ring_nat
-  rw [hL, hR] at h'
-  exact reduced_eq_197_985_no_sol a' (Nat.lt_of_le_of_lt ha5 (by decide))
-    b' (Nat.lt_of_le_of_lt hb5 (by decide)) (Nat.eq_of_mul_eq_mul_left (by decide) h')
-
-set_option maxRecDepth 8000 in
-/-- A divisor of `985` coprime to `5` and `197` is `1`. -/
-theorem div985_trivial_of_no_5_197 :
-    ∀ g, g < 986 → 985 % g = 0 → g % 5 ≠ 0 → g % 197 ≠ 0 → g = 1 := by decide
-
-/-- Coprimality discharged at `985`, unconditional. -/
-theorem markov_hcop_985 :
-    ∀ a b, a ≤ b → b ≤ 985 → markovEq a b 985 → gcd213 b 985 = 1 := by
-  intro a b hab hb h
-  have h5 : ¬ 5 ∣ b := not_5_dvd_b_985 hab hb h
-  have h197 : ¬ 197 ∣ b := not_197_dvd_b_985 hab hb h
-  have hgb : gcd213 b 985 ∣ b := gcd213_dvd_left b 985
-  have hg985 : gcd213 b 985 ∣ 985 := gcd213_dvd_right b 985
-  refine div985_trivial_of_no_5_197 (gcd213 b 985)
-    (Nat.lt_of_le_of_lt (E213.Lib.Math.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hg985)
-      (by decide))
-    (mod_eq_zero_of_dvd hg985) ?_ ?_
-  · exact fun hc => h5 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 5 (gcd213 b 985) b
-      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
-  · exact fun hc => h197 (E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc 197 (gcd213 b 985) b
-      (E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hc) hgb)
-
 /-- ★★★★★ **UNCONDITIONAL full uniqueness at `c = 985 = 5·197`** — a second 4-root composite
-    Markov number closed ∅-axiom, no hypotheses.  `(2,169,985)` is the unique ordered triple. -/
+    Markov number closed ∅-axiom, no hypotheses.  `(2,169,985)` is the unique ordered triple.
+    Coprimality discharged by the general descent theorem (`markov_hcop_general`). -/
 theorem markov_max_unique_985 : MarkovMaxUnique 985 :=
-  markov_max_unique_985_of_coprime markov_hcop_985
+  markov_max_unique_985_of_coprime (markov_hcop_general 985 (by decide))
 
 end E213.Lib.Math.Real213.MarkovUniqueness
