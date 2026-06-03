@@ -22,6 +22,7 @@ import E213.Lib.Math.Cauchy.HomogRecPeriodic
 import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Lib.Math.Cauchy.PolyDepthMonotone
 import E213.Lib.Math.Cauchy.ThueMorseRingEscape
+import E213.Lib.Math.Cauchy.DepthMonotoneSynthesis
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Cauchy.BinomialTransform
