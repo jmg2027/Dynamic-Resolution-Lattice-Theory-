@@ -31,7 +31,7 @@ open E213.Lib.Math.Cauchy.FiniteDepthAlgebra (add_sub_add liftKZ_diffZ_comm)
 open E213.Lib.Math.Cauchy.OrbitDimension (CFiniteZ linComb)
 open E213.Meta.Int213
   (zero_mul mul_add add_mul add_comm add_assoc add_left_comm add_right_comm
-   mul_comm mul_assoc zero_add mul_sub add_neg_cancel)
+   mul_comm mul_assoc zero_add mul_sub add_neg_cancel neg_mul)
 
 /-- `a·(b·c) = b·(a·c)` (pure). -/
 theorem mul_left_comm' (a b c : Int) : a * (b * c) = b * (a * c) := by
@@ -543,5 +543,78 @@ theorem applyOp_ePow (s : Nat → Int) : ∀ i n, applyOp (ePow i) s n = s (n + 
     rw [applyOp_conv [1, 1] (ePow i) s n, applyOp_shift (applyOp (ePow i) s) n,
         applyOp_ePow s i (n + 1), Nat.add_right_comm n 1 i]
     rfl
+
+/-! ## §9 — C-D reverse: a monic shift recurrence ⟹ C-finite -/
+
+/-- The shift combination `Σ_{i<k} bᵢ · s(n+i)`. -/
+def shiftSum (b : Nat → Int) (s : Nat → Int) : Nat → Nat → Int
+  | 0,   _ => 0
+  | k+1, n => shiftSum b s k n + b k * s (n + k)
+
+/-- `s` satisfies a **monic order-`k` shift recurrence** `s(n+k) = Σ_{i<k} bᵢ s(n+i)`
+    — the standard definition of a C-finite (constant-recursive) sequence. -/
+def ShiftRecZ (k : Nat) (b s : Nat → Int) : Prop := ∀ n, s (n + k) = shiftSum b s k n
+
+/-- The `Δ`-operator for a shift combination: `Σ_{i<k} bᵢ · Eⁱ = Σ_{i<k} bᵢ · ePow i`. -/
+def eCombo (b : Nat → Int) : Nat → List Int
+  | 0   => []
+  | k+1 => addL (eCombo b k) (smulL (b k) (ePow k))
+
+/-- `applyOp (eCombo b k) s n = Σ_{i<k} bᵢ s(n+i)` — the `Δ`-operator `eCombo` realizes
+    the shift combination (since each `ePow i` realizes the `i`-shift). -/
+theorem applyOp_eCombo (b : Nat → Int) (s : Nat → Int) : ∀ k n,
+    applyOp (eCombo b k) s n = shiftSum b s k n
+  | 0,   _ => rfl
+  | k+1, n => by
+    show applyOp (addL (eCombo b k) (smulL (b k) (ePow k))) s n
+       = shiftSum b s k n + b k * s (n + k)
+    rw [applyOp_addL (eCombo b k) (smulL (b k) (ePow k)) s n,
+        applyOp_smulL (b k) (ePow k) s n, applyOp_ePow s k n, applyOp_eCombo b s k n]
+
+/-- `ePow k` is monic of degree `k`: `ePow k = lo ++ [v]` with `v = 1`, `|lo| = k`
+    (`Eᵏ = (I+Δ)ᵏ` has leading `Δ`-coefficient `1`). -/
+theorem ePow_eq_snoc : ∀ k, ∃ lo v, ePow k = lo ++ [v] ∧ v = 1 ∧ lo.length = k
+  | 0   => ⟨[], 1, rfl, rfl, rfl⟩
+  | k+1 => by
+    obtain ⟨lo, v, he, hv, hl⟩ := ePow_eq_snoc k
+    obtain ⟨r, w, hc, hw, hrl⟩ := conv_snoc [1] 1 lo v
+    refine ⟨r, w, ?_, ?_, ?_⟩
+    · show conv [1, 1] (ePow k) = r ++ [w]
+      rw [he]; exact hc
+    · rw [hw, hv, Int.one_mul]
+    · rw [hrl, hl]; exact Nat.add_comm 1 k
+
+/-- `|eCombo b k| ≤ k` — the shift combination has degree `< k`, so its `Δ`-list is
+    shorter than `ePow k` (which has length `k+1`). -/
+theorem eCombo_length_le (b : Nat → Int) : ∀ k, (eCombo b k).length ≤ k
+  | 0   => Nat.le_refl 0
+  | k+1 => by
+    obtain ⟨lo, v, he, _, hl⟩ := ePow_eq_snoc k
+    have hsl : (smulL (b k) (ePow k)).length = k + 1 := by
+      rw [length_smulL, he, length_snoc, hl]
+    have hle : (eCombo b k).length ≤ (smulL (b k) (ePow k)).length := by
+      rw [hsl]; exact Nat.le_succ_of_le (eCombo_length_le b k)
+    have heq : (eCombo b (k+1)).length = k + 1 := by
+      show (addL (eCombo b k) (smulL (b k) (ePow k))).length = k + 1
+      rw [length_addL_right_ge (eCombo b k) (smulL (b k) (ePow k)) hle, hsl]
+    exact Nat.le_of_eq heq
+
+/-- ★★★ **C-D reverse direction.**  A sequence satisfying a monic order-`k` *shift*
+    recurrence is C-finite (its `Δ`-orbit dimension is `≤ k`).  The shift annihilator
+    `Eᵏ − Σ bᵢ Eⁱ` is the `Δ`-operator `ePow k − Σ bᵢ ePow i` (`applyOp_ePow`), which
+    is monic of degree `k` (the lower `ePow i` are shorter than `ePow k`, so the
+    leading `Δᵏ`-coefficient is untouched — `addL_snoc_right`).  So the standard
+    constant-recursive definition implies the `Δ`-orbit-recurrence one — half of
+    "orbit dimension = recurrence order". -/
+theorem cfiniteZ_of_shiftRec {k : Nat} {b s : Nat → Int} (h : ShiftRecZ k b s) :
+    CFiniteZ s := by
+  obtain ⟨loK, vK, heK, hvK, hlK⟩ := ePow_eq_snoc k
+  have hnsl : (smulL (-1) (eCombo b k)).length ≤ loK.length := by
+    rw [length_smulL, hlK]; exact eCombo_length_le b k
+  refine annih_snoc_unit (lo := addL (smulL (-1) (eCombo b k)) loK) (v := vK) hvK (fun n => ?_)
+  rw [← addL_snoc_right (smulL (-1) (eCombo b k)) loK vK hnsl, ← heK,
+      applyOp_addL (smulL (-1) (eCombo b k)) (ePow k) s n,
+      applyOp_smulL (-1) (eCombo b k) s n, applyOp_eCombo b s k n, applyOp_ePow s k n, h n]
+  rw [neg_mul, Int.one_mul, add_comm, add_neg_cancel]
 
 end E213.Lib.Math.Cauchy.CFiniteRing
