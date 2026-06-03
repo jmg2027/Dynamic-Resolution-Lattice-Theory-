@@ -113,9 +113,15 @@ involution-fixed point is the axis unit, and the diagonal is the shared structur
    and `·`, the operation the only difference.  *"Invert is one move" is now a theorem,
    not two mirror files.*  (The literal common carrier is `Nat213`; the additive instance
    is a `Nat213`-pair ℤ model alongside the Lean-`Nat`-based `NatPairToInt`.)
-2. `Nat213` square-injectivity → complete `reciprocal_fixed_of_unit` to a full iff
-   (twin of `zero_unique_negation_fixed`).  Needs an order/strict-mono lemma set on
-   `Nat213` (currently absent).
+2. **DONE** — `Lens/Number/Nat213/Order.lean` (8 PURE) + `NatPairToQPos.reciprocal_fixed_iff_unit`.
+   Built a native strict order `lt a b := ∃ c, add a c = b` (Lean `Nat` order is
+   propext-dirty, so it could not be borrowed): `lt_trichotomy` (structural), `lt_mul_self`
+   (strict square-monotonicity, *purely from distributivity* — no order lemma), and the
+   payoff `mul_self_inj` (`a·a = b·b → a = b`).  Transferred through the injective
+   homomorphism `toNat` was unnecessary — the whole order is algebraic.  Then
+   `reciprocal_fixed_iff_unit : qSwap p ~ p ↔ p ~ qOne` — the full multiplicative twin of
+   `zero_unique_negation_fixed`, added to the capstone bundle (NatPairToQPos now 19 PURE).
+   The reciprocal involution now matches the negation involution fact-for-fact.
 3. `book/foundations/03_one_axis_or_many.md` §3.2: cite the reciprocal-involution twin
    as the *why* behind ℤ⊥ℚ — they are independent because they are the same swap read
    by two folds, fixing two units; the independence is the orthogonality of `+` and `·`,

@@ -252,13 +252,21 @@ Instances `addCCS` (`op=+` → ℤ model) and `mulCCS` (`op=·` → ℚ_+); `mul
 (`Iff.rfl`) recovers `NatPairToQPos.qpairEquiv`; capstone `invert_is_one_move`.  ℤ and ℚ_+
 are one construction read on the two operations.
 
-`E213.Lens.Number.Nat213.Tower.NatPairToQPos` — **+7 PURE (18 total) / 0 DIRTY**.  The
+`E213.Lens.Number.Nat213.Order` — **8 PURE / 0 DIRTY**.  Native strict order
+`lt a b := ∃ c, add a c = b` (no Lean `Nat` order — `Nat.lt_or_ge` / `Nat.le_antisymm` /
+`Nat.mul_lt_mul_right` all pull `propext` + `Classical.choice` + `Quot.sound`).
+`add_ne_self`, `lt_irrefl`, `lt_ne`, `succ_lt_succ_of_lt`, `lt_trichotomy` (structural
+double recursion), `lt_mul_self` (strict square-monotonicity, **purely from
+distributivity** — no order lemma), and the payoff `mul_self_inj` (`a·a = b·b → a = b`).
+
+`E213.Lens.Number.Nat213.Tower.NatPairToQPos` — **+8 PURE (19 total) / 0 DIRTY**.  The
 **reciprocal involution**, multiplicative twin of `NatPairToInt`'s negation: `qSwap`
 (period-2, `qSwap_involutive`), `qpair_mul_swap_eq_qOne` (`x·(1/x)=1`, the reciprocal law),
 `qOne_reciprocal_fixed` (`1/1=1`), `qpair_diagonal_collapse` (diagonal ~ unit `1`),
-`reciprocal_fixed_of_unit` (forward half of the fixed-point characterization), and the
-bundle `reciprocal_is_multiplicative_twin_of_negation`.  One swap, two folds, two units
-(`0` for `+`, `1` for `·`).
+`reciprocal_fixed_of_unit` + `reciprocal_fixed_iff_unit` (the *exact* fixed-point
+characterization `qSwap p ~ p ↔ p ~ qOne`, full twin of `zero_unique_negation_fixed`, via
+`Order.mul_self_inj`), and the bundle `reciprocal_is_multiplicative_twin_of_negation`.  One
+swap, two folds, two units (`0` for `+`, `1` for `·`).
 
 ### Real-number stratification addition (2026-06-01)
 
