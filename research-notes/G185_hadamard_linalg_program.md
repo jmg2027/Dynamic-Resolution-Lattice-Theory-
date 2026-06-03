@@ -276,6 +276,23 @@ The gate `LPerm (map (swapAt k) (perms n)) (perms n)` is being built bottom-up. 
   `insEv_head`/`insEv_complete`/★`permsOf_complete` (`LPerm q xs → q ∈ permsOf xs`).  With
   soundness: **`q ∈ permsOf xs ⟺ LPerm q xs`**.  (22 PURE total.)
 
+**✅ ALTERNATING PROPERTY COMPLETE (PermClosure, 57 PURE).** The full chain is closed:
+soundness → completeness → nodup (`nodup_permsOf`, via `removeFirst` retraction) → count engine
+(`lperm_of_cnt_eq`) → ★★★ `perms_swap_closed` (enumeration closed under `swapAt`, via `iota` since
+`List.range`'s lemmas are dirty) → ★★★ `leibDet_rowSwap` (adjacent row swap negates `leibDet`) →
+★★★ `leibDet_eq_zero_of_rows_eq` (**two equal adjacent rows ⟹ `leibDet = 0`**).  The Leibniz
+determinant is **alternating**, ∅-axiom, via antisymmetrization — the essay's predicted natural
+home, no funext/propext/Quot/Classical.  A full clean ∅-axiom `List` substrate (`mem_*`,
+`length_append'`, `map_map'`, `Nodup`-as-`cnt≤1`, …) was built since core's are tainted.
+
+**Next (downstream of alternating):**
+- General equal rows (any `a < b`, not just adjacent): move adjacent via `leibDet_rowSwap` swaps.
+- `leibDet = DetN.det` (Laplace expansion) — transport alternating to the cofactor determinant.
+- Linear dependence (`N+1` vectors in `ℤ^N`) → char poly monic → integer Cayley–Hamilton →
+  Kronecker `M` → `cfiniteZ_mul` (the general Hadamard product).
+
+**(Superseded plan below — kept for the proof sketch; all items now done.)**
+
 **Remaining (the home stretch):**
 1. **nodup** `Nodup (permsOf xs)` for `Nodup xs`, where `Nodup L := ∀ a, cnt a L ≤ 1` (clean,
    no `Pairwise`).  Plan — the **`removeFirst a`** retraction: for `p ∈ insertEverywhere a r`
