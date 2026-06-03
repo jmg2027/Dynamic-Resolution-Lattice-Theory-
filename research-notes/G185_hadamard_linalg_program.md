@@ -118,3 +118,19 @@ fallback (resultant) and is independently needed for C-B (Casoratian rank).
 **Integration TODO** (needs merging `main`'s founding thread into this branch): wire
 `det_pn_universal` / `ns_minus_nt_is_one` to state "monic = shared unit" as a theorem; extend the
 `book`/chapter with the C-finite ratio-rung as a parallel bundling chain.
+
+
+## Update — mconv verdict (G188) + the explicit-spectrum corner (DONE)
+
+The `mconv` power-sum/Newton route was designed (`research-notes/G188`) and found **not
+∅-axiom-viable over ℤ**: the Newton `÷k` exactness is *always true* (composed product is
+monic-integer, power sums are integer traces) but proving it ∅-axiom *is* the integral
+symmetric-function theorem (multi-hundred lines, no `Int` exact-division layer, ℤ is the
+difference-Lens not a quotient).  Structural root cause confirmed: a **monic** `ℤ` annihilator
+provably needs the characteristic polynomial = a determinant; power sums / finite-orbit
+dependence give only non-monic — the power-sum route is "the determinant in disguise".
+
+**Banked instead (the cheap corner, ∅-axiom, no determinant)**: `CFiniteRing.cfiniteZ_geomCombo_mul`
+— `(Σ aᵢ cᵢⁿ)·t` is C-finite for every C-finite `t` (one factor split / explicit integer spectrum),
+via `cfiniteZ_geomScale` + `cfiniteZ_add`.  The general (both-non-split) case stays the determinant
+program (Phase B/C: `DetN` → integer Cayley–Hamilton → Kronecker `M`), which also unlocks C-B.
