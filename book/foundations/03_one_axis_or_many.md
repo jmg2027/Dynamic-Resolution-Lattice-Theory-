@@ -52,6 +52,30 @@ This is not a defect in the Lean — it is the Lean being more honest than the n
 whether a genuine `ℚ`-on-`ℤ` dependence should be *added*.  Both are coherent; the draft
 flags the mismatch rather than silently picking one.)
 
+## 3.2a Why they are orthogonal: one swap, two folds, two units
+
+The independence of `ℤ` and `ℚ` is not an accident of how the founding files were
+written — it is the orthogonality of `+` and `×` themselves, and the two
+inverse-closures are *the same construction* read by the two folds.  The pair-swap
+`(a, b) ↦ (b, a)` on a pair of counts, read by the **additive** fold `a − b`, is
+negation; read by the **multiplicative** fold `a / b`, it is reciprocal:
+
+> `Nat213/Tower/NatPairToInt.swap_realizes_negation`,
+> `zero_unique_negation_fixed`, `zero_is_diagonal_collapse`: the swap is negation,
+> fixing the additive unit `0`, the swap-fixed diagonal `{(k, k)}` collapsing to `0`.
+> `Nat213/Tower/NatPairToQPos.reciprocal_is_multiplicative_twin_of_negation` (with
+> `qSwap_involutive`, `qpair_mul_swap_eq_qOne`, `qpair_diagonal_collapse`): the *same*
+> swap is reciprocal — `1/(1/x) = x`, `x · (1/x) = 1` — fixing the multiplicative unit
+> `1`, the diagonal `{(k, k)}` collapsing to `1`.
+
+So `ℤ` and `ℚ` are independent because they are one period-2 swap read by two folds,
+fixing two different units (`0` for `+`, `1` for `×`).  This is the exact reason the
+linear tower's "`ℚ` stacks on `ℤ`" is a serialization, not a dependency: the two closures
+do not stand one above the other; they stand to either side of the count, one folding
+`+`, the other folding `×`.  The shared structure is the swap-fixed diagonal; what
+differs is only which unit it collapses to — the pair-level shadow of the single shared
+unit `1` (`theory/essays/tower_atlas.md`'s `grand_unification`), read at `0` and at `1`.
+
 ## 3.3 The repo already carries an explicit two-axis invariant
 
 The breadth/additive/multiplicative split is not a reading imposed here — the codebase
