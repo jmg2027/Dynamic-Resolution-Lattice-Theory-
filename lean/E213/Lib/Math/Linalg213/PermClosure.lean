@@ -816,4 +816,37 @@ theorem leibDet_setRow_smul (n i : Nat) (hi : i < n) (a : Int) (r : Nat → Int)
         (fun p hp => leibTerm_setRow_smul i a r M p ((perm_length hp).symm ▸ hi))]
   exact sumZ_map_smul a (leibTerm (setRow i r M)) (perms n)
 
+/-! ## §13 — degeneracy corollaries (singular ⟹ `leibDet = 0`) -/
+
+/-- Two equal rows at *any* distinct positions ⟹ `leibDet = 0`. -/
+theorem leibDet_rows_eq_ne (M : Nat → Nat → Int) (n i j : Nat) (hij : i ≠ j) (hi : i < n) (hj : j < n)
+    (hrows : ∀ c, M i c = M j c) : leibDet n M = 0 := by
+  rcases Nat.lt_or_ge i j with h | h
+  · exact leibDet_eq_zero_of_two_rows_eq M n i j h hj hrows
+  · exact leibDet_eq_zero_of_two_rows_eq M n j i (Nat.lt_of_le_of_ne h (fun e => hij e.symm)) hi
+      (fun c => (hrows c).symm)
+
+/-- ★ **Proportional rows ⟹ `leibDet = 0`.**  Row `i = a · row j` (`i ≠ j`). -/
+theorem leibDet_proportional_rows (n i j : Nat) (hij : i ≠ j) (hi : i < n) (hj : j < n) (a : Int)
+    (M : Nat → Nat → Int) (hp : ∀ c, M i c = a * M j c) : leibDet n M = 0 := by
+  have e1 : leibDet n M = leibDet n (setRow i (fun c => a * M j c) M) :=
+    leibDet_congr n (fun b c => by
+      by_cases hb : b = i
+      · subst hb; rw [setRow_at]; exact hp c
+      · rw [setRow_off i _ M hb c])
+  rw [e1, leibDet_setRow_smul n i hi a (fun c => M j c) M,
+      leibDet_rows_eq_ne (setRow i (fun c => M j c) M) n i j hij hi hj (fun c => by
+        rw [setRow_at, setRow_off i _ M (Ne.symm hij)]),
+      E213.Meta.Int213.mul_comm, E213.Meta.Int213.zero_mul]
+
+/-- ★ **A zero row ⟹ `leibDet = 0`.** -/
+theorem leibDet_zero_row (n i : Nat) (hi : i < n) (M : Nat → Nat → Int) (hz : ∀ c, M i c = 0) :
+    leibDet n M = 0 := by
+  have e1 : leibDet n M = leibDet n (setRow i (fun c => (0 : Int) * M i c) M) :=
+    leibDet_congr n (fun b c => by
+      by_cases hb : b = i
+      · subst hb; rw [setRow_at, E213.Meta.Int213.zero_mul]; exact hz c
+      · rw [setRow_off i _ M hb c])
+  rw [e1, leibDet_setRow_smul n i hi 0 (fun c => M i c) M, E213.Meta.Int213.zero_mul]
+
 end E213.Lib.Math.Linalg213.PermClosure
