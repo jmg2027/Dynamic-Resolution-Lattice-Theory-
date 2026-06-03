@@ -3,7 +3,31 @@
 ## Branch
 `claude/non-holonomicity-rGhug` — pushed.  Working tree clean.  All new theorems ∅-axiom.
 
-## Latest: the autonomous-machine axis is now **closed tight** (Morse–Hedlund iff + full Thue–Morse)
+## Latest: merged `main` (27 commits) + integrated the divergence-depth / Casoratian thread
+
+Brought main's **divergence-depth / Casoratian / Lens-Tower** material into the branch and
+connected it to the non-holonomicity work (build green, foundations PURE):
+
+  - **`DepthMonotoneSynthesis.lean` (2 PURE)** — joins the two readings of finite depth: main's
+    *algebraic* `finite_depthZ_iff` (`polyDepthZ d s ↔ s = newtonZ c d`) and my *order-theoretic*
+    `polyDepthZ_evMono`.  `newtonZ_evMono` (every Newton polynomial is eventually monotone) +
+    `s2Z_not_polynomial` (popcount equals **no** polynomial — the ring-escape read through the
+    characterization; "the generating ring" is now literally the polynomial ring).
+  - **`CFiniteHomogRec.lean` (3 PURE)** — closes the hierarchy: C-finite ⊆ P-recursive.
+    `order2_homogRec`/`order3_homogRec` (a constant-coefficient recurrence *is* `HomogRec`);
+    `trib_homogRec` places **Tribonacci** (the `SecondCasoratian` witness) inside the holonomic
+    class — the opposite pole from Thue–Morse.  Chain now end-to-end: polynomial ⊆ C-finite ⊆
+    P-recursive ⊊ non-holonomic, with the **Casoratian (discrete Wronskian) as the order detector**.
+
+Essay rewritten with the end-to-end hierarchy section + Casoratian framing.
+
+**Next conceptual thread (surfaced by the survey, not yet Lean):** the order-2 recurrence
+discriminant `p²−4q` = the hyperbolic/elliptic split (`Real213/HyperbolicEllipticTrace`, φ Δ=5>0 vs
+elliptic Δ<0) = whether the orbit grows (unbounded p.q., quadratic-irrational CF) or stays bounded
+(`CassiniDepthFloor.orbit_on_conic` + `DiscNegTwoSkipped`).  Connecting the trace-discriminant
+classification to the CF-holonomicity tier would unify the φ/π pole work with the depth hierarchy.
+
+## The autonomous-machine axis is **closed tight** (Morse–Hedlund iff + full Thue–Morse)
 
 State after this leg (all ∅-axiom, pushed):
   - `MorseHedlund.lean` **16 PURE** — `bool_autoRec_iff_evPeriodic`: `AutoRec` over the
