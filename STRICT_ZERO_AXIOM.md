@@ -241,6 +241,15 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Invert universal property + deep-research additions (2026-06-03)
 
+`E213.Lens.Number.FoundingDialUnification` — **1 PURE / 0 DIRTY**.  The number-tower founding
+meets the concurrent non-holonomicity discriminant-dial marathon at one order-2 companion
+`comp p q`, split along its two coordinates: `founding_unit_floors_dial_trace_runs_tiers` — the
+founding unit `q = NS − NT` is the dial's fixed determinant (`det (comp p q) = q`); the trace `p`
+runs the discriminant (`disc = p² − 4q`); the forced atomic counts are the tier boundaries —
+`p = 0` elliptic (founding swap `S`), `p = NT` parabolic (`disc = 0`), `p = NS` hyperbolic (golden,
+`disc = NS² − 4 = NS + NT = d`).  (Det-floor + trace-dial parametric; `p = NT`/`p = NS` landing on
+the tiers is atomic — pins `NS = 3`.)  Builds on `FoundingDynamicBridge`.
+
 `E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
 move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,
 **validated concretely**: `intTarget` (`Int` as an `AbTarget` from the PURE `Int213` kit),

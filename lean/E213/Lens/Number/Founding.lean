@@ -3,6 +3,7 @@ import E213.Lens.Number.Nat213.Tower.PairCompletion
 import E213.Lens.Number.Nat213.Tower.PairCompletionUniversal
 import E213.Lens.Number.Nat213.Order
 import E213.Lens.Number.SharedUnitAcrossReadings
+import E213.Lens.Number.FoundingDialUnification
 
 /-!
 # Lens.Number.Founding — umbrella for the number-tower founding sub-tree
@@ -31,6 +32,10 @@ citable as one unit (and promotable per `theory/PROMOTION_CRITERIA.md`).
   * **`SharedUnitAcrossReadings`** — the honest unification: the unit `1` is one value across
     the count-difference, the Möbius/ratio determinant, the Cassini oscillation, and the
     reciprocal law (`the_unit_is_one_across_readings`).
+  * **`FoundingDialUnification`** — the founding meets the concurrent discriminant-dial marathon:
+    the founding unit `q = NS − NT` is the dial's fixed determinant floor, the trace `p` runs the
+    tiers, and the atomic counts land on the boundaries — `p = NT` parabolic, `p = NS` hyperbolic
+    (golden, `disc = d`), `p = 0` the elliptic founding swap (`founding_unit_floors_dial_trace_runs_tiers`).
 
 Full narrative: `book/foundations/` (working treatise) and the classification frame in
 `theory/lens/number_systems.md`.  ∅-axiom throughout.

@@ -72,6 +72,17 @@ inside a Lens-readout.  Completed the law:
   `FlatOntologyClosure.object1_not_surjective`).  Calling it "the residue" would be the
   view-promoted-to-identity failure.
 
+## Cross-marathon convergence (emergent, not designed)
+
+The concurrent non-holonomicity session independently bridged its discriminant dial to this
+founding work (`FoundingDynamicBridge`: the founding swap = the dial's elliptic floor `S`).
+Deepened here to the whole dial (`FoundingDialUnification.founding_unit_floors_dial_trace_runs_tiers`,
+1 PURE): the two marathons split the order-2 companion `comp p q` along its coordinates — the
+**founding fixes the determinant** (`= q`, the unit `NS − NT`), the **dial varies the trace**
+(`disc = p² − 4q`); and the forced atomic counts are the tier boundaries (`p = 0` elliptic swap,
+`p = NT` parabolic, `p = NS` hyperbolic golden with `disc = d`).  Parametric: det-floor +
+trace-dial.  Atomic (pins `NS = 3`): `p = NT`/`p = NS` landing on the tiers.
+
 ## Net new theorems (all ∅-axiom, 0 dirty)
 | Theorem | Module | What it forces |
 |---|---|---|
