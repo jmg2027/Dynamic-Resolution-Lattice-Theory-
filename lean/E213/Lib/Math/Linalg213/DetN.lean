@@ -28,9 +28,19 @@ def altSign : Nat → Int
   | 0   => 1
   | n+1 => -(altSign n)
 
+/-- Column reindex used by `minor`: skip column `j` (`l ↦ l` below `j`, `l ↦ l+1` at/above). -/
+def colShift (j l : Nat) : Nat := if l < j then l else l + 1
+
 /-- The `(0,j)`-minor: drop row `0` and column `j`. -/
 def minor (M : Nat → Nat → Int) (j : Nat) : Nat → Nat → Int :=
-  fun i l => M (i + 1) (if l < j then l else l + 1)
+  fun i l => M (i + 1) (colShift j l)
+
+/-- `colShift` below the skipped column is the identity. -/
+theorem colShift_lt {l j : Nat} (h : l < j) : colShift j l = l := if_pos h
+
+/-- `colShift` at or above the skipped column shifts up by one. -/
+theorem colShift_ge {l j : Nat} (h : j ≤ l) : colShift j l = l + 1 :=
+  if_neg (fun hlt => Nat.lt_irrefl l (Nat.lt_of_lt_of_le hlt h))
 
 /-- Cofactor sum along the first row, over the first `c` columns:
     `Σ_{j<c} (−1)ʲ · M 0 j · detN (minor M j)`. -/
@@ -139,5 +149,37 @@ theorem det_row0_add (n : Nat) (r1 r2 : Nat → Int) (M : Nat → Nat → Int) :
 theorem det_row0_smul (n : Nat) (a : Int) (r : Nat → Int) (M : Nat → Nat → Int) :
     det (n+1) (setRow0 (fun j => a * r j) M) = a * det (n+1) (setRow0 r M) :=
   cofSum_row0_smul n a r M (n+1)
+
+/-! ## §3 — the column-skip commutation (toward the alternating property)
+
+Deleting two columns in either order yields the same submatrix.  For `a ≤ c`, skipping
+column `a` after skipping column `c` equals skipping column `c+1` after skipping column `a`:
+`colShift a ∘ colShift c = colShift (c+1) ∘ colShift a`.  This is the index core behind the
+double cofactor expansion — the sign cancellation in the row-0↔row-1 swap pairs the terms
+`(j=a, k=c)` and `(j=c+1, k=a)`, which share *this* double minor with opposite `altSign`. -/
+
+/-- ★ **Column-skip commutation.**  Skipping columns `a` then `c` (in the once-skipped frame)
+    equals skipping `c+1` then `a`, for `a ≤ c`.  The geometric heart of antisymmetry. -/
+theorem colShift_comm {a c : Nat} (h : a ≤ c) (l : Nat) :
+    colShift a (colShift c l) = colShift (c + 1) (colShift a l) := by
+  rcases Nat.lt_or_ge l a with ha | ha
+  · -- l < a ≤ c
+    have hc : l < c := Nat.lt_of_lt_of_le ha h
+    rw [colShift_lt hc, colShift_lt ha, colShift_lt (Nat.lt_succ_of_lt hc)]
+  · rcases Nat.lt_or_ge l c with hc | hc
+    · -- a ≤ l < c
+      rw [colShift_lt hc, colShift_ge ha, colShift_lt (Nat.succ_lt_succ hc)]
+    · -- a ≤ c ≤ l
+      rw [colShift_ge hc, colShift_ge ha,
+          colShift_ge (Nat.le_succ_of_le (Nat.le_trans h hc)),
+          colShift_ge (Nat.succ_le_succ hc)]
+
+/-- The double minor is order-independent: for `a ≤ c`, dropping columns/rows in either order
+    gives the same `n×n` determinant.  (Pointwise via `colShift_comm`, avoiding `funext`.) -/
+theorem detMinorMinor_comm (n : Nat) (M : Nat → Nat → Int) {a c : Nat} (h : a ≤ c) :
+    det n (minor (minor M a) c) = det n (minor (minor M (c + 1)) a) :=
+  det_congr n (fun i l => by
+    show M (i + 1 + 1) (colShift a (colShift c l)) = M (i + 1 + 1) (colShift (c + 1) (colShift a l))
+    rw [colShift_comm h])
 
 end E213.Lib.Math.Linalg213.DetN
