@@ -222,21 +222,37 @@ underway in `Linalg213/Permutation.lean` (**12 PURE**):
   (`psign (y::x::l) = −psign (x::y::l)`, `x≠y`).  The concrete `sign(σ∘τ)=−sign σ` for adjacent
   `τ`.  `ac_form` (shared Nat inversion-rearrangement) + `altSign_succ` propext-free.
 
-### Remaining assembly (the next big unit, route A)
+### DONE so far (Permutation, 21 PURE; DetN 19 PURE)
 
-1. **§3 enumeration** `permsOf : List Nat → List (List Nat)` (insertion-based: `insertEverywhere`
-   + `flatMap`), `perms n = permsOf (range n)`.
-2. **§4 the Leibniz determinant** `leibDet n M = sumZ ((perms n).map (fun p => psign p * prodDiag M p))`
-   with `prodDiag M p = Πᵢ M i (p.get i)`.
-3. **§5 alternating** (the real theorem): swapping rows `a,b` of `M` reindexes the Leibniz sum by
-   `σ ↦ σ∘τ` (`τ=(a b)`); this is an `LPerm` of the term list with every term sign-flipped
-   (`psign_swap_adj` lifted from adjacent to general `τ` via adjacent-transposition decomposition),
-   so `leibDet (rowSwap M) = − leibDet M` (`sumZ_lperm` + global negation), whence equal rows ⟹ 0.
-   *Cost*: permutation composition + inverse + the product-reindex `Πᵢ M[τi,σi] = Πⱼ M[j,(σ∘τ)j]`
-   + "perms closed under `∘τ` up to `LPerm`".  Heavier than the cofactor involution in line count
-   but better-factored (reusable symmetric-group infra), and alternating falls out structurally.
-4. **§6 bridge** `leibDet = DetN.det` (Laplace expansion theorem) to transport alternating onto the
-   cofactor determinant used by the char-poly/adjugate/Cayley–Hamilton program — OR re-derive the
-   cofactor expansion from `leibDet` and use `leibDet` throughout.
+- **§1** `LPerm` + `sumZ_lperm` (sum LPerm-invariant).
+- **§2** `inversions`/`psign` + `psign_swap_adj` (adjacent head swap of distinct values flips sign).
+- **§3** `DetN.altSign_add` (`altSign(a+b)=altSign a·altSign b`); `ltCount_append`,
+  `ltCount_cons2_comm`, `psign_cons`, ★ `psign_swap_prefix` — sign flip for a swap of two distinct
+  adjacent entries **after any prefix** (the bridge to "swap rows `i,i+1`").
+- **§4** `prodDiagFrom`/`leibTerm`/`insertEverywhere`/`permsOf`/`perms`/`leibDet`
+  (`leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`); `leibDet_two_id` sanity (`rfl`); assembly lemmas
+  `sumZ_map_neg` (pointwise negation negates the sum) + `map_lperm` (`map` is an `LPerm` congruence).
 
-Cornerstones §1–§2 are route-A-essential and reusable regardless; §3–§6 is the focused next pass.
+### Remaining (§5 the real theorem, §6 bridge)
+
+5. **§5 alternating**.  Target: `leibDet (rowSwapAdj i M) = − leibDet M` (swap rows `i, i+1`),
+   whence two equal rows ⟹ `2·leibDet = 0` ⟹ `0`.  Per-term identity (the conceptual heart, uses
+   `psign_swap_prefix`): `leibTerm (rowSwapAdj i M) p = − leibTerm M (swapPos i p)` for `p` a genuine
+   permutation (distinct entries ⟹ the two swapped values differ).  Then
+   `leibDet (rowSwapAdj i M) = sumZ (map (leibTerm (rowSwapAdj i M)) (perms n))
+   = sumZ (map (fun p => −leibTerm M (swapPos i p)) (perms n))
+   = − sumZ (map (leibTerm M ∘ swapPos i) (perms n))   [sumZ_map_neg]
+   = − sumZ (map (leibTerm M) (map (swapPos i) (perms n)))
+   = − sumZ (map (leibTerm M) (perms n))               [map_lperm + sumZ_lperm]
+   = − leibDet M`.
+   **The one remaining nut**: `LPerm (map (swapPos i) (perms n)) (perms n)` — the enumeration is
+   closed under an adjacent position-swap up to reordering.  Also needs: every `p ∈ perms n` has
+   distinct entries (nodup) for the per-term sign flip, and `prodDiagFrom` reindex under `swapPos i`.
+   This closure is **the same class of obstacle as route B's nested-sum involution** (as the essay
+   predicted) — the determinant-level combinatorial closure is hard either way; route A's win was
+   the clean, reusable, *banked* sign theory (§1–§4).
+6. **§6 bridge** `leibDet = DetN.det` (Laplace) to transport alternating onto the cofactor
+   determinant for char-poly/adjugate/Cayley–Hamilton — or re-derive cofactor expansion from
+   `leibDet` and use `leibDet` throughout.
+
+Cornerstones §1–§4 are route-A-essential and reusable regardless; §5 (perms-closure) is the gate.
