@@ -26,7 +26,7 @@ All ∅-axiom (over `Int213`).
 
 namespace E213.Lib.Math.Cauchy.CFiniteRing
 
-open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ mul_zero')
+open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ mul_zero' add_sub_cancel_left')
 open E213.Lib.Math.Cauchy.FiniteDepthAlgebra (add_sub_add liftKZ_diffZ_comm)
 open E213.Lib.Math.Cauchy.OrbitDimension (CFiniteZ linComb)
 open E213.Meta.Int213
@@ -511,5 +511,37 @@ theorem cfiniteZ_sub {s t : Nat → Int}
     (hs : CFiniteZ s) (ht : CFiniteZ t) : CFiniteZ (fun n => s n - t n) :=
   OrbitDimension.cfiniteZ_congr (fun n => by rw [Int.sub_eq_add_neg])
     (cfiniteZ_add hs (OrbitDimension.cfiniteZ_neg ht))
+
+/-! ## §8 — the shift `E` is a difference operator: `E = I + Δ` (toward C-D) -/
+
+/-- ★ **The shift is a difference operator.**  `applyOp [1,1] = E`: the operator
+    `I + Δ` is the forward shift, `(I+Δ)s(n) = s(n) + (s(n+1)−s(n)) = s(n+1)`.  This
+    is `E = I + Δ` realized in the `Δ`-operator algebra — the bridge from the
+    shift-recurrence (standard C-finite) picture to the `Δ`-orbit one. -/
+theorem applyOp_shift (s : Nat → Int) (n : Nat) : applyOp [1, 1] s n = s (n + 1) := by
+  show 1 * s n + (1 * diffZ s n + 0) = s (n + 1)
+  rw [Int.one_mul, Int.one_mul, Int.add_zero]
+  show s n + (s (n + 1) - s n) = s (n + 1)
+  rw [add_sub_cancel_left']
+
+/-- The `k`-fold shift `Eᵏ` as a `Δ`-operator: `Eᵏ = (I+Δ)ᵏ`, built by convolving
+    `[1,1]` with itself `k` times. -/
+def ePow : Nat → List Int
+  | 0   => [1]
+  | i+1 => conv [1, 1] (ePow i)
+
+/-- ★ **`Eᵏ` as a difference operator computes the `k`-shift.**  `applyOp (ePow k) s n
+    = s(n+k)` — the shift is a polynomial in `Δ` (`(I+Δ)ᵏ`).  So a monic shift
+    recurrence is a monic `Δ`-operator annihilator: the foundation of C-D
+    (orbit dimension = recurrence order). -/
+theorem applyOp_ePow (s : Nat → Int) : ∀ i n, applyOp (ePow i) s n = s (n + i)
+  | 0,   n => by
+    show 1 * s n + 0 = s (n + 0)
+    rw [Int.one_mul, Int.add_zero, Nat.add_zero]
+  | i+1, n => by
+    show applyOp (conv [1, 1] (ePow i)) s n = s (n + (i + 1))
+    rw [applyOp_conv [1, 1] (ePow i) s n, applyOp_shift (applyOp (ePow i) s) n,
+        applyOp_ePow s i (n + 1), Nat.add_right_comm n 1 i]
+    rfl
 
 end E213.Lib.Math.Cauchy.CFiniteRing
