@@ -57,6 +57,45 @@ whose power-ladder carries the alternating Cassini determinant `(−1)ⁿ` (`Fib
 the golden ratio is what the rotational-trace reading returns on the axis the crystallographic
 orders cannot occupy.
 
+## The discriminant is the holonomicity-hierarchy dial
+
+The same `Δ = tr² − 4·det` that splits the φ and π faces is the *order-2 reading* of the whole
+holonomicity hierarchy.  Read the recurrence `s(n+2) = p·s(n+1) − q·s(n)` through its **companion
+matrix** `comp p q = [[p,−q],[1,0]]`: `EllipticPeriodicTier.comp_disc` gives
+`disc (comp p q) = p² − 4q`, *the same discriminant*, and its sign places the recurrence on a
+definite rung of the ladder `finite-depth ⊆ C-finite ⊆ P-recursive ⊊ non-holonomic` (the
+inclusions themselves ∅-axiom: `CFiniteHomogRec.{order2,order3}_homogRec` put a constant-coefficient
+recurrence inside `HomogRec`).  All three rungs are proven, not merely classified:
+
+  - **Elliptic** (`Δ < 0`, unimodular `q = 1`): the companion is a finite-order rotation generator —
+    `comp 0 1 = S` (order 4) and `comp 1 1 = U` (order 6), *literally* the elliptic generators of
+    the discriminant split (`comp_eq_S`, `comp_eq_U`).  The orbit is **periodic**
+    (`periodic_elliptic_S`: `s(n+2)=−s(n)` ⟹ `s(n+4)=s(n)`; `periodic_elliptic_U`:
+    `s(n+2)=s(n+1)−s(n)` ⟹ `s(n+6)=s(n)`), the bottom tier — still holonomic
+    (`elliptic_S_homogRec`).  This is the π (rotation) face read as a recurrence: bounded, periodic,
+    the floor of the ladder.
+  - **Parabolic** (`Δ = 0`, `comp 2 1`): the recurrence is `s(n+2) = 2·s(n+1) − s(n)`, i.e.
+    `Δ²s = 0` — exactly the degree-`≤1` (linear) polynomials, and this is an **iff**
+    (`parabolic_iff_depth1`: the relation holds for all `n` iff `polyDepthZ 1 s`).  The boundary
+    discriminant is the depth-1 floor of the generating ring (which *is* the polynomials, by
+    `DepthCharacterization.finite_depthZ_iff`).
+  - **Hyperbolic** (`Δ > 0`, e.g. `comp 3 1`, the golden/Lucas `Δ = 5`): a real quadratic-irrational
+    iterator whose orbit **grows strictly** — `hyperbolic_strictMono` (`s(n+2)=3·s(n+1)−s(n)` with
+    `0 < s 0 < s 1` is strictly increasing everywhere, via the invariant
+    `s(n+2)−s(n+1) = 2·s(n+1)−s(n) > 0`) and `hyperbolic_grows` (`s 0 + i ≤ s i`, hence unbounded).
+    This is the φ (scaling) face read as a recurrence: unbounded partial quotients, the
+    quadratic-irrational CF tier.
+
+So the residue's single trace dial reads off the entire ladder: **periodic floor below zero,
+linear-polynomial floor at zero, strictly-growing C-finite above zero**.  The φ/π pole structure of
+this chapter and the divergence-depth / non-holonomicity hierarchy
+(`divergence_depth_characterization.md`, `non_holonomicity_as_finite_state_escape.md`) are not two
+subjects but one, seen at the order-2 rung.  Above this rung the dial loses resolution — higher-order
+recurrences need the full Casoratian (the discrete Wronskian, `SecondCasoratian`) as order detector,
+and the genuine non-holonomic reals (π's continued fraction) have *no* finite Casoratian closure at
+all.  φ is the hyperbolic extreme of this ladder (the slowest, all-`1` partial quotients); π is the
+pole where no finite order closes.
+
 ## Holonomicity is a property of the pointing, not of the real
 
 The continued-fraction holonomicity tiers (`cf_holonomicity_hierarchy.md`) climb from periodic
@@ -119,11 +158,14 @@ cd lean
 lake build E213.Lib.Math.Real213.HyperbolicEllipticTrace \
            E213.Lib.Math.Real213.PentagonGoldenTrace \
            E213.Lib.Math.Cauchy.NonHolonomicWitness \
-           E213.Lib.Math.Cauchy.PositiveFloorUnbounded
+           E213.Lib.Math.Cauchy.PositiveFloorUnbounded \
+           E213.Lib.Math.Cauchy.EllipticPeriodicTier \
+           E213.Lib.Math.Cauchy.CFiniteHomogRec
 cd ..
 for m in Real213.HyperbolicEllipticTrace Real213.PentagonGoldenTrace \
-         Cauchy.NonHolonomicWitness Cauchy.PositiveFloorUnbounded; do
+         Cauchy.NonHolonomicWitness Cauchy.PositiveFloorUnbounded \
+         Cauchy.EllipticPeriodicTier Cauchy.CFiniteHomogRec; do
   python3 tools/scan_axioms.py E213.Lib.Math.$m
 done
 ```
-Reports all PURE.
+Reports all PURE (`EllipticPeriodicTier` 13, `CFiniteHomogRec` 3).

@@ -239,6 +239,54 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Non-holonomicity finite-state escape + depth-monotone bridge + discriminant dial (2026-06-03)
+
+The non-holonomicity / holonomicity-hierarchy thread, closed end to end (all **0 DIRTY**):
+
+`E213.Meta.Int213.Order` — **34 PURE**.  The ∅-axiom `Int` ordering layer (Lean-core
+`Int.le_trans` / `lt_trichotomy` carry `propext`), rebuilt from the inductive `Int.NonNeg` +
+the `ring_intZ` reflection tactic: `le_trans` / `lt_trans` / `lt_of_le_of_lt` / `lt_of_lt_of_le`,
+`lt_irrefl` (the contradiction engine), `le_of_lt`, `add_le_add_{left,right}`, the sign trichotomy
+`pos_zero_or_neg`, negation-reverses-order (`lt_of_neg_lt_neg`, `neg_pos_of_neg`), and the `ofNat`
+order embedding (`ofNat_le`, `le_of_ofNat_le`).  Reusable foundation.
+
+`E213.Lib.Math.Cauchy.PolyDepthMonotone` — **11 PURE**.  `polyDepthZ_evMono`: every finite-Δ-depth
+integer sequence is eventually monotone (non-decreasing or non-increasing).  LPO-free via the
+constant-top-difference sign trichotomy — `c>0` ⟹ eventual strict increase (`posTop_evStrictMonoZ`,
+the faithful-`Int` port of `positive_floor`'s descent + the eventual-positivity telescope
+`evStrictMonoZ_eventually_pos`), `c<0` ⟹ negation (`liftKZ_negS_apply`, pointwise to dodge
+`funext`'s `Quot.sound`), `c=0` ⟹ genuine depth-drop (faithful `Int` difference — the branch the
+`ℕ` truncated version could not close).
+
+`E213.Lib.Math.Cauchy.ThueMorseRingEscape` — **4 PURE**.  `s2Z_not_polyDepthZ`: the binary digit-sum
+(popcount) has no finite difference-depth (`MonoFromZ` contradicts `s2_not_eventually_monotone`,
+`AntiFromZ` ⟹ bounded ⟹ contradicts `s2_unbounded` via `s2 (ones k) = k`).
+
+`E213.Lib.Math.Cauchy.DepthMonotoneSynthesis` — **2 PURE**.  Joins the algebraic and order-theoretic
+readings of depth: `newtonZ_evMono` (every Newton polynomial is eventually monotone) and
+`s2Z_not_polynomial` (popcount equals **no** polynomial `newtonZ c d`, the ring-escape read through
+`DepthCharacterization.finite_depthZ_iff`).
+
+`E213.Lib.Math.Cauchy.HomogRecPeriodic` — **1 PURE**.  `evPeriodic_homogRec`: eventually periodic ⟹
+`HomogRec` (the elementary half of the bounded-`HomogRec` characterization; order `k=p`, prefix
+killed by an `if`-guarded `lead`/`R`).
+
+`E213.Lib.Math.Cauchy.CFiniteHomogRec` — **3 PURE**.  C-finite ⊆ P-recursive: `order2_homogRec` /
+`order3_homogRec` (a constant-coefficient recurrence *is* `HomogRec`), `trib_homogRec` (Tribonacci is
+holonomic — the opposite pole from Thue–Morse).
+
+`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **13 PURE**.  The order-2 companion discriminant as the
+holonomicity-hierarchy dial: `comp_disc` (`disc (comp p q) = p²−4q` = the `HyperbolicEllipticTrace`
+discriminant), `comp_eq_S` / `comp_eq_U` (the elliptic generators *are* the companions of the
+periodic recurrences), the trichotomy — *elliptic* `periodic_elliptic_{S,U}` (periodic floor),
+*parabolic* `parabolic_iff_depth1` (`disc=0` ⟺ linear depth-1, an iff), *hyperbolic*
+`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).
+
+Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
+canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
+self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
+`Cauchy.MorseHedlund` (16 PURE — `bool_autoRec_iff_evPeriodic`).
+
 ### Real-number stratification addition (2026-06-01)
 
 `E213.Lib.Math.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
